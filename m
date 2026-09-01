@@ -1,91 +1,109 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E41148A2C3
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 18:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD454A015B
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 18:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288383; cv=none; b=qQhH78hPqyGstwToednAo2HLrjGKazN3oqxKUCw1mfpEZUM8ngiJ3dUC6plRCHD9I8RRw+vhP/meftS1MtBW5Gw5061ix/ydg7tUnEzEWTWX25ZDHtV6N1UP5+ikjklrF+nryS+H3XCL9IiVBVY6Q0pg/rAoIhPLAAEgOobSQ7Q=
+	t=1788288995; cv=none; b=Xv40NtoEidvgYhtxgXcSHT3beM6hRPcluVecKgdIaLrTpUCpsVS7hdt0bdI8oTLfR8VxUs8wEhYyBn62i0oijr5cnojE9hoJMLPL5R+TMRWvXJ7PtGiPJRgTUBr22Ef9WC/WsoaIWsCl6lu1SFYCHkuUKidYm+ddLHYOx9b8Sfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288383; c=relaxed/simple;
-	bh=fQjGHe34GiV6VnKplf5aUBrhCsRxjFQNs9KJ4DJ16HQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XlADf7goWLoKpt+JEOIVUuulmzZS2JorovaH1QPoNXqDt96qnCoSUdndDTwZP9byb4reGZdoNjvPKgr3Q1+Dt+1s2SMgyPcljWpq7mWTZKpKl2SzlGpBXQz4yM2aC5H0ytUopiZZbBPk8YuHeTqMo47ODF3YKNvqKUXtJhSiTpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CDBZmDDj; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788288995; c=relaxed/simple;
+	bh=7KrXHOp6zx7Jw6ThttjXtk/cJjaQTyVHIQRYMzgXhRA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EyyEm6oGn6HjXIeNJrZRK+HisGrBzE328tGR46mGQfbwi8od/LLQwFe2/1900A1Zl1te9KHXfwGtoDcONY8Ll9NBln2S/BoF0XgW87YG/Un8Y8tDZDzsN9u+4tGK9BGbUiZLcz952qzWeK4bpPghT+yVDp9KNV5zbi4Vt6RmbQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BxG95JWR; arc=none smtp.client-ip=209.85.160.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CDBZmDDj"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d94a158dc8so1800405ad.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 11:46:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BxG95JWR"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-46a08218ea2so157370fac.1
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 11:56:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788288381; x=1788893181; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JYbovvi4CtGez0U+CPTTY7K/JumHW6fBnAFDxVdakA8=;
-        b=CDBZmDDjzEJSv3Wo2zFsxjE4QJ2agenmcwu7ReLFOj2HCUmVGndJSmP0D+JRU/HXyv
-         CgG9drUBZg5I6aJl5ep8Xy86M5lbJEz7yEWnmKzbjYLDdYtAUhm0CoCK7FCa1ckEuQrs
-         ZrowDAh2eB4w0lY6yXLuJGWeW23A1YB23M0P21gRv0rbn6N+aGJZGuqVK+ivDCriVkpf
-         aFbOHHxXGVdYECy+/71ZOYKy6CjOgNFC08TwqyEvJ8B0suWnp6hBIcHK17pE8eYYuBus
-         8YkWoh7o2IpFlOjJnVmumtwuwFWrekcn0r7xXuxmtUff+WVMF0egPqJaR+D+dHI31uXg
-         p3Cw==
+        d=gmail.com; s=20251104; t=1788288993; x=1788893793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NDIKr9yFcCSAzvW2dhM+SCgv0HZ3qnZUYRj5rrauH8A=;
+        b=BxG95JWRuDbVZwkeB5Y5c5kbAdHVZyPsZrnyTEuQMw+sto9v5T/sJQcuU9KQhpk+3K
+         1nRCOfPFDDbYhEoejU9OUWHLV/NR2KJ4Vp6U0wm+1o27s3TaTLw7QMIe4nQ64t0wVYTn
+         xLmRYaiO7UWYlf5+FmbwcT0syXpLXKlR1U9NXZCinvwYgL3xuBWYxsrDvnTkgZMVA9ar
+         LEqLJL+S+IXU+r6atT4xfRg4Z+37uIdFv4VjZpki5yqRzbXzewdAKUmoWDIov4ElRl5G
+         x5r23Fv0akaDYvzGXn5mtNRZwu14R4NX74bM+dZXW5yogMe7DMA7imOiWOMqtKAIuC+s
+         3YyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788288381; x=1788893181;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788288993; x=1788893793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JYbovvi4CtGez0U+CPTTY7K/JumHW6fBnAFDxVdakA8=;
-        b=OWlAlfa8s9e9C4mH2d6sKV6aaK9To8rDcseSIGqnCnS43Zul55iQcqBE+lnBBnrpzN
-         wZbutJnCdVox8DqztWisj7IqsS6GtGeW07fJe2tPDeceIAJOArxRrA/3JvTV8lDYtVKP
-         EO9nv1uw4pxX8kKBQjRD20H0djrtC6LSwKg16VFSdNyY/B3QxuaoZYorlPiLsi9gwwdT
-         t/tOg8BFdwcXvwCccJHeKqGzSiACDt7P7etJcvf94/D7TCvUVsOOky3ZEDWDWA6qfUzs
-         nXUoXtzwVYKsVsy4n2Bf5lxDLn+xEy0loU5bDvqqY9rb9l/Mjc0nPHzO76pLP9MW/hYP
-         GY1g==
-X-Gm-Message-State: AFuF++nR4y62aZVzGzPFLXO3k11Tkf2XymMHZdx067p0NCDpE8NroJJ0
-	0TIwvPzbK2P2+C/5tGE5yuNhXrKWjqJMB5JwrZlDLiP17hhpYFj+zkBB3+DoL8I+TjurI6vbpTK
-	osagOZA==
-X-Received: from plbkq7.prod.google.com ([2002:a17:903:2847:b0:2c7:ec09:a994])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:15c7:b0:2d8:d4ce:7e3d
- with SMTP id d9443c01a7336-2dae5edf6e4mr4326065ad.18.1788288381336; Tue, 01
- Sep 2026 11:46:21 -0700 (PDT)
-Date: Tue, 1 Sep 2026 11:46:20 -0700
-In-Reply-To: <20260831210958.1798565-1-sashal@kernel.org>
+        bh=NDIKr9yFcCSAzvW2dhM+SCgv0HZ3qnZUYRj5rrauH8A=;
+        b=HB7Y6NnkiKKQM8HnZhGHF+tVFuR/tJLBA100E3pd29OVaLAUeBcO0H8tl6dSGoOsHm
+         OOVD59RhgHktCdGePqj2IlGvs7mGIpbadxdZa4b7MYA6n2xFm+FZHdRQ8OA/JXdbzGYF
+         zocxyan4Rdyhj6K5vZzQrRNWk/avW2gPIQ18T0gO9w3cv3NROi5/4CSMNHHqkfGa96F0
+         uHNAT6a5TTAQBbIwl7K4LBMe2RO/HcA0Ts/ZrlpcsTvXWER14ovuriiVdJngsGhWJ16X
+         E9hD7DPa8RP/WYQS0zdjQqiX91CIWjERoZXKzk5EUMSEF72qzY1eJqigavL7gETB/Fb+
+         pN/A==
+X-Forwarded-Encrypted: i=1; AKwUvBz2C0nezV+GcVBNwsa+MnYawsIl85fYEAz6GhN8MesT/KYgw0kJMfLUYVag7fRhx5Jl37rj+MQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKd0XjqTbhMlDHYoRRFOjO2DB2o77J1ary3WUp3+QS8pSGmtET
+	EW91aosFibrdgRAsk8KGPanK0sM2g0Xuc1wU6EfPzIDR05iLl7xM+fFu
+X-Gm-Gg: AYBFou2GJyTjeH3B9kdQ9EbrBO6eIt+F0PEGVpF7A/WCsa1o0/C8qxW2yV8uK/fl1PU
+	he4prGjqsaBGKpnRVmxxqUpYgST43ICvVh7xGfHWbstG8PwEspJcs6blF2Dplfg8iNgmWdYnFJQ
+	d3JzNekgAE4CW0NSTNZOsqnQ8xBsZ0hG6NTH1n41IIk0/lLRvgTY55u8vM28mNKM0mMaNNzWfHm
+	Z9x7zMqWZlYAT5IUltPsX8iH/4f+DHxhdaqHNC3K6E4eOItsICr8K3yRjQpHJ89HgYQXkfW4Pwb
+	NakY5ELhuV6Ru7LZ1lihncOzbCR7KEUrfSW6c5SpRjBLQ0vAEexsrMVidUaHsLpn7nAgt7EJGVa
+	Fb99/eHh5gwSKu0hhSMoPy+sjePS+wwwIr0P6Ar+TYirVL5LTfKHYAzmDOCMRxSoIZ8yzcBCm/J
+	+EImfK5d0Oam6L6W+vy7qT17CZc1FOkqlYEoNKmscR1ep2CzigdT4hnET+Rg5L9chi7Y0pVVb5t
+	qZDX8DYi0vbWbYOjaWh/q+JSeo1vjZqbuhmAZ96rhwzeBU=
+X-Received: by 2002:a05:6870:c20a:b0:44a:e965:b9cf with SMTP id 586e51a60fabf-46af57240c0mr10645373fac.14.1788288993098;
+        Tue, 01 Sep 2026 11:56:33 -0700 (PDT)
+Received: from memorizer.localdomain (47-163-111-11.bng01.bytw.tx.frontiernet.net. [47.163.111.11])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f30baa0d4sm778124fac.6.2026.09.01.11.56.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 11:56:32 -0700 (PDT)
+From: Yudi Yang <2000jedi@gmail.com>
+To: vaibhav.sr@gmail.com,
+	mgreer@animalcreek.com
+Cc: johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yudi Yang <2000jedi@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] staging: greybus: audio_codec: fix stack overflow in stream name parsing
+Date: Tue,  1 Sep 2026 13:56:00 -0500
+Message-ID: <20260901185600.2725678-1-2000jedi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026083147-overrate-roster-23cf@gregkh> <20260831210958.1798565-1-sashal@kernel.org>
-Message-ID: <apcdfJ7XdaATHSXD@google.com>
-Subject: Re: [PATCH 6.12.y] KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and
- only if CONFIG_KVM_AMD_SEV=y
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Ackerley Tng <ackerleytng@google.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026, Sasha Levin wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> [ Upstream commit 01a96ff30dde5127c37497f1e098e639e7ae152f ]
-> 
-> Wire up the SEV-SNP guest_memfd kvm_x86_ops hooks if and only if SEV is
-> actually enabled, and drop the now-unnecessary stubs.  Leaving the hooks
-> NULL allows the static call infrastructure to elide the CALL+RET, and more
-> importantly, referencing the hooks if and only if SEV support is enabled
-> will allow conditionally definining the hooks using their corresponding
-> HAVE_KVM_ARCH_GMEM_XXX Kconfig.
-> 
-> No functional change intended.
-> 
-> Cc: stable@vger.kernel.org # 6.12.x
-> Reviewed-by: Ackerley Tng <ackerleytng@google.com>
-> Link: https://patch.msgid.link/20260709204948.1988414-5-seanjc@google.com
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> [ adapted gmem_max_mapping_level hook to the older private_max_mapping_level API ]
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
+intf_name and dir are 32-byte buffers. Parsing a module-provided AIF
+stream name with unbounded %s conversions can cause buffer-overwrites.
+Limit each conversion to 31 characters.
 
-Acked-by: Sean Christopherson <seanjc@google.com>
+Fixes: 60e7327d54b2 ("greybus: audio: Find data connection based on id")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yudi Yang <2000jedi@gmail.com>
+---
+ drivers/staging/greybus/audio_codec.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/greybus/audio_codec.c b/drivers/staging/greybus/audio_codec.c
+index 6daa4e706792..c3fefe1414f9 100644
+--- a/drivers/staging/greybus/audio_codec.c
++++ b/drivers/staging/greybus/audio_codec.c
+@@ -311,7 +311,7 @@ int gbaudio_module_update(struct gbaudio_codec_info *codec,
+ 	}
+ 
+ 	/* parse dai_id from AIF widget's stream_name */
+-	if (sscanf(w->sname, "%s %d %s", intf_name, &dai_id, dir) != 3) {
++	if (sscanf(w->sname, "%31s %d %31s", intf_name, &dai_id, dir) != 3) {
+ 		dev_err(codec->dev, "Error while parsing dai_id for %s\n", w->name);
+ 		return -EINVAL;
+ 	}
+-- 
+2.43.0
+
