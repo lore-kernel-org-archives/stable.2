@@ -1,83 +1,73 @@
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51653449B24
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3480444A3F8
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292530; cv=none; b=bnuLwRIyBcYBbe0vCujKlHhjcIK1Hf2bH4nqEOgKEa4ouJqubUAdaXqmI/0gjpssEV+XDSgqNw+5TWZyknj6xdU85nJaN2fZ0OyWtEHbIJB1efa9u09DsgQPdDzTVrfXn2L936BSCGZ/lkZ2a69v9mq3aJdM6/Pj9coVciBYglU=
+	t=1788292792; cv=none; b=i7eue9L57txBZov1/58+U6uZycMIRQGNx0MP0q4tu/8xqy1L/i67AguAj0Uoffht9zN84DqUBE3V8im/NludHwic2BmbHCkPDReati031sEB2d42dAkMyNvwxw0GJ2kiyDMj/T1VfJgbS+GEq6p468k9/MwHPO4JLK8SJ3i0Qs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292530; c=relaxed/simple;
-	bh=TvjOuasMKcmLJ41E140O1JpOLWeLLgpHzmdhvAOXxX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rS6wDKEnidzdUaIsrDZ7uKFmct9Eu6lEnFy+KS/XQjfC2h6gsFf9eX6F/aJmxWcwKSkUTm3gKbrGtmgpXhjJgDsyvUuiiTODrtV9qcwBBHKFmqS+vdA1oY3Yc2qN72PTv/eXwPrhV/mfxcKBawgLXcNYB4jZ2dMvFeN5VaDTafE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hAIglYG5; arc=none smtp.client-ip=209.85.161.53
+	s=arc-20240116; t=1788292792; c=relaxed/simple;
+	bh=so+sJEXPcX/c5t2B93vxjpawl6VZJ9hVu3eFKoGAYUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kAFTLsfbPQLXLFEO8GxaY9uP6WJYfLWofAaYeH+JP8z/OiFqNR8wYKwgiIv+g704B5SuR7rv+i/h4efpiOk+S+A4aXNL2aqwEFhIciHKKusLesbszJKHsFwDzQs4zTi94/OC3Sdkwla+4I288JPvktW9LUxIsX1N+OF/+6h/1Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hi392hVf; arc=none smtp.client-ip=74.125.224.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hAIglYG5"
-Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b19e291cc6so192452eaf.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:55:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hi392hVf"
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66e63afda8fso346270d50.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:59:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788292528; x=1788897328; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788292790; x=1788897590; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
-        b=hAIglYG5YZPMjqn+mjdoINizK+v9Gr+xEK9Adeao9VaS2SGXiQBo7Gd9PziUYSk513
-         qDCQzZvMhnm1gV+rVbtnjy6miGF3GJl6Y+LEhO/Wp6TMWyQ4fGMq9GsZZJzlq+pLOiJt
-         7r1zkm1LCAVJPynALSd6HC2jj+uRnLyaKBt3h2nzbPq3wzBIhWu2D9S5jNZrOgnRbpn7
-         OrXcIRIXXFyGi70DrvKVHa+9EnPsWgpEkA6hT7d5KYTX1QWSk5xRvCx5UNuVRX5Uueal
-         se2r6/9bUs8lVTxo2VHLxWbgZCobLGDrnEjjbfJZoSjcafyjQDTIXSekEDodc7hL2W+f
-         jykw==
+        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
+        b=hi392hVfvUXkFuuWzN8y2xb2KSrqiHZgC4gjsvEft3LsVtS8msfRYtX0GIfb/tnu28
+         i/WIu5RzVeVZO7FUqmN+Iy74VBX/9+95XpcWcmYOj8mo5UF/oC/iK3I30YY4bsMgaz+o
+         fy1eiI88NH8W2ORnGD8c6l25faWKk1gwArpOaAs24EpK+aA5wkBkNdiZg44axi/Bt2sr
+         HZTAxPRwe72CrOiZh6dI/OiKeYC/TxOidRlfs8mFnrnh2QO8Bg6C9KleSnkae71vPZ3K
+         6N8UvdvgGadu7LqAcThOtodZCywGfT7lixa88OAPcp6tFpwZH2G8ZmsExZSOB+kcu0sz
+         EFiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788292528; x=1788897328;
+        d=1e100.net; s=20251104; t=1788292790; x=1788897590;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
-        b=VsLlX9H4dzemwo4QxQ6sRspzE6weC+HAKrdSaMYRmDogCFoysCHBoHQc7CBewA7MKK
-         VnQrqHAOi61yBECVrAaQcuVEteQfxBUrUMHLkVfMOwd+FZaOwgrgNfnhFBAOfisS6cgv
-         cSb7jkkbv4BxW7KdpRpOq90PndkwejD1T1/iXK9f9eZmpL2Q8H0sxD2C+3b1TlHyBLwR
-         Ic6pqczMyNrvqQFnmaL/UxGRhMm373PF23NoW5c0KS9x9TeH+SA82W0Dts0OdEuiyZkE
-         vsH/bd2RmbdQV8dezvVv6RTzqT/EUXlZRfyTfalUjJIx5SUXxezD84z78kWxa0EiTN3U
-         KlyA==
-X-Forwarded-Encrypted: i=1; AHgh+RoIl79Cf45KpkvckkpWUwg9eFz22PCoBcUhtZCuGaF7BYgAaX3rW1Lzy8CyDTlOvympYWhAqmI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nIwLFbO/YQNQ0KfBdmhkLsAxf/iGezd/2pSvJmLBQJlcmmAs5C
-	K+ppcMuGWtJLR1MeeAjKN+9begSmzUr/HFnEMs7c0Er3Y1+0q4qoK22O
-X-Gm-Gg: AR+sD13sYdiG5epWzEJhHATYzj5thjpWyLkfaib5VG7VXa2foKY4TUlRTIPilRcFSmF
-	gBZEl3ZSpPgclP68foS8t4rNpNMuJrW2xva7BVD5SiaOW4ocDSOrX92ximQ/uRFDMDYJdyQChbv
-	Iqv+XGwN9qjVVrf4B6TGzNG1eEU4jVZ6AH4Gb1pD1k4Yg7hVVN2/WULRjwNiPZ285FoquucRrjY
-	Fwd4EQXIPvplGuh7FdMG67l5afF/7loI3tTAsFnoewSExknLmEAk4x9rYqzfteFKitTA8/BMNN1
-	U4bYaTlLpoq0IErfu5apfEZ653z6y9Ve0JsbBhinrqXSJnuao44xSnbxIeWhYtjbMF/UqZrBwC9
-	6/fiqVoh/So4krs395wSfr4x0Mx4wDclGpk5RWyqqk3ZRRDLnMZLzLTYBf6Szh/HalT5fHw6Omd
-	OJUkYKymreiBucx8NgB9ISoZf0MJahtWhSL7yeC0FNKikrjoPW8TAgbR+UgaI2DwW+zpMh+FiE8
-	L36x7oeXnUHhZ6v3aB+OvvIDcgYKqimMZuYJxUeTqSfK2A=
-X-Received: by 2002:a05:6820:823:b0:6aa:cce3:ab61 with SMTP id 006d021491bc7-6b372d20e4fmr8604105eaf.9.1788292528131;
-        Tue, 01 Sep 2026 12:55:28 -0700 (PDT)
-Received: from memorizer.localdomain (47-163-111-11.bng01.bytw.tx.frontiernet.net. [47.163.111.11])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40f81f374sm868636eaf.14.2026.09.01.12.55.26
+        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
+        b=GtBjunSE8RKI4JebuMSK8kH6PS9bH91Ufs6t1ALr3MJVxAI74uFSXv4OQG+SjxBxsv
+         Gp77N0ah+ic7/G+Dqaa5vepqsnbxVqrve9iY0J8CZ9edFfDuM6vgd60NCh7SEgAkv2vH
+         rumIDGHIMOx+y3oiZZ7uPO8fEs0/stPEtoMyTEV5wV6yfLgGwk6rUMCWCyRYFrZ+KHww
+         XOQ+IPij9xaj59TYQimSifiJeEH8d0vM1RMlitCGaFyn3+psD6q7EANebYklrFEC5qOq
+         AGBI/Nigax+CmwI1XliTJ988/kpMd05lydVHwU9VIQ4fYDvxkSPySDMMeozWScGVQI41
+         Km3w==
+X-Forwarded-Encrypted: i=1; AKwUvBwLfBh8aFaNckFlqwDUw6bu2KhDZf0IsEYk3VpYouso/W6CuFVb9kxoSE0oqsbg6En+FoGgtf4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqTEUgVEhwhDRMkXcrSjwnmL92aUg6o9yNQeQwUi8ACrHlz0ib
+	a8blLroD2si+f7IsbfpIGRqb0u1VfSf7knqSgvDZozzi21pWjqAZeDvcakGWrdO0
+X-Gm-Gg: AYBFou0O0ywOnpqV6L/NvEQ/K8otzmZB77iK68Gxs8Z5+ccADgMR3bnv9fvu5uxK7w1
+	LZjyF7gmUonywXIoyHGTf46iQMPooJd2VDw3j4KNH2oiPbFKOG999kUCWjaa5Xj9O5G+XxpnILE
+	dcP5dWU3FtPMhhoifG/ftGRenNPi6vndf208f+jIFGW1Wu+pKRDt2ASNGAnjOpZ5XiL38sh4udx
+	CNCyEYI9h3Phax5h2Jjvh3hPYlYI3ZSiPLBqaKqLtJ1o5XcHQaRx1rQcyG+AXs/3sKumJ02AYtg
+	r9QYxHZvPUwU3XhzxP198Qy68u6cr81mt1lQdbFaBEMXL91so6tlm68iyVlcYxIn4G2Q/HWYTKC
+	SVXq3dxT/g1H8n3Git+sldWL7xlus9jk/v0aCOVSFZ6wvGRr9NZinsdJy4u7Iui1qoB3Wx+hyKY
+	//y16/CTtM+h5fmK3rLfGBe6R4pHrQL6n4cIMKysZVVBJJ7m0vtQfB4A==
+X-Received: by 2002:a05:690e:450d:10b0:66f:7d56:cf77 with SMTP id 956f58d0204a3-66f87582dabmr3200931d50.26.1788292789853;
+        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
+Received: from adriano ([181.173.249.180])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d60f8sm1528187b3.36.2026.09.01.12.59.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:55:27 -0700 (PDT)
-From: Yudi Yang <2000jedi@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>,
-	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
-	Andy Yan <andy.yan@rock-chips.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Damon Ding <damon.ding@rock-chips.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Yudi Yang <2000jedi@gmail.com>,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
-Date: Tue,  1 Sep 2026 14:55:11 -0500
-Message-ID: <20260901195511.2761251-1-2000jedi@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] media: as102: initialize mutexes before registering frontend
+Date: Tue,  1 Sep 2026 15:58:56 -0400
+Message-ID: <20260901195856.19910-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,39 +76,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rockchip_dp_drm_encoder_enable() uses sprintf() to format a device tree
-path into a 32-byte stack buffer. Device tree paths are not limited to
-this size, so a sufficiently long path can overflow the buffer.
+The bus adapter mutex and the stream mutex are initialized after the
+frontend has been registered, but the frontend's stream control
+callback as102_stream_ctrl() takes the bus adapter mutex, which can be
+used before it is initialized:
 
-Use snprintf() with the destination size to truncate the generated name
-and keep the writes within bounds.
+	INFO: trying to register non-static key.
+	...
+	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
+Initialize the mutexes before registering the adapter and frontend.
+
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
 Cc: stable@vger.kernel.org
-Signed-off-by: Yudi Yang <2000jedi@gmail.com>
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index 587e60232ec7..efd5a98e80bd 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -241,10 +241,11 @@ static void rockchip_dp_drm_encoder_enable(struct drm_encoder *encoder,
- 				of_graph_get_remote_port(endpoint.local_node);
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
  
- 			of_property_read_u32(remote_port, "reg", &port_id);
--			sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id);
-+			snprintf(name, sizeof(name), "%s vp%d",
-+				 remote_port_parent->full_name, port_id);
- 		} else {
--			sprintf(name, "%s %s",
--				remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
-+			snprintf(name, sizeof(name), "%s %s",
-+				 remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
- 		}
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
++
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
+ 	}
  
- 		DRM_DEV_DEBUG(dp->dev, "vop %s output to dp\n", (ret) ? "LIT" : "BIG");
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
 -- 
-2.43.0
+2.51.0
 
