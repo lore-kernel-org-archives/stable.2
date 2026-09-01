@@ -1,126 +1,156 @@
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B47046AA79
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278240; cv=pass; b=Di/Z2Y4k3c7LUQSMF2NEzsQLZ6y9QAkODvDMMWOhULFlJwidhEc9mO9fT2lbEiFA7PKpzVSj2gcAhp90fZYoBD+U2JN+FyA4ykgY62NRQCZ10PPi570w4fjnRm4a0EvOivP7+5+xo9sRljHpUvR5iYQrmToGIvpdcXm/ebzfXSA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278240; c=relaxed/simple;
-	bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GDSXnbhviHavXBkcnxxe+BnPEPyeUqczAaK+LWJUctItBJFmIiTt+TTKCnS27bApGemScMTJmVnVHNeQWdZkrVYH0WSTt0rYZs8GQG8WHfMY/5XAkyXqs3uLMJGknFYTq7HJF/AMnjljBLdR2QNfZovckrs2YsvuIjfB6ZkKokY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h70ekUkB; arc=pass smtp.client-ip=209.85.160.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29C94749CA
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788278241; cv=none; b=V0dKb5itl3Pz74cHMVwjaErzAw4O1hCCuVjtCbUZ1GpNsxqQO4DGtHOaTf1Gbta8bCmquu1fFCu2OYU0DNcdvFeRgna09snmIcsXYo6wqTPzl6kcKzQ8xGwWUycSfdhYDaUnkGBbQ5OEVtB+rN5tnZIgA0KEAnmazYzaNGzc9Gg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788278241; c=relaxed/simple;
+	bh=mI+0OCmjkN8IPzMXzsKrgMBigNKPLjrQDoxW6AICHxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=edDh92LV81Jt0ves5mllYg9cfY+q2rHTS3v1GaTA3Zgdq76ktPVFRrbCGcaQdmOL9drheyDf7viiIVn9It6YWehtGyWZpCZVm3qY0FBNr6cOe9wdjFsfaVGH4E7CkQ6EvxqPe5daRPsj3nL80R6gPdMFUaK6sbfV23eN9L/0Hic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YyYgO54B; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=g3z966p2; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h70ekUkB"
-Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-517dc520840so52826641cf.3
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YyYgO54B";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="g3z966p2"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8px42825350
+	for <stable@vger.kernel.org>; Tue, 1 Sep 2026 15:57:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	x/OQCwLQW/6OFj9hLgRG5zobTrne+fl2iMm+qRPhRWc=; b=YyYgO54BuDL/0Tfn
+	tH1YRwC1B6H3WYDkK1f5L1UDkYhlPijHEtr9bJ59EmTVT9hVimetw9nrcQgFuoL7
+	wcVcFuhOIWnEXxCBW3nHVyBKnTHV/0HOpAWIc/MD24k6kYrjUQdpWYlzG3I/NKfG
+	E6hWmVGm9xHbaGRLrZdypNuFvvHImUpzcCk1h+SkQF5SYzpC5zEMb++AFC3+tEHL
+	p8Psntsu9KuEJkC6QbyRlnaT3Os1LHgnsbKgQXgRRlpmEd37n19vLEUuI8FRvv+Z
+	ggF05gcfeNnpxAZXxQosTYSZ8tuvnUFB9CWtAlG2Tgkxb7+TCq5zmLnCjKMeMOVO
+	0u04ow==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp7cbfas-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 01 Sep 2026 15:57:19 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e62e3459fso13654285a.0
         for <stable@vger.kernel.org>; Tue, 01 Sep 2026 08:57:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788278237; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KMY8GsIoya1RITC5tWnNXpmmqY5rPftMwohx0JKAaUvQioY1VUns892kW+K6ETQTJc
-         VMCWcvPJDu4oohbf1U483vyRc1enFsSwJkurkVCp3rDXQ0ffgDWLfLkzjb9+MmAfQDKg
-         Rn9kQP9VoCF6aLo55l2YiscQOfsN9iU8DFHhCnak0k13/ozWPYHRpqE8HbrUP4LbwZie
-         X2Ic6pE6wZF+bQ1nDv/0Jm5q5u8nN2+waqkkPsTwm0KLSlRVTSh193VnlT6wvOsUmV2c
-         ERrfVCsVP2hVCvL9xrm636X34L79CpvT+sE7IEGJ+YMCaFKGCoOGE5smV11BbGdt//Ku
-         7Lkw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
-        fh=EuNCjZDgjyBO4CMKlA6VmxWFrBmGZIqGFshS94xmYE4=;
-        b=s1xTLsniM+rpttl9MNu1P8GGfqkL4wpRF97P9unGY0Yxl9jvzYnz/jMQAVSJVmj9y4
-         36bF5HeRZAcAA9jgtK4o45cHWhl1PGIu5R3ku9TN2r1dYD8pGcXcxHWqIiycb4Yh8f7D
-         kE/69u5EIEbXF2RHepv8X5wQeDVNS8JaFsfFdWojtGBQFg7TDg/JfwAE0et1jBN9BPa2
-         /xNWwOB3FpJ+a0NlWFRtG2/re4TGhfWAd+BUcesh70IVaLCox+xdswO49tZCwCUIpCgB
-         2AaiIokKFG+PVa+7uL2Iw52gjOevp9tLgQ1gRXSiD86qyxRdPxJiKQL2qIrISCNiZsST
-         KkFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788278237; x=1788883037; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1788278238; x=1788883038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
-        b=h70ekUkBwz6octO7VnJrhhKA+mYJWukq9I1chbkeA2Gvcz2scr2RdKQhhVi266s1re
-         9xzQoAYfrgutJ7jJkaons/HnVC8f5k2KB6DNJBIcdmrkb2QKjaspRgxZ+IFtbqyJFzxh
-         BdUxYZcKOeOSHQJ2FIQtIJ9xJeFlpOxkdmS29WrZgmH4bwfp72AVEymMxDWhHN+ZrpHc
-         bK+jcs7DwDS4uRnxhG8TiYfI9vjBsLU6mTTINyLgHzlc+DUg7ZCAqns4qKJdPjbaNb1c
-         HsW/1mewYCkq9N+JG788O258jGc5mhJZ9C9DJFoKl0WITlWbsscYpWNwK+tuE1q2Gt1+
-         LRBA==
+        bh=x/OQCwLQW/6OFj9hLgRG5zobTrne+fl2iMm+qRPhRWc=;
+        b=g3z966p2x5SiZPERWDgDDOAOQpE8A320wtu1Mc6NG6EdM5vOozsi3RPczaoJMHZtUS
+         YZjQ7bP96kPscTdn6jzjeBW+juImT6385vLSrIJ2a039KYLAfvS97OWZWsZ8Sb+1j+C2
+         icxFD3UUnGXh7uL8mVpkTl56n9Cl54kLj4gsi1XQsSDSSJQvuAdi26e8gDvv9NDlwlTa
+         BrZV0dM0/lmibCyMSJ4PxscBA4EXWKEa9YFDSG65rf5x2uzhtUbp2yts2oScGme76FuG
+         +Ge+qIdI8RmvAvhGYBZZ0uoGG1J6XOFXDEgIPCsoplsJ4GyMOtan3d5mAkjj3yENTVmQ
+         D0FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278237; x=1788883037;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788278238; x=1788883038;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
-        b=Km/wzyZnfiZcsubP+U7soYc0G7zkAKHOqSQDEQnP7IFGQ20xrnW/Fge3x3mTJ3AJ49
-         zQlFcfYMi7UUJlV1yBa0BCC5lODDInwraGJRv62Ytf63+qbs1SUIU1+YB+0sL9uddE6y
-         9g8lCW2iYqsZB4se3WQEUQrGrJ+7xzP1pWp9QBrtwVastABidVWWQaXBRYXcUuhHI1V4
-         F3CLXUbfriZkWMhoE+jzRBoJLkQLbNhjMiS4dSHgQrKHrT1yXtOpSg/70SqlhOvxOUpp
-         6+qQAScqPF5jXdrUKye2oLW+aVG1BINBrg8p8SVbeQ56lAzYYpD3XyFIq50EZNeKK95k
-         EUeA==
-X-Forwarded-Encrypted: i=1; AHgh+RoCUrO0+jjJMb/HVzgRq1s8Ifz9YnkMccBo13ayPBXSDT/zrvcjsWPjY+qAlhxChaqk9YWVu6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHqXj063jj4c/oeXJxV9FW+isMUCXXk2tg8QWBZ+1ia4QxWhyp
-	Pyz/X8s2lU1ZHX1fgkMaVTCJLTmRGfSRfdQacj89s+PS4QZqOBKVoKampqP3ZzNupfxWSp1oyvY
-	txsDvWC+52qmDw44Jegyi9tgVsTOx6A4BJCMANWqH
-X-Gm-Gg: AR+sD10iJra86a0mtChunOm5yHQzcE4btD5XIhvC0GcgLpp8N1jbpz/mrrx++RFPBdj
-	3TUWw4bOJOrm1JRUX3LERLen8OfA4le69WvP7bxWi1sUnvJSkADwAbw1CMV/zmBDJzl1pyUSR/6
-	Qbe+F/Fc0m65x6eafJo3YXEmDC2LAfxDxIt5GrpPgQehnlyViXX1w9Z9NBmSfTQrE5a5FG1ZlS4
-	WADwV8TdtUxX+FVwz+N4hGEophdDEiBv33zXbMVDnT1wu+ue0PCL8gaXANIU3JrGHxlsUNVoH2F
-	NuNCptxbaZePnRCvvNuHurLNmg+95N/UNsSUFnd3zupL2HT86p5BVxYRN+aXSGT8FPRwa1FNHRP
-	to68dIoFgEdy6f0I4quXOZDEEuOoPR68A0XaC+3xN2OCj1Xhzs3H0JO5JbYMYGJQ5ry+q
-X-Received: by 2002:a05:622a:48b:b0:51a:8eca:78e3 with SMTP id
- d75a77b69052e-52fb938d0cfmr409954361cf.5.1788278236459; Tue, 01 Sep 2026
- 08:57:16 -0700 (PDT)
+        bh=x/OQCwLQW/6OFj9hLgRG5zobTrne+fl2iMm+qRPhRWc=;
+        b=QOCqNCPJEXW4Hshk1DArQrFmxEnlGN1iE76vCSJDTv/qyVFiG/mHuliz0RD2Nc53ob
+         Yd2IW4VT891DOE0a3FSueYg0k+yrIRSmHMuZihdiYrPLlBwW/kxjSElteBO7D4uDUcLl
+         se8iVVDeRaExnbbWaFohpqn5bD1JxCD+x3nnM8LuP4Q/QwAqYX5sVUd7BlVw3nloakWh
+         fUfGcmeg47qnm+8Lo92GfQKejUsfwLYJd0UwktIcjenZl1EiDSlZG/TN16aTHyfUfwmY
+         7pzuQYgC7b8Ndsvhkk+OZf+Z8UnsFeRulpw0CZ/FPCaIeth70wRdTzjggntJ91QfFQ9K
+         FDJw==
+X-Forwarded-Encrypted: i=1; AHgh+RrHzPS4xVzwQP0I630xd+pXbbrAW50KsvqtVhv8/tvVED+BEuizzl9FgWNtN6mHpgCY/jdVa1E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lqUJorThVtXhUdI5MdZ25xp7V8Ox9dwnqhNiPund+qrtmT4X0o
+	Ko6Hx0j6xTInFTbJZp8eEs+7Pq8hUDAOZ9qX6ztXno8DG2oUtxGKOuTOoEvBdNPlJmaISuqmz5h
+	nmNevWPnTsBmo64P3yDc7UHuZhp7PJ0AjdMSCSyMDI29Nt4nDVmy6T1ITKmA=
+X-Gm-Gg: AR+sD10On25Xe14IRFon2owmHYegfRUN0KAvVeDVPseEZLgFREGVlxwXvHJ+dIgoRzp
+	2ozbtFj8uzXDhpX7ZS1jsVt+wz4cI2oZCheHEZPMEsLaNSibGXmxQQ+1kO1tc9Lb6ZdEqQneTl/
+	IjIbcRWIY9Sk9Q/iVOO3SVtKPbHKd9WwbjX0RxTi4k4Bd+jQ9CJ+vsdJ9iEPsukmtg4dC2yQaxJ
+	fYJkRAl01h8/XkDy6wNXzoK79+rVtY8LASJCLQTkH7nu1Ro1ZVy5pape+o2qET+QD4Ll1/q4SlZ
+	5HH6qklWLxzv+AXsM7So3dJQfvaGCyM5D/fiN+1Pt7yAhlQH7/MClbwt6cGH0A/PtKPioU5DwwS
+	1dNf+oHISeYwwVgJ12OVynm/zIw==
+X-Received: by 2002:a05:620a:4009:b0:939:4b31:4669 with SMTP id af79cd13be357-9394b314723mr951627685a.29.1788278237990;
+        Tue, 01 Sep 2026 08:57:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:4009:b0:939:4b31:4669 with SMTP id af79cd13be357-9394b314723mr951619585a.29.1788278237413;
+        Tue, 01 Sep 2026 08:57:17 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:fd4:cb20:f8d2:dc94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6eafesm5366057f8f.24.2026.09.01.08.57.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 08:57:16 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Daniel Drake <dan@reactivated.net>,
+        Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH] gpiolib: of: don't mark hog nodes OF_POPULATED before a chip is found
+Date: Tue,  1 Sep 2026 17:57:13 +0200
+Message-ID: <178827822449.38953.11000538311935272937.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260815-gpiolib-of-hog-flag-leak-v1-1-6126aac5f6f3@nexthop.ai>
+References: <20260815-gpiolib-of-hog-flag-leak-v1-1-6126aac5f6f3@nexthop.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824033331.1084971-1-imv4bel@gmail.com> <20260824033331.1084971-7-imv4bel@gmail.com>
- <apaAskNL-IvdcR7h@v4bel> <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com> <20260901085102.5c58a5b0@kernel.org>
-In-Reply-To: <20260901085102.5c58a5b0@kernel.org>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 1 Sep 2026 17:57:04 +0200
-X-Gm-Features: AcwNN1V0ZKwY8CxffJ67D9qqHhYGRXD1ZIi8To29JusVq6P0sfEj2LbfZMr-I8w
-Message-ID: <CANn89i+px52TtJy3S9=uHxGj3s-WueguRo1Z_4FxO=02KLmwmQ@mail.gmail.com>
-Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
- listener path
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>, Hyunwoo Kim <imv4bel@gmail.com>, davem@davemloft.net, 
-	ncardwell@google.com, dsahern@kernel.org, idosch@nvidia.com, 
-	kuniyu@google.com, horms@kernel.org, willemb@google.com, 
-	andrew+netdev@lunn.ch, kees@kernel.org, jiayuan.chen@linux.dev, 
-	kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org, 
-	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=OcyoyBTY c=1 sm=1 tr=0 ts=6a96f5df cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=fwK54NpjPF0WMB8fScoA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: nlIsrRBTkiGz7JbVJArow19Ii_uc0Q3c
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDE0MSBTYWx0ZWRfX2FkvI1BNsRfD
+ +oEQgk8PcbOxZu5j5NQiKFilJG/NDnMUKzkoXFUA6JiOUC/v69cgvxX0secZTutroR0NFkvh6yN
+ oI94H7ESUHxTrDAfiQ37M1bRkct9Okg=
+X-Proofpoint-GUID: nlIsrRBTkiGz7JbVJArow19Ii_uc0Q3c
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDE0MSBTYWx0ZWRfX5+vYyWdTsCVe
+ spQjbDwWikNVYXiLDXAiQVfxKJ10aSPv6yr0OhcJwFeiIZA2Bjy0aO72HwKcfsXVCCNqFAG9qAV
+ TyS8OB1eOVTFJOAm+79kl1GtFwNb3oH6g/ka1WzmJqp06xK3p10Ga4j+UK5/S4NquAEHeBJVM3U
+ rLkOAywX2w3lglFWOT+hIgLgawCzD/0URuN05FQKMyD+IIvcLoeojYlEzu+ruPu0sPCaeIali7U
+ BzR43lxH/o+WBpY82uqZwybmAOQ8vzWj6AK8+xYev0X0L7yrpZniFfAYUxv6hi3DqrXCGw2OeiO
+ MhWnfkWbmvUFVKypdp7WYij9JajNhKcnKhhFqiTyKwxHhacdEJUA2mZZ3KA3rODRsB/S2yoM4g5
+ d4UbOR2XFq9YQkt//w3YAXzVpXJcMQnBcfScKz6qQCWSbvZz2aECDhWAbscaS/QkTCo44DXPXg2
+ 0TuXKjxJEqxlO3YixMA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ impostorscore=0 bulkscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010141
 
-On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wro=
-te:
->
-> On Tue, 1 Sep 2026 10:03:51 +0200 Paolo Abeni wrote:
-> > > Looking at this further, unhashing the listener and then calling
-> > > synchronize_net() lets the disconnect path handle it. MPTCP needs a f=
-ix
-> > > too, though, because it closes and reuses the first subflow directly
-> > > without going through tcp_disconnect().
-> >
-> > This looks like a more palatable approach: this patch in the current
-> > format looked way too invasive to me.
->
-> I likely lack context on this, but I was wondering whether we should
-> potentially disallow the transitions between listening and data sockets
-> instead of fixing these endless bugs?
 
-+2 I think I mentioned this at some point.
+On Sat, 15 Aug 2026 13:44:19 -0700, Abdurrahman Hussain wrote:
+> When a gpio-hog node is attached by a device-tree overlay before its
+> parent GPIO chip has been registered, of_gpio_notify() sets
+> OF_POPULATED on the node via of_node_test_and_set_flag() and only then
+> discovers that there is no gpio_device for the parent, returning
+> NOTIFY_DONE without clearing the flag.
+> 
+> Since gpiochip_hog_lines() skips any hog child whose of_node carries
+> OF_POPULATED, the leaked flag makes the hog silently ignored when the
+> chip is registered later. Applying an overlay containing both a GPIO
+> controller node and its hog children - and populating devices only
+> after the overlay apply completes - hits this on every boot; the hog
+> is only applied if the chip driver is unbound (which clears the flag
+> in the remove path) and rebound.
+> 
+> [...]
 
-Same for IPV6_ADDRFORM : we should not allow transformed socket to
-even use tcp_disconnect().
+Applied, thanks!
+
+[1/1] gpiolib: of: don't mark hog nodes OF_POPULATED before a chip is found
+      https://git.kernel.org/brgl/c/1f1d0812f6a8ab8e6f709c599f137c99646512cc
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
