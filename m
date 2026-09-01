@@ -1,87 +1,144 @@
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13E6472084
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 09:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255099; cv=none; b=VctOBWfcDz6Jom03mclfhGh5KRBnmX+A4mkSnxVN3yUekxaKZNQTyZH0SzFFhRXYHEFuNeGdMMN4QTD73HjEk7Aoi2aDybR0CrF9AH1csKcS0AZf7ZBNAisTsInmXXVWc723Obv8CzI3Zel0PYPlomgkotOhfRyFlWYfHunJjLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255099; c=relaxed/simple;
-	bh=jl9D4HbYtt0iCvxNDHgV3gzFDkORtqHa3wmJR3iNSNo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=b4aFg+35l7wu/sstyZRvfvkj9gdAafAYQOwa1TbW5C2BQBSMW7/iUsyyAJn13CGEOEZ2ze1RyuDTRYXxJkE8YzyyFffi+rN+G4CsCQ/3HB/OpGbgOWf38CNCUuTeYz4PkRfzVu4xIooodRLPJt/hXEibfNWJZ4gJNmvc2WjiugM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YgqCR5n0; arc=none smtp.client-ip=209.85.128.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91ED847ECE5
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 09:34:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788255278; cv=pass; b=KP6W5K32g+csHhMObFQpktMa9/XGJfLArMrPsjJK/B8pxhIrwBdP6Xb6EmBpiZNiIpUTPUnuWRJhyr65ExFuuNo2ciaNdEduEANh4DoSmuKZIgOb6Szu6DbL986mj3tPnAI4RDRKepay1hanJVQ7tlw8mlWPNMNrhZPPyUO+cMw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788255278; c=relaxed/simple;
+	bh=pn4Yi8R4MlFIS7n8aLufkBYgw+zaA6iEcjMtZetXLtE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ro80rFiZ7zQq1T0JPB3hGLWVWshK5tSxNo+QZ4CxH1Kc7D3TVWzaW1DGXknFc8Z+U3mjLiKL/duHLwbWbH0l0RO8EEt3beuyrZA5c8kfKdeGDan02UHBB5j3WCEEvbelwGOdh+0JoMYTB4zH3HD2EgR/p6AU/SfC5C95L663cS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=DS5n64aX; arc=pass smtp.client-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YgqCR5n0"
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ccf17d3b0so16430125e9.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 02:31:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="DS5n64aX"
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20d12211bso9729751fa.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 02:34:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788255268; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h5uP98/AOdBCnKpV08TXkTUDbhWyifO8P9UiIKXSJDq977+nri8vuCmOqJqvcrhe9j
+         hysNhy6U63AYBOCoh74QdOXLC+oA7Hn52WALj009jaMWHKMfslfvNi5HXl/lsw1gaaQK
+         uWPr48RiMFbnUi895KHAjlnUzmkueWVJYwttMCwj/rxX9zZkym+vjqaY9axTVKPGfXna
+         MyF7qNkPdDnu3a2abyRB01Ek2v9BnpDrdUce+ggIhNaz/BnxsUzFsItl6C3Js/npUjOA
+         ovWsDBVDqVlfEbkB/9MJ3/SQQEBp2k3PFK5sj160yiycuFANuW+zhhwsbzKjCSkOUbZk
+         o2nA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
+        fh=RXluYrwlZQT6B3tD+sX8ZSpDdTzfj7GEuZou7QVIjXA=;
+        b=KcOeOZ8XNXQrmNNKEvoEyleU3B6CfMn3RdWhCprQBHdMGWNYdaGWrgUngORjGm49L6
+         ysAHhyJ5MxfhbtfdbEWot3GWIE1ugj984Lwo38fventb0uEP0oZ1hFwe4lB6JMd3J736
+         iTynpTiwBYK+mXNIrdYdIQIgeOn2aZ4X4ED9tvJ75zy4decynieKpioQG64RqWA3t1a7
+         0ljjQA7VZGLcmCS39H/0NFs1f6akcD9x3HLcE6Z8Jp8SECX1UNnz0zcRHA3I2u42Pqrl
+         cxAUj9yJbYpGF1BrkMrKDbAgZIEk1B+P5w7YDgOvfrmTf/Ntj3YgRpqBBlceY9gd+UhV
+         Ccbg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788255088; x=1788859888; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s/fiWQ63WImRaHU5MSJK0Js7QMO+oBpUYF5cl556nCw=;
-        b=YgqCR5n09fBrW7zpDuji28fP8w1S3eHOxZzo4QVSz6U4fz1x+GnNUtF6rr74E2yD5H
-         vsrdpoecqPHozyDmJyPWRVAIA51JS9tXUXRyzJttCyZEEK0dW0z4kUT+tN+ajxwhnrFg
-         dITmEN/by07cVGJCqb/O0T7G7vlCIUq61hL/8LKR7Z7glwqCoPhnFrmFbR6zaorTs112
-         UNlVglqR+au9cWvX7sAbH8WqtrLwhmThapJvJUjwm5P+I1PGL1Vd70Fb7bN4ZwH+qDYZ
-         O2Qc8gb0LeakJLqi91CHZgqqHFwthbt2gndvFAvGhdrKSrZ02RQcWCwJt8nU9CB7w3V4
-         npsA==
+        d=nebusec.ai; s=google; t=1788255268; x=1788860068; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
+        b=DS5n64aXf0XCRrLnZKPi8BH9JCKVRny0QwIRkOUkTnQppUIJyHkuewt2NxXR+3LecH
+         lg+DiuQHgU62YAhoaMOVinXXVawp1lM5BFXbreaiA9Xkdzje8FYO1rhpM5BM03xkc3YJ
+         tdLQrsSPi23KXyWN6CgRIT0Sj5ytQFwgNBCMb3cSz6jMBbplvZyVL+QPw2a0Jr1XjfCm
+         ZqjRfRxOMfKSF2YfW2NwOHe8XR4dV9a5Xks5vQT3gY10iizjWGy4xn3GK2lv263+RFc7
+         l5teXeDOAXR48GREUmjn9Bng4nvS5+pHjE9us/Bd0/buNo/ILopOfmFSDfeePjNBPQt8
+         61Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788255088; x=1788859888;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=s/fiWQ63WImRaHU5MSJK0Js7QMO+oBpUYF5cl556nCw=;
-        b=B2LfL/1U37c/h6fxrcJWFpdHlo6LAJqebzh1fST4V0/14Ft/gHWKbBsadBHxEtPeML
-         oFzQo6UhJ2WAewEaxIhiUetPB29XOonolpwUNIFWNF+4dgfRiOqPFRDX/Mqv/ZrgYD2X
-         ospsliuIjnlr3IF10i7CX7hd1IeaGamzubt+Me+toti70PCR0Ubp/CShBO+zkn+4zLDR
-         0ei7+qgOGaIcH5ozWuR0JM+CDIoNPmMW6B0Pc88KdVh9GWhxBjnYtXUi3MKFb8URG38X
-         ZJ+jQFv1+5XOiEzO4hLIukAj67ds9reoFat1/jAivZX65heJSJVK98tlrnsS0SrqIiCY
-         lKBg==
-X-Forwarded-Encrypted: i=1; AHgh+RoqCYztLCjTbdKx1X8uifYFeh6bfEoYck/N7DNuimxTUUvIW6TwuBKOkRWXEl7yO6JJwZFcaOk=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2BHhEMW822uymBgtEHUTjPDWUkW4XFDKdOrcbrRIEjNepEw0p
-	Mf3Sz7cUeaUmTzRReVoarfSbri+gS1bLMDbqAD6+Y5l0VEGupHBZ8sH/H5v7f22aZ1R6D5M+pYy
-	ZEOEWl27e9kOBcw0LTw==
-X-Received: from wmpo25.prod.google.com ([2002:a05:600c:3399:b0:499:610e:c4b7])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1d99:b0:49c:cee0:e7c0 with SMTP id 5b1f17b1804b1-49cdc560282mr146000615e9.16.1788255088208;
- Tue, 01 Sep 2026 02:31:28 -0700 (PDT)
-Date: Tue, 1 Sep 2026 09:31:27 +0000
-In-Reply-To: <20260901030419.470246-4-cmllamas@google.com>
+        d=1e100.net; s=20251104; t=1788255268; x=1788860068;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
+        b=T2LcpG/1vO08MZu2ASiSm2clbP8Q31wI78FORiYAc9TLTg9mq/dSdSGTY6RBRSQaue
+         sywOOkt9fLHkSW6BLC/xWl0qmeJ7qjqaI86qlOEeZa2hYbvma8gwTVmNEca9/2aCgs6S
+         J6wjyCQl/gxDjC3kT/TzeMLWh8mESS3Jnpd/CAYZW+rRiYychOSpTNMKrJ9sYwGaG3lf
+         9g71/z51hU4JxD0uXqUarHDp+0K1SRXMguWGYnv0WrYjnIutlplI809cPSCSUwQQsnzp
+         JGG/yMd+j59FTtJtHfpUBn1PuWSmbF77SFYrgc/1PsjNXSyBENfXmdil8ER+YPgZNx2Q
+         8Rcw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdiPdvs05C6+oRYNqjKR6N5CakiE7zK1GNILr3hSMIArIuEbMmtsCeUKkRadfeTFvY4/rIWPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvB7G/bb20TuYS6c5QMHsemkGI6rMMhVL+1SxxShU1Ienni699
+	hOHBT1ntX5dil3MB9Jox/Q/1Ow2h+eZcKdiFZO2XU4f2cQdppSipQeyNOBQf32+xvSc8VfLJ2cY
+	8TbP5ITwHpMPjDqqmNTE8c7MXEFVjAM5vVf95CtQzOKM=
+X-Gm-Gg: AYBFou38iM/wDAGjfxjwjQNaW5SeYLNvele8wmx2NWItGp32wiqysK5U7XzazQfGKUH
+	bWYjvSegXkDFb+Iu+9WZr1Ysw0tcPe8MNO0fPTBbQfx1oKvC6MSmh+fBMXYCv+Nim4fy40kBZ/q
+	cFlOoagN+4a+Xl3n/dt+ZxhqBfyNb5gCox1pLL+dUXLjZXHH+PqBeWTP4rzRz8K8cb9hL+7O1gf
+	DKNJKp6KHSCxAcWDgxoDJND38+/jVCkxuNURj+cvfPd6h08qN06t6npkwEv08LDhM19qhFbahjr
+	+7l0uthdWTOuN8XdxR9yL3epbQAjSkCMVYTAbDoKAdOptNzh2hpsnaI+JVST34aznxTOSZpx+w2
+	A
+X-Received: by 2002:a2e:ac12:0:b0:3a3:364:f783 with SMTP id
+ 38308e7fff4ca-3a33e515762mr8807151fa.11.1788255268016; Tue, 01 Sep 2026
+ 02:34:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260901030419.470246-1-cmllamas@google.com> <20260901030419.470246-4-cmllamas@google.com>
-Message-ID: <apabb4vGhNfcXMnY@google.com>
-Subject: Re: [PATCH v2 3/5] binder: check vma->vm_start in binder_vma_close()
-From: Alice Ryhl <aliceryhl@google.com>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <cover.1788223735.git.zihanx@nebusec.ai> <7b6bd9bb1bf6bd43db18156f42b2d7f83789a673.1788223735.git.zihanx@nebusec.ai>
+ <20260901092135.GA3402711@shredder>
+In-Reply-To: <20260901092135.GA3402711@shredder>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Tue, 1 Sep 2026 17:34:14 +0800
+X-Gm-Features: AcwNN1W81ESOZ7FAp3XHS-uh8ENJqN1hRRIa6EY3HEt-t3T4rInt27-n8S7n6Vs
+Message-ID: <CAANe3eRHfO+Q-3VYPJ6Ui9Sm1TzCA13DYd+1aFh7Qfg8ebbhbA@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/1] ipv4: fib: bound automatic table ID allocation
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Ahern <dsahern@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>, stable@vger.kernel.org, 
+	Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 03:04:14AM +0000, Carlos Llamas wrote:
-> Certain operations like a failed mremap() might trigger vm_ops->close()
-> on temporary mappings. To avoid tearing-down the main binder mapping on
-> these, let's verify that the VMA matches the expected starting address.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas%40google.com?part=1
-> Signed-off-by: Carlos Llamas <cmllamas@google.com>
+On Tue, Sep 1, 2026 at 5:21=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
+te:
+>
+> On Tue, Sep 01, 2026 at 03:00:01AM +0000, Zihan Xi wrote:
+> > fib_empty_table() probes every table ID from 1 until it finds a
+> > free one.  IPv4 tables are stored in a 256-bucket hash table, so a
+> > dense set of IDs makes each probe walk a growing hash chain while
+> > RTNL is held.
+> >
+> > Automatic table assignment ("ip rule ... table 0") is an IPv4-only
+> > legacy path.  Bound the automatically allocated ID to 4096 so the
+> > RTNL hold stays bounded, without changing lookups of explicitly
+> > specified table IDs.
+> >
+> > Fixes: b801f54917b7 ("[NET]: Increate RT_TABLE_MAX to 2^32")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Suggested-by: Ido Schimmel <idosch@nvidia.com>
+> > Assisted-by: Codex:gpt-5.4
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+>
+> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+>
+> The bots will likely complain about the change in behavior because the
+> commit message doesn't spell it out. I explained why I think it's safe
+> in [1]. In addition, I checked, and both NetworkManager [2] and systemd
+> [3][4] explicitly forbid "table 0".
+>
+> [1] https://lore.kernel.org/all/20260831110647.GA3202627@shredder/
+> [2] https://github.com/NetworkManager/NetworkManager/blob/2e83a4082b22349=
+9c4f1bba156998d0171071967/src/libnm-core-impl/nm-setting-ip-config.c#L2747-=
+L2758
+> [3] https://github.com/systemd/systemd/blob/9b62fd169e06d14cbab801c66f2f9=
+c2006edb75c/src/network/networkd-route-util.c#L456-L457
+> [4] https://www.freedesktop.org/software/systemd/man/latest/systemd.netwo=
+rk.html#Table=3D
 
-I don't quite understand this. You explicitly made sure mremap() can't
-happen to begin with, so when is this called?
+Thanks for the review. I will send a v3 that spells out the user-visible
+change: table-0 auto-assignment now fails with ENOBUFS if IDs 1..4096
+are occupied, while explicit table IDs are unchanged.
 
-Alice
+I will also keep your Reviewed-by.
