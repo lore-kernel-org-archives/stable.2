@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8C89EECB
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:39:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0059EECB
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:39:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262788; cv=none; b=JM31XtxCRQzVOrt+BFfIh32PaPFFU5x1ekZ8mUSE+iz0nWz7YJab5dGs/nWiEDJT4u+aX3hohgowtUErsAMSM/ffz3+yunqTA5yD8HvfYyrz43pXQdMSPGEHxfNInTCBK2WIYA6RgWQVhT2ByH0Kog3UragTiRSesD1tzEpwbzQ=
+	t=1788262790; cv=none; b=KpQgBUUpGrIrcLX8Q0J4fAop9WbZLPjwdGCzwlh8wYuUUIlpTsA1KdfHNtln9Bygg6tAJKR3218FvIGsEEeXEpaNSxqR06vLYwtEBSXBz77Hi1rzaqq3u7y3R7E8tnKGQa8+GTLwJQsd27/9IurLDhUhbawl7Fl3uS8L7YSSFQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262788; c=relaxed/simple;
-	bh=/cOidgSQJgLvYoTR/VT5T2lORqXN49unB/J99ZI5J5M=;
+	s=arc-20240116; t=1788262790; c=relaxed/simple;
+	bh=Puxvw1554sUUQs+ON1+uDVqUpybrTqZKj4hVuVK2NFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U5ZEwfdAcIWXK+30Fgnd3D+7UuXrvmqSOUwvFIh8CP1O6VfhFzMRfMT1RMIyXQi6bpYtxSxhFZ0BwTGWbr1pdD7TVCndN8ZGh6ct0G/PSyjwaQCGApnhUUNy9QVgzFi/RLWsJYs4G45NV6QAAzBWqFhnFyjIgbfHqyUQzV8TtOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIbug+ZZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KXeyp7a7fisnM0OnQw11q2mfzxmqtbCMzd0PNPFfe3GslOy2QRdcRmjwodUI+0h21iU1y9dhPUhKB5GOfpnWqGMW3NCoHcmfwWks5z0izWUTnVSab0dfBawnQmrpTjsYKXcYbVqGQk+MqeZ69ROE1QrbtTXzsru9hteoepxvG9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPU++dwi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIbug+ZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88091F000E9;
-	Tue,  1 Sep 2026 11:39:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPU++dwi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C592F1F00A3D;
+	Tue,  1 Sep 2026 11:39:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788262787;
-	bh=xVeXAj6HwTvtj/lGC7imFo+/Zb76jFdnbkEbCM1qVDA=;
+	s=k20260515; t=1788262789;
+	bh=Ak0meX4xhRODj+vOe+ceWf6x5Ap9nIXfge/dl0EjHks=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aIbug+ZZCkXdBMms7T+Opoq84PhEjFBbLZzQoNCEFSRdOFyS8EK8oEgsNdsuFNY3y
-	 aA9a+ctere7jVdYnNFQ8r17PY3mkOOv7JNhAx4kmV0zUZhhPRK9PRP3v0L3CN2kVaj
-	 gOdNiKbLOyFnHqxPb7l6snq2q9EW1aFWoeFWDoCBvyy9jc3ZIXI+Wh4MDn5dvwe7ai
-	 5HcxTHfKywz/sdYVjwAL9e/X9WgRodsmM99O6FHw55w6XJ1E4PAUcBpFkWZmsSzOL7
-	 X8hwWrVbWcWuRY99wvjjxCOYH4m5D31RVxkwKSccUgiBipG1Xz0r3LQcWWC252O9sz
-	 wmRzykTexj3jw==
+	b=oPU++dwi7Z71iLPeU1a2M+lNBLgA4X6DDRCAQbUOD82pA20st7Vb/i1saGaotdUio
+	 LHcTXJtjsQjtCALXiDWZIoHSialAuiXD0REDECRpVbC2mvqIGk4dCU7zbP02zZeWGw
+	 9Fh0ER10EP2z01mybJeEOzZ8W9UJ9APAOnUHwlWT4UEm0/IuhCQtG89lDIgty95MzF
+	 kcLvqkLTAJFtZfyX8Gm0zjY60uT5zZxsT+94qM6ceHNv1cMqM0CfLSvUFM8xeAS7vX
+	 5qc+7N8nDXjryGn5tmMY+wfo6F4cz6mjMrD/VEbzHczFfOX5p9+sKUXRvuOU+E1KlV
+	 BL27uI+k+ue/A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Tangxin Xie <xietangxin@h-partners.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tls: device: fix out-of-bounds write in tls_append_frag()
-Date: Tue,  1 Sep 2026 07:39:45 -0400
-Message-ID: <20260901113945.240701-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] vlan: fix skb_under_panic and races when toggling HW VLAN offload
+Date: Tue,  1 Sep 2026 07:39:47 -0400
+Message-ID: <20260901113947.240748-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083139-catnap-donator-d5bc@gregkh>
-References: <2026083139-catnap-donator-d5bc@gregkh>
+In-Reply-To: <2026083118-ranged-peddling-d8e5@gregkh>
+References: <2026083118-ranged-peddling-d8e5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,105 +46,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit b17cf742eaad70ae29ac558cefb3aa9bbeea03d4 ]
+[ Upstream commit 447cbe95ebb95392b5d8f6a01c0556826919ce23 ]
 
-Found with syzkaller and a local syzbot instance running on top of a
-netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
-on a machine with a NIC that implements the offload.
+Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
+NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
+which dynamically changed vlandev->hard_header_len.
 
-tls_push_data() only checks whether the open record still has room for
-another frag at the bottom of its loop, and the MSG_MORE early break
-skips that check.  The record survives to the next syscall with the frag
-count it already had, and tls_append_frag() does not check either, so
-with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
-a non-coalescing pipe page and num_frags walks off the end of
-tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
-tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
-the sg_set_page() writes land on the destruct_work that follows it, which
-the workqueue then calls.
+This causes two issues:
+1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
+   read dev->hard_header_len without holding RTNL lock. Mutating
+   hard_header_len dynamically under RTNL creates a data race where upper
+   layers reserve insufficient headroom based on a stale hard_header_len,
+   resulting in skb_under_panic when vlan_dev_hard_header() is called.
+2. In addition, vlan_transfer_features() updated hard_header_len without
+   updating header_ops, causing a mismatch between allocated headroom
+   and header creation.
 
-The byte limit is fine because copy drops to 0 and the loop falls through
-to the same check; the frag count has no such feedback.
+Always setting dev->hard_header_len = real_dev->hard_header_len and
+dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
+ensures:
+- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
+  eliminating all dynamic runtime updates and data races on hard_header_len.
+- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
+  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
+  real_dev->needed_headroom + VLAN_HLEN).
+- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
+  requirements are honored.
+- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
+  real_dev->hard_header_len.
+- vlan_header_ops is used unconditionally.
 
-Push the record rather than keep a full one open, which is what a plain
-TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
-new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
-already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
+Note to stable teams: Make sure to backport these commits:
 
-  BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
-  Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
+cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
 
-  CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
-  Call Trace:
-   <TASK>
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   tls_append_frag (net/tls/tls_device.c:269)
-   tls_push_data (net/tls/tls_device.c:518)
-   tls_device_sendmsg (net/tls/tls_device.c:583)
-   inet_sendmsg (net/ipv4/af_inet.c:865)
-   sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
-   splice_to_socket (fs/splice.c:884)
-   do_splice (fs/splice.c:936 fs/splice.c:1349)
-   __do_splice (fs/splice.c:1431)
-   __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
-   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
-   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-   </TASK>
-
-and, once the record is pushed:
-
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
-  index 18 is out of range for type 'skb_frag_t [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
-  index 18 is out of range for type 'scatterlist [17]'
-  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
-  index 26 is out of range for type 'scatterlist [17]'
-
-  kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
-  BUG: unable to handle page fault for address: ffffea000411a680
-  #PF: supervisor instruction fetch in kernel mode
-  #PF: error_code(0x0011) - permissions violation
-  Oops: Oops: 0011 [#1] SMP KASAN PTI
-  Workqueue: ktls_device_destruct 0xffffea000411a680
-  RIP: 0010:0xffffea000411a680
-  Call Trace:
-   <TASK>
-   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-   </TASK>
-
-Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Link: https://patch.msgid.link/20260823084758.20936-1-jiayuan.chen@linux.dev
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Tangxin Xie <xietangxin@h-partners.com>
+Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
+Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
+Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
+Cc: <stable@vger.kernel.org> # 3.19
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ moved the vlan_transfer_features() hunk to its pre-refactor location in vlan.c ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/tls/tls_device.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ net/8021q/vlan.c     |  7 +++----
+ net/8021q/vlan_dev.c | 32 ++++----------------------------
+ 2 files changed, 7 insertions(+), 32 deletions(-)
 
-diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-index 6118859b2a515..d5fdea2af423b 100644
---- a/net/tls/tls_device.c
-+++ b/net/tls/tls_device.c
-@@ -497,7 +497,8 @@ static int tls_push_data(struct sock *sk,
- 		if (!size) {
- last_record:
- 			tls_push_record_flags = flags;
--			if (flags & (MSG_SENDPAGE_NOTLAST | MSG_MORE)) {
-+			if ((flags & (MSG_SENDPAGE_NOTLAST | MSG_MORE)) &&
-+			    record->num_frags < MAX_SKB_FRAGS - 1) {
- 				more = true;
- 				break;
- 			}
+diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
+index ecc1c8624006f..c6c93a0f2da69 100644
+--- a/net/8021q/vlan.c
++++ b/net/8021q/vlan.c
+@@ -324,10 +324,9 @@ static void vlan_transfer_features(struct net_device *dev,
+ 
+ 	netif_inherit_tso_max(vlandev, dev);
+ 
+-	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
+-		vlandev->hard_header_len = dev->hard_header_len;
+-	else
+-		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
++	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
++	vlandev->needed_tailroom = dev->needed_tailroom;
++	vlandev->hard_header_len = dev->hard_header_len;
+ 
+ #if IS_ENABLED(CONFIG_FCOE)
+ 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index 9184cf7eb1286..e7e5b903fa8c3 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -494,26 +494,6 @@ static const struct header_ops vlan_header_ops = {
+ 	.parse_protocol = vlan_parse_protocol,
+ };
+ 
+-static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
+-				     unsigned short type,
+-				     const void *daddr, const void *saddr,
+-				     unsigned int len)
+-{
+-	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
+-	struct net_device *real_dev = vlan->real_dev;
+-
+-	if (saddr == NULL)
+-		saddr = dev->dev_addr;
+-
+-	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
+-}
+-
+-static const struct header_ops vlan_passthru_header_ops = {
+-	.create	 = vlan_passthru_hard_header,
+-	.parse	 = eth_header_parse,
+-	.parse_protocol = vlan_parse_protocol,
+-};
+-
+ static const struct device_type vlan_type = {
+ 	.name	= "vlan",
+ };
+@@ -572,14 +552,10 @@ static int vlan_dev_init(struct net_device *dev)
+ 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
+ #endif
+ 
+-	dev->needed_headroom = real_dev->needed_headroom;
+-	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
+-		dev->header_ops      = &vlan_passthru_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len;
+-	} else {
+-		dev->header_ops      = &vlan_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
+-	}
++	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
++	dev->needed_tailroom = real_dev->needed_tailroom;
++	dev->header_ops      = &vlan_header_ops;
++	dev->hard_header_len = real_dev->hard_header_len;
+ 
+ 	dev->netdev_ops = &vlan_netdev_ops;
+ 
 -- 
 2.53.0
 
