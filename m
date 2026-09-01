@@ -1,157 +1,177 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013008.outbound.protection.outlook.com [40.93.196.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9A2A3624C5
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:57:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263854; cv=none; b=STVsfR/tp50oSRctGpZGYZvSRT4pscjDdEbZjWX+goYbTj6h3KwBgpwrUD//YRNcqijtP1AnamdhUngN9Pr0NtRrVVSuKalwnkvXQgiQcddvI0az83SReA+aLEJCMjv6t3z/7YfCiMSvPWZO98HjGb4Eyd5JbIdqp5QJNLu/ZYc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263854; c=relaxed/simple;
-	bh=fYX0YsAcdzC3xGEnENhr8nj3ott/n5K1kE753y4IEY4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sUHFJn+zn7F3R01N7Y5pQF2W2qEjMoR3A9MLjck81u/0EbvNTes7Ef+rbfOxHACeC4Q1aGK8fK+7fzgklOPWG6HKrUkOvWTNNbhH/RgDT6uI2OT91hvNmwuUuJ63+E54eRuZxzIFskKP/mDlXAYavo2LPg5PsozI78fk8IWhork=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=ZZobjISj; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C67A39446B;
+	Tue,  1 Sep 2026 11:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263995; cv=fail; b=bcoGCOyaA2VC5M/Qkonc2jWOp4LDlc+JL1reiMmbkzm6syqyruC7jO08shOFIvsxycfYUvkoer3yzqnQCUkzaKaIbKQmMQSWbXFRltS4DOsdl7vkdcb55E5sq1k7L5ElajGt661ntw39ntAZGA608Rj9dNEygHV3A1kDdGqiE1E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263995; c=relaxed/simple;
+	bh=IB68msNX7LPSPD6joEjNOZYBoEaivEx0aZ8LnTWBFxg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZLABbhkMvC9XJoc4Ru3gUPEZAnl1k/nj/LIbRFivRJ7eJjOPB5CVEEAznc387wjq0eLxvI5YR+Y2s76QQPyAHj+QL0/wbHJwUbczafevb9+y2FN1CEs1dVUcVknN2oJLpz/wYQKz6fdWJOzK6D3ONr7tZEDPYUmgbstZnkxNaio=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sVNvzWir; arc=fail smtp.client-ip=40.93.196.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="ZZobjISj"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d9db539a54so320875ad.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 04:57:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788263852; x=1788868652; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vhTA2r8ETchpWXwEm0IQgD6dzKUlsK2Lh7nqwYCs0is=;
-        b=ZZobjISjfj2FXJOdLSNPxxP+qsEfbeuJs9jBORYUd8TArWG0YcQQX/iCoDufCvU8Ey
-         9vtA68YxO9j1Ijil2ZPAaKYq6ra1+UEHEk+pvPr9Aw28xFdl1x3AK7ATw8aAXXlUUeDP
-         aEcXKAkMR32QohYN5//ShcumNTOsC3+hK5qEFSqmaeYnxPi7aqcNxdELRIaCSXFEZphr
-         pX7Pa6Q15rKIRGrRi7hZKqo66j6K11EfCnJfnDqUB/mLlxMjbxSw2Xgu9oWge12flbNQ
-         /enWngI+0t0NM37dHKVK88ypRD8aV1v3pcwAih9XGvbCdkBcIR1JZ0ABt8PR9cPvS+gl
-         08DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788263852; x=1788868652;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=vhTA2r8ETchpWXwEm0IQgD6dzKUlsK2Lh7nqwYCs0is=;
-        b=c9327yguzQOGyH7u66FsOlWhwuFeHHNXHw4V2QpLgiL9Zt+YZk9azBSHMY/AfLGofi
-         S+CzM1uGvVPQnAO4GOsjWVQXbkT//yHOuEAaawACVfb2vp/DkYV3ojxs4eZDR+KLkn5P
-         LBF1W6e9QYB+3oEt19ZCzRMsDRAoFplMhchsyfb0eyx2lpj/j0msn3/R00RRbcHtL+8l
-         kKuh7LYrFz7mUMSGl6CKHRYoZ+Bj4QnuEl0p60oQCNGG4i5v4Wqiyms0xpNbAVYOiupE
-         bAUGD3OrNUVJ7Kc/vrYjPVBaR8OSal8rPFgIpjPixlCa9xomZtQgqKAggzH6UcBrLrN6
-         v3QA==
-X-Forwarded-Encrypted: i=1; AHgh+RrikONW7FzAkGIU38KLyhcDpxITovEe27Gtnbt3KTG5aI43VvYbmLX/SBrsHQzlZridztwNOBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nz0As1+VCDyNg2Ug8uwzJ0r1n0O4DKSF3gH8Y7VsjhscqODUvn
-	+SJHYmUk2wAOYje2LjMV0rWLfEPvf70dgh2BgybxO8wYTVymR/fdTTDP97b3piXw3QE=
-X-Gm-Gg: AR+sD11jvdfXBUbYfJynkfL15ZOT5FH1kEo5SbXf/eusPrH0I1gM73PG0mcsRMrgHRL
-	wmv7WkSD0VtIxbbm/lquqGpbY9/d/89XpojBBldvNOnkZkck9X3jTKdLMHIlA8iA2IbRmCLVQL7
-	/a2ZSRM94DMVJQJS2TEDFAhMeIzJ3AmIUihO1GLwHWdn/ItBJN2WKf9y7MvnsRXSSICDwPUNYGg
-	+TIBl9liKdPSVc3VZP6LGolYrNxOECkkAtUaWbJeIuWUp+3JkpWRiPW3GTYWMVtLuskg4PVnH0v
-	hi/WMXMWgC+06/Psn24JaS3Ayu60nqfhmGxAHLodv4fKfDhkbnwLN+WwaiCeocYt5qHRw+yJdH7
-	pZqNNiGChNFjih0lcokybC4zSE7cgJ7aKdC3zWp1ORd7+wsqMjpbx8H78LauNZ3p+7K82UMePoq
-	Ir4UbvMhJ+BBsqZolyYQIFyc3Y5hWcZ9OHcxJPVi5bzw==
-X-Received: by 2002:a17:903:350c:b0:2d8:d4d3:da4d with SMTP id d9443c01a7336-2d94a90e6e6mr107425595ad.17.1788263851931;
-        Tue, 01 Sep 2026 04:57:31 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4b::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d911a9651csm34613995ad.21.2026.09.01.04.57.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:57:31 -0700 (PDT)
-Date: Tue, 1 Sep 2026 04:57:30 -0700
-From: Joe Damato <joe@dama.to>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-Message-ID: <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sVNvzWir"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YhwZngsqGRAGDmybMznjoBPXYVfMjI0e45DskN2vMhOhQ3WKv36h4cwVW46PNG8lw5lndE8kjcRn72Tuxgvu1ujtqVHcJhCKgKZiEoqhihWlqu60Am0dVRiLXv7pp8mEpSYzyjac5HdCP2i470SYhVSoQ1NxiP4QkVVKIgc8Vsp+6XvodhR7X5QEmvokC3l/UctpBfsmKWcTvJKOU4QSK/SDmKIuxaf6m0zwfHdaherQlSqdZkVdvSNpawFrjEjbQELZBp5rP7nOI12C5U0OuZe0rf/U4OGyeBXpgwyEFcMwqaMcsY3RoGwUwlqMI+dGdtAoyYj2wFuXw7PAqs7wOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7mdk955cuj59ek9QBetSLOBDZ89QyoIuFaxuEcMq0V4=;
+ b=uqQB53vAWwrrS91fUxVAi0brOyf+M+2WDeZFl7P4GLNxiunIYNG2j/ny1UCp0UQndqQP2M4fqzZ4U6BPQpth2cOGidWyCTnxiwa8h1Y37IeqAvTD/Ho6VjswAQxSJ3GlHhrUk6qUbf2gaO3AQTpaB4OtEfVnUiIbPtPtvJSeHgubjPs/5Xl/LrQ9tv0sy2OQPBlgwoCuPhtsrTXo6GjXRmo7bQm/xEIaf5MahLs/WkiucPaYf7Pk+i7LrUyheithrJSqTqHQkqCH21FS/II3xKWiv/nHsAlsfahSZHUBKlEMm3UYfDEs8RFi8iRByGOGWR/Q2v8BmjqOkLV4zKVn0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=alien8.de smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7mdk955cuj59ek9QBetSLOBDZ89QyoIuFaxuEcMq0V4=;
+ b=sVNvzWirsMWpHM0FBh9zyvK0TJDz3X6rIxHJ2G7BBH9JNB5x7R+95+ET3s2Esc1mqP4Eyx/Aw808ZenRlQPOdvWSqI/0L9JruAz+eEfqUKu/6Umjmkxv+2iDdrx63J1tTZn27zZR81QUzEnmbfsN7Xmhs5g2V+YisstF8CmjHLw=
+Received: from SJ0PR03CA0341.namprd03.prod.outlook.com (2603:10b6:a03:39c::16)
+ by SJ1PR12MB6076.namprd12.prod.outlook.com (2603:10b6:a03:45d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 11:59:49 +0000
+Received: from SJ5PEPF000001D6.namprd05.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::4b) by SJ0PR03CA0341.outlook.office365.com
+ (2603:10b6:a03:39c::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
+ Sep 2026 11:59:49 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D6.mail.protection.outlook.com (10.167.242.58) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 11:59:48 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 06:59:47 -0500
+Received: from [192.168.19.2] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Tue, 1 Sep 2026 06:59:46 -0500
+Message-ID: <05dce607-fb34-4962-be0c-9316ee8f4be3@amd.com>
+Date: Tue, 1 Sep 2026 07:59:45 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] x86/amd_node: Remove smn_exclusive
+To: Borislav Petkov <bp@alien8.de>
+CC: Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin"
+	<hpa@zytor.com>, Ingo Molnar <mingo@redhat.com>, Mario Limonciello
+	<mario.limonciello@amd.com>, Thomas Gleixner <tglx@kernel.org>,
+	<x86@kernel.org>, Yazen Ghannam <yazen.ghannam@amd.com>,
+	<linux-kernel@vger.kernel.org>, Penny Zheng <penny.zheng@amd.com>,
+	<stable@vger.kernel.org>, "Mario Limonciello (AMD)" <superm1@kernel.org>
+References: <20260825214805.39148-1-jason.andryuk@amd.com>
+ <20260825214805.39148-3-jason.andryuk@amd.com>
+ <20260831023016.GEapTnOHTbN8XZGe2j@fat_crate.local>
+ <13e77e26-7b4e-452f-bc61-a84acadf37f0@amd.com>
+ <20260901002705.GFapYb2c6fPJYqokRi@fat_crate.local>
+Content-Language: en-US
+From: Jason Andryuk <jason.andryuk@amd.com>
+In-Reply-To: <20260901002705.GFapYb2c6fPJYqokRi@fat_crate.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D6:EE_|SJ1PR12MB6076:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e9dd6b3-3509-42d3-efd3-08df082085c7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|36860700016|1800799024|376014|13003099007|10067099003|6133799003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	2vsqQuBW9rIeIx15tYfGEyTyNSCmqrKm+ZDVFLU3qss4y9zsslQIahVkOrxv17HbN0orQunn2Cq7EeIPTgpWYzlV7sHJkEYxgqtR1gGqeyUo6YnF3VnvNhuIzzpEt2oEJSUEev7kjgFBl4IEWTPsb+fCthZLq+fNg7nFDIT7o1z0pmuWMveMxgm96VNGvVBCeQ32zwxGHAQgAspbQVvMMV5cVF/pE4/GPiiMh49DmdZZ9RcRIEgCnVlVOv1yNxeOirTGmCvHhSL+2SA2JTBVa8m30UYEI+JuxA7/sFHd/ncGQQ3nYDCia9YOMEeG5cCpHI7PazuNX8IGvoLGlMFOFi2Etc+GpgMg03c0Qt9SpypXWLZvu0nTIBJC3GZz5OGITwFpwxZEAjAvqWqZXW+MUuyhnwbL7bPcyWBXxH4ILT4sPg5tVzk5MkWrDITqbOgO2nb9GD1gjyn9FQGaDrXTkwQghboF5DcvqBaMq9ddo0eACxAaZrRDbxfjt25UPqvc4YjXodmVG0FbMo0D9SkN5uKWBEUQdWaOUVQSYppUyz+c465G3ktid9xjXBCM9CEFi7RlRop4P7toxFouVefqwE7izJMePFJquWMlaLFLvIcC8VT00PCjyDRnDbahj46j8t0200E2XUU5poq8+9gpqSDPpk9knxg5SazQmefDhdo=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(36860700016)(1800799024)(376014)(13003099007)(10067099003)(6133799003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	30gks7Ewlynm2LZUgg+50KhNi5QrHqoJS8UBocEs234TD62gpwevfG5TV+os07WCwSA3r9MJQoqieXdVpFqBiwxQOwcfytMvywLNEsgzxdeeNwW9jcII+WRawUzmqRrAeFGQHhiy5g99zSSh6/WBzucyv61o3bAerjAxiTb4HY3HpvvM4lMXCbTFfL5QEHNkIP4cBNBxTjOG2D/FsaVfIdNHGsZzTYoXdJIMKBS2d9pGmN32Tw9uYw8Dfi80VL55Vvk95FmqxjvH8wdWMxKbfjh7peHxlL6+QWcW0P5aDaOLEoyKAeF+wAPea9bmuJJgxJ2gPf3dwQz17DkYPtXFuSug5XiV7hs1z6K+wb0FjOrDKu0ymBLP28gWvbTkdxIU1urXeKygghCQm2q55YHPiHAaPIX35FP0m9BC/PszalyEpbsOhDv7CcdXniTwMxY8
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:59:48.5070
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e9dd6b3-3509-42d3-efd3-08df082085c7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001D6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6076
 
-On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
-> On 8/28/26 9:08 PM, Joe Damato wrote:
-
-[...]
-
-> > ---
-> > v4:
-> >   - Moved bp->max_tpa_roundup_size init out of the early return path and
-> >     documented that TPA is unsupported there, as suggested by Michael.
+On 2026-08-31 20:27, Borislav Petkov wrote:
+> On Mon, Aug 31, 2026 at 01:52:08PM -0400, Jason Andryuk wrote:
+>> No, the code and the comment are both correct as posted.  It's just that I
+>> wrote the comment reversed from the code to state the positive property we
+>> want.
 > 
-> Clashiko quite convincingly elaborates that the above is not enough:
+> So if amd_smn_init() succeeds, that means we have registered the PCI config
+> regions of the PCI roots, including the SMN ones, as IORESOURCE_EXCLUSIVE and
+> they won't be exported to userspace through /dev/mem and what not.
 > 
-> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+> So, any caller of __amd_smn_rw() should fail because it is coming from kernel
+> space and it can expect that userspace could interfere with the hw and thus
+> not a good idea.
 > 
-> Could you please have a look?
+> So yes, this is what got me confused and the (!amd_roots) check is correct.
+> 
+>> I'll change this whichever way you want.  It's not a big deal, which is why
+>> I added the comment like you requested originally.
+> 
+> I think I already "intercepted" your suggestion, see here:
+> 
+>  From 1a1c4addc5a14e9ef2bb7d351a62ff4563d0f10a Mon Sep 17 00:00:00 2001
+> From: Jason Andryuk <jason.andryuk@amd.com>
+> Date: Tue, 25 Aug 2026 17:48:03 -0400
+> Subject: [PATCH] x86/amd_node: Prevent potential NULL pointer dereference
+> 
+> amd_smn_read/write() are exported functions around __amd_smn_rw(), so
+> they are always available even if amd_smn_init() fails. In that case,
+> amd_roots is NULL and __amd_smn_rw() will access uninitialized memory.
+> 
+> Then, commit
+> 
+>    83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
+> 
+> added smn_exclusive which indicated the calls to
+> pci_request_config_region_exclusive() succeeded to prevent concurrent
+> userspace access.
+> 
+> Commit
+> 
+>    0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+> 
+> re-ordered initialization so pci_request_config_region_exclusive() is called
+> earlier and a failure exits amd_smn_init() before allocating amd_roots.
+> Setting smn_exclusive moved to the end of amd_smn_init(), after amd_roots is
+> allocated. It became redundant and can be removed.
+> 
+> Replace smn_exclusive with directly checking amd_roots to avoid a potential
+> NULL pointer dereference.
+> 
+>    [ bp: Reorg commit message, touchup comment. ]
+> 
+> Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
+> Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+> Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> Cc: stable@vger.kernel.org
+> Link: https://patch.msgid.link/20260825214805.39148-3-jason.andryuk@amd.com
+Looks good to me.
 
-I looked. There are 4 separate things Clashiko reports, so in order from top
-to bottom:
-
-1.) "This isn't a bug introduced by this patch, but the line right below the last
-context line here still uses the raw firmware ID as a table index: ..."
-
-This seems impossible. If FW emits an ID > 1024 that's a firmware bug and if
-we wanted to guard against that possiblity that would be a separate patch and
-a different Fixes.
-
-2.) "This isn't a bug introduced by this patch, but the loop count here changes
-from bp->max_tpa to bp->max_tpa_roundup_size,  ...."
-
-I mentioned previously in my v3 that this is real, but is pre-existing and is
-a different Fixes unrelated to this change.
-
-3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
-device whose firmware reports max_aggs_supported == 0, does
-bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
-
-Michael commented in the v3 that this is a false positive, hence why I changed
-the code from what it was in the v3 to this.
-
-4.) "This isn't a bug introduced by this patch, but the loop bound grows here
-(for example 64 instead of 48 when max_tpa is not a power of two), so there
-are more mandatory allocations that can fail, and the failure is not
-propagated by two callers...."
-
-I mentioned previously in the v3 that this is real, but this is pre-existing
-and unrelated to this change. Fixing this would be a separate patch with a
-different Fixes.
-
-Michael: please feel free to confirm (or let me know if I'm wrong here), but I
-think this patch can be merged.
+Thanks,
+Jason
