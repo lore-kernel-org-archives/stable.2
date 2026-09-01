@@ -1,121 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 582B92F5321;
-	Tue,  1 Sep 2026 13:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3464D33939D;
+	Tue,  1 Sep 2026 13:47:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270407; cv=none; b=MH95Crmj2+xzN+KUIxvAuTkvToyrzmBbLRdVj8Md5hpL5YUslOBHfkPj30Rj/2WwdHm029AvFrNQSNoCWsPFEAmV97hwxRacJ/ZpuFMeR1mp+99MfAOPVmt07X5U74TUMtOz4tD3xTr7npHW+XUJvfddAYQASTpbWLKHa8+JFBY=
+	t=1788270469; cv=none; b=sdL3T4GWs/O/VU9p4ZPkNxfAuAeMukckMYun7+4QdI4R8msZnkNtsGxoEDfJh3hCjn8ABMTQVWDds/LDQ6RaFOK+JEzm1UlklEmHTzY84i+JdvegAvdkv4BRdnfhQDtWpdyEvFXLaA6jsXXWwH6J2Nj38wu0a8ZPHtaWbPbNPdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270407; c=relaxed/simple;
-	bh=5d4YQv+lAFol+gqNdCkiJZdJCDan0fcWQ0cona6qxt0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O2WqSl+jW9jDx+SpDqBmHu2ZAy0ce5bXij2FCgWVZb/QSVJDM1rFMhIUw+gm8H4ruT0gGnCwGd7ZzlzRwHA3oKwtEId1ErOdrGrdKDni9L+/QXh8+4J+fjpBtQ00H5dUzLG6rP5iKIgC341otpgmNj8ujdnMvofhXW/RYiAfYRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g+wTpUce; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788270469; c=relaxed/simple;
+	bh=8NufWEKCYTBSQ9ZAdZ8bxrVe2MhI5ri5JSbDyio0XWk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OhuI7bYZOG0egzJ2WXeClUBR6dwOFQyCxFacOqFKj0QsjYdG1WLQYE20tX2ol6ukYKGmR5ahzf45zMvJYMVttw30R2xh8zmvD77tv8ReUH64MPKxNIm3hNs5vKRtO5CMmWQ2efSAnXv0tzl6L4WfchwrJES4nfWwzPVlyzbmPrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OQ4XHcNs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g+wTpUce"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788270405; x=1819806405;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=5d4YQv+lAFol+gqNdCkiJZdJCDan0fcWQ0cona6qxt0=;
-  b=g+wTpUceW9lfBQHgp2NJOgY1LZXrga8hCcMbDC8tnalA5Jx6pIFEve08
-   UGzFDG0JqJjXDNwGKLDIrDabs4eejYBybpqO5X9pc/AkhN+uq2Ql8zZ/O
-   lZw7BGDB8DTgbDREBX+wBhmQsZLFLlSEoVPzKF79tooqdVZVLJk8Ai6tG
-   eDF2LCnJx8JVBPImSZPqK6W0mz4Pt3fmXs7ErEOIBEe/b264nuWRUgApq
-   +A5dPS6qctv81wSDf7r706zrFOW6HMurzqevyqWMMQlQKGgFh727zPgpu
-   fhmVkXugU5uwSaoYEzHRahiorBid3KnK3wmA0QCy+UHYzgsQ1JiaxIQco
-   A==;
-X-CSE-ConnectionGUID: rhg4YfC3Rf6vZBQrM850Ig==
-X-CSE-MsgGUID: XRVyNH8kS0SjYEr4eT7ruw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="100053344"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="100053344"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:46:44 -0700
-X-CSE-ConnectionGUID: DHTxywb1SdeDGl9V+247cg==
-X-CSE-MsgGUID: GcwyI7o3T/aP2CUhmVfD7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="271039500"
-Received: from dnelso2-mobl.amr.corp.intel.com (HELO [10.125.110.37]) ([10.125.110.37])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:46:44 -0700
-Message-ID: <c44be9cc-7157-4c0c-b98f-61e432c85629@intel.com>
-Date: Tue, 1 Sep 2026 06:46:43 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OQ4XHcNs"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 3D96A1F000E9;
+	Tue,  1 Sep 2026 13:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788270467;
+	bh=IbOOibRuzy5r/5hzD8OOpyB0kg/Phkd6z7W0gt00SUQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OQ4XHcNstsu0WL8iVTClgZyYudvrx1S9Wr6nJODnf55JQ23xgYfZMPM5zh8EK/P2m
+	 HdPjn2kqh/Gg+ldW4AcWqu1O194qIWUno6JHSJTgI3ojbumV3dNDNDPKWHv7RQLOYI
+	 /gxuISwqSyaLm0F7M08d0QWlbfIUFvfebiA/BSPuXxqnp5gr3+D6t8asXKYS/jHKL9
+	 9Gn29/zx2Kspn6mr2EA+Ut2Sk57fzGT+wEhL6BjTGznPWclYHkSQTiXPIc59tmH4fy
+	 mSvgi4zCrGJhWvuQeIwmNNggLAT1xYTNfp5uKNainbUlb/GAaTQxumG4i/R14tRgyj
+	 K/UFBaBWMQCFQ==
+Date: Tue, 1 Sep 2026 16:47:44 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: peterhuewe@gmx.de, jgg@ziepe.ca, ross.philipson@oracle.com,
+	stefanb@linux.ibm.com, linux-integrity@vger.kernel.org,
+	linux-kernel@vger.kernel.org, 13667453960@163.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: Fix heap buffer overflow in tpm_transmit_cmd()
+Message-ID: <apbXgGwsxAualfEK@kernel.org>
+References: <20260901062850.379870-1-yijiangshan@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm read lock on
- attribute change to avoid UAF
-To: Jiri Slaby <jirislaby@kernel.org>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org
-References: <20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org>
- <178821524648.3717435.13938325908577682845.tip-bot2@tip-bot2>
- <ea12e0a4-36b3-4c71-8930-72fc4eaf369f@kernel.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <ea12e0a4-36b3-4c71-8930-72fc4eaf369f@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901062850.379870-1-yijiangshan@kylinos.cn>
 
-On 8/31/26 23:05, Jiri Slaby wrote:
-> Ah, this belongs to the "Acquire init_mm *write* lock" counterpart. Not
-> sure how you managed to split/combine these two 😎.
+On Tue, Sep 01, 2026 at 02:28:50PM +0800, Jiangshan Yi wrote:
+> struct tpm_buf now uses an embedded flexible array for data, which is
+> 6 bytes shorter than TPM_BUFSIZE due to the struct header. But
+> tpm_transmit_cmd() still passes PAGE_SIZE to tpm_transmit(), and after
+> clamping to TPM_BUFSIZE in tpm_try_transmit(), chip->ops->recv() can
+> write past the end of data[] by 6 bytes.
+> 
+> Pass buf->capacity to tpm_transmit() instead.
+> 
+> Fixes: 3d9e043dab0a ("tpm-buf: Memory-safe allocations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+> ---
+>  drivers/char/tpm/tpm-interface.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
+> index f745a098908b..1ccdbde98b69 100644
+> --- a/drivers/char/tpm/tpm-interface.c
+> +++ b/drivers/char/tpm/tpm-interface.c
+> @@ -268,7 +268,7 @@ ssize_t tpm_transmit_cmd(struct tpm_chip *chip, struct tpm_buf *buf,
+>  	int err;
+>  	ssize_t len;
+>  
+> -	len = tpm_transmit(chip, buf->data, PAGE_SIZE);
+> +	len = tpm_transmit(chip, buf->data, buf->capacity);
+>  	if (len <  0)
+>  		return len;
+>  
+> -- 
+> 2.25.1
+> 
 
-Hurrying at the end of the day and being a bonehead will do it.
-I'm going to back them out from x86/urgent and take a fresh go at it
-today, post-coffee.
+Thank you good catch!
+
+I'll apply this and put to rc2 PR. 
+
+BR, Jarkko
+
