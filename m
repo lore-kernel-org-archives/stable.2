@@ -1,134 +1,137 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7B147CC85
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 20:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294991; cv=pass; b=TfrBhmu1F2TCWJPcb3hXvE2HB3Vt+oWNMRktHxjr7pXpuhuAhCsdHzAIhFluQ28ToJ8HLYs7LxX1HBPu9L8etnQnwce2qBYhAXYMbouYrAg+YX61Ae17/Vg2Z07bfMYpRo8CCGdGdXXs0gl0Hpaug7p682Qi7JzoOLXHOLTVT9M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294991; c=relaxed/simple;
-	bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jyXsc9JV5v1nFTA08Sgv6JATxaDypSmbWtL2SSXP3I4qJJ/ExPd5XdKNTs04ra13OoeO2ZZIe6+EHdQbeYkAv1grXLuW5z193Z8G8gV2HRdKzfbOP6oEHZt4XsbEr4at1oDSmHgzU1PaSZwDVpgop7GyJx+IBVDa0LHEEpLL9Lo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LcgLPumx; arc=pass smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8941C4252AB
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 20:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788295223; cv=none; b=iYJAhy7A017aq3+gdZDONq+NUVF5tE2VVfEjczWFuon/OL0MWsPt4hclDMGoQLdsobFjGgNtVUFkOhghHxENy5QomSyUUkFFzdY4EKfaj5Wg67V1Fm7dZAjdZjazKt82VCIZgprCEl7mdu0H5sxUkeIQc87LGuOXkqaeR3qkZ3w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788295223; c=relaxed/simple;
+	bh=+LknmKi2MteZ4SFHO3+of3GuUQXzfZnZw2lc6Q7P52E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dKUhVxQ9DdY5ANLU+Gz84ktg7STNAVPbjJrFj5Es+FefQo6C+ZAPjGf5wGYIGKyBclv5l8wTvKAPWjVp5aVcHxZPBMHrvNxhqqSeGQgO5DnxD1f/Fh9dv43e9BAyLTYlt4RLUfovkRRHIfNGdmCwPavsfmIbPfPbk4dvLRxZiZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZFBYw2pt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LcgLPumx"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48436251906so386936f8f.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 13:36:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788294988; cv=none;
-        d=google.com; s=arc-20260327;
-        b=COYI+DaVifbXm4IeIVmApIJQW//vL7qPuDZm99Qnh0TgPuoZ8KMZ91C79rUPwApKlJ
-         Fl8Ci9fzx3jRG/mPyHDOsozWSosiIqbRlJDUgi1HfMxegp+vAmaR8lesLA4vx9iM8JRS
-         kQEkf+lWMQIfrnBNW06txrIlkkl+k7p3CJIFsy9occhNAsUwRmbyt6BpQ6uRTi++EW17
-         9Wr7YvS6lcvyoix3lCrT3CI981gJZQJOPW02urRMpRigvsbDQRgk6b7yFAjfsXMwfg4e
-         5/p0pUPwtvAEqNe+/fETyY4xRrKrjg5i3S5NNEBj+oFcNah/oLOKQCus4nxB4rUe9ACA
-         kvow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
-        fh=1qIpUaN7GsuUN4u1lfmIdErUaPP69/IFJ0/3GTH2CQU=;
-        b=Hk6TvMJbkUw6dhfj/sHRiHED8EdEuyx7+CNmZYEuwwRNYf3XVUvww+UwT4Vd3YUVS7
-         IjMeumvLXOBOCCLkNTb7dALWk3UJruLqJE6JFnRLLWFkSFR8iPYgTReEqAQcFUgdlMFX
-         6TMI+qyrORFBYQUYiSea1mTVL13tOXARKaiizQQ6EVao8uej1SxxsdKn9J5JZLgPuav3
-         YveLkq50EVyhsRL9RKVuDMaVZ5HnAaSDx2ffCVhtsbKrmckfLL1o6NxmdKW+hkMYdcif
-         P8hgTthjGdZIr7YuG6ADvrDr8pY9r/f5/SIH9mgKMnYD6fIvGuA7tgY5nvMkXbeKZBwd
-         I/mQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788294988; x=1788899788; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
-        b=LcgLPumxXUCU3LWs4oRI2gkX95yDO9pKpGigrUnGgcxWrh/9hnc496ZzNZZmPdt+WA
-         BMwQgMBuN97GIWU1WAnp44Hl5Tcg9WrwBh5cSUcozA8/kko8FnJJ9e7EKlz9MWW0UAMB
-         CItw7E2GKzqhi3DE9MFfmxAOeHFR4yKI/6VX54hVg4dXwlCnW5TEMyS1z0w7uhgzyKye
-         RcbCG8oh0qhqiuBUXd7nO1+q9EKI5+qO8IhBeYIO0beidmNlpEUBnZ4ynrVBm8q3TYTe
-         WNILaGmBLjRxINRQ3cU5yZgVOJkx6d1To/TX0iz59cXw/oddxeU4oZhNtWRBVM/bLNKT
-         l71g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788294988; x=1788899788;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
-        b=nw9rOcKJee3c7zgxYJflwZJZkjPq8ayvoHbiSNgPghtrPvxghDozIc7bTEhA0ApV4P
-         dgVPGoLrsGSY6taF4QMU2+u1YMqzNOm3BFxoVHz3rcDS4dBlk8mSGEAOGKhIS2t03ajv
-         MKCJllNsaMndAqN/lNYdqsSAhFefwMeLW/KBExj2CwWNm8AucLuarVL+K7KOJJQmE9W5
-         e+zi0lqwTEfszFImROfuYT0Et+8N4nysPbBBW+cdtzTYKsoo0FuxAP8sVR02SVWCbbSU
-         HQNXNXB7on7pBX2eVCToPPt/0iQKNGNYJRlp4VtVmPvLgk2I77u3U7jhnTaqiYkAhWzM
-         E7hA==
-X-Forwarded-Encrypted: i=1; AKwUvBxvjhAOCO9bsW0yjl1ivrF5m1TBJ1OBjzgaE1Z57M6u19s73K3W8JQY+LtHIwl38yO+pex6lwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmeuG8jWOYBRiS+Fv3SU8vVuPpz0V1iVhsTwLZ7srt8QmBGe2P
-	wheMBM4GdcQH7dlPhmwJGE1E7IFCiom1E7Sk5BGilf2vqamQ+ePKwwwBablSVkuRPLqXrMXZIw1
-	1EJn0HCFo3u6OdY5QcwDFhsMUX9r7sPeE1USRFXI9
-X-Gm-Gg: AYBFou0d0XaUTqE/jCGtHM0AT67FYDXIRsIpV8lp8WG5UPcLQ9m5/acE5OnpzFQS5PX
-	Sktzmr8WHmssG5ACWXNx1KHTy8l89f1nVAOUVW9WHuLG66ii2zx5T5KuDRjObbBLPQJ0pndAxoM
-	8+U0XACot/EH92hBZu1hXbOJ6dGl0L9y1CpipinVgoiu5ii6w194irkAc0zftyx8sRoUB0wzdeT
-	yzog1Bw7v6YV8UuzBqoSh3xiXyStVie0uWsHlgHkCLh3MlT6x5DY5Gu/H3SX50pnI4fh8u0VopJ
-	gVFcnhvWkuRgXcNtUCi1iKSkE3Iyry9NXJ0ereJ2WUaVBE1VX9fWioPRUQAweU7OywXZhhkTsRY
-	mQC67tf5NGM/RGg9KB6Amm7K5iohNZXV7kdDkPPT+iza2LdUIAiXQDNM=
-X-Received: by 2002:a05:6000:4910:b0:482:f61c:7cdd with SMTP id
- ffacd0b85a97d-48488df9e0dmr42483f8f.4.1788294987371; Tue, 01 Sep 2026
- 13:36:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZFBYw2pt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E7F1F000E9;
+	Tue,  1 Sep 2026 20:40:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788295221;
+	bh=CFT201BrQ7tYN3ebn8SWYmUaJUFeFzNqTQP7jSLHxB8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZFBYw2ptieNCt13qjK337bGz916pgfvJIJhg5Hlbz/KjVbihWXRgOh25ZiXLlOo9n
+	 nu9IpDPY4v+YliQ1E/+6X1xtBqJ/YpSVnC1MSSCWLxIlT4A8XsE8qnNDO1ii+T/AVe
+	 lXtFQCcLFbKNNdFpAAJ7AG5gtC17WTVhfVBMI9AxjzOI11WcPNyZGhiyQQIzhsD1YQ
+	 u80DN8kg4YIBUDHSGoalzXocLNs/oixaGzmsPgIgTSbY4vSrxc4CAe0x/ckAL4mb0S
+	 g6SLMikU8CmCxpmONE7+8rijsd9fDuAMrWGhVwUqS+9XH9mSb2bjI66XQD6xx6AA2T
+	 LP8BqbcvsqWwg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] ALSA: usb-audio: Carve out connector value checking into a helper
+Date: Tue,  1 Sep 2026 16:40:14 -0400
+Message-ID: <20260901204018.1548593-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083119-straddle-squeegee-5817@gregkh>
+References: <2026083119-straddle-squeegee-5817@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260718111340.159896-1-linux@yoavmoshe.com> <20260827194508.446733-1-linux@yoavmoshe.com>
- <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
- <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
- <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
- <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
- <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com> <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
-In-Reply-To: <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Tue, 1 Sep 2026 13:36:15 -0700
-X-Gm-Features: AcwNN1XLVY2qNNwpmvPqR9vii35HawK0FLdCW7a8C92cPutToPYaUpHoOUGoDJI
-Message-ID: <CAKwvOd=OLLO5AXiR54o0nU16e_pTDt_yiEPQ0GgnX8DRGJXYmw@mail.gmail.com>
-Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
-To: Sami Tolvanen <samitolvanen@google.com>, "Yo'av Moshe" <linux@yoavmoshe.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 1, 2026 at 12:46=E2=80=AFPM Sami Tolvanen <samitolvanen@google.=
-com> wrote:
->
-> On Sun, Aug 30, 2026 at 9:24=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com>=
- wrote:
-> >
-> > The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
-> > omap1 might suffer from the same bug: their suspend routines are also
-> > fncpy()'d into SRAM without a type hash and called indirectly. They're
-> > all ARM, so asm/linkage.h still seems like the right place for the
-> > macro.
-> >
-> > Do you think these need to be fixed as part of this patch, or as
-> > follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm no=
-t
-> > sure how to test the fixes for the others.
->
-> I think separate patches for the others should be fine.
+From: Kai-Heng Feng <kai.heng.feng@canonical.com>
 
-Without devices in hand to test on, I'd be hesitant to claim 100%
-confidence. Maybe reach out to the MAINTAINERS of those, and see if
-they have cycles to help test potential patches, before
-writing/sending patches that potentially don't get tested?
+[ Upstream commit 69644fca2716699cc6896aff51d37b1e886c94d2 ]
 
---=20
-Thanks,
-~Nick Desaulniers
+This is preparation for next patch, no functional change intended.
+
+Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+Link: https://lore.kernel.org/r/20210325165918.22593-1-kai.heng.feng@canonical.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 1739a976312e ("ALSA: usb-audio: Complete cleanup after system-resume errors")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/mixer.c | 34 +++++++++++++++++++++++++---------
+ 1 file changed, 25 insertions(+), 9 deletions(-)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index 7f64199139d31..f1a20c196d849 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1454,13 +1454,11 @@ static int mixer_ctl_master_bool_get(struct snd_kcontrol *kcontrol,
+ 	return 0;
+ }
+ 
+-/* get the connectors status and report it as boolean type */
+-static int mixer_ctl_connector_get(struct snd_kcontrol *kcontrol,
+-				   struct snd_ctl_elem_value *ucontrol)
++static int get_connector_value(struct usb_mixer_elem_info *cval,
++			       char *name, int *val)
+ {
+-	struct usb_mixer_elem_info *cval = kcontrol->private_data;
+ 	struct snd_usb_audio *chip = cval->head.mixer->chip;
+-	int idx = 0, validx, ret, val;
++	int idx = 0, validx, ret;
+ 
+ 	validx = cval->control << 8 | 0;
+ 
+@@ -1475,21 +1473,24 @@ static int mixer_ctl_connector_get(struct snd_kcontrol *kcontrol,
+ 		ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), UAC2_CS_CUR,
+ 				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
+ 				      validx, idx, &uac2_conn, sizeof(uac2_conn));
+-		val = !!uac2_conn.bNrChannels;
++		if (val)
++			*val = !!uac2_conn.bNrChannels;
+ 	} else { /* UAC_VERSION_3 */
+ 		struct uac3_insertion_ctl_blk uac3_conn;
+ 
+ 		ret = snd_usb_ctl_msg(chip->dev, usb_rcvctrlpipe(chip->dev, 0), UAC2_CS_CUR,
+ 				      USB_RECIP_INTERFACE | USB_TYPE_CLASS | USB_DIR_IN,
+ 				      validx, idx, &uac3_conn, sizeof(uac3_conn));
+-		val = !!uac3_conn.bmConInserted;
++		if (val)
++			*val = !!uac3_conn.bmConInserted;
+ 	}
+ 
+ 	snd_usb_unlock_shutdown(chip);
+ 
+ 	if (ret < 0) {
+-		if (strstr(kcontrol->id.name, "Speaker")) {
+-			ucontrol->value.integer.value[0] = 1;
++		if (name && strstr(name, "Speaker")) {
++			if (val)
++				*val = 1;
+ 			return 0;
+ 		}
+ error:
+@@ -1499,6 +1500,21 @@ static int mixer_ctl_connector_get(struct snd_kcontrol *kcontrol,
+ 		return filter_error(cval, ret);
+ 	}
+ 
++	return ret;
++}
++
++/* get the connectors status and report it as boolean type */
++static int mixer_ctl_connector_get(struct snd_kcontrol *kcontrol,
++				   struct snd_ctl_elem_value *ucontrol)
++{
++	struct usb_mixer_elem_info *cval = kcontrol->private_data;
++	int ret, val;
++
++	ret = get_connector_value(cval, kcontrol->id.name, &val);
++
++	if (ret < 0)
++		return ret;
++
+ 	ucontrol->value.integer.value[0] = val;
+ 	return 0;
+ }
+-- 
+2.53.0
+
