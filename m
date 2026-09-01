@@ -1,105 +1,177 @@
-Received: from 1.mo560.mail-out.ovh.net (1.mo560.mail-out.ovh.net [46.105.63.121])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB4B3BD642
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 08:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.63.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F724562BF
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 08:14:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250343; cv=none; b=fXffdufME/6zt5FKLHzxYtnJkI0lxa+dnZZV0/Uuzb3ON0y8CZ+Hcl7eln3dLCaZq98l8dE+5HQMWQzKuo9JO/fx7Fa7htWMS4fp7t21pYLjo+b0uQavDVJPu0nWA0KiAeC+INoU+PQTQZrAxSplY3mWHq3pUCKG8Yn7S2UHoZ8=
+	t=1788250489; cv=none; b=qLaXtDvnvpmopC4J+A8hl0QzU4voFmOvPZnaQJoB2nhaI5twznomsn7uONLDMPP7F89BHSEsiFBI7I/GdZUjpxohOreXVGl1dvtnRM6RYPXdtFe+uFcO3ZQDjkLsrif5MexUFGMJvw2H8VG/XyARPi3i0auwfoBHo5r1fcFgaSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250343; c=relaxed/simple;
-	bh=4CeqSY2daCzZGDUhTeQYopWIF0FYm4SjwGcx/hkVnwY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=luHEhYv91AcxzsotNhwbouTx8iTxt1dntdHA2SnInYlFxU1rinrzavuLL3k5+O3VEuZFQGpjl5EfOfHab+2MqyBOW9vspQUT1izD3fROt2GG9EnVNi5nSByDVcU039GuZtGt9ySs/RE39Sdf+dl9TqxkIVoTDRiKNee6WDlmouI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr; spf=pass smtp.mailfrom=quelquesmots.fr; dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b=YO+VOiUT; arc=none smtp.client-ip=46.105.63.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quelquesmots.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quelquesmots.fr
+	s=arc-20240116; t=1788250489; c=relaxed/simple;
+	bh=hbydSP65WtHqP4eOKMyby1FqEmByMIfk6XKz9NEIeXM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rwYYJ0C8I1HOks7puD4myqNWZeubx51w3jy0yfs3TBXT4Pa7LYHf2VhI7/CZD2h0EF6u82I0GhnmV7j8N3mk5bs0ErEOkYcRQ/7zdEPb+wsJIocg64a1xr7JIMUP4WEI8lO6X91bAjURL7sNDxDVmPoqVZQZVvWinzi6xnAcYgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AcRyselv; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=quelquesmots.fr header.i=@quelquesmots.fr header.b="YO+VOiUT"
-Received: from director5.ghost.mail-out.ovh.net (unknown [10.110.43.5])
-	by mo560.mail-out.ovh.net (Postfix) with ESMTP id 4hYz9Q0d8nzBKpL
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 08:12:09 +0000 (UTC)
-Received: from ghost-submission-c7b579475-ct55h (unknown [10.111.182.37])
-	by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id CD200100109;
-	Tue,  1 Sep 2026 08:12:07 +0000 (UTC)
-Received: from quelquesmots.fr ([37.59.142.113])
-	by ghost-submission-c7b579475-ct55h with ESMTPSA
-	id Vk3ZJNeIlmrHvBwAxQ/CHg
-	(envelope-from <l.wandrebeck@quelquesmots.fr>); Tue, 01 Sep 2026 08:12:07 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-113S007f7893c6a-f9e5-4c07-a8dd-8242f6b07fe3,
-                    D46D84C90CB7300EBABF53B96F8CBF09A62C48CE) smtp.auth=l.wandrebeck@quelquesmots.fr
-X-OVh-ClientIp:109.190.254.62
-Message-ID: <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
-Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
- F15h
-From: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Date: Tue, 01 Sep 2026 10:12:07 +0200
-In-Reply-To: <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
-References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
-	 <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
-	 <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
-	 <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
-	 <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AcRyselv"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso6318235e9.1
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 01:14:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788250486; x=1788855286; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wOcY9/1/vy5nZUTSXmW4rjU1UUb5AfBngzqbqLKER/E=;
+        b=AcRyselvsX0r49TWCz/lmmgoOm0YRgwBEb4VFl5wzf84mqG2krXRtsCrDlXzpnctca
+         0CBfZccsDF/+GiS/Z//ipWBL+SNHDL75Go7TR5Yha1GEfkXxXxOF3WtR4+/hHubu7vZP
+         wY+4i+9RleOW0V6YGcQEkF4VwGIwBEc2CfysQI0B1/6v6Oum7/+mqHDcoa6HcHh2RRFT
+         duNcaYAWem0Qwq54HTTD19N9UYQbNVroWE0JaSh5NCeFRx+ZbylZ4p9kbJArI1q3Nplz
+         MR4cjJorCIZyLHNKRYBPrLfUh4oGelWR44Jcsfcjn1z/y9wrLxwGx9mwK05BsFApCASP
+         0+kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788250486; x=1788855286;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wOcY9/1/vy5nZUTSXmW4rjU1UUb5AfBngzqbqLKER/E=;
+        b=Gl3c5X5fiV5kD/xNkVl/2v5cRRg5TO+JAxXdkam5d3INL6EetMDVN0apG9Kf6Me7HC
+         rpwfyb5E454pWVAcgb6dotu+aN9XmuoEAOqQjAnJ5mf2AnJkA2ybSghkG4IktRAO3jMX
+         CFT49itgQJ1bvKp4jrtnMTl4QQR6lHci27iTIGygTSGdaj0yMAzIKiBA9qg2UT4vNdvM
+         uI0ag0/ZBihzT0opR2gEqQyfqFtgf4myZDBfjjJvMTOY8uZvsH4+6OXaOc141jTmTvE/
+         E9+T4kLGsErlZydGNfDQEOhaDIMopc0jkaBSQfMenOTY9C57FCByR35mshG9UCl8Ev4m
+         5w2w==
+X-Forwarded-Encrypted: i=1; AHgh+Rqd6DnNftjS6WRb9pEoZMijNZWJxwv5a/VDCW0be8m+zFfOf1oJ45Eh7/el8m2fj56rOXj2uMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnctTQ7mXPCk4NMzhQj/kk0M7qalrQ5zkM9ZKo9TD0QbyrRrlH
+	V7Ymj+hjcUUqrkTHGLQyrEjNa7Gy33vlZq90IA7Tt8PtLj0+uSHJ2pmK
+X-Gm-Gg: AR+sD113x0OyCnCaStgX3dhbApu9HWdg0V8L18MZp8uXwCX9dqAUnlsLXJljGHO9+ph
+	lfdE0aTvYa0L0pqeHHvPLEPYFmt7A2OBWTBrMJn++d7zHJ9nnoJbyIv30lpQrCsTxpEbryzpkit
+	uQPtdmWDWtZ+lwAjqPLwJ2hMuOt4LAuiVHHoxSKu0GlHLcDexVi/A9n27S5kLdj5m1MuvVJU1AS
+	zcRvgqiaajgCa8jIyvokz70E3sxks5Sx59IjxluSG2oLdLCyQHQoiwh43z9kfQxey68knGj2jUC
+	gvTYs4IIaEmB4udFeA1qTSG2JCaU+q6+sTnzGRpxv3hTXnARU9VewzZKh1EqOBFmsFlgnYN3hEK
+	HZaNPItRgQM3GVzkp+V14uFB0e0k7f3nvvjMeqIO8gKV+DV4yTqQ1aYZK1yp6EGx9O5WFQRbcfc
+	40CW+M/0WfYKm/kWdwVzphVDyeOiWh6gpp4u1nwupM7HQPxGYI5GuEfhaGciUahHRyv3nUUfbiZ
+	66+5Iv7
+X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr486502995e9.5.1788250485957;
+        Tue, 01 Sep 2026 01:14:45 -0700 (PDT)
+Received: from SurHub.localdomain ([196.188.113.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9266be71sm722413855e9.2.2026.09.01.01.14.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 01:14:45 -0700 (PDT)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: subash.a.kasiviswanathan@oss.qualcomm.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	sean.tranchetti@oss.qualcomm.com,
+	horms@kernel.org,
+	Abdifatah Suruur <suruurism@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v4] net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
+Date: Tue,  1 Sep 2026 11:14:41 +0300
+Message-ID: <20260901081441.632-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-x-ovh-tracer-id: 9860912862624480539
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFsmkFUMtWByGmM70DePpwoskH8cmhNdO6dO/1vSIKzHgGOi4MeoPOioQln2xVnnxk+sHkiB6jXJaUNVdk/S/ga7JWsyYaPhe9kT8Ewfg5VFy0DrELYYOY/dEwHi5ybkBUDAx/mS6Ne12nYIEIUlmhKMnl1S8zeW3zhvXPZd9Hu4ZrREoIJuctr4ONjRqmuFtQOYdBonaLY8Jn1JvA8Wb24/l5KazOavli5H0Tl/U2mkbQ0jnrJvxOei+GsXYnAkYeapyo2KjdSQxiZ/u+p65pjDp0wYcjhxDYYW0F2znd5+Ew69K0vRtCL8e8HBPFcVZO60MBp9X5I5Md4mn59Mv1ibYDVsL95q2gL8RWmKhzlqjqfBApT2yQDnWUe5V2IkPZz4YEM5nZE1RGM1L+7QZjnCAULgLVX7dqw5+SH/VC0WS5bn7vKM0mOOKDcmmuRKRR7JMHhfSxLlKnuPWYKMHg4CE2wS9rz8y9SRTAudhsrj822v9n/nB/ndccNZuBM9uSuHKlJwEEwNceZz9bpo8G/q23Jw/3Dfi9PzyCI4XIPToPSNXg/Jq43FbY2F0VHkqAfizUaDiQhS7FJ5PtTJwEMu3pvBvhjDe2fxSWZ3Z3gI0FaXkRtLMjTOul6X37zG7qw3+NX+pdW+YhoNahb596VqIujR5vJg4mM6OMoFM7P3A
-DKIM-Signature: a=rsa-sha256; bh=RUaynCIfI2k00quB79erNLXXPtwh5LI+gQzFVcNXhSM=;
- c=relaxed/relaxed; d=quelquesmots.fr; h=From; s=ovhmo4049951-selector1;
- t=1788250330; v=1;
- b=YO+VOiUT4XZ8qoDOI0Sv/3sl7ux7MlR1c9FPLb4+gbU6h8q9lAxlS6tp/xFtxh1jkkT8QKkE
- /zxMZs+6DItQA4fnklzYurD//FrJ9OE935U1MsVOu81gYq00Sv/GQFGmPg282ir2KfgLkV2iA1E
- jXXJ5758nEK5fcsBkgrUcGvQGxi/Rt1Kf16HvXxL4rTbl8a5aaPKl5QbK/y+NXYT8Co25kaIL+8
- R5Lyy4gu67PhyqbIli2LKPvRbbQgOLmtnwJEbQ6k68uk0CkgA/Knxzy6MaJSOhFrmb2BykAcR6r
- gNP6PUjosKEBX2vD9UqJS9Be0nJ7z0MPMdLJBZg+aiG0g==
+Content-Transfer-Encoding: 8bit
 
-On Sat, 2026-08-29 at 11:51 -0700, Borislav Petkov wrote:
-> On Sat, Aug 29, 2026 at 08:15:40PM +0200, Laurent Wandrebeck wrote:
-> > My homelab is indeed composed of 5 thinkcenter with a10-8770e, and
-> > desktop has fx-8370e. Actually I hit that bug running 26.04/7.0 and
-> > reproduced with 7.1, 7.2 so I dug a bit more and AI (I'm no kernel
-> > hacker) proposed this patch. I'll happily test and report on
-> > whatever
-> > you'll propose if that one does not fit. SSH+sudo access is
-> > possible too
-> > if you want.
->=20
-> Thanks, just please do not send HTML mails and put your reply under
-> the text
-> you're referring to when you reply. Like I just did.
->=20
-> Thx.
->=20
+An rmnet device may be created with its real device in a different
+netns than the rmnet device itself (rmnet_newlink() resolves it in
+link_net), and the rtnl config paths below only check CAP_NET_ADMIN
+against dev_net(dev), while mutating rmnet port state attached to the
+real device:
 
-Sorry about, replied from my phone without thinking about it.
-FYI, patched kernel has run a couple more days without any problem, and
-I=E2=80=99m now running 7.3-rc1 with the same patch flawlessly.
+- rmnet_changelink() rewrites the endpoint mux table and
+  port->data_format and, via rmnet_vnd_update_dev_mtu(), can shrink the
+  MTU of the rmnet endpoint netdevs.
+- rmnet_add_bridge() and rmnet_del_bridge(), reachable via
+  ndo_add_slave/ndo_del_slave through RTM_SETLINK IFLA_MASTER, flip
+  port->rmnet_mode and port->bridge_ep on the real device's port; with
+  bridge_ep pointing at a caller-owned device, rmnet_rx_handler() then
+  forwards real-device ingress frames to it.
 
-[Tue Sep  1 06:55:41 2026] Kernel command line: BOOT_IMAGE=3D/vmlinuz-
-7.3.0-rc1-hugetlbfix root=3D/dev/mapper/ubuntu--vg-ubuntu--lv ro
-hugepagesz=3D1024M hugepages=3D7 mitigations=3Doff crashkernel=3D2G-4G:320M=
-,4G-
-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M
-[Tue Sep  1 06:55:42 2026] HugeTLB: registered 1.00 GiB page size, pre-
-allocated 7 pages
+A caller privileged only in the rmnet device's netns can therefore
+rewrite the shared cellular data-path state owned by another netns, and
+steer its ingress traffic.
 
-Can I do anything else ?
+Gate all three with rtnl_dev_link_net_capable(), matching the "require
+CAP_NET_ADMIN in the device netns for changelink" series (vxlan/geneve,
+CVE-2026-68432).
 
-Best,
---=20
-Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+Fixes: 2abb5792387e ("net: qualcomm: rmnet: Allow configuration updates to existing devices")
+Fixes: 60d58f971c1077 ("net: qualcomm: rmnet: Implement bridge mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+---
+v4:
+- use the netdev comment style, per Subash Abhinav Kasiviswanathan
+v3:
+- cover rmnet_add_bridge() and rmnet_del_bridge() with the same gate;
+  they mutate the same real-device port state via ndo_add_slave/
+  ndo_del_slave and have no capability check of their own
+- correct the impact wording: rmnet_vnd_update_dev_mtu() only reads
+  real_dev->mtu; the MTU store lands on the rmnet endpoint netdevs via
+  rmnet_vnd_change_mtu(), not on the real device
+v2:
+- drop Reported-by: (implied for the author), per Jakub Kicinski
+---
+ .../ethernet/qualcomm/rmnet/rmnet_config.c    | 27 ++++++++++++++++++-
+ 1 file changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+index 78d4df55740a1..73bd5419cb136 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+@@ -312,6 +312,13 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	if (!rmnet_is_real_dev_registered(real_dev))
+ 		return -ENODEV;
+ 
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev)))
++		return -EPERM;
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	if (data[IFLA_RMNET_MUX_ID]) {
+@@ -440,6 +447,13 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ 	struct rmnet_port *port, *slave_port;
+ 	int err;
+ 
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
++		return -EPERM;
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	/* If there is more than one rmnet dev attached, its probably being
+@@ -488,7 +502,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ int rmnet_del_bridge(struct net_device *rmnet_dev,
+ 		     struct net_device *slave_dev)
+ {
+-	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
++	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
++	struct net_device *real_dev = priv->real_dev;
++	struct rmnet_port *port;
++
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but rmnet_unregister_bridge() below clears the bridge state of
++	 * the real device's port, which may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
++		return -EPERM;
++
++	port = rmnet_get_port_rtnl(slave_dev);
+ 
+ 	rmnet_unregister_bridge(port);
+ 
+-- 
+2.53.0
+
