@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79115432E60;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8C743B3C6;
 	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268742; cv=none; b=mlg6F2hQ/kuKB8g4Z+SBr0m2g//q7e+WwM1lRf+wVWVOClgbWQfprlM0WN4Ud9xbf72itW6qB5dDVkdzl6DEWVi4EnkKRyW1A24iXN0ZYLLUurcU4jUTjqfy5QFQFizdySLZpyKfN5XDWnLUK60mqvJuotdf8xz0dMmjMKz4O5c=
+	t=1788268742; cv=none; b=Gi6KkXs92awQDOIqdb662s55res1zNn7jl0Vzq5tDwwjqVJs73UuF3ziopzRz6Glxbxu0uOgU5LSZrSenDFVvlJl0ILucg28od3mbrKXlqWMaU3FJrOriyuS1X3ImymykolXmLnzc84A6HINBwR9xd91LlclHjhTuoHlbpsgF14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788268742; c=relaxed/simple;
-	bh=lZqnF/fq0s75WPlK1Ldiv9o028oS83xr/Lv60UdZAxc=;
+	bh=GXr/1jJ0ZcG+tvVvUf9OAFx0ZgFUmAAa9q7CIMr6dbk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M00EoEFCcKQMBmB5n8dkQbCbWQVJpvJU6Shpj4uyX80iYgTekf9rbYSG4HX8NcGhDlEOFzkAhIHJuTKOomRMhyCYwDdHkjjKW60G7UkM5P11aZnbL/AgGCT4A1F9offB+08/8rZG6k0khbsJZCsZa9CCpNhu/hjGHFeP9kYDAc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwKYNYCW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ey6ktulilvYHyj5h89ybycXHc0SgqnZRAItkAcMVdt2FK2KqV13MhYyWGhRrxrfF+PAT2L0pCdS9TE+NABGys4b5Nf5cvp6qEw9Ioj+OVmgRIXXfwH1lWEaU3qm6vhaOXge8HRii1+y0nKcsa5fdpfkjY6fmdX9wJu7d9v2urBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig92mQta; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwKYNYCW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25D21F00A3D;
-	Tue,  1 Sep 2026 13:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig92mQta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452D01F00A3E;
+	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788268741;
-	bh=/E3Oie88We+VUNBoQinHbEvxciAXpLnuOmC5tKc4/XE=;
+	bh=VvO9nu/pvwrT8AJnGanMkEVbhfeAa8vp4BSGaiM1GXg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZwKYNYCWXkf3YcSo51XFKfIBjCb8OCl5BO+I54kmq6FiZHkliHE7g1on9UYpfxsdU
-	 2SDIwQfVwj2Zf7vAcXQVsVbi8q3wupnNKn/brVsZzmIY3rYNCGLkn2YO7VOESECV3W
-	 8OQIjhhtUNLHhUCyhUxO40Al8ceT8Izf16Ej6fi06DtaHFKPu/1bJFljhROx4NhcJn
-	 doJSWRCIQJbfbftYigig4hpE6Yx+vjeUpX7HJLzSd9t6OQk7xxMevPVSa1x60QFS+z
-	 c1LVdwXDuKxe0+hxv6I/2HVsHfGAYVcMaD2mfnoBkIE0SOzWAiBgO7oP+vSlj27mzZ
-	 lXe3py30Y8SAA==
+	b=ig92mQtakTdHt0VVFboiQzpG74wWcUaalH06d9B8H+DqFvf8O10xsK8agpzNt48dI
+	 J6z78dAJsmkAgL1bGwzouj7Bo1tsFXUwjGUhxaemvkiP5iJj5I27039kzIr6sPksz/
+	 JmcUMbUDgwzghHaFtsLePi+nD/8bOnxkGtErWkZTfW+jquJlWqsN8qC0LBAV4yE2Mh
+	 E6LBN4vo828WsQkUMz4FEZZroCbmbvGpWvYiJZv6EeK+4lqNiYuxidJqZjeLKjMtPt
+	 iXRCXVLksLVM8WMlccLkVlGFJDyXyLeFnLG3uFITa+I94BxAVO5fXbh2YuVmqx6CPS
+	 uPIFRnMKnnwDg==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
@@ -33,9 +33,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 7/8] mm/damon/core: handle extreme memory state in get_node_memcg_used_bp()
-Date: Tue,  1 Sep 2026 06:18:48 -0700
-Message-ID: <20260901131850.98037-8-sj@kernel.org>
+Subject: [PATCH 8/8] mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
+Date: Tue,  1 Sep 2026 06:18:49 -0700
+Message-ID: <20260901131850.98037-9-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260901131850.98037-1-sj@kernel.org>
 References: <20260901131850.98037-1-sj@kernel.org>
@@ -47,41 +47,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In extreme unlikely situations, total memory might be zero.  In less
-extreme but still very unlikely situations, lruvec_page_state() calls
-might let the caller show used memory larger than total memory.  In the
-two cases, damos_get_node_memcg_used_bp() could cause division by zero,
-or return underflowed value, respectively.  Handle the cases by
-respectively returning 100% and 0% for used and free memory queries in
-the corner cases.
+damos_get_in_active_mem_bp() uses the sum of the active and inactive
+memory amount as a denominator.  In an extreme and unlikely environment,
+active and inactive memory might be zero.  In this case, hence, it
+results in a divide by zero problem.  Avoid it by changing the
+denominator to one if it is zero, before it is being used.
 
-This issue was discovered [1] by Sashiko.
+The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260329154813.47382-1-sj@kernel.org
+[1] https://lore.kernel.org/20260721034756.147011-1-sj@kernel.org
 
-Fixes: b74a120bcf50 ("mm/damon/core: implement DAMOS_QUOTA_NODE_MEMCG_USED_BP")
-Cc: <stable@vger.kernel.org> # 6.19.x
+Fixes: 4835e2871321 ("mm/damon/core: introduce [in]active memory ratio damos quota goal metric")
+Cc: <stable@vger.kernel.org> # 7.0.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ mm/damon/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/mm/damon/core.c b/mm/damon/core.c
-index ad3657d356fbc..3060edf5e4fa6 100644
+index 3060edf5e4fa6..0df785e72438f 100644
 --- a/mm/damon/core.c
 +++ b/mm/damon/core.c
-@@ -2854,6 +2854,12 @@ static unsigned long damos_get_node_memcg_used_bp(
- 	mem_cgroup_put(memcg);
- 
- 	si_meminfo_node(&i, goal->nid);
-+	if (!i.totalram || i.totalram < used_pages) {
-+		if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP)
-+			return 10000;
-+		else	/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
-+			return 0;
-+	}
- 	if (goal->metric == DAMOS_QUOTA_NODE_MEMCG_USED_BP)
- 		numerator = used_pages;
- 	else	/* DAMOS_QUOTA_NODE_MEMCG_FREE_BP */
+@@ -3006,7 +3006,7 @@ static unsigned int damos_get_in_active_mem_bp(bool active_ratio)
+ 		global_node_page_state(NR_LRU_BASE + LRU_ACTIVE_FILE);
+ 	inactive = global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_ANON) +
+ 		global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_FILE);
+-	total = active + inactive;
++	total = max(active + inactive, 1);
+ 	if (active_ratio)
+ 		return mult_frac(active, 10000, total);
+ 	return mult_frac(inactive, 10000, total);
 -- 
 2.47.3
