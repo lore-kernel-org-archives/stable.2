@@ -1,285 +1,121 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FEA46A5E1
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 07:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7185E45563D;
+	Tue,  1 Sep 2026 07:44:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248353; cv=none; b=q/8elvnTr0OFFQD+4pDB29v2CEcu9Vd5wTgOGVxK+gHSRI2QrBXb2IZhktmGWr1izGt2IH5mOFQc6MkX04wg8Be3je5QPSNQxOcktFNSGvc6LFDFyyM5X5thUDaJS0MeqndCL/Q/Fd29HeAz0DRXLuToipVDkFuJrwp77/dHXXo=
+	t=1788248697; cv=none; b=puyBn6KylZsawhLYhT18TVpVcvOZdrAn1o7VasKwgTs5D5CFFZxKnQigYhqnKEjgRGzwG+xVnD313h6DeRfGayMicj7fFA1SsXYKI8gEd+JFb60vhPNNMe1ejtk60AKcCE1c2RSX5eaazxZCE2ux2Rk+cAepTViPSlvHpOglgNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248353; c=relaxed/simple;
-	bh=a7PHJfV4gzPGGi3SCSdAAcB12zNvMgt2S88ZttemUkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nSB2ahVK8NI7D0YP6h0KDpIVJxULCxxjnBJyGJr+vpYl/OZmCNdPNlzK1LUHTH8Fe3l9ZK7FSCjafV8yTKnwpVJpDz/ocLFp54mlAvwDM4tUJDgVXY8dzLBzoFpn9FRBSSIziCjyVXMCnvjIYlLkPuTaWSmu7cuJ3eFPpj3Do4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GKDRY70U; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788248697; c=relaxed/simple;
+	bh=yoMTvp4YiPcF7B1CdZBdXB9u2vytV5Ngn5aJ0MgQzww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C+aHY82YPRhsViZh+8F+Nl+Qxx6zi+f/rbKaoqQF1h2e/TxcItpIeGJ1Ajbj5q1zfADHDTermbE0oRKlh3wER5QWJZBZZZRu1bf3aIWSI+u6Z1C9G4kQ5XYDiGDy9Md0pU0de85qi2Z6lK4pbkQldFccd1OpsV8RMtnnjAVOWjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=GyU9v09j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=RwjV8WCl; arc=none smtp.client-ip=202.12.124.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GKDRY70U"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f96c5b722so2796542f8f.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 00:39:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248350; x=1788853150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VxuNHMnlajHVgcX65Arb3FqrfAoHreh7iYiEvJueLq4=;
-        b=GKDRY70U/ZcRIWg/b4YmkePdkoIeXhVept6FkMFKzY5nlxvR4K/FQLWNE7gIUar7rk
-         CNJweCp4pAC2b5w5xl/te1nx7vyxCjTO6dfPfLkoNhHWWrtadaMbhKoz0tH8TL5v87U+
-         SZ7L6Esj4oL1g5f5oVf/OvLiQ68BYutZp1pMTEgnbNG39LWyvz5V4i+F56OcUitYpsZJ
-         lWbB1TuQzXAes/a3tP+14fTaE4yFMIo5O1WAF3/9iMTTMU1vDCXOxAmmYNs5m0/i+vT7
-         /MmM24wSvVKcMMVQTSCjr9J72hZlXiY6ZEiwLUMRZMRreQR6w2h+iWuPbXaahdhTfZnb
-         4Taw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248350; x=1788853150;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VxuNHMnlajHVgcX65Arb3FqrfAoHreh7iYiEvJueLq4=;
-        b=UtwqQJVwvWc1OYCPMCibznhW4I9WPFlvwYxJddvBS+MK3hgX7PwINZ6tVMIt0YReuS
-         P3tOfKXbMwkMJmg+gbiThtBdWUgQS5g7Tu6ZPSE4f9NRvx/RrE9h0Dfa3Zs0TdYMyRA3
-         CSgqqQEuvBJ9BwbiYFdkegr4iYQBYh6xNFi6UeD7FsqDzVe4kQKfG19e3b7iWFhnKNPy
-         wrbLm/AT7Ox9sbltun932KbCpOZ0NHNrofU9Z/wSqrqOCmPD05m6v2hMXutXIXiqdpjz
-         aaL2cSiFxlKbvOHR3l3lShGoWbqkYVE3y5yqDij0D7ywd5zDafuRT3Pku4W563qcLOZa
-         oinw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8Z84nStjGB3nuJPaa9kFKPDPs4r3B7e8zlJI1FMSDdsxd6LcFPs0hXRVkPKSFbwHsLCXaMno=@vger.kernel.org
-X-Gm-Message-State: AFuF++keTayuuTcc7eIO+iyoDpI7AF77luwucqfFhJqVZx7Xggj7LMPK
-	BcMlt2vWrKOJunawWVduhcwEG4ULFR4dUdnCL8LAI1MJXndYHPHPW1Ab
-X-Gm-Gg: AYBFou10FcD+l3n7Fn64XnG+5JrgZZX5NklA7W+xSCy0DWHJwRccc9WKqLN3G3by3GN
-	f42PWdaLCP5DSiaqqc1tROfOftcQCCR/OoimrOLc0+9wLwyPLXW0wnougn/cIr7hDrV3REJreYd
-	6wkDB4be00+YLuCh2SI3nMxARBa93eL4L7I7qgt6yTxi0pV6q76BMbjgzJx3cNFLN2e16J8z0Fv
-	cz0KdV4xlB0Nx3PaWciRj92Gt0y1GXio7RS0z3fGfgdvhRJQFJFYKAlHCue4sRE081mZoUVj4Om
-	Y4CxvqM0TBrtDGi7qyuATgLsVi7iLBQA5/BIoEBCKXLC0N6sib7BY0f7Ta+5C4UAslxTlC9tB3K
-	aL0N7RmbLbqb4SSpksJz+soLKRmHfWTnLXp1Tt4MTro0EGMHGwDBZJiZcl+7GaXfAJNbIlhphGe
-	M5nU/j55NJVew/DJHZxecqAROCunzTjrJD19MYRM+xzn9jEn6ZSPXiVPB0H0XO5WbcOw==
-X-Received: by 2002:a05:6000:27c6:b0:482:f270:65c5 with SMTP id ffacd0b85a97d-48440fe3214mr8435228f8f.9.1788248349726;
-        Tue, 01 Sep 2026 00:39:09 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3c460sm3014790f8f.13.2026.09.01.00.39.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:39:09 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Stefan Agner <stefan@agner.ch>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	Edward Karpicz <webmaster@toradex.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] mtd: rawnand: vf610_nfc: fix reads on chips with more than 64 bytes of OOB
-Date: Tue,  1 Sep 2026 09:39:06 +0200
-Message-ID: <20260901073907.2443698-2-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260901073907.2443698-1-mehmet.fide@gmail.com>
-References: <20260901073907.2443698-1-mehmet.fide@gmail.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="GyU9v09j";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="RwjV8WCl"
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 35DAE1D000C6;
+	Tue,  1 Sep 2026 03:44:53 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-01.internal (MEProxy); Tue, 01 Sep 2026 03:44:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788248693;
+	 x=1788335093; bh=vAHRdu25Gd4aL0UCJnMOYgyFCMzj8uwlZmxfVfrx82o=; b=
+	GyU9v09jebZ9vm9YyuliYanip4wbKWhazOj2kLHzIvXnW8VH1J8h/LamrDmydqeP
+	H7yQTd5VcRorkpDKQgZgFURSgNC2L72BN36sOmQMADCsTvTm+KNmdcOF7ad6Och/
+	QQ6xOvPIZBpYkjRczgAXz9bwAYSenwjeaCxPd2U3LRB2i7DWYfsZh70498vhG8SE
+	einRRPlW/VV0HClwMCNjL72Oz7incaYFNGZ1+xVUUDwJQ9isYM5r2u33o/6bccQ/
+	nzXskrxRDcX36Xz/lxqCBbPut6du5azKVmpNhcaE19up4Eq/rHQKiKSjN2pgBqcF
+	L+c0NKXC2vvfCeq0ecwd2w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788248693; x=
+	1788335093; bh=vAHRdu25Gd4aL0UCJnMOYgyFCMzj8uwlZmxfVfrx82o=; b=R
+	wjV8WClSIy+JkzJTAmyrHU1dKAczuy1j/KcDmr/bJIYBW6Uo3VzBkfqW6QXbz4Hx
+	1akYPtU5AGfRO6a7sSc1H9Jz6bl43vXzXEUveB4WoVGaYG9Zk4TM3OaglpdUPfyX
+	GwxAWC1EyWKIQPYTOSwWphJbaTach5/IKDnPepSs3WTSpoxOtkUh1ApFWMdSQNF8
+	zZUvlPdrSKRFRNsYyw1scUyeu1yol5jXVoAWatgKVIb1i5nkW3dF60jOTnrrVJNX
+	YLsEb3C75M1ZhtyDdwGUQB875c2DRlMRD972v3zfYBG+aMPpkw2WIAQNJvryaZF+
+	CoDhzcBW4p6PRMZJui1GQ==
+X-ME-Sender: <xms:dIKWarAWlaYPWbX8PJZcSYPaLBftF6A7bdpWc_-DRXZDaC2TIJ3bjg>
+    <xme:dIKWatYXIEYOxTsBu1Xi9PBVF3ELPbO9jTB2sTuizh7BBS5vFClU_9Tt1qTOUwmyU
+    lC-8rxsX3sGISPGXLlswknpGn-AdBnZ8M1HSF98l7T95ZJ-jHmSSczL>
+X-ME-Received: <xmr:dIKWaiFRcEeI6Ez36WL6WHtrBj2bI5kuidyGZxgnN0oSOStRzeAKFTPX1qcWwzyTlhyn9sRI5F-m9jNo8Kqkjw2ro_FgOB-P>
+X-ME-Proxy-Cause: dmFkZTFjbx0J/iGofjF5oeSN/hGWMP2hYVoR0A7CGppWe8ytwELxlfhj94LCTLfefR5EFW
+    Ca1160+d9JZ0igfSyzXa+LMFDI9u/T1g5MX/YJf0o7e/HuEeiut61eMa54GClb8GU0nhOb
+    Z0bptqNf0jhIZanZHApWkU2mwfYpgTRnaLO9je0XFsQLBNdWzIHcSHXm6EbEPTT/gHHJ7j
+    JI8TyHuA4TMXDsvKN9O3vjKrrU8vvOoJTUXqvRpYlHJ1PNiD3LtMO2nxD7ceVG3hHaaeET
+    roXCiT5G1Mrz4mziEt+tYxaDLRl1UVc9YcKBUc+FIsWWSyFLXPwiGBKOeikqP9d4ihw2oj
+    2jAe+pUQyhBfY99KY9avYO28fEVGk4Fu3k2WTmEumgwTWs9MrsNHnnhKKp5o3v6dvB6PR0
+    Hq6tfh0IQVfLoFG+v0zW/7WEhhP/ZHdOA8hemZB6naGKPiUbZJH2Zg6/OBKdVTDhOIZ2BE
+    nLQlfWDasBfnwZBbFaRITA0ehw1W8x6VCqX4O7DxTB2CjKFxYMu7yLeFn1kHxY8X76HTKe
+    Khp9p+NF1kqNLdlFs9GncVPi2FKUtrfrlm8aeetRhyaydWj/g80BFyhoskDMUTSy8Zqytw
+    qP7+vlOvs6m9/vyzscwpigwmC+cnpuWFzMCZZVzmFk2hpjjL4fDuFBvvj7sQ
+X-ME-Proxy: <xmx:dIKWahsblQ9Bnjf50ZTu0c0Pte1-aw42n3C6sVOBpMLpxu0F9ril0g>
+    <xmx:dIKWaoKFJns0Q8PeKy2yQ5BNgvjebvyWNL46VKsCaQmXSRlJ4c-dpQ>
+    <xmx:dIKWavM6jZtpUiy_zVHC_xx1AZOo5W15PIuGVoCOv9AcDBpXu5Wo8w>
+    <xmx:dIKWagaN5jliQn2kv3uaPGiSrA3d47J-9_rzCvpvfqt9Ka51Ko3xVQ>
+    <xmx:dYKWavIaSBlQHCALCoKEtO4nQyJZ4PZOQ7I8p3a6lZR17CbQMUswqGrl>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 03:44:49 -0400 (EDT)
+Message-ID: <1442dad3-9791-40d8-a602-8f857bd6fd46@pobox.com>
+Date: Tue, 1 Sep 2026 00:44:48 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1 00/76] 7.1.13-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.185608553@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260831133359.185608553@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.1.13 release.
+> There are 76 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.13-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-The controller transfers 64 spare bytes per page and the driver only
-implements the matching 64-byte ECC layout, so attach_chip() shrinks
-mtd->oobsize when the chip provides more. That clamp does not survive:
-nand_scan_tail() runs nanddev_init() after ->attach_chip(), and it
-restores mtd->oobsize from the memory organization, which still holds
-the value detected from the chip. The driver then transfers writesize
-plus the chip's full OOB size, the hardware ECC parity ends up at a
-different offset than the layout the controller was set up for, and
-every ECC-protected read fails with -EBADMSG.
+Tested on two amd64 systems, my DIY home NAS and my Lenovo ThinkPad T14
+Gen 1. Working well, no regressions observed.
 
-Measured on a Colibri VF61 (MX30LF4G28AC, 2048-byte pages, 112 bytes of
-OOB): with the clamp lost, UBI cannot read the erase counter headers of
-the pages U-Boot has just written, and the on-flash bad block table
-written by an older kernel reads back with ECC errors, so the board
-does not boot. Kernels before commit a7ab085d7c16 ("mtd: rawnand:
-Initialize the nand_device object") are not affected because nothing
-overwrote the clamp there, which is why the same chip works with a v4.4
-kernel and with U-Boot, whose copy of this driver has no memory
-organization to restore the value from. Edward Karpicz reported that
-the clamp no longer takes effect on this chip; see the link below.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Instead of modifying the memory organization, keep the detected OOB
-size and give the driver its own mtd_ooblayout_ops: the same layout the
-NAND core uses for large pages, but computed on the first 64 OOB bytes
-instead of the whole OOB, so the ECC bytes stay where U-Boot and the
-old kernels put them. The data paths transfer writesize plus those 64
-bytes, as the controller always has.
-
-Since mtd->oobsize now reports the chip's real spare size, fill the
-tail of oob_poi with 0xff after the 64 transferred bytes on ECC page
-reads: the core may copy the full mtd->oobsize from it, which would
-otherwise expose whatever the buffer held before. 0xff also matches
-what a raw read returns from flash, since the write path only ever
-programs the first 64 spare bytes.
-
-Reported-by: Edward Karpicz <webmaster@toradex.com>
-Link: https://community.toradex.com/t/colibri-vf50-vf61-on-the-current-bsp-mainline-u-boot-v2026-07-and-linux-6-18-lts/30735
-Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Fixes: a7ab085d7c16 ("mtd: rawnand: Initialize the nand_device object")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
-v3:
- - add Suggested-by (Miquel)
- - drop the comment above vf610_nfc_spare_size() and its explicit
-   inline (Miquel); the 64 is the established on-flash format, not a
-   controller limit
- - explain at the ooblayout why the driver has its own, in the terms
-   Miquel suggested
- - fill the tail of oob_poi with 0xff on ECC page reads so the bytes
-   beyond the 64 transferred cannot expose stale buffer content
-   (Sashiko report)
-v2:
- - keep the detected OOB size and add driver ooblayout_ops computed on
-   the first 64 OOB bytes instead of clamping the memory organization
-   (Miquel)
-
- drivers/mtd/nand/raw/vf610_nfc.c | 72 ++++++++++++++++++++++++++------
- 1 file changed, 60 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/vf610_nfc.c b/drivers/mtd/nand/raw/vf610_nfc.c
-index 9940681810cf..1c3e7b167e53 100644
---- a/drivers/mtd/nand/raw/vf610_nfc.c
-+++ b/drivers/mtd/nand/raw/vf610_nfc.c
-@@ -505,6 +505,11 @@ static int vf610_nfc_exec_op(struct nand_chip *chip,
- 				      check_only);
- }
- 
-+static unsigned int vf610_nfc_spare_size(struct mtd_info *mtd)
-+{
-+	return min_t(unsigned int, mtd->oobsize, 64);
-+}
-+
- static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
- 					 uint8_t *oob, int page)
- {
-@@ -522,7 +527,7 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
- 		return ecc_count;
- 
- 	nfc->data_access = true;
--	nand_read_oob_op(&nfc->chip, page, 0, oob, mtd->oobsize);
-+	nand_read_oob_op(&nfc->chip, page, 0, oob, vf610_nfc_spare_size(mtd));
- 	nfc->data_access = false;
- 
- 	/*
-@@ -530,7 +535,7 @@ static inline int vf610_nfc_correct_data(struct nand_chip *chip, uint8_t *dat,
- 	 * at least less then half of the ECC strength.
- 	 */
- 	return nand_check_erased_ecc_chunk(dat, nfc->chip.ecc.size, oob,
--					   mtd->oobsize, NULL, 0,
-+					   vf610_nfc_spare_size(mtd), NULL, 0,
- 					   flips_threshold);
- }
- 
-@@ -551,7 +556,7 @@ static int vf610_nfc_read_page(struct nand_chip *chip, uint8_t *buf,
- {
- 	struct vf610_nfc *nfc = chip_to_nfc(chip);
- 	struct mtd_info *mtd = nand_to_mtd(chip);
--	int trfr_sz = mtd->writesize + mtd->oobsize;
-+	int trfr_sz = mtd->writesize + vf610_nfc_spare_size(mtd);
- 	u32 row = 0, cmd1 = 0, cmd2 = 0, code = 0;
- 	int stat;
- 
-@@ -577,11 +582,16 @@ static int vf610_nfc_read_page(struct nand_chip *chip, uint8_t *buf,
- 	 */
- 	vf610_nfc_rd_from_sram(buf, nfc->regs + NFC_MAIN_AREA(0),
- 			       mtd->writesize, false);
--	if (oob_required)
-+	if (oob_required) {
-+		unsigned int spare = vf610_nfc_spare_size(mtd);
-+
- 		vf610_nfc_rd_from_sram(chip->oob_poi,
- 				       nfc->regs + NFC_MAIN_AREA(0) +
- 						   mtd->writesize,
--				       mtd->oobsize, false);
-+				       spare, false);
-+		/* Not transferred, and never written: reads back erased */
-+		memset(chip->oob_poi + spare, 0xff, mtd->oobsize - spare);
-+	}
- 
- 	stat = vf610_nfc_correct_data(chip, buf, chip->oob_poi, page);
- 
-@@ -599,7 +609,7 @@ static int vf610_nfc_write_page(struct nand_chip *chip, const uint8_t *buf,
- {
- 	struct vf610_nfc *nfc = chip_to_nfc(chip);
- 	struct mtd_info *mtd = nand_to_mtd(chip);
--	int trfr_sz = mtd->writesize + mtd->oobsize;
-+	int trfr_sz = mtd->writesize + vf610_nfc_spare_size(mtd);
- 	u32 row = 0, cmd1 = 0, cmd2 = 0, code = 0;
- 	u8 status;
- 	int ret;
-@@ -740,6 +750,49 @@ static void vf610_nfc_init_controller(struct vf610_nfc *nfc)
- 	}
- }
- 
-+/*
-+ * With 64 byte OOB chips the core's large page layout matches what
-+ * U-Boot uses, and on chips with more, U-Boot and older kernels clamped
-+ * mtd->oobsize to 64. Modifying the OOB size is no longer possible, the
-+ * actual chip geometry must be respected, so to avoid breaking those
-+ * existing setups use our own layout: the core's large page one,
-+ * computed over the first 64 spare bytes only.
-+ */
-+static int vf610_nfc_ooblayout_ecc(struct mtd_info *mtd, int section,
-+				   struct mtd_oob_region *oobregion)
-+{
-+	struct nand_device *nand = mtd_to_nanddev(mtd);
-+	unsigned int total_ecc_bytes = nand->ecc.ctx.total;
-+
-+	if (section || !total_ecc_bytes)
-+		return -ERANGE;
-+
-+	oobregion->length = total_ecc_bytes;
-+	oobregion->offset = vf610_nfc_spare_size(mtd) - oobregion->length;
-+
-+	return 0;
-+}
-+
-+static int vf610_nfc_ooblayout_free(struct mtd_info *mtd, int section,
-+				    struct mtd_oob_region *oobregion)
-+{
-+	struct nand_device *nand = mtd_to_nanddev(mtd);
-+	unsigned int total_ecc_bytes = nand->ecc.ctx.total;
-+
-+	if (section)
-+		return -ERANGE;
-+
-+	oobregion->length = vf610_nfc_spare_size(mtd) - total_ecc_bytes - 2;
-+	oobregion->offset = 2;
-+
-+	return 0;
-+}
-+
-+static const struct mtd_ooblayout_ops vf610_nfc_ooblayout_ops = {
-+	.ecc = vf610_nfc_ooblayout_ecc,
-+	.free = vf610_nfc_ooblayout_free,
-+};
-+
- static int vf610_nfc_attach_chip(struct nand_chip *chip)
- {
- 	struct mtd_info *mtd = nand_to_mtd(chip);
-@@ -770,12 +823,7 @@ static int vf610_nfc_attach_chip(struct nand_chip *chip)
- 		return -ENXIO;
- 	}
- 
--	/* Only 64 byte ECC layouts known */
--	if (mtd->oobsize > 64)
--		mtd->oobsize = 64;
--
--	/* Use default large page ECC layout defined in NAND core */
--	mtd_set_ooblayout(mtd, nand_get_large_page_ooblayout());
-+	mtd_set_ooblayout(mtd, &vf610_nfc_ooblayout_ops);
- 	if (chip->ecc.strength == 32) {
- 		nfc->ecc_mode = ECC_60_BYTE;
- 		chip->ecc.bytes = 60;
 -- 
-2.54.0
-
+-Barry K. Nathan  <barryn@pobox.com>
