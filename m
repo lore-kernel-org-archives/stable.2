@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1E42D1913
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 22:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC33B263F4A
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 22:21:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300374; cv=none; b=B1EhlWImETOGlfJOi+JMrUYhkBhRro8taKd3tkttFya/bMTXPN3Vy+4M6v6Xf5AfoVisr9MG60+4u5S1o4mTXG6XtEQbeidsz/++wHoiGySw/pNDO8tadZ4AliHhh6kOM6CuafP+8Lx5daap4s/nhoO8fPf3CvG0Xs8p/O8atog=
+	t=1788301298; cv=none; b=HUTVLPJNcdl7EriyY0k/tpGufsFgZwcFxc+ERrTSif1ROnNFE+Vc+bt/H2KdhE55nAltF/kH67ZwNT2zUpXW8DVUdud3hFJuVjzj+ZgaLdCXzUDICsTGv6D2EaXQj2gfuD4ddy2RQnPZ6HmiiBicTcK3mjens3iuOENNrUAiUr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300374; c=relaxed/simple;
-	bh=xBmg/ylad0hIfwRi09Ex3mvIGnVRKKqBJc77sDvea7s=;
+	s=arc-20240116; t=1788301298; c=relaxed/simple;
+	bh=XxGu8ZP59xh74VfON8Z2GJEk+T/yIyDCdfcZ1KPy8AY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CKYI8SIeUve2efDHFqvu4hdIKeo33U4+uXz+gusD2n3/aoP+pk0I/UxW1pauFY6EhjOw6V1sebeMzSbMohDJZOsB2d6D2lUwCQYCJcoqEXLOwYGl44gltHWpPGUDDG2l/4d4RNxHmtFGoNu4NIalaHDvD5Odgov+5DtzSBp24Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eHxqr+BK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A3o/7oLMg+euAmAhXmeMEMM/WDLvmtvoN28L1uD/gvCbVH/xg5YtqaKA+OAA1g5Xh4SNgn7WUBKayMA6TDt7+g4bXWsCpsYQZdeDGnwxId2Jd4c2B5RA9rFfHXDY0LF2TcN/k1vlrI53Biq+gA/2KC2oyCjUku56GFjBCZ19QKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=am7WsXZO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eHxqr+BK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03131F00A3A;
-	Tue,  1 Sep 2026 22:06:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="am7WsXZO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD771F000E9;
+	Tue,  1 Sep 2026 22:21:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788300373;
-	bh=63ekbytaCVO4tFkofUsqTRXqgB1BMDox7jUT8DmqAU8=;
+	s=k20260515; t=1788301297;
+	bh=H6Z+EZlS1YSKOuG3Hh9gzMVMM+85QdPcbMxZGkgvL7A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eHxqr+BKk17V69t1EbVuyVXLo7su40VxSPA9Mv4Z8dyES/b5W+ytXLJCxe79BdT62
-	 MxfTRDzcgOBXJTuNshMxWodKb4P/aL3+fp8iTWwvcDutmM72YVlnSzUcYA1nQRsL5k
-	 gcVqy+k2tikINNVTJfo2MKN/dh5CvWGGmbI4InfAA8/nSoZ5ekfSrGK1jTeJ4UXbps
-	 5S/DdIAKhwJZL9yf1Lwa7woxvdcKKO/hdXGJ5c5gSGOhPGwtY2Xe+eZnnuYN75tn3J
-	 KgilwhxGiJxGec8JAQgayJKJhbMHzDuD8RH5C5HefL++QglLHa1teV9PMS+593EsZX
-	 sNKKpaBpmM0EQ==
+	b=am7WsXZOivYpoUa5kqxe+25lIZNMRoFbZsMMHeQoVhc7EXgx17/GW3/oZ4uFRxw5F
+	 uEDMzmNDf2p+/OiOvWeYlyNGxNvFfEao+Run4oWOd9nAWo0R6T/AiYSf7d9jmPOWhd
+	 NsSbA6lpG2Dae7nPVRlgBBjrB2EY7NoS12MgJoUO1crZaVMCBKuoR0GCfpCapviuNy
+	 msOuh2SvOiytSFZ+yhrAys+g1qio6ZR2QasM+qYj74tWqY/o6yg+m8ueeiYTCLO49A
+	 Ptz+1v7SWLYbd3rhXyD44LKpskP0czCZoaSy7fyg+xRGHNjljG2hP9mmTI3H+dKZkX
+	 U+Z1vfbkZ9s+A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] crypto: iaa - unmap dst before software fallback on decompress
-Date: Tue,  1 Sep 2026 18:06:10 -0400
-Message-ID: <20260901220610.1681251-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/4] inet: add dst4_mtu() and dst6_mtu() helpers
+Date: Tue,  1 Sep 2026 18:21:31 -0400
+Message-ID: <20260901222134.1700802-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083134-playing-sixties-bc6e@gregkh>
-References: <2026083134-playing-sixties-bc6e@gregkh>
+In-Reply-To: <2026083106-sterile-daunting-b716@gregkh>
+References: <2026083106-sterile-daunting-b716@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,113 +46,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 94a25930477113730372e0fa2985da4c5ac95c9a ]
+[ Upstream commit 8776c4ef3ab22b95f55713f00a7a576e6402507d ]
 
-On a hardware analytics error, decompress retries through the software
-fallback, which writes req->dst with the CPU while it is still mapped
-DMA_FROM_DEVICE. With SWIOTLB active the later dma_unmap_sg() copies the
-stale bounce buffer over req->dst, corrupting the result.
+With CONFIG_MITIGATION_RETPOLINE=y dst_mtu() is a bit fat,
+because it is generic.
 
-Unmap before the fallback runs. The async path unmaps inline; the sync
-path signals the retry with -EAGAIN so iaa_comp_adecompress() runs the
-fallback after unmapping.
+Indeed, clang does not always inline it.
 
-Fixes: 2ec6761df889 ("crypto: iaa - Add support for deflate-iaa compression algorithm")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-[ replaced unavailable iaa_unmap_src() calls with direct source scatterlist unmapping ]
+Add dst4_mtu() and dst6_mtu() helpers for callers that
+expect either ipv4_mtu() or ip6_mtu() to be called.
+
+These helpers are always inlined.
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260130210303.3888261-6-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 870a9e42ecc6 ("tcp: clamp route advmss to TCP_MIN_MSS")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/intel/iaa/iaa_crypto_main.c | 36 ++++++++++++----------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+ include/net/dst.h       | 6 ++++++
+ include/net/ip6_route.h | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/crypto/intel/iaa/iaa_crypto_main.c b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-index e40dd6afc76ca..ef86706f0e5e6 100644
---- a/drivers/crypto/intel/iaa/iaa_crypto_main.c
-+++ b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-@@ -987,6 +987,11 @@ static inline int check_completion(struct device *dev,
- 	return ret;
+diff --git a/include/net/dst.h b/include/net/dst.h
+index 9a23986f1071a..9adea166d2d97 100644
+--- a/include/net/dst.h
++++ b/include/net/dst.h
+@@ -201,6 +201,12 @@ static inline u32 dst_mtu(const struct dst_entry *dst)
+ 	return INDIRECT_CALL_INET(dst->ops->mtu, ip6_mtu, ipv4_mtu, dst);
  }
  
-+static bool iaa_error_should_retry(struct idxd_desc *idxd_desc)
++/* Variant of dst_mtu() for IPv4 users. */
++static inline u32 dst4_mtu(const struct dst_entry *dst)
 +{
-+	return idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR;
++	return INDIRECT_CALL_1(dst->ops->mtu, ipv4_mtu, dst);
 +}
 +
- static int deflate_generic_decompress(struct acomp_req *req)
+ /* RTT metrics are stored in milliseconds for user ABI, but used as jiffies */
+ static inline unsigned long dst_metric_rtt(const struct dst_entry *dst, int metric)
  {
- 	void *src, *dst;
-@@ -1050,18 +1055,22 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
- 			       ctx->compress, false);
- 	if (ret) {
- 		dev_dbg(dev, "%s: check_completion failed ret=%d\n", __func__, ret);
--		if (!ctx->compress &&
--		    idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR) {
-+		if (!ctx->compress && iaa_error_should_retry(idxd_desc)) {
- 			pr_warn("%s: falling back to deflate-generic decompress, "
- 				"analytics error code %x\n", __func__,
- 				idxd_desc->iax_completion->error_code);
-+			dma_unmap_sg(dev, ctx->req->dst, sg_nents(ctx->req->dst),
-+				     DMA_FROM_DEVICE);
-+			dma_unmap_sg(dev, ctx->req->src, sg_nents(ctx->req->src),
-+				     DMA_TO_DEVICE);
+diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
+index 5efd0b71dc673..299d964850fd3 100644
+--- a/include/net/ip6_route.h
++++ b/include/net/ip6_route.h
+@@ -263,6 +263,12 @@ static inline bool ipv6_anycast_destination(const struct dst_entry *dst,
+ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 		 int (*output)(struct net *, struct sock *, struct sk_buff *));
+ 
++/* Variant of dst_mtu() for IPv6 users */
++static inline u32 dst6_mtu(const struct dst_entry *dst)
++{
++	return INDIRECT_CALL_1(dst->ops->mtu, ip6_mtu, dst);
++}
 +
- 			ret = deflate_generic_decompress(ctx->req);
- 			if (ret) {
- 				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
- 					__func__, ret);
- 				err = -EIO;
--				goto err;
- 			}
-+			goto out;
- 		} else {
- 			err = -EIO;
- 			goto err;
-@@ -1446,19 +1455,9 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
- 	ret = check_completion(dev, idxd_desc->iax_completion, false, false);
- 	if (ret) {
- 		dev_dbg(dev, "%s: check_completion failed ret=%d\n", __func__, ret);
--		if (idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR) {
--			pr_warn("%s: falling back to deflate-generic decompress, "
--				"analytics error code %x\n", __func__,
--				idxd_desc->iax_completion->error_code);
--			ret = deflate_generic_decompress(req);
--			if (ret) {
--				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
--					__func__, ret);
--				goto err;
--			}
--		} else {
--			goto err;
--		}
-+		if (iaa_error_should_retry(idxd_desc))
-+			ret = -EAGAIN;
-+		goto err;
- 	} else {
- 		req->dlen = idxd_desc->iax_completion->output_size;
- 	}
-@@ -1650,7 +1649,7 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 	if (ret == -EINPROGRESS)
- 		return ret;
- 
--	if (ret != 0)
-+	if (ret != 0 && ret != -EAGAIN)
- 		dev_dbg(dev, "asynchronous decompress failed ret=%d\n", ret);
- 
- 	dma_unmap_sg(dev, req->dst, sg_nents(req->dst), DMA_FROM_DEVICE);
-@@ -1659,6 +1658,9 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- out:
- 	iaa_wq_put(wq);
- 
-+	if (ret == -EAGAIN)
-+		ret = deflate_generic_decompress(req);
-+
- 	return ret;
- }
- 
+ static inline unsigned int ip6_skb_dst_mtu(struct sk_buff *skb)
+ {
+ 	unsigned int mtu;
 -- 
 2.53.0
 
