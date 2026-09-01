@@ -1,43 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B06310779
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:20:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1572BD59C;
+	Tue,  1 Sep 2026 11:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261608; cv=none; b=CIjZuqqveacI0JaDKj56tko5JC5H0q6JblvCZoAxlbzmhGZoGrpPG2VvTEk9FLjd4GlWJcNrK1xhr0TwlxMnyMEjGzjJs+NXaVwzMw9uo7SFrJX+h5tzpMtPofzys5YrB3Et1ZhUWFqF52Jhz6D6Xab6XMsMDxXFmd+TDlh106I=
+	t=1788261639; cv=none; b=r6Hpo7N8cKtncVs+YijkuU5DDjsT7ykDD5FgW3C/0W0FklOUNewN/h2LLXxbz3JBBvwsFsu465W5q4AWubHHLIY2xnB7lIEdZnghGHCer7f2RXlnZunen4DIyxEynHUULRJvJOfcg2hZZ3hOYzrvqQOgV+g/eg6eKG08LHD7gN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261608; c=relaxed/simple;
-	bh=bXp+/tmxfQI0yPHkJxoFqKbJAXQwYYVB+dp8UEl3oyI=;
+	s=arc-20240116; t=1788261639; c=relaxed/simple;
+	bh=sffXTPFZSPpQoSn04HRQbUmu3lL5q5NbBIaiJ1ZCaNU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b5iPn/4mWmsqRsqga1aY/Ox+IeKaR1HMjovcdK6sMdsMiTqUOKmQvUAHAe20pHp5YeX97T5fUKCsSOGFIX51R8nx+M+hd9Sawvn+3rX7rv4fcQQq9sObg6zZu9Hlubj1naxxlwoUTDtMXXhbeGLSCiS/T+ev7oiBdiaCvElXnbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6BztBDl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nkF+7ZLyH1vb4fzVg7TqtXr2XG9B8iHzWWmYsfgqJWbsH/x1lICUZrjhwG95MVduzwNu3r47iDNo1Twi151TvUnYE56b+ON2gQaMU/YwuaYgwosuRURt8AtwDVnw9sxsuMoQtcOWcExjrGIn2MEtcCkj4AZEKTkOCzyGYio0aHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Hf9JCTT9; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=zkQg0tRe; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=SuFh1Pts; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=f5DItYMz; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6BztBDl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F3A1F000E9;
-	Tue,  1 Sep 2026 11:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788261607;
-	bh=A3yvgKJzFeqIuaVjwqHDNsDfRRW+kTzsG16HNrBK9jk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G6BztBDlPNsckbnO04fd6r6yO+8PdGvIzwbqNReBBjbz3QKQeY7JjZ8K1cAzhpjYp
-	 vpZb743EhPX8lUayMwwUL1MUW2gvtYDMbx7S18gjPpgA3AF9TBn10QJG77X4nKHKH3
-	 hHa//ip3u+x6WgyhezIxam9XMZzYgf2Ojdqp+c2glH3OP+C/VOhcGoehQZ8bXpSmfB
-	 h5vQryshPJ+QuOD9sozc3a5GZg4xkWbKoTX57JqRN9f3pcYfYgdpbtW7uTYNooAu/u
-	 d6kshn1qdDYbzo+abpvZV2i9/wDqtWvvi/ilOJiaqB/YWkbcKS7MUESl51BomCFU4k
-	 tYE1wh45PYM7w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Tangxin Xie <xietangxin@h-partners.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] vlan: fix skb_under_panic and races when toggling HW VLAN offload
-Date: Tue,  1 Sep 2026 07:20:04 -0400
-Message-ID: <20260901112004.50325-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083117-syrup-hardening-b7eb@gregkh>
-References: <2026083117-syrup-hardening-b7eb@gregkh>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Hf9JCTT9";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="zkQg0tRe";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="SuFh1Pts";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="f5DItYMz"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F2F1D227CB;
+	Tue,  1 Sep 2026 11:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788261632; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtmIS6tKOUtReXnNNwZiRzWq/ytmd8xb/oWQMHMDyns=;
+	b=Hf9JCTT93OXZ/HovKvZqdSQw7UXfAczrJ5NzJ4Nb5pULOtabheIYIz82w+ZEnf0Heh8OwM
+	xZfoIk09wPhZrg1K75BFjjwdpg1W0TjziytqfwJGJE3wjMmzU6UYknWes2uc1TH6n3O61l
+	zwYHHn0xNUQ3+iRECnPtVXkP5szqtSk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788261632;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtmIS6tKOUtReXnNNwZiRzWq/ytmd8xb/oWQMHMDyns=;
+	b=zkQg0tRepWOfUXvYBHKDCXc2/skaHZFhTBnMedBGerxmfPS7RQRKs9Z+Q5tUAMowqtdPkg
+	ka/ICtz7b+/UMMAg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=SuFh1Pts;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=f5DItYMz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788261628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtmIS6tKOUtReXnNNwZiRzWq/ytmd8xb/oWQMHMDyns=;
+	b=SuFh1Ptsic8yo8W/kOkebiJXJ2QZjJPuBovoFvsmsaR049SriUVd5dTaHPvIvTBBJ9+VFC
+	YDlyFdorW6hu7MQSBhamlavB4MIXJaSeITu8FaF5mDMhxxA8nRdSvygNuzT4b/yVghgCHF
+	AL8g1FPMh9UqiTw61NlynPnxO/YRCNY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788261628;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rtmIS6tKOUtReXnNNwZiRzWq/ytmd8xb/oWQMHMDyns=;
+	b=f5DItYMzVlrpMd30KvSv3Iz1t3rV/iQZ+ZXZRCuAlHHYTq9ddwVZWM+GcEVCa9b7COk7uH
+	Bj4doxnEL/gPWADQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 5B1471369E;
+	Tue,  1 Sep 2026 11:20:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id FE5vFPu0lmo6MwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 11:20:27 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: zihanx@nebusec.ai
+Cc: davem@davemloft.net,
+	dsahern@kernel.org,
+	edumazet@google.com,
+	horms@kernel.org,
+	idosch@nvidia.com,
+	kaber@trash.net,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	stable@vger.kernel.org,
+	vega@nebusec.ai,
+	Petr Vorel <pvorel@suse.cz>
+Subject: Re: [PATCH net v3 1/1] ipv4: fib: bound automatic table ID allocation
+Date: Tue,  1 Sep 2026 13:20:25 +0200
+Message-ID: <20260901112025.855917-1-pvorel@suse.cz>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6f2f2a7a136aee005512a2e1ac8ede62ac8c7bb6.1788258884.git.zihanx@nebusec.ai>
+References: <6f2f2a7a136aee005512a2e1ac8ede62ac8c7bb6.1788258884.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,128 +102,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: F2F1D227CB
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.cz:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-From: Eric Dumazet <edumazet@google.com>
+> diff --git a/net/ipv4/fib_rules.c b/net/ipv4/fib_rules.c
+> index 4edb0dca7be8..060501b376a8 100644
+> --- a/net/ipv4/fib_rules.c
+> +++ b/net/ipv4/fib_rules.c
+> @@ -214,6 +214,8 @@ INDIRECT_CALLABLE_SCOPE int fib4_rule_match(struct fib_rule *rule,
+>  	return 1;
+>  }
+>  
+> +#define FIB_MAX_AUTO_TABLE_ID  4096
+> +
+>  static struct fib_table *fib_empty_table(struct net *net)
+>  {
+>  	u32 id = 1;
+> @@ -222,7 +224,7 @@ static struct fib_table *fib_empty_table(struct net *net)
+>  		if (!fib_get_table(net, id))
+>  			return fib_new_table(net, id);
+>  
+> -		if (id++ == RT_TABLE_MAX)
+> +		if (id++ == FIB_MAX_AUTO_TABLE_ID)
+>  			break;
+>  	}
+>  	return NULL;
 
-[ Upstream commit 447cbe95ebb95392b5d8f6a01c0556826919ce23 ]
+Reviewed-by: Petr Vorel <pvorel@suse.cz>
 
-Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
-NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
-which dynamically changed vlandev->hard_header_len.
-
-This causes two issues:
-1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
-   read dev->hard_header_len without holding RTNL lock. Mutating
-   hard_header_len dynamically under RTNL creates a data race where upper
-   layers reserve insufficient headroom based on a stale hard_header_len,
-   resulting in skb_under_panic when vlan_dev_hard_header() is called.
-2. In addition, vlan_transfer_features() updated hard_header_len without
-   updating header_ops, causing a mismatch between allocated headroom
-   and header creation.
-
-Always setting dev->hard_header_len = real_dev->hard_header_len and
-dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
-ensures:
-- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
-  eliminating all dynamic runtime updates and data races on hard_header_len.
-- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
-  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
-  real_dev->needed_headroom + VLAN_HLEN).
-- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
-  requirements are honored.
-- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
-  real_dev->hard_header_len.
-- vlan_header_ops is used unconditionally.
-
-Note to stable teams: Make sure to backport these commits:
-
-e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
-cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
-Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
-Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
-Cc: <stable@vger.kernel.org> # 3.19
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ moved the vlan_transfer_features() hunk to its pre-refactor location in vlan.c ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/8021q/vlan.c     |  7 +++----
- net/8021q/vlan_dev.c | 32 ++++----------------------------
- 2 files changed, 7 insertions(+), 32 deletions(-)
-
-diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-index 2b74ed56eb166..306e588c1a694 100644
---- a/net/8021q/vlan.c
-+++ b/net/8021q/vlan.c
-@@ -323,10 +323,9 @@ static void vlan_transfer_features(struct net_device *dev,
- 
- 	netif_inherit_tso_max(vlandev, dev);
- 
--	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
--		vlandev->hard_header_len = dev->hard_header_len;
--	else
--		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
-+	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
-+	vlandev->needed_tailroom = dev->needed_tailroom;
-+	vlandev->hard_header_len = dev->hard_header_len;
- 
- #if IS_ENABLED(CONFIG_FCOE)
- 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index fbf296137b094..560521cf596e3 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -493,26 +493,6 @@ static const struct header_ops vlan_header_ops = {
- 	.parse_protocol = vlan_parse_protocol,
- };
- 
--static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
--				     unsigned short type,
--				     const void *daddr, const void *saddr,
--				     unsigned int len)
--{
--	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
--	struct net_device *real_dev = vlan->real_dev;
--
--	if (saddr == NULL)
--		saddr = dev->dev_addr;
--
--	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
--}
--
--static const struct header_ops vlan_passthru_header_ops = {
--	.create	 = vlan_passthru_hard_header,
--	.parse	 = eth_header_parse,
--	.parse_protocol = vlan_parse_protocol,
--};
--
- static const struct device_type vlan_type = {
- 	.name	= "vlan",
- };
-@@ -571,14 +551,10 @@ static int vlan_dev_init(struct net_device *dev)
- 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
- #endif
- 
--	dev->needed_headroom = real_dev->needed_headroom;
--	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
--		dev->header_ops      = &vlan_passthru_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len;
--	} else {
--		dev->header_ops      = &vlan_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
--	}
-+	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
-+	dev->needed_tailroom = real_dev->needed_tailroom;
-+	dev->header_ops      = &vlan_header_ops;
-+	dev->hard_header_len = real_dev->hard_header_len;
- 
- 	dev->netdev_ops = &vlan_netdev_ops;
- 
--- 
-2.53.0
-
+Kind regards,
+Petr
