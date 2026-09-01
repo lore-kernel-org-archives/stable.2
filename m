@@ -1,50 +1,49 @@
-Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961FF493645
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 18:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.65
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F3FE494801;
+	Tue,  1 Sep 2026 18:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285684; cv=none; b=sHGT/x5xHV28I8kV2bflYs7p+RuhV8SDi/a7+WvxMl7lSsRaqKDv5cLlknB6aMf15t7OG3NjT5NX57257ULbA0kJlvA5ssKXQtDw8JpYpHU5qT5IAPiozN/U8vaFZU09hyWUriESLcAAfeDWcaMmumlimkupjgkENyD6p5L+Ra0=
+	t=1788285987; cv=none; b=Dp7OpwnV9qTFSVcOzbqVanw0WSC7q/ijzSYfxET8Oxv9GJZsasBiPmT6De97VryEi8XEWzj57ldQLYv7DQaRzEHF8+Y64+p7AaXlKeNUsFlnHp58Umhpu1an99wDs9u2GObPcA6SpqZDiT6UdMgbds8/OeSO3GgI1uDya+LdBu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285684; c=relaxed/simple;
-	bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhiWiHhz0HEJoc3j0Ek5ApT2BzNuRJdYgLfbcIChhmg8GOwg2ULAtis2SH+jvpOPfhFdR5O2HTqnZo/HLkefcOsdV6Cg8y5XpMKtoF3jSeg9gSV48ukgeD/p5HNZTs5bfeIHVni3WBJFVmViiBHz/vALY/Z92EKkV8CvvT9c+Ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q6d6LXw5; arc=none smtp.client-ip=95.215.58.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788285987; c=relaxed/simple;
+	bh=3W8JVYLQkvVQN7to25EbxblwpFAKAuVFh9UmW30i3N0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VItTHEYCn/GLPJAAMPZOJaYwxSPIy9WdGXJxysPH9hgCETYZ1/CRytxHqZKlKM+ia5QsFv1Os40JcOn//OkgfQ0yiRHOfkNUOrnVn+hkqfHWyNsAL9QkzG6S56s0c/pb2SPWJS9xx7xZB2uev3BA6YaD2rAOa8HUqtVNbL7Mlx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=CL4/pghU; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q6d6LXw5"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788285680; v=1; x=1788890480;
- b=q6d6LXw5C7LRW32fkzga2wLw7TSXkpXDll/8iUnvQEoZ14NRnxa41tilgeEnscAopuufaDKV
- Kde3G4BMAos8MOxMYnZy0mrzOmr4bEtRvzXCpqilDG5DZ2mKe66DWsRDQIaDaEQ527BwOvUUd0U
- tBY/fp83+1EuC7Zj3egqFu74=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dc1bc49c649213e5;
-	Tue, 01 Sep 2026 18:01:20 +0000
-X-Mizu-Trace-ID: dc1bc49c649213e5
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Hugh Dickins <hughd@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: "Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Matthew Wilcox <willy@infradead.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="CL4/pghU"
+Received: from localhost.localdomain (unknown [52.172.102.222])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5DEB420B7166;
+	Tue,  1 Sep 2026 11:05:40 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5DEB420B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788285949;
+	bh=dPpGuVKFWxabCbT9X1+NC/BlECnScEpIX1GeAfUkNws=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CL4/pghUYwiPRKjF+dxKSwmOqV2fl3bq+GtqijeIdX9alwhOipERGR60zU3z4ERTV
+	 +PF9Dc5oXlQzrqMrU5XphNUnlVnJJSvtaD8JVfTN4diKNkCtz/jKl71QffuG/wpvxi
+	 j+Ao1+/5ApWzvg7jTnrdaz5RjdL/KiIlbkrm8oAk=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	jkoolstra@xs4all.nl,
+	neil@brown.name,
+	sandeen@redhat.com,
+	kees@kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
-Date: Tue,  1 Sep 2026 11:01:09 -0700
-Message-ID: <20260901180109.3797944-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Subject: [PATCH] ufs: validate cylinder group free bitmap offset
+Date: Tue,  1 Sep 2026 14:06:00 -0400
+Message-ID: <20260901180600.10394-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,68 +52,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
-a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
-flag still set from a bio completion handler:
+ufs_read_cylinder() copies cg_freeoff from the on-disk cylinder group
+without checking that the free-fragment bitmap fits in the loaded
+cylinder group buffers. A crafted image can place cg_freeoff past those
+buffers so that allocation later indexes ubh->bh[] out of range.
 
-  __free_pages_ok+0x6af/0x7a0
-  <IRQ>
-  __bio_release_pages+0xde/0x260
-  __iomap_dio_bio_end_io+0x16e/0x1a0
-  blk_update_request+0x14b/0x3d0
-  blk_mq_end_request+0x18/0x30
-  blk_done_softirq+0x49/0x60
+UBSAN: array-index-out-of-bounds in fs/ufs/balloc.c:752:15
+  ubh_scanc()              fs/ufs/balloc.c:752
+  ufs_bitmap_search()      fs/ufs/balloc.c
+  ufs_alloccg_block()      fs/ufs/balloc.c
+  ufs_alloc_fragments()    fs/ufs/balloc.c
+  ufs_new_fragments()      fs/ufs/balloc.c
 
-The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
-its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
-that mapping GUP-pins those same folios.  munlock() then runs
-mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
-tables to munlock each folio.  A concurrent hole punch reaches the folio
-through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
-window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
-already clear, so it neither queues the folio on the mlock batch nor takes
-a reference, and the pte it clears makes the pending mlock_pte_range()
-walk skip the folio at its !pte_present() check.  filemap_remove_folio()
-then drops the page cache reference, leaving the bio's pin as the last
-one, released from the completion handler above.
+Reject the cylinder group unless the full BITS_TO_BYTES(s_fpg)
+free-fragment bitmap starting at c_freeoff fits in the bytes actually
+loaded for that cylinder group.
 
-So __zone_stat_mod_folio() here needs interrupts disabled, not merely
-preemption, and __munlock_folio() has a path where they are not: when the
-folio has already been taken off the LRU by somebody else the function
-jumps straight to the counter update without taking the lruvec lock.  The
-read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
-the softirq above, and one of the two decrements is lost, leaving Mlocked
-in /proc/meminfo permanently overstated.
-
-Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
-atomic against a same-CPU interrupt and retries, and on the path where the
-lruvec lock is held its cost is negligible next to the lock itself.
-
-The UNEVICTABLE_PG* events are deliberately left on the __ accessors:
-they occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED
-that __free_pages_prepare() bumps, and nothing updates those two from
-interrupt context.
-
-Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
 ---
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/ufs/cylinder.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index efa6716e4dfb..39215a3eab1f 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -141,7 +141,7 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
+diff --git a/fs/ufs/cylinder.c b/fs/ufs/cylinder.c
+index a2813270c303..fec6c9dfb055 100644
+--- a/fs/ufs/cylinder.c
++++ b/fs/ufs/cylinder.c
+@@ -33,6 +33,8 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	struct ufs_sb_private_info * uspi;
+ 	struct ufs_cg_private_info * ucpi;
+ 	struct ufs_cylinder_group * ucg;
++	u64 cg_bytes, free_bitmap_bytes;
++	const char *err;
+ 	unsigned i, j;
  
- munlock:
- 	if (folio_test_clear_mlocked(folio)) {
--		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
- 		if (isolated || !folio_test_unevictable(folio))
- 			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
- 		else
+ 	UFSD("ENTER, cgno %u, bitmap_nr %u\n", cgno, bitmap_nr);
+@@ -48,8 +50,10 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	UCPI_UBH(ucpi)->bh[0] = sbi->s_ucg[cgno];
+ 	for (i = 1; i < UCPI_UBH(ucpi)->count; i++) {
+ 		UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i);
+-		if (!UCPI_UBH(ucpi)->bh[i])
++		if (!UCPI_UBH(ucpi)->bh[i]) {
++			err = "can't read cylinder group block %u";
+ 			goto failed;
++		}
+ 	}
+ 	sbi->s_cgno[bitmap_nr] = cgno;
+ 			
+@@ -68,6 +72,16 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	ucpi->c_clustersumoff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clustersumoff);
+ 	ucpi->c_clusteroff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clusteroff);
+ 	ucpi->c_nclusterblks = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_nclusterblks);
++
++	cg_bytes = UCPI_UBH(ucpi)->count * sb->s_blocksize;
++	free_bitmap_bytes = BITS_TO_BYTES((u64)uspi->s_fpg);
++	/* The full free bitmap must fit in the loaded CG buffer. */
++	if (!free_bitmap_bytes ||
++	    (u64)ucpi->c_freeoff + free_bitmap_bytes > cg_bytes) {
++		err = "cylinder group %u has invalid free bitmap";
++		goto failed;
++	}
++
+ 	UFSD("EXIT\n");
+ 	return true;
+ 	
+@@ -75,7 +89,7 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	for (j = 1; j < i; j++)
+ 		brelse(UCPI_UBH(ucpi)->bh[j]);
+ 	sbi->s_cgno[bitmap_nr] = UFS_CGNO_EMPTY;
+-	ufs_error (sb, "ufs_read_cylinder", "can't read cylinder group block %u", cgno);
++	ufs_error(sb, "ufs_read_cylinder", err, cgno);
+ 	return false;
+ }
+ 
+
+base-commit: 786262be6048deab760f68c8acc2c85607165894
 -- 
-2.53.0-Meta
+2.55.0
 
