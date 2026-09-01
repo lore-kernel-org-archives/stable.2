@@ -1,46 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com [209.85.161.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67697448BBE
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51653449B24
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:55:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292471; cv=none; b=T7JWcHLydiUNdxauMIZGewyHeriP8+KjYZ8+REnRzmScgEiDzO0APxmjJf14MshkllsPiV8UR8GLxXcNjPPmF3oelKt7QqAWf8huD77HeqPlyqSkUQKsFnfJCuq/f/DiIZSBA02GAGPqdG0arVB3l6bZc0ot4wvNHt9pZglNS9A=
+	t=1788292530; cv=none; b=bnuLwRIyBcYBbe0vCujKlHhjcIK1Hf2bH4nqEOgKEa4ouJqubUAdaXqmI/0gjpssEV+XDSgqNw+5TWZyknj6xdU85nJaN2fZ0OyWtEHbIJB1efa9u09DsgQPdDzTVrfXn2L936BSCGZ/lkZ2a69v9mq3aJdM6/Pj9coVciBYglU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292471; c=relaxed/simple;
-	bh=o1JPdrCeY2CC8vrq64fi2L32zNIysOZZGfTSClDgLwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=coeD7XI58Cl8k/MAsNq9u5PdgCZ74OjEgDFqazeki+M6kEGMN+PxhjRyKyo3PgQJVjCsvJWLTZDkWBOsEMqwknytrTPKzsP8l772KVYPFiDHkw4M8tBmHZLyb9BCt3GWcMGyL1FjGWxvK+dkiVh87hRv1mCIk9HDl+We1zzFk7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUMqQdZW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788292530; c=relaxed/simple;
+	bh=TvjOuasMKcmLJ41E140O1JpOLWeLLgpHzmdhvAOXxX0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rS6wDKEnidzdUaIsrDZ7uKFmct9Eu6lEnFy+KS/XQjfC2h6gsFf9eX6F/aJmxWcwKSkUTm3gKbrGtmgpXhjJgDsyvUuiiTODrtV9qcwBBHKFmqS+vdA1oY3Yc2qN72PTv/eXwPrhV/mfxcKBawgLXcNYB4jZ2dMvFeN5VaDTafE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hAIglYG5; arc=none smtp.client-ip=209.85.161.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUMqQdZW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0901F00A3E;
-	Tue,  1 Sep 2026 19:54:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788292470;
-	bh=D/viKpa4LvDql0d4ViqlvHSCpDNufQBcfJgRL78ge68=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mUMqQdZW8awMGiD8Y3+XazdzOphgv4X21vk/cGgofNUIwGBhNULZfPik57R1jwRV6
-	 B1Yk/nM0MgG6xwAK2sQxKevD9D1nRQ2vXSRH1w6+1nZc7ba3pXqF8vXZZO/BuawGXs
-	 sbHpVojPnDP3tpQj8GTpe+KoOHyHgVjPLE4NDTLtG8UtwXzVeQofUt+7Og5FkRiAxN
-	 oLg7yKwh3/z6hYzC5O3VaBuT9j16qNpph4To8qN289Olp2fMGePBu1S3L4PdbQyO8y
-	 nMbrD6hu2upGICRXiH6UAH6BlqIhWWfjlamz2IDSxW0AML8j+U2nxI6+ZIJbDd1na3
-	 w9ptQD19euxYg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Fourie Zhang <littleddfu@gmail.com>,
-	stable@kernel.org,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	Fourie Zhang <fouriezhang@tencent.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] netfilter: nf_tables: don't queue packet path object notifications
-Date: Tue,  1 Sep 2026 15:54:26 -0400
-Message-ID: <20260901195426.1450757-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901195426.1450757-1-sashal@kernel.org>
-References: <2026083157-plexiglas-pouring-6a0f@gregkh>
- <20260901195426.1450757-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hAIglYG5"
+Received: by mail-oo1-f53.google.com with SMTP id 006d021491bc7-6b19e291cc6so192452eaf.2
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:55:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788292528; x=1788897328; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
+        b=hAIglYG5YZPMjqn+mjdoINizK+v9Gr+xEK9Adeao9VaS2SGXiQBo7Gd9PziUYSk513
+         qDCQzZvMhnm1gV+rVbtnjy6miGF3GJl6Y+LEhO/Wp6TMWyQ4fGMq9GsZZJzlq+pLOiJt
+         7r1zkm1LCAVJPynALSd6HC2jj+uRnLyaKBt3h2nzbPq3wzBIhWu2D9S5jNZrOgnRbpn7
+         OrXcIRIXXFyGi70DrvKVHa+9EnPsWgpEkA6hT7d5KYTX1QWSk5xRvCx5UNuVRX5Uueal
+         se2r6/9bUs8lVTxo2VHLxWbgZCobLGDrnEjjbfJZoSjcafyjQDTIXSekEDodc7hL2W+f
+         jykw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788292528; x=1788897328;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jE7YeOTH+Slgx2JFrDNEXYntxMlmYaSvMdCwqmpupuI=;
+        b=VsLlX9H4dzemwo4QxQ6sRspzE6weC+HAKrdSaMYRmDogCFoysCHBoHQc7CBewA7MKK
+         VnQrqHAOi61yBECVrAaQcuVEteQfxBUrUMHLkVfMOwd+FZaOwgrgNfnhFBAOfisS6cgv
+         cSb7jkkbv4BxW7KdpRpOq90PndkwejD1T1/iXK9f9eZmpL2Q8H0sxD2C+3b1TlHyBLwR
+         Ic6pqczMyNrvqQFnmaL/UxGRhMm373PF23NoW5c0KS9x9TeH+SA82W0Dts0OdEuiyZkE
+         vsH/bd2RmbdQV8dezvVv6RTzqT/EUXlZRfyTfalUjJIx5SUXxezD84z78kWxa0EiTN3U
+         KlyA==
+X-Forwarded-Encrypted: i=1; AHgh+RoIl79Cf45KpkvckkpWUwg9eFz22PCoBcUhtZCuGaF7BYgAaX3rW1Lzy8CyDTlOvympYWhAqmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nIwLFbO/YQNQ0KfBdmhkLsAxf/iGezd/2pSvJmLBQJlcmmAs5C
+	K+ppcMuGWtJLR1MeeAjKN+9begSmzUr/HFnEMs7c0Er3Y1+0q4qoK22O
+X-Gm-Gg: AR+sD13sYdiG5epWzEJhHATYzj5thjpWyLkfaib5VG7VXa2foKY4TUlRTIPilRcFSmF
+	gBZEl3ZSpPgclP68foS8t4rNpNMuJrW2xva7BVD5SiaOW4ocDSOrX92ximQ/uRFDMDYJdyQChbv
+	Iqv+XGwN9qjVVrf4B6TGzNG1eEU4jVZ6AH4Gb1pD1k4Yg7hVVN2/WULRjwNiPZ285FoquucRrjY
+	Fwd4EQXIPvplGuh7FdMG67l5afF/7loI3tTAsFnoewSExknLmEAk4x9rYqzfteFKitTA8/BMNN1
+	U4bYaTlLpoq0IErfu5apfEZ653z6y9Ve0JsbBhinrqXSJnuao44xSnbxIeWhYtjbMF/UqZrBwC9
+	6/fiqVoh/So4krs395wSfr4x0Mx4wDclGpk5RWyqqk3ZRRDLnMZLzLTYBf6Szh/HalT5fHw6Omd
+	OJUkYKymreiBucx8NgB9ISoZf0MJahtWhSL7yeC0FNKikrjoPW8TAgbR+UgaI2DwW+zpMh+FiE8
+	L36x7oeXnUHhZ6v3aB+OvvIDcgYKqimMZuYJxUeTqSfK2A=
+X-Received: by 2002:a05:6820:823:b0:6aa:cce3:ab61 with SMTP id 006d021491bc7-6b372d20e4fmr8604105eaf.9.1788292528131;
+        Tue, 01 Sep 2026 12:55:28 -0700 (PDT)
+Received: from memorizer.localdomain (47-163-111-11.bng01.bytw.tx.frontiernet.net. [47.163.111.11])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40f81f374sm868636eaf.14.2026.09.01.12.55.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:55:27 -0700 (PDT)
+From: Yudi Yang <2000jedi@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+	=?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+	Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Damon Ding <damon.ding@rock-chips.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Yudi Yang <2000jedi@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
+Date: Tue,  1 Sep 2026 14:55:11 -0500
+Message-ID: <20260901195511.2761251-1-2000jedi@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,174 +86,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fourie Zhang <littleddfu@gmail.com>
+rockchip_dp_drm_encoder_enable() uses sprintf() to format a device tree
+path into a 32-byte stack buffer. Device tree paths are not limited to
+this size, so a sufficiently long path can overflow the buffer.
 
-[ Upstream commit 7904b94768e983bcb2be34a8d6d1f3450f5b838b ]
+Use snprintf() with the destination size to truncate the generated name
+and keep the writes within bounds.
 
-All file:line references below are against v7.2-rc4 (ac5b0e5651b1). The
-trace was captured on 7.2.0-rc6-kasan72rc6 (075b74841bd0), where the same
-lines apply.
-
-nft_obj_notify() is exported and reached from the packet path. Its only
-in-tree caller is nft_quota_obj_eval() (net/netfilter/nft_quota.c:68),
-which notifies with GFP_ATOMIC while evaluating a rule for a transiting
-packet, holding no mutex.
-
-Since commit 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple
-notifications into one skbuff") that notification is no longer sent
-immediately. __nft_obj_notify() queues it onto nft_net->notify_list via
-nft_notify_enqueue() (net/netfilter/nf_tables_api.c:1211), which is a bare
-list_add_tail(). notify_list has no lock of its own
-(include/net/netfilter/nf_tables.h:1951), it is serialised by commit_mutex:
-the six other enqueue sites all run inside a netlink transaction, and the
-drain in nft_commit_notify() (net/netfilter/nf_tables_api.c:10746) does
-list_del() + kfree_skb() from nf_tables_commit() with commit_mutex held.
-
-Sending packets through a chain that references a depleted quota object
-therefore races an unlocked list_add_tail() against list_del() +
-kfree_skb() on another CPU. The WRITE_ONCE(prev->next, new) in __list_add()
-then stores through an sk_buff that has already been freed:
-
-  BUG: KASAN: slab-use-after-free in __nft_obj_notify+0x2c5/0x2d0
-  Write of size 8 at addr ff110001047183c0 by task poc/76
-  CPU: 0 UID: 1000 PID: 76 Comm: poc Tainted: G  W  7.2.0-rc6-kasan72rc6 #4
-  Call Trace:
-   <IRQ>
-   __nft_obj_notify (include/linux/list.h:164 include/linux/list.h:191
-                     net/netfilter/nf_tables_api.c:1211
-                     net/netfilter/nf_tables_api.c:8743)
-   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
-   nft_do_chain_inet
-   nf_hook_slow
-   __ip_local_out
-   ip_push_pending_frames
-   udp_send_skb
-   udp_sendmsg
-   __x64_sys_sendto
-
-  Allocated by task 77:
-   __alloc_skb (net/core/skbuff.c:704)
-   __nft_obj_notify (include/net/netlink.h:1055
-                     net/netfilter/nf_tables_api.c:8731)
-   nft_quota_obj_eval (net/netfilter/nft_quota.c:68)
-   nft_do_chain
-
-  Freed by task 79:
-   nf_tables_commit (include/linux/skbuff.h:1332
-                     net/netfilter/nf_tables_api.c:10759
-                     net/netfilter/nf_tables_api.c:11185)
-   nfnetlink_rcv_batch (net/netfilter/nfnetlink.c:574)
-   netlink_unicast
-   netlink_sendmsg
-
-  The buggy address belongs to the cache skbuff_head_cache of size 232
-
-Queueing from the packet path is wrong even leaving the race aside:
-notify_list is only drained by nft_commit_notify() from nf_tables_commit()
-(:11185), so a notification enqueued outside a transaction is not sent
-until some later netlink batch commits, if one ever does.
-
-The gfp argument that nft_obj_notify() still takes is a leftover of the
-pre-67cc570edaa0 behaviour, where this path called nfnetlink_send()
-directly. Restore that: split the message construction out into
-nft_obj_notify_alloc() and let each caller decide what to do with the skb.
-nft_obj_notify(), the exported one reached from the packet path, sends it
-straight away; nf_tables_obj_notify(), which runs under commit_mutex, keeps
-queueing it, so transaction notifications are still coalesced.
-
-Fixes: 67cc570edaa0 ("netfilter: nf_tables: coalesce multiple notifications into one skbuff")
-Cc: stable@kernel.org
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Assisted-by: tencentos-corvus-ai:kimi-k3
-Signed-off-by: Fourie Zhang <fouriezhang@tencent.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 729f8eefdcad ("drm/rockchip: analogix_dp: Add support for RK3588")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yudi Yang <2000jedi@gmail.com>
 ---
- net/netfilter/nf_tables_api.c | 36 ++++++++++++++++++++++-------------
- 1 file changed, 23 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
-index 67b830b45cc4b..608ef18585367 100644
---- a/net/netfilter/nf_tables_api.c
-+++ b/net/netfilter/nf_tables_api.c
-@@ -7808,18 +7808,17 @@ static int nf_tables_delobj(struct sk_buff *skb, const struct nfnl_info *info,
- 	return nft_delobj(&ctx, obj);
- }
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index 587e60232ec7..efd5a98e80bd 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -241,10 +241,11 @@ static void rockchip_dp_drm_encoder_enable(struct drm_encoder *encoder,
+ 				of_graph_get_remote_port(endpoint.local_node);
  
--static void
--__nft_obj_notify(struct net *net, const struct nft_table *table,
--		 struct nft_object *obj, u32 portid, u32 seq, int event,
--		 u16 flags, int family, int report, gfp_t gfp)
-+static struct sk_buff *
-+nft_obj_notify_alloc(struct net *net, const struct nft_table *table,
-+		     struct nft_object *obj, u32 portid, u32 seq, int event,
-+		     u16 flags, int family, int report, gfp_t gfp)
- {
--	struct nftables_pernet *nft_net = nft_pernet(net);
- 	struct sk_buff *skb;
- 	int err;
+ 			of_property_read_u32(remote_port, "reg", &port_id);
+-			sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id);
++			snprintf(name, sizeof(name), "%s vp%d",
++				 remote_port_parent->full_name, port_id);
+ 		} else {
+-			sprintf(name, "%s %s",
+-				remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
++			snprintf(name, sizeof(name), "%s %s",
++				 remote_port_parent->full_name, endpoint.id ? "vopl" : "vopb");
+ 		}
  
- 	if (!report &&
- 	    !nfnetlink_has_listeners(net, NFNLGRP_NFTABLES))
--		return;
-+		return NULL;
- 
- 	skb = nlmsg_new(NLMSG_GOODSIZE, gfp);
- 	if (skb == NULL)
-@@ -7833,10 +7832,10 @@ __nft_obj_notify(struct net *net, const struct nft_table *table,
- 		goto err;
- 	}
- 
--	nft_notify_enqueue(skb, report, &nft_net->notify_list);
--	return;
-+	return skb;
- err:
- 	nfnetlink_set_err(net, portid, NFNLGRP_NFTABLES, -ENOBUFS);
-+	return NULL;
- }
- 
- void nft_obj_notify(struct net *net, const struct nft_table *table,
-@@ -7845,6 +7844,7 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
- {
- 	char *buf = kasprintf(gfp, "%s:%u",
- 			      table->name, nft_base_seq(net));
-+	struct sk_buff *skb;
- 
- 	audit_log_nfcfg(buf,
- 			family,
-@@ -7855,17 +7855,27 @@ void nft_obj_notify(struct net *net, const struct nft_table *table,
- 			gfp);
- 	kfree(buf);
- 
--	__nft_obj_notify(net, table, obj, portid, seq, event,
--			 flags, family, report, gfp);
-+	/* Called from the packet path, holding no mutex: notify_list is
-+	 * serialised by commit_mutex, so send this notification directly.
-+	 */
-+	skb = nft_obj_notify_alloc(net, table, obj, portid, seq, event,
-+				   flags, family, report, gfp);
-+	if (skb)
-+		nfnetlink_send(skb, net, portid, NFNLGRP_NFTABLES, report, gfp);
- }
- EXPORT_SYMBOL_GPL(nft_obj_notify);
- 
- static void nf_tables_obj_notify(const struct nft_ctx *ctx,
- 				 struct nft_object *obj, int event)
- {
--	__nft_obj_notify(ctx->net, ctx->table, obj, ctx->portid,
--			 ctx->seq, event, ctx->flags, ctx->family,
--			 ctx->report, GFP_KERNEL);
-+	struct nftables_pernet *nft_net = nft_pernet(ctx->net);
-+	struct sk_buff *skb;
-+
-+	skb = nft_obj_notify_alloc(ctx->net, ctx->table, obj, ctx->portid,
-+				   ctx->seq, event, ctx->flags, ctx->family,
-+				   ctx->report, GFP_KERNEL);
-+	if (skb)
-+		nft_notify_enqueue(skb, ctx->report, &nft_net->notify_list);
- }
- 
- /*
+ 		DRM_DEV_DEBUG(dp->dev, "vop %s output to dp\n", (ret) ? "LIT" : "BIG");
 -- 
-2.53.0
+2.43.0
 
