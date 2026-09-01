@@ -1,172 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0059EECB
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4902639DBD6;
+	Tue,  1 Sep 2026 11:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262790; cv=none; b=KpQgBUUpGrIrcLX8Q0J4fAop9WbZLPjwdGCzwlh8wYuUUIlpTsA1KdfHNtln9Bygg6tAJKR3218FvIGsEEeXEpaNSxqR06vLYwtEBSXBz77Hi1rzaqq3u7y3R7E8tnKGQa8+GTLwJQsd27/9IurLDhUhbawl7Fl3uS8L7YSSFQ8=
+	t=1788263008; cv=none; b=csHYH0h67h1fV5zRBxyRUlFjx8YuTpVkKH79jsRsWTZaa2NXJuVRpalq1N2iyCu9YXVdL/lyggnWx6jIGRBRVccSImTRW9EC/e3fGSKwdO8za8ClxYKmdTjdBI/Qsqg4SR0uCm5WP4AfxRkH1n5P9qt9KaHR38uP+Q/o0TbNEXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262790; c=relaxed/simple;
-	bh=Puxvw1554sUUQs+ON1+uDVqUpybrTqZKj4hVuVK2NFw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KXeyp7a7fisnM0OnQw11q2mfzxmqtbCMzd0PNPFfe3GslOy2QRdcRmjwodUI+0h21iU1y9dhPUhKB5GOfpnWqGMW3NCoHcmfwWks5z0izWUTnVSab0dfBawnQmrpTjsYKXcYbVqGQk+MqeZ69ROE1QrbtTXzsru9hteoepxvG9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPU++dwi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788263008; c=relaxed/simple;
+	bh=39ITq4Ff+c+FJRIAtgkzR/3Yy9O8cOz2fIYexbHY64o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PQhrGBmSfO9DNoD7lt14QCB+2Fj+NgxKrHpkJSt88HTibPLqoSILpqflLj1dpms0qHruxToKkTfH0XpszRAFaiyKkyLbA/ttD2I1AlqP41nWntjHR3LM2/la0HzOJ5hLpQADm9gpSa/zqDYYX/tjI1iynzDQ5GkVWVTj+XJzIOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=3WCLVJ/Q; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPU++dwi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C592F1F00A3D;
-	Tue,  1 Sep 2026 11:39:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788262789;
-	bh=Ak0meX4xhRODj+vOe+ceWf6x5Ap9nIXfge/dl0EjHks=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oPU++dwi7Z71iLPeU1a2M+lNBLgA4X6DDRCAQbUOD82pA20st7Vb/i1saGaotdUio
-	 LHcTXJtjsQjtCALXiDWZIoHSialAuiXD0REDECRpVbC2mvqIGk4dCU7zbP02zZeWGw
-	 9Fh0ER10EP2z01mybJeEOzZ8W9UJ9APAOnUHwlWT4UEm0/IuhCQtG89lDIgty95MzF
-	 kcLvqkLTAJFtZfyX8Gm0zjY60uT5zZxsT+94qM6ceHNv1cMqM0CfLSvUFM8xeAS7vX
-	 5qc+7N8nDXjryGn5tmMY+wfo6F4cz6mjMrD/VEbzHczFfOX5p9+sKUXRvuOU+E1KlV
-	 BL27uI+k+ue/A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Tangxin Xie <xietangxin@h-partners.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] vlan: fix skb_under_panic and races when toggling HW VLAN offload
-Date: Tue,  1 Sep 2026 07:39:47 -0400
-Message-ID: <20260901113947.240748-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083118-ranged-peddling-d8e5@gregkh>
-References: <2026083118-ranged-peddling-d8e5@gregkh>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="3WCLVJ/Q"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=jVFy6vmRTrlaHy1nJIJgeFKjh2QY1a0llw9oeQ2GpfM=;
+	b=3WCLVJ/QUY/dalOUg3y2No3BSYtFDEAEem8rPz++4Q80iySAl3yWGYQ2UxsSal6T0WWl8CWEr
+	V84iMd5t1g+plSUv1YDwAow+nc6NIV0tY2t/r1OMfUEfKFMjGj5T1zOgK6FhcfCb2Wc83soM7U0
+	L7T78noz9RIp97/+mJx0B+4=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hZ3bz3DMsz1T4Fq;
+	Tue,  1 Sep 2026 19:31:59 +0800 (CST)
+Received: from dggpemf100018.china.huawei.com (unknown [7.185.36.183])
+	by mail.maildlp.com (Postfix) with ESMTPS id B649540579;
+	Tue,  1 Sep 2026 19:43:19 +0800 (CST)
+Received: from [10.67.111.115] (10.67.111.115) by
+ dggpemf100018.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 1 Sep 2026 19:43:18 +0800
+Message-ID: <5c4e30cf-3742-4d25-a209-25498c73f1f4@huawei.com>
+Date: Tue, 1 Sep 2026 19:43:17 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "irqchip/mbigen: Fix mbigen node address layout"
+Content-Language: en-US
+To: caina <caina@uniontech.com>, <tglx@kernel.org>, <maz@kernel.org>,
+	<radu@rendec.net>, <guohanjun@huawei.com>, "liaochang (A)"
+	<liaochang1@huawei.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+	<wangwudi@hisilicon.com>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+	<kernel@uniontech.com>
+References: <8633w854yk.wl-maz@kernel.org>
+ <20260821091720.16665-1-caina@uniontech.com>
+From: Yipeng Zou <zouyipeng@huawei.com>
+In-Reply-To: <20260821091720.16665-1-caina@uniontech.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ dggpemf100018.china.huawei.com (7.185.36.183)
 
-From: Eric Dumazet <edumazet@google.com>
+Oh Sorry, the format of the last email was messed up.
 
-[ Upstream commit 447cbe95ebb95392b5d8f6a01c0556826919ce23 ]
+Hi1616 is special hardware whose register layout differs
+from the other mbigen platforms: it does not have the clear register
+range fixed at [0xA000, 0xAFFF], on which the fix is based.  As a
+result, skipping an extra node offset for node IDs greater than or
+equal to ten, as the fix does, makes the driver access wrong
+registers on Hi1616.
 
-Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
-NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
-which dynamically changed vlandev->hard_header_len.
+The fix was originally introduced to address a real problem on the
+other platforms: each mbigen chip has its own independent set of
+clear registers, whose offset is fixed within the range [0xA000,
+0xAFFF].  Meanwhile, mbigen allocates a consecutive 4-byte register
+to every hwirq for configuring the interrupt type, EOI and so on, so
+each 4KB node region accommodates 128 hwirqs.  Before the fix, the
+driver calculated the register address of each interrupt from its
+hwirq.  This works without any problem as long as the number of
+interrupts is below 1280, which means no more than nine mbigen nodes.
+Once the maximum number of interrupts of a mbigen chip exceeds 1280,
+however, the node register addresses reach offset 0xA000 and start to
+clobber the fixed clear-register range.
 
-This causes two issues:
-1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
-   read dev->hard_header_len without holding RTNL lock. Mutating
-   hard_header_len dynamically under RTNL creates a data race where upper
-   layers reserve insufficient headroom based on a stale hard_header_len,
-   resulting in skb_under_panic when vlan_dev_hard_header() is called.
-2. In addition, vlan_transfer_features() updated hard_header_len without
-   updating header_ops, causing a mismatch between allocated headroom
-   and header creation.
+The final solution will be worked out in cooperation with the BIOS:
+the firmware will pass a chip version to the driver so that it can
+take care of all platforms.  Since this depends on the corresponding
+BIOS versions being adapted first, it cannot land immediately.
 
-Always setting dev->hard_header_len = real_dev->hard_header_len and
-dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
-ensures:
-- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
-  eliminating all dynamic runtime updates and data races on hard_header_len.
-- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
-  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
-  real_dev->needed_headroom + VLAN_HLEN).
-- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
-  requirements are honored.
-- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
-  real_dev->hard_header_len.
-- vlan_header_ops is used unconditionally.
+In the meantime it is safe to revert the fix, because nobody has run
+into this problem for now: it can only be triggered on "new hardware"
+platforms, while all the platforms available today, including
+Hi1616, work correctly.
 
-Note to stable teams: Make sure to backport these commits:
+So, let's revert this patch first.
 
-e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
-cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
+Acked-by: Yipeng Zou <zouyipeng@huawei.com>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
-Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
-Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
-Cc: <stable@vger.kernel.org> # 3.19
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ moved the vlan_transfer_features() hunk to its pre-refactor location in vlan.c ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/8021q/vlan.c     |  7 +++----
- net/8021q/vlan_dev.c | 32 ++++----------------------------
- 2 files changed, 7 insertions(+), 32 deletions(-)
+在 2026/8/21 17:17, caina 写道:
+> This reverts commit 6be6cba9c4371d27f78d900ccfe34bb880d9ee20.
+>
+> Commit 6be6cba9c437 ("irqchip/mbigen: Fix mbigen node address layout")
+> appears to cause a regression on Hi1616.
+>
+> On-board hns NIC has two ports, enahisic2i0 and enahisic2i1, both
+> behind mbigen-v2.  Port 0 works; port 1 cannot pass any traffic.
+>
+> Their interrupt pins fall on different mbigen nodes:
+>
+>    enahisic2i0: pins 1152-1198 -> all in node 9
+>    enahisic2i1: pins 1200-1246 -> node 9 (1200-1215) + node 10 (1216-1246)
+>
+>    (nid = (hwirq - 64) / 128 + 1; pin 1215 = node 9, pin 1216 = node 10)
+>
+> /proc/interrupts shows the break happens exactly at the node boundary:
+>
+>    enahisic2i1-rx0  pin 1200  count 102   <- node 9
+>    enahisic2i1-rx5  pin 1215  count   1   <- node 9, last pin
+>    enahisic2i1-tx5  pin 1216  count   0   <- node 10, first pin
+>    enahisic2i1-rx6  pin 1218  count   0   <- node 10
+>    ...all node 10 pins stay at zero.
+>
+> Port 0 (entirely node 9) is unaffected.  Reverting the commit restores
+> normal operation.
+>
+> The commit assumes CLEAR occupies a full 4 KB page at [0xa000, 0xb000)
+> and collides with node 10, so node 10+ gets shifted by 0x1000.
+>
+> But get_mbigen_clear_reg() uses flat, chip-wide addressing -- it never
+> multiplies by the node ID:
+>
+>      *addr = (hwirq / 32) * 4 + REG_MBIGEN_CLEAR_OFFSET;  /* 0xa000 */
+>
+> Over the valid hwirq range [64, 1407], CLEAR only spans 0xa008-0xa0af
+> (168 bytes).  Node 10's registers are:
+>
+>      TYPE: 0xa000-0xa00f  (16 B)   overlaps CLEAR by 8 B (0xa008-0xa00f)
+>      VEC:  0xa200-0xa3ff  (512 B)  no overlap with CLEAR
+>
+> Shifting the whole page moves VEC from 0xa200 to 0xb200.  The hardware
+> reads the event ID from the fixed silicon address 0xa200 on interrupt
+> firing, but software wrote it to 0xb200 -- so the hardware gets an
+> uninitialised value and the interrupt is lost.
+>
+> The only real overlap is 8 bytes of TYPE.  It can only trigger when a
+> single mbigen instance has devices on both node 1 (CLEAR 0xa008) and
+> node 10 (TYPE 0xa008).  On Hi1616 those nodes are on separate mbigen
+> instances, so it never triggers.
+>
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Fixes: 6be6cba9c4371d27f78d900ccfe34bb880d9ee20 ("irqchip/mbigen: Fix mbigen node address layout")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: caina <caina@uniontech.com>
+> ---
+>   drivers/irqchip/irq-mbigen.c | 20 ++++----------------
+>   1 file changed, 4 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/irqchip/irq-mbigen.c b/drivers/irqchip/irq-mbigen.c
+> index 6f69f4e5dbac..12919836dadb 100644
+> --- a/drivers/irqchip/irq-mbigen.c
+> +++ b/drivers/irqchip/irq-mbigen.c
+> @@ -64,20 +64,6 @@ struct mbigen_device {
+>   	void __iomem		*base;
+>   };
+>   
+> -static inline unsigned int get_mbigen_node_offset(unsigned int nid)
+> -{
+> -	unsigned int offset = nid * MBIGEN_NODE_OFFSET;
+> -
+> -	/*
+> -	 * To avoid touched clear register in unexpected way, we need to directly
+> -	 * skip clear register when access to more than 10 mbigen nodes.
+> -	 */
+> -	if (nid >= (REG_MBIGEN_CLEAR_OFFSET / MBIGEN_NODE_OFFSET))
+> -		offset += MBIGEN_NODE_OFFSET;
+> -
+> -	return offset;
+> -}
+> -
+>   static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
+>   {
+>   	unsigned int nid, pin;
+> @@ -86,7 +72,8 @@ static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
+>   	nid = hwirq / IRQS_PER_MBIGEN_NODE + 1;
+>   	pin = hwirq % IRQS_PER_MBIGEN_NODE;
+>   
+> -	return pin * 4 + get_mbigen_node_offset(nid) + REG_MBIGEN_VEC_OFFSET;
+> +	return pin * 4 + nid * MBIGEN_NODE_OFFSET
+> +			+ REG_MBIGEN_VEC_OFFSET;
+>   }
+>   
+>   static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
+> @@ -101,7 +88,8 @@ static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
+>   	*mask = 1 << (irq_ofst % 32);
+>   	ofst = irq_ofst / 32 * 4;
+>   
+> -	*addr = ofst + get_mbigen_node_offset(nid) + REG_MBIGEN_TYPE_OFFSET;
+> +	*addr = ofst + nid * MBIGEN_NODE_OFFSET
+> +		+ REG_MBIGEN_TYPE_OFFSET;
+>   }
+>   
+>   static inline void get_mbigen_clear_reg(irq_hw_number_t hwirq,
 
-diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-index ecc1c8624006f..c6c93a0f2da69 100644
---- a/net/8021q/vlan.c
-+++ b/net/8021q/vlan.c
-@@ -324,10 +324,9 @@ static void vlan_transfer_features(struct net_device *dev,
- 
- 	netif_inherit_tso_max(vlandev, dev);
- 
--	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
--		vlandev->hard_header_len = dev->hard_header_len;
--	else
--		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
-+	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
-+	vlandev->needed_tailroom = dev->needed_tailroom;
-+	vlandev->hard_header_len = dev->hard_header_len;
- 
- #if IS_ENABLED(CONFIG_FCOE)
- 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index 9184cf7eb1286..e7e5b903fa8c3 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -494,26 +494,6 @@ static const struct header_ops vlan_header_ops = {
- 	.parse_protocol = vlan_parse_protocol,
- };
- 
--static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
--				     unsigned short type,
--				     const void *daddr, const void *saddr,
--				     unsigned int len)
--{
--	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
--	struct net_device *real_dev = vlan->real_dev;
--
--	if (saddr == NULL)
--		saddr = dev->dev_addr;
--
--	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
--}
--
--static const struct header_ops vlan_passthru_header_ops = {
--	.create	 = vlan_passthru_hard_header,
--	.parse	 = eth_header_parse,
--	.parse_protocol = vlan_parse_protocol,
--};
--
- static const struct device_type vlan_type = {
- 	.name	= "vlan",
- };
-@@ -572,14 +552,10 @@ static int vlan_dev_init(struct net_device *dev)
- 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
- #endif
- 
--	dev->needed_headroom = real_dev->needed_headroom;
--	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
--		dev->header_ops      = &vlan_passthru_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len;
--	} else {
--		dev->header_ops      = &vlan_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
--	}
-+	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
-+	dev->needed_tailroom = real_dev->needed_tailroom;
-+	dev->header_ops      = &vlan_header_ops;
-+	dev->hard_header_len = real_dev->hard_header_len;
- 
- 	dev->netdev_ops = &vlan_netdev_ops;
- 
 -- 
-2.53.0
+Regards,
+Yipeng Zou
 
