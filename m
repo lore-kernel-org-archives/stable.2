@@ -1,116 +1,274 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BEB2E1EFC
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FAB72E542C
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221752; cv=none; b=Fw67M0Ib6FfUPiB2vinoW29584P4Hv1tolamoDgeCJ4Kt26U6HINnNlG6Pj1sZAXwDxU0HvMI0voq/IMoloVeAJpfQg9/9Rk/kK4ezZc+4mAX1KlUepgCc3CrYGbGukERiZPl9G7lJ4t1TO+6kMZs3DgIBVveNnNCJMm/Hab2o4=
+	t=1788222061; cv=none; b=AKKWGgoTipZkGvRKmhqg40W4ssfags12jAKGUMEHLILijbryQqV406GrjVkBLSAQesa/DOeLsTHO8yVw2itj1zub+Y+OnDTe8vCaId3D2RgU2i949OC9hsPBcZhDRAe27oA+xzHWtrf2dQS02hXkQ+hTlfi6izzayaaxSSX4QG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221752; c=relaxed/simple;
-	bh=yCGJm1jGkR5RuGr2i5gkhz3GBdsvJF4mNpsE9U0bBo4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WXGi0lLm9V/puKG0uNjH/vwbbRWftaYy2Yh+718askI4yrQeGkGDVbIVAmrUN+GBmt6gwKqUqtrlne4hVmh+idOttfnqJrEWO7AtWVnlICkacuaui6Ah5S4fraIYD3Pw3fNxFioBUuXcBAi0Ov1vVlzYQO7x8oXT+sPK+g2Xec4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9WoiCtk; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788222061; c=relaxed/simple;
+	bh=nF5Beq5k5INw42cLn2VOoORXKmqP2Bd6Br0MpSjRydA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EzrUEHKXN72zZCxE2naNWiCA9tHot2CwJn6kL9HMgad1ai3xzrKMg87ILjh1PhpeBZJIEKn/z5lOX3PaAsQNOm30JNo/4NJ1/ie+IhjwxAm/2GoiLQmw/PDSpgGWLwSbKJFNDoBErEionsJb0yF8lyYX3o+h4bLLDDyNHulDf2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLQ2b86D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9WoiCtk"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so3778956a12.0
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 17:15:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788221749; x=1788826549; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VfqEXN2Uyf15PT99s9ZwevHcWniSGZO3B8ZSbTXjUBU=;
-        b=d9WoiCtkaMNFsYbeMa1iAraKNC+yOAWARLz05OqE0V/PsTPuqfFgdqtY1MHfecdBO1
-         J44u6mT+eF76rWqpECjrrUVGOCnvywd60d4T2EOeRm5NARRuIif/YtKQ9QecOP1BF9Ud
-         EvqYRQpqhb3K+H2DRVFKBs49apdLe0QNZ2yT+qmFaxVOVoJppWDuT8R4EEuAlcHit0pt
-         fVv9ehb4NN5CzEdgz3YG1lP6Q8U5fS0/LwAXw+7eKolWNKDHki7uXSt+d5AVzE5tEjnS
-         GfHmOxjLNK1oaQaq5394ZCg+WAFESRbnNuCELNqvnvqKV+rgKOLXzOOlMOzrBeYRGZo+
-         jo6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788221749; x=1788826549;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VfqEXN2Uyf15PT99s9ZwevHcWniSGZO3B8ZSbTXjUBU=;
-        b=HPAKQOLsnDVc0Frt8llhbHkfpLEUDEf6umYqPNbPY6o72ceZu+Tt+XrJ2ZPpm2IkhI
-         Eif+hd4B6NmP9GIMD/ErlaXw2QCyjFGb10F3UuPOjRARY/x5YIA1NMAlNKvXoEOkm1wM
-         8OLfX/uVCrCNSVks2GEV7UiRFWYe3lxuI2aTf4KrketdfWAWOojxK9WU4R4urGRHXFym
-         qXLDlCztvdsQqlXudjV0gPAyiE2E6GWJ6YbVBLreRWem2necnr6Nh5xZ1mTWqEf/gfkV
-         eonkP5UmguXxyRQXEJ3/VrgS+AIJt8yLgRscTXxG065nwTqqIhCVz1SqKrSuCzEEG51K
-         HbMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5i6Vy9U56C/wQkbXQcRYXUzwVKbMyiL/jtMfPGKuZHH4Yp+AXZl8leFF1PiG3SZgJOKkyw8s=@vger.kernel.org
-X-Gm-Message-State: AFuF++lNofomSDD1eieLI196k8oE2FQW1+l4Jm0yKOiGL42QHgnF1251
-	izOEHvfwAbnuo8OE9oAMTNREd6h7PQQGGVjKV804lpytzFB0Em2MM+Ff
-X-Gm-Gg: AYBFou2ode9i6cgEQwg3pcIfiInli421XbCdfJ3RQOkekx9fRphHrDbZ/xM39gT9x2i
-	kQc76Je18j8mNXTAeg58bAlokf9XtvN3nXuuBst/mpg9uIwjEu0HPALciFe961cM0cJO2IfeHaB
-	Nt9Moo4zWTMp6Z1XRfzVEIjllpsOhK4aav69tLdG3Mt6zD2KXDGc2NwuZbdjxTHorFWW9MG40d1
-	5ovF73sxGqjNC1LIzZelI67wh2hUmVfawPtOMPVq73b2hEHmfbjN9LspERvJ71vTbhdfSzq91QO
-	tHh673YsthifLJ/TrNCFFW3dSl5UQ1BLJxHqetzeyGdRo6pNSDXcGL34S/+wiRciOpRStYGvdZX
-	h2ggT4fVzxIn5mEmilL1Xofblg10Ph5Kjtn2ceni2wGk8Ms9VTnvI47KDgaSvz5hrjpfa+2Gj4/
-	UCzr/M3OQgsxcetHbSMB6FxWJH9gwMyYh4zMNrtHoikfYfel35wEnWZkVC/+EETf5A/8DMwV5HY
-	IJEXz8GUwst+sKO/4Z2i4Rr0ROEIQ==
-X-Received: by 2002:a17:90b:530c:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-396d0d4c43amr46596844a91.3.1788221749583;
-        Mon, 31 Aug 2026 17:15:49 -0700 (PDT)
-Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d3fdf6sm32745466c88.6.2026.08.31.17.15.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 17:15:48 -0700 (PDT)
-Message-ID: <478c7bc6-bdd7-45c1-ae8f-cc7e672912de@gmail.com>
-Date: Mon, 31 Aug 2026 17:15:48 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLQ2b86D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB4D1F000E9;
+	Tue,  1 Sep 2026 00:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788222059;
+	bh=DNFrsjYUBn+vZBv0cZzYyj1BGVIduPN/Z/VmGsmLoVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kLQ2b86DvSG7XhebACcb0h34esU78mHzXNKKxJRL//Yy4Gi/ILD2B0I9g1a0xAVr1
+	 uXj6DhHe6Dj4yAsRRGp5ME8J6VhfSZun4WhvjaGNdlKqY85JvqPWw6NRI0ILSoXYtN
+	 +mha3bl5uujczP0KU/De7anyLNbwZzun4JlJnDXdBGsP97jtzhV67rUH0LBsaGVz6a
+	 yYuW6pyw2Hq5lP6hG98L1oWRFAIgM9+NFfLdR6zsugk5H7RzD/9NcemiIvfqkibrMH
+	 WWpSx/zPuRmesnGzaRW7C1gCFhoI9kvfsywkv+v2C7oJaFGTNvUgMpoQAsg+smOQV+
+	 D2qxhsTqmVbuQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] ipv6: pass proto by value to ipv6_push_nfrag_opts() and ipv6_push_frag_opts()
+Date: Mon, 31 Aug 2026 20:20:52 -0400
+Message-ID: <20260901002057.2024614-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083104-huddle-balancing-d57b@gregkh>
+References: <2026083104-huddle-balancing-d57b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20260831133359.207714926@linuxfoundation.org>
-Content-Language: en-US
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+From: Eric Dumazet <edumazet@google.com>
 
+[ Upstream commit 1bc46dd209667346c5aa56c351995e7c260696d0 ]
 
-On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.49 release.
-> There are 83 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+With CONFIG_STACKPROTECTOR_STRONG=y, it is better to avoid passing
+a pointer to an automatic variable.
 
-On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
-BMIPS_GENERIC:
+Change these exported functions to return 'u8 proto'
+instead of void.
 
-Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+- ipv6_push_nfrag_opts()
+- ipv6_push_frag_opts()
+
+For instance, replace
+	ipv6_push_frag_opts(skb, opt, &proto);
+with:
+	proto = ipv6_push_frag_opts(skb, opt, proto);
+
+Note that even after this change, ip6_xmit() has to use a stack canary
+because of @first_hop variable.
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260130210303.3888261-2-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 870a9e42ecc6 ("tcp: clamp route advmss to TCP_MIN_MSS")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/ipv6.h    | 10 ++++----
+ net/ipv6/exthdrs.c    | 55 +++++++++++++++++++++++--------------------
+ net/ipv6/ip6_output.c | 19 ++++++++-------
+ net/ipv6/ip6_tunnel.c |  2 +-
+ 4 files changed, 46 insertions(+), 40 deletions(-)
+
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+index 087aa7f502d56..aa8b525908ea0 100644
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -1147,11 +1147,11 @@ int ip6_local_out(struct net *net, struct sock *sk, struct sk_buff *skb);
+  *	Extension header (options) processing
+  */
+ 
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto, struct in6_addr **daddr_p,
+-			  struct in6_addr *saddr);
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			 u8 *proto);
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto, struct in6_addr **daddr_p,
++			struct in6_addr *saddr);
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++		       u8 proto);
+ 
+ int ipv6_skip_exthdr(const struct sk_buff *, int start, u8 *nexthdrp,
+ 		     __be16 *frag_offp);
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index fbc0df2daed32..d2194f74bbb22 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -1101,9 +1101,9 @@ int ipv6_parse_hopopts(struct sk_buff *skb)
+  *	for headers.
+  */
+ 
+-static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr0(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	struct rt0_hdr *phdr, *ihdr;
+ 	int hops;
+@@ -1122,13 +1122,13 @@ static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+ 	phdr->addr[hops - 1] = **addr_p;
+ 	*addr_p = ihdr->addr;
+ 
+-	phdr->rt_hdr.nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	phdr->rt_hdr.nexthdr = proto;
++	return NEXTHDR_ROUTING;
+ }
+ 
+-static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr4(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	struct ipv6_sr_hdr *sr_phdr, *sr_ihdr;
+ 	int plen, hops;
+@@ -1171,58 +1171,61 @@ static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+ 	}
+ #endif
+ 
+-	sr_phdr->nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	sr_phdr->nexthdr = proto;
++	return NEXTHDR_ROUTING;
+ }
+ 
+-static void ipv6_push_rthdr(struct sk_buff *skb, u8 *proto,
+-			    struct ipv6_rt_hdr *opt,
+-			    struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr(struct sk_buff *skb, u8 proto,
++			  struct ipv6_rt_hdr *opt,
++			  struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	switch (opt->type) {
+ 	case IPV6_SRCRT_TYPE_0:
+ 	case IPV6_SRCRT_STRICT:
+ 	case IPV6_SRCRT_TYPE_2:
+-		ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	case IPV6_SRCRT_TYPE_4:
+-		ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	default:
+ 		break;
+ 	}
++	return proto;
+ }
+ 
+-static void ipv6_push_exthdr(struct sk_buff *skb, u8 *proto, u8 type, struct ipv6_opt_hdr *opt)
++static u8 ipv6_push_exthdr(struct sk_buff *skb, u8 proto, u8 type, struct ipv6_opt_hdr *opt)
+ {
+ 	struct ipv6_opt_hdr *h = skb_push(skb, ipv6_optlen(opt));
+ 
+ 	memcpy(h, opt, ipv6_optlen(opt));
+-	h->nexthdr = *proto;
+-	*proto = type;
++	h->nexthdr = proto;
++	return type;
+ }
+ 
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto,
+-			  struct in6_addr **daddr, struct in6_addr *saddr)
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto,
++			struct in6_addr **daddr, struct in6_addr *saddr)
+ {
+ 	if (opt->srcrt) {
+-		ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
++		proto = ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
+ 		/*
+ 		 * IPV6_RTHDRDSTOPTS is ignored
+ 		 * unless IPV6_RTHDR is set (RFC3542).
+ 		 */
+ 		if (opt->dst0opt)
+-			ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
++			proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
+ 	}
+ 	if (opt->hopopt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++	return proto;
+ }
+ 
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 *proto)
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 proto)
+ {
+ 	if (opt->dst1opt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++	return proto;
+ }
+ EXPORT_SYMBOL(ipv6_push_frag_opts);
+ 
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 5f2c96e052dff..351649874733e 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -307,11 +307,12 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
+ 		seg_len += opt->opt_nflen + opt->opt_flen;
+ 
+ 		if (opt->opt_flen)
+-			ipv6_push_frag_opts(skb, opt, &proto);
++			proto = ipv6_push_frag_opts(skb, opt, proto);
+ 
+ 		if (opt->opt_nflen)
+-			ipv6_push_nfrag_opts(skb, opt, &proto, &first_hop,
+-					     &fl6->saddr);
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &first_hop,
++						     &fl6->saddr);
+ 	}
+ 
+ 	if (unlikely(seg_len > IPV6_MAXPLEN)) {
+@@ -1941,11 +1942,13 @@ struct sk_buff *__ip6_make_skb(struct sock *sk,
+ 	__skb_pull(skb, skb_network_header_len(skb));
+ 
+ 	final_dst = &fl6->daddr;
+-	if (opt && opt->opt_flen)
+-		ipv6_push_frag_opts(skb, opt, &proto);
+-	if (opt && opt->opt_nflen)
+-		ipv6_push_nfrag_opts(skb, opt, &proto, &final_dst, &fl6->saddr);
+-
++	if (opt) {
++		if (opt->opt_flen)
++			proto = ipv6_push_frag_opts(skb, opt, proto);
++		if (opt->opt_nflen)
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &final_dst, &fl6->saddr);
++	}
+ 	skb_push(skb, sizeof(struct ipv6hdr));
+ 	skb_reset_network_header(skb);
+ 	hdr = ipv6_hdr(skb);
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index 757c37092be7d..ba3084cecc979 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1273,7 +1273,7 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
+ 
+ 	if (encap_limit >= 0) {
+ 		init_tel_txopt(&opt, encap_limit);
+-		ipv6_push_frag_opts(skb, &opt.ops, &proto);
++		proto = ipv6_push_frag_opts(skb, &opt.ops, proto);
+ 	}
+ 
+ 	skb_push(skb, sizeof(struct ipv6hdr));
 -- 
-Florian
+2.53.0
 
