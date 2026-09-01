@@ -1,134 +1,120 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mta1.migadu.com (out-65.mta1.migadu.com [95.215.58.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121BA488763
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 17:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961FF493645
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 18:01:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285557; cv=none; b=PMDRuH+TLvqVGCpQWXHEsZ0ym8wmTbfA+MQ5Hn1Y6/2rE7hj+apauJbOdGjF875TStbHL6psxsbBMPhDaRqitKH2W4ifJ5nrnAvst8XplwuRSZOF+dRw24sw6AsztqDyD+zaTp4Hu6YQCvD8d9UDuL3AEXxnD6ii0pEnu7aCfKA=
+	t=1788285684; cv=none; b=sHGT/x5xHV28I8kV2bflYs7p+RuhV8SDi/a7+WvxMl7lSsRaqKDv5cLlknB6aMf15t7OG3NjT5NX57257ULbA0kJlvA5ssKXQtDw8JpYpHU5qT5IAPiozN/U8vaFZU09hyWUriESLcAAfeDWcaMmumlimkupjgkENyD6p5L+Ra0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285557; c=relaxed/simple;
-	bh=upOZfp7nr+JUKjA+9XgwYeougAECpv2MBCBLML5bTbA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SvI5efRbnmsCPHxjIAJU00fcBJXyH21UkIUa4RSmG9skTpY8knrz1KhKYkncbzOJlEKMQC3U/+pynvFhCuek/RV9Py5fprkltJHD9Kpygp6RP3BLcXocZWzQG3y4+qyJIlORe8La7s+tvAP6gCYTMprNYQSkA3XBt8ur/UJSVV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=megAzG5+; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1788285684; c=relaxed/simple;
+	bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhiWiHhz0HEJoc3j0Ek5ApT2BzNuRJdYgLfbcIChhmg8GOwg2ULAtis2SH+jvpOPfhFdR5O2HTqnZo/HLkefcOsdV6Cg8y5XpMKtoF3jSeg9gSV48ukgeD/p5HNZTs5bfeIHVni3WBJFVmViiBHz/vALY/Z92EKkV8CvvT9c+Ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q6d6LXw5; arc=none smtp.client-ip=95.215.58.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="megAzG5+"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d72ae08fa1so560155ad.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 10:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788285555; x=1788890355; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iQGQ/jT41D7XhkwOcvrUM6Q+rqlIuyJ98icVtqutpDY=;
-        b=megAzG5+XJ3TWhRtqpQVVLrsWuMF6Hgo6qrrNkCiZzt5Z3dI40Cds0QAMZtoE9SKTM
-         JKtu5rsBifMmMvWFB5CkGbO6vcf4cb6Lu5aKpQQzm/iobNI3rN/EVfMNQVhVtTL4TfNw
-         pDr7ICtcdlzQrjNfXa/qMu+jS0F+VyxoeEpoqIs85SmaBAwEHiHv5zKbEiBl/PH1lhFW
-         /DHkOwiu2065z4fH7nnYYgQKAlnZMsGFKfobpKS3gYeu5xSVLfiWkW33KcQUKE6jwscV
-         GfkNZHBvcUwmg4UQzCXsJli5AY4FnqBmtkbVsQGd6E/02xbQCGnVrSBfr+Zka8ssTpag
-         AXnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788285555; x=1788890355;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iQGQ/jT41D7XhkwOcvrUM6Q+rqlIuyJ98icVtqutpDY=;
-        b=efrqRAzyRqeeReL2GM0O1C2uQGRIv7I6+okn4G1kIMCLv+tiCT0Dssi9WaRRwCnwjM
-         /6rQ4KWmFluogEm1IgX4HCaIkistUxozdTympoPKOSHiAIwB5ZZl9xrUDbhaG7yn9AKz
-         xmMaXtXxgosw/Wn23KyuAgCE9hwvubpSIzR5A+vbAZ1/WMcuQdIGfrllSkzj01XbSN1g
-         NsManMroYRsZDM4ojAp2IzmEQke6j172NPzvHScXb6TgsWuCmjJUNGLVcQGoBpWIgpsP
-         GiEzWHI3+oGHXlIrQWwCYsW6h5C34jE6o/SOFrckb+wcl/pGeDKw+rgHGJ3LrSpbFdQU
-         Ys8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzHfwAstRrdLNZeAAWdsNQLBapVD6pQHBtjTIGHBJoaqr61ZudRwH4SD4RiwYux343ACEEzjAk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfQZf2hQtSavQqk+Lc95TUBU5jTtoykm0akqyyGR3u1Y1O0BeQ
-	R3HBPSGPSnUw+8YoZ2CyahKiTfYhf0mI6Nt6oM+I9b0dpDziswh89RZiyI2U/a5U0zI=
-X-Gm-Gg: AYBFou1dxDa9+uZRjaBrLfVNuZxDPQ6bkEWff3VgDpseojvo3nq+yToHpnKXFfuWQCD
-	6SZKj5rnl+XW11EMeGMFFBtBaI/n4pVkvUiZT1T6dhgBGABlVD7/KqLcFw0XCZpQXd3yEbpNL4P
-	nMVlVMLeLedorwBcvIAwyR9Szu+2nOO+TNQGHanlPPSztKMG2Qijbn3ATmXj3dPbSHNGLTIn5XC
-	vR30XGsrQydEHrUnUHPQ9UHhnUtQWVlRG+Rs+ytCzbS7i21MwlC879F2LdZnEaBRMdh6Y/U5YC3
-	mTe5uQULi7Vzf14E9P/hExOqMzF0ezN8iC5dJyxZe3QPjyjS47F37w2+8192P13PUOawKHz7+J+
-	uAgadzgQWKiMQGkyCSkkJvR7QBopWC+JAhDWBatE+Ed3o+lxeU93rZZE4bCYJiqzFeN650K25qF
-	zsBBd9pNo3Ph86EZE/P08bo6kWxznI06x52ChiCzmLSg==
-X-Received: by 2002:a17:90b:39a3:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39907d659e6mr14262544a91.12.1788285555109;
-        Tue, 01 Sep 2026 10:59:15 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:71::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c1d85bsm768983a91.13.2026.09.01.10.59.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:59:14 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:59:13 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-Message-ID: <apcSccBgd3nwrjvt@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <CACKFLiks4ueY4faqOiu9-Zk6odEdNL1Abyhg+giOE72iMe0Z7g@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q6d6LXw5"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788285680; v=1; x=1788890480;
+ b=q6d6LXw5C7LRW32fkzga2wLw7TSXkpXDll/8iUnvQEoZ14NRnxa41tilgeEnscAopuufaDKV
+ Kde3G4BMAos8MOxMYnZy0mrzOmr4bEtRvzXCpqilDG5DZ2mKe66DWsRDQIaDaEQ527BwOvUUd0U
+ tBY/fp83+1EuC7Zj3egqFu74=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id dc1bc49c649213e5;
+	Tue, 01 Sep 2026 18:01:20 +0000
+X-Mizu-Trace-ID: dc1bc49c649213e5
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Hugh Dickins <hughd@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>
+Cc: "Liam R . Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Matthew Wilcox <willy@infradead.org>,
+	Meta kernel team <kernel-team@meta.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
+Date: Tue,  1 Sep 2026 11:01:09 -0700
+Message-ID: <20260901180109.3797944-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLiks4ueY4faqOiu9-Zk6odEdNL1Abyhg+giOE72iMe0Z7g@mail.gmail.com>
 
-On Sat, Aug 29, 2026 at 12:20:26AM -0700, Michael Chan wrote:
-> On Fri, Aug 28, 2026 at 12:09 PM Joe Damato <joe@dama.to> wrote:
-> > v4:
-> >   - Moved bp->max_tpa_roundup_size init out of the early return path and
-> >     documented that TPA is unsupported there, as suggested by Michael.
-> >
-> Thanks.
-> Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
+a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
+flag still set from a bio completion handler:
 
-idk what you wanna do modulo paolo's comment on this thread.
+  __free_pages_ok+0x6af/0x7a0
+  <IRQ>
+  __bio_release_pages+0xde/0x260
+  __iomap_dio_bio_end_io+0x16e/0x1a0
+  blk_update_request+0x14b/0x3d0
+  blk_mq_end_request+0x18/0x30
+  blk_done_softirq+0x49/0x60
 
-i have a v5 locally that expands this to 5 patches which should address most
-of what sashiko is upset about:
+The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
+its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
+that mapping GUP-pins those same folios.  munlock() then runs
+mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
+tables to munlock each folio.  A concurrent hole punch reaches the folio
+through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
+window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
+already clear, so it neither queues the folio on the mlock batch nor takes
+a reference, and the pte it clears makes the pending mlock_pte_range()
+walk skip the folio at its !pte_present() check.  filemap_remove_folio()
+then drops the page cache reference, leaving the bio's pin as the last
+one, released from the completion handler above.
 
-  bnxt_en: Bound SW TPA IDs to prevent crashes
-  bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-  bnxt_en: Propagate TPA buffer allocation failures in bnxt_queue_mem_alloc()
-  bnxt_en: Don't free the live ring's TPA state on queue restart failure
-  bnxt_en: Only restore LRO if the device supports TPA
+So __zone_stat_mod_folio() here needs interrupts disabled, not merely
+preemption, and __munlock_folio() has a path where they are not: when the
+folio has already been taken off the LRU by somebody else the function
+jumps straight to the counter update without taking the lruvec lock.  The
+read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
+the softirq above, and one of the two decrements is lost, leaving Mlocked
+in /proc/meminfo permanently overstated.
 
-but ofc, who knows what other stuff sashiko is gonna find if i submit this and
-how much furhter we'll push out fixing the original crash.
+Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
+atomic against a same-CPU interrupt and retries, and on the path where the
+lruvec lock is held its cost is negligible next to the lock itself.
 
-lmk if you wanna stick with the v4 you reviewed as-is (and i'll send the other
-4 patches as a series) or if you'd rather i submit the above 5 as the v5 and
-get them all in at once ?
+The UNEVICTABLE_PG* events are deliberately left on the __ accessors:
+they occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED
+that __free_pages_prepare() bumps, and nothing updates those two from
+interrupt context.
+
+Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ mm/mlock.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mm/mlock.c b/mm/mlock.c
+index efa6716e4dfb..39215a3eab1f 100644
+--- a/mm/mlock.c
++++ b/mm/mlock.c
+@@ -141,7 +141,7 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
+ 
+ munlock:
+ 	if (folio_test_clear_mlocked(folio)) {
+-		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
++		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
+ 		if (isolated || !folio_test_unevictable(folio))
+ 			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
+ 		else
+-- 
+2.53.0-Meta
+
