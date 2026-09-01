@@ -1,179 +1,154 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FD23B0585
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263232; cv=pass; b=cTsxJ3KVoVEssIroWCIdb+Ssv0XrNtVBFwQrHZE7+Bzk1GPKiV7RzRM1LlTARFnCHnUKwzpUuEsocQpTfT8PlbcWO/Z+Ez1dWjxgPVycJhd/Sr6XUJGSsk8CaRSB9O+mwkZT5axwiocwzAQSbo+wF6vvcM3OVvsCWeq++bmrX10=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263232; c=relaxed/simple;
-	bh=WkEWz4mj8V/La5ibN5ZGxZHCQujl3YdUwyDFz4ro5gQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PAgQBG3rr1iwgCAPgkqns709pA96cXPrptF+jZZx3QqboV4jhUKpiEm8usxd7n8m4Ox5ASA50AblAeE61cPhKkTKgaDqpx6E/Jyb/2ck5g1TOBf0Y/5tZVg37pXymttcpefZWDM46EoJNHkl4mRTNMFEPJhZJc9HwM9ADvTRihk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rGQxFILE; arc=pass smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0182C3AAF65
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:48:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263314; cv=none; b=JuyNakM47CsLdcHb69t3Zo2K7C5aSFnX6Y0XL+G9w2WHZ+i0e8P9wNTmlQo8TTmlIm4xQhFW405r3bbOCSn7GTWpOoaoLoQfg0ufhmPLmBlPYpb3dajEIMM3HMljdoL8xMkmmLWwbxX2QECiBzzvNv0Qd22qDef7AM6uReXUS2Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263314; c=relaxed/simple;
+	bh=EmcvMgWnU+eynTHcQrpUKhBCbJysQIL0DcglZ59zZZc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c9gyzaEg/e6i15Ojy0GlQm9vJswnbtVLgp8E9iqMDZXmNv3p4y8BlQG9lPZPQbMm9m7I8GKZUQ8LZ0pYeQMXZRO8MqKlRFwfsDl3DOQn4NVvliLIqSq6Ah8gX8c6OZvQeJDjyvllnB5nISCOGGbJ7dIceIfAHTL9rC6MNoXttlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9nxtXlG; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rGQxFILE"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a623987d32so1214985a12.1
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 04:47:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788263229; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f4spfycD5sgHlHF0/T1P/J0dSM/1Qv7+3scdzMwuy9gBLXfkVFVXVPkF9U9Etpmur+
-         1+bZQEK9HUdXWlGB1clV56sM8sFZGzlzrxILXwZBmK0XWBckbFro7YfoA1TV/5MRNXZN
-         D/uGz9+iTYPTSyUvbOZkgLFEQpY7WeVrjMPtHX4MHdvdhHh2/oPgYuHB24kADS1W7U90
-         9/9DnijPb4KyWh5WSVL+IviEI1EztDQpW+wILn2fNxP1viUY1UfUtKgKaaDVZv3HPMva
-         vSs+Dc6PujmHl6/BlQY9YrC1eTFzx12uYlgpILh1di+HzZBiFInXIjkOfoHDurt42O1P
-         cfSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
-        fh=c0ImoZPf65Y1EQA8f7AjDv/3axrGX1vUGc0FTe5850A=;
-        b=gJSnbc/EijuV/lmQrehOzaXRLt8065uHjhLmgF/Yf2d2ClZtlJdB38kbbe02VyfpOP
-         e27/cmQ5H7dRyLWe9EAscKr3082cRw2TFfCSNkbHVjSCJGNKF+FQepYdj8dMd15uHFl6
-         NmV4///gg1lRjCshKk9+EaskQ7bXNgNxKakBSh8iGXl7dm4u8bPgka4+hrE601h2rmb1
-         oCaWEEBYeenSy3o0UBMYUgbYPA+Osk6zir2QzqFnGc3LCz7bo+SAPQDTatbT8G8lHxCd
-         oK1x4H7HmS5nboBBlN+HXMlrACjqGBoRGmhpt9wZ5+bse8UGI76ZoBcRFU9a3foyoVwp
-         1L+g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9nxtXlG"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-85377c8bc96so4352871b3a.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 04:48:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788263229; x=1788868029; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
-        b=rGQxFILEJdbQkHMaTFcQ5RC6dFtu/XFoonkOt07PdOvZw49n0yMHmoLgPsqmmOSCTe
-         JZd3TS/UhVxlTcczSSuST8qWQNYn8G1ef8aY/5eyHoAKXBlWZw5tJ4phIOWXXDjhFvPE
-         bvNzjVhlZvbp+inQYeK+pnV0sggjieRbmTwa7jFyEN3rcBJnmC8NTbvRmO+O8aurTeJZ
-         3mXu6mHne2qhJcfzPb+iPkenpWV0jNypVQeADVV6adcnhUczXi0GTGkfEBBJ6df/WlGn
-         2upFAY700E0vTLgcJWGc/4hgdkoeGX2DhSy7q8bKpA9MvXxFCtNmawDv3QpE4i6mp3M7
-         ohKg==
+        d=gmail.com; s=20251104; t=1788263311; x=1788868111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
+        b=m9nxtXlGQt1JJtyJxV0lPd3kpo0oNfFXPTf+5+n2KIj/z0CTogp6aI5BSr7ZUk0sZQ
+         Rrsj+nHwPrdt7XnIV4goWnmkuL0D7W4O554RWyChElP+n2mGyKdJyX1kdFZUjmQJKWcS
+         1ydwKFApR2GNqrrW+JjPOb9dZ7PmDcmhAZ2d9mr4Yl2IW8q5FEFvUIk5VC2AQZCTMyJW
+         gGj7yOIUH8CTvXnD+pLL87/dXHYt4DXaKZnu9Qtlmq3Fe7pipyj4iIhYJPA2rX5FPQku
+         uJeZ6hgypMPz15OfiM3hGZb9f/QnUfmDlA99E4TMwUL4LwLyjJ2XsmINEynuesU0T3Gs
+         Nimg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788263229; x=1788868029;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
-        b=sWBy7Nms9Ohn8jBDzerEEhnLnOnEah4+ieIJAN1+JOmYSTkDETvd360MyLCX9HApEh
-         HE2aAAodT9kMBqkAnKsGhaq88QEGJjOTSpcZ9cSC3GcYQhXdT3Cc+tg0sgzw0KzKA3il
-         OriOHnhMkfegWxkpdm01iX+kX7ogjUH9aoNHQZRaCcfgvaHhtii+75guZT3hEdVA+i1w
-         HlUtUHUpnJuOeSe/4kTQ2rHBgyNVQWxHXTWS03pI3OusVKoh9m0ZJiOkRiR5HjqBhblY
-         kDbQPMXg9Fpeiq5zsg8QBd2Alcue8o23ghaUzKBm4VoU3dAthhNANj2V/78QRnq1zUqP
-         aFQg==
-X-Forwarded-Encrypted: i=1; AKwUvBxDLk2dSHRKj6rlqgpqhZ6fURw8e7ni5uPyjC1C610SlVcefPAJ43re3mnmkyczQVw/S9nTPH0=@vger.kernel.org
-X-Gm-Message-State: AFuF++leR7uKVNhmOTtd1G4f0y9QvndwguIiIzsya3LowRvwjbV85mBS
-	Nc+F1brX0o6x5qX8TB1Y1S3dgAXcsClkH/Gp/JEpX2DpRK85Si/vTTsQIPL3c6AqP5DAz0EgkQt
-	+79J5FtXPaxJ37QWZgDMmI5HcwDX320A=
-X-Gm-Gg: AYBFou3ISfiFX5FzCGzfAWA9iJwRj2sBD+6WE8GCDCDHL/vRBwgZ04CH70gmkDpMLEG
-	0yvX2qbTtZXRgpNC0/W4orwNjgd9dUy8VrDXPi1zuqEtzhkYkkEhIuHAjFOl07fqBPZTC9/vFfx
-	gspp9GMN0GEp015LhxB2ci8DcuozkCAIVvH69fc7Q8e9hZ5hK7W/RwxcXDSx0hy+DPptjF7sLhr
-	fef7iH424JBh0S9jXygYiWh/ntn86YITyhfrYgIHbGOJYbOElwYgDefrfo7dQsialAu3v1v//aI
-	InVfCKWhhot43ETytVfqijw+cQWCNBXlbxqNFxncJYPAyozX2ylvakrwnwpbSaxBFMbK/+Z4Wg4
-	hj0uGdLSQRz79TFzoIMqGVr8N7vB5
-X-Received: by 2002:a05:6402:20d4:20b0:6a6:35ca:af8f with SMTP id
- 4fb4d7f45d1cf-6a635cab01emr9499959a12.16.1788263228730; Tue, 01 Sep 2026
- 04:47:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788263311; x=1788868111;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
+        b=D7ntfk1qD2klCQS8vvAkV5cC9KD6YR03hMdK8zADL3v4k9ATpJOI0eoxwAZIVFzmbY
+         /9IqT4LakL5GkVOVTQ9njP9nogrkIcz53I1zoBlytlzV3Z7v2jlMAB7+Q4aJ5Q7E2wZJ
+         e6QV1230zdamPfArKBdu7Xj6mF8csCYkxPNvFQrnV7QzcKQ2ZFGhTxLMikKhYomaXuYI
+         XIpRpwRjmCvn4gWRLhJZCza44dJd1HkbgxyrdjwzGcke4/WPAYP22Tuk2MV+LZNF1/5L
+         WQGL9o12SEYNBw2QNqKZux9LFNzKnYStMo0SE6fBSc36lkn18iJdc6TJE0OcAW2RVeiX
+         GhlA==
+X-Forwarded-Encrypted: i=1; AHgh+RrWrWq6H9QeNNA+EsUfKYbIx0sLiHNr6/jXy2qk7+3/K+ZQvOhJ7gMseDiH9NWbai1TMtXEP2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhyPFLSm0ahZkPpq3J8Y5iN23u7e73ZMQ/xBpSesF6tgSNjq4E
+	ZVnJyVI2l6wY0io64FbFLhUbfpf9rffnkDxdIG042Kl+tX9pvrsk+S0N
+X-Gm-Gg: AR+sD120mogMIqbldiMVMwawWSF9FSMAd5Eyp9kiKj37Jn9NESQsChZFOjT5CoTkzzH
+	VPI2/DH1j+sm1hVAGI+GxJ9QHTpCqNteXikPQDMjE+wNbJUx6Ch1wuEi/gd3uAMaMo/mgIKUCy3
+	t38eQoPCv7lWnZL+OfyWSbgi4BpQKslbjx5wd/Ak8aQYAwfHfpseT5ZJt9p/TTfDG0NWOXQ6E7U
+	DbfZjmzmw0WkVX6Ek7M7PRXzWHDFz4aEtVyqw9myQxc3TspZlv9w05YK6ZmxwfJtS2DuKxbvnR8
+	anVdAb39KIItcKzYlcOMWPF1uyfGb1/YEQQjFIylVdl9aJerNGRPVORxCMHsf7TOHuNvZt/Omaj
+	NEZLW6+g07Iip74ldhFbuCuJzQ7qTyhnkYgPkmvQ2xrh7EtwGnDmAXdGJ/rX/X4xC1Aox/a9+CD
+	Ar/sGXjoFoUHWefwmfVOlJvMy1g1UGgDE9O8Euhw1J8dl5/JBjUduijFNXxjinEY0KHjhhTD1jF
+	vrpEqEYTHhmhhLwIwj93ZWLGdQVXa6kDnqf
+X-Received: by 2002:a05:6a00:368b:b0:84f:5cd7:e3c6 with SMTP id d2e1a72fcca58-85628f66831mr53111920b3a.5.1788263311225;
+        Tue, 01 Sep 2026 04:48:31 -0700 (PDT)
+Received: from localhost.localdomain ([117.88.121.70])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be8d68565sm964610b3a.38.2026.09.01.04.48.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:48:30 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH bpf] bpf: Hash lock addresses in rqspinlock violation reports
+Date: Tue,  1 Sep 2026 19:47:49 +0800
+Message-ID: <20260901114755.1165703-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728131050.37032-1-meatuni001@gmail.com> <2026090151-nutrient-clay-c53e@gregkh>
-In-Reply-To: <2026090151-nutrient-clay-c53e@gregkh>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 1 Sep 2026 16:46:55 +0500
-X-Gm-Features: AcwNN1V9ueymiP7ruql3Mjh2nKm8Knc4dBzDaOwVce9PaTuiK_XJMOgz4bU3x60
-Message-ID: <CADqcGBkjYpLko0EF9BgyApg6LrhA+cR_Cbg5A=4AE81pN4rRSw@mail.gmail.com>
-Subject: Re: [PATCH v3] staging: sm750fb: fix mono image source stride
- mismatch in lynxfb_ops_imageblit()
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com, 
-	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Sent v4, rebased on current staging-testing and applies cleanly:
+From: Aohan Mei <henrymei@tencent.com>
 
-Link: https://lore.kernel.org/all/20260901113031.161610-1-meatuni001@gmail.=
-com/
+bpf_prog_report_rqspinlock_violation() prints the attempted lock and
+every held lock with %px, which expands to the raw pointer value.
+The report lands in the program's BPF_STDERR stream, and that stream
+is readable through BPF_PROG_STREAM_READ_BY_FD with no privilege
+check on the read side: prog_stream_read() only validates the fd
+with bpf_prog_get().
 
-Thanks,
-Bilal
+Any user with read access to the program fd (a shared fd, a BPF
+token delegation, or an unprivileged child) can therefore read back
+the raw kernel addresses of the rqspinlock objects, which are
+dynamic allocations whose placement depends on KASLR and the slab
+layout.  The verifier-facing log path gates pointer printing on
+allow_ptr_leaks; the stream path has no equivalent gate.
 
+Print the ptr_to_hashval() hash of each address instead, so the
+report still allows correlating the attempted lock with the held
+locks within a boot, without exposing the raw addresses.  Fall back
+to printing 0 if hashing fails.
 
-On Tue, Sep 1, 2026 at 3:15=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org>=
- wrote:
->
-> On Tue, Jul 28, 2026 at 06:10:50PM +0500, Muhammad Bilal wrote:
-> > sm750_hw_imageblit() advances its monochrome source pointer by
-> > src_delta per scanline, and computes the correct rounded-up stride
-> > internally as:
-> >
-> >         bytes_per_scan =3D (width + start_bit + 7) / 8;
-> >
-> > Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-> > image->width >> 3. For widths not a multiple of 8 this under-counted
-> > the stride, so the source pointer fell further behind the real
-> > per-scanline layout on every line, corrupting the rendered image.
-> >
-> > Rather than just fixing the caller's calculation, remove src_delta
-> > as a parameter entirely and have sm750_hw_imageblit() advance by the
-> > bytes_per_scan it already computes for itself. There has only ever
-> > been one caller, and that caller was passing an out-of-sync
-> > derivative of the same width/start_bit values sm750_hw_imageblit()
-> > already has, so keeping stride as a separate parameter served no
-> > purpose beyond letting the two calculations drift apart, which is
-> > exactly what happened here.
-> >
-> > Rounding up, rather than down, is the direction consistent with the
-> > rest of the fbdev core: struct fb_image mono bitmap data (the same
-> > image->data this driver receives) is walked elsewhere with byte
-> > strides derived from a ceiling division of width by 8. The generic
-> > mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-> > scanlines with "iter->data +=3D BITS_TO_BYTES(iter->width)", and
-> > BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-> > sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-> > ceiling division with an added start_bit offset, so the caller's
-> > ">> 3" (floor) was the one calculation out of step with how this data
-> > layout is handled everywhere else.
-> >
-> > Found by code review of sm750_hw_imageblit()'s internal stride
-> > calculation against what its only caller was passing in, and
-> > confirmed with a clean -Werror build. I do not have this hardware,
-> > so this has not been exercised at runtime on real sm750 silicon.
-> >
-> > Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> > ---
-> > v3: Added the version notes below, which Dan pointed out were
-> >     missing from v2. Added Cc: stable@vger.kernel.org, flagged by
-> >     Greg's patch-bot since the Fixes: tag targets an old (2015)
-> >     commit. Added the rounding-direction justification Dan asked
-> >     about, citing fb_imageblit.h's BITS_TO_BYTES() as the existing
-> >     kernel-wide convention for this same struct fb_image layout.
-> >     Moved the "no hardware" disclosure from an email reply into the
-> >     commit message itself, per Dan's request.
-> > v2: Added a Fixes tag. Moved the src_delta calculation into
-> >     sm750_hw_imageblit() itself and dropped it as a parameter, per
-> >     Dan Carpenter's review.
-> >
-> >  drivers/staging/sm750fb/sm750.c       | 2 +-
-> >  drivers/staging/sm750fb/sm750.h       | 2 +-
-> >  drivers/staging/sm750fb/sm750_accel.c | 6 ++----
-> >  drivers/staging/sm750fb/sm750_accel.h | 4 +---
-> >  4 files changed, 5 insertions(+), 9 deletions(-)
-> >
->
-> Does not apply to 7.3-rc1 :(
->
-> Can you please rebase and resend?
->
-> thanks,
-> greg k-h
+Fixes: ecec5b5743bf ("bpf: Report rqspinlock deadlocks/timeout to BPF stderr")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+---
+ kernel/bpf/rqspinlock.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/bpf/rqspinlock.c b/kernel/bpf/rqspinlock.c
+index 111ec80ea958..5721dc1a9577 100644
+--- a/kernel/bpf/rqspinlock.c
++++ b/kernel/bpf/rqspinlock.c
+@@ -16,6 +16,7 @@
+ #include <linux/smp.h>
+ #include <linux/bug.h>
+ #include <linux/bpf.h>
++#include <linux/string.h>
+ #include <linux/err.h>
+ #include <linux/cpumask.h>
+ #include <linux/percpu.h>
+@@ -673,6 +674,7 @@ __bpf_kfunc_start_defs();
+ static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bool irqsave)
+ {
+ 	struct rqspinlock_held *rqh = this_cpu_ptr(&rqspinlock_held_locks);
++	unsigned long hashval;
+ 	struct bpf_stream_stage ss;
+ 	struct bpf_prog *prog;
+ 
+@@ -681,10 +683,15 @@ static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bo
+ 		return;
+ 	bpf_stream_stage(ss, prog, BPF_STDERR, ({
+ 		bpf_stream_printk(ss, "ERROR: %s for bpf_res_spin_lock%s\n", str, irqsave ? "_irqsave" : "");
+-		bpf_stream_printk(ss, "Attempted lock   = 0x%px\n", lock);
++		if (ptr_to_hashval(lock, &hashval))
++			hashval = 0;
++		bpf_stream_printk(ss, "Attempted lock   = 0x%08lx\n", hashval);
+ 		bpf_stream_printk(ss, "Total held locks = %d\n", rqh->cnt);
+-		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++)
+-			bpf_stream_printk(ss, "Held lock[%2d] = 0x%px\n", i, rqh->locks[i]);
++		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++) {
++			if (ptr_to_hashval(rqh->locks[i], &hashval))
++				hashval = 0;
++			bpf_stream_printk(ss, "Held lock[%2d] = 0x%08lx\n", i, hashval);
++		}
+ 		bpf_stream_dump_stack(ss);
+ 	}));
+ }
+-- 
+2.43.7
+
