@@ -1,49 +1,70 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5434427F8D;
-	Tue,  1 Sep 2026 02:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B1039021D
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 02:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230779; cv=none; b=LpLByoF5qyNBkkq/obrZtts1B1MeZ909Q5OI3VzODvXojKQ3cRiTKSgsl9pqFKzQY1KdjeLopyP0v1+EpGhmcJU+2zw9T70XXnswmu28a7ABWidTVN5QbI1nGfVEPca+o/NRvMLPs/T0H7HSdNkWLrXHEJpLHO2fbAnI/Jjfkg8=
+	t=1788230957; cv=none; b=KcAEXMgv61i9r1DeNA0UKlOI0BjS6gZSGTkxEj161Jgu/iaZkHdUrIqAkrv9mRrOIP4/EZ1gLc2IkSIXojo9/F2AcMh4ojbJc95Ae60lz98cEg+ZaUmg/MhztdD6i+FKPIuKQNQSVumUIG2XrrHbuVyOJcfYzxlODy0RWgHCrcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230779; c=relaxed/simple;
-	bh=hEeA54oPjT9urgHuMtnWObjPh9A6s9Cdd2x3zQ46eGw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tpnPuroqmG5yuA/a2FnBBKOARdyVEyUHGdnsYsFK6UL7FHeLGk9tOXjdkibA1F9Bt9MCuebmfmpQAhpkT+368V9NKuIOBjzP9v4cLAXi25hZ5NNkfBIcsOjsSiQ1IiuBigcDtvedgvj6eznoSodSGOFwA5etI38qJhyXiDYEhao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 418a4eaca5af11f19a56ed5b684f684d-20260901
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:25a1467a-2ca1-4d87-900c-6f8e1da0ef34,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:0fa83b7f9d56b670911bab7501af4f42,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
-	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 418a4eaca5af11f19a56ed5b684f684d-20260901
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1250679199; Tue, 01 Sep 2026 10:45:56 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: fix lost volume flag updates in set/clear helpers
-Date: Tue,  1 Sep 2026 10:45:51 +0800
-Message-Id: <20260901024551.528056-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788230957; c=relaxed/simple;
+	bh=G9mLZBrLnKkyNVbJd/6ZRMHwNYDE8384JlGwu/ljfxk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h1gbTvu0tO+0Re659TI4A6+oabVJf8Sm8LuKg8BbzBNBl3hHA2P/nF0/h5Io8OfqROM6Xzz/C02zDH5Cz7YTB6e6f0osLio6pgfyOIcPAA/9Zdq2EPrYETQei78vEplp2x7/WA/VygXF19x2TfwvzwHJXK2ds8djaBwaaHZ7qo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=SCKYXnUs; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="SCKYXnUs"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d712281f8bso48030835ad.1
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 19:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1788230953; x=1788835753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V2Hqf2F4NTDgzpStKXo9pnpHlL+P2uB38kU58D+VtiM=;
+        b=SCKYXnUszYDjGQY4xFRKP/SO5be/WQfomuAbyzURWtQXa4N9nueuUMLvd0xfh3zSxt
+         qFWYqG4xm8wD4Ho0IMUmZm6oY9OsmHR5mFHnKQyiqERwlXFF18cVqNIs+otbGFQcd7fi
+         fddDKtU2Lj962+XN88nlqZvCzVQzI/y1VsdMdBkGZImxGOZ7jfiDzJagahGsoQ17op2S
+         ZPxXZAQg5Q74weMGoK2ElpVGO4pu9LbcSMLJh+gunHMctbz7u9I9i1PXa+/jADm+htN6
+         Rr0ar0oc43irYWV3isV4jIlWdDIcQgHsIQ29RuxiFwlR/zxi6Pf842F0oD5OTKFUCnTh
+         5zKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788230953; x=1788835753;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V2Hqf2F4NTDgzpStKXo9pnpHlL+P2uB38kU58D+VtiM=;
+        b=VG0ucRibNfKYC+beThztjQEXDl7KGwlQuMtFtPFMku2lsUVxkfeDiPUFtaVGBVHyi7
+         MsEagMwjX35YyHPYeC38qaSQhwRToVbDgwJNEax5cdwIZ6++q5F06sKwdgX9UuW7l195
+         rPvv2o/PJo39hWvln5qJiy+CsBE7gQk1CJhJ3AzRS2trgHzFPzc806eANk3ArcjK58w1
+         xvj7kaj7PsV6hytH35R2wCYhLiH3wxhHSaA1drT6avpTVHa505yarVSkDfcRMB0W5GhD
+         c9nDOGPozmGJtP8zeNjzpMHMZCbcHy6ofA/JdeX3XjjJb6gsstd0jcN/d3eA84lYYVSB
+         xrIA==
+X-Gm-Message-State: AFuF++m88t+CfF0CmmZpK0a0sHYOcdToGpo3Ph86uC+kyE7O4tuyu2CA
+	YTWWJDVsyqfd4IjdxWP1zJG0JOaUM02ZC5mXnk/aUBD+neEUQNT3wTxa2O6get6woq5HNNyH7h5
+	PVlp3
+X-Gm-Gg: AR+sD109N4g5BsdT/Ohk7E5c05sM0p95/RQdcmFZyZIwClaMgRalxi6raOl2Twow+51
+	W2fSK4CSRWfRinUO3gJZkiMP2xGuRYBgyFj10ANpySS43sejINyZsY+89w1oHJTkJq+enzx3fUU
+	H56UeJqTpUwwQEqn7kxi+6kRExV31u67Om+mIre2HK35OzOgL7FMVut/OyzCExhEhFkZqmGhvqa
+	Gjy6IaynF+yfLNPu2gGyp4hDJv0uG0rZpkm6d2Fk4S9+rdg87f95iO9vuJh3BKjcycxDPjKBPMw
+	vLQ8YhxBuJ2JgQR+umeteg/7adWFcT+adc0EFQTHoTFiNrk1sWbRxgamEBYjyN1xkZt/Sd9jZlS
+	sOzCZjY2NUmPX2aWjU3DlThVCirzV/jrt+zQVINrNnasMuBgKt2UbBEhrxAFZuZ7xKiu3diwP1H
+	dJ9A5s69iql/Cg6jOHcThigjAPLwp1V35t2GD6mQAunZcZ9LrSoQ2p5DPV3S3M+/GD0W5WegHCP
+	8wdiPcQDd6FwWXQYLbXs5fr98XfWMB61uqaia9bUeMpFMaEakiIS3VpKjGeAQ==
+X-Received: by 2002:a17:903:3845:b0:2cf:4339:aaa with SMTP id d9443c01a7336-2d94a8d4c2fmr64687295ad.12.1788230952670;
+        Mon, 31 Aug 2026 19:49:12 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:1046:e64e:f2c5:7ce8])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b28ab0571sm26282078eec.4.2026.08.31.19.49.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 31 Aug 2026 19:49:12 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Please consider these upstream CVE fixes for 6.18.y
+Date: Mon, 31 Aug 2026 22:49:07 -0400
+Message-ID: <20260901024907.61883-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,130 +73,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-vol->vol_flags outside any lock to compute the new value before handing
-it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-the actual write. The read-modify-write is therefore not atomic, and two
-concurrent callers can lose an update: ntfs_sync_fs() may derive a
-"clean" value from vol->vol_flags while a writer concurrently records an
-error and sets VOLUME_IS_DIRTY; the locked write then silently
-overwrites the freshly-set dirty bit. The on-disk volume looks clean
-despite the recorded errors, so chkdsk will not run on the next mount
-and corrupted metadata can persist.
+Hi Greg and Sasha,
 
-Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-to set and to clear separately, and combine them with the current flag
-state under the lock inside ntfs_write_volume_flags(). The set/clear
-helpers pass only the bits to modify, not the complete flag state. The
-bit manipulation is done on CPU-endian values, and the result is
-converted back to little-endian before storing it. The wrappers keep
-their signatures so callers are unchanged.
+Thanks for queueing the earlier fixes across the affected trees. My 6.12.y
+request covers the three fixes shared by 6.12.y and 6.18.y, leaving these six
+mainline CVE fixes still missing from 6.18.y. Linux CNA affected-version ranges
+include v6.18.48 for each. Every newer supported stable tree already has them.
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/super.c | 42 ++++++++++++++++++++++++++----------------
- 1 file changed, 26 insertions(+), 16 deletions(-)
+I applied the current 6.18.y queue to v6.18.48, then cherry-picked this exact
+set without changes. The x86_64 allmodconfig kernel and modules built without
+warnings with WERROR enabled. The affected 32-bit tunnel code also compiled
+without warnings with the relevant options enabled. I did not runtime-test
+these fixes.
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index a1813093222b..90bd15c10f25 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -353,31 +353,40 @@ void ntfs_handle_error(struct super_block *sb)
- }
- 
- /*
-- * ntfs_write_volume_flags - write new flags to the volume information flags
-+ * ntfs_write_volume_flags - apply flag changes to the volume information flags
-  * @vol:	ntfs volume on which to modify the flags
-- * @flags:	new flags value for the volume information flags
-+ * @set_bits:	bits to set in the volume information flags
-+ * @clear_bits:	bits to clear in the volume information flags
-  *
-  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
-  * instead (see below).
-  *
-- * Replace the volume information flags on the volume @vol with the value
-- * supplied in @flags.  Note, this overwrites the volume information flags, so
-- * make sure to combine the flags you want to modify with the old flags and use
-- * the result when calling ntfs_write_volume_flags().
-+ * Combine @set_bits and @clear_bits with the current in-memory flag state and
-+ * write the result back.  The set/clear helpers pass only the bits to modify,
-+ * not the complete flag state.  The read-modify-write happens under
-+ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-+ * All bit manipulation is done on CPU-endian values, and the result is
-+ * converted back to little-endian before storing it.
-  *
-  * Return 0 on success and -errno on error.
-  */
--static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-+static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-+		const __le16 set_bits, const __le16 clear_bits)
- {
- 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
- 	struct volume_information *vi;
- 	struct ntfs_attr_search_ctx *ctx;
-+	u16 flags;
- 	int err;
- 
--	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
--			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
- 	mutex_lock(&ni->mrec_lock);
--	if (vol->vol_flags == flags)
-+	flags = le16_to_cpu(vol->vol_flags);
-+	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-+	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-+	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-+			le16_to_cpu(vol->vol_flags), flags);
-+
-+	if (le16_to_cpu(vol->vol_flags) == flags)
- 		goto done;
- 
- 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-@@ -393,7 +402,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
- 
- 	vi = (struct volume_information *)((u8 *)ctx->attr +
- 			le16_to_cpu(ctx->attr->data.resident.value_offset));
--	vol->vol_flags = vi->flags = flags;
-+	vol->vol_flags = vi->flags = cpu_to_le16(flags);
- 	mark_mft_record_dirty(ctx->ntfs_ino);
- 	ntfs_attr_put_search_ctx(ctx);
- done:
-@@ -414,13 +423,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-  * @flags:	flags to set on the volume
-  *
-  * Set the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-+	return ntfs_write_volume_flags(vol, flags, 0);
- }
- 
- /*
-@@ -429,14 +439,14 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * @flags:	flags to clear on the volume
-  *
-  * Clear the bits in @flags in the volume information flags on the volume @vol.
-+ * The bits are combined with the current flag state under the lock in
-+ * ntfs_write_volume_flags(), so concurrent updates are not lost.
-  *
-  * Return 0 on success and -errno on error.
-  */
- int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
- {
--	flags &= VOLUME_FLAGS_MASK;
--	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
--	return ntfs_write_volume_flags(vol, flags);
-+	return ntfs_write_volume_flags(vol, 0, flags);
- }
- 
- int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
--- 
-2.25.1
+Could you please queue these six commits for 6.18.y?
 
+  8431c602f551549f082bbfa67f3003f2d8e3e132 (CVE-2026-23459)
+    ip_tunnel: adapt iptunnel_xmit_stats() to NETDEV_PCPU_STAT_DSTATS
+  179ee84a89114b854ac2dd1d293633a7f6c8dac1 (CVE-2026-43009)
+    bpf: Fix incorrect pruning due to atomic fetch precision tracking
+  d2324a9317f00013facb0ba00b00440e19d2af5e (CVE-2026-43391)
+    nsfs: tighten permission checks for handle opening
+  4ae3e16f4b3bf64140f773629b765d605ee079a9 (CVE-2026-53313)
+    drm/amd/display: Avoid NULL dereference in dc_dmub_srv error paths
+  0c3887a134f191723b53e2a47e501b534c8723ee (CVE-2026-63839)
+    platform/x86: lenovo-wmi-helpers: Fix memory leak in lwmi_dev_evaluate_int()
+  cce18c263e9623872327ba3c956012f73c1179cc (CVE-2026-64068)
+    netfs: Fix missing locking around retry adding new subreqs
+
+I used Codex to compare the histories and run the builds. I checked the
+final list against vulns.git and the branch history.
+
+Assisted-by: Codex:GPT-5.6
+
+Thanks,
+Artem Dinaburg
+Trail of Bits
