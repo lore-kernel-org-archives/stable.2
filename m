@@ -1,65 +1,48 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3923A369D59;
-	Tue,  1 Sep 2026 06:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 859722F5498;
+	Tue,  1 Sep 2026 06:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244201; cv=none; b=kIUh9yHZXaJdyGMjP3pu1XP4tmoOVBB1B6m4jo2YVnXSdTMjzhTu6jGawf2oWMqZBPVvvPY9o5gH77joRHNDYmHc38I8PUCB6r2KZpc/TBQD77fSLMnRYo1l5RtCfWC6+1g8CW9LMfHyXCz73wdLSfKR+2LWTU56o337s32FFkA=
+	t=1788244462; cv=none; b=uSwhMSPpHIdxtjYa92n/XrJYb5yKqRiFwSJeznr74+NTVT+AI9TfMhu/jioqio3sXXl7O1QTNBBfnGhXnmw/xUoUruxZqvAZVo5eOaOnBbRclOzuRSTjj/xirfsjC0cOmdNWidK1nXI62CDMHFiq2YkrossSvFc5Re3k+Ycc4Rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244201; c=relaxed/simple;
-	bh=qNv3G/6Nst4orErUirqmSKISRn7FglIWlvlzS1C/AqE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pGTkNwboI1HdEINwoeVPiNinSVzbzsX7cjsS+e6KXAIFN0BHgaaUahPHu9i1Tdctuve2vabdVYDmj6cHNTxudb1Tbj3x6joQQYYpxDMVBns8BHWVqtjvqnUawUxezdz/gCfAhX/hkH280zSGUql9ODnjEnpq74hjdDkLWzqGAgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 8729842ca5ce11f19a56ed5b684f684d-20260901
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
-	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
-	HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE
-	HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME
-	IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED
-	SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
-	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO
-	GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0fc24f77-7da8-46f8-8266-5c881370f6f7,IP:15,
-	URL:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-5
-X-CID-INFO: VERSION:1.3.19,REQID:0fc24f77-7da8-46f8-8266-5c881370f6f7,IP:15,UR
-	L:0,TC:0,Content:0,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:EDM_GE969F26,ACTIO
-	N:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:f7159815a406fc5c31978a7e0c50b7ae,BulkI
-	D:2609011429519RL32R6X,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
-	C:nil,Content:0|15|50,EDM:1|-100,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:n
-	il,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC
-	:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_AEC
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 8729842ca5ce11f19a56ed5b684f684d-20260901
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1963668278; Tue, 01 Sep 2026 14:29:47 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: peterhuewe@gmx.de,
-	jarkko@kernel.org
-Cc: jgg@ziepe.ca,
-	ross.philipson@oracle.com,
-	stefanb@linux.ibm.com,
-	linux-integrity@vger.kernel.org,
+	s=arc-20240116; t=1788244462; c=relaxed/simple;
+	bh=Cm9Hjy6+mxCcf6JZoHOSjbpP3hs9mUNtWmMlwqjLLUs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FIHrReH0xxl/ReMyVYNjeprvB4K8dBcL/BvxoShsZ3dn9cNCeEi3Mze2z5CxZVtdjig2mxx5CtBF0BgeqXYJGC7alySmZtfYe2LtSwN25R6dQTwEaCk9MNTs6JPAC4ToCZL305SI+f0Nq9lWRG0dfpfBKhFrrwt0iI4O0xBkr5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=08eeIomL; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="08eeIomL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1788244399;
+	bh=UJHJeBdKVMDLiEWAAfXdHkcZi16T+NbvJSHuK0zRgQ4=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=08eeIomLJlC68W+hzlQqdGN6cWktKIxWitwqL2/jFaVDRniNKWBPpTPl8gXPS77iD
+	 furoLQ5Bm/s23kbOu05vikuSuL1jXzLt5IEB4xL0Rfbz2850waG5fDVCsvQGaD6YWK
+	 H7wlmzwaNfwKNRlIXMGCq/5Dj5OKcCNInGetkQ6g=
+X-QQ-mid: esmtpsz11t1788244394t2b63edd9
+X-QQ-Originating-IP: bUbLwYgJA56und4dsc4CWvLpPXFtZXw8CqxnLIPEJOM=
+Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 14:33:12 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 1832829884341944784
+EX-QQ-RecipientCnt: 7
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] tpm: Fix heap buffer overflow in tpm_transmit_cmd()
-Date: Tue,  1 Sep 2026 14:28:50 +0800
-Message-Id: <20260901062850.379870-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	stable@vger.kernel.org,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] drm/nouveau/uvmm: fix UAF in bind job cleanup
+Date: Tue,  1 Sep 2026 14:32:55 +0800
+Message-ID: <7F26D29D0BD60619+20260901063255.661503-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,35 +50,188 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: N3jdWkaw18IN69PFcz9rxQ/HrGPcG5hyalWhx4tDEKNHsIAiiOaO7VeK
+	WdoYjq2iDFymOhuXI6TA+8tcwFaBwxnqF+jX7PXHmmu+OWAxXp3SPKaZhrSBXogvXRJfHIX
+	aKUd6a5VXMFsVuU/LTFsSnKhJzIbSIkOo9JORuoasqqBji8jqfeu8PJPjKZKJRJso9xXUEP
+	KCL6KnrrsvKOAUzpX+qT42Luh38TaRnlKaXDPcKley1lmkUJJVljEMWrUcJ1UkBJbsYyz+m
+	wy+belR/Iu0Vqfxg+fIJnUYuWKeeeX3yEZqS9U2WZ0C4s+1z+/g8nYiU8SpGgsmT+0bRJsL
+	Tmq1tr5zz/1/2lNRtLzs84ZosPrsgnW/eK9VtakeLpQskI/4eUJnhzvTx6R8NEpcKZW+U81
+	pT4/4KjC3BFIVyd9F7/4Si1lW9XudXexoUEfDvE5f9jyHOT2Hida0n1X1vStRTQyhX4QBhb
+	lCTBYWAbtn2zbfLulRfLbySh2rRBcdzvxQ5yqb/dCo+82DygsGlCf36DGX2eaO+j1CaAu67
+	PgHMQ6x4UEVYjSEqPvRjCcsweWpGxdLsmBgRhduoyfFQWc8A9wS8KzQMfEf4SULCwtuYm8n
+	HGDbPtVQJpn9UPFipGoIV9Nw7/X/BxloFyw24j36Vn1FfKmYEl1Eu/aDz0F+hwGanzmKjKj
+	p32wRbUKcB5qk+HI6qJfi7nHX6dFcuuSNuIGxC7e1i3ObeIQyZM/kL69VPOJ5RHU15KRRvg
+	xpf2g9BqN7/aUC8LXwmu5s4bXKtnT9U/4S042tV6BLQYIMQLr6JHujquHpgaCs8Pc/QYl+I
+	ztNQGtmF5tSAvBDVFGzNbH+pNKnZ/TapJcrzIfpG1BK8ClyhjTqB8PEdG9dnDx1GPpwZt6N
+	UxpOS4HSstMIJ+4zRk+VBcPqqlVTAEyDdibtEf4Ll3J+M/hV+I7Zra8U/GLZiLbUDZYTslP
+	PYVbbnvU8STaDNsl6UTYo97Shh+eAfDl0kkJaBy/HfFSQjyMKi4KfOYEor7TbXs/lUJ/ZQQ
+	W3vsvwVY4V8Jx4cp2IrfFrrcowzi42pWEjkPz1Uw==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 
-struct tpm_buf now uses an embedded flexible array for data, which is
-6 bytes shorter than TPM_BUFSIZE due to the struct header. But
-tpm_transmit_cmd() still passes PAGE_SIZE to tpm_transmit(), and after
-clamping to TPM_BUFSIZE in tpm_try_transmit(), chip->ops->recv() can
-write past the end of data[] by 6 bytes.
+OP_UNMAP_SPARSE stores the result of nouveau_uvma_region_find()
+in op->reg before the bind job owns the region.
 
-Pass buf->capacity to tpm_transmit() instead.
+A first sparse unmap can look up the region, prepare its unmap
+state and mark the region dirty. A second async sparse unmap of
+the same range then sees the dirty region and fails out through
+unwind_continue. However, op->reg is left pointing at the looked-up
+region even though this job never took a reference and never became
+responsible for cleaning it up.
 
-Fixes: 3d9e043dab0a ("tpm-buf: Memory-safe allocations")
+nouveau_uvmm_bind_job_cleanup() later treats any non-NULL op->reg
+as job-owned cleanup state. It can therefore tear down the region
+that is still owned by the first unmap job, leading to a UAF when
+the failed submit cleans itself up.
+
+Fix by clearing op->reg on the unwind_continue paths so failed
+submits do not carry a stale region pointer into cleanup.
+
+Found when fuzzing the nouveau driver with a modified Syzkaller:
+
+BUG: KASAN: slab-use-after-free in nouveau_uvma_region_sparse_unref drivers/gpu/drm/nouveau/nouveau_uvmm.c:174 [inline]
+BUG: KASAN: slab-use-after-free in nouveau_uvmm_bind_job_cleanup+0x6e1/0x7e0 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1568
+Read of size 8 at addr ffff888129b7c108 by task syz.2.125/2454
+
+CPU: 1 UID: 0 PID: 2454 Comm: syz.2.125 Not tainted 7.2.0 #5 PREEMPT(lazy) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xcb/0x5a0 mm/kasan/report.c:482
+ kasan_report+0xca/0x100 mm/kasan/report.c:595
+ nouveau_uvma_region_sparse_unref drivers/gpu/drm/nouveau/nouveau_uvmm.c:174 [inline]
+ nouveau_uvmm_bind_job_cleanup+0x6e1/0x7e0 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1568
+ nouveau_uvmm_vm_bind drivers/gpu/drm/nouveau/nouveau_uvmm.c:1731 [inline]
+ nouveau_uvmm_ioctl_vm_bind+0xadc/0xd20 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1817
+ drm_ioctl_kernel+0x192/0x350 drivers/gpu/drm/drm_ioctl.c:817
+ drm_ioctl+0x4f8/0xb40 drivers/gpu/drm/drm_ioctl.c:914
+ nouveau_drm_ioctl+0xea/0x2c0 drivers/gpu/drm/nouveau/nouveau_drm.c:1338
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x180/0x1d0 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fd3f9f8594d
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007fd3f89e7008 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007fd3fa215fa0 RCX: 00007fd3f9f8594d
+RDX: 0000200000000600 RSI: 00000000c0286451 RDI: 0000000000000004
+RBP: 00007fd3fa02c22b R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fd3fa216038 R14: 00007fd3fa215fa0 R15: 00007ffef3a1fa40
+ </TASK>
+
+clocksource: Watchdog remote CPU 1 read timed out
+Allocated by task 2457 on cpu 1 at 138.974794s:
+ kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x299/0x630 mm/slub.c:5489
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ nouveau_uvma_region_alloc drivers/gpu/drm/nouveau/nouveau_uvmm.c:249 [inline]
+ nouveau_uvma_region_create drivers/gpu/drm/nouveau/nouveau_uvmm.c:341 [inline]
+ nouveau_uvmm_bind_job_submit+0x1a4a/0x2820 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1310
+ nouveau_job_submit+0x70c/0x1240 drivers/gpu/drm/nouveau/nouveau_sched.c:301
+ nouveau_uvmm_vm_bind drivers/gpu/drm/nouveau/nouveau_uvmm.c:1724 [inline]
+ nouveau_uvmm_ioctl_vm_bind+0x8d6/0xd20 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1817
+ drm_ioctl_kernel+0x192/0x350 drivers/gpu/drm/drm_ioctl.c:817
+ drm_ioctl+0x4f8/0xb40 drivers/gpu/drm/drm_ioctl.c:914
+ nouveau_drm_ioctl+0xea/0x2c0 drivers/gpu/drm/nouveau/nouveau_drm.c:1338
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x180/0x1d0 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Freed by task 125 on cpu 1 at 139.013117s:
+ kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2677 [inline]
+ slab_free mm/slub.c:6377 [inline]
+ kfree+0x383/0x590 mm/slub.c:6692
+ nouveau_uvma_region_free drivers/gpu/drm/nouveau/nouveau_uvmm.c:264 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ nouveau_uvma_region_put drivers/gpu/drm/nouveau/nouveau_uvmm.c:276 [inline]
+ nouveau_uvmm_bind_job_cleanup+0x4df/0x7e0 drivers/gpu/drm/nouveau/nouveau_uvmm.c:1573
+ drm_sched_free_job_work+0x33b/0x5d0 drivers/gpu/drm/scheduler/sched_main.c:1013
+ process_one_work+0x8a5/0x1900 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5dd/0xd80 kernel/workqueue.c:3486
+ kthread+0x31d/0x420 kernel/kthread.c:436
+ ret_from_fork+0x662/0x940 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+The buggy address belongs to the object at ffff888129b7c100
+ which belongs to the cache kmalloc-128 of size 128
+The buggy address is located 8 bytes inside of
+ freed 128-byte region [ffff888129b7c100, ffff888129b7c180)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x129b7c
+flags: 0x200000000000000(node=0|zone=2)
+page_type: f5(slab)
+raw: 0200000000000000 ffff888100041a00 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff888129b7c000: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+ ffff888129b7c080: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff888129b7c100: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                      ^
+ ffff888129b7c180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff888129b7c200: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+
+Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Tested-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.4
 ---
- drivers/char/tpm/tpm-interface.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The first clearing of op->reg is enough to prevent the UAF,
+but I also add a second clearing. Now all unwind_continue paths
+in the OP_UNMAP_SPARSE case can properly clear op->reg.
 
-diff --git a/drivers/char/tpm/tpm-interface.c b/drivers/char/tpm/tpm-interface.c
-index f745a098908b..1ccdbde98b69 100644
---- a/drivers/char/tpm/tpm-interface.c
-+++ b/drivers/char/tpm/tpm-interface.c
-@@ -268,7 +268,7 @@ ssize_t tpm_transmit_cmd(struct tpm_chip *chip, struct tpm_buf *buf,
- 	int err;
- 	ssize_t len;
+ drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+index f5e4756b4de4..aad14316cbef 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+@@ -1318,6 +1318,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 			op->reg = nouveau_uvma_region_find(uvmm, op->va.addr,
+ 							   op->va.range);
+ 			if (!op->reg || op->reg->dirty) {
++				op->reg = NULL;
+ 				ret = -ENOENT;
+ 				goto unwind_continue;
+ 			}
+@@ -1327,6 +1328,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+ 								op->va.range);
+ 			if (IS_ERR(op->ops)) {
+ 				ret = PTR_ERR(op->ops);
++				op->reg = NULL;
+ 				goto unwind_continue;
+ 			}
  
--	len = tpm_transmit(chip, buf->data, PAGE_SIZE);
-+	len = tpm_transmit(chip, buf->data, buf->capacity);
- 	if (len <  0)
- 		return len;
- 
+
+base-commit: 786262be6048deab760f68c8acc2c85607165894
 -- 
-2.25.1
-
+2.43.0
