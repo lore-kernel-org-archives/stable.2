@@ -1,144 +1,148 @@
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91ED847ECE5
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 09:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255278; cv=pass; b=KP6W5K32g+csHhMObFQpktMa9/XGJfLArMrPsjJK/B8pxhIrwBdP6Xb6EmBpiZNiIpUTPUnuWRJhyr65ExFuuNo2ciaNdEduEANh4DoSmuKZIgOb6Szu6DbL986mj3tPnAI4RDRKepay1hanJVQ7tlw8mlWPNMNrhZPPyUO+cMw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255278; c=relaxed/simple;
-	bh=pn4Yi8R4MlFIS7n8aLufkBYgw+zaA6iEcjMtZetXLtE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ro80rFiZ7zQq1T0JPB3hGLWVWshK5tSxNo+QZ4CxH1Kc7D3TVWzaW1DGXknFc8Z+U3mjLiKL/duHLwbWbH0l0RO8EEt3beuyrZA5c8kfKdeGDan02UHBB5j3WCEEvbelwGOdh+0JoMYTB4zH3HD2EgR/p6AU/SfC5C95L663cS0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=DS5n64aX; arc=pass smtp.client-ip=209.85.208.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996CC30F924;
+	Tue,  1 Sep 2026 09:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788255419; cv=none; b=LDShSgDrwW+6qDSc2DBiQXAJV1T4d0472qlWnpghBcTRLCBfexcrhoszvfvUg6kqqZynU7HxrYjTU4wUDUao23Lam4mZeT6XMUXDQHoOqIzsFCs5YpD7KihdAe9ONcK+ewLq/U/+bYG3XtXPvXoA+WJjEgeLMRQG1RUW3p3H8Bc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788255419; c=relaxed/simple;
+	bh=PEWzitqT1v12vigw6Xw4rm05tYiA9pI41FiezO8JMdY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bAI67Ke9r8I99wsTdfL6wbZ34P2kyTSp7jmGUwWPZ4ZKzZHFKKmku5mKc036532UalC7GQwNH8Z5eV4OM63wd3UzHxZOtcJKfmsYNGkKOXERfMNcuetLLugufl9oY7OSHRB0bOmqJoicDZU2FKFZI0kSO046Ff3SpSFQNJOx6ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=PNDBA02k; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OBEdQ0rP; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="DS5n64aX"
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20d12211bso9729751fa.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 02:34:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788255268; cv=none;
-        d=google.com; s=arc-20260327;
-        b=h5uP98/AOdBCnKpV08TXkTUDbhWyifO8P9UiIKXSJDq977+nri8vuCmOqJqvcrhe9j
-         hysNhy6U63AYBOCoh74QdOXLC+oA7Hn52WALj009jaMWHKMfslfvNi5HXl/lsw1gaaQK
-         uWPr48RiMFbnUi895KHAjlnUzmkueWVJYwttMCwj/rxX9zZkym+vjqaY9axTVKPGfXna
-         MyF7qNkPdDnu3a2abyRB01Ek2v9BnpDrdUce+ggIhNaz/BnxsUzFsItl6C3Js/npUjOA
-         ovWsDBVDqVlfEbkB/9MJ3/SQQEBp2k3PFK5sj160yiycuFANuW+zhhwsbzKjCSkOUbZk
-         o2nA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
-        fh=RXluYrwlZQT6B3tD+sX8ZSpDdTzfj7GEuZou7QVIjXA=;
-        b=KcOeOZ8XNXQrmNNKEvoEyleU3B6CfMn3RdWhCprQBHdMGWNYdaGWrgUngORjGm49L6
-         ysAHhyJ5MxfhbtfdbEWot3GWIE1ugj984Lwo38fventb0uEP0oZ1hFwe4lB6JMd3J736
-         iTynpTiwBYK+mXNIrdYdIQIgeOn2aZ4X4ED9tvJ75zy4decynieKpioQG64RqWA3t1a7
-         0ljjQA7VZGLcmCS39H/0NFs1f6akcD9x3HLcE6Z8Jp8SECX1UNnz0zcRHA3I2u42Pqrl
-         cxAUj9yJbYpGF1BrkMrKDbAgZIEk1B+P5w7YDgOvfrmTf/Ntj3YgRpqBBlceY9gd+UhV
-         Ccbg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788255268; x=1788860068; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
-        b=DS5n64aXf0XCRrLnZKPi8BH9JCKVRny0QwIRkOUkTnQppUIJyHkuewt2NxXR+3LecH
-         lg+DiuQHgU62YAhoaMOVinXXVawp1lM5BFXbreaiA9Xkdzje8FYO1rhpM5BM03xkc3YJ
-         tdLQrsSPi23KXyWN6CgRIT0Sj5ytQFwgNBCMb3cSz6jMBbplvZyVL+QPw2a0Jr1XjfCm
-         ZqjRfRxOMfKSF2YfW2NwOHe8XR4dV9a5Xks5vQT3gY10iizjWGy4xn3GK2lv263+RFc7
-         l5teXeDOAXR48GREUmjn9Bng4nvS5+pHjE9us/Bd0/buNo/ILopOfmFSDfeePjNBPQt8
-         61Gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788255268; x=1788860068;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=v0sDCc0evcY+F1EcaXTNVaeae2Uf3EeOiPTVY1Pi1is=;
-        b=T2LcpG/1vO08MZu2ASiSm2clbP8Q31wI78FORiYAc9TLTg9mq/dSdSGTY6RBRSQaue
-         sywOOkt9fLHkSW6BLC/xWl0qmeJ7qjqaI86qlOEeZa2hYbvma8gwTVmNEca9/2aCgs6S
-         J6wjyCQl/gxDjC3kT/TzeMLWh8mESS3Jnpd/CAYZW+rRiYychOSpTNMKrJ9sYwGaG3lf
-         9g71/z51hU4JxD0uXqUarHDp+0K1SRXMguWGYnv0WrYjnIutlplI809cPSCSUwQQsnzp
-         JGG/yMd+j59FTtJtHfpUBn1PuWSmbF77SFYrgc/1PsjNXSyBENfXmdil8ER+YPgZNx2Q
-         8Rcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzdiPdvs05C6+oRYNqjKR6N5CakiE7zK1GNILr3hSMIArIuEbMmtsCeUKkRadfeTFvY4/rIWPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvB7G/bb20TuYS6c5QMHsemkGI6rMMhVL+1SxxShU1Ienni699
-	hOHBT1ntX5dil3MB9Jox/Q/1Ow2h+eZcKdiFZO2XU4f2cQdppSipQeyNOBQf32+xvSc8VfLJ2cY
-	8TbP5ITwHpMPjDqqmNTE8c7MXEFVjAM5vVf95CtQzOKM=
-X-Gm-Gg: AYBFou38iM/wDAGjfxjwjQNaW5SeYLNvele8wmx2NWItGp32wiqysK5U7XzazQfGKUH
-	bWYjvSegXkDFb+Iu+9WZr1Ysw0tcPe8MNO0fPTBbQfx1oKvC6MSmh+fBMXYCv+Nim4fy40kBZ/q
-	cFlOoagN+4a+Xl3n/dt+ZxhqBfyNb5gCox1pLL+dUXLjZXHH+PqBeWTP4rzRz8K8cb9hL+7O1gf
-	DKNJKp6KHSCxAcWDgxoDJND38+/jVCkxuNURj+cvfPd6h08qN06t6npkwEv08LDhM19qhFbahjr
-	+7l0uthdWTOuN8XdxR9yL3epbQAjSkCMVYTAbDoKAdOptNzh2hpsnaI+JVST34aznxTOSZpx+w2
-	A
-X-Received: by 2002:a2e:ac12:0:b0:3a3:364:f783 with SMTP id
- 38308e7fff4ca-3a33e515762mr8807151fa.11.1788255268016; Tue, 01 Sep 2026
- 02:34:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="PNDBA02k";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OBEdQ0rP"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3A21B1D000B5;
+	Tue,  1 Sep 2026 05:36:34 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 05:36:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1788255394; x=1788341794; bh=F3soTVpgk+I32+/X1XRas5lmoapMmWr2
+	KZFitMfUEA4=; b=PNDBA02k83dYZ9xHAcbJ4Mcu0+n+1AXc1TZKacNJYO1HgwEU
+	kTkwMLb1rkei759ILgP/73TW8tT9JTaMw0+XRTMNP+/nZxxzCSc7l7QeVp0gtYDJ
+	LNGz917cIGegGDxp2VoxB758N0MtPG0kcWSpEqQaPFNHGshni5sR8eSAHThV74bX
+	Nt6xzdj2jtgtcnPXRhf3r8ZrpzBYNwS2CVobDIMNR2vazuoZizPkN0bX635KwfOL
+	L0ysUuURTJnQChmiB7IZhNfEa/0YGwMrRxRRVY6aVDpGux9Y1we66MzPD61otJX5
+	7ZKAFHWxUaIvbwtNXfxOaJ/tNFu+Z6tvc+CRaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788255394; x=
+	1788341794; bh=F3soTVpgk+I32+/X1XRas5lmoapMmWr2KZFitMfUEA4=; b=O
+	BEdQ0rPKLkD/gi5BDWY0OSa4/whynDZg5AQPcaa/D2C3E1CCzuRlN5UStjtQTTi9
+	0XpfUty4LdTgZua4g8Vw4Y/R7OdeZTIUKHGul1OczJfLq5PU94nkcfv4JqpZdY2G
+	Q4mNAdYFDP8bP/oU8BU8KJrb4FwqxOcWc0khoYEAf6QBpROACHt0dV3fd7SQfjRU
+	b2ANHQldhAay7Ktkwbf1OvUGNsmeqkyYD3pRI84fdcnJSacmQG1esg63eEAGYmYF
+	iEJuFbBr6HqYlqUHPYj/InOd+XnQ9oHXTmJg04WBhEMgGCxjHpvCO8sm9zWQvrLp
+	wWmUfyGZYYHSa/lbSLTXA==
+X-ME-Sender: <xms:oZyWatczOkIak00p_nsog4z0RusxvlGNoxI40rZM_ot0kHy6iL7Rgg>
+    <xme:oZyWanCnwHbUc3PsIIo2nRiXa2TOVfAGTehSfgCnHGS2foTXs-B551pavtpGvSFXy
+    njJb1ckA-MCqUYct0LxM6w5AIULCjtMOyLXtr0iNml9xi3hrV1rIqYu>
+X-ME-Received: <xmr:oZyWah4kB-p18HNsM5BAr8a8k6io-V9-jQ5BRDK7EJIx0PKSdX3B206jcQs>
+X-ME-Proxy-Cause: dmFkZTEMlaE8QXW3F9NNy7+L387hDqgbtUuldLBmUpJNAB/i2C65ypqft4VZ464icipY/B
+    7g96MAIYMfbfOx4dOV54fCGPYsnUwzpnt+B5tglu5IWrlYr4D+vyy6nktRctov7dQ7WZ7d
+    t91iK7zINnFriGdXddQCKBeeiOo8D5wKrA6krmb6bOtzuDORQO8Ny5ZIjhFQqSeVWAYlZm
+    8vt7EIapFnsOJ9741qLyBl+LsiO9YlQ0Bx9mNlTcMTg/OglX9Q/157hHeMvnBrzGadG2Q/
+    RxwWlQw2RjpszWz2LPL/HaKKpvUNGrK6yN+qioyGZGP0f0p8c3BEkfFJdFLwzHur5BJ2na
+    JM8YLbeJV++HMZKDPYhyTqjQkgh4rakAlM8DtsnbdVk8ZNFXt//IjqC/x+7u83S+NZKspa
+    ZEqKvY9TmAWX2fMg6T5MUuu/K0pv8cGF5wCrSkUXBjEAyOlTaeGK9AJWdYcyu1D5tAx0Jh
+    fGzvH6W4oupNoghVy3aMwg2bEOhQ6WO6J9jI7OMnf6ohOd85WljCysxXjqY+ZldegYHajq
+    P8OCZJmiNQCBqv3VVnBP4zndz5TGKFao3IUcyHvO9U16CANPBt7BFYkaZqGpPY7/zLMmiV
+    UUs5gTPlaQaLt9nLnj3QULb6tERs63i06xiXRCIrSBz8v3S6/a1Oa6/BXMaA
+X-ME-Proxy: <xmx:oZyWageS05GHQmd5be-E9NP6wWPKxFOQEJoxhM-XJ9YwWSwRsJMW1w>
+    <xmx:oZyWansNRiOkHLkHFmVwNdeJmAApIEIGk-WSyEheCKh7iVj_DSK1yQ>
+    <xmx:oZyWagkRUzfh0iG5yeRLZxcd7n7k7h4iDhT-S34HbJDnMXEsTxCpGA>
+    <xmx:oZyWaqRkkXsN7QXokmkjE2YolPE6y9qCfPfDA7ckA8_bUxxLThoDMQ>
+    <xmx:opyWakCeQVwreItFLd1e9DzWaaas2-9sTVBmL2KpSz-_bUeKuWIVE0cO>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 05:36:33 -0400 (EDT)
+Date: Tue, 1 Sep 2026 11:36:31 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Sasha Levin <sashal@kernel.org>
+Cc: patches@lists.linux.dev, stable@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jakub Sitnicki <jakub@cloudflare.com>, john.fastabend@gmail.com,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] tls: reject the combination of TLS and
+ sockmap
+Message-ID: <apacn0u4092axmXy@krikkit>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-596-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788223735.git.zihanx@nebusec.ai> <7b6bd9bb1bf6bd43db18156f42b2d7f83789a673.1788223735.git.zihanx@nebusec.ai>
- <20260901092135.GA3402711@shredder>
-In-Reply-To: <20260901092135.GA3402711@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Tue, 1 Sep 2026 17:34:14 +0800
-X-Gm-Features: AcwNN1W81ESOZ7FAp3XHS-uh8ENJqN1hRRIa6EY3HEt-t3T4rInt27-n8S7n6Vs
-Message-ID: <CAANe3eRHfO+Q-3VYPJ6Ui9Sm1TzCA13DYd+1aFh7Qfg8ebbhbA@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] ipv4: fib: bound automatic table ID allocation
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Ahern <dsahern@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831133314.4125787-596-sashal@kernel.org>
 
-On Tue, Sep 1, 2026 at 5:21=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
-te:
->
-> On Tue, Sep 01, 2026 at 03:00:01AM +0000, Zihan Xi wrote:
-> > fib_empty_table() probes every table ID from 1 until it finds a
-> > free one.  IPv4 tables are stored in a 256-bucket hash table, so a
-> > dense set of IDs makes each probe walk a growing hash chain while
-> > RTNL is held.
-> >
-> > Automatic table assignment ("ip rule ... table 0") is an IPv4-only
-> > legacy path.  Bound the automatically allocated ID to 4096 so the
-> > RTNL hold stays bounded, without changing lookups of explicitly
-> > specified table IDs.
-> >
-> > Fixes: b801f54917b7 ("[NET]: Increate RT_TABLE_MAX to 2^32")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Suggested-by: Ido Schimmel <idosch@nvidia.com>
-> > Assisted-by: Codex:gpt-5.4
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
->
-> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
->
-> The bots will likely complain about the change in behavior because the
-> commit message doesn't spell it out. I explained why I think it's safe
-> in [1]. In addition, I checked, and both NetworkManager [2] and systemd
-> [3][4] explicitly forbid "table 0".
->
-> [1] https://lore.kernel.org/all/20260831110647.GA3202627@shredder/
-> [2] https://github.com/NetworkManager/NetworkManager/blob/2e83a4082b22349=
-9c4f1bba156998d0171071967/src/libnm-core-impl/nm-setting-ip-config.c#L2747-=
-L2758
-> [3] https://github.com/systemd/systemd/blob/9b62fd169e06d14cbab801c66f2f9=
-c2006edb75c/src/network/networkd-route-util.c#L456-L457
-> [4] https://www.freedesktop.org/software/systemd/man/latest/systemd.netwo=
-rk.html#Table=3D
+2026-08-31, 09:30:24 -0400, Sasha Levin wrote:
+> From: Jakub Kicinski <kuba@kernel.org>
+> 
+> [ Upstream commit 460e6486617c17dd19abe8f3fc67d9a6fa25f8ca ]
+> 
+> TLS and sockmap (BPF psock) integration hides a lot of latent bugs.
+> Bugs which may be more or less relevant for real users but they
+> are definitely exploitable.
+> 
+> We could not find anyone actively using this integration so let's
+> reject this config. Adding a TLS socket to a sockmap was already
+> rejected by sk_psock_init() through the inet_csk_has_ulp() check.
+> We need to reject the attempts to configure the TLS keys (rather
+> than adding the ULP itself) because checking prior to the ULP
+> installation is tricky without risking a race with sockmap getting
+> added in parallel (sockmap does not hold the socket lock).
+> 
+> This patch is a minimal rejection of the feature. Subsequent patch
+> in the series will do a light dead code removal. Full cleanup would
+> require a major rewrite of the Tx path, we don't need skmsg any more.
+> 
+> Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
+> Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
+> Link: https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> 
+> LLM Generated explanations, may be completely bogus:
 
-Thanks for the review. I will send a v3 that spells out the user-visible
-change: table-0 auto-assignment now fails with ENOBUFS if IDs 1..4096
-are occupied, while explicit table IDs are unchanged.
+330L... wow.
 
-I will also keep your Reviewed-by.
+> ## Phase 1: Commit Message Forensics
+> 
+> ### Step 1.1: Subject line
+> **Record:** `[tls]` / `reject` — reject the unsupported TLS + sockmap
+> (BPF psock) configuration.
+> 
+> ### Step 1.2: Tags
+> **Record:**
+> - **Reviewed-by:** Jakub Sitnicki `<jakub@cloudflare.com>`
+> - **Reviewed-by:** Sabrina Dubroca `<sd@queasysnail.net>`
+> - **Link:**
+>   https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
+> - **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>`
+> - No Fixes:, Reported-by:, Cc: stable@vger.kernel.org, or syzbot tags
+
+Yes, this was intentionally sent to net-next without a Fixes tag,
+because it's a "feature-level" change, so it kind of feels wrong to
+send that to stable (even if it's removing a feature that nobody seems
+to be using). OTOH the code is broken and not really fixable...
+
+-- 
+Sabrina
