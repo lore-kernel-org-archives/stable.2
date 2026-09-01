@@ -1,154 +1,249 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mta1.migadu.com (out-101.mta1.migadu.com [95.215.58.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5043E3A6F1B
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 04:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B7830649C
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 04:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788236510; cv=none; b=VN5L5Cw8gGGABbiHsoEb1oQecuNzv2a5ZwW83/tw7P/+xm3bHHiPc0y61x2iyhzQCQxg2V8OLxZhSuVIYbm7JHzllhKiPkkr2yciBAC82RmshQkLlC5CNV7+fpCRK5sPdKnufdw4ExSpVLrpST9dPmBuR/cZQySBbxY2Iq9h5Xw=
+	t=1788236732; cv=none; b=R0lFgc+Re12eDPTgbxZKZd+V4VgC8/5cYlHCopWPaWJ/UPwNnudOndPYqs7WW8esSjQ5brSK8TKLgg3s9+QQ7PgtoQrfYeoRZ+t/OJOxFFQjE4yx1sO9Hmu57lMaFeyf5sj73DqeKj8XCakNqtFAK4CXLOiZ2xINYQj5ZAKjVxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788236510; c=relaxed/simple;
-	bh=EmcvMgWnU+eynTHcQrpUKhBCbJysQIL0DcglZ59zZZc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SZ24TMewHWYuYc5J6EIE1OOmqQ1kWNPSliyce7KDawqntucQ6xuCh/BuJ59sd0lwDZeXxuoQcVyDC5j9e1eSg3u9iAPdJryZBf/mrtA4i+SRLqBbMX/pzIOnjUO6/HNbca1n5FnjHNHMsgAF6xp04aEUIbhtDL3mjtqUFyaQDxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DMMYmE4f; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788236732; c=relaxed/simple;
+	bh=xCpnUv2qRAKCV2mge0IRbcM2Jr/rUizAZFaQirlL9/I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gm/Y3a1a05yHYcgv0VP9aSiTpeB6gUsML5NV4vzFu/cSWP2HyXnd8omNu9i/whbTnMnGkbQOwv/uN6TmjXvohqhDC3GMHozLaURA0C5JbMTZ9FHnEP1USrkbQ+R/bEZtm0kAGkziH2WdZnd7jX3MKMGQiitxfd1QfrUOVRCia58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cKAUwKyn; arc=none smtp.client-ip=95.215.58.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DMMYmE4f"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d715f4a587so5787345ad.2
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 21:21:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788236509; x=1788841309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
-        b=DMMYmE4fbmtlHT41IIe3iU1+FlAp3M2ukVQEr36G4DyjpMhwKHCMapDSNhUg25g/43
-         KI7Hc7HGiOz1iwY7SiqhvIiPBUoVMakOrrSrZRENj2vp1EK1RUE0AIeUJJI5yctdMfFN
-         /DouT2Fk4qm46Ohl5Py8AyzKmh/G1bwr5+n0s/T7GwrLwC7bzStwBx8U6itIakruOdRa
-         i+sWP/Q2GNg/Q6ew0zJjnppqg9G6UGjw9B4nvlJh5ABmMmO9QxqPlgvrMH+Reo6xOq68
-         ptv3fhtOq69mDH2wkQQHcCk73lo0O+9j3+gW9Imh1VB0pqXxAX8G0YBeZGbe2qqVmTAQ
-         SK0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788236509; x=1788841309;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/lc63gXB6sWM/VXbWlt8W410Sjt0Osog05aJqYWSF9g=;
-        b=fb8OjrHuk6gKfhK8vzcZKf8fP1fYHoMgLpVAwlww/Sl+4Ej3Z7NigQ078MbLuZMB7P
-         xSkrPo/XfAP443+eAQeETFR8GVaSlkp0T/bs2+fG8Dw+11WFkDlYvBPXviy8uKI1CyWr
-         e7pwsxHaDXc65nqi2/3Hzx0fvE+cicC9LM6aqzcob89V4TZhjtIUdR1wbI4s4gGHSI2k
-         5In3q1ZYuaV7kDeLeIP5LUs0iVySYVOlJalgjztZWcGdBdbiYUfBzUIkIobkqrIct8vb
-         Trqm1j+krL9YKlN692Cl+dKPeDOttW8e1Db2eEi6A/hXTkWvTCHNEhR4OmoB8nHooVtW
-         u48g==
-X-Forwarded-Encrypted: i=1; AKwUvByX8oK3EhGXBJO7z76pu7D/zjcIpHHb9xXloB9YTLpTvNPfvogKfGUmA3E6htqPmLPa4Zaxvvs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBSb5WTb7ufdo2LxJ0wDu3ShOP8g60I8qjOmhJE2CMOOLRXTN5
-	eNsXMERzr6Y49M+a8EcDhfDWZqc2hXTErN81EBqNRSo0L14rSkh55w7C
-X-Gm-Gg: AYBFou1cw7GiW3yniBqTxgBnCJX6kAEaliBeJiVMEAf5/HBfGeCIfGQv5PUIrbFZ+wu
-	zSOaERyqfk5eXgQUnmmZLhoJoRp73n7zc+t7GCTGm0zTQrlplBuFsDnClUgS1rEQiZcnGkUnIB+
-	4/bq5Bd1M135ZmKrVWymda+rn4MwfIgxmMhnptIghbghCwek8R8Ydg6/9yWrHfmUgHiBHpdx0B0
-	4VLDOQWzJ/85m1+20Zc8mlIiJ8OM9dTxanp4Y1p5epYrugWOyiMadsvITy1cy6OcQ+uBvzsOjvr
-	sDS3p/eol/idp5KSKEDiLHYAaQaYB8BK3Z83gHqmV4BSgTnyFg9MaA3MDnnpqL7NkxizN6wUTGb
-	9xpUdQuHXapXIBlSJ6+c14BmEc5/Drz+rRUvQkVGH++f4ryINXp5GBqqs2VcAMMolZ/6/54nkEO
-	JfdfZ9VDwZ+vavBj65kkBMaa1BoU7wikdGNRibT+fe3n93bOcH6JCg+r/fz/pFwJJPj8zwTM/4G
-	X0Dm+YC1BNe8BXUcVVMvuAxj+0=
-X-Received: by 2002:a17:903:26c3:b0:2d9:3bee:4f32 with SMTP id d9443c01a7336-2d93bee5194mr129021955ad.20.1788236508486;
-        Mon, 31 Aug 2026 21:21:48 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.66])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598b8829sm45204685ad.73.2026.08.31.21.21.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 21:21:48 -0700 (PDT)
-From: Aohan Mei <ljp1205831794@gmail.com>
-To: bpf@vger.kernel.org
-Cc: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	linux-kernel@vger.kernel.org,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH bpf] bpf: Hash lock addresses in rqspinlock violation reports
-Date: Tue,  1 Sep 2026 12:21:08 +0800
-Message-ID: <20260901042124.365620-1-ljp1205831794@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cKAUwKyn"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xCpnUv2qRAKCV2mge0IRbcM2Jr/rUizAZFaQirlL9/I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788236725; v=1; x=1788841525;
+ b=cKAUwKynXc/G4HMtrdzOAmxHSRIoVhs4+jREWWGL8Ci5ND3TETHPXA4a1AU1UVumLwC7KCw0
+ wZQxPmH5Bznxby2+pVAdHaNZCIEKwjxvfGT/x+rf0sXpNqY+VArY1wr2yNuBljOtKn5pQ1eDPx+
+ 1C6GH/qNU5dyeEPv9994m1RA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a5d12d5475e242c1;
+	Tue, 01 Sep 2026 04:25:25 +0000
+X-Mizu-Trace-ID: a5d12d5475e242c1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <015f1943-3dec-4aeb-888a-5ace8e1139d9@linux.dev>
+Date: Mon, 31 Aug 2026 21:25:21 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.1.y] RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+To: Greg KH <greg@kroah.com>, "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: stable@vger.kernel.org, Peiyang He <peiyang_he@smail.nju.edu.cn>,
+ Leon Romanovsky <leonro@nvidia.com>
+References: <2026082517-sitter-shriek-9502@gregkh>
+ <20260825181727.887465-1-yanjun.zhu@linux.dev>
+ <2026083114-framing-dried-c03c@gregkh>
+ <05a2f047-90c6-4fc9-8a2e-641a7526f46b@linux.dev>
+ <2026090154-upwind-radish-bd37@gregkh>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <2026090154-upwind-radish-bd37@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
 
-bpf_prog_report_rqspinlock_violation() prints the attempted lock and
-every held lock with %px, which expands to the raw pointer value.
-The report lands in the program's BPF_STDERR stream, and that stream
-is readable through BPF_PROG_STREAM_READ_BY_FD with no privilege
-check on the read side: prog_stream_read() only validates the fd
-with bpf_prog_get().
+在 2026/8/31 21:21, Greg KH 写道:
+> On Mon, Aug 31, 2026 at 11:36:10AM -0700, Zhu Yanjun wrote:
+>> 在 2026/8/31 4:32, Greg KH 写道:
+>>> On Tue, Aug 25, 2026 at 08:17:27PM +0200, Zhu Yanjun wrote:
+>>>> From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+>>>>
+>>>> free_rd_atomic_resources() iterates using qp->attr.max_dest_rd_atomic.
+>>>> Updating max_dest_rd_atomic before freeing the old array can make the
+>>>> free path walk past the old allocation and trigger a slab out-of-bounds
+>>>> write catched by KASAN:
+>>>> ==================================================================
+>>>> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+>>>> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+>>>> BUG: KASAN: slab-out-of-bounds in free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+>>>> BUG: KASAN: slab-out-of-bounds in rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+>>>> Write of size 4 at addr ffff88802b8dddb8 by task syz.3.451/11063
+>>>>
+>>>> CPU: 0 UID: 0 PID: 11063 Comm: syz.3.451 Not tainted 7.1.0 #2 PREEMPT(full)
+>>>> Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>>>> Call Trace:
+>>>>    <TASK>
+>>>>    __dump_stack lib/dump_stack.c:94 [inline]
+>>>>    dump_stack_lvl+0x10e/0x1f0 lib/dump_stack.c:120
+>>>>    print_address_description mm/kasan/report.c:378 [inline]
+>>>>    print_report+0xf7/0x600 mm/kasan/report.c:482
+>>>>    kasan_report+0xe4/0x120 mm/kasan/report.c:595
+>>>>    free_rd_atomic_resource drivers/infiniband/sw/rxe/rxe_qp.c:180 [inline]
+>>>>    free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:171 [inline]
+>>>>    free_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:163 [inline]
+>>>>    rxe_qp_from_attr+0x1e88/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:712
+>>>>    rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+>>>>    ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+>>>>    _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+>>>>    modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+>>>>    ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+>>>>    ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+>>>>    vfs_write+0x2aa/0x1070 fs/read_write.c:686
+>>>>    ksys_write+0x1f8/0x250 fs/read_write.c:740
+>>>>    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>>>>    do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+>>>>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>>> RIP: 0033:0x7fefc75a70cd
+>>>> Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+>>>> RSP: 002b:00007fefc8495018 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+>>>> RAX: ffffffffffffffda RBX: 00007fefc7835fa0 RCX: 00007fefc75a70cd
+>>>> RDX: 0000000000000078 RSI: 0000200000000240 RDI: 0000000000000007
+>>>> RBP: 00007fefc764f10f R08: 0000000000000000 R09: 0000000000000000
+>>>> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+>>>> R13: 00007fefc7836038 R14: 00007fefc7835fa0 R15: 00007ffcf0586aa0
+>>>>    </TASK>
+>>>>
+>>>> Allocated by task 11063:
+>>>>    kasan_save_stack+0x33/0x60 mm/kasan/common.c:57
+>>>>    kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+>>>>    poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+>>>>    __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+>>>>    kasan_kmalloc include/linux/kasan.h:263 [inline]
+>>>>    __do_kmalloc_node mm/slub.c:5296 [inline]
+>>>>    __kmalloc_noprof+0x32a/0x850 mm/slub.c:5308
+>>>>    kmalloc_noprof include/linux/slab.h:954 [inline]
+>>>>    kzalloc_noprof include/linux/slab.h:1188 [inline]
+>>>>    alloc_rd_atomic_resources drivers/infiniband/sw/rxe/rxe_qp.c:155 [inline]
+>>>>    rxe_qp_from_attr+0x3f8/0x2150 drivers/infiniband/sw/rxe/rxe_qp.c:714
+>>>>    rxe_modify_qp+0x1e2/0x530 drivers/infiniband/sw/rxe/rxe_verbs.c:623
+>>>>    ib_security_modify_qp+0x223/0xfa0 drivers/infiniband/core/security.c:625
+>>>>    _ib_modify_qp+0x333/0xec0 drivers/infiniband/core/verbs.c:1915
+>>>>    modify_qp+0x13ca/0x1940 drivers/infiniband/core/uverbs_cmd.c:1932
+>>>>    ib_uverbs_modify_qp+0xcb/0x120 drivers/infiniband/core/uverbs_cmd.c:1958
+>>>>    ib_uverbs_write+0xb86/0x1030 drivers/infiniband/core/uverbs_main.c:680
+>>>>    vfs_write+0x2aa/0x1070 fs/read_write.c:686
+>>>>    ksys_write+0x1f8/0x250 fs/read_write.c:740
+>>>>    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>>>>    do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+>>>>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>>>
+>>>> The buggy address belongs to the object at ffff88802b8ddd80
+>>>>    which belongs to the cache kmalloc-64 of size 64
+>>>> The buggy address is located 0 bytes to the right of
+>>>>    allocated 56-byte region [ffff88802b8ddd80, ffff88802b8dddb8)
+>>>>
+>>>> The buggy address belongs to the physical page:
+>>>> page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2b8dd
+>>>> flags: 0xfff00000000000(node=0|zone=1|lastcpupid=0x7ff)
+>>>> page_type: f5(slab)
+>>>> raw: 00fff00000000000 ffff888015c418c0 dead000000000100 dead000000000122
+>>>> raw: 0000000000000000 0000000800200020 00000000f5000000 0000000000000000
+>>>> page dumped because: kasan: bad access detected
+>>>> page_owner tracks the page as allocated
+>>>> page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2c40(GFP_NOFS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 4651, tgid 4651 ((udev-worker)), ts 123427165316, free_ts 123425874255
+>>>>    set_page_owner include/linux/page_owner.h:32 [inline]
+>>>>    post_alloc_hook+0xfc/0x120 mm/page_alloc.c:1853
+>>>>    prep_new_page mm/page_alloc.c:1861 [inline]
+>>>>    get_page_from_freelist+0x75b/0x3220 mm/page_alloc.c:3941
+>>>>    __alloc_frozen_pages_noprof+0x27e/0x2b00 mm/page_alloc.c:5221
+>>>>    alloc_slab_page mm/slub.c:3278 [inline]
+>>>>    allocate_slab mm/slub.c:3467 [inline]
+>>>>    new_slab+0xa6/0x670 mm/slub.c:3525
+>>>>    refill_objects+0x278/0x420 mm/slub.c:7272
+>>>>    refill_sheaf mm/slub.c:2816 [inline]
+>>>>    __pcs_replace_empty_main+0x2ed/0x640 mm/slub.c:4652
+>>>>    alloc_from_pcs mm/slub.c:4750 [inline]
+>>>>    slab_alloc_node mm/slub.c:4884 [inline]
+>>>>    __do_kmalloc_node mm/slub.c:5295 [inline]
+>>>>    __kmalloc_noprof+0x68d/0x850 mm/slub.c:5308
+>>>>    kmalloc_noprof include/linux/slab.h:954 [inline]
+>>>>    kzalloc_noprof include/linux/slab.h:1188 [inline]
+>>>>    tomoyo_encode2+0x100/0x3e0 security/tomoyo/realpath.c:45
+>>>>    tomoyo_encode+0x29/0x50 security/tomoyo/realpath.c:80
+>>>>    tomoyo_realpath_from_path+0x18c/0x690 security/tomoyo/realpath.c:283
+>>>>    tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
+>>>>    tomoyo_check_open_permission+0x2ab/0x3c0 security/tomoyo/file.c:776
+>>>>    tomoyo_file_open+0x6b/0x90 security/tomoyo/tomoyo.c:334
+>>>>    security_file_open+0x7a/0x1b0 security/security.c:2739
+>>>>    do_dentry_open+0x57e/0x1690 fs/open.c:924
+>>>>    vfs_open+0x82/0x3f0 fs/open.c:1079
+>>>>    do_open fs/namei.c:4699 [inline]
+>>>>    path_openat+0x218a/0x3190 fs/namei.c:4858
+>>>> page last free pid 1 tgid 1 stack trace:
+>>>>    reset_page_owner include/linux/page_owner.h:25 [inline]
+>>>>    __free_pages_prepare mm/page_alloc.c:1397 [inline]
+>>>>    __free_frozen_pages+0x763/0xfc0 mm/page_alloc.c:2938
+>>>>    selinux_genfs_get_sid security/selinux/hooks.c:1364 [inline]
+>>>>    inode_doinit_with_dentry+0x903/0x1320 security/selinux/hooks.c:1563
+>>>>    selinux_d_instantiate+0x26/0x30 security/selinux/hooks.c:6658
+>>>>    security_d_instantiate+0x123/0x190 security/security.c:3704
+>>>>    d_splice_alias_ops+0x92/0x850 fs/dcache.c:3141
+>>>>    kernfs_iop_lookup+0x23f/0x2d0 fs/kernfs/dir.c:1289
+>>>>    lookup_open.isra.0+0x659/0x1080 fs/namei.c:4484
+>>>>    open_last_lookups fs/namei.c:4611 [inline]
+>>>>    path_openat+0x17dd/0x3190 fs/namei.c:4855
+>>>>    do_file_open+0x20c/0x430 fs/namei.c:4887
+>>>>    do_sys_openat2+0x101/0x1d0 fs/open.c:1364
+>>>>    do_sys_open fs/open.c:1370 [inline]
+>>>>    __do_sys_openat fs/open.c:1386 [inline]
+>>>>    __se_sys_openat fs/open.c:1381 [inline]
+>>>>    __x64_sys_openat+0x141/0x200 fs/open.c:1381
+>>>>    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+>>>>    do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+>>>>    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>>>>
+>>>> Memory state around the buggy address:
+>>>>    ffff88802b8ddc80: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc
+>>>>    ffff88802b8ddd00: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>>>>> ffff88802b8ddd80: 00 00 00 00 00 00 00 fc fc fc fc fc fc fc fc fc
+>>>>                                           ^
+>>>>    ffff88802b8dde00: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+>>>>    ffff88802b8dde80: 00 00 00 00 00 fc fc fc fc fc fc fc fc fc fc fc
+>>>>
+>>>> Fix the OOB by moving the assignment after free_rd_atomic_resources()
+>>>> so the old array is freed using the old bound. This matches the original
+>>>> ordering in commit 8700e3e7c485 ("Soft RoCE driver").
+>>>>
+>>>> Closes: https://lore.kernel.org/all/365C68B4923F8214+30195a67-0b90-4b92-ab96-2ce41517793c@smail.nju.edu.cn/
+>>>> Fixes: b6bbee0d2438 ("IB/rxe: Properly honor max IRD value for rd/atomic.")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+>>>> Reviewed-by: Zhu Yanjun <yanjun.zhu@linux.dev>
+>>>> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+>>>> (cherry picked from commit de329533792a373186d79dca1ca120f8fa0afd05)
+>>> Ok, that's the upstream commit, but:
+>>>
+>>>> [This commit is based on the upstream commit 6f7014237405 ("RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")]
+>>> What does that mean here?
+>>>
+>>> Why isn't the original backported properly instead?
+>> The original patch cannot be cleanly backported to this older kernel version
+>> because it depends on the upstream commit `6f7014237405 ("RDMA/rxe: Fix
+>> responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp")`, which is not present
+>> in this branch.
+> Then provide that patch too.
+>
+>> The corresponding upstream backport is based on that commit. Since the
+>> prerequisite change is missing here, the original patch does not apply
+>> cleanly. I therefore made a minimal adjustment to account for the
+>> differences in the older code base, while keeping the same fix and behavior
+>> as the upstream change.
+>>
+>> So this is not intended to introduce a different fix, but to adapt the
+>> upstream change so that it can be cleanly backported to this kernel version.
+> Please just backport all of the needed patches.
 
-Any user with read access to the program fd (a shared fd, a BPF
-token delegation, or an unprivileged child) can therefore read back
-the raw kernel addresses of the rqspinlock objects, which are
-dynamic allocations whose placement depends on KASLR and the slab
-layout.  The verifier-facing log path gates pointer printing on
-allow_ptr_leaks; the stream path has no equivalent gate.
+Got it. I will backport all of the needed patches.
 
-Print the ptr_to_hashval() hash of each address instead, so the
-report still allows correlating the attempted lock with the held
-locks within a boot, without exposing the raw addresses.  Fall back
-to printing 0 if hashing fails.
+Zhu Yanjun
 
-Fixes: ecec5b5743bf ("bpf: Report rqspinlock deadlocks/timeout to BPF stderr")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
----
- kernel/bpf/rqspinlock.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+>
+> thanks,
+>
+> greg k-h
 
-diff --git a/kernel/bpf/rqspinlock.c b/kernel/bpf/rqspinlock.c
-index 111ec80ea958..5721dc1a9577 100644
---- a/kernel/bpf/rqspinlock.c
-+++ b/kernel/bpf/rqspinlock.c
-@@ -16,6 +16,7 @@
- #include <linux/smp.h>
- #include <linux/bug.h>
- #include <linux/bpf.h>
-+#include <linux/string.h>
- #include <linux/err.h>
- #include <linux/cpumask.h>
- #include <linux/percpu.h>
-@@ -673,6 +674,7 @@ __bpf_kfunc_start_defs();
- static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bool irqsave)
- {
- 	struct rqspinlock_held *rqh = this_cpu_ptr(&rqspinlock_held_locks);
-+	unsigned long hashval;
- 	struct bpf_stream_stage ss;
- 	struct bpf_prog *prog;
- 
-@@ -681,10 +683,15 @@ static void bpf_prog_report_rqspinlock_violation(const char *str, void *lock, bo
- 		return;
- 	bpf_stream_stage(ss, prog, BPF_STDERR, ({
- 		bpf_stream_printk(ss, "ERROR: %s for bpf_res_spin_lock%s\n", str, irqsave ? "_irqsave" : "");
--		bpf_stream_printk(ss, "Attempted lock   = 0x%px\n", lock);
-+		if (ptr_to_hashval(lock, &hashval))
-+			hashval = 0;
-+		bpf_stream_printk(ss, "Attempted lock   = 0x%08lx\n", hashval);
- 		bpf_stream_printk(ss, "Total held locks = %d\n", rqh->cnt);
--		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++)
--			bpf_stream_printk(ss, "Held lock[%2d] = 0x%px\n", i, rqh->locks[i]);
-+		for (int i = 0; i < min(RES_NR_HELD, rqh->cnt); i++) {
-+			if (ptr_to_hashval(rqh->locks[i], &hashval))
-+				hashval = 0;
-+			bpf_stream_printk(ss, "Held lock[%2d] = 0x%08lx\n", i, hashval);
-+		}
- 		bpf_stream_dump_stack(ss);
- 	}));
- }
 -- 
-2.43.7
+Best Regards,
+Yanjun.Zhu
 
