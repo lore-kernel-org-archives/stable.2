@@ -1,195 +1,134 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DBE3B5E19
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 20:17:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293868; cv=none; b=SxQwbySfDIo4DUG5CSHFXLNIvolYTyzqs4Kgt9I98WQLuBZbK3Vdp3GJBq53j0PtCtN/iqxIXkJMPTqdnU9KySJrZvFRg3tTNSxIvDmk/5+gVXhLzJxQGrKlqjueQM+QVn29JHzW2HkOWz87HVl4gpOn9O3DsBKo2Fs5jBApwnY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293868; c=relaxed/simple;
-	bh=ao0geNQfQ091yqvOLDBvv1Kp6w8cfteYX9Pud0tbUbQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=odS2yPAB/d4MaC9DOYDYuca9cpibD990fAhZiq0itUQB8fROYxyR8HaoLPRvgPdDMtMH2h7semoXCLfzwQvdn0b4xn9XC8627I6Ehql2m3b6II6qgqgGoqVPAAjApszLHFEFaaYLThfQl7huUBLDWfR2nz3FiLKzeChdiT65Eoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sqZEhzn6; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7B147CC85
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 20:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788294991; cv=pass; b=TfrBhmu1F2TCWJPcb3hXvE2HB3Vt+oWNMRktHxjr7pXpuhuAhCsdHzAIhFluQ28ToJ8HLYs7LxX1HBPu9L8etnQnwce2qBYhAXYMbouYrAg+YX61Ae17/Vg2Z07bfMYpRo8CCGdGdXXs0gl0Hpaug7p682Qi7JzoOLXHOLTVT9M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788294991; c=relaxed/simple;
+	bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jyXsc9JV5v1nFTA08Sgv6JATxaDypSmbWtL2SSXP3I4qJJ/ExPd5XdKNTs04ra13OoeO2ZZIe6+EHdQbeYkAv1grXLuW5z193Z8G8gV2HRdKzfbOP6oEHZt4XsbEr4at1oDSmHgzU1PaSZwDVpgop7GyJx+IBVDa0LHEEpLL9Lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LcgLPumx; arc=pass smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sqZEhzn6"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-383b4a3755fso271178a91.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 13:17:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LcgLPumx"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48436251906so386936f8f.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 13:36:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788294988; cv=none;
+        d=google.com; s=arc-20260327;
+        b=COYI+DaVifbXm4IeIVmApIJQW//vL7qPuDZm99Qnh0TgPuoZ8KMZ91C79rUPwApKlJ
+         Fl8Ci9fzx3jRG/mPyHDOsozWSosiIqbRlJDUgi1HfMxegp+vAmaR8lesLA4vx9iM8JRS
+         kQEkf+lWMQIfrnBNW06txrIlkkl+k7p3CJIFsy9occhNAsUwRmbyt6BpQ6uRTi++EW17
+         9Wr7YvS6lcvyoix3lCrT3CI981gJZQJOPW02urRMpRigvsbDQRgk6b7yFAjfsXMwfg4e
+         5/p0pUPwtvAEqNe+/fETyY4xRrKrjg5i3S5NNEBj+oFcNah/oLOKQCus4nxB4rUe9ACA
+         kvow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        fh=1qIpUaN7GsuUN4u1lfmIdErUaPP69/IFJ0/3GTH2CQU=;
+        b=Hk6TvMJbkUw6dhfj/sHRiHED8EdEuyx7+CNmZYEuwwRNYf3XVUvww+UwT4Vd3YUVS7
+         IjMeumvLXOBOCCLkNTb7dALWk3UJruLqJE6JFnRLLWFkSFR8iPYgTReEqAQcFUgdlMFX
+         6TMI+qyrORFBYQUYiSea1mTVL13tOXARKaiizQQ6EVao8uej1SxxsdKn9J5JZLgPuav3
+         YveLkq50EVyhsRL9RKVuDMaVZ5HnAaSDx2ffCVhtsbKrmckfLL1o6NxmdKW+hkMYdcif
+         P8hgTthjGdZIr7YuG6ADvrDr8pY9r/f5/SIH9mgKMnYD6fIvGuA7tgY5nvMkXbeKZBwd
+         I/mQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788293867; x=1788898667; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iCHdjulyHGSeG6kfdMtjlvttn40PrSMapdL4xPEQrl8=;
-        b=sqZEhzn6HDyTI9QkICueuU4mrPby+QJHldwZH+57E1dFWKJO6NqGU3Zbg+4ilbJB88
-         cFS6i4IgvuiyA7sak4OopU65/kfhurx7obPlhClPd1ngvBNES27B6nt+ejTYtb9FOGSN
-         I8LXNKRp2z/41M73ZHLKUwAv0+1gtuoI7qJNii3ioiuvonUr9FhD2SgUD6WUMMhKfpYF
-         wWH1H0lUOkouHScJxHBLt91a3auFOSN0yl0OQ+duaehiZFVgemmKZby5XSffC0xDCy4U
-         gmrCFcHLPcTAsMv1kds0LK9ueAQIeCXLi24VqcLnHlD4CseS/pZw5eIheuKSUTQCz46P
-         NqLg==
+        d=google.com; s=20251104; t=1788294988; x=1788899788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        b=LcgLPumxXUCU3LWs4oRI2gkX95yDO9pKpGigrUnGgcxWrh/9hnc496ZzNZZmPdt+WA
+         BMwQgMBuN97GIWU1WAnp44Hl5Tcg9WrwBh5cSUcozA8/kko8FnJJ9e7EKlz9MWW0UAMB
+         CItw7E2GKzqhi3DE9MFfmxAOeHFR4yKI/6VX54hVg4dXwlCnW5TEMyS1z0w7uhgzyKye
+         RcbCG8oh0qhqiuBUXd7nO1+q9EKI5+qO8IhBeYIO0beidmNlpEUBnZ4ynrVBm8q3TYTe
+         WNILaGmBLjRxINRQ3cU5yZgVOJkx6d1To/TX0iz59cXw/oddxeU4oZhNtWRBVM/bLNKT
+         l71g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788293867; x=1788898667;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iCHdjulyHGSeG6kfdMtjlvttn40PrSMapdL4xPEQrl8=;
-        b=ZSBss+VzOs8L/ft2zNH39P3TBkEyZZqG5uq4Md+yHC81xnAj/hHq0pUPv3AQMccUo1
-         XUSf3Ag+7BHtONW3f/m2obO3zKJhHcCodrK8rZDLEKh1aLkaS4DwvWvlgu7/eMOxstjC
-         K8z+Mlx2kBPuPnQ3ciRmejRBYi5Vzjhibs5FljsL7U3eY8VeN5vCWWsUnrLgB1e0y3mC
-         ayidXyuMBUVwn1w0aBhrHvJu/k/RBOyr4uPZtyKSp/73kxcIsUsqqFgSTnTfADyJKkXk
-         rrdmhJ+tVR0OYBPAugKgAZVNd6H/DIXcCItVuJbTm9mUcSykmopOW49iWZIGQ33nBqYx
-         OrHQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzs/+zMcOpOpwGDCCs+8QJTWUZ7NjtgZpV/WrG+MaGwHo0hH7uZSzftk6fCAOqEkDlCGHpSArM=@vger.kernel.org
-X-Gm-Message-State: AFuF++le5uF75E+VLUh7ZomDzk1mSgKdDLSzhb76lqFzxkrlLIptcL5L
-	+e2E79hzbaZiR8YSZ0qWSblSu3zdqFqMxivIxFSvGBrgKNRTW3o9hhRX4HeLGA==
-X-Gm-Gg: AYBFou3+awDwUQyzggBMTsUDWGOZqB7XTrnSZqLMHlGWnqgd1MqkiWD30pkQMkR4eK5
-	phGxTq3rsDTtFYZE6ZL/am3d4Lh4s7ngBlko5hmqifGfslHrRE5GyNaXxRwyKNPg4SiiypB51FG
-	jfg5Mq0Q+rU0OjEK538KeiPWaqKsa2KBLw8PPewnHxXbGGIGIdrNY+6GkXgG7YPO5VZKmVitqbA
-	kBtgoUQcc3wi/fp2xWz42kAZvMdE7rvXVNXrMVb51AtWMNajyxnyoBVppJo1xwNFrQ3duqySxj3
-	50B1p/bag/u6ICm6x13ZZp5hMqUyeZqcEvU5aAzXhdFr/KvW3p8mJ1f9EVVgEZs/ylEIP7aJD5C
-	mS9DEQLrB2i2vtmmrhLpNvU2P0kG8muxu/AAl1SpQIlqrS4lDnWp9za4RjFEt38WzL1nquC08/C
-	htvPSnnS2TYsKjiHohmdEBvQoW1JDxswDRbp3GsR8rpbZlzJ2rB523+skVZ5VqffDJH0lKdN3lx
-	8fyPQdXzsUwpyeKpaK4qpI1qk7DNFIWEsL8haFLUDJk95btOhJ7JotOF08Vtbz1tGhWN/mwrEyg
-	BMpzzPy7ubf/
-X-Received: by 2002:a17:90b:2f0f:b0:380:fead:448d with SMTP id 98e67ed59e1d1-396d0fd2a75mr57572694a91.13.1788293866915;
-        Tue, 01 Sep 2026 13:17:46 -0700 (PDT)
-Received: from daehojeong-desktop.mtv.corp.google.com ([2a00:79e0:2e7c:8:4b8f:b403:e030:fcca])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07bdb15bsm430330eec.26.2026.09.01.13.17.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 13:17:46 -0700 (PDT)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	Wenjie Qi <qiwenjie@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] f2fs: drop pending discard commands before reserving device alias
-Date: Tue,  1 Sep 2026 13:17:40 -0700
-Message-ID: <20260901201740.4040807-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+        d=1e100.net; s=20251104; t=1788294988; x=1788899788;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        b=nw9rOcKJee3c7zgxYJflwZJZkjPq8ayvoHbiSNgPghtrPvxghDozIc7bTEhA0ApV4P
+         dgVPGoLrsGSY6taF4QMU2+u1YMqzNOm3BFxoVHz3rcDS4dBlk8mSGEAOGKhIS2t03ajv
+         MKCJllNsaMndAqN/lNYdqsSAhFefwMeLW/KBExj2CwWNm8AucLuarVL+K7KOJJQmE9W5
+         e+zi0lqwTEfszFImROfuYT0Et+8N4nysPbBBW+cdtzTYKsoo0FuxAP8sVR02SVWCbbSU
+         HQNXNXB7on7pBX2eVCToPPt/0iQKNGNYJRlp4VtVmPvLgk2I77u3U7jhnTaqiYkAhWzM
+         E7hA==
+X-Forwarded-Encrypted: i=1; AKwUvBxvjhAOCO9bsW0yjl1ivrF5m1TBJ1OBjzgaE1Z57M6u19s73K3W8JQY+LtHIwl38yO+pex6lwk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmeuG8jWOYBRiS+Fv3SU8vVuPpz0V1iVhsTwLZ7srt8QmBGe2P
+	wheMBM4GdcQH7dlPhmwJGE1E7IFCiom1E7Sk5BGilf2vqamQ+ePKwwwBablSVkuRPLqXrMXZIw1
+	1EJn0HCFo3u6OdY5QcwDFhsMUX9r7sPeE1USRFXI9
+X-Gm-Gg: AYBFou0d0XaUTqE/jCGtHM0AT67FYDXIRsIpV8lp8WG5UPcLQ9m5/acE5OnpzFQS5PX
+	Sktzmr8WHmssG5ACWXNx1KHTy8l89f1nVAOUVW9WHuLG66ii2zx5T5KuDRjObbBLPQJ0pndAxoM
+	8+U0XACot/EH92hBZu1hXbOJ6dGl0L9y1CpipinVgoiu5ii6w194irkAc0zftyx8sRoUB0wzdeT
+	yzog1Bw7v6YV8UuzBqoSh3xiXyStVie0uWsHlgHkCLh3MlT6x5DY5Gu/H3SX50pnI4fh8u0VopJ
+	gVFcnhvWkuRgXcNtUCi1iKSkE3Iyry9NXJ0ereJ2WUaVBE1VX9fWioPRUQAweU7OywXZhhkTsRY
+	mQC67tf5NGM/RGg9KB6Amm7K5iohNZXV7kdDkPPT+iza2LdUIAiXQDNM=
+X-Received: by 2002:a05:6000:4910:b0:482:f61c:7cdd with SMTP id
+ ffacd0b85a97d-48488df9e0dmr42483f8f.4.1788294987371; Tue, 01 Sep 2026
+ 13:36:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <20260827194508.446733-1-linux@yoavmoshe.com>
+ <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
+ <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
+ <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
+ <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+ <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com> <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
+In-Reply-To: <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 1 Sep 2026 13:36:15 -0700
+X-Gm-Features: AcwNN1XLVY2qNNwpmvPqR9vii35HawK0FLdCW7a8C92cPutToPYaUpHoOUGoDJI
+Message-ID: <CAKwvOd=OLLO5AXiR54o0nU16e_pTDt_yiEPQ0GgnX8DRGJXYmw@mail.gmail.com>
+Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>, "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Daeho Jeong <daehojeong@google.com>
+On Tue, Sep 1, 2026 at 12:46=E2=80=AFPM Sami Tolvanen <samitolvanen@google.=
+com> wrote:
+>
+> On Sun, Aug 30, 2026 at 9:24=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com>=
+ wrote:
+> >
+> > The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
+> > omap1 might suffer from the same bug: their suspend routines are also
+> > fncpy()'d into SRAM without a type hash and called indirectly. They're
+> > all ARM, so asm/linkage.h still seems like the right place for the
+> > macro.
+> >
+> > Do you think these need to be fixed as part of this patch, or as
+> > follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm no=
+t
+> > sure how to test the fixes for the others.
+>
+> I think separate patches for the others should be fine.
 
-When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
-f2fs_reserve_device_alias() bulk-marks all blocks in the target device
-range as valid in SIT.
+Without devices in hand to test on, I'd be hesitant to claim 100%
+confidence. Maybe reach out to the MAINTAINERS of those, and see if
+they have cycles to help test potential patches, before
+writing/sending patches that potentially don't get tested?
 
-However, if the device was previously in the released state, stale
-pending discard commands covering that range may still exist in dcc->root.
-When f2fs_issue_discard_thread later processes those commands,
-__check_sit_bitmap() detects valid blocks in the discard range and
-triggers a kernel BUG().
-
-To fix this:
-1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
-   drop all pending D_PREP discard commands in the range,
-   and wait for any in-flight discard bios under dcc->cmd_lock.
-2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
-   before f2fs_reserve_device_alias().
-
-Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
-v3: introduce cur to prevent 32-bit overflow.
-v2: fix use-after-free and 32-bit overflow issues.
----
- fs/f2fs/f2fs.h    |  2 ++
- fs/f2fs/file.c    |  1 +
- fs/f2fs/segment.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 48 insertions(+)
-
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 511286432483..ae109d3ae571 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -4122,6 +4122,8 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
- bool f2fs_is_checkpointed_data(struct f2fs_sb_info *sbi, block_t blkaddr);
- int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
- void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
-+void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-+					block_t start, block_t len);
- void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
- bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
- void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 29cf82d02c77..0b2d173d9597 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3855,6 +3855,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	write_unlock(&et->lock);
- 	clear_inode_flag(inode, FI_NO_EXTENT);
- 
-+	f2fs_drop_discard_cmd_range(sbi, ei.blk, ei.len);
- 	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
- 
- 	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index ac0ed8609c1f..6826cb7ab34d 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1873,6 +1873,51 @@ static unsigned int __wait_all_discard_cmd(struct f2fs_sb_info *sbi,
- 	return discard_blks;
- }
- 
-+void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
-+					block_t start, block_t len)
-+{
-+	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
-+	struct discard_cmd *prev_dc = NULL, *next_dc = NULL;
-+	struct rb_node **insert_p = NULL, *insert_parent = NULL;
-+	struct discard_cmd *dc, *wait_dc;
-+	u64 cur = start;
-+	u64 end = (u64)start + len;
-+
-+	if (!f2fs_realtime_discard_enable(sbi))
-+		return;
-+
-+next:
-+	wait_dc = NULL;
-+
-+	mutex_lock(&dcc->cmd_lock);
-+	while (cur < end) {
-+		dc = __lookup_discard_cmd_ret(&dcc->root, cur,
-+				&prev_dc, &next_dc, &insert_p, &insert_parent);
-+		if (!dc)
-+			dc = next_dc;
-+
-+		if (!dc || (u64)dc->di.lstart >= end)
-+			break;
-+
-+		if (dc->state == D_PREP) {
-+			cur = (u64)dc->di.lstart + dc->di.len;
-+			__remove_discard_cmd(sbi, dc);
-+			continue;
-+		}
-+
-+		dc->ref++;
-+		cur = (u64)dc->di.lstart + dc->di.len;
-+		wait_dc = dc;
-+		break;
-+	}
-+	mutex_unlock(&dcc->cmd_lock);
-+
-+	if (wait_dc) {
-+		__wait_one_discard_bio(sbi, wait_dc);
-+		goto next;
-+	}
-+}
-+
- /* This should be covered by global mutex, &sit_i->sentry_lock */
- static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
- {
--- 
-2.55.0.966.g6673acef38-goog
-
+--=20
+Thanks,
+~Nick Desaulniers
