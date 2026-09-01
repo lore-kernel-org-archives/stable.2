@@ -1,102 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076D430649C;
-	Tue,  1 Sep 2026 15:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277492; cv=none; b=Bd/n5hrnW/5WPqvCYHg+QdxVq3RCoBqmx+SjtBvfbLnloXhntC8mZYtao6nfUv3RKoV9R7z3fTBRUbnXdh0oQb6bMtNTBt79CJ3awYvb1I0jaBeviRgzvLHv/+nJnCB6uKWcNJT2MRDS0X4+VsveEs2GVDd08qXW+AQYUQ62sDo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277492; c=relaxed/simple;
-	bh=zkeUpvHYxowjGSjJIdJQCsPLMVgQMKK9RMuE+rzCm4c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gP5p6Hkg2WvSWJ+fm7x9WitfLUEnxW9nZZfUgep1JChUF6aHIk9lM8uAuOxAXY5vskciV/rWeiai4BJhJmf7fXzbUgg0L5GillqUCfHCzVfhNRcleAheNzo1W6oWmoERuwi3mbyz20M0XXZYbBndSXCQK+lG4wdrEw01TpSGJSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UeXEXa4j; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403BD36E46F
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:46:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788277562; cv=pass; b=SLidYemLjngKpwTr1P3Gd5gL1+pYg9bIeHvfJ9b9cU1mc5ka9ZBbsPfTjVSZK0oMHK4Q5/r+omgqx/B6P5kg1uygCiPjKuRFk1uNXTfR+NYskuBYn5TGzBzXEn8Y1PB6osg4skHJU6gdI/gIw6SkcFrC1931DWQVBX5QCoczXyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788277562; c=relaxed/simple;
+	bh=eDOwdQXSRtgOf4mTyaflzKqNbnrUr4pbbePUikXSLlE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UC7przJoo/U4V7+YbdpjQ+1O1fwU5H0ywrj46W87LKpevNAdeXirdI9aWhmbHSaqCkvO7USLDg3mSvMcTOCrI7nWX7HR7HQ7AZNmxM29Klt1pfnHGVsY3dZ7NGUkLhpWUA0u/4aEXBN0B0SLj4G6qwxkiVliuPSolOlUHYut9+o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FeLD69Jb; arc=pass smtp.client-ip=209.85.161.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UeXEXa4j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 480F31F000E9;
-	Tue,  1 Sep 2026 15:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788277490;
-	bh=1tch/WQKM55fDJLl/Qo+nJxh09lQVygvGYpF+71lhlw=;
-	h=From:To:Cc:Subject:Date;
-	b=UeXEXa4jC7igD1Axs0IJzp801xgE+3oTQH86Nq7UqVTjqDZbmHUfTadTWU3okLdAy
-	 RwqmD5XL4+uTBbqC42K91S/UulW6cwf7Vb7xpvvizCGHmTIZHoXNHpxSBnpUDbC+Le
-	 apXAdjBtqPM+6LXeJoUenF1oDSFi1zemsPBsfOnVNAMwmBAJ4tFl0oCqX3828sVs2U
-	 ULagZTVagynduPPNYt52wXZaW3LSofmyqofpSQ3bY98hJYCF3izxvu5byeak2WZQuF
-	 Ub+fOWLIthFiZ+I3KHwn+9OFOi5VHQAC6PM2pJSuc/mvfnCm/In2yQRhO3tlJho5hq
-	 2kq/Dpy7PJiSQ==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Brian Gix <brian.gix@intel.com>,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 1/1] Bluetooth: mgmt: Dequeue pending mesh_send_sync entries on cancel
-Date: Tue,  1 Sep 2026 15:44:26 +0000
-Message-ID: <20260901154427.3991920-1-lee@kernel.org>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FeLD69Jb"
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-6b057877851so819699eaf.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 08:46:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788277560; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VtDUlW2QuI6esfy8WUzB3RRuzBlWSDSejHWL3GmIASVIthaziPVd/VtLv/02vySsaT
+         JPORie+MwGsWiCsNkdIfoDSvo12U+6q0L/SAJCy/TJYLNvRsSW0PPYaZCdyJpeIsBb7/
+         /59l0lNFdLe9/tb4czqsq7tTsPv+QBCxBpPI5D62SnNqtBSq+X3oIb6vQZ7HRo0TTIlz
+         BKUKkejj7NAbtUzo+XKrUyDVFX3JZITzHQnIcbrNTFDzbStrwPmMLu9swINm5xjHC4Dl
+         Er6FaazG3F5wgSI+nOhJxRWlGFUxA1Vxuxnqi0Uq9gq65n7xiXL+mZJLaI2Nlu8cU0gk
+         i0HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gsQFi1OZbsAa51qs2HRH0J2IDHT8L9xs8AMXHKs0Nzs=;
+        fh=kDcNqQxVQh0CgTC0UwCdAqG8b98gR4ZjW0Mp1JNZom0=;
+        b=nj+WgUU7EFOEZpyo6d9QcjJN05IoVWIIAHrdEr7tbe7RWyEj530sxdlV3L9Ozx2ybv
+         YAtsMPKbDziOitia7tgizbwz/SqSKRh9mLEa2bl0Gf7WNlwiU8c4veStkns3YnYja7Gu
+         kmvUrVYEXAJi0QaZK29QjFERt7TXoPMebzoQak8/8KnDJ//mUnWnPrJVZOdjZjpv3IS9
+         akS+uQMQ3NxA4S0s6UP6B+i7eILw/ErxcUgJHnklpo+YTw9Z+s1wA/N2nxIBVfzUlu7T
+         gjhsK6ZIXZZ2/+lbNEwaONBGrXwH3mQQdiH5F9mI2QaPSEyHDkso9H0uKcOfccmHG7Ub
+         UQ/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788277560; x=1788882360; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gsQFi1OZbsAa51qs2HRH0J2IDHT8L9xs8AMXHKs0Nzs=;
+        b=FeLD69JbsHIAxDWi6r76ivUtRMUHszrYWwV3ny0LM95P5+sEsVjubd4zy6KvUOf+PZ
+         utlWLWqBeg5aj+pXKGr4lcYqG4NH7lmulUwXt9MqdXa9YdvG7/CDadSGzytx6DvU7a+B
+         2mRz9wJZUpIGLnRgxdmXGsUBYnQIxmrgd9ce9D+64RHKXB4G8Cmu1mvBZYgfXgXTjNax
+         wVG8HCSM1ipYHazASi83xWTZranH8duNAlos/cggpwzPtexoVwSOgs+YY7CZscyMcrXN
+         /6MVobTkVGnYVCxdPEZQzMUWZKfFbfAAHzXKnxQWUQGuCqwMhE0eLvJ+WMnUAolpVHYm
+         hBtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788277560; x=1788882360;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gsQFi1OZbsAa51qs2HRH0J2IDHT8L9xs8AMXHKs0Nzs=;
+        b=qAaTSO1u2CjwbvGGxMB6+6Lh4rQJudTW3BIIv8ig/xL9tvHR/tgL4d6BvWEFrrLUw8
+         upC4zxediHN/AGvlrpf4U/o0MK4YjPaUlTMrq18huFr1ScQmXrsTeeH0LSWG5Z6eWr54
+         U0byGSJ9ONnIwlHbTbsMhoe19tM1ErsBx0efyrSM5vC0Lj5haub7ORcuRBpKFFvNiWhS
+         qDTehUmUaB8y0gt302vuiYpygXO8YQWais8RaR/wCfUyTy6lUbfYI1wzlcMf1IPfudBZ
+         L9szrKFgbYGiYOCPkN4D3EkKq5rt++7g+hk3/tJ5FJINHpUe6JK79iEoLfLXh9PXxg4m
+         DLlQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrmcod5TPW2AhgF/RS3j4A1779dJTelZRgL20zOWerOOKt9tBOPX6qfGXnK6gPLwR02DwTp0Ek=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlrHhhEgfzmZKUMjvIRfETec+ysbHXaD+DnVEZHMrbpoqNynfI
+	9+lo/rs+kSpGjiQnsvc06TCRkvuk8nsX/5pW62+J6BeLo5gy9FUnyPiIlP99xbvGXeweZDxjFVr
+	XPOkr5jykrXaHcbgUs6DtKIgHZHeH4Eaa8YPe
+X-Gm-Gg: AR+sD10bKQGHHN2t5d7Q5/8yMvAP9On/bAfLkk0B7ff15jYXmWMB6bH0dJWSZvs9xbV
+	L927ggxXv/Ga6E14gsi/Mdy/TYZ72YLwc5kxLI/p9FBkFW+/DHBA9pu9mOnaWB07P5jPS3E6Uq6
+	ATJO2yqW5r3Lh6wQlrZ5AMdteW6YPLs/udpT2G0mNzGkh8CmluJSY6C2npTcxEg5OLGeMqbz5+M
+	CBfJDQa5FeNGkvYGV/Li1qO0udXHlJQX+tDM9cwGdz0UzIc50nwJyh9O90U5mEc61gkKqaWyQa8
+	EuLd5pD/X2cyHZkyUeWfG63PgEBdAV4zpHwk4XrG2omf7c1SN7ZxQQOy2klF6ZCxAEOFxWJ/jag
+	J4IWxcY7clIUMFspKvTs9WKyadJ/ikqGXByShjIN/9dJ2
+X-Received: by 2002:a05:6820:4dee:b0:6b1:d18b:4057 with SMTP id
+ 006d021491bc7-6b1d18b4cf3mr27183383eaf.14.1788277559579; Tue, 01 Sep 2026
+ 08:45:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260901142438.237586-1-yi1tang.yang@gmail.com>
+In-Reply-To: <20260901142438.237586-1-yi1tang.yang@gmail.com>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Tue, 1 Sep 2026 10:45:47 -0500
+X-Gm-Features: AcwNN1WAKibAn_iMgh1g7gL5eDq1EGX5D1bvCdF1UgBxd1UvQDqs20gt_SkRPh8
+Message-ID: <CACVXFVNs=yx1M5_S3QDawanrpjC1Kaiou++9BX-XcQVgAcFyrA@mail.gmail.com>
+Subject: Re: [PATCH] ublk: add missing DEL_DEV_ASYNC to unprivileged
+ permission check
+To: Yitang Yang <yi1tang.yang@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In send_cancel(), pending mesh_tx objects are removed from the
-hdev->mesh_pending list and freed via mesh_send_complete(). However, if
-a mesh transmission was already queued onto hdev->cmd_sync_work_list
-via mesh_next(), the queued entry retains a raw pointer to mesh_tx.
+On Tue, Sep 1, 2026 at 9:25=E2=80=AFAM Yitang Yang <yi1tang.yang@gmail.com>=
+ wrote:
+>
+> ublk_ctrl_uring_cmd_permission() is missing the UBLK_CMD_DEL_DEV_ASYNC
+> case, causing the command to always return -EINVAL for unprivileged
+> ublk devices. Fix it by adding the missing case.
+>
+> Fixes: 13fe8e6825e4 ("ublk: add UBLK_CMD_DEL_DEV_ASYNC")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yitang Yang <yi1tang.yang@gmail.com>
+> ---
+>  drivers/block/ublk_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+> index 6c5bec7da97c..ade5d7fddd9d 100644
+> --- a/drivers/block/ublk_drv.c
+> +++ b/drivers/block/ublk_drv.c
+> @@ -5716,6 +5716,7 @@ static int ublk_ctrl_uring_cmd_permission(struct ub=
+lk_device *ub,
+>         case UBLK_CMD_STOP_DEV:
+>         case UBLK_CMD_ADD_DEV:
+>         case UBLK_CMD_DEL_DEV:
+> +       case UBLK_CMD_DEL_DEV_ASYNC:
+>         case UBLK_CMD_SET_PARAMS:
+>         case UBLK_CMD_START_USER_RECOVERY:
+>         case UBLK_CMD_END_USER_RECOVERY:
 
-When hci_cmd_sync_work later processes the entry, it attempts to
-execute mesh_send_sync and its destroy callback mesh_send_start_complete
-using the already freed mesh_tx pointer, leading to a use-after-free.
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-Fix this by invoking hci_cmd_sync_dequeue() for mesh_send_sync on the
-target mesh_tx before completing it. If the entry is found and dequeued,
-its destroy callback will complete and free the object; otherwise,
-mesh_send_complete() is called directly.
-
-Fixes: b338d91703fa ("Bluetooth: Implement support for Mesh")
-Signed-off-by: Lee Jones <lee@kernel.org>
----
-
-v1 => v2: Email address switch - no functional change
-
- net/bluetooth/mgmt.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/net/bluetooth/mgmt.c b/net/bluetooth/mgmt.c
-index fd045460e236..f10cf64fb79e 100644
---- a/net/bluetooth/mgmt.c
-+++ b/net/bluetooth/mgmt.c
-@@ -2427,14 +2427,20 @@ static int send_cancel(struct hci_dev *hdev, void *data)
- 		do {
- 			mesh_tx = mgmt_mesh_next(hdev, cmd->sk);
- 
--			if (mesh_tx)
--				mesh_send_complete(hdev, mesh_tx, false);
-+			if (mesh_tx) {
-+				if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
-+							  mesh_tx, NULL))
-+					mesh_send_complete(hdev, mesh_tx, false);
-+			}
- 		} while (mesh_tx);
- 	} else {
- 		mesh_tx = mgmt_mesh_find(hdev, cancel->handle);
- 
--		if (mesh_tx && mesh_tx->sk == cmd->sk)
--			mesh_send_complete(hdev, mesh_tx, false);
-+		if (mesh_tx && mesh_tx->sk == cmd->sk) {
-+			if (!hci_cmd_sync_dequeue(hdev, mesh_send_sync,
-+						  mesh_tx, NULL))
-+				mesh_send_complete(hdev, mesh_tx, false);
-+		}
- 	}
- 
- 	mgmt_cmd_complete(cmd->sk, hdev->id, MGMT_OP_MESH_SEND_CANCEL,
--- 
-2.55.0.897.gb25b4bd76c-goog
-
+Thanks,
+Ming Lei
