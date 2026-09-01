@@ -1,62 +1,68 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33C933938B;
-	Tue,  1 Sep 2026 14:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB1503ABD8D;
+	Tue,  1 Sep 2026 14:25:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272734; cv=none; b=kF4iwzbmoHeCeivK3qOFuULOBjiUOeg7gweBIeisim0QPRk36B9iu6sdpooT19bu9qvMr3NrsiekDP6qKDNedFSpXTx4BrFu4E0YVnckRF7JxQimbHQtMen6m1YgYILIq9bqXJgUwUDleQdNyXtbkkjudNcMKnsE02PWiknDa7Q=
+	t=1788272747; cv=none; b=HE0tqVX1uUJy5lJKHgoMCwopYEx4mFXsLnhXGly6hxUs6EXJIXec7IecgH5w6/YBVIsaLJ2o2XI39VkIn3AAVxzMkm0f9BNq8hVePqCVPTVGyOj2bF38v6uVa3CmAsvonxfUi81QU9qc2BFm7rnJBPTSbz/qM8fKaS03UFu1rE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272734; c=relaxed/simple;
-	bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
+	s=arc-20240116; t=1788272747; c=relaxed/simple;
+	bh=q/aNeRp1M8+W5dq4jHs4weTa/XmaDxsrVyBRxencbn0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rulSAoneDWIPvPWiNWmzIXbBfhAxI2VG9HsFe27KHZ/3d+C++O5QRZVGEXVbmiXcE5zIUVCCFS50HBh6P8ipOZb6Wc9XYCGu7zwdQ3/gbhUVvWFiaPpJFLTubAE0Hd84/rPUXurpyzGi5BLtsv9F81K22LvHd5OX8ryIA6C5iBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=W+5MVj7m; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=FqsoXHAQ; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	 MIME-Version; b=s+2t6iVkr3/TsYnuwDKcGOHaHvmvlgD4tFzKqeILaKebyOP6rlGh16oHuirDO0BC+SRkH9PvAlRxfIoWMYatRYRWArs86DmMtuyiWutXt7+/JkIye6kOemOVVj5Wk7Q+EqIkIxSo11+A92CMtcza2nshGDqXUZMm04tPSXY7F5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Gd6jfIM7; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="W+5MVj7m";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="FqsoXHAQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272731; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=W+5MVj7mItyc+4kYgbqYgXEAxjoU7IbqOX0KmoO9c5xFT0XECRDB1Yp1SVZA3AAGA
-	 h7P1hrUEnFCgGrOMOEq7nGS6VZ8mCR5L00cKK7wN20E3TIuqFJzLISCtLpesh6LFxt
-	 e3E35DR+3NJPkuFmIz/gScfnKS/l1PrwaDQ1QY3nMglne+uyO1oP6duaFWaVou9wLZ
-	 arbxcWEpSp/viF4Q5VBhUhkGqrCTveO3Pd/YVD7SMZYDIxDgyItEsUP+Ld53bCuOKz
-	 6wqyD2MnksViW4RouA6wgENYsKVxqVwExRcZOE8J++wracy73KkYc/sR4bAoeVSVnI
-	 70aevdniNPMNA==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 8A35E41451; Tue, 01 Sep 2026 15:25:31 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272728; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FqsoXHAQhgEeELKB1G7zZhpUmOXo652s7TZeWfZ4/lhjGM9NO84KD/5rA1KRZ+wZk
-	 am0ATq663eVQa7JsLJ8oWcJqAYucBDw8ImTOR+0C4im5DjuhmBibKNTQd+3Ke+z/xW
-	 Ifeh0qlbsGZC+9Xcp8AVuxbuI514T+Sni3IYAHgM0q8053+gry2yUPG9S4mK8pPfDh
-	 JdQWzKkyqZTnKkgH/HFRawcARpe6p6IwNnG2vHKC6xTAk2v0llcaTyFlr9eJ3JuEwv
-	 b9Y9d1jwSUu78G8uWG4fh058ltslPPotAFuKPpfiTzbpgkEdlLt95XtGIwOEUGM0XH
-	 S0muDakF4PdfA==
-Received: from maru.home (host86-128-233-22.range86-128.btcentralplus.com [86.128.233.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id AA27E41448;
-	Tue, 01 Sep 2026 15:25:28 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Gd6jfIM7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788272746; x=1819808746;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=q/aNeRp1M8+W5dq4jHs4weTa/XmaDxsrVyBRxencbn0=;
+  b=Gd6jfIM7Wzmw1mBtyG8pXjYVzQfE87Sq5Q/ytTtFeqB61oXur1ML5n/b
+   AbTU11M1xIrNDa+WZAqlZrNXKJixNs9RitUpubzZZlN5Rp6HfM25SWUB0
+   4DRw9B6WaPdBdpmJIs/SOSjnEGKvFi4xdbrdw9w9b4qTJep/oLuPRM/C8
+   RFK4l7WFxGyQYBLFUNHRGV1+7XzGmTsK1uIiiNdfsBGJBBXi7JWJbmwl2
+   fVrQwoRzcp+dCzlprUat26qYyPzSqSMUPTOtodeO3nT7Jnf3Sooh10oq0
+   NXAgIJ0pRq+WBC5rDLZvy1o0J3wbnm0UA4m4kh+DokgIlFPYGIWa/oLHt
+   w==;
+X-CSE-ConnectionGUID: wUQlWOMnQ2K9wqbLHm03lw==
+X-CSE-MsgGUID: TqsHgRYuRd6ZPHsOEjN79g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88555113"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="88555113"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:25:45 -0700
+X-CSE-ConnectionGUID: tGXYaYE4RqORCSUALmw9AA==
+X-CSE-MsgGUID: QwKAUf1dT6aKM+56SK+k6A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="292621116"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:25:42 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	JB Tsai <jb.tsai@mediatek.com>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
 	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/6] media: rc: mce_kbd: Fix inconsistent locking of keylock
-Date: Tue,  1 Sep 2026 15:24:56 +0100
-Message-ID: <6945917a0cf699bcf55bba0079d6e5cd96d0c2db.1788272199.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788272198.git.sean@mess.org>
-References: <cover.1788272198.git.sean@mess.org>
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH] wifi: mt76: mt7921: skip CLC records the driver does not know
+Date: Tue,  1 Sep 2026 22:25:33 +0800
+Message-ID: <20260901142533.422664-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901011840.416787-1-junjie.cao@intel.com>
+References: <20260901011840.416787-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,55 +71,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-data->keylock is taken with spin_lock() in ir_mce_kbd_decode(), which
-runs in the raw IR decode kthread with local interrupts enabled, but
-with spin_lock_irqsave() in mce_kbd_rx_timeout(), the rx_timeout timer
-callback, which runs in softirq context.
+Laxman posted the same change on Aug 16, with a Tested-by from Mikhail:
+https://lore.kernel.org/linux-wireless/20260816174841.1918-1-acharyalaxman8848@gmail.com/
 
-If the decode kthread is holding keylock via spin_lock() when a timer
-interrupt fires on the same CPU and the softirq runs
-mce_kbd_rx_timeout(), the softirq spins forever waiting for a lock
-that only the now-preempted kthread can release, while the kthread
-cannot run again until the softirq gives up the CPU. This deadlocks
-the CPU.
-
-Fixes: 53a62800efb2 ("media: rc: mce_kbd decoder: fix race condition")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
----
- drivers/media/rc/ir-mce_kbd-decoder.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/rc/ir-mce_kbd-decoder.c b/drivers/media/rc/ir-mce_kbd-decoder.c
-index bb2d7c37c263..d1c9263511b0 100644
---- a/drivers/media/rc/ir-mce_kbd-decoder.c
-+++ b/drivers/media/rc/ir-mce_kbd-decoder.c
-@@ -219,6 +219,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 	struct mce_kbd_dec *data = &dev->raw->mce_kbd;
- 	u32 scancode;
- 	unsigned long delay;
-+	unsigned long flags;
- 	struct lirc_scancode lsc = {};
- 
- 	if (!is_timing_event(ev)) {
-@@ -319,7 +320,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 			scancode = data->body & 0xffffff;
- 			dev_dbg(&dev->dev, "keyboard data 0x%08x\n",
- 				data->body);
--			spin_lock(&data->keylock);
-+			spin_lock_irqsave(&data->keylock, flags);
- 			if (scancode) {
- 				delay = usecs_to_jiffies(dev->timeout) +
- 					msecs_to_jiffies(100);
-@@ -329,7 +330,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 			}
- 			/* Pass data to keyboard buffer parser */
- 			ir_mce_kbd_process_keyboard_data(dev, scancode);
--			spin_unlock(&data->keylock);
-+			spin_unlock_irqrestore(&data->keylock, flags);
- 			lsc.rc_proto = RC_PROTO_MCIR2_KBD;
- 			break;
- 		case MCIR2_MOUSE_NBITS:
--- 
-2.55.0
-
+Drop this one; the stable ordering note is repeated on that thread.
