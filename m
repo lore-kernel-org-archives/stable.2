@@ -1,187 +1,229 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011057.outbound.protection.outlook.com [52.101.62.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99D7C306B3D;
-	Tue,  1 Sep 2026 11:27:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262043; cv=fail; b=JisBuMrSsD2rVSCe8IvQGCtlZZpJsT153WljkH3RCgEiXEu83DipNo3msEa8YojiyTVl7HpCpdzXrzJGfS1AxTKRpNnrw29CmaHlZUrQVQT/GsVSSgqWkjsdTLUCpcNlq2wMtL8DriDO0jjrb2GaHIdQPxEddclIkzcg5WaHFcs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262043; c=relaxed/simple;
-	bh=SVCUtp/76S3UYSNtTIQlRbmloZuOrI+idLDkAPB6D7Q=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=YUs5yg6MpzxwkZn/ycmLNusHcG+jw59TUWk13Ymn60xkgovIOxaeo6NGnHSaEfmuPExncsS3j+9tW9SlbABIyNxTsUMIyN3yg54pW/uD/uoKMtnrLMyD8Ex0f29rs5muTXBkZ01ecTTDsHaonJnwOHZrmQY9chGnuqZ+iAhUZT0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=L81KNO5J; arc=fail smtp.client-ip=52.101.62.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D0633EB1B
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788262271; cv=none; b=UaI7FpxG5gcvwlUa/ZB02AQ9jzBxfiIMOh83iCZwyhRGaU7qj30JO/OjlOnNCKDgelNxxi0fyCcuR0cBSrEDiUTPVoO2NbBAjEEmTVuOWfbtRA0uy5SsZUAfyFI47IZ62d+nlBiLXA0CaRK5mxgeLZv0b4h1sqIUrjgSc010Zjw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788262271; c=relaxed/simple;
+	bh=GOfCtdOlnDVlkwF7QCjS/o/Q4x5UhEZg0QzLw2W423w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=serFR5jKXEz0AJQi6kF6h+KzroW7hsvPAXSkaRZvbCeGdHRLaAW7G0oRjuP5EXpJleh4zUdGpGDfcRHVC/uHdZhjNrKzfvl0pYNQpKbJcDTIEo/brGMMQ6f+IeXqiV3pDFWh0DnSmrc7f7Cxrgu1MLZVxC7R6Kh/BmtnmG8uNI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QAJOcqxI; arc=none smtp.client-ip=209.85.215.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="L81KNO5J"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H4BrfaEwy53hMVpXSlFnHDy8ZMo1z152BEY1TJYoEZ/M6gGlejsuAL8i3xKMPK75lqtLN3Tl0mgwVHq385gZXH18/AFyuVcTKVBLTpjQAAStvaPdnH+rT3zur6V2Tp5FM2KAUpx+xfpJ2JGPY8ojCPJKALY6wjGgR5jTIU3jAHOVlDHGuHM+CV68l3KfEWoAHumBumtYwGFG5rvDLK5Ndw5hZedC5aTKfUAz94V1tGi5xMjrXAT+k4FTafYmYrnbgsy9/Pri9SuIjbM2eAoSHy/YWdJiSsOHSMKIqx60hkFUWH9c6TNEmH0POG9172MgtOTI1Rh+k+AxGYxb2g/oew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fDekBqN3MbFL6z7cjlV2RPBi2kNhThHgIAK8IZcwknI=;
- b=kpqg3czEDeiHfcKqGJ+LI1NDTTjqsRlV1pJaEn0+3m7cd/lXNeRUYodpmvwRmEy4N16Cv+K72LOgUGkRhxjCm3ty/9iuOGfEoQ3aT6OmIbAsb7lKk0lI9MuPTJAE4h8XBX7I64noKU94ge/Ev6xe4hWUb2XwaKuf43VuPDGTUa3fnjaPn+KToDCD20pYSSoHguM86/Sa6L8hy1nlOGroPxkl7V8r9Swe0dt3IBWab2V/QQye27ICug40Hkmx1nQNqtOseiRiaSVu4WQQnMtK4izyc8roOvRbNcQpz3/A6la7hARGaXUNtHoXTjnTQm7Huxhyax1L0Dl7PscmQ3B+Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fDekBqN3MbFL6z7cjlV2RPBi2kNhThHgIAK8IZcwknI=;
- b=L81KNO5Jdrzqonauxm0Cs0maQfeAMltEyRt+KPoRVL/gatojUKBu7WWuCnb/Cxt4hz4ZqMGN1z0PUH0NGetTxWS4FkZ55rRLI8suWJyYObGTf3PNdNdvidDSIUbckw+VfA22b8SJrAxaEIJwmBhweNCC5d3qfJWYK79s3jkrYsdp4cb7vW/SREbORzlUnqq0n9iHURct0mlMbRpnMmx3LUvOr4QwqUtA+ceD3ilbUsgtAX9INU8VDwhdT/Dzgm22xD7y5IlkcbeBHExzqVRJKQr+XJrrUhFVzHSEd8OVFnCm7JlrLwR8FVIQtU5Jp5rUpjbSAcBO/ShXIHNd0htWrg==
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com (2603:10b6:a03:47d::17)
- by MW4PR12MB7287.namprd12.prod.outlook.com (2603:10b6:303:22c::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 11:27:18 +0000
-Received: from SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b]) by SJ0PR12MB8614.namprd12.prod.outlook.com
- ([fe80::fe0a:6e6a:fe60:a43b%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 11:27:18 +0000
-From: Shameer Kolothum Thodi <skolothumtho@nvidia.com>
-To: Khushit Shah <khushit.shah@nutanix.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
-CC: Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, Oliver
- Upton <oupton@kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH v1] arm64: errata: pass REVIDR when matching target
- implementation CPUs
-Thread-Topic: [PATCH v1] arm64: errata: pass REVIDR when matching target
- implementation CPUs
-Thread-Index: AQHdOTc6q36QCGH2TE6BB5AWp4OAyra5lqTg
-Date: Tue, 1 Sep 2026 11:27:17 +0000
-Message-ID:
- <SJ0PR12MB861455EEA4A5FCA473C53F7BABA82@SJ0PR12MB8614.namprd12.prod.outlook.com>
-References: <20260831105444.4065831-1-khushit.shah@nutanix.com>
-In-Reply-To: <20260831105444.4065831-1-khushit.shah@nutanix.com>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB8614:EE_|MW4PR12MB7287:EE_
-x-ms-office365-filtering-correlation-id: 42e9f929-aec8-4db9-0d36-08df081bfb24
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|6133799003|10067099003|11063799006|18002099003|22082099003|56012099006;
-x-microsoft-antispam-message-info:
- QGtJpgz6hP+lvIiUVmFVPDj00R/AT/OnghNTLCuVsp0YH2pI0wkK4QL2POXvLi2EJQRXT0qIDLXKH8jIxnJyCXiS51yXXduj+QKPlTKorbx8QBF54RqsK4XwH/c2ydpi2zbMMJflFPPWp5ZzYAy3wcT7NpN/3iM8WWo54m/hZx0lVUkbK9hrt8ZFD0jAcWC4CIusgQmAFgaWxQ6tuozSDGxAvycnpbTPbfPT+4pM0TkXu4tZWDYipJQlmSPQK5yDM88lvSGAuc+QQ5zqpRZs1sASkwKJVxl7ireNSLUELsn3dhbtcN8X4TBPDYBLIceQmlF8AnfJLImE3t9vfdWdbmQ7/lxRXN5QjYajlptKPgjO1K7qR2Zetj6fyRMq7EIN6ySLnPUJDGWW0Sfsfs4vL1sR3c0rSlvJuPEk72612q42Gh/zd6B9BpcM+Gu4SMzFZTYYLSS9s0RCE7uLaOCrs7Xd0sr5fIyHya4ANlkuDlPpbQBuElRct3k4FSE1eHTSKjxsg2jTQ6Kusl4XuFZ9/k/T043rDdxMTc6ocR5RaT1xpWyD2pwfTecHyflzEq0RnUPWHBupC/HYO2aJUC3WV9StzGL4c0v8XEJ6D6L9BEbqShFWplhO1ac3iew+zvxaa0L/CtoyTii/0eteMG1+IANxfjTiCmIkQOCJSoXXmWVG1ZqD4TlLA3kk6r4mZcjtxSW/KXbu7wHXC1g5l0LE1iscwYmldLORxTrOJ3KLYwk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB8614.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(6133799003)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?YCExngR0TKzTJZzEcPclgAraLIj24tV8bAt1Bl50gUoiCyBR/fdITM6KMQJJ?=
- =?us-ascii?Q?Qsakbz9qh2OfqnnJmgl8HtDSbcjqnEnrlev01cVUomyQz4XZWcoV5CwZ+MYz?=
- =?us-ascii?Q?Nvle5Mll3y8z8BbjGqKKYGJSaX7lUO3FWGamXkOMTv7Rkr8p307Pt7r3Ar15?=
- =?us-ascii?Q?OUbw0oT23Fwng5k6ixhUuL8N1BW0OWF/eJ2TVaE0lxHiRJJcYP9jH+kIIRK+?=
- =?us-ascii?Q?SlO8A6TUCJAxzTOHfsP020rPFFVBZdCRpnER2Dsm6T5rdairVh1G4wOwgDsn?=
- =?us-ascii?Q?KfnFHAVxlMiaphxmSlV0jwcDIHUauc1dexYcVmm3ZpnOF3g0+/p0KJbOsbqe?=
- =?us-ascii?Q?VhMIZUbImAbAuku3g2Ebt6FcY73rdNRJev2MwDLuDC4TeCq4M17f/eO9XXwl?=
- =?us-ascii?Q?C0Aomd7fKhZJReSO+0S7pJO9V8GpVONrLZpBl80Tw9MZbozEish5WPENZzlN?=
- =?us-ascii?Q?ghlXk2NHu9g2q6Bb/bNLuZwqscKXtOrQY+32RPgFo3b5GeBfLE9YqeV+4qRQ?=
- =?us-ascii?Q?57WawYhbGyOm7sPGQyMI4ZCpcTj6RG2H/vgB737c7H55JvzxqYpMvmfw3Zvu?=
- =?us-ascii?Q?g554GC0E1IaU9GDgQeeN8u8k0k03Z50YKF7RbGerc9AjP95Kyc9WWDH1YH3m?=
- =?us-ascii?Q?ut4oMdRue7/DO8nLf2zG0TBqG2As9R0V6udWLvDoo8bg3CFyp3/RsEuGRmDk?=
- =?us-ascii?Q?owgXr73gOt8whOVhO7/wY1c2rTIQNS6FxTZd9Ximsbq62cXJDNG2yUmGXWu7?=
- =?us-ascii?Q?8xCkJdCIJGQ68TjMaFe16F69NTvXlhda8fTZvLv+vtbG4jaDVwqtd7kk1ylH?=
- =?us-ascii?Q?XnGR8uWurRyLsYhQSxj+fu5PUfZ9TICjVa+VauDdr+7/u+yb0iJ8CNPA6CKQ?=
- =?us-ascii?Q?aUdrOeEPKKXVkTKh/kCt5vJEKBQi3QUzpqKctllesKqKkbgupX2SWduXmkQ4?=
- =?us-ascii?Q?BQ5Epefhpk85hJ4ro8f0Y1juDY/1HIQktLYTcNUDcX9c0qbiufSKxnBPI0fT?=
- =?us-ascii?Q?WcqXddqBn8JaZCC9Kg8pRMvJXzCClBNTOToafhg/5L+X+pH3H632R8+ncUkq?=
- =?us-ascii?Q?RFgu3EKhUDbBJGeR5k3tdGi4jgaNKuFCRi+YSftl1XEqi9MAJIdCOdUy2aOV?=
- =?us-ascii?Q?nRFAQoo4ixhUb1uxXmh+U9/Ayu5mamGYpx0Om8JiAfdSVnhkZozpTUCI+k8b?=
- =?us-ascii?Q?q90RZef61PN63HtsA6hm4hbSRqxajU1xIC09KCH+oqUsJBADPNcBMnthLtMf?=
- =?us-ascii?Q?UA1E78YXecC73sn9XXfxHatozlGBxEicEt5IF19Tx6j9m2I3nsO0VAZe9vt/?=
- =?us-ascii?Q?FVYWEDQn/yOW6quJ1v9QcQN5OnzgMtbY9S1n573BUYynMPY9SMCFJx7xgM+j?=
- =?us-ascii?Q?oW8iRLMWpHi+vx5OZpzA6DIdfSXWQORPxcb66oCH8nUHxeb+iAH0Hv5keMRC?=
- =?us-ascii?Q?G2WB+CFiZIgURtR7mbtTXAWBlb0urdLmddG6kzjFPTvCiGHDbpHNiyu0qg3L?=
- =?us-ascii?Q?IoRItk5p2w6oOl+mH8npZ6rmgapglHdch5eybozEbOEVGsfzjjPg0BJEmSZx?=
- =?us-ascii?Q?COxFmvFWed2unWrMsXTp9l/g2szb7Hbmeq9gUMt7pYRXIekwb266ACZaFZHa?=
- =?us-ascii?Q?ZGYnYaE5GUEKJmuP5k3cYCMdty672gPnUsFxeHRbIWN+46fThIwmV1DwAuVA?=
- =?us-ascii?Q?CgBX2VHPiyQ1RC/T/GvK5vnMjvwRmtSDt2O+DsdU6Fdo5SWVT/Mph7PFktaT?=
- =?us-ascii?Q?mwQWZJaxZQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QAJOcqxI"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-c96c92c0980so572867a12.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 04:31:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788262269; x=1788867069; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wDrPFlu+35b76UwZKFDqbuoAbsDm578Nxc7NOFH5Dx0=;
+        b=QAJOcqxIzG5mARTr9Co3heVcpBCk4lueyL4mPdlSxW4AcTbtEIHH/QpFeaBUqL1xMQ
+         RIQH5d0TtoeGwph+NAuJ0aE9VEckdIL4uhlH+g/PTXmminkHbXzenqbn7/4BL7TxHoNT
+         JPEzEGrxmEBoLWlzp99Q2+eUVltOrXmaB3gvCh0LbyGruqe8L5RKEnOMZsthMKwytRy0
+         8/bb15Q76pPAMIteEIvwVQjU0TOSoLrS1wYMhb/OzXJAvwaTI/p81exuRkfNfVI2YjJJ
+         MOJA4Iv1uvL8iznf2Pz5ZXy9FytRbFna/2Ec0WkXaQw3K8gRJfJ8zAAApS3hgQfjUlaN
+         c6Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788262269; x=1788867069;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wDrPFlu+35b76UwZKFDqbuoAbsDm578Nxc7NOFH5Dx0=;
+        b=hkOj+iiodbCPISXTdQ/LFTtzbRZ/fpfKC8e372hKyuHESRIH7KKEw0kACog2b0QZX4
+         17886HowNE4Z+kfZ/QV21PyhztdxrxAJ70I84OqPnE+CIJ8yeTeLkXdCZGpCMF5CnyBH
+         FOiWUpZOsV6YNd+lNWO3iNLTjPUVZEZK/Y8mOplaTmxaclGLR5yFwCjpOHKzejysL690
+         WJgt3hWJSJsRYi9PN4Ki+g2wPRBJj0nIIm6RAHIDgmdmY3oJBef8IkuoPT7kTJ1ywSqe
+         nVhMDQ9aIcwrnm/1wbWN17e7gKhrSVXG03qBvFaI01Y2lHgJCumM1QUEdFwm+dygmI/9
+         Xy0w==
+X-Forwarded-Encrypted: i=1; AKwUvBz/Yotdl7k25BTqTo8tMgDlQdiWE6dVWufSidiOgfKyf7iragxpxxdGRYO66AW4UenSCjGOB5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMhbiRRrv9Hs7nsVqJrXUPhW02JAdEyiHAhbtvzURdaSJ45lVj
+	uiEwP+D6/KrvnqAqEXjLFCo+nkGXveOQ+i9SNbozJUejw7JpLy5kC7kE
+X-Gm-Gg: AYBFou2bs4ozecs2ABeTXfC27zWFEGPrBZcpMh5+hkbl5Q9qFiRtXfwYGhZwP3TbB5p
+	/EgYoiMrQy8g0telx3hM9psHrpjGOu74L8e9QyvOzU9CbmLVkz7wui/Dblo876vfZVAEz9S8rby
+	sh6dxB/CFEhj2f2/zJS/UnjUP0X4Io46kVrP2dqXEJsXU4lLy3scB6i/mrB/oOA0vvtBtGdcP5H
+	QCWPmyZVocNPHObx7luv7klWburrggZ+PA0JvjeU3qB/Am6pIO6GOq9SeRIfJsyT+Qno/8ZBp5l
+	ixF4sYhUbggIF/yiSOpohqqigbGwti7tAGplXSEI4aCj3qKwGouBKjK5KNpo3JmfXINfZN00E9v
+	3yZ1rTnZTLRe9ucQ7HBsJIGAwRjf65gDfbNclbHPrClWAAzinpFdo8OvljBNrfW7g5fyLyaDSi/
+	Myvh/z1/SVVeH3/kXbZfxuHFA22wpODDdqlwItndnue93FqpkhUFVQwwq96i59eeImsWqgsMhZz
+	hoQZTSJezTCr/EWTrkVVzdaMelhLFfchKR13tEr
+X-Received: by 2002:a17:90b:48c5:b0:398:9be9:ab8c with SMTP id 98e67ed59e1d1-3989be9ac97mr37709892a91.17.1788262268809;
+        Tue, 01 Sep 2026 04:31:08 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d4b336sm36888309c88.8.2026.09.01.04.30.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:31:08 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: sudipm.mukherjee@gmail.com,
+	teddy.wang@siliconmotion.com,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Muhammad Bilal <meatuni001@gmail.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: [PATCH v4] staging: sm750fb: fix mono image source stride mismatch in lynxfb_ops_imageblit()
+Date: Tue,  1 Sep 2026 16:30:31 +0500
+Message-ID: <20260901113031.161610-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB8614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42e9f929-aec8-4db9-0d36-08df081bfb24
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 11:27:18.0026
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TDbYLTOamLbPW61mjIe5Q4Z/8PE42/pRfPF9qh7rhAqIRLVswS9uWHiPYstbcdpzF2NDfdKOZGQ68tMb1l73/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7287
+Content-Transfer-Encoding: 8bit
 
+sm750_hw_imageblit() advances its monochrome source pointer by
+src_delta per scanline, and computes the correct rounded-up stride
+internally as:
 
+        bytes_per_scan = (width + start_bit + 7) / 8;
 
-> -----Original Message-----
-> From: Khushit Shah <khushit.shah@nutanix.com>
-> Sent: 31 August 2026 11:55
-> To: Catalin Marinas <catalin.marinas@arm.com>; Will Deacon
-> <will@kernel.org>
-> Cc: Mark Rutland <mark.rutland@arm.com>; Marc Zyngier <maz@kernel.org>;
-> Shameer Kolothum Thodi <skolothumtho@nvidia.com>; Oliver Upton
-> <oupton@kernel.org>; linux-arm-kernel@lists.infradead.org; linux-
-> kernel@vger.kernel.org; stable@vger.kernel.org; Khushit Shah
-> <khushit.shah@nutanix.com>
-> Subject: [PATCH v1] arm64: errata: pass REVIDR when matching target
-> implementation CPUs
->=20
-> External email: Use caution opening links or attachments
->=20
->=20
-> When target implementation CPUs are provided, is_affected_midr_range()
-> accidentally passed the MIDR as both arguments to
-> __is_affected_midr_range(),
-> so the REVIDR mask check operated on the wrong register.
->=20
-> Pass REVIDR as intended.
->=20
-> Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on
-> implementation CPUs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Khushit Shah <khushit.shah@nutanix.com>
+Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+image->width >> 3. For widths not a multiple of 8 this under-counted
+the stride, so the source pointer fell further behind the real
+per-scanline layout on every line, corrupting the rendered image.
 
-Reviewed-by: Shameer Kolothum <skolothumtho@nvidia.com>
+Rather than just fixing the caller's calculation, remove src_delta
+as a parameter entirely and have sm750_hw_imageblit() advance by the
+bytes_per_scan it already computes for itself. There has only ever
+been one caller, and that caller was passing an out-of-sync
+derivative of the same width/start_bit values sm750_hw_imageblit()
+already has, so keeping stride as a separate parameter served no
+purpose beyond letting the two calculations drift apart, which is
+exactly what happened here.
 
-Thanks,
-Shameer
+Rounding up, rather than down, is the direction consistent with the
+rest of the fbdev core: struct fb_image mono bitmap data (the same
+image->data this driver receives) is walked elsewhere with byte
+strides derived from a ceiling division of width by 8. The generic
+mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+ceiling division with an added start_bit offset, so the caller's
+">> 3" (floor) was the one calculation out of step with how this data
+layout is handled everywhere else.
 
-> ---
->  arch/arm64/kernel/cpu_errata.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/arch/arm64/kernel/cpu_errata.c
-> b/arch/arm64/kernel/cpu_errata.c
-> index 5db8f0619e4b..b33dccfafaf8 100644
-> --- a/arch/arm64/kernel/cpu_errata.c
-> +++ b/arch/arm64/kernel/cpu_errata.c
-> @@ -82,7 +82,7 @@ is_affected_midr_range(const struct
-> arm64_cpu_capabilities *entry, int scope)
->=20
->         for (i =3D 0; i < target_impl_cpu_num; i++) {
->                 if (__is_affected_midr_range(entry, target_impl_cpus[i].m=
-idr,
-> -                                            target_impl_cpus[i].midr))
-> +                                            target_impl_cpus[i].revidr))
->                         return true;
->         }
->         return false;
-> --
-> 2.39.3
+Found by code review of sm750_hw_imageblit()'s internal stride
+calculation against what its only caller was passing in, and
+confirmed with a clean -Werror build. I do not have this hardware,
+so this has not been exercised at runtime on real sm750 silicon.
+
+Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+Cc: stable@vger.kernel.org
+Reviewed-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+---
+v4: Rebased onto current staging tree. sm750_accel.h had since picked
+    up an unrelated parameter-naming cleanup (pSrcbuf/srcDelta/startBit
+    -> src_buf/start_bit) that no longer matched v3's context, so the
+    srcDelta doc line and parameter there needed re-applying against
+    the new names; sm750.c, sm750.h and sm750_accel.c were unaffected
+    and carry the same change as v3. No functional change from v3.
+v3: Added the version notes below, which Dan pointed out were
+    missing from v2. Added Cc: stable@vger.kernel.org, flagged by
+    Greg's patch-bot since the Fixes: tag targets an old (2015)
+    commit. Added the rounding-direction justification Dan asked
+    about, citing fb_imageblit.h's BITS_TO_BYTES() as the existing
+    kernel-wide convention for this same struct fb_image layout.
+    Moved the "no hardware" disclosure from an email reply into the
+    commit message itself, per Dan's request.
+v2: Added a Fixes tag. Moved the src_delta calculation into
+    sm750_hw_imageblit() itself and dropped it as a parameter, per
+    Dan Carpenter's review.
+---
+ drivers/staging/sm750fb/sm750.c       | 2 +-
+ drivers/staging/sm750fb/sm750.h       | 2 +-
+ drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+ drivers/staging/sm750fb/sm750_accel.h | 4 +---
+ 4 files changed, 5 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
+index 039e203..8b93bfe 100644
+--- a/drivers/staging/sm750fb/sm750.c
++++ b/drivers/staging/sm750fb/sm750.c
+@@ -252,7 +252,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
+ 	spin_lock(&sm750_dev->slock);
+ 
+ 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
+-				      image->data, image->width >> 3, 0,
++				      image->data, 0,
+ 				      base, pitch, bpp,
+ 				      image->dx, image->dy,
+ 				      image->width, image->height,
+diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
+index 89a61bf..fd1cf9e 100644
+--- a/drivers/staging/sm750fb/sm750.h
++++ b/drivers/staging/sm750fb/sm750.h
+@@ -64,7 +64,7 @@ struct lynx_accel {
+ 			   u32 rop2);
+ 
+ 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
+-			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
++			    u32 start_bit, u32 d_base, u32 d_pitch,
+ 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
+ 
+diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
+index 0316ea6..bac9a20 100644
+--- a/drivers/staging/sm750fb/sm750_accel.c
++++ b/drivers/staging/sm750fb/sm750_accel.c
+@@ -288,8 +288,6 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
+  * sm750_hw_imageblit
+  * @accel: Acceleration device data
+  * @src_buf: pointer to start of source buffer in system memory
+- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *	      and -ive mean button up
+  * @start_bit: Mono data can start at any bit in a byte, this value should be
+  *	      0 to 7
+  * @dest_base: Address of destination: offset in frame buffer
+@@ -304,7 +302,7 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+-		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
++		       u32 start_bit, u32 dest_base, u32 dest_pitch,
+ 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2)
+ {
+@@ -395,7 +393,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+ 			write_dp_port(accel, *(unsigned int *)remain);
+ 		}
+ 
+-		src_buf += src_delta;
++		src_buf += bytes_per_scan;
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
+index 6178854..efceefa 100644
+--- a/drivers/staging/sm750fb/sm750_accel.h
++++ b/drivers/staging/sm750fb/sm750_accel.h
+@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+ /**
+  * sm750_hw_imageblit
+  * @src_buf: pointer to start of source buffer in system memory
+- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
+- *>-----      and -ive mean button up
+  * @start_bit: Mono data can start at any bit in a byte, this value should be
+  *>-----      0 to 7
+  * @dest_base: Address of destination: offset in frame buffer
+@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
+  * @rop2: ROP value
+  */
+ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
+-		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
++		       u32 start_bit, u32 dest_base, u32 dest_pitch,
+ 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
+ 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2);
+ 
+-- 
+2.43.0
 
