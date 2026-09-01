@@ -1,120 +1,137 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEEF3546F3
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:31:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788291070; cv=none; b=kkkOuYiejeHInPR1LF4d1YM2v5ruNFa3RFj4hddMOlhKVnaT22iL6+Fg+iM6Bk/Y/rUIel07fq5nm+hjEc7V4Os/dS/dnf2aCobTbLtpdotX0syxf5fjO/PyHLeA1Cx65QjiJ08dWZZYzSkEOUulHcGyPZvcgE6FhmyXCnFfVVI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788291070; c=relaxed/simple;
-	bh=U3cg2HZXuMvptHjkBFTYt5bfXW88OFJuT/0Bf1xnlX0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RI9JDmKlDTsquAn9x5ueYb6JKidPkSUcs/V65MErDoe4s1nA+6TzkC7Xy0akq4PIMr/YXxxz2NOekeOSSUOzAjM9NzrNZrZU/aVJhBwPXsUbV8TetXFulC8hRB/rlfYJv9R/2n/mfQizwz/3D/+6GNErM4nt9ndtdlCRAQMNKxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1bvlaze; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6377D3B9D81
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:40:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788291619; cv=pass; b=tRDmlpZxbaZRcvisiPq2OI6XscJ9W8Bojn+CaJPuD//KjW1oyf3E+4LFxtjLZ/hhjNRjK0SpaQkLKZvzRL2i3YUJ/blsNJLqzI1m38IRMKRvqvPFn4CaxvOiLBbSK42PlxFgZu938XkW1mBv94aDDKwwLBIJZbewMEpecqMX2VI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788291619; c=relaxed/simple;
+	bh=vPIlT3/0q3DmEJlhpdxnF5yqYyOZkdrfaCmYL1+wp2E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A/ZwvnLzFfm89DX6/X9saoiGMHmeaMl+qLjp7sQ0eEuIh58wGft1db7MMr0uRCj5lVuY2/SHPWDl8PL+Zdmv9dhrR2L2lM8ZRSgzzRKDGV0SucW+2HImPbrWQnkl2JLE1Pf+q6OMS1xHJ6DjGtP4MfZK2qJMMNYXRlEFGBYTsBc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Gx7Q4MFn; arc=pass smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1bvlaze"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso2434345e9.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:31:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Gx7Q4MFn"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4996e2575dbso11645e9.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:40:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788291614; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r+OvmVc6MjFqkiaW2nEgKvxM9ZxgKb82oC1Cg6b6YZrzCx0KuXslTL65C0hU9M7M3p
+         mMLS840Kjsk2o7WL3L8y/R293GwD7ou1AGg4vPXJcz32xMONXlxIjDxF85Dx4ar5GurB
+         DZ4dYjcO7iZvdC0nSgtZRLHMQOsRC3eT0IUK1T+3xeBgJJuXQbo8gM5XNNsSYSP2dGD0
+         nwpmGhTgohh13YgE418vV49nRtXjcaRmk7oDkANC4Ay+ztRnuHZcSUE7rrNDnELedkAX
+         0gwjmMPmw92gKYYgVFib4G5zJecLHbtn/O9CcexffCI7x9xAbyc09GxUVNrKbjHKc3Hi
+         qmPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mCPNVjswzrfu/6ewp3QsYppMVfdEr2MBSoZ8rIPqMgs=;
+        fh=q8CBlZ7Cb7ObKPU/EUIdIwORPQHXlY2vgVo1Cht+jvg=;
+        b=jB3PhaTdalVwpfBB4h/juOLx7WXSlMr1UiGJX33j2zrRu6mcSqPAe3SVODI39qMUVm
+         AqE4XcgI7tGURhcS9rO+jMtQl08qRNp8XzUqX+0rgddRHEHW0rO2dtdtHx6KwtVFBpof
+         L7cK5QCNetr2K490TfIko5QmBYERCv40j2Vwc0vSa0aPo9q2zN1ZoPf8iuagz/kLehG6
+         qainlUM2KHwPgdsxWWD8gK4BC6iQYdV53LJHxZA9cyoNj/O+G44TahxxZ0QAJiNnPwrd
+         NYDpgMEH09UhtmLsPlOqdF8ZqMywsPdcRLSatlV3lGNIeUTgKmaxLOz0dWzdy5umSxY7
+         C6AA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788291067; x=1788895867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VQGtLovN51OKFL0wAwiQ9djvDcePQibjWbjxoUKoFt0=;
-        b=F1bvlaze4fUDcyxrNAXR5kgD4XWHmni+LnDjWrkGAKVuKo0J2ErgvAe7FFicUnfTL8
-         pCWZXyn66o38v8+svAEqWBqhaXm77bjOkcftR1NA1AdojrGw5DDOqPGZG8R8F416NZq3
-         MBAIiowQgs7RA8FiIWz776V58zneSmekASV8qE6zS1+zYWhkUT/8hiGiIc3RrsIymu4p
-         WepdEw3vMJ10k1fzKL+MVBtNZA0iw458m1jRvBvUjECcCzDfYQvh5tJJvseA0CBvi6Jo
-         4bdqxxLKuQJGZFlxX6MWQiE50JNgCwRcDALfhuZ1qjxzcCSs7wEWruTOOSB2XEjw4EBI
-         ne/A==
+        d=google.com; s=20251104; t=1788291614; x=1788896414; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mCPNVjswzrfu/6ewp3QsYppMVfdEr2MBSoZ8rIPqMgs=;
+        b=Gx7Q4MFnwNsfICRyxiXCv9K8TYow9oyE4B4HpblwoG3BvjRlGX42gnaJyPAB8cJIoc
+         lcSjFKFCgQVhWYWwQMtUWLqvXlQ56YulkKxRGY+MRymhQaVdPqqg8LJuM0sdTd9qoYw6
+         iQJmBhClUpHGAaH8Mkcowe+JZKt5dMUZEWT8IloYdC5ZlAMjnJk17DlK9NNsFXKqIBjJ
+         JCWBKDfw75FiAsp/3e1bDgrW17jc6DITZseOB/qfYZd00hpBa4l2mXb8TqLArGkl7XF0
+         uKENTgjKcc89pvgz38HjCfINlap9X8yF52J3cGfx9EDDDJq6IDsE8g+Q/IbfhBHqCP+6
+         m5LA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788291067; x=1788895867;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VQGtLovN51OKFL0wAwiQ9djvDcePQibjWbjxoUKoFt0=;
-        b=H7bTj4RB6rEi5KNROhdBK91WXLudLJM171gdJn/D7i90ZHfp4Nblf6owaWiGZ5wUHo
-         by7GWjSsALIBLZLrh3eHPwEsNCJ0cXBdbD/yFGj6RvXj0WzXk8oIg7jQf78EyUZDyeZ5
-         L7fbiCqMqwUOmTuWYFMNOeu9CzIGOF5igQhy2txK27Af0F2E/r7IhYGMJiHFpAgqcoF8
-         gEQlX69AkURWD/sl48iT7r56P2hXaZ8Xv7zl0EUNFopq8fZ6NPPinc1SbjL05MXb3sww
-         8W/fKsFT7rq8xmTY5Bi8vmuXGr7c2PicfrlDTNgKNHf9YQ7Q879HhTv93VsYizj5Nvxk
-         SDZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxTTaBNWStE+ZoCBRo0aK1b5cB7isl9/sPQBFtGG4Zsynsn6zvRmXGsj268cCPtAxEebmqhnM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEWFXhd6Sp8Ni8qbR9rTIsSS3IMuQzRZ8QklcrbbM1g8FBWwFS
-	GxlywIvTdpQmajCLo2B9USXa3ka35I8dhjZIt05TBSnWwc+uSI9nX0Uj
-X-Gm-Gg: AYBFou2251PDZAW+QdCA3+iDV6HnmAB29O1nhbC6QzHVyw91exGaH1xmtRnlHLSoLOX
-	SlZJkwFLTHdnHLPfdjRzcoTxS4IDZh5p0WYPRHJAsiWOM4ujZGUAQQ05pIeX7g7RuNtJ0Jj6bR4
-	JcYNgqRLra0lt28dRNGmfazpnv97SyCfYXrY6cMuFmMsVZhpAZ218SxsU+TYkUeu9Sq/GLOvVCc
-	Ne1BirhOz5qUD5BpXhQNnYP1OoGQ23vd8yrc7I1b4ICsD7g7279+BDkqbDcls1YWOWA3fptJf26
-	gR4/wNRiVsfkGPPbwqtIZDjtn2mb4XdjWQn+ChvfxymOqfljBPa0Y7JrwV5CXY1/TodyDBb0rXF
-	lQ1zUpNbZV8pzxt5vREDa+uZX3o+XbNAhSkbClU0Cn+sIzIzaPaB4jXDBvcRw4SEWKEFYUD9A+3
-	KzQ1qZNfXYNpw5xmV9p3w+YF7i00PPnytH6IfTfvWWBzwfl9M+SordAqsBWXQUjm8ffTeeoDChb
-	fr4xayobeY1K1WK3wGVZs1KF5I3tShdqXm/qsIR7LXl3tBkWsDkjiDUuUv9qBr6gWYggsGU11Lo
-	GBWlMkVqsh0SZyIH
-X-Received: by 2002:a05:6000:220d:b0:484:3d1b:7871 with SMTP id ffacd0b85a97d-48449f367eemr962710f8f.19.1788291066529;
-        Tue, 01 Sep 2026 12:31:06 -0700 (PDT)
-Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e7315bsm1113106f8f.7.2026.09.01.12.31.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:31:05 -0700 (PDT)
-From: Orgad Shaneh <orgads@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] usb: octeon-hcd: fix the FIFO-flush timeout computation
-Date: Tue,  1 Sep 2026 19:30:27 +0000
-Message-ID: <20260901193100.1352110-1-orgads@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260827175703.1549-1-orgads@gmail.com>
-References: <20260827175703.1549-1-orgads@gmail.com>
+        d=1e100.net; s=20251104; t=1788291614; x=1788896414;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mCPNVjswzrfu/6ewp3QsYppMVfdEr2MBSoZ8rIPqMgs=;
+        b=lLqMcEbyD7vPx1mG5MRrIugICn27RakSS+R93LkfihgzXT9sOu1tdDgAwrjhfXXskL
+         nTaa/YsIaaLguDL2Tcxx+6rYyqFMMeQsEiWu+Kuu2v6irFpbrLEdrrclP2gAkkV+CrIC
+         Vf5rYtHN8dsum9V0wp0grDDjqudgkMJGRd6jh2hO+rKY0vilYeur/GM/2ZeM8jVf9Vyp
+         qUSiyol4ogtCSy4z+z3bGxy89aCnh9saOQgOIVeFUW7ELOBRqnBM4s8vSyTa+Gaf1oDl
+         ivbi0agyZ5+js3tO/ppbrP7qsNmrKbI0heW3QVaZLFVlJev1ZBJWpOSFeGYTIsGe8WZF
+         b1pA==
+X-Forwarded-Encrypted: i=1; AHgh+RrdGNlfNQBvz/9D+bJ3gOpGToZjWVmJ7Zc4QNvD3+76Jrb+UfQ4otUSPF/2g/kN+GLRs4+y4Hg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+OjtA48fFF2zaXI1CIpLBqgmWl1Co8Bn1sHUdIcxKQm6V3uWH
+	r2AwrKAQvBy4KuDgaCeR2Ewwyh7oNLjKR/wOnOM6Eo15a5bSfiXbJh+5ZbdhgyzrHpE+3s5Qp5w
+	agjYaFZx1K6zCXoliebyWpPeSO3M/BpSAAdL4GKMb
+X-Gm-Gg: AR+sD12vyYnak8Y5mMMoeIZx8WAl/Z09PTpSSH+nQED6kMGQV8Iu89FsM12CQUd4ZEr
+	V/uEys1zNQ8tI/8z35eMUNFsGEqIZ5fce8SpIHj84fckjPxseS3gH1WRhoSze3Eh+IhPeLV5W4S
+	G278RZfgognr9SrVo2uGrHsZIbh2jSHGCMDrgCyX5OU187ppu5c6KGRer4uFBPHCogMbqPwynQu
+	YuJbC7cLv6yvKzEUw+eQMfQx2tNW4ITsm16BYGnW1mEd0S1E3WdLkWOlZSMrilM5n+xnB6axBHO
+	HZzimOF1KiCygAjEyVa0q9OsBhc3nrrOavzGQSR7oEnuGafrEyqxyykYcx5e/gqKhyQjG21QqN7
+	C
+X-Received: by 2002:a05:600c:224b:b0:499:7da3:dd0c with SMTP id
+ 5b1f17b1804b1-49ce462122emr115145e9.0.1788291614023; Tue, 01 Sep 2026
+ 12:40:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260827194508.446733-1-linux@yoavmoshe.com> <20260830155100.1020620-1-linux@yoavmoshe.com>
+In-Reply-To: <20260830155100.1020620-1-linux@yoavmoshe.com>
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Tue, 1 Sep 2026 12:39:36 -0700
+X-Gm-Features: AcwNN1XK0l8thrBV4rYONxxoAFHyd0qFWNxSTWm7rTcE9pRg3SR1YhO1gQnpQwA
+Message-ID: <CABCJKuecSgC2yZ1QHACv3gfOYf+cPXvR5TCEM_t67NX-putr+g@mail.gmail.com>
+Subject: Re: [PATCH v5] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-cvmx_wait_tx_rx() computes its 100us deadline from
-(u64)octeon_get_clock_rate - the address of the function, not its
-return value; the parentheses have been missing since the
-CVMX_WAIT_FOR_FIELD32 macro became a function. The cast makes it
-compile silently, and the resulting deadline is effectively infinite.
+On Sun, Aug 30, 2026 at 8:51=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com> w=
+rote:
+>
+> The suspend code that runs from OCRAM is copied there with fncpy(),
+> which does not copy the kCFI type hash preceding the function. With
+> CONFIG_CFI=3Dy the indirect call through imx6_suspend_in_ocram_fn
+> therefore panics.
+>
+> Keep the call covered by CFI instead of exempting it:
+>
+> - Add SYM_TYPED_FUNC_START_ALIGNED(), a variant of
+>   SYM_TYPED_FUNC_START() that aligns the function entry rather than
+>   the type hash preceding it, and use it to declare imx6_suspend():
+>   fncpy() requires the entry point of the function it copies to be
+>   8-byte aligned. The macro lives in arch/arm/include/asm/linkage.h
+>   since the requirement comes from arm's fncpy().
+>
+> - Add a cfi_type member at the end of struct imx6_cpu_pm_info, which
+>   directly precedes the OCRAM copy of the function. It fits in the
+>   struct's tail padding, so no sizes or offsets change. Fill it using
+>   cfi_get_func_hash(), putting the hash where the caller's CFI check
+>   expects it: four bytes before the function entry.
+>
+> Also mark ccm_base, suspend_ocram_base and imx6_suspend_in_ocram_fn
+> as __ro_after_init: they are only written during __init, and the
+> function pointer in particular should not be writable afterwards.
+>
+> Suggested-by: Nick Desaulniers <ndesaulniers@google.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yo'av Moshe <linux@yoavmoshe.com>
 
-On a healthy controller the flush bit clears on the first read and
-nothing is noticed. On a controller whose PHY did not come up (for
-example when the reference-clock configuration is wrong for the board),
-txfflsh/rxfflsh never clear and probe spins forever in __delay() -
-observed as a hard hang with a soft-lockup splat on a CN5020 board,
-where the board watchdog then resets the system with no console output.
+Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
 
-Call the function, restoring the 100us timeout the code always
-intended.
-
-Fixes: 3e195a80e096 ("Staging: octeon-usb: Replaces CVMX_WAIT_FOR_FIELD32 macro with a function")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Orgad Shaneh <orgads@gmail.com>
----
-
-v2: no code change; added the Assisted-by tag for the AI assistance used
-    (Documentation/process/coding-assistants.rst).
-
-diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
---- a/drivers/usb/host/octeon-hcd.c
-+++ b/drivers/usb/host/octeon-hcd.c
-@@ -578,7 +578,7 @@
- 	int result;
- 	u64 address = CVMX_USBCX_GRSTCTL(usb->index);
- 	u64 done = cvmx_get_cycle() + 100 *
--		   (u64)octeon_get_clock_rate / 1000000;
-+		   (u64)octeon_get_clock_rate() / 1000000;
- 	union cvmx_usbcx_grstctl c;
- 
- 	while (1) {
--- 
-2.47.0
+Sami
