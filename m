@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 321BD478E27
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:10:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F131376A19
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:11:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261035; cv=none; b=esAsHxzdgERnlben8rE4QCTkebXjX5i9EYzMB3dJn4Qk/yfPRkQ0Ea+oJp5dOosVyuwcLAQj0pI6/jf4MzEtqXdGMwZzegfuoM1VYsWUfBVuT+4FrzFocQO+oSReRJfztLElN3lVid3XZEDJVFVB9M/PjyB4vfpxn9Wqxew0wa4=
+	t=1788261063; cv=none; b=c+tcv5WcTfkMFFHeEI4Q+SicxPUIsw0h6fY5l6cIet5EqkJ63DaUdaz+HHmC2vt8NNF5RiT2dTFAHeoeuVSjDKyxUDpi6kl7L4nEXt55dcnAH2HfZFKFXBJJnc3uMUfTfWFBFZ2kAZQk0DLo8PKgai1z6f8QHebdJpMexpi9k48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261035; c=relaxed/simple;
-	bh=rerEjXyH0EXY+a+InxdcLTFlluZp0YtawSTAS0009J4=;
+	s=arc-20240116; t=1788261063; c=relaxed/simple;
+	bh=hm0sIFExBH17H/6U4dyqbPp303viSOJyXU0nPj5yUz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MVnNVItpLSDBaFdUkMv+UzikaeoeLi69pA5Vw4lCYrDZZHpghxVJK85uRZI7AcYJsfEJgEn3RSip83cANUF4PmXe7kQFMVdneQvw/y4GshLpgeKubXm3EGvpJrsZc+xjYEO75RN7EUYCYjW0n30eq7n4HC7+V7nneQ8CnWmdpvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jf6iS033; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AdtrqUamtHN7x0lpxvv6mDkcMd3UGNj6fdFOoRsvanICFYZejY5+6OSNcPAcdib/pLQfK51FMRq+78iZhjkVtVFGcT53bK4ll2BpT58H7sNwB5U92A4E7//eDE3MRP8sffy86POP3nX2CaElHgRPyLO9IeH8LcOp1RSnX288tyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZyO7o2OJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jf6iS033"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17F9C1F000E9;
-	Tue,  1 Sep 2026 11:10:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZyO7o2OJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF4E81F000E9;
+	Tue,  1 Sep 2026 11:10:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788261033;
-	bh=8rwDkn87HYNhcV9WJchWYcCLh7TG6uXjMv6Pffk/C10=;
+	s=k20260515; t=1788261060;
+	bh=ET173W6NW2kBIja5/7e+OUQcV9S4so9Eb7WQTP5udds=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jf6iS033ZgYMOYzJkmOyAXeRGtxxHnmpah+YBWuuxmhi1LR/JZCUAEDAhRb05G3S3
-	 12vyf8uXyrofUWNSNnwQU4X+6iYPzDRaAGh0ahrWRLV0Itq4h5YM56RMddMWuQtYEg
-	 PTgkxg3ZOm6uTGQnXzMRKgHB7Zqb2ptYQI8WctKbKlAQL+muorsrS/KbxfysT9tpPo
-	 qJ3LGVabZB7PKlddU78yi0soa4FtsFHSZe/75IFq0qpT/CmnlFn6wX8NQwRoTaPIVQ
-	 VNA8RrMByM7rDfNMP6X0EGVOt+B0C8CrFc/v/CBHZkQkqiWHKWH2mlgjA7h5uAV4Oi
-	 rjNbvVs2wRJag==
+	b=ZyO7o2OJ/CSks9oS0+u2z+aX3g0PTv4ZffXz8599s/7GCFVkohp/Lz7IUaGzxkKBn
+	 lX/InRRFQOBwLNOnR5dWjxQYHGQzk4iSl7xceb16JGrYornPYNIDYvjLnJmTXuycae
+	 lELvlLtajtdfszzvGMRdWd41bv1WzkiFB12G0+6wUOKMOMdAxcq7c0NpOY2a13z5H8
+	 VB+TC7secViIb4sKWZd53+fje3MjZ09mzQ+0U1FjOUuF9hlmBs36vRn7ZvhgrQJnUo
+	 b2jvR61F76QUIJEfRwcDWSqGC4UTz32XK2C01Je2VJRYKba0+WSxFNFAfWkhsRWRvJ
+	 OkXj7ME+GZc+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
-	Tangxin Xie <xietangxin@h-partners.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y] vlan: fix skb_under_panic and races when toggling HW VLAN offload
-Date: Tue,  1 Sep 2026 07:10:30 -0400
-Message-ID: <20260901111030.4174026-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/6] ipv6: pass proto by value to ipv6_push_nfrag_opts() and ipv6_push_frag_opts()
+Date: Tue,  1 Sep 2026 07:10:36 -0400
+Message-ID: <20260901111041.4174429-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083117-confirm-impulsive-90c8@gregkh>
-References: <2026083117-confirm-impulsive-90c8@gregkh>
+In-Reply-To: <2026083105-defuse-publisher-6b6c@gregkh>
+References: <2026083105-defuse-publisher-6b6c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,125 +48,227 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 447cbe95ebb95392b5d8f6a01c0556826919ce23 ]
+[ Upstream commit 1bc46dd209667346c5aa56c351995e7c260696d0 ]
 
-Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
-NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
-which dynamically changed vlandev->hard_header_len.
+With CONFIG_STACKPROTECTOR_STRONG=y, it is better to avoid passing
+a pointer to an automatic variable.
 
-This causes two issues:
-1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
-   read dev->hard_header_len without holding RTNL lock. Mutating
-   hard_header_len dynamically under RTNL creates a data race where upper
-   layers reserve insufficient headroom based on a stale hard_header_len,
-   resulting in skb_under_panic when vlan_dev_hard_header() is called.
-2. In addition, vlan_transfer_features() updated hard_header_len without
-   updating header_ops, causing a mismatch between allocated headroom
-   and header creation.
+Change these exported functions to return 'u8 proto'
+instead of void.
 
-Always setting dev->hard_header_len = real_dev->hard_header_len and
-dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
-ensures:
-- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
-  eliminating all dynamic runtime updates and data races on hard_header_len.
-- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
-  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
-  real_dev->needed_headroom + VLAN_HLEN).
-- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
-  requirements are honored.
-- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
-  real_dev->hard_header_len.
-- vlan_header_ops is used unconditionally.
+- ipv6_push_nfrag_opts()
+- ipv6_push_frag_opts()
 
-Note to stable teams: Make sure to backport these commits:
+For instance, replace
+	ipv6_push_frag_opts(skb, opt, &proto);
+with:
+	proto = ipv6_push_frag_opts(skb, opt, proto);
 
-e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
-cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
+Note that even after this change, ip6_xmit() has to use a stack canary
+because of @first_hop variable.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Tangxin Xie <xietangxin@h-partners.com>
-Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
-Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
-Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
-Cc: <stable@vger.kernel.org> # 3.19
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260130210303.3888261-2-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ moved the vlan_transfer_features() hunk to its pre-refactor location in vlan.c ]
+Stable-dep-of: 870a9e42ecc6 ("tcp: clamp route advmss to TCP_MIN_MSS")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/8021q/vlan.c     |  7 +++----
- net/8021q/vlan_dev.c | 32 ++++----------------------------
- 2 files changed, 7 insertions(+), 32 deletions(-)
+ include/net/ipv6.h    | 10 ++++----
+ net/ipv6/exthdrs.c    | 55 +++++++++++++++++++++++--------------------
+ net/ipv6/ip6_output.c | 19 ++++++++-------
+ net/ipv6/ip6_tunnel.c |  2 +-
+ 4 files changed, 46 insertions(+), 40 deletions(-)
 
-diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-index 2b74ed56eb166..306e588c1a694 100644
---- a/net/8021q/vlan.c
-+++ b/net/8021q/vlan.c
-@@ -323,10 +323,9 @@ static void vlan_transfer_features(struct net_device *dev,
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+index e843eb7efbccd..3f3e312bced4f 100644
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -1142,11 +1142,11 @@ int ip6_local_out(struct net *net, struct sock *sk, struct sk_buff *skb);
+  *	Extension header (options) processing
+  */
  
- 	netif_inherit_tso_max(vlandev, dev);
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto, struct in6_addr **daddr_p,
+-			  struct in6_addr *saddr);
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			 u8 *proto);
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto, struct in6_addr **daddr_p,
++			struct in6_addr *saddr);
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++		       u8 proto);
  
--	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
--		vlandev->hard_header_len = dev->hard_header_len;
--	else
--		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
-+	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
-+	vlandev->needed_tailroom = dev->needed_tailroom;
-+	vlandev->hard_header_len = dev->hard_header_len;
+ int ipv6_skip_exthdr(const struct sk_buff *, int start, u8 *nexthdrp,
+ 		     __be16 *frag_offp);
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index e91afe5ec0b5d..1a39824ae9630 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -1103,9 +1103,9 @@ int ipv6_parse_hopopts(struct sk_buff *skb)
+  *	for headers.
+  */
  
- #if IS_ENABLED(CONFIG_FCOE)
- 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index 7aa3af8b10ead..96ec290a6cf8f 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -496,26 +496,6 @@ static const struct header_ops vlan_header_ops = {
- 	.parse_protocol = vlan_parse_protocol,
- };
+-static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr0(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	struct rt0_hdr *phdr, *ihdr;
+ 	int hops;
+@@ -1124,13 +1124,13 @@ static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+ 	phdr->addr[hops - 1] = **addr_p;
+ 	*addr_p = ihdr->addr;
  
--static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
--				     unsigned short type,
--				     const void *daddr, const void *saddr,
--				     unsigned int len)
--{
--	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
--	struct net_device *real_dev = vlan->real_dev;
--
--	if (saddr == NULL)
--		saddr = dev->dev_addr;
--
--	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
--}
--
--static const struct header_ops vlan_passthru_header_ops = {
--	.create	 = vlan_passthru_hard_header,
--	.parse	 = eth_header_parse,
--	.parse_protocol = vlan_parse_protocol,
--};
--
- static const struct device_type vlan_type = {
- 	.name	= "vlan",
- };
-@@ -574,14 +554,10 @@ static int vlan_dev_init(struct net_device *dev)
- 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
+-	phdr->rt_hdr.nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	phdr->rt_hdr.nexthdr = proto;
++	return NEXTHDR_ROUTING;
+ }
+ 
+-static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr4(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	struct ipv6_sr_hdr *sr_phdr, *sr_ihdr;
+ 	int plen, hops;
+@@ -1173,58 +1173,61 @@ static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+ 	}
  #endif
  
--	dev->needed_headroom = real_dev->needed_headroom;
--	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
--		dev->header_ops      = &vlan_passthru_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len;
--	} else {
--		dev->header_ops      = &vlan_header_ops;
--		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
--	}
-+	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
-+	dev->needed_tailroom = real_dev->needed_tailroom;
-+	dev->header_ops      = &vlan_header_ops;
-+	dev->hard_header_len = real_dev->hard_header_len;
+-	sr_phdr->nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	sr_phdr->nexthdr = proto;
++	return NEXTHDR_ROUTING;
+ }
  
- 	dev->netdev_ops = &vlan_netdev_ops;
+-static void ipv6_push_rthdr(struct sk_buff *skb, u8 *proto,
+-			    struct ipv6_rt_hdr *opt,
+-			    struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr(struct sk_buff *skb, u8 proto,
++			  struct ipv6_rt_hdr *opt,
++			  struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	switch (opt->type) {
+ 	case IPV6_SRCRT_TYPE_0:
+ 	case IPV6_SRCRT_STRICT:
+ 	case IPV6_SRCRT_TYPE_2:
+-		ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	case IPV6_SRCRT_TYPE_4:
+-		ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	default:
+ 		break;
+ 	}
++	return proto;
+ }
  
+-static void ipv6_push_exthdr(struct sk_buff *skb, u8 *proto, u8 type, struct ipv6_opt_hdr *opt)
++static u8 ipv6_push_exthdr(struct sk_buff *skb, u8 proto, u8 type, struct ipv6_opt_hdr *opt)
+ {
+ 	struct ipv6_opt_hdr *h = skb_push(skb, ipv6_optlen(opt));
+ 
+ 	memcpy(h, opt, ipv6_optlen(opt));
+-	h->nexthdr = *proto;
+-	*proto = type;
++	h->nexthdr = proto;
++	return type;
+ }
+ 
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto,
+-			  struct in6_addr **daddr, struct in6_addr *saddr)
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto,
++			struct in6_addr **daddr, struct in6_addr *saddr)
+ {
+ 	if (opt->srcrt) {
+-		ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
++		proto = ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
+ 		/*
+ 		 * IPV6_RTHDRDSTOPTS is ignored
+ 		 * unless IPV6_RTHDR is set (RFC3542).
+ 		 */
+ 		if (opt->dst0opt)
+-			ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
++			proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
+ 	}
+ 	if (opt->hopopt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++	return proto;
+ }
+ 
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 *proto)
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 proto)
+ {
+ 	if (opt->dst1opt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++	return proto;
+ }
+ EXPORT_SYMBOL(ipv6_push_frag_opts);
+ 
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index fd25d5aadea27..2f4858fc2d489 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -305,11 +305,12 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
+ 		seg_len += opt->opt_nflen + opt->opt_flen;
+ 
+ 		if (opt->opt_flen)
+-			ipv6_push_frag_opts(skb, opt, &proto);
++			proto = ipv6_push_frag_opts(skb, opt, proto);
+ 
+ 		if (opt->opt_nflen)
+-			ipv6_push_nfrag_opts(skb, opt, &proto, &first_hop,
+-					     &fl6->saddr);
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &first_hop,
++						     &fl6->saddr);
+ 	}
+ 
+ 	if (unlikely(seg_len > IPV6_MAXPLEN)) {
+@@ -1927,11 +1928,13 @@ struct sk_buff *__ip6_make_skb(struct sock *sk,
+ 	__skb_pull(skb, skb_network_header_len(skb));
+ 
+ 	final_dst = &fl6->daddr;
+-	if (opt && opt->opt_flen)
+-		ipv6_push_frag_opts(skb, opt, &proto);
+-	if (opt && opt->opt_nflen)
+-		ipv6_push_nfrag_opts(skb, opt, &proto, &final_dst, &fl6->saddr);
+-
++	if (opt) {
++		if (opt->opt_flen)
++			proto = ipv6_push_frag_opts(skb, opt, proto);
++		if (opt->opt_nflen)
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &final_dst, &fl6->saddr);
++	}
+ 	skb_push(skb, sizeof(struct ipv6hdr));
+ 	skb_reset_network_header(skb);
+ 	hdr = ipv6_hdr(skb);
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index 1446c4eae681b..43ccc1a0a0d04 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1273,7 +1273,7 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
+ 
+ 	if (encap_limit >= 0) {
+ 		init_tel_txopt(&opt, encap_limit);
+-		ipv6_push_frag_opts(skb, &opt.ops, &proto);
++		proto = ipv6_push_frag_opts(skb, &opt.ops, proto);
+ 	}
+ 
+ 	skb_push(skb, sizeof(struct ipv6hdr));
 -- 
 2.53.0
 
