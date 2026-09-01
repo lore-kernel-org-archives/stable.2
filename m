@@ -1,65 +1,43 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CAB047CA73
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:04:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACEAF47DD59
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260672; cv=none; b=FxxsTGni1kmElyIuFXxdT4TW+mZeqCArlTSSoCulP0bHGOk39RQerXyrtCu1rzzEczx5pUX/kdBqrwMQWm0XVYU71UcD/Bto6TqJ1jpEIlBvZYkjB/8nj5Y4Mum71rg963fPy7LfL6BugHHOcBp6IJbVGPb3BydC7bqwgwMM+wA=
+	t=1788261007; cv=none; b=Zkeg9zsXqiWj7NtJPwxb1VsvJbSiKyo5bILH3g1oG5gze66ZZ5D2LsPCpVEPZGYNfloAPHKhlgBJqVPGAx5bYWFpFbncXzeyRhIhG32omgUHCput6Et5XXoXaxsq/xtjjAqhyowY6ujDSi7FFoFzR44YCv1c82V9QdZ6V/R6Bqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260672; c=relaxed/simple;
-	bh=kLCPJHfnPYk6jxIxd56fZeydQCtMBIcUA041uVwy4s8=;
+	s=arc-20240116; t=1788261007; c=relaxed/simple;
+	bh=bkxMfoxlcJ/R4NL/DybS9horQ7zppnT9F1tNnkQNLrw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=muvKaOCQLK4MfeWGabQnPco+p/tdMjPL4K4FQW80Vfjt7fHrmtYtNeGw5b60w3pzWTvUZ5g9b8lXtwB/co+HZmj73AbL72nHbaFpzJxvTQMQxfe/nKsmKTCKHGpADyVL16E2S6ltueg8bDrFM0xjyvkNPMKLmvJ/QSiVvb/fHyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JbN2o7/4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 MIME-Version; b=P+47gBA553QZNG4X3YoNgQvqecR955iPjdp/j7XQoog8M2OYF4fkFduhBzwGVJeCvFm4m2BJrR++FqXtQmiX/STDqBL82nN9/e0dNjacJEcNMXPbtihoTDq4gQj5GY04U/cCDEWyn8zHCbcHt/bhp3e91fNXkEJHyBsVkpULWi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=od3A6UV5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JbN2o7/4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788260667;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XRv81smlVWxNb1A0Cr9qAtGJQ8qZ9KnUs2NstCo31Yc=;
-	b=JbN2o7/4atHHvwd6IafHyJyyLN6OLLtmO2ONmJLw8QQHALCLHC7UJroLPK8/cg4+LtKFgx
-	tPa+jIZWHrtkiOXm9/ZawmXV5hU/H/2eNO/RLTDvqrafMffaCpgljSksEBRLjNeqPS/hiI
-	/20TPP+tYkaDZ2+Yt8rEQTkMyLwUx7k=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-plUwejrXP9aoqQnNbURvgw-1; Tue,
- 01 Sept 2026 07:04:18 -0400
-X-MC-Unique: plUwejrXP9aoqQnNbURvgw-1
-X-Mimecast-MFC-AGG-ID: plUwejrXP9aoqQnNbURvgw_1788260650
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 122801845530;
-	Tue,  1 Sep 2026 11:04:10 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.49.14])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40A8E423;
-	Tue,  1 Sep 2026 11:04:06 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: johnathan.browall@topgolf.com
-Cc: michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com,
-	netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	pontus.hallstedt@topgolf.com
-Subject: Re: [PATCH net v2] bnxt_en: avoid redundant RX mask updates in UC overflow state
-Date: Tue,  1 Sep 2026 13:04:01 +0200
-Message-ID: <20260901110401.153294-1-pabeni@redhat.com>
-In-Reply-To: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
-References: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="od3A6UV5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0651F000E9;
+	Tue,  1 Sep 2026 11:10:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788261006;
+	bh=tKle8V9eN1oceC+NsL3dZjGOEscnEpbvlnV2UCrC9bM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=od3A6UV55TbSW2+S3uR6MmIyHi2ptgCXBN8/cJ43p7Dpy0x/EPfJnURXo1e5zdbDY
+	 3kMjxA2SrZ02CJPrMy8htG+cPlvItYx4/lofkqL6J3K1l+sFZmmscUAFjPaU2HKITL
+	 A4QB1+8RM8VypCeZA0OAGf5/YA+Gc11lh0mCwXXIF1iUX6ciMAPkJZmUe2DXJiTKJi
+	 YOgmCBh1Utvw9KX/G0k96d22gGY7VNJpvWtmQ50s3ocSZGNibQ1oFwMblnI8LOd8qi
+	 BkgfV20il5XaCiNyk2H9TdCHN1GuoC1+KwOQCyHLfmRkLVlVRuCPalOcvP36T/0270
+	 TBOXd7nY91Bdg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Breno Leitao <leitao@debian.org>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] usb: xhci: bail out of setup if the controller is inaccessible
+Date: Tue,  1 Sep 2026 07:10:03 -0400
+Message-ID: <20260901111003.4170946-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083122-defog-carnival-2925@gregkh>
+References: <2026083122-defog-carnival-2925@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,160 +45,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
+From: Breno Leitao <leitao@debian.org>
+
+[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
+
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
+
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
+
+If the controller is dead or has dropped off the bus, that read returns
+~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
+past the page-aligned MMIO base, i.e. unaligned. The first access
+through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
+then an unaligned readl() on device memory. arm64 faults on unaligned
+device accesses, so instead of xhci_handshake() catching the all-ones
+value and returning -ENODEV, setup oopses:
+
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_probe
+   xhci_pci_renesas_probe
+
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
+
+Read the capability register once, and if it reads back the all-ones
+value (as xhci_handshake() and xhci_reset() already test for), abort
+setup with -ENODEV before op_regs is derived from it. Reading it once
+also avoids re-reading a register that may change under a concurrent
+hot-removal.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adapted the double hc_capbase register read via hcc_params/hci_version to use a single new local hc_capbase variable ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-bnxt_en: avoid redundant RX mask updates in UC overflow state
+ drivers/usb/host/xhci.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-The patch records the unicast filter overflow condition in a new vnic flag
-so that bnxt_uc_list_updated() stops reporting the UC list as changed while
-the list is too long for the available L2 filters, and so that
-bnxt_set_rx_mode() keeps the promiscuous bit in the mask it computes.  The
-goal is to stop resending an identical HWRM_CFA_L2_SET_RX_MASK on every
-rx-mode callback.
-
-Link: https://patch.msgid.link/20260827-bnxt-uc-overflow-v1-1-f20d48864fe9@topgolf.com
-
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index 9c2cc50276a59..d960cf942e99e 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> @@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
->  	struct netdev_hw_addr *ha;
->  	int off = 0;
->  
-> +	/* In the overflow state all unicast is accepted through the
-> +	 * promiscuous RX mask and no secondary L2 filters are in use,
-> +	 * so the list only needs reprogramming once it fits the
-> +	 * available filters again.  Reporting an update here would
-> +	 * resend an identical SET_RX_MASK on every callback, which
-> +	 * causes brief RX packet loss on some chips.
-> +	 */
-> +	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
-> +		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
-> +
-
-[Severity: High]
-
-Can this early return defeat the rx-mode retry after a failed
-SET_RX_MASK?
-
-In bnxt_cfg_rx_mode() the overflow branch now latches both the flag and the
-cached promiscuous bit before bnxt_hwrm_cfa_l2_set_rx_mask() has installed
-anything, and after the secondary L2 filters have already been freed:
-
-	for (i = 1; i < vnic->uc_filter_count; i++) {
-		struct bnxt_l2_filter *fltr = vnic->l2_filters[i];
-
-		bnxt_hwrm_l2_filter_free(bp, fltr);
-		bnxt_del_l2_filter(bp, fltr);
-	}
-
-	vnic->uc_filter_count = 1;
-	...
-	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
-		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
-
-If the subsequent HWRM fails, the only reaction is the MCAST fallback plus a
-log message, and nothing clears the flag or the cached bit:
-
-	rc = bnxt_hwrm_cfa_l2_set_rx_mask(bp, 0);
-	if (rc && (vnic->rx_mask & CFA_L2_SET_RX_MASK_REQ_MASK_MCAST)) {
-		...
-	}
-	if (rc)
-		netdev_err(bp->dev, "HWRM cfa l2 rx mask failure rc: %d\n",
-			   rc);
-
-	return rc;
-
-The MCAST fallback does not fire when MASK_MCAST is absent, i.e. with
-IFF_ALLMULTI, with an MC list above BNXT_MAX_MC_ADDRS, or with no MC
-addresses at all.
-
-On the retry, bnxt_set_rx_mode() strips PROMISC and immediately re-adds it
-from the new flag, so mask equals the already-committed vnic->rx_mask, and
-bnxt_uc_list_updated() now returns false through the hunk above, so the
-guard is skipped entirely:
-
-	if (mask != vnic->rx_mask || uc_update || mc_update) {
-		vnic->rx_mask = mask;
-
-		return bnxt_cfg_rx_mode(bp, uc, uc_update);
-	}
-
-	return 0;
-
-netif_rx_mode_run() in net/core/dev_addr_lists.c treats that zero return as
-success and drops the retry state:
-
-		if (err)
-			netif_rx_mode_schedule_retry(dev);
-		else
-			dev->rx_mode_retry_count = 0;
-
-At that point the hardware has neither the secondary L2 filters (freed) nor
-the promiscuous bit (never installed), so traffic for the secondary unicast
-addresses is dropped until the UC list shrinks below the filter limit, the
-rx flags or the MC list change, or the interface is brought down and up.
-
-bnxt_init_chip() depends on the same retry:
-
-	rc = bnxt_cfg_rx_mode(bp, &bp->dev->uc, true);
-	if (rc == -EAGAIN) {
-		netif_rx_mode_schedule_retry(bp->dev);
-		rc = 0;
-	} else if (rc) {
-		goto err_out;
-	}
-
-so a transient -EAGAIN or -ENODEV on open with more than
-BNXT_MAX_UC_ADDRS - 1 unicast addresses would leave the interface up with
-no unicast filtering path at all.
-
-Before this patch, the overflow state left vnic->uc_filter_count == 1 with a
-non-empty UC list, so bnxt_uc_list_updated() returned true on every callback
-and the mask was re-sent until it succeeded.  Would it work to latch the
-flag and the cached promiscuous bit only after bnxt_hwrm_cfa_l2_set_rx_mask()
-returns success, or to clear them again on failure so the retry still
-programs the mask?
-
->  	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
->  		return true;
->  
-> @@ -13826,6 +13836,13 @@ static int bnxt_set_rx_mode(struct net_device *dev,
->  	if (dev->flags & IFF_PROMISC)
->  		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
->  
-> +	/* Keep the promiscuous bit while the UC list is longer than the
-> +	 * available L2 filters, so that an unchanged rx mode is not
-> +	 * treated as a mask change.
-> +	 */
-> +	if ((vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG) && bnxt_promisc_ok(bp))
-> +		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-> +
->  	uc_update = bnxt_uc_list_updated(bp, uc);
->  
->  	if (dev->flags & IFF_BROADCAST)
-> @@ -13869,7 +13886,12 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
->  	netif_addr_lock_bh(dev);
->  	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
->  		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-> +		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
->  	} else {
-> +		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
-> +		if (!(dev->flags & IFF_PROMISC))
-> +			vnic->rx_mask &=
-> +				~CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
->  		netdev_hw_addr_list_for_each(ha, uc) {
->  			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
->  			off += ETH_ALEN;
-
-[ ... ]
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 823fe397bfb10..7394484f3e1f6 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5316,6 +5316,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	struct device		*dev = hcd->self.sysdev;
+ 	unsigned int		minor_rev;
+ 	int			retval;
++	u32			hc_capbase;
+ 
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5384,16 +5385,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 
+ 	mutex_init(&xhci->mutex);
+ 	xhci->cap_regs = hcd->regs;
+-	xhci->op_regs = hcd->regs +
+-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
++	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
++	if (hc_capbase == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
++	}
++	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+ 	xhci->hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+-	xhci->hcc_params = readl(&xhci->cap_regs->hc_capbase);
+-	xhci->hci_version = HC_VERSION(xhci->hcc_params);
++	xhci->hci_version = HC_VERSION(hc_capbase);
+ 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
 -- 
-This is an AI-generated review.
+2.53.0
 
