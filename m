@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318E1248880
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 336C425776
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:21:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788222072; cv=none; b=K5lY4pTkXCtD+g28LiSgHKmLuEQa5mnKQQoMDmj+5rYXIzmSh/BaUZ37wiAm3YENctsQN9kXDzrVhq1oH/mpG+q3J2nHMCEwKvJd8aDQxgmzdb23qtQKLsLbQZ2PlQb05sNJzV63buNC8SEXfGXbZgcm6RaLkd0Z+ZFUyZmhCU8=
+	t=1788222084; cv=none; b=hGILbnXMtWX8NKu96vTgYHh+UayCSGyTtemRxMZ2oTaMfZOYj6Dn9sLz48xXwbEPEmw0cgcOc4qCeoD9Y229mO/iIH+Ka3GqPMnELJqnK78a86frNNihEGPERzwkGRxL86jp5IcyauKB1ebMJW2Te4LsvU7GujQerCIbtLvAjJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788222072; c=relaxed/simple;
-	bh=v3Qj8gyEhNR/P24ALF9llT65SyXyOLIrI+TFK0bBI8E=;
+	s=arc-20240116; t=1788222084; c=relaxed/simple;
+	bh=eGzGvfJED4tq7LE4GBQHCCV1XqotUa0NFnhwIpQHMME=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g0iTT4A+/XKfubffGHMiq6F6Se0BIGuzqQ6gvsUNEX+Vkx8gTMPWka7x6s8NR54UKCGtEuSLHFm+SFsTKeksTxkAJORzYT487fBbsE8BpGrA2RgD6Z5vvUocRbczqXEC30+f5fCS1HK7onzqrnnXHlHW/JhuJuaF99ZDhudUA5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KFA0iK5N; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AAQ7pT3qjU97rqJEQO3S2wqXmzZb32j2kK2hpO8UNtT5zvcRoQ/WRz13Gy0NYyXRbJVRfu+63DQW1uWTCcjCB72XtPrkPbpBvt46fNwT3C3BCCbWk84GXcv1CAE5XwEfH1Hg5mWaqAwxstb+gQ/+1ZR4DMqPTJ6jLT7ONc4773Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hswgM9Zn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KFA0iK5N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54CA51F00ACA;
-	Tue,  1 Sep 2026 00:21:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hswgM9Zn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CD491F000E9;
+	Tue,  1 Sep 2026 00:21:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788222070;
-	bh=507tVR160RPUl3BlyD6J2VrNxZc8p7HqzjWniuMt/jQ=;
+	s=k20260515; t=1788222082;
+	bh=1kXEbhCSJiCHUmH5sbby5T3RP0wz3cJ0FSqt6NX+hHA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KFA0iK5NQRH3dOSW6oCro6CFdS9D6VDFQsaALKwkLv7QAqCYz6aeKXsvRh25Szzcx
-	 urBXPVPpa+Ul3D+W912Zww06PpfU1SiNsek3zSGjdiqT0XGv75ZXWXpLuyHprkY/k0
-	 UNaZlHQtPqbeXicK/M6yurH+4PXSYVMyDyl/m1nex7m/NgZVJkctGJ3ZWP8amjrbej
-	 Hni18bV9ixj6RNp34/sMmvnNtil1Lg6ayfF4i0dewbLU2zaIl3cMekkZ3a8QP7Bi+e
-	 VnhndZ6CenOziG03fukfd35pu+MR3LUko6pyw2+q7ZMb6IKWfQtYDMzgLBNkcYm+Y/
-	 Jyeisrx0aWZSw==
+	b=hswgM9ZnuhR0NoA74IejAjYGGvZQycTJBCqW4eJswLXRJAyuLowprtwGgvdj6Dgcy
+	 zNnuHJP+B4mVf9+b1T7nh7cyZPw8WGdkorvUeNLpN9B7cqOuSY9O9GZlIhl9ujVCD4
+	 OMrdCvoQbu/RV1Onvx9jihvKGjDZD+sBkgNII6s6q6jZYtOOxs/uIjYkAbAAerC++b
+	 MV6MXPLDe9+xILd+5iIv6onMiX41KVFKm5GyROgjMPgP4ie/u7pHRtvzB8bPYWipaX
+	 gzJKmvKPBITBCgC7iyCRl/7Oa3UuxXuRqu1eLKvgeldrViYet8/NY05a6AflFqDWhD
+	 ACMfkHGdou1Lw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qing Ming <a0yami@mailbox.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Breno Leitao <leitao@debian.org>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] gtp: serialize PDP context updates
-Date: Mon, 31 Aug 2026 20:21:08 -0400
-Message-ID: <20260901002108.2024915-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] usb: xhci: bail out of setup if the controller is inaccessible
+Date: Mon, 31 Aug 2026 20:21:20 -0400
+Message-ID: <20260901002120.2026120-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083159-appetizer-scanning-c174@gregkh>
-References: <2026083159-appetizer-scanning-c174@gregkh>
+In-Reply-To: <2026083122-playmaker-lubricant-1d52@gregkh>
+References: <2026083122-playmaker-lubricant-1d52@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,138 +46,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qing Ming <a0yami@mailbox.org>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 498386b6d402737db1e2eeed4c385acbf0ef9e34 ]
+[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
 
-PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
-network device is being unregistered. The latter is serialized by RTNL,
-but the generic-netlink delete path only holds RCU.
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
 
-Running both paths concurrently can therefore make both paths delete the
-same PDP context. The issue was found through static analysis and
-reproduced on a KASAN-enabled kernel by a simple two-thread program
-racing GTP_CMD_DELPDP against RTM_DELLINK:
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
 
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: maybe wild-memory-access in range
-         [0xdead000000000120-0xdead000000000127]
-  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
-  RBP: dead000000000122
+If the controller is dead or has dropped off the bus, that read returns
+~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
+past the page-aligned MMIO base, i.e. unaligned. The first access
+through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
+then an unaligned readl() on device memory. arm64 faults on unaligned
+device accesses, so instead of xhci_handshake() catching the all-ones
+value and returning -ENODEV, setup oopses:
 
-The second deletion dereferenced the poisoned hlist pprev pointer.
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_probe
+   xhci_pci_renesas_probe
 
-Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
-shared mutex. Keep the mutex held until the final use of a PDP context in
-the NEWPDP path, and keep the RCU read-side section around the complete
-PDP context use in the DELPDP path.
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
 
-Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
+Read the capability register once, and if it reads back the all-ones
+value (as xhci_handshake() and xhci_reset() already test for), abort
+setup with -ENODEV before op_regs is derived from it. Reading it once
+also avoids re-reading a register that may change under a concurrent
+hot-removal.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Qing Ming <a0yami@mailbox.org>
-Link: https://patch.msgid.link/20260818150000.7670-1-a0yami@mailbox.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted the locking changes to the older IPv4-only PDP context API and omitted the absent IPv6 lookup hunk. ]
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ dropped the phantom hcs_params1 local declaration since this tree lacks the later refactor that introduced it ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/gtp.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/usb/host/xhci.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index 7bb3da8f25363..0f8c9b303dc28 100644
---- a/drivers/net/gtp.c
-+++ b/drivers/net/gtp.c
-@@ -12,6 +12,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 37fb2491d88f2..a314abb6dbd8c 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5361,6 +5361,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	 */
+ 	struct device		*dev = hcd->self.sysdev;
+ 	int			retval;
++	u32			hc_capbase;
  
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/skbuff.h>
- #include <linux/udp.h>
- #include <linux/rculist.h>
-@@ -92,6 +93,7 @@ struct gtp_net {
- };
- 
- static u32 gtp_h_initval;
-+static DEFINE_MUTEX(gtp_pdp_lock);
- 
- static struct genl_family gtp_genl_family;
- 
-@@ -129,7 +131,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid)
- 
- 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->gtp_version == GTP_V0 &&
- 		    pdp->u.v0.tid == tid)
- 			return pdp;
-@@ -145,7 +148,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid)
- 
- 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->gtp_version == GTP_V1 &&
- 		    pdp->u.v1.i_tei == tid)
- 			return pdp;
-@@ -161,7 +165,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
- 
- 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->af == AF_INET &&
- 		    pdp->ms_addr_ip4.s_addr == ms_addr)
- 			return pdp;
-@@ -1119,9 +1124,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
- 	struct pdp_ctx *pctx;
- 	int i;
- 
-+	mutex_lock(&gtp_pdp_lock);
- 	for (i = 0; i < gtp->hash_size; i++)
- 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
- 			pdp_context_delete(pctx);
-+	mutex_unlock(&gtp_pdp_lock);
- 
- 	list_del(&gtp->list);
- 	unregister_netdevice_queue(dev, head);
-@@ -1506,6 +1513,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
- 		goto out_unlock;
- 	}
- 
-+	mutex_lock(&gtp_pdp_lock);
- 	pctx = gtp_pdp_add(gtp, sk, info);
- 	if (IS_ERR(pctx)) {
- 		err = PTR_ERR(pctx);
-@@ -1513,6 +1521,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
- 		gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL);
- 		err = 0;
- 	}
-+	mutex_unlock(&gtp_pdp_lock);
- 
- out_unlock:
- 	rtnl_unlock();
-@@ -1567,6 +1576,8 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
- 	if (!info->attrs[GTPA_VERSION])
- 		return -EINVAL;
- 
-+	mutex_lock(&gtp_pdp_lock);
-+
- 	rcu_read_lock();
- 
- 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
-@@ -1587,6 +1598,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
- 
- out_unlock:
- 	rcu_read_unlock();
-+	mutex_unlock(&gtp_pdp_lock);
- 	return err;
- }
- 
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5381,15 +5382,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	mutex_init(&xhci->mutex);
+ 	xhci->main_hcd = hcd;
+ 	xhci->cap_regs = hcd->regs;
+-	xhci->op_regs = hcd->regs +
+-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
++	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
++	if (hc_capbase == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
++	}
++	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+ 	xhci->hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+-	xhci->hci_version = HC_VERSION(readl(&xhci->cap_regs->hc_capbase));
++	xhci->hci_version = HC_VERSION(hc_capbase);
+ 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
 -- 
 2.53.0
 
