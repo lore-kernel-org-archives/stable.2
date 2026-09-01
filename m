@@ -1,123 +1,103 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62AF9372663;
-	Tue,  1 Sep 2026 14:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168CD35C6B5
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 14:25:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272391; cv=none; b=JFv5z2nPw7g9bu7JJrwzBHQ64MLhzo0gmyYaPUDeWUplNFlbRUQduqpGJVBzoxdKMg3FnLh6IrY36JwByIvjlpmPNGWzSqGTNnnl2AvJWbb5xiCaMDjomy1QZVeeP9TguLKu5GNb9vk9jrCcxobm83WW5r2OOPHtgJlFndZIXbA=
+	t=1788272712; cv=none; b=Yd+yJRrL00sTbzMZJKo+G1YyIibqJ4MldR4PyvBBDulb7pZ+aFa/9nFAtYrB7flzYKwLOgCXS89S2HlfTE8Qc2xGilatG3LFhuIM3M+5GEu6gzP/Q4fA3Fwt7ZMSrLOt4yW/cJe0r+HvsII3vbVHUjLSCHQ4RIfRij95LpF/w4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272391; c=relaxed/simple;
-	bh=rusOLnEsLiqR3y31U+4sihEV4zK8no7XXBSRzm4Sdqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sI54eO7baIY9Bswg4G3Gb81GGkwVUCj6oTU75uMPnkjHknmtQb7R5KS5mvI4GdBWEHf7VVuEIGYrWmzKFczM7CKQ9wguq8eewi2oMoTFrsXivtdvdoX2W6GiHnJHdmaa30HIKKTrQd1f/rZB0v5F/0Tp9qlNAlfLfn/VlAmLJlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JnL/8O1m; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788272712; c=relaxed/simple;
+	bh=qoRZ05JJwklOZtnBZMCx4wBgFBttxH93P3usMiYSZpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r7hBZ6/k+SwYKalXJGs/RLLlx+O+oFUKe7gdDSo35yaWNGy8Qa4wU6gulcgrUmz654F6hB2NV2BkQglfF7lHHKTef9LrwCgTt514bIdp24+QwouzhpNEoKmOk5aG+A33d4YUyUtxNuIb1cWhZwfzUz42lPHgz5gKWTOk3KI6/tY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W73kZnnw; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JnL/8O1m"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681DVlcH1211140;
-	Tue, 1 Sep 2026 14:19:49 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=XYB7bHl6s2XGn164sZUpLaHi1YfduC
-	lHzFh2WenLQYc=; b=JnL/8O1m/BTAyf9bFN5jr3g/CVq7jDhLOLT8jG94OfVzg9
-	17tu25yk6mPPT8a45sr2k7tpTpwtwzHzSuMWxI6rAGo1FRBiEXVehJiTvY5nctsc
-	ZUEkT2A6N7HB/OdCbGUBCULQdII8HUglcAH2QqtkEad59dpnqpfCwGLZFofxRaSC
-	aRnSvxJc9Cxh/eYfGsiSxBnL6c1LHcz77VJBuJtnvIo/m7AQfSCiON/4Ls+1WGwX
-	PrbVbntvfcfnBGo/i5wuloQJYH5iaEhR3WcjAr1LHZvHHg+F4RqhsDidJh2y+sBQ
-	n5cmo5pkEXxoAsCUzMpWX4RNzmdBhauJ/FFJvXEA==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbmuhrbs9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 14:19:49 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 681EBkhH008599;
-	Tue, 1 Sep 2026 14:19:48 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8hc2my-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 14:19:48 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 681EJiMJ48300490
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Sep 2026 14:19:44 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 73F6020040;
-	Tue,  1 Sep 2026 14:19:44 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 330922004B;
-	Tue,  1 Sep 2026 14:19:44 +0000 (GMT)
-Received: from osiris (unknown [9.111.45.16])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  1 Sep 2026 14:19:44 +0000 (GMT)
-Date: Tue, 1 Sep 2026 16:19:42 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Thomas Richter <tmricht@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, stable@vger.kernel.org,
-        Jan Polensky <japo@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>
-Subject: Re: [PATCH v9 3/3] s390/pai: Support CPU hotplug for PMU PAI
-Message-ID: <20260901141942.14482E83-hca@linux.ibm.com>
-References: <20260901123320.670897-1-tmricht@linux.ibm.com>
- <20260901123320.670897-4-tmricht@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W73kZnnw"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d7200b2e15so51589235ad.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 07:25:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788272710; x=1788877510; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JjrwEkCbmc0MKU+e4rFJ/zhohW3Jl49TSFk12a1syWE=;
+        b=W73kZnnwRe7gBh3KEwV9LJ4urVEEQefhex032LDO+2d6oDsr3bmz9dNVvj2+731JzB
+         pl5DgLb7fhdzvBu6I5D+9jz74esjW8ZD7W02OSSvnuiTA/91O7lipvrUONY8+K4A2EUu
+         UPgbfo1xovnJod3Tnb0x9gm/ioaC+yWVAAKt6QhLOFsLsZ/gEqXOI5rVZ9e9DzlJtma1
+         gGhpoT5zwljx3YBXaiY+0Mji3cNOH9senoepvRczMo50vT+8enh/SfQiJ5DVDEJCp6/x
+         wRxQhLD0Vm5F8jVzdQe/KQTUb6Wae/7hP14y6pJadFrWKUi6kTdurF+fLm2rRa+dCHXa
+         Y1mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788272710; x=1788877510;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JjrwEkCbmc0MKU+e4rFJ/zhohW3Jl49TSFk12a1syWE=;
+        b=dfcNaI7OVYjfYVJ2i08axPj1npYJNNRsQbBTviV6bHCgA453sdufHmc4lRuUPXNB9p
+         JeaZk6BAPaiESW4q1nAenLlZ3BjqZK5zCgzq3jRH6S7zCxXtaQ4HDrMtqWQyusv0lN0b
+         kZOcFdV1CVuquVvoYMDfMbu6oJ0YXlIg9G1HzHRAxAanbcAKE/KQug45Qu24UhJn+k17
+         tjCD4GDwxQQoP7DtxTfPEGaWSvSXQbjbmHxT4ezoBg5pNoVrtPf8/1kMlisR8WLj0yKM
+         8wOVZ+w/Dpjrt7MX9geOlMQ0PJ2aYnjfFTwJ5eYhXdyprLTMlpesaImjTUtxt1U6w6n/
+         Z7rw==
+X-Forwarded-Encrypted: i=1; AKwUvBzHPKLALCCy2cTGagXP0h6UlPzXoVWmSl/tguAKWbV7saBR68XDbs0nYgJqcRT+LkEHznOIwUI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHGTWUnTeOTs+AH4rO7hjpj3AGSdP7xlDwp512T89OC0GrlnTu
+	r+5QOmJfdUZ0ifni+Ol2KfZoSukywiKeuLyJX5wiKxfE58YiW8AhI46m
+X-Gm-Gg: AYBFou2rBPQ/ZA2aOZilSyAyHOpbmg5C0aYOQ5WFe/AM8YKAzam6yF8Ro3NFRHIf2em
+	HRzFCHd3KrhEMuhOTczsu8nc+IAxgjOlMiYACsslT2LbmekUaTLS7Cx5rwGnpYW6y7bI06NRyZl
+	/Crm3p+MkAT1lFIlcmOsQKSqYc43ALgn7nxFHIG9c/gvp3dyAUCxuB7csvVMPsjjjhUOCc08XwJ
+	HbD/bK6jTXjPj9xrYHRt9koKJgQue1WaMI8YZt+KBFa1VPjQOuCK264ZAsnBqI0dVwzVUVVlfpc
+	BfnKOkzszDxt4i4vq20o/at+5N4amD42WYAEOuE5frdKA0Vl5AQGREGV+Aj3FGFpPLj3t+Z8Qir
+	ATL/9nz9C4BdC/x9/hSccALU2wZxsAPSb9NY84debIFYOA6CXd5N3FBgTjmsM3M5oqID3TNk4Gc
+	ptFUHGC83muPKdVq9+Mp9+gnE1E/t/fbCGKOTS8D4IzTIiexqxEsIqn1lloxIgcZuH+0pNdcTE5
+	Mb4fl4QoCCfjdkU
+X-Received: by 2002:a17:903:2f0f:b0:2d8:d4cc:be65 with SMTP id d9443c01a7336-2d94a905007mr121238475ad.18.1788272708865;
+        Tue, 01 Sep 2026 07:25:08 -0700 (PDT)
+Received: from wokron-navi.tail1fe8a3.ts.net ([219.143.23.225])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7598bfa51sm52655845ad.78.2026.09.01.07.25.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 07:25:08 -0700 (PDT)
+From: Yitang Yang <yi1tang.yang@gmail.com>
+To: Ming Lei <tom.leiming@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org,
+	Yitang Yang <yi1tang.yang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ublk: add missing DEL_DEV_ASYNC to unprivileged permission check
+Date: Tue,  1 Sep 2026 22:24:38 +0800
+Message-ID: <20260901142438.237586-1-yi1tang.yang@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901123320.670897-4-tmricht@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: FcZFoD3DWFk8V5zTmnnLKnFYdbkuagG0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEyNCBTYWx0ZWRfXw4spItg0XpqC
- hFcfwr23YMyncrHBTdiPh1CIY7C8nsKyDJlR8UngCvrLTro3zJnPA5CfZ29hdAAQry2ybimN5Sk
- plDf+1sIoKHO/miWRxRX7+fHPuhhrCu0rLPv576A/0ZG3Fp7J6ZQzkjtcMuEcXmgMafrnzYumpp
- mCUjI7bWPZqo21YO5lGPiDd+1xIVKwayTEd8Z4y+7Br880oSqMdiNgATG1S2/+tuEMFf6VSPPmV
- N08FAbz7PUroRpEdBxbaoPGCjEQZChIog48rIKO1Jz5SFiH4k3x1ZGvpY8MMaqjtvvoSAmlK4rz
- jg1eEreKMgqlLbf5K3t3pckVMf+tTvJS7spXHdFytB9DPxSAqqkRAgkH5CTD0qbDEz9bk33+K4K
- MPrM0O4aklxMuNL23S1mO1RPprxQEeybSG9dc95/7LEP+EEdzlUa0R0xhlK8FCG1C5sJU9t4xbg
- s4QqzC9aaBIwPmVdSVw==
-X-Authority-Analysis: v=2.4 cv=Osl/DS/t c=1 sm=1 tr=0 ts=6a96df05 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=7esPzKam_6P6qcTX8tEA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEyNCBTYWx0ZWRfX1jNY0F9Mxrdz
- 4HKKz99N70jIAqctCQtdj2TxNexgmMB/44Qnhw9M5ZWKHmZ1K2KJzUev7KxHePTRp+42qdgSiyz
- zNxhiU7mwgSiGwFqCV0M9lWgWAhm54o=
-X-Proofpoint-ORIG-GUID: FcZFoD3DWFk8V5zTmnnLKnFYdbkuagG0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0 lowpriorityscore=0
- adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010124
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 02:33:20PM +0200, Thomas Richter wrote:
-> +	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
-> +	rc = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
-> +			       pai_online_cpu, pai_offline_cpu);
-> +	if (rc < 0)
-> +		goto out_debug;
-> +
->  	if (!paipmu_setup()) {
->  		/* No PMU registration, no need for debug buffer */
-> -		debug_unregister_view(paidbg, &debug_sprintf_view);
-> -		debug_unregister(paidbg);
-> -		return -ENODEV;
-> +		rc = -ENODEV;
-> +		goto out_cpuhp;
->  	}
->  	return 0;
-> +
-> +out_cpuhp:
-> +	cpuhp_remove_state(rc);
+ublk_ctrl_uring_cmd_permission() is missing the UBLK_CMD_DEL_DEV_ASYNC
+case, causing the command to always return -EINVAL for unprivileged
+ublk devices. Fix it by adding the missing case.
 
-This would now use "-ENODEV" as state for cpuhp_remove_state. I fixed
-it up since I suggested this code, so you can blame me in any case.
+Fixes: 13fe8e6825e4 ("ublk: add UBLK_CMD_DEL_DEV_ASYNC")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yitang Yang <yi1tang.yang@gmail.com>
+---
+ drivers/block/ublk_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/block/ublk_drv.c b/drivers/block/ublk_drv.c
+index 6c5bec7da97c..ade5d7fddd9d 100644
+--- a/drivers/block/ublk_drv.c
++++ b/drivers/block/ublk_drv.c
+@@ -5716,6 +5716,7 @@ static int ublk_ctrl_uring_cmd_permission(struct ublk_device *ub,
+ 	case UBLK_CMD_STOP_DEV:
+ 	case UBLK_CMD_ADD_DEV:
+ 	case UBLK_CMD_DEL_DEV:
++	case UBLK_CMD_DEL_DEV_ASYNC:
+ 	case UBLK_CMD_SET_PARAMS:
+ 	case UBLK_CMD_START_USER_RECOVERY:
+ 	case UBLK_CMD_END_USER_RECOVERY:
+-- 
+2.43.0
+
