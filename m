@@ -1,60 +1,61 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BD936B901;
-	Tue,  1 Sep 2026 14:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 503D33B14B7;
+	Tue,  1 Sep 2026 14:25:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272730; cv=none; b=jVouNfVfm/0F/xDMeLLQ7bpJYyChWQhgnr37Kkn42ZryH/AiR1USERui0/aud68y7cDvqWQH/MMqB8uu8BqlPyhAYhc45XXG24plmHYjB6qtkIe8byYnkzUkv8KJR17lwcZwI48nlzmQfuChba9YI6ReTB061JapScvQiR3yqSI=
+	t=1788272732; cv=none; b=iRVfA9MZl+LejcESlhjvlwuTJdlyB6rrJrRn58Fo32huvefBCCZkLrxYLazv98VtnFmitGbtWO/rrIeXMwenG2zDiCywZZNsB1bHFv45uvMQL1smQrcpSb3umc53k6V5ubqhfhMGk+xikAhRB0S3r+Fu2VpQTxELSYD3KpArIjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272730; c=relaxed/simple;
-	bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
+	s=arc-20240116; t=1788272732; c=relaxed/simple;
+	bh=kR1+/36Qp3B+Z74+OR2MyPNY1Vqg0fDP0fAmaGepKts=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LL7xUhibHQoMuGdEgxFcdcCKU6+y5TO6X1SK45XxzlQpgjT1aMew9gKuRwUf5nFAoateeytMurHmymTESrj5vfmHtZiZfT9H4YZ1qGDCHushBksw9koYHQow/5aQdiPhc/gDwbLXEVU77VxCXPBc3Rcvr2XeTHzlnXEncRbjOLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=D0cOPPw5; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Copar5zd; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=FpUQe0ngXGXm6rfDQwBmUk0b481RhsP7pIsClVz5/zqOTbBG02Ryf0HWr5+JHlJtFgdesX1eYyTlCgkBaSbqc+cBub2l/W+rTfVMzYZuGriBidu7mSOMN+1Xx7IeZ37P+0q2NmHf2pfxe5BGOvZUH3wK82wbi8a7unbbr5PV4Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=rAx8d+dI; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Z3M+z5ks; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="D0cOPPw5";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Copar5zd"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="rAx8d+dI";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Z3M+z5ks"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272727; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
+	t=1788272728; bh=kR1+/36Qp3B+Z74+OR2MyPNY1Vqg0fDP0fAmaGepKts=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=D0cOPPw5t1adGDgEEOtNKywdt2u7oq+SfGAWRrCBEme4cPLLy/CgTZTjQVBa9eNIb
-	 Aj2c5oOo+7DVcJ2j84XMYkgZZdsvQ7ZXu22MJBLONdgCHjbvegvUGlHAJBoJnXIC7J
-	 waAA510rsSN/jhUhs84vTHUCn+HRq7GldJTPv1KGBYjosQ5HylgDKkYNveVfXJgw0V
-	 X4RIYs+sW4Iz/VZUoAyMiVrtn9xFNhT/z69vGRfix66sTPQhpcvHnjxBJX2HTiOl5L
-	 yyPGV4Jy0y5UVp5lKuUlO98R7S1IqZDo0rxoRJHRr4PWW1VeOnxegsxOcYfWi2JkAe
-	 5c+AUHjCPuPFQ==
+	b=rAx8d+dI202tnLsji8dA+kWOwRMeGdCN6P9Bter9lLPl2XPjWkgcNVbt0/TctBVlJ
+	 0sIzC4C68eY1CRJmN/N01FJICSdun/Ur7+arGypBfdr8J81SuZd0ASWfOYke6OcWhj
+	 2B/Gq1s0FV+ywLvWi6JRbfxCHdYlADpucy9fZATBeUy6VNY0J6Uh57IadUuxfipMG6
+	 94rnXW4MD3Jdn4sFdce6IUB+4pChjaBHOjIpwwF7Z7c3uGT6dB+X0UTXvVB5ozHIBD
+	 iez18cjgW0alKDVXywApdnuRzkXLbeR/EEPfU+UcJtcDQ9I4FPWYlxFM30v4NKF+ou
+	 6XUXbSDm2HgAw==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 767BE41454; Tue, 01 Sep 2026 15:25:27 +0100 (BST)
+	id C496F41456; Tue, 01 Sep 2026 15:25:28 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272726; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
+	t=1788272727; bh=kR1+/36Qp3B+Z74+OR2MyPNY1Vqg0fDP0fAmaGepKts=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Copar5zdog8ef4lf8D43QVo1QZCN3/Y50G1TEBV5J7JciEoG4TfpaV2O9SLQh9VU4
-	 K6clQbFAwoybd5uWUA5OpA94qjuiFnuWucfaeBAeeNkdJ3F6A5lJNZkJuawmKBe6Vb
-	 zwIDUiGOZ2fX3cacFxNCU0iNU9vhNv8gt2JjU83WCKr3TZywkp1pZqwjDLdbIYzqI0
-	 DhGCmrfRmjhK59svMvVAyb7jeO3M8TdWd57753IRZKTJRAgefO2XQR9Amdw95gCQ1U
-	 YoD3236I3NY7Jojsn9zGjPH6whHM46wge3aM0tBWWuN/KBXb4BDOpiduWxzu1P1JCs
-	 JFfG/r1q868KQ==
+	b=Z3M+z5ksHU8epfLEmFeplz2bSOpSquBd1fmCPmE1uFSgnlYhXIqIpcpo6aVy86lwm
+	 3uVaMOS5yexPfKTtQl80gD2bUsXAs4dIBGq7xwRCshDVB8skEQe09rllkPH/fB31zf
+	 JAIcDqZgT0M/mwY5Yw3Xo85y0cmluvF0LD9FLdhVoZtv+WrrwJD7HsTQJnfg826dqo
+	 BWo5YzvNkM8Hh4lDdfJN7aD8WJMJtu4Q+reMhHiRxjPX9BqUZPFUoZpBU7/yJqq3AN
+	 75jXdhUn56Iwye8W+DATk2zwKW9XpDEjqNOp2YtPaRWHJFpLQCUj0nElU4GkpvF0gW
+	 ySc+qEkGVTMjw==
 Received: from maru.home (host86-128-233-22.range86-128.btcentralplus.com [86.128.233.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 8A2D14144B;
-	Tue, 01 Sep 2026 15:25:26 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 5FFB64017A;
+	Tue, 01 Sep 2026 15:25:27 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/6] media: rc: Fix ABBA deadlock by making locks more fine grained
-Date: Tue,  1 Sep 2026 15:24:53 +0100
-Message-ID: <f640f1266326b29814315cf1505f44de5bb20917.1788272198.git.sean@mess.org>
+Subject: [PATCH v2 4/6] media: rc: Add missing locking for keymap
+Date: Tue,  1 Sep 2026 15:24:54 +0100
+Message-ID: <e5fe48b246fe00f255897fcad03b419ada4fd74a.1788272198.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788272198.git.sean@mess.org>
 References: <cover.1788272198.git.sean@mess.org>
@@ -66,123 +67,274 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ir_raw_event_unregister() function takes the ir_raw_handler_lock
-first and then the rc_dev->lock. Other functions like change_protocol
-do this in the reverse order.
+When the rc_map for an rc_dev gets updated, locking is required but is
+missing in places. A concurrent scancode lookup and a call to
+rc_{register,unregistered}_device() could result in a use-after-free;
+this could happen if IR is decoded during those function calls.
 
-This means that an ir decoder module unload and writing to the protocol
-sysfs file can cause a deadlock.
+We also fix some ugliness like open-coded krealloc() and removing the
+pointless alloc member of rc_map.
 
-ir_raw_handler_lock protects the client list, amongst other things.
-Split this out into a separate lock so we can ensure the locking
-order is always the same.
+Add lockdep assertions where locks are required.
 
-Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/rc-ir-raw.c | 39 ++++++++++++++++++++++--------------
- 1 file changed, 24 insertions(+), 15 deletions(-)
+ drivers/media/rc/rc-main.c | 122 ++++++++++++++++++++++---------------
+ include/media/rc-map.h     |   2 -
+ 2 files changed, 74 insertions(+), 50 deletions(-)
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index 54b323becb1f..75dee4a483d4 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -10,7 +10,8 @@
- #include <linux/sched.h>
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 88d8f7d4aab3..3091bcd0e927 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -17,9 +17,8 @@
+ #include <linux/module.h>
  #include "rc-core-priv.h"
  
--/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
-+/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
-+static DEFINE_MUTEX(ir_raw_client_lock);
- static LIST_HEAD(ir_raw_client_list);
+-/* Sizes are in bytes, 256 bytes allows for 32 entries on x64 */
+-#define IR_TAB_MIN_SIZE	256
+-#define IR_TAB_MAX_SIZE	8192
++#define IR_TAB_MIN_SIZE	32
++#define IR_TAB_MAX_SIZE	1024
  
- /* Used to handle IR raw handler extensions */
-@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
- 	return 0;
- }
+ static const struct {
+ 	const char *name;
+@@ -105,7 +104,6 @@ static struct rc_map_list *seek_rc_map(const char *name)
  
--static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
--{
--	mutex_lock(&dev->lock);
--	dev->enabled_protocols &= ~protocols;
--	mutex_unlock(&dev->lock);
--}
--
- /**
-  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
-  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
-@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ struct rc_map *rc_map_get(const char *name)
  {
- 	struct task_struct *thread;
+-
+ 	struct rc_map_list *map;
  
-+	/* Holding dev->lock could result in a dead-lock */
-+	lockdep_assert_not_held(&dev->lock);
+ 	map = seek_rc_map(name);
+@@ -202,7 +200,7 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * ir_create_table() - initializes a scancode table
+  * @dev:	the rc_dev device
+  * @rc_map:	the rc_map to initialize
+- * @name:	name to assign to the table
++ * @map_name:	name to assign to the table
+  * @rc_proto:	ir type to assign to the new table
+  * @size:	initial size of the table
+  *
+@@ -212,23 +210,33 @@ static int scancode_to_u64(const struct input_keymap_entry *ke, u64 *scancode)
+  * return:	zero on success or a negative error code
+  */
+ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+-			   const char *name, u64 rc_proto, size_t size)
++			   const char *map_name, u64 rc_proto, size_t size)
+ {
+-	rc_map->name = kstrdup(name, GFP_KERNEL);
+-	if (!rc_map->name)
++	struct rc_map_table *scan;
++	unsigned int alloc;
++	char *name;
 +
- 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
- 	if (IS_ERR(thread))
- 		return PTR_ERR(thread);
++	name = kstrdup(map_name, GFP_KERNEL);
++	if (!name)
+ 		return -ENOMEM;
+-	rc_map->rc_proto = rc_proto;
+-	rc_map->alloc = roundup_pow_of_two(size * sizeof(struct rc_map_table));
+-	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+-	rc_map->scan = kmalloc(rc_map->alloc, GFP_KERNEL);
+-	if (!rc_map->scan) {
+-		kfree(rc_map->name);
+-		rc_map->name = NULL;
++
++	alloc = roundup_pow_of_two(size);
++	scan = kmalloc_objs(struct rc_map_table, alloc, GFP_KERNEL);
++	if (!scan) {
++		kfree(name);
+ 		return -ENOMEM;
+ 	}
  
- 	dev->raw->thread = thread;
- 
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
--	mutex_unlock(&ir_raw_handler_lock);
-+	mutex_unlock(&ir_raw_client_lock);
- 
+-	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%u bytes)\n",
+-		rc_map->size, rc_map->alloc);
++	scoped_guard(spinlock_irqsave, &dev->rc_map.lock) {
++		rc_map->name = name;
++		rc_map->scan = scan;
++		rc_map->rc_proto = rc_proto;
++		rc_map->len = 0;
++		rc_map->size = alloc;
++	}
++
++	dev_dbg(&dev->dev, "Allocated space for %u keycode entries (%zu bytes)\n",
++		rc_map->size, rc_map->size * sizeof(struct rc_map_table));
  	return 0;
  }
-@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
- 	kthread_stop(dev->raw->thread);
- 	timer_delete_sync(&dev->raw->edge_handle);
  
--	mutex_lock(&ir_raw_handler_lock);
-+	mutex_lock(&ir_raw_client_lock);
- 	list_del(&dev->raw->list);
+@@ -236,16 +244,26 @@ static int ir_create_table(struct rc_dev *dev, struct rc_map *rc_map,
+  * ir_free_table() - frees memory allocated by a scancode table
+  * @rc_map:	the table whose mappings need to be freed
+  *
+- * This routine will free memory alloctaed for key mappings used by given
++ * This routine will free memory allocated for key mappings used by given
+  * scancode table.
+  */
+ static void ir_free_table(struct rc_map *rc_map)
+ {
+-	rc_map->size = 0;
+-	kfree(rc_map->name);
+-	rc_map->name = NULL;
+-	kfree(rc_map->scan);
+-	rc_map->scan = NULL;
++	struct rc_map_table *scan;
++	const char *name;
 +
-+	mutex_lock(&ir_raw_handler_lock);
- 	list_for_each_entry(handler, &ir_raw_handler_list, list)
- 		if (handler->raw_unregister &&
- 		    (handler->protocols & dev->enabled_protocols))
- 			handler->raw_unregister(dev);
- 
- 	lirc_bpf_free(dev);
--
- 	mutex_unlock(&ir_raw_handler_lock);
++	scoped_guard(spinlock_irqsave, &rc_map->lock) {
++		name = rc_map->name;
++		scan = rc_map->scan;
 +
-+	mutex_unlock(&ir_raw_client_lock);
++		rc_map->size = 0;
++		rc_map->len = 0;
++		rc_map->name = NULL;
++		rc_map->scan = NULL;
++	}
++
++	kfree(name);
++	kfree(scan);
  }
  
- /*
-@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
- 	struct ir_raw_event_ctrl *raw;
- 	u64 protocols = ir_raw_handler->protocols;
+ /**
+@@ -262,38 +280,38 @@ static void ir_free_table(struct rc_map *rc_map)
+ static int ir_resize_table(struct rc_dev *dev, struct rc_map *rc_map,
+ 			   gfp_t gfp_flags)
+ {
+-	unsigned int oldalloc = rc_map->alloc;
+-	unsigned int newalloc = oldalloc;
+-	struct rc_map_table *oldscan = rc_map->scan;
++	unsigned int newsize = rc_map->size;
+ 	struct rc_map_table *newscan;
  
-+	mutex_lock(&ir_raw_client_lock);
++	lockdep_assert_held(&rc_map->lock);
 +
- 	mutex_lock(&ir_raw_handler_lock);
- 	list_del(&ir_raw_handler->list);
-+	atomic64_andnot(protocols, &available_protocols);
-+	mutex_unlock(&ir_raw_handler_lock);
+ 	if (rc_map->size == rc_map->len) {
+ 		/* All entries in use -> grow keytable */
+-		if (rc_map->alloc >= IR_TAB_MAX_SIZE)
++		newsize *= 2;
 +
- 	list_for_each_entry(raw, &ir_raw_client_list, list) {
-+		mutex_lock(&raw->dev->lock);
-+		mutex_lock(&ir_raw_handler_lock);
- 		if (ir_raw_handler->raw_unregister &&
- 		    (raw->dev->enabled_protocols & protocols))
- 			ir_raw_handler->raw_unregister(raw->dev);
--		ir_raw_disable_protocols(raw->dev, protocols);
-+		raw->dev->enabled_protocols &= ~protocols;
-+		mutex_unlock(&ir_raw_handler_lock);
-+		mutex_unlock(&raw->dev->lock);
++		if (newsize >= IR_TAB_MAX_SIZE)
+ 			return -ENOMEM;
+ 
+-		newalloc *= 2;
+-		dev_dbg(&dev->dev, "Growing table to %u bytes\n", newalloc);
++		dev_dbg(&dev->dev, "Growing table to %u entries\n", newsize);
  	}
--	atomic64_andnot(protocols, &available_protocols);
--	mutex_unlock(&ir_raw_handler_lock);
+ 
+-	if ((rc_map->len * 3 < rc_map->size) && (oldalloc > IR_TAB_MIN_SIZE)) {
++	if (rc_map->len * 3 < rc_map->size && rc_map->size > IR_TAB_MIN_SIZE) {
+ 		/* Less than 1/3 of entries in use -> shrink keytable */
+-		newalloc /= 2;
+-		dev_dbg(&dev->dev, "Shrinking table to %u bytes\n", newalloc);
++		newsize /= 2;
++		dev_dbg(&dev->dev, "Shrinking table to %u entries\n", newsize);
+ 	}
+ 
+-	if (newalloc == oldalloc)
++	if (newsize == rc_map->size)
+ 		return 0;
+ 
+-	newscan = kmalloc(newalloc, gfp_flags);
++	newscan = krealloc_array(rc_map->scan, newsize,
++				 sizeof(struct rc_map_table), gfp_flags);
+ 	if (!newscan)
+ 		return -ENOMEM;
+ 
+-	memcpy(newscan, rc_map->scan, rc_map->len * sizeof(struct rc_map_table));
+ 	rc_map->scan = newscan;
+-	rc_map->alloc = newalloc;
+-	rc_map->size = rc_map->alloc / sizeof(struct rc_map_table);
+-	kfree(oldscan);
++	rc_map->size = newsize;
 +
-+	mutex_unlock(&ir_raw_client_lock);
+ 	return 0;
  }
- EXPORT_SYMBOL(ir_raw_handler_unregister);
+ 
+@@ -318,6 +336,8 @@ static unsigned int ir_update_mapping(struct rc_dev *dev,
+ 	int old_keycode = rc_map->scan[index].keycode;
+ 	int i;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	/* Did the user wish to remove the mapping? */
+ 	if (new_keycode == KEY_RESERVED || new_keycode == KEY_UNKNOWN) {
+ 		dev_dbg(&dev->dev, "#%d: Deleting scan 0x%04llx\n",
+@@ -373,6 +393,8 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ {
+ 	unsigned int i;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	/*
+ 	 * Unfortunately, some hardware-based IR decoders don't provide
+ 	 * all bits for the complete IR code. In general, they provide only
+@@ -397,7 +419,7 @@ static unsigned int ir_establish_scancode(struct rc_dev *dev,
+ 	/* No previous mapping found, we might need to grow the table */
+ 	if (rc_map->size == rc_map->len) {
+ 		if (!resize || ir_resize_table(dev, rc_map, GFP_ATOMIC))
+-			return -1U;
++			return UINT_MAX;
+ 	}
+ 
+ 	/* i is the proper index to insert our new keycode */
+@@ -479,16 +501,18 @@ static int ir_setkeytable(struct rc_dev *dev, const struct rc_map *from)
+ 	if (rc)
+ 		return rc;
+ 
+-	for (i = 0; i < from->size; i++) {
+-		index = ir_establish_scancode(dev, rc_map,
+-					      from->scan[i].scancode, false);
+-		if (index >= rc_map->len) {
+-			rc = -ENOMEM;
+-			break;
+-		}
++	scoped_guard(spinlock_irqsave, &dev->rc_map.lock) {
++		for (i = 0; i < from->size; i++) {
++			index = ir_establish_scancode(dev, rc_map,
++						      from->scan[i].scancode, false);
++			if (index >= rc_map->len) {
++				rc = -ENOMEM;
++				break;
++			}
+ 
+-		ir_update_mapping(dev, rc_map, index,
+-				  from->scan[i].keycode);
++			ir_update_mapping(dev, rc_map, index,
++					  from->scan[i].keycode);
++		}
+ 	}
+ 
+ 	if (rc)
+@@ -524,6 +548,8 @@ static unsigned int ir_lookup_by_scancode(const struct rc_map *rc_map,
+ {
+ 	struct rc_map_table *res;
+ 
++	lockdep_assert_held(&rc_map->lock);
++
+ 	res = bsearch(&scancode, rc_map->scan, rc_map->len,
+ 		      sizeof(struct rc_map_table), rc_map_cmp);
+ 	if (!res)
+diff --git a/include/media/rc-map.h b/include/media/rc-map.h
+index d95ed3e96de2..f167c37179c8 100644
+--- a/include/media/rc-map.h
++++ b/include/media/rc-map.h
+@@ -148,7 +148,6 @@ struct rc_map_table {
+  * @scan: pointer to struct &rc_map_table
+  * @size: Max number of entries
+  * @len: Number of entries that are in use
+- * @alloc: size of \*scan, in bytes
+  * @rc_proto: type of the remote controller protocol, as defined at
+  *	     enum &rc_proto
+  * @name: name of the key map table
+@@ -158,7 +157,6 @@ struct rc_map {
+ 	struct rc_map_table	*scan;
+ 	unsigned int		size;
+ 	unsigned int		len;
+-	unsigned int		alloc;
+ 	enum rc_proto		rc_proto;
+ 	const char		*name;
+ 	spinlock_t		lock;
 -- 
 2.55.0
 
