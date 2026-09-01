@@ -1,83 +1,133 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89883ED3CF;
-	Tue,  1 Sep 2026 02:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6707E3DDDD9
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 02:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228092; cv=none; b=dunotODx35XMvbGfAM7zMiJruY1HJMFCsY12z/B7wdTDUDsvBZieG3eB3DCmMV/NG6hqxvBSds1OpAoEXPRt8QpyjXXSWLAvXLYUDIznfxMf/eu+ajKIxCQsrSS0xhoMeI8jHTzm14MiLyxRJxrUz5rKDu6s8n80sSkTCBQScao=
+	t=1788228160; cv=none; b=lJKLgq+Q+yIXumvbyXepjBZf1R+4RDQNcXC/SkLYGB1j/pchmuNhh0vHgWPOWQ2Hk8s4A9InIceQaxZuUkbY65wO0v/EVn1rIpOUIPdTaYbaoxbXaurKv1Zda/DoJayEf0WJK5lyHMNVsANULMMlVFBdgyxuA0qNDvjuxB2Od5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228092; c=relaxed/simple;
-	bh=U542Zl8DrpTSKiD7Vl08RBiPf4XoZNiETIdq3lf2hgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ncs65r1R0gmDYA5qSg3GgnrSH32fKxpB2F71XZrorfaf135swag9VpLzQWbtcc7eGM1Wai1Vyhkrqo5zmjvhkPrf06nxdU854eqM8kDWEIeYVGcZ2IwfOEMssiIJU/MmTmxw8RtzAJjq4z1XacOTt1O4dyKq4XAzDboMi2avaA8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=UbuRoSzh; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	s=arc-20240116; t=1788228160; c=relaxed/simple;
+	bh=DKAZQ4HB8RVRyPINtHAlvihaYgNW2N0m1l6ppV9ct0c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QqeXQcnC0ug+uZu+8bPdaAtMLTd/unLRAl//EFvhnY9CBMOPEbysH3q2F+f6uP97l/m5/JfCCG9Pj2tY9OKvydSQLrXskxTHH6Cvew+BdQDEinkSGxZtUxbs9sYwKqSr6gS8p2dbngQK8usTv239UlDAMiHGfj7Grg2+un7VJ3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3ypPjrY; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="UbuRoSzh"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 82FAE14C2D6;
-	Tue,  1 Sep 2026 04:01:15 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1788228081;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tPRdSeS8EOiXys9ZT+0+nWiXYFNZ3KrDQtJikQUjLYM=;
-	b=UbuRoSzhwov6bKR8a9Sc909pmZUvQCF/XjuqpCRBLzlIfW08VA77nro/vcaasc+U8Lrznh
-	3keEFfNd3mbLFXaeSKD39Rzpg1Qhg0QQW2dDol0ih9/8mgoZ7aTonzAD2J6JbwVhNfboSW
-	7cb4nN6J7aLtabqhvYm7lV4+kI4ze0Z7ygYxQG/nTUEHUFjQ5V5SsdpuoSI2ZvoPpt67Ee
-	XVuAXpQP7cSpSKkVslzqabIjXeX7GSL4ib9DZceV/5auBwNmh57BBE8rg0rS2v8AzW51FE
-	tIRQFW3clbLrMhr8Vzija1qDgSLPcOBOOgn8/APw2XExczgqApACbLEgDqZj9Q==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 309e12e7;
-	Tue, 1 Sep 2026 02:01:13 +0000 (UTC)
-Date: Tue, 1 Sep 2026 11:00:58 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
-Message-ID: <apYx2p-uq60KlnBB@codewreck.org>
-References: <20260831133358.571886287@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3ypPjrY"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so4329166a12.2
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 19:02:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788228148; x=1788832948; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xndijz6hV8q9in3RSA1ablFs8VlKyT94mnXwH4oGlXE=;
+        b=m3ypPjrYii6n/6JqvApbVSBQwf8fPWfJqr5KrTxkCaHfpDrNumXOJkTKe87EZmT5u9
+         IFVhRFkYDnKN58EWJ8zfCc+GHPPiNXfFWEinFk3sIYoCK/C1eoKS0FNX8qGIw0Z5bDd5
+         ivUOg7CqLSC03SLe53kynnVI8AilnfyBraZBwMkxVCFFUpHLFHyefp9qfRqAG6A/jb2g
+         k5Sv0eg5pZsZivr+0WDiBHbZnC304OTSOwa5WHh38xNyRSAFrrPWSzqysoqJ8EEedmRM
+         6gEJigwdlumWYiEmU2qGy244xRLLir7TrHpd+BjZ7coUA+BbvZeB4N+GGRDQcbhq6wOK
+         1mZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788228148; x=1788832948;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xndijz6hV8q9in3RSA1ablFs8VlKyT94mnXwH4oGlXE=;
+        b=m3UrTi7SGD3TGbnQ2pFIcpGcO5BUH/qs7YcXamP5tlzujuaYWKrh9cA9iwAZ4T/+MO
+         5iQiIKXLFasnoovRpEAId4fEYOOP025Ay+e8kiTpq5De+HCf0UiWoVyIqllFbsA5Uatt
+         V2E3Vs4ke1N2XHe8DZbamISpv6Z4PqB+/oRsq4sOZZwx3YBkUPbTNZ+5yHDY9cY1Qzfh
+         DyOOCYj51NQqZ+EWiFgyvRZkfS7auoYkA0mTj6hrxSfCezz83KVl3dEeawKSKgW4pVD9
+         nqyAz+fggCxVzUuZ8v11QCepou/lPNp6A4NZiOTNELChId2SsHkqDqpBnD+y4jx8snWs
+         CngA==
+X-Forwarded-Encrypted: i=1; AHgh+RpAhY4M01w3jssPY6t/+VqhrNyb+BahmsyVYxuxE75znlD2VizDRM5nPrvocwH8FGNh7uaxDrg=@vger.kernel.org
+X-Gm-Message-State: AFuF++koDDMtZa6E5XKJ+QoFB3+J2TLHNXVarrqrEXVCmsaYsX7Kb+zm
+	a7UwcUlqfT2Oi7PksKcdULgSMoi8rtp6Lql4IkZUUQssn4BZQj2jw3vI
+X-Gm-Gg: AR+sD13H1pvr9Jn1W8e4tLGcgJxUhzixZQ1P9UzTfSQgO5k/gUm7cQ5cKKEwGslXEuv
+	qiy8gwLw8rFCeaTRrQJCDoT0DF/+m234uqJ/u5aoib5e4yR9vDaMrN3xda2i6h+I8b+SuFS7Hze
+	uW0NOC8LCdz8YvyDi2iGIXRLWB1sqXQzHVv2WPOzoOi82BxLRJh5NQKRMW11HnX3zoJ12GFkMfL
+	jzVme1MU/4SkypEUDAy/KdLQqBk0wUQkozR+HYmy3cmzxStk0ITLhZzcR99nkXeK5DqSSZlTYNF
+	PtUzdmyi+Ro/cxF4P2dFxqI73zZZhBts5tclW8a9SrSjy/VTvqpX0HbLCabNObib+qh8o9aLVVA
+	AittwEKTnXVwSQ04+8HrNJO1u/4DGesNFPe7rEMR7nEXfgiq/i8XvdE5g7VJ4HKFfr3QQ1KucKj
+	JpuXUD6Qt9xG0fasL6+5xi/C8wkQF0GlWt0S4awPLVy5KimAHGlRZRv2OfuSct9T3rVwx5BK3lY
+	bc3MdID
+X-Received: by 2002:a05:6a20:d502:b0:3d3:aec2:4dc8 with SMTP id adf61e73a8af0-3d7b0548a7cmr8045683637.20.1788228148286;
+        Mon, 31 Aug 2026 19:02:28 -0700 (PDT)
+Received: from [10.240.116.157] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f36e8ee6sm5115496a12.26.2026.08.31.19.02.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 19:02:27 -0700 (PDT)
+Message-ID: <7b007eef-2f6d-c86a-065b-85eb85b5ee0f@gmail.com>
+Date: Tue, 1 Sep 2026 10:02:20 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.15.0
+Subject: Re: [PATCH v2] zram: fix idle age_sec underflow in idle_store()
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, minchan@kernel.org,
+ axboe@kernel.dk, bgeffon@google.com, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, stable@vger.kernel.org
+References: <20260828083149.45760-1-jiahao.kernel@gmail.com>
+ <20260828102446.3eb7f3dc779753b831e33fe6@linux-foundation.org>
+ <apT-ocFYDmU6iC-j@google.com>
+ <c961850c-09d0-3366-73e0-1932c1dc00e5@gmail.com>
+ <apVK4g2ikVJe_Hcg@google.com>
+From: Hao Jia <jiahao.kernel@gmail.com>
+In-Reply-To: <apVK4g2ikVJe_Hcg@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Greg Kroah-Hartman wrote on Mon, Aug 31, 2026 at 03:35:08PM +0200:
-> This is the start of the stable review cycle for the 5.10.269 release.
-> There are 43 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+
+
+On 2026/8/31 17:38, Sergey Senozhatsky wrote:
+> On (26/08/31 16:37), Hao Jia wrote:
+>> On 2026/8/31 12:15, Sergey Senozhatsky wrote:
+>>> On (26/08/28 10:24), Andrew Morton wrote:
+>>>> On Fri, 28 Aug 2026 16:31:49 +0800 Hao Jia <jiahao.kernel@gmail.com> wrote:
+>>> [..]
+>>>>
+>>>> Thanks.  Sashiko asked a couple of questions about this change:
+>>>> 	https://sashiko.dev/#/patchset/20260828083149.45760-1-jiahao.kernel@gmail.com
+>>>
+>>>
+>>>> Does this early return prevent marking valid boot-time pages as idle?
+>>>> When a page is accessed during the first second of system boot, its ac_time
+>>>> would be 0.
+>>>
+>>> There is no possibility for zram to hold pages during first second of
+>>> system boot, regardless of whether zram was configured as a swap device
+>>> or as a block device (mount-ed with real filesystem).
+>>>
+>>>
+>>>> Can the early return above bypass this zram device initialization check?
+>>>
+>>> We already do that, e.g. when kstrtouint(buf, 0, &age_sec) fails.  Apart
+>>> from that, that's not how one checks if device was initialized.  We may
+>>> want to consolidate those checks, just for symmetry.
+>>
+>> Agreed on both points -- the early return is not a new "bypass", and
+>> the write() return value was never a way to probe init state.
+>>
+>> How about moving the init_done() check to the top, so all the early
+>> returns sit behind the same device-state check?
 > 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.269-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
+> Yeah, I don't know...  Moving it under device lock doesn't buy us
+> anything.  We don't need device lock to validate integer rangers,
+> etc.  There are validations that we need to do under device lock
+> because those require a consistent device state.  But things like
+> "is system uptime less than supplied sysfs data" don't logically
+> require a device lock.
 
-Tested a5b83a2b4fcc ("Linux 5.10.269-rc1") on:
-- arm i.MX6ULL (Armadillo 640)
-- arm64 i.MX8MP (Armadillo G4)
-- arm64 i.MX8ULP (Armadillo IoT A9E)
+Thanks for the clarification. The current patch is enough, so no change 
+is needed.
 
-No obvious regression in dmesg or basic tests:
-Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
--- 
-Dominique Martinet
+Thanks,
+Hao
