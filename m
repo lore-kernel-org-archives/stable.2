@@ -1,142 +1,236 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8325267B89
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 12:10:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C321A29BD8C
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 12:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264612; cv=none; b=I4ZKZIg553PXrqKBYt9e0OaORg9pcnTYwM8GUOyyf0cqgDlO6bOzPN0vxoZStuwaBS90pwRFdDijZvSd0sIe9b0N0HzT75DniIl6rLQNejZqrL0D6gFM+KGSCXdCqXFXur+j+EMhYBkurN7Yg3tyMrbDpFJjOPMwls3BHblYaD4=
+	t=1788264617; cv=none; b=KmDv504uHdkerqL7qgScMtjJgROIx1CJANJb9uvesiSfrBDHyaRyG1o1qTvlk75NBZU6MOJ4kQp3xOZuPLR+yjEkUNx/Kwbj5zAo0hLR2xcBPmR7HbV0WpCjixTQqQnXHW9G6rKOY0N317RiprdLTtzLpQ3DUF4fPtEGXLvnPww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264612; c=relaxed/simple;
-	bh=pUAQhpIylhH03veS5v2pJ5187OFtExWloOWxSlrMTWg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Y6YbfXHyze760ul+NtkkLzCD9OOOHKavcxI+o2bXhmJqtGSquyUa+Vpibbk/P8tREeyG3dMR9qm6UuSI55XNQemGoF8v92d7ahVCXh8OgHWaxwsM/ANgIYZzer/OeCx4df1TzGLGorhNiUSg5jqsXk+1pdDt2JtjXRCkorOacgY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=J4LBT0R8; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MlypWCcK; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788264617; c=relaxed/simple;
+	bh=3Ckw062vAHX8+sV/WaLDvhdKYpXXyYQ8kSagTkJZFJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ASntJKRlkBZupxbqC9Zf9Tdk+BdyMSpC7OFED5RZgnHWjCQvYZPQzQXFoesNa2S1mD6Q4HrgBIICSmonuEn2d4lUL1F1k380MVz35pwvH3Gc7qaNZkIUN8dGpfjMM1zxKfrG9HVrRwshfOl+AhXfVx4Jedb5MbqUETHDlm+H4DM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPTG86WX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="J4LBT0R8";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MlypWCcK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788264609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-	b=J4LBT0R8cVl1pqQW2IyBNPf6xqIE6OSwmWxbTEaJDxgk2gj+M785RbygHmMHh0P1f5kGpQ
-	GYnFVXlSuMXUkBkJxFSMYYoWAXeo0MQdGSggvXLVbKg+LyYxbs19vhE/0JHqUDJMfzIG5p
-	ao9Zy5Xy73ViJToH4Mx70iwAUJE+mB4=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-518-wtXo7387Ofyd9mKLgpm2AQ-1; Tue, 01 Sept 2026 08:10:08 -0400
-X-MC-Unique: wtXo7387Ofyd9mKLgpm2AQ-1
-X-Mimecast-MFC-AGG-ID: wtXo7387Ofyd9mKLgpm2AQ_1788264607
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f6db77430so2515122f8f.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 05:10:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788264607; x=1788869407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-        b=MlypWCcKSfGjZY9Eqt5KulJUqs2foa19Ey6tTuqKHzbs+XTIrn6Kff89D6VhhxGpwx
-         Pk+QaqxVW2hC/fK5ecRMrEC21EERvDF4Ah8c6IElLrmyTz0lYXuNYIkze1t+xHojUZ1q
-         UtgcDDEMTtEmutpZKssgUNSjrDU6dG42m/2PnUaJEMCXDo444Z0+SwccPKAFdp80Lu9G
-         +hnraQ4ZPgwgBep6EPjPnoxYv5gg5THpqr6GO1FXat17cBgpfCub+dF4Fj78sfeZvRl3
-         BFLNhNO7qPAPnAACXnfrZ6iO79oKZsBHFt3EP1d1XX1btxpP5qVQ9D+a7XmqlzxAmGNI
-         OnRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788264607; x=1788869407;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
-        b=nOjUaBgYFXYJ6QxgQwJMEUtW6VvC2lXPnSL32kJwvnV7g8HJqu6hmTCGDgmXlBb2vs
-         APHrUMEr7sKmIHzilAi6SezXKLe9x7cLAExW7oM8rpdU5IeQxTFx05XUehkFfAfL7Rz3
-         CHB75Do297KXsHb15yDM59QcXZnVXf57NqrEKtiUeVBAHNAUqOiP6sAE6EpeSzfCrvJQ
-         SjIYmzhG89u6bwR6AFh6xgacouGP6SF+8f7AKgw5di0ePEdXW9NnEX7op8waOQfsN8wA
-         dmVjm1fCMpI4Mq0Gi2MygBUSKci8tqW273az1FIaXj3ne8r4YMFAo+5+DsvgpaB1lRZc
-         XzEg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5KZuq0rYFpiSWuLhCLk3AESZKftFvtjrZzRSCc2rPV1NRZHruFNsOoePiKzbEJ3HIt4yro64=@vger.kernel.org
-X-Gm-Message-State: AFuF++kh+19YnREUcH25OC0ro6nZhKuouMBu6nGqZTznsZRnbOi8T3e5
-	s4cxkmkIxrvrfZfiEgqkPTLhYJXmQlIGRV9qqx5Zu5F1gz5RZhx0gm73sMwQvbghzb4UQ09qKbA
-	kvNh4fMzRNcbwNQW0gLXH1flG7CBb7K73Fu8AkDIXxrCOm4xeajnnBouiYg==
-X-Gm-Gg: AYBFou2m7ZMD4PUN71NfHrRAY4/0izolK4AN6NLVcWnglJKF9v6101H7lueycBVdTv9
-	y0VFw5KMW3dUMuA4Z6katNX8fSjjo5D8z5xmfYMaE7JGXOQwSjwHsMWYOKUJ2QWtgPx5YI9PGSI
-	cWrclp6InBrbG7Ec6o1/ZEMx3YnhJZaEqMGvFCGo9mQL5ZpUI3fF1/DaWi21ZH6ncQ4riu4RxaR
-	3/rRMG2yA1zTcLLmoSv4udVeN+b4hPILiTrln3OBVlwe4PVKPlVqB18qm/u26OGxg2gKkFo47Vs
-	xrS19KBP6GGaNY1fGCeAS8bTXOYAlLJ/kFgzheqwzM4P9bsQT7H3H7BfO3iNUmkHAj/XQed9mJL
-	EjSkfkGJrh0ShJuVQr9MpLp482wd/7v4087GSEp4P4VSZbUxafIhp+GEq14EmJMP16PeALwntHg
-	==
-X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13007017f8f.25.1788264607320;
-        Tue, 01 Sep 2026 05:10:07 -0700 (PDT)
-X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13006886f8f.25.1788264606789;
-        Tue, 01 Sep 2026 05:10:06 -0700 (PDT)
-Received: from [192.168.188.218] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d36e9csm4881021f8f.3.2026.09.01.05.10.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 05:10:05 -0700 (PDT)
-Message-ID: <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
-Date: Tue, 1 Sep 2026 14:10:04 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPTG86WX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAF261F000E9;
+	Tue,  1 Sep 2026 12:10:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788264615;
+	bh=bHjw9S3UCM3ri3K4YoZ6igvAc91CEHHnHFd7SosOsOU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HPTG86WXVmB6Bb6UWWGWLpd/S01nwIShBGUQw3/r0NQ9worf7YHOlBJz4qbDTftVl
+	 /y8kGdPr7DxBlvcgDyfgujVxwbt2Cx1848j08EZE2SqFeRYznwckMt4l9MMLmKTSAl
+	 Max0bUU+Wtt+6TDtne9FTvsgGlpX669flgwCLKOAnLb6eWW84kxFBjXKeyfv5omLTB
+	 Tyh5l93tVELXloTMIodT7OrwZ9q6Lr0vLnl79l0uP/btjpcMdWjNmyvRMqNLnvVZaB
+	 /cwe/RRg5thHhl7AcCUtk49WMKZQO3EsvjpF2jBUYOHRUB0MUb+uh6G08gWep2I23o
+	 l14K/al7ZbHug==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Lukas Wunner <lukas@wunner.de>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] crypto: virtio - Drop sign/verify operations
+Date: Tue,  1 Sep 2026 08:10:10 -0400
+Message-ID: <20260901121013.579838-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083110-catcall-outtakes-9ceb@gregkh>
+References: <2026083110-catcall-outtakes-9ceb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
- Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
- Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
- colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
- raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
- <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
-From: Paolo Abeni <pabeni@redhat.com>
-Content-Language: en-US
-In-Reply-To: <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/1/26 1:57 PM, Joe Damato wrote:
-> On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
->> On 8/28/26 9:08 PM, Joe Damato wrote:
->>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
->>>     documented that TPA is unsupported there, as suggested by Michael.
->>
->> Clashiko quite convincingly elaborates that the above is not enough:
->>
->> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
->>
->> Could you please have a look?
-[...]
-> 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
-> device whose firmware reports max_aggs_supported == 0, does
-> bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
-> 
-> Michael commented in the v3 that this is a false positive, hence why I changed
-> the code from what it was in the v3 to this.
+From: Lukas Wunner <lukas@wunner.de>
 
-This is the comment I referred to.
+[ Upstream commit 5b553e06b3215fa97d222ebddc2bc964f1824c5b ]
 
-AFAICS the problem is that the driver sets
+The virtio crypto driver exposes akcipher sign/verify operations in a
+user space ABI.  This blocks removal of sign/verify from akcipher_alg.
 
-	bp->dev->hw_features |= NETIF_F_LRO;
+Herbert opines:
 
-regardless of the supported capabilities, and that seams to disagree
-with Michael.
+   "I would say that this is something that we can break.  Breaking it
+    is no different to running virtio on a host that does not support
+    these algorithms.  After all, a software implementation must always
+    be present.
 
-/P
+    I deliberately left akcipher out of crypto_user because the API
+    is still in flux.  We should not let virtio constrain ourselves."
+    https://lore.kernel.org/all/ZtqoNAgcnXnrYhZZ@gondor.apana.org.au/
+
+   "I would remove virtio akcipher support in its entirety.  This API
+    was never meant to be exposed outside of the kernel."
+    https://lore.kernel.org/all/Ztqql_gqgZiMW8zz@gondor.apana.org.au/
+
+Drop sign/verify support from virtio crypto.  There's no strong reason
+to also remove encrypt/decrypt support, so keep it.
+
+A key selling point of virtio crypto is to allow guest access to crypto
+accelerators on the host.  So far the only akcipher algorithm supported
+by virtio crypto is RSA.  Dropping sign/verify merely means that the
+PKCS#1 padding is now always generated or verified inside the guest,
+but the actual signature generation/verification (which is an RSA
+decrypt/encrypt operation) may still use an accelerator on the host.
+
+Generating or verifying the PKCS#1 padding is cheap, so a hardware
+accelerator won't be of much help there.  Which begs the question
+whether virtio crypto support for sign/verify makes sense at all.
+
+It would make sense for the sign operation if the host has a security
+chip to store asymmetric private keys.  But the kernel doesn't even
+have an asymmetric_key_subtype yet for hardware-based private keys.
+There's at least one rudimentary driver for such chips (atmel-ecc.c for
+ATECC508A), but it doesn't implement the sign operation.  The kernel
+would first have to grow support for a hardware asymmetric_key_subtype
+and at least one driver implementing the sign operation before exposure
+to guests via virtio makes sense.
+
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: f77a956f6a19 ("crypto: virtio - bound the akcipher result length")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../virtio/virtio_crypto_akcipher_algs.c      | 65 ++++++-------------
+ include/uapi/linux/virtio_crypto.h            |  1 +
+ 2 files changed, 22 insertions(+), 44 deletions(-)
+
+diff --git a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+index cb92b7fa99c6f..48fee07b7e517 100644
+--- a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
++++ b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+@@ -83,23 +83,16 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
+ 	case VIRTIO_CRYPTO_BADMSG:
+ 		error = -EBADMSG;
+ 		break;
+-
+-	case VIRTIO_CRYPTO_KEY_REJECTED:
+-		error = -EKEYREJECTED;
+-		break;
+-
+ 	default:
+ 		error = -EIO;
+ 		break;
+ 	}
+ 
+ 	akcipher_req = vc_akcipher_req->akcipher_req;
+-	if (vc_akcipher_req->opcode != VIRTIO_CRYPTO_AKCIPHER_VERIFY) {
+-		/* actuall length maybe less than dst buffer */
+-		akcipher_req->dst_len = len - sizeof(vc_req->status);
+-		sg_copy_from_buffer(akcipher_req->dst, sg_nents(akcipher_req->dst),
+-				    vc_akcipher_req->dst_buf, akcipher_req->dst_len);
+-	}
++	/* actual length maybe less than dst buffer */
++	akcipher_req->dst_len = len - sizeof(vc_req->status);
++	sg_copy_from_buffer(akcipher_req->dst, sg_nents(akcipher_req->dst),
++			    vc_akcipher_req->dst_buf, akcipher_req->dst_len);
+ 	virtio_crypto_akcipher_finalize_req(vc_akcipher_req, akcipher_req, error);
+ }
+ 
+@@ -230,36 +223,27 @@ static int __virtio_crypto_akcipher_do_req(struct virtio_crypto_akcipher_request
+ 	int node = dev_to_node(&vcrypto->vdev->dev);
+ 	unsigned long flags;
+ 	int ret;
+-	bool verify = vc_akcipher_req->opcode == VIRTIO_CRYPTO_AKCIPHER_VERIFY;
+-	unsigned int src_len = verify ? req->src_len + req->dst_len : req->src_len;
+ 
+ 	/* out header */
+ 	sg_init_one(&outhdr_sg, req_data, sizeof(*req_data));
+ 	sgs[num_out++] = &outhdr_sg;
+ 
+ 	/* src data */
+-	src_buf = kcalloc_node(src_len, 1, GFP_KERNEL, node);
++	src_buf = kcalloc_node(req->src_len, 1, GFP_KERNEL, node);
+ 	if (!src_buf)
+ 		return -ENOMEM;
+ 
+-	if (verify) {
+-		/* for verify operation, both src and dst data work as OUT direction */
+-		sg_copy_to_buffer(req->src, sg_nents(req->src), src_buf, src_len);
+-		sg_init_one(&srcdata_sg, src_buf, src_len);
+-		sgs[num_out++] = &srcdata_sg;
+-	} else {
+-		sg_copy_to_buffer(req->src, sg_nents(req->src), src_buf, src_len);
+-		sg_init_one(&srcdata_sg, src_buf, src_len);
+-		sgs[num_out++] = &srcdata_sg;
++	sg_copy_to_buffer(req->src, sg_nents(req->src), src_buf, req->src_len);
++	sg_init_one(&srcdata_sg, src_buf, req->src_len);
++	sgs[num_out++] = &srcdata_sg;
+ 
+-		/* dst data */
+-		dst_buf = kcalloc_node(req->dst_len, 1, GFP_KERNEL, node);
+-		if (!dst_buf)
+-			goto free_src;
++	/* dst data */
++	dst_buf = kcalloc_node(req->dst_len, 1, GFP_KERNEL, node);
++	if (!dst_buf)
++		goto free_src;
+ 
+-		sg_init_one(&dstdata_sg, dst_buf, req->dst_len);
+-		sgs[num_out + num_in++] = &dstdata_sg;
+-	}
++	sg_init_one(&dstdata_sg, dst_buf, req->dst_len);
++	sgs[num_out + num_in++] = &dstdata_sg;
+ 
+ 	vc_akcipher_req->src_buf = src_buf;
+ 	vc_akcipher_req->dst_buf = dst_buf;
+@@ -352,16 +336,6 @@ static int virtio_crypto_rsa_decrypt(struct akcipher_request *req)
+ 	return virtio_crypto_rsa_req(req, VIRTIO_CRYPTO_AKCIPHER_DECRYPT);
+ }
+ 
+-static int virtio_crypto_rsa_sign(struct akcipher_request *req)
+-{
+-	return virtio_crypto_rsa_req(req, VIRTIO_CRYPTO_AKCIPHER_SIGN);
+-}
+-
+-static int virtio_crypto_rsa_verify(struct akcipher_request *req)
+-{
+-	return virtio_crypto_rsa_req(req, VIRTIO_CRYPTO_AKCIPHER_VERIFY);
+-}
+-
+ static int virtio_crypto_rsa_set_key(struct crypto_akcipher *tfm,
+ 				     const void *key,
+ 				     unsigned int keylen,
+@@ -524,16 +498,19 @@ static struct virtio_crypto_akcipher_algo virtio_crypto_akcipher_algs[] = {
+ 		.algo.base = {
+ 			.encrypt = virtio_crypto_rsa_encrypt,
+ 			.decrypt = virtio_crypto_rsa_decrypt,
+-			.sign = virtio_crypto_rsa_sign,
+-			.verify = virtio_crypto_rsa_verify,
++			/*
++			 * Must specify an arbitrary hash algorithm upon
++			 * set_{pub,priv}_key (even though it's not used
++			 * by encrypt/decrypt) because qemu checks for it.
++			 */
+ 			.set_pub_key = virtio_crypto_p1pad_rsa_sha1_set_pub_key,
+ 			.set_priv_key = virtio_crypto_p1pad_rsa_sha1_set_priv_key,
+ 			.max_size = virtio_crypto_rsa_max_size,
+ 			.init = virtio_crypto_rsa_init_tfm,
+ 			.exit = virtio_crypto_rsa_exit_tfm,
+ 			.base = {
+-				.cra_name = "pkcs1pad(rsa,sha1)",
+-				.cra_driver_name = "virtio-pkcs1-rsa-with-sha1",
++				.cra_name = "pkcs1pad(rsa)",
++				.cra_driver_name = "virtio-pkcs1-rsa",
+ 				.cra_priority = 150,
+ 				.cra_module = THIS_MODULE,
+ 				.cra_ctxsize = sizeof(struct virtio_crypto_akcipher_ctx),
+diff --git a/include/uapi/linux/virtio_crypto.h b/include/uapi/linux/virtio_crypto.h
+index 71a54a6849ca9..2fccb64c9d6bf 100644
+--- a/include/uapi/linux/virtio_crypto.h
++++ b/include/uapi/linux/virtio_crypto.h
+@@ -329,6 +329,7 @@ struct virtio_crypto_op_header {
+ 	VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x00)
+ #define VIRTIO_CRYPTO_AKCIPHER_DECRYPT \
+ 	VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x01)
++	/* akcipher sign/verify opcodes are deprecated */
+ #define VIRTIO_CRYPTO_AKCIPHER_SIGN \
+ 	VIRTIO_CRYPTO_OPCODE(VIRTIO_CRYPTO_SERVICE_AKCIPHER, 0x02)
+ #define VIRTIO_CRYPTO_AKCIPHER_VERIFY \
+-- 
+2.53.0
 
