@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6443C0A1F;
-	Mon, 31 Aug 2026 23:31:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B69925785C;
+	Tue,  1 Sep 2026 00:11:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788219066; cv=none; b=E31eDMxXNalsOdS1/GEFHqftA94/5nAFv9TYVrs4u43EhQWO0O7NJ1UZ+aYpxRCeTtVYv+R0H9DRcBk0oT8o5jOx2gPiTwT0ZlldSK9tkYneRuICOxdasuH3nKMnQI+m/1RV8yMsh+HNIYFp+C8cnHDZIDx3jBTfRVzZXO4hoUw=
+	t=1788221465; cv=none; b=Ym9ekCOQKDdREx4WO0SI7vzAeEc700k0ifYxKijYpXdWRqSXkQAEz0VJOMoLN34geHK48d/f/D5Gms/hlj/a0IHI078JIPU/4EjZ5O787oHiCVUwkG3P5qy5JIymtTpJMhRq2/uifAHk9jRLm19poLewIWht8IJzWwIGyh1jCOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788219066; c=relaxed/simple;
-	bh=MuO/HOXm+2GvUf8idm6+4/WH40QkERPtFzIpTGaY9Rc=;
+	s=arc-20240116; t=1788221465; c=relaxed/simple;
+	bh=9esIzLKSES/yTdoEcda0vaqHuRZpq97fmWwlGWB51j4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=J+m5RHt4qzG+W+Hz0t7tcUUxav/cj2ac/EkaEiAlLhrBtDe7+VLDdEGS09KEkCysiE9uv1p3BKhR+T1Ipi+dAAx5RhQZA26egNgAUI3H9mT3vbDZhhJ2Od2Q3q5WErCzUkm3epiftZDrOWWTytOlPg6T6liT+AoIqFFrYJHG/7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmLdifZu; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=HM2OShwdPq6S0IHQci/ooPwa0fbpvliYSxznhBJMRjAvbfZJpa40qxSbqxX+oxAplkeZEYRsQ9oXjwmomVJvJYMc/uQL4NjouAeFODNYBZPDsPg4VNIkVDvQnVIGPkgmPjEHRsaLSxKq4EUGL/KY37/9yyZULW/u4XLK6gQvqAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBoLkeLu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmLdifZu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BFAD1F00A3D;
-	Mon, 31 Aug 2026 23:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBoLkeLu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8411F000E9;
+	Tue,  1 Sep 2026 00:11:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788219064;
-	bh=HRDE5CcFsUaO2hYcHVHMYaePZMARCTkl6/PC/xbppD0=;
+	s=k20260515; t=1788221463;
+	bh=yY/MvTn5HAr9uHWC85Z7jzROzj6u4LMopObzrNVoizk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=TmLdifZug6NP4Z4XOxHHAFynfHKmN+CSgdXYX6twHGQtXwd6DUiv8EcuRiaU8pGHM
-	 g1IWh9DgcWld7KGd91JhpQUuIclz3RsUIb/ULNiUrGGKRGM2vJ07aFFaHjtoPBSdV1
-	 suOyWHMahOuQxL7nOSGTxjavt8ORcrS6cs7vkFqI3qaAe9O8Zq+hj/tihPlJKl30hB
-	 3iivgyVOk3Om2Tx0BoL81ey3LZ+H/eEkDcGNCLt+wCw65k3qm4+AOCtvyPV7rurKtc
-	 3FsRREoI+ln8/RarxY+PsZdqLZPlrzE2o1q/L1UyqybhkNs4/LU8H1dKijsX3PsM+g
-	 ul1yad1rGUCLg==
+	b=CBoLkeLuq20yTEipfjjarH/B7d/kh86ajvnVI+U/WOZRqrTkHgptl1+FpYuxQXrQ9
+	 9o/Cd8z1FfRtFSM2Oj6KTCJMaCeGVepiyH0ieknyQBoBK0yclv+4I2FX+baRP1suI6
+	 0SaZfFvoFiSGhoTKlk1M4LiDoMnh9Qdj0aKm9E1VENJYypAg2VQ4w/NFTp94qcdg+j
+	 YKZ77sv+v5cOsy0Px2/K93iYvQWqnrOWGHht/rcAwXOG6YMBp9GRn4ezSF/Nky9nkr
+	 NBa+S11HF5LSQkM0rUhpBQ0nEeGK4sxz6Sd4qkPMnS4V/sYZQ7gwNqu0bo4tKBNwuV
+	 wkNpg+/g8CjKQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939753924476;
-	Mon, 31 Aug 2026 23:30:08 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B62392447E;
+	Tue,  1 Sep 2026 00:10:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,44 +37,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v3 1/2] net/sched: cls_u32: fix duplicate handle when
- node
- ID pool is exhausted
+Subject: Re: [PATCH net] net/sched: cls_flower: validate mask pointer after
+ nla_next()
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178821900715.831784.1406795274214529731.git-patchwork-notify@kernel.org>
-Date: Mon, 31 Aug 2026 23:30:07 +0000
-References: <20260825081052.133898-1-jhs@mojatatu.com>
-In-Reply-To: <20260825081052.133898-1-jhs@mojatatu.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- stable@vger.kernel.org, vega@nebusec.ai, victor@mojatatu.com
+ <178822140665.844764.11759804128837139787.git-patchwork-notify@kernel.org>
+Date: Tue, 01 Sep 2026 00:10:06 +0000
+References: <20260826025123.62758-1-ljp1205831794@gmail.com>
+In-Reply-To: <20260826025123.62758-1-ljp1205831794@gmail.com>
+To: Aohan Mei <ljp1205831794@gmail.com>
+Cc: netdev@vger.kernel.org, jhs@mojatatu.com, jiri@resnulli.us,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, cong.wang@bytedance.com, kerneljasonxing@gmail.com,
+ henrymei@tencent.com, corvus@tencent.com, stable@vger.kernel.org
 
 Hello:
 
-This series was applied to netdev/net.git (main)
+This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 25 Aug 2026 04:10:51 -0400 you wrote:
-> gen_new_kid() falls back to returning max (htid | 0xFFF) when both
-> idr_alloc_u32() ranges are full, instead of reporting an error.
-> u32_change() trusts that value and inserts a new knode with a handle
-> that is already live in the hash table, breaking handle uniqueness
-> within the table's node ID space.
+On Wed, 26 Aug 2026 10:51:20 +0800 you wrote:
+> From: Aohan Mei <henrymei@tencent.com>
 > 
-> The handle was never reserved in ht->handle_idr, so every later error
-> path that does idr_remove(&ht->handle_idr, handle) removes the
-> reservation of a different, live knode, which is then reused — one
-> failed add compounds into further duplicates.
+> fl_set_enc_opt() iterates the key's nested tunnel-option attributes
+> with nla_for_each_attr() while advancing a single mask pointer via
+> nla_next() at the bottom of each loop, so the mask cursor is driven
+> by the number of key attributes rather than by the mask's own
+> attributes.  The nla_ok() added by commit c96adff956191 ("cls_flower:
+> call nla_ok() before nla_next()") only validates the mask pointer
+> that was just consumed; the pointer produced by nla_next() is used by
+> the next iteration (fl_set_geneve_opt() and siblings) without any
+> validation.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net,v3,1/2] net/sched: cls_u32: fix duplicate handle when node ID pool is exhausted
-    https://git.kernel.org/netdev/net/c/d7e7e98d23f4
-  - [net,v3,2/2] selftests: tc-testing: add u32 node ID pool exhaustion test
-    https://git.kernel.org/netdev/net/c/7b120a771943
+  - [net] net/sched: cls_flower: validate mask pointer after nla_next()
+    https://git.kernel.org/netdev/net/c/fee10655709c
 
 You are awesome, thank you!
 -- 
