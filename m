@@ -1,182 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4853AFAEC
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 02:09:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E5D40B6C9;
+	Tue,  1 Sep 2026 02:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228592; cv=none; b=BJwk3526I//SLXLv/WOVK0k4pB+0LjobudD0nPeBkzgy/3Q+z4Z7Y3tYEzVQhYYYbODFINU6ZiJd7YhNjrFeTvkgA99Q6bahedj90cYn9vqe1BD5SzRSF1UOWobq8GGSt9UxWK7A3lX4a+e35iaz5SD6TuIFzwxvAA1F3TMB7Aw=
+	t=1788228609; cv=none; b=iACrj6kzThPVCodDEqETKLwKME6KFVTjkJAu+iJFwZm1w9CnsHj5lvfUDUGO1cUd/duhtqS/LjWj+84+AWGkPyZZ+YP15INh16gWVOruy++5Q7gOmWVMPUeMqbSTsXzOqhjgG09cM9/0II7Y1kryf6sANrwcNlyX3xSqSjTBGPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228592; c=relaxed/simple;
-	bh=qfRZ4xQyeg9tQBBAh1lXTygI1+E1Ss6rPNMwvGw/YL0=;
+	s=arc-20240116; t=1788228609; c=relaxed/simple;
+	bh=xvaQTj1YwJf5V9NO3LpE3tjG1hU8Jroc60VNDG+eLrI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ehxtasrs2mQp3V3XslfQO01HKieNda5tLu6aDV1SmCxfWNMHdvCpPucqHZRKmMmsBt5oxG6BIvVc5bUxR1ieUuYcU/IZYI4un5NxI0XjzBfeF/vRL0SGBVGIg0qHEO5R7NiuWRcHHxYFV211ioX3cJOGw6/VoUfuOkL7rCe1q8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=du56M2xz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CB/y+fgaOqaznCrC1KGInibt/mtbVFoGipsTWY3agKd2+fgVr+7+2eBXlAmkULRcP1J7fbUE/aWZwjXTh2v7VLK6njJPFlMO250Uly9u+lB+CRX46m11e49vIwibzPvyP5LdrY7jhAYZtab///AsZTI9e66fyuBgYDKYorMySX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0nvx9cl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="du56M2xz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8D2B1F00A3F;
-	Tue,  1 Sep 2026 02:09:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0nvx9cl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882781F00ACF;
+	Tue,  1 Sep 2026 02:10:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788228583;
-	bh=Q69hUx5iHnrGVOLWYvMxBLgaYmdeoWhZEAiDVUlsLkE=;
+	s=k20260515; t=1788228601;
+	bh=/ETHjOMoxWmxmsZByUUKeE6TTPkX9y5GbMLcgDSZBUU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=du56M2xzj/LRIwBTRtOd5sOkxczF5SLUV6ZP25UFFLi/pJfy82tm9LwJmnMaJAL/G
-	 1Oj5T9Tf6GyKG4ZeXgAXi8J64vrDAZI+IVUWtM4tB79qj6YTv51FpM6OpMjCToQi6K
-	 sizbgN/K3IJo6yFd95TjXK9fDN3se+0f4nFQPnL5B+VYrb25csnNmZRlMpT7yXqgG/
-	 VrfjpHcuucl8M7AHVLsZLdDB85hrN1DkxN6RCFERsqRCEtPf/R0zEiUWDb+H9shvVe
-	 dl6DkomKZwVMsXQpmejJ2WvPBtFkx524GdZ/K22MXi7bd0zx5Y97IeSnq2k3M2UVUF
-	 DSKcO7hUPfvIQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qing Ming <a0yami@mailbox.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] gtp: serialize PDP context updates
-Date: Mon, 31 Aug 2026 22:09:40 -0400
-Message-ID: <20260901020940.2314903-1-sashal@kernel.org>
+	b=D0nvx9clonYU05ssnfGbyFKZeFaQKO31pVkeKExjZX8wE763uzYyzgLkKuBLuiBmU
+	 SJtGuDw/eHFqXSkNtG7dJkr/PXI5ijMI3iyzjA2QNF583STTVlUXbCKC2WP8S4SoGY
+	 AIqxI9R4WtW3kCoHeG2SsdHUI9cRwKwgicAXy3cSw30gh2UrdtY6rzdgpnMbEe/E9Q
+	 /fw4KoJ4o91ImQYTrHdy5tENUtxhot0NaX7kvz9AacdtZZjMUiM8NPdGaG9B5OzZj7
+	 lAWCGl/f2NMTDDptSCkjjnyglpZe5knIw5RgPKCrLQfwADLaOf3Lq+QNsi60nX9OXk
+	 DBgnYgB0jA9Hg==
+From: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 0/4] Fix endian, overflow, and write-protection bugs in SE firmware loading
+Date: Mon, 31 Aug 2026 21:09:35 -0500
+Message-ID: <178822856276.1835959.8663134025896190257.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083100-bats-talisman-6475@gregkh>
-References: <2026083100-bats-talisman-6475@gregkh>
+In-Reply-To: <20260821-fix-write-to-read-only-firmware-buffer-v3-0-43e6a3abd651@oss.qualcomm.com>
+References: <20260821-fix-write-to-read-only-firmware-buffer-v3-0-43e6a3abd651@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-From: Qing Ming <a0yami@mailbox.org>
 
-[ Upstream commit 498386b6d402737db1e2eeed4c385acbf0ef9e34 ]
+On Fri, 21 Aug 2026 12:06:16 +0530, Viken Dadhaniya wrote:
+> This series fixes four issues in geni_find_protocol_fw() and
+> geni_load_se_fw(), all introduced by commit d4bf06592ad6 ("soc: qcom:
+> geni-se: Add support to load QUP SE Firmware via Linux subsystem").
+> 
+> The most critical issue (patch 4/4) causes a level-3 permission fault
+> and crashes the kernel during QUP firmware load on CentOS; writing through
+> a non-const cast into a read-only firmware mapping is undefined behavior
+> regardless of whether the fault is raised.
+> 
+> [...]
 
-PDP contexts can be deleted through GTP_CMD_DELPDP or while the GTP
-network device is being unregistered. The latter is serialized by RTNL,
-but the generic-netlink delete path only holds RCU.
+Applied, thanks!
 
-Running both paths concurrently can therefore make both paths delete the
-same PDP context. The issue was found through static analysis and
-reproduced on a KASAN-enabled kernel by a simple two-thread program
-racing GTP_CMD_DELPDP against RTM_DELLINK:
+[1/4] soc: qcom: geni-se: Fix endian conversion for serial_protocol comparison
+      commit: 0231382f070df26a8b267f9e68c5440928b87c89
+[2/4] soc: qcom: geni-se: Widen fw_size to u32 to prevent wrap-around
+      commit: e976c865bf31b562ab3908f0f1e2160da77fa156
+[3/4] soc: qcom: geni-se: Fix fw_end computed before round-up; propagate size to caller
+      commit: d1750c530e9b9b75c8d1b29d3c76e052a049f51f
+[4/4] soc: qcom: geni-se: Fix write to read-only firmware buffer
+      commit: 28b9c15f1829fff7b26db0dbbbde1c6b466cb156
 
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: maybe wild-memory-access in range
-         [0xdead000000000120-0xdead000000000127]
-  RIP: gtp_genl_del_pdp+0x1c1/0x420 [gtp]
-  RBP: dead000000000122
-
-The second deletion dereferenced the poisoned hlist pprev pointer.
-
-Serialize gtp_pdp_add(), gtp_genl_del_pdp(), and gtp_dellink() with a
-shared mutex. Keep the mutex held until the final use of a PDP context in
-the NEWPDP path, and keep the RCU read-side section around the complete
-PDP context use in the DELPDP path.
-
-Fixes: 459aa660eb1d ("gtp: add initial driver for datapath of GPRS Tunneling Protocol (GTP-U)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qing Ming <a0yami@mailbox.org>
-Link: https://patch.msgid.link/20260818150000.7670-1-a0yami@mailbox.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted the locking changes to the older IPv4-only PDP context API and omitted the absent IPv6 lookup hunk. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/gtp.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/gtp.c b/drivers/net/gtp.c
-index 155ae9b1e4d9a..39b119a7170bf 100644
---- a/drivers/net/gtp.c
-+++ b/drivers/net/gtp.c
-@@ -12,6 +12,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/skbuff.h>
- #include <linux/udp.h>
- #include <linux/rculist.h>
-@@ -82,6 +83,7 @@ struct gtp_net {
- };
- 
- static u32 gtp_h_initval;
-+static DEFINE_MUTEX(gtp_pdp_lock);
- 
- static void pdp_context_delete(struct pdp_ctx *pctx);
- 
-@@ -109,7 +111,8 @@ static struct pdp_ctx *gtp0_pdp_find(struct gtp_dev *gtp, u64 tid)
- 
- 	head = &gtp->tid_hash[gtp0_hashfn(tid) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->gtp_version == GTP_V0 &&
- 		    pdp->u.v0.tid == tid)
- 			return pdp;
-@@ -125,7 +128,8 @@ static struct pdp_ctx *gtp1_pdp_find(struct gtp_dev *gtp, u32 tid)
- 
- 	head = &gtp->tid_hash[gtp1u_hashfn(tid) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_tid) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_tid,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->gtp_version == GTP_V1 &&
- 		    pdp->u.v1.i_tei == tid)
- 			return pdp;
-@@ -141,7 +145,8 @@ static struct pdp_ctx *ipv4_pdp_find(struct gtp_dev *gtp, __be32 ms_addr)
- 
- 	head = &gtp->addr_hash[ipv4_hashfn(ms_addr) % gtp->hash_size];
- 
--	hlist_for_each_entry_rcu(pdp, head, hlist_addr) {
-+	hlist_for_each_entry_rcu(pdp, head, hlist_addr,
-+				 lockdep_is_held(&gtp_pdp_lock)) {
- 		if (pdp->af == AF_INET &&
- 		    pdp->ms_addr_ip4.s_addr == ms_addr)
- 			return pdp;
-@@ -707,9 +712,11 @@ static void gtp_dellink(struct net_device *dev, struct list_head *head)
- 	struct pdp_ctx *pctx;
- 	int i;
- 
-+	mutex_lock(&gtp_pdp_lock);
- 	for (i = 0; i < gtp->hash_size; i++)
- 		hlist_for_each_entry_safe(pctx, next, &gtp->tid_hash[i], hlist_tid)
- 			pdp_context_delete(pctx);
-+	mutex_unlock(&gtp_pdp_lock);
- 
- 	list_del(&gtp->list);
- 	unregister_netdevice_queue(dev, head);
-@@ -1094,6 +1101,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
- 		goto out_unlock;
- 	}
- 
-+	mutex_lock(&gtp_pdp_lock);
- 	pctx = gtp_pdp_add(gtp, sk, info);
- 	if (IS_ERR(pctx)) {
- 		err = PTR_ERR(pctx);
-@@ -1101,6 +1109,7 @@ static int gtp_genl_new_pdp(struct sk_buff *skb, struct genl_info *info)
- 		gtp_tunnel_notify(pctx, GTP_CMD_NEWPDP, GFP_KERNEL);
- 		err = 0;
- 	}
-+	mutex_unlock(&gtp_pdp_lock);
- 
- out_unlock:
- 	rtnl_unlock();
-@@ -1155,6 +1164,8 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
- 	if (!info->attrs[GTPA_VERSION])
- 		return -EINVAL;
- 
-+	mutex_lock(&gtp_pdp_lock);
-+
- 	rcu_read_lock();
- 
- 	pctx = gtp_find_pdp(sock_net(skb->sk), info->attrs);
-@@ -1175,6 +1186,7 @@ static int gtp_genl_del_pdp(struct sk_buff *skb, struct genl_info *info)
- 
- out_unlock:
- 	rcu_read_unlock();
-+	mutex_unlock(&gtp_pdp_lock);
- 	return err;
- }
- 
+Best regards,
 -- 
-2.53.0
-
+Bjorn Andersson <andersson@kernel.org>
