@@ -1,139 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF1332A3E5
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 13:04:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9FE39A4DC;
+	Tue,  1 Sep 2026 13:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267842; cv=none; b=Hum75p5NHlNCpjr3JwlnHiD4faoI5MZxtP5EgDly0jT8vECAqnK3b3YTS2vPl+MXsIN8hOyFowLYfkJg2pXQg9BZ0ljwNA5cppPyiUliJsWQhSHXQmPa2tH+oUGJ+1Jel026hTt6pWri42yT00ENQQqvfx3bypeiYo6Jny8VtDo=
+	t=1788267943; cv=none; b=FOdImxxdIqawH97q4CPn/NqMr+PcZ0mebfy9Bjku5M3uPGcLX08YRqkAc3jtBQoBrzaktJiRUoSX0pyBz2c8t2yRRdB6kKH78dnO2xWEkY1EAHuxpr8waKMFEOB75sPHUQnKVBlJk42a1ZofP5WvJyS0vD/03j34TeBShlcmHiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267842; c=relaxed/simple;
-	bh=wpwSdnc8ViWaKcy4Z5gwphrkLrE/cVkoAo7ActZVzjQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WtUEOySH7AA474fUuL/rUnM0CtmkiZnd874gwd31c6VAsjfpEc5ng9L+oypm3WSgMKrMsgmVSFiy0UFwJbMreV++yPifZbU8HjFPSjquCiQTH3iSYqLII4sggpbN44CgF+nIx8vdArKWphdZ/pCdFfKjb4TxuMVstnTjCWbtrXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lB46gVRJ; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788267943; c=relaxed/simple;
+	bh=5uvSyPqYCtbnZfV5lhvBwzVleX03dnMpFSh6P5iyWAk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jeyVky6S9FbvEIPFTPO+nQpjpW88R9Av0prBDscBbRu+CW8ggVz41G12P0VCu8FjmHwOPq8hr6D0tpNqme/xuPwdgOSL06eG0oBQOLz304JIabK/kgs5WhM9HSxO/aPiGNWprNDitUmcAhSdpUuYxBbZLpLGlWXGNrwpWL6sOWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=EOgFoxRw; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lB46gVRJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788267841; x=1819803841;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=wpwSdnc8ViWaKcy4Z5gwphrkLrE/cVkoAo7ActZVzjQ=;
-  b=lB46gVRJMtaCrUgv4IwAKzx9tIlU9xZIlwya6aJeSKxFWUjDAr7bGToJ
-   C8csgWeE3On4zPnUw41/gAvyOkl+EbjA5MrpOZB/V2FHlqu8PEAwOYnos
-   ifiEsnxh3apfKRnWh+0TkmMwQKT0imPvgMbYO6i+rRQpwvY4u/SgnXb30
-   cXM/AlKifjJ94/y9CoIxPF1CtvZczwQSfs0YquhKOea+Wn0WGDpzs6ejk
-   1KZnGpTMV2gxgEQSBPPvL3DPRebxES14ek9GsnbsC+kqxUloRoKPgn/gT
-   ZeF0LrEpx+LVO91W7tGkrhtcGDFas+R1IdWenlGoiYVElTqhan6M4x1nt
-   g==;
-X-CSE-ConnectionGUID: f/4AhCLbQHW+e5g786l+Ng==
-X-CSE-MsgGUID: xsvRCnn1ST++OflREA0obw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88706326"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="88706326"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:04:01 -0700
-X-CSE-ConnectionGUID: 7wbFWFWxR2i3YbtleePvwA==
-X-CSE-MsgGUID: pklKA3kHRA2J9mcvi2enAQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="271029722"
-Received: from try2-8594.igk.intel.com ([10.91.220.58])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:03:58 -0700
-From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com,
-	jeff.hugo@oss.qualcomm.com,
-	karol.wachowski@linux.intel.com,
-	lizhi.hou@amd.com,
-	andrzej.kacprowski@linux.intel.com,
-	dawid.osuchowski@linux.intel.com,
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="EOgFoxRw"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c1f46417;
+	Tue, 1 Sep 2026 21:05:33 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	KyongHo Cho <pullip.cho@samsung.com>,
+	Kukjin Kim <kgene.kim@samsung.com>,
+	iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	sashiko-bot <sashiko-bot@kernel.org>
-Subject: [PATCH v2 3/3] accel/ivpu: Limit firmware log name prints to field size
-Date: Tue,  1 Sep 2026 14:57:49 +0200
-Message-ID: <20260901125749.404338-4-dawid.osuchowski@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
-References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] iommu/exynos: Initialize lock before requesting IRQ
+Date: Tue,  1 Sep 2026 21:05:27 +0800
+Message-Id: <20260901130527.3289245-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-31
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa05d132e6603a1kunm445721fa16f246
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTBkdVkhOTkIdTxhJSUhNGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=EOgFoxRwxzQxfvlYFYg841s7jzQqgANec6RRRQkmlaoB0ROYTaT/yN4FOZfSa+n3LZVnlZLSXJ+hqRca9EvEaOInR1CpEExYk86+iLZIK8/H5C65FPTD6U5qRg+X+VQUPW3UE8rrNXtusalywWgPJPGlfs2DQMthhffCQBXkmH4=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=LQLxe3McHBmGULMFD/4NkaDRFU0WQZ/I3unsR12nsDs=;
+	h=date:mime-version:subject:message-id:from;
 
-The name in struct vpu_tracing_buffer_header is a fixed-size array
-populated by the NPU firmware. It is expected to be NUL-terminated,
-but nothing on the host side enforces this, so printing it with an
-unbounded string conversion would read past the field if the
-terminator is ever missing and expose adjacent bytes of the shared
-tracing BO through dmesg and the debugfs FW log output.
+The SysMMU interrupt handler can run as soon as devm_request_irq() is
+called. Initialize the driver lock before registering the handler so an
+early interrupt cannot use an uninitialized lock.
 
-Print at most as many characters as the name field holds, so the output
-never runs past it even if the string is not NUL-terminated.
-
+Fixes: 2a96536e77b4 ("iommu/exynos: Add iommu driver for EXYNOS Platforms")
 Cc: stable@vger.kernel.org
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260827102339.281799-1-dawid.osuchowski@linux.intel.com?part=2
-Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
-Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Assisted-by: Codex:GPT-5
 ---
- drivers/accel/ivpu/ivpu_fw_log.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/iommu/exynos-iommu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-index 4f9055aa9d33..9eafc42120b6 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.c
-+++ b/drivers/accel/ivpu/ivpu_fw_log.c
-@@ -69,9 +69,9 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
- 	*offset += size;
+diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
+index 874d05f4b..e9feb83b3 100644
+--- a/drivers/iommu/exynos-iommu.c
++++ b/drivers/iommu/exynos-iommu.c
+@@ -735,6 +735,8 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
+ 	if (!data)
+ 		return -ENOMEM;
  
- 	ivpu_dbg(vdev, FW_BOOT,
--		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
--		 log->name, log->write_index, size, log->wrap_count, log->header_version,
--		 header_size, log->format, log->alignment);
-+		 "FW log name \"%.*s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
-+		 (int)ARRAY_SIZE(log->name), log->name, log->write_index, size, log->wrap_count,
-+		 log->header_version, header_size, log->format, log->alignment);
++	spin_lock_init(&data->lock);
++
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	data->sfrbase = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(data->sfrbase))
+@@ -773,7 +775,6 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
+ 		return PTR_ERR(data->clk_master);
  
- 	return 0;
- }
-@@ -123,7 +123,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
+ 	data->sysmmu = dev;
+-	spin_lock_init(&data->lock);
  
- 	if (log->wrap_count == log->read_wrap_count) {
- 		if (log_end <= log_start) {
--			drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
-+			drm_printf(p, "==== %s \"%.*s\" log empty ====\n", prefix,
-+				   (int)ARRAY_SIZE(log->name), log->name);
- 			return;
- 		}
- 	} else if (log->wrap_count == log->read_wrap_count + 1) {
-@@ -133,7 +134,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
- 		log_start = log_end;
- 	}
+ 	__sysmmu_get_version(data);
  
--	drm_printf(p, "==== %s \"%s\" log start ====\n", prefix, log->name);
-+	drm_printf(p, "==== %s \"%.*s\" log start ====\n", prefix, (int)ARRAY_SIZE(log->name),
-+		   log->name);
- 	if (log_end > log_start) {
- 		fw_log_print_lines(log_data + log_start, log_end - log_start, p);
- 	} else {
-@@ -141,7 +143,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
- 		fw_log_print_lines(log_data, log_end, p);
- 	}
- 	drm_printf(p, "\n\x1b[0m"); /* add new line and clear formatting */
--	drm_printf(p, "==== %s \"%s\" log end   ====\n", prefix, log->name);
-+	drm_printf(p, "==== %s \"%.*s\" log end   ====\n", prefix, (int)ARRAY_SIZE(log->name),
-+		   log->name);
- }
- 
- static void
 -- 
-2.43.0
-
+2.34.1
