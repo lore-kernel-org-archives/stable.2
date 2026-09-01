@@ -1,45 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E68504A2065
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEEF3546F3
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290925; cv=none; b=Hv+hR9qT3k+67JDLZq7c+1JBdPyokuWS00ob82yrGDoRMf1T8psZFak3lUvk8Smmklj8DtZV47Nvg7zW5mAecUGSM7KfSUZ0MjhA2ekvjAj0cjS75dBuC190YLnDQyo13vHHND3MHcY7/IYfEBhf4ME10/ThThQMoGVbXz5SO8Q=
+	t=1788291070; cv=none; b=kkkOuYiejeHInPR1LF4d1YM2v5ruNFa3RFj4hddMOlhKVnaT22iL6+Fg+iM6Bk/Y/rUIel07fq5nm+hjEc7V4Os/dS/dnf2aCobTbLtpdotX0syxf5fjO/PyHLeA1Cx65QjiJ08dWZZYzSkEOUulHcGyPZvcgE6FhmyXCnFfVVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290925; c=relaxed/simple;
-	bh=UqZbFuIQbqhI3YnLNIXN4fDciuakOxxR/VU7Lsj0ovA=;
+	s=arc-20240116; t=1788291070; c=relaxed/simple;
+	bh=U3cg2HZXuMvptHjkBFTYt5bfXW88OFJuT/0Bf1xnlX0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s4Jq+6cVEZNLuUy+xlbcXseqsvWEqfYfnJ+cmDN2gcMEC9UzAuPLNn35PXsBYTjzek00cgNrwFaK/bOKdvjc/P4VU8ZQmOvXQFoYThxe2h0ZfWWSO/PFgZt8rGvEVOxXC1XhWQG3vSW6Elv+1TZLG+hU2RM/wX5Sk1aUBD3yudo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BCL7d1Yv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RI9JDmKlDTsquAn9x5ueYb6JKidPkSUcs/V65MErDoe4s1nA+6TzkC7Xy0akq4PIMr/YXxxz2NOekeOSSUOzAjM9NzrNZrZU/aVJhBwPXsUbV8TetXFulC8hRB/rlfYJv9R/2n/mfQizwz/3D/+6GNErM4nt9ndtdlCRAQMNKxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1bvlaze; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BCL7d1Yv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCA871F00A3D;
-	Tue,  1 Sep 2026 19:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788290922;
-	bh=9tzx/HmT8HDGC0JGPaN4g2PxUdacLJiEjG3Wu9Z6vl8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BCL7d1YvzfMU2fNuhiICWeJ9flOjT1J/h/4wxpup8UcS40SbOtX/obwtIKYOVMx0p
-	 vaoAp8o1Q6JXGR13c3O8+B812pvO653Gk17lMMJiaVSSsfmyaqNPVyxepFtBM5Usbt
-	 2GYx4S2b57/35qGDbl5E0/b9NdH4GeGqWPria2N042XYd4y24N3xDRL4/uJyHBlpm9
-	 89fDc9IEvY+7pgW0DJ2vViMp3Pj1DGW6rQjbrO3WLAt2jTQHzcN/KeuCDBMLsLT+pV
-	 7YPMBuj3JSqvmpVD65MrI4EQhn3O5hXzffp6yNi1AMMCqINn8WYcGGgyPUnZ8T2OUc
-	 yHTfX4TDLH5Yw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] net/packet: defer vmalloc TX_RING free until skbs finish
-Date: Tue,  1 Sep 2026 15:28:40 -0400
-Message-ID: <20260901192840.1439962-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083142-coyness-provolone-7b0e@gregkh>
-References: <2026083142-coyness-provolone-7b0e@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1bvlaze"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso2434345e9.2
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:31:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788291067; x=1788895867; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VQGtLovN51OKFL0wAwiQ9djvDcePQibjWbjxoUKoFt0=;
+        b=F1bvlaze4fUDcyxrNAXR5kgD4XWHmni+LnDjWrkGAKVuKo0J2ErgvAe7FFicUnfTL8
+         pCWZXyn66o38v8+svAEqWBqhaXm77bjOkcftR1NA1AdojrGw5DDOqPGZG8R8F416NZq3
+         MBAIiowQgs7RA8FiIWz776V58zneSmekASV8qE6zS1+zYWhkUT/8hiGiIc3RrsIymu4p
+         WepdEw3vMJ10k1fzKL+MVBtNZA0iw458m1jRvBvUjECcCzDfYQvh5tJJvseA0CBvi6Jo
+         4bdqxxLKuQJGZFlxX6MWQiE50JNgCwRcDALfhuZ1qjxzcCSs7wEWruTOOSB2XEjw4EBI
+         ne/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788291067; x=1788895867;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VQGtLovN51OKFL0wAwiQ9djvDcePQibjWbjxoUKoFt0=;
+        b=H7bTj4RB6rEi5KNROhdBK91WXLudLJM171gdJn/D7i90ZHfp4Nblf6owaWiGZ5wUHo
+         by7GWjSsALIBLZLrh3eHPwEsNCJ0cXBdbD/yFGj6RvXj0WzXk8oIg7jQf78EyUZDyeZ5
+         L7fbiCqMqwUOmTuWYFMNOeu9CzIGOF5igQhy2txK27Af0F2E/r7IhYGMJiHFpAgqcoF8
+         gEQlX69AkURWD/sl48iT7r56P2hXaZ8Xv7zl0EUNFopq8fZ6NPPinc1SbjL05MXb3sww
+         8W/fKsFT7rq8xmTY5Bi8vmuXGr7c2PicfrlDTNgKNHf9YQ7Q879HhTv93VsYizj5Nvxk
+         SDZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxTTaBNWStE+ZoCBRo0aK1b5cB7isl9/sPQBFtGG4Zsynsn6zvRmXGsj268cCPtAxEebmqhnM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEWFXhd6Sp8Ni8qbR9rTIsSS3IMuQzRZ8QklcrbbM1g8FBWwFS
+	GxlywIvTdpQmajCLo2B9USXa3ka35I8dhjZIt05TBSnWwc+uSI9nX0Uj
+X-Gm-Gg: AYBFou2251PDZAW+QdCA3+iDV6HnmAB29O1nhbC6QzHVyw91exGaH1xmtRnlHLSoLOX
+	SlZJkwFLTHdnHLPfdjRzcoTxS4IDZh5p0WYPRHJAsiWOM4ujZGUAQQ05pIeX7g7RuNtJ0Jj6bR4
+	JcYNgqRLra0lt28dRNGmfazpnv97SyCfYXrY6cMuFmMsVZhpAZ218SxsU+TYkUeu9Sq/GLOvVCc
+	Ne1BirhOz5qUD5BpXhQNnYP1OoGQ23vd8yrc7I1b4ICsD7g7279+BDkqbDcls1YWOWA3fptJf26
+	gR4/wNRiVsfkGPPbwqtIZDjtn2mb4XdjWQn+ChvfxymOqfljBPa0Y7JrwV5CXY1/TodyDBb0rXF
+	lQ1zUpNbZV8pzxt5vREDa+uZX3o+XbNAhSkbClU0Cn+sIzIzaPaB4jXDBvcRw4SEWKEFYUD9A+3
+	KzQ1qZNfXYNpw5xmV9p3w+YF7i00PPnytH6IfTfvWWBzwfl9M+SordAqsBWXQUjm8ffTeeoDChb
+	fr4xayobeY1K1WK3wGVZs1KF5I3tShdqXm/qsIR7LXl3tBkWsDkjiDUuUv9qBr6gWYggsGU11Lo
+	GBWlMkVqsh0SZyIH
+X-Received: by 2002:a05:6000:220d:b0:484:3d1b:7871 with SMTP id ffacd0b85a97d-48449f367eemr962710f8f.19.1788291066529;
+        Tue, 01 Sep 2026 12:31:06 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e7315bsm1113106f8f.7.2026.09.01.12.31.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:31:05 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] usb: octeon-hcd: fix the FIFO-flush timeout computation
+Date: Tue,  1 Sep 2026 19:30:27 +0000
+Message-ID: <20260901193100.1352110-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260827175703.1549-1-orgads@gmail.com>
+References: <20260827175703.1549-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,254 +79,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+cvmx_wait_tx_rx() computes its 100us deadline from
+(u64)octeon_get_clock_rate - the address of the function, not its
+return value; the parentheses have been missing since the
+CVMX_WAIT_FOR_FIELD32 macro became a function. The cast makes it
+compile silently, and the resulting deadline is effectively infinite.
 
-[ Upstream commit 992cc9f94ca924089a506ba9b327caa9af797529 ]
+On a healthy controller the flush bit clears on the first read and
+nothing is noticed. On a controller whose PHY did not come up (for
+example when the reference-clock configuration is wrong for the board),
+txfflsh/rxfflsh never clear and probe spins forever in __delay() -
+observed as a hard hang with a soft-lockup splat on a CN5020 board,
+where the board watchdog then resets the system with no console output.
 
-AF_PACKET TX_RING skbs keep a raw pointer to their ring frame. The skb
-page references preserve page-backed ring blocks after pg_vec is freed,
-but they do not preserve a vmalloc mapping.
+Call the function, restoring the 100us timeout the code always
+intended.
 
-tpacket_destruct_skb() currently drops the pending reference before
-writing the timestamp and TP_STATUS_AVAILABLE to the frame. Move the
-decrement after those stores. The smp_wmb() in __packet_set_status()
-orders the frame stores before the decrement.
-
-Also recheck pending TX frames under pg_vec_lock before non-closing
-ring replacement, so a racing send cannot add a pending skb between
-the initial check and the ring swap.
-
-Ring allocation can produce a mixture of page-backed and vmalloc-backed
-blocks. Allocate deferred-work storage during TX ring setup when the
-first vmalloc-backed block is encountered, and keep its pointer in the
-pg_vec allocation header. If allocation fails, return -ENOMEM from ring
-setup. On socket close, a non-NULL pointer identifies a vmalloc-backed
-vector without a scan. If TX skbs remain, defer the whole vector to
-system_long_wq.
-
-After pg_vec is detached, a late destructor can skip the pending
-decrement. Use socket write-memory accounting as the deferred lifetime
-gate instead: an skb remains charged through its final sock_wfree(),
-after all ring-frame accesses. The delayed work retains a socket
-reference and reschedules itself until no TX skbs remain.
-
-Move pending_refcnt release to packet_sock_destruct() so late skb
-destructors and deferred cleanup can safely use it after
-packet_release(). Page-backed teardown remains synchronous, and no lock
-is added to the TX completion hot path.
-
-Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
+Fixes: 3e195a80e096 ("Staging: octeon-usb: Replaces CVMX_WAIT_FOR_FIELD32 macro with a function")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Link: https://patch.msgid.link/20260816235646.76500-1-kylebot@openai.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted newer allocation, container, and counted-by helpers to Linux 5.15 equivalents while preserving sk_refcnt_debug_release() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
- net/packet/af_packet.c | 97 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 88 insertions(+), 9 deletions(-)
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index d756ecc75a411..7625444aeed2d 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -83,6 +83,7 @@
- #include <linux/errqueue.h>
- #include <linux/net_tstamp.h>
- #include <linux/percpu.h>
-+#include <linux/workqueue.h>
- #ifdef CONFIG_INET
- #include <net/inet_common.h>
- #endif
-@@ -1356,6 +1357,8 @@ static void packet_sock_destruct(struct sock *sk)
- 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
- 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
+v2: no code change; added the Assisted-by tag for the AI assistance used
+    (Documentation/process/coding-assistants.rst).
+
+diff --git a/drivers/usb/host/octeon-hcd.c b/drivers/usb/host/octeon-hcd.c
+--- a/drivers/usb/host/octeon-hcd.c
++++ b/drivers/usb/host/octeon-hcd.c
+@@ -578,7 +578,7 @@
+ 	int result;
+ 	u64 address = CVMX_USBCX_GRSTCTL(usb->index);
+ 	u64 done = cvmx_get_cycle() + 100 *
+-		   (u64)octeon_get_clock_rate / 1000000;
++		   (u64)octeon_get_clock_rate() / 1000000;
+ 	union cvmx_usbcx_grstctl c;
  
-+	packet_free_pending(pkt_sk(sk));
-+
- 	if (!sock_flag(sk, SOCK_DEAD)) {
- 		pr_err("Attempt to release alive packet socket: %p\n", sk);
- 		return;
-@@ -2551,11 +2554,11 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
- 		__u32 ts;
- 
- 		ph = skb_zcopy_get_nouarg(skb);
--		packet_dec_pending(&po->tx_ring);
- 
- 		ts = __packet_set_timestamp(po, ph, skb);
- 		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
- 
-+		packet_dec_pending(&po->tx_ring);
- 		complete(&po->skb_completion);
- 	}
- 
-@@ -3216,7 +3219,6 @@ static int packet_release(struct socket *sock)
- 	/* Purge queues */
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
--	packet_free_pending(po);
- 	sk_refcnt_debug_release(sk);
- 
- 	sock_put(sk);
-@@ -4360,11 +4362,26 @@ static const struct vm_operations_struct packet_mmap_ops = {
- 	.close	=	packet_mm_close,
- };
- 
-+struct packet_pg_vec {
-+	struct packet_pg_vec_free *deferred;
-+	unsigned int order;
-+	unsigned int len;
-+	struct pgv pg_vec[];
-+};
-+
-+struct packet_pg_vec_free {
-+	struct delayed_work work;
-+	struct sock *sk;
-+	struct packet_pg_vec *vec;
-+};
-+
- static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			unsigned int len)
- {
-+	struct packet_pg_vec *vec;
- 	int i;
- 
-+	vec = container_of(pg_vec, struct packet_pg_vec, pg_vec[0]);
- 	for (i = 0; i < len; i++) {
- 		if (likely(pg_vec[i].buffer)) {
- 			if (is_vmalloc_addr(pg_vec[i].buffer))
-@@ -4375,7 +4392,46 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			pg_vec[i].buffer = NULL;
- 		}
- 	}
--	kfree(pg_vec);
-+	kfree(vec->deferred);
-+	kfree(vec);
-+}
-+
-+static void packet_free_pg_vec_work(struct work_struct *work)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+	struct sock *sk;
-+
-+	deferred = container_of(to_delayed_work(work),
-+				struct packet_pg_vec_free, work);
-+	vec = deferred->vec;
-+	sk = deferred->sk;
-+	if (sk_wmem_alloc_get(sk)) {
-+		queue_delayed_work(system_long_wq, &deferred->work, 1);
-+		return;
-+	}
-+
-+	free_pg_vec(vec->pg_vec, vec->order, vec->len);
-+	sock_put(sk);
-+}
-+
-+static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
-+				unsigned int order, unsigned int len)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+
-+	vec = container_of(pg_vec, struct packet_pg_vec, pg_vec[0]);
-+	deferred = vec->deferred;
-+	if (!deferred || !sk_wmem_alloc_get(sk)) {
-+		free_pg_vec(pg_vec, order, len);
-+		return;
-+	}
-+
-+	/* A detached ring's pending count can miss late skb destructors. */
-+	deferred->sk = sk;
-+	sock_hold(sk);
-+	queue_delayed_work(system_long_wq, &deferred->work, 0);
- }
- 
- static char *alloc_one_pg_vec_page(unsigned long order)
-@@ -4403,20 +4459,36 @@ static char *alloc_one_pg_vec_page(unsigned long order)
- 	return NULL;
- }
- 
--static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
-+static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring)
- {
- 	unsigned int block_nr = req->tp_block_nr;
-+	struct packet_pg_vec *vec;
- 	struct pgv *pg_vec;
- 	int i;
- 
--	pg_vec = kcalloc(block_nr, sizeof(struct pgv), GFP_KERNEL | __GFP_NOWARN);
--	if (unlikely(!pg_vec))
--		goto out;
-+	vec = kzalloc(struct_size(vec, pg_vec, block_nr),
-+		      GFP_KERNEL | __GFP_NOWARN);
-+	if (unlikely(!vec))
-+		return NULL;
-+	vec->order = order;
-+	vec->len = block_nr;
-+	pg_vec = vec->pg_vec;
- 
- 	for (i = 0; i < block_nr; i++) {
- 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
- 		if (unlikely(!pg_vec[i].buffer))
- 			goto out_free_pgvec;
-+
-+		if (tx_ring && !vec->deferred &&
-+		    is_vmalloc_addr(pg_vec[i].buffer)) {
-+			vec->deferred = kzalloc(sizeof(*vec->deferred),
-+						GFP_KERNEL | __GFP_NOWARN);
-+			if (!vec->deferred)
-+				goto out_free_pgvec;
-+			vec->deferred->vec = vec;
-+			INIT_DELAYED_WORK(&vec->deferred->work,
-+					  packet_free_pg_vec_work);
-+		}
- 	}
- 
- out:
-@@ -4499,7 +4571,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 
- 		err = -ENOMEM;
- 		order = get_order(req->tp_block_size);
--		pg_vec = alloc_pg_vec(req, order);
-+		pg_vec = alloc_pg_vec(req, order, tx_ring);
- 		if (unlikely(!pg_vec))
- 			goto out;
- 		switch (po->tp_version) {
-@@ -4551,6 +4623,9 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 	err = -EBUSY;
- 	mutex_lock(&po->pg_vec_lock);
- 	if (closing || atomic_long_read(&po->mapped) == 0) {
-+		if (tx_ring && !closing && packet_read_pending(rb))
-+			goto out_unlock;
-+
- 		err = 0;
- 		spin_lock_bh(&rb_queue->lock);
- 		swap(rb->pg_vec, pg_vec);
-@@ -4572,6 +4647,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 			pr_err("packet_mmap: vma is busy: %ld\n",
- 			       atomic_long_read(&po->mapped));
- 	}
-+out_unlock:
- 	mutex_unlock(&po->pg_vec_lock);
- 
- 	spin_lock(&po->bind_lock);
-@@ -4593,7 +4669,10 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- out_free_pg_vec:
- 	if (pg_vec) {
- 		bitmap_free(rx_owner_map);
--		free_pg_vec(pg_vec, order, req->tp_block_nr);
-+		if (tx_ring && closing)
-+			packet_free_tx_ring(sk, pg_vec, order, req->tp_block_nr);
-+		else
-+			free_pg_vec(pg_vec, order, req->tp_block_nr);
- 	}
- out:
- 	return err;
+ 	while (1) {
 -- 
-2.53.0
-
+2.47.0
