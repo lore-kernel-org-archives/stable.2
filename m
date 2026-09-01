@@ -1,97 +1,126 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C213E43A80A
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278088; cv=none; b=cwjt+dzXcRsTJw5QxTTcLZH608YgCxwDAYgrlNUelRknYpHzh1ggrmOl3f9SOu5VQufyrgMRdgJ1/Q3Yn4Pj0aKxiRQNvfc/6M26njDhdUwINfX1qRKCdRQJYzuTvrtwjzG5o1kB922bWs5RPnA3C/LwPebY5RqufiyZzyHBvQg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278088; c=relaxed/simple;
-	bh=fChNNIeTRqBn5nqD90K0ukY1OdPy6INqd7R3VWIz5Cg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QcEFXYec4kd8iU1qb895sx6iiUkxklO5wprC6yFpCDhVSxcvOlPrnk5AkpII+ERtc56sEFRr9al7GZma2N89jH/TXLcx2+xp5bdajva/O+K7H6kbi7J1Q7CjlN1sxGLzc2Z6Cocu4T/X+CWM39syvXgngb0zYpfxH85HUhMdM04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LprvfNhS; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B47046AA79
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:57:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788278240; cv=pass; b=Di/Z2Y4k3c7LUQSMF2NEzsQLZ6y9QAkODvDMMWOhULFlJwidhEc9mO9fT2lbEiFA7PKpzVSj2gcAhp90fZYoBD+U2JN+FyA4ykgY62NRQCZ10PPi570w4fjnRm4a0EvOivP7+5+xo9sRljHpUvR5iYQrmToGIvpdcXm/ebzfXSA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788278240; c=relaxed/simple;
+	bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GDSXnbhviHavXBkcnxxe+BnPEPyeUqczAaK+LWJUctItBJFmIiTt+TTKCnS27bApGemScMTJmVnVHNeQWdZkrVYH0WSTt0rYZs8GQG8WHfMY/5XAkyXqs3uLMJGknFYTq7HJF/AMnjljBLdR2QNfZovckrs2YsvuIjfB6ZkKokY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=h70ekUkB; arc=pass smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LprvfNhS"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-90cd4631090so14888296d6.1
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 08:54:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="h70ekUkB"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-517dc520840so52826641cf.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 08:57:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788278237; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KMY8GsIoya1RITC5tWnNXpmmqY5rPftMwohx0JKAaUvQioY1VUns892kW+K6ETQTJc
+         VMCWcvPJDu4oohbf1U483vyRc1enFsSwJkurkVCp3rDXQ0ffgDWLfLkzjb9+MmAfQDKg
+         Rn9kQP9VoCF6aLo55l2YiscQOfsN9iU8DFHhCnak0k13/ozWPYHRpqE8HbrUP4LbwZie
+         X2Ic6pE6wZF+bQ1nDv/0Jm5q5u8nN2+waqkkPsTwm0KLSlRVTSh193VnlT6wvOsUmV2c
+         ERrfVCsVP2hVCvL9xrm636X34L79CpvT+sE7IEGJ+YMCaFKGCoOGE5smV11BbGdt//Ku
+         7Lkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
+        fh=EuNCjZDgjyBO4CMKlA6VmxWFrBmGZIqGFshS94xmYE4=;
+        b=s1xTLsniM+rpttl9MNu1P8GGfqkL4wpRF97P9unGY0Yxl9jvzYnz/jMQAVSJVmj9y4
+         36bF5HeRZAcAA9jgtK4o45cHWhl1PGIu5R3ku9TN2r1dYD8pGcXcxHWqIiycb4Yh8f7D
+         kE/69u5EIEbXF2RHepv8X5wQeDVNS8JaFsfFdWojtGBQFg7TDg/JfwAE0et1jBN9BPa2
+         /xNWwOB3FpJ+a0NlWFRtG2/re4TGhfWAd+BUcesh70IVaLCox+xdswO49tZCwCUIpCgB
+         2AaiIokKFG+PVa+7uL2Iw52gjOevp9tLgQ1gRXSiD86qyxRdPxJiKQL2qIrISCNiZsST
+         KkFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788278085; x=1788882885; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1788278237; x=1788883037; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Ucz+U5vH56qFJK/L4c9McNdRpbMBTFsKxX9xAzx9wCw=;
-        b=LprvfNhS/aYyHT5i8pP7jZwsbo6MnY0T2SCk9DlESe0FzpHncRGruaAtrK+WHPRorZ
-         jeLQkRo/PB5WcCS093WIQ8VHsvg6pc44Xbvv7/ylZ6bN8cGpPQP0dGUVUqkkONiRMqH9
-         qg0vNkKwBUPOvpLqP0UAwdfVbL4o+dG6uGbu9A4Rzzk1zSSrFREMWPU37KYr+fbpedTp
-         Oc+rhJwsQvrviyedAITwZFTehNgkGODNhcco/+i1coVNRwTHDMhbX6YNHcwq/0GRaJ5r
-         d0INUgDoJaQxvBOL3T5uO851JxCeKnA42FT6ZmKii0Kw5ZTtvlZA1N1o3EQOE/BPne54
-         GOQA==
+        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
+        b=h70ekUkBwz6octO7VnJrhhKA+mYJWukq9I1chbkeA2Gvcz2scr2RdKQhhVi266s1re
+         9xzQoAYfrgutJ7jJkaons/HnVC8f5k2KB6DNJBIcdmrkb2QKjaspRgxZ+IFtbqyJFzxh
+         BdUxYZcKOeOSHQJ2FIQtIJ9xJeFlpOxkdmS29WrZgmH4bwfp72AVEymMxDWhHN+ZrpHc
+         bK+jcs7DwDS4uRnxhG8TiYfI9vjBsLU6mTTINyLgHzlc+DUg7ZCAqns4qKJdPjbaNb1c
+         HsW/1mewYCkq9N+JG788O258jGc5mhJZ9C9DJFoKl0WITlWbsscYpWNwK+tuE1q2Gt1+
+         LRBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278085; x=1788882885;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788278237; x=1788883037;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ucz+U5vH56qFJK/L4c9McNdRpbMBTFsKxX9xAzx9wCw=;
-        b=NAP1BN5hhqin6dpVo/SDcvNiY5+KkTiPTartRSq3OuWCSHPkoPU/nu6q4UDJFJhtJe
-         u77Fuek3dp87230WAJ+cU5lE3bjAscoV8zFzLPSPJfsKnMsFdZe7VI0sDl4XzPn09cMK
-         EsAzyA1g8sAk/6EbDrVQXTL14kas2RwLxXAJ9IBqmQ5NYuDGoPVzh35UTWQ03dzHANOh
-         by34RPehlzNJc4t2O6VUJoqr776dZhm0G36Mg7LJtwmCgemfFdH03BzExa/maUexkPU0
-         JDdk8oHWAdYj3EQT/N3EXNhJYAAGmuccN9m24+nYro+5T51aGKwB/WtSMkCW2HrdsTW+
-         JIYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywKf1s62u07C7HFbXc6U3FaP1zbrjVbuoXswMiNCcwSa7OlGxG50wJgxW5xyGmU9oVq3kfDjA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5Bvmwe/2WjJWRWbBwwLYRkNBOLeQ6NOIiJ5oaD7/0SF+mWgJ8
-	uKw1defSwMG1/fap8FR8kPwEBAksZq/hH24EPG3j4KvwUQCv69k6W5XLTOdhXmsAt9A=
-X-Gm-Gg: AYBFou38kBz2vMPgYvWl7OrnYR6A3kfvUxJTsvR9szHQJ+Bf9oaYzZHU3ycD95hJjSj
-	3n7DzjhoTyt01nmBI9k3bO6fKJbmnkqHXjAkKvRuIaKCWu9H3P/c2W4IKNzvui3Pdxyy6+SIC2p
-	GRkcNHz7A5Bp4NMT/JFY+ofyGa2xx7sPQjfgZhkfCVcSsVFghZFnb6dv3Id2FOOt50nB5NW1LV5
-	jF6gjvcQj3lKT1jrKaPbutHIWK9fZR0jxadPfoK2KUBHj9O4nzUQ2Wj9PDrhDonBOU2bH0JjzdA
-	Q5Ipgb2ReZfoOz0x7lIBJcd7sgEB4O/jXcg3rZGNcfvFu8rwUihvLghaJj5tLTGA6cBJcJeYrER
-	O3IcmZOCN6EReMs+9a+2p5LvbSi/IEuzPH7Xl50ZggaWdDBEiipxsLXr/zF4irzDyduOYlE4oAR
-	II3DWPYRwWhOiepoV9CPDhVp7zTda11xczA1yBxQ1poKa+4xkrTgQUhtgDacHkm/44yOqs+d/OJ
-	P/kJetc2eVEwY6v8Qiwj4PD+VvadyeZFJ6ThmGmA514
-X-Received: by 2002:ad4:5cc7:0:b0:90c:c1eb:ae42 with SMTP id 6a1803df08f44-90e9579ed9amr72405516d6.13.1788278085601;
-        Tue, 01 Sep 2026 08:54:45 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4512dcasm111045856d6.34.2026.09.01.08.54.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:54:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 11:54:43 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, matthew.brost@intel.com, 
-	joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, apopple@nvidia.com, 
-	urezki@gmail.com, chenwandun@huawei.com, 
-	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: take a cpuset cookie for the interleave
- node count
-Message-ID: <apb1Mq0rJfNwh7Xa@gourry-fedora-PF4VCD3F>
-References: <20260828193111.1023497-1-gourry@gourry.net>
- <877bl5qknu.fsf@DESKTOP-5N7EMDA>
+        bh=0c8eX5045Wna8ziNden3Y6xoUliGlNqVmMmXrRc2s4s=;
+        b=Km/wzyZnfiZcsubP+U7soYc0G7zkAKHOqSQDEQnP7IFGQ20xrnW/Fge3x3mTJ3AJ49
+         zQlFcfYMi7UUJlV1yBa0BCC5lODDInwraGJRv62Ytf63+qbs1SUIU1+YB+0sL9uddE6y
+         9g8lCW2iYqsZB4se3WQEUQrGrJ+7xzP1pWp9QBrtwVastABidVWWQaXBRYXcUuhHI1V4
+         F3CLXUbfriZkWMhoE+jzRBoJLkQLbNhjMiS4dSHgQrKHrT1yXtOpSg/70SqlhOvxOUpp
+         6+qQAScqPF5jXdrUKye2oLW+aVG1BINBrg8p8SVbeQ56lAzYYpD3XyFIq50EZNeKK95k
+         EUeA==
+X-Forwarded-Encrypted: i=1; AHgh+RoCUrO0+jjJMb/HVzgRq1s8Ifz9YnkMccBo13ayPBXSDT/zrvcjsWPjY+qAlhxChaqk9YWVu6o=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHqXj063jj4c/oeXJxV9FW+isMUCXXk2tg8QWBZ+1ia4QxWhyp
+	Pyz/X8s2lU1ZHX1fgkMaVTCJLTmRGfSRfdQacj89s+PS4QZqOBKVoKampqP3ZzNupfxWSp1oyvY
+	txsDvWC+52qmDw44Jegyi9tgVsTOx6A4BJCMANWqH
+X-Gm-Gg: AR+sD10iJra86a0mtChunOm5yHQzcE4btD5XIhvC0GcgLpp8N1jbpz/mrrx++RFPBdj
+	3TUWw4bOJOrm1JRUX3LERLen8OfA4le69WvP7bxWi1sUnvJSkADwAbw1CMV/zmBDJzl1pyUSR/6
+	Qbe+F/Fc0m65x6eafJo3YXEmDC2LAfxDxIt5GrpPgQehnlyViXX1w9Z9NBmSfTQrE5a5FG1ZlS4
+	WADwV8TdtUxX+FVwz+N4hGEophdDEiBv33zXbMVDnT1wu+ue0PCL8gaXANIU3JrGHxlsUNVoH2F
+	NuNCptxbaZePnRCvvNuHurLNmg+95N/UNsSUFnd3zupL2HT86p5BVxYRN+aXSGT8FPRwa1FNHRP
+	to68dIoFgEdy6f0I4quXOZDEEuOoPR68A0XaC+3xN2OCj1Xhzs3H0JO5JbYMYGJQ5ry+q
+X-Received: by 2002:a05:622a:48b:b0:51a:8eca:78e3 with SMTP id
+ d75a77b69052e-52fb938d0cfmr409954361cf.5.1788278236459; Tue, 01 Sep 2026
+ 08:57:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877bl5qknu.fsf@DESKTOP-5N7EMDA>
+References: <20260824033331.1084971-1-imv4bel@gmail.com> <20260824033331.1084971-7-imv4bel@gmail.com>
+ <apaAskNL-IvdcR7h@v4bel> <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com> <20260901085102.5c58a5b0@kernel.org>
+In-Reply-To: <20260901085102.5c58a5b0@kernel.org>
+From: Eric Dumazet <edumazet@google.com>
+Date: Tue, 1 Sep 2026 17:57:04 +0200
+X-Gm-Features: AcwNN1V0ZKwY8CxffJ67D9qqHhYGRXD1ZIi8To29JusVq6P0sfEj2LbfZMr-I8w
+Message-ID: <CANn89i+px52TtJy3S9=uHxGj3s-WueguRo1Z_4FxO=02KLmwmQ@mail.gmail.com>
+Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
+ listener path
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>, Hyunwoo Kim <imv4bel@gmail.com>, davem@davemloft.net, 
+	ncardwell@google.com, dsahern@kernel.org, idosch@nvidia.com, 
+	kuniyu@google.com, horms@kernel.org, willemb@google.com, 
+	andrew+netdev@lunn.ch, kees@kernel.org, jiayuan.chen@linux.dev, 
+	kerneljasonxing@gmail.com, ij@kernel.org, martin.lau@kernel.org, 
+	shakeel.butt@linux.dev, matttbe@kernel.org, martineau@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 07:24:21PM +0800, Huang, Ying wrote:
-> Gregory Price <gourry@gourry.net> writes:
-> 
-> LGTM, feel free to add my
-> 
-> Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-> 
-> in the future version.
-> 
+On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wro=
+te:
+>
+> On Tue, 1 Sep 2026 10:03:51 +0200 Paolo Abeni wrote:
+> > > Looking at this further, unhashing the listener and then calling
+> > > synchronize_net() lets the disconnect path handle it. MPTCP needs a f=
+ix
+> > > too, though, because it closes and reuses the first subflow directly
+> > > without going through tcp_disconnect().
+> >
+> > This looks like a more palatable approach: this patch in the current
+> > format looked way too invasive to me.
+>
+> I likely lack context on this, but I was wondering whether we should
+> potentially disallow the transitions between listening and data sockets
+> instead of fixing these endless bugs?
 
-Thank you!
-~Gregory
++2 I think I mentioned this at some point.
+
+Same for IPV6_ADDRFORM : we should not allow transformed socket to
+even use tcp_disconnect().
