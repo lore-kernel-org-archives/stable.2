@@ -1,30 +1,30 @@
-Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37FF29BD8C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A389637E2E5;
 	Tue,  1 Sep 2026 12:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266440; cv=none; b=BoWcH5tr/K4q9t/NAZXPsoRKj6Xv99hjEiIlq9wloQupbr8jC1JmErhyzAUFUu9FZkTEVlQIfl1nrIOEeyEGBIZgypPNjO9mNbcA5ueU/sAe5XzEwlF7WBgSBlZb4XrIZFl+TFoYZyArDYHYWCls79UrUIHrJ9hE/NWM0BH8eMI=
+	t=1788266441; cv=none; b=b2HZ7ZNABhO1ucHFZ8p0BQ3wtLSxGZsbi7JlNuwkPBpS7rs/37b0lszNSQ7F6cXozfIzq2EH0DXmqVd7exqby7vOYJoIvhfMvSrclZ0fYsY7DfxrtAGefLnzcv2Tsx+MPx15/aXLD9qyb1T4XfcbGLUFxB/zpflthMCVcSA6C9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266440; c=relaxed/simple;
-	bh=752mj0QCevSVU6tMQD08/NR/O5vt4RH/By6vxl8czlQ=;
+	s=arc-20240116; t=1788266441; c=relaxed/simple;
+	bh=yMyZgZUL0YYG2IWxV3xUszXbUrJJCZG/+6OEM1uDTro=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mwcs3av4Ih8/oz8ZIpVS98sUG/Wtlpg+EnZ66GcOpb9bP1swWzWH+V/qEI10UdcxpJW4sEF76dM7gZT1kNY2q8Sc9gY/U/EY6cza6VZ58ubnwxfws7beXQjNGUZI0qgM9SET4kuCYktrnPrGJ/XbNUDPlSFyigSb1bbP2yGynFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=wKA6sYem; arc=none smtp.client-ip=115.124.30.112
+	 MIME-Version; b=nEY0a3F9z6zo3FeZJ3lVxLTqSCDKmIR//jAknJ7PkBdiVB1McWRBUqKNoFVtCct4qkxf4D3fsY8o6y/errqEahH8DHU+G29D/4A1Uq/sOo/BV059f/gJ79kcPSqeoSz5dlHVHEj5a5VorAk4XcEVPmsXre+v7xvhuOhTleKIfkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=GjOdSDNv; arc=none smtp.client-ip=115.124.30.110
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wKA6sYem"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="GjOdSDNv"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1788266434; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=NBj/H/1vAfpKmqda2PS1oeI5rz10pMWiYSLJGtGp99Q=;
-	b=wKA6sYemu1lD9iSYHzt215Y7ZTKGebBnXqANZAeEMvJI/YUy6KnFyvKBm/MV0GhVPqRBeMc9/712Kcn+AX921Fk9aJS7A/bEZ0Zk7obSQcIpLdynAw84EXnEbvBKOzjrGKRBzpfDHwj1kTxyCK8VJeECiW4VJx2wLvbMStOQbq8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R861e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=23;SR=0;TI=SMTPD_---0XA8SZwP_1788266431;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XA8SZwP_1788266431 cluster:ay36)
+	t=1788266432; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=z9QPVwHndHlBSqUmecBJIZzxHjCGmQ/Teg06KwoLW1E=;
+	b=GjOdSDNvlTTTgpo1LHOSByyFj/Vi5ELdoyooODWLhDoqEyoH4KPv85ifRKUIbcrlCnps0WSnOPI4BUuvpjO7O6Dl9CMMNVUkhnNhgFVhFhh0vuaqwHUEG+vfSbKSCFlmJcX6CBiuGR3OKNOWT+3ER356dtmdosOX2JEySkbNiYo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XA8SZw4_1788266429;
+Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XA8SZw4_1788266429 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 20:40:32 +0800
+          Tue, 01 Sep 2026 20:40:30 +0800
 From: Yuanhe Shu <xiangzao@linux.alibaba.com>
 To: tglx@kernel.org,
 	mingo@redhat.com,
@@ -47,11 +47,10 @@ Cc: hpa@zytor.com,
 	kasan-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	Yuanhe Shu <xiangzao@linux.alibaba.com>,
-	Xiang Zheng <xiang.zheng@linux.alibaba.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 2/2] x86/fred: Fix stack depot filtering of FRED event stacks
-Date: Tue,  1 Sep 2026 20:40:13 +0800
-Message-ID: <20260901124013.1098560-3-xiangzao@linux.alibaba.com>
+Subject: [PATCH v3 1/2] stacktrace: Provide arch_in_event_entry_text() hook
+Date: Tue,  1 Sep 2026 20:40:12 +0800
+Message-ID: <20260901124013.1098560-2-xiangzao@linux.alibaba.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
 References: <20260901124013.1098560-1-xiangzao@linux.alibaba.com>
@@ -63,155 +62,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With FRED, events are delivered to asm_fred_entrypoint_user and
-asm_fred_entrypoint_kernel in .noinstr.text, not to the IDT stubs, which
-are the only code covered by __irqentry_text_start..__irqentry_text_end.
-in_event_entry_text() therefore never recognizes the event entry point and
-filter_irq_stacks() does not truncate FRED event stacks: every trace
-saved from interrupt or exception context by stack depot users such as
-KASAN alloc/free tracking or SLUB object tracking combines the event path
-with the arbitrarily interrupted context.  The number of unique stacks
-grows with the product of both and the depot is exhausted.
+in_irqentry_text() decides whether a stack address belongs to interrupt
+entry code by checking the .irqentry.text and .softirqentry.text section
+ranges.  filter_irq_stacks() uses it to truncate interrupt stacks at the
+entry point, which stack depot depends on to deduplicate them: traces
+that continue past the interrupt entry lead to unbounded depot growth,
+see commit e94006608949 ("lib/stackdepot: always do filter_irq_stacks()
+in stack_depot_save()").
 
-Observed on a dual-socket FRED-capable system with KASAN (generic,
-inline) and SLUB object tracking enabled, on both sockets roughly 80
-minutes after boot, once the depot had reached its maximum of 8192 pools
-(128 MiB):
+An architecture may deliver interrupts through entry code that cannot be
+placed in .irqentry.text.  in_irqentry_text() then never recognizes the
+entry point and the truncation silently stops happening.  The markers are
+meant to cover all interrupt entry functions; when they do not, the depot
+fills with unfiltered stacks:
 
-  Stack depot reached limit capacity
-  WARNING: CPU: 286 PID: 128614 at lib/stackdepot.c:271 depot_alloc_stack+0x158/0x170
+  https://lore.kernel.org/all/CACT4Y+aReMGLYua2rCLHgFpS9io5cZC04Q8GLs-uNmrn1ezxYQ@mail.gmail.com/
 
-The traces had the expected shape: an interrupt side trace ran through
-asm_fred_entrypoint_kernel into the frames of the task it had
-interrupted.  New traces are dropped (handle 0) from then on and the
-depot never shrinks, so tracking stays dead until reboot.  (Splat from a
-6.6 based kernel; filter_irq_stacks() and the FRED entry layout are
-unchanged in mainline.)
+Add an optional arch_in_event_entry_text() hook, consulted in addition to
+the section range checks.  An architecture overrides it by defining a
+macro of the same name in <asm/sections.h>, next to the section markers
+it tests; the default here is a static inline returning false, which
+folds away entirely on every architecture that does not opt in.  This
+mirrors the existing arch hook pattern of arch_nmi_enter() in
+<linux/hardirq.h>.  The fallback sits next to the hook's only user, so
+no generic header gains a new dependency.
 
-The entry points cannot be brought inside that range.  x86 has no
-.irqentry.text: commit f0178fc01fe4 ("x86/entry: Unbreak
-__irqentry_text_start/end magic") dropped it from the linker script and
-emits the markers as labels around the sequentially laid out IDT stubs
-instead, exactly because the entry rework had moved that code into
-.noinstr.text and broken the function graph tracer and
-filter_irq_stacks(); __irq_entry has been __invalid_section since.
-Those labels live inside entry_64.S and wrap the IDT stubs which
-asm/idtentry.h emits into .entry.text, so the linker cannot place
-another translation unit between them: only code compiled into
-entry_64.S itself can end up inside the range.  Architectures which do
-have the section fixed the same symptom locally, e.g.
-commit f6794950f0e5 ("arm64: set __exception_irq_entry with __irq_entry
-as a default") and commit 45c9f2b856a0 ("s390/entry: Mark IRQ entries
-to fix stack depot warnings").
+Rename in_irqentry_text() to in_event_entry_text() at the same time and
+name the hook after it: the ranges it tests are not necessarily irq-only -
+on x86 they also cover the exception entry stubs - and what
+filter_irq_stacks() asks of them is where a trace entered the kernel.
+The helper is file local with a single caller, so the rename stays inside
+kernel/stacktrace.c; filter_irq_stacks() keeps its name as it is exported
+and used treewide.
 
-Every FRED event leaves a return address in the FRED entry text: the
-return address of the call to fred_entry_from_user/kernel, or a frame of
-asm_fred_entry_from_kvm(), which the core entry code uses to forward VMX
-interrupts and NMIs acknowledged as part of the VM-Exit; see
-commit 0701c9e17bd9 ("x86/kvm/vmx: Move IRQ/NMI dispatch from KVM
-into x86 core").  So bracket it with __fred_entry_text_start/end, the
-same way the IDT stubs are bracketed, and report that range from
-arch_in_event_entry_text().  Verified on that system with the fix
-backported: traces from FRED event context now end at
-asm_fred_entrypoint_kernel (/sys/kernel/debug/slab/*/alloc_traces) and
-the pool count levels off a few minutes after boot instead of climbing
-to the limit.
+No functional change on its own.
 
-The range covers every FRED entry point, including the ring 3 one which
-also serves syscalls, and the hook cannot tell them apart - it only gets
-an address.  That does not change any trace: filter_irq_stacks() cuts at
-the innermost match, and for anything entered from ring 3 the entry frame
-is already the outermost trace entry (the unwinder follows the pt_regs
-the entry pushed and stops there because user_mode(regs) is true), so the
-trace is returned unchanged.  Only ring 0 events, and the IRQ/NMI the
-core forwards through asm_fred_entry_from_kvm(), leave an unrelated
-context below the entry frame.  The IDT markers are not IRQ-only either:
-they wrap the entire asm/idtentry.h expansion, so the synchronous
-exception stubs have always been inside them.  The function graph
-tracer uses the same markers and has the same gap; it can be converted
-separately.
+The first user is the FRED fix in the follow-up patch.  Both carry the
+same Fixes: tag and are Cc'ed to stable so that they are picked up as a
+pair.
 
-This is not limited to FRED hardware: KVM_INTEL selects X86_FRED on
-x86_64 (commit 28d11e4548b7 ("x86/fred: KVM: VMX: Always use FRED for
-IRQs when CONFIG_X86_FRED=y")), so every kernel with Intel KVM support,
-built in or as a module, carries the FRED dispatch code, and the
-forwarding path above runs it even when the kernel itself uses the IDT.
-KVM host stacks therefore take the same untruncated path on non-FRED
-systems, albeit from a mostly fixed vcpu_run chain.
-
-Reported-by: Xiang Zheng <xiang.zheng@linux.alibaba.com>
 Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
 Cc: stable@vger.kernel.org # v6.9+
 Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
 ---
- arch/x86/entry/entry_64_fred.S  | 14 ++++++++++++++
- arch/x86/include/asm/sections.h | 24 ++++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
+ kernel/stacktrace.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/entry/entry_64_fred.S b/arch/x86/entry/entry_64_fred.S
-index b98f8945dfff..5a3db902e961 100644
---- a/arch/x86/entry/entry_64_fred.S
-+++ b/arch/x86/entry/entry_64_fred.S
-@@ -36,6 +36,17 @@
-  */
- 	.align 4096
+diff --git a/kernel/stacktrace.c b/kernel/stacktrace.c
+index afb3c116da91..62b84998b13e 100644
+--- a/kernel/stacktrace.c
++++ b/kernel/stacktrace.c
+@@ -14,6 +14,7 @@
+ #include <linux/kallsyms.h>
+ #include <linux/stacktrace.h>
+ #include <linux/interrupt.h>
++#include <asm/sections.h>
  
+ /**
+  * stack_trace_print - Print the entries in the stack trace
+@@ -374,12 +375,24 @@ unsigned int stack_trace_save_user(unsigned long *store, unsigned int size)
+ 
+ #endif /* !CONFIG_ARCH_STACKWALK */
+ 
+-static inline bool in_irqentry_text(unsigned long ptr)
 +/*
-+ * Bounds of the FRED event entry text.  Every event delivered by FRED
-+ * enters here, including events which the core entry code forwards
-+ * through asm_fred_entry_from_kvm().  This is the FRED counterpart of
-+ * __irqentry_text_start..__irqentry_text_end and lets
-+ * in_event_entry_text() find the event entry point of a stack, see
-+ * arch_in_event_entry_text().
-+ */
-+	.globl __fred_entry_text_start
-+__fred_entry_text_start:
-+
- SYM_CODE_START_NOALIGN(asm_fred_entrypoint_user)
- 	FRED_ENTER
- 	call	fred_entry_from_user
-@@ -150,3 +161,6 @@ SYM_FUNC_START(asm_fred_entry_from_kvm)
- 
- SYM_FUNC_END(asm_fred_entry_from_kvm)
- #endif
-+
-+	.globl __fred_entry_text_end
-+__fred_entry_text_end:
-diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
-index 30e8ee7006f9..f34170ecc4e4 100644
---- a/arch/x86/include/asm/sections.h
-+++ b/arch/x86/include/asm/sections.h
-@@ -5,6 +5,30 @@
- #include <asm-generic/sections.h>
- #include <asm/extable.h>
- 
-+#ifdef CONFIG_X86_FRED
-+extern char __fred_entry_text_start[], __fred_entry_text_end[];
-+
-+#define arch_in_event_entry_text arch_in_event_entry_text
-+
-+/*
-+ * FRED delivers events to entry points in .noinstr.text, which
-+ * __irqentry_text_start..__irqentry_text_end does not cover.  See
-+ * __fred_entry_text_start in entry_64_fred.S.
++ * Used to help find where a trace entered the kernel.
 + *
-+ * Note that the range includes the ring 3 entry point, which also
-+ * delivers syscalls, so it cannot tell interrupt entry and syscall
-+ * entry apart.  That is fine for the only consumer,
-+ * filter_irq_stacks(): it cuts at the innermost match, and for an
-+ * entry from ring 3 the entry frame is already the outermost frame
-+ * of the trace, so matching it is a no-op.
++ * Architectures use this when event entry text cannot be placed in
++ * .irqentry.text alone.  Architectures should define a macro of the
++ * same name in <asm/sections.h>.
 + */
-+static inline bool arch_in_event_entry_text(unsigned long addr)
-+{
-+	return addr >= (unsigned long)__fred_entry_text_start &&
-+	       addr < (unsigned long)__fred_entry_text_end;
-+}
++#ifndef arch_in_event_entry_text
++static inline bool arch_in_event_entry_text(unsigned long addr) { return false; }
 +#endif
 +
- extern char __relocate_kernel_start[], __relocate_kernel_end[];
- extern char __brk_base[], __brk_limit[];
- extern char __end_rodata_aligned[];
++static inline bool in_event_entry_text(unsigned long ptr)
+ {
+ 	return (ptr >= (unsigned long)&__irqentry_text_start &&
+ 		ptr < (unsigned long)&__irqentry_text_end) ||
+ 		(ptr >= (unsigned long)&__softirqentry_text_start &&
+-		 ptr < (unsigned long)&__softirqentry_text_end);
++		 ptr < (unsigned long)&__softirqentry_text_end) ||
++		arch_in_event_entry_text(ptr);
+ }
+ 
+ /**
+@@ -394,7 +407,7 @@ unsigned int filter_irq_stacks(unsigned long *entries, unsigned int nr_entries)
+ 	unsigned int i;
+ 
+ 	for (i = 0; i < nr_entries; i++) {
+-		if (in_irqentry_text(entries[i])) {
++		if (in_event_entry_text(entries[i])) {
+ 			/* Include the irqentry function into the stack. */
+ 			return i + 1;
+ 		}
 -- 
 2.43.7
 
