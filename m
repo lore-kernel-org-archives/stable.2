@@ -1,85 +1,56 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA22F399899
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 05:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85A5377EBC
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 05:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788240509; cv=none; b=fU9V9vcJzkQWJFzTaYu3HrEFsHQwRvuGGWP7Fnng9HM83uShVSoQ4i5FNi8dsmwGFMLaxdKZGGH6Mx/zdYEUFYIlRiy1wCy9imFpm5TIAPmJ7NlXRN8q38KrliG7627ugrOc2UjnFvcpq5o6xPOWZGab4NcHz1Z89NDFO6CLJ2A=
+	t=1788241462; cv=none; b=hKP2rsdfHM4TPrBnj7O/PGfTXbhQJZT9LAb8kkXbGGMSpG65pp7qyiVN5gmdrheOs9ITEGSyT6aJEO27XMYy/v0TR6HUcrWF4pu+pHTZW1WBUBXfcnhWmn9/PRrfOxtaMgu3nql7sDpVewL0jm5032Q0JVXqW/fRaR8WQB7epd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788240509; c=relaxed/simple;
-	bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0QFBz7o07X6TH+yBC0xSOf/DgBmZOVBdEWfgqBS+v3Faw7rUxbD/T+9d3ZxSguH1htaGtOdHKRdj0xf6wSUM6DttgtyVEdxqfUgtf+B91ZpsF9DXx+d9magcpZ80iR8nJ5HZRqebzkFOI8F5/Tr9i/1E2wg61HvWZCAmMS04Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw/5LzLC; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788241462; c=relaxed/simple;
+	bh=sE0zQ67z33iVQctRUGZblUC9POnIRK6BFjZb+4qq2aA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 References; b=iNFYftx+cZK04RsJsJdOOkQLW1qUmZd8Ny3qQKF+dab7V6dDZAMbbwSPy4EPaOHFeq8pkHx+4Yvf7PSsE5rdV2TAzMgVd18dtrR44wIck3GQuI0LXX5gszhw3ywFquyFIVddMmT34wqSwbxGB3U95fR0Rtu9I0uUfxo5+n53RSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=gm4F+S1W; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw/5LzLC"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso49394855e9.1
-        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:28:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788240506; x=1788845306; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-        b=Mw/5LzLCzbYfkO9cFPvCiEqpRFxM9o0QArFK+sAPSbBonMM4mGhvT5+QrE4N5GerAZ
-         5mkg/qPAl6C5gYKmIrYFV4eKFr+7aJYMy6Eh+X+8/ma/G+4GbKKfWDy6HCJGLeF4aO+M
-         5VCbtcope+RPL4XfvwZ9xeCdDkyakwIKzTWF7v6EUanez8v6YKt9PJ+dikMHU6z5e92O
-         AVPh671sq+hYHpK474d2daYWRMcEaohSquAQTsmJ/G7aQwhCwp1K0/SdE6w1SQXWsI6G
-         yT8l4k69nLhJ3TBK+Sj1AN/+3d3Dzg7Y3zzsLwR5JNHb5RYVzLmpD7QeCLNP+lxSzAWI
-         vXBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788240506; x=1788845306;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
-        b=Guf134Xlb+4mjV20LIGSwDbH+HSnJkj3NMM8A+1hLbw7MBRQ6epvoR5Hwp1Ucyq+ta
-         7HYlF+pYJgq/mJ8q9q7LOd61gd7dKcAbJEF95LTApPrUf06zgvv3s/HgenP7QBCfr7if
-         58FLv+UA2qMV3EuGHb8IehjPVkdIV91bR9tUjZTlxke3mmTOE1plyUfLvXHzfHjcevT9
-         sdPxxcT/sSraDOoZ7q8bR+3JH3CSZHq3oGdRJjOuIc3AXOB/snQNeTrWqkm+PXg36zf6
-         NmeGr6OB3ULLGlPNKhd86tnp/oNgveUV4Cdn6ztW9KGp9T/sVdTwe7FnxChcEz72WfIe
-         4tFw==
-X-Forwarded-Encrypted: i=1; AHgh+RonbRcsKhDatrmkJLY1IAJ8KBuIyr/Tf0PLcRYybrnT9HCDI7ph1VIBYMfYFmugWawLQ6FqvMg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTMKl1sMD+v3tEgI2NxoPvQEF0saHN6C5ozAe+OebSkLelBlhA
-	3W8bwLK7nSJ9pT72JFbFe96ReIV1OV4fJfCcFTS4K5+BCGvvNSUrVZFh
-X-Gm-Gg: AR+sD13HtuR+9c+lpzYmw5q8SLC3qY+LxYaUaObX1lJC8FcxEwTZ3mzTDEOYPopawWu
-	WaQKfVrqdZVER+zo1aoAZj7YgANn2xTgjewT9ODCtf0nCzLiwJkm9Xmrdz4tBUesDEFMggojYVh
-	l8FmsmUq9hlfKA/MRWT964GDQ4NUPP7g5YEpRN6IFTgCwrcnJX1Hs6YIbOBCT7Rhe6zZ0I/pO/X
-	DCGLjjyFh+hjL+sJ2JiQ5eBVonvPCUfq73VaSRjzPiZGIasxsQuEiEAmuo9h5hPeT6et9A1bsBu
-	XwYHnQPENHr/454tVfIszh3WHvw5gO5Qy+Rj+tQluOE7Umg7wz4eRFtszO2ZDl5cGE1qOabUXc4
-	2hZ2I8uGQSNVW+SBxzT+gqdyPcAvwx6SAsoddnctg5isgKS9Dseo2cYTv6jr4+w7fARZSM7Fva9
-	rwZScTf4gXbsZwVjoyQ6GR1gAswsLxaL3EJ2aqy1X0qpjz52NgcyLKsIT3olM2P+O1K9XUIa8lW
-	2BvCInvSDfJ3ysH62KrS2yEtDTkkQ9xHcsNNsawG5XBs2edYj2XMtzGudB+kPXA
-X-Received: by 2002:a05:600c:3e18:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49b91c4e073mr525091595e9.15.1788240505850;
-        Mon, 31 Aug 2026 22:28:25 -0700 (PDT)
-Received: from localhost.localdomain (ip-89-176-136-191.bb.vodafone.cz. [89.176.136.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm140752035e9.3.2026.08.31.22.28.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 22:28:24 -0700 (PDT)
-From: Petr Wozniak <petr.wozniak@gmail.com>
-To: sashal@kernel.org
-Cc: patches@lists.linux.dev,
-	stable@vger.kernel.org,
-	maxime.chevallier@bootlin.com,
-	kuba@kernel.org,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux@armlinux.org.uk,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Petr Wozniak <petr.wozniak@gmail.com>
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in mdio-i2c
-Date: Tue,  1 Sep 2026 07:28:16 +0200
-Message-ID: <20260901052816.3815-1-petr.wozniak@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260831133314.4125787-466-sashal@kernel.org>
-References: <20260831133314.4125787-466-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="gm4F+S1W"
+Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260901054418epoutp02069e195dfbe48e81f9a3f4651a5b32b8~RHCHWnI6L2571725717epoutp02J
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 05:44:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260901054418epoutp02069e195dfbe48e81f9a3f4651a5b32b8~RHCHWnI6L2571725717epoutp02J
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788241458;
+	bh=T+0OqII1y5b1bRgsTJF+0/N0DB63yEf2utvhQcUva5I=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=gm4F+S1WI59rheJeHXAfi9wV/HP6Y3EofZZL/ryidCVolN+W8sqLeHB5LRqb+JU7d
+	 tH8UzURW+24xrehXD6mqyTz7AtSYQH9KT7nEN3DdyJZvCwTwD15NMXaKNOXJ4XnpxH
+	 eh4AOGU6CouhdoR+r3uYWruZMxeeJuKeEIk/37jE=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260901054417epcas5p1cf6b3e896606ab9de3a3286db07229e3~RHCGit4og1394513945epcas5p1P;
+	Tue,  1 Sep 2026 05:44:17 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.93]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hYvtn0hCTz6B9mD; Tue,  1 Sep
+	2026 05:44:17 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260901054416epcas5p13e8b9a5e5e8ebe10715f735c82ded916~RHCFcZPpr0936309363epcas5p18;
+	Tue,  1 Sep 2026 05:44:16 +0000 (GMT)
+Received: from localhost.localdomain (unknown [107.99.41.245]) by
+	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260901054415epsmtip206f33e2d6caebf96b84c3b33bbb42ce1~RHCEapGWh2450824508epsmtip2P;
+	Tue,  1 Sep 2026 05:44:15 +0000 (GMT)
+From: Anuj Gupta <anuj20.g@samsung.com>
+To: djwong@kernel.org, hch@lst.de, cem@kernel.org
+Cc: linux-xfs@vger.kernel.org, Anuj Gupta <anuj20.g@samsung.com>,
+	stable@vger.kernel.org, Carlos Maiolino <cmaiolino@redhat.com>
+Subject: [PATCH v2] xfs: release alleged child inode on metapath unlink
+ error
+Date: Tue,  1 Sep 2026 11:13:48 +0530
+Message-Id: <20260901054348.808571-1-anuj20.g@samsung.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,30 +58,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CMS-MailID: 20260901054416epcas5p13e8b9a5e5e8ebe10715f735c82ded916
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260901054416epcas5p13e8b9a5e5e8ebe10715f735c82ded916
+References: <CGME20260901054416epcas5p13e8b9a5e5e8ebe10715f735c82ded916@epcas5p1.samsung.com>
 
-Please drop this one from AUTOSEL.
+If xchk_metapath_ilock_parent_and_child() fails after xchk_iget()
+succeeds, release the inode reference before returning.
 
-8fe125892f40 was reverted upstream on 2026-06-29 in b521003c27eb
-("Revert "net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in
-mdio-i2c""), so it is no longer in mainline.
+Fixes: 0d2c636e489c ("xfs: repair metadata directory file path connectivity")
+Cc: <stable@vger.kernel.org> # v6.13
+Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+---
+ fs/xfs/scrub/metapath.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The probe it added runs in SFP_S_INIT, before genuine RollBall modules
-have finished initialising their bridge, so the bridge does not answer
-CMD_READ/CMD_DONE within the 200 ms window. mdio_protocol is then set
-to MDIO_I2C_NONE and PHY detection is skipped for modules that worked
-before the commit. Maxime Chevallier and Aleksander Bajkowski both
-confirmed that on hardware.
+diff --git a/fs/xfs/scrub/metapath.c b/fs/xfs/scrub/metapath.c
+index ff1ff762b300..3492f171a049 100644
+--- a/fs/xfs/scrub/metapath.c
++++ b/fs/xfs/scrub/metapath.c
+@@ -556,6 +556,8 @@ xrep_metapath_try_unlink(
+ 	error = xchk_metapath_ilock_parent_and_child(mpath, ip);
+ 	if (error) {
+ 		xchk_trans_cancel(sc);
++		if (ip)
++			xchk_irele(sc, ip);
+ 		return error;
+ 	}
+ 	xfs_trans_ijoin(sc->tp, mpath->dp, 0);
+-- 
+2.25.1
 
-The timing is per-module rather than per-PHY: the FLYPRO
-SFP-10GT-CS-30M they tested carries the same AQR113C as a module here
-that answers within 200 ms, but needs seconds to load its PHY firmware
-from SPI. A fixed probe window cannot cover both, which is why the
-commit was reverted rather than adjusted. A proper fix needs per-module
-init timing, and per SFF-8472 the host must wait at least 300 ms after
-insertion in any case.
-
-Backporting this to stable would reintroduce that regression on
-hardware that works there today.
-
-Thanks,
-Petr
