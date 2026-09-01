@@ -1,110 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148D725776
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 03:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6131A6813;
+	Tue,  1 Sep 2026 04:16:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788233533; cv=none; b=OJxiusAMEEIiELyjRgpNhI2dh4DNz/Udq+JSkMEAn3QQkIpkExDAJo+Etk9BZxcE8Bj5lksNN7FyzxA81ju+G3/JeAMeLBnOaz2P8QVxTQ6ecM2Y+eoPKGc9uqJbiolYXr68Ns7Gldwsi1Mstzfk+92Fa3LEuiUTu8CTz8MuRD0=
+	t=1788236163; cv=none; b=g+SQdNp5gKQUZX9XXszIZuxE6tq2jWxW7YKnWZQdRIYeMU8XpZWh78gkwcNaBEjtHwFCwkAesOnOyH2RGKZp1LCqeR8Bom5RT2MxvZKXdwLIpX5L4efqywf2/f0vdCHJbP+mI/y2w4n2XszVeq/Jx415EMELeJZ2lBkoDr1VqYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788233533; c=relaxed/simple;
-	bh=EG7MnfTLdxLeOKYIVnkrgU6zGF+VwXWONTK8wdbYWKU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=teNpyxmtxqey5P0R0mA+tV0O1+V5qw9hUjf/Zcp2n4AX9TCtJgb99qqHfYL1DK3gTw1g6BDLGDWbkhgz0SgQVnjdKnC5PzCopGciVVzlHcenUaX4ydCW0MWjtLXTCNeYS1F4Tua1jdhL5lYjMHCZAK13V31xe8WjEJ1kzqDQITk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i8PjPrXE; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788236163; c=relaxed/simple;
+	bh=Nr3l65j+yMsckMZwTYky1wx1WToEu1iqF1wLz+MjE60=;
+	h=Date:To:From:Subject:Message-Id; b=puWkZoWOa4dgyRjpsEDAePFxYUIIS9PDZUWcsFZTHZytgIKGsmhu8NvzI5dma/Xbxe6hJhq08U9AhVFhYFo+w3wWIG8me11bG6YfR5Cyc+OQE8tU87pn31QDyNwlnJbhP+1bV4MTJ3bJaksnGs5NEJu6aPkEcqwZfxMI6rtIxNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=e1xL4/S6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i8PjPrXE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788233531; x=1819769531;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=EG7MnfTLdxLeOKYIVnkrgU6zGF+VwXWONTK8wdbYWKU=;
-  b=i8PjPrXEagJfTWxyfaB8sP1uAVCw0lL/4W1DW0eYYfwSGRhX9RaO5z+R
-   JiEkNVrrkcX6jx4fZMkg5zMoMg78jwgqTB1wV8CUlvQukWnpu8vn6vF80
-   9hN558pcH6SMfNrijGGW75Q6v6W3iubM+mnqK7plKmpdWfb/s8DdYBFN4
-   7ytOn0ed8enP/L+1L7hc8lz+Zof8ata8ETgTaQASYbVe5swdbcCGtrcsJ
-   dVXOuMdnTAWH29B47VIt88UxFgjp9HyoZvd9B4mBSBXR648gnkxRCPWZr
-   /LpN27PR5H9DkUPSiPbKhUxZ90wEfwrujIS7ggRKX0Os2whVkgrDqE2Hu
-   A==;
-X-CSE-ConnectionGUID: 9nYKBTWYST6MdHrr2Hqkdg==
-X-CSE-MsgGUID: 537kQnizSQWjGa+3nIZy9A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99249704"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="99249704"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:32:10 -0700
-X-CSE-ConnectionGUID: 1FI7gDOxQc2r4cxOvHaGwQ==
-X-CSE-MsgGUID: Phu/lA9qS8Gq02GeMsyyPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="264685142"
-Received: from osgcshtiger.sh.intel.com ([10.239.81.49])
-  by fmviesa006.fm.intel.com with ESMTP; 31 Aug 2026 20:32:08 -0700
-From: Shuicheng Lin <shuicheng.lin@intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: Shuicheng Lin <shuicheng.lin@intel.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org,
-	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH v4 1/2] drm/xe/shrinker: Do not abort the walk on unshrinkable bos
-Date: Tue,  1 Sep 2026 03:31:52 +0000
-Message-Id: <20260901033153.219481-2-shuicheng.lin@intel.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260901033153.219481-1-shuicheng.lin@intel.com>
-References: <20260901033153.219481-1-shuicheng.lin@intel.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="e1xL4/S6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51F9B1F000E9;
+	Tue,  1 Sep 2026 04:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788236161;
+	bh=tDOJpA4F+kiYZM6pgRbyRLBw8HcmPlzv+ppYrxuLoHA=;
+	h=Date:To:From:Subject;
+	b=e1xL4/S6dML6Hl8tJ3L+/xBurjC3cxwLw51RKw/BjcSIVaiPyUXINLioslxXJA/2i
+	 h81zlunyZ+nz8GCDkkTGvNycYHpTZTDnav9gj5tbNFF/RqGx1Ry4JG0aNG53X20hJc
+	 lS6r8NCDlaheOQJ6JuhcnQaUXXNOmTe+5yJUQFjI=
+Date: Mon, 31 Aug 2026 21:16:00 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,peterz@infradead.org,mingo@redhat.com,kees@kernel.org,include@grrlz.net,kmehltretter@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + fork-honor-task_structs-declared-alignment.patch added to mm-nonmm-unstable branch
+Message-Id: <20260901041601.51F9B1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-xe_bo_shrink() returns -EBUSY for a bo that is simply not a candidate:
-a kernel bo, a non-purgeable bo during the purge pass, or one that is
-not eviction valuable.  ttm_bo_shrink_suitable() does not filter those
-out, so __xe_shrinker_walk() ends the walk at the first one it meets and
-returns the error in place of the pages it had already freed.
 
-xe_shrinker_walk() re-enters the walk for each escalation level, so the
-remaining bos are usually still reached and the effect is repeated
-restarts rather than lost reclaim.
+The patch titled
+     Subject: fork: honor task_struct's declared alignment
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     fork-honor-task_structs-declared-alignment.patch
 
-Skip the bo on -EBUSY and keep walking, and on a real error report what
-was already freed rather than dropping it.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fork-honor-task_structs-declared-alignment.patch
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 00c8efc3180f ("drm/xe: Add a shrinker for xe bos")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Subject: fork: honor task_struct's declared alignment
+Date: Fri, 10 Jul 2026 14:39:57 +0200
+
+Since commit cb7ca40a3882 ("x86/fpu: Make task_struct::thread constant
+size"), struct task_struct is declared __attribute__((aligned(64))) on all
+architectures.
+
+But fork_init() still sets the task_struct slab cache's alignment to
+
+	align = max(L1_CACHE_BYTES, ARCH_MIN_TASKALIGN)
+
+which is smaller than 64 on architectures whose cache lines are below 64
+bytes: e.g.  32 on ARMv5.
+
+In practice plain SLUB happens to hand out 64-byte-aligned objects anyway.
+With CONFIG_SLUB_DEBUG_ON the red-zone padding shifts objects to the
+requested alignment.
+
+With CONFIG_UBSAN_ALIGNMENT=y a boot on QEMU versatilepb (ARM926EJ-S,
+v7.2-rc2, gcc 13.3) floods the console with reports like:
+
+  UBSAN: misaligned-access in include/linux/sched.h:2087:9
+  member access within misaligned address c295d7e0 for type 'struct task_struct'
+  which requires 64 byte alignment
+  CPU: 0 UID: 0 PID: 15 Comm: pr/ttyAMA-1 Not tainted 7.2.0-rc2 #1 VOLUNTARY
+
+Set the slab alignment to at least the type's declared alignment.
+
+Link: https://lore.kernel.org/20260710123957.31774-1-kmehltretter@gmail.com
+Fixes: cb7ca40a3882 ("x86/fpu: Make task_struct::thread constant size")
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Assisted-by: Claude:claude-fable-5
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/gpu/drm/xe/xe_shrinker.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shrinker.c
-index 83374cd57660..953a911b51b3 100644
---- a/drivers/gpu/drm/xe/xe_shrinker.c
-+++ b/drivers/gpu/drm/xe/xe_shrinker.c
-@@ -79,8 +79,10 @@ static s64 __xe_shrinker_walk(struct xe_device *xe,
- 				continue;
+ kernel/fork.c |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+--- a/kernel/fork.c~fork-honor-task_structs-declared-alignment
++++ a/kernel/fork.c
+@@ -858,7 +858,8 @@ void __init fork_init(void)
+ #ifndef ARCH_MIN_TASKALIGN
+ #define ARCH_MIN_TASKALIGN	0
+ #endif
+-	int align = max_t(int, L1_CACHE_BYTES, ARCH_MIN_TASKALIGN);
++	int align = max3(L1_CACHE_BYTES, ARCH_MIN_TASKALIGN,
++			 __alignof__(struct task_struct));
+ 	unsigned long useroffset, usersize;
  
- 			lret = xe_bo_shrink(ctx, ttm_bo, flags, scanned);
-+			if (lret == -EBUSY)
-+				continue;
- 			if (lret < 0)
--				return lret;
-+				return freed ? freed : lret;
- 
- 			freed += lret;
- 			if (*scanned >= to_scan)
--- 
-2.43.0
+ 	/* create a slab on which task_structs can be allocated */
+_
+
+Patches currently in -mm which might be from kmehltretter@gmail.com are
+
+klist-avoid-accesses-after-waking-klist_remove.patch
+squashfs-fix-fragment-index-table-sizing-overflow-on-32-bit.patch
+squashfs-make-the-fragment-index-table-bounds-check-overflow-safe.patch
+fork-honor-task_structs-declared-alignment.patch
 
