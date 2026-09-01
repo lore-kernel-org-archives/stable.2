@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777AC59B56
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:11:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E2F376A19
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:11:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261071; cv=none; b=oGGeGId4iSaVpmxacjP7VS9cwSJ6tg0WKPUta6bRL4CM22W4VvwrzzqZln/NH4tQMmI5J9O89a9nw+eogVqqEEJg7OEZjUBbYCO5hnBH3jo/T48yDrwp3WAPdNEKxlupT9ILdWfunqFX5RXZ/o2zH3LP3UTzlO0vnNjgYUUtnu8=
+	t=1788261079; cv=none; b=T2f3LrRJJZan3YIQLAJAs/bmOWlBMejcSm0yWzJCKFm0vqjf7b0n0NsxHHyG8mMGo4zs+TCH/209ZhwVK4xm7enOipzO0lj3lfAgBa+/rED+g2B9czMaPZaWZ8hdm+HojSmQG5KwImavEyhblPFcdup17bNnv+gAM786DHhH31k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261071; c=relaxed/simple;
-	bh=xEgpyXxTrMAnNltKTjN0PWi5hE+yUx3Jd+kRXvixhc8=;
+	s=arc-20240116; t=1788261079; c=relaxed/simple;
+	bh=09593IHtpPFnypYVi5+KXrGNH24wGcSaNXJISvNf7YE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FBWHNPwHQ+tGr7JrmEYLKfKGSQkGPSWMdZyxPehKQVEEmRzMoJsnBP99/gWzzXHDzhi3Nvw3SMbrINmUSgf9xHBwUTdXW9uXLctZPpdaYdi4zJV5awJO07AeP40ViG+mn4BZ2MvTRzTt4TH34iatDG+1g4IcvCu7UDpwkQf5YrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IG7GnhQX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jbgKngopuyG+Ztx+Ys+cORObKAf6bV3KZlM2JJZgYObhFCRdwsaFDCxro6rz//ILo+1ERjlA3fPVpLc9Ic1OaXiOQlMktQbq6XEHhtQ8lokm7MeSx+SZ+XCpF1fYkb1cTQe32ilCs7BzlIRt3KVvOEC90l/eCQOfFOOzFPMuQMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ha1uHrcd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IG7GnhQX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1EA1F000E9;
-	Tue,  1 Sep 2026 11:11:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ha1uHrcd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462041F000E9;
+	Tue,  1 Sep 2026 11:11:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788261070;
-	bh=lkVwTzwte5WSblH/qYuRXxaVon6lQLoUk6YcrtRAlgY=;
+	s=k20260515; t=1788261077;
+	bh=ydUDyZZzrKWh0+Jn+plmsnACZtB08rOTE+y1DZ1DBZc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IG7GnhQX3fBf04+1iaPCvaiZEVQBONyaNqfKatKIPsS46qCIqF3LdwauqPAQiEuEn
-	 z7mFMQpeYT26oLOOeJmytHu9M1OptR8BrKfPAMEUdipO6MCoIOCoqFDgzy198LqVHG
-	 v5Ov1cVH4V7+DmozDp12ZTGBluEpTQxSOZuHf0x6Mmlb9H4fpWrYF1BdrzLHMs9W/+
-	 BGQ+EmKJ4hodbExwqCli4rMJeFQiZVScqlD00MmFMHG+5VRDZuRcJMyx0Y6dxyTbbp
-	 RVtwr9s1PIy11EqVVXN83wikHRrsvWiAyGq14jWTTrs/aSvCZqM8r+PXnthp9I4yOW
-	 pnOjtPLWSzoCA==
+	b=Ha1uHrcdfsu0zmhOF+Ehh5Ec5+mZfVZARuX9NRDtbcGlGuXm63BQrLAWbWXzPmG0T
+	 A/QSC+loS6cbaES9j9hFLVehfWCP+a7xhDsTyvegSDWrB+q6VTQEnsagiSEMjtRdqa
+	 HXbV6Z7usR9k1BCXVp/9ffAgiqe/FSs4b33SWD7s8xI+aien69jWh1P8vuPt77VTRr
+	 GGaAuTiAcl6onHvMlq9t9V3VdOdUb8On9n6cR0PQROVZWNKAVFwt3M5czZkDS9ZDEx
+	 7yI2k6dkoCXPSU0drJfSL+zDiMYfLvgqLnBM+ALTFrLs9Fxdu3p1i4MDxE89kXp8T9
+	 TrFQRC7jwqzsA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kyle Zeng <kylebot@openai.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	David Ahern <dsahern@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] net/packet: defer vmalloc TX_RING free until skbs finish
-Date: Tue,  1 Sep 2026 07:11:07 -0400
-Message-ID: <20260901111107.4175171-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/5] ipv6: start using dst_dev_rcu()
+Date: Tue,  1 Sep 2026 07:11:11 -0400
+Message-ID: <20260901111115.4175900-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083139-encroach-exemplary-64b2@gregkh>
-References: <2026083139-encroach-exemplary-64b2@gregkh>
+In-Reply-To: <2026083114-maturing-resize-d958@gregkh>
+References: <2026083114-maturing-resize-d958@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,253 +46,190 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kyle Zeng <kylebot@openai.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 992cc9f94ca924089a506ba9b327caa9af797529 ]
+[ Upstream commit b775ecf1655cedbc465fd6699ab18a2bc4e7a352 ]
 
-AF_PACKET TX_RING skbs keep a raw pointer to their ring frame. The skb
-page references preserve page-backed ring blocks after pg_vec is freed,
-but they do not preserve a vmalloc mapping.
+Refactor icmpv6_xrlim_allow() and ip6_dst_hoplimit()
+so that we acquire rcu_read_lock() a bit longer
+to be able to use dst_dev_rcu() instead of dst_dev().
 
-tpacket_destruct_skb() currently drops the pending reference before
-writing the timestamp and TP_STATUS_AVAILABLE to the frame. Move the
-decrement after those stores. The smp_wmb() in __packet_set_status()
-orders the frame stores before the decrement.
+__ip6_rt_update_pmtu() and rt6_do_redirect can directly
+use dst_dev_rcu() in sections already holding rcu_read_lock().
 
-Also recheck pending TX frames under pg_vec_lock before non-closing
-ring replacement, so a racing send cannot add a pending skb between
-the initial check and the ring swap.
+Small changes to use dst_dev_net_rcu() in
+ip6_default_advmss(), ipv6_sock_ac_join(),
+ip6_mc_find_dev() and ndisc_send_skb().
 
-Ring allocation can produce a mixture of page-backed and vmalloc-backed
-blocks. Allocate deferred-work storage during TX ring setup when the
-first vmalloc-backed block is encountered, and keep its pointer in the
-pg_vec allocation header. If allocation fails, return -ENOMEM from ring
-setup. On socket close, a non-NULL pointer identifies a vmalloc-backed
-vector without a scan. If TX skbs remain, defer the whole vector to
-system_long_wq.
-
-After pg_vec is detached, a late destructor can skip the pending
-decrement. Use socket write-memory accounting as the deferred lifetime
-gate instead: an skb remains charged through its final sock_wfree(),
-after all ring-frame accesses. The delayed work retains a socket
-reference and reschedules itself until no TX skbs remain.
-
-Move pending_refcnt release to packet_sock_destruct() so late skb
-destructors and deferred cleanup can safely use it after
-packet_release(). Page-backed teardown remains synchronous, and no lock
-is added to the TX completion hot path.
-
-Fixes: b013840810c2 ("packet: use percpu mmap tx frame pending refcount")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260721015824.45829-1-kylebot@openai.com/
-Suggested-by: Eric Dumazet <edumazet@google.com>
-Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Link: https://patch.msgid.link/20260816235646.76500-1-kylebot@openai.com
+Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20250828195823.3958522-3-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted the kzalloc_objs() allocation context to the older kcalloc() form ]
+Stable-dep-of: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/packet/af_packet.c | 96 ++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 87 insertions(+), 9 deletions(-)
+ include/net/ip6_route.h | 3 +++
+ net/ipv6/anycast.c      | 4 +++-
+ net/ipv6/icmp.c         | 6 +++---
+ net/ipv6/mcast.c        | 4 +++-
+ net/ipv6/ndisc.c        | 2 +-
+ net/ipv6/output_core.c  | 8 +++++---
+ net/ipv6/route.c        | 9 ++++-----
+ 7 files changed, 22 insertions(+), 14 deletions(-)
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index 99212023b119c..cb3376f04dfa8 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -87,6 +87,7 @@
- #include <linux/errqueue.h>
- #include <linux/net_tstamp.h>
- #include <linux/percpu.h>
-+#include <linux/workqueue.h>
- #ifdef CONFIG_INET
- #include <net/inet_common.h>
- #endif
-@@ -1339,6 +1340,8 @@ static void packet_sock_destruct(struct sock *sk)
- 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
- 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
+diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
+index 59f48ca3abdf5..07c87c239511e 100644
+--- a/include/net/ip6_route.h
++++ b/include/net/ip6_route.h
+@@ -266,6 +266,9 @@ static inline bool ipv6_anycast_destination(const struct dst_entry *dst,
+ int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
+ 		 int (*output)(struct net *, struct sock *, struct sk_buff *));
  
-+	packet_free_pending(pkt_sk(sk));
++/* Compatibility form of the later IPv6-specific dst_mtu() wrapper. */
++#define dst6_mtu(dst) dst_mtu(dst)
 +
- 	if (!sock_flag(sk, SOCK_DEAD)) {
- 		pr_err("Attempt to release alive packet socket: %p\n", sk);
- 		return;
-@@ -2533,11 +2536,11 @@ static void tpacket_destruct_skb(struct sk_buff *skb)
- 		__u32 ts;
- 
- 		ph = skb_zcopy_get_nouarg(skb);
--		packet_dec_pending(&po->tx_ring);
- 
- 		ts = __packet_set_timestamp(po, ph, skb);
- 		__packet_set_status(po, ph, TP_STATUS_AVAILABLE | ts);
- 
-+		packet_dec_pending(&po->tx_ring);
- 		complete(&po->skb_completion);
- 	}
- 
-@@ -3206,7 +3209,6 @@ static int packet_release(struct socket *sock)
- 	/* Purge queues */
- 
- 	skb_queue_purge(&sk->sk_receive_queue);
--	packet_free_pending(po);
- 
- 	sock_put(sk);
- 	return 0;
-@@ -4370,11 +4372,26 @@ static const struct vm_operations_struct packet_mmap_ops = {
- 	.close	=	packet_mm_close,
- };
- 
-+struct packet_pg_vec {
-+	struct packet_pg_vec_free *deferred;
-+	unsigned int order;
-+	unsigned int len;
-+	struct pgv pg_vec[] __counted_by(len);
-+};
-+
-+struct packet_pg_vec_free {
-+	struct delayed_work work;
-+	struct sock *sk;
-+	struct packet_pg_vec *vec;
-+};
-+
- static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			unsigned int len)
+ static inline unsigned int ip6_skb_dst_mtu(const struct sk_buff *skb)
  {
-+	struct packet_pg_vec *vec;
- 	int i;
+ 	const struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
+diff --git a/net/ipv6/anycast.c b/net/ipv6/anycast.c
+index 0627c4c18d1a5..97c72dc541fd6 100644
+--- a/net/ipv6/anycast.c
++++ b/net/ipv6/anycast.c
+@@ -94,7 +94,9 @@ int ipv6_sock_ac_join(struct sock *sk, int ifindex, const struct in6_addr *addr)
  
-+	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
- 	for (i = 0; i < len; i++) {
- 		if (likely(pg_vec[i].buffer)) {
- 			if (is_vmalloc_addr(pg_vec[i].buffer))
-@@ -4385,7 +4402,46 @@ static void free_pg_vec(struct pgv *pg_vec, unsigned int order,
- 			pg_vec[i].buffer = NULL;
+ 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
+ 		if (rt) {
+-			dev = rt->dst.dev;
++			rcu_read_lock();
++			dev = dst_dev_rcu(&rt->dst);
++			rcu_read_unlock();
+ 			ip6_rt_put(rt);
+ 		} else if (ishost) {
+ 			err = -EADDRNOTAVAIL;
+diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
+index 229ae205450d3..e4e40f0694238 100644
+--- a/net/ipv6/icmp.c
++++ b/net/ipv6/icmp.c
+@@ -209,7 +209,8 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
+ 	 * this lookup should be more aggressive (not longer than timeout).
+ 	 */
+ 	dst = ip6_route_output(net, sk, fl6);
+-	dev = dst_dev(dst);
++	rcu_read_lock();
++	dev = dst_dev_rcu(dst);
+ 	if (dst->error) {
+ 		IP6_INC_STATS(net, ip6_dst_idev(dst),
+ 			      IPSTATS_MIB_OUTNOROUTES);
+@@ -224,11 +225,10 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
+ 		if (rt->rt6i_dst.plen < 128)
+ 			tmo >>= ((128 - rt->rt6i_dst.plen)>>5);
+ 
+-		rcu_read_lock();
+ 		peer = inet_getpeer_v6(net->ipv6.peers, &fl6->daddr);
+ 		res = inet_peer_xrlim_allow(peer, tmo);
+-		rcu_read_unlock();
+ 	}
++	rcu_read_unlock();
+ 	if (!res)
+ 		__ICMP6_INC_STATS(net, ip6_dst_idev(dst),
+ 				  ICMP6_MIB_RATELIMITHOST);
+diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
+index 92f321635e4ec..335546d77f39c 100644
+--- a/net/ipv6/mcast.c
++++ b/net/ipv6/mcast.c
+@@ -201,7 +201,9 @@ static int __ipv6_sock_mc_join(struct sock *sk, int ifindex,
+ 		struct rt6_info *rt;
+ 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
+ 		if (rt) {
+-			dev = rt->dst.dev;
++			rcu_read_lock();
++			dev = dst_dev_rcu(&rt->dst);
++			rcu_read_unlock();
+ 			ip6_rt_put(rt);
  		}
- 	}
--	kfree(pg_vec);
-+	kfree(vec->deferred);
-+	kfree(vec);
-+}
-+
-+static void packet_free_pg_vec_work(struct work_struct *work)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+	struct sock *sk;
-+
-+	deferred = container_of_const(to_delayed_work(work),
-+				      struct packet_pg_vec_free, work);
-+	vec = deferred->vec;
-+	sk = deferred->sk;
-+	if (sk_wmem_alloc_get(sk)) {
-+		queue_delayed_work(system_long_wq, &deferred->work, 1);
-+		return;
-+	}
-+
-+	free_pg_vec(vec->pg_vec, vec->order, vec->len);
-+	sock_put(sk);
-+}
-+
-+static void packet_free_tx_ring(struct sock *sk, struct pgv *pg_vec,
-+				unsigned int order, unsigned int len)
-+{
-+	struct packet_pg_vec_free *deferred;
-+	struct packet_pg_vec *vec;
-+
-+	vec = container_of_const(pg_vec, struct packet_pg_vec, pg_vec[0]);
-+	deferred = vec->deferred;
-+	if (!deferred || !sk_wmem_alloc_get(sk)) {
-+		free_pg_vec(pg_vec, order, len);
-+		return;
-+	}
-+
-+	/* A detached ring's pending count can miss late skb destructors. */
-+	deferred->sk = sk;
-+	sock_hold(sk);
-+	queue_delayed_work(system_long_wq, &deferred->work, 0);
- }
+ 	} else
+diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+index 87bed84a00532..26ad7cab0383f 100644
+--- a/net/ipv6/ndisc.c
++++ b/net/ipv6/ndisc.c
+@@ -508,7 +508,7 @@ void ndisc_send_skb(struct sk_buff *skb, const struct in6_addr *daddr,
  
- static char *alloc_one_pg_vec_page(unsigned long order)
-@@ -4413,20 +4469,35 @@ static char *alloc_one_pg_vec_page(unsigned long order)
- 	return NULL;
- }
+ 	ip6_nd_hdr(skb, saddr, daddr, READ_ONCE(inet6_sk(sk)->hop_limit), skb->len);
  
--static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order)
-+static struct pgv *alloc_pg_vec(struct tpacket_req *req, int order, bool tx_ring)
+-	dev = dst_dev(dst);
++	dev = dst_dev_rcu(dst);
+ 	idev = __in6_dev_get(dev);
+ 	IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTREQUESTS);
+ 
+diff --git a/net/ipv6/output_core.c b/net/ipv6/output_core.c
+index 90a178dd24aae..5be101401a00e 100644
+--- a/net/ipv6/output_core.c
++++ b/net/ipv6/output_core.c
+@@ -104,18 +104,20 @@ EXPORT_SYMBOL(ip6_find_1stfragopt);
+ int ip6_dst_hoplimit(struct dst_entry *dst)
  {
- 	unsigned int block_nr = req->tp_block_nr;
-+	struct packet_pg_vec *vec;
- 	struct pgv *pg_vec;
- 	int i;
- 
--	pg_vec = kcalloc(block_nr, sizeof(struct pgv), GFP_KERNEL | __GFP_NOWARN);
--	if (unlikely(!pg_vec))
--		goto out;
-+	vec = kzalloc_flex(*vec, pg_vec, block_nr, GFP_KERNEL | __GFP_NOWARN);
-+	if (unlikely(!vec))
-+		return NULL;
-+	vec->order = order;
-+	vec->len = block_nr;
-+	pg_vec = vec->pg_vec;
- 
- 	for (i = 0; i < block_nr; i++) {
- 		pg_vec[i].buffer = alloc_one_pg_vec_page(order);
- 		if (unlikely(!pg_vec[i].buffer))
- 			goto out_free_pgvec;
+ 	int hoplimit = dst_metric_raw(dst, RTAX_HOPLIMIT);
 +
-+		if (tx_ring && !vec->deferred &&
-+		    is_vmalloc_addr(pg_vec[i].buffer)) {
-+			vec->deferred = kzalloc_obj(*vec->deferred,
-+						    GFP_KERNEL | __GFP_NOWARN);
-+			if (!vec->deferred)
-+				goto out_free_pgvec;
-+			vec->deferred->vec = vec;
-+			INIT_DELAYED_WORK(&vec->deferred->work,
-+					  packet_free_pg_vec_work);
-+		}
++	rcu_read_lock();
+ 	if (hoplimit == 0) {
+-		struct net_device *dev = dst_dev(dst);
++		struct net_device *dev = dst_dev_rcu(dst);
+ 		struct inet6_dev *idev;
+ 
+-		rcu_read_lock();
+ 		idev = __in6_dev_get(dev);
+ 		if (idev)
+ 			hoplimit = READ_ONCE(idev->cnf.hop_limit);
+ 		else
+ 			hoplimit = READ_ONCE(dev_net(dev)->ipv6.devconf_all->hop_limit);
+-		rcu_read_unlock();
  	}
- 
- out:
-@@ -4509,7 +4580,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 
- 		err = -ENOMEM;
- 		order = get_order(req->tp_block_size);
--		pg_vec = alloc_pg_vec(req, order);
-+		pg_vec = alloc_pg_vec(req, order, tx_ring);
- 		if (unlikely(!pg_vec))
- 			goto out;
- 		switch (po->tp_version) {
-@@ -4561,6 +4632,9 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 	err = -EBUSY;
- 	mutex_lock(&po->pg_vec_lock);
- 	if (closing || atomic_long_read(&po->mapped) == 0) {
-+		if (tx_ring && !closing && packet_read_pending(rb))
-+			goto out_unlock;
++	rcu_read_unlock();
 +
- 		err = 0;
- 		spin_lock_bh(&rb_queue->lock);
- 		swap(rb->pg_vec, pg_vec);
-@@ -4582,6 +4656,7 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- 			pr_err("packet_mmap: vma is busy: %ld\n",
- 			       atomic_long_read(&po->mapped));
- 	}
-+out_unlock:
- 	mutex_unlock(&po->pg_vec_lock);
+ 	return hoplimit;
+ }
+ EXPORT_SYMBOL(ip6_dst_hoplimit);
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index e602dd3e7ee39..eb2ba7c34f6f8 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -2949,7 +2949,7 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
  
- 	spin_lock(&po->bind_lock);
-@@ -4603,7 +4678,10 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
- out_free_pg_vec:
- 	if (pg_vec) {
- 		bitmap_free(rx_owner_map);
--		free_pg_vec(pg_vec, order, req->tp_block_nr);
-+		if (tx_ring && closing)
-+			packet_free_tx_ring(sk, pg_vec, order, req->tp_block_nr);
-+		else
-+			free_pg_vec(pg_vec, order, req->tp_block_nr);
- 	}
- out:
- 	return err;
+ 		if (res.f6i->nh) {
+ 			struct fib6_nh_match_arg arg = {
+-				.dev = dst_dev(dst),
++				.dev = dst_dev_rcu(dst),
+ 				.gw = &rt6->rt6i_gateway,
+ 			};
+ 
+@@ -3244,15 +3244,14 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
+ 
+ static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+ {
+-	struct net_device *dev = dst_dev(dst);
+-	unsigned int mtu = dst_mtu(dst);
++	unsigned int mtu = dst6_mtu(dst);
+ 	struct net *net;
+ 
+ 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
+ 
+ 	rcu_read_lock();
+ 
+-	net = dev_net_rcu(dev);
++	net = dst_dev_net_rcu(dst);
+ 	if (mtu < net->ipv6.sysctl.ip6_rt_min_advmss)
+ 		mtu = net->ipv6.sysctl.ip6_rt_min_advmss;
+ 
+@@ -4266,7 +4265,7 @@ static void rt6_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_bu
+ 
+ 	if (res.f6i->nh) {
+ 		struct fib6_nh_match_arg arg = {
+-			.dev = dst_dev(dst),
++			.dev = dst_dev_rcu(dst),
+ 			.gw = &rt->rt6i_gateway,
+ 		};
+ 
 -- 
 2.53.0
 
