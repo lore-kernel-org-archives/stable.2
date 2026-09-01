@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368E33A6EF1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101953AC0FD
 	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 12:10:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264618; cv=none; b=u+KHJUJ3KbuEdp1sDFJ1tMCACy++BLVlqbwO/x7QHp540k+udRWnqmgunLwNdFVWU2S5BnidsA9lmp+BvEOIMoA1V8j5dj5nb5bmtcuFXB36Gn5okPuXfFuetTl2IdLvbf40GvlAA7pxF5Fb2czqOy3G+pn6xP/KrwGH7Rvm4Gk=
+	t=1788264619; cv=none; b=po42hq/5zKsmKSkwbcx4LLjSV8nWqgrvXWHVbTaiLzalwoHwGYzocU8O0GtdFyfO7hVIChYWnEKFtQHWZebGfw0L/SJX9L+xWACHVXoafn/fwLjg8W/xVKkU6IBFUY2d/fKuqGYE6bgWrnqqFaTRluns59cFVRfBNhsjTDQ6G7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264618; c=relaxed/simple;
-	bh=O7psgw8A/l+i5Vszq8r2uhcc9CVpCwInT1mOjKWAams=;
+	s=arc-20240116; t=1788264619; c=relaxed/simple;
+	bh=AywJJ0kjoxGw/jof2lC63dYgl/2uhICluMVsPAGVk1s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IJNeLZOZDWbiJmtG4dq4QSt1Jj+PRyCDq2TX4tvUwegdVa6LqNhHYbzhsKn6FT5uarfxtQI1a2vk+AN4xXnBoFls1jZa2fY6efCEM89GWmmZSNUQjV7iBbSSBKrcoy2U+rMnEMujRUlHIBsdNkr+M/bEoDlYgCi/v99E4V8BI1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9XO+dRR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cj8p64esK1GSD6hWz2RWhMxwZPyildK5r9MohqMa0NfMthGUmIoMHiOGlzvvpu0xbaQUcvCr8lrJklo7FkoOa7rQP7oQ8iQtwPpMpXiFc5Kfnn1O3jdwi3MNH54ggOY7sAW0gmEhNErZzR3M+SP7Nt9tnkBUyn2h2h2mHyGodtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NgbLs953; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9XO+dRR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C89B1F00A3F;
-	Tue,  1 Sep 2026 12:10:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NgbLs953"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC8E1F00ACA;
+	Tue,  1 Sep 2026 12:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788264616;
-	bh=6pR0NMMcfahZxaYrY+TZJrwaNkgv+3h7Dk6TJC+YlmY=;
+	s=k20260515; t=1788264617;
+	bh=uNgPJq18+3l6lfhggUGDmY5H7CbVEs8nRbbndcijxPQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G9XO+dRR4tCxgF5O8rYO6a0Q1WceBmAFWs8lY1E3lT1QYss1sZPOwj0NOMVu0uIuj
-	 c6Gj66hpS2h0pS1jTIfvjLpHZeTEYwDoIyB4bEldjiQT35FWhq5Gv/Qhp1quc3qETh
-	 VmioKNkepjCXk1267SD5Y0i4uIEyQ5s+H0pH1uVuDv36bBK/vxn+iuAMfadvc5FwSU
-	 hEhwnj5qMf/90Foy96ec49/Chw9yrylOv2OAFBk4LU7QmgMINfXCHHJivfpAOeGXj/
-	 wvF9Q2vy7Tj59pA+EZIFlsXu0N6IVzDstC6+bT3dTfVzUiFaZ36tvI0OLrwl59y1Ra
-	 aTTPS5U/tKi5g==
+	b=NgbLs953Xb+Ym1GpvfgtScfpqBD/01K1vQ4oRCQ4e+PMgjWfi0GhL8JYdyOt4O1cy
+	 RFWoPt2alNmtEtsCoILrVhBDNxZoO5GZxyVvkkwyDsM89CzqJwTuki55fTGp8YGhvJ
+	 qu+OkO9P7ZL6u3wBaAOqCkDSu+JziBNOZOWHY5PA+Wb+ERkDCxEw6jUCGJZgxdLJs3
+	 rkSZfy1tL567hI7A4h9QqEZ9WXwxPT9B4rVoahqIUeQ3HY+NQle/Nqu/7dmsnfnHQ6
+	 uIlDzTJOcWH6aBNriCVcnkvp33VezYIFKjotIz1kO5yf0aLEkuapL1upcCjiTxY0Jt
+	 bqQrjri+gIB3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lukas Wunner <lukas@wunner.de>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/4] crypto: virtio - Drop superfluous [as]kcipher_req pointer
-Date: Tue,  1 Sep 2026 08:10:12 -0400
-Message-ID: <20260901121013.579838-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] crypto: virtio - bound the akcipher result length
+Date: Tue,  1 Sep 2026 08:10:13 -0400
+Message-ID: <20260901121013.579838-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260901121013.579838-1-sashal@kernel.org>
 References: <2026083110-catcall-outtakes-9ceb@gregkh>
@@ -46,114 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lukas Wunner <lukas@wunner.de>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 62d027fb49c76475c5256ab69059752f42c3730f ]
+[ Upstream commit f77a956f6a19f9463ef1527c9d0cda50dded6b92 ]
 
-The request context virtio_crypto_{akcipher,sym}_request contains a
-pointer to the [as]kcipher_request itself.
+virtio_crypto_dataq_akcipher_callback() sets the result length from the
+device-reported response length without bounding it to the destination
+buffer, which was allocated for the original request length.
+sg_copy_from_buffer() then reads that many bytes from the destination
+buffer; a backend reporting a larger length over-reads adjacent kernel
+heap into the caller's scatterlist (an out-of-bounds read).
 
-The pointer is superfluous as it can be calculated with container_of().
+Clamp the reported length to the originally requested destination length.
+A conforming device reports no more than that, so valid results are
+unaffected.
 
-Drop the superfluous pointer.
-
-Signed-off-by: Lukas Wunner <lukas@wunner.de>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Stable-dep-of: f77a956f6a19 ("crypto: virtio - bound the akcipher result length")
+Fixes: a36bd0ad9fbf ("virtio-crypto: adjust dst_len at ops callback")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Message-ID: <20260622-b4-disp-3a2c09a8-v2-1-d1a809281db4@proton.me>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/virtio/virtio_crypto_akcipher_algs.c | 9 ++++-----
- drivers/crypto/virtio/virtio_crypto_skcipher_algs.c | 8 +++-----
- 2 files changed, 7 insertions(+), 10 deletions(-)
+ drivers/crypto/virtio/virtio_crypto_akcipher_algs.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
-index 6130d14100974..e44ae99384573 100644
+index e44ae99384573..7b1a561ffbe83 100644
 --- a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
 +++ b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
-@@ -36,7 +36,6 @@ struct virtio_crypto_akcipher_ctx {
- 
- struct virtio_crypto_akcipher_request {
- 	struct virtio_crypto_request base;
--	struct akcipher_request *akcipher_req;
- 	void *src_buf;
- 	void *dst_buf;
- 	uint32_t opcode;
-@@ -68,7 +67,9 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
- {
- 	struct virtio_crypto_akcipher_request *vc_akcipher_req =
- 		container_of(vc_req, struct virtio_crypto_akcipher_request, base);
--	struct akcipher_request *akcipher_req;
-+	struct akcipher_request *akcipher_req =
-+		container_of((void *)vc_akcipher_req, struct akcipher_request,
-+			     __ctx);
- 	int error;
- 
- 	switch (vc_req->status) {
-@@ -87,8 +88,7 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
- 		break;
+@@ -89,7 +89,8 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
  	}
  
--	akcipher_req = vc_akcipher_req->akcipher_req;
--	/* actual length maybe less than dst buffer */
-+	/* actual length may be less than dst buffer */
- 	akcipher_req->dst_len = len - sizeof(vc_req->status);
+ 	/* actual length may be less than dst buffer */
+-	akcipher_req->dst_len = len - sizeof(vc_req->status);
++	akcipher_req->dst_len = min_t(unsigned int, len - sizeof(vc_req->status),
++				      akcipher_req->dst_len);
  	sg_copy_from_buffer(akcipher_req->dst, sg_nents(akcipher_req->dst),
  			    vc_akcipher_req->dst_buf, akcipher_req->dst_len);
-@@ -320,7 +320,6 @@ static int virtio_crypto_rsa_req(struct akcipher_request *req, uint32_t opcode)
- 
- 	vc_req->dataq = data_vq;
- 	vc_req->alg_cb = virtio_crypto_dataq_akcipher_callback;
--	vc_akcipher_req->akcipher_req = req;
- 	vc_akcipher_req->opcode = opcode;
- 
- 	return crypto_transfer_akcipher_request_to_engine(data_vq->engine, req);
-diff --git a/drivers/crypto/virtio/virtio_crypto_skcipher_algs.c b/drivers/crypto/virtio/virtio_crypto_skcipher_algs.c
-index d3655137a17a9..9efb4ecd2174b 100644
---- a/drivers/crypto/virtio/virtio_crypto_skcipher_algs.c
-+++ b/drivers/crypto/virtio/virtio_crypto_skcipher_algs.c
-@@ -28,7 +28,6 @@ struct virtio_crypto_sym_request {
- 
- 	/* Cipher or aead */
- 	uint32_t type;
--	struct skcipher_request *skcipher_req;
- 	uint8_t *iv;
- 	/* Encryption? */
- 	bool encrypt;
-@@ -56,7 +55,9 @@ static void virtio_crypto_dataq_sym_callback
- {
- 	struct virtio_crypto_sym_request *vc_sym_req =
- 		container_of(vc_req, struct virtio_crypto_sym_request, base);
--	struct skcipher_request *ablk_req;
-+	struct skcipher_request *ablk_req =
-+		container_of((void *)vc_sym_req, struct skcipher_request,
-+			     __ctx);
- 	int error;
- 
- 	/* Finish the encrypt or decrypt process */
-@@ -76,7 +77,6 @@ static void virtio_crypto_dataq_sym_callback
- 			error = -EIO;
- 			break;
- 		}
--		ablk_req = vc_sym_req->skcipher_req;
- 		virtio_crypto_skcipher_finalize_req(vc_sym_req,
- 							ablk_req, error);
- 	}
-@@ -480,7 +480,6 @@ static int virtio_crypto_skcipher_encrypt(struct skcipher_request *req)
- 
- 	vc_req->dataq = data_vq;
- 	vc_req->alg_cb = virtio_crypto_dataq_sym_callback;
--	vc_sym_req->skcipher_req = req;
- 	vc_sym_req->encrypt = true;
- 
- 	return crypto_transfer_skcipher_request_to_engine(data_vq->engine, req);
-@@ -504,7 +503,6 @@ static int virtio_crypto_skcipher_decrypt(struct skcipher_request *req)
- 
- 	vc_req->dataq = data_vq;
- 	vc_req->alg_cb = virtio_crypto_dataq_sym_callback;
--	vc_sym_req->skcipher_req = req;
- 	vc_sym_req->encrypt = false;
- 
- 	return crypto_transfer_skcipher_request_to_engine(data_vq->engine, req);
+ 	virtio_crypto_akcipher_finalize_req(vc_akcipher_req, akcipher_req, error);
 -- 
 2.53.0
 
