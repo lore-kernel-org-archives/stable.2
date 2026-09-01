@@ -1,137 +1,149 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8B52FC876;
-	Tue,  1 Sep 2026 11:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A282BD59C
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261876; cv=none; b=KH4tp9yZbXqxUXNya6z7zCLYCC+7yv1lO44MJ4CWn5L0/vPim928nF5WH5IESwV62zJ/H8eX+sYo9Nmlg6J1cZCp4UQpEQxN3WFGu7kez7GS+IDceHBxotDJ2F6Hut/f9w15nr8Q8NxKQQX8EDYOx9lk4GnoGT9igmNRoaWi8ko=
+	t=1788262040; cv=none; b=tC1NJp+8flDYnwZC/digrXGtr79TwpgYmZqU2GWdMXC2eMfoBUT3yp0vuowAnZoC9qqQWlcEGfjfCFyMuubNHxABgkMNUMHSwvD4VdM6qoPmUAl4svPb/FPWg5oVrhPFO2zQ8ri/EvFiXj0ax7i+w6GLVIfnuwTCt2D3a7U3ptI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261876; c=relaxed/simple;
-	bh=6A74c6VeFiGCcRUJXPOiiloHoNuVTWCrnP59el5AHIU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D2sUKvRcfsdf+hNf/mQXZgUNm3dyGVWW4GMIgttM0+r0bJNgJFuA6z6teNF87ykOT/ewgSO24UEF6gz4b/42W0wS/xkrdcNUjTjUApAVUrzie9/tAbCsAejapkZnZKOMXdMUEOA9RvYLKXiccfo4q+EcwDoyYPT+PZ4RFfaQGYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Fahymril; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788262040; c=relaxed/simple;
+	bh=r+sUqTRcH0ymeK1uGF2YRrysoiXiQgJXdWJgLMyzioU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=t7+loZx8UO4jJnWh9a6NDDJeA+XAuTAr+I4E7rDhDHBWEL356j0GtrSArvjn3xFbxUFwh/lHPYUEANNEwuS0lmYI0Rq+bqXYIpkF5rdVS5aMkbSsZuYafoqLz0VD9ym//M3RU0LdwnQbBHRQGUjf2sltZIkwY4tuCxMVCVvPUs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmrORdY4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Fahymril"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788261870; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=E3VURlQpvCj0IFlfDMpwATe4ShsH6UZzlqTrim1jfqQ=;
-	b=FahymrilpzSI1AUpye2VtepI1PGqGi494INZmVf1EuBaKve/DFgEHQzif/iUfUg1fq3ZGHWmj1JFVbzzYLM2EXqTOYkxb5EWlJg8zsXAMnsiX6tGLkJ3Y3wDIzkFNqWHjp7OTYnOGocIEyWfE7dgTV4fQ9wIeJ6RjkT5V9K2T90=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R751e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=ying.huang@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XA7CcCs_1788261862;
-Received: from DESKTOP-5N7EMDA(mailfrom:ying.huang@linux.alibaba.com fp:SMTPD_---0XA7CcCs_1788261862 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 19:24:28 +0800
-From: "Huang, Ying" <ying.huang@linux.alibaba.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org,  linux-kernel@vger.kernel.org,
-  kernel-team@meta.com,  akpm@linux-foundation.org,  david@kernel.org,
-  ziy@nvidia.com,  matthew.brost@intel.com,  joshua.hahnjy@gmail.com,
-  rakie.kim@sk.com,  byungchul@sk.com,  apopple@nvidia.com,
-  urezki@gmail.com,  chenwandun@huawei.com,  Chelsy Ratnawat
- <chelsyratnawat2001@gmail.com>,  stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: take a cpuset cookie for the interleave
- node count
-In-Reply-To: <20260828193111.1023497-1-gourry@gourry.net> (Gregory Price's
-	message of "Fri, 28 Aug 2026 15:31:11 -0400")
-References: <20260828193111.1023497-1-gourry@gourry.net>
-Date: Tue, 01 Sep 2026 19:24:21 +0800
-Message-ID: <877bl5qknu.fsf@DESKTOP-5N7EMDA>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmrORdY4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A1C1F00A3D;
+	Tue,  1 Sep 2026 11:27:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788262039;
+	bh=fovJ7MzybYMUPw4dN/aHKT0kZBlOGVOPiy/yCyaIhAA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UmrORdY4CvcI/fp0QHSmPyLVkDtpUWKT8U3ekaDAlqJH5blOTqYJ7/j/VNHhxqCQR
+	 p365a9le785kC4zRfRgxZsCcTvAF0PkLn36fsLHKIt8VMqXc/wu5BwfCzvLF6oeOmE
+	 1CO9srX1z0BQLHJZaLBSYYH0tT51VvBFXvkrQJlGQXn0odOSVGUPwMA8Xp2wyTOv4o
+	 7k39lx1RQCAaUbDmdD7ZZV+pX5WVQbR/DYEDJwush5KeWVLq+FQ5IeWBXeCxteQmO/
+	 prpvXMLaJSe9+7CGs+1f2eBi0hR+wkc0T3Qbr9i8ARDvX9SqxGo9Jazi7XNM+O7JWh
+	 7gNFu2b3bQLaA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] tls: device: fix out-of-bounds write in tls_append_frag()
+Date: Tue,  1 Sep 2026 07:27:16 -0400
+Message-ID: <20260901112716.158417-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083138-hazily-reword-215c@gregkh>
+References: <2026083138-hazily-reword-215c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ascii
+Content-Transfer-Encoding: 8bit
 
-Gregory Price <gourry@gourry.net> writes:
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-> alloc_pages_bulk_interleave() counts pol->nodes without a cpuset cookie:
->
-> 	nodes = nodes_weight(pol->nodes);
-> 	nr_pages_per_node = nr_pages / nodes;
->
-> nodemask_t spans several words once MAX_NUMNODES exceeds BITS_PER_LONG, so
-> a concurrent cpuset rebind can tear that read and yield an empty mask even
-> though neither version of it was empty.  The call then allocates nothing
-> and returns 0.
->
-> Some compilers will hoist the loop entry test above the division,
-> because nr_pages_per_node is dead when the loop does not run.
->
-> 	682e:	call	...		<- nodes_weight()
-> 	6838:	test	%eax,%eax
-> 	683a:	jle	692d		<- nodes <= 0 skips the loop
-> 	684a:	div	%rcx
->
-> So in most deployments, this div/0 is unreachable - but nothing in the
-> source guarantees that, it's just not easily exercised.
->
-> Take the cookie around the count and bail if the mask really is empty.
-> Only the count needs it, interleave_nodes() takes the cookie itself so
-> so a torn read there is already retried.
->
-> A rebind landing mid-loop can still leave the count disagreeing with the
-> mask, so the loop may revisit a node or skip one - but a rebind where
-> nodes change causes migration, so a handful of misplaced pages isn't
-> catastrophic in any sense.
->
-> Measured on a 72 node VM (NODES_SHIFT=10) with a cgroup v2 cpuset flipping
-> cpuset.mems between a word 0 and a word 1 node set, and the two word read
-> artificially widened: 330 zero counts in 130414 calls without the cookie,
-> and 401 retries with it.
->
-> Reported-by: Chelsy Ratnawat <chelsyratnawat2001@gmail.com>
-> Link: https://lore.kernel.org/all/20250907160829.91628-1-chelsyratnawat2001@gmail.com/
-> Fixes: c00b6b961099 ("mm/vmalloc: introduce alloc_pages_bulk_array_mempolicy to accelerate memory allocation")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> ---
->  mm/mempolicy.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
->
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 79053ece02cd..060a0eb26917 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -2592,6 +2592,7 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
->  		struct mempolicy *pol, unsigned long nr_pages,
->  		struct page **page_array)
->  {
-> +	unsigned int cpuset_mems_cookie;
->  	int nodes;
->  	unsigned long nr_pages_per_node;
->  	int delta;
-> @@ -2599,7 +2600,16 @@ static unsigned long alloc_pages_bulk_interleave(gfp_t gfp,
->  	unsigned long nr_allocated;
->  	unsigned long total_allocated = 0;
->  
-> -	nodes = nodes_weight(pol->nodes);
-> +	/* count the nodes, retry if a rebind happened during the read */
-> +	do {
-> +		cpuset_mems_cookie = read_mems_allowed_begin();
-> +		nodes = nodes_weight(pol->nodes);
-> +	} while (read_mems_allowed_retry(cpuset_mems_cookie));
-> +
-> +	/* if the nodemask has become invalid, we cannot do anything */
-> +	if (!nodes)
-> +		return 0;
-> +
->  	nr_pages_per_node = nr_pages / nodes;
->  	delta = nr_pages - nodes * nr_pages_per_node;
+[ Upstream commit b17cf742eaad70ae29ac558cefb3aa9bbeea03d4 ]
 
-LGTM, feel free to add my
+Found with syzkaller and a local syzbot instance running on top of a
+netdevsim TLS offload emulation; tls_device.c is otherwise only reachable
+on a machine with a NIC that implements the offload.
 
-Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
+tls_push_data() only checks whether the open record still has room for
+another frag at the bottom of its loop, and the MSG_MORE early break
+skips that check.  The record survives to the next syscall with the frag
+count it already had, and tls_append_frag() does not check either, so
+with TLS_TX_ZEROCOPY_RO every splice(SPLICE_F_MORE) of a byte or two adds
+a non-coalescing pipe page and num_frags walks off the end of
+tls_record_info.frags[MAX_SKB_FRAGS].  Once the record is pushed,
+tls_push_record() runs the same index over sg_tx_data[MAX_SKB_FRAGS] and
+the sg_set_page() writes land on the destruct_work that follows it, which
+the workqueue then calls.
 
-in the future version.
+The byte limit is fine because copy drops to 0 and the loop falls through
+to the same check; the frag count has no such feedback.
 
+Push the record rather than keep a full one open, which is what a plain
+TCP socket does - tcp_sendmsg_locked() uses tcp_mark_push() and
+new_segment in both the copy and the MSG_SPLICE_PAGES paths, and tls_sw
+already sets full_record when the sk_msg ring fills up, MSG_MORE or not.
+
+  BUG: KASAN: slab-out-of-bounds in tls_append_frag ( net/tls/tls_device.c:269)
+  Write of size 8 at addr ffff8881104d1530 by task tls_oob/450
+
+  CPU: 2 UID: 0 PID: 450 Comm: tls_oob Not tainted 7.2.0-rc7+ #329 PREEMPT
+  Call Trace:
+   <TASK>
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   tls_append_frag (net/tls/tls_device.c:269)
+   tls_push_data (net/tls/tls_device.c:518)
+   tls_device_sendmsg (net/tls/tls_device.c:583)
+   inet_sendmsg (net/ipv4/af_inet.c:865)
+   sock_sendmsg (net/socket.c:775 net/socket.c:790 net/socket.c:813)
+   splice_to_socket (fs/splice.c:884)
+   do_splice (fs/splice.c:936 fs/splice.c:1349)
+   __do_splice (fs/splice.c:1431)
+   __x64_sys_splice (fs/splice.c:1634 fs/splice.c:1616)
+   do_syscall_64 (arch/x86/entry/syscall_64.c:63 arch/x86/entry/syscall_64.c:94)
+   entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+   </TASK>
+
+and, once the record is pushed:
+
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:300:24
+  index 18 is out of range for type 'skb_frag_t [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:301:41
+  index 18 is out of range for type 'scatterlist [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:302:39
+  index 18 is out of range for type 'scatterlist [17]'
+  UBSAN: array-index-out-of-bounds in net/tls/tls_device.c:307:38
+  index 26 is out of range for type 'scatterlist [17]'
+
+  kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+  BUG: unable to handle page fault for address: ffffea000411a680
+  #PF: supervisor instruction fetch in kernel mode
+  #PF: error_code(0x0011) - permissions violation
+  Oops: Oops: 0011 [#1] SMP KASAN PTI
+  Workqueue: ktls_device_destruct 0xffffea000411a680
+  RIP: 0010:0xffffea000411a680
+  Call Trace:
+   <TASK>
+   worker_thread (kernel/workqueue.c:3405 kernel/workqueue.c:3486)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+   </TASK>
+
+Fixes: e8f69799810c ("net/tls: Add generic NIC offload infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Link: https://patch.msgid.link/20260823084758.20936-1-jiayuan.chen@linux.dev
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Best Regards,
-Huang, Ying
+ net/tls/tls_device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index 10f7b35673bc6..2060380265a75 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -493,7 +493,8 @@ static int tls_push_data(struct sock *sk,
+ 		if (!size) {
+ last_record:
+ 			tls_push_record_flags = flags;
+-			if (flags & (MSG_SENDPAGE_NOTLAST | MSG_MORE)) {
++			if ((flags & (MSG_SENDPAGE_NOTLAST | MSG_MORE)) &&
++			    record->num_frags < MAX_SKB_FRAGS - 1) {
+ 				more = true;
+ 				break;
+ 			}
+-- 
+2.53.0
+
