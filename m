@@ -1,206 +1,179 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4902639DBD6;
-	Tue,  1 Sep 2026 11:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263008; cv=none; b=csHYH0h67h1fV5zRBxyRUlFjx8YuTpVkKH79jsRsWTZaa2NXJuVRpalq1N2iyCu9YXVdL/lyggnWx6jIGRBRVccSImTRW9EC/e3fGSKwdO8za8ClxYKmdTjdBI/Qsqg4SR0uCm5WP4AfxRkH1n5P9qt9KaHR38uP+Q/o0TbNEXI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263008; c=relaxed/simple;
-	bh=39ITq4Ff+c+FJRIAtgkzR/3Yy9O8cOz2fIYexbHY64o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=PQhrGBmSfO9DNoD7lt14QCB+2Fj+NgxKrHpkJSt88HTibPLqoSILpqflLj1dpms0qHruxToKkTfH0XpszRAFaiyKkyLbA/ttD2I1AlqP41nWntjHR3LM2/la0HzOJ5hLpQADm9gpSa/zqDYYX/tjI1iynzDQ5GkVWVTj+XJzIOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=3WCLVJ/Q; arc=none smtp.client-ip=113.46.200.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FD23B0585
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263232; cv=pass; b=cTsxJ3KVoVEssIroWCIdb+Ssv0XrNtVBFwQrHZE7+Bzk1GPKiV7RzRM1LlTARFnCHnUKwzpUuEsocQpTfT8PlbcWO/Z+Ez1dWjxgPVycJhd/Sr6XUJGSsk8CaRSB9O+mwkZT5axwiocwzAQSbo+wF6vvcM3OVvsCWeq++bmrX10=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263232; c=relaxed/simple;
+	bh=WkEWz4mj8V/La5ibN5ZGxZHCQujl3YdUwyDFz4ro5gQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PAgQBG3rr1iwgCAPgkqns709pA96cXPrptF+jZZx3QqboV4jhUKpiEm8usxd7n8m4Ox5ASA50AblAeE61cPhKkTKgaDqpx6E/Jyb/2ck5g1TOBf0Y/5tZVg37pXymttcpefZWDM46EoJNHkl4mRTNMFEPJhZJc9HwM9ADvTRihk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rGQxFILE; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="3WCLVJ/Q"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=jVFy6vmRTrlaHy1nJIJgeFKjh2QY1a0llw9oeQ2GpfM=;
-	b=3WCLVJ/QUY/dalOUg3y2No3BSYtFDEAEem8rPz++4Q80iySAl3yWGYQ2UxsSal6T0WWl8CWEr
-	V84iMd5t1g+plSUv1YDwAow+nc6NIV0tY2t/r1OMfUEfKFMjGj5T1zOgK6FhcfCb2Wc83soM7U0
-	L7T78noz9RIp97/+mJx0B+4=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hZ3bz3DMsz1T4Fq;
-	Tue,  1 Sep 2026 19:31:59 +0800 (CST)
-Received: from dggpemf100018.china.huawei.com (unknown [7.185.36.183])
-	by mail.maildlp.com (Postfix) with ESMTPS id B649540579;
-	Tue,  1 Sep 2026 19:43:19 +0800 (CST)
-Received: from [10.67.111.115] (10.67.111.115) by
- dggpemf100018.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 1 Sep 2026 19:43:18 +0800
-Message-ID: <5c4e30cf-3742-4d25-a209-25498c73f1f4@huawei.com>
-Date: Tue, 1 Sep 2026 19:43:17 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rGQxFILE"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a623987d32so1214985a12.1
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 04:47:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788263229; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f4spfycD5sgHlHF0/T1P/J0dSM/1Qv7+3scdzMwuy9gBLXfkVFVXVPkF9U9Etpmur+
+         1+bZQEK9HUdXWlGB1clV56sM8sFZGzlzrxILXwZBmK0XWBckbFro7YfoA1TV/5MRNXZN
+         D/uGz9+iTYPTSyUvbOZkgLFEQpY7WeVrjMPtHX4MHdvdhHh2/oPgYuHB24kADS1W7U90
+         9/9DnijPb4KyWh5WSVL+IviEI1EztDQpW+wILn2fNxP1viUY1UfUtKgKaaDVZv3HPMva
+         vSs+Dc6PujmHl6/BlQY9YrC1eTFzx12uYlgpILh1di+HzZBiFInXIjkOfoHDurt42O1P
+         cfSw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
+        fh=c0ImoZPf65Y1EQA8f7AjDv/3axrGX1vUGc0FTe5850A=;
+        b=gJSnbc/EijuV/lmQrehOzaXRLt8065uHjhLmgF/Yf2d2ClZtlJdB38kbbe02VyfpOP
+         e27/cmQ5H7dRyLWe9EAscKr3082cRw2TFfCSNkbHVjSCJGNKF+FQepYdj8dMd15uHFl6
+         NmV4///gg1lRjCshKk9+EaskQ7bXNgNxKakBSh8iGXl7dm4u8bPgka4+hrE601h2rmb1
+         oCaWEEBYeenSy3o0UBMYUgbYPA+Osk6zir2QzqFnGc3LCz7bo+SAPQDTatbT8G8lHxCd
+         oK1x4H7HmS5nboBBlN+HXMlrACjqGBoRGmhpt9wZ5+bse8UGI76ZoBcRFU9a3foyoVwp
+         1L+g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788263229; x=1788868029; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
+        b=rGQxFILEJdbQkHMaTFcQ5RC6dFtu/XFoonkOt07PdOvZw49n0yMHmoLgPsqmmOSCTe
+         JZd3TS/UhVxlTcczSSuST8qWQNYn8G1ef8aY/5eyHoAKXBlWZw5tJ4phIOWXXDjhFvPE
+         bvNzjVhlZvbp+inQYeK+pnV0sggjieRbmTwa7jFyEN3rcBJnmC8NTbvRmO+O8aurTeJZ
+         3mXu6mHne2qhJcfzPb+iPkenpWV0jNypVQeADVV6adcnhUczXi0GTGkfEBBJ6df/WlGn
+         2upFAY700E0vTLgcJWGc/4hgdkoeGX2DhSy7q8bKpA9MvXxFCtNmawDv3QpE4i6mp3M7
+         ohKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788263229; x=1788868029;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ai8hKQw9ceu4/718ljCxu801NyMv3a5qOhxDkpE5Xpg=;
+        b=sWBy7Nms9Ohn8jBDzerEEhnLnOnEah4+ieIJAN1+JOmYSTkDETvd360MyLCX9HApEh
+         HE2aAAodT9kMBqkAnKsGhaq88QEGJjOTSpcZ9cSC3GcYQhXdT3Cc+tg0sgzw0KzKA3il
+         OriOHnhMkfegWxkpdm01iX+kX7ogjUH9aoNHQZRaCcfgvaHhtii+75guZT3hEdVA+i1w
+         HlUtUHUpnJuOeSe/4kTQ2rHBgyNVQWxHXTWS03pI3OusVKoh9m0ZJiOkRiR5HjqBhblY
+         kDbQPMXg9Fpeiq5zsg8QBd2Alcue8o23ghaUzKBm4VoU3dAthhNANj2V/78QRnq1zUqP
+         aFQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxDLk2dSHRKj6rlqgpqhZ6fURw8e7ni5uPyjC1C610SlVcefPAJ43re3mnmkyczQVw/S9nTPH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++leR7uKVNhmOTtd1G4f0y9QvndwguIiIzsya3LowRvwjbV85mBS
+	Nc+F1brX0o6x5qX8TB1Y1S3dgAXcsClkH/Gp/JEpX2DpRK85Si/vTTsQIPL3c6AqP5DAz0EgkQt
+	+79J5FtXPaxJ37QWZgDMmI5HcwDX320A=
+X-Gm-Gg: AYBFou3ISfiFX5FzCGzfAWA9iJwRj2sBD+6WE8GCDCDHL/vRBwgZ04CH70gmkDpMLEG
+	0yvX2qbTtZXRgpNC0/W4orwNjgd9dUy8VrDXPi1zuqEtzhkYkkEhIuHAjFOl07fqBPZTC9/vFfx
+	gspp9GMN0GEp015LhxB2ci8DcuozkCAIVvH69fc7Q8e9hZ5hK7W/RwxcXDSx0hy+DPptjF7sLhr
+	fef7iH424JBh0S9jXygYiWh/ntn86YITyhfrYgIHbGOJYbOElwYgDefrfo7dQsialAu3v1v//aI
+	InVfCKWhhot43ETytVfqijw+cQWCNBXlbxqNFxncJYPAyozX2ylvakrwnwpbSaxBFMbK/+Z4Wg4
+	hj0uGdLSQRz79TFzoIMqGVr8N7vB5
+X-Received: by 2002:a05:6402:20d4:20b0:6a6:35ca:af8f with SMTP id
+ 4fb4d7f45d1cf-6a635cab01emr9499959a12.16.1788263228730; Tue, 01 Sep 2026
+ 04:47:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Revert "irqchip/mbigen: Fix mbigen node address layout"
-Content-Language: en-US
-To: caina <caina@uniontech.com>, <tglx@kernel.org>, <maz@kernel.org>,
-	<radu@rendec.net>, <guohanjun@huawei.com>, "liaochang (A)"
-	<liaochang1@huawei.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
-	<wangwudi@hisilicon.com>
-CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-	<kernel@uniontech.com>
-References: <8633w854yk.wl-maz@kernel.org>
- <20260821091720.16665-1-caina@uniontech.com>
-From: Yipeng Zou <zouyipeng@huawei.com>
-In-Reply-To: <20260821091720.16665-1-caina@uniontech.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- dggpemf100018.china.huawei.com (7.185.36.183)
+References: <20260728131050.37032-1-meatuni001@gmail.com> <2026090151-nutrient-clay-c53e@gregkh>
+In-Reply-To: <2026090151-nutrient-clay-c53e@gregkh>
+From: Muhammad Bilal <meatuni001@gmail.com>
+Date: Tue, 1 Sep 2026 16:46:55 +0500
+X-Gm-Features: AcwNN1V9ueymiP7ruql3Mjh2nKm8Knc4dBzDaOwVce9PaTuiK_XJMOgz4bU3x60
+Message-ID: <CADqcGBkjYpLko0EF9BgyApg6LrhA+cR_Cbg5A=4AE81pN4rRSw@mail.gmail.com>
+Subject: Re: [PATCH v3] staging: sm750fb: fix mono image source stride
+ mismatch in lynxfb_ops_imageblit()
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com, 
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Oh Sorry, the format of the last email was messed up.
+Sent v4, rebased on current staging-testing and applies cleanly:
 
-Hi1616 is special hardware whose register layout differs
-from the other mbigen platforms: it does not have the clear register
-range fixed at [0xA000, 0xAFFF], on which the fix is based.  As a
-result, skipping an extra node offset for node IDs greater than or
-equal to ten, as the fix does, makes the driver access wrong
-registers on Hi1616.
+Link: https://lore.kernel.org/all/20260901113031.161610-1-meatuni001@gmail.=
+com/
 
-The fix was originally introduced to address a real problem on the
-other platforms: each mbigen chip has its own independent set of
-clear registers, whose offset is fixed within the range [0xA000,
-0xAFFF].  Meanwhile, mbigen allocates a consecutive 4-byte register
-to every hwirq for configuring the interrupt type, EOI and so on, so
-each 4KB node region accommodates 128 hwirqs.  Before the fix, the
-driver calculated the register address of each interrupt from its
-hwirq.  This works without any problem as long as the number of
-interrupts is below 1280, which means no more than nine mbigen nodes.
-Once the maximum number of interrupts of a mbigen chip exceeds 1280,
-however, the node register addresses reach offset 0xA000 and start to
-clobber the fixed clear-register range.
+Thanks,
+Bilal
 
-The final solution will be worked out in cooperation with the BIOS:
-the firmware will pass a chip version to the driver so that it can
-take care of all platforms.  Since this depends on the corresponding
-BIOS versions being adapted first, it cannot land immediately.
 
-In the meantime it is safe to revert the fix, because nobody has run
-into this problem for now: it can only be triggered on "new hardware"
-platforms, while all the platforms available today, including
-Hi1616, work correctly.
-
-So, let's revert this patch first.
-
-Acked-by: Yipeng Zou <zouyipeng@huawei.com>
-
-在 2026/8/21 17:17, caina 写道:
-> This reverts commit 6be6cba9c4371d27f78d900ccfe34bb880d9ee20.
+On Tue, Sep 1, 2026 at 3:15=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org>=
+ wrote:
 >
-> Commit 6be6cba9c437 ("irqchip/mbigen: Fix mbigen node address layout")
-> appears to cause a regression on Hi1616.
+> On Tue, Jul 28, 2026 at 06:10:50PM +0500, Muhammad Bilal wrote:
+> > sm750_hw_imageblit() advances its monochrome source pointer by
+> > src_delta per scanline, and computes the correct rounded-up stride
+> > internally as:
+> >
+> >         bytes_per_scan =3D (width + start_bit + 7) / 8;
+> >
+> > Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+> > image->width >> 3. For widths not a multiple of 8 this under-counted
+> > the stride, so the source pointer fell further behind the real
+> > per-scanline layout on every line, corrupting the rendered image.
+> >
+> > Rather than just fixing the caller's calculation, remove src_delta
+> > as a parameter entirely and have sm750_hw_imageblit() advance by the
+> > bytes_per_scan it already computes for itself. There has only ever
+> > been one caller, and that caller was passing an out-of-sync
+> > derivative of the same width/start_bit values sm750_hw_imageblit()
+> > already has, so keeping stride as a separate parameter served no
+> > purpose beyond letting the two calculations drift apart, which is
+> > exactly what happened here.
+> >
+> > Rounding up, rather than down, is the direction consistent with the
+> > rest of the fbdev core: struct fb_image mono bitmap data (the same
+> > image->data this driver receives) is walked elsewhere with byte
+> > strides derived from a ceiling division of width by 8. The generic
+> > mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+> > scanlines with "iter->data +=3D BITS_TO_BYTES(iter->width)", and
+> > BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+> > sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+> > ceiling division with an added start_bit offset, so the caller's
+> > ">> 3" (floor) was the one calculation out of step with how this data
+> > layout is handled everywhere else.
+> >
+> > Found by code review of sm750_hw_imageblit()'s internal stride
+> > calculation against what its only caller was passing in, and
+> > confirmed with a clean -Werror build. I do not have this hardware,
+> > so this has not been exercised at runtime on real sm750 silicon.
+> >
+> > Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> > ---
+> > v3: Added the version notes below, which Dan pointed out were
+> >     missing from v2. Added Cc: stable@vger.kernel.org, flagged by
+> >     Greg's patch-bot since the Fixes: tag targets an old (2015)
+> >     commit. Added the rounding-direction justification Dan asked
+> >     about, citing fb_imageblit.h's BITS_TO_BYTES() as the existing
+> >     kernel-wide convention for this same struct fb_image layout.
+> >     Moved the "no hardware" disclosure from an email reply into the
+> >     commit message itself, per Dan's request.
+> > v2: Added a Fixes tag. Moved the src_delta calculation into
+> >     sm750_hw_imageblit() itself and dropped it as a parameter, per
+> >     Dan Carpenter's review.
+> >
+> >  drivers/staging/sm750fb/sm750.c       | 2 +-
+> >  drivers/staging/sm750fb/sm750.h       | 2 +-
+> >  drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+> >  drivers/staging/sm750fb/sm750_accel.h | 4 +---
+> >  4 files changed, 5 insertions(+), 9 deletions(-)
+> >
 >
-> On-board hns NIC has two ports, enahisic2i0 and enahisic2i1, both
-> behind mbigen-v2.  Port 0 works; port 1 cannot pass any traffic.
+> Does not apply to 7.3-rc1 :(
 >
-> Their interrupt pins fall on different mbigen nodes:
+> Can you please rebase and resend?
 >
->    enahisic2i0: pins 1152-1198 -> all in node 9
->    enahisic2i1: pins 1200-1246 -> node 9 (1200-1215) + node 10 (1216-1246)
->
->    (nid = (hwirq - 64) / 128 + 1; pin 1215 = node 9, pin 1216 = node 10)
->
-> /proc/interrupts shows the break happens exactly at the node boundary:
->
->    enahisic2i1-rx0  pin 1200  count 102   <- node 9
->    enahisic2i1-rx5  pin 1215  count   1   <- node 9, last pin
->    enahisic2i1-tx5  pin 1216  count   0   <- node 10, first pin
->    enahisic2i1-rx6  pin 1218  count   0   <- node 10
->    ...all node 10 pins stay at zero.
->
-> Port 0 (entirely node 9) is unaffected.  Reverting the commit restores
-> normal operation.
->
-> The commit assumes CLEAR occupies a full 4 KB page at [0xa000, 0xb000)
-> and collides with node 10, so node 10+ gets shifted by 0x1000.
->
-> But get_mbigen_clear_reg() uses flat, chip-wide addressing -- it never
-> multiplies by the node ID:
->
->      *addr = (hwirq / 32) * 4 + REG_MBIGEN_CLEAR_OFFSET;  /* 0xa000 */
->
-> Over the valid hwirq range [64, 1407], CLEAR only spans 0xa008-0xa0af
-> (168 bytes).  Node 10's registers are:
->
->      TYPE: 0xa000-0xa00f  (16 B)   overlaps CLEAR by 8 B (0xa008-0xa00f)
->      VEC:  0xa200-0xa3ff  (512 B)  no overlap with CLEAR
->
-> Shifting the whole page moves VEC from 0xa200 to 0xb200.  The hardware
-> reads the event ID from the fixed silicon address 0xa200 on interrupt
-> firing, but software wrote it to 0xb200 -- so the hardware gets an
-> uninitialised value and the interrupt is lost.
->
-> The only real overlap is 8 bytes of TYPE.  It can only trigger when a
-> single mbigen instance has devices on both node 1 (CLEAR 0xa008) and
-> node 10 (TYPE 0xa008).  On Hi1616 those nodes are on separate mbigen
-> instances, so it never triggers.
->
-> Suggested-by: Marc Zyngier <maz@kernel.org>
-> Fixes: 6be6cba9c4371d27f78d900ccfe34bb880d9ee20 ("irqchip/mbigen: Fix mbigen node address layout")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: caina <caina@uniontech.com>
-> ---
->   drivers/irqchip/irq-mbigen.c | 20 ++++----------------
->   1 file changed, 4 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/irqchip/irq-mbigen.c b/drivers/irqchip/irq-mbigen.c
-> index 6f69f4e5dbac..12919836dadb 100644
-> --- a/drivers/irqchip/irq-mbigen.c
-> +++ b/drivers/irqchip/irq-mbigen.c
-> @@ -64,20 +64,6 @@ struct mbigen_device {
->   	void __iomem		*base;
->   };
->   
-> -static inline unsigned int get_mbigen_node_offset(unsigned int nid)
-> -{
-> -	unsigned int offset = nid * MBIGEN_NODE_OFFSET;
-> -
-> -	/*
-> -	 * To avoid touched clear register in unexpected way, we need to directly
-> -	 * skip clear register when access to more than 10 mbigen nodes.
-> -	 */
-> -	if (nid >= (REG_MBIGEN_CLEAR_OFFSET / MBIGEN_NODE_OFFSET))
-> -		offset += MBIGEN_NODE_OFFSET;
-> -
-> -	return offset;
-> -}
-> -
->   static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
->   {
->   	unsigned int nid, pin;
-> @@ -86,7 +72,8 @@ static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
->   	nid = hwirq / IRQS_PER_MBIGEN_NODE + 1;
->   	pin = hwirq % IRQS_PER_MBIGEN_NODE;
->   
-> -	return pin * 4 + get_mbigen_node_offset(nid) + REG_MBIGEN_VEC_OFFSET;
-> +	return pin * 4 + nid * MBIGEN_NODE_OFFSET
-> +			+ REG_MBIGEN_VEC_OFFSET;
->   }
->   
->   static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
-> @@ -101,7 +88,8 @@ static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
->   	*mask = 1 << (irq_ofst % 32);
->   	ofst = irq_ofst / 32 * 4;
->   
-> -	*addr = ofst + get_mbigen_node_offset(nid) + REG_MBIGEN_TYPE_OFFSET;
-> +	*addr = ofst + nid * MBIGEN_NODE_OFFSET
-> +		+ REG_MBIGEN_TYPE_OFFSET;
->   }
->   
->   static inline void get_mbigen_clear_reg(irq_hw_number_t hwirq,
-
--- 
-Regards,
-Yipeng Zou
-
+> thanks,
+> greg k-h
