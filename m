@@ -1,69 +1,119 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891FA367B73;
-	Tue,  1 Sep 2026 17:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282157; cv=none; b=faIfLOsSmewQl0w5Jh5tvOQJvll9M/sts7UC3brAacQ7jWowxzzK88yZDW6+cJQjdrk5YVloW3zvg6FQMzNIo5iwOUT+y64e1sq/UdQeiixNUwDVcEhXP9y6Q+QHG0DgwNOC5C/RMyMpeoKD2cmKf/fm4EV6UxEeWCdbHax6t3c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282157; c=relaxed/simple;
-	bh=WAtH8ikAflpYjt6Ojkz8d4vYS3kGjxF4Ei9VLEAaMFQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=I/aK8trB4k5ghKk1/1ZyGDWTkIJOpOzI5M2u0hbpaSH/UeLu/5ENo81D2ZaGM/QiCiru7+bfPMlnXCkhHILqQAbICPGVrzij7+OSBnca8KnPGcxBZuzjFgmioAFdk8BVCZL/3DUiVTz8rys0FuxaXhNM6URMLowtfQ94miualiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=I0d9iY/m; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7075243E064
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 17:04:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788282283; cv=pass; b=YaG8r3FLJQt7obUMNZr0VqHX8y41xP4cR9a4yC+2AM26AB6hklxmm0lm/p1EurXyPViKD5w9Vf2kLOKmuV90dEh7ZCMs4k9Q9weL102fmI1t35VU9K2c+xrtr6BZbB7YpA2LgpbN/vLnycTZancTTqblL0+kxl79Ob94EnRfOhY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788282283; c=relaxed/simple;
+	bh=d0cdEJI9/RswzkjbxjykcepGXr1VSGWZgZWnK4lfHUw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OKgoGPV4X/G6RCKXOFP8wlXh0Kfh16WeAEd5C9Fke9Ka66ogKNhYGQo+8VqZEdVzRxFDtGWMslv6ios5BXAjf5elXy0KkkFL4Aaep9ci3o7VfrOpMNZGI8P1WNHKNDZYe7tXB+1jvq1lmGHXGI7Dakmlh2qKwYZmQ4pcuUk2KuY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwvv/oiq; arc=pass smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="I0d9iY/m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=zq3ZKa/atxerNogsCL/cSK/bDB3oFWO3gxOmGl3q37M=;
-	t=1788282155; x=1789491755; b=I0d9iY/m/4pJYfXFqP/k3Cj1K5bO9tmKhaNQ7z2BpvF2gyZ
-	XU4dVOQLvB2uBUAqtPurTOASU8MImQe+ZZLILN/OZHl9T1BL4cJQGcB75hVBiXEuW5sSy0PJcG2W4
-	4MUBSWnLhW1EqNRrNk0qSOsW71kHnDatWfgUhLxlxlnkbJrOt8Ex2up8FzVwYSNqF4w9kUbf3A6Ca
-	glfC4+ergwf0vvQmZ7mWYwqmHKqyxhoOhVlVrv4PPw9ZqBFJ3V7ah7QXWingm7VQ6Zk0Ou1Ln1kBO
-	A8323ERTPgSVPpWc6hbPe6wooOcbU0F5p/IQwiBvUwtb6jcShP3OV8xETYI2AxFA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x1RsR-00000008bCc-2iQN;
-	Tue, 01 Sep 2026 19:02:28 +0200
-Message-ID: <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME
- presence from a failed read
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Bjorn Helgaas <helgaas@kernel.org>, Navon John Lukose
-	 <navonjohnlukose@gmail.com>
-Cc: Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
-	linux-wireless@vger.kernel.org, Emmanuel Grumbach
- <emmanuel.grumbach@intel.com>,  Nika Krasnova <nika@nikableh.moe>, Mark
- Pearson <mpearson-lenovo@squebb.ca>, Mark Pearson	
- <markpearson@lenovo.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 01 Sep 2026 19:02:25 +0200
-In-Reply-To: <20260901161736.GA1883420@bhelgaas>
-References: <20260901161736.GA1883420@bhelgaas>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwvv/oiq"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4b383347fa6so855391b6e.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 10:04:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788282280; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BttkQ5wF72Rc0bMKGDsWw7A+11k5nclCr/qwUKUd8LZogz/iT59d502tmo7BIPy+C8
+         cLUm9XXAVWqkMya/CEbKTX0qZBHfq2BA/hCM3ax65meMfyxxexrk89W0MpH3ycKcuy6D
+         cFeYTdGYRd9OCoDr2U3E+aW+qdsEOmH2sSD0hdasDIZqIp8HlaZ810q07Dfzin8cbpos
+         nr+qaKWTXAUx1VVuKK5yMODPPrG22dA54stap09RQE4wyUjklW2rryd5ZD3E71ExIVDT
+         DRPZ0csCkrKJNE4MEYzgguQ2WVIfvoxV0SXqswM+9ZC3XC6djiQQOvLQOeyMTCak8KDI
+         1RDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=u0pyQF2KkMAZd1qn6FHRAPnrJYWT7vVvWkqtFaYE7kI=;
+        fh=86Mrj1UnXpzL03A+R/OhzHO3r48vhjikmqhtzamTrzA=;
+        b=NWgUu5llgX1W68v51VCZdmoVOM2JmJlk5M1BWowJJsrVe2OYYtvVhiP4Z3cTkH4SgV
+         MqNC6LXhmWu2ajjMubhweWLy74SyIuhgareNEgVnpJb0Xax3aiNv/pT6X9Nuk2HfzcQq
+         aypgBKP3/2n+X5xqjetXK01m7HxI7g8yR0xBPRQoBh/X4OBcsOQJLT9zr1+LtjWJSmU2
+         vtmsIg7/N79Uep7yagYD3BLXtMVj3585yOo/wXsuzv0ZEVB7358w0uNCOAwyhAWzPQ4o
+         1lYQMEHrfH/ngOHULgRpnxQhwkDq2PVOGIbAyL4EV9EmbN5mYuQPJB6QBt6gUjAGfk0N
+         +hAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788282280; x=1788887080; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u0pyQF2KkMAZd1qn6FHRAPnrJYWT7vVvWkqtFaYE7kI=;
+        b=rwvv/oiqIjRz/IrkMYP+qzY/NjYS3kl/D9JfYWAkCE1dkt5ZlrdU9bRCP/vdOQWF9D
+         sYbzaUuccnh9PYLKRF1JPp5qWKrWkmN6AccAZ83Q1z6nZJVoXp4lBov6GSiiuf8XkZX1
+         n6kl6WFxNQDFd8/vB10l8y3pMk3UMeTdKSbhT2zZK9yOSxGsbfi061r7fZGEBe3cSsbr
+         z/r/GyXokbhlcKXS7UdSQ7gdJiJr11b2mxF5jxW36gm7kpUIfB9NTcSlOLT+UKr3qXmS
+         ROcwaMnOPRn/TuYEzk7GakKLLUuoCSCOnEoP+XKwre+gSoKbHekXT1kqLPgvEqo/QjvV
+         +ToQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788282280; x=1788887080;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=u0pyQF2KkMAZd1qn6FHRAPnrJYWT7vVvWkqtFaYE7kI=;
+        b=EiYmvvKiPJ7mTSm01Q+8xMp641BD4NmoFhZEioZfN1TlQ0B0eeyHXnBL0GRSEcpBkk
+         OBqYibEqNieHX8oT1C9YiXS6cXbOmbWG/dnriigm1kUd3NZC+FIAv8H5McYusAZtt2A8
+         VZudMJe4kCEh+9HIwP07Gc/ZdhgbvPbTB5rGSzNnhsY0nwoJs3Gtitwqlu1zjmsfabGr
+         1FpZLCQ+l2t9QyBdC5sGUNZDLwOq06hDlJ3rURrl4CEhb1Xu+ROVg3rHnIlxzoOOw+qX
+         7ep8uye+U7EzmHvGSWNXT5EPtDxvJwBOHy7jiDLxwPFQpNeB4eXj0I253znqZfc3Itp/
+         Gj4Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rot2mgQlb7ZTzOUEqPJODqlRLZlXlIeXMJUmaw93kbFDbUsjRHazxVY3s6Wp37P2pJ0KGkSGA8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSHVTzVQ4OnCnJkdC6KPYgsUlWAsIUZxHJWMOeR+7V91h+xMS+
+	+NzaKtiuqjdAO8tcH0zxZ+0DQbSHobxjSZznkNDVQrIGKygtCaJ8c6uKYlDP8yh+iZQI3/NEEmq
+	EFT/P8tfEEH33F84fxaD9tr1Qo7KXJsntAvJg9YLrQg==
+X-Gm-Gg: AR+sD10dNREdih7mUU/7VgsQ2CzDPP9r/XP4ntAfOaCMcq/SAyT2D7QSTgEbScM2RxA
+	9LA6GVHQ6OUat1nRBmQmDtlXMTqTS2xh94XsXJzE/Ez06HZLjFeiXLg1+fEKjIFg6ht7CHKcXsH
+	SCYEpCaTO0NUYVDPTtaV0w7nw7Jsh+07EFk9ylSpaMNoVOFGiNI2UShCv6s+2SGPSGqG8ogtiF5
+	k3aAw1PIjbuMQz2ayqlCWZr2enLO/o0YdBLsh8/RJGyXgGk3W0Ic0PLMsuLCB6KlP2VvVHU8gfn
+	CVdtY6GbnYHR84nzlmWDbW5kJgH3AeyWab1aOsghuiQc2wmZW8NmqP2oEUnWnrFf/Hv5f2oryAB
+	gkpCLsfABXHE0RLfzIH4jxtAyGD9xdeWV1w==
+X-Received: by 2002:a05:6808:4f08:b0:4a3:cea7:4ab6 with SMTP id
+ 5614622812f47-4b5befda1b3mr4924582b6e.10.1788282279853; Tue, 01 Sep 2026
+ 10:04:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+References: <20260901145156.3177187-1-mauriziocasciano7@gmail.com> <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
+In-Reply-To: <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Date: Tue, 1 Sep 2026 19:04:28 +0200
+X-Gm-Features: AcwNN1UE6ze19kP9LilT_aCzQNaCwiaSO9Pp-1Fdq20zkQWrRN7Eq-cc3-82AVo
+Message-ID: <CAO7O_xi-BYfGb428q1TO4ERp059-BOq78PZR5Ad-bs1ikVkmZQ@mail.gmail.com>
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+To: Hans de Goede <hansg@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 2026-09-01 at 11:17 -0500, Bjorn Helgaas wrote:
->=20
-> iwlwifi has a mix of checking for 0xffffffff and ~0.  I don't know if
-> it can use non-PCI transports, but some of those places look like they
-> could use PCI_POSSIBLE_ERROR().
+Hi Hans,
 
-I believe the hardware itself never generates ~0, so yes, it probably
-should use that.
+Thank you for the review.
 
-johannes
+I agree that firmware-node references should retain priority over the
+legacy name-based mechanism. The "supplied-from" property should only be
+used as a fallback when no "power-supplies" references are present,
+including the case where the consumer has no firmware node.
+
+For v2 I will preserve the existing order as follows:
+
+1. honor an explicitly pre-populated supplied_from list;
+2. resolve "power-supplies" firmware-node references when present;
+3. fall back to the name-based "supplied-from" property only when no
+   references were specified.
+
+Errors while resolving specified references, including -EPROBE_DEFER,
+will still be propagated rather than triggering the fallback.
+
+I will wait for Sebastian's opinion before posting v2.
+
+Regards,
+Maurizio
