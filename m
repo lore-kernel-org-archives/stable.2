@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2615F3E7621;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A309C440647;
 	Tue,  1 Sep 2026 13:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268417; cv=none; b=GDU6HvB0/qrFjM93UMIwcmnK5X2VDuqvdAjHivBjSg/oT05FKe+bBvFQ+xWHTLP+ZdxUpZONUOKIx9w/RGCACLQqbw4LkfHK7189cOLopNGq/80r38T0SnuIiucp/zlJi3YMnA7dsBAib+MnRkqWwkcKwqJtdvb4QXpbp9jokLE=
+	t=1788268418; cv=none; b=Z7Vn44OM25PQjlsjvP5zJZkLcWIFuHHQjs/eOhhecG/SWRGFv/LTGsomlVMiaC0pQde4M5s7TTKPjbAudn6+mejFqyGcyTf71pZ1mgtACzmr4y7ZUpLrBypCnAdcI7crOVtwFZiSYBQMYf2zQUf2NaQi+N0E7RD2fQiiWCtzvBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268417; c=relaxed/simple;
-	bh=3tuXFYxnY5whCfMb9BBfKAgRQ7zxuSBaL+SQQ8TayGI=;
+	s=arc-20240116; t=1788268418; c=relaxed/simple;
+	bh=5AGJ58CxaHUHnA7OwFTsM+2rMQoeaY6UpbD7qoJcoXk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DWuVDCUN24nh61HXPfEgf+MiTNfRf5tE8bSngNfBszPNdxutdiEYBAOWBUXAGfSjuF1DOY6cS2UDHp0GaenMDFvcLbFECVSVTHb3P3Hfvnf9Zjebx8SZmWy8Nizr5OhovmZcTg0tJ3SgC6H9JUKF8AezM3QrD1YKlwwvkru9aMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MpeJKmrK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sVAXtAk35TTK0E/wVk8MxJaXquLISTFMF7zd3fGWuNxFXgOV/OhGqVytb4CknJogEytcEHDyn5LZkEPWba9wwie/0VclN56fGvfwV9RPxnSje8xDRiwRYfDwKCt8aAao5p/1ELpwwKH8JfsWGVtE8Brlr0k0IXA4DlbUwQ6PbNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O4pt0221; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MpeJKmrK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F9E71F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O4pt0221"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA72F1F00ACA;
 	Tue,  1 Sep 2026 13:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268415;
-	bh=l4DJBfV8Ln2wiu4MTHaklCvhtPpo+9nKnYvuVasq3nI=;
+	s=k20260515; t=1788268416;
+	bh=nSTjwnDV8A+NiGPVQu+FC6bukzN4Edj/bjp5VqLzRxU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MpeJKmrK9iHVcoS550Knf/Mlx3E0FIKosfejJKu6aHXOgY8rXc69/9aUaYT6efHrh
-	 318yLkiCl+yee/KmUKnyfNEhOXMrlAqQqVtymWWhNQsV3d+Cjqry887CtY6hOzaIt7
-	 QaAyDFo1SdZRMTt81syDLPKzwjjQXP1PN0tqFIDd21PZ9Y3IEjycwwxJPYwtPA3r+f
-	 XD7VzjFO2gS24GALcmEwiUy3AkyUxwl2II0b7NhFjwGRh89maVLHrSnvxKd1KV+C0x
-	 +I8DT3ansh/JMHAJ0niHX4xbLfGfrsQjh5wWlAQen97xpHuCuButa+KiEztUyVpqNN
-	 R4UfKFv61ey1A==
+	b=O4pt02213qlx6vaOUorj4+qScp9QUGMdKg0r2z7Ig1+cTKFLdGATxgOPJmG+0ausZ
+	 9k7uxgUAbpuj1hA2+pe7xKB9/ya+XvAms303tM+x4cVqEKT8XVnbEGYCgBYdl2+8zR
+	 NT4u3lOIHDm+eDIXGl9A22qGzY1KWJL8UXKa4WK2fIuKlN+Yeo7mIbBMhLdrw+Zc0O
+	 e6Lr/ANyMNKg3RHSWVhgEJm1RZQOapI3KuQ2uAKfzH5n+ZTA1DzzdPDLsFHuYvUEp1
+	 lJj2cwxm2pQr9wtVpR0Pgx63/x8BcbQBW0qufPtI437MoV+XatD9W9DN9mBIlcQpgM
+	 vrGgioAlPAYVA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Usama Arif <usamaarif642@gmail.com>,
+	Yueyang Pan <pyyjason@gmail.com>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 2/7] mm/damon/paddr: respect folio end for DAMOS actions except STAT
-Date: Tue,  1 Sep 2026 06:13:19 -0700
-Message-ID: <20260901131326.97615-3-sj@kernel.org>
+Subject: [PATCH 3/7] mm/damon/vaddr: respect folio end for DAMOS_STAT
+Date: Tue,  1 Sep 2026 06:13:20 -0700
+Message-ID: <20260901131326.97615-4-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260901131326.97615-1-sj@kernel.org>
 References: <20260901131326.97615-1-sj@kernel.org>
@@ -48,62 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A few functions for applying DAMOS actions including pageout,
-lru_[de]prio and migrate_{hot,cold} in DAMON physical address space
-operation set (paddr) collect folios of the given region by getting the
-folios of region-internal addresses.  Then, those functions apply the
-action to the collected folios at once.  The collection starts from the
-region start address and advances the address by the size of the folio
-of the address until it goes out of the region.  If the start address is
-in the middle of a large folio, and if the next folios are small, some
-of the next folios could be skipped.  Fix the issue by advancing the
-address to exactly the start address of the next folio.
+For applying DAMOS_STAT action to a region, DAMON virtual address space
+operation set (vaddr) calls walk_page_range[_vma]() for the region.  The
+pmd walk entry function, namely damon_va_stat_pmd_entry(), applies DAMOS
+filters to folios of addresses of the region in the pmd.  It starts from
+the walking address and advances the address by the size of the folio of
+the address until it goes out of the pmd or the region.
 
-The user impact is that DAMOS action is applied to less than expected
-amount of memory.  Given the best effort nature of DAMON, it is no big
-problem, but it is clearly a bug that is better to be fixed.
+Let's suppose it is for the first pmd of the region, and the region
+start address is in the middle of a large folio.  Also, the next folios
+are small.  Then, some of the next folios could be skipped.  Fix the
+issue by advancing the address to exactly the start address of the next
+folio.
+
+The user impact is that the DAMOS_STAT-based page level monitoring
+results become inaccurate.  Since the page level monitoring is supposed
+to provide relatively high precision, this is definitely a problem.  It
+is arguably not critical since it is only monitoring quality
+degradation.
 
 The issue was discovered [1] by Sashiko.
 
-[1] https://lore.kernel.org/20260517234112.89245-1-sj@kernel.org
+[1] https://lore.kernel.org/20260514015053.149396-1-sj@kernel.org
 
-Fixes: 3a06696305e7 ("mm/damon/ops: have damon_get_folio return folio even for tail pages")
-Cc: <stable@vger.kernel.org> # 6.15.x
+Fixes: 63f39737d1e3 ("mm/damon/vaddr: support stat-purpose DAMOS filters")
+Cc: <stable@vger.kernel.org> # 6.18.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/paddr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ mm/damon/vaddr.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index 2ab7b3842701e..9ddd1ec8202b7 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -264,7 +264,7 @@ static unsigned long damon_pa_pageout(struct damon_region *r,
- 		else
- 			list_add(&folio->lru, &folio_list);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index 0648400b2d65b..4b0b5edf67952 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -831,6 +831,8 @@ static int damos_va_stat_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 		return 0;
+ 
+ 	for (; addr < next; pte += nr, addr += nr * PAGE_SIZE) {
++		unsigned long page_idx;
++
+ 		nr = 1;
+ 		ptent = ptep_get(pte);
+ 
+@@ -844,7 +846,8 @@ static int damos_va_stat_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 
+ 		if (!damos_va_filter_out(s, folio, vma, addr, pte, NULL))
+ 			*sz_filter_passed += folio_size(folio);
+-		nr = folio_nr_pages(folio);
++		page_idx = folio_page_idx(folio, pte_page(ptent));
++		nr = folio_nr_pages(folio) - page_idx;
+ 		s->last_applied = folio;
  	}
- 	if (install_young_filter)
-@@ -302,7 +302,7 @@ static inline unsigned long damon_pa_de_activate(
- 			folio_deactivate(folio);
- 		applied += folio_nr_pages(folio);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	s->last_applied = folio;
-@@ -350,7 +350,7 @@ static unsigned long damon_pa_migrate(struct damon_region *r,
- 				folio_is_file_lru(folio));
- 		list_add(&folio->lru, &folio_list);
- put_folio:
--		addr += folio_size(folio);
-+		addr = PFN_PHYS(folio_pfn(folio)) + folio_size(folio);
- 		folio_put(folio);
- 	}
- 	applied = damon_migrate_pages(&folio_list, s->target_nid);
+ 	pte_unmap_unlock(start_pte, ptl);
 -- 
 2.47.3
