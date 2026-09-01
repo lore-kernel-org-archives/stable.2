@@ -1,155 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354B2481253;
-	Tue,  1 Sep 2026 17:29:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929FE37C0F6
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 17:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283796; cv=none; b=PsxcnDeOzrsEI2mlObh2GXMHGrkvu9Za2GiKrNoQM5PYg+V/ZKa7llyANrwcGSD9VpN2zivc74znxCtxEVcRu6otCZmFP4iZ0Wu6HaMsB1RqfaBDHosYbLw+Nf6JP2QUfrm4Hw2ZwpnGz+vskH4N+krI4mBQT5ZyWfKyiwx5QKM=
+	t=1788283878; cv=none; b=k5YK2cGO1k34Jb6c1pgvTikvB2EEvLZ4gdAhNN/Iyjpr4g+kiRwWfniCpf2+6HYyHpk2uGdciQZ7MPFp310oehTS1at7NaqGuXvyeMCFv9KplwRkJ6h+iQVnP9l/ntKi9T/GqlHxnD1KBNjO2hQgeDKfkKxg2AL0dlhrI+mkR5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283796; c=relaxed/simple;
-	bh=XgAgMt83WR5JZmohgcgxN/eKWPWoNP6kK5bWy+ejKv8=;
-	h=Date:To:From:Subject:Message-Id; b=tf9qZfAVSi/7e3NMvsT8inDReWwDNYuwDaWMxR7onNtF95t2xrY0FE4S52hiDjg4OVurrJ9lfVq9ZVDTjQh2X6+cJG83Y0We4GknhrSSUqcYfu1O+HT1clXicsqab972U/ENiMkI05eofqQMuxfL+mrT59Rz/1voE+JCJqkX83E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=C4YXJSOt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283878; c=relaxed/simple;
+	bh=aQPtZU5dKlQ1c0+bGOkaAo7lRfeU+axD0xVwyFVEwdY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hFX+j5h5yR+rhyxaU5JOxooIUg7H9Js/Qe0dhVYMwrGUvs8tXfPIUouLj5fybaMfu2jr0mgEkHNIxInpFkJT3Czq5SP+vSIXt473XuA0ZYqMMukiNcyxOFvxMzgHn/1gOdUPaR1JgsoeNhhhGj1cbWxOh8xO0b22URdx0FmQFWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=narG8EpD; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="C4YXJSOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3251F000E9;
-	Tue,  1 Sep 2026 17:29:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788283794;
-	bh=jvm/HKiMmeJIdMrMJyMkbzF2E1iHezjHutK+RooSl8U=;
-	h=Date:To:From:Subject;
-	b=C4YXJSOt0oUXpWO7CqxPJILPUAoFXX8HMj3oMjMY9Gl+CvmirAa8SfINoa0/us94+
-	 PXiEu4SDr1tabvlrw4CVmEYI7AWchpoy205/hOTzUwfaHlGoIrITskPGjKgyg7EX9W
-	 o35m4Kxr3fgUy8O3uCJnM+Hxw9ph/EoSHxs3hAX8=
-Date: Tue, 01 Sep 2026 10:29:54 -0700
-To: mm-commits@vger.kernel.org,xlpang@linux.alibaba.com,stable@vger.kernel.org,songmuchun@bytedance.com,shakeel.butt@linux.dev,roman.gushchin@linux.dev,mkoutny@suse.com,mhocko@suse.com,lance.yang@linux.dev,hannes@cmpxchg.org,david@kernel.org,david@fromorbit.com,baolin.wang@linux.alibaba.com,qinyuntan@linux.alibaba.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch added to mm-new branch
-Message-Id: <20260901172954.BB3251F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="narG8EpD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788283876; x=1819819876;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=aQPtZU5dKlQ1c0+bGOkaAo7lRfeU+axD0xVwyFVEwdY=;
+  b=narG8EpDl9JFk4jPRJ+v6AEGiZ3bt2q7LoYYZhKfAFy8+gqmNzDpoqVB
+   //TClQqtGpEp7Llh9+v42XYS/f77MBnxY2Ep5tjCGFJfHTG9opyqsvhkg
+   NouUw7pwHc41tr0WvwZV35hE/t8xmwPcErVvjgJpKc7OSxbn3b5JKE0dg
+   mICEPrgptYywfZnPZa71rY7MRsQCS5MKMbk6zPH0b/CsjCVHdcrWnv0eg
+   rGX5Phr7aKaDfw7D0oPR00uGJAyC9kMwvedYMybbk7xf70fu4iBc4QJL8
+   BZM7+o8Q/c9mlIPqfewzeAp88Mgs47BZwei+E033Z8FjtZKmDcmOEKs9R
+   A==;
+X-CSE-ConnectionGUID: uZ1LA8SlT6m99WxD4ijPKg==
+X-CSE-MsgGUID: ufVWKf60RNi/5sk+AObTmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="87862142"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="87862142"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 10:31:16 -0700
+X-CSE-ConnectionGUID: EJ61YDQpRC6ovlLTPP0XqQ==
+X-CSE-MsgGUID: Hb3liPyjTAyA/scIWCdtZA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="269750053"
+Received: from osgcshtiger.sh.intel.com ([10.239.81.49])
+  by orviesa009.jf.intel.com with ESMTP; 01 Sep 2026 10:31:15 -0700
+From: Shuicheng Lin <shuicheng.lin@intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: Shuicheng Lin <shuicheng.lin@intel.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH v5 1/2] drm/xe/shrinker: Do not discard freed pages on error
+Date: Tue,  1 Sep 2026 17:30:58 +0000
+Message-Id: <20260901173059.455469-2-shuicheng.lin@intel.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260901173059.455469-1-shuicheng.lin@intel.com>
+References: <20260901173059.455469-1-shuicheng.lin@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+__xe_shrinker_walk() and xe_shrinker_walk() both return the error in
+place of the pages they have already freed.  xe_shrinker_scan() only
+accumulates non-negative returns, so those pages are never reported,
+while *scanned is updated by pointer and does count them.  The shrinker
+then tells mm that it scanned without freeing, which skews the reclaim
+accounting away from it.
 
-The patch titled
-     Subject: mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
-has been added to the -mm mm-new branch.  Its filename is
-     mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
+Report what was freed when there is something to report, and the error
+only when there is not.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
+v2: drop EBUSY check and add more return check. (Sashiko)
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
-Date: Tue, 1 Sep 2026 19:51:04 +0800
-
-With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS for
-shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls back to a
-non-memcg-aware shrinker.  On this fallback path, shrinker->id is never
-assigned and keeps 0 from kzalloc(), which is a valid id belonging to
-whichever memcg-aware shrinker registers first.
-
-__list_lru_init() copies shrinker->id unconditionally, so every list_lru
-backed by such a fallback shrinker (thp-deferred_split, zswap-shrinker,
-workingset shadow nodes, superblock lrus, ...) ends up with
-lru->shrinker_id == 0 instead of -1.
-
-Under nokmem the list_lru collapses to the shared per-node lists, but
-__list_lru_add() still calls set_shrinker_bit() against the memcg of the
-added object.  Most list_lru users are unaffected because their objects
-resolve to a NULL memcg without kmem accounting, but the THP deferred
-split queue holds user folios, which are charged regardless of nokmem. 
-Since no memcg-aware shrinker can register under nokmem, shrinker_nr_max
-stays 0 and every memcg's shrinker_info has map_nr_max == 0, so the first
-folio added by khugepaged triggers on every boot:
-
-  WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
-
-On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register and
-expand the maps, there is no warning; instead bit 0 is set spuriously for
-an unrelated shrinker.
-
-shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set, and all
-readers inside mm/shrinker.c already check the flag before using the id. 
-Make __list_lru_init() do the same and fall back to -1, so
-set_shrinker_bit() is never reached with a bogus id.  The stale
-shrinker->id itself is left as is; cleaning that up is a separate topic.
-
-Verified on a machine booting with cgroup.memory=nokmem and
-CONFIG_TRANSPARENT_HUGEPAGE=y: the warning fires once per boot from
-khugepaged, disappears when nokmem is removed from the command line, and
-no longer triggers with this fix applied and nokmem set.
-
-Link: https://lore.kernel.org/20260901115104.2944996-1-qinyuntan@linux.alibaba.com
-Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Muchun Song <songmuchun@bytedance.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Michal Koutný <mkoutny@suse.com>
-Cc: Xunlei Pang <xlpang@linux.alibaba.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 00c8efc3180f ("drm/xe: Add a shrinker for xe bos")
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Signed-off-by: Shuicheng Lin <shuicheng.lin@intel.com>
 ---
+ drivers/gpu/drm/xe/xe_shrinker.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
- mm/list_lru.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
---- a/mm/list_lru.c~mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers
-+++ a/mm/list_lru.c
-@@ -666,7 +666,12 @@ int __list_lru_init(struct list_lru *lru
- 	int i;
+diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shrinker.c
+index 83374cd57660..7f40153911ff 100644
+--- a/drivers/gpu/drm/xe/xe_shrinker.c
++++ b/drivers/gpu/drm/xe/xe_shrinker.c
+@@ -80,7 +80,7 @@ static s64 __xe_shrinker_walk(struct xe_device *xe,
  
- #ifdef CONFIG_MEMCG
--	if (shrinker)
-+	/*
-+	 * If the shrinker fell back to being non-memcg-aware (e.g. with
-+	 * cgroup.memory=nokmem), its id was never assigned and holds a
-+	 * stale 0. Don't let set_shrinker_bit() act on it.
-+	 */
-+	if (shrinker && (shrinker->flags & SHRINKER_MEMCG_AWARE))
- 		lru->shrinker_id = shrinker->id;
- 	else
- 		lru->shrinker_id = -1;
-_
-
-Patches currently in -mm which might be from qinyuntan@linux.alibaba.com are
-
-mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
+ 			lret = xe_bo_shrink(ctx, ttm_bo, flags, scanned);
+ 			if (lret < 0)
+-				return lret;
++				return freed ? freed : lret;
+ 
+ 			freed += lret;
+ 			if (*scanned >= to_scan)
+@@ -119,7 +119,7 @@ static s64 xe_shrinker_walk(struct xe_device *xe,
+ 	if (!ctx->no_wait_gpu) {
+ 		lret = __xe_shrinker_walk(xe, ctx, save_flags, to_scan, scanned);
+ 		if (lret < 0)
+-			return lret;
++			return freed ? freed : lret;
+ 		freed += lret;
+ 		if (*scanned >= to_scan)
+ 			return freed;
+@@ -128,7 +128,7 @@ static s64 xe_shrinker_walk(struct xe_device *xe,
+ 	if (flags.writeback) {
+ 		lret = __xe_shrinker_walk(xe, ctx, flags, to_scan, scanned);
+ 		if (lret < 0)
+-			return lret;
++			return freed ? freed : lret;
+ 		freed += lret;
+ 	}
+ 
+-- 
+2.43.0
 
