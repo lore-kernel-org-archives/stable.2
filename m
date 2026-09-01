@@ -1,73 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C27E43C048;
-	Tue,  1 Sep 2026 14:04:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFD23806DD;
+	Tue,  1 Sep 2026 14:04:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271455; cv=none; b=KBcxiNWXXPGWN4d7UMbH0mnd/8fgxnimNERi23O4C35uljCQobMzff64Dpfrx0Z1sSBsU0EGYjeH1Z5OiiUaJFVLuT8srznZxDqO5AHuunvEwJDQyLysaNR2KfSjx1whnVeKlG/Zi7Q8HmUh25eGg8sPGUFwD8r1SV9wpRtJF4o=
+	t=1788271494; cv=none; b=aWbgmAiBlE/OOaq9UTqDM4MXV8lieCerKiD6PhTjE/Cp7tpbeauvp7zY1aOXlspNRUZcNpoR0d6AneZdMJ6POjzNp2YCnAv4L75D1Yoi+f7v+qiHwVk+KEQRH/VjMlgtc+x8gQp9w9O2djo2kGdt0/jcfrJiT4R5o1UucNF1Qg4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271455; c=relaxed/simple;
-	bh=FjZcK7e1CF5aHDjOLRq3C1gu4xll2u1WO9cXVHsqbVQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RKQ1F1zF9K8srHaUuIf84d8APgLMVugqQkrKC1EUboGVxM52gKhuPxbX9dwKGal/zr4BvZgynwHuzGj0+awWc6AApKkgsf1R+NgHBKU3wUHSVf0+iHfAsodHoOZ1bvKpTAcqn/aF3O4Mf45VXAPTfD37fARnIsUQs09cg0SHZVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPeL705n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788271494; c=relaxed/simple;
+	bh=HbY4DPrMJkx3De3nTHm3fKl70R97kjMHbmWTQdki/ws=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eoG/Q2iuaueMctwylMFIhe2gtjuUl3JsuXkfeOJX9xn/JUmsaLAfUx7LrE37/aate5EIsNaZxoRjcT8G5fT8SudnCS849T+wEANU2R/5FN7asorX5VQ/hB7cAO0AaAnChcMUei3faplsFqQxbQQsbO4OkFvK+TmfPUrhbhcDCvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Un8UzOe7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPeL705n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FD61F00A3D;
-	Tue,  1 Sep 2026 14:04:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Un8UzOe7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBD371F000E9;
+	Tue,  1 Sep 2026 14:04:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788271453;
-	bh=jpPELLiQ+nEEj5cM12bp3iMB765IticdEVx9fTL9+wE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=MPeL705nZabJK8GgLiR6eiULKdE9rU/dWLPYNqKLzRRkSLTRxeNHXWrOCJhp6M6yK
-	 TXHKEhzmETbreDVBXUU/8SZWyWT9/w4exAhdaupas+tHplDmFsnc/69qAeX6G2Rdwy
-	 TLAegWbvV8gpT0zmQ7PEYRCiYxuLkxQN6A55+xdhWgDX9WNXletie7x0GJlz16hLbS
-	 WEgF/XnRYMov4Y5U4PRqPl9HC9YMY1U+Ub9lOQNbpFtPlCxBFMd20mLNFGzG6IXwYN
-	 tJsY+8kUuDC8WGG7vEBK/OF0Rfz7R3klLlwQkan1z69FYls2i5kDj4DtxynGd+SpKL
-	 rqN8h+4JyOApA==
-From: Leon Romanovsky <leon@kernel.org>
-To: yishaih@nvidia.com, jgg@ziepe.ca, 
- Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260816044510.3848996-1-shuangpeng.kernel@gmail.com>
-References: <20260816044510.3848996-1-shuangpeng.kernel@gmail.com>
-Subject: Re: [PATCH] IB/mlx4: Fix use-after-free on pkey sysfs registration
- failure
-Message-Id: <178827145124.1380198.18104190586374811553.b4-ty@kernel.org>
-Date: Tue, 01 Sep 2026 10:04:11 -0400
+	s=k20260515; t=1788271492;
+	bh=jPLfUhAriQbeMNme/A39zpXETQORrdj67BYHQz8lV2w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Un8UzOe7yvDiZlaJZYrUAKFkDH0TegzfLYcYwy+uq6CIxgPM01vHXE/PBTJaAXpT+
+	 8RD+s30Zgh3pa1hXsVaQ1qrZywD1ADplz+F5qoyL3AmIgUCjpgRaQoJ6H5Zo9/U8oA
+	 UatVwWKsocdWy/GE2xJ/pSlMMVpbC12NG/Y6dyfRtKvKASHCcP0nlcgNkdWWjUlDLK
+	 vWoFZc732Pz2vmoSXttFuMD93jSLT7QToAF3Kpd8tL4lKGThza1Z7hF/7/8am6ufN6
+	 BpjGPsn37pyqDkFAgL+6EqgW2FBfuytFEx70wR/cF3SPuiXzYolByTX7WNHJpXcLCw
+	 8fhzaK4ghHrNA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Zhenhao Wan <whi4ed0g@gmail.com>
+Cc: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Yuhao Jiang <danisjiang@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated accounting for THP
+Date: Tue,  1 Sep 2026 16:04:42 +0200
+Message-ID: <20260901140442.4036-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
+References: <20260811-b4-nouveau-dmem-thp-fixes-v1-0-2cdf9860af2a@gmail.com>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On Sun, 16 Aug 2026 00:45:10 -0400, Shuangpeng Bai wrote:
-> register_pkey_tree() ignores errors from register_one_pkey_tree() and
-> continues registering the remaining slaves. The per-slave error path has
-> already released the pkey parent kobjects, but their pointers remain
-> stored in the device. A later device cleanup therefore passes the stale
-> pointers to kobject_put(), causing a use-after-free.
-> 
-> Clear the parent pointers after releasing a failed slave tree and skip
-> unregistered trees during device cleanup. This preserves the existing
-> best-effort registration behavior while preventing a second cleanup of
-> the failed tree.
-> 
-> [...]
+On Tue, 11 Aug 2026 22:28:49 +0800, Zhenhao Wan wrote:
+> [PATCH 0/2] drm/nouveau/dmem: fix DMA unmap size and callocated accounting for THP
 
 Applied, thanks!
 
-[1/1] IB/mlx4: Fix use-after-free on pkey sysfs registration failure
-      https://git.kernel.org/rdma/rdma/c/1af874e9f4ce22
+  Branch: drm-misc-fixes
+  Tree:   https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
+[1/2] drm/nouveau/dmem: fix mismatched DMA unmap size for large folios
+      commit: caa1bc2a0a6c
+[2/2] drm/nouveau/dmem: fix callocated underflow on large folio split
+      commit: c2256c044a1d
 
+The patches will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patches are queued up for Linus's tree and should land in the next -rc
+release.
