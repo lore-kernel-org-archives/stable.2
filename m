@@ -1,81 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C8C743B3C6;
-	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35962429CF3;
+	Tue,  1 Sep 2026 13:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268742; cv=none; b=Gi6KkXs92awQDOIqdb662s55res1zNn7jl0Vzq5tDwwjqVJs73UuF3ziopzRz6Glxbxu0uOgU5LSZrSenDFVvlJl0ILucg28od3mbrKXlqWMaU3FJrOriyuS1X3ImymykolXmLnzc84A6HINBwR9xd91LlclHjhTuoHlbpsgF14=
+	t=1788268819; cv=none; b=hyI0DpnjMekoNROmKAc7eqLDuMdCBYEMFur0KeiZIu3FfdKkrtib4/wDJ4xksTBWX2JiK1fcyirxSeP8wwJfpBDzW51i9DaVi9VVWB5rV0ySFmVw9MKbpA82BQ22BgNPxj9ffwrtDvib2HpSrszD9ZHfMeZDFq49OwKCDIx8TJs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268742; c=relaxed/simple;
-	bh=GXr/1jJ0ZcG+tvVvUf9OAFx0ZgFUmAAa9q7CIMr6dbk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ey6ktulilvYHyj5h89ybycXHc0SgqnZRAItkAcMVdt2FK2KqV13MhYyWGhRrxrfF+PAT2L0pCdS9TE+NABGys4b5Nf5cvp6qEw9Ioj+OVmgRIXXfwH1lWEaU3qm6vhaOXge8HRii1+y0nKcsa5fdpfkjY6fmdX9wJu7d9v2urBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ig92mQta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788268819; c=relaxed/simple;
+	bh=nenqtb/1rWx2Wc6vlwOfg7g3fX9Nslava+BW/4x7vh4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TUuSWncR5Lx0cszO5ieCjeCiGWE/XLSjgMjR07rBAdJOeL2t6lE1lsxqW3RDGs4nP89tdYwDaUm/npYnJxG+Ztqj39nriKzzUY4ZVPKi/GXvrjqoDhMRhfP17CEfkmr/0orsE53SbrNfM0S9IBiHfo1mip0U2/ahZBulbTLxcLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=tzKLefnu; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ig92mQta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 452D01F00A3E;
-	Tue,  1 Sep 2026 13:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268741;
-	bh=VvO9nu/pvwrT8AJnGanMkEVbhfeAa8vp4BSGaiM1GXg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ig92mQtakTdHt0VVFboiQzpG74wWcUaalH06d9B8H+DqFvf8O10xsK8agpzNt48dI
-	 J6z78dAJsmkAgL1bGwzouj7Bo1tsFXUwjGUhxaemvkiP5iJj5I27039kzIr6sPksz/
-	 JmcUMbUDgwzghHaFtsLePi+nD/8bOnxkGtErWkZTfW+jquJlWqsN8qC0LBAV4yE2Mh
-	 E6LBN4vo828WsQkUMz4FEZZroCbmbvGpWvYiJZv6EeK+4lqNiYuxidJqZjeLKjMtPt
-	 iXRCXVLksLVM8WMlccLkVlGFJDyXyLeFnLG3uFITa+I94BxAVO5fXbh2YuVmqx6CPS
-	 uPIFRnMKnnwDg==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
-	stable@vger.kernel.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH 8/8] mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
-Date: Tue,  1 Sep 2026 06:18:49 -0700
-Message-ID: <20260901131850.98037-9-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901131850.98037-1-sj@kernel.org>
-References: <20260901131850.98037-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="tzKLefnu"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B12E1756;
+	Tue,  1 Sep 2026 06:20:12 -0700 (PDT)
+Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B1C13F882;
+	Tue,  1 Sep 2026 06:20:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788268816; bh=nenqtb/1rWx2Wc6vlwOfg7g3fX9Nslava+BW/4x7vh4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tzKLefnuBA7K2Sihm5EsIoRPnR7tt84b4HlzA3r6ntwk+h/pizCIhB6DoHKi0Oap4
+	 NcimuH7tdrG7nmkmdsp/Ddt6kwbYO5dFp6IqX4SdbzLKacSqriv8YSnmg6ZCE0B2Hk
+	 urDNCconsocbyOBB0rv0iG18tKFRDQ6vTan/R3Rk=
+Message-ID: <0872f586-ce2c-41b4-9452-0b9c3052aea1@arm.com>
+Date: Tue, 1 Sep 2026 14:20:11 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iommu/exynos: Initialize lock before requesting IRQ
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar
+ <alim.akhtar@samsung.com>, KyongHo Cho <pullip.cho@samsung.com>,
+ Kukjin Kim <kgene.kim@samsung.com>, iommu@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Jianhao Xu <jianhao.xu@seu.edu.cn>
+References: <20260901130527.3289245-1-runyu.xiao@seu.edu.cn>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260901130527.3289245-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-damos_get_in_active_mem_bp() uses the sum of the active and inactive
-memory amount as a denominator.  In an extreme and unlikely environment,
-active and inactive memory might be zero.  In this case, hence, it
-results in a divide by zero problem.  Avoid it by changing the
-denominator to one if it is zero, before it is being used.
+On 01/09/2026 2:05 pm, Runyu Xiao wrote:
+> The SysMMU interrupt handler can run as soon as devm_request_irq() is
+> called. Initialize the driver lock before registering the handler so an
+> early interrupt cannot use an uninitialized lock.
 
-The issue was discovered [1] by Sashiko.
+And what about all the _other_ data the handler unconditionally 
+dereferences which is also still uninitialised at this point? If you 
+think this (clearly theoretical) race is worth fixing then at least 
+actually fix it...
 
-[1] https://lore.kernel.org/20260721034756.147011-1-sj@kernel.org
+Thanks,
+Robin.
 
-Fixes: 4835e2871321 ("mm/damon/core: introduce [in]active memory ratio damos quota goal metric")
-Cc: <stable@vger.kernel.org> # 7.0.x
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Fixes: 2a96536e77b4 ("iommu/exynos: Add iommu driver for EXYNOS Platforms")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> Assisted-by: Codex:GPT-5
+> ---
+>   drivers/iommu/exynos-iommu.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
+> index 874d05f4b..e9feb83b3 100644
+> --- a/drivers/iommu/exynos-iommu.c
+> +++ b/drivers/iommu/exynos-iommu.c
+> @@ -735,6 +735,8 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
+>   	if (!data)
+>   		return -ENOMEM;
+>   
+> +	spin_lock_init(&data->lock);
+> +
+>   	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>   	data->sfrbase = devm_ioremap_resource(dev, res);
+>   	if (IS_ERR(data->sfrbase))
+> @@ -773,7 +775,6 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
+>   		return PTR_ERR(data->clk_master);
+>   
+>   	data->sysmmu = dev;
+> -	spin_lock_init(&data->lock);
+>   
+>   	__sysmmu_get_version(data);
+>   
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 3060edf5e4fa6..0df785e72438f 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3006,7 +3006,7 @@ static unsigned int damos_get_in_active_mem_bp(bool active_ratio)
- 		global_node_page_state(NR_LRU_BASE + LRU_ACTIVE_FILE);
- 	inactive = global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_ANON) +
- 		global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_FILE);
--	total = active + inactive;
-+	total = max(active + inactive, 1);
- 	if (active_ratio)
- 		return mult_frac(active, 10000, total);
- 	return mult_frac(inactive, 10000, total);
--- 
-2.47.3
