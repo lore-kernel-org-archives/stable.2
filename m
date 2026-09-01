@@ -1,132 +1,100 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3480444A3F8
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:59:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D196469851;
+	Tue,  1 Sep 2026 20:12:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292792; cv=none; b=i7eue9L57txBZov1/58+U6uZycMIRQGNx0MP0q4tu/8xqy1L/i67AguAj0Uoffht9zN84DqUBE3V8im/NludHwic2BmbHCkPDReati031sEB2d42dAkMyNvwxw0GJ2kiyDMj/T1VfJgbS+GEq6p468k9/MwHPO4JLK8SJ3i0Qs0=
+	t=1788293529; cv=none; b=ozO7XD4Wsix5Ug58WI1yMk2EmQYIAbzyYKLR6JOK4bgFMnCeNvtIqjuxZeplzGS2xLudWYdHK9aUQgsOOA9sKSIiTJrJUWwn/PQMJEa+mRwI0GEhBtQgPDmjHjAlxaw7mZR9YPlG5Va2TZRXnIGKyAnTSV3melT618dbCZ0BS8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292792; c=relaxed/simple;
-	bh=so+sJEXPcX/c5t2B93vxjpawl6VZJ9hVu3eFKoGAYUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kAFTLsfbPQLXLFEO8GxaY9uP6WJYfLWofAaYeH+JP8z/OiFqNR8wYKwgiIv+g704B5SuR7rv+i/h4efpiOk+S+A4aXNL2aqwEFhIciHKKusLesbszJKHsFwDzQs4zTi94/OC3Sdkwla+4I288JPvktW9LUxIsX1N+OF/+6h/1Us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hi392hVf; arc=none smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788293529; c=relaxed/simple;
+	bh=dEbdVwUF0cAe1rV3JhnryEMGtyMnIISXvwpzdtTtz+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nkqRDRSR0tBfuq+tn8bl7qRAcb6499PqPitwR3IE+JEsSZr3phrgrf1LCmqm5ftKcnPhM+3Gp3W+sQ1OCsgSV58yDYseYDjEKEuswePsDF/fFr1Yv6MYFl+4P8uzIvy6OjFQy51OT3k5WrMKnm5oEwB0KBhqAC633AgWoDyw2Q4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=NoupZb+1; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hi392hVf"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66e63afda8fso346270d50.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 12:59:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788292790; x=1788897590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
-        b=hi392hVfvUXkFuuWzN8y2xb2KSrqiHZgC4gjsvEft3LsVtS8msfRYtX0GIfb/tnu28
-         i/WIu5RzVeVZO7FUqmN+Iy74VBX/9+95XpcWcmYOj8mo5UF/oC/iK3I30YY4bsMgaz+o
-         fy1eiI88NH8W2ORnGD8c6l25faWKk1gwArpOaAs24EpK+aA5wkBkNdiZg44axi/Bt2sr
-         HZTAxPRwe72CrOiZh6dI/OiKeYC/TxOidRlfs8mFnrnh2QO8Bg6C9KleSnkae71vPZ3K
-         6N8UvdvgGadu7LqAcThOtodZCywGfT7lixa88OAPcp6tFpwZH2G8ZmsExZSOB+kcu0sz
-         EFiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788292790; x=1788897590;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
-        b=GtBjunSE8RKI4JebuMSK8kH6PS9bH91Ufs6t1ALr3MJVxAI74uFSXv4OQG+SjxBxsv
-         Gp77N0ah+ic7/G+Dqaa5vepqsnbxVqrve9iY0J8CZ9edFfDuM6vgd60NCh7SEgAkv2vH
-         rumIDGHIMOx+y3oiZZ7uPO8fEs0/stPEtoMyTEV5wV6yfLgGwk6rUMCWCyRYFrZ+KHww
-         XOQ+IPij9xaj59TYQimSifiJeEH8d0vM1RMlitCGaFyn3+psD6q7EANebYklrFEC5qOq
-         AGBI/Nigax+CmwI1XliTJ988/kpMd05lydVHwU9VIQ4fYDvxkSPySDMMeozWScGVQI41
-         Km3w==
-X-Forwarded-Encrypted: i=1; AKwUvBwLfBh8aFaNckFlqwDUw6bu2KhDZf0IsEYk3VpYouso/W6CuFVb9kxoSE0oqsbg6En+FoGgtf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqTEUgVEhwhDRMkXcrSjwnmL92aUg6o9yNQeQwUi8ACrHlz0ib
-	a8blLroD2si+f7IsbfpIGRqb0u1VfSf7knqSgvDZozzi21pWjqAZeDvcakGWrdO0
-X-Gm-Gg: AYBFou0O0ywOnpqV6L/NvEQ/K8otzmZB77iK68Gxs8Z5+ccADgMR3bnv9fvu5uxK7w1
-	LZjyF7gmUonywXIoyHGTf46iQMPooJd2VDw3j4KNH2oiPbFKOG999kUCWjaa5Xj9O5G+XxpnILE
-	dcP5dWU3FtPMhhoifG/ftGRenNPi6vndf208f+jIFGW1Wu+pKRDt2ASNGAnjOpZ5XiL38sh4udx
-	CNCyEYI9h3Phax5h2Jjvh3hPYlYI3ZSiPLBqaKqLtJ1o5XcHQaRx1rQcyG+AXs/3sKumJ02AYtg
-	r9QYxHZvPUwU3XhzxP198Qy68u6cr81mt1lQdbFaBEMXL91so6tlm68iyVlcYxIn4G2Q/HWYTKC
-	SVXq3dxT/g1H8n3Git+sldWL7xlus9jk/v0aCOVSFZ6wvGRr9NZinsdJy4u7Iui1qoB3Wx+hyKY
-	//y16/CTtM+h5fmK3rLfGBe6R4pHrQL6n4cIMKysZVVBJJ7m0vtQfB4A==
-X-Received: by 2002:a05:690e:450d:10b0:66f:7d56:cf77 with SMTP id 956f58d0204a3-66f87582dabmr3200931d50.26.1788292789853;
-        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
-Received: from adriano ([181.173.249.180])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d60f8sm1528187b3.36.2026.09.01.12.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: as102: initialize mutexes before registering frontend
-Date: Tue,  1 Sep 2026 15:58:56 -0400
-Message-ID: <20260901195856.19910-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="NoupZb+1"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 817AD40E01B5;
+	Tue,  1 Sep 2026 20:11:56 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id wmHTEmQBpPrH; Tue,  1 Sep 2026 20:11:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788293506; bh=4Vl7thuwy7hcbn1yBAidfGmiyVoUYY932eoV9lPvW+g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NoupZb+1s7oWDgh3NmhmQEdA4JeioSPKGlfKcsd/ozQlGjVpMZkbGIl/kxTuId66T
+	 go55ftrS6XkKfq8ypJeCeETQwomIpxBhlGxHwS6TDBTTSlmvAzyzrzc+EXQ0ypQwJv
+	 6UmDJb/qjwcbMXb4e7eiG/9y2VpurGCZqZJhfa0OLbZWUAqy5SyyD3LnhhBMX+X47F
+	 B20KRaEepJNybEGg4Scn3lCL03Mz1xt4GtLVcmeHWWiRjynz9MSyW/KhOtdjVuvo1f
+	 o5TaZyB7B6iGPmxzv7pIbjA58UOk0gb7/96DCEqcfqSxS5/zRgTJvl4DOxJSSl+QIl
+	 C91wVTF9RZA3phzz0L78i67BramLXg2xicc0P6VRJri5Jl+iRpQFuyn9dzMPDL4MeJ
+	 Y4rAJJ5uQQa6tb3iAQVTPKA/OKF6jlCdaFldmJ522IhI/h/FmEWQiu7w5p8oywW0ou
+	 d+RzRKlfnDwOTBv9IOMrLqO/64Yu/xCIfS6IrW23cuX2RIbppFWbmM7Esx3NULf7iv
+	 GsNdN0mjcfKCEcgnltwTjOuem/05dCx/hYfR0w0oFGCEufLY08bL8bwjrLWRm149cl
+	 NP9EoeOa/55Ey489Mnif2i6K5juZp4y9+ZpaifyMoVzNGCj/dot7bBzMIaj1TtiTdc
+	 Aqj82cEtYu8Mz8x8ZQFhBoQc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id DABEA40E01DD;
+	Tue,  1 Sep 2026 20:11:30 +0000 (UTC)
+Date: Tue, 1 Sep 2026 13:11:27 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Yazen Ghannam <yazen.ghannam@amd.com>
+Cc: Jasjeet Rangi <jrangi@purestorage.com>,
+	Smita.KoralahalliChannabasappa@amd.com, dave.hansen@linux.intel.com,
+	dgiani@purestorage.com, hpa@zytor.com, linux-edac@vger.kernel.org,
+	mingo@redhat.com, msaggi@purestorage.com, rhan@purestorage.com,
+	rjethwani@purestorage.com, stable@vger.kernel.org, tglx@kernel.org,
+	tony.luck@intel.com, x86@kernel.org
+Subject: Re: [PATCH v2 1/2] x86/mce/amd: Fix inverted interrupt enablement
+ during storm handling
+Message-ID: <20260901201127.GIapcxb5k-sW8TlV_2@fat_crate.local>
+References: <20260818190250.GAaoSsWiKOuj4gRYsl@fat_crate.local>
+ <20260819064601.1972932-1-jrangi@purestorage.com>
+ <20260819140647.GA2416@yaz-khff2.amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260819140647.GA2416@yaz-khff2.amd.com>
 
-The bus adapter mutex and the stream mutex are initialized after the
-frontend has been registered, but the frontend's stream control
-callback as102_stream_ctrl() takes the bus adapter mutex, which can be
-used before it is initialized:
+On Wed, Aug 19, 2026 at 10:06:47AM -0400, Yazen Ghannam wrote:
+> IMO, disabling the interrupt is the best way to manage the storm. The
+> reason for Intel to set a high limit is to keep the interrupt enabled.
+> The reason to keep the interrupt enabled is because the same interrupt
+> line is used for reporting "uncorrectable,no action" errors. This isn't
 
-	INFO: trying to register non-static key.
-	...
-	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
-	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
+Where does it say that?
 
-Initialize the mutexes before registering the adapter and frontend.
+I guess still I can't search.
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
-Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- drivers/media/usb/as102/as102_drv.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+Because I see
 
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a0a7..a6dd675689f5 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
- 
-+	/* init bus mutex for token locking */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+
-+	/* init start / stop stream mutex */
-+	mutex_init(&as102_dev->sem);
-+
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
- 	}
- 
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
+  c3629dd7e67d ("x86/mce: Prevent duplicate error records")
+
+which did UCNA reporting with SMIs. And there it explains why you don't want
+to disable CMCI.
+
+Bottomline is, I don't mind toggling thresholding interrupts during storms but
+this needs to be tested very thoroughly to confirm it actually does what we
+expect it to do.
+
+Thx.
+
 -- 
-2.51.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
