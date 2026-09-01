@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3F44A0F02
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD6E47FAE7
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290905; cv=none; b=SlSMM9qBUa+iUcGoVz1/b6Ynj84K1coC9bC1EsApdPITWvm9Frh9OpPbmHRK57RYmjlXetl7/aKnXMVfdjMmqPbhqI/8cySwyQCDujIUfOMp6luk9UN+r++Y0Q6eWeRIDelkbgXpzuHNYshpAw1lGmn8rJcsBA0KKTHwzB6EUWM=
+	t=1788290905; cv=none; b=CZDxlv+VYNx4rkTzKUMHYGtaAWo/oPOK2QUoSF2+TxBnKZeMvPgIIQPS1arVMi8KX8ifR0rE2a69iFofYl8RKjeovJgnkPoEdz6v7zRXu1m+EVKRTEzvZiTAM21M8DAPczwE81PQ4rhqQS3S9kaAbdB4st/7qp38BOqej5psus4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788290905; c=relaxed/simple;
-	bh=+Jl4Dwa7CmLa7TJmt2tQb9XHPF6OQH73sYZiBFFmrBc=;
+	bh=ZLXGiUH3DPnHRM5LsnDlgYkuOWbtqthYXbs4oeNSY5o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cfuf5qSYeW7zgZ1o1pIJpZE4e2S9upZQjpBopAbd124vwqRwf2rmLBg6x/8+6/CJOsyTbDkBJ04qrpK3e6Fm7InmpdLbhzWtc+1+1+3xCd2n9bpxF7CCiLNJNmK20WbfFyLRGUpOPph4dMEB/TVpflllPj1itQVxhAZ62KXsBaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCNy6gM0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VUpP0Sa4h0GUaoRiofGfIMIKyDowXRMM8FbioSRgcC+pgrOjYakXqR5GcquztyyKTBypqqvspH1SZAWW5XMoGtsHm0U67HNV+MlPO4rOoDzjKsLSy6WwRTLdCE4Z8uYDk2bg/QPhpXdOo27aYhzVvPDzVpof93OGbs7Ij+zF6O8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E25YhSrw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCNy6gM0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258C21F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E25YhSrw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D65C1F00A3A;
 	Tue,  1 Sep 2026 19:28:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788290903;
-	bh=MGrqGQxllTCJ59MTWcJuiWktqmh9ZpuHoEsoG1yvObQ=;
+	s=k20260515; t=1788290904;
+	bh=5rt03fJPgXkyBY+Ae6S9Mp4yTjTH2rBbV7zfRZjQWlU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lCNy6gM0HmmAVro1AqcrP4hHrSsGa/dO+WMHDi68FkGWxQdOewYhR5RAUkiX/qXy1
-	 KgVE4+eDKL2eZytdgsjf+xJBUq3B7QGdsEn1bv2sAQZ9CGJpHMeMdfDLsjunH2GDg2
-	 h93Hm4RJTIDvfj+7rVWtxtxuX4DgF5c8/69fMke601DG3A7DpGdCIf+x3zN2BO/zC7
-	 7J5NWi+jNFERd1gSM8K1q6f4c2rUjYLp4a2KxHtdxNRVQS5clXhicfWIIqOKInsq/r
-	 k3WuTRSDmUgMmm3nwnBUc1wYgAK+cB9xMdrjyNmSRO/3zxK591LB5J9QtMsBElNTKR
-	 rPuIjo6PYKZ8Q==
+	b=E25YhSrwPTrTiypfT+thf4mOyVcTZblOVsPLPM8HPKcbtRvYCBvHAaiQtVYH8at5G
+	 Kbv1zKLSpJ2IzI3VOFnQ/0iahs3f0jCBdZBgXLKf43v3FUhZ+d+DisGl0bVQzLOheL
+	 fzPKlOmUTefrFPmK0Q6vmIGp9+sMw9N+59obMJSt5tzVR7bVvsrfd7WDzxJGtCHLZ8
+	 fIuyz1Fo3CXEVUnAB00QJIAg+Y69wP0/hN6N1RKy7uZoT1oLZC+PoN3Iol4dQWP+lp
+	 scs9i9hRkAmjNf5Y3J+HYjDGJPxvZuvXsEDncng0RnNKykp/tssxW8aiZNvCWLGX9P
+	 EsgW7FziarvDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Vinicius Costa Gomes <vinicius.gomes@intel.com>,
+Cc: Vinicius Costa Gomes <vinicius.gomes@intel.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.1.y 1/2] crypto: iaa - fall back to software for multi-entry scatterlists
-Date: Tue,  1 Sep 2026 15:28:20 -0400
-Message-ID: <20260901192821.1439160-1-sashal@kernel.org>
+Subject: [PATCH 7.1.y 2/2] crypto: iaa - unmap dst before software fallback on decompress
+Date: Tue,  1 Sep 2026 15:28:21 -0400
+Message-ID: <20260901192821.1439160-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083134-rockband-cone-6be0@gregkh>
+In-Reply-To: <20260901192821.1439160-1-sashal@kernel.org>
 References: <2026083134-rockband-cone-6be0@gregkh>
+ <20260901192821.1439160-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,313 +46,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+From: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 
-[ Upstream commit c7fdfd2bee1cf1448e5244da1a734e680f634b02 ]
+[ Upstream commit 94a25930477113730372e0fa2985da4c5ac95c9a ]
 
-IAA cannot process source or destination scatterlists with more than one
-entry directly. Instead of failing these requests, route them through a
-separate deflate acomp transform and keep the request alive in software.
+On a hardware analytics error, decompress retries through the software
+fallback, which writes req->dst with the CPU while it is still mapped
+DMA_FROM_DEVICE. With SWIOTLB active the later dma_unmap_sg() copies the
+stale bounce buffer over req->dst, corrupting the result.
 
-The IAA driver has never handled multi-entry scatterlists, but the
-limitation was latent until commit e2c3b6b21c77 ("mm: zswap: use SG list
-decompression APIs from zsmalloc") made zswap pass the raw zsmalloc SG
-list directly to crypto drivers, so objects spanning multiple pages now
-reach IAA as multi-entry sources and would otherwise fail decompression.
-
-Fallback to the generic DEFLATE implementation for scatterlists with
-more than one entry. After the multi-entry cases fall back early,
-simplify the DMA mapping path to a single scatterlist entry and fall
-back on mapping failure as well.
-
-Add counters to track the number of requests processed by the software
-implementation on the compression direction.
+Unmap before the fallback runs. The async path unmaps inline; the sync
+path signals the retry with -EAGAIN so iaa_comp_adecompress() runs the
+fallback after unmapping.
 
 Fixes: 2ec6761df889 ("crypto: iaa - Add support for deflate-iaa compression algorithm")
-Fixes: e2c3b6b21c77 ("mm: zswap: use SG list decompression APIs from zsmalloc")
 Cc: stable@vger.kernel.org
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
 Signed-off-by: Vinicius Costa Gomes <vinicius.gomes@intel.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Stable-dep-of: 94a259304771 ("crypto: iaa - unmap dst before software fallback on decompress")
+[ adapted unavailable iaa_unmap_src() calls to single-entry dma_unmap_sg() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/intel/iaa/iaa_crypto_main.c  | 111 +++++++++++---------
- drivers/crypto/intel/iaa/iaa_crypto_stats.c |   9 ++
- drivers/crypto/intel/iaa/iaa_crypto_stats.h |   2 +
- 3 files changed, 71 insertions(+), 51 deletions(-)
+ drivers/crypto/intel/iaa/iaa_crypto_main.c | 27 ++++++++++------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/crypto/intel/iaa/iaa_crypto_main.c b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-index f62b994e18e58..904d9413ba182 100644
+index 904d9413ba182..cdfe00464fa36 100644
 --- a/drivers/crypto/intel/iaa/iaa_crypto_main.c
 +++ b/drivers/crypto/intel/iaa/iaa_crypto_main.c
-@@ -2,6 +2,7 @@
- /* Copyright(c) 2021 Intel Corporation. All rights rsvd. */
- 
- #include <linux/init.h>
-+#include <linux/crypto.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/pci.h>
-@@ -996,6 +997,19 @@ static int deflate_generic_decompress(struct acomp_req *req)
- 	return ret;
- }
- 
-+static int deflate_generic_compress(struct acomp_req *req)
-+{
-+	ACOMP_FBREQ_ON_STACK(fbreq, req);
-+	int ret;
+@@ -1058,13 +1058,17 @@ static void iaa_desc_complete(struct idxd_desc *idxd_desc,
+ 			pr_warn("%s: falling back to deflate-generic decompress, "
+ 				"analytics error code %x\n", __func__,
+ 				idxd_desc->iax_completion->error_code);
++			dma_unmap_sg(dev, ctx->req->dst, sg_nents(ctx->req->dst),
++				     DMA_FROM_DEVICE);
++			dma_unmap_sg(dev, ctx->req->src, 1, DMA_TO_DEVICE);
 +
-+	ret = crypto_acomp_compress(fbreq);
-+	req->dlen = fbreq->dlen;
-+
-+	update_total_sw_comp_calls();
-+
-+	return ret;
-+}
-+
- static int iaa_remap_for_verify(struct device *dev, struct iaa_wq *iaa_wq,
- 				struct acomp_req *req,
- 				dma_addr_t *src_addr, dma_addr_t *dst_addr);
-@@ -1472,7 +1486,7 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 	struct iaa_compression_ctx *compression_ctx;
- 	struct crypto_tfm *tfm = req->base.tfm;
- 	dma_addr_t src_addr, dst_addr;
--	int nr_sgs, cpu, ret = 0;
-+	int cpu, ret = 0;
- 	struct iaa_wq *iaa_wq;
- 	struct idxd_wq *wq;
- 	struct device *dev;
-@@ -1484,11 +1498,15 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 		return -ENODEV;
+ 			ret = deflate_generic_decompress(ctx->req);
+ 			if (ret) {
+ 				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
+ 					__func__, ret);
+ 				err = -EIO;
+-				goto err;
+ 			}
++			goto out;
+ 		} else {
+ 			err = -EIO;
+ 			goto err;
+@@ -1447,19 +1451,9 @@ static int iaa_decompress(struct crypto_tfm *tfm, struct acomp_req *req,
+ 	ret = check_completion(dev, idxd_desc->iax_completion, false, false);
+ 	if (ret) {
+ 		dev_dbg(dev, "%s: check_completion failed ret=%d\n", __func__, ret);
+-		if (idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR) {
+-			pr_warn("%s: falling back to deflate-generic decompress, "
+-				"analytics error code %x\n", __func__,
+-				idxd_desc->iax_completion->error_code);
+-			ret = deflate_generic_decompress(req);
+-			if (ret) {
+-				dev_dbg(dev, "%s: deflate-generic failed ret=%d\n",
+-					__func__, ret);
+-				goto err;
+-			}
+-		} else {
+-			goto err;
+-		}
++		if (idxd_desc->iax_completion->status == IAA_ANALYTICS_ERROR)
++			ret = -EAGAIN;
++		goto err;
+ 	} else {
+ 		req->dlen = idxd_desc->iax_completion->output_size;
  	}
+@@ -1647,13 +1641,16 @@ static int iaa_comp_adecompress(struct acomp_req *req)
+ 	if (ret == -EINPROGRESS)
+ 		return ret;
  
--	if (!req->src || !req->slen) {
--		pr_debug("invalid src, not compressing\n");
-+	if (!req->src || !req->slen || !req->dst) {
-+		pr_debug("invalid req, not compressing\n");
- 		return -EINVAL;
- 	}
- 
-+	/* Fall back to software if src or dst has multiple sg entries */
-+	if (sg_nents(req->src) > 1 || sg_nents(req->dst) > 1)
-+		return deflate_generic_compress(req);
-+
- 	cpu = get_cpu();
- 	wq = wq_table_next_wq(cpu);
- 	put_cpu();
-@@ -1507,30 +1525,25 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 
- 	dev = &wq->idxd->pdev->dev;
- 
--	nr_sgs = dma_map_sg(dev, req->src, sg_nents(req->src), DMA_TO_DEVICE);
--	if (nr_sgs <= 0 || nr_sgs > 1) {
--		dev_dbg(dev, "couldn't map src sg for iaa device %d,"
--			" wq %d: ret=%d\n", iaa_wq->iaa_device->idxd->id,
--			iaa_wq->wq->id, ret);
--		ret = -EIO;
--		goto out;
-+	if (!dma_map_sg(dev, req->src, 1, DMA_TO_DEVICE)) {
-+		dev_dbg(dev, "couldn't map src sg for iaa device %d, wq %d\n",
-+			iaa_wq->iaa_device->idxd->id, iaa_wq->wq->id);
-+		iaa_wq_put(wq);
-+		return deflate_generic_compress(req);
- 	}
- 	src_addr = sg_dma_address(req->src);
--	dev_dbg(dev, "dma_map_sg, src_addr %llx, nr_sgs %d, req->src %p,"
--		" req->slen %d, sg_dma_len(sg) %d\n", src_addr, nr_sgs,
-+	dev_dbg(dev, "map src %llx req->src %p slen %d sg_len %d\n", src_addr,
- 		req->src, req->slen, sg_dma_len(req->src));
- 
--	nr_sgs = dma_map_sg(dev, req->dst, sg_nents(req->dst), DMA_FROM_DEVICE);
--	if (nr_sgs <= 0 || nr_sgs > 1) {
--		dev_dbg(dev, "couldn't map dst sg for iaa device %d,"
--			" wq %d: ret=%d\n", iaa_wq->iaa_device->idxd->id,
--			iaa_wq->wq->id, ret);
--		ret = -EIO;
--		goto err_map_dst;
-+	if (!dma_map_sg(dev, req->dst, 1, DMA_FROM_DEVICE)) {
-+		dev_dbg(dev, "couldn't map dst sg for iaa device %d, wq %d\n",
-+			iaa_wq->iaa_device->idxd->id, iaa_wq->wq->id);
-+		dma_unmap_sg(dev, req->src, 1, DMA_TO_DEVICE);
-+		iaa_wq_put(wq);
-+		return deflate_generic_compress(req);
- 	}
- 	dst_addr = sg_dma_address(req->dst);
--	dev_dbg(dev, "dma_map_sg, dst_addr %llx, nr_sgs %d, req->dst %p,"
--		" req->dlen %d, sg_dma_len(sg) %d\n", dst_addr, nr_sgs,
-+	dev_dbg(dev, "map dst %llx req->dst %p dlen %d sg_len %d\n", dst_addr,
- 		req->dst, req->dlen, sg_dma_len(req->dst));
- 
- 	ret = iaa_compress(tfm, req, wq, src_addr, req->slen, dst_addr,
-@@ -1550,8 +1563,8 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 		if (ret)
- 			dev_dbg(dev, "asynchronous compress verification failed ret=%d\n", ret);
- 
--		dma_unmap_sg(dev, req->dst, sg_nents(req->dst), DMA_TO_DEVICE);
--		dma_unmap_sg(dev, req->src, sg_nents(req->src), DMA_FROM_DEVICE);
-+		dma_unmap_sg(dev, req->dst, 1, DMA_TO_DEVICE);
-+		dma_unmap_sg(dev, req->src, 1, DMA_FROM_DEVICE);
- 
- 		goto out;
- 	}
-@@ -1559,9 +1572,8 @@ static int iaa_comp_acompress(struct acomp_req *req)
- 	if (ret)
- 		dev_dbg(dev, "asynchronous compress failed ret=%d\n", ret);
- 
--	dma_unmap_sg(dev, req->dst, sg_nents(req->dst), DMA_FROM_DEVICE);
--err_map_dst:
--	dma_unmap_sg(dev, req->src, sg_nents(req->src), DMA_TO_DEVICE);
-+	dma_unmap_sg(dev, req->dst, 1, DMA_FROM_DEVICE);
-+	dma_unmap_sg(dev, req->src, 1, DMA_TO_DEVICE);
- out:
- 	iaa_wq_put(wq);
- 
-@@ -1572,7 +1584,7 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- {
- 	struct crypto_tfm *tfm = req->base.tfm;
- 	dma_addr_t src_addr, dst_addr;
--	int nr_sgs, cpu, ret = 0;
-+	int cpu, ret = 0;
- 	struct iaa_wq *iaa_wq;
- 	struct device *dev;
- 	struct idxd_wq *wq;
-@@ -1582,11 +1594,15 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 		return -ENODEV;
- 	}
- 
--	if (!req->src || !req->slen) {
--		pr_debug("invalid src, not decompressing\n");
-+	if (!req->src || !req->slen || !req->dst) {
-+		pr_debug("invalid req, not decompressing\n");
- 		return -EINVAL;
- 	}
- 
-+	/* Fall back to software if src or dst has multiple sg entries */
-+	if (sg_nents(req->src) > 1 || sg_nents(req->dst) > 1)
-+		return deflate_generic_decompress(req);
-+
- 	cpu = get_cpu();
- 	wq = wq_table_next_wq(cpu);
- 	put_cpu();
-@@ -1605,30 +1621,25 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 
- 	dev = &wq->idxd->pdev->dev;
- 
--	nr_sgs = dma_map_sg(dev, req->src, sg_nents(req->src), DMA_TO_DEVICE);
--	if (nr_sgs <= 0 || nr_sgs > 1) {
--		dev_dbg(dev, "couldn't map src sg for iaa device %d,"
--			" wq %d: ret=%d\n", iaa_wq->iaa_device->idxd->id,
--			iaa_wq->wq->id, ret);
--		ret = -EIO;
--		goto out;
-+	if (!dma_map_sg(dev, req->src, 1, DMA_TO_DEVICE)) {
-+		dev_dbg(dev, "couldn't map src sg for iaa device %d, wq %d\n",
-+			iaa_wq->iaa_device->idxd->id, iaa_wq->wq->id);
-+		iaa_wq_put(wq);
-+		return deflate_generic_decompress(req);
- 	}
- 	src_addr = sg_dma_address(req->src);
--	dev_dbg(dev, "dma_map_sg, src_addr %llx, nr_sgs %d, req->src %p,"
--		" req->slen %d, sg_dma_len(sg) %d\n", src_addr, nr_sgs,
-+	dev_dbg(dev, "map src %llx req->src %p slen %d sg_len %d\n", src_addr,
- 		req->src, req->slen, sg_dma_len(req->src));
- 
--	nr_sgs = dma_map_sg(dev, req->dst, sg_nents(req->dst), DMA_FROM_DEVICE);
--	if (nr_sgs <= 0 || nr_sgs > 1) {
--		dev_dbg(dev, "couldn't map dst sg for iaa device %d,"
--			" wq %d: ret=%d\n", iaa_wq->iaa_device->idxd->id,
--			iaa_wq->wq->id, ret);
--		ret = -EIO;
--		goto err_map_dst;
-+	if (!dma_map_sg(dev, req->dst, 1, DMA_FROM_DEVICE)) {
-+		dev_dbg(dev, "couldn't map dst sg for iaa device %d, wq %d\n",
-+			iaa_wq->iaa_device->idxd->id, iaa_wq->wq->id);
-+		dma_unmap_sg(dev, req->src, 1, DMA_TO_DEVICE);
-+		iaa_wq_put(wq);
-+		return deflate_generic_decompress(req);
- 	}
- 	dst_addr = sg_dma_address(req->dst);
--	dev_dbg(dev, "dma_map_sg, dst_addr %llx, nr_sgs %d, req->dst %p,"
--		" req->dlen %d, sg_dma_len(sg) %d\n", dst_addr, nr_sgs,
-+	dev_dbg(dev, "map dst %llx req->dst %p dlen %d sg_len %d\n", dst_addr,
- 		req->dst, req->dlen, sg_dma_len(req->dst));
- 
- 	ret = iaa_decompress(tfm, req, wq, src_addr, req->slen,
-@@ -1639,10 +1650,8 @@ static int iaa_comp_adecompress(struct acomp_req *req)
- 	if (ret != 0)
+-	if (ret != 0)
++	if (ret != 0 && ret != -EAGAIN)
  		dev_dbg(dev, "asynchronous decompress failed ret=%d\n", ret);
  
--	dma_unmap_sg(dev, req->dst, sg_nents(req->dst), DMA_FROM_DEVICE);
--err_map_dst:
--	dma_unmap_sg(dev, req->src, sg_nents(req->src), DMA_TO_DEVICE);
--out:
-+	dma_unmap_sg(dev, req->dst, 1, DMA_FROM_DEVICE);
-+	dma_unmap_sg(dev, req->src, 1, DMA_TO_DEVICE);
+ 	dma_unmap_sg(dev, req->dst, 1, DMA_FROM_DEVICE);
+ 	dma_unmap_sg(dev, req->src, 1, DMA_TO_DEVICE);
  	iaa_wq_put(wq);
  
++	if (ret == -EAGAIN)
++		ret = deflate_generic_decompress(req);
++
  	return ret;
-diff --git a/drivers/crypto/intel/iaa/iaa_crypto_stats.c b/drivers/crypto/intel/iaa/iaa_crypto_stats.c
-index f5cc3d29ca19e..2f2ed88c88120 100644
---- a/drivers/crypto/intel/iaa/iaa_crypto_stats.c
-+++ b/drivers/crypto/intel/iaa/iaa_crypto_stats.c
-@@ -19,6 +19,7 @@
- 
- static atomic64_t total_comp_calls;
- static atomic64_t total_decomp_calls;
-+static atomic64_t total_sw_comp_calls;
- static atomic64_t total_sw_decomp_calls;
- static atomic64_t total_comp_bytes_out;
- static atomic64_t total_decomp_bytes_in;
-@@ -43,6 +44,11 @@ void update_total_decomp_calls(void)
- 	atomic64_inc(&total_decomp_calls);
  }
  
-+void update_total_sw_comp_calls(void)
-+{
-+	atomic64_inc(&total_sw_comp_calls);
-+}
-+
- void update_total_sw_decomp_calls(void)
- {
- 	atomic64_inc(&total_sw_decomp_calls);
-@@ -104,6 +110,7 @@ static void reset_iaa_crypto_stats(void)
- {
- 	atomic64_set(&total_comp_calls, 0);
- 	atomic64_set(&total_decomp_calls, 0);
-+	atomic64_set(&total_sw_comp_calls, 0);
- 	atomic64_set(&total_sw_decomp_calls, 0);
- 	atomic64_set(&total_comp_bytes_out, 0);
- 	atomic64_set(&total_decomp_bytes_in, 0);
-@@ -174,6 +181,8 @@ static int global_stats_show(struct seq_file *m, void *v)
- 		   atomic64_read(&total_comp_calls));
- 	seq_printf(m, "  total_decomp_calls: %llu\n",
- 		   atomic64_read(&total_decomp_calls));
-+	seq_printf(m, "  total_sw_comp_calls: %llu\n",
-+		   atomic64_read(&total_sw_comp_calls));
- 	seq_printf(m, "  total_sw_decomp_calls: %llu\n",
- 		   atomic64_read(&total_sw_decomp_calls));
- 	seq_printf(m, "  total_comp_bytes_out: %llu\n",
-diff --git a/drivers/crypto/intel/iaa/iaa_crypto_stats.h b/drivers/crypto/intel/iaa/iaa_crypto_stats.h
-index 3787a5f507eb2..6e0c6f9939bfa 100644
---- a/drivers/crypto/intel/iaa/iaa_crypto_stats.h
-+++ b/drivers/crypto/intel/iaa/iaa_crypto_stats.h
-@@ -11,6 +11,7 @@ void	iaa_crypto_debugfs_cleanup(void);
- void	update_total_comp_calls(void);
- void	update_total_comp_bytes_out(int n);
- void	update_total_decomp_calls(void);
-+void	update_total_sw_comp_calls(void);
- void	update_total_sw_decomp_calls(void);
- void	update_total_decomp_bytes_in(int n);
- void	update_completion_einval_errs(void);
-@@ -29,6 +30,7 @@ static inline void	iaa_crypto_debugfs_cleanup(void) {}
- static inline void	update_total_comp_calls(void) {}
- static inline void	update_total_comp_bytes_out(int n) {}
- static inline void	update_total_decomp_calls(void) {}
-+static inline void	update_total_sw_comp_calls(void) {}
- static inline void	update_total_sw_decomp_calls(void) {}
- static inline void	update_total_decomp_bytes_in(int n) {}
- static inline void	update_completion_einval_errs(void) {}
 -- 
 2.53.0
 
