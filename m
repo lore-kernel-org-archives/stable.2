@@ -1,202 +1,112 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09AFE47A0DE
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 10:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939B357D17;
+	Tue,  1 Sep 2026 10:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257636; cv=none; b=sfg4QiszfPmJvnWuqZJezJTed4YcDS5XEjyP02dw428N3DMsudNwgtjvxGSbnBKHvTJVmWOU3WinM5qcDqY5qXj+iKOLeGuOf2HLkOPhZQ08iqnZo/dyhJ1h5j0CrO/Dcys9BuMkx4CPtzAhEmO+xi2golllybrRgUeGEU8cXlg=
+	t=1788257712; cv=none; b=C3Hu2fLTTviliTY98U0MWSRVeE7+xuGJu7OWYgqiFY7R5pA5i2fbe8mOf2uzPGf35ANh2C+pl7zePUuaDzHbjH6+LlgZkm9GKE73RkPxMKZiUuPnELT8UYfqZxrzDdxNIZE996sSArFSi2U6Y7gnd9y19npwjSTxf2cPf7Dep8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257636; c=relaxed/simple;
-	bh=vRaD2X2xcCDuIb7uPDzMrYCycckWIwEhrOsQLCzY4gw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mqxvAqnjYbOhjCgtGMBfXf8HPJ+lsTla4MHzA0kmtW5G4nlQncMKILK32nix9NN50+b4OuUGuiSLPCCm3L+6kunRFslpROkJPrDkRZolTL/C3m9nomRX4w6Y1jS0ho1bX2kTgJQnqfMHP3/SsT7LvLbJLdXShT2BhfVW4vwBKgA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APqieEQp; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788257712; c=relaxed/simple;
+	bh=ulY4BgkvHNB0zbc+jpZL/vSRL6fHXJqlcCC6mqCUMPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UimaeMoS1eHvQ5Z7wCquJdGmpUP/FrjYo9H2AkwTlQWCl1jbZN3xIOk8/3To8+SuWKZyFxmpQLpHWFV6ooTb7xdKq6wEahDmwUY5jKt6OFEhNXFwDsF+4oJ9G1DpzOpLeYpaEsJ75j1yMrKrAfPqwp5BHgDVYZMyIQXd89C065I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=D5/hSDpY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APqieEQp"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48441fa5c37so574264f8f.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 03:13:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788257631; x=1788862431; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pGMhkf3RCMEctq3umyHGO3MvdxWxMBbojsHlqXM+5wA=;
-        b=APqieEQp6y/pDSLkyyFvsLRHl6q9sC4Tr9EFLRo3oTWYbayTZQAe7J7PUnSc3jxj7m
-         WWz2ux3RjctnjGgMotx4ePkqveVvOQb0jpnNrMxFQCylUT26Ai16WBvqMnIGohTLKQVH
-         kds4HhjdxvxIcXqVHfk4F0OrJxJP1S3n3GZDAFVvYuiBSggLUqsz1pdCeBcizHS7HZjz
-         w2a6heWN96qF2anyQUx5mCIMBqDZXManH365MvdNLWw5zEEplk5gtkLX2vSFX5Nih0r1
-         U7CU2m2qxCeDMCKiONjqCC8AC0H4EPc8iNbhhsu3a1OOt5e1ZEtMal1VSA5BroyLkHfC
-         8kMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788257631; x=1788862431;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pGMhkf3RCMEctq3umyHGO3MvdxWxMBbojsHlqXM+5wA=;
-        b=LJl5K+AzeHANDIlAFn9I6cWqltI58iMaTQJzxf+Chy+wpu86VTYwOIad1C316yWZOW
-         BF64CSsm6RTsC8bO5Ffp8cuo4deozgRvqOznydHOl/P41K7y90Hs3YzKimSIkSeEMBEQ
-         O/Z3AXqKjq4oLsOohExrgVLA9+P5GW5s58qXjvbL23NWIieRvdig2gbjkAuMuFL8Hdge
-         Wghao0+7lyMg3bRQXTJBDzF2MJxd5ANyvI9qcsXVflmuo/wWe5D73S6hE5kDKHwqaHEJ
-         mJmG7Eufxua7UItmcrdZgO0ipNTmtlDkvzZ7jPZ/jh0srRugssSM5yp/KZXj3Xw3lD2p
-         loSw==
-X-Forwarded-Encrypted: i=1; AHgh+RrlpmGnLoEke0GfCfdxEyX/TFpvOMpdBd43NEoPOqjiyUlFAFfQoB7Uo5bEJTSaj5vQT/oUoQg=@vger.kernel.org
-X-Gm-Message-State: AFuF++npeMq9jcOLk4tv41ayehSNlTUlXkmCwqdLGIKcB+tWrthfyM7u
-	tF6AuN3kZg3aeM9pxXIf+j/mvWWcMLBS5mklED/4ZNWu8ZKH+yc+dOjj
-X-Gm-Gg: AR+sD12kMHz6LnKSMIDrEKxwuZz23/f8DnNb478367NIkRjQY4IREcBnAW/7f1Rc7vc
-	fmrCjRkXsH3J6uTA9SJWcQJw5p2VU4GEd8r9w7p5cINRePM/vAhK5U/lCpMnfpOacEuedzd9K/7
-	B4L7s8L8oGX+vWVlckR2djQOsHEzy3U4DugPmuuHAmPM2mytKaDJvIl9j6DMiTCw4CbGxK0pqMw
-	UYU0aJb+cWaLvyfd8X8RFwCJLDz0bdh5aTIRm+N2XnyQS6CxpcQ+2cI+P/kzT8fdh7AqRvjG0je
-	ssXgL8FYxus7s+GLrvJPDZMoZI6TY+1WuhTlDiUIaTFnv0n/Wzdxm2dv/ZUwdeHPDhK7RdNNEPY
-	wBENCoSz22Yg3s7C7to2nv8HzsnCUCeOQ4tPb23W1XoiNJiTYKWaRQDdQZiRiEM5Rxv6HZkfv9y
-	O7tJ8sMw4Pk1unmF+nfPqzMWiaTxMDVyA/5SdLVUY3UpvV2zzqlUMynQHPrcP1XqJdhvnq6p7Q7
-	vXGuQ==
-X-Received: by 2002:a05:600c:c494:b0:499:8aff:59b6 with SMTP id 5b1f17b1804b1-49b91c486c3mr408787555e9.14.1788257630883;
-        Tue, 01 Sep 2026 03:13:50 -0700 (PDT)
-Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdcdd5f5esm54249965e9.0.2026.09.01.03.13.49
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 01 Sep 2026 03:13:50 -0700 (PDT)
-Date: Tue, 1 Sep 2026 12:13:43 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: Rishabh Jain <rishabh.jain1198@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Mario Limonciello <superm1@kernel.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v3] usb: pci-quirks: always assert xHCI OS ownership
-Message-ID: <20260901121343.22786f2d.michal.pecio@gmail.com>
-In-Reply-To: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
-References: <2026083129-justice-egomaniac-01cd@gregkh>
-	<20260831211126.23745-1-rishabh.jain1198@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="D5/hSDpY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BB151F000E9;
+	Tue,  1 Sep 2026 10:15:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788257710;
+	bh=omjNlM7AaIJXcpz/D/+/7yBgQTKNq3z8ieKvrlC9UJI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D5/hSDpYG/TAV4tU5QT256PUjB+f4TI6Xro3Eb0Gc9fh2dmSblgNj9/I3QOK3NUkv
+	 qwScVfREhh7isATmX8MuMFUONhv2Bn569GL0DAMCHdPATdH5I0PLmRdhQFIq1IWxpN
+	 L9S5OQKBex7SCjAa7gOQIC2niWkSWz/iAIpzjxjA=
+Date: Tue, 1 Sep 2026 12:15:06 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Muhammad Bilal <meatuni001@gmail.com>
+Cc: sudipm.mukherjee@gmail.com, teddy.wang@siliconmotion.com,
+	linux-fbdev@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] staging: sm750fb: fix mono image source stride
+ mismatch in lynxfb_ops_imageblit()
+Message-ID: <2026090151-nutrient-clay-c53e@gregkh>
+References: <20260728131050.37032-1-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728131050.37032-1-meatuni001@gmail.com>
 
-On Mon, 31 Aug 2026 14:11:26 -0700, Rishabh Jain wrote:
-> The xHCI ownership protocol requires the OS driver to assert the HC OS
-> Owned semaphore before using the host controller, then wait for HC BIOS
-> Owned to clear if firmware owns it.
+On Tue, Jul 28, 2026 at 06:10:50PM +0500, Muhammad Bilal wrote:
+> sm750_hw_imageblit() advances its monochrome source pointer by
+> src_delta per scanline, and computes the correct rounded-up stride
+> internally as:
 > 
-> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-> while both ownership semaphores remain clear.
+>         bytes_per_scan = (width + start_bit + 7) / 8;
 > 
-> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-> resume to terminate Controller Restore State with USBSTS 0x401. Linux
-> then reset the host controller, both root hubs and the USB Bluetooth
-> adapter.
+> Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
+> image->width >> 3. For widths not a multiple of 8 this under-counted
+> the stride, so the source pointer fell further behind the real
+> per-scanline layout on every line, corrupting the rendered image.
 > 
-> The controller entered resume ready and halted with USBSTS 0x1.
-> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-> device contexts and command, event and transfer rings were verified not
-> to cause the restore error.
+> Rather than just fixing the caller's calculation, remove src_delta
+> as a parameter entirely and have sm750_hw_imageblit() advance by the
+> bytes_per_scan it already computes for itself. There has only ever
+> been one caller, and that caller was passing an out-of-sync
+> derivative of the same width/start_bit values sm750_hw_imageblit()
+> already has, so keeping stride as a separate parameter served no
+> purpose beyond letting the two calculations drift apart, which is
+> exactly what happened here.
 > 
-> Asserting only HC OS Owned changed USBLEGSUP from 0x00000801 to
-> 0x01000801 and eliminated the restore failure across four S3 cycles,
-> including a stock-kernel test. Clearing USBLEGCTLSTS was independently
-> verified to be unnecessary.
-
-Not sure what you mean by a "stock-kernel test"?
-
+> Rounding up, rather than down, is the direction consistent with the
+> rest of the fbdev core: struct fb_image mono bitmap data (the same
+> image->data this driver receives) is walked elsewhere with byte
+> strides derived from a ceiling division of width by 8. The generic
+> mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
+> scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
+> BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
+> sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
+> ceiling division with an added start_bit offset, so the caller's
+> ">> 3" (floor) was the one calculation out of step with how this data
+> layout is handled everywhere else.
 > 
-> Always assert OS Owned when the xHCI Legacy Support capability is
-> present. Use the existing ownership masks with a single initial register
-> read/write. Keep the existing BIOS handoff recovery and legacy SMI
-> cleanup unchanged.
+> Found by code review of sm750_hw_imageblit()'s internal stride
+> calculation against what its only caller was passing in, and
+> confirmed with a clean -Werror build. I do not have this hardware,
+> so this has not been exercised at runtime on real sm750 silicon.
 > 
-> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+> Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
-
-Does this submission comply with the attribution rulese here?
-https://docs.kernel.org/process/coding-assistants.html
-
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 > ---
-> Changes in v3:
-> - Drop the unnecessary BIOS ownership debug message.
-> - Drop the redundant self Tested-by tag.
+> v3: Added the version notes below, which Dan pointed out were
+>     missing from v2. Added Cc: stable@vger.kernel.org, flagged by
+>     Greg's patch-bot since the Fixes: tag targets an old (2015)
+>     commit. Added the rounding-direction justification Dan asked
+>     about, citing fb_imageblit.h's BITS_TO_BYTES() as the existing
+>     kernel-wide convention for this same struct fb_image layout.
+>     Moved the "no hardware" disclosure from an email reply into the
+>     commit message itself, per Dan's request.
+> v2: Added a Fixes tag. Moved the src_delta calculation into
+>     sm750_hw_imageblit() itself and dropped it as a parameter, per
+>     Dan Carpenter's review.
 > 
-> Changes in v2:
-> - Use XHCI_HC_OS_OWNED instead of byte-offset access.
-> - Fold the TI/Renesas forced handoff into the ownership-register write.
-> - Make the BIOS handoff wait unconditional and gate recovery on the initial
->   BIOS ownership state.
+>  drivers/staging/sm750fb/sm750.c       | 2 +-
+>  drivers/staging/sm750fb/sm750.h       | 2 +-
+>  drivers/staging/sm750fb/sm750_accel.c | 6 ++----
+>  drivers/staging/sm750fb/sm750_accel.h | 4 +---
+>  4 files changed, 5 insertions(+), 9 deletions(-)
 > 
-> Additional context:
-> 
-> * Kernel Bugzilla #216470 documents the same USBSTS 0x401/reinitialize
->   behavior and its impact on attached USB devices:
->   https://bugzilla.kernel.org/show_bug.cgi?id=216470
-> 
-> * Commit a7d57abcc8a5 ("xhci: workaround CSS timeout on AMD SNPS 3.0
->   xHC") is related workaround history: it tolerates a distinct AMD CSS
->   timeout and resets the controller on resume:
->   https://github.com/torvalds/linux/commit/a7d57abcc8a5bdeb53bbf8e87558e8e0a2c2a29d
-> 
-> The external reports do not record their ownership semaphore values but
-> are included as corroborating failure signatures that this might fix.
-> 
->  drivers/usb/host/pci-quirks.c | 27 ++++++++++++---------------
->  1 file changed, 12 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-> index 0404489c2f6a9..52d41ac5daa85 100644
-> --- a/drivers/usb/host/pci-quirks.c
-> +++ b/drivers/usb/host/pci-quirks.c
-> @@ -1191,25 +1191,22 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
->  	if ((pdev->vendor == PCI_VENDOR_ID_TI && pdev->device == 0x8241) ||
->  			(pdev->vendor == PCI_VENDOR_ID_RENESAS
->  			 && pdev->device == 0x0014)) {
-> -		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
-> -		writel(val, base + ext_cap_offset);
-> +		val &= ~XHCI_HC_BIOS_OWNED;
->  	}
 
-I'm not sure why touching this code has been suggested to you. You
-don't have this hardware, you can't test this change, and it isn't
-required for achieving your goal.
+Does not apply to 7.3-rc1 :(
 
-[Actually, I doubt this whole code and the (not visible here) comment
-above it, because nobody had issues with uPD720200 and uPD720202, so
-it's unlikely that uPD720201 is broken. Probably this was a workaround
-for someone's buggy BIOS. But I'm digressing.]
+Can you please rebase and resend?
 
-A stable bugfix is a particular case where one commit should do one
-thing and do it well. So it should preserve the original behavior for
-"broken" chips and only affect those chips where we do actually try
-to perform the handoff handshake in accordance with xHCI spec.
-
-So this is the actual change you wanted to do:
-
-> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
-> -	if (val & XHCI_HC_BIOS_OWNED) {
-
-and to preserve existing "broken chip" behavior, you could add
-
-+ } else {
-+ 	/* Perform standard handshake and leave OS_OWNED set
-+        * to keep the BIOS at bay during subsequent suspends
-
-And it seems that this is enough.
-
-However, as v1 rightly pointed out, this code is dubious because
-it performs read-modify-write on the whole DWORD, of which the
-BIOS_OWNED bit may be concurrently modified by the BIOS (though it
-isn't clear if that would ever happen under any circumstances).
-
-So the change from writel() to writeb() in v1 actually made sense,
-maybe as a separate patch because it's a separate change. xHCI spec
-is clear that HW must support writeb() accesses to this register,
-exactly for this reason, so regression risk seems low.
-
-Regards,
-Michal
+thanks,
+greg k-h
