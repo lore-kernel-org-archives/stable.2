@@ -1,62 +1,62 @@
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 705A144B681
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 21:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245EB391E57
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 21:39:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788298793; cv=none; b=ONm7R2udJ0Z8GKnGI7NqzEFIR+UzMbxyj+0X008dkO/02VF0cgHHi1yTuWgkKboEx3oYX7ja6FuBHwFM/9192KRWuNeR7UKEFItSfnyyfwbs+3JzHG94yjiUsWZx6wloCwkX35neA3uKbF0yvEh+bYGpSEhjfvJCIpabnToItIA=
+	t=1788298794; cv=none; b=Ayry2ccOYn7EM1Hh7UZC/xmdE4U+Z9VGd2RqoQJtMN+3b3bcAkCB9Ml+SKIUnn6LgAxHChtz07/3MdJilnLap2VZ0svc2zMz9BkJhtaQiaznYkEZYGtdW5I5aMJyWg4o3r8n6PJXAZr1ocC65LPNAFjTUm4Us0YA7kKBOudVdIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788298793; c=relaxed/simple;
-	bh=/0zqk8DY5QgcTol9vG+KXFSFt100FBlNYtvPBCsmlD8=;
+	s=arc-20240116; t=1788298794; c=relaxed/simple;
+	bh=nsyS1KF/Yx0efGlf5bGWpUB8R3X5l3PTrQ+Vv5oCp6c=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rcIgqHLIrR4aeht8wuOoOZL3TyNxHDugJ/NCbBJ8PDWjeceHTyJi/NJZgYDzMpNEYiHPgaRW308yPUHCverFrWWFTCDgCBI5vfe9I+2qi4L/9LO7hmk0YPxDuWltswmoHtGUTnG3gWwKjD/CU87wy3DoU8FiqIPZYnLAYycwS/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=uF0R4qC9; arc=none smtp.client-ip=209.85.219.41
+	 MIME-Version:Content-Type; b=HkWKI3zy2dE6e3xTIPi9Fdbe4UaivWLm6h0+ucqRTON8dOH2nseIgdOXzqdu9d4OZpn2jSjqLXPNANKMnZz2D8RD8KeqTXEcjvuiXGaVt4Fp6/FYpHQd5G0kTg89tvAvC2fdMtSVTme609sbeLeZksxbM07fFb0MtCh+hGV6k+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=JcZndjuN; arc=none smtp.client-ip=209.85.219.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="uF0R4qC9"
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90cd0e6fd80so3474126d6.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 14:39:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="JcZndjuN"
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90e7c71f86eso2766186d6.1
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 14:39:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1788298790; x=1788903590; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1788298792; x=1788903592; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=/2Ph+2F4XnBsZC7RVtAjPh751ig1yynrAPtSoAph6mw=;
-        b=uF0R4qC9UhxAS8CvMq6fliKsyRQltJVobvXnxPPUVIoxB84UUOHVXGgCF8N8XR+fgu
-         Uc0LGcmaacQ6oIP3YCYaW5urVG3kBptHnD2M27ppA447zPrUvMb5pAMr9uaxmO58o7iG
-         9angjlVvSNSc7HDN8gyjjSnksId5wvDKo+0FA=
+        bh=ZGuYJDHW5gzTbgrufbU1+/mKrx+hmR/Us1xsgN+1wt4=;
+        b=JcZndjuNCJkWTFpunwHLlApLqJmf1J8QTXN6i/njvHRYpFZyuDcNgzjW4U2dVMWktl
+         hvayOzuczbd/xeDtK7lRpZWtyjHfK/MoP1cKbbf9Acd1a4F6fcurCataTY2waygAz50S
+         CkbvKrciUMjpiFo3aE+AHSkY2LDDrE29T7Lmg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788298790; x=1788903590;
+        d=1e100.net; s=20251104; t=1788298792; x=1788903592;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/2Ph+2F4XnBsZC7RVtAjPh751ig1yynrAPtSoAph6mw=;
-        b=AOZNlIQO07vpTNFu5nT2oJq4M3cWYlY2GGnAeqVqvF2t5gu1cdwjxWsgONbnEL1UCB
-         VxH5xN4JnrOKkG+cKg6iTX+Zh6u1lHXMnHOZtPY4IcW/qYYwq2y7lg96OxjvTAA+y81V
-         4i6i0OdOlzfvd3Jh+w1vHHMibcdtMM04JKEwYSLi5ok6MMVOnL4r0IpsrOizVaA77euL
-         upTfrNiqatC2gnAGEQrlAXxf0KSYmOT6HRWNhmkSxKBxrWEKNuaRbJDbdlK5Tq+wvTuj
-         Jud8BDSltLG7p4TLDzdBNegaq5UoF4Yrk6x27SXk3fhg9RRxy/XxrxKmvKhJJBcaizOG
-         ve6A==
-X-Forwarded-Encrypted: i=1; AKwUvBz+5fN8y/D7h7eUO28YqvhQ7JItoucyRCUqGP5c6TcolPPrN+eUUwAEiPyFWo7R/pRA/aZN5hU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrdq0eNt0jOrcZ5W014jrgBDMKoOcBuJxcqA+/Am89t1fBhMct
-	fX+65Zn8GGKQNG2ygbCRu0Bx27teSwVosqNChh1QJQfjX6zOz37e7LZ0m/4zLU3sYA==
-X-Gm-Gg: AYBFou2GRFkCJkVmpu0LjYAqAjADmR1/d5KjJ6SzEbpUDJ9OU/lBCQPAU1QZqEtXGvL
-	m/k3MMplxxMA8CTQujGl0YUHCVr+6lyZGfbL3YNsN9D7xI3BZKFgSkQLZTM1TjrmIGV44BSq1U1
-	w3Cs8UYi7okEAUHwhaTxBDt01bZsQNAh4b3XeQ/FeMq7ZZnhzaq8VNOOGzJ5/OQoWhAQCL6YLbL
-	gLjUxc1NUxesYQ9r5ixDqJcDbWH/W45SIMXsd9bnzRHey6wa+ZqD7JbD0zWy5ik1nm3x37ppvVQ
-	2fRtc+zppnIaHoLBX/I+so3xQEV+xHyNKe//wkIFud55kXuOkwiMSckw9+yLAQ6p3Xgs3uVF2Ul
-	6TUvS/WyNkpFOka3XOhjMtrV1zmNk2BIWRHMytdzHy+mdvNPM0nZ1WGaPQzD/fbt12XLh9p/HkJ
-	Dfqvc4RCVkvCe6cIwrW0iShEheBIL7qgC+Y92FIer1bxv/fQNIfMLjsqAToDCEgo5hxEvWVMRlC
-	h6gegxvF7vRPH7Qtps1+o+/XCBke9dvZhmjiA==
-X-Received: by 2002:a05:6214:ac5:b0:90c:c4fe:8d9c with SMTP id 6a1803df08f44-90ebafc002emr9783416d6.27.1788298790242;
-        Tue, 01 Sep 2026 14:39:50 -0700 (PDT)
+        bh=ZGuYJDHW5gzTbgrufbU1+/mKrx+hmR/Us1xsgN+1wt4=;
+        b=oSMf81OfGc+tL8fBH7FW2LbUcbQ1TVG4O8HAaAdWDITRi4uYnjmJ78blLAye5ydE+e
+         v7xH8GgVBIBqQ1Newzhgk7iFiqwdd2cKPfOHV5HeNWLMbjZjppri7LCExzFlalqDkXsG
+         gC4sCzyAI9N+Heyoo37T35B0rwpls4YpzfCwoT0WDHwhcslyoZ7u0JfgqS2AuVi3hvwx
+         tNUvo8UaVWQbbFTsT2zAEYdJ22CChvGRPlcQV1BrrExGkDhhsI9s9xEUkxJXr/a+72zq
+         kow0iFaZN6ElIOlBKnbKNXicx00T/A+O6iNE9zVMQ6vbT0Cf74EX7yvH+oUmyxnB3DVT
+         dqNA==
+X-Forwarded-Encrypted: i=1; AKwUvByDLX7AI13TNPCQKsDhEpB3qPrKHBNPOPfcfo5M6tbINxyyXUxokdgBDr6t1OjkLZdLNcripII=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBsxOd3QaIFvIK5aQ7QLChwY6/hPMWdIzd7tMpBqrhIAgHs1At
+	hBthwgXKm9t6T3VKSZvxwoouxD9hvxqO0qEbeYbBh8KoGx728M+YMeDiM3jy/MBL5w==
+X-Gm-Gg: AYBFou2t/3XAzj27/bZ/Bf9suB/VwmNxrzxpwmVlwEzYk9xFN0j5LrJHK31FWD01ShU
+	6i7SXKtxFc1wkLICnZGBflvcxaCemXGai6xMVXtoI56lW3/1VafcobiiD2iIpGiF4kAxgcxbtMu
+	zQCEhBJKmJizUfMyKRL3/SfIGHlpSR/wUJloxbM/ykFXycdfK6vrhURTd3EKSjz4fLL+vy8GsA3
+	YSnFexJcu49A1iqStlaJWP6w4rp5BgjG4d++04X1DcAW19EAgxPSNYevNopmH0ZxpkmPTVDtiXu
+	k6xL/LEap+zsdJlZQX3g5dbZ27qalk7UlxLjQR7emmTSd4YE7m5ugyDOvBT1DMAu0QhDzBJoGZf
+	2c/uF7aTh9vELOBV9JqR4Gm2M8aBdmjw8urmJsHpo2GTGbM6yUmg7uAzWyyvPmpktnoR5iYkDue
+	Xfy7XRs7I30GwNi31Djcx2yPFs4Lzrv95/SjfdiWC8CVQi3X2Syux6tra5zJrbH7VDFsoYS+f95
+	v+UK7+8tXn95bYkSFV04ZBMO1yluvGqS6h/eg==
+X-Received: by 2002:a05:6214:21c8:b0:90e:996d:b6c3 with SMTP id 6a1803df08f44-90e9f24be39mr8398246d6.11.1788298791895;
+        Tue, 01 Sep 2026 14:39:51 -0700 (PDT)
 Received: from majuu.waya ([184.144.29.222])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee08710sm3458426d6.2.2026.09.01.14.39.48
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee08710sm3458426d6.2.2026.09.01.14.39.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 14:39:48 -0700 (PDT)
+        Tue, 01 Sep 2026 14:39:51 -0700 (PDT)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
@@ -73,9 +73,9 @@ Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
 	Vijay Subramanian <subramanian.vijay@gmail.com>,
 	Petr Machata <petrm@nvidia.com>,
 	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Subject: [PATCH net v3 3/9] net/sched: sfq: clamp quantum in change path
-Date: Tue,  1 Sep 2026 17:39:24 -0400
-Message-Id: <QDISC-0CFC.v3.20260901204856@mojatatu.com.4>
+Subject: [PATCH net v3 4/9] net/sched: hhf: clamp quantum in change and init paths
+Date: Tue,  1 Sep 2026 17:39:25 -0400
+Message-Id: <QDISC-0CFC.v3.20260901204856@mojatatu.com.5>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <QDISC-0CFC.v3.20260901204856@mojatatu.com>
 References: <QDISC-0CFC.v3.20260901204856@mojatatu.com>
@@ -88,55 +88,64 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-sfq_change() accepts any non-negative quantum (only rejects
-(int)ctl->quantum < 0). With a crafted size table qdisc_pkt_len reaches
-~2 GiB, so quantum=1 makes the deficit-refill loop spin ~2^31 times
-under the qdisc lock (a soft lockup / denial of service).
+hhf_change() accepts any quantum from userspace, including 1. With a
+crafted size table qdisc_pkt_len reaches ~2 GiB, so quantum=1 makes
+the deficit-refill loop spin ~2^31 times under the qdisc lock
+(a soft lockup / denial of service).
 
-Add max(256U, ...) matching fq_codel_change(). Reject quantum > 1<<20
-with -EINVAL, matching fq_codel_change() and the init clamp.
+Add max(256U, ...) in hhf_change() matching fq_codel_change(). Clamp
+hhf_init() to [256, 1<<20] matching the siblings, and remove the old
+fallback that only set quantum=256 on overflow.
 
 Conditions to recreate the bug:
-  CONFIG_NET_SCH_SFQ=y. Requires CAP_NET_ADMIN (namespace-local via
+  CONFIG_NET_SCH_HHF=y. Requires CAP_NET_ADMIN (namespace-local via
   unshare -Urn suffices).
 
-  tc qdisc add dev dummy0 root sfq
-  tc qdisc change dev dummy0 root sfq quantum 1 stab data 32768 size_log 15 cell_log 0
+  tc qdisc add dev dummy0 root hhf
+  tc qdisc change dev dummy0 root hhf quantum 1 stab data 32768 size_log 15 cell_log 0
 
-Fixes: e4650d7ae425 ("net_sched: sch_sfq: handle bigger packets")
+Fixes: 10239edf86f1 ("net-qdisc-hhf: Heavy-Hitter Filter (HHF) qdisc")
 Reported-by: Vega <vega@nebusec.ai>
 Reviewed-by: Toke Høiland-Jørgensen <toke@redhat.com>
 Tested-by: Victor Nogueira <victor@mojatatu.com>
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
- net/sched/sch_sfq.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/sched/sch_hhf.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/net/sched/sch_sfq.c b/net/sched/sch_sfq.c
-index 187d3ed578f2..8bbcfc9e85d9 100644
---- a/net/sched/sch_sfq.c
-+++ b/net/sched/sch_sfq.c
-@@ -660,6 +660,11 @@ static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
- 		return -EINVAL;
- 	}
+diff --git a/net/sched/sch_hhf.c b/net/sched/sch_hhf.c
+index 96acab6a8da0..fc72f825fbd9 100644
+--- a/net/sched/sch_hhf.c
++++ b/net/sched/sch_hhf.c
+@@ -551,7 +551,7 @@ static int hhf_change(struct Qdisc *sch, struct nlattr *opt,
+ 		return err;
  
-+	if (ctl->quantum > 1 << 20) {
-+		NL_SET_ERR_MSG_MOD(extack, "quantum too large");
-+		return -EINVAL;
-+	}
-+
- 	if (ctl->perturb_period < 0 ||
- 	    ctl->perturb_period > INT_MAX / HZ) {
- 		NL_SET_ERR_MSG_MOD(extack, "invalid perturb period");
-@@ -688,7 +693,7 @@ static int sfq_change(struct Qdisc *sch, struct nlattr *opt,
+ 	if (tb[TCA_HHF_QUANTUM])
+-		new_quantum = nla_get_u32(tb[TCA_HHF_QUANTUM]);
++		new_quantum = max(256U, nla_get_u32(tb[TCA_HHF_QUANTUM]));
  
- 	/* update and validate configuration */
- 	if (ctl->quantum)
--		quantum = ctl->quantum;
-+		quantum = max(256U, ctl->quantum);
- 	if (ctl->flows)
- 		maxflows = min_t(u32, ctl->flows, SFQ_MAX_FLOWS);
- 	if (ctl->divisor) {
+ 	if (tb[TCA_HHF_NON_HH_WEIGHT])
+ 		new_hhf_non_hh_weight = nla_get_u32(tb[TCA_HHF_NON_HH_WEIGHT]);
+@@ -613,7 +613,7 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
+ 	int i;
+ 
+ 	sch->limit = 1000;
+-	q->quantum = psched_mtu(qdisc_dev(sch));
++	q->quantum = clamp_t(u32, psched_mtu(qdisc_dev(sch)), 256, 1 << 20);
+ 	get_random_bytes(&q->perturbation, sizeof(q->perturbation));
+ 	INIT_LIST_HEAD(&q->new_buckets);
+ 	INIT_LIST_HEAD(&q->old_buckets);
+@@ -624,10 +624,6 @@ static int hhf_init(struct Qdisc *sch, struct nlattr *opt,
+ 	q->hhf_evict_timeout = HZ;      /* 1  sec */
+ 	q->hhf_non_hh_weight = 2;
+ 
+-	if ((int)q->quantum <= 0 ||
+-	    (u64)q->quantum * q->hhf_non_hh_weight > INT_MAX)
+-		q->quantum = 256;
+-
+ 	if (opt) {
+ 		int err = hhf_change(sch, opt, extack);
+ 
 -- 
 2.43.0
 
