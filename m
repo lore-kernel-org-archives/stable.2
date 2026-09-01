@@ -1,119 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F6748A2A1;
-	Tue,  1 Sep 2026 17:10:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339BC483807;
+	Tue,  1 Sep 2026 17:13:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282649; cv=none; b=FmhT3W2bpkVNbwiVY85wyL24hRLjgOAsXqOMbGzhGN/+kQhtVe3cdKLUa5nG7HUcHR9VvaYQMNFyuRDaHkPH1/9tqC/wj76xQA0pZnEOnotluWVFqsPeol3ADyydqggx2iNlRM+kbYHf3zlPLduWnqMx8mjUHsWI9Fer7WT5NmY=
+	t=1788282828; cv=none; b=RMNYv/9/M2MzTjX3KssMoQLvxnHffo86fA7FgwI0A1dHZ3Idm6XOss6BiGoW39M5LgPm0oRnQ2yXuIo2IVsbByxAweNyIxFQSr8E/i9Kx579nJbv2r/tKFEhqLKMq7oTPhz51ZWQHVnB1BXDIy7hpEBMg9aci3fCOXrFTOtMeIM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282649; c=relaxed/simple;
-	bh=bG0SJpd3ZPsk+nxrxdBe/YttPnaTHRCytJn4IXEVL8A=;
-	h=Date:To:From:Subject:Message-Id; b=LWJt7tfSpw3g/4ASWg+54KNj82B0QITOnv8c5vtwBDtD9EFEpRmjjeOg6R7PGI1Yv0h8WjVaovcYIVbBN4Kibm6jKZGTYyZn5YKAcNjrAxm5XgvTR4ZDcIM3KBIsgjtHbDiIGgzrjucb1+SVgl4uwROMytM/h+p5PoKkpiN9iAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=f4+PUwAv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788282828; c=relaxed/simple;
+	bh=6Vb2OqsDmeMbg5kW+Dx7Qz5jOzmdEpftTDrMCix0JG0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=fH4OYxJ6/BgD6pi7KRxgN3APriOqtCYHK/JB7s1AyXIoRdg5XpV1UHnzElByTija4PnQRtjAajx2wa9JqSEBDcmroBZ9UcLGJE7B77wmd526gv2TASMYlOqKxE0FjZQGdsi1JTpCm7dH5AJVF41rQKe9fuVvlZbY1z+l/vrsrZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+gvtbiV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="f4+PUwAv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 425BE1F000E9;
-	Tue,  1 Sep 2026 17:10:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788282648;
-	bh=BM950h1WUdJGmX6/PQHW24C2sGqKTdv7962Ib7NlWKg=;
-	h=Date:To:From:Subject;
-	b=f4+PUwAvszCXV4Jtzw4Zt8vxZf6Mzyv0eQPbb9FDWQQtmkUzxEZUzH/FMDM2Juq2E
-	 swHaou2QzvCSohz0FhkV1iH+8xrzNte3uA2nB3HtRQVuJr0xwWB8YShPUefA7OS4Up
-	 cgGqHP2CdCdddMqx5PI0u8pZ122TXqiIK6EkfsdI=
-Date: Tue, 01 Sep 2026 10:10:47 -0700
-To: mm-commits@vger.kernel.org,usamaarif642@gmail.com,stable@vger.kernel.org,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch added to mm-new branch
-Message-Id: <20260901171048.425BE1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+gvtbiV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A1C71F000E9;
+	Tue,  1 Sep 2026 17:13:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788282827;
+	bh=I2oTOPasIdopqjB4ViJz164Yqi5xIrItFCO9/E2j5gA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=E+gvtbiVFSlojzGAVrOEZ/u1NBWJruALIGlgyelAZP/u+dfdB5sqbuAUOUcoAIDmT
+	 pFGyQIWkd/7NXylkc8eam+YeaJeIqcZ3LGm2UHoQqIJ8nppE5JEAaHdxMyYO2nEQH1
+	 T9n6sOfbwxsluMJsleTP/lt7YOGtr9tpzYhDu2bE2jkZ0+eF42qThncwbbSlGjYzOF
+	 zuKl9pxQ0ILDQkEz0E2uritiK1KXfyyutprRaOwyx0HvzezZBa78/pR5D/I27KcfIO
+	 UUvnF8b5Prmu8y1VGoJpU8n9NlHmTmHJbxQJn+BtbgILJJnX/cikEKGyOYidWWk8Ps
+	 ZSm039mWAE3lw==
+From: Vinod Koul <vkoul@kernel.org>
+To: Ian Luites <ian@luites.com>
+Cc: Bard Liao <yung-chuan.liao@linux.intel.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Charles Keepax <ckeepax@opensource.cirrus.com>, 
+ Mark Brown <broonie@kernel.org>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260831082534.224716-1-ian@luites.com>
+References: <20260831082534.224716-1-ian@luites.com>
+Subject: Re: [PATCH] soundwire: dmi-quirks: Disable ghost Realtek on Asus
+ GX651AX
+Message-Id: <178828282468.1394487.12334872911825820850.b4-ty@kernel.org>
+Date: Tue, 01 Sep 2026 22:43:44 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
 
 
-The patch titled
-     Subject: mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
+On Mon, 31 Aug 2026 08:25:47 +0000, Ian Luites wrote:
+> The Asus ROG Zephyrus Duo GX651AX exposes a Realtek RT722 device in
+> ACPI which does not exist in the physical hardware. The device remains
+> unattached while the CS42L43 and both CS35L56 devices attach
+> successfully.
+> 
+> This confuses the function topology machine driver into creating
+> duplicate DAI links named SDW3-Playback-SimpleJack, and the sof_sdw
+> probe fails with error -12. Add a model-specific quirk to remove the
+> ghost RT722 device.
+> 
+> [...]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
+Applied, thanks!
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+[1/1] soundwire: dmi-quirks: Disable ghost Realtek on Asus GX651AX
+      commit: 6d49beec658f61801e79019fd73691b17252dee3
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Best regards,
+-- 
+~Vinod
 
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core: handle extreme memory state in get_in_active_mem_bp()
-Date: Tue, 1 Sep 2026 06:18:49 -0700
-
-damos_get_in_active_mem_bp() uses the sum of the active and inactive
-memory amount as a denominator.  In an extreme and unlikely environment,
-active and inactive memory might be zero.  In this case, hence, it results
-in a divide by zero problem.  Avoid it by changing the denominator to one
-if it is zero, before it is being used.
-
-The issue was discovered [1] by Sashiko.
-
-Link: https://lore.kernel.org/20260901131850.98037-9-sj@kernel.org
-Link: https://lore.kernel.org/20260721034756.147011-1-sj@kernel.org [1]
-Fixes: 4835e2871321 ("mm/damon/core: introduce [in]active memory ratio damos quota goal metric")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org> # 7.0.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/core.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/damon/core.c~mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp
-+++ a/mm/damon/core.c
-@@ -3006,7 +3006,7 @@ static unsigned int damos_get_in_active_
- 		global_node_page_state(NR_LRU_BASE + LRU_ACTIVE_FILE);
- 	inactive = global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_ANON) +
- 		global_node_page_state(NR_LRU_BASE + LRU_INACTIVE_FILE);
--	total = active + inactive;
-+	total = max(active + inactive, 1);
- 	if (active_ratio)
- 		return mult_frac(active, 10000, total);
- 	return mult_frac(inactive, 10000, total);
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-core-skip-applying-scheme-if-region-split-for-quota-fails.patch
-mm-damon-paddr-respect-folio-end-for-damos_stat.patch
-mm-damon-paddr-respect-folio-end-for-damos-actions-except-stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_migrate_hotcold.patch
-mm-damon-core-handle-extreme-memory-state-in-damon_get_node_mem_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_node_memcg_used_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
 
