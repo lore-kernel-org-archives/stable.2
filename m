@@ -1,117 +1,150 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C5939C632;
-	Tue,  1 Sep 2026 13:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29EA33C0A13
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 13:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267733; cv=none; b=YvGconoHpkvbwILQy2a4Tb+VDFiiwKHX5556JpHQlBpv5hnHFzo2MALUORmdf2461xyBziXoU/JyY09YTndcWRFgfrbcn93fch/EvG07P0rC2aP+dps2A/9fYbv50gdw3QH75/4IJ/9TcZ/CryE5rtkOSg1U9kp0YbYVU9pio4Q=
+	t=1788267825; cv=none; b=YJaCPhoaOhsx2KGsNRBgyDl0SSl1u6pL9FOfwY7+207ouHxlEMnXhxbrJBog5oXovgdL507XUgn9wBBYfOKM0YCm6+ulDWAdxaTqkVPXYVPrTBqFA00w1+zP6iE+PUgSUrqzXWjhaeI4PDG52NB7nzAmbHPSLzWF53HOLygoPbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267733; c=relaxed/simple;
-	bh=pZUMlEwtsaEeH7TVMF5qsqoi7Zgr+VsMU0EuwmAA45I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CvLD2iVaTMaBtyeB/9D4Dtis87qSYaGhdUj/rKDVcy9V/zWqjc8MJxtJGsOHo5Wcsze10J2TycgkLQqOTs9xA9Oibypo/6Zusvq/5dfaWbwPbDDW9TlOgMGnI3DJcQXMNXolKqPAL1e4WuBsZJ4Il8L20PG8qJ8Lecu7kitm+gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=c9fTC4u0; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788267825; c=relaxed/simple;
+	bh=R2i8bF8LbxoB3S0yvidye80F+6/08ElMFw5/FwfgP/M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BkCAXG1Z38WdgWH8vRXpjjXNNLecMvrzeHGp82o0jExxAetFysaKvILTAixy+3mO8KqOuDnP96AWxGP5KkGvslwf0nFOTSgbt7qFpSlxntuZwgC9jyrgIbdMQIxr+FJ4A8rcO24k83bupxVORKNfUke3M3lLC8GmpzcBtLjSvRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OGId0tGP; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="c9fTC4u0"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788267722; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=ppWzcSYLfmdmUEwetfWNeyyHnWXusGFRwvVsm+qIFG8=;
-	b=c9fTC4u0sW16Jw5RG5bR+SGcvOCz98cMeG47wuP+Fal/Qmi0bYCPBBP2EAaofMHbEm9WM/fljcDHMilifyl4WmxWoFnFiWQZqucrmCNV8jue7OSqrYtUelxCdvz8jUKHr/dFyiTt4isfGe0qF7LJ465OZW6G+7CZj9nFWa0wPPI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XA8SIPL_1788267721;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XA8SIPL_1788267721 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 21:02:01 +0800
-Date: Tue, 1 Sep 2026 21:02:00 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com,
-	hidayath@linux.ibm.com
-Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
-	guwen@linux.alibaba.com, stable@vger.kernel.org,
-	netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Subject: Re: [PATCH net v2 0/2] net/smc: fix diag dump lifetime races
-Message-ID: <apbMyLc0IhLMKwwA@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20260828065439.3582783-1-mjambigi@linux.ibm.com>
- <apWEzobrZ3QR3IfN@linux.alibaba.com>
- <4f303f9f-fd20-475a-8004-1a670dfd34df@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OGId0tGP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788267824; x=1819803824;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=R2i8bF8LbxoB3S0yvidye80F+6/08ElMFw5/FwfgP/M=;
+  b=OGId0tGPQnGwholK4xM5o7Hb3cqi/hMNolLpiYDWdWyYSZg/cAib2cD4
+   GWjMFSVrksqx/ymY3Y+44poxl5uO4HhitDbNE8s9t8H5SfQT/nCo+ktZr
+   2pi+n8VJ8hnlxOo43pD+cYfeMgrAali3iqcgPstt/N3nXDftzzMi+TT/F
+   oB/mQQtuwOH7LoSA6vhJp3FEM6lVvCKOuFuOz5AXs30RCcHfSzaB3Q9C5
+   v7d8VSOnzv5mFUX3z7ozr0Wwfm1LjJ6f4kLzrx8HU/LbxT5Qqt7zCtmbh
+   QirGJsdAMHEVwBzxIiz2aFKtHL67tHX7WDAk0IIsZfFtXpx3WdJjRzC71
+   w==;
+X-CSE-ConnectionGUID: GN5/0SiFQv+5l7Pp/4+ZZg==
+X-CSE-MsgGUID: IlwgnbVdR8W8CuPX7qhyRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88706289"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="88706289"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:03:44 -0700
+X-CSE-ConnectionGUID: ARlmW3baTS6lsbTONI0seg==
+X-CSE-MsgGUID: uQHOgj/pRci5F7wGyWZlGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="271029710"
+Received: from try2-8594.igk.intel.com ([10.91.220.58])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 06:03:41 -0700
+From: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com,
+	jeff.hugo@oss.qualcomm.com,
+	karol.wachowski@linux.intel.com,
+	lizhi.hou@amd.com,
+	andrzej.kacprowski@linux.intel.com,
+	dawid.osuchowski@linux.intel.com,
+	Magdalena Schulfer <magdalena.schulfer@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr
+Date: Tue,  1 Sep 2026 14:57:47 +0200
+Message-ID: <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
+References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-31
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <4f303f9f-fd20-475a-8004-1a670dfd34df@linux.ibm.com>
 
-On 2026-08-31 20:27:38, Mahanta Jambigi wrote:
->
->
->On 31/08/26 7:12 pm, Dust Li wrote:
->> On 2026-08-28 08:54:37, Mahanta Jambigi wrote:
->>> This series fixes multiple lifetime races in the SMC diag dump path.
->>>
->>> The first patch adds the basic infrastructure needed to synchronize diag readers
->>> against connection-owned conn->lgr/conn->lnk updates. It introduces a
->>> per-connection spinlock and uses it in the link switch and connection free
->>> handoff paths. conn->lgr and conn->lnk are NULLed under the lock before the
->>> borrowed references are released, so a non-NULL conn->lgr seen under the lock
->>> guarantees the lgr object is alive. The diag reader can rely on this invariant
->>> without borrowing any extra reference.
->>>
->>> The second patch fixes two races in smc_diag itself:
->>>
->>> - serialize clcsock field access against smc_clcsock_release() with
->>>  mutex_trylock()
->>> - take conn->lgr_lnk_lock when reading conn->lgr and conn->lnk; use
->>>  smc_conn_lgr_valid() inside the lock to check that the connection is
->>>  still registered, then snapshot all required fields and call nla_put()
->>>  after releasing the lock
->> 
->> Hi Mahanta,
->> 
->> As discussed in the other thread, I think we should defer the release of
->> smc->clcsock and remove clcsock_release_lock.
->> 
->> In that case, we should no longer need these two patches. Also,
->> introducing more locks in SMC is the last thing I want to do :)
->
->Thanks for the new series "[RFC net-next 0/7] net/smc: tie clcsock
->lifetime to the smc socket and remove clcsock_release_lock" — once it
->lands, we can drop the mutex_trylock() fix for Race 1 (clcsock).
->
->However, Race 2 remains open. Your series does not touch smc_core.c or
->smc_cdc.c, so smc_conn_free(), smc_switch_link_and_count(), and
->smc_cdc_msg_validate() still write conn->lgr/conn->lnk with no
->synchronization against the diag reader.
+From: Magdalena Schulfer <magdalena.schulfer@intel.com>
 
-Hi Mahanta,
+Add a size parameter to ivpu_to_cpu_addr() and validate that the
+whole [vpu_addr, vpu_addr + size) range stays within the BO.
 
-Thanks for the detailed explanation. You are right that a per-connection
-spinlock can work here, and I agree none of the lock sites are on the
-per-message hot path. But I think we can also do the same thing we did with
-clcsock_release_lock: instead of adding a lock, tie the lifetime of
-conn->lgr/conn->lnk to the point where the connection stops being observable,
-and remove the need for synchronization altogether.
+Cc: stable@vger.kernel.org
+Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
+Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
+Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+---
+ drivers/accel/ivpu/ivpu_gem.h | 14 +++++++++++---
+ drivers/accel/ivpu/ivpu_ipc.c |  7 ++++---
+ 2 files changed, 15 insertions(+), 6 deletions(-)
 
-For lgr/lnk, that point is the hash table. Once the connection is unhashed, the
-diag dump (which iterates under the hash read_lock) can no longer reach it. So
-if we make sure the connection-owned references are only dropped after unhash,
-the invariant becomes: holding the hash read_lock and seeing a non-NULL
-conn->lgr implies it is safe to dereference. The diag path then reduces to
-`hold hash read_lock -> read conn->lgr -> if non-NULL, use it -> done` with no
-new lock, no extra reference, and no trylock. The invariant is carried by
-object lifetime rather than by a lock, which I find easier to keep correct over
-time.
-
-Best regards,
-Dust
+diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+index 0c3350f22b55..b1ae020a4fc2 100644
+--- a/drivers/accel/ivpu/ivpu_gem.h
++++ b/drivers/accel/ivpu/ivpu_gem.h
+@@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
+ 	return !!bo->base.pages;
+ }
+ 
+-static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
++static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
+ {
++	u64 bo_size = ivpu_bo_size(bo);
++	u64 offset;
++
+ 	if (vpu_addr < bo->vpu_addr)
+ 		return NULL;
+ 
+-	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
++	if (size > bo_size)
++		return NULL;
++
++	offset = vpu_addr - bo->vpu_addr;
++
++	if (offset > bo_size - size)
+ 		return NULL;
+ 
+-	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
++	return ivpu_bo_vaddr(bo) + offset;
+ }
+ 
+ static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
+diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+index 978bc3d8704f..8f69fb133e2e 100644
+--- a/drivers/accel/ivpu/ivpu_ipc.c
++++ b/drivers/accel/ivpu/ivpu_ipc.c
+@@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+ 		return -ENOMEM;
+ 	}
+ 
+-	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
++	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+ 	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
+ 		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+ 		return -EIO;
+@@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+ 			return;
+ 		}
+ 
+-		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
++		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
+ 		if (!ipc_hdr) {
+ 			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
+ 			continue;
+@@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+ 
+ 		jsm_msg = NULL;
+ 		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
+-			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
++			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
++						   sizeof(*jsm_msg));
+ 			if (!jsm_msg) {
+ 				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
+ 						      ipc_hdr->data_addr);
+-- 
+2.43.0
 
