@@ -1,61 +1,61 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5785D38E8CC;
-	Tue,  1 Sep 2026 14:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4115A384CF6;
+	Tue,  1 Sep 2026 14:25:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272729; cv=none; b=A9QzRvKahFhJqiSRAqjxVrCVEZhaF9/KNNVwS/TPwmoDRky8UqHAek1IBRDNRmPx1Tnwr+sjjlv+Xb+reTWUkPx2iDLRU2hp8+LzfxG/BE+qOIUQyPENwfe+p1jUJGvoyhhzBrztDwjeA7Q02rjK+k+Eg8FjnMWUKYAZ4NtEZTA=
+	t=1788272729; cv=none; b=KOo2P2FKMr3ZylmvFvhuY37aQBu+b5rio7a7Oi0wr/H1LeevOzp3mSCRjLftgdGEnQz50/KdxPZ+ESkHCZfyjWVZnxkButrWtipdW6/gzo6rOCzoVF5ZqOjShq6avkChu3S0jT+0FJeyhDgZbDsW9vKSeh/z38AGx/oZUxGF4EA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788272729; c=relaxed/simple;
-	bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	bh=Pr6VJYZ6fRxZ+pIKzkWZXcVFE6rXEN7AqyZXWurzQxI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UEFQ8tLaYLmdAquy71nFcztec7IVM4n7g5QeT8C/oBVoGZpisXxa6mweArOUiDGR4Ze/JVxqhQ7f7IN+GAWETyTUKxIHsktvt7xRAhFtA7DvLbqbGw09oW9VTyAxifr2HPKilpBbIHwXKmwfpnuymBux40PtW+urIS6x5AID3Ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=s6swvN7o; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kcBwlKHc; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=SMibZcgw7N6v7k/DFJ5ji5e0p+A3BFLkyAfd+ZH+YX7j+6EHYHhaVyD3gt3ZkbQ8xMHFka2L93k2UKH5owf96sKn0a3PZjkaZN2rzDYyZKUdbdx0819fJDkDu35/l4bA9P+WlRNCqVTNKgwuI7YWuEosYFUXO2ToW4FWSF0zocI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=LSGzJFGh; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=LSGzJFGh; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="s6swvN7o";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kcBwlKHc"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="LSGzJFGh";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="LSGzJFGh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272726; bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	t=1788272726; bh=Pr6VJYZ6fRxZ+pIKzkWZXcVFE6rXEN7AqyZXWurzQxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=s6swvN7oQZbxGyPrdOE9METD9UDHkCUWv4JwqJmgHOFkdSZM/pIIu0vDln0P9CJVj
-	 IPka10I1MY6V1mb/N3hMYKmiz6mOjuCoLBKWIiJwTUt40PxqllsB+zk3qWchBS9TLH
-	 1ttCciZw9yW9zZ+4QppYDSWcVPviv0U5zmK4rQgsiKMNr0wC1osUNo0vstqy3XRKmf
-	 RsAF/LwDnSTZuR1ZU/AnDyRucmxIEYvDargVsDF7nRS7wHnDGUfdMMm5P5n3KzbSxs
-	 57HYPmP9TVUYSkOIfPP69EACHGP70pWDO4pra0/ND9IHEtYb9SRODZy0xFSqbI/mWa
-	 QhAPtHOjha1KA==
+	b=LSGzJFGhYZYEVp5pQXQB32yP/+WXGp+GccZSDrrKr+jUbppX2TjhPbiEumZkvcdtM
+	 ULa92SivUlUTjiyYbt2u4Fm4ZAtrIbPEquo/taetx/3kXAa7fhdxdzuNnEfpEu/RDP
+	 NqQkx837SMoxW0p6COIOVBGLBw18IWyZH7LH+d5wRrZIVO3HabL0Mes6hpvpCJquT4
+	 QjZbdc4dTq2rsRxOPuqBcHVBNXwKcRBQjLbW/Co/lx8by/KPKJbQIR5o2EzYZcyYEr
+	 ZnlRzOnF6gR8E5bdZlWGwlKP/Lb62PkDtmT+TJdsL1OOjCB1v/7XANL9M1BDfw5JRt
+	 H1ko/wBaB9m0g==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 0201841447; Tue, 01 Sep 2026 15:25:25 +0100 (BST)
+	id 9C0A74144E; Tue, 01 Sep 2026 15:25:26 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272725; bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	t=1788272726; bh=Pr6VJYZ6fRxZ+pIKzkWZXcVFE6rXEN7AqyZXWurzQxI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kcBwlKHcLPI0dQOsq9q0udZTFAtsLPSrDizFaRht6bkbknl4eaJcMVCkrm2KomzOL
-	 RHMuNej6UZO0GKTXeBnCGkjTHz8ZQQlEm5LWQS2TatLmT5CCGpBNZ/IYg4ciJUjhJW
-	 tgPaVe14pN5e8E6WUZQRTvsODoPCn/U9SNZV4Izt8QzZaBBP5GPyPktyPueCSQDhvW
-	 XKSHVdM6ivDfv8RqvRbsSBGl7xnLXdydXM/D095GVEsCjwjf3tVT33w8fHyo+Zar/4
-	 +156CU2dzrlByH3x466RIpKqhk+0I03bk0hSoIsXyVeWwlsNA9kQfQsZhNVXrvg94v
-	 f2a+o+mwls+mA==
+	b=LSGzJFGhYZYEVp5pQXQB32yP/+WXGp+GccZSDrrKr+jUbppX2TjhPbiEumZkvcdtM
+	 ULa92SivUlUTjiyYbt2u4Fm4ZAtrIbPEquo/taetx/3kXAa7fhdxdzuNnEfpEu/RDP
+	 NqQkx837SMoxW0p6COIOVBGLBw18IWyZH7LH+d5wRrZIVO3HabL0Mes6hpvpCJquT4
+	 QjZbdc4dTq2rsRxOPuqBcHVBNXwKcRBQjLbW/Co/lx8by/KPKJbQIR5o2EzYZcyYEr
+	 ZnlRzOnF6gR8E5bdZlWGwlKP/Lb62PkDtmT+TJdsL1OOjCB1v/7XANL9M1BDfw5JRt
+	 H1ko/wBaB9m0g==
 Received: from maru.home (host86-128-233-22.range86-128.btcentralplus.com [86.128.233.22])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 3950341444;
+	by extorris.mess.org (Postfix) with ESMTPSA id DFE014017A;
 	Tue, 01 Sep 2026 15:25:25 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+	Patrice Chotard <patrice.chotard@foss.st.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/6] media: rc: Ensure registered is cleared in error path
-Date: Tue,  1 Sep 2026 15:24:51 +0100
-Message-ID: <c1f1990e3610766e6f08215a6a7dcd1bec6cfc2c.1788272198.git.sean@mess.org>
+Subject: [PATCH v2 2/6] media: rc: Ensure that rc_unregister_device() does not free input device
+Date: Tue,  1 Sep 2026 15:24:52 +0100
+Message-ID: <fc444d6e0e4822b30c72a39590618d860cfb8155.1788272198.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788272198.git.sean@mess.org>
 References: <cover.1788272198.git.sean@mess.org>
@@ -67,40 +67,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If rc_register_device() fails, ensure that registered is not set to true.
-If lirc_register() succeeded, then userspace could have an open file
-descriptor open. This leads to a use-after-free.
+During or after rc_unregister_device(), IR may still be reported which
+results in a input event being reported. This could result in a null
+pointer deref in rc_keydown() or a use-after-free of the input device if
+the pointer was read before it is set to NULL.
 
 Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/rc-main.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/rc/rc-main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index d93e98189c1a..1f99540456f1 100644
+index 1f99540456f1..88d8f7d4aab3 100644
 --- a/drivers/media/rc/rc-main.c
 +++ b/drivers/media/rc/rc-main.c
-@@ -1934,7 +1934,8 @@ int rc_register_device(struct rc_dev *dev)
- 			goto out_raw;
- 	}
+@@ -1753,7 +1753,7 @@ void rc_free_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
  
--	dev->registered = true;
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = true;
+-	input_free_device(dev->input_dev);
++	input_put_device(dev->input_dev);
  
- 	rc = device_add(&dev->dev);
+ 	put_device(&dev->dev);
+ 
+@@ -1865,6 +1865,8 @@ static int rc_setup_rx_device(struct rc_dev *dev)
  	if (rc)
-@@ -1982,6 +1983,8 @@ int rc_register_device(struct rc_dev *dev)
- out_dev:
- 	device_del(&dev->dev);
- out_rx_free:
-+	scoped_guard(mutex, &dev->lock)
-+		dev->registered = false;
+ 		return rc;
+ 
++	input_get_device(dev->input_dev);
++
+ 	/*
+ 	 * Default delay of 250ms is too short for some protocols, especially
+ 	 * since the timeout is currently set to 250ms. Increase it to 500ms,
+@@ -1891,10 +1893,8 @@ static void rc_free_rx_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
+ 
+-	if (dev->input_dev) {
++	if (dev->input_dev)
+ 		input_unregister_device(dev->input_dev);
+-		dev->input_dev = NULL;
+-	}
+ 
  	ir_free_table(&dev->rc_map);
- out_raw:
- 	ida_free(&rc_ida, minor);
+ }
 -- 
 2.55.0
 
