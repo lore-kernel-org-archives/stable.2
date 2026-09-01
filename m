@@ -1,118 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9D83C81B2;
-	Tue,  1 Sep 2026 01:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A4D40682C
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 01:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788227213; cv=none; b=InYkMMPi78jgW4xpSS3QIdin4df02OrgNJs/PZCL6++0RKXxPhOUFrwZUcZym3oP4TozqB57RYFO5VaSiieP6ljfZwpR0LCAB2n19XpnZJHT7z0kkEQfg9siMSrRgENd1va22ZQv3BYiF+XFWYMSmUcXAM+iu6qkxrepIupzgAk=
+	t=1788227287; cv=none; b=igCOTRcAf37tWdP9tOU8yioER6fspnKToKm4CKdh9QZqXi/YiEwe7cTif6LnpssIhxkX7bgEulGGIHp8ztF97i97B6EMpH/HOi+igcMk8KlkPqAqzJoxqpPri+nUdxm7R58+FBgR1e5kTqIwmJpa+tuOueEP0lbFdV+0Em6C59c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788227213; c=relaxed/simple;
-	bh=9ZxkfOw4TOE1Obq8/2i/Q1JnSICiUGC/3m4Hm3cdZxU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kAsXNq3XomVl5H6Q4frIqvdpPAySqXw8vqX/RCYTIR/mB/Bly4D9TRJUNyW61c1wDsU6VBKRfu//VdUxbPCZ9yvBidBRy/PLrCyaOw908tc+XidBkkg/Y10ERjGLpqMhboi7s2Zab6wChv144mQWZWjFPYUWKOTQxqopDTN++rA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QU3QSXFP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788227287; c=relaxed/simple;
+	bh=TbWvao8dNrFArHfsTdzgrvJfMW1810YoV1VL1qPO6hw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l82FS2jSS+ZvG7W95mceUQL4+d1MuyJDHcGKMMPGMNw7zJVJLp0qveoW5X8aDfXQEVSUCFBBWpvO49rx1J238CI2hkK2iKmsxgV4Yj018gpzGRAr+/ps2D4/tA4gOw7iUAScJq2UAznIfhzRrPZS9HGMkgZv9KOXC1GF4Y4wFr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XbjSHPbp; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QU3QSXFP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39551F000E9;
-	Tue,  1 Sep 2026 01:46:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788227198;
-	bh=tv/giztluJ3mJ3RD/dlXAJAOrQrL283c0fCKgwhPQNw=;
-	h=From:Date:Subject:To:Cc;
-	b=QU3QSXFP8x1XBB2jqxBwYMIYC6tpOLXpJIxKHzWmZF+v3OYf22PrEiVCgo92nFeXa
-	 JQaHAMGUP2etlCoyZrEjas5G/HZCLEnZDYnnm8XAy8Ph0urEGPjZAxfPKlz9Pu8P/9
-	 78gVz7MQ8b2ephK9Tbo8KCVQbnRmZhijkxIPDR8nhD/VuOmME1nrI0WIgRg98XK8NJ
-	 wQFgMmJ4BS1zLHnFzBHFt0nAhZRDOAhvrgalkbRDCnaK3ro5UgnzMp+HOTpJeKtiCL
-	 PxRiue+v22OwsenIxO1eMX0MFwFnPNxcKNK1nosXtdhkqelL67k+zXOiI130Z7MNrl
-	 d0f7wucaYad5A==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 31 Aug 2026 18:46:31 -0700
-Subject: [PATCH] scripts/sorttable: Mark long_size as __maybe_unused
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XbjSHPbp"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93906e8a5feso430736285a.1
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 18:47:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788227255; x=1788832055; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fd3UsNyohAVS0Ve8PPWJ3CkWAxlfnYDi5LuYeHbJPWw=;
+        b=XbjSHPbpik57C0xJiwDnxcbmvlx3kWOnkNDoFur2nWhNmXIEvSYtIjV8nyGfg8CSBq
+         R/ukk7hNywYINZ9ahzqLsdxVUrx9ksraks+EVglsATxvIDiYR12ee67b7G0czLZvvpoJ
+         jIUnM1hZGNyeWwLlXnnF4K/uPNxL+N9JUu1FEkZBTW5kcRAMil+8MRVYGEy68FZ5wJOM
+         fPX8U73A4UnexqHQ+dYYl5v4jpSqc6jsz2og1ww8eNdxomuUixcm6I91d6/8fLFN7E1m
+         fp+Yl+Ey/99To5VpB6c+ZuDvOq/WmNLfKNgSQjZ+G/BNAxWuTvxZfOV0Im20z+7d8Y1P
+         tgxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788227255; x=1788832055;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fd3UsNyohAVS0Ve8PPWJ3CkWAxlfnYDi5LuYeHbJPWw=;
+        b=lkM1bFcDfJ2A+EOoK02tM4+1EL0qy4ctkNV2iA8FGb+yPcwQ67cVRM0x1M3EhzHaWE
+         jRSniC0uSvhUhSkJMqckfoUI6FPc4duzdIAPb39Kx+ZFcJkgd37vh9anhttX0zmwB0VQ
+         LZKnnbjoyIC3CoZkLKxnWFxXLtn7620AYaBo9PEK6nq+KTd0S0wYflamUCBsqvZ6t1kl
+         lO57CnDQ2HQY+Ex4eUSwcrM/5VB/lVJeIov7uwnK6NphbzzQZQks9mRo9ZRUWZQyIiM9
+         MCKmhYjj7Eejv3zD4Zw37qi7O9j6wTbVnbQuac9pRyrmmtkUN3N63dd/4TDU+IcTZhh9
+         zI1w==
+X-Forwarded-Encrypted: i=1; AHgh+RqgLRuGSyjopLCNz3hQHT3acSPHf3IlkGOgoSDeNDUWGRWAIuzXwMf3GwOpUCJAjX/fBmX0oso=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuPuAGbzma5FstPXU9C6qz5T1PHSP7BDTxUrl6NH43mzjEShbO
+	aCKnVV4xzjFkMyP4EH5AqS4uHZUFg6S5KoXsa62kJHC5QGQy7CsPTe7h
+X-Gm-Gg: AR+sD10AXd7+jTW+eBH4aAPFcud1WqfDkZuzwaD615/Zf6ADCPLTpQAVU5hurZs+xY5
+	cRPTDE2E0K3vipQ8Z1BdJo2RslBDF3wsejixBl4elvCg9u4VHCWVnBUlhZrQqdBk/k8lCwwPsMu
+	9TTKEI5QUOrDnBqb61XBgMfPbf1OqDbmkcgjKhgB/K0abgmkxf0QzETREaeC5kK/dD/8uXYicND
+	6MfpExN1iOegdqYC+llAl5l10cEccuRoDavgoUH/m0GM/HqoNGMUe5Y4kuONN0q2TW66URQsAh+
+	tv8T+45LpRGB8lBm1A286HTSrCvlsGpzPGGSI2uLfLw3+f91nr1u4livEjdv/FzXNHqo8TSH9JJ
+	F8H6WZ0y2j+eYC9Jm4mGhbLG8+XX0uu1FQkzG/WKQwr98+4Ma1O7oyHm3st4K7cSASON9LdOlOg
+	x52ow840woENKfYlrTt+wtLdpy/9Dubo4GUf/GlECEB241TQbxUxD89AnDcLM4e4ugeEZmnltoE
+	P9MHYytL7Ef3RTDuf1+m7R08A==
+X-Received: by 2002:a05:620a:460d:b0:937:50b6:4a5b with SMTP id af79cd13be357-939138c25bfmr3464249685a.23.1788227254662;
+        Mon, 31 Aug 2026 18:47:34 -0700 (PDT)
+Received: from shivam-EliteMini-Series.syr.edu ([128.230.213.54])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939170138eesm929831285a.3.2026.08.31.18.47.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:47:33 -0700 (PDT)
+From: Shivam Kumar <kumar.shivam43666@gmail.com>
+To: linux-nvme@lists.infradead.org
+Cc: Greg KH <greg@kroah.com>,
+	security@kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	Keith Busch <kbusch@kernel.org>,
+	stable@vger.kernel.org,
+	Shivam Kumar <kumar.shivam43666@gmail.com>
+Subject: [PATCH] nvmet-tcp: fix a hang on queue teardown with data digest
+Date: Mon, 31 Aug 2026 21:47:18 -0400
+Message-ID: <20260901014718.2835558-1-kumar.shivam43666@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-sorttable-long_size-unused-but-set-global-v1-1-8a96b88697e5@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXN0QoCIRBA0V9Z5rkBdWHb+pWIUHeyCdFwNKJl/
- z2rx/Ny7wpChUngOKxQ6MnCOXXo3QD+ZlMg5KUbjDKTmkeNkkut1kXCmFO4CL8JW2pCC7pWUah
- iiNnZiGYyXs370Wp7gN57FLry6/c6nf+W5u7k63cA2/YBchsEko0AAAA=
-X-Change-ID: 20260831-sorttable-long_size-unused-but-set-global-262c0873a1a9
-To: Steven Rostedt <rostedt@goodmis.org>, Nicolas Schier <nsc@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2119; i=nathan@kernel.org;
- h=from:subject:message-id; bh=9ZxkfOw4TOE1Obq8/2i/Q1JnSICiUGC/3m4Hm3cdZxU=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnT9Cr/zv6ov/LiJsZC/iOTVGze1d6xCZ3R0fJHtDI6+
- Jx7nOy6jhIWBjEuBlkxRZbqx6rHDQ3nnGW8cWoSzBxWJpAhDFycAjCRn3MZfmya8nb7sfn/RftC
- DjoIKPRviG9jnuDeOevD7ZWNK70kDBn+OzHdfSGpHXpedyl/Y9revT9Z+dUijPJyBMSWqfjslHr
- JAQA=
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-When building in a kernel tree prior to commit b055f4c431e3 ("sorttable:
-Move ELF parsing into scripts/elf-parse.[ch]") with clang-23 or newer,
-which implements a new warning under -Wunused-but-set-variable for
-static global variable, there is a warning from sorttable because
-long_size is unused when MCOUNT_SORT_ENABLED is not set:
+With data digest on, a command that has received all its data waits for
+the digest in NVMET_TCP_RECV_DDGST. has_data_in() is already false there,
+so need_data_in() is too, and nvmet_tcp_uninit_data_in_cmds() skips it on
+teardown even though it still holds the nvmet_req_init() reference. The SQ
+percpu_ref never drains, nvmet_sq_destroy() blocks forever in
+wait_for_completion(), and the nvmet-wq release worker is stuck.
 
-  scripts/sorttable.c:452:12: error: variable 'long_size' set but not used [-Werror,-Wunused-but-set-global]
-    452 | static int long_size;
-        |            ^
+An unauthenticated host on an allow_any_host subsystem hits this by
+negotiating data digest, sending a write's data but not the trailing
+digest, and closing the connection. Each leaked command wedges a release
+worker; a few stall queue teardown entirely, and with hung_task_panic the
+box goes down.
 
-Mark long_size as __maybe_unused to avoid inserting more ugly #ifdef
-directives while insuring the warning does not reappear, as the
-aforementioned change does not alter the uses of long_size, so it
-appears to be coincidence that the warning disappears after this
-refactoring.
+Drop the reference for a command left in RECV_DDGST from
+nvmet_tcp_release_queue_work(), before rcv_state is cleared. A command
+that failed nvmet_req_init() never took one, so skip it.
 
+Fixes: 872d26a391da ("nvmet-tcp: add NVMe over TCP target driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Shivam Kumar <kumar.shivam43666@gmail.com>
+Assisted-by: Claude
 ---
-This is breaking our builds on stable:
+ drivers/nvme/target/tcp.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-  https://github.com/ClangBuiltLinux/continuous-integration2/actions/runs/33143924291
-
-There was a previous patch sent for this issue
-
-  https://lore.kernel.org/20260603191708.27241-1-beakthoven@gmail.com/
-
-but it was marked as stable only. I think this should be taken via
-mainline and backported the normal way, as it appears to be coincidence
-that the warning is not present in mainline. It does not look like
-scripts/sorttable.c has a formal owner according to MAINTAINERS so this
-could either go through one of Steve's trees or the kbuild tree.
----
- scripts/sorttable.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/scripts/sorttable.c b/scripts/sorttable.c
-index d8dc2a1b7c31..d7b50581c732 100644
---- a/scripts/sorttable.c
-+++ b/scripts/sorttable.c
-@@ -116,7 +116,7 @@ static inline void *get_index(void *start, int entsize, int index)
- }
+--- a/drivers/nvme/target/tcp.c
++++ b/drivers/nvme/target/tcp.c
+@@ -1640,6 +1640,19 @@
+ 	nvmet_tcp_restore_socket_callbacks(queue);
+ 	cancel_delayed_work_sync(&queue->tls_handshake_tmo_work);
+ 	cancel_work_sync(&queue->io_work);
++
++	/*
++	 * A command that has received all of its data and is only waiting
++	 * for the data digest sits in RECV_DDGST: need_data_in() is already
++	 * false, so nvmet_tcp_uninit_data_in_cmds() below skips it, yet it
++	 * still holds the reference from nvmet_req_init(). Drop it here,
++	 * while rcv_state still reflects it, so the SQ percpu_ref can drain
++	 * and nvmet_sq_destroy() can complete. INIT_FAILED took no ref.
++	 */
++	if (queue->rcv_state == NVMET_TCP_RECV_DDGST && queue->cmd &&
++	    !(queue->cmd->flags & NVMET_TCP_F_INIT_FAILED))
++		nvmet_req_uninit(&queue->cmd->req);
++
+ 	/* stop accepting incoming data */
+ 	queue->rcv_state = NVMET_TCP_RECV_ERR;
  
- static int extable_ent_size;
--static int long_size;
-+static int long_size __maybe_unused;
- 
- #define ERRSTR_MAXSZ	256
- 
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260831-sorttable-long_size-unused-but-set-global-262c0873a1a9
-
-Best regards,
---  
-Cheers,
-Nathan
-
+-- 
+2.34.1
