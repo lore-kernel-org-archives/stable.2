@@ -1,161 +1,127 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from icts-p-cavspool-1.kulnet.kuleuven.be (icts-p-cavspool-1.kulnet.kuleuven.be [134.58.240.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 870C643713C
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:03:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E9B3D6663;
+	Tue,  1 Sep 2026 15:06:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.58.240.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275038; cv=none; b=FPy9OPeANe+shvvaoUkDHoEwPW5qdgigpVHuy225AOivcoEA/Vbd2ZXzRaTJLGyMUt9tUEUFMi0sJHmKo4Cxj2lIxrBPx8DwVWe3xhvcfZ5L9FYPhmAa6Z8yZ/TQxwPOtjkUcAMHkb8IjvNr/3Ob1UPZnt2HWXqdjVESrO+bn/4=
+	t=1788275175; cv=none; b=MJI0fy1tTZVA4XyOY1UN+maQSTXirA4nL5JNd5ldpxQQMHGjhT4Xnp/ST9TR0cJwxdRDisGlHc1vJQsOrXTnGY5en5YwVs6SJmiUbHBFVA3W4Drsyope/WyN/03w8a8+IS6fXiA1W8Fua7NIuA5aXCGRTt2+zVy2nfKEM3zPdnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275038; c=relaxed/simple;
-	bh=EV0luyxrE4VBTkjaX8NMlEgGp6/Xt54MDGLWoiypEoc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H97vVPGMhzDoBCjTdh7JF8Q8+WanzF15bd6+GQ39EdtQjlUJXfDMMIgCBesAbwjJS++8oORBAIwkLC675ncLGq7i0HdnO1Up+7RC/QRM8IGazP29Vq4sE3dIarz7WV+X+uTx0nLXsqFkod4aDM3y4R+x4EgHDK16jLaTXoUgMTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Wc/NGc2k; arc=none smtp.client-ip=209.85.210.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1788275175; c=relaxed/simple;
+	bh=4EO54w5Ccp/9b+PS7lTkUkfUyBeNuGX91v3qx0P/aAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Q/tNkDwltz9nWp9Ez7p0tEAqqpf2jadzIeyuPKtRcmzsu01RGVj0BMhF8T1tB9nrnwK3ZAsdYTWvd/5EGntIAi3V964KdieTOKJFLmGM5CH71XklyxmLi4Ucu2VDsK3arQbXgLqh7U/mwtN5YBdTdNaJOklT+8jb5T0DSrnRpiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.kuleuven.be; spf=pass smtp.mailfrom=cs.kuleuven.be; dkim=pass (1024-bit key) header.d=cs.kuleuven.be header.i=@cs.kuleuven.be header.b=WaVpmpWp; arc=none smtp.client-ip=134.58.240.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.kuleuven.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Wc/NGc2k"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-848643382fcso5234230b3a.1
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 08:03:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788275036; x=1788879836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nYjWdRobMhFwnScsH6QAuV5nfOH/dqs6pUr1givzmCo=;
-        b=Wc/NGc2kO0hzZ56egklVW7Bp/A+N/J5dMOx8cO+Fat/8MGLbBhMCxs25SAk+snlk24
-         GrEvL15mi8KVN3ghZCWWW4yN2zro9/mYHvgvXsVUv+gCPUPnlbxmVGZFfnmY9bvJD0XQ
-         VHX+SyydAbVZ+QR2RNX4kF+HeMpFuCWgR9iiPOBibCtYqgbymHit+hu3Q0rZOWprBtDU
-         JXW0c4xh8EI4QVDmwsKfBGGxFOYpQodICoYS5E8QyVDprYHy68f1cZMDLldKDLGLWb4W
-         wNyRL2G8tcbFv48TtwC9mPIm6ahqYgRZWLoxfzNdtdLVsuZQaou/7ovWS8SBus8OwFaJ
-         N07A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275036; x=1788879836;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nYjWdRobMhFwnScsH6QAuV5nfOH/dqs6pUr1givzmCo=;
-        b=TMZf/nNOGvSQR0SRW65DfeQIfo/XdsdRHV5Uj0lpJAxiRj60kzknUtv+zhLm7bpj5w
-         a2pCTzoKC4AqoMDogpK/1Cqqwvbe2JptaC20LrQhwJX1FlRL3nl4c5krCMbUPcio8KQT
-         BeSpbp9uRlutSE/vrMFvjLOx8af+j6jDzrpil9mX7zVk7eHaSA/IWd/iezW/ex77Ob/I
-         2cEMZFLK5zWinPB93Tywlv8dEe+hD9vAXBEqnYRM8GYJp/an9JFbPkFNtYezVG0bZ1Gz
-         XWkDdCeC0HRmrnKlLyuQ6tBJSEwYGIC1EB2vkzdWxG9lvyphnf7WLkJXcbcLfAplmRah
-         hEqA==
-X-Forwarded-Encrypted: i=1; AHgh+RpI4Ub/KtQc4zD35xN6Y/ucqeKCVWoXq1gy2d1tvkLiYPow6KxH1gUGi6k6Vwzxqrm4RM6R02w=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/iuefhPjCD9xDU0t2nR6PJyKcHWqX++i++X1T0CUHl+j2m+Nw
-	v1Gw8PMrnqcuZd75JAH2jgPVkc9ARh2g0Y6/4WvXWrWJgQn6xLZeNMMZUHVc4dSiQDc=
-X-Gm-Gg: AR+sD10b/g3jESvscAfbNa3eupQTRJpnI6GxR2eOL1E5yg+jUdWVvNHpSHWsXyE1O18
-	Gmni37fg3xYNyoUaBB5Gq1AZaHxE9P5vP+FvhXN43yoCKsj/2tVfENZmU8r+9aO7ParecNgQ0re
-	3RLuvRjqJi1YQk4Cbk95UfEIolWn5RE/zJ+60U4rg3RyMsKiGBOGzD3bKKGwX6TuOsCT1BhFzpG
-	jCdppWpMPfSylOa9bku6PlQHxvF/ydEbHnM4o0bEf5fF5vcL8n8at0YbrH1tCYlCZ9cxEDjl7+9
-	QrZd6B4BcPClBsxHyoBD+QVyW899Bpb4gxXpyrvj5QJlcrDqEiu9Duq/S0WKapLx/V2MqPmY+AW
-	3qs0YAst7A5dCHR4JARDj+0AMR2a1k1Ah8UmgUE4hQdXQgeWHhlfDXXOlzndkpk/x2vcPdgopXC
-	BEtDYbIs1LkVjdSQ9AM1VRWMtyI4WXVKwsqQerx0zLPJA=
-X-Received: by 2002:a05:6a21:a0a:b0:3d0:abdb:de03 with SMTP id adf61e73a8af0-3d7ad788edbmr15943018637.2.1788275035650;
-        Tue, 01 Sep 2026 08:03:55 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:4c::])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f32f727bsm6432687a12.7.2026.09.01.08.03.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:03:54 -0700 (PDT)
-Date: Tue, 1 Sep 2026 08:03:54 -0700
-From: Joe Damato <joe@dama.to>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-Message-ID: <apbpWrfu3VQu+CUz@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, Michael Chan <michael.chan@broadcom.com>,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
- <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
- <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
+	dkim=pass (1024-bit key) header.d=cs.kuleuven.be header.i=@cs.kuleuven.be header.b="WaVpmpWp"
+Received: from icts-p-cavuit-1.kulnet.kuleuven.be (icts-p-cavuit-1.kulnet.kuleuven.be [IPv6:2a02:2c40:0:c0::25:132])
+	by icts-p-cavspool-1.kulnet.kuleuven.be (Postfix) with ESMTP id E23C34693;
+	Tue,  1 Sep 2026 17:06:11 +0200 (CEST)
+X-KULeuven-Envelope-From: jo.vanbulck@cs.kuleuven.be
+X-KULeuven-Scanned: Found to be clean
+X-KULeuven-ID: 7E18920087.A6D35
+X-KULeuven-Information: Katholieke Universiteit Leuven
+Received: from icts-p-ceifnet-smtps-0.kuleuven.be (icts-p-ceifnet-smtps.service.icts.svcd [IPv6:2a02:2c40:0:51:132::60])
+	by icts-p-cavuit-1.kulnet.kuleuven.be (Postfix) with ESMTP id 7E18920087;
+	Tue,  1 Sep 2026 17:06:03 +0200 (CEST)
+BCmilterd-Mark-Subject: no
+BCmilterd-Errors: 
+BCmilterd-Report: SA-HVU#DKIM_VALID#0.00,SA-HVU#DKIM_VALID_AU#0.00,SA-HVU#DKIM_SIGNED#0.00,SA-HVU#OURIPS#-35.00
+X-CAV-Cluster: smtps
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.kuleuven.be;
+	s=cav; t=1788275163;
+	bh=g3UEwE7N/GmWO0B/boK718SVBjIa0B3guUqfWjymsGg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WaVpmpWpxdMl0BjpYROvjLYMnQRnJNd7Gh5PjUxa4RaGIqNwOSrmRhqHISByLI94d
+	 C6kS2MyMehcXCwYzEOYoTHdZo1bEYC8aZ+rOc0UcWXs6GiNGvslzsfLApLIoNmbdVU
+	 E1mHB8zsmvZ1//DYW9jGAPARUYiY54Wim1T29KtU=
+Received: from [10.45.52.163] (unknown [10.45.52.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by icts-p-ceifnet-smtps-0.kuleuven.be (Postfix) with ESMTPSA id 29866D4BAEB23;
+	Tue, 01 Sep 2026 17:06:03 +0200 (CEST)
+Message-ID: <35bdf3a1-9e85-45d3-8af8-f324cc455144@cs.kuleuven.be>
+Date: Tue, 1 Sep 2026 17:06:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [SPAM?] [PATCH 2/2] dm-integrity: fix infinite loop on discard
+ with large tag size
+To: Ben Cressey <ben@cressey.dev>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, Shukai Ni <shukai.ni@kuleuven.be>
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Mike Snitzer <snitzer@redhat.com>, stable@vger.kernel.org,
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+References: <20260820-dm-integrity-discard-v1-0-196d3618d09a@cressey.dev>
+ <20260820-dm-integrity-discard-v1-2-196d3618d09a@cressey.dev>
+Content-Language: en-US
+From: jo.vanbulck@cs.kuleuven.be
+In-Reply-To: <20260820-dm-integrity-discard-v1-2-196d3618d09a@cressey.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 02:10:04PM +0200, Paolo Abeni wrote:
-> On 9/1/26 1:57 PM, Joe Damato wrote:
-> > On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
-> >> On 8/28/26 9:08 PM, Joe Damato wrote:
-> >>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
-> >>>     documented that TPA is unsupported there, as suggested by Michael.
-> >>
-> >> Clashiko quite convincingly elaborates that the above is not enough:
-> >>
-> >> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
-> >>
-> >> Could you please have a look?
-> [...]
-> > 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
-> > device whose firmware reports max_aggs_supported == 0, does
-> > bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
-> > 
-> > Michael commented in the v3 that this is a false positive, hence why I changed
-> > the code from what it was in the v3 to this.
+On 8/20/26 23:44, Ben Cressey wrote:
+> When integrity_metadata handles a discard, it fills a buffer with
+> DISCARD_FILLER and writes it over the tags, max_blocks blocks at a
+> time. If the kmalloc fails, the buffer is the on-stack array> checksums_onstack and max_size is set to HASH_MAX_DIGESTSIZE. So if the
+> tag size is larger than HASH_MAX_DIGESTSIZE, max_blocks is zero, bi_size
+> is never decremented and the loop never terminates.
+
+Seems legit (since currently HASH_MAX_DIGESTSIZE=64 and MAX_TAG_SIZE=255).
+
+> Fix this by using sizeof(checksums_onstack) as max_size. The array has
+> MAX_TAG_SIZE bytes since commit b93b6643e9b5 ("dm integrity: fix a
+> crash with unusually large tag size"), so max_blocks is at least 1.
+
+maybe say "at least MAX_TAG_SIZE bytes" (?)
+
+> Fixes: 84597a44a9d8 ("dm integrity: add optional discard support")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> Signed-off-by: Ben Cressey <ben@cressey.dev>
+> Assisted-by: Claude:unspecified
+> ---
+> The natural trigger needs the kmalloc to fail, so this was tested with
+> the fallback forced (a test-only hunk that frees the buffer for
+> discards): J mode, internal_hash:sha256, tag_size 100, allow_discards,
+> BLKDISCARD of 16 MiB. Without the fix the discard never completes and a
+> dm-integrity-offload kworker spins in integrity_metadata ->
+> dm_integrity_rw_tag (soft lockup with preempt=none); with the fix it
+> completes immediately. This goes after 1/2; on its own it would let the
+> keyed-discard fallback overflow checksums_onstack for tag sizes below
+> the digest size.
 > 
-> This is the comment I referred to.
->
-> AFAICS the problem is that the driver sets
+> For stable: 1/2 is not stable material and it changes the context line
+> right above this hunk, so this patch will not apply verbatim to released
+> trees. The backport is the same one-line change; I will send it in
+> reply to the failed-to-apply notice.
+> ---
+
+The fix looks good, but not sure I follow the AI clutter above.
+
+>   drivers/md/dm-integrity.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> 	bp->dev->hw_features |= NETIF_F_LRO;
+> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+> index 73c1db7e55d5c..48eca96ca6d8c 100644
+> --- a/drivers/md/dm-integrity.c
+> +++ b/drivers/md/dm-integrity.c
+> @@ -1979,7 +1979,7 @@ static void integrity_metadata(struct work_struct *w)
+>   
+>   		if (unlikely(dio->op == REQ_OP_DISCARD)) {
+>   			unsigned int bi_size = dio->bio_details.bi_iter.bi_size;
+> -			unsigned int max_size = likely(checksums != checksums_onstack) ? PAGE_SIZE : HASH_MAX_DIGESTSIZE;
+> +			unsigned int max_size = likely(checksums != checksums_onstack) ? PAGE_SIZE : sizeof(checksums_onstack);
+>   			unsigned int max_blocks = (max_size - extra_space) / ic->tag_size;
+>   			sector_t sector = dio->range.logical_sector;
+>   
 > 
-> regardless of the supported capabilities, and that seams to disagree
-> with Michael.
 
-OK, after re-reading this here's what I see: NETIF_F_LRO gets added with no
-capability check and bnxt_fix_features() won't strip it afterwards. I think
-the fix there is to add a BNXT_SUPPORTS_TPA() test, as a Fixes for
-f0aa6a37a3db ("eth: bnxt: always recalculate features after XDP clearing, fix
-null-deref").
-
-I can send a separate patch for that, but it is unrelated to this patch which
-fixes a crash on boot for Thor2 devices.
-
-Maybe you want me to spin a v5 that rewords the comment Michael asked me to
-add which is currently technically incorrect, but will be correct after the
-separate bug mentioned above is fixed?
-
-In other words respin this to make a v5 that changes the comment to:
-
-  /* TPA is not supported at all, so there is nothing to
-   * allocate.
-   */
-
-And then when a fixes for the above commit is proposed, the comment can be
-re-expanded?
-
-Can you let me know what I am missing here?
