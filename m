@@ -1,154 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3475E48BD20;
-	Tue,  1 Sep 2026 17:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 354B2481253;
+	Tue,  1 Sep 2026 17:29:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283775; cv=none; b=R0dL9xsuxjthelv5nFajAaJIzXj65oK8AOSRir4bwcmFqdOK9MljdPLjGOJtSGxCr/w9yoAB3DZBzSkJEk9EZs2y15JZbXdiMuLWyb2Nvpz0iMQYh/55TUAEtKyJkOgWeK9Xf1fU3AFTAcDSW/QABqAjOiyftXq/ICrzh3Ou1gM=
+	t=1788283796; cv=none; b=PsxcnDeOzrsEI2mlObh2GXMHGrkvu9Za2GiKrNoQM5PYg+V/ZKa7llyANrwcGSD9VpN2zivc74znxCtxEVcRu6otCZmFP4iZ0Wu6HaMsB1RqfaBDHosYbLw+Nf6JP2QUfrm4Hw2ZwpnGz+vskH4N+krI4mBQT5ZyWfKyiwx5QKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283775; c=relaxed/simple;
-	bh=hIJQVO5FZNvdm0cmp7KFRCyJsyxlcDY2tLzeNko9CCQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qGFlyVY1/pjCtreMn9jf0cvDRqDD2UjNpg0npmDBiSd+I3xbTZZyM6JACoYkN85x+OzKR5GvMVvZE0P18dpDC1FyMmeWgF3EBmJYidWHw7YAZpGmMSf9lbqlUGJZiktf9P+jYW4JxC2WcD0hRyCe8JxMhSnoyecEIc0GqZtZ1D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtkmMZlm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283796; c=relaxed/simple;
+	bh=XgAgMt83WR5JZmohgcgxN/eKWPWoNP6kK5bWy+ejKv8=;
+	h=Date:To:From:Subject:Message-Id; b=tf9qZfAVSi/7e3NMvsT8inDReWwDNYuwDaWMxR7onNtF95t2xrY0FE4S52hiDjg4OVurrJ9lfVq9ZVDTjQh2X6+cJG83Y0We4GknhrSSUqcYfu1O+HT1clXicsqab972U/ENiMkI05eofqQMuxfL+mrT59Rz/1voE+JCJqkX83E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=C4YXJSOt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtkmMZlm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B5A1F00A3E;
-	Tue,  1 Sep 2026 17:29:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788283773;
-	bh=EVyNmPZk8xroeMlfEyBXTtkBWQBzLnb7LaqjL0r2gKY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KtkmMZlm7pdlaVD2POunK3BmTzCzGjOiaFm/Kk5cnszKSNphKUepiWoDULW+vEQ4e
-	 PkjA+G/48biGxGdgisfCpcPRNoQ8Y80A/rsMwZuWnp7VZpxJl2VpvZSYRRZEybRzV2
-	 f6YkrWLFdyaVYExTK3p6FZ3D7sfYP8IKivZlOWjROJikuGF5gYFe63U1ozizDYXKdp
-	 NqJ7WjaghELgFfkXEBRtYIHm3e4fGjPBvfbzXYLt6qTSaazHFBMPuuCk1lKtjHKocj
-	 5O9rMzhMZfGs/SR18+lQWbLbrxGHysTvtkVVtc3qjbg4GnP6wWUlt6h7HWjZO3fE9M
-	 b8yJZW0GPf1+Q==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 01 Sep 2026 18:29:00 +0100
-Subject: [PATCH v3 2/2] KVM: arm64: nv: Fix null ptr deref on nested
- wp/unmap, teardown race
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="C4YXJSOt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB3251F000E9;
+	Tue,  1 Sep 2026 17:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788283794;
+	bh=jvm/HKiMmeJIdMrMJyMkbzF2E1iHezjHutK+RooSl8U=;
+	h=Date:To:From:Subject;
+	b=C4YXJSOt0oUXpWO7CqxPJILPUAoFXX8HMj3oMjMY9Gl+CvmirAa8SfINoa0/us94+
+	 PXiEu4SDr1tabvlrw4CVmEYI7AWchpoy205/hOTzUwfaHlGoIrITskPGjKgyg7EX9W
+	 o35m4Kxr3fgUy8O3uCJnM+Hxw9ph/EoSHxs3hAX8=
+Date: Tue, 01 Sep 2026 10:29:54 -0700
+To: mm-commits@vger.kernel.org,xlpang@linux.alibaba.com,stable@vger.kernel.org,songmuchun@bytedance.com,shakeel.butt@linux.dev,roman.gushchin@linux.dev,mkoutny@suse.com,mhocko@suse.com,lance.yang@linux.dev,hannes@cmpxchg.org,david@kernel.org,david@fromorbit.com,baolin.wang@linux.alibaba.com,qinyuntan@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch added to mm-new branch
+Message-Id: <20260901172954.BB3251F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-kvm-arm-nested-virt-fix-v3-2-b154676f7e4c@kernel.org>
-References: <20260901-kvm-arm-nested-virt-fix-v3-0-b154676f7e4c@kernel.org>
-In-Reply-To: <20260901-kvm-arm-nested-virt-fix-v3-0-b154676f7e4c@kernel.org>
-To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
- Suzuki K Poulose <suzuki.poulose@arm.com>, 
- Zenghui Yu <yuzenghui@huawei.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Christoffer Dall <christoffer.dall@arm.com>, 
- Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, 
- Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3208; i=ljs@kernel.org;
- h=from:subject:message-id; bh=hIJQVO5FZNvdm0cmp7KFRCyJsyxlcDY2tLzeNko9CCQ=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKmcxf5Mv/I4XDw3rh/n/efK/dZIqJTN9c/tGDv9rXML
- 3cxX1XWUcrCIMbFICumyPL8i/j+IJGweZ0X/N1g5rAygQxh4OIUgIkcE2P4X9PZksZ/X+c9709b
- aSaLHXf2T3++2tr3fRr3kuf+xSLWzgz/w/+1l19Y++Pz/7g7P5b4Bs2cyyk7m/W6akOIMTdntI8
- fDwA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Commit 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU
-notifiers") introduced VNCR_EL2 invalidation in both kvm_nested_s2_unmap()
-and kvm_nested_s2_wp().
 
-However at the point of this being performed concurrent stage 2 teardown of
-a nested guest can cause kvm->arch.mmu.pgt to be set to NULL.
+The patch titled
+     Subject: mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
+has been added to the -mm mm-new branch.  Its filename is
+     mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
 
-This happens in kvm_flush_shadow_all() -> kvm_arch_flush_shadow_all() ->
-kvm_free_stage2_pgd() and is performed under the kvm->mmu_lock.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
 
-Commit ec14c272408a ("KVM: arm64: nv: Unmap/flush shadow stage 2 page
-tables") introduced the teardown of the entire nested MMU range, which then
-invokes stage2_apply_range() with resched=true:
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-mmu_notifier_invalidate_range_start()
-  -> ... -> kvm_mmu_notifier_invalidate_range_start()
-    -> kvm_mmu_unmap_gfn_range()
-      -> kvm_unmap_gfn_range()
-        -> kvm_nested_s2_unmap()
-          -> kvm_stage2_unmap_range()
-            -> __unmap_stage2_range()
-                -> stage2_apply_range()
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-This means that stage2_apply_range() can drop the kvm->mmu_lock and thus
-concurrent progress can be made in lockstep with
-kvm_arch_flush_shadow_all().
+The mm-new branch of mm.git is not included in linux-next
 
-If kvm_arch_flush_shadow_all() advances ahead of stage2_apply_range() and
-completes its operation it guarantees a NULL pointer deref.
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-Since kvm_free_stage2_pgd() is performed under the kvm->mmu_lock this will
-either be observed NULL or not and serialised against
-kvm_free_stage2_pgd().
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Resolve the issue by abstracting the invalidation to a new function,
-kvm_invalidate_vncr_ipa_all(), and check that the pgt is non-NULL before
-dereferencing it.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 7270cc9157f4 ("KVM: arm64: nv: Handle VNCR_EL2 invalidation from MMU notifiers")
-Cc: stable@vger.kernel.org
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: mm/list_lru: don't copy stale shrinker id from non-memcg-aware shrinkers
+Date: Tue, 1 Sep 2026 19:51:04 +0800
+
+With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS for
+shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls back to a
+non-memcg-aware shrinker.  On this fallback path, shrinker->id is never
+assigned and keeps 0 from kzalloc(), which is a valid id belonging to
+whichever memcg-aware shrinker registers first.
+
+__list_lru_init() copies shrinker->id unconditionally, so every list_lru
+backed by such a fallback shrinker (thp-deferred_split, zswap-shrinker,
+workingset shadow nodes, superblock lrus, ...) ends up with
+lru->shrinker_id == 0 instead of -1.
+
+Under nokmem the list_lru collapses to the shared per-node lists, but
+__list_lru_add() still calls set_shrinker_bit() against the memcg of the
+added object.  Most list_lru users are unaffected because their objects
+resolve to a NULL memcg without kmem accounting, but the THP deferred
+split queue holds user folios, which are charged regardless of nokmem. 
+Since no memcg-aware shrinker can register under nokmem, shrinker_nr_max
+stays 0 and every memcg's shrinker_info has map_nr_max == 0, so the first
+folio added by khugepaged triggers on every boot:
+
+  WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
+
+On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register and
+expand the maps, there is no warning; instead bit 0 is set spuriously for
+an unrelated shrinker.
+
+shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set, and all
+readers inside mm/shrinker.c already check the flag before using the id. 
+Make __list_lru_init() do the same and fall back to -1, so
+set_shrinker_bit() is never reached with a bogus id.  The stale
+shrinker->id itself is left as is; cleaning that up is a separate topic.
+
+Verified on a machine booting with cgroup.memory=nokmem and
+CONFIG_TRANSPARENT_HUGEPAGE=y: the warning fires once per boot from
+khugepaged, disappears when nokmem is removed from the command line, and
+no longer triggers with this fix applied and nokmem set.
+
+Link: https://lore.kernel.org/20260901115104.2944996-1-qinyuntan@linux.alibaba.com
+Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Muchun Song <songmuchun@bytedance.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Michal Koutný <mkoutny@suse.com>
+Cc: Xunlei Pang <xlpang@linux.alibaba.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- arch/arm64/kvm/nested.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
-index 17123f0b6dab..f69722e1592a 100644
---- a/arch/arm64/kvm/nested.c
-+++ b/arch/arm64/kvm/nested.c
-@@ -1260,6 +1260,17 @@ void kvm_handle_s1e2_tlbi(struct kvm_vcpu *vcpu, u32 inst, u64 val)
- 	invalidate_vncr_va(vcpu->kvm, &scope);
- }
- 
-+static void kvm_invalidate_vncr_ipa_all(struct kvm *kvm)
-+{
-+	struct kvm_pgtable *pgt = kvm->arch.mmu.pgt;
-+
-+	lockdep_assert_held_write(&kvm->mmu_lock);
-+
-+	/* if the mmu lock was dropped, pgt teardown may have raced. */
-+	if (pgt)
-+		kvm_invalidate_vncr_ipa(kvm, 0, BIT(pgt->ia_bits));
-+}
-+
- void kvm_nested_s2_wp(struct kvm *kvm)
- {
+ mm/list_lru.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+--- a/mm/list_lru.c~mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers
++++ a/mm/list_lru.c
+@@ -666,7 +666,12 @@ int __list_lru_init(struct list_lru *lru
  	int i;
-@@ -1276,7 +1287,7 @@ void kvm_nested_s2_wp(struct kvm *kvm)
- 			kvm_stage2_wp_range(mmu, 0, kvm_phys_size(mmu));
- 	}
  
--	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-+	kvm_invalidate_vncr_ipa_all(kvm);
- }
- 
- void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
-@@ -1295,7 +1306,7 @@ void kvm_nested_s2_unmap(struct kvm *kvm, bool may_block)
- 			kvm_stage2_unmap_range(mmu, 0, kvm_phys_size(mmu), may_block);
- 	}
- 
--	kvm_invalidate_vncr_ipa(kvm, 0, BIT(kvm->arch.mmu.pgt->ia_bits));
-+	kvm_invalidate_vncr_ipa_all(kvm);
- }
- 
- void kvm_nested_s2_flush(struct kvm *kvm)
+ #ifdef CONFIG_MEMCG
+-	if (shrinker)
++	/*
++	 * If the shrinker fell back to being non-memcg-aware (e.g. with
++	 * cgroup.memory=nokmem), its id was never assigned and holds a
++	 * stale 0. Don't let set_shrinker_bit() act on it.
++	 */
++	if (shrinker && (shrinker->flags & SHRINKER_MEMCG_AWARE))
+ 		lru->shrinker_id = shrinker->id;
+ 	else
+ 		lru->shrinker_id = -1;
+_
 
--- 
-2.55.0
+Patches currently in -mm which might be from qinyuntan@linux.alibaba.com are
+
+mm-list_lru-dont-copy-stale-shrinker-id-from-non-memcg-aware-shrinkers.patch
 
