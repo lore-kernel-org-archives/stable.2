@@ -1,141 +1,144 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9E0347CA73
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 13:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268425; cv=none; b=KSbWBiGs8eioC4olVgo++5ig/czKx6F3AVfIKO7xWhEBoSuN5TsyDONMrZPWZvDfsC29ZmfUW1iQMUMZb5MuAki/E/l4Ek3KN/ugMota9jq1Eq1xjR2FMG+jA70A6iJXvut8dRIGEYrYx8ZR9hIFyqv16/SyC8A2AQBY4e+rN5A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268425; c=relaxed/simple;
-	bh=qz0SaQk3SQ761T7x85SQqX6nS4lr/tPFoNL/yc11oWM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eqorraxPFaB6VFg7R5lAMmKDT/8XTdc3/CxR8a90eAJgK2ucM80N0cZl0Dneu6OxYFYTqAbWz8B0IqDj4DIh0qLARKYhkU428rpLHkmIl8axw8h2Qkb+AzNKoBXtLw+ha9TpWDx9sgcOv0J1ZHqb4jlZGx+Q58eSzQLCtx5fLt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ANU2PVlR; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF0531C567
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 13:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788268458; cv=pass; b=QHJxcirNGRpRAolqaSzvd64na8u1w8ugY3mrKZM/bxRbwIQiaHzFnLM/4ifeVdJz7aB0LH7RfZR4f2FspLr41WrqDYDX6VDxqtRvgvcjFNBnYrVwO7vZ+mzPSjMX1yV1uk+CG1lyOcJeMY8MhklQZgDWQgz2g72d7v5Hbig/mYI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788268458; c=relaxed/simple;
+	bh=2pR1VkxS/gjIq/SnugPqlvDTfD4YGBwZDpqDNXMin6Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ucGv+8oaoWJ/pv1r8ZiVZUvEJA0LgHNlX3p+5cd7Y6SWRnBhcc9G6XhlaEcc0VadIrIqu+Zav2UT6w0eW66mvOc+KGCKCupoOxnEYt9bxAAxYnuFth2CwquUHDDfBQuBpBMb6ooFkL8S+EzZtL5LDosDpER3RfJvX+AsifI/DAo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com; spf=pass smtp.mailfrom=futuring-girl.com; dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b=SAv8J9AI; arc=pass smtp.client-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=futuring-girl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=futuring-girl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANU2PVlR"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso54894545e9.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 06:13:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=futuring-girl.com header.i=@futuring-girl.com header.b="SAv8J9AI"
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c25b3c641fbso164648566b.1
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 06:14:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788268454; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a4V27sgtrlp819aRiH55UxFygeVqWBbNtkdlbNeNuQ31ikhJcaLUonde24yU5F7tUH
+         1KCF24SPg5kbYtES4dLU4W0HFxOujwWvtfUGeNhzx3INVr9tnduMOdbBAeu48wiu1dMJ
+         NjRvJEO5UAF3EKMzyXcmfeco4gmckZwfS8FIuldiwadl9+PsQpLGPen6VMHXnbGb+abJ
+         LiTIyPPADQB7T6xX8FnZzMCFb65T7l2ATdVvYNLXyYf18tljRwBw9KCMDuLSqn9tO0CG
+         h4AkBq4LjRXAUGErxGuQSDtovR2Khxky/FoIWPu0CuePE2hsymu8wlwnDP4kfr23Imn6
+         a0YA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LCiwbEfdLnNOg8Pb0k1gzGYTQSSgjciG29caWlJK8d0=;
+        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
+        b=Dq8Lry5RiMPoKeV/3oz8MHHTuX9vpEP3SD9Mkapi4ygRVHgZDKW+5eU7SMNcrQJbjs
+         6E3JXjpEYZNY/4oQzq2cb35ZEZiXnVYcZ0Y5Gs14I885EX1mVwgKHyV0NXteCQAkTA96
+         HVBvaCw5KKHVcDbW1ivP4qhPMrHYUDPOtbNH2A6upFax20ToClwtsAA7lsO/9EfnKp0u
+         2yysGZtVNlcDiw3goX9NX1zyXJc8BMM3A9otA60avkVjhvU0dWq2il9n+4QkApYZiWs7
+         kpUpvmFIq+K91jbtZm4jxpercU+1A4Em8bbKJoM+LabqgejOn0DU0N7yH5cIGommN8dk
+         +ysw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788268422; x=1788873222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kXeoOvwBP+ldx/8gVLXWVNkzbohuXGpUFdUxHm5IJN4=;
-        b=ANU2PVlR0xjDk10WJqeNzE4PntPV11Y7KQ0HLMFGfWM/M1zB/LaUktVc6FaEZ+UzpG
-         knocl7ARmHJpXgtXBIipi5CzN7J/UDkspYvlOIMIHyHb+NStk1VqNNkK7NGjum1ey3BU
-         JzpOuhTnUHrwtw+6doZCLKGlvZd/FY/63aWKo2XdoVKf4lOaIQl5Fk252dhg87vaP5f4
-         PUSGRIme95qlQkrQNQfSSTy9ma8RiEsR58BZf5ZkyZFAgb6P48QJTuTiWm1UaEfaou1r
-         f/Avv1DF2uSgRKvPxAV7fELdiw2nj6xrfrISO13N3xmN8uLe5ZPr1GSgpeasirqdaLPB
-         6xiQ==
+        d=futuring-girl.com; s=google; t=1788268454; x=1788873254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LCiwbEfdLnNOg8Pb0k1gzGYTQSSgjciG29caWlJK8d0=;
+        b=SAv8J9AI1obQLGknoDRqULqqEKkqvYLtJaf2AKqQMbcsuQriNtWj8Qzp/XkEAwogtf
+         wyNsGuejfwqHZoCCqweEk6E255DCABAIT+hh3YBhLNpagYeM6WlMdC+bnkGdxuTINmdb
+         1VT1pXyfB6GK/rKjw3ARrHinIZThHTlgzm+vHeqJCJZGVjMipjEPUGc7C35lVU6PykB4
+         3if4RRwclE/XqbiUSyqcHxCEWaOR0Or8fa9juw/4B2WhGYDtsa6xhOPfqOvhntUSKKKq
+         0jqDL/1zDwoJUNXfJMrl/9nJ96mknCxAMCEExvBH+3X8qSWMjgnfq/3qnO9hCN2DUjBC
+         Nlbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788268422; x=1788873222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kXeoOvwBP+ldx/8gVLXWVNkzbohuXGpUFdUxHm5IJN4=;
-        b=ZXYyxRCFMeSFa6UUdSa+R3/fNcGYxVbbRrhtmEwv4n/4+km9VXTI2jQSAQQQO27vur
-         3r7NaAiDN0AsuhBycSj3eisn1FqF4LtIqX6lT71nOHoIehKR+kWBM/W0ttjNmaY0NMsz
-         gajmLlu8LcbJUqFbXoNsw8SowscPpVRfUbNheL0YdfTF1VeqHI8kVjQU+4fXmIy+8AYB
-         SdBpVdYdxZOW7mB3eg6s6ZjIcyPom6aQmDxumu7BT9nHqdxwLIt5/87t0EODo4TosYQY
-         8V1i3jEihOLZRSGQXY+EanWSARwrNYATzczHnJNzY7MknRx1W1N732dQcEOv+l4Gz/9c
-         nQpQ==
-X-Gm-Message-State: AFuF++mnGBMx+apdh23E4Cgm8rPmxABQJHBeg6H9e8QCwU2spFxx0j2z
-	dpx0qpxwGinEgZVI4FjGZHOp1CN8jeg3ci6KFv9sdStfH01qox7HPVAc3GdUIoT+
-X-Gm-Gg: AR+sD11ROz7k0Q1YMT86FaIHtvRciOvZZaD2UXJCekQwTz2ExzG6K+PeDUm1Lw9hGD8
-	sAmOpEfC21+LByPzIGHOCinRMiIkj01f20QIteQPK7Kuru9wPJApt+UNHWAdm8eyz0aDirLEYiV
-	XSaS36quBJ3N6xq50+0p1v/BkDy3vYsQZZngPTmGXdIQyp5fCs6P3IkUz9J3gjdOOKEVuEZNJck
-	ww38mJKHG2wCQ1bEsvZu+YPVnamleDirQQqjO+iu84yRG1isvwB8xRtH17QypoyqTJWNUr5SPTj
-	D4ItfaYxEQ5SFI6+Jon8bYnpyrp28MP1/PLVE3x8h8evm5x6S9dtE6XSC1JqD4nbALgXWg+9Mqp
-	3cMv+qYb7CukpDRshWGFHzoLkbORbozbYJh3RibcRoKSIATjB07D1iG1evs8G0YayGaJ9QIMG2p
-	rLHjUWKmJkKEAtGKiats0XJKqoOveQH7U9C/+AI6G7tMLmvvYXILBEGOr10h0hjozOyyyiAhiOx
-	MTOjOlHaB3ELuIGQ+/xvHH9A4m6kHA4hzxiFr0K8nbF9KuShJ39jQRHwYBN8SxzeqAFKtXqmes4
-	qIVqon28Vi8xAyXjPE5NXlEwBEtAPNKqX+HkZuvcJAdX8xYXi9lZceBzp2zxuNhyRyJ4IbP9+D+
-	TEFK4pg==
-X-Received: by 2002:a05:600c:3f19:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cdc43d444mr166787295e9.6.1788268421259;
-        Tue, 01 Sep 2026 06:13:41 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d6eafesm4504719f8f.24.2026.09.01.06.13.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 01 Sep 2026 06:13:40 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>,
-	Chen Ridong <chenridong@huaweicloud.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: [PATCH 6.1.y] cgroup/cpuset: Fix misplaced DL migration reset
-Date: Tue,  1 Sep 2026 15:13:35 +0200
-Message-Id: <20260901131335.15553-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+        d=1e100.net; s=20251104; t=1788268454; x=1788873254;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LCiwbEfdLnNOg8Pb0k1gzGYTQSSgjciG29caWlJK8d0=;
+        b=MdbGLedp0D3aY6UpWFonKYSbaQ+yRIhkKg116staxSDkKkpws6l9x/N8TdM7LOOBNN
+         BLR4WrOIH/NmMNJNPjrX4iikbQ9emRideEtx/xigBa2KXgp65bgzLwQ8p3ymFVfIijrN
+         LrlF/SUtqh72ietxgvr620or0uStl99+1J98SkpXxFknlTsvodihD2bSLfPqPV9+UsNo
+         ap/umnJQf36fsPYdqVkndWYfniKSS0bkWJbFGXgu/yE8+8cZhX4L1WRgrM/zH5x8JqmB
+         es48j4fw5mgslVElfo4Pzr5DAMyllIuFuv5lRjKMI7Y82XUg5inCoRLSdWZEWwzh+Nw8
+         hx+w==
+X-Gm-Message-State: AFuF++l1GR/FvdVJsgBIKxKd+be5FqCoIzp4sFTf8uF21Qvc6QSRxWdh
+	N9B8unUeMU7o0kK6PlZa5MVAs67/+WbSCpEmQC95vfDNGbXEMYDU4JYbKpHOR119x8zDuN3xjLE
+	h6TdjXI0s0H4QDBg0c6O7+SqJWDobiBnLtmn+yDcqpg==
+X-Gm-Gg: AR+sD10hRQwNH5cF2RChcEWV6KHHQw0ktYTO68zp+hVPxcxLQSKI1rojfkt4RZG6Or6
+	XfSX5vt3/tXlGmzodx4DE33D682TqpXnq84bl33ww4vB9shrN+qqYansI0IYuf4AbTqExs9tROV
+	urEYHKTUh7zgJz31EUufqYFUAN6UVlhcAF3vfaWPu4dC6MUtEDaAhxVOREHB5WQ1dNkt1Rvlfpl
+	ADke6B6D8LW/AM7xNBygt+GY5FkCZZ40wIrTAqg4FT363qja5kFbtDPoW0dPimz+Dv1h5xI8LzR
+	rM7JvOcSp+kgeL277zzWfW5fTH5xDtuuzVYBL+ZTb98sjQ==
+X-Received: by 2002:a17:906:2b0f:b0:c25:2e93:289e with SMTP id
+ a640c23a62f3a-c25b3cfe381mr399035766b.16.1788268454386; Tue, 01 Sep 2026
+ 06:14:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260831133359.055927882@linuxfoundation.org>
+In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
+From: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
+Date: Tue, 1 Sep 2026 22:13:57 +0900
+X-Gm-Features: AcwNN1X02qBeBEsTRRDLyB_dlk0yVey98jPZ4G08FqdXCZNm1CnWmiScI8Li-c8
+Message-ID: <CAKL4bV45SrCWVaZcbxQtqn-eWKx02v3yiaPXHxPp7sYiekmxiA@mail.gmail.com>
+Subject: Re: [PATCH 7.2 00/71] 7.2.3-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
+	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
+	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
+	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
+	achill@achill.org, sr@sladewatkins.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Mainline commit 4a39eda5fdd8 ("cgroup/cpuset: Reset DL migration state
-on can_attach() failure") puts the common error cleanup in
-cpuset_can_attach().  The 6.1.y backport instead placed that hunk at
-cpuset_can_fork()'s similarly named out_unlock label, while removing
-cpuset_can_attach()'s two existing targeted resets.
+Hi Greg
 
-If cpuset_can_attach() fails after accounting a SCHED_DEADLINE task,
-cgroup_migrate_execute() does not call cpuset_cancel_attach() for the
-failing subsystem.  The temporary migration fields remain set, and a
-later successful migration can consume the stale state and corrupt
-deadline-task and pending-bandwidth accounting.
+On Mon, Aug 31, 2026 at 11:26=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> This is the start of the stable review cycle for the 7.2.3 release.
+> There are 71 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+>         https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-=
+7.2.3-rc1.gz
+> or in the git tree and branch at:
+>         git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable=
+-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
+>
 
-Move the reset to cpuset_can_attach()'s common error exit.  It is not
-needed in cpuset_can_fork(), which never accumulates migration DL state.
+Linux version 7.2.3-rc1 tested.
 
-Fixes: f8a8358832f3 ("cgroup/cpuset: Reset DL migration state on can_attach() failure")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Applies to Linux 6.1.186 and 6.1.187-rc1.
+Build successfully completed.
+Boot successfully completed.
+No dmesg regressions.
+Video output normal.
+Sound output normal.
 
-A controlled QEMU A/B on 6.1.186 forced an attach error after accounting a
-real SCHED_DEADLINE task.  The affected kernel returned with
-nr_migrate_dl_tasks=1 and sum_migrate_dl_bw=104857; both fields were zero
-with this patch.
+Lenovo ThinkPad X1 Carbon Gen10(Intel i7-1260P(x86_64) arch linux)
 
-The equivalent 6.6.y correction is submitted separately.
+[    0.000000] Linux version 7.2.3-rc1rv-g6f58b86f6270
+(takeshi@ThinkPadX1Gen10J0764) (gcc (GCC) 16.2.1 20260810, GNU ld (GNU
+Binutils) 2.47) #1 SMP PREEMPT_DYNAMIC Tue Sep  1 21:07:05 JST 2026
 
- kernel/cgroup/cpuset.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 681b52f6aae5b..7123bb020a242 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -2600,6 +2600,8 @@ static int cpuset_can_attach(struct cgroup_taskset *tset)
- 	 */
- 	cs->attach_in_progress++;
- out_unlock:
-+	if (ret)
-+		reset_migrate_dl_data(cs);
- 	mutex_unlock(&cpuset_mutex);
- 	return ret;
- }
-@@ -3405,8 +3407,6 @@ static int cpuset_can_fork(struct task_struct *task, struct css_set *cset)
- 	cs->attach_in_progress++;
- 
- out_unlock:
--	if (ret)
--		reset_migrate_dl_data(cs);
- 	mutex_unlock(&cpuset_mutex);
- 	return ret;
- }
--- 
-2.53.0
+Tested-by: Takeshi Ogasawara <takeshi.ogasawara@futuring-girl.com>
