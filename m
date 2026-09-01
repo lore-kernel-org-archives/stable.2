@@ -1,181 +1,144 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78AE2EDD40;
-	Tue,  1 Sep 2026 11:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4A730B521
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261567; cv=none; b=rvrb8U6b2sko5IXcHOCAhD67T51NNlWzKnjuY8GbxJ2MDNwcUovW2exrUiKfE2KqK8W3RBjJjIeoedBClS07+PFLLAZAS3gU5I2EEAFqdd35t1Cdk9JJeDYiWkqmXVLOqZU6hGTlnxdKvDjCZS0Ypkc97+murakzOZ+0cQlpYfE=
+	t=1788261576; cv=none; b=fZJJwD2SmhvTAPVM4MA5PHnF1WfRXGXHDeVMHJCsGXv5JwdNAviYv9zBujOHanEt3Nr6G97qruU8J4ePzl+hMN0F5D66YAn5le7MIvoMfJJHYpCYDCBsLfjEPYJah8+Z8NJzmMVlX1AzLyr6riub/i3yeKQxFTGSrVwukaUlIic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261567; c=relaxed/simple;
-	bh=O5/Gq4Sozrq8fxafB+wFsKxEued6lyFBeoF5ApaoUVM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qkz/HYaAXsdyDvnE0pOpveUVmo3byPrRIUT6G8QlFvQt9TA36aDAizgy0ieijCUHXAV05MXSBpHBvTqi/XvpDJTk9FQasvt/QKLOsWaLgYMIuwVWcSgQVrbkfCDTdyD8nxRlTNWBqBova8557txcKgRHtb8uMwOSZcon1mTu1DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=nzQ1A9K+; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788261576; c=relaxed/simple;
+	bh=NAJ34+j/FZPdh5cm8G/e7AeopyVJWvaeFOSryX3jWXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J6g76u61Kzu3lkM3Kv1uuoCBIa7KcJo7f5Fw8TJj4EZiSpME7nbtTApWzBqTM/kzm5F8O8DMEAV4z9kSCJIikI6ek+163aE25yhFVtDapFC2grS8i9o7/HHPKVO7hbbO1L6TWU4XzgE7ZIcwRnEg4yz3k211A4wZGiQig2/S4sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpKbQ1z5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="nzQ1A9K+"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AVXkm3265893;
-	Tue, 1 Sep 2026 11:19:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=6FV5bMe4QDiQpLPzmmsiXUj1rxjFFm
-	WD7IU07/i9G/s=; b=nzQ1A9K+7LN/GF9nfG14Jsh0WnTyv6AhPBkVdue5GneiZ+
-	DGhulo9TJTPFced2+NlO+deH44iYBT35zF2hWKIMZN63SZOq1Pc6yhpYBPK68cfL
-	Wby0idGj/YQDsaE9KMFLlE3tWMcNzupExBAvHAkN0TjR6it6QwwmhQBQS1fPUIiU
-	QmuTSfDBjxd0UcLg20BZV1o/v2jBxW+cl1in8tJ1PEZ4fL9Zwdp1/cqFRDEgTZWD
-	VqTW2hmemxQX9Aqtn0ewaWaCuBrY5by2wcyykUjHgQWaidqqh9Zpi2dbIgi3ur+f
-	iIJUJ8B2KUICTthpyKTKDCC7ZS+M4DHl7mSS6xfA==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3r7bj8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 11:19:24 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 681BBJ0d024015;
-	Tue, 1 Sep 2026 11:19:23 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygb5s9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 11:19:23 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 681BJKVI49742148
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Sep 2026 11:19:20 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E4A192004E;
-	Tue,  1 Sep 2026 11:19:19 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AE2EB2004B;
-	Tue,  1 Sep 2026 11:19:19 +0000 (GMT)
-Received: from osiris (unknown [9.111.45.16])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  1 Sep 2026 11:19:19 +0000 (GMT)
-Date: Tue, 1 Sep 2026 13:19:18 +0200
-From: Heiko Carstens <hca@linux.ibm.com>
-To: Thomas Richter <tmricht@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, stable@vger.kernel.org,
-        Jan Polensky <japo@linux.ibm.com>
-Subject: Re: [PATCH 3/3 v8] s390/pai: Support CPU hotplug for PMU PAI
-Message-ID: <20260901111918.14482C40-hca@linux.ibm.com>
-References: <20260901085448.2260658-1-tmricht@linux.ibm.com>
- <20260901085448.2260658-4-tmricht@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpKbQ1z5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD8B1F000E9;
+	Tue,  1 Sep 2026 11:19:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788261574;
+	bh=EpoHnA4gYhjRkBUidovYXn2tGz6LRxQEQlle+xuQEgs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UpKbQ1z57phPzH8MBFPC2iVn/hhxTUMR4ni2YyzPlq2fAOhSkIqtllm1YsLdpE61R
+	 qmEWa6Dc2HO/BdGs0l9rZH59X/dFCnLE6cl8xfM25d3+R0HeDfz5xGiwWE2skEdfZW
+	 eAYBYuB1AtSpJdG4Mu6oagxnsiB05jQSUx3SEm9MjvzAeLfViLaNsrE3llJitA2/dc
+	 OukLI63ejD0fxCT+3aOcVLIgS5eyocLG/ADZwjIoCulysv0nzbvqFeZDDtBf4FZpfR
+	 clQyJQzviNBZMX5+zESONL4Z6zLUw5doI1i5uVyo+GQ5/mMgvAAwZZZIsalZvkCUSb
+	 jTcPbpYyJSdKQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Breno Leitao <leitao@debian.org>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] usb: xhci: bail out of setup if the controller is inaccessible
+Date: Tue,  1 Sep 2026 07:19:31 -0400
+Message-ID: <20260901111932.42246-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026083123-overbuilt-setback-14b9@gregkh>
+References: <2026083123-overbuilt-setback-14b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901085448.2260658-4-tmricht@linux.ibm.com>
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a96b4bc cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=dd3EgOEQJ-V_zgGiuFcA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5OCBTYWx0ZWRfX24uhHMFkSSIy
- Y7x7EvEDiUsCiqMdwQvQt8x2wOADxOryc3uqVdoEt2JeLV1CF1GxXxrnqcanurJSLgpyn1x4bFN
- NVfLDgi/PbhyJW5NQlr0Se/jt/yWkUIJ0XkqOrExMZ10IVobOe08W07CC0SEXLfG2Shi0MQZIf3
- TIO2UMIKZNKVZNa0RjM3cd2ynwQ/BAhNpD70pe3SyXeqh8Tw3DkQzNlhtOD7Alofw9+D+H3sAjm
- QUYLEGLMH8b4/kuro7mYLc0SyNZMEki5/Aqeqp3Y1i2z8CkyjdJ9iKRJ3yrAcfDsc2HhxMmGtwj
- /KtpntZjZuxH7fyHXQ2mmn3Ew7PXFLZQyFj0ODjImZF62iApUEBxS7Yg+p1cfFVnM678K+4eBUg
- gaxUeQtS4eLx88vMZS7P1gWIAbJir85LJpxlOwgKkJcQ9HRXRuB8OVrWgbgqJIXlBgHoMzjh7v5
- 8SbsqKwWV8EUBMdpfgw==
-X-Proofpoint-GUID: -SzUILIe8VU6tbeuERS7DFg5vi4zNe3y
-X-Proofpoint-ORIG-GUID: -SzUILIe8VU6tbeuERS7DFg5vi4zNe3y
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5OCBTYWx0ZWRfX9UjTMdMHkzrd
- 9BN0iu9EU5uNrT1f1BwB2te92U9RTcs9wCRe6KA2EyPAkh97YVdy/i2ndHPJlCKunnm8r85kRzn
- q+hl0yEE1XBtubl09DHrgKhxKbb02Lk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010098
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 10:54:48AM +0200, Thomas Richter wrote:
-> +static int pai_online_cpu(unsigned int cpu)
-> +{
-> +	int rc;
-> +
-> +	mutex_lock(&pai_reserve_mutex);
-> +	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
-> +	if (!rc) {
-> +		rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
-> +		if (rc)
-> +			pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-> +	}
-> +	mutex_unlock(&pai_reserve_mutex);
-> +	return rc;
-> +}
+From: Breno Leitao <leitao@debian.org>
 
-This unusual coding style. Please change to something like:
+[ Upstream commit 78203d5b54a40f0e36196ebf31c9c7a380fc8811 ]
 
-	mutex_lock(&pai_reserve_mutex);
-	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
-	if (rc)
-		goto out;
-	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
-	if (rc)
-		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-out:
-	mutex_unlock(&pai_reserve_mutex);
-> +	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
-> +	rc = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
-> +			       pai_online_cpu, pai_offline_cpu);
-> +	if (rc < 0) {
-> +		debug_unregister_view(paidbg, &debug_sprintf_view);
-> +		debug_unregister(paidbg);
-> +		return rc;
-> +	}
-> +
->  	if (!paipmu_setup()) {
-> +		cpuhp_remove_state(rc);
->  		/* No PMU registration, no need for debug buffer */
->  		debug_unregister_view(paidbg, &debug_sprintf_view);
->  		debug_unregister(paidbg);
+xhci_gen_setup() locates the operational registers using the capability
+length read from the very first register:
 
-Code duplication. Can't we have _something_ like:
+	xhci->op_regs = hcd->regs +
+		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
 
-diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
-index 72023b35e70f..e1134e50f3e9 100644
---- a/arch/s390/kernel/perf_pai.c
-+++ b/arch/s390/kernel/perf_pai.c
-@@ -1316,20 +1316,19 @@ static int __init pai_init(void)
- 	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
- 	rc = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
- 			       pai_online_cpu, pai_offline_cpu);
--	if (rc < 0) {
--		debug_unregister_view(paidbg, &debug_sprintf_view);
--		debug_unregister(paidbg);
--		return rc;
--	}
--
--	if (!paipmu_setup()) {
--		cpuhp_remove_state(rc);
--		/* No PMU registration, no need for debug buffer */
--		debug_unregister_view(paidbg, &debug_sprintf_view);
--		debug_unregister(paidbg);
--		return -ENODEV;
--	}
-+	if (rc < 0)
-+		goto out_debug;
-+	rc = -ENODEV;
-+	if (!paipmu_setup())
-+		goto out_cpuhp;
- 	return 0;
-+
-+out_cpuhp:
-+	cpuhp_remove_state(rc);
-+out_debug:
-+	debug_unregister_view(paidbg, &debug_sprintf_view);
-+	debug_unregister(paidbg);
-+	return rc;
- }
+If the controller is dead or has dropped off the bus, that read returns
+~0, HC_LENGTH() truncates it to 0xff, and op_regs ends up 0xff bytes
+past the page-aligned MMIO base, i.e. unaligned. The first access
+through it, xhci_halt() -> xhci_handshake() reading op_regs->status, is
+then an unaligned readl() on device memory. arm64 faults on unaligned
+device accesses, so instead of xhci_handshake() catching the all-ones
+value and returning -ENODEV, setup oopses:
+
+  xhci-pci-renesas 0005:08:00.0: Unable to change power state from D3cold to D0, device inaccessible
+  xhci-pci-renesas 0005:08:00.0: xHCI Host Controller
+  xhci-pci-renesas 0005:08:00.0: new USB bus registered, assigned bus number 1
+  Unable to handle kernel paging request at virtual address ffff80030a770103
+    ESR = 0x0000000096000021
+    FSC = 0x21: alignment fault
+  Internal error: Oops: 0000000096000021 [#1]  SMP
+  pc : xhci_halt [xhci_hcd]
+  Call trace:
+   xhci_halt
+   xhci_gen_setup
+   xhci_pci_setup
+   usb_add_hcd
+   usb_hcd_pci_probe
+   xhci_pci_common_probe
+   xhci_pci_renesas_probe
+
+This was hit with a Renesas uPD720201 that failed to power up ("Unable
+to change power state from D3cold to D0, device inaccessible") yet still
+reached the HCD probe path.
+
+Read the capability register once, and if it reads back the all-ones
+value (as xhci_handshake() and xhci_reset() already test for), abort
+setup with -ENODEV before op_regs is derived from it. Reading it once
+also avoids re-reading a register that may change under a concurrent
+hot-removal.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+Link: https://patch.msgid.link/20260806142113.2436238-11-mathias.nyman@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[ adapted the double hc_capbase register read via hcc_params/hci_version to use a single new local hc_capbase variable ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/host/xhci.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/host/xhci.c b/drivers/usb/host/xhci.c
+index 2cc27dba08e2d..81b1fb22dc932 100644
+--- a/drivers/usb/host/xhci.c
++++ b/drivers/usb/host/xhci.c
+@@ -5243,6 +5243,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 	struct device		*dev = hcd->self.sysdev;
+ 	unsigned int		minor_rev;
+ 	int			retval;
++	u32			hc_capbase;
  
- device_initcall(pai_init);
+ 	/* Accept arbitrarily long scatter-gather lists */
+ 	hcd->self.sg_tablesize = ~0;
+@@ -5309,16 +5310,19 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
+ 
+ 	mutex_init(&xhci->mutex);
+ 	xhci->cap_regs = hcd->regs;
+-	xhci->op_regs = hcd->regs +
+-		HC_LENGTH(readl(&xhci->cap_regs->hc_capbase));
++	hc_capbase = readl(&xhci->cap_regs->hc_capbase);
++	if (hc_capbase == U32_MAX) {
++		xhci_warn(xhci, "Host controller not accessible, removed?\n");
++		return -ENODEV;
++	}
++	xhci->op_regs = hcd->regs + HC_LENGTH(hc_capbase);
+ 	xhci->run_regs = hcd->regs +
+ 		(readl(&xhci->cap_regs->run_regs_off) & RTSOFF_MASK);
+ 	/* Cache read-only capability registers */
+ 	xhci->hcs_params1 = readl(&xhci->cap_regs->hcs_params1);
+ 	xhci->hcs_params2 = readl(&xhci->cap_regs->hcs_params2);
+ 	xhci->hcs_params3 = readl(&xhci->cap_regs->hcs_params3);
+-	xhci->hcc_params = readl(&xhci->cap_regs->hc_capbase);
+-	xhci->hci_version = HC_VERSION(xhci->hcc_params);
++	xhci->hci_version = HC_VERSION(hc_capbase);
+ 	xhci->hcc_params = readl(&xhci->cap_regs->hcc_params);
+ 	if (xhci->hci_version > 0x100)
+ 		xhci->hcc_params2 = readl(&xhci->cap_regs->hcc_params2);
+-- 
+2.53.0
+
