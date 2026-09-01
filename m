@@ -1,46 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF2939A7E5;
-	Tue,  1 Sep 2026 01:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06627355803;
+	Tue,  1 Sep 2026 01:21:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225717; cv=none; b=YQockZrnNFvgrvbgwsZonu+0L32nKcYJ2jXOnvzDgvs4QYTwcn7DFdzI4z4DV18TaRWciLlKsYTrW8j5nVlX5Cn0Rgc3f9VC/y1fb4NCQoHkwnGALAyIMnPpuXbEBzU1ixFV5a+OgIG6U7TO21givke3Xy3cCu7MaZ4ONBxMvjc=
+	t=1788225718; cv=none; b=tE396gHv9yGxLo/FKjr8rt9MHlzn9B54PnJwHqyDhrT+pOZ+AQpBhwDrHWUObkz0+pXj6J02Qo7v6Eow6sAKFrTkLUaYcIFewNW/xXqJEJLuy3pWP7g0dbkqmN0XsoM8+nUOq8907bOVAfGcsQyD75oXZW0ijCyec7z0xLaI3GY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225717; c=relaxed/simple;
-	bh=++J7cXlEmUpRE8piZkq+UntvdlAo7H21rgdE18DPugU=;
+	s=arc-20240116; t=1788225718; c=relaxed/simple;
+	bh=cB89cDMEEqDThPkLnO84NeMoAsdM/l0LNXFdQfBzY94=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BmSw6G4W7GrmF/7cpBj0dxKBEXJ/crBCIpn1nXjF2cNYaJQXTL8OEfYOXV0QKxyvn6mo/3r9WF599G9taylHCRiQkyzShaR6r8bEcN+bGSu8qwqV3sl5b6Nr/Hp1bmfJSfZCiNzqMMJvpmr0uvuELFhWHZTcmbBluC32+0i/Ffs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/0FdoO5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cRnLcMukgr+YdNWcFcBY5YQ3CQXTqzA0G0PWBJpWj94TlsYe5gWGoa2yFVLf9uTO//wVe/+EUgCZKG4m4sELa+M/CaOQnHLKH/9B03L45rhxs4zOIazRFv24fH3MTpLueVhNcJxyWLR5SB8G7DIztxBm2gsmii2aE2uQkzxUYSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lrYZkVU8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/0FdoO5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57DD21F000E9;
-	Tue,  1 Sep 2026 01:21:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lrYZkVU8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FF31F00A3F;
+	Tue,  1 Sep 2026 01:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788225715;
-	bh=CvJNWacLfzkz7xlM5/HVuXznG9juQQyZz0vxPso6JtQ=;
+	s=k20260515; t=1788225716;
+	bh=QBdUVaXmnsficgyAZ6a/uotxS9hvkMAlUvTvgvoTIYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L/0FdoO50NEALYzDX7ddDBxBxeQOKr1838kMhSbm6dG/g4tETeLAeH5KAhJSacrgR
-	 GSqIc70C0b2pXqlw8M54r4hhpWAfrt0LjQ4i5tKzPAtHDk3AYCb032DhZNm3TwpON6
-	 apUSLg5gYiw21w0yomJDJkz6m0lZjZmMGyGceMWMSTp2SpIlH97zDjntg3jCKg6LNu
-	 r5VCfjsvPiwpKI0BiI1fBbRk3qol+DQIUhW93NARFVLIfcU14zY91RUsSDLZ94WKuO
-	 +Ic0kMJuWch8NV5xAA7Eldtn3+FQ6OWPWCl+LT5+Ps54uRxm0/sXJ2oZlNcPbhAHFo
-	 cOHZKnhyAmcUg==
+	b=lrYZkVU8GXUY3oKmWLqdUGt/YfpBXqQVfk+KQz8tr5TRgjvYQ4ND1evUU2DXd/nVq
+	 A/DCSB5TAw/RedREy/u3j8nbAq0sO8/ZZzpPSSqn7SU3OnuDCyMgULmKvC++cjHS14
+	 eSrbDTDD8FEJL92Ts+L7yRg+8eYRRU8vhfjhfT0GJNwckMNi/EnDEu7zMZMbGICzTa
+	 e3dc5wTerx36exknn4Grag84aJNXO8SX201WSrghffU/eBXyK4dkmN9Y621bf8FQfU
+	 7bUcYtOZv+c0zb7ZsBgmgRYxIED8yJAGpnb3iuKzZAvgwb+Lx2ir0MvfbI431kAc+c
+	 caVV12LGRLe4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Fedor Pchelkin <pchelkin@ispras.ru>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-usb@vger.kernel.org,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: Re: [PATCH 5.10] Revert "USB: serial: keyspan_pda: fix information leak"
-Date: Mon, 31 Aug 2026 21:21:45 -0400
-Message-ID: <20260831-daily-reply-0001-keyspan-pda-5-10@kernel.org>
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: Re: [PATCH 6.6.y v2] Revert "arm64: mm: Don't remap pgtables for allocate vs populate"
+Date: Mon, 31 Aug 2026 21:21:46 -0400
+Message-ID: <20260831-daily-reply-0002-arm64-idmap-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260830145321.100701-1-pchelkin@ispras.ru>
-References: <20260830145321.100701-1-pchelkin@ispras.ru>
+In-Reply-To: <20260831152906.7000-1-kmehltretter@gmail.com>
+References: <20260831152906.7000-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,14 +52,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This reverts commit cccef1711efbcdbe999738ac27d37b9ef6271abd which is
-> commit 6bfc8d01ac4068eced509f8fc74d0cd205e4dcec upstream.
+> This reverts commit 54322d95309d9aa4cb77b34ee4b6c8b541f3e21f.
 >
-> The 5.10 backport is incorrect - instead of keyspan_pda_write_start() it
-> touches the wrong function keyspan_pda_write() which now returns an
-> incorrect number of buffered bytes.
+> The 6.6.y backport removes the clearing performed by
+> early_pgtable_alloc(). Its replacement clears allocations made by the
+> generic page-table walkers, but 6.6's create_idmap() still allocates an
+> extra root level directly when a sub-48-bit VA kernel is loaded
+> sufficiently high in physical memory.
 
-Queued for 5.10, thanks.
+Queued for 6.6, thanks.
 
 -- 
 Thanks,
