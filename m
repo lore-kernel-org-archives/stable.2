@@ -1,47 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132923C1D43
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 14:31:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0313B1029
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 14:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273114; cv=none; b=pausuamYsnoqm/7+tyiqIhGJjDFa8+/IODjo8QK5NeDNP9oMSD/emTx3Ku7oPdnhoE0qNJ1FnSiJD08pEXJbNZyAJSvH5nYw8fpzNlMYxyZtAZZQQyy75CX0KIhB0s7tPF1pyItLSgjvgIVOJAiN0jlegeQ/LSzez37PlcXaFTA=
+	t=1788273115; cv=none; b=Ndfhx34pNrPk20A7zwf4UsLIhOpFwupTmpIl54RjTK9vjgHz5tC9rPsmCToNHR7+x5bVRv3CutbRhW3lE6fkw6W5b3h7rq7HfReN61w42px+Bjbqwe6oGwKuHMQsyGNP9Db8GWe3/V9W0+xHHCtKk8DCXD0w83y4ofM0ZlbRPl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273114; c=relaxed/simple;
-	bh=fyw1qQlXcBDlEccOwqKO15ZoBc9m8StgyDqtxZqpBEQ=;
+	s=arc-20240116; t=1788273115; c=relaxed/simple;
+	bh=cS5AQkLPNnURVHwP5kEIS4vLsfIJnZhAAbTUr8nCwtw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bOCC4cQsldAIrIexkt7IBUSuX4YLxKcrSU1kB/57lVQvRQYqsfg1BW18Ci1vL7B6LeiuHo974pVAlkPqO3r+Jjx1BeMLGWOzqouHhA2jZbCYfelkv+uAbaB9oQWNQ7RrnRhbHdQjumGn1NciZ8Uhj32lDwUPGeCII0HId378+oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S0zKWWER; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=no/buhJf8SepOSxYCAvusbPLkP4mOn6g45VCjWiwU9vIpczQa0b1onGF0N/8p7fot9Ta/ZY72vztnGYvn1SxQoBlfSu9dbygbijEkMyP90/DgezUgkWphAwRLrR4WCpflw9rpI+iJocEUY0qWcOMcWenC7I0wo85TzEAKqnyImM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kea/9pa3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S0zKWWER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30141F000E9;
-	Tue,  1 Sep 2026 14:31:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kea/9pa3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D661F00A3F;
+	Tue,  1 Sep 2026 14:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788273112;
-	bh=Qo0bk9c4q6cqUGQ4/RRDniHpAC0ZX0kh7q8jiUvq6SU=;
+	s=k20260515; t=1788273113;
+	bh=RmAEVAKIWWFhiomeVJTnPJGufRmlTNwN5gEGe18yh4U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S0zKWWER7CIswHA5G30bMAlUOtzrCCoG5dgd1n2TDGHHAJPvrcfAABa/gG8hgN9sI
-	 7BYg+leIgBbBClBhYczXCRZKzb8vSqUB2xN/cdjkGl9BpwooZQ1KkuIbY9SE8LfMN/
-	 nEuDq8i6JLKyHpWz+dlvK15s8YCf5ihA1oLj2xVr9G64zRAFqP6hvd8RzQA0+/ndhL
-	 kL5zvVb9WMf8bbPnA5iSargE96+g+oJUbD4Z/2FyVcE0tisO7oPJPhyk7gOt6F0+LP
-	 R61uHl3wJ3a8KCmhc0ObjrzmgfnPardf5q0p6GBJVyo53MbRb25KrdK7Wn/qeTc6DH
-	 KhJtXLUhDU4FQ==
+	b=kea/9pa3f2Jcoxw7k/HcJlfnCRK5CaZivVstknnInLDPJ/1UsnDcjZEHhMDNQ2hGA
+	 8vdXtPu14mufGOVJY3DWbTCMCW4Qh4qf/6YQUWhPcVJhZZpwf6zAezbWylYf2Cv71e
+	 kCgMB2X+l2Qd/KRX+J01ij2nDSvx87XPNmUoHNIkQk6cVJmNlAUd7JEBpy/nFQ7KHH
+	 ClV8/lpUMMNAn+XU03avxEUVwtmW69nKvV7ApicHJjRE68HStopHKWdyR9UKMNQHSW
+	 bu5dqaxc+SXhwpaE5dOJ+59xrCBzsfpnE1VOj8B3R4CQYx3c3+Ts0Q1BNTzgUCkMu6
+	 XBKlF2yxTgvpg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	syzbot+09da62a8b78959ceb8bb@syzkaller.appspotmail.com,
-	syzbot+cb67c392b0b8f0fd0fc1@syzkaller.appspotmail.com,
-	syzbot+9bb8bd77f3966641f298@syzkaller.appspotmail.com,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Stanislav Fomichev <sdf@fomichev.me>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Tangxin Xie <xietangxin@h-partners.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] vlan: defer real device state propagation to netdev_work
-Date: Tue,  1 Sep 2026 10:31:49 -0400
-Message-ID: <20260901143150.1081831-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] vlan: fix skb_under_panic and races when toggling HW VLAN offload
+Date: Tue,  1 Sep 2026 10:31:50 -0400
+Message-ID: <20260901143150.1081831-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083119-eldest-saucy-a3c3@gregkh>
+In-Reply-To: <20260901143150.1081831-1-sashal@kernel.org>
 References: <2026083119-eldest-saucy-a3c3@gregkh>
+ <20260901143150.1081831-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,170 +47,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jakub Kicinski <kuba@kernel.org>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit cd1c188db1091991fc1d7f565824d077d659425b ]
+[ Upstream commit 447cbe95ebb95392b5d8f6a01c0556826919ce23 ]
 
-vlan_device_event() generates nested UP/DOWN, MTU and feature
-change events. It executes an event for the VLAN device directly
-from the notifier - while the locks of the lower device are held.
+Toggling hardware VLAN TX offload (NETIF_F_HW_VLAN_CTAG_TX or
+NETIF_F_HW_VLAN_STAG_TX) on a lower device invokes vlan_transfer_features(),
+which dynamically changed vlandev->hard_header_len.
 
-This causes deadlocks, for example:
+This causes two issues:
+1. Lockless TX paths (e.g. packet_snd in af_packet.c, ip6_finish_output2)
+   read dev->hard_header_len without holding RTNL lock. Mutating
+   hard_header_len dynamically under RTNL creates a data race where upper
+   layers reserve insufficient headroom based on a stale hard_header_len,
+   resulting in skb_under_panic when vlan_dev_hard_header() is called.
+2. In addition, vlan_transfer_features() updated hard_header_len without
+   updating header_ops, causing a mismatch between allocated headroom
+   and header creation.
 
-  bond    (3) bond_update_speed_duplex(vlan)
-    |           ^                v
-  vlan    (2) UP(vlan)    (4) vlan_ethtool_get_link_ksettings()
-    |           ^                v
-  dummy   (1) UP(dummy)   (5) __ethtool_get_link_ksettings()
+Always setting dev->hard_header_len = real_dev->hard_header_len and
+dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN unconditionally
+ensures:
+- dev->hard_header_len remains 100% static and immutable at real_dev->hard_header_len,
+  eliminating all dynamic runtime updates and data races on hard_header_len.
+- Upper layers allocating skbs via LL_RESERVED_SPACE() will always reserve
+  sufficient headroom for software VLAN tag insertion (real_dev->hard_header_len +
+  real_dev->needed_headroom + VLAN_HLEN).
+- vlandev inherits real_dev->needed_tailroom so underlying trailer/padding/ICV
+  requirements are honored.
+- AF_PACKET SOCK_RAW network header offsets remain correctly aligned at
+  real_dev->hard_header_len.
+- vlan_header_ops is used unconditionally.
 
-The dummy device is ops locked, vlan creates a nested event (2),
-then bond wants to ask vlan for link state (3). bond uses the
-"I'm already holding the instance lock" flavor of API. But in
-this case the lock held refers to vlan itself. We hit vlan's
-link settings trampoline (4) and call __ethtool_get_link_ksettings()
-which tries to lock dummy. Deadlock. There's no clean way for us
-to tell the vlan_ethtool_get_link_ksettings() that the caller
-is already in lower device's critical section.
+Note to stable teams: Make sure to backport these commits:
 
-Defer the propagation to the per-netdev work facility instead:
-the notifier only schedules netdev_work_sched(vlandev, VLAN_WORK_*),
-and ndo_work (vlan_dev_work) applies the change later. Hopefully
-nobody expects the VLAN state changes to be instantaneous.
+e16e960d55a4 ("ipvlan: inherit needed_headroom and needed_tailroom from phy_dev")
+cef51860becd ("macvlan: inherit needed_headroom and needed_tailroom from lowerdev")
 
-If someone does expect the changes to be instantaneous we will
-have to do the same thing Stan did for rx_mode and "strategically"
-place sync calls, to make sure such delayed works are executed
-after we drop the ops lock but before we drop rtnl_lock.
-
-Stan suggests that if we need that down the line we may
-consider reshaping the mechanism into "async notifications".
-AFAICT only vlan does this sort of netdev open chaining,
-so as a first try I think that sticking the complexity into
-the vlan code makes sense.
-
-One corner case is that we need to cancel the event if user
-explicitly changes the state before work could run. Consider
-the following operations with vlan0 on top of dummy0:
-
-  ip link set dev dummy0 up    # queues work to up vlan0
-  ip link set dev vlan0 down   # user explicitly downs the vlan
-  ndo_work                     # acts on the stale event
-
-Reported-by: syzbot+09da62a8b78959ceb8bb@syzkaller.appspotmail.com
-Reported-by: syzbot+cb67c392b0b8f0fd0fc1@syzkaller.appspotmail.com
-Reported-by: syzbot+9bb8bd77f3966641f298@syzkaller.appspotmail.com
-Fixes: 9f275c2e9020 ("net: ethtool: make sure __ethtool_get_link_ksettings() is ops-locked")
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Link: https://patch.msgid.link/20260624182018.2445732-4-kuba@kernel.org
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Tangxin Xie <xietangxin@h-partners.com>
+Closes: https://lore.kernel.org/netdev/99d678ae-c7b2-4b44-b534-b8320679deb3@h-partners.com/
+Cc: <stable@vger.kernel.org> # 3.19: e16e960d55a4: ipvlan: inherit needed_headroom and needed_tailroom from phy_dev
+Cc: <stable@vger.kernel.org> # 3.19: cef51860becd: macvlan: inherit needed_headroom and needed_tailroom from lowerdev
+Cc: <stable@vger.kernel.org> # 3.19
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260811085246.2267779-1-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-[ sashal: Reduced backport -- upstream cd1c188db1091 touches 5 file(s), this
-  backport carries 3. Not backported here:
-  Documentation/networking/netdevices.rst
-  net/core/dev.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 447cbe95ebb9 ("vlan: fix skb_under_panic and races when toggling HW VLAN offload")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/8021q/vlan.c     | 23 -----------------------
- net/8021q/vlan.h     |  2 ++
- net/8021q/vlan_dev.c | 25 ++++++++++++++++++++++++-
- 3 files changed, 26 insertions(+), 24 deletions(-)
+ net/8021q/vlan_dev.c | 39 +++++++--------------------------------
+ 1 file changed, 7 insertions(+), 32 deletions(-)
 
-diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-index 7c77482f31594..3744333b5e85f 100644
---- a/net/8021q/vlan.c
-+++ b/net/8021q/vlan.c
-@@ -317,29 +317,6 @@ static void vlan_sync_address(struct net_device *dev,
- 	ether_addr_copy(vlan->real_dev_addr, dev->dev_addr);
- }
+diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
+index 14908b8f5b0da..39fcb352541ba 100644
+--- a/net/8021q/vlan_dev.c
++++ b/net/8021q/vlan_dev.c
+@@ -500,26 +500,6 @@ static const struct header_ops vlan_header_ops = {
+ 	.parse_protocol = vlan_parse_protocol,
+ };
  
--static void vlan_transfer_features(struct net_device *dev,
--				   struct net_device *vlandev)
+-static int vlan_passthru_hard_header(struct sk_buff *skb, struct net_device *dev,
+-				     unsigned short type,
+-				     const void *daddr, const void *saddr,
+-				     unsigned int len)
 -{
--	struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
+-	struct vlan_dev_priv *vlan = vlan_dev_priv(dev);
+-	struct net_device *real_dev = vlan->real_dev;
 -
--	netif_inherit_tso_max(vlandev, dev);
+-	if (saddr == NULL)
+-		saddr = dev->dev_addr;
 -
+-	return dev_hard_header(skb, real_dev, type, daddr, saddr, len);
+-}
+-
+-static const struct header_ops vlan_passthru_header_ops = {
+-	.create	 = vlan_passthru_hard_header,
+-	.parse	 = eth_header_parse,
+-	.parse_protocol = vlan_parse_protocol,
+-};
+-
+ static const struct device_type vlan_type = {
+ 	.name	= "vlan",
+ };
+@@ -572,14 +552,10 @@ static int vlan_dev_init(struct net_device *dev)
+ 	dev->fcoe_ddp_xid = real_dev->fcoe_ddp_xid;
+ #endif
+ 
+-	dev->needed_headroom = real_dev->needed_headroom;
+-	if (vlan_hw_offload_capable(real_dev->features, vlan->vlan_proto)) {
+-		dev->header_ops      = &vlan_passthru_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len;
+-	} else {
+-		dev->header_ops      = &vlan_header_ops;
+-		dev->hard_header_len = real_dev->hard_header_len + VLAN_HLEN;
+-	}
++	dev->needed_headroom = real_dev->needed_headroom + VLAN_HLEN;
++	dev->needed_tailroom = real_dev->needed_tailroom;
++	dev->header_ops      = &vlan_header_ops;
++	dev->hard_header_len = real_dev->hard_header_len;
+ 
+ 	dev->netdev_ops = &vlan_netdev_ops;
+ 
+@@ -794,10 +770,9 @@ void vlan_transfer_features(struct net_device *dev,
+ 
+ 	netif_inherit_tso_max(vlandev, dev);
+ 
 -	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
 -		vlandev->hard_header_len = dev->hard_header_len;
 -	else
 -		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
--
--#if IS_ENABLED(CONFIG_FCOE)
--	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
--#endif
--
--	vlandev->priv_flags &= ~IFF_XMIT_DST_RELEASE;
--	vlandev->priv_flags |= (vlan->real_dev->priv_flags & IFF_XMIT_DST_RELEASE);
--	vlandev->hw_enc_features = vlan_tnl_features(vlan->real_dev);
--
--	netdev_update_features(vlandev);
--}
--
- static int __vlan_device_event(struct net_device *dev, unsigned long event)
- {
- 	int err = 0;
-diff --git a/net/8021q/vlan.h b/net/8021q/vlan.h
-index c7ffe591d5936..b493a8c0721c7 100644
---- a/net/8021q/vlan.h
-+++ b/net/8021q/vlan.h
-@@ -126,6 +126,8 @@ int vlan_filter_push_vids(struct vlan_info *vlan_info, __be16 proto);
- void vlan_filter_drop_vids(struct vlan_info *vlan_info, __be16 proto);
++	vlandev->needed_headroom = dev->needed_headroom + VLAN_HLEN;
++	vlandev->needed_tailroom = dev->needed_tailroom;
++	vlandev->hard_header_len = dev->hard_header_len;
  
- /* found in vlan_dev.c */
-+void vlan_transfer_features(struct net_device *dev,
-+			    struct net_device *vlandev);
- void vlan_dev_set_ingress_priority(const struct net_device *dev,
- 				   u32 skb_prio, u16 vlan_prio);
- int vlan_dev_set_egress_priority(const struct net_device *dev,
-diff --git a/net/8021q/vlan_dev.c b/net/8021q/vlan_dev.c
-index c08228d488346..14908b8f5b0da 100644
---- a/net/8021q/vlan_dev.c
-+++ b/net/8021q/vlan_dev.c
-@@ -520,7 +520,7 @@ static const struct header_ops vlan_passthru_header_ops = {
- 	.parse_protocol = vlan_parse_protocol,
- };
- 
--static struct device_type vlan_type = {
-+static const struct device_type vlan_type = {
- 	.name	= "vlan",
- };
- 
-@@ -787,6 +787,29 @@ static const struct ethtool_ops vlan_ethtool_ops = {
- 	.get_ts_info		= vlan_ethtool_get_ts_info,
- };
- 
-+void vlan_transfer_features(struct net_device *dev,
-+			    struct net_device *vlandev)
-+{
-+	struct vlan_dev_priv *vlan = vlan_dev_priv(vlandev);
-+
-+	netif_inherit_tso_max(vlandev, dev);
-+
-+	if (vlan_hw_offload_capable(dev->features, vlan->vlan_proto))
-+		vlandev->hard_header_len = dev->hard_header_len;
-+	else
-+		vlandev->hard_header_len = dev->hard_header_len + VLAN_HLEN;
-+
-+#if IS_ENABLED(CONFIG_FCOE)
-+	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
-+#endif
-+
-+	vlandev->priv_flags &= ~IFF_XMIT_DST_RELEASE;
-+	vlandev->priv_flags |= (vlan->real_dev->priv_flags & IFF_XMIT_DST_RELEASE);
-+	vlandev->hw_enc_features = vlan_tnl_features(vlan->real_dev);
-+
-+	netdev_update_features(vlandev);
-+}
-+
- static const struct net_device_ops vlan_netdev_ops = {
- 	.ndo_change_mtu		= vlan_dev_change_mtu,
- 	.ndo_init		= vlan_dev_init,
+ #if IS_ENABLED(CONFIG_FCOE)
+ 	vlandev->fcoe_ddp_xid = dev->fcoe_ddp_xid;
 -- 
 2.53.0
 
