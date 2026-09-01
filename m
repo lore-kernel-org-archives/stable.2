@@ -1,50 +1,61 @@
-Received: from server2.schools365.in (server2.schools365.in [103.139.75.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A91E381E85
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 07:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.139.75.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04E5246A60D;
+	Tue,  1 Sep 2026 07:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247557; cv=none; b=KZIewVo8CZfrRE2pcfI0myEBLfEvy/OM/KIKEseeb0fcesMgl0sm8YsUmQSQzBY/s7SbZHC49CxWLuiHhgHciV+ByHoqRsZLkpAHx9jGYch0zJ3rlTNJai5W8vcTGvv8XDuEs9GQSirbZxgp1yR6vKuDQP2Bw4a58NDjNXow17Q=
+	t=1788247982; cv=none; b=J9sZ7hPcNSg0+2L81fvH1plnPiOmHL9DuOuoWTA9lJjUOsHVdjf3yx2P1jS/VjwsTCwb0WDMaIu5PpmyNMgzX39amAbaGI8DZlx/0txqZSj7dULSJ8oi99hTQUVOA/THlVC/1tOAOnoyQCAfDnT3x8hOtL4JlYdJmBCNCsjdVU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247557; c=relaxed/simple;
-	bh=f6PIVmF13mJbNom7EP2N5qg9FqtFRBr1dXMVrNyyPFo=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ieyiHVBNlk0sJpuSWsgZj5hQRse6OA0rpWO7HbhSHNgWr7vE5lxQKQkZ0NtMeggrJBbERwyw/myaqfuTlEVON7YJm+04HY88XJ/aEaJQtzQI/V5A73z4IPTU/mEEcndjxfVl954c8jjDM+t0mtYU8uWkB4QFm1LTGwIGc6UnTjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pulsesports.in; spf=pass smtp.mailfrom=pulsesports.in; arc=none smtp.client-ip=103.139.75.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pulsesports.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pulsesports.in
-Received: from [38.255.38.73] (unknown [38.255.38.73])
-	by server2.schools365.in (Postfix) with ESMTPA id 14778191D50
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 07:02:41 +0000 (UTC)
-Reply-To: sales@alfarabioperating.kz
-From: Mr.Nekhaev Aleksandr Andreevich<anish@pulsesports.in>
-To: stable@vger.kernel.org
-Subject: Unit Sales Oil and Gas
-Date: 1 Sep 2026 03:02:40 -0400
-Message-ID: <20260901030238.75A99A577E673F1F@pulsesports.in>
+	s=arc-20240116; t=1788247982; c=relaxed/simple;
+	bh=2N9sCi6h9dJxi3qeeuQonOWtvlT3PqVXsA0qz1GT/7s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VUL62sapxC4tPUSPHuBMQxKEXL19Wrf4kzxoCVIydkqEiZ1xjiC23J57kSsQXyBZsGy1GCYQ+sjZsdFv6CH8yETz1bxUVFnw2JfkRp5awSvlBMHFC/FKuKX0hxtxoho2EPUMJVa2NvdE0H88jZAuK/M5yf5jvDRqFm2XZWz79a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7/cGw2X; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7/cGw2X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160FB1F000E9;
+	Tue,  1 Sep 2026 07:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788247980;
+	bh=dvXB6JlFJ7X9cDLh9nu97HQ3RuIBY4MfLc0NAOT+UXo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=c7/cGw2XQNGsiIXqkgdTeFyQNQ60PhocbgoSrLF3JwD1G3esYuminR/vw9PatwZsf
+	 FoXJOOazky/fOX9+xbD4LrdZfMqIzvDj851UDsexdzGt5wGGdfWzaDydcZg1G4oW+g
+	 TYnPF36/8jDnVETfdfpOendapBkVXZptAiW3J4/iqVzOmU0d+6tfn7euWIqa/OCd6N
+	 Kxqa3idA3K7tKYJ2R50kEFvVF/AAjyo4a/UhVdJDZidnEOGX9llb9iRPf+nD/wuxRq
+	 AcQ4xHx1BB0JPEIpgH1c6dfXBqxjqnVdHj6z3GJommJaVbAe4NQoEU7EcB545AWAWF
+	 +qtWTD6J9NTxw==
+Date: Tue, 1 Sep 2026 15:32:42 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>
+Cc: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <apZ_msfJd-XscfnG@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260901062243.109172-1-jefflexu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901062243.109172-1-jefflexu@linux.alibaba.com>
 
-Dear stable
+On Tue, Sep 01, 2026 at 02:22:43PM +0800, Jingbo Xu wrote:
+> Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+> 
+> Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> Cc: <stable@vger.kernel.org> # 6.4+
+> Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
 
-We are a direct refineries for the sales and purchase of=20
-petroleum products, Natural Gas, and fertilizers. We have=20
-products ready for immediate lift in the Ports of Rotterdam,=20
-Houston Jurong, and Fujairah, Zhoushan such as Diesel, EN590,=20
-Virgin Fuel Oil D6, Aviation Fuel JET A1 / JP54, ESPO, LNG, LPG,=20
-AGO, and so much more. Please reach out to us so we can send you=20
-the Soft Corporate Offer for the products.
-We look forward to having a great business relationship with your=20
-esteemed company.
-=E2=80=8B
-Kind Regards,
-Mr.Nekhaev Aleksandr Andreevich (Leaders)
-Tel/WhatApp: +77751708756
-Email: info@alfarabioperating.kz , sales@alfarabioperating.kz
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+
+Thanks,
+Gao Xiang
