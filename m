@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA064A2065
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84BAE4A207D
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290918; cv=none; b=ZOMgoSJr3r0XVKxYbtyWywXRvMam5h59vwkizY8Jj7uAKVsMx2Pk6D2M51g5TNo5bBv+xpRsYtW4HT3tV71OEWTfPYyieD1XI0UljzOxebuRbA5iJBZ6BPG0qCWxv/cyZ36h0XAG+Eo4pJ9lNQJ0FCck+KqrO65RBvI26Jtttrc=
+	t=1788290919; cv=none; b=CmXJsmY+BYYvCVxyJWMPA/xMJqSNH5UwKaMYwb1MTKR8l0E0ovX3qKw+CV9j48sftTfmOR2w7F7D+nUBdbRB3FUzPx3IXMDlpC/fcwJ4b7CRUqwHESaJ1Ehk2eSGSiIwX2CIsu8da5UmE77ZlmTiJTZJDAZKzagqtuSv1fFJgJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290918; c=relaxed/simple;
-	bh=MVGCb9U5nhur13OBh7qHdxIuH69pYoGQvRajQfOIDOs=;
+	s=arc-20240116; t=1788290919; c=relaxed/simple;
+	bh=7QOE4TCrXj/xemdhDOcAQzDzwyTFimEKSQbvLK/wLJM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rHGybhEB+2HXpsQq8m7AnXsWnlvUhW+lEtwzMa2EDTca1eem+GSSXKiXCTxgyaLmTK3xTqQ0Ky8ZklntuW2MbTFdOREowb2pF4Ypx09jegr0ZgNJAD8UMlG3oz6fUZTDvY5PFH9pCQl4LANsr5hvEdIenof79mg3kvBe2Wa10lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AxUwaK50; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h3E2syHmWhPzNsgWk0QSTxHOFDVTztXMWkipKLVdjAsGxa//treTPPf/eRLHzmaw3aXZiXNX3A9JJ0aqScXnb0uNjACiwHv49HMP2HTrS+F8ufp1W71WHih+XygUM8Zri5sJ6yitbB18dWH/A2sQG61gOMHJL/zthC1rPFRlmrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tde7oP9K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AxUwaK50"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAA21F000E9;
-	Tue,  1 Sep 2026 19:28:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tde7oP9K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7901F00A3F;
+	Tue,  1 Sep 2026 19:28:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788290916;
-	bh=WMJswiLOITy4N7+RRMSbLmlK9ruzBl+6bljpLfNu9Hc=;
+	s=k20260515; t=1788290917;
+	bh=qx2OM2dq2tpZraQ5rEbfqAStB+MEWYXTW/VRzN1mdZs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AxUwaK50a4yPmlwz3izUykb8TT1OBNO4+UujLCn6F3pvPRpXlQfqkM/ZV74NPeHoT
-	 B3NQ76bBOXrpQrn+mBCDlPtLe8s7b+Wkw4kyLHfLJcCHEAFxsSoqI13WTKQGvIxJ9V
-	 8ONYtxhK3xli3aGwSuAK9vmQz/8ucMItmUirr1m8isYz/ig9EXQZbfK0zkXIkneCL3
-	 ESS+n5fhcPwgYlA3h6R2fnR9a4U55g6IKq2ggPpcCWeTMjCA57llZpHcJsRfu12tZA
-	 X3ja4JY/vOf5vKEBslmXBxqu9Pe6n/GKsar55tT+3k8fh4hWc+u583rJH7Ymtj6XJ/
-	 SelEVH+rB3C2w==
+	b=Tde7oP9KimIbYhS9V/lEyY6L27SmxJTjyaL3WooMbxIZTiBNpHMCgEoSVcpEbLvmG
+	 +ay/VWGKD08fVNFeqfF4Wta+X2VvBsb/tQkx7m6ODpzFlEu5A55UoT9oxXkzhr2xKe
+	 FjR85b/BLqodckcy9Hucr+vi4xh8oTyzyjTUbXztr9CvyVu/7eJ9fEcnWgvudMNGAr
+	 nsVAqkD9AjXhLyYRWIXV184xmodDey3ANdRBbUn3/oFDEOq5uxMc2vLIfDZfxf2Gdq
+	 0tsYT4JprwyGeG/ikhOfNpT/KTpmz7toMs/3oCAYlZUEl3xLDHGv4bsNwmthk+pJZe
+	 fVXx07kZHAsDQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
 	David Ahern <dsahern@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/8] net: dst: introduce dst->dev_rcu
-Date: Tue,  1 Sep 2026 15:28:26 -0400
-Message-ID: <20260901192833.1439569-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/8] ipv6: start using dst_dev_rcu()
+Date: Tue,  1 Sep 2026 15:28:27 -0400
+Message-ID: <20260901192833.1439569-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083106-glider-shiftless-2e30@gregkh>
+In-Reply-To: <20260901192833.1439569-1-sashal@kernel.org>
 References: <2026083106-glider-shiftless-2e30@gregkh>
+ <20260901192833.1439569-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,110 +49,197 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit caedcc5b6df1b2e2b5f39079e3369c1d4d5c5f50 ]
+[ Upstream commit b775ecf1655cedbc465fd6699ab18a2bc4e7a352 ]
 
-Followup of commit 88fe14253e18 ("net: dst: add four helpers
-to annotate data-races around dst->dev").
+Refactor icmpv6_xrlim_allow() and ip6_dst_hoplimit()
+so that we acquire rcu_read_lock() a bit longer
+to be able to use dst_dev_rcu() instead of dst_dev().
 
-We want to gradually add explicit RCU protection to dst->dev,
-including lockdep support.
+__ip6_rt_update_pmtu() and rt6_do_redirect can directly
+use dst_dev_rcu() in sections already holding rcu_read_lock().
 
-Add an union to alias dst->dev_rcu and dst->dev.
-
-Add dst_dev_net_rcu() helper.
+Small changes to use dst_dev_net_rcu() in
+ip6_default_advmss(), ipv6_sock_ac_join(),
+ip6_mc_find_dev() and ndisc_send_skb().
 
 Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
 Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-2-edumazet@google.com
+Link: https://patch.msgid.link/20250828195823.3958522-3-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-[ backport note: this tree predates upstream's dst_dev()/skb_dst_dev()/
-  skb_dst_dev_net() helpers (added by commits not present here), so
-  the skb_dst_dev_net()/skb_dst_dev_net_rcu() hunk was dropped and the
-  two ipv4/route.c call sites were adapted from
-  'dev_net_rcu(dst_dev(dst))' to 'dev_net_rcu(dst->dev)' ->
-  'dst_dev_net_rcu(dst)' directly, since this tree calls dst->dev
-  straight rather than through a dst_dev() wrapper. net/core/dst.c
-  was similarly adapted to keep this tree's existing ifdown()/input/
-  output assignments and only convert the dst->dev write to
-  rcu_assign_pointer(dst->dev_rcu, ...). ]
+[ backport note: this tree lacks the dst_dev()/skb_dst_dev() wrapper
+  helpers and the ip6_mc_find_dev()/netdev_tracker refactors that the
+  upstream commit builds on, so the hunks were adapted per-site:
+   - icmp.c: icmpv6_xrlim_allow() gained the 'dev' local and the
+     widened rcu_read_lock() region, converting the dst->dev
+     IFF_LOOPBACK check to dst_dev_rcu().
+   - output_core.c: ip6_dst_hoplimit() widened rcu_read_lock() and
+     switched to dst_dev_rcu(), dropping the now-redundant inner
+     rcu_read_unlock().
+   - route.c: __ip6_rt_update_pmtu(), ip6_default_advmss() and
+     rt6_do_redirect() switched to dst_dev_rcu()/dst_dev_net_rcu()
+     in the sections already under rcu_read_lock().
+   - ndisc.c: ndisc_send_skb() switched its dst->dev read to
+     dst_dev_rcu() since the whole function is already inside
+     rcu_read_lock(); the differing stats macro there predates this
+     commit and was left untouched.
+   - anycast.c (ipv6_sock_ac_join()) and mcast.c (ip6_mc_find_dev())
+     hunks were dropped: this tree still has the pre-refactor,
+     RTNL-only code (dev = rt->dst.dev, no netdev_tracker, no
+     ip6_mc_find_dev() helper), so dst_dev_rcu() does not apply
+     there. ]
+
+[ sashal: Reduced backport -- upstream b775ecf1655ce touches 6 file(s), this
+  backport carries 4. Not backported here:
+  net/ipv6/anycast.c
+  net/ipv6/mcast.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
 
 Stable-dep-of: 870a9e42ecc6 ("tcp: clamp route advmss to TCP_MIN_MSS")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/dst.h | 14 ++++++++++----
- net/core/dst.c    |  2 +-
- net/ipv4/route.c  |  4 ++--
- 3 files changed, 13 insertions(+), 7 deletions(-)
+ net/ipv6/icmp.c        |  8 +++++---
+ net/ipv6/ndisc.c       |  6 ++++--
+ net/ipv6/output_core.c | 10 ++++++----
+ net/ipv6/route.c       |  7 +++----
+ 4 files changed, 18 insertions(+), 13 deletions(-)
 
-diff --git a/include/net/dst.h b/include/net/dst.h
-index 20a76e532afbb..67ef21cff3f48 100644
---- a/include/net/dst.h
-+++ b/include/net/dst.h
-@@ -23,7 +23,10 @@
- struct sk_buff;
- 
- struct dst_entry {
--	struct net_device       *dev;
-+	union {
-+		struct net_device       *dev;
-+		struct net_device __rcu *dev_rcu;
-+	};
- 	struct  dst_ops	        *ops;
- 	unsigned long		_metrics;
- 	unsigned long           expires;
-@@ -557,9 +560,12 @@ static inline void skb_dst_update_pmtu_no_confirm(struct sk_buff *skb, u32 mtu)
- 
- static inline struct net_device *dst_dev_rcu(const struct dst_entry *dst)
+diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
+index f8f7c1246f43b..983519cc8acef 100644
+--- a/net/ipv6/icmp.c
++++ b/net/ipv6/icmp.c
+@@ -196,6 +196,7 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
+ 			       struct flowi6 *fl6, bool apply_ratelimit)
  {
--	/* In the future, use rcu_dereference(dst->dev) */
--	WARN_ON_ONCE(!rcu_read_lock_held());
--	return READ_ONCE(dst->dev);
-+	return rcu_dereference(dst->dev_rcu);
-+}
+ 	struct net *net = sock_net(sk);
++	struct net_device *dev;
+ 	struct dst_entry *dst;
+ 	bool res = false;
+ 
+@@ -208,10 +209,12 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
+ 	 * this lookup should be more aggressive (not longer than timeout).
+ 	 */
+ 	dst = ip6_route_output(net, sk, fl6);
++	rcu_read_lock();
++	dev = dst_dev_rcu(dst);
+ 	if (dst->error) {
+ 		IP6_INC_STATS(net, ip6_dst_idev(dst),
+ 			      IPSTATS_MIB_OUTNOROUTES);
+-	} else if (dst->dev && (dst->dev->flags&IFF_LOOPBACK)) {
++	} else if (dev && (dev->flags & IFF_LOOPBACK)) {
+ 		res = true;
+ 	} else {
+ 		struct rt6_info *rt = dst_rt6_info(dst);
+@@ -222,11 +225,10 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
+ 		if (rt->rt6i_dst.plen < 128)
+ 			tmo >>= ((128 - rt->rt6i_dst.plen)>>5);
+ 
+-		rcu_read_lock();
+ 		peer = inet_getpeer_v6(net->ipv6.peers, &fl6->daddr);
+ 		res = inet_peer_xrlim_allow(peer, tmo);
+-		rcu_read_unlock();
+ 	}
++	rcu_read_unlock();
+ 	if (!res)
+ 		__ICMP6_INC_STATS(net, ip6_dst_idev(dst),
+ 				  ICMP6_MIB_RATELIMITHOST);
+diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
+index 7d703a66c0a32..4c5b74868df38 100644
+--- a/net/ipv6/ndisc.c
++++ b/net/ipv6/ndisc.c
+@@ -473,6 +473,7 @@ void ndisc_send_skb(struct sk_buff *skb, const struct in6_addr *daddr,
+ {
+ 	struct icmp6hdr *icmp6h = icmp6_hdr(skb);
+ 	struct dst_entry *dst = skb_dst(skb);
++	struct net_device *dev;
+ 	struct inet6_dev *idev;
+ 	struct net *net;
+ 	struct sock *sk;
+@@ -507,11 +508,12 @@ void ndisc_send_skb(struct sk_buff *skb, const struct in6_addr *daddr,
+ 
+ 	ip6_nd_hdr(skb, saddr, daddr, inet6_sk(sk)->hop_limit, skb->len);
+ 
+-	idev = __in6_dev_get(dst->dev);
++	dev = dst_dev_rcu(dst);
++	idev = __in6_dev_get(dev);
+ 	IP6_UPD_PO_STATS(net, idev, IPSTATS_MIB_OUT, skb->len);
+ 
+ 	err = NF_HOOK(NFPROTO_IPV6, NF_INET_LOCAL_OUT,
+-		      net, sk, skb, NULL, dst->dev,
++		      net, sk, skb, NULL, dev,
+ 		      dst_output);
+ 	if (!err) {
+ 		ICMP6MSGOUT_INC_STATS(net, idev, type);
+diff --git a/net/ipv6/output_core.c b/net/ipv6/output_core.c
+index 2685c3f15e9d3..e745dc10b2a28 100644
+--- a/net/ipv6/output_core.c
++++ b/net/ipv6/output_core.c
+@@ -110,18 +110,20 @@ EXPORT_SYMBOL(ip6_find_1stfragopt);
+ int ip6_dst_hoplimit(struct dst_entry *dst)
+ {
+ 	int hoplimit = dst_metric_raw(dst, RTAX_HOPLIMIT);
 +
-+static inline struct net *dst_dev_net_rcu(const struct dst_entry *dst)
-+{
-+	return dev_net_rcu(dst_dev_rcu(dst));
- }
++	rcu_read_lock();
+ 	if (hoplimit == 0) {
+-		struct net_device *dev = dst->dev;
++		struct net_device *dev = dst_dev_rcu(dst);
+ 		struct inet6_dev *idev;
  
- static inline struct net_device *skb_dst_dev_rcu(const struct sk_buff *skb)
-diff --git a/net/core/dst.c b/net/core/dst.c
-index 8db87258d1450..c6cd97cd7dd3f 100644
---- a/net/core/dst.c
-+++ b/net/core/dst.c
-@@ -151,7 +151,7 @@ void dst_dev_put(struct dst_entry *dst)
- 		dst->ops->ifdown(dst, dev, true);
- 	dst->input = dst_discard;
- 	dst->output = dst_discard_out;
--	dst->dev = blackhole_netdev;
-+	rcu_assign_pointer(dst->dev_rcu, blackhole_netdev);
- 	netdev_ref_replace(dev, blackhole_netdev, &dst->dev_tracker,
- 			   GFP_ATOMIC);
+-		rcu_read_lock();
+ 		idev = __in6_dev_get(dev);
+ 		if (idev)
+ 			hoplimit = idev->cnf.hop_limit;
+ 		else
+-			hoplimit = dev_net(dev)->ipv6.devconf_all->hop_limit;
+-		rcu_read_unlock();
++			hoplimit = READ_ONCE(dev_net(dev)->ipv6.devconf_all->hop_limit);
+ 	}
++	rcu_read_unlock();
++
+ 	return hoplimit;
  }
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 783460ebfc471..0fd2d07dbc144 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -1069,7 +1069,7 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
- 		return;
+ EXPORT_SYMBOL(ip6_dst_hoplimit);
+diff --git a/net/ipv6/route.c b/net/ipv6/route.c
+index e198a5eb24c64..d6706a49409bf 100644
+--- a/net/ipv6/route.c
++++ b/net/ipv6/route.c
+@@ -2931,7 +2931,7 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
  
- 	rcu_read_lock();
--	net = dev_net_rcu(dst->dev);
-+	net = dst_dev_net_rcu(dst);
- 	if (mtu < net->ipv4.ip_rt_min_pmtu) {
- 		lock = true;
- 		mtu = min(old_mtu, net->ipv4.ip_rt_min_pmtu);
-@@ -1367,7 +1367,7 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
+ 		if (res.f6i->nh) {
+ 			struct fib6_nh_match_arg arg = {
+-				.dev = dst->dev,
++				.dev = dst_dev_rcu(dst),
+ 				.gw = &rt6->rt6i_gateway,
+ 			};
+ 
+@@ -3226,7 +3226,6 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
+ 
+ static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+ {
+-	struct net_device *dev = dst->dev;
+ 	unsigned int mtu = dst_mtu(dst);
  	struct net *net;
  
+@@ -3234,7 +3233,7 @@ static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+ 
  	rcu_read_lock();
--	net = dev_net_rcu(dst->dev);
+ 
+-	net = dev_net_rcu(dev);
 +	net = dst_dev_net_rcu(dst);
- 	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
- 				   net->ipv4.ip_rt_min_advmss);
- 	rcu_read_unlock();
+ 	if (mtu < net->ipv6.sysctl.ip6_rt_min_advmss)
+ 		mtu = net->ipv6.sysctl.ip6_rt_min_advmss;
+ 
+@@ -4248,7 +4247,7 @@ static void rt6_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_bu
+ 
+ 	if (res.f6i->nh) {
+ 		struct fib6_nh_match_arg arg = {
+-			.dev = dst->dev,
++			.dev = dst_dev_rcu(dst),
+ 			.gw = &rt->rt6i_gateway,
+ 		};
+ 
 -- 
 2.53.0
 
