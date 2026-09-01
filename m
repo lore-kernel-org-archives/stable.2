@@ -1,129 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DDC4379980;
-	Tue,  1 Sep 2026 05:08:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA22F399899
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 05:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788239313; cv=none; b=U7w40nPtllF884tK3wkhW0w5nBg2S5vX9gD3Q81AgjJDjlRaEYnZ1LYMvFsdQR2OJ8YXTV63SiFsa7VG2ndSRaJV+T7Hu+sX1NxHYKbWU8zpXaxrOr7IYVnIEJxTYJO9LRD+f71/jvsCxmqvBj79vwdIp+Br21OXikMi91atMds=
+	t=1788240509; cv=none; b=fU9V9vcJzkQWJFzTaYu3HrEFsHQwRvuGGWP7Fnng9HM83uShVSoQ4i5FNi8dsmwGFMLaxdKZGGH6Mx/zdYEUFYIlRiy1wCy9imFpm5TIAPmJ7NlXRN8q38KrliG7627ugrOc2UjnFvcpq5o6xPOWZGab4NcHz1Z89NDFO6CLJ2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788239313; c=relaxed/simple;
-	bh=v3ZAYnNJMi30xeehWKKHc+xuY/IGNFl/WWgKCBuvouU=;
-	h=Date:To:From:Subject:Message-Id; b=BzcLx/YUZ6iGHANz44MdYC/+hdqb4wiMi2Ewk8pnSiFqYer8wnZJLtUq4LopFkq1gFTWI6Dc8R5NbrCn+LuA/813CmEHSIbrhOxpa1hAPb/lUaEAr8bI/lwxXQzxy6ysQ72tZS8mdvxPSsa27r0llikpXtSkTl1FAfYDLGNYKmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=N4svqwNq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788240509; c=relaxed/simple;
+	bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=a0QFBz7o07X6TH+yBC0xSOf/DgBmZOVBdEWfgqBS+v3Faw7rUxbD/T+9d3ZxSguH1htaGtOdHKRdj0xf6wSUM6DttgtyVEdxqfUgtf+B91ZpsF9DXx+d9magcpZ80iR8nJ5HZRqebzkFOI8F5/Tr9i/1E2wg61HvWZCAmMS04Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw/5LzLC; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="N4svqwNq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7DD41F000E9;
-	Tue,  1 Sep 2026 05:08:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw/5LzLC"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso49394855e9.1
+        for <stable@vger.kernel.org>; Mon, 31 Aug 2026 22:28:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788239312;
-	bh=kNPJKvL3Zegjot/5rG3afFV+5YNzdghTOwR4Hvq923I=;
-	h=Date:To:From:Subject;
-	b=N4svqwNqhUMgjO1PHhMdTxDHBoilvmLMptyLjIxj5+ssWPY4IMZ9TxWDmNoRdgqWR
-	 E3j0TYNzkhgq4X4IX7g0a4irCDWKU1OA48T4M9LbFFuDrN2/D/2PCbgla4oAXzXieE
-	 5/yqmPyNmGooAgfCxmTLo/iEE0sq3XV22Ut9T1hk=
-Date: Mon, 31 Aug 2026 22:08:31 -0700
-To: mm-commits@vger.kernel.org,vega@nebusec.ai,stable@vger.kernel.org,liuye@kylinos.cn,enjou1224z@gmail.com,roxy520tt@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-page_table_check-skip-zero-pages.patch added to mm-new branch
-Message-Id: <20260901050831.D7DD41F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1788240506; x=1788845306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
+        b=Mw/5LzLCzbYfkO9cFPvCiEqpRFxM9o0QArFK+sAPSbBonMM4mGhvT5+QrE4N5GerAZ
+         5mkg/qPAl6C5gYKmIrYFV4eKFr+7aJYMy6Eh+X+8/ma/G+4GbKKfWDy6HCJGLeF4aO+M
+         5VCbtcope+RPL4XfvwZ9xeCdDkyakwIKzTWF7v6EUanez8v6YKt9PJ+dikMHU6z5e92O
+         AVPh671sq+hYHpK474d2daYWRMcEaohSquAQTsmJ/G7aQwhCwp1K0/SdE6w1SQXWsI6G
+         yT8l4k69nLhJ3TBK+Sj1AN/+3d3Dzg7Y3zzsLwR5JNHb5RYVzLmpD7QeCLNP+lxSzAWI
+         vXBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788240506; x=1788845306;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
+        b=Guf134Xlb+4mjV20LIGSwDbH+HSnJkj3NMM8A+1hLbw7MBRQ6epvoR5Hwp1Ucyq+ta
+         7HYlF+pYJgq/mJ8q9q7LOd61gd7dKcAbJEF95LTApPrUf06zgvv3s/HgenP7QBCfr7if
+         58FLv+UA2qMV3EuGHb8IehjPVkdIV91bR9tUjZTlxke3mmTOE1plyUfLvXHzfHjcevT9
+         sdPxxcT/sSraDOoZ7q8bR+3JH3CSZHq3oGdRJjOuIc3AXOB/snQNeTrWqkm+PXg36zf6
+         NmeGr6OB3ULLGlPNKhd86tnp/oNgveUV4Cdn6ztW9KGp9T/sVdTwe7FnxChcEz72WfIe
+         4tFw==
+X-Forwarded-Encrypted: i=1; AHgh+RonbRcsKhDatrmkJLY1IAJ8KBuIyr/Tf0PLcRYybrnT9HCDI7ph1VIBYMfYFmugWawLQ6FqvMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kTMKl1sMD+v3tEgI2NxoPvQEF0saHN6C5ozAe+OebSkLelBlhA
+	3W8bwLK7nSJ9pT72JFbFe96ReIV1OV4fJfCcFTS4K5+BCGvvNSUrVZFh
+X-Gm-Gg: AR+sD13HtuR+9c+lpzYmw5q8SLC3qY+LxYaUaObX1lJC8FcxEwTZ3mzTDEOYPopawWu
+	WaQKfVrqdZVER+zo1aoAZj7YgANn2xTgjewT9ODCtf0nCzLiwJkm9Xmrdz4tBUesDEFMggojYVh
+	l8FmsmUq9hlfKA/MRWT964GDQ4NUPP7g5YEpRN6IFTgCwrcnJX1Hs6YIbOBCT7Rhe6zZ0I/pO/X
+	DCGLjjyFh+hjL+sJ2JiQ5eBVonvPCUfq73VaSRjzPiZGIasxsQuEiEAmuo9h5hPeT6et9A1bsBu
+	XwYHnQPENHr/454tVfIszh3WHvw5gO5Qy+Rj+tQluOE7Umg7wz4eRFtszO2ZDl5cGE1qOabUXc4
+	2hZ2I8uGQSNVW+SBxzT+gqdyPcAvwx6SAsoddnctg5isgKS9Dseo2cYTv6jr4+w7fARZSM7Fva9
+	rwZScTf4gXbsZwVjoyQ6GR1gAswsLxaL3EJ2aqy1X0qpjz52NgcyLKsIT3olM2P+O1K9XUIa8lW
+	2BvCInvSDfJ3ysH62KrS2yEtDTkkQ9xHcsNNsawG5XBs2edYj2XMtzGudB+kPXA
+X-Received: by 2002:a05:600c:3e18:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49b91c4e073mr525091595e9.15.1788240505850;
+        Mon, 31 Aug 2026 22:28:25 -0700 (PDT)
+Received: from localhost.localdomain (ip-89-176-136-191.bb.vodafone.cz. [89.176.136.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm140752035e9.3.2026.08.31.22.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 22:28:24 -0700 (PDT)
+From: Petr Wozniak <petr.wozniak@gmail.com>
+To: sashal@kernel.org
+Cc: patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	maxime.chevallier@bootlin.com,
+	kuba@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Petr Wozniak <petr.wozniak@gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in mdio-i2c
+Date: Tue,  1 Sep 2026 07:28:16 +0200
+Message-ID: <20260901052816.3815-1-petr.wozniak@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260831133314.4125787-466-sashal@kernel.org>
+References: <20260831133314.4125787-466-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Please drop this one from AUTOSEL.
 
-The patch titled
-     Subject: mm/page_table_check: skip zero pages
-has been added to the -mm mm-new branch.  Its filename is
-     mm-page_table_check-skip-zero-pages.patch
+8fe125892f40 was reverted upstream on 2026-06-29 in b521003c27eb
+("Revert "net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in
+mdio-i2c""), so it is no longer in mainline.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-page_table_check-skip-zero-pages.patch
+The probe it added runs in SFP_S_INIT, before genuine RollBall modules
+have finished initialising their bridge, so the bridge does not answer
+CMD_READ/CMD_DONE within the 200 ms window. mdio_protocol is then set
+to MDIO_I2C_NONE and PHY detection is skipped for modules that worked
+before the commit. Maxime Chevallier and Aleksander Bajkowski both
+confirmed that on hardware.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+The timing is per-module rather than per-PHY: the FLYPRO
+SFP-10GT-CS-30M they tested carries the same AQR113C as a module here
+that answers within 200 ms, but needs seconds to load its PHY firmware
+from SPI. A fixed probe window cannot cover both, which is why the
+commit was reverted rather than adjusted. A proper fix needs per-module
+init timing, and per SFF-8472 the host must wait at least 300 ms after
+insertion in any case.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Backporting this to stable would reintroduce that regression on
+hardware that works there today.
 
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Zhiling Zou <roxy520tt@gmail.com>
-Subject: mm/page_table_check: skip zero pages
-Date: Tue, 21 Jul 2026 23:56:38 +0800
-
-page_table_check_set() accounts pages by whether they are PageAnon().  The
-shared zero page is a special page, not an ordinary file-backed page. 
-Read faults on private anonymous mappings can install many read-only PTEs
-that point at the zero page, but page_table_check currently accounts them
-in file_map_count.
-
-That lets an unprivileged process populate enough zero-page mappings to
-overflow file_map_count and trip the BUG_ON() in page_table_check_set().
-
-Skip zero pages in page_table_check accounting.  They do not need the
-anonymous/file mapping conflict checks that page_table_check performs for
-ordinary pages, and this keeps the existing counter size and page_ext
-layout unchanged.
-
-Link: https://lore.kernel.org/1f8848512d2e3ded944f8d595c29faee8fdaeab0.1784645969.git.roxy520tt@gmail.com
-Fixes: df4e817b7108 ("mm: page table check")
-Signed-off-by: Zhiling Zou <roxy520tt@gmail.com>
-Signed-off-by: Ren Wei <enjou1224z@gmail.com>
-Cc: Ye Liu <liuye@kylinos.cn>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: Codex:gpt-5.4
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/page_table_check.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- a/mm/page_table_check.c~mm-page_table_check-skip-zero-pages
-+++ a/mm/page_table_check.c
-@@ -67,7 +67,7 @@ static void page_table_check_clear(unsig
- 	struct page *page;
- 	bool anon;
- 
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
- 		return;
- 
- 	page = pfn_to_page(pfn);
-@@ -102,7 +102,7 @@ static void page_table_check_set(unsigne
- 	struct page *page;
- 	bool anon;
- 
--	if (!pfn_valid(pfn))
-+	if (!pfn_valid(pfn) || is_zero_pfn(pfn) || is_huge_zero_pfn(pfn))
- 		return;
- 
- 	page = pfn_to_page(pfn);
-_
-
-Patches currently in -mm which might be from roxy520tt@gmail.com are
-
-mm-page_table_check-skip-zero-pages.patch
-
+Thanks,
+Petr
