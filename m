@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EF14A2605
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C8B4A260A
 	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 19:28:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290921; cv=none; b=YRZMYzKJBhZA8HzOKxi65j/n6SI3vCEZ0Odex9JuUqpeSWG/sKIZ/7DJd+6EnLxEDYP7RwoO7lFXK8m3N/xitShdHqXAEhn/ZVLi8QK5jvKqPWGxuPuUi0buXY711KzDnUelUX0Lh/55tUioeJooM5vhX3zMgHjvzC/Sqrs3LGw=
+	t=1788290922; cv=none; b=qRHfWRKUWzdUBOV+GHcUmLBqCGoXLnhG/VlBqmnZsaa5bCz9cjqvQzXDWn7fF9NHxpSNTev/6l1hwoAQ2LyvQl+TuqHJbe2GGoxJOjKpL1NqTdDEzRoaTjeCN5da1vKWj2MQChIlvnjrAlTSU/PJ4foEsHdrgTOtafcivdyDypA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290921; c=relaxed/simple;
-	bh=k221c6neLI8uvxOri7VgoI20n6IN8bEUWdN3zZO62gk=;
+	s=arc-20240116; t=1788290922; c=relaxed/simple;
+	bh=S1/IqtZdAC63iD99o+TskfCOvd1uVsurNn4uZwX87BI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l9eA/HrU9tMpzbxlHAR+I31aqTF6yT+a6uNsUBA4sFf0oISyml4sPqFRRmB12ter+8UdCZBSSDJSBHJQwZrLmxXb04qcwlbLSTcQo1k2hnqBD9lsCCG9I+nNXejdsBJ03zILafIONkrok9cEKfa/UDywDG1HT/iVzhdyicD9m7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izjACg2Y; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KrHM1A7eNUByfv1AM8Mm2+jlJye/ea7yAJzMNoO/7bQnqNekg4SVB9GvuHnW56C+fz+wogJbPCf1HSqX24v9Gft6rcq1IqCUKAnvVEY8QQCShb2n8oHKIUBrd/A1c2ApN3O22JtoFKyVp1ESMyyTLNnAhyzBTfZCrPVOhJ/gPIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I7aNN9yo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izjACg2Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83DB01F00A3D;
-	Tue,  1 Sep 2026 19:28:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I7aNN9yo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5461F00A3F;
+	Tue,  1 Sep 2026 19:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788290920;
-	bh=l5degComSAAB1ABHmuv2A3GiFRIDXhg76XKCWIqbXS0=;
+	bh=54mSKp3EjnJheBart7C04LvX5+QSDFp1dM2ND8N8VAk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=izjACg2Y583KKVyE0pPzhLvLYrP0NbcQ14b3awkAx+/XbC7mRZg/njFP38XnSX3Rk
-	 GGIP4NKsK4O6QD2TJ5W0L40pteLoedz/raXRfQcV8LR6ec81jkzny61ZYsKeE1gvSc
-	 W2P2TuPXNCtwJkhuJbi+r8MmBVbz022Fu4yp/TVw8AzPQLjeYx0hvDP3aQDX76kmg0
-	 TXm976ceZrvyA0kHt2cP3gLeBD6F+QjxiTDhC17KQSa0pznrWBZKFqkTq+Xwbd0bV7
-	 AOxT2vn+NzlorrhDAf3PJ2TY4IyCR1zFq8KhGFcM0XK0Rbw0wsnXT6vOV/M3UIH2e4
-	 Ek6q7lTzP3aAQ==
+	b=I7aNN9yoSb/MzXHBK4P/WYNA5NKuK4EkrVN/O4iXHZ2rxU6UvrPZS0rEuvcQSNoDR
+	 +SvXNGShcbstLbyG3um84gcyaSUdv7U2ysYWc25clqay8cJQE8ufBf4oH/K9nRX9Q6
+	 T5LzJlOlcMYR6J9hnrxRv//9/hnaVc4UszpTkY+9jAP5+OcJKOudeKb6vI2bji+uKW
+	 kziqhVcy79DvijmbqcLIXBgCq6lTmiP6V/feJ7oHvGJYQodxfl07MwK8pmoDTloxlj
+	 EDjFKsRMfMuP4J4RDEuZdPzgvT6pyLECAO2TSLlHsKk8zdDri+Ie08MvdLIOYqGBcj
+	 OtecknmLHWgDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/4] net: dst: introduce dst->dev_rcu
-Date: Tue,  1 Sep 2026 15:28:35 -0400
-Message-ID: <20260901192838.1439895-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 6/8] ipv4: use dst4_mtu() instead of dst_mtu()
+Date: Tue,  1 Sep 2026 15:28:31 -0400
+Message-ID: <20260901192833.1439569-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083117-magnitude-talisman-5d78@gregkh>
-References: <2026083117-magnitude-talisman-5d78@gregkh>
+In-Reply-To: <20260901192833.1439569-1-sashal@kernel.org>
+References: <2026083106-glider-shiftless-2e30@gregkh>
+ <20260901192833.1439569-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,134 +49,156 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit caedcc5b6df1b2e2b5f39079e3369c1d4d5c5f50 ]
+[ Upstream commit fe8570186f100b6cc499b2f7705946baf1388cde ]
 
-Followup of commit 88fe14253e18 ("net: dst: add four helpers
-to annotate data-races around dst->dev").
+When we expect an IPv4 dst, use dst4_mtu() instead of dst_mtu()
+to save some code space.
 
-We want to gradually add explicit RCU protection to dst->dev,
-including lockdep support.
-
-Add an union to alias dst->dev_rcu and dst->dev.
-
-Add dst_dev_net_rcu() helper.
-
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-2-edumazet@google.com
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260130210303.3888261-8-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
+Stable-dep-of: 870a9e42ecc6 ("tcp: clamp route advmss to TCP_MIN_MSS")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/dst.h       | 11 +++++++----
- include/net/ip6_route.h |  2 ++
- net/core/dst.c          |  2 +-
- net/ipv4/route.c        |  4 ++--
- net/ipv6/route.c        |  5 ++---
- 5 files changed, 14 insertions(+), 10 deletions(-)
+ net/ipv4/icmp.c                     |  2 +-
+ net/ipv4/ip_output.c                |  4 ++--
+ net/ipv4/ip_sockglue.c              |  2 +-
+ net/ipv4/ipmr.c                     |  2 +-
+ net/ipv4/netfilter/nf_reject_ipv4.c |  2 +-
+ net/ipv4/tcp_ipv4.c                 | 13 ++++++-------
+ net/ipv6/sit.c                      |  2 +-
+ 7 files changed, 13 insertions(+), 14 deletions(-)
 
-diff --git a/include/net/dst.h b/include/net/dst.h
-index 20a76e532afbb..d149ffa0948c0 100644
---- a/include/net/dst.h
-+++ b/include/net/dst.h
-@@ -23,7 +23,10 @@
- struct sk_buff;
+diff --git a/net/ipv4/icmp.c b/net/ipv4/icmp.c
+index e8c59c2051c2d..6a1ad22dc574c 100644
+--- a/net/ipv4/icmp.c
++++ b/net/ipv4/icmp.c
+@@ -785,7 +785,7 @@ void __icmp_send(struct sk_buff *skb_in, int type, int code, __be32 info,
  
- struct dst_entry {
--	struct net_device       *dev;
-+	union {
-+		struct net_device       *dev;
-+		struct net_device __rcu *dev_rcu;
-+	};
- 	struct  dst_ops	        *ops;
- 	unsigned long		_metrics;
- 	unsigned long           expires;
-@@ -557,11 +560,11 @@ static inline void skb_dst_update_pmtu_no_confirm(struct sk_buff *skb, u32 mtu)
+ 	/* RFC says return as much as we can without exceeding 576 bytes. */
  
- static inline struct net_device *dst_dev_rcu(const struct dst_entry *dst)
+-	room = dst_mtu(&rt->dst);
++	room = dst4_mtu(&rt->dst);
+ 	if (room > 576)
+ 		room = 576;
+ 	room -= sizeof(struct iphdr) + icmp_param.replyopts.opt.opt.optlen;
+diff --git a/net/ipv4/ip_output.c b/net/ipv4/ip_output.c
+index 6fd7995ff8dd1..4989155bb9069 100644
+--- a/net/ipv4/ip_output.c
++++ b/net/ipv4/ip_output.c
+@@ -1282,7 +1282,7 @@ static int ip_setup_cork(struct sock *sk, struct inet_cork *cork,
+ 		return -EFAULT;
+ 
+ 	cork->fragsize = ip_sk_use_pmtu(sk) ?
+-			 dst_mtu(&rt->dst) : READ_ONCE(rt->dst.dev->mtu);
++			 dst4_mtu(&rt->dst) : READ_ONCE(rt->dst.dev->mtu);
+ 
+ 	if (!inetdev_valid_mtu(cork->fragsize))
+ 		return -ENETUNREACH;
+@@ -1546,7 +1546,7 @@ struct sk_buff *__ip_make_skb(struct sock *sk,
+ 	 * locally. */
+ 	if (inet->pmtudisc == IP_PMTUDISC_DO ||
+ 	    inet->pmtudisc == IP_PMTUDISC_PROBE ||
+-	    (skb->len <= dst_mtu(&rt->dst) &&
++	    (skb->len <= dst4_mtu(&rt->dst) &&
+ 	     ip_dont_fragment(sk, &rt->dst)))
+ 		df = htons(IP_DF);
+ 
+diff --git a/net/ipv4/ip_sockglue.c b/net/ipv4/ip_sockglue.c
+index a00ba2d51e1b2..9b3e92045dd49 100644
+--- a/net/ipv4/ip_sockglue.c
++++ b/net/ipv4/ip_sockglue.c
+@@ -1657,7 +1657,7 @@ int do_ip_getsockopt(struct sock *sk, int level, int optname,
+ 		val = 0;
+ 		dst = sk_dst_get(sk);
+ 		if (dst) {
+-			val = dst_mtu(dst);
++			val = dst4_mtu(dst);
+ 			dst_release(dst);
+ 		}
+ 		if (!val) {
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index f64651c0dea6c..6cec599dc5856 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -1881,7 +1881,7 @@ static void ipmr_queue_xmit(struct net *net, struct mr_table *mrt,
+ 
+ 	dev = rt->dst.dev;
+ 
+-	if (skb->len+encap > dst_mtu(&rt->dst) && (ntohs(iph->frag_off) & IP_DF)) {
++	if (skb->len+encap > dst4_mtu(&rt->dst) && (ntohs(iph->frag_off) & IP_DF)) {
+ 		/* Do not fragment multicasts. Alas, IPv4 does not
+ 		 * allow to send ICMP, so that packets will disappear
+ 		 * to blackhole.
+diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/nf_reject_ipv4.c
+index 1632cedcd348c..76320f1ba4996 100644
+--- a/net/ipv4/netfilter/nf_reject_ipv4.c
++++ b/net/ipv4/netfilter/nf_reject_ipv4.c
+@@ -296,7 +296,7 @@ void nf_send_reset(struct net *net, struct sock *sk, struct sk_buff *oldskb,
+ 		goto free_nskb;
+ 
+ 	/* "Never happens" */
+-	if (nskb->len > dst_mtu(skb_dst(nskb)))
++	if (nskb->len > dst4_mtu(skb_dst(nskb)))
+ 		goto free_nskb;
+ 
+ 	nf_ct_attach(nskb, oldskb);
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 753a881ce3cdf..7be24beed347f 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -363,7 +363,7 @@ void tcp_v4_mtu_reduced(struct sock *sk)
  {
--	/* In the future, use rcu_dereference(dst->dev) */
--	WARN_ON_ONCE(!rcu_read_lock_held());
--	return READ_ONCE(dst->dev);
-+	return rcu_dereference(dst->dev_rcu);
- }
+ 	struct inet_sock *inet = inet_sk(sk);
+ 	struct dst_entry *dst;
+-	u32 mtu;
++	u32 mtu, dmtu;
  
-+#define dst_dev_net_rcu(dst)	dev_net_rcu(dst_dev_rcu(dst))
-+
- static inline struct net_device *skb_dst_dev_rcu(const struct sk_buff *skb)
- {
- 	return dst_dev_rcu(skb_dst(skb));
-diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
-index 7c0184c09392f..ca67b63ae8866 100644
---- a/include/net/ip6_route.h
-+++ b/include/net/ip6_route.h
-@@ -270,6 +270,8 @@ static inline bool ipv6_anycast_destination(const struct dst_entry *dst,
- int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
- 		 int (*output)(struct net *, struct sock *, struct sk_buff *));
- 
-+#define dst6_mtu(dst)		dst_mtu(dst)
-+
- static inline unsigned int ip6_skb_dst_mtu(const struct sk_buff *skb)
- {
- 	const struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
-diff --git a/net/core/dst.c b/net/core/dst.c
-index 8db87258d1450..c6cd97cd7dd3f 100644
---- a/net/core/dst.c
-+++ b/net/core/dst.c
-@@ -151,7 +151,7 @@ void dst_dev_put(struct dst_entry *dst)
- 		dst->ops->ifdown(dst, dev, true);
- 	dst->input = dst_discard;
- 	dst->output = dst_discard_out;
--	dst->dev = blackhole_netdev;
-+	rcu_assign_pointer(dst->dev_rcu, blackhole_netdev);
- 	netdev_ref_replace(dev, blackhole_netdev, &dst->dev_tracker,
- 			   GFP_ATOMIC);
- }
-diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-index 783460ebfc471..0fd2d07dbc144 100644
---- a/net/ipv4/route.c
-+++ b/net/ipv4/route.c
-@@ -1069,7 +1069,7 @@ static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
+ 	if ((1 << sk->sk_state) & (TCPF_LISTEN | TCPF_CLOSE))
  		return;
+@@ -375,15 +375,14 @@ void tcp_v4_mtu_reduced(struct sock *sk)
+ 	/* Something is about to be wrong... Remember soft error
+ 	 * for the case, if this connection will not able to recover.
+ 	 */
+-	if (mtu < dst_mtu(dst) && ip_dont_fragment(sk, dst))
++	dmtu = dst4_mtu(dst);
++	if (mtu < dmtu && ip_dont_fragment(sk, dst))
+ 		WRITE_ONCE(sk->sk_err_soft, EMSGSIZE);
  
- 	rcu_read_lock();
--	net = dev_net_rcu(dst->dev);
-+	net = dst_dev_net_rcu(dst);
- 	if (mtu < net->ipv4.ip_rt_min_pmtu) {
- 		lock = true;
- 		mtu = min(old_mtu, net->ipv4.ip_rt_min_pmtu);
-@@ -1367,7 +1367,7 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
- 	struct net *net;
+-	mtu = dst_mtu(dst);
+-
+ 	if (inet->pmtudisc != IP_PMTUDISC_DONT &&
+ 	    ip_sk_accept_pmtu(sk) &&
+-	    inet_csk(sk)->icsk_pmtu_cookie > mtu) {
+-		tcp_sync_mss(sk, mtu);
++	    inet_csk(sk)->icsk_pmtu_cookie > dmtu) {
++		tcp_sync_mss(sk, dmtu);
  
- 	rcu_read_lock();
--	net = dev_net_rcu(dst->dev);
-+	net = dst_dev_net_rcu(dst);
- 	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
- 				   net->ipv4.ip_rt_min_advmss);
- 	rcu_read_unlock();
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index e198a5eb24c64..1f02a13481f1e 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -3226,15 +3226,14 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
+ 		/* Resend the TCP packet because it's
+ 		 * clear that the old packet has been
+@@ -1567,7 +1566,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
  
- static unsigned int ip6_default_advmss(const struct dst_entry *dst)
- {
--	struct net_device *dev = dst->dev;
--	unsigned int mtu = dst_mtu(dst);
-+	unsigned int mtu = dst6_mtu(dst);
- 	struct net *net;
+ 	tcp_ca_openreq_child(newsk, dst);
  
- 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
+-	tcp_sync_mss(newsk, dst_mtu(dst));
++	tcp_sync_mss(newsk, dst4_mtu(dst));
+ 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
  
- 	rcu_read_lock();
+ 	tcp_initialize_rcv_mss(newsk);
+diff --git a/net/ipv6/sit.c b/net/ipv6/sit.c
+index ac38d4aa09ddc..b36fc57acf061 100644
+--- a/net/ipv6/sit.c
++++ b/net/ipv6/sit.c
+@@ -968,7 +968,7 @@ static netdev_tx_t ipip6_tunnel_xmit(struct sk_buff *skb,
+ 	iph6 = ipv6_hdr(skb);
  
--	net = dev_net_rcu(dev);
-+	net = dst_dev_net_rcu(dst);
- 	if (mtu < net->ipv6.sysctl.ip6_rt_min_advmss)
- 		mtu = net->ipv6.sysctl.ip6_rt_min_advmss;
+ 	if (df) {
+-		mtu = dst_mtu(&rt->dst) - t_hlen;
++		mtu = dst4_mtu(&rt->dst) - t_hlen;
  
+ 		if (mtu < IPV4_MIN_MTU) {
+ 			DEV_STATS_INC(dev, collisions);
 -- 
 2.53.0
 
