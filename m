@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2E2F376A19
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF0F25B08E
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 11:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261079; cv=none; b=T2f3LrRJJZan3YIQLAJAs/bmOWlBMejcSm0yWzJCKFm0vqjf7b0n0NsxHHyG8mMGo4zs+TCH/209ZhwVK4xm7enOipzO0lj3lfAgBa+/rED+g2B9czMaPZaWZ8hdm+HojSmQG5KwImavEyhblPFcdup17bNnv+gAM786DHhH31k=
+	t=1788261080; cv=none; b=mC3dPx1ATmsIRDQfCnjSRVtSLwezJcjU2Lf9FvNLNwa9FrfV4uKDtrvm7a1rydzhziUBPOlp3nvYkFGxkFtO6a71NqSeMjN1+558rOTYmkdQVSxjk1cAH4hEg/4PNQ93foeF4DTv7ar2LZnUnrOmH/7Ni98XSIlr7wDWQgfMwzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261079; c=relaxed/simple;
-	bh=09593IHtpPFnypYVi5+KXrGNH24wGcSaNXJISvNf7YE=;
+	s=arc-20240116; t=1788261080; c=relaxed/simple;
+	bh=ApL7ag75ezVqQsvhmymK/QE6THTcmAYFUn8sde6pGZ0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jbgKngopuyG+Ztx+Ys+cORObKAf6bV3KZlM2JJZgYObhFCRdwsaFDCxro6rz//ILo+1ERjlA3fPVpLc9Ic1OaXiOQlMktQbq6XEHhtQ8lokm7MeSx+SZ+XCpF1fYkb1cTQe32ilCs7BzlIRt3KVvOEC90l/eCQOfFOOzFPMuQMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ha1uHrcd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ey8rLDrOvCEWf48cY1QXGCx19qxVM/xGcVvICMPqd0nXygwV+c2LNIL5FqOHSF7YHEiPpvXUTVhMA/nGVm0yVmHvq42vy8VRSOCa/10UJMAVoQTCNF3ngC1QMdsMqsBqKrCy+X9RydH1KVMMBGy+GxD9yhyUAr5A2HmZfqeJgZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SOuopm1e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ha1uHrcd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462041F000E9;
-	Tue,  1 Sep 2026 11:11:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SOuopm1e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27D061F00ACA;
+	Tue,  1 Sep 2026 11:11:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788261077;
-	bh=ydUDyZZzrKWh0+Jn+plmsnACZtB08rOTE+y1DZ1DBZc=;
+	s=k20260515; t=1788261078;
+	bh=3LHtmRspLUr3R2Oqsxv1pACD6ozZvIPl0smF7IF3Ars=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ha1uHrcdfsu0zmhOF+Ehh5Ec5+mZfVZARuX9NRDtbcGlGuXm63BQrLAWbWXzPmG0T
-	 A/QSC+loS6cbaES9j9hFLVehfWCP+a7xhDsTyvegSDWrB+q6VTQEnsagiSEMjtRdqa
-	 HXbV6Z7usR9k1BCXVp/9ffAgiqe/FSs4b33SWD7s8xI+aien69jWh1P8vuPt77VTRr
-	 GGaAuTiAcl6onHvMlq9t9V3VdOdUb8On9n6cR0PQROVZWNKAVFwt3M5czZkDS9ZDEx
-	 7yI2k6dkoCXPSU0drJfSL+zDiMYfLvgqLnBM+ALTFrLs9Fxdu3p1i4MDxE89kXp8T9
-	 TrFQRC7jwqzsA==
+	b=SOuopm1eH7Ie6z+WwNUwUEuiGZ755czXl7k9yrsAaZRxlH+avLtwHZ4s/5JJ+N6KU
+	 GIJpKL+twUEyUSasJ8eJdL1AaVUICcUkEP9OMghZRsrxeX4nS1rgw9p3P8NhNwNWrx
+	 dO4LDX54OrLyD1nI3Fbh/BZi2JdflAyx5UZ6nF7LX4TyjMCUPwCI9M4NMtoqIsjmeR
+	 HjYtVKjxj5BLo2syMdHkuU2NwxY7YpBFat+ZBNy3dRn996ZBKwJCZVrhjlKZtgzmQl
+	 vBDAwvq6cFr2rh6ytgT4lOmyXLnUJxh37ovKzmjkuLvTaneb44ox7EBxtRU9p60uOK
+	 ouAeYOmnbANVg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/5] ipv6: start using dst_dev_rcu()
-Date: Tue,  1 Sep 2026 07:11:11 -0400
-Message-ID: <20260901111115.4175900-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/5] ipv6: pass proto by value to ipv6_push_nfrag_opts() and ipv6_push_frag_opts()
+Date: Tue,  1 Sep 2026 07:11:12 -0400
+Message-ID: <20260901111115.4175900-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083114-maturing-resize-d958@gregkh>
+In-Reply-To: <20260901111115.4175900-1-sashal@kernel.org>
 References: <2026083114-maturing-resize-d958@gregkh>
+ <20260901111115.4175900-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,188 +49,227 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit b775ecf1655cedbc465fd6699ab18a2bc4e7a352 ]
+[ Upstream commit 1bc46dd209667346c5aa56c351995e7c260696d0 ]
 
-Refactor icmpv6_xrlim_allow() and ip6_dst_hoplimit()
-so that we acquire rcu_read_lock() a bit longer
-to be able to use dst_dev_rcu() instead of dst_dev().
+With CONFIG_STACKPROTECTOR_STRONG=y, it is better to avoid passing
+a pointer to an automatic variable.
 
-__ip6_rt_update_pmtu() and rt6_do_redirect can directly
-use dst_dev_rcu() in sections already holding rcu_read_lock().
+Change these exported functions to return 'u8 proto'
+instead of void.
 
-Small changes to use dst_dev_net_rcu() in
-ip6_default_advmss(), ipv6_sock_ac_join(),
-ip6_mc_find_dev() and ndisc_send_skb().
+- ipv6_push_nfrag_opts()
+- ipv6_push_frag_opts()
 
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
+For instance, replace
+	ipv6_push_frag_opts(skb, opt, &proto);
+with:
+	proto = ipv6_push_frag_opts(skb, opt, proto);
+
+Note that even after this change, ip6_xmit() has to use a stack canary
+because of @first_hop variable.
+
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-3-edumazet@google.com
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20260130210303.3888261-2-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/ip6_route.h | 3 +++
- net/ipv6/anycast.c      | 4 +++-
- net/ipv6/icmp.c         | 6 +++---
- net/ipv6/mcast.c        | 4 +++-
- net/ipv6/ndisc.c        | 2 +-
- net/ipv6/output_core.c  | 8 +++++---
- net/ipv6/route.c        | 9 ++++-----
- 7 files changed, 22 insertions(+), 14 deletions(-)
+ include/net/ipv6.h    | 10 ++++----
+ net/ipv6/exthdrs.c    | 55 +++++++++++++++++++++++--------------------
+ net/ipv6/ip6_output.c | 19 ++++++++-------
+ net/ipv6/ip6_tunnel.c |  2 +-
+ 4 files changed, 46 insertions(+), 40 deletions(-)
 
-diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
-index 59f48ca3abdf5..07c87c239511e 100644
---- a/include/net/ip6_route.h
-+++ b/include/net/ip6_route.h
-@@ -266,6 +266,9 @@ static inline bool ipv6_anycast_destination(const struct dst_entry *dst,
- int ip6_fragment(struct net *net, struct sock *sk, struct sk_buff *skb,
- 		 int (*output)(struct net *, struct sock *, struct sk_buff *));
+diff --git a/include/net/ipv6.h b/include/net/ipv6.h
+index e843eb7efbccd..3f3e312bced4f 100644
+--- a/include/net/ipv6.h
++++ b/include/net/ipv6.h
+@@ -1142,11 +1142,11 @@ int ip6_local_out(struct net *net, struct sock *sk, struct sk_buff *skb);
+  *	Extension header (options) processing
+  */
  
-+/* Compatibility form of the later IPv6-specific dst_mtu() wrapper. */
-+#define dst6_mtu(dst) dst_mtu(dst)
-+
- static inline unsigned int ip6_skb_dst_mtu(const struct sk_buff *skb)
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto, struct in6_addr **daddr_p,
+-			  struct in6_addr *saddr);
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			 u8 *proto);
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto, struct in6_addr **daddr_p,
++			struct in6_addr *saddr);
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++		       u8 proto);
+ 
+ int ipv6_skip_exthdr(const struct sk_buff *, int start, u8 *nexthdrp,
+ 		     __be16 *frag_offp);
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index e91afe5ec0b5d..1a39824ae9630 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -1103,9 +1103,9 @@ int ipv6_parse_hopopts(struct sk_buff *skb)
+  *	for headers.
+  */
+ 
+-static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr0(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
  {
- 	const struct ipv6_pinfo *np = skb->sk && !dev_recursion_level() ?
-diff --git a/net/ipv6/anycast.c b/net/ipv6/anycast.c
-index 0627c4c18d1a5..97c72dc541fd6 100644
---- a/net/ipv6/anycast.c
-+++ b/net/ipv6/anycast.c
-@@ -94,7 +94,9 @@ int ipv6_sock_ac_join(struct sock *sk, int ifindex, const struct in6_addr *addr)
+ 	struct rt0_hdr *phdr, *ihdr;
+ 	int hops;
+@@ -1124,13 +1124,13 @@ static void ipv6_push_rthdr0(struct sk_buff *skb, u8 *proto,
+ 	phdr->addr[hops - 1] = **addr_p;
+ 	*addr_p = ihdr->addr;
  
- 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
- 		if (rt) {
--			dev = rt->dst.dev;
-+			rcu_read_lock();
-+			dev = dst_dev_rcu(&rt->dst);
-+			rcu_read_unlock();
- 			ip6_rt_put(rt);
- 		} else if (ishost) {
- 			err = -EADDRNOTAVAIL;
-diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
-index 229ae205450d3..e4e40f0694238 100644
---- a/net/ipv6/icmp.c
-+++ b/net/ipv6/icmp.c
-@@ -209,7 +209,8 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
- 	 * this lookup should be more aggressive (not longer than timeout).
- 	 */
- 	dst = ip6_route_output(net, sk, fl6);
--	dev = dst_dev(dst);
-+	rcu_read_lock();
-+	dev = dst_dev_rcu(dst);
- 	if (dst->error) {
- 		IP6_INC_STATS(net, ip6_dst_idev(dst),
- 			      IPSTATS_MIB_OUTNOROUTES);
-@@ -224,11 +225,10 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
- 		if (rt->rt6i_dst.plen < 128)
- 			tmo >>= ((128 - rt->rt6i_dst.plen)>>5);
- 
--		rcu_read_lock();
- 		peer = inet_getpeer_v6(net->ipv6.peers, &fl6->daddr);
- 		res = inet_peer_xrlim_allow(peer, tmo);
--		rcu_read_unlock();
- 	}
-+	rcu_read_unlock();
- 	if (!res)
- 		__ICMP6_INC_STATS(net, ip6_dst_idev(dst),
- 				  ICMP6_MIB_RATELIMITHOST);
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index 92f321635e4ec..335546d77f39c 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -201,7 +201,9 @@ static int __ipv6_sock_mc_join(struct sock *sk, int ifindex,
- 		struct rt6_info *rt;
- 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
- 		if (rt) {
--			dev = rt->dst.dev;
-+			rcu_read_lock();
-+			dev = dst_dev_rcu(&rt->dst);
-+			rcu_read_unlock();
- 			ip6_rt_put(rt);
- 		}
- 	} else
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index 87bed84a00532..26ad7cab0383f 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -508,7 +508,7 @@ void ndisc_send_skb(struct sk_buff *skb, const struct in6_addr *daddr,
- 
- 	ip6_nd_hdr(skb, saddr, daddr, READ_ONCE(inet6_sk(sk)->hop_limit), skb->len);
- 
--	dev = dst_dev(dst);
-+	dev = dst_dev_rcu(dst);
- 	idev = __in6_dev_get(dev);
- 	IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTREQUESTS);
- 
-diff --git a/net/ipv6/output_core.c b/net/ipv6/output_core.c
-index 90a178dd24aae..5be101401a00e 100644
---- a/net/ipv6/output_core.c
-+++ b/net/ipv6/output_core.c
-@@ -104,18 +104,20 @@ EXPORT_SYMBOL(ip6_find_1stfragopt);
- int ip6_dst_hoplimit(struct dst_entry *dst)
- {
- 	int hoplimit = dst_metric_raw(dst, RTAX_HOPLIMIT);
-+
-+	rcu_read_lock();
- 	if (hoplimit == 0) {
--		struct net_device *dev = dst_dev(dst);
-+		struct net_device *dev = dst_dev_rcu(dst);
- 		struct inet6_dev *idev;
- 
--		rcu_read_lock();
- 		idev = __in6_dev_get(dev);
- 		if (idev)
- 			hoplimit = READ_ONCE(idev->cnf.hop_limit);
- 		else
- 			hoplimit = READ_ONCE(dev_net(dev)->ipv6.devconf_all->hop_limit);
--		rcu_read_unlock();
- 	}
-+	rcu_read_unlock();
-+
- 	return hoplimit;
+-	phdr->rt_hdr.nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	phdr->rt_hdr.nexthdr = proto;
++	return NEXTHDR_ROUTING;
  }
- EXPORT_SYMBOL(ip6_dst_hoplimit);
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index e602dd3e7ee39..eb2ba7c34f6f8 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2949,7 +2949,7 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
  
- 		if (res.f6i->nh) {
- 			struct fib6_nh_match_arg arg = {
--				.dev = dst_dev(dst),
-+				.dev = dst_dev_rcu(dst),
- 				.gw = &rt6->rt6i_gateway,
- 			};
- 
-@@ -3244,15 +3244,14 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
- 
- static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+-static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+-			     struct ipv6_rt_hdr *opt,
+-			     struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr4(struct sk_buff *skb, u8 proto,
++			   struct ipv6_rt_hdr *opt,
++			   struct in6_addr **addr_p, struct in6_addr *saddr)
  {
--	struct net_device *dev = dst_dev(dst);
--	unsigned int mtu = dst_mtu(dst);
-+	unsigned int mtu = dst6_mtu(dst);
- 	struct net *net;
+ 	struct ipv6_sr_hdr *sr_phdr, *sr_ihdr;
+ 	int plen, hops;
+@@ -1173,58 +1173,61 @@ static void ipv6_push_rthdr4(struct sk_buff *skb, u8 *proto,
+ 	}
+ #endif
  
- 	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
+-	sr_phdr->nexthdr = *proto;
+-	*proto = NEXTHDR_ROUTING;
++	sr_phdr->nexthdr = proto;
++	return NEXTHDR_ROUTING;
+ }
  
- 	rcu_read_lock();
+-static void ipv6_push_rthdr(struct sk_buff *skb, u8 *proto,
+-			    struct ipv6_rt_hdr *opt,
+-			    struct in6_addr **addr_p, struct in6_addr *saddr)
++static u8 ipv6_push_rthdr(struct sk_buff *skb, u8 proto,
++			  struct ipv6_rt_hdr *opt,
++			  struct in6_addr **addr_p, struct in6_addr *saddr)
+ {
+ 	switch (opt->type) {
+ 	case IPV6_SRCRT_TYPE_0:
+ 	case IPV6_SRCRT_STRICT:
+ 	case IPV6_SRCRT_TYPE_2:
+-		ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr0(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	case IPV6_SRCRT_TYPE_4:
+-		ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
++		proto = ipv6_push_rthdr4(skb, proto, opt, addr_p, saddr);
+ 		break;
+ 	default:
+ 		break;
+ 	}
++	return proto;
+ }
  
--	net = dev_net_rcu(dev);
-+	net = dst_dev_net_rcu(dst);
- 	if (mtu < net->ipv6.sysctl.ip6_rt_min_advmss)
- 		mtu = net->ipv6.sysctl.ip6_rt_min_advmss;
+-static void ipv6_push_exthdr(struct sk_buff *skb, u8 *proto, u8 type, struct ipv6_opt_hdr *opt)
++static u8 ipv6_push_exthdr(struct sk_buff *skb, u8 proto, u8 type, struct ipv6_opt_hdr *opt)
+ {
+ 	struct ipv6_opt_hdr *h = skb_push(skb, ipv6_optlen(opt));
  
-@@ -4266,7 +4265,7 @@ static void rt6_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_bu
+ 	memcpy(h, opt, ipv6_optlen(opt));
+-	h->nexthdr = *proto;
+-	*proto = type;
++	h->nexthdr = proto;
++	return type;
+ }
  
- 	if (res.f6i->nh) {
- 		struct fib6_nh_match_arg arg = {
--			.dev = dst_dev(dst),
-+			.dev = dst_dev_rcu(dst),
- 			.gw = &rt->rt6i_gateway,
- 		};
+-void ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
+-			  u8 *proto,
+-			  struct in6_addr **daddr, struct in6_addr *saddr)
++u8 ipv6_push_nfrag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt,
++			u8 proto,
++			struct in6_addr **daddr, struct in6_addr *saddr)
+ {
+ 	if (opt->srcrt) {
+-		ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
++		proto = ipv6_push_rthdr(skb, proto, opt->srcrt, daddr, saddr);
+ 		/*
+ 		 * IPV6_RTHDRDSTOPTS is ignored
+ 		 * unless IPV6_RTHDR is set (RFC3542).
+ 		 */
+ 		if (opt->dst0opt)
+-			ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
++			proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst0opt);
+ 	}
+ 	if (opt->hopopt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_HOP, opt->hopopt);
++	return proto;
+ }
  
+-void ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 *proto)
++u8 ipv6_push_frag_opts(struct sk_buff *skb, struct ipv6_txoptions *opt, u8 proto)
+ {
+ 	if (opt->dst1opt)
+-		ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++		proto = ipv6_push_exthdr(skb, proto, NEXTHDR_DEST, opt->dst1opt);
++	return proto;
+ }
+ EXPORT_SYMBOL(ipv6_push_frag_opts);
+ 
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index fd25d5aadea27..2f4858fc2d489 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -305,11 +305,12 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
+ 		seg_len += opt->opt_nflen + opt->opt_flen;
+ 
+ 		if (opt->opt_flen)
+-			ipv6_push_frag_opts(skb, opt, &proto);
++			proto = ipv6_push_frag_opts(skb, opt, proto);
+ 
+ 		if (opt->opt_nflen)
+-			ipv6_push_nfrag_opts(skb, opt, &proto, &first_hop,
+-					     &fl6->saddr);
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &first_hop,
++						     &fl6->saddr);
+ 	}
+ 
+ 	if (unlikely(seg_len > IPV6_MAXPLEN)) {
+@@ -1927,11 +1928,13 @@ struct sk_buff *__ip6_make_skb(struct sock *sk,
+ 	__skb_pull(skb, skb_network_header_len(skb));
+ 
+ 	final_dst = &fl6->daddr;
+-	if (opt && opt->opt_flen)
+-		ipv6_push_frag_opts(skb, opt, &proto);
+-	if (opt && opt->opt_nflen)
+-		ipv6_push_nfrag_opts(skb, opt, &proto, &final_dst, &fl6->saddr);
+-
++	if (opt) {
++		if (opt->opt_flen)
++			proto = ipv6_push_frag_opts(skb, opt, proto);
++		if (opt->opt_nflen)
++			proto = ipv6_push_nfrag_opts(skb, opt, proto,
++						     &final_dst, &fl6->saddr);
++	}
+ 	skb_push(skb, sizeof(struct ipv6hdr));
+ 	skb_reset_network_header(skb);
+ 	hdr = ipv6_hdr(skb);
+diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
+index 1446c4eae681b..43ccc1a0a0d04 100644
+--- a/net/ipv6/ip6_tunnel.c
++++ b/net/ipv6/ip6_tunnel.c
+@@ -1273,7 +1273,7 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
+ 
+ 	if (encap_limit >= 0) {
+ 		init_tel_txopt(&opt, encap_limit);
+-		ipv6_push_frag_opts(skb, &opt.ops, &proto);
++		proto = ipv6_push_frag_opts(skb, &opt.ops, proto);
+ 	}
+ 
+ 	skb_push(skb, sizeof(struct ipv6hdr));
 -- 
 2.53.0
 
