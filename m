@@ -1,45 +1,46 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010045.outbound.protection.outlook.com [52.101.46.45])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010010.outbound.protection.outlook.com [52.101.193.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97434229D0
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781224248A0
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 15:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.10
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274981; cv=fail; b=i5NagrRQUSJhUx2NQ963gQHOvDiYB7DwKpSPXezWDjVqFirQph4Ju+FbMFqiUiCYu8ZN3aP/1IfA95MfWm6SD8k+TPMMqVaIDFPRC3angneKmKqoftGBIj/ZRPamg4lBGNEFARLPj9/4AX8XYPcRMC6L0H4siIl4dG8/SjyN2l4=
+	t=1788274987; cv=fail; b=G1CPdHo009/D7Fj/hBEH+m8Tkdi3yFS1GeAYVVOaO4WdjG8pJ0DT0gmFOZjOA4CInbeoYfSXJ7VgyUiC6w6N+2M9iLVsWHP5fmKHyERo/4i+QT9Hl0GHnZA2W52ndGDGYntW+4Ki/VkzxXfGjxskQ1RlCEtvX+vSj1GKReQqwwY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788274981; c=relaxed/simple;
-	bh=YIVH4AmqftbvkqEU75CtvtAumPzgRZr6NbJolKsjD+4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=oyAcb1uuF5u64Ba42jEJFEwPFJupW8rxfdb2pesVMk9YennlTE8GqCeRIuqZLFv4TOTm08Qb25bUp/v2rRAFMora8f0PnpdZR0KyuOD32fRhF3n4HmA8AouJJuRz9/UgAKevS3OLgCTkGP2WPYtQSXMLQlutDWdrODc0SFt5DSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GgYT/fGT; arc=fail smtp.client-ip=52.101.46.45
+	s=arc-20240116; t=1788274987; c=relaxed/simple;
+	bh=51lSyyNoqC+eIB2tln4zmXnIFTfHkEyOfWIMdcd05zs=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gOdEE+Eq7nSdbuXVoPJSkRaX0LnDAEBNMicGxhF+wMlISzGKpC60sHBoaWznQZtgWDfrsC6Ujsmp99mE11zx37wcUMg2fYjBBGOUp4vOLrN7QO0H56qZJ5Bst9X0HObGCI/Nhi4P+zDZ/2IDYmTdLAsM4gHg24iZyBmHmRTCLSs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cp/x8j8t; arc=fail smtp.client-ip=52.101.193.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GgYT/fGT"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cp/x8j8t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d+264iJ1n75/LROfjvOD690HdKg8tAX3AMZd6uNLMjPHR20RFDJdCmRIllbZ88bRZk5573GCpVe3DEmlfGmlzI4SeyNsaXrEdCoApXg2atCtQVh0m0yfzqFl9CZk5/0W6+JdFqGP8P8B/h9hD8yq6Yxj+75PPZ3PqTAHGDYEVkng3j7dZv4GLO7FhByjRW+mG5EuEcIILeP90udlNy6v3+5eRKmsxH/M/BfIG9f1Bm7+bzaXCw7dKwvgf1DlR3JasH9WazDjgStLu7Li+B6SQjoZTNYMJKgeeNwmCIThtbRvStoZ19L4mKRxVJdr+J1we3oA2lF5/2PcsMCAPPzj3Q==
+ b=T4A9l0D8iv6u+VP2BB/DJwAM15qOZHUswXjpA3MatphypudhidwyDGKGQAdp2RSi63zpsPjTClPYvTp76xz0JH05novwSSA/B4Tsu1Ub5lDqZyehOIafg3g3wv6EC5nmfjxqPtaCZCHNT490jn5eA7tZV46CmdKX/xDBz6DWpQATs7rP++fqT8zMe1U2fIWrLtUCrovu5wonEzXeCgJ1DIEbb3dKqdgTIJvyvW/Ywc+T52Jew5s4saVqBZ1TKSELVY2E1cPxA5lEmURiEsUtIGwr3jSlAlVmbTZyekS0p1HcCKn71Y3QAUBWhDu/lWMUpO/CLyBywtGNj57SB3T8aw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6+3v/6p05iTw8iaX+i7b+ZAplNUvLOzg42M7JSvOLUc=;
- b=MJ6F2gvFXFbES9E3IQJZlwV4K/LdoHMoN79gRb2c3aNHJDMsFKbrSwHkiU2MIZsLA0Gr8JkP7fceKcHOV1wtZ1Tqt/USPoRRHaCFiraMgCgwPEG1fF2t25Uz8ZnqX6jzYJeCyAQGNcd4Nf8vTY3m1JlqmqG0pr/hP4U8EQvOVixYwU9h1bdfbLwMRlF3QOekxrmpBJL+HpMGfT0+pDrBkwrjMBnX86Zw9x2iM9JLw2ubMbc2m2VsJTsttlIMF4b+DqPAj1FJZMwF5piMsODwMeOMiTP7Ny03uJH/VV4Y7szLCxbHTwTwTZoZa0SMdl9iaHOsl47Uoosj7ZyI3aoGaQ==
+ bh=ITUnYuv4F1qYJ1jjZVM/vKT2uzebaBKqr9oBGvPjN18=;
+ b=IZSTCa+xxI/aDecaZ8P2A/eqxrgYeS1dFsYlAM9cSSEJ9FtXlKDZRs8l9PUz/rqxiPmT/nr0Cs59BqUoCJ7Vf0naoWGrnhWeQlh7d+VENaSkjk/YpuH//4dQHNbbeKNKJcmLPm7WBJwBbf+9u+jFmFBgUnTqqoWLxi6iYAuZPQzMuOS/eJ+hA3Ig4HKgybXnUPG1zUXweBmYfxNJacmuS6hsuGXUJcdz5a22tJFeaEBrncC3j/XvcTy9bdaec5tLyxmTDNCk2mjfd2GCisgBKpkD2IpL2X3YvIm7DOYJA/2t2JOdSD5pL6AmUOjLjaLPzeZEOaNgtUEgxDVC6pdLQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6+3v/6p05iTw8iaX+i7b+ZAplNUvLOzg42M7JSvOLUc=;
- b=GgYT/fGTco/Tvpgj/x2byKSYYlPixzrBkN04+DnJLFtZo8y1FlALwIgdomk9lW0/wqivKv/qnwlkS6VFUezYlL9wvAOS4DX7k70J7ofX/hic1sBMXD/p+MWdM+ijhNnlvPCNm3fv9c3+FgrVtSKhT2yZU4VgRM8s7mpGIwKzSww=
-Received: from MW4PR04CA0256.namprd04.prod.outlook.com (2603:10b6:303:88::21)
- by SA0PR12MB4381.namprd12.prod.outlook.com (2603:10b6:806:70::14) with
+ bh=ITUnYuv4F1qYJ1jjZVM/vKT2uzebaBKqr9oBGvPjN18=;
+ b=cp/x8j8toSA2bQTclNOXrK53kldRvE9gQkjhghjvGo1h2TLHCNNTp4rwnMhHXL+spPrX1+sScKFWhQmm6a8Q1e1oo2zgve5rVAM/P0LUPIvJak4JQZ1GkEfcJJ5UeX2mdt1qBmUY8nvUnjzcaSnc0HcOlimhSGfO1506yKFgowU=
+Received: from MW4PR04CA0250.namprd04.prod.outlook.com (2603:10b6:303:88::15)
+ by SA1PR12MB6845.namprd12.prod.outlook.com (2603:10b6:806:25c::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
  2026 15:02:56 +0000
 Received: from SJ1PEPF00002319.namprd03.prod.outlook.com
- (2603:10b6:303:88:cafe::2f) by MW4PR04CA0256.outlook.office365.com
- (2603:10b6:303:88::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 15:02:55 +0000
+ (2603:10b6:303:88:cafe::6) by MW4PR04CA0250.outlook.office365.com
+ (2603:10b6:303:88::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
+ Sep 2026 15:02:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +50,22 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00002319.mail.protection.outlook.com (10.167.242.229) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 15:02:55 +0000
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 15:02:56 +0000
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 10:02:53 -0500
+ 15.2.2562.46; Tue, 1 Sep 2026 10:02:54 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <stable@vger.kernel.org>
-CC: Jerry Zuo <jerry.zuo@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>, Sun peng Li <sunpeng.li@amd.com>, Wayne Lin
-	<wayne.lin@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Alex Deucher
-	<alexander.deucher@amd.com>
-Subject: [PATCH 7.1.y 1/2] drm/amd/display: hide Apple Studio Display secondary tile
-Date: Tue, 1 Sep 2026 10:02:43 -0500
-Message-ID: <20260901150245.2671521-1-mario.limonciello@amd.com>
+CC: Fangzhi Zuo <jerry.zuo@amd.com>, Wayne Lin <wayne.lin@amd.com>, "Dan
+ Wheeler" <daniel.wheeler@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH 7.1.y 2/2] drm/amd/display: Prune per-tile Timing from Apple Studio Display Primary Tile
+Date: Tue, 1 Sep 2026 10:02:44 -0500
+Message-ID: <20260901150245.2671521-2-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901150245.2671521-1-mario.limonciello@amd.com>
+References: <20260901150245.2671521-1-mario.limonciello@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,149 +78,119 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SA0PR12MB4381:EE_
-X-MS-Office365-Filtering-Correlation-Id: d3b456f3-6959-43d4-3345-08df083a1a44
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002319:EE_|SA1PR12MB6845:EE_
+X-MS-Office365-Filtering-Correlation-Id: b997af26-1e75-407a-ab32-08df083a1b25
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|56012099006|6133799003|10067099003|11063799006|18002099003;
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|5023799004|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	2Z8EXM2VLwzmsZvd8SELUubu740KSLpAWwXRwFXACLp/6jh9Zn6JvNaat0s40Ao8z32gpHYd7KCkEwBKfaBiGUdKFuRtaPTSCawp08hw3HIsb/h2sxgxRq0Sun3ORN7m91DAYN+lH75TXWmOZKsVoOMOLaSOt3CE3Fn3+ulAf/wW9kEPRg3MP7p35KHzEq2yTohLCRoVr7XobYgXHV26w/2dihL9IMgTsJPLtzN4T7Ej/OG/O8rzXpufN5oHXYZVnYi20iHWueQ/TPSVLUyI555ezR3IbhIpxvLnyiYGjPujt+clh3Ap2ic0byc5JtILTwmbTOwrt/9iQmMXOG4t5ZwwonfdpNjO9xc4FvcPYPY/EHeD0D1B4S22OTlWGeUvepFYAFq60b9FHo/mUhrrXxN+AgQLQdMGE4Aenpo+IG0mwnGFhPLJIjZ79hc9iFVovWA1BbkUrebCKzPXCoMGD0CvleT0y/OImwr6oBl2wEC4Vny50L9ON+gXTAWzBVguZASCtRVhUJfQ8TdmRwJoZ6bDc+yuN4jTRZ/2LJ8zKzGh72gMKkkeiH4Uecr9zcHnBR5Q6wwooLiUWYH/JesWA0XSNHQzxUVQLmHS3PG1Qbbiu+qLQcnCu8f3Otl6cswmORp6dY8Fqk5BYbn/99bbrOvMdFe5xP6k7NLJcT/FPYXpQspUVW8/EcazF8I4TOch8GhuDYF/zs2nqq6OfGZAsg==
+	Z7vGwCpjWG+HHWvKlMwTl4IM+KHfYr6dF3WmeorhYqKvv1/UNHN1yFFTHXTINjZ5uEh5dJiSS6swmrYq47kphmXLodiCWE3yMWDLPCoBYEDU11IrexbMydhknQzr50VGfiz/AqI4LTXEp9BxYHxrz8mJTjebSzC7m6QLyNK4d8uJeNkh2CR5gS1llxTip41eHO8OXsjPbjWy7gIfD886MwMAkWyozU4yFVf5eTasB3OQIBuit+PwOMoj/Axr7EVdvE3arB+CowsPj8mI+c49Z+NmKLbrVr36jrUsAoX6RQgRC8ReqqORLaX5SqZzFIyDg5XVPsN6jsoPiuzevK4mpu89f3DLVO8fK/UAij0AXNMElld5uPtWjMjbpRuEhteuQDgzZ48KChRXULWwGDM5gNTKohLWdPSL5dkAAKUfVgS/YLB53/yw1wHpOSDMO259Qhsex664JSM3R4cmLQttxJW7DzUoWz5Kx9kn+4Qw9NqrW5nb9TsKAxIc2ia1HVM8oCIaNjg4SaKKOJY46UfaginQJMoQ4aVzXy8JiAcz5u+fByAKgiWbYWxZ+Qqf3PiNBx6LwC7iEA2JpQ20WhWLn07qwLx91ojShqb3iNneRKVj3c1jkKhwapJ7h5fab47qbiZOmivWle9DR3p235JjEUnyzHT/6/LY5fLhX6nzds6bmxCd2BBVN876zE97JsJOtRkMquhyrDd1zK1aKPxdaA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(56012099006)(6133799003)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(5023799004)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	cY+qPGCxHjuAeo4tod7yS+CUGcxWGvd1qxqa7vC1DR960uWui7n2xo92DVlk5T+USSdX/yRQR7RJ8hQ5gkKvquczRbt1CFTa1xcdCQiNWP70Uv9Hfd6mxqc0V2KRMNbJv1QOkB4/DVbTkmjrnETBpAJB7fZXPqEVlEsx0mFf9VtGyVE1bBYB6gz2/8L8mpfA/fWXL5KtRAyNwxsOlxaUZBbR9yuHFutxl5hiCBBKnuvMBoJfarjO/u59kGwjAUQypOChw8h0jYY5uL3s2X9ww4hhh5GaQ9MHBJ8fl+DiFq/e8nnNSlxtyyXKkzzjUuWPoTCab6udW9yJsXCFnHMCdjQW3O2E+rHqKtZZEwgxabR4syi4W1DtG75SLJ27ySwDJJxsjIrWoWarP+69zdv8JwYSxQdsEH7LF1SXktNK7mWYZKvU2GU4j06XI5JceEIM
+	rHyfrqFL8/iHSto3cQUcEZuf5rZpIiYo4V36Zztbs7p60H0ZfnDOdKuTT3DEHtlw/RCVIscV1W0mvEkVPhlqrNAREx1yVw93kBQU/cZVLF13MKCEzOoOKZJQz2Xu0MMoadKtd2883FF5CAYzmSkudOGyvxIIgWJQ5sJSxw6gLE0PFPrZZ0ME3TPZRw5XkRIthwnFdsEkfSG0qBFm8AvyAXeGWSya71Rn9EZNVqIRdhRu7Sg6H0Ofx77feIbe+dUNE2f5YmwmFxs94KdCzu6/XVg/cJdprhABYD1HBlcVFP0RJnFnF3CKn4GPsaI6i3QTvtedHKGXcRucsam3iX+yYVAe7+6lHXxx3swH2SWIEygGj0ytEG0jaC3A+CLKuHxY2zw4yuOWuGDtVb+7xdCl3jGBjVTi46y66dqsn2rRNuGCpnVBLupZn2h7auNM6M1I
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 15:02:55.0405
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 15:02:56.5207
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3b456f3-6959-43d4-3345-08df083a1a44
+X-MS-Exchange-CrossTenant-Network-Message-Id: b997af26-1e75-407a-ab32-08df083a1b25
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	SJ1PEPF00002319.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4381
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6845
 
-From: Jerry Zuo <jerry.zuo@amd.com>
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 
-The Apple Studio Display exposes a 2x1 tiled panel over two SST DP
-links. The primary tile advertises the full 5120x2880 mode (with DSC on
-the bandwidth-sufficient link) while the secondary carries a per-tile
-2560x2880 timing on a link without sufficient bandwidth. Report the
-non-primary tile connector as disconnected during detect so compositors
-only see the primary DP link and configure a single 5K mode instead of
-driving both tiled streams independently.
+[why]
+The Apple Studio Display primary tile advertises both the full 5120x2880
+mode and the per-tile 2560x2880 timing. With the secondary tile already
+hidden from userspace, the stray 2560x2880 mode on the primary connector
+can still be picked by compositors, defeating the single 5K stream goal.
 
-Drive the behaviour from an EDID quirk: add a disable_second_tile panel
-patch that apply_edid_quirks() sets for the affected Apple Studio
-Display panel IDs (0xAE3A, 0xAE42, 0xAE46), and have detect() hide the
-secondary tile when the sink carries that quirk.
+[how]
+Prune the per-tile timing from the primary connector during get_modes:
+when the sink carries the disable_second_tile quirk and the connector is
+the primary tile (tile_h_loc == 0 && tile_v_loc == 0), drop any probed
+mode matching the advertised tile size (tile_h_size x tile_v_size) so
+userspace only sees the full 5120x2880 mode.
 
-Reviewed-by: Mario Limonciello <mario.limonciello@amd.com>
-Reviewed-by: Sun peng Li <sunpeng.li@amd.com>
-Signed-off-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Wayne Lin <wayne.lin@amd.com>
+Fixes: 49521be4809d ("drm/amd/display: hide Apple Studio Display secondary tile")
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 49521be4809d63fe3efb6bc68ee11cb1e1ef3d63)
+(cherry picked from commit 7a4dd08c3f921576c6a7524f60e4f0e4601835d2)
 Adjust for lack of movement from amdgpu_dm.c to amdgpu_dm_connector.c
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 36 +++++++++++++++++++
- .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 11 ++++++
- drivers/gpu/drm/amd/display/dc/dc_types.h     |  1 +
- 3 files changed, 48 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index a2b6470d381c4..1e59cdac5ed5b 100644
+index 1e59cdac5ed5b..f5cb36fc5238c 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7600,6 +7600,39 @@ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force)
- 	return status;
+@@ -8869,6 +8869,47 @@ static void amdgpu_dm_connector_add_common_modes(struct drm_encoder *encoder,
+ 	}
  }
  
 +/*
-+ * Apple Studio Display exposes two SST DP links for a 2x1 tiled panel.
-+ * The primary tile advertises the full 5120x2880 mode (with DSC on the
-+ * bandwidth-sufficient link) while the secondary carries a per-tile
-+ * 2560x2880 timing on a insufficient bandwidth link. Hide the secondary
-+ * connector from userspace so compositors configure a single 5K stream
-+ * on the primary link only.
++ * The Apple Studio Display primary tile advertises both the full 5120x2880
++ * mode and the per-tile 2560x2880 timing. As the secondary tile is hidden from
++ * userspace (see amdgpu_dm_hide_secondary_tile_from_userspace()), drop the
++ * per-tile timing from the primary connector so compositors only pick the full
++ * 5K mode.
 + */
-+static bool amdgpu_dm_hide_secondary_tile_from_userspace(struct drm_connector *connector)
++static void amdgpu_dm_prune_primary_tile_modes(struct drm_connector *connector)
 +{
 +	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
++	struct drm_display_mode *mode, *t;
 +
 +	if (!aconnector->dc_sink)
-+		return false;
++		return;
 +
 +	if (!aconnector->dc_sink->edid_caps.panel_patch.disable_second_tile)
-+		return false;
-+
-+	drm_edid_connector_update(connector, aconnector->drm_edid);
++		return;
 +
 +	if (!connector->has_tile)
-+		return false;
++		return;
 +
-+	if (!connector->tile_h_loc && !connector->tile_v_loc)
-+		return false;
++	/* Only prune the per-tile timing from the primary tile. */
++	if (connector->tile_h_loc || connector->tile_v_loc)
++		return;
 +
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] hiding secondary Apple Studio Display tile from userspace\n",
-+		    connector->base.id, connector->name);
++	list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
++		if (mode->hdisplay != connector->tile_h_size ||
++		    mode->vdisplay != connector->tile_v_size)
++			continue;
 +
-+	return true;
++		drm_dbg_kms(connector->dev,
++			    "[CONNECTOR:%d:%s] pruning per-tile %dx%d timing from primary Apple Studio Display tile\n",
++			    connector->base.id, connector->name,
++			    mode->hdisplay, mode->vdisplay);
++
++		list_del(&mode->head);
++		drm_mode_destroy(connector->dev, mode);
++		aconnector->num_modes--;
++	}
 +}
 +
- /**
-  * amdgpu_dm_connector_detect() - Detect whether a DRM connector is connected to a display
-  *
-@@ -7643,6 +7676,9 @@ amdgpu_dm_connector_detect(struct drm_connector *connector, bool force)
- 		(!aconnector->dc_sink || aconnector->dc_sink->edid_caps.analog))
- 		return amdgpu_dm_connector_poll(aconnector, force);
+ static void amdgpu_set_panel_orientation(struct drm_connector *connector)
+ {
+ 	struct drm_encoder *encoder;
+@@ -8911,6 +8952,8 @@ static void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+ 		amdgpu_dm_connector->num_modes =
+ 				drm_edid_connector_add_modes(connector);
  
-+	if (amdgpu_dm_hide_secondary_tile_from_userspace(connector))
-+		return connector_status_disconnected;
++		amdgpu_dm_prune_primary_tile_modes(connector);
 +
- 	return (aconnector->dc_sink ? connector_status_connected :
- 			connector_status_disconnected);
- }
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index ee214f7592e50..cdf59ffa70d2f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -134,6 +134,17 @@ static void apply_edid_quirks(struct dc_link *link, struct edid *edid,
- 		drm_dbg_driver(dev, "Skip PHY SSC reduction on panel id %X\n", panel_id);
- 		link->wa_flags.skip_phy_ssc_reduction = true;
- 		break;
-+	/*
-+	 * Workaround for Apple Studio Display which exposes a 2x1 tiled panel
-+	 * over two SST DP links. Hide the secondary tile from userspace so
-+	 * compositors drive a single 5K stream on the primary link only.
-+	 */
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE3A):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE42):
-+	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE46):
-+		drm_dbg_driver(dev, "Hiding secondary tile on panel id %X\n", panel_id);
-+		edid_caps->panel_patch.disable_second_tile = true;
-+		break;
- 	default:
- 		return;
- 	}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 62e35dcb585cb..1bdb5a99edc71 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -178,6 +178,7 @@ struct dc_panel_patch {
- 	unsigned int skip_audio_sab_check;
- 	unsigned int mst_start_top_delay;
- 	unsigned int remove_sink_ext_caps;
-+	bool disable_second_tile;
- 	unsigned int disable_colorimetry;
- 	uint8_t blankstream_before_otg_off;
- 	bool oled_optimize_display_on;
+ 		/* sorting the probed modes before calling function
+ 		 * amdgpu_dm_get_native_mode() since EDID can have
+ 		 * more than one preferred mode. The modes that are
 -- 
 2.43.0
 
