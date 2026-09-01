@@ -1,107 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA1839B4AE;
-	Tue,  1 Sep 2026 14:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AB236B901;
+	Tue,  1 Sep 2026 14:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272852; cv=none; b=r5c9MybvRl6LOyo+PT7dyq4kfZmeGUz9wW3cWBJQFo+KZIhSOWOERjUU5HxX5L6p43o9MB4tlW82phIptnyE+5lQlIO0lV2khBF7H/O+LZNxmAzcYkVClx/ZZLgCFoUxqF+qzQFCfUvf1xpJdMv0Qaj32AcKHt2OFpSHeLNydsU=
+	t=1788272891; cv=none; b=N5F1Ts421gn2KVUopVdYh/rFFjc0L3u7Kn9S4NUHUlkHKbXOXUQ1LgldMXNVLW7/N1eaghSC89nh8edtQ/GROdvXFS5nuxCV2Xy+loMFrq6NN8UbhKYmGZ8RoVeIG/iIliMFJYYi4e42gVo/3y6BnbLGeJ6bRECWijO7bBHqq6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272852; c=relaxed/simple;
-	bh=ayXG/jvgjksUsoG5Zuky6iIAa4acDBqzBWCCEmft+nU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YGU+6+7ZlVZvJy5gJgrGgTHBBFSABKxs+6Pdt91seRUAMoEIAYxjS3gQC/y8NCztSIj+BBrl27bN+WMpVqQZaktmAv5aH8hQFMdzDInqQOiA/xwh2Ona1oM8TW+YG9oMyJH0eHZtHsVBeH4tABLoy1yqnd0gC8thLq/pZleaYvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qTHsXZ18; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788272891; c=relaxed/simple;
+	bh=i7lOUejC2tGwB1iXyXMM/XGwV6CJY9bP3bO8Wn1ZS88=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ux7/AWVCkyx8LGHHjtxSoV5vox5zXmC2GUxTrYRiW8DX5kV93cXK6RzjsCEju0dWq5YNW/il33jVbOHwLc/MgHVa/vkkTuC2qSNq3inP+aLyDHXcijVsEz9/c52kmeJ1uHkIDrpedo2RNPMqVXdKt75hj7ExnRgCrQ9/1g+6IOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bFVCJCFt; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qTHsXZ18"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D5172C2BCF4;
-	Tue,  1 Sep 2026 14:27:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788272851;
-	bh=ayXG/jvgjksUsoG5Zuky6iIAa4acDBqzBWCCEmft+nU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=qTHsXZ18zeT8pkOYni7a8myFwZ9SCUcUccGE+cOBYEiy7Se/I9L+orcucaYVV91gk
-	 CCssl9BgWOt40RNiQ1kiQd+gC1QJdB6XA4HfxMiLLP3Unmdc8pxOHNgPrstW3Mlrxf
-	 VwoAdaFGPqHSt5ry+zfxG9D0F17+igruFP9MAhKbfnJFhGoa/kp6i+7FSRKresP6fA
-	 ANnPbCea4i2OhDphD2PYtFIRY4ydA9nj2ltMK06M+DP2sljyTqooaq9mURUSydDyR8
-	 bIXEgFfj70xq6QXfkW9n1zj4oXyGMCEKbUX2DeRPuOEvIKmXCdu/dfmYgGTeZGfwQd
-	 5EdxYI9G1sFmQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B23ADC624D3;
-	Tue,  1 Sep 2026 14:27:31 +0000 (UTC)
-From: Ji-Ze Hong via B4 Relay <devnull+peter_hong.fintek.com.tw@kernel.org>
-Date: Tue, 01 Sep 2026 22:27:19 +0800
-Subject: [PATCH] can: usb: f81604: fix use-after-free on disconnect
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bFVCJCFt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788272889; x=1819808889;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=i7lOUejC2tGwB1iXyXMM/XGwV6CJY9bP3bO8Wn1ZS88=;
+  b=bFVCJCFtNWxI4M6O4BpfCvov5weTghQVcR+Y/KBAKuP03BsX695c8POg
+   WLUQo3otMNAnnS5m11EidbNtsrujmFKKjU1ObaUpXsulBVJg+V1W0KC+E
+   NvyvaH+fwYHT0ld/SmR+k20dHpyHUGr8bRaP+u+FiLxQdStwcAiYqOpQL
+   zE7kF1xdeVpHF54sOH0J40wGjxNWLKbjtgSrgYdFbL9+IGPKlYIvZ/vbW
+   yHdJQVpftWkjC9AjokEm/vekmI6f6Xbs56EVjmwaML8jVE09N0rEsIv5m
+   LvpUphwD7iqSVu5IkEN9TsU52X7yV4XQld0RulVAOZZi16/qhM+ZirROC
+   g==;
+X-CSE-ConnectionGUID: cSst1+J5QWiqu0xF5HAAXw==
+X-CSE-MsgGUID: 9sTZ74oKReyHDw6SGxDbgQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92571264"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="92571264"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:28:08 -0700
+X-CSE-ConnectionGUID: gzPAOPuqTl+Tq84be+jC9g==
+X-CSE-MsgGUID: 72cqK8kGQp6DIKZNbhkLDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="269685089"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:28:06 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>
+Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Deren Wu <deren.wu@mediatek.com>,
+	Ming Yen Hsieh <mingyen.hsieh@mediatek.com>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] wifi: mt76: mt7921: skip unknown CLC firmware records
+Date: Tue,  1 Sep 2026 22:27:57 +0800
+Message-ID: <20260901142757.422688-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260816174841.1918-1-acharyalaxman8848@gmail.com>
+References: <20260816174841.1918-1-acharyalaxman8848@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-f81604-fix-v1-1-c55b5178f9f8@fintek.com.tw>
-X-B4-Tracking: v=1; b=H4sIAMbglmoC/yWMQQ5AMBBFryKz1mQqNLiKWFRNGQukRSTi7gbL9
- 3/euyBSYIpQJxcEOjjyMgvoNAE32nkgxb0wZJgZrFArX2qDufJ8qipHJKvlKgyIsAaS+Ys17c9
- x7yZy21uA+34AizRzPW4AAAA=
-X-Change-ID: 20260901-f81604-fix-9400ea120256
-To: Marc Kleine-Budde <mkl@pengutronix.de>, 
- Vincent Mailhol <mailhol@kernel.org>
-Cc: linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788272851; l=1272;
- i=peter_hong@fintek.com.tw; s=20260824; h=from:subject:message-id;
- bh=OrmVvmr1snDnaMTisWi/0+p/lhxiIIgiSJYL9JzLpr4=;
- b=XxfwAoT2qzgD1EcOdZuJy4uyNCRmVLd5sYBtJb2g9t8gVAedH+Hu4tvDhomxjSWAzawGHXY/B
- 8cOYq9PH3ScD3YgIOhmirZwZUdGJfj/BzwZtrsOYfZNM1CpM6UUl57b
-X-Developer-Key: i=peter_hong@fintek.com.tw; a=ed25519;
- pk=8sYixQfVOzNMM+g53fxG9d3MHOFC02ZggNS0OhG5LMA=
-X-Endpoint-Received: by B4 Relay for peter_hong@fintek.com.tw/20260824 with
- auth_id=973
-X-Original-From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
-Reply-To: peter_hong@fintek.com.tw
+Content-Transfer-Encoding: 8bit
 
-From: "Ji-Ze Hong (Peter Hong)" <peter_hong@fintek.com.tw>
+On Sun, 16 Aug 2026 23:33:40 +0545, Laxman Acharya Padhya wrote:
+> Treat an out-of-range CLC index as newer firmware rather than a
+> malformed image. linux-firmware 20260810 ships MT7922 records with
+> idx 3, and rejecting them made mt7921e fail to probe.
+[...]
+> Fixes: 9417c5818a01 ("wifi: mt76: mt7921: validate CLC firmware records")
 
-Unregister the URBs before cancelling clear_reg_work to prevent an URB
-completion handler from scheduling work after cancel_work_sync() has
-returned.
+Reviewed-by: Junjie Cao <junjie.cao@intel.com>
 
-Otherwise the pending work may run after the netdev and private data are
-freed, resulting in a use-after-free.
+This wants Cc: stable, and it must not reach stable after 9417c5818a01
+does. That commit carries Fixes: 23bdc5d8cadf (2022) and is in v7.3-rc1,
+so the Fixes-tag scan can pick it for every series with a three-entry
+phy->clc[]; there this firmware then fails probe. Those trees today read
+the idx 3 record past the array instead (UBSAN at mcu.c:474 on 7.1.12,
+https://bugzilla.redhat.com/show_bug.cgi?id=2515420).
 
-Suggested-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Closes: https://lore.kernel.org/all/20260824133009.CF85A1F00A3A@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
----
- drivers/net/can/usb/f81604.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Greg: if 9417c5818a01 gets queued, please take the two together.
 
-diff --git a/drivers/net/can/usb/f81604.c b/drivers/net/can/usb/f81604.c
-index 4c147b9d6d69..bb155b876924 100644
---- a/drivers/net/can/usb/f81604.c
-+++ b/drivers/net/can/usb/f81604.c
-@@ -1075,10 +1075,10 @@ static int f81604_close(struct net_device *netdev)
- 	f81604_set_reset_mode(priv);
- 
- 	netif_stop_queue(netdev);
--	cancel_work_sync(&priv->clear_reg_work);
- 	close_candev(netdev);
- 
- 	f81604_unregister_urbs(priv);
-+	cancel_work_sync(&priv->clear_reg_work);
- 
- 	return 0;
- }
-
----
-base-commit: 475cb4ea138f4b0e7f43ff79220f4013a6a840b8
-change-id: 20260901-f81604-fix-9400ea120256
-
-Best regards,
---  
-Ji-Ze Hong (Peter Hong) <peter_hong@fintek.com.tw>
-
-
+My Sep 1 patch duplicates this; withdrawn.
