@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E0631BCAE
-	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:21:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047A3311C15
+	for <stable@vger.kernel.org>; Tue,  1 Sep 2026 00:21:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788222070; cv=none; b=E5k3Uxk8ZxQXjWPMYjbPlajndxS/MRhVWGXQ40BDoirGlow0evvhPUrv3ZfqqPeomZh+AD2d6IJC4+THJd5thnJ2qDLXXymZntR9rw7GRg6k4l7V3GD1IIdsnD6Si5mAFTBhCQUgPcmSsRpIEebKlMuDX8XGgiN4n9qe2WrGOhE=
+	t=1788222071; cv=none; b=Vxhu4Zhuzb9C0zjO3q9i5icf0LMpeCRIvwuYPGsDuMBQyw0y4e405GKmX3rASsMPK7pktoyzPrhPRjibr8f0Cn9PYoY1MH97jYB1nKBYCMmV5PkSA1Yv6qfO6EyJAlBJ0/45c3abipeOHbICCsUF3JJlj1WFofJeJG+ffl6Giko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788222070; c=relaxed/simple;
-	bh=KuLzQjBq9fQIk934td6AZYGzxy+GwJbxNYPvRqv2q7M=;
+	s=arc-20240116; t=1788222071; c=relaxed/simple;
+	bh=68Li6PKG19SH6MUY3QaIoFS+iXiD3aJ3SmKjnyatSas=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UefCzSVEnCox0uwCsp2XHEg0AZlHI6K2DBHHZFeoMHPN+Eoxbq3LeXb3wQjN1a4ZNF00qSzyEWiplcLCcQH94LL8dv0+fHDD0zD6HSqFdylkPJaH1vVPy320ETFaapDgaDIDqn59aBbOh1fgsfD1bsvYi4PWaU4SKrv/fSu94Q4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajCeC+sV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hH480AnXoAbalr9FgKB8vHmRqOtEYYwxPk+F7gwMDFwzlMTOPnAZStRSADWtwz4KkSVqvIWX7NKKdH4CG9sL47xYDvDhLdhivKRqlp62B6Hmwvrf2OBGScdBHuPwueKAyZ6rEQEPuyNByDldgPE7VYl/sfu3xGoY5CHJd7QSnu4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hI2tQN1l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajCeC+sV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9771F00A3D;
-	Tue,  1 Sep 2026 00:21:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hI2tQN1l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E254F1F00A3E;
+	Tue,  1 Sep 2026 00:21:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788222068;
-	bh=NxXuypWEADuViyBlgV7Fkys0sEFzTPi4IMNvJORkEkA=;
+	s=k20260515; t=1788222069;
+	bh=ZGV5VYYCPVRL6R+u3cWiuiXOox2ma9bvIfne3BjjopQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ajCeC+sVL7TiWBz1Itn+gYnVGRpO2ew7Y4s4PgIbRCrp4+q/HMEySu/KfLCgOzqv+
-	 rlrLfe57gfXhnAn3ycBqaZKd6nx0Pzs6nysFZDessOIjDd1VaxsAwfjVuWmE/6Dkx8
-	 mmRdGuykVf9Ya1aQipVtXlvAxtRMdVLnIM+A/lllm10v/0pmioVbYH+XTj+b2Gx9KR
-	 BCckEWp4ci3xKWo6J9ylY21AQzQRl18W6Ppr5L5kp3DIevFhqnwraMv39ueWclS5DU
-	 t9xj4xcBmYFMQcTvindnCP897evwn4gGGOrEQufpbBj+tswkrb7pJp24mypcUMWwOc
-	 fOr1vF9HzpVzw==
+	b=hI2tQN1l83O2thw2Z7bKiCoj/10M8wGSsWc1cyQ99Cqx7GdwvqL0N71e9Bj/uIHGV
+	 6WodYoDQSRf1aActQT3ImmP+fkJuhMzkSMht0zFpSPO0IX9gzHHko+bEP5tOHAK9W1
+	 rISZU/lpFPuuBGS39TkcAFwPmwmUVf1Mb0aRC8YlzA6wFyHi2rTvnMYo9n2m3G2DRN
+	 fFOyUDw6FlEjmMemXp/pYdSOweg31OX6Aq5SsCO+GZt/oyQU6E4OguVGqFWRWppdWo
+	 2oPsYj4hhAYWVttZjJKl+qZMxXHKqklBnj4FARfrCtxW8VLTOnqN4zFi26gi4uwPJE
+	 ZJvBZVIoAeFug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/5] ipv6: use dst6_mtu() instead of dst_mtu()
-Date: Mon, 31 Aug 2026 20:21:02 -0400
-Message-ID: <20260901002103.2024757-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] net: advertise TCP MSS from the configured MTU, not the learned PMTU
+Date: Mon, 31 Aug 2026 20:21:03 -0400
+Message-ID: <20260901002103.2024757-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260901002103.2024757-1-sashal@kernel.org>
 References: <2026083112-scrunch-gazing-cb7a@gregkh>
@@ -47,192 +47,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
 
-[ Upstream commit b40f0130a23b6bab8b359e158a40af81f11f14be ]
+[ Upstream commit 2640e64195948a601430d230c9864f5426574cde ]
 
-When we expect an IPv6 dst, use dst6_mtu() instead of dst_mtu()
-to save some code space.
+The MSS a host puts in its SYN tells the peer how big a segment it may
+send us. Right now we can shrink it with a PMTU we learned on our own
+send path, which is the wrong direction entirely.
 
-Due to current dst6_mtu() implementation, only convert
-users in IPv6 stack.
+On asymmetric paths this bites - think DSR load balancers, where the
+request side goes through a smaller-MTU overlay. We learn a small PMTU
+going out, then advertise a small MSS, and the peer stays capped for the
+whole connection even though its path back to us is wide. MSS only shows
+up in the SYN and never grows back.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260130210303.3888261-7-edumazet@google.com
+On symmetric paths we lose nothing by dropping it either: the peer runs
+its own PMTU discovery and usually already knows the real path MTU.
+
+So work out the advertised MSS from the configured route or device MTU
+and ignore the learned PMTU. Our send side is unchanged, still clamped by
+tcp_current_mss(). Add ip_dst_mtu_configured()/ip6_dst_mtu_configured()
+and use them from the two default_advmss() paths.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 164a5e7ad531 ("ipv4: ipv4_default_advmss() should use route mtu")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260815070413.294559-1-jiayuan.chen@linux.dev
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 2640e6419594 ("net: advertise TCP MSS from the configured MTU, not the learned PMTU")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/ip6_gre.c       |  2 +-
- net/ipv6/ip6_output.c    |  6 +++---
- net/ipv6/ip6_tunnel.c    |  4 ++--
- net/ipv6/ipv6_sockglue.c |  4 ++--
- net/ipv6/route.c         | 10 ++++++----
- net/ipv6/tcp_ipv6.c      |  9 +++++----
- 6 files changed, 19 insertions(+), 16 deletions(-)
+ include/net/ip.h        | 25 +++++++++++++++++++++++++
+ include/net/ip6_route.h | 37 +++++++++++++++++++++++++++++++++++++
+ net/ipv4/route.c        |  4 ++--
+ net/ipv6/route.c        |  2 +-
+ 4 files changed, 65 insertions(+), 3 deletions(-)
 
-diff --git a/net/ipv6/ip6_gre.c b/net/ipv6/ip6_gre.c
-index 58b473c157c82..4fbda6d83c0dc 100644
---- a/net/ipv6/ip6_gre.c
-+++ b/net/ipv6/ip6_gre.c
-@@ -1057,7 +1057,7 @@ static netdev_tx_t ip6erspan_tunnel_xmit(struct sk_buff *skb,
- 	/* TooBig packet may have updated dst->dev's mtu */
- 	if (!t->parms.collect_md && dst) {
- 		mtu = READ_ONCE(dst_dev(dst)->mtu);
--		if (dst_mtu(dst) > mtu)
-+		if (dst6_mtu(dst) > mtu)
- 			dst->ops->update_pmtu(dst, NULL, skb, mtu, false);
- 	}
- 	err = ip6_tnl_xmit(skb, dev, dsfield, &fl6, encap_limit, &mtu,
-diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
-index d048321733b38..7545fdbf07da2 100644
---- a/net/ipv6/ip6_output.c
-+++ b/net/ipv6/ip6_output.c
-@@ -355,7 +355,7 @@ int ip6_xmit(const struct sock *sk, struct sk_buff *skb, struct flowi6 *fl6,
- 	skb->priority = priority;
- 	skb->mark = mark;
+diff --git a/include/net/ip.h b/include/net/ip.h
+index e94c59cecef01..bb900da108af4 100644
+--- a/include/net/ip.h
++++ b/include/net/ip.h
+@@ -506,6 +506,31 @@ static inline unsigned int ip_dst_mtu_maybe_forward(const struct dst_entry *dst,
+ 	return res;
+ }
  
--	mtu = dst_mtu(dst);
-+	mtu = dst6_mtu(dst);
- 	if (likely((skb->len <= mtu) || skb->ignore_df || skb_is_gso(skb))) {
- 		IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTREQUESTS);
++/* Configured/administrative MTU of a route, for advertising the TCP MSS.
++ *
++ * Unlike ip_dst_mtu_maybe_forward(), this deliberately ignores the
++ * ICMP-learned path MTU (rt->rt_pmtu).  The advertised MSS bounds what the
++ * peer may send to us and must reflect our receive capability (the device or
++ * route-configured MTU), not a path MTU learned on the reverse (send)
++ * direction, which may not apply to the peer->us path and outlives the fnhe
++ * for the whole connection.  See RFC 2923 section 2.3 and the comment above
++ * tcp_advertise_mss().
++ */
++static inline unsigned int ip_dst_mtu_configured(const struct dst_entry *dst)
++{
++	unsigned int mtu, res;
++
++	rcu_read_lock();
++	mtu = dst_metric_raw(dst, RTAX_MTU);
++	if (!mtu)
++		mtu = READ_ONCE(dst_dev_rcu(dst)->mtu);
++	mtu = min_t(unsigned int, mtu, IP_MAX_MTU);
++	res = mtu - lwtunnel_headroom(dst->lwtstate, mtu);
++	rcu_read_unlock();
++
++	return res;
++}
++
+ static inline unsigned int ip_skb_dst_mtu(struct sock *sk,
+ 					  const struct sk_buff *skb)
+ {
+diff --git a/include/net/ip6_route.h b/include/net/ip6_route.h
+index a55f9bf95fe39..bcbd5eb1a0787 100644
+--- a/include/net/ip6_route.h
++++ b/include/net/ip6_route.h
+@@ -352,6 +352,43 @@ static inline unsigned int ip6_dst_mtu_maybe_forward(const struct dst_entry *dst
+ 	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
+ }
  
-@@ -1405,10 +1405,10 @@ static int ip6_setup_cork(struct sock *sk, struct inet_cork_full *cork,
- 	v6_cork->dontfrag = ipc6->dontfrag;
- 	if (rt->dst.flags & DST_XFRM_TUNNEL)
- 		mtu = READ_ONCE(np->pmtudisc) >= IPV6_PMTUDISC_PROBE ?
--		      READ_ONCE(rt->dst.dev->mtu) : dst_mtu(&rt->dst);
-+		      READ_ONCE(rt->dst.dev->mtu) : dst6_mtu(&rt->dst);
- 	else
- 		mtu = READ_ONCE(np->pmtudisc) >= IPV6_PMTUDISC_PROBE ?
--			READ_ONCE(rt->dst.dev->mtu) : dst_mtu(xfrm_dst_path(&rt->dst));
-+			READ_ONCE(rt->dst.dev->mtu) : dst6_mtu(xfrm_dst_path(&rt->dst));
++/* Configured/administrative MTU of a route, for advertising the TCP MSS.
++ *
++ * Unlike ip6_dst_mtu_maybe_forward(), this ignores any ICMPv6-learned path
++ * MTU (which is kept on the RTF_CACHE exception route) and returns the MTU of
++ * the underlying route (fib6_pmtu) or the egress device.  The advertised MSS
++ * bounds what the peer may send to us and must reflect our receive
++ * capability, not a path MTU learned on the reverse (send) direction.  See
++ * RFC 2923 section 2.3 and the comment above tcp_advertise_mss().
++ */
++static inline unsigned int ip6_dst_mtu_configured(const struct dst_entry *dst)
++{
++	const struct rt6_info *rt = dst_rt6_info(dst);
++	const struct fib6_info *from;
++	struct inet6_dev *idev;
++	unsigned int mtu = 0;
++
++	rcu_read_lock();
++	/* IPv6 keeps the learned PMTU and the configured MTU in the same
++	 * RTAX_MTU slot: the learned value sits on this (possibly RTF_CACHE)
++	 * dst, the configured one on the underlying route.  Reach the latter
++	 * via ->from (fib6_pmtu), populated by ip6_route_info_create().
++	 */
++	from = rcu_dereference(rt->from);
++	if (from)
++		mtu = from->fib6_pmtu;
++	if (!mtu) {
++		mtu = IPV6_MIN_MTU;
++		idev = __in6_dev_get(dst_dev_rcu(dst));
++		if (idev)
++			mtu = max_t(unsigned int, mtu, READ_ONCE(idev->cnf.mtu6));
++	}
++	rcu_read_unlock();
++
++	mtu = min_t(unsigned int, mtu, IP6_MAX_MTU);
++	return mtu - lwtunnel_headroom(dst->lwtstate, mtu);
++}
++
+ u32 ip6_mtu_from_fib6(const struct fib6_result *res,
+ 		      const struct in6_addr *daddr,
+ 		      const struct in6_addr *saddr);
+diff --git a/net/ipv4/route.c b/net/ipv4/route.c
+index 71fc69e80a89e..a25ab9d263ab7 100644
+--- a/net/ipv4/route.c
++++ b/net/ipv4/route.c
+@@ -1360,8 +1360,8 @@ static unsigned int ipv4_default_advmss(const struct dst_entry *dst)
  
- 	frag_size = READ_ONCE(np->frag_size);
- 	if (frag_size && frag_size < mtu)
-diff --git a/net/ipv6/ip6_tunnel.c b/net/ipv6/ip6_tunnel.c
-index ba3084cecc979..e321feca8926d 100644
---- a/net/ipv6/ip6_tunnel.c
-+++ b/net/ipv6/ip6_tunnel.c
-@@ -643,7 +643,7 @@ ip4ip6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
+ 	rcu_read_lock();
+ 	net = dst_dev_net_rcu(dst);
+-	advmss = max_t(unsigned int, ipv4_mtu(dst) - header_size,
+-				   net->ipv4.ip_rt_min_advmss);
++	advmss = max_t(unsigned int, ip_dst_mtu_configured(dst) - header_size,
++		       net->ipv4.ip_rt_min_advmss);
+ 	rcu_read_unlock();
  
- 	/* change mtu on this route */
- 	if (rel_type == ICMP_DEST_UNREACH && rel_code == ICMP_FRAG_NEEDED) {
--		if (rel_info > dst_mtu(skb_dst(skb2)))
-+		if (rel_info > dst6_mtu(skb_dst(skb2)))
- 			goto out;
- 
- 		skb_dst_update_pmtu_no_confirm(skb2, rel_info);
-@@ -1195,7 +1195,7 @@ int ip6_tnl_xmit(struct sk_buff *skb, struct net_device *dev, __u8 dsfield,
- 				     t->parms.name);
- 		goto tx_err_dst_release;
- 	}
--	mtu = dst_mtu(dst) - eth_hlen - psh_hlen - t->tun_hlen;
-+	mtu = dst6_mtu(dst) - eth_hlen - psh_hlen - t->tun_hlen;
- 	if (encap_limit >= 0) {
- 		max_headroom += 8;
- 		mtu -= 8;
-diff --git a/net/ipv6/ipv6_sockglue.c b/net/ipv6/ipv6_sockglue.c
-index a61e742794f9e..d784a8644ff20 100644
---- a/net/ipv6/ipv6_sockglue.c
-+++ b/net/ipv6/ipv6_sockglue.c
-@@ -1184,7 +1184,7 @@ int do_ipv6_getsockopt(struct sock *sk, int level, int optname,
- 		rcu_read_lock();
- 		dst = __sk_dst_get(sk);
- 		if (dst)
--			val = dst_mtu(dst);
-+			val = dst6_mtu(dst);
- 		rcu_read_unlock();
- 		if (!val)
- 			return -ENOTCONN;
-@@ -1283,7 +1283,7 @@ int do_ipv6_getsockopt(struct sock *sk, int level, int optname,
- 		rcu_read_lock();
- 		dst = __sk_dst_get(sk);
- 		if (dst)
--			mtuinfo.ip6m_mtu = dst_mtu(dst);
-+			mtuinfo.ip6m_mtu = dst6_mtu(dst);
- 		rcu_read_unlock();
- 		if (!mtuinfo.ip6m_mtu)
- 			return -ENOTCONN;
+ 	return min(advmss, IPV4_MAX_PMTU - header_size);
 diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 5894f7dd4d4d7..5ad2d92319562 100644
+index 5ad2d92319562..05b1dc36331fd 100644
 --- a/net/ipv6/route.c
 +++ b/net/ipv6/route.c
-@@ -2053,6 +2053,8 @@ static void rt6_update_exception_stamp_rt(struct rt6_info *rt)
- static bool rt6_mtu_change_route_allowed(struct inet6_dev *idev,
- 					 struct rt6_info *rt, int mtu)
- {
-+	u32 dmtu = dst6_mtu(&rt->dst);
-+
- 	/* If the new MTU is lower than the route PMTU, this new MTU will be the
- 	 * lowest MTU in the path: always allow updating the route PMTU to
- 	 * reflect PMTU decreases.
-@@ -2063,10 +2065,10 @@ static bool rt6_mtu_change_route_allowed(struct inet6_dev *idev,
- 	 * handle this.
- 	 */
- 
--	if (dst_mtu(&rt->dst) >= mtu)
-+	if (dmtu >= mtu)
- 		return true;
- 
--	if (dst_mtu(&rt->dst) == idev->cnf.mtu6)
-+	if (dmtu == idev->cnf.mtu6)
- 		return true;
- 
- 	return false;
-@@ -2936,7 +2938,7 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
- 
- 	if (mtu < IPV6_MIN_MTU)
- 		return;
--	if (mtu >= dst_mtu(dst))
-+	if (mtu >= dst6_mtu(dst))
- 		return;
- 
- 	if (!rt6_cache_allowed_for_pmtu(rt6)) {
-@@ -3252,7 +3254,7 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
+@@ -3254,7 +3254,7 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
  
  static unsigned int ip6_default_advmss(const struct dst_entry *dst)
  {
--	unsigned int mtu = dst_mtu(dst);
-+	unsigned int mtu = dst6_mtu(dst);
+-	unsigned int mtu = dst6_mtu(dst);
++	unsigned int mtu = ip6_dst_mtu_configured(dst);
  	struct net *net;
  
  	mtu -= sizeof(struct ipv6hdr) + sizeof(struct tcphdr);
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index 952bf49efbc6a..cedfdf728cd41 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -351,7 +351,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr *uaddr,
- static void tcp_v6_mtu_reduced(struct sock *sk)
- {
- 	struct dst_entry *dst;
--	u32 mtu;
-+	u32 mtu, dmtu;
- 
- 	if ((1 << sk->sk_state) & (TCPF_LISTEN | TCPF_CLOSE))
- 		return;
-@@ -368,8 +368,9 @@ static void tcp_v6_mtu_reduced(struct sock *sk)
- 	if (!dst)
- 		return;
- 
--	if (inet_csk(sk)->icsk_pmtu_cookie > dst_mtu(dst)) {
--		tcp_sync_mss(sk, dst_mtu(dst));
-+	dmtu = dst6_mtu(dst);
-+	if (inet_csk(sk)->icsk_pmtu_cookie > dmtu) {
-+		tcp_sync_mss(sk, dmtu);
- 		tcp_simple_retransmit(sk);
- 	}
- }
-@@ -1499,7 +1500,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
- 
- 	tcp_ca_openreq_child(newsk, dst);
- 
--	tcp_sync_mss(newsk, dst_mtu(dst));
-+	tcp_sync_mss(newsk, dst6_mtu(dst));
- 	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
- 
- 	tcp_initialize_rcv_mss(newsk);
 -- 
 2.53.0
 
