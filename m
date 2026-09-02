@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C186472528
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 10:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4CC477992
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 10:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346435; cv=none; b=EEd0w5A3dx+vWIzMvXeiuNnd15tZZbW/xClEurjPsF2WMtLcxC323kcalpTmN1Bms1WvehFJQ394vIaNALKwsjVMvR0S033P9WPj+YsoDq3Q+Y9gPRrcLwijPZ25P9pPOFpJ7iCbf6WgnX2BgLkysVNZqgtG0pjwuWyTcandhoQ=
+	t=1788346437; cv=none; b=sXjwbxaJa8oKZJnfeq8aKmvOMLUjN5XUnK7oZh+B/4l3at1GU9iRyAx08XIkeuYZlENCRb+dnX63GS9LvAEZfBg3J+88W+2pS2Lgn1HjSQHc/kQDgdhKtVFi8FnoNguHdgso6AxtKSDFphn4HV8yfJE1W3BYgazA+zVyH21vmL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346435; c=relaxed/simple;
-	bh=lc/WvPYKCVXv08EW1LfOi1LQKJ0HIFh7cRQn6B0PMFg=;
+	s=arc-20240116; t=1788346437; c=relaxed/simple;
+	bh=zEhY4Z0LB/iWP50XrF0by+ncOMGQQxnZ/J1yLhUD1nA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bh4C1aRfxYQiXNMArfPJwMuNPRKToL4JGBLIUT/Uhz2RCm4MXE4ujE7Hk6J1guHBLBHv2u1jtFykcZuIOenYOaHyWoeZ2MHZN1vyma5JRSSgZxfp/i1lp44pe3iv7nxil8kyILiQ3mtbWCrtIriK3rV880qZOtoGFFSRDqc3IWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZC9+EPZV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Ndri5VV+3+TVKKX3QLc5Lpk5m7DmW6eHZ8Gx42KSo9pQySBAKFWmrWDczOkH9+IeltYdntO3+kW/x7ruxuKPXAxLO6E27oXOebp5U7PHGaSkgzjJsRAPL6SRHKR/ADWbNsSwqXWzu37HY/XPY2VhR93Gjnjj9suEKFyErBWG/9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S4QK1OXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZC9+EPZV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D3F71F00ACF;
-	Wed,  2 Sep 2026 10:53:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S4QK1OXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DCC51F0155C;
+	Wed,  2 Sep 2026 10:53:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788346407;
-	bh=VLNVj+QaUKEPXp57eMlH6E2K45ohl91NJvq6tEEn7p0=;
+	s=k20260515; t=1788346419;
+	bh=j7eXSwYfycpZ2VxMJrvgLQqt+9Fb3OhKcbZVYTD9l2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZC9+EPZVPIeJ75I02DLiEl6cujGL6+2HZ5KP/4JZo9hW90eh8j6Hq4AkbLaRXl5DN
-	 d/l8r4F1kRi3hBRlAo0pkLXdrFK5pdx+IDPaH+sV+capoQGA3C2kdQE2KQ52paHu6f
-	 Lysu/hgym9GkaTvUj4RCRF0ejPPlgXq4oYmzDa8RH92oggvRS5a3mQw0LY4C4XjoL1
-	 jOIZ+ZplnGGdM0L6mDmYXmS9e6HzXQgeZqES9ZLcZBS7PtH+uSkuyr2+6lNueZe8va
-	 sWOa4VFT8REoWP0AuMpJ3E8qcO1/ucvFlth0O2VQjBpcMioZ8URQq3fNBTLiUBboH+
-	 7vAVcB2Ib7xFg==
+	b=S4QK1OXDeWcC18D9XwcRkhy1wGQHClraN5fLHkrQj2V/WDqqU4a1VGyxyVznTSGf7
+	 5fnWGhl2chd2PAvLO/jWIfAp11tTrTFtCGxWtKLGmO4A5ElX0jFm3on5SaOvKZ+zDz
+	 Oocfz3GfX+om6fcvPnrMKMdwyB2w3efjo6WTzv/kBnfRcrxmrn8xNxoH2bPPfXVklr
+	 9L93dpxtvj5hKnJzqaOW5jG2oXhBFHzfRGNJddQsUv+bBn50BUrxSgNd/GLgC8/Q/q
+	 CHu6N+42C8UzLrvKzUvNsPSUJEHvsJ7EbjVVF38TahqUWKWs4RSR1MpznvdDewRh/M
+	 Xy/TS+pmh+wrQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <thorsten.blum@linux.dev>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
+Cc: Yong Wang <edragain@163.com>,
+	Vega <vega@nebusec.ai>,
+	Ren Wei <weir@nebusec.ai>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/5] crypto: atmel-ecc - clean up and improve ECDH comments
-Date: Wed,  2 Sep 2026 06:53:21 -0400
-Message-ID: <20260902105322.2048136-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 5/5] tcp: clamp route advmss to TCP_MIN_MSS
+Date: Wed,  2 Sep 2026 06:53:32 -0400
+Message-ID: <20260902105332.2048804-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902105322.2048136-1-sashal@kernel.org>
-References: <2026083113-premiere-tables-885d@gregkh>
- <20260902105322.2048136-1-sashal@kernel.org>
+In-Reply-To: <20260902105332.2048804-1-sashal@kernel.org>
+References: <2026083106-glisten-superhero-188c@gregkh>
+ <20260902105332.2048804-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,141 +48,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <thorsten.blum@linux.dev>
+From: Yong Wang <edragain@163.com>
 
-[ Upstream commit 3e84fb698abada239d3e35ed3d52a24dbfda5f6a ]
+[ Upstream commit 870a9e42ecc6fe1b8c25d87af043cb0d9c178fe1 ]
 
-Improve the kerneldoc for struct atmel_ecdh_ctx by removing the stale
-"unsupported curves" wording, since the device only supports a single
-curve (P-256), and move the set_secret() constraint to the description.
+tcp_select_initial_window() assumes that callers never pass an MSS
+smaller than 1, but route-derived advmss values can violate that
+assumption.
 
-In atmel_ecdh_set_secret(), clarify that the device generates the
-private key, and drop the redundant "only supports NIST P256" comment.
+A too-small explicit RTAX_ADVMSS is one way to get there, but it is not
+the only one. The same divide-by-zero can also be reached through the
+"default advmss" path when RTAX_ADVMSS is left at 0 and the effective
+advmss is later driven down by route MTU and min_adv_mss.
 
-In atmel_ecdh_done() and atmel_ecdh_generate_public_key(), clarify the
-truncation comments. Also note that a P-256 public key consists of two
-32-byte coordinates in atmel_ecdh_compute_shared_secret(), and remove
-the unnecessary fall-through comment and other redundant comments.
+Introduce a tcp_dst_advmss() helper that clamps route advmss to
+TCP_MIN_MSS before TCP consumes it, and use it in the TCP paths that
+derive advmss from dst metrics. This keeps the effective MSS from
+dropping to zero before tcp_select_initial_window() rounds the receive
+window.
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-Stable-dep-of: f07a0d251db7 ("crypto: atmel-ecc - avoid stale fallback key after set_secret failure")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Yong Wang <edragain@163.com>
+Signed-off-by: Ren Wei <weir@nebusec.ai>
+Link: https://patch.msgid.link/251eaf8277fa7c66364c9815c5da01662d269181.1787074852.git.edragain@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ dropped unrelated ssthresh helpers and kept plain window_clamp assignment instead of WRITE_ONCE due to missing context in the 5.10 tree ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/crypto/atmel-ecc.c | 38 ++++++++++++++------------------------
- 1 file changed, 14 insertions(+), 24 deletions(-)
+ include/net/tcp.h        | 5 +++++
+ net/ipv4/tcp_ipv4.c      | 2 +-
+ net/ipv4/tcp_minisocks.c | 2 +-
+ net/ipv4/tcp_output.c    | 6 +++---
+ net/ipv6/tcp_ipv6.c      | 2 +-
+ 5 files changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
-index e21466dfd0753..7950e635277a5 100644
---- a/drivers/crypto/atmel-ecc.c
-+++ b/drivers/crypto/atmel-ecc.c
-@@ -27,15 +27,14 @@ static struct atmel_ecc_driver_data driver_data;
- 
- /**
-  * struct atmel_ecdh_ctx - transformation context
-- * @client     : pointer to i2c client device
-- * @fallback   : used for unsupported curves or when user wants to use its own
-- *               private key.
-- * @public_key : generated when calling set_secret(). It's the responsibility
-- *               of the user to not call set_secret() while
-- *               generate_public_key() or compute_shared_secret() are in flight.
-- * @curve_id   : elliptic curve id
-- * @do_fallback: true when the device doesn't support the curve or when the user
-- *               wants to use its own private key.
-+ * @client: I2C client device
-+ * @fallback: ECDH fallback used for caller-provided private keys
-+ * @public_key: cached public key for the device-generated private key
-+ * @curve_id: elliptic curve id
-+ * @do_fallback: true when ECDH operations should use @fallback
-+ *
-+ * The caller must not invoke set_secret() while generate_public_key()
-+ * or compute_shared_secret() are in flight.
-  */
- struct atmel_ecdh_ctx {
- 	struct i2c_client *client;
-@@ -55,7 +54,7 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
- 	if (status)
- 		goto free_work_data;
- 
--	/* might want less than we've got */
-+	/* copy only as much as requested, capped at 32 bytes */
- 	n_sz = min(ATMEL_ECC_NIST_P256_N_SIZE, req->dst_len);
- 
- 	/* copy the shared secret */
-@@ -64,15 +63,15 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
- 	if (copied != n_sz)
- 		status = -EINVAL;
- 
--	/* fall through */
- free_work_data:
- 	kfree_sensitive(work_data);
- 	kpp_request_complete(req, status);
+diff --git a/include/net/tcp.h b/include/net/tcp.h
+index 4c87936a33d6d..ae14aede37621 100644
+--- a/include/net/tcp.h
++++ b/include/net/tcp.h
+@@ -1425,6 +1425,11 @@ static inline int tcp_full_space(const struct sock *sk)
+ 	return tcp_win_from_space(sk, READ_ONCE(sk->sk_rcvbuf));
  }
  
- /*
-- * A random private key is generated and stored in the device. The device
-- * returns the pair public key.
-+ * If no private key is provided, generate one in the device and cache
-+ * the corresponding public key. The generated private key never leaves
-+ * the device.
-  */
- static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 				 unsigned int len)
-@@ -83,9 +82,7 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 	struct ecdh params;
- 	int ret = -ENOMEM;
++static inline u32 tcp_dst_advmss(const struct dst_entry *dst)
++{
++	return max_t(u32, dst_metric_advmss(dst), TCP_MIN_MSS);
++}
++
+ void tcp_cleanup_rbuf(struct sock *sk, int copied);
  
--	/* free the old public key, if any */
- 	kfree(ctx->public_key);
--	/* make sure you don't free the old public key twice */
- 	ctx->public_key = NULL;
+ /* We provision sk_rcvbuf around 200% of sk_rcvlowat.
+diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
+index 502365adc4fab..a1c57976b6832 100644
+--- a/net/ipv4/tcp_ipv4.c
++++ b/net/ipv4/tcp_ipv4.c
+@@ -1593,7 +1593,7 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+ 	tcp_ca_openreq_child(newsk, dst);
  
- 	if (crypto_ecdh_decode_key(buf, len, &params) < 0) {
-@@ -94,7 +91,6 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
+ 	tcp_sync_mss(newsk, dst4_mtu(dst));
+-	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
++	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
+ 
+ 	tcp_initialize_rcv_mss(newsk);
+ 
+diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
+index 866055e1b8014..ea63b6da8cbb4 100644
+--- a/net/ipv4/tcp_minisocks.c
++++ b/net/ipv4/tcp_minisocks.c
+@@ -369,7 +369,7 @@ void tcp_openreq_init_rwin(struct request_sock *req,
+ 	u32 rcv_wnd;
+ 	int mss;
+ 
+-	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
+ 	window_clamp = READ_ONCE(tp->window_clamp);
+ 	/* Set this up on the first call only */
+ 	req->rsk_window_clamp = window_clamp ? : dst_metric(dst, RTAX_WINDOW);
+diff --git a/net/ipv4/tcp_output.c b/net/ipv4/tcp_output.c
+index 67491c2d00476..a1277f1059d1f 100644
+--- a/net/ipv4/tcp_output.c
++++ b/net/ipv4/tcp_output.c
+@@ -125,7 +125,7 @@ static __u16 tcp_advertise_mss(struct sock *sk)
+ 	int mss = tp->advmss;
+ 
+ 	if (dst) {
+-		unsigned int metric = dst_metric_advmss(dst);
++		unsigned int metric = tcp_dst_advmss(dst);
+ 
+ 		if (metric < mss) {
+ 			mss = metric;
+@@ -3596,7 +3596,7 @@ struct sk_buff *tcp_make_synack(const struct sock *sk, struct dst_entry *dst,
  	}
+ 	skb_dst_set(skb, dst);
  
- 	if (params.key_size) {
--		/* fallback to ecdh software implementation */
- 		ctx->do_fallback = true;
- 		return crypto_kpp_set_secret(ctx->fallback, buf, len);
- 	}
-@@ -103,11 +99,6 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 	if (!cmd)
- 		return -ENOMEM;
+-	mss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	mss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
  
--	/*
--	 * The device only supports NIST P256 ECC keys. The public key size will
--	 * always be the same. Use a macro for the key size to avoid unnecessary
--	 * computations.
--	 */
- 	public_key = kmalloc(ATMEL_ECC_PUBKEY_SIZE, GFP_KERNEL);
- 	if (!public_key)
- 		goto free_cmd;
-@@ -120,7 +111,6 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 	if (ret)
- 		goto free_public_key;
+ 	memset(&opts, 0, sizeof(opts));
+ 	now = tcp_clock_ns();
+@@ -3712,7 +3712,7 @@ static void tcp_connect_init(struct sock *sk)
  
--	/* save the public key */
- 	memcpy(public_key, &cmd->data[RSP_DATA_IDX], ATMEL_ECC_PUBKEY_SIZE);
- 	ctx->public_key = public_key;
+ 	if (!tp->window_clamp)
+ 		tp->window_clamp = dst_metric(dst, RTAX_WINDOW);
+-	tp->advmss = tcp_mss_clamp(tp, dst_metric_advmss(dst));
++	tp->advmss = tcp_mss_clamp(tp, tcp_dst_advmss(dst));
  
-@@ -149,7 +139,7 @@ static int atmel_ecdh_generate_public_key(struct kpp_request *req)
- 	if (!ctx->public_key)
- 		return -EINVAL;
+ 	tcp_initialize_rcv_mss(sk);
  
--	/* might want less than we've got */
-+	/* copy only as much as requested, capped at 64 bytes */
- 	nbytes = min(ATMEL_ECC_PUBKEY_SIZE, req->dst_len);
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index 89b53801660c6..af9227f12f447 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -1379,7 +1379,7 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+ 	tcp_ca_openreq_child(newsk, dst);
  
- 	/* public key was saved at private key generation */
-@@ -175,7 +165,7 @@ static int atmel_ecdh_compute_shared_secret(struct kpp_request *req)
- 		return crypto_kpp_compute_shared_secret(req);
- 	}
+ 	tcp_sync_mss(newsk, dst6_mtu(dst));
+-	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), dst_metric_advmss(dst));
++	newtp->advmss = tcp_mss_clamp(tcp_sk(sk), tcp_dst_advmss(dst));
  
--	/* must have exactly two points to be on the curve */
-+	/* A P-256 public key must contain two 32-byte coordinates */
- 	if (req->src_len != ATMEL_ECC_PUBKEY_SIZE)
- 		return -EINVAL;
+ 	tcp_initialize_rcv_mss(newsk);
  
 -- 
 2.53.0
