@@ -1,89 +1,70 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB75E4195C8;
-	Wed,  2 Sep 2026 23:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279204446EE;
+	Wed,  2 Sep 2026 23:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788390075; cv=none; b=dxZbziUjEjvGG9KR6tLtlqx5+gECFAizHPrUipiHr+7FDOWrgDK17GJY0PXrgg642LyZo7J/czw8mdUlpYigsOwwnzAc0RaqE0+9x5wZR5XA5EkWCZ/6uTJLsDCvXs3oIyv73lRLRDQFUgGrYo0HgD1Gdec0G5H9lJntSah8f4A=
+	t=1788390305; cv=none; b=Rlq3hzDAGnqY/8w9Z/MYF0acDzqPnKIPxyjIHbOONMtGGv4ZXKbgi8BtghSvug1Iz2gxzhWz1nZReQqcF+ktpM96gAzrN8XOILKufK7SjiKXge03i3Mj+oXuUaGMEXCsF6zjHrd6n3WEJtnfMQAwNpHb6wwZM6gn3aD4mGly0W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788390075; c=relaxed/simple;
-	bh=Jb726CQwB7FUTQYyG3EUVFK9PY2m2B5Jdn2aq4KroFk=;
+	s=arc-20240116; t=1788390305; c=relaxed/simple;
+	bh=INCveELf4SeONdd+Iwy6XwTvuoHRcwzhM2gnIE4HCPQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Qgr89/dVhnT9VWhKIPuJr5BKUh7aCP59nYyPK7zt4+pjT1LxbXQ2v4DvSyOW6aYYAbiVaU2FkQ5YVgYKVjVoDss8l5mYH4DYE/rdMZCVfcwUDQKUnPZGeO7yM2UIspsGUQ4CbhGGg+KmxYecNyUU+HGn9pceS1xqp01NcUulPTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hepmowgQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=lAT/FCRu; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=U1f3QS/S; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CVSoFHV4; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 MIME-Version; b=HjyDc3mr7+CNXzAN/6NiIoohdfFogowkC0O94DoLqKVVlIZA7bDfpwSblt3rKCF4zrbjL1FcK7qCQFJzLfnL9uduWBE4YheR1GqkX9ef0TTvYjNz0IwvKdP36tJekS+KStHvOPxPtw+b7xiI0gP169jE0p4/a/AwSEth0VhJ7AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZP8UNAB9; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hepmowgQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="lAT/FCRu";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="U1f3QS/S";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CVSoFHV4"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 070C521D82;
-	Wed,  2 Sep 2026 23:00:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788390061; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qysi34Kn5KsSAFGVHgjIJNUVTwBXBlCr+X9G2rei06M=;
-	b=hepmowgQgl6WeDaL+KRiyWuXMBfF5kFPyU37ToKAi38eSvINrECmu42b34I/S40AEm4wSn
-	mDgeIiqlXDecaAWbgC2nTofF5YyOF1UWBvvTHWnGgloKefmfdwFXWsDVVXD/3xAya8nYX9
-	oRBhGqGBAgshfPy7Evt3DYq1vdtekRg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788390061;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qysi34Kn5KsSAFGVHgjIJNUVTwBXBlCr+X9G2rei06M=;
-	b=lAT/FCRu9gBejoc9QDABYbgVJOZEee6fU66yQDcvm5GQZCc5sleuYt2w0xl64j67Wb8U1Q
-	FnK8su1rQO6qBiBA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788390057; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qysi34Kn5KsSAFGVHgjIJNUVTwBXBlCr+X9G2rei06M=;
-	b=U1f3QS/S14JHKaRulrGlQCLYshIA5CvWHOzUAdj3UJZva8Y4sr2YJLzRm3xAOuRrgGJNiN
-	5yNqMF9lAX1RWsyp4hzzA6I8bgg2yTEF0PynVTUDzsBAg02SAGu430gd8RUF9/hPxWcyMY
-	JbCuxVxFJFwwkWt6n1fF4tzPFCMhEj0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788390057;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Qysi34Kn5KsSAFGVHgjIJNUVTwBXBlCr+X9G2rei06M=;
-	b=CVSoFHV42XULbzjdX3nyhWjzu22VjGhNJna0U8U9Y9Fd0RHlX7SjUkFIOPJXOUkax0Unyi
-	qSOriFaBrZb1mHDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 44E7D136E6;
-	Wed,  2 Sep 2026 23:00:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id XE07OaeqmGquCgAAD6G6ig
-	(envelope-from <krisman@suse.de>); Wed, 02 Sep 2026 23:00:55 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: axboe@kernel.dk
-Cc: io-uring@vger.kernel.org,
-	Gabriel Krisman Bertazi <krisman@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] io_uring/net: let io_recv_buf_select return the length of the buffer region
-Date: Wed,  2 Sep 2026 20:00:40 -0300
-Message-ID: <20260902230041.1320658-2-krisman@suse.de>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZP8UNAB9"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KVhV23367416;
+	Wed, 2 Sep 2026 23:04:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=0x/o3Zc6QpdTEblJG
+	ynKrh31t8tvBf2/GZHnUyMzS1w=; b=ZP8UNAB9Z/KSZS0JcMlMvG4TAFzd7971t
+	h5Z7tG3PyNNJT6PWXx0bDaRl1yAxiQP0yYWswihcmrbhOLbW/vOfDTSs3+SjTCyA
+	/rqRAsVibouzvXCyuMfGWbkLBp1ngZNiGvoSFa2sCsTv+mmL6dz5reEEQo6YhMEq
+	9H368K94aJkq3rZWS1JSaOd+TcRtxpHuqTKbvRXFJMtctlVOWMksOrvsGc6RKcLL
+	SakuKaIwkoIxMVMQL8v0UXbz3RfFbaCiQG7BgmS1REXetWerwjOz3a1nqVEyYXsu
+	KSWMa0bpl0sf5+HF2wct4G+NZIqTOmUiGNkTIbIqsV74nJDtVSt9A==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rj0pg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 23:04:47 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682MuIjK011899;
+	Wed, 2 Sep 2026 23:04:46 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjan9r8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 23:04:46 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682N4gTw39518636
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 23:04:42 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6A2DE20043;
+	Wed,  2 Sep 2026 23:04:42 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D9D1820040;
+	Wed,  2 Sep 2026 23:04:37 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.98.186])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 23:04:37 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, stefanb@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com,
+        stable@vger.kernel.org
+Subject: [PATCH v2 1/2] keys/trusted_keys: return immediately after TPM unseal failure
+Date: Thu,  3 Sep 2026 04:33:04 +0530
+Message-ID: <20260902230305.118931-2-ssrish@linux.ibm.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902230041.1320658-1-krisman@suse.de>
-References: <20260902230041.1320658-1-krisman@suse.de>
+In-Reply-To: <20260902230305.118931-1-ssrish@linux.ibm.com>
+References: <20260902230305.118931-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,79 +72,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -6.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.997];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCPT_COUNT_THREE(0.00)[4];
-	RCVD_TLS_ALL(0.00)[]
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a98ab8f cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Gb-tKBqSAOq4cnd-bv4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDIwNCBTYWx0ZWRfX3F+h9PdSedCi
+ U9/o1OnJNjvqq1BKuAQHhzb5Wu9JvsmsWOee944iVuITivMr+5uig0x2xPExRi6YLJPfCksWsHW
+ s8d+8dA1YnYsMJwAOfQyThUGLr07f0+QcyVJ7rJEVfOaocc7qbrY45Lw0mAsBPNLBtsKfOep25r
+ agr9nbrJoE0AdGdM5RFOD/2xdYEFm288XsFK89cAuYrJ2qlCWe0b5Rt0BGFwGojELsdXoR95wcS
+ nkvC1VeL195Z9o0xi+gIoGDobRzS2dv4A/IJ8e4hJ+q7clHJcu6mPwbTYgeTzDkv1jmGfMxR7+D
+ sJarvTIsUx5HjSs4bQpDhuyxfDqX3EQ+Hx34F0Ict5JYN917KMKPE4PaIYsh1TlGRhp2FDzxera
+ DKQirs+Gq4nr/XzN/3nKyUKKFb0mK4nH/kO87Zc3nbdtkBK4fxWnlRmPAQMGJCLZBrSXRpcykif
+ xL5AXrX0JUhM97HDlrw==
+X-Proofpoint-GUID: KVYVSDNQZa6v4MBnJejYDIAov2lvoGQL
+X-Proofpoint-ORIG-GUID: KVYVSDNQZa6v4MBnJejYDIAov2lvoGQL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDIwNCBTYWx0ZWRfX43CEAV9R1yU7
+ EiW0y/h8ZOgyXQ4jU2RC/pfAnXRlzzd4K5DfFVAUROcStmILbW6+5jQHiyOogCf6E45TapywuGN
+ zjGOc6ebbZOaqdBlVZrhWroXFgkl0Cw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020204
 
-In preparation to using this field as an upper limit to truncation,
-return the size of the allocated region.
+trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
+fails. If pcrlock() succeeds, its return value overwrites the unseal error,
+causing key instantiation to succeed.
 
-Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
+Return immediately when unseal fails to preserve the original error.
+
+Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
 Cc: stable@vger.kernel.org
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
 ---
- io_uring/net.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index fbe719d86c46..647156c9331a 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -1108,6 +1108,7 @@ static int io_recv_buf_select(struct io_kiocb *req, struct io_async_msghdr *kmsg
- 			      struct io_br_sel *sel, unsigned int issue_flags)
- {
- 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
-+	size_t len;
- 	int ret;
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index bf0bf7f36970..9cdfeea800a3 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+ 		ret = tpm2_unseal_trusted(chip, p, options);
+ 	else
+ 		ret = key_unseal(p, options);
+-	if (ret < 0)
++	if (ret < 0) {
+ 		pr_info("key_unseal failed (%d)\n", ret);
++		goto out;
++	}
  
- 	/*
-@@ -1153,13 +1154,14 @@ static int io_recv_buf_select(struct io_kiocb *req, struct io_async_msghdr *kmsg
- 		/* special case 1 vec, can be a fast path */
- 		if (ret == 1) {
- 			sr->buf = arg.iovs[0].iov_base;
--			sr->len = arg.iovs[0].iov_len;
-+			len = sr->len = arg.iovs[0].iov_len;
- 			goto map_ubuf;
- 		}
- 		iov_iter_init(&kmsg->msg.msg_iter, ITER_DEST, arg.iovs, ret,
--				arg.out_len);
-+			      arg.out_len);
-+		len = arg.out_len;
- 	} else {
--		size_t len = sel->val;
-+		len = sel->val;
- 
- 		*sel = io_buffer_select(req, &len, sr->buf_group, issue_flags);
- 		if (!sel->addr)
-@@ -1173,7 +1175,7 @@ static int io_recv_buf_select(struct io_kiocb *req, struct io_async_msghdr *kmsg
- 			return ret;
- 	}
- 
--	return 0;
-+	return len;
- }
- 
- int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (options->pcrlock) {
+ 		ret = pcrlock(options->pcrlock);
 -- 
-2.55.0
+2.53.0
 
