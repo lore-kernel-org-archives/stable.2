@@ -1,137 +1,82 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A15C38735A;
-	Wed,  2 Sep 2026 06:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C414838E8AD;
+	Wed,  2 Sep 2026 06:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329704; cv=none; b=ecRY2I4cd2pVEbnWXAj5/lirr1eCMf0pPNeMCvbaedEgGNLArRp4iHOOSWD6FnxaJS6wCu4ukCruzX2lyD5fBnFbTK4mfD5TIiNx7rifKkMw5MbNAL59CzkSrgbUWp+GwoB06XJINo0EWQC3hoW23aR1ulJ2P16nRuZ80JPJIOU=
+	t=1788329707; cv=none; b=L9S9nadaeWW5OeQchgwVFofBrFwT2Lotm/8wE6LX4lWxoTYU7cTSeHWbmsSE2gyCC5ubDhmWp740HD7i71JyaguqOi9sgEo/ixgPgPOpM+VaauNAKTdGZUqHX88hXaRUkfgs10ReSos/EJ1X+nyr32+SGenTlqj24q1wpnVbquo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329704; c=relaxed/simple;
-	bh=C7854izJEPuClmkkFQw4ChvrdMcmYJXkgMNGP1gB2/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUtSc37oMxz1pBNAgOlULCCTg94sSVDiuv5I+hrad/k3yI0rN/OGrXPyh5qUl+ACgbAWTHYmbjrXveQDV27H9Cy2BBpnEgKuvEukvktzGRi8rl9fQwC9qsJoCmjMkx8yqdi0QiU7bz1d8yHvw1U+Q296HTGGdkMf/GM3Gouao3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=NBamitoT; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788329707; c=relaxed/simple;
+	bh=4n35J7lWSrQp0Lt5f5Qos2K2/NQjC7zZ8MAyNJ6k0Fc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EGhUwU4rDJs2IZxVAeVGcw+eMA1FkzGCrk7xYDI8rsCRH2ZEf30m9VPYgzTRNVjFOHoVYhAOkUx1csFNQ988k3nfh/mPFMnw/84WzD0iWWoR0eY5fGO6B01OwGzKGbmfeBM2NQXRXf+ZQVwbFzs2AcKg0dD0TOBoq7F26rBYDs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEjcz3oi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="NBamitoT"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788329697; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=UL0E16epy44PNt8yQn/2+BDsOBNXFG2a9/inh0OfbBo=;
-	b=NBamitoT3fEpHtGF+XbnQCFf3UlkdZ5VLSiIpct76hVGuwnBfip+dXwmEfkjTq1iWt2lyS+K73XbsXGdGWTaf9dM/bBoxDINqLiVQeCIf4CCb/75CCMlXORaWW4b9lkgLoqdqlN9hW1rvLcczpEQnTbyF6w60ukYcjs45tQQ1NU=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XABSX4-_1788329692;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XABSX4-_1788329692 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 14:14:56 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	memxor@gmail.com,
-	bjorn@kernel.org,
-	puranjay@kernel.org
-Cc: ihor.solodrai@linux.dev,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	pulehui@huawei.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	guoren@kernel.org,
-	bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEjcz3oi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C811F00A3D;
+	Wed,  2 Sep 2026 06:15:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788329705;
+	bh=Pt3eNlICYrOQZriKcUpzaM2kRhceaN9oVbn62k5BQ8w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VEjcz3oiXAgmX94kmowcWGN8ij5X3NQFqTdRvgnxF0qMM4hjSVzTy6nouv/cKKzFL
+	 GP9dn3xEBUEIf4hooko/3acXi4nQN2RRyqP8jmURNhFbIOt3wBUcfEVUq1KfXX79RK
+	 1abGiFTXIesuNU1d51QgvpgBAhPwxau0P+A7EFEzd2xK0q/9avTRbjmYpIfYKdWfNS
+	 KKUyPnE9+2kAbeW+MFKzPrLrqigXafz/eBHIuhG4bJWrvKjBB5nO7VmWBzuSo0arHf
+	 VW5v3repV6NzKFoxSPGQ9y4hkaBq3rQD2gDl/0sVVJPHj7WsRT9IyQDhv7R9sFn7XL
+	 1kz+KRqjmfQjA==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x1eFS-00000005JgI-3NWN;
+	Wed, 02 Sep 2026 08:15:02 +0200
+Date: Wed, 2 Sep 2026 08:15:02 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
+	syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH bpf v2] bpf, riscv: Make arena support depend on ZACAS
-Date: Wed,  2 Sep 2026 14:14:51 +0800
-Message-ID: <20260902061451.1416-1-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] greybus: operation: fix out-of-bounds write in message
+ allocation
+Message-ID: <ape-5pTO1JuZQYoV@hovoldconsulting.com>
+References: <20260902033017.40290-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902033017.40290-1-adrianox@gmail.com>
 
-The arena range tree allocates its nodes with kmalloc_nolock() since
-commit f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree").
-kmalloc_nolock() requires slab caches with cmpxchg128 support
-(__CMPXCHG_DOUBLE); on riscv cmpxchg128 is provided by the ZACAS
-extension. On systems without ZACAS every arena map creation fails
-with a misleading -ENOMEM.
+On Tue, Sep 01, 2026 at 11:30:16PM -0400, Adriano Cordova wrote:
+> The incoming message size from the device header (header.size) is
+> trusted without checking that it is at least the size of the message
+> header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
+> underflows request_size in gb_operation_create_incoming(), wraps around
+> in gb_operation_message_alloc(), and results in a tiny buffer that is
+> then written past its end in gb_operation_message_init().
+> 
+> Reject undersized messages before parsing the message header.
+> 
+> Fixes: d37b1db13f8b ("greybus: refactor gb_connection_recv()")
 
-Report the missing support instead: make bpf_jit_supports_arena()
-return system_has_cmpxchg128() where it is defined, so arena map
-creation fails with -EOPNOTSUPP on systems without ZACAS. The macro
-is only defined when both CONFIG_RISCV_ISA_ZACAS and
-CONFIG_TOOLCHAIN_HAS_ZACAS are enabled, so guard it with #ifdef the
-same way mm/slab.h consumes it, and reject arena otherwise. This
-matches how arena BPF_CMPXCHG instructions are already gated on ZACAS
-in bpf_jit_supports_insn().
+This isn't the commit that introduced the issue (even if that commit
+made things worse by removing a WARN_ON()).
 
-Fixes: f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
----
-Changes since v1:
-- Guard system_has_cmpxchg128() with #ifdef instead of calling it
-  unconditionally: the macro is only defined when both
-  CONFIG_RISCV_ISA_ZACAS and CONFIG_TOOLCHAIN_HAS_ZACAS are enabled
-  (as reported by sashiko-bot), so v1 broke the build when either
-  was disabled. This mirrors how mm/slab.h consumes the macro.
+> Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
+> Cc: stable@vger.kernel.org
 
-Why #ifdef rather than rv_ext_enabled(ZACAS)? The predicates differ
-exactly in the configurations that matter:
+How did you find and fix this issue? Are you missing an Assisted-by tag
+here?
 
-  scenario (ISA_ZACAS/TOOLCHAIN/hw)  v1           rv_ext_enabled  #ifdef
-  ISA=n or TOOLCHAIN=n               build fails  rejects         rejects
-  ISA=y TOOLCHAIN=n hw has ZACAS     build fails  accepts, then   rejects
-                                                  -ENOMEM again
-  ISA=y TOOLCHAIN=y hw has ZACAS     exact        exact           exact
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 
-rv_ext_enabled(ZACAS) does not check CONFIG_TOOLCHAIN_HAS_ZACAS, but
-slab's cmpxchg128 - and thus kmalloc_nolock() - does require it, so
-on an old toolchain with ZACAS hardware it would accept arena maps
-and bring back the very -ENOMEM failure this patch fixes. The #ifdef
-form builds in every configuration and matches exactly the
-kmalloc_nolock() availability gate in mm/slab.h.
+Note that this is also being fixed here:
 
-This issue was reported by sashiko-bot:
-https://sashiko.dev/#/patchset/20260901120013.16104-1-cp0613@linux.alibaba.com?part=1
+	https://lore.kernel.org/lkml/tencent_1CB189506DEFA4B38099D654FE6C2A2F2E07@qq.com/
 
-Question for reviewers: should the arena selftests gate on ZACAS,
-e.g. probing it via riscv_hwprobe() (RISCV_ISA_EXT_ZACAS) and
-SKIPping cleanly on systems without the extension?
-
- arch/riscv/net/bpf_jit_comp64.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
-index 74efe4b138d2..151031e97a24 100644
---- a/arch/riscv/net/bpf_jit_comp64.c
-+++ b/arch/riscv/net/bpf_jit_comp64.c
-@@ -2128,7 +2128,15 @@ bool bpf_jit_supports_ptr_xchg(void)
- 
- bool bpf_jit_supports_arena(void)
- {
--	return true;
-+	/*
-+	 * The arena range tree uses kmalloc_nolock(), which needs
-+	 * cmpxchg128, provided by ZACAS on riscv.
-+	 */
-+#ifdef system_has_cmpxchg128
-+	return system_has_cmpxchg128();
-+#else
-+	return false;
-+#endif
- }
- 
- bool bpf_jit_supports_insn(struct bpf_insn *insn, bool in_arena)
--- 
-2.50.1
-
+Johan
