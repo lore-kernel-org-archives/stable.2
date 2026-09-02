@@ -1,75 +1,33 @@
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0001535677D;
-	Wed,  2 Sep 2026 07:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9E53264C2;
+	Wed,  2 Sep 2026 07:54:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335645; cv=none; b=MogA/5/uqTdG6Ra3rA6jKk2T567lnXfrp+AAEX+JnQojISSZcqH658b1KNGHO4AciIY/LtnQDgrWcKAn+bWUGkgU9L/UPWlNF/YtPXUfXT400fZX58z92Fm/x3NIjcFXpZ3W4f5/e2VwsAYJ6kkel86AKLFKrlHVFvBzvVfR++Q=
+	t=1788335671; cv=none; b=nkaEInAlAygLAQ2nHPT9QHoW906eEJi8pCnPNukCfdTRvC/iwb9fSvw+i1UXOS90PoX5A43zEQga2dIZhsXyN35TtGWOXeFDGACFgeG4AHuFbS8V29LITIkFl8T/evPAb4tnruanHIcgYRt8Mv3vF/OAA4SYnGWIGBW29P4C5EI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335645; c=relaxed/simple;
-	bh=h0ZFDLNyQKmMqCI24MP+vrayXKLwsUZ3jLZ7DSrj6w4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nILmPAQbvzenC0XwhakAdO15FSJUuc3RMoF4AYvSnhm1y4ZSGdYeswpOFfPQFud+djz59JA2JhBHR8BhJV3+4lIpyhrxl2htZqeB9APYKUU6sYh9lThHfhX6dWVF4kzyx3PCsB9eO6Ji1r0cWocAbeCZw4cVYI+2+R2QdD8v6E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=HcYMt0/D; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PiBt0dZu; arc=none smtp.client-ip=103.168.172.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1788335671; c=relaxed/simple;
+	bh=+6iRtT479x+Rui+/ke/RcjzBYNlpdLx0w0ValInX0/k=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=QTTxrAGUXbix5N/Omd62Jx3Gdww/1yAW/+a8JMkE3gW5h+NvjPBKvK3o5JWsfBASXvJviMaUIE3zSZmV/lBolnRAZoYKpcPZwBtRaudO5f7QVVGwLWnrrDrBenlAX4zFgCA8MPGbDr4BJVotMgfklPlH0Zad+UUEV6gjhZFsXLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U0u/+gyB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="HcYMt0/D";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PiBt0dZu"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2F9FFEC0074;
-	Wed,  2 Sep 2026 03:54:03 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Wed, 02 Sep 2026 03:54:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788335643;
-	 x=1788422043; bh=eu4wew0RHn2kFkFjJ7vxD+kWTFHmY+H0jX6dOS1OFlk=; b=
-	HcYMt0/Dv5u/WfkGHM8x3pD9YWVbAF14v36LC6gJeNQSCfbzxM5IQSqgsUlpXh/z
-	AjKtIQ+MM2h3GrlX26fmZtzkHltTKCGP36MrxiW7tS9jfxAWNXWx6oolBlZqO7A0
-	6hnew0EBqSmN6xwBsIJ3R7jNcazIKFYxYMdm38QgM23WEfVFuTKi+c7gKdberF8e
-	CfOJMYjISUbcwlafJqjU9+SGyPthZNIZjxyQgxk1MdJasdCb5IXih5Y0DgyaVwCa
-	rY1cHDKj+2Osi3YJDCk7S4nvwZwLO7wCx6M/tUMqUQzfXbET/NGt5D/cqqacJ0Ed
-	3vlNloIL863TCjZ4iRopkg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788335643; x=
-	1788422043; bh=eu4wew0RHn2kFkFjJ7vxD+kWTFHmY+H0jX6dOS1OFlk=; b=P
-	iBt0dZu/aNOrFvyxtVSqmvHTvwqKom6+wrKi6tZAQJygaiVGk+E3Ev5KIKThVPSw
-	+worGUgqhHwb47bDZ+t3DICXaHm1f++JjG66G3u2BgElQQQQF6Dl7MysDmsTA9gp
-	nne1DH8VjDr4wG2f1vqYhchC6fXvH8vYH69EJN0y5ZXP+xgQ3CmOcmAQhCPD6qXv
-	VKZpBG/vfYLuI+NHMQQrnWRpl2HGlIgqaMgv2+dV/h3DjB/+h9g+Tf+wL1ga0Oda
-	FoRScAiQDhWpwQtmVjoinHDwjxZKOCumaXNnxO36SJU1PLO0rs7vA9dqnmy1km4D
-	2q6dkQh7iwmUi7Vz1DHFg==
-X-ME-Sender: <xms:GtaXah4zjntaUYbQJKT8kHzQ37kVnROfGxQ1xdW7u8SjbhtUIWlceQ>
-    <xme:GtaXaqwGJF2a8Loovf_tsKk91RTvVMLRXTfgbj3Y0FJQeZ7OcU5vrO3eQRkRVMg6E
-    P1q4zuK-0eEHKojM2lTcoijsD2uYz78qW-0_t9ga28TiDkc_RdimM1K>
-X-ME-Received: <xmr:GtaXaj9G-V2EWkAj8tPrjkBnLtFHyWpcP6xWY5oUHk2qYqKPB0pR6Xye585WxRBgosMRA0z3NUZExwwsPxQWwc-T89ks7qu8>
-X-ME-Proxy-Cause: dmFkZTFt64D2s3ZYUHlOw6VXBIqy+HoU8imDm2gWVxcVAGyAyIxblZ9Bqnw3y+88b62TBY
-    PzaQEexsIcVDJRSHrT4DXTV/xSCWMEz+8nbgCkqy5tIlEQoJM/T9YZPmm2lBi6gAMo1JdL
-    qFZkPDwGuJ82ipNgDyOz3F7PzESlLHzIew84UW3oEv8zBXoLxlKgDid35YyJXeHQJ5ZsX8
-    zUL+yHdD5u5HHqvt+AgHwFEPNq9UZnnJTB2lZlOWi49AgVjAM19gEVX9/M4hbguseWYIAj
-    +MLXYOJHrYFd78m6NxqR0ZH/Eq6xlmUeeYB2y9A0YH482PlRowHdBYl4uI+r9Vs/B0UiH6
-    tczqDqFOhlNo6jIow6ZPVs3ake1+DD+G06ORo5byngtKl76gGvsTfD8PL+7ms8gzuh94h8
-    xWpJmxqWquICha3Du/DybyLQby5n0SLgksU+X9mWS38D5ttMTQIpRjNL0dklJw0meosJ/W
-    642OZ1q1QUzqWHK+m2wca3vvxTCMsyALGYvw+L8oNbESajoL1cd/AMOksGtYiCDIvadSuc
-    jfifWBXQGApQbbMCzMPEmhxxELLtYAbwvCiPZwdl0L0wJRhDFTNy3kWljgR6HK5KwyTfrf
-    n2w/HQxrECC2orE4MYAYR3zA9LKvHAgjTWaqd6e/d/RZtddhjy2bQzSsV22A
-X-ME-Proxy: <xmx:GtaXauFsxq_SQAE8RKswaT9yvMxahvlQ7f6wXggm07cZ3dGlwnR8Bw>
-    <xmx:GtaXatA6JhYqJ8rZezFyxJmWYfi2atgnqgQb2-Fnyu04vJH7had2xg>
-    <xmx:GtaXaimBOR9SahpsSdmkBlIcgvvRA1Y7PqXLtfNCcFKojljjXDEE0A>
-    <xmx:GtaXagT2HJ-m-TPcuYTNotHpuwoe_hcYX8swJwOt6FGs4SyAl1ZwXQ>
-    <xmx:G9aXaqvNCfoRJS0b3LwPXfPk1BbURDKopZaLQBweytDvCkpZYBQPrAPs>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 03:54:00 -0400 (EDT)
-Message-ID: <c868e28b-42b5-4b6d-ad6b-1af65848c4eb@pobox.com>
-Date: Wed, 2 Sep 2026 00:53:58 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U0u/+gyB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EDF81F000E9;
+	Wed,  2 Sep 2026 07:54:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788335669;
+	bh=W/NCmJbP7+6fQziptMjAVLT3yF8rXVSjHoR3kv4O6h8=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=U0u/+gyB8DPDHQkXsjldsEyAEQd2s3iKW7WWxntckMTpJA2wO1liM4zm5lo9utn/f
+	 jOEPejtSqt2rwUyhS6qCIuSSugKpcPjTQ7B9SRIPolPsvu1GY/CxCgBhNiHK1pG/Hy
+	 DPGf7uB5eFBHDoZFTSv8CjVolJfFoVz/HkkE+3VpJ22RNRzGQl8EQtAEPMxpujVdjX
+	 F6eRX2/KN/2AjoZBA0uj4TZPYzRA4c8/noH7B6BPkMRqSan8pMxRClneZZL4aiu/Er
+	 WEpgEPyXi1yfcN6+nSBlmPNYFu5L46gPCNZaA3vSZKm7eil2LwW4RfMboQjQzj+rrl
+	 M6paYiu6i2KaQ==
+Message-ID: <1c07afb0-337b-4dec-a6fe-b4bd40e4bdfa@kernel.org>
+Date: Wed, 2 Sep 2026 15:54:26 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,46 +35,138 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/71] 7.2.3-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.055927882@linuxfoundation.org>
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ stable@vger.kernel.org, Wenjie Qi <qiwenjie@xiaomi.com>
+Subject: Re: [f2fs-dev] [PATCH v3] f2fs: drop pending discard commands before
+ reserving device alias
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20260901201740.4040807-1-daeho43@gmail.com>
 Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133359.055927882@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260901201740.4040807-1-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.3 release.
-> There are 71 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 9/2/26 04:17, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
+> When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
+> f2fs_reserve_device_alias() bulk-marks all blocks in the target device
+> range as valid in SIT.
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.3-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
+> However, if the device was previously in the released state, stale
+> pending discard commands covering that range may still exist in dcc->root.
+> When f2fs_issue_discard_thread later processes those commands,
+> __check_sit_bitmap() detects valid blocks in the discard range and
+> triggers a kernel BUG().
 > 
-> thanks,
+> To fix this:
+> 1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
+>    drop all pending D_PREP discard commands in the range,
+>    and wait for any in-flight discard bios under dcc->cmd_lock.
+> 2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
+>    before f2fs_reserve_device_alias().
 > 
-> greg k-h
+> Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> ---
+> v3: introduce cur to prevent 32-bit overflow.
+> v2: fix use-after-free and 32-bit overflow issues.
+> ---
+>  fs/f2fs/f2fs.h    |  2 ++
+>  fs/f2fs/file.c    |  1 +
+>  fs/f2fs/segment.c | 45 +++++++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 48 insertions(+)
+> 
+> diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+> index 511286432483..ae109d3ae571 100644
+> --- a/fs/f2fs/f2fs.h
+> +++ b/fs/f2fs/f2fs.h
+> @@ -4122,6 +4122,8 @@ void f2fs_reserve_device_alias(struct f2fs_sb_info *sbi, block_t addr,
+>  bool f2fs_is_checkpointed_data(struct f2fs_sb_info *sbi, block_t blkaddr);
+>  int f2fs_start_discard_thread(struct f2fs_sb_info *sbi);
+>  void f2fs_drop_discard_cmd(struct f2fs_sb_info *sbi);
+> +void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
+> +					block_t start, block_t len);
+>  void f2fs_stop_discard_thread(struct f2fs_sb_info *sbi);
+>  bool f2fs_issue_discard_timeout(struct f2fs_sb_info *sbi, bool need_check);
+>  void f2fs_clear_prefree_segments(struct f2fs_sb_info *sbi,
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index 29cf82d02c77..0b2d173d9597 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -3855,6 +3855,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
+>  	write_unlock(&et->lock);
+>  	clear_inode_flag(inode, FI_NO_EXTENT);
+>  
+> +	f2fs_drop_discard_cmd_range(sbi, ei.blk, ei.len);
+>  	f2fs_reserve_device_alias(sbi, ei.blk, ei.len);
+>  
+>  	i_size_write(inode, (loff_t)ei.len << sbi->log_blocksize);
+> diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+> index ac0ed8609c1f..6826cb7ab34d 100644
+> --- a/fs/f2fs/segment.c
+> +++ b/fs/f2fs/segment.c
+> @@ -1873,6 +1873,51 @@ static unsigned int __wait_all_discard_cmd(struct f2fs_sb_info *sbi,
+>  	return discard_blks;
+>  }
+>  
+> +void f2fs_drop_discard_cmd_range(struct f2fs_sb_info *sbi,
+> +					block_t start, block_t len)
+> +{
+> +	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
+> +	struct discard_cmd *prev_dc = NULL, *next_dc = NULL;
+> +	struct rb_node **insert_p = NULL, *insert_parent = NULL;
+> +	struct discard_cmd *dc, *wait_dc;
+> +	u64 cur = start;
+> +	u64 end = (u64)start + len;
+> +
+> +	if (!f2fs_realtime_discard_enable(sbi))
+> +		return;
+> +
+> +next:
+> +	wait_dc = NULL;
+> +
+> +	mutex_lock(&dcc->cmd_lock);
+> +	while (cur < end) {
+> +		dc = __lookup_discard_cmd_ret(&dcc->root, cur,
+> +				&prev_dc, &next_dc, &insert_p, &insert_parent);
+> +		if (!dc)
+> +			dc = next_dc;
+> +
+> +		if (!dc || (u64)dc->di.lstart >= end)
+> +			break;
+> +
+> +		if (dc->state == D_PREP) {
+> +			cur = (u64)dc->di.lstart + dc->di.len;
+> +			__remove_discard_cmd(sbi, dc);
+> +			continue;
 
-Tested on 3 amd64 systems (my DIY home NAS, my Lenovo ThinkPad T14 Gen
-1, and an Apple MacBook Air 13" 2017). Working well, no regressions
-observed.
+Any chance to limit the loop count to avoid holding cmd_lock lock for
+long time, in case we encounter an extreme fragment scenario, e.g. in
+2gb range, there will be 256k small discards at most?
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Thanks,
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+> +		}
+> +
+> +		dc->ref++;
+> +		cur = (u64)dc->di.lstart + dc->di.len;
+> +		wait_dc = dc;
+> +		break;
+> +	}
+> +	mutex_unlock(&dcc->cmd_lock);
+> +
+> +	if (wait_dc) {
+> +		__wait_one_discard_bio(sbi, wait_dc);
+> +		goto next;
+> +	}
+> +}
+> +
+>  /* This should be covered by global mutex, &sit_i->sentry_lock */
+>  static void f2fs_wait_discard_bio(struct f2fs_sb_info *sbi, block_t blkaddr)
+>  {
+
