@@ -1,110 +1,121 @@
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84EBC47277C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881A3399D02
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:51:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353425; cv=none; b=Y3mJvepO6NhNWdtIpu4wvVB5Yb9hiV3sktu0QW7O49wgzCzjz5/9gyDjNfwIKOF5p+pqrbCjOdrBpvGgliwU5pZId6cC8BWxxIFFJXP6mgC8SRWQ3Wg8FjhuwNQ/9Cw/c1WHwEfABluDJpwOAGSOsxRg3UKG4OeS+6Nann3qzb8=
+	t=1788353466; cv=none; b=CzVSN0RH1hQnrvHupWoHEz+KozDirh9ExvcawkSyYjibL92M0RDytEpTe3biB0SW5GZnzuXIacxsRpkoAoiSPRut7379pZpL60cKvMKCZcKBhCL9aneZjI20qUxqrqNh/gQMkwPaA87Lmzm6/3mtZTo00ocacr/tre34j9BmI2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353425; c=relaxed/simple;
-	bh=Q6o+psk043H7QaDBOb2T9aD1u8V/v8iD/Wiko61zjSk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=nq4vPwmYFLxswSn89IvBBV4BD3D0BuRZOTreUAdFNdeVkKESmX90KiG2wuypebNePzZx6Vv5HTqjBToiwDO6ASgIMH9X6LEaN/PSVACpMFGZiYo3u7V5E+W3qVpFmGsuBEbQ9WetdHGpo1GiAJ0WOPD+/dcGk5MNgKz/vWvnorM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qZAs3zsh; arc=none smtp.client-ip=209.85.128.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1788353466; c=relaxed/simple;
+	bh=ecEXFaEnVYmO2e9QRthYzOTSjlkOMF5vYVDqij9XjYE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pYXmc8l2R3T2U15gg1dydkcMVnOE/Om3R5eKTIcEQ1+haxCG0Ri+KN4WZjPZ+wsoFcFEnMyOO785yRXpJh6vV6TrU2RJLGNtSgJQhO2XMrg23PlqasoUlkFezXsnLblUTT9cJMq534itVwYQ0q8Q6+q+nAGuQQJ+wMk0Ovl+XT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btf7j+4U; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qZAs3zsh"
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49cd55ee2f7so9144865e9.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btf7j+4U"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1e1ff659bso1040751a12.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:51:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788353421; x=1788958221; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=24c84bwyDgqYl1alrwdlSmQQcTBYQp/BbzXBbK2dqKk=;
-        b=qZAs3zshERZ8aK+3OuPOmyGilAJv8I7QrWrPr/zkG/7T7+DUBnNg3quob9ua3BtrAY
-         bEkgVTyZMulI7Lb6EI0uiSWGm5Xo26P8M3iqtEa6c6sTXbIW/Z6DoEwrmDOHlqmij+Jy
-         loqBkSHx0NGoIoBBgIa9qh9/yxMU7hdLA5bJbWET/Mqsoi4IW9DCVdabKNzfYVe2atJg
-         /svje9aS3j7JN1OIjTEoG8DxxumdaGE2+1MkHSlcFOUyi8u9dcq/Zc7wYHEIEYOtsunT
-         X3ZDhmKHziza3DebG8b0C9SQU3OsXLihYdwrPzMGwG5uTic0gwJtPy+xR02HK4Q1UqVA
-         7/Hg==
+        d=gmail.com; s=20251104; t=1788353465; x=1788958265; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T7SlBp/TfciBcHcfPFcBhzWo1fIummbWtE2eKXh7ROA=;
+        b=btf7j+4UFuxC8r9oy2GI3vmN7AJcLH+ZVC5qUpgJWnVnrH3eeZYpAa4nN0E6Ck96i0
+         ID0ftUa0hkOfzIg6FN447fVMsVs0usUxmeRLlIg1muRyVTwHFIXQbU/gf/bNhkcVdfsC
+         gtMJp8fYzxNYjOMJrtrTwUoxtNtLocSOxwehHZo/Qrzc6HO3aoNQ/YdjxqROVdMY+OBT
+         70vAtd1JI04F7rcFVTJKdmeH32KwBU9GOSYMBcIWsDnsJEqC8AgxrwTEpxFNGl6EUAY1
+         5CFHkIVjuICogANQDEHMVg5Rd6doPNzBGje5QZyvrESCscmAhHFHXTdSi3qLb5NutonU
+         rOFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353421; x=1788958221;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788353465; x=1788958265;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=24c84bwyDgqYl1alrwdlSmQQcTBYQp/BbzXBbK2dqKk=;
-        b=OthUFtV5HDDlF/5xXEwziQ+W4kRMPA5sz4Eh+GpC2nevOhsZ8piZCjs0oBCmYdvUM6
-         fkLELvvW7wf7RRxKXCanUKpCKkR/DDYyn4b19GmxTwGcKxrfshkKFwVpGB8DindPqJY3
-         DjsnXMgtc83iW+3zFgMWp+eGUSPnQlLxihvGks0AHXx+Nz8piTfchFKxvfYU+wrpKAnX
-         iGF6aDeGj16b82GB/QsGs6ffWglUkwE+GI/P+NUbOeN/KackxbgZ/UtjWC1PCdQk9sI/
-         LWFiUwxA3Di8RvDbhifK2ESoM0K9ufigwxB0+U9AQjS9a/Grxg9Tk9y05uUbuE08bheG
-         y9wQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqxidHUtEvQqJyPD+/US7gqnscOlTrHgoQ2dAHcJOpe2bV/QK1g85Nqr71O2thkH074CBuCq9k=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYmGu2PTYY6gul/QuRzAJOOsi8PiAlaW9RsAgdCnWQfzdcov2a
-	4lhYJZNDIJX2qKhCDl+LATjwxmY0DaFD9IMOimNsLKvjIbpy/xmQh8T1+1f0BdA8lz5PxnrNxiw
-	B120ZMWJmI67uPjP3HQ==
-X-Received: from wmjx6.prod.google.com ([2002:a05:600c:21c6:b0:499:b2b5:78e8])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:530e:b0:49c:d618:e341 with SMTP id 5b1f17b1804b1-49ce584bb4amr93341175e9.14.1788353421254;
- Wed, 02 Sep 2026 05:50:21 -0700 (PDT)
-Date: Wed, 2 Sep 2026 12:50:20 +0000
-In-Reply-To: <20260901205250.1638304-6-cmllamas@google.com>
+        bh=T7SlBp/TfciBcHcfPFcBhzWo1fIummbWtE2eKXh7ROA=;
+        b=Lj3m/yG9B5O+6wjsygAm1oMK+UBTxgetjoDnV9SNhbKX0ONJfXJAx/z56N40/3/+hQ
+         uEUGXKPq6E1fPYpMSGa55pzNSHlnJ2vn8ZOCRSa70yNOjEFAkR4enTvHX3mR/1lxD6CW
+         VjYnpvgX4f0um3LCGRN0UrISpavhid3xAEjp8N/lBJsShIYeg1RVAgD2908SBZe18/KC
+         z169P0dTWCp/x3eYACFyZfItMUz84rhqdKK2CSgCr65z6zvNKEFVtbbTMi6roEB4wYq8
+         ndGT15U6GbEelysRHVKpQgwnz1dK2HFPtGVUxQ/YzroDoHZFTrwT5hmPsZ7qIUncV4wq
+         93XA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsx+ThwMBUqBrZAfTIXmX6IIABF5flCNktJ3iDXby/g/iRky3GfJ14B6TtnkIUrXYmpcOqlXs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5FuMaU2bCrXRbZVb+ZuR55Zs59yIqv8liSHhWcZbwbNJqVcDa
+	PCz7Cp+GcMJ6apPVLr9+7BUA+z9Z2FB9FUmsNwckTqvRpPjCk+CU//ZQ
+X-Gm-Gg: AYBFou104RFgx5QpLeIfTC3mRZaYxuAK9ehzBfm0KSoQWaoyveFTf5TVR+hGc34zAyP
+	BZmab/FN8VM7CebROhEZFGGyqZyFt/QVV7d+8LayXs/Xx+UbVrBZyVNPiggrv7E1iTZVeye8fsw
+	Es/t06Lxm9RWBBK6zmceg8Kok4na2FX5V0KJLnCtcFE48/vkoL1Cg+lpiqlVdX1JayeT0ZwjAcQ
+	c3MJpSEf4LddrGRFBq9l/y9Uj3qys2VN6xfFzKY6/2aPNf2gbpDXGk+xwwPZF0ZmhtYOOGQZDQU
+	m4iOjD1hvH0V5cYD91XLiFZUF5XU11HG+byqXvGB0jBvW6gd69CrW8WwFyazPoMK7LOmMB2mNfa
+	Lh7YPSrcteGcYyKxb0lWc7It/Oj/E49szI5WpTg3s3ZPpZ7fXQZgKxvo7Iv8Y3MT0vU3GaOjGxt
+	wrkwIurRvnKOermWBWM6uJht7grAFYB3E7MmtfY+lCRzC7l0oD8h4DTJygQfEoWxxjT9a0kNFv4
+	6nxYkOEcwfjDgsu+lncBtejUUDQcju6DVH/MHjQ4DBErlqTtiYD
+X-Received: by 2002:a17:90b:3b8d:b0:398:c292:ac80 with SMTP id 98e67ed59e1d1-39aedf55732mr6562063a91.10.1788353464642;
+        Wed, 02 Sep 2026 05:51:04 -0700 (PDT)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d76463csm11856219a91.9.2026.09.02.05.51.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:51:03 -0700 (PDT)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: perex@perex.cz,
+	tiwai@suse.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>
+Subject: [PATCH] ALSA: rawmidi: Return the error from snd_rawmidi_input_params()
+Date: Wed,  2 Sep 2026 21:50:58 +0900
+Message-ID: <20260902125058.19499-1-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260901205250.1638304-1-cmllamas@google.com> <20260901205250.1638304-6-cmllamas@google.com>
-Message-ID: <apgbjOsfn4oFMmAC@google.com>
-Subject: Re: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
-From: Alice Ryhl <aliceryhl@google.com>
-To: Carlos Llamas <cmllamas@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 08:52:45PM +0000, Carlos Llamas wrote:
-> Certain operations like a failed mremap() might trigger vm_ops->close()
-> on temporary mappings. To avoid tearing-down the main binder mapping on
-> these, let's verify that the VMA matches the expected starting address.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
-> Signed-off-by: Carlos Llamas <cmllamas@google.com>
-> ---
->  drivers/android/binder.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-> index 185128577829..3d359490436e 100644
-> --- a/drivers/android/binder.c
-> +++ b/drivers/android/binder.c
-> @@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
->  {
->  	struct binder_proc *proc = vma->vm_private_data;
->  
-> +	if (vma->vm_start != proc->alloc.vm_start)
-> +		return;
+The snd_rawmidi_input_params() computes err for the three invalid mode
+combinations and for resize_runtime_buffer(), applies the new framing
+and clock type only when err is zero, and then returns 0 anyway.  A
+caller that asked for parameters the kernel rejected is told the change
+succeeded, and the substream keeps its old buffer.
 
-So .. this does work in the case of mremap, but how about instead doing
-this?
+The open_mutex conversion turned the early returns into assignments.
+It handled the output sibling correctly, which still returns err, and
+left this one behind.
 
-static int binder_mremap(struct vm_area_struct *vma)
-{
-	vma->vm_private_data = NULL;
-	return -EINVAL;
-}
+Fixes: 94b98194b62e ("ALSA: rawmidi: Take open_mutex around parameter changes")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+Reproduced on 6.17.0-35-generic with snd-virmidi:
 
-and then check for NULL in binder_vma_close() instead? I think that
-logic would be a bit easier to understand.
+  INPUT  buffer_size=0  -> ret  0, errno 0
+  INPUT  avail_min=0    -> ret  0, errno 0
+  OUTPUT buffer_size=0  -> ret -1, EINVAL
 
-Alice
+The same rejected parameters report success on the input stream and
+failure on the output stream.
+
+ sound/core/rawmidi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/core/rawmidi.c b/sound/core/rawmidi.c
+index bf504e27f73e..f9cef3c61861 100644
+--- a/sound/core/rawmidi.c
++++ b/sound/core/rawmidi.c
+@@ -782,7 +782,7 @@ int snd_rawmidi_input_params(struct snd_rawmidi_substream *substream,
+ 		substream->framing = framing;
+ 		substream->clock_type = clock_type;
+ 	}
+-	return 0;
++	return err;
+ }
+ EXPORT_SYMBOL(snd_rawmidi_input_params);
+ 
+-- 
+2.43.0
+
