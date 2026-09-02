@@ -1,141 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C4E4A2A78;
-	Wed,  2 Sep 2026 14:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F4629DB64;
+	Wed,  2 Sep 2026 14:26:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359037; cv=none; b=o+/HRMvoYzSmKe8jgLIPLb59JUGjib0PS3VzgxtKuRIvoUM1tz3LnE+btAoSKtPM7amAEkADsNOm4N1GGpIckhvzPWs25pp+viEuh37HPL9f+qcY+g7biAYmixoc66crCJF0Pylgp4F1CQFJj8qhnlfYWFYr0sdroNpIt+FjntE=
+	t=1788359175; cv=none; b=f2G2pyZKQ/fImBWk8gMH9T16N4PwqLUdt7JRRpf7NunXsjsiiWOhDap54QVAEhAd6cgp1F5j42MM4sy/keiIjEwTIKRnKQW9HKSslSyFjO0jq7fK7vGPhcKL2C4QDemr/i+F9YbEyVaWHAuRUkTFzWxUHQqCpg/ioIIYi5rNmgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359037; c=relaxed/simple;
-	bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bIhpvMd3GFPXKCdXLXUodW6SBVqSzvy+oSfgnGMgx8+ii1UZmL4SPqF2w23eeKW6NVsXDK0SlW2KgJ3q8mKo//FCVdk3MiVK9thWtpIP3tGqQUblhHAhYhAMmst1PmaDqDl19zP7O8eWAwskXi6tCAa7gy0lKAPp2Ki7Lap7e1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N5v8vvl2; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788359175; c=relaxed/simple;
+	bh=WLBuWTB6gtv+379Oep+XiAhk8DV+lPd/5jlpDMLFgfQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YcbjvPykvQx903HQ76JHq+wpowOBRwjbgQdCKWp0ZsyygRQSrv3WkJZkYyd9oDBmUkMqIAuRVLfJCZPasQMGkqOsdDKV0YgF0jVudVU0jqn4LHLqH0QzE4DkWd7DG0fQOVrqVAvHNjXOHfL9b/dvNGlmH2LsoM6dJ9JbLGan1Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=KKF8bk19; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N5v8vvl2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788359034; x=1819895034;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
-  b=N5v8vvl2wE+ptdTvFMbkvnE1Z4uNW4hBecuaEJUtOoHgAq2E2lR1s7XS
-   7xyitZuoPGqgQoqmvzkuMZTpM1tyGJXFiKdPxdaSCq26BFXtNxiJ1HLKz
-   xG+JvKQqGv6dVgXaMDtyxfNOoPNbDukot3iOhYc7YfbGFBRl307mYXMVB
-   +qHcqIdoaQ6Mytd3idF2b1xs7Z+pqWaEo3FIr3gCfczDnWRT27WOA0nC7
-   g9F1fR/4JbzSPTwQXjFpAzsy/6T2xrTjGUXBmf/hHTPpMpITYBiH0/eWJ
-   h1/07n72YfX+EF/Lym5CpfeO2z847kolCcNNpsxAMSJoVFBkAVXkQ08oz
-   g==;
-X-CSE-ConnectionGUID: Kp8C1vSzRcSFEgr9Mc2itg==
-X-CSE-MsgGUID: +heZ9xvFRQOXXsBmplyOKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111589546"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="111589546"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
-X-CSE-ConnectionGUID: tLMNHySdRleUHQO17kDM5w==
-X-CSE-MsgGUID: Jp9or/KzRvmEGsX4kpi7WQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="307636256"
-Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.110.100]) ([10.125.110.100])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
-Message-ID: <1814c678-8c4c-47a2-a0d6-a97cf5b388d0@intel.com>
-Date: Wed, 2 Sep 2026 07:23:53 -0700
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="KKF8bk19"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c487cfc0;
+	Wed, 2 Sep 2026 22:26:07 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Iwona Winiarska <iwona.winiarska@intel.com>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] peci: aspeed: Initialize state before requesting IRQ
+Date: Wed,  2 Sep 2026 22:26:00 +0800
+Message-Id: <20260902142600.3580382-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
- GNR systems
-To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
-Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, andrew.cooper3@citrix.com,
- arjan.van.de.ven@intel.com, stable@vger.kernel.org
-References: <20260901231634.714144-1-chang.seok.bae@intel.com>
- <20260901231634.714144-2-chang.seok.bae@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260901231634.714144-2-chang.seok.bae@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa062834d9e03a1kunm2177e8e01adc4c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShlDVh8fTkhKHk9IH0gZHlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=KKF8bk19ENztW57ojYhZ3fOHVd6TfrO65VlreY5e/zGH8R63SXibz+1hD52XfdiBQEOmmSl+B0x1erwvCUuV8L1sARACXJtB8X83tXJBikjKGw7EeO8+2Xq5uZ7u9qRMdUOafMr8TNGwhZei0FHZInCgqSKU8fq84x7ouLYwvxU=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=7YIOafvXbCcZYfkJxsD9i8XvErNivDNnj0yBlvpAKmg=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/1/26 16:16, Chang S. Bae wrote:
-> Revision 0x1000405 contains internal microcode changes that are required
-> by subsequent revisions to avoid #MC during loading. This dependency
-> logically fits the minimum revision requirement.
-> 
-> The minimum revision check, however, currently applies only to the late
-> loading path, since the dependency was primarily intended for OS-visible
-> changes. The early loading path is therefore still vulnerable to this
-> issue.
+The PECI interrupt handler uses the lock and completion object as soon as
+the interrupt is delivered. Initialize both before registering the
+handler so an early interrupt cannot access uninitialized state.
 
-Honestly, I think minrevs are a distraction here. Let's keep this short
-and sweet:
+Fixes: a85e4c52086c ("peci: Add peci-aspeed controller driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/peci/controller/peci-aspeed.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Microcode updates can usually jump revisions. However, there is an
-erratum on Granite Rapids systems. If they "jump over" revision
-0x1000405, they machine check <or whatever, I forget how they die>.
+diff --git a/drivers/peci/controller/peci-aspeed.c b/drivers/peci/controller/peci-aspeed.c
+index a0c99ecf7..5d7f4f8fd 100644
+--- a/drivers/peci/controller/peci-aspeed.c
++++ b/drivers/peci/controller/peci-aspeed.c
+@@ -529,14 +529,14 @@ static int aspeed_peci_probe(struct platform_device *pdev)
+ 	if (priv->irq < 0)
+ 		return priv->irq;
+ 
++	init_completion(&priv->xfer_complete);
++	spin_lock_init(&priv->lock);
++
+ 	ret = devm_request_irq(&pdev->dev, priv->irq, aspeed_peci_irq_handler,
+ 			       0, "peci-aspeed", priv);
+ 	if (ret)
+ 		return ret;
+ 
+-	init_completion(&priv->xfer_complete);
+-	spin_lock_init(&priv->lock);
+-
+ 	priv->rst = devm_reset_control_get(&pdev->dev, NULL);
+ 	if (IS_ERR(priv->rst))
+ 		return dev_err_probe(priv->dev, PTR_ERR(priv->rst),
+-- 
+2.34.1
 
-> Furthermore, one of the subsequent revisions does not correctly specify
-> the minimum revision, so unfortunately the late loading cannot rely on
-> that check either in this case.
-> 
-> Prevent loading 0x1000405 or later when the system has not yet been
-> updated to 0x1000405 or later. Apply this blocking to both early- and
-> late-loading paths.
-> 
-> Rename is_blacklisted() to is_late_loading_denied() so the new function
-> that covers both loading paths is not confused with the late-load only
-> one.
-
-Whee, and get rid of a chunk of old terminology while we're at it.
