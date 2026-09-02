@@ -1,158 +1,212 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753964A8FED;
-	Wed,  2 Sep 2026 15:35:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A754A92D5;
+	Wed,  2 Sep 2026 15:35:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363334; cv=none; b=hFWkZSpPH3EdiD9UTg0ADTu/S7xEdBPA3XUQBjT8qCGUPvzULkozJfHEU1q3sFHLAZBomE5rUb8drvJC5LANs1D0R1r5ihMdSQXSN/bNSyeEnZnOPlgRja1Ey5S4tcBxfEYR3ITMcyOuojHw6VWEWRhwdJizU3Blo3rgrK5iXho=
+	t=1788363363; cv=none; b=bbbftC2dfuM7KHUTNCxmj40oki8kAFacwe+FhIkH7UHuAMNRk7AiIJoeLgB0GDUrzYkJZbb5CSa2DWUZcBR43AoaTmygS29j+uNrMu5RiB7a3Fgp/wrvqKkGlvOGkSFqb/+T+72RboITdYEIArT3C4m+IT+eUyrIfmQP/Xi7a1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363334; c=relaxed/simple;
-	bh=4/zkLDvK82JU6Q6Tw2RpZsP6R/Iy2acCK0Y+c7mxREM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s1I4TlupLEKj89VtriDVD6upyJ2Blo5KEUAmKDBk07jdagV2Cr3Y77gMbhcoC0EaHsRX4nYgjRzBYnF2+CWU3K0qJWBLCScdw9Nx7VgYjrwQRW+bzs/sv1FrYQe/tisukOxwMFlulAPA8zI9O5Zrm0Bqlq8Az4HZfFMjisEu234=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=J9JFdUcU; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=tSL+WAXj; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1788363363; c=relaxed/simple;
+	bh=KWvIY17kQ7szE90LqQchJtV008eQeRXMyidVdT2Ef2I=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=MF5Hf666YMBpWbBHnwzDEEsqUIqM/tc4rZ0nDwDZRL9it7Yw+Yph1sUuBLL+ENaWtXw9NDHV2doEDTL6qk8yeqpK8u4hNHq9SNQleJ4cMhSfCTgB4oaywvAa2qAn9fWqesup3HDqRyzYFeiodHIVmT305mYOoDmAc/LyYBZnkqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aR4KRVs0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="J9JFdUcU";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="tSL+WAXj"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 16ED47A0149;
-	Wed,  2 Sep 2026 11:35:27 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Wed, 02 Sep 2026 11:35:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-transfer-encoding:content-type:content-type
-	:date:date:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
-	 t=1788363326; x=1788449726; bh=WClryFH/uykhLTwGrswB2IbjE2NVUlJb
-	Xpw7qCV2yQQ=; b=J9JFdUcUvGR2jn0Cz0R5bDpmoY2/7CwXnryN0ONPCwFkYBzD
-	zdDGYTls0frTCFJ7s4S6Kwceafhk4J124bnlBZZkvhvty0lKIbm9NfXX06rYZLeN
-	j6kKJ9p8Sz73+76ku3eOxepWN/f6XcFjItWo8skfPV5HhsskC1/VeKnN8Tv3j6Fq
-	mwdgZ8CBBLovXc6qQectX5eqBP+5rGeWTbP6WS/Fx4fsRYLMPfyaIoS7URbNWxy9
-	CHrpl+20LpEFuoL1zZZ8/n2Ypc7TrnNKzulDkak+nuNMVVm+tTf+AIpH0Mr19kka
-	jIq+QBA5xRUGh9mBuFfgVn40+x/KV5GgzEMQfg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788363326; x=
-	1788449726; bh=WClryFH/uykhLTwGrswB2IbjE2NVUlJbXpw7qCV2yQQ=; b=t
-	SL+WAXjD6Oz+jMKIWEuB5ns+eqdiolbTbx/M5w97qjtyFtOOeVKG1Tcob13EPRyG
-	GGfla5WkIkDkQmJHFEtKnym7RFfdlkTDA5VklpOKxH5fUfsPFJMOKi7epcW7RM/q
-	sgBoZxsS9rTk3l85GJEoQzOFZbR2OiUJV+sjYJdRqZKcxPZWO4jrCZKeVA1+Xf+F
-	rjlxCLe3nqwnODDmHbB0Y9U6Ii79anL0ZIFBrqJw2MQJiziL653HZAGX+S1IhbaW
-	QnDeqSPG9u8GzPdStjPB+pV/BBFw0bLTrwz454k3SjLJxZsKsn1dL5U7mJdLxwyb
-	cz6aLp5OwJrcNdK0igsOQ==
-X-ME-Sender: <xms:PkKYajecV2bl94Ydq8S4vdX6ZwZKkYSei_UgHNWiZeqwSp2pNPH5CQ>
-    <xme:PkKYalBYjLupgqBvMJZeHqay-uqNJFKW1kUqWS79Ymga2EUXJ54oG6dtHTFXVbPZP
-    toV5s3n0XKCbunuZTrWXoOl0qYrVJmUWvwjNdLxWRLPRiSWbBuDJpY>
-X-ME-Received: <xmr:PkKYan6zKoSDm8Kfp7sgWEBDGsjGuI66RbRzovJ679zm9ZwenvCZfzciFow>
-X-ME-Proxy-Cause: dmFkZTEf4k+3+JnIrFCzoGXzs89B6GwbkUyP8MFu2olz4AHzC29gDOrIDb4S1aFZs4Vr0Q
-    Gi5yw83Uj/+D38UBBcGcMaAYGhWF9Q4iy5kA+ScqAPy2xndWfFU91RifL3hapLRrs3F/ya
-    f1cJax7diydBCIWG4mjJgya75KzCaJyd0dMAmn08K/kfoDSQIDo+MN+ZzpVT5mjYSB2EDT
-    kINyn3/SCpMC62mdfcr8RiYIsapHEDqyjwtZXqavViZ0iJJtxwcTY7I7Wurh+4asGxWNxs
-    8VuhMWKXDj+A3qbDYZFmezTh40dEGT2hcbPXn3e+icvkpcinglKglJAQqkSkH6L96yg4eN
-    u8F7yRp1dC24c9fz41j8Ygf/2AxG5hL3UcC10in/nYNDqjuGODXwOvbsICTLD0WSJRdwKA
-    mgnaK/Gjpr6T9Z1d7ie3CQjJgNlVaVt4HV341LBIbVINlvABh+JPk89QIaH7/2F2f715XK
-    uxNaLNAaXjV82q9S+o6iPlHHK+LN7vAwx8q9l5fnjs9MTifrmrpCi2SH6fZAi4P0AxLMm2
-    XzAN6wLLqgaXVoDFMZ9ScdgueDpldN4ZqvhSoXF2CYsQWYWJdaDZzjES0rWmX7fU5309Pw
-    do391yGPtyO5nK36l4eKjtDAdCwTKGPyme54xBD5KRiGgz7vmrqAsGAB4UyQ
-X-ME-Proxy: <xmx:PkKYaufdR5IRxqdVL91Ff9_7km6lkS-QmLrLoYnoFAPJyv2L1TcuRA>
-    <xmx:PkKYatubdQOFRK1kwUEQSu-iBEyleeoX207N0qO8jpyvd9CvCJVEgw>
-    <xmx:PkKYaunv_OV_bfb_GWuWNKy5rDqnbwsjD2ssrx7EwedOoSLsDAjMeA>
-    <xmx:PkKYagSKoi5AiAMLjkj6PCwn72Ck_OehEbNhk7IBsR_nw-DS0cIa1Q>
-    <xmx:PkKYaiAtuEkwyY3s0ACABoyfDXFtUoAjO2N_AXJL3JNBNHQkeaMkDTFq>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 11:35:25 -0400 (EDT)
-Date: Wed, 2 Sep 2026 17:35:23 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, stable@vger.kernel.org,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jakub Sitnicki <jakub@cloudflare.com>, john.fastabend@gmail.com,
-	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-6.1] tls: reject the combination of TLS and
- sockmap
-Message-ID: <aphCOxhmFLqpjqvs@krikkit>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-596-sashal@kernel.org>
- <apacn0u4092axmXy@krikkit>
- <apbqjuv6l20bTjQI@laps>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aR4KRVs0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CC701F00A3A;
+	Wed,  2 Sep 2026 15:35:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788363357;
+	bh=RAivHFEws+oS2h15x1l023/v5gwjAGImwIJyV0LBvO4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=aR4KRVs0tUtlKreTRSdJrT3q7UYJj5sc6o+2ltsHbcjrw1bxX6Qqqz76I57JuP71r
+	 d92fJ08R2c/gASXDxPpgAG8H68DYL2GnvatXj+O6Aic4TyKIxO7p/BQA+klITO/+EB
+	 Cqs+lWRrFI4tjhbaYf5hHW+DA1m8NH+45ZOyw2IXwghspaX0lctaO1CiMd4X3yRdOb
+	 gXH3lpF4Ya2jfaOvDb6YqRNshRVo8BQ8jRVvQQpnKTBHPqcw6NYW16GFFx4p1Ed8SN
+	 lOe8aCTdSYEt57JzDqRs6AzczDx0xBVu4Su5oXB8rtmgjf2iagqWfhtUPDuMHSOz1m
+	 /Rz/HRACUye8g==
+Subject: Re: [net] net: macb: initialize PTP lock before registering clock
+From: netdev-bot+sashiko@kernel.org
+To: runyu.xiao@seu.edu.cn
+Cc: nicolas.ferre@microchip.com, claudiu.beznea@microchip.com,
+ richardcochran@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jianhao.xu@seu.edu.cn, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Wed, 02 Sep 2026 15:35:56 +0000
+Message-ID: <178836335694.3394541.317937628559896432@kernel.org>
+In-Reply-To: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+References: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apbqjuv6l20bTjQI@laps>
 
-2026-09-01, 11:09:02 -0400, Sasha Levin wrote:
-> On Tue, Sep 01, 2026 at 11:36:31AM +0200, Sabrina Dubroca wrote:
-> > 2026-08-31, 09:30:24 -0400, Sasha Levin wrote:
-> > > From: Jakub Kicinski <kuba@kernel.org>
-> > > 
-> > > [ Upstream commit 460e6486617c17dd19abe8f3fc67d9a6fa25f8ca ]
-> > > 
-> > > TLS and sockmap (BPF psock) integration hides a lot of latent bugs.
-> > > Bugs which may be more or less relevant for real users but they
-> > > are definitely exploitable.
-> > > 
-> > > We could not find anyone actively using this integration so let's
-> > > reject this config. Adding a TLS socket to a sockmap was already
-> > > rejected by sk_psock_init() through the inet_csk_has_ulp() check.
-> > > We need to reject the attempts to configure the TLS keys (rather
-> > > than adding the ULP itself) because checking prior to the ULP
-> > > installation is tricky without risking a race with sockmap getting
-> > > added in parallel (sockmap does not hold the socket lock).
-> > > 
-> > > This patch is a minimal rejection of the feature. Subsequent patch
-> > > in the series will do a light dead code removal. Full cleanup would
-> > > require a major rewrite of the Tx path, we don't need skmsg any more.
-> > > 
-> > > Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
-> > > Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
-> > > Link: https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
-> > > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-> > > Signed-off-by: Sasha Levin <sashal@kernel.org>
-> > > ---
-> > > 
-> > > LLM Generated explanations, may be completely bogus:
-> > 
-> > 330L... wow.
-> > 
-> > > ## Phase 1: Commit Message Forensics
-> > > 
-> > > ### Step 1.1: Subject line
-> > > **Record:** `[tls]` / `reject` — reject the unsupported TLS + sockmap
-> > > (BPF psock) configuration.
-> > > 
-> > > ### Step 1.2: Tags
-> > > **Record:**
-> > > - **Reviewed-by:** Jakub Sitnicki `<jakub@cloudflare.com>`
-> > > - **Reviewed-by:** Sabrina Dubroca `<sd@queasysnail.net>`
-> > > - **Link:**
-> > >   https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
-> > > - **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>`
-> > > - No Fixes:, Reported-by:, Cc: stable@vger.kernel.org, or syzbot tags
-> > 
-> > Yes, this was intentionally sent to net-next without a Fixes tag,
-> > because it's a "feature-level" change, so it kind of feels wrong to
-> > send that to stable (even if it's removing a feature that nobody seems
-> > to be using). OTOH the code is broken and not really fixable...
-> 
-> We have plenty of "fixes" that just drop a bunch of broken code :)
-> 
-> Happy to do either, just let me know.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Alright, if that's ok for you, no objection.
+Critical: 0 · High: 2 · Medium: 0 · Low: 0
+
+- [High] Incomplete fix: gem_ptp_init()
+  (drivers/net/ethernet/cadence/macb_ptp.c:327) still calls…
+- [High] bp->tsu_clk_lock is initialized in exactly one place,
+  gem_ptp_init() (drivers/net/ethernet/cadence/macb_ptp.c:333 after this…
+
+--
+
+net: macb: initialize PTP lock before registering clock
+
+The patch moves spin_lock_init(&bp->tsu_clk_lock) in gem_ptp_init() from
+after ptp_clock_register() to before it, on the grounds that PTP callbacks
+become reachable from userspace as soon as the clock is registered. The
+lock is otherwise not initialized anywhere else in the driver.
+
+> diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+> index e5195d7dac1d..055160c42db3 100644
+> --- a/drivers/net/ethernet/cadence/macb_ptp.c
+> +++ b/drivers/net/ethernet/cadence/macb_ptp.c
+> @@ -330,6 +330,8 @@ void gem_ptp_init(struct net_device *netdev)
+>  
+>  	bp->ptp_clock_info = gem_ptp_caps_template;
+>  
+> +	spin_lock_init(&bp->tsu_clk_lock);
+> +
+
+[Severity: High]
+This is the only spin_lock_init() for bp->tsu_clk_lock in
+drivers/net/ethernet/cadence/, and gem_ptp_init() runs on every interface
+open and every resume rather than once at probe. Can that re-initialize the
+lock while a softirq on another CPU holds it?
+
+Both call sites start the datapath before calling ptp_init():
+
+drivers/net/ethernet/cadence/macb_main.c:macb_open() {
+	...
+	err = macb_phylink_connect(bp);
+	if (err)
+		goto phy_off;
+
+	netif_tx_start_all_queues(netdev);
+
+	if (bp->ptp_info)
+		bp->ptp_info->ptp_init(netdev);
+	...
+}
+
+drivers/net/ethernet/cadence/macb_main.c:macb_resume() {
+	...
+	phylink_start(bp->phylink);
+	rtnl_unlock();
+
+	netif_device_attach(netdev);
+	if (bp->ptp_info)
+		bp->ptp_info->ptp_init(netdev);
+	...
+}
+
+The receive and transmit completion paths take the same lock, gated only on
+bp->tstamp_config, which is never reset by macb_close() or gem_ptp_remove():
+
+drivers/net/ethernet/cadence/macb.h:gem_ptp_do_rxstamp() {
+	if (bp->tstamp_config.rx_filter == TSTAMP_DISABLED)
+		return;
+
+	gem_ptp_rxstamp(bp, skb, desc);
+}
+
+which reaches gem_hw_timestamp() -> gem_tsu_get_time():
+
+	spin_lock_irqsave(&bp->tsu_clk_lock, flags);
+
+So after userspace enables timestamping via gem_set_hwtst(), an ifdown/ifup
+or a suspend/resume re-runs spin_lock_init() on a lock that a NAPI/softirq
+context can be holding or contending. Does that break mutual exclusion over
+the TN/TSL/TSH read sequence, and reset the lockdep class (or, on PREEMPT_RT,
+the rt_mutex owner and waiter state) of a held lock?
+
+Would initializing bp->tsu_clk_lock once at probe time, next to the other
+spin_lock_init() calls in macb_init(), be a better fit than moving it a few
+statements earlier inside gem_ptp_init()?
+
+>  	/* nominal frequency and maximum adjustment in ppb */
+>  	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
+>  	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
+
+[ ... ]
+
+> @@ -345,8 +347,6 @@ void gem_ptp_init(struct net_device *netdev)
+>  		return;
+>  	}
+>  
+> -	spin_lock_init(&bp->tsu_clk_lock);
+> -
+>  	gem_ptp_init_tsu(bp);
+
+[Severity: High]
+The changelog says "ptp_clock_register() publishes the PTP character device,
+so a userspace operation can enter a PTP callback as soon as registration
+completes". If that is the premise, does moving only spin_lock_init() close
+the window, given that gem_ptp_init_tsu() still programs the hardware after
+ptp_clock_register() has returned?
+
+In drivers/ptp/ptp_clock.c, ptp_clock_register() calls
+posix_clock_register(&ptp->clock, &ptp->dev), which adds the cdev, so
+/dev/ptpN exists before the driver has touched the TSU registers. In that
+interval gettimex64/settime64/adjfine/adjtime are all callable.
+
+Two effects seem possible in that window. First, the increment registers can
+still be zero, because the close/suspend path halts the counter:
+
+drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_clear_timer() {
+	bp->tsu_incr.sub_ns = 0;
+	bp->tsu_incr.ns = 0;
+
+	gem_writel(bp, TISUBN, GEM_BF(SUBNSINCR, 0));
+	gem_writel(bp, TI, GEM_BF(NSINCR, 0));
+	gem_writel(bp, TA, 0);
+}
+
+so on a re-open, does gem_tsu_get_time() hand a frozen counter value back to
+userspace as a valid timestamp?
+
+Second, anything userspace sets in that window is overwritten a moment later:
+
+drivers/net/ethernet/cadence/macb_ptp.c:gem_ptp_init_tsu() {
+	ts = ns_to_timespec64(ktime_to_ns(ktime_get_real()));
+	gem_tsu_set_time(&bp->ptp_clock_info, &ts);
+	gem_tsu_incr_set(bp, &bp->tsu_incr);
+	gem_writel(bp, TA, 0);
+}
+
+Does a settime64/adjfine/adjtime accepted between registration and this call
+get silently discarded?
+
+Also, the trailing gem_writel(bp, TA, 0) here is issued without
+bp->tsu_clk_lock, while gem_tsu_set_time() notes its own sequence is not
+atomic:
+
+	/* TSH doesn't latch the time and no atomicity! */
+	gem_writel(bp, TN, 0); /* clear to avoid overflow */
+	gem_writel(bp, TSH, sech);
+
+Can that unlocked TA write land inside a concurrent gem_tsu_set_time()
+critical section?
+
+Since gem_ptp_init_timer() and gem_ptp_init_tsu() do not need a live
+bp->ptp_clock (gem_tsu_set_time() and gem_tsu_incr_set() only reach bp
+through bp->ptp_clock_info via container_of), could ptp_clock_register() be
+made the last statement of gem_ptp_init() instead? That would also make
+hoisting spin_lock_init() unnecessary.
+
+>  
+>  	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
+
+[ ... ]
 
 -- 
-Sabrina
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260830153520.2710520-1-runyu.xiao%40seu.edu.cn
