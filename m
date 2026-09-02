@@ -1,63 +1,63 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C3F35E1AF
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:57:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605C0363C6C
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:57:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314242; cv=none; b=X3U7R3C+OTSdiLE43Am4tMvZynNc0oab61Yr7UxG/m9+hr7jEkK3pmPX/gpYMrifIsZh4CmyYNklkp/ZGkvDLpVx58buRj1h1nGnZ4PBy98gJ9PyROzP5HahO9v5WyKxncUyBQ6UB2Cq5f04kicnP2MHKVRIbju1Ac59QGeSu8o=
+	t=1788314244; cv=none; b=K7pNDDF6QvkRQRCyzB1IhOIiOLdW40DB8YDqA2hOzdODkl+F9lFAIysP8nQRtrpc5BlYHG+6MEC9vhx4xYVgZzGsDJyuXUFPMkVrTOrFcllS7763LaKkqAD5C/Y7rfg04mlRQtSDMiFACyrAXTVslfA7RYe5pZ07BwfHIT8Ca+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314242; c=relaxed/simple;
-	bh=kjynEym4JkM4qLFWRtB6GBT9eT/13ERJsjb/5ssDOQI=;
+	s=arc-20240116; t=1788314244; c=relaxed/simple;
+	bh=Ik8QSbgXP5buhxF8hVJJ2LX4PPnIIT1KbX8G1W+E0SA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eo4plkNpTojnsUF0asU9F7GQ5oiPkQ4N9DRIjjsdA8iyuYDXrNaV02du+EzJ20xuogttYZE3SUKb+zl2FyzzFZ+A4Q5ohz7ElNfZqsDhaSX4IAjbKg92IaZ8nhTQ6abZ8z4W4CJzxuVODxBCQaEz15nA2eMcJl1oqhrDT+pLL9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=neuNbo44; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=PpIyC/ofuVBrGpPoV8FlNnbQ0xs7A8BzTsHpue1m8ravuRKQcQUXxfjJMG0WkXA0jQyxaVHg9/4c2KajqFeV/sYK0tMRFVEc6AmVA1+zOrOYxFJwztRF/AjaS+5Lth/6L7RGvKA7enmA/SEiPDfl8OWj7K01L5e0bd2Cy1kWLx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Lgy4n7fc; arc=none smtp.client-ip=209.85.215.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="neuNbo44"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38511175ad3so518336a91.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:57:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Lgy4n7fc"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so641915a12.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:57:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314234; x=1788919034; darn=vger.kernel.org;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314239; x=1788919039; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+2ASlAu8y5yvnOMRkejZNi7wm/1MZgn7xMNUrYUfQtI=;
-        b=neuNbo44bMNUajm357LiSzKnzPxriyzf3VQtr1yrdq5+8LYsxqaz7V9REmNxf03Xkz
-         OHqxnbS1CLxomdb//e+Rs7Ip/1t5n3qYfwLabG0J/oHZSxQhf1uWerbrPTeFUBesMSli
-         Kd5K+xcf04yV/xtMzdqBewpFFDfc4CHUdMCKPD0ekp1XeUfj4m3RAqsiTsIp2bJECUsa
-         GgFcTT/CNo9O/CZrUPUCmF7Hp1o0bNx5puZ7SgxfXADOFBMzbI9Hw4m5WIk6+Q/niJhC
-         8ml3F+oYNfBZqvq2TzgCh3CpE+QNttvN5llDk9yBO6OF2hQ1VmJ2pGZSizNkwtRSZwZf
-         s4SA==
+        bh=t8NexaY5OOI9G959hLH28cElmfzdE2NH8o0S1EDtR7Y=;
+        b=Lgy4n7fctmLm0VRdGB0LQd3y29ORZSxGQdnw5PrQ+Xwc/RVzHoPyoscLCqWSCL/cV0
+         t5o50+BopFN/QtF56t7uzdshXY38OfQprnUGRu1fomkWM7eOFnVKsm6wXlrHyymhNba3
+         LiPGbyzGPIfTMQeI+kPyXPcgqFrnWWeVEyoNdMl9ilaBTkA/dEY69qt7qD876dnDLdWd
+         At8gHvXLs805Voihj5n1yRCUJaVLO41HGPj+T8yYwXrej+MfTQkMeV9DDogXdVLpf0DA
+         WhSu/jlarygTuwN0ZPLq83SRSX2x26TCJDA7W+DjXt2280ZFaajbwmPY0C4EjkhbjD4j
+         +ttA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788314234; x=1788919034;
+        d=1e100.net; s=20251104; t=1788314240; x=1788919040;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+2ASlAu8y5yvnOMRkejZNi7wm/1MZgn7xMNUrYUfQtI=;
-        b=ZreE5wpM6acGsObbD2XKt3SsZ2v7Tlmv3f/wygE3MgrFEY+ZrumsYpJ9i6/fCFHSqe
-         NnO8u8EAydRsFJtXK3C/LBjgLvwI9I7CESc9BS4YJ5B78crzV9R+PJIPPecZWCr7t7r0
-         ZKkrqt+AsAcgy9NK6And0nbSPDxOmL89cfeXGYnVxVrnhbadmCgeGhmcD2iPDGI6K/3i
-         0IQSkDqJAzchLl6JAN9EC7JRAQtkJZtwRsO/6WziJvgd0LalnNBzG1UlNlWSqCbJffMh
-         B7Zmj9X2N9DeYPJz9rpI6QlUxu8xnCgf7DMnwnRV5EAiiNsV6VQjvHHkFfMfj2PM6bap
-         bHCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPw5lfRG5ygbP6hEqxLKYrpDQhagL6LE2ig7Z2weWQBKMDXQNjoiUhDB4SgpzXFCKZnJjjgVs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGcVtrTIC6ckTdp7SLiafUF3rQU1aVwTyhzXSHJhIdP+kVmdqa
-	xwYuaMC9nwIvtwT9L2ibHvZaVSw87Z4QQc0kayRoNzKgQ66El6owQMxSiNCMrZVUn04=
-X-Gm-Gg: AYBFou24/kzIbGWCMrbBb+XE7uKHb5I9SLIe2sJ+puD28GXg9QQaRSLs/67BwsEd3+n
-	RSpYmeBK/v468GaQNPFR4MXaxVIKMeGWZmOwlpV9YQNciOg7M47ONunGQJIcAu2UNrkmH1QUqmc
-	X/hNFJc5PXmCXimaAQy1MfYlSVLBUS078PKHGK9HseliJv/f4mm8Nw2b41zVQi3eeELGHnbkPFt
-	mE42+kNCYbx9VMbvTGo6yjTntGxd9cwVG8KR9JqOWVMOPqLEBsn60a7o6xaTnSUzexNOrV3fByh
-	Nr9K8d4VvjmgRgWiT5LK4ePUSNQciBnsK8gmBfhiPm2d4qV9eSAPj8ccLsQRstX7pf/6XhjiuLn
-	JLecZ6Hrj3GEH13BHdKxm7XJYRXMIvBsiA6QGSGN0MjZC7t1u2HxYt0GMxDpAYzhGt5vF5d/EWQ
-	A3E0aLMk8gMoxDHsdQTvrLhB5T/j0fh+PiS35V5kC6mrO5IQbvjDdF
-X-Received: by 2002:a17:90b:4c52:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39aedf7c6aemr1801505a91.5.1788314233810;
-        Tue, 01 Sep 2026 18:57:13 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:5a::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae380d7a9sm2252710a91.12.2026.09.01.18.57.13
+        bh=t8NexaY5OOI9G959hLH28cElmfzdE2NH8o0S1EDtR7Y=;
+        b=ZT5vZIdSxO/ZrXc5EgeNZSNxJzu1WvCC3tzvwukwY/93sidrt8BmHQFE7d//WQVo+t
+         zRsoHMOOg1zffvkcJwH/HefZyeiDyaIxMZMX+vlwmgp8TrzvvufezjK2npN1bck45Qij
+         /G293oJI+3YeLOAfEqma4TN6rRAQEYAfupafA0RHmj5rLOJt8oV3WcmgDyi6Gu6vZF+v
+         8oU2ql9Er1gZLw7QEGqhk0rDdBjYX421o8PWWbcDigW61mREwrig/HZOnZbr8rEgtZcK
+         1Vk+RbXIHBwnZ+SIeU0Gcq1FPSIHUxcEiANFmYHYu4ZQo3ZvNyfPIAJqMU4e7M+UljY3
+         H35w==
+X-Forwarded-Encrypted: i=1; AKwUvByRIqCSEm1cuvwlpCn7ASht2Xzv/nurESyUBkVpKUOnK2IsuBOAiN3DnkWeFAzP4Ld9Td2Yio4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhoX/qYW0XkZ/goBhbeFsBYq3OjwyLxyetwbHpQHvJZ55KKU6D
+	MOBFWTmbOS3jRpNLg7JkOrpGBudc2ZkztpPatibtp2942WYwZAzrCPevVjjGZoWBCQI=
+X-Gm-Gg: AYBFou1uUIwJjEtAADCkw4AoZoZaJoQmqCxoxsjUivHuvJzghPtE7Jp2/ofude24397
+	PG9zkWoQnC4nvNZaPadn4RXK6K/0M08SPRY1rjzlLQv0qNhhJr4+2EZpMN54qyLpCx2V7WhXDac
+	w3TIZHpvJecdnIgGMTQbJBLrWeRuFexCVUEa0a0Bv033fR4JMykX/D1Ch+j66NJOXWDdC6hSrZo
+	3FrJ5nIKezgbHwNV73lViuVo/J/D+z1pVCW5FRHwmKDvJG+i0cIpceZVXV90deChHa4uR99+lRM
+	90cTLtSEA0WIqUPmZxMdqYAw/Hh0KiJR1bvWpN9ZLK1ci3K1A/0EkaUt8wz5Lv2rtukqjxZLxhG
+	XQtQ1Ip/hp4kiUDke59efG3w4pW6qsSIy6EAw+1R966DU4719C+2lOyi+HjRtVKawmmYNmvCLTF
+	1KPZdLED7PvjZyKuyZH4CK4wdYnSfZpnnxZfVFWZ0kCZQ=
+X-Received: by 2002:a17:90b:524c:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-39aedfb8ebcmr1991272a91.7.1788314239469;
+        Tue, 01 Sep 2026 18:57:19 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:71::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0dfe6b6sm2346061a91.1.2026.09.01.18.57.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:57:13 -0700 (PDT)
+        Tue, 01 Sep 2026 18:57:18 -0700 (PDT)
 From: Joe Damato <joe@dama.to>
 To: netdev@vger.kernel.org,
 	Michael Chan <michael.chan@broadcom.com>,
@@ -67,7 +67,7 @@ To: netdev@vger.kernel.org,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Somnath Kotur <somnath.kotur@broadcom.com>
+	Edwin Peer <edwin.peer@broadcom.com>
 Cc: horms@kernel.org,
 	kalesh-anakkur.purayil@broadcom.com,
 	colin.winegarden@broadcom.com,
@@ -77,9 +77,9 @@ Cc: horms@kernel.org,
 	Joe Damato <joe@dama.to>,
 	Sashiko <sashiko-bot+sashiko@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH net v5 1/6] bnxt_en: Only restore LRO if the device supports TPA
-Date: Tue,  1 Sep 2026 18:56:44 -0700
-Message-ID: <20260902015652.2421609-2-joe@dama.to>
+Subject: [PATCH net v5 4/6] bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
+Date: Tue,  1 Sep 2026 18:56:47 -0700
+Message-ID: <20260902015652.2421609-5-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260902015652.2421609-1-joe@dama.to>
 References: <20260902015652.2421609-1-joe@dama.to>
@@ -91,35 +91,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With a P5+ device with firmware that reports max_aggs_supported == 0, it is
-possible to make LRO settable by attaching and detaching an XDP program
-even though the device does not support TPA.
+bnxt_rx_ring_reset() frees the ring buffers and then reallocates them,
+ignoring the result.
 
-Fix this by testing BNXT_SUPPORTS_TPA before restoring the feature bit.
+bnxt_alloc_one_rx_ring() can fail in bnxt_alloc_one_tpa_info_data(), which
+returns -ENOMEM on the first failed allocation and leaves the remaining
+rxr->rx_tpa[] entries zeroed.
 
-Fixes: f0aa6a37a3db ("eth: bnxt: always recalculate features after XDP clearing, fix null-deref")
+The error isn't propagated up, so the loop in bnxt_rx_ring_reset
+continues and at the end the code re-enables TPA with partially
+unallocated rx_tpa array.
+
+This means that when the agg_id from hardware is mapped to a SW index in
+rxr->rx_tpa[], an uninitialized slot can be chosen which would hand a
+zero DMA address to the device.
+
+Fix this by falling back to a global reset, which is what the existing
+code already does when other functions fail, but unlike the other
+failure cases this particular failure has to return because TPA can't
+be re-enabled since the allocation failed.
+
+Fixes: 8fbf58e17dce ("bnxt_en: Implement RX ring reset in response to buffer errors.")
 Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
 Cc: stable@vger.kernel.org
 Signed-off-by: Joe Damato <joe@dama.to>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index d59bcca73a2b..0e5c2a48f313 100644
+index 3755a30f8d40..a8e5fdfcdf59 100644
 --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
 +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -5006,7 +5006,8 @@ void bnxt_set_rx_skb_mode(struct bnxt *bp, bool page_mode)
- 		bnxt_get_max_rings(bp, &rx, &tx, true);
- 		if (rx > 1) {
- 			bp->flags &= ~BNXT_FLAG_NO_AGG_RINGS;
--			bp->dev->hw_features |= NETIF_F_LRO;
-+			if (BNXT_SUPPORTS_TPA(bp))
-+				bp->dev->hw_features |= NETIF_F_LRO;
- 		}
- 	}
- 
+@@ -14604,7 +14604,14 @@ static void bnxt_rx_ring_reset(struct bnxt *bp)
+ 		rxr->rx_sw_agg_prod = 0;
+ 		rxr->rx_next_cons = 0;
+ 		rxr->bnapi->in_reset = false;
+-		bnxt_alloc_one_rx_ring(bp, i);
++		rc = bnxt_alloc_one_rx_ring(bp, i);
++		if (rc) {
++			netdev_warn(bp->dev, "RX ring reset failed to allocate buffers, rc = %d, falling back to global reset\n",
++				    rc);
++			bnxt_reset_task(bp, true);
++			bnxt_rtnl_unlock_sp(bp);
++			return;
++		}
+ 		cpr = &rxr->bnapi->cp_ring;
+ 		cpr->sw_stats->rx.rx_resets++;
+ 		if (bp->flags & BNXT_FLAG_AGG_RINGS)
 -- 
 2.53.0-Meta
 
