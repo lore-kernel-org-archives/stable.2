@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1614A2F3C18;
-	Wed,  2 Sep 2026 00:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC872F49F6;
+	Wed,  2 Sep 2026 00:27:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788308854; cv=none; b=Fn7JN+vNJc5faj39zwJKPPstYzhmyqnNw2EF6UgLquJTYruGncnsItF8SzFlDSbZoj1qAupKJCXhehb2dXLGvVGN4zGJTtFkj7R6HcoE4dGqYvyvDf3AQIwdiGryp098JLSttKCjNgYMPVri5v3mzAoHjn5Y8dTOq1KWJJa+VRM=
+	t=1788308854; cv=none; b=mhIb4XS7gq49WmfSElOZbBbml0xCqBdFXItkrX/Me77gnCB7v3sIUopeF2KQVoyURfFwkWhKxGKrROq2tI30s9MJQrYt7nMrztIlD8PfI9/GEQTH0bpM+PC1x897mgYEs+E4F19zv9m+IfLmxcLyaHTogVsdHo21mvpF4GJ6Lro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788308854; c=relaxed/simple;
-	bh=h7vbIGIL6lvt6pBf3n2A0mwhmnGmbEsny/1B7JAVAkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gZk8/xQzQbyT61HxB97XmbMLLOst5hLlQh7sgDHA7l2REzRUfOuUmkWMkctRMJlQ7yttIDrN+fBe8pqU7RNtboiebTg8ZymBMzEqC8w/6h96lsb8nQqJ2JlGaaS1YdVQQkog10RUZmFymhAHGZaqRMgY8zhp8o37qatPnBdJMik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQUO+4NY; arc=none smtp.client-ip=100.103.45.18
+	bh=mblgMYWNs4C+qYuiFnh28aLwABP3tVSSD3iGEowOVSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GG2Rh+o8nw8qXMay9lNXXm3RFOBGnDKUnXUs5M43TyN8ngZA6JioMZ+qlYZAqbNctiE4Ez880VIXeNPRwzn1vDws4p7VfIM/dk8wFxC7/YgSH6NdWb5wlLYqQHAdX1yV98ZCPKBBtF2m/u3Wd0r7O/eVoM3mpctLNfrwZX/ayRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBp/q+jh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQUO+4NY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38EA51F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBp/q+jh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBDDD1F00A3D;
 	Wed,  2 Sep 2026 00:27:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788308852;
-	bh=mbv8WxNYdZDCGISix1qH3K9oOQ8RMlyWgnMJQvHMmG0=;
-	h=From:To:Cc:Subject:Date;
-	b=RQUO+4NY2VU3f7MNQJs8O/9NYJxF9+lIgXvdVprklDTns8sq8MmOsoSniUPJJztqq
-	 4X1/Vc1U9JgKmYoaVlRiTv+PmW3UbUPwwFR14cDhoqecuF4tC6GnL+MSJby5amyds3
-	 Ro82wNH3VUssbS6IUR4QLeFk+xBekhw+ggsZbACziDlfrmMGWgd/tHH0SbacZYkMVT
-	 MAMYjgj2elCLpXQZDsvpnZArX+8c0FYZrBrJwfpLvLZrahdx+Det0POhB5WtmEQC/I
-	 GjC5jVmpWcCO25rvpfs0az9XePaeeMYhcI06XaTkNAa1XkuK/Wtkotj6MMXwZU1Nk4
-	 bVuobnP1ICHng==
+	s=k20260515; t=1788308853;
+	bh=4Aq7mCS1n7SM9+gwhZmdlAUpokje7QH5p7CwEaALh/c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EBp/q+jhGmoX23PF/KR8yCsXY3rmPIUMsqyxq4V7hhR2ZmeEMYnHNawW7n+XfpQig
+	 B1G9yahk9AAoxz0k8lFwwlUpi380TZXoouESL8l8Il9BLlUTCRTtJf2W/jn5dVUywp
+	 9eroAfIphosA0O9NWWvBEzwx++PuM+POU6kUJqq8pFOT191rb2OXS7JgYdnz6VWmwn
+	 Vyt2pKdhGytPl+2a/LsRz8Ch+GAtbWwtHxrCTo3xzwdwYa8PkzBcpoY7ZtlUko1wSc
+	 52cWJM4A6MwNm+AYEKRCq2QYH2Ld46OUbmBLFGBcAh4i0SU6D8CwzCGHyC4+CdSwNY
+	 RLaCZ0mXnFshg==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
 	Brendan Higgins <brendan.higgins@linux.dev>,
 	David Gow <davidgow@davidgow.net>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
 	damon@lists.linux.dev,
 	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 0/4] mm/damon: fix misc bugs in kunit, quota goals and sysfs refresh_ms
-Date: Tue,  1 Sep 2026 17:27:19 -0700
-Message-ID: <20260902002725.108635-1-sj@kernel.org>
+Subject: [PATCH 1/4] mm/damon/tests/core-kunit: test committing psi goal to psi goal
+Date: Tue,  1 Sep 2026 17:27:20 -0700
+Message-ID: <20260902002725.108635-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260902002725.108635-1-sj@kernel.org>
+References: <20260902002725.108635-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,46 +51,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-DAMOS quota goals commit unit test is mistakenly not testing a test case
-that was designed to test.  DAMOS quota goals and DAMON sysfs refresh_ms
-file have bugs that can produce non critical but still unexpected
-behaviors.  Fix the bugs.
+damon_test_commit_quota_goal_for() is set to test committing a new psi
+goal on an existing psi goal.  However, damon_test_commit_quota_goal()
+is mistakenly not covering the test case.  Add the test case.
 
-Patch 1 fixes the DAMOS quota goals commit unit test to cover a
-mistakenly uncovered case.  Patches 2 and 3 fix the bugs in DAMOS PSI
-goal initialization and eligible_mem_bp online commit, respectively.
-Patch 4 fixes the bug in DAMON sysfs refresh_ms file handling.
+Fixes: 99f89debafc5 ("mm/damon/tests/core-kunit: add damos_commit_quota_goal() test")
+Cc: <stable@vger.kernel.org> # 6.19.x
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/tests/core-kunit.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Changes from RFC v1.3
-- RFC v1.3: https://lore.kernel.org/20260828183649.71192-1-sj@kernel.org
-- Drop RFC tag.
-- Rebase to latest mm-new.
-Changes from RFC v1.2
-- RFC v1.2: https://lore.kernel.org/20260828014659.121058-1-sj@kernel.org
-- Fix last_psi_total underflow.
-Changes from RFC v1.1
-- RFC v1.1: https://lore.kernel.org/20260827134429.123023-1-sj@kernel.org
-- Fix quota goals commit unit test that was mistakenly missing a test case.
-- Initialize last_psi_total as uninitialized at the beginning.
-- Correct kunit test for changed last_psi_total initialization behavior.
-Changes from RFC
-- RFC: https://lore.kernel.org/20260827042920.93580-1-sj@kernel.org
-  (Mistakenly missed RFC tag)
-- Fix build error.
-- Add eligible_mem_bp nid commit fix.
-
-SJ Park (4):
-  mm/damon/tests/core-kunit: test committing psi goal to psi goal
-  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
-  mm/damon/core: copy nid for eligible_mem_bp damos quota goal commit
-  mm/damon/sysfs: set next refresh jiffies per sysfs context
-
- mm/damon/core.c             | 16 ++++++++++++++--
- mm/damon/sysfs.c            | 11 +++++------
- mm/damon/tests/core-kunit.h | 16 ++++++++++------
- 3 files changed, 29 insertions(+), 14 deletions(-)
-
-
-base-commit: ee125db0b1f24a2f6b04e3143ffe1a14324176fe
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 7071ec277b007..f1e11548c771b 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -793,6 +793,13 @@ static void damos_test_commit_quota_goal(struct kunit *test)
+ 		.last_psi_total = 456,
+ 	};
+ 
++	damos_test_commit_quota_goal_for(test, &dst,
++			&(struct damos_quota_goal) {
++			.metric = DAMOS_QUOTA_SOME_MEM_PSI_US,
++			.target_value = 234,
++			.current_value = 345,
++			.last_psi_total = 567,
++			});
+ 	damos_test_commit_quota_goal_for(test, &dst,
+ 			&(struct damos_quota_goal){
+ 			.metric = DAMOS_QUOTA_USER_INPUT,
 -- 
 2.47.3
