@@ -1,92 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4676338DC57;
-	Wed,  2 Sep 2026 05:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418E530AAD8;
+	Wed,  2 Sep 2026 05:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788328189; cv=none; b=H9LTyhnS39Kba2hCJuNep98LeKPDtgMFJb97BRX9UkZpt/jNQMqSbVmVwT8zY9G402QzA86tVWH+akZhV8yn4wW4Lvht0edOe6X3ograEBlbgLBJFrtUofijvcBnnBjUdElF1Cwt1axsNOyrye9mpyltTR5azacU1VNQ/b+Fwq8=
+	t=1788328415; cv=none; b=GVo5jgV6YjTBUyYv8kCpeOtvBk41U+TucQInkXrrYdOlvSzMVIHfyronjZFP5BUJYibzUCxqUBmojqQjcwRuNzpwwGg89HE+/HDDg9EBDHFnw5xz6VTkCoxQONx2ilYweJoJnexI2KNhETuv5dK/Lq25RcZeIsseM5CXBt5+o2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788328189; c=relaxed/simple;
-	bh=f+fVeDop3SpiTjvyBBaD18/nYTVCfRuSEAnocp4TovI=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lCwPELxRjCEnEQYWFWCJZ3l4H6T2pRQE52UTKnto+aJsuGNHqNtp5UTHsQxIgSHmNKStKp53P64ie8t3cgNbmekG0/XTjGAvAvuUzN4v1JQZcKHgg6eHfs1U5jHkeblCPC32lH6NngQ+f3Fg+eTYF+S/zBUiit3BBcw2zUH75a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XXjqvzmb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788328415; c=relaxed/simple;
+	bh=QbGcAg7DzOG1xY8ZQxl9eD5Kx8O9q+LQLW0/p+9fgIw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jdQnvAR7dHcoljq09Tl4yzM/qTaQEmLOdxVkOaxf9begcRpmnBl7NU5RrzG8nItmXLbinRw8iT3fOpWQkwUHsZ6WUsG5qC0veTe2d18KlIp6OleoQuYMqRUwN/8thFl416QCVtmMP9LeqHqV0yB/+qmxGjtqiXWIjdf2f8cIcI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vUYPo0qU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XXjqvzmb"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 177631F00A3A;
-	Wed,  2 Sep 2026 05:49:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788328188;
-	bh=ILidY6yad5boBIUhtIxOamcW0IKf1WGZ65/pkLw7Epg=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=XXjqvzmbO15jpAHpt4j9IreRpJXo76wTNPY81HIXLRh36j9KxKIpZtqus9+J6tkU1
-	 GnnD1e6KQhji8vSsLpeFZFkO/JWx4EiDC3osEV2z31AWBYMqHwW7MXP/QJRx12uGXZ
-	 JFpPakyXhjdvR62NT0ZcXixwJ6rFUaLi8Yhc+OtOX3bYA0qx7nI9WNSZj9IWInSuWI
-	 qKVmHpS0Fs5ERZUxrWYRawujVAXLIBnA8q3+iiva5OHDheGeF2xGi6NhNy4hBL++FK
-	 7aOAa2dXkDKy3ymlPFiVok3kled4SYjWTG3atDSgzjQFDgRH07zshqv2fc2hzqaB7k
-	 eroNfpqxkSf2Q==
-Date: Tue, 01 Sep 2026 22:49:47 -0700
-Subject: [PATCH 5/5] xfs: fix backwards mergeability logic in refcount
- scrubber
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org, hch@lst.de, djwong@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178832750815.3508131.4005702119407893700.stgit@frogsfrogsfrogs>
-In-Reply-To: <178832750681.3508131.6009513367948627110.stgit@frogsfrogsfrogs>
-References: <178832750681.3508131.6009513367948627110.stgit@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vUYPo0qU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430FE1F000E9;
+	Wed,  2 Sep 2026 05:53:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788328413;
+	bh=++ZImsw2/TuLJ+7X/9pG8+ABOc63e0/zSWfu4HVuACg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=vUYPo0qUYKiPkTPYhUrVRrqnd6daS1+nDeUygyCt3tQTPHBk/5zYc5+Vj0TkrJhPv
+	 ZBV3rqEWATXFK+lDT+Ids4dDaAZBwUiTzmZRQfytY7gXp7HhOxQdBG9evehx34w+Lb
+	 p2zl7t9WY3fXATtH3YkbwcPG+R2S8lj8hRzK/SBI=
+Date: Wed, 2 Sep 2026 07:53:28 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz,
+	jkoolstra@xs4all.nl, neil@brown.name, sandeen@redhat.com,
+	kees@kernel.org, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu,
+	tgopinath@linux.microsoft.com, kys@microsoft.com
+Subject: Re: [PATCH] ufs: validate cylinder group free bitmap offset
+Message-ID: <2026090207-threaten-shakiness-a0bc@gregkh>
+References: <20260901180600.10394-1-cenzhang@linux.microsoft.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901180600.10394-1-cenzhang@linux.microsoft.com>
 
-From: Darrick J. Wong <djwong@kernel.org>
+On Tue, Sep 01, 2026 at 02:06:00PM -0400, Cen Zhang (Microsoft Security FORGE Labs) wrote:
+> ufs_read_cylinder() copies cg_freeoff from the on-disk cylinder group
+> without checking that the free-fragment bitmap fits in the loaded
+> cylinder group buffers. A crafted image can place cg_freeoff past those
+> buffers so that allocation later indexes ubh->bh[] out of range.
+> 
+> UBSAN: array-index-out-of-bounds in fs/ufs/balloc.c:752:15
+>   ubh_scanc()              fs/ufs/balloc.c:752
+>   ufs_bitmap_search()      fs/ufs/balloc.c
+>   ufs_alloccg_block()      fs/ufs/balloc.c
+>   ufs_alloc_fragments()    fs/ufs/balloc.c
+>   ufs_new_fragments()      fs/ufs/balloc.c
+> 
+> Reject the cylinder group unless the full BITS_TO_BYTES(s_fpg)
+> free-fragment bitmap starting at c_freeoff fits in the bytes actually
+> loaded for that cylinder group.
 
-When we start the refcount or rtrefcount btree scanners, prev_rec is
-initialized to all zeroes.  This is done so that the record mergeability
-checks skip the first record because you must have two records to
-compare.  Unfortunately, I got the logic backwards, so scrub has never
-complained about mergeable refcountbt records.  Fix this bug that LOLLM
-noticed.
+Why not fix the userspace fsck tool to fix this instead of working
+around it in the kernel?
 
-Cc: <stable@vger.kernel.org> # v6.4
-Fixes: db0502b39c21d1 ("xfs: flag refcount btree records that could be merged")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
----
- fs/xfs/scrub/refcount.c   |    2 +-
- fs/xfs/scrub/rtrefcount.c |    2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+thanks,
 
-
-diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
-index 4e1bf23e5b8972..f2addaf13c58e4 100644
---- a/fs/xfs/scrub/refcount.c
-+++ b/fs/xfs/scrub/refcount.c
-@@ -410,7 +410,7 @@ xchk_refcount_mergeable(
- 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
- 
- 	/* Ignore if prev_rec is not yet initialized. */
--	if (r1->rc_blockcount > 0)
-+	if (r1->rc_blockcount == 0)
- 		return false;
- 
- 	if (r1->rc_domain != r2->rc_domain)
-diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
-index 4e7c540c8d2307..de100178f41c70 100644
---- a/fs/xfs/scrub/rtrefcount.c
-+++ b/fs/xfs/scrub/rtrefcount.c
-@@ -375,7 +375,7 @@ xchk_rtrefcount_mergeable(
- 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
- 
- 	/* Ignore if prev_rec is not yet initialized. */
--	if (r1->rc_blockcount > 0)
-+	if (r1->rc_blockcount == 0)
- 		return false;
- 
- 	if (r1->rc_startblock + r1->rc_blockcount != r2->rc_startblock)
-
+greg k-h
