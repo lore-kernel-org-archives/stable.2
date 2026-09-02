@@ -1,138 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011007.outbound.protection.outlook.com [52.101.62.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C20A388860
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353899; cv=none; b=QyWh07Goxm56gDduOzpRAYI7/RLYm/dOPon4Wb/UvhYvuu3Spn8emqUhCeUy13dNicPCurcb1xEuVKxv2kAJaY6LxayGtN/t/mYEsip3GFFlyulUkmfO6yZX/dnXyS5XgqonYtQy12bSrbLypYFvR+KrNiBFKy5k2uZUp+dQoUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353899; c=relaxed/simple;
-	bh=TTsQ7/5iVpoqXZRtmKvAJ/ZLYemv4+I21PNUB8I2Dos=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ncA0Gae2XzFezy6zC/tCWewpQnCbXMYh2i+DQMWUERs3oghmZ5TbJohgy54cf6qz7yJzOW66ZrIcesGXxqc/F2JChkZ5CvSC5usTSpZwZ2w5jmu5hWd7swnkQbrIx2mp7fb5N2YwdHRteWV0tvbSTrlHIF98NMAUx2Pr4fcowhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ij22aLjS; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1EF8493635
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788353938; cv=fail; b=Xfj/olGidBILu9CUWU5qKjKymCN8IYSwYpSau6WJJqj8cOcttx4PPpqLZdxC1hoVWj6mGUtyeRbnK0ED6w8tbmGkwSKBwuXnZlBjgsUib1/Hf30Q2ahVOTv49F1JtbXbeohF5hysC7VrYD4k73OjAPeB/8D9mm9S2ABQsG74xYA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788353938; c=relaxed/simple;
+	bh=UkS+AcyduE3VfXM4SRh+zMmVN2T2pjQ9N3wEPrM7/OA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UNmX/nTRMp0VieybqTi/JV5tHvnp6rsAN8tx8YmGVloAtswgeAv8qmMzE2XPec6QU73xecNOIu+c9stI5RjqmiqwHupVA1l55obglpkYdD/pM9cuYdUzGbPGmaT92nr4qnB5CWtFxjGYKmF6Bi+XJIlbUeo4room53QqxPvJPIk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=v9KVhJ87; arc=fail smtp.client-ip=52.101.62.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ij22aLjS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788353898; x=1819889898;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=TTsQ7/5iVpoqXZRtmKvAJ/ZLYemv4+I21PNUB8I2Dos=;
-  b=ij22aLjS6f3CTkeuvbwQDMsXzDP9E84vRELWyQ+i5w2bB7BTabpAghfg
-   0ngaI1glfEA6Kqy2hpInqqUcviDZ6l4lfBoFH+OyXEXQdbsmKdAdETtHS
-   9YvFGdAj+KCSUptKhZjde2gv7UpVlC/SWasOAfWQG8tzsVmTcGTa0AiKu
-   AdmoJMoM6WxxWUN7+a83shd8GfQz7oR4X+78uRuChYVQCCg5IooyUzQiy
-   j7mVrXXJcvHWCfr+GfseZVVGacgwQjbtdMN5weYHlniF+vFN42LjbinY4
-   Fa0cj6jfXKFaVkvkUqWdoLvImldPraZnYdfkikZqckEU8X6jt3KtyPc3t
-   g==;
-X-CSE-ConnectionGUID: cQ9IZ2aERG2n6ApMcoyfQg==
-X-CSE-MsgGUID: Lu2jnuD1QDm+B06seUUl9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88839520"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88839520"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:58:16 -0700
-X-CSE-ConnectionGUID: 8Oc9YsY/TLKBqtCXA/gQaA==
-X-CSE-MsgGUID: x2zyYLg5RKGZRDjUGD8ObA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="271369313"
-Received: from kpleskax-mobl2.ger.corp.intel.com (HELO [10.94.252.39]) ([10.94.252.39])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:58:13 -0700
-Message-ID: <827834ae-d595-48c6-8213-1e336e704484@linux.intel.com>
-Date: Wed, 2 Sep 2026 14:58:11 +0200
+	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="v9KVhJ87"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=stOTHSuO2nm59IqgR05lCQncMSs/BczWkERgn0CBd0YZOfXKrRsbFuDLCV6h+DmTZG64KVNgcmAlLh/bCe7FIOLhIgIKo/r/FFWqpUcDXsvouAE2fig9h2QY7T8C+/Sp67PK9XCGNIju7kEzkQsqm/Ti56b0E9PH1MTXkUZnkQzDrWK1ENltN3+dc4HMsRC1de92N042xtOWo20vLwe9NstwhI7dxNKG4qaolxQQqt+YhPOCxvZuO4ROQyY8nZvIlMiKxOTVvyOJcztWTi34aIBoSOxoXLyHp/gT3cy9ptfeZ9v5cIHk8eHDTS9QEBQoxyEQC9KwQb03z7b/g3OxPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
+ b=t7U7YVF5X/WjbwEUsyHT1C/lp53JNWXHA0zExbeYiB8oDLsyK2juaBMh5Or3HegV4wV3vbn1EnOBVxfgoptS01CfwXm1R5OmTwVzDn965WnDfCkE3xWr4WFHF3GM/FF1Xg5EzfCb0dxyXGaeUiA7z5FKCK8HyCCh5FmH6xpv9MGxB3e8G6o1/l9iLUFud3+cVqfYOofCMMyL3Ro420jIZ985J6nwhm466TyS7TO+Ojq+KyDt0uLs6Y7pJZjY0bzLclulKaYg3RYMJycBB+qNXmiMbuM0BixdWau6mvra5WDjTVWzEuwiNUEtXk1WcZW1KwISSNbCiM80BvCWXyFn5Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HtFuLWOeo044dXAap0RsBsuypxn/lF5Pc0jcoVn0jRo=;
+ b=v9KVhJ87Nq0HX+Gr4WbWyCno/9v/9S3NDpjjtM9i7Qqf5pd5/KOu96LP/Jwc/X1XgeVb6hKzTFo7uuXW0R1f8JEfIHd6x3PT7Qz5fPXc+yMhWZ4pgkIdOo7e98Z6qaVjgVjNkJXTJV76TaF3oFLxf3oB1Y8IYFm6Uc1xPz+mNwXV9u+CqqBN6J+faGYmSxp3RcDUvyuaEAYsD5GHV+XW9uct/jqSTgK6n8BUlPd/eBjFsyH7foeEC8+7b0GPxgDpzMWLblX63qFnkSnEFeqLRlHcX1FTQEpZ1zcIrU6alFoUR2U5WH5tEllw/u+0oNHdF+wKxB81MfhBEEXxz2OwjA==
+Received: from MN2PR07CA0027.namprd07.prod.outlook.com (2603:10b6:208:1a0::37)
+ by SJ2PR22MB4553.namprd22.prod.outlook.com (2603:10b6:a03:558::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 12:58:49 +0000
+Received: from BN5PEPF00046988.namprd02.prod.outlook.com
+ (2603:10b6:208:1a0:cafe::a0) by MN2PR07CA0027.outlook.office365.com
+ (2603:10b6:208:1a0::37) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
+ Sep 2026 12:58:49 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ BN5PEPF00046988.mail.protection.outlook.com (10.167.245.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 12:58:48 +0000
+Received: from zeus.fihel.lab.ge-healthcare.net (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+	by builder1.fihel.lab.ge-healthcare.net (Postfix) with ESMTP id E605119244;
+	Wed,  2 Sep 2026 15:58:43 +0300 (EEST)
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: Ian Ray <ian.ray@gehealthcare.com>
+Cc: stable@vger.kernel.org
+Subject: [PATCH v1 2/3] drm/bridge: dw-hdmi: optionally ignore rxsense when detecting hotplug
+Date: Wed,  2 Sep 2026 15:58:41 +0300
+Message-ID: <20260902125842.2357-2-ian.ray@gehealthcare.com>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260902125842.2357-1-ian.ray@gehealthcare.com>
+References: <20260902125842.2357-1-ian.ray@gehealthcare.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] accel/ivpu: Limit firmware log name prints to
- field size
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com, stable@vger.kernel.org,
- sashiko-bot <sashiko-bot@kernel.org>
-References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
- <20260901125749.404338-4-dawid.osuchowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260901125749.404338-4-dawid.osuchowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PEPF00046988:EE_|SJ2PR22MB4553:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 9749d1ab-98cb-437c-6c6c-08df08f1ee88
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|6133799003|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	d5qlvPJGvmNyMxDiTveNs36Ckx29CsWXv1rmO4lBoBJUQzdq54msfNStR8VVw7wO8bSud7tCLPvY22pir3yIFkIu9eaCpwOdbzDaIq78gDJyrpPwpmXUszid+dGeexVvBZLP08x6xQHfB7QqVE7ktjzazYYUBp4G8Wq63GcmjhCZkR4maz/oPNcItC8yt8b2tSS0jF+sbN9ilpLdk6jBYggUU+Ei4s1aVil+eZW7MIgRSl/t70/alSKfcvwar8ePhVIFKbfq0W+Xn5lac+PoLNuUV58MvDR6so71aCyv1K7BxgF4DEKPlMri0qVtjGgpM6nQ7Sq5fiA9HohPOdLut5LvXSb62JBAwqeV1k62ydfwp8xuI+iuBv7OpusO3vx/gzRHC1Eu84ZeaM3GRLarxGLt4xpOEtndLYC8+OCAR4ZuiUpCQqdX/9A22Kfl+7tyN8YtLOpiRKUR7/h0wpKlZaUvB5Ol0LNq5iSbZ9XQueHvqPJhDG6Ko5yXRPTznaHQuFgqEOjC2SPdRE9l6BJfCf1xMdDnsc4zmZHeheWCbU7vjyNCwAttbCz52GhYRQLmD71JQb60ulglNi14diRwcDoj4b8AU/RDHe8d++6tG7wRtHCI2Wd+JYKvVzCylghWHdVUXKOtHqhtaccmN3xyBHsgR96B25P3EsuU939iGi5ilx7IZqiIYus7F6ok5WfzcqtUOQ7R92ZS0UM9qWJBTQ==
+X-Forefront-Antispam-Report:
+	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(6133799003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	E5qkEtWLYf/gna7Z2jilW17xpdphxuCGwOijIV56/qwMr3GMLCIaSf14Qzi6JqlrjprZ3WyjWeKQGremdVI40GEdhXIAmHz8csPbL9UTD5VDrxcw1qnvvVgm2ToEALqgZMPr33eSm8RMCw/hhctzSwRiPHYyaWIWB+zUdiE3xIe7uE/MYK/TTLskV4+8iVJlBkVKfVQgFpIt7YrhULBa0RfHPIcWPFOLPk5r/nFI76yixcBMEMMARvRvsKie1WcoKcL0J3QbaLsY2Ur51ng4nQvhT3uogZxMlVpOfdLRHbSHdEymv8H4a6FYSETUoJRgXWkUejgHiiQ4qX701kFPHvHod3wqOXlgDx77nH3PaNw7A42kC1Kvhrcl+hm8zwyybR4kgcmyTUSB1uRBHRrFoVdS4r0kgWnvV6k8MXZSdKIZFq/OATJ6rz5fdRAUunBK
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 12:58:48.9085
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9749d1ab-98cb-437c-6c6c-08df08f1ee88
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN5PEPF00046988.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR22MB4553
 
-On 01-Sep-26 14:57, Dawid Osuchowski wrote:
-> The name in struct vpu_tracing_buffer_header is a fixed-size array
-> populated by the NPU firmware. It is expected to be NUL-terminated,
-> but nothing on the host side enforces this, so printing it with an
-> unbounded string conversion would read past the field if the
-> terminator is ever missing and expose adjacent bytes of the shared
-> tracing BO through dmesg and the debugfs FW log output.
-> 
-> Print at most as many characters as the name field holds, so the output
-> never runs past it even if the string is not NUL-terminated.
-> 
-> Cc: stable@vger.kernel.org
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260827102339.281799-1-dawid.osuchowski@linux.intel.com?part=2
-> Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
-> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_fw_log.c | 15 +++++++++------
->   1 file changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-> index 4f9055aa9d33..9eafc42120b6 100644
-> --- a/drivers/accel/ivpu/ivpu_fw_log.c
-> +++ b/drivers/accel/ivpu/ivpu_fw_log.c
-> @@ -69,9 +69,9 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
->   	*offset += size;
->   
->   	ivpu_dbg(vdev, FW_BOOT,
-> -		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
-> -		 log->name, log->write_index, size, log->wrap_count, log->header_version,
-> -		 header_size, log->format, log->alignment);
-> +		 "FW log name \"%.*s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
-> +		 (int)ARRAY_SIZE(log->name), log->name, log->write_index, size, log->wrap_count,
-> +		 log->header_version, header_size, log->format, log->alignment);
->   
->   	return 0;
->   }
-> @@ -123,7 +123,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
->   
->   	if (log->wrap_count == log->read_wrap_count) {
->   		if (log_end <= log_start) {
-> -			drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
-> +			drm_printf(p, "==== %s \"%.*s\" log empty ====\n", prefix,
-> +				   (int)ARRAY_SIZE(log->name), log->name);
->   			return;
->   		}
->   	} else if (log->wrap_count == log->read_wrap_count + 1) {
-> @@ -133,7 +134,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
->   		log_start = log_end;
->   	}
->   
-> -	drm_printf(p, "==== %s \"%s\" log start ====\n", prefix, log->name);
-> +	drm_printf(p, "==== %s \"%.*s\" log start ====\n", prefix, (int)ARRAY_SIZE(log->name),
-> +		   log->name);
->   	if (log_end > log_start) {
->   		fw_log_print_lines(log_data + log_start, log_end - log_start, p);
->   	} else {
-> @@ -141,7 +143,8 @@ static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefi
->   		fw_log_print_lines(log_data, log_end, p);
->   	}
->   	drm_printf(p, "\n\x1b[0m"); /* add new line and clear formatting */
-> -	drm_printf(p, "==== %s \"%s\" log end   ====\n", prefix, log->name);
-> +	drm_printf(p, "==== %s \"%.*s\" log end   ====\n", prefix, (int)ARRAY_SIZE(log->name),
-> +		   log->name);
->   }
->   
->   static void
+Commit da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event
+on link change") changed the way hotplug is detected to take into
+consideration rxsense.
 
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+That change is problematic for boards where rxsense is always detected,
+such as when an HDMI to DP converter is used.
+
+Introduce an optional property 'ignore-rxsense' to handle such boards.
+
+Fixes: da09daf88108 ("drm: bridge: dw_hdmi: only trigger hotplug event on link change")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Ray <ian.ray@gehealthcare.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 34c5f583e910..a9337d1f4b88 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -171,6 +171,7 @@ struct dw_hdmi {
+ 	bool disabled;			/* DRM has disabled our bridge */
+ 	bool bridge_is_on;		/* indicates the bridge is on */
+ 	bool rxsense;			/* rxsense state */
++	bool ignore_rxsense;		/* use HPD only, ignore rxsense for detect */
+ 	u8 phy_mask;			/* desired phy int mask settings */
+ 	u8 mc_clkdis;			/* clock disable register */
+ 
+@@ -3156,6 +3157,9 @@ static irqreturn_t dw_hdmi_irq(int irq, void *dev_id)
+ 		if (phy_stat & HDMI_PHY_HPD)
+ 			status = connector_status_connected;
+ 
++		if (hdmi->ignore_rxsense)
++			phy_stat &= ~HDMI_PHY_RX_SENSE;
++
+ 		if (!(phy_stat & (HDMI_PHY_HPD | HDMI_PHY_RX_SENSE)))
+ 			status = connector_status_disconnected;
+ 	}
+@@ -3362,6 +3366,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
+ 	mutex_init(&hdmi->cec_notifier_mutex);
+ 	spin_lock_init(&hdmi->audio_lock);
+ 
++	hdmi->ignore_rxsense = of_property_read_bool(np, "ignore-rxsense");
++
+ 	ddc_node = of_parse_phandle(np, "ddc-i2c-bus", 0);
+ 	if (ddc_node) {
+ 		hdmi->ddc = of_get_i2c_adapter_by_node(ddc_node);
+-- 
+2.47.3
+
