@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
+Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199AF3328E6
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:17:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB111175A9C
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:17:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337069; cv=none; b=athKgSDGbuPCuEJ/0jJN1rYTC/m2KIkWQpID0c9OCNkBTDAe7ZtgCToO2wb//GNZKieNjjaoj4ra5L4A/0E9TeXkVWtP/BUJLGJQFRMdVXid+59/yp0TVogc3EaB+cTc7PMPmoPVADwO1H1khrsizlaQb/9g2uYf8Ft8Q7O9xFw=
+	t=1788337079; cv=none; b=Pa7YP+FrLagmir0FHR+rXHzl6HYHtA5FfLLCIFZIW9Cbd7liCBX1SF7MMUwO6bBXLeW24fPqCvOIlNub0LkQ44rijcmbGd0zsf89pnF1Kd2qxIYSsrJILoFlBYgX3yy356nIztzWk0PTB8gq1tpmN68jkzN/EwxWEY1au7T0DbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337069; c=relaxed/simple;
-	bh=IWPG5U0baJXua7XoV+ocXpmKQBCi8RyT3W3FBxO4w10=;
+	s=arc-20240116; t=1788337079; c=relaxed/simple;
+	bh=4nP8oY3FXaK6DMyt7vwB8mKX+49J/UMAOZEl2daUDMY=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Fden3cYHqVL+Y8co2wL/7KawAyd1iTF1L0hayF2Fm0ex016Eui4PL8O2tuO0dewu7R1ew7GoWWQspxg+ONk8IPJm2LXHnjrCGm58UZypHpGeehpayJrIwOD7qkBJ600EbVWXhNF9P0sFNcn3/PEWncgPiR2fD85h0L0e1OIApww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=IPKrSK4Y; arc=none smtp.client-ip=95.215.58.210
+	 MIME-Version; b=AlM9cgbJ9gVhgf1v9Hqd2sPQn7zcWs6JIVLJFsO/Y8OJVyTB1Hxssg0iJLOE7VPlU5YxLbj0zH6RnoNKcCnxYcJ+j8jIUVxpnlN5pqJuziPd/IZ8/iCftUEgZxMW7tlqCujJneC3xEvDXSCkzK4ZQuedFTwze0iFN0jFih8WH68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HFLeu+hU; arc=none smtp.client-ip=91.218.175.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="IPKrSK4Y"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HFLeu+hU"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IWPG5U0baJXua7XoV+ocXpmKQBCi8RyT3W3FBxO4w10=;
+DKIM-Signature: a=rsa-sha256; bh=4nP8oY3FXaK6DMyt7vwB8mKX+49J/UMAOZEl2daUDMY=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788337064; v=1; x=1788941864;
- b=IPKrSK4YEMwYEBse5k1ygRo4w+Wfgc8kHUvH+P3AMu3LD7WzK/bd8TI7CASKsqmMqIJkt/bl
- 1MW2op3NprbONpukzKOVeYBqwZlTE29dhrwHNKbQ9kC1gTM5FqLlVcVx3NvXsvL7GQ+F6jyzdda
- wnNraxHtQBQVijt/3GwWksps=
+ t=1788337074; v=1; x=1788941874;
+ b=HFLeu+hUwGbQPfLt6fKYDW0nrqYdd3+B5K+6NDeOmppIIn1RYDK3xhDzcw8zSaiFpe9d4T1H
+ Ela2dV+PenVnlUEpM1RgsFOdQ+FHo1kgfF0voJ2fBJkdHex9hBR93V3GNBOmsIKHbB+d7CmkR4t
+ B/MaZms9nvA5gtMYNYRHvF5o=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 949a1ac0fa66a2aa;
-	Wed, 02 Sep 2026 08:17:44 +0000
-X-Mizu-Trace-ID: 949a1ac0fa66a2aa
+Received: by smtp.migadu.com with ESMTPS id d040b23edc8a3246;
+	Wed, 02 Sep 2026 08:17:54 +0000
+X-Mizu-Trace-ID: d040b23edc8a3246
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Luis Chamberlain <mcgrof@kernel.org>,
@@ -43,9 +43,9 @@ Cc: linux-modules@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 2/4] module: introduce SH_ENTSIZE_STANDALONE for separately allocated sections
-Date: Wed,  2 Sep 2026 16:18:00 +0800
-Message-Id: <20260902081802.146145-3-hao.ge@linux.dev>
+Subject: [PATCH v7 3/4] module: allocate codetag sections before the regular module layout
+Date: Wed,  2 Sep 2026 16:18:01 +0800
+Message-Id: <20260902081802.146145-4-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260902081802.146145-1-hao.ge@linux.dev>
 References: <20260902081802.146145-1-hao.ge@linux.dev>
@@ -57,22 +57,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-SHF_ALLOC means, per the ELF spec, that a section occupies memory
-during process execution. Some module sections occupy memory
-outside the regular module layout, for example the percpu section
-with its per-CPU allocations. The loader currently excludes such
-a section from the layout by clearing its SHF_ALLOC, which
-overloads the flag with a loader-internal meaning.
-apply_relocations() needs a special case for the section, and
-find_sec(".data..percpu") returns different results before and
-after layout_and_allocate().
+Whether a codetag section goes to the codetag region is decided by
+layout_sections() and asked again in move_module(). A concurrent
+load can shut profiling down in between, and move_module() then
+copies the section to offset 0 of its regular destination,
+overwriting whatever is there.
 
-Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
-allocation. The percpu section is its first user. layout_sections()
-and move_module() skip marked sections, and apply_relocations() goes
-back to testing only SHF_ALLOC.
+Decide and allocate in one pass, before the layout. Allocation
+errors fail the load. On a tag area overflow profiling is already
+disabled, so -EAGAIN makes the section fall back to regular module
+data and the module still loads.
 
-No functional change intended.
+When profiling was toggled off the overflow check did not run, a
+module could load with more tags than the page flags can address,
+and re-enabling profiling then silently corrupted /proc/allocinfo.
+The check no longer depends on mem_alloc_profiling_enabled().
 
 Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
@@ -81,124 +80,186 @@ Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
 Cc: stable@vger.kernel.org
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- include/linux/module.h   |  2 ++
- kernel/module/internal.h |  8 ++++++++
- kernel/module/main.c     | 31 +++++++++++++------------------
- 3 files changed, 23 insertions(+), 18 deletions(-)
+ kernel/module/main.c | 99 +++++++++++++++++++++++---------------------
+ mm/alloc_tag.c       |  8 ++--
+ 2 files changed, 57 insertions(+), 50 deletions(-)
 
-diff --git a/include/linux/module.h b/include/linux/module.h
-index 7566815fabbe..33548daa31a3 100644
---- a/include/linux/module.h
-+++ b/include/linux/module.h
-@@ -325,6 +325,8 @@ enum mod_mem_type {
- 	MOD_INIT_RODATA,
- 
- 	MOD_MEM_NUM_TYPES,
-+
-+	MOD_STANDALONE = -2,
- 	MOD_INVALID = -1,
- };
- 
-diff --git a/kernel/module/internal.h b/kernel/module/internal.h
-index 061161cc79d9..4c738074a27b 100644
---- a/kernel/module/internal.h
-+++ b/kernel/module/internal.h
-@@ -29,6 +29,14 @@
- #define SH_ENTSIZE_TYPE_MASK	((1UL << SH_ENTSIZE_TYPE_BITS) - 1)
- #define SH_ENTSIZE_OFFSET_MASK	((1UL << (BITS_PER_LONG - SH_ENTSIZE_TYPE_BITS)) - 1)
- 
-+/*
-+ * Marker for sections with a separate allocation, which are not placed
-+ * into mod->mem[].
-+ */
-+#define SH_ENTSIZE_STANDALONE					\
-+	(((unsigned long)MOD_STANDALONE & SH_ENTSIZE_TYPE_MASK)	\
-+	 << SH_ENTSIZE_TYPE_SHIFT)
-+
- /* Maximum number of characters written by module_flags() */
- #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
- 
 diff --git a/kernel/module/main.c b/kernel/module/main.c
-index c32f1d370b73..078dae188aba 100644
+index 078dae188aba..d0a8ac9b3ee5 100644
 --- a/kernel/module/main.c
 +++ b/kernel/module/main.c
-@@ -1618,14 +1618,8 @@ static int apply_relocations(struct module *mod, const struct load_info *info)
- 		if (infosec >= info->hdr->e_shnum)
- 			continue;
- 
--		/*
--		 * Don't bother with non-allocated sections.
--		 * An exception is the percpu section, which has separate allocations
--		 * for individual CPUs. We relocate the percpu section in the initial
--		 * ELF template and subsequently copy it to the per-CPU destinations.
--		 */
--		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
--		    (!infosec || infosec != info->index.pcpu))
-+		/* Don't bother with non-allocated sections. */
-+		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
- 			continue;
- 
- 		if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
-@@ -1716,7 +1710,7 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
- 
- 			if ((s->sh_flags & masks[m][0]) != masks[m][0]
- 			    || (s->sh_flags & masks[m][1])
--			    || s->sh_entsize != ~0UL
-+			    || s->sh_entsize != ~0UL /* offset or standalone */
- 			    || is_init != module_init_layout_section(sname))
+@@ -1717,20 +1717,6 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
+ 			if (WARN_ON_ONCE(type == MOD_INVALID))
  				continue;
  
-@@ -1746,16 +1740,10 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
- /*
-  * Lay out the SHF_ALLOC sections in a way not dissimilar to how ld
-  * might -- code, read-only data, read-write data, small data.  Tally
-- * sizes, and place the offsets into sh_entsize fields: high bit means it
-- * belongs in init.
-+ * sizes, and place the offsets into sh_entsize fields.
-  */
- static void layout_sections(struct module *mod, struct load_info *info)
+-			/*
+-			 * Do not allocate codetag memory as we load it into
+-			 * preallocated contiguous memory.
+-			 */
+-			if (codetag_needs_module_section(mod, sname, s->sh_size)) {
+-				/*
+-				 * s->sh_entsize won't be used but populate the
+-				 * type field to avoid confusion.
+-				 */
+-				s->sh_entsize = ((unsigned long)(type) & SH_ENTSIZE_TYPE_MASK)
+-						<< SH_ENTSIZE_TYPE_SHIFT;
+-				continue;
+-			}
+-
+ 			s->sh_entsize = module_get_offset_and_type(mod, type, s, i);
+ 			pr_debug("\t%s\n", sname);
+ 		}
+@@ -2777,7 +2763,6 @@ static int move_module(struct module *mod, struct load_info *info)
  {
--	unsigned int i;
--
--	for (i = 0; i < info->hdr->e_shnum; i++)
--		info->sechdrs[i].sh_entsize = ~0UL;
--
- 	pr_debug("Core section allocation order for %s:\n", mod->name);
- 	__layout_sections(mod, info, false);
+ 	int i, ret;
+ 	enum mod_mem_type t = MOD_MEM_NUM_TYPES;
+-	bool codetag_section_found = false;
  
-@@ -2811,7 +2799,8 @@ static int move_module(struct module *mod, struct load_info *info)
+ 	for_each_mod_mem_type(type) {
+ 		if (!mod->mem[type].size) {
+@@ -2797,35 +2782,13 @@ static int move_module(struct module *mod, struct load_info *info)
+ 	for (i = 0; i < info->hdr->e_shnum; i++) {
+ 		void *dest;
  		Elf_Shdr *shdr = &info->sechdrs[i];
- 		const char *sname;
+-		const char *sname;
  
--		if (!(shdr->sh_flags & SHF_ALLOC))
-+		if (!(shdr->sh_flags & SHF_ALLOC)
-+		    || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
+ 		if (!(shdr->sh_flags & SHF_ALLOC)
+ 		    || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
  			continue;
  
- 		sname = info->secstrings + shdr->sh_name;
-@@ -2943,6 +2932,7 @@ core_param(module_blacklist, module_blacklist, charp, 0400);
+-		sname = info->secstrings + shdr->sh_name;
+-		/*
+-		 * Load codetag sections separately as they might still be used
+-		 * after module unload.
+-		 */
+-		if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
+-			dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
+-					arch_mod_section_prepend(mod, i), shdr->sh_addralign);
+-			if (WARN_ON(!dest)) {
+-				ret = -EINVAL;
+-				goto out_err;
+-			}
+-			if (IS_ERR(dest)) {
+-				ret = PTR_ERR(dest);
+-				goto out_err;
+-			}
+-			codetag_section_found = true;
+-		} else {
+-			enum mod_mem_type type = shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+-			unsigned long offset = shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK;
+-
+-			dest = mod->mem[type].base + offset;
+-		}
++		dest = mod->mem[shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT].base +
++		       (shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK);
+ 
+ 		if (shdr->sh_type != SHT_NOBITS) {
+ 			/*
+@@ -2857,8 +2820,6 @@ static int move_module(struct module *mod, struct load_info *info)
+ 	module_memory_restore_rox(mod);
+ 	while (t--)
+ 		module_memory_free(mod, t);
+-	if (codetag_section_found)
+-		codetag_free_module_sections(mod);
+ 
+ 	return ret;
+ }
+@@ -2929,6 +2890,47 @@ static bool blacklisted(const char *module_name)
+ }
+ core_param(module_blacklist, module_blacklist, charp, 0400);
+ 
++/*
++ * Allocate codetag sections separately. They are loaded into preallocated
++ * contiguous memory because they may still be used after the module is
++ * unloaded.
++ *
++ * If the separate allocation overflows, allocate the section normally
++ * so that the module can still be loaded.
++ */
++static int allocate_codetag_sections(struct load_info *info)
++{
++	for (unsigned int i = 1; i < info->hdr->e_shnum; i++) {
++		Elf_Shdr *shdr = &info->sechdrs[i];
++		const char *sname = info->secstrings + shdr->sh_name;
++		void *dest;
++
++		if (!codetag_needs_module_section(info->mod, sname, shdr->sh_size))
++			continue;
++
++		dest = codetag_alloc_module_section(info->mod, sname, shdr->sh_size,
++				arch_mod_section_prepend(info->mod, i), shdr->sh_addralign);
++		if (WARN_ON(!dest)) {
++			codetag_free_module_sections(info->mod);
++			return -EINVAL;
++		}
++		if (dest == ERR_PTR(-EAGAIN))
++			/* Allocate the section as a regular section. */
++			continue;
++		if (IS_ERR(dest)) {
++			codetag_free_module_sections(info->mod);
++			return PTR_ERR(dest);
++		}
++
++		if (shdr->sh_type != SHT_NOBITS)
++			memcpy(dest, (void *)shdr->sh_addr, shdr->sh_size);
++		shdr->sh_addr = (unsigned long)dest;
++		shdr->sh_entsize = SH_ENTSIZE_STANDALONE;
++	}
++
++	return 0;
++}
++
  static struct module *layout_and_allocate(struct load_info *info, int flags)
  {
  	struct module *mod;
-+	unsigned int i;
- 	int err;
+@@ -2961,18 +2963,21 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+ 	 */
+ 	module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstrings);
  
- 	/* Allow arches to frob section contents and sizes.  */
-@@ -2956,8 +2946,13 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- 	if (err < 0)
- 		return ERR_PTR(err);
- 
-+	/* Repurpose sh_entsize to track where each section is allocated. */
-+	for (i = 0; i < info->hdr->e_shnum; i++)
-+		info->sechdrs[i].sh_entsize = ~0UL;
+-	/*
+-	 * Determine total sizes, and put offsets in sh_entsize.  For now
+-	 * this is done generically; there doesn't appear to be any
+-	 * special cases for the architectures.
+-	 */
++	/* Allow codetag sections to be allocated separately first. */
++	err = allocate_codetag_sections(info);
++	if (err)
++		return ERR_PTR(err);
 +
- 	/* We will do a special allocation for per-cpu sections later. */
--	info->sechdrs[info->index.pcpu].sh_flags &= ~(unsigned long)SHF_ALLOC;
-+	if (info->index.pcpu)
-+		info->sechdrs[info->index.pcpu].sh_entsize = SH_ENTSIZE_STANDALONE;
++	/* Determine total sizes and put offsets in sh_entsize. */
+ 	layout_sections(info->mod, info);
+ 	layout_symtab(info->mod, info);
  
- 	/*
- 	 * Mark relevant sections as SHF_RO_AFTER_INIT so layout_sections() can
+ 	/* Allocate and move to the final place */
+ 	err = move_module(info->mod, info);
+-	if (err)
++	if (err) {
++		codetag_free_module_sections(info->mod);
+ 		return ERR_PTR(err);
++	}
+ 
+ 	/* Module has been copied to its final place now: return it. */
+ 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index e7a79116ad81..248496470904 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -958,10 +958,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 		int grow_res;
+ 
+ 		module_tags.size = offset + size;
+-		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
++		if (!tags_addressable()) {
+ 			shutdown_mem_profiling(true);
+-			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
+-				mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
++				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
++			release_module_tags(mod, false);
++			return ERR_PTR(-EAGAIN);
+ 		}
+ 
+ 		grow_res = vm_module_tags_populate();
 -- 
 2.25.1
 
