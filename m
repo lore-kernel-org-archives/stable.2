@@ -1,34 +1,54 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712A72E718B;
-	Wed,  2 Sep 2026 08:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7997F377A85
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336212; cv=none; b=QTS1dxw6z0skvDKzC8op8fhJxk5IDSaxder4codT3SWrG6Hty9aErOI6rjJMx6HIo292O+IjSCnf3uLvK4GwfV6Sfq2L3YLSnTNC1dquXyNgwRTvyV6y0MHfp7J1TPxuf+GA5f6DbgIOdce4pf9ayCNGCyFKXjA+wBbO7DN0k4o=
+	t=1788337059; cv=none; b=g1AyJHkcD+F7BZvhr99JfaJs2gBAqkkL5FxOvbg4oE+daZwKJK76edZmyHUqNI+HLTTAIPGccsl4ycSp0pYO15i3atC4Vw9eyc7EvWDqOjTTxsSox9erqxXdtozlL0y0appUwKJBLyJwkYZdTmfhxUnZiRGqh8pU9NcJ49Ldzh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336212; c=relaxed/simple;
-	bh=QuRaZmfvbW4dbO/3sj72MSpFDjGgDGR/HpvcRLxC9kE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eWGwXOrI23t0IQ5OuHiatySpEsr6kJ+lCfc0UmO0cgmkfOCaj+jErR4HXn7xWOHpZamMGdhMaMVM9bEY6R6c4NvKo3PuVe7yloAoLHb8rBeOxPwR4aI8x/US12kSFeblv2Ls5/PUHv7JwCnk3/a0qhs1pT5rWtu49jkeANAoLKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ix74g9sV; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788337059; c=relaxed/simple;
+	bh=V8xaXgzY9XllyFlk89eNgFUoQBothzQGCS5P6ix37Rs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qvccnXsqNpkeuu4491+VKP/YLORCXLwT9LHl9GIBy7M8oV+DyIpp/65wFAkp6FEtOn3P59e+4t+l+GXQEIPscLM7eJII/zek/DwrWa1rjgkztB2o+zBnNwqAhFp4rQrgMV9OA83LYEx8UpuVCaN0gHy9ZWJ6MNpjhC1BuYWTDGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HVZJzx/C; arc=none smtp.client-ip=91.218.175.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ix74g9sV"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c3d26e96;
-	Wed, 2 Sep 2026 16:03:25 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: linux-rtc@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HVZJzx/C"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=V8xaXgzY9XllyFlk89eNgFUoQBothzQGCS5P6ix37Rs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788337055; v=1; x=1788941855;
+ b=HVZJzx/CZ0IeaxUaKOCfjyfHqKK/U+EqqslsgWhGtveuAOhmWX5TsNO+YJfY/DqTqv+B9LoJ
+ qYSgeCcUN04+8+VBwMlasW4DDBLmauPcYdDKMjUdgXzAHcQx5MDo+Ry8ikiNoaNo+7mOSyg06/I
+ IleTlruSJdDSV2TP70zY+pPg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e763d1ffbd60e14f;
+	Wed, 02 Sep 2026 08:17:35 +0000
+X-Mizu-Trace-ID: e763d1ffbd60e14f
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Hao Ge <hao.ge@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-modules@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] rtc: spear: initialize IRQ state before requesting alarm IRQ
-Date: Wed,  2 Sep 2026 16:03:18 +0800
-Message-Id: <20260902080318.3498434-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-mm@kvack.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 1/4] alloc_tag: move release_module_tags() above reserve_module_tags()
+Date: Wed,  2 Sep 2026 16:17:59 +0800
+Message-Id: <20260902081802.146145-2-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260902081802.146145-1-hao.ge@linux.dev>
+References: <20260902081802.146145-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,64 +56,134 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06124ed2303a1kunme72af04319c897
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGUIfVk8ZSENJGUNCGU4YTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ix74g9sVYjzqqGulnsqtwmMAK/SvkrOVfdKnAKNdD/n6SlxFrifyaRifNUEi3HkC4W1s7+fheDqmBCK4r9jXvrWOpaNuOPan988rcqEHycYs7sqUWxDP4OTiB4Z5Kh8PuvZr//yLYm4/YQMRJJGAt3HTX1njO4ibygozSMe37JU=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=uGx+nLD4dDatJFlCXAcWUHdKHCS8hgeMxQMrqqKFkUY=;
-	h=date:mime-version:subject:message-id:from;
 
-devm_request_irq() enables the interrupt before it returns, so the handler
-may run while probe is still initializing the device. Initialize the MMIO
-address and spinlock before requesting the alarm IRQ.
+release_module_tags() is a cleanup helper. reserve_module_tags() can
+also fail after storing the reservation in the maple tree, in which
+case it should call release_module_tags() to undo it. Move the helper
+above reserve_module_tags() so no forward declaration is needed.
 
-Fixes: 0942a71e435f ("rtc: add support for spear rtc")
+No functional change.
+
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- drivers/rtc/rtc-spear.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ mm/alloc_tag.c | 92 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 46 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/rtc/rtc-spear.c b/drivers/rtc/rtc-spear.c
-index 959acff8f..d12bccb3c 100644
---- a/drivers/rtc/rtc-spear.c
-+++ b/drivers/rtc/rtc-spear.c
-@@ -363,6 +363,12 @@ static int spear_rtc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
+diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+index b1d48532a25a..e7a79116ad81 100644
+--- a/mm/alloc_tag.c
++++ b/mm/alloc_tag.c
+@@ -843,6 +843,52 @@ static int vm_module_tags_populate(void)
+ 	return 0;
+ }
  
-+	config->ioaddr = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(config->ioaddr))
-+		return PTR_ERR(config->ioaddr);
++static void release_module_tags(struct module *mod, bool used)
++{
++	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
++	struct alloc_tag *start_tag;
++	struct alloc_tag *end_tag;
++	struct module *val;
 +
-+	spin_lock_init(&config->lock);
++	mas_lock(&mas);
++	mas_for_each_rev(&mas, val, 0)
++		if (val == mod)
++			break;
 +
- 	status = devm_request_irq(&pdev->dev, irq, spear_rtc_irq, 0, pdev->name,
- 			config);
- 	if (status) {
-@@ -371,10 +377,6 @@ static int spear_rtc_probe(struct platform_device *pdev)
- 		return status;
- 	}
++	if (!val) /* module not found */
++		goto out;
++
++	if (!used)
++		goto release_area;
++
++	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
++	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
++	if (!clean_unused_counters(start_tag, end_tag)) {
++		struct alloc_tag *tag;
++
++		for (tag = start_tag; tag <= end_tag; tag++) {
++			struct alloc_tag_counters counter;
++
++			if (!tag->counters)
++				continue;
++
++			counter = alloc_tag_read(tag);
++			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
++				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
++				tag->ct.function, counter.bytes);
++		}
++	} else {
++		used = false;
++	}
++release_area:
++	mas_store(&mas, used ? &unloaded_mod : NULL);
++	val = mas_prev_range(&mas, 0);
++	if (val == &prepend_mod)
++		mas_store(&mas, NULL);
++out:
++	mas_unlock(&mas);
++}
++
+ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 				 unsigned int prepend, unsigned long align)
+ {
+@@ -930,52 +976,6 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+ 	return (struct alloc_tag *)(module_tags.start_addr + offset);
+ }
  
--	config->ioaddr = devm_platform_ioremap_resource(pdev, 0);
--	if (IS_ERR(config->ioaddr))
--		return PTR_ERR(config->ioaddr);
+-static void release_module_tags(struct module *mod, bool used)
+-{
+-	MA_STATE(mas, &mod_area_mt, module_tags.size, module_tags.size);
+-	struct alloc_tag *start_tag;
+-	struct alloc_tag *end_tag;
+-	struct module *val;
 -
- 	config->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(config->clk))
- 		return PTR_ERR(config->clk);
-@@ -383,7 +385,6 @@ static int spear_rtc_probe(struct platform_device *pdev)
- 	if (status < 0)
- 		return status;
- 
--	spin_lock_init(&config->lock);
- 	platform_set_drvdata(pdev, config);
- 
- 	config->rtc->ops = &spear_rtc_ops;
+-	mas_lock(&mas);
+-	mas_for_each_rev(&mas, val, 0)
+-		if (val == mod)
+-			break;
+-
+-	if (!val) /* module not found */
+-		goto out;
+-
+-	if (!used)
+-		goto release_area;
+-
+-	start_tag = (struct alloc_tag *)(module_tags.start_addr + mas.index);
+-	end_tag = (struct alloc_tag *)(module_tags.start_addr + mas.last);
+-	if (!clean_unused_counters(start_tag, end_tag)) {
+-		struct alloc_tag *tag;
+-
+-		for (tag = start_tag; tag <= end_tag; tag++) {
+-			struct alloc_tag_counters counter;
+-
+-			if (!tag->counters)
+-				continue;
+-
+-			counter = alloc_tag_read(tag);
+-			pr_info("%s:%u module %s func:%s has %llu allocated at module unload\n",
+-				tag->ct.filename, tag->ct.lineno, tag->ct.modname,
+-				tag->ct.function, counter.bytes);
+-		}
+-	} else {
+-		used = false;
+-	}
+-release_area:
+-	mas_store(&mas, used ? &unloaded_mod : NULL);
+-	val = mas_prev_range(&mas, 0);
+-	if (val == &prepend_mod)
+-		mas_store(&mas, NULL);
+-out:
+-	mas_unlock(&mas);
+-}
+-
+ static int load_module(struct module *mod, struct codetag *start, struct codetag *stop)
+ {
+ 	/* Allocate module alloc_tag percpu counters */
 -- 
-2.34.1
+2.25.1
+
