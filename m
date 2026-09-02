@@ -1,55 +1,76 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from proxima.lasnet.de (proxima.lasnet.de [78.47.171.185])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B8E370ACD;
-	Wed,  2 Sep 2026 07:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79EF13AF2;
+	Wed,  2 Sep 2026 07:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.47.171.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333757; cv=none; b=Nw0q/YM8lKE+1GeTdIkxfIrVyPY6wyoSk3RNP1SnEj7F4wUjTGcR8lwtAyszmyBZQQ05EoHeYWWgJ2o2F7E3sw8rID87FbnCl29YZLkT5EJEOnDZ1wYUsywWGTFyaVsHP+7d6W+KARZg21qMw8t+vbtM5mzrk30XhZoCkH45G9U=
+	t=1788333780; cv=none; b=o/I6IsPP2BbeaB+8lZ9y9NwiUjHHLw+67bUnMC+wXMxfnBy9N1tkHjbP2FU5R/9PQVuMT/DJKK9+XaoaRImITzV2HvvkQI9VpRwbgFMQpnUh1x5VDj4RBCPG27QtaubmbZditl8Co7buoF9vY8uC3YQlfRV6pjBPdXpqL+yrnmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333757; c=relaxed/simple;
-	bh=HX24aB5yT3M92Sf5OHiLTMe7I+A2opRwu89OguLkCRs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZrmKeP4kudgmoral7+ng92RJ7Wa22Bhcs/QRBKUPgqWH1op16bFqZ29hTrQt1omAClfBtxfeJR3E0hj/fNJOLhrigmY5fr9sJeNFbNwwgq92y5woIG2cpdF6w+1Wvd2Zdrps0e6Gzjaur+eHO3vNqq8L8r4ZgLQoqBwsfjuEYu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 95A2968B05; Wed,  2 Sep 2026 09:22:32 +0200 (CEST)
-Date: Wed, 2 Sep 2026 09:22:32 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: cem@kernel.org, hch@lst.de, stable@vger.kernel.org,
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 2/5] xfs: truncate quota file correctly when repairing
- quota file
-Message-ID: <20260902072232.GB26173@lst.de>
-References: <178832750681.3508131.6009513367948627110.stgit@frogsfrogsfrogs> <178832750752.3508131.12269209789139517612.stgit@frogsfrogsfrogs>
+	s=arc-20240116; t=1788333780; c=relaxed/simple;
+	bh=dkbN5N25xtg40gagFcwFSRxhTskg73lhcRhkjKigbmA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Te7lbBqqFRPNgXmqfBx5okT/S3OHnllbsxfgLHExprv7beAS4y4Xc+stShg+UjXP7nfaLRhQfIHvXj0bQ/b2yt9TOfUcKuGESkKlL5asRXVDUC5ByYPykYhS3p2X9F+aO/vTf6OeoW50zXAsGVNguc+OtHXEv6bdjIJXc3t9zJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org; spf=pass smtp.mailfrom=datenfreihafen.org; arc=none smtp.client-ip=78.47.171.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=datenfreihafen.org
+Received: from work.datenfreihafen.local (unknown [46.253.254.187])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: stefan@sostec.de)
+	by proxima.lasnet.de (Postfix) with ESMTPSA id 233B1C05C4;
+	Wed,  2 Sep 2026 09:22:54 +0200 (CEST)
+From: Stefan Schmidt <stefan@datenfreihafen.org>
+To: linux-wpan@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Cc: Stefan Schmidt <stefan@datenfreihafen.org>,
+	Alexander Aring <alex.aring@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Varka Bhadram <varkab@cdac.in>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4] ieee802154: cc2520: fix FIFOP work use-after-free
+Date: Wed,  2 Sep 2026 09:22:45 +0200
+Message-ID: <178833374261.3357241.2572153348381781124.b4-ty@datenfreihafen.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260812061714.175966-1-fanwu01@zju.edu.cn>
+References: <20260812061714.175966-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178832750752.3508131.12269209789139517612.stgit@frogsfrogsfrogs>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 10:49:01PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
+Hello Fan Wu.
+
+On Wed, 12 Aug 2026 06:17:14 +0000, Fan Wu wrote:
+> The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
+> cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
+> remains active until after ->remove() returns and can queue the work
+> again after that flush, allowing it to run after the private data is
+> released.
 > 
-> LOLLM noticed that xrep_quota_data_fork screws up the unit handling when
-> it computes the offset at which to start truncating the quota file.
-> max_dquid_off is the file block offset containing the highest possible
-> dquot, and xfs_bunmapi_range takes the starting file block offset.
-> Therefore, it makes no sense to multiply max_dquid_off by the blocksize;
-> all we need to do is start truncating at the next block.
+> Disable the work with disable_work_sync() instead of flushing it, so
+> the handler can no longer queue it once removal begins.  Destroy the
+> buffer mutex last, since the worker and the stop callback invoked
+> through ieee802154_unregister_hw() both take it.
+> 
+> [...]
 
-Aka we never really truncate anything with the current code as the
-offset ends up being crazy high...
+Applied to wpan/wpan.git, thanks!
 
-The fix looks good:
+[1/1] ieee802154: cc2520: fix FIFOP work use-after-free
+      https://git.kernel.org/wpan/wpan/c/ff5891b266a7
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-
+regards,
+Stefan Schmidt
