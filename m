@@ -1,213 +1,222 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CF874AA59F;
-	Wed,  2 Sep 2026 19:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788375743; cv=fail; b=PIy3MSwIjUpy4ELPsjSfONHtosvk8T87w/no7xa1DfWU3wh7MMrf5JNmfCDdeIvRP8GlpW0fl0ncvBQzApYiJWSsW+0bFvVpVBW2tz4hh5B8JUdqXUs+FTQFVgzTfTij9JotDsknmdBZhWLr8GsCntPP+ynfm9IorYyX8G2tqNo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788375743; c=relaxed/simple;
-	bh=+AL5sCNxp5l15c1LM3jiJL3XioMk+BA1hVsleImU3JQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=lU4e6XSPfT/gc41gxdudv9FvVvTuXSSl5VHJ4Xj3YadXp9f5xjz9cKIEf84qRrArTxKtnNpt/kyIGsAfsdLVzPY66wpseCNJ8lvFxv9BZM4JOh7lK6Z1iB5JwQDlewwufvXIIyPu7MOXiAM5emEZA8p2VB0MHM5ceKORxDEdz0c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=jfKS7gQG; arc=fail smtp.client-ip=52.101.62.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9314D47DD71;
+	Wed,  2 Sep 2026 19:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788376262; cv=none; b=JVQ6WRHAsUQMikerm+CQgUDqEDg/VHURkjewYkQXbGXJahO4h49YFkNDKbqSPRhFcVI9rVuzFR/Mf8MrCjIKVBiz8Ehu64cI0l+dyLLacg4rvhsNojet+g0HZGXsRletFX7H2IuUGQsodV56otWDGT+gGQi5n202IK2sThF3kJg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788376262; c=relaxed/simple;
+	bh=yE2f/jn8AI1W8fFPYHU7eXvgOtyZv3tRSrigXRHnhUc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lKTRsXMHHJyrIWGOokkYdNgag/ZllqjSzt065+tDy+YZMe0aINtbtct9oUjSbkL7oqv1Ew/+DoDAcHph4KqBVL1Ub+//DkMWs7SqKYNHhTH8Z8j85IXvkBZOk//GLbPrnPU++bbORncjk7LumV3ov7MAgJcg7KTujJkriGt55qY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dEzZYzAx; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="jfKS7gQG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iAe25QlQPCzNxbacBgQSoLYSNX+hb0+Ig4YQcHf9gLymyh328fimUd1E0YeYRmJSsCwA6iIDlL8/NeOvIlkEhOoCc7pmreaqlqhK+mtFIFoV1zPFI1KgSFXkF060uY45c34I7Vxot0EXc7w+gE7VI1o80SMdSlwIUk4H//NZsy+h28g4SFKvEHabHoxqImpgNEcEH2YuzuIpbBsH5KBwrSzS0tLW4ZPwdfk9S6FSilFUawBEvDHhyW4QwKaoUOxrdfmnXB7B8RWeJJVrk0indGH+bkBgdjGFusv0Q7I9tbotiXxLKvz6199gxgkwEqudaVz3xvhyrPiTTNxnM4cY5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KDr//jq3cv/nBbOSB2t1nPlTTL98oZETxCQxH55bZMo=;
- b=S8GEWv9YNhU0wGN6pjHOFfyWvq210Ln2XME10NORyO0VFVE8TOOY3o5Yjyqw3mX3G65AOWr2xfd1mp8wNoPUjX8SAmjB8xs0th9MayGGLVl2+32bhsXSaZ28KsucZYMhzIKrJVMYKv7f4TYxjlN7MVHGs2BvPj4fkZrpBdk3Vm/Ku+wTP1jKTVMGu4QofpoAC3S4836pGUl3ZwC/c9ZhRMGvDwKCdOl1xNpdqdexn3rOf0HTlL1IVai5bIAJu+OPdTICS03IuXGXV2cVRQ6Mq+A77ZthY+rZTt5xBv1PCeaoHvuHWde6GdQaUjk0N117MY4JNzh4FcIOZ4VQFSM82Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KDr//jq3cv/nBbOSB2t1nPlTTL98oZETxCQxH55bZMo=;
- b=jfKS7gQGsI0X/cQYKqYSBfKOwcdyvvLE/bQdVyxo5lKjeI8FdqZ0jDvRTTBXwQ4Hg81ZNZQnw1RHibF94WODsDCiH/F1U5UiE6pzsFGAEQ+qW6Ste9Fx31469jP5Cievk4fvIf4rdq4Rzj9eU51LJNTwfGNdu34NIz+et1U9crUJ7UA34xjxMYQXtM67pKjKqRTrkUFczACKfbKwQf/X4CdCnlT1At+Q6kdX6GXXXbF3kMeMNJWL3S1zt+I5ouqCzFCpFbUrvjfgDiEftUsU08uvMf0PZbXaQx285BhNGb+O1MPT10DdSqUyuMHWQVfNU+bGxGVISJPC62O1lvhfXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by BL1PR12MB5825.namprd12.prod.outlook.com (2603:10b6:208:394::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 19:02:07 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 19:02:07 +0000
-From: Ido Schimmel <idosch@nvidia.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	edumazet@google.com,
-	dsahern@kernel.org,
-	horms@kernel.org,
-	aconole@redhat.com,
-	sbrivio@redhat.com,
-	gnault@redhat.com,
-	laikabcprice@gmail.com,
-	aroslavdudkov622@gmail.com,
-	rough.rock3059@datachamp.fr,
-	Ido Schimmel <idosch@nvidia.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] tunnels: Drop stale dst when building an ICMP error for PMTUD
-Date: Wed,  2 Sep 2026 22:01:12 +0300
-Message-ID: <20260902190112.4126199-1-idosch@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TL0P290CA0002.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:5::10) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dEzZYzAx"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 015EEC2BCF5;
+	Wed,  2 Sep 2026 19:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788376262;
+	bh=yE2f/jn8AI1W8fFPYHU7eXvgOtyZv3tRSrigXRHnhUc=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=dEzZYzAxwXtDq+LkgqvfOUHNqGLXTYYnRiU0pWM4w0QSiB7VRmIHaMonT+WlvY+y3
+	 nkvNqup/E5aZpEuRPFT6j7Mk2FBJzqXfXlGQ4YXdXIeWM+v7W+nRb9qefnd8y57vsf
+	 TXq5WzlKx30hzo9b5RRzPrBdaMUZBAV8sHkeaRg+9mIyDkQ3ys2Jus8SnGW5jOVoRi
+	 liq5rKTogP20weVYySptHgxeitH7GCFOYo+Gs4dvXY+dLyl8zc+ozT216Nvfr2nXti
+	 H3BaeKKh/PDNo9VvtML2gxVD9Y5xBqE+RFmX6LJnB5E0BY7NRhKABK6ScLkGOTT/dv
+	 aVQcdr2Qd58iA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DAE83C61DD6;
+	Wed,  2 Sep 2026 19:11:01 +0000 (UTC)
+From: George Kokolakis via B4 Relay <devnull+george.kokolakis.ece.gmail.com@kernel.org>
+Date: Wed, 02 Sep 2026 22:11:01 +0300
+Subject: [PATCH RFC v3] ACPI: PM: Use EFI power off on Lenovo ThinkPad T14
+ Gen 5
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|BL1PR12MB5825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d5a4d2c-208e-44b5-5557-08df0924af02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|10067099003|3023799007|6133799003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ZznoHN3Lz/6IVNwp0cnz+ylrq74uAYWaoHr6ISKBjfhb+mvEV/0TTa3uJxzMEv5SKO3/ShtJVG04ZiQ2fuyjB2Jf622LIvSSR/LcCxyYIrURTjgNL4qJMo5ja282VJL6rWsHIMA7W+8VfMLt4jLuDKGL0m5D4NKo3FLZb304RjQG9t2RFF76jn14rBQ4t+p3AQQh1JbxY2Us4pkzz5kTsxQeDwoh8VZSBAWpIGFgEXRLwZ4XKOeTU83U95snQJCIQMLIVxcl+gfrP6cbYXsYShXJ68zmtBAoa2v9dorn2Id80wNrexgH7a30bKLWK3HQVsHiZu/UHCi8p17PQnI2UiS5mmeMGoJ2HD98Ih6siNjzsCgOOr9pobCLl6L/xmhu/Nj6EfURHWmQeTjMmE13L/NLZ7m8XxTSiFkYeFIoxNHczf7B0esWVNT7MKTOMOmZeq6al6E/Bjjfk1lC7jS1MZzRBnGyES8SgRFc61bm99qr66NHqT55EjW9yx9+k7U3+jAMGzlDIK1MigG6BaLleyl6Emt7RzMqSgcmMVF+Cqz4HNcUs972rIMPluADONA16EFBAZAccXdOMGXWBRStiw92m1C7u9XXPdhl8B9mrkgOm27fihfQBt9Sn+sjf9KET6Zn8iKfEO4N5Pz++P/t+UZGUigALaR85s+GTk29xoE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(10067099003)(3023799007)(6133799003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UBESoi/fssR0qdtNQaY6kiAsriIkP8bh2Z0oIOOjBi2M4ULSkDguUSHFPX2o?=
- =?us-ascii?Q?eZREpv/NOZt32ja8FeyYvz1A44hnVHdyVnp1Q2/cn1/oezh37qwiQHilsHf1?=
- =?us-ascii?Q?Orf1SLCXuKIzV06GEGLY/GjzpiuVa6L1BjVRpGM6+5uqaEFNogs5neJtcNDw?=
- =?us-ascii?Q?lJZEG+gjoJ/2XannGFbA7Jraq07H3ao6y8jX0mIrQLLdzLbp0EGEhf6tYpRm?=
- =?us-ascii?Q?iPL1n0++sxOMpftwIzNzVWlDOXGHE63DQL+XR45JA9NFeF8Luv0PLcLQIGXT?=
- =?us-ascii?Q?lBWET8fJzbXxgpvNsIlzeSnt+GlQXuGqW+JjJIM21dtFz4EUdMnIajBFY0Q8?=
- =?us-ascii?Q?/1bGBK3L+M7nupynmOEQ98RnlxSicfH6fyKZb2X5yLhP3HsE2KDmxGCk0HpM?=
- =?us-ascii?Q?TwxZlbJNrW5B4BwHn84cgBn/YWhLWEpE2ncZSnPrLI/dJSPFHlfOyoyGO1J+?=
- =?us-ascii?Q?Zfz3vomhHOcpkc9j3SUfePgvr8Y+OwTymKFW0vUhBgspBK/+kB08MeFFOuGw?=
- =?us-ascii?Q?AY0IuqLcazl2T/5xwzCoevasArN54d0BVrQ6FMyOxUy7giAKUmZA3YjP31O0?=
- =?us-ascii?Q?mopMS5Q05seCBGnRhVTZH8k7A7Jy9jiNI2YYd+rFYLCYq1tboa5UnPOyl4Yo?=
- =?us-ascii?Q?axkFFpTvHaSLQmYqk0/+Afs/3xG6spBG/FHApTJBJtmnkULmqBcoxuKyafoD?=
- =?us-ascii?Q?m2SQSauhXFCYZ3Utuu1omBdhEszaBMkhGmG/0ujUvYPZ0uMTuRXLvBep6/Vn?=
- =?us-ascii?Q?P4XEgqphvxrAzVx2mVZCI9mgQWKAfsxcZG3y9fNPeusF54dbdbGIWACOwBGK?=
- =?us-ascii?Q?BaYgmvLieZpzplgwk4e5WuNUsTcOevjxUaB01uiOax1LJNrE0HY2CblZvSrt?=
- =?us-ascii?Q?2b8C5/QelbvwmlkfmKx/CisXnuRCBoXnXCAhtuozVPo2kC0/Fs+ttIDNaqee?=
- =?us-ascii?Q?AYPG+HN0h7++8nMEZhqb+5hfGPqDRwGJg12o73L88AOw5oOYg2QzLLi9gpUD?=
- =?us-ascii?Q?b05GRf+V/faC4osZ41BHToWRC6e/a55gotcJ3RqI64UIJOr14fYZggWXu+Fn?=
- =?us-ascii?Q?nGhcyxsS0pXLeS3PYmxhmdT8yuCWj6BalkjwKpGQh3cDWwlmUM/hSxGzT9A1?=
- =?us-ascii?Q?YHDSts0IgmQi9aGl3xhqL4Gs+sLJ21AgogOlwgTaLvkcnsx5vubuM3PtTRr/?=
- =?us-ascii?Q?1+e5xoHQMIEzIENzuPIDIx5O26RKj76ID5rRebcwZCBY5lJzdNuB0RAIh0H5?=
- =?us-ascii?Q?WSoM1qBVwE9rcXfPbvpA/eWjTsTLKBQPVjd4EnuxRExXfFf7arwSGrX39Hqj?=
- =?us-ascii?Q?Wi+T0XBlvq80kImUwUEUCGRkAsPVBPepsEB2ZW1rAsth/sYv4xGWKmZLeRQ3?=
- =?us-ascii?Q?qj8QWZ1k6TXFcWCc0zteVJymIyscT1ysSemWkqL1Mbsmppq8r/6zN9TSBLVB?=
- =?us-ascii?Q?VSNw8AjxM5Y2q5DRXVUiSS1ASAfHGwOZZnPqCP6sliDiDGnUNqfhruDPMAh8?=
- =?us-ascii?Q?HhQcDkHugmo2YyJ/aixGCRkXFI9n0i9f/pENIbsYXebVGsAO7p4effgaAAYL?=
- =?us-ascii?Q?+fjh41oh/DafMmM1GHyo/uSsF6iIfInCWsX59SCYaHqnBELOXqNPWIWtzdkR?=
- =?us-ascii?Q?r/DGQPrU0hh2I1jyvxxHqBqWfq8eGRazwdw2tk5dLlc9VJsOC8NBaIVv0+Mw?=
- =?us-ascii?Q?ZNHi634xzaAU16bxaMN1PCB2M6fB+HPlKgOfL3+PYVmFDR02KF1RXAocid3s?=
- =?us-ascii?Q?BXw1Gy+UmQ=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5a4d2c-208e-44b5-5557-08df0924af02
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:02:07.1291
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jfJpG/1zkDqTVCeFxFbEPaD5C4PnziR1jnnUtiTKhyrhBIs5hWQ3A0WsSNQk6yIHqg7IPW6OaljyB9Pmgc5s3Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5825
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-fix-thinkpad-t14-gen5-efi-poweroff-v3-1-84ce39bf43df@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMR0mGoC/5XNzQ6CMBAE4FchPbuGlp+CJxMTH8Cr8VDKFjYKJ
+ YUghvDuNj1x1OPMJN+sbERHOLJTtDKHM41kex+SQ8R0q/oGgWqfmYhFHpcxB0MLTC31z0HVMPE
+ UGuwzQEMw2Dc6awwUslCJTmuVqYx5aHB+XsLJnd2uF/bwZUvjZN0nHM88TP98zBw4SCPzvNY8Q
+ SzPTafoddS2C/ws9qT4iRSe1LKqRKlLXiRiT27b9gVpuNo9LAEAAA==
+To: rafael@kernel.org
+Cc: lenb@kernel.org, linux-acpi@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ George Kokolakis <george.kokolakis.ece@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788376260; l=6706;
+ i=george.kokolakis.ece@gmail.com; s=kernel-20260901;
+ h=from:subject:message-id;
+ bh=kwWjnFmxl215bmt+t2Jw6FgZ5QOa+GPRlvqda4v5/WQ=;
+ b=IZYDRtSpAL/ypnyF134nu3DAshGGiTXMzux0gvqu4jcG4CHR+J2SvWuyGOEBrqTOXsSRpKc05
+ A83Msjunf+iDxw2HzpDfja79JCdJMks/lVopwYh39AA5cj2JFLhZsAl
+X-Developer-Key: i=george.kokolakis.ece@gmail.com; a=ed25519;
+ pk=vZ27t8agUnF5GcuvLoIUzClMG59D0bvQE7GXXdwXJ9I=
+X-Endpoint-Received: by B4 Relay for
+ george.kokolakis.ece@gmail.com/kernel-20260901 with auth_id=995
+X-Original-From: George Kokolakis <george.kokolakis.ece@gmail.com>
+Reply-To: george.kokolakis.ece@gmail.com
 
-Bridged UDP tunnels such as VXLAN and GENEVE build an ICMP error packet
-around an overlay packet if the packet is going to exceed the underlay
-path MTU. The ICMP error packet is then injected back into the Rx path
-with the source and destination addresses swapped, so that it will be
-delivered to the overlay source.
+From: George Kokolakis <george.kokolakis.ece@gmail.com>
 
-If the overlay packet was routed to the UDP tunnel or locally generated,
-then it is already carrying a valid dst entry and this entry is not
-dropped when transforming the packet to an ICMP error packet. This
-causes the IP layer to reuse the dst entry, leading to the ICMP error
-packet being dropped or routed out of the UDP tunnel interface in case
-of forwarding.
+A Lenovo ThinkPad T14 Gen 5 (type 21ML) powers back on immediately
+after an orderly ACPI S5 shutdown. This was reproduced with BIOS
+N47ET29W 1.18 and Ubuntu kernel 7.0.0-30-generic.
 
-Prior to the blamed commit this could not happen, as
-skb_tunnel_check_pmtu() did not build ICMP errors for PACKET_HOST
-packets. Such packets were instead encapsulated and, unless the DF bit
-was set in the outer header, fragmented by the underlay.
+A standalone UEFI application invoking ResetSystem(EfiResetShutdown)
+before Linux even loads leaves the same machine powered off reliably.
+An out-of-tree DMI-scoped module doing the same substitution inside
+Linux (registering an EFI-based SYS_OFF_MODE_POWER_OFF handler while
+skipping ACPI's normal power-off-prepare stage, as v1 of this patch
+also did) succeeded on its first two real shutdown tests, then
+intermittently failed on two later ones.
 
-Fix this by making sure that the ICMP error packet does not have a valid
-dst entry, thereby forcing the IP layer to perform a route lookup.
+Root cause of the intermittent failure: acpi_power_off_prepare() does
+two things, acpi_sleep_prepare(S5) (_PTS/_GTS firmware notification)
+and acpi_disable_all_gpes() (disarms every wake GPE armed by drivers
+at runtime -- Wi-Fi, Thunderbolt, PCIe root ports, etc). v1 of this
+patch skipped registering that handler entirely on acpi_no_s5
+platforms, along with the broken final S5 entry, so those GPEs stayed
+armed right up to the EFI ResetSystem call. The standalone pre-Linux
+test never had this problem because Linux's ACPI subsystem, and
+therefore those GPEs, never initialized in the first place.
 
-Adjust the bridged PMTU exception selftests accordingly. When the
-local sender in ns_a pings the overlay destination with a deadline
-(-w), ping exits on the first socket error before any reply is
-received and returns a non-zero exit code. The test therefore only
-passed because the ICMP error was never delivered. Use a packet count
-(-c) like the ns_c line above it, so that the ICMP error counts
-against the packet budget and the exit code depends on whether echo
-replies were received. This passes with and without the fix.
+Fix: keep registering acpi_power_off_prepare() unconditionally, and
+only make the final SYS_OFF_MODE_POWER_OFF registration conditional
+on !acpi_no_s5. This preserves normal firmware notification and GPE
+disarming on affected hardware and only substitutes the last, broken
+step. An out-of-tree module built this way has now passed two
+consecutive real shutdown tests with no failures, disabling the Intel
+Wi-Fi ACPI wake source (CNVW) is confirmed unrelated, and CNVW itself
+is separately confirmed to only declare S4 wake support in its own
+_PRW, i.e. it was never expected to wake this machine from S5 at all.
 
-Fixes: 8930424777e4 ("tunnels: Accept PACKET_HOST in skb_tunnel_check_pmtu().")
+Still sending as RFC rather than a confirmed fix: two consecutive
+passes is better evidence than v1's single success, but not yet
+enough to claim reliability on this class of hardware. Posting the
+corrected approach and reasoning for review while more real-world
+testing continues.
+
+Link: https://bugs.launchpad.net/bugs/2162837
 Cc: stable@vger.kernel.org
-Reported-by: Laika Price <laikabcprice@gmail.com>
-Closes: https://lore.kernel.org/netdev/20260614-master-v3-1-9f5060ba1ed1@gmail.com/
-Reported-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
-Closes: https://lore.kernel.org/netdev/20260901081825.287173-1-aroslavdudkov622@gmail.com/
-Reported-by: Charles Bordet <rough.rock3059@datachamp.fr>
-Closes: https://lore.kernel.org/netdev/aHVhQLPJIhq-SYPM@eldamar.lan/
-Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Signed-off-by: George Kokolakis <george.kokolakis.ece@gmail.com>
 ---
- net/ipv4/ip_tunnel_core.c           | 6 ++++++
- tools/testing/selftests/net/pmtu.sh | 2 +-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+Changes in v3:
+- Identified why v1/v2's approach was intermittent: it skipped
+  registering acpi_power_off_prepare() entirely on acpi_no_s5
+  platforms, which also skips acpi_disable_all_gpes() and the _PTS/
+  _GTS firmware notification, leaving every driver-armed wake GPE
+  (Wi-Fi, Thunderbolt, PCIe root ports) enabled through shutdown.
+- Fix: register acpi_power_off_prepare() unconditionally; only the
+  final SYS_OFF_MODE_POWER_OFF registration is still conditional on
+  !acpi_no_s5. Normal firmware notification and GPE disarming now
+  run on affected hardware; only the broken final S5 entry changes.
+- An out-of-tree module built this way has passed two consecutive
+  real shutdown tests with no failures (vs. one success then two
+  failures for the previous approach).
+- Confirmed the earlier Wi-Fi (CNVW) wake source is unrelated: it
+  only declares S4 wake support in its own _PRW, so it was never
+  wake-capable from S5 in the first place.
+- Still RFC: two consecutive passes is better evidence than v1's
+  single success, but not enough yet to call this reliable.
+- Link to v2: https://lore.kernel.org/r/20260902-fix-thinkpad-t14-gen5-efi-poweroff-v2-1-c7bb29c91832@gmail.com
 
-diff --git a/net/ipv4/ip_tunnel_core.c b/net/ipv4/ip_tunnel_core.c
-index d3c677e9bff2..5168d546ea2f 100644
---- a/net/ipv4/ip_tunnel_core.c
-+++ b/net/ipv4/ip_tunnel_core.c
-@@ -268,6 +268,9 @@ static int iptunnel_pmtud_build_icmp(struct sk_buff *skb, int mtu)
- 	eth_header(skb, skb->dev, ntohs(eh.h_proto), eh.h_source, eh.h_dest, 0);
- 	skb_reset_mac_header(skb);
+Changes in v2:
+- Additional real-world shutdown attempts on the same hardware showed
+  the EFI power-off path does not reliably prevent the reboot-on-
+  poweroff behavior: it succeeded on the first two independent tests
+  but failed on two subsequent ones with the same handlers active.
+- Disabling the Intel Wi-Fi ACPI wake source (CNVW) for one boot did
+  not change the outcome, ruling it out as the variable.
+- Re-posting as RFC with this data rather than letting v1's single
+  success stand unqualified; asking whether EC-side conditions (AC/
+  dock/Thunderbolt wake arming) are known to matter here.
+- Link to v1: https://lore.kernel.org/r/20260901-fix-thinkpad-t14-gen5-efi-poweroff-v1-1-7f766dc13ee9@gmail.com
+---
+ drivers/acpi/sleep.c | 32 ++++++++++++++++++++++++++++----
+ 1 file changed, 28 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index 132a9df984..f581b434b9 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -27,7 +27,7 @@
+ #include "sleep.h"
  
-+	if (skb_valid_dst(skb))
-+		skb_dst_drop(skb);
-+
- 	return skb->len;
+ /*
+- * Some HW-full platforms do not have _S5, so they may need
++ * Some HW-full platforms do not have a usable _S5, so they may need
+  * to leverage efi power off for a shutdown.
+  */
+ bool acpi_no_s5;
+@@ -173,6 +173,12 @@ static int __init init_default_s3(const struct dmi_system_id *d)
+ 	return 0;
  }
  
-@@ -371,6 +374,9 @@ static int iptunnel_pmtud_build_icmpv6(struct sk_buff *skb, int mtu)
- 	eth_header(skb, skb->dev, ntohs(eh.h_proto), eh.h_source, eh.h_dest, 0);
- 	skb_reset_mac_header(skb);
- 
-+	if (skb_valid_dst(skb))
-+		skb_dst_drop(skb);
++static int __init init_no_s5(const struct dmi_system_id *d)
++{
++	acpi_no_s5 = true;
++	return 0;
++}
 +
- 	return skb->len;
- }
+ static const struct dmi_system_id acpisleep_dmi_table[] __initconst = {
+ 	{
+ 	.callback = init_old_suspend_ordering,
+@@ -407,6 +413,14 @@ static const struct dmi_system_id acpisleep_dmi_table[] __initconst = {
+ 		DMI_MATCH(DMI_PRODUCT_NAME, "20GGA00L00"),
+ 		},
+ 	},
++	{
++	.callback = init_no_s5,
++	.ident = "Lenovo ThinkPad T14 Gen 5 (21ML)",
++	.matches = {
++		DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++		DMI_MATCH(DMI_PRODUCT_NAME, "21ML"),
++		},
++	},
+ 	{},
+ };
  
-diff --git a/tools/testing/selftests/net/pmtu.sh b/tools/testing/selftests/net/pmtu.sh
-index a3323c21f001..c7cd271714ef 100755
---- a/tools/testing/selftests/net/pmtu.sh
-+++ b/tools/testing/selftests/net/pmtu.sh
-@@ -1457,7 +1457,7 @@ test_pmtu_ipvX_over_bridged_vxlanY_or_geneveY_exception() {
- 	mtu "${ns_b}" ${type}_b $((${ll_mtu} + 1000))
+@@ -1117,13 +1131,23 @@ int __init acpi_sleep_init(void)
+ 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
+ 		sleep_states[ACPI_STATE_S5] = 1;
  
- 	run_cmd ${ns_c} ${ping} -q -M want -i 0.1 -c 10 -s $((${ll_mtu} + 500)) ${dst} || return 1
--	run_cmd ${ns_a} ${ping} -q -M want -i 0.1 -w 1  -s $((${ll_mtu} + 500)) ${dst} || return 1
-+	run_cmd ${ns_a} ${ping} -q -M want -i 0.1 -c 10 -s $((${ll_mtu} + 500)) ${dst} || return 1
++		/*
++		 * Always run the normal S5 preparation (_PTS/_GTS firmware
++		 * notification and disarming every wake GPE) even when the
++		 * final ACPI S5 entry itself is quirked out below. Skipping
++		 * this step entirely on acpi_no_s5 platforms left wake GPEs
++		 * armed through shutdown, which is a plausible source of the
++		 * reboot behavior the quirk is meant to fix in the first
++		 * place.
++		 */
+ 		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF_PREPARE,
+ 					 SYS_OFF_PRIO_FIRMWARE,
+ 					 acpi_power_off_prepare, NULL);
  
- 	# Check that exceptions were created
- 	pmtu="$(route_get_dst_pmtu_from_exception "${ns_c}" ${dst})"
+-		register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
+-					 SYS_OFF_PRIO_FIRMWARE,
+-					 acpi_power_off, NULL);
++		if (!acpi_no_s5)
++			register_sys_off_handler(SYS_OFF_MODE_POWER_OFF,
++						 SYS_OFF_PRIO_FIRMWARE,
++						 acpi_power_off, NULL);
+ 
+ 		/*
+ 		 * Windows uses S5 for reboot, so some BIOSes depend on it to
+
+---
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+change-id: 20260901-fix-thinkpad-t14-gen5-efi-poweroff-878a3c4da5a5
+
+Best regards,
 -- 
-2.55.0
+George Kokolakis <george.kokolakis.ece@gmail.com>
+
 
