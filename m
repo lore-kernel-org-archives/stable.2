@@ -1,216 +1,122 @@
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64F4AD4C5
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 19:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788376506; cv=pass; b=JJO5JvvW40armWvJiaK0X7VWd+2LblrTpuof16y0Z4IX2LNYTq6ma1b7ZFElRpmfOH3pn+mB1IMYPJmfJtwOQatYpFPhr2h8E8vSpWvBE9TpCAsnxfLoXDBRgeyqbP01YcQFg2jfjgYX9OHSMRPoyajOuUx3skxymrfOG7fzCMI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788376506; c=relaxed/simple;
-	bh=JLV8Ofox8i3452kiplk76hZfUPxaEK+vxS1pmKYEFNM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gAteXFwbHyoyLRa4iYdaRjqRoPbTXI0QHHcX32jBtVtGFkr4GDoEUksu5JsUgSfx0qIlExL53UBOtB7OMK3TKgj98RgoaGsAc4mUmSinFl75Wp8WytwjT1Pf8udj5WBCT07KLmly1D+X5MiNppi+4jJ1kNzsSAdPS1G+GPOFRQ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Witbb4Sk; arc=pass smtp.client-ip=209.85.160.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 285D838DC64;
+	Wed,  2 Sep 2026 19:18:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788376693; cv=none; b=uEV8woNWv8GvmxOTKlfurUwE4LoKXgK+d5R2zyeRa6ejSl+uI8xawGtMx6VSSaLEpKHkL2AXRZNFc1MCjX9jjNliKPwR6IymgiZhCC5k1f3q4AXwGMFtUtAl10nbCIdWzGs6t6NlBqoW3AjEIFQA//ixkmBrlsvNgERi1QsyWws=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788376693; c=relaxed/simple;
+	bh=tUWAZg5rJssCok4Jzqfcoam18XtefVWpxelMN6Ec6E8=;
+	h=Date:To:From:Subject:Message-Id; b=lqPxnV9/Rup7ZBtCPcLAIX5StDrL7PfEM3yEugmHstzHv3uYSKNt5+0CQ4+iwlm6BbME2fS++blxMVymCZTUGV1L6a7ZJcUrZVFpAZr01d0qUyhwBn5uIATMkdslV/Bek65gSvkHyRdrXwc+q20HIAtxhZX4Cz5Twviu15YL36Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=CaDjMIzn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Witbb4Sk"
-Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-455ca262ccbso1213387fac.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 12:15:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788376499; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PQIc5OpJMamOWZ4uNG5JbfZErvm9uXEevXFV+U/ysRjO9z0nnsaxFAVUbhwg6FGkL6
-         0evbkD9AxiBJ3n8x1ob0RYwEIjxSnU9LnblcVkj8MGqr0T1TuSqSJOVulcHT8Wltc+67
-         zo8okN/0gWeOeIRDDtKoH5TRKgLIijmHCTRZrrvTmzVM+aa8zaqAGuYv0HVTHSk9h4Ee
-         hD0qUCeKGZBfRnJhKWCegwqSjfZiPsp9l78gx6DL6DIzw3u7Oa7FEjlT+ljtS3+/cyzB
-         zxvwH+m4uPpqXx1pr3M24t/9kTcPAn8E/M5XySVVCrbs/Lv+mRPetGbSnffPnbxoRcuv
-         ivVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
-        fh=kscYn6PQoH1+WBz6/hLXJB1UIgrdy07R2v5OmTKRaXY=;
-        b=jpLG5e7Pk39/rEa9rMZX3fxFs1QBrgOORM2ZW1bRKo59lMGK+AWL3Xxgv4W0iybAoq
-         Wf5KJB8LZs55X9TD10HMHeUmaJwSg2xrU09LheAns31rtwwR/PTQhLGmO2FyBn2OnB5h
-         7vdLjahZrIA45j0HL/HayhwQauFs9S4OPEJ14on7M5zk8Op+ke9JLD3OLtYmyzUD5VsE
-         PknetVIO6Uy70Jx/5+qAQQqQeizwvlWmvs2m1pl9M/+dvS0v+qmKLGrvLy2cFR/iEmgH
-         WZ4T2J0VJFdTKQ658cK6SXDstYaPXiFWH0mo13OOXjSMaTlmt5azF3qEEQy06JYS5dH4
-         uC9w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="CaDjMIzn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0735A1F000E9;
+	Wed,  2 Sep 2026 19:18:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788376499; x=1788981299; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
-        b=Witbb4Skocb5WQRQSOcB/3AErxnQrFz23C5G/uqNu3pwzdauX5St7OloyoaM36jF7v
-         xpwcjnXpXvgbPm/QqMMxe20sfjzKtRICJtUxf/PoZ/AqFBR6no97U2+8dtujOL4KiTjq
-         Ld40Tgjo73QX7jLRnMwlbfXgFvSxJ/E7bObYULtmYt4uX1yrU8qnT67twjAkOzDhgoMp
-         IvSGNVOm2VMzSLJu6tBQm8/w8IiBxMuV1OjEtsZjoe7VNYuyjxDa8lZ21NvsdmTtMBAZ
-         eQKjBMoG3MBCqyedLKrQBEwkKW5z0NYnXhpPgXyTD9jCE9IO+GkvcaR+4Rb6PPK0ARzl
-         tl2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788376499; x=1788981299;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
-        b=qGe9MDW9a4m2dMI0PXS+khIA4eEqYj7qkQYZZd5LPGm8bMLu+zMceBbn1W1ajfxm0u
-         zDxqjuA7i6KO/qixy/VOMlgJEg5Zf76mqkA7Odh7WVvrpWebQb5jzE8WHHmGAsTy14xE
-         Jt2DqW1Du+6w3Yb1sOx03QtHjCfLiqYhzOUiRrQux/T8F4UAwQn9peud+qJnDije+h1D
-         rJxzjAF+jQD24GwP1yw/zr0kg0f1ryAY6yrHM3D/XhLpl55JR029U/yVQBzQPlcOg6/G
-         i6WkIakcV338ZtYJCdNVEUoT8wdEjedWaYlYwu5aD7QnJC3szmF4hWYfs8aOd1cnpRCG
-         HaWg==
-X-Forwarded-Encrypted: i=1; AKwUvBybJiCehBmJaF489hSgKS8HMg6jxklV2u57f6AXqSDYx/DY/TdYkTYBuXqyVa/SkBjXXMIkHpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBr/pA2qb7wLbdTBpJry9+/iqqmXU/Dsrdp3bIsSxOq7oQjMWx
-	1VG49yqrQLUahhTfEPNPXTajYd38w6HX9RwqMsnaApzk40kqpMKaYYWsDWnZ0GnglSezxKsXI9w
-	TtsWpL/dzbXTCxMywokgwSVwmtViRUzM=
-X-Gm-Gg: AYBFou1Op5kObVEt8t4Geo2zriVyyp7EBde8Zu9/P3vLlQfxgU6MV5hkwbPMlUET8Yb
-	kWKkQabCcJ2+BMlMTX+G22CXYX8pxjvVkAPx4GUhJ3Ko84WxJ7FtkrNPwPV5qsA5hw04j8LSSB2
-	ESMdDWlwQwkAhwibcZHq0Ksha8MFW96DmQGvON4UC5itGczVz+jBsSClF71/iCDRYmLyIIMLK4P
-	jemXfZ3rNk7YcySVHkDdbfiFohPARrSEdFXc9jC4roetpPUZ9CinKMiO9DylB5UmqDzUt2drFpo
-	B4Cty9CPLPzSdKWf1rIcP0vW5JkJRIYWUicYDQjdWCg9Ks1LP8CIFmJSZRIaERCxE6haTf6M5kY
-	Dnu4hmJsVisN4l9odhNkUO1Ye045QRHyt1TwGo/QNJE/Ts3rv7WLLDfvN5tTsEEN0L+Rrw37LKy
-	+1OVCwLlBYY0LUDCa+/68E9bUj/rWIH/tHaI1RTOG8
-X-Received: by 2002:a05:6870:270:b0:46a:e87f:a7f3 with SMTP id
- 586e51a60fabf-46f88507af1mr6165405fac.2.1788376499042; Wed, 02 Sep 2026
- 12:14:59 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1788376687;
+	bh=jTmWdVY//G8EJgNSC4FOCmbrA0bLt0bYwl9tIeAmH7w=;
+	h=Date:To:From:Subject;
+	b=CaDjMIznm17CRbCRPJDb9tFH33xOgwlxaPLpC8JH8sGJPFl5WvDDbVN9iXW8QoCwn
+	 wQPNGGs+vZHhLg6PrxIP5NNnNcQyT+oGun3cPYxCUd9xrTzoFeLjcCbfQrya0YwpLY
+	 HkKEbhi/OsrQCj8uX6yskbFPvFfR0K/StAtrwgok=
+Date: Wed, 02 Sep 2026 12:18:06 -0700
+To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,pfalcato@suse.de,liam@infradead.org,jannh@google.com,ljs@kernel.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260902191807.0735A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
- <aphXfTJicnEde3R4@google.com>
-In-Reply-To: <aphXfTJicnEde3R4@google.com>
-From: Andrew Wilson <wizlonex@gmail.com>
-Date: Wed, 2 Sep 2026 15:14:48 -0400
-X-Gm-Features: AcwNN1UJNnt-8ayL0xjmSoouIWQ2GFKkS-vOs8cL869hId8ajPvh2JfxnCOJoF8
-Message-ID: <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
-Subject: Re: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP Platform
- initialization to KVM breaks SEV-ES VM launch
-To: Sean Christopherson <seanjc@google.com>
-Cc: ashish.kalra@amd.com, aik@amd.com, herbert@gondor.apana.org.au, 
-	stable@vger.kernel.org, regressions@lists.linux.dev, thomas.lendacky@amd.com, 
-	john.allen@amd.com, davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 1145026@bugs.debian.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Sean, Salvatore,
 
-Tested-by: Andrew Wilson <your.email@address.com>
+The patch titled
+     Subject: mm/vma: correctly unaccount on mmap_prepare() failure
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch
 
-(With strong assistance from Gemini guiding me through builds, module
-DKMS rebuilds, and interpreting logs!)
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch
 
-I can confirm that commit 6b748c39d18e completely resolves the issue,
-and SEV, SEV-ES, AND SEV-SNP are fully functional on official Debian
-packages (tested on EPYC Rome and EPYC Milan servers).
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Here are the test results from bare-metal hardware:
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-1. Upstream v6.12.104 (Source build) on AMD EPYC (Rome):
-   * Tested SEV-ES: Functional, VMs launch cleanly.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-2. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Rome):
-   * Tested SEV & SEV-ES: Functional.
-   [    3.676036] kvm_amd: SEV enabled (ASIDs 16 - 253)
-   [    3.690542] kvm_amd: SEV-ES enabled (ASIDs 1 - 15)
-   [    3.735896] ccp 0000:26:00.1: SEV API:0.24 build:22
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-3. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Milan)=
-:
-   * Tested SEV-SNP: Fully functional!
-   * Host log:
-     [    4.678767] kvm_amd: SEV enabled (ASIDs 256 - 509)
-     [    4.684694] kvm_amd: SEV-ES enabled (ASIDs 1 - 255)
-     [    4.690563] kvm_amd: SEV-SNP enabled (ASIDs 1 - 255)
-     [    6.212275] ccp 0000:47:00.1: SEV-SNP API:1.58 build:2
-   * Guest dmesg:
-     [    0.908804] Memory Encryption Features active: AMD SEV SEV-ES SEV-S=
-NP
-     [    0.908820] SEV: Status: SEV SEV-ES SEV-SNP
-     [    2.109524] SEV: SNP running at VMPL0.
-     [    3.439649] sev-guest sev-guest: Initialized SEV guest driver
-(using VMPCK0 communication key)
+------------------------------------------------------
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/vma: correctly unaccount on mmap_prepare() failure
+Date: Wed, 02 Sep 2026 19:08:08 +0100
 
-Because Debian builds KVM as a module (CONFIG_KVM_AMD=3Dm), we avoid the
-built-in CONFIG_KVM_AMD=3Dy SNP race on 6.12.y, so both SEV-ES and
-SEV-SNP are completely working out-of-the-box on 6.12.107-1.
+__mmap_setup() accounts memory for relevant mappings via:
 
-Salvatore: Debian bug #1145026 can be marked fully resolved by
-linux-image-6.12.107-1.
+security_vm_enough_memory_mm()
+  -> __vm_enough_memory()
+    -> vm_acct_memory()
 
-Thank you all very much!
+If __mmap_setup() fails, this indicates that this accounting did not take
+place, and thus it's appropriate for __mmap_region() to jump to
+abort_munmap.
 
-Very Respectfully,
+However if call_mmap_prepare() fails, it also jumps there and any accounted
+memory is not correctly unaccounted.
 
-Andrew Wilson
+Fix this by handling each error separately.
 
-On Wed, Sep 2, 2026 at 1:06=E2=80=AFPM Sean Christopherson <seanjc@google.c=
-om> wrote:
->
-> On Wed, Sep 02, 2026, Andrew Wilson wrote:
-> > #regzbot introduced: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
-> >
-> > Hi all,
-> >
-> > I am writing to report a regression affecting AMD SEV-ES VM launches
-> > on the 6.12 stable branch (first noticed in 6.12.97+ / 6.12.101).
-> >
-> > I completed a git bisect between working and failing kernels, which poi=
-nted to:
-> >
-> > Commit: bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform
-> > initialization to KVM")
-> > Upstream commit: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
-> >
-> > ### Bisect & Verification Details:
-> > * Last Known Working: 8a599f4f74d4
-> > * First Broken Commit: bb1c84647025
-> > * Tested on 6.12.101: Cleanly reverting bb1c84647025 immediately
-> > resolves the issue and allows SEV-ES guests to boot normally.
->
-> Can you try v6.12.104 or later?  I'm pretty sure this is fixed by commit
-> 6b748c39d18e ("KVM: SVM: Add support to initialize SEV/SNP functionality =
-in KVM"),
-> i.e. is the same thing as:
-> https://lore.kernel.org/all/20260814100652.225499-1-jinpu.wang@ionos.com
->
-> Note, SNP is still buggered on 6.12.y if CONFIG_KVM_AMD=3Dy, I'll try and=
- send a
-> backport for that soonish.
-> https://lore.kernel.org/all/521b22fa-ef09-4449-909f-0120edfc4b24@oracle.c=
-om
->
-> > ### Failure Description:
-> > With commit bb1c84647025 applied, `sev_platform_init(&args)` is
-> > removed from `sev_pci_init()`, assuming KVM handles on-demand
-> > initialization.
-> >
-> > On bare metal, the PSP firmware appears to remain uninitialized (does
-> > not reach SEV_STATE_INIT at probe time). When QEMU initializes KVM and
-> > queries host SEV-ES capabilities, the ioctl fails with -EPERM:
-> >
-> >   qemu-system-x86_64: -accel kvm: sev_common_kvm_init: guest policy
-> > requires SEV-ES, but host SEV-ES support unavailable
-> >   qemu-system-x86_64: -accel kvm: failed to initialize kvm: Operation
-> > not permitted
-> >
-> > ### Hardware & Environment:
-> > * Tested on: AMD EPYC (Rome / Milan) Supermicro platforms
-> > * Kernel: Linux 6.12.101
-> > * Hypervisor: QEMU / KVM
-> >
-> > I have access to Naples, Rome, and Milan test hardware and am happy to
-> > test any patches, provide dmesg traces, or assist with debugging.  I
-> > am not a tech-expert of any kind, but I have time to do some testing
-> > if it helps.  THANK YOU for the great work.
-> >
-> > Original Debian bug reference:
-> > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1145026
+Link: https://lore.kernel.org/20260902-fix-unaccount-mmap_prepare-v1-1-ea070189fdfb@kernel.org
+Fixes: c84bf6dd2b83 ("mm: introduce new .mmap_prepare() file callback")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/vma.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+--- a/mm/vma.c~mm-vma-correctly-unaccount-on-mmap_prepare-failure
++++ a/mm/vma.c
+@@ -2859,10 +2859,12 @@ static unsigned long __mmap_region(struc
+ 	map.check_ksm_early = can_set_ksm_flags_early(&map);
+ 
+ 	error = __mmap_setup(&map, &desc, uf);
+-	if (!error && have_mmap_prepare)
+-		error = call_mmap_prepare(&map, &desc);
+ 	if (error)
+ 		goto abort_munmap;
++	if (have_mmap_prepare)
++		error = call_mmap_prepare(&map, &desc);
++	if (error)
++		goto unacct_error;
+ 
+ 	if (map.check_ksm_early)
+ 		update_ksm_flags(&map);
+_
+
+Patches currently in -mm which might be from ljs@kernel.org are
+
+mm-mremap-reset-unfaulted-vma-page-offset-for-mremap_dontunmap.patch
+mm-secretmem-properly-account-locked-pages.patch
+mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch
+mm-mremap-account-mm-locked_vm-correctly-for-mremap_dontunmap.patch
+mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch
+mm-vmpressure-remove-window-size-todo.patch
+tools-testing-selftests-mm-add-missing-gitignore-entries.patch
+
