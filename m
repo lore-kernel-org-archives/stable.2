@@ -1,117 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9EF4469850;
-	Wed,  2 Sep 2026 10:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9131539A4AA
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346766; cv=none; b=foHzRhKW1GBLNZHWdihho9JnBgKpzwA4sxqatSq5zFriT77Ve6D00aBNwdNOHXizYsgkygmwNQJsnwVvqLBsSWoOU6b4ZHGc6x2rEN3kq4lAvp2tL8RovNeCF4Q2wB52t+lcpr/2gQ3nWgF8iq90qr4zEIKgHgkoEVVSUr28K/Y=
+	t=1788346917; cv=none; b=geeG01ouj70uukJWQ3IkWskziUiO2RZmBvk+HGhlSUswmXjsk5hdXgz0mHh4N2RuCxQSGbJSxLGhOSZTAgf8P2ILkuNtAdz8gBIgBFAvm1kCRXR+f1ZJv8gTYfNUQ0GjVOY7BfisJAB2VSEZVIt9UaOAjihIGi3hOOPUb6+Qlz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346766; c=relaxed/simple;
-	bh=Gh1H1EvwMuh/anlHK9ilAHykEwwjqfKnDlxe1j1WiIg=;
+	s=arc-20240116; t=1788346917; c=relaxed/simple;
+	bh=P4tTzOwe9RdY9+G+XtbZm/9HF/zg96Akx4Mdzhc6MuI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y8RPn/S/pYUk/xYKuzMzS7uMfdTBGSFmDE4XpxW07vg+ovG2eFL4oNlW95K0M5F3rvbU7Ssf7UtY5CIm0+j8jWgIgqi9wLdQb2Ht/RVPFPl2QJ3B2/eDI1ceZVAvEucvD7iTtpC59T+p+Aiwjj4FhhLJjQHGrdjI0Qkj9UGXK0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RyOKoEmb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=g9gAd1nXw0YvpYK/s5RWMocLaccHJcBTaWCkv52KXumtIFmcakBcIIem7FPMQjgXbwsHeP8ogCa2v6J1S73YRnn3IAhxRgFA2z2ETxFnANlbgJY7Sq97Li9j/iUMxfzUFdvE3xhmygdTxgw5kfgmNtqtrJ/qUiFLMQwTsfujguk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FS/mRdjS; arc=none smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RyOKoEmb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4C91F000E9;
-	Wed,  2 Sep 2026 10:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788346764;
-	bh=OBVmQw0sO4Pqp+7c+CugRQe5Vt/ZmRFWAeUf3jC3dWA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RyOKoEmbZeg1aphhoTTpEaSIx8jXa6UWfDyctpucawNu6Z8Z3QEFvG+aAQiX5811Q
-	 UhaExyceGBB/5wIot7ioceNrrpzg0hJOhDlHLxle+yiT6zHlJlKqEtrq/LFGvcRbu/
-	 bU4B4iQMLzRRiczAfE8WSQLzCOBAmES3EPeT+pvdv65HRWkWrKSlkwQguvv6M/Snai
-	 nEkEca7YfmhKCToruciCfWidpSlY3S01HOhHZyrCJ0+g8Hz2eMDMUqDiN1qiEbrkwB
-	 NdnTFIO5Kz0F8tVGTocGnZYK2DRb6d4NmBy0ufnb4yXJDSQX5jUtHXv6a5Qb1qqnCG
-	 t9/dRhGdQCAHg==
-Date: Wed, 2 Sep 2026 13:59:19 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902105919.GV24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FS/mRdjS"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b4a0e5aefeso874005e87.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 04:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788346913; x=1788951713; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MsJAUkYPcrI81+ZTJ2fux+QPTEZOfMVHD7vmgI0FX+Y=;
+        b=FS/mRdjSr3M57M5x5sO7Kysc2M+ZiS8GDnTEcSIW/vyGSLnBb4mY2rGBuZp0eVz6dv
+         K17JU6rT6uFgMawNN0USiUrtSm7Gbev2DKvdFcHILPOxScte4NdGXwy2ykNVv/DhiU3O
+         v+ChL3fX79DXrTfrESw5Yj8NlNw9maxYZwAinzznCCE9RTihnFW9J+D6Eks6GJOXL6Pd
+         KAdUj82xCfSeidlDS1dawihC90Tdngn2Klkj4G0Ce5gIHNYxVqeXZIstYMBqOepQx0wB
+         vpmg/tlq+Dd7IG+MEPObaFtbvwj/AfgKt/1xM9IZ67mnysMx6CS7XTdGa9NnYPUo2Oy0
+         Pquw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788346913; x=1788951713;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MsJAUkYPcrI81+ZTJ2fux+QPTEZOfMVHD7vmgI0FX+Y=;
+        b=QkrRWL03YJ7dKB/fOTVuI2qBN9+ZQc4TnEvGtixYxNQCs0WZtyQ37PLXxrOLGWHXLU
+         j0AI6Qx5xTJI5f/9kZD6MjQHG5R+tCA2vP+Aua5R/WQ09n6BO4FmLSI/98VAI8+J2myF
+         udkNf+VT4We3gnSj8V8htPOHLg6f/QxkgdW0smYWsLIr0S16OVjkzN5wMuoItUEPgZI7
+         uepbkv0nML0F5pKIhihzc7yBuJaGponTADtnAgg+lFedgWfua7m7FV4xSFYXBrEDMlSf
+         DqyOAwKmjK6iEfXnTa0PkuRpUUKnqwqLw3HKn7TnjzlxmHAniwvt1DQ683Qvj6yh7YK9
+         uxsw==
+X-Forwarded-Encrypted: i=1; AKwUvBzq5/f/odQdA753ZwwGwQbNStmAlBB8T2T1RmVLrxmXCmipZr2pqYeJhVzAH2xnhy8+6JKTiWQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXwsoNKZhcgarIXFcgsnzy7Lul62hzZ5KnWUxZ9pWQNzNwINM2
+	7V89/jgYGe6GZ/eSw0upnhZQhcRBOYM7CjJoI+8VUVbGUR3Y7f79tiBIhXyOnKFL
+X-Gm-Gg: AYBFou33+P939Tpdr2y1iycXUOEE5SPh8dCMwyZJz3BuFUMOSEqDlqR1O+vlzeT/QLJ
+	TjalA6DSX1OXFCxy7gZzoqz0JZBcVMjQU+uzbsMoP7psbqPTWiIulcyISf8d2rSl9083gcSB+EE
+	rpL6KGo4SqowxtbtEhpTxR1lcW7wpOsbgOfI4WTmMEjUeMjNo2NPO9sj7Y00WLKRbhiqhAx4rbd
+	CuksRlTll68XnsufPtviv/zUPcmarqyxXIWhKpcECpJEovgszxGNgE8t5lFk3DnZlWDEZlnCLdu
+	29wf6kqpw5JDKhHYC0fn3DEp1eF/ebhIww4ChxFVxvOgnJsx7Zehjjyutk48QOiKtUNOdEOc1CE
+	/IZsTp8uhcGMUgma5w4YWBpaSZYhylyluRlyV7ig311LRFLDHZ+1DRO6oXVBNsG3+Y/F9NCtSf0
+	x6V9oM4svDU2JFwvZ8A38WZ47quJ/fw8R3HQ==
+X-Received: by 2002:a05:6512:1319:b0:5b4:fdc3:d3f1 with SMTP id 2adb3069b0e04-5b6086949edmr1155610e87.18.1788346913292;
+        Wed, 02 Sep 2026 04:01:53 -0700 (PDT)
+Received: from elende (elende.valinor.li. [2a01:4f9:6a:1c47::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606ba1481sm508702e87.61.2026.09.02.04.01.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:01:51 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Wed, 2 Sep 2026 13:01:51 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Michal Koutn?? <mkoutny@suse.com>, 1144314@bugs.debian.org
+Cc: Noah Elias Feldt <N.Feldt@mittwald.de>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: Bug#1144314: refcount_t: addition on 0; use-after-free,
+ regression from 260fbcb92bbe ("cgroup: Move dying_tasks cleanup from
+ cgroup_task_release() to cgroup_task_free()")
+Message-ID: <apgCH7zgmygyWl7g@lorien.valinor.li>
+References: <FR6P281MB6118B1A758F3278BC9BA795AF0DB2@FR6P281MB6118.DEUP281.PROD.OUTLOOK.COM>
+ <178682274912.1759826.11422695267451330087@eldamar.lan>
+ <FR6P281MB6118B1A758F3278BC9BA795AF0DB2@FR6P281MB6118.DEUP281.PROD.OUTLOOK.COM>
+ <aoh7Kbt_WbUcfUxh@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
+In-Reply-To: <aoh7Kbt_WbUcfUxh@localhost.localdomain>
 
-On Wed, Sep 02, 2026 at 12:00:25PM +0200, Christian König wrote:
-> On 9/2/26 11:53, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
-> >> On 9/2/26 10:32, Leon Romanovsky wrote:
-> >>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> >>>> On 9/2/26 09:39, Leon Romanovsky wrote:
-> >>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >>>>>> On 9/1/26 19:08, David Hu wrote:
-> >>>>>>> From: David Hu <xuehaohu@google.com>
-> >>>>>>>
-> >>>>>>> This series address two related issues in scatter-gather mapping,
-> >>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>>>>>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>>>>>
-> >>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>>>>>> phys vec to sgt)
-> >>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>>>>>
-> >>>>>>> Patch 2 Splits sgl by largest page aligned chunk
-> >>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>>>>>
-> >>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> >>>>>
-> >>>>> And this is why so many in the kernel community want to get rid of SG
-> >>>>> lists. It would be great if DMA-BUF could also eliminate the need to
-> >>>>> convert to an SGL, like Jason proposed.
-> >>>>>
-> >>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> >>>>> which is the one that depends on it.
-> >>>>
-> >>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
-> >>>
-> >>> You are proposing the same thing as an SGL, just in a different format.
-> >>
-> >> Yes, because that is the right thing todo as far as I can see.
-> >>
-> >>> It does not address the issue that dma_addr_t is expected to hold a DMA
-> >>> address, while that is not always the case. For example, in the P2P case,
-> >>> the addresses are not DMA addresses.
-> >>
-> >> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
-> > 
-> > They can perform DMA, but that still does not make them suitable for the
-> > dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-> > follow completely different rules: they are not unmapped, require no cache
-> > synchronization, are valid only for peer access, and require separate error
-> > handling.
+Hi Michal,
+
+On Fri, Aug 21, 2026 at 06:59:26PM +0200, Michal Koutn?? wrote:
+> Hi Salvatore,
 > 
-> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
+> thanks for the nice report and sorry for not so prompt response.
+> 
+> On Sat, Aug 15, 2026 at 09:41:14PM +0200, Salvatore Bonaccorso <carnil@debian.org> wrote:
+> > With an additional reproducer provided by Noah, I could bisect the
+> > change down to 
+> 
+> Good job.
+> 
+> > 
+> > 	commit 260fbcb92bbeacfcd050410fdc2d24ab15044400
+> > 	Author: Tejun Heo <tj@kernel.org>
+> > 	Date:   Tue Oct 28 20:19:16 2025 -1000
+> > 
+> > 	    cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()
+> > 
+> > 	    Currently, cgroup_task_exit() adds thread group leaders with live member
+> > 	    threads to their css_set's dying_tasks list (so cgroup.procs iteration can
+> > 	    still see the leader), and cgroup_task_release() later removes them with
+> > 	    list_del_init(&task->cg_list).
+> > 
+> > 	    An upcoming patch will defer the dying_tasks list addition, moving it from
+> > 	    cgroup_task_exit() (called from do_exit()) to a new function called from
+> > 	    finish_task_switch(). However, release_task() (which calls
+> > 	    cgroup_task_release()) can run either before or after finish_task_switch(),
+> > 	    creating a race where cgroup_task_release() might try to remove the task from
+> > 	    dying_tasks before or while it's being added.
+> > 
+> > 	    Move the list_del_init() from cgroup_task_release() to cgroup_task_free() to
+> > 	    fix this race. cgroup_task_free() runs from __put_task_struct(), which is
+> > 	    always after both paths, making the cleanup safe.
+> > 
+> > 	    Cc: Dan Schatzberg <dschatzberg@meta.com>
+> > 	    Cc: Peter Zijlstra <peterz@infradead.org>
+> > 	    Signed-off-by: Tejun Heo <tj@kernel.org>
+> > 
+> > But there was the suspect that the matching commit might be
+> > d245698d727a ("cgroup: Defer task cgroup unlink until after the task
+> > is done switching out").
+> 
+> I see that after 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+> cgroup_task_release() to cgroup_task_free()") it may be possible that
+> tasks on the dying_tasks list may drop their ->usage to zero (since the
+> actual unlinking only happens in __put_task_struct).
+> Most often those would be skipped due to PF_EXITING except for the case
+> of thread group leaders (which the reproducer stresses) whose refcount
+> apparently can drop to zero after task->signal->live > 0 made them
+> iterable :-/
+> 
+> A band-aid fix could be to use tryget_task_struct() in
+> css_task_iter_next() (I got that hint from a LLM) and "skip" zeroed
+> tasks. I see that commit fbe3fb103596b ("sched_ext: Replace
+> tryget_task_struct() with get_task_struct()"), assumes the iterator
+> always succeeds in obtaining the task reference (which was the
+> justification of tryget removal). I expect that sched_ext should still
+> be fine if dying_tasks with zero references are skipped. (What are they?
+> Tasks which literally no one should be interested in and they're only
+> waiting for __put_task_struct_rcu_cb() to be called [*]).
+> 
+> (I'm calling that band-aid because it'd resurrect usage of
+> tryget_task_struct() and it keeps the dying_tasks list a weird place to
+> be. If anyone has a better idea?)
+> 
+> The commit d245698d727a ("cgroup: Defer task cgroup unlink until after
+> the task is done switching out") seems a reasonable separation of the
+> stages to me.
 
-Maybe you mean DRM, but VFIO works perfectly with PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.
-What am I missing?
+Thanks a lot for looking into this problem. Is there something Noah or
+I could test? 
 
-Thanks
+Regards,
+Salvatore
