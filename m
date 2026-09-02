@@ -1,179 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B23C31F9AC;
-	Wed,  2 Sep 2026 02:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E86870830
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 03:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788317749; cv=none; b=hYbaGvgYO627QX1YrCNFEMgjZRO6ZdtyK9tFUfLmalDhsjXcqudItm9b98MyYKWyENwr6ff6lPALwxZNuNDBG8fpvRgbjWx8C3donOa4VHSMqASk24D6lOPS9yZ6yZSssqqhp2LBnPAp/nmS/KU/nYgQhCLwl4VjDp9An5aoYEI=
+	t=1788319056; cv=none; b=S5w9f2Z6syo1q5bN7gNJ+NjmgmYHZvMivkxLCfbwnoaYKDxi7w5oaj9OYigJEHSGuVU1ShDbQ7ARU9MaKyAgvz+E7HmahSM2Gh7PYGNoEvY+50n17h6niMQEZuN4dAPnH0UTdH5YbvB9kwDs4U4UpUMvuOsBpEofTy87e0xW7hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788317749; c=relaxed/simple;
-	bh=NaoaSBlS+DgdYtL3sNFRga7o+bN4A787+ju70cdYb1Y=;
-	h=Date:To:From:Subject:Message-Id; b=fj45XyjeZq5x85UP5cMpmrjXkZwcPeHQ1cv7jA9CpILgOmUXYPl7iV/Ky2YER1GRzMN1G9sLiYIrT8w/NAGgADeY6CeEgPlktw+iRt+XYyNgArF/BLFEmv9g5GU2PI7zpM52e70h4qYH57IWW8208HTrYId8rVyd1/Pif7CeRNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ijyciQKw; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ijyciQKw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A441F1F000E9;
-	Wed,  2 Sep 2026 02:55:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788317747;
-	bh=XrH/boMVa4pLRXFR1JyiFi287EWlfnZXBEHMgPpi75c=;
-	h=Date:To:From:Subject;
-	b=ijyciQKw9foAlauhmpYtpjFmVRJ7qWJAQQeYfZJzjPe64Zh/15biGFImtDbP6w/Sm
-	 kFYWQvptIt/SOCPloAIgV7F4NuNJSKu5zfWvkPLUretP5+ErVLs0rbgyiLokLgsBQh
-	 wuTmWdzSMr/v72M9qoClRPZgnNFdD8jyxLdcp5Lw=
-Date: Tue, 01 Sep 2026 19:55:47 -0700
-To: mm-commits@vger.kernel.org,yanquanmin1@huawei.com,stable@vger.kernel.org,davidgow@davidgow.net,brendan.higgins@linux.dev,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch added to mm-new branch
-Message-Id: <20260902025547.A441F1F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1788319056; c=relaxed/simple;
+	bh=uRgdatM8lpgXibRALPB1Q/7MF1332nK+00r7Kuztk5w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jHxrAt5RmVOCXJLDIv+LQBjwprWGGseaWskQJF7CZPrx7HnIcUylL3FIwx0g84wYKCXYt4eXWAUVJr5lFEgpQO4j9qYht76o2+pOOw4ylasL4By3so6nVHFJDLUj8h5ppcxVED3MOV6+APum1ccJa68aJzFGxzFNDlcRCq/DvOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hZSYt6dtNzKHLtH
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:16:34 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.112])
+	by mail.maildlp.com (Postfix) with ESMTP id 52D1C40561
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:17:26 +0800 (CST)
+Received: from [10.67.110.36] (unknown [10.67.110.36])
+	by APP1 (Coremail) with UTF8SMTPA id cCh0CgCnjwpFlZdqDqq+AQ--.57637S2;
+	Wed, 02 Sep 2026 11:17:26 +0800 (CST)
+Message-ID: <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
+Date: Wed, 2 Sep 2026 11:17:24 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 095/261] tracing/probes: Reject $arg0 in meta argument
+ expansion
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Raushan Patel <raushan.jhon@gmail.com>,
+ "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+References: <20260807143415.358597922@linuxfoundation.org>
+ <20260807143417.434454264@linuxfoundation.org>
+Content-Language: en-US
+From: Tengda Wu <wutengda@huaweicloud.com>
+In-Reply-To: <20260807143417.434454264@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:cCh0CgCnjwpFlZdqDqq+AQ--.57637S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAw4rury5CrWfXFW8Jr17GFg_yoW5AFyDpF
+	93tr9xtr1rJr48CFWj9F18CFyFy3ykJry3Wa95Jw13XF15Gr4rZr4Sga9Fq345Z3ykK3yf
+	tFn0qr4UKay7ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUylb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
+	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
+	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xII
+	jxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw2
+	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
+	67AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7IJmUUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
+Hi Greg,
 
-The patch titled
-     Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+On 2026/8/7 22:37, Greg Kroah-Hartman wrote:
+> 6.6-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Raushan Patel <raushan.jhon@gmail.com>
+> 
+> commit 00a8ce2a2a9fa17674e1feec4d9105c1a5d6a419 upstream.
+> 
+> traceprobe_expand_meta_args() parses $argN with simple_strtoul() and
+> calls sprint_nth_btf_arg(n - 1, ...). For $arg0, n is 0 so the index is
+> -1. Because ctx->nr_params is signed, the "idx >= nr_params" guard in
+> sprint_nth_btf_arg() does not catch the negative index, and
+> ctx->params[-1].name_off is read out of bounds.
+> 
+> The normal per-argument path (parse_probe_vars()) already rejects
+> $arg0 via its argument-number check, but meta-argument expansion runs
+> before per-argument parsing and substitutes the value first, bypassing
+> that check.
+> 
+> Reject $arg0 explicitly during expansion.
+> 
+> Link: https://lore.kernel.org/all/20260724054435.146279-1-raushan.jhon@gmail.com/
+> 
+> Fixes: 18b1e870a496 ("tracing/probes: Add $arg* meta argument for all function args")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Raushan Patel <raushan.jhon@gmail.com>
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  kernel/trace/trace_probe.c |    6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> --- a/kernel/trace/trace_probe.c
+> +++ b/kernel/trace/trace_probe.c
+> @@ -1721,7 +1721,11 @@ const char **traceprobe_expand_meta_args
+>  				ret = -ENOENT;
+>  				goto error;
+>  			}
+> -			/* Note: $argN starts from $arg1 */
+> +			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
+> +			if (n == 0) {
+> +				trace_probe_log_err(0, BAD_ARG_NUM);
+> +				return ERR_PTR(-EINVAL);
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+The control flow here is not quite right.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Returning directly within this branch fails to free the new_argv memory,
+resulting in a memory leak.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+The mainline does not have this issue because the preceding patch
+4af0532a0f47 ("tracing: Use __free() in trace_probe for cleanup") introduced
+__free to manage the release of new_argv memory. However, due to the extensive
+changes involved, directly cherry-picking that patch does not seem to be that
+straightforward.
 
-The mm-new branch of mm.git is not included in linux-next
+Therefore, it might be more appropriate to simply change it to goto here:
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
+index 2fa7b596f03e..1f55268fbf63 100644
+--- a/kernel/trace/trace_probe.c
++++ b/kernel/trace/trace_probe.c
+@@ -1724,7 +1724,8 @@ const char **traceprobe_expand_meta_args(int argc, const char *argv[],
+ 			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
+ 			if (n == 0) {
+ 				trace_probe_log_err(0, BAD_ARG_NUM);
+-				return ERR_PTR(-EINVAL);
++				ret = -EINVAL;
++				goto error;
+ 			}
+ 			ret = sprint_nth_btf_arg(n - 1, type, buf + used,
+ 						 bufsize - used, ctx);
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Thanks,
+Tengda
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+> +			}
+>  			ret = sprint_nth_btf_arg(n - 1, type, buf + used,
+>  						 bufsize - used, ctx);
+>  			if (ret < 0)
+> 
+> 
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/sysfs: set next refresh jiffies per sysfs context
-Date: Tue, 1 Sep 2026 17:27:23 -0700
-
-When 'refresh_ms' is set, DAMON sysfs interface periodically updates
-auto-tuned parameters and DAMOS stats.  The timestamp for the next refresh
-is initialized when a DAMON context starts, and updated in its
-damon_call() callback function.  That is, each DAMON context updates it. 
-However, the timestamp is a global variable that is shared with all the
-contexts.  When there are multiple DAMON contexts having different
-refresh_ms, the update frequency will be changed, depending on the order
-of the contexts.  When there are multiple kdamonds, it will be even more
-chaotic.  Fix the problem by having the timestamp per each context.
-
-The user impact is not very critical.  It does not leak, corrupt or crash.
-The update will not be faster or slower than the lowest and largest
-refresh_ms values of the contexts, respectively.  The user can also
-manually ask the updates on demand using kdamond state commands.  That
-said, clearly this is a bug and can easily be reproduced.
-
-Link: https://lore.kernel.org/20260902002725.108635-5-sj@kernel.org
-Fixes: 9fd7bb5083d1 ("mm/damon/sysfs: change next_update_jiffies to a global variable")
-Signed-off-by: SJ Park <sj@kernel.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Quanmin Yan <yanquanmin1@huawei.com>
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/damon/sysfs.c |   11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
---- a/mm/damon/sysfs.c~mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context
-+++ a/mm/damon/sysfs.c
-@@ -2034,6 +2034,7 @@ struct damon_sysfs_kdamond {
- 	struct damon_sysfs_contexts *contexts;
- 	struct damon_ctx *damon_ctx;
- 	unsigned int refresh_ms;
-+	unsigned long next_refresh_jiffies;
- };
- 
- static struct damon_sysfs_kdamond *damon_sysfs_kdamond_alloc(void)
-@@ -2484,17 +2485,15 @@ static struct damon_ctx *damon_sysfs_bui
- 	return ctx;
- }
- 
--static unsigned long damon_sysfs_next_update_jiffies;
--
- static int damon_sysfs_repeat_call_fn(void *data)
- {
- 	struct damon_sysfs_kdamond *sysfs_kdamond = data;
- 
- 	if (!sysfs_kdamond->refresh_ms)
- 		return 0;
--	if (time_before(jiffies, damon_sysfs_next_update_jiffies))
-+	if (time_before(jiffies, sysfs_kdamond->next_refresh_jiffies))
- 		return 0;
--	damon_sysfs_next_update_jiffies = jiffies +
-+	sysfs_kdamond->next_refresh_jiffies = jiffies +
- 		msecs_to_jiffies(sysfs_kdamond->refresh_ms);
- 
- 	if (!mutex_trylock(&damon_sysfs_lock))
-@@ -2542,8 +2541,8 @@ static int damon_sysfs_turn_damon_on(str
- 	}
- 	kdamond->damon_ctx = ctx;
- 
--	damon_sysfs_next_update_jiffies =
--		jiffies + msecs_to_jiffies(kdamond->refresh_ms);
-+	kdamond->next_refresh_jiffies = jiffies +
-+		msecs_to_jiffies(kdamond->refresh_ms);
- 
- 	repeat_call_control->fn = damon_sysfs_repeat_call_fn;
- 	repeat_call_control->data = kdamond;
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-core-skip-applying-scheme-if-region-split-for-quota-fails.patch
-mm-damon-paddr-respect-folio-end-for-damos_stat.patch
-mm-damon-paddr-respect-folio-end-for-damos-actions-except-stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_migrate_hotcold.patch
-mm-damon-core-handle-extreme-memory-state-in-damon_get_node_mem_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_node_memcg_used_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
-mm-damon-core-introduce-damon_filter_type_pgidle_unset.patch
-mm-damon-paddr-support-pgidle_unset-probe-filter-type.patch
-mm-damon-sysfs-support-pgidle_unset-probe-filter-type.patch
-docs-mm-damon-design-document-pgidle_unset-probe-filter-type.patch
-mm-damon-core-introduce-damon_prep-struct.patch
-mm-damon-core-commit-preps.patch
-mm-damon-core-introduce-damon_operations-prep_probes.patch
-mm-damon-paddr-support-damon_prep.patch
-mm-damon-sysfs-implement-preps-directory.patch
-mm-damon-sysfs-implement-preps-nr_preps-file.patch
-mm-damon-sysfs-create-directories-for-nr_preps-writes.patch
-mm-damon-sysfs-implement-prep_action-file.patch
-mm-damon-sysfs-pass-preps-to-damon-core.patch
-selftests-damon-sysfssh-test-probe-prep-sysfs-files.patch
-docs-mm-damon-design-document-probe-preps.patch
-docs-admin-guide-mm-damon-usage-document-probe-preps-sysfs-files.patch
-docs-abi-damon-document-probe-prep-sysfs-files.patch
-mm-damon-tests-core-kunit-test-committing-psi-goal-to-psi-goal.patch
-mm-damon-core-handle-uninitialized-damos_quota_goal-last_psi_total.patch
-mm-damon-core-copy-nid-for-eligible_mem_bp-damos-quota-goal-commit.patch
-mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
 
