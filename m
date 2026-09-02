@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 482BD47886E
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 10:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F0A476CE6
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 10:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346423; cv=none; b=VM+Cb4gklNXCScf2npYdSPU2+UlG1H8eE4PKzhgGO3J3dVMXfT8vffU+umJOq/lvEWvKUTFVhdGWL1K44RFdmL8z/hRThWpnku7sKHZglKx/hSpBCcykSa9zEs9jO7FRCm7qjkWdpkjaoV2XmR0Pg85LubSqBGKKaeRt/3D/GBk=
+	t=1788346430; cv=none; b=JNCwcUYXwz2qFSjuBOqGUxeDtHTUvW57S3cHjzcCmJCfSrQW1ARSRuPOHKxTufMAlGiSEhvbfuIKcKgZ9wPtdU0hk+SP0y0orTYfKgCUk/s/xyHVaGIucM2AZPduVIsCXa2bP/THFpbTWCkdJK8p04NiUmJY11jFEMUzk8q3Vuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346423; c=relaxed/simple;
-	bh=pGydN574SjxJFOHeR34idZaobXgCmEdmJesmvhvxrk0=;
+	s=arc-20240116; t=1788346430; c=relaxed/simple;
+	bh=wFMmVx65zeOYvAWGAdhsqaAKfFJbNLSJoOydWlLbQTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DWm1BXTvqU5NCdahrjG9PMgcj3aNUVjiWjH+2RI4UWI7DyPw76x/LDVRl+9a1dV33ttXbMA4j8w8fdlGGUESRzuy2leOHZPvfC2spxDtSrVuTnJqRloGq6KlljYXqfIGKz5qsuzW8b6nfTodv68Rrh8JdfKF2/8CFpvjfBgEbu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jLZ8es/k; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=flwYpNPrlV8co2g5u1SEqgBRkNHL+IUM5fwoA9/v58lA/CT2u8OCZUlnZtnDvr406zUmKcaIhckWE39VYJQB5Hho5F73J00X9naDaqWWaJzSWz7X36oGZIKXaprTnXspcTJXl6ihGCTs384qsZrQITrCYsHh6X5ITzxyxStHjuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZhi/F6s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jLZ8es/k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7911F00A3D;
-	Wed,  2 Sep 2026 10:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZhi/F6s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB0D1F00ACA;
+	Wed,  2 Sep 2026 10:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788346404;
-	bh=yXcKqP2Y1lZmRr4JCiSH65z1QN6RhTHr8s+YKylTaiE=;
+	s=k20260515; t=1788346406;
+	bh=IsMf8An27hSIkqY/mg781M3KhabACuKhnoXjlUgR55A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jLZ8es/kjjZAWf1C+raq4/KhW3jKzYOKRHYpNJfz2vRZ67swhg9Z09B3JByzitgGI
-	 8/Ox0tAvc4KUrvjzHt94KjLmb7+vJuauTSfcRrZhqoUyCE/WoH7xG1WI1zaehQ/HS3
-	 iK0mkzG1i9Gorh4mvi2wp45rtwNcrghjAniWSlHELewAxUMsFCXDiaIMzlaVLiNiZw
-	 YQ9IHCgd8AuZIHmaQ3vFa9ooJXb971cYEG46Tk3Af4EzJHMJupSMBwcMQofOfM83p4
-	 DtMgP+i0btW6TpdDI7w1+sZr3HUqafeGHn4ud+E3V9eUiUK6o6/yQMSdGnDxt2sbOk
-	 IgO9ZwvIu+i8w==
+	b=QZhi/F6sBoHc56EVUSp3r5p3GuIca+5j95L9gQuDo0Z6q0Lgdi0CRAn4odHuc7kYh
+	 qyNezldyiFb2OKWpz+5XnP2So+rrWz+cmmTJrn5zkR8H14cvZP79o2J0PUCj2hjwuG
+	 1kEuT28/XXXPZ5E6knNWVJ4RGPSSs2b1d4mtXNlgV4E+7LMe1yTuC2TSSQIuPtqSG9
+	 zmMVGDZTInOM9vrZ8pZbc8XNC0HyDvJ551C8e9M9dc/OLn31Kr9+paKI9hxe2quk+4
+	 vUcERANK53S1VASaL0drtXPZOtJk8hE3MX9Cbo43S6kvykUI6usxTGR9g54fYBOSq8
+	 I9dATiDIT35lg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Meng Yu <yumeng18@huawei.com>,
-	Zaibo Xu <xuzaibo@huawei.com>,
-	kernel test robot <lkp@intel.com>,
+Cc: Thorsten Blum <thorsten.blum@linux.dev>,
+	David Laight <david.laght.linux@gmail.com>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/5] crypto: ecdh - move curve_id of ECDH from the key to algorithm name
-Date: Wed,  2 Sep 2026 06:53:18 -0400
-Message-ID: <20260902105322.2048136-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/5] crypto: atmel-ecc - replace min_t with min
+Date: Wed,  2 Sep 2026 06:53:20 -0400
+Message-ID: <20260902105322.2048136-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026083113-premiere-tables-885d@gregkh>
+In-Reply-To: <20260902105322.2048136-1-sashal@kernel.org>
 References: <2026083113-premiere-tables-885d@gregkh>
+ <20260902105322.2048136-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,489 +47,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Meng Yu <yumeng18@huawei.com>
+From: Thorsten Blum <thorsten.blum@linux.dev>
 
-[ Upstream commit 6763f5ea2d9ac9b5a34a374ee637b5e4f1f525dd ]
+[ Upstream commit 5b085b2a038a1458f9398cb3b3b03cba6e38e1e0 ]
 
-1. crypto and crypto/atmel-ecc:
-   Move curve id of ECDH from the key into the algorithm name instead
-   in crypto and atmel-ecc, so ECDH algorithm name change form 'ecdh'
-   to 'ecdh-nist-pxxx', and we cannot use 'curve_id' in 'struct ecdh';
-2. crypto/testmgr and net/bluetooth:
-   Modify 'testmgr.c', 'testmgr.h' and 'net/bluetooth' to adapt
-   the modification.
+Use the simpler min() macro since the values are all unsigned and
+compatible.
 
-Signed-off-by: Meng Yu <yumeng18@huawei.com>
-Reviewed-by: Zaibo Xu <xuzaibo@huawei.com>
-Reported-by: kernel test robot <lkp@intel.com>
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: David Laight <david.laght.linux@gmail.com>
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 Stable-dep-of: f07a0d251db7 ("crypto: atmel-ecc - avoid stale fallback key after set_secret failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- crypto/ecdh.c               | 72 +++++++++++++++++++++++++------------
- crypto/ecdh_helper.c        |  4 +--
- crypto/testmgr.c            | 13 +++++--
- crypto/testmgr.h            | 34 ++++++++----------
- drivers/crypto/atmel-ecc.c  | 28 +++++----------
- include/crypto/ecdh.h       |  2 --
- net/bluetooth/ecdh_helper.c |  2 --
- net/bluetooth/selftest.c    |  2 +-
- net/bluetooth/smp.c         |  6 ++--
- 9 files changed, 89 insertions(+), 74 deletions(-)
+ drivers/crypto/atmel-ecc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/crypto/ecdh.c b/crypto/ecdh.c
-index 96f80c8f8e304..04a427b8c9564 100644
---- a/crypto/ecdh.c
-+++ b/crypto/ecdh.c
-@@ -23,33 +23,16 @@ static inline struct ecdh_ctx *ecdh_get_ctx(struct crypto_kpp *tfm)
- 	return kpp_tfm_ctx(tfm);
- }
- 
--static unsigned int ecdh_supported_curve(unsigned int curve_id)
--{
--	switch (curve_id) {
--	case ECC_CURVE_NIST_P192: return ECC_CURVE_NIST_P192_DIGITS;
--	case ECC_CURVE_NIST_P256: return ECC_CURVE_NIST_P256_DIGITS;
--	default: return 0;
--	}
--}
--
- static int ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 			   unsigned int len)
- {
- 	struct ecdh_ctx *ctx = ecdh_get_ctx(tfm);
- 	struct ecdh params;
--	unsigned int ndigits;
- 
- 	if (crypto_ecdh_decode_key(buf, len, &params) < 0 ||
--	    params.key_size > sizeof(ctx->private_key))
-+	    params.key_size > sizeof(u64) * ctx->ndigits)
- 		return -EINVAL;
- 
--	ndigits = ecdh_supported_curve(params.curve_id);
--	if (!ndigits)
--		return -EINVAL;
--
--	ctx->curve_id = params.curve_id;
--	ctx->ndigits = ndigits;
--
- 	if (!params.key || !params.key_size)
- 		return ecc_gen_privkey(ctx->curve_id, ctx->ndigits,
- 				       ctx->private_key);
-@@ -140,13 +123,24 @@ static unsigned int ecdh_max_size(struct crypto_kpp *tfm)
- 	return ctx->ndigits << (ECC_DIGITS_TO_BYTES_SHIFT + 1);
- }
- 
--static struct kpp_alg ecdh = {
-+static int ecdh_nist_p192_init_tfm(struct crypto_kpp *tfm)
-+{
-+	struct ecdh_ctx *ctx = ecdh_get_ctx(tfm);
-+
-+	ctx->curve_id = ECC_CURVE_NIST_P192;
-+	ctx->ndigits = ECC_CURVE_NIST_P192_DIGITS;
-+
-+	return 0;
-+}
-+
-+static struct kpp_alg ecdh_nist_p192 = {
- 	.set_secret = ecdh_set_secret,
- 	.generate_public_key = ecdh_compute_value,
- 	.compute_shared_secret = ecdh_compute_value,
- 	.max_size = ecdh_max_size,
-+	.init = ecdh_nist_p192_init_tfm,
- 	.base = {
--		.cra_name = "ecdh",
-+		.cra_name = "ecdh-nist-p192",
- 		.cra_driver_name = "ecdh-generic",
- 		.cra_priority = 100,
- 		.cra_module = THIS_MODULE,
-@@ -154,14 +148,48 @@ static struct kpp_alg ecdh = {
- 	},
- };
- 
-+static int ecdh_nist_p256_init_tfm(struct crypto_kpp *tfm)
-+{
-+	struct ecdh_ctx *ctx = ecdh_get_ctx(tfm);
-+
-+	ctx->curve_id = ECC_CURVE_NIST_P256;
-+	ctx->ndigits = ECC_CURVE_NIST_P256_DIGITS;
-+
-+	return 0;
-+}
-+
-+static struct kpp_alg ecdh_nist_p256 = {
-+	.set_secret = ecdh_set_secret,
-+	.generate_public_key = ecdh_compute_value,
-+	.compute_shared_secret = ecdh_compute_value,
-+	.max_size = ecdh_max_size,
-+	.init = ecdh_nist_p256_init_tfm,
-+	.base = {
-+		.cra_name = "ecdh-nist-p256",
-+		.cra_driver_name = "ecdh-generic",
-+		.cra_priority = 100,
-+		.cra_module = THIS_MODULE,
-+		.cra_ctxsize = sizeof(struct ecdh_ctx),
-+	},
-+};
-+
-+static bool ecdh_nist_p192_registered;
-+
- static int ecdh_init(void)
- {
--	return crypto_register_kpp(&ecdh);
-+	int ret;
-+
-+	ret = crypto_register_kpp(&ecdh_nist_p192);
-+	ecdh_nist_p192_registered = ret == 0;
-+
-+	return crypto_register_kpp(&ecdh_nist_p256);
- }
- 
- static void ecdh_exit(void)
- {
--	crypto_unregister_kpp(&ecdh);
-+	if (ecdh_nist_p192_registered)
-+		crypto_unregister_kpp(&ecdh_nist_p192);
-+	crypto_unregister_kpp(&ecdh_nist_p256);
- }
- 
- subsys_initcall(ecdh_init);
-diff --git a/crypto/ecdh_helper.c b/crypto/ecdh_helper.c
-index fca63b559f655..f18f9028f9121 100644
---- a/crypto/ecdh_helper.c
-+++ b/crypto/ecdh_helper.c
-@@ -10,7 +10,7 @@
- #include <crypto/ecdh.h>
- #include <crypto/kpp.h>
- 
--#define ECDH_KPP_SECRET_MIN_SIZE (sizeof(struct kpp_secret) + 2 * sizeof(short))
-+#define ECDH_KPP_SECRET_MIN_SIZE (sizeof(struct kpp_secret) + sizeof(short))
- 
- static inline u8 *ecdh_pack_data(void *dst, const void *src, size_t sz)
- {
-@@ -46,7 +46,6 @@ int crypto_ecdh_encode_key(char *buf, unsigned int len,
- 		return -EINVAL;
- 
- 	ptr = ecdh_pack_data(ptr, &secret, sizeof(secret));
--	ptr = ecdh_pack_data(ptr, &params->curve_id, sizeof(params->curve_id));
- 	ptr = ecdh_pack_data(ptr, &params->key_size, sizeof(params->key_size));
- 	ecdh_pack_data(ptr, params->key, params->key_size);
- 
-@@ -70,7 +69,6 @@ int crypto_ecdh_decode_key(const char *buf, unsigned int len,
- 	if (unlikely(len < secret.len))
- 		return -EINVAL;
- 
--	ptr = ecdh_unpack_data(&params->curve_id, ptr, sizeof(params->curve_id));
- 	ptr = ecdh_unpack_data(&params->key_size, ptr, sizeof(params->key_size));
- 	if (secret.len != crypto_ecdh_key_len(params))
- 		return -EINVAL;
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 28a368e346f77..ec8c8a8bf2995 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -4920,11 +4920,20 @@ static const struct alg_test_desc alg_test_descs[] = {
- 		}
- 	}, {
- #endif
--		.alg = "ecdh",
-+#ifndef CONFIG_CRYPTO_FIPS
-+		.alg = "ecdh-nist-p192",
- 		.test = alg_test_kpp,
- 		.fips_allowed = 1,
- 		.suite = {
--			.kpp = __VECS(ecdh_tv_template)
-+			.kpp = __VECS(ecdh_p192_tv_template)
-+		}
-+	}, {
-+#endif
-+		.alg = "ecdh-nist-p256",
-+		.test = alg_test_kpp,
-+		.fips_allowed = 1,
-+		.suite = {
-+			.kpp = __VECS(ecdh_p256_tv_template)
- 		}
- 	}, {
- 		.alg = "ecrdsa",
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index 2c9f9f555929c..d36f7e1a7bce0 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -2364,19 +2364,17 @@ static const struct kpp_testvec curve25519_tv_template[] = {
- }
- };
- 
--static const struct kpp_testvec ecdh_tv_template[] = {
--	{
- #ifndef CONFIG_CRYPTO_FIPS
-+static const struct kpp_testvec ecdh_p192_tv_template[] = {
-+	{
- 	.secret =
- #ifdef __LITTLE_ENDIAN
- 	"\x02\x00" /* type */
--	"\x20\x00" /* len */
--	"\x01\x00" /* curve_id */
-+	"\x1e\x00" /* len */
- 	"\x18\x00" /* key_size */
- #else
- 	"\x00\x02" /* type */
--	"\x00\x20" /* len */
--	"\x00\x01" /* curve_id */
-+	"\x00\x1e" /* len */
- 	"\x00\x18" /* key_size */
- #endif
- 	"\xb5\x05\xb1\x71\x1e\xbf\x8c\xda"
-@@ -2404,18 +2402,20 @@ static const struct kpp_testvec ecdh_tv_template[] = {
- 	.b_public_size = 48,
- 	.expected_a_public_size = 48,
- 	.expected_ss_size = 24
--	}, {
-+	}
-+};
- #endif
-+
-+static const struct kpp_testvec ecdh_p256_tv_template[] = {
-+	{
- 	.secret =
- #ifdef __LITTLE_ENDIAN
- 	"\x02\x00" /* type */
--	"\x28\x00" /* len */
--	"\x02\x00" /* curve_id */
-+	"\x26\x00" /* len */
- 	"\x20\x00" /* key_size */
- #else
- 	"\x00\x02" /* type */
--	"\x00\x28" /* len */
--	"\x00\x02" /* curve_id */
-+	"\x00\x26" /* len */
- 	"\x00\x20" /* key_size */
- #endif
- 	"\x24\xd1\x21\xeb\xe5\xcf\x2d\x83"
-@@ -2453,25 +2453,21 @@ static const struct kpp_testvec ecdh_tv_template[] = {
- 	.secret =
- #ifdef __LITTLE_ENDIAN
- 	"\x02\x00" /* type */
--	"\x08\x00" /* len */
--	"\x02\x00" /* curve_id */
-+	"\x06\x00" /* len */
- 	"\x00\x00", /* key_size */
- #else
- 	"\x00\x02" /* type */
--	"\x00\x08" /* len */
--	"\x00\x02" /* curve_id */
-+	"\x00\x06" /* len */
- 	"\x00\x00", /* key_size */
- #endif
- 	.b_secret =
- #ifdef __LITTLE_ENDIAN
- 	"\x02\x00" /* type */
--	"\x28\x00" /* len */
--	"\x02\x00" /* curve_id */
-+	"\x26\x00" /* len */
- 	"\x20\x00" /* key_size */
- #else
- 	"\x00\x02" /* type */
--	"\x00\x28" /* len */
--	"\x00\x02" /* curve_id */
-+	"\x00\x26" /* len */
- 	"\x00\x20" /* key_size */
- #endif
- 	"\x24\xd1\x21\xeb\xe5\xcf\x2d\x83"
 diff --git a/drivers/crypto/atmel-ecc.c b/drivers/crypto/atmel-ecc.c
-index c3a9b223d8345..5dd3e37f6715a 100644
+index 004d87cbfa221..e21466dfd0753 100644
 --- a/drivers/crypto/atmel-ecc.c
 +++ b/drivers/crypto/atmel-ecc.c
-@@ -34,7 +34,6 @@ static struct atmel_ecc_driver_data driver_data;
-  *               of the user to not call set_secret() while
-  *               generate_public_key() or compute_shared_secret() are in flight.
-  * @curve_id   : elliptic curve id
-- * @n_sz       : size in bytes of the n prime
-  * @do_fallback: true when the device doesn't support the curve or when the user
-  *               wants to use its own private key.
-  */
-@@ -43,7 +42,6 @@ struct atmel_ecdh_ctx {
- 	struct crypto_kpp *fallback;
- 	const u8 *public_key;
- 	unsigned int curve_id;
--	size_t n_sz;
- 	bool do_fallback;
- };
- 
-@@ -51,7 +49,6 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
- 			    int status)
- {
- 	struct kpp_request *req = areq;
--	struct atmel_ecdh_ctx *ctx = work_data->ctx;
- 	struct atmel_i2c_cmd *cmd = &work_data->cmd;
- 	size_t copied, n_sz;
- 
-@@ -59,7 +56,7 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
+@@ -56,7 +56,7 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
  		goto free_work_data;
  
  	/* might want less than we've got */
--	n_sz = min_t(size_t, ctx->n_sz, req->dst_len);
-+	n_sz = min_t(size_t, ATMEL_ECC_NIST_P256_N_SIZE, req->dst_len);
+-	n_sz = min_t(size_t, ATMEL_ECC_NIST_P256_N_SIZE, req->dst_len);
++	n_sz = min(ATMEL_ECC_NIST_P256_N_SIZE, req->dst_len);
  
  	/* copy the shared secret */
  	copied = sg_copy_from_buffer(req->dst, sg_nents_for_len(req->dst, n_sz),
-@@ -73,14 +70,6 @@ static void atmel_ecdh_done(struct atmel_i2c_work_data *work_data, void *areq,
- 	kpp_request_complete(req, status);
- }
- 
--static unsigned int atmel_ecdh_supported_curve(unsigned int curve_id)
--{
--	if (curve_id == ECC_CURVE_NIST_P256)
--		return ATMEL_ECC_NIST_P256_N_SIZE;
--
--	return 0;
--}
--
- /*
-  * A random private key is generated and stored in the device. The device
-  * returns the pair public key.
-@@ -104,8 +93,7 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
+@@ -150,7 +150,7 @@ static int atmel_ecdh_generate_public_key(struct kpp_request *req)
  		return -EINVAL;
- 	}
  
--	ctx->n_sz = atmel_ecdh_supported_curve(params.curve_id);
--	if (!ctx->n_sz || params.key_size) {
-+	if (params.key_size) {
- 		/* fallback to ecdh software implementation */
- 		ctx->do_fallback = true;
- 		return crypto_kpp_set_secret(ctx->fallback, buf, len);
-@@ -125,7 +113,6 @@ static int atmel_ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
- 		goto free_cmd;
+ 	/* might want less than we've got */
+-	nbytes = min_t(size_t, ATMEL_ECC_PUBKEY_SIZE, req->dst_len);
++	nbytes = min(ATMEL_ECC_PUBKEY_SIZE, req->dst_len);
  
- 	ctx->do_fallback = false;
--	ctx->curve_id = params.curve_id;
- 
- 	atmel_i2c_init_genkey_cmd(cmd, DATA_SLOT_2);
- 
-@@ -263,6 +250,7 @@ static int atmel_ecdh_init_tfm(struct crypto_kpp *tfm)
- 	struct crypto_kpp *fallback;
- 	struct atmel_ecdh_ctx *ctx = kpp_tfm_ctx(tfm);
- 
-+	ctx->curve_id = ECC_CURVE_NIST_P256;
- 	ctx->client = atmel_ecc_i2c_client_alloc();
- 	if (IS_ERR(ctx->client)) {
- 		pr_err("tfm - i2c_client binding failed\n");
-@@ -307,7 +295,7 @@ static unsigned int atmel_ecdh_max_size(struct crypto_kpp *tfm)
- 	return ATMEL_ECC_PUBKEY_SIZE;
- }
- 
--static struct kpp_alg atmel_ecdh = {
-+static struct kpp_alg atmel_ecdh_nist_p256 = {
- 	.set_secret = atmel_ecdh_set_secret,
- 	.generate_public_key = atmel_ecdh_generate_public_key,
- 	.compute_shared_secret = atmel_ecdh_compute_shared_secret,
-@@ -316,7 +304,7 @@ static struct kpp_alg atmel_ecdh = {
- 	.max_size = atmel_ecdh_max_size,
- 	.base = {
- 		.cra_flags = CRYPTO_ALG_NEED_FALLBACK,
--		.cra_name = "ecdh",
-+		.cra_name = "ecdh-nist-p256",
- 		.cra_driver_name = "atmel-ecdh",
- 		.cra_priority = ATMEL_ECC_PRIORITY,
- 		.cra_module = THIS_MODULE,
-@@ -341,14 +329,14 @@ static int atmel_ecc_probe(struct i2c_client *client,
- 		      &driver_data.i2c_client_list);
- 	spin_unlock(&driver_data.i2c_list_lock);
- 
--	ret = crypto_register_kpp(&atmel_ecdh);
-+	ret = crypto_register_kpp(&atmel_ecdh_nist_p256);
- 	if (ret) {
- 		spin_lock(&driver_data.i2c_list_lock);
- 		list_del(&i2c_priv->i2c_client_list_node);
- 		spin_unlock(&driver_data.i2c_list_lock);
- 
- 		dev_err(&client->dev, "%s alg registration failed\n",
--			atmel_ecdh.base.cra_driver_name);
-+			atmel_ecdh_nist_p256.base.cra_driver_name);
- 	} else {
- 		dev_info(&client->dev, "atmel ecc algorithms registered in /proc/crypto\n");
- 	}
-@@ -366,7 +354,7 @@ static int atmel_ecc_remove(struct i2c_client *client)
- 		return -EBUSY;
- 	}
- 
--	crypto_unregister_kpp(&atmel_ecdh);
-+	crypto_unregister_kpp(&atmel_ecdh_nist_p256);
- 
- 	spin_lock(&driver_data.i2c_list_lock);
- 	list_del(&i2c_priv->i2c_client_list_node);
-diff --git a/include/crypto/ecdh.h b/include/crypto/ecdh.h
-index a5b805b5526d2..deaaa48221741 100644
---- a/include/crypto/ecdh.h
-+++ b/include/crypto/ecdh.h
-@@ -29,12 +29,10 @@
- /**
-  * struct ecdh - define an ECDH private key
-  *
-- * @curve_id:	ECC curve the key is based on.
-  * @key:	Private ECDH key
-  * @key_size:	Size of the private ECDH key
-  */
- struct ecdh {
--	unsigned short curve_id;
- 	char *key;
- 	unsigned short key_size;
- };
-diff --git a/net/bluetooth/ecdh_helper.c b/net/bluetooth/ecdh_helper.c
-index 3226fe02e8754..989401f116e91 100644
---- a/net/bluetooth/ecdh_helper.c
-+++ b/net/bluetooth/ecdh_helper.c
-@@ -126,8 +126,6 @@ int set_ecdh_privkey(struct crypto_kpp *tfm, const u8 private_key[32])
- 	int err;
- 	struct ecdh p = {0};
- 
--	p.curve_id = ECC_CURVE_NIST_P256;
--
- 	if (private_key) {
- 		tmp = kmalloc(32, GFP_KERNEL);
- 		if (!tmp)
-diff --git a/net/bluetooth/selftest.c b/net/bluetooth/selftest.c
-index f71c6fa65fb35..f49604d44b877 100644
---- a/net/bluetooth/selftest.c
-+++ b/net/bluetooth/selftest.c
-@@ -205,7 +205,7 @@ static int __init test_ecdh(void)
- 
- 	calltime = ktime_get();
- 
--	tfm = crypto_alloc_kpp("ecdh", 0, 0);
-+	tfm = crypto_alloc_kpp("ecdh-nist-p256", 0, 0);
- 	if (IS_ERR(tfm)) {
- 		BT_ERR("Unable to create ECDH crypto context");
- 		err = PTR_ERR(tfm);
-diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-index 22b5e81808508..eb572c8ea49b0 100644
---- a/net/bluetooth/smp.c
-+++ b/net/bluetooth/smp.c
-@@ -1390,7 +1390,7 @@ static struct smp_chan *smp_chan_create(struct l2cap_conn *conn)
- 		goto zfree_smp;
- 	}
- 
--	smp->tfm_ecdh = crypto_alloc_kpp("ecdh", 0, 0);
-+	smp->tfm_ecdh = crypto_alloc_kpp("ecdh-nist-p256", 0, 0);
- 	if (IS_ERR(smp->tfm_ecdh)) {
- 		bt_dev_err(hcon->hdev, "Unable to create ECDH crypto context");
- 		goto free_shash;
-@@ -3300,7 +3300,7 @@ static struct l2cap_chan *smp_add_cid(struct hci_dev *hdev, u16 cid)
- 		return ERR_CAST(tfm_cmac);
- 	}
- 
--	tfm_ecdh = crypto_alloc_kpp("ecdh", 0, 0);
-+	tfm_ecdh = crypto_alloc_kpp("ecdh-nist-p256", 0, 0);
- 	if (IS_ERR(tfm_ecdh)) {
- 		bt_dev_err(hdev, "Unable to create ECDH crypto context");
- 		crypto_free_shash(tfm_cmac);
-@@ -3865,7 +3865,7 @@ int __init bt_selftest_smp(void)
- 		return PTR_ERR(tfm_cmac);
- 	}
- 
--	tfm_ecdh = crypto_alloc_kpp("ecdh", 0, 0);
-+	tfm_ecdh = crypto_alloc_kpp("ecdh-nist-p256", 0, 0);
- 	if (IS_ERR(tfm_ecdh)) {
- 		BT_ERR("Unable to create ECDH crypto context");
- 		crypto_free_shash(tfm_cmac);
+ 	/* public key was saved at private key generation */
+ 	copied = sg_copy_from_buffer(req->dst,
 -- 
 2.53.0
 
