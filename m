@@ -1,136 +1,140 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F7C36B92C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB18926D4C3
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337131; cv=none; b=YcBhph/Tcv7MV8tmrlD9S4IxnYfo2iMwMkueqm6ayFYJNmR//FO9gwjSPtsZ+fgilxtc9V26fk2e0WexjWfsbuy2xtzt4ZBls4n5srfjSQ4f5xmIKxrOQ9TnEKxNLk4CW0lbrirKYMTyrFgwifeDoqa+9CGpUNLjFDgdiOtXvHg=
+	t=1788337230; cv=none; b=WqzChaxtsxdSbjEk4iAfQ5ZrW73BHm/MgbyX2aCR8/QAZqpacaGtHp1MzfxdcRFp7mpC0bXJE0bsRFUjt87MfzviSDVzhVqY9SuB5vxcJMtEseGFKU3FM+cBUF0QxCVJuJQiZZRFPtCmqZpXnkO6604rfSWDwUDiDPvMAXW1BPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337131; c=relaxed/simple;
-	bh=A6rLcvnK3adoCDStrd8do6BJqgmVpZd7sCs1Tc7EqNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mV5vn1iP/zcmQTsQS5gT4bQ+LYriLJOMWuSdUzm0XvISmHHey/YM4vt5IK4SfHwyxtKX0MVlfOsuaBFGQjvTqe6uraSHUtHoMgCUS00L4C4oxpBTOUHFIDCjUHgfZ3BLA6A6Ou2QXJ4lpbRdf7nMt2+tiJ+NCpqoI9bin8Nmpm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/Xcjl7o; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/Xcjl7o"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so873504a91.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 01:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788337129; x=1788941929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QPGyS0AHVOfUWMfJXbkr/UK6bKLRAGXdQYLecgn4LSo=;
-        b=i/Xcjl7oV5+XunKAVg9beHrtwDxee4Yx7xNAuw5KERErJwjzQ0rJwhYMxg9QIG8OSS
-         KOWCE8A7sIiEdYEL9u21HmXhq6qD0ZKWgoaI+dMwJwsGmdNf+1aHUKPEBByVNRqVSL8N
-         fGeiDxiISOR4jWPzT8/YTxwP3MuukXZnVkFT/NvVvs34gPsrlTtlFPbm+bPkcfvUeWUh
-         Kh/RvtR1ktKHOZSxLCbSi/vUAnlJHdHaNaPbuDUxtA6RrUbT2e0ayJj8iRvJb1u1aKQB
-         E5ISWzewdCEjjuM1MA3+fn6sS9GdybIikz6hcFLhuWfBGHcEngphGaLS5jlYVvVJNPoH
-         JtLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788337129; x=1788941929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QPGyS0AHVOfUWMfJXbkr/UK6bKLRAGXdQYLecgn4LSo=;
-        b=Bm4TecBFhqyvtNADi63/CmBnhdcfxxj9QXVAn0ubcx1ylXXtKhTneXfe5Yq31TE9xv
-         ubVOI28HYdz3zgaZxEiHzEl75PVJeJGlH/QCC2/tzRHPm0gL0j755pjhymZ7RhSUgVme
-         8uiIV+CN12umPm+/+TxYkbT2+9U/8tPQUCC8R08evnhCL3aNFTBQgT5l8TYItWnMTdMs
-         ckFy10EEQzLASMLkCz1ZXnUqjn/XLEmTGoM0Ovf1YCRf1/nebm61jYiroryCfGEW+W7+
-         3AJEhTiqvZe5wmWRbucehyzqOKfjIjWchJQHiqfIosDcXV/bV4K4vvdN68wgZDOUgHba
-         CWgA==
-X-Forwarded-Encrypted: i=1; AKwUvBxzAXf1ip8xEFspRpQZOvzaNEtyE74MOkFapoKxhwI4PAmzHva+m1T0lsTNhpWfNdYenqvh3xI=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljYDI5jaVbVIJ7Z105Vbm+l8BKeyrWv3kBLAda7D0nbwl8E8hy
-	+EwG5tvdqON+PXAvGIbrKw5kiKMZpFtK9ctNwsrv3pxtRdVtug2o8haa
-X-Gm-Gg: AYBFou2ahuqGUaksNjX62APm7ToQFp8b2MbdscQ8zr06o0z3KMFCF6UK4hNq7z0ZS28
-	owgsg9pnD0ZDNUjz0ldOw+2rJWzicjD4xP/X8AlUra+3WlaKWLC/lIVlkyXoLv7b7sCWyggpYwB
-	Z3/d1eWnHIU++zqlm7jTOSEIwTQNzAnzpp+hy7ZE+YGuvuPIimEjYYlG6C/WcxQR0J3vkCclR1Q
-	KKih2RHOMF2vsmasnc5YOKWFE9tVIn0GLEIhND2qfRoOqp9doD9hN7rNp/RRXfyz7AyOuqxdH3V
-	PxDGxDwdNl91CdC8iLw0vyv4YgJoHGujJ+0IBghNVqtbDt7Ddddo8/PvsJN7Dr2Jvi+INmK/Cq+
-	2h0GMUy+24LsU5sS0IAtvUBSgUHzTUL159Gb4T9iepvHWSPLhEngHE9hIRzcryBznBfKMqU9N3M
-	lmdHEUZqX/wlQ/8r/RI7RKnUbKkCsyq5EdIUQ6TE/QLrzTYAcEWXKEPn7h1kGFqXoa+27hK7pyq
-	0Jbg3bTV2o/jIWB
-X-Received: by 2002:a17:90b:2f84:b0:398:9bd3:d6d1 with SMTP id 98e67ed59e1d1-39af64e0adbmr1153860a91.11.1788337129220;
-        Wed, 02 Sep 2026 01:18:49 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75b540sm10430157a91.10.2026.09.02.01.18.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:18:48 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mm/damon/core: fix false positive in
-Date: Wed,  2 Sep 2026 16:18:25 +0800
-Message-ID: <20260902081825.18931-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788337230; c=relaxed/simple;
+	bh=2wO/V6+U7w2bGtRa1e8YA94XbpqLc7o53riuolU8UBc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SuFNhoasrRHt9KhVbs9Oo5fltmz3Bj5vswDHE78JOV4EGq00ZR0lLiGhqRhZB7RnLUWPbCXRS4alLl3oGjZtcu+M586lgYNQNriFtEU2flmT3GxqjmUaPDobFJI99WqksG1KMcWV4C2ogw8dbxDNr3RkxpNXlOFMQmkdvCjc/ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hZbHd0Nl5zYQtxQ
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:19:41 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id DD1B1405DE
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:20:21 +0800 (CST)
+Received: from [10.67.110.36] (unknown [10.67.110.36])
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgBn0ExE3Jdq1r_dAQ--.7188S2;
+	Wed, 02 Sep 2026 16:20:21 +0800 (CST)
+Message-ID: <068d6b49-1e79-4d14-a51f-a445c7ecdbd0@huaweicloud.com>
+Date: Wed, 2 Sep 2026 16:20:20 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6 095/261] tracing/probes: Reject $arg0 in meta argument
+ expansion
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ Raushan Patel <raushan.jhon@gmail.com>,
+ "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+References: <20260807143415.358597922@linuxfoundation.org>
+ <20260807143417.434454264@linuxfoundation.org>
+ <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
+ <2026090227-clash-peroxide-8872@gregkh>
+Content-Language: en-US
+From: Tengda Wu <wutengda@huaweicloud.com>
+In-Reply-To: <2026090227-clash-peroxide-8872@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:Syh0CgBn0ExE3Jdq1r_dAQ--.7188S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrW8Aw4UuFWkZFykKFWxJFb_yoW5XrWxpF
+	WfGFnxtr48Jr4fCrW293W8CFyFy3ykXry3XryDJw1fWFn0kF1rJr4xW3yj9a4Du3y8K3yS
+	vF4YqFsrKa98ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUymb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I
+	0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vI
+	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jjVbkUUUUU=
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-When setting goal_tuner to 'temporal', if the goal is achieved,
-quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-will always return true, even if no regions have been tried to apply at
-all.  This causes qt_exceeds to increase unexpectedly.
 
-Fix it by:
 
-- Returning false in damos_quota_is_full() when quota->charged_sz is
-  zero.
-- Adding an early exit in damon_do_apply_schemes() for schemes with zero
-  esz.
+On 2026/9/2 14:29, Greg Kroah-Hartman wrote:
+> On Wed, Sep 02, 2026 at 11:17:24AM +0800, Tengda Wu wrote:
+>> Hi Greg,
+>>
+>> On 2026/8/7 22:37, Greg Kroah-Hartman wrote:
+>>> 6.6-stable review patch.  If anyone has any objections, please let me know.
+>>>
+>>> ------------------
+>>>
+>>> From: Raushan Patel <raushan.jhon@gmail.com>
+>>>
+>>> commit 00a8ce2a2a9fa17674e1feec4d9105c1a5d6a419 upstream.
+>>>
+>>> traceprobe_expand_meta_args() parses $argN with simple_strtoul() and
+>>> calls sprint_nth_btf_arg(n - 1, ...). For $arg0, n is 0 so the index is
+>>> -1. Because ctx->nr_params is signed, the "idx >= nr_params" guard in
+>>> sprint_nth_btf_arg() does not catch the negative index, and
+>>> ctx->params[-1].name_off is read out of bounds.
+>>>
+>>> The normal per-argument path (parse_probe_vars()) already rejects
+>>> $arg0 via its argument-number check, but meta-argument expansion runs
+>>> before per-argument parsing and substitutes the value first, bypassing
+>>> that check.
+>>>
+>>> Reject $arg0 explicitly during expansion.
+>>>
+>>> Link: https://lore.kernel.org/all/20260724054435.146279-1-raushan.jhon@gmail.com/
+>>>
+>>> Fixes: 18b1e870a496 ("tracing/probes: Add $arg* meta argument for all function args")
+>>> Cc: stable@vger.kernel.org
+>>> Signed-off-by: Raushan Patel <raushan.jhon@gmail.com>
+>>> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+>>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+>>> ---
+>>>  kernel/trace/trace_probe.c |    6 +++++-
+>>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>>
+>>> --- a/kernel/trace/trace_probe.c
+>>> +++ b/kernel/trace/trace_probe.c
+>>> @@ -1721,7 +1721,11 @@ const char **traceprobe_expand_meta_args
+>>>  				ret = -ENOENT;
+>>>  				goto error;
+>>>  			}
+>>> -			/* Note: $argN starts from $arg1 */
+>>> +			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
+>>> +			if (n == 0) {
+>>> +				trace_probe_log_err(0, BAD_ARG_NUM);
+>>> +				return ERR_PTR(-EINVAL);
+>>
+>> The control flow here is not quite right.
+>>
+>> Returning directly within this branch fails to free the new_argv memory,
+>> resulting in a memory leak.
+>>
+>> The mainline does not have this issue because the preceding patch
+>> 4af0532a0f47 ("tracing: Use __free() in trace_probe for cleanup") introduced
+>> __free to manage the release of new_argv memory. However, due to the extensive
+>> changes involved, directly cherry-picking that patch does not seem to be that
+>> straightforward.
+>>
+>> Therefore, it might be more appropriate to simply change it to goto here:
+> 
+> Thanks for the review, can you send a fix-up patch for this as it is
+> already in a release?
+> 
+> greg k-h
 
-Fixes: c7ec7d5f6b3d ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-Cc: <stable@vger.kernel.org> # v7.2.x
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
----
+Sure.
 
-Changes from v1:
-- v1: https://lore.kernel.org/damon/20260901105925.106186-1-aethernet65535@gmail.com
-- Changed the check in damos_quota_is_full() from '!quota->esz' to
-  '!quota->charged_sz', because the former is an upper bound, while the
-  latter represents the actual quota usage.
-- Added an early exit in damon_do_apply_schemes() to prevent a scheme
-  with zero esz from being evaluated by damos_quota_is_full().
-- Changed patch title, original title: always return false when esz is
-  zero
-
----
- mm/damon/core.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 8e3ded1a2cf6..de78ad56c8b3 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2560,6 +2560,8 @@ static bool damos_quota_is_full(struct damos_quota *quota,
- {
- 	if (!damos_quota_is_set(quota))
- 		return false;
-+	if (!quota->charged_sz)
-+		return false;
- 	if (quota->charged_sz >= quota->esz)
- 		return true;
- 	/*
-@@ -2666,6 +2668,9 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
- 		if (!s->wmarks.activated)
- 			continue;
- 
-+		if (!quota->esz)
-+			continue;
-+
- 		/* Check the quota */
- 		if (damos_quota_is_full(quota, c->min_region_sz))
- 			continue;
--- 
-2.55.0
+Tengda
 
