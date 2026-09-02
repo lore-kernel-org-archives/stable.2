@@ -1,112 +1,119 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104B0331ED0
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 14:22:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29514A0906;
+	Wed,  2 Sep 2026 14:23:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358970; cv=none; b=ZoP0aG0fjTl3UIxu/T52sze79L+vGHLMlzCWQWjRm3ZJVesns6Q3zoTZ8jxoB0B+9P3PzXa4DdELjB3Kca78KqPQS0ugJdDjncGaOmYEFS5FV9VVATpn0lump3CEHT7Rl6TZeo17IJxkLR8fuiaVUFJL6WcHYiyFadkPblpKRp8=
+	t=1788359032; cv=none; b=Sn6poH8iTBIoLUcHQXsyGDQDiRGdJTG2wh2+ZXl3dLZHCpqkjWtEwKJbXgV0IUFGgg/LcB9sd5fz/dFUAalW0C+y0pSaq241NO0GxRStUILrKi5mC5TFYp5TQ1jdgL/ZhRQA+hyy4DbmJtSg95zUeCc01L1IOGxS7iNJEkYWQ0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358970; c=relaxed/simple;
-	bh=kHWwMrEotM6IrRJpcqSUfyhD0sPiyKGP+EIxUzLpGxM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=B41MAIDrWn+hpXw3CH0FhXkLQh/ykt7Vfrl1zXI3eMZPBT3ObiWAnRb18gXJE/S0OCtuFOJBLRoTAkAy8n/nQ3cSGDisSdvzr8ZOQmuTdNGySmaLbEG+SNNKrBk7I56gH4sb29sfk1MIhlW7bBEjhBb2FI001UHDaOzTGXDVfR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hQD6H3p0; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788359032; c=relaxed/simple;
+	bh=G+5iLF2EpPq889xKGqaxbuxTwbku0pNzH3CmMhC2184=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bDqlR8ALQ4SzTjDjWG1fR/j6c9Es81ZMAmUjL6T9HTyWUwVURP6NPq7eN5ZqfqEdZ0T8uk57JN1cN3AjY03bj97iaAkFgxIDvsBkWr/fkWOmUQzJ79A+4u+4tXlmzDv8sm4fKrrxxNRp++TkXLHuC/nVvtJi8S5NnuHXe90nf0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XceFYCkW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hQD6H3p0"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso13093315ad.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 07:22:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788358968; x=1788963768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xhg4nFUTwBRfkzvOZ3lYhulq3dN/Jpsw7Gc9lSLlRQY=;
-        b=hQD6H3p05owStewpsYUCUQJbLiWKw0N7/xUijdaG6eclJ0Kf/cJubrL/9sHNHCKYqH
-         MrLMwOaWykpIypEuye/KkrSieplQno1MeIgcYczX7sHBVJ+KEHJxZ677e9qsnmUO0WTo
-         Anb6oAf2fODJX/wOkRPY5DFXlExef2YguF+YnBxKdSjF2pGY3qugVLq44cL/wwC64Dx2
-         VSgg7gKPEmww5g5rCv5A2qq33VTv0pU6z2IBlrYaGlETCGnxCCZGTLtKsA4jRpOtTHtW
-         voeqZozoSpM/T7dwwkLQeJ67XKU+z7qVYwDne1H8CHbJdk6XeErCRhUJtteVxkbuSA8w
-         P/+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788358968; x=1788963768;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xhg4nFUTwBRfkzvOZ3lYhulq3dN/Jpsw7Gc9lSLlRQY=;
-        b=gHA6ofpIvwHRDw8XnbOA7nYNtukFeBtwsR0Lu2DcwXcj5/mMgCGimfDEgXgpf/9N/e
-         KZWspUCrefTCFxz5GA7mBcw2IJi4kstFhkTcfRsyckmsj+WR5ons5/9lw0RGoJwwNogA
-         gd25pdHZd7gp1PXQV7poyd8jwC+AKUfL0HKvpQ3R9gqy3DwcjyvUqzP6ppp8PhKd1wvN
-         oSOjb2yulr49YPQXfDHqW2Dz2/v912R9zeMWGYXka6j0OIplFovRoYyt/hbDtq+dCT0d
-         n+etw8nbKx0RskdqzmfUxRGcuhDCc2xgFT0F6cjsmwR2Es0wwAqjlu8py9IKf8CdhJQM
-         RDLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwciHU+5A9pU9R5xJUiScJ0zQ5IMrsISM/DyXVKZiJK6BLuXjE2d3jGNDKkw79EYYVep8Qn08=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ3uf1JeN2CWWFVlD7NsHemzcp0cf+ygYo8kxoUXuxGdYScPk+
-	unhudiGlWCE9clknbFcBfiNJkGyUtJyouQlVsUS46L8DzpIwe5IOm0ot
-X-Gm-Gg: AR+sD10Zr0n8N7s/xRDfNYwWlJtq/JhJgexO/sBofWwYT/BFFuHuCIM9o6WvKj8ctlD
-	onoJyNHvVg5O5bICDDU089oxG8eVPLIXolGEQxnzE+McD2VYOKY7bhcCtO5R0XhExryptHE2+c8
-	fCsMis6aTsHIYJxkD8blgcTz0GX+tkyfDTqilVhJLLEF4MHki+DIRkGNL3IG+UDqG2cw41dSIaL
-	9wavouC94kDpGzfQASkGgdcnJ0l1JKK1KVb4PNLmdEwXm/Zsimtp49vFjHWzWsoRXoh8jlvoViW
-	Ra79AdhTfxxX/InefxulcRwp9Gge41OrviEI9OnyOqH/JI2UlVf5ks7I0Mnq+5j7NGumJQssxea
-	QZAOnfqAdLqaa01ZkWn424oZUN/eSYjYdhwh6b9HGZvyiItKhLhij54c2teXPLMPABs0EikuOhG
-	QNTxdWvg+Lux2dW8E7fNsuf5QRVUQoSZxDyprXfm9Aq3mcu9lICmySRKVhb7fDd8Rdbk5FvcNUh
-	4VgHqQGDEOVF8Yz
-X-Received: by 2002:a17:902:d491:b0:2d9:3636:d01a with SMTP id d9443c01a7336-2daec74e5e3mr70183145ad.15.1788358968023;
-        Wed, 02 Sep 2026 07:22:48 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd383b36sm13853485ad.25.2026.09.02.07.22.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:22:47 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Wed,  2 Sep 2026 22:22:31 +0800
-Message-ID: <20260902142254.5328-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902141001.86733-1-sj@kernel.org>
-References: <20260902141001.86733-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XceFYCkW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BACF1F000E9;
+	Wed,  2 Sep 2026 14:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788359030;
+	bh=om+MNqUxN/33bSJrKK9AMyB00XG1e22iQta6RdD44JQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XceFYCkWoPM5mKujykC1r/IrtNDtFN0WQaxzjdNmFfANhDxwRkeAcKEJewYRieJg3
+	 kPA4Cga/waZkjoc6jRUr/gNroO1z613dWxGub9caE7/GqDCsxP+X3/RBhthdNbkwuw
+	 QcrMVTlbUDxrCvTevhdT33+2FZzCTzGhhkIjL4QGDAk/dPC2Gu6FE57h4L8xidnzZm
+	 BpH06xE3B16yU2ckhRzKUNKItxFm6rX03lxAIyaygR3KJ8PLZXkJOvJW6JeK1XA8Ad
+	 b+KnahFAUM6WT9FjlahU6FcW8BPAbrytgE+8JssV/4Ky31aLeHtoU8EpGqaKzrXnD6
+	 ISqYQDjV67IKQ==
+Date: Wed, 2 Sep 2026 22:23:39 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <apgxa_Lnsg738c5e@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Greg KH <greg@kroah.com>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
+ <2026090256-impart-headstand-7d29@gregkh>
+ <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
+ <2026090249-rework-vividly-5abb@gregkh>
+ <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
+ <2026090258-zealous-oyster-2874@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2026090258-zealous-oyster-2874@gregkh>
 
-On Wed, 02 Sep 2026 07:10:00 -0700 SJ Park <sj@kernel.org> wrote:
-
-> On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+On Wed, Sep 02, 2026 at 01:54:08PM +0200, Greg KH wrote:
+> On Wed, Sep 02, 2026 at 07:42:36PM +0800, Gao Xiang wrote:
+> > On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
+> > > On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
+> > > > Hi Greg,
+> > > > 
+> > > > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
+> > > > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
+> > > > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> > > > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+> > > > > > 
+> > > > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> > > > > > Cc: <stable@vger.kernel.org> # 6.4+
+> > > > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
+> > > > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> > > > > > ---
+> > > > > > changes since v2:
+> > > > > > - add Reviewed-by tag (Gao Xiang)
+> > > > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
+> > > > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
+> > > > > > ---
+> > > > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+> > > > > >  fs/erofs/sysfs.c                         | 2 ++
+> > > > > >  2 files changed, 3 insertions(+), 1 deletion(-)
+> > > > > 
+> > > > > Why is adding a new feature a stable thing?
+> > > > 
+> > > > It's not a new feature (Also, this patch has 3 lines diff):
+> > > > This is a bugfix to address the missing part of
+> > > > commit 6a318ccd7e08 ("erofs: enable long extended
+> > > > attribute name prefixes"") since every on-disk features
+> > > > should be shown in `/sys/fs/erofs/features/*` according to
+> > > > the definition of:
+> > > > 
+> > > > What:           /sys/fs/erofs/features/
+> > > > Date:           November 2021
+> > > > Contact:        "Huang Jianan" <huangjianan@oppo.com>
+> > > > Description:    Shows all enabled kernel features.
+> > > > ...
+> > > > 
+> > > > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
+> > > > to indicate this feature is supported since Linux 6.4+
+> > > 
+> > > Ok, but as this has not been present for a very long time, did anyone
+> > > even notice and need this now in stable kernels?  :)
+> > 
+> > I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
+> > anymore).
+> > 
+> > Also it would be better to port this into stable kernels so
+> > that users can get the supported on-disk features in a more
+> > unique obvious way.
 > 
-> > When setting goal_tuner to 'temporal', if the goal is achieved,
-> > quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-> > will always return true, even if no regions have been tried to apply at
-> > all.  This causes qt_exceeds to increase unexpectedly.
+> Ok, that makes more sense, sorry for the noise!
+
+Thanks for your suggestion and time too!
+
+Thanks,
+Gao Xiang
+
 > 
-> To me, this looks logically correct.  Could this cause any user issue?
-
-Yes, I think this might cause unnecessary confusion for users, at least
-it did for me.
-
-I set quota_ms to 0 and set the target_metric for the quota goal to
-user_input (i.e., MemAvailable).  In my use case, this caused
-esz_bp to be 0 most of the time.  Also, because the quota->ms clamp
-was missing, esz wasn’t set to min_region_sz, it was actually set to
-0.
-
-As a result, nr_tried is 0 (because damos_quota_is_full() in
-damon_do_apply_scheme() always returns true), but qt_exceeds
-increments once per second (likely because reset_interval_ms defaults
-to 1000ms / 1s).
-
-Best regards,
-Rui Yan
+> greg k-h
+> 
