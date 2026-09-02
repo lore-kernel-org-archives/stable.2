@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC872F49F6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9072A2F5324;
 	Wed,  2 Sep 2026 00:27:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788308854; cv=none; b=mhIb4XS7gq49WmfSElOZbBbml0xCqBdFXItkrX/Me77gnCB7v3sIUopeF2KQVoyURfFwkWhKxGKrROq2tI30s9MJQrYt7nMrztIlD8PfI9/GEQTH0bpM+PC1x897mgYEs+E4F19zv9m+IfLmxcLyaHTogVsdHo21mvpF4GJ6Lro=
+	t=1788308854; cv=none; b=lSo6MXGPwwG6Znmmb7yiEk9Wthb5ZiosyBHQmVs0fvoU4KjzfGSOamN4H5h3VbKMJb9A5a72V9A0D1j582btj4MMZBR43oVv9oKMGgJ3pPwRabNftkTYIcLLz4bjaf/ZMei2tPhmNalJ3S90kf2mcu48mvy0WmMD6jubt34UPQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788308854; c=relaxed/simple;
-	bh=mblgMYWNs4C+qYuiFnh28aLwABP3tVSSD3iGEowOVSc=;
+	bh=s7pVSJOEltTV/WyNYgejAsjWg5izNrR7PpH6dlVvvbA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GG2Rh+o8nw8qXMay9lNXXm3RFOBGnDKUnXUs5M43TyN8ngZA6JioMZ+qlYZAqbNctiE4Ez880VIXeNPRwzn1vDws4p7VfIM/dk8wFxC7/YgSH6NdWb5wlLYqQHAdX1yV98ZCPKBBtF2m/u3Wd0r7O/eVoM3mpctLNfrwZX/ayRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBp/q+jh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MDcjH77dJ2JWTHdEINfWQbT2Wgk9HY6zwdna2jCrzLKVz1VsQ9Ligj6Bsq/7SEjFbT2exEj+K6j1MK1TwzlDxyzzf7ZoXy8LXVxX8UuCLUVAiUupjGFHKHefwM3fqg0reGc0PPoQ/9DdaayZQ961EjH6dvfT4ZN3FjgHMPAHdzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JfbAthgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBp/q+jh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBDDD1F00A3D;
-	Wed,  2 Sep 2026 00:27:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JfbAthgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A6761F00A3E;
+	Wed,  2 Sep 2026 00:27:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788308853;
-	bh=4Aq7mCS1n7SM9+gwhZmdlAUpokje7QH5p7CwEaALh/c=;
+	bh=SfHgIbwjiDjLtKHgMa5uADWtbVJn1DArTTqrj0I3xWc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EBp/q+jhGmoX23PF/KR8yCsXY3rmPIUMsqyxq4V7hhR2ZmeEMYnHNawW7n+XfpQig
-	 B1G9yahk9AAoxz0k8lFwwlUpi380TZXoouESL8l8Il9BLlUTCRTtJf2W/jn5dVUywp
-	 9eroAfIphosA0O9NWWvBEzwx++PuM+POU6kUJqq8pFOT191rb2OXS7JgYdnz6VWmwn
-	 Vyt2pKdhGytPl+2a/LsRz8Ch+GAtbWwtHxrCTo3xzwdwYa8PkzBcpoY7ZtlUko1wSc
-	 52cWJM4A6MwNm+AYEKRCq2QYH2Ld46OUbmBLFGBcAh4i0SU6D8CwzCGHyC4+CdSwNY
-	 RLaCZ0mXnFshg==
+	b=JfbAthgRBHPFv6T+0PEu95zWODpJg5fDB1H2k4FMhtqoOLLiMJ4WncB991oUR7IWf
+	 PoEHUuFwqVCyxHyCL43BD+vOyEpBvs28GJTuudj+0ff3DSz0+Dgu0iSVUMwCy548zs
+	 cJLGko83qIa5PJGO1P43gFkkaWELE0yLE3f/ahXTI7H0q5aktc2lqymNmsMj3sUQAa
+	 pda74jc/AR36HHSFZbxGYMpD0BsZdmOVaz7k/ukUl9MuCMk5AbBdPpMMjoqC5M4iTd
+	 oYpbZcwwvb3q+cyDnq78rT+bjfGcIGO1tgnkphsdm5oDM8p62PWmXdMR1uu8BQk1Ud
+	 2FeKTaWhFO7/w==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
 	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 1/4] mm/damon/tests/core-kunit: test committing psi goal to psi goal
-Date: Tue,  1 Sep 2026 17:27:20 -0700
-Message-ID: <20260902002725.108635-2-sj@kernel.org>
+Subject: [PATCH 2/4] mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+Date: Tue,  1 Sep 2026 17:27:21 -0700
+Message-ID: <20260902002725.108635-3-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260902002725.108635-1-sj@kernel.org>
 References: <20260902002725.108635-1-sj@kernel.org>
@@ -51,34 +47,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-damon_test_commit_quota_goal_for() is set to test committing a new psi
-goal on an existing psi goal.  However, damon_test_commit_quota_goal()
-is mistakenly not covering the test case.  Add the test case.
+When DAMOS_QUOTA_SOME_MEM_PSI_US metric damos quota goal is set, the PSI
+delta for the feedback loop is calculated using
+damos_quota_goal->last_psi_total.  However, it is initialized only after
+the first feedback loop.  The first iteration of the loop uses the
+uninitialized value.  As a result, the feedback loop can change the
+effective quota in an unexpected way at the first iteration.
 
-Fixes: 99f89debafc5 ("mm/damon/tests/core-kunit: add damos_commit_quota_goal() test")
-Cc: <stable@vger.kernel.org> # 6.19.x
+The user impact of the issue is not big, because the issue impacts only
+the first iteration of the feedback loop.  The feedback loop also has an
+internal cap of the quota adjustment.  The wrong adjustment will soon be
+corrected over a few iterations.  For this reason, doing no
+initialization at commit time was intentional.  It is also explicitly
+commented.  That said, nobody likes behaviors that are unexpected or
+difficult to be expected.
+
+Check last_psi_total initialization and skip the tuning round when it is
+not initialized.  For this, initialize last_psi_total with U64_MAX in
+the goal creation and the goal commit time.  U64_MAX means the field is
+not initialized.  The tuning round shows the value and adjusts it to
+guarantee the current quota is maintained for the round, and
+last_psi_total is correctly initialized on the next round.
+
+Before this change, committing a new PSI goal on an existing PSI goal
+with goal-only DAMON sysfs command (commit_schemes_quota_goals) just
+worked.  After this change, the tuning round right after the commit will
+be unnecessarily skipped, because last_psi_total is unconditionally
+marked as not initialized in the damos_commit_quota_goal_union().  This
+is an intended tradeoff for simplicity.  Skipping just one round of
+tuning is no problem.  Meanwhile it makes both the code and the behavior
+simple to understand.
+
+Also update the quota goal commit unit test for changed last_psi_total
+setup behavior.
+
+The issue was discovered [1] by Sashiko.
+
+[1] https://lore.kernel.org/20260718005316.89585-1-sj@kernel.org
+
+Fixes: 2dbb60f789cb ("mm/damon/core: implement PSI metric DAMOS quota goal")
+Cc: <stable@vger.kernel.org> # 6.9.x
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/tests/core-kunit.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/damon/core.c             | 13 +++++++++++--
+ mm/damon/tests/core-kunit.h |  9 +++------
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 0df785e72438f..20748b0a71026 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -636,6 +636,8 @@ struct damos_quota_goal *damos_new_quota_goal(
+ 		return NULL;
+ 	goal->metric = metric;
+ 	goal->target_value = target_value;
++	if (metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
++		goal->last_psi_total = U64_MAX;
+ 	INIT_LIST_HEAD(&goal->list);
+ 	return goal;
+ }
+@@ -1129,6 +1131,9 @@ static void damos_commit_quota_goal_union(
+ 		struct damos_quota_goal *dst, struct damos_quota_goal *src)
+ {
+ 	switch (dst->metric) {
++	case DAMOS_QUOTA_SOME_MEM_PSI_US:
++		dst->last_psi_total = U64_MAX;
++		break;
+ 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
+ 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
+ 		dst->nid = src->nid;
+@@ -1150,7 +1155,6 @@ static void damos_commit_quota_goal(
+ 	dst->target_value = src->target_value;
+ 	if (dst->metric == DAMOS_QUOTA_USER_INPUT)
+ 		dst->current_value = src->current_value;
+-	/* keep last_psi_total as is, since it will be updated in next cycle */
+ 	damos_commit_quota_goal_union(dst, src);
+ }
+ 
+@@ -3039,7 +3043,12 @@ static void damos_set_quota_goal_current_value(struct damon_ctx *c,
+ 		break;
+ 	case DAMOS_QUOTA_SOME_MEM_PSI_US:
+ 		now_psi_total = damos_get_some_mem_psi_total();
+-		goal->current_value = now_psi_total - goal->last_psi_total;
++		/* uninitialized last_psi_total; make no effect this round */
++		if (goal->last_psi_total == U64_MAX)
++			goal->current_value = goal->target_value;
++		else
++			goal->current_value = now_psi_total -
++				goal->last_psi_total;
+ 		goal->last_psi_total = now_psi_total;
+ 		break;
+ 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
 diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-index 7071ec277b007..f1e11548c771b 100644
+index f1e11548c771b..af26b3d60957b 100644
 --- a/mm/damon/tests/core-kunit.h
 +++ b/mm/damon/tests/core-kunit.h
-@@ -793,6 +793,13 @@ static void damos_test_commit_quota_goal(struct kunit *test)
- 		.last_psi_total = 456,
- 	};
+@@ -757,19 +757,16 @@ static void damos_test_commit_quota_goal_for(struct kunit *test,
+ 		struct damos_quota_goal *dst,
+ 		struct damos_quota_goal *src)
+ {
+-	u64 dst_last_psi_total = 0;
+-
+-	if (dst->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
+-		dst_last_psi_total = dst->last_psi_total;
+ 	damos_commit_quota_goal(dst, src);
  
-+	damos_test_commit_quota_goal_for(test, &dst,
-+			&(struct damos_quota_goal) {
-+			.metric = DAMOS_QUOTA_SOME_MEM_PSI_US,
-+			.target_value = 234,
-+			.current_value = 345,
-+			.last_psi_total = 567,
-+			});
- 	damos_test_commit_quota_goal_for(test, &dst,
- 			&(struct damos_quota_goal){
- 			.metric = DAMOS_QUOTA_USER_INPUT,
+ 	KUNIT_EXPECT_EQ(test, dst->metric, src->metric);
+ 	KUNIT_EXPECT_EQ(test, dst->target_value, src->target_value);
+ 	if (src->metric == DAMOS_QUOTA_USER_INPUT)
+ 		KUNIT_EXPECT_EQ(test, dst->current_value, src->current_value);
+-	if (dst_last_psi_total && src->metric == DAMOS_QUOTA_SOME_MEM_PSI_US)
+-		KUNIT_EXPECT_EQ(test, dst->last_psi_total, dst_last_psi_total);
+ 	switch (dst->metric) {
++	case DAMOS_QUOTA_SOME_MEM_PSI_US:
++		KUNIT_EXPECT_EQ(test, dst->last_psi_total, U64_MAX);
++		break;
+ 	case DAMOS_QUOTA_NODE_MEM_USED_BP:
+ 	case DAMOS_QUOTA_NODE_MEM_FREE_BP:
+ 		KUNIT_EXPECT_EQ(test, dst->nid, src->nid);
 -- 
 2.47.3
