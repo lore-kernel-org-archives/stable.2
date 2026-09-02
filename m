@@ -1,141 +1,85 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D43149F119
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:55:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357356; cv=pass; b=XX0J1hObPIyNSgY1srjdjZTYosBaVt7kCbhPo6gKhl3U80SvX6L+qiPLf+O19Jmrt+i5eHy3Dn7V6md/50eJfDBVkTeVGxAMwNY+CZyrFNAr5M9mJSgycb156F7B7qhsXL++oz7Oq3nS60GDEHZC6xoduyKckKWDvuMPfJIctlw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357356; c=relaxed/simple;
-	bh=aWJfXd4wDmWh9dR47FITwc4NC22PXsmRS1CTDYUASYY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vy8KtV9Jevov+FpwR6VozrdCdbISMOaQqUR2ZkCMKh8OB8YOtw2CvfGM90+LuPCC7XWSvmg8FuxCOW8yTw+w55j0Bwas4zi0IdC70xs/7nue1ya8OgPQsXkLYpRNwLfgvBxnA8OQftF6yaKloIeMDsPYFyoVArIJuMTdsyw236g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=pbfXIZ4n; arc=pass smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ED4390239;
+	Wed,  2 Sep 2026 14:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358185; cv=none; b=s+qFpmzjh6FwhS/LS961IQ5dQemFJUgqSv+6MVUXqPn2Ep2qHStvlD+7yRdKrfjEpxA7d/1id7gRNwdNX7/nJ+dmivtzLHM7/+4RaUKPN7zIHHswM9MtpSIZ4WmTLSuNtUrwLuZfusMAFh4vlnPBc8EDFElhweJ61lEBAYLbNVI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358185; c=relaxed/simple;
+	bh=hwznEtLz9at2KrCUuawHk7lHioFcA3JjBccZlI0G948=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RVR1f0oEnxYAUMsVXY6BWnnUwMz49Zc7NAPCTWbkUnRiU/xrdw8QeIttjSZhBJ+Ech7Z9sKLpi9IEZNcXOcM0FXFz+m1M9NbJPzJdKYjeoaaBUIVJmyRuufpw/RTnoibHW6YpyRLF6BWJSVzWRwdj2/YSTci9EdVaajtzT/JwKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=STnxJlrY; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="pbfXIZ4n"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8558c0b26a8so878113b3a.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 06:55:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788357354; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RZRP8/f+RHTX/i0GMb70V6o0lp+IOydsunaMp/Q3l5oXbQztAI1PihYmZOrwpomiNY
-         2b1jVkLcCBAynb3FrpdtzXmKXgClbr2+TMnFCSYZEIv3kynfXm07JcvFrwcDok9FkDLR
-         8R4bVaHrDTEHUCcotlnB+/1Let568mes3xRu+sqW7SCD3aJqMfvG7dL+UL6mZoFm4FqS
-         aOXtYNuv14+1e4JMOatyz/Ea8vC/COCjkfgXfnXcoVsUrYdeHWceGRhT11Tuz5U4MFnz
-         E5FwDb6t3TWxP74AnudERO7ZIeWaRfxebdjUZfHLHLAcB+41ubpFzc2LHhOLNr29tbYL
-         40Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EJ2mpWf89VqNLx0HXZpgcj2qhq6s6G2t87DZrq2c6vI=;
-        fh=1U9HK1Y7F15YT/TM8BABcafUXLm3KMzfg3hUXo5H/uo=;
-        b=a53nB6UaIud3721XSAc7m5/3hjMY/UvN2ZjBRHsikGdOws3WpoLbTxf1PnSWy2GX8o
-         4LIPTFrBFqRa0HDFEvvKe5onKBFBGfS/jZUpa/+lN435t9DF/BcXu3oBe8IsyzoRnA9q
-         nVMBLJHEUaFu04Ne9VRm4KeFgdvKcdcgPSZR2WCUQC+4x5G8t78/Y6JyoMO/3PixEHPS
-         a1pA1XXUxwXO6iBC2S649Lw7DAElDbOQf3/pSjEAtbv7LvA1g3aVZJ0TygOIvTbj8IDl
-         0emBoCqpPNl404ZJSfZFr1qjKu9TAXguWZf/9wf3OdVTfpAbEc7FRQfPUzFwrUOdMCvM
-         1R/A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1788357354; x=1788962154; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EJ2mpWf89VqNLx0HXZpgcj2qhq6s6G2t87DZrq2c6vI=;
-        b=pbfXIZ4nvID9Klhe2XTdjzTVKrjbZYkp7QXxvh6EykRkjG0S7hqssw0ZqSwyh7/wj7
-         Nr1hsqWHTfb/U3qlxkXT2IYQdLTlIRusjEGchJx5TIJAse3YexkxM2JUq+olOxkkpuM/
-         BFLBjsqt3mn1TZJYxVAFnRngM5Uf9ZdI5/qpk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357354; x=1788962154;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EJ2mpWf89VqNLx0HXZpgcj2qhq6s6G2t87DZrq2c6vI=;
-        b=fQY+hWiW7itEKlkCxE/w/RE6NvF/Klx3PSRmzs0LV7o0JreHEqdreIcN4gBVaCnLlo
-         tyevszjeBLT76mm6LmhvkjWxuT/tL9PCyOBaZEtLaasgkps1UZS+GgsH8Bx8NkIO541T
-         3/BJ1FERGMGkAupe7sidFu/NVRI7DQWSfJ1ZzsC14hJ9PaTTPF4gveH3XxBttiQOGILj
-         vJD2uLm5vJzExJ8ns2q5sZS7q+my9fJgo7qjmaCZyJWVjQJwDqEbn1nYce7ojvIg4b3M
-         o2VP33LfvggmfJ8OLuvy6DyYwftGWeiK/4i9nP630pIP/tCbfTTOuxCnEStfzY+3mvVm
-         qlOg==
-X-Forwarded-Encrypted: i=1; AKwUvByBtQxcUzvvXV+Yzrx1bvFEO6asytGHH/qfVJyGc5I4HVqJrOndacNWO1PPscBwOjyzIQz0TWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lk42ZN2UQAFzHwXEVRlDJK4x3C8VBVShw2xWtnMqcLOk+l2hY2
-	TDB6JKk5eiZm3JVJtmYa3LEKdUTALbRPivzHUx/lNQx3UX3oPRcFDGRfO4S2bt8QSAblX4HsjhI
-	Ui8LAgwnkDHQYuqbtoXcGKKKmKbwLydkbfo3S7ECY
-X-Gm-Gg: AYBFou2TvP229C25YTzcaSbNBEJ3DLZ86EFpHhbUgcZUwmhfTHUgK3y031sBi0u91e8
-	Rme/jrsdHhSQs34KjUT0RoVj7jYJQl7wOH1EtYHfhe790jU5ERG5qXw+NUlscCTATsnH0yF3fal
-	GJe1N8zJPEX1IaWJWXe2kWrkNO8neo5JWMViQ2eGseM7p7JCMk8t7lwtMPJWw9Vk3Xj0WvcI9C+
-	IIkG1WOR8orBvJTls4PNs+CP6hItgEG0cCksiXozieX8jTCFBXLd91DHSfbrrb7aoN9X03gcUDu
-	G8uJ50U7n6OIT2k6xDkUjE282CfHYO1LKp93p9UbrQO1z3qrEgDgC/QIBbK1lz49wb1Y6IcsLDd
-	9PNn+b9VeNZVm8ajdwC424iTHck4=
-X-Received: by 2002:a05:6a00:a90c:b0:857:727c:a1f3 with SMTP id
- d2e1a72fcca58-85ed4446f43mr8360770b3a.21.1788357354260; Wed, 02 Sep 2026
- 06:55:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="STnxJlrY"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c47d4e66;
+	Wed, 2 Sep 2026 22:09:34 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] mmc: sh_mmcif: initialize IRQ-thread mutex before requesting interrupt
+Date: Wed,  2 Sep 2026 22:09:26 +0800
+Message-Id: <20260902140926.3576781-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-0CFC.v3.20260901204856@mojatatu.com> <QDISC-0CFC.v3.20260901204856@mojatatu.com.2>
- <CANn89iJCBTSGwKK02xw0XdZRsP=2VGmJny27cdi0bnpz4aBwHg@mail.gmail.com>
- <CANn89iL+o5mdPOvRUy_vSiHxj3Kc9Wzr3HV_dGf2tsKJJNwniA@mail.gmail.com>
- <CAM0EoMnENJAY7pP9dP6pbbWnW44Ug-Ow3C=sf87pfOTwxjMdaQ@mail.gmail.com> <CANn89iLr_3Z1MTa6U9SuooU7q-Yw8nXgRb=heSvoR=uUSTJgzg@mail.gmail.com>
-In-Reply-To: <CANn89iLr_3Z1MTa6U9SuooU7q-Yw8nXgRb=heSvoR=uUSTJgzg@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Wed, 2 Sep 2026 09:55:42 -0400
-X-Gm-Features: AcwNN1Ws4v9UkYRayz3vT-mPBxZxcfT94vInR1hDg84Grfk8lViPb6ahDTIVL2w
-Message-ID: <CAM0EoMmB+W6gkKpWD0JNXgxK8=9U9CiSrP-rEAE52KADvq-TQg@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/9] net/sched: fq: clamp quantum and
- initial_quantum in change path
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, 
-	stable@vger.kernel.org, =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>, 
-	Vijay Subramanian <subramanian.vijay@gmail.com>, Petr Machata <petrm@nvidia.com>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06274269103a1kunmc427f4561ad27c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0wfVh8aH08fSh0ZQ0JDT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=STnxJlrYaprVQet6E8MpyhvyWvOQRi7r7aEZY5pMAw1sP1Raw/frzxfzu5UWKA6sBE+zY8qiFR2ev/Rvu1TqhN9g9arf6c9yb4kFVn9hPINnTDZN3J+NyqcGG3EggICdQTLS+cuuxbiUDVC20baLnHOxX0c/CfVa0yHphH1xAWM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=gyRX29A6v4W3vpaMus1y6buRgYO80vg2lKvJYVXDFcE=;
+	h=date:mime-version:subject:message-id:from;
 
-On Wed, Sep 2, 2026 at 9:04=E2=80=AFAM Eric Dumazet <edumazet@google.com> w=
-rote:
->
-> On Wed, Sep 2, 2026 at 2:40=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com=
-> wrote:
-> >
-> >
-> > Trying to understand your concern: Are you arguing for
-> > stylistic/readability improvement or robustness?
-> > The only place i can see where the multiplies you describe could
-> > happen is what the 709f34f7c28d patch closed. i.e this part:
-> >
-> > -       q->quantum              =3D 2 * psched_mtu(qdisc_dev(sch));
-> > -       q->initial_quantum      =3D 10 * psched_mtu(qdisc_dev(sch));
-> >
-> > IIRC, you are suggesting restoring the original logic (x2 and x10) and
-> > i am likely missing why that is a must do? Does it break anything?
->
-> It does not break anything; it just causes a cascade of various clamps.
->
-> After your patch we will have:
->
->        mtu =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
->        q->quantum              =3D clamp_t(u32, 2 * mtu, 256, 1 << 20);
->        q->initial_quantum      =3D min_t(u32, 10 * mtu, 1 << 20);
->
-> So @mtu is no longer the psched mtu anymore.
->
-> This is fine.
+The threaded IRQ handler can run before devm_request_threaded_irq()
+returns, but thread_lock was initialized afterwards. Initialize it before
+requesting either interrupt.
 
-The u64 variant would read cleaner for sure.  If i didnt misread you
-though you are saying the current the mtu-no-longer-psched_mtu
-aliasing is fine. So would it be ok to see if any other comments
-spring up from says sashiko that are worth reviewing the patch before
-I proceed with this? Or do you want a v4 or a followup?
+Fixes: 8047310ee984 ("mmc: sh_mmcif: fix a race, causing an Oops on SMP")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/mmc/host/sh_mmcif.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-cheers,
-jamal
+diff --git a/drivers/mmc/host/sh_mmcif.c b/drivers/mmc/host/sh_mmcif.c
+index 7706d01b1..8bd9cdeda 100644
+--- a/drivers/mmc/host/sh_mmcif.c
++++ b/drivers/mmc/host/sh_mmcif.c
+@@ -1461,6 +1461,7 @@ static int sh_mmcif_probe(struct platform_device *pdev)
+ 	host->pd = pdev;
+ 
+ 	spin_lock_init(&host->lock);
++	mutex_init(&host->thread_lock);
+ 
+ 	mmc->ops = &sh_mmcif_ops;
+ 	sh_mmcif_init_ocr(host);
+@@ -1515,8 +1516,6 @@ static int sh_mmcif_probe(struct platform_device *pdev)
+ 			goto err_clk;
+ 	}
+ 
+-	mutex_init(&host->thread_lock);
+-
+ 	ret = mmc_add_host(mmc);
+ 	if (ret < 0)
+ 		goto err_clk;
+-- 
+2.34.1
+
