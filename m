@@ -1,164 +1,227 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010041.outbound.protection.outlook.com [52.101.61.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9A74A49B0;
-	Wed,  2 Sep 2026 14:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360872; cv=fail; b=RMj0JHt8tTM9QyfNpTtY8y3dwwmCk2+nwETDZihukkbVej43MTt2he8T64EXoTzvtUn7KyUc7mocAcTMIkXLfxXLdZmsMdBaD4CzZw2xo4NMXrfR1FHmJjHs870X21gmNq5SQkX+87we/fI0370B8ZfCRqDthdP9iwyhHks3Tyk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360872; c=relaxed/simple;
-	bh=GFBiO9A3R1DdSQtw3Zj61Y8Z4ujEmPa5EryOVQrbfV0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=ghUlQ+v8o9K+gTgXFyL4bpsZcPEhdZhhsuooEglTqZA7BAjJg3HmfFOePPXVLUBE8tPUxkAk1DtCQXgmx/Bf84eOKXi7W2NDsf8+tUqll4FRH36Uq9owiUsqAZjYzh1k3J5siKz5rJCcJhQfoiXmwHV/kx93YtawBmK9GzHWH/o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Gv+l0vHC; arc=fail smtp.client-ip=52.101.61.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7193A4A64CF
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 14:57:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361024; cv=none; b=mWRw5wY1G4p7cjMnBEWoziDxqCjQ1Rwu9l6DwOjjE1Xb196KCMkSUquAOOaeBDdzr3wPnJhmh5VU2WeAUneb/meKUimzoXeq/gCfgN60zwudlIhmBpmh3vnVBUALD9zz75XI3OQeaZ4yukplN172mFrnv7+B5Or6jvZ38rMgkfw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361024; c=relaxed/simple;
+	bh=YXYiQ6MlkwSY9s0/iRzorG5wwX8F6Ons+fpr1FTHCdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FI6/TcQjMnVRUDAlWNV7JtLHsW0jo2rV7pObgwyujXA8PzQGaHn2fFcELLSjxNgR+LL6pCQhPFVPwd8KNhDK2e+eHMuYI5GBNDFqjSiN5D9Irh+D4KF/M9AdRtMtGRAw04Z2OjctGmijHkFqQCAGer0RAviDZ+C8Fps3Geo2W+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ng05+O7v; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Gv+l0vHC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NvTmb/HDoGzEdP9mLeQaVO9ASSchu7zqQpNC+yAzVwj+YqBf2Zm9npcggsN1XelFynszHWjTmrX89wYEs7x7CjRTsJXZPR5pEHoz+dXDGSXHqtsypMoWPSdz7aLeVmagoW1h5xk4ZN+a1IH/DJOZauLY8iyzm1DR7NfZKqvZILjOryZ1zjxz8wg+AvuQhqG8L1tAcqJ530N4w2nXUCZCvAEIaYKFwcy7MHRgtHD2mvC2AhKlz1jyHnhm+SkAHAtj1mcgSrF4UsyckNVGaIC2JncYlMLQFzQfiQ04rT5TFhlWns/I/GXjvssBPRaIHRyPAp0cYWt9KeVN+9NK6rgvuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f/ZS7X3ggK43tAW7W+G/Y30MCYOfltg3DxH2mnj1k9g=;
- b=lSjBvwoYO5/TsNC7d4v7WxE5pinJyObkuP6rfwoTwZFTIzjQtcAWVKvgJEw/fH8sNhCf6/Z/emIh1+6nbxBe+1HvERtgrGE3i3Mg8/tTGCIFssSl3S3h5kWqVuuARYGAsV6aDy/IcdW97nuUnbCkJxa/PH0GyFZZWRljVVpNbVgTGEDiQdAwDdNlwi6osLAV+j61JV+K2eCD2Rmlpk/sUNAHY346i+tzAB64HiB5j+Dovk1bnDS8lpvUOZiosDdoqpfrRqhMYVnMOVRNFDh0SdWd7EdBjDRHtxDZimKJ2MtQ+oaGSKMEtGlv/u1QnAeLZTz4RL1T6LUYKHPSWvM3xw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f/ZS7X3ggK43tAW7W+G/Y30MCYOfltg3DxH2mnj1k9g=;
- b=Gv+l0vHC4+k9vhEB5AL7KkBF6x3Kqu8Gcncz9syuNa7hrEZ4d3rWPHCwKbfnXgZlj+6SjyYD6pKw9+hxS1+VY9KXMGwZyRecRmiwD5ASjkavcYYpPVc1Bzyaf8dUcy+KUFEFFKRvlK7MgtviStaX0uFKCYYwGySyCmBiBIO2MGM=
-Received: from BY1P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::6)
- by SA1PR12MB9470.namprd12.prod.outlook.com (2603:10b6:806:459::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 14:54:22 +0000
-Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
- (2603:10b6:a03:59e:cafe::1b) by BY1P220CA0048.outlook.office365.com
- (2603:10b6:a03:59e::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 14:54:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 14:54:21 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 09:54:20 -0500
-Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 09:54:18 -0500
-From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-Date: Wed, 2 Sep 2026 20:24:04 +0530
-Subject: [PATCH] usb: dwc3: am62: Fix runtime PM usage count leak on probe
- error path
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ng05+O7v"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so12819625e9.2
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 07:57:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788361019; x=1788965819; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
+        b=ng05+O7vLEqirf+5pwkWz4sEc77tcKJTALKYq4rwr0kUqEI309d5lpke6vQF4rhdgH
+         0edv06cHEY4TtsLK7+UVjCYjDYqTZgAIFl+UaWaMD/BKzavwRNFlyzTteTRbrek+Pu25
+         lW/Kqq5SROXhiWH+XgfV3rwuOoc3R/3QxkKNwpmpB0eCtf+eOTheFTUnS60O5T8oLRuM
+         pnFpiqYCvF1IC5BppWIpcNdg5c6os3UB3ZCM8HnWgGeuOgpmISzAD/2wM/fkpV7pa2Tc
+         OgPhAURYyx0633GZ1OxDEvE2i5mYYYy4rM/TwVuKcsb362ENV+akpuW0UfBL4MN3JKR0
+         qKkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361019; x=1788965819;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZKBfOg4ndfWf72OBMR4MzaBGR2UKb0LfrmxRQ5wr5p4=;
+        b=ijLzV+P+f7j6rHTmm70Mdu2NPK9mq1N2FpIk+zfMj/CX1+9N8kAxJYPas73ZLe39j8
+         LMG+fYxreWmCH71iweHaCTkqcBeUQLMpzD8mT3W/bFj7ewcn3UPeHtuWkJSaNRppnH23
+         1E9K8EsSDcas4wf4naYSii4AipVfSeJ8zW7jf0CYgLO7HcVpqng9WIRj85bIY7YXVbBG
+         9wPrdbX7qyZ5ZOrJMl/F4B1Coj2U1UySymfGYWAaMqyeQJaaGO404O9mjzB+apRDuYDp
+         f1Tn+tbxx+EYNnEd8kqkMmtJbwZshg8YPJkbOTHCTVm4VGcxSdKU20GxbAigX9JSxOKx
+         gIMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrjNmU/KpZrLU2lLLehk3BKwSkYZTN37SeMtHVhks2zJzNMt1LDsAb3DD7KFkorizLZlHVK2Lk=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/PpT4Vo3c9JBXeMotgHeWB1APChRHT4kkTYUBj7cPAubUk9qF
+	ZNWlPoM0O6K1koI5GPzXTajzoolt+c9AY7TEGYosf4Ww6VDyRtQw4P0=
+X-Gm-Gg: AR+sD13e9MYCrIyxbXjO80TRxw4zcgtRugM+YxH+RSFf97KUa87jpGiSHVPFil1cvLj
+	Nel8VkIu9aFKfh0eO6Xn9R/p3To5yHj2YxWvm/6InkhWDSpuy6psfKOvd9sORm+tVu06qhT+z5z
+	2ZHfR8KuA+hgB8DDZUEw9QDMsX63hNZcYt5yeJ94G6Bn582hB9wendINPYLFjf5I5M8SFMUQBhf
+	rngmXS2eVfg4pXJwvMmW24uqSQcuc2MyorT/ScsyIWZAxfaruRikjF1I/6FYABTPOni8gsw5N41
+	M/2f51SVhDKSH5mbo1F7730cYEZ4Za9OLmst8dN8w+ohPtyJUAFpMhnkLqQ6FwWdWB14KeWWw7v
+	GQmDufY9+3yIane+N5A3AGUhsLmhAORs56BOYIHyiY7LTwP0JNvbK1rKw8F/DVr/a/8Oeh+GzJo
+	DD1G8/r3XJVTaoh4ANNZzrgfL5wlCbEdQqU55VidV7e6Adefz2G8Bbgu8NRI2tNZdB0vtLeBu7D
+	BVA6GB9LLYGDNMSrjzOBgEeZI+W9J74js0CKACy6zC03Ch35D5hrqDWc9Ewbvn/SUBSvLj/
+X-Received: by 2002:a05:600c:3494:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49ce57ee273mr106063775e9.6.1788361018773;
+        Wed, 02 Sep 2026 07:56:58 -0700 (PDT)
+Received: from chateau ([194.65.85.67])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm61084215e9.1.2026.09.02.07.56.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 07:56:57 -0700 (PDT)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Sergey Zagursky <gvozdoder@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: ipu-bridge: do not use the CVS device lookup for IVSC
+Date: Wed,  2 Sep 2026 15:54:39 +0100
+Message-ID: <20260902145440.1786297-1-gvozdoder@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260902-dwc3-am62-rpm-fix-v1-1-7a2807e33307@amd.com>
-X-B4-Tracking: v=1; b=H4sIAIw4mGoC/x2MQQqAIBAAvyJ7bsG0hPpKdBBbaw+aKFQQ/j3pO
- AMzLxTKTAVm8UKmiwufsUHfCXCHjTshb41BSWXkJBVut9Nog1GYU0DPD4794JyXZjJWQ+tSpqb
- /57LW+gEV5rBjYwAAAA==
-X-Change-ID: 20260902-dwc3-am62-rpm-fix-514ccf0696a3
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Aswath Govindraju <a-govindraju@ti.com>, "Roger
- Quadros" <rogerq@kernel.org>
-CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1691;
- i=radhey.shyam.pandey@amd.com; h=from:subject:message-id;
- bh=GFBiO9A3R1DdSQtw3Zj61Y8Z4ujEmPa5EryOVQrbfV0=;
- b=owEB7QES/pANAwAKAcJReB2ribKGAcsmYgBqmDiZMnrWYhEl1cMliYsXHVJaOHLx5brJom8Pk
- vmAylixfKqJAbMEAAEKAB0WIQSu/zhVY311S11OBhzCUXgdq4myhgUCapg4mQAKCRDCUXgdq4my
- hiwoC/9W2VCqm6cx3gjGbIb1CI0Es1KU6VCDqdkHP8XOlOGV4TTVBmQoOfb4uQ1GJhNEXrpBMY5
- Mt1L/symSRcIWjZRDPy5mNOoEmtM5amCtl17N7L7ED27wNjd+ml+KX77jsW6tG9JzKnw+yUGKAr
- QyefOKTVj546mleR3Oq5jO93DqxHoQC/OLeIiSvO8uAOAIT0kBL+Ld2J0ScttEq1fehbD8axQtq
- tmbQ0Xr2TUd7rQvhZjUpKtwBJxPCWOqlH/gZR2YE23a7HAxpxtnZYGej7zDn87SvXnhG8+qcWEi
- tTQQi3Jl/eMBU1WUj36DDZQTKcPgmD/exw3oEpz9n6d8Q3uCMORU+vQqG1NZmG1nx+3OXze0J/Q
- XtRMAMEkI7XBMeQICfsdNH3XQGDvkpRFIg06fzfWSrH8jd3e75j8oIX3TIt5cpZMsZKcoiOLYjv
- iygYDWlw00tRFwNJCw2eA/9RGX8KFz+DGHNc1mMbe1zlIyWL95etG9/iNbto1fLJebVYU=
-X-Developer-Key: i=radhey.shyam.pandey@amd.com; a=openpgp;
- fpr=AEFF3855637D754B5D4E061CC251781DAB89B286
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|SA1PR12MB9470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 895e534e-46c2-4c21-12d6-08df09021290
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	dwYOaM3FsgJvBH+9ZpFh/sjpyuPGxG5DOq+LRGLfM5tfjiGYZArl7ekmc0DOatDK9a7F9EvwCEhPzZXDPkcPmnW9ZHhXIhGJKxOCu1nTBV+MpBKbEe4aBNL3T299Ag+/DE1X6x1vY2wnQ6tpKwJ5cFWKOgoPumyYmkHfR1zEeMC9/+EnvdAN/8n3PhczPbcVOifpXti7AUl3NDHlYXckVQno2Cj6w80uPlGJZxJIZ6c/aLjbbHIjd3auKZ2uRDvywyZ5wcepbSsY9kWzfUuRih63BHmdqVeK5Xyvd/4+rz2JSChmB02BFWCdWQILOUspIhRa1hJzb5aj+U244GnojOCnxtnK/VjockO6RRaNkKQYMVaLUPTrMq5fwYu91gie6w3grDk82JneTD0J2Ksypyod4ul2vUEp0bZDAIXmSHGWvRxANPXK7ghCwpo+y6MscgqdWT1tsiKtygZAnjB3iWMvjbm5dBRo36IQ/HmvL88tG+KmedCoeZ19ExJ77OLsLX0FlW4xV8sLp6Ol/SS3c6qJ54Dbug7Jye86Z/G8fpXt+IpK/hARHsI9jFI/veicLH+xfnXhcm6WzhIcAZ6yi8gdqVZU06HrcNvoBXNoP03UDd4YuRgBkwHsfcoX/m2Te7oGll0+rXSEf6KF5zCBjRBMn14192Lp0rv2Un+AsYdeQVDvrs/Cbb0HLTO/wgGBZxD8qs+6Hprg6RypTRyxwg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fJVDDMq8rZrQNuec/RIFrx4mr66p5ZFWUMeE6E86wgG0wZUNCrF27uficvhal/c3ZIrp/tcrzeo/fZZlXj6JsueO5KHpRvvYcYWKFtDeXT4xwBT+p7uGVolzlmLaatjDhdKPqcV7BqGRNSUV1N1194cBFFYthiLJf1VHLeGVeegZ2dXTZRPGJgig/p6iaofsj4LxmObGafkovCYRdijnqNexNdcyTy9/jk61ajCb2awiFBniP9VPQiMg3XAsDc1qFJfJlk86gJJXVvu4igDbJM5XxERFEjkvX/GLWqbgHTU9wFW4M+BanVF1zBYuobCe30e0iLWvnl0PZQ3qlzdxp1SHPwXyllkuL36X5Ox+2W+Q6FEhAmeivh1W12DKyL0/WZkAi5Y4f/BAKILMtAD05bHw30q5PM9jJLqLX6NRuPAQkp7Nh96Fa9b/Hsnd18vt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:54:21.4635
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 895e534e-46c2-4c21-12d6-08df09021290
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF0000231A.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9470
+Content-Transfer-Encoding: 8bit
 
-dwc3_ti_probe() takes a runtime PM reference with pm_runtime_get_noresume()
-before creating the dwc3 core child device, and releases it with
-pm_runtime_put_autosuspend() once probe has succeeded. The err_pm_disable
-error path only disables runtime PM, so the reference taken a few lines
-earlier is never dropped.
+Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+bridge driver") the internal camera no longer works on laptops where the
+sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
+INTC10CF, ov02c10):
 
-The usage counter lives in struct device and is not reset when the driver
-is unbound, so the leaked reference outlives the failed probe. If the
-device is probed again, through a manual rebind or a module reload, the
-counter starts at one instead of zero and the pm_runtime_put_autosuspend()
-on the success path can no longer bring it back down. The wrapper then
-stays runtime resumed for good and autosuspend never kicks in.
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+      without device fwnode!
 
-Drop the reference before disabling runtime PM, matching the ordering
-already used in dwc3_ti_remove().
+No sensor subdevice is registered, the media graph has no sensor entity
+and userspace finds no camera at all.
 
-Fixes: e8784c0aec03 ("drivers: usb: dwc3: Add AM62 USB wrapper driver")
+ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
+"intel_vsc" and returns its mei-csi child. That device is created by
+mei_vsc, which on this machine only appears once the LJCA USB bridge and
+its SPI controller have probed, about a second after the IPU6 probe that
+runs the bridge:
+
+  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
+  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
+  07:59:42.391  platform intel_vsc created (mei_vsc)
+
+The commit above added two fallbacks for CVS which match on the ACPI
+companion alone. They are reached for every entry of ivsc_acpi_ids[],
+IVSC IDs included. The IVSC ACPI device has two physical nodes:
+
+  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
+  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
+
+so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
+platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
+software node to that device instead of to the mei-csi client, the bridge
+reports success, and the probe is never retried. mei_csi later probes
+without a fwnode, the CSI-2 link is never described, and the sensor ACPI
+device, which has an honoured _DEP on the IVSC device, is never
+enumerated.
+
+Before those fallbacks existed the lookup returned NULL here, the bridge
+failed with -ENODEV and the probe was retried once the IVSC device had
+shown up.
+
+Restrict the two fallbacks to the CVS IDs. CVS binds a driver to the ACPI
+device itself, so matching on the companion is unambiguous there.
+
+Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
+Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
 ---
- drivers/usb/dwc3/dwc3-am62.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes since v1:
+- Wrap the ACPI ID match in a named helper, ipu_bridge_is_cvs_dev(), so the
+  polarity is readable at the call site. acpi_match_device_ids() returns 0
+  on a match, which made the v1 condition easy to misread. No functional
+  change.
 
-diff --git a/drivers/usb/dwc3/dwc3-am62.c b/drivers/usb/dwc3/dwc3-am62.c
-index 632634d6e81e..d03b3950ce04 100644
---- a/drivers/usb/dwc3/dwc3-am62.c
-+++ b/drivers/usb/dwc3/dwc3-am62.c
-@@ -299,6 +299,7 @@ static int dwc3_ti_probe(struct platform_device *pdev)
+v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
+
+The functional testing below was done with v1 on the affected machine (Dell
+XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
+drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v2 changes
+only how the same condition is spelled, so I rebuilt it but did not boot it
+again. Without the patch libcamera finds no camera at all; with it:
+
+  $ cam -l
+  1: Internal front camera (\_SB_.PC00.LNK1)
+
+  $ cam -c1 --capture=5
+  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
+  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
+
+The media graph gains the entities that were missing:
+
+  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
+  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
+
+and the restored retry is visible in dmesg:
+
+  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+
+"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
+i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
+
+This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
+change without the INTC10FA entry, which 7.2.x does not have. Building
+drivers/media/pci/intel/ipu-bridge.c with W=1 produces no new warnings.
+
+Not covered: v2 itself is only compile-tested (no new warnings with W=1);
+I have no CVS hardware, so the CVS path is only reasoned about, not tested;
+and I have not booted v7.3-rc1 itself.
+
+This patch was produced with the help of an AI coding assistant; see the
+Assisted-by tag above and Documentation/process/generated-content.rst.
+
+ drivers/media/pci/intel/ipu-bridge.c | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98d6b..a29d4bdb8f02 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -232,6 +232,20 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
+ 	{ "INTC10FA" }, /* NVL */
+ };
  
- err_pm_disable:
- 	clk_disable_unprepare(am62->usb2_refclk);
-+	pm_runtime_put_noidle(dev);
- 	pm_runtime_disable(dev);
- 	pm_runtime_set_suspended(dev);
- 	return ret;
-
----
-base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
-change-id: 20260902-dwc3-am62-rpm-fix-514ccf0696a3
++/* The subset of ivsc_acpi_ids[] which are CVS, rather than IVSC, devices. */
++static const struct acpi_device_id cvs_acpi_ids[] = {
++	{ "INTC10DE" }, /* LNL */
++	{ "INTC10E0" }, /* ARL */
++	{ "INTC10E1" }, /* PTL */
++	{ "INTC10FA" }, /* NVL */
++	{ }
++};
++
++static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
++{
++	return !acpi_match_device_ids(adev, cvs_acpi_ids);
++}
++
+ static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
+ {
+ 	unsigned int i;
+@@ -283,6 +297,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
+ 		return csi_dev;
+ 	}
+ 
++	/*
++	 * The lookups below match on the ACPI companion alone. That is fine for
++	 * CVS, which binds a driver to that very device, but not for IVSC: there
++	 * the ACPI device also has a driverless platform device, which would be
++	 * returned instead of the mei-csi client. Return NULL for IVSC so that
++	 * the caller fails and the probe is retried once the IVSC device shows
++	 * up.
++	 */
++	if (!ipu_bridge_is_cvs_dev(adev))
++		return NULL;
++
+ 	/* Try to locate CVS device on the I2C bus */
+ 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
+ 	if (csi_dev)
+-- 
+2.55.0
 
