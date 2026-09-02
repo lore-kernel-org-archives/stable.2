@@ -1,119 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29514A0906;
-	Wed,  2 Sep 2026 14:23:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C4E4A2A78;
+	Wed,  2 Sep 2026 14:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359032; cv=none; b=Sn6poH8iTBIoLUcHQXsyGDQDiRGdJTG2wh2+ZXl3dLZHCpqkjWtEwKJbXgV0IUFGgg/LcB9sd5fz/dFUAalW0C+y0pSaq241NO0GxRStUILrKi5mC5TFYp5TQ1jdgL/ZhRQA+hyy4DbmJtSg95zUeCc01L1IOGxS7iNJEkYWQ0M=
+	t=1788359037; cv=none; b=o+/HRMvoYzSmKe8jgLIPLb59JUGjib0PS3VzgxtKuRIvoUM1tz3LnE+btAoSKtPM7amAEkADsNOm4N1GGpIckhvzPWs25pp+viEuh37HPL9f+qcY+g7biAYmixoc66crCJF0Pylgp4F1CQFJj8qhnlfYWFYr0sdroNpIt+FjntE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359032; c=relaxed/simple;
-	bh=G+5iLF2EpPq889xKGqaxbuxTwbku0pNzH3CmMhC2184=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bDqlR8ALQ4SzTjDjWG1fR/j6c9Es81ZMAmUjL6T9HTyWUwVURP6NPq7eN5ZqfqEdZ0T8uk57JN1cN3AjY03bj97iaAkFgxIDvsBkWr/fkWOmUQzJ79A+4u+4tXlmzDv8sm4fKrrxxNRp++TkXLHuC/nVvtJi8S5NnuHXe90nf0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XceFYCkW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788359037; c=relaxed/simple;
+	bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bIhpvMd3GFPXKCdXLXUodW6SBVqSzvy+oSfgnGMgx8+ii1UZmL4SPqF2w23eeKW6NVsXDK0SlW2KgJ3q8mKo//FCVdk3MiVK9thWtpIP3tGqQUblhHAhYhAMmst1PmaDqDl19zP7O8eWAwskXi6tCAa7gy0lKAPp2Ki7Lap7e1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N5v8vvl2; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XceFYCkW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BACF1F000E9;
-	Wed,  2 Sep 2026 14:23:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788359030;
-	bh=om+MNqUxN/33bSJrKK9AMyB00XG1e22iQta6RdD44JQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XceFYCkWoPM5mKujykC1r/IrtNDtFN0WQaxzjdNmFfANhDxwRkeAcKEJewYRieJg3
-	 kPA4Cga/waZkjoc6jRUr/gNroO1z613dWxGub9caE7/GqDCsxP+X3/RBhthdNbkwuw
-	 QcrMVTlbUDxrCvTevhdT33+2FZzCTzGhhkIjL4QGDAk/dPC2Gu6FE57h4L8xidnzZm
-	 BpH06xE3B16yU2ckhRzKUNKItxFm6rX03lxAIyaygR3KJ8PLZXkJOvJW6JeK1XA8Ad
-	 b+KnahFAUM6WT9FjlahU6FcW8BPAbrytgE+8JssV/4Ky31aLeHtoU8EpGqaKzrXnD6
-	 ISqYQDjV67IKQ==
-Date: Wed, 2 Sep 2026 22:23:39 +0800
-From: Gao Xiang <xiang@kernel.org>
-To: Greg KH <greg@kroah.com>
-Cc: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
-Message-ID: <apgxa_Lnsg738c5e@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Greg KH <greg@kroah.com>,
-	Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
- <2026090256-impart-headstand-7d29@gregkh>
- <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
- <2026090249-rework-vividly-5abb@gregkh>
- <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
- <2026090258-zealous-oyster-2874@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N5v8vvl2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788359034; x=1819895034;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
+  b=N5v8vvl2wE+ptdTvFMbkvnE1Z4uNW4hBecuaEJUtOoHgAq2E2lR1s7XS
+   7xyitZuoPGqgQoqmvzkuMZTpM1tyGJXFiKdPxdaSCq26BFXtNxiJ1HLKz
+   xG+JvKQqGv6dVgXaMDtyxfNOoPNbDukot3iOhYc7YfbGFBRl307mYXMVB
+   +qHcqIdoaQ6Mytd3idF2b1xs7Z+pqWaEo3FIr3gCfczDnWRT27WOA0nC7
+   g9F1fR/4JbzSPTwQXjFpAzsy/6T2xrTjGUXBmf/hHTPpMpITYBiH0/eWJ
+   h1/07n72YfX+EF/Lym5CpfeO2z847kolCcNNpsxAMSJoVFBkAVXkQ08oz
+   g==;
+X-CSE-ConnectionGUID: Kp8C1vSzRcSFEgr9Mc2itg==
+X-CSE-MsgGUID: +heZ9xvFRQOXXsBmplyOKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111589546"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="111589546"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
+X-CSE-ConnectionGUID: tLMNHySdRleUHQO17kDM5w==
+X-CSE-MsgGUID: Jp9or/KzRvmEGsX4kpi7WQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="307636256"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.110.100]) ([10.125.110.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
+Message-ID: <1814c678-8c4c-47a2-a0d6-a97cf5b388d0@intel.com>
+Date: Wed, 2 Sep 2026 07:23:53 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2026090258-zealous-oyster-2874@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
+ GNR systems
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, andrew.cooper3@citrix.com,
+ arjan.van.de.ven@intel.com, stable@vger.kernel.org
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
+ <20260901231634.714144-2-chang.seok.bae@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260901231634.714144-2-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 01:54:08PM +0200, Greg KH wrote:
-> On Wed, Sep 02, 2026 at 07:42:36PM +0800, Gao Xiang wrote:
-> > On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
-> > > On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
-> > > > Hi Greg,
-> > > > 
-> > > > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
-> > > > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
-> > > > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
-> > > > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
-> > > > > > 
-> > > > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
-> > > > > > Cc: <stable@vger.kernel.org> # 6.4+
-> > > > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
-> > > > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-> > > > > > ---
-> > > > > > changes since v2:
-> > > > > > - add Reviewed-by tag (Gao Xiang)
-> > > > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
-> > > > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
-> > > > > > ---
-> > > > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
-> > > > > >  fs/erofs/sysfs.c                         | 2 ++
-> > > > > >  2 files changed, 3 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > Why is adding a new feature a stable thing?
-> > > > 
-> > > > It's not a new feature (Also, this patch has 3 lines diff):
-> > > > This is a bugfix to address the missing part of
-> > > > commit 6a318ccd7e08 ("erofs: enable long extended
-> > > > attribute name prefixes"") since every on-disk features
-> > > > should be shown in `/sys/fs/erofs/features/*` according to
-> > > > the definition of:
-> > > > 
-> > > > What:           /sys/fs/erofs/features/
-> > > > Date:           November 2021
-> > > > Contact:        "Huang Jianan" <huangjianan@oppo.com>
-> > > > Description:    Shows all enabled kernel features.
-> > > > ...
-> > > > 
-> > > > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
-> > > > to indicate this feature is supported since Linux 6.4+
-> > > 
-> > > Ok, but as this has not been present for a very long time, did anyone
-> > > even notice and need this now in stable kernels?  :)
-> > 
-> > I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
-> > anymore).
-> > 
-> > Also it would be better to port this into stable kernels so
-> > that users can get the supported on-disk features in a more
-> > unique obvious way.
+On 9/1/26 16:16, Chang S. Bae wrote:
+> Revision 0x1000405 contains internal microcode changes that are required
+> by subsequent revisions to avoid #MC during loading. This dependency
+> logically fits the minimum revision requirement.
 > 
-> Ok, that makes more sense, sorry for the noise!
+> The minimum revision check, however, currently applies only to the late
+> loading path, since the dependency was primarily intended for OS-visible
+> changes. The early loading path is therefore still vulnerable to this
+> issue.
 
-Thanks for your suggestion and time too!
+Honestly, I think minrevs are a distraction here. Let's keep this short
+and sweet:
 
-Thanks,
-Gao Xiang
+Microcode updates can usually jump revisions. However, there is an
+erratum on Granite Rapids systems. If they "jump over" revision
+0x1000405, they machine check <or whatever, I forget how they die>.
 
+> Furthermore, one of the subsequent revisions does not correctly specify
+> the minimum revision, so unfortunately the late loading cannot rely on
+> that check either in this case.
 > 
-> greg k-h
+> Prevent loading 0x1000405 or later when the system has not yet been
+> updated to 0x1000405 or later. Apply this blocking to both early- and
+> late-loading paths.
 > 
+> Rename is_blacklisted() to is_late_loading_denied() so the new function
+> that covers both loading paths is not confused with the late-load only
+> one.
+
+Whee, and get rid of a chunk of old terminology while we're at it.
