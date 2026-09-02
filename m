@@ -1,132 +1,103 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AE947F794;
-	Wed,  2 Sep 2026 12:21:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5195347799F
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351708; cv=none; b=VTzVQtDoPRFbLxA0BGyuZtud/Qglaz3UgW4U2unRCKMY2RURz9ILPzSv23QCB65r7CoYRKFsehYfLgyadqj0A7POfeIcSd4rlQQPy4LWSxrX3qkYE+mG1Lb6fO+wOkcw2ogDMHhNexvBLyGu/mlPerLKXoS4OG1dR2lL7RT3cEw=
+	t=1788351718; cv=none; b=bh+YdHdJf7RXlOsfhhoqDiQ/EYpMCo/oZTOJAqaSBpJmBHcCXgt2v74xkef6l9oO4v/+VSxBaSfuFbJIc1VqdXe8bSdBPAB0Qka2mYyLXoMBslR2hKtz/Y8NxxH7pUU/4WSLxhw4cqffUOSq7U3XG4Owod/RZw9twGobYWDVGew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351708; c=relaxed/simple;
-	bh=GGmVS2JaA+qTkb4ZBzBzV0czpxciN7kZWeDdJ0FbVXQ=;
-	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=W88aYpyPB1tj5MJ3T3ifJMTFFgnuwPeSauj2w6vRCmi5gz/hoPorC+4OL9WRVT5rn8/8cscrUcP4uebTU0Rqn6azToM4asEsTp//phE+4nu1MKIdDr9VmTsO++N9GTpCQ2cbo0eCcIL5jb8ThvToeXoThryYslsdfa1yv3ZKQ0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tOqeyw0Q; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788351718; c=relaxed/simple;
+	bh=rlu5Rd80uDj5OZSktQzoh4LfD072PmuNHzuswlgtrcM=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=WIan09yvqGYBufM+8pCTgUcjqDr+2bdWGkuSEyxUZRJ/55J+nvU5t4dH042+n5fi0V+rzPWacx0uHZCaGXO2IpMpsB2iGsvlZReo8bw9QRgytd7YqZd3My0GnyNcqIHHPSGxmAlN2FNDoPHMTx7Nt+IsjEUtZNb5ntlJC8TZ7Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZTjz5kIL; arc=none smtp.client-ip=95.215.58.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tOqeyw0Q"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829Vbuh3810373;
-	Wed, 2 Sep 2026 12:21:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=EmRAOE
-	NCn3z/TkdCL3AO3GgcjO7Z7WviRahN4fsbw+s=; b=tOqeyw0QJ0lLZZlqPlkayA
-	DT6HOt6X2+nERLzNMk2mQWpf+xwUq9B3gy4Fnvcrs6pDylGX7nsGP/iG41dzVmpM
-	Pcowjh6VFU/LhqZRbrK3iDgC+Y8TcZMiJ9KjK+Nn8a6RVOr5fVM1WcMl/t65Rg6C
-	nUUXc3362yKIPqbzed+m4bouso7smOJ67v6tpLqnboBIUPtYRHXP4mcMUfS1Yo3x
-	EE2pHL8lpAfFZPIKVcNxvPZ8orHslMv2aDd68adX6+VIZUoz0PFmGO6bDRY2X/R4
-	1rIR1dscrtvRqe8c88+Via4NLlAp10zfL+8/9nhzOlOk5ruZqFZOhjFPKi2StUmg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54xb0t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 12:21:38 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682CBI4T002102;
-	Wed, 2 Sep 2026 12:21:37 GMT
-Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqhqs8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 12:21:37 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682CLbm426018374
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 12:21:37 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 575575805D;
-	Wed,  2 Sep 2026 12:21:37 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D72C758052;
-	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.35.47])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
-Message-ID: <2a4b80e4e1912183ba4a5d1046d718b4f455720f.camel@linux.ibm.com>
-Subject: Re: [PATCH] ima: Check for ERR_PTR from dentry_path() in
- validate_hash_algo()
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
-In-Reply-To: <20260827174339.1729-1-brads@mainlining.org>
-References: <20260827174339.1729-1-brads@mainlining.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 08:21:36 -0400
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZTjz5kIL"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rlu5Rd80uDj5OZSktQzoh4LfD072PmuNHzuswlgtrcM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788351714; v=1; x=1788956514;
+ b=ZTjz5kILiP0V5T+ye7EjXR4ulNpqA/Dc7pL2tdoevGXaGEzHDdlPD1yU6NUpHZ07Xz58ZT7J
+ BdggT0cyMmPuoV5fZhl5mNpsUbFq2cYnXB8aZ+PqsBh30Chp9qcFQ7VGFniTrk3lIdwGd43GsgN
+ ndszh0vX1w3s6G8fd/o+1IYs=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 672e099c2adfd448;
+	Wed, 02 Sep 2026 12:21:44 +0000
+X-Mizu-Trace-ID: 672e099c2adfd448
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <5e86d83a-425f-43d9-91d3-06821ec670ae@linux.dev>
+Date: Wed, 2 Sep 2026 20:21:35 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfX++4PPuAPGAVm
- rZjN0H25/VOmlrqOVs3SXeUtQvm7EFSj+k5bVLaFxn364EiJ8FtjHUZRQB+9JitxMpqzmlDx3XB
- ovtb8tBq3FZugD8/vamTIbRGyc89VokgbZbr1anNhOZa7/wl5iG+oEFNNkDXZo/52S7rzyB0vIk
- v6Tsapw1OqU9UqSD5PuerBmaemke7csDiW6i5SwvBl6OI7tKheFOMAX1Jsgg+GaTv0yzLBJKpMp
- qHHFayEqXrru1pYWi4mHJw4mAXVYrU2N9/NNYPsnpu9I+rfesZD/v5BsezQyXyIfrU7AENnV91M
- uPuX3wJFMtZZX5ib7tQIed/BQct5rfdxTtMeHc2k32K3m97GlnCYMqA4/NQoy4nxp+OpePR+Ot0
- AwNb3cPzS3MjV4DQ2fHBHFp7KB2gOyRgeaFvTtYSCYpdtcJd5e3s/9CIUcCMkUcpafdPg0LENAk
- csIgNyyLbKwgM8OVfrA==
-X-Proofpoint-ORIG-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9814d2 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=hSkVLCK3AAAA:8 a=OuZLqq7tAAAA:8 a=ZfC5JQsLA5OFHaLsyRcA:9
- a=QEXdDO2ut3YA:10 a=cQPPKAXgyycSBL8etih5:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfXz57ABnoej3aj
- MR4i+Wa7l8dU7olZ2fiG03VMXJCMdw9ztXP0EEdjbu0XO/jdbBSCXJ9B09TN36QZwyxZ0AwP9VI
- Segv5JoD0etN7iEtwGU6cfYE207Djw8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1011 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020107
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] LoongArch: KVM: Fix PC double advance in kernel MMIO
+ read fast path
+To: Kaiyang Wu <wukaiyang@loongfans.cn>, Zeng Chi <zeng_chi911@163.com>,
+ zhaotianrui@loongson.cn, maobibo@loongson.cn, chenhuacai@kernel.org,
+ kernel@xen0n.name
+References: <20260723111552.1623996-1-zeng_chi911@163.com>
+ <D7B309C007238053+3831de19-a2c3-4f17-9281-e4e355c6c464@loongfans.cn>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <D7B309C007238053+3831de19-a2c3-4f17-9281-e4e355c6c464@loongfans.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-08-27 at 17:43 +0000, Bradley Morgan wrote:
-> dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
-> buffer. validate_hash_algo() passes the result straight to
-> integrity_audit_msg() without checking. ERR_PTR is not NULL, so
-> integrity_audit_message() sees a valid pointer and calls strlen() on
-> it, which faults:
->=20
->     BUG: unable to handle page fault for address: ffffffffffffffdc
->     RIP: 0010:strlen+0x30/0xa0
->     Call Trace:
->      audit_log_untrustedstring+0x19/0x30
->      integrity_audit_message+0x366/0x4f0
->      ima_inode_setxattr+0x512/0x5f0
->=20
-> Check for IS_ERR() and use NULL instead, which makes the audit message
-> skip the name=3D field instead of crashing.
->=20
-> Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=3DSETXATTR_=
-CHECK")
-> Cc: stable@vger.kernel.org
-> Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
-> Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google=
-.com/
-> Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Hi, Kaiyang
 
-Thanks, Bradley.  The patch is now queued in next-integrity.
+在 2026/9/2 18:12, Kaiyang Wu 写道:
+> On 2026-07-23 19:15, Zeng Chi wrote:
+> 
+>> In the in-kernel MMIO read fast path of kvm_emu_mmio_read(),
+>> kvm_complete_mmio_read() already advances the guest PC via update_pc().
+>> The explicit update_pc() call right after it advances the PC a second
+>> time, so PC moves forward by 8 instead of 4 and the instruction
+>> following the MMIO read is silently skipped.
+>>
+>> The user space MMIO read completion path in kvm_arch_vcpu_ioctl_run()
+>> calls kvm_complete_mmio_read() only once, and the MMIO write fast path
+>> advances the PC exactly once as well.
+>>
+>> Remove the redundant update_pc() so the kernel MMIO read fast path
+>> advances the PC by a single instruction.
+> 
+> Hi Zeng,
+> 
+> I have tested the patch on Proxmox VE with the environment below:
+> 
+> - CPU: Loongson 3C6000/D
+> - OS: Proxmox VE 9.2.11 (LoongArch port https://github.com/pve-loong64-port)
+> - Kernel: 7.0.14-15-pve
+> - Guest OS: Kylin Linux Advanced Server V10 (SP3 2403)
+> - Guest Kernel: 4.19.90-89.45.v2401.a.ky10.loongarch64
+> 
+> Without the patch, the guest system could not boot with the 4.19.90-89.45.v2401.a.ky10.loongarch64 kernel and there was no output in neither tty nor serial. I can confirm the system boots from the same kernel version with the patch applied to the host kernel.
+> 
 
-Mimi
+Thank you for the testing, this is really helpful.
+
+Our test setup is a bit different: we were running a 7.x kernel on
+both the host and the guest, and we confirmed the issue by observing
+that the PC advanced by the wrong step after an MMIO read.
+
+Your result is a nice complement to ours — it suggests the same issue
+may also explain the boot failure of a 4.19 guest on a 7.x host. We
+had been debugging this boot failure for a while without finding the
+root cause, and had assumed it was some kind of version
+incompatibility. Your testing gives us a good lead to look into.
+
+Thanks again for sharing your results.
+
+--
+Tao> Best,
+> Kaiyang
+
