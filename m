@@ -1,73 +1,175 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5223769EC;
-	Wed,  2 Sep 2026 08:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260793EC810
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338317; cv=none; b=cJ36xMJA5DF+SzFv7YmA7pgI1nb7UaQ5hRuqg/irgIl83YXSxY5gNkMFBkD2oIZKm5nuTSm82G25/Y7HYhdgCWzPtC+xSp8rwIwMCB1ZeOXI6nuhQjKt8aKFiDMmylpQsBFfvIl+g+yBZxLlpCUQwSb85yy1Tn6Jy2WScNxwDh8=
+	t=1788338618; cv=none; b=Krp7ZaEBy6S9bE1/dX2X+U6hPt0/5jkpU7lu5xXCDwdO9o9kL5gUaz7vGyFVfxT2gK1sNFbshu7uBWNa3cOgJ9gukrPKPp7ypxGTnbHkUjRAYg+xefGCGJkoI/lPIbS/aS38DBnTYUSyQxnkn5QD1LlTnHW9d7/P1IR2xVlp2g0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338317; c=relaxed/simple;
-	bh=lPJYlzyokiTQSjXVgfakt3zZOMcexHQ+9rv8f9bKPkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S9CINyAdfi/PV6qspvs/j/XUKsO+KdwqjUhoQupsfdHQ4ji0zphp3Ner5In4xvCg1mIaAO95ldDuzkJ5IcmVzAbU1mFcjQjRL4ppNKIXmoDdR8g21qknNBwzPOKQCTna6ueBlOkspHOUj3JCFbZJxYrVwyhMKb5yechL5A4xePA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=IrNGfo1m; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1788338618; c=relaxed/simple;
+	bh=7gH+SD8eLuCh344QK/gV4nKDBevSAhteXMbkV3w/8Vw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J/x0Ti+p6wXqbQBcpsXr4+4WIUjHqz4yqZa94Fxsy0cuu8O/HWVuN/3cvuU8btrx0Kh7otyoKG8/JP9Kmb6TX+zgCdwGAKwpUPbpYM5mjzB+GLfMS2If1BSQm1EO10lTd61EYMmxalaSMLdRmuqVcTxhXoXrfWJkKULC7grAXhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hA+iZwUd; arc=none smtp.client-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="IrNGfo1m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IUGtGzF98psluIMwFKKhWZ1F2aTDu/oFCty2F4RSaRc=; 
-	b=IrNGfo1msBTd2jJSmtp6stKWgZPmtFNohA21TwwxaLT06/OMEH5Nz/liCs95wvhXyjXnM0zrRHi
-	14t2qAjv3b1o74RNHx4CHsQXt0P+pmqdA+cKksMIHpFM8JjU9H+2VFczthuZmlrEV2rl/QOOCiZ3t
-	VJD2En1G9lJihZ8isAEoRtj9xPAU03G74NPuM2EE/7ubO5Rt2BdlFBluXwxotvOIaJoCVhRu3Gv4N
-	82hZ+q/1rUBqontM+XFgWOQYlP7skUB3+8KfbUliswb7ok3D7kb8+2qSssX9Wy8YOiwDPUplRzOyo
-	hbcu2rzafGHt/GSk+y9yRxdtCfTkaylK6uLA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x1gUH-0000000A14t-0vh0;
-	Wed, 02 Sep 2026 16:38:30 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 02 Sep 2026 18:38:29 +1000
-Date: Wed, 2 Sep 2026 18:38:29 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	x86@kernel.org, stable@vger.kernel.org,
-	Taehee Yoo <ap420073@gmail.com>
-Subject: Re: [PATCH RESEND] crypto: x86/aria - add missing vzeroupper in AVX2
- code
-Message-ID: <apfghSk4CWshYcUF@gondor.apana.org.au>
-References: <20260831211715.213121-1-ebiggers@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hA+iZwUd"
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2cf5e516e67so3308005ad.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 01:43:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788338615; x=1788943415; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sHd6n2JrNGVkpcXl+ihkA+tOmim5HyAzQwTnMpLSpuA=;
+        b=hA+iZwUdz1KC3O26wBF8R5Vt8imodPssKKl41h9UiApcUCjFKYmEiwJi0zPWqjdrSS
+         ObYpLAImajdYbpqNqHPkVPZsXovqgFm97bjvOlLjXxep0JSBo/Y2Q9+Xfn7NMxxRZs11
+         DXekszlaAeKxr+Tz03ZYd4gk3Uh8wUSez3BE2gfFJrXK6nqa6SIIFxLTzuu+I7Y9bQoy
+         Z0ZVVXw4HGfT08Lmmvw5dc6rDi91xM7ByuL4xoxwzLF3Y7mLmFl45aGi59m4ETqxoXjH
+         AnzQ6jBFTKymREWcYSdunBLxQHPJSN+57U6WL4g0ZrDIcHz2Op4p61dwsT3VxeZNcrwU
+         w+lg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788338615; x=1788943415;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sHd6n2JrNGVkpcXl+ihkA+tOmim5HyAzQwTnMpLSpuA=;
+        b=XY5N01q5V/CbSzfA0Xev5gYkONCcY/eGVOPkyV0oulNyz6P6csZlBYFf/jdxYipOrZ
+         +a86Vg0/CH6N3CXpLRXRpNzCbJ4kf5AtjLG1jSetF9WJ5vvWmob3I81uW43lzE9DKctj
+         2fchoS2bjuxTn5FxGzFkBUtcmXl4Xf+q1u02zDPSggHOyL0XjHazHWh3x7D4zEe3WMCJ
+         MDAKK619qsbsb6IbG3DnR6GS/A4b+fuvJvI0g4u1yKbmOww2S1IpB01xsBYCt+9Bwnh7
+         uz3bsVR3ZFV84xFdceSGxgJ3kq5GDOPR++ZaZiDNI5ZLojrBcJPCgILg9GIKJT68ASXn
+         uUmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzU0MI/hfmxMmVBJspp5MEvLMkTZ74ivMN0djfGzjOSQoiD4GmSryVyfy19kj9ztgpp03kLtck=@vger.kernel.org
+X-Gm-Message-State: AFuF++m3ve/yLgQkDgXUyLjirL7krJwjiKhPjHhJTvKrGuBAe8fU1PjD
+	GpIi13WDTgcV7d7uO/juVHL8GYUAZO4qlYzIagzf8BggTaBAHyqAu/F5
+X-Gm-Gg: AR+sD103zgAgsdPN2gEdvsAxPfBYpAbFlZKqsidpqwsyJbeyyDDjykhNnzXA2wUCm+f
+	Bm/KJth4ZIWvOyJjaWGNASfgKAfHyGz7ZE0eVoyDKMZwKePch3iwVBCFG7fxZdoXzENSCaO0skf
+	2N9w9cQOJ76LBDfV0+HLJpd2immM5GuyLInglHwc7oS3XKBc76x0Pj/ETwNgUEHKa99hqHf3rWC
+	63TKSVFW+OO1q4Hqq4X7NAxBcFK2rxwUY5unB7ecQBnG8r+yZd3Ua8+nKxa5679zQvdzn6EF1Xb
+	umQwhVP755lYXkVn6woZ37Pr5CjU51S+1l/VnSU3c8cXFXl4bJ+GadAUHZTucymyehM9Q9+0jWG
+	pq7Yy5GKbG5VWB8E/9y2qx8ASuaEC2bxh72Dxd1ajRc32hEix8A0gVU/8CFbyNAZRRaE6Sf1Lk0
+	Ww4PjKBDXi26UNAUmrdXn913QWWOhsNz5TIA/WqCDvaTjiad+EjoJtp2tBiw==
+X-Received: by 2002:a17:903:1acc:b0:2d8:d4d0:7931 with SMTP id d9443c01a7336-2daec76359dmr54463095ad.21.1788338615386;
+        Wed, 02 Sep 2026 01:43:35 -0700 (PDT)
+Received: from fedora ([59.172.176.172])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd35dadbsm9622825ad.13.2026.09.02.01.43.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 01:43:35 -0700 (PDT)
+From: XingWang Xiang <v3rdant.xiang@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	XingWang Xiang <v3rdant.xiang@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] genetlink: pin family module during policy dump
+Date: Wed,  2 Sep 2026 17:43:17 +0900
+Message-ID: <20260902084317.4092542-1-v3rdant.xiang@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831211715.213121-1-ebiggers@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 02:17:15PM -0700, Eric Biggers wrote:
-> Since the AVX2 optimized ARIA code uses YMM registers, execute
-> vzeroupper before returning from it.  This is needed to avoid degrading
-> the performance of any later SSE code that may happen to be executed.
-> 
-> Fixes: 37d8d3ae7a58 ("crypto: x86/aria - implement aria-avx2")
-> Cc: stable@vger.kernel.org
-> Cc: Taehee Yoo <ap420073@gmail.com>
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
-> 
-> This didn't get picked up by the x86 maintainers yet.  Herbert, can you
-> take this through the crypto tree?
+The generic netlink controller's policy dump keeps pointers to the target
+family's operation and policy tables in its callback state.  A dump may be
+split across multiple skbs and remain pending after the initial request.
 
-OK I could do that.  I presume you want this to go into 7.3, right?
+Netlink pins the module which owns the dump callback, but in this case
+that is the controller's owner rather than the target family's owner.  The
+target family can consequently be unregistered and its module unloaded
+while a policy dump is pending.  Advancing the dump then dereferences
+policy memory from the unloaded module.
 
-Cheers,
+Take a reference to the target family's module when the dump starts.
+Drop it from the error and done paths.  This matches the lifetime for which
+the dump context retains the family and policy pointers.
+
+Fixes: d07dcf9aadd6 ("netlink: add infrastructure to expose policies to userspace")
+Cc: stable@vger.kernel.org
+Signed-off-by: XingWang Xiang <v3rdant.xiang@gmail.com>
+---
+ net/netlink/genetlink.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
+index 0da39eaed..41d37442f 100644
+--- a/net/netlink/genetlink.c
++++ b/net/netlink/genetlink.c
+@@ -1513,6 +1513,7 @@ struct ctrl_dump_policy_ctx {
+ 	struct netlink_policy_dump_state *state;
+ 	const struct genl_family *rt;
+ 	struct genl_op_iter *op_iter;
++	struct module *owner;
+ 	u32 op;
+ 	u16 fam_id;
+ 	u8 dump_map:1,
+@@ -1555,6 +1556,9 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		return -ENOENT;
+ 
+ 	ctx->rt = rt;
++	ctx->owner = rt->module;
++	if (!try_module_get(ctx->owner))
++		return -ENOENT;
+ 
+ 	if (tb[CTRL_ATTR_OP]) {
+ 		struct genl_split_ops doit, dump;
+@@ -1565,7 +1569,7 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		err = genl_get_cmd_both(ctx->op, rt, &doit, &dump);
+ 		if (err) {
+ 			NL_SET_BAD_ATTR(cb->extack, tb[CTRL_ATTR_OP]);
+-			return err;
++			goto err_put_owner;
+ 		}
+ 
+ 		if (doit.policy) {
+@@ -1583,16 +1587,20 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 				goto err_free_state;
+ 		}
+ 
+-		if (!ctx->state)
+-			return -ENODATA;
++		if (!ctx->state) {
++			err = -ENODATA;
++			goto err_put_owner;
++		}
+ 
+ 		ctx->dump_map = 1;
+ 		return 0;
+ 	}
+ 
+ 	ctx->op_iter = kmalloc_obj(*ctx->op_iter);
+-	if (!ctx->op_iter)
+-		return -ENOMEM;
++	if (!ctx->op_iter) {
++		err = -ENOMEM;
++		goto err_put_owner;
++	}
+ 
+ 	genl_op_iter_init(rt, ctx->op_iter);
+ 	ctx->dump_map = genl_op_iter_next(ctx->op_iter);
+@@ -1624,6 +1632,8 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 	netlink_policy_dump_free(ctx->state);
+ err_free_op_iter:
+ 	kfree(ctx->op_iter);
++err_put_owner:
++	module_put(ctx->owner);
+ 	return err;
+ }
+ 
+@@ -1760,6 +1770,7 @@ static int ctrl_dumppolicy_done(struct netlink_callback *cb)
+ 
+ 	kfree(ctx->op_iter);
+ 	netlink_policy_dump_free(ctx->state);
++	module_put(ctx->owner);
+ 	return 0;
+ }
+ 
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.52.0
