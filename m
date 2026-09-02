@@ -1,115 +1,131 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E3FB49B21F
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:02:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7466B47CA9A
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354159; cv=pass; b=RRYjiF5Z+IUr8Z2bEKevK+jZ0ndcbN0M4s0fsVNZcID81XecInzfXdGSd4MQREcZvl53CjZJWz86UJD2wIO63hNAchpp5VttUVti6PH0ebe4+6BtRhTR8jLGJFyyIUzSgJkvfHVQVsusgYPAm3bV8zsvxY2Izc8xVSWPj+oqAnY=
+	t=1788354242; cv=pass; b=d7aB/t9J0zlnf+yZalrr8VRy8WxXZ+stdsNeusT5K2CSA2T4y0XMkG89lZDAGXIqNk3z5UW94UNVs5vO6tGcpPHiSDVyY6TCwxYaJtE0tb7VjRhYKml0bL0w4MWyDKixXavJ3sDqR4M+js5kKh67RWjadGQCwuvdeueyw/4zsNo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354159; c=relaxed/simple;
-	bh=2IimJgpWco8Ido6/kuXcNwOq4ais6YquXn+nJDg20ao=;
+	s=arc-20240116; t=1788354242; c=relaxed/simple;
+	bh=d3tednFs93qhVo5hjvRy9y5lXWa9IuFW7vC72+58OmU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DBBy3A5rPw0U+dpAxHM2J6ODmScbXf1/I/TmwsuINJgLiyzGLkvWk9kjJ6q6p8BphS8TLnX5uA/vTPY/+Zzj8nKiOcJ359KhLqxfjxa7rkqIUZ1ZlE0CYLA+DNvzwHMxJ1nr+hHadYo/1SHL+qE3AoBY6upciRu9mdhidxAKFQE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LnR5h1Uc; arc=pass smtp.client-ip=209.85.215.175
+	 To:Cc:Content-Type; b=bZAlgb/gCHEDd8B5wd7AnLuvgKCf7ejOhrerDv1hWMds7/bL8UsyTn/AfzYn53WOCrb03ToyMh9usyCXLD5SzFI02Q5+3Ms0JtFBK4E+OXpY5QFP2T8dLOcfCoFZ9Dm/zMSdpf6zwEXx8++wvxbY2mDk0nCX/B8b/Ls9TxTkE3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UtNWwq9K; arc=pass smtp.client-ip=209.85.222.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LnR5h1Uc"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1271144a12.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 06:02:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788354157; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UtNWwq9K"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-936623c6dd3so230424085a.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 06:04:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788354240; cv=none;
         d=google.com; s=arc-20260327;
-        b=g5WsvbkUgHH3IOT5A7CPHGPB5s8HoFtbtRq9KSJfdfvWt0Up6dNoujJxSsQKcTFYbW
-         7xv+EYWsitYDom0FN/RWQvLU1SB04Up9e1tq0b7sFnoyLh1USUSpcEL6KLFGV1cQ+NxM
-         L9hVb/PLi0Qg5FNmpQqt9yXwFR/3W2WyX+EGZQW7tWFP7Oo4gUalnvC1XvZUeYYu9P6Z
-         Oh/A69Oyp9VWZjunH5+A2FDHs18mLQoGbODJA2UwpmQD6WAS9cnyuyO8OKfCRMuOL3+n
-         4M4PuGLLIsvYftFaLcZLjBNGAMB2fV5XjQMH+ZtLukKOUI/xXgMXXGOEszSzxBZEdbHn
-         P2Gw==
+        b=QYKhNeHX7JhkRONxmEIA/IHJ2+0izwu2i0s51IeaVUGFy+WkpQYwlEr1TFVy8CCUVX
+         OiGUfD0wlS/MOlpAk+FSlMYyNlPoRDFXvXn38U6X7YrbUve2noOU8ejKjHjIW1Duaw7l
+         EO88ejB9AMqCInPcZntgenVU2c4jaOuFNh3Iwe3ofCHCovM9LpykeK9KGhES79J2dBIt
+         R7xmRC32ln+jlowZ63Gg6zPYN2itrLWlCTpyxXshoIZxYa5hLnQ+rh+gdTebKU1PUXwx
+         HX3gQx5wuS4VlHXSxE5t5CRDePW8pBDinijcKS2TVgH6dKLmrh0OX9MxMLSXWoiZ1io9
+         qo1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=tZ7hMm+JsrbyLw5rJV9QF2bd+yWe5jIr9Rjm13SbtbU=;
-        fh=P+aH57dhf499efMXUoLvNXWYKKU0KLyeGtI29yo5oPA=;
-        b=mdYuME5gU0KkU2Jbr9LSQrdfHhFEIeQmdYlOITySVOkxdcv+piqIjg1i1juyUo9NQS
-         ddJVE6t0aLbHCJzlfpLhiVoMW30YKTQpuyRuLHn5iXNUpMKNUvAqvzqUKw8V3Ofinz6P
-         ZuJuQPIS4G2odhUZNu8KgCPy4WqYFHJaRHqFGCsa61i5A/Fyha8dstgLA/10DET/yTL6
-         tMFV9hsMMOazYzxtObmaltCzVm9xdPtGPN8I815rP9RCCb/Dy5LUCK1cJWZYyebQL3d+
-         fP3ZI1BXBeKKIAJe4sKzsTpMB29NUqr3ukGpMMTcw4R+PkrfCGzleMQ6ICQpqIaKRclf
-         wbGw==;
+        bh=REC0WBjU6HbnzKlsagTQJMv9INahl8hjQLf2W4ca4pg=;
+        fh=OHPzcLj6WUFeoJ4VS/PG41IneZR+FGBaI8Px9j0G9Hg=;
+        b=b75bZZUr0HKJ5MxCjwfI3Nc9CEyJva8x1UrFPoZLMQXBtWlQ6pJhte3jRnE6EZ9nw3
+         kviTOvRlMMpdnkyr8w94OgQZa04WXodCJpVAPtFpYFZPlRAaoxIir1Jryua7y5cvi+s3
+         voI0lgE5bcnkMl3vWJqqGbsP0BbMwSKOFNEEhPd7ZQxQm0V7/H9TBg0ZV+hmUmvNa47e
+         mdFuk/5nLJvRoCcN5eQu0jx8amYC5PtS90cX1JGsfESe1NgMyIAz+XcjmhGzcRObzKFo
+         99j4fdTIoC6CqzylAayu/E1w1CyodGsaNqQHi69SqUEeBFqFcNPtm5tMtnAdIX4KO0sV
+         LORw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788354157; x=1788958957; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788354240; x=1788959040; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tZ7hMm+JsrbyLw5rJV9QF2bd+yWe5jIr9Rjm13SbtbU=;
-        b=LnR5h1UcpIVClUcm+pIJQLokU7vpFi/pY0YuDLHhIQF7Ul7fHisjVXgo/QMPsN4zNA
-         qvUjHvCGblWlTl+FWtWkLV2l1cODp3AeRnqhru5LUlfDB5gx/Bh0zGpJfe+dehW6+ipy
-         mMst1+CnHmzauGYI+AeSaY4F1/i1fDsEoQbdXEcPrwjSpJtly1w53TuoP266cXZ15WAb
-         DgdFaBxSR14MkiEHQ/sbNIvlGZOTew8vOGN8vFmi+9InhOP7+mh7ipdOBwq8cXx8mOld
-         T8+Ht68DVP0pobxYKtf0yEula3Bt77QUp/vVVFR5AIUsP+zd6Fq5LssxTKHs8v5qEyCz
-         lxrA==
+        bh=REC0WBjU6HbnzKlsagTQJMv9INahl8hjQLf2W4ca4pg=;
+        b=UtNWwq9K1oJmDKrc3zfN1PFB/SI6SfMt5xWZpseDC8kcBaoGSzbOh7ZEVzaCO6mNGW
+         oBWnLLXpNH3tAE5JEVnTmOZFl788dNx4CBNZyU3iyUMVHzgGqtnhP99SPmqUl6YhS1mP
+         bPf7e3NgA6W2rWLAjVXowAwzc2NwiQDLvmA/FgoghaBnC81M6kSrOqpAqTEDGsIblFB5
+         oSycm6Gh+P6tyumbez3eJPrxkOFv2vvbzOweE/zfJPna4fJekWrZY880gQx2fLzdID/k
+         QwIHKpyGKnsACz7KCpanOrtAmxlCjRvxydfbksBXJ2tEwKfWURkRBye2BEk73YNQ9lxi
+         yx7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788354157; x=1788958957;
+        d=1e100.net; s=20251104; t=1788354240; x=1788959040;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tZ7hMm+JsrbyLw5rJV9QF2bd+yWe5jIr9Rjm13SbtbU=;
-        b=CXG/FdzkfSaJG5LWmihAPtMZKsLl0toHwF7q5QH5HfejoipOP1fnpX97DMladRT0cO
-         hXS4jr7N9//yuPXAHevW58xrScwhKsGMK3jwameLH6nEN5NnxL+vJ8IZIrjDFtGpuDxd
-         oxeKveJ8y9yLGEcViCBJd4DxugzoVJT0sGKVL5f54fegyVNiVrk/mVrIh5Qm1LhO0eQp
-         8CQuWcQ1Uo+EGcybBP99MjyXYXJN91sURT/iz83BpiwCjERbs3BZ5HAxqu/dpOilNg+g
-         lpHJobKkyHk4c+K7xBYZogV5x49Z3tpRtGMPui1kDiGuTyrodnp2uU6Gw2WC4zKVKHnA
-         Pfzw==
-X-Forwarded-Encrypted: i=1; AKwUvBzX9Zu90RFBG8RsP5Fr+AJ0LqUyJyGNxE4Euqd4ApPhk9wJ3eV87+G8yYyrIYwyB5JAfa/uqhY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFs3pI46GVr6tqT4aL85hlud/Ra3uRxrvpmxDHsYqrvDl51ZYX
-	gLJUmcweoT17darTwhrgfdmgSZ/fgqErL+8yUlS7KlvBxZLLHCeRVRaL/s2heOa0RdwnmC7Zr5M
-	C5c9TXc6K7tgLbEwbcy/FzNrwEmmnz52I0Uzk+cuL
-X-Gm-Gg: AYBFou0w7V68YJ8xDCib6Py3+PihzavKrmpgAILTVAvsTpnwf0EXsHHyZEINWC29/Fr
-	H/WhkgilndKTpCylR8Y+aoXYp0mKB8sB6Xi5aJe98ALYnBLUSlzz8HZi6Ng3hbyk5S6cDab4L0N
-	Chspr6KvO8Q6p94Vbf5I0ucPkR9xrEVg4RxkJSBVVEQ0+9B7Yf4622W0mCpLQI1VUHEps5T6vf6
-	Hlv1JZ96HNbY14LBoRijQ1sYfl9dkKo5ZlsmGYznFTyB0MRXBZroNh9VUk+YDAXrY0OW8KeywBs
-	CVi5orp1XMUKnFiyed3IjPm6bHps5bEqcby8sM7tBd6N3Z7cPEPGXycZplASUmmK9kwCRukAMB8
-	=
-X-Received: by 2002:a17:90b:562e:b0:380:8bb9:aba9 with SMTP id
- 98e67ed59e1d1-39af57ba71dmr3908216a91.3.1788354156489; Wed, 02 Sep 2026
- 06:02:36 -0700 (PDT)
+        bh=REC0WBjU6HbnzKlsagTQJMv9INahl8hjQLf2W4ca4pg=;
+        b=UszEw0tpk4ChyikIro2GoeEP3QBu98SSUcY0gbpv8Ir27/BGEErOlAUxPe4tvGz0gD
+         OEeZ5HuJ029QlaRsPG6yMDdYcJ+YZ78Wp646bHu77c9FhPS77k+BKnvqrO7nw+OxTbDa
+         oNDKR3KScXi2u4E+qMaI4ybfOcOONpcJXSZiosgqz2ZUs++zBr3EObjDwXjfMDp1gBFB
+         DVPc/jeVSTiuGKdtd6SiJGbKs7z90/SxsDzaU8EeGP8YSkI9wOhfiui4okR4cq1ILnOs
+         BhAm50HbOwcXrPUEWARLMXzFXgJMtD0gAEQ45LKqux3pBd9fthV8cUghRSTJao5S2JNH
+         x4fA==
+X-Forwarded-Encrypted: i=1; AHgh+RqoLHo13VzDEdJ1GE0uRVNHgZ82zbQjqHvlyLWVW3xHoZ5a0eQxQcw3/yZJFfVylJYkRutS+KM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNRM6Q55u2imz0GDPLR2OHu3K4LxIiPtVUBH2D6sx32LjHG8kj
+	OReWYbI+22YAXx4eflJi2qZnQ6IEt12tlQiQNC4vfX70I+ENdd3LTRN2VmC9W4uLXeOWls1RnKh
+	JkTQxgdiKZPsdT32YJOEXxUEcKq63aK9jH4YVhf94
+X-Gm-Gg: AR+sD10NQrpLUP7eD2ezDNOc9Xl4w0pWK7kFhPrPVQLTIYHz85c9Rm7WnEz++/Sd8JW
+	1yKshTJ1uIB4M/xrXFgKc459j7D0UJsuLXoqSjze22qh+ynPEGo3+mQYohm9gUWSIS+YOODwAe4
+	+N6WkPriySO1D4D1lh0mD71sTkx85q8a5iZBR4jDeGSsvRW9tCDp++LXDvOK242ELmaWQ2Ep4sI
+	YJBf6nf3rvM9g2cqfE06oG8ll9lgggz2wslWp/E5pN36KW4+4hPAiSQsa16On1wdCxYQFy5NNGV
+	ZD5RJP2bVsmQlWpSqojW5XCy6pkk4mw6Wb6eNMxdazDGIcWGRUXoxhAz5Iafo97Wr81g8hEM4Qq
+	D3BS7qwNuIyBp5D2BrmwJjQo06Dvwz+3BpDGPa9hhScvxOCQvjCjezqqW4A==
+X-Received: by 2002:a05:620a:1714:b0:939:5c17:8c73 with SMTP id
+ af79cd13be357-93965763938mr276084685a.0.1788354239348; Wed, 02 Sep 2026
+ 06:03:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901124013.1098560-1-xiangzao@linux.alibaba.com> <20260901124013.1098560-2-xiangzao@linux.alibaba.com>
-In-Reply-To: <20260901124013.1098560-2-xiangzao@linux.alibaba.com>
-From: Alexander Potapenko <glider@google.com>
-Date: Wed, 2 Sep 2026 15:01:59 +0200
-X-Gm-Features: AcwNN1VGxJFpmL-lU0OnRAVUYxIl406whc4Ms3oZN7-dYh4VYCv_375yVerTGPI
-Message-ID: <CAG_fn=UNF=BDJ1mFgMc6Tu0Xwi6c7Gu6Q6RHaugR2ii+nLM+aw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] stacktrace: Provide arch_in_event_entry_text() hook
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, xin@zytor.com, 
-	luto@kernel.org, jpoimboe@kernel.org, peterz@infradead.org, 
-	rostedt@goodmis.org, akpm@linux-foundation.org, rdunlap@infradead.org, 
-	elver@google.com, andreyknvl@gmail.com, gor@linux.ibm.com, 
-	brads@mainlining.org, kasan-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <QDISC-0CFC.v3.20260901204856@mojatatu.com> <QDISC-0CFC.v3.20260901204856@mojatatu.com.2>
+ <CANn89iJCBTSGwKK02xw0XdZRsP=2VGmJny27cdi0bnpz4aBwHg@mail.gmail.com>
+ <CANn89iL+o5mdPOvRUy_vSiHxj3Kc9Wzr3HV_dGf2tsKJJNwniA@mail.gmail.com> <CAM0EoMnENJAY7pP9dP6pbbWnW44Ug-Ow3C=sf87pfOTwxjMdaQ@mail.gmail.com>
+In-Reply-To: <CAM0EoMnENJAY7pP9dP6pbbWnW44Ug-Ow3C=sf87pfOTwxjMdaQ@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 2 Sep 2026 15:03:48 +0200
+X-Gm-Features: AcwNN1X3f7LD30KD1qZfc49zPIh9rkbs0FiNWJF728EVXHW4XziSK5SvOhwvgEg
+Message-ID: <CANn89iLr_3Z1MTa6U9SuooU7q-Yw8nXgRb=heSvoR=uUSTJgzg@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/9] net/sched: fq: clamp quantum and
+ initial_quantum in change path
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, 
+	stable@vger.kernel.org, =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>, 
+	Vijay Subramanian <subramanian.vijay@gmail.com>, Petr Machata <petrm@nvidia.com>, 
+	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 1, 2026 at 2:40=E2=80=AFPM Yuanhe Shu <xiangzao@linux.alibaba.c=
-om> wrote:
-
-> The first user is the FRED fix in the follow-up patch.  Both carry the
-> same Fixes: tag and are Cc'ed to stable so that they are picked up as a
-> pair.
+On Wed, Sep 2, 2026 at 2:40=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com> =
+wrote:
 >
-> Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
-> Cc: stable@vger.kernel.org # v6.9+
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
-> Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Acked-by: Alexander Potapenko <glider@google.com>
+>
+> Trying to understand your concern: Are you arguing for
+> stylistic/readability improvement or robustness?
+> The only place i can see where the multiplies you describe could
+> happen is what the 709f34f7c28d patch closed. i.e this part:
+>
+> -       q->quantum              =3D 2 * psched_mtu(qdisc_dev(sch));
+> -       q->initial_quantum      =3D 10 * psched_mtu(qdisc_dev(sch));
+>
+> IIRC, you are suggesting restoring the original logic (x2 and x10) and
+> i am likely missing why that is a must do? Does it break anything?
+
+It does not break anything; it just causes a cascade of various clamps.
+
+After your patch we will have:
+
+       mtu =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
+       q->quantum              =3D clamp_t(u32, 2 * mtu, 256, 1 << 20);
+       q->initial_quantum      =3D min_t(u32, 10 * mtu, 1 << 20);
+
+So @mtu is no longer the psched mtu anymore.
+
+This is fine.
