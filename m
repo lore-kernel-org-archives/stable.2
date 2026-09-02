@@ -1,75 +1,105 @@
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 006CF3E834D
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E13E5ED0;
+	Wed,  2 Sep 2026 08:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337925; cv=none; b=IiraZyCQGc+QBY0kMlq2MZ/k9obcabqOy0+X9N8Nf4TpZ+eVxGeuIDUbHlvfjY/m5z0i3oryNgSLvnl8Nv7r71UEkJOsd3LqFG0EzFAGRv+en2bKSmy0pf0EMhQSYw7Bnk+UL5zeztIUmjX8nQRiChRNMz6RbTb+OduZ0OsT/sE=
+	t=1788337958; cv=none; b=Z+z3TEUVVV6H7ajT0KdEHwU4hMSZCvuJzkLcfR6V4i9peQDQhoKNRU7NQ1Shvzn8IvrF1mF6al19ZnU0gmSTIZX6Q3U1EAFn2Ym9zhIRJCCHVNnrbfDmHf6tZPjP4uKDpNoymanObJbT9KRQeKrWftCEi3O0hYFI6I/X9sb/SF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337925; c=relaxed/simple;
-	bh=souoJ6/izhpzI/lCowRs9VlUo/lT49GZDbVkLuoK+4Q=;
-	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
-	 References:In-Reply-To; b=YJ2EgGcUXPnGABcl9DwCScRcBH44UBcXKljXQRy73YXW2fwqv3Izs9njXUI4qn9AJukCu8C4HsbAIAxd0ja7X13fKVsPJzxNHrgVCcA0n+p5Lve+NV3yXetWlFHnREnlTYA7sZsytFx+Rsxqb7Cs9GcruRhv/KpDIOZOC8IR82E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=a8UHcrzS; arc=none smtp.client-ip=162.62.57.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788337958; c=relaxed/simple;
+	bh=v8SX+7Xz1Vg96SIXVTeAC580QaT32ORmc9kJCxv3UHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R22IobqFSk+P43NrLMorRE1WiqOatWsHfy5EPfnHDiPIn3PxViNPhAxmU/vs3GXsnReQMyDzKseoFP1HpEcPOHNJrDSvWBeuVFCGSIGq6/Iiw0o4d4E0d7rvvsTmal0fyz3cRfsdl1wiWzUbqa888OaNQli3wICrofr+m+wwnyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKBt61I5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="a8UHcrzS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788337918; bh=souoJ6/izhpzI/lCowRs9VlUo/lT49GZDbVkLuoK+4Q=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=a8UHcrzSasJf+sPF7HaPOFzkldbIKxm3M0hZHTNJ0jTPZVjlAk9UpzBhBfxfZBzAQ
-	 rqhxaJ7CP8pmTWRQOp6PNj/dTpwTsyMhv6kMiofYYw63poqJvXl6QeQL8rec6lDRew
-	 qwPbfJ7x1DZbC+yyt8/9tEPmn8Bxrwv4S98pjFdA=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-XMAILINFO: MgnhPuxgWIORQx+YFIaDDDWtBSUkCrKZy5QhKSRfamG9xmKIA/lK320lhf0+Sj
-	 DdXs50nYIChmQyrH6Z+RPcxdBDx/SfjNQRwiTeHMAA1LwvYWevPAzdV3FFQTkz0iUqoJM78sbaeim
-	 ayZ+3IkFE0S2BhLC4wu/PYUzBAULzH1aowtC/uQ8XntEM3Zj8lVJ/IVX0inzO55ThaTmAH3/A60ak
-	 sqCQzsK8k0b8mK3nRhNwR064zD41u1wzVRhyaNcQofcDYnbuHT5Iel+0PBCIfmTa794BLdpDVWEyA
-	 i80o7BePcCu7hihBxM26epsv7PPyrtDjnPEqY/PfKdfQO6SZAm1NogL5T1ICW8xjcNo1qpwtkgGpm
-	 xbNaxJsiiYqyZj/c5lVfeBuleK6mCu7Ft42HKIBvvny4utND9Jzkowq23qrsdGUJn92cnpGdAiQfm
-	 gU9pj3VTqbpnS2K/VS8hmVR9Ua53n4smcR9teOlBv1k50eT8ak5ijix0UpgVSa0FZKglaXGWs8IBv
-	 BJy7g2oAo++AO61Nt8M5KYGPJsDpSPojzRGQMUR1VaPz4LOctmW0aV0ujBIQ12E5V9h1f8yKDtDSd
-	 engd9EtqDtHMJvUL6K9y4sW2JXk3zwbacNG75pYIkb4QZhJeORa1UYPCBMvPJxPBos9f3xOo5/heC
-	 ItXlvDZzLG5F/Iz4JBW7CG7seN4HOj5bheAfQW848VBrbaB7WVtTna9Qd7W4Id98LkW2OLmfdcS1L
-	 JZRF5v8VmGMsCbGVokDhLwWNIp1VEE5NdBlvX0fE+uVVcPeiQS8PmR7VBvoAUlHtxnNUOk70NJXvy
-	 E0uLxoDLXdDyR/G9Ogc4Sr1chwvRXf+aBpUBYFFalub/99y4qVWlLHt9P/TzB2bzXh8UmfK38pl5k
-	 4iQtL1TaFFayyQpPdzAXif4KXSOQKUZM4brv0CztCAEnqdgB/GUCAk37dLPtGFK9E941t1TmeHLFS
-	 KgwtSY8pXUsK8k38F4OoIpu67i5oEHF8jDeUNB42L6h7oxWoItEi5QRNufLTk=
-From: "=?utf-8?B?MzQ3MjI3NDYxMw==?=" <3472274613@qq.com>
-To: "=?utf-8?B?YXN0?=" <ast@kernel.org>, "=?utf-8?B?ZGFuaWVs?=" <daniel@iogearbox.net>, "=?utf-8?B?YnBm?=" <bpf@vger.kernel.org>
-Cc: "=?utf-8?B?bWFydGluLmxhdQ==?=" <martin.lau@linux.dev>, "=?utf-8?B?c29uZw==?=" <song@kernel.org>, "=?utf-8?B?am9sc2E=?=" <jolsa@kernel.org>, "=?utf-8?B?emh1eWlmZWk=?=" <zhuyifei@google.com>, "=?utf-8?B?YW5kcmlp?=" <andrii@kernel.org>, "=?utf-8?B?ZWRkeXo4Nw==?=" <eddyz87@gmail.com>, "=?utf-8?B?bWVteG9y?=" <memxor@gmail.com>, "=?utf-8?B?Y29ydnVz?=" <corvus@tencent.com>, "=?utf-8?B?QW9oYW4gTWVp?=" <henrymei@tencent.com>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
-Subject: Re: [PATCH bpf v2] bpf: Enforce cgroup storage map consistency for freplace attach
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKBt61I5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709E51F000E9;
+	Wed,  2 Sep 2026 08:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788337957;
+	bh=vWDDEcxiq+pbUWv2xdfE/x6aKmTVnkF0HDOEaUnPgXI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gKBt61I5bi9P27zyhPIIrWp6N0m7CFr036R594pa7RGBi7ZlNGSVOr3n9nOZ5mUwN
+	 akqqrf6CXbyO5WpiAu9yvzpKy53aSwBOO2RulejrbqfKcn3P299pw4leeH7CpGU7BG
+	 5ugV99icLeYn/feBQSZrnmZmPK5DnwxJ9HGDsitlk5fgmrw7Hc6mNLdzzLFn8wmsE1
+	 oeVteVH4FyMx3g5Bz7JAeTH9n0IrbVr6wHuPgJp3HvkLa75xEW6/qi0Z0FpzNJDh5o
+	 tfur7kbFX6bf67gFD8J6VllKCpEPZh0a0MArFsaVCRah3lxU/CnBplGwVhekvJra82
+	 LsHPul6ggtTog==
+Date: Wed, 2 Sep 2026 11:32:32 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+	ankita@nvidia.com, chriscli@google.com,
+	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+	kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902083232.GT24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Wed, 2 Sep 2026 16:31:57 +0800
-X-Priority: 3
-Message-ID: <tencent_5F0F74447E7E5B64AC75AF770908016C1B08@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20260814130650.634992-1-3472274613@qq.com>
-	<tencent_05AD70D6BED7A204CB00860D0C3A303FDC07@qq.com>
-In-Reply-To: <tencent_05AD70D6BED7A204CB00860D0C3A303FDC07@qq.com>
-X-QQ-mid: xmsezc57-0t1788337917tbw9eb4bb
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
 
-R2VudGxlIHBpbmcg4oCUIGl0IGhhcyBiZWVuIHR3byB3ZWVrcyBzaW5jZSB2Mi4KClRoZSBv
-bmx5IGZlZWRiYWNrIHNvIGZhciB3YXMgdGhlIGJwZiBDSSBxdWVzdGlvbiBhYm91dCB0aGUg
-Rml4ZXMgdGFnLAphbnN3ZXJlZCB1cHRocmVhZDogN2Q5YzM0Mjc4OTRmIHdhcyBrZXB0IHRv
-IHN0YXkgYWxpZ25lZCB3aXRoIHRoZQphbmFsb2dvdXMgZml4IGFiYWQzZDBiYWQ3MiAoImJw
-ZjogRml4IG9vYiBhY2Nlc3MgaW4gY2dyb3VwIGxvY2FsCnN0b3JhZ2UiKSwgYW5kIGFsbCBt
-YWludGFpbmVkIHN0YWJsZSB0cmVlcyBjb250YWluIGJvdGggY2FuZGlkYXRlCmNvbW1pdHMs
-IHNvIHRoZSBiYWNrcG9ydCBzZXQgaXMgdW5hZmZlY3RlZCBlaXRoZXIgd2F5LiBIYXBweSB0
-byByZXNwaW4Kd2l0aCBiZTg3MDRmZjA3ZDIgaW5zdGVhZCBpZiBtYWludGFpbmVycyBwcmVm
-ZXIuCgpUaGUgcGF0Y2ggc3RpbGwgYXBwbGllcyBjbGVhbmx5IG9uIHRoZSBsYXRlc3QgYnBm
-IHRyZWUuIEFueSBmZWVkYmFjawp3b3VsZCBiZSBhcHByZWNpYXRlZC4KClRoYW5rcywKQW9o
-YW4KCgkKCg==
+On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
+> On 9/2/26 09:39, Leon Romanovsky wrote:
+> > On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> >> On 9/1/26 19:08, David Hu wrote:
+> >>> From: David Hu <xuehaohu@google.com>
+> >>>
+> >>> This series address two related issues in scatter-gather mapping,
+> >>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> >>> sgt mapping is correct, and proper for large MMIO regions.
+> >>>
+> >>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> >>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> >>> phys vec to sgt)
+> >>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> >>>
+> >>> Patch 2 Splits sgl by largest page aligned chunk
+> >>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> >>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+> >>
+> >> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> > 
+> > And this is why so many in the kernel community want to get rid of SG
+> > lists. It would be great if DMA-BUF could also eliminate the need to
+> > convert to an SGL, like Jason proposed.
+> > 
+> > The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+> > which is the one that depends on it.
+> 
+> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
 
+You are proposing the same thing as an SGL, just in a different format.
+It does not address the issue that dma_addr_t is expected to hold a DMA
+address, while that is not always the case. For example, in the P2P case,
+the addresses are not DMA addresses.
+
+Jason's proposal:
+https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+
+Thanks
+
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks
+> 
+> 
