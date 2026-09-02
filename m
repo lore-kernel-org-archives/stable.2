@@ -1,66 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8E238E8D3;
-	Wed,  2 Sep 2026 19:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F282C2C0F8C
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 19:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788378021; cv=none; b=CxKhrjEbvdvFNFzMPkFSDW099mb3PZJpm0EL/54PHvGoI5pUoj/DC7uzxfjiCd6CoWh+gLPJIYbnU1qiDv6neg2QIEHxzJYCz3Tt3ze8G/7ONIqnN5R7hN3ygjlrWzrStnfoqRihFhppxI0+fRMUcDw3YSua/VeWJaZaHifuIgk=
+	t=1788378797; cv=none; b=s61zshtx8cFQJxAccKVXfjZp2Hdgh63rtlz3tYA9RiknlVJ/PGj0yeNwzrzJ+gXbZQYWOcsRlx99nCCuwvTQ9gAp8GD4gkfcCPUk7EwdqvGL0PEX+9O+9/C6llXxAgLH0XhMGdk0gcE3wZB+o+TzIuyVEYnAphoaPbNbDHqvd74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788378021; c=relaxed/simple;
-	bh=hvuhYZ/zhnSW3W9EnPxfxrGI6iqbq44S+PuYionHMek=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cS2ngCdlaUuBzLmmFMO+chNXH+0Y4Gjqrnaytth4O1e4/PyxYGaScgD4UtYxVBaBk8eBCXeOElOvt9tix4dSblzptyYc7h0OlmtmXQwLp61D7T/LSyBS9QnWsIRVCoR32iNX3UcM9OqUt4FalryaeoH2Fcj+FNbAj5XcwVZ3tck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ItDJqVqL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788378797; c=relaxed/simple;
+	bh=vr6W5zFpVz8w0VHMme/yDcx9OPftCRNIo4AFcnhZPtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=md0CErJaWTKZjJBYwSLnD0vZ8q+biDt9Ga9GkX7SOTu1XQv0gJwHV6AYSPxZhZ7+Vptv+yUEwzzKzyay5VTGrQUVx6rRkmzWSIG90VC3uffUZfl0V8XtwTa7+Jftgb+ZZKsu5xajv46mF+m1ViM2mqh/qBE/RD28lNRWWS8WJQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FpD1KkVR; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ItDJqVqL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685821F000E9;
-	Wed,  2 Sep 2026 19:40:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788378000;
-	bh=tl89XML9mHT8dTGxLA/sj5/YuKXGrGcAaXUOBvAx+Qw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ItDJqVqLsWB6V6D/OnKtJWqeKFZODrq2XpC2EfPZqNd0nSLbWe8s3aEhDPtXBwcqO
-	 jUYic40USK3rLd949sPMuKkYkC129Wtm1Hbz1mnXHSW0aS3xWg3Pb/dCubYsX/G6AN
-	 j1AHmsiTrVtxlBiLGdAiz3sc+Zo4/Noajf25hdN73Wv7smeTl+FwzRwQTqkBnTZEJL
-	 vB0wha4FMQ1+QBWcc3eh2YMUt3d+YwuyUXTlL/gNwlzLVstMaDXtlz8P3YbwOdgKcB
-	 hrbJ4kCU1tWncY8W+qqyqCMpxyjTV+7A4P8Cax0PYYk1LueHcc4Ctjz0x679KtJ0ns
-	 zQgLvIH8e/rwQ==
-Date: Wed, 2 Sep 2026 09:39:59 -1000
-From: Tejun Heo <tj@kernel.org>
-To: Wanwu Li <liwanwu@kylinos.cn>
-Cc: David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] sched_ext: Fix NULL sched deref in kfunc sub-sched
- error paths
-Message-ID: <aph7j7b_rqqqcSwR@slm.duckdns.org>
-References: <20260902153640.144791-1-liwanwu@kylinos.cn>
- <20260902170751.256434-1-liwanwu@kylinos.cn>
- <d819e8358fffc09015feffad57794f7c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FpD1KkVR"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4843efcbdb2so1052553f8f.2
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 12:53:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788378786; x=1788983586; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Uw/w31b9K+Bo5B9bJ2pBdij1/BOB3D6uwkiUGcYBOoc=;
+        b=FpD1KkVRQ6ip1P1cfhHQc+TUFKZorOz2rEkEJiN9sxbO9abeWr+Az0MR3bKe5yvYhK
+         /EE/ylsBdQQNYDD1Gzc0jGRixN6E1DGHSETBJrJDRbtuVrfMiMDAkXv4WHiB8wYNuksq
+         i8SlVEHcxoaB5oLHpSgTCVPLlnaVQyUZOZTF2t3hN3riC+VrcxUpeNq5zQ5i2pXf8n95
+         /brTAPQtOCJyQQzoYUcpvTRMjCLzusxniEzvBg2Mlw5Fp87X8v77I8AeDBmiiLz2blUo
+         Tq46VgPNvyPVrg5yJjcE+GEyPSNeZ/Cxs2wTevFXD2s/0YZWZ9PjIDvlHkuXA6xjLVVC
+         +O6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788378786; x=1788983586;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Uw/w31b9K+Bo5B9bJ2pBdij1/BOB3D6uwkiUGcYBOoc=;
+        b=OSvduHzGnZTHvK/jw/WJUNYCynSoLBonBDFYxQFLEu53kE6VCY+KNEkszW/KgQMOtp
+         PC+0nLHCVyr9VD/7eeuPgD6yEswEuwZnd05sU8VVd0htS23vvs/+i/AFZjW3w/DufVeM
+         eyIIOSI4ec26PfGokyw9pWoLsTky/CXMtcmFceuCHP+QMFmLr35G4ddKkcOvcMR9XL8V
+         Cp4e4SZ3bcuQqMoi+9hI7qnJjXHGkuvFQkGGhErJXbPcJpRoj9JhwFoavfckOIEOMcK7
+         ldEWXjZcxXg/UGHA7V56rbVpQYlFfBN0S9uSV/kNQ8PelcOOp6QGXBtJEgw9xIWxJW4c
+         ZEyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzO34Y6cv8h2Y/bazcU8qUboy0/ri6M65RI9nNIKRvAhFLJeJum7ela3WmbBcHbLsEcnNSexOY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mb3gfSahWkeiGLAoNCYhF0jtE9vvtr+k9wmN+23EbxmJdDe2hW
+	P8d5RRVKvUO2FRr9jH+U7gPPWQkz2WPJjqLZ1/PHCUkrO8Kh0cZ9khLYh+OYSg9W
+X-Gm-Gg: AYBFou0GPhieJXjs7Gpeat3I4W55bPoe0aXA8VvWrnWffj0dEneEmxky8nCNDVdYMsx
+	eXeXkkBks7gKWE9CanA+yUrzNxj8KbYs48JsXp5E+DU0JIRhc8RJ667ly3Bn8RGo2Kker+iwvH5
+	SYPdvXjDmgMRQSJosLB5p4evlln4+5BWRCvndLGrZ+dO7GRNUx1vIAB1CrRUJ5StvTo5DVicbRF
+	DDKow0ny3QQ5DeZJCyvzx8fl3N03Rh1iHKf2xikhxZbNmajHBI7Y87wj2nMgVYeRuhYeGxDGTIo
+	JlLgMwCsD1GeplCBIPKp1PNoARaKDPGzs0hSLYwAf6vlIRnzM0ox4biTV6lDPb/BYU1BpRwWdjr
+	WmgjZQm/J3VX5Ef1U1BUZIXKCVFCyk70EoZqyCsqdj5I2nmLAT29L/5Gq5C9Lt+HY7VVmO6wxgo
+	hNFkxukXu9370sxDHUQpyaSr8SDY6CsNZ2+1JqQ2d7c/oxR0IuHEqlpsKbjNMjZSE=
+X-Received: by 2002:a05:6000:701:b0:484:3600:35b2 with SMTP id ffacd0b85a97d-48488f00a25mr11965360f8f.5.1788378785721;
+        Wed, 02 Sep 2026 12:53:05 -0700 (PDT)
+Received: from gentoo ([45.150.111.164])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm8552779f8f.24.2026.09.02.12.53.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 12:53:04 -0700 (PDT)
+From: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org,
+	davem@davemloft.net,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	edumazet@google.com,
+	dsahern@kernel.org,
+	horms@kernel.org,
+	aconole@redhat.com,
+	sbrivio@redhat.com,
+	gnault@redhat.com,
+	laikabcprice@gmail.com,
+	rough.rock3059@datachamp.fr,
+	stable@vger.kernel.org,
+	Yaroslav Dudkov <aroslavdudkov622@gmail.com>
+Subject: Re: [PATCH net] tunnels: Drop stale dst when building an ICMP error for PMTUD
+Date: Wed,  2 Sep 2026 19:50:10 +0000
+Message-ID: <20260902195012.265628-1-aroslavdudkov622@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260902190112.4126199-1-idosch@nvidia.com>
+References: <20260902190112.4126199-1-idosch@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d819e8358fffc09015feffad57794f7c@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 09:37:39AM -1000, Tejun Heo wrote:
-> > +		scx_error(scx_task_sched_rcu(p) ?: sch,
-> > +			  "__scx_bpf_select_cpu_and() must be used");
-> 
-> As the fallback only triggers for tasks already past sched_ext_dead() (or
-> idle tasks), tearing down the root scheduler doesn't make sense. How about
-> adding a flag to the root sched and printing a warning once instead?
+On Wed, Sep 02, 2026 at 07:01:12PM +0000, Ido Schimmel wrote:
+> Fix this by making sure that the ICMP error packet does not have a valid
+> dst entry, thereby forcing the IP layer to perform a route lookup.
 
-It'd be fine to just ignore it too. The scx_error() is there to flag cases
-where things went obviously wrong. I don't think we'd lose anything
-meaningful by just ignoring it when sch can't be determined.
+Tested on net with this patch applied:
 
-Thanks.
+- pmtu.sh: all 16 bridged and all 16 OVS subtests pass, both with and
+  without br_netfilter loaded. Without the patch, loading br_netfilter
+  makes all 16 bridged subtests fail (the reply gets delivered and exits
+  with the old -w 1 failure).
 
--- 
-tejun
+- The forwarded-sender reproducer from my earlier mail goes from
+  10 tx / 0 rx / no errors to 10 tx / 8 rx / +1 error, the error being
+  "From 192.168.4.1 icmp_seq=1 Frag needed and DF set (mtu = 3950)" --
+  the tunnel's PTB reaching the sender.
+
+Tested-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
