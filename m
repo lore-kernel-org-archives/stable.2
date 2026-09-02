@@ -1,34 +1,45 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ED4390239;
-	Wed,  2 Sep 2026 14:09:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147B390239;
+	Wed,  2 Sep 2026 14:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358185; cv=none; b=s+qFpmzjh6FwhS/LS961IQ5dQemFJUgqSv+6MVUXqPn2Ep2qHStvlD+7yRdKrfjEpxA7d/1id7gRNwdNX7/nJ+dmivtzLHM7/+4RaUKPN7zIHHswM9MtpSIZ4WmTLSuNtUrwLuZfusMAFh4vlnPBc8EDFElhweJ61lEBAYLbNVI=
+	t=1788358209; cv=none; b=L4imQ5OskI/8SFTGVGE8Om2SBBGJ/VjNs5HKMkHPSvDBNmhmlm5qhWCGoG3RXrJSLe5jaaOp+wSHeIvS6zNyOxYzOfFGGe7p1dCXDPn/GPcg/hh3EOI5dYiZQxypNAIR9Mtwy9EY+Xhv2na5dRHJwJq1wDA/S2SQcgiGABRBeh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358185; c=relaxed/simple;
-	bh=hwznEtLz9at2KrCUuawHk7lHioFcA3JjBccZlI0G948=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RVR1f0oEnxYAUMsVXY6BWnnUwMz49Zc7NAPCTWbkUnRiU/xrdw8QeIttjSZhBJ+Ech7Z9sKLpi9IEZNcXOcM0FXFz+m1M9NbJPzJdKYjeoaaBUIVJmyRuufpw/RTnoibHW6YpyRLF6BWJSVzWRwdj2/YSTci9EdVaajtzT/JwKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=STnxJlrY; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788358209; c=relaxed/simple;
+	bh=YwGokD0r74aDWLGOYZ2BYv68juXgI7r0hr4IEVBmjsc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mhGNiFVG45PS3FK7Y7blfc+sGVj4VuLFiv611EKnYiXcPFHeWuWwVsOra2DjUakWN2+d1O495XdbekzWhoCiWGA35nPVORLK70wNTiBHS3+8XQraV24jzIP7jrlHajwXPEK+RBvuI9d9/pp98CzvZxEzHOaoKdUvT948/xgoXK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAhB4egW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="STnxJlrY"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c47d4e66;
-	Wed, 2 Sep 2026 22:09:34 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAhB4egW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B551F000E9;
+	Wed,  2 Sep 2026 14:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788358208;
+	bh=oihjsCCaHvHV7Ff/eBY5FAk8c0jiEhpNBZtjuRbpKTc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LAhB4egWDVKTZbo/WjNpEn1Ptf02oJWczukKKktsE1y2dTGpRlXs4Np28vHY1QNHI
+	 K+S1q2j2GIlwhDnAUWDXKjFmrUYPPAh6o0YFjC+AzGuJfuOu4GS8oQibhtbpI6jLt6
+	 ZIdMAkFVc8n8B9DeyY1F7iWv51s1kYW1bK8XERhVA3xLT8mKHeCz5pUP4qd8dPHN4p
+	 YHIJG5tykKEbSVIdhLiEEHuEHgwROeUnDx31ozmjtbOdH4Mta57efgCv36ezivH5KX
+	 p9pPj8kNZvyVDSwFrUkvSEAesHaRzBKqM6s8NoICC3VJaFxXypTOwM+6aAB6DIROZw
+	 fYWRdlCPXI9Og==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] mmc: sh_mmcif: initialize IRQ-thread mutex before requesting interrupt
-Date: Wed,  2 Sep 2026 22:09:26 +0800
-Message-Id: <20260902140926.3576781-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Wed,  2 Sep 2026 07:10:00 -0700
+Message-ID: <20260902141001.86733-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260902084445.27170-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,50 +47,18 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06274269103a1kunmc427f4561ad27c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0wfVh8aH08fSh0ZQ0JDT1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=STnxJlrYaprVQet6E8MpyhvyWvOQRi7r7aEZY5pMAw1sP1Raw/frzxfzu5UWKA6sBE+zY8qiFR2ev/Rvu1TqhN9g9arf6c9yb4kFVn9hPINnTDZN3J+NyqcGG3EggICdQTLS+cuuxbiUDVC20baLnHOxX0c/CfVa0yHphH1xAWM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=gyRX29A6v4W3vpaMus1y6buRgYO80vg2lKvJYVXDFcE=;
-	h=date:mime-version:subject:message-id:from;
 
-The threaded IRQ handler can run before devm_request_threaded_irq()
-returns, but thread_lock was initialized afterwards. Initialize it before
-requesting either interrupt.
+On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-Fixes: 8047310ee984 ("mmc: sh_mmcif: fix a race, causing an Oops on SMP")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/mmc/host/sh_mmcif.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+> When setting goal_tuner to 'temporal', if the goal is achieved,
+> quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
+> will always return true, even if no regions have been tried to apply at
+> all.  This causes qt_exceeds to increase unexpectedly.
 
-diff --git a/drivers/mmc/host/sh_mmcif.c b/drivers/mmc/host/sh_mmcif.c
-index 7706d01b1..8bd9cdeda 100644
---- a/drivers/mmc/host/sh_mmcif.c
-+++ b/drivers/mmc/host/sh_mmcif.c
-@@ -1461,6 +1461,7 @@ static int sh_mmcif_probe(struct platform_device *pdev)
- 	host->pd = pdev;
- 
- 	spin_lock_init(&host->lock);
-+	mutex_init(&host->thread_lock);
- 
- 	mmc->ops = &sh_mmcif_ops;
- 	sh_mmcif_init_ocr(host);
-@@ -1515,8 +1516,6 @@ static int sh_mmcif_probe(struct platform_device *pdev)
- 			goto err_clk;
- 	}
- 
--	mutex_init(&host->thread_lock);
--
- 	ret = mmc_add_host(mmc);
- 	if (ret < 0)
- 		goto err_clk;
--- 
-2.34.1
+To me, this looks logically correct.  Could this cause any user issue?
 
+
+Thanks,
+SJ
+
+[...]
