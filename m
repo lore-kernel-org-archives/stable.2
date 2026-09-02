@@ -1,127 +1,200 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71E34AA403
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 17:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9859369D72;
+	Wed,  2 Sep 2026 17:08:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788368769; cv=none; b=kbnh89XkLbHsY6azjti+zBwcFQjLKdiygf0HNkvyKZEnVh+pTmbMOJvK1Xg8Ldz2cyqmWOUKVNHZqTshvfoo2L8wBnknurkdnP7v3Lqe/AeHrT0e/kNnYdpx7MFiRcVWV48Fi/D8V5yZwN69sH0WRY0SRdpM3pGVA+5bcAny02w=
+	t=1788368885; cv=none; b=PKn5wbpczjETB5s3ZhmXrulUSxtrXUt8L1YIIKKnTjnmEMz8T0LD4d7rto/f+qxOUPgKOSFlA7TMeO88BjNoiMOGQpv+hOZpZ2J70q5DyRMTL4R26z5RKHa0vB/IFL7QoJT+WVYJ77wuDTMAfkjIBxzbjfIeHK0lyzcVd5bHrPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788368769; c=relaxed/simple;
-	bh=1qyWm9FBS4lwMn+l0z/+FmSGpRC7Wsn68Pil4y+CNuo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=b6R/QBTO3uzJEQAiZubvJtSU0gU3BiF/mkg6jR6k/bTCOKKG/2sp4b6G9LIifgtxTpsKaBIEpP8vG6xwpyYuf8ld6VOioAxAdGSnvcM5WDGQM3tMjRZm2VK7MVRa2pzq5lt0JRoKnYa+ngXNnoPo9Mgkrk2Tnhh225tMqF8wLEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=okGfq5qS; arc=none smtp.client-ip=209.85.216.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="okGfq5qS"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38f283baf1fso1887071a91.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 10:06:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788368767; x=1788973567; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2OU53ojU8l8wGUtd3KV+CqsYwkI7GFM3tHWbQYKqcr0=;
-        b=okGfq5qSR52Eg5Qzuw8Iwhb5JA/lUy8KYG36TZcZ8Ai04BHIS5kobDHEXzv8p7fmM5
-         hYSD49TMlL1XiRpOWmbzOD8wSaUqmdQ6K353PsO/IFIOfZjxR7hWYPfuEgJNQpH49Iwr
-         gWuEyD/Mq+NqZ3gSCHzoLjr9KNbV+NIV6NgUVH8tTvpN0CG1BnrhafdfjAOQrrqlk85i
-         l+lpPC3A10Fz8TLbXTnB+bF7/I0s5VuqXUo+49UvdBeH91WtZeB27jYb7exC7pwNYxgv
-         5DduiPbeuYxm+OXCyZGg4ofXLWJ+xKONEpKKcOBZHQ0/yfBlYMhERfNguGU00Nx8T9ua
-         J47Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788368767; x=1788973567;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2OU53ojU8l8wGUtd3KV+CqsYwkI7GFM3tHWbQYKqcr0=;
-        b=LKmFGgwGbcA8Oajc5Bof9VB+8iVR1f2MTmAIYlZ5iRXucyElbodnr4E2aH2KCySHL4
-         OirfTQhek3P3qHYpE9E5hFWnS1X56GwT9d4069rJKcZNjLLxjyD1zN99pMm2tNqWirf2
-         edKoOBSZN58Q/40ZvKNlBl9RbvOKOtqcJCyvGlbrgoeHB8jjebus8p1ABTOyLbhDPUK3
-         joGUVXPkzQE4KrMMuMmA9sdpG9mzgHiL65XgZIZQ7umFiRiuSB6L2sq/RJ+6UfK9gTIm
-         0+kMPVEd36eX2ua2V5ykBJke18dJiPFpBo6U1gDiXGhVI6eo9fMRnIGlwX+AXnIZ8CJW
-         DuiA==
-X-Forwarded-Encrypted: i=1; AKwUvBy3TtAqZa8H6Cnebd3PVMuM8QxTaZUTVEt0fUWmIaF9XmYAqTcoyhNHEilyuo8Q9rBZmWNjCyI=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3JZlTouPTbuKlVecKSnZrXbswZlBX3LrKZJxI+diLBWWpj2qm
-	gIHf8UtWAeFNBRfDq7VJvzZeePX5/AI/ogZr9/1mEWGJQ/wLrFEO3qyjSdvfaINuvQkH5LryRDy
-	rfCMP6A==
-X-Received: from pjbie23.prod.google.com ([2002:a17:90b:4017:b0:398:d6ef:84d])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:c106:b0:380:f85c:94b4
- with SMTP id 98e67ed59e1d1-39aedf1a98dmr10201213a91.7.1788368766542; Wed, 02
- Sep 2026 10:06:06 -0700 (PDT)
-Date: Wed, 2 Sep 2026 10:06:05 -0700
-In-Reply-To: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
+	s=arc-20240116; t=1788368885; c=relaxed/simple;
+	bh=eCn7F+broTaEae20rMz/DqPUMU0WFOkDFFoSuv/hBik=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LGjHppvUF5vJOOr9vos96K5xAoyOxefFWA9/26w9uo0LCeMSbx/ZNB9PeCXUVGHyxPCYv4NlxKJnD5cuSW7rhydccPeyUJF+Nm6elWfCOpKkcN/tYQU22gBKikBAqBRsLdoF1trhVrRKq64bIjzTk1Z2TGn+8gZFcJoFmH40VB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: d78c393ca6f011f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d3ce66d6-4c88-4a38-9acc-95b1be91bf53,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:e8bbfc6a371588ae186ee2ff3d0d7e09,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|865|898,TC:nil,Content:0|15|50,EDM:5
+	|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: d78c393ca6f011f19a56ed5b684f684d-20260903
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 276297971; Thu, 03 Sep 2026 01:07:56 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: Tejun Heo <tj@kernel.org>,
+	David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>
+Cc: liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] sched_ext: Fix NULL sched deref in kfunc sub-sched error paths
+Date: Thu,  3 Sep 2026 01:07:51 +0800
+Message-Id: <20260902170751.256434-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260902153640.144791-1-liwanwu@kylinos.cn>
+References: <20260902153640.144791-1-liwanwu@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
-Message-ID: <aphXfTJicnEde3R4@google.com>
-Subject: Re: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP Platform
- initialization to KVM breaks SEV-ES VM launch
-From: Sean Christopherson <seanjc@google.com>
-To: Andrew Wilson <wizlonex@gmail.com>
-Cc: ashish.kalra@amd.com, aik@amd.com, herbert@gondor.apana.org.au, 
-	stable@vger.kernel.org, regressions@lists.linux.dev, thomas.lendacky@amd.com, 
-	john.allen@amd.com, davem@davemloft.net, linux-crypto@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 1145026@bugs.debian.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026, Andrew Wilson wrote:
-> #regzbot introduced: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
-> 
-> Hi all,
-> 
-> I am writing to report a regression affecting AMD SEV-ES VM launches
-> on the 6.12 stable branch (first noticed in 6.12.97+ / 6.12.101).
-> 
-> I completed a git bisect between working and failing kernels, which pointed to:
-> 
-> Commit: bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform
-> initialization to KVM")
-> Upstream commit: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
-> 
-> ### Bisect & Verification Details:
-> * Last Known Working: 8a599f4f74d4
-> * First Broken Commit: bb1c84647025
-> * Tested on 6.12.101: Cleanly reverting bb1c84647025 immediately
-> resolves the issue and allows SEV-ES guests to boot normally.
+The COMPAT kfunc wrappers scx_bpf_select_cpu_and() and
+scx_bpf_dsq_insert_vtime() error out @p's scheduler when the root
+scheduler has sub-scheds attached:
 
-Can you try v6.12.104 or later?  I'm pretty sure this is fixed by commit
-6b748c39d18e ("KVM: SVM: Add support to initialize SEV/SNP functionality in KVM"),
-i.e. is the same thing as:
-https://lore.kernel.org/all/20260814100652.225499-1-jinpu.wang@ionos.com
+	scx_error(scx_task_sched(p), "... must be used");
 
-Note, SNP is still buggered on 6.12.y if CONFIG_KVM_AMD=y, I'll try and send a
-backport for that soonish.
-https://lore.kernel.org/all/521b22fa-ef09-4449-909f-0120edfc4b24@oracle.com
+scx_task_sched(p) is p->scx.sched, which is NULL for any task that is not
+on an scx scheduler: it is memset() by init_scx_entity() and cleared by
+scx_disable_and_exit_task() -- which sched_ext_dead() runs when a task
+exits. It is also an rcu_dereference_protected() that must be called with
+@p's pi_lock or rq lock held, which neither wrapper does. Passing NULL to
+scx_error() reaches scx_vexit(), which dereferences sch->exit_info
+unconditionally, oopsing the kernel.
 
-> ### Failure Description:
-> With commit bb1c84647025 applied, `sev_platform_init(&args)` is
-> removed from `sev_pci_init()`, assuming KVM handles on-demand
-> initialization.
-> 
-> On bare metal, the PSP firmware appears to remain uninitialized (does
-> not reach SEV_STATE_INIT at probe time). When QEMU initializes KVM and
-> queries host SEV-ES capabilities, the ioctl fails with -EPERM:
-> 
->   qemu-system-x86_64: -accel kvm: sev_common_kvm_init: guest policy
-> requires SEV-ES, but host SEV-ES support unavailable
->   qemu-system-x86_64: -accel kvm: failed to initialize kvm: Operation
-> not permitted
-> 
-> ### Hardware & Environment:
-> * Tested on: AMD EPYC (Rome / Milan) Supermicro platforms
-> * Kernel: Linux 6.12.101
-> * Hypervisor: QEMU / KVM
-> 
-> I have access to Naples, Rome, and Milan test hardware and am happy to
-> test any patches, provide dmesg traces, or assist with debugging.  I
-> am not a tech-expert of any kind, but I have time to do some testing
-> if it helps.  THANK YOU for the great work.
-> 
-> Original Debian bug reference:
-> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1145026
+Both wrappers are reachable with such a @p. scx_bpf_select_cpu_and() is in
+the select_cpu kfunc group, which scx_kfunc_context_filter() opens to
+BPF_PROG_TYPE_SYSCALL programs. scx_bpf_dsq_insert_vtime() is in the
+enqueue_dispatch group, which ops.enqueue() and ops.dispatch() may call
+with any KF_RCU task: the group has no kf_tasks validation, and
+scx_dsq_insert_preamble() checks task ownership with scx_task_on_sched()
+precisely because @p may be an arbitrary task.
+
+Neither wrapper requires a contrived @p. Tasks that are never enabled --
+kthreads and tasks of other classes under SCX_SWITCH_ALL=n -- keep
+p->scx.sched NULL indefinitely; and a task handed over from
+bpf_task_from_pid() can exit before the call lands, as its zombie stays
+visible to pid lookups until it is reaped.
+
+One concrete trigger exercised for this changelog: a SYSCALL program
+calling the select_cpu_and wrapper on an exited-but-not-reaped task while
+a sub-scheduler is attached (faulting instruction is the scx_vexit()
+prologue "mov r15,[rdi+0x398]" with RDI=NULL and 0x398 the offset of
+sch->exit_info):
+
+  sched_ext: BPF scheduler "kfunc_subsched_null" enabled
+  sched_ext: BPF sub-scheduler "kfunc_subsched_null" enabled
+  sched_ext: Unassociated program run_select_cpu_ (id 76)
+  BUG: kernel NULL pointer dereference, address: 0000000000000398
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  Oops: Oops: 0000 [#1] SMP NOPTI
+  CPU: 7 UID: 0 PID: 8201 Comm: kfunc_test_runn Tainted: G W
+  RIP: 0010:scx_vexit+0x25/0xa0
+  Code: ... <4c> 8b bf 98 03 00 00 ...
+  CR2: 0000000000000398
+  Call Trace:
+   <TASK>
+   __scx_exit+0x4f/0x70
+   scx_bpf_select_cpu_and+0xab/0xb0
+   bpf_prog_430ed61a7b66e03a_run_select_cpu_and+0x9c/0xe7
+   ? __x64_sys_bpf+0x2c/0x40
+   bpf_prog_test_run_syscall+0x130/0x2f0
+   __sys_bpf+0x930/0x10d0
+   ? __x64_sys_bpf+0x2c/0x40
+   __x64_sys_bpf+0x2c/0x40
+   do_syscall_64+0xbc/0x460
+   ? rseq_set_ids_get_csaddr+0x81/0x140
+   ? __rseq_handle_slowpath+0xd0/0x130
+   ? switch_fpu_return+0x51/0xd0
+   ? arch_exit_to_user_mode_prepare.constprop.0+0x87/0xb0
+   ? do_syscall_64+0xf3/0x460
+   ? irqentry_exit+0x48/0x740
+   ? clear_bhb_loop+0x40/0x90
+   ? do_syscall_64+0x35/0x460
+   entry_SYSCALL_64_after_hwframe+0x76/0x7e
+   </TASK>
+
+Keep the "error out @p's scheduler" attribution -- it is what every other
+kfunc error path does (select_cpu_from_kfunc()'s cross_task,
+scx_kf_arg_task_ok()) and it is correct for the callers that take this
+path with a live task: p->scx.sched is their scheduler. Just read it
+safely: use scx_task_sched_rcu() (valid under the guard(rcu)() both
+wrappers already hold, no @p lock required) and fall back to @sch -- the
+root scheduler, guaranteed non-NULL here -- when @p is not on an scx
+scheduler, which is precisely the case that used to be NULL.
+
+These COMPAT wrappers are scheduled for eventual removal once the
+deprecation grace period elapses, but until then -- and regardless of
+their removal timeline -- they must not oops the kernel on a task they
+are handed; this fix makes the error path safe.
+
+Cc: <stable@vger.kernel.org>
+Fixes: a5fa0708cbfd ("sched_ext: Enforce scheduling authority in dispatch and select_cpu operations")
+Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
+---
+
+Changes v1 -> v2:
+ - Extend the same fallback to scx_bpf_dsq_insert_vtime() as suggested
+   by Andrea (and flagged by sashiko-bot); rewrite the reachability
+   argument in the commit message accordingly.
+
+ kernel/sched/ext/ext.c  | 9 +++++++--
+ kernel/sched/ext/idle.c | 9 +++++++--
+ 2 files changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 10af28a9f2c0..fdfaa7e9c8f5 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -8943,10 +8943,15 @@ __bpf_kfunc void scx_bpf_dsq_insert_vtime(struct task_struct *p, u64 dsq_id,
+ #ifdef CONFIG_EXT_SUB_SCHED
+ 	/*
+ 	 * Disallow if any sub-scheds are attached. There is no way to tell
+-	 * which scheduler called us, just error out @p's scheduler.
++	 * which scheduler called us, so error out @p's scheduler -- but read
++	 * it under RCU (@p's locks aren't necessarily held here) and fall
++	 * back to @sch if @p isn't on an scx scheduler: enqueue/dispatch
++	 * contexts may pass any KF_RCU task, and p->scx.sched is NULL for
++	 * one that has exited or is managed by another scheduler.
+ 	 */
+ 	if (unlikely(!list_empty(&sch->children))) {
+-		scx_error(scx_task_sched(p), "__scx_bpf_dsq_insert_vtime() must be used");
++		scx_error(scx_task_sched_rcu(p) ?: sch,
++			  "__scx_bpf_dsq_insert_vtime() must be used");
+ 		return;
+ 	}
+ #endif
+diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
+index d2973fb3af6d..014599d82bb0 100644
+--- a/kernel/sched/ext/idle.c
++++ b/kernel/sched/ext/idle.c
+@@ -1142,10 +1142,15 @@ __bpf_kfunc s32 scx_bpf_select_cpu_and(struct task_struct *p, s32 prev_cpu, u64
+ #ifdef CONFIG_EXT_SUB_SCHED
+ 	/*
+ 	 * Disallow if any sub-scheds are attached. There is no way to tell
+-	 * which scheduler called us, just error out @p's scheduler.
++	 * which scheduler called us, so error out @p's scheduler -- but read
++	 * it under RCU (@p's locks aren't held here) and fall back to @sch if
++	 * @p isn't on an scx scheduler: a BPF_PROG_TYPE_SYSCALL prog can pass
++	 * any task and p->scx.sched is NULL for one that has exited or is
++	 * managed by another scheduler.
+ 	 */
+ 	if (unlikely(!list_empty(&sch->children))) {
+-		scx_error(scx_task_sched(p), "__scx_bpf_select_cpu_and() must be used");
++		scx_error(scx_task_sched_rcu(p) ?: sch,
++			  "__scx_bpf_select_cpu_and() must be used");
+ 		return -EINVAL;
+ 	}
+ #endif
+-- 
+2.25.1
+
