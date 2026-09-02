@@ -1,117 +1,92 @@
-Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDE64A5ED9
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 15:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97794A33E1;
+	Wed,  2 Sep 2026 15:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788362288; cv=none; b=lmGQxGl3bRQlPlbdQlr22kEIr3KnaL35v41Zr5XaTL8mn0VNuQ/lMHq7xZOtg/Pl5+o1f0nelFgzU5y7S9jZxS3mg2Xl7mPi3GM1js3Qwo6HqOhRjW6Xmmu4HDnpRZrOnWZ9LCwozcAf0kvN6BYdDhVas06c/4XO3DgXm+hB/oU=
+	t=1788362601; cv=none; b=Ejhqn7taHWDi0iZFo6/jILk4tLd+PJW2j2Axcfrs9bgIjsSEMjyRAqiCR9mTnYEwbyX5NWlumutJwD0PoG29ftSY/6kfg7EgtYxyZ/+7oNkb+a0GtJC26ZG3KV/loPSQMnc70PYZPruqsCESoKrvRw3n23bw8RCnaNCqUuYXDfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788362288; c=relaxed/simple;
-	bh=21rcNKwNj+gfzwtDbWiARIBtlZyphQpDEMaJylFhpSI=;
-	h=References:From:Date:Content-Type:To:Subject:Message-Id:
-	 In-Reply-To:Cc:Mime-Version; b=CEvLGfP2zDJuyd4yzJz5HKsd5W5WcA4RJwGBnG8UWZOrdNXjwlOe+gvUox0sCwI1Vk2bwfKY3OX/AhyZOHVcnbNgQSPhAX4ISXkeIOvY8SAhax0K47SXJzWPdi9oArXRJ3JXGqFKkxOCi91CMmhp5B06q2uZWdrFGNlqOelvmkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=E5RwZoyy; arc=none smtp.client-ip=209.127.231.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1788362601; c=relaxed/simple;
+	bh=ftISuHemVJPa7Oz5ov0k1Y7KpSgbAU6HFXGXmsSoBD8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AMvlncZ7pevH+zwU4e4OS0RLn/DX37qq5mlcPYCJcSF1gHe+Oq/u3rSuIiJB+pLr0WvAQFEQypri4csSWcWBMWLHFY+uSRfaJ1oX47+v4KWVxb00Kwrp1pnJ8WckPDnb6ENa6PSeztQjdpeufftP7UW5YrLNz1Ts8GoYUBbx++E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=TImTtoJU; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="E5RwZoyy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788362278;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=NLbtg9v/wr1jTfkmRfnVDsymAoAkkWPBPijB9LWDQ1k=;
- b=E5RwZoyyfuCs+V+THDA1k0wJsQiHcyC7OGvP0bJRXX9pd8oU9xoL8r3uTcAMA++Yiz83qY
- cwPk1+aLo/D0lsT1Mxuh15KesPlW+5P3OBos7qD1GMTQp6eO+sMgpYB/e5bOy3d++Bo7Dc
- ZM9IcZ+qAI8FTXnVcFRZveJbTTcOPzQ6G//GFs+DVBH/DB9ju0dmbGNMShr2O2r2Q9vnbq
- Kh1XgHtyXQkWK2FsGkSVYSDKXCfgWP7X8TWxEpwe0IOqLwJop/qBEFwh/Q58igo5iWsb3I
- sI8WWVpSiv+mBO/RBywamQwio8oIG5R3Je1Vzk8uS2ZoL1UF/+/umOA2ajYqWw==
-References: <20260709131904.596684-3-adhikari.resume@gmail.com> <20260721164027.637078-1-adhikari.resume@gmail.com> <20260721164027.637078-3-adhikari.resume@gmail.com> <anQdWeHd2EDZtkzp@studio.local>
-From: "Coly Li" <colyli@fygo.io>
-Date: Wed, 2 Sep 2026 23:17:44 +0800
-Content-Type: text/plain; charset=UTF-8
-X-Original-From: Coly Li <colyli@fygo.io>
-X-Mailer: Apple Mail (2.3864.700.51.1.1)
-To: "Ramesh Adhikari" <adhikari.resume@gmail.com>
-Subject: Re: [PATCH v7 2/2] badblocks: validate sector range and shift before rounding
-Message-Id: <4B2B2780-254F-4702-8A78-2CD3F57C1D1F@fygo.io>
-In-Reply-To: <anQdWeHd2EDZtkzp@studio.local>
-Received: from smtpclient.apple ([120.245.64.136]) by smtp.larksuite.com with ESMTPS; Wed, 02 Sep 2026 15:17:57 +0000
-Content-Transfer-Encoding: quoted-printable
-Cc: <axboe@kernel.dk>, <gregkh@linuxfoundation.org>, 
-	<linux-block@vger.kernel.org>, <stable@vger.kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="TImTtoJU"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c491061c;
+	Wed, 2 Sep 2026 23:23:03 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>,
+	Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Iwona Winiarska <iwona.winiarska@intel.com>,
+	openbmc@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] peci: npcm: Initialize state before requesting IRQ
+Date: Wed,  2 Sep 2026 23:22:56 +0800
+Message-Id: <20260902152256.3591658-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a983e26+2ac9d2+vger.kernel.org+colyli@fygo.io>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa062b76f3003a1kunm3e6bdf361afe3e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHklDVkhDTEJNQhlIT0NPQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=TImTtoJUXiD1qTIb0D6iXCOpnHCKrriXBqCjbhTmkXPj2AKqLzPqNheF1lXNn/qCdftmsxAbaMN9ybSXEZ9s4m7Euy9H8+9706e6atCkSRRvCzV2LJrrqwo50Iwy31S93bu+Iuc00RjMqefRtE1ZRqviwiG8k0T4+XsVgzjRpxc=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=TRS6pZD0gWBW+I2u01vpUsFWHU2ENnJgfpVpPwcSxGw=;
+	h=date:mime-version:subject:message-id:from;
 
-> 2026=E5=B9=B48=E6=9C=886=E6=97=A5 15:22=EF=BC=8CColy Li <colyli@fygo.io> =
-=E5=86=99=E9=81=93=EF=BC=9A
->=20
-> On Tue, Jul 21, 2026 at 10:10:24PM +0800, Ramesh Adhikari wrote:
->> _badblocks_set(), _badblocks_clear() and badblocks_check() round
->> the caller-supplied [s, s+sectors) range to the current bb->shift
->> block size before touching the bad block table. That rounding
->> was not defensive against a few cases:
->>=20
->> - s + sectors can overflow sector_t (u64), wrapping the range
->>  end before it is ever compared against s.
->>=20
->> - bb->shift is a plain 'int' field, populated in one case
->>  (drivers/md/md.c, from the on-disk superblock's bblog_shift)
->>  straight from an unvalidated byte with no upper bound. Shifting
->>  by an amount >=3D the width of the shifted type is undefined
->>  behaviour in C; "1 << bb->shift" was shifting an int literal,
->>  so this was already undefined for bb->shift >=3D 32, let alone
->>  the full 0-255 range bblog_shift allows.
->>=20
->> - round_up()/round_down() rounding a value near ULLONG_MAX can
->>  itself wrap back to a small value, so even with a valid shift
->>  the rounded end of the range could end up smaller than the
->>  rounded start, silently turning a small range into a huge one
->>  (in _badblocks_clear()/badblocks_check(), which round the end
->>  up) or losing the range entirely.
->>=20
->> Add an explicit s+sectors overflow check and cast the shift
->> operand to sector_t so the shift itself is never performed on a
->> 32-bit int, and detect post-rounding wrap by comparing the
->> rounded result back against the pre-rounding value.
->>=20
->> badblocks.c does not itself bound bb->shift: every caller except
->> drivers/md/md.c always leaves it at 0, so the one caller that
->> populates it from untrusted on-disk data is responsible for
->> bounding it before assigning it, per struct badblocks's shift
->> field documentation in include/linux/badblocks.h. That md.c-side
->> bound is being sent as a separate patch.
->>=20
->> badblocks_check() returns 0 rather than -EINVAL on the wrap case,
->> matching its existing "0: no known bad blocks in the range"
->> return convention instead of introducing a new error path callers
->> don't expect.
->>=20
->> Suggested-by: Coly Li <colyli@fygo.io>
->> Fixes: aa511ff8218b ("badblocks: switch to the improved badblock handlin=
-g code")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Ramesh Adhikari <adhikari.resume@gmail.com>
->=20
-> The patch looks good to me, thanks.
->=20
-> Reviewed-by: Coly Li <colyli@fygo.io>
->=20
-> BTW, the shift overflow checking in md raid code is accepted by
-> md maintainer, so you may submit these 2 patches with my Reviewed-by
-> to Jens. That's enough.
+The PECI interrupt handler uses the lock and completion object as soon as
+the interrupt is delivered. Initialize both before registering the
+handler so an early interrupt cannot access uninitialized state.
 
-Hi Ramesh,
+Fixes: 3e16184a1bd8 ("peci: Add peci-npcm controller driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/peci/controller/peci-npcm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-If these patches are not merged yet, I will submit them with my other bcach=
-e patches to Jens
-later. It might take some time, but won=E2=80=99t be forgot.
-
-Thanks.
-
-Coly Li
+diff --git a/drivers/peci/controller/peci-npcm.c b/drivers/peci/controller/peci-npcm.c
+index 931868991..3cc4e959a 100644
+--- a/drivers/peci/controller/peci-npcm.c
++++ b/drivers/peci/controller/peci-npcm.c
+@@ -253,14 +253,14 @@ static int npcm_peci_probe(struct platform_device *pdev)
+ 	if (priv->irq < 0)
+ 		return priv->irq;
+ 
++	init_completion(&priv->xfer_complete);
++	spin_lock_init(&priv->lock);
++
+ 	ret = devm_request_irq(&pdev->dev, priv->irq, npcm_peci_irq_handler,
+ 			       0, "peci-npcm-irq", priv);
+ 	if (ret)
+ 		return ret;
+ 
+-	init_completion(&priv->xfer_complete);
+-	spin_lock_init(&priv->lock);
+-
+ 	ret = npcm_peci_init_ctrl(priv);
+ 	if (ret)
+ 		return ret;
+-- 
+2.34.1
