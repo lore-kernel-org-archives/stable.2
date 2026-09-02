@@ -1,142 +1,112 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D259B379C2E;
-	Wed,  2 Sep 2026 06:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EB438CFE7;
+	Wed,  2 Sep 2026 06:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330196; cv=none; b=OhvWJsuCd6M0+pVWMZZrkZ9Z0dZpF8c7CZ+hdug/V31qezj04fyFBIkCgvi8OZQzHGD1P+rYbebP7pcZtYMHQJQHJ/+w1HWXA8Ze1Bh+QBu/VyMBblymF7NkEG2hLF5Xt9ci8vLW9xi5TuzSPktrFw8l5MniV9dpj5vdu4JCHYo=
+	t=1788330594; cv=none; b=DjT7uNkCBnRnxLhpAuj34uBIviUAVlJ8PeFg8gNqwWINIBDiuQIxbUXBq+dhiR821dFE5IT/fnKHOA+9zjKSR7iDNl9OsqdDI+48wsyMtHld5hsmD8lF8Jk1g9ek4OuM0bQ7ffO7LsZgHePGvxsk9ThDvutVM1Tp3RaK1ilafMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330196; c=relaxed/simple;
-	bh=N6HGV2v34tIxrvNW7pb87uKl/c8R+EPdDWnxyhz6kx8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tGT9OGsa5wzK+3OZXlzymRmrWlcQgnfDEHEDVX79prMpHLArm2zp+V6mxLzfU87bVuoqazguiT7NRXARzXMW+GXCJhsvbroy+1s5MjU9NLty8Zva8Kv4plwKDvjFlsQOKuB5bxbUsBgPh3SzHNwn8/IE0Mv60dTSeS1GB1MRt0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qJ9/Zolh; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788330594; c=relaxed/simple;
+	bh=p7pVIHcF+v5InapvcwA0+b1hKrVe6y1L9rtG/3lihNQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dThbchLbx0Cc86pgvyMHS/Hp3SL6sbuMukJcpe27m/nLVi08Lh7iGcF2+vLplM1sBT8rFg+m9bPacGTa+2uP0YypYd/Ep0/Ch9X6+5KSRsyd8BZI6LK9MLkk1MjdYX+euzqhr+EeQoTXGZNKtyZ9JgO2kowfWdAkI57j4nF9fQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z7vuOrhe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qJ9/Zolh"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KWoQP1100696;
-	Wed, 2 Sep 2026 06:23:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=43Xnnl
-	ynqqKaQn6iPZ1B/MuUxSVG9jKdFzru1OJeYGY=; b=qJ9/ZolhhZXU4acm5TPByk
-	R0M6WBSvVtLRy7w8qhSppu1Q5UfEdwi5IMTFb6IRPWRtHr5/K0bd+mC6JaQpg5A3
-	+737pczYomPq6i2t31QpOa6onTqedHbCdsBvXd4k1qmjGarc/LmofzL2kv9X5uyn
-	lsL1kJyL76/JrOMUPhYO2NnDaVW2JiosdeKk73uwnXcypvEWDXia0kj49EMWpUuH
-	CP9f1mOLbo9KQTPLc699tW63W/GCBcpWA3t5L/9faTTOJnbuOSQn9YkZPUgeE/RH
-	lamtNeH41FAmv4vV+eL8/1+cBf+69k7PBnz1d+vne6HPbvwc3aZyVJF+4Oi3pj9g
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudvekx-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 06:23:13 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6826BGCW015087;
-	Wed, 2 Sep 2026 06:23:12 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccey7wvc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 06:23:12 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6826N8KL52101520
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 06:23:09 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D1DE420043;
-	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AB40B20040;
-	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
-Received: from [9.224.77.157] (unknown [9.224.77.157])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
-Message-ID: <35066cf0-62d8-4f2d-91e7-f00487d9cff1@linux.ibm.com>
-Date: Wed, 2 Sep 2026 08:23:08 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z7vuOrhe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA35B1F00A3D;
+	Wed,  2 Sep 2026 06:29:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788330592;
+	bh=5QKb53dfppE3ODd0ICOTgThrzRgUoUErwUPy0Ymaocg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z7vuOrheqSj4RAmGWewuILXngQ9Oc3k4ZggQCCQBklzY9jZ/inWu8COMIWAsjyBeO
+	 jbFfjUdMReJXoPghuXvMqnPYr5tl2B0q5S8b+HIfnNo638GtKjIMgYSFov3uYU+hqH
+	 plu5T2eLzcm25QEstV0lOhwfiKSXdWS/93HELGcA=
+Date: Wed, 2 Sep 2026 08:29:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Tengda Wu <wutengda@huaweicloud.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	Raushan Patel <raushan.jhon@gmail.com>,
+	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Subject: Re: [PATCH 6.6 095/261] tracing/probes: Reject $arg0 in meta
+ argument expansion
+Message-ID: <2026090227-clash-peroxide-8872@gregkh>
+References: <20260807143415.358597922@linuxfoundation.org>
+ <20260807143417.434454264@linuxfoundation.org>
+ <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 3/3] s390/pai: Support CPU hotplug for PMU PAI
-To: Heiko Carstens <hca@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org, stable@vger.kernel.org,
-        Jan Polensky <japo@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260901123320.670897-1-tmricht@linux.ibm.com>
- <20260901123320.670897-4-tmricht@linux.ibm.com>
- <20260901141942.14482E83-hca@linux.ibm.com>
-Content-Language: en-US
-From: Thomas Richter <tmricht@linux.ibm.com>
-Organization: IBM
-In-Reply-To: <20260901141942.14482E83-hca@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: WwmGeqscJSCCFR31tpLwXKXqhEP4fxEv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA1MiBTYWx0ZWRfX9w2DVoSvwT1e
- 5aI5vZ459G/Os7iTgQ98FVMruszClwLlf2U6NMQFte9k9mb75GUxM78almafpYmwRO//M7+jlS0
- XQLfW4/46kgRxY5DoFK7AzgrkozmZXLw2T0rqeB/DGHasDnJBDtEzrUFjUtnZidrs8+7PqSYeS8
- SEgXD3L1l95paBywYZA8PAzbdHLmZRKVwbudpRDEQsIEFhoy1CRnxONjb12ilvgyQtRixUwlPaG
- fvXZEDTjo+EfsRmaNJkDZLPBJONSZ9WonBhN4F9JL9213vJYILXeH+qg5y55XoEqM7t0GayhRpq
- E1GSEgdvjQWcD4zpeR++vuQ2V+KB2PKB+nmbEAxK7JkBvR+QJULduJeY7luuixM40yrUzPOCNi0
- NI8I53e32lbw/t6OenFoDBBugwupCRu1toSZrTcCnkJ4QYLS0dklGxpnAEeIAjmq6erCldaWfix
- tAafPX2NQXPIpZ/Mr7w==
-X-Proofpoint-ORIG-GUID: WwmGeqscJSCCFR31tpLwXKXqhEP4fxEv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA1MiBTYWx0ZWRfX8Aq2/2jfcKxu
- PwwbJKVmpvnKyEuYvaSJVRBaVESWnrttEK6PFP5iIA0b4Dl6wO0r+/Bzc+kFwUoHLKtJ9qJebG4
- Ndof9SlYYo+Wrvn3GC0MFac8dDPpQxM=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a97c0d1 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=XtJnxE0v6AKZ2ENc6gMA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020052
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
 
-On 9/1/26 16:19, Heiko Carstens wrote:
-> On Tue, Sep 01, 2026 at 02:33:20PM +0200, Thomas Richter wrote:
->> +	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
->> +	rc = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
->> +			       pai_online_cpu, pai_offline_cpu);
->> +	if (rc < 0)
->> +		goto out_debug;
->> +
->>  	if (!paipmu_setup()) {
->>  		/* No PMU registration, no need for debug buffer */
->> -		debug_unregister_view(paidbg, &debug_sprintf_view);
->> -		debug_unregister(paidbg);
->> -		return -ENODEV;
->> +		rc = -ENODEV;
->> +		goto out_cpuhp;
->>  	}
->>  	return 0;
->> +
->> +out_cpuhp:
->> +	cpuhp_remove_state(rc);
+On Wed, Sep 02, 2026 at 11:17:24AM +0800, Tengda Wu wrote:
+> Hi Greg,
 > 
-> This would now use "-ENODEV" as state for cpuhp_remove_state. I fixed
-> it up since I suggested this code, so you can blame me in any case.
+> On 2026/8/7 22:37, Greg Kroah-Hartman wrote:
+> > 6.6-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Raushan Patel <raushan.jhon@gmail.com>
+> > 
+> > commit 00a8ce2a2a9fa17674e1feec4d9105c1a5d6a419 upstream.
+> > 
+> > traceprobe_expand_meta_args() parses $argN with simple_strtoul() and
+> > calls sprint_nth_btf_arg(n - 1, ...). For $arg0, n is 0 so the index is
+> > -1. Because ctx->nr_params is signed, the "idx >= nr_params" guard in
+> > sprint_nth_btf_arg() does not catch the negative index, and
+> > ctx->params[-1].name_off is read out of bounds.
+> > 
+> > The normal per-argument path (parse_probe_vars()) already rejects
+> > $arg0 via its argument-number check, but meta-argument expansion runs
+> > before per-argument parsing and substitutes the value first, bypassing
+> > that check.
+> > 
+> > Reject $arg0 explicitly during expansion.
+> > 
+> > Link: https://lore.kernel.org/all/20260724054435.146279-1-raushan.jhon@gmail.com/
+> > 
+> > Fixes: 18b1e870a496 ("tracing/probes: Add $arg* meta argument for all function args")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Raushan Patel <raushan.jhon@gmail.com>
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >  kernel/trace/trace_probe.c |    6 +++++-
+> >  1 file changed, 5 insertions(+), 1 deletion(-)
+> > 
+> > --- a/kernel/trace/trace_probe.c
+> > +++ b/kernel/trace/trace_probe.c
+> > @@ -1721,7 +1721,11 @@ const char **traceprobe_expand_meta_args
+> >  				ret = -ENOENT;
+> >  				goto error;
+> >  			}
+> > -			/* Note: $argN starts from $arg1 */
+> > +			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
+> > +			if (n == 0) {
+> > +				trace_probe_log_err(0, BAD_ARG_NUM);
+> > +				return ERR_PTR(-EINVAL);
+> 
+> The control flow here is not quite right.
+> 
+> Returning directly within this branch fails to free the new_argv memory,
+> resulting in a memory leak.
+> 
+> The mainline does not have this issue because the preceding patch
+> 4af0532a0f47 ("tracing: Use __free() in trace_probe for cleanup") introduced
+> __free to manage the release of new_argv memory. However, due to the extensive
+> changes involved, directly cherry-picking that patch does not seem to be that
+> straightforward.
+> 
+> Therefore, it might be more appropriate to simply change it to goto here:
 
-Ahhh right, thanks for fixing this for me.
--- 
-Thomas Richter, Dept 3303, IBM s390 Linux Development, Boeblingen, Germany
---
-IBM Deutschland Research & Development GmbH
+Thanks for the review, can you send a fix-up patch for this as it is
+already in a release?
 
-Vorsitzender des Aufsichtsrats: Wolfgang Wendt
-
-Geschäftsführung: David Faller
-
-Sitz der Gesellschaft: Böblingen / Registergericht: Amtsgericht Stuttgart, HRB 243294
+greg k-h
