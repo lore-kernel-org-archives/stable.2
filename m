@@ -1,60 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D92E242588C;
-	Wed,  2 Sep 2026 22:14:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0BB5428463;
+	Wed,  2 Sep 2026 22:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387284; cv=none; b=Eh4OHmhWV/RPD/HwGVNHOiRQsosukpZLivnQZxzECTBit0vtbTLPDgXTSEsE1HkcT29jDx58UgZqzYDhiTLLAV37vAX8oF9irh7MIHeGK/03x49QE1enZMWCy2McmWkLJNxyGZKRGeTzRjmnnzqY5YvvY5eCtyw2Han2azaHOdE=
+	t=1788387288; cv=none; b=gOBUq5ZFCsa0vs+FmfaBzBG4Ra9FoAXAKQaqlTSCKpkAzDODR0GLcjVyRQdMFuR7pyEPXcJVK2LPWzNpd8GbLuylwV/Dh2sFEcIFBclD6yBBoxWcA+yQxHGH4adcQlJNr04Epr5RKyh6cUtNK4TJAjfCDiRBsUDrKdJcEJBJU6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387284; c=relaxed/simple;
-	bh=+omWPuU3czAOS+ufJ2hA0WJX6iBaB0DbWviLa47f7D8=;
+	s=arc-20240116; t=1788387288; c=relaxed/simple;
+	bh=EEJFNEat66I8t0erMgBOZQC8NL25EHlKmhZug8wnvbc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jywj1y4KuvZqkDhvIsUgA80+rMvNnx4680MdIIhG1pADL3l3Ag2wRx9/h6WHZ4WCN/+LGUX1dUdan+u4w91JiOCNOGO9sfm75imQc80ovm6hNyE4YnXEY1Jpc92J0Y1ae1ByfhOgHVL8sc1vzr6Oh/rEyODR82akXewfeLZ+QDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cHW6h3NR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=heXxZ8G8SUIdYLjYXgL5/iNtnuEP38YDzYrnpn+ziZgPFVx7Q+oUIu+kFss6MQHv3Lcg+Jdm2P9Ud7eyZ1uM6y6VmiP1SoAiwMc1Bdv1UOCQuc3wk0Z+I8MuOwheAAhEce+ltllta4idHH/NwJaH0r9fzV12W7IvoOAXGjKfA1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QdJkm5Id; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cHW6h3NR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341A81F00ADE;
-	Wed,  2 Sep 2026 22:14:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QdJkm5Id"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC2D1F00A3A;
+	Wed,  2 Sep 2026 22:14:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387277;
-	bh=gK15kQ97+7U/Zx+7r9m49LieX5MZOVt5jgSg8piKNbU=;
+	s=k20260515; t=1788387280;
+	bh=2TDhcdB+BVqQGz7cgg1RxxPz32FZPU+zBGN0aCJbf1A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cHW6h3NR5bq9kM56I9ZcybHe2109NPYofkRNPk7zUKY4lRC7uconPOCvxaY6xX3sx
-	 ym9q3sZKd1pyFCfRT3+HjCQbDxOIMJBJIQGh2B3bjR9bWMZOBXBKQsvQ+kjHt8xVVy
-	 t4qinzeT4SRhQtR2UXDiiUQdGeDz+wir2qZ0TG3xyF5ABfmtkKeNXXchT40VVLi+Vc
-	 Cnz56mh704AgOzJJ03MWp1MnskbLSnYNp5q69GXzAZIuvgW8G9wwdr5UVqOA60TwOI
-	 qWJDH4pQtd0KqAaYWFdBDf6gac9eN1rXQC2ixwLPQcRgNn/IJCv9DTdGZajPJ2fMkw
-	 IFYoueEZV/OQg==
+	b=QdJkm5Id9VdsEniRvRqbFp3tSB688ZZ3jH4FO59+NmnXYOYStDTOUZPB0/8YSyuH/
+	 PMkNxTxlQ6Pkrq2C9wzCLyt5LdU3CLhY4euRQlfvvdpbVR9ODYYDCZ5+mGoGvWtBno
+	 9016MH4nGzliEGL7/JgqrGr4kGszo2HsRzOXypWJwxydCDjIp00VSBvLx/Xms+xE6q
+	 +tA3J39zbJ1x7BuQKWEsANvNyZCAmw8bwhIXK2EEl/Cks2Bqu+nSeXIsr9dGN5OSn9
+	 tmKZ4ZNz1Gb9uBBmBkm5l5CIiz5bOMpQcXZrmrs+RQ0ecqap3bTlIi0yQPToOsa+MV
+	 LwID+eRjhUh5w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mukul Sikka <mukul.sikka@broadcom.com>,
-	Keerthana K <keerthana.kalyanasundaram@broadcom.com>,
-	Stefano Brivio <sbrivio@redhat.com>,
+	Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>,
+	Chen Ridong <chenridong@huaweicloud.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	Bin Lan <lanbincn@139.com>,
-	XiaoHua Wang <561399680@139.com>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Karl Mehltretter <kmehltretter@gmail.com>
-Subject: Re: [PATCH 6.1.y 6.6.y] netfilter: nft_set_pipapo: restore cloned mapping table memcg accounting
-Date: Wed,  2 Sep 2026 18:14:13 -0400
-Message-ID: <20260902-daily-reply-0014-pipapo-fixes-tag-ack@kernel.org>
+Subject: Re: [PATCH 6.6.y] cgroup/cpuset: Fix misplaced DL migration reset
+Date: Wed,  2 Sep 2026 18:14:15 -0400
+Message-ID: <20260902-daily-reply-0016-cpuset-dl-reset-6-6-ack@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831194905.45045-1-kmehltretter@gmail.com>
-References: <20260831194905.45045-1-kmehltretter@gmail.com>
+In-Reply-To: <20260901122642.11571-1-kmehltretter@gmail.com>
+References: <20260901122642.11571-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,20 +54,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Fixes: a4983e89e3b1 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
-> Fixes: 32bad10de347 ("netfilter: nft_set_pipapo: do not rely on ZERO_SIZE_PTR")
->
-> This two Fixes: tag do not make any sense to me.
+> Mainline commit 4a39eda5fdd8 ("cgroup/cpuset: Reset DL migration state
+> on can_attach() failure") puts the common error cleanup in
+> cpuset_can_attach(). The 6.6.y backport instead placed that hunk at
+> cpuset_can_fork()'s similarly named out_unlock label, while removing
+> cpuset_can_attach()'s two existing targeted resets.
 
-> The two Fixes tags are for the two stable branches:
->
-> - a4983e89e3b1 is the 6.1.y backport
-> - 32bad10de347 is the 6.6.y backport
->
-> I am not sure what the usual preference is here: one common patch with
-> both Fixes tags, or separate patches for each tree. Which do you prefer?
-
-Whatever Pablo prefers :)
+Same like the other mail, maintainer ack will be great.
 
 -- 
 Thanks,
