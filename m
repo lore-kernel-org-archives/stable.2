@@ -1,145 +1,148 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A374E4968FC
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B1542047A
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353549; cv=none; b=XLga7CdxDVrP+6uPdv2N60IoLcNHUpaCm3foFnSaCcPPGrK5iM29/Zqw+t/wEO+sjxpu6YZT1oEjI5hrN8hNRxXRRAVQyu4qmmEE63Jpgf7pz8SWdJOYOqtCfIdYvw55cysYb6vTCzwm+DXcytDkQkLsT1JpHw+WFKpkOBcsTNk=
+	t=1788353788; cv=none; b=h8S2hJhvf4zRoXbCjLyB7WOl4ZJXyrGzu+5pLhBiClqxQ5kY4UTxdBapq+aaEkQZM2K4dVG3Y7MhzSZ8Kj4bQMNQi6iRaf+CcIOokaCr997lMIB3wfvTSsQbKebt8z5n+psbjIeLlFWVWsderYgFRI0rJhkkk40PkESFq/lFe8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353549; c=relaxed/simple;
-	bh=tI3rVoJWW5Y/q2jj7nEVvV+2mIlTZ1Y6Mz75ZeDzwUw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hz1f1w333IfYyFzUDYBqPheJv2zfDH9w+FCBPwnCsyMcp2YImwNcGJZx6ZYGxQN016KlKA9uy8v/DjI0hGWoF68OCDLNs7o9o2IW/fGzFpyjGzkGTFj01Uks1QvnhFeOCkNR4W0ar/ovW8Q2vuIuI8lYQ/py+Wa4qsgp5b7nooE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1akQW0j; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788353788; c=relaxed/simple;
+	bh=C6qCGI2qGA411Ng26vRIk9uX1jrnXdhCZkIQPAI9qZU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IxkNbBzRSB+clYBiFDoPiaUjSNo0xl0//Sp0w+CgSnkia6+QB3pl6dVH14Grh8PUpa2ICUV8ASpmUoCogBNtxVjJ4FHBuRueFFtXked9kuWJf6j0f9uISXNvMJqtylfcIEUTat5F2xt3Am2TtHA2ngFmmaty2Hqw715u2PO49ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMtVWZe+; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1akQW0j"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84830c774a0so1006813b3a.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:52:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788353547; x=1788958347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vmkiwz6phO9IootCvbhHu4vPBafMAzZ/9jFbgheGL9c=;
-        b=F1akQW0j0e+rYbXXUOPh2F5SDRYNsmgKwG7q4PAj1XLlpti41qnQcL+qcetOr+dXf+
-         rqpLfhZL5O+zR7zuyZvl37iith/eaMx+jtVTzAMlwQmRLVl8VJgLzKcqd40Nqp5lXZvW
-         oJfy+VqmzC+ybaC6dNxNsnu3gGdQlAPO4A2HjjHe2JHBb0D7y01a4nrf1gThIupVNeyg
-         Di+n2fTq258vxqw59zpe7VSk21riPvrGCpwGhc8khPN1VvYIVKAuk5TT/2hk0jIvvQgw
-         Dqf1KD0wcAKj5edEF8kf2effOvk+zN7fImr2s8JW8MlUJREijo2dJ/PiSP4awz3k1xRo
-         0CFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353547; x=1788958347;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vmkiwz6phO9IootCvbhHu4vPBafMAzZ/9jFbgheGL9c=;
-        b=VT79Svfw8R+wT8AxTWzgRbNGhvDtOm5t3K5KRVdwG5Ug9B9HOZEjLp86j7ndo5lmpD
-         elh/wOeA9sgkB1a3/80vh4SBRPMyCcJNr078osQInET+tQPIO5HUjfUGq/yRGDvW+qAo
-         qW3jyLr85LR11Gwjps6YJ/BGBeVdvUuvY7Wjz5B+VDHFMRSxkcz+qgReV2y+3m2fWXpw
-         AA+xGNpfwk8Qk8EbCWn/Y/e0sSXDgGX3W+VJ7I4YMoIwmJrOOM8Tcqng1Jr5XhdiJAIT
-         X50+iJznRDFORQHYDHXa4Y9mfVtQHtdU0N/CdvFy7BC7/2ZzEoJlnUbId4YLNWSHxyyH
-         +2Dg==
-X-Forwarded-Encrypted: i=1; AKwUvBykA1u6hC095TGIPb+LHyxAInoanMtRx1uw8YCmVYvnc1PqGgB3SyYyhhhC4xXhkYK71/9MEng=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlLdMvHYJKpxGDyB5MyjqTWvJyhSKPOEn/I/cV6OvJ7+J8jqNl
-	EHoBFALoLAWAs8jDUOE14+9SK9/j1ZOUAMqKBlIL79egSA+XrjJyE212MhBTOA==
-X-Gm-Gg: AYBFou3DH++RJVy/6kSveo1skS2jWWaHgyZ8G1zrYSjFq1ombwxbdRmwbpL8iTeZGck
-	0LBs74cL1r/m5y3YmIy/2/Fs8hNXte/vqawtQ8/KxbtQAqTk3f4F3hBJmTfLH0C6PXFUJAaD85p
-	Hh8FpRSDUbb4FrefqtD4yQMv67a1RM/0vWsUKZs9XRyx06kg6ZdpS7gNenP/j3kXB1KrWNpP+mL
-	ovmTaZjQ4VNCCj1lZmz7OlYBbseVSxdiUPyOq0PLAls5hLxasnFQ2jJ/kvKpoC+1In4Ejvn5nLt
-	rGLn1ryWpT1ZZOOFaC+aiiAq/mqGIUlBO4Jt8Pg2O+g6IjRqpemHsVL3IPLR4PHq1/38+sbkN1F
-	CddUYRdZxkX7soL50kfT6YJONw6VhCs+ts5eAE3LqF9qWNuHTovCNN3T3PmYpbnwedJqy0VKYbp
-	WKbU8Lk4rHXyQQ6MWBe7VgQ8AztULTepZqlcyi6HiBTS26w4OWQ6cggEAs4tjfl0eQKAoXajKHK
-	Ga8DZpVQBzZuRKuGWTW9Xc=
-X-Received: by 2002:a05:6a00:2183:b0:857:727c:a1f5 with SMTP id d2e1a72fcca58-85ed4640011mr6382696b3a.23.1788353546711;
-        Wed, 02 Sep 2026 05:52:26 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.66])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11fae5bsm1299104b3a.61.2026.09.02.05.52.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:52:26 -0700 (PDT)
-From: henrymei <ljp1205831794@gmail.com>
-X-Google-Original-From: henrymei <henrymei@tencent.com>
-To: sfrench@samba.org
-Cc: pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	bharathsm@microsoft.com,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] smb: client: reject userspace cifs.idmap descriptions
-Date: Wed,  2 Sep 2026 20:52:13 +0800
-Message-ID: <20260902125217.3951486-1-henrymei@tencent.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMtVWZe+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788353787; x=1819889787;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=C6qCGI2qGA411Ng26vRIk9uX1jrnXdhCZkIQPAI9qZU=;
+  b=mMtVWZe+JK023l1DHrtZL0K1AWOap4sCMWN7+EBfWFo6WVupz4RPIzjA
+   YOa+eZscydBHyqB5rA9UeuJpu1lqaaPIaNjTKy8vPQaoYu6sR3Yv79hfg
+   atHrjLgHhcnKft6Qne4NnGMF6QHRP3JCsTSvcXaGYiSgAStAHTlwwR/qK
+   l2OrTDjstgUtXGY5bfUNLvfJ84aDA6FJeLzP99Ihr8Zdote182Dlb7lip
+   HhYekhNedaZFst5p8zYrCO0hVWSA/Jff1Q57LHpTepeHvyU0rnDuHQvCr
+   /G5nQnxiSNViW7eCG86VliG76JJ2bdwbsEiMRsYJV24fWC+vyG3ePfzSM
+   w==;
+X-CSE-ConnectionGUID: fjiuAiI5R6GQ0g+xgNjgvg==
+X-CSE-MsgGUID: Qagv6kggSZy5SVSPUJ1qFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92512451"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="92512451"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:56:14 -0700
+X-CSE-ConnectionGUID: QK8/ntriSQaS2qlnJ8yzWg==
+X-CSE-MsgGUID: Zx4kBWLoSvSzHx9aSw3ciQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="265100199"
+Received: from kpleskax-mobl2.ger.corp.intel.com (HELO [10.94.252.39]) ([10.94.252.39])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:56:11 -0700
+Message-ID: <7568b4e4-a71b-4f94-8e78-f9795c372ffc@linux.intel.com>
+Date: Wed, 2 Sep 2026 14:56:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] accel/ivpu: Validate full buffer range in
+ ivpu_to_cpu_addr
+To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
+ andrzej.kacprowski@linux.intel.com,
+ Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org
+References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
+ <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
+Content-Language: en-US
+From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
+In-Reply-To: <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Aohan Mei <henrymei@tencent.com>
-
-cifs.idmap key descriptions carry authority-bearing fields (owner and
-group SIDs and uid/gid values in "os:"/"gs:"/"oi:"/"gi:" form) that the
-cifs.idmap upcall helper treats as kernel-originating inputs.  Unlike
-its sibling cifs.spnego, the cifs.idmap key type has no vet_description
-hook, so userspace can create keys of this type through
-request_key(2)/add_key(2) and supply those fields without CIFS origin.
-A request_key(2) call with a non-NULL callout then drives a root
-usermodehelper upcall (/sbin/request-key -> cifs.idmap) that consumes
-the unvetted description in root context.
-
-Only accept cifs.idmap descriptions while CIFS is using its private
-root_cred to request the key.  id_to_sid()/sid_to_id() already run
-under override_creds(root_cred), so the kernel-originated path is
-unaffected.
-
-This mirrors commit 3da1fdf4efbc ("smb: client: reject userspace
-cifs.spnego descriptions"), which applied the same restriction to
-cifs.spnego.
-
-Fixes: 4d79dba0e007 ("cifs: Add idmap key and related data structures and functions (try #17 repost)")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
----
- fs/smb/client/cifsacl.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index 12005f46307d..213a421bf8e9 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -100,8 +100,23 @@ cifs_idmap_key_destroy(struct key *key)
- 		kfree(key->payload.data[0]);
- }
- 
-+static int
-+cifs_idmap_key_vet_description(const char *description)
-+{
-+	/*
-+	 * cifs.idmap descriptions are authority-bearing inputs to the
-+	 * cifs.idmap upcall helper.  Only allow the kernel to create this
-+	 * type of key using the private root_cred installed in
-+	 * init_cifs_idmap; reject userspace request_key(2)/add_key(2).
-+	 */
-+	if (current_cred() != root_cred)
-+		return -EPERM;
-+	return 0;
-+}
-+
- static struct key_type cifs_idmap_key_type = {
- 	.name        = "cifs.idmap",
-+	.vet_description = cifs_idmap_key_vet_description,
- 	.instantiate = cifs_idmap_key_instantiate,
- 	.destroy     = cifs_idmap_key_destroy,
- 	.describe    = user_describe,
--- 
-2.43.7
-
+On 01-Sep-26 14:57, Dawid Osuchowski wrote:
+> From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+> 
+> Add a size parameter to ivpu_to_cpu_addr() and validate that the
+> whole [vpu_addr, vpu_addr + size) range stays within the BO.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
+> Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
+> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+> ---
+>   drivers/accel/ivpu/ivpu_gem.h | 14 +++++++++++---
+>   drivers/accel/ivpu/ivpu_ipc.c |  7 ++++---
+>   2 files changed, 15 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+> index 0c3350f22b55..b1ae020a4fc2 100644
+> --- a/drivers/accel/ivpu/ivpu_gem.h
+> +++ b/drivers/accel/ivpu/ivpu_gem.h
+> @@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
+>   	return !!bo->base.pages;
+>   }
+>   
+> -static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
+> +static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
+>   {
+> +	u64 bo_size = ivpu_bo_size(bo);
+> +	u64 offset;
+> +
+>   	if (vpu_addr < bo->vpu_addr)
+>   		return NULL;
+>   
+> -	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
+> +	if (size > bo_size)
+> +		return NULL;
+> +
+> +	offset = vpu_addr - bo->vpu_addr;
+> +
+> +	if (offset > bo_size - size)
+>   		return NULL;
+>   
+> -	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
+> +	return ivpu_bo_vaddr(bo) + offset;
+>   }
+>   
+>   static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
+> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+> index 978bc3d8704f..8f69fb133e2e 100644
+> --- a/drivers/accel/ivpu/ivpu_ipc.c
+> +++ b/drivers/accel/ivpu/ivpu_ipc.c
+> @@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+>   		return -ENOMEM;
+>   	}
+>   
+> -	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
+> +	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+>   	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
+>   		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+>   		return -EIO;
+> @@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+>   			return;
+>   		}
+>   
+> -		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
+> +		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
+>   		if (!ipc_hdr) {
+>   			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
+>   			continue;
+> @@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+>   
+>   		jsm_msg = NULL;
+>   		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
+> -			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
+> +			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
+> +						   sizeof(*jsm_msg));
+>   			if (!jsm_msg) {
+>   				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
+>   						      ipc_hdr->data_addr);
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
