@@ -1,194 +1,275 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395AF477E57
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C93548CD47
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352274; cv=none; b=bihGLtn1/2NA+dOrTLZw3tcEXcBwqnSi7c1oKr6oDUdlMx2mgbJeQp9tItmnhkqqJNO2eBb6X9nlchNCPkY8MSKTTu6UqfVduNxn0gWvDoEGnGUdMY5Z7AmfrjWP+DTWmGJgotbO33Je+fZgQMlZ//neMql3vJMZscg4pVCFzjs=
+	t=1788352290; cv=none; b=hg/E2CuDtebjn8oUcwWfn9kfcp/ExizBIQDhdCorHFYCF1tLhBUG+VNch6+3jnRvIZk5kvHb3XFNYguWisXKdYnW3sEY8oHJ9mvf8n6rjmIRy9oXoH80C3Xl17MdnVPWObcchx+hrw+Lm6ZR+uYY2Rxi78RkTDaPnd489YeRSlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352274; c=relaxed/simple;
-	bh=5yEV4XnolTA4d1Bxi7KrwZxByDjfSzCc7FhIPl9sFLw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OL4GyajFShAa1Vmj4vpOUEgwg2Q6WDiV0pC3TGSBDiRl5N5c4COluer31d6qRuVrmaktr3adXptFawtDGcbudC8BCzx8ts7iXluOznEHIgd/RdT5lFF8v6xuk+BVwgYNhy1qetecqFZLJg1Vhl3j203inzPIblb90tz/guy5OQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j5Xw9Vw+; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788352290; c=relaxed/simple;
+	bh=ffr9F+zdAaXdbRtETH1x0W5b8++Do3zcr9KpWm4QvpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=T705o04kThi8nF5xfgG3SY1Wx0f9h/Ip9w18u6E4EB9QicgsYDIl4ayQ/vpVFiXleEBD5mGawqWpsuRzfyuXpPbDAPtsIwmt5yngz48oHgnWppsnthgke6quJaX1PAO8vun+o6aSt89FYoltDiyp4kICRmfH4otBWvAYcwBaw7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=NLcjPR/e; arc=none smtp.client-ip=185.70.43.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j5Xw9Vw+"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c252e703fa3so131780266b.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:31:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352270; x=1788957070; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TI6pUAVn6iqJfgwPq0UA4Qme1N3xxMZKcN9f4ke5Y84=;
-        b=j5Xw9Vw+O7LfMfVwi6Jpx2KzGq9sUUy1+BLcLFskY4XODJ/8YdRp+FscnrlTJrIQsl
-         EfooJ4d51nM1DYFw0BosbgdAx6ZZEM4MGtDyRWJZ4LH6GMnCDdeozonJYfnlF5Ee07XU
-         /UnO/khGya5EkDdQoaZ1qRcxO5mYImbeIDTE1NiOrOPn5bep8mF8j209ZX+ZMTtxulAR
-         8RVYl0rLRxNErvDiDNt4j24FeTPp8oBppo6xG/O0WB7fOFKecCbQKkv/5869ixMXsPat
-         D1ieVUjQvkG/w1loHT86FoqSScSVsfAEpTRSwTgPqwjRJ1ZbV0XR2nnQaIAtALcupeB8
-         fUUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352270; x=1788957070;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TI6pUAVn6iqJfgwPq0UA4Qme1N3xxMZKcN9f4ke5Y84=;
-        b=ROeFX203olgsQ8I8V37ToDpVl/BKz3lJgY1NmwjWiaf5RGHVvs1IXTDmy+vvNap3Lu
-         yf67alpm3VL7p25fLvW6/GLJaV5VFgwiO/eS/jiOxXxfjpqaGr9ymCnLhvWAt2WXVwee
-         jtJJPGdkjc0qaYcvUDyd7jJr/06x8gLwAfbptpa+AzqE5e2ETA6ky/pO5hrW3nuyi9lf
-         AjKnh6f86xsLoJv4AN8MheNwRgPQSxU3gat1pUNS5AtONQ024i6lVJ5gOyHSftwm0ZtL
-         bWULyCVltvEKsaHuNpbuX8N6w2PaIO75QTrCaCX4mtLqN/xVQcDHo6Haghhg/OBQguuI
-         y5SQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwoBFSKSq+Ndk660KgOCxuP+eelKqhPnlT8vSemS/98jFZj+qxuLroLgcFjg/XGcBF3IC23mC8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lcvonxSnj9a6yiPkntCTJC4/R4lPYFHBEWshhNmNmdwv4109OZ
-	iXHE4B6ciJpa6pFoSa5lMLsZYfjEffv3yNgDC+jzOfyiG4hTVXZCrB2uC/4M
-X-Gm-Gg: AYBFou39N8FnDNDGvs7APztf0GVf4IFWuoKe17wUxaLlUUJYtiUoJurh6szJ+8D4SLB
-	+upAEnXOihagZwtbnJKE1O5tGFdrdoLA79i4Aim5Bv63u7KcTjuVltpn2nA84Hql6bZnldgE4GI
-	YR2dgAaRPVJ/tMNP7at3EwBAlkT9wT5GqoKM9xvjZUdWcsJrt8i0u6HVhnzraD31MhdOl0J6PTh
-	kPN2YN8eo+tY6seCwrvgyb/Z/KC0gscshrMPsMPlmBtcd1jRllX6FBmQPMjMcUcjwAR/w1v7pHs
-	Rp4BhPHskeigKYJ1gDQgsHrIp/7EvKxHuX7rW3MNK0B9HFkE6gZqfc2DWX1vcRy6FeaZmPP6pby
-	aaBHMWd7dT5fIpRhfd5SYnPiqv23qaURZASZZlycMJopqgdNhr1CqamAJWAQn4GbhMw9A2H9XYf
-	PFRYYXlHKfslyYb4nb7YPYAN5fyffXIQ==
-X-Received: by 2002:a05:600c:3e10:b0:49b:9433:ea44 with SMTP id 5b1f17b1804b1-49ce57fe002mr86704775e9.4.1788352243385;
-        Wed, 02 Sep 2026 05:30:43 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b401sm145048515e9.3.2026.09.02.05.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:30:41 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Mahesh Bandewar <maheshb@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net v4] net: reduce XMIT_RECURSION_LIMIT under KASAN
-Date: Wed,  2 Sep 2026 12:30:40 +0000
-Message-ID: <20260902123040.2172805-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260727200454.4048141-1-tristmd@gmail.com>
-References: <20260727200454.4048141-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="NLcjPR/e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+	s=protonmail2; t=1788352283; x=1788611483;
+	bh=CIXG5k8Z42Dvwo3n4OTF/HGNzdZ5644vv8fHSBN0grA=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=NLcjPR/eJiF/NWaCblNVUCHSx42EIQ+gVQE5iBYmjcMD8iqT1gXzRvZgMTC8I8t/p
+	 OSwwhIQtizzDJ/7oIoC9dEj2cbu3uJ8rZ8uBrJ6hMtHVVMg45o/g5+33tLcKyCuooq
+	 4/MyeS6+RPvBFmpWHDc99YqYCS1KP3tuLvD8H8fMuASOeTwDwtw+sQDiT3A/hAU5T+
+	 /tEgGi8civO5EUoTipF4ZLnpTBP7YXyNiCksIcLAb7nzJBabTBQfXy4uFZyY3nFj1Q
+	 m1z33G9gx/FOqlgFKcG8surWSxMAsfCyBcDz9RMFQ0aUa/y9qT1ytJrOrmH/Tkucri
+	 8jPzRJVKA30Iw==
+Date: Wed, 02 Sep 2026 12:31:17 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/amd/display: keep custom brightness curve in userspace domain
+Message-ID: <20260902-brightness-1-fd468d7a@empyreal.works>
+In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
+References: <20260902-brightness-cover-abf809f2@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: d3c1787a7ff7f8453ae90f24a3b3e0855c107f25
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Tristan Madani <tristan@talencesecurity.com>
+convert_brightness_from_user() expects convert_custom_brightness() to
+reshape a value in the userspace [0..max] domain before the caller maps
+it once into the firmware [min..max] domain.
 
-Virtual network devices (ipvlan, macvlan, bonding) can enter legitimate
-transmit recursion when combined with packet forwarding configurations
-such as IPVS NAT.  The existing XMIT_RECURSION_LIMIT (8) in
-__dev_queue_xmit() detects and breaks these loops, but the allowed
-depth is too high for KASAN-instrumented kernels: each recursion level
-consumes significantly more stack due to KASAN inline instrumentation,
-and the cumulative usage overflows the kernel stack before the limit
-fires.
+Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
+userspace") instead made convert_custom_brightness() call
+scale_fw_to_input(min, max, ...). That helper adds min and scales by the
+firmware span, entering the firmware domain before the caller applies
+the same span and minimum again.
 
-On x86_64, CONFIG_KASAN_GENERIC doubles THREAD_SIZE from 16KB to 32KB
-(KASAN_STACK_ORDER=1), but KASAN per-access checks inflate individual
-function frames by roughly 2-3x.  For an ipvlan L3 + IPVS NAT routing
-loop, objdump measurements on a non-KASAN kernel show ~1.4KB of stack
-consumed per recursion level (across 17 functions from __dev_queue_xmit
-through the full IP output path and back).  At KASAN ~2.3x inflation
-factor that becomes ~3.3KB per level.  Eight levels -- the current
-limit -- consume ~26KB plus the initial call chain (~8KB), which
-exceeds the 32KB KASAN stack.  The overflow hits the VMAP_STACK guard
-page and causes a non-recoverable kernel panic (BUG: stack guard page
-was hit).
+With the default PWM range, min is 3084 and max is 65535. A zero request
+through any custom curve consequently returns 6023 instead of 3084, so
+the darkest 2939 firmware levels are unreachable.
 
-On non-KASAN kernels the same loop is safely caught by the existing
-limit: the "Dead loop on virtual device" message fires and the packet
-is dropped without any stack overflow.
+Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
+inverse of scale_input_to_fw(), and the caller remains the sole owner of
+the userspace-to-firmware conversion. The linear path is unchanged.
 
-Reduce XMIT_RECURSION_LIMIT to 4 when CONFIG_KASAN is enabled.
+A later patch removes this helper from the PWM power-module path because
+the power module owns that curve. AUX panels continue to use it, and
+stable kernels predating the power-module refactor still require this
+correction on PWM panels.
 
-The deepest legitimate transmit recursion observed in the kernel
-selftests is 5 levels of __dev_queue_xmit nesting, in VXLAN symmetric
-routing topologies with VRF (vxlan_symmetric, vxlan_asymmetric):
+Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
+full range") fixed the corresponding input-side domain error. This
+completes the output side of the same conversion.
 
-  __dev_queue_xmit(vrf)             depth 1
-    __dev_queue_xmit(vlan-svi)      depth 2
-      __dev_queue_xmit(bridge)      depth 3
-        __dev_queue_xmit(vxlan)     depth 4
-          __dev_queue_xmit(veth)    depth 5
+Source and arithmetic analysis identified the duplicate
+domain conversion. KUnit coverage for a non-zero firmware minimum is
+added separately.
 
-Since the recursion check fires when the counter exceeds the limit
-(strictly greater than), a limit of 4 permits 5 levels of nesting
-while blocking the 6th.  At ~3.3KB per level, five levels consume
-~16.5KB; combined with the ~8KB initial call chain, total usage is
-~24.5KB -- well within the 32KB KASAN stack with ~7.5KB of margin.
+Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
+space")
+Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
+ustom brightness curve from full range
+Cc: stable@vger.kernel.org # 6.17.x
+Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
+he header and test hunks
 
-A limit of 3 (v2/v3 of this patch) allows only 4 levels, which broke
-the VXLAN symmetric selftests: the 5th __dev_queue_xmit call was
-incorrectly dropped, as reported by Jakub Kicinski and the kernel test
-robot.
-
-The recursion path triggering this is:
-
-  __dev_queue_xmit -> dev_hard_start_xmit -> ipvlan_start_xmit
-  -> ipvlan_queue_xmit -> ipvlan_process_outbound -> ip_local_out
-  -> nf_hook (IPVS) -> ip_vs_in_hook -> ip_vs_nat_xmit -> ip_output
-  -> ip_finish_output2 -> neigh_resolve_output -> __dev_queue_xmit
-
-Tested:
-  - KASAN kernel (6.8.12 x86_64): panic before fix, "Dead loop"
-    drop after fix (at recursion level 4 instead of 8).
-  - Non-KASAN kernel (6.8.12 x86_64): "Dead loop" drop both before
-    and after fix (no behavior change for production kernels).
-  - Measured max __dev_queue_xmit nesting depth via bpftrace in a
-    VXLAN symmetric cross-VLAN topology (VRF + VLAN + bridge + VXLAN +
-    veth underlay): 5 levels, confirming limit=4 is sufficient.
-
-Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
-v4: Raise the KASAN limit from 3 to 4 after investigating the recursion
-    depth of VXLAN symmetric forwarding selftests.  Measured max nesting
-    depth of 5 via bpftrace (VRF + VLAN + bridge + VXLAN + underlay),
-    which requires limit >= 4.  Limit 3 (v2/v3) incorrectly dropped the
-    5th call, breaking cross-VLAN tests, as reported by Jakub Kicinski
-    and the kernel test robot.
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
+ 3 files changed, 22 insertions(+), 24 deletions(-)
 
-v3: Resend as new thread per Jakub Kicinski request (no code change
-    from v2).
-
-v2: Switch from per-driver recursion guard in ipvlan_core.c to
-    reducing the global XMIT_RECURSION_LIMIT under CONFIG_KASAN,
-    as suggested by Eric Dumazet.
-    https://lore.kernel.org/20260711204700.1760374-1-tristmd@gmail.com
-
-v1: https://lore.kernel.org/20260711134732.1385563-1-tristmd@gmail.com
- include/linux/netdevice.h | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 87cafc932e9e6..3ccd1e65bcd9e 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -3669,7 +3669,11 @@ struct page_pool_bh {
- };
- DECLARE_PER_CPU(struct page_pool_bh, system_page_pool);
- 
-+#ifdef CONFIG_KASAN
-+#define XMIT_RECURSION_LIMIT	4
-+#else
- #define XMIT_RECURSION_LIMIT	8
-+#endif
- 
- #ifndef CONFIG_PREEMPT_RT
- static inline int dev_recursion_level(void)
--- 
-2.47.3
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+index e61bbc310f33..424b33573a73 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
+@@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
+t)
+ =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+ }
+=20
+-/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+-static inline u32 scale_fw_to_input(int min, int max, u64 input)
++/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
+ [0..max]. */
++static inline u32 scale_fw_to_input(int max, u64 input)
+ {
+-=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
+EVEL);
++=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
+ }
+=20
+ STATIC_IFN_KUNIT
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness)
++=09=09=09       unsigned int max, uint32_t *user_brightness)
+ {
+ =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
+ =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+@@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
+acklight_caps *caps,
+ =09=09=09=09=09=09    (brightness - lower_signal),
+ =09=09=09=09=09=09    upper_signal - lower_signal);
+ scale:
+-=09*user_brightness =3D scale_fw_to_input(min, max,
++=09*user_brightness =3D scale_fw_to_input(max,
+ =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
+ }
+=20
+@@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
+_backlight_caps *caps,
+ =09if (!get_brightness_range(caps, &min, &max))
+ =09=09return brightness;
+=20
+-=09convert_custom_brightness(caps, min, max, &brightness);
++=09convert_custom_brightness(caps, max, &brightness);
+=20
+ =09/* Rescale 0..max to min..max */
+ =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+index 07b75064847c..90bed0ea5d00 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
+@@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
+ int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+ =09=09=09 unsigned int *min, unsigned int *max);
+ void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
+,
+-=09=09=09       unsigned int min, unsigned int max,
+-=09=09=09       uint32_t *user_brightness);
++=09=09=09       unsigned int max, uint32_t *user_brightness);
+ u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
+ps,
+ =09=09=09=09 uint32_t brightness);
+ u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
+,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
+t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
+test.c
+index 7ca17f803f9d..1fb171fdbc3c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
+c
+@@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(=
+struct kunit *test)
+=20
+ =09caps.data_points =3D 0;
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* No data points =E2=86=92 no-op */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
+bles(struct kunit *test)
+ =09/* Set the disable flag */
+ =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
+CUSTOM_BRIGHTNESS_CURVE);
+=20
+-=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
++=09convert_custom_brightness(&caps, 65535, &brightness);
+=20
+ =09/* Should be no-op due to debug mask */
+ =09KUNIT_EXPECT_EQ(test, brightness, saved);
+@@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32896;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Exact match: lum=3D50, brightness_scaled=3D128
+-=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
+))
+-=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
+-=09 *        =3D scale_fw_to_input(0, 65535, 63)
+-=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
++=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
++=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
++=09 *        =3D scale_fw_to_input(65535, 63)
++=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
+ =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
+@@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 12850;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
+20
+-=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
+-=09 *      =3D scale_fw_to_input(0, 65535, 10)
++=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
++=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
++=09 *      =3D scale_fw_to_input(65535, 10)
+ =09 * The output should be significantly less than input.
+ =09 */
+ =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
+@@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(s=
+truct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/*
+ =09 * The function should interpolate between data points and produce
+@@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(stru=
+ct kunit *test)
+ =09 */
+ =09brightness =3D 56533;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Output should differ from input (remapped via curve) */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
+@@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_poi=
+nt(struct kunit *test)
+ =09 */
+ =09brightness =3D 16448;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
+=20
+@@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
+struct kunit *test)
+ =09 */
+ =09brightness =3D 32125;
+=20
+-=09convert_custom_brightness(&caps, min, max, &brightness);
++=09convert_custom_brightness(&caps, max, &brightness);
+=20
+ =09/* Should remap; result should differ from input */
+ =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
 
