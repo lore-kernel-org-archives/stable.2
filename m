@@ -1,127 +1,95 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A60D3DA7D6
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 18:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E145478E3E
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 18:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373202; cv=none; b=XG088/lWsyyDrma0wxFIdJK7fUeIpm5mN+bPXKMjkjX71mLw7j9wT4OEJnbF2W47U/DsP9i+nXtzwzckaFQcLAjiPfGDydsHq1TqxBPws5Pg/vHIUpKziVFvoywQlGB/170N2SGXFlIR1yxPBM/QqjC6ncax8KGjufyFQzqi5fc=
+	t=1788373318; cv=none; b=SgSvAMjYbo/GPlWOc9r/crsmW4/D2XMmbkz7zd/imMl9TVkjky9iDHfLIAgbKYmX0C3wehMRXshYhGaR4VdDHE4kE+7BDsMacGzu8u1MMZ5c16vjcn8obQRz0odkDidChqizy2Jbq6QvLzigTIqfrKlpljH1m5XxEc/qWWqSi9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373202; c=relaxed/simple;
-	bh=GtoQA9ZjPrcGOfipPb9IUUp6ZG9jXfqV0icQkIbgXTY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T1//FcROutQIloOdy8zOlvHovw9qREhFnc5DCnkyN+whYxhtNZhK8I1iZHaRU4fw4Mxx3OTr+VR403PpX08EH+GRIQJYFJZcbdAuiuLpJpZ3yUcvxN9oANFF+JLUX5PRJahOVKmWnpn6Q6HTl3o4UrBRpRTprrY8CZaEENAAOms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJN3+M3S; arc=none smtp.client-ip=209.85.221.53
+	s=arc-20240116; t=1788373318; c=relaxed/simple;
+	bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y+a3jy6TKOhDefQIA52+Ri39Ax2dnNaislQBAix6Oi/utQ6TGplyTXgVZGM5WnEH66Uk2qy18BeNOS3LQADRtarbwmRTW938MsWwJUN9lT5lhy+QDoPFrElBkFCUyJMAZSIe7256B6YJMGnZBizXpomHgGGiCYRY03rTgbUjjRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZLN7+Glu; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJN3+M3S"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e4998d28so1077866f8f.2
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 11:19:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZLN7+Glu"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc328b43a56so1055745a12.2
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 11:21:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788373198; x=1788977998; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788373317; x=1788978117; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=u7qs3hNn4LB9d6bKk0MOq7GzVE03yw7eE/Je5YMCtBo=;
-        b=lJN3+M3SS3OzJ7tyPwIdhgmAg813hp7IVtB1KVPtZ1S2VYWOEh3pKWqReRQWwVzPWm
-         gU57YhI7u8vWntvLgGP3MEHsqC0e3Z0n4PreTTuoqvEADpbaGTBy1ZhxbtL6w7V/LQNN
-         zlszoUbhLgtMpp30tOm9AiTsNpQbIzP1TAuiXp4bQvUMft9/0I8yTW6kHLu/E58n6Vob
-         HO+xI716sTlWGHO2kiCGAn6hhB0w5AZ+Pq4M80ThC4t/ntSRghq/EFXBF31x4BbowSWR
-         zPLTrh7fA2h9bRzDGWfBdwGfMBO37i9lJDTiJoPo2n7DehVIscoXNu139rPa7MNez/OA
-         T7OQ==
+        bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
+        b=ZLN7+Glu0LAZLx4xENIFnaGDODayMt0YjSdScOghFVRndDk6Vj7Sn/0WNAPXLrGCDt
+         x4ZQKdEE5aWnPZQIv6ZZnSM04U9E432L8S0bHCcyf1UkOuwIxwP3iOxnpMlu+6FSUX9y
+         187KVISIEdxeVoqRVPR01djwX4RqaCh+CsILqdvTkUpUGWecipSpO/A7ipnoGSOfpyIR
+         gUuvUbjATw+A91JfgIvHIQ6xUBPyGQ9+aiFqZl6FITJbahRw3YilZYi8r632wuzBoWo2
+         VKSgwddynbUQ76R7qVYw21purvFYvFZRuVq/KmH/zZ2j9eUeUUovotv1FJ55B4y6oldo
+         AlCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788373198; x=1788977998;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788373317; x=1788978117;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=u7qs3hNn4LB9d6bKk0MOq7GzVE03yw7eE/Je5YMCtBo=;
-        b=LXMJwkevULG6ZTxBnNPyb1AmZn/2zV/SCNyqqQfOwecD0PGn1bF8/IZ7pMWSVpKdsA
-         UZpnyge21W9p/hoQinCTJfhiyE9DNGaO6pOrb++qzd4h/gubadwq3+yK51yOQptzucCh
-         FvDwV3oPooEVIsb8g1Fg8pbTUE62RA47XL1f2IPBRVIA3ugY7Xmt19HAA45Y5pgYqauD
-         eEDhucujwBMklnLOJyQh3g5jMh3vKSjgbIdz+4b8aeo+08qi3T06SU+PSsLMIopiZf8T
-         qr5uuzyDOe5NqxOqeMBXwo4mEzWKWHLwEYE5/6hb7p/FqTZOpbkwUJXnMECCMhMec3/5
-         Su7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBypLVN/nXHLZUrSkPG5pb3Gr5r5YUCre4bdx47dWzM+KYbag7ps6eT5rs67bNkxA53hoD1LCaQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA42sraSOZbr7VgQf1gsQtpAp0dqMES65I9173heCDzH9iajWk
-	1xld/NBqUZk+PdPJYfVqCxQVhxPn5f8fQUCpvNjRUcnGuQjrTEBdOTYs
-X-Gm-Gg: AYBFou0K3kK9jNT+Bhh7drG1YRc3YZXTcnf2gcck1iqJiTvCxoVH/lXsyPfrkYGWQZC
-	95BK0Dxrqb0s5XgRP07TJt9BvMQsfZvUoQ30KprJZg2W7SoK/RYtC61ogXufzBtHWdv6BP/r1to
-	ZspY1GsQJW6MeD2jdPmAD4p7ewLPbe8VFPBeMui4QL+VxKAC2xYY4xioZ35A5+gRDagQz2hnQKw
-	12vQvkj9S/1KT4kisCdV7XGJ64Ug+bW0V/AocmBKp/jbgMLG/vzRJBQ0JVqgqvqtRtUjFmasCIN
-	gk2M+0ZWyozNesHyvPcUdK6x4hqLy2NwWl3OpBrFxFvaErPpKxGgM6VPGlLjb3nJMJAtUNRUDW9
-	N5Vzl04yYZ+es9TkiDySbGKV27r/Z1SgRvLv05JYSN+br9bjcnOyFuFLrrc/R3CUxlztmMFBAXf
-	s4HCcmhuQvJggiuah3MFJXqIABjf+VK2sNvNO1MrUyXfmYc/FwyuGhQMups2oMdYisOinqHkqXK
-	BOX8QSJdi0DfbrWP6gqQBx6+w==
-X-Received: by 2002:a05:600c:4f88:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49ce58388demr100657795e9.10.1788373197777;
-        Wed, 02 Sep 2026 11:19:57 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee3b0af8sm10644075e9.0.2026.09.02.11.19.57
+        bh=3X+93BwJddB9py4mR0joP3nCeAIwwXvBE0mNLCtpoZs=;
+        b=P0CmmLgsWasQxYi/ikmuKn98sPuXfKDEkj02hKf1iuSs2YxzjRZcdXHeszGhT0bmdQ
+         nQvBQs0+FYx/Ym5adRgC/kiFnBngGH+yyHe5yJbb3KXCfDkZK19H4aLinZtFScXA9l0k
+         qZBKzfZ7wW/G/xsQwc4JBOb/UXmmxhG69Hr8lPXk+A/X4GqN/Nz522OEPgGjt41gPMEA
+         ofh4gXALk9YUJeuUJOZOfDBPSw/NmLE6AjfXqF4U34APvfpFHBc1Am4q7ogOCzhEpcHm
+         2+zgHN980JpPx6WrpX6tgm0qSoov6FgImZ916/TowdKmfbBXWYByurjAxvEZM+M0qS4p
+         dZhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwFBUq3PuBDVQ+bYmPW5IuJmMrUleMF4XCWt0BKReEupNdg4WRFfG/GHa6UfTZNnQgqCVGNwjE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvu0CD1BwSNTmH5hVXdCBoUK2jx99R8hv0OHA9O1YFzlCoPA6w
+	5wh8uj1Bvn/Gw0yrXQZQN5/SB166HDxkMfCtrqOZlI1aK0ZAAgHBWazX
+X-Gm-Gg: AYBFou1j3x82gXslQ/csqcdhGwdcKEtL+tXg08CRpaCMN/N9N8ZbMI3ly+So3HS2Nms
+	Q32lrImWYCnEDz0Ae1wg6Ye/gGaE4aEqn2jdwbWjIMmUe62ETi56BicrtnOl3G4hgPodD5Y8WE8
+	JUPZrsoctrKRrsRSGFTu1itVpI2O0Op4in/ZAzUg3AOY4KeC/R+uGJ4uJ3UZkbXthiLP94FBSd3
+	4bnLqvxZK63txVKOAvK7kjferO9Pad8wma8d4P6vEhRtH5Z9Vl3jP4iloeW9XjvwnzSeXwfvJgE
+	yEcA3DPJQTc/p8JL0kw5+ypocThtMxT1rThnS9PMIYuDFNWIOyGLLSGVQd0eOikQd6amvryK6v7
+	bUINsdZnZ4oCxZn/dTHWii3EbPQ5yCqgbH44IeLAVAPhLo0+fj149najsGKRYBaMCYgVKQFtkKO
+	6spngwz8gEqyoBYRz5Tao3k6+CI3/s4Hxi1DHpEb3Qi64AjiY1zzmvjBt0AzJXwueaXogUqaswP
+	w+yR8S6pMLGFcVjk5LB7fl14wRY2MzgYGyiOA==
+X-Received: by 2002:a17:90b:5109:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-39aee152d79mr10767129a91.25.1788373316382;
+        Wed, 02 Sep 2026 11:21:56 -0700 (PDT)
+Received: from localhost ([2409:40c4:d:5c19:7852:60e7:cc2f:a6de])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f7d77sm8745198eec.12.2026.09.02.11.21.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:19:57 -0700 (PDT)
-Date: Wed, 2 Sep 2026 19:19:56 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
- <akpm@linux-foundation.org>, linux-raid@vger.kernel.org,
- linux-kernel@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
-Message-ID: <20260902191956.0834eaa3@pumpkin>
-In-Reply-To: <20260902162359.GA2497@quark>
-References: <20260831212248.213805-1-ebiggers@kernel.org>
-	<20260902133706.GA21538@lst.de>
-	<20260902162359.GA2497@quark>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 02 Sep 2026 11:21:55 -0700 (PDT)
+Date: Wed, 2 Sep 2026 23:51:51 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michal Pecio <michal.pecio@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
+	regressions@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from
+ runtime resume
+Message-ID: <apg16LtZ-ru9MIBQ@eggarch>
+References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+ <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
+ <a6a8526f-4b6f-46f7-9d02-05bfe3efcd48@linux.intel.com>
+ <apbrp8EaJoIfEg5X@eggarch>
+ <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
 
-On Wed, 2 Sep 2026 09:23:59 -0700
-Eric Biggers <ebiggers@kernel.org> wrote:
+On Wed, Sep 02, 2026 at 03:10:41PM +0300, Mathias Nyman wrote:
+> It's possible PCI side or pm core already provides some easy way for xhci driver to check this.
+> This specific issue is currently not on my todo list, yet.
+Alright, would you like to me to work on this? I could look into
+that side and possibly come up with an approach.
 
-> On Wed, Sep 02, 2026 at 03:37:06PM +0200, Christoph Hellwig wrote:
-> > On Mon, Aug 31, 2026 at 02:22:48PM -0700, Eric Biggers wrote:  
-> > > Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
-> > > before returning from it.  This is needed to avoid degrading the
-> > > performance of any later SSE code that may happen to be executed.
-> > > 
-> > > Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> > > ---
-> > > 
-> > > This didn't get taken through the x86 tree.  Andrew, it seems you're
-> > > taking patches to lib/raid/.  Can you apply this one?  
-> > 
-> > Can we do kernel_avx_{begin,end} instead of having to open code
-> > and document this everywhere, please?  
-> 
-> Again, there are cases in the kernel where both AVX and SSE are used
-> within a single kernel-mode FPU section, or where a CPU feature check
-> occurs within the section and one or the other is used.  So that
-> abstraction will not work as-is, and it would be different from all
-> userspace code as well.  If you'd like to try to refactor everything you
-> can try to do so, but let's not block fixing these bugs first.
-> 
-> Also, AVX != "vzeroupper is needed".  The relevant thing is the width of
-> the registers used.  There is 128-bit AVX code.
-
-It also depends on the instruction encoding used for 128-bit AVX code.
-If the VEX encoding is used the high bits of the ymm registers get cleared
-(rather than preserved) and you get different delays.
-Flipping to/from VEX encoded 128bit instructions adds delays on some cpu.
-
-Yes, it is all a mess....
-
-David
-
-> 
-> - Eric
-> 
-
+Thanks,
+Lovekesh
