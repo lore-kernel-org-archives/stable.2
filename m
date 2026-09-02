@@ -1,148 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B1542047A
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:56:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E061490C1A;
+	Wed,  2 Sep 2026 12:56:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353788; cv=none; b=h8S2hJhvf4zRoXbCjLyB7WOl4ZJXyrGzu+5pLhBiClqxQ5kY4UTxdBapq+aaEkQZM2K4dVG3Y7MhzSZ8Kj4bQMNQi6iRaf+CcIOokaCr997lMIB3wfvTSsQbKebt8z5n+psbjIeLlFWVWsderYgFRI0rJhkkk40PkESFq/lFe8w=
+	t=1788353814; cv=none; b=srskreStWTqQka3na2TDvGaxDOm+IAKwY8A4rzdvIoZifUjOHaE88pi3dlU8yl9GOt/YGH5zBn+eIBlgsJVf03g5fPgCBLUWp+uF6NfXIR4ZRW0WEX1OOcqYbX53eG9ckTLP5L08oKtGjyUAzCuIPgZvrGv05OPnIVVFTXpzXxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353788; c=relaxed/simple;
-	bh=C6qCGI2qGA411Ng26vRIk9uX1jrnXdhCZkIQPAI9qZU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IxkNbBzRSB+clYBiFDoPiaUjSNo0xl0//Sp0w+CgSnkia6+QB3pl6dVH14Grh8PUpa2ICUV8ASpmUoCogBNtxVjJ4FHBuRueFFtXked9kuWJf6j0f9uISXNvMJqtylfcIEUTat5F2xt3Am2TtHA2ngFmmaty2Hqw715u2PO49ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMtVWZe+; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788353814; c=relaxed/simple;
+	bh=nlxcKNedY8NFhhw7+pNar+5Ey+x/WWBiNXdjireTXfo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j3S6HKladGYGpbGJ40tVbUErshWGDt54IarBUHQrM/bw1LtRNxfiPKOqBXMQBtM78X/JFPq9b9cA+7gKWRmseO1oTpJMfumCLaYd3zSy+NPzVM2z4m6XwRjAtgoQJgPoEsTOF0F1+f8CFzzRGithUWesRMUM5padN7lPEqKs4J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TCImdfFv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMtVWZe+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788353787; x=1819889787;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=C6qCGI2qGA411Ng26vRIk9uX1jrnXdhCZkIQPAI9qZU=;
-  b=mMtVWZe+JK023l1DHrtZL0K1AWOap4sCMWN7+EBfWFo6WVupz4RPIzjA
-   YOa+eZscydBHyqB5rA9UeuJpu1lqaaPIaNjTKy8vPQaoYu6sR3Yv79hfg
-   atHrjLgHhcnKft6Qne4NnGMF6QHRP3JCsTSvcXaGYiSgAStAHTlwwR/qK
-   l2OrTDjstgUtXGY5bfUNLvfJ84aDA6FJeLzP99Ihr8Zdote182Dlb7lip
-   HhYekhNedaZFst5p8zYrCO0hVWSA/Jff1Q57LHpTepeHvyU0rnDuHQvCr
-   /G5nQnxiSNViW7eCG86VliG76JJ2bdwbsEiMRsYJV24fWC+vyG3ePfzSM
-   w==;
-X-CSE-ConnectionGUID: fjiuAiI5R6GQ0g+xgNjgvg==
-X-CSE-MsgGUID: Qagv6kggSZy5SVSPUJ1qFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92512451"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="92512451"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:56:14 -0700
-X-CSE-ConnectionGUID: QK8/ntriSQaS2qlnJ8yzWg==
-X-CSE-MsgGUID: Zx4kBWLoSvSzHx9aSw3ciQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="265100199"
-Received: from kpleskax-mobl2.ger.corp.intel.com (HELO [10.94.252.39]) ([10.94.252.39])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:56:11 -0700
-Message-ID: <7568b4e4-a71b-4f94-8e78-f9795c372ffc@linux.intel.com>
-Date: Wed, 2 Sep 2026 14:56:08 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TCImdfFv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9691F000E9;
+	Wed,  2 Sep 2026 12:56:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788353813;
+	bh=MsQZyz+mL6/nsyMG3omDM4pyMzMGLSUirh/ygirNMDo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TCImdfFvViQfRwBvJ7fVj0b4kMxyUeNtFVr0qvA2f7w1ST7Gu05lgfqppeE4vE4QR
+	 x7WpLCEzU8KmhI+1fm0+tuJk9KcShByW6H+ROU9EYDZGRoPIgKHW2phy1doU9hQ3gw
+	 IFFeuQbNCAWypjeduEPcpfH4uWT4kUCSqUCAaYwU=
+Date: Wed, 2 Sep 2026 14:56:48 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Cc: Andrey Smirnov <andrew.smirnov@gmail.com>,
+	David Woodhouse <dwmw2@infradead.org>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ihex: Fix 16 bit truncation in ihex_binrec_size()
+Message-ID: <2026090256-posture-affirm-f40f@gregkh>
+References: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
+ <2026090223-napped-nerd-790e@gregkh>
+ <178835312958.943169.5134885168571622868.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] accel/ivpu: Validate full buffer range in
- ivpu_to_cpu_addr
-To: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: oded.gabbay@gmail.com, jeff.hugo@oss.qualcomm.com, lizhi.hou@amd.com,
- andrzej.kacprowski@linux.intel.com,
- Magdalena Schulfer <magdalena.schulfer@intel.com>, stable@vger.kernel.org
-References: <20260901125749.404338-1-dawid.osuchowski@linux.intel.com>
- <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
-Content-Language: en-US
-From: "Wachowski, Karol" <karol.wachowski@linux.intel.com>
-In-Reply-To: <20260901125749.404338-2-dawid.osuchowski@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178835312958.943169.5134885168571622868.b4-reply@b4>
 
-On 01-Sep-26 14:57, Dawid Osuchowski wrote:
-> From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+On Wed, Sep 02, 2026 at 02:45:29PM +0200, Vasileios Almpanis wrote:
+> On 2026-09-02 13:06:27+02:00, Greg Kroah-Hartman wrote:
+> > On Wed, Sep 02, 2026 at 12:21:19PM +0200, Vasileios Almpanis wrote:
+> > 
+> > > ihex_binrec_size() returns uint16_t while computing be16_to_cpu(p->len) +
+> > > sizeof(struct ihex_binrec), so record lengths of 65530 and above wrap.
+> > > __ihex_next_binrec() uses the result as the offset to the next record. A
+> > > length of 65530 gives an advance of zero, so ihex_validate_fw() spins on
+> > > the same record forever. Lengths of 65531 to 65535 advance by 4 or 8
+> > > instead of 65544, so a 14 byte image passes validation while its first
+> > > record claims 65535 bytes of payload. emi26_load_firmware() passes it to
+> > > emi26_writememory(), which kmemdup()s 65535 bytes out of a 14 byte buffer
+> > > producing the following splat:
+> > > 
+> > >   BUG: KASAN: vmalloc-out-of-bounds in kmemdup_noprof+0x3b/0x50
+> > >   Read of size 65535 at addr ffffc90000075006 by task kworker/11:1/174
+> > >   Workqueue: usb_hub_wq hub_event
+> > >   Call Trace:
+> > >    <TASK>
+> > >    kasan_check_range+0x10f/0x1e0
+> > >    __asan_memcpy+0x23/0x60
+> > >    kmemdup_noprof+0x3b/0x50
+> > >    emi26_writememory+0x29/0xd0
+> > >    emi26_probe+0x2d1/0xb64
+> > 
+> > Is this a real firmware image being sent?  Or a fake one?
+> > 
 > 
-> Add a size parameter to ivpu_to_cpu_addr() and validate that the
-> whole [vpu_addr, vpu_addr + size) range stays within the BO.
+> I used fake images. 14 bytes long for the out-of-bounds bug and 6 bytes
+> for the infinite loop. I passed them through the sysfs fallback loader.
+
+Cool, so root only, fake firmware, not a real issue?  :)
+
+> Out-Of-Bounds bug image:
+> 00 00 00 00 ff ff 00 00 00 00 00 00 00 00
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
-> Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
-> Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-> ---
->   drivers/accel/ivpu/ivpu_gem.h | 14 +++++++++++---
->   drivers/accel/ivpu/ivpu_ipc.c |  7 ++++---
->   2 files changed, 15 insertions(+), 6 deletions(-)
+> Infinite-loop image:
+> 00 00 00 00 ff fa
 > 
-> diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
-> index 0c3350f22b55..b1ae020a4fc2 100644
-> --- a/drivers/accel/ivpu/ivpu_gem.h
-> +++ b/drivers/accel/ivpu/ivpu_gem.h
-> @@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
->   	return !!bo->base.pages;
->   }
->   
-> -static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
-> +static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
->   {
-> +	u64 bo_size = ivpu_bo_size(bo);
-> +	u64 offset;
-> +
->   	if (vpu_addr < bo->vpu_addr)
->   		return NULL;
->   
-> -	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
-> +	if (size > bo_size)
-> +		return NULL;
-> +
-> +	offset = vpu_addr - bo->vpu_addr;
-> +
-> +	if (offset > bo_size - size)
->   		return NULL;
->   
-> -	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
-> +	return ivpu_bo_vaddr(bo) + offset;
->   }
->   
->   static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
-> diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
-> index 978bc3d8704f..8f69fb133e2e 100644
-> --- a/drivers/accel/ivpu/ivpu_ipc.c
-> +++ b/drivers/accel/ivpu/ivpu_ipc.c
-> @@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
->   		return -ENOMEM;
->   	}
->   
-> -	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
-> +	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
->   	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
->   		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
->   		return -EIO;
-> @@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
->   			return;
->   		}
->   
-> -		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
-> +		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
->   		if (!ipc_hdr) {
->   			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
->   			continue;
-> @@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
->   
->   		jsm_msg = NULL;
->   		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
-> -			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
-> +			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
-> +						   sizeof(*jsm_msg));
->   			if (!jsm_msg) {
->   				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
->   						      ipc_hdr->data_addr);
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+> > And root triggers this, right?
+> 
+> Yes its root only. The attributes are accessible only through root
+> and it also needs raw-gadget.
+> 
+> > 
+> > > Return size_t so neither the addition nor the following ALIGN() can wrap.
+> > > 
+> > > Fixes: 9fb4ab4d3dd6 ("ihex: Simplify next record offset calculation")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+> > > ---
+> > >  include/linux/ihex.h | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/include/linux/ihex.h b/include/linux/ihex.h
+> > > index b824877e6d1b..0da1c4e3e693 100644
+> > > --- a/include/linux/ihex.h
+> > > +++ b/include/linux/ihex.h
+> > > @@ -21,7 +21,7 @@ struct ihex_binrec {
+> > >  	uint8_t data[];
+> > >  } __attribute__((packed));
+> > >  
+> > > -static inline uint16_t ihex_binrec_size(const struct ihex_binrec *p)
+> > > +static inline size_t ihex_binrec_size(const struct ihex_binrec *p)
+> > 
+> > but size_t changes depending on the platform, right?  Why not make it
+> > u32 instead?
+> 
+> It does, but the value tops out at 65535 + 6 = 65541, so 17 bits, and
+> size_t is at least 32 bits. I chose size_t because sizeof(*p) is already
+> size_t. If you don't like it I can send v2 with u32.
+
+Let's be specific, otherwise people will trip over the fact that this is
+different sizes.
+
+thanks,
+
+greg k-h
