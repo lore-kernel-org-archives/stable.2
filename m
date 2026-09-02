@@ -1,134 +1,221 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF1D47F782
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:49:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 602372853F3;
+	Wed,  2 Sep 2026 16:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367797; cv=none; b=PAVCxVZCQQ/0QKbwcrl8Y3v0PQodpiNn42OofqtDWMPNJo8a8aiAl/yG9xgQRs+4hl4y1t95/CqdMFO/OqTBySjmfPbacUdn7PUQAOnzr4algAftlIhLxD2C1Z1oPT7zdDrCDAcko+0YfUEw783GSLS6JInHQK6Lg5Hxj4hqQNk=
+	t=1788367800; cv=none; b=MSCzmxtqwDwfr/qNXMk8gYXJcGWD48PEO7erxt3XoML5J1dATeKJKDKuCiKkK2ue85rOcPqQoprIfju04flP+zw3KXg7GiIA9X2jCYSh/EMbJWGmKAJFLvjoqTPjevrXOHrOzwkZA71Z9+2tRIRF56l7cPo8/hr9VEWxjZF4fYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367797; c=relaxed/simple;
-	bh=R/smS0tOr3pxPdM+ae9ZvTyZypQLiz82z9m+C4C4jPY=;
-	h=Message-ID:In-Reply-To:References:From:To:Subject:Date:
-	 MIME-Version:Content-Type; b=IUEnCNu2g3yNn/PUYTkzsvzM5fZ9Vm0SwrUrGtTgd/cqwjZsQFiOaPnt7yMScf+Bu0R2oPNrc/F4OLCjNIGeLt/CDdmKW76dXMxua9zJxkWZQgOvKcU3AWtvi3hehUEZMuOlhGJ53K28YDUoAeAb88Z1kEfKNC90ueCX+FhBOgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz; spf=pass smtp.mailfrom=swiftden.buzz; dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b=duC/r3mT; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swiftden.buzz
+	s=arc-20240116; t=1788367800; c=relaxed/simple;
+	bh=wJBzsw3njtfKyozBHXD6yBTsdjfZu4B9ASv8GWT65aA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rmZv8q9N/jtwpAy4mxxrRBqjVJrEaHDrA1ocBIAFuDjerquG1Zicfoe4A7pKoSmHCLVA/pVGJYTB6tIdycqW2FECeJJN07ZfwdRl9lM6ShwwfOnCFBaOtWaEO7GpjneXeTlI8CSdpHiGMs3A6rErKNPm2dpXT/oWHVbbhB84HjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=zwICWCRm; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XR0GeJxC; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jKcclGBJ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=sKa6FBtQ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b="duC/r3mT"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-52f1a320162so11757391cf.2
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:49:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=swiftden.buzz; s=google; t=1788367795; x=1788972595; darn=vger.kernel.org;
-        h=content-type:mime-version:date:content-transfer-encoding:subject:to
-         :from:references:in-reply-to:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/smS0tOr3pxPdM+ae9ZvTyZypQLiz82z9m+C4C4jPY=;
-        b=duC/r3mTeatLf2GA0KYXp1aPV6IBLviwmQgqWgxuXx606rttAB4kFWryptYMQEc3cd
-         qcU74JlWfRMFSTgucO+6Qd+u34u3T9nhA0tpzE2TJC1FcePraRY76pyiOHbEW7upO0vp
-         ccE6Nbgk31aHqiMEhSkYk3KEYX/PUNPa9Jp6ZEE0AHHnq/gP2niAt5h8yNT8ANZHrMp4
-         jXpDGuQSiXDuWBXATcdG1D+X1HExnX79OxMa9uNcw9FpFWoGxANgsebfFTF1mJc4R1l3
-         wrDR8/i3hJolQNDc7Gt2Q3A+Sf33Ov/2YMzoFKxg+Q92TPM/gT/QdDsYOczOCRnhRVQe
-         46iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788367795; x=1788972595;
-        h=content-type:mime-version:date:content-transfer-encoding:subject:to
-         :from:references:in-reply-to:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/smS0tOr3pxPdM+ae9ZvTyZypQLiz82z9m+C4C4jPY=;
-        b=nc7OwW8z6ptZie85QL9LDd/hOAk4aposTpKc0sZJK0Y49nQW/K79PZqJglIwI8hmXx
-         Yg9BRdKgVDiZlzwdSxZGoQ5hl7QzPOB3hEpUJrvqCi0ccETAkQ/CDPKVRkVxohXAyfje
-         RwZ8LJc7PHAfOrxNtFeTAWu6X2DTN5zAnWITL/bF6N9qBTLfSUwWzwrjOHJ3M4dE0iGN
-         1sbZwBrIdHXAA+OSgdj+nkErWhr60z1fQ5HdSBjhJaFuLdbMcWqrI+UzhcSXyKamyLlD
-         0xpLREq5iiFLxnejM1bdUjf7N0XjaXbuE6SnfY69DcTJ7gjAoqP6Omp+uT7MPF2cvfVg
-         6+yg==
-X-Gm-Message-State: AFuF++nEhZHWqeTgKqFeJQNXY9JdkEs3HVTXZh3pw99YJUwGGmdt+yAZ
-	MWCUBMgR5OgNEOE6SqyAyy82faIL6QPYaCmRyGNUfXtvEmgeac7NATWNV1gmfrpN8HpNeR1drY9
-	Sk/7EQQ==
-X-Gm-Gg: AR+sD13jGjVNZAiozQN1XclHD3aBnDDil+WX1qHtib2P0NZmqUyNP9jev26PK7x9n9N
-	kW/GlqynsDYtY+t5aEB/a+v7wdR+wRqx48XmHW86fOG0y8j4dVbsudk+Otf2Vky8JsBVJPJjOfS
-	PyOZ64ARixs9hR8Y/s/w8YyxYOZRVPxHZy1lAXwR9Z0gS3i88sjkSA90qo6HPizquSH6iMghCcy
-	Q0mQ+Lxuzk0iwIHnt0TCNFM/mYEg3Ovf8tnSF8VjyID84vf+w2bZk+8hDUBgUvsZGpx4dVq3SC7
-	uTw2CpphXtvC4qYQbpBovcfFhaoSEm/aD7zklV1WNzzbrmTSTwnX94dlCuIe1EVVfLUnHwTaOur
-	OseEHMVKAnFK2Sr855nI6btuhRIfk6/IBJKFGZCZQjPj+Z+gMo/a+tc1GSmmaOAuDXHWUXL7NOc
-	wUGPibxOAR9zqkTE/MKYGgvSjnyo7FySlki/9NUhJ42USy4R/3WRWt8zwX4wVEauj1hEOEZmvJw
-	cI/2YkWSOx6EciQm7aiBkb7Z/pyqCj6b9A+RhM6hYe6A4uehx9Q2jUreQb+GjwyAm8Xme4cI9p2
-	saF7
-X-Received: by 2002:a05:622a:6207:b0:52f:9eff:959a with SMTP id d75a77b69052e-53036bfe464mr82368301cf.11.1788367794569;
-        Wed, 02 Sep 2026 09:49:54 -0700 (PDT)
-Received: from 01a06306-ee90-713d-888f-101a10980a7a.local (ec2-3-238-127-148.compute-1.amazonaws.com. [3.238.127.148])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53033277f37sm23521211cf.30.2026.09.02.09.49.54
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:49:54 -0700 (PDT)
-Message-ID: <01a06306-ee90-713d-888f-101a10980a7a@swiftden.buzz>
-In-Reply-To: <01a01f99-890e-7294-88d1-d8968c57eaff@swiftden.buzz>
-References: <01a01f99-890e-7294-88d1-d8968c57eaff@swiftden.buzz>
-X-Mail-Abuse-Inquiries:
- https://app.instantly.ai/privacy/report-abuse/01a06306-ee90-713d-888f-101a10980a7a
-From: Todd Ford <todd@swiftden.buzz>
-To: stable@vger.kernel.org
-Subject: Re: Offline bad review
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 16:49:53 +0000
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="zwICWCRm";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XR0GeJxC";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jKcclGBJ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="sKa6FBtQ"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 23B231F7EE;
+	Wed,  2 Sep 2026 16:49:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788367793; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=043Dznb5/54VjhDAtyAXUUrtIFC9ClhD/46sskUEV1w=;
+	b=zwICWCRm6gviOSKA/JcOY9GjHNm3BR0riMKLaS6yYx/RsxykRuIrg9bmRHPgqXSh1BIQaH
+	+ZGFlt83CG+4lZ7bwaEOOquUQ1R46S5BkioDls7cBH63MAnBWJiacD6QOPZCh0FOPlV+0R
+	2xR1iHAhxTWVhl6ksLapLXbt2aYDrZA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788367793;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=043Dznb5/54VjhDAtyAXUUrtIFC9ClhD/46sskUEV1w=;
+	b=XR0GeJxCXrFtVWK+3A0JF4hLt3KQVhj7DZBPUxEkEYdEX+tkt8SbB4vtnmQkbtPxMbGzJ4
+	N5+/0cIaCL69s0Cg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=jKcclGBJ;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=sKa6FBtQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788367789; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=043Dznb5/54VjhDAtyAXUUrtIFC9ClhD/46sskUEV1w=;
+	b=jKcclGBJjgibpHeM9Jg0TQso/HUi9gaEyKijnEgeZezmzdh9KG1n7yVBdQHEziU9LcrJAw
+	+Drl7J4whHHvNIzI0H/8l6IMifnClA9sUuvU+ZK0wI2108qNhU2AZEb71sApyoiy1+oypf
+	eycrzYMVwqulUhcCwf1N++03yuxc4oU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788367789;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=043Dznb5/54VjhDAtyAXUUrtIFC9ClhD/46sskUEV1w=;
+	b=sKa6FBtQj4Yc/C/BhYnDVF5DJEE0p7AYZGt7EGl2BRn4C55SIzCzYSFAjCjdncYAjyiBLB
+	OZz4f1+/OFtstuCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D5300136E6;
+	Wed,  2 Sep 2026 16:49:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id wHCkM6xTmGpKJgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 16:49:48 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 654B8A13B5; Wed, 02 Sep 2026 18:49:40 +0200 (CEST)
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Al Viro <viro@ZenIV.linux.org.uk>,
+	<linux-fsdevel@vger.kernel.org>,
+	Amir Goldstein <amir73il@gmail.com>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	stable@vger.kernel.org,
+	Jan Kara <jack@suse.cz>
+Subject: [PATCH] fs: make sure to call fsnotify_inoderemove() only once when inode is dead
+Date: Wed,  2 Sep 2026 18:49:25 +0200
+Message-ID: <20260902164924.1333135-2-jack@suse.cz>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3505; i=jack@suse.cz; h=from:subject; bh=eUP3BeSPlxIgWlw//z/nYw8C25sF26bXB1q9ZjbMqww=; b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBqmFOUYfIkAPf9NCB+93BCGuoqKZixBJOcNXBAT kSQD5NZ5K2JATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCaphTlAAKCRCcnaoHP2RA 2aSZCADqlyjXNLG0crOMd35Rk5xEYwJvWnulTbRdd4hNZPzuAsHgrLalY4zM36CUE94WV4BSWN7 77rRgzUeYM5EwflNqKYh+ajRiod0QuXuCMQ4X/Vmz/S9aExBWdKxOaH0qdGhqSPMOZ9wndfssVn FI27GdcoB+JjQ5BKBW3DSb8S5X1cL3QUZrZtlkUTtYzdolE6AdYYPUfN6kgEIFz+mrRISVsJu9P 9IlxFJZlaFdk5hXS1CJswXTTP2YwmQRKLmS68rs5i+rIZN2DTzPyqKeKEfWKCoJ4ryZvfyeDGZ/ Y/Qe8o3k7iWYbbjLmgn/cAPi2MW+HrI1x4IWel1bes9KFQ/o
+X-Developer-Key: i=jack@suse.cz; a=openpgp; fpr=93C6099A142276A28BBE35D815BC833443038D8C
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 23B231F7EE
+X-Spamd-Result: default: False [-3.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_MISSING_CHARSET(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_CC(0.00)[ZenIV.linux.org.uk,vger.kernel.org,gmail.com,suse.cz];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,suse.cz:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+X-Spam-Flag: NO
+X-Spam-Score: -3.01
 
-Greetings, just wanted to follow up,
+From: Amir Goldstein <amir73il@gmail.com>
 
-I also came across Wendy left a =
-review saying "This was my first visit to the store. There were lots of =
-cute clothes and some good prices. However, when we checked out, an item =
-rang up as 25% off instead of the 40% off that was advertised. When we =
-questioned it, the cashier said that was how it rang up, so it was only 25%=
- off.
+Daehyeon reported a race wherein fsnotify_removeinode() can be called
+when inode still has a live alias.  This can lead to several undesired
+outcomes such as crashes in fsnotify code or avoidance of inode mark
+notifications.
 
-I walked back to the sign, which originally stated 40% off, and it =
-had been switched to 25%. I=E2=80=99m thankful that the customer behind me =
-in line spoke up and said she also thought it was 40% off, especially since=
- the sign had been changed while we were still shopping.
+Check that inode is really "dead", meaning no nlink and no more aliases
+before calling fsnotify_inoderemove() for final cleanup of inode marks.
+Also do not allow open_by_handle() to add new aliases to a "dead" inode.
 
-Another employee later told us that only the sweatshirts on the rack were =
-40% off, which was not stated anywhere on the sign. This felt like false =
-advertising and was very disappointing, especially since the only response =
-we received was a brief =E2=80=9Csorry=E2=80=9D from the cashier.".
+Ideally, we'd call fsnotify_inoderemove() once last inode reference is
+dropped to make things simpler. Alas fsnotify inode marks currently hold
+inode references and thus this doesn't work. Once we teach fsnotify to
+avoid holding inode references, these games with dead inodes can go as
+well.
 
-We can eliminate multiple bad reviews to strengthen your online image.
+Reported-and-tested-by: Daehyeon Ko <4ncienth@gmail.com>
+Closes: https://lore.kernel.org/linux-fsdevel/20260827045007.3831259-1-4ncienth@gmail.com/
+CC: stable@vger.kernel.org
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Jan Kara <jack@suse.cz>
+---
+ fs/dcache.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
 
-Can I give you a quick call?
+diff --git a/fs/dcache.c b/fs/dcache.c
+index 1b1a81f10da6..8f17db2724b3 100644
+--- a/fs/dcache.c
++++ b/fs/dcache.c
+@@ -450,6 +450,17 @@ static void dentry_free(struct dentry *dentry)
+ 		call_rcu(&dentry->d_rcu, __d_free);
+ }
+ 
++/*
++ * If inode is unlinked and doesn't have any aliases (i.e., all fds pointing to
++ * it are closed), it is pretty much dead. Except that file handle lookup could
++ * still revive it which causes issues to fsnotify. So once inode reaches this
++ * state we make sure to block creating any new aliases.
++ */
++static bool inode_notify_dead(struct inode *inode)
++{
++	return !inode->i_nlink && hlist_empty(&inode->i_dentry);
++}
++
+ /*
+  * Release the dentry's inode, using the filesystem
+  * d_iput() operation if defined.
+@@ -459,6 +470,7 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	__releases(dentry->d_inode->i_lock)
+ {
+ 	struct inode *inode = dentry->d_inode;
++	bool notify_dead;
+ 
+ 	raw_write_seqcount_begin(&dentry->d_seq);
+ 	__d_clear_type_and_inode(dentry);
+@@ -469,9 +481,10 @@ static void dentry_unlink_inode(struct dentry * dentry)
+ 	 */
+ 	dentry->waiters = NULL;
+ 	raw_write_seqcount_end(&dentry->d_seq);
++	notify_dead = inode_notify_dead(inode);
+ 	spin_unlock(&dentry->d_lock);
+ 	spin_unlock(&inode->i_lock);
+-	if (!inode->i_nlink)
++	if (notify_dead)
+ 		fsnotify_inoderemove(inode);
+ 	if (dentry->d_op && dentry->d_op->d_iput)
+ 		dentry->d_op->d_iput(dentry, inode);
+@@ -2237,7 +2250,12 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
+ 
+ 	sb = inode->i_sb;
+ 
+-	res = d_find_any_alias(inode); /* existing alias? */
++	spin_lock(&inode->i_lock);
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* existing alias? */
++	else
++		res = ERR_PTR(-ESTALE);
++	spin_unlock(&inode->i_lock);
+ 	if (res)
+ 		goto out;
+ 
+@@ -2249,7 +2267,10 @@ static struct dentry *__d_obtain_alias(struct inode *inode, bool disconnected)
+ 
+ 	security_d_instantiate(new, inode);
+ 	spin_lock(&inode->i_lock);
+-	res = __d_find_any_alias(inode); /* recheck under lock */
++	if (!inode_notify_dead(inode))
++		res = __d_find_any_alias(inode);	/* recheck under lock */
++	else
++		res = ERR_PTR(-ESTALE);
+ 	if (likely(!res)) { /* still no alias, attach a disconnected dentry */
+ 		unsigned add_flags = d_flags_for_inode(inode);
+ 
+-- 
+2.51.0
 
-Best,
-Todd
-
-On Thu, August 20, 2026 2:35 PM, =
-Todd Ford <todd@swiftden.buzz>
-[todd@swiftden.buzz]> wrote:
-
-> Hi there, are you in charge of Offline?
->=20
-> I was browsing some of =
-your Google reviews, and one from Angela Russell caught my eye. If =
-you=E2=80=99re interested, I can have it deleted for you.
->=20
-> They commented, "Had a staff member order me sweat pants to ship, but =
-they ordered me the wrong pair. Apon the returning I was asked if I wanted =
-a refund to original payment or gift card. I asked for my original payment =
-refund and they are now saying a week later they can't (only able to do =
-gift card apparently) and now I'm out my own money because I will not be =
-returning. Worst online customer service with little to no help and a bunch=
- of "I'm sorrys"
->=20
-> Would you prefer this review gone from your profile=
-? We focus on removing unfavorable reviews, and I observed you have a =
-couple of other critical reviews we could help remove.
->=20
-> Looking forward to your thoughts
->=20
-> Stay awesome,
-> Todd
->
