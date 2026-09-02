@@ -1,150 +1,197 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E86870830
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 03:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF368233954
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 03:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319056; cv=none; b=S5w9f2Z6syo1q5bN7gNJ+NjmgmYHZvMivkxLCfbwnoaYKDxi7w5oaj9OYigJEHSGuVU1ShDbQ7ARU9MaKyAgvz+E7HmahSM2Gh7PYGNoEvY+50n17h6niMQEZuN4dAPnH0UTdH5YbvB9kwDs4U4UpUMvuOsBpEofTy87e0xW7hE=
+	t=1788319599; cv=none; b=OFnvITcXlvsjYP6bCSogyE4oDhvMq65OtThhowr7Q3H9CJf+m555DyF6qbNV3Seayx0Mo5cQj5LGA8sDc+8tQYOjzH+zbOvf3n1N70uOM5mYn8Wnw9ubIGldhyKC4Jjt1Gxk38Tp9lSowu5P7jPF9DtDhNvsvBHiHc7HPwBnWXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319056; c=relaxed/simple;
-	bh=uRgdatM8lpgXibRALPB1Q/7MF1332nK+00r7Kuztk5w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jHxrAt5RmVOCXJLDIv+LQBjwprWGGseaWskQJF7CZPrx7HnIcUylL3FIwx0g84wYKCXYt4eXWAUVJr5lFEgpQO4j9qYht76o2+pOOw4ylasL4By3so6nVHFJDLUj8h5ppcxVED3MOV6+APum1ccJa68aJzFGxzFNDlcRCq/DvOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hZSYt6dtNzKHLtH
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:16:34 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 52D1C40561
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:17:26 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP1 (Coremail) with UTF8SMTPA id cCh0CgCnjwpFlZdqDqq+AQ--.57637S2;
-	Wed, 02 Sep 2026 11:17:26 +0800 (CST)
-Message-ID: <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
-Date: Wed, 2 Sep 2026 11:17:24 +0800
+	s=arc-20240116; t=1788319599; c=relaxed/simple;
+	bh=96wvEPiwPZfR78LElYmLqc+vqsPLRsuVXQK+WuAbyd4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ts4hn+0RRYlW4zH6r9+Q/TDr4v6w+ZURP6W/hMpVIzIcTeBS7yYZgC5jT1AQWFmG8KK50nd/LA/ejm7fjt52fr0daU+R2B/nzEoX9X0fXWfv0fhyHR6VNtpqDFquFITeuYCSHowtPYPXc5r9oGvSpjmPOwnnfcUzTUCniAc+B8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zcs3JbQr; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zcs3JbQr"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4843efcbdb2so313618f8f.2
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 20:26:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788319596; x=1788924396; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CWAV+LvRXqnUBhlcQBpGfOksFpIYqg+MNUT0HrN6l6o=;
+        b=Zcs3JbQrig9Xlfw2jzMfNoBFox3oNzg7sc2oQjzk8pEJYhEZIBSJYlPEyGxLqxMCul
+         o9n+aO5tyh9N6PMudI14ZJ/Ij6PZFbiHi3ZgI/t2bv4qAAAIJAV/IEa+cUfGmXv215hx
+         3nZHCSXVc1E4w6K50I76RH0OuBSbymioEB56Bs6liCDlv/OzhMM481qw2xGX2JpoAGQt
+         zJxa2r5NZYMpqAmD4r9qv5Z1aSSb1JlPyz36FyCtbU0+OjRoaVHojQL7yxYgWfw/9Qy7
+         YAKWyG3V4AQdmB6Ss1Ecz1lhEk8MksKufAZ+ShfZJa7qX0uefaig5NfAsGJ9BHhEkSMN
+         SHow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788319596; x=1788924396;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CWAV+LvRXqnUBhlcQBpGfOksFpIYqg+MNUT0HrN6l6o=;
+        b=U8IEpS548NlmAcNxTRsvO+TPeDY+PlcMsrRWDyhI8YE2i5Qug5s1koEvLIb3+kR+P/
+         nraX3pUseQ0kNagsAMV9kkTyJsJYzujGUDRm8SOChRRfqCpOL/QcEPThV8LAMlz5PI88
+         2ebdsuxw5xWWAuls2pZ7jd+sjfnVbpdGYSldOuFazhMApIyuCxgtrs1rdR4q7oGLjafp
+         zbVO9wzk9d9yEOBcCoLY+X8SzUPEjx2YjIo5+STUnrYceODTlfssZnOJHnZcF/vjs+Qc
+         idGMcM/f5Aylk/vYlIGShRYPbLWiJsVlzlAeJ8KS9IO7iscD3Be894xUm5LETLoOi2Om
+         UpSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxL6I8Hyj5HH1hp/0GmOxdVFb69r1+J/kNuYsPOjIapRBbpEPm5tB6E28fGljSl20cti68zJco=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcIjNgcEkYwfjUUVXIPhUDHlDEBkFRTiDkF24Z3Lz60sD7h3mM
+	LScBT6vE0OKkdwK2jnSCD5tbJT9M41zkRfaJEnvokYq/8DnR+vMgk9Xe
+X-Gm-Gg: AYBFou3/zluZRynkPTTctrSIMY8TvMKYiC4mPnGtjwzlEDcr5UpBwHfxof8+Lb0dLEF
+	1hP3dxMGDZB6yiWAq9k8R+FTs6dLo+Yu3jfXivhQZ+absZL1vHtKHpkcn8s56YTLp/OhbPf+Jof
+	3HKJszPaMePDX/xVQ/gYeiBGkcDAJgkSMraqeyOp7nisdcCGnrjfprbTsrkP8AnqHCNpEUdr6/h
+	J4+Ni0Z9xjSYZmpNoNEghrGm/cPCRdVG+Ymo7aSSbCtK2JrKuRv7lR4HvxLjVGBECGlcb1abIbf
+	gdFWypwyCf8wTD8MRyQm3ke07YVS3IIA9+6a6PY3oJ76XkIH5IdIvawBP1GVDx2P88HPvCrWhIK
+	uKjSfCN63BkaEDYucAddAaxNekGmpkuqf1A2ZUbjBGWzNCDrx4DpASdp3nPdXpxXFD81NLl3PGp
+	t/NxB0lJJ8xd1ubTcwrV9s7dizObAFhQPli3yZQTYBKTWEfFtB7eO8bVJpO/UG8aeIf3c=
+X-Received: by 2002:a05:6000:4a0a:b0:484:39b4:5bc9 with SMTP id ffacd0b85a97d-484914cba9amr2358765f8f.26.1788319595898;
+        Tue, 01 Sep 2026 20:26:35 -0700 (PDT)
+Received: from foxbook (bfk5.neoplus.adsl.tpnet.pl. [83.28.48.5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e7f8f9sm3312839f8f.9.2026.09.01.20.26.34
+        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
+        Tue, 01 Sep 2026 20:26:34 -0700 (PDT)
+Date: Wed, 2 Sep 2026 05:26:31 +0200
+From: Michal Pecio <michal.pecio@gmail.com>
+To: Rishabh Jain <rishabh.jain1198@gmail.com>
+Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Mario Limonciello <superm1@kernel.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v4] usb: pci-quirks: always assert xHCI OS ownership
+Message-ID: <20260902052631.75c6068b.michal.pecio@gmail.com>
+In-Reply-To: <178831224746.44206.8934470315568179153@gmail.com>
+References: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+	<178831224746.44206.8934470315568179153@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 095/261] tracing/probes: Reject $arg0 in meta argument
- expansion
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Raushan Patel <raushan.jhon@gmail.com>,
- "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-References: <20260807143415.358597922@linuxfoundation.org>
- <20260807143417.434454264@linuxfoundation.org>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <20260807143417.434454264@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:cCh0CgCnjwpFlZdqDqq+AQ--.57637S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw4rury5CrWfXFW8Jr17GFg_yoW5AFyDpF
-	93tr9xtr1rJr48CFWj9F18CFyFy3ykJry3Wa95Jw13XF15Gr4rZr4Sga9Fq345Z3ykK3yf
-	tFn0qr4UKay7ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUylb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
-	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
-	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
-	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAK
-	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw2
-	0EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
-	67AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU7IJmUUUUU
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Hi Greg,
-
-On 2026/8/7 22:37, Greg Kroah-Hartman wrote:
-> 6.6-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 01 Sep 2026 18:24:07 -0700, Rishabh Jain wrote:
+> The xHCI ownership protocol requires the OS driver to assert the HC OS
+> Owned semaphore before using the host controller, then wait for HC BIOS
+> Owned to clear if firmware owns it.
 > 
-> ------------------
+> quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+> is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+> while both ownership semaphores remain clear.
 > 
-> From: Raushan Patel <raushan.jhon@gmail.com>
+> On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+> resume to terminate Controller Restore State with USBSTS 0x401. Linux
+> then reset the host controller, both root hubs and the USB Bluetooth
+> adapter.
 > 
-> commit 00a8ce2a2a9fa17674e1feec4d9105c1a5d6a419 upstream.
+> The controller entered resume ready and halted with USBSTS 0x1.
+> Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+> device contexts and command, event and transfer rings were verified not
+> to cause the restore error.
 > 
-> traceprobe_expand_meta_args() parses $argN with simple_strtoul() and
-> calls sprint_nth_btf_arg(n - 1, ...). For $arg0, n is 0 so the index is
-> -1. Because ctx->nr_params is signed, the "idx >= nr_params" guard in
-> sprint_nth_btf_arg() does not catch the negative index, and
-> ctx->params[-1].name_off is read out of bounds.
+> Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
+> 0x00000801 to 0x01000801 and eliminated the restore failure. Testing
+> included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
+> using a test module that set the HC OS Owned semaphore. Clearing
+> USBLEGCTLSTS was independently verified to be unnecessary.
 > 
-> The normal per-argument path (parse_probe_vars()) already rejects
-> $arg0 via its argument-number check, but meta-argument expansion runs
-> before per-argument parsing and substitutes the value first, bypassing
-> that check.
+> Always assert OS Owned for controllers using the standard xHCI handoff,
+> and leave the existing TI/Renesas forced handoff unchanged. Keep OS
+> Owned asserted after the standard handoff to prevent firmware from
+> reclaiming the controller during subsequent suspends.
 > 
-> Reject $arg0 explicitly during expansion.
-> 
-> Link: https://lore.kernel.org/all/20260724054435.146279-1-raushan.jhon@gmail.com/
-> 
-> Fixes: 18b1e870a496 ("tracing/probes: Add $arg* meta argument for all function args")
+> Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Raushan Patel <raushan.jhon@gmail.com>
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Assisted-by: LLM
+> Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
 > ---
->  kernel/trace/trace_probe.c |    6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> Thanks for the review.
 > 
-> --- a/kernel/trace/trace_probe.c
-> +++ b/kernel/trace/trace_probe.c
-> @@ -1721,7 +1721,11 @@ const char **traceprobe_expand_meta_args
->  				ret = -ENOENT;
->  				goto error;
->  			}
-> -			/* Note: $argN starts from $arg1 */
-> +			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
-> +			if (n == 0) {
-> +				trace_probe_log_err(0, BAD_ARG_NUM);
-> +				return ERR_PTR(-EINVAL);
-
-The control flow here is not quite right.
-
-Returning directly within this branch fails to free the new_argv memory,
-resulting in a memory leak.
-
-The mainline does not have this issue because the preceding patch
-4af0532a0f47 ("tracing: Use __free() in trace_probe for cleanup") introduced
-__free to manage the release of new_argv memory. However, due to the extensive
-changes involved, directly cherry-picking that patch does not seem to be that
-straightforward.
-
-Therefore, it might be more appropriate to simply change it to goto here:
-
-diff --git a/kernel/trace/trace_probe.c b/kernel/trace/trace_probe.c
-index 2fa7b596f03e..1f55268fbf63 100644
---- a/kernel/trace/trace_probe.c
-+++ b/kernel/trace/trace_probe.c
-@@ -1724,7 +1724,8 @@ const char **traceprobe_expand_meta_args(int argc, const char *argv[],
- 			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
- 			if (n == 0) {
- 				trace_probe_log_err(0, BAD_ARG_NUM);
--				return ERR_PTR(-EINVAL);
-+				ret = -EINVAL;
-+				goto error;
- 			}
- 			ret = sprint_nth_btf_arg(n - 1, type, buf + used,
- 						 bufsize - used, ctx);
-
-Thanks,
-Tengda
-
-> +			}
->  			ret = sprint_nth_btf_arg(n - 1, type, buf + used,
->  						 bufsize - used, ctx);
->  			if (ret < 0)
+> By "stock-kernel test", I meant that the register change was tested on
+> the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using a test
+> module that set the HC OS Owned semaphore.
 > 
+> Sorry, I missed the AI assistant guidelines. Fixed now.
 > 
+> The TI/Renesas forced-handoff path is restored unchanged. This revision
+> only changes the standard handoff path. I left the byte-access change
+> out of this patch.
+> 
+> Changes in v4:
+> - Preserve the existing TI/Renesas forced-handoff path.
+> - Limit the ownership change to the standard handoff path.
+> 
+>  drivers/usb/host/pci-quirks.c | 17 ++++++++++-------
+>  1 file changed, 10 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+> index 0404489c2f6a..fa9b5db4d115 100644
+> --- a/drivers/usb/host/pci-quirks.c
+> +++ b/drivers/usb/host/pci-quirks.c
+> @@ -1193,22 +1193,25 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+>  			 && pdev->device == 0x0014)) {
+>  		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+>  		writel(val, base + ext_cap_offset);
+> -	}
+> -
+> -	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+> -	if (val & XHCI_HC_BIOS_OWNED) {
+> -		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
+> +	} else {
+> +		/*
+> +		 * Perform the standard handoff and leave OS ownership set to
+> +		 * keep the BIOS at bay during subsequent suspends.
+> +		 */
+> +		val |= XHCI_HC_OS_OWNED;
+> +		writel(val, base + ext_cap_offset);
 
+The change from val|OS_OWNED to val|=OS_OWNED doesn't seem necessary.
 
+>  
+>  		/* Wait for 1 second with 10 microsecond polling interval */
+>  		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+> -				0, 1000000, 10);
+> +				    0, 1000000, 10);
+
+And this whitespace tweak isn't either.
+
+>  
+>  		/* Assume a buggy BIOS and take HC ownership anyway */
+>  		if (timeout) {
+>  			dev_warn(&pdev->dev,
+>  				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+>  				 val);
+
+Note that val is being logged here in case of error. It's probably
+better to preserve the original value for this purpose. We *know* that
+the code above tried to add OS_OWNED, but we don't know whether it was
+set before or not. Not sure if we will ever want to know, but still...
+
+> -			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
+> +			writel(val & ~XHCI_HC_BIOS_OWNED,
+> +			       base + ext_cap_offset);
+
+OK, I see, this could unintentionally clear OS Owned together with BIOS
+Owned. This can be prevented by explicitly oring OS Owned here. And it
+would make sense to document this problem in the commit message if you
+are trying to solve it in this patch.
+
+Other than that, I think this looks good. Just in caes, pease test the
+final version once more to ensure we haven't broken something.
+
+>  		}
+>  	}
+>  
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
