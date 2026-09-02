@@ -1,112 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EB438CFE7;
-	Wed,  2 Sep 2026 06:29:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B401D30E85B
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 06:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330594; cv=none; b=DjT7uNkCBnRnxLhpAuj34uBIviUAVlJ8PeFg8gNqwWINIBDiuQIxbUXBq+dhiR821dFE5IT/fnKHOA+9zjKSR7iDNl9OsqdDI+48wsyMtHld5hsmD8lF8Jk1g9ek4OuM0bQ7ffO7LsZgHePGvxsk9ThDvutVM1Tp3RaK1ilafMk=
+	t=1788330917; cv=none; b=SaxoJQa2dCU71O1WPNGCkca3KwQPLfwXH0Tgo3ChB/7eav2qsFAJuE5u8Mvvc+v8ohX9b+nVCXgc34yFQg2vvk2FA9+JSKPpW3Eye9tL7NvWuFucXomVKFdzCRpZFKs6HzvmekVJkoyMSu1Ip9Pop2w+GldJlFmcF1PjEEzXPL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330594; c=relaxed/simple;
-	bh=p7pVIHcF+v5InapvcwA0+b1hKrVe6y1L9rtG/3lihNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dThbchLbx0Cc86pgvyMHS/Hp3SL6sbuMukJcpe27m/nLVi08Lh7iGcF2+vLplM1sBT8rFg+m9bPacGTa+2uP0YypYd/Ep0/Ch9X6+5KSRsyd8BZI6LK9MLkk1MjdYX+euzqhr+EeQoTXGZNKtyZ9JgO2kowfWdAkI57j4nF9fQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z7vuOrhe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788330917; c=relaxed/simple;
+	bh=rugyb0FeHHFAfemsKEQ2mifMGRYzJT3W+MXDRTWCM0M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pwFgp/WwMUV+vtbaOYbwMRWo2to3ctMw8Kx/YR2DvN3C6Lvm1dz4itJibh/DMOMbIOehxhyzmShmyBRno+JaB9Bcna77n+qnOGZVUxAop3AMGNjVpBHdmbp6aghr0fFTmNVQzUDzpv8qfkX95tDr/Nbzq++ihpeZD4liFmjFi7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=P4NgAHI1; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z7vuOrhe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA35B1F00A3D;
-	Wed,  2 Sep 2026 06:29:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788330592;
-	bh=5QKb53dfppE3ODd0ICOTgThrzRgUoUErwUPy0Ymaocg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z7vuOrheqSj4RAmGWewuILXngQ9Oc3k4ZggQCCQBklzY9jZ/inWu8COMIWAsjyBeO
-	 jbFfjUdMReJXoPghuXvMqnPYr5tl2B0q5S8b+HIfnNo638GtKjIMgYSFov3uYU+hqH
-	 plu5T2eLzcm25QEstV0lOhwfiKSXdWS/93HELGcA=
-Date: Wed, 2 Sep 2026 08:29:48 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Tengda Wu <wutengda@huaweicloud.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Raushan Patel <raushan.jhon@gmail.com>,
-	"Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Subject: Re: [PATCH 6.6 095/261] tracing/probes: Reject $arg0 in meta
- argument expansion
-Message-ID: <2026090227-clash-peroxide-8872@gregkh>
-References: <20260807143415.358597922@linuxfoundation.org>
- <20260807143417.434454264@linuxfoundation.org>
- <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="P4NgAHI1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788330915; x=1819866915;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=rugyb0FeHHFAfemsKEQ2mifMGRYzJT3W+MXDRTWCM0M=;
+  b=P4NgAHI1gQHVGkVv4tBWuf5JYBfGyZresgVety9LIe6ivloGTlxmMKwD
+   C62L4a0r5S3HRL7yuSIFzFvClhqViNic6uo5JdYrT9Wa/2cdE7vUyIxTD
+   DYwolHYeQ2/NwV0lazCQr4eTLEsxfAueKiwHnN0b7CKC3hkqMAEo2FEqY
+   CgxG6FloZqXeopqHDw6ZlnvmUFoSLUYKqv9UTQz1HHvHW0+mzlerTsgZR
+   Ka+GXWpaIfLLmLePA7gES8OMNIFbPsaUPmIPmMSo1nL9TTjTGeqU8KwK4
+   EfcMBkGsn+JGnq1LPT32QX5DkGognZDPRJAyKIFzNNACOLLhBBJcLUs9H
+   A==;
+X-CSE-ConnectionGUID: 9Iew4kggS1uSYe8uKLhAPQ==
+X-CSE-MsgGUID: cYtX1Hz+STqzQsczjxUmvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92598980"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="92598980"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:35:11 -0700
+X-CSE-ConnectionGUID: LjWbliKeS6+kkm4a9njZFg==
+X-CSE-MsgGUID: q4sVWaH0T8OyHG3IqV0VGQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="268775528"
+Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:35:10 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org,
+	Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Subject: [PATCH v4 1/2] drm/pagemap: dma-unmap pages before handling migration errors
+Date: Tue,  1 Sep 2026 23:35:03 -0700
+Message-Id: <20260902063504.3024362-1-matthew.brost@intel.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7a6417ca-fb4c-40da-8ad1-b9d76a2fa142@huaweicloud.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 11:17:24AM +0800, Tengda Wu wrote:
-> Hi Greg,
-> 
-> On 2026/8/7 22:37, Greg Kroah-Hartman wrote:
-> > 6.6-stable review patch.  If anyone has any objections, please let me know.
-> > 
-> > ------------------
-> > 
-> > From: Raushan Patel <raushan.jhon@gmail.com>
-> > 
-> > commit 00a8ce2a2a9fa17674e1feec4d9105c1a5d6a419 upstream.
-> > 
-> > traceprobe_expand_meta_args() parses $argN with simple_strtoul() and
-> > calls sprint_nth_btf_arg(n - 1, ...). For $arg0, n is 0 so the index is
-> > -1. Because ctx->nr_params is signed, the "idx >= nr_params" guard in
-> > sprint_nth_btf_arg() does not catch the negative index, and
-> > ctx->params[-1].name_off is read out of bounds.
-> > 
-> > The normal per-argument path (parse_probe_vars()) already rejects
-> > $arg0 via its argument-number check, but meta-argument expansion runs
-> > before per-argument parsing and substitutes the value first, bypassing
-> > that check.
-> > 
-> > Reject $arg0 explicitly during expansion.
-> > 
-> > Link: https://lore.kernel.org/all/20260724054435.146279-1-raushan.jhon@gmail.com/
-> > 
-> > Fixes: 18b1e870a496 ("tracing/probes: Add $arg* meta argument for all function args")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Raushan Patel <raushan.jhon@gmail.com>
-> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > ---
-> >  kernel/trace/trace_probe.c |    6 +++++-
-> >  1 file changed, 5 insertions(+), 1 deletion(-)
-> > 
-> > --- a/kernel/trace/trace_probe.c
-> > +++ b/kernel/trace/trace_probe.c
-> > @@ -1721,7 +1721,11 @@ const char **traceprobe_expand_meta_args
-> >  				ret = -ENOENT;
-> >  				goto error;
-> >  			}
-> > -			/* Note: $argN starts from $arg1 */
-> > +			/* Note: $argN starts from $arg1, so $arg0 is invalid. */
-> > +			if (n == 0) {
-> > +				trace_probe_log_err(0, BAD_ARG_NUM);
-> > +				return ERR_PTR(-EINVAL);
-> 
-> The control flow here is not quite right.
-> 
-> Returning directly within this branch fails to free the new_argv memory,
-> resulting in a memory leak.
-> 
-> The mainline does not have this issue because the preceding patch
-> 4af0532a0f47 ("tracing: Use __free() in trace_probe for cleanup") introduced
-> __free to manage the release of new_argv memory. However, due to the extensive
-> changes involved, directly cherry-picking that patch does not seem to be that
-> straightforward.
-> 
-> Therefore, it might be more appropriate to simply change it to goto here:
+drm_pagemap_migrate_unmap_pages() relies on the pages array to determine
+which pages require DMA unmapping. However,
+drm_pagemap_migration_unlock_put_pages() clears the array as part of its
+cleanup, leaving drm_pagemap_migrate_unmap_pages() with no valid page
+information if it is called afterward.
 
-Thanks for the review, can you send a fix-up patch for this as it is
-already in a release?
+Call drm_pagemap_migrate_unmap_pages() before
+drm_pagemap_migration_unlock_put_pages() so the pages array remains
+valid during DMA unmapping.
 
-greg k-h
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: f86ad0ed620c ("drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+---
+ drivers/gpu/drm/drm_pagemap.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 097a900cf55d..6aa745682270 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -1283,13 +1283,13 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+ 		goto err_finalize;
+ 
+ err_finalize:
++	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
++					DMA_FROM_DEVICE, &state);
+ 	if (err)
+ 		drm_pagemap_migration_unlock_put_pages(npages, dst);
+ 	migrate_device_pages(src, dst, npages);
+ 	drm_pagemap_retire_migrated_pages(src, npages);
+ 	migrate_device_finalize(src, dst, npages);
+-	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+-					DMA_FROM_DEVICE, &state);
+ 
+ err_free:
+ 	kvfree(buf);
+@@ -1416,15 +1416,15 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+ 		goto err_finalize;
+ 
+ err_finalize:
++	if (dev)
++		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
++						npages, DMA_FROM_DEVICE,
++						&state);
+ 	if (err)
+ 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+ 	migrate_vma_pages(&migrate);
+ 	drm_pagemap_retire_migrated_pages(migrate.src, npages);
+ 	migrate_vma_finalize(&migrate);
+-	if (dev)
+-		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+-						npages, DMA_FROM_DEVICE,
+-						&state);
+ err_free:
+ 	kvfree(buf);
+ err_out:
+-- 
+2.34.1
+
