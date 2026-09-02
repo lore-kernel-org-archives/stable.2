@@ -1,122 +1,114 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from proxima.lasnet.de (proxima.lasnet.de [78.47.171.185])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A6237F306
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:20:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ACA03793A2;
+	Wed,  2 Sep 2026 08:22:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.47.171.185
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337243; cv=none; b=fvk9GgknUn7vkXBpq/g6CwTILgpU0CDreNMtIH1gGGUvB/U0KG5Co0auBVIIr2m9Ue5iDtOS1xWaFhNs0LLJDW/7Q0svZ3YdbhsMZooqkfGlBhZ7Z1whow4tbDaazUBxzcrvb1cbg9elx6RhovQ0RSOI+/Dr7LCrdE93bUTCy2M=
+	t=1788337365; cv=none; b=kVxNhSFqKKdCIbYJUWA4LS7LfBvqRVSxb6SOq9ADzJrVHJwTiZ622sLr6MOImwSCqW6JCtXmvIveluDiuE+KXdVdT1+SeQblvDwdZe3qYmz5CDEPh0CJfOVSDdKYfqiRi7j6old3A0TngS3nx19xkgxsurBx+iDuDiThVXcLu8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337243; c=relaxed/simple;
-	bh=/N08HHB3j4IdAUsjRLdoa6VRu+ufxXx1qoUkqfxRshc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HozthPFgj7Is0tF4o+vR8/lJqmPxLFcgD77hIDJb87AiqZZurse6rD82xaYojEgts2BI0FGDooWs3kYEyn4oN+gGM4bYPYMF5DOKQFPdg+TGcwvn2fdhbRC7x4N+1vre+cXEXsdZEd9kDNZb1y8G1MTj+7D0di9mrY+adxvNvKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahheOvpW; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788337365; c=relaxed/simple;
+	bh=hioswMSn+AjQXC6h4CTqNz7ZVZz3AXK2HleSF5/4bxo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UGB8IuTHW584phvRVonZIoa24SdadPqBx+J6gaIhjhV+DyY7fGFDGIx4PHjWq0Kz1CNYv0VTgpUDimhX2tnRcg8L4iGLwekESahuaIv7/uU0E+3WbqhAtbiEg0PBGNGOg+AKdzcfcIGpb4RI7XT/xHfORgFCbE22u1/rLbCGNqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org; spf=pass smtp.mailfrom=datenfreihafen.org; dkim=pass (2048-bit key) header.d=datenfreihafen.org header.i=@datenfreihafen.org header.b=AaNRseBQ; arc=none smtp.client-ip=78.47.171.185
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=datenfreihafen.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=datenfreihafen.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahheOvpW"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso613241a91.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 01:20:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788337242; x=1788942042; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C6stb0h/TUGkigOyr7jwbkqUiojuR7BYoo9mkXkmykw=;
-        b=ahheOvpWyyNCJmjy4cMC/I3mgmYr6PqSPX6Gkfwe6kvnydcnn8QB1wrWqIv5QrNToH
-         IDV/A0cEpqqh5k7u3munG8xrbbjiMP1gz+IVJR8o1jJwlmDfBDcsnBJ7T8lMDjwtOVCO
-         yDr5yHHRTUTL1U4l3vIaYEvjCrSIOu/GXEk90KZAckRxVJQ5TfrLhN+x+I6kLb4C5G3S
-         7FFJgLrCr3MVLb/zjUi2u7NVhLhUYqfMrUYW+jaHMIlwSGTojv7H71rOw4+NcA0KaXoF
-         YJ/jxNFHSn7CoksHzmeamHcJB1sfXovJPcASX6KFZDSBvhzR5yJOc161nhrzC/6bA5r6
-         MsSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788337242; x=1788942042;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C6stb0h/TUGkigOyr7jwbkqUiojuR7BYoo9mkXkmykw=;
-        b=saCloKPOAZfTWI8pWWOqIHuaSb78LH31N9BB9bSL3IbsIxW9qPlvJVtS/2RXE/OZvE
-         td4ZSK5CFxL+tVog9C4e5yyYES494GCdWVh3HxYv9fR7y4hBxU0N0ESFNaN4HNh+MHzQ
-         YCmik0X81JfbaP3THvBq/UJ7O/tkrleWNrbCRpksnZozk6kwtlRF7q6vfk/ExxsF5kJj
-         rXzFfooEBc6DxdyTowoiy/VoUrG8CqXt3lYqaGWLhXeuHRRVWEqbuQRWQXpHDd6YCaDz
-         T5CKT647sYHwcWVmADlo7ZxkoClA2NRvp6Otrx3LImSHvCLbsJyDOyVxx9pGhRS3Do7x
-         cFsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxuoaTRBNvAAQvR/Z4/PSwMIoJ8WmmLwonsHnAvw1iF325EsHiTuFQEnoaFtr4bkgUZOG3VwZo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrCtdWhPB+cTB9JOg2VTDryMzX7DYyRSh1VRgHwREJpnYVOBcp
-	kwyX8lHGL/ZqLmMqmNGxsikqhY3XPoPpNBoT3LdiVUfaAmfr8qy0XAuS
-X-Gm-Gg: AYBFou2VK3TV2Rqx88B8U55k9gon9eEz2gHqbTcwlkXgLi7THJa8m4MLfdOmiJNBXAn
-	Ole81+sEx63pJk18zzivse4BEtT9zOnecIMm+AN5EfkAybdxjWuZ4pXxfu9HOmuhT6QFPUS+P0F
-	lFmmoc7CSjTtpC2AJVTRMpcltB2i7X54IRLihAD0kd8InT6jLaUgGL3G+lF6mP9xHZct5GGMeCT
-	ZEx1ZQZEhI1y3OuxUxrMLTHPhbJkhsReKl42pv1V9BlLB65nC5LPTAt1o7nu5dp3oGdYmOY7IF8
-	lIhC6UURWkiEvze9rDKFMPfbdORwwCM66ELC//FhqixD9m9Zo43fyTnUEI5u+KgXAMJjqNkvjK0
-	CL/F3+1wOwam2qw3vq6qM5rriTnmnfIfztsCFlROdu6yzI0LwJ2d0b4j2mWjQjGwFvS4QSDsG6b
-	Ya5IdKGo1kOmQ4m88Tz04wUeWrmLhq/mwMT7y77Ox/gDHRSB1KK//91I1M06H0UgIpP/A+yL6Sw
-	yH9eMk23fRYKYqJBZN5fsMQXeuV
-X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr5075947a91.13.1788337241788;
-        Wed, 02 Sep 2026 01:20:41 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c72584sm4119404a91.17.2026.09.02.01.20.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:20:41 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Liew Rui Yan <aethernet65535@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mm/damon/core: allow esz to be set to zero
-Date: Wed,  2 Sep 2026 16:20:50 +0800
-Message-ID: <20260902082050.19566-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=datenfreihafen.org header.i=@datenfreihafen.org header.b="AaNRseBQ"
+Received: from [192.168.2.30] (unknown [46.253.254.187])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: stefan@datenfreihafen.org)
+	by proxima.lasnet.de (Postfix) with ESMTPSA id 18780C01B4;
+	Wed,  2 Sep 2026 10:22:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=datenfreihafen.org;
+	s=2021; t=1788337361;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PYG50JCd+g+sfQ4pjUpRPP9jXBl0g/4zEJdEKNzdJxY=;
+	b=AaNRseBQh6rhWD4LactBTwSHnFz0xy1P6ftWoq1gwz0RHaxiQC3gA1jYo5pGg6MWP8xQsh
+	85edmU/bHDp6mQCBJauvD2fFz1ukoJupn/LVBh8LKR69+QKoXubvscZ0w3/UGay4oocbrY
+	KLDVAxYP/kLJBTWsKh/p35O5dZRyL9vXkJCaJPz9CvF4ue7p49pKQIsklpvysKpRC67Fu+
+	dGmKSzdGmuKnszvqyeuNghmiFv3GWY6YkUPfAGyQSsoKJg4e7zUtp7UECmat2ej4W7Pn8Y
+	Rsz1p8sNLbuR8LMaQRa8l96qE7frqTyUeLVIKIRoNb99/0vDEDsNcxHj3MbomQ==
+Message-ID: <cdc984d3-4ce4-4a57-bdd2-19f05d89e584@datenfreihafen.org>
+Date: Wed, 2 Sep 2026 10:22:39 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after unregistering
+ hardware
+To: Yousef Alhouseen <alhouseenyousef@gmail.com>, miquel.raynal@bootlin.com
+Cc: alex.aring@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+4707bb8a43a42fca2b97@syzkaller.appspotmail.com
+References: <20260627235805.17310-1-alhouseenyousef@gmail.com>
+ <877bncnx25.fsf@bootlin.com>
+ <CAMuQ4bWf+o_ZDMXn1tTw30veo-30Mt9XZehT8BPErJ30Kx_95A@mail.gmail.com>
+ <87jyr8jgr8.fsf@bootlin.com>
+ <CAMuQ4bWObh9FVFifH91UMcdugn6YD79T1wAqeJ2owBnzsMdnCA@mail.gmail.com>
+Content-Language: en-US
+From: Stefan Schmidt <stefan@datenfreihafen.org>
+In-Reply-To: <CAMuQ4bWObh9FVFifH91UMcdugn6YD79T1wAqeJ2owBnzsMdnCA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When the temporal quota goal tuner determines that the goal has been
-achieved (score >= 10000), it sets esz_bp to zero so that the effective
-quota (esz) becomes zero.  However, damos_set_effective_quota() clamps
-the quota to min_region_sz, preventing the quota from ever reaching
-zero.
+Hello Yousef,
 
-Fix this by adding a check for zero esz_bp.
+On 7/18/26 14:20, Yousef Alhouseen wrote:
+> Agreed. I'll use rcu_access_pointer() in v2; it expresses the final
+> pointer fetch more directly once unregister has quiesced the updaters.
 
-Fixes: 8bbde987c2b8 ("mm/damon/core: disallow time-quota setting zero esz")
-Cc: <stable@vger.kernel.org> # v7.1.x
-Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
----
+Did you send a v2? Did I miss it?
 
-Changes from v1:
-- v1: https://lore.kernel.org/damon/20260901105951.106246-1-aethernet65535@gmail.com
-- Changed implementation.  The initial solution skipped the
-  min_region_sz clamping when esz was already zero.  However, this would
-  revert the fix from commit 8bbde987c2b8 and cause a regression.  This
-  revision fixes the issue by adding a specific check for a zero esz_bp.
-- Changed patch title, original title: fix quota could not be set to
-  zero
+regards
+Stefan Schmidt
 
----
- mm/damon/core.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index e13a154aa4b9..8e3ded1a2cf6 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3133,6 +3133,9 @@ static void damos_set_effective_quota(struct damon_ctx *ctx, struct damos *s)
- 	if (quota->sz && quota->sz < esz)
- 		esz = quota->sz;
- 
-+	if (!quota->esz_bp)
-+		esz = 0;
-+
- 	quota->esz = esz;
- }
- 
--- 
-2.55.0
+> Thanks,
+> Yousef
+> 
+> On Mon, 06 Jul 2026 17:10:35 +0200, Miquel Raynal
+> <miquel.raynal@bootlin.com> wrote:
+>> Hello Yousef,
+>>
+>> On 03/07/2026 at 04:19:42 -07, Yousef Alhouseen <alhouseenyousef@gmail.com> wrote:
+>>
+>>> Hello Miquel,
+>>>
+>>> After ieee802154_unregister_hw() returns, the driver callbacks that
+>>> can replace phy->pib have been quiesced, and hwsim_del() has exclusive
+>>> ownership of the final teardown. The pointer is no longer being
+>>> fetched inside an RCU read-side critical section, so rcu_dereference()
+>>> is not appropriate there.
+>>
+>> That's right.
+>>
+>>> rcu_dereference_protected(phy->pib, 1) expresses that there can no
+>>> longer be a concurrent updater at that point; the protection condition
+>>> is the completed unregister rather than a locally held lock. The value
+>>> is only fetched so the final object can be passed to kfree_rcu().
+>>
+>> While I believe this is indeed true, it actually feels slightly overkill
+>> since there is no updater anymore and, as far as I understand, the only
+>> thing that we need here is to get the pointer value for freeing, right?
+>>
+>>> rcu_access_pointer() would also be sufficient for that limited use if
+>>> you prefer it, and I can use that spelling in a v2.
+>>
+>> If you don't mind, I feel like rcu_access_pointer() is exactly what we
+>> need here. It is also more understandable, even though I agree in
+>> practice there are no differences in this case.
+>>
+>> Thanks,
+>> Miquèl
 
