@@ -1,184 +1,128 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719984A9D4E
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCCC41A559
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365826; cv=none; b=KUh7mU6loEyX6UIimtbCmYbQd3R0ppYtTtjS2KIvVeLxb0Qm1sk3stPUtnZ9E52nYBz10xKHOHdXevh+f+j9xiKwL5tfVuxt6UWXMCawJW+/uhPTs3UZCAvJbMSBjqFjiLzogsYR+gaO512STrmoSpywoIQkWSgiAwJxygW7+1E=
+	t=1788365954; cv=none; b=HPOuu0wHJN2FF6lwPo/mGe253734Xv7Qf5dbuVPX6nQynYAylvebuIxuZasV4QwHdSFX4F3RWsfDQ07N0sc/RFSAEk+cziJB+ZSry8JRGg310RvicBBzHsVk0UVlRsV9KmAHTagKlQVcljmHJCcqa3j/OBIuTcRzHcfVZROwSkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365826; c=relaxed/simple;
-	bh=MvzGmB5M3KwwWdgcRhErFJ3CEHCYccyXT8hULlFhA/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MM4E1V8jQY7MPpcB1ChL3QRVQI5TlGpB7PojrxBTZJeH79hRIDgXjwriwGsxDLcy8PMyATzKeXj/MG/Kh2B0Ri1ekofaVCiEqGA8+m+XIfJDm3J7UoiTiHDFhYNVRveJ9QMPzXqOjJRVkee0SwGfXT7byI6YJOS4cfcfwQbL3gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZCZY9/ou; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788365954; c=relaxed/simple;
+	bh=ltIY9uBE6y8MfuJYlvojnTbjdBIXZTNaDFDXcw7XK4M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r0STTMcVzBahMXs+0WhFGSAGdlbaTCzsMixFHyocelVkAf+anRMxwW/U9+2LFJybotUgFf1HhaVibV/q4GTskAEHL6Wh4Gqenc4ZFvUJglj1nhF+cJlxeJf4Q2AHIra1DUxNiWlwPB4hBCRq5wDKnxoF4j9p/hrsnyRt2667/24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q12y5hh+; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZCZY9/ou"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48431648f33so33524f8f.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:17:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q12y5hh+"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38f57e312ecso242294a91.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:19:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788365818; x=1788970618; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sNc40VDRvQIJSYaBEgVXINcg1PcRLw4VS1qTwcd8gXA=;
-        b=ZCZY9/ou/3ZQ1uOggqaSdpB93HmQRbJRTe4gZ0gnpnKV5rY6XCz4kbZmWSCakOTnaK
-         FjleICOVI4pe7Ob46yTbtz4lOX2P+Z8QAziRyB6a+zJc3dtr8e6bF2v8QT4jw8PvocOj
-         pPoHBxIZ9mVIni2XWjxxgPudYgdLI1ZfrjzWvml9hqrxRk97uAsHOHlWjrV9bnQc7H16
-         VE4qHTdz55y2H9D4scZZ1bAWPkh9tPn+uGM/RYZ9GH4m+IuiPUZuKGeUwrF96lmke7Qd
-         PsJww4CRfPVn3UlUv/UaQGGXOvnFt0ggAEJ+bbfE2jmOySo17flwyfG3o++IETwhKWWc
-         qM1Q==
+        d=gmail.com; s=20251104; t=1788365952; x=1788970752; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3lzfX9o1vZqX/GQxyo2tpdqzQmgLiqfjFpA7wcygJbw=;
+        b=q12y5hh+v0vcenlpn/MMSmojux/kLg0airTtvUoA+CwU7t1I4DydOOxm2wr+amWhCU
+         Q8W/9abskVcuvd9lzHxYAZ4Q70BNQ806guntjUnFwi/d3G+OMfB5YqsDRUwPHptnvtfV
+         yEKSc4Co4MgcWyBXsKkUMUQxHix9M6CmqmRSsv3swDD9XQC0kMaqNBBWpfZZIpBT+ZFg
+         3yHUJrNMVwY9zMCjkVEDRqCUzz0L7a1sYBKVAvnKk0IQfIIXx1ckYe2xkKHSyT+oGpfW
+         KhcCbHiB+KCXWSi5q1GTU2/ZvYzSGJfBDV+kcBtaDPXDnmRe7JvaI3bxBblBPPhRSi+I
+         kIqA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788365818; x=1788970618;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sNc40VDRvQIJSYaBEgVXINcg1PcRLw4VS1qTwcd8gXA=;
-        b=CoEZQNxYtguPnKTI+wb0CK6VGIDvlF+PlyxCZj3OLEn1hFg3R3OrnizoeeeP6CmpL8
-         Di4HH71o/rRtnc8OozINHqovGLgDaH09goivoul6O3XzrozZNC+14XF9ONJGV9M6p9KA
-         Pn/EbCaXuJ924Ui+OvegB7QEOoHcKYShul3W10bhIEh5f78o6uRdGEBpHZq7RCs0Jfrj
-         a2gk9Nm34SBt0orDbRgoVQuqcvuT6segS0SUC9VLKGmmGz5Yd3iebijr3vq6q1FaoNVu
-         6bquG9lxB61k12pLsVkAndo40Q2NPuhk9KrqsAsI9SV8tUKqR6Fg3dMXChB22CdB8RUS
-         lbaA==
-X-Forwarded-Encrypted: i=1; AHgh+RohrLLMFciM5yXeeGmhW1A6b018NlKTAdSlLr8bAbegLxwE4NqLkRi8ZIsvFo51AtsXOdm/6zk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGi/b8I7gTxBc3knn0rRPAhVRwRsRY6gujRjvgcRXZlmfSqLNU
-	VwE4Q5xGuILJqZKUKq8hEiV7d25D16lwQ3hAes+N8JZMfPs3G15ktqt8RJWzP9PMVM8=
-X-Gm-Gg: AR+sD12c4diXFGCjfnGRZgzkunk0HZnTFLVStO+MugugGKiKiTib8oKdsbk8karXlwM
-	xXi4Mqkjhkyctyjc50JwcAbcPUXoWSNo8xJ4hSDEGEjgcFTlGJUHOmCnv4CgSqY8vC0/LLlyNjG
-	UMAmmxgTQDdhweoSPNrvZnQHD9CD6Sh3ioBd2OlRyaYty/DwgwMtAQz05sH7B+WGGnHrhPfFNGG
-	L4+3tlpOBb5CpOj+oeGyRFLHT/qN/f9qvbrlHAxODoaGdnW0QEkTMEb+f0eqaNAydhcYE2JcKGY
-	t599PJ/q5s4XzHmL57ZMhtarp/FwQR64hLUBScrLgfTiZ27qMAwA0h3W/zAtQQ7tEKM5m2fJAnJ
-	KCRiw3aRqVpaq4zugYpwa1Wy0SX7bYXaN4rSShUs6W8laoKYQ86P2XGKJNsSUyHbkBpv72RUILs
-	LaSKIt62bAml/dyz+hhC9uANIlDo37ad/kqaQ68hHA1yCy5nWuLmU=
-X-Received: by 2002:a05:600c:4745:b0:49c:ced9:ab7f with SMTP id 5b1f17b1804b1-49cee5f0dc7mr5346065e9.8.1788365817872;
-        Wed, 02 Sep 2026 09:16:57 -0700 (PDT)
-Received: from localhost.cz ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d1fa6sm2948395e9.1.2026.09.02.09.16.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:16:57 -0700 (PDT)
-From: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-To: Tejun Heo <tj@kernel.org>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Dan Schatzberg <dschatzberg@meta.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	stable@vger.kernel.org,
-	Noah Elias Feldt <N.Feldt@mittwald.de>,
-	Salvatore Bonaccorso <carnil@debian.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Subject: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
-Date: Wed,  2 Sep 2026 18:16:52 +0200
-Message-ID: <20260902161653.1051794-1-mkoutny@suse.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788365952; x=1788970752;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3lzfX9o1vZqX/GQxyo2tpdqzQmgLiqfjFpA7wcygJbw=;
+        b=igvLVw2G9FVu6cy/RQRMe+B8L7b1QNJUoAjbi07G/TB2sxOvVffXT2It1uLpO9xqrh
+         uFi93Vb/Ca8KSx+SGIKz6tvS/TPb3lNijm6JXjPU8y89Nsvw87s5cQBjEEeDVCmB5Y2X
+         8qU4QSNHyHsYJ5tWn5BHRN0qqTDEaumm941tsw9u8TqYvaMkmHY42CpseLXwL9IPclsZ
+         8b7e7hICJbETTS5TK678ChfSuWKWKWGNMOtFQbDedG4oojfc3VztCWTS30lQNZ44gfv1
+         fzsw9pdsobe2eVlICB1eEvh+0nvI+GxEs9CSx1zqlm8hXVxeF9dzYO0YU82aT2BX8GsY
+         JHUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzcNw+dVESVlOKyrp5X4VPyt/byexnDl9SGKVvdYe6YUMgCg6X8OBpbWBZO56jjTxVT4aX04X4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmUX4pLv2433DzhlZ72o9klVznxBCprFhUNtV+hIVfAs9GfG+d
+	McYyxfs+rAVJiAwJakbr/BNEEQ6EVttenv0GWMtwcfz1eW+p1hhuw91D
+X-Gm-Gg: AYBFou3j181EZByI1XbN1VaaewNDkRO+cDQjC/FwvDoPLu7LlVOIEEk+x7E3PTURaRy
+	Le0GtdcrjmqGRoKWw91E+0MOdKdmKc9p7kllcDLRvHBpHwnZGZ+lA3xKtcg844yCTAk+S5BnxH2
+	d1XRznReO8n/+SY6IusEQWFp2sfmddfIAUL9fOEn3KImgmNCIbMfrB/wx/SeP9Y5PAXgFrZUFo8
+	VEkHK2LmpBAa+Okoj8NscfgDz4uevjlFqRBgBC8QTsZ3BTp1h0j/rlecVUQFHw9qr/G2i5vVhWC
+	w8GlnhuYe78zx3OEk7euy1KOSpyY9HZLkoL15MFznTyHOPcqUgtSs5Z+APN0/wiNGtkNLOnTlNc
+	yBZb52b7l5dFuQtyj3PHHGBNuWLdShFw4BadDMSEuqyf3rBqVm5KLfOr1pRCWdQ9pR3leDDmLIe
+	uERUCjwZnasB2cc6HIZdG+LJWnCorfb20oaRsO5DcFPm2DE5xgGsW9jjgtiUqtrA0BsNZOQby8c
+	PgfZM/Tt/q4nvwqAQ5WjfnURB7Wf1htPqc9TmnO/T3tkcs7nPFrIa4E6w==
+X-Received: by 2002:a17:90b:1d0d:b0:38e:c140:2a0b with SMTP id 98e67ed59e1d1-39aee0e6ed8mr6182969a91.3.1788365952381;
+        Wed, 02 Sep 2026 09:19:12 -0700 (PDT)
+Received: from localhost.localdomain ([119.127.198.196])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b087b59a0sm148569a91.17.2026.09.02.09.19.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 02 Sep 2026 09:19:11 -0700 (PDT)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: john.johansen@canonical.com,
+	georgia.garcia@canonical.com
+Cc: security@kernel.org,
+	Qihang <q.h.hack.winter@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] apparmor: bounds-check the OWNER companion perms entry at load time
+Date: Thu,  3 Sep 2026 00:18:40 +0800
+Message-ID: <20260902161840.75210-1-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <CAH78Gvtz15Q1icWZFpB68CY3xhdyddw41XCDR8BRS9zwA8EyWw@mail.gmail.com>
+References: <CAH78Gvtz15Q1icWZFpB68CY3xhdyddw41XCDR8BRS9zwA8EyWw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
-cgroup_task_release() to cgroup_task_free()") extended the lifetime of
-tasks on the dying_tasks list.
-The iterators have provision to go through dying_tasks because of
-dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
-it was expected that such tasks can obtain a new reference (that is
-possible before cgroup_task_release()/put_task_struct_rcu_user()).
-The tasks after cgroup_task_release() and before cgroup_task_free()
-are subject to race when they may or may not have usage count > 0.
-The iterator should not attempt to resurrect tasks whose usage count
-dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
-already imminent and the returned task_struct would could be used
-after free.)
+For OWNER-flagged DFA states, aa_lookup_condperms() may access
+perms[index + 1] for non-owner lookups. verify_dfa_accept_index()
+only checks that index is within the perms table, allowing the
+companion entry to be read past the end.
 
-As a band-aid, filter tasks returned from css_task_iter_next() only to
-those that have positive usage count (whose reference's lifetime can be
-extended).
+Reject OWNER states whose companion perms entry is out of bounds.
 
-Rough illustration of the possible race
-
-  R (reader of cgroup.procs)         T (thread)                       L (group leader)
-  ---------------------------------  -------------------------------- --------------------------------
-                                                                      L exits, signal->live > 0
-                                                                      cgroup_task_dead(L)
-                                                                        css_set_skip_task_iters() // skips only cset->tasks
-                                                                        list_add_tail(&L->cg_list, &cset->dying_tasks)
-  css_task_iter_next()
-    take css_set_lock
-    css_task_iter_advance()
-      leader && signal->live != 0
-      => it->task_pos = &L->cg_list
-                                     T exits
-                                     --signal->live == 0
-                                     release_task(T)
-                                       cgroup_task_release(T)
-                                       release_task(L) // zap_leader
-                                         cgroup_task_release(L)
-                                         put_task_struct_rcu_user(L)
-                                         ...RCU...
-                                         put_task_struct(L)
-                                           L->usage = 0
-                                           /* L still on dying_tasks */
-                                           ...RCU...
-                                           __put_task_struct(L)
-    it->task_pos = &L->cg_list
-    get_task_struct(L)
-      => addition on 0
-    drop css_set_lock
-                                           cgroup_task_free(L)
-                                             css_set_skip_task_iters() // dying skip comes too late
-                                           free_task(L)
-  cgroup_procs_show()
-    task_pid_vnr(L)
-
-cgroup_task_release() is not synced via css_set_lock hence the race
-possibility. (I'm not 100% convinced about this LLM-assisted
-interleaving, multiple css_task_iter_next() calls may be involved with
-css_set_lock released.)
-
-Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
-Cc: stable@vger.kernel.org # v6.19+
-Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
-Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
-Reported-by: Salvatore Bonaccorso <carnil@debian.org>
-Signed-off-by: Michal Koutný <mkoutny@suse.com>
+Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
- kernel/cgroup/cgroup.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ security/apparmor/policy_unpack.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-Salvatore,
-I was able to trigger the issue with your reproducer on 7.1.8
-(occassionally, not always). With the patch on top of v7.3-rc1, I cannot
-reproduce it (different base though). If you can confirm that in your
-env, it'd be good.
-
-Thanks,
-Michal
-
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index c3a12fee7528f..112d68fe28778 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -5303,10 +5303,13 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
- 	if (it->flags & CSS_TASK_ITER_SKIPPED)
- 		css_task_iter_advance(it);
- 
--	if (it->task_pos) {
-+	while (it->task_pos && !it->cur_task) {
- 		it->cur_task = list_entry(it->task_pos, struct task_struct,
- 					  cg_list);
--		get_task_struct(it->cur_task);
-+		/* a task on dying_tasks with zero refcount is only valid for
-+		 * RCU readers, not even interesting for
-+		 * CSS_TASK_ITER_WITH_DEAD, find another one */
-+		it->cur_task = tryget_task_struct(it->cur_task);
- 		css_task_iter_advance(it);
+diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
+index d9dcff167c480..e53f92b34725f 100644
+--- a/security/apparmor/policy_unpack.c
++++ b/security/apparmor/policy_unpack.c
+@@ -1485,8 +1485,24 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
+ static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
+ {
+ 	int i;
++
++	/* the OWNER companion entry needs one extra table slot */
++	if (table_size <= 0)
++		return false;
++
+ 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
+-		if (ACCEPT_TABLE(dfa)[i] >= table_size)
++		int limit = table_size;
++
++		/*
++		 * OWNER-flagged states are indexed as perms pairs:
++		 * aa_lookup_condperms() returns &perms[index + 1]
++		 * for non-owner lookups, so the companion entry must
++		 * stay in bounds too.
++		 */
++		if (dfa->tables[YYTD_ID_ACCEPT2] &&
++		    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER))
++			limit--;
++		if (ACCEPT_TABLE(dfa)[i] >= limit)
+ 			return false;
  	}
- 
+ 	return true;
 -- 
-2.55.0
+2.50.1 (Apple Git-155)
 
