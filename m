@@ -1,43 +1,43 @@
-Received: from mail-4398.protonmail.ch (mail-4398.protonmail.ch [185.70.43.98])
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C93548CD47
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6B9486E45
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352290; cv=none; b=hg/E2CuDtebjn8oUcwWfn9kfcp/ExizBIQDhdCorHFYCF1tLhBUG+VNch6+3jnRvIZk5kvHb3XFNYguWisXKdYnW3sEY8oHJ9mvf8n6rjmIRy9oXoH80C3Xl17MdnVPWObcchx+hrw+Lm6ZR+uYY2Rxi78RkTDaPnd489YeRSlI=
+	t=1788352364; cv=none; b=ftOu0/WWHdpQmihN3m7Vle+5nRa3I32PLPJbD1IQ/JyT9a6p77JXqJSn9V9EItMTV9Dms1wGdlL2AvJDo7TFdMLR3YqVLz8lIx45uLNCdSWioLlcabgZb8z7LRK1J509EOgwlzBDtjeB4SQWDCW1zB9OCN87ypRtBCvm3XFWPN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352290; c=relaxed/simple;
-	bh=ffr9F+zdAaXdbRtETH1x0W5b8++Do3zcr9KpWm4QvpY=;
+	s=arc-20240116; t=1788352364; c=relaxed/simple;
+	bh=fYGOyhA2StUelasH7XKrzHRkHuX2F9/4fnBKkQrQYFU=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T705o04kThi8nF5xfgG3SY1Wx0f9h/Ip9w18u6E4EB9QicgsYDIl4ayQ/vpVFiXleEBD5mGawqWpsuRzfyuXpPbDAPtsIwmt5yngz48oHgnWppsnthgke6quJaX1PAO8vun+o6aSt89FYoltDiyp4kICRmfH4otBWvAYcwBaw7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=NLcjPR/e; arc=none smtp.client-ip=185.70.43.98
+	 MIME-Version:Content-Type; b=GW2MefAapsULlRAYJEmQwnGYvEOWKQ/PUrLgZSe1rYPtmI/YkoXPpNJJZ7KJ50XuqII8XjeEoi/VLVPf06TDydtc6Wl445aMpiy3fWsfMsmaDt0zTAhZx14LWWjaMVCox4y7gGc7orWTI3qee+cW8vE0sAxi/kMRac0zHLvw6BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=J0KMevOO; arc=none smtp.client-ip=79.135.106.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="NLcjPR/e"
+	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="J0KMevOO"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
-	s=protonmail2; t=1788352283; x=1788611483;
-	bh=CIXG5k8Z42Dvwo3n4OTF/HGNzdZ5644vv8fHSBN0grA=;
+	s=protonmail2; t=1788352359; x=1788611559;
+	bh=TtQB3bvuIw6qqZqo5OFatGDqsqwyLHaGUzXVPABnou4=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=NLcjPR/eJiF/NWaCblNVUCHSx42EIQ+gVQE5iBYmjcMD8iqT1gXzRvZgMTC8I8t/p
-	 OSwwhIQtizzDJ/7oIoC9dEj2cbu3uJ8rZ8uBrJ6hMtHVVMg45o/g5+33tLcKyCuooq
-	 4/MyeS6+RPvBFmpWHDc99YqYCS1KP3tuLvD8H8fMuASOeTwDwtw+sQDiT3A/hAU5T+
-	 /tEgGi8civO5EUoTipF4ZLnpTBP7YXyNiCksIcLAb7nzJBabTBQfXy4uFZyY3nFj1Q
-	 m1z33G9gx/FOqlgFKcG8surWSxMAsfCyBcDz9RMFQ0aUa/y9qT1ytJrOrmH/Tkucri
-	 8jPzRJVKA30Iw==
-Date: Wed, 02 Sep 2026 12:31:17 +0000
+	b=J0KMevOOnZ+DJQcSD90B5AQQB6BV1Rn/51KRY334BRUuz4qqczIlmp/6iavNjWnKZ
+	 7X4sb/1UpLv2hXH/L334P+lDaEUQkouzIsQU/nhewsJM4gNIr1hkfRGpVoMvr24RQw
+	 RaMbNL6MFBqObrR7gq4IrBQ8uUHXUb2ANmBjMV2WOg9WgjnGQE0dne3lfSH8CVWb2W
+	 rEFw32yFpQRxTPzu/cyszdL96cwbPN3Gc+XKP8GO3tUhPIlg/pUrjFqi3gRPHI5R7Y
+	 dmZ7ia00EHMFAKUL1AlEPPtGM5BzoXIEZTIM7LRK6mAwwSVlexAEh52JhE3fMNTxiq
+	 b1IS3RTvKMcPA==
+Date: Wed, 02 Sep 2026 12:32:29 +0000
 To: amd-gfx@lists.freedesktop.org
 From: Andrei Rusu de Castro <arc@empyreal.works>
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com, stable@vger.kernel.org
-Subject: [PATCH 1/4] drm/amd/display: keep custom brightness curve in userspace domain
-Message-ID: <20260902-brightness-1-fd468d7a@empyreal.works>
+Subject: [PATCH 3/4] drm/amd/display: pass userspace brightness to power module
+Message-ID: <20260902-brightness-3-50f94618@empyreal.works>
 In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
 References: <20260902-brightness-cover-abf809f2@empyreal.works>
 Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: d3c1787a7ff7f8453ae90f24a3b3e0855c107f25
+X-Pm-Message-ID: 5d77d30cad3537273c8d09ea7186f4c942ade71b
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,229 +47,271 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-convert_brightness_from_user() expects convert_custom_brightness() to
-reshape a value in the userspace [0..max] domain before the caller maps
-it once into the firmware [min..max] domain.
+The power module consumes millipercent and builds its own PWM lookup
+table from the ATIF brightness transfer characteristics.
 
-Commit 8dbd72cb7900 ("drm/amd/display: Export full brightness range to
-userspace") instead made convert_custom_brightness() call
-scale_fw_to_input(min, max, ...). That helper adds min and scales by the
-firmware span, entering the firmware domain before the caller applies
-the same span and minimum again.
+The Linux display manager instead converts the userspace request to a
+firmware level, then derives a percentage from that hardware-domain
+value. For a non-zero PWM minimum this maps the minimum above zero and
+the maximum above 100 percent. It also applies the ATIF curve once in
+the display manager and again in the power module.
 
-With the default PWM range, min is 3084 and max is 65535. A zero request
-through any custom curve consequently returns 6023 instead of 3084, so
-the darkest 2939 firmware levels are unreachable.
+Pass the original userspace percentage to the power module on PWM
+panels. Keep the existing nits conversion and source-unit brightness
+mask for AUX panels.
 
-Keep the curve result in [0..max]. scale_fw_to_input() then becomes the
-inverse of scale_input_to_fw(), and the caller remains the sole owner of
-the userspace-to-firmware conversion. The linear path is unchanged.
+The brightness mask is a final DP source-level quirk. Carry it into the
+power module and apply it when the effective hardware handoff is PWM,
+preserving ordinary PWM, forced-PWM OLED, fallback PWM, and mode-change
+replay without altering a true AUX handoff.
 
-A later patch removes this helper from the PWM power-module path because
-the power module owns that curve. AUX panels continue to use it, and
-stable kernels predating the power-module refactor still require this
-correction on PWM panels.
+DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE previously bypassed only the display
+manager's copy of the curve. Wire it to the power module's existing
+linear bypass and use the selected panel's policy rather than panel
+zero's. Label the brightness trace value as millipercent or millinits so
+the corrected input domain is explicit.
 
-Commit 6fd83a1c2cde ("drm/amd/display: Scale custom brightness curve from
-full range") fixed the corresponding input-side domain error. This
-completes the output side of the same conversion.
-
-Source and arithmetic analysis identified the duplicate
-domain conversion. KUnit coverage for a non-zero firmware minimum is
+A live DCN 3.5.1 trace exposed the domain mismatch. KUnit coverage is
 added separately.
 
-Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to user=
-space")
-Cc: stable@vger.kernel.org # 6.17.x: 6fd83a1c2cde: drm/amd/display: Scale c=
-ustom brightness curve from full range
-Cc: stable@vger.kernel.org # 6.17.x
-Cc: stable@vger.kernel.org # before 7.3 this code is in amdgpu_dm.c; drop t=
-he header and test hunks
+Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
+Cc: stable@vger.kernel.org # 7.2.x
 
 Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
 ---
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 13 ++++----
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 30 +++++++++----------
- 3 files changed, 22 insertions(+), 24 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  6 ++-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   | 46 +++++++++++++++----
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |  2 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |  3 +-
+ .../drm/amd/display/modules/inc/mod_power.h   |  1 +
+ .../gpu/drm/amd/display/modules/power/power.c |  2 +
+ .../drm/amd/display/modules/power/power_abm.c |  6 ++-
+ .../amd/display/modules/power/power_helpers.h |  1 +
+ 8 files changed, 55 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gp=
+u/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index ec483276d753..4e730527be4a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -425,7 +425,9 @@ static int amdgpu_dm_init_power_module(struct amdgpu_di=
+splay_manager *dm)
+ =09=09=09!(amdgpu_dc_feature_mask & DC_DISABLE_FRACTIONAL_PWM_MASK);
+ =09=09init_data[i].use_custom_backlight_caps =3D false;
+ =09=09init_data[i].custom_backlight_caps_config_no =3D 0;
+-=09=09init_data[i].use_linear_backlight_curve =3D false;
++=09=09init_data[i].use_linear_backlight_curve =3D
++=09=09=09!!(amdgpu_dc_debug_mask &
++=09=09=09   DC_DISABLE_CUSTOM_BRIGHTNESS_CURVE);
+ =09=09init_data[i].def_varibright_enable =3D 0;
+ =09=09init_data[i].varibright_level =3D 0;
+ =09=09/*
+@@ -436,6 +438,8 @@ static int amdgpu_dm_init_power_module(struct amdgpu_di=
+splay_manager *dm)
+ =09=09=09dm->backlight_caps[i].min_input_signal * 0x101;
+ =09=09init_data[i].max_backlight_pwm =3D
+ =09=09=09dm->backlight_caps[i].max_input_signal * 0x101;
++=09=09init_data[i].brightness_mask =3D
++=09=09=09dm->backlight_caps[i].brightness_mask;
+ =09=09init_data[i].min_abm_backlight =3D
+ =09=09=09dm->backlight_caps[i].min_input_signal * 0x101;
+=20
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/=
 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index e61bbc310f33..424b33573a73 100644
+index 424b33573a73..04e810af4623 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -112,16 +112,15 @@ static inline u32 scale_input_to_fw(int max, u64 inpu=
-t)
- =09return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+@@ -218,6 +218,41 @@ u32 convert_brightness_to_user(const struct amdgpu_dm_=
+backlight_caps *caps,
  }
+ EXPORT_IF_KUNIT(convert_brightness_to_user);
 =20
--/* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
--static inline u32 scale_fw_to_input(int min, int max, u64 input)
-+/* Rescale the firmware curve's [0..AMDGPU_MAX_BL_LEVEL] back to userspace=
- [0..max]. */
-+static inline u32 scale_fw_to_input(int max, u64 input)
- {
--=09return min + DIV_ROUND_CLOSEST_ULL(input * (max - min), AMDGPU_MAX_BL_L=
-EVEL);
-+=09return DIV_ROUND_CLOSEST_ULL(input * max, AMDGPU_MAX_BL_LEVEL);
- }
-=20
++static u32 convert_brightness_to_millipercent(const struct amdgpu_dm_backl=
+ight_caps *caps,
++=09=09=09=09=09      u32 brightness)
++{
++=09unsigned int min, max;
++
++=09if (!get_brightness_range(caps, &min, &max) || max <=3D min)
++=09=09return 0;
++
++=09if (brightness >=3D max)
++=09=09return 100 * 1000;
++
++=09return DIV_ROUND_CLOSEST_ULL((u64)brightness * 100 * 1000, max);
++}
++
++STATIC_IFN_KUNIT
++u32 convert_brightness_for_power_module(const struct amdgpu_dm_backlight_c=
+aps *caps,
++=09=09=09=09=09u32 user_brightness)
++{
++=09u32 brightness;
++
++=09if (!caps)
++=09=09return user_brightness;
++
++=09if (!caps->aux_support)
++=09=09return convert_brightness_to_millipercent(caps, user_brightness);
++
++=09brightness =3D convert_brightness_from_user(caps, user_brightness);
++=09if (caps->brightness_mask)
++=09=09brightness |=3D caps->brightness_mask;
++
++=09return brightness;
++}
++
++EXPORT_IF_KUNIT(convert_brightness_for_power_module);
++
  STATIC_IFN_KUNIT
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness)
-+=09=09=09       unsigned int max, uint32_t *user_brightness)
- {
- =09u32 brightness =3D scale_input_to_fw(max, *user_brightness);
- =09u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
-@@ -179,7 +178,7 @@ void convert_custom_brightness(const struct amdgpu_dm_b=
-acklight_caps *caps,
- =09=09=09=09=09=09    (brightness - lower_signal),
- =09=09=09=09=09=09    upper_signal - lower_signal);
- scale:
--=09*user_brightness =3D scale_fw_to_input(min, max,
-+=09*user_brightness =3D scale_fw_to_input(max,
- =09=09=09=09=09     DIV_ROUND_CLOSEST(lum * brightness, 101));
- }
+ struct dc_stream_state *dm_find_stream_with_link(
+ =09struct amdgpu_display_manager *dm,
+@@ -262,7 +297,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
+y_manager *dm,
+ =09bool rc =3D false, reallow_idle =3D false;
+ =09struct drm_connector *connector;
+ =09struct dc_stream_state *stream;
+-=09unsigned int min, max;
 =20
-@@ -194,7 +193,7 @@ u32 convert_brightness_from_user(const struct amdgpu_dm=
-_backlight_caps *caps,
- =09if (!get_brightness_range(caps, &min, &max))
- =09=09return brightness;
+ =09list_for_each_entry(connector, &dm->ddev->mode_config.connector_list, h=
+ead) {
+ =09=09struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector(co=
+nnector);
+@@ -285,12 +319,9 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displ=
+ay_manager *dm,
+ =09/* update scratch register */
+ =09if (bl_idx =3D=3D 0)
+ =09=09amdgpu_atombios_scratch_regs_set_backlight_level(dm->adev, dm->brigh=
+tness[bl_idx]);
+-=09brightness =3D convert_brightness_from_user(caps, dm->brightness[bl_idx=
+]);
+ =09link =3D (struct dc_link *)dm->backlight_link[bl_idx];
+-
+-=09/* Apply brightness quirk */
+-=09if (caps->brightness_mask)
+-=09=09brightness |=3D caps->brightness_mask;
++=09brightness =3D convert_brightness_for_power_module(caps,
++=09=09=09=09=09=09=09 dm->brightness[bl_idx]);
 =20
--=09convert_custom_brightness(caps, min, max, &brightness);
-+=09convert_custom_brightness(caps, max, &brightness);
-=20
- =09/* Rescale 0..max to min..max */
- =09return min + DIV_ROUND_CLOSEST_ULL((u64)(max - min) * brightness, max);
+ =09if (trace_amdgpu_dm_brightness_enabled()) {
+ =09=09trace_amdgpu_dm_brightness(__builtin_return_address(0),
+@@ -314,9 +345,6 @@ void amdgpu_dm_backlight_set_level(struct amdgpu_displa=
+y_manager *dm,
+ =09=09rc =3D mod_power_set_backlight_nits(dm->power_module, stream, bright=
+ness,
+ =09=09=09AUX_BL_DEFAULT_TRANSITION_TIME_MS, false, true);
+ =09} else {
+-=09=09/* power module uses millipercent */
+-=09=09get_brightness_range(caps, &min, &max);
+-=09=09brightness =3D DIV_ROUND_CLOSEST(brightness * 100, (max - min)) * 10=
+00;
+ =09=09rc =3D mod_power_set_backlight_percent(dm->power_module, stream,
+ =09=09=09=09=09=09     brightness, 0, false);
+ =09}
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/=
 drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 07b75064847c..90bed0ea5d00 100644
+index 90bed0ea5d00..396e7654e299 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -67,8 +67,7 @@ ssize_t panel_power_savings_store(struct device *device,
- int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
- =09=09=09 unsigned int *min, unsigned int *max);
- void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *caps=
-,
--=09=09=09       unsigned int min, unsigned int max,
--=09=09=09       uint32_t *user_brightness);
-+=09=09=09       unsigned int max, uint32_t *user_brightness);
- u32 convert_brightness_from_user(const struct amdgpu_dm_backlight_caps *ca=
-ps,
+@@ -72,6 +72,8 @@ u32 convert_brightness_from_user(const struct amdgpu_dm_b=
+acklight_caps *caps,
  =09=09=09=09 uint32_t brightness);
  u32 convert_brightness_to_user(const struct amdgpu_dm_backlight_caps *caps=
 ,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index 7ca17f803f9d..1fb171fdbc3c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -1033,7 +1033,7 @@ static void dm_test_custom_brightness_no_data_points(=
-struct kunit *test)
+ =09=09=09       uint32_t brightness);
++u32 convert_brightness_for_power_module(const struct amdgpu_dm_backlight_c=
+aps *caps,
++=09=09=09=09=09u32 user_brightness);
+ int amdgpu_dm_backlight_get_device_index(struct amdgpu_display_manager *dm=
+,
+ =09=09=09=09=09 struct backlight_device *bd);
+ void amdgpu_dm_backlight_fill_props(const struct amdgpu_dm_backlight_caps =
+*caps,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h b/driv=
+ers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+index f33a2c1e0da5..5e7782f9e89f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_trace.h
+@@ -744,10 +744,11 @@ TRACE_EVENT(amdgpu_dm_brightness,
+ =09=09__entry->aux =3D aux;
+ =09=09__entry->ac =3D ac;
+ =09),
+-=09TP_printk("%ps: brightness requested=3D%u converted=3D%u aux=3D%s power=
+=3D%s",
++=09TP_printk("%ps: brightness requested=3D%u converted=3D%u unit=3D%s aux=
+=3D%s power=3D%s",
+ =09=09  (void *)__entry->function,
+ =09=09  (u32)__entry->user_brightness,
+ =09=09  (u32)__entry->converted_brightness,
++=09=09  (__entry->aux) ? "millinits" : "millipercent",
+ =09=09  (__entry->aux) ? "true" : "false",
+ =09=09  (__entry->ac) ? "AC" : "DC"
+ =09)
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h b/drivers/=
+gpu/drm/amd/display/modules/inc/mod_power.h
+index 02bee3b1956d..56b41861e164 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_power.h
+@@ -19,6 +19,7 @@ struct mod_power_init_params {
 =20
- =09caps.data_points =3D 0;
+ =09unsigned int min_backlight_pwm;
+ =09unsigned int max_backlight_pwm;
++=09unsigned int brightness_mask;
 =20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
+ =09unsigned int min_abm_backlight;
+ =09unsigned int num_backlight_levels;
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power.c b/drivers/gp=
+u/drm/amd/display/modules/power/power.c
+index ee15c14a899e..1d5e94893e36 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power.c
+@@ -157,6 +157,8 @@ struct mod_power *mod_power_create(struct dc *dc,
+ =09=09=09=09init_params[inst].use_custom_backlight_caps;
+ =09=09core_power->bl_prop[inst].custom_backlight_caps_config_no =3D
+ =09=09=09=09init_params[inst].custom_backlight_caps_config_no;
++=09=09core_power->bl_prop[inst].brightness_mask =3D
++=09=09=09=09init_params[inst].brightness_mask;
 =20
- =09/* No data points =E2=86=92 no-op */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1057,7 +1057,7 @@ static void dm_test_custom_brightness_debug_mask_disa=
-bles(struct kunit *test)
- =09/* Set the disable flag */
- =09amdgpu_dm_set_dc_debug_mask(amdgpu_dm_get_dc_debug_mask() | DC_DISABLE_=
-CUSTOM_BRIGHTNESS_CURVE);
+ =09=09// Do not allow less than 101 backlight levels
+ =09=09if (init_params[inst].num_backlight_levels < 101)
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/driver=
+s/gpu/drm/amd/display/modules/power/power_abm.c
+index 5e86889eaa84..4d7d80ac60c9 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+@@ -529,7 +529,7 @@ static unsigned int backlight_millipercent_to_pwm_legac=
+y(
+ =09=09return 0;
 =20
--=09convert_custom_brightness(&caps, 3084, 65535, &brightness);
-+=09convert_custom_brightness(&caps, 65535, &brightness);
+ =09// Bypass the brightness mapping LUT
+-=09if (core_power->bl_prop->use_linear_backlight_curve) {
++=09if (core_power->bl_prop[inst].use_linear_backlight_curve) {
+ =09=09pwm =3D core_power->bl_prop[inst].min_backlight_pwm +
+ =09=09=09(unsigned int) div_u64((unsigned long long) millipercent *
+ =09=09=09core_power->bl_prop[inst].backlight_range,
+@@ -1020,6 +1020,10 @@ void fill_backlight_level_params(struct core_power *=
+core_power,
 =20
- =09/* Should be no-op due to debug mask */
- =09KUNIT_EXPECT_EQ(test, brightness, saved);
-@@ -1100,14 +1100,14 @@ static void dm_test_custom_brightness_exact_match(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32896;
+ =09if (backlight_control_type =3D=3D BACKLIGHT_CONTROL_AMD_AUX && !is_hdr)
+ =09=09backlight_level_params->control_type =3D BACKLIGHT_CONTROL_PWM;
++
++=09if (backlight_level_params->control_type =3D=3D BACKLIGHT_CONTROL_PWM)
++=09=09backlight_level_params->backlight_pwm_u16_16 |=3D
++=09=09=09bl_prop->brightness_mask;
+ }
 =20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
+ bool mod_power_set_backlight_nits(struct mod_power *mod_power,
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/dr=
+ivers/gpu/drm/amd/display/modules/power/power_helpers.h
+index 68679fa10946..1eeacbfb8d91 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
++++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
+@@ -94,6 +94,7 @@ struct pwr_backlight_properties {
+ =09unsigned int min_backlight_pwm;
+ =09unsigned int max_backlight_pwm;
+ =09unsigned int backlight_range;
++=09unsigned int brightness_mask;
 =20
- =09/*
- =09 * Exact match: lum=3D50, brightness_scaled=3D128
--=09 * result =3D scale_fw_to_input(min, max, DIV_ROUND_CLOSEST(50*128, 101=
-))
--=09 *        =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(6400, 101))
--=09 *        =3D scale_fw_to_input(0, 65535, 63)
--=09 *        =3D 0 + DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
-+=09 * result =3D scale_fw_to_input(max, DIV_ROUND_CLOSEST(50*128, 101))
-+=09 *        =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(6400, 101))
-+=09 *        =3D scale_fw_to_input(65535, 63)
-+=09 *        =3D DIV_ROUND_CLOSEST(63 * 65535, 255) =3D 16191 (approx)
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32896);
- =09KUNIT_EXPECT_TRUE(test, brightness < 32896);
-@@ -1146,13 +1146,13 @@ static void dm_test_custom_brightness_below_first(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 12850;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * Below first data point: lum =3D DIV_ROUND_CLOSEST(40 * 50, 100) =3D =
-20
--=09 * Then: scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(20 * 50, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, DIV_ROUND_CLOSEST(1000, 101))
--=09 *      =3D scale_fw_to_input(0, 65535, 10)
-+=09 * Then: scale_fw_to_input(65535, DIV_ROUND_CLOSEST(20 * 50, 101))
-+=09 *      =3D scale_fw_to_input(65535, DIV_ROUND_CLOSEST(1000, 101))
-+=09 *      =3D scale_fw_to_input(65535, 10)
- =09 * The output should be significantly less than input.
- =09 */
- =09KUNIT_EXPECT_TRUE(test, brightness < 12850);
-@@ -1190,7 +1190,7 @@ static void dm_test_custom_brightness_interpolation(s=
-truct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/*
- =09 * The function should interpolate between data points and produce
-@@ -1233,7 +1233,7 @@ static void dm_test_custom_brightness_above_last(stru=
-ct kunit *test)
- =09 */
- =09brightness =3D 56533;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Output should differ from input (remapped via curve) */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 56533);
-@@ -1271,7 +1271,7 @@ static void dm_test_custom_brightness_single_data_poi=
-nt(struct kunit *test)
- =09 */
- =09brightness =3D 16448;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09KUNIT_EXPECT_TRUE(test, brightness < 16448);
-=20
-@@ -1309,7 +1309,7 @@ static void dm_test_custom_brightness_lower_lum_zero(=
-struct kunit *test)
- =09 */
- =09brightness =3D 32125;
-=20
--=09convert_custom_brightness(&caps, min, max, &brightness);
-+=09convert_custom_brightness(&caps, max, &brightness);
-=20
- =09/* Should remap; result should differ from input */
- =09KUNIT_EXPECT_TRUE(test, brightness !=3D 32125);
+ =09/* Describes the panel's min and max luminance in millinits measured
+ =09 * on full white screen, in min and max backlight settings.
 
