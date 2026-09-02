@@ -1,121 +1,109 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080F12BE034;
-	Wed,  2 Sep 2026 05:21:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF8435AC20;
+	Wed,  2 Sep 2026 05:36:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788326519; cv=none; b=KHzghOQN0adYj/B2sjqVexkU4/eg5ujROf5gdBtQjS7E3rcBo+72Tt4HhEK6XNywvrYrnQaS+iYsLG8+15UYkaOOtrVn8hPS8C0EAdl/Q6ONr8r+hv5s2giTo7Y3NngP5DfHJKK7EGMMt13mPgtGsWuBVOl/b/uTq3ssaKHUgms=
+	t=1788327380; cv=none; b=hK+sT4p+Dxg2U8RlTpfVjuoVuceM8+Srznj+O68KX0AS3AUPbRfoQSP+9Xns1kDBkq/bz/S3aw8N098NksOvLeULC/01Tsy8umFUzeWF4f3cL0khSQUGe8sDVxnNEYsqjlIMwryRNYSYxQU1OXgLSbVybo9cv9Ed4fxWBi/YJv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788326519; c=relaxed/simple;
-	bh=lmIbX9YTFQHjkJOVZ6Zb6mB0ynfGvhN1YZA0fYR9BbM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BvYEt+bUQDgkIgaZO32AsgPqsmvRlBHYnnZmox9D4CFIUiE8cm1F7yynR199O95vZSFigSgVO5YKiFvlCtKdb/V3zw1BNtg6tGOpfC6wW1EWBzHSy0FZRT0xnLeBteXXxxXprO0hOxwiVXz8JsICqKry7/ViCQKR/R1YAhQUuKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=kgsfVGnD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=kBCQpzl3; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1788327380; c=relaxed/simple;
+	bh=HB/vfwSOa4U4uQFp14lIiOI7169eRy2GCX9vx6K4P+4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UplSpNyZ8zHwTPKx19WkifHT7RMXJtDJ1uJPCBITLTnDa5tF+gdgD9xQYnB6iWk8zwAzvigFw8vGO0S9OZ8QCP9kWgMMTQ1MXPVq+RrvBHkSVm7MD6JyztGEYyWWIMJjpd0r7Zz/IaSPpFQTkA09vblwzR6Lm84f3m2zV59Dpw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=pOpRn89o; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WU4ELURF; arc=none smtp.client-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="kgsfVGnD";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="kBCQpzl3"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id BB4D91D000DA;
-	Wed,  2 Sep 2026 01:21:56 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-03.internal (MEProxy); Wed, 02 Sep 2026 01:21:57 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788326516;
-	 x=1788412916; bh=yV/YldUmfFGzT+uuBMkTWJFh+m2pUzeHd50xVimMWiA=; b=
-	kgsfVGnDimL3jpkR6nvmY+BhixSdkJC6pall+2kKtdA8WDKPUOBEnTBBZcZ9LbIw
-	Axlw8+cf49Hm5ViBDWnSHmbjEG6vXMY9crm/4+LqVN2RpCslnGMVdfwDkiFe2ZzI
-	4WpclXB/DATP6BcihmMDtExVixzWK8V7RVO0U3pnkGnpN+6RkRQfUhcoNMDNMLnK
-	gpjmICV98LQvKUQtE4fEAvaKl/VaVn3GHk36TW89SQMLAQhB8BTyJWYPMqGyLQM6
-	6D1rbGvi/ttloC0HrEAAJZrqFc3m0bWao+EBylsGkj5OiPR/n/TxIZfL5KeM0ITR
-	6c4R6Z76zoDXHg5L+yDo3A==
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="pOpRn89o";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WU4ELURF"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BF42F14000E6;
+	Wed,  2 Sep 2026 01:36:17 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Wed, 02 Sep 2026 01:36:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm3; t=1788327377; x=1788413777; bh=PJCI6i7V/w
+	Fce8AUhshXMkXSRKsOlbkxU2lQ04jOOs0=; b=pOpRn89oKfXMbVB4IHy2XyWZUB
+	SHvn+WFG7uVbIGVV4iCmQQp5XCGGRnNwspgGCOdwviasEbsvCReb+jdmJZxwYalr
+	oq6cjQLX8KteWzjKbhPJlbfiq4b8ud06v/aOT7H+qfD/KsMTvWjLSOzwFMyr6R8j
+	RjXbXKZfIhJYY0iD85OqUDCiRpm4jxbOeBfmLbfK4nkaNXwYIhB8wDXKV1eDlnLd
+	A7O5tOOTwz58JRQZ/hVe/iDpZ6fjKFnJc/J0gRVQmF9rjKAohIutoRtK8BeJzoaz
+	RU4Q0DMYQVLenjw41HQ4+tz/l7F1Nn1L7VSsAisP6HOmgbuSn036jDnjd+9g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788326516; x=
-	1788412916; bh=yV/YldUmfFGzT+uuBMkTWJFh+m2pUzeHd50xVimMWiA=; b=k
-	BCQpzl3ubQmBwUKRuVGuP7LXOPWlKWZGBXXdsiHQ3suAC7VhRmU8AcYgr6Is/Hvu
-	WPx9SJ3U7thbN6PupGLYiqWwq0kBMxQgnKgHDHIcF8dR3VPBweYfFLyj2aIOZRnA
-	FTwfCrdiwYH8hMfGJBPF9cR1Pe3LAuNsUQpVhWP1gz1ehhiqjPQOqXtzgijE7nJb
-	IVTt/rJ6d8UnQNlpNXnkUpJHKa17v+lKUIFQxBy5hXHYqRbUovbsL4OeXmFyHWp1
-	gxgMlwO9wYOY/BNVX4SGDOxAEYiM9/NTnozNWFs66S4HSKYpGjmZE9gK/xdOry18
-	YqFJz5aPAc2i/UuJgBDXA==
-X-ME-Sender: <xms:c7KXanFTtfN-FsE3Rn0u88gnepy-rjp5DidNXslFFSs8c3XIDm5BrA>
-    <xme:c7KXagNcW3MbDssamAlSXMLpOZRSd6NkFwugN4SCnk78mAb9ytUTdeRgm2vMzViTI
-    v2X170XLndCFmtzShvUGjf1IhsGm259Qqx_VS8z942bFkCswUsS8u8>
-X-ME-Received: <xmr:c7KXakrGaKj3U5fA5CFaavyjNP9SoIelEfSVtTnAbnf0ScV2dthlOY1pSuqZeymRrjkNgw6mbVXj9dsVA3WZSTA1H-FA2x3h>
-X-ME-Proxy-Cause: dmFkZTE1M37G32reqT0RPtjP6sJVHATUMgwaeNOIbRt17hKvmuEckZFvcyq+l8UzC4NPNi
-    rtWm7z8jvefa3qzumqOGyJjv9yQXpHVTRxKdAQr7rcC85RxQxZ7A2OyhLzCVcvXwsygrT1
-    DERaYTQhxfGzTg4kpS7tFHuS3iRy2J0iEXJXt0qBWyQMLzIgTra+IsUkOiStWsgKfVGx2T
-    wTS82QLxnMRqzM/YRRXnOKuNKZOSOgo3/txYA29YydNsAjxp9s+AhYvyfrjuoCwtIvm/sS
-    SpX7ad5WsxQvvj0w8DpT3eqTBObbp4o/231XUXL+mNdxjOTXSmUkKl8NSZ3Ip30nLUMXEM
-    XL+KSfAwN5RaxbdjTY6Uync3WarzG7nf8sv7dGCbts7+W21oLI4Z8z6oaZRf0D1/moxnB3
-    6R5vW2YlBX+umtLpoXwDYNAirK0ys002izu55jC5Zf3Zx0pHOehifgqU1b/HjR/LQT+gnB
-    qnTfkrTZJOMR8SSLeBEuhtkcoeKndGjh4lkDl7xoak+OGURqo6Sg7UE3Pze5r5XDC6MNZB
-    0URFbCbA54ONwY4YEWCjvCEM7QfASejw0YUoi/L7nfWNpV6YlFcye8MZjftVtrNwn2bOSw
-    6H0qGCzhXoWEHWt8yObNNmpgPtK5TVLVWBB6633wxPIyLGurdN7siAfeK92w
-X-ME-Proxy: <xmx:c7KXapDTbSLnVreL4hCXcNb_nsFuLlOC9vwovUPW6FezNzILdAieRw>
-    <xmx:c7KXalMtArlJQcNOi51ZiiVcgr1S8PX7kK1ii9ZFoF5iqlRUXlforg>
-    <xmx:c7KXavB0hT1o6z7uEo8frVELmQBtU_5d75lM-q8Bu4FLEY91EX27Wg>
-    <xmx:c7KXar-L7A_9-s19E2WKYFIoGeSIEwi6wbptMzsK24w5CNs-I03vuw>
-    <xmx:dLKXas5KZzOmbcGbl4mkSVQti8yUzBPTLc16p2qjh_uLlNYcfe5b3E2F>
-Feedback-ID: i6289494f:Fastmail
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788327377; x=1788413777; bh=PJCI6i7V/wFce8AUhshXMkXSRKsOlbkxU2l
+	Q04jOOs0=; b=WU4ELURFpJToA+jfFoPcJpdtmGWdajbhjrxGDlcrxrpnc11Cxvt
+	YfffoR/OKaLnvSs0PVJNrUnv5pb6Jv1WSkfMElWcmyHITyPeZ9GdVkVrDOdqK08Z
+	B95sXSY/H/NuXPCX6p11GqbGDE5kOBFIlt5F84JHFG6AMgQHiTpSkf4j48wicS/9
+	oEsINE3HE/dMYx1E1+n9MRoPML1quXefUufLFQy4f4rwKCRDfwYiRcRASm/5K2Vw
+	ariUW/aXPGY363DV9dIV0FU8Zz3W4CSezTzGzFU2PCHOkCzuZJNPx+gdY/W+yBZr
+	atuL6ULsYt6wMsc9BvXT7TkKIZ0xJkg+FiQ==
+X-ME-Sender: <xms:0bWXan-C7rlSvBPoE9pL7Ys_3_1_GyjM4HehYUsn3nPyhZ0ZOtx4gw>
+    <xme:0bWXao7xXxPciZdCT2e-OI1v5LHaZy3w7-db8H_2t2rCTlbbwVZCpJsrX8f542KQ-
+    cFmlhojVre59NGRzOtkJnxiDcBUnNs-Cm55lHTur3AeM2xtiDA>
+X-ME-Received: <xmr:0bWXaob1MWXHgfeYarEmfhDy2G8fT55pPJ0CwR3maWG5VVgwbNtZWEzyCte1XaXtALtcsLCFhpexWe1_cQbuiMSBIP6JVSmDpvb4ffzJmAE>
+X-ME-Proxy-Cause: dmFkZTEEY+aIF/abJ1woA5nNoxceSix/Y0lRQ7imY2ry6xzAMDiU2lIIvHIWCZMLc92alb
+    N6oIoRf2+ZI9pwQ5IZN420c+clXTXHs9/TYz2SvV+QdrTMz7QquKD0iUpLZc8fMbciqB2I
+    8u1sF5xX8FcuA8WfkarGWNEnFQcVM8uIctOhTQIl9WzZF5ZLnogQXm1Rc8IYi34vBgSMg5
+    teKpzsNVo65SqiG48iceh8aj9kF22VRaabXaGRL6ZKhvKd8wvMNojnUyOOAozDm1CoBWri
+    R3Kd8OrQPR1JZytrxoP/9yUCDQtaHI/pG8iZOLsU/CS4JgHrJ2dvr74+ujKIEPLU62vCa6
+    TDM/FmKK9dR4dAocvOSsGKfyiEOMc3BVxVDyY/vZbCx3Kek7/JayJbszeyNbauWG/MQ20G
+    kMY0BkF3xO/cneCFTi8/iR+m0xorWwAISUbsYfGDHbCHQ6EStKpRk1AyjR4vh04KUVtPBp
+    wJvoeyePwhCeAqdxFt6RGp5913MkkDbrLOqMGEaQLZoQFliE0lKfJ2ovkYRJCNmOcvaDmq
+    MIVJxvJg5OGcBNFPfJ8Rcg9avzzrv9wKmbos+e2+F5XhKL3Zwp/jdV/oXqx459GH35f3ya
+    7DI0N2EfiNiy+wOZ8WLWkNXX9zkPSGxLXDb8p77Rgkw2nNjqguLT8gWvluUg
+X-ME-Proxy: <xmx:0bWXai8tgiJaYkYvj4bi70oICzN9b31RJ71XI2irNRfp8x3ebOy2jA>
+    <xmx:0bWXanQK1fF1vTapJKJLHwTcOmiF8Z5PcChRz8UhHwJVjtS5Dkyz1g>
+    <xmx:0bWXalIr6tqEoHRIYK1KD0Q_hUhJzKeHaN6zEg5SDfKwvSroeFdbwA>
+    <xmx:0bWXahSv8-Zm1e9WIzrNUg_yYFR52WVVdr_HWwTg5oWnLoCPzFgpqw>
+    <xmx:0bWXamLHwKxYyDG6VgPNpZ-3dNfVAvnVd7dvMCL2l3XjX_Z7L28hYV1m>
+Feedback-ID: i787e41f1:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 01:21:53 -0400 (EDT)
-Message-ID: <5b5ee1bf-009a-4c7c-ac06-c078c89721da@pobox.com>
-Date: Tue, 1 Sep 2026 22:21:52 -0700
+ 2 Sep 2026 01:36:16 -0400 (EDT)
+Date: Wed, 2 Sep 2026 07:36:13 +0200
+From: Greg KH <greg@kroah.com>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>
+Cc: xiang@kernel.org, chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <2026090256-impart-headstand-7d29@gregkh>
+References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.15 00/69] 5.15.220-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133358.601894154@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133358.601894154@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
 
-On 8/31/26 6:34 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.15.220 release.
-> There are 69 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
+> Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
 > 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.15.220-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.15.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+> Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> Cc: <stable@vger.kernel.org> # 6.4+
+> Reviewed-by: Gao Xiang <xiang@kernel.org>
+> Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> ---
+> changes since v2:
+> - add Reviewed-by tag (Gao Xiang)
+> - update list in Documentation/ABI/testing/sysfs-fs-erofs
+> (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
+> ---
+>  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+>  fs/erofs/sysfs.c                         | 2 ++
+>  2 files changed, 3 insertions(+), 1 deletion(-)
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Why is adding a new feature a stable thing?
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+confused,
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+greg k-h
