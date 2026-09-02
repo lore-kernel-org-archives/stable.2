@@ -1,144 +1,179 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780D943CEF8
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 23:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788390484; cv=pass; b=dbVB9283FBHAYTlNGo0Rs7Fz92twJ63c3ovlXBBhIIW759vqtHbZRLRrW7ULnvUlgC35a5l9g7VGlhGapSDx65JN9HBxHcdN8s13NsiV9EnQ//g3eD+lOsSJrsKd6CNYl1BTeDbyRxQssV327uO74AItqhKzwgndIcILPGuwXoE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788390484; c=relaxed/simple;
-	bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=d2ZzyPQR44WhaRkOLmjBhuhY+7YEirqbQEa+QNpPMCHSDBi2K32nS5MBRzAfIOKoBZGhVVf88Pkkh4QB5IZv3s8dNni5rAbSw/OlUNypb9LoYHcw0Khmm1KwwF0VIj10z7lVE2C4/u9YFNDA6Odg0jcEBdz6uRlAVLKCkuECEmY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=0oF+7oTZ; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6337421226
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 23:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788390784; cv=none; b=bIrIHzfniq3lan8OhH/dGA4P4WG9fiS2yCcUfENfQv/rTkHvCKd+27TiI0RFeMZGSF1rVDzpvE9LhfS+0BXQWkVhes6QOm24SbAvTAcCXYz48G18F3mntVqhiEBIaUctV0cEyek1BVJ20fCNHF8wZOY6wjAau/Cbhirl7zb92lA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788390784; c=relaxed/simple;
+	bh=JMFpftqvtzAK7T6uDBXYST2tNQp4P622trlIeP6sid4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pXTNv+gETyE3K+cm2wiGLhSrgcRWzCwDY2TnVd+ZLLGCdKZJTawwbPpM2FFZIVjkP2c63gBSBtsXHq/KgNkKTBKd75YoKo6kNp9F3sRvEiAz9lb2EESQC2tG2dI9BnO0w6ZerKZ+E6baP120gSUfT72BmymwNqu1XXKcNbZRLMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZNTkHdwq; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="0oF+7oTZ"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca7c1176317so1385825a12.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 16:08:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788390481; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ai+R9NRRcjxtCY/2CX8ol/h9vVBVz4HgQtUyaS6Mav6IEGcgAjIaWj3Tkdn1pKtUXL
-         vf0+9qTlK/VV8eUgXlvHGko01KfpUY3jRC7vLbz+Bh21ZdP4++cLREfs4TFd98Vmc2GJ
-         mzQLIHKjFKJEMWXP4E++gbWPu7yLLt/UAesvVTsyH46bUWwozDPdjy/2Qf43//lqstH3
-         s3NQpnq5QQcjWW6F4iOi8BdwCZQ2zWRHcG98vYh8PaRk/vjBv/ppEohszI0JOWS4e+Xk
-         vah0/qq5YZYjUElXhsJgp/1edm+x147NxZ2QyXDXaLJzUQOKIOF5y76g7ii2p/k1O6Ns
-         pSbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
-        fh=wyXAdeDisnNstLNAqfDyj9Xti7Buy6eYB251NzUW/pU=;
-        b=r3BYcA28A3TgWpADcZAw8xNeAxwFShQR5KN8k+5RgelbG+9yGJEYjzZg8vuG15RdPF
-         sQeJU55Gl6UN7ozKhuw5ICs+dungNZ6pR/2Fax/BLALXxk74C+sBfOj4aGWUTiFXKjwB
-         Ws8JPfD/TxlATaWKxlHUhFjYM0rABmEWygv7k+/p226+si0fT9gnURP2xYmj768GZvtR
-         z8e2ZuoUqp7wbS2pwp+sQ+Ne3IVa2gBWDtTMsRJbVf+K+XEGHSI8OQmWMsWwa49TOxpH
-         v/ZSmgB9lMjl9e7XUhGre4KbAAat11K2xnha1emSQF4gYxEUQittZLEs9+PybKGNbQa8
-         V/rg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZNTkHdwq"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39682983a0fso2190434a91.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 16:13:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1788390481; x=1788995281; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
-        b=0oF+7oTZDJCEPJ5GxamqvPfAO34tnu0De+/xzfpPjLEoV6fqiQbBTDJNvklTqryXWz
-         4DUGZ9M4It8Hr5MLPcfGlofAv1uxt7W12KHGRuAl8wX8Pa5EEEaUv4VA9tavpBLeRXu7
-         LtueW1Jc617D0bc/p3XpQ0vSzEMTdXTT47OXuFFCgW1NoE4ATKQ0a2SaDx+stXMr9eJ1
-         gjtJXnpxVMUpjpuMxNteucXPuTjm37hzv62t/R54a+27K3WUxPFCURihaU+/mdUDKhAa
-         mRSr2owqyc4kWFBIBsgITWUTY+xT50RAWK2lezkbAUho6oUKm+nul+xFZGTQVQ4yA/C5
-         375g==
+        d=gmail.com; s=20251104; t=1788390782; x=1788995582; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oANsTqPYV0zfdfhrNmsez3y2Ei2vdqKIizOLng4NKB4=;
+        b=ZNTkHdwqTxJbayOqUTElXNo0mCcIDwN8p8BapexC6975akzcrgEbEEckza53K4eXF1
+         fwHkbjJztfZTYvlljUmuZw/dzuVwa8U3CwycG+qeK0n9l6Q347E3CgXB7L/kjfYCYxGG
+         GIwupCvR94cnLEJ3ZPwKWwI4fzVvQFNIXHYLhA2XgWfZBZea3y5RmjS3UaGFdAOTv0AV
+         qfd6lwEnEn3XhlBFqkokJAcZTBhSjjAGvxojwIjylmYyM2dO7aORI4ZwmEoXobIOC1NK
+         QND7uMdgop+jC/xT1lx/CrH3JhMM3Zfd7QyVvwEwv/q2Sblupm+d2SACA4+dQe6B/dXq
+         Cj6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788390481; x=1788995281;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
-        b=P455X0SAgm6FOw2UqyDxbct0XOSyJM5Kr5dMVpIXpL8K8X3Tnl/zP8EqFnWc9ZfvOY
-         CaqDwUWyg7lMRtYEdGSv+6yrlqdqKZfEzZksX/R3S6Mold2+QXuJC0QvnJxwGLY7MUfz
-         7/CCA1RDL2bYjxB6py7wqguiJbWgJ/Mr+/mTTrRIIp0/cAjWbo9nAkIcFLrwy+E4y+Z6
-         d4rVqGB//d4Mjw16j9fWPHlH+eIu96TtEJ2vGzOiQZXdMk139ztuNqyhU3+gI7pQDwPe
-         TvhZixgZ4y9QvdfgH2oFuGL1lLWT3kt/G79k/aCVMrpMena/fPaC6rqqcI0IKfRLoEvG
-         l21A==
-X-Forwarded-Encrypted: i=1; AKwUvBwZe2uvtWRj5jUMSeWOb98bciiKwfq0njxZFX9zv+4i6KyLNvINbhvCnf1eFB3eby4NS9nkU/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kt6hEAzx6vp9l4kXAZ7VmAnSrOQmpdPTo1/yRjDWNeGB+NYLO9
-	lY0y1FQffmFS3QUi+UfXWiHP3jf8KriIypzEQ2SVImOqmlMxKxcNDQhUIBSdgBHVmmXRW0K7G0+
-	sUIyNIclMnIyF8qQNlDGbRnXcs5HsDTmWd8eZP/M8/ug=
-X-Gm-Gg: AYBFou22rniCczVeM4sGfrc/ITNCzzr33eg/mVeTQWqdYgHdDaWFML48qXTpPKWjgmp
-	3+Mrz68Ea6cjXeylaZtQKPf9iB3Q8jlgYa4uDNM9RKx6hYQxMEOPqIPTvBDdAsKJ/2EHCovVa1u
-	gOVXLgKGIujD0xVnfiK7D3IRVpzqBOme/K4qnmFs/oJ0sayN51TpEcYWf8vFNoDNKszTYFlW61E
-	cdukALyYZTlqyeAyWPh4HoyIqvHg39pS5gz521/Z90SP9HxxoVAJA3qftSOPydoEXzvSFU08oRD
-	E1ZnNbentrjKnmYKIvmIFt0af3de4/Xb7nzsLeVeU49DMuML9kLQTbBhDzMegKrfjqN+1RkdAQ=
-	=
-X-Received: by 2002:a17:90b:3e8d:b0:396:4cbf:45bc with SMTP id
- 98e67ed59e1d1-39aee153e79mr9644253a91.16.1788390481503; Wed, 02 Sep 2026
- 16:08:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788390782; x=1788995582;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oANsTqPYV0zfdfhrNmsez3y2Ei2vdqKIizOLng4NKB4=;
+        b=ctQNAwbv0kzjZAAfbLU7KNo1+vbC1oi3TLs/UBF4I3ooCxN2iGLGuMlUW4Rn6JbAFD
+         p5GG+aywha7Fg+mxSLlFDeeDaCGPpTFTgMsCqTksjH0ZkcU5Lq5KkSZi8OxDwI3ShbQq
+         aZkmWjAxgu4sixB4xZvVp/eNgm3S5iGipb2Qgb8VCjhKjgSM2PHSDufp6R5jioF9WQlF
+         uWiVa8QOdBKVyNDgiUz8kNdVxbbJJOAa0aIdtqxrXJalCFIIWWCUQt/cfzWmhQK896Y1
+         BdDs0p/NPwJChhcsM/1M5maUqXZ1RMuTd18feCoJr41rwqIx6mOu3QdoaF2i9/CJx8dx
+         F4Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBzYUJTXyslKPo0jkJTTO+zOKiUfl6juq2jTGQNkYfwoX2VQ+t6YeHc2IsnxItzQus2FwavWRkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lOs77DJUiiynGFvPlg+E1TSinBxOeQXwlelouwVwJF15B7zyB9
+	6rg2ayQpDcOl+kfoRAbyq6BpPiI+oaX3OurOadpZ3oVO6cKpHulwp5FecadiFw==
+X-Gm-Gg: AYBFou1+MIwaod6yolO+wY525jZsNz9T1XHtn0QGZR6s0gs3VOfjZzmOIMEEVvQJJeD
+	/AdMPfvejy0ipJFCXip9EiC6acijiV6Q8g3EZyHyRIKiBfOYafsmCR4fZbXuJ6gImRoOqxVrPl2
+	AS6bZmO03MRw3G4B2ulreI2/sUcAhwi5aF2NX1QtQ3zLAC6y1XX99waCnxW1Ii9eZIxmH/hkv4X
+	ohYeZHU4SfIRIaJ+P8qnEG6V+FvmPKo7tbBdG1T/xdGo3+fcwT5MK0+u+OZ2eIufBJfeopOG9Cw
+	vn7HRTyAvgmtPu08nukyb4QC3WqlOtVKFqaTC/UsuqK3fREwf2clZ9bO5oPHt9jwhge+yKB2EH1
+	AKO8zMWMLlr6PgFGjTurPQQ3trzdOekgWDh3M0ZUdkC6XNxwC4LRqxb/3Cq7JAFOiLTJ9bVvAVe
+	bGTB60JEWHXxg/HTeERMe9/yhUqjWalGuB3BvtwrL8r632NRAiIOU/DYE3cZmMo5so
+X-Received: by 2002:a17:90b:4ac9:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39aee0b498dmr10034854a91.19.1788390782043;
+        Wed, 02 Sep 2026 16:13:02 -0700 (PDT)
+Received: from celestia ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083f04d1sm1501603a91.8.2026.09.02.16.12.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 16:13:01 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/core: allow esz to be set to zero
+Date: Thu,  3 Sep 2026 07:12:15 +0800
+Message-ID: <20260902231311.17490-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902150301.88535-1-sj@kernel.org>
+References: <20260902150301.88535-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901170849.4052816-1-dhu@x6u.co> <20260901170849.4052816-3-dhu@x6u.co>
- <20260902120832.GB2890729@ziepe.ca>
-In-Reply-To: <20260902120832.GB2890729@ziepe.ca>
-From: David Hu <dhu@x6u.co>
-Date: Wed, 2 Sep 2026 19:07:50 -0400
-X-Gm-Features: AcwNN1UWr9DtGOkBk_AsJGV3X93dnPOEvrR1ndZaMb2yMaRxX36LCdah5a513PI
-Message-ID: <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org, 
-	ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com, 
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jmoroni@google.com, 
-	kevin.tian@intel.com, kpberry@google.com, leon@kernel.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com, 
-	sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com, 
-	xuehaohu@google.com, Leon Romanovsky <leonro@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 8:08=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrote=
-:
->
-> On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> > From: David Hu <xuehaohu@google.com>
-> >
-> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> > first entry, resulting in non-page-aligned DMA addresses for all
-> > subsequent entries.
->
-> This patch is fine, but pedenatically a scatterlist's entry limit
-> should be bounded to dma_get_max_seg_size(), though I don't think it
-> helps this. Operating scatterlists at the size limits has proven
-> problematic in a number of places already...
->
-> > In addition, a non-page-aligned sgl length will trigger an edge case
-> > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> > buffers, we will have a `va` with lowest bit set to 1. That will lead
-> > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> > to find best page size for the mapping on the NIC side.
->
-> That's an IB side bug, the newer logic that joins adjacent SGLs should
-> have avoided it?
+On Wed, 02 Sep 2026 08:03:00 -0700 SJ Park <sj@kernel.org> wrote:
 
-Hi Jason,
+> On Wed,  2 Sep 2026 22:35:20 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > On Wed, 02 Sep 2026 07:13:48 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Wed,  2 Sep 2026 16:20:50 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > 
+> > > > When the temporal quota goal tuner determines that the goal has been
+> > > > achieved (score >= 10000), it sets esz_bp to zero so that the effective
+> > > > quota (esz) becomes zero.  However, damos_set_effective_quota() clamps
+> > > > the quota to min_region_sz, preventing the quota from ever reaching
+> > > > zero.
+> > > 
+> > > Where in the code it is clamped to min_region_sz, when?  And what user issue
+> > > this can cause?
+> > 
+> > In damos_set_effective_quota(), when quota->ms is set.
+> 
+> Please clarify this kind of thing (when quota->ms is set) from the next time.
+> 
+> > 
+> > '''
+> > 	if (quota->ms) {
+> > 		if (quota->total_charged_ns)
+> > 			throughput = mult_frac(quota->total_charged_sz,
+> > 					1000000, quota->total_charged_ns);
+> > 		else
+> > 			throughput = PAGE_SIZE * 1024;
+> > 		esz = min(throughput * quota->ms, esz);
+> > 		esz = max(ctx->min_region_sz, esz); /* <- HERE */
+> > 	}
+> > '''
+> > 
+> > This is a minor issue, the main problem is that it doesn't match the
+> > description in the documentation, which states that if the goal has
+> > already been [over-]achieved, the quota will be set to 0.
+> > 
+> > Original documentation:
+> > 
+> >     - ``temporal``: More straightforward algorithm.  Tries to achieve the goal as
+> >     fast as possible, using maximum allowed quota, but only for a temporal short
+> >     time.  When the quota is under-achieved, this algorithm keeps tuning quota to
+> >     a maximum allowed one.  Once the quota is [over]-achieved, this sets the
+> >     quota zero.  Useful for deterministic control required environments.
+> 
+> Thank you for clarifying.  Please clarify what is the problem like this from
+> the next time.  Without it, reviewing spend unnecessary time.
 
-Thank you for the review. I think you are right on both counts.
-Regarding the IB side, the new SGL joining logic in
-`ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |=3D va` is
-skipped for artifically split, contiguous SGLs. Since Christian has
-already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
-creating unnecessary noise on the list. If you prefer a followup,
-please let me know.
+Noted.  I will ensure future commit messages and descriptions clearly
+state the triggering conditions and potential user impact to make the
+review process more efficient.
 
-Thanks again for catching the IB logic detail!
+> 
+> I feel like your recent patches tend to lack such clarifications and spend
+> unnecessary time for reviewing.  If you unsure, please ask questions first or
+> use RFC tag at least.
 
-Regards,
-David
+Understood.  I will use the RFC tag or ask questions first when the
+nature of the issue is ambiguous.
+
+> 
+> I agree this behavior is not matching with the documented one.  The point of
+> quota is making DAMOS not unnecessarily aggressive.  Hence it is designed to be
+> set as minimum as possible.  How about below?
+> 
+> '''
+> --- a/mm/damon/core.c
+> +++ b/mm/damon/core.c
+> @@ -3485,6 +3485,7 @@ static void damos_set_effective_quota(struct damon_ctx *ctx, struct damos *s)
+>         struct damos_quota *quota = &s->quota;
+>         unsigned long throughput;
+>         unsigned long esz = ULONG_MAX;
+> +       unsigned long esz_time;
+> 
+>         if (!quota->ms && list_empty(&quota->goals)) {
+>                 quota->esz = quota->sz;
+> @@ -3505,8 +3506,8 @@ static void damos_set_effective_quota(struct damon_ctx *ctx, struct damos *s)
+>                                         1000000, quota->total_charged_ns);
+>                 else
+>                         throughput = PAGE_SIZE * 1024;
+> -               esz = min(throughput * quota->ms, esz);
+> -               esz = max(ctx->min_region_sz, esz);
+> +               esz_time = max(throughput * quota->ms, ctx->min_region_sz);
+> +               esz = min(esz_time, esz);
+>         }
+> 
+>         if (quota->sz && quota->sz < esz)
+> '''
+
+This solution is much better than my initial approach.
+
+I will incorporate this change into the next version.  Thank you for the
+review and the improved fix!
+
+Best regards,
+Rui Yan
