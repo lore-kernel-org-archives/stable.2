@@ -1,91 +1,114 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF46377EC2;
-	Wed,  2 Sep 2026 07:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13B93B0ACC;
+	Wed,  2 Sep 2026 07:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332759; cv=none; b=SP8OkU+ncXgzWmh5LJqhMkoRkZSe/KulFPB/XT/Hw0gDP6qpnRTv1i4YfWa4uwhc+CdzF2Nrq/m+XbVpz412IybTX/tldvIXJzRYjljvGv/5yXAFmLpSivWhYHyOkhCJiLJcEjo0Ci5zQt8/Imp+hLXIAeU1Od/VtDQ1QNreYUs=
+	t=1788333012; cv=none; b=VTyswzKsuJVmj4o24OOKJbVvLT5bwKUWoDGNmH0tZ38yGfLTc6p4Kl+HqsFdQt5ztoXCYS6g3nJbhS7dqnjxYYwXCBQ4mDAM/hmYGx9Ae5+9KuGzC2V+J+TjfsWpKUzfBm9ChODIPFcpiJgSiYKPSlmfN7CvHiZDNMm7EBGFctI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332759; c=relaxed/simple;
-	bh=X5smk5m4c/0Qb7uJ+Q9zZGtk0FDn9O2GrWMCg1RN7b0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ezl3PhrTTm8dhmUwdVLSH7PWs1yts+f0MIZBA9pAzAEQtjPJGbKqdPV2mI7v955tU0pqihYCn+zSd5oNMFr83RJzuh/DFB7Fh2pcBbclOJzqeHe7SWmeVmEHGnGkNvcX4MKKFzb7niIbo6Iwn4d+CM+cxEu1o54bUG7wUnofT5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=d7OPUNb3; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788333012; c=relaxed/simple;
+	bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CU51jsWYU8KHapDQ65euoWxbW/22BVW8dYdP8lh9/ZhMlYulNZZ9JMPU8aylnYcelGvq38sBED9+ovUhrL3OcHzVy7LB6l0Vqch/5FwRty32YT6Ic2NHpDMxxebGAyhszo45ZG2Sov4LwG9I8QQXLotAmkkS/6bXqHpmdnezUqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=emBAASwS; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="d7OPUNb3"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c3a2356d;
-	Wed, 2 Sep 2026 15:05:50 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] mtd: rawnand: cadence: Initialize IRQ state before requesting IRQ
-Date: Wed,  2 Sep 2026 15:05:42 +0800
-Message-Id: <20260902070542.3485515-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="emBAASwS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788333010; x=1819869010;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
+  b=emBAASwSgGEGnJPkDI0dlfiV910jgRQyo5HhhDJ86KsJAERdJEdzbRIv
+   TXurRJca6aP14LmWpbh3DSFyEjKQlTYgnkwxOQVKeQwXp3fKA8jNgUjfY
+   QRWIK8Zfq8n0z9BcX+0G54O33dRObQ1XlNNuDsFkv+tyMHBx4hvmrPvNj
+   YDV290MD33oypPX6xDk1qQ0D5G6gNxwdNV32NGhfu23/m7zW2Yy80BlTx
+   wy9I0AXwN+qgRJHEYjXQLWdJwL6s8vsSUYKFUFhKXBgEBGxDD0zi2nMEN
+   RbTySXHFoBPj4FWckVrIktRmXaQccDuLUv5+1fFwsAS1+gc2mxpTpMctm
+   w==;
+X-CSE-ConnectionGUID: kjC7xNtIT0mkX39Hd3mDaw==
+X-CSE-MsgGUID: qADL4lE/Ts+1wcq6qJODog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111550849"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="111550849"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 00:10:10 -0700
+X-CSE-ConnectionGUID: 5d+UJ45fSr6YDx2EVoGTzQ==
+X-CSE-MsgGUID: V93PDic6QaKTGsJNcamaxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="269344913"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 02 Sep 2026 00:10:08 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 7CBEC99; Wed, 02 Sep 2026 09:10:06 +0200 (CEST)
+Date: Wed, 2 Sep 2026 09:10:06 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: Mika Westerberg <westeri@kernel.org>, linux-usb@vger.kernel.org,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: fix NULL dereference in tb_remove_work()
+Message-ID: <20260902071006.GJ106095@black.igk.intel.com>
+References: <20260831075836.16038-1-pchelkin@ispras.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa060f034f303a1kunmf845d501199cbc
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEoYVktOT0oYTh5PSBkfSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=d7OPUNb3F7IFjgZDDDZlrJpC4LQHmUSt52A22+keUTpatCnMuSTXC8M32Rr8pyabBMgFYf4hXcwk4IkB8gpS9Dn884aUuW0uCFEnUJR78Sc+1xJ/SzclqzVgakdEEVNl2sv8ixhG8+TiChm+Tx/UNI1b1mWdffBM1B1z4R4emz0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=UKVt8CRyy8NuzNyQNeB1dgvHDG2t7AG0+OHEbcD2evA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831075836.16038-1-pchelkin@ispras.ru>
 
-The Cadence NAND interrupt handler uses both the IRQ lock and completion
-object. Registering the IRQ before initializing them leaves a window in
-which a pending interrupt can access uninitialized synchronization state.
+Hi,
 
-Initialize them before registering the handler.
+On Mon, Aug 31, 2026 at 10:58:09AM +0300, Fedor Pchelkin wrote:
+> There is a slight race between tb_remove_work() and tb_domain_remove()
+> which leads to dereferencing a NULL tb->root_switch pointer inside
+> tb_free_unplugged_xdomains():
+> 
+>         Thread A                            Thread B
+> 
+>   tb_remove_work()
+>                                     tb_domain_remove()
+>                                       mutex_lock(&tb->lock)
+>                                       tb_stop()
+>                                         /* doesn't cancel a running callback */
+>                                         cancel_delayed_work(&tcm->remove_work)
+>                                         ...
+>                                         tb_switch_remove(tb->root_switch)
+>                                         tb->root_switch = NULL
+>                                       mutex_unlock(&tb->lock)
+>     mutex_lock(&tb->lock)
+>     ...
+>     /* without checking ->root_switch */
+>     tb_free_unplugged_xdomains(tb->root_switch)
+>     mutex_unlock(&tb->lock)
+> 
+> Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
+> holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
+> out of the &tb->lock section and the check for tb->root_switch, in
+> particular.  It states:
+> 
+>   For this reason separate removing the XDomain from the topology data
+>   structures (where we need the lock) from unregistering the device from
+>   the bus (where remove callbacks of the drivers are being called).
+> 
+> tb_free_unplugged_xdomains() belongs to the former group of functions
+> requiring the lock.  And it also calls tb_xdomain_remove() which should
+> only be called with &tb->lock held.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with Svace static
+> analysis tool.
+> 
+> Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
 
-Fixes: ec4ba01e894d ("mtd: rawnand: Add new Cadence NAND driver to MTD subsystem")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/mtd/nand/raw/cadence-nand-controller.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/mtd/nand/raw/cadence-nand-controller.c b/drivers/mtd/nand/raw/cadence-nand-controller.c
-index d53b35a8b..cff36ea3a 100644
---- a/drivers/mtd/nand/raw/cadence-nand-controller.c
-+++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
-@@ -3143,6 +3143,9 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 		goto free_buf_desc;
- 	}
- 
-+	spin_lock_init(&cdns_ctrl->irq_lock);
-+	init_completion(&cdns_ctrl->complete);
-+
- 	if (devm_request_irq(cdns_ctrl->dev, cdns_ctrl->irq, cadence_nand_isr,
- 			     IRQF_SHARED, "cadence-nand-controller",
- 			     cdns_ctrl)) {
-@@ -3151,9 +3154,6 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 		goto free_buf;
- 	}
- 
--	spin_lock_init(&cdns_ctrl->irq_lock);
--	init_completion(&cdns_ctrl->complete);
--
- 	ret = cadence_nand_hw_init(cdns_ctrl);
- 	if (ret)
- 		goto disable_irq;
--- 
-2.34.1
+Applied to thunderbolt.git/fixes, thanks!
