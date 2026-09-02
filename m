@@ -1,33 +1,33 @@
-Received: from mta0.migadu.com (out-216.mta0.migadu.com [91.218.175.216])
+Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB111175A9C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8304F36B92C
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337079; cv=none; b=Pa7YP+FrLagmir0FHR+rXHzl6HYHtA5FfLLCIFZIW9Cbd7liCBX1SF7MMUwO6bBXLeW24fPqCvOIlNub0LkQ44rijcmbGd0zsf89pnF1Kd2qxIYSsrJILoFlBYgX3yy356nIztzWk0PTB8gq1tpmN68jkzN/EwxWEY1au7T0DbM=
+	t=1788337083; cv=none; b=LsZK3QjzEjS5WbIksSNZpkrPYPjDN6Y8SDB5Rrf+NSLH3+ruc4tB0WK0TkMgTf4uWrYGEiuJ1TQF1FDDnbLc7z9Hv4XRz26/XeBBKIlIoDXqvEdqJsjViP6+jJBNc+Vhc5Uv3KFI+oGMom92JqqUPIz/cf6Mlpswy4VP/rTPSHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337079; c=relaxed/simple;
-	bh=4nP8oY3FXaK6DMyt7vwB8mKX+49J/UMAOZEl2daUDMY=;
+	s=arc-20240116; t=1788337083; c=relaxed/simple;
+	bh=dWk9y7b0drDaUlfFd/9bCLMEQv7pdwsvhjNQU3mPn70=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AlM9cgbJ9gVhgf1v9Hqd2sPQn7zcWs6JIVLJFsO/Y8OJVyTB1Hxssg0iJLOE7VPlU5YxLbj0zH6RnoNKcCnxYcJ+j8jIUVxpnlN5pqJuziPd/IZ8/iCftUEgZxMW7tlqCujJneC3xEvDXSCkzK4ZQuedFTwze0iFN0jFih8WH68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HFLeu+hU; arc=none smtp.client-ip=91.218.175.216
+	 MIME-Version; b=oqp5YPUi/vIJx9/iI4E4Hho8C++v3tMLdzFE4/kb35Luy/FWl5Y6CQR0d/Na+xlYMmBK4eUOWxhxhmAod4ocWpB58K21dWwNQyJHouSOvbJlIuAoU6j0h1RsexiyW/URMUjbzrjXP8v1gXM6GUqBMHxFELjQWvknypqtLm+OPqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=or4Fd+fj; arc=none smtp.client-ip=91.218.175.219
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HFLeu+hU"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="or4Fd+fj"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4nP8oY3FXaK6DMyt7vwB8mKX+49J/UMAOZEl2daUDMY=;
+DKIM-Signature: a=rsa-sha256; bh=dWk9y7b0drDaUlfFd/9bCLMEQv7pdwsvhjNQU3mPn70=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788337074; v=1; x=1788941874;
- b=HFLeu+hUwGbQPfLt6fKYDW0nrqYdd3+B5K+6NDeOmppIIn1RYDK3xhDzcw8zSaiFpe9d4T1H
- Ela2dV+PenVnlUEpM1RgsFOdQ+FHo1kgfF0voJ2fBJkdHex9hBR93V3GNBOmsIKHbB+d7CmkR4t
- B/MaZms9nvA5gtMYNYRHvF5o=
+ t=1788337079; v=1; x=1788941879;
+ b=or4Fd+fjoDT55iqG+B+WGSLMTkSlmM2k8Qs99PoVYTcNgrL8/zCL/7azvjiPygrMyNP+v1eN
+ tjsUmoY+rFpBv0IjhNbAKdX2oLGpT8SU8WZ9/nEl/T38ACMIGrdGTfEog5CkVYMXkx1yoI0TRHo
+ be6yuvAXOPdMXJti7fV2Ly4o=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d040b23edc8a3246;
-	Wed, 02 Sep 2026 08:17:54 +0000
-X-Mizu-Trace-ID: d040b23edc8a3246
+Received: by smtp.migadu.com with ESMTPS id eca1d97746dd0c27;
+	Wed, 02 Sep 2026 08:17:59 +0000
+X-Mizu-Trace-ID: eca1d97746dd0c27
 X-Migadu-Flow: FLOW_OUT
 From: Hao Ge <hao.ge@linux.dev>
 To: Luis Chamberlain <mcgrof@kernel.org>,
@@ -43,9 +43,9 @@ Cc: linux-modules@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sashiko <sashiko-bot@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 3/4] module: allocate codetag sections before the regular module layout
-Date: Wed,  2 Sep 2026 16:18:01 +0800
-Message-Id: <20260902081802.146145-4-hao.ge@linux.dev>
+Subject: [PATCH v7 4/4] alloc_tag: release the reservation when populate fails
+Date: Wed,  2 Sep 2026 16:18:02 +0800
+Message-Id: <20260902081802.146145-5-hao.ge@linux.dev>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260902081802.146145-1-hao.ge@linux.dev>
 References: <20260902081802.146145-1-hao.ge@linux.dev>
@@ -57,209 +57,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Whether a codetag section goes to the codetag region is decided by
-layout_sections() and asked again in move_module(). A concurrent
-load can shut profiling down in between, and move_module() then
-copies the section to offset 0 of its regular destination,
-overwriting whatever is there.
+vm_module_tags_populate() can fail after the reservation was stored
+in the maple tree, and the error return leaks the entry, since a
+failed load never unloads the module. Release it.
 
-Decide and allocate in one pass, before the layout. Allocation
-errors fail the load. On a tag area overflow profiling is already
-disabled, so -EAGAIN makes the section fall back to regular module
-data and the module still loads.
-
-When profiling was toggled off the overflow check did not run, a
-module could load with more tags than the page flags can address,
-and re-enabling profiling then silently corrupted /proc/allocinfo.
-The check no longer depends on mem_alloc_profiling_enabled().
-
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Based-on-a-patch-by: Petr Pavlu <petr.pavlu@suse.com>
-Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/
 Cc: stable@vger.kernel.org
 Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
- kernel/module/main.c | 99 +++++++++++++++++++++++---------------------
- mm/alloc_tag.c       |  8 ++--
- 2 files changed, 57 insertions(+), 50 deletions(-)
+ mm/alloc_tag.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index 078dae188aba..d0a8ac9b3ee5 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -1717,20 +1717,6 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
- 			if (WARN_ON_ONCE(type == MOD_INVALID))
- 				continue;
- 
--			/*
--			 * Do not allocate codetag memory as we load it into
--			 * preallocated contiguous memory.
--			 */
--			if (codetag_needs_module_section(mod, sname, s->sh_size)) {
--				/*
--				 * s->sh_entsize won't be used but populate the
--				 * type field to avoid confusion.
--				 */
--				s->sh_entsize = ((unsigned long)(type) & SH_ENTSIZE_TYPE_MASK)
--						<< SH_ENTSIZE_TYPE_SHIFT;
--				continue;
--			}
--
- 			s->sh_entsize = module_get_offset_and_type(mod, type, s, i);
- 			pr_debug("\t%s\n", sname);
- 		}
-@@ -2777,7 +2763,6 @@ static int move_module(struct module *mod, struct load_info *info)
- {
- 	int i, ret;
- 	enum mod_mem_type t = MOD_MEM_NUM_TYPES;
--	bool codetag_section_found = false;
- 
- 	for_each_mod_mem_type(type) {
- 		if (!mod->mem[type].size) {
-@@ -2797,35 +2782,13 @@ static int move_module(struct module *mod, struct load_info *info)
- 	for (i = 0; i < info->hdr->e_shnum; i++) {
- 		void *dest;
- 		Elf_Shdr *shdr = &info->sechdrs[i];
--		const char *sname;
- 
- 		if (!(shdr->sh_flags & SHF_ALLOC)
- 		    || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
- 			continue;
- 
--		sname = info->secstrings + shdr->sh_name;
--		/*
--		 * Load codetag sections separately as they might still be used
--		 * after module unload.
--		 */
--		if (codetag_needs_module_section(mod, sname, shdr->sh_size)) {
--			dest = codetag_alloc_module_section(mod, sname, shdr->sh_size,
--					arch_mod_section_prepend(mod, i), shdr->sh_addralign);
--			if (WARN_ON(!dest)) {
--				ret = -EINVAL;
--				goto out_err;
--			}
--			if (IS_ERR(dest)) {
--				ret = PTR_ERR(dest);
--				goto out_err;
--			}
--			codetag_section_found = true;
--		} else {
--			enum mod_mem_type type = shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
--			unsigned long offset = shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK;
--
--			dest = mod->mem[type].base + offset;
--		}
-+		dest = mod->mem[shdr->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT].base +
-+		       (shdr->sh_entsize & SH_ENTSIZE_OFFSET_MASK);
- 
- 		if (shdr->sh_type != SHT_NOBITS) {
- 			/*
-@@ -2857,8 +2820,6 @@ static int move_module(struct module *mod, struct load_info *info)
- 	module_memory_restore_rox(mod);
- 	while (t--)
- 		module_memory_free(mod, t);
--	if (codetag_section_found)
--		codetag_free_module_sections(mod);
- 
- 	return ret;
- }
-@@ -2929,6 +2890,47 @@ static bool blacklisted(const char *module_name)
- }
- core_param(module_blacklist, module_blacklist, charp, 0400);
- 
-+/*
-+ * Allocate codetag sections separately. They are loaded into preallocated
-+ * contiguous memory because they may still be used after the module is
-+ * unloaded.
-+ *
-+ * If the separate allocation overflows, allocate the section normally
-+ * so that the module can still be loaded.
-+ */
-+static int allocate_codetag_sections(struct load_info *info)
-+{
-+	for (unsigned int i = 1; i < info->hdr->e_shnum; i++) {
-+		Elf_Shdr *shdr = &info->sechdrs[i];
-+		const char *sname = info->secstrings + shdr->sh_name;
-+		void *dest;
-+
-+		if (!codetag_needs_module_section(info->mod, sname, shdr->sh_size))
-+			continue;
-+
-+		dest = codetag_alloc_module_section(info->mod, sname, shdr->sh_size,
-+				arch_mod_section_prepend(info->mod, i), shdr->sh_addralign);
-+		if (WARN_ON(!dest)) {
-+			codetag_free_module_sections(info->mod);
-+			return -EINVAL;
-+		}
-+		if (dest == ERR_PTR(-EAGAIN))
-+			/* Allocate the section as a regular section. */
-+			continue;
-+		if (IS_ERR(dest)) {
-+			codetag_free_module_sections(info->mod);
-+			return PTR_ERR(dest);
-+		}
-+
-+		if (shdr->sh_type != SHT_NOBITS)
-+			memcpy(dest, (void *)shdr->sh_addr, shdr->sh_size);
-+		shdr->sh_addr = (unsigned long)dest;
-+		shdr->sh_entsize = SH_ENTSIZE_STANDALONE;
-+	}
-+
-+	return 0;
-+}
-+
- static struct module *layout_and_allocate(struct load_info *info, int flags)
- {
- 	struct module *mod;
-@@ -2961,18 +2963,21 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
- 	 */
- 	module_mark_ro_after_init(info->hdr, info->sechdrs, info->secstrings);
- 
--	/*
--	 * Determine total sizes, and put offsets in sh_entsize.  For now
--	 * this is done generically; there doesn't appear to be any
--	 * special cases for the architectures.
--	 */
-+	/* Allow codetag sections to be allocated separately first. */
-+	err = allocate_codetag_sections(info);
-+	if (err)
-+		return ERR_PTR(err);
-+
-+	/* Determine total sizes and put offsets in sh_entsize. */
- 	layout_sections(info->mod, info);
- 	layout_symtab(info->mod, info);
- 
- 	/* Allocate and move to the final place */
- 	err = move_module(info->mod, info);
--	if (err)
-+	if (err) {
-+		codetag_free_module_sections(info->mod);
- 		return ERR_PTR(err);
-+	}
- 
- 	/* Module has been copied to its final place now: return it. */
- 	mod = (void *)info->sechdrs[info->index.mod].sh_addr;
 diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index e7a79116ad81..248496470904 100644
+index 248496470904..3c25475becbc 100644
 --- a/mm/alloc_tag.c
 +++ b/mm/alloc_tag.c
-@@ -958,10 +958,12 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 		int grow_res;
- 
- 		module_tags.size = offset + size;
--		if (mem_alloc_profiling_enabled() && !tags_addressable()) {
-+		if (!tags_addressable()) {
+@@ -971,6 +971,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
  			shutdown_mem_profiling(true);
--			pr_warn("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
--				mod->name, NR_UNUSED_PAGEFLAG_BITS);
-+			pr_warn_once("With module %s there are too many tags to fit in %d page flag bits. Memory allocation profiling is disabled!\n",
-+				     mod->name, NR_UNUSED_PAGEFLAG_BITS);
+ 			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
+ 			       mod->name);
 +			release_module_tags(mod, false);
-+			return ERR_PTR(-EAGAIN);
+ 			return ERR_PTR(grow_res);
  		}
- 
- 		grow_res = vm_module_tags_populate();
+ 	}
 -- 
 2.25.1
 
