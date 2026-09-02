@@ -1,128 +1,93 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DCCC41A559
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:19:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C114A5EB1;
+	Wed,  2 Sep 2026 16:22:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365954; cv=none; b=HPOuu0wHJN2FF6lwPo/mGe253734Xv7Qf5dbuVPX6nQynYAylvebuIxuZasV4QwHdSFX4F3RWsfDQ07N0sc/RFSAEk+cziJB+ZSry8JRGg310RvicBBzHsVk0UVlRsV9KmAHTagKlQVcljmHJCcqa3j/OBIuTcRzHcfVZROwSkQ=
+	t=1788366172; cv=none; b=E+eeX7pwx6clAdVc3MqbsBgcMlSGcKIktRmvhExhr7hkzQs728K9cXH11tASZrfNWw5eMs2pB/erwYjQUxcEs/ZnYz5N+b44qPDc9uMT8tbbxekEIBWdzX+1RkcqUqAhoz3MRugMwvcPmsseMXeDAzcw0b89euDBIjg5d0hnf00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365954; c=relaxed/simple;
-	bh=ltIY9uBE6y8MfuJYlvojnTbjdBIXZTNaDFDXcw7XK4M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=r0STTMcVzBahMXs+0WhFGSAGdlbaTCzsMixFHyocelVkAf+anRMxwW/U9+2LFJybotUgFf1HhaVibV/q4GTskAEHL6Wh4Gqenc4ZFvUJglj1nhF+cJlxeJf4Q2AHIra1DUxNiWlwPB4hBCRq5wDKnxoF4j9p/hrsnyRt2667/24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q12y5hh+; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788366172; c=relaxed/simple;
+	bh=/NSNlk8CYM1sowJ9sGx64hIZA1Z8hypkSJpOPaK89jk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tlxMzDkLCovV7Q+TB/ZNz/q9gQbBakaHxe237MYohkKEVzPuD5ewrqKtO7jK9gB09vVdq+K50OixST4JlI8nkMB8GMngFYKvIZC63FFwI32fTGurEfJNbjUvlTlkK3rMPfx0TCj79rPBNz+YcFwy3PKeKXH+2LT/kIufbWdNoxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GpY6R44M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q12y5hh+"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38f57e312ecso242294a91.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:19:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788365952; x=1788970752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3lzfX9o1vZqX/GQxyo2tpdqzQmgLiqfjFpA7wcygJbw=;
-        b=q12y5hh+v0vcenlpn/MMSmojux/kLg0airTtvUoA+CwU7t1I4DydOOxm2wr+amWhCU
-         Q8W/9abskVcuvd9lzHxYAZ4Q70BNQ806guntjUnFwi/d3G+OMfB5YqsDRUwPHptnvtfV
-         yEKSc4Co4MgcWyBXsKkUMUQxHix9M6CmqmRSsv3swDD9XQC0kMaqNBBWpfZZIpBT+ZFg
-         3yHUJrNMVwY9zMCjkVEDRqCUzz0L7a1sYBKVAvnKk0IQfIIXx1ckYe2xkKHSyT+oGpfW
-         KhcCbHiB+KCXWSi5q1GTU2/ZvYzSGJfBDV+kcBtaDPXDnmRe7JvaI3bxBblBPPhRSi+I
-         kIqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788365952; x=1788970752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3lzfX9o1vZqX/GQxyo2tpdqzQmgLiqfjFpA7wcygJbw=;
-        b=igvLVw2G9FVu6cy/RQRMe+B8L7b1QNJUoAjbi07G/TB2sxOvVffXT2It1uLpO9xqrh
-         uFi93Vb/Ca8KSx+SGIKz6tvS/TPb3lNijm6JXjPU8y89Nsvw87s5cQBjEEeDVCmB5Y2X
-         8qU4QSNHyHsYJ5tWn5BHRN0qqTDEaumm941tsw9u8TqYvaMkmHY42CpseLXwL9IPclsZ
-         8b7e7hICJbETTS5TK678ChfSuWKWKWGNMOtFQbDedG4oojfc3VztCWTS30lQNZ44gfv1
-         fzsw9pdsobe2eVlICB1eEvh+0nvI+GxEs9CSx1zqlm8hXVxeF9dzYO0YU82aT2BX8GsY
-         JHUw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcNw+dVESVlOKyrp5X4VPyt/byexnDl9SGKVvdYe6YUMgCg6X8OBpbWBZO56jjTxVT4aX04X4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmUX4pLv2433DzhlZ72o9klVznxBCprFhUNtV+hIVfAs9GfG+d
-	McYyxfs+rAVJiAwJakbr/BNEEQ6EVttenv0GWMtwcfz1eW+p1hhuw91D
-X-Gm-Gg: AYBFou3j181EZByI1XbN1VaaewNDkRO+cDQjC/FwvDoPLu7LlVOIEEk+x7E3PTURaRy
-	Le0GtdcrjmqGRoKWw91E+0MOdKdmKc9p7kllcDLRvHBpHwnZGZ+lA3xKtcg844yCTAk+S5BnxH2
-	d1XRznReO8n/+SY6IusEQWFp2sfmddfIAUL9fOEn3KImgmNCIbMfrB/wx/SeP9Y5PAXgFrZUFo8
-	VEkHK2LmpBAa+Okoj8NscfgDz4uevjlFqRBgBC8QTsZ3BTp1h0j/rlecVUQFHw9qr/G2i5vVhWC
-	w8GlnhuYe78zx3OEk7euy1KOSpyY9HZLkoL15MFznTyHOPcqUgtSs5Z+APN0/wiNGtkNLOnTlNc
-	yBZb52b7l5dFuQtyj3PHHGBNuWLdShFw4BadDMSEuqyf3rBqVm5KLfOr1pRCWdQ9pR3leDDmLIe
-	uERUCjwZnasB2cc6HIZdG+LJWnCorfb20oaRsO5DcFPm2DE5xgGsW9jjgtiUqtrA0BsNZOQby8c
-	PgfZM/Tt/q4nvwqAQ5WjfnURB7Wf1htPqc9TmnO/T3tkcs7nPFrIa4E6w==
-X-Received: by 2002:a17:90b:1d0d:b0:38e:c140:2a0b with SMTP id 98e67ed59e1d1-39aee0e6ed8mr6182969a91.3.1788365952381;
-        Wed, 02 Sep 2026 09:19:12 -0700 (PDT)
-Received: from localhost.localdomain ([119.127.198.196])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b087b59a0sm148569a91.17.2026.09.02.09.19.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 09:19:11 -0700 (PDT)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: john.johansen@canonical.com,
-	georgia.garcia@canonical.com
-Cc: security@kernel.org,
-	Qihang <q.h.hack.winter@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] apparmor: bounds-check the OWNER companion perms entry at load time
-Date: Thu,  3 Sep 2026 00:18:40 +0800
-Message-ID: <20260902161840.75210-1-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAH78Gvtz15Q1icWZFpB68CY3xhdyddw41XCDR8BRS9zwA8EyWw@mail.gmail.com>
-References: <CAH78Gvtz15Q1icWZFpB68CY3xhdyddw41XCDR8BRS9zwA8EyWw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GpY6R44M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589F91F00A3A;
+	Wed,  2 Sep 2026 16:22:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366171;
+	bh=96LuoZFEU9IQ/+SufORbkPGVMLYFD8TLgV1+4zgBKzM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GpY6R44MYFIXOoc3IW8hfnqcZ+mFVomt41Q2nPT/kqSu1eQ35GgRx/eo0vtUKetkX
+	 0VJdYC9K1OG21cXZ4S4bmMStxzaQKtSmsjOemFtL7VEI5VQA/LOJmdsvUPxlyq8A7s
+	 3nBZFqyho1iW9r7Rq7kV8RFYXVMii+HLMIuaQTbyMbVUIhZjhSrIr1gg4PDgg92w+8
+	 9tW1t4YlwOqWlL5TsmfABQoQsgQWn0VewNpdGjlXF68PjiCOBW9vFdX4Q+h7arShDg
+	 gjPq7OstF0VJSthp5AHi3ppM0Pphg4HX8Q1POaFB4SIEv1ahwf0SQQCjhiRlidwfxr
+	 1xPeMH+kVeIEw==
+Date: Wed, 2 Sep 2026 17:22:46 +0100
+From: Lee Jones <lee@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>,
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
+	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902162246.GC2133376@google.com>
+References: <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
+ <20260901094656.487b278f@gandalf.local.home>
+ <20260902082717.GM2943942@google.com>
+ <2026090230-entryway-acquaint-d12e@gregkh>
+ <20260902095744.GN2943942@google.com>
+ <2026090221-riverbank-overlay-704c@gregkh>
+ <20260902115944.GS2943942@google.com>
+ <20260902082141.00583dfc@gandalf.local.home>
+ <20260902082550.4644fe91@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902082550.4644fe91@gandalf.local.home>
 
-For OWNER-flagged DFA states, aa_lookup_condperms() may access
-perms[index + 1] for non-owner lookups. verify_dfa_accept_index()
-only checks that index is within the perms table, allowing the
-companion entry to be read past the end.
+On Wed, 02 Sep 2026, Steven Rostedt wrote:
 
-Reject OWNER states whose companion perms entry is out of bounds.
+> On Wed, 2 Sep 2026 08:21:41 -0400
+> Steven Rostedt <rostedt@goodmis.org> wrote:
+> 
+> > There's even been times that I *removed* a Cc to stable because I did not
+> > think it was worth the backport. Of course, I still keep the Fixes tag,
+> > which means it will likely be backported anyway. But that's up to the
+> > stable maintainers to decide ;-)
 
-Fixes: 6f442d42c0d89 ("apparmor: fix profile verification and enable it")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
- security/apparmor/policy_unpack.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Pretty sure this isn't the case anymore.  RIP AUTOSEL.
 
-diff --git a/security/apparmor/policy_unpack.c b/security/apparmor/policy_unpack.c
-index d9dcff167c480..e53f92b34725f 100644
---- a/security/apparmor/policy_unpack.c
-+++ b/security/apparmor/policy_unpack.c
-@@ -1485,8 +1485,24 @@ static int verify_header(struct aa_ext *e, int required, const char **ns)
- static bool verify_dfa_accept_index(struct aa_dfa *dfa, int table_size)
- {
- 	int i;
-+
-+	/* the OWNER companion entry needs one extra table slot */
-+	if (table_size <= 0)
-+		return false;
-+
- 	for (i = 0; i < dfa->tables[YYTD_ID_ACCEPT]->td_lolen; i++) {
--		if (ACCEPT_TABLE(dfa)[i] >= table_size)
-+		int limit = table_size;
-+
-+		/*
-+		 * OWNER-flagged states are indexed as perms pairs:
-+		 * aa_lookup_condperms() returns &perms[index + 1]
-+		 * for non-owner lookups, so the companion entry must
-+		 * stay in bounds too.
-+		 */
-+		if (dfa->tables[YYTD_ID_ACCEPT2] &&
-+		    (ACCEPT_TABLE2(dfa)[i] & ACCEPT_FLAG_OWNER))
-+			limit--;
-+		if (ACCEPT_TABLE(dfa)[i] >= limit)
- 			return false;
- 	}
- 	return true;
+> The big difference between a commit with the Fixes tag and a Cc to stable
+> verses one with the Fixes tag without the Cc stable, is that the one with
+> Cc stable will give me a "FAILED" message if it fails to apply. One with
+> just the Fixes tag and no Cc stable, will not generate that message to me
+> if it doesn't apply back to the version with the Fixes commit sha.
+
+So what happens when you receive the FAILED message?
+
+And why are you interested to know how far back a fix can be backported?
+
+Personally, I'm _very_ interested in a _small_ number of patches, but
+none of which usually emanate from subsystems I maintain.
+
+> I do like to know what I marked as stable and fails to apply. Unfortunately
+> I don't have the time to go fix them. But I keep them in a mail folder in
+> case I need to do it one day.
+
+We have have such wonderful aspirations.  Maybe we can get around to
+those jobs when AI starts doing our jobs for us!  =;-)
+
 -- 
-2.50.1 (Apple Git-155)
-
+Lee Jones
