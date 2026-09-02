@@ -1,63 +1,63 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605C0363C6C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:57:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FD035F5E4
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314244; cv=none; b=K7pNDDF6QvkRQRCyzB1IhOIiOLdW40DB8YDqA2hOzdODkl+F9lFAIysP8nQRtrpc5BlYHG+6MEC9vhx4xYVgZzGsDJyuXUFPMkVrTOrFcllS7763LaKkqAD5C/Y7rfg04mlRQtSDMiFACyrAXTVslfA7RYe5pZ07BwfHIT8Ca+g=
+	t=1788314245; cv=none; b=YP6DrBszC2GuamKz7qb0uZbSoClX7xq1Wzz9TXv9Dg0NDzfBX69pWnivw9ZjZbrGwGncJARkQWbSCI0rXVTMfgdSXKgmjbOUA/DG+clGsIGCT2iaGjvBHEZJH7bVsrWBaBN1MsbP+ewhccdEu0uKnNIWEa1zSC6siBOVv+AZQAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314244; c=relaxed/simple;
-	bh=Ik8QSbgXP5buhxF8hVJJ2LX4PPnIIT1KbX8G1W+E0SA=;
+	s=arc-20240116; t=1788314245; c=relaxed/simple;
+	bh=OO2BGXWS3mSpTcM1EDr/idHgcRwBEfKjIKRjo8GuBro=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PpIyC/ofuVBrGpPoV8FlNnbQ0xs7A8BzTsHpue1m8ravuRKQcQUXxfjJMG0WkXA0jQyxaVHg9/4c2KajqFeV/sYK0tMRFVEc6AmVA1+zOrOYxFJwztRF/AjaS+5Lth/6L7RGvKA7enmA/SEiPDfl8OWj7K01L5e0bd2Cy1kWLx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=Lgy4n7fc; arc=none smtp.client-ip=209.85.215.176
+	 MIME-Version; b=J18APQyoxeA/XKEZ2NCfytMDRMQRKdtQ/xhTBdUrNIVqnDFIGAo5MyrfUlRZMl13PbDW4EOit4thKoPyv5L5FrZKZTMgINbP/Wv4f2gV1pkVbz5F25ZpUWsxgC2UZIVEj53voBZD8s4FM7CjQMEZMZyqS3UIRJNYHZo9L+p9Xsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=gLBepBaj; arc=none smtp.client-ip=209.85.210.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="Lgy4n7fc"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cbb8b54fcf8so641915a12.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:57:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="gLBepBaj"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8568e3ed034so430007b3a.0
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:57:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314239; x=1788919039; darn=vger.kernel.org;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788314236; x=1788919036; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t8NexaY5OOI9G959hLH28cElmfzdE2NH8o0S1EDtR7Y=;
-        b=Lgy4n7fctmLm0VRdGB0LQd3y29ORZSxGQdnw5PrQ+Xwc/RVzHoPyoscLCqWSCL/cV0
-         t5o50+BopFN/QtF56t7uzdshXY38OfQprnUGRu1fomkWM7eOFnVKsm6wXlrHyymhNba3
-         LiPGbyzGPIfTMQeI+kPyXPcgqFrnWWeVEyoNdMl9ilaBTkA/dEY69qt7qD876dnDLdWd
-         At8gHvXLs805Voihj5n1yRCUJaVLO41HGPj+T8yYwXrej+MfTQkMeV9DDogXdVLpf0DA
-         WhSu/jlarygTuwN0ZPLq83SRSX2x26TCJDA7W+DjXt2280ZFaajbwmPY0C4EjkhbjD4j
-         +ttA==
+        bh=yQv53l+2Rw8gT5LYIk2AL0drTQ3KamOD30iQa8HJxtU=;
+        b=gLBepBajF+Xh3kyYQ+5Bd+J6eBhFhs/ER2YOdlsgxKs5QnsToRIWEkB4n8Gx+N3vUp
+         FCR2oXAHq00B5f2/wG899jbozk8aG4QZgsRQKBbtdtWD5fAlC0E0PoJyLqW+mtipIuGt
+         Z6kbp0dGGNOLtuSlw56hHuIBg7MW+FfepMeNia+mR3peSD8XWjGXowQDGVKwMzhuNIiV
+         EzzOIMX/rt5PeNPHZ5B8tqAVOuuJo6QOkdW4IgDQbkjx6BymSrh4UgnyUIbp1LVTPxNM
+         LlNPGXHbo4nAo5g+0y7ynIvp5bS03Df70y2PqiNP52KtEUCYVpIL7oaYhPwojt9IZ00v
+         yGyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788314240; x=1788919040;
+        d=1e100.net; s=20251104; t=1788314236; x=1788919036;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t8NexaY5OOI9G959hLH28cElmfzdE2NH8o0S1EDtR7Y=;
-        b=ZT5vZIdSxO/ZrXc5EgeNZSNxJzu1WvCC3tzvwukwY/93sidrt8BmHQFE7d//WQVo+t
-         zRsoHMOOg1zffvkcJwH/HefZyeiDyaIxMZMX+vlwmgp8TrzvvufezjK2npN1bck45Qij
-         /G293oJI+3YeLOAfEqma4TN6rRAQEYAfupafA0RHmj5rLOJt8oV3WcmgDyi6Gu6vZF+v
-         8oU2ql9Er1gZLw7QEGqhk0rDdBjYX421o8PWWbcDigW61mREwrig/HZOnZbr8rEgtZcK
-         1Vk+RbXIHBwnZ+SIeU0Gcq1FPSIHUxcEiANFmYHYu4ZQo3ZvNyfPIAJqMU4e7M+UljY3
-         H35w==
-X-Forwarded-Encrypted: i=1; AKwUvByRIqCSEm1cuvwlpCn7ASht2Xzv/nurESyUBkVpKUOnK2IsuBOAiN3DnkWeFAzP4Ld9Td2Yio4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhoX/qYW0XkZ/goBhbeFsBYq3OjwyLxyetwbHpQHvJZ55KKU6D
-	MOBFWTmbOS3jRpNLg7JkOrpGBudc2ZkztpPatibtp2942WYwZAzrCPevVjjGZoWBCQI=
-X-Gm-Gg: AYBFou1uUIwJjEtAADCkw4AoZoZaJoQmqCxoxsjUivHuvJzghPtE7Jp2/ofude24397
-	PG9zkWoQnC4nvNZaPadn4RXK6K/0M08SPRY1rjzlLQv0qNhhJr4+2EZpMN54qyLpCx2V7WhXDac
-	w3TIZHpvJecdnIgGMTQbJBLrWeRuFexCVUEa0a0Bv033fR4JMykX/D1Ch+j66NJOXWDdC6hSrZo
-	3FrJ5nIKezgbHwNV73lViuVo/J/D+z1pVCW5FRHwmKDvJG+i0cIpceZVXV90deChHa4uR99+lRM
-	90cTLtSEA0WIqUPmZxMdqYAw/Hh0KiJR1bvWpN9ZLK1ci3K1A/0EkaUt8wz5Lv2rtukqjxZLxhG
-	XQtQ1Ip/hp4kiUDke59efG3w4pW6qsSIy6EAw+1R966DU4719C+2lOyi+HjRtVKawmmYNmvCLTF
-	1KPZdLED7PvjZyKuyZH4CK4wdYnSfZpnnxZfVFWZ0kCZQ=
-X-Received: by 2002:a17:90b:524c:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-39aedfb8ebcmr1991272a91.7.1788314239469;
-        Tue, 01 Sep 2026 18:57:19 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:71::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0dfe6b6sm2346061a91.1.2026.09.01.18.57.18
+        bh=yQv53l+2Rw8gT5LYIk2AL0drTQ3KamOD30iQa8HJxtU=;
+        b=T3YtFlPIaDbLdnozGxoefkUBD5CJ0lF4A7C4V19UHf2InYUbzTtM11ELmkLAXRbfe7
+         H85jqPlfOKCD9ftkMrshJsHm1JrAzeFg+LkWfexsxdIdDSJztVVMQJ1uMtinYH9zVqPr
+         x+cAP285OrHQNLz8l/eyjg1cF2UrcMhTSReJDs/yg68YWmYI9TLb5Zd/FyHcn21CMkuP
+         xUs8j+cpkkwNg963CoNZtoBCigQNq/9PISqoAjKdllFojhp6igzV+NoHjcj9nUGr2Bjy
+         HHfIBllhSAR4Q6HfJq+fqtWYD+Bc948w68T20GGhh5Zn1O2r9C7iNnNHPCyPIoFe82Vq
+         /WtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0iNXMGFpZRvLbVLaRdFERZvvbLYUN7imW/FpM0f3g5Zvrsy0k9tKXDQ+arYcVxak43pXK7C4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZlb7FaMZWlcFJMlcvQGIc/WDGUKsjQ6d9FifTWAXZSceV5MAv
+	U5/YE6GDb47g7GdY7U7mNZdtodEqpx+lWHIfSV6KSZYjDlFVEX8fk6j7iyiVh+KPO1Q=
+X-Gm-Gg: AYBFou1WAiEHebp235pwzzjJMtQ56pMMXBWGI89l4ewspTQ7s5IyeMc9/2LjOCmVqGK
+	uWoRD5uYsmdj8PDjj0r9LlELc2yZpWehHKDSnjHccbgxCqsMZoU0EQgNoV63dPp7DrEBT8aC2BK
+	kog9hSR86aoODUpM/KrV8CFTmXkezSkRzqPtg0wJ88ZRznyJRQIaD8ibUmakUuH7D6doJmKBQUk
+	5ad9a1Ktctn9gHcBdF3EMispGZ+0mvRX8lsVD+2Tr9/lDpky0o/1eVXZkywvi0rYIiOnsutj8sn
+	UPvZKRaxKHU1jNluav2rYzSxgW1b7q09XigPKlsWJGv9wNoQfylAFOWq+Pj/+PWT5JAFAGsEBEC
+	76m+n5L/S+OKMcXQiqKdLgVfH4wtCbN3MuD2YtxhntHvy2WsLFHvQH7GJhsgi8jbyG16LLhkPE2
+	ORqsjiFHDEdPrFYfj5fRsNffqyPVEs5i2+9qtFYGUt1Rkq2IiwDh4k
+X-Received: by 2002:a05:6a00:bd8a:b0:857:7317:cff2 with SMTP id d2e1a72fcca58-85ed444a110mr3184790b3a.19.1788314235666;
+        Tue, 01 Sep 2026 18:57:15 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:4f::])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc07157e0sm549385b3a.43.2026.09.01.18.57.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:57:18 -0700 (PDT)
+        Tue, 01 Sep 2026 18:57:15 -0700 (PDT)
 From: Joe Damato <joe@dama.to>
 To: netdev@vger.kernel.org,
 	Michael Chan <michael.chan@broadcom.com>,
@@ -67,7 +67,7 @@ To: netdev@vger.kernel.org,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Edwin Peer <edwin.peer@broadcom.com>
+	David Wei <dw@davidwei.uk>
 Cc: horms@kernel.org,
 	kalesh-anakkur.purayil@broadcom.com,
 	colin.winegarden@broadcom.com,
@@ -77,9 +77,9 @@ Cc: horms@kernel.org,
 	Joe Damato <joe@dama.to>,
 	Sashiko <sashiko-bot+sashiko@kernel.org>,
 	stable@vger.kernel.org
-Subject: [PATCH net v5 4/6] bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-Date: Tue,  1 Sep 2026 18:56:47 -0700
-Message-ID: <20260902015652.2421609-5-joe@dama.to>
+Subject: [PATCH net v5 2/6] bnxt_en: Don't free the live ring's TPA state on queue restart failure
+Date: Tue,  1 Sep 2026 18:56:45 -0700
+Message-ID: <20260902015652.2421609-3-joe@dama.to>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260902015652.2421609-1-joe@dama.to>
 References: <20260902015652.2421609-1-joe@dama.to>
@@ -91,55 +91,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bnxt_rx_ring_reset() frees the ring buffers and then reallocates them,
-ignoring the result.
+bnxt_queue_mem_alloc() shallow copies the live RX ring into the clone:
 
-bnxt_alloc_one_rx_ring() can fail in bnxt_alloc_one_tpa_info_data(), which
-returns -ENOMEM on the first failed allocation and leaves the remaining
-rxr->rx_tpa[] entries zeroed.
+  memcpy(clone, rxr, sizeof(*rxr));
 
-The error isn't propagated up, so the loop in bnxt_rx_ring_reset
-continues and at the end the code re-enables TPA with partially
-unallocated rx_tpa array.
+the code currently clears pointers that the clone owns (such as
+rx_agg_bmap), but rx_tpa and rx_tpa_idx_map are left pointing at memory
+of the live ring that was cloned.
 
-This means that when the agg_id from hardware is mapped to a SW index in
-rxr->rx_tpa[], an uninitialized slot can be chosen which would hand a
-zero DMA address to the device.
+If an allocation failure happens later and the err_free_tpa_info label
+is taken, the live ring's memory can be freed while still in use.
 
-Fix this by falling back to a global reset, which is what the existing
-code already does when other functions fail, but unlike the other
-failure cases this particular failure has to return because TPA can't
-be re-enabled since the allocation failed.
+Fix this by initializing the clone's pointers to NULL to prevent live
+ring state from being freed inadvertently.
 
-Fixes: 8fbf58e17dce ("bnxt_en: Implement RX ring reset in response to buffer errors.")
+Fixes: bd649c5cc958 ("bnxt_en: handle tpa_info in queue API implementation")
 Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
 Cc: stable@vger.kernel.org
 Signed-off-by: Joe Damato <joe@dama.to>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 3755a30f8d40..a8e5fdfcdf59 100644
+index 0e5c2a48f313..f44a23c8a590 100644
 --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
 +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -14604,7 +14604,14 @@ static void bnxt_rx_ring_reset(struct bnxt *bp)
- 		rxr->rx_sw_agg_prod = 0;
- 		rxr->rx_next_cons = 0;
- 		rxr->bnapi->in_reset = false;
--		bnxt_alloc_one_rx_ring(bp, i);
-+		rc = bnxt_alloc_one_rx_ring(bp, i);
-+		if (rc) {
-+			netdev_warn(bp->dev, "RX ring reset failed to allocate buffers, rc = %d, falling back to global reset\n",
-+				    rc);
-+			bnxt_reset_task(bp, true);
-+			bnxt_rtnl_unlock_sp(bp);
-+			return;
-+		}
- 		cpr = &rxr->bnapi->cp_ring;
- 		cpr->sw_stats->rx.rx_resets++;
- 		if (bp->flags & BNXT_FLAG_AGG_RINGS)
+@@ -16333,6 +16333,8 @@ static int bnxt_queue_mem_alloc(struct net_device *dev,
+ 	clone->need_head_pool = false;
+ 	clone->rx_page_size = qcfg->rx_page_size;
+ 	clone->rx_agg_bmap = NULL;
++	clone->rx_tpa = NULL;
++	clone->rx_tpa_idx_map = NULL;
+ 
+ 	rc = bnxt_alloc_rx_page_pool(bp, clone, rxr->page_pool->p.nid);
+ 	if (rc)
 -- 
 2.53.0-Meta
 
