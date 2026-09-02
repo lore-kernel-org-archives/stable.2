@@ -1,178 +1,145 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5BA323A7587
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E949477985;
+	Wed,  2 Sep 2026 11:55:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350125; cv=none; b=q2As2Rs0To6tqDoVOVEUTZYjlzbqUKil/7+vLe5OLvuKOsXHFDMi1KkV7MZJGJ6WiUX0PuTFV6rZjupO2cxTC8aGVRtxOZCWTfzz71fwA0zWf/qf7mfZYxZh9taTWMxH1HdC3CZYSdN6ILIB/5LQRislwR1nWAFs1IyVjNnir4g=
+	t=1788350184; cv=none; b=usbS6l1g8cjDBUfJYd4R4/BUG+QAmDKIPE0xHoRCSj8sHOIhP3gn6VVaoaUTa7dI1hpWchm2/fLvOoW3CKbehNVhm+8rbVfMTfuYP2p9SZ202KveOU7I/V+NVjhriWjUS60GLhync90bjP46KT8KaDmqncHXI+5iyeiPNU3HGIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350125; c=relaxed/simple;
-	bh=G2NVwnC/VCZnRdRYBAgE76g2IS9xpMkKiu/eLnsYt7s=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=cBIlsI597TlSmMrQCtVgvrROUq0x2qbSyvfx1KYpO/CGttO5lg2VI/Lb5JMfTHkwmF7vN8KOdpILfGJJgXlzqeW5ANtINJfQQoiY6eR85gFGvjTjDnfSAjmhIuVlL97x8E4T1eo8/V7Okur+cQjUK4X19rX9rgvxVETjZzXInjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SWdMNwf2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788350184; c=relaxed/simple;
+	bh=o/2hWz9cYSsj1g9n+IKiZF+6EPFNa85rk6eAvu3wqoI=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mlJU0dEH95DlSdvVjmNFMxWPGjiVUlqmn+AcsSxmx/On6faDk7vuKd4AVirDgv1nARRMF4HTSDOlAdj2J+yscYiTSwdIRe1GgWtEGwcY8EFK0wwZChSQmVjwbDFkhjx5fE3T+WGI+YYjrTdB43gxr3uRToUNGCFgwmUpJruS8BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=ra9H0Yvc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=CoezHoSo; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SWdMNwf2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2AF7F1596;
-	Wed,  2 Sep 2026 04:55:13 -0700 (PDT)
-Received: from [10.2.198.93] (e142334-100.cambridge.arm.com [10.2.198.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 690703F85F;
-	Wed,  2 Sep 2026 04:55:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788350116; bh=G2NVwnC/VCZnRdRYBAgE76g2IS9xpMkKiu/eLnsYt7s=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=SWdMNwf2slAOSI6A7eXocHUXy4Y1nt2gknjV8WpwOYadJlkYo0kY0gV3Nqk9mxinq
-	 TH5kXWD5O5Il5Rt3hCn/V/2Od15zxNanvuQCVJL0eg3dMVKRUrAO7dJGXWJTDRmKtv
-	 48xpfAhQJapyLyfKvTFHgJOpHvp5c/A10Vs+012Q=
-Message-ID: <9789fd67-205a-412f-90d6-42c401d3babe@arm.com>
-Date: Wed, 2 Sep 2026 12:55:12 +0100
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="ra9H0Yvc";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="CoezHoSo"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.stl.internal (Postfix) with ESMTP id CF8BC1D000D6;
+	Wed,  2 Sep 2026 07:55:52 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 02 Sep 2026 07:55:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1788350152; x=1788436552; bh=T8Ta5dWC3i
+	BQKIe7qAuLecVMVEjIkycgwE+Mr3w9bDo=; b=ra9H0Yvc06w8a4i2Mr9PN+fn6A
+	5/f71qutVXClxp8cj/DQrWjSGdNyN0GJ1AgahqpDaeIwDFFUXqTbPl/xyzUBixiS
+	pC/8kQqs6ogixbMC1YEPqNtWmrquW3kKIPmeEg0D+kxOMmV81WxJVHRDSXLzUfXa
+	X381eos3ezytpkdkdrJeuUdyzIZCSc+mAjzXaVB3NKNRbxzV/BvZl+jgaJtZtNLZ
+	eyj2VhzRKiIzNbtT1fhfzRflo1sE9AF2UGNpmHYiCYRKwWHfbb37QMOiIjKalx/V
+	soa+ikfy6xgXbrqnkQiNXGtCwPitLtAqMq4LyjjsaZrnIfwh4Gge5c1dw5Dw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788350152; x=1788436552; bh=T8Ta5dWC3iBQKIe7qAuLecVMVEjIkycgwE+
+	Mr3w9bDo=; b=CoezHoSoD19NrdrpilCXpNReX7RE96MFFFphDn4XWH5dS5QZ89C
+	hNqacLnh32Ub4mKnXK5tbPLsxGkWAm6lDSuz7pGcdhq6J7fF5ns8Gg+IgwvbLEm/
+	4AWQC5NmZpXhbEp8PzIBChDCjXmsJEZ4Xlo0jMCKDFzz0ZX0ci83hFXABZe1Klqf
+	qgM9frxjGNRVUFDolE5feaUOUv/vPMk2VOjjPxJUPpCE3kmXkXnDVgg2jK9bvsOD
+	q2FgFYtQTrNdXYMIOOZqF6+VZVFZvvnz48DHvx4X5Z7LxHdYF2ZI/e7Og4K0zqBb
+	TOuDl4jq4og2SbZVpdla34llsOJAPKwBYCQ==
+X-ME-Sender: <xms:yA6YavaUMuF3aTBncCSjFYNIFWb7KxQb7VVygQN4ZthXEQK4mKvjWQ>
+    <xme:yA6Yajm4pivoUPPvBSM4wjKobq3p-7bwWvkEJVK2aAfNjTvLup7Z28psPY1BACnSO
+    mmNGIzMkc8SkIrFA6S0r0L_x5t5DTfb3nOehxYPWyib5pZpAg>
+X-ME-Received: <xmr:yA6YalUudsE68TE07Rj_x6kAYehz1dZSOi9NXCrzNSEji021mZTIHMgjjLPOgJmnVAbWTX9iZUosAFC0RBDAWteVGQGzZ1JMnJa5IBbFJJk>
+X-ME-Proxy-Cause: dmFkZTFe488197dB6Kik+J0Fs7xaGaBq5nNfTkYsjiWm9HfNozAMDVGdAgxUgOIiADB8Ll
+    CHhgKEkZSuR1+dCHfrf0f20PU4fd+cYta99XPtep9/mBv9tqyy0VkUrCWj6pQcI/cNFo7C
+    gs3JGCFUPhZ9h4WOluGPu/wrrzh4J/LGGMGfqnlyNNgyazV+QgUSUBfChGTlqa7ZM37zco
+    2fgefX2SQV94ZqSd72WCc6NudRzhoJlZQ6QMMN1KlOZ0SfaWQeZGcqibcG9LdHSH143J4r
+    3sm5gLtJX+puYCqsUh9gGVMGRQYv3jVnuNqo99bW6sJOPqR3BODxE6UmZCNy+KX1hkf3Zz
+    W8JmuXTectD6FjtDckpY8DK7HKlgcXqQ3p3JQRR4POTnMNtkKg8sUh/acwNe0pgw6TL+un
+    gMmXzpbOhOvQliQBudC/lNWxKWB0nlWugR0xI6iUYjuNyevu1iiv5uKQ4cSReUtcSZo5vI
+    duNC0EPxawBJ9ADrt42y/+MvWGw9CjXWGJXLroEFW7AwzEVgQSpaIZF2lynoFRGPDxxcmZ
+    R+ZtzoMBE4IgZcexAEyrtqOKHCSR0C24vb1Vsqv97K3i2qM+BPpRsl9CIxe3RClpeFEj6J
+    yjN3b+u+lHVse6bmVg/3i4cCoS5E7lNmPQ/iJUSlFivzHFGMMSZ80wACj+4w
+X-ME-Proxy: <xmx:yA6YalJXbJcQ8Hw2U3s7TeOp9t3bIg4PoMtGKCre9OADACUUqe5hhA>
+    <xmx:yA6YalttqE3fwQoIwpYoe8MiPorA046m5b3G9ocPq_940y0RhPx6EQ>
+    <xmx:yA6Yaq3Rul0ox9wyG3RuMzSgQtYT8gG_KqfE-OieM8HZgLgDI6vvxQ>
+    <xmx:yA6YatNFJFUFLGyXBL9O4vTJChbmrD-MoQxCScChJO_XORiejELPNg>
+    <xmx:yA6Yaknp1r1vYNNpzbMna-fqvzvzGYVwoyi1c0el68GjgPsHbsg2QbRX>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 07:55:52 -0400 (EDT)
+Date: Wed, 2 Sep 2026 13:54:08 +0200
+From: Greg KH <greg@kroah.com>
+To: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <2026090258-zealous-oyster-2874@gregkh>
+References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
+ <2026090256-impart-headstand-7d29@gregkh>
+ <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
+ <2026090249-rework-vividly-5abb@gregkh>
+ <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, vladimir.murzin@arm.com, ryan.roberts@arm.com,
- peterz@infradead.org, catalin.marinas@arm.com, david.laight.linux@gmail.com,
- stable@vger.kernel.org, ruanjinjie@huawei.com, james.morse@arm.com,
- yang@os.amperecomputing.com, cl@gentwo.org, maz@kernel.org,
- david@kernel.org, ljs@kernel.org, will@kernel.org, ardb@kernel.org
-Subject: Re: [PATCH v2 00/20] arm64: Preemptible this_cpu_*() operations
-To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
-Content-Language: en-US
-From: Usama Anjum <usama.anjum@arm.com>
-In-Reply-To: <20260804170503.3513916-1-mark.rutland@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
 
-On 04/08/2026 6:04 pm, Mark Rutland wrote:
-> This series reworks arm64's this_cpu_*() operations such that they do
-> not need to disable preemption, avoiding related overhead in the fast
-> paths. Instead, the ops begin/end a "PCPU GPR" critical section using
-> unconditional/posted stores, which should be very cheap on any
-> reasonable micro-architecture. During a critical section, should a
-> (preemptible) exception be taken, the entry code will apply a fixup to
-> the GPRs containing the percpu offset and the generated percpu address.
+On Wed, Sep 02, 2026 at 07:42:36PM +0800, Gao Xiang wrote:
+> On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
+> > On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
+> > > Hi Greg,
+> > > 
+> > > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
+> > > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
+> > > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> > > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+> > > > > 
+> > > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> > > > > Cc: <stable@vger.kernel.org> # 6.4+
+> > > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
+> > > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> > > > > ---
+> > > > > changes since v2:
+> > > > > - add Reviewed-by tag (Gao Xiang)
+> > > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
+> > > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
+> > > > > ---
+> > > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+> > > > >  fs/erofs/sysfs.c                         | 2 ++
+> > > > >  2 files changed, 3 insertions(+), 1 deletion(-)
+> > > > 
+> > > > Why is adding a new feature a stable thing?
+> > > 
+> > > It's not a new feature (Also, this patch has 3 lines diff):
+> > > This is a bugfix to address the missing part of
+> > > commit 6a318ccd7e08 ("erofs: enable long extended
+> > > attribute name prefixes"") since every on-disk features
+> > > should be shown in `/sys/fs/erofs/features/*` according to
+> > > the definition of:
+> > > 
+> > > What:           /sys/fs/erofs/features/
+> > > Date:           November 2021
+> > > Contact:        "Huang Jianan" <huangjianan@oppo.com>
+> > > Description:    Shows all enabled kernel features.
+> > > ...
+> > > 
+> > > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
+> > > to indicate this feature is supported since Linux 6.4+
+> > 
+> > Ok, but as this has not been present for a very long time, did anyone
+> > even notice and need this now in stable kernels?  :)
 > 
-> The scheme is described in detail in patch 13, and is similar to the
-> approach Heiko Carstens applied to s390 [1], which inspired this series.
+> I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
+> anymore).
 > 
-> Please note that the fixup IS NOT a restart. The GPR fixup in the
-> exception entry code DOES NOT alter the PC, and there are no necessary
-> branches within the PCPU GPR critical sections.
-> 
-> This scheme should build and function in all kernel configurations (e.g.
-> regardless of KPTI, SW PAN, CNP, VA BITS), and has no dependency on new
-> architectural features. The fixup logic should "just work" with kprobes,
-> etc, and I don't expect that this will need to become more complicated.
-> 
-> The patches are organised as follows:
-> 
-> * Patches 1 to 2 are preparatory fixes for latent issues which were
->   found by inspection. These will need to be backported to stable, and
->   have appropriate Fixes tags.
-> 
-> * Patches 3 to 6 are preparatory improvements to code generation issues
->   found by inspection during development. These aren't strictly related
->   to the PCPU GPR scheme, and it would make sense to queue these even if
->   we don't go ahead with the rest of the series.
-> 
-> * Patches 7 to 12 are preparatory work for the PCPU GPR scheme.
-> 
-> * Patch 13 implements the core of the PCPU GPR scheme, with all the
->   necessary exception handling logic, and the addition of helpers to
->   begin/end a PCPU GPR critical section.
-> 
-> * Patches 14 to 19 convert this_cpu_*() operations over to the PCPU GPR
->   scheme. These changes have been made over several patches to aid
->   review and bisection (if necessary).
-> 
-> * Patch 20 removes code made redundant by earlier patches.
-> 
-> I've given this build-testing (with GCC and clang) and some light boot
-> testing, but this hasn't seen significant functional testing or
-> benchmarking. From inspection of the generated code I expect this to
-> have reasonable positive impact to performance where this_cpu*() ops are
-> used heavily. I would be grateful if anyone could take this for a spin.
+> Also it would be better to port this into stable kernels so
+> that users can get the supported on-disk features in a more
+> unique obvious way.
 
+Ok, that makes more sense, sorry for the noise!
 
-
-tl;dr
-Comparing this series with the page-table series [a] gives 8 improvements and 3
-regressions.
-
-Fastpath is a Linux kernel performance benchmarking service. The table
-compares the both patched kernels: positive values are faster, negative
-values are slower, and (I)/(R) indicate statistically significant
-improvements/regressions. Unmarked differences are not significant after
-accounting for confidence and noise thresholds.
-
-+---------------------------------+--------------------+-----------------+-----------------------+
-| Benchmark                       | percpu-pgtable [2] |   gpr-fixup [3] |         gpr-fixup [3] |
-|                                 |    vs baseline [1] | vs baseline [1] | vs percpu-pgtable [2] |
-+=================================+====================+=================+=======================+
-| lmbench/lat-mem-rd              |             -0.26% |       (I) 1.24% |             (I) 1.50% |
-| micromm/fork                    |          (I) 1.10% |       (I) 2.46% |             (I) 1.35% |
-| micromm/munmap                  |         (I) 18.10% |      (I) 19.78% |             (I) 1.43% |
-| micromm/vmalloc                 |         (I) 11.92% |      (I) 14.68% |             (I) 2.47% |
-| mmtests/hackbench               |              0.27% |       (I) 1.09% |                 0.81% |
-| mmtests/kernbench               |          (I) 1.19% |       (I) 1.18% |                -0.01% |
-| mmtests/sysbench-cpu            |              0.01% |           0.06% |                 0.05% |
-| mmtests/sysbench-mutex          |             -0.85% |          -0.14% |                 0.72% |
-| mmtests/sysbench-thread         |         (R) -4.49% |       (I) 3.02% |             (I) 7.86% |
-| perf/futex                      |              0.55% |      (R) -2.80% |            (R) -3.34% |
-| perf/sched                      |          (I) 1.61% |          -0.39% |            (R) -1.97% |
-| perf/syscall                    |          (I) 1.54% |           0.98% |                -0.55% |
-| pts/memtier-benchmark           |          (I) 2.37% |       (I) 2.51% |                 0.14% |
-| pts/nginx                       |              0.42% |           0.96% |                 0.54% |
-| pts/perl-benchmark              |          (I) 1.83% |       (I) 1.63% |                -0.20% |
-| pts/pgbench                     |             -0.09% |           0.55% |                 0.65% |
-| pts/pybench                     |             -0.05% |          -0.07% |                -0.02% |
-| pts/redis                       |             -0.00% |          -0.04% |                -0.04% |
-| pts/sqlite-speedtest            |              0.15% |           0.44% |                 0.28% |
-| repro-collection/mysql-workload |              0.73% |           0.25% |                -0.48% |
-| schbench/thread-contention      |              0.42% |       (I) 1.04% |                 0.61% |
-| sockperf/echo-lat-tcp           |          (I) 2.88% |       (I) 1.69% |            (R) -1.16% |
-| sockperf/echo-lat-udp           |          (I) 3.93% |       (I) 5.11% |             (I) 1.14% |
-| sockperf/packet-tp-tcp          |             -0.41% |       (I) 1.37% |             (I) 1.79% |
-| sockperf/packet-tp-udp          |          (I) 1.45% |       (I) 1.49% |                 0.04% |
-| specjbb/composite               |          (I) 1.39% |       (I) 1.65% |                 0.26% |
-| speedometer/v2.0                |         (R) -1.04% |      (R) -1.04% |                 0.00% |
-| speedometer/v2.1                |             -0.10% |           0.10% |                 0.20% |
-| syscall/getpid                  |             -0.98% |           0.52% |             (I) 1.51% |
-| syscall/getppid                 |             -0.43% |           0.14% |                 0.57% |
-| syscall/invalid                 |          (I) 3.06% |       (I) 3.56% |                 0.48% |
-+---------------------------------+--------------------+-----------------+-----------------------+
-
-[1] v7.2
-[2] v7.2-percpu-pgtable [a]
-[3] v7.2-percpu-gpr (This series) (Based on email review, we fixed SDEI to restore x26
-    instead of corrupting x22, and adjusted this_cpu_write() helpers to
-    avoid GCC overflow warnings.)
-
-The constraints/workarounds for the per-CPU page-table series were supplied as
-this Kconfig fragment for all the different runs.
-
-CONFIG_EXPERT=y
-CONFIG_SMP=y
-CONFIG_ARM64_4K_PAGES=y
-CONFIG_ARM64_VA_BITS_48=y
-CONFIG_ARM64_VA_BITS_39=n
-CONFIG_ARM64_VA_BITS_52=n
-CONFIG_ARM64_PA_BITS_48=y
-CONFIG_ARM64_PA_BITS_52=n
-CONFIG_UNMAP_KERNEL_AT_EL0=n
-CONFIG_ARM64_SW_TTBR0_PAN=n
-CONFIG_KASAN=n
-
-[a] https://lore.kernel.org/all/20260715180455.515692-1-yang@os.amperecomputing.com/
-
-Hence:
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-
-Regards,
-Usama
+greg k-h
