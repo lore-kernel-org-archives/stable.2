@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65694428463
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 22:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3784AD7C1
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 22:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387269; cv=none; b=dWRH+U+KKRkco+nBEF9o24hx53VXn6eac70nhQ+uHeLWVhR0ROLPvHKkwp/7XlQvgE2LQlPd04zjGgsilR5YVxVxNKCDU4qU/bZ1WsXCJC7TXhMmfhIbXvukk6rURkbnBEzM11FqR6807exEkDsC79glP1sE0DlDAYl/Df802Lg=
+	t=1788387273; cv=none; b=vDuZPHNM9eIwGGlEK5tWtv5R1Kq3WLtVMh93d232YtavS1sVTWesZDya+ZRGw4s9c5OS7RtVzheBe4r7uDeHCkN8f1c0EUkbFnAaiPDY20M2X5Kf5KW+Gxm1F9nueSrKwKCbXBjnfDNFscu3IyoUwxfbL5uBUR5kq7ptgb/CsNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387269; c=relaxed/simple;
-	bh=CXGzpUIxcmvQXH1k5OgVgz6HfovhIr/abcXS19mcn3M=;
+	s=arc-20240116; t=1788387273; c=relaxed/simple;
+	bh=WFR8DKiWR9Frgxh1Jbg961KktCcw0qTeHalkaoSsJOk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZoObdQSxBEHLYrkzdG5EWYEX0O49qH4DHpaCSUzYEFBGWh7JUP4uQ1Jyl+xk2he5EXj5KeOlnW1VHNwdWGny7uLuvaCrIUNM4F1ClAZVsieQy2xEraWxO3Mn458xfLc+G49qZf+Mk4BK7UKO4pPIAY/V/qyO/qERv/9yCM3zk0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVmz8qdm; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FFAW60xZkinTgDEfY3I2Q3oXHq6i+fL5qarBf9xM7FzRCAO609WffOzjc/rCO3Pta4Ma9hmpnb9ccR/h4V+kzyxIYWS95rZUFJxeyGdO043VAdSeGs6CJAKqa1qMzK5xzMd1roH2zdkJpEdtgKdZMI8ET347nx5vgDIjxC24ZkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQhvAX9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVmz8qdm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53921F00A3E;
-	Wed,  2 Sep 2026 22:14:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQhvAX9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8431F00A3A;
+	Wed,  2 Sep 2026 22:14:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387264;
-	bh=LytUEMbNrozrHwVFLHv8pXINt2Kt+sy84mdvwXFQli4=;
+	s=k20260515; t=1788387268;
+	bh=BeKrpZq5mhUAqmrvj+af+SkcIEUxkxq+VzRPeOwyvPs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SVmz8qdmqp26r3Y4MAzMAsjqAZvmQZBh9m79DRnypZ4MZjnzwfnUHpjtPGDGr1L4V
-	 X0V6jJadFCTWhK6AP97zrRb3FGZPQ92MZZVLZGJFz/99QFrcfQv+IK8ZgARSrEUpHh
-	 QM5W99EGTkDQAxlXKABdR+x23lqa1yqUwUxcs0w/wdaThft3AajeX1YP/WAq9hPPSa
-	 AXiMVzC/sBusETpTi2SKOscSH3Teb7zvr4gwIa/QIIs4YMvkzY/b/vocUQqFzMzha4
-	 F5+3Ck8e6euBbsZv3+JushS4nMHMCC/BH8jMkxY91fh538sQMz+JYutkeI1vW04saO
-	 nYQMi26KPC+mg==
+	b=NQhvAX9JlV7JiyD/wH64v6qBnMQIzSU8qXCkWi5tgMMHCDbxL992GIQBb3wOCKMaB
+	 ye1zINJvAH2Bh5nUveEOaMMUuwIPVyRVRB01dZQ2vhCb58h7DItN+RPCn8/uH2VFlQ
+	 K40gVLc1V3y4sxbOLVJQUMmqGJFWOb0rKvNpU9fEk9gTtpFpX1etx34KkAlfybzZ0T
+	 dsN1aLinoBhVItye0Zjdk5F0M6bRpGWw/C1klTJPTEZpwHXZG+bmXl+o4a/mlOMxjl
+	 vGdfOvU/Sfzm0JC2OX4pisESzg4+uiucdP0fva12rYUwvK4ILciKL0AGwEskiyzqIY
+	 6+M9fG6aq3Ivw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jerry Zuo <jerry.zuo@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Sun peng Li <sunpeng.li@amd.com>,
-	Wayne Lin <wayne.lin@amd.com>,
-	Dan Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 7.2.y 1/2] drm/amd/display: hide Apple Studio Display secondary tile
-Date: Wed,  2 Sep 2026 18:14:03 -0400
-Message-ID: <20260902-daily-reply-0004-apple-studio-display-7-2@kernel.org>
+	Rochan Avlur <rochan.avlur@gmail.com>,
+	syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com,
+	Miklos Szeredi <mszeredi@redhat.com>
+Subject: Re: [PATCH 7.1.y] fuse: wait for FR_FINISHED on abort_on_kill to prevent use-after-free
+Date: Wed,  2 Sep 2026 18:14:06 -0400
+Message-ID: <20260902-daily-reply-0007-fuse-abort-on-kill-6-18@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901150222.2671040-1-mario.limonciello@amd.com>
-References: <20260901150222.2671040-1-mario.limonciello@amd.com>
+In-Reply-To: <20260902013656.17291-1-rochan.avlur@gmail.com>
+References: <20260902013656.17291-1-rochan.avlur@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,12 +46,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The Apple Studio Display exposes a 2x1 tiled panel over two SST DP
-> links. The primary tile advertises the full 5120x2880 mode (with DSC on
-> the bandwidth-sufficient link) while the secondary carries a per-tile
-> 2560x2880 timing on a link without sufficient bandwidth.
+> The abort_on_kill path in request_wait_answer() calls fuse_abort_conn()
+> and returns without waiting for FR_FINISHED.  If fuse_dev_do_write() is
+> concurrently processing the same request (FR_LOCKED set), the caller
+> frees req->args while it is still being accessed, causing a
+> use-after-free.
 
-Queued for 7.2, thanks.
+7.1.y is EOL, so I've queued your patch for 6.18 instead (it applies there
+unchanged); 7.2 already carries the fix. Thanks.
 
 -- 
 Thanks,
