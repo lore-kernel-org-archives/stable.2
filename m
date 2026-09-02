@@ -1,126 +1,109 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E51D38D40B
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 20:42:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381723; cv=pass; b=fBCpai3mwxPc+vY/pmhReSik9CdS1CQMoXW8v6lmM1IKWIAyXbweFFFNodl/trW7glVTaMXUOIZAtiKxAm0gta96LCqO422ZktsqL5J6oO5MwhdB/AOPHUrnkrig8NDpLrwsKGybjOQKZt6ULL17GF7ju9jXCxr2tutWP00MkC8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381723; c=relaxed/simple;
-	bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hFc7OnY3iCRetPEIEfmqW8jQ0ATbAV3v//eKh61KHaOcHm+6KpJmRM712aYNHANAFeSu494k9JCraZT1DZG9ob0NoeKZUnybVWEcMCz1/KYWI5F2t14easHhO6JvDNN5eejVIU/gwM4moiyO699/yfBGEuPU6zpnJ82NORELQK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eISHAEUG; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF49B3F0A9E;
+	Wed,  2 Sep 2026 20:59:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788382759; cv=none; b=dy8p0lp2k+zGH2b58dlMj4C1pOkHTF2xwt6fLWVu1EsydKn8c5t5gpUxmDWypb20NkDO+wN31ycbCb3toyuV6UmPtHT2jv0nZeolX1cF0soNFWULMEdY+5POy63KW3aNEFKGqGVxTGD636jdZGZqVSJ4OM4r02P/G+s1OwDWqsk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788382759; c=relaxed/simple;
+	bh=2yPq24tA6YClNswDNkTds3749+YzYZnAHrZJEVgmSRo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=o+7IimLIR6NoaIn/83xAEyh3Bl6gioLVq/cXtQoAGI/VSbk5t1mp8qPv9CIjplot9yWl3AHXj4AXY9Yeb0nNZW6rwOQipvVwmSNpyW7Lwz0FlsHg6Ao57gNL4w8Ao07pUOT9wVB4tiMOroYYkqPKZirYQg1xxMHsiYK2JU3oSY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QGY0/UN4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eISHAEUG"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25366c9b42so178336266b.2
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 13:42:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788381720; cv=none;
-        d=google.com; s=arc-20260327;
-        b=D1M9dUTJrvM6MkIZ+KBFv4PSIeMEOmH96zI8Q+ta1vmhH6fFxZG2r1KjijQPBrcC6i
-         E2ia19rAruM22IHl/xqRHr0rr9vDyDQFXq9MyHr1NaDC7qL5cGDOYn3XX2A6vuupMCK/
-         v4SLOr64IByUspPibrhphYWGoaqslJAkQP59Bjsbxfsna0xXtlbS4igfg1YTTNTcEalm
-         ZMV2rH1K9LPmE/TSz/hzvwi48h5m+ySOKhGzLnrbuxSt1Ffs4cESNuHm9yljWQAxLfHG
-         TXkR/221telc3A189Fy+nSyeePjpgFFEbXPDm7Dy/vUz4eCLkmjo84gNAceBgd2VLmQq
-         lRpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
-        fh=phAgQhhD8Ut2X8YeYeV8tC4bxxg/siGPQvT3WwT4Woc=;
-        b=TbBiyq4ufOB1jUM7mFhD/PNTPPFjvlwCh4tHp1nXQ4P0jcqMHyW9SPD/Tm/6O9ASFi
-         QxezsTon9ugxq3hB3fGcmIXCnOJH1/YBcX5teZs4unFDFx6PZzj6AYLidNtkYUaSxYsM
-         LzI0jIyz69rhkmK9gDUi+S+unQdQt0rGwgdFc1LicoRQyFMV0dCUmZs3y8OZDY1MPMEK
-         62uaFqkYxJpTQpl24dx8p+Ox7qrBvVF65kpfL3N73CnCqoikNiyDW7ThNjuncPVsdjx7
-         uyHxr7fiAkXY7psPDqZKeCaOw6UTXowert74cUh5cCD15DPuQXxX7IBUlNPJqA8eGCjY
-         y4hQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788381720; x=1788986520; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
-        b=eISHAEUGc2SvT3CzeGltwiFcHZnnQ6ea3r4FAD2xyVcfAG/VyOGHwDA9Z3yjFOQJ0w
-         kzHEI8gGtapjd3A+ASTnVUWg7KmDvreDcJGHaZXsTAwBeYSsCHt+EP4Pm93zLwJq1HH2
-         FmFe25mgsH5saIzWOf6nySwrcKAeb8TtdQb3fw2xJAJezcoblDXU4Ef5E8p86Mzc1OZ3
-         sI37kFVbl4XFHf/DjlQbDhgWycRaj8SLL8PTj/qU48GV3ez7SY5rlBBnT+hFp5SoiUwX
-         skuLkcfjxRRESvetK+EBwLfmjTJiEGphi/5FgBppHKY2JXtzdsvgFZ9V0fmm32l5h37a
-         J29Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381720; x=1788986520;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
-        b=fEaN3iIemFWKIbQmHWm/waVr43y7hrOnvqSwjqOGIknPuRUw/+R1BHDnFXFad0PQRY
-         nZLhC7O6RCwxQahbIWEVizLl+EoF3B4fbd3JF7jWuAjqsqpwL89toySlw8Y/kG7sRtKT
-         irqYHoO0uUQHooa8C8ZJ8o3ztTy5di+E/pAZGsRdSJbeh1ELArVTKKXJSJ3c81lPg7QT
-         VaQVQ1CodjNqY+A4YjOlz5O+xJSOdjsDcHQuN5C+YYX52VQiX9Q6hUUjbBi94cGtFpz3
-         bw1IQHWVeXLchHhSdqy9dmmy3TEhX6p9cbbXH1KRUgR6t5ouFq1Rx4KzUKp0P0jBO3F+
-         /Wsg==
-X-Forwarded-Encrypted: i=1; AKwUvBx2YhUXaVDIwlwmaAE3J2YgW2owikmlhI8iFo5a0D9+c9tE8hwZ6bBbi3xhYiobduO04fy9ICk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuXEfLvQrop6vcz3Ea3FVDw/NmUPCww4DaUBtkGNU0OwrGpLM9
-	7+dm+n2J8vBd/LfivOnH+xJZ6ynqtrc4OhmYDGBdmpVf652jrCGNB6VcW4XHv4c59+2XWh4EQ3b
-	++np+eQPzo1NXWwyjcYPuLmgG/BI1NP+dmPKuAa+G
-X-Gm-Gg: AYBFou0Ftc4jIu4pNlYpJvc+Fgxeomzl1uxWUWqbE9p39mD5nRpjmo9oHmN1l9IGG9I
-	pwf3mlgL84pL/qlFCACPU9YIRzMes0HSjJuPPlglTL/ppRe89+zyzgIgid69bSXh+zsYYwlwn72
-	WnfjA1LOdsVgtlnyBID7rKSH7dl7PY4233ZVh3hQVwoah0+bgBhk3juwi3C1KH17TAuUzPhRb23
-	FQ6DkPO+RRu+wN54OsOo3uel0HNxRYqz9y+BXt42JwlQm2DcX5pWcwW53otwalsB+LKyNVNVrNj
-	LabUvmwi6tnpUVwDF4aUAytW0iI7ZNExbO1kfrRxIB708AOPqGrdD4ENo4yuaTwfyYZPw746bsl
-	KxcmgzQNhwEvZUago4qB6KLgTkTBkMKtNVcr6Iwn8x5UrlB7iMlrShE2+UNwi1/c682ULgcI5Ng
-	qANz4vKqgsa8DJ
-X-Received: by 2002:a17:907:c78a:b0:c25:541e:be7d with SMTP id
- a640c23a62f3a-c25d55b8807mr567367566b.18.1788381719836; Wed, 02 Sep 2026
- 13:41:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QGY0/UN4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DB7BC2BCB3;
+	Wed,  2 Sep 2026 20:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788382759;
+	bh=2yPq24tA6YClNswDNkTds3749+YzYZnAHrZJEVgmSRo=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=QGY0/UN4Jw5kQ0nJGtNe5SWgcH0dLDJ37N6Tk8nMHnQ/D1HfjB60AFveJ2ohyDyrM
+	 hdwR0ReaWr74HYjARAdCVybQhoe0Nlg06N9z21iW0rk60CLZxDq7JPAQPcPvEuQeqD
+	 re6mGAXiHxwO3qXGMNTqzA/AbA9MPcGSRoqxAWVQYD3eHQno5H6suSEwEEgLrSDpCX
+	 81UftXxA8InSCATklsYx4AZZWQQ0KoyviUy6zZ6OrnF26QajhBqAHzYKkwLfR8cFvk
+	 leo9eGS4dm3vPlYvNzju+2d0HMjDHt2IifUk6vsTZFoJ2clHeYcw8HNS0KjcEUtPSO
+	 VJeu+/zPSoYvg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD99DC624D3;
+	Wed,  2 Sep 2026 20:59:18 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH 0/3] NFC fixes for Pixel 3 / 3 XL and support for Pixel 3a
+ / 3a XL
+Date: Wed, 02 Sep 2026 22:59:11 +0200
+Message-Id: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828094703.11081-1-lance.yang@linux.dev> <20260829052606.49470-1-lance.yang@linux.dev>
- <CADrL8HW3=n8VqW+7YSb2kyhkHidNKGy32+2s7A0OfF+oYoAifg@mail.gmail.com> <apf5xBqj5560JlMD@thinkstation>
-In-Reply-To: <apf5xBqj5560JlMD@thinkstation>
-From: James Houghton <jthoughton@google.com>
-Date: Wed, 2 Sep 2026 13:41:22 -0700
-X-Gm-Features: AcwNN1XNWP54Rwi-EWw78kODWTxBfe6WSk0GmMqznEozoElZj8yD1pyZq6NZGNw
-Message-ID: <CADrL8HXg-Ybh9Lqgo08VSCtyD=8byMOZZJqEDgdr_+=p_KwYaA@mail.gmail.com>
-Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
-To: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, 
-	ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
-	shy828301@gmail.com, zokeefe@google.com, hughd@google.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDsQo8baq0gXJk50CkbJWBHEu
+ zfV5Vv8f4BQZBJ4ZQdE2lh4Dgn5IwM3dmEg5D4ZtNJGPXWD0k+mVihdHGYM3qGtGm8Lqk3pckj
+ ZEsnzfi3b92352g+59f+B8/wBN2vVwXQAAAA=
+X-Change-ID: 20260829-sdm670-sargo-nfc-b59fb3e764c1
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Richard Acayan <mailingradian@gmail.com>
+Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1059; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=2yPq24tA6YClNswDNkTds3749+YzYZnAHrZJEVgmSRo=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmI4kVvZaT5aEgyznsdkdHm7RGxkfbMrIlMbdb
+ VF0rbN2zySJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapiOJAAKCRBgAj/E00kg
+ cnQ2EADPSTvuKtaTyYYEb8gtS/W4rYt9XCqpwYQK/U+0XURknWZemdKvl8OPrZVjE2rz0pdM7uS
+ MxKV2qhjMRmlhJp0xR1CxPEJ8JKu0ZgmWkEgsht656KrB9lUyzOROELkwMR3Y1D5wttg+zAbBYM
+ SWvzB+V2ZsZLDpWR/zcsJoXcwnjeJ1qRdQWPX4tG+bXSDv46NJpMN0h2BAubVeDhP+l4AymfRmc
+ M/f3nGrWO+o3k9PYqOm5n25+4bK6H4VnbePjMgc+uoDBlF2xXR7HBzzkbZQyJ594Hqfq8CT2sGm
+ TX4GsIGTimmmUhQSBGUbq46Ycm5o5wzsOr2PyGc9Pfekux29rmzA+Ew9kVJB+veVsmYQsxRyf3i
+ Ovr/nhX7amumzeUNpNN3UTOLJKW/GSkMJx1nB6NWX7RkDb5lKbAkdhiF/s2Yu6xkRzctW8OX3I3
+ 51zPaxa35FtpxsiKY5y6c6GzdAIUzVXu7n+jLrnw8fn+h6Txc4k1EMpVYVy0sAypaCFPtKB4xnQ
+ jL2II1HVn9d0bGF4wD5exdaoacolffuTOEvaochv87RU6NJVvRLJAg1n7DglyXfMv6NBiSSQrvW
+ QrxwpUMu9WzUwWBD/6SB5EDu1gssm3B9z6zcyLpDWv/AigNsBfql8uCoK57OHtvoFmY5FLU8Df3
+ TbPvBk+m70rYO5Q==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, Sep 2, 2026 at 3:27=E2=80=AFAM Kiryl Shutsemau <kas@kernel.org> wro=
-te:
-> On Mon, Aug 31, 2026 at 09:51:33AM -0700, James Houghton wrote:
-> > WRT the semantics of process_madvise(MADV_COLLAPSE) and normal
-> > madvise(MADV_COLLAPSE), I think it makes sense to always disallow
-> > collapsing of UFFD-minor VMAs, whether MADV_COLLAPSE comes from our
-> > own process or another. UFFD-minor faults are intended to be resolved
-> > only with UFFDIO_CONTINUE, and until someone asks for it, I don't
-> > really see a need to make MADV_COLLAPSE actually work to resolve minor
-> > faults. I don't think userspace can *rely* on MADV_COLLAPSE resolving
-> > minor faults either.
->
-> It is safer to go with stricter policy: reject always. We can always
-> relax it later if there is a use-case and reasoning about the interface
-> is solid. We don't have it yet.
+Increase i2c bus frequency on Pixel 3 to match Android kernel, cleanup
+the device-tree and introduce NFC node for Pixel 3a.
 
-Thanks, Kiryl. Sounds like there is still value in this patch then.
+Changes to sdm670-google-common compared to sdm670-mainline:
+ - rising edge (same as for Pixel 3)
+ - split pins of the nfc-default-state
+ - removed comments and used right compatible
+ - dropped eSE gpio as it's irrelevant for the NFC part for now
 
-Unless Lance disagrees, I'm happy to send a v3 with the same diff but
-a rewritten changelog (and no cc:stable) reflecting that this isn't
-actually currently an issue. And I'll include the uffd selftest change
-as a separate patch.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+David Heidelberg (2):
+      arm64: dts: qcom: sdm845-google: Set i2c3 frequency to 400 kHz
+      arm64: dts: qcom: sdm845-google: Improve NFC pins description
+
+Richard Acayan (1):
+      arm64: dts: qcom: sdm670-google: Add NFC support
+
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 42 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 36 ++++++++++++-------
+ 2 files changed, 66 insertions(+), 12 deletions(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260829-sdm670-sargo-nfc-b59fb3e764c1
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
+
