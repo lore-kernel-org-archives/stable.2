@@ -1,72 +1,72 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CE230FC33
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:27:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D955533FE15
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 01:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312440; cv=none; b=bw6t30uHJnPkT3ndADDYF+6BhUVhm1osbFtW7RAq9oUldCAk5Sc3kQ4NnlFqvVodzIeq+6RxlTvcPXQW7ltIBIGkSKajep1BeRSZv3axo+WnUbNj4u3VndOtmnl7IgvADdcHX02HxK3eP0fsgDnWLnh1VvvZontSsUDwvXz2gog=
+	t=1788312444; cv=none; b=bksKXhLhbFZ6wVstQKZ+kg8uqockojUQ/ZuxAINVmViauaZCDJnwSYvOOQi+F/C++b94YL1nFMmabRv53Bhetz1IP2chGbLuo/Qdo1406ivE53N5CNIcBoQNB2t8DIgQ+8P/f8XMuB93X42xQMmNIwOvvI6pAk9GQtVyz93xNPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788312440; c=relaxed/simple;
-	bh=JlqJQkMLfE8F8bIGFtwJfEZaXVD0yXG+K6DypbeL5hU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DV9sUVtqa/cqGE888xbhIB0v5zFRx3OUiXgxEFM2a4uHk+WY1wvVj9MkttLy8pT1l1rLv0BIqncLpT+NjDN5im0gibzFhB1ZXwDIK7fTO0JIKAry/gTUlT7MaT93VkO+Ow88n6hNxTE0ruAVUZsSAAUnT9blpuEHZujozBI2cTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M4par1pq; arc=none smtp.client-ip=209.85.216.44
+	s=arc-20240116; t=1788312444; c=relaxed/simple;
+	bh=Qm8WGKhjL1rfOfcBgZjBCZcdl8omH4KL+Zz05e0LOSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r/og9p8hTqsq8T/uRtONzCGTp0H2l0AdTvxJY+1ieHAHjLqE9qt8bB/lItbPFL7JkQlMAN/bkehzv+o3Cb1vbobFArLkq491B2ianlQyxv+fa4P/5zJv1vXMd1cN/LkOEcq0BDSwFld7C9W3l6fxzZPE4AOdtLgIS+rvSBtzs9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JqfKU4LQ; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M4par1pq"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so681010a91.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:27:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JqfKU4LQ"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so445165a12.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788312438; x=1788917238; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788312442; x=1788917242; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BrgdRCCQy4wk9/bV+rhJB1ZWew/obSOSpX6szpMZY4E=;
-        b=M4par1pqcNs1i1prMxAV9OpR36GDCkk05jQ77bzKzou4+45h3DL2bzL/JXBf7YmcpR
-         hXooErD7Op+u0Tm4hDqsUwwc8vDV7ZAwnx6PrGxqJ+3m4SD5xyo6J5ef8lGLijkGawp/
-         ZYnsifguqsHc6RGStLYBHNPirDuqrLEKEVyJXpjx3z88F0LolQ2efiCGJBLE3Kyj+PYa
-         oUnLNojlt+TEpkknUT7kYuLSB0c4tjB1iixi6qYC9Gejs9eTmRVHoEM77EX25Bt2BuEp
-         VNvVvhQ4gBWYxEtduRFilGcAymRODyPqfNe8JTh9htldARwZepaaKYIDVkej8lC1GrQi
-         8grw==
+        bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
+        b=JqfKU4LQwEya8OxLfaIl+dML4RPesj02NCeJnRwWfo1wj40GSyF9v5JHxLWlQ773Dh
+         WMjVyNOuNCqUWPsoM7V9WTzsuATpLoqZjefYM9anxG4xEl9gCi/rfqjz/Jq7ky0/KUoE
+         kGJFnuYrNkkQvBQQATFrdH0PCjHxigfXmHo2HZgUYNXWmFlw4HqTzx21W5RWcGqVDSve
+         +ddScoWuOPm3P8o6b4bSTmTPdm2c6KDj08dDqsxD3DLlzP/ZtZ3SNzja6yBxnCzB5p5s
+         R1JzMWLeAufybEAR0DyAgPeHn/MimMZ0z/x4qnyqpCrT6A7SDTJuoY1xziNq6TAqh4xz
+         keow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788312438; x=1788917238;
+        d=1e100.net; s=20251104; t=1788312442; x=1788917242;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BrgdRCCQy4wk9/bV+rhJB1ZWew/obSOSpX6szpMZY4E=;
-        b=KQ2Avxwd4O3OSw2ZLflE7LsWX4/ZyaRIeYqD1QFY6pd3/uCVyGBRpb5z1N8JZREVy+
-         rETOLRcwQSkBFK/WZfsnVpADw6hB0fXxP9wVVLfFHkTYaaMWtwkg5GqsLpyYXRiYlG9o
-         m6pLYDJRklxYzhgBBPtN4qQxqF24UcMnzXcS9I6bwH/ivbcGucE2Ea3Hf5tz05D8B5zn
-         lTNJndY33k7lcLes8d4fDrGb4DVVFoNO6U2X/k2JltFW3KGyGHcGuzHivJpDi0Z7gnIL
-         iTnj98bFkTtrihydO664zV5NbNGWoqftcz0Fd0OqX9q2zi6fKdH9gcTaZ9JUf1akBsU/
-         hg7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwrvNfd7sfNHy53HNCEufl1LJ/QnI9teRUWmklTxBubiVXZ2CZvyMz3xpY4h7cCN0n7yRJGDqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++k8pYeUv2vDCCKXlQZlgEEo4YISo8xN11I0RusuFCYQKribezdq
-	YdKlymluUwhnlNYcyDJrlhTkvGD4LNnvr9oPE0IpidDw71cQnnk3tFk=
-X-Gm-Gg: AYBFou12eTQLMnIA5uR7exX7wXN80PMXSsWVMz/73B00HlSYmMa/OHiOLLN7C1pIv1G
-	8Pxb1dgydK1rgjX1J4A//eOPnBgV53K2EyqfuM3Hf6yukG8DyBtyEmMsajKnqlVVjX/rXSQFE4I
-	hC/zWYORwSvdZAH/B/UVvoC5sRF6p8CKEimfnUC9yfxISoHYyGba2NKgGG4zlFDoC3VriJVI5D7
-	LC4/3+5X5z/KLox/PA5ZodiuAecHGt5ez+UWplj2B0aOs/BU6WA9Cl+FUNZV724AZ8uEfgRIks7
-	9CbW1REuysnLkM1tfgMOgipxdEtJtmTBT8JBztGrC0pRr1fBdTHK5WCPQ3FsRFUZFDaKzsifHTh
-	T9/O6BeRDMsxBo1/MXGclqKjyVlDhFr+zUK+/FDL4879A7izrYTV4TV+cbQN3ng6Cyg+baxtbJf
-	0JgHyOLotSsG+lkOPifVhpRQtsaFfhiuwWrOapBfBJFwFcBVW/jCmauI5r/nN7oavYZwEGm3z5R
-	DswlQKM99Loa7jzBcaicX5qDxc=
-X-Received: by 2002:a17:90b:4c52:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39aedf7c6aemr1567465a91.5.1788312437952;
-        Tue, 01 Sep 2026 18:27:17 -0700 (PDT)
+        bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
+        b=SbIXwI1AkOQTWoTqmrB0bANvREH3xHPIk2GCBdTvmRhtF3wsOMCYnrrN8EHUsrnPaW
+         4D5iO1jeL53/miNvVH7/qaZJYBg7LI176xoZWZrwqchkmVPnySOTHQKuUTLp7IVSesmO
+         UdkK5gxglfdc/DT+8axHH2Ii8AXQsi8jXe5zCK/HNDG5nK16QAzclrWbvsO7HfrmvPqf
+         LOuW2hgY7u//wVwvrfpdwjDJah/r68OoCPpOZPPjrerfK+4FZ3DsaGzDBifwLa/asPRM
+         Q0p6wKaflsJgeL+EdRv+fMfRzVCMgba1lxWNLOUXdeTzXzkN1ifBEm0nO6iTbs8y4Gdz
+         PjcA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9snOSwJGuJb3izGK+fGwWA6ugUfsEMiqeeq3SA4eNRhwbOP4pBfv+mrZ/HcUx/+6hRktgQPU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTpNaNcDxjyIMEslKrDZcv9C/aI19iD/yClP6Ya5NVP8OyFVCM
+	kocLeNJXI9sn6LnZOQa/8liAsLeaY3G+Vy2VHmqDJQ+W1qf2QneX17c=
+X-Gm-Gg: AYBFou3WeefDlgxZl1axc+W5wZFX1sc9xjFut9V0bZttwBlG96AnZv3a/vS9oMIedHR
+	vm3j9/iLR+Hnk1XzvFNoBvUTeorRYBtRPC59NOG1byNQdwHK6+9o+88WUuqEDIC4TlPHE/K4jvC
+	Vaert6wsBcL1U4WLMFxLnhAUEvuY+fubKpdMsMAmE4Iz52KjDLDU6ZwN6JFSt5MlxfTS36d+YcE
+	49hj4J337edupuysjuR00zNXEzMYdl+kxh7M6Ok/uCepR4iCE5R9JrgeTO4D9G9Jd9x++6cKRjs
+	fPsF7XZOE0pYSlA6Eh8G0NG54z2Ot/OtVjvdFnknTKPqyjHEkLOQHRox4ufQeQEi70ZmYeG8Yqa
+	EDgf9IH/JPY0DZNmiUAX/xGIanlqmXgBtovuqb9hJzevwHdGRfbTeEnoZF/rlg7VtME1miyoeLd
+	QmIx1MDQBpDJjjbqwGPn0BY5ZAil9Ha42Zc9YTQeLODElhgy4h6vCHvpPZMp0ZokGOb/i3JdG7t
+	rwQ7VI9JDMp7MZScJQ6G3DXhP84
+X-Received: by 2002:a17:90b:288a:b0:380:21b7:e727 with SMTP id 98e67ed59e1d1-39aee0848bbmr1717405a91.14.1788312442070;
+        Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
 Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0f2a315sm2443563a91.8.2026.09.01.18.27.15
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d7bb9d7sm8719236a91.15.2026.09.01.18.27.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:27:17 -0700 (PDT)
+        Tue, 01 Sep 2026 18:27:21 -0700 (PDT)
 From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Min Ma <mamin506@gmail.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Oded Gabbay <ogabbay@kernel.org>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
 Cc: dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] accel/amdxdna: RCU-free the scheduler-containing hwctx private
-Date: Wed,  2 Sep 2026 10:27:12 +0900
-Message-ID: <20260902012712.880520-1-malhyuk97@gmail.com>
+Subject: [PATCH] drm/nouveau: RCU-free the scheduler-containing nouveau_sched
+Date: Wed,  2 Sep 2026 10:27:16 +0900
+Message-ID: <20260902012717.880724-1-malhyuk97@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,62 +76,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-struct amdxdna_hwctx_priv embeds a struct drm_gpu_scheduler (priv->sched).
-aie2_hwctx_fini() calls drm_sched_fini(&priv->sched) and then frees the whole
-object with plain kfree(hwctx->priv).
+struct nouveau_sched embeds a struct drm_gpu_scheduler (base).
+nouveau_sched_destroy() calls nouveau_sched_fini() (which does
+drm_sched_fini(&sched->base)) and then frees the object with plain
+kfree(sched).
 
-Every drm_sched_fence produced by that scheduler stores fence->sched =
-&priv->sched, and drm_sched_fence_get_timeline_name() returns
-fence->sched->name.  The scheduler fence ops keep a .release callback, so the
-fence is not ops-detached on signalling: a finished fence that userspace still
-holds (exported via drm_syncobj / sync_file) keeps pointing at priv->sched
-after the hwctx is torn down.  A later get_timeline_name() -- reachable
-unprivileged through SYNC_IOC_FILE_INFO on the exported sync_file -- then
-dereferences priv->sched->name in freed slab memory (KASAN
-slab-use-after-free read).
+drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
+scheduler fence keeps a .release callback so it is not ops-detached on
+signalling.  A finished fence exported to userspace via drm_syncobj /
+sync_file therefore keeps pointing at &sched->base after nouveau_sched_destroy(),
+and a later get_timeline_name() -- reachable unprivileged through
+SYNC_IOC_FILE_INFO -- dereferences freed memory (KASAN slab-use-after-free
+read).
 
-This is the amdxdna instance of the dma-fence lifetime contract: the exporter
-must keep the driver data backing a fence alive for an RCU grace period after
-the fence is signalled, so a concurrent rcu_read_lock'd dma_fence_timeline_name()
-cannot observe freed memory.  aie2_hwctx_fini() already waits for all submitted
-jobs to complete/cancel, so the fences are signalled by teardown time; only the
-teardown race window remains, which an RCU-delayed free closes.
+Per the dma-fence lifetime contract the exporter must keep the data backing a
+signalled fence alive for an RCU grace period.  Free the scheduler-containing
+object with kfree_rcu() instead of kfree().
 
-Free the scheduler-containing private with kfree_rcu() instead of kfree().  The
-init-failure unwind keeps plain kfree(): no job has been submitted there, so no
-drm_sched_fence has been exported.
-
-Fixes: be462c97b7df ("accel/amdxdna: Add hardware context")
+Fixes: 5f03a507b29e ("drm/nouveau: implement 1:1 scheduler - entity relationship")
 Cc: stable@vger.kernel.org
 Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 ---
- drivers/accel/amdxdna/aie2_ctx.c | 2 +-
- drivers/accel/amdxdna/aie2_pci.h | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/nouveau/nouveau_sched.c | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_sched.h | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 4b3a62aa8798..26bd6e001792 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -842,7 +842,7 @@ void aie2_hwctx_fini(struct amdxdna_hwctx *hwctx)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index 2cbae003d6de..48dbb851df2f 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -516,7 +516,7 @@ nouveau_sched_destroy(struct nouveau_sched **psched)
+ 	struct nouveau_sched *sched = *psched;
  
- 	mutex_destroy(&hwctx->priv->io_lock);
- 	kfree(hwctx->col_list);
--	kfree(hwctx->priv);
-+	kfree_rcu(hwctx->priv, rcu);
- 	kfree(hwctx->cus);
+ 	nouveau_sched_fini(sched);
+-	kfree(sched);
++	kfree_rcu(sched, rcu);
+ 
+ 	*psched = NULL;
  }
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h b/drivers/gpu/drm/nouveau/nouveau_sched.h
+index 20cd1da8db73..51ce8dcf6285 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.h
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
+@@ -98,6 +98,7 @@ void nouveau_job_free(struct nouveau_job *job);
  
-diff --git a/drivers/accel/amdxdna/aie2_pci.h b/drivers/accel/amdxdna/aie2_pci.h
-index ea1dac106400..e08b8f64328c 100644
---- a/drivers/accel/amdxdna/aie2_pci.h
-+++ b/drivers/accel/amdxdna/aie2_pci.h
-@@ -107,6 +107,8 @@ struct amdxdna_hwctx_priv {
- 	struct amdxdna_gem_obj		*heap;
- 	void				*mbox_chann;
- 
-+	struct rcu_head			rcu;
-+
- 	struct drm_gpu_scheduler	sched;
- 	struct drm_sched_entity		entity;
- 
+ struct nouveau_sched {
+ 	struct drm_gpu_scheduler base;
++	struct rcu_head rcu;
+ 	struct drm_sched_entity entity;
+ 	struct workqueue_struct *wq;
+ 	struct mutex mutex;
