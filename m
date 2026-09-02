@@ -1,117 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FF981724;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9AC39EF1C
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 08:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337381; cv=none; b=CGqYtEHBDx+tdAS+taoRlb2fO/ATQmzDOqwCSTNnBYcZEM3MBd12761J0G+lt3aJzVLdbZIevQMQo4h7Nt7gaN83bk0kSPvF4E53u1kSDnsNJh8IwHrrcaOsxWtWuuIDy+oFGjz3TPr9htl0Pv9ivLmgY2cDlpyKcx9rjXBMmFU=
+	t=1788337390; cv=none; b=m8QMEanWW8cij4q/Gj216zoNBbyWOLguTMfduoBMAHGOVn8aKHedmVHEVLauB2X0sFM777nmcNU+xlTO2nZ2pi0euUw239yhfzZz0cLHJwQHkyvBgtxtnEg0h9OsqwsN1YEHWOGgR0HtH+IPghzf8oWIjJTXcjIiQu85ICe+wXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337381; c=relaxed/simple;
-	bh=pvVk4daAHR7Yy5UIGnTf8/tE6JkSvAWJQ6/StZs6/IA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J6x2DJjCa4vqjLV3v9lupEu5sw2o0Yt2Epv2d4C85RbZ6o/olnDKAcd5nauS7enKCY7JZCb4RFPDMB/jrSNQPDDwwbXtvxR9PVPZOcso8TL/UKJIkFCOCqD3m/Cfm5o2wsO2vEE3A8XtDUZFSPxnNLYQPTxzM1OlG3yIV2peNHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aqyQJ0C1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788337390; c=relaxed/simple;
+	bh=WUIcuXJOyZqQYohNaEb9UxJ2CFI101HXjzuhC6i6Eb8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=a4F8phMzguxxXIYNAS/AL+O5HmrHqR2uAOrp/LXW1XcphR3Pm6sd+/+wX61eG0QDafSWsLOHZ6DNTt5jOL6VF8VhFQROi33QW0CVoYXYV2ML8FxvMBbtAgdyXKmTacfv2UCnTyUr1Ek7YQfZfqaImvVBVyOUR+895HhIkXuVOAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=AExVUAv3; arc=none smtp.client-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aqyQJ0C1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 79DC7C2BCF7;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788337380;
-	bh=pvVk4daAHR7Yy5UIGnTf8/tE6JkSvAWJQ6/StZs6/IA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=aqyQJ0C1tP4t8Z+EYuN8h7oJ57FyX10cf6mxo4BTZOtFiFk9SJA9kYKvzbryAgGQP
-	 SEwpoa6f9Dyup2Rg3qyuPkQL8zBPRWA467KEI+USe8mF5hLXsbuG4tBGlw/yew+39N
-	 xVsCTM6kqE8kkRWWqJaVQzgjP6IIE1V5xkxP9VBTYtWMqbQPIUKj5r7HhJl6/Aiv2g
-	 XoNxGnTmSWn5ivHCifQta3hWKokmwk0fUnbFPw4wa9jDhr/A4SBzYKczPrWdQLWxUY
-	 Rwj7anhaAhTak844iM44kDZcMhx5QR0PtE5Us9/aPEzrRvl+qkdzwapPlNOULlG8jW
-	 DgK4CjByuwRKg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C449C624D4;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 02 Sep 2026 01:22:57 -0700
-Subject: [PATCH 2/2] mm: hugetlb: Drop refcount before freeing on memcg
- charge failure
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="AExVUAv3"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so1139784a91.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 01:23:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788337388; x=1788942188; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=swx5YF9h3/1MSn74lsdt/yXKjqG7gMOFtYAKP5a23y8=;
+        b=AExVUAv3W+4xSetJ6cek8KCo1wKUXy0aL/lg5rCP2BRIJbTmgeSSKORHuQya9rQrAK
+         UVD7LUaxjYryrbX9f+tGuO3EXLdTF0bkx0jwDtPZ8SzpGP2xe2e5kxtYjxpHGxf9COvv
+         H1+9BbD0yPQ4lq6T+RVImRUYQFJmm6QtyjVrOg94erT+xa9lytGZuDL4wzuCf5/YfbXI
+         PC2KWp0pZeV6NwtBXJVlGBh9BOXZVkVG4DKqMTJG7/BmUj+ZVjp0PbTC3M8Ger+bVkMq
+         O8T8BXB/7rpukomrhsbwB4LGyp2xfyMVYaRbuIBiPVkulcAYLXWudxx74oqBiWnQwE07
+         z5/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788337388; x=1788942188;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=swx5YF9h3/1MSn74lsdt/yXKjqG7gMOFtYAKP5a23y8=;
+        b=gOXqrJ7lJjF+kqB93zsJo8MAqLhjk/oI2gllRS4gZ7ouOtQF6GNlj4kabVrvXKWNPF
+         HU4agMVY+sDZZSz80jetIMo67MHx9MZAThz5pT14golTOujwC4pGn64EbziE9rDW0C1o
+         kW67EOLS1I1ghJWKRsKiy87KdeDu9+Kq5C1/AqK6zXcbhM3d8RVRwtloOiQWv4uq6E2/
+         bZCjqEsDNH5ngdYI/i+YyScKVqolRJtWyp9iXrvQ01WTsTsY7OWTJiYdHgMuVsn5PC7f
+         +sF4jd8niypWvEWMPBF5Hv3miwB4fF8JWnAIq/W9oZ94/KzOyvhOrXCe2jGwzv0ELcWz
+         J1ww==
+X-Forwarded-Encrypted: i=1; AKwUvBy+6C7t4mR3gQYCeSB8JXyEilcH9WuH3cPqQSZWPCQ8xpsiCypA3pUDuD4pxspD7ckgqAyc70Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++ny6ox0lkwTDBbBTKU5/T9TYWOgDy6NDJdlKUveHed1S5qwSmCn
+	WcJMwO9LHP5QeZ2WpylL9BFfSLFLzukGSNrqn5TP/rf0sJWkFi5e8mDj7+m25p9oDZ/+mRDop95
+	gMXVoBShXGPOwG7Q9nu51XQ==
+X-Received: from pjlj3.prod.google.com ([2002:a17:90a:7e83:b0:398:c3cf:ab9f])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4fcb:b0:395:f0e8:9e13 with SMTP id 98e67ed59e1d1-39aedf22274mr5088393a91.7.1788337388162;
+ Wed, 02 Sep 2026 01:23:08 -0700 (PDT)
+Date: Wed,  2 Sep 2026 16:23:06 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-2-e3e8942c141b@google.com>
-References: <20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-0-e3e8942c141b@google.com>
-In-Reply-To: <20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-0-e3e8942c141b@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, 
- fvdl@google.com, rientjes@google.com, vannapurve@google.com, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Ackerley Tng <ackerleytng@google.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788337379; l=1301;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=OnyqM/8Pr6ZsV+BsOfwDFJ0IbKPvQMMic3OIlvC9rcI=;
- b=B27Ds3U4PhbNKkOtqFYJY/xvCHiXLY5gLSpcHZYLqE1ILOZivlwW3tTQwCnRXp1T4sN1CklBi
- SqpDi7PBF7pBrwlr6s/WJ3+2NQ7j5mO3CbRN6vN8WwFFvpx6oChTAC9
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+Message-ID: <20260902082306.2299159-1-stanleyjhu@google.com>
+Subject: [PATCH] scsi: ufs: core: Quiesce SCSI devices instead of host tagset
+ during error handling
+From: Stanley Jhu <stanleyjhu@google.com>
+To: linux-scsi@vger.kernel.org
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
+	Stanley Jhu <stanleyjhu@google.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Ackerley Tng <ackerleytng@google.com>
+Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
+switched UFS internal commands to allocate requests on
+hba->host->pseudo_sdev->request_queue, which shares the host tagset with
+regular LUNs.
 
-When mem_cgroup_charge_hugetlb(folio, gfp) returns -ENOMEM, the folio has
-its refcount set to 1 via folio_ref_unfreeze(folio, 1).
+During error recovery, ufshcd_err_handling_prepare() calls
+blk_mq_quiesce_tagset(&hba->host->tag_set), marking all queues in the
+tagset as quiesced, including pseudo_sdev->request_queue. When
+ufshcd_verify_dev_init() subsequently issues internal commands (e.g. NOP
+OUT UPIU) via blk_execute_rq(), blk_mq_run_hw_queue() skips running the
+quiesced queue, resulting in an unrecoverable circular wait deadlock.
 
-The error path calls free_huge_folio(folio) directly, which expects a
-refcount of 0. Hence, VM_BUG_ON_FOLIO(folio_ref_count(folio), folio) is
-triggered.
+Resolve this by quiescing only logical units attached to the host via
+shost_for_each_device() during error handling. Because
+shost_for_each_device() explicitly skips pseudo SCSI devices (via
+scsi_device_is_pseudo_dev() in __scsi_iterate_devices()), regular LUNs
+are quiesced to prevent retry storms, while pseudo_sdev remains
+unquiesced so internal commands can be dispatched and completed during
+error recovery.
 
-Even with CONFIG_DEBUG_VM disabled, returning a folio with refcount 1 to
-the freelist can corrupt allocator state later.
+Clock scaling and command pause (ufshcd_pause_command_processing) paths
+continue to use blk_mq_quiesce_tagset() as they require freezing all
+queues including internal commands.
 
-Use folio_put(folio) instead of free_huge_folio(folio) to properly drop the
-reference before freeing it.
-
-Fixes: 991135774c0e0 ("memcg/hugetlb: introduce mem_cgroup_charge_hugetlb")
+Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Link: https://lore.kernel.org/all/alpine.DEB.2.22.394.2609010729350.218556@hyperv.ins.bvanassche.us/
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
 ---
- mm/hugetlb.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/ufs/core/ufshcd.c | 22 ++++++++++++++++++++--
+ 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 01b57f6d3b804..97c06f227ef8a 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2889,7 +2889,7 @@ struct folio *hugetlb_alloc_folio(struct hstate *h,
- 	lruvec_stat_mod_folio(folio, NR_HUGETLB, nr_pages);
+diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
+index 2ba244cf40ac..11488c5efb47 100644
+--- a/drivers/ufs/core/ufshcd.c
++++ b/drivers/ufs/core/ufshcd.c
+@@ -6798,6 +6798,23 @@ static void ufshcd_clk_scaling_suspend(struct ufs_hba *hba, bool suspend)
+ 	}
+ }
  
- 	if (ret == -ENOMEM) {
--		free_huge_folio(folio);
-+		folio_put(folio);
- 		/*
- 		 * Skip uncharging hugetlb_cgroup since the charges
- 		 * were committed to the folio and freeing the folio
-
++static void ufshcd_quiesce_all_sdevs(struct ufs_hba *hba)
++{
++	struct scsi_device *sdev;
++
++	shost_for_each_device(sdev, hba->host)
++		blk_mq_quiesce_queue_nowait(sdev->request_queue);
++	blk_mq_wait_quiesce_done(&hba->host->tag_set);
++}
++
++static void ufshcd_unquiesce_all_sdevs(struct ufs_hba *hba)
++{
++	struct scsi_device *sdev;
++
++	shost_for_each_device(sdev, hba->host)
++		blk_mq_unquiesce_queue(sdev->request_queue);
++}
++
+ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ {
+ 	/*
+@@ -6833,7 +6850,7 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ 		ufshcd_clk_scaling_allow(hba, false);
+ 	}
+ 	/* Wait for ongoing ufshcd_queuecommand() calls to finish. */
+-	blk_mq_quiesce_tagset(&hba->host->tag_set);
++	ufshcd_quiesce_all_sdevs(hba);
+ 	cancel_work_sync(&hba->eeh_work);
+ }
+ 
+@@ -6840,7 +6857,7 @@ static void ufshcd_err_handling_prepare(struct ufs_hba *hba)
+ static void ufshcd_err_handling_unprepare(struct ufs_hba *hba)
+ {
+-	blk_mq_unquiesce_tagset(&hba->host->tag_set);
++	ufshcd_unquiesce_all_sdevs(hba);
+ 	ufshcd_release(hba);
+ 	if (ufshcd_is_clkscaling_supported(hba))
+ 		ufshcd_clk_scaling_suspend(hba, false);
 -- 
-2.55.0.970.g62bdec98f9-goog
-
-
+2.43.0
