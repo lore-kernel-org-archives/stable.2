@@ -1,111 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE91493632
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:16:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355005; cv=none; b=rqWx4zs7fVEkk9euRToI0tAnl+wjeYs+ZXnxDnSMA7S4hISW+0vQA9eVbIjWmk1cSHx1gvfxy+5lpJRc4vvEpYA/h5X+tsFy9VOzD2CYgK/2l5EeV+B0+oTW86+WnuSbFrgJLE/5pLZz61PCuX5xfUI76zhQrm9Lrqx+PTSEvQY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355005; c=relaxed/simple;
-	bh=PIeNSn6dbPUSzotuL6dJrll2mRcEyuhJ+Z+5qYBburs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLYAnIKaI7wALpnVbbhxctldbs1CBacQliaWYhF7N8y91gUzvdAw6DWPgsIp9Bf3LvmrQ+ByDp3gBH9v9hXMbLuAmUj2qfoDTQA2hHOTNtFBSc335/wApIpyOdxdNRleZLGphs8Wlcg4tJ7wZkpdfLh4hvl1PtfoKmfC/MV8ueA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C9SE43wk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E02E49CF5D
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788355100; cv=pass; b=RalG45gbng8+E8km3t+0VrrXost1GdqK9UeXyriV4zJHO2MEvAbXPAZ3yj+EhQW6ngLAEOw/zHTPj5mFtY7L+5ByHZ7Qev1zT4+AwO5xH8kfYZ66XkJ5w4xafsFMxRrcV7bqje1UuR8fa3ua0v9pwGGZ0vHeFFqAf8VRVEMPfz8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788355100; c=relaxed/simple;
+	bh=vml0uNQKeGVnX3dK4hM4ngGTCQ9mhwmQP0hmR3tD3e0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KN9rQE8tciNcDYRrkuGgzAdfeGE2GyByf8boY6b3B0Wqgs24pyYLQW4LkDsUqdHa5vhFrmeLEYSVqzfV0eYUD67blvYmJ14eG/Ry33dxxDqt2KNoJ6WzKmnzEAMLHoDCaOVfQc9EtiM7pt5b5YIG3v/l+m9QifJ5p5isaEnzous=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Wvb4RYqQ; arc=pass smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C9SE43wk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E31C1F000E9;
-	Wed,  2 Sep 2026 13:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788355004;
-	bh=WHyZ/G63rvwAjwU4vztYef/xCH4xZmisnZYFznJHchw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C9SE43wk6wEfvY7rbwjJlIDhxPYF4V8mY5JBn8DHaeqItWWDBLmp5vfg6hVeFPmJt
-	 0rarlD9cqaUHCpo2jYgIre0ly39rkiyJVv04hOyUlEV8OzUqniAlwi5s03flzFPLeK
-	 lcojVVMmP5puGAJCTODq+wkeRSozRKVFNTVtVc2tj0gEMWlQaHFixWF8jtbXPZAYij
-	 EsMvyzQiykJq5mP7pf+Prr9jhVQsFoafmFQsKMd95VtikdmAY2TBAKa7M4p3XbJRzC
-	 dKoGPdG4g1bRVpAngjdCXe4UZJMLIgdG5GL3qiJZZOyOvPJbYqs7HPKMg2n2dgMfYe
-	 ePcvcMLfslAew==
-Date: Wed, 2 Sep 2026 14:16:37 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Usama Anjum <usama.anjum@arm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, 
-	linux-arm-kernel@lists.infradead.org, vladimir.murzin@arm.com, ryan.roberts@arm.com, 
-	peterz@infradead.org, catalin.marinas@arm.com, david.laight.linux@gmail.com, 
-	stable@vger.kernel.org, ruanjinjie@huawei.com, james.morse@arm.com, 
-	yang@os.amperecomputing.com, cl@gentwo.org, maz@kernel.org, david@kernel.org, will@kernel.org, 
-	ardb@kernel.org
-Subject: Re: [PATCH v2 00/20] arm64: Preemptible this_cpu_*() operations
-Message-ID: <apgg8HuPzL9R2urz@gremlin>
-References: <20260804170503.3513916-1-mark.rutland@arm.com>
- <9789fd67-205a-412f-90d6-42c401d3babe@arm.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wvb4RYqQ"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1b838f9b6so1179696a12.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 06:18:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788355099; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cfTDdlP4m8AsfgbUCZWJUtFxeVUIIflZA5NUYqmhdOAYOM8WvYjlZbfBlkjHC+TQ2U
+         XGdvZxRsXuu8T6HXxwkUdo5349UG620LEEhhZWPSEZCNWk1TtxadWeBFKaBKu463psZc
+         KEriIufDhawbUKBkMgSg9dFpK7KA99dpuGBIDIalIoCrI54sZU3ye1sCXq1QEJJcvC2a
+         3LbVG/LIsZa+Tkxuq9ruvXV7riLWBPrGm9d0JTZ9uchjSiMZQ6TFXWjyOW7JgRYTwhfK
+         XZH0Ypk7n7X4ie2mt98YKIxc02UicyeQUFBrkYiZromYk6cfHAG1PNIhrD8hSw6Sap5Z
+         P6Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vml0uNQKeGVnX3dK4hM4ngGTCQ9mhwmQP0hmR3tD3e0=;
+        fh=zMHheGBqEPknlFHGYvpi03IUiTIgN16FJo1ciR5Nf90=;
+        b=C2fYMizKbIuAb3rAqkVhUt96zFzpgpx11OEyHy39qZ6XvbHDrUG4e0P+KepA8JQCz3
+         EddxLQTalKoq7yPYZTEo3zZtZxif7a0rzGXg1P8s0prM4BAgq3//JjZaa+8q2J8zT0re
+         101xI0WTQ2Khd2IjPeqiKINhVJ5bcu0ZpNf01sY37CTUzvQRkzpa6X4jXlifoNZ8cf+b
+         zVeZtYTc6f/6qBFGci4fkgXFFtvhRX4jHI+Mn8yuT/xn7PZ5lSd6G1a9XPb6a4f15q5r
+         HDzo4NF54DQ6oKJ9ErMeXTiQ1mpwYr+RPygY293DocVsVTSu4M4pvD+PDB7AeS7SxNpD
+         q87w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788355099; x=1788959899; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vml0uNQKeGVnX3dK4hM4ngGTCQ9mhwmQP0hmR3tD3e0=;
+        b=Wvb4RYqQFwFCHrMpp1GICo4nvbSvGkOh/MaUfYQxYApRp/jm9uD8rnxznnasiMJ2JR
+         QwgEWjEDatGNNXVqnzuLv7WNaIuaahPg0Vsw4mE01pQf7HKqR1zesLue28mpwudjtFpl
+         v9ka0zElcrSOOFUyfUdXWZ4u8wOHdlRBrAQsFhjv4CaOpC4WJlGAIIJKrEF07ghw8M/U
+         bFgePv/+Xt8pCTkr78DsgfN1lKN8Q+Ycr0kba4ZJrdvE+JZdBSkaRISS7TUoKIQQgRMz
+         b07UPPBn1GbPKHeN9iIAnHXNCehdE2YVBMhk40+nBKEk89vRLYUxKsdPh2Ab6M2GXV7t
+         HnoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788355099; x=1788959899;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vml0uNQKeGVnX3dK4hM4ngGTCQ9mhwmQP0hmR3tD3e0=;
+        b=aQ63nR4MR23LxEYWQ17pDz4QW+V1KuDFHRORzUysDiDiY3qQp/mcJPpl+InM3Qjifq
+         oy5v8ULI+I+e+e9SMaYvkcR92jOvAmHj8c4iz2I7bzs3G2R2b+2z82r2SmBj90nV1Tcc
+         ld4x301zdvM1pGtrCXxCzsNsxCYueQ2ndBThycePjzjd9Y3VZA3AJYZu5aZigA7WCn5k
+         C2NazT5x/KUjctfgjPTV4oOtyHzQECbkspzc7W8DPIAAAw3A49dTzaG8hAVvkSloDWNi
+         GoaqxfsEA2vUgwL3dgpckf0LN3/eypgjHmM84n5CTdnrILEkrNrwAzSSd23pXK56Dbt/
+         APlg==
+X-Forwarded-Encrypted: i=1; AKwUvByWXnuNsNYoVNtLArVju0s3LKG40OGpq3KBX6uPWsgRX70uB1JqXxngoYiC1L/0D0pWuE0YLYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mbL9tAFUc17ByMGL/LEITu7Z4ur1fSUwoT/vA/LPqiTL5BEMnz
+	t/S3OE9AuGD4O0AfN4gkGIhbouZptexOz1qWXTwWE4x2q0buJPR5/F2G13yz0d7kVO/FBcblNo6
+	isxJdElWWJBz4zHodp/xgMZa0i2pKAYh2u/TeDXpk
+X-Gm-Gg: AYBFou3e0THYMTlJidLjfMsu2wWQCOu8Ff4LCKqGQnfE/EiZNMGnew0UGp5umJY8+zx
+	LZ1yW6E+4hMwqJMSwE5hur0DW5NhHluFH8pjXJv5GEqnltrCls3GYiGMBgyqVBW0SZqPmZ/g5xU
+	7S4dRvi+kbMVghURhOC7rgrvqaK+uMbDp06vsrdCAf5/spvcUsJIyU6T8Hj8Mf2efGLL9fvatgF
+	ikGuYxzkOshkUlwuCADDuLaL9j3mUDmMwR8N3PEnsI2xOcxyIO9n6cyeimaK8GeU369XHeFVvsw
+	OgkUwMAKxMtettsUyL808JrCOu+3tNHhjcbClI2ECzqCyXbqUtRLUzLmNLRtejXlCf+IFwLqlA=
+	=
+X-Received: by 2002:a17:90b:2750:b0:398:e73e:5a0c with SMTP id
+ 98e67ed59e1d1-39aedf5d887mr7396769a91.1.1788355098217; Wed, 02 Sep 2026
+ 06:18:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9789fd67-205a-412f-90d6-42c401d3babe@arm.com>
+References: <20260901124013.1098560-1-xiangzao@linux.alibaba.com> <20260901124013.1098560-3-xiangzao@linux.alibaba.com>
+In-Reply-To: <20260901124013.1098560-3-xiangzao@linux.alibaba.com>
+From: Alexander Potapenko <glider@google.com>
+Date: Wed, 2 Sep 2026 15:17:41 +0200
+X-Gm-Features: AcwNN1XM2BzITGqUSo0D8HPYIrUbNX9N29u8ucC8F6Zcs9BqkJ7UZhQH1J-LCJE
+Message-ID: <CAG_fn=U5we-NBw=8j_dKJzoHU5V2bDOh3OjJ1arqZQusKRy=JA@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] x86/fred: Fix stack depot filtering of FRED event stacks
+To: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, xin@zytor.com, 
+	luto@kernel.org, jpoimboe@kernel.org, peterz@infradead.org, 
+	rostedt@goodmis.org, akpm@linux-foundation.org, rdunlap@infradead.org, 
+	elver@google.com, andreyknvl@gmail.com, gor@linux.ibm.com, 
+	brads@mainlining.org, kasan-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, Xiang Zheng <xiang.zheng@linux.alibaba.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 12:55:12PM +0100, Usama Anjum wrote:
-> tl;dr
-> Comparing this series with the page-table series [a] gives 8 improvements and 3
-> regressions.
-
-And the regressions are very small and importantly the improvements that
-presumably form the basis of doing any of this at all (i.e. munmap, vmalloc)
-perform _better_ with Mark's series, without requiring egregious core mm
-changes + complexity.
-
+On Tue, Sep 1, 2026 at 2:40=E2=80=AFPM Yuanhe Shu <xiangzao@linux.alibaba.c=
+om> wrote:
 >
-> Fastpath is a Linux kernel performance benchmarking service. The table
-> compares the both patched kernels: positive values are faster, negative
-> values are slower, and (I)/(R) indicate statistically significant
-> improvements/regressions. Unmarked differences are not significant after
-> accounting for confidence and noise thresholds.
->
-> +---------------------------------+--------------------+-----------------+-----------------------+
-> | Benchmark                       | percpu-pgtable [2] |   gpr-fixup [3] |         gpr-fixup [3] |
-> |                                 |    vs baseline [1] | vs baseline [1] | vs percpu-pgtable [2] |
-> +=================================+====================+=================+=======================+
-> | lmbench/lat-mem-rd              |             -0.26% |       (I) 1.24% |             (I) 1.50% |
-> | micromm/fork                    |          (I) 1.10% |       (I) 2.46% |             (I) 1.35% |
-> | micromm/munmap                  |         (I) 18.10% |      (I) 19.78% |             (I) 1.43% |
-> | micromm/vmalloc                 |         (I) 11.92% |      (I) 14.68% |             (I) 2.47% |
-> | mmtests/hackbench               |              0.27% |       (I) 1.09% |                 0.81% |
-> | mmtests/kernbench               |          (I) 1.19% |       (I) 1.18% |                -0.01% |
-> | mmtests/sysbench-cpu            |              0.01% |           0.06% |                 0.05% |
-> | mmtests/sysbench-mutex          |             -0.85% |          -0.14% |                 0.72% |
-> | mmtests/sysbench-thread         |         (R) -4.49% |       (I) 3.02% |             (I) 7.86% |
-> | perf/futex                      |              0.55% |      (R) -2.80% |            (R) -3.34% |
-> | perf/sched                      |          (I) 1.61% |          -0.39% |            (R) -1.97% |
-> | perf/syscall                    |          (I) 1.54% |           0.98% |                -0.55% |
-> | pts/memtier-benchmark           |          (I) 2.37% |       (I) 2.51% |                 0.14% |
-> | pts/nginx                       |              0.42% |           0.96% |                 0.54% |
-> | pts/perl-benchmark              |          (I) 1.83% |       (I) 1.63% |                -0.20% |
-> | pts/pgbench                     |             -0.09% |           0.55% |                 0.65% |
-> | pts/pybench                     |             -0.05% |          -0.07% |                -0.02% |
-> | pts/redis                       |             -0.00% |          -0.04% |                -0.04% |
-> | pts/sqlite-speedtest            |              0.15% |           0.44% |                 0.28% |
-> | repro-collection/mysql-workload |              0.73% |           0.25% |                -0.48% |
-> | schbench/thread-contention      |              0.42% |       (I) 1.04% |                 0.61% |
-> | sockperf/echo-lat-tcp           |          (I) 2.88% |       (I) 1.69% |            (R) -1.16% |
-> | sockperf/echo-lat-udp           |          (I) 3.93% |       (I) 5.11% |             (I) 1.14% |
-> | sockperf/packet-tp-tcp          |             -0.41% |       (I) 1.37% |             (I) 1.79% |
-> | sockperf/packet-tp-udp          |          (I) 1.45% |       (I) 1.49% |                 0.04% |
-> | specjbb/composite               |          (I) 1.39% |       (I) 1.65% |                 0.26% |
-> | speedometer/v2.0                |         (R) -1.04% |      (R) -1.04% |                 0.00% |
-> | speedometer/v2.1                |             -0.10% |           0.10% |                 0.20% |
-> | syscall/getpid                  |             -0.98% |           0.52% |             (I) 1.51% |
-> | syscall/getppid                 |             -0.43% |           0.14% |                 0.57% |
-> | syscall/invalid                 |          (I) 3.06% |       (I) 3.56% |                 0.48% |
-> +---------------------------------+--------------------+-----------------+-----------------------+
 
-Lovely :)
-
-Well that settles the debate then!
-
---
-Cheers, Lorenzo
+> Reported-by: Xiang Zheng <xiang.zheng@linux.alibaba.com>
+> Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
+> Cc: stable@vger.kernel.org # v6.9+
+> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Acked-by: Alexander Potapenko <glider@google.com>
