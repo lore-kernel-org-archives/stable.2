@@ -1,169 +1,132 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32653655CE
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AE947F794;
+	Wed,  2 Sep 2026 12:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351698; cv=none; b=iQiK5lewgDWHd4il3D8HEzCYwgcLjiFFTCmHNb3RqkloihNl2FjoJvhFisG4lm44pzAJYyeeNtkJmNSQpJkhgcxWUBMr4ecGhK2yG6k/bjDNSeO9wRgUC6pNfX5OhblsI+EQon5PzPwSyYfmCD21HvSTcv4q96uUj+eHsBA1rzE=
+	t=1788351708; cv=none; b=VTzVQtDoPRFbLxA0BGyuZtud/Qglaz3UgW4U2unRCKMY2RURz9ILPzSv23QCB65r7CoYRKFsehYfLgyadqj0A7POfeIcSd4rlQQPy4LWSxrX3qkYE+mG1Lb6fO+wOkcw2ogDMHhNexvBLyGu/mlPerLKXoS4OG1dR2lL7RT3cEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351698; c=relaxed/simple;
-	bh=hQOCZQiQWVV5A4rMwrEaIRzRYQ6fIzgr7nYUd02QFAk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JYUEoU6khmlyPFk3PmrmgdTGt1W/bEfN+fFvw1VdZyFOiZc4FhnEtiNrimmI8G8RiVwp1egjSTt//LodrpxPjJZ2ULXyk850Kd1phEqT9D1y9haQeIsjzgdDSJEeW7eVNwNQ+mJBQ6jmkV6huihfDqNVLMn/d8QIS52N4uPNBB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hs4cnmyQ; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7vdOkH80; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jaDBCpS9; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jHlNdtUE; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788351708; c=relaxed/simple;
+	bh=GGmVS2JaA+qTkb4ZBzBzV0czpxciN7kZWeDdJ0FbVXQ=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=W88aYpyPB1tj5MJ3T3ifJMTFFgnuwPeSauj2w6vRCmi5gz/hoPorC+4OL9WRVT5rn8/8cscrUcP4uebTU0Rqn6azToM4asEsTp//phE+4nu1MKIdDr9VmTsO++N9GTpCQ2cbo0eCcIL5jb8ThvToeXoThryYslsdfa1yv3ZKQ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tOqeyw0Q; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hs4cnmyQ";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7vdOkH80";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jaDBCpS9";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jHlNdtUE"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1018F1FAAA;
-	Wed,  2 Sep 2026 12:19:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788351580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=hs4cnmyQOG7l4ThtKlcgnTLaSyZMmO54AM10TIqRxWsEK3glYK2lcxNUsMQFAWJmbYszWN
-	cqHqSM2FZq4CVBX9hlf671V/3Vpm/vMBhYyDxTZQU7pyRi4A5GkiYdaw2NOXz6MvaMiMLQ
-	lQTr9zQCY91aTstBoNVFEOB1h1w9ymE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788351580;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=7vdOkH80A1ytrynNE+OdWSqsOwv2qe87e9OaER7z+M3BeTzgFLpLKSwTvwtzPT54d1o8W3
-	s08JRP7tdpx3GnAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788351576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=jaDBCpS95P7Agbv+9Kz6LNkcRO941DIeQR6yDiuSuQWCpzRqTe6ATSCcDKBtJE20Jcm2fQ
-	sbro9je7znLpa+Bv2o7EmeHVScb21Qx6QE0bNYEkGuG159p1ufqL8qzLw0pOyR0xj8XHFS
-	k7r52yJ9RTeOOPEdshzAv3uL81+RmVw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788351576;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KTrzt/jaZvN9VkFIcS6JMzdZ6BhpAj1Od+S6kV1K9r0=;
-	b=jHlNdtUE7tlbE5kCgZIwBh+jVXvCGcfCYgOeg+Fo8v5xlTAaX5QDObHHLYSTOtKIfjkylq
-	PJUb0p7HU+97heAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 56EEF13869;
-	Wed,  2 Sep 2026 12:19:35 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +M7AE1cUmGqxEAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 12:19:35 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com,
-	javierm@redhat.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	geert@linux-m68k.org,
-	rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-doc@vger.kernel.org,
-	amd-gfx@lists.freedesktop.org,
-	rust-for-linux@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	nouveau@lists.freedesktop.org,
-	linux-renesas-soc@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	sashiko-reviews@lists.linux.dev,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 02/14] drm/panic: Test address from kmap op for NULL
-Date: Wed,  2 Sep 2026 14:13:10 +0200
-Message-ID: <20260902121930.597222-3-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902121930.597222-1-tzimmermann@suse.de>
-References: <20260902121930.597222-1-tzimmermann@suse.de>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tOqeyw0Q"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829Vbuh3810373;
+	Wed, 2 Sep 2026 12:21:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=EmRAOE
+	NCn3z/TkdCL3AO3GgcjO7Z7WviRahN4fsbw+s=; b=tOqeyw0QJ0lLZZlqPlkayA
+	DT6HOt6X2+nERLzNMk2mQWpf+xwUq9B3gy4Fnvcrs6pDylGX7nsGP/iG41dzVmpM
+	Pcowjh6VFU/LhqZRbrK3iDgC+Y8TcZMiJ9KjK+Nn8a6RVOr5fVM1WcMl/t65Rg6C
+	nUUXc3362yKIPqbzed+m4bouso7smOJ67v6tpLqnboBIUPtYRHXP4mcMUfS1Yo3x
+	EE2pHL8lpAfFZPIKVcNxvPZ8orHslMv2aDd68adX6+VIZUoz0PFmGO6bDRY2X/R4
+	1rIR1dscrtvRqe8c88+Via4NLlAp10zfL+8/9nhzOlOk5ruZqFZOhjFPKi2StUmg
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54xb0t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:21:38 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682CBI4T002102;
+	Wed, 2 Sep 2026 12:21:37 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqhqs8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:21:37 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682CLbm426018374
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 12:21:37 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 575575805D;
+	Wed,  2 Sep 2026 12:21:37 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D72C758052;
+	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.35.47])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
+Message-ID: <2a4b80e4e1912183ba4a5d1046d718b4f455720f.camel@linux.ibm.com>
+Subject: Re: [PATCH] ima: Check for ERR_PTR from dentry_path() in
+ validate_hash_algo()
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+In-Reply-To: <20260827174339.1729-1-brads@mainlining.org>
+References: <20260827174339.1729-1-brads@mainlining.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 08:21:36 -0400
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -6.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-6.80 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email,suse.de:mid,lists.freedesktop.org:email,imap1.dmz-prg2.suse.org:helo];
-	FROM_EQ_ENVFROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com]
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfX++4PPuAPGAVm
+ rZjN0H25/VOmlrqOVs3SXeUtQvm7EFSj+k5bVLaFxn364EiJ8FtjHUZRQB+9JitxMpqzmlDx3XB
+ ovtb8tBq3FZugD8/vamTIbRGyc89VokgbZbr1anNhOZa7/wl5iG+oEFNNkDXZo/52S7rzyB0vIk
+ v6Tsapw1OqU9UqSD5PuerBmaemke7csDiW6i5SwvBl6OI7tKheFOMAX1Jsgg+GaTv0yzLBJKpMp
+ qHHFayEqXrru1pYWi4mHJw4mAXVYrU2N9/NNYPsnpu9I+rfesZD/v5BsezQyXyIfrU7AENnV91M
+ uPuX3wJFMtZZX5ib7tQIed/BQct5rfdxTtMeHc2k32K3m97GlnCYMqA4/NQoy4nxp+OpePR+Ot0
+ AwNb3cPzS3MjV4DQ2fHBHFp7KB2gOyRgeaFvTtYSCYpdtcJd5e3s/9CIUcCMkUcpafdPg0LENAk
+ csIgNyyLbKwgM8OVfrA==
+X-Proofpoint-ORIG-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9814d2 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=1XWaLZrsAAAA:8 a=hSkVLCK3AAAA:8 a=OuZLqq7tAAAA:8 a=ZfC5JQsLA5OFHaLsyRcA:9
+ a=QEXdDO2ut3YA:10 a=cQPPKAXgyycSBL8etih5:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfXz57ABnoej3aj
+ MR4i+Wa7l8dU7olZ2fiG03VMXJCMdw9ztXP0EEdjbu0XO/jdbBSCXJ9B09TN36QZwyxZ0AwP9VI
+ Segv5JoD0etN7iEtwGU6cfYE207Djw8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1011 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020107
 
-Do nothing if kmap_local_page_try_from_panic() returns NULL. This is
-not likely to hapen, as the previous page from the same memory area
-has been mapped successfully.
+On Thu, 2026-08-27 at 17:43 +0000, Bradley Morgan wrote:
+> dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
+> buffer. validate_hash_algo() passes the result straight to
+> integrity_audit_msg() without checking. ERR_PTR is not NULL, so
+> integrity_audit_message() sees a valid pointer and calls strlen() on
+> it, which faults:
+>=20
+>     BUG: unable to handle page fault for address: ffffffffffffffdc
+>     RIP: 0010:strlen+0x30/0xa0
+>     Call Trace:
+>      audit_log_untrustedstring+0x19/0x30
+>      integrity_audit_message+0x366/0x4f0
+>      ima_inode_setxattr+0x512/0x5f0
+>=20
+> Check for IS_ERR() and use NULL instead, which makes the audit message
+> skip the name=3D field instead of crashing.
+>=20
+> Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=3DSETXATTR_=
+CHECK")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+> Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google=
+.com/
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 23437509a694 ("drm/panic: Fix 24bit pixel crossing page boundaries")
-Cc: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.18+
----
- drivers/gpu/drm/drm_panic.c | 2 ++
- 1 file changed, 2 insertions(+)
+Thanks, Bradley.  The patch is now queued in next-integrity.
 
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index ba21df4be338..d28ce8878e05 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -178,6 +178,8 @@ static void drm_panic_write_pixel24_xpage(void *vaddr, struct page *next_page,
- 	u8 *p = vaddr + offset;
- 
- 	vaddr2 = kmap_local_page_try_from_panic(next_page);
-+	if (!vaddr2)
-+		return;
- 
- 	*p++ = color & 0xff;
- 	color >>= 8;
--- 
-2.55.0
-
+Mimi
