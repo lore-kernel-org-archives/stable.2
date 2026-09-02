@@ -1,164 +1,179 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C14532B102
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 15:47:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6D64A8A28;
+	Wed,  2 Sep 2026 16:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364057; cv=none; b=QKSTQ5rBMGq4l5tPdZpXKhsJxnOyheNv6BAp8GobIJ/9xJv69234ao6fVw8kNW/1yLyQEYaFbs8R7hIdjZtx5HR9cpl1uuoJGpfEGuWFJ5DVAHVhkwu7vOhZP/yRfUZ+w3DkxEMqQZxyDX5SuNc/UGtYfjQEZHMiUk96oiCCOd8=
+	t=1788364892; cv=none; b=Ol+rz76ReGH+Ztzvy6HsbEzn+OLGSGrcYKx6vEOxy1+7RqzNeQSbNXUW+ILgSdc/Ct8ImRaHv4jqX1Rjm1vM9Fi0M9bbnO+31vgfI9buCimo14dgDsmjS54Uodh+9t9ROtN5211SgfGdWMO9WJEqvroioNK0HS8byOOrqRnM8pM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364057; c=relaxed/simple;
-	bh=futA2E2BI054EkkMAf/9xxA4miiP4yekF1HvC97jZpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YAeyQ7AYRbeguqs8pnoRoiPMjX8h2asjFhfQtYS+54c8BDYKhzUXjnMdU3w7fjBhE6B53+xDL7eXioHLVZtqpoIBT3vZBNK6q48f5I/kdOXKPXO/vi71tznR37buWH7jwaqHesSx1nrJgeRznAkJWBRdzpnfMRojAqO1DBqp7UE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MVhCjgx+; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788364892; c=relaxed/simple;
+	bh=KVjK/7G+aWxJKWPskQW4reuYD+4Gb6PJz7C/ALsZOCc=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dRO+DQL4ECDMk3zcSancYAGtXMBc4cX9VnopqUKJB1mEZnvzQQTeazsrbMUlLVlTJWyAOe4wyCFmi9dWu4JS51oM3vUfZAV22ZSFTpKz7/B0AdBey1zv0/RXOWenhL7yxKBJ92K855keG0RVjSvjPXmJSQgXPMrxQsCEiC52zNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7GKdxqr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MVhCjgx+"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c20ce3c118aso2003566b.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 08:47:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788364052; x=1788968852; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q3wYS5mR5Zx6Crt9XdIdwTT/Ll3ikWEO9/OJNepkXHY=;
-        b=MVhCjgx+U7G8QMONbWrIwE7QOXm2Hm54S1glwX2avnEcclTVaBvmzl8mdDHXi7WYRL
-         t145YKiHQHUcI3bhoWlHv2RxGTt5Ln+iNU7ELGRsxwSeq+mlBxqUHVuAH+i2ZKPWyynU
-         SviLCeweDyiY5ZbLbHkuvog7hAf2G8oSXNcbTlVuegt7ccoaN4pOJmL5KsbLysuSyaGm
-         fag6W1v1fbzeKf2XR36nos43wff0WShdOnJvrST4czeJBCK5dI4RRmyxM5z0hXl7wXtW
-         T/3Q5AT96//z88KeE1zacyBXHYXDamWvh6Z31w5Qe7+/q/QkYJRdtnhAhHHuAAhyFhRZ
-         BRrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788364052; x=1788968852;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q3wYS5mR5Zx6Crt9XdIdwTT/Ll3ikWEO9/OJNepkXHY=;
-        b=RJe/rRMrV7v4FiUkUzBnfvWFZf68MzGjVdnl2kT42XxN2/tMKyFgr+O7onpjQRhMqH
-         ZTClIvoDSlPbN4v5nGVDuDSalEoRhRyYDe69tleYxPSi2MPcf5ppIZkrge+FQFIFBmm2
-         fjyups4UKVpPDQJ48HjuARTDLo3WUzPEzXvt41Cq3hHE2X0PTf1WFWhGf5bqPfwgBQxb
-         iP7LL04r2bQ/Zk1eQhPrKiWw0LeGPkW0sM7b2p4rWFAZS3aXLG/dV1ekiNJK/8B50311
-         F2rKYrgDlCGdmUMldAay87CahndwdIn4b1mUlb8K8TBpUe0+HjFRqx1m9hUdkIpc6LNs
-         kjFg==
-X-Forwarded-Encrypted: i=1; AKwUvBy0SIBVcrydCYx5SPX1SgDRNd3FFnhLW01wyLjxIfH9HWFX8snq1AvX3mCXL0I4QVb3o4ysuQc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/OOBJT57GmMZtFiYIs2Jj/5WH3urcfhL3cMEjLahivPYDAtAb
-	TGOG6OtKfMV9lputQxbr1SUYS3p1lzB9swL0bI0ss5LygSBDjCVOisAGX5XE2MCepz4=
-X-Gm-Gg: AYBFou1JJsYNjmPW+RCTak1HuLSRVn2YA2Jf0LjyDEeh/H9Gn99YRMcfyePDEkGSInK
-	DFapAnvq9Zgpue7IXaVVGZOaAF6Bla3nYNgvODx3TVfYkdHGWemiAwoQLs56FagSeZ8M7DXFOx4
-	FMBeidUZdmKKT6cN/c55/AI4IKNYtUA1oHW9zN160bPHgfUSaLEI/cWP6zx4Q9HHGFIoYsVccGs
-	GPdXrH8EmlRDROMN764ccQKlwPSA3YCLqlcZx4053XXa9DT2F0qv7nlRsb3KQzzvpmjQEE5uRoC
-	W2CAks59SEbLWdiQvgXYMfmzJipyshW8csOWwBQGDii5a7BF0pRjzDx4T+4GH6EDXP0rGRAkPn5
-	imsj14hbThCEbSgPiEU/ETHxfM+3fGgIgYSNyF8wftPHNS+QboTBvn+oE0MSBKN0u7g6YD2YfMS
-	G/KQBzUzjSBmqhXocCWfbAraFMStDbuEkglUSvSMqbxy1aLqF6atnRhbMKtWAOgbIyUJMk5MRTK
-	bPePAfFyqPkBQ==
-X-Received: by 2002:a17:906:618a:b0:c25:8bf0:36e2 with SMTP id a640c23a62f3a-c25f0187452mr6712366b.10.1788364052039;
-        Wed, 02 Sep 2026 08:47:32 -0700 (PDT)
-Received: from kali ([169.224.126.247])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm7532741f8f.6.2026.09.02.08.47.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:47:31 -0700 (PDT)
-From: Ali Firas <alishmery18@gmail.com>
-To: netdev@vger.kernel.org
-Cc: kuba@kernel.org,
-	pabeni@redhat.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	andrew+netdev@lunn.ch,
-	idosch@nvidia.com,
-	razor@blackwall.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ali Firas <alishmery18@gmail.com>
-Subject: [PATCH net v2] vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
-Date: Wed,  2 Sep 2026 18:46:09 +0300
-Message-ID: <20260902154609.594009-1-alishmery18@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7GKdxqr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2BC91F000E9;
+	Wed,  2 Sep 2026 16:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788364890;
+	bh=daOyDrVX5X5pUkXTGa6KOCVVVtVLzKoQrNwrrXHvqno=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=i7GKdxqrhbx1kQ4+TSbjbiE394wA05WCFqkhEyfiZWgmlMZ/3JL00KsMBSwMcEHTt
+	 mibCMNi7bwWjUoOzbABakf0UmrZbuSwU50pLSXAOAO6EoKRYuU1gCY8nF7Memq1nA5
+	 Ym3gvOX/nLpYndr8vTQbVHJ9XUhkSOpyeEBLl/jpYjWqgAHsqj7tmB4Rv4yfsm1e0T
+	 JLWB9tDE6UTwcg3hNCZnbGo4ol6g5DwUJwYxTa2Xf6lbNkJJZg24ngp97Lr7Zcpx2O
+	 j07oIOOh4e2yyUWsC1VbISEJ/NzukhATovrhrjjQ+R4QsWqj9nl2Zd7hudMHC5InC1
+	 I0CBjHR+CMcqA==
+Subject: Re: [net,v2] net: unix: reject negative max_dgram_qlen values
+From: netdev-bot+sashiko@kernel.org
+To: 1075151112@qq.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, corbet@lwn.net,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-api@vger.kernel.org, stable@vger.kernel.org, kuniyu@google.com
+Date: Wed, 02 Sep 2026 16:01:29 +0000
+Message-ID: <178836488944.3394541.11634846311460065510@kernel.org>
+In-Reply-To: <tencent_9FDB4FAAFE9F3EF38210AC963C73897A2E09@qq.com>
+References: <tencent_9FDB4FAAFE9F3EF38210AC963C73897A2E09@qq.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-VXLAN_VNIFILTER_ENTRY_START and VXLAN_VNIFILTER_ENTRY_END are declared as
-bare NLA_U32, so neither is range-checked before vxlan_process_vni_filter()
-passes them to vxlan_vni_add_del():
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-	int v, err = 0;
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-	for (v = start_vni; v <= end_vni; v++) {
+- [High] Incomplete mitigation: the patch rejects negative writes to
+  net.unix.max_dgram_qlen but supplies no .extra1/.extra2 bounds to…
+- [Medium] Commit message / Fixes:+stable justification does not match
+  what the code does.
 
-v is int and end_vni is __u32, so the comparison is unsigned. With
-end_vni == U32_MAX the loop cannot terminate through its own condition:
-v reaches U32_MAX, wraps to 0, and 0 <= U32_MAX is true again, so the
-request never returns. It runs under rtnl_lock, which is global rather
-than per-netns, so every network configuration operation on the host
-blocks for as long as it runs, in every namespace.
+--
 
-The interface is reachable without privilege: creating the device and
-adding VNIs only requires CAP_NET_ADMIN in the network namespace's user
-namespace, so an unprivileged user inside unshare(CLONE_NEWUSER |
-CLONE_NEWNET) can trigger this with a single netlink message. A VNI at or
-above VXLAN_N_VID is also accepted and stored, although the VXLAN header
-carries only 24 bits.
+net: unix: reject negative max_dgram_qlen values
 
-The MDB interface in the same driver already range-validates its VNI
-attributes with an identical constraint (vxlan_mdb.c, vni_range with
-.max = VXLAN_N_VID - 1). Apply the same validation here.
+This changes netns_unix::sysctl_max_dgram_qlen from int to unsigned int
+and switches the net.unix.max_dgram_qlen handler from proc_dointvec to
+proc_douintvec_minmax, so negative writes are rejected while the full u32
+range stays writable.  The documentation entry is updated accordingly.
 
-This removes the non-terminating case and rejects VNIs the header cannot
-carry. It does not bound the cost of a request spanning the whole
-legitimate 24-bit space: that still creates 2^24 nodes, each with a
-per-CPU stats block, under rtnl_lock and with no reschedule point, and
-neither allocation carries __GFP_ACCOUNT. Bounding or accounting that is
-a separate change and is not attempted here.
+Two questions, one on the changelog and one on the sysctl table entry.
 
-Tested in a QEMU guest on a KASAN kernel with 2G of memory, as an
-unprivileged uid inside unshare(CLONE_NEWUSER | CLONE_NEWNET). Before the
-change, a request with START=0 and END=0xFFFFFFFF drives a global OOM
-with the allocating task in vxlan_vnifilter_process(); after it, the same
-request is rejected and in-range VNI addition is unaffected. A request
-spanning the full in-range space, START=0 END=0xFFFFFF, still exhausts
-memory on that guest both before and after, as described above.
+First the changelog.  It describes a concrete malfunction:
 
-Reproducer available on request.
+>     result, negative values are accepted and converted to large queue limits;
+>     for example, -1 becomes UINT_MAX.  A nonblocking sender can then continue
+>     enqueueing instead of receiving EAGAIN at a finite limit.
 
-Fixes: f9c4bb0b245c ("vxlan: vni filtering support on collect metadata device")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Ali Firas <alishmery18@gmail.com>
----
-v2: rewrite the changelog to describe only what the patch closes and
-    state explicitly that the cost of a full in-range request is not
-    bounded here. No code changes.
-    v1: https://lore.kernel.org/netdev/20260829030041.940594-1-alishmery18@gmail.com/
+and it carries:
 
- drivers/net/vxlan/vxlan_vnifilter.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+>     Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+>     Cc: stable@vger.kernel.org
 
-diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-index dd94085e0886..9e86ac39cf9d 100644
---- a/drivers/net/vxlan/vxlan_vnifilter.c
-+++ b/drivers/net/vxlan/vxlan_vnifilter.c
-@@ -459,9 +459,15 @@ static int vxlan_vnifilter_dump(struct sk_buff *skb, struct netlink_callback *cb
- 	return err;
- }
- 
-+static const struct netlink_range_validation vni_filter_vni_range = {
-+	.max = VXLAN_N_VID - 1,
-+};
-+
- static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX + 1] = {
--	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
--	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
-+	[VXLAN_VNIFILTER_ENTRY_START] = NLA_POLICY_FULL_RANGE(NLA_U32,
-+							      &vni_filter_vni_range),
-+	[VXLAN_VNIFILTER_ENTRY_END] = NLA_POLICY_FULL_RANGE(NLA_U32,
-+							    &vni_filter_vni_range),
- 	[VXLAN_VNIFILTER_ENTRY_GROUP]	= NLA_POLICY_EXACT_LEN(sizeof_field(struct iphdr, daddr)),
- 	[VXLAN_VNIFILTER_ENTRY_GROUP6]	= NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
- };
+[Severity: Medium]
+
+Is that description still accurate after this patch?  The message also
+says the intent is to "let userspace configure the full u32 range
+directly", and with no .extra1/.extra2 in the table entry a write of
+4294967295 is still accepted, so sk_max_ack_backlog can still end up at
+UINT_MAX by way of unix_create1().
+
+If the sk_max_ack_backlog == UINT_MAX state remains reachable, then the
+only behavioural delta is stricter parsing of a namespace-writable knob:
+writes of negative values now return -EINVAL where they previously
+succeeded.
+
+Would it be clearer to describe this as an input validation and typing
+change, and to reconsider the Fixes: and Cc: stable tags, given that a
+backporter reading the message would expect a queue-limit malfunction to
+be closed and would accept the user-visible tightening on that basis?
+
+[ ... ]
+
+> diff --git a/net/unix/sysctl_net_unix.c b/net/unix/sysctl_net_unix.c
+> index 47660d5726bb..8f6f0657495a 100644
+> --- a/net/unix/sysctl_net_unix.c
+> +++ b/net/unix/sysctl_net_unix.c
+> @@ -17,9 +17,9 @@ static const struct ctl_table unix_table[] = {
+>  	{
+>  		.procname	= "max_dgram_qlen",
+>  		.data		= &init_net.unx.sysctl_max_dgram_qlen,
+> -		.maxlen		= sizeof(int),
+> +		.maxlen		= sizeof(unsigned int),
+>  		.mode		= 0644,
+> -		.proc_handler	= proc_dointvec
+> +		.proc_handler	= proc_douintvec_minmax,
+>  	},
+>  };
+
+[Severity: High]
+
+Does the min/max handler do any bounding here without .extra1/.extra2?
+In kernel/sysctl.c, do_proc_uint_conv_minmax() calls proc_uint_conv()
+with the range check enabled, but the check itself is conditional on the
+extra pointers:
+
+kernel/sysctl.c:proc_uint_conv() {
+	...
+		if ((tbl->extra1 &&
+		     *(uint *)tbl->extra1 > tmp_k) ||
+		    (tbl->extra2 &&
+		     *(uint *)tbl->extra2 < tmp_k))
+			return -ERANGE;
+	...
+}
+
+and the conversion only rejects values above UINT_MAX:
+
+kernel/sysctl.c:proc_uint_u2k_conv_uop() {
+	...
+	if (u > UINT_MAX)
+		return -EINVAL;
+	WRITE_ONCE(*k_ptr, u);
+	...
+}
+
+So does echo 4294967295 > /proc/sys/net/unix/max_dgram_qlen still store
+UINT_MAX?  That value reaches every new AF_UNIX socket:
+
+net/unix/af_unix.c:unix_create1() {
+	...
+	sk->sk_max_ack_backlog	= READ_ONCE(net->unx.sysctl_max_dgram_qlen);
+	...
+}
+
+and the queue-full test compares a __u32 queue length against it:
+
+net/unix/af_unix.c:unix_recvq_full_lockless() {
+	return skb_queue_len_lockless(&sk->sk_receive_queue) > sk->sk_max_ack_backlog;
+}
+
+Since sk_buff_head::qlen is itself __u32, can this comparison ever
+evaluate true when the limit is UINT_MAX?  If it cannot, the gate in
+unix_dgram_sendmsg():
+
+	if (other != sk &&
+	    unlikely(unix_peer(other) != sk &&
+	    unix_recvq_full_lockless(other))) {
+		if (timeo) {
+	...
+
+never trips, and the sender falls through to
+skb_queue_tail(&other->sk_receive_queue, skb) rather than returning
+EAGAIN, which is the same end state that -1 produced before this patch.
+
+If so, would adding a sane .extra2 cap (or, alternatively, documenting
+that very large values intentionally disable the limit) be the more
+complete change here?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_9FDB4FAAFE9F3EF38210AC963C73897A2E09%40qq.com
