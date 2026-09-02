@@ -1,82 +1,74 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FFD340407
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 03:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C5133E345
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 03:30:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319796; cv=none; b=K+nUGesu00YbKzLBnHyVRi1rqCo1poJEP3HfRKbVX6CxxDPF/5u1v14nIRrkhlLhHVSJ6ivDG8I3JAY3wGw/Bor1IrTiy/USUAWdTlAusoQ+2hQLtfLHWCdMPlGF8GaagE7fh9SAbF4oAMmrvuhL849OIZlkgvLGXUlBXG0xmXs=
+	t=1788319857; cv=none; b=fTzcB6IpwXt6vuadEwFRwzAsohaVZ333w5EA+D/7KIH/9Hp01X3kII7CdMs7ibPoAFVyTMC/ts5IaFFY3jJux1h11U2pzLnAauPMv7VZjkIFPnkhoqTuBep5UEnOkA+vjI5eT3O6G0AuAOm7qGL8Ai7nqrk/5xSib16hXaK6x2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319796; c=relaxed/simple;
-	bh=J4/PepV8PBz6sQAShbl8+v2xr61BId7+YnU/sMtjwl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BjZuqFigo8FP5Gkub/AFWVquIrzVsbfvlK3BQ7EzV9Ihop71B4I/Z6TtOAQG234upEskH4LegnOaPBEsMqQBZyT/tQp3BxUs5U6DIK1Is2bOyDJ36YKWXmeer/Uf1vuIBSPXMmgQ96d2lHhgWjcfQIJIBy/xCm5QNDg8mpL4WkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzGChSv2; arc=none smtp.client-ip=209.85.215.174
+	s=arc-20240116; t=1788319857; c=relaxed/simple;
+	bh=VIGO6DGsEkOu/UJJxuvGP6NIDvkxqmeSyOcYk+gkWo0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FnN9OF+Ddri8P+2+wIRQlucSN9PVL0d7vtCeZGnLVwIgrVeHoIHixKAb2V4d4EFXFa+yZQFsK04A8bLIN1TV97R8y+ueFIITqsh5RGu3m0GD0SisIQfOre/kHi++lQaQQ9waFNlMxhBUnuq6Lf1MckwGBvVec7HXwiEbvV/x7hY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j97+QvCy; arc=none smtp.client-ip=209.85.222.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzGChSv2"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so506108a12.3
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 20:29:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j97+QvCy"
+Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-97bf90f4b41so277376241.2
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 20:30:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788319792; x=1788924592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
-        b=LzGChSv2YAMXI+FhA0TKp6zLEcqtRYUhHWxyOqLMHJ/1i4LV53b1H0wx6YNfP1lazh
-         vYYGQg9/l8XQSCrEN08Lxf0SQCGE7dDi9G+asTTnHXfBI/5X0Hd3BwHKsuOZGEvog4cW
-         1mDDU40CHcbdLlFmFM+yn609Q7fkdijlMUk9li66SR0qPNsYf284Eb7q6GaybTIoBokU
-         tNsChVg8XP3qMysmd7OG8pRPuZUe36zgsiet66yNB/u5rGRFIg6k8QjOA4+XgTlHk7kM
-         JzpJp2egjUFi0VEgnwBzIbUjophMrgRugDV9OExEI0I59Cv9lGG2qOOyvT4uEEdx4A7B
-         9Q0A==
+        d=gmail.com; s=20251104; t=1788319854; x=1788924654; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PXNFQ3gLjer5xNcb0OpQhe/yIgTct7Qu/iF0tp3Lcek=;
+        b=j97+QvCy4Ynm01tJsd4qoMEqbYCu30/kQkcT6ttBSmsOe8CjvucMvI0tAwufParX+P
+         87AtlizOD4pTspb4xlbeFbd7+M25p7Vx5BvsrXfI1f4hM9gkZ5U75b8mxXFQcMKv+nUo
+         aQQOIjQueVgs24m3ak5vaT/kY90XhT9C16h/Ur/BuHc3+yyWdK2O01BRZ7elAvsr0ZXY
+         qAPOnjRU9N+wNBoYmprfnOjZm0dSkxzlT6GDBc+c9HTguzEky7hBeP1nHpj51EsL6nVX
+         TcITm5/uQPsk49DmlL6CM6nuc7Nab/tfOR7rxX6BAgvoPOygHQlJZoYyYt5QFeWAw2Hy
+         +m6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788319792; x=1788924592;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
-        b=pscobs7BO+n5ihwVs7OKSbungreSh4pRFe5uo/rOUP+FSc6DfvbqA3yU3dJobmkssp
-         FkCWRM7lUSAK9HCJRdw6gw31zpu++4059ycEilR3BzwmX/DOPCI5L0MKGAUh0njppw6E
-         WCVXmjzHsgLIIOrWrNY1M2HdXRRwB8IYePXqaFz3GDt8juUWK1vszNPISTGtns5t1fKH
-         DF2A5T8eH6vuik99FLb6rnLODt2NVUkL3tWb4zT/8z4RDikxaVTX2dYL/9ujbCdMALrD
-         RPdI+PguQy+tcSFZ2pKvypAyhwrosW5/J0qyPeGnlSM2rDihozLdhhsBwVMmCqx5M5o5
-         M/3A==
-X-Forwarded-Encrypted: i=1; AKwUvByAVy9k7OWaslycVQF8gT76wafAjnQE/8xQIkcsJOqLY+QlKNtWjHPDKadVsOL0BKiJo7/8zMA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mjQn5viCqzn8Ihgd59pxRzXN1KrfMHT6BzgOj7C8qQqVYyliY4
-	BkO5jQiuLrBmCdAOS8nYv+f9MrD8Ra1wwzI+cURAFt4pyPsyQvTbNRxh
-X-Gm-Gg: AYBFou0gjm0IAhuo5kslmaZ3H9A4zYKfgu7xvDhzrjnzPEoJSp10jrtQeKdLPYyVKSA
-	KjZWYPKbVC7ESgmhfVTF9cS7I0iKdJV3diqSmhrh7LEbUeARUDAmcuSeqbbjyYKX4plzW1Xm6ds
-	taF2sD56fOjjZWtUnh0soR/IE1so4emcMkpUzv7+QluC1QP6gzr6fwLZGkwSH6LQ3hEL7Uxk13J
-	41aeKYqPLVpvjGHOYMCj27/UWaAKzO2Apdwwo4OfNy8fhpyu5viAs+8sS0d2SACHS6CjH0QZuoX
-	DxVP6xWIKP3JFk3tyUkSQPU05EGdeUA6d/DPuot8H0L6g8SmeOIeCYGSJLwES1DPWXxmAN+2B29
-	AVtddkzHOm5Tvo5Vn7FRaJGdED0Gr4F7rqe+Hoty28+QfUzCzU10TYejo2LqmkQPvVsCzCiqnz8
-	OCclxoAbwRNwMBHw7u28ZypYKz4c393KWsTKSnft4Q
-X-Received: by 2002:a17:90b:2552:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39aedec7bbbmr2766953a91.5.1788319792006;
-        Tue, 01 Sep 2026 20:29:52 -0700 (PDT)
-Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.50
+        d=1e100.net; s=20251104; t=1788319854; x=1788924654;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PXNFQ3gLjer5xNcb0OpQhe/yIgTct7Qu/iF0tp3Lcek=;
+        b=JZp2RsooziFUJ7gqykDql+gDkT8wAzuuKi9RGGXdVRzJaqioS9MnDj6VPP80yO4w34
+         rdoz54LE9pGJRN4XLNrSGeG03T/chlkqq+PUOEXu0TgDI6hFIutcmBXMpUT+dsyWXu1T
+         l7Hzm+q4bMQv08nYODpTAXQsccN2aMd9ADVlLriTrPOTya4llmMbXIXK6KMHAjMBPx+x
+         1MTJvOokLM4d7OXumTtm9SRc/gGGxwn1oV9+5JXJqc/FLj3nu9yzOyAg28VyVqRM3S1+
+         z9AEV58pK4fIPftCjDDtkXdz0AGXpqGUqaaI1XWoSVwRQKcdQRtid1Eccxm95x8p/eBf
+         dZ+A==
+X-Forwarded-Encrypted: i=1; AKwUvByjaulZCvzWaFQTwffWoE18xiOdA+xx0lSEub6c9Qq4avLx0KFH4Tas8ErChOiY9KEv3TDG+xA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSnf711z/bvXkCr0SEG8NCDFT5sgSIn6HQF/ncIBzibD1g5L7b
+	yCX5yAXiKaQ2qKobiS9o46kDnitJUf5ugxYs4Hj4KXpCkOL0XbVfhCAC
+X-Gm-Gg: AYBFou2JE7exAg/ltxWtx2H/EsUlPWyaoZ7B0wxg+sKyEnChXoK3lC9GzK2WqAX0dZw
+	HxTcZ9J03ctOzQRUiIW1tCK9q9pVfnEZJQBy7P7Nbgcj7apaeJ2y9JTASfCTaV10Kfp/icDLpLk
+	TVJIBCDvIiseKd5TLEvNJL74opviwtOVR9vTgR3M9NygJKDTpilWqic+ASGHNzExIu/o2r1SSqN
+	G/m2aCZ1E2Hh+OTs0WFbOimhObctfevkLKxTzD/rk50008IQo7LtdNhBodgDFZb90g8wwrAHpwO
+	4fu3a0pWYLl1QIlQfDJGPLuG9Y5q7VnwbQnukTC7x+ZsBakB3Q2qAJ/KjDbDqRtuPLLK1FcqtU9
+	0noIIV7RKfRMZ5hOxIm1ZAXslwfUQjX5Iayudc50AjWzTX/rkAcWvl6ChzO9u1QnM7KPqjDerJE
+	5eSH70hB6sf+GgeSk4oeuoY5Y7Cw+iAaTdH417EIse+j5pEoBIDvFQ
+X-Received: by 2002:a05:6102:570c:b0:785:10ea:be93 with SMTP id ada2fe7eead31-78a1f230b0emr760581137.4.1788319854364;
+        Tue, 01 Sep 2026 20:30:54 -0700 (PDT)
+Received: from adriano ([190.215.95.120])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-980672f9fc1sm1384076241.7.2026.09.01.20.30.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:29:51 -0700 (PDT)
-From: Matt Vollrath <tactii@gmail.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
+        Tue, 01 Sep 2026 20:30:53 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: johan@kernel.org
+Cc: elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
-	Matt Vollrath <tactii@gmail.com>,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-net 3/3] e1000e: fix NETIF_F_RXALL buffer overrun
-Date: Tue,  1 Sep 2026 23:29:13 -0400
-Message-ID: <20260902032913.661570-4-tactii@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902032913.661570-1-tactii@gmail.com>
-References: <20260902032913.661570-1-tactii@gmail.com>
+Subject: [PATCH] greybus: operation: fix out-of-bounds write in message allocation
+Date: Tue,  1 Sep 2026 23:30:16 -0400
+Message-ID: <20260902033017.40290-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,108 +77,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When SBP is set, the card may deliver frames which would otherwise be
-filtered out by LPE being unset. This would allow the device to write
-up to 526 bytes beyond the skb's data allocation: over its own shinfo,
-and beyond. This bug is reachable only when MTU <= 1500 and
-NETIF_F_RXALL is set ("ethtool -K <dev> rx-all on").
+The incoming message size from the device header (header.size) is
+trusted without checking that it is at least the size of the message
+header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
+underflows request_size in gb_operation_create_incoming(), wraps around
+in gb_operation_message_alloc(), and results in a tiny buffer that is
+then written past its end in gb_operation_message_init().
 
-Ensure that buffers are large enough for an entire 2048 byte chunk when
-NETIF_F_RXALL is set. Do this by moving final rx_buffer_len
-determination to one place, right before RCTL.BSIZE is determined. This
-will correctly re-evaluate every time the adapter is configured, not
-just on MTU change.
+Reject undersized messages before parsing the message header.
 
-Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Assisted-by: Claude:claude-5-fable
-Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
+Fixes: d37b1db13f8b ("greybus: refactor gb_connection_recv()")
+Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
 Cc: stable@vger.kernel.org
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
- drivers/net/ethernet/intel/e1000e/netdev.c | 53 +++++++++++++---------
- 1 file changed, 32 insertions(+), 21 deletions(-)
+ drivers/greybus/operation.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 063fc8cd2673..80d5a0010df8 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -3036,6 +3036,33 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
- #define PAGE_USE_COUNT(S) (((S) >> PAGE_SHIFT) + \
- 			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
- 
-+/**
-+ * e1000_set_rx_buffer_len - determine the Rx buffer size
-+ * @adapter: Board private structure
-+ **/
-+static void e1000_set_rx_buffer_len(struct e1000_adapter *adapter)
-+{
-+	struct net_device *netdev = adapter->netdev;
-+	u32 max_frame = adapter->max_frame_size;
-+
-+	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
-+	 * means we reserve 2 more, this pushes us to allocate from the next
-+	 * larger slab size.
-+	 * i.e. RXBUFFER_2048 --> size-4096 slab
-+	 * However with the new *_jumbo_rx* routines, jumbo receives will use
-+	 * fragmented skbs
-+	 */
-+	if (max_frame <= 2048)
-+		adapter->rx_buffer_len = 2048;
-+	else
-+		adapter->rx_buffer_len = 4096;
-+
-+	/* adjust allocation if LPE protects us, and we aren't using SBP */
-+	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
-+	    !(netdev->features & NETIF_F_RXALL))
-+		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
-+}
-+
- /**
-  * e1000_setup_rctl - configure the receive control registers
-  * @adapter: Board private structure
-@@ -3102,6 +3129,8 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
- 		e1e_wphy(hw, 22, phy_data);
- 	}
- 
-+	e1000_set_rx_buffer_len(adapter);
-+
- 	/* Setup buffer sizes */
- 	rctl &= ~E1000_RCTL_SZ_4096;
- 	rctl |= E1000_RCTL_BSEX;
-@@ -6087,30 +6116,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
- 
- 	pm_runtime_get_sync(netdev->dev.parent);
- 
--	if (netif_running(netdev))
-+	if (netif_running(netdev)) {
- 		e1000e_down(adapter, true);
--
--	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
--	 * means we reserve 2 more, this pushes us to allocate from the next
--	 * larger slab size.
--	 * i.e. RXBUFFER_2048 --> size-4096 slab
--	 * However with the new *_jumbo_rx* routines, jumbo receives will use
--	 * fragmented skbs
--	 */
--
--	if (max_frame <= 2048)
--		adapter->rx_buffer_len = 2048;
--	else
--		adapter->rx_buffer_len = 4096;
--
--	/* adjust allocation if LPE protects us, and we aren't using SBP */
--	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
--		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
--
--	if (netif_running(netdev))
- 		e1000e_up(adapter);
--	else
-+	} else {
- 		e1000e_reset(adapter);
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd..df6daee4fb 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1047,6 +1047,14 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev,
++				    "%s: malformed message 0x%04x of type 0x%02x received (%zu < %zu)\n",
++				    connection->name,
++				    le16_to_cpu(header.operation_id),
++				    header.type, msg_size, sizeof(header));
++		return;
 +	}
- 
- 	pm_runtime_put_sync(netdev->dev.parent);
- 
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
 -- 
-2.43.0
+2.51.0
 
