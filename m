@@ -1,158 +1,176 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25C3134F27B
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 02:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314481; cv=pass; b=d3w23fjzT5s6OPgVcWxglNpYD9EaiNBuAgTb2BpVQ8EYJFImsbxFPx2pb2utvLpq+4gAQF1kZsWfLZqnwnBbXaJQ4SVbmxramjEG3R+7xBE6M8gpfZYqxiT+tpts5trsjTt6KvuOqVQNu1yrGu8sSWz562aIYpVxW6+6xJSnGXw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314481; c=relaxed/simple;
-	bh=U3aa/uX2QJ6x8/cys5PY/EmIY6wqHCxmh0up08kwOCg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RjfQjzU8VlscGfx0Av7NxIRNWngBVIr2Min+gtnoxGVlbSO2gqxnuiw+5uhNITLOyxXaXXkhvJhHwESDetJ6WFL504jSZamzkoQncyqXzBOli5pjbaO0T+1nRZH4sBKAc9aDwM2sb4UY79kW71TfTKRqoZAVniK1HfpAZPOTiSw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hIGjMTBm; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B03365A0F
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 02:26:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788315977; cv=none; b=FO8oUyQgXrakNOBN0zcv4MIp9n/RGEJnNJzRV/0ge2EzgJxkDi4O4GVE41Dr5CfXnnf+JvJYT42KRQdoR4/MM+9LXOFOI16GWduoo3dF0z2R4YyWqK1jHda0Ly4d0Ii6VLWKCvxJZ5RscFHOkMPJSSW2lElyL1v1h8lWv+Fncjw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788315977; c=relaxed/simple;
+	bh=IZmZlvs0yOgGUeyXvD/ZCuE8dv8pSbahU+m/BiYNON8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P9lY+YTVp7O85WFmcGZhbbKf8m2rKFe2yUByRsazYNRHePEkP6glNVkYPpoX3/zVCGEBo5AV4XOz/4moIq+IaodATGQDg7PAFYKXGA9c/mAcR4TYScyHgJD8WHD50XBbYTKraocbc6pr9pP8t5aNtG1Hjz4XvluhZvav/wd/JzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KKl1W4ik; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hIGjMTBm"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52faa58bff5so140931cf.0
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 19:01:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788314473; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fjhHSA85zXiAdfhDoQXsojKCYjWavoO+Z3c82qC398Oz/zrV7LJwf40w2Hi/GhO735
-         3wMtZ7bV7e09L2tFVj7BwH15CAXiEfLxZE1O+W0p+TuiaaVQ2Ltlja4gjuNXNYUuqnn7
-         PHf3HLSXNmhHgZ/+sJdymy12cpVA3o7cdcsux/3Y8P74dgZ76jVcpjnFykNJD68HLYwc
-         S96izggeFjS+2fnDUUmGvaWBSWmJh0lTPajy3mOvSmB8x2fYd4xiYoaMSMSlpyZ19aWP
-         thlK38cH22IHU4ctd8II4OAqbfZz/v0AgpoF3wu8c4owEATTs+vzi7PscoWCcAsuB0Oh
-         9RTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
-        fh=sy6S39fUjksj0JaOnX4dhQSg0O1L70nB8U0BCGtVTng=;
-        b=EbUcj73XRtDmzgZIbutojfiRY/TWm6Nb2Xj0mVdADF9o8zbsNEqQs9ASHOhfXHVYWg
-         beEQAdBV6+CipJwEV6h8nkOc1Stt9omK6qZI2RRw2xOGhZ3rndH3IMJBJsajNgkxcEnV
-         D0NCnMJedVuM8F2jAebBUNGwRaNZgWqQ0ABDhy7RTBIapB4Bojv2Sf8DR0g0iAwFbxoS
-         E4Kgbf6xXHK5uG1Pl2H05wzn+51yR7uvkRuPJs/PVgvQHNC+lZoNMZuQaEU7ZtFOaRID
-         wV9v+n+ks4FyVXXGlWcLUYrtfC2bSHqa8wCpFUn3l1zjdsnnSpyX+cRciAm4q8/Ovqk8
-         2q6g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KKl1W4ik"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84e27035206so474584b3a.3
+        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 19:26:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788314473; x=1788919273; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
-        b=hIGjMTBmM3Oj1b0BTXO2ogWByJcQEr0YgZ5EDJQnklj7mkITqmbuTDB3pRAZEOBeLx
-         sdFqQN94oERcWYCMTCs7whPrflUW4dA/5RpE8233FovbO4exrjwGe/3UamUcjarYFTH5
-         /U5b17OMQzyHsq+UtGXjOoCDOqYaAuXwr/0V5HB37ekIx6QWt0UVQFAmqpZ5JzSX+TbQ
-         ExHy/wEx5+pyjk/9qAoPUIJ6qgbrkK9iiNYn2eGHkWbf73ywm5cee9VJ8OwRI04JbQ3o
-         zszOFwDfqAl4NmwO4XfNBT/N/yZLHljK09J6JFrDA57QLWoiylrIHmwHxiue7QbyBSTO
-         X/zQ==
+        d=gmail.com; s=20251104; t=1788315975; x=1788920775; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Xx1JaFVwC4kXUUhQCfu4rODzl50O3heMJpCp/C+SDcQ=;
+        b=KKl1W4ikN3PIGBIIQ4mj7Tcek98MBpZHaGKZ/7M/OkFkiBZhi8VqoaBPRtdFb5+yDM
+         gU2QSNGrmND1kVb7InGJ0fOZVBTaBhIjKZQdIeFsaa3ZVJKjh0XEm4z1lthiHNWoS0Cu
+         uKKqOdbldo0LVRYCi4jlbo/Vmf+D9c+7Dq+yXORTvKs6n+mn0nPladPgT07hdxEZCTyl
+         EgUUs0eZs9oWWB9tbZYj5ofymAIUmZWu3dTxh0+gdupgRsbIiu1ZyCuFVWO488jwoacl
+         YlN8sCeCkNbaq3+XlFbf/qocU//JOcuGR2ipn+5TR49M6fPQpPf5ziMilcWQyyzOmUrM
+         zIKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788314473; x=1788919273;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
-        b=rlLG22KRJmpTDdM66cDIZbmRWF6F/r1VUKIuIAOMvQR6tILWP+tOxNnGd35URWkV90
-         gDG6SiGyL0O9nCC7Bu3NmZdIPLYDBv5zj/XpSNni9SnKhZ3N7ikYGYIiQfRBx4MXnqL0
-         pKPr7vOgn4to2t38Z30cwnF3I+v8Bj3mNVZcHqAh0ybCAApMgp2XXCQsr1ztESCRWUc0
-         jZMrVuZHpTP3sUWBrHY0AROI6+kWNs2LXFMddIHhIMEkD3l/jIUxgiKLBAQ/E1I3J4hR
-         B1x7Z3+GB0Vaq8KO2OyZh/WAYvr4LlaeAm1erpP8GG/aly66Gh5zNqq3KJsFMlLXdUNF
-         PTNw==
-X-Forwarded-Encrypted: i=1; AHgh+RoRoiplg87LMUjhSjxXWN7eT/5mKKIuBKtiuL8ZgIHIQVxUkiMgEr1ldLio11hWc2EimWs1QAQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2t2qOTbsK/IGXUJJ2D3sE+0ljhMQPB3j08KAz+IZDnWouCbgi
-	U1P5oxhOncK09/RW79QU5W8UTw48h3aR2Fdh2jMxVxALm67k+G+IEubdqaYWir+JdGDeN5Sznfx
-	qTLtaG6GB7IQVb2awid64o8MSaVkJzHYXR+XZhlow
-X-Gm-Gg: AR+sD11i2n3hta/YKFGOC/KhN7e1gtPdCp+JnczmxbbCNnr79vDE6+Q7gYKHJ0jaI/N
-	eiBnhJ/0DKKnd8mru/IDEQU+2WZtoT/ZmR/wjaKDjzaWBuLgV4EtiszMMpINBdeA6WeIuwamaNU
-	13wfduyuiqITLfmVZr5EG0cl7v4NVVAusgsdHJ/AlSdWa6iU6GdJ2JTB0kukJEytPIqtT+9ffYY
-	WrnYFxaRs5QNgKbPac4C1Ana3jYdDI1+vsb3owo8UuEESIdcDED6uwV0EiEAnUFCfPH5fsj1QyW
-	6xEuUWJEITwN2EZf5FS076OlN5bsShFpHDsVoW++E5Wg6wJ1nvaUXmtdLAEWuJfCaO1Jn8A06r8
-	U
-X-Received: by 2002:a05:622a:1b1c:b0:519:b82d:fe62 with SMTP id
- d75a77b69052e-53035b0244fmr4577611cf.7.1788314472279; Tue, 01 Sep 2026
- 19:01:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788315975; x=1788920775;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xx1JaFVwC4kXUUhQCfu4rODzl50O3heMJpCp/C+SDcQ=;
+        b=G6dW4NT1LwXquRy4gwSvfn/OcThivcqN93PRelrbQ8k+N2yFP/7R/zdAUto4SLlW3h
+         HsiLSZsBwwVezFW/TuETsSqaEWQ1eDdekH6E1TuT1JwVAOxssljeaa/yMlUO3HYdZWcf
+         Vv66hgnGnyPOggl5imIX1VpzejExDltdL60uLWciVpOF26FuyRyNnUkFEDeOJ/xorYlV
+         pVXrtGWn8NY9u9V8flVMeIUW9/1XDTp6euNBhbPmcaET6wOfCXsHKCHRFfSNkn0Vrj/A
+         WgA8ODSlOQOV/FXpz1hbcCDCL7MVexR/Es9ZdwoFPPSBojsIotKhP9UW7EiYQ+v9uFSz
+         8EJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwi7a2NnGGBhrrYkxosU46pI0rAtUzh8a0XDUc3vO1tEq1BKenwKtzZ9+9VSya7eYB/PFyEQI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMFmcbLWMlCtJVbDbPQJAVMYVHdm7wmMQaYsQn+MuufAtMDkLu
+	NnA77F+efj5UqKqyddBbdwYmf+DArS3eSqFGvT8Eo2bnE9kgYeJXkZ0m
+X-Gm-Gg: AYBFou0yXigwca6wDD0CI9hozHh6ooxZdFYHefU+o+0V40W4j55UQOeRrIyMM+viMBR
+	BAkXxPLwMACbQh+0PBWFvWeoQtMsYaWstr+SMWS/1vVGuLPPllypMca+IG9YbDrvM7E2hevkqx/
+	o4b/izr1ySUzxZs2F4sJXsKSR0nRT13Au+rTKPcrgqdrsgiUVXOe2IiyLtbrYdNauubhbA67+tK
+	ykrUXKbsGYbXNDY5xa9unY1IHhCmR0EtyXEXJU9p6lG6/+NgYys3p0e0/oQ4z9/4VDdKNBqLUrC
+	Cmp71IcClTj4U/3gcaJukPCTSYZw0ACUMk4xnUVDJS4UZ+VMs1ckoXIeq7r49dppzmiQpa1WyNh
+	q4m4rDdqr4fWNoTJTcbz4tnRnG5O3cUKcYav3UWK0nStejlaeWCPY1Lvdd/oRyaD7DavrqPedV7
+	+P68w6r+N3FTOpa3CTIA6pmkGcQaCLfp6z63hDTYSul3OGYHQ5e1jHROZAHUNyS5SoN9CEIdVS/
+	O4MhZO0OiTnbpt3VBhRLlFcHQ==
+X-Received: by 2002:a05:6a00:138a:b0:85c:3922:25d5 with SMTP id d2e1a72fcca58-85ed3f6e681mr2761201b3a.21.1788315975016;
+        Tue, 01 Sep 2026 19:26:15 -0700 (PDT)
+Received: from localhost.localdomain ([117.88.121.70])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11fae83sm568560b3a.59.2026.09.01.19.26.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 19:26:14 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: io-uring@vger.kernel.org
+Cc: axboe@kernel.dk,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] io_uring/net: commit all consumed buffers on bundle recv retry
+Date: Wed,  2 Sep 2026 10:25:47 +0800
+Message-ID: <20260902022552.1890610-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAE14pdef2u=Eo7M9NGdABzsjy2o2SO=Z-U_BbRn9n45nJJR+wg@mail.gmail.com>
- <6f78c4bd-a70b-402d-abfd-599091b67674@acm.org>
-In-Reply-To: <6f78c4bd-a70b-402d-abfd-599091b67674@acm.org>
-From: Stanley Jhu <stanleyjhu@google.com>
-Date: Wed, 2 Sep 2026 10:00:33 +0800
-X-Gm-Features: AcwNN1UiOHbd-lkyUlqZ5G0VRdeSeGP_sY6ZABq_Mgd0A-kN0QJuBUaEk2kVvBk
-Message-ID: <CAE14pdcnmcvPZv4_pKOnH57OZmJBqe8DTwRnmrMTwOnBm+iOOg@mail.gmail.com>
-Subject: Re: [PATCH] scsi: core: Set BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo
- SCSI devices
-To: Bart Van Assche <bvanassche@acm.org>, Stanley Jhu <stanleyjhu@google.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: hare@suse.de, john.g.garry@oracle.com, hch@lst.de, 
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026, Bart Van Assche wrote:
-> Does setting BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo_sdev break frequency
-> scaling? ufshcd_pause_command_processing() also calls blk_mq_quiesce_tagset().
->
-> Why not replace blk_mq_quiesce_tagset() in ufshcd_err_handling_prepare()
-> with blk_mq_wait_quiesce_done() and drop blk_mq_unquiesce_tagset() in
-> ufshcd_err_handling_unprepare()?
+From: Aohan Mei <henrymei@tencent.com>
 
-Hi Bart,
+For a bundle receive (IORING_RECVSEND_BUNDLE) using a provided
+buffer ring, the initial issue peeks N buffers and defers the
+commit via REQ_F_BUFFERS_COMMIT. If MSG_WAITALL (or a short read
+on a streaming socket) yields a partial result,
+io_net_kbuf_recyle() commits only the buffers covering that first
+partial round and clears REQ_F_BUFFERS_COMMIT. On subsequent poll
+armed retries, sel.buf_list is reset to NULL while
+REQ_F_BUFFER_RING prevents re-selection, so neither the retry
+rounds nor the final io_recv_finish() -> io_put_kbufs() ever
+commit the remaining buffers that have already been written to.
 
-Looking at the three call sites of blk_mq_quiesce_tagset() in ufshcd.c, they
-have distinct requirements regarding pseudo_sdev:
+This leaves bl->head accounting for only the first partial round
+rather than all consumed buffers. Buffers that already hold
+received data stay visible in the ring and are handed out again
+to later requests, corrupting or dropping application data.
 
-1. Clock scaling (ufshcd_clock_scaling_prepare):
-   Requires freezing all queues (including pseudo_sdev) while clock
-   frequencies change.
-2. Command pause (ufshcd_pause_command_processing):
-   Requires freezing all queues while TX equalization retraining runs.
-3. Error handling (ufshcd_err_handling_prepare):
-   Requires quiescing attached logical units to avoid HOST_BUSY retry
-   storms during host reset, but must keep pseudo_sdev open so internal
-   recovery commands (e.g. NOP OUT in ufshcd_verify_dev_init) can proceed.
+Defer the commit entirely: do not commit in io_net_kbuf_recyle(),
+keeping REQ_F_BUFFERS_COMMIT set for the final completion; recover
+the buffer list on retry so the final commit has it available; and
+derive the number of committed buffers from the total received
+bytes rather than the final round, so a short last read cannot
+under-count.
 
-Setting BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo_sdev in SCSI core breaks (1)
-and (2). Conversely, replacing blk_mq_quiesce_tagset() with
-blk_mq_wait_quiesce_done() in (3) leaves logical units unquiesced, causing
-incoming I/O to storm the recovering controller with HOST_BUSY retries.
+Fixes: 41b70df5b38b ("io_uring/net: commit partial buffers on retry")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+---
+ io_uring/kbuf.c | 4 ++--
+ io_uring/kbuf.h | 2 ++
+ io_uring/net.c  | 7 ++++---
+ 3 files changed, 8 insertions(+), 5 deletions(-)
 
-Would it be cleaner to keep blk_mq_quiesce_tagset() for (1) and (2), and
-handle (3) locally in UFS error handling by quiescing only logical units?
+diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
+index 7c309173dd19..c4bae8f00173 100644
+--- a/io_uring/kbuf.c
++++ b/io_uring/kbuf.c
+@@ -76,8 +76,8 @@ bool io_kbuf_commit(struct io_kiocb *req,
+ 	return true;
+ }
+ 
+-static inline struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
+-							unsigned int bgid)
++struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
++					  unsigned int bgid)
+ {
+ 	lockdep_assert_held(&ctx->uring_lock);
+ 
+diff --git a/io_uring/kbuf.h b/io_uring/kbuf.h
+index 401773e1ef80..7079f2dec9e0 100644
+--- a/io_uring/kbuf.h
++++ b/io_uring/kbuf.h
+@@ -71,6 +71,8 @@ struct io_br_sel io_buffer_select(struct io_kiocb *req, size_t *len,
+ 				  unsigned buf_group, unsigned int issue_flags);
+ int io_buffers_select(struct io_kiocb *req, struct buf_sel_arg *arg,
+ 		      struct io_br_sel *sel, unsigned int issue_flags);
++struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
++					  unsigned int bgid);
+ int io_buffers_peek(struct io_kiocb *req, struct buf_sel_arg *arg,
+ 		    struct io_br_sel *sel);
+ void io_destroy_buffers(struct io_ring_ctx *ctx);
+diff --git a/io_uring/net.c b/io_uring/net.c
+index fbe719d86c46..bff4514c0100 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -483,8 +483,6 @@ static int io_net_kbuf_recyle(struct io_kiocb *req, struct io_buffer_list *bl,
+ 			      struct io_async_msghdr *kmsg, int len)
+ {
+ 	req->flags |= REQ_F_BL_NO_RECYCLE;
+-	if (req->flags & REQ_F_BUFFERS_COMMIT)
+-		io_kbuf_commit(req, bl, len, io_bundle_nbufs(kmsg, len));
+ 	return IOU_RETRY;
+ }
+ 
+@@ -877,7 +875,8 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
+ 		size_t this_ret = sel->val - sr->done_io;
+ 
+-		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
++		cflags |= io_put_kbufs(req, this_ret, sel->buf_list,
++				       io_bundle_nbufs(kmsg, sel->val));
+ 		if (sr->flags & IORING_RECV_RETRY)
+ 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
+ 		if (sr->mshot_len && sel->val >= sr->mshot_len)
+@@ -1221,6 +1220,8 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 			goto out_free;
+ 		}
+ 		sr->buf = NULL;
++	} else if (req->flags & REQ_F_BUFFER_RING) {
++		sel.buf_list = io_buffer_get_list(req->ctx, sr->buf_group);
+ 	}
+ 
+ 	kmsg->msg.msg_flags = 0;
+-- 
+2.43.7
 
-    static void ufshcd_quiesce_all_sdevs(struct ufs_hba *hba)
-    {
-        struct scsi_device *sdev;
-
-        shost_for_each_device(sdev, hba->host)
-            blk_mq_quiesce_queue_nowait(sdev->request_queue);
-        blk_mq_wait_quiesce_done(&hba->host->tag_set);
-    }
-
-    static void ufshcd_unquiesce_all_sdevs(struct ufs_hba *hba)
-    {
-        struct scsi_device *sdev;
-
-        shost_for_each_device(sdev, hba->host)
-            blk_mq_unquiesce_queue(sdev->request_queue);
-    }
-
-Because shost_for_each_device() explicitly skips pseudo SCSI devices
-(via scsi_device_is_pseudo_dev() in __scsi_iterate_devices()), logical units
-are quiesced while pseudo_sdev remains unquiesced for recovery commands.
-
-What do you think about this approach? If this looks reasonable to you,
-I will withdraw the SCSI core patch and submit the UFS-local fix.
-
-Thanks,
-Stanley Jhu
