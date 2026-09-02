@@ -1,137 +1,146 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE7D4A0151
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E2947D470;
+	Wed,  2 Sep 2026 13:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355884; cv=none; b=WMvyn5MpGNvNVASUrDhOniDW+Y6mfpoy6DepIb0dI+a7w5JTgIfqIk2hLbWLozoCEmpz34wfSO0WEX3svsp024L0m5XeCLo37MHMKT0X57uJzXudfp8Uq7QBY1+fKjB4DoUFPOiZA8zMn7OaRCoVvCahfhEWuR9H7jVhC9uJCNE=
+	t=1788355932; cv=none; b=iNSMjVTcMesgBA/stzHAGiGtVI/M2xvRf3lwbqF/eL/6/ykR8NIcJyGC5NhsGv7miC2ON9ewJcx7yNVPH/be1Y+zhIsN/gLONwqYLItGca9aVMP1jhxcytK/8KFQeW1Yby0WRpjrvt0Yyp18rM4xNJl/KqWs6dG2Cw+X4obwOUk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355884; c=relaxed/simple;
-	bh=JIRxKavBe+DvymIugmgjMnOUBX4MpWbeh9OBzJEuUX0=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CUESDjF1nS8Yh7ELsIF5B8089eWHXSghBlSX/d18fEeE/8/b8BRJ2x8+EEozKCIFn73HI/7jmEUP2n3C1pqqpdczPkh5/IAGsHGqhCfpxoT/DDZQkiM6GjwMiMLmAoE8hcck8QSOHAeEOJbcGajANIai3XYeatGCuVzMAs/rFXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EUJWnTXs; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=XmNfTaar; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=nD47AEwm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=dJRdnPdw; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788355932; c=relaxed/simple;
+	bh=2FVjUR2IHg8brsTGehbDXKcOcWo2hhF15CmBiXnTkTU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mZubxNRu7HdZholWKvwD0vuFvKVQ2gOgDuoGc0oLw3DCZzxNAZ8byjMA8Zdk2FvQxEw4HOlaERft98no2Sqk6mXXSlxloe4pfRTAwV6YLlvCz3HhkLG3xFbI9ksJB+0aWkefaNctDwtJldQmyz1l6JvOnviCR2TxH6gudoNdi/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jyGOm/D3; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EUJWnTXs";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="XmNfTaar";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="nD47AEwm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="dJRdnPdw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EB2BC1F7F0;
-	Wed,  2 Sep 2026 13:31:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788355868; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Oq/y51KYOTLhg4tsP8IxpDLeU/AspuBu+A/pKNa2Yo=;
-	b=EUJWnTXsmj0tG/7sIvNSo8tl5AJ4lonze6LL/AU5kG1l+HyEZuqTzTzN2vR43V2/U9BLgP
-	6w24RLUUL83RooQuNzz6YAQD2649jUEfNPuSYdpn/05kkme//CHVy09PMhwalQLbBURrsC
-	6aMNeSeX+V5KGwLISOXsRnl+IUckWgc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788355868;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Oq/y51KYOTLhg4tsP8IxpDLeU/AspuBu+A/pKNa2Yo=;
-	b=XmNfTaarpwMn9SfCplacaNfdodOxn9hIZ4/CpDCU9pjll5rxwZ5xqBGNqa4lU4LoOnCoL0
-	56Itl82sbIbMaJAg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788355863; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Oq/y51KYOTLhg4tsP8IxpDLeU/AspuBu+A/pKNa2Yo=;
-	b=nD47AEwmQ0qcfbjnhZceZ3EV0yQskM/BJal9/bZAk7SZVjSDKPRQ68mg+3pi8TNH+l2bJc
-	KyjcutSLKogxtyNnH5FVuqYz3ip54HZhG1zwS+hBxAuAbA40yU38sH9uP51mOU8hLUmZqX
-	ey6bjB8g8P71hF5iqywYKqfdgrxxjwg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788355863;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5Oq/y51KYOTLhg4tsP8IxpDLeU/AspuBu+A/pKNa2Yo=;
-	b=dJRdnPdwH4Q1y6Frwssn8EeZxR9Q/xTdl8XVJQuCqNbILdGhvi5VKYIitpfgDkHd+RuPgK
-	I9VwrpWrMaRgAdBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 3765D13888;
-	Wed,  2 Sep 2026 13:31:02 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id yVZaDBYlmGrMWgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 02 Sep 2026 13:31:02 +0000
-Date: Wed, 02 Sep 2026 15:31:01 +0200
-Message-ID: <87ld9jaiga.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: perex@perex.cz,
-	tiwai@suse.com,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: rawmidi: Return the error from snd_rawmidi_input_params()
-In-Reply-To: <20260902125058.19499-1-sammiee5311@gmail.com>
-References: <20260902125058.19499-1-sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jyGOm/D3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788355930; x=1819891930;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=2FVjUR2IHg8brsTGehbDXKcOcWo2hhF15CmBiXnTkTU=;
+  b=jyGOm/D3nSV3qbyH2XayRak5DDGvazl8IjaZTMXS5u1NqY6HAlKGGIix
+   n7Ysp9vFKF9lN1CWbTdb4k74/OuEeWdWburZ2VrTzgJsIGgUa2O9mJsaS
+   ibHNZtl/pOl7vOCvlL3znjDEOq3TJsetYDIQWenFwUiNzVBENQa6mgrWs
+   O2hP2HX2RhtHGkSN8b6SLYUVDG6YPPG6M1SoTg7KgK70X/QyW/38o5dIu
+   fGeV7GiZ+NLi7yP1Wy8iuHHUWKmcgN6hk22nZXhOlgrFlach1CgrbgRp+
+   lACgXNlH+6+dXxQ0jqu+Rs7EXaW2lc/EMCH7X70oKxN4b15a7z9rrggSJ
+   w==;
+X-CSE-ConnectionGUID: THuuyrKWTTysv55m4uexbA==
+X-CSE-MsgGUID: XS6vM90QRmC9Kjx+d2kH1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88662846"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88662846"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:29:50 -0700
+X-CSE-ConnectionGUID: eJgGfHOxT1iOIb//2TX6ug==
+X-CSE-MsgGUID: c5EqoaCJT12ye2kIDQaCqQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="265707859"
+Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.217]) ([10.245.245.217])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:29:47 -0700
+Message-ID: <9f8fae96-0865-4b0e-9650-00e92e324f9e@linux.intel.com>
+Date: Wed, 2 Sep 2026 16:29:40 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	FREEMAIL_TO(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 1/2] usb: hub: use shorter 120ms post resume hold for SS
+ root hubs
+To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>, linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Michal Pecio <michal.pecio@gmail.com>,
+ Mathieu Fluhr <mathieu.fluhr@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 02 Sep 2026 14:50:58 +0200,
-HyeongJun An wrote:
+Hi
+
+Some minor nitpicks/personal preferences if you are sending a v2.
+
+I don't really object taking this as is either.
+
+On 8/31/26 22:03, Lovekesh Solanki wrote:
+> Commit 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices
+> behind suspended hubs") holds a runtime PM reference for
+> USB_SS_PORT_U0_WAKE_TIME (200ms) after every SS hub resume, so
+> downstream links have time to finish trianing before the hub can
+> suspend again.
 > 
-> The snd_rawmidi_input_params() computes err for the three invalid mode
-> combinations and for resize_runtime_buffer(), applies the new framing
-> and clock type only when err is zero, and then returns 0 anyway.  A
-> caller that asked for parameters the kernel rejected is told the change
-> succeeded, and the substream keeps its old buffer.
+> But 200ms is excessive for root hubs since a root hub has no upstream
+> suspended hub whose wake propagation needs to be accounted for.
+> The root hub still needs some time for USB3 link training to complete,
+> And root hubs also default to zero auto suspend delay and get
+> periodically resumed by userspace USB enumeration opening and
+> closing their usbfs nodes (adb, libusb).
+> This extra 200ms hold stretches this resume into a suspend/resume
+> cycle of roughly once per second, which on idle AMD systems have
+> been reported to cause system freezes.
+
+I'd highlight the fact that this patch mitigates the AMD platform issue.
+
+Maybe begin commit message with something like
+
+"Holding a USB3 hub PM runtime reference for 200ms at hub resume triggers a
+  AMD platform issue. Users running Android adb report crashes after adb has
+  been polling and waking up the USB subsystem once a second for some time.
+  Vendors are working on a solution. Disabling USB runtime PM is one way to
+  prevent this issue, but it is also proven that reducing the hold time to 120ms in
+  resume also mitigates it. See Link for more details.
+
+  Reducing the hold time to 120ms for the USB3 roothub is in itself a valid change
+  and optimization as the current 200ms is excessive...
+"
+
 > 
-> The open_mutex conversion turned the early returns into assignments.
-> It handled the output sibling correctly, which still returns err, and
-> left this one behind.
+> Shorten the post resume hold to 120ms only for root hubs but
+> keep the 200ms for external hubs that the original commit is
+> intended for.
 > 
-> Fixes: 94b98194b62e ("ALSA: rawmidi: Take open_mutex around parameter changes")
+> Reported-by: Mathieu Fluhr <mathieu.fluhr@gmail.com>
+> Link: https://lore.kernel.org/all/CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com/
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+> Fixes: 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices behind suspended hubs")
+> Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+> ---
+>   drivers/usb/core/hub.c | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 3345b3298daf..e1415ad5f908 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -76,6 +76,12 @@
+>    */
+>   #define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
+>   
+> +/*
+> + * Root hubs have no upstream hub whose wake propagation needs to be
+> + * accounted for, but still needs time for USB3 link training to complete.
+> + */
+> +#define USB_SS_ROOT_HUB_U0_WAKE_TIME 120 /* ms */
 
-Applied now.  Thanks.
+I'd do minor changes to the original code comment above the first #define,
+and just add the second define right after it
 
+/*
+  * modified original comment
+  */
+#define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
+#define USB_SS_RH_PORT_U0_WAKE_TIME	120  /* ms */
 
-Takashi
+Thanks
+Mathias
