@@ -1,222 +1,182 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A5648BD46
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:40:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD5148C8CA
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352815; cv=pass; b=jfFEiEm1B54W/+WFXCvfLtkPNZD4cnEMpaE/rafytJPpCKdQosUnqQIjj9ecyhw9+Qpj4D08XJFT/g+TwiUzcZER+SkFJ9UK2g8PB1X5JIAo6O7lCHMSDULLmmuW5BBsw3GQpdN6AHItvBZ3JpOd1cGOvSWT0Yxys1wx3xDnHCU=
+	t=1788352828; cv=pass; b=AFUOUvOWpIWGDXl0Yno5+N3vgDpgZM9/1mJKCl7p0wxFgMbGEgn7JW3WbrG04k0Q4wweud1YPVltDAGuRBgRys6aFUljvBjn70CIE45cZvW9Cdnx1zqhy7d/9OONAsG0jhNwYw4wGpJXP8mOeXC+l6by7/544TjLMYtwQ/Q9VN8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352815; c=relaxed/simple;
-	bh=1yrXK+KMTWtQDhDpfeqZ4eO3AXkph/2cmD38nAMwoU0=;
+	s=arc-20240116; t=1788352828; c=relaxed/simple;
+	bh=2q7EoLKcgcwc7yUi5L5qFuNobRc+ktl9A+DSmF2mUEc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HdJxleddgC/iVJlxgr8xHwbkn6tx/gtqCzAycWQo0sZXTN/fktMTMPVnddtJuRz+naPvoI0CqIUggpC+xySH3KQtfp6CIFRzDzY+H19984hRI01EoagPMy3S67zN9w9Wk0YhqTABB5w7Jb0h9VvTuQS7+Z40iYj2yXq6/cKYxPU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=cs+0sVWu; arc=pass smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	 To:Cc:Content-Type; b=ZB9bg4YUXnTXaXkRhiFWBJMVVBtsuinUbQs9Yy7LUqFDxbYMljgywdmSXku6eOtnUSqrULAtVE/CAqa7RGsxJABPoVubYpSFUJmSZgA8E0Z3h0W1BWxib2a0lRDSbbj+eLP4/CyPxDe18h9TBcqxELY+6IFn59qfm6ipULS6aIs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=TZHJOkcZ; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="cs+0sVWu"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84830c774a0so992165b3a.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:40:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788352812; cv=none;
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="TZHJOkcZ"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c25b661d37dso146733966b.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:40:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788352824; cv=none;
         d=google.com; s=arc-20260327;
-        b=NIS+ZdVnXDoFAE84Poy/pTgBvO2owN8QzlUbof1TwOCIE71BjlBBtaJCXqqjk4odkX
-         KjIdWnluzE/P+Vl69m1PU43FVjP5EyworsF4qQARXVnhA+Bs3ym0zQhJ6BIt+Gynnppy
-         D9C1/1NsHKjKdv71FoH803vU0oQoreOo2bB/9n+6E2udDRAD7kdM72WGZlGslDmEtsOQ
-         05S/BEgIxtzCPbR8x5jRMLrNfatIWEEogveIKJv8yRMJTHYpNFFvJh92KHEEmTyNkzZf
-         rOgoZVxORpVKCU/D5zWDCKg5Gfcq0D9nc7TXba1aUwV5cTi0o+s5vDKaqmXYKO071X7H
-         N0qw==
+        b=eh3AtooAI5/xmD2+b04jMt9GmzD6vNrmZElR+5hN6Wiod0GrRwvbJnhTTiCZztCsH4
+         ladPRwgRSjia4BDFNZEI+GRzzK7NGC4qCLHpE75apKRj5z2GILjibpeflx1qsqDW0PQM
+         lMjRboB9942W/hQjrWPu57mcXkFl5uSMC5qRcYFHZR4m2BKl5oMhiNgc/o+ccMG5tUoq
+         edyWHi6ZJviGYadP4mEkqidNMIAztqQS4CaAqJgXHp8L3JyV2PH9k3Dct3uEZhD6Kp+J
+         DnhM/itXIzx2HOQ9SRRM6SFovduQ3yXF90hMkDRxXdWSPVSRoo7KUrkp2fEbKJ1/TlRX
+         uxbQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=1Zx6veAObXdFzANUukTcCSazF8XGDEBs7YmzsK30HGo=;
-        fh=Z7AvuPjKAlwT/mXUAzQzc0yxXaq4J4/BmZIrkAc1vso=;
-        b=P2VAMxfbt8eZaSlDGWhyC7sH1RYVa7QmJVC/sjA2mAJ8dRLRCyQ9HlyBW2MzTmySb6
-         8LukdhR1MA+jUxhRZNgjtQ9EQd+wTy66ErfJNgHn7nfUPnmFsy/ojEWUdaLFaJQCa7bc
-         HQAZ48OCnhEhFRuIFS8XuEhGuxdxt8W2csq/U7PyWWwEeG6kPIUKugWVhwFF/FFPlZCf
-         LF5MWen0VQZemKCLh8h1AEFBE+Wu9vevr6jJevM4G2sZXXCzU/brzJgykjNhWriokco5
-         KiT/WNhVKM+FFmB//VhwDvg2z7XRjN5uL+1dOCUOiNtDUIGmTDuw6XTuQNpTdVXMViI9
-         qNoA==;
+        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
+        fh=4ZetTcrEeXKu1VwfWOwh4hOk2LuLb3Ngwj2BqwCUUtQ=;
+        b=E1ysns6yayRQRjiaK0hnRgvcku3JvDEGV+v+FyU0wP2DERR8691HB2CwGMJ34GHsXr
+         h9wPzsep8sA8hWfIY3X8C7yYmEMx+CUBtRmD/7jQcaVKaKypCNfg/GsxNhAfLk5YP5Uk
+         cjxLiZt/Dhg4sxmzrZ7efGRMUO/1e3CgzmAGOzLimSOFwGcEb1oiD7CFEHdoSB7PxGK2
+         BZa2AqgqVVyOPSM8N7We/oQL6tN8Wu0fxNGWZkgaTIYa2xJHaVJn8cgR1s7zpBVXMjTU
+         1y1gOSwNV1J1oghvXcZP4vu9xlArXT9A2ooNoJgZnMCZhAM4fyAypR747gm5HDMZcUpi
+         v0eg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1788352812; x=1788957612; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1788352824; x=1788957624; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1Zx6veAObXdFzANUukTcCSazF8XGDEBs7YmzsK30HGo=;
-        b=cs+0sVWuyCQ3AkqiJgAYqhaPN/UZkojc91n0XAOjF3cl0unyUTI6k5b7bB6DE4T4MJ
-         3HyuNiTLzs1FE0U1u84Zea2X63I7zy2GnAM3h7PnHAMlprsnWZZf/zOZbSBte3agJIOL
-         jIhsTH4Gvc+mETNNQ3Kny79uwYeWeM5vLQUmY=
+        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
+        b=TZHJOkcZJwTfPbRTlDs9/OBCM4woe1At57nBvb/eTQmvDHxftKZUTMOQD1Ccy9CrgV
+         jWDbua7Do1wljDmCC3izGHnTK124dZTXl9HmuOHt+EaqPO2ffPdFZJI/16OSEC9roRWe
+         /0ZQwrWCYGKmxrO8s6JsczCPhT8fv0IpNSlhQNGgEo18kCjLMNhogTTw7iVfuvWF5RHQ
+         shIv1r4xj2/v+FmC/burOKcC9P+O14PFyDv2livPjEQ+rayx+RNf/xBbNXCYy6NZCYnL
+         K6ZFlnjSx/6TIfbmhw0fdf4NlBo2R25cUuiAXtyjw/Q52P8hpdP5wLcCzzuV9qCcdcEF
+         9Z0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352812; x=1788957612;
+        d=1e100.net; s=20251104; t=1788352824; x=1788957624;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1Zx6veAObXdFzANUukTcCSazF8XGDEBs7YmzsK30HGo=;
-        b=N88KGzWM3+Lylh1H5odZTsfYz6wnaG2fuzul1PKMq8PBrjmfNICftoSe6X6FLrF2nb
-         Y8gB3+X1fEiCpUL4JBQLO9XMb9tylBlPY0FCRmxWrd0BcS+yFwWvOPyGOJOmL3pcXbsT
-         d7fonbAFw5u7TM+SDeVapTTeQ9WQpfmUy2/1OSIhEvVW9UquUzZr/OXfLAg7zPnn7m1S
-         lvF9aCapANpAcu/6lRdeUFEP/hfR5V292kchdHJeHDheCcKPzRoC6yeincD23v2pmwXd
-         Q6rUz54S6dx8XoHUe68Nkjpc8lRpU+XEXvjlTAD8opbMWY80MY+hbssCFZomlSKXghLT
-         fUAw==
-X-Forwarded-Encrypted: i=1; AKwUvByrH+fwNXcI/u5F19EBYXl1/H5JAATUvryrW5G2eagzzCUEanjMYKemmoA6CNbX1ANywSwtAzk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0g2WILHYX+UUOtckZl3DXWkGEKrxkUSgPUHXRZSro8KZAjK6E
-	zBwsA0LipMkMj02Rj3EYEntjyc6v/PNr/oSWLMvzmnwxjLY2UkhdYt9T6tP/NxhXF8sA1/e0RSV
-	Zy+pVdAHRt1wMydVDVcIJZGS1OKUKSdXViUci197r
-X-Gm-Gg: AYBFou0rqHmC/+Q+Hs8MFa0C0EA86p9aA+p+bIqDGXq4FubcXEQ1NfUW0R+PmjKyuI3
-	+4/P1P0jM6BKmh0eWXM73VZd5yoxi7nBI46xvgHT5zJYC9TXTsEJD1chYVTZneIEqT+koKIfn5Y
-	aL80JnZghQRJTZ71rHOV35GBnhXVedcUaroTWsSB8/NiQ63O5BDWLq5jDx+UT3oxIb1iKMl4jwn
-	cPjEKroByVqPnwjpHBUk8gXmw+a7dOLrA9E+KBzu9qk3vN4ECBTn4RHMn0OMhkmi1loqOI10vCf
-	rsww0Hc6U/h5q6l7V+/DSNdN7+r0oRV3pF/VbV0Y0Oq0JfZCrupBFfdCxKQ/5KNhOszTPrDxULs
-	DRRdFt9JsMrFoOIrnL+qGljIr9OwzaenDoSUlXg==
-X-Received: by 2002:a05:6a00:2183:b0:857:727c:a1f5 with SMTP id
- d2e1a72fcca58-85ed4640011mr6311509b3a.23.1788352812452; Wed, 02 Sep 2026
- 05:40:12 -0700 (PDT)
+        bh=bf+ehOmiL4umBAVvBrXKvt8N+WWJPKbeQnHod1e6bno=;
+        b=IVqCW6+GaE1G9YU8UPc/SEKr2kZCYgui40lONs7y/Onnkz8QrTNBepSLnz4EiM4njM
+         Z2vIHMLeHioO9sKUW1zgxgYR4Ilaascr9rEQ+EpGkbPuyj4l7UOu+PqaWT1VGX3JDwy+
+         6uAnEb4CdFeDnkfKzNWhjRGEVlwmCny25hLuwMBLo3IOxfxf1PwvD1tE7KyUckUPKGR2
+         kNQTPHjqM+3VDQAU+WHzOXNKI5RB8uzNPZDV/VVzqY9qt16W749JLOfo1V5dmRYgs6j7
+         utRJVYzrWoR3M7i3ykF4CmilPrqP+jS31lz1hSj/LQRjIzD13N0SrI3SQRg53Fs75y+d
+         vRQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwpTwqJyzOYmzeZZ7IUndnlUPo1RDY8yXQNeYGj+rPTjFtJ02jgln3FD/g2Z9ipS+67a8zhsjM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIpSeLc4GlPV0Rr9mOOqSoo4Y9XyWFSArz1vJy2SiGU5lP1STB
+	YdMtJ9ll44IfuxKaMkaANhLvEChc2gg7JrIsTy9PYlYv9otX0DxsN/P4qscggiDL91Bq9s+gDwg
+	WAh6etGMRtZisDTD4B/YFsqMbb6c9vvghqVH6koVsXQ==
+X-Gm-Gg: AYBFou1yrRCWxZBOf6oD5bT9i2mnrOdyCkTDpEYzzCVIdejKNHqZInaqVM4bGMJZKiI
+	oX+as/SBq0e+8kmUm8ulzdEA8BrGN6IB0Kcvq8fiDMI7j4/2cyfhiMVwh8boY55nm3qePYrryqb
+	7DSdHav8mk3lhORXDDlkygkeHvqtZlNg9SWX/gbJjcQdciZ0LMTDbPLGRj0DIaaVlV5Fg6lTUiW
+	WMbTMN7PQrxQO7E40NspJ2Hjy2bSKOqYQOmjaTmVH5f9I0bcVHdnYBz87GiR5TPwh+tiMk31ECg
+	k/jIt8JLylOdKmhm0vtUiMoQdfZv1hxuCyeHzeeTuiDfdFLI//ES7sPvezwXYCVnOPNbeIx++Po
+	U
+X-Received: by 2002:a17:906:6a05:b0:c16:6a42:c7d6 with SMTP id
+ a640c23a62f3a-c25d52b8474mr330582766b.9.1788352823968; Wed, 02 Sep 2026
+ 05:40:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-0CFC.v3.20260901204856@mojatatu.com> <QDISC-0CFC.v3.20260901204856@mojatatu.com.2>
- <CANn89iJCBTSGwKK02xw0XdZRsP=2VGmJny27cdi0bnpz4aBwHg@mail.gmail.com> <CANn89iL+o5mdPOvRUy_vSiHxj3Kc9Wzr3HV_dGf2tsKJJNwniA@mail.gmail.com>
-In-Reply-To: <CANn89iL+o5mdPOvRUy_vSiHxj3Kc9Wzr3HV_dGf2tsKJJNwniA@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Wed, 2 Sep 2026 08:40:00 -0400
-X-Gm-Features: AcwNN1VEEvRrI0fCJStQeTRB4HwPfEl6ZGPqrGO-f0KV6-7LSGTQUkw3B_YuXmk
-Message-ID: <CAM0EoMnENJAY7pP9dP6pbbWnW44Ug-Ow3C=sf87pfOTwxjMdaQ@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/9] net/sched: fq: clamp quantum and
- initial_quantum in change path
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Victor Nogueira <victor@mojatatu.com>, Vega <vega@nebusec.ai>, 
-	stable@vger.kernel.org, =?UTF-8?B?VG9rZSBIw7hpbGFuZC1Kw7hyZ2Vuc2Vu?= <toke@redhat.com>, 
-	Vijay Subramanian <subramanian.vijay@gmail.com>, Petr Machata <petrm@nvidia.com>, 
-	Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+ <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+ <87ecfc81e9.fsf@bootlin.com> <CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
+ <87y0dk6jpn.fsf@bootlin.com>
+In-Reply-To: <87y0dk6jpn.fsf@bootlin.com>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Wed, 2 Sep 2026 16:40:16 +0400
+X-Gm-Features: AcwNN1VSY-7_RTZXfxYPRP1gcisezSlmJy8fnVW71SAjcha9KevXuu7BcSLrowE
+Message-ID: <CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
+	Finley Xiao <finley.xiao@rock-chips.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 1, 2026 at 8:08=E2=80=AFPM Eric Dumazet <edumazet@google.com> w=
-rote:
+On Wed, Sep 2, 2026 at 2:17=E2=80=AFPM Miquel Raynal <miquel.raynal@bootlin=
+.com> wrote:
 >
-> On Wed, Sep 2, 2026 at 1:52=E2=80=AFAM Eric Dumazet <edumazet@google.com>=
- wrote:
+> On 02/09/2026 at 13:24:00 +04, Alexey Charkov <alchark@flipper.net> wrote=
+:
+>
+> > On Wed, Sep 2, 2026 at 1:10=E2=80=AFPM Miquel Raynal <miquel.raynal@boo=
+tlin.com> wrote:
+> >>
+> >> On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wr=
+ote:
+> >>
+> >> > The OTP controller is driven through a single set of registers holdi=
+ng a
+> >> > state machine which has to be stepped through for every word read, y=
+et
+> >> > nothing keeps two readers out of each other's way. Concurrent reads
+> >> > interleave, and the outcome is either a reader bailing out:
+> >> >
+> >> >   rockchip-otp 2a580000.otp: timeout during read setup
+> >> >
+> >> > or, worse, one of them silently taking delivery of the other's data.
+> >> >
+> >> > Reading two cells in parallel from userspace on RK3576 reproduces bo=
+th
+> >> > within 150 iterations - 53 read errors and 9 corrupted results, the =
+latter
+> >> > either losing their first word or, in one case, ending in the two by=
+tes
+> >> > which belong to the other reader's cell - whereas the same reads iss=
+ued
+> >> > sequentially never fail. Concurrency is not hypothetical here, as si=
+x
+> >> > thermal sensors source their trim values from the OTP and reach the =
+driver
+> >> > straight from asynchronous driver probing.
+> >> >
+> >> > Guard the read path with a mutex. Reads are the only way into the ha=
+rdware,
+> >> > as the driver registers no write callback, and they always run in pr=
+ocess
+> >> > context, so a plain mutex spanning the whole clock-enable, read,
+> >> > clock-disable sequence is enough.
+> >> >
+> >> > Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+> >> > Cc: stable@vger.kernel.org
+> >> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> >>
+> >> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 > >
-> > On Tue, Sep 1, 2026 at 11:39=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.=
-com> wrote:
-> > >
-> > > The fq change path accepts TCA_FQ_QUANTUM in [1, INT_MAX] and
-> > > TCA_FQ_INITIAL_QUANTUM up to INT_MAX, while fq_init() already clamps =
-to
-> > > [1, 1<<20]. A user can override the init clamp via tc qdisc change,
-> > > restoring the small-quantum deficit spin that the init clamp prevents=
-.
-> > >
-> > > Narrow iq_range.max to 1<<20 so TCA_FQ_INITIAL_QUANTUM is rejected at
-> > > parse time. Clamp TCA_FQ_QUANTUM to [256, 1<<20] in fq_change() and
-> > > fq_init() quantum to [256, 1<<20] for tiny-MTU devices.
-> > >
-> > > Conditions to recreate the bug:
-> > >   CONFIG_NET_SCH_FQ=3Dy. Requires CAP_NET_ADMIN (namespace-local via
-> > >   unshare -Urn suffices).
-> > >
-> > >   tc qdisc add dev dummy0 root fq
-> > >   tc qdisc change dev dummy0 root fq quantum 1 stab data 32768 size_l=
-og 15 cell_log 0
-> > >
-> > > Fixes: 709f34f7c28d ("net/sched: fq: add overflow bounds to quantum a=
-nd initial quantum")
-> > > Reported-by: Vega <vega@nebusec.ai>
-> > > Reviewed-by: Toke H=C3=B8iland-J=C3=B8rgensen <toke@redhat.com>
-> > > Tested-by: Victor Nogueira <victor@mojatatu.com>
-> > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > > ---
-> > >  net/sched/sch_fq.c | 14 +++++---------
-> > >  1 file changed, 5 insertions(+), 9 deletions(-)
-> > >
-> > > diff --git a/net/sched/sch_fq.c b/net/sched/sch_fq.c
-> > > index 6144b5686f13..35f940b2205d 100644
-> > > --- a/net/sched/sch_fq.c
-> > > +++ b/net/sched/sch_fq.c
-> > > @@ -980,7 +980,7 @@ static int fq_resize(struct Qdisc *sch, u32 log)
-> > >  }
-> > >
-> > >  static const struct netlink_range_validation iq_range =3D {
-> > > -       .max =3D INT_MAX,
-> > > +       .max =3D 1 << 20,
-> > >  };
-> > >
-> > >  static const struct nla_policy fq_policy[TCA_FQ_MAX + 1] =3D {
-> > > @@ -1106,14 +1106,10 @@ static int fq_change(struct Qdisc *sch, struc=
-t nlattr *opt,
-> > >                            nla_get_u32(tb[TCA_FQ_FLOW_PLIMIT]));
-> > >
-> > >         if (tb[TCA_FQ_QUANTUM]) {
-> > > -               u32 quantum =3D nla_get_u32(tb[TCA_FQ_QUANTUM]);
-> > > +               u32 quantum =3D clamp_t(u32, nla_get_u32(tb[TCA_FQ_QU=
-ANTUM]),
-> > > +                                    256, 1 << 20);
-> > >
-> > > -               if (quantum > 0 && quantum <=3D (1 << 20)) {
-> > > -                       WRITE_ONCE(q->quantum, quantum);
-> > > -               } else {
-> > > -                       NL_SET_ERR_MSG_MOD(extack, "invalid quantum")=
-;
-> > > -                       err =3D -EINVAL;
-> > > -               }
-> > > +               WRITE_ONCE(q->quantum, quantum);
-> > >         }
-> > >
-> > >         if (tb[TCA_FQ_INITIAL_QUANTUM])
-> > > @@ -1232,7 +1228,7 @@ static int fq_init(struct Qdisc *sch, struct nl=
-attr *opt,
-> > >         sch->limit              =3D 10000;
-> > >         q->flow_plimit          =3D 100;
-> > >         mtu =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
-> > > -       q->quantum              =3D min_t(u32, 2 * mtu, 1 << 20);
-> > > +       q->quantum              =3D clamp_t(u32, 2 * mtu, 256, 1 << 2=
-0);
-> > >         q->initial_quantum      =3D min_t(u32, 10 * mtu, 1 << 20);
-> > >         q->flow_refill_delay    =3D msecs_to_jiffies(40);
-> > >         q->flow_max_rate        =3D ~0UL;
-> > > --
-> > > 2.43.0
-> > >
+> > Thanks for your review Miquel!
 > >
-> > If we consider dev->mtu admissible values, which are in [0, INT_MAX],
-> > we have to guard against u32 overflows
-> > for 2*mtu and 10*mtu expressions.
-> >
-> > Commit 709f34f7c28d ("net/sched: fq: add overflow bounds to quantum
-> > and initial quantum") missed this?
-> >
-> > Please use for q->quantum:  clamp_t(u64, 2ULL * mtu, 1ULL << 20)
-> > and for q->initial_quantum: clamp_t(u64, 10ULL * mtu, 1ULL << 20)
+> > Sashiko complained about mixing a scope-based guard into a function
+> > with goto-based error handling, so I am replacing the guard(mutex)
+> > with explicit lock and unlock calls for v2. There won't be any
+> > semantic change though, so if you don't mind I'd like to carry your
+> > tag into the v2 version.
 >
-> Wait, I missed the
-> mtu =3D clamp_t(u32, psched_mtu(qdisc_dev(sch)), 1, 1 << 20);
->
-> Not clear why we have so many clamp_t(), this is quite confusing.
->
-> We could instead:
->
-> mtu =3D psched_mtu(qdisc_dev(sch));
-> q->quantum =3D clamp_t(u64, 2ULL * mtu, 256, 1ULL << 20);
-> q->initial_quantum =3D min_t(u64, 10ULL * mtu, 1ULL << 20);
+> Of course.
 
-Trying to understand your concern: Are you arguing for
-stylistic/readability improvement or robustness?
-The only place i can see where the multiplies you describe could
-happen is what the 709f34f7c28d patch closed. i.e this part:
+Thank you!
 
--       q->quantum              =3D 2 * psched_mtu(qdisc_dev(sch));
--       q->initial_quantum      =3D 10 * psched_mtu(qdisc_dev(sch));
+> I haven't seen Sashiko's answer but isn't the goal of guards to just be
+> released whatever the actual return path?
 
-IIRC, you are suggesting restoring the original logic (x2 and x10) and
-i am likely missing why that is a must do? Does it break anything?
+I believe it's based on the guidance in [1]. In this particular case,
+gotos don't jump outside the scope where I put the guard, so the
+scope-based guard is still correct. However, stylistically, it is
+indeed uncommon to see scope-based guards in functions using gotos.
+Explicit lock/unlock is easy in this case, anyway.
 
-cheers,
-jamal
+[1] https://elixir.bootlin.com/linux/v7.2.2/source/include/linux/cleanup.h#=
+L148-L153
+
+Best regards,
+Alexey
