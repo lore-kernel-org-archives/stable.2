@@ -1,134 +1,225 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D6F44A730;
-	Wed,  2 Sep 2026 22:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D2143F4CF;
+	Wed,  2 Sep 2026 23:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388459; cv=none; b=eWuNi6mifD79oxvVLTDm5oCascw37gWGShRGle+hv31INVhfPibiG1lsj3KCGoAt/jhHdckCW67EOLaPUoPDdbCU4B0bhJcw4MBNLAfYGa07VnHstc+RqBVphZdnT6vI8Nbdao/UJ1ppbetKOxDLofQyxr7SBsVDW+w880KhBQM=
+	t=1788390071; cv=none; b=Jr1IMjpyrCKDvR1qIQgIlDJt3JzUwbJeQQ+1NxQs3AKE7qLPOiDlsFBUxAE+XPjFZB4OV6WOJlxIu00s490nxIqqpeW3jc8W07PftqRilyXDZ/zJ5MnAy1TgMWOw/1BoLinar56YMTZnXW/63ps5407OY5bfu8gOeKQtmAbawug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388459; c=relaxed/simple;
-	bh=1d2ipJuzDM5i/0KPieI4b/1eXFRCu7erdjy0GeQmMbs=;
-	h=Date:To:From:Subject:Message-Id; b=ga9B3n/GfdhswFUg0G9ejRA4cmvSe5tvWB9GXlsV/wexQDrgPT69mJcnbFiUJDW7emTvdjt/IaLaNtUHVhDtSM56YNmFd7piJ91SBvzQhjRxAzOARJC0P1Q3E1bTFJItSKFVGzJ3BGdWt9VnaKm1eIDA7XsDxH1UJIFtB06UVEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=lgvxvIO5; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lgvxvIO5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BF51F000E9;
-	Wed,  2 Sep 2026 22:34:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788388448;
-	bh=oLUmHCL5tdwzFjJ5uO6i2GscMI0Zl/n9nLA/rO8rFc0=;
-	h=Date:To:From:Subject;
-	b=lgvxvIO5TcFwn3TBSNh8XmZnMQWINy2aW+cVtv8YispL1pkOkwmBW6nbqNjyb4XSh
-	 zXvs3nY32om09ONQSC0cJogkcedKz7bcme0WxN6aAJOJns4gdEt6irXs3XP0VO6y5R
-	 bBMczLfodZk/PQZZYGJJHsbbUmZy76W6KYDcBnJw=
-Date: Wed, 02 Sep 2026 15:34:07 -0700
-To: mm-commits@vger.kernel.org,usama.arif@linux.dev,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,kasong@tencent.com,hannes@cmpxchg.org,david@fromorbit.com,jiayuan.chen@linux.dev,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260902223408.44BF51F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1788390071; c=relaxed/simple;
+	bh=yJQo2pddZekCEf1xnnMVWdqs3Wr8r6zNGbVN79Wh1wE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dv1XXCABpPJ+CcmKqnbBvkQgnXxjQOuLPbYEVPtuHJllb0yBZmE194Ho97w3N/gBu6xDPgI29Rqor9pjtxQTwcqL0TkphCx8ettYJ3Jtyrh3MVqDaTJZ65BAnciII/ylNMpGi7YcLnnr6whbmOsFVOJziHa+j8wuRRixlnbVX2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DA87121D87;
+	Wed,  2 Sep 2026 23:01:01 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4B5F113736;
+	Wed,  2 Sep 2026 23:01:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id yUJmNayqmGqzCgAAD6G6ig
+	(envelope-from <krisman@suse.de>); Wed, 02 Sep 2026 23:01:00 +0000
+From: Gabriel Krisman Bertazi <krisman@suse.de>
+To: axboe@kernel.dk
+Cc: io-uring@vger.kernel.org,
+	Gabriel Krisman Bertazi <krisman@suse.de>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/2] io_uring/net: don't overconsume buffers when using MSG_TRUNC
+Date: Wed,  2 Sep 2026 20:00:41 -0300
+Message-ID: <20260902230041.1320658-3-krisman@suse.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902230041.1320658-1-krisman@suse.de>
+References: <20260902230041.1320658-1-krisman@suse.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Queue-Id: DA87121D87
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 
+When a recv/recvmsg is issued with MSG_TRUNC and the incoming packet is
+larger than the provided buffer, the net layer returns the full length
+of the packet rather than the number of bytes actually copied into the
+buffer.  As a result, io_uring advances more of the provided buffer ring
+than was actually filled.  Use the actual filled region size to consume
+the buffer, but still return the full size to preserve MSG_TRUNC
+semantics.
 
-The patch titled
-     Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
+Take care with multishot, because that seems to already truncate the
+consumption based on the available payload size.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
+This was reported in https://github.com/axboe/liburing/issues/1619.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
-Date: Wed, 2 Sep 2026 15:37:59 +0800
-
-With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
-never allocates an id, so shrinker->id keeps the 0 it got from the
-kzalloc() in shrinker_alloc().  __list_lru_init() then copies that 0 into
-lru->shrinker_id, where it looks like a valid bit index.
-
-Nothing calls expand_shrinker_info() on nokmem either, so shrinker_nr_max
-stays 0 and every memcg ends up with an empty map (map_nr_max == 0).
-
-deferred_split_folio() hands a real memcg to __list_lru_add() regardless
-of whether the lru is memcg aware, so the first THP queued in a cgroup
-does set_shrinker_bit(memcg, nid, 0) and trips the bounds check:
-
-WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
-Call Trace:
- <TASK>
- deferred_split_folio+0x18c/0x220
- map_anon_folio_pmd_nopf+0xdd/0x130
- map_anon_folio_pmd_pf+0x14/0xb0
- do_huge_pmd_anonymous_page+0x1a1/0x620
- __handle_mm_fault+0xea9/0x10d0
- handle_mm_fault+0xe5/0x320
- do_user_addr_fault+0x1cc/0x870
- exc_page_fault+0x81/0x1b0
- asm_exc_page_fault+0x27/0x30
- </TASK>
-
-Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[] read
-from happening, but the id should not look valid in the first place. 
-Clear it before returning.
-
-Two other spots could paper over this: drop the id in __list_lru_init()
-when nokmem turns memcg_aware off, or make deferred_split_folio() pass
-NULL like list_lru_add_obj() does.  Both leave shrinker->id lying around
-for the next caller, so fix it where the id is handed out.
-
-Link: https://lore.kernel.org/20260902073800.305481-1-jiayuan.chen@linux.dev
-Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Usama Arif <usama.arif@linux.dev>
-Cc: Dave Chinner <david@fromorbit.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Muchun Song <muchun.song@linux.dev>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260728191454.1850326-1-krisman@suse.de
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
 ---
+ io_uring/net.c | 38 +++++++++++++++++++++++++++++++-------
+ 1 file changed, 31 insertions(+), 7 deletions(-)
 
- mm/shrinker.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/mm/shrinker.c~mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem
-+++ a/mm/shrinker.c
-@@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct s
+diff --git a/io_uring/net.c b/io_uring/net.c
+index 647156c9331a..f8110dc9f860 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -853,7 +853,7 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ static inline bool io_recv_finish(struct io_kiocb *req,
+ 				  struct io_async_msghdr *kmsg,
+ 				  struct io_br_sel *sel, bool mshot_finished,
+-				  unsigned issue_flags)
++				  unsigned issue_flags, size_t consumed)
  {
- 	int id;
+ 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
+ 	unsigned int cflags = 0;
+@@ -877,7 +877,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
+ 		size_t this_ret = sel->val - sr->done_io;
  
-+	shrinker->id = -1;
+-		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
++		cflags |= io_put_kbufs(req, consumed, sel->buf_list, io_bundle_nbufs(kmsg, consumed));
+ 		if (sr->flags & IORING_RECV_RETRY)
+ 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
+ 		if (sr->mshot_len && sel->val >= sr->mshot_len)
+@@ -899,7 +899,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 			return false;
+ 		}
+ 	} else {
+-		cflags |= io_put_kbuf(req, sel->val, sel->buf_list);
++		cflags |= io_put_kbuf(req, consumed, sel->buf_list);
+ 	}
+ 
+ 	/*
+@@ -1027,6 +1027,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 	int ret, min_ret = 0;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+ 	bool mshot_finished = true;
++	size_t len, consumed = 0;
+ 
+ 	sock = sock_from_file(req->file);
+ 	if (unlikely(!sock))
+@@ -1042,9 +1043,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ retry_multishot:
+ 	sel.buf_list = NULL;
++	len = sr->len;
+ 	if (io_do_buffer_select(req)) {
+-		size_t len = sr->len;
+-
+ 		sel = io_buffer_select(req, &len, sr->buf_group, issue_flags);
+ 		if (!sel.addr)
+ 			return -ENOBUFS;
+@@ -1065,6 +1065,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (req->flags & REQ_F_APOLL_MULTISHOT) {
+ 		ret = io_recvmsg_multishot(sock, sr, kmsg, flags,
+ 					   &mshot_finished);
++		consumed = ret;
+ 	} else {
+ 		/* disable partial retry for recvmsg with cmsg attached */
+ 		if (flags & MSG_WAITALL && !kmsg->msg.msg_controllen)
+@@ -1072,6 +1073,15 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ 		ret = __sys_recvmsg_sock(sock, &kmsg->msg, sr->umsg,
+ 					 kmsg->uaddr, flags);
++		/*
++		 * With MSG_TRUNC, the net layer will return the full size of
++		 * the packet, even if we only filled part of it in the buffers.
++		 * Adjust the returned size to consume only the real part of the
++		 * buffer.
++		 */
++		consumed = ret;
++		if (ret > len)
++			consumed = len;
+ 	}
+ 
+ 	if (ret < min_ret) {
+@@ -1098,7 +1108,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
+ 
+ 	sel.val = ret;
+-	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
++	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
+ 		goto retry_multishot;
+ 
+ 	return sel.val;
+@@ -1186,6 +1196,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 	struct socket *sock;
+ 	unsigned flags;
+ 	int ret, min_ret = 0;
++	size_t consumed = 0, len = 0;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+ 	bool mshot_finished;
+ 
+@@ -1215,6 +1226,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ retry_multishot:
+ 	sel.buf_list = NULL;
++	len = sr->len;
+ 	if (io_do_buffer_select(req)) {
+ 		sel.val = sr->len;
+ 		ret = io_recv_buf_select(req, kmsg, &sel, issue_flags);
+@@ -1222,6 +1234,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 			kmsg->msg.msg_inq = -1;
+ 			goto out_free;
+ 		}
++		len = ret;
+ 		sr->buf = NULL;
+ 	}
+ 
+@@ -1252,6 +1265,17 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 	}
+ 
+ 	mshot_finished = ret <= 0;
 +
- 	if (mem_cgroup_disabled())
- 		return -ENOSYS;
- 	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
-_
-
-Patches currently in -mm which might be from jiayuan.chen@linux.dev are
-
-mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
-mm-memcontrol-fix-data-race-on-reading-jiffies_64.patch
++	/*
++	 * With MSG_TRUNC, the net layer will return the full size of
++	 * the packet, even if we only filled part of it in the buffers.
++	 * Adjust the returned size to consume only the real part of the
++	 * buffer.
++	 */
++	consumed = ret;
++	if (ret > len)
++		consumed = len;
++
+ 	if (ret > 0)
+ 		ret += sr->done_io;
+ 	else if (sr->done_io)
+@@ -1260,7 +1284,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
+ 
+ 	sel.val = ret;
+-	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
++	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
+ 		goto retry_multishot;
+ 
+ 	return sel.val;
+-- 
+2.55.0
 
