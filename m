@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3784AD7C1
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 22:14:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BC2341D4F3;
+	Wed,  2 Sep 2026 22:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387273; cv=none; b=vDuZPHNM9eIwGGlEK5tWtv5R1Kq3WLtVMh93d232YtavS1sVTWesZDya+ZRGw4s9c5OS7RtVzheBe4r7uDeHCkN8f1c0EUkbFnAaiPDY20M2X5Kf5KW+Gxm1F9nueSrKwKCbXBjnfDNFscu3IyoUwxfbL5uBUR5kq7ptgb/CsNE=
+	t=1788387272; cv=none; b=pWGb0tKzyIc5HZrEhNONKWftJPcbEeVXWYBaZxk+8blgf0YeNCrYidK0+k0zy90kiBlLqvktnt/SDplM9dFh9/qqoPIsIHzgdBTrXPFdhDMoe2LAp/gFK8donw8m7EfO504twnJS0+5zsovO1C6QCcAS8cX8g49fPLBTjB53tTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387273; c=relaxed/simple;
-	bh=WFR8DKiWR9Frgxh1Jbg961KktCcw0qTeHalkaoSsJOk=;
+	s=arc-20240116; t=1788387272; c=relaxed/simple;
+	bh=mEGxaygLEVF+0pFwWFu7necal/VkHZ96PXEvCXDTTBI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FFAW60xZkinTgDEfY3I2Q3oXHq6i+fL5qarBf9xM7FzRCAO609WffOzjc/rCO3Pta4Ma9hmpnb9ccR/h4V+kzyxIYWS95rZUFJxeyGdO043VAdSeGs6CJAKqa1qMzK5xzMd1roH2zdkJpEdtgKdZMI8ET347nx5vgDIjxC24ZkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQhvAX9J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BMjQiCJp1KFuXxarakiPPDbQgaPkI9HJMyuBvEmZ7W5hNf/iE2dG7tlrKPQbKRUwNHt6OaljXSLSSOjZCCbtp8V4yHto/NPw6HRk5lZHMQgYUEOBOWBT0SekIqt+yQf2ZsRu/D9zePHsrDoe+DAAuAfq/On68bqBvIHbhVEJG44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hyeb32ql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQhvAX9J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8431F00A3A;
-	Wed,  2 Sep 2026 22:14:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hyeb32ql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CEE91F00A3D;
+	Wed,  2 Sep 2026 22:14:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387268;
-	bh=BeKrpZq5mhUAqmrvj+af+SkcIEUxkxq+VzRPeOwyvPs=;
+	s=k20260515; t=1788387267;
+	bh=ZmMoe4LxxlhmDnwmcXUyGO7LsP2v+nJ/KvbYpZVDDHk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NQhvAX9JlV7JiyD/wH64v6qBnMQIzSU8qXCkWi5tgMMHCDbxL992GIQBb3wOCKMaB
-	 ye1zINJvAH2Bh5nUveEOaMMUuwIPVyRVRB01dZQ2vhCb58h7DItN+RPCn8/uH2VFlQ
-	 K40gVLc1V3y4sxbOLVJQUMmqGJFWOb0rKvNpU9fEk9gTtpFpX1etx34KkAlfybzZ0T
-	 dsN1aLinoBhVItye0Zjdk5F0M6bRpGWw/C1klTJPTEZpwHXZG+bmXl+o4a/mlOMxjl
-	 vGdfOvU/Sfzm0JC2OX4pisESzg4+uiucdP0fva12rYUwvK4ILciKL0AGwEskiyzqIY
-	 6+M9fG6aq3Ivw==
+	b=Hyeb32ql4z4cMIWCfHXpyttOam8g/A41304yT9nZEr4o+YskmGJDIfJraoBt8PhNG
+	 8yA+go3YboVx9vIdY9ye7R+gj+fHnPecBGTOqxcupFhF3GPiYMzH4cN1YlhiU6l6JB
+	 +UVpFaM3NCFPtRbED+gWn3LWfRn57AMHAbvHyjUM61dwYQ6QjziaqOs17qULfhB+91
+	 ZEDbJxPn2oIOL5q+5xgDuIFYylT/g8YR1BLzUwT57HsyODwVu8FHRQng8h6oTL+FGj
+	 r1bN7V+4UfO4IutiMXZgLqaEHpgDB+N3It8j5AnDVkYpNiquIqSa5XFrc/8jwJwSrR
+	 /EEM1B+1JxM9Q==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Vincent Donnefort <vdonnefort@google.com>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Rochan Avlur <rochan.avlur@gmail.com>,
-	syzbot+d6540a3fa1626e11360d@syzkaller.appspotmail.com,
-	Miklos Szeredi <mszeredi@redhat.com>
-Subject: Re: [PATCH 7.1.y] fuse: wait for FR_FINISHED on abort_on_kill to prevent use-after-free
-Date: Wed,  2 Sep 2026 18:14:06 -0400
-Message-ID: <20260902-daily-reply-0007-fuse-abort-on-kill-6-18@kernel.org>
+	rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com,
+	kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
+Date: Wed,  2 Sep 2026 18:14:05 -0400
+Message-ID: <20260902-daily-reply-0006-tracing-subbuf-resize-7-2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902013656.17291-1-rochan.avlur@gmail.com>
-References: <20260902013656.17291-1-rochan.avlur@gmail.com>
+In-Reply-To: <20260901123444.GA1350131@google.com>
+References: <20260901123444.GA1350131@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,14 +51,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The abort_on_kill path in request_wait_answer() calls fuse_abort_conn()
-> and returns without waiting for FR_FINISHED.  If fuse_dev_do_write() is
-> concurrently processing the same request (FR_LOCKED set), the caller
-> frees req->args while it is still being accessed, causing a
-> use-after-free.
+> Concurrent subbuffer resizes may crash trace_pipe_raw readers or leak
+> uninitialized memory to userspace due to stale size values.
+>
+> Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+>
+> Not sure if this is the latest version or not?
+>
+> I see review comments, but no v6.  Anyway, no matter, it'll do.
 
-7.1.y is EOL, so I've queued your patch for 6.18 instead (it applies there
-unchanged); 7.2 already carries the fix. Thanks.
+Queued for 7.2, thanks.
 
 -- 
 Thanks,
