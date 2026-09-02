@@ -1,121 +1,78 @@
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D7C360EF3;
-	Wed,  2 Sep 2026 02:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B2B1DED42;
+	Wed,  2 Sep 2026 02:35:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788316105; cv=none; b=Be6TI894zxy/a7lD0F4+dWCEMtkt7OriFWGl+fEQ4kLljg8L9QLZDYd5TFJdk7+05iYeGlWQ4vcWgVCSxhgMFl7U+W5uIPCHhnODHHFgo+ZRJkiV0Qth/cAAAa1aUfTRP14bFVG2UJIP9RhGglbV4tMUD9MBze/9XdEOHJfGz24=
+	t=1788316502; cv=none; b=L+Q53EbfL/D2j/68CLjAdrytsqHZjf/ZxFBMtgcOnlxRe6vd7xpH5WJ3BMxt1+TDUtWN+AcHlmyV+X7aVl1vhq37sdOr/EuNIwj4xcBQ2u0ffYVOJrtfNxwHqbcwSTnaVqtQswy22d/exL7cQqdhpyisJ+JT3+AF88GcOE6Jrcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788316105; c=relaxed/simple;
-	bh=R+qiKdqRJ5cNFgVlSrg8alIQKP3U7exe90LEPSSzFzo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oF/NMH8iUPf8fqgF44RmDpYO+xLxjQnS28sH7Pf7hd7G66GHMoHm+1jl+Xur7ZUJJV9p6joSaimDdBr9HvPckOmbcfBqbDeJyLqmsrQlSwN97BrrOppPbLTlVJ+HjPAvRD50VW8Kge63EV7qWCryGn8eVWtxbA8eGsyZ3XLpUXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=WTXwYvPf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h5GQgMGa; arc=none smtp.client-ip=202.12.124.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1788316502; c=relaxed/simple;
+	bh=lMA+M0mYE472xm02DqxSPxnp973C3QaokmVq43fEKQw=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type; b=ml/itze9eImftOpih2NqDUskWYT9xLRtYBq1XOVVd84SJU63pPUTIufd0/sSFdQt23+aTdHrzzgxmlQv+x096w0tqPfwYUtR1SEMArVMjg+xmQD4nPE9jqRXbaGH3c34BbZON2zV+zCSGZxgRkzJZVDbb+/t+ShOqx7x3jZ9LDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=Pwu5bXq1; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="WTXwYvPf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h5GQgMGa"
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfout.stl.internal (Postfix) with ESMTP id DA9961D000E5;
-	Tue,  1 Sep 2026 22:28:22 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-11.internal (MEProxy); Tue, 01 Sep 2026 22:28:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788316102;
-	 x=1788402502; bh=EI7ZcjlIisAiLrgFRMX5lSZYM59HzE1LJ1ifaxB1Pvw=; b=
-	WTXwYvPfSbZttL3YpbRAcEst22UICkp5+tamoV7C65FgdP0xAHIeaXaMqrYoIcpq
-	sjAIbU7Ek/DiLVPP4I29MU8BY0vOHK6N04FmD8mx+jnRN3NWn2da9uIZAQ4nRS+y
-	GUaPrH3M+36pS8urYQgKTBvbi8Z8yTpcj6bKfEaD3Lm9TlNN18vZgPfWKsd7w1ry
-	YHMCmUOnfhmbwKoiB5WhUJIw3jpgKnLwrR+tJtSVUzuQMHEq9VbHVswgpFqxAbTa
-	OvcOUj5GnEMY8el/VlZOJbKHF6ctkAJaSIMMBkIMIzlh+2n0wW9SPVDFaqYeqRRo
-	GiCInb91agOtW07u+wDflQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788316102; x=
-	1788402502; bh=EI7ZcjlIisAiLrgFRMX5lSZYM59HzE1LJ1ifaxB1Pvw=; b=h
-	5GQgMGaCYtM78h4zoq1yIZqQkMG7r8uEjLnhh7e+4lvK8U6foyHyIrH/gMTEvP9D
-	Q5Tp3rZFpOeZEc8pqchCMsqeWddyk7omw1oASlWUXbi6hr0q8zdGgfr+wBGnR0As
-	rhRm2b/uo/n3hiyJxIjjRh7zJlC6HU3KsVCN9mrbgD7dYIcTpp7m2b6OQbXawUhe
-	TvDskgHcjMp9e73aZvSn6vA9RbT7C8ixJzhmJkxR41raqW066yTJiYBfyUuc6iDa
-	6J7dKrCWQ0rHfsIKQ6Zf2Dp58QD8kbBy0vyWL+MWnN+awqvKhqVzWjsFmOfeGvqb
-	pyVF61AcrvODeuyTtL34Q==
-X-ME-Sender: <xms:xomXalZu7kfGD0ZeyaE7-wpsqGQMYcgibxmNis7eWLzV_H3BZRSxjg>
-    <xme:xomXaqElAizhp6MxlHLUiS_EPA-f1oo6pWOz542CRVF_Z5QFo5EBRSJN8JaQH_v2t
-    IHgFSWI5LIB7z5OvqJSIC5Lu4w7PHFrXbbU6p9K4zfFTFhBf9CZT50T>
-X-ME-Received: <xmr:xomXapuVl0xY5fO2Ugd_8KuBEZa0zQBr2eTHch9JUsVPCAlYoORhxVYNDK52uIwpDOyoC3wLOVo3VYBWF1C_oP9IjtRwCbac>
-X-ME-Proxy-Cause: dmFkZTGZIqB7RdmiXnTnJhk1iAJ+kQyg0bM+2g5pmHyvo6+Z8YDZ4TR6To6F4BY5LTVYmt
-    N+RcMrM2OnX1r43p+az7tgT+Xz7ZPEF/8I7Oh5TSjN3lOb+LV6x6RMf8sKoDT4DUvTLdCp
-    Gu697CnpH7gRI6X5zwpUT7yyk4L8xchG3nXlrZjCLOPJTEYWOxISTLMdLpqUiJ44w87T/S
-    f+TqQoZD372nDckAArA1FRM1iGMEW6sI7Ku7fqSIaZXF6ZJjO/sQ+xX7qUJXCElIvuwHM0
-    HvQJ4G1xC11MfW3CsYqj22I7hic2xi7bg+lxuILhJy5AS+9wBDU43GURjhDdciB4aOAiaW
-    CDKfERb+NRA7SGFx3+WVdh82PUMnh6kbdQJWbWfmLheXVvsqqIB4WaxOWnAKY2dohVHcOE
-    RP8S1KHonSWvb3UB9Cqn0Tnuz4O9SAItpVbH4LN7IBowhMNHtUfjJTt4pU50bXJrhTvZxi
-    6zNEh/rBtLJM1fw1FVJUjSxmdj51+ZrBfUr86sa1cfZop5ryYp1e0DZX4XguCqY169RrLO
-    3In4kFpDHPNdsFXvAkf1H4c1VKQ6ICA2i074Y8jJk0CYcS3qucjp+yxJuTDffGCRo8+Eap
-    etsHB8gs3e++nmmCqHhZdNn9wqlrQAkRnWO/j+BI5x8MA84kWNb3RMQxu/+Q
-X-ME-Proxy: <xmx:xomXagKuQ535n4Pb0ecZa4yVLgVIh_kVioX-GGJEqhURHTvhA-XrSQ>
-    <xmx:xomXanN5WqozJWnkJDNaomNdrxdne0AvpEKt36aPLeC_0g-bK2dPEQ>
-    <xmx:xomXaoYpcYvU01z5upBpTE-ECMX96-Iy6rOJ-jCFAKqMOrNy_6u4Rg>
-    <xmx:xomXajzGE1AKCI5A_psZmRJJt3kocyP-_iJgvYt8ALoJNmEiGhWq1Q>
-    <xmx:xomXanIJAKlfmEf1zX08L4gL_3CrxajlPTYdTbwHmlfTvtiBnIAqo_0s>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 22:28:19 -0400 (EDT)
-Message-ID: <eab24620-7ad3-491f-a618-3dfc20f5a189@pobox.com>
-Date: Tue, 1 Sep 2026 19:28:18 -0700
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="Pwu5bXq1"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6822YZuE42248924, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788316476; bh=gUGocE1LB3Q4EMK+YnvbT/S84KdDHEL8FfQFeQ1xsbk=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=Pwu5bXq14tapwmmI30aKXkUN+eloSQtGjTR11eW6xTchCykT60v3w+Wa9t02rZi3Z
+	 UFU31b2D2L0Z53VXVAWlZm0IIkNAqWfr7nNn/EfHBkuBeartaXkrGmrPe8fY9xRp3h
+	 2dlx9QNbqoUWE5IjZgpsZiCYeQY4FhzJrgLYwVl9TYQwAWK/UQ2Ej5Q6x4Xq2LEvir
+	 KsNU7qDoSpxD4ttQ7347ZgBPx5JC/FvxCtLesUl2FNJXhVrl0hS1iM8ZjtPw6gHO6Z
+	 3O9CRGnlR6JmLHyGcEjc62rBxigdSusZe0eUlY9lP4pZJ1gLjt+b5znnV4e6SXw7zZ
+	 Zb/B9pt4GguVQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6822YZuE42248924
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 2 Sep 2026 10:34:36 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 2 Sep 2026 10:34:35 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS04.realtek.com.tw
+ (10.21.1.54) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43 via Frontend
+ Transport; Wed, 2 Sep 2026 10:34:34 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Yi Cong <cong.yi@linux.dev>, <pkshih@realtek.com>
+CC: <kvalo@kernel.org>, <linux-wireless@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Yi Cong <yicong@kylinos.cn>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] wifi: rtw89: 8851b: fix swapped DPK channel/bandwidth backup fields
+In-Reply-To: <20260807081006.240450-1-cong.yi@linux.dev>
+References: <20260807081006.240450-1-cong.yi@linux.dev>
+Message-ID: <b1fa10dc-876b-4db4-9f59-b21dd31ef345@RTKEXHMBS04.realtek.com.tw>
+Date: Wed, 2 Sep 2026 10:34:34 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.740409777@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.108 release.
-> There are 99 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.108-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Yi Cong <cong.yi@linux.dev> wrote:
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+> From: Yi Cong <yicong@kylinos.cn>
+> 
+> The .ch and .bw backup fields are swapped; .ch should store the channel
+> and .bw the bandwidth, matching all other chips.
+> 
+> Fixes: 0194a95cbe721a ("wifi: rtw89: 8851b: rfk: add DPK")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yi Cong <yicong@kylinos.cn>
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+7e080e17ca38 wifi: rtw89: 8851b: fix swapped DPK channel/bandwidth backup fields
+
+---
+https://github.com/pkshih/rtw.git
+
