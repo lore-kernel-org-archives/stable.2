@@ -1,68 +1,67 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFD54AC17C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 19:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4124B4AD4AB
+	for <Stable@vger.kernel.org>; Wed,  2 Sep 2026 19:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788376406; cv=none; b=piEO4YxoyTYOx5yqADHhm3Pi1LnAddxEJYWPAbYOKHMJ0+8pkrXFcLD8SghafMEsWnJN5KxbgnV0hBOX7J6eb3mytCNBOnu6R8CbT90jFRGK/aF+aoLWcWg0f8cFuxbecJd8oKxxcH+qsSFGPGKFv8FVOP7s19muu9si4lSu4Mo=
+	t=1788376408; cv=none; b=fswqMrkDwxLHwbTr+xjoyVRZ1RGWE4TiqC5Mzk3J9SfkAe7djKA4PEYoA5qQdbQDqKK0ATAwB3+KgCi/aXG8v13TV5FQzMQp7K6gJ0jRK6iCEAdycpjcKOaG4SkDdGTPrqeUFmiJkDs9WpKAucywyuyPX9SkPKnewUDUq1UUX7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788376406; c=relaxed/simple;
-	bh=y0nOywplQ3deuSEhSsaVE3Xyee6bNT1wa/osER2A2b0=;
+	s=arc-20240116; t=1788376408; c=relaxed/simple;
+	bh=PFLrtI8FJvq4Xkwov+zqiL8iQ5uTOI2l8tCCPKjbTGI=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=G1GAYCf8nsxGtkD/GiXtnxv0Fa4UjaZHUEUDaFTpSkXvQ5p44hW7lwmmmlPICLYd+MvX3yCQBn6V6P9XhSD/Sb9L6dKhxVPs3s/i3kUJoJv1k/NxQh4C6TSexPn23v+IN62n1zsX+vE3tu0/b3KoIM2K+qrvAvMF9E6sadSNRsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ikKfQANQ; arc=none smtp.client-ip=209.85.210.199
+	 To:Cc:Content-Type; b=Nra4NZoW66A+agbOJhCc2yq+frhsYBD84nU8sqYC27j1/nAzAvkHF17UjMytivQAtKmTvXk8BJTig129d+m2IzmM36GvtRmLwCK2hZiWozV96Xekh80B7vvJxls4yA9Ag0g3OZglcnxuGS3/lf1DlowGF4wXewC1FhecZLkhFAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=roXYkCXy; arc=none smtp.client-ip=209.85.215.200
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ikKfQANQ"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-854f274dd69so1711531b3a.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 12:13:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="roXYkCXy"
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso3087766a12.3
+        for <Stable@vger.kernel.org>; Wed, 02 Sep 2026 12:13:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788376404; x=1788981204; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788376406; x=1788981206; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=N/WHyg1m6TTdS/dUEqB2VFq+qj0dM9IofHpTvipqAJU=;
-        b=ikKfQANQ1ZMjs61k690NKiAYStnMkDdxCSvDcB00Tx2hzEu6cvAI5zDDwsmSzlUSkZ
-         3kHmHG3acHfuO+Kug6u0v83GCG6b0cLmcV+NY4ixNGPqwNqkD1L+9sqMBg7L4s1IfBsn
-         g3BG5f/A3oz8OqzSxnykI9W92bemnWvfav0azMWgKNHxXfrlkK/WWho88xHO+W1egwoo
-         AvSYCe9auPkf8M9ckY3E1CVsFNtXpPkzEuzl6sqav8wCqDEAtovTpITNXpYE83x9ywIO
-         piKLbnUATanjS69yRKQ1ChQuT+HILsYwZ54smecCx39WOnlt3v0pUsccbOtVfEuU8B7p
-         HGTg==
+        bh=S7KYRpQb2qK2BMI5cWRKmHlXxuXkcNUnDHM16soIFqI=;
+        b=roXYkCXyCM54SxblsxpNDxG7DTcbgBC2NUUrkjgEQQwmBuwkGl3mNZ+o4BTHni3453
+         M0qV3jll1d6S2c+aTs8ULsgQ2O4Orov5SXxVpCefk4aJUu0jaabCwB8dkVGfXcvTW9m7
+         VyWClN7K6IWV1c5NWj3E6AekQTuzCnp8+tsSLUw7sj8sCOeaJFK5R3uFaxO/nphbZehi
+         Z4mHutAwcq9euC3d8tjnZnP6jQ/VZpV19rJBNyhL/L4yKEC0Vkte9uLOeUlDwrMdIozo
+         SHv58xx47ZG8/wvmTpgKzlq1wB5iJb32kAuZy6RDSU9weB6m77NY1XGn/lNMK/efA/DH
+         +1Ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788376404; x=1788981204;
+        d=1e100.net; s=20251104; t=1788376406; x=1788981206;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=N/WHyg1m6TTdS/dUEqB2VFq+qj0dM9IofHpTvipqAJU=;
-        b=NlQo/QadzjQ28grF7R47GXNVX3WXjz5ttoVXjR+GScA9SzPidFnx65JUG0hJIbGeRe
-         QuQAbB0uX7nN/KZcIoSfqb+j4lZFep1nXs1lplFFKAg45MVnp0NzWsoe4Yes+jZs+z8/
-         cMKViuF8L2rb951vZ2FRrRFzDmEMxOKfcTsNHKIBGTtvLS2CGWhGBGFjhDAo0ocDQVvT
-         gDvYg4Oy7bdFw+Gg+r3bpv9fkGrsz+RT8fWgnDePFIGkswEinWPLxaUk1NLDAuJyhrHe
-         Pp3w4bvTAUEBojNhj/F3CifRH5iiIOh7Irf3id8B2zNw0yurwH95Wzx0OHbP39y4az1d
-         jTLg==
-X-Gm-Message-State: AFuF++mY5dtdtAfcXx/JR5DF89gTUiTVPGIuAkGQO3IxucH3nTAOvob4
-	FGADpemVUhb3/EjWVVTv/rEEORdgSCyQmOzq35dk0aXxz32fbQJUWxrrJi/MONTssJbd4G0Rt8S
-	gDqtR7xRi0qy9oJUEy+/IVXj+LAagz+sYam7H4wBwRou8wZUN7Xoa+gIJ89EMUG+z4GFAe/+KrM
-	lfcrdHa4FdjsbB/FJjJLtmrBitMad/hcoiflBP
-X-Received: from pfbbd13.prod.google.com ([2002:a05:6a00:278d:b0:851:d12e:df63])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ab8a:b0:845:31a6:d84d
- with SMTP id d2e1a72fcca58-85ed20ee9f1mr11533931b3a.7.1788376404046; Wed, 02
- Sep 2026 12:13:24 -0700 (PDT)
+        bh=S7KYRpQb2qK2BMI5cWRKmHlXxuXkcNUnDHM16soIFqI=;
+        b=SXbRAEcSyTIgmVLeuK5eJM8e+ECU1dgEbWkI9js4vubAIuu5wqvJHXGL871va6B+02
+         2dAW8XLI3bTBYydPp34HgKirO+Bv6l7V7asXa/kZjDPJz8Abiw/ubekT30IJv/H2+UVL
+         jiIPhrIhsyndPnA/dFkfeXULayfjgPfrkwgIZ9ClaAGidQRr+gdJGg4OKRKVMzTrYuGt
+         zP12kQi8dRF2KPBDNz0vCPwpSAneYxmPmFqOCaVvt4WzQ85NK+SretM177Q+ML77Lp0v
+         2jYen6XroqhY/Kwkh4VZOajuwj0SlaTbqNL80iLLXKs7JQzpLBaFZvOO9OVLaLc6F64k
+         LmUQ==
+X-Gm-Message-State: AFuF++npGussP+9lr/Eke/jwP9oZpW1gS58UgMsOkVZMaQWrqPSIcoax
+	vNEj2Sx7mDOuI61BB6468jLE+aeC/kgWTa137pWJrdJgfNAlZ8TeLp2u5ngqA3wiYZumX9mwi+u
+	QD4OcgA==
+X-Received: from pjbhk14.prod.google.com ([2002:a17:90b:224e:b0:398:cd79:3b48])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4b8b:b0:398:9be5:b419
+ with SMTP id 98e67ed59e1d1-39aee1c9b76mr7984963a91.20.1788376405725; Wed, 02
+ Sep 2026 12:13:25 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 12:13:19 -0700
-In-Reply-To: <20260821-stable-item001-snp-builtin-kvm@kernel.org>
+Date: Wed,  2 Sep 2026 12:13:20 -0700
+In-Reply-To: <20260902191321.2644150-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260821-stable-item001-snp-builtin-kvm@kernel.org>
+References: <20260821-stable-item001-snp-builtin-kvm@kernel.org> <20260902191321.2644150-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902191321.2644150-1-seanjc@google.com>
-Subject: [PATCH 6.12.y 0/2] x86/sev: Make SNP usable with KVM=y
+Message-ID: <20260902191321.2644150-2-seanjc@google.com>
+Subject: [PATCH 6.12.y 1/2] iommu/amd: remove return value of amd_iommu_detect
 From: Sean Christopherson <seanjc@google.com>
 To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
 	Sasha Levin <sashal@kernel.org>
@@ -76,22 +75,75 @@ Cc: "H. Peter Anvin" <hpa@zytor.com>, Suravee Suthikulpanit <suravee.suthikulpan
 	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 
-Tested SEV, SEV-ES, and SEV-SNP, with KVM as modules and fully built-in.
+From: Gao Shiyuan <gaoshiyuan@baidu.com>
 
-Ashish Kalra (1):
-  x86/sev: Fix broken SNP support with KVM module built-in
+[ Upstream commit 5bb494d5cbb9a3403ba8b1c8bc145b42fc119078 ]
 
-Gao Shiyuan (1):
-  iommu/amd: remove return value of amd_iommu_detect
+The return value of amd_iommu_detect is not used, so remove it and
+is consistent with other iommu detect functions.
 
- arch/x86/include/asm/sev.h |  2 ++
- arch/x86/virt/svm/sev.c    | 21 ++++++---------------
- drivers/iommu/amd/init.c   | 36 ++++++++++++++++++++++++++++++------
- include/linux/amd-iommu.h  |  4 ++--
- 4 files changed, 40 insertions(+), 23 deletions(-)
+Signed-off-by: Gao Shiyuan <gaoshiyuan@baidu.com>
+Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
+Link: https://lore.kernel.org/r/20250103165808.80939-1-gaoshiyuan@baidu.com
+Signed-off-by: Joerg Roedel <jroedel@suse.de>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ drivers/iommu/amd/init.c  | 10 ++++------
+ include/linux/amd-iommu.h |  4 ++--
+ 2 files changed, 6 insertions(+), 8 deletions(-)
 
-
-base-commit: f717995cb7dcd8998ab15516b8006aea09cfde0d
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 36a814b6c4de..0e270533bf12 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -3484,25 +3484,23 @@ static bool amd_iommu_sme_check(void)
+  * IOMMUs
+  *
+  ****************************************************************************/
+-int __init amd_iommu_detect(void)
++void __init amd_iommu_detect(void)
+ {
+ 	int ret;
+ 
+ 	if (no_iommu || (iommu_detected && !gart_iommu_aperture))
+-		return -ENODEV;
++		return;
+ 
+ 	if (!amd_iommu_sme_check())
+-		return -ENODEV;
++		return;
+ 
+ 	ret = iommu_go_to_state(IOMMU_IVRS_DETECTED);
+ 	if (ret)
+-		return ret;
++		return;
+ 
+ 	amd_iommu_detected = true;
+ 	iommu_detected = 1;
+ 	x86_init.iommu.iommu_init = amd_iommu_init;
+-
+-	return 1;
+ }
+ 
+ /****************************************************************************
+diff --git a/include/linux/amd-iommu.h b/include/linux/amd-iommu.h
+index 2b90c48a6a87..062fbd4c9b77 100644
+--- a/include/linux/amd-iommu.h
++++ b/include/linux/amd-iommu.h
+@@ -31,11 +31,11 @@ struct amd_iommu_pi_data {
+ struct task_struct;
+ struct pci_dev;
+ 
+-extern int amd_iommu_detect(void);
++extern void amd_iommu_detect(void);
+ 
+ #else /* CONFIG_AMD_IOMMU */
+ 
+-static inline int amd_iommu_detect(void) { return -ENODEV; }
++static inline void amd_iommu_detect(void) { }
+ 
+ #endif /* CONFIG_AMD_IOMMU */
+ 
 -- 
 2.55.0.970.g62bdec98f9-goog
 
