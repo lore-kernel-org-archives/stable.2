@@ -1,52 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C114A5EB1;
-	Wed,  2 Sep 2026 16:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9565E49C4C8;
+	Wed,  2 Sep 2026 16:24:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366172; cv=none; b=E+eeX7pwx6clAdVc3MqbsBgcMlSGcKIktRmvhExhr7hkzQs728K9cXH11tASZrfNWw5eMs2pB/erwYjQUxcEs/ZnYz5N+b44qPDc9uMT8tbbxekEIBWdzX+1RkcqUqAhoz3MRugMwvcPmsseMXeDAzcw0b89euDBIjg5d0hnf00=
+	t=1788366242; cv=none; b=bjCPs8tx25UH/dmvZ57gXZUrD9VkolLTWITJeezB2cgg7sKoYxMqb4DPZ1D4OZLQHpTDjykJgmWX1ARrvVA69l/clE6pN6d2zN6oKDJDm0ydZdJalPQXcvV3uNmtmNcbUw3TjeOUBe53P4lQhVxibXoecA7OE8zRTf/ke8v5Wq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366172; c=relaxed/simple;
-	bh=/NSNlk8CYM1sowJ9sGx64hIZA1Z8hypkSJpOPaK89jk=;
+	s=arc-20240116; t=1788366242; c=relaxed/simple;
+	bh=Sv8+jp5k/bUDRs3ouxA6bC23CuTA5ChMaFkmgMbFpHQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tlxMzDkLCovV7Q+TB/ZNz/q9gQbBakaHxe237MYohkKEVzPuD5ewrqKtO7jK9gB09vVdq+K50OixST4JlI8nkMB8GMngFYKvIZC63FFwI32fTGurEfJNbjUvlTlkK3rMPfx0TCj79rPBNz+YcFwy3PKeKXH+2LT/kIufbWdNoxE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GpY6R44M; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=f2HLr5jGnXHTxh9iNl+7MIvZhc1zZvlL08gPOOEtcJJRSDGuNyIYh+OE9MEVylFOTIgloL88pwFLeUZKDPqH/S1VXOMSsxmlaw6G0IFu8cxuLe9cpyvtDDmP9b8QaYorjr+zO9cQ1NNYaAfIXQTRyZWoAO8RTeHlyk3NGvvY+yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fS5z9mkw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GpY6R44M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589F91F00A3A;
-	Wed,  2 Sep 2026 16:22:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fS5z9mkw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A411F000E9;
+	Wed,  2 Sep 2026 16:24:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788366171;
-	bh=96LuoZFEU9IQ/+SufORbkPGVMLYFD8TLgV1+4zgBKzM=;
+	s=k20260515; t=1788366241;
+	bh=DzCR3vb3/ecs6a0QnSjA+pH8109oGOY0mJv1v9wZtZA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GpY6R44MYFIXOoc3IW8hfnqcZ+mFVomt41Q2nPT/kqSu1eQ35GgRx/eo0vtUKetkX
-	 0VJdYC9K1OG21cXZ4S4bmMStxzaQKtSmsjOemFtL7VEI5VQA/LOJmdsvUPxlyq8A7s
-	 3nBZFqyho1iW9r7Rq7kV8RFYXVMii+HLMIuaQTbyMbVUIhZjhSrIr1gg4PDgg92w+8
-	 9tW1t4YlwOqWlL5TsmfABQoQsgQWn0VewNpdGjlXF68PjiCOBW9vFdX4Q+h7arShDg
-	 gjPq7OstF0VJSthp5AHi3ppM0Pphg4HX8Q1POaFB4SIEv1ahwf0SQQCjhiRlidwfxr
-	 1xPeMH+kVeIEw==
-Date: Wed, 2 Sep 2026 17:22:46 +0100
-From: Lee Jones <lee@kernel.org>
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: Greg KH <gregkh@linuxfoundation.org>,
-	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
-	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, kernel-team@android.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <20260902162246.GC2133376@google.com>
-References: <20260813131152.3589632-7-vdonnefort@google.com>
- <20260901123444.GA1350131@google.com>
- <20260901094656.487b278f@gandalf.local.home>
- <20260902082717.GM2943942@google.com>
- <2026090230-entryway-acquaint-d12e@gregkh>
- <20260902095744.GN2943942@google.com>
- <2026090221-riverbank-overlay-704c@gregkh>
- <20260902115944.GS2943942@google.com>
- <20260902082141.00583dfc@gandalf.local.home>
- <20260902082550.4644fe91@gandalf.local.home>
+	b=fS5z9mkwscerKkaDxWQvaj7vS6Gv3o1ZG9OwTX8u8KouGRFIE6baUwzh9Dr+TlNRg
+	 uJWrsor0gfeqwSWGaIddAaIdjr5EPZAzaEv/+mC6QgD+V0txJOs8i86CsdCx5WiQwg
+	 UeiTqouNj9LST12DMAXBKFlXQyrvyksO2kZKO70/Z9X3jTBENZpT76Zx08jn9VkEFP
+	 8prZ58Hge6niAGJaWXA0z+3TwP2lvxDdh4pm3qgNMv0tkc1y0luLWIk9dpPbb1SnxR
+	 MXXIA2QJG0nqoyDaAXso4MbQlBiX6BYcm+QHC4av0gpxKIpcoKTXhq5yJSGyaA2hiA
+	 a44ysmJ3g6awA==
+Date: Wed, 2 Sep 2026 09:23:59 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-raid@vger.kernel.org,
+	linux-kernel@vger.kernel.org, x86@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
+Message-ID: <20260902162359.GA2497@quark>
+References: <20260831212248.213805-1-ebiggers@kernel.org>
+ <20260902133706.GA21538@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,39 +44,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902082550.4644fe91@gandalf.local.home>
+In-Reply-To: <20260902133706.GA21538@lst.de>
 
-On Wed, 02 Sep 2026, Steven Rostedt wrote:
-
-> On Wed, 2 Sep 2026 08:21:41 -0400
-> Steven Rostedt <rostedt@goodmis.org> wrote:
+On Wed, Sep 02, 2026 at 03:37:06PM +0200, Christoph Hellwig wrote:
+> On Mon, Aug 31, 2026 at 02:22:48PM -0700, Eric Biggers wrote:
+> > Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
+> > before returning from it.  This is needed to avoid degrading the
+> > performance of any later SSE code that may happen to be executed.
+> > 
+> > Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> > ---
+> > 
+> > This didn't get taken through the x86 tree.  Andrew, it seems you're
+> > taking patches to lib/raid/.  Can you apply this one?
 > 
-> > There's even been times that I *removed* a Cc to stable because I did not
-> > think it was worth the backport. Of course, I still keep the Fixes tag,
-> > which means it will likely be backported anyway. But that's up to the
-> > stable maintainers to decide ;-)
+> Can we do kernel_avx_{begin,end} instead of having to open code
+> and document this everywhere, please?
 
-Pretty sure this isn't the case anymore.  RIP AUTOSEL.
+Again, there are cases in the kernel where both AVX and SSE are used
+within a single kernel-mode FPU section, or where a CPU feature check
+occurs within the section and one or the other is used.  So that
+abstraction will not work as-is, and it would be different from all
+userspace code as well.  If you'd like to try to refactor everything you
+can try to do so, but let's not block fixing these bugs first.
 
-> The big difference between a commit with the Fixes tag and a Cc to stable
-> verses one with the Fixes tag without the Cc stable, is that the one with
-> Cc stable will give me a "FAILED" message if it fails to apply. One with
-> just the Fixes tag and no Cc stable, will not generate that message to me
-> if it doesn't apply back to the version with the Fixes commit sha.
+Also, AVX != "vzeroupper is needed".  The relevant thing is the width of
+the registers used.  There is 128-bit AVX code.
 
-So what happens when you receive the FAILED message?
-
-And why are you interested to know how far back a fix can be backported?
-
-Personally, I'm _very_ interested in a _small_ number of patches, but
-none of which usually emanate from subsystems I maintain.
-
-> I do like to know what I marked as stable and fails to apply. Unfortunately
-> I don't have the time to go fix them. But I keep them in a mail folder in
-> case I need to do it one day.
-
-We have have such wonderful aspirations.  Maybe we can get around to
-those jobs when AI starts doing our jobs for us!  =;-)
-
--- 
-Lee Jones
+- Eric
