@@ -1,173 +1,134 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7414AF9D5
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 22:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D6F44A730;
+	Wed,  2 Sep 2026 22:34:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388325; cv=none; b=iVquhHlyU9o3wesR0xnsO2GUQYJdPvVYoDD5neIDB0J8T76Z0KMZRxtY8rHcfd6qzeMpdck0LJYolC8kp9xJxs6ZH4vlCZDm1vw35OqIG6Cq+9/ppSUSW8j6LGyHBvYacVGrvlgYRg9OaEXcVmb35X6O5+5l+1etH9EzQy0rq74=
+	t=1788388459; cv=none; b=eWuNi6mifD79oxvVLTDm5oCascw37gWGShRGle+hv31INVhfPibiG1lsj3KCGoAt/jhHdckCW67EOLaPUoPDdbCU4B0bhJcw4MBNLAfYGa07VnHstc+RqBVphZdnT6vI8Nbdao/UJ1ppbetKOxDLofQyxr7SBsVDW+w880KhBQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388325; c=relaxed/simple;
-	bh=x8QTwaBEHlbhTlyYUzQ6IcB4eonbQnCoTFLiMiKbeBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BhRHHt/8MNbWFKnfPMgP8tz/pY76ob9ZeTVX+bp5S2WmLKSWprXco4ZD1g4IkK937MMzLFY+/2zQB9lZrVLxSc78fQjUfeZWYLUUB8xY0fs7WzRnJgsvJWoh3Px5bR6eHKmp7v9PDiiA5ZOwrAEssItUUoXut6aR2t0aayuNfg4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XrvpzSAS; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788388459; c=relaxed/simple;
+	bh=1d2ipJuzDM5i/0KPieI4b/1eXFRCu7erdjy0GeQmMbs=;
+	h=Date:To:From:Subject:Message-Id; b=ga9B3n/GfdhswFUg0G9ejRA4cmvSe5tvWB9GXlsV/wexQDrgPT69mJcnbFiUJDW7emTvdjt/IaLaNtUHVhDtSM56YNmFd7piJ91SBvzQhjRxAzOARJC0P1Q3E1bTFJItSKFVGzJ3BGdWt9VnaKm1eIDA7XsDxH1UJIFtB06UVEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=lgvxvIO5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XrvpzSAS"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d9db539a54so15349355ad.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 15:31:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lgvxvIO5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44BF51F000E9;
+	Wed,  2 Sep 2026 22:34:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788388316; x=1788993116; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rfj489snHAgcjqYCzxpw7R2gTXTEyikU7ldTqChZJq0=;
-        b=XrvpzSASKQ00rbxTOxlq96kjdY7zgt96Q7c1PvhhbROuBQx6uQ+3/MffvSgRBcmBpk
-         q+am6QEGd7IpTAHInsorsr0JUq/XUQxmbZYo1lqLfd7OX3aUogCI2QWjQcSrgGaMowHP
-         N3FLIyPbo2vX0/rm+17v18TaSFvSTndTHNYWFdMfd54tPg1zD3GjExtzGDMlKeQcLnZi
-         O9Z8ui2fCAeZBPG2sOqMp4P0XlPT5o3G2RMfsgryqhU9rTvwxseP9gW+NMhwSUKKNcVr
-         CyfmedUn9DvsgXGxDTFJ3pT9QG18taJBiWDDtYBH2e5pPuA/PIMTKR8BIikXd+9yXf5J
-         U7Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788388316; x=1788993116;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rfj489snHAgcjqYCzxpw7R2gTXTEyikU7ldTqChZJq0=;
-        b=UKho2bmcvLJmEtNIGiQBScCj3Vx/fUVEPLaOVaL+0vs3+LKIi03y7yBAfHa6eEnBjR
-         BYks6m+eAdD/czs+wll/GCL7Hf4IE2asSC2rLqfB9eheHqM3QHBs8+ujuMKKPJZCb8Tk
-         gpTJjHFsrYuBdEF5vHcToeH6LNMRh4GCNvIz+1pU8E3YfDBVNDTmtzSXS/bdG7T+BSGt
-         TF5+A1JSevEcOPGcHfTzURC/2ICJ4Tv2s3G5OKF4myOcj6i9bWWjbheMeeJkUfqWufj7
-         LujQlB7IV9+OgDOZc/pEXdyi3R7FbC7GbnVVfBUt6FOtJLNFuy2hcz+4+NfhNE0K2JNL
-         RdzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZjh20nKsIpkj6ZV3N9hdR/qUKkvZj1s6RF7rbnMNlmO6Clg7D339Ypvretb/JxG02C7bioW4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC7V4oIzi1k6lovnk5g+WN50gRwR25ZYgI+hfoSR7aVVEE6oQi
-	kZd4yAiKHmtTu+8hi1f+0ijZsIuo9yA5JQsKd7A5ayM9d0THY5gYW7t3O5HnDw==
-X-Gm-Gg: AYBFou3RBm+2MkAoZdW9BTqDiEG94I09X8sWLqp0/vkNM4JCsfRHlPY30G4y70/RE8C
-	1Txm8BA60/2JRtO+FlKAHdAAqT4dATD7ImlSO2OjDWc4LYRfOjtBNFxqs/ZeF7OHOG5XZ+1OXkC
-	TS0jn6ikdjk2Pei4U6VPCZzw9e9roNkF2TJ1t6j+Rp7R0eOkZXpoNuLrdjumhG2wx/ajpPbkwYX
-	RbQH0COA3tTgUfoD38GrWxLX7KbBd1D2Qa3QTgJ89zMEJ1gQOn/v0W7kZSgSr1/pQkxijKdPsZx
-	+JXNGFi5guUNeKlo+H8O1IQvx2fh0vZUG8Y7fM9Ylk+AlcCnuGLPEdwLiW1mGnMdKOYMGElQUjh
-	1dduLk9vfm8dIUEUxEO4VbZ8Ygykn5fBIvZXbnOSBnlj3ABbuUedEY1Wdlr7EeT3nxFS3VtRS4g
-	EEm+3jtWhfxgBFGf1ugu3nzMln+Nakt1Y/NDa2R3S4cAzdbs7hpH3ZlnGRdxoq0niS
-X-Received: by 2002:a17:903:1a0d:b0:2d8:d4d3:da50 with SMTP id d9443c01a7336-2daec7a70a2mr111190875ad.20.1788388315442;
-        Wed, 02 Sep 2026 15:31:55 -0700 (PDT)
-Received: from celestia ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe0e24basm1215945ad.2.2026.09.02.15.31.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 15:31:55 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Thu,  3 Sep 2026 06:31:38 +0800
-Message-ID: <20260902223203.14871-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902144804.88298-1-sj@kernel.org>
-References: <20260902144804.88298-1-sj@kernel.org>
+	d=linux-foundation.org; s=korg; t=1788388448;
+	bh=oLUmHCL5tdwzFjJ5uO6i2GscMI0Zl/n9nLA/rO8rFc0=;
+	h=Date:To:From:Subject;
+	b=lgvxvIO5TcFwn3TBSNh8XmZnMQWINy2aW+cVtv8YispL1pkOkwmBW6nbqNjyb4XSh
+	 zXvs3nY32om09ONQSC0cJogkcedKz7bcme0WxN6aAJOJns4gdEt6irXs3XP0VO6y5R
+	 bBMczLfodZk/PQZZYGJJHsbbUmZy76W6KYDcBnJw=
+Date: Wed, 02 Sep 2026 15:34:07 -0700
+To: mm-commits@vger.kernel.org,usama.arif@linux.dev,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,muchun.song@linux.dev,kasong@tencent.com,hannes@cmpxchg.org,david@fromorbit.com,jiayuan.chen@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260902223408.44BF51F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 02 Sep 2026 07:48:03 -0700 SJ Park <sj@kernel.org> wrote:
 
-> On Wed,  2 Sep 2026 22:22:31 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > On Wed, 02 Sep 2026 07:10:00 -0700 SJ Park <sj@kernel.org> wrote:
-> > 
-> > > On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > 
-> > > > When setting goal_tuner to 'temporal', if the goal is achieved,
-> > > > quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-> > > > will always return true, even if no regions have been tried to apply at
-> > > > all.  This causes qt_exceeds to increase unexpectedly.
-> > > 
-> > > To me, this looks logically correct.  Could this cause any user issue?
-> > 
-> > Yes, I think this might cause unnecessary confusion for users,
-> 
-> If it is _might_ kind thing, please ask questions first, or add RFC tag at
-> least.
-> 
-> > at least
-> > it did for me.
-> 
-> If it confused you, definitely we need to fix it.  But if it is just confusing,
-> let's try to clarify by adding documentation, rather than changing existing
-> behaviors.
+The patch titled
+     Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
 
-I agree that we should avoid unnecessary code changes if the issue is
-merely a matter of confusion.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
 
-However, I believe a code change is necessary in this specific case,
-rather than just adding documentation, for the following reasons:
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-First, this distorts the semantics of qt_exceeds.  It is a statistic
-meant to track actual quota full/overflows.  Incrementing qt_exceeds
-when the quota is completely unused (because the temporal goal is
-already met) misleads users and could break user-space monitoring tools
-or scripts that rely on this metric's accuracy.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Second, considering its original behavior when it was first introduced,
-the recent changes [2] have inadvertently altered this behavior.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-When qt_exceeds was first introduced [1], the conditional check was:
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-    if (quota->esz && quota->charged_sz >= quota->esz)
-            s->stat.qt_exceeds++;
+------------------------------------------------------
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+Subject: mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
+Date: Wed, 2 Sep 2026 15:37:59 +0800
 
-Later, to handle cases where 'remaining quota < min_region_sz',
-damos_quota_is_full() was added [2].  When this function was added,
-quota->esz was replaced with !damos_quota_is_set(quota).
+With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
+never allocates an id, so shrinker->id keeps the 0 it got from the
+kzalloc() in shrinker_alloc().  __list_lru_init() then copies that 0 into
+lru->shrinker_id, where it looks like a valid bit index.
 
-    static bool damos_quota_is_full(struct damos_quota *quota,
-            unsigned long min_region_sz)
-    {
-        if (!damos_quota_is_set(quota))
-            return false;
-        if (quota->charged_sz >= quota->esz)
-            return true;
-        /*
-         * DAMOS action is applied per region, so <min_region_sz remaining
-         * quota means the quota is effectively full.
-         */
-        return quota->esz - quota->charged_sz < min_region_sz;
-    }
+Nothing calls expand_shrinker_info() on nokmem either, so shrinker_nr_max
+stays 0 and every memcg ends up with an empty map (map_nr_max == 0).
 
-With the introduction of DAMOS_QUOTA_GOAL_TUNER_TEMPORAL [3], quota->
-esz == 0 carries two meanings: "unlimited quota" and "should not
-be applied".  This overlap causes the damos_quota_is_full() check to
-return true incorrectly in the temporal goal scenario, leading to the
-false positive in the statistic.
+deferred_split_folio() hands a real memcg to __list_lru_add() regardless
+of whether the lru is memcg aware, so the first THP queued in a cgroup
+does set_shrinker_bit(memcg, nid, 0) and trips the bounds check:
 
-> 
-> I feel like we also found similar case that people send patches to change some
-> behaviors that confusing them, but not really problematic.  That sometimes
-> waste unnecessary time for understanding the intention of the patch.  Please
-> feel free to ask question first, if you found some confusing behaviors and
-> don't know why it behaves in the way or if it is a real problem.
+WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
+Call Trace:
+ <TASK>
+ deferred_split_folio+0x18c/0x220
+ map_anon_folio_pmd_nopf+0xdd/0x130
+ map_anon_folio_pmd_pf+0x14/0xb0
+ do_huge_pmd_anonymous_page+0x1a1/0x620
+ __handle_mm_fault+0xea9/0x10d0
+ handle_mm_fault+0xe5/0x320
+ do_user_addr_fault+0x1cc/0x870
+ exc_page_fault+0x81/0x1b0
+ asm_exc_page_fault+0x27/0x30
+ </TASK>
 
-I will ask questions on the first in the future when I encounter
-ambiguous behaviors, to ensure we are aligned on whether it's a real
-problem before drafting a patch.
+Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[] read
+from happening, but the id should not look valid in the first place. 
+Clear it before returning.
 
-[1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
-    (Fri Jan 14 14:10:202022 -0800)
-[2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-    (Mon Apr 27 18:33:50 2026 -0700)
-[3] af738a6a00c1f ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
-    (Mon Mar 9 18:05:19 2026 -0700)
+Two other spots could paper over this: drop the id in __list_lru_init()
+when nokmem turns memcg_aware off, or make deferred_split_folio() pass
+NULL like list_lru_add_obj() does.  Both leave shrinker->id lying around
+for the next caller, so fix it where the id is handed out.
 
-Best regards,
-Rui Yan
+Link: https://lore.kernel.org/20260902073800.305481-1-jiayuan.chen@linux.dev
+Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Dave Chinner <david@fromorbit.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/shrinker.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/mm/shrinker.c~mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem
++++ a/mm/shrinker.c
+@@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct s
+ {
+ 	int id;
+ 
++	shrinker->id = -1;
++
+ 	if (mem_cgroup_disabled())
+ 		return -ENOSYS;
+ 	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
+_
+
+Patches currently in -mm which might be from jiayuan.chen@linux.dev are
+
+mm-shrinker-fix-bogus-set_shrinker_bit-with-cgroupmemory=nokmem.patch
+mm-memcontrol-fix-data-race-on-reading-jiffies_64.patch
+
