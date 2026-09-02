@@ -1,122 +1,142 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC3F38DC5A
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 06:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D259B379C2E;
+	Wed,  2 Sep 2026 06:23:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329736; cv=none; b=LC+UxM09yguW1k4JntTGqu2d3TvE+zNZT5ZplYNwXwVmj8vJyuuppooEiCcSvLWGaJq7Z84e2zqplnijhaISIabiHNHA/pSq48tqyXxq0nHcTPYbxH4k4uDQfopf9Pkf5MsNpPwSt3QasHFSzxybe22YBZ8sqIbtjsw0OymT5Jg=
+	t=1788330196; cv=none; b=OhvWJsuCd6M0+pVWMZZrkZ9Z0dZpF8c7CZ+hdug/V31qezj04fyFBIkCgvi8OZQzHGD1P+rYbebP7pcZtYMHQJQHJ/+w1HWXA8Ze1Bh+QBu/VyMBblymF7NkEG2hLF5Xt9ci8vLW9xi5TuzSPktrFw8l5MniV9dpj5vdu4JCHYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329736; c=relaxed/simple;
-	bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=jU54ywXRfGpFakkKezSgcg3CnvrC1MbKe00EQtqratiCwUXI3I/OToUDGw30IbNNbwo96F3yJSjaILvlvaowY8Lw/9luBw3RVyIWCJ4JkFnzf1MADj5cmmYN9RIT4r/DJ4zwrX2ZJu0dSMObYye6TjPKmwH3bLAh0foMdWQzZz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lcnWvg4J; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788330196; c=relaxed/simple;
+	bh=N6HGV2v34tIxrvNW7pb87uKl/c8R+EPdDWnxyhz6kx8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tGT9OGsa5wzK+3OZXlzymRmrWlcQgnfDEHEDVX79prMpHLArm2zp+V6mxLzfU87bVuoqazguiT7NRXARzXMW+GXCJhsvbroy+1s5MjU9NLty8Zva8Kv4plwKDvjFlsQOKuB5bxbUsBgPh3SzHNwn8/IE0Mv60dTSeS1GB1MRt0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qJ9/Zolh; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lcnWvg4J"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so6933575e9.2
-        for <stable@vger.kernel.org>; Tue, 01 Sep 2026 23:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788329733; x=1788934533; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=lcnWvg4J/YVcYLipW9AFiWEgLPE/vkf1xL3oUvJsxEvQD+W2FFz/CrACix6WdPR32Q
-         ZSNXbXluwgCflWXt/lNI1bSEL07FrXIlstqdw+8w+QjHQ5IK8EUC6sTHrHIw2B1hR1VZ
-         95kM813+oXdScYXlc3OGhYvQ8ZfT8cdXEInVFuAn+Br7Llv53b1EFwvj3KVC6s9tyKul
-         n4zWv4Ce+WpM3Pc7m/poH/p8GrwS44f7rr7+aYxGIcrEQvksMIg3EOYbvQ7a04yLQAx+
-         mpS5tbMnDcMF9d8i4RWJj20WmImxOLRvtFAekQ/mkTkT+/4uK32JC+hWK1cy+4Mn9Qh3
-         MOUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788329733; x=1788934533;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=ARvYargbKvbBL9w5cwmc+DyJpH3nfVc+7aN2y/12DtUy3zWVLSqBmBM4iw9o6lT/3p
-         BiWAU60aGL0I/pvid9o9LKMN8W/x+IkX/kFVK+kHsmzf9NSfT8EqziftVcUqm1MpqVx/
-         1LA/qBvv2ESbcJ3CsduMefQV66d2/p+oJJ6i5tTBNSapFi3R7uP8/Pt2ygWpS9Kal8vT
-         ribeugrv9f1Xp4diaYy7pR0cbCad5+bJcOM7J4fzhdU9HoOJVAkhqS1tJx8rK/fUhoo+
-         DJo+E+Is2OvD1uJw6CCb/4+WV0euphMU/AsMsP8jdFckUE+pKKLQ2YcgmUisZ+v7d9JE
-         o7BA==
-X-Forwarded-Encrypted: i=1; AHgh+RrUIWb+LYE2fMgj2EcNnzLKCMMTpYO8a4rzcVcJvSUR32zeIhBx3a4xLbvN0AhIkRonw9ZRdHw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEivcrwvyYBCIGKtraKZ7ib1k9IuWLV0wfkDCXydi4UDR8Jhp7
-	Rqv0+D1Z223EAkX/oA/T+PnLTWMlEZvFbQvMloiycnpuj+pIVRtPk5iI
-X-Gm-Gg: AR+sD11hLLiCdjcqnyDUnMYmh07v6CGXFW8EDo/3ew1GKpemWWaYCX/tKvS0Ivx8FIo
-	uFNW7xUUssuIfF19zrG7BVsoUyt8vcMyw3AOPL6WDIYRmcuGVXYwFj/bOilcYZtJ5SXZ3GLrLQ9
-	ZHQU7V5QBfdcYaiYvBbNn57qyHqVdP4kX2g4BZeeMBrUlgS4auG3+XVLZY04R/lTRFXiwoAKeHT
-	+wwmufodLcwKYi8h7/N0KLjJOAtwnILoTkG8zQ5g46qLHu5O2ooWK3Di/JnyUohfQVUZjfBKgTx
-	fzSVKiGum/pspOPiaWsutxDFfUvEH5vKUDl/KMsqLLe8iUxRqD0eV6GvTrBeQ283U7YuBVMtsvu
-	wjzQ3Z7kWZIwtjG0Qx5ZTn1meoicmiBv1PNzfBUjvwgBaJUDm+HHpSnFcU9hd7N7z+/v3oQzE+l
-	nsNAHubusysmB74Bj/3sd/psXnUM2iREG22NfBkpQC8+yqbmhbdngoUpKQny/fR6WzGUdd1TJX2
-	SSrywV7MptKmV2H0/J7ELkNeZYO2Pbi2w==
-X-Received: by 2002:a05:600c:4e93:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49ce57f5235mr39841585e9.7.1788329732659;
-        Tue, 01 Sep 2026 23:15:32 -0700 (PDT)
-Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm45222275e9.3.2026.09.01.23.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:15:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qJ9/Zolh"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KWoQP1100696;
+	Wed, 2 Sep 2026 06:23:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=43Xnnl
+	ynqqKaQn6iPZ1B/MuUxSVG9jKdFzru1OJeYGY=; b=qJ9/ZolhhZXU4acm5TPByk
+	R0M6WBSvVtLRy7w8qhSppu1Q5UfEdwi5IMTFb6IRPWRtHr5/K0bd+mC6JaQpg5A3
+	+737pczYomPq6i2t31QpOa6onTqedHbCdsBvXd4k1qmjGarc/LmofzL2kv9X5uyn
+	lsL1kJyL76/JrOMUPhYO2NnDaVW2JiosdeKk73uwnXcypvEWDXia0kj49EMWpUuH
+	CP9f1mOLbo9KQTPLc699tW63W/GCBcpWA3t5L/9faTTOJnbuOSQn9YkZPUgeE/RH
+	lamtNeH41FAmv4vV+eL8/1+cBf+69k7PBnz1d+vne6HPbvwc3aZyVJF+4Oi3pj9g
+	==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudvekx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 06:23:13 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6826BGCW015087;
+	Wed, 2 Sep 2026 06:23:12 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccey7wvc-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 06:23:12 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6826N8KL52101520
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 06:23:09 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D1DE420043;
+	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AB40B20040;
+	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
+Received: from [9.224.77.157] (unknown [9.224.77.157])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 06:23:08 +0000 (GMT)
+Message-ID: <35066cf0-62d8-4f2d-91e7-f00487d9cff1@linux.ibm.com>
+Date: Wed, 2 Sep 2026 08:23:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] media: dw2102: fix OOB read on firmware size not a
- multiple of 64
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Igor M Liplianin <liplianin@me.by>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-In-Reply-To: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-References: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-Date: Wed, 02 Sep 2026 08:15:25 +0200
-Message-Id: <178832972564.754738.8009301300861192916.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788329730; l=1330;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
- b=rvF99dTX+DCaZpMaHpmUEq9OVveZjVKnOlfnvXU64qiu2UmkqRi5actjAMTg6y6Fjwk0BjGLI
- ye9LPzZOGMFAHox/Yrv2IR1HZSaVtUEqhFX55fGy9HPKKYAIGqz7GZF
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/3] s390/pai: Support CPU hotplug for PMU PAI
+To: Heiko Carstens <hca@linux.ibm.com>
+Cc: linux-s390@vger.kernel.org, stable@vger.kernel.org,
+        Jan Polensky <japo@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260901123320.670897-1-tmricht@linux.ibm.com>
+ <20260901123320.670897-4-tmricht@linux.ibm.com>
+ <20260901141942.14482E83-hca@linux.ibm.com>
+Content-Language: en-US
+From: Thomas Richter <tmricht@linux.ibm.com>
+Organization: IBM
+In-Reply-To: <20260901141942.14482E83-hca@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: WwmGeqscJSCCFR31tpLwXKXqhEP4fxEv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA1MiBTYWx0ZWRfX9w2DVoSvwT1e
+ 5aI5vZ459G/Os7iTgQ98FVMruszClwLlf2U6NMQFte9k9mb75GUxM78almafpYmwRO//M7+jlS0
+ XQLfW4/46kgRxY5DoFK7AzgrkozmZXLw2T0rqeB/DGHasDnJBDtEzrUFjUtnZidrs8+7PqSYeS8
+ SEgXD3L1l95paBywYZA8PAzbdHLmZRKVwbudpRDEQsIEFhoy1CRnxONjb12ilvgyQtRixUwlPaG
+ fvXZEDTjo+EfsRmaNJkDZLPBJONSZ9WonBhN4F9JL9213vJYILXeH+qg5y55XoEqM7t0GayhRpq
+ E1GSEgdvjQWcD4zpeR++vuQ2V+KB2PKB+nmbEAxK7JkBvR+QJULduJeY7luuixM40yrUzPOCNi0
+ NI8I53e32lbw/t6OenFoDBBugwupCRu1toSZrTcCnkJ4QYLS0dklGxpnAEeIAjmq6erCldaWfix
+ tAafPX2NQXPIpZ/Mr7w==
+X-Proofpoint-ORIG-GUID: WwmGeqscJSCCFR31tpLwXKXqhEP4fxEv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA1MiBTYWx0ZWRfX8Aq2/2jfcKxu
+ PwwbJKVmpvnKyEuYvaSJVRBaVESWnrttEK6PFP5iIA0b4Dl6wO0r+/Bzc+kFwUoHLKtJ9qJebG4
+ Ndof9SlYYo+Wrvn3GC0MFac8dDPpQxM=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a97c0d1 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=XtJnxE0v6AKZ2ENc6gMA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020052
 
-> dw2102_load_firmware() copies the firmware into a buffer of exactly
-> fw->size bytes, then walks it in 0x40-byte steps while always passing
-> 0x40 as the transfer length. When fw->size is not a multiple of 64 the
-> last chunk reads past the end of the allocation producing the following
-> splat:
+On 9/1/26 16:19, Heiko Carstens wrote:
+> On Tue, Sep 01, 2026 at 02:33:20PM +0200, Thomas Richter wrote:
+>> +	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
+>> +	rc = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
+>> +			       pai_online_cpu, pai_offline_cpu);
+>> +	if (rc < 0)
+>> +		goto out_debug;
+>> +
+>>  	if (!paipmu_setup()) {
+>>  		/* No PMU registration, no need for debug buffer */
+>> -		debug_unregister_view(paidbg, &debug_sprintf_view);
+>> -		debug_unregister(paidbg);
+>> -		return -ENODEV;
+>> +		rc = -ENODEV;
+>> +		goto out_cpuhp;
+>>  	}
+>>  	return 0;
+>> +
+>> +out_cpuhp:
+>> +	cpuhp_remove_state(rc);
 > 
->   dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
->   dw2102: start downloading DW210X firmware
->   ==================================================================
->   BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->   Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
->   Call Trace:
->    <TASK>
->    kasan_report+0x117/0x150 mm/kasan/report.c:595
->    check_region_inline mm/kasan/generic.c:-1 [inline]
->    kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
->    __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
->    dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->    dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
-> 
-> Fix this by clamping the last chunk to the remaining bytes;
-> 
-Hello everyone!
+> This would now use "-ENODEV" as state for cpuhp_remove_state. I fixed
+> it up since I suggested this code, so you can blame me in any case.
 
-A gentle ping on this patch. Is there something you would
-like me to change or is the patch good to go?
-
-Kind regards,
-
+Ahhh right, thanks for fixing this for me.
 -- 
-Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Thomas Richter, Dept 3303, IBM s390 Linux Development, Boeblingen, Germany
+--
+IBM Deutschland Research & Development GmbH
+
+Vorsitzender des Aufsichtsrats: Wolfgang Wendt
+
+Geschäftsführung: David Faller
+
+Sitz der Gesellschaft: Böblingen / Registergericht: Amtsgericht Stuttgart, HRB 243294
