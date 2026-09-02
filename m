@@ -1,378 +1,216 @@
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA343793A8
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 19:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788376410; cv=none; b=iADycHXGS+CHt6xzOuUM8zv+4F6k0XBazpoJno6lcSHGNFY/JxJEoPtEng1Po+1ZCkoQnLLr5Qft5qo1oMd7rVVowOlf+OrLrItIUxg/MzP6MncJijhPEfnZ6viqydwIZ3/oowdtOXDx+u7xsO1etxxRmVhSnvIDC8t4IVaVqrs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788376410; c=relaxed/simple;
-	bh=heFBTe4Azj4loNK0+guseUepFSEbMsjiIjxwRabDFvk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lA+NFyy75/+XNjX6hBVWrqfHdkJ59M4aLV0r5B+qo44d3eRCUL2Vf4yEz7X1qH/7YEVU1FDaRkGOFH/y77kQSMjEGWKinwUGH/85q9sP5Ug2asseLdbUfCPfZ2I1fQiC7EI2mCVyeZgYTomPGokWr2ehEaghZIBT4Vy5gWVM/cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nVro9Cha; arc=none smtp.client-ip=209.85.215.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D64F4AD4C5
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 19:15:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788376506; cv=pass; b=JJO5JvvW40armWvJiaK0X7VWd+2LblrTpuof16y0Z4IX2LNYTq6ma1b7ZFElRpmfOH3pn+mB1IMYPJmfJtwOQatYpFPhr2h8E8vSpWvBE9TpCAsnxfLoXDBRgeyqbP01YcQFg2jfjgYX9OHSMRPoyajOuUx3skxymrfOG7fzCMI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788376506; c=relaxed/simple;
+	bh=JLV8Ofox8i3452kiplk76hZfUPxaEK+vxS1pmKYEFNM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gAteXFwbHyoyLRa4iYdaRjqRoPbTXI0QHHcX32jBtVtGFkr4GDoEUksu5JsUgSfx0qIlExL53UBOtB7OMK3TKgj98RgoaGsAc4mUmSinFl75Wp8WytwjT1Pf8udj5WBCT07KLmly1D+X5MiNppi+4jJ1kNzsSAdPS1G+GPOFRQ0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Witbb4Sk; arc=pass smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nVro9Cha"
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so2040968a12.2
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 12:13:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Witbb4Sk"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-455ca262ccbso1213387fac.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 12:15:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788376499; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PQIc5OpJMamOWZ4uNG5JbfZErvm9uXEevXFV+U/ysRjO9z0nnsaxFAVUbhwg6FGkL6
+         0evbkD9AxiBJ3n8x1ob0RYwEIjxSnU9LnblcVkj8MGqr0T1TuSqSJOVulcHT8Wltc+67
+         zo8okN/0gWeOeIRDDtKoH5TRKgLIijmHCTRZrrvTmzVM+aa8zaqAGuYv0HVTHSk9h4Ee
+         hD0qUCeKGZBfRnJhKWCegwqSjfZiPsp9l78gx6DL6DIzw3u7Oa7FEjlT+ljtS3+/cyzB
+         zxvwH+m4uPpqXx1pr3M24t/9kTcPAn8E/M5XySVVCrbs/Lv+mRPetGbSnffPnbxoRcuv
+         ivVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
+        fh=kscYn6PQoH1+WBz6/hLXJB1UIgrdy07R2v5OmTKRaXY=;
+        b=jpLG5e7Pk39/rEa9rMZX3fxFs1QBrgOORM2ZW1bRKo59lMGK+AWL3Xxgv4W0iybAoq
+         Wf5KJB8LZs55X9TD10HMHeUmaJwSg2xrU09LheAns31rtwwR/PTQhLGmO2FyBn2OnB5h
+         7vdLjahZrIA45j0HL/HayhwQauFs9S4OPEJ14on7M5zk8Op+ke9JLD3OLtYmyzUD5VsE
+         PknetVIO6Uy70Jx/5+qAQQqQeizwvlWmvs2m1pl9M/+dvS0v+qmKLGrvLy2cFR/iEmgH
+         WZ4T2J0VJFdTKQ658cK6SXDstYaPXiFWH0mo13OOXjSMaTlmt5azF3qEEQy06JYS5dH4
+         uC9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788376407; x=1788981207; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FR4OS7s1XbcA2FA5sOcuBurTuZ/ng9SBzZ/wefEfnhg=;
-        b=nVro9ChaGMFPcL3LaOZgEFYwMy+Isud+a24GCgLUOji9ZzKIkwEWtYg5w1tC/SWAOY
-         fO7gauZw+qEqP7/GAq7eNjgorAyMdmrZM/qKLYO7CnDlXyRec/BEACAZmV+HpSKWpSd3
-         TRUWZ9rhJ9mTmtF/sU6DkXR1B4fZzjckexvZK89Bz4M0DWmYqtiqNRCAu6SmUkV9AWcy
-         j8clz7a4kUdao9x9NwgAo+I82vux8BDM9mgmEbPSY1S1VtYI/yMz7uPAmNzeLt8JsHX4
-         8YgoE7pIs7mgeRTeME2OIc1MGRVhknBvX/ovjzF5BCu/qMsG75ge6Ou/4y13/d7yi4JP
-         x5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788376407; x=1788981207;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788376499; x=1788981299; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=FR4OS7s1XbcA2FA5sOcuBurTuZ/ng9SBzZ/wefEfnhg=;
-        b=gdcjH7SFgaFcYjEuxS6xuqUhkwQjMZCLkIvxF1/OFWlLqPer+FCDg3EY1XGTWYCFyx
-         Xvk+NwvTqEWt4is1UAM/IPUWpuFNpqq4K+GARr7usq1ET2h2Dhjc/3wNPtsqylfBzXY9
-         ARSRYhD+CiZlc9vcK7mT6z09GpJRcyEIk1oqjJJcwXaOqqgFCBUZxUvWkoRqML+7Cht5
-         RBbTPnpzjhuUNiFwdeijcLNoVmnjGUAXD9JuyJyDOyiNqlQ1REr0T+g7cmliHunBaej1
-         NKV2dLZ8b5cC43ON6MEtQkDRn6DFxb6NZqX1yd5FjUeBVbgSpTfmnVAPHb4clJSCyZi+
-         Aq3Q==
-X-Gm-Message-State: AFuF++nsoekJ63L5raNRtKZBTgk3RFWUUfzugoSY3hMnEV2poc7OWz3P
-	MCetWgzK5BXsi2GlDcGXivDeiFOSBwNDXbb1kbs1Td0PzGfDsICZkcsoXhza3PuTDLGGhO8KY7r
-	lUcu0m/ZNg68HETBpvq5LKkDXI3mL3SfQLSDVc06XZ0IZnlVHVyNz5m1osgzAVerGasRHeeUnmU
-	WCTKJim+pjh+oIxEf8/Kpp5DFhhpSQ+mSAFXUQ
-X-Received: from pfj21.prod.google.com ([2002:a05:6a00:a415:b0:84a:3bc9:3bcd])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4287:b0:857:7337:5db5
- with SMTP id d2e1a72fcca58-85ed98b4d7amr11675821b3a.19.1788376407043; Wed, 02
- Sep 2026 12:13:27 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 12:13:21 -0700
-In-Reply-To: <20260902191321.2644150-1-seanjc@google.com>
+        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
+        b=Witbb4Skocb5WQRQSOcB/3AErxnQrFz23C5G/uqNu3pwzdauX5St7OloyoaM36jF7v
+         xpwcjnXpXvgbPm/QqMMxe20sfjzKtRICJtUxf/PoZ/AqFBR6no97U2+8dtujOL4KiTjq
+         Ld40Tgjo73QX7jLRnMwlbfXgFvSxJ/E7bObYULtmYt4uX1yrU8qnT67twjAkOzDhgoMp
+         IvSGNVOm2VMzSLJu6tBQm8/w8IiBxMuV1OjEtsZjoe7VNYuyjxDa8lZ21NvsdmTtMBAZ
+         eQKjBMoG3MBCqyedLKrQBEwkKW5z0NYnXhpPgXyTD9jCE9IO+GkvcaR+4Rb6PPK0ARzl
+         tl2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788376499; x=1788981299;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fhVgVDsfplRoO6QIS0+PaSfH5QyM7tCi3PZGVPNp3Fk=;
+        b=qGe9MDW9a4m2dMI0PXS+khIA4eEqYj7qkQYZZd5LPGm8bMLu+zMceBbn1W1ajfxm0u
+         zDxqjuA7i6KO/qixy/VOMlgJEg5Zf76mqkA7Odh7WVvrpWebQb5jzE8WHHmGAsTy14xE
+         Jt2DqW1Du+6w3Yb1sOx03QtHjCfLiqYhzOUiRrQux/T8F4UAwQn9peud+qJnDije+h1D
+         rJxzjAF+jQD24GwP1yw/zr0kg0f1ryAY6yrHM3D/XhLpl55JR029U/yVQBzQPlcOg6/G
+         i6WkIakcV338ZtYJCdNVEUoT8wdEjedWaYlYwu5aD7QnJC3szmF4hWYfs8aOd1cnpRCG
+         HaWg==
+X-Forwarded-Encrypted: i=1; AKwUvBybJiCehBmJaF489hSgKS8HMg6jxklV2u57f6AXqSDYx/DY/TdYkTYBuXqyVa/SkBjXXMIkHpw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBr/pA2qb7wLbdTBpJry9+/iqqmXU/Dsrdp3bIsSxOq7oQjMWx
+	1VG49yqrQLUahhTfEPNPXTajYd38w6HX9RwqMsnaApzk40kqpMKaYYWsDWnZ0GnglSezxKsXI9w
+	TtsWpL/dzbXTCxMywokgwSVwmtViRUzM=
+X-Gm-Gg: AYBFou1Op5kObVEt8t4Geo2zriVyyp7EBde8Zu9/P3vLlQfxgU6MV5hkwbPMlUET8Yb
+	kWKkQabCcJ2+BMlMTX+G22CXYX8pxjvVkAPx4GUhJ3Ko84WxJ7FtkrNPwPV5qsA5hw04j8LSSB2
+	ESMdDWlwQwkAhwibcZHq0Ksha8MFW96DmQGvON4UC5itGczVz+jBsSClF71/iCDRYmLyIIMLK4P
+	jemXfZ3rNk7YcySVHkDdbfiFohPARrSEdFXc9jC4roetpPUZ9CinKMiO9DylB5UmqDzUt2drFpo
+	B4Cty9CPLPzSdKWf1rIcP0vW5JkJRIYWUicYDQjdWCg9Ks1LP8CIFmJSZRIaERCxE6haTf6M5kY
+	Dnu4hmJsVisN4l9odhNkUO1Ye045QRHyt1TwGo/QNJE/Ts3rv7WLLDfvN5tTsEEN0L+Rrw37LKy
+	+1OVCwLlBYY0LUDCa+/68E9bUj/rWIH/tHaI1RTOG8
+X-Received: by 2002:a05:6870:270:b0:46a:e87f:a7f3 with SMTP id
+ 586e51a60fabf-46f88507af1mr6165405fac.2.1788376499042; Wed, 02 Sep 2026
+ 12:14:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260821-stable-item001-snp-builtin-kvm@kernel.org> <20260902191321.2644150-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902191321.2644150-3-seanjc@google.com>
-Subject: [PATCH 6.12.y 2/2] x86/sev: Fix broken SNP support with KVM module built-in
-From: Sean Christopherson <seanjc@google.com>
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
-	Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	Gao Shiyuan <gaoshiyuan@baidu.com>, Vasant Hegde <vasant.hegde@amd.com>, 
-	Joerg Roedel <jroedel@suse.de>, Sean Christopherson <seanjc@google.com>, Stable@vger.kernel.org, 
-	Ashish Kalra <ashish.kalra@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
+MIME-Version: 1.0
+References: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
+ <aphXfTJicnEde3R4@google.com>
+In-Reply-To: <aphXfTJicnEde3R4@google.com>
+From: Andrew Wilson <wizlonex@gmail.com>
+Date: Wed, 2 Sep 2026 15:14:48 -0400
+X-Gm-Features: AcwNN1UJNnt-8ayL0xjmSoouIWQ2GFKkS-vOs8cL869hId8ajPvh2JfxnCOJoF8
+Message-ID: <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
+Subject: Re: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP Platform
+ initialization to KVM breaks SEV-ES VM launch
+To: Sean Christopherson <seanjc@google.com>
+Cc: ashish.kalra@amd.com, aik@amd.com, herbert@gondor.apana.org.au, 
+	stable@vger.kernel.org, regressions@lists.linux.dev, thomas.lendacky@amd.com, 
+	john.allen@amd.com, davem@davemloft.net, linux-crypto@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 1145026@bugs.debian.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Ashish Kalra <ashish.kalra@amd.com>
+Hi Sean, Salvatore,
 
-[ Upstream commit 409f45387c937145adeeeebc6d6032c2ec232b35 ]
+Tested-by: Andrew Wilson <your.email@address.com>
 
-Fix issues with enabling SNP host support and effectively SNP support
-which is broken with respect to the KVM module being built-in.
+(With strong assistance from Gemini guiding me through builds, module
+DKMS rebuilds, and interpreting logs!)
 
-SNP host support is enabled in snp_rmptable_init() which is invoked as
-device_initcall(). SNP check on IOMMU is done during IOMMU PCI init
-(IOMMU_PCI_INIT stage). And for that reason snp_rmptable_init() is
-currently invoked via device_initcall() and cannot be invoked via
-subsys_initcall() as core IOMMU subsystem gets initialized via
-subsys_initcall().
+I can confirm that commit 6b748c39d18e completely resolves the issue,
+and SEV, SEV-ES, AND SEV-SNP are fully functional on official Debian
+packages (tested on EPYC Rome and EPYC Milan servers).
 
-Now, if kvm_amd module is built-in, it gets initialized before SNP host
-support is enabled in snp_rmptable_init() :
+Here are the test results from bare-metal hardware:
 
-[   10.131811] kvm_amd: TSC scaling supported
-[   10.136384] kvm_amd: Nested Virtualization enabled
-[   10.141734] kvm_amd: Nested Paging enabled
-[   10.146304] kvm_amd: LBR virtualization supported
-[   10.151557] kvm_amd: SEV enabled (ASIDs 100 - 509)
-[   10.156905] kvm_amd: SEV-ES enabled (ASIDs 1 - 99)
-[   10.162256] kvm_amd: SEV-SNP enabled (ASIDs 1 - 99)
-[   10.171508] kvm_amd: Virtual VMLOAD VMSAVE supported
-[   10.177052] kvm_amd: Virtual GIF supported
-...
-...
-[   10.201648] kvm_amd: in svm_enable_virtualization_cpu
+1. Upstream v6.12.104 (Source build) on AMD EPYC (Rome):
+   * Tested SEV-ES: Functional, VMs launch cleanly.
 
-And then svm_x86_ops->enable_virtualization_cpu()
-(svm_enable_virtualization_cpu) programs MSR_VM_HSAVE_PA as following:
-wrmsrl(MSR_VM_HSAVE_PA, sd->save_area_pa);
+2. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Rome):
+   * Tested SEV & SEV-ES: Functional.
+   [    3.676036] kvm_amd: SEV enabled (ASIDs 16 - 253)
+   [    3.690542] kvm_amd: SEV-ES enabled (ASIDs 1 - 15)
+   [    3.735896] ccp 0000:26:00.1: SEV API:0.24 build:22
 
-So VM_HSAVE_PA is non-zero before SNP support is enabled on all CPUs.
+3. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Milan)=
+:
+   * Tested SEV-SNP: Fully functional!
+   * Host log:
+     [    4.678767] kvm_amd: SEV enabled (ASIDs 256 - 509)
+     [    4.684694] kvm_amd: SEV-ES enabled (ASIDs 1 - 255)
+     [    4.690563] kvm_amd: SEV-SNP enabled (ASIDs 1 - 255)
+     [    6.212275] ccp 0000:47:00.1: SEV-SNP API:1.58 build:2
+   * Guest dmesg:
+     [    0.908804] Memory Encryption Features active: AMD SEV SEV-ES SEV-S=
+NP
+     [    0.908820] SEV: Status: SEV SEV-ES SEV-SNP
+     [    2.109524] SEV: SNP running at VMPL0.
+     [    3.439649] sev-guest sev-guest: Initialized SEV guest driver
+(using VMPCK0 communication key)
 
-snp_rmptable_init() gets invoked after svm_enable_virtualization_cpu()
-as following :
-...
-[   11.256138] kvm_amd: in svm_enable_virtualization_cpu
-...
-[   11.264918] SEV-SNP: in snp_rmptable_init
+Because Debian builds KVM as a module (CONFIG_KVM_AMD=3Dm), we avoid the
+built-in CONFIG_KVM_AMD=3Dy SNP race on 6.12.y, so both SEV-ES and
+SEV-SNP are completely working out-of-the-box on 6.12.107-1.
 
-This triggers a #GP exception in snp_rmptable_init() when snp_enable()
-is invoked to set SNP_EN in SYSCFG MSR:
+Salvatore: Debian bug #1145026 can be marked fully resolved by
+linux-image-6.12.107-1.
 
-[   11.294289] unchecked MSR access error: WRMSR to 0xc0010010 (tried to write 0x0000000003fc0000) at rIP: 0xffffffffaf5d5c28 (native_write_msr+0x8/0x30)
-...
-[   11.294404] Call Trace:
-[   11.294482]  <IRQ>
-[   11.294513]  ? show_stack_regs+0x26/0x30
-[   11.294522]  ? ex_handler_msr+0x10f/0x180
-[   11.294529]  ? search_extable+0x2b/0x40
-[   11.294538]  ? fixup_exception+0x2dd/0x340
-[   11.294542]  ? exc_general_protection+0x14f/0x440
-[   11.294550]  ? asm_exc_general_protection+0x2b/0x30
-[   11.294557]  ? __pfx_snp_enable+0x10/0x10
-[   11.294567]  ? native_write_msr+0x8/0x30
-[   11.294570]  ? __snp_enable+0x5d/0x70
-[   11.294575]  snp_enable+0x19/0x20
-[   11.294578]  __flush_smp_call_function_queue+0x9c/0x3a0
-[   11.294586]  generic_smp_call_function_single_interrupt+0x17/0x20
-[   11.294589]  __sysvec_call_function+0x20/0x90
-[   11.294596]  sysvec_call_function+0x80/0xb0
-[   11.294601]  </IRQ>
-[   11.294603]  <TASK>
-[   11.294605]  asm_sysvec_call_function+0x1f/0x30
-...
-[   11.294631]  arch_cpu_idle+0xd/0x20
-[   11.294633]  default_idle_call+0x34/0xd0
-[   11.294636]  do_idle+0x1f1/0x230
-[   11.294643]  ? complete+0x71/0x80
-[   11.294649]  cpu_startup_entry+0x30/0x40
-[   11.294652]  start_secondary+0x12d/0x160
-[   11.294655]  common_startup_64+0x13e/0x141
-[   11.294662]  </TASK>
+Thank you all very much!
 
-This #GP exception is getting triggered due to the following errata for
-AMD family 19h Models 10h-1Fh Processors:
+Very Respectfully,
 
-Processor may generate spurious #GP(0) Exception on WRMSR instruction:
-Description:
-The Processor will generate a spurious #GP(0) Exception on a WRMSR
-instruction if the following conditions are all met:
-- the target of the WRMSR is a SYSCFG register.
-- the write changes the value of SYSCFG.SNPEn from 0 to 1.
-- One of the threads that share the physical core has a non-zero
-value in the VM_HSAVE_PA MSR.
+Andrew Wilson
 
-The document being referred to above:
-https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/57095-PUB_1_01.pdf
-
-To summarize, with kvm_amd module being built-in, KVM/SVM initialization
-happens before host SNP is enabled and this SVM initialization
-sets VM_HSAVE_PA to non-zero, which then triggers a #GP when
-SYSCFG.SNPEn is being set and this will subsequently cause
-SNP_INIT(_EX) to fail with INVALID_CONFIG error as SYSCFG[SnpEn] is not
-set on all CPUs.
-
-Essentially SNP host enabling code should be invoked before KVM
-initialization, which is currently not the case when KVM is built-in.
-
-Add fix to call snp_rmptable_init() early from iommu_snp_enable()
-directly and not invoked via device_initcall() which enables SNP host
-support before KVM initialization with kvm_amd module built-in.
-
-Add additional handling for `iommu=off` or `amd_iommu=off` options.
-
-Note that IOMMUs need to be enabled for SNP initialization, therefore,
-if host SNP support is enabled but late IOMMU initialization fails
-then that will cause PSP driver's SNP_INIT to fail as IOMMU SNP sanity
-checks in SNP firmware will fail with invalid configuration error as
-below:
-
-[    9.723114] ccp 0000:23:00.1: sev enabled
-[    9.727602] ccp 0000:23:00.1: psp enabled
-[    9.732527] ccp 0000:a2:00.1: enabling device (0000 -> 0002)
-[    9.739098] ccp 0000:a2:00.1: no command queues available
-[    9.745167] ccp 0000:a2:00.1: psp enabled
-[    9.805337] ccp 0000:23:00.1: SEV-SNP: failed to INIT rc -5, error 0x3
-[    9.866426] ccp 0000:23:00.1: SEV API:1.53 build:5
-
-Fixes: c3b86e61b756 ("x86/cpufeatures: Enable/unmask SEV-SNP CPU feature")
-Co-developed-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Co-developed-by: Vasant Hegde <vasant.hegde@amd.com>
-Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-Acked-by: Joerg Roedel <jroedel@suse.de>
-Message-ID: <138b520fb83964782303b43ade4369cd181fdd9c.1739226950.git.ashish.kalra@amd.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[sean: handcode/port the sev.c changes]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/include/asm/sev.h |  2 ++
- arch/x86/virt/svm/sev.c    | 21 ++++++---------------
- drivers/iommu/amd/init.c   | 34 ++++++++++++++++++++++++++++++----
- 3 files changed, 38 insertions(+), 19 deletions(-)
-
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index ee34ab00a8d6..2524ada3708e 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -440,6 +440,7 @@ static inline void snp_update_svsm_ca(void) { }
- 
- #ifdef CONFIG_KVM_AMD_SEV
- bool snp_probe_rmptable_info(void);
-+int snp_rmptable_init(void);
- int snp_lookup_rmpentry(u64 pfn, bool *assigned, int *level);
- void snp_dump_hva_rmpentry(unsigned long address);
- int psmash(u64 pfn);
-@@ -450,6 +451,7 @@ void kdump_sev_callback(void);
- void snp_fixup_e820_tables(void);
- #else
- static inline bool snp_probe_rmptable_info(void) { return false; }
-+static inline int snp_rmptable_init(void) { return -ENOSYS; }
- static inline int snp_lookup_rmpentry(u64 pfn, bool *assigned, int *level) { return -ENODEV; }
- static inline void snp_dump_hva_rmpentry(unsigned long address) {}
- static inline int psmash(u64 pfn) { return -ENODEV; }
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index 9a6a943d8e41..738698390ebf 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -189,7 +189,7 @@ void __init snp_fixup_e820_tables(void)
-  * described in the SNP_INIT_EX firmware command description in the SNP
-  * firmware ABI spec.
-  */
--static int __init snp_rmptable_init(void)
-+int __init snp_rmptable_init(void)
- {
- 	u64 max_rmp_pfn, calc_rmp_sz, rmptable_size, rmp_end, val;
- 	void *rmptable_start;
-@@ -197,11 +197,11 @@ static int __init snp_rmptable_init(void)
- 	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
- 		return 0;
- 
--	if (!amd_iommu_snp_en)
--		goto nosnp;
-+	if (WARN_ON_ONCE(!amd_iommu_snp_en))
-+		return -ENOSYS;
- 
- 	if (!probed_rmp_size)
--		goto nosnp;
-+		return -ENOSYS;
- 
- 	rmp_end = probed_rmp_base + probed_rmp_size - 1;
- 
-@@ -218,13 +218,13 @@ static int __init snp_rmptable_init(void)
- 	if (calc_rmp_sz > probed_rmp_size) {
- 		pr_err("Memory reserved for the RMP table does not cover full system RAM (expected 0x%llx got 0x%llx)\n",
- 		       calc_rmp_sz, probed_rmp_size);
--		goto nosnp;
-+		return -ENOSYS;
- 	}
- 
- 	rmptable_start = memremap(probed_rmp_base, probed_rmp_size, MEMREMAP_WB);
- 	if (!rmptable_start) {
- 		pr_err("Failed to map RMP table\n");
--		goto nosnp;
-+		return -ENOSYS;
- 	}
- 
- 	/*
-@@ -261,17 +261,8 @@ static int __init snp_rmptable_init(void)
- 	crash_kexec_post_notifiers = true;
- 
- 	return 0;
--
--nosnp:
--	cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
--	return -ENOSYS;
- }
- 
--/*
-- * This must be called after the IOMMU has been initialized.
-- */
--device_initcall(snp_rmptable_init);
--
- static struct rmpentry *get_rmpentry(u64 pfn)
- {
- 	if (WARN_ON_ONCE(pfn > rmptable_max_pfn))
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 0e270533bf12..54f3c17520d5 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -3219,7 +3219,7 @@ static bool __init detect_ivrs(void)
- 	return true;
- }
- 
--static void iommu_snp_enable(void)
-+static __init void iommu_snp_enable(void)
- {
- #ifdef CONFIG_KVM_AMD_SEV
- 	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-@@ -3244,6 +3244,14 @@ static void iommu_snp_enable(void)
- 		goto disable_snp;
- 	}
- 
-+	/*
-+	 * Enable host SNP support once SNP support is checked on IOMMU.
-+	 */
-+	if (snp_rmptable_init()) {
-+		pr_warn("SNP: RMP initialization failed, SNP cannot be supported.\n");
-+		goto disable_snp;
-+	}
-+
- 	pr_info("IOMMU SNP support enabled.\n");
- 	return;
- 
-@@ -3381,6 +3389,19 @@ static int __init iommu_go_to_state(enum iommu_init_state state)
- 		ret = state_next();
- 	}
- 
-+	/*
-+	 * SNP platform initilazation requires IOMMUs to be fully configured.
-+	 * If the SNP support on IOMMUs has NOT been checked, simply mark SNP
-+	 * as unsupported. If the SNP support on IOMMUs has been checked and
-+	 * host SNP support enabled but RMP enforcement has not been enabled
-+	 * in IOMMUs, then the system is in a half-baked state, but can limp
-+	 * along as all memory should be Hypervisor-Owned in the RMP. WARN,
-+	 * but leave SNP as "supported" to avoid confusing the kernel.
-+	 */
-+	if (ret && cc_platform_has(CC_ATTR_HOST_SEV_SNP) &&
-+	    !WARN_ON_ONCE(amd_iommu_snp_en))
-+		cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
-+
- 	return ret;
- }
- 
-@@ -3489,18 +3510,23 @@ void __init amd_iommu_detect(void)
- 	int ret;
- 
- 	if (no_iommu || (iommu_detected && !gart_iommu_aperture))
--		return;
-+		goto disable_snp;
- 
- 	if (!amd_iommu_sme_check())
--		return;
-+		goto disable_snp;
- 
- 	ret = iommu_go_to_state(IOMMU_IVRS_DETECTED);
- 	if (ret)
--		return;
-+		goto disable_snp;
- 
- 	amd_iommu_detected = true;
- 	iommu_detected = 1;
- 	x86_init.iommu.iommu_init = amd_iommu_init;
-+	return;
-+
-+disable_snp:
-+	if (cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-+		cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
- }
- 
- /****************************************************************************
--- 
-2.55.0.970.g62bdec98f9-goog
-
+On Wed, Sep 2, 2026 at 1:06=E2=80=AFPM Sean Christopherson <seanjc@google.c=
+om> wrote:
+>
+> On Wed, Sep 02, 2026, Andrew Wilson wrote:
+> > #regzbot introduced: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
+> >
+> > Hi all,
+> >
+> > I am writing to report a regression affecting AMD SEV-ES VM launches
+> > on the 6.12 stable branch (first noticed in 6.12.97+ / 6.12.101).
+> >
+> > I completed a git bisect between working and failing kernels, which poi=
+nted to:
+> >
+> > Commit: bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform
+> > initialization to KVM")
+> > Upstream commit: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
+> >
+> > ### Bisect & Verification Details:
+> > * Last Known Working: 8a599f4f74d4
+> > * First Broken Commit: bb1c84647025
+> > * Tested on 6.12.101: Cleanly reverting bb1c84647025 immediately
+> > resolves the issue and allows SEV-ES guests to boot normally.
+>
+> Can you try v6.12.104 or later?  I'm pretty sure this is fixed by commit
+> 6b748c39d18e ("KVM: SVM: Add support to initialize SEV/SNP functionality =
+in KVM"),
+> i.e. is the same thing as:
+> https://lore.kernel.org/all/20260814100652.225499-1-jinpu.wang@ionos.com
+>
+> Note, SNP is still buggered on 6.12.y if CONFIG_KVM_AMD=3Dy, I'll try and=
+ send a
+> backport for that soonish.
+> https://lore.kernel.org/all/521b22fa-ef09-4449-909f-0120edfc4b24@oracle.c=
+om
+>
+> > ### Failure Description:
+> > With commit bb1c84647025 applied, `sev_platform_init(&args)` is
+> > removed from `sev_pci_init()`, assuming KVM handles on-demand
+> > initialization.
+> >
+> > On bare metal, the PSP firmware appears to remain uninitialized (does
+> > not reach SEV_STATE_INIT at probe time). When QEMU initializes KVM and
+> > queries host SEV-ES capabilities, the ioctl fails with -EPERM:
+> >
+> >   qemu-system-x86_64: -accel kvm: sev_common_kvm_init: guest policy
+> > requires SEV-ES, but host SEV-ES support unavailable
+> >   qemu-system-x86_64: -accel kvm: failed to initialize kvm: Operation
+> > not permitted
+> >
+> > ### Hardware & Environment:
+> > * Tested on: AMD EPYC (Rome / Milan) Supermicro platforms
+> > * Kernel: Linux 6.12.101
+> > * Hypervisor: QEMU / KVM
+> >
+> > I have access to Naples, Rome, and Milan test hardware and am happy to
+> > test any patches, provide dmesg traces, or assist with debugging.  I
+> > am not a tech-expert of any kind, but I have time to do some testing
+> > if it helps.  THANK YOU for the great work.
+> >
+> > Original Debian bug reference:
+> > https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D1145026
