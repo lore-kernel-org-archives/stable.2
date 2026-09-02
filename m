@@ -1,99 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C1D433050
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559C247F765;
+	Wed,  2 Sep 2026 12:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351045; cv=none; b=jjIOetT+zcdkaCHjWJFNMmfCutYRf8lePvzspDxlgpnXEY5JXaxDG8k2lVjqRiu6FOeB0suexT66vNhe7yGkaljtzVtAvpNukmBkkTLkzDMY9Am2eMkJzM1RUjnFrYIp+qZP5mmgoGJaxSZOdhbilAj1P4aZl/tah9rM+ox7CqY=
+	t=1788351050; cv=none; b=tKeIN6XSB1TNTyXik2EX/1IS2noqblGF3u91N7gOTRcI7Fj+d+e3oPbWNDN+y3U20cDZQev2akwXHFiQRO5yay/ONykWAJu04dhrFIzeNattrRt/p6BVtZu9ikH81zcC6p2liExumgYjNmu0BBTjLbBIYmxxTK1ZhPWjgU6sKYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351045; c=relaxed/simple;
-	bh=NhQmeJ7xXtC2qhhuZdlM1pf4BctUAxpJW0Z9jOz1lXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YaVRiyaZ5/Kd8RtBVhMq0IiFIgCfQivGetWFT98YPrt4doq7PvINK5RFu2y/LCpSzHnXBy+lbp4YjxajVacvHq139xY9Gq39WNRRiz5pW1hSOfV9Y2v98SbGmf8SCi8Onh95ofh9ARdPZ3q5aZIJ5SzCbYihrXe4H6gwjD6Uc10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iTNW4ugA; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788351050; c=relaxed/simple;
+	bh=Kr7MS00zL27KryVG9u/GBNLnFb/YTHSznV5JXBMOWP8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rI+oZUynRxPfOSsGNoVzt8+n7B/2+Iifr7LdCExogx5b5gWueOtNR/FL3SJApptqUfWnsbOGKwdjP0ORmjou3cwkY+X1IixAwRomWQsY3JaDFnAnEFM3pVE1XK12TADdh56QSoxmCbjCJb1QNAnk7QilkESqaDU/s08pW8hDMho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ol0XJpAY; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iTNW4ugA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788351040;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NQ4xYgPisX1eloJMBrUIHWw1g1geoI0YKTxulh3uSC0=;
-	b=iTNW4ugAxdaEBcknU7OMTOysxaRn+JoBc69/lYFWb3cx0hibUrahKb/ppG3P7VROGY+0XY
-	luqSqHjMNXnS0Y08AttT+jQnDaV42qG9z9Iz+mAenec+9PEb3WmYVlWvnUbalNxQN4kh00
-	JldPLsvBzYc0TGRdd/ggkDe7Blnq378=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-493-cGpnszrpMNaoY7iEI94stQ-1; Wed,
- 02 Sept 2026 08:10:38 -0400
-X-MC-Unique: cGpnszrpMNaoY7iEI94stQ-1
-X-Mimecast-MFC-AGG-ID: cGpnszrpMNaoY7iEI94stQ_1788351037
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 80056180217D;
-	Wed,  2 Sep 2026 12:10:37 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 70EE61955D67;
-	Wed,  2 Sep 2026 12:10:33 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	linux-afs@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/4] afs: Fix missing kunmap in afs_dir_search_bucket()
-Date: Wed,  2 Sep 2026 13:10:19 +0100
-Message-ID: <20260902121024.3328255-2-dhowells@redhat.com>
-In-Reply-To: <20260902121024.3328255-1-dhowells@redhat.com>
-References: <20260902121024.3328255-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ol0XJpAY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788351048; x=1819887048;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Kr7MS00zL27KryVG9u/GBNLnFb/YTHSznV5JXBMOWP8=;
+  b=Ol0XJpAYIejL6HdXg8OVk3nf5g7TiLC3R0U1Z09MmlmgK/sQwMN3BGh9
+   KWwLauAqTNSGV8xEbj3t/D5mV2fwx1/yqDVW6vPJqvT3UKtCiibNi6HjJ
+   a+uDnjgWnlwVdF2pGZdhAg9oQYesnn4TADOqAVNWEdAiBGJZEdVMXjx9i
+   1UTfOVcgsz7tDs7K0TCpHWdcax/ZrfbbpRA5mQTyG6ZO0RcIEFVt/dY8x
+   R7XVBssS0ffoVLTS3rlkHMR4KaHej8kw3+KDL+bkG9IuR55GbsZco78vg
+   ruH5dn5VxPTMA0F1QYSfdEO0Y4Lsn4VCCBqJawjEYXpt/hQWKCB+WysPZ
+   A==;
+X-CSE-ConnectionGUID: TF3XXTCKThiZiiHp+f2QwA==
+X-CSE-MsgGUID: dK0T1YQMS9mozO3u0fkYCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88852606"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88852606"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:10:46 -0700
+X-CSE-ConnectionGUID: 3/lnpXtdS4mzBMiRf4umow==
+X-CSE-MsgGUID: zcQiUidaQzauIXnb12Kvow==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="267634669"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.245.167]) ([10.245.245.167])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:10:43 -0700
+Message-ID: <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
+Date: Wed, 2 Sep 2026 15:10:41 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from runtime
+ resume
+To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michal Pecio <michal.pecio@gmail.com>,
+ Mathieu Fluhr <mathieu.fluhr@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+ <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
+ <a6a8526f-4b6f-46f7-9d02-05bfe3efcd48@linux.intel.com>
+ <apbrp8EaJoIfEg5X@eggarch>
+Content-Language: en-US
+From: Mathias Nyman <mathias.nyman@linux.intel.com>
+In-Reply-To: <apbrp8EaJoIfEg5X@eggarch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix afs_dir_search_bucket() to kunmap the block it's using in the "bad:"
-path.
+On 9/1/26 18:50, Lovekesh Solanki wrote:
+> On Tue, Sep 01, 2026 at 03:53:47PM +0300, Mathias Nyman wrote:
+>> I looked into this again and remember now why we didn't remove the msleep(120)
+>> earlier.
+>>
+>> If we want the hub driver to keep us awake to detect delayed port activity,
+>> then we need to wake the (root) hub driver in xhci resume.
+>>
+>> That means always calling usb_hcd_resume_root_hub() in runtime resume cases where
+>> resume is caused by usb device remote wake. (xHCI PME# in PCI case), even if there
+>> isn't any port activity yet.
+> Got it, thanks for the explanation.
+> 
+>> We don't currently check if runtime resume is caused by xHC PME# wake in the xhci-pci
+>> driver. Not sure if there's a driver api for it.
+>> Instead we in resume sleep for 120ms if there exists connected and suspended USB3
+>> devices without port activity, and then check again.
+>>
+>> This msleep(120) is unnecessary if runtime resume was caused by userspace instead
+>> of usb device initiated wake (seen as PME for PCI hosts)
+> So the better implementation will cross into the PCI side, are there any
+> plans to implement that? Or any interest in it at all that you know of?
 
-Fixes: a5b5beebcf96 ("afs: Use the contained hashtable to search a directory")
-Closes: https://sashiko.dev/#/patchset/20260716103030.3065561-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: linux-afs@lists.infradead.org
-cc: linux-fsdevel@vger.kernel.org
-cc: stable@vger.kernel.org
----
- fs/afs/dir_search.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+It's possible PCI side or pm core already provides some easy way for xhci driver to check this.
+This specific issue is currently not on my todo list, yet.
 
-diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
-index 104411c0692f..4977ad81fa82 100644
---- a/fs/afs/dir_search.c
-+++ b/fs/afs/dir_search.c
-@@ -173,12 +173,11 @@ int afs_dir_search_bucket(struct afs_dir_iter *iter, const struct qstr *name,
- 
- 	ret = -ENOENT;
- found:
-+bad:
- 	if (iter->block) {
- 		kunmap_local(iter->block);
- 		iter->block = NULL;
- 	}
--
--bad:
- 	if (ret == -ESTALE)
- 		afs_invalidate_dir(iter->dvnode, afs_dir_invalid_iter_stale);
- 	_leave(" = %d", ret);
+> 
+>> Probably best to just take Patch 1/1 and look at this xhci resume part separately.
+> Do I need to resend the 1/2 Patch independently now that this one is
+> dropped? Or it'll be taken as is..? I'm still figuring the process out.
+
+Maybe better to send it again, remember to include Greg k-h and Alan Stern
+
+I have some minor, mostly personal taste based nitpicks that could be changed
+in the patch. I'll reply with those comments directly to it.
+
+Thanks
+
+Mathias
+
 
