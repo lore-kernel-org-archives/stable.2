@@ -1,87 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F824078F9
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 09:03:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7623EC808;
+	Wed,  2 Sep 2026 09:10:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339841; cv=none; b=vCKWQo903kQkbJfabKC/znLl2peSlAjMl59mkyteCSlfZCYEUCR8ZcWVE3OVYve+OdS36jrIhNtmaSWVuBiV8I2nJLTE+1cykfGI4p1RZ+mAcsgI1OWe41zkJ1980wlDGIvpVu7jP18mrknF3R2iwz72ZaPSJR7yWjpliOm8mq8=
+	t=1788340217; cv=none; b=CPVGHKaih0EzLtEZsoMKuviyQxTlPdEuTc7DmaAuJiMWj2ounTOXPlrBnsoECY/tP/jsehXC8c7I3KKLbkbBYDqOsH458w4SqrBQ6grIvxyrkOFfMELAAtnu3t82K4tMaRXsvmScJwjX4B5G8QyFzwEIIOoXZ4IXul6jwDoXl1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339841; c=relaxed/simple;
-	bh=nKIWorpbzaf5SIcpy9hDDeWjpM23McIxp03rHgi94W0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VHo3elQoT3dHdf/8ry/ym7jxlaMkyzyQYgkLMoAvJ1m734EGXEAliBhA/61AY+Fryl03XWAk4ZTudIZHKIQ/jKB39LuimJgrkACczqlaBg/fS6829D9g/rvLzFfhjdNmOr2bLqT23689JSOCbkE8wx9AcJI+Rt1642MQI6KbjhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fLKGri+1; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788340217; c=relaxed/simple;
+	bh=Ugizi1/Oz/GDC6hSM7xY+cdvMaq2t4Ps9VEX5p1bxBY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=b6U7FZPDhe5EDcek+tGmtLclL5ftZ/qs6I1haXKRBX49tLouKTriw/YoKzCo4XTNwjeWBN5vs93UJiRNI8Uei5ApxCUe0JUm7tonnwzHfmbAabYAvFQzWIqt+zGaYqvyh3obMO+aTrIJkIar6+b1TmbrRwaroZ11CHeWw16oCxw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1SirV6k9; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fLKGri+1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788339839;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=X0eT/W/+oeHRW7p1OCHLSK34HdANZwDkci4//NsCv6s=;
-	b=fLKGri+12is44Ow3DBMoc+scw0005VDpBebWUYiQ8y040tIReRN3LnVUkpLADlKRHQFHOD
-	W5ptr+dPlU4QU9ehcutMHtaOJurD5QzLibmsbyvRdMBMyKL8sY2nlAy8RQwM0WnFMtq7qG
-	+CQXZ3W7JfJ9J+Xlz03MN/YQCqUIMZI=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-669-8WX91g-7MwCQqqgIQotzJQ-1; Wed,
- 02 Sept 2026 05:03:57 -0400
-X-MC-Unique: 8WX91g-7MwCQqqgIQotzJQ-1
-X-Mimecast-MFC-AGG-ID: 8WX91g-7MwCQqqgIQotzJQ_1788339836
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A659C1830197;
-	Wed,  2 Sep 2026 09:03:55 +0000 (UTC)
-Received: from griffin (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 883361956044;
-	Wed,  2 Sep 2026 09:03:51 +0000 (UTC)
-Date: Wed, 2 Sep 2026 11:03:47 +0200
-From: Jiri Benc <jbenc@redhat.com>
-To: Fourie Zhang <littleddfu@gmail.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Eric Dumazet
- <edumazet@google.com>, Simon Horman <horms@kernel.org>, Jamal Hadi Salim
- <jhs@mojatatu.com>, Cong Wang <xiyou.wangcong@gmail.com>, Jiri Pirko
- <jiri@resnulli.us>, Aaron Conole <aconole@redhat.com>, Ilya Maximets
- <i.maximets@ovn.org>, dev@openvswitch.org, stable@vger.kernel.org, Fourie
- Zhang <fouriezhang@tencent.com>
-Subject: Re: [PATCH net] net: mpls: clear inner_protocol when the last label
- is popped
-Message-ID: <20260902110319.279de291@griffin>
-In-Reply-To: <20260902082924.2812968-1-fouriezhang@tencent.com>
-References: <20260902082924.2812968-1-fouriezhang@tencent.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1SirV6k9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C3B8D1A1953;
+	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 935226053C;
+	Wed,  2 Sep 2026 09:10:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1B3A11C792D5;
+	Wed,  2 Sep 2026 11:10:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788340211; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=dWQm08I1k5LyUTw+wBhW0HthtUeHce+mEdC10fdxN/A=;
+	b=1SirV6k9/fAEqVYJRgYQiMtRJcFLFJPD9Qa4SPbnxEoaWVGcRuMj27XmFPWJx+kj88yr6f
+	KM3VAlxhYw00T6QKynkYib37xl0DjDmgT8GWTwD1It91umoj0nBGz1iQ4/gCPi+AM5MZRs
+	1/Pnl1HsFVZSKN19K8BbCJyFMAr4m40pnJvI8stNwbccFQopVO2XbpYfVDZzsyqGzxCUfQ
+	RnQvv2CV5zryqYFdoJYXGLulq7bmwVm6tdMyl9niiFkFa5vqXADjm6hemoiKtSK9iCEp5u
+	Gt6KmJVE68xAjOKQrb+H6RTkhc2xxvicacXTlbPhyIpbN42rWTvyHkQNjK8S2w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+	(Alexey Charkov's message of "Tue, 01 Sep 2026 19:33:11 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 02 Sep 2026 11:10:06 +0200
+Message-ID: <87ecfc81e9.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed,  2 Sep 2026 16:28:08 +0800, Fourie Zhang wrote:
-> Fixes: c66549ffd666 ("openvswitch: correctly fragment packet with mpls headers")
+On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wrote:
 
-The problem was actually introduced by 48d2ab609b6bb ("net: mpls:
-Fixups for GSO"), which introduced the skb_set_inner_network_header and
-skb_set_inner_protocol in push_mpls but forgot to reset them in
-pop_mpls.
+> The OTP controller is driven through a single set of registers holding a
+> state machine which has to be stepped through for every word read, yet
+> nothing keeps two readers out of each other's way. Concurrent reads
+> interleave, and the outcome is either a reader bailing out:
+>
+>   rockchip-otp 2a580000.otp: timeout during read setup
+>
+> or, worse, one of them silently taking delivery of the other's data.
+>
+> Reading two cells in parallel from userspace on RK3576 reproduces both
+> within 150 iterations - 53 read errors and 9 corrupted results, the latter
+> either losing their first word or, in one case, ending in the two bytes
+> which belong to the other reader's cell - whereas the same reads issued
+> sequentially never fail. Concurrency is not hypothetical here, as six
+> thermal sensors source their trim values from the OTP and reach the driver
+> straight from asynchronous driver probing.
+>
+> Guard the read path with a mutex. Reads are the only way into the hardware,
+> as the driver registers no write callback, and they always run in process
+> context, so a plain mutex spanning the whole clock-enable, read,
+> clock-disable sequence is enough.
+>
+> Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
 
-Apart of that, the fix looks reasonable to me. This is fortunately a
-rather niche bug in practice (and to trigger intentionally, it requires
-CAP_NET_ADMIN).
-
-Please resend with the correct Fixes header.
-
-Thanks!
-
- Jiri
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
