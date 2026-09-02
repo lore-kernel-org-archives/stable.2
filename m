@@ -1,66 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC974921A1;
-	Wed,  2 Sep 2026 14:13:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67E8335203C;
+	Wed,  2 Sep 2026 14:15:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358437; cv=none; b=hLG1N3qW2tuSx1zhVI1JeuI0j0iCffXNTVEmGUM5XpLi/tX1N4WkRn8vQagAXBHPOLEgQTcPeFdE3IYQp3UdTyBgQp4IlmTwCsrcC1dvogJ1gFut0IxhOFAsB2jNUjl75QEDgpObXYUWby3+uFqO0ZChWvB13iB9CFXTL7618mI=
+	t=1788358534; cv=none; b=tP1G7qda0TfwAPwwLqULL1XF8F3pqoZNvSgUVHqz5Or+FV91mWhQGrb6ck/1rlSmXq5YVPzYqbuwxq7G7oZ7hcNFCDnRgp/EDFg1yw3EU05ubOXjyb7U+ABVg7wkUCU0VmDUnwT7IPnL3AEFfaoK+rZGTz4xxOVR2QbDl5vU3co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358437; c=relaxed/simple;
-	bh=dOK7fI1VcPTwRcA9wNF1yj6a+h3tgrU6RE4i5eS3SBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=canOR0Hqm9kDxOKRN2qfA5Xi0A9PfeXVROFoD6krWzW79Vu+Fkz0ZuQ5Y/aAxJxGUVgl93KfriZ8c4tu2J2gkWobjYjbhKnWge0IqWKKmwGq1LP+dGdzTMedkDVLulH5yIH3ciU8toZl9uDFnmuNU/Q+8Iax+YRlRziMS6/etNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GveyguU3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GveyguU3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED03D1F000E9;
-	Wed,  2 Sep 2026 14:13:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788358436;
-	bh=/sY7iQ8sPr77cH4aM3sTeT7wFW0GP7eesI1PHSHpEgk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GveyguU3ESZbjw9mrZcN+gKwl14Um+a67M0pjqmHBKAfGaH12EGa4poXgUz15a+p1
-	 Ld7ko03aZH/1UwEetlHA9wPUj0aSl3BskI3AxGgwQ4F3DMwyk0Mu18hBOKbl9TEgjU
-	 9x0Tvi1mCuX21yj+oMftISrmfQvSiX+z76odon0feaIvVjCWDGqXpNc9fMu/stc8P/
-	 2xcqbgTyuwSNIMrfwXDiysh6D4DLIxBWrB8gBjzgAiQ+l2Vn8EQ0JZRWYrbKTXBxxo
-	 CchbzB+bjMYLw0vBRqw0XkRn4Cnxofeovu0V0XMl2CzXWaVQwyHK6sR5vFrMIN/IMD
-	 Y96xjI3CeWSLA==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/damon/core: allow esz to be set to zero
-Date: Wed,  2 Sep 2026 07:13:48 -0700
-Message-ID: <20260902141349.86896-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902082050.19566-1-aethernet65535@gmail.com>
-References: 
+	s=arc-20240116; t=1788358534; c=relaxed/simple;
+	bh=2KB2m+gDk/p4vhyDeC61/AYwoCwA5nATQLIcXaUUn1U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=VeAk757v5Ub0gY3VpzI81AYtG2OBxj/MUlQbi1EJf/NGRo6t60BoIN5WzqKAgPFAkEXiu1UPjynzZrP82+2x2q3cTcKtODiOyDYtEjeBwt7C+ZUekE5FOwlGYtJUwrUZo79eIljUv3pToyQXi7UzWlqRBwCWUIGOiZK80m8ppME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF34A1F000E9;
+	Wed,  2 Sep 2026 14:15:26 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: leoreis.costa@gmail.com, fra.schnyder@gmail.com, francesco@dolcini.it, 
+ frank.li@nxp.com, l.stach@pengutronix.de, lpieralisi@kernel.org, 
+ kwilczynski@kernel.org, mani@kernel.org, robh@kernel.org, 
+ bhelgaas@google.com, s.hauer@pengutronix.de, kernel@pengutronix.de, 
+ festevam@gmail.com, hongxing.zhu@oss.nxp.com
+Cc: linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Richard Zhu <hongxing.zhu@nxp.com>, stable@vger.kernel.org
+In-Reply-To: <20260813095003.356062-1-hongxing.zhu@oss.nxp.com>
+References: <20260813095003.356062-1-hongxing.zhu@oss.nxp.com>
+Subject: Re: [PATCH v2] PCI: imx6: Move clock enable after core reset
+ assertion
+Message-Id: <178835852653.83808.12038237867062064510.b4-ty@b4>
+Date: Wed, 02 Sep 2026 16:15:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-
-On Wed,  2 Sep 2026 16:20:50 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-
-> When the temporal quota goal tuner determines that the goal has been
-> achieved (score >= 10000), it sets esz_bp to zero so that the effective
-> quota (esz) becomes zero.  However, damos_set_effective_quota() clamps
-> the quota to min_region_sz, preventing the quota from ever reaching
-> zero.
-
-Where in the code it is clamped to min_region_sz, when?  And what user issue
-this can cause?
+X-Mailer: b4 0.15.2
 
 
-Thanks,
-SJ
+On Thu, 13 Aug 2026 17:50:03 +0800, hongxing.zhu@oss.nxp.com wrote:
+> Commit 610fa91d9863 ("PCI: imx6: Assert PERST# before enabling regulators")
+> inadvertently moved clock enablement before core reset assertion, breaking
+> PCI device initialization on i.MX6Q Apalis platforms with
+> ASM1061/ASM1062 SATA controllers connected.
+> 
+> NOTE: It is not 100% clear if the issue is specific to the ASM1061/ASM1062
+> device or on the specific power-up sequence (reset vs cold-power-on).
+> 
+> [...]
 
-[...]
+Applied, thanks!
+
+[1/1] PCI: imx6: Move clock enable after core reset assertion
+      commit: 16929741a622eb345057e41c7b335d9b297890e1
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
