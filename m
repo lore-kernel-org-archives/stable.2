@@ -1,100 +1,137 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.9])
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07512868AB;
-	Wed,  2 Sep 2026 06:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A15C38735A;
+	Wed,  2 Sep 2026 06:15:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329591; cv=none; b=eMcJsFRHSseiYyyO9RGrUQzXoDS/XSwtVRV/hkubMaYcTWre1iubnQ19uqEw5+O3op+xdYXHTKFTF/8rWW6/xRPdPN0obTSomjC3rtrL60hLm+abRNFjv7hhVz5XCLcxTGMEfIUlr8TLk6Vhyt3uKfVu4ioXGw9msaYuJRaXzSQ=
+	t=1788329704; cv=none; b=ecRY2I4cd2pVEbnWXAj5/lirr1eCMf0pPNeMCvbaedEgGNLArRp4iHOOSWD6FnxaJS6wCu4ukCruzX2lyD5fBnFbTK4mfD5TIiNx7rifKkMw5MbNAL59CzkSrgbUWp+GwoB06XJINo0EWQC3hoW23aR1ulJ2P16nRuZ80JPJIOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329591; c=relaxed/simple;
-	bh=NnIANPNQGbdroDQw4v1tOHD/Kw8SzVZIE6CHbITMjS4=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=o1/PShqfXfHQIQCUA10zFf7r0SgWMRvN4nIGwCs52VmfmNxzsV3Et68IxH0qCOASXFmvJvJ+h7awiQTUBkCtV6OgCNZfdZANIOoF2cV+vpiAOL1OlH0iFe60FMVtaVJa1AyDwphXdnOVG23hMlVwivBpg0iz6fT1U8N3vA6BGxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=YQYCb4tY; arc=none smtp.client-ip=117.135.210.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1788329704; c=relaxed/simple;
+	bh=C7854izJEPuClmkkFQw4ChvrdMcmYJXkgMNGP1gB2/I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hUtSc37oMxz1pBNAgOlULCCTg94sSVDiuv5I+hrad/k3yI0rN/OGrXPyh5qUl+ACgbAWTHYmbjrXveQDV27H9Cy2BBpnEgKuvEukvktzGRi8rl9fQwC9qsJoCmjMkx8yqdi0QiU7bz1d8yHvw1U+Q296HTGGdkMf/GM3Gouao3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=NBamitoT; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="YQYCb4tY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=ESV5D09ZSJvDJBytxBulfATFOx0Z5MmtTMqiLjuVkug=;
-	b=YQYCb4tYnMdrP5lWU8AkYbjeYdvolPdAUDCNwsrL/7SdR7wcA28IXenHhKwxIL
-	+OcXoEQoo1GhDXlMRC7K8ZYWhQdAvAKIpSIiyC9Ks5L+idUcy3MsmBan6fUWsZzD
-	9B8y4J6bMxq1OkraLoJ77nU/eCCI7Opl8Q2Uv8YMY4474=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3t1hWvpdq7CsiAA--.27068S2;
-	Wed, 02 Sep 2026 14:12:39 +0800 (CST)
-Message-ID: <6A97BE39.8090301@126.com>
-Date: Wed, 02 Sep 2026 14:12:09 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="NBamitoT"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788329697; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=UL0E16epy44PNt8yQn/2+BDsOBNXFG2a9/inh0OfbBo=;
+	b=NBamitoT3fEpHtGF+XbnQCFf3UlkdZ5VLSiIpct76hVGuwnBfip+dXwmEfkjTq1iWt2lyS+K73XbsXGdGWTaf9dM/bBoxDINqLiVQeCIf4CCb/75CCMlXORaWW4b9lkgLoqdqlN9hW1rvLcczpEQnTbyF6w60ukYcjs45tQQ1NU=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R101e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XABSX4-_1788329692;
+Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XABSX4-_1788329692 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 14:14:56 +0800
+From: Chen Pei <cp0613@linux.alibaba.com>
+To: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	memxor@gmail.com,
+	bjorn@kernel.org,
+	puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,
+	eddyz87@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	pulehui@huawei.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	guoren@kernel.org,
+	bpf@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH bpf v2] bpf, riscv: Make arena support depend on ZACAS
+Date: Wed,  2 Sep 2026 14:14:51 +0800
+Message-ID: <20260902061451.1416-1-cp0613@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Namjae Jeon <linkinjeon@kernel.org>, 
- Hongling Zeng <zenghongling@kylinos.cn>
-CC: hyc.lee@gmail.com, ntfs@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ntfs: fix lost volume flag updates in set/clear helpers
-References: <20260901024551.528056-1-zenghongling@kylinos.cn> <CAKYAXd8dotRFBu18HOZGr6AJn4EfTwj=ZtfwheCTy0H7tbLfFA@mail.gmail.com>
-In-Reply-To: <CAKYAXd8dotRFBu18HOZGr6AJn4EfTwj=ZtfwheCTy0H7tbLfFA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3t1hWvpdq7CsiAA--.27068S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kw15WryktryftrWrKrWxWFg_yoW8Cw43pr
-	s3trn7KayqyFy7WwsFvayIyryFga4xJr4YkrW5Gw40yw1Ykr10qFyxtw1fuayqyr9xJw47
-	JFWjy3yru348ur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jI0PfUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhdFFmqXvlcS2wAA33
 
+The arena range tree allocates its nodes with kmalloc_nolock() since
+commit f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree").
+kmalloc_nolock() requires slab caches with cmpxchg128 support
+(__CMPXCHG_DOUBLE); on riscv cmpxchg128 is provided by the ZACAS
+extension. On systems without ZACAS every arena map creation fails
+with a misleading -ENOMEM.
 
-在 2026年09月02日 09:06, Namjae Jeon 写道:
-> On Tue, Sep 1, 2026 at 11:46 AM Hongling Zeng <zenghongling@kylinos.cn> wrote:
->> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
->> vol->vol_flags outside any lock to compute the new value before handing
->> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
->> the actual write. The read-modify-write is therefore not atomic, and two
->> concurrent callers can lose an update: ntfs_sync_fs() may derive a
->> "clean" value from vol->vol_flags while a writer concurrently records an
->> error and sets VOLUME_IS_DIRTY; the locked write then silently
->> overwrites the freshly-set dirty bit. The on-disk volume looks clean
->> despite the recorded errors, so chkdsk will not run on the next mount
->> and corrupted metadata can persist.
-> This patch description explicitly identifies ntfs_sync_fs() as the
-> problematic caller, but there still remains a racy issue after
-> applying this patch.
->
-> static int ntfs_sync_fs(struct super_block *sb, int wait)
-> {
-> ...
->          if (!NVolErrors(vol) &&
->              ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
->                  ntfs_warning(sb, "Failed to clear dirty bit in volume
-> information flags.  Run chkdsk.");
->                  err = -EIO;
->          }
->
-> Sync thread                         Writer thread
-> -----------                                -------------
-> 1. NVolErrors() == false
->                                               2. Set VOLUME_IS_DIRTY
-> under mrec_lock
->                                               3. NVolSetErrors()
-> 4. ntfs_clear_volume_flags()
->
-> The volume can be left marked clean on disk despite the recorded
-> error... Can you update this patch to fix this issue as well?
-|You're right. My current patch fixes the lost update in the set/clear
-helpers, but ntfs_sync_fs() still has a TOCTOU race between NVolErrors()
-and clearing VOLUME_IS_DIRTY.
+Report the missing support instead: make bpf_jit_supports_arena()
+return system_has_cmpxchg128() where it is defined, so arena map
+creation fails with -EOPNOTSUPP on systems without ZACAS. The macro
+is only defined when both CONFIG_RISCV_ISA_ZACAS and
+CONFIG_TOOLCHAIN_HAS_ZACAS are enabled, so guard it with #ifdef the
+same way mm/slab.h consumes it, and reject arena otherwise. This
+matches how arena BPF_CMPXCHG instructions are already gated on ZACAS
+in bpf_jit_supports_insn().
 
-I'll update the patch to make the error check and dirty-bit clear happen
-under the same mrec_lock, so the sync path won't clear the bit after a
-concurrent error update.
+Fixes: f8c67d8550ee ("bpf: Use kmalloc_nolock() in range tree")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
+---
+Changes since v1:
+- Guard system_has_cmpxchg128() with #ifdef instead of calling it
+  unconditionally: the macro is only defined when both
+  CONFIG_RISCV_ISA_ZACAS and CONFIG_TOOLCHAIN_HAS_ZACAS are enabled
+  (as reported by sashiko-bot), so v1 broke the build when either
+  was disabled. This mirrors how mm/slab.h consumes the macro.
 
-Thanks |
+Why #ifdef rather than rv_ext_enabled(ZACAS)? The predicates differ
+exactly in the configurations that matter:
+
+  scenario (ISA_ZACAS/TOOLCHAIN/hw)  v1           rv_ext_enabled  #ifdef
+  ISA=n or TOOLCHAIN=n               build fails  rejects         rejects
+  ISA=y TOOLCHAIN=n hw has ZACAS     build fails  accepts, then   rejects
+                                                  -ENOMEM again
+  ISA=y TOOLCHAIN=y hw has ZACAS     exact        exact           exact
+
+rv_ext_enabled(ZACAS) does not check CONFIG_TOOLCHAIN_HAS_ZACAS, but
+slab's cmpxchg128 - and thus kmalloc_nolock() - does require it, so
+on an old toolchain with ZACAS hardware it would accept arena maps
+and bring back the very -ENOMEM failure this patch fixes. The #ifdef
+form builds in every configuration and matches exactly the
+kmalloc_nolock() availability gate in mm/slab.h.
+
+This issue was reported by sashiko-bot:
+https://sashiko.dev/#/patchset/20260901120013.16104-1-cp0613@linux.alibaba.com?part=1
+
+Question for reviewers: should the arena selftests gate on ZACAS,
+e.g. probing it via riscv_hwprobe() (RISCV_ISA_EXT_ZACAS) and
+SKIPping cleanly on systems without the extension?
+
+ arch/riscv/net/bpf_jit_comp64.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/arch/riscv/net/bpf_jit_comp64.c b/arch/riscv/net/bpf_jit_comp64.c
+index 74efe4b138d2..151031e97a24 100644
+--- a/arch/riscv/net/bpf_jit_comp64.c
++++ b/arch/riscv/net/bpf_jit_comp64.c
+@@ -2128,7 +2128,15 @@ bool bpf_jit_supports_ptr_xchg(void)
+ 
+ bool bpf_jit_supports_arena(void)
+ {
+-	return true;
++	/*
++	 * The arena range tree uses kmalloc_nolock(), which needs
++	 * cmpxchg128, provided by ZACAS on riscv.
++	 */
++#ifdef system_has_cmpxchg128
++	return system_has_cmpxchg128();
++#else
++	return false;
++#endif
+ }
+ 
+ bool bpf_jit_supports_insn(struct bpf_insn *insn, bool in_arena)
+-- 
+2.50.1
 
