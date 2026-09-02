@@ -1,133 +1,72 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B6864A8A2E;
-	Wed,  2 Sep 2026 15:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B774A92E0;
+	Wed,  2 Sep 2026 15:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363110; cv=none; b=n2IJMZHWJ1K7ZM5KTwhBxPk8IT+xh15vfkGyBnXZfUkGCoQWOhuG3DNS06J1SZlkHa0bgtu09UtWqgPBEJneVA3u+DjA9zfnJcPtoIS3J3HtlARzZ6Ed6FpgA3hArXAJxn7m7eHFdDm98VJ2dDOFaXocc88hlhwf4vBpUXdMoTg=
+	t=1788363113; cv=none; b=ISI0SzG1RSDR8dRHfLEotLuK2m5XKsT0yAyAhCkL19DKXFl9jK3LmOLJFZWZUNXLhVjSTKJFsyU02weE+nDhCBERsteCPW+tvCrjeEgoD6Z7CvDU6IrisphhOOOieQvezj5FI/1pGkLlTt1lezg2HEPS6nhjpDvaQjMK3PCprIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363110; c=relaxed/simple;
-	bh=wvkCCX0P/jm8lFZYEAkkwoRAX2zSnXkMkkerK9mAibY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mQGWPy0FOHHAZWpiFvLUjLrHzHfJsfcGyrKliiQmDRq1cAqxUoSnDv6bPrB3oUvxo+pkWAF+oKVmY294QrP2Nc2TS7XTWDzg7Qo30Y6TU9voabIEX448gfRDQK3FGgah8/SrG1uu24yB2cx6y9uQpFf4oCFvk5LN55stSvljf14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ruLpDakI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=7XLXCzXU; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jYw43weN; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=NRuN6F6P; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788363113; c=relaxed/simple;
+	bh=F8/2e4coUXQd1OEy1MIBLrc2n0JoU2v7FX9aLwh/pHA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Vu+NSDd8s83ZAWbIHd81sbSeO66BPLT/EEzh5uVAC+q+Jq7I3k0bgp6I+GxIyVi0IxJsVDyVl77HYl5DwL+Z2cg4HgfhQc8c/o3H71m+CqHOVV1D8bhB/YoWMCE0IJDHnXu1OD2a6NF0kSfRuF3TvocAAOsor5MuwvYVoQ9SGk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AycOmSUX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ruLpDakI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7XLXCzXU";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jYw43weN";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NRuN6F6P"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id D17DF1F7B8;
-	Wed,  2 Sep 2026 15:31:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788363102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aR8CEab6Gj95wvvMrF8hgdtG4PHOGbfwc7WMddrhtqs=;
-	b=ruLpDakILCJkYYLG1eKEkRGj7QrG/K4u4hMgI0d4ffY2xHtK2JtAPW5stY4lkXKdZt0CBa
-	5LDHFavvswAaqAI17mSYSN4FDVBf5a1GmyIjv2NZxjlBduETcIaHSHcMPuLEPbJiWsFd+i
-	e/gCN8BovwU3ekCbVpn6EYc6jP2bAn0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788363102;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aR8CEab6Gj95wvvMrF8hgdtG4PHOGbfwc7WMddrhtqs=;
-	b=7XLXCzXUKzdXoZ8fxVRyRChsUxjt/84vqqYILkZe9btqUfQ6NEess/0YHyISNTPG602oLO
-	oyRw+/a6HBhWT3BA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=jYw43weN;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=NRuN6F6P
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788363097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aR8CEab6Gj95wvvMrF8hgdtG4PHOGbfwc7WMddrhtqs=;
-	b=jYw43weNa2iVKWe9Go5IkM8iu9ju4u6ArjWuQ4o0Km0CoqfpFrmT0XKOZJa/tSnqGMLRgS
-	0jGPf4jkSr/a+vf52Pav73Th/lP7J+RLPhYXReExukT3FR5Nl6Ti9m3c3J3jbc+dSY8QI7
-	G5QDXLZ7Cjb7+aetZHwmccJ2WmK/Tog=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788363097;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aR8CEab6Gj95wvvMrF8hgdtG4PHOGbfwc7WMddrhtqs=;
-	b=NRuN6F6PNLFarNxPHP9NAe8SUaO9qaE5CxSy3IqIBfG8DqcWEttCY7RfOdOqPRu55H8VlI
-	l71B7V+idFkXWjAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 251EE13736;
-	Wed,  2 Sep 2026 15:31:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IMbnMVhBmGqOVgAAD6G6ig
-	(envelope-from <krisman@suse.de>); Wed, 02 Sep 2026 15:31:36 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: Aohan Mei <ljp1205831794@gmail.com>, io-uring@vger.kernel.org
-Cc: axboe@kernel.dk, Aohan Mei <henrymei@tencent.com>, TencentOS Corvus AI
- <corvus@tencent.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/net: commit all consumed buffers on bundle
- recv retry
-In-Reply-To: <20260902022552.1890610-1-ljp1205831794@gmail.com>
-Organization: SUSE
-References: <20260902022552.1890610-1-ljp1205831794@gmail.com>
-Date: Wed, 02 Sep 2026 12:31:34 -0300
-Message-ID: <871pbb7jqh.fsf@mailhost.krisman.be>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AycOmSUX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4971F000E9;
+	Wed,  2 Sep 2026 15:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788363111;
+	bh=i6uzuZvKCw0azG4q0pqw0jBpOqzGi2PjCgyH0kixHC8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=AycOmSUXIjOcllCh0E8Y1oRuzMPYyoA/UXQD1D5OzH1IdwZL0G2ZXxeKQT3xm3t8F
+	 LJfhKmffSdyee7Oxvb8EGbHifKdp9cY1XPOnxPlUJUIozbt24k6tRNfkLtTqjnQXmo
+	 ERpJ2YzI20dgnYzqBuPXSmJWL8zm1D/OVtxIOQgGa6BE/NaycSo8+dXZu/bx55X6fm
+	 toOkq7K6eoFdk39mE2MBzKjE2PGl/d1NU59Ahy7JSrIIZD2DOfP957mZ0c6CpPujd7
+	 36TI5eiU0Jab7keOCDP4zLuR3RifnrhaAtp1vqMc4i6hvYHmVT4nHcoICztvU977md
+	 ffi31LWGLl+iQ==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Hongyan Xu <getshell@seu.edu.cn>
+Cc: Support Opensource <support.opensource@diasemi.com>, 
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ jianhao.xu@seu.edu.cn
+In-Reply-To: <20260814153019.1114-1-getshell@seu.edu.cn>
+References: <20260814153019.1114-1-getshell@seu.edu.cn>
+Subject: Re: (subset) [PATCH v3] mfd: da903x: cancel IRQ work during
+ teardown
+Message-Id: <178836311024.2127451.12083678367837110310.b4-ty@b4>
+Date: Wed, 02 Sep 2026 16:31:50 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Score: -4.51
-X-Rspamd-Queue-Id: D17DF1F7B8
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[99.98%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.16-dev-ad80c
 
-Aohan Mei <ljp1205831794@gmail.com> writes:
+On Fri, 14 Aug 2026 23:30:19 +0800, Hongyan Xu wrote:
+> The IRQ handler disables the IRQ and schedules irq_work. Releasing the
+> IRQ does not drain that work, which can continue to use the devm-allocated
+> chip and notifier state.
+> 
+> Manage both IRQ-work cancellation and subdevice removal with devres.
+> Register the subdevice-removal action before requesting the IRQ, then add
+> the IRQ-work action after the request. This avoids leaving a live IRQ
+> without work cancellation if action registration fails. Devres cleanup
+> then disables the IRQ and drains the work before releasing the IRQ and
+> removing child devices. Register both actions before creating the children
+> so partial probe failures use the same ordering.
+> 
+> [...]
 
-> This leaves bl->head accounting for only the first partial round
-> rather than all consumed buffers. Buffers that already hold
-> received data stay visible in the ring and are handed out again
-> to later requests, corrupting or dropping application data.
+Applied, thanks!
 
-Hi, Aohan. Do you have a reproducer for this issue?
+[1/1] mfd: da903x: cancel IRQ work during teardown
+      commit: df41eb0718d7ec4609c98844aca3ea381bb569ef
 
--- 
-Gabriel Krisman Bertazi
+--
+Lee Jones [李琼斯]
+
