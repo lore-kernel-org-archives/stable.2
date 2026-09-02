@@ -1,138 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33130412294;
-	Wed,  2 Sep 2026 09:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CB4412294;
+	Wed,  2 Sep 2026 09:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342826; cv=none; b=PgzG8xOwEyKaS0xFeI7gMZ4GBPaCl7Aej7EnLE/+WRJbxrN1Er9YQnyd0NIT9y9mJOLtTELD9LgcmRrjrWOQVEK7BRKGYLvwWRwzbuj/2RurBxlLbZeURo0SIQRhuEHHiZ3l5+ZwG5vqK2+9a1kqecZfHQm2O6Y7cHGnkm2qO6s=
+	t=1788342849; cv=none; b=n0D6rQ0bijjQ3fodMkudfsuCIq9yz90GqpirPnPq0Q1SNLmLkzSmWpTEnq9V81k5LVBS0p+BWs8+mopBetm6oFccAcl+RfRKN57cClMSyiBvQq8hE4FnRpd5yi8ZQKFYku3ecLzlaQsRvIZ2A2bWTq+GgXPEV1K0tFmkZKJizHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342826; c=relaxed/simple;
-	bh=+yJ5tgOj3VCG5Eb9Z+EjeQ1yyrGurFNEE9P4mhlYBNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QifXahy9RgZM1f4TuNpLGtwwt63dVyZjpdjSWpkwcWI5tWPj/LWGhtJYTmKGpmTfGXkaSTzF7PBDncNsmPBiVDJEoN6MQ+9Lq3ULjYqyJfA0JgPieG++L/kyq0D+c7sbW2458+GA2SvfMtN3r0ih1uOyf7x+tPvTX3e8NIg6Mm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDO/E4ot; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788342849; c=relaxed/simple;
+	bh=PGg9lP2Vu2JapsC19KC0peT6vj8SXd2YgVh9w2vIyeg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u4eShJqs/Oq8xGYOrK2PmjlhFm89KS93ZNzsmvsRZ0mGyrAM2INpnnN63pYmmrGEou9i4iAulOSgSThiaWRMTPnCnsoQhZOo+/t/6NMHLhxMdhcxL5ZPMBRh9pxPxcmxUTQNeJfFpwMJtCcNbxwDWZZRNO/QPs5KX5VKSVGzpEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=DzYsR1Xm; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDO/E4ot"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349411F000E9;
-	Wed,  2 Sep 2026 09:53:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788342822;
-	bh=aF/Kk+g5mXV8rPuEMfzI6XMNGLVQ9aLTLmy5wSXsqwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SDO/E4otLAYdA2G9JfptpWzIkyPnU/okkQE6y7+fCD0bH5mhWgvxm0KoD6u64lN37
-	 q6DUrJbwr/YDn6hn/FEIG/Utjy8NU2kRmfLXbQZGaD6z7eU47RlEnZlLyG4X48FsVv
-	 0rSyEFL7b6DWdwm4/cNVQ1wh22bwGg3n/Zr9RRmGDLS77ffYSGTYbub2sW0uJin5dX
-	 0g9svPDUsfhWsEAmm5jo9uDJaq7jOOkALaWpX9lz334szFrK99859mo6IESO4jcwcD
-	 EH0/dC11zvpDkwpd16t+pDSzO1RCGgNKpVKMit//wAS4lpqoFnm4V88KaBACOJ81ip
-	 eWnPNFVRIQZJg==
-Date: Wed, 2 Sep 2026 12:53:38 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902095338.GU24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="DzYsR1Xm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=jD7P48a+Ai8p/nM8j7bf7oiECWwi/PGlJzuPNjEbk7c=; b=DzYsR1Xmhlnyn2jTCLSQs8b2NB
+	NA481BIqHhs8o3F6IJHvs9UkcLaOa2+LlUA9CnYkJhN0a0rUgKWDDuWpqTD+/UDf3yrs07gK0Zi49
+	T59+cyQ2VRyPEvWo0rJHR4CpdwqON18Zx9/Uu5UBdudijsnUydI9WrpJ73J/KdRc/rusKCc2UkAan
+	TjBw84AvxLobwNLTTMGaamvuOb3tKpJ/mfjOK35PacVmwNYpvZkthGpRd/UiwrNwLNBCVfzkH0x9C
+	1xIj9DETwp8kwF2PaQjY0Cjy0Rq4awiJd0abWF/RdJisBMLylnQeiaGhbtv3c01erAEmB1/ePmhus
+	oaFmkHHA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x1hee-00DNgY-S5; Wed, 02 Sep 2026 11:53:16 +0200
+Message-ID: <3c2a131b-af05-4aef-bf5f-4742ceab2170@igalia.com>
+Date: Wed, 2 Sep 2026 10:53:15 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/qxl: fix use-after-free and NULL pointer deref
+To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ devel@lists.crash-utility.osci.io
+Cc: Gemini <gemini@google.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Dave Airlie <airlied@redhat.com>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ stable@vger.kernel.org, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260828085136.128561-1-jirislaby@kernel.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <20260828085136.128561-1-jirislaby@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
 
-On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
-> On 9/2/26 10:32, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> >> On 9/2/26 09:39, Leon Romanovsky wrote:
-> >>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >>>> On 9/1/26 19:08, David Hu wrote:
-> >>>>> From: David Hu <xuehaohu@google.com>
-> >>>>>
-> >>>>> This series address two related issues in scatter-gather mapping,
-> >>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>>>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>>>
-> >>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>>>> phys vec to sgt)
-> >>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>>>
-> >>>>> Patch 2 Splits sgl by largest page aligned chunk
-> >>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>>>
-> >>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> >>>
-> >>> And this is why so many in the kernel community want to get rid of SG
-> >>> lists. It would be great if DMA-BUF could also eliminate the need to
-> >>> convert to an SGL, like Jason proposed.
-> >>>
-> >>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> >>> which is the one that depends on it.
-> >>
-> >> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
-> > 
-> > You are proposing the same thing as an SGL, just in a different format.
-> 
-> Yes, because that is the right thing todo as far as I can see.
-> 
-> > It does not address the issue that dma_addr_t is expected to hold a DMA
-> > address, while that is not always the case. For example, in the P2P case,
-> > the addresses are not DMA addresses.
-> 
-> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
 
-They can perform DMA, but that still does not make them suitable for the
-dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-follow completely different rules: they are not unmapped, require no cache
-synchronization, are valid only for peer access, and require separate error
-handling.
+On 28/08/2026 09:51, Jiri Slaby (SUSE) wrote:
+> When allocating a `qxl_release` structure with `kmalloc()`, the underlying
+> memory contained uninitialized garbage. Specifically, `release->base.flags`
+> (part of the embedded `dma_fence`) was not cleared.
+> 
+> This garbage in `base.flags` caused helper functions such as
+> `dma_fence_was_initialized()` to return true even for releases where the
+> fence was never actually initialized (e.g. via `dma_fence_init()`).
+> 
+> Consequently, during release cleanup in `qxl_release_free()`, the driver
+> attempted to put/free an uninitialized `dma_fence`, leading to refcount
+> underflows (`refcount_t: underflow; use-after-free`) and subsequent NULL
+> pointer dereferences in `dma_fence_signal_timestamp_locked()`.
+> 
+> Fix this by switching from `kmalloc()` to `kzalloc_obj()` in
+> `qxl_release_alloc()`, ensuring all fields (including embedded fence
+> flags) are properly zero-initialized upon allocation, and remove
+> redundant explicit zero-initializations.
+> 
+> The dumps in question:
+>   refcount_t: underflow; use-after-free.
+>   WARNING: lib/refcount.c:28 at refcount_warn_saturate+0x59/0x90, CPU#0: kworker/0:0/1534
+>   Modules linked in: af_packet nft_fib_inet ...
+>   CPU: 0 UID: 0 PID: 1534 Comm: kworker/0:0 Not tainted 7.1.3-1-default #1 PREEMPT(full) openSUSE Tumbleweed  b041a6527f6e58424f4cd3de0fade8d408b378fd
+>   ...
+>   RIP: 0010:refcount_warn_saturate+0x59/0x90
+>   ...
+>   Call Trace:
+>    <TASK>
+>    qxl_release_free+0xee/0xf0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+>    qxl_garbage_collect+0xd1/0x1b0 [qxl d93e9381353e619799d56790f5f8dda6cce491f6]
+>    process_one_work+0x19e/0x3a0
+>   ...
+> 
+> And then of course:
+>   BUG: kernel NULL pointer dereference, address: 0000000000000028
+>   ...
+>   RIP: 0010:dma_fence_signal_timestamp_locked+0x32/0x120
+> 
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Assisted-by: Gemini <gemini@google.com> # only commit log
+> Fixes: 2bcbc706dfa0 ("dma-buf: add dma_fence_was_initialized function v2")
+> Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271081
+> Cc: Christian KÃ¶nig <christian.koenig@amd.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Cc: Dave Airlie <airlied@redhat.com>
+> Cc: Gerd Hoffmann <kraxel@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: stable@vger.kernel.org
+> ---
+> Cc: virtualization@lists.linux.dev
+> Cc: spice-devel@lists.freedesktop.org
+> Cc: dri-devel@lists.freedesktop.org
+> 
+> [v2] use kzalloc_obj() instead of bare kzalloc()
+> ---
+>   drivers/gpu/drm/qxl/qxl_release.c | 6 +-----
+>   1 file changed, 1 insertion(+), 5 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+> index 06979d0e8a9f..07dc6eafe6f7 100644
+> --- a/drivers/gpu/drm/qxl/qxl_release.c
+> +++ b/drivers/gpu/drm/qxl/qxl_release.c
+> @@ -89,17 +89,13 @@ qxl_release_alloc(struct qxl_device *qdev, int type,
+>   {
+>   	struct qxl_release *release;
+>   	int handle;
+> -	size_t size = sizeof(*release);
+>   
+> -	release = kmalloc(size, GFP_KERNEL);
+> +	release = kzalloc_obj(*release);
+>   	if (!release) {
+>   		DRM_ERROR("Out of memory\n");
+>   		return -ENOMEM;
+>   	}
+> -	release->base.ops = NULL;
+>   	release->type = type;
+> -	release->release_offset = 0;
+> -	release->surface_release_id = 0;
+>   	INIT_LIST_HEAD(&release->bos);
+>   
+>   	idr_preload(GFP_KERNEL);
 
-All of this information is lost if only the dma_addr_t is stored.
+Looks plausible on a superficial look, albeit fragile. I am not sure why 
+qxl_release_alloc wasn't calling dma_fence_init in the first place?
 
-> 
-> It can be that those are DMA addresses on private interconnects between devices, but it should *never* be a phys_addr_t because that is limited to the address space the CPU can see.
-> 
-> > Jason's proposal:
-> > https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
-> 
-> Yeah, I have commented quite a bit on that.
+Regards,
 
-Right, I posted it for reference.
+Tvrtko
 
-Thanks
-
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Thanks
-> > 
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Thanks
-> >>
-> >>
-> 
-> 
