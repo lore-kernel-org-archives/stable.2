@@ -1,99 +1,120 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AA0430CE5;
-	Wed,  2 Sep 2026 10:13:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A15D143E076;
+	Wed,  2 Sep 2026 10:17:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344001; cv=none; b=Hob/3dPkt82mtvTvBWKJ4hIqjEeqrdt2mUU/LMD47F8+kkjsIPRMDGUTAT7mEVHzRRuae8eAaYIpgRuYOx4j2+dwrkfgx29Ai5B2+Of58Y2cQaLJESz5oWVgxkIji1OpnTk3U3h+7o7SdymZSNQfv3kj5cpGMz1ojwujAjtG92k=
+	t=1788344257; cv=none; b=czaQKVAfnxVTv3NLd/RPc4xxrgydzYGzZh/xhOm7651TSFa/vbjgW4/Yk9sV0mhSRTFB6VqhPLhcCS5sQVsOyBvGLQDRpItKk5r5YOk46r3mlIzzKfQVN/+iVKzfi9I/3N+qi17laAicDP1GO1+b0ozbNtlaAV+OALj5QBajJTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344001; c=relaxed/simple;
-	bh=ZUoMNsOCoWo/VAeuw4DjeREE/aycd6GLB/a4qUZb4VU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YaKEwOp7JOo1zSgccK4ou2RHCj1exl7mwKDracdUm3N53+7uOGXa0LPQsFvSVSyLUB41K93Fa09ay3A8u3oZUIpMpo1vHk3s981ZikiGEb1w4g2odERqqtP7V9OHgsj7CTtWqrTcD+SWIuJykpfqZwmz2qjJqtwArAhdt0AUgm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongfans.cn; spf=pass smtp.mailfrom=loongfans.cn; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongfans.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongfans.cn
-X-QQ-mid: zesmtpgz4t1788343956tfea4d5c6
-X-QQ-Originating-IP: nx7JF0Fpqcfom8ip4fdPrl+Ybn0XJOHnooR0QK7t2OQ=
-Received: from [198.18.0.1] ( [223.104.163.80])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 02 Sep 2026 18:12:34 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14151464018762602530
-Message-ID: <D7B309C007238053+3831de19-a2c3-4f17-9281-e4e355c6c464@loongfans.cn>
-Date: Wed, 2 Sep 2026 18:12:33 +0800
+	s=arc-20240116; t=1788344257; c=relaxed/simple;
+	bh=v0i1IW/K0lCEN+UhHHuqfcpg5pQ6kIzUY/h8qXk8Qc8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=oPRD3J+2kxcDUrNvO4S30GCDcmkqj/t5qq2eZ5FRuQlkW1UEi6Zu3AyngZTRsSTliyhWjwYedJxRDgK5T/+2+pGC7hlof21s7nkMguRhrQQ+kG5RUq3twCvv0P6Geb9hPVXwRlEtWbArXC2DsgageIZIR20FSZFevagLLddNI48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A63GuMXe; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A63GuMXe"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id F34DB1A1950;
+	Wed,  2 Sep 2026 10:17:32 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C50196053C;
+	Wed,  2 Sep 2026 10:17:32 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C45FA11C79340;
+	Wed,  2 Sep 2026 12:17:24 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788344247; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=aGdN2UjN2hke+3EUIE2BMe8wlc88G/++lGdHQipHA0o=;
+	b=A63GuMXetukibemYG47lx5bU87mEh432g1k0HLhRwhiCKPEQbkCH4l3fyG8CRT1PFYRJj/
+	pQH5rHmlpUuhGnxmHT5l4Fb2Bf2E3qrUzfNRDLeL9YN5raFI6wzwDlFROrLiB76VNBXDOJ
+	FUkAOdmpTVFCMV+UbNGXUVIQRZI/wrcYaWz4z5CI2ghST2Gn/e34PQRuEsRsm5J4hOvfQh
+	ScutLTjTLWc4xrFKDA4XBnirYGPIAHmu+Ev0gxsSywJUk6WJxA4/RHfFt59bPAoXQDkGrS
+	5Jp2UkhpDZz2QIe/idUmeim2YtjSKKLzS6bworBKo0TXMZkKEKaSPAnTkzVeWg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+In-Reply-To: <CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
+	(Alexey Charkov's message of "Wed, 2 Sep 2026 13:24:00 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+	<87ecfc81e9.fsf@bootlin.com>
+	<CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 02 Sep 2026 12:17:24 +0200
+Message-ID: <87y0dk6jpn.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] LoongArch: KVM: Fix PC double advance in kernel MMIO
- read fast path
-To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
- maobibo@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name
-Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
- linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org
-References: <20260723111552.1623996-1-zeng_chi911@163.com>
-Content-Language: en-US
-From: Kaiyang Wu <wukaiyang@loongfans.cn>
-In-Reply-To: <20260723111552.1623996-1-zeng_chi911@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:loongfans.cn:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NbnE26TzD42gdhQUAYDIttMSR8YjVJp87rIeOE8+PsZ/VPsL/0doFYGg
-	ReTaPOF7MRc7n3BSJFw9uzrfU73CZQKFaDLK029sOx50+O5yp+MoKc8FugLmRak516QK2xc
-	Kz5APbSQp4lCdvXfDusgB7VCh+C58gsWWncpwvId40hE3WhDSZSXV3q2r48ygHaE2AA3gQE
-	Kbco2v049QzNYiUqniGv7v2cuOQOWw1PR7ZhJPmOk+jRyft776DvsBPjQVKSG9qY+l3imBF
-	E/rguPTE1oKHaKoJ0clOMpoMiKbiz4Rf1axeLTdcP54tvXDPHzho31FKjcN7JPmD4dAyC+V
-	RJJc8OhJWM//6IoaMi4Pi6rgMT4TfLMeH5hzXZKFzmE7HTyQhdyE6l3igGaEjDIdycxlhny
-	ohCdd2MxT88PSvmLW8SXrLXWjcymiHKdhNk6kBfxskng8uB93bw+HK+ObQNBdqvxHtA1nZ0
-	WzxwXgmyl2TqnxXQzpvm6RRQ4Wmexj04PAX3rX3fJ8129dqOAnmXdcRC3BoEzhKO4Cu8/D5
-	n425nenpoO9HLaKSYmhIdmGOWigfkECQgmVfPLnQUCSXrooKtsShHOtSQf2nicyRn5lG5gs
-	0j97OWR9nRlSN2OS73aixdg0YSR09Gns2P/ALIwhhlpZitYRxWJ3sQUcv3KlNnsfZmHD52R
-	FGetfIpIJFwD8O33HfkblgNsNk16QE6ybmJZbO6aZ6ajFjuNEj8TJajPbwfbpAg067TFGeN
-	LtCZctGvnXfQtt0Bx0ejgT2feu0pYy183k7biDdy8Mv5BcIbVmszYf/R+6UZa63sFtdaNSw
-	TDIkicn2mlrIN/LhZgiVeLQ5WyNcedzX1mEqyg5jDz30aPuKdaHXT34xNnckMwHziUgxq7V
-	E/Z3yZGOY4cArWJ70YAEMEej9lof0MG1e2Zw+57v6xR8Gc2hqS0U4U17b24rp+Xp846x8CD
-	7w42ddn5y7UHfl0aSFT4DUHd4bjzogoKDp2X55eamld47bRJNH+gBzcLwCVOpG8xGYz/7rz
-	rqTKZfr00LXwEjTwLF0KiO2+cxcJTo21nyRE77gxfnu73jb+/CjF8j6badzOxdoR9XcG+4h
-	Bki2XsnHBsoArlDNqOd2BLPKQEJ5CV1Gj/pszhOFMaw
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026-07-23 19:15, Zeng Chi wrote:
+On 02/09/2026 at 13:24:00 +04, Alexey Charkov <alchark@flipper.net> wrote:
 
-> In the in-kernel MMIO read fast path of kvm_emu_mmio_read(),
-> kvm_complete_mmio_read() already advances the guest PC via update_pc().
-> The explicit update_pc() call right after it advances the PC a second
-> time, so PC moves forward by 8 instead of 4 and the instruction
-> following the MMIO read is silently skipped.
-> 
-> The user space MMIO read completion path in kvm_arch_vcpu_ioctl_run()
-> calls kvm_complete_mmio_read() only once, and the MMIO write fast path
-> advances the PC exactly once as well.
-> 
-> Remove the redundant update_pc() so the kernel MMIO read fast path
-> advances the PC by a single instruction.
+> On Wed, Sep 2, 2026 at 1:10=E2=80=AFPM Miquel Raynal <miquel.raynal@bootl=
+in.com> wrote:
+>>
+>> On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wrot=
+e:
+>>
+>> > The OTP controller is driven through a single set of registers holding=
+ a
+>> > state machine which has to be stepped through for every word read, yet
+>> > nothing keeps two readers out of each other's way. Concurrent reads
+>> > interleave, and the outcome is either a reader bailing out:
+>> >
+>> >   rockchip-otp 2a580000.otp: timeout during read setup
+>> >
+>> > or, worse, one of them silently taking delivery of the other's data.
+>> >
+>> > Reading two cells in parallel from userspace on RK3576 reproduces both
+>> > within 150 iterations - 53 read errors and 9 corrupted results, the la=
+tter
+>> > either losing their first word or, in one case, ending in the two bytes
+>> > which belong to the other reader's cell - whereas the same reads issued
+>> > sequentially never fail. Concurrency is not hypothetical here, as six
+>> > thermal sensors source their trim values from the OTP and reach the dr=
+iver
+>> > straight from asynchronous driver probing.
+>> >
+>> > Guard the read path with a mutex. Reads are the only way into the hard=
+ware,
+>> > as the driver registers no write callback, and they always run in proc=
+ess
+>> > context, so a plain mutex spanning the whole clock-enable, read,
+>> > clock-disable sequence is enough.
+>> >
+>> > Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+>>
+>> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>
+> Thanks for your review Miquel!
+>
+> Sashiko complained about mixing a scope-based guard into a function
+> with goto-based error handling, so I am replacing the guard(mutex)
+> with explicit lock and unlock calls for v2. There won't be any
+> semantic change though, so if you don't mind I'd like to carry your
+> tag into the v2 version.
 
-Hi Zeng,
+Of course.
 
-I have tested the patch on Proxmox VE with the environment below:
+I haven't seen Sashiko's answer but isn't the goal of guards to just be
+released whatever the actual return path?
 
-- CPU: Loongson 3C6000/D
-- OS: Proxmox VE 9.2.11 (LoongArch port https://github.com/pve-loong64-port)
-- Kernel: 7.0.14-15-pve
-- Guest OS: Kylin Linux Advanced Server V10 (SP3 2403)
-- Guest Kernel: 4.19.90-89.45.v2401.a.ky10.loongarch64
-
-Without the patch, the guest system could not boot with the 
-4.19.90-89.45.v2401.a.ky10.loongarch64 kernel and there was no output in 
-neither tty nor serial. I can confirm the system boots from the same 
-kernel version with the patch applied to the host kernel.
-
-Best,
-Kaiyang
+Thanks,
+Miqu=C3=A8l
