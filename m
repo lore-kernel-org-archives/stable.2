@@ -1,180 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A5D455636;
-	Wed,  2 Sep 2026 23:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDF8435EFA;
+	Wed,  2 Sep 2026 23:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788391852; cv=none; b=UvCfATjJ2FQytT1j+u5iWH0IULTGs1Mi4NFvhmhYrMqgINCY/A5iwTFokEHOi/1kJjNngKTh07XyFbpLQ/liUNWxpNbJRBIWWzwyFSvCII17A5Rho9hOqZ+SRyY+ML/Q6zFnBMvOkc0oYGnACPIfBfbEEKUjzhRiwHQlfHARLtI=
+	t=1788391869; cv=none; b=M8Nr48IDEgvmhU/a4ts1z/WC9mu1XBQ03mZsJBTU4sZ7QmPQgkYlW65vs/JQC4htBxi6qoPHeyKWY4jtD+OMXyKiHd0mfboeGNfbnuJMHc8nE96HKLHp50uHT3KW4WDBH+/caplHgUjA/+dR4AUfBK60bm27FntihTyyTYePXtw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788391852; c=relaxed/simple;
-	bh=oLR6Ku5sA1PLxnjgFaINq5dHEjo3Hkd8Pu3Eio5YYSM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GZgZJIlI4/22iM8gf/R6ZeMGI9P49DY7CpFSb5L1bOTayY9wGTaHqbTjRLWMfRHxG0eYLaHFGCBtwqu5mX/PBpGj3qu8wC6TNWdvd/xnhsy2XtmSPDkUF9ChJT/69s8y/y7nSuNPwuxAjckZ3c5TjeRCxn8v2+Y/yZtiYhTmcCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rno6fSfE; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788391869; c=relaxed/simple;
+	bh=0UhbACsDU2oTOq62/abzW4HiNU8D1H1dkcEJ9tGhcGM=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=jCuQzN42y+yeOMZMfm7BXLgTlWt3YlJ+ACZx3Xv1mDrrh2Gc6HNGmzGbVkZnh51HRyz/nzr/f57FXT+8MOqFdpoGMFB2Pqt5T15jLsSYuMBBOouC/SsR6XLVE5PaePnr+rBO9KBaeZ4U24BMOJ5/ZNU5pcWp0Qx6My8OSakKOMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hcco0RIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rno6fSfE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CFB47C2BCFB;
-	Wed,  2 Sep 2026 23:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788391851;
-	bh=oLR6Ku5sA1PLxnjgFaINq5dHEjo3Hkd8Pu3Eio5YYSM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Rno6fSfEq5GMtAWQldGkAOdgGvP86M8o814pKhaHuGbEcFJRyvCVuzd0aYDfp7UbM
-	 lBEbwJMOTh9VzoEwh0NQkyj5suoHeU20T4FTUqFupbQ6+xvWcZyruvmPDat4J6h3ex
-	 pgAvsyFT1qPaVjrvgQOA0eknXut5lfmbB1RDyUupXTryILYKy5JVJk4rPgE1DqvobQ
-	 mvZWjKmfVuHhhSlsw8M+P7xBgB+LODN/geScKQ/aRZUVSIe4Uwvu12v0QuIoY8swkZ
-	 rOl8ZowG2qPXdvL5y0aVjG92wBDWaQbfBKO9XifFu0yXScgfD+HV1hsfOI5d51o5X6
-	 fA0XecuD3W/9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BADA4C624D4;
-	Wed,  2 Sep 2026 23:30:51 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 02 Sep 2026 16:30:49 -0700
-Subject: [PATCH 3/3] mm: hugetlb: Fix subpool usage leak on allocation
- failure
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hcco0RIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 678DE1F000E9;
+	Wed,  2 Sep 2026 23:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788391868;
+	bh=PQnTbzQPDgQn+uw5+s+AabTrlNKO2/fQMYubYNkZ7oc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hcco0RIbqfdmKAH3pHYGL3A4DErnrVcNqWCtHBPt3/UG67rPPEOb7iv28x9iu322L
+	 TAeA355Oe25j0aG36PZ2Fwj4USUmhm0gHH9wTFupMnWCbVmEH5/vvA0U4tFcQ9kaLK
+	 M17KFNStu2Cl96zbJ2lOy8hQeVf3puBNi4E0DO0nbfdjRQG9OWFOlAp9Se/zJJwQ9P
+	 g885bNZQTb8rbIFDYYwElMZbUAhY4DLFaCxV8HxWQohJ5qq6fRcsI2bJ3znmAIzd2y
+	 3xTQZ2vf83+jJjhiWtvOqIdf/ZO6R2wj+lRy0BLFJxvwFRLPdi7kYzHDQ3txASnpSy
+	 7zAw0j7RtPmug==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5695A3927053;
+	Wed,  2 Sep 2026 23:30:11 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-hugetlb-subpool-always-track-used-v1-3-de1cd14bd713@google.com>
-References: <20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com>
-In-Reply-To: <20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
- Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
- rientjes@google.com, vannapurve@google.com
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Ackerley Tng <ackerleytng@google.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788391851; l=3568;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=tOiKIJk4lCf4MxbAJGBewXo+Umkms5osEmNl/iOM9Fg=;
- b=k/ppmJwUIxnr7mkxBDZiMKZAiR+XSgPaNyo312BYQpvGcs049LcEqLMitF0MLO+p5YCizSbZh
- W0d7UofDCOSAEq9m0a7EZnsZBaNFaQkP35qjQzRIgkV5WdzV7I9j3Ol
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf v5 0/2] bpf: Fix queue/stack map u32 index overflow
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178839180989.3000007.9654555502617060828.git-patchwork-notify@kernel.org>
+Date: Wed, 02 Sep 2026 23:30:09 +0000
+References: <20260831063226.621309-1-chenyuan_fl@163.com>
+In-Reply-To: <20260831063226.621309-1-chenyuan_fl@163.com>
+To: chenyuan <chenyuan_fl@163.com>
+Cc: bpf@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
+ andrii@kernel.org, chenyuan@kylinos.cn, stable@vger.kernel.org
 
-From: Ackerley Tng <ackerleytng@google.com>
+Hello:
 
-When folio allocation fails early (e.g. buddy allocation failure or
-cgroup charging failure) and a reservation was not used (meaning an
-unreserved global page was needed), the subpool page acquired during the
-allocation attempt must still be returned.
+This series was applied to bpf/bpf-next.git (master)
+by Andrii Nakryiko <andrii@kernel.org>:
 
-Currently, the subpool cleanup error path only returns the page to the
-subpool if a reservation was used. If no reservation was used, it skips
-releasing the page back to the subpool, permanently leaking the subpool's
-used pages counter.
+On Mon, 31 Aug 2026 14:32:24 +0800 you wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
+> 
+> This series fixes an integer overflow in BPF queue/stack maps.  The u32
+> head/tail index is multiplied by value_size to address elements[], but
+> the storage itself is allocated with 64-bit arithmetic.  When
+> max_entries * value_size reaches or exceeds U32_MAX, the index
+> multiplication wraps and push/peek/pop operate on the wrong element,
+> corrupting map data and leaking stale values to user space.
+> max_entries == U32_MAX would also wrap the u32 capacity counter
+> qs->size (max_entries + 1) to 0 and permanently break the map.
+> 
+> [...]
 
-With subpools now always tracking used pages, always release the page
-back to the subpool whenever a subpool page was acquired.
+Here is the summary with links:
+  - [bpf,v5,1/2] bpf: Fix queue/stack map u32 index overflow
+    https://git.kernel.org/bpf/bpf-next/c/802a30c5db72
+  - [bpf,v5,2/2] selftests/bpf: Add regression test for queue/stack map size limit
+    https://git.kernel.org/bpf/bpf-next/c/33576bfee5b7
 
-Opportunistically rename the local variables tracking global reservations
-needed and global reservations returned. This clarifies the accounting:
-a value of zero for needed global reservations indicates an existing
-reservation satisfies the allocation, while a non-zero value indicates
-new global pages are required.
-
-Adjust global reservations using the difference between reservations
-needed and reservations returned to properly handle races where concurrent
-threads interact with the same subpool.
-
-Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
----
- mm/hugetlb.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index d84ef044d1346..e24f856c949c3 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -2955,7 +2955,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	struct hugepage_subpool *spool = subpool_vma(vma);
- 	struct hstate *h = hstate_vma(vma);
- 	struct folio *folio;
--	long retval, gbl_chg, gbl_reserve;
-+	long retval, gbl_resv_get;
- 	map_chg_state map_chg;
- 	struct mempolicy_interpreted mpoli;
- 	gfp_t gfp = htlb_alloc_mask(h);
-@@ -2994,8 +2994,8 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	 * Or if it can get one from the pool reservation directly.
- 	 */
- 	if (map_chg) {
--		gbl_chg = hugepage_subpool_get_pages(spool, 1);
--		if (gbl_chg < 0) {
-+		gbl_resv_get = hugepage_subpool_get_pages(spool, 1);
-+		if (gbl_resv_get < 0) {
- 			ret = -ENOSPC;
- 			goto out_end_reservation;
- 		}
-@@ -3004,7 +3004,7 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 		 * If we have the vma reservation ready, no need for extra
- 		 * global reservation.
- 		 */
--		gbl_chg = 0;
-+		gbl_resv_get = 0;
- 	}
- 
- 	/*
-@@ -3015,10 +3015,10 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 		alloc_flags |= HUGETLB_ALLOC_CHARG_CGROUP_RSVD;
- 
- 	/*
--	 * gbl_chg == 0 indicates a reservation exists for this
-+	 * gbl_resv_get == 0 indicates a reservation exists for this
- 	 * allocation, so try to use it.
- 	 */
--	if (gbl_chg == 0)
-+	if (gbl_resv_get == 0)
- 		alloc_flags |= HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS;
- 
- 	/* Takes reference on mpol. */
-@@ -3072,13 +3072,10 @@ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
- 	return folio;
- 
- out_subpool_put:
--	/*
--	 * put page to subpool iff the quota of subpool's rsv_hpages is used
--	 * during hugepage_subpool_get_pages.
--	 */
--	if (map_chg && !gbl_chg) {
--		gbl_reserve = hugepage_subpool_put_pages(spool, 1);
--		hugetlb_acct_memory(h, -gbl_reserve);
-+	if (map_chg) {
-+		long gbl_resv_put = hugepage_subpool_put_pages(spool, 1);
-+
-+		hugetlb_acct_memory(h, gbl_resv_get - gbl_resv_put);
- 	}
- 
- out_end_reservation:
-
+You are awesome, thank you!
 -- 
-2.55.0.970.g62bdec98f9-goog
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
