@@ -1,82 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3709635CB6F;
-	Wed,  2 Sep 2026 07:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38741191F91;
+	Wed,  2 Sep 2026 07:44:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334782; cv=none; b=ZTI/AIYRRiKs2BKjudEV11FGo7iWtrCo8UFX/IQfK9kXMn9Ylx1aRTfOWBzlG5D6C5ZMCa6PgyOuU2NeDjC8YCxAgGg2UB8+cbcXN4diBlX3xmE61GF1V5APBwzv9sVhAJtdOG8ruCvD4Nv66sKsm72u6ZBEdpiN90agtVkQ6oc=
+	t=1788335050; cv=none; b=icTc98gKdsuLl+cxT8Lpe0kStTyuQ+5rXuMMGWaerzJrAsNDUb388kRUMGqBsmQ5n879TLTZ9NphoXEC5YzKO1VGUtqZ0kmMOJ/n8zc3aIfs4UborBY+/gEEPoMJjdiF0eFVM2WQ2lRZHIlGlIparxl+IaNCsiu3u0FbYh7n1oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334782; c=relaxed/simple;
-	bh=sI2I4okyxDQ1HgkFwksdivRgzckLgjuRUcbgD8P11/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jgSIEqMseg/1YbbRZy5nhUqVUGovLDYFDbSsHcZSuo+uGd0hfXMTajit46J5GhGRde4gSrrIQTiiKVxDIy8ckg57SOb19k6e85rLwlRcMxSpj8VRGQWmGmdbVxudHTkDFNfP7vgXHNZiLrwjF9hrNCBD2iz/7plxT1Ey1rZiaD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVevXqP8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788335050; c=relaxed/simple;
+	bh=xIiI0lg4PK2+9DUaFY0rE32lADtmm7ytlXzoNmcE9MI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OTWYXPX0vtz3hhh3Tm9ikxlTkHq8UAsiXaE7Oa95kh3j3wkBk5sDyUDDEI5KYHTgezi3Voa1/5nAnK6hF/lsNe9Gzo6xLi1C565GHX0q97qlsyqf7MMdVWM2JDyp00rS5Hpvu/ilVw/vXzCOhblNZy18n+hUOOlUPF5suy9fzK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=f2HEx2WR; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=KDThgixP; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVevXqP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CDF1F000E9;
-	Wed,  2 Sep 2026 07:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788334780;
-	bh=Zmj6Pl4DI8aaARUoVXtREi8xmgkB7kHiiAcvl0t361M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SVevXqP8uk4G2qfUr4fRwo9Xv9i/jYjJ+Hift6ITqhh0R31kK+7v5WOiOo9/0ie7j
-	 4sOXgFXmks/B/0h/21DcWitUMKDWxZYTLiyRsIbbyZZZpO+nouiDx+4eAKL3bch964
-	 Z0ITjST2BqJve2jB5bjPfpMiqhwbV+7s5F4A2fofmPN494nOQZjDhr0n7HKxZeRvBB
-	 yfEtheDm5PrO5mtXXpRM3Bx6CPq/6gY14VOKrtpn77K0Fbgi6LM5j3nbK0pUgMpnnU
-	 2tbzJBXwpgQ2gxvoVNI2PhV6fP7prCxJ05MvzwtMjBEiZwd+CPTJ5WYN4VsnP3/wkq
-	 UWLcYuhjXx0uQ==
-Date: Wed, 2 Sep 2026 10:39:36 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902073936.GR24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="f2HEx2WR";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="KDThgixP"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 5483B1400192;
+	Wed,  2 Sep 2026 03:44:08 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-02.internal (MEProxy); Wed, 02 Sep 2026 03:44:08 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788335048;
+	 x=1788421448; bh=jgulC8yX5SXLl4FbbnEuZE+yJ3vYsVJVhHCUd3qdXbE=; b=
+	f2HEx2WRIv46FNpOfCOqZo8CylRjD8ORZIDWzsep9nY3MieNcPTUPiXKO1b78eLf
+	2ZMD4K08V10iFYniXVP3RUhn3vseT5+6ktQNTkQJ3e1ac/Iq4sT+Jgoha4gMjq0p
+	AKbIeUPtDfexNGEOVCRMzasUmLWlYu3Pnby57nwejt7tM1qA/NlJDG80oUf1WmrV
+	voX80wPGy/WaSxY5tzc1kVPcZjK9Nq2oNhk+G/kywBaVTykqvy6q9IQGkcJvuYyI
+	syHVtKkoWPSJwKMciXU3E2uxNZIpKF+7ne56S+BhXkegsMA4aJ3S8KwPi9GULeT/
+	Aak3P11JsCCU9RYZFP3v6w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788335048; x=
+	1788421448; bh=jgulC8yX5SXLl4FbbnEuZE+yJ3vYsVJVhHCUd3qdXbE=; b=K
+	DThgixPhcGSs5MiG/CkiT1e8CBUyDxLze1YfhkjuYrIOfBA4qeZAvzsUrqMtmxKB
+	eqTXVGdlpPYKTb15JsUdm6YFgSAVDIOIUlDmtXHvc9cbmK/NRvuu3A0u0lYiQxM1
+	wR5abFX0Vl8dTIU+OsW3l19KImS4sPiKa2IAxw7NP7S7DhWzgwUz2iMsz1HZKYyJ
+	BWUms0wr7Xd6XrTZ3P541DUv9viA2o8U993m+AGmaDEG1QEHpFk3o7AKiCP/fAuZ
+	BB72W+MmMGODlzqnnaOe8dglmu65NvsS/bd0LVp82zfmzeBfdDXXwuR11pxxMy9T
+	rt64S4G4wnLWex+UgnT5w==
+X-ME-Sender: <xms:x9OXaj0L_vU84lfWwpDLOA874gxwRpQWhndIzLCORdoH6bgMV01ryw>
+    <xme:x9OXat_lghlrXMS8u_uK4I7A1oaXNN2aZr6A_YI92CFi1PeQDUYVHH6e6licNFXnN
+    VEaR22klRSaPvYDEUoPiZ9ev2NWZFMBi4EisjAUStDTbp9qNxbaJw>
+X-ME-Received: <xmr:x9OXavYg6svwG2j0tMMPQ_mSsLbQ-xDQ2LjztEHRWpu0Kr4_A2OrR51z0V3SW-CqLarGompdNO6d_BIIP2CrbEpE3Xe2WcsE>
+X-ME-Proxy-Cause: dmFkZTEz4T5115jsAsfLajQ+UDt/Sbgr1vKjQ+JNUKUIHxFxq7shcA/u+SivYrKuDjwdeZ
+    N+IO8v3nyYrBybDZk8tKcNx6hKijc+gw9uX1HqYWdxZc3HRwgRRzWIVwwxaaZaYMEv0FJj
+    2xXqKLioZwlMxH13QpKDbsLyVLrMG3iD6yPd7lVe0x9nplnpZJ6L8/EuE/SEoEoTONCaxa
+    TzgYw8HjyL+a3APW/yorNy414tw9F9WCBniokhgPrmU7HwdIrSeuST0hHXhpE0m34StiwJ
+    L8OBfJX/gDgRFsf6nQ8yBLf9tkmSZNM5Zk0pXz9OR0Xfq1bA30WhthwZQ9fhtytdwPYHQB
+    A68Wrunyz+fPp+ZJfYRKCgfKEZ6KPU9EcBOEryG+/BBeO61nNLOd/pgMIUa2GIQcTeOost
+    H5RCwZfD4K/dw5Q5oTn4ch/r+uYTV9aUnJXlhhwsnMbxq3j6OB8/RCk66OTAfqknx5f8Jv
+    hLNwl+DCh7lRxmav6mw83d2cgC/DXfWww94kTQaM99LUnN3H2pyTJI7Zrl9GGrRUCw4T9X
+    7kxkImTYo4+NmW4+8i05s5JAFwdj0ReGPr5bE2i78G5i+1vLM/6kTF96KC03e0ONKZs9EZ
+    lifKrCWYhfqeLNx2BhcglBdlP/Int66ezrrPSGWxjFO0Ek0g+FgEV8hm65Lw
+X-ME-Proxy: <xmx:x9OXasz2hzbNd0edtbQwaa77TpALcCU6chWnfjC-PTwbryUoXRGKPA>
+    <xmx:x9OXat8VG0fUfsALU3P5k5dsMyzMxf-vMhJhzn2bpAAqdk7WuJkz2A>
+    <xmx:x9OXaoxAHujSLAX4gNk-d1Fb6c2cyG4qcOfqdDsCcHec71wjT7H5EQ>
+    <xmx:x9OXaitlufWLcg_GQKYCEVO4Wi349XYzb2XjRs8G27ur9a8RbypTyA>
+    <xmx:yNOXamuOsv73ydph88dp7RbgTB6KsmvaXkfTwc3e6OT58ofDyNb1CRkf>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 03:44:04 -0400 (EDT)
+Message-ID: <5b0890d3-b297-43f2-a44a-40f8a683f820@pobox.com>
+Date: Wed, 2 Sep 2026 00:44:02 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.207714926@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> On 9/1/26 19:08, David Hu wrote:
-> > From: David Hu <xuehaohu@google.com>
-> > 
-> > This series address two related issues in scatter-gather mapping,
-> > specifically for the MMIO based dma-buf mapping. The fixes ensure
-> > sgt mapping is correct, and proper for large MMIO regions.
-> > 
-> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> > phys vec to sgt)
-> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> > 
-> > Patch 2 Splits sgl by largest page aligned chunk
-> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.49 release.
+> There are 83 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-And this is why so many in the kernel community want to get rid of SG
-lists. It would be great if DMA-BUF could also eliminate the need to
-convert to an SGL, like Jason proposed.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-which is the one that depends on it.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Thanks
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
