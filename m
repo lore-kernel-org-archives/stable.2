@@ -1,121 +1,95 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AD332C8B;
-	Wed,  2 Sep 2026 00:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1614A2F3C18;
+	Wed,  2 Sep 2026 00:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788307868; cv=none; b=BgEHs5TIuvy8OVbioaZCFh8W1UAadJlUq+xfpg0tyjI9mq+zfg3b9spM6mbALLNow7VuS5IwxLfUUGTq041AJ3mR8auls1KsU+5oKkCM8jbK29avmduTLbFvlwViIGrJz6nCwlsXLwOP4a/XWWqm05POfETjHLlFWzh/oqH052A=
+	t=1788308854; cv=none; b=Fn7JN+vNJc5faj39zwJKPPstYzhmyqnNw2EF6UgLquJTYruGncnsItF8SzFlDSbZoj1qAupKJCXhehb2dXLGvVGN4zGJTtFkj7R6HcoE4dGqYvyvDf3AQIwdiGryp098JLSttKCjNgYMPVri5v3mzAoHjn5Y8dTOq1KWJJa+VRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788307868; c=relaxed/simple;
-	bh=zmdH0AqlvN5wMc9YIV1EI2cpUkUs6zchCsb/Rmskhb8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bQ8boxS06c5zPmhd7onQE5jMjM8GI8lJFQ4gIgSZCxXfDlcrMXJJQb/BvTjyeK22tjCm9SHZkU7kz+Hr647LXnmhzeufh9FlH3wOgsKPVR4Keocn+ZvG/tx8ICURfgktwMqlYoSX8Il3DyV8bsT+dRjIlai8UVl5GmakS6IPpAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=Ks7qdpP3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hs2c1WeQ; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1788308854; c=relaxed/simple;
+	bh=h7vbIGIL6lvt6pBf3n2A0mwhmnGmbEsny/1B7JAVAkQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gZk8/xQzQbyT61HxB97XmbMLLOst5hLlQh7sgDHA7l2REzRUfOuUmkWMkctRMJlQ7yttIDrN+fBe8pqU7RNtboiebTg8ZymBMzEqC8w/6h96lsb8nQqJ2JlGaaS1YdVQQkog10RUZmFymhAHGZaqRMgY8zhp8o37qatPnBdJMik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RQUO+4NY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="Ks7qdpP3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hs2c1WeQ"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id BA3687A00EA;
-	Tue,  1 Sep 2026 20:11:04 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Tue, 01 Sep 2026 20:11:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788307864;
-	 x=1788394264; bh=TwchAukQ4Brb9+ah5YdPzAVPIKT/cfxOJOONG0fOHWQ=; b=
-	Ks7qdpP3syh+Fge0NBu8RINppPftmqexXkHMVRqa1H0j3ZuzeNRoOPiYm605Ep5z
-	FGXa5trN8pvZuWHq7YmCOx1Ps9NxY9732V8cQeBwHdMN1RBthONM5FOZx5iwbLNX
-	FLcNc11P1IOTlk7Fwt51A33LMhd26V676tmOAk2JRSOA+SgdzIqKSKd5JtgvIGUB
-	xrwdNKCueLSYCctLerV0ErkKfqu+/0jJr8z7GI9TBOypHIhsquiHyaRk6S/cNBL3
-	25WkwBHk4FVCCeZ5K1EjGsnsS2dH5qaKUo/sabrRYpXcgUVOE8XVYglvsH83Za91
-	ikc1SgURt8jfMk6zMHjG5A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788307864; x=
-	1788394264; bh=TwchAukQ4Brb9+ah5YdPzAVPIKT/cfxOJOONG0fOHWQ=; b=h
-	s2c1WeQ/SH8nRGu1sSGarDR5x296JEKt027oHQCLhv7JKlUnTHaFzu+1OXi84Mp9
-	K+i7kta8Lh9PP85xwe8vw7xtn8EuvxKQz6k1/vQnvFDvE1B5d/sZSqThfvxmL3xN
-	C6dQTQqVrLQI4/MECEN/s6ba+pLdFi02W7ZzglJA9Twr5nB/DE/9RkSyG6dPZDKP
-	BT34jEdOHmKusliab5JT1BFwqPtTA4H33Ndcr6mSrx1kFAKJCBkUiYz2IjMjwchz
-	8+NVetfVcH92hgJV1ZECAYlAyEQHC7qgB3kNx2QmGhgce4thPdTiksZkbdrOjP1L
-	KwtxNUWc5J1Gb2x85GevA==
-X-ME-Sender: <xms:l2mXapVdQdGl3XsVtTzZ0l9BMAUkSHgCyCORwLWBJtCsebmo9QOJgw>
-    <xme:l2mXanSdWFeUlIpiOlz68w1wh9ftPFHNspWjrW-MlQ33iZteqDQ4MBH3OgGIFDkk5
-    LE1aAKxVjNO_icf9dsKtn9HFr8ABFMukd5rxOLDUdanDEzrFphv4rY>
-X-ME-Received: <xmr:l2mXanIslOCJwePLfL_lXaRsGb8q5Ah1yMiJF3Odpag23jSz3IxcCqWa1_ovI7UHPa0DTCZDBWH-KcdLTGEe47Sp9cNhWppe>
-X-ME-Proxy-Cause: dmFkZTGYdGidO8Q0P7qKujsswTs0FIRBy4QOv/JCLoTTtEO3LidJVwgN8tFrG8mcEgpPA1
-    IhaK7pdTzG37xH286YWUBan2Ek6NSM7WqpxgTLbb1EAJuE3LYYQMMIU4q7nXwMkZnQkoSm
-    ncs5oOW2p7J7bNwKAdAMLuuiI9tHb5Yfe1EYN9ePqr234e5LaqUlBejcvw0CaEoA2D9KZp
-    XwVXcKhZIUOF+T9fHZyYBUHhV1JEVb3ZYyx37KWlUfjvrw+/6FzZyT67m/AemMbNIvKYgH
-    pgUBVOr2xq8aJyGPlRhJ1D40XKmdN8S3Hr4BAnX7Hri59merZfcVivap9TVuEiy2BVDPHv
-    kR2tVm08o0w4RICgXfpobRdNy8wIjvKv2Emo1z4WUt09XFNGQZXWcE0kWb4k64s10ylIoN
-    tuTp2uKgnJtBUhjqHuGkk0QaVa+FNAOOQfoFxdK3zE+XzYSC5Zuu4S3QBl8Cg8+W+FiIcR
-    AmsAnEj5LlviUwCsL5qx+gOws73FB0EeUWnvZFiEe1XHTi/91BWrEzZRheEFdLq7ne/lKW
-    V8Z08WFL9N83z7BPPnOa1bIc+9xO8i8Ts39ih5HFBbV5lwYpvEeA9SBUc/wORW2IDIA1SR
-    989SR7rEPu9acR6h2y8JQCghhFqpqfkxZQdscbc6Qd1AJ6zitFRVRLFMkdWw
-X-ME-Proxy: <xmx:l2mXao0RiQ-x1RG-Z_HvUopUMGhFXUAKaUsGcuOBmbyOoD0oSkfH5g>
-    <xmx:l2mXaqK9ePe3MkwyYk8pJtC0suB-2k-YVIujsMslBNP5-lAcExggbA>
-    <xmx:l2mXaolr6i9MV8wAdteAzEPQTsPJHtKAvEqdfeFhu30end0tSY_MLw>
-    <xmx:l2mXaoOTx72Y-FyGcJmtjGhUx5xNYBpFUrMoDpaJFxAJ_A_Tfudtgw>
-    <xmx:mGmXasGu8b1pTJgmB49iXlmH3wxegGn50nQHx6lW3eJt9GL6qNi5_o3R>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 20:11:01 -0400 (EDT)
-Message-ID: <60981792-3ac2-4811-87b9-e0431037b232@pobox.com>
-Date: Tue, 1 Sep 2026 17:11:00 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RQUO+4NY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38EA51F000E9;
+	Wed,  2 Sep 2026 00:27:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788308852;
+	bh=mbv8WxNYdZDCGISix1qH3K9oOQ8RMlyWgnMJQvHMmG0=;
+	h=From:To:Cc:Subject:Date;
+	b=RQUO+4NY2VU3f7MNQJs8O/9NYJxF9+lIgXvdVprklDTns8sq8MmOsoSniUPJJztqq
+	 4X1/Vc1U9JgKmYoaVlRiTv+PmW3UbUPwwFR14cDhoqecuF4tC6GnL+MSJby5amyds3
+	 Ro82wNH3VUssbS6IUR4QLeFk+xBekhw+ggsZbACziDlfrmMGWgd/tHH0SbacZYkMVT
+	 MAMYjgj2elCLpXQZDsvpnZArX+8c0FYZrBrJwfpLvLZrahdx+Det0POhB5WtmEQC/I
+	 GjC5jVmpWcCO25rvpfs0az9XePaeeMYhcI06XaTkNAa1XkuK/Wtkotj6MMXwZU1Nk4
+	 bVuobnP1ICHng==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 0/4] mm/damon: fix misc bugs in kunit, quota goals and sysfs refresh_ms
+Date: Tue,  1 Sep 2026 17:27:19 -0700
+Message-ID: <20260902002725.108635-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 00/43] 5.10.269-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133358.571886287@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133358.571886287@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/31/26 6:35 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.269 release.
-> There are 43 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.269-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+DAMOS quota goals commit unit test is mistakenly not testing a test case
+that was designed to test.  DAMOS quota goals and DAMON sysfs refresh_ms
+file have bugs that can produce non critical but still unexpected
+behaviors.  Fix the bugs.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Patch 1 fixes the DAMOS quota goals commit unit test to cover a
+mistakenly uncovered case.  Patches 2 and 3 fix the bugs in DAMOS PSI
+goal initialization and eligible_mem_bp online commit, respectively.
+Patch 4 fixes the bug in DAMON sysfs refresh_ms file handling.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Changes from RFC v1.3
+- RFC v1.3: https://lore.kernel.org/20260828183649.71192-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
+Changes from RFC v1.2
+- RFC v1.2: https://lore.kernel.org/20260828014659.121058-1-sj@kernel.org
+- Fix last_psi_total underflow.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260827134429.123023-1-sj@kernel.org
+- Fix quota goals commit unit test that was mistakenly missing a test case.
+- Initialize last_psi_total as uninitialized at the beginning.
+- Correct kunit test for changed last_psi_total initialization behavior.
+Changes from RFC
+- RFC: https://lore.kernel.org/20260827042920.93580-1-sj@kernel.org
+  (Mistakenly missed RFC tag)
+- Fix build error.
+- Add eligible_mem_bp nid commit fix.
 
+SJ Park (4):
+  mm/damon/tests/core-kunit: test committing psi goal to psi goal
+  mm/damon/core: handle uninitialized damos_quota_goal->last_psi_total
+  mm/damon/core: copy nid for eligible_mem_bp damos quota goal commit
+  mm/damon/sysfs: set next refresh jiffies per sysfs context
+
+ mm/damon/core.c             | 16 ++++++++++++++--
+ mm/damon/sysfs.c            | 11 +++++------
+ mm/damon/tests/core-kunit.h | 16 ++++++++++------
+ 3 files changed, 29 insertions(+), 14 deletions(-)
+
+
+base-commit: ee125db0b1f24a2f6b04e3143ffe1a14324176fe
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.47.3
