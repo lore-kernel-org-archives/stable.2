@@ -1,161 +1,115 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E311D4A4829
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 537F54A99C9
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 16:07:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365219; cv=none; b=HrFKYW/f6ADJJCoTDSyCbnlHNRPkdaegDAQxzxLduuQ/1X2zVfGB2FU8BbouBO8i5ZS8Aah1GyDiacbWvHO/vaJPLKNrkvnwaYy7XZ2WhmNldj0anRCY7ZQCl9OwTxaGAqdd4zaEUPy/FCys7w4zRFgOng+6IlQUkYbx/tKSf+M=
+	t=1788365230; cv=none; b=YOsuRpUZ2UUy4tGF5luwKGSGcjL6m9T1i5SwAGNmGhCt24EassU+s2ym55IyKnDRD/aRFnyIgo4KRemRYaiSlk4QBfi/mn0FAYQof3r1DjWNszvasFCOrUf/nSmEzn/+7AOB9dIeiBowcEKFSF8J9v4+ZF4Tko3A1sefebCyVfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365219; c=relaxed/simple;
-	bh=tjcWcq1vsbmjnN1l4BNYazR6Ln+crXs0S/cszeTzk1E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nzxepvPhsaZ46YWn3xCXZLyXZPhIa0jasz5RVMcelWHoL9I3ZFceb5UTprrPJyNJfrbBx7fNeMz1Pq7vNQc7Wn3rpNvhzCrXmgTP/nfyUA6WqUl0gId3zbI31kTdoGK/JSsk7Q7zVicTWzDNzr0/NLss65hUzwCFQledISXaFNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UGX/lM2n; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788365230; c=relaxed/simple;
+	bh=byZTt5R6BjpzTu8+p8/eAxBr5GXUWYt9qNckwpzaZvs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qrxTijcJ4v9wvhkhIzWGh08JYudYjai9G1BlCdLzdo39AWr2uyHby4PyDMsL7mS1taQ9MjY/fr1GLJTpVS83xvyZvzecrRY7ICU5inLjZwUNP/FOcHpV1Lxs63T8E7/KpxUA20HimvtnDn34KjAq+I7Dqw9RpyEZRdRSGoIV0GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xp4exYyY; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UGX/lM2n"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48431648f33so26439f8f.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:06:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xp4exYyY"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso8648545e9.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 09:07:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788365215; x=1788970015; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/Bbo3ndqYQwPgRKA7QTntetVj75xMQY39h5W8p/1ZdI=;
-        b=UGX/lM2nWcXSrh+oxSAzxieuhgb3i9l6ETejHb5vzDfuOjYTxMOaAkDUPOefNNv+4f
-         nuLSNZMDF+6pAHwgURCv0HNngGmwGxN8kFPeUi6VFBFNQdGcmkdos6qQGSe6M9VBN9B1
-         dWm79eH6sZ3lXbz3xxhdSaVTtT9JE0woia5pC5G1tbSjK+S1YaSAcE990F3Ro1EklqRP
-         yWOF1YaoEJtpyul4GhpSca6bdA9iXFnx1GmbYjumcjAOx2+X2PNvOnrPW9SIYMnK9i5O
-         7bIOPb6z/6HoslBJszDxkYMvv82AISS3Ucqselu7+95NJ7oQ4kKW76WtK6cW86gok/Q0
-         Kxuw==
+        d=gmail.com; s=20251104; t=1788365226; x=1788970026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0jnVwXo8Qv+75toQ73l7dAA+32JWKJPezOLtyqrUA2Q=;
+        b=Xp4exYyYpT5tyUME3p1PWfQsqIkGqo/wS46qQm98CwI4mVFkw/z1IphW+NUjRhWG60
+         4ltumy3caJ8tkGAGusoxicYN6AxRcLTXNvPWhR4rrwFWc3nuYVozXTFAGf37EAa6cAMS
+         dCuG1Fmd25PmXM8DwhfXr1GzN38/Ken7yy1NrxH6yUsFf9V0C81ZsXyLqXNxizGmtMnU
+         lhogqrx+4GskOwp+SyP44dAuj7OqZEx/Q9kzmcz82WGcGzbeD787LfxANiFJa5wXb2Ym
+         Bb7dA9Xdo6kUti1V11rMUrbBn18nCD+b8DeKcAzuDCKGGIWGxLcSauTOZxa3fiWZ9d2A
+         9QTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788365215; x=1788970015;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Bbo3ndqYQwPgRKA7QTntetVj75xMQY39h5W8p/1ZdI=;
-        b=F3wY0SYpdZdEMFwgwBaG7O0IzV7OZ5xRUdEBFPj7dBsbhSSbsn50nKhWmmm6EQpfg2
-         dIpG/moC+9WVgItkDQrsVDiwyiobg/hi0lNyoQXJZq8UckjWN5Z1AANq11+sSSh8AoTU
-         R5NxWTe2OJ7eu6SST0Ip/cmPkt8b1DynaJfd0VW1m+Vk/aX82rHwROoG3MqOALfaQUK0
-         UsJ94c2uF7VLbggMd2lAgD1r+pwIUslC3oZ1eu3MZfw0NpDpFtcKz9pIX2ct7Nh8NU4r
-         gIcjIxKc2hLWImrz4FuiKgR722q82QQm1qX9NzctGaflqMwjH5XfWa3mScPgc0wVINGs
-         XXxg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2gPiIJ7j/M7D/qiMEUcCL+Z6jbS5csjIlsRPEwbXIelScVrk+NtxHZGxCegqb1lq0zmBqpUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbfZe84ouVKHBRIsC59I+Ubo9sGPErL30RUwPIeeBNlioIOv2v
-	L1lvnM3p3VcJkZDR/3OHVZZSR2b984IlDiq1PQc5oGyAyVwm1Oi/FOFO5rds/irt/PY=
-X-Gm-Gg: AR+sD12DoW36l3070hVViGPJE2iAM4u9Bkrev269cpxKvLXRYVZf0k9u1eamKqHEuzg
-	ybI80YhxGeMMMZwNLqnVmo28XjeYHBSIJUcL75JsVc5j1/9lFB8Cw6stmbi82u8jP/LIkOYfgLQ
-	4/q+pLlR6Ct0Uu3y2AB5MafP1vmqwmZp0vLTUSk5kMIpEI8RwpSmnejHz+fG4h1QLYx/oQBivRV
-	CMNXgRDJIviRZpkh9vlee75d4SE4y89ZJwIYxBEkK5s78au/XW6GDaw7dtAXXfincnqzwJCuefr
-	pr1Q3TP3c+4RNvQDoIRZBpH/yG9IHaZhUBoblLdXd6JflbGbSsMWfBAzgDTrv10AFiShMmGco5R
-	OLxJrD02bBYfXs9Bd9InSSa8ESAzV0EBzvOApV5pOw4z5BTYcj1ceWC1t7ooCMuS9dJS7dj265n
-	9mt3H+GYr+XcXrW3kiu5i0RkM8tQkhnzzSkG8cRk0t8V44rWf5Vs/lzA8Fnpm/DVM4Vl0v2EI3n
-	T4Wge/oFHm+QxIrxRqhH7g9AmsJCyZBM/d0jQ7ygPXOJe0ulpZi
-X-Received: by 2002:a05:600c:19c8:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49cee5e8fe7mr4442745e9.6.1788365214792;
-        Wed, 02 Sep 2026 09:06:54 -0700 (PDT)
-Received: from localhost (p200300de37172700e7f885d729fa4be7.dip0.t-ipconnect.de. [2003:de:3717:2700:e7f8:85d7:29fa:4be7])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cee5f914bsm1738445e9.3.2026.09.02.09.06.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 09:06:54 -0700 (PDT)
-From: Martin Wilck <martin.wilck@suse.com>
-X-Google-Original-From: Martin Wilck <mwilck@suse.com>
-To: Yu Kuai <yukuai@kernel.org>,
-	Song Liu <song@kernel.org>
-Cc: Xiao Ni <xiao@kernel.org>,
-	Li Nan <magiclinan@didiglobal.com>,
-	linux-raid@vger.kernel.org,
-	Takashi Iwai <tiwai@suse.com>,
-	Martin Wilck <mwilck@suse.com>,
-	Junrui Luo <moonafterrain@outlook.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] md/raid5: validate payload size before calculating payload_len
-Date: Wed,  2 Sep 2026 18:06:03 +0200
-Message-ID: <20260902160603.218621-1-mwilck@suse.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788365226; x=1788970026;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0jnVwXo8Qv+75toQ73l7dAA+32JWKJPezOLtyqrUA2Q=;
+        b=MNKH/lN5ERoZjx1qmUX7ILnEXlXxUJ3wGQV/TcSkXfowqow3UPImKrkXYKQouALahK
+         NHjURFXe80evKP/61nxoa2RIOMjxkwUHYewSExdc8nJ+qR8OA2gwl/oZtw+8TvztaBrh
+         uAojvix6LVbvPpnfaTWG9lQtqHk+f+iZg2ZLwYQjv5dUBoh7zhYdnP84GzHxBAGXqZJl
+         OWzfNE8ZOTIFAjxkyoByDDzPBeol+2P5y5khtoWQsWhcG8eoBKbj5Qref1EdfnGeInYe
+         Wq4+cEOduDPkdyRQug2yI7gx1C6Qg89Mg5d2r0HWwuzUKFZtPCo44Ax6rJiRWzbSc///
+         KY/g==
+X-Forwarded-Encrypted: i=1; AHgh+Ro4J9PPVnX6A2O5gtRQHVyxeg9iydS+AwT4pIleiftdGcSRdfGSvqs5CuXEJNqJZt0Vn/kKkOQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvu1GjqD/+1yz9SrJJbv7i/hZ6mhsSTbZLgznUnjgq9JU+kFAn
+	CNOh9vYIfx3NhKWDXYmbAK3cWJ/wQDcMhcf6xub6/H9J0sGAQRa3/VoU
+X-Gm-Gg: AR+sD13f/dfv3Vt2AFgzNdFvCZxX4LlztjBsE0lmo+KCriHCz+5Cq5DKTK9V1JRfVNQ
+	tZaHYjjR2QTtLMiL58BxaBuLu4IVtYJBFg1xmkgYs1R2JhtPw7Ww5+byZauxr5FynMsygO9XzPt
+	0yDxXWhsTDNbkYzufeHw5G8ESF9NzA7A91p/p/JCBD92GJDQ3RrgAwriYfS2/1m52oFC2cuuQ0P
+	AgQqBRJ+Q+Ttb7Yd55AOwclAwN7b13Kza7mOQ40sEtFKKriERDP7Zq4Cw6eokGiZd2TUetVdWw5
+	9RFMHpCHUbg/Nt/cHR+r+TJOZPVjPhyVhwYRmnlpfe6w6q+BI7uEL0Ci2y/77crpfVjXHIiOEOQ
+	kSUYahvTwkrHRzvYDfX2QQMEoeYStoh1u0YxeRlj99DBIUQtv+LKtZv/dy129D3udFLCrhOHb1H
+	1yKBZWFk2+99GPGmFe8tgM3AMOp0XTFM3a20O0O8SMNEYVVZf2d6/xX3009Jc0AO/ol5/6GqLvN
+	fKPCZ22fbdBqjdUSn8VVU6SUQ==
+X-Received: by 2002:a05:600c:45c4:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49ce5816186mr109276985e9.10.1788365226253;
+        Wed, 02 Sep 2026 09:07:06 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm2206255e9.1.2026.09.02.09.07.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 09:07:05 -0700 (PDT)
+Date: Wed, 2 Sep 2026 17:07:05 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Christoph Hellwig <hch@lst.de>
+Cc: Eric Biggers <ebiggers@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, linux-raid@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
+Message-ID: <20260902170705.213d432d@pumpkin>
+In-Reply-To: <20260902133706.GA21538@lst.de>
+References: <20260831212248.213805-1-ebiggers@kernel.org>
+	<20260902133706.GA21538@lst.de>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit b0cc3ae97e89 ("md/raid5: validate payload size before accessing
-journal metadata") introduced a bounds check to verify that a given payload
-fits into the current metadata block. In order to calculate the payload
-size, it has to access the member payload->size, the offset of which may
-already be past the end of the metadata block, because the loop condition
-only checks that the first byte of the payload is inside, and the payload
-entries have variable sizes.
+On Wed, 2 Sep 2026 15:37:06 +0200
+Christoph Hellwig <hch@lst.de> wrote:
 
-Add another check to make sure that payload->size can be safely
-accessed.
+> On Mon, Aug 31, 2026 at 02:22:48PM -0700, Eric Biggers wrote:
+> > Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
+> > before returning from it.  This is needed to avoid degrading the
+> > performance of any later SSE code that may happen to be executed.
+> > 
+> > Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> > ---
+> > 
+> > This didn't get taken through the x86 tree.  Andrew, it seems you're
+> > taking patches to lib/raid/.  Can you apply this one?  
+> 
+> Can we do kernel_avx_{begin,end} instead of having to open code
+> and document this everywhere, please?
 
-This issue has been found by AI (gemma4, Gemini) during a backport
-review.
+In which case I think you want the vzeroupper in kernel_avx_begin().
 
-Cc: Junrui Luo <moonafterrain@outlook.com>
-Cc: stable@vger.kernel.org
-Fixes: b0cc3ae97e89 ("md/raid5: validate payload size before accessing journal metadata")
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- drivers/md/raid5-cache.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Actually, for some cpu at least, you need vzeroupper in kernel_fpu_begin()
+even if the code only uses the SSE registers.
 
-diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-index 7b7546bfa21f..accf8b472082 100644
---- a/drivers/md/raid5-cache.c
-+++ b/drivers/md/raid5-cache.c
-@@ -2008,6 +2008,9 @@ r5l_recovery_verify_data_checksum_for_mb(struct r5l_log *log,
- 		payload_flush = (void *)mb + mb_offset;
- 
- 		if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_DATA) {
-+			if (mb_offset + sizeof(struct r5l_payload_data_parity)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
- 			payload_len = sizeof(struct r5l_payload_data_parity) +
- 				(sector_t)sizeof(__le32) *
- 				(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
-@@ -2018,6 +2021,9 @@ r5l_recovery_verify_data_checksum_for_mb(struct r5l_log *log,
- 				    payload->checksum[0]) < 0)
- 				goto mismatch;
- 		} else if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_PARITY) {
-+			if (mb_offset + sizeof(struct r5l_payload_data_parity)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
- 			payload_len = sizeof(struct r5l_payload_data_parity) +
- 				(sector_t)sizeof(__le32) *
- 				(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
-@@ -2035,6 +2041,9 @@ r5l_recovery_verify_data_checksum_for_mb(struct r5l_log *log,
- 				    payload->checksum[1]) < 0)
- 				goto mismatch;
- 		} else if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_FLUSH) {
-+			if (mb_offset + sizeof(struct r5l_payload_flush)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
- 			payload_len = sizeof(struct r5l_payload_flush) +
- 				(sector_t)le32_to_cpu(payload_flush->size);
- 			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size))
-@@ -2106,6 +2115,9 @@ r5c_recovery_analyze_meta_block(struct r5l_log *log,
- 		if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_FLUSH) {
- 			int i, count;
- 
-+			if (payload_len + sizeof(struct r5l_payload_flush) >
-+			    le32_to_cpu(mb->meta_size))
-+				return -EINVAL;
- 			payload_len = sizeof(struct r5l_payload_flush) +
- 				(sector_t)le32_to_cpu(payload_flush->size);
- 			if (mb_offset + payload_len >
-@@ -2130,6 +2142,9 @@ r5c_recovery_analyze_meta_block(struct r5l_log *log,
- 		}
- 
- 		/* DATA or PARITY payload */
-+		if (mb_offset + sizeof(struct r5l_payload_data_parity) >
-+		    le32_to_cpu(mb->meta_size))
-+			return -EINVAL;
- 		payload_len = sizeof(struct r5l_payload_data_parity) +
- 			(sector_t)sizeof(__le32) *
- 			(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
--- 
-2.51.0
+See: https://stackoverflow.com/questions/41303780/why-is-this-sse-code-6-times-slower-without-vzeroupper-on-skylake
+Basically, on Skylake, all SSE hit a penalty if any ymm high bits might be non-zero.
+Don't know what has changed since...
 
+I don't have the Intel optimisation manual downloaded (ok, I might have
+it but have NFI where), and the link on that page is broken.
+
+David
