@@ -1,117 +1,101 @@
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506AB3AF65A;
-	Wed,  2 Sep 2026 20:23:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3053AF65A;
+	Wed,  2 Sep 2026 20:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788380586; cv=none; b=cai0+QvGdltPALrkldHjLcaY+rSeTq/xChrhW6iqbaVn/yCSUQ5cURjGZYG6J3zwxw+QfmQUNJJY1jdabzunHimpvkK6h4p+xz/oB41PPYIm/4W6GQvmRGfA6wZSIP7y/1LqDzxwsDgmHNWR153Z7nwW3YDd6EUnVWMTxMEzNvE=
+	t=1788380597; cv=none; b=u2w48Qq+OKff/RNZguQJnXnc1Vvqq0UJezw72Qs443K6c5D4B8nDPHWHjfNz01Ql6LPsKnyZTkF6jP4r9ZK4fBDbEHCmfOq65XkoCUYrZDVsqiya/M535/bbZ6PS2Yh046uucyUYoMlDUrGRBbpnawHgNygV88fLOsJJJ7+HoJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788380586; c=relaxed/simple;
-	bh=El+lfXOiISwUcWK6Vj2fB3vvXaxwx2zumh7ylVVqsjQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YUVfJWD748eCCv5i1vQ5OKvkJcECGXAcNbGcmHa1eFhFQC2lLHFvuO2FjVyasfkQaa4DXfFZdCZSeruiOf65/cgI4zXDsqAbmUsgq6/A/8YDktlmei1ei4tjtxdwU8NLx0DgXiPHl1Vy0+n+SgD0PNj2fQd0JcjDnJcFsmgbgU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=akHMTUt+; arc=none smtp.client-ip=82.195.75.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	s=arc-20240116; t=1788380597; c=relaxed/simple;
+	bh=nu1WIE3ei6FHDqZYvsO0hq/WTr2hgN5wXY9v84y/GZU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g7Xo3SjYBc0NXw48BNwjwO1IuUXC08sYcJ3nlPjYyYSdzhcHMd737RgVSmOAfYDwW6sZcZEXP0iBNi2milKk+JI+OrTWIfNIvP1wSb81Mu9rcQFa0oQzgXgsafSCTFq90GbH8n4Ii7n3rg8rB9o8T/dJtIjKwk9RgfXKGUGT8bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F3U4+ZOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="akHMTUt+"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yFko6/9Mo2Syy55GgxaAO11RjRRG5Bdo144bz4kvt04=; b=akHMTUt+nGmF8lyTkh0nEW4L7t
-	Peqr8fg/8LJSjZUyEZrCDgycYhkEE2VwrYIIBuB1PpRDNA1u535mt3bqw1GIB+94InVNQ8a8kQL/v
-	Ft2c9jSu5LXGm64dkD7x/l+Oixp9sVN92TfW1AHHGNbKkk1mXHrRGgtPvEd4gH4Eh1/hzrt/Jt+9n
-	VPa53kQO1NuUYJlQne5duC5b9rA/OmRUG2dXMzA6efGytwYjlj6DVIeLLdUvyf6CPrA+l5Gh9E+Ia
-	F2pUx1JQitgGZz1qeB25ASfhAQbhVwYX3ylzIERmFK04PtXZXxTfYkxjD6fVsDL+PB9Rq3We7p0VY
-	3ttBL2TQ==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <carnil@debian.org>)
-	id 1x1rTq-0002ar-1P;
-	Wed, 02 Sep 2026 20:22:46 +0000
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id 96074BE2DE0; Wed, 02 Sep 2026 22:22:45 +0200 (CEST)
-Date: Wed, 2 Sep 2026 22:22:45 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: Andrew Wilson <wizlonex@gmail.com>, 1145026-done@bugs.debian.org
-Cc: Sean Christopherson <seanjc@google.com>, ashish.kalra@amd.com,
-	aik@amd.com, herbert@gondor.apana.org.au, stable@vger.kernel.org,
-	regressions@lists.linux.dev, thomas.lendacky@amd.com,
-	john.allen@amd.com, davem@davemloft.net,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Bug#1145026: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP
- Platform initialization to KVM breaks SEV-ES VM launch
-Message-ID: <apiFlWsTBSsdU0jx@eldamar.lan>
-References: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
- <aphXfTJicnEde3R4@google.com>
- <178732258045.5504.12626873976870242251.reportbug@solo>
- <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F3U4+ZOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2091F000E9;
+	Wed,  2 Sep 2026 20:23:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788380595;
+	bh=IyD8PJIAU/ivp+yW1A765I7ZM8+hJz+Gaak/AdDpoHs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F3U4+ZOGfURgQ+w+FTww3KK6JrTXQZ1zI18w8AcqYgVcyBC4mMpYRgjmhvpbmiLfY
+	 MwDt60WAHlHRF4D2dveabEG9nR/f+FiP5WU2HVvW+HYRow8OheC44EJX0AE1YEXt++
+	 O+lnHd6df0DbP30pCtWGDMEbVYTsjsYJX6+UEP2i17GhlBkzWrw9YdGjit+jGRVjXr
+	 1905F7fRCBBsijQQ6gaktAwas+On1HtJdgVUnGU3pwg9Cg4+Y7AZqu5ACBhAquwwRP
+	 bCLkxlxngw7gFXxTIpK+LdFpY+UxI9VmbTa/Gv9apAETJ102nZwEeWe0oyr1vrI5yP
+	 9Lv8aGTPGNpew==
+Message-ID: <d6b9b185-29a0-4dae-adc2-329474018bdf@kernel.org>
+Date: Wed, 2 Sep 2026 14:23:13 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
-X-Debian-User: carnil
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] tunnels: Drop stale dst when building an ICMP error
+ for PMTUD
+Content-Language: en-US
+To: Ido Schimmel <idosch@nvidia.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ edumazet@google.com, horms@kernel.org, aconole@redhat.com,
+ sbrivio@redhat.com, gnault@redhat.com, laikabcprice@gmail.com,
+ aroslavdudkov622@gmail.com, rough.rock3059@datachamp.fr,
+ stable@vger.kernel.org
+References: <20260902190112.4126199-1-idosch@nvidia.com>
+From: David Ahern <dsahern@kernel.org>
+In-Reply-To: <20260902190112.4126199-1-idosch@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Source: linux
-Source-Version: 6.12.105-1
+On 9/2/26 1:01 PM, Ido Schimmel wrote:
+> Bridged UDP tunnels such as VXLAN and GENEVE build an ICMP error packet
+> around an overlay packet if the packet is going to exceed the underlay
+> path MTU. The ICMP error packet is then injected back into the Rx path
+> with the source and destination addresses swapped, so that it will be
+> delivered to the overlay source.
+> 
+> If the overlay packet was routed to the UDP tunnel or locally generated,
+> then it is already carrying a valid dst entry and this entry is not
+> dropped when transforming the packet to an ICMP error packet. This
+> causes the IP layer to reuse the dst entry, leading to the ICMP error
+> packet being dropped or routed out of the UDP tunnel interface in case
+> of forwarding.
+> 
+> Prior to the blamed commit this could not happen, as
+> skb_tunnel_check_pmtu() did not build ICMP errors for PACKET_HOST
+> packets. Such packets were instead encapsulated and, unless the DF bit
+> was set in the outer header, fragmented by the underlay.
+> 
+> Fix this by making sure that the ICMP error packet does not have a valid
+> dst entry, thereby forcing the IP layer to perform a route lookup.
+> 
+> Adjust the bridged PMTU exception selftests accordingly. When the
+> local sender in ns_a pings the overlay destination with a deadline
+> (-w), ping exits on the first socket error before any reply is
+> received and returns a non-zero exit code. The test therefore only
+> passed because the ICMP error was never delivered. Use a packet count
+> (-c) like the ns_c line above it, so that the ICMP error counts
+> against the packet budget and the exit code depends on whether echo
+> replies were received. This passes with and without the fix.
+> 
+> Fixes: 8930424777e4 ("tunnels: Accept PACKET_HOST in skb_tunnel_check_pmtu().")
+> Cc: stable@vger.kernel.org
+> Reported-by: Laika Price <laikabcprice@gmail.com>
+> Closes: https://lore.kernel.org/netdev/20260614-master-v3-1-9f5060ba1ed1@gmail.com/
+> Reported-by: Yaroslav Dudkov <aroslavdudkov622@gmail.com>
+> Closes: https://lore.kernel.org/netdev/20260901081825.287173-1-aroslavdudkov622@gmail.com/
+> Reported-by: Charles Bordet <rough.rock3059@datachamp.fr>
+> Closes: https://lore.kernel.org/netdev/aHVhQLPJIhq-SYPM@eldamar.lan/
+> Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+> ---
+>  net/ipv4/ip_tunnel_core.c           | 6 ++++++
+>  tools/testing/selftests/net/pmtu.sh | 2 +-
+>  2 files changed, 7 insertions(+), 1 deletion(-)
+> 
 
-Hi,
+Reviewed-by: David Ahern <dsahern@kernel.org>
 
-On Wed, Sep 02, 2026 at 03:14:48PM -0400, Andrew Wilson wrote:
-> Hi Sean, Salvatore,
-> 
-> Tested-by: Andrew Wilson <your.email@address.com>
-> 
-> (With strong assistance from Gemini guiding me through builds, module
-> DKMS rebuilds, and interpreting logs!)
-> 
-> I can confirm that commit 6b748c39d18e completely resolves the issue,
-> and SEV, SEV-ES, AND SEV-SNP are fully functional on official Debian
-> packages (tested on EPYC Rome and EPYC Milan servers).
-> 
-> Here are the test results from bare-metal hardware:
-> 
-> 1. Upstream v6.12.104 (Source build) on AMD EPYC (Rome):
->    * Tested SEV-ES: Functional, VMs launch cleanly.
-> 
-> 2. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Rome):
->    * Tested SEV & SEV-ES: Functional.
->    [    3.676036] kvm_amd: SEV enabled (ASIDs 16 - 253)
->    [    3.690542] kvm_amd: SEV-ES enabled (ASIDs 1 - 15)
->    [    3.735896] ccp 0000:26:00.1: SEV API:0.24 build:22
-> 
-> 3. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Milan):
->    * Tested SEV-SNP: Fully functional!
->    * Host log:
->      [    4.678767] kvm_amd: SEV enabled (ASIDs 256 - 509)
->      [    4.684694] kvm_amd: SEV-ES enabled (ASIDs 1 - 255)
->      [    4.690563] kvm_amd: SEV-SNP enabled (ASIDs 1 - 255)
->      [    6.212275] ccp 0000:47:00.1: SEV-SNP API:1.58 build:2
->    * Guest dmesg:
->      [    0.908804] Memory Encryption Features active: AMD SEV SEV-ES SEV-SNP
->      [    0.908820] SEV: Status: SEV SEV-ES SEV-SNP
->      [    2.109524] SEV: SNP running at VMPL0.
->      [    3.439649] sev-guest sev-guest: Initialized SEV guest driver
-> (using VMPCK0 communication key)
-> 
-> Because Debian builds KVM as a module (CONFIG_KVM_AMD=m), we avoid the
-> built-in CONFIG_KVM_AMD=y SNP race on 6.12.y, so both SEV-ES and
-> SEV-SNP are completely working out-of-the-box on 6.12.107-1.
-> 
-> Salvatore: Debian bug #1145026 can be marked fully resolved by
-> linux-image-6.12.107-1.
 
-Thanks for the confirmation, thanks Sean for checking the report!
-
-On Debian's side I'm thus closing the bugreport.
-
-Regards,
-Salvatore
