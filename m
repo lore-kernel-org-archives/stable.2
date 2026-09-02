@@ -1,105 +1,279 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685AB471D03;
-	Wed,  2 Sep 2026 11:06:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6185146F4AD
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347193; cv=none; b=loFqwZ6qcNtpoooRhH5FUtMNBDe5Fc0IWeixh+LjrGWy2kyojYASR6ZPIm2TScvuI/+LXxOCjAoObU3Z3WhfEWQScer1DLULHSnZY7jJ9b0xb7E5nspCXMtSBbdz7PCWxJsYGurZxbki1eNPeS7rIqdxUZkXHeUC9RP8bvUYoFE=
+	t=1788348092; cv=none; b=f7HzOYXGPyU/kKi3eOkOhLyBfTKRIAp3c4TSiuHslLsgNxY/osmSgK7Yu8VgCLFc7QPAHiQ3O47n6XcBo5TZ2DvgKEXE5eZlvQDYMOhfz5OTdAuNQ4zEvw/q6lZUPAzdfEGosqIdzyOELQbmvh829ooldOMHh0whGL1xAxSJLE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347193; c=relaxed/simple;
-	bh=gg4oaeObB+ZvkDbunSo+2Wv3qmDg2Ckasda83xkxFyo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cvHJip52UvO5yyNLgzuDBtu9e2RPZQN3VBEUjC0ur6qUuUghySQW5fLI/15C/coRUYU7eTXF84Lnscd4urbSCMK5Zwiu4Yyb786xDqJE212zgamCKeXhoAiUqv8cv53fhB/piKaYqK5/tAIlkDz8g7/uyFhIvkT2LrHaMTdEXac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G521DKuj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788348092; c=relaxed/simple;
+	bh=c/wQKmUSzU8ziJYz7as+k6+5HYdNlx5SIqPlvA8nW6I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q2lcuVMZRQs+Nq//5DVHY/XRvfE7iZv77332n7Ez7geQNQZAcdyQQ9NspWQ/zOCXUHSGnqb4rRN3RHGKK+OJxbsVHQbG2F3E/L4Ph5hxOoNJd3hSqcirlvsizZ8UJWoIdzV+O8Mf6OUTYs1r+nIesE6TeatygQhHUxS1boOdyXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Of4GpOBD; arc=none smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G521DKuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B081F000E9;
-	Wed,  2 Sep 2026 11:06:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788347192;
-	bh=2KejZkyIUl3Cw92CMKhHBilt7CFXtfyld/pR8L9PEQk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G521DKujJWRyJA+Xl0Q2x2JtSmwNopaAg2YObYd6S+0UASQAlplqL4x7Klc0EI8nm
-	 pr1OguEkQ2RI2NZIl95Optq7a5LiAVTxryK87q+QgPqZ5Nl5FOgUV17Ys34Y1UKiG2
-	 1dPQTOipNhNu+t2REFVbMEMEEPwCYaCyCRWmOwyE=
-Date: Wed, 2 Sep 2026 13:06:27 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Cc: Andrey Smirnov <andrew.smirnov@gmail.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Of4GpOBD"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-853e2610bb4so1511021b3a.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 04:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788348090; x=1788952890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cUtVtVjiKeiGWLkAF+yWgaZY7ulxa5mtX18RLlXcwM8=;
+        b=Of4GpOBDlb5W1cmaXD+SRIcnrpYxZYBA/eBGLX135+V/OpfYFKrjQ8yLI6OXaJjdBc
+         Os9mTq9u9jtdKtCUom/hmguuMZMnhnNCfSUMqNATrMOH4tUE16GENgjY41o9yCgyr2PB
+         umZRdacnqYcBlzzSqrSSwR90NCwqxiB7NNOYozUe9L5r9iwEjTxMSUkq/DQB2P0a6XBG
+         EWJ53bTqImnDkySVXsuvYiePva/7Z0Yg4M6kJgD0nV8FoUeDpgD01UXERYj73O4ji6O/
+         006nsgiLHGGkIOODiZLC8DoJoCc9UYV4sdcqVn3q6bu5sUsePFJo3+RpCB1EZeFJB/vI
+         pACg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788348090; x=1788952890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cUtVtVjiKeiGWLkAF+yWgaZY7ulxa5mtX18RLlXcwM8=;
+        b=WnAgndee3kBAogGn17/QRSzGOBXPziZ6/pGsvcvk9P0GaL0SrHi2Zpe8MGnF62wsw6
+         YceaXWLRtzBPDP5nab3QshnDT3h6zx8+C5lSDeZx9CMyHK9hxpkWA+JCTGV6ZCFCJg8b
+         ZshaZFfsbuIwFxanQMEzhGsjAfh0iNqr7kHytqw/FNl7gleI0zdHZqIsmwKfUnOdtuxh
+         lHZazyMYFoetB4DbKfIAAvdnPN/SPTQI2+3kDZ/KoHn4+/lGBu0Wz+h/gGa1hfCk8M2s
+         rE94dqA/g0wik3PVdiqwdiJrnxuRjjq1xEnlZdpHxILjeEMiRciIG8VsdNzbqQ5fMtEo
+         lJnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWGaerNF0Bb1670iv1VRKoyXMjguNQpSZdTEU+pz1lMqUbWHvcm6d9c4J7zIInZNohV8cw/C0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEcPWK/p5WPjbQefCHHLUXLytVZ47mb3snNmOFkTYOelzNRbkN
+	tMgHrEt7f9uxkFoTRsdhE6aX/N0cf8ru3m3ff5gGzkVHSYMuKbtYhZ+C
+X-Gm-Gg: AYBFou37gKFnh5wzDz156fMBvEkzedF1c9/4fgRYygQgui+Af4W/tkT8cf4R33ixax+
+	IseLzyHrWcaG9EED3d4qfnsaYhr2OP15/RdcMJFbsRX58azprFnFTvIjzrKA/ZVhBTJyPsHi4jl
+	/Zmzz4dOeW8B+C78Z3ssXQ9Bvg/M35aUQeTy13LkasKCC6dlZpo6Kekf5d+Dq4vAq+qrQPXbiQn
+	gJaxoI4CazeaDURmXaFLCnw05k8ZGfCrPwxJMf334a6cyxa1V+NEqMfBr8mKhQemv24bPaX4VFF
+	B2pAVxsUru2MFBrUWRDnfrXBJf9IhVCMzT2f3i/e6PDsLv5uJKraME3qtIbY238omHT7g5vm20+
+	JCCe8IpJCJlPb0KDEWmlARQH4TlT6H0yLWheXGwmU90dCi+9HT8AgapVN5MC0E3vTtATeMM1coW
+	uEEGD/HU64/qoxoHpKeL9gA3uF6oVj6Jiwu1zOPB9X9d5/PSCbkr5SRfuqaGXvVZ9aqjo+pbeqI
+	rNzi0fwrYU=
+X-Received: by 2002:a05:6a00:4c87:b0:845:cad1:d691 with SMTP id d2e1a72fcca58-85f4255a5c0mr2156595b3a.5.1788348089351;
+        Wed, 02 Sep 2026 04:21:29 -0700 (PDT)
+Received: from ustb520lab-MS-7E07.. ([123.124.147.27])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc07157d5sm1177258b3a.46.2026.09.02.04.21.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:21:28 -0700 (PDT)
+From: Jiaming Zhang <r772577952@gmail.com>
+To: konishi.ryusuke@gmail.com,
+	linux-nilfs@vger.kernel.org,
+	slava@dubeyko.com
+Cc: linux-kernel@vger.kernel.org,
+	r772577952@gmail.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ihex: Fix 16 bit truncation in ihex_binrec_size()
-Message-ID: <2026090223-napped-nerd-790e@gregkh>
-References: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
+Subject: [PATCH v2] nilfs2: force clear dirty state when restoring from the shadow map
+Date: Wed,  2 Sep 2026 19:21:21 +0800
+Message-ID: <20260902112121.2125383-1-r772577952@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 12:21:19PM +0200, Vasileios Almpanis wrote:
-> ihex_binrec_size() returns uint16_t while computing be16_to_cpu(p->len) +
-> sizeof(struct ihex_binrec), so record lengths of 65530 and above wrap.
-> __ihex_next_binrec() uses the result as the offset to the next record. A
-> length of 65530 gives an advance of zero, so ihex_validate_fw() spins on
-> the same record forever. Lengths of 65531 to 65535 advance by 4 or 8
-> instead of 65544, so a 14 byte image passes validation while its first
-> record claims 65535 bytes of payload. emi26_load_firmware() passes it to
-> emi26_writememory(), which kmemdup()s 65535 bytes out of a 14 byte buffer
-> producing the following splat:
-> 
->   BUG: KASAN: vmalloc-out-of-bounds in kmemdup_noprof+0x3b/0x50
->   Read of size 65535 at addr ffffc90000075006 by task kworker/11:1/174
->   Workqueue: usb_hub_wq hub_event
->   Call Trace:
->    <TASK>
->    kasan_check_range+0x10f/0x1e0
->    __asan_memcpy+0x23/0x60
->    kmemdup_noprof+0x3b/0x50
->    emi26_writememory+0x29/0xd0
->    emi26_probe+0x2d1/0xb64
+When garbage collection fails, nilfs2 rolls the DAT metadata file's page
+cache back to a shadow copy taken before GC started.
+nilfs_clear_dirty_pages() drops the dirty state of the folios in the DAT
+cache, then nilfs_copy_back_pages() overwrites them with the saved
+contents and warns if one is still dirty:
 
-Is this a real firmware image being sent?  Or a fake one?
+	/* overwrite existing folio in the destination cache */
+	WARN_ON(folio_test_dirty(dfolio));
 
-And root triggers this, right?
+nilfs_clear_dirty_pages() used to clear the dirty state unconditionally,
+which is safe here because the rollback runs with the log writer
+stopped, so nothing else can dirty the cache while it runs.  The same
+helper is also used when writeback finds dirty folios after the
+filesystem has degraded to read-only, where it does run concurrently
+with the log writer, so commit ca76bb226bf4 ("nilfs2: do not force clear
+folio if buffer is referenced") made nilfs_clear_folio_dirty() skip a
+folio if any of its buffer heads is busy.  The rollback caller shares
+that helper, so its clearing step can now return with a folio still
+dirty.
 
+A DAT folio can hold a busy buffer head without anyone modifying the
+folio: nilfs_mdt_read_block() submits read-ahead for the blocks
+following the one it was asked for and waits only for the first, so the
+read-ahead buffers are still locked when it returns.  With a block size
+smaller than the page size, a locked read-ahead buffer can share a folio
+with a block that GC dirtied and keep the whole folio dirty past the
+clearing step.
 
-> 
-> Return size_t so neither the addition nor the following ALIGN() can wrap.
-> 
-> Fixes: 9fb4ab4d3dd6 ("ihex: Simplify next record offset calculation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-> ---
->  include/linux/ihex.h | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/include/linux/ihex.h b/include/linux/ihex.h
-> index b824877e6d1b..0da1c4e3e693 100644
-> --- a/include/linux/ihex.h
-> +++ b/include/linux/ihex.h
-> @@ -21,7 +21,7 @@ struct ihex_binrec {
->  	uint8_t data[];
->  } __attribute__((packed));
->  
-> -static inline uint16_t ihex_binrec_size(const struct ihex_binrec *p)
-> +static inline size_t ihex_binrec_size(const struct ihex_binrec *p)
+Add a force flag to nilfs_clear_dirty_pages() and
+nilfs_clear_folio_dirty() that skips the busy buffer check, and set it
+in the two calls from nilfs_mdt_restore_from_shadow_map().  The
+read-only fallback callers keep passing false, so that commit still
+protects them and the WARN_ON() is left alone.
 
-but size_t changes depending on the platform, right?  Why not make it
-u32 instead?
+Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
+Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Suggested-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+---
+Changes in v2:
+- Keep the WARN_ON() in nilfs_copy_back_pages() untouched.
+- Add a bool force argument to nilfs_clear_dirty_pages() and
+  nilfs_clear_folio_dirty(), and set it to true in the two calls from
+  nilfs_mdt_restore_from_shadow_map().
 
-And if this hasn't shown a problem yet, in the 8 years since that commit
-happened, is this really a bug?
+v1: https://lore.kernel.org/lkml/20260901134430.1292467-1-r772577952@gmail.com/
 
-What changed to suddenly cause this to show up?
+ fs/nilfs2/inode.c |  2 +-
+ fs/nilfs2/mdt.c   |  6 +++---
+ fs/nilfs2/page.c  | 50 +++++++++++++++++++++++++++--------------------
+ fs/nilfs2/page.h  |  4 ++--
+ 4 files changed, 35 insertions(+), 27 deletions(-)
 
-thanks,
+diff --git a/fs/nilfs2/inode.c b/fs/nilfs2/inode.c
+index 34e6096069ad..64437aed8390 100644
+--- a/fs/nilfs2/inode.c
++++ b/fs/nilfs2/inode.c
+@@ -163,7 +163,7 @@ static int nilfs_writepages(struct address_space *mapping,
+ 	int err = 0;
+ 
+ 	if (sb_rdonly(inode->i_sb)) {
+-		nilfs_clear_dirty_pages(mapping);
++		nilfs_clear_dirty_pages(mapping, false);
+ 		return -EROFS;
+ 	}
+ 
+diff --git a/fs/nilfs2/mdt.c b/fs/nilfs2/mdt.c
+index 2a435349fd21..b50c88b65183 100644
+--- a/fs/nilfs2/mdt.c
++++ b/fs/nilfs2/mdt.c
+@@ -405,7 +405,7 @@ static int nilfs_mdt_write_folio(struct folio *folio,
+ 		 * have dirty folios that try to be flushed in background.
+ 		 * So, here we simply discard this dirty folio.
+ 		 */
+-		nilfs_clear_folio_dirty(folio);
++		nilfs_clear_folio_dirty(folio, false);
+ 		folio_unlock(folio);
+ 		return -EROFS;
+ 	}
+@@ -648,10 +648,10 @@ void nilfs_mdt_restore_from_shadow_map(struct inode *inode)
+ 	if (mi->mi_palloc_cache)
+ 		nilfs_palloc_clear_cache(inode);
+ 
+-	nilfs_clear_dirty_pages(inode->i_mapping);
++	nilfs_clear_dirty_pages(inode->i_mapping, true);
+ 	nilfs_copy_back_pages(inode->i_mapping, shadow->inode->i_mapping);
+ 
+-	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping);
++	nilfs_clear_dirty_pages(ii->i_assoc_inode->i_mapping, true);
+ 	nilfs_copy_back_pages(ii->i_assoc_inode->i_mapping,
+ 			      NILFS_I(shadow->inode)->i_assoc_inode->i_mapping);
+ 
+diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
+index cf4f1c6798f5..857926da9f21 100644
+--- a/fs/nilfs2/page.c
++++ b/fs/nilfs2/page.c
+@@ -369,8 +369,9 @@ void nilfs_copy_back_pages(struct address_space *dmap,
+ /**
+  * nilfs_clear_dirty_pages - discard dirty pages in address space
+  * @mapping: address space with dirty pages for discarding
++ * @force: whether to clear the dirty state regardless of busy buffer heads
+  */
+-void nilfs_clear_dirty_pages(struct address_space *mapping)
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool force)
+ {
+ 	struct folio_batch fbatch;
+ 	unsigned int i;
+@@ -391,7 +392,7 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
+ 			 * was acquired.  Skip processing in that case.
+ 			 */
+ 			if (likely(folio->mapping == mapping))
+-				nilfs_clear_folio_dirty(folio);
++				nilfs_clear_folio_dirty(folio, force);
+ 
+ 			folio_unlock(folio);
+ 		}
+@@ -403,13 +404,16 @@ void nilfs_clear_dirty_pages(struct address_space *mapping)
+ /**
+  * nilfs_clear_folio_dirty - discard dirty folio
+  * @folio: dirty folio that will be discarded
++ * @force: whether to clear the states regardless of busy buffer heads
+  *
+  * nilfs_clear_folio_dirty() clears working states including dirty state for
+- * the folio and its buffers.  If the folio has buffers, clear only if it is
+- * confirmed that none of the buffer heads are busy (none have valid
+- * references and none are locked).
++ * the folio and its buffers.  If the folio has buffers and force is false,
++ * clear only if it is confirmed that none of the buffer heads are busy (none
++ * have valid references and none are locked).  If force is true, the states
++ * are cleared unconditionally, the caller should guarantee that the folio is
++ * not being modified concurrently.
+  */
+-void nilfs_clear_folio_dirty(struct folio *folio)
++void nilfs_clear_folio_dirty(struct folio *folio, bool force)
+ {
+ 	struct buffer_head *bh, *head;
+ 
+@@ -422,24 +426,28 @@ void nilfs_clear_folio_dirty(struct folio *folio)
+ 			 BIT(BH_Async_Write) | BIT(BH_NILFS_Volatile) |
+ 			 BIT(BH_NILFS_Checked) | BIT(BH_NILFS_Redirected) |
+ 			 BIT(BH_Delay));
+-		bool busy, invalidated = false;
++
++		if (!force) {
++			bool busy, invalidated = false;
+ 
+ recheck_buffers:
+-		busy = false;
+-		bh = head;
+-		do {
+-			if (atomic_read(&bh->b_count) | buffer_locked(bh)) {
+-				busy = true;
+-				break;
++			busy = false;
++			bh = head;
++			do {
++				if (atomic_read(&bh->b_count) |
++				    buffer_locked(bh)) {
++					busy = true;
++					break;
++				}
++			} while (bh = bh->b_this_page, bh != head);
++
++			if (busy) {
++				if (invalidated)
++					return;
++				invalidate_bh_lrus();
++				invalidated = true;
++				goto recheck_buffers;
+ 			}
+-		} while (bh = bh->b_this_page, bh != head);
+-
+-		if (busy) {
+-			if (invalidated)
+-				return;
+-			invalidate_bh_lrus();
+-			invalidated = true;
+-			goto recheck_buffers;
+ 		}
+ 
+ 		bh = head;
+diff --git a/fs/nilfs2/page.h b/fs/nilfs2/page.h
+index 136cd1c143c9..c3ba3468af5c 100644
+--- a/fs/nilfs2/page.h
++++ b/fs/nilfs2/page.h
+@@ -41,8 +41,8 @@ void nilfs_folio_bug(struct folio *);
+ 
+ int nilfs_copy_dirty_pages(struct address_space *, struct address_space *);
+ void nilfs_copy_back_pages(struct address_space *, struct address_space *);
+-void nilfs_clear_folio_dirty(struct folio *folio);
+-void nilfs_clear_dirty_pages(struct address_space *mapping);
++void nilfs_clear_folio_dirty(struct folio *folio, bool force);
++void nilfs_clear_dirty_pages(struct address_space *mapping, bool force);
+ unsigned int nilfs_page_count_clean_buffers(struct folio *folio,
+ 		unsigned int from, unsigned int to);
+ unsigned long nilfs_find_uncommitted_extent(struct inode *inode,
+-- 
+2.43.0
 
-greg k-h
