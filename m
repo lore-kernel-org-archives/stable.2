@@ -1,115 +1,99 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F4947FB1C
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:08:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C1D433050
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 12:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350926; cv=none; b=UiLZFIOhqkcOylIhVH/rp4E43fGOdLxPwHHkvCxcVAyDbTVyaFWO5NLxbfkiGCL2Hs37KKlXVXm2HCHHTBRGYwQWxR8U/j9IEswbfx032z+cgL+yz/zu82K/86lgnDeXUhzilcnz1PtBk8rren7mVBbKX+QiZv7I/sD7oUBfkDU=
+	t=1788351045; cv=none; b=jjIOetT+zcdkaCHjWJFNMmfCutYRf8lePvzspDxlgpnXEY5JXaxDG8k2lVjqRiu6FOeB0suexT66vNhe7yGkaljtzVtAvpNukmBkkTLkzDMY9Am2eMkJzM1RUjnFrYIp+qZP5mmgoGJaxSZOdhbilAj1P4aZl/tah9rM+ox7CqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350926; c=relaxed/simple;
-	bh=hEgKcI0xSVAo+OQaZ6TD8YxlJUNtrHvb4B26iG5AXFA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hu+zMtbsMLEll2DAXYLwpOMTN+gd16PDbDxqkcaBeE305Tb5fxD+uznHXoac2OLwpYH0Ophfs8jsHLDaET8K44U7nGGR3e5/bg1bWk7k6sNTHnXv2eK9YcoR5sOVYBN1ZPd2tWDq4+643ErzVMu4zVo4xTIKCdF47GR/H4cQqK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=P3PRkCXN; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788351045; c=relaxed/simple;
+	bh=NhQmeJ7xXtC2qhhuZdlM1pf4BctUAxpJW0Z9jOz1lXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YaVRiyaZ5/Kd8RtBVhMq0IiFIgCfQivGetWFT98YPrt4doq7PvINK5RFu2y/LCpSzHnXBy+lbp4YjxajVacvHq139xY9Gq39WNRRiz5pW1hSOfV9Y2v98SbGmf8SCi8Onh95ofh9ARdPZ3q5aZIJ5SzCbYihrXe4H6gwjD6Uc10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iTNW4ugA; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="P3PRkCXN"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51c08df8513so6256361cf.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 05:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788350914; x=1788955714; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
-        b=P3PRkCXNGcr5WbRgqSiwi7FWYnQgwhkSK8l+Nz4c3Ak6A0GJtbObjN7ZGh4Fzy7Yum
-         g2c6mnKHpQS7MXhGzBtgo2LCFO9VNtXDHJ1B6uf3mXH8vv2Vd3z71rhMJ3YD+Wl5xTxp
-         bxCtq89JVHhq0jhl3b7JdhZkUDspxHJoIhMCQW2yzTkxUl9Cbyx7Zc8CTM8kUstZOwgC
-         LH+/UgS5PabchPBRtozJe0aO7NzMGwYEFmgbYWR6CJ2oXigtspnsHpmtIENaxKPfTUQp
-         Zgu76ZiRHpm9ITQna5WEztz6HVVxDacrw8ZjBkJWMq4M5CwdYFSFkKIQAABtNYombU8l
-         mkKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350914; x=1788955714;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
-        b=frn8iQEZlCiyyz0a5b+yjIM3qwCCSNqhjmIK84h++pQi58RxHznCnl1HATW3//lOnB
-         fa1GcuO64nhRnq/0mmpFoTO5yiq7v+pEdMkEt9/N+8cbt9YFnchwD4i1cd1HrTVZKoN/
-         3LM+desnuVx2xeQm365dFw3NeJTB7vKl6qPjPeRDZjZDquNMCNzQCMTswx8dL3UCKcrf
-         v7/ZnTCKEArg/zf5faQ+3stCIrg2jtJm73tzuotz1mByVHu7VTLrc/+2g+QKXJ13uruy
-         Ae6GaHpLdm8skhPmP+CeIkuH4Smu30xgroFUv8B7VEzDkOpyliNvcB7B1vcgeQagddi+
-         xY7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqTBpjWyluHRViX6DBAi2qTPe3iptwCtI8Ym5rhXE2uINF/1WIUqdQvLAuFQHASh4za2jpPXWc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mChY/dlew6njJ1bSwXb+soPRATkmrKQr2mJQBq3vcUktkvcjXY
-	rqKZRLC2TajIVywgqyyKnDv/AyzlK6HosjMZRL0YS3UMe2u9rJb2EeAuXbscYyJ+Urg=
-X-Gm-Gg: AR+sD11XHM96Q1/W9y62uO3EhqsZaIsyftkpquMG531BuVRjNQtr9xQHpcGHby9mKZ7
-	al1ugkhO1hUxBAGnfcc7o1c5qWHEWcln7/D3Z/KngpZF/WiwHkjotZtk9po59/un7aBxf+VTI9V
-	TvTrGXGM2CCVFaRWoyTn0h0NRnFlFrzxvzFFdFMVnRUG9YyF3ROpeSubk+8GccqDd2N0J27dwto
-	GzAjWOq5FjYYeUJZQMd785s0Yk27hNPyt+YE6GEJouDYSXlJmPeufCEp6mvgs1iqOf7TrU3zdBv
-	lnKYGXMYLjIf0I4wDyk+KRC8i/IG/jPzArJSjL8hYCpvZ0YBkHt1NSY5g7K+u4/+JWDtsXJ/CET
-	T9Cv2ituZdNO9iax6OAnFvgeSM7/CMJDjyEvSLemUymqbca1iVA+7YHEqaUe4/WX+kKMlTXz0ok
-	MSTBKTpJIO/xQKcwtnHB6dG0vgkhl59Ijr1RHZ6DGWi9YVIgFyAbs1Qr1JfgL1XvkAkdru3mzna
-	39v93hNj9DDQ5sH/AMJzDcqiWS6cRP5j6KXm82zPv1KkGcnwry9ThLD
-X-Received: by 2002:a05:622a:1452:b0:52d:9c11:8937 with SMTP id d75a77b69052e-53036cc0d8amr38235061cf.26.1788350913894;
-        Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53032ff4e90sm17442101cf.2.2026.09.02.05.08.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1jlY-0000000E9vh-1aE2;
-	Wed, 02 Sep 2026 09:08:32 -0300
-Date: Wed, 2 Sep 2026 09:08:32 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: David Hu <dhu@x6u.co>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
-	kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
-	stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260902120832.GB2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iTNW4ugA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788351040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NQ4xYgPisX1eloJMBrUIHWw1g1geoI0YKTxulh3uSC0=;
+	b=iTNW4ugAxdaEBcknU7OMTOysxaRn+JoBc69/lYFWb3cx0hibUrahKb/ppG3P7VROGY+0XY
+	luqSqHjMNXnS0Y08AttT+jQnDaV42qG9z9Iz+mAenec+9PEb3WmYVlWvnUbalNxQN4kh00
+	JldPLsvBzYc0TGRdd/ggkDe7Blnq378=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-493-cGpnszrpMNaoY7iEI94stQ-1; Wed,
+ 02 Sept 2026 08:10:38 -0400
+X-MC-Unique: cGpnszrpMNaoY7iEI94stQ-1
+X-Mimecast-MFC-AGG-ID: cGpnszrpMNaoY7iEI94stQ_1788351037
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 80056180217D;
+	Wed,  2 Sep 2026 12:10:37 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 70EE61955D67;
+	Wed,  2 Sep 2026 12:10:33 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Christian Brauner <christian@brauner.io>
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] afs: Fix missing kunmap in afs_dir_search_bucket()
+Date: Wed,  2 Sep 2026 13:10:19 +0100
+Message-ID: <20260902121024.3328255-2-dhowells@redhat.com>
+In-Reply-To: <20260902121024.3328255-1-dhowells@redhat.com>
+References: <20260902121024.3328255-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901170849.4052816-3-dhu@x6u.co>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> From: David Hu <xuehaohu@google.com>
-> 
-> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> first entry, resulting in non-page-aligned DMA addresses for all
-> subsequent entries.
+Fix afs_dir_search_bucket() to kunmap the block it's using in the "bad:"
+path.
 
-This patch is fine, but pedenatically a scatterlist's entry limit
-should be bounded to dma_get_max_seg_size(), though I don't think it
-helps this. Operating scatterlists at the size limits has proven
-problematic in a number of places already...
+Fixes: a5b5beebcf96 ("afs: Use the contained hashtable to search a directory")
+Closes: https://sashiko.dev/#/patchset/20260716103030.3065561-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: linux-afs@lists.infradead.org
+cc: linux-fsdevel@vger.kernel.org
+cc: stable@vger.kernel.org
+---
+ fs/afs/dir_search.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> In addition, a non-page-aligned sgl length will trigger an edge case
-> in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> buffers, we will have a `va` with lowest bit set to 1. That will lead
-> to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> to find best page size for the mapping on the NIC side.
+diff --git a/fs/afs/dir_search.c b/fs/afs/dir_search.c
+index 104411c0692f..4977ad81fa82 100644
+--- a/fs/afs/dir_search.c
++++ b/fs/afs/dir_search.c
+@@ -173,12 +173,11 @@ int afs_dir_search_bucket(struct afs_dir_iter *iter, const struct qstr *name,
+ 
+ 	ret = -ENOENT;
+ found:
++bad:
+ 	if (iter->block) {
+ 		kunmap_local(iter->block);
+ 		iter->block = NULL;
+ 	}
+-
+-bad:
+ 	if (ret == -ESTALE)
+ 		afs_invalidate_dir(iter->dvnode, afs_dir_invalid_iter_stale);
+ 	_leave(" = %d", ret);
 
-That's an IB side bug, the newer logic that joins adjacent SGLs should
-have avoided it?
-
-Jason
