@@ -1,146 +1,146 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32E2947D470;
-	Wed,  2 Sep 2026 13:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B15BE3403E9
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 13:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355932; cv=none; b=iNSMjVTcMesgBA/stzHAGiGtVI/M2xvRf3lwbqF/eL/6/ykR8NIcJyGC5NhsGv7miC2ON9ewJcx7yNVPH/be1Y+zhIsN/gLONwqYLItGca9aVMP1jhxcytK/8KFQeW1Yby0WRpjrvt0Yyp18rM4xNJl/KqWs6dG2Cw+X4obwOUk=
+	t=1788355966; cv=none; b=I6K32kOuPwEfQ5sHesW+/q3FSjU2V1GlRYj8ztuOQRd5t9jQZHpqNEvr7aPsEHguRuy0+Y8Hk4DtmiSwZPzxumpdfpZLu+D92HKngccAOXFQRgWycjNw5Yl1kvtEKHzg+2MBOG5Ac+fvYY7O5Zfm1vqoYeWXztn/ytIkBNqt3YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355932; c=relaxed/simple;
-	bh=2FVjUR2IHg8brsTGehbDXKcOcWo2hhF15CmBiXnTkTU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mZubxNRu7HdZholWKvwD0vuFvKVQ2gOgDuoGc0oLw3DCZzxNAZ8byjMA8Zdk2FvQxEw4HOlaERft98no2Sqk6mXXSlxloe4pfRTAwV6YLlvCz3HhkLG3xFbI9ksJB+0aWkefaNctDwtJldQmyz1l6JvOnviCR2TxH6gudoNdi/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jyGOm/D3; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788355966; c=relaxed/simple;
+	bh=vMyC5+PEVcy327m6EPaRBNAl7GuUZ1WfTVhXzgGvaPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKSGbwvvhyjdakHJ4xKttVI4KFf2MrkdWLdLO/zNvH/o1Q7zCUX7bhKtzuQn7yz9TPNpMvJEwmRFtIFA58pG/xzgo9AbW1LulYMLIpU0Vy1+Bh0hjutPpVszJlKdb0lOeX8pM5r+PkNxjArpoC5hre2+UtG8O25KTSuuS3/FRig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SGh6bztQ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jyGOm/D3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788355930; x=1819891930;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=2FVjUR2IHg8brsTGehbDXKcOcWo2hhF15CmBiXnTkTU=;
-  b=jyGOm/D3nSV3qbyH2XayRak5DDGvazl8IjaZTMXS5u1NqY6HAlKGGIix
-   n7Ysp9vFKF9lN1CWbTdb4k74/OuEeWdWburZ2VrTzgJsIGgUa2O9mJsaS
-   ibHNZtl/pOl7vOCvlL3znjDEOq3TJsetYDIQWenFwUiNzVBENQa6mgrWs
-   O2hP2HX2RhtHGkSN8b6SLYUVDG6YPPG6M1SoTg7KgK70X/QyW/38o5dIu
-   fGeV7GiZ+NLi7yP1Wy8iuHHUWKmcgN6hk22nZXhOlgrFlach1CgrbgRp+
-   lACgXNlH+6+dXxQ0jqu+Rs7EXaW2lc/EMCH7X70oKxN4b15a7z9rrggSJ
-   w==;
-X-CSE-ConnectionGUID: THuuyrKWTTysv55m4uexbA==
-X-CSE-MsgGUID: XS6vM90QRmC9Kjx+d2kH1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88662846"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88662846"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:29:50 -0700
-X-CSE-ConnectionGUID: eJgGfHOxT1iOIb//2TX6ug==
-X-CSE-MsgGUID: c5EqoaCJT12ye2kIDQaCqQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="265707859"
-Received: from slindbla-desk.ger.corp.intel.com (HELO [10.245.245.217]) ([10.245.245.217])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:29:47 -0700
-Message-ID: <9f8fae96-0865-4b0e-9650-00e92e324f9e@linux.intel.com>
-Date: Wed, 2 Sep 2026 16:29:40 +0300
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SGh6bztQ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8AA7A165C;
+	Wed,  2 Sep 2026 06:32:40 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 194023F673;
+	Wed,  2 Sep 2026 06:32:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788355964; bh=vMyC5+PEVcy327m6EPaRBNAl7GuUZ1WfTVhXzgGvaPI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SGh6bztQl85YttGpNjtY8XkojwGDHt0vkHojjy20HentO6GLedPdeHTFsdqv4wyCb
+	 h8keHWxU7ReaaE90FmKKbTc9cu8pcErydfd8vVF+6zUlv9NF0Wc11BnJKwj4FDAxaf
+	 U4dNHN3gKcfRt+oDfLOZL8JY3OxsQUy3+Ocu9gdM=
+Date: Wed, 2 Sep 2026 14:32:36 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Usama Anjum <usama.anjum@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, vladimir.murzin@arm.com,
+	ryan.roberts@arm.com, peterz@infradead.org, catalin.marinas@arm.com,
+	david.laight.linux@gmail.com, stable@vger.kernel.org,
+	ruanjinjie@huawei.com, james.morse@arm.com,
+	yang@os.amperecomputing.com, cl@gentwo.org, maz@kernel.org,
+	david@kernel.org, ljs@kernel.org, will@kernel.org, ardb@kernel.org
+Subject: Re: [PATCH v2 00/20] arm64: Preemptible this_cpu_*() operations
+Message-ID: <apgldIKysSQWuMT0@J2N7QTR9R3.cambridge.arm.com>
+References: <20260804170503.3513916-1-mark.rutland@arm.com>
+ <9789fd67-205a-412f-90d6-42c401d3babe@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 1/2] usb: hub: use shorter 120ms post resume hold for SS
- root hubs
-To: Lovekesh Solanki <lovekeshsolanki00@gmail.com>, linux-usb@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, Michal Pecio <michal.pecio@gmail.com>,
- Mathieu Fluhr <mathieu.fluhr@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Thorsten Leemhuis <regressions@leemhuis.info>, regressions@lists.linux.dev,
- stable@vger.kernel.org
-References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9789fd67-205a-412f-90d6-42c401d3babe@arm.com>
 
-Hi
+On Wed, Sep 02, 2026 at 12:55:12PM +0100, Usama Anjum wrote:
+> On 04/08/2026 6:04 pm, Mark Rutland wrote:
+> > This series reworks arm64's this_cpu_*() operations such that they do
+> > not need to disable preemption, avoiding related overhead in the fast
+> > paths.
 
-Some minor nitpicks/personal preferences if you are sending a v2.
-
-I don't really object taking this as is either.
-
-On 8/31/26 22:03, Lovekesh Solanki wrote:
-> Commit 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices
-> behind suspended hubs") holds a runtime PM reference for
-> USB_SS_PORT_U0_WAKE_TIME (200ms) after every SS hub resume, so
-> downstream links have time to finish trianing before the hub can
-> suspend again.
+> > I've given this build-testing (with GCC and clang) and some light boot
+> > testing, but this hasn't seen significant functional testing or
+> > benchmarking. From inspection of the generated code I expect this to
+> > have reasonable positive impact to performance where this_cpu*() ops are
+> > used heavily. I would be grateful if anyone could take this for a spin.
 > 
-> But 200ms is excessive for root hubs since a root hub has no upstream
-> suspended hub whose wake propagation needs to be accounted for.
-> The root hub still needs some time for USB3 link training to complete,
-> And root hubs also default to zero auto suspend delay and get
-> periodically resumed by userspace USB enumeration opening and
-> closing their usbfs nodes (adb, libusb).
-> This extra 200ms hold stretches this resume into a suspend/resume
-> cycle of roughly once per second, which on idle AMD systems have
-> been reported to cause system freezes.
+> tl;dr
+> Comparing this series with the page-table series [a] gives 8 improvements and 3
+> regressions.
 
-I'd highlight the fact that this patch mitigates the AMD platform issue.
+Amazing! Thanks a lot for testing this!
 
-Maybe begin commit message with something like
-
-"Holding a USB3 hub PM runtime reference for 200ms at hub resume triggers a
-  AMD platform issue. Users running Android adb report crashes after adb has
-  been polling and waking up the USB subsystem once a second for some time.
-  Vendors are working on a solution. Disabling USB runtime PM is one way to
-  prevent this issue, but it is also proven that reducing the hold time to 120ms in
-  resume also mitigates it. See Link for more details.
-
-  Reducing the hold time to 120ms for the USB3 roothub is in itself a valid change
-  and optimization as the current 200ms is excessive...
-"
-
+> Fastpath is a Linux kernel performance benchmarking service. The table
+> compares the both patched kernels: positive values are faster, negative
+> values are slower, and (I)/(R) indicate statistically significant
+> improvements/regressions. Unmarked differences are not significant after
+> accounting for confidence and noise thresholds.
 > 
-> Shorten the post resume hold to 120ms only for root hubs but
-> keep the 200ms for external hubs that the original commit is
-> intended for.
+> +---------------------------------+--------------------+-----------------+-----------------------+
+> | Benchmark                       | percpu-pgtable [2] |   gpr-fixup [3] |         gpr-fixup [3] |
+> |                                 |    vs baseline [1] | vs baseline [1] | vs percpu-pgtable [2] |
+> +=================================+====================+=================+=======================+
+> | lmbench/lat-mem-rd              |             -0.26% |       (I) 1.24% |             (I) 1.50% |
+> | micromm/fork                    |          (I) 1.10% |       (I) 2.46% |             (I) 1.35% |
+> | micromm/munmap                  |         (I) 18.10% |      (I) 19.78% |             (I) 1.43% |
+> | micromm/vmalloc                 |         (I) 11.92% |      (I) 14.68% |             (I) 2.47% |
+> | mmtests/hackbench               |              0.27% |       (I) 1.09% |                 0.81% |
+> | mmtests/kernbench               |          (I) 1.19% |       (I) 1.18% |                -0.01% |
+> | mmtests/sysbench-cpu            |              0.01% |           0.06% |                 0.05% |
+> | mmtests/sysbench-mutex          |             -0.85% |          -0.14% |                 0.72% |
+> | mmtests/sysbench-thread         |         (R) -4.49% |       (I) 3.02% |             (I) 7.86% |
+> | perf/futex                      |              0.55% |      (R) -2.80% |            (R) -3.34% |
+> | perf/sched                      |          (I) 1.61% |          -0.39% |            (R) -1.97% |
+> | perf/syscall                    |          (I) 1.54% |           0.98% |                -0.55% |
+> | pts/memtier-benchmark           |          (I) 2.37% |       (I) 2.51% |                 0.14% |
+> | pts/nginx                       |              0.42% |           0.96% |                 0.54% |
+> | pts/perl-benchmark              |          (I) 1.83% |       (I) 1.63% |                -0.20% |
+> | pts/pgbench                     |             -0.09% |           0.55% |                 0.65% |
+> | pts/pybench                     |             -0.05% |          -0.07% |                -0.02% |
+> | pts/redis                       |             -0.00% |          -0.04% |                -0.04% |
+> | pts/sqlite-speedtest            |              0.15% |           0.44% |                 0.28% |
+> | repro-collection/mysql-workload |              0.73% |           0.25% |                -0.48% |
+> | schbench/thread-contention      |              0.42% |       (I) 1.04% |                 0.61% |
+> | sockperf/echo-lat-tcp           |          (I) 2.88% |       (I) 1.69% |            (R) -1.16% |
+> | sockperf/echo-lat-udp           |          (I) 3.93% |       (I) 5.11% |             (I) 1.14% |
+> | sockperf/packet-tp-tcp          |             -0.41% |       (I) 1.37% |             (I) 1.79% |
+> | sockperf/packet-tp-udp          |          (I) 1.45% |       (I) 1.49% |                 0.04% |
+> | specjbb/composite               |          (I) 1.39% |       (I) 1.65% |                 0.26% |
+> | speedometer/v2.0                |         (R) -1.04% |      (R) -1.04% |                 0.00% |
+> | speedometer/v2.1                |             -0.10% |           0.10% |                 0.20% |
+> | syscall/getpid                  |             -0.98% |           0.52% |             (I) 1.51% |
+> | syscall/getppid                 |             -0.43% |           0.14% |                 0.57% |
+> | syscall/invalid                 |          (I) 3.06% |       (I) 3.56% |                 0.48% |
+> +---------------------------------+--------------------+-----------------+-----------------------+
 > 
-> Reported-by: Mathieu Fluhr <mathieu.fluhr@gmail.com>
-> Link: https://lore.kernel.org/all/CAPyJwA_D9qw0T72f8zwM1yKjP+To=maVANbcdsWM7yRmbBxYvw@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Fixes: 8f5b7e2bec1c ("usb: hub: fix detection of high tier USB3 devices behind suspended hubs")
-> Signed-off-by: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-> ---
->   drivers/usb/core/hub.c | 10 +++++++++-
->   1 file changed, 9 insertions(+), 1 deletion(-)
+> [1] v7.2
+> [2] v7.2-percpu-pgtable [a]
+> [3] v7.2-percpu-gpr (This series) (Based on email review, we fixed SDEI to restore x26
+>     instead of corrupting x22, and adjusted this_cpu_write() helpers to
+>     avoid GCC overflow warnings.)
+
+I've folded those changes in for v3, along with a new fix for {8,16}-bit
+operations that we don't seem to exercise today.
+
+> The constraints/workarounds for the per-CPU page-table series were supplied as
+> this Kconfig fragment for all the different runs.
 > 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 3345b3298daf..e1415ad5f908 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -76,6 +76,12 @@
->    */
->   #define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
->   
-> +/*
-> + * Root hubs have no upstream hub whose wake propagation needs to be
-> + * accounted for, but still needs time for USB3 link training to complete.
-> + */
-> +#define USB_SS_ROOT_HUB_U0_WAKE_TIME 120 /* ms */
+> CONFIG_EXPERT=y
+> CONFIG_SMP=y
+> CONFIG_ARM64_4K_PAGES=y
+> CONFIG_ARM64_VA_BITS_48=y
+> CONFIG_ARM64_VA_BITS_39=n
+> CONFIG_ARM64_VA_BITS_52=n
+> CONFIG_ARM64_PA_BITS_48=y
+> CONFIG_ARM64_PA_BITS_52=n
+> CONFIG_UNMAP_KERNEL_AT_EL0=n
+> CONFIG_ARM64_SW_TTBR0_PAN=n
+> CONFIG_KASAN=n
+> 
+> [a] https://lore.kernel.org/all/20260715180455.515692-1-yang@os.amperecomputing.com/
+> 
+> Hence:
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-I'd do minor changes to the original code comment above the first #define,
-and just add the second define right after it
+Thanks; I've folded in your Tested-by for v3 (excluding the new fix).
 
-/*
-  * modified original comment
-  */
-#define USB_SS_PORT_U0_WAKE_TIME	200  /* ms */
-#define USB_SS_RH_PORT_U0_WAKE_TIME	120  /* ms */
+I'll go run some build tests and send that out.
 
-Thanks
-Mathias
+Mark.
