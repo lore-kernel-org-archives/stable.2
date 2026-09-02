@@ -1,160 +1,172 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A4340B109;
-	Wed,  2 Sep 2026 21:32:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F373A2540
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 21:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384782; cv=none; b=qtj5reBtdNQr55i+eZFlRyCQfg454cUB/XlpifHznMppYUSZ66urDqAYxT4jMzkQkU9MB74h86xsUK1Dr4NSfE8gxtfycsIuHrEQy5DRv65vtEaW3my0NKVRFjJrtEyw8EWUqAyN7Tj6QvAsc8vQPQAj9+eiD8wegMKTJZNJFmo=
+	t=1788384944; cv=none; b=KmIKNdt5kgqZLM3Td7FBxKSOUbO5EW9KKfntKpGl1v5ExXEMrQy/UXkN4Q6uH3LyB9VvKPkjaXcszUkGf/NCif8okVLze6N+s92eEuuQbdCi/BoG7RPpfXudtE1yRYe5k5ywICzGw/rNANRzwwiWxwKyFmM8x/A1h/gMY6fAxgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384782; c=relaxed/simple;
-	bh=YGH1Ioh0ywu4lRS+2zrKgxDnoG6RSJuXVK6HKFvt+Ik=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=mCet7jsvhs2L6eT3NKoMRPgsxQojO3+4B2K+AyPtXLOQ1o/j+KAE8hGsC5P1d2+EnKAjozS7HIyIML2DRHz1UjdnCmgbjr+z4r9OWBnp2IPP/56nnGxg3Y3alrcAIds2p/UfhH7CEdjB50RHY9TdY92DJ1DRBtYz0mk1HA3e8+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iqr4wwWl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iKr+ULtR; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iqr4wwWl";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iKr+ULtR"
-Date: Wed, 02 Sep 2026 21:32:43 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788384765;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VnlC/t+34BpM7Zt4ETcDf9AAQOZrvQbhNMwegBYPVQ8=;
-	b=iqr4wwWlojyYyokrw2wVXKe/YAWErgGppvxhR27rBIXLUtY/m+ib6q1VkCbAcawjPedwwZ
-	AP4llk9F4+jBtjtTU/2tdWbrCQEwCabWLiLnOK8+XAvlJxS1WYWCAC5hfgcaUxBKVnbl0X
-	1MSZFYGbu1XG/f2AilXZxYXy2/p86vGeEkIZc2+pXFo5/v9gCSw69qbUrvObOITD1cyZ19
-	TrWlGP3XgEys7EqGWB7+eihQzCFD3yoeQITimf013xWsuCjf++2JXUulYnW2+HXxMczTxm
-	D9PfcsoMGEta3oDoZjgEi4Mb+GdWgV3OjGENGOLaWbpo1M2Ox1f5R0OL9YmDJw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788384765;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=VnlC/t+34BpM7Zt4ETcDf9AAQOZrvQbhNMwegBYPVQ8=;
-	b=iKr+ULtR/0p/814rUM64l6orLNujHOGGarpll9HQtq82dUwymvPJKwS6S/n/nP9TP+2cQx
-	QzujsIxIUnUxqdBw==
-From: "tip-bot2 for Jason Andryuk" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/amd_node: Prevent potential NULL pointer dereference
-Cc: Jason Andryuk <jason.andryuk@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Yazen Ghannam <yazen.ghannam@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260825214805.39148-3-jason.andryuk@amd.com>
-References: <20260825214805.39148-3-jason.andryuk@amd.com>
+	s=arc-20240116; t=1788384944; c=relaxed/simple;
+	bh=EnjATsekwhf3qDkZL0ud7uYf+nkGtIj7ulGZr82BrKE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=QB+y0HERacERfIACdWtYgDN1Rv+KXG8utVpwDFvWjdOoqWR+ualpMO7P7o9Qa26hJohwcngKw/v0LVHl9EzM/Q4PyVQVqJgPuc3VVHZD7Y9QNWrr6RC479z5MyLOIdvZ8RNiBG2HAaYSJi60Gh6RgfIyfv4aTBwM97cG9odGv5U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-46abf222dc3so197917fac.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 14:35:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788384938; x=1788989738;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Z/JGNWxV8bK25k1HiaGt3SwTKzs4RSXT7cEloNky6KY=;
+        b=NIysPgXMVyzvvfY5ANggHWg7TsjjBYaC8hGg3M3b0KRwk2vH+tATaNSw4PYY98xilx
+         Jil5ybFIJSNmIQkPdpOLvt7T4Z/DTNbBLUS35m7ZPLiZsWuHtFb8ClwlBoYzq+iNsRey
+         G6+KR69VGC7nu4l/XU4GMLixNoU1+kgDGHqIPN+1P72lQWmycTjyqhuRZ1sS/pJK5lsu
+         /yyDeNjqu7vK/3EUH3ljnlGGFeuaWuMRD6/2ry5wZcXWePNnHX208Oegl4oIqyJCYFk6
+         AV1UVQnsulbDc6aVtLNRKNpbVdRUDxyiVfEYlbln3WbDUbYsmwq2QwW01ylSBTga7tXk
+         ClZg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1I9cTBhKhhnW36n50bAbVccXPvuo3zND2MqRAxNVkBiOAjGxJhuMHruDfXzS1wzROMrGkalg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9D1BbzqcoBpv9IEFZD7WaQs/sDiyC2VHnQcTTyLumqX+tA3KL
+	eSrkHY758QVyhYmVqWzy87w7IUOeQWVsbvOfopWx2K+/22RI0vSqyto+4siEELvNj9mIHOCEJ+T
+	i7IR4MRRvsEERWH1ymRRg5wEOAm6xeGZiIcTQOuuzcqF3R+IJ+3vBJxGkhHg=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178838476395.3717435.3758438069102522441.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6820:81ce:b0:6b3:60cc:6add with SMTP id
+ 006d021491bc7-6b47dabc8f0mr6234814eaf.13.1788384938263; Wed, 02 Sep 2026
+ 14:35:38 -0700 (PDT)
+Date: Wed, 02 Sep 2026 14:35:38 -0700
+In-Reply-To: <6a87853b.ae6ddae5.3da009.0023.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9896aa.e163c37b.143a1.000d.GAE@google.com>
+Subject: Re: [syzbot] [mm?] WARNING in vma_set_pgoff
+From: syzbot <syzbot+f12658786a4153df5113@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, jannh@google.com, kunwu.chan@gmail.com, 
+	kunwu.chan@linux.dev, liam@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mm@kvack.org, lixinhai.lxh@gmail.com, ljs@kernel.org, pfalcato@suse.de, 
+	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The following commit has been merged into the x86/urgent branch of tip:
+syzbot has found a reproducer for the following issue on:
 
-Commit-ID:     60714fb1d494e11d1eb54b0aef45e250c51279a8
-Gitweb:        https://git.kernel.org/tip/60714fb1d494e11d1eb54b0aef45e250c51=
-279a8
-Author:        Jason Andryuk <jason.andryuk@amd.com>
-AuthorDate:    Tue, 25 Aug 2026 17:48:03 -04:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Wed, 02 Sep 2026 13:52:15 -07:00
+HEAD commit:    89a312991dc6 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=101ab0f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=f12658786a4153df5113
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=151ec39e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1761ef79580000
 
-x86/amd_node: Prevent potential NULL pointer dereference
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/9e57f69218a4/disk-89a31299.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/c6ae7c71d018/vmlinux-89a31299.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/82fb8eee8abf/bzImage-89a31299.xz
 
-amd_smn_read/write() are exported functions around __amd_smn_rw(), so
-they are always available even if amd_smn_init() fails. In that case,
-amd_roots is NULL and __amd_smn_rw() will access uninitialized memory.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
 
-Then, commit
+------------[ cut here ]------------
+pgoff != vma->vm_start >> 12
+WARNING: mm/vma.h:277 at assert_sane_pgoff mm/vma.h:277 [inline], CPU#1: syz.0.17/5876
+WARNING: mm/vma.h:277 at vma_set_pgoff+0x246/0x2d0 mm/vma.h:283, CPU#1: syz.0.17/5876
+Modules linked in:
+CPU: 1 UID: 0 PID: 5876 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:assert_sane_pgoff mm/vma.h:277 [inline]
+RIP: 0010:vma_set_pgoff+0x246/0x2d0 mm/vma.h:283
+Code: 0b 90 e9 d5 fe ff ff e8 d8 99 9f ff 4c 89 f7 e8 30 09 00 ff c6 05 5d 78 3b 0e 01 90 0f 0b 90 e9 fe fe ff ff e8 bb 99 9f ff 90 <0f> 0b 90 eb 9d 44 89 f9 80 e1 07 80 c1 03 38 c1 0f 8c eb fd ff ff
+RSP: 0018:ffffc900032af448 EFLAGS: 00010293
+RAX: ffffffff82282165 RBX: 0000000000080004 RCX: ffff8880124c8000
+RDX: 0000000000000000 RSI: 0000000000080ffe RDI: 0000000000080004
+RBP: 0000000000000007 R08: ffff8880734021c3 R09: 1ffff1100e680438
+R10: dffffc0000000000 R11: ffffed100e680439 R12: 0000000000000001
+R13: dffffc0000000000 R14: ffff888073402140 R15: 0000000000080ffe
+FS:  0000000000000000(0000) GS:ffff888124dda000(0063) knlGS:00000000576bb480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7203200 CR3: 0000000079238000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ vma_add_pgoff+0x1a8/0x570 mm/vma.h:314
+ __split_vma+0x89e/0xa60 mm/vma.c:607
+ vms_gather_munmap_vmas+0x322/0x1370 mm/vma.c:1507
+ do_vmi_align_munmap+0x2b4/0x4b0 mm/vma.c:1675
+ do_vmi_munmap+0x252/0x2d0 mm/vma.c:1732
+ shrink_vma mm/mremap.c:1421 [inline]
+ mremap_at+0x233/0xba0 mm/mremap.c:1652
+ do_mremap mm/mremap.c:2008 [inline]
+ __do_sys_mremap mm/mremap.c:2064 [inline]
+ __se_sys_mremap+0xf9f/0x12d0 mm/mremap.c:2032
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7ff70ec
+Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
+RSP: 002b:00000000ff97fafc EFLAGS: 00000206 ORIG_RAX: 00000000000000a3
+RAX: ffffffffffffffda RBX: 0000000080ffd000 RCX: 0000000000002000
+RDX: 0000000000001000 RSI: 0000000000000000 RDI: 0000000080ffe000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	90                   	nop
+   1:	85 d2                	test   %edx,%edx
+   3:	74 0a                	je     0xf
+   5:	89 ce                	mov    %ecx,%esi
+   7:	81 e6 ff 0f 00 00    	and    $0xfff,%esi
+   d:	89 32                	mov    %esi,(%rdx)
+   f:	85 c0                	test   %eax,%eax
+  11:	74 05                	je     0x18
+  13:	c1 e9 0c             	shr    $0xc,%ecx
+  16:	89 08                	mov    %ecx,(%rax)
+  18:	31 c0                	xor    %eax,%eax
+  1a:	5e                   	pop    %rsi
+  1b:	5d                   	pop    %rbp
+  1c:	c3                   	ret
+  1d:	90                   	nop
+  1e:	0f 1f 00             	nopl   (%rax)
+  21:	51                   	push   %rcx
+  22:	52                   	push   %rdx
+  23:	55                   	push   %rbp
+  24:	89 e5                	mov    %esp,%ebp
+  26:	0f 34                	sysenter
+  28:	cd 80                	int    $0x80
+* 2a:	5d                   	pop    %rbp <-- trapping instruction
+  2b:	5a                   	pop    %rdx
+  2c:	59                   	pop    %rcx
+  2d:	c3                   	ret
+  2e:	90                   	nop
+  2f:	90                   	nop
+  30:	90                   	nop
+  31:	90                   	nop
+  32:	90                   	nop
+  33:	90                   	nop
+  34:	90                   	nop
+  35:	90                   	nop
+  36:	90                   	nop
+  37:	90                   	nop
+  38:	90                   	nop
+  39:	90                   	nop
+  3a:	90                   	nop
+  3b:	90                   	nop
+  3c:	90                   	nop
+  3d:	90                   	nop
+  3e:	58                   	pop    %rax
+  3f:	b8                   	.byte 0xb8
 
-  83518453074d ("x86/amd_node: Add SMN offsets to exclusive region access")
 
-added smn_exclusive which indicated the calls to
-pci_request_config_region_exclusive() succeeded to prevent concurrent
-userspace access.
-
-Commit
-
-  0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
-
-re-ordered initialization so pci_request_config_region_exclusive() is called
-earlier and a failure exits amd_smn_init() before allocating amd_roots.
-Setting smn_exclusive moved to the end of amd_smn_init(), after amd_roots is
-allocated. It became redundant and can be removed.
-
-Replace smn_exclusive with directly checking amd_roots to avoid a potential
-NULL pointer dereference.
-
-  [ bp: Reorg commit message, touchup comment. ]
-
-Fixes: 77466b798d59 ("x86/amd_node: Remove dependency on AMD_NB")
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Reviewed-by: Yazen Ghannam <yazen.ghannam@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260825214805.39148-3-jason.andryuk@amd.com
 ---
- arch/x86/kernel/amd_node.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 408b9fd..7625857 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -38,7 +38,6 @@ static struct pci_dev **amd_roots;
-=20
- /* Protect the PCI config register pairs used for SMN. */
- static DEFINE_MUTEX(smn_mutex);
--static bool smn_exclusive;
-=20
- #define SMN_INDEX_OFFSET	0x60
- #define SMN_DATA_OFFSET		0x64
-@@ -91,11 +90,16 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32=
- address, u32 *value, b
- 	if (node >=3D amd_num_nodes())
- 		return err;
-=20
--	root =3D amd_roots[node];
--	if (!root)
-+	/*
-+	 * Uninitialized amd_roots indicates pci_request_config_region_exclusive()
-+	 * didn't run or failed and thus the kernel cannot rely on having
-+	 * exclusive access to SMN registers so prevent that.
-+	 */
-+	if (!amd_roots)
- 		return err;
-=20
--	if (!smn_exclusive)
-+	root =3D amd_roots[node];
-+	if (!root)
- 		return err;
-=20
- 	guard(mutex)(&smn_mutex);
-@@ -313,8 +317,6 @@ static int __init amd_smn_init(void)
- 		debugfs_create_file("value",	0600, debugfs_dir, NULL, &smn_value_fops);
- 	}
-=20
--	smn_exclusive =3D true;
--
- 	return 0;
- }
-=20
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
