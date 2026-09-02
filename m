@@ -1,113 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-73.mta1.migadu.com [95.215.58.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9C54766A6;
-	Wed,  2 Sep 2026 11:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B19A47A899
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 11:46:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349369; cv=none; b=RoP96BlfsDxlWv4d7v7vIcSmQFSPRhjWI5TP4fIC38Apsi8tiTAFKK0SdlN0cAxt6KfrqTSvKfbSvf05toOujNxBb2Czg1D8pEbw1xVMG9aKXmYnf9amjd78d3Fp6UvC5Y9LT472ggTEkioP/6IJl7o6m4yAzo6jz3LvovuWBiI=
+	t=1788349587; cv=none; b=eRgAiz6kc2aYihUGqJvXx8NYm6NGMWNngtZlP8wh9p+OSGhaRDcJo098Eiu0pUno0Ub7qFAp+d82KjXwuSsZoLdZMxy9LJF0xaeWAXONYSFgqGFGWcuNlEP3WoEdJNMtVb34SljqDWtw3Q+7Gh/GBoFWj+Go7DsQfrzImfaEkAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349369; c=relaxed/simple;
-	bh=cOhOX6uZKlbmXxScLPKfL/HWlAEx46ZVmWRg4qmf85s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k+lN112ikLwvuhfsC4kND/waHznm6X/ZDnN+p/zrPX3O7nbko/ukSM3F6fBWOroCR/JETXGjaDddSQUZaqdZ5PMEpbRg9R9UfbsGoDIssdGzHyfjqarnNW6k2PO8oIr5zknLOzYmd2xR53qor6O1KP82nqhcj0jNfRgOxJCf6KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFtbLdlB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788349587; c=relaxed/simple;
+	bh=wWMAcNmrAmsZ+u6qURkfvNyJUvvkqHqQ8/i9M/fpIzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DejF9MWbVwvwmwOT3j5dl3y2mSH03eAkjA6RKYBhQTGT4JIa9DArUk91rJQE+p3lRUoWqeupRdHYw7bpWL+UXXBXhs3mTtmCCfKsHyhozsMobGthpPfj4Z5+EDLDRJYUqIa7wBn8ZAXMysRwfx7ewvQLdw064Wy0OoWP4rUf4vY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q91snjZY; arc=none smtp.client-ip=95.215.58.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFtbLdlB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A051F000E9;
-	Wed,  2 Sep 2026 11:42:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788349367;
-	bh=cFFPJ4hUOzzDlJRQ41DwpLzXzqerXelk+5anGyTnowc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UFtbLdlBlM7WFQSqLSMx8+G0ECZNG+Be0uAM9IlweuG2hYWsKyA4j+qR0N/5Bby7z
-	 HLgCBNH5fVk4VklCspvFJi1JsBmwiVhP4kvM5E0+9XDmwJlMzYz6lpe6b7hwzYvGJ9
-	 bzNjDnk2CRifv45QmtsHP2sqQA4ZDtyQXWq+kog4CMq1IZ0socfUmOYcdAliw8fcaU
-	 DQpxB6gv+l2RY1T9seDTbDH2gLKEK76ZnQK/g937Tvyg7Ev4BjorPNQQeZ5MZ2Udg1
-	 gMQwr1FXxk6SmJyGqA8Ig9p1qhN7DQbHk9oRHk8NzbAXdOt6Ac/PNOYnP0y98Q7JSC
-	 mVo2Dpbs5duFQ==
-Date: Wed, 2 Sep 2026 19:42:36 +0800
-From: Gao Xiang <xiang@kernel.org>
-To: Greg KH <greg@kroah.com>
-Cc: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
-Message-ID: <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
-Mail-Followup-To: Greg KH <greg@kroah.com>,
-	Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
-	chao@kernel.org, linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
- <2026090256-impart-headstand-7d29@gregkh>
- <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
- <2026090249-rework-vividly-5abb@gregkh>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q91snjZY"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wWMAcNmrAmsZ+u6qURkfvNyJUvvkqHqQ8/i9M/fpIzU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788349578; v=1; x=1788954378;
+ b=q91snjZY3waE9GdJpAKriw9pR+9Z8JJtkTRxrSlEJUEfC1cK3gCEhPmlDboaRXVdLkhnRoUS
+ Ifjbth7fncOxxaekV+kbUW5N+JFBUcqw2p+z2ECroW6EhHLWGCtdmGzg6vMQh32BBgUrZ8VP8zg
+ dZgwRR+exOqk3AJQ/2RGdIpk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5cf6b654d3c87d5;
+	Wed, 02 Sep 2026 11:46:17 +0000
+X-Mizu-Trace-ID: b5cf6b654d3c87d5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4a941947-04c5-4be8-9d69-3c131775d307@linux.dev>
+Date: Wed, 2 Sep 2026 19:46:08 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2026090249-rework-vividly-5abb@gregkh>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: errata: pass REVIDR when matching target
+ implementation CPUs
+To: Khushit Shah <khushit.shah@nutanix.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Shameer Kolothum <skolothumtho@nvidia.com>, Oliver Upton
+ <oupton@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260831105444.4065831-1-khushit.shah@nutanix.com>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260831105444.4065831-1-khushit.shah@nutanix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
-> On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
-> > Hi Greg,
-> > 
-> > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
-> > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
-> > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
-> > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
-> > > > 
-> > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
-> > > > Cc: <stable@vger.kernel.org> # 6.4+
-> > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
-> > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-> > > > ---
-> > > > changes since v2:
-> > > > - add Reviewed-by tag (Gao Xiang)
-> > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
-> > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
-> > > > ---
-> > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
-> > > >  fs/erofs/sysfs.c                         | 2 ++
-> > > >  2 files changed, 3 insertions(+), 1 deletion(-)
-> > > 
-> > > Why is adding a new feature a stable thing?
-> > 
-> > It's not a new feature (Also, this patch has 3 lines diff):
-> > This is a bugfix to address the missing part of
-> > commit 6a318ccd7e08 ("erofs: enable long extended
-> > attribute name prefixes"") since every on-disk features
-> > should be shown in `/sys/fs/erofs/features/*` according to
-> > the definition of:
-> > 
-> > What:           /sys/fs/erofs/features/
-> > Date:           November 2021
-> > Contact:        "Huang Jianan" <huangjianan@oppo.com>
-> > Description:    Shows all enabled kernel features.
-> > ...
-> > 
-> > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
-> > to indicate this feature is supported since Linux 6.4+
+On 8/31/26 6:54 PM, Khushit Shah wrote:
+> When target implementation CPUs are provided, is_affected_midr_range()
+> accidentally passed the MIDR as both arguments to __is_affected_midr_range(),
+> so the REVIDR mask check operated on the wrong register.
 > 
-> Ok, but as this has not been present for a very long time, did anyone
-> even notice and need this now in stable kernels?  :)
+> Pass REVIDR as intended.
+> 
+> Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on implementation CPUs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Khushit Shah <khushit.shah@nutanix.com>
+> ---
+>  arch/arm64/kernel/cpu_errata.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
+> index 5db8f0619e4b..b33dccfafaf8 100644
+> --- a/arch/arm64/kernel/cpu_errata.c
+> +++ b/arch/arm64/kernel/cpu_errata.c
+> @@ -82,7 +82,7 @@ is_affected_midr_range(const struct arm64_cpu_capabilities *entry, int scope)
+>  
+>  	for (i = 0; i < target_impl_cpu_num; i++) {
+>  		if (__is_affected_midr_range(entry, target_impl_cpus[i].midr,
+> -					     target_impl_cpus[i].midr))
+> +					     target_impl_cpus[i].revidr))
+>  			return true;
+>  	}
+>  	return false;
 
-I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
-anymore).
-
-Also it would be better to port this into stable kernels so
-that users can get the supported on-disk features in a more
-unique obvious way.
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
 Thanks,
-Gao Xiang
-
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Zenghui
