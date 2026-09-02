@@ -1,105 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E13E5ED0;
-	Wed,  2 Sep 2026 08:32:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5223769EC;
+	Wed,  2 Sep 2026 08:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337958; cv=none; b=Z+z3TEUVVV6H7ajT0KdEHwU4hMSZCvuJzkLcfR6V4i9peQDQhoKNRU7NQ1Shvzn8IvrF1mF6al19ZnU0gmSTIZX6Q3U1EAFn2Ym9zhIRJCCHVNnrbfDmHf6tZPjP4uKDpNoymanObJbT9KRQeKrWftCEi3O0hYFI6I/X9sb/SF4=
+	t=1788338317; cv=none; b=cJ36xMJA5DF+SzFv7YmA7pgI1nb7UaQ5hRuqg/irgIl83YXSxY5gNkMFBkD2oIZKm5nuTSm82G25/Y7HYhdgCWzPtC+xSp8rwIwMCB1ZeOXI6nuhQjKt8aKFiDMmylpQsBFfvIl+g+yBZxLlpCUQwSb85yy1Tn6Jy2WScNxwDh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337958; c=relaxed/simple;
-	bh=v8SX+7Xz1Vg96SIXVTeAC580QaT32ORmc9kJCxv3UHA=;
+	s=arc-20240116; t=1788338317; c=relaxed/simple;
+	bh=lPJYlzyokiTQSjXVgfakt3zZOMcexHQ+9rv8f9bKPkI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R22IobqFSk+P43NrLMorRE1WiqOatWsHfy5EPfnHDiPIn3PxViNPhAxmU/vs3GXsnReQMyDzKseoFP1HpEcPOHNJrDSvWBeuVFCGSIGq6/Iiw0o4d4E0d7rvvsTmal0fyz3cRfsdl1wiWzUbqa888OaNQli3wICrofr+m+wwnyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKBt61I5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=S9CINyAdfi/PV6qspvs/j/XUKsO+KdwqjUhoQupsfdHQ4ji0zphp3Ner5In4xvCg1mIaAO95ldDuzkJ5IcmVzAbU1mFcjQjRL4ppNKIXmoDdR8g21qknNBwzPOKQCTna6ueBlOkspHOUj3JCFbZJxYrVwyhMKb5yechL5A4xePA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=IrNGfo1m; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKBt61I5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709E51F000E9;
-	Wed,  2 Sep 2026 08:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788337957;
-	bh=vWDDEcxiq+pbUWv2xdfE/x6aKmTVnkF0HDOEaUnPgXI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gKBt61I5bi9P27zyhPIIrWp6N0m7CFr036R594pa7RGBi7ZlNGSVOr3n9nOZ5mUwN
-	 akqqrf6CXbyO5WpiAu9yvzpKy53aSwBOO2RulejrbqfKcn3P299pw4leeH7CpGU7BG
-	 5ugV99icLeYn/feBQSZrnmZmPK5DnwxJ9HGDsitlk5fgmrw7Hc6mNLdzzLFn8wmsE1
-	 oeVteVH4FyMx3g5Bz7JAeTH9n0IrbVr6wHuPgJp3HvkLa75xEW6/qi0Z0FpzNJDh5o
-	 tfur7kbFX6bf67gFD8J6VllKCpEPZh0a0MArFsaVCRah3lxU/CnBplGwVhekvJra82
-	 LsHPul6ggtTog==
-Date: Wed, 2 Sep 2026 11:32:32 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902083232.GT24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="IrNGfo1m"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=IUGtGzF98psluIMwFKKhWZ1F2aTDu/oFCty2F4RSaRc=; 
+	b=IrNGfo1msBTd2jJSmtp6stKWgZPmtFNohA21TwwxaLT06/OMEH5Nz/liCs95wvhXyjXnM0zrRHi
+	14t2qAjv3b1o74RNHx4CHsQXt0P+pmqdA+cKksMIHpFM8JjU9H+2VFczthuZmlrEV2rl/QOOCiZ3t
+	VJD2En1G9lJihZ8isAEoRtj9xPAU03G74NPuM2EE/7ubO5Rt2BdlFBluXwxotvOIaJoCVhRu3Gv4N
+	82hZ+q/1rUBqontM+XFgWOQYlP7skUB3+8KfbUliswb7ok3D7kb8+2qSssX9Wy8YOiwDPUplRzOyo
+	hbcu2rzafGHt/GSk+y9yRxdtCfTkaylK6uLA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x1gUH-0000000A14t-0vh0;
+	Wed, 02 Sep 2026 16:38:30 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 02 Sep 2026 18:38:29 +1000
+Date: Wed, 2 Sep 2026 18:38:29 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+	x86@kernel.org, stable@vger.kernel.org,
+	Taehee Yoo <ap420073@gmail.com>
+Subject: Re: [PATCH RESEND] crypto: x86/aria - add missing vzeroupper in AVX2
+ code
+Message-ID: <apfghSk4CWshYcUF@gondor.apana.org.au>
+References: <20260831211715.213121-1-ebiggers@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+In-Reply-To: <20260831211715.213121-1-ebiggers@kernel.org>
 
-On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> On 9/2/26 09:39, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >> On 9/1/26 19:08, David Hu wrote:
-> >>> From: David Hu <xuehaohu@google.com>
-> >>>
-> >>> This series address two related issues in scatter-gather mapping,
-> >>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>
-> >>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>> phys vec to sgt)
-> >>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>
-> >>> Patch 2 Splits sgl by largest page aligned chunk
-> >>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>
-> >> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> > 
-> > And this is why so many in the kernel community want to get rid of SG
-> > lists. It would be great if DMA-BUF could also eliminate the need to
-> > convert to an SGL, like Jason proposed.
-> > 
-> > The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> > which is the one that depends on it.
+On Mon, Aug 31, 2026 at 02:17:15PM -0700, Eric Biggers wrote:
+> Since the AVX2 optimized ARIA code uses YMM registers, execute
+> vzeroupper before returning from it.  This is needed to avoid degrading
+> the performance of any later SSE code that may happen to be executed.
 > 
-> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
+> Fixes: 37d8d3ae7a58 ("crypto: x86/aria - implement aria-avx2")
+> Cc: stable@vger.kernel.org
+> Cc: Taehee Yoo <ap420073@gmail.com>
+> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> ---
+> 
+> This didn't get picked up by the x86 maintainers yet.  Herbert, can you
+> take this through the crypto tree?
 
-You are proposing the same thing as an SGL, just in a different format.
-It does not address the issue that dma_addr_t is expected to hold a DMA
-address, while that is not always the case. For example, in the P2P case,
-the addresses are not DMA addresses.
+OK I could do that.  I presume you want this to go into 7.3, right?
 
-Jason's proposal:
-https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
-
-Thanks
-
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Thanks
-> 
-> 
+Cheers,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
