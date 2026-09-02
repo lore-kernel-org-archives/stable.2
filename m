@@ -1,46 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B5D3F6C2F;
-	Wed,  2 Sep 2026 22:14:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65694428463
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 22:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387269; cv=none; b=P7koePQ9p2Ev0jFlc+9+VlZ5myvZEUzAPl0BM0cn8mJA7b9/aCddOQScDiY3cjnsKmhogB48P64/sAOO6uw9LWh3MFxHXY4O3xLLlqvwXOCdyJ6Z1lf6RwMMlodAH+agzeuVRG9yScrtYM7psAMXGLkhJ7Fq7qtS2HXU0HRdc9Y=
+	t=1788387269; cv=none; b=dWRH+U+KKRkco+nBEF9o24hx53VXn6eac70nhQ+uHeLWVhR0ROLPvHKkwp/7XlQvgE2LQlPd04zjGgsilR5YVxVxNKCDU4qU/bZ1WsXCJC7TXhMmfhIbXvukk6rURkbnBEzM11FqR6807exEkDsC79glP1sE0DlDAYl/Df802Lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788387269; c=relaxed/simple;
-	bh=RnG8kUG7Oqu71fkL3nTnWt+1u7TQOetlVcg1xnccfsc=;
+	bh=CXGzpUIxcmvQXH1k5OgVgz6HfovhIr/abcXS19mcn3M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i+ZZAVj0nkJyu+YWQRqhacYcPZzv9gxnewIHXy7i0CeBPvtGHpje/A/GAzf2iXT9JGViewZDP3lKIJ11F5FZZd/+hxICCzbIChxzevwt0knAlWTSo5kxt4EqYR2dzkmMMAwGgRPuN2IS3HkgwHJV7zZ13p4CrMPdLrtbphcoiLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJTkrqN2; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZoObdQSxBEHLYrkzdG5EWYEX0O49qH4DHpaCSUzYEFBGWh7JUP4uQ1Jyl+xk2he5EXj5KeOlnW1VHNwdWGny7uLuvaCrIUNM4F1ClAZVsieQy2xEraWxO3Mn458xfLc+G49qZf+Mk4BK7UKO4pPIAY/V/qyO/qERv/9yCM3zk0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVmz8qdm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJTkrqN2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EEF81F00A3F;
-	Wed,  2 Sep 2026 22:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVmz8qdm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A53921F00A3E;
+	Wed,  2 Sep 2026 22:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788387263;
-	bh=4l0D0V2WOZ2tV5AKqiWhOBnE2LVrqUhLGOOmYcmG+RU=;
+	s=k20260515; t=1788387264;
+	bh=LytUEMbNrozrHwVFLHv8pXINt2Kt+sy84mdvwXFQli4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iJTkrqN2qBZ6Sd55gEJrWZgobXF0lyqYEk4Z0alU4S2BsEmvuxUuzPrEcvGSiB/IV
-	 XJ7OEZu7mbbsFSCpNXit1cU/gqGvqOIrAgRI8iAN2aSB2pQyJjVGDIXNACGYLM1UIz
-	 nuZcmPaoWiQtPJfyqJlW6evgYdhQ0RIlilZK33j3iwWgqvRkJ3hso68YQ7N0M/nBiP
-	 FcS+9leaM5G50O5m/tfvWMrrKPJ8njfr5jo+ZR66wO4phbBIlyTCu2k1XjpE6PbGD4
-	 frh/9U+QTDx2kWKbdcU1z2A336W7gfOoIK0dUqIuiMAfigF4cNA2qpIVQv49Vm7yaP
-	 cnQihYvZSy6JQ==
+	b=SVmz8qdmqp26r3Y4MAzMAsjqAZvmQZBh9m79DRnypZ4MZjnzwfnUHpjtPGDGr1L4V
+	 X0V6jJadFCTWhK6AP97zrRb3FGZPQ92MZZVLZGJFz/99QFrcfQv+IK8ZgARSrEUpHh
+	 QM5W99EGTkDQAxlXKABdR+x23lqa1yqUwUxcs0w/wdaThft3AajeX1YP/WAq9hPPSa
+	 AXiMVzC/sBusETpTi2SKOscSH3Teb7zvr4gwIa/QIIs4YMvkzY/b/vocUQqFzMzha4
+	 F5+3Ck8e6euBbsZv3+JushS4nMHMCC/BH8jMkxY91fh538sQMz+JYutkeI1vW04saO
+	 nYQMi26KPC+mg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	Boris Burkov <boris@bur.io>,
-	David Sterba <dsterba@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	Chris Mason <clm@fb.com>,
-	Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: Re: [PATCH 7.2.y] btrfs: write-protect folios during data writeback
-Date: Wed,  2 Sep 2026 18:14:02 -0400
-Message-ID: <20260902-daily-reply-0003-btrfs-writeprotect-7-2@kernel.org>
+	Jerry Zuo <jerry.zuo@amd.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Sun peng Li <sunpeng.li@amd.com>,
+	Wayne Lin <wayne.lin@amd.com>,
+	Dan Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>
+Subject: Re: [PATCH 7.2.y 1/2] drm/amd/display: hide Apple Studio Display secondary tile
+Date: Wed,  2 Sep 2026 18:14:03 -0400
+Message-ID: <20260902-daily-reply-0004-apple-studio-display-7-2@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260901030945.738683-1-matthew.schwartz@linux.dev>
-References: <20260901030945.738683-1-matthew.schwartz@linux.dev>
+In-Reply-To: <20260901150222.2671040-1-mario.limonciello@amd.com>
+References: <20260901150222.2671040-1-mario.limonciello@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,12 +49,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> From: Boris Burkov <boris@bur.io>
->
-> commit 5376c9db45368eb210b4d71104ac00a59dc8b6e0 upstream.
->
-> commit 095be159f3eb ("btrfs: unify folio dirty flag clearing") replaced
-> the folio_clear_dirty_for_io() call in extent_write_cache_pages() with a
+> The Apple Studio Display exposes a 2x1 tiled panel over two SST DP
+> links. The primary tile advertises the full 5120x2880 mode (with DSC on
+> the bandwidth-sufficient link) while the secondary carries a per-tile
+> 2560x2880 timing on a link without sufficient bandwidth.
 
 Queued for 7.2, thanks.
 
