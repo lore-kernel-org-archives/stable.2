@@ -1,172 +1,340 @@
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F373A2540
-	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 21:35:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCAA24156FD
+	for <stable@vger.kernel.org>; Wed,  2 Sep 2026 21:40:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384944; cv=none; b=KmIKNdt5kgqZLM3Td7FBxKSOUbO5EW9KKfntKpGl1v5ExXEMrQy/UXkN4Q6uH3LyB9VvKPkjaXcszUkGf/NCif8okVLze6N+s92eEuuQbdCi/BoG7RPpfXudtE1yRYe5k5ywICzGw/rNANRzwwiWxwKyFmM8x/A1h/gMY6fAxgk=
+	t=1788385232; cv=none; b=EKr8jbOjbgvC0PMFjQKmaJsrkh1hGE23a+piN8R48+vub3mLuEdnAVhAsXKhz48ev9QpnmFIxstQpzbQiJEDuxeJvhGLGDWjYfE9vp1b3CoFrteJp9pQSSplmaA9DWqIMwT6zX8aEvNOEKV6d80HMOLTmKoqELrA1bbnZXclz/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384944; c=relaxed/simple;
-	bh=EnjATsekwhf3qDkZL0ud7uYf+nkGtIj7ulGZr82BrKE=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=QB+y0HERacERfIACdWtYgDN1Rv+KXG8utVpwDFvWjdOoqWR+ualpMO7P7o9Qa26hJohwcngKw/v0LVHl9EzM/Q4PyVQVqJgPuc3VVHZD7Y9QNWrr6RC479z5MyLOIdvZ8RNiBG2HAaYSJi60Gh6RgfIyfv4aTBwM97cG9odGv5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-46abf222dc3so197917fac.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 14:35:40 -0700 (PDT)
+	s=arc-20240116; t=1788385232; c=relaxed/simple;
+	bh=Dq67t2Rd+hg8V0xvGWnBPE3j+TeyWEEtMdCfDQzDsoE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=f6F3DeFINjubi40cB7Rq9EZGAMJpt/w/q/mej6ng/4L2wRWviHLxz6oJQDgBMSoJ2WQxa4sO+dF+DNjsBMuhDcZoEkwnuTKnhHMWPyvGJYd/Z00K4LaB+ewvuHlJfx1zHhXQdjgglQGSw/hM+UdahB0xi9BHy6T5jOJqFjH0qHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=HCDoZbHy; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="HCDoZbHy"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d032846c95so19766925ad.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 14:40:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788385222; x=1788990022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5fGMF8dux1u/osYh+byEn+SjYk2NnCouch+o/Hv5HJY=;
+        b=HCDoZbHyjiQySQGgJPybwUFqVs9FXhqp0l2ytAaZdEy6pFxasLdQfjq09er/yWTX0K
+         GYPU5t8Olji2HJ23Jk6DRKRwXdr0JUEm3Qw2540zt7pjwfx5CD9/5R1AMswp8xA0dNEx
+         /JhsrGNrITT5lH3IlPyV8QhnyZr1r4sRoELnvLQPE0PqhmgJiswTRz3p1vBnzUuB0VIq
+         OssFytNpPgp1ORlS+wUpZ2nZ3bJBVQFlLIGs9K3MGa/k/YGf+46xIPSDUvaoIWoSneEc
+         z9ZAx7FvkgHPHxP1iKc6ltE8TrQ+1gYwja/BbUnDeN/fIpaAVNAfSZpi520wb3xfDAo5
+         MPew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788384938; x=1788989738;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Z/JGNWxV8bK25k1HiaGt3SwTKzs4RSXT7cEloNky6KY=;
-        b=NIysPgXMVyzvvfY5ANggHWg7TsjjBYaC8hGg3M3b0KRwk2vH+tATaNSw4PYY98xilx
-         Jil5ybFIJSNmIQkPdpOLvt7T4Z/DTNbBLUS35m7ZPLiZsWuHtFb8ClwlBoYzq+iNsRey
-         G6+KR69VGC7nu4l/XU4GMLixNoU1+kgDGHqIPN+1P72lQWmycTjyqhuRZ1sS/pJK5lsu
-         /yyDeNjqu7vK/3EUH3ljnlGGFeuaWuMRD6/2ry5wZcXWePNnHX208Oegl4oIqyJCYFk6
-         AV1UVQnsulbDc6aVtLNRKNpbVdRUDxyiVfEYlbln3WbDUbYsmwq2QwW01ylSBTga7tXk
-         ClZg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1I9cTBhKhhnW36n50bAbVccXPvuo3zND2MqRAxNVkBiOAjGxJhuMHruDfXzS1wzROMrGkalg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9D1BbzqcoBpv9IEFZD7WaQs/sDiyC2VHnQcTTyLumqX+tA3KL
-	eSrkHY758QVyhYmVqWzy87w7IUOeQWVsbvOfopWx2K+/22RI0vSqyto+4siEELvNj9mIHOCEJ+T
-	i7IR4MRRvsEERWH1ymRRg5wEOAm6xeGZiIcTQOuuzcqF3R+IJ+3vBJxGkhHg=
+        d=1e100.net; s=20251104; t=1788385222; x=1788990022;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5fGMF8dux1u/osYh+byEn+SjYk2NnCouch+o/Hv5HJY=;
+        b=lXEeuUoCAWksrWXl0Meh/pDLe+yENwIfkPu0YtQUzXMZq/+McvuVh5okessMkKBAX4
+         4nZOxc4n1afVkgY5OL6EiO6wVDQZ5FPa5i+pcKmKBANEHNgoqguRB/O3FN9LZt1ftDTE
+         eoiFEIjMjgLiclqrcAaTmQD29CdAIz05m/gkI6ZHrl+Lotwi1uKltlUacBvhMv1Zawnh
+         uvfjRrnrQczRxqwJdRYxjYDoLsFUYwy+lXrbVwy/LsPkmQ/Hx4HJ/LwxCUaY/soZjzjH
+         RaxBHO6akqypehGMm/HEqEAUE+P1kXyLvzJCcWQ7Hi+zrGYXRoz0Sv1hNVLNvcDQykER
+         F3Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPuyK8WMDVQSoruabrD/+UYCtYqYWMvCyFqSuM2/wG41fr08DER/6+oCeZnE59+sBFQvPLdXc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLTgfWdU3BBlMNmavzgbGoptStcIvr+HX2qDhpF9SjUQzpNd2q
+	FyELcFynlRg7LVQ+65lpgw1HDLBiV1O5avk500gsNsWahyk4JVyQYbWVmTIQlXX/QrRg94nb7YE
+	f1udQngU=
+X-Gm-Gg: AYBFou2dSWA1hHO4ssT7FRvLjqL6Vd1DdHkQrXLshGIy/uEZvphO65bXwCMKUYCzQgG
+	FpX38D+X8jrdaGVJfsJEfjOucCfdpEgebpFB+0FmlqNcm2O2uJUKdJoV13kd+jXJPHNhU1SlxZt
+	kRn7euAzoGpA/N6DLmBYhfDxR8xYqBInPxPhHjxVGROkp+wIye2HCxEXFGEjODnfqFHEWTrK9ZW
+	gECFdDKpO1eh+F3fab0iOcgUKwd+tx7dmkGgwDJrNuceLcu4pwhdJtokJSvWVN+v3AnrRSNmlGb
+	kvyhe6BWqFEsZEonBH8xlyCGnSIHuVLtV3mAMrlYRkuo39xU1f1yQo3EECHokAOgskoZ02UBHQg
+	yIgtpWCceZnfTuGxSu6zYI/LkZbmjNsPaMECip29gatZjNpxNK2Hns3VqhnHPNcthg5R3jVTZ8J
+	3OR2os9LxQmv7QO6lzXq9v5X5OpJ48PG8NtAH2p/hS2NkHL958HmfI
+X-Received: by 2002:a17:902:fac7:b0:2d7:203b:9863 with SMTP id d9443c01a7336-2daec5ff49bmr82734015ad.1.1788385221561;
+        Wed, 02 Sep 2026 14:40:21 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:49::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe62d872sm909995ad.23.2026.09.02.14.40.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 14:40:20 -0700 (PDT)
+From: Joe Damato <joe@dama.to>
+To: netdev@vger.kernel.org,
+	Michael Chan <michael.chan@broadcom.com>,
+	Pavan Chebbi <pavan.chebbi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Joe Damato <joe@dama.to>
+Cc: horms@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] bnxt_en: Prevent queue stop with deferred completions
+Date: Wed,  2 Sep 2026 14:39:54 -0700
+Message-ID: <20260902213956.4160615-1-joe@dama.to>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:81ce:b0:6b3:60cc:6add with SMTP id
- 006d021491bc7-6b47dabc8f0mr6234814eaf.13.1788384938263; Wed, 02 Sep 2026
- 14:35:38 -0700 (PDT)
-Date: Wed, 02 Sep 2026 14:35:38 -0700
-In-Reply-To: <6a87853b.ae6ddae5.3da009.0023.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9896aa.e163c37b.143a1.000d.GAE@google.com>
-Subject: Re: [syzbot] [mm?] WARNING in vma_set_pgoff
-From: syzbot <syzbot+f12658786a4153df5113@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, jannh@google.com, kunwu.chan@gmail.com, 
-	kunwu.chan@linux.dev, liam@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mm@kvack.org, lixinhai.lxh@gmail.com, ljs@kernel.org, pfalcato@suse.de, 
-	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+When the driver receives a burst of packets, it can mark a BD with the
+NO_CMPL bit to defer completions. The expectation is that the last
+packet in the ring will have this bit unset and the completion generated
+by that packet will cleanup that packet and the ones preceding it. This
+helps to reduce the number of completions fired.
 
-HEAD commit:    89a312991dc6 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=101ab0f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=f12658786a4153df5113
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=151ec39e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1761ef79580000
+The suppressed completions are controlled by the driver and the number
+of packets with suppressed completions scales with the size of the ring.
+SW USO packets, on the other hand, have an upper bound on the maximum
+number of BDs which can be consumed which does not scale with the ring
+size.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9e57f69218a4/disk-89a31299.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/c6ae7c71d018/vmlinux-89a31299.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/82fb8eee8abf/bzImage-89a31299.xz
+So, for small rings it is possible that: a burst of packets is handed to
+the driver, the driver defers completions for all of the packets because
+the number of free descriptors stays above the threshold in the driver.
+Then, a USO packet arrives, but the number of BDs available is not
+enough and the USO code exits early.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+In this case, you end up in a state where the ring is full of packets
+with their completions suppressed, which can cause the queue to stop and
+never be restarted.
 
-------------[ cut here ]------------
-pgoff != vma->vm_start >> 12
-WARNING: mm/vma.h:277 at assert_sane_pgoff mm/vma.h:277 [inline], CPU#1: syz.0.17/5876
-WARNING: mm/vma.h:277 at vma_set_pgoff+0x246/0x2d0 mm/vma.h:283, CPU#1: syz.0.17/5876
-Modules linked in:
-CPU: 1 UID: 0 PID: 5876 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:assert_sane_pgoff mm/vma.h:277 [inline]
-RIP: 0010:vma_set_pgoff+0x246/0x2d0 mm/vma.h:283
-Code: 0b 90 e9 d5 fe ff ff e8 d8 99 9f ff 4c 89 f7 e8 30 09 00 ff c6 05 5d 78 3b 0e 01 90 0f 0b 90 e9 fe fe ff ff e8 bb 99 9f ff 90 <0f> 0b 90 eb 9d 44 89 f9 80 e1 07 80 c1 03 38 c1 0f 8c eb fd ff ff
-RSP: 0018:ffffc900032af448 EFLAGS: 00010293
-RAX: ffffffff82282165 RBX: 0000000000080004 RCX: ffff8880124c8000
-RDX: 0000000000000000 RSI: 0000000000080ffe RDI: 0000000000080004
-RBP: 0000000000000007 R08: ffff8880734021c3 R09: 1ffff1100e680438
-R10: dffffc0000000000 R11: ffffed100e680439 R12: 0000000000000001
-R13: dffffc0000000000 R14: ffff888073402140 R15: 0000000000080ffe
-FS:  0000000000000000(0000) GS:ffff888124dda000(0063) knlGS:00000000576bb480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7203200 CR3: 0000000079238000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- vma_add_pgoff+0x1a8/0x570 mm/vma.h:314
- __split_vma+0x89e/0xa60 mm/vma.c:607
- vms_gather_munmap_vmas+0x322/0x1370 mm/vma.c:1507
- do_vmi_align_munmap+0x2b4/0x4b0 mm/vma.c:1675
- do_vmi_munmap+0x252/0x2d0 mm/vma.c:1732
- shrink_vma mm/mremap.c:1421 [inline]
- mremap_at+0x233/0xba0 mm/mremap.c:1652
- do_mremap mm/mremap.c:2008 [inline]
- __do_sys_mremap mm/mremap.c:2064 [inline]
- __se_sys_mremap+0xf9f/0x12d0 mm/mremap.c:2032
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x27a/0x6a0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x33/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7ff70ec
-Code: 90 85 d2 74 0a 89 ce 81 e6 ff 0f 00 00 89 32 85 c0 74 05 c1 e9 0c 89 08 31 c0 5e 5d c3 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 58 b8
-RSP: 002b:00000000ff97fafc EFLAGS: 00000206 ORIG_RAX: 00000000000000a3
-RAX: ffffffffffffffda RBX: 0000000080ffd000 RCX: 0000000000002000
-RDX: 0000000000001000 RSI: 0000000000000000 RDI: 0000000080ffe000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	90                   	nop
-   1:	85 d2                	test   %edx,%edx
-   3:	74 0a                	je     0xf
-   5:	89 ce                	mov    %ecx,%esi
-   7:	81 e6 ff 0f 00 00    	and    $0xfff,%esi
-   d:	89 32                	mov    %esi,(%rdx)
-   f:	85 c0                	test   %eax,%eax
-  11:	74 05                	je     0x18
-  13:	c1 e9 0c             	shr    $0xc,%ecx
-  16:	89 08                	mov    %ecx,(%rax)
-  18:	31 c0                	xor    %eax,%eax
-  1a:	5e                   	pop    %rsi
-  1b:	5d                   	pop    %rbp
-  1c:	c3                   	ret
-  1d:	90                   	nop
-  1e:	0f 1f 00             	nopl   (%rax)
-  21:	51                   	push   %rcx
-  22:	52                   	push   %rdx
-  23:	55                   	push   %rbp
-  24:	89 e5                	mov    %esp,%ebp
-  26:	0f 34                	sysenter
-  28:	cd 80                	int    $0x80
-* 2a:	5d                   	pop    %rbp <-- trapping instruction
-  2b:	5a                   	pop    %rdx
-  2c:	59                   	pop    %rcx
-  2d:	c3                   	ret
-  2e:	90                   	nop
-  2f:	90                   	nop
-  30:	90                   	nop
-  31:	90                   	nop
-  32:	90                   	nop
-  33:	90                   	nop
-  34:	90                   	nop
-  35:	90                   	nop
-  36:	90                   	nop
-  37:	90                   	nop
-  38:	90                   	nop
-  39:	90                   	nop
-  3a:	90                   	nop
-  3b:	90                   	nop
-  3c:	90                   	nop
-  3d:	90                   	nop
-  3e:	58                   	pop    %rax
-  3f:	b8                   	.byte 0xb8
+Assuming default CONFIG_MAX_SKB_FRAGS, this is only possible for small
+rings (<= 457 descriptors, below the driver default value) when
+a burst of packets fills the ring, followed by a large USO packet that
+can't fit. For larger rings, the delta between the completion
+suppression threshold and the BDs required for SW USO is large enough
+that completions will fire and this case is unreachable.
 
+This issue was pointed out by Sashiko and while it seems fairly unlikely
+given that the queue size must be small to trigger this, it is indeed
+possible.
 
+Fix this by tracking the last BD which deferred completions and
+centralizing the logic for deciding when to ring the doorbell. The NO_CMPL
+bit is now cleared in bnxt_txr_db_kick(), so every doorbell site is
+covered, including the SW USO early exit. This guarantees the ring always
+ends in a BD which generates a completion to clean it and wake the queue.
+
+Fixes: cc5d90667db8 ("net: bnxt: Implement software USO")
+Cc: <stable@vger.kernel.org> # v7.1+: 4e15e89faac9: net: bnxt: ring the doorbell when SW USO exits early
+Signed-off-by: Joe Damato <joe@dama.to>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+v2:
+  - Add kick_txbd0 to track the BD where completions were most recently
+    deferred.
+  - Update the logic in bnxt_txr_db_kick to clear the NO_CMPL bit if needed.
+  - Remove the open-coded NO_CMPL clear from tx_done in bnxt_start_xmit()
+    and key the flush off txr->kick_pending.
+  - Update the signature of bnxt_sw_udp_gso_xmit to return 1/0/-1 when SW USO
+    transmits, drops, or is busy. This delegates the handling of the doorbell
+    to the caller, cleaning up the code as Jakub Kicinski suggested.
+
+v1: https://lore.kernel.org/all/20260827230233.94878-1-joe@dama.to/
+
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 42 +++++++++++++++----
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h     |  1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c | 21 ++++++----
+ drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h |  6 +--
+ 4 files changed, 48 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index d59bcca73a2b..8c6e2ee6bee4 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -462,6 +462,16 @@ u16 bnxt_xmit_get_cfa_action(struct sk_buff *skb)
+ static void bnxt_txr_db_kick(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
+ 			     u16 prod)
+ {
++	/* If the most recent BD has its completion suppressed, unset the bit
++	 * so that a completion is generated, otherwise nothing is left to
++	 * clean the ring and wake the queue.
++	 */
++	if (txr->kick_txbd0) {
++		txr->kick_txbd0->tx_bd_len_flags_type &=
++			cpu_to_le32(~TX_BD_FLAGS_NO_CMPL);
++		txr->kick_txbd0 = NULL;
++	}
++
+ 	/* Sync BD data before updating doorbell */
+ 	wmb();
+ 	bnxt_db_write(bp, &txr->tx_db, prod);
+@@ -485,7 +495,6 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	struct bnxt_sw_tx_bd *tx_buf;
+ 	__le32 lflags = 0;
+ 	skb_frag_t *frag;
+-	netdev_tx_t ret;
+ 
+ 	i = skb_get_queue_mapping(skb);
+ 	if (unlikely(i >= bp->tx_nr_rings)) {
+@@ -509,11 +518,22 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	if (skb_is_gso(skb) &&
+ 	    (skb_shinfo(skb)->gso_type & SKB_GSO_UDP_L4) &&
+ 	    !(bp->flags & BNXT_FLAG_UDP_GSO_CAP)) {
+-		ret = bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
+-		if (txr->kick_pending)
++		int rc = bnxt_sw_udp_gso_xmit(bp, txr, txq, skb);
++
++		/* if SW USO queued a packet, the doorbell will be written
++		 * below and there is no reason to track the last BD with
++		 * suppressed completions
++		 */
++		if (rc > 0)
++			txr->kick_txbd0 = NULL;
++
++		/* if a packet was queued by SW USO or a doorbell was pending
++		 * from a previous xmit that was deferred, write the doorbell.
++		 */
++		if (rc > 0 || txr->kick_pending)
+ 			bnxt_txr_db_kick(bp, txr, txr->tx_prod);
+ 
+-		return ret;
++		return rc < 0 ? NETDEV_TX_BUSY : NETDEV_TX_OK;
+ 	}
+ 
+ 	free_size = bnxt_tx_avail(bp, txr);
+@@ -751,23 +771,23 @@ static netdev_tx_t bnxt_start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	prod = NEXT_TX(prod);
+ 	WRITE_ONCE(txr->tx_prod, prod);
+ 
++	txr->kick_txbd0 = NULL;
+ 	if (!netdev_xmit_more() || netif_xmit_stopped(txq)) {
+ 		bnxt_txr_db_kick(bp, txr, prod);
+ 	} else {
+-		if (free_size >= bp->tx_wake_thresh)
++		if (free_size >= bp->tx_wake_thresh) {
+ 			txbd0->tx_bd_len_flags_type |=
+ 				cpu_to_le32(TX_BD_FLAGS_NO_CMPL);
++			txr->kick_txbd0 = txbd0;
++		}
+ 		txr->kick_pending = 1;
+ 	}
+ 
+ tx_done:
+ 
+ 	if (unlikely(bnxt_tx_avail(bp, txr) <= MAX_SKB_FRAGS + 1)) {
+-		if (netdev_xmit_more() && !tx_buf->is_push) {
+-			txbd0->tx_bd_len_flags_type &=
+-				cpu_to_le32(~TX_BD_FLAGS_NO_CMPL);
++		if (txr->kick_pending)
+ 			bnxt_txr_db_kick(bp, txr, prod);
+-		}
+ 
+ 		netif_txq_try_stop(txq, bnxt_tx_avail(bp, txr),
+ 				   bp->tx_wake_thresh);
+@@ -5427,6 +5447,8 @@ static void bnxt_clear_ring_indices(struct bnxt *bp)
+ 			txr->tx_prod = 0;
+ 			txr->tx_cons = 0;
+ 			txr->tx_hw_cons = 0;
++			txr->kick_pending = 0;
++			txr->kick_txbd0 = NULL;
+ 		}
+ 
+ 		rxr = bnapi->rx_ring;
+@@ -11772,6 +11794,8 @@ static int bnxt_tx_queue_start(struct bnxt *bp, int idx)
+ 		txr->tx_prod = 0;
+ 		txr->tx_cons = 0;
+ 		txr->tx_hw_cons = 0;
++		txr->kick_pending = 0;
++		txr->kick_txbd0 = NULL;
+ start_tx:
+ 		WRITE_ONCE(txr->dev_state, 0);
+ 		synchronize_net();
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index ab894f8addef..dc5a16ec5943 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -993,6 +993,7 @@ struct bnxt_tx_ring_info {
+ 	u16			txq_index;
+ 	u8			tx_napi_idx;
+ 	u8			kick_pending;
++	struct tx_bd		*kick_txbd0;
+ 	struct bnxt_db_info	tx_db;
+ 
+ 	struct tx_bd		*tx_desc_ring[MAX_TX_PAGES];
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+index f7e18bea0fb8..6c1060fa2ea5 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.c
+@@ -31,10 +31,14 @@ static u32 bnxt_sw_gso_lhint(unsigned int len)
+ 		return TX_BD_FLAGS_LHINT_2048_AND_LARGER;
+ }
+ 
+-netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+-				 struct bnxt_tx_ring_info *txr,
+-				 struct netdev_queue *txq,
+-				 struct sk_buff *skb)
++/* Transmit an skb requiring software UDP segmentation.
++ *
++ * Returns 1 if the skb was queued and new BDs were produced, 0 if the skb
++ * was dropped, or -1 if the ring is full and the skb should be retried.
++ * The caller owns the doorbell for all three cases.
++ */
++int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
++			 struct netdev_queue *txq, struct sk_buff *skb)
+ {
+ 	unsigned int last_unmap_len __maybe_unused = 0;
+ 	dma_addr_t last_unmap_addr __maybe_unused = 0;
+@@ -69,7 +73,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	if (unlikely(bnxt_tx_avail(bp, txr) < bds_needed)) {
+ 		netif_txq_try_stop(txq, bnxt_tx_avail(bp, txr),
+ 				   bp->tx_wake_thresh);
+-		return NETDEV_TX_BUSY;
++		return -1;
+ 	}
+ 
+ 	/* BD backpressure alone cannot prevent overwriting in-flight
+@@ -77,7 +81,7 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	 */
+ 	if (!netif_txq_maybe_stop(txq, bnxt_inline_avail(txr),
+ 				  num_segs, num_segs))
+-		return NETDEV_TX_BUSY;
++		return -1;
+ 
+ 	if (unlikely(tso_dma_map_init(&map, &pdev->dev, skb, hdr_len)))
+ 		goto drop;
+@@ -223,16 +227,15 @@ netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+ 	netdev_tx_sent_queue(txq, skb->len);
+ 
+ 	WRITE_ONCE(txr->tx_prod, prod);
+-	txr->kick_pending = 1;
+ 
+ 	if (unlikely(bnxt_tx_avail(bp, txr) <= bp->tx_wake_thresh))
+ 		netif_txq_try_stop(txq, bnxt_tx_avail(bp, txr),
+ 				   bp->tx_wake_thresh);
+ 
+-	return NETDEV_TX_OK;
++	return 1;
+ 
+ drop:
+ 	dev_kfree_skb_any(skb);
+ 	dev_core_stats_tx_dropped_inc(bp->dev);
+-	return NETDEV_TX_OK;
++	return 0;
+ }
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h
+index 47528c20f311..77d9af97cc22 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_gso.h
+@@ -38,9 +38,7 @@ static inline int bnxt_min_tx_desc_cnt(struct bnxt *bp,
+ 	return BNXT_MIN_TX_DESC_CNT;
+ }
+ 
+-netdev_tx_t bnxt_sw_udp_gso_xmit(struct bnxt *bp,
+-				 struct bnxt_tx_ring_info *txr,
+-				 struct netdev_queue *txq,
+-				 struct sk_buff *skb);
++int bnxt_sw_udp_gso_xmit(struct bnxt *bp, struct bnxt_tx_ring_info *txr,
++			 struct netdev_queue *txq, struct sk_buff *skb);
+ 
+ #endif
+
+base-commit: 544d85de4dc22c01badfd8cefa59829ce35c4858
+-- 
+2.53.0-Meta
+
