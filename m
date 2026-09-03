@@ -1,40 +1,31 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE81B274B46;
-	Thu,  3 Sep 2026 05:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771A6369D54;
+	Thu,  3 Sep 2026 05:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788414593; cv=none; b=GuSpGtkDCi+JkCCa2zlKJMHvcjd3VB6oAPcZEKKqnVV5ejHtxgi0aLf4jS+/9K/YyYWuk40XKph3Q9+99/3zA+nYOFMMWFmLlMHFpOndKONxt8UuQyY0QISWBs1A+hEL0rdVzCbHDOOL1tDH6mh2d0Z1IoBe6odcAGczuJVNOuo=
+	t=1788414594; cv=none; b=J9e5FOzypCKcKzcwRrj5UFtzHHquLBSZIPsuKYKHOi9s2Cm1v/ALnjVpMPFajwxEUyuTq7IAX93847KQZU7+yKCru4ypra8LZQLjIrb1EYw/fpW+TQPwT4e7YETBD0idupkbJLL6pqefDrVxtU8jGODOfOG8zOEpT47Lh997n6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788414593; c=relaxed/simple;
-	bh=rPPOs8u4XytoxM5tcx7WhPtdGWiQyGD16F9RQ5Eeqnk=;
+	s=arc-20240116; t=1788414594; c=relaxed/simple;
+	bh=zxUxLclfdWQEsHuRLtYixdTvMh66TthoGEGT/o5Yk/Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NHKcN0Jx0CuNgPqhos+rQz0izTPRw0ahYNv43wiBqxYJLYbspGh5IQtvfMU7B4XJtV3/OpnXp7uAOSj+npcn62zkHLQHdBMvuwLUx/hYu0vuJmvBk/77n4dIEklCqIX8e5i/TlgsRp4s1vmwet1PsKUO9jve8M6C7xTxBLZoe6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PZIea2Bm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PZIea2Bm"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 60EB31F000E9;
-	Thu,  3 Sep 2026 05:49:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788414592;
-	bh=8j0aP5zKhZral47ld72z4I4Ol4mpWs8Pih4oQD8ILOg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PZIea2Bm3icKwxqF4dyCG7FBO4dNWtjofxrXieo12JcZxO1MM3jFqQjwVi9j656gI
-	 tIjF3wiavStZ603EWxKDeHjEvuxAfh1SYbXWOh334GUhNe+cbhEg+kNrWtc32I9VKx
-	 onf+im4GRqpJXmHhstkQwRjiQw+D27syWUyjtby4+U/R5VVqVGwHt+owxaZYnRYSzc
-	 Ed+vlL5j68obpVjQhTHvnk4FavUznp0vYYXFW00gmSC2jwXiL8rnEgBrENcBu9I1jG
-	 u7bB7v8O44qZ6SrEsBZwDh7kx+mp8+TeGERSfP+edzDZmfFIb6zlBeYg2RI5tTz3K7
-	 anFB694UjHZYg==
-Date: Wed, 2 Sep 2026 22:49:52 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: cem@kernel.org, hch@lst.de
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: [PATCH v1.1 3/5] xfs: compute dquot checksum after resetting dd_lsn
- in repair
-Message-ID: <20260903054952.GV1933798@frogsfrogsfrogs>
-References: <178832750681.3508131.6009513367948627110.stgit@frogsfrogsfrogs>
- <178832750773.3508131.8667220003399042973.stgit@frogsfrogsfrogs>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wzc0TSChdQBsBT9hYFFhjYomlxEbNrPo5tHZa62UMd+a7tFPxm+Ud9cHUG8ZOXcuOXU4x7Xr1+1S72D7yhc3SWQjhGF9BGirB4C0X/+yp1BcHcJqXyKDPxtZ3hilqhdM+2+9Bt03dp63PNvzlNDSdNNI84wq0RLgbGSkIoTf/Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 665786732A; Thu,  3 Sep 2026 07:49:49 +0200 (CEST)
+Date: Thu, 3 Sep 2026 07:49:49 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+	x86@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
+Message-ID: <20260903054949.GA16883@lst.de>
+References: <20260831212248.213805-1-ebiggers@kernel.org> <20260902133706.GA21538@lst.de> <20260902162359.GA2497@quark>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,43 +34,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178832750773.3508131.8667220003399042973.stgit@frogsfrogsfrogs>
+In-Reply-To: <20260902162359.GA2497@quark>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-From: Darrick J. Wong <djwong@kernel.org>
+On Wed, Sep 02, 2026 at 09:23:59AM -0700, Eric Biggers wrote:
+> > 
+> > Can we do kernel_avx_{begin,end} instead of having to open code
+> > and document this everywhere, please?
+> 
+> Again, there are cases in the kernel where both AVX and SSE are used
+> within a single kernel-mode FPU section, or where a CPU feature check
+> occurs within the section and one or the other is used.  So that
+> abstraction will not work as-is,
 
-LOLLM complains that xrep_quota_block updates dd_lsn after calculating
-the crc of the ondisk dquot.  That's clearly broken, so fix that.
+So don't use it for that one case (which I've seen, but make it two or
+three and the same still applies), and everyone else gets to use the
+easy case.
 
-Cc: <stable@vger.kernel.org> # v6.8
-Fixes: a5b91555403e3a ("xfs: repair quotas")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
----
- fs/xfs/scrub/quota_repair.c |    9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+> and it would be different from all
+> userspace code as well.
 
-diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
-index ca3ac6728339d1..5c22bb6ccffa4e 100644
---- a/fs/xfs/scrub/quota_repair.c
-+++ b/fs/xfs/scrub/quota_repair.c
-@@ -363,11 +363,18 @@ xrep_quota_block(
- 				ddq->d_rtbcount, &ddq->d_rtbtimer,
- 				defq->rtb.time);
- 
-+		/*
-+		 * This transaction operates on raw disk buffers, so we don't
-+		 * have a dquot log item to assign the LSN for us.  Instead,
-+		 * set it to zero so that log recovery will always replay any
-+		 * logged dquot item atop this buffer.
-+		 */
-+		dqblk->dd_lsn = 0;
-+
- 		/* We only support v5 filesystems so always set these. */
- 		uuid_copy(&dqblk->dd_uuid, &sc->mp->m_sb.sb_meta_uuid);
- 		xfs_update_cksum((char *)dqblk, sizeof(struct xfs_dqblk),
- 				 XFS_DQUOT_CRC_OFF);
--		dqblk->dd_lsn = 0;
- 	}
- 	switch (dqtype) {
- 	case XFS_DQTYPE_USER:
+I don't know how you defined "all".  Almost no userspace code has
+kernel_fpu_{begin,end} to start with.  The one code base I've recently
+ported to the kernel that has it, also has kernel_avx_{begin,end}
+already.
+
