@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9D14AF9D0
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6714AF9E2
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:45:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442878; cv=none; b=myzFzu1QBomLxkE6F/GIa1VosHfpyBbP+UnWQU7nE7FBqQEiwdWX8Ys1qWt3Z2b/fwnXYSeUlRpTwgVAyX9iYQNpe5NutSumtPcnlhkWD8oot2k3Ou96jQ/nArXfEITJsYDG3gfC7nOGTAoNzvrn8YaHxIHls0BLrIBlp79Ohf0=
+	t=1788443129; cv=none; b=WYSuGL4i+nUinjt2QIBNDSFZJu+QhMzvro33epaNRdwswco8vGsL4LqPGe8TCz4t8Yb7wzXgYP9zMktk0M01Bu53g0lI2HCz508AxrEeISb5SYN7fa3GXr9mxJraEqYYXabSvAwP/UbKlMeqNbcTYuWAcB0A+PiLVOpolRH/mMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442878; c=relaxed/simple;
-	bh=nC6P6bCXCJ0+9eqNldSy91a/1ASXotY5QxtmIbygLzY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=O/VeWKCkhjxEhQbkogHMZl/zt8nWhiFVxZp6sT2tJAI22BcC3iQJ3Yn7ZJtIoT04Oai8LEU8CgUybYVcG2tgosNx8zb5AtG3wgjCe4cHy0hUpIx8vFiLXIC76PXNl6VUz6FTvD37EGC3A9k+Om6aRYYpaRGocltK5xpFxISOKq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VVUtK+mN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443129; c=relaxed/simple;
+	bh=1DwjJ95d1GPxMscaHnoEEn8HuQBGfFIcMh2Z0kJF+w0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CgH8dnTJbmkTDZqwIlND+ARSJTGUwotM6vnOsvn8R1WfIlhfI7ISn490VllCOyBKnbBSECBsKaCUysakZt0wum7rC+agH60ypRdBAPThCwxl9wrtjQNcDXdis66p6k56W8RCVImdVyR1Am1Yxpgh7UkyWhuK3Yo4BhYD0Rki6sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y40ynrDM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VVUtK+mN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 372CB1F00A3D;
-	Thu,  3 Sep 2026 13:40:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y40ynrDM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A5201F00A3E;
+	Thu,  3 Sep 2026 13:45:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442856;
-	bh=vHcChZHhoogAQ76Sybl9lrUp5ahX786HtF5wNcFnbu0=;
+	s=korg; t=1788443123;
+	bh=BaYBsYMht9Y96NcL0OcReq6TIyvJCAgv1sHVfdxx8oA=;
 	h=Subject:To:Cc:From:Date;
-	b=VVUtK+mNZ6toSTlGUiNu66eVnJYtya6u7yiK583T1RL28zCtMywcsDluk6pAXPe8P
-	 RpHEUXd7mhZw300YCrn/5lrr7oGmHaZjSVxrrh3I7x+cOhK5ECAFG+pA553LeJ0kId
-	 MPJsIG2KhFdcF8uo1q9RngsOicjAx/y0aAf/lJHg=
-Subject: FAILED: patch "[PATCH] nfsd: gate nfs3 setacl by argp->mask" failed to apply to 5.15-stable tree
-To: clm@meta.com,chuck.lever@oracle.com
+	b=Y40ynrDM5cc/KnE9L0/8Eyxd3ykdkZs7AfnUjEhzqsFqCgkqGAFBb5xBUvX+IdLkv
+	 6buRa2meqWq2ZJPo2ciUvMgJ58i1bAuDVx1SVGZG15KpYobjw8qcFmQjRQ/2VWWWqt
+	 cCUwwKSyjwpQNHCKyS7XP4s1ciorkmWJy67CUrHo=
+Subject: FAILED: patch "[PATCH] nfsd: close shrinker/GC/fsnotify vs per-net shutdown race in" failed to apply to 6.18-stable tree
+To: jlayton@kernel.org,chuck.lever@oracle.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:17:00 +0200
-Message-ID: <2026090300-rewire-gratified-1349@gregkh>
+Date: Thu, 03 Sep 2026 15:18:53 +0200
+Message-ID: <2026090353-raft-script-514e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 453d7198a0ab07a12d46e0575861ac7b932da17e
+git cherry-pick -x 40162cfea79b9510380decfdd1795b754dc9f972
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090300-rewire-gratified-1349@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090353-raft-script-514e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,75 +62,149 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 453d7198a0ab07a12d46e0575861ac7b932da17e Mon Sep 17 00:00:00 2001
-From: Chris Mason <clm@meta.com>
-Date: Sat, 30 May 2026 09:19:21 -0400
-Subject: [PATCH] nfsd: gate nfs3 setacl by argp->mask
+From 40162cfea79b9510380decfdd1795b754dc9f972 Mon Sep 17 00:00:00 2001
+From: Jeff Layton <jlayton@kernel.org>
+Date: Thu, 4 Jun 2026 10:31:09 -0400
+Subject: [PATCH] nfsd: close shrinker/GC/fsnotify vs per-net shutdown race in
+ filecache
 
-nfsd3_proc_setacl() calls set_posix_acl() unconditionally for both
-ACL_TYPE_ACCESS and ACL_TYPE_DEFAULT, passing argp->acl_access and
-argp->acl_default verbatim. The NFSv3 ACL decoder only populates
-those pointers when the corresponding mask bit is set:
+The shrinker, GC worker, and fsnotify/lease callbacks can unhash an
+nfsd_file from the rhashtable and then call
+nfsd_file_dispose_list_delayed() to move it to the per-net dispose list.
+If nfsd_file_cache_shutdown_net() runs concurrently, its rhashtable walk
+misses the already-unhashed file, and its drain of the per-net dispose
+list can run before the file has been queued.  The file then sits on
+the per-net list with no thread to drain it, leaking both the file and
+its associated state.
 
-    nfs3svc_decode_setaclargs()
-      if (args->mask & NFS_ACL)    decode into acl_access
-      if (args->mask & NFS_DFACL)  decode into acl_default
-      /* otherwise the pointer stays NULL (pc_argzero) */
+The GC worker and shrinker already hold nfsd_gc_lock while walking the
+LRU, but in the original code they release it before calling
+nfsd_file_dispose_list_delayed().  The fsnotify/lease path
+(nfsd_file_close_inode) has no synchronization at all.
 
-    nfsd3_proc_setacl()
-      set_posix_acl(.., ACL_TYPE_ACCESS,  argp->acl_access)
-      set_posix_acl(.., ACL_TYPE_DEFAULT, argp->acl_default)
+Fix this by:
 
-set_posix_acl(idmap, dentry, type, NULL) is the VFS "remove this
-ACL type" operation. A NULL pointer that means "the client did not
-send this arm" is therefore indistinguishable from "the client
-asked to remove this ACL". A SETACL with mask=NFS_ACL silently
-drops the directory's default ACL; mask=0 drops both.
+  1. Widening nfsd_gc_lock in both nfsd_file_gc() and nfsd_file_lru_scan()
+     to cover the nfsd_file_dispose_list_delayed() call.
 
-The sibling nfsd3_proc_getacl() already consults argp->mask before
-touching each arm; mirror that in setacl.
+  2. Wrapping nfsd_file_close_inode() in nfsd_gc_lock so that all three
+     callers of nfsd_file_dispose_list_delayed() hold the lock.
 
-Fix by wrapping each set_posix_acl() call in the matching mask bit
-check and initializing error to 0 before inode_lock so that a
-request with neither bit set leaves the on-disk ACLs untouched and
-returns nfs_ok. The out_drop_lock path and the unconditional
-posix_acl_release() at out: are preserved; both NULL-tolerate the
-skipped arms.
+  3. Adding a spin_lock/unlock(nfsd_gc_lock) barrier in
+     nfsd_file_cache_shutdown_net() after the purge, so that any
+     in-progress disposal has fully completed before the per-net list
+     is drained.
 
-Fixes: a257cdd0e217 ("[PATCH] NFSD: Add server support for NFSv3 ACLs.")
-Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chris Mason <clm@meta.com>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-5-f27e8eb4d974@kernel.org
+All operations inside the lock are non-sleeping (rhashtable lookups,
+atomic bit/refcount ops, list moves, svc_wake_up), so the spinlock is
+appropriate.
+
+Fixes: ffb402596147 ("nfsd: Don't leave work of closing files to a work queue")
+Cc: stable@vger.kernel.org # v6.15+
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Assisted-by: Claude:claude-opus-4-8
+Link: https://patch.msgid.link/20260604-nfsd-testing-v4-1-3aeb1479c5bb@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-diff --git a/fs/nfsd/nfs3acl.c b/fs/nfsd/nfs3acl.c
-index e87731380be8..a87f9d7f32be 100644
---- a/fs/nfsd/nfs3acl.c
-+++ b/fs/nfsd/nfs3acl.c
-@@ -105,12 +105,17 @@ static __be32 nfsd3_proc_setacl(struct svc_rqst *rqstp)
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index da5a44c31acb..1ea2bfd51825 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -55,6 +55,17 @@
+ /* We only care about NFSD_MAY_READ/WRITE for this cache */
+ #define NFSD_FILE_MAY_MASK	(NFSD_MAY_READ|NFSD_MAY_WRITE|NFSD_MAY_LOCALIO)
  
- 	inode_lock(inode);
++/* If the shrinker runs between calls to list_lru_walk_node() in
++ * nfsd_file_gc(), the "remaining" count will be wrong.  This could
++ * result in premature freeing of some files.  This may not matter much
++ * but is easy to fix with this spinlock which temporarily disables
++ * the shrinker.
++ *
++ * It also serializes callers of nfsd_file_dispose_list_delayed()
++ * against per-net shutdown.
++ */
++static DEFINE_SPINLOCK(nfsd_gc_lock);
++
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_cache_hits);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_acquisitions);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_allocations);
+@@ -423,10 +434,16 @@ nfsd_file_dispose_list(struct list_head *dispose)
+  * Transfers each file to the dispose list in its nfsd_net and wakes an nfsd
+  * thread to do the actual close.  This keeps the cost of fput() in the nfsd
+  * threads rather than in the shrinker or GC worker.
++ *
++ * All callers must hold nfsd_gc_lock, so that nfsd_file_cache_shutdown_net()
++ * can synchronize against them before draining the per-net dispose list.
++ * This guarantees nf_net is still live when we call net_generic().
+  */
+ static void
+ nfsd_file_dispose_list_delayed(struct list_head *dispose)
+ {
++	lockdep_assert_held(&nfsd_gc_lock);
++
+ 	while (!list_empty(dispose)) {
+ 		struct nfsd_file *nf = list_first_entry(dispose,
+ 						struct nfsd_file, nf_gc);
+@@ -557,13 +574,6 @@ nfsd_file_gc_cb(struct list_head *item, struct list_lru_one *lru,
+ 	return nfsd_file_lru_cb(item, lru, arg);
+ }
  
--	error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry, ACL_TYPE_ACCESS,
--			      argp->acl_access);
--	if (error)
--		goto out_drop_lock;
--	error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry, ACL_TYPE_DEFAULT,
--			      argp->acl_default);
-+	error = 0;
-+	if (argp->mask & NFS_ACL) {
-+		error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry,
-+				      ACL_TYPE_ACCESS, argp->acl_access);
-+		if (error)
-+			goto out_drop_lock;
-+	}
-+	if (argp->mask & NFS_DFACL) {
-+		error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry,
-+				      ACL_TYPE_DEFAULT, argp->acl_default);
-+	}
+-/* If the shrinker runs between calls to list_lru_walk_node() in
+- * nfsd_file_gc(), the "remaining" count will be wrong.  This could
+- * result in premature freeing of some files.  This may not matter much
+- * but is easy to fix with this spinlock which temporarily disables
+- * the shrinker.
+- */
+-static DEFINE_SPINLOCK(nfsd_gc_lock);
+ static void
+ nfsd_file_gc(void)
+ {
+@@ -586,9 +596,9 @@ nfsd_file_gc(void)
+ 				remaining = 0;
+ 		}
+ 	}
++	nfsd_file_dispose_list_delayed(&dispose);
+ 	spin_unlock(&nfsd_gc_lock);
+ 	trace_nfsd_file_gc_removed(ret, list_lru_count(&nfsd_file_lru));
+-	nfsd_file_dispose_list_delayed(&dispose);
+ }
  
- out_drop_lock:
- 	inode_unlock(inode);
+ static void
+@@ -616,9 +626,9 @@ nfsd_file_lru_scan(struct shrinker *s, struct shrink_control *sc)
+ 
+ 	ret = list_lru_shrink_walk(&nfsd_file_lru, sc,
+ 				   nfsd_file_lru_cb, &dispose);
++	nfsd_file_dispose_list_delayed(&dispose);
+ 	spin_unlock(&nfsd_gc_lock);
+ 	trace_nfsd_file_shrinker_removed(ret, list_lru_count(&nfsd_file_lru));
+-	nfsd_file_dispose_list_delayed(&dispose);
+ 	return ret;
+ }
+ 
+@@ -704,8 +714,10 @@ nfsd_file_close_inode(struct inode *inode)
+ {
+ 	LIST_HEAD(dispose);
+ 
++	spin_lock(&nfsd_gc_lock);
+ 	nfsd_file_queue_for_close(inode, &dispose);
+ 	nfsd_file_dispose_list_delayed(&dispose);
++	spin_unlock(&nfsd_gc_lock);
+ }
+ 
+ /**
+@@ -974,6 +986,14 @@ nfsd_file_cache_shutdown_net(struct net *net)
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+ 	nfsd_file_cache_purge(net);
++	/*
++	 * Ensure any in-progress shrinker, GC, or fsnotify/lease callback
++	 * (all of which hold nfsd_gc_lock while calling
++	 * nfsd_file_dispose_list_delayed()) has fully completed before
++	 * draining the per-net dispose list.
++	 */
++	spin_lock(&nfsd_gc_lock);
++	spin_unlock(&nfsd_gc_lock);
+ 	nfsd_file_dispose_list(&nn->fcache_dispose_list);
+ }
+ 
 
