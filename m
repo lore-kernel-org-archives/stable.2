@@ -1,78 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08864F55B3;
-	Thu,  3 Sep 2026 17:21:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 707BC4A3D35;
+	Thu,  3 Sep 2026 17:21:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456064; cv=none; b=kGgN6frfx/z3JjvgCHA//apm0nsAvjorM2a1BMJD2ZIEX5oM7vXBmBxi912JK8Z76h67IVLolkMCErAOUajxVs9O1t2A/fQZo+CR8KT5zMnlYEGhsmTTRaBKzVClPLCqM+lPGLOvWuxAb7keseY6lATARNguxbZYcQySt9/MIeM=
+	t=1788456094; cv=none; b=JW1368fXONYYuyTsykOoxamCIACyrq6BJufAtj0H/x5M0cO2xm9qXQax9Y6UYDbsWA4r7bd+Oacn9pHvjEM7S7+TCUXl0wHH+9n74Rv7uN65BEh9IcapmizLgcnPFWsb4L6opnjfgqwrBCE/jaiJUmvgYbMKYIzuzfnkxRCVO+E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456064; c=relaxed/simple;
-	bh=OlEhQL685TTIXQE9H57dT5S/MXL5QMIPqFc/CvzY9Z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cUJP5x0tu8TsGixAzZHlcTt2KxObccUGmYM44YUzEBLOiL2ikzB4R3KrZEJFDvdKabQqtGjdnxJgKJqEXFQmOUlURjNxCLzmyeGo5ucmxO7MxJ0JT+pwyj7Bv+yOSJCZ+qoTFsTbZoayzclF1BUD7n5/ddkYw0XM+j2y9twMtEQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3lyIaYu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788456094; c=relaxed/simple;
+	bh=8fLMl2i76QBah764wmDwdNZ3MjXBEOTxUjwIrnRm3ZQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=OhlOcxpmLK7Kgz8p2KFs3LygWa+O0bsaLuSj0j0jwwrWUi2aQZm9zcA+uTTqs9Ax9CMygFXQfoClvHmqPcLpDC4lkJyd8Ufln0r1qvuK+13lmtbxv2k9vlwqdAJCk4vZy18Zv1FvWTiCsBAwFPbQvOC9R0gE92RpKZhTXjUwiaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MIp12bdW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3lyIaYu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8D11F00A3E;
-	Thu,  3 Sep 2026 17:21:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456062;
-	bh=2KET23SjpUDYqvbEzqQjVZ2k8yfpGrBboFN+aHw1AVg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M3lyIaYuh8i/ZJ94hLrKmDZlg+CK8O2b4NntvGkHQ7JO+YDN/U9+/oCLGXI5eKiJ8
-	 d/VhyNU1xeEG6X1vPWjUzuKkxuk6nkSztnVCro5yqKvZp5eKBkk4lXaGxcWY5IN7c6
-	 wwG9ijUqUeNzQ/Gr0kfT5nULTyi2CQ5k4PHBjNHGecRRWAkKG47v6aPvYmOUhOFcwd
-	 sLWfoQWo1IpVK9nxBO/vWtwse+ngq0FroacCzSTCGRDrXXgCffhqWYN9rUzM3IHHPB
-	 68r6eaLyBJ8mhCqsRlgSaxTFCMfiZTceeEExmKxT1pR8YLwDcvimisaj8dyjNZpZsk
-	 LP5zXHwAi5oCA==
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Richard Acayan <mailingradian@gmail.com>,
-	David Heidelberg <david@ixit.cz>
-Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/3] NFC fixes for Pixel 3 / 3 XL and support for Pixel 3a / 3a XL
-Date: Thu,  3 Sep 2026 12:20:34 -0500
-Message-ID: <178845603578.348193.9876065764916660670.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
-References: <20260902-sdm670-sargo-nfc-v1-0-bed1cbbffc46@ixit.cz>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MIp12bdW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7007C1F00A3D;
+	Thu,  3 Sep 2026 17:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788456092;
+	bh=uofprPFCPxfEf69MnbeHxACRkACv1OeYBLcQOB9jELU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=MIp12bdWHSMU1GrCwa+hfnX1qpV2W3u66ysoCVszd5rb+R79OlF5hj7b+DQN2bazx
+	 eh1MiE9BwStxsnUVkLn6Qwj+C+HT9h+oDHRs+YbMfBdIH7L9CU8kBn95iYGllk36Ac
+	 cfEtMHoLdsrMHgqb734Gi8d2inYB+SVJC68ZZm1A=
+Date: Thu, 3 Sep 2026 10:21:30 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Vernon Yang <vernon2gm@gmail.com>,
+ rick.p.edgecombe@intel.com, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, david@kernel.org, hpa@zytor.com,
+ rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
+ pasha.tatashin@soleen.com, tj@kernel.org, rppt@kernel.org,
+ yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-Id: <20260903102130.b5cda1b08f3efd4ab66226e9@linux-foundation.org>
+In-Reply-To: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+	<aplfcTfjeQUgnrvH@thinkstation>
+	<314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Thu, 3 Sep 2026 07:18:54 -0700 Dave Hansen <dave.hansen@intel.com> wrote:
 
-On Wed, 02 Sep 2026 22:59:11 +0200, David Heidelberg wrote:
-> Increase i2c bus frequency on Pixel 3 to match Android kernel, cleanup
-> the device-tree and introduce NFC node for Pixel 3a.
+> On 9/3/26 04:54, Kiryl Shutsemau wrote:
+> >> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+> >> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+> > Hm. I don't understand why would this commit explicitly exclude
+> > _PAGE_DIRTY from the mask:
+> > 
+> > -       val &= _HPAGE_CHG_MASK;
+> > +       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
+> > 
+> > Rick, could you comment? It doesn't look like a typo.
 > 
-> Changes to sdm670-google-common compared to sdm670-mainline:
->  - rising edge (same as for Pixel 3)
->  - split pins of the nfc-default-state
->  - removed comments and used right compatible
->  - dropped eSE gpio as it's irrelevant for the NFC part for now
+> My guess is that it's some remnant from an earlier version of the patch.
+> The asymmetry with pte_modify() vs. pmd_modify() just can't be explained
+> any other way. It _might_ have been some attempt to say, "Hey
+> _PAGE_DIRTY is now a part of the pgprot_t since it's part of the
+> 'permissions' of a shadow stack PTE" that got abandoned.
 > 
-> [...]
+> But I don't see anything wrong with the fix at all.
+> 
+> It does give me pause that this has been losing user data for so long,
+> but it must just be a weird combination of features that few folks use
+> together (huge pages + MADV_FREE).
+> 
 
-Applied, thanks!
-
-[3/3] arm64: dts: qcom: sdm670-google: Add NFC support
-      commit: fdade6ed0b9e5b9f84de63c14fd747b820110b36
-
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+And with heavy reclaim pressure.
