@@ -1,153 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E626A37CD21;
-	Thu,  3 Sep 2026 04:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9C7383C66
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 04:25:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788408866; cv=none; b=IYCjoDv8eSg/8hoMH35Mg1URifteSXo3Le9NhfXwaRX13jKS8RviWGQco6NtgBHaW2chb5cmzQW56LRyaJWg5oIgjhXX2I2jADSkGaoQfQkZuYokb2sD9c43vzMInu1NDQkm0Bm/jj7K6HVH/B9f5vUV12QAH2izHW3auhh97yQ=
+	t=1788409511; cv=none; b=jnDgeAnxJo65Mn8tssXK5oNlvQ8qUgGJqAoXz6kN9q4NJrJerqUUcOz8QjTESTnT/TeRyTL4FDEKCZoY5gWX3KqitVLORQUv7/Mtm/aWL488EiO2zoT3/7f9KJfFLb2HtcX+OrI2qMPJHAcXE6ul3nZNB5OkTPsMkzpOui95RNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788408866; c=relaxed/simple;
-	bh=eG7XwCvlXryH5rAfF7mveTO/FpMe58WtNzzxletXP0s=;
-	h=Date:To:From:Subject:Message-Id; b=YwAcPWW+RmarWp88t7K7sg6UuefuZnJ3AGOyGxdOaXfQxm6CJYBDXYDIWVXLQL0a0ISU01sIDpmDM+A/GhS4n0xwaP9D4O+ZdTC7q/8HiiTSo9OkGWodXfKlvbf4A35n1GBqUPnCKWEtoO92S1X4KAeHPIpmxmIGpb86QxcjUHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=JCzo4FBw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788409511; c=relaxed/simple;
+	bh=ZFx3Q9CVV7DenPP95PrnXW2mBbZp6+X+qUC2c0AEvuY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WKyt7v2/3G3wTvBrqQrpUifYyiulLTwkVuJznh/eqA7OsXfXozKtleqOuMLBIELCICHNH/N/UForb1isAFc4juvB6xkCchtFrgvNunnLbEpRbyLZO8kXj1dTlA9YJ2OfdaqQyuGnrAM+KyIDfGkmhbbrCEcs8aCe6Gej77a0VXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CGiv2+J2; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="JCzo4FBw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCF261F000E9;
-	Thu,  3 Sep 2026 04:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CGiv2+J2"
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5c6670fd413so531820e0c.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 21:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788408862;
-	bh=Y+4UE3Q8YJmIHGrNwd2eSiyT9P58jvJ+JNvzmjjQC2E=;
-	h=Date:To:From:Subject;
-	b=JCzo4FBw0QzJhbkeI2AIuopUK1z2sn8GJjwcKH9Ew6fD4WjOXILRELtIKhbJpcbTH
-	 f6ZfFNm7Fld/L8PcoBaWZiRlpwRowzufZAp6KOKEpZymPHTEb2GX8w7v8HX2+zXhHB
-	 sUA8mg6+ue1l6inNzWcGetYhGwPOjzpapreWJouk=
-Date: Wed, 02 Sep 2026 21:14:22 -0700
-To: mm-commits@vger.kernel.org,yu-cheng.yu@intel.com,vbabka@kernel.org,tglx@linutronix.de,stable@vger.kernel.org,rppt@kernel.org,rick.p.edgecombe@intel.com,orsonpeters@gmail.com,ljs@kernel.org,liam@infradead.org,jannh@google.com,david@kernel.org,dave.hansen@linux.intel.com,yanglincheng@kylinos.cn,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + x86-mm-fix-pmd_modify-dropping-the-dirty-bit.patch added to mm-new branch
-Message-Id: <20260903041422.BCF261F000E9@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1788409506; x=1789014306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IlvKvqaox0NfebLUVzqa94KBTGlj+HyEivmqV8xa538=;
+        b=CGiv2+J2ds8eE3Fqt3zG+/vRNNp/a5A9D/qTfBLWBrfHM17TuPmjWp94fombTzNQfY
+         rAA+ffSGXB8xCwH6H2zr4qxlfZ8nh894DP5zyc+9wNysuNMC6wuuqp76udu0bUpfd9Wu
+         L2Pko2Z1dOqpWgFy3x5Vlmyv4ftibEWMP46jrvZZItwAO7xBkzJ/HKCkiXtTVHoOLmVi
+         zMCdqvydUVRD6rjytC0oqaLT0wDJGG8OlH6A2QSiksIjHnOLG4e4s43j1y/b1cPmFb4Y
+         TkqxVqS219OMtV7EqLBhS5T7uR1ARojOKzvofNpuPFwSi0BWvy6HUb+ExL1H1HDs4xNH
+         22Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788409506; x=1789014306;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IlvKvqaox0NfebLUVzqa94KBTGlj+HyEivmqV8xa538=;
+        b=iHFJsNZTbXD6kYdUeGOxMXhNZgMH1uTFogNqxjKrdwklVxJmwuZadRgTGxDj94YaJN
+         4L2gEzOTSZtNSWy2/XPrFYPaiAvvrCDq/Hth1+Ewyw8XQ33wYVOMkfL9Ja737PX22266
+         W1Xpt9lU813GlOshfu1dYTfIZEg43Fkz1RtUA/8XE5BLuGBZpIO5Jyfb8gGF6cdc4UGg
+         srbSSTvNuv8EozkhROp8LxWun2A17QlMKJBmSxio+oo+vE+tUmpfym0e0H3pkAZHGRyD
+         ZHm1bQsiOp52+p+bvhJcY4eqD7TJCYn1llWhP5RqFEM+1o391v6A3U58phBo2zr3XKbB
+         o7qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy902xe3xGLFlz0pUJ3hAFrp2iQJnMChPIexhHvfgXnOSW2wSm99JUQlnR5CdjoSwfiSOYlsDc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+gRcGFcmM2e56ai2lkoMz1isC+xOVfJp8+TjgDHZ6Sp2V9ZiU
+	OALOIEtCgkN7LN2htWxUM8KETbRsztIt+l+H5EiA0bmi9AivtoAykJPT
+X-Gm-Gg: AYBFou2OayyMHW8vVHFqsz6LboZklKHgWbk0k6In+daDd1VIAIr2UPIbBvkmoB1yax0
+	PnoEELbi0eIXI9UJHOWWZF50uSvl10pCpDF/QmOTYj/7Jf7gsY57WnoZMFSMSNwkbwiv0jqNbyy
+	01qo74lbT4uimw2GwxUoeAr830aofSCNOxvIDhYvSviNMdSA6aZFI8XgkJzjIF9FNT/VTwZlo/D
+	RhWHP0J2mgHcSplnAAcnn4Ul0xNjSG1LAnyr5sObN+WqGYNJJ9sXA8J9vByOuXyBizzbXg/L6hV
+	sXP+SlJbwGVwMP6Ik09FS4yD1gBRN9WUh218IhZly3xnZpvQ1ceB4F9FDexzaVPCStsx5YE5BW3
+	/L5SUMfC3i+47d6G+QpI+bKPSl+hJdeUB6GEzd1UZ75K57MTjYEoVsoET3QMz0ivBVLHxfpIRym
+	rIa6x6frKhkUkQ+cmi3EH/0p58lKaugO1wBDrONlhPo9rZ1LCa9stpZDwYFHQxrYk=
+X-Received: by 2002:a05:6102:291f:b0:786:cdba:8f6d with SMTP id ada2fe7eead31-78a2edc5af5mr988472137.1.1788409505843;
+        Wed, 02 Sep 2026 21:25:05 -0700 (PDT)
+Received: from adriano ([190.215.95.120])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a1a4b1143sm3857241137.7.2026.09.02.21.25.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 21:25:05 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: johan@kernel.org,
+	jirislaby@kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] USB: serial: fix break_ctl() NULL-pointer dereference
+Date: Thu,  3 Sep 2026 00:24:28 -0400
+Message-ID: <20260903042429.130320-2-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260903042429.130320-1-adrianox@gmail.com>
+References: <20260903042429.130320-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Don't call into the driver after disconnect, just like serial_write()
+already does.
 
-The patch titled
-     Subject: x86/mm: fix pmd_modify() dropping the dirty bit
-has been added to the -mm mm-new branch.  Its filename is
-     x86-mm-fix-pmd_modify-dropping-the-dirty-bit.patch
-
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/x86-mm-fix-pmd_modify-dropping-the-dirty-bit.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Vernon Yang <yanglincheng@kylinos.cn>
-Subject: x86/mm: fix pmd_modify() dropping the dirty bit
-Date: Thu, 3 Sep 2026 11:16:08 +0800
-
-pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
-silently discarding the hardware dirty bit.  The subsequent
-pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
-_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
-stripped from the value, so there is nothing left to transfer.
-
-Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask, and
-pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify() is the
-odd one out.  Any pmd_modify() on a writable, dirty PMD loses the dirty
-state.
-
-One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
-
-    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
-    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
-                                      // folio marked lazyfree
-    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
-    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
-    mprotect(buf, size, PROT_READ|PROT_WRITE);
-    // ... memory pressure ...
-
-Reclaim (e.g.  under memcg pressure) then finds the lazyfree folio with no
-dirty bit set anywhere and frees it in __discard_anon_folio_pmd_locked(),
-even though the data was rewritten after MADV_FREE; subsequent reads fault
-in fresh zero pages.  NUMA hinting alone can trigger the same loss, as
-do_huge_pmd_numa_page() restores the PMD through pmd_modify() as well.
-
-PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
-the dirty bit means rewritten data is never written back.
-
-Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
-pte_modify() and pud_modify() do.  The existing
-pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
-hardware-dirty <-> saved-dirty transition based on the write bit,
-preserving the shadow-stack encoding rules.
-
-Link: https://lore.kernel.org/20260903031608.1194238-1-vernon2gm@gmail.com
-Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-Reported-by: Orson Peters <orsonpeters@gmail.com>
-Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Yu-cheng Yu <yu-cheng.yu@intel.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: 9e98966c7bb9 ("tty: rework break handling")
+Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
+Tested-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
+ drivers/usb/serial/usb-serial.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- arch/x86/include/asm/pgtable.h |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/arch/x86/include/asm/pgtable.h~x86-mm-fix-pmd_modify-dropping-the-dirty-bit
-+++ a/arch/x86/include/asm/pgtable.h
-@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd
- 	pmdval_t val = pmd_val(pmd), oldval = val;
- 	pmd_t pmd_result;
+diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
+index 17edc057a311..5f42bfe39212 100644
+--- a/drivers/usb/serial/usb-serial.c
++++ b/drivers/usb/serial/usb-serial.c
+@@ -532,6 +532,9 @@ static int serial_break(struct tty_struct *tty, int break_state)
+ {
+ 	struct usb_serial_port *port = tty->driver_data;
  
--	val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
-+	val &= _HPAGE_CHG_MASK;
- 	val |= check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
- 	val = flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
++	if (port->serial->dev->state == USB_STATE_NOTATTACHED)
++		return -ENODEV;
++
+ 	dev_dbg(&port->dev, "%s\n", __func__);
  
-_
-
-Patches currently in -mm which might be from yanglincheng@kylinos.cn are
-
-mm-khugepaged-fix-swap-entry-value-to-folio_pfn.patch
-mm-khugepaged-fix-folio-is-used-after-pte_unmap_unlock.patch
-mm-khugepaged-fix-folio-is-used-after-folio_put-unlock.patch
-x86-mm-fix-pmd_modify-dropping-the-dirty-bit.patch
+ 	if (port->serial->type->break_ctl)
+-- 
+2.51.0
 
