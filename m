@@ -1,83 +1,131 @@
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE6A14A092A
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12553AE190;
+	Thu,  3 Sep 2026 12:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437632; cv=none; b=YhEPtNX0n1XcKgNPtTQ908l978XjAKataoi6NpwhmchaHQog2I/8IAGwyoFFItNA7J7wEFzTAFqPWKtjB9VndOV35vQGYRdyMfHe7o3nqsqe++4dU5qlHEhzwnvNOc1JiPzSmjOhgI/SOAZ1zPxB5gqG5HHz0tutnJD0oKKt+UE=
+	t=1788437840; cv=none; b=uSHyMccCMO30w3qoWDN0DzWHPaX4XZIKrz3ckS9OQw9k6Mp8WAgL1Ho8Qc1In32k2bGGgGM7djCEqhXoB1qBVhMiyvfqOowu69eJ7SDR3iFGHxstxYhMVEGJn1xiTnpFyu290iQEJlYlBX7seguTWm7x3gfpQrKt5TNK0TWZKdI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437632; c=relaxed/simple;
-	bh=u2BFG2Z5cG1xeYDegTmCmVgyYBL5mku0nB+ZYzycQTM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U2Ve/sxbvM9yVLaywjiD9jCIYdWlRr5jYUvi5NT949mQ54rpqtsQggyj9z21nNVosfaXugF2ZauI00trL+lmQ8Ez3NTdrh/tT01jilhL3oLlqM0HNWkVmfdTEoSq14/iGUsFiGC+qTHMMdTZ3FINtl/R6pDfBU5uwiPaivWa384=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=bb95T03T; arc=none smtp.client-ip=91.218.175.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788437840; c=relaxed/simple;
+	bh=BnrE7kEzY8dWFI0K1T6AL/3cc1AcPsxhd6uyIrWWp5o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DH0d1pC3TTlUZHFRgv8McfBl06BezLlief/+21+fSf3s0NU3s5QOf97bVDNCPoGj2Z4lyoGqXSg5wH31F1QxpvL5kEaJ8qTRgRg4+xQuo3rGQs+XkznuO/EWQLxeB9hmbxUHzpURpLMGzKWfPR0XTvm65mQH5CcZjrp5OMO5r34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EQslB3W5; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="bb95T03T"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u2BFG2Z5cG1xeYDegTmCmVgyYBL5mku0nB+ZYzycQTM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788437627; v=1; x=1789042427;
- b=bb95T03TaCpj6QFTt7fHzy7Ku4llpWMTcAFIxALsApWaj7U17ls1AFwvHnR2KQ0Gk+mCC3tT
- Rt1VC37rhaKEedUcdv8gJtc/xvAYjtUT7dPRO0FPrq5ANcbJqqGzB518kTmxJ8/C0tUV1+ZlgY+
- uvMjawhLiRf87FKGwOsAc51I=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 41e320479a75f80d;
-	Thu, 03 Sep 2026 12:13:37 +0000
-X-Mizu-Trace-ID: 41e320479a75f80d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <2c641835-006b-4511-b273-c2956d474801@linux.dev>
-Date: Thu, 3 Sep 2026 20:13:29 +0800
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EQslB3W5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=bR
+	RJiITqLGBDhUvWeksvOKIPYPbBJH9B9tHuU5D6pPU=; b=EQslB3W5cLVWKjz3hs
+	wB8bouYPyhAxUHEUi+h9D3rXmztrtk9ZH+bZXN4mLk+HJ00P0hqG9P9hjwaiKqzh
+	V3QBSxRkun3+mitMlKwhILuYkWTrLWOhlfzxgJTvBlyr6yFkx9DkdVPJy2pB1wSx
+	DrLrf/nvmbrGNDID8SMqvw4zI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBnk6MAZZlqxNt_AQ--.12555S2;
+	Thu, 03 Sep 2026 20:16:02 +0800 (CST)
+From: oushixiong1025@163.com
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Shixiong Ou <oushixiong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/sched: Create a fake device for KUnit tests
+Date: Thu,  3 Sep 2026 20:15:58 +0800
+Message-Id: <20260903121558.782854-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: phy: microchip_t1: fix NULL pointer
- dereference in lan887x_phy_init()
-To: huhai <15815827059@163.com>
-Cc: netdev@vger.kernel.org, Henry Hu <huhai@kylinos.cn>,
- stable@vger.kernel.org, kuba@kernel.org, andrew@lunn.ch,
- divya.koppera@microchip.com
-References: <20260903113046.163630-1-15815827059@163.com>
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-In-Reply-To: <20260903113046.163630-1-15815827059@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBnk6MAZZlqxNt_AQ--.12555S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW5Zw4DXFWUuFW8Jw45Awb_yoW5GrW5pF
+	WkXFWYgrs5trZFg3y3ua95XFyfGws7A3yxKr1kX34a9F1qgFyfJr1UKrW7J34UArWUZFWS
+	q3Z0gw47Gr4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8Z2-UUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-gJaaWqZZQJWEAAA3d
 
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-在 2026/9/3 19:30, huhai 写道:
-> From: Henry Hu <huhai@kylinos.cn>
->
-> The issue was discovered via smatch static analyzer:
->
->    make CHECK="smatch -p=kernel"  C=2  drivers/net/phy/microchip_t1.o
->      CHECK   scripts/mod/empty.c
->      DESCEND objtool
->      CHECK   drivers/net/phy/microchip_t1.c
->    drivers/net/phy/microchip_t1.c:1295 lan887x_phy_init() warn: 'priv->clock' can also be NULL
->
-> mchp_rds_ptp_probe() returns NULL when CONFIG_MICROCHIP_PHY_RDS_PTP or
-> CONFIG_PTP_1588_CLOCK is disabled. However, lan887x_phy_init() only checks
-> for an error pointer before using the returned clock to configure the
-> periodic output pin, which can result in a NULL pointer dereference.
->
-> Handle the NULL return as PTP being unavailable and skip the event pin
-> configuration in that case. Smatch no longer reports the NULL dereference
-> warning after the change.
->
-> Fixes: 8541fc12edcd ("net: phy: microchip_t1: Enable pin out specific to lan887x phy for PEROUT signal")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Divya Koppera <Divya.Koppera@microchip.com>
-> Signed-off-by: Henry Hu <huhai@kylinos.cn>
+The DRM scheduler KUnit tests pass NULL for the dev field in
+drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
+trace event via dev_name() on sched->dev.
 
-Reviewed-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Give the mock scheduler a device with kunit_device_register(), which is
+also cleaned up at test exit. A per-function counter keeps the device
+names unique, since some tests create several mock schedulers.
 
-Thanks,
-Xuanqiang
+Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructure and some basic tests")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+
+---
+v1->v2:
+  - Switch from faux_device_create() to kunit_device_register(), which also
+    cleans the device up automatically at test exit (Maxime Ripard)
+  - Build the device name on top of args.name (Philipp Stanner)
+  - Make the instance counter a static unsigned int local to
+    drm_mock_sched_new() (Philipp Stanner)
+  - Add a Fixes: tag and Cc: stable for the NULL dev dereference
+
+ drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 11 ++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+index 8e9ae7d980eb..12dc61f56192 100644
+--- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
++++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Copyright (c) 2025 Valve Corporation */
+ 
++#include <kunit/device.h>
++
+ #include "sched_tests.h"
+ 
+ /*
+@@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
+  */
+ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ {
++	static unsigned int instance;
+ 	struct drm_sched_init_args args = {
+ 		.ops		= &drm_mock_scheduler_ops,
+ 		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
+@@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+ 		.name		= "drm-mock-scheduler",
+ 	};
+ 	struct drm_mock_scheduler *sched;
++	struct device *dev;
++	char name[64];
+ 	int ret;
+ 
+ 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, sched);
+ 
++	snprintf(name, sizeof(name), "%s-%u", args.name, ++instance);
++	dev = kunit_device_register(test, name);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	args.dev = dev;
++
+ 	ret = drm_sched_init(&sched->base, &args);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+-- 
+2.43.0
+
+No virus found
+		Checked by Hillstone Network AntiVirus
 
