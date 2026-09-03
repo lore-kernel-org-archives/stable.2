@@ -1,210 +1,368 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20783955F5;
-	Thu,  3 Sep 2026 18:22:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5066E4E2352
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:26:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788459777; cv=none; b=jEk7Tu6e3X3zTuzE/8KdStbz4DygymtfoDOF+g0BQcA7BLJea2x9H2ieSf0WT/zpAeQlkvG8xhSTxYOmVJvaTCMOTjxHuoiUi7zrUMb1gPkkK91ndibLPqQI3s99kqTcbldLQsb5zpLIqIZR4K661W+5U/U9JyD8MoWB34Mssd0=
+	t=1788460017; cv=none; b=hmCD129lAL3vIOsWbfG08VttP/uQJQw8Qu2pDPsbh72t1wiSVgEdDFGNEiRuZ+eugd9Zo8y1WVCVj3M+bbtwYF7IohVq4sIBpPc01PG7VQA3YRF0ynrIxdbk+gS299n4DOObbgg/5Eacy8y0WdHhfo8MgnoaMtv2FXx3/zDwYTM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788459777; c=relaxed/simple;
-	bh=92Ycwo0Ow8DQ55GAY+sGEngY6g3FpzxkTrsqdUhxQFs=;
-	h=Date:To:From:Subject:Message-Id; b=gAval40RgZYaY57Tv8tZd7ZQfvmoT7sGlsT3JWQ+06iXsaobgESRWORgJFodUR3UG37rQw7LavHJ5OGtSsiI77ALMojEvqN/9WkMPhMSXNQ2JZuQZ/knnM1iDOAt9HsOFFErshNdkeJ4AneVRNEjwVj/Dq2kPb42HYNwAPmOoYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=HAG8PmQN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788460017; c=relaxed/simple;
+	bh=vPCENAOSTmXeqfbJQmXvEbf9DljnEwteXiNDMRyarao=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y+L/lGs/QaJHhfkF2/cCP7feh2MtJZ4c6vFOAGbEsBYQjwZ/EJ8tja0dNcRLJPT05LJUAaxbyXHUYXelG0LBLnovxdLRykeVUOqit9MIu/GkkGcLQGhUyaU4tDO+IVrd9UBfHL+dLiWJUGx3/jwqywooupUYDGU48NBn20xTmF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PmJVisyy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="HAG8PmQN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 902311F000E9;
-	Thu,  3 Sep 2026 18:22:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788459775;
-	bh=Nk8LlCJouLacWDu0IjKvUq0f6wbxIFnm6uBePRjeQT0=;
-	h=Date:To:From:Subject;
-	b=HAG8PmQN4Lky37Dm9HorRt53VU0OtHCHG97c/i7aGp3vePRkzOOsBFJpj8fADe3dG
-	 /QMRf5eQL9TkUf66sDfUEn/vQQdSB2fi2vFHmr2t3E49LWRWxSFhIQo6LWIKgHowwS
-	 /J826VL9RwohJdpFBPX0DQIu1xszx3OessqnCpLY=
-Date: Thu, 03 Sep 2026 11:22:55 -0700
-To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,krystianmkaniewski@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + xarray-fix-index-jumping-backwards-in-xas_find.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260903182255.902311F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PmJVisyy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22C971F000E9;
+	Thu,  3 Sep 2026 18:26:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788460014;
+	bh=fQihjT+kc7FnTVVi09UqIo19C3AFbpPNyz3jAkn0Hgs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PmJVisyyNXUlGLGLTWuO+5PrDjvjEwBjENeRpSVdQErABiMr9irU6JyOdui+QE12h
+	 QTTeFhZPBS2zBGdRSowcpa0ni/17xv8E2HysAydci9HNpKoP2NTL3V3md+pIqnRaIw
+	 yMDiKmNThWAqOPRVl/jzMV9ZR/rlApyMov+S1Q4h7QQfwtWLxcMdoP7CdG1tUh/LkV
+	 OguVMIa3Wf823W2gB2UvObgsDoXjlANims0VnUH9sc8oEa8tvCybjjVKo3uYhYot+9
+	 niwdpnMI8cniMfdfWMT/6baH5S/A1R63AFl6JCwT/vinm/5zoDghALRiXK5Bc1TVjb
+	 zoi15d1vQ772g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Muchun Song <songmuchun@bytedance.com>,
+	Qi Zheng <zhengqi.arch@bytedance.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	David Hildenbrand <david@redhat.com>,
+	Harry Yoo <harry.yoo@oracle.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Hugh Dickins <hughd@google.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nico Pache <npache@redhat.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Wei Yang <richard.weiyang@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] mm: thp: introduce folio_split_queue_lock and its variants
+Date: Thu,  3 Sep 2026 14:26:45 -0400
+Message-ID: <20260903182650.1451393-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090356-glacial-cornball-be8c@gregkh>
+References: <2026090356-glacial-cornball-be8c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Muchun Song <songmuchun@bytedance.com>
 
-The patch titled
-     Subject: xarray: fix index jumping backwards in xas_find()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     xarray-fix-index-jumping-backwards-in-xas_find.patch
+[ Upstream commit ad7c7f4576a5977b4ec4ac5dd090ab3f81ca7c6f ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/xarray-fix-index-jumping-backwards-in-xas_find.patch
+In future memcg removal, the binding between a folio and a memcg may
+change, making the split lock within the memcg unstable when held.
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+A new approach is required to reparent the split queue to its parent.
+This patch starts introducing a unified way to acquire the split lock for
+future work.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+It's a code-only refactoring with no functional changes.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Subject: xarray: fix index jumping backwards in xas_find()
-Date: Thu, 3 Sep 2026 13:48:55 +0000 (UTC)
-
-A bug in the XArray iterator xas_find() causes the iterator's index
-(xas->xa_index) to jump backwards when iterating over a multi-index entry
-(like a THP) that resides in a non-leaf node and is concurrently split.
-
-This results in a use-after-free in ptep_get(), detected by KASAN [1].
-
-When iterating over a multi-index entry in a non-leaf node, xas_load() sets
-xas->xa_offset to the base offset of the entry, but leaves xas->xa_index at
-the requested index. When the caller subsequently wants to advance to the
-next entry, xas_find() is called. xas_find() attempts to synchronize
-xas->xa_offset with xas->xa_index before advancing. However, the fixup
-logic was incorrectly restricted to leaf nodes (!xas->xa_node->shift).
-Because the THP resides in a non-leaf node, the fixup is skipped.
-
-As a result, xas_find() simply increments xas->xa_offset and recalculates
-xas->xa_index based on this new offset. This causes xas->xa_index to jump
-backwards. If the THP was concurrently split, the entry at the new offset
-is a node pointer, so xas_find() descends into it and returns the folio at
-the backwards index. The caller (filemap_map_pages()) then calculates the
-PTE pointer based on this backwards index, resulting in an invalid memory
-access such as an out-of-bounds read or use-after-free on a page-table page
-freed via tlb_remove_table_rcu().
-
-To fix this, check if xas->xa_offset matches get_offset(xas->xa_index,
-xas->xa_node). If it does not and the node is a non-leaf node, set
-xas->xa_offset to get_offset(xas->xa_index, xas->xa_node) before advancing.
-Also add test cases in test_xarray to verify xas_find() behavior when
-iterating over and splitting multi-index entries.
-
-Link: https://lore.kernel.org/2992424b-2120-489e-9010-f45f46ed52c8@mail.kernel.org
-Fixes: b803b42823d0 ("xarray: Add XArray iterators")
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-Assisted-by: Gemini:gemini-3.7-flash syzbot
-Reported-by: syzbot+b72767277f29b6407083@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b72767277f29b6407083 [1]
-Link: https://syzkaller.appspot.com/ai_job?id=a01c56bd-74d0-411c-afb4-ee6f0cb6cb61
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: <stable@vger.kernel.org>
+Link: https://lkml.kernel.org/r/a31a90bcac04dc754f775e87ae3205be3170b571.1762762324.git.zhengqi.arch@bytedance.com
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: David Hildenbrand <david@redhat.com>
+Reviewed-by: Harry Yoo <harry.yoo@oracle.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Wei Yang <richard.weiyang@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: c299a2285d9d ("mm/huge_memory: use folio's memcg inside __folio_split()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ include/linux/memcontrol.h |  10 ++++
+ mm/huge_memory.c           | 119 ++++++++++++++++++++++++++-----------
+ 2 files changed, 94 insertions(+), 35 deletions(-)
 
- lib/test_xarray.c |   62 ++++++++++++++++++++++++++++++++++++++++++++
- lib/xarray.c      |    8 +++--
- 2 files changed, 67 insertions(+), 3 deletions(-)
-
---- a/lib/test_xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
-+++ a/lib/test_xarray.c
-@@ -1247,6 +1247,67 @@ static noinline void check_multi_find_3(
- 	}
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 133591199933a..706ddda4a60b1 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -1674,6 +1674,11 @@ int alloc_shrinker_info(struct mem_cgroup *memcg);
+ void free_shrinker_info(struct mem_cgroup *memcg);
+ void set_shrinker_bit(struct mem_cgroup *memcg, int nid, int shrinker_id);
+ void reparent_shrinker_deferred(struct mem_cgroup *memcg);
++
++static inline int shrinker_id(struct shrinker *shrinker)
++{
++	return shrinker->id;
++}
+ #else
+ #define mem_cgroup_sockets_enabled 0
+ 
+@@ -1705,6 +1710,11 @@ static inline void set_shrinker_bit(struct mem_cgroup *memcg,
+ 				    int nid, int shrinker_id)
+ {
+ }
++
++static inline int shrinker_id(struct shrinker *shrinker)
++{
++	return -1;
++}
+ #endif
+ 
+ #ifdef CONFIG_MEMCG
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 227aeffae8eed..11a58a93f361b 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -1095,28 +1095,86 @@ pmd_t maybe_pmd_mkwrite(pmd_t pmd, struct vm_area_struct *vma)
+ 	return pmd;
  }
  
-+static noinline void check_multi_find_4(struct xarray *xa)
++static struct deferred_split *split_queue_node(int nid)
 +{
-+#ifdef CONFIG_XARRAY_MULTI
-+	XA_STATE(xas, xa, 100);
-+	XA_STATE_ORDER(split, xa, 0, 0);
-+	void *entry;
-+	unsigned long i;
++	struct pglist_data *pgdata = NODE_DATA(nid);
 +
-+	/* (1) Order-7 entry (0-127) with adjacent entry at 128, starting at 100 */
-+	xa_store_order(xa, 0, 7, xa_mk_index(0), GFP_KERNEL);
-+	XA_BUG_ON(xa, xa_store_index(xa, 128, GFP_KERNEL) != NULL);
-+
-+	rcu_read_lock();
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != xa_mk_index(0));
-+	XA_BUG_ON(xa, xas.xa_index != 100);
-+
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != xa_mk_index(128));
-+	XA_BUG_ON(xa, xas.xa_index != 128);
-+
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != NULL);
-+	rcu_read_unlock();
-+
-+	xa_erase_index(xa, 128);
-+	xa_erase_index(xa, 0);
-+	XA_BUG_ON(xa, !xa_empty(xa));
-+
-+	/* (2) Splitting a multi-index entry after a lookup begins inside it */
-+	xa_store_order(xa, 0, 7, xa_mk_index(0), GFP_KERNEL);
-+	XA_BUG_ON(xa, xa_store_index(xa, 128, GFP_KERNEL) != NULL);
-+
-+	xas_set(&xas, 100);
-+	rcu_read_lock();
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != xa_mk_index(0));
-+	XA_BUG_ON(xa, xas.xa_index != 100);
-+	rcu_read_unlock();
-+
-+	xas_split_alloc(&split, xa_mk_index(0), 7, GFP_KERNEL);
-+	xas_lock(&split);
-+	xas_split(&split, xa_mk_index(0), 7);
-+	for (i = 0; i < 128; i++)
-+		__xa_store(xa, i, xa_mk_index(i), 0);
-+	xas_unlock(&split);
-+
-+	rcu_read_lock();
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != xa_mk_index(128));
-+	XA_BUG_ON(xa, xas.xa_index != 128);
-+
-+	entry = xas_find(&xas, ULONG_MAX);
-+	XA_BUG_ON(xa, entry != NULL);
-+	rcu_read_unlock();
-+
-+	xa_destroy(xa);
-+	XA_BUG_ON(xa, !xa_empty(xa));
-+#endif
++	return &pgdata->deferred_split_queue;
 +}
 +
- static noinline void check_find_1(struct xarray *xa)
+ #ifdef CONFIG_MEMCG
+ static inline
+-struct deferred_split *get_deferred_split_queue(struct folio *folio)
++struct mem_cgroup *folio_split_queue_memcg(struct folio *folio,
++					   struct deferred_split *queue)
  {
- 	unsigned long i, j, k;
-@@ -1370,6 +1431,7 @@ static noinline void check_find(struct x
- 		check_multi_find_1(xa, i);
- 	check_multi_find_2(xa);
- 	check_multi_find_3(xa);
-+	check_multi_find_4(xa);
- }
+-	struct mem_cgroup *memcg = folio_memcg(folio);
+-	struct pglist_data *pgdat = NODE_DATA(folio_nid(folio));
++	if (mem_cgroup_disabled())
++		return NULL;
++	if (split_queue_node(folio_nid(folio)) == queue)
++		return NULL;
++	return container_of(queue, struct mem_cgroup, deferred_split_queue);
++}
  
- /* See find_swap_entry() in mm/shmem.c */
---- a/lib/xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
-+++ a/lib/xarray.c
-@@ -1409,9 +1409,11 @@ void *xas_find(struct xa_state *xas, uns
- 		entry = xas_load(xas);
- 		if (entry || xas_not_node(xas->xa_node))
- 			return entry;
--	} else if (!xas->xa_node->shift &&
--		    xas->xa_offset != (xas->xa_index & XA_CHUNK_MASK)) {
--		xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
-+	} else if (xas->xa_offset != get_offset(xas->xa_index, xas->xa_node)) {
-+		if (!xas->xa_node->shift)
-+			xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
-+		else
-+			xas->xa_offset = get_offset(xas->xa_index, xas->xa_node);
+-	if (memcg)
+-		return &memcg->deferred_split_queue;
+-	else
+-		return &pgdat->deferred_split_queue;
++static struct deferred_split *memcg_split_queue(int nid, struct mem_cgroup *memcg)
++{
++	return memcg ? &memcg->deferred_split_queue : split_queue_node(nid);
+ }
+ #else
+ static inline
+-struct deferred_split *get_deferred_split_queue(struct folio *folio)
++struct mem_cgroup *folio_split_queue_memcg(struct folio *folio,
++					   struct deferred_split *queue)
+ {
+-	struct pglist_data *pgdat = NODE_DATA(folio_nid(folio));
++	return NULL;
++}
+ 
+-	return &pgdat->deferred_split_queue;
++static struct deferred_split *memcg_split_queue(int nid, struct mem_cgroup *memcg)
++{
++	return split_queue_node(nid);
+ }
+ #endif
+ 
++static struct deferred_split *split_queue_lock(int nid, struct mem_cgroup *memcg)
++{
++	struct deferred_split *queue;
++
++	queue = memcg_split_queue(nid, memcg);
++	spin_lock(&queue->split_queue_lock);
++
++	return queue;
++}
++
++static struct deferred_split *
++split_queue_lock_irqsave(int nid, struct mem_cgroup *memcg, unsigned long *flags)
++{
++	struct deferred_split *queue;
++
++	queue = memcg_split_queue(nid, memcg);
++	spin_lock_irqsave(&queue->split_queue_lock, *flags);
++
++	return queue;
++}
++
++static struct deferred_split *folio_split_queue_lock(struct folio *folio)
++{
++	return split_queue_lock(folio_nid(folio), folio_memcg(folio));
++}
++
++static struct deferred_split *
++folio_split_queue_lock_irqsave(struct folio *folio, unsigned long *flags)
++{
++	return split_queue_lock_irqsave(folio_nid(folio), folio_memcg(folio), flags);
++}
++
++static inline void split_queue_unlock(struct deferred_split *queue)
++{
++	spin_unlock(&queue->split_queue_lock);
++}
++
++static inline void split_queue_unlock_irqrestore(struct deferred_split *queue,
++						 unsigned long flags)
++{
++	spin_unlock_irqrestore(&queue->split_queue_lock, flags);
++}
++
+ static inline bool is_transparent_hugepage(const struct folio *folio)
+ {
+ 	if (!folio_test_large(folio))
+@@ -3622,7 +3680,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		struct page *split_at, struct page *lock_at,
+ 		struct list_head *list, bool uniform_split)
+ {
+-	struct deferred_split *ds_queue = get_deferred_split_queue(folio);
++	struct deferred_split *ds_queue;
+ 	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
+ 	struct folio *end_folio = folio_next(folio);
+ 	bool is_anon = folio_test_anon(folio);
+@@ -3753,7 +3811,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
  	}
  
- 	xas_next_offset(xas);
-_
-
-Patches currently in -mm which might be from krystianmkaniewski@gmail.com are
-
-xarray-fix-index-jumping-backwards-in-xas_find.patch
+ 	/* Prevent deferred_split_scan() touching ->_refcount */
+-	spin_lock(&ds_queue->split_queue_lock);
++	ds_queue = folio_split_queue_lock(folio);
+ 	if (folio_ref_freeze(folio, 1 + extra_pins)) {
+ 		struct swap_cluster_info *ci = NULL;
+ 		struct lruvec *lruvec;
+@@ -3775,7 +3833,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 			 */
+ 			list_del_init(&folio->_deferred_list);
+ 		}
+-		spin_unlock(&ds_queue->split_queue_lock);
++		split_queue_unlock(ds_queue);
+ 		if (mapping) {
+ 			int nr = folio_nr_pages(folio);
+ 
+@@ -3870,7 +3928,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		if (ci)
+ 			swap_cluster_unlock(ci);
+ 	} else {
+-		spin_unlock(&ds_queue->split_queue_lock);
++		split_queue_unlock(ds_queue);
+ 		ret = -EAGAIN;
+ 	}
+ fail:
+@@ -4058,8 +4116,7 @@ bool __folio_unqueue_deferred_split(struct folio *folio)
+ 	WARN_ON_ONCE(folio_ref_count(folio));
+ 	WARN_ON_ONCE(!mem_cgroup_disabled() && !folio_memcg(folio));
+ 
+-	ds_queue = get_deferred_split_queue(folio);
+-	spin_lock_irqsave(&ds_queue->split_queue_lock, flags);
++	ds_queue = folio_split_queue_lock_irqsave(folio, &flags);
+ 	if (!list_empty(&folio->_deferred_list)) {
+ 		ds_queue->split_queue_len--;
+ 		if (folio_test_partially_mapped(folio)) {
+@@ -4070,7 +4127,7 @@ bool __folio_unqueue_deferred_split(struct folio *folio)
+ 		list_del_init(&folio->_deferred_list);
+ 		unqueued = true;
+ 	}
+-	spin_unlock_irqrestore(&ds_queue->split_queue_lock, flags);
++	split_queue_unlock_irqrestore(ds_queue, flags);
+ 
+ 	return unqueued;	/* useful for debug warnings */
+ }
+@@ -4078,10 +4135,7 @@ bool __folio_unqueue_deferred_split(struct folio *folio)
+ /* partially_mapped=false won't clear PG_partially_mapped folio flag */
+ void deferred_split_folio(struct folio *folio, bool partially_mapped)
+ {
+-	struct deferred_split *ds_queue = get_deferred_split_queue(folio);
+-#ifdef CONFIG_MEMCG
+-	struct mem_cgroup *memcg = folio_memcg(folio);
+-#endif
++	struct deferred_split *ds_queue;
+ 	unsigned long flags;
+ 
+ 	/*
+@@ -4104,7 +4158,7 @@ void deferred_split_folio(struct folio *folio, bool partially_mapped)
+ 	if (folio_test_swapcache(folio))
+ 		return;
+ 
+-	spin_lock_irqsave(&ds_queue->split_queue_lock, flags);
++	ds_queue = folio_split_queue_lock_irqsave(folio, &flags);
+ 	if (partially_mapped) {
+ 		if (!folio_test_partially_mapped(folio)) {
+ 			folio_set_partially_mapped(folio);
+@@ -4119,15 +4173,16 @@ void deferred_split_folio(struct folio *folio, bool partially_mapped)
+ 		VM_WARN_ON_FOLIO(folio_test_partially_mapped(folio), folio);
+ 	}
+ 	if (list_empty(&folio->_deferred_list)) {
++		struct mem_cgroup *memcg;
++
++		memcg = folio_split_queue_memcg(folio, ds_queue);
+ 		list_add_tail(&folio->_deferred_list, &ds_queue->split_queue);
+ 		ds_queue->split_queue_len++;
+-#ifdef CONFIG_MEMCG
+ 		if (memcg)
+ 			set_shrinker_bit(memcg, folio_nid(folio),
+-					 deferred_split_shrinker->id);
+-#endif
++					 shrinker_id(deferred_split_shrinker));
+ 	}
+-	spin_unlock_irqrestore(&ds_queue->split_queue_lock, flags);
++	split_queue_unlock_irqrestore(ds_queue, flags);
+ }
+ 
+ static unsigned long deferred_split_count(struct shrinker *shrink,
+@@ -4173,19 +4228,13 @@ static bool thp_underused(struct folio *folio)
+ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 		struct shrink_control *sc)
+ {
+-	struct pglist_data *pgdata = NODE_DATA(sc->nid);
+-	struct deferred_split *ds_queue = &pgdata->deferred_split_queue;
++	struct deferred_split *ds_queue;
+ 	unsigned long flags;
+ 	LIST_HEAD(list);
+ 	struct folio *folio, *next, *prev = NULL;
+ 	int split = 0, removed = 0;
+ 
+-#ifdef CONFIG_MEMCG
+-	if (sc->memcg)
+-		ds_queue = &sc->memcg->deferred_split_queue;
+-#endif
+-
+-	spin_lock_irqsave(&ds_queue->split_queue_lock, flags);
++	ds_queue = split_queue_lock_irqsave(sc->nid, sc->memcg, &flags);
+ 	/* Take pin on all head pages to avoid freeing them under us */
+ 	list_for_each_entry_safe(folio, next, &ds_queue->split_queue,
+ 							_deferred_list) {
+@@ -4204,7 +4253,7 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 		if (!--sc->nr_to_scan)
+ 			break;
+ 	}
+-	spin_unlock_irqrestore(&ds_queue->split_queue_lock, flags);
++	split_queue_unlock_irqrestore(ds_queue, flags);
+ 
+ 	list_for_each_entry_safe(folio, next, &list, _deferred_list) {
+ 		bool did_split = false;
+-- 
+2.53.0
 
