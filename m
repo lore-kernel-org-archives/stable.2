@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4D44AA40F
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8058B4AA414
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439625; cv=none; b=FRxtMHU5dHxaHt3pKsWqAU4g/w4aTlDuHcUVOqHtszWD3ys9u7/Weld4sVI1GcYnI1RTAiFdn8wvyjwY5+4nnDy8AmDPR3FbruPs+RDMAdwNCPMwdkkN5VAJ226UHfGDiGwMTs9xidHSJyDP+R8EpQjQtZlwP1xXRtAdt5VhzQU=
+	t=1788439628; cv=none; b=lE2Ykfa7K/fCsT/xUCGQeAfokJ9kbxqy5VWdg9b8sTfM8THZ+ySf++lMxDq6bounqTNZKj1WJ4aZxg2vLNQJQh7zNdJsYM/hoKBgpG4+JEm6983Sgswv/AKRbWmRy6NEliI4u3MEDYf2MahczCn7Rz0O6Z8WnojJLvdQmI5GObQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439625; c=relaxed/simple;
-	bh=AI1z6lQ2xqAbS0tGN8ftHHvTk0iAuzJE69b4xoPHrT8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NvCG/dJhxHUv1ikYzL3MVbiTrsI4utWLZFhHmBKqM5kzXTbpH2MYwfzkntte54fCz1Jj6tD5C09s+SxN8FTzlGxYNhMVx72krhM8RcJutIIXtxfUYANW6NVsnezJ6RAE+XSiuRQKhGjDLaMeQP7bzQs/s8c4VZNL8GvXka+yvWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MGHz/Ssk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439628; c=relaxed/simple;
+	bh=R9U1N/qdllnGViBOZkH8aaPeZ+YoCNbvjcRLf8AYfrk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mth/fmIVF5lKGoNrRAwWnS+haJGXwZVILoX6gKWXvFxH96njWsVF2irGdVe6882HoE6LwEcQ8W4EX0dLuR325WSjMB6rkPZKYtaspzIl+O48vhXNGkwQwb2WHsSSf9nNuLvQJuY7YSyQfET6NWrL1MDAWxrdMflHEyDhdlWOrJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DhWpqhLn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MGHz/Ssk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03E881F000E9;
-	Thu,  3 Sep 2026 12:47:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DhWpqhLn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4581F000E9;
+	Thu,  3 Sep 2026 12:47:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439623;
-	bh=talStsh38PeEpBq3FsV9Z654hqoBgcoVeowEv/9NfgE=;
+	s=korg; t=1788439626;
+	bh=5J3IqEbUQ2FnfHXIqduRuXTZK76ya1aV6V4vwextVqw=;
 	h=Subject:To:Cc:From:Date;
-	b=MGHz/SskLSw9/kAVtxxG23gOJY2pZzKoYyr4h+BHtZJvfg6P0Qj2OLZZ/G/mQqzks
-	 rZ3KceV01177HJBGD2n6JgMtePXyZBYQUyXRRo6FNfsxK/6VtZzFTDuKMFJACWG/UP
-	 45ZIOjJ4+QEtwLBWqTCWoqry5k7xvt92fhlIz6Xg=
-Subject: FAILED: patch "[PATCH] mm/slub: fix missing debugfs entries for caches created" failed to apply to 6.6-stable tree
-To: lixiasong1@huawei.com,harry@kernel.org,vbabka@kernel.org
+	b=DhWpqhLnAO3GvLkpto82sB26pKHrMSkDE36tX2JeX2D+3m9ngqTcTiSz4iff6dsE8
+	 SNVjF3KHvu0lLHcFNgruuff3JXWdBzW+LuI0LI06mR3/zyH1Pn+FUhGJFDlhBCOFGg
+	 aRJNST96yGInHgbar8SF1WH596MgHffWmDK82fYY=
+Subject: FAILED: patch "[PATCH] mm: mempolicy: fix automatic numa balancing for shmem" failed to apply to 6.1-stable tree
+To: hannes@cmpxchg.org,akpm@linux-foundation.org,apopple@nvidia.com,balbirs@nvidia.com,byungchul@sk.com,david@kernel.org,gourry@gourry.net,joshua.hahnjy@gmail.com,matthew.brost@intel.com,nehagholkar@gmail.com,rakie.kim@sk.com,stable@vger.kernel.org,ying.huang@linux.alibaba.com,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:50:10 +0200
-Message-ID: <2026090310-subtract-womanlike-c117@gregkh>
+Date: Thu, 03 Sep 2026 12:51:24 +0200
+Message-ID: <2026090324-eggnog-aqua-d0d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7e98f856395618011c517f767fb80ac3fe90de2b
+git cherry-pick -x d230991493b521eeff39f32434fddcbcdb109eb0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090310-subtract-womanlike-c117@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090324-eggnog-aqua-d0d4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,192 +62,92 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7e98f856395618011c517f767fb80ac3fe90de2b Mon Sep 17 00:00:00 2001
-From: Li Xiasong <lixiasong1@huawei.com>
-Date: Wed, 29 Jul 2026 18:18:49 +0800
-Subject: [PATCH] mm/slub: fix missing debugfs entries for caches created
- before sysfs init
+From d230991493b521eeff39f32434fddcbcdb109eb0 Mon Sep 17 00:00:00 2001
+From: Johannes Weiner <hannes@cmpxchg.org>
+Date: Mon, 29 Jun 2026 12:33:37 -0400
+Subject: [PATCH] mm: mempolicy: fix automatic numa balancing for shmem
 
-slab_debugfs_init() creates the slab debugfs root at device initcall
-time, while slab_sysfs_init() moves slab_state to FULL at late initcall
-time. SLAB_STORE_USER caches created in this window miss their debugfs
-entries because do_kmem_cache_create() skips debugfs_slab_add() when
-slab_state <= UP. This was observed with MPTCP's request_sock_subflow_v6
-cache, whose slab debugfs directory was missing.
+Neha reports that mapped shmem aren't considered for NUMA balancing,
+noting convergence problems and bandwidth bottlenecking for cachelib based
+workloads on tiered memory systems.
 
-The affected window is:
+Looking at the code and going through the git history, this doesn't
+actually seem intentional:
 
-  slab_debugfs_init()
-    slab_debugfs_root = debugfs_create_dir(...)
-    list_for_each_entry(s, &slab_caches, list)
-      debugfs_slab_add(s)
+Commit fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault
+VMAs") added a vma_policy_mof() gate to task_numa_work() so VMAs whose
+policy lacks MPOL_F_MOF are skipped from NUMA balancing scans.  The
+motivation was a real usecase: Oracle was pinning shared segments with
+mbind(MPOL_BIND) so trapping faults was both expensive and pointless.
 
-  kmem_cache_create(..., SLAB_STORE_USER, ...)
-    do_kmem_cache_create()
-      if (slab_state <= UP)
-        return without debugfs entries
+The handling of NULL from vm_ops->get_policy, however, treated "user
+explicitly opted out" the same as "user never specified anything." For
+VMAs whose shared policy is absent - the common case for shmem - the scan
+was disabled too.
 
-  slab_sysfs_init()
-    slab_state = FULL
+This issue is old.  It probably hurts less in conventional NUMA.  But it's
+very noticeable on tiered systems, where entire tmpfs workingsets can get
+stuck on lower-bandwidth memory.
 
-Initialize the debugfs root and add debugfs entries while holding
-slab_mutex, walking slab_caches exactly once and handling both sysfs
-and debugfs entries in the same pass. This gives the sysfs and debugfs
-initialization an explicit order and prevents caches from being
-created between the debugfs scan and slab_state reaching FULL.
+Fix this by having vma_policy_mof() use __get_vma_policy() directly, and
+thereby handle the fallback to task policy (-> preferred_node_policy() has
+MPOL_F_MOF per default).  Every other consumer of vm_ops->get_policy
+already handles it this way, the scan-eligibility check was the outlier.
 
-Gate the new slab_late_init() on either sysfs or debugfs being enabled,
-with the slab_kset creation and alias_list processing factored into
-helpers that have empty no-sysfs variants, as suggested by Vlastimil
-Babka. On slab_kset_init() failure, slab_state stays below FULL so
-kmem_cache_create() keeps taking the early-boot path, matching prior
-behavior.
+This preserves Mel's intended fix: don't scan stuff the user explicitly
+pinned.  But allow default policy vmas to participate in balancing.
 
-Guard debugfs_slab_release() against an uninitialized debugfs root,
-since the root is now created later and a cache may be released before
-it exists.
+Link: https://lore.kernel.org/20260629163337.1264881-1-hannes@cmpxchg.org
+Fixes: fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault VMAs")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Reported-by: Neha Gholkar <nehagholkar@gmail.com>
+Tested-by: Neha Gholkar <nehagholkar@gmail.com>
+Reviewed-by: Gregory Price <gourry@gourry.net>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall")
-Cc: stable@vger.kernel.org
-Suggested-by: Vlastimil Babka <vbabka@kernel.org>
-Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
-Link: https://patch.msgid.link/20260729101849.3734287-1-lixiasong1@huawei.com
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-diff --git a/mm/slub.c b/mm/slub.c
-index f528e5fbef82..9656bdc94007 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -333,14 +333,20 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
- 
- #ifdef SLAB_SUPPORTS_SYSFS
- static int sysfs_slab_add(struct kmem_cache *);
-+static int __init slab_kset_init(void);
-+static void __init slab_sysfs_process_aliases(void);
- #else
- static inline int sysfs_slab_add(struct kmem_cache *s) { return 0; }
-+static inline int slab_kset_init(void) { return 0; }
-+static inline void slab_sysfs_process_aliases(void) { }
- #endif
- 
- #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_SLUB_DEBUG)
- static void debugfs_slab_add(struct kmem_cache *);
-+static void __init slab_debugfs_root_init(void);
- #else
- static inline void debugfs_slab_add(struct kmem_cache *s) { }
-+static inline void slab_debugfs_root_init(void) { }
- #endif
- 
- enum add_mode {
-@@ -9746,28 +9752,20 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
- 	return 0;
- }
- 
--static int __init slab_sysfs_init(void)
-+static int __init slab_kset_init(void)
+diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+index 501e0b80d7da..5720f7f54d94 100644
+--- a/mm/mempolicy.c
++++ b/mm/mempolicy.c
+@@ -2060,24 +2060,15 @@ struct mempolicy *get_vma_policy(struct vm_area_struct *vma,
+ bool vma_policy_mof(struct vm_area_struct *vma)
  {
--	struct kmem_cache *s;
--	int err;
--
--	mutex_lock(&slab_mutex);
--
- 	slab_kset = kset_create_and_add("slab", NULL, kernel_kobj);
- 	if (!slab_kset) {
--		mutex_unlock(&slab_mutex);
- 		pr_err("Cannot register slab subsystem.\n");
- 		return -ENOMEM;
- 	}
+ 	struct mempolicy *pol;
++	pgoff_t ilx;
++	bool mof;
  
--	slab_state = FULL;
-+	return 0;
-+}
- 
--	list_for_each_entry(s, &slab_caches, list) {
--		err = sysfs_slab_add(s);
--		if (err)
--			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
--			       s->name);
+-	if (vma->vm_ops && vma->vm_ops->get_policy) {
+-		bool ret = false;
+-		pgoff_t ilx;		/* ignored here */
+-
+-		pol = vma->vm_ops->get_policy(vma, vma->vm_start, &ilx);
+-		if (pol && (pol->flags & MPOL_F_MOF))
+-			ret = true;
+-		mpol_cond_put(pol);
+-
+-		return ret;
 -	}
-+static void __init slab_sysfs_process_aliases(void)
-+{
-+	int err;
- 
- 	while (alias_list) {
- 		struct saved_alias *al = alias_list;
-@@ -9779,13 +9777,42 @@ static int __init slab_sysfs_init(void)
- 			       al->name);
- 		kfree(al);
- 	}
 -
--	mutex_unlock(&slab_mutex);
--	return 0;
- }
--late_initcall(slab_sysfs_init);
- #endif /* SLAB_SUPPORTS_SYSFS */
- 
-+#if defined(SLAB_SUPPORTS_SYSFS) || \
-+	(defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS))
-+static int __init slab_late_init(void)
-+{
-+	struct kmem_cache *s;
-+	int err;
-+
-+	mutex_lock(&slab_mutex);
-+
-+	err = slab_kset_init();
-+	if (err)
-+		goto out;
-+
-+	slab_debugfs_root_init();
-+	slab_state = FULL;
-+
-+	list_for_each_entry(s, &slab_caches, list) {
-+		if (sysfs_slab_add(s))
-+			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
-+			       s->name);
-+
-+		if (s->flags & SLAB_STORE_USER)
-+			debugfs_slab_add(s);
-+	}
-+
-+	slab_sysfs_process_aliases();
-+out:
-+	mutex_unlock(&slab_mutex);
-+	return err;
-+}
-+late_initcall(slab_late_init);
-+#endif
-+
- #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
- static int slab_debugfs_show(struct seq_file *seq, void *v)
- {
-@@ -9976,23 +10003,16 @@ static void debugfs_slab_add(struct kmem_cache *s)
- 
- void debugfs_slab_release(struct kmem_cache *s)
- {
-+	if (unlikely(!slab_debugfs_root))
-+		return;
-+
- 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
+-	pol = vma->vm_policy;
++	pol = __get_vma_policy(vma, vma->vm_start, &ilx);
+ 	if (!pol)
+ 		pol = get_task_policy(current);
+-
+-	return pol->flags & MPOL_F_MOF;
++	mof = pol->flags & MPOL_F_MOF;
++	mpol_cond_put(pol);
++	return mof;
  }
  
--static int __init slab_debugfs_init(void)
-+static void __init slab_debugfs_root_init(void)
- {
--	struct kmem_cache *s;
--
- 	slab_debugfs_root = debugfs_create_dir("slab", NULL);
--
--	list_for_each_entry(s, &slab_caches, list)
--		if (s->flags & SLAB_STORE_USER)
--			debugfs_slab_add(s);
--
--	return 0;
--
- }
--__initcall(slab_debugfs_init);
- #endif
- /*
-  * The /proc/slabinfo ABI
+ bool apply_policy_zone(struct mempolicy *policy, enum zone_type zone)
 
