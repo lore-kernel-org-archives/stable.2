@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98284C77A2
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2C04B5CC0
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:04:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447865; cv=none; b=GnZD2B7yKFLOwiq04+BUqGMnD9YDMIsheDtkcSmfkWyY9HIxzdul4mxJyeVQgw6I/FlOCdl+H5csrSgx4Qn3g5p+3ofdBPKcX8NJHT58NcYMb6MTABRf2Q6mkeroPn5MQ8BABRTjCqiOhOEOwuxl5f4GdQzdJ1KvQA1KoTmW4dM=
+	t=1788447868; cv=none; b=udXIlV+LD5PLKpI6zgProiFoJRZxAVkYm0IE3O/5B3X0KeuzppX8NgHe2JB8lF/P+ijgr/KPAz0Qm4x1ZC6PYG+vNyU5O7iv1SZySe05gNiHkXzMmcy6XOLtPs+gMp+yYdwBCxd2kUgNVNCu4j0B21+bPaDYbEkpghw04AsITd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447865; c=relaxed/simple;
-	bh=Iqsq6mYNBdlZZg/p00S4n5/pp54OdvGFu/5cH8sl20A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Obp31nPeG8cZACyevQrnCgngciRbi5TtFJiwLWk7jCG3x+Fi6L5KSFZdIKbwzwaB/yFH5ypgsP5lCVAzgYRz7g8bQI74sw7DoGZStgUVAsTch3Ec31iBCgez3b/kF4beI1zqFssf8rGEqe92s/mjbHQZIMYTnLwA/CWO6nWjGmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wbkGrZ7c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447868; c=relaxed/simple;
+	bh=ZLyUt9x2blg+qleRzAgrmzWEvnYvoS0/XLByNBcpvCk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=e+kcy1oSs8et9lHZN79YTjs6qoywS12M3iBXY7Rg57kTt340Pkxl+YY+Pi+k5PIwm7AtUbm82HnTtPyV1o/f04YAlXOBvl1Y0hO3fb+PpnWe2lvB7Trmijq0ThnHIO4xU+4EwGdViKg7AsJtDdp3NZgHSDBZJ2h1dP0y4wdVvrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=iA4+t47R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wbkGrZ7c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A2F91F000E9;
-	Thu,  3 Sep 2026 15:04:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="iA4+t47R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD2A1F000E9;
+	Thu,  3 Sep 2026 15:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447864;
-	bh=xBvaZcek0VCulGIbNDCVZ1z5jexeXVn3bX49tvCMwkg=;
+	s=korg; t=1788447867;
+	bh=DWk6oCm6Q0NBkjhkA6NvWx0tPFjwwQejGz0WSykaJ9g=;
 	h=Subject:To:Cc:From:Date;
-	b=wbkGrZ7cu2Vqrqi+GrQVgLlKwAEqySuXv01yotmcVm+yyfnGbLFOP6xa2JHAhTffB
-	 0OY5qtZd+noN1ZNzBuaJ36GOM9nChyNaDs+eWI30jrT4Y7bekhSiMcrYHUvDbgztFg
-	 MEpHylSnrDXr91ZZFCF7y1pIpJ0xjhCzqTLkjfhE=
-Subject: FAILED: patch "[PATCH] PCI: starfive: Fix resource leaks on error paths in" failed to apply to 6.18-stable tree
-To: alitariq45892@gmail.com,mani@kernel.org
+	b=iA4+t47Rbfu5qTSavGDg4J7r/NrD8vCM8kbG3Kihj05LVaFqDk3CXW5xEov4OBbp4
+	 3F/j6IVs2OzxsH4pQPJEatTQawSgRJWKKuTcEW3YwiEC0ikl3mNm8lnpqwADpG8xYp
+	 q2TQ7yHVyz+KWKNADzzFrNbmiW2TVym0fkj48+88=
+Subject: FAILED: patch "[PATCH] PCI: Allow per function PCI slots to fix slot reset on s390" failed to apply to 6.18-stable tree
+To: alifm@linux.ibm.com,bhelgaas@google.com,schnelle@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:42:19 +0200
-Message-ID: <2026090319-enviably-stuck-b18b@gregkh>
+Date: Thu, 03 Sep 2026 16:42:54 +0200
+Message-ID: <2026090354-granular-yam-34d7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 22877a061f81c5d58041e384b3131684bec636b9
+git cherry-pick -x dcc5bec09e23bbc4f9de055a11fce9937244f2c8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090319-enviably-stuck-b18b@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090354-granular-yam-34d7@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,72 +62,153 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 22877a061f81c5d58041e384b3131684bec636b9 Mon Sep 17 00:00:00 2001
-From: Ali Tariq <alitariq45892@gmail.com>
-Date: Thu, 16 Jul 2026 15:20:53 +0500
-Subject: [PATCH] PCI: starfive: Fix resource leaks on error paths in
- host_init()
+From dcc5bec09e23bbc4f9de055a11fce9937244f2c8 Mon Sep 17 00:00:00 2001
+From: Farhan Ali <alifm@linux.ibm.com>
+Date: Wed, 5 Aug 2026 09:55:15 -0700
+Subject: [PATCH] PCI: Allow per function PCI slots to fix slot reset on s390
 
-starfive_pcie_host_init() acquires the PHY, clocks/resets, and an
-optional regulator in sequence, but does not correctly unwind these
-resources when a later step fails.
+On s390 systems, which use a machine level hypervisor, PCI devices are
+always accessed through a form of PCI pass-through which fundamentally
+operates on a per PCI function granularity. This is also reflected in the
+s390 PCI hotplug driver which creates hotplug slots for individual PCI
+functions. Its reset_slot() function, which is a wrapper for
+zpci_hot_reset_device(), thus also resets individual functions.
 
-If starfive_pcie_clk_rst_init() fails after the PHY has already been
-successfully enabled, the function returns directly without disabling
-the PHY, leaking it and leaving it powered.
+Currently, the pci_create_slot() assigns the same pci_slot object to
+multifunction devices. This approach worked fine on s390 systems that only
+exposed virtual functions as individual PCI domains to the operating
+system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
+s390 supports exposing the topology of multifunction PCI devices by
+grouping them in a shared PCI domain. This creates a problem when resetting
+a function through the hotplug driver's slot_reset() interface.
 
-If regulator_enable() fails for the optional vpcie3v3 regulator, the
-failure is only logged; the function falls through and returns
-success, leaving the driver believing the regulator is enabled while
-continuing to configure PCIe hardware that may be unpowered. This
-also leaves the clocks and PHY enabled with nothing to clean them up.
+When attempting to reset a function through the hotplug driver, the shared
+slot assignment causes the wrong function to be reset instead of the
+intended one. It also leaks memory as we do create a pci_slot object for
+the function, but don't correctly free it in pci_slot_release().
 
-Disable the PHY on the clk/reset failure path, and disable the
-clocks/resets and PHY, then return the error, if the regulator fails
-to enable.
+Add a flag for struct pci_slot to allow per function PCI slots for
+functions managed through a hypervisor, which exposes individual PCI
+functions while retaining the topology. Since we can use all 8 bits for
+slot 'number' (for ARI devices), change slot 'number' u16 to account for
+special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
 
-Build-tested and boot-tested on StarFive VisionFive 2 v1.2A
-
-Fixes: 05a75df4182e ("PCI: starfive: Use regulator APIs to control the 3v3 power supply of PCIe slots")
-Fixes: 39b91eb40c6a ("PCI: starfive: Add JH7110 PCIe controller")
-Signed-off-by: Ali Tariq <alitariq45892@gmail.com>
-Signed-off-by: Manivannan Sadhasivam <mani@kernel.org>
+Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
+Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
+Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260716102053.185276-1-alitariq45892@gmail.com
+Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
 
-diff --git a/drivers/pci/controller/plda/pcie-starfive.c b/drivers/pci/controller/plda/pcie-starfive.c
-index 298036c3e7f9..628f8c8d6747 100644
---- a/drivers/pci/controller/plda/pcie-starfive.c
-+++ b/drivers/pci/controller/plda/pcie-starfive.c
-@@ -304,12 +304,14 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 77b17b13ee61..350bae907ebf 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
  
- 	ret = starfive_pcie_clk_rst_init(pcie);
- 	if (ret)
--		return ret;
-+		goto err_disable_phy;
+ static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
+ {
+-	if (dev->multifunction || dev->subordinate || !dev->slot ||
+-	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
++	if (dev->subordinate || !dev->slot ||
++	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
++	    (dev->multifunction && !dev->slot->per_func_slot))
+ 		return -ENOTTY;
  
- 	if (pcie->vpcie3v3) {
- 		ret = regulator_enable(pcie->vpcie3v3);
--		if (ret)
-+		if (ret) {
- 			dev_err_probe(dev, ret, "failed to enable vpcie3v3 regulator\n");
-+			goto err_clk_rst;
-+		}
- 	}
- 
- 	if (pcie->reset_gpio)
-@@ -379,6 +381,13 @@ static int starfive_pcie_host_init(struct plda_pcie_rp *plda)
- 		dev_info(dev, "port link down\n");
- 
- 	return 0;
-+
-+err_clk_rst:
-+	starfive_pcie_clk_rst_deinit(pcie);
-+err_disable_phy:
-+	starfive_pcie_disable_phy(pcie);
-+
-+	return ret;
+ 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
+diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
+index 42ff66461f74..897223f01f6a 100644
+--- a/drivers/pci/slot.c
++++ b/drivers/pci/slot.c
+@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
+ 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
  }
  
- static const struct plda_pcie_host_ops sf_host_ops = {
++static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
++{
++	if (slot->per_func_slot)
++		return dev->devfn == slot->number;
++
++	return slot->number == PCI_SLOT_ALL_DEVICES ||
++		PCI_SLOT(dev->devfn) == slot->number;
++}
++
++static bool pci_slot_enabled_per_func(void)
++{
++	if (IS_ENABLED(CONFIG_S390))
++		return true;
++
++	return false;
++}
++
+ static void pci_slot_release(struct kobject *kobj)
+ {
+ 	struct pci_dev *dev;
+@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
+ 
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = NULL;
+ 	up_read(&pci_bus_sem);
+ 
+@@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
+ 
+ 	mutex_lock(&pci_slot_mutex);
+ 	list_for_each_entry(slot, &dev->bus->slots, list)
+-		if (slot->number == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot->number)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	mutex_unlock(&pci_slot_mutex);
+ }
+@@ -299,6 +314,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 	slot->bus = pci_bus_get(parent);
+ 	slot->number = slot_nr;
+ 
++	if (pci_slot_enabled_per_func())
++		slot->per_func_slot = 1;
++
+ 	slot->kobj.kset = pci_slots_kset;
+ 
+ 	slot_name = make_slot_name(name);
+@@ -319,8 +337,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
+ 
+ 	down_read(&pci_bus_sem);
+ 	list_for_each_entry(dev, &parent->devices, bus_list)
+-		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
+-		    PCI_SLOT(dev->devfn) == slot_nr)
++		if (pci_dev_matches_slot(dev, slot))
+ 			dev->slot = slot;
+ 	up_read(&pci_bus_sem);
+ 
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index 3824a8dd551e..8593384489db 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -79,17 +79,18 @@
+  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
+  * devices.
+  */
+-#define PCI_SLOT_ALL_DEVICES	0xfe
++#define PCI_SLOT_ALL_DEVICES	0xfeff
+ 
+ /* Used to identify a slot as a placeholder */
+-#define PCI_SLOT_PLACEHOLDER	0xff
++#define PCI_SLOT_PLACEHOLDER	0xffff
+ 
+ /* pci_slot represents a physical slot */
+ struct pci_slot {
+ 	struct pci_bus		*bus;		/* Bus this slot is on */
+ 	struct list_head	list;		/* Node in list of slots */
+ 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
+-	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
++	unsigned int		per_func_slot:1; /* Allow per function slot */
+ 	struct kobject		kobj;
+ };
+ 
 
