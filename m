@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B34E2DF132
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:45:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3B14AA001
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:45:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439543; cv=none; b=eRQsKmL0sQLNtVSUO969nitLWMCRYS2FbhtoPWneWf7Ge1j92XfV2aVFAtgDh8B5bO5lb2H4SfYy3mmBqH7NoGaYTBMrEd3mDXx3PnQ0XNLqbLCLCg1pYxSCW3x8tTBOmJ50zplurmIuE9Y1TTM/lIYB1jzZyGIviK/t7tBYou0=
+	t=1788439546; cv=none; b=jzQQL8g4j/Z8CrEjDwPiFe84Y9P+Jw5lxVywrn6mKT+HrMeBC9NUeSKLqzr//p8pPo+WZbahl9Lk865LfUTDz2CWrXbcZTs7lZk9Nvh4uolllvhletyIE8SGSSLP71157IWyDX1GG+AfLnKilQ1l1AQJPXU7Ca5nlMAAq1bjyfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439543; c=relaxed/simple;
-	bh=sgIkkMIBFPC8f95CoHJLrYv3wy5GSkleowrI+d5CkRA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GFmOvRgfvnwsHcH0z+brIA5zpP/9Qo27BdYElByU9UlMnJYmMyI5Xa9v4y10ocHoqXwtdic2ZvIn686AEmrxfBOPT32SHH0RERU58ub/gUVkROAosssbwG2pM8ElPv6oKFt/TPWfg1t8NISJrnJMJ0zaeGcHTzqeg4YfR4ZMK5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MtlXbtM2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439546; c=relaxed/simple;
+	bh=xfUWMtjeSmI+uBTE66+P5F2lOtPrQrpXBqOfOHZm6L8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZbWSnzJ98AnH7i40chMq3s5aAFQGbraWwuxzyaTFjLdXO2k+ZMZvO21tvZYtHf9S76/9MQe82EaJQnJU8ZRdvz397NJ4ir1YkAyRZW7YzQ7bpTFX+g+1upI2/VwaBG5D/hkrroueMBE+7q7SxyKjDriMILumAGWcvObZPPL1kHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lb+8O+ZE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MtlXbtM2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28611F000E9;
-	Thu,  3 Sep 2026 12:45:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lb+8O+ZE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85B031F000E9;
+	Thu,  3 Sep 2026 12:45:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439542;
-	bh=k73J5Ttx3eCY+tHSElXWXh1En7f0fKcnXkmLRnc9KqY=;
+	s=korg; t=1788439545;
+	bh=CPgP0sVXZu79F3TXn5gge0QpXDmewVqNqwp/l/jTWW8=;
 	h=Subject:To:Cc:From:Date;
-	b=MtlXbtM237Diyycvc9f7THFCQNKzDWdux90gFrO3iuC2VJZPHEj2byt1YkUHrelLU
-	 0iXIRPqGaw8HCyAMohSLMxLXxCl0efcA3rlM3MtuWdft3/ZrHZH6zIc07YVnq0gleH
-	 2E1nQXJhHYGSjNOUJAFDmnbP1yWziTIuGiZbsviw=
-Subject: FAILED: patch "[PATCH] mm/mglru: fix and remove redundant unevictable folio handling" failed to apply to 6.18-stable tree
+	b=lb+8O+ZEst7Pa8Q0BLszXpUMYViiUGsH+CE1B28ymB4SlY6AsnSVdCmli6x/ep6fW
+	 5c6VEakQjX8H0VI6z8ImTyjIFbVBAI7FV3Z4p2VqN3tKoV3Zb9+PKtLjlTr4/HG9iQ
+	 xb3gMbAycW+9q1zASE2bl1rvKIhtEw9R3Bm8krvE=
+Subject: FAILED: patch "[PATCH] mm/mglru: fix and remove redundant unevictable folio handling" failed to apply to 6.12-stable tree
 To: kasong@tencent.com,akpm@linux-foundation.org,axelrasmussen@google.com,baohua@kernel.org,baolin.wang@linux.alibaba.com,bgeffon@google.com,david@kernel.org,hannes@cmpxchg.org,heftig@archlinux.org,ljs@kernel.org,mhocko@kernel.org,oleksandr@natalenko.name,shakeel.butt@linux.dev,stable@vger.kernel.org,steven@liquorix.net,suleiman@google.com,weixugc@google.com,yuanchu@google.com,yuzhao@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:48:02 +0200
-Message-ID: <2026090302-rimless-porthole-95c2@gregkh>
+Date: Thu, 03 Sep 2026 12:48:03 +0200
+Message-ID: <2026090303-freezable-flatness-e858@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x f7e698e326b239a91ea15844817551921209e826
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090302-rimless-porthole-95c2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090303-freezable-flatness-e858@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
