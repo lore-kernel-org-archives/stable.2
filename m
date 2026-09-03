@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294074A8FD5
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE164A8FDD
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439475; cv=none; b=MJjMTvTwJ8Lz9DUjQHj7rhLIEx63OiNX0HtcOc5SyFYdPF6fTTNlxevaxOhdOSxUgNJ7fzNG5hzWgtfX9fMAwqNrRThcwQOVsDJLbHkMXXVWVNl/K8KyGGCQajXLNDb5U0xAiMp5DMpbHOskckyQs5MdSR6Mnl9yZh/eFz82p8Q=
+	t=1788439478; cv=none; b=VJEUDo0YeNv8cci2hySmfkKxxxo9eBDJ+M85LPx2/kHoucFvtcUKO/cIk+df2+oxVmRVC+2gfyLiWZQf3zmUe1Trc+V3vXe4VQlAVxnAOYcu1u8EriIz2fRt+1Y18r79WyvKcmVRExnA79R1bq70xoGRcDm47lwYpMVoCLXXR9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439475; c=relaxed/simple;
-	bh=blu1GxlZmVW3VDfv8FUpE6jhniH1iK+cUsReNEEoh84=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uo18hb+JuJMoQhK4fPZpR7U8gFyBeN9JFpXr12EtpXnTRYWwzfCEo0TyJkmdVQposhGwRPlVFVzdHdDAPaDJu7z3buLOHcijHdjbQsHIRmKjGTTdbKxZJhbTvVvhAwpbjUaI5QjSYXCBt3wLhmaeoRmi3j27vjZ+CQ2eKmz7z8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y8QKgpxz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439478; c=relaxed/simple;
+	bh=t3S0hcdc69/1XV0ElSvuprVLQXmOCgRanp3XwYeGG1Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IW6lckISAjJ2Vv58z2Zvxal0vZnibWYP2zOvsUrers5krN0SHdJxV6ssRvmhD2NbjfF3MOC6izdxQ/+uWTbo67oxsF1oFaN2hppSBCh4AbQm4rnSxMBnbyucTIlEHm0yY1Iq6nYiyxtKXegFIyMDCjAk2h5aG1ex9OaOcVfrTTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uFAvsGQ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y8QKgpxz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5F91F00A3A;
-	Thu,  3 Sep 2026 12:44:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uFAvsGQ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545021F000E9;
+	Thu,  3 Sep 2026 12:44:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439474;
-	bh=QW688t4VIyBoWxQFOKyu+D4v6ezSUpbfwydKTK2WDdA=;
+	s=korg; t=1788439476;
+	bh=wljEX7Z2KByKvmPII/uKPlI+sIAIpdcAtTnOIxdF4n4=;
 	h=Subject:To:Cc:From:Date;
-	b=Y8QKgpxzB5QMcvsK6Bx+FMKKcDdwtWjrqj1JHra7lXsgpuF05oAw6j6nryG9iPbld
-	 MO3M9sSp1LHJsLsPuQbN7Xs5WzRXsjCZ0SWjZp22Sj/poB3b3dslmo8l6hbc0Q4cCv
-	 3ZTlM1z/bupZt3aA4V51RSlWX6yODZkltZKlppfc=
-Subject: FAILED: patch "[PATCH] apparmor: fix cred UAF caused by" failed to apply to 5.10-stable tree
-To: jannh@google.com,john.johansen@canonical.com
+	b=uFAvsGQ7cz2Ap5pev1/Qztm6Wpr+Wfwecw6XmM/wVyXa6mjGus0uNiZQ5vrVb2oTW
+	 9hj9cPU0qhjiNdGdZXl86AQ6pF6I5WwNvn1u7gRiBFfnUmzq1CXWPTT5AEl0cyuLc9
+	 bVBM8vAn6Fl2/l5FLqouyPlLOf8kie/sDBCIyHeQ=
+Subject: FAILED: patch "[PATCH] mm, swap: ratelimit bad swap entry reports" failed to apply to 6.6-stable tree
+To: leitao@debian.org,akpm@linux-foundation.org,baohua@kernel.org,baoquan.he@linux.dev,chrisl@kernel.org,david@kernel.org,kasong@tencent.com,linmiaohe@huawei.com,nphamcs@gmail.com,osalvador@suse.de,shikemeng@huaweicloud.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:45:01 +0200
-Message-ID: <2026090301-dugout-avenue-6c86@gregkh>
+Date: Thu, 03 Sep 2026 12:46:22 +0200
+Message-ID: <2026090322-mating-twice-bdd0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3f4ae5fab613dca01d6a2a8210dd832e009fcf47
+git cherry-pick -x f9dc428249ed962a70acf301f01eae8578449161
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090301-dugout-avenue-6c86@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090322-mating-twice-bdd0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,189 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3f4ae5fab613dca01d6a2a8210dd832e009fcf47 Mon Sep 17 00:00:00 2001
-From: Jann Horn <jannh@google.com>
-Date: Thu, 6 Aug 2026 17:55:02 +0200
-Subject: [PATCH] apparmor: fix cred UAF caused by
- begin_current_label_crit_section()
+From f9dc428249ed962a70acf301f01eae8578449161 Mon Sep 17 00:00:00 2001
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 18 Aug 2026 02:03:40 -0700
+Subject: [PATCH] mm, swap: ratelimit bad swap entry reports
 
-AppArmor's begin_current_label_crit_section() is a scary function called
-from lots of LSM hooks (in particular VFS/socket-related ones) that checks
-if the label referenced by the current creds is marked FLAG_STALE, and if
-so, attempts to use aa_replace_current_label() to replace the creds with an
-updated version that uses a new label.
+A corrupt page table hands the same bogus entry to get_swap_device() on
+every access to the mapping, and every rejection is logged.  One machine
+logged 6185620 copies of the same line in a few hours.
 
-The first problem with this is that it would directly lead to UAF of
-`struct cred` if anything in the kernel takes a pointer to the current
-creds and accesses these past a security hook invocation that replaces
-creds, like so:
-```
-const struct cred *cred = current_cred();
-alloc_file_pseudo(...);
-uid_t uid = cred->euid;
-```
-I don't know if anything in the kernel actually does this, but I think it
-is very surprising that this pattern could lead to UAF.
+swap_dup_entry_direct() prints the same message from the fork path, once
+per call: the WARN_ON_ONCE() guarding it warns once, the pr_err() inside
+does not.
 
-The second problem is that things go wrong when aa_replace_current_label()
-runs with overridden credentials. aa_replace_current_label() bails out if
-`current_cred() != current_real_cred()` (mirroring the check in
-proc_pid_attr_write()), but this check can't actually reliably detect
-overridden credentials because the overridden creds can be the same as the
-objective creds.
+Rate limit all three prints.
 
-So in approximately the following scenario, things go wrong:
+Link: https://lore.kernel.org/20260818-swap_part_one-v1-1-a4fc58119fc0@debian.org
+Fixes: 23b230ba8ac3 ("mm/swap: print bad swap offset entry in get_swap_device")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Kairui Song <kasong@tencent.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-1. task begins with <creds A> (as both objective and subjective creds),
-   with refcount=2
-2. task grabs an extra reference on <creds A> for overriding
-3. task calls override_creds(<creds A>), which returns a pointer to the old
-   subjective creds (<creds A>)
-4. task enters AppArmor LSM hook
-5. AppArmor checks that objective/subjective creds are equal
-6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
-   <creds A>
-7. task leaves AppArmor LSM hook
-8. task calls revert_creds(<creds A>)
-9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
-   task_struct logically holds two references to <creds B>
-10. another task drops the extra reference on <creds A> that was used for
-    overriding, refcount drops to 0
-11. now task->real_cred points to freed creds
-
-At this point, any access to current_cred() will be UAF.
-
-I have a test case where I run aa-disable on a profile while a process
-using that profile is blocked on splice() from a FUSE passthrough file into
-a full pipe; after the profile update, the pipe becomes empty, splice()
-resumes, the credentials go out of sync, and a subsequent getuid() syscall
-results in a KASAN UAF splat.
-
-To fix this, instead of directly replacing creds, do it via task_work that
-will run at the end of the current syscall. (The point in time at which the
-cred replacement happens should have no correctness impact; it is just a
-performance optimization to avoid unnecessarily touching the refcount of
-the new label.)
-
-Note that AppArmor still performs direct cred replacements in the
-sb_pivotroot LSM hook after this change, and that direct cred replacements
-can still happen in VFS ->write() callbacks via proc_pid_attr_write().
-
-There are two options for what to do with aa_dup_task_ctx(): Either
-explicitly reset new->label_replacement_pending after the entire
-aa_task_ctx has been copied, or switch to manually copying members over.
-I am switching to manually copying members over because that should make
-bugs more obvious.
-
-Cc: stable@vger.kernel.org
-Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index 2b6098149b15..0e8b67159f56 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -222,13 +222,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
- {
- 	struct aa_label *label = aa_current_raw_label();
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index dacef34a3ed7..53bf01d5f7f1 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -1899,11 +1899,11 @@ struct swap_info_struct *get_swap_device(swp_entry_t entry)
  
--	might_sleep();
--
- 	if (label_is_stale(label)) {
- 		label = aa_get_newest_label(label);
--		if (aa_replace_current_label(label) == 0)
--			/* task cred will keep the reference */
--			aa_put_label(label);
-+		aa_schedule_stale_label_replacement();
+ 	return si;
+ bad_nofile:
+-	pr_err("%s: %s%08lx\n", __func__, Bad_file, entry.val);
++	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_file, entry.val);
+ out:
+ 	return NULL;
+ put_out:
+-	pr_err("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
++	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
+ 	percpu_ref_put(&si->users);
+ 	return NULL;
+ }
+@@ -3883,7 +3883,7 @@ int swap_dup_entry_direct(swp_entry_t entry)
+ 
+ 	si = swap_entry_to_info(entry);
+ 	if (WARN_ON_ONCE(!si)) {
+-		pr_err("%s%08lx\n", Bad_file, entry.val);
++		pr_err_ratelimited("%s%08lx\n", Bad_file, entry.val);
+ 		return -EINVAL;
  	}
  
- 	return label;
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index 017d8b06b8f2..a8030ed78ff2 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -26,15 +26,22 @@ static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
-  * @onexec: profile to transition to on next exec  (MAY BE NULL)
-  * @previous: profile the task may return to     (MAY BE NULL)
-  * @token: magic value the task must know for returning to @previous_profile
-+ * @label_replacement_tw: for aa_schedule_stale_label_replacement()
-+ * @label_replacement_pending: is @label_replacement_tw pending?
-+ *
-+ * When changing this, check if aa_dup_task_ctx() needs to be updated.
-  */
- struct aa_task_ctx {
- 	struct aa_label *nnp;
- 	struct aa_label *onexec;
- 	struct aa_label *previous;
- 	u64 token;
-+	struct callback_head label_replacement_tw;
-+	bool label_replacement_pending;
- };
- 
- int aa_replace_current_label(struct aa_label *label);
-+void aa_schedule_stale_label_replacement(void);
- void aa_set_current_onexec(struct aa_label *label, bool stack);
- int aa_set_current_hat(struct aa_label *label, u64 token);
- int aa_restore_previous_label(u64 cookie);
-@@ -61,10 +68,10 @@ static inline void aa_free_task_ctx(struct aa_task_ctx *ctx)
- static inline void aa_dup_task_ctx(struct aa_task_ctx *new,
- 				   const struct aa_task_ctx *old)
- {
--	*new = *old;
--	aa_get_label(new->nnp);
--	aa_get_label(new->previous);
--	aa_get_label(new->onexec);
-+	new->nnp = aa_get_label(old->nnp);
-+	new->onexec = aa_get_label(old->onexec);
-+	new->previous = aa_get_label(old->previous);
-+	new->token = old->token;
- }
- 
- /**
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index b9fb3738124e..e16ff4130bc2 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -14,6 +14,7 @@
- 
- #include <linux/gfp.h>
- #include <linux/ptrace.h>
-+#include <linux/task_work.h>
- 
- #include "include/path.h"
- #include "include/audit.h"
-@@ -89,6 +90,32 @@ int aa_replace_current_label(struct aa_label *label)
- 	return 0;
- }
- 
-+static void aa_replace_stale_label_tw_func(struct callback_head *tw)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+	struct aa_label *label;
-+
-+	ctx->label_replacement_pending = false;
-+	label = aa_current_raw_label();
-+	if (!label_is_stale(label))
-+		return;
-+	label = aa_get_newest_label(label);
-+	aa_replace_current_label(label);
-+	aa_put_label(label);
-+}
-+
-+/* replace the current task's stale label on syscall return */
-+void aa_schedule_stale_label_replacement(void)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+
-+	if (ctx->label_replacement_pending)
-+		return;
-+	init_task_work(&ctx->label_replacement_tw, aa_replace_stale_label_tw_func);
-+	if (task_work_add(current, &ctx->label_replacement_tw, TWA_RESUME) == 0)
-+		ctx->label_replacement_pending = true;
-+}
-+
- 
- /**
-  * aa_set_current_onexec - set the tasks change_profile to happen onexec
 
