@@ -1,400 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF594F0551;
-	Thu,  3 Sep 2026 17:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458201; cv=none; b=udsVr0MGknsqEcM/Amk57qjJKIRWGyi4P3nszmF0igpR12paeQno30H7unn676Wy2+ZRC4Jv4hD6UGa1vgK/orMXyGzxbw95wh2hyiTOBK8+/ZzWyV2BEx0uZWcJVBm5CpaSoGg7vPRz/PdZXjZ8xZ0TzfgQd7vNZTHz5g+LmHI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458201; c=relaxed/simple;
-	bh=fLp3cIMNaBlamyA4gAFsrXaPth1ZXaqXFESSisp45s8=;
-	h=Date:To:From:Subject:Message-Id; b=Mz6W4XucCAVxrtkfTSLI6tPSgOPKdoOEM9EBfKvVOEKKPyJBGG3gDYYI5BT1d6xFGLqogzqQoMTv0md7vEKKWI0BZPBhcnJKacOw3Mmw6UqT0kp0gnCF2OUZrMgkFg00jttEpaZ4uQ4I9mdzWiUUH+RRPVADCV7iMx5IyoenXbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=vJWrindv; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8B34FDE55;
+	Thu,  3 Sep 2026 17:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788458339; cv=fail; b=qmd1pkFmCy9E3pbn4Im1bHotpECryLMhFfPWj7Nbe7x0ZvSJ2ay++SmaJ3KpObpO4WwC5dSJkb94Hd2PjUetEVTaDf0lQC59wc7ZMpPHgVpHELoZbaBzngHlM9pJuWZc9tgp+H/WWo+J/4wmSqkWndB1Fzp9a24Y1zOaaXkfJiw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788458339; c=relaxed/simple;
+	bh=bfD6JfbfFu8pJlZCx0Vl5y7RE5BwIAG448slBy0Aa54=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=JII78qm2TENVnEW5qEIZ2CUOC96MB9JJF/L4lxDRGXEJqEvmxOHicaOleBwSspYpCVAGSzRg1E0OxhkpeOCGIt3rmrD/iBoSrOdQe6IbJbIYFNxJ1WLXr4LF4UxXnEqfOa7OVgF4wU5TSUOPoyIzQYpBqHkezZpE7ljZswhDnWs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FKGRfOUF; arc=fail smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="vJWrindv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931791F00A3D;
-	Thu,  3 Sep 2026 17:56:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788458199;
-	bh=x4subM63RB5C+niWojHJMWwjd4EDXAPFEAr+lkgXwFs=;
-	h=Date:To:From:Subject;
-	b=vJWrindve98c35PVQfLhZI2f7n/xA3NXQnxQmHjQlqJQGe6l24W+6dnGy9g44Gzrs
-	 Lwnmr+lRmgJSna1cPbZw5xRiw9Ldi6L8zjzPgcRjGXLIQnGxT5GsaZ5WsexgPGLPJp
-	 Oi3EzDJsLRYKqiCsrOnPYiILLn5Qr9w+SwRmYrAQ=
-Date: Thu, 03 Sep 2026 10:56:39 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,sdf@fomichev.me,rppt@kernel.org,mhocko@suse.com,liam@infradead.org,kuba@kernel.org,john.fastabend@gmail.com,james.bottomley@HansenPartnership.com,hawk@kernel.org,hagen@jauu.net,david@kernel.org,davem@davemloft.net,ast@kernel.org,4ncienth@gmail.com,ljs@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-secretmem-properly-account-locked-pages.patch removed from -mm tree
-Message-Id: <20260903175639.931791F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FKGRfOUF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788458336; x=1819994336;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=bfD6JfbfFu8pJlZCx0Vl5y7RE5BwIAG448slBy0Aa54=;
+  b=FKGRfOUFWLRUeR6rbgMu0Dt52ez4WnaDuvLjtjIKAm0+TW2C5MBEyE1i
+   XZKdswrVmOdwQofuizaQYtryiBDaLkviyR/Mo8UMcJvy1T005vdift4jw
+   jWsIArx9SuuIBeCp0atXqsg9yS2fMJEa5PkVBEwKz+RssbEotXNIGncRP
+   d45CNd99ez32ntjh7RWDIphofGYjcT4Qds/HfKgXZ2az+n+HrVgk2FOOv
+   CvZv5Z8ekDzuK9vENObRp7LxLiXtR0ZNO1zBfQxoGQJ0XB397PIn9z5w0
+   nFIumulSwDbD5BLFYMZVrhDf5tOcz2Uf1hqoMwHzW3BMYuaHxJ+QcexaB
+   Q==;
+X-CSE-ConnectionGUID: FNoJy2ArSfKPhPtu8+oh6g==
+X-CSE-MsgGUID: fYX8cEVcSHGumh4kvxBp5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="87889577"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="87889577"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:58:54 -0700
+X-CSE-ConnectionGUID: nut007fXQuyieapYBxwSrg==
+X-CSE-MsgGUID: CjV1qcEcRImX3CtGA+mFXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="266551547"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 10:58:54 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 10:58:53 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 10:58:53 -0700
+Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.15) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 10:58:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vu1TOlVFSDRFUGLSZWgXJcumWJEJ6RKCAfhAg5f040tR0yxGchyYDN5N9ltOtLI3jrCMFiDmzL5ZHRKGFebrY6JG3CKAWKuN7+5QKz7ZR/hkMnzkdDsqwRr8hHHQFUyAtTITmG4DT+UosiPRao/6Zy402mpjJrlolpsxE2RwGgeYDD1wk16ERwWh2eVw/I1R3lIm9fEX5n7omeleOwr0fcLrQGFpCjTdA7w9WC05BpAH/fnmEGbvh5lermQGj8y8pJBFa+B7yVKJNBKEw5wywQXU6K27xEmwFGFkdSae82+EeHRz9X1QlM1SqByzEhWDfJKpbrwhJbLxikHkLAbTqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bfD6JfbfFu8pJlZCx0Vl5y7RE5BwIAG448slBy0Aa54=;
+ b=RW6BK22kRADGTSwIvnVcjY/wzJWheLFWVSFfiZybUM87qjkphtzRf07ZCYU3z6dKwjCTr+Qj05GpbvYAZC4dM3uh6PWLrWXCurpFEw3kJjIebWQRfeCb1PlFbpNfGlDeM6RCtGwA5WEIUa/aoG0tgL+3ClCC4Les3XBy+c++lH3kKmf83PrvVGzZywWpJFPq3aIUClHHgxvFlzPBe7dYuuroqnm2mWnY0IXJIBu2qVmx5+te0H2Tn7G4Ud10FuCS9MdBuemoKp+b8flXfzjXlnwi2PviUI69K9UPhcgaKHrWqKZcaIGq0VAhpUeDoP9Cf97bMb0xPs5sI8VWBPEkPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com (2603:10b6:510:1b5::20)
+ by DS0PR11MB7580.namprd11.prod.outlook.com (2603:10b6:8:148::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 17:58:49 +0000
+Received: from PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4]) by PH7PR11MB6771.namprd11.prod.outlook.com
+ ([fe80::effa:162e:c9c9:a1b4%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 17:58:49 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "vernon2gm@gmail.com" <vernon2gm@gmail.com>, "Hansen, Dave"
+	<dave.hansen@intel.com>, "kas@kernel.org" <kas@kernel.org>
+CC: "andrew+kernel@donnellan.id.au" <andrew+kernel@donnellan.id.au>,
+	"rppt@kernel.org" <rppt@kernel.org>, "pasha.tatashin@soleen.com"
+	<pasha.tatashin@soleen.com>, "yanglincheng@kylinos.cn"
+	<yanglincheng@kylinos.cn>, "dave.hansen@linux.intel.com"
+	<dave.hansen@linux.intel.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "david@kernel.org" <david@kernel.org>,
+	"akpm@linux-foundation.org" <akpm@linux-foundation.org>, "mingo@redhat.com"
+	<mingo@redhat.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"tj@kernel.org" <tj@kernel.org>, "orsonpeters@gmail.com"
+	<orsonpeters@gmail.com>, "hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org"
+	<tglx@kernel.org>, "rmclure@linux.ibm.com" <rmclure@linux.ibm.com>,
+	"bp@alien8.de" <bp@alien8.de>, "Yu, Yu-cheng" <yu-cheng.yu@intel.com>,
+	"x86@kernel.org" <x86@kernel.org>
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Thread-Topic: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Thread-Index: AQHdO1K4MHbba6oaQ0Cd7mC7VbQSrba8v1SAgAAoUwCAAD1wAA==
+Date: Thu, 3 Sep 2026 17:58:49 +0000
+Message-ID: <c15c2b17e110782d966751dbf3c487a6db837a87.camel@intel.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+	 <aplfcTfjeQUgnrvH@thinkstation>
+	 <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+In-Reply-To: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PH7PR11MB6771:EE_|DS0PR11MB7580:EE_
+x-ms-office365-filtering-correlation-id: 81b9e9ab-f0fc-4e51-8a29-08df09e501ce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|7416014|366016|38070700021|4143699003|11063799006|10067099003|22082099003|18002099003|56012099006;
+x-microsoft-antispam-message-info: +65MkyM+augeMaaY0oGjs4RT8VDb8/wiUbxg4RLoAxkbYsuPxKz7/1hKhgeQ+HBDnnDb4bzWh8vieDbETu0B6qIXervoDUqo5GDo2vMUrOzXVi+YeSn0m1Rq89N17wNYCx3mRAn+dT5lwHYVdzw012Wb8PP2p/3CCdWiO/g/G1MrD5H401jPCFkDx4dhU6wlYl3Opv9h4GKDvbSAt/kQmf88JNU4YNMxPqpwtbHJ3CvUvZjKjFdyA3IpwMClBsX4mXIUi6ou5Vb9Fpu7vJ7iVLStFmycXqz9t4ihJHudVYLM/+B6A4tuTRubfgTkYOHSL6vCvRaGbfna8o8jVAOn/qrQS7roWS9tmQrwRk8HtiGbybDuCzVeLKlNr34sUKbL3CNdicq7b1MzUz/1eNYiR6IVu21XevZtaAkeBL+7Jr7UIdrjCDIX2zrcR0+nthoCrFizNdUoAxL8j/QgB6L70CQDHzliZqeCbYOrZPq7afOI3AHoNCXGRQunJFpgd6e1JdLe06dZ5loMDCrjbLY73rNcoq7dJGhhuGnSRfKx4aL+xvWXG/SJ1KbbSeUFsunkXqJ/ZwsT+PvTtKdTjJBXayAtsI8WxPkM5eRcGwtR/cSs4VjBMGiYDvpvOsx5zgins/8F8gOlj2RPr9Wd8/OYVOem3vdhWq4CFXJoQTpA3oo=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR11MB6771.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(366016)(38070700021)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QTRHRWRxcTAvb3BPdk1yY2J2NUoyNnVlMkV2VWN1QlJLVzNlL2JQRTIyRkR2?=
+ =?utf-8?B?KzVDdnY3ZGorZDNmbithZE04WGFCSE94UnYrRXRyZ0poRjgrcTdQS0VZRU5Q?=
+ =?utf-8?B?NElta1pYYVFCYVFDb1h4cmVnTjFleWJCMEFMeFBwVXdtZEUwR2IrOTU0TERy?=
+ =?utf-8?B?cUd1UDVRb3ArT2t6bzEzV244UkUwRWJycGV0dE5sOHJCdnBaSW0zLzZqMWZW?=
+ =?utf-8?B?ZktLak5lVGdZTlBDZTVNMTFZVTJtSzNPcno0bWpnd3dHcS9KSDRYK0R3OG5X?=
+ =?utf-8?B?d0N6dHFyREJlcitXUVZLTWVEQ2xhN3dKMTFxQ0krejEwRCs0NFh0TDRvaW1S?=
+ =?utf-8?B?MEdWZklLQnBmdlhGcEUxRkZKSGZtcDFxOVBndmVEMml1V2lsVUR1MmU5ZnlC?=
+ =?utf-8?B?ZTVKZXJsVzJveWZLVFpwM0Z5RlBBZytJdmpOOWJJSC9vWGg4UjdSYWxYMHVV?=
+ =?utf-8?B?R2MxVWZiWGgza3hEU1BBb2RFKzhWNmRtbnFsNlV3QXNnc2hPSHdBSlIyZzIv?=
+ =?utf-8?B?YktIWCtrcUUxc2Nick5vaDFIczl4ZEZkdXlpcFlmczgvWXQzSER2dDJiZ201?=
+ =?utf-8?B?ZVQ2TUZ1eDljU2RBZUNoTDFyTFE3RUpkOU94eFV6UVNNbndrVk1sTEo3allk?=
+ =?utf-8?B?VGt4MDFlb0cwTGlZMURXbVpCV3Y0em5CS1JtaGI2eGZGOVA3dE5ZTUhId3B4?=
+ =?utf-8?B?WjZaK1hiM0J4SmhOREJMYVplL0dKUFVKY2cra0tFcEdOdWJDU2FzZUYvTTNr?=
+ =?utf-8?B?dUZ3Tkk4N0RCcFArc2cwN3lGVHF4NHhteUUzbXBiemQyN2xHSjBlNkFYL29y?=
+ =?utf-8?B?SEp2blExQ3Z4bDhURDMvZzhvYzIrZVV1NStlUkR5UzlWY0lGcVgwUC9wR3hS?=
+ =?utf-8?B?Zkk5VGRiMkpEVWlnUFhWY0VpUlljRjlMbmJOd09WTkx4RU1JWHpYYkRXSWVa?=
+ =?utf-8?B?d0VPRUJKT2JwYWF1QnZuelJ0S0JXczI2aHRPNEFDTnd0MnNOVFkzNWJCekNW?=
+ =?utf-8?B?RXJKTG9odWtvWVR3VXdPVXRWUTcrRzVUSDNzcTZJZThBcHgxaTYyUjhaR1Nv?=
+ =?utf-8?B?aytIeFpzT1l5bFBXY0hTZFB2NHhBcVdXazhGUFBHY0dSOVEzNXVhNXFpMWVT?=
+ =?utf-8?B?endPTWM0Q1BYeFpWWU9SeUpsRktycTVteVhxdVZEY3k5SU5Kcklvb1RKbHFI?=
+ =?utf-8?B?R2lPekRPdkhwQXk5YTgwUnpJWUZvd0dqenEyVjZqSW9vSHY2WDBBcnNPY09v?=
+ =?utf-8?B?bDhOTHgzQU42MjlSbUpPVnpBREJCdVVBZUpZUnBvak5PRHZrc3dtbnNHNFVt?=
+ =?utf-8?B?ZDNvZS9QcXVydkNPNUdjeHlKWnpSaEcrbG1Md1hnSGNDM1ZxTEJ5MmRqRDlD?=
+ =?utf-8?B?aU1ycFNWYjVhdG0xbENRVy9TWmlNWkVnNHpPdENobWN1YmtKaXJVK1pJb3RO?=
+ =?utf-8?B?d3F2ckxqdTBRdDN6RmwweTlBbXRlV2NOcEsxUFh5WE5BYUVRdStvWVRRRmxL?=
+ =?utf-8?B?TldnSWpYdmtFQmRVYzg2U0pFbTc4UUYrNFBXdXVsWG5lektNS2JobGdhQmY4?=
+ =?utf-8?B?WU5MK2NmZGJ0YW1JaW01Njl5c1RFZExBRFFoRWZvRXVqd3hiNHBqcHBaOUZM?=
+ =?utf-8?B?UUJtK0x5T2ZGeUpjalhRbHB4d0tvS1ErbUVNU0p1VS84SUdzWWtCenJWdWEy?=
+ =?utf-8?B?YVk2VkcyNkxrcWhKeElCUUpYc24ranBVN3JhMUJGdzZKdHFEakdzMlJqNms2?=
+ =?utf-8?B?NjNnZFZKcnE0b3dBOGZoMk81M3U1U1NrUFVrUU5JNXE3VUcySVY3V29tQmxL?=
+ =?utf-8?B?MVVpZlZsaEFZa3R2NEhpK2hhR1orNlRwSnh6UHg0a0l4cHQ2R1h2Zk1DVERX?=
+ =?utf-8?B?K21xeVprQ3dCTUF6NjdPdlAzQ210eTNnZ2E3UHMvcVJlTnRzWUVjMjhXQmN6?=
+ =?utf-8?B?dlhBYWY0RUNYWXcrR3RZbUlDYVhtYUQyRjdBUXdMZForMVNWK3U4c0UzMzZC?=
+ =?utf-8?B?UkZQZW1pcGoreWFlaWJ6LzB3Ym92cG5JT1NQbFU5bDlUM0Jzc1lPcHBvTUtG?=
+ =?utf-8?B?SW1EMGw1akU2OXkzMlNGRXoxTllVSVFKQk4zb2c4ZU5YSnFvVFZGOVV0Tkcw?=
+ =?utf-8?B?M3UzbkhGV1pNRVRXMktXRjM4TEpVbWFnR0pjcDBibWYyMWtUcDVGS0FadUIr?=
+ =?utf-8?B?THRKMlZLRm5vM083YnNISlE4QndiMW9HclIvTndPWVFURDZhY0VZMG9Cb2Jr?=
+ =?utf-8?B?OUUwUitmdXp1L002dCtCK0Z4K2JzL2plbnRJTHdZNTV4ZGk3Rjk5YnFET0VX?=
+ =?utf-8?B?c0RJMW1IR1NLbnFKcHIzWnR5VUsxRGhvTHBMREw4eklnczhteXcvUTVHYm5v?=
+ =?utf-8?Q?zTvLNn1+fqhqP6a0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2620A73529FAD04C88F2F6714136336E@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: T7RkDX4l8701hQfsebsjv3sfulE2Ts48EgSQZ4V30Vf0P9XMNctEN8CQ2zm9SyeUfsMXg9jQdhT0GTmCsRVMy1FNS1a/o04OMSPYIAZ3MS8738VuVZ1+Nvkm38oOzKnpEDgwY6/Xu58oTGfxSvLJ2Eycd3sGcihFkFDwqtlRLsHBCiq8OhlYeLjTfkiE20TB8fOkaZdvIwV6dWCtQ9a/ScQHFKhbRCwIGF6kZrGK2c3iqyAspg4mJnDOonTtNKadqZraQUjWiaTFRALepJyCUMiIoSl5vZx67SxmkShZDnEWsQ4+gCpVigyk8zjV8Lnz0cfzPl/XtTbxdI7St+ynxg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6771.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 81b9e9ab-f0fc-4e51-8a29-08df09e501ce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 17:58:49.1777
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 8R1KnGVCWgdsbtfNrdwzAZae8DltbEtAunu1DDYYLxP7iXRrQphMNXbLJ5KPM8KCsXtaQ7ZhUAcSAyITGxjs/VRVVpFbtugJT9vr4fJkNMY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7580
+X-OriginatorOrg: intel.com
 
-
-The quilt patch titled
-     Subject: mm/secretmem: properly account locked pages
-has been removed from the -mm tree.  Its filename was
-     mm-secretmem-properly-account-locked-pages.patch
-
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-------------------------------------------------------
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: mm/secretmem: properly account locked pages
-Date: Wed, 26 Aug 2026 17:30:35 +0100
-
-secretmem accounts folios by treating memory as if it were mlock()'d and
-thus limited by the RLIMIT_MEMLOCK limit.
-
-However the folios are unevictable and remain so until the inode is
-evicted, eliminating usual mlock() semantics - mapping folios then
-unmapping them does not clear their unevictable state, since it depends on
-AS_UNEVICTABLE, not PG_mlocked.
-
-A user can therefore easily work around the RLIMIT_MEMLOCK limit - simply
-map then unmap and VmLck no longer counts the secretmem range.  Worse,
-folios are not accounted in the process's RSS, meaning the OOM killer
-won't know to kill the process.
-
-Repeatedly mapping/unmapping (or forking) can then result in the
-consumption of all available system memory with unevictable folios and
-cause system instability.
-
-A secretmem fd can be passed between processes and over fork so a
-per-process limit simply does not make sense, so follow the precedent set
-by io_uring, perf, skbuff, iommufd and xdp by tracking the number of
-locked pages in user_struct->locked_vm.
-
-Since the scope tracked is actually inode lifetime, the RLIMIT_MEMLOCK
-applies per-user not per-process, so it doesn't make sense to bypass for
-users with CAP_IPC_LOCK, therefore remove this bypass.
-
-There is simply no reason to carry on marking the mapping as mlock()'d
-since it's misleading and the lifecycle is now correctly handled, so
-remove this too.
-
-Note that secretmem does not support any form of truncation (including
-hole punching) and the folios are unreclaimable, so the folios need only
-be accounted on fault and unaccounted on inode destruction.
-
-__secretmem_account_pages() is more or less a duplicate of the code that
-io_uring etc.  use, but since this is a bug fix that needs backporting,
-defer any de-duplication efforts to a follow-up.
-
-test_mlock_limit() asserts mlock_future_ok() on mmap(), however this has
-been removed, so remove the test altogether for the fix.  A new test will
-be sent separately for upstream.
-
-Link: https://lore.kernel.org/20260826-secretmem-accounting-v3-1-94cb04399510@kernel.org
-Fixes: 1507f51255c9 ("mm: introduce memfd_secret system call to create "secret" memory areas")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reported-by: Daehyeon Ko <4ncienth@gmail.com>
-Closes: https://lore.kernel.org/linux-mm/20260813225328.2010303-1-4ncienth@gmail.com/
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Tested-by: Daehyeon Ko <4ncienth@gmail.com>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Hagen Paul Pfeifer <hagen@jauu.net>
-Cc: Jakub Kacinski <kuba@kernel.org>
-Cc: James Bottomley <james.bottomley@HansenPartnership.com>
-Cc: Jesper Dangaard Brouer <hawk@kernel.org>
-Cc: John Fastabend <john.fastabend@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- include/linux/sched/user.h                |    3 
- mm/secretmem.c                            |  116 ++++++++++++++++++--
- tools/testing/selftests/mm/memfd_secret.c |   30 -----
- 3 files changed, 110 insertions(+), 39 deletions(-)
-
---- a/include/linux/sched/user.h~mm-secretmem-properly-account-locked-pages
-+++ a/include/linux/sched/user.h
-@@ -25,7 +25,8 @@ struct user_struct {
- 
- #if defined(CONFIG_PERF_EVENTS) || defined(CONFIG_BPF_SYSCALL) || \
- 	defined(CONFIG_NET) || defined(CONFIG_IO_URING) || \
--	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD)
-+	defined(CONFIG_VFIO_PCI_ZDEV_KVM) || IS_ENABLED(CONFIG_IOMMUFD) || \
-+	defined(CONFIG_SECRETMEM)
- 	atomic_long_t locked_vm;
- #endif
- #ifdef CONFIG_WATCH_QUEUE
---- a/mm/secretmem.c~mm-secretmem-properly-account-locked-pages
-+++ a/mm/secretmem.c
-@@ -18,6 +18,8 @@
- #include <linux/secretmem.h>
- #include <linux/set_memory.h>
- #include <linux/sched/signal.h>
-+#include <linux/sched/user.h>
-+#include <linux/cred.h>
- 
- #include <uapi/linux/magic.h>
- 
-@@ -47,10 +49,69 @@ bool secretmem_active(void)
- 	return !!atomic_read(&secretmem_users);
- }
- 
-+struct secretmem_inode_state {
-+	struct user_struct	*user;
-+	atomic_long_t		nr_pages_accounted;
-+};
-+
-+static bool __secretmem_account_pages(struct user_struct *user,
-+		unsigned long nr_pages)
-+{
-+	unsigned long page_limit, cur_pages, new_pages;
-+
-+	if (!nr_pages)
-+		return true;
-+
-+	page_limit = rlimit(RLIMIT_MEMLOCK) >> PAGE_SHIFT;
-+
-+	cur_pages = atomic_long_read(&user->locked_vm);
-+	do {
-+		new_pages = cur_pages + nr_pages;
-+		if (new_pages > page_limit)
-+			return false;
-+	} while (!atomic_long_try_cmpxchg(&user->locked_vm,
-+					  &cur_pages, new_pages));
-+	return true;
-+}
-+
-+static bool secretmem_account_folio(struct secretmem_inode_state *state,
-+		const struct folio *folio)
-+{
-+	const unsigned long nr_pages = folio_nr_pages(folio);
-+
-+	if (!__secretmem_account_pages(state->user, nr_pages))
-+		return false;
-+
-+	atomic_long_add(nr_pages, &state->nr_pages_accounted);
-+	return true;
-+}
-+
-+static void __secretmem_unaccount_pages(struct secretmem_inode_state *state,
-+		unsigned long nr_pages)
-+{
-+	atomic_long_sub(nr_pages, &state->user->locked_vm);
-+	atomic_long_sub(nr_pages, &state->nr_pages_accounted);
-+}
-+
-+static void secretmem_unaccount_folio(struct secretmem_inode_state *state,
-+		struct folio *folio)
-+{
-+	__secretmem_unaccount_pages(state, folio_nr_pages(folio));
-+}
-+
-+static void secretmem_unaccount_all_folios(struct secretmem_inode_state *state)
-+{
-+	const unsigned long nr_pages_accounted =
-+		atomic_long_read(&state->nr_pages_accounted);
-+
-+	__secretmem_unaccount_pages(state, nr_pages_accounted);
-+}
-+
- static vm_fault_t secretmem_fault(struct vm_fault *vmf)
- {
- 	struct address_space *mapping = vmf->vma->vm_file->f_mapping;
- 	struct inode *inode = file_inode(vmf->vma->vm_file);
-+	struct secretmem_inode_state *state = inode->i_private;
- 	pgoff_t offset = vmf->pgoff;
- 	gfp_t gfp = vmf->gfp_mask;
- 	unsigned long addr;
-@@ -72,8 +133,15 @@ retry:
- 			goto out;
- 		}
- 
-+		if (!secretmem_account_folio(state, folio)) {
-+			folio_put(folio);
-+			ret = VM_FAULT_SIGBUS;
-+			goto out;
-+		}
-+
- 		err = set_direct_map_invalid_noflush(folio_page(folio, 0));
- 		if (err) {
-+			secretmem_unaccount_folio(state, folio);
- 			folio_put(folio);
- 			ret = vmf_error(err);
- 			goto out;
-@@ -82,6 +150,7 @@ retry:
- 		__folio_mark_uptodate(folio);
- 		err = filemap_add_folio(mapping, folio, offset, gfp);
- 		if (unlikely(err)) {
-+			secretmem_unaccount_folio(state, folio);
- 			/*
- 			 * If a split of large page was required, it
- 			 * already happened when we marked the page invalid
-@@ -112,22 +181,30 @@ static const struct vm_operations_struct
- 	.fault = secretmem_fault,
- };
- 
-+static void secretmem_destroy_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state = inode->i_private;
-+
-+	secretmem_unaccount_all_folios(state);
-+	free_uid(state->user);
-+	kfree(state);
-+	inode->i_private = NULL;
-+}
-+
- static int secretmem_release(struct inode *inode, struct file *file)
- {
- 	atomic_dec(&secretmem_users);
-+	secretmem_destroy_inode_priv(inode);
-+
- 	return 0;
- }
- 
- static int secretmem_mmap_prepare(struct vm_area_desc *desc)
- {
--	const unsigned long len = vma_desc_size(desc);
--
- 	if (!vma_desc_test_any(desc, VMA_SHARED_BIT, VMA_MAYSHARE_BIT))
- 		return -EINVAL;
- 
--	vma_desc_set_flags(desc, VMA_LOCKED_BIT, VMA_DONTDUMP_BIT);
--	if (!mlock_future_ok(desc->mm, /*is_vma_locked=*/ true, len))
--		return -EAGAIN;
-+	vma_desc_set_flags(desc, VMA_DONTDUMP_BIT);
- 	desc->vm_ops = &secretmem_vm_ops;
- 
- 	return 0;
-@@ -187,20 +264,40 @@ static const struct inode_operations sec
- 
- static struct vfsmount *secretmem_mnt;
- 
-+static int secretmem_init_inode_priv(struct inode *inode)
-+{
-+	struct secretmem_inode_state *state;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return -ENOMEM;
-+
-+	state->user = get_uid(current_user());
-+	inode->i_private = state;
-+	return 0;
-+}
-+
- static struct file *secretmem_file_create(unsigned long flags)
- {
- 	struct file *file;
- 	struct inode *inode;
- 	const char *anon_name = "[secretmem]";
-+	int err;
- 
- 	inode = anon_inode_make_secure_inode(secretmem_mnt->mnt_sb, anon_name, NULL);
- 	if (IS_ERR(inode))
- 		return ERR_CAST(inode);
- 
-+	err = secretmem_init_inode_priv(inode);
-+	if (err)
-+		goto err_free_inode;
-+
- 	file = alloc_file_pseudo(inode, secretmem_mnt, "secretmem",
- 				 O_RDWR | O_LARGEFILE, &secretmem_fops);
--	if (IS_ERR(file))
--		goto err_free_inode;
-+	if (IS_ERR(file)) {
-+		err = PTR_ERR(file);
-+		goto err_free_priv;
-+	}
- 
- 	mapping_set_gfp_mask(inode->i_mapping, GFP_USER);
- 	mapping_set_unevictable(inode->i_mapping);
-@@ -215,10 +312,11 @@ static struct file *secretmem_file_creat
- 	atomic_inc(&secretmem_users);
- 
- 	return file;
--
-+err_free_priv:
-+	secretmem_destroy_inode_priv(inode);
- err_free_inode:
- 	iput(inode);
--	return file;
-+	return ERR_PTR(err);
- }
- 
- SYSCALL_DEFINE1(memfd_secret, unsigned int, flags)
---- a/tools/testing/selftests/mm/memfd_secret.c~mm-secretmem-properly-account-locked-pages
-+++ a/tools/testing/selftests/mm/memfd_secret.c
-@@ -57,33 +57,6 @@ static void test_file_apis(int fd)
- 		pass("file IO is blocked as expected\n");
- }
- 
--static void test_mlock_limit(int fd)
--{
--	size_t len;
--	char *mem;
--
--	len = mlock_limit_cur;
--	if (len % page_size != 0)
--		len = (len/page_size) * page_size;
--
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem == MAP_FAILED) {
--		fail("unable to mmap secret memory\n");
--		return;
--	}
--	munmap(mem, len);
--
--	len = mlock_limit_max * 2;
--	mem = mmap(NULL, len, prot, mode, fd, 0);
--	if (mem != MAP_FAILED) {
--		fail("unexpected mlock limit violation\n");
--		munmap(mem, len);
--		return;
--	}
--
--	pass("mlock limit is respected\n");
--}
--
- static void test_vmsplice(int fd, const char *desc)
- {
- 	ssize_t transferred;
-@@ -297,7 +270,7 @@ static void prepare(void)
- 				   strerror(errno));
- }
- 
--#define NUM_TESTS 6
-+#define NUM_TESTS 5
- 
- int main(int argc, char *argv[])
- {
-@@ -319,7 +292,6 @@ int main(int argc, char *argv[])
- 	if (ftruncate(fd, page_size))
- 		ksft_exit_fail_msg("ftruncate failed: %s\n", strerror(errno));
- 
--	test_mlock_limit(fd);
- 	test_file_apis(fd);
- 	/*
- 	 * We have to run the first vmsplice test before any secretmem page was
-_
-
-Patches currently in -mm which might be from ljs@kernel.org are
-
-mm-huge_memory-bypass-thp-tuneables-for-huge-pfnmap-mappings.patch
-mm-mremap-account-mm-locked_vm-correctly-for-mremap_dontunmap.patch
-mm-vma-correctly-unaccount-on-mmap_prepare-failure.patch
-mm-vmpressure-remove-window-size-todo.patch
-tools-testing-selftests-mm-add-missing-gitignore-entries.patch
-mm-move-drivers-char-memc-to-mm-char-memc.patch
-mm-implement-file_is_dev_zero-to-uniquely-identify-dev-zero.patch
-mm-vma-only-permit-map_private-dev-zero-to-be-mapped-anonymous.patch
-mm-vma-make-map_private-mapped-dev-zero-mappings-truly-anonymous.patch
-tools-testing-vma-add-test-to-assert-map_private-dev-zero-is-anon.patch
-tools-testing-selftests-mm-add-map_private-dev-zero-merge-tests.patch
-
+T24gVGh1LCAyMDI2LTA5LTAzIGF0IDA3OjE4IC0wNzAwLCBEYXZlIEhhbnNlbiB3cm90ZToNCj4g
+T24gOS8zLzI2IDA0OjU0LCBLaXJ5bCBTaHV0c2VtYXUgd3JvdGU6DQo+ID4gPiBDbG9zZXM6IGh0
+dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvQ0FKeEx4TVVHdTEtTCtPX25BT05Pd09YblM9Y05iTkFw
+Q1dxZHRoUmpkNzZMVGh0U1BnQG1haWwuZ21haWwuY29tLw0KPiA+ID4gRml4ZXM6IGJiM2FhZGY3
+ZDQ0NiAoIng4Ni9tbTogU3RhcnQgYWN0dWFsbHkgbWFya2luZyBfUEFHRV9TQVZFRF9ESVJUWSIp
+DQo+ID4gSG0uIEkgZG9uJ3QgdW5kZXJzdGFuZCB3aHkgd291bGQgdGhpcyBjb21taXQgZXhwbGlj
+aXRseSBleGNsdWRlDQo+ID4gX1BBR0VfRElSVFkgZnJvbSB0aGUgbWFzazoNCj4gPiANCj4gPiAt
+wqDCoMKgwqDCoMKgIHZhbCAmPSBfSFBBR0VfQ0hHX01BU0s7DQo+ID4gK8KgwqDCoMKgwqDCoCB2
+YWwgJj0gKF9IUEFHRV9DSEdfTUFTSyAmIH5fUEFHRV9ESVJUWSk7DQo+ID4gDQo+ID4gUmljaywg
+Y291bGQgeW91IGNvbW1lbnQ/IEl0IGRvZXNuJ3QgbG9vayBsaWtlIGEgdHlwby4NCj4gDQo+IE15
+IGd1ZXNzIGlzIHRoYXQgaXQncyBzb21lIHJlbW5hbnQgZnJvbSBhbiBlYXJsaWVyIHZlcnNpb24g
+b2YgdGhlIHBhdGNoLg0KPiBUaGUgYXN5bW1ldHJ5IHdpdGggcHRlX21vZGlmeSgpIHZzLiBwbWRf
+bW9kaWZ5KCkganVzdCBjYW4ndCBiZSBleHBsYWluZWQNCj4gYW55IG90aGVyIHdheS4gSXQgX21p
+Z2h0XyBoYXZlIGJlZW4gc29tZSBhdHRlbXB0IHRvIHNheSwgIkhleQ0KPiBfUEFHRV9ESVJUWSBp
+cyBub3cgYSBwYXJ0IG9mIHRoZSBwZ3Byb3RfdCBzaW5jZSBpdCdzIHBhcnQgb2YgdGhlDQo+ICdw
+ZXJtaXNzaW9ucycgb2YgYSBzaGFkb3cgc3RhY2sgUFRFIiB0aGF0IGdvdCBhYmFuZG9uZWQuDQo+
+IA0KPiBCdXQgSSBkb24ndCBzZWUgYW55dGhpbmcgd3Jvbmcgd2l0aCB0aGUgZml4IGF0IGFsbC4N
+Cj4gDQo+IEl0IGRvZXMgZ2l2ZSBtZSBwYXVzZSB0aGF0IHRoaXMgaGFzIGJlZW4gbG9zaW5nIHVz
+ZXIgZGF0YSBmb3Igc28gbG9uZywNCj4gYnV0IGl0IG11c3QganVzdCBiZSBhIHdlaXJkIGNvbWJp
+bmF0aW9uIG9mIGZlYXR1cmVzIHRoYXQgZmV3IGZvbGtzIHVzZQ0KPiB0b2dldGhlciAoaHVnZSBw
+YWdlcyArIE1BRFZfRlJFRSkuDQoNCk9vZi4gTG9va2luZyBiYWNrIHRocm91Z2ggdGhlIHBhdGNo
+IGhpc3RvcnksIHRoZSBkaXJ0eSBiaXQgdXNlZCB0byBiZSBoYW5kbGVkDQpzZXBhcmF0ZWx5LCBz
+dWNoIHRoYXQgdGhlIHN0cmlwcGluZyB3YXMgbmVlZGVkLiBMaWtlIHRoaXM6DQoNCiBzdGF0aWMg
+aW5saW5lIHB0ZV90IHB0ZV9tb2RpZnkocHRlX3QgcHRlLCBwZ3Byb3RfdCBuZXdwcm90KQ0KIHsN
+CglwdGV2YWxfdCBfcGFnZV9jaGdfbWFza19ub19kaXJ0eSA9IF9QQUdFX0NIR19NQVNLICYgfl9Q
+QUdFX0RJUlRZOw0KIAlwdGV2YWxfdCB2YWwgPSBwdGVfdmFsKHB0ZSksIG9sZHZhbCA9IHZhbDsN
+CglwdGVfdCBwdGVfcmVzdWx0Ow0KIA0KIAkvKg0KIAkgKiBDaG9wIG9mZiB0aGUgTlggYml0IChp
+ZiBwcmVzZW50KSwgYW5kIGFkZCB0aGUgTlggcG9ydGlvbiBvZg0KIAkgKiB0aGUgbmV3cHJvdCAo
+aWYgcHJlc2VudCk6DQogCSAqLw0KCXZhbCAmPSBfcGFnZV9jaGdfbWFza19ub19kaXJ0eTsNCgl2
+YWwgfD0gY2hlY2tfcGdwcm90KG5ld3Byb3QpICYgfl9wYWdlX2NoZ19tYXNrX25vX2RpcnR5Ow0K
+IAl2YWwgPSBmbGlwX3Byb3Rub25lX2d1YXJkKG9sZHZhbCwgdmFsLCBQVEVfUEZOX01BU0spOw0K
+DQoJcHRlX3Jlc3VsdCA9IF9fcHRlKHZhbCk7DQoNCgkvKg0KCSAqIERpcnR5IGJpdCBpcyBub3Qg
+cHJlc2VydmVkIGFib3ZlIHNvIGl0IGNhbiBiZSBkb25lDQoJICogaW4gYSBzcGVjaWFsIHdheSBm
+b3IgdGhlIHNoYWRvdyBzdGFjayBjYXNlLCB3aGVyZSBpdA0KCSAqIG1heSBuZWVkIHRvIHNldCBf
+UEFHRV9DT1cuIF9fcHRlX21rZGlydHkoKSB3aWxsIGRvIHRoaXMgaW4NCgkgKiB0aGUgY2FzZSBv
+ZiBzaGFkb3cgc3RhY2suDQoJICovDQoJaWYgKHB0ZV9kaXJ0eShwdGUpKQ0KCQlwdGVfcmVzdWx0
+ID0gX19wdGVfbWtkaXJ0eShwdGVfcmVzdWx0LCBmYWxzZSk7DQoNCglyZXR1cm4gcHRlX3Jlc3Vs
+dDsNCiB9DQogDQogc3RhdGljIGlubGluZSBwbWRfdCBwbWRfbW9kaWZ5KHBtZF90IHBtZCwgcGdw
+cm90X3QgbmV3cHJvdCkNCiB7DQoJcHRldmFsX3QgX2hwYWdlX2NoZ19tYXNrX25vX2RpcnR5ID0g
+X0hQQUdFX0NIR19NQVNLICYgfl9QQUdFX0RJUlRZOw0KIAlwbWR2YWxfdCB2YWwgPSBwbWRfdmFs
+KHBtZCksIG9sZHZhbCA9IHZhbDsNCglwbWRfdCBwbWRfcmVzdWx0Ow0KDQoJdmFsICY9IF9ocGFn
+ZV9jaGdfbWFza19ub19kaXJ0eTsNCgl2YWwgfD0gY2hlY2tfcGdwcm90KG5ld3Byb3QpICYgfl9o
+cGFnZV9jaGdfbWFza19ub19kaXJ0eTsNCiAJdmFsID0gZmxpcF9wcm90bm9uZV9ndWFyZChvbGR2
+YWwsIHZhbCwgUEhZU0lDQUxfUE1EX1BBR0VfTUFTSyk7DQoNCg0KCXBtZF9yZXN1bHQgPSBfX3Bt
+ZCh2YWwpOw0KDQoJLyoNCgkgKiBEaXJ0eSBiaXQgaXMgbm90IHByZXNlcnZlZCBhYm92ZSBzbyBp
+dCBjYW4gYmUgZG9uZQ0KCSAqIGluIGEgc3BlY2lhbCB3YXkgZm9yIHRoZSBzaGFkb3cgc3RhY2sg
+Y2FzZSwgd2hlcmUgaXQNCgkgKiBtYXkgbmVlZCB0byBzZXQgX1BBR0VfQ09XLiBfX3BtZF9ta2Rp
+cnR5KCkgd2lsbCBkbyB0aGlzIGluDQoJICogdGhlIGNhc2Ugb2Ygc2hhZG93IHN0YWNrLg0KCSAq
+Lw0KCWlmIChwbWRfZGlydHkocG1kKSkNCgkJcG1kX3Jlc3VsdCA9IF9fcG1kX21rZGlydHkocG1k
+X3Jlc3VsdCwgZmFsc2UpOw0KDQoJcmV0dXJuIHBtZF9yZXN1bHQ7DQogfQ0KDQpUaGUgZGlydHkg
+Yml0IHdhcyByZW1vdmVkIGZyb20gdGhlIHB0ZSwgdGhlbiBoYW5kbGVkIHNlcGFyYXRlbHkgdG8g
+c2hhcmUgbG9naWMNCmluIHRoZSBta2RpcnR5IGhlbHBlcnMuIER1cmluZyBkZXZlbG9wbWVudCBp
+dCB3YXMgY2hhbmdlZCB0byBkbyB0aGUgbmVjZXNzYXJ5DQphZGp1c3RtZW50cyBkZXBlbmRpbmcg
+b24gdGhlIGRpcnR5IGJpdCBpbiAndmFsJywgYnV0IHRoZSBtYXNrIGFkanVzdG1lbnQgb24gdGhl
+DQpwbWRfbW9kaWZ5KCkgc2lkZSBkaWRuJ3QgZ2V0IHVwZGF0ZWQuIFNvIEkgZG9uJ3QgcmVtZW1i
+ZXIgb3Igc2VlIGFueSBpbnRlbnRpb24NCmZvciB0aGUgZGlmZmVyZW5jZS4NCg0KSSBjYW4ndCBm
+aW5kIGFueXRoaW5nIGJhY2sgdGhlbiB0aGF0IHdvdWxkIGhhdmUgcHJldmVudGVkIGl0LiBUaGUg
+YnVnIGNhdXNlIGFuZA0KZml4IGxvb2tzIGNvcnJlY3QgdG8gbWUuDQo=
