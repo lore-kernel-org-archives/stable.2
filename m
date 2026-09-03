@@ -1,179 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E903A62809;
-	Thu,  3 Sep 2026 07:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238F6397933;
+	Thu,  3 Sep 2026 07:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421918; cv=none; b=UvEmlie7SZe9oLRz4sS202M2TjsEtAY4xYj5HUywex2lzgynJmPhfRtVN7F13qrY+Ja59eneYq67XLR05/YbCFthUtRrKVyPVvM48VNz3pCsYcmoUqR6xU8nxOI+Y/ovYgZ0eJVakmqF9rXAITcKIkQmZcbjJtSD/7n1y8GLURc=
+	t=1788422097; cv=none; b=g0k0DpTxyRXlduDnZfF1x4SkMWR6q0bcq9zN2XEPQmgxcWX2Bt2A0RWmiC4QH+/4WccAkgSNX7Ozr512jiJwiXQGY9ISE/ymHzAFjsCBgFEDmCCYz0yo0Mw8nn54IGG7lh9EfxzUzUFAwBpcciGpFXVDrmnvfxAtuKAoaqaGiPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421918; c=relaxed/simple;
-	bh=12vrxCeahiRMFFClwm46JzrWqrTkJZ+gk2zhllMrOcs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QaqEhlRx/oqvgLcQQ36nPBOPQPfTR2GsHI6aANrF3/KclZniQgO6DXhtU8Brs6hukhH3Dh/1iUHcC2p/ba8F83AYIxLkwDvD+SxkPpnm52uKPJV8loM23PLuKAPo0HSEp08jINFir9pan/gWyFuHkHxNmI0r9EjioGrOy7NgWos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVxb3rOe; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVxb3rOe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E5161F000E9;
-	Thu,  3 Sep 2026 07:51:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788421916;
-	bh=F+vH8a0y5iRSZhuN97GDWV9SeN5RHeUo0YNxwL5iH24=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=oVxb3rOep+IUU1LXH2A3wECixLK1oLVhW8FDfxOMGYTwDNKP8CNWZ9LZLJj2BqwLM
-	 QBH2iA2PXrf26xksWjx5ubtwEnLvQJLZ++mYqaQa7Ar3vg9RkzZapjRlbKGF7tVw2h
-	 E+wiSPjaOvjQ/XLwpbFXc7WfgkRBTR7AcxHluQY18EU5GJ1f1QWIP2kYGZ0/Wz2caw
-	 KTqnDMrt1eJbt0J0K+x+S0XsZf+ewR8IiULSKEQuEHjuijiLgOMe2m1Nm9wHLwiKpV
-	 9M+UT3GyD6/et+zIFyq2bq5Dpl673Dywn6ePjzWBGz/XpFbIVX2FlvN+Dl/wtpfJ8S
-	 iC0NMmD8TznUA==
-Subject: Re: [net,v5,4/6] bnxt_en: Handle buffer allocation failure in
- bnxt_rx_ring_reset()
-From: netdev-bot+sashiko@kernel.org
-To: joe@dama.to
-Cc: netdev@vger.kernel.org, michael.chan@broadcom.com,
- pavan.chebbi@broadcom.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- prashant@broadcom.com, eddie.wai@broadcom.com, huangjw@broadcom.com,
- horms@kernel.org, kalesh-anakkur.purayil@broadcom.com,
- colin.winegarden@broadcom.com, rukhsana.ansari@broadcom.com,
- linux-kernel@vger.kernel.org, raphaelcf@meta.com,
- sashiko-bot+sashiko@kernel.org, stable@vger.kernel.org
-Date: Thu, 03 Sep 2026 07:51:55 +0000
-Message-ID: <178842191510.3394541.8694280493608696004@kernel.org>
-In-Reply-To: <20260902015652.2421609-5-joe@dama.to>
-References: <20260902015652.2421609-5-joe@dama.to>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1788422097; c=relaxed/simple;
+	bh=hxhngAuDx8GSokc6rP4LurdJaNYN0GNhcknj23j6Gkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n7vi8/BrOTSDq1liTKeL165xjYsWftA1gPojDkcA7W7CuAAJ6e4Fo+837WiDpW4dHPvqJPwYPmOQilarnA2KLZe7Nw0JqxgVwNbzLNT0wZ6szbZk7gcSI88dmSXrS/Qlmy4fAuo17kjT+HTfbt3PIoRmUar7kEMXdQNSI95+DCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b9637e76a76c11f19a56ed5b684f684d-20260903
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:6d97758a-eaf8-4add-97d3-c86c06cb0074,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:92a878cece5ccbfd7dbe8a35f3c3a7ba,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:-3|
+	-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b9637e76a76c11f19a56ed5b684f684d-20260903
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 841964489; Thu, 03 Sep 2026 15:54:43 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] ntfs: fix volume flag update races
+Date: Thu,  3 Sep 2026 15:54:36 +0800
+Message-Id: <20260903075438.306793-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
-- [Medium] Commit message misdescribes the failure mechanism it is
-  fixing.
-- [Low] The new error path in `bnxt_rx_ring_reset()`
-  (drivers/net/ethernet/broadcom/bnxt/bnxt.c:14606-14616) loses the…
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+- Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
+  VOLUME_IS_DIRTY under ni->mrec_lock.
+- Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
+  unchanged.
+- Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
+  set helper.
+---
+ fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 17 deletions(-)
 
---
-
-bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-
-bnxt_rx_ring_reset() used to ignore the return value of
-bnxt_alloc_one_rx_ring().  The patch checks it and, on failure, logs a
-warning and falls back to a global reset instead of re-enabling TPA with a
-partially populated rxr->rx_tpa[] array.
-
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
-
-A couple of questions below, one about the commit message and one about the
-new error path.
-
->     bnxt_alloc_one_rx_ring() can fail in bnxt_alloc_one_tpa_info_data(), which
->     returns -ENOMEM on the first failed allocation and leaves the remaining
->     rxr->rx_tpa[] entries zeroed.
->
->     This means that when the agg_id from hardware is mapped to a SW index in
->     rxr->rx_tpa[], an uninitialized slot can be chosen which would hand a
->     zero DMA address to the device.
-
-[Severity: Medium]
-Is the "entries zeroed" / "zero DMA address" description accurate for the
-reset path?
-
-bnxt_rx_ring_reset() calls bnxt_free_one_rx_ring_skbs() ->
-bnxt_free_one_tpa_info_data() first, and that only clears ->data:
-
-    for (i = 0; i < bp->max_tpa; i++) {
-            struct bnxt_tpa_info *tpa_info = &rxr->rx_tpa[i];
-            u8 *data = tpa_info->data;
-
-            if (!data)
-                    continue;
-
-            tpa_info->data = NULL;
-            page_pool_free_va(rxr->head_pool, data, false);
-    }
-
-->data_ptr and ->mapping are left pointing at the buffer that was just
-returned to the head pool.  bnxt_alloc_one_tpa_info_data() then bails out
-at the first failure:
-
-    for (i = 0; i < bp->max_tpa; i++) {
-            data = __bnxt_alloc_rx_frag(bp, &mapping, rxr, GFP_KERNEL);
-            if (!data)
-                    return -ENOMEM;
-            ...
-    }
-
-so entries [i, bp->max_tpa) keep the stale mapping from before the reset
-rather than becoming zero.  In the unfixed code bnxt_tpa_start() would then
-program that stale address into the RX BD:
-
-    mapping = tpa_info->mapping;
-    prod_rx_buf->mapping = mapping;
-    prod_bd = &rxr->rx_desc_ring[RX_RING(bp, prod)][RX_IDX(prod)];
-    prod_bd->rx_bd_haddr = cpu_to_le64(mapping);
-
-Would it be more precise to say the device would DMA into a recycled
-page-pool buffer (and prod_rx_buf->data would be NULL), instead of a zero
-DMA address?  Since this is tagged for stable, the description is what
-backporters will read.
-
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index 3755a30f8d403..a8e5fdfcdf591 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> @@ -14604,7 +14604,14 @@ static void bnxt_rx_ring_reset(struct bnxt *bp)
->  		rxr->rx_sw_agg_prod = 0;
->  		rxr->rx_next_cons = 0;
->  		rxr->bnapi->in_reset = false;
-> -		bnxt_alloc_one_rx_ring(bp, i);
-> +		rc = bnxt_alloc_one_rx_ring(bp, i);
-> +		if (rc) {
-> +			netdev_warn(bp->dev, "RX ring reset failed to allocate buffers, rc = %d, falling back to global reset\n",
-> +				    rc);
-> +			bnxt_reset_task(bp, true);
-> +			bnxt_rtnl_unlock_sp(bp);
-> +			return;
-> +		}
->  		cpr = &rxr->bnapi->cp_ring;
->  		cpr->sw_stats->rx.rx_resets++;
-
-[Severity: Low]
-Does this new path lose the rx_resets accounting for the reset it just did?
-
-rxr->bnapi->in_reset = false is done just above the allocation, and the new
-error path returns before reaching cpr->sw_stats->rx.rx_resets++.
-
-The fallback bnxt_reset_task(bp, true) -> bnxt_close_nic() ->
-bnxt_disable_napi() is the only other place that bumps this counter, and it
-is gated on in_reset:
-
-    if (bnapi->in_reset)
-            cpr->sw_stats->rx.rx_resets++;
-
-which is already false for this ring, so the event is counted nowhere.
-
-Contrast with the sibling failure path in the same function: the
-bnxt_hwrm_rx_ring_reset() failure does a break with in_reset still set, so
-its global reset does get counted by bnxt_disable_napi().  That leaves two
-paths that both do an RX ring reset plus a global reset reporting different
-rx_resets values via ethtool -S.
-
-cpr->sw_stats is only freed by bnxt_free_ring_stats(), which is not reached
-for an irq_re_init == false close, so the missing increment stays visible in
-rx_resets and rx_total_resets.
-
-Would incrementing rx_resets before the early return, or only clearing
-in_reset after a successful bnxt_alloc_one_rx_ring(), be preferable here?
-
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index a1813093222b..a7977b95b967 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902015652.2421609-1-joe%40dama.to
+2.25.1
+
