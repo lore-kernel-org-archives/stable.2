@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2B04B66EE
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:25:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100C24B5413
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445523; cv=none; b=Mk+NAYj4+77Ne+F/6uxuSdCVOg/MPv0VMd1zVEweagy4rGaddiTJwy5KQidT9ngq/7ZtrMJVWSTO2Udf+zNZve5tJyqOemVb9Y6BU9gRGrFof9YmGZNyucRorru3PR3oY/DaB0Nkb6sMBbB2d9ySGKPjblzJ1SX/qyhZSmksJ9I=
+	t=1788445524; cv=none; b=azDMiI8pVU0mixdfFqb0dcUXiBDtF2d8qBrA7ZpYS3ZZl7ZB27b08BPj0lbF4YJPlzmXNchquJsDuIJ6OWtBrWza8im8DCc9w1ghWAvm5WcccIYzCYstdz9sbCPGrLiNMnlBIqmdSceZZ7ym2gQ2OpGgjVENcS2Z6ELcdUt1fWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445523; c=relaxed/simple;
-	bh=uMhGMY+ehZyH5dwiC1nL17MMeiRikKfG8VAL86m5snQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qbTLpNAFn961+Y7P+F6ZP+NQ0y/rt+ee3WV8/fPHe3hTBB/PKsQJY0E4IQoV5WGqIFeB8Zgd+A41NmtcQ4EqlRcZY/phXlGe33OauSgXaQ33C7WiFl38kBWp/Cn+zoqb9VSA94K9YdXHKpPmYpKSHtKVRS7SnAxndkXlkwPI31Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BWNy+H8w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445524; c=relaxed/simple;
+	bh=KpBVCzT+YNiC+7Ki4Zlqd5LZTI8zVHxh40eScFeIHbY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GZfFYJuRxxPaIIEBcHZ0u6W3tzCUIjGtrMeFrp+iO19Vy/fQ9BLmNFI6i2RLefgCINZRB9GPCunURb7HP36bJLdUECtgxTxnQhslRDAXkWrZ618PZ6i3s8efVmiDEZdFlXw4Nyv3CZWS/yZdHKl4q7TZJkLH7yg5G+ObXTyM1Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DHgZMaCa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BWNy+H8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945A81F000E9;
-	Thu,  3 Sep 2026 14:25:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DHgZMaCa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1E61F00A3D;
+	Thu,  3 Sep 2026 14:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445507;
-	bh=O7mejQwWgY04vVRSgXVesahDBXfVPFdnq7fkN4a7Mjs=;
+	s=korg; t=1788445512;
+	bh=KVtGUWqOsmdS7WFb0gfzx7Kghn/G53FGrZltOAHZzpc=;
 	h=Subject:To:Cc:From:Date;
-	b=BWNy+H8wmJ8UZaHR7clU6l+sbKfFCZj6aZkG4vcx6aeNoDY5AgDRC9bPPRcmmyYNu
-	 +6aPvYZ4EuiDSRj8471rCig5H3vA7Tns7iqTtl/IpwTKNKf/qJ/FYF7Vb24lMe9CeK
-	 UOXxnRHK8NzQIWi1TMos3g+CaeyvhKDThrapJegQ=
-Subject: FAILED: patch "[PATCH] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout" failed to apply to 5.15-stable tree
-To: gnoack@google.com,brauner@kernel.org,mic@digikod.net
+	b=DHgZMaCaBSNuAGbUKFNihEUw5gkwiqevocSGMjSADoYp+FeWJbySH3pi0xUmlA2Y+
+	 wZufeMb+tbtRF2BVKbQjSXSgCCjK2RmyS+EmHw/DMA3jGGFC3ZSXZ098kewQQTQwD0
+	 yNlb2YxVyFz5d0wtGRc7jOLvZVlMjk2NutGSnfq4=
+Subject: FAILED: patch "[PATCH] mailbox: qcom-ipcc: fix duplicate channel allocation across" failed to apply to 5.10-stable tree
+To: anup.vishwakarma@oss.qualcomm.com,jassisinghbrar@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:01:19 +0200
-Message-ID: <2026090319-sprinkler-mandolin-e566@gregkh>
+Date: Thu, 03 Sep 2026 16:01:42 +0200
+Message-ID: <2026090342-wildfire-scrambler-d994@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 672fa082d48b21e1fb62cdb184fee41513e53421
+git cherry-pick -x 66c7bcad72430a02c860521031350b84b31ad9a8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090319-sprinkler-mandolin-e566@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090342-wildfire-scrambler-d994@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,228 +62,64 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 672fa082d48b21e1fb62cdb184fee41513e53421 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
-Date: Thu, 13 Aug 2026 11:31:53 +0200
-Subject: [PATCH] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout
- creation
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 66c7bcad72430a02c860521031350b84b31ad9a8 Mon Sep 17 00:00:00 2001
+From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Date: Wed, 5 Aug 2026 14:34:07 +0530
+Subject: [PATCH] mailbox: qcom-ipcc: fix duplicate channel allocation across
+ holes
 
-Whiteout objects are used in the upper layer of an OverlayFS to
-indicate that the file with this name does not exist in the unified
-view, even if it is present in one of the lower layer file systems.
+The IPCC of_xlate() both scans for a free mailbox channel and checks
+for duplicate references to the same underlying IPCC channel. When a
+channel has been shutdown it might have left a hole in the channel
+list, which would terminate the search without considering duplicates
+later in the list.
 
-For the userspace implementations of OverlayFS (fuse-overlayfs),
-whiteout objects can be created from userspace as well:
+Continue the traversal of the channel list to detect and reject
+duplicates, while keeping track of the first free channel.
 
-* mknod(2) with S_IFCHR and makedev(0, 0)
-* renameat2(2) with RENAME_WHITEOUT,
-  creating the whiteout in the old place of the moved file.
-
-This commit guards whiteout creation in both of these cases with
-LANDLOCK_ACCESS_FS_MAKE_REG.  Whiteout objects are *not* considered
-character devices and are not bound to a driver.
-
-LANDLOCK_ACCESS_FS_MAKE_REG describes the same permission class as a
-whiteout object: creating one is the only S_IFCHR creation that the VFS
-exempts from CAP_MKNOD, so it is as unprivileged as creating a regular
-file, while LANDLOCK_ACCESS_FS_MAKE_CHAR and
-LANDLOCK_ACCESS_FS_MAKE_BLOCK keep meaning the creation of devices that
-expose a kernel interface [1].
-
-For the mknod(2) case, introduce a Landlock erratum.  The creation of
-whiteout objects through mknod(2) was previously guarded using
-LANDLOCK_ACCESS_FS_MAKE_CHAR, and it is now guarded using
-LANDLOCK_ACCESS_FS_MAKE_REG.
-
-For the renameat2(2) case, fix a bug: Before this commit, renameat2(2)
-with RENAME_WHITEOUT would create a directory entry even when all
-LANDLOCK_ACCESS_FS_MAKE_* rights were denied.
-
-This does not affect normal renames within layered OverlayFS mounts:
-When doing a regular rename() on a mounted fuse-overlayfs, it is the
-fuse-overlayfs daemon that exercises renameat2() with RENAME_WHITEOUT,
-and only the Landlock domain of that daemon is checked there.
-
-Suggested-by: Christian Brauner <brauner@kernel.org>
-Suggested-by: Mickaël Salaün <mic@digikod.net>
+Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
 Cc: stable@vger.kernel.org
-Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
-Depends-on: 49c9e09d9610 ("landlock: Fix handling of disconnected directories")
-Depends-on: fe72ce6710cb ("landlock: Add errata documentation section")
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260720.chow9ohYie5b@digikod.net [1]
-Link: https://patch.msgid.link/20260813093157.1436894-3-gnoack@google.com
-[mic: Record why LANDLOCK_ACCESS_FS_MAKE_REG is the matching right, and
-add link(2) to the user doc]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
 
-diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
-index 272f047df438..27ae3f39cafb 100644
---- a/include/uapi/linux/landlock.h
-+++ b/include/uapi/linux/landlock.h
-@@ -351,6 +351,7 @@ struct landlock_net_port_attr {
-  *   device.
-  * - %LANDLOCK_ACCESS_FS_MAKE_DIR: Create (or rename) a directory.
-  * - %LANDLOCK_ACCESS_FS_MAKE_REG: Create (or rename or link) a regular file.
-+ *   This also guards the creation of whiteout objects as used in OverlayFS.
-  * - %LANDLOCK_ACCESS_FS_MAKE_SOCK: Create (or rename or link) a UNIX domain
-  *   socket.
-  * - %LANDLOCK_ACCESS_FS_MAKE_FIFO: Create (or rename or link) a named pipe.
-diff --git a/security/landlock/errata/abi-1.h b/security/landlock/errata/abi-1.h
-index 3f099555f059..315ea7e0fe50 100644
---- a/security/landlock/errata/abi-1.h
-+++ b/security/landlock/errata/abi-1.h
-@@ -22,3 +22,26 @@
-  * from their original mount points.
-  */
- LANDLOCK_ERRATUM(3)
-+
-+/**
-+ * DOC: erratum_4
-+ *
-+ * Erratum 4: Creation of whiteout objects
-+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ *
-+ * This fix changes the access rights required for the creation of whiteout
-+ * objects through :manpage:`mknod(2)`, :manpage:`renameat2(2)`, or
-+ * :manpage:`link(2)`.  Creating whiteout objects is now guarded by
-+ * ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
-+ *
-+ * Whiteout objects are used in OverlayFS to mark the absence of a file in an
-+ * upper file system.  Despite being created with ``S_IFCHR``, whiteout objects
-+ * do not count as character devices.
-+ *
-+ * Impact:
-+ *
-+ * Sandboxed programs that create OverlayFS whiteouts (such as fuse-overlayfs)
-+ * now require ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of
-+ * ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
-+ */
-+LANDLOCK_ERRATUM(4)
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index f7e5e4ef9eac..8fc7f82a374a 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -20,6 +20,7 @@
- #include <linux/falloc.h>
- #include <linux/fs.h>
- #include <linux/init.h>
-+#include <linux/kdev_t.h>
- #include <linux/kernel.h>
- #include <linux/limits.h>
- #include <linux/list.h>
-@@ -983,7 +984,8 @@ static int current_check_access_path(const struct path *const path,
- 	return -EACCES;
- }
+diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
+index e5ebb4a237ff..185b63f724d4 100644
+--- a/drivers/mailbox/qcom-ipcc.c
++++ b/drivers/mailbox/qcom-ipcc.c
+@@ -167,7 +167,7 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
+ {
+ 	struct qcom_ipcc *ipcc = to_qcom_ipcc(mbox);
+ 	struct qcom_ipcc_chan_info *mchan;
+-	struct mbox_chan *chan;
++	struct mbox_chan *chan, *free_chan = NULL;
+ 	struct device *dev;
+ 	int chan_id;
  
--static __attribute_const__ access_mask_t get_mode_access(const umode_t mode)
-+static __attribute_const__ access_mask_t get_mode_access(const umode_t mode,
-+							 const dev_t dev)
- {
- 	switch (mode & S_IFMT) {
- 	case S_IFLNK:
-@@ -991,6 +993,9 @@ static __attribute_const__ access_mask_t get_mode_access(const umode_t mode)
- 	case S_IFDIR:
- 		return LANDLOCK_ACCESS_FS_MAKE_DIR;
- 	case S_IFCHR:
-+		/* Whiteout objects are guarded with MAKE_REG. */
-+		if (dev == WHITEOUT_DEV)
-+			return LANDLOCK_ACCESS_FS_MAKE_REG;
- 		return LANDLOCK_ACCESS_FS_MAKE_CHAR;
- 	case S_IFBLK:
- 		return LANDLOCK_ACCESS_FS_MAKE_BLOCK;
-@@ -1007,6 +1012,13 @@ static __attribute_const__ access_mask_t get_mode_access(const umode_t mode)
- 	}
- }
+@@ -180,16 +180,21 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
+ 		chan = &ipcc->chans[chan_id];
+ 		mchan = chan->con_priv;
  
-+static access_mask_t get_dentry_access(const struct dentry *const dentry)
-+{
-+	const struct inode *const inode = d_backing_inode(dentry);
-+
-+	return get_mode_access(inode->i_mode, inode->i_rdev);
-+}
-+
- static access_mask_t maybe_remove(const struct dentry *const dentry)
- {
- 	if (d_is_negative(dentry))
-@@ -1093,6 +1105,7 @@ static bool collect_domain_accesses(const struct landlock_ruleset *const domain,
-  * @new_dentry: Destination file or directory.
-  * @removable: Sets to true if it is a rename operation.
-  * @exchange: Sets to true if it is a rename operation with RENAME_EXCHANGE.
-+ * @whiteout: Sets to true if it is a rename operation with RENAME_WHITEOUT.
-  *
-  * Because of its unprivileged constraints, Landlock relies on file hierarchies
-  * (and not only inodes) to tie access rights to files.  Being able to link or
-@@ -1140,7 +1153,8 @@ static bool collect_domain_accesses(const struct landlock_ruleset *const domain,
- static int current_check_refer_path(struct dentry *const old_dentry,
- 				    const struct path *const new_dir,
- 				    struct dentry *const new_dentry,
--				    const bool removable, const bool exchange)
-+				    const bool removable, const bool exchange,
-+				    const bool whiteout)
- {
- 	const struct landlock_cred_security *const subject =
- 		landlock_get_applicable_subject(current_cred(), any_fs, NULL);
-@@ -1159,18 +1173,25 @@ static int current_check_refer_path(struct dentry *const old_dentry,
- 	if (exchange) {
- 		if (unlikely(d_is_negative(new_dentry)))
- 			return -ENOENT;
--		access_request_parent1 =
--			get_mode_access(d_backing_inode(new_dentry)->i_mode);
-+		access_request_parent1 = get_dentry_access(new_dentry);
- 	} else {
- 		access_request_parent1 = 0;
- 	}
--	access_request_parent2 =
--		get_mode_access(d_backing_inode(old_dentry)->i_mode);
-+	access_request_parent2 = get_dentry_access(old_dentry);
- 	if (removable) {
- 		access_request_parent1 |= maybe_remove(old_dentry);
- 		access_request_parent2 |= maybe_remove(new_dentry);
+-		if (!mchan)
+-			break;
+-		else if (mchan->client_id == ph->args[0] &&
+-				mchan->signal_id == ph->args[1])
++		if (!mchan) {
++			/* Keep scanning past holes to reject duplicate channel requests. */
++			if (!free_chan)
++				free_chan = chan;
++		} else if (mchan->client_id == ph->args[0] &&
++				mchan->signal_id == ph->args[1]) {
+ 			return ERR_PTR(-EBUSY);
++		}
  	}
  
-+	/*
-+	 * In case of renameat2(2) with RENAME_WHITEOUT, a whiteout object is
-+	 * created in the source location, so we require an additional access
-+	 * right there.
-+	 */
-+	if (whiteout)
-+		access_request_parent1 |=
-+			get_mode_access(S_IFCHR | WHITEOUT_MODE, WHITEOUT_DEV);
+-	if (chan_id >= mbox->num_chans)
++	if (!free_chan)
+ 		return ERR_PTR(-EBUSY);
+ 
++	chan = free_chan;
 +
- 	/* The mount points are the same for old and new paths, cf. EXDEV. */
- 	if (old_dentry->d_parent == new_dir->dentry) {
- 		/*
-@@ -1520,7 +1541,7 @@ static int hook_path_link(struct dentry *const old_dentry,
- 			  struct dentry *const new_dentry)
- {
- 	return current_check_refer_path(old_dentry, new_dir, new_dentry, false,
--					false);
-+					false, false);
- }
- 
- static int hook_path_rename(const struct path *const old_dir,
-@@ -1531,7 +1552,8 @@ static int hook_path_rename(const struct path *const old_dir,
- {
- 	/* old_dir refers to old_dentry->d_parent and new_dir->mnt */
- 	return current_check_refer_path(old_dentry, new_dir, new_dentry, true,
--					!!(flags & RENAME_EXCHANGE));
-+					!!(flags & RENAME_EXCHANGE),
-+					!!(flags & RENAME_WHITEOUT));
- }
- 
- static int hook_path_mkdir(const struct path *const dir,
-@@ -1544,7 +1566,8 @@ static int hook_path_mknod(const struct path *const dir,
- 			   struct dentry *const dentry, const umode_t mode,
- 			   const unsigned int dev)
- {
--	return current_check_access_path(dir, get_mode_access(mode));
-+	return current_check_access_path(
-+		dir, get_mode_access(mode, new_decode_dev(dev)));
- }
- 
- static int hook_path_symlink(const struct path *const dir,
+ 	mchan = devm_kzalloc(dev, sizeof(*mchan), GFP_KERNEL);
+ 	if (!mchan)
+ 		return ERR_PTR(-ENOMEM);
 
