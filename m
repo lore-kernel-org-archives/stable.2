@@ -1,76 +1,48 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02F0503BED
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:31:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B02382F28
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463897; cv=none; b=KUSZl3/DrJ2AhrG2zo5wHPAVDuK0kI462oyIVS56bjnPsFzF9EleHChoRPXThUK4436jnIPFQJPtf9BgnsAgGB4xr6omZzdZtJJdkAv3u+p0gcwSFElbJeZprdYzh7xmmZYBFE8e/66nxnBS0Bvb80Bfl435AzCU2ak39CGdOQw=
+	t=1788463907; cv=none; b=nQ7rjxRqJY8/w6RU10V79OIuqkCa0DNQY9QwPiBpM3J4b43r9dgbti050608CEkHmrLQ2gw42mBm1gbpVSwtdQBmfeosjgwFo2cs10J10c1Qy395hutCgR20OE7hHuTZ0vXknSjrNno2l68y5de6ZeEpGwGeJbrlB3k9rvF7/gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463897; c=relaxed/simple;
-	bh=LRIB+Ien8LNhu1QGXr1xo2szN3dRaFD/6agQW0q8qxs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=THeZWPsi6zXOVBGOHC4oXL2FnGpl9Fat2t8bDWxu03G2nvwraMwyAuY438QRzddYTRzfB94Vd2ETUWo/2zT8K6UpmXTa3E2EBFjMvy9osGkkpx2QwEtBJxsKfl6eE/X/zh1IDAgrUjOwocymmBQEEXobYCJtTHGw66bFzy9j8eM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rwdqi28I; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788463907; c=relaxed/simple;
+	bh=bxoR50/4lvHFzJofApKvO7WHZ/sBpeTSQTcYcp49Opo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qjjL/37JJBiTc7t4Q+BC5ONVq1mMUsB2aNbbFCUrbdHlhyQXX9YNo0lNoS5CLQz0ByES5XjG1m9VB1noSltbk04QgACTwIPE4FgNtxiqBvhBJHfc8Pm3EGwF1hGtlopvH1XAOZrn2Y2U+j2w+t9uyoPl5NaxsHo3AfPP73XZ/7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTg3kgKz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rwdqi28I"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2cc891373e0so2035585ad.2
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 12:31:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788463872; x=1789068672; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4yIetKXnfU6qQx5OfRzSQNhmvwvEsmpVmmGdbC2BbsE=;
-        b=Rwdqi28IC2n6hedfuQzzuOvAxUHwIrsve3Gvv5hDjjOH8/BdTlPKNocnWSsZ9iHz24
-         Cf+BJGD6z+rNWWJZ5WlUG9TeDcubItwYFJro72JonhFc1nnLyjJ/F9dSmhevIr6UQnIA
-         wJshvg0BFGbf+Y5fSBSkZgfoHksoPLpFYdAYUWKh6V88P39NLoeLhRb+8kJiBMm3cEXr
-         8q/hpredYakkLfqPSedRw2qfHjPHFjAAkwid8sfU4XUlCpGtOl5Fh/FcBVsVcoHPOEET
-         bAuvGHb7GsC34+irRuoncZwGEQ5dvd4T206H1kllv9+yTopMbixMwhS5d+WNqOhPsrOb
-         uhFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788463872; x=1789068672;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4yIetKXnfU6qQx5OfRzSQNhmvwvEsmpVmmGdbC2BbsE=;
-        b=WDs5ySBhiKhFeduQa/VTpCFA04fCBAzScvmeGWK7SbVO2ZeTnJdcbUA/xsSIsHfq/e
-         NgagW9QLLcIDNl4TUu/KWKwsRvWBYCFAOoRILR/s52PyiEVXAHibGpcv9dG762wQXO9s
-         Xwq2jJKVM8Ol1pt38p9UWzZU3PFrgCXq39Htiv1fYdml4ckH9sCuprnX/UbnW65oXr0w
-         trs6Xn6c7eBoxlKwKGo6VNTlB2G+gsEiE7ymJ446iREIYBvUdemP7qlOlGn2wCUd6G3d
-         Wt+0uuKbp7ZOep7jreDIB4+uX+/75Ud3IFuoju9cGBcW/RlOX11MpiXv4wVSt7+moZzF
-         0WrA==
-X-Forwarded-Encrypted: i=1; AKwUvByU1m85p0zfUKm4vqlEaAqdZHnVF12mm03ut1VUbv5o873XeRI9r209hjAf1gNk/V4VDnDAqSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4Zkxm5XpobUCb2BJ/dDN3ybD5Hg2F5TJeEFNZ57V69w1sGIde
-	5k4URmnMJ1UJhtkEPjUW1SmGIsuRX2gCTbTjG+a2W0kW1CbLYTpW6buo
-X-Gm-Gg: AYBFou2xUPy3MNazZ+papCao7Pyo0vnAh1/vEdgZsZ5WviWZtWmA0qMXtpyovNSDEyn
-	IzDlyMqV/yUwW43bmrPtjvoyYpjokWOsbb0z5dsmY/VXF6B//lS8j8LaHqriY3klXjum7tPoHXK
-	3NVvegKGNU3B+72w+D+a7tSnpiXJlCy36aDTWKurV7PAGt2y+wUMUfsnZI49CVqLsSlOL0Z72eP
-	tiPL+N1IIBWHDqPjXUIvXINqlorVAGTGvzZHf5A/0BaKaAX3CmRh//p0C/KR+6rCMsGQE2WayPV
-	xgPFKvo2vYrF18OpSEWof78a+bMmtFRL6VXuJQiCw7JvK0fWTnDP4X2NUaavhGl8F1wf4hx4nen
-	yNX6eHU7+ldF48vRv+WncDq7/D9aP9CJ1+01LveQhjJMHRWzxlL+OFyP4EW9HWh4Ea/Y9g9afeD
-	lw6Rx+/KH24i/xx8/9KDJdhB1MzwqAuWsa5uooHAxd7PXYkRoGkAx8YMeVbaCovFGPLY+4N3HYc
-	8jTyJybYiDsfNAGGZrcjz2S4VxazIcdbReNIb+z7dszRQ==
-X-Received: by 2002:a17:903:1670:b0:2d9:438e:b70d with SMTP id d9443c01a7336-2db1232c88emr19260755ad.1.1788463872345;
-        Thu, 03 Sep 2026 12:31:12 -0700 (PDT)
-Received: from lza-virtual-machine.localdomain ([223.160.226.115])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae53ddsm396985ad.78.2026.09.03.12.31.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 12:31:12 -0700 (PDT)
-From: Zhian Liang <liangzhan5dev@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhian Liang <liangzhan5dev@gmail.com>
-Subject: [PATCH 2/2] Input: tca8418_keypad - fix race condition in interrupt handler
-Date: Fri,  4 Sep 2026 03:29:42 +0800
-Message-Id: <20260903192942.21906-2-liangzhan5dev@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903192942.21906-1-liangzhan5dev@gmail.com>
-References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTg3kgKz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9031F000E9;
+	Thu,  3 Sep 2026 19:31:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788463897;
+	bh=9SXjOobqieHguZBrDM5DlIsO+yERis4KMVcJY/lpDnU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kTg3kgKzA2dhKgsKVoGzvvDsWzF5fanOEHk9FS2x3toNiDtXD3P5ZWWrFEql6rq0/
+	 PCDvqjy0XT3KtnujySl3/mqdARxAUUiwjDmW8q4Ou1LJtNmSsQFTaGj8kEeHaGie9a
+	 mFejJK+3Cw9x8YNPzZE8YspuT6b7B5U6CH8vIwpxfLABz3AZ+oCTmHFyBrEndst8jc
+	 THog2zrSKE/FtLpHpZRgtIf0G8K4VAIxoa2zr1G5Qsb167SGU4xFUqiDMV69O4LnUt
+	 68zheY6phwBYyLYKvUMgl26Rg6Q5z6KE0mjryBbjR5pyLIbDA1SFPXfZzI2ZsMhiAE
+	 GM983MZMJweYw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Ackerley Tng <ackerleytng@google.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Peter Xu <peterx@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
+Date: Thu,  3 Sep 2026 15:31:34 -0400
+Message-ID: <20260903193134.1609095-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090339-crisped-bouncy-5af4@gregkh>
+References: <2026090339-crisped-bouncy-5af4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,56 +51,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is a race condition in tca8418_irq_handler() where a new key event
-can be lost if it arrives after the FIFO is drained but before the
-interrupt status register is cleared.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Fix this by re-reading INT_STAT after draining the FIFO and repeating
-the process if K_INT is still asserted. This ensures the FIFO is truly
-empty before clearing interrupts.
+[ Upstream commit 078e1a0fc41a42baaf113383b52dab8874c0b967 ]
 
-The FIFO depth is 10 events, so a loop limit of 16 provides sufficient
-margin while preventing infinite loops in case of hardware misbehavior.
+folio_may_be_lru_cached() is currently only true for small folios, and
+for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
+of 1 in try_grab_folio()/try_grab_folio_fast().
 
-Signed-off-by: Zhian Liang <liangzhan5dev@gmail.com>
+Consequently, our
+
+	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
+
+check in collect_longterm_unpinnable_folios() will currently always
+identify "reference mismatch" and first drain the local LRU cache to then
+drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
+is really called after pinning the folios with FOLL_PIN.
+
+Add a comment because the current code is not quite intuitive: we used to
+drain only to make sure the folio_isolate_lru() would succeed. But then we
+also started draining to make later migration more reliable.
+
+We'll refactor that code soon a bit, to also make it usable in other
+context where we really want to remove any references from LRU caches.
+
+Let's add CC stable, because having an easy way for excessive LRU cache
+draining on all CPUs does not sound right. In common scenarios we
+don't expect to ever have to drain.
+
+Link: https://lore.kernel.org/20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org
+Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
+Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Hugh Dickins <hughd@google.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted pages_or_folios iteration to page-array iteration and folio_has_pincount() to folio_test_large() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/input/keyboard/tca8418_keypad.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ mm/gup.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/input/keyboard/tca8418_keypad.c b/drivers/input/keyboard/tca8418_keypad.c
-index 9f0aace6bd21..0952370c0636 100644
---- a/drivers/input/keyboard/tca8418_keypad.c
-+++ b/drivers/input/keyboard/tca8418_keypad.c
-@@ -212,6 +212,7 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
- 	struct tca8418_keypad *keypad_data = dev_id;
- 	u8 reg;
- 	int error;
-+	int max_loops = 16;
+diff --git a/mm/gup.c b/mm/gup.c
+index 72e01b8311d7c..bed94c3d6e82b 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -1972,6 +1972,8 @@ static unsigned long collect_longterm_unpinnable_pages(
  
- 	error = tca8418_read_byte(keypad_data, REG_INT_STAT, &reg);
- 	if (error) {
-@@ -225,9 +226,19 @@ static irqreturn_t tca8418_irq_handler(int irq, void *dev_id)
+ 	for (i = 0; i < nr_pages; i++) {
+ 		struct folio *folio = page_folio(pages[i]);
++		const int pin_refs = folio_test_large(folio) ?
++			1 : GUP_PIN_COUNTING_BIAS;
  
- 	if (reg & INT_STAT_OVR_FLOW_INT)
- 		dev_warn(&keypad_data->client->dev, "overflow occurred\n");
-+	do {
-+		if (reg & INT_STAT_K_INT)
-+			tca8418_read_keypad(keypad_data);
-+
-+		/* Re-read interrupt status to check for new events */
-+		error = tca8418_read_byte(keypad_data, REG_INT_STAT, &reg);
-+		if (error) {
-+			dev_err(&keypad_data->client->dev,
-+				"unable to re-read REG_INT_STAT\n");
-+			return IRQ_HANDLED;
-+		}
+ 		if (folio == prev_folio)
+ 			continue;
+@@ -1990,15 +1992,20 @@ static unsigned long collect_longterm_unpinnable_pages(
+ 			continue;
+ 		}
  
--	if (reg & INT_STAT_K_INT)
--		tca8418_read_keypad(keypad_data);
-+	} while ((reg & INT_STAT_K_INT) && --max_loops);
- 
- 	/* Clear all interrupts, even IRQs we didn't check (GPI, CAD, LCK) */
- 	reg = 0xff;
++		/*
++		 * We drain not only to make the folio_isolate_lru() succeed,
++		 * but also to remove any other folio references from LRU
++		 * caches.
++		 */
+ 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
+ 				folio_ref_count(folio) !=
+-				folio_expected_ref_count(folio) + 1) {
++				folio_expected_ref_count(folio) + pin_refs) {
+ 			lru_add_drain();
+ 			drained = 1;
+ 		}
+ 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
+ 				folio_ref_count(folio) !=
+-				folio_expected_ref_count(folio) + 1) {
++				folio_expected_ref_count(folio) + pin_refs) {
+ 			lru_add_drain_all();
+ 			drained = 2;
+ 		}
 -- 
-2.34.1
+2.53.0
 
