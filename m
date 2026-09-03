@@ -1,123 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756D44D8DA1;
-	Thu,  3 Sep 2026 15:21:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB764D8D98
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:22:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448904; cv=none; b=Ur97aV5I/LDnMzZ3w786WnyEks1zbb3AnX6lmMVeeB07RqyAes3eSARXsdX9HvMGvg1JHneSX/VqA8vI+Ukbh9qaSTrYR2Hz3C1cCd/mV1ix/yjkvjg5RRFKsfd5qZX/SfFUNETQDFeDgntg1HNvWcnkWiNkXxHWt7dwg1NjEbY=
+	t=1788448926; cv=none; b=Cr6ryK+0MIsy0gSb/76Qm/eARSr6nZ0U5DROwszNkuEeyqP/Oq1L5mH/zzKVjcPiU5tBJzdl6XrqhidJfyCjm8+hdF//JOEwkk3mSe0lPHkVJW1796OE5042/RAX4yGcDxyZge/TOF/xT87XyjTHnghQ093fTVZ0wGVgHMcSdjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448904; c=relaxed/simple;
-	bh=vykZ2grde6xxUCKjF8SZuF7N5SRlRgYnRvKt4HsKLN0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EyaHJkCouTE/7719XG03IW/b8lKlaksSjKwWkuZsjfgLCg2nq2GmW8g1sgGLmJkVp4ExzCmWO+qen6T+QRYtzYfj1MST5TD5TM1wrpZBua8Ak2o9QRqY7r0bBbBlUIaSjnC6YFl8BjOzHJG+VSxrKw+fkuSW4F7CRjSKiFkbEoY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uR0Ohz4B; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788448926; c=relaxed/simple;
+	bh=wZdbPkFIiHWP+2cINcK5FdjPEwfI5HMfgvvGEnAQMXA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I9+cWSa6Unxwa3vWbtLvfcVU9x6U5Tsm0TGrmoF+OYOFozfJvSGSELu8rYgyk0J5utqpugloco7sdmQ7f/eML1rE81V0RkTUH6cSjk8dnaGLEur/rs5KqlEUeXBWR9uGeGPlAJb+/+D4olcPlniz4amFGD+L2rmFAaNL3cbVrOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW8MGIZB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uR0Ohz4B"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1F855C2BCFA;
-	Thu,  3 Sep 2026 15:21:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788448904;
-	bh=vykZ2grde6xxUCKjF8SZuF7N5SRlRgYnRvKt4HsKLN0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uR0Ohz4Bqj5gM/vmnVSBA4WfenWQQUCXdbDOunzHk4VNUDdQtxDFeTcgHBVVilaKt
-	 KL9drltpaPGQxuoLhnH9yQYtFcTab05y9sj2OvmXkf0hiDDSee4/aSVAZzCgOQU2Ns
-	 F2elx9hrMqS4zN4QUWnCNPg8+vxrxJ0u4IR7T4ebuNJp9XNkPpLkTsjyttr29Z/Mkp
-	 mk7u4ODc+1Vp3wKMajs6oRgTMnNbgaHbuj98KWQAQofz09f+frViw52XIt8+qTgNMt
-	 lcx3PdR13DriT37e86pE6GC959Wkg4xlPjSre+stbbtqas0Jl8baS6Kq8NQQFjBtDc
-	 8hKOoJcVdptIw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1AEBC624D6;
-	Thu,  3 Sep 2026 15:21:43 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 03 Sep 2026 17:21:42 +0200
-Subject: [PATCH v3 1/2] mfd: wcd934x: Fix NULL pointer dereference on IRQ
- probe deferral
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW8MGIZB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712131F000E9;
+	Thu,  3 Sep 2026 15:22:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788448925;
+	bh=6DiGJvw26k1t8BX/BCAZQSn+8MNLGNk+vnlPKTV/wrU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IW8MGIZBD+uKCDQCsrJyOXCcpXv2toMpvxcNK6rnZISXB+ggSyWlf2MPHuU/mCZA1
+	 b3FykYramLjGh1T5MVI5138+ePgOqa6A/Va5j9mjuIjM+5ROcJgb9I5PUv0cYrpSFk
+	 HOJF7fueggk4Q8xzCV3NdOzUpBecc0bOAhU1GzPKk/8NTjfypzR3MDb7EUAvi3SXBq
+	 4+fugDSaPkdTyXfp0B/oEZMnkU6QYSudbBzRmmHARtM0P+A53AmVX8JtQwj08Uok1o
+	 PvACVsGgmFs+jItCh0/a0wyseQlyli7QAcz1xOrqo4k4S5JlJtxnr2+TYEppIaJaqz
+	 fPXTiGs/UNlPg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] KEYS: trusted: Fix TPM teardown ordering
+Date: Thu,  3 Sep 2026 11:22:02 -0400
+Message-ID: <20260903152202.886654-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090321-fiction-outthink-69f9@gregkh>
+References: <2026090321-fiction-outthink-69f9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-wcd-dma-v3-1-d3920c6563c4@ixit.cz>
-References: <20260903-wcd-dma-v3-0-d3920c6563c4@ixit.cz>
-In-Reply-To: <20260903-wcd-dma-v3-0-d3920c6563c4@ixit.cz>
-To: Lee Jones <lee@kernel.org>, Thomas Tai <thomas.tai@oracle.com>, 
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1653; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=VU4vkCCqWQAD3UTvE2YpWnadOlQKw+33pNCRUeftoV0=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmZCGhwMASsnSM+8t5MAsRgjVHLop/57TOI64h
- WI1V4q6fAaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapmQhgAKCRBgAj/E00kg
- coPnEAC1Px2HkZLmtRmIHu9hIipFEDgWLidgYxi1KZr576tJQGtw/9aEaKWPkCPlKy0D3AWKKOq
- sNUlIyEVWwO/4EHjAHv+7qyodwjoRNB64Uf02m7ROxJO4ocV7GsagVe56yt6v1LhoBD9bQkEmPl
- 52N87NlJIO0yhaxdLnAFq9XYnRNXEnpSn8n3EAU0M4POaf8j2TqonGq0nGAMfLVJ1CPsGdBTaQt
- oVftq8QvEDQFRYEMxLQue6ZKvu8Xs/oj7oza9HUex9DdbVwvXnUx/W9QQtd/Xq5Oe5slG/iPU71
- ctWo3S5eFv4vkaLPgeDjsJt585iwxkgoeJhWSk0NALwFhBiGTHUxiE9clFMWVZcsqXE/IH0tJzQ
- fOmO6eGVCvQlP7ojqeX1slIRgzuUsmjiCaqOOAWZp0ojKnL8eQLZT/OqMvvIzQ69u0xdoSDrr7x
- 6eI/KL/gPQgJ5v+z3UEwDuXOCnUQp40tnCW/0UYV7w+DrEamiuHZWmSzjEyKEjzn6DaozHWoH9C
- NPYT6R7LXgSmTVRIloXlp7CfKy2TXSkmViZEr8tKe/9cJZcEOlRIhgEtJwJLPOQaY5CAxCPPw/S
- FfgECH26z6JU8+aCCZZGVbnM+fNTgezxcLQpIid8eAnwjEfn8AZhEiODrwKgxmZ0g9ULx3n9grN
- ovw1ocL3n3xkvlw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-ddata->dev is only assigned at the end of wcd934x_slim_probe(), but the
-of_irq_get() error path has passed it to the error print since the
-driver was added, while it is still NULL.
+[ Upstream commit 5e2d672280d97d83de43031d93761b12dadd7b8a ]
 
-This used to be harmless with dev_err(), which copes with a NULL device
-and was skipped on -EPROBE_DEFER. Since the switch to dev_err_probe(), a
-deferred IRQ reaches device_set_deferred_probe_reason() ->
-dev_driver_string(), which dereferences the NULL pointer and crashes
-during probe. Use dev, which is already valid at this point.
+trusted_tpm_exit() drops the TPM chip reference and frees the digest
+array before unregistering the trusted key type. key_type_lookup()
+holds key_types_sem for reading until the key operation finishes, while
+unregister_key_type() takes it for writing. It therefore provides the
+synchronization point that must precede backend teardown.
 
+The current order permits this interleaving:
+
+  CPU 0                              CPU 1
+  trusted_tpm_exit()                 key_type_lookup("trusted")
+    put_device(&chip->dev)             trusted_tpm_seal()
+    kfree(digests)                       pcrlock()
+    unregister_key_type()                  tpm_pcr_extend(..., digests)
+
+CPU 1 can consequently dereference the freed digest array. The chip can
+also be released before callbacks stop using it.
+
+KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in tpm_pcr_extend+0x1f0/0x200
+  Read of size 2 at addr ffff88810872d000 by task poc/89
+  Call Trace:
+    tpm_pcr_extend+0x1f0/0x200
+    pcrlock+0x42/0x70 [trusted]
+    trusted_tpm_seal+0x1b6/0x570 [trusted]
+    trusted_instantiate+0x293/0x340 [trusted]
+    __key_instantiate_and_link+0xb2/0x2b0
+    __key_create_or_update+0x61e/0xb50
+    __do_sys_add_key+0x1b8/0x310
+  Allocated by task 88:
+    __kmalloc_noprof+0x1a7/0x490
+    do_one_initcall+0xa1/0x390
+    do_init_module+0x2df/0x840
+  Freed by task 90:
+    kfree+0x131/0x3c0
+    trusted_tpm_exit+0x59/0xa0 [trusted]
+    __do_sys_delete_module+0x346/0x510
+
+Move unregister_key_type() before releasing either resource. This stops
+new lookups and waits for in-flight key operations to finish before the
+backend state is destroyed.
+
+Fixes: 0b6cf6b97b7e ("tpm: pass an array of tpm_extend_digest structures to tpm_pcr_extend()")
 Cc: stable@vger.kernel.org
-Fixes: 0f1b1b899521 ("mfd: wcd934x: Simplify with dev_err_probe()")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/mfd/20260903145651.AC1311F00ACA@smtp.kernel.org/
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/r/20260731140925.2973492-1-nicoyip.dev@gmail.com
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ preserved the additional trusted_shash_release() cleanup after unregister_key_type() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mfd/wcd934x.c | 2 +-
+ security/keys/trusted-keys/trusted_tpm1.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
-index 3c3080e8c8cf7..3a939e7ad3da5 100644
---- a/drivers/mfd/wcd934x.c
-+++ b/drivers/mfd/wcd934x.c
-@@ -218,17 +218,17 @@ static int wcd934x_slim_probe(struct slim_device *sdev)
- 	int ret;
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index 4863ee08b7b11..c482c54be918c 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -1058,10 +1058,10 @@ static int __init trusted_tpm_init(void)
+ static void trusted_tpm_exit(void)
+ {
+ 	if (chip) {
++		unregister_key_type(&key_type_trusted);
+ 		put_device(&chip->dev);
+ 		kfree(digests);
+ 		trusted_shash_release();
+-		unregister_key_type(&key_type_trusted);
+ 	}
+ }
  
- 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- 	if (!ddata)
- 		return	-ENOMEM;
- 
- 	ddata->irq = of_irq_get(np, 0);
- 	if (ddata->irq < 0)
--		return dev_err_probe(ddata->dev, ddata->irq,
-+		return dev_err_probe(dev, ddata->irq,
- 				     "Failed to get IRQ\n");
- 
- 	ddata->extclk = devm_clk_get(dev, "extclk");
- 	if (IS_ERR(ddata->extclk))
- 		return dev_err_probe(dev, PTR_ERR(ddata->extclk),
- 				     "Failed to get extclk");
- 
- 	ddata->supplies[0].supply = "vdd-buck";
-
 -- 
-2.55.0
-
+2.53.0
 
