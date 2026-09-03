@@ -1,47 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD4C3955FF
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:27:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7934B1B3D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:27:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788460028; cv=none; b=krNkS0EzcpPwKazl7qygCTHRZTBaFdPSRoa+4wSlR4Fi7qWVxRKEG9+U2TDaHRCYKwmr+epMTkz5bSqhyC3m3Gq6mmOpxTAONwL1saxAz4N4zYZiJ0b4AiFkoqFnjY66nD7aJBF3J3cNVtDhj0FGBLzHu+JZJXVpDsz6gFWESdk=
+	t=1788460026; cv=none; b=Rf/JrCoKj/CkTdCBseuQgPgIxfsYDzAbQxpOCMLc/dd/slhWjHV1DrwVilCxSD5aUvjSq5+565394FbVyDDWlZSKy3/4WU5AzcuG6U3Vyo/ij3JMw048pqOs2Kp3PZtL77jMWS5k3nNONT4Ho46nN/RhAQ+k6SKwaB9Nd7yMQhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788460028; c=relaxed/simple;
-	bh=fp8PVJld42kEIOP9kwG5WGfSPK24k3mgfP+SAjpHtwU=;
+	s=arc-20240116; t=1788460026; c=relaxed/simple;
+	bh=LJat/t/fPE8aC+azoEyEZPUrrSfmrmHDnBamhvIjqSk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dKK6WAEIW/mEnBJ6bEl136pdK9iZb2jXe4OUYZEBqpfUzAt57f5W54S4cDb6ARmz9gO0oVU8340flcs9a8bwAADeNr18rI2NUbY1X8lCXlV5skS1YbzF/YzTH6Bhb5pWctmbagXoDye+kLGNDd4BB+EOheF1FLR7etyZB7KhWgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OFUw+d9f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=oIHupO3X4Wn1ry9JP9T9FAmKOu/vhwPDcUVrUBCT/Bjnl+wQYYdloY9yNC6iR1VLg+zJF/ccvoUlMW1e91BG1KqerLVslACzSDOBIt/MLjqFYK2xC6RGndmPeI6jEaXUArL2/tZvxXgq3YDUdyPBQ8HC5k4fW9jxqJQoiEEk/nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dbTFCYt6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OFUw+d9f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7AD1F00ACF;
-	Thu,  3 Sep 2026 18:27:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dbTFCYt6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844781F00A3E;
+	Thu,  3 Sep 2026 18:26:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788460021;
-	bh=2pgoGUu8YthfU+kaufNg4EhN3jcejJX2TjkSP7w0b9I=;
+	s=k20260515; t=1788460020;
+	bh=htcEWFbFmWPCLq1zKbNwVsJYH8c7DyvbszRGWfo+R8Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OFUw+d9fARxd2FH6jYUay78LsdTzglzMOY+exSVaxiXxymi1+gCf33Zp3w33vjn/N
-	 AfNRO6lWdIjpJ/lfuWaFbYzAy3xcsArvPlSVl+ypWNGVeblb484HjqH4vIeJLuXc7m
-	 esiA0pJQdSojI67cSQBVpl1RHKXV7YEvchCjFQRy+DphDESxg35l8Wck7dt3mYglfO
-	 ++pxT+KCzyQofSH+ej/JIZPWQQMPVKtjESs5yTaq+AZkGliv5cZioHQx/or7GZclfI
-	 J8H8idmHUqCb13kIdkOT6BRiEvYm5W2Y5QMt0BgAw9ryBp0vmPIfSfKus36X8ZyFbo
-	 3oDQ+tmDzf+ug==
+	b=dbTFCYt63PV+YV4o/UBxkJV38L2tJYtj8LeJTrvLtDIJCZ2p1W5Yyr3XNBhn+WUSV
+	 C7Xp8MOdR6Bb3+TeHngWykYSZNK2sg9zGZSH4OSDA97zxihwH9lw4M8DY/6D6zPPbO
+	 xmD6mvg5A3s7QeDqsA7FjhHdWfeafYDlPJDONhH812oLt9V79zJDpgSrNkLuO6wP5m
+	 Ah697xnGrXP3rNOWci+zTIS77WamZbKh5DnPGqL6HTo4DHYCIyTN9WjGpXgh1+nwnI
+	 TxHJ15glgI6CHJ++5ptWkxeeKteG0AEOG3cw2eOQurKKuFPtOj/iKDcMr/TZZdU/6c
+	 3XAVWmsdsMO1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Breno Leitao <leitao@debian.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	SJ Park <sj@kernel.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Lance Yang <lance.yang@linux.dev>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Qian Cai <cai@lca.pw>,
+	SeongJae Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/kmemleak: report RCU-tasks quiescent states during the scan
-Date: Thu,  3 Sep 2026 14:26:58 -0400
-Message-ID: <20260903182658.1452185-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] mm/kmemleak: avoid soft lockup when scanning task stacks
+Date: Thu,  3 Sep 2026 14:26:57 -0400
+Message-ID: <20260903182658.1452185-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903182658.1452185-1-sashal@kernel.org>
+In-Reply-To: <2026090344-parted-gnarly-5282@gregkh>
 References: <2026090344-parted-gnarly-5282@gregkh>
- <20260903182658.1452185-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,120 +53,243 @@ Content-Transfer-Encoding: 8bit
 
 From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 3541a2b06ecd78ba333188df04368dcf97273d6a ]
+[ Upstream commit 5d10d4e19e6daa487f0cd0ea6cba472325de92f9 ]
 
-kmemleak_scan() can run for ages on large debug kernels. It was
-causing some soft-lockups which I got fixed with commit
-3175fcfec8b16baeb ("mm/kmemleak: avoid soft lockup when scanning task
-stacks") with our beloved cond_resched().
+Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
 
-I've got the fix above deployed in the Meta fleet, and now I am seeing:
+kmemleak_scan() scans every task stack under one rcu_read_lock() with no
+reschedule point, which can trip the soft lockup watchdog on hosts with
+very many threads.
 
-  INFO: rcu_tasks detected stalls on tasks:
-    task:kmemleak state:R ... nvcsw: 274/274 holdout: 1 idle_cpu: -1/3
-     scan_block
-     scan_gray_list
-     kmemleak_scan
+That prints the following message, depending on the workload+host
+configuration:
 
-and, worse, blocks the callers waiting on that grace period.  Here a BPF
-struct_ops map free, which waits via synchronize_rcu_mult(call_rcu,
-call_rcu_tasks), is stuck long enough to also trip the hung task check:
+      watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+       scan_block
+       kmemleak_scan
+       kmemleak_scan_thread
+       kthread
 
-  INFO: task kworker/...:bpf_map_free_deferred blocked for 122 seconds
-     __wait_rcu_gp
-     bpf_struct_ops_map_free
+Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
+tasks
 
-Then I've learned that cond_resched() is not an RCU-tasks quiescent
-state, so, we need to use stronger primitives.
+Patches 2-3 let the scan loops stop early once a scan is interrupted.
 
-Use cond_resched_tasks_rcu_qs() at the scan reschedule points so the scan
-reports an RCU-tasks quiescent state as it proceeds.
+This patch (of 3):
 
-Inspired by commit b96285e10aad ("tracing: Have osnoise_main() add a
-quiescent state for task rcu").
+kmemleak_scan() walks every thread and scans its kernel stack under a
+single rcu_read_lock() with no reschedule point.  On a host with very many
+threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
+a CPU long enough to trip the soft lockup watchdog:
 
-Link: https://lore.kernel.org/20260720-kmemleak_rcu_task-v1-1-5b460ade777d@debian.org
+  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+   scan_block
+   kmemleak_scan
+   kmemleak_scan_thread
+   kthread
+
+A cond_resched() cannot be added directly: the loop runs inside an RCU
+read-side critical section.
+
+Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
+lock only to look up and pin each task.  The stack is then scanned with no
+lock held, so cond_resched() runs between tasks and the scan stops early
+on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
+iteration pattern and keeps each RCU critical section short.
+
+Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
+Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
 Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
 Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: SJ Park <sj@kernel.org>
 Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Puranjay Mohan <puranjay@kernel.org>
+Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: Qian Cai <cai@lca.pw>
+Cc: SeongJae Park <sj@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 3541a2b06ecd ("mm/kmemleak: report RCU-tasks quiescent states during the scan")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ mm/kmemleak.c | 91 ++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 68 insertions(+), 23 deletions(-)
 
 diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 5109a9f84ea50..b4a7ed2116353 100644
+index 415b154fdf38e..5109a9f84ea50 100644
 --- a/mm/kmemleak.c
 +++ b/mm/kmemleak.c
-@@ -1564,7 +1564,7 @@ static int scan_large_block(void *start, void *end)
- 		if (scan_block(start, next, NULL))
- 			return 1;
- 		start = next;
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
+@@ -1518,22 +1518,25 @@ static int scan_should_stop(void)
+ 
+ /*
+  * Scan a memory block (exclusive range) for valid pointers and add those
+- * found to the gray list.
++ * found to the gray list. Return non-zero if the scan was interrupted.
+  */
+-static void scan_block(void *_start, void *_end,
+-		       struct kmemleak_object *scanned)
++static int scan_block(void *_start, void *_end,
++		      struct kmemleak_object *scanned)
+ {
+ 	unsigned long *ptr;
+ 	unsigned long *start = PTR_ALIGN(_start, BYTES_PER_POINTER);
+ 	unsigned long *end = _end - (BYTES_PER_POINTER - 1);
+ 	unsigned long flags;
++	int stop = 0;
+ 
+ 	raw_spin_lock_irqsave(&kmemleak_lock, flags);
+ 	for (ptr = start; ptr < end; ptr++) {
+ 		unsigned long pointer;
+ 
+-		if (scan_should_stop())
++		if (scan_should_stop()) {
++			stop = 1;
+ 			break;
++		}
+ 
+ 		kasan_disable_current();
+ 		pointer = *(unsigned long *)kasan_reset_tag((void *)ptr);
+@@ -1543,22 +1546,28 @@ static void scan_block(void *_start, void *_end,
+ 		pointer_update_refs(scanned, pointer, OBJECT_PERCPU);
  	}
- 
- 	return 0;
-@@ -1601,7 +1601,7 @@ static void scan_object(struct kmemleak_object *object)
- 			scan_block(start, end, object);
- 
- 			raw_spin_unlock_irqrestore(&object->lock, flags);
--			cond_resched();
-+			cond_resched_tasks_rcu_qs();
- 			raw_spin_lock_irqsave(&object->lock, flags);
- 			if (!(object->flags & OBJECT_ALLOCATED))
- 				break;
-@@ -1623,7 +1623,7 @@ static void scan_object(struct kmemleak_object *object)
- 				break;
- 
- 			raw_spin_unlock_irqrestore(&object->lock, flags);
--			cond_resched();
-+			cond_resched_tasks_rcu_qs();
- 			raw_spin_lock_irqsave(&object->lock, flags);
- 		} while (object->flags & OBJECT_ALLOCATED);
- 	} else {
-@@ -1651,7 +1651,7 @@ static void scan_gray_list(void)
- 	 */
- 	object = list_entry(gray_list.next, typeof(*object), gray_list);
- 	while (&object->gray_list != &gray_list) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 
- 		/* may add new objects to the list */
- 		if (!scan_should_stop())
-@@ -1686,7 +1686,7 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
- 	raw_spin_unlock_irq(&kmemleak_lock);
- 
- 	rcu_read_unlock();
--	cond_resched();
-+	cond_resched_tasks_rcu_qs();
- 	rcu_read_lock();
- 
- 	raw_spin_lock_irq(&kmemleak_lock);
-@@ -1731,7 +1731,7 @@ static void kmemleak_scan_task_stacks(void)
- 			}
- 			put_task_struct(p);
- 		}
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 	} while (pid && !stop);
+ 	raw_spin_unlock_irqrestore(&kmemleak_lock, flags);
++
++	return stop;
  }
  
-@@ -1810,7 +1810,7 @@ static void kmemleak_scan(void)
- 			struct page *page = pfn_to_online_page(pfn);
+ /*
+  * Scan a large memory block in MAX_SCAN_SIZE chunks to reduce the latency.
++ * Return non-zero if the scan was interrupted.
+  */
+ #ifdef CONFIG_SMP
+-static void scan_large_block(void *start, void *end)
++static int scan_large_block(void *start, void *end)
+ {
+ 	void *next;
  
- 			if (!(pfn & 63))
--				cond_resched();
-+				cond_resched_tasks_rcu_qs();
+ 	while (start < end) {
+ 		next = min(start + MAX_SCAN_SIZE, end);
+-		scan_block(start, next, NULL);
++		if (scan_block(start, next, NULL))
++			return 1;
+ 		start = next;
+ 		cond_resched();
+ 	}
++
++	return 0;
+ }
+ #endif
  
- 			if (!page)
+@@ -1689,6 +1698,43 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+ 	put_object(object);
+ }
+ 
++/*
++ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
++ * up and pinned within its own RCU read-side section, so no lock is held across
++ * the scan and the walk cannot trip the soft lockup watchdog.
++ */
++static void kmemleak_scan_task_stacks(void)
++{
++	struct pid *pid;
++	int nr = 1;
++	int stop = 0;
++
++	do {
++		struct task_struct *p = NULL;
++
++		rcu_read_lock();
++		pid = find_ge_pid(nr, &init_pid_ns);
++		if (pid) {
++			nr = pid_nr(pid) + 1;
++			p = pid_task(pid, PIDTYPE_PID);
++			if (p)
++				get_task_struct(p);
++		}
++		rcu_read_unlock();
++
++		if (p) {
++			void *stack = try_get_task_stack(p);
++
++			if (stack) {
++				stop = scan_block(stack, stack + THREAD_SIZE, NULL);
++				put_task_stack(p);
++			}
++			put_task_struct(p);
++		}
++		cond_resched();
++	} while (pid && !stop);
++}
++
+ /*
+  * Scan data sections and all the referenced memory blocks allocated via the
+  * kernel's standard allocators. This function must be called with the
+@@ -1700,6 +1746,7 @@ static void kmemleak_scan(void)
+ 	struct zone *zone;
+ 	int __maybe_unused i;
+ 	int new_leaks = 0;
++	int stop = 0;
+ 
+ 	jiffies_last_scan = jiffies;
+ 
+@@ -1743,9 +1790,11 @@ static void kmemleak_scan(void)
+ 
+ #ifdef CONFIG_SMP
+ 	/* per-cpu sections scanning */
+-	for_each_possible_cpu(i)
+-		scan_large_block(__per_cpu_start + per_cpu_offset(i),
+-				 __per_cpu_end + per_cpu_offset(i));
++	for_each_possible_cpu(i) {
++		if (scan_large_block(__per_cpu_start + per_cpu_offset(i),
++				     __per_cpu_end + per_cpu_offset(i)))
++			goto scan_gray;
++	}
+ #endif
+ 
+ 	/*
+@@ -1772,32 +1821,28 @@ static void kmemleak_scan(void)
+ 			/* only scan if page is in use */
+ 			if (page_count(page) == 0)
  				continue;
+-			scan_block(page, page + 1, NULL);
++			stop = scan_block(page, page + 1, NULL);
++			if (stop)
++				break;
+ 		}
++		if (stop)
++			break;
+ 	}
+ 	put_online_mems();
++	if (stop)
++		goto scan_gray;
+ 
+ 	/*
+ 	 * Scanning the task stacks (may introduce false negatives).
+ 	 */
+-	if (kmemleak_stack_scan) {
+-		struct task_struct *p, *g;
+-
+-		rcu_read_lock();
+-		for_each_process_thread(g, p) {
+-			void *stack = try_get_task_stack(p);
+-			if (stack) {
+-				scan_block(stack, stack + THREAD_SIZE, NULL);
+-				put_task_stack(p);
+-			}
+-		}
+-		rcu_read_unlock();
+-	}
++	if (kmemleak_stack_scan)
++		kmemleak_scan_task_stacks();
+ 
+ 	/*
+ 	 * Scan the objects already referenced from the sections scanned
+ 	 * above.
+ 	 */
++scan_gray:
+ 	scan_gray_list();
+ 
+ 	/*
 -- 
 2.53.0
 
