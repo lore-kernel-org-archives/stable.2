@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA4B4C0402
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:03:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6804C77B5
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:03:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447783; cv=none; b=mMj5Rm48KcWIjgcbYfXHWMXtJBDipoWu86Uudq2JqyF8Vmfe2FIk1oZB3i8/3NeLPDOnYrKYrBGsrvAYZ2FdPfeOoT0VJShGCIQJ14mGeABg84bvO3/jQZnnhvLMleOpphUDYxqSyhHB4kBgUIUVQokPEpG4mNuu+E2qOG68AMc=
+	t=1788447786; cv=none; b=dWZSL+acn8K0PgvUjmqbxHg1pqQLt9OfF/lpttmZGHmrADOeedORU1A5CjaE7Ji0SOwoewnj349XFcerfFUtzmlmJ7lbLiLW2PxzFtMPveCIln+4f0lbRPemD7PB6Yla67f/3IdiK/0UpstbdZJU+BeLpNCqGoUYHZQ5OMlyLqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447783; c=relaxed/simple;
-	bh=XfmZTabAbQE9LuTd8mV+LErGdNi97bWxyyotpJfvdIE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=s+wCCJfVdhyIZPupokpQjnjKGbsan60VFOX2be/jxaCF5Fk26E+IciD3TodcUn1Rw1mFeeuvQaWde5ZD0DaWl4mz8h1ytdH0N4e388yw+xOph9gSM7qPHJNZS9DqNhrcH8Kt0qmB+/dXgsSZvntkZocVTKjPE5nQu7AwJlgob88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fTRBw4Kd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447786; c=relaxed/simple;
+	bh=78JBs0hQUIKExSecjv3z+arL23Uwbb2w0/bBkRzEmOA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G5YXljPW6TuPj9UlGBR2cp+E8InRm/mJLYBZQ81yuClffTDmtmN+EAvxQFUZzUNWp/OhiGR6zNE7k8QXSWBW9OQwbI/Kk/B64je+HYocCrI69TVApfQBE9CKyohUGsQYYjSo+SumsCcA8wxXY2JZWv7h2oGHD/3TzG1biM0865o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FMamNwtH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fTRBw4Kd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56481F000E9;
-	Thu,  3 Sep 2026 15:03:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FMamNwtH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9933F1F000E9;
+	Thu,  3 Sep 2026 15:03:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447782;
-	bh=Owtko8V5Al8ZIBagkVRJP/g3pP0NK50jpmet/W9DL+o=;
+	s=korg; t=1788447785;
+	bh=fDB2yIejhkq5B2y/JY8wFcuRynaopogFBf9NWnHjieM=;
 	h=Subject:To:Cc:From:Date;
-	b=fTRBw4KdeE8kooT0uwl6PcV5Lne1+A38nsRlwODChO/NqnRlIDuXuyQhITf2uZa9r
-	 l5KJ/BySkW5/ziarF1jFFR8Df0qLwd0MQSKS8LrlQuY4isvOugp8aHZafReFUzxyId
-	 8aJ/D6vketayk3r4/pnMb0n6gy4hnN7jGRhLuHw4=
-Subject: FAILED: patch "[PATCH] nvme-tcp: reject a read that transferred too few bytes" failed to apply to 5.10-stable tree
-To: yhlee@isslab.korea.ac.kr,kbusch@kernel.org
+	b=FMamNwtHDt5KtSu1vJvgxi/8oYGODHmfO56vr6Vx4rrKJ/eaocqcgW4VIndn+1ecM
+	 5Wu9sObb8aeKUrp6mTFDsNZtzfZuslH92pVCnqvmkR2UbT/cgCGKfWZR/2+S76CjMf
+	 mxwP70J85X1zeSP/2fXIUxAO5rC6gpneD77+k6fM=
+Subject: FAILED: patch "[PATCH] power: supply: charger-manager: register regulators before" failed to apply to 6.6-stable tree
+To: fanwu01@zju.edu.cn,sebastian.reichel@collabora.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:36:17 +0200
-Message-ID: <2026090316-lying-divisive-d066@gregkh>
+Date: Thu, 03 Sep 2026 16:38:20 +0200
+Message-ID: <2026090320-shirt-underuse-eb92@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7fa3f73f6c8ddc5f0425b50fb2a626a782ef7d12
+git cherry-pick -x c57cb36f76eb7ced45f57af1a890d8f3a6d76342
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090316-lying-divisive-d066@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-shirt-underuse-eb92@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,123 +62,156 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7fa3f73f6c8ddc5f0425b50fb2a626a782ef7d12 Mon Sep 17 00:00:00 2001
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Date: Sat, 1 Aug 2026 17:18:17 +0900
-Subject: [PATCH] nvme-tcp: reject a read that transferred too few bytes
+From c57cb36f76eb7ced45f57af1a890d8f3a6d76342 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Tue, 28 Jul 2026 03:01:23 +0000
+Subject: [PATCH] power: supply: charger-manager: register regulators before
+ exposing sysfs
 
-nvme_tcp_recv_data() completes a request once the current C2HData PDU
-has been consumed. Nothing compares the total bytes received against
-the length the command asked for: struct nvme_tcp_request has no
-receive-side counter, queue->data_remaining is per queue, and
-blk_mq_end_request() completes for blk_rq_bytes(rq) unconditionally
-with no residual concept anywhere above.
+charger_manager_remove() and the err_reg_extcon probe error path free each
+charger regulator with regulator_put() before tearing down the power_supply
+sysfs entries (power_supply_unregister()). charger_manager_remove() also
+calls try_charger_enable(cm, false) after the regulator_put() loop. A
+concurrent write to a charger's externally_control sysfs attribute that
+lands between regulator_put() and power_supply_unregister() can run
+charger_externally_control_store() and call try_charger_enable(), which,
+when charging is enabled, dereferences the already-freed consumer handle.
+When charging is enabled, try_charger_enable(cm, false) in .remove() also
+dereferences the freed handles directly. Both leave use-after-free windows.
+Symmetrically, probe registers the sysfs entries (power_supply_register)
+before acquiring the regulators (regulator_get, inside
+charger_manager_register_extcon), so userspace can reach externally_control
+before the regulators are available.
 
-A controller can therefore answer a 4096-byte read with 512 bytes and
-have it reported as a complete read; user space then gets 4096 bytes of
-which 3584 are whatever was already in the page. I reproduced that with
-a test target.
+Split charger_manager_register_extcon() on the sync/async boundary:
+charger_manager_get_regulators() (regulator_get only, no async producer)
+now runs before power_supply_register() so sysfs is not live before
+regulators are available, and charger_manager_register_extcon() keeps only
+the extcon notifier/work setup, still after power_supply_register() so a
+power_supply_register() failure cannot reach extcon setup. This keeps the
+sysfs setup/teardown ordering symmetric without introducing an asynchronous
+producer on the earlier probe-error path.
 
-Count the bytes received and refuse to complete a successful read whose
-count does not match, at the two NVME_TCP_F_DATA_SUCCESS paths and in
-nvme_tcp_process_nvme_cqe(). The success test shifts req->status right
-by one, because the driver keeps the wire value there and shifts it on
-completion, so the check must see what the completion path will see.
-Only REQ_OP_READ is checked, because there the length comes from the
-sectors the request covers; a passthrough command is built by its
-submitter, which picks both command and buffer, so the kernel has
-nothing to compare against.
+Move power_supply_unregister() and try_charger_enable(cm, false) ahead of
+the regulator_put() loop on both teardown paths, and adjust err_reg_extcon
+(power_supply_unregister() then fall through err_regulator for
+regulator_put(); get_regulators self-rolls back on its own failure).
 
-Fixes: 3f2304f8c6d6 ("nvme-tcp: add NVMe over TCP host driver")
+This does not address the separate extcon-notifier-driven deref of the same
+handles, which needs its own synchronization design.
+
+Found by an in-house static analysis tool.
+
+Fixes: 3950c7865cd7 ("charger-manager: Add support sysfs entry for charger")
 Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260728030123.230202-1-fanwu01@zju.edu.cn
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 1d303e54e13e..3655f7607be0 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -80,6 +80,7 @@ struct nvme_tcp_request {
- 
- 	struct bio		*curr_bio;
- 	struct iov_iter		iter;
-+	u32			data_recvd;
- 
- 	/* send state */
- 	size_t			offset;
-@@ -617,6 +618,29 @@ static void nvme_tcp_error_recovery(struct nvme_ctrl *ctrl)
- 	queue_work(nvme_reset_wq, &to_tcp_ctrl(ctrl)->err_work);
+diff --git a/drivers/power/supply/charger-manager.c b/drivers/power/supply/charger-manager.c
+index 71b6e49a835f..fd4cd9cd2ce2 100644
+--- a/drivers/power/supply/charger-manager.c
++++ b/drivers/power/supply/charger-manager.c
+@@ -1014,6 +1014,29 @@ static int charger_extcon_init(struct charger_manager *cm,
+ 	return 0;
  }
  
-+/*
-+ * NVMe has no short read: a read that completes successfully must
-+ * have transferred everything it asked for.
-+ */
-+static bool nvme_tcp_data_in_short(struct nvme_tcp_queue *queue,
-+				   struct request *rq)
++static int charger_manager_get_regulators(struct charger_manager *cm)
 +{
-+	struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
++	struct charger_desc *desc = cm->desc;
++	struct charger_regulator *charger;
++	int i, ret;
 +
-+	if (le16_to_cpu(req->status) >> 1)
-+		return false;
-+	if (req_op(rq) != REQ_OP_READ || !req->data_len)
-+		return false;
-+	if (likely(req->data_recvd == req->data_len))
-+		return false;
-+
-+	dev_err(queue->ctrl->ctrl.device,
-+		"queue %d tag %#x short data-in: got %u of %u\n",
-+		nvme_tcp_queue_id(queue), rq->tag,
-+		req->data_recvd, req->data_len);
-+	return true;
++	for (i = 0; i < desc->num_charger_regulators; i++) {
++		charger = &desc->charger_regulators[i];
++		charger->consumer = regulator_get(cm->dev,
++						  charger->regulator_name);
++		if (IS_ERR(charger->consumer)) {
++			dev_err(cm->dev, "Cannot find charger(%s)\n",
++				charger->regulator_name);
++			ret = PTR_ERR(charger->consumer);
++			while (i-- > 0)
++				regulator_put(desc->charger_regulators[i].consumer);
++			return ret;
++		}
++		charger->cm = cm;
++	}
++	return 0;
 +}
 +
- static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- 		struct nvme_completion *cqe)
- {
-@@ -636,6 +660,9 @@ static int nvme_tcp_process_nvme_cqe(struct nvme_tcp_queue *queue,
- 	if (req->status == cpu_to_le16(NVME_SC_SUCCESS))
- 		req->status = cqe->status;
+ /**
+  * charger_manager_register_extcon - Register extcon device to receive state
+  *				     of charger cable.
+@@ -1036,15 +1059,6 @@ static int charger_manager_register_extcon(struct charger_manager *cm)
+ 	for (i = 0; i < desc->num_charger_regulators; i++) {
+ 		charger = &desc->charger_regulators[i];
  
-+	if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+		return -EPROTO;
+-		charger->consumer = regulator_get(cm->dev,
+-					charger->regulator_name);
+-		if (IS_ERR(charger->consumer)) {
+-			dev_err(cm->dev, "Cannot find charger(%s)\n",
+-				charger->regulator_name);
+-			return PTR_ERR(charger->consumer);
+-		}
+-		charger->cm = cm;
+-
+ 		for (j = 0; j < charger->num_cables; j++) {
+ 			struct charger_cable *cable = &charger->cables[j];
+ 
+@@ -1580,13 +1594,23 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	}
+ 	psy_cfg.attr_grp = desc->sysfs_groups;
+ 
++	/*
++	 * Acquire charger regulators before exposing the sysfs entries, so
++	 * userspace cannot reach externally_control before the regulators
++	 * (and charger->cm) are available.  Mirrors the order in remove().
++	 */
++	ret = charger_manager_get_regulators(cm);
++	if (ret < 0)
++		return ret;
 +
- 	if (!nvme_try_complete_req(rq, req->status, cqe->result))
- 		nvme_complete_rq(rq);
- 	queue->nr_cqe++;
-@@ -958,6 +985,7 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
- 		*len -= recv_len;
- 		*offset += recv_len;
- 		queue->data_remaining -= recv_len;
-+		req->data_recvd += recv_len;
+ 	cm->charger_psy = power_supply_register(&pdev->dev,
+ 						&cm->charger_psy_desc,
+ 						&psy_cfg);
+ 	if (IS_ERR(cm->charger_psy)) {
+ 		dev_err(&pdev->dev, "Cannot register charger-manager with name \"%s\"\n",
+ 			cm->charger_psy_desc.name);
+-		return PTR_ERR(cm->charger_psy);
++		ret = PTR_ERR(cm->charger_psy);
++		goto err_regulator;
  	}
  
- 	if (!queue->data_remaining) {
-@@ -966,6 +994,8 @@ static int nvme_tcp_recv_data(struct nvme_tcp_queue *queue, struct sk_buff *skb,
- 			queue->ddgst_remaining = NVME_TCP_DIGEST_LENGTH;
- 		} else {
- 			if (pdu->hdr.flags & NVME_TCP_F_DATA_SUCCESS) {
-+				if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+					return -EPROTO;
- 				nvme_tcp_end_request(rq,
- 						le16_to_cpu(req->status));
- 				queue->nr_cqe++;
-@@ -1014,6 +1044,9 @@ static int nvme_tcp_recv_ddgst(struct nvme_tcp_queue *queue,
- 					pdu->command_id);
- 		struct nvme_tcp_request *req = blk_mq_rq_to_pdu(rq);
+ 	/* Register extcon device for charger cable */
+@@ -1620,11 +1644,11 @@ static int charger_manager_probe(struct platform_device *pdev)
+ 	return 0;
  
-+		if (unlikely(nvme_tcp_data_in_short(queue, rq)))
-+			return -EPROTO;
-+
- 		nvme_tcp_end_request(rq, le16_to_cpu(req->status));
- 		queue->nr_cqe++;
- 	}
-@@ -2746,6 +2779,7 @@ static blk_status_t nvme_tcp_setup_cmd_pdu(struct nvme_ns *ns,
- 	req->status = cpu_to_le16(NVME_SC_SUCCESS);
- 	req->offset = 0;
- 	req->data_sent = 0;
-+	req->data_recvd = 0;
- 	req->pdu_len = 0;
- 	req->pdu_sent = 0;
- 	req->h2cdata_left = 0;
+ err_reg_extcon:
++	power_supply_unregister(cm->charger_psy);
++err_regulator:
+ 	for (i = 0; i < desc->num_charger_regulators; i++)
+ 		regulator_put(desc->charger_regulators[i].consumer);
+ 
+-	power_supply_unregister(cm->charger_psy);
+-
+ 	return ret;
+ }
+ 
+@@ -1642,12 +1666,12 @@ static void charger_manager_remove(struct platform_device *pdev)
+ 	cancel_work_sync(&setup_polling);
+ 	cancel_delayed_work_sync(&cm_monitor_work);
+ 
+-	for (i = 0 ; i < desc->num_charger_regulators ; i++)
+-		regulator_put(desc->charger_regulators[i].consumer);
++	try_charger_enable(cm, false);
+ 
+ 	power_supply_unregister(cm->charger_psy);
+ 
+-	try_charger_enable(cm, false);
++	for (i = 0 ; i < desc->num_charger_regulators ; i++)
++		regulator_put(desc->charger_regulators[i].consumer);
+ }
+ 
+ static const struct platform_device_id charger_manager_id[] = {
 
