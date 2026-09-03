@@ -1,63 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50FB649EC75;
-	Thu,  3 Sep 2026 12:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF0D4A5C48
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:43:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439375; cv=none; b=EkAqFw+rijOU6omQ3JDLFTFZeQ4Bl1JN/976dyGB3htGlu7A5GaAYFu8/7jLovUeLWzTIlDRWWOeOF/jZifg60vsfgZ6TbT9rwmyy6ChCRkt5IKkQwcujHKbYLLFMhU2fVXRKNDToeRRt/FT9P06Qf4y3+XI3kA6S3EZeBHVBZw=
+	t=1788439430; cv=none; b=L2QQaraAp9NmRbVM709vXHgEjbhcgQyh6C0ktorEmPK2xwVZRXdIdmZoeBZjPdnTGgAzaUIYslrHwbaO4AdRK8huZ+dwsbFvccwDGLCkOt6WNFgSeHIbEreIzdtpI/FJuTfyXeCzQBDGk84i/AnxXtTaOXcML6wvAPmxyi4Dpcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439375; c=relaxed/simple;
-	bh=ZllD5TAO0xt0mZaigH62R5/lx4AsRJAX+uJln1TBcPc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TIYYqEq5hp/iXNBeI8NKPg9rsrVf0/z0G78yzJXxVScquDJmTmk2Aw1aSIoZ1vpCsW39r9I9FeF+y9IbXcCHLZ2W1NlZZnAVETFjkx+P7OBcC7bw85vJJB992Eo7ADc+G6EB+cDz4KVdlxmPa5vynNZCX+E8AgKu9/AjEKPI9Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OpmmJT6Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439430; c=relaxed/simple;
+	bh=KBAMxR3dP/3jut50GzQyHq79QBBfJu1ZUIuY8GLiyt8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iwNr0Yn9fEGFit73Td529xp1mCJe5XGaKKdkJq0qI+vr27y7Mrv/AbXfGnLdlU99jL7mwVuoDam+TzltPL0nrf/uKtOuuI+nrbyzJ66jg2B9DxYZsA/VT+okW/P7IY4tKqIFaaXNsloSVSzIDSK9HLSk32v8fe+HZL3d3FrjY1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TjeqU9Yh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OpmmJT6Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979971F000E9;
-	Thu,  3 Sep 2026 12:42:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788439373;
-	bh=acAKOszqupKXuMsDtFwZQrgAe69n50iavBmumTXF1KU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OpmmJT6QFPZXaRm2WFz5Rs/z6FmUtkwkOFxPczvJwaAW8KNo09rh5REBBKFNOpkhU
-	 Iprooz3cH2XRxlykZ9d6h0MIWnuvCz5RQ6H4FXtF89kvvewmoWsUpDFK9WDkd01del
-	 ioLChyoWJ/lF1NMTcw1cQJhF4COCgLyWyvFwccoQ9MSQF0PR6doQgeIoznAga1GN4V
-	 vRlGZblcbuUq6uuZDDUazRP8INxbAR7HZbGeXtObQTqUvEFQh1EdQEu5Ig80kDge56
-	 iIOLdMCbVdrtP3ZBipzB0ohhx33poMJhFlaQJMQO4H/feCToqCCexBNoTnilsm92Pk
-	 yLi4fUrjKxa4w==
-Date: Thu, 3 Sep 2026 13:42:50 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Christian Loehle <christian.loehle@arm.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Breno Leitao <leitao@debian.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] mailbox: pcc: Fix shared-memory teardown race
-Message-ID: <20260903-accurate-lavender-jackdaw-ffba7e@sudeepholla>
-References: <20260903111328.805352-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TjeqU9Yh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47A771F000E9;
+	Thu,  3 Sep 2026 12:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788439428;
+	bh=5sWCO/sq40gq5SzpnKNzltPhe7snNRFjH5kM2H90lig=;
+	h=Subject:To:Cc:From:Date;
+	b=TjeqU9YhtuWRoKqjdELMApM4g8GCMLhrWft97v1clJMxhuGXGWbmCcZsLgqXemCiy
+	 7DT17fRIO7l9eYiaipgTNaAQOjCJ1/4OrDJZuy8QkDe/5Hi3q/0X5sqOhgtpkNEFBO
+	 unj9iGfvG4QPImbE6jSqpBnU8DwivZNqtMLQNjJQ=
+Subject: FAILED: patch "[PATCH] objtool/rust: add one more `noreturn` Rust function for Rust" failed to apply to 6.18-stable tree
+To: ojeda@kernel.org,aliceryhl@google.com,jpoimboe@kernel.org,peterz@infradead.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 12:42:23 +0200
+Message-ID: <2026090323-sculpture-footnote-46b4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260903111328.805352-1-christian.loehle@arm.com>
 
-Hi Jassi,
 
-On Thu, Sep 03, 2026 at 12:13:26PM +0100, Christian Loehle wrote:
-> Breno’s fix frees the PCC channel before unmapping shared memory, ensuring
-> the IRQ is disabled first. The second patch serializes channel release and
-> request so a new mapping cannot be unmapped by the old release.
-> 
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Can you please pull these couple of patches as fixes for v7.3 when
-possible ?
+To reproduce the conflict and resubmit, you may use the following commands:
 
--- 
-Regards,
-Sudeep
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 16861ca3508e0deac70d3bcacb6dcf435b49d9ef
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090323-sculpture-footnote-46b4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 16861ca3508e0deac70d3bcacb6dcf435b49d9ef Mon Sep 17 00:00:00 2001
+From: Miguel Ojeda <ojeda@kernel.org>
+Date: Tue, 28 Jul 2026 21:14:48 +0200
+Subject: [PATCH] objtool/rust: add one more `noreturn` Rust function for Rust
+ 1.99.0
+
+Starting with Rust 1.99.0 (expected 2026-10-01), `objtool` may report:
+
+    rust/kernel.o: warning: objtool: _R..._6kernel3str9parse_intaNtNtB2_7private12FromStrRadix14from_str_radix()
+    falls through to next function _R..._6kernel3str9parse_intaNtNtB2_7private12FromStrRadix16from_u64_negated()
+
+due to calls to the `noreturn` symbol:
+
+    core::num::from_ascii_bytes_radix_panic
+
+The function was renamed from `from_ascii_radix_panic` [1], which is
+already in the list.
+
+Thus add the new one to the list so that `objtool` knows it is actually
+`noreturn`.
+
+See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+for more details.
+
+Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Link: https://github.com/rust-lang/rust/pull/159554 [1]
+Tested-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260728191448.349241-1-ojeda@kernel.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index f03dd59e7fca..87db9f4ed9e2 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -194,6 +194,7 @@ static bool is_rust_noreturn(const struct symbol *func)
+ 	 */
+ 	return str_ends_with(func->name, "_4core3num20from_str_radix_panic")				||
+ 	       str_ends_with(func->name, "_4core3num22from_ascii_radix_panic")				||
++	       str_ends_with(func->name, "_4core3num28from_ascii_bytes_radix_panic")			||
+ 	       str_ends_with(func->name, "_4core5sliceSp15copy_from_slice17len_mismatch_fail")		||
+ 	       str_ends_with(func->name, "_4core6option13expect_failed")				||
+ 	       str_ends_with(func->name, "_4core6option13unwrap_failed")				||
+
