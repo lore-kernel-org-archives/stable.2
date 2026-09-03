@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D4C4BA9F4
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:30:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4104B66FC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:30:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445818; cv=none; b=QjfQTJxRKGbxYeHhHSPHQ1hmDbgDLhXF6tu8AqF6jYIZe9/iawRe2136L4T9PGy3NUl8lxlL/T1HXxmFeLUK7vqC0mz2e9x8iuZPa5LIQ9zwYP57oN4bo2imrubSjRBsYO681FC4a5IZ3m9TeD3ys9FxcLVjJA2alnSTmz2kYhE=
+	t=1788445821; cv=none; b=tpHb9TjogOUcqNyCk47HShQmgD+0xXX52QAPObQqatYSvCJE0UT1fSlX35ZSdSG0bHS5W23yhItxuLRnks/icr1etqPZCnTRdop1UzmuKXIixY0BW+XTV0eTgXJt7WjwpEivm4zPGK8xbE9eBh/vXXuhH5fBj/gSG8uO//gcwWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445818; c=relaxed/simple;
-	bh=MF0I05VTQZTQp6wsL2YgoOrnOmEkpIdg74X3RyXrx4I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WJUF1R38Sij9QGkk0pesD7Cj32tdhZPFptjvpKOFkrqOYZSh64WDOTy2b9XBXX1uURf/b4ESjSfu06FH9JSysorxYxWrpZqwQpiMmkj6H1I/mFXuEQlg+fdoeBNobGyAw4CfAl1I/2WD5pQRKzNO6AgAeHYVOWUWI423LuUrZbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gwcdshZq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445821; c=relaxed/simple;
+	bh=JJYv3tmVLMOtA+1Am7QJ0uyaPutKCkXeQjL8uwm31zA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Iz4/vuscyi9NAyhP+Qi1EYP78TrdN91W8QDaRQZJ+RrSHaR5frLmC3wgyQT+65086nsOphFP98cznLazvp92zIN+fSEHGdY/VYIfIIfNN2UA+xG0XOa6Z3bQ5K9Wl9JJ/u4zHJBkeXUfC5zeyP8X3O2vH8FZIpZjnX4PLabp/p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=deD3+apj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gwcdshZq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D611F00A3E;
-	Thu,  3 Sep 2026 14:30:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="deD3+apj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8581F00ACF;
+	Thu,  3 Sep 2026 14:30:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445807;
-	bh=v2goLWBc7k1VSW3OhpPQ4G2nCyBaMq5kIhpI0nkIW4s=;
+	s=korg; t=1788445801;
+	bh=NwIMoS5qxA8paXaeGMn1UoBctoIHYgwzA2HDXUyOLRc=;
 	h=Subject:To:Cc:From:Date;
-	b=gwcdshZqfUIlykxe8ras+ihB4y65aBICz/ZB9neZjvUrbyvhuGsEM4aNiYTv8sTR0
-	 I85fOT66NLvDv+ctVBd+dO5lNu8XxB/lrksB/+ubqpWHDG3ULh9b2kSl8wAGFrtm8i
-	 1lyRrUsoYo5lHLMpZ9S4Poh5JeVtVMbT/XJ94C8Q=
-Subject: FAILED: patch "[PATCH] sunrpc: defer rq_argp and rq_resp free until after RCU grace" failed to apply to 6.1-stable tree
-To: jlayton@kernel.org,cel@kernel.org
+	b=deD3+apj/7q5Sk/gduzYlhPROAJ73lG5Z9hUHm8agOPy7ohTvJLOIuLkPKLfHvSMl
+	 7y9PaUNPK6TGTNld4V+m2vleVcwEmSAo+ruv3zVn6JOTLZ5kHaMW4vBaJvPeBYutuD
+	 joDKqVsr9MUntrPuWx7EocsDFy0SXzD3pubVmR7U=
+Subject: FAILED: patch "[PATCH] SUNRPC: svcauth_gss: enforce krb5 token minimum length" failed to apply to 5.10-stable tree
+To: clm@meta.com,chuck.lever@oracle.com,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:06:50 +0200
-Message-ID: <2026090350-comment-projector-6988@gregkh>
+Date: Thu, 03 Sep 2026 16:05:53 +0200
+Message-ID: <2026090353-ogle-atop-5025@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x c479bde671cbe2f9e152834a8b0eb7c3c295bbaf
+git cherry-pick -x a919c5c88769cf8fb3ec071e6078d830bf512489
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090350-comment-projector-6988@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090353-ogle-atop-5025@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,65 +62,63 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c479bde671cbe2f9e152834a8b0eb7c3c295bbaf Mon Sep 17 00:00:00 2001
-From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 11 Jun 2026 16:00:47 -0400
-Subject: [PATCH] sunrpc: defer rq_argp and rq_resp free until after RCU grace
- period
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From a919c5c88769cf8fb3ec071e6078d830bf512489 Mon Sep 17 00:00:00 2001
+From: Chris Mason <clm@meta.com>
+Date: Sat, 23 May 2026 21:02:10 -0400
+Subject: [PATCH] SUNRPC: svcauth_gss: enforce krb5 token minimum length
 
-svc_rqst_free() frees rqstp->rq_argp and rqstp->rq_resp synchronously
-via kfree(), but defers the rqstp struct free via kfree_rcu().  After
-svc_exit_thread() calls list_del_rcu() and svc_rqst_free(), there is
-a window where RCU readers that started before list_del_rcu() can still
-traverse the thread list and find the rqstp.  These readers (e.g.
-nfsd_nl_rpc_status_get_dumpit()) dereference rqstp->rq_argp, which has
-already been freed — a use-after-free.
+svcauth_gss_unwrap_priv() validates only an upper bound on the
+wire-supplied opaque length before handing the buffer to
+gss_unwrap():
 
-Fix this by moving the kfree of rq_argp and rq_resp into an explicit
-call_rcu() callback alongside the struct free.  Resources not accessed
-by RCU readers (bvec, buffer pages, scratch folio, auth_data) remain
-synchronously freed.
+    if (len > xdr_stream_remaining(xdr))
+            goto unwrap_failed;
+    offset = xdr_stream_pos(xdr);
+    ...
+    maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
 
-Fixes: 812443865c5f ("sunrpc: add a rcu_head to svc_rqst and use kfree_rcu to free it")
+The wire value `len` flows unchanged as the upper bound into the
+krb5 unwrap path, so a len in [0, 16] passes this check and is
+handed to gss_unwrap(). For a krb5 v2 context that lands in
+gss_krb5_unwrap_v2(), which reads the 16-byte RFC 4121 token
+header fields at ptr+4 and ptr+6 and then calls rotate_left()
+before any integrity check. With a sub-header length the header
+reads run past the token, and _rotate_left()'s `shift %= buf->len`
+path can divide by zero when buf->len has been driven to zero by
+the truncated token. A header-only token (len == 16) is equally
+invalid: with a non-zero RRC field and the opaque blob ending at
+the XDR buffer boundary, rotate_left() builds a zero-length
+subbuffer, reaching the same division.
+
+Reject the token at the server entry point before it reaches the
+krb5 unwrap core. A valid sealed RFC 4121 token must contain
+the 16-byte header plus at least some encrypted payload.
+
+Fix by adding a minimum-length check immediately after the
+existing upper-bound check:
+
+    if (len <= GSS_KRB5_TOK_HDR_LEN)
+            goto unwrap_failed;
+
+Fixes: 7c9fdcfb1b64 ("[PATCH] knfsd: svcrpc: gss: server-side implementation of rpcsec_gss privacy")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-4-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260524010213.557424-2-cel@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-index 86d39610cf0a..dd80a2eaaa74 100644
---- a/net/sunrpc/svc.c
-+++ b/net/sunrpc/svc.c
-@@ -716,6 +716,15 @@ svc_release_buffer(struct svc_rqst *rqstp)
+diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
+index d14209031e18..8e8aceb31270 100644
+--- a/net/sunrpc/auth_gss/svcauth_gss.c
++++ b/net/sunrpc/auth_gss/svcauth_gss.c
+@@ -949,6 +949,8 @@ svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
  	}
- }
+ 	if (len > xdr_stream_remaining(xdr))
+ 		goto unwrap_failed;
++	if (len <= GSS_KRB5_TOK_HDR_LEN)
++		goto unwrap_failed;
+ 	offset = xdr_stream_pos(xdr);
  
-+static void svc_rqst_free_rcu(struct rcu_head *head)
-+{
-+	struct svc_rqst *rqstp = container_of(head, struct svc_rqst, rq_rcu_head);
-+
-+	kfree(rqstp->rq_resp);
-+	kfree(rqstp->rq_argp);
-+	kfree(rqstp);
-+}
-+
- static void
- svc_rqst_free(struct svc_rqst *rqstp)
- {
-@@ -724,10 +733,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
- 	svc_release_buffer(rqstp);
- 	if (rqstp->rq_scratch_folio)
- 		folio_put(rqstp->rq_scratch_folio);
--	kfree(rqstp->rq_resp);
--	kfree(rqstp->rq_argp);
- 	kfree(rqstp->rq_auth_data);
--	kfree_rcu(rqstp, rq_rcu_head);
-+	call_rcu(&rqstp->rq_rcu_head, svc_rqst_free_rcu);
- }
- 
- static struct svc_rqst *
+ 	saved_len = buf->len;
 
