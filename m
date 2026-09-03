@@ -1,53 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188202D7DEA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 22:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A1B51A6815
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 22:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788474632; cv=none; b=mEjPg/dVCr+HAEogm40loMS7KRfBk2tKa3vVhRF8kECv/M9prSw9HDrbSMSd+Q4dFzAGnodjS8lH9BtsH77RU7o+nFhZHmgBlks+a592pqMVAdH8vdUg1tHAW3TdsfY1whhuNedK8Lw3mcBjayCPd+LLZiktMTyd/PntHzk+wu8=
+	t=1788474653; cv=none; b=FAYQZnsazZZzOllKtFYC6k9vQA2ZdwcJRfQA+z8nYNyvL3+LfiX+IauZoTLxSHlBodP+rx77F8g94CFZqvh9Dv2oodTpWODVaht3mf0pwKXG1+48etcNTWmSZu56cwuLEY5DiERj21tdN90DL1Y4GnWsHkmZh6jNjWfiQo7wLdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788474632; c=relaxed/simple;
-	bh=2h47qMjyxdS3T8zwojcPkFqvHK2NmEQMX3U4xK802z8=;
+	s=arc-20240116; t=1788474653; c=relaxed/simple;
+	bh=UlZ3d9baChf51rg+7u9BjCiuJJiuKZU17NyYicVN+Z8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IYUtVFqmnPUGF0a2LkPc9GtIVlnAgBHD+LMFk45/DbmBXme6IK6TyhUFc75sVV8ftemE8wvSteukS44JkLfXa4ZSehJISY+TkkaAo+8MGLJYwUyZM3i0XB10eAGImgv/8mQMHkhFNSmydAoFb+x66HQDaEdSdYpzh9DIj9DHT/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tsiba3ax; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DgYGoe2JL4SrJyrHIqIpj9Gk7LOOXpkoG9eZ9NawYoJKVEDHBoR/BwWcQtmzeS9LPlok9Gc42uLDbV5nJCb/keguti+eh/qn5xwlnRwU0t5aDmZNI51/AT9Efk7fdQ2+cVtNsEAeVsn+ko70LmptEjBVD7tEFPhZrpD/FiL3cLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LlByrtx9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tsiba3ax"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01C2D1F000E9;
-	Thu,  3 Sep 2026 22:30:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LlByrtx9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6EC1F000E9;
+	Thu,  3 Sep 2026 22:30:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788474630;
-	bh=ec25fcjCHf9o9eX6mZ1KL/YcNwTGTI25vYGng/Ktjtw=;
+	s=k20260515; t=1788474651;
+	bh=Uns8dAvW633oiVjm80ME3O6jslt7Dzel+RgROo/5QNw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Tsiba3axczYlRFlTixEA9tZtDEyQB1e/6k5/V8F5rdioUskIsZXn6UQXoCEQ4BJ5s
-	 FzEdJzL2/UhRR2ZpKXBpBpHWKt+DrHLvXOZwKPDT7Y+wTBVfgKlMzhc2gwO8Arq1hN
-	 R1Ff50WZqMH13d9hKwlX0khIPym42EWnLSALS0kxl1spJcXf9zaJItg7HnQOsLHiqz
-	 1LfiuulWf/t4O9VXbKLxLNkpXah/HsCi7kaJuU0PCB7rkWd5ueNDX7hd5IqfiF90iQ
-	 ln6cvhjHOt0y7liDNWSZO/61qHEqW9j9QNKHnybrJo8uURIfPEzkyXcMXNbUvs4rlO
-	 CXZGq2Y2/tX8Q==
+	b=LlByrtx9ehxXcb30EfxEEuhLKbC3x6JjY2/R05Sk3SQuQcISUZMGKvF+ugWVJogql
+	 +fiol/BketV8G6/L3DMm4YNu1g2QWXaWqSZBKB3iTKkK+be7YTW8Ya4WHxwe6gp4I+
+	 3OYwYW13MyXnQPTJXaiSdKSteJdrUttAIsAJAEP1k2sGQFaLntQzBamR4Cg0yxnl8O
+	 TCLG5rztw0pm3PujXEuxKiIu0nYCU41+tsGQQhlGKSZfrs1Bqfs/n7sn+Ag6qF9Hu0
+	 cVjZepBP3ofRoKjZXVHHW93crcNMTegAYRpMz3198vmAOJCYR3XwtRpb6TPccBxxHd
+	 2HDtGbeI+I+/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zi Yan <ziy@nvidia.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Barry Song <baohua@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Dev Jain <dev.jain@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	William Kucharski <william.kucharski@oracle.com>,
+Cc: Waiman Long <longman@redhat.com>,
+	Muchun Song <songmuchun@bytedance.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/huge_memory: use folio's memcg inside __folio_split()
-Date: Thu,  3 Sep 2026 18:30:27 -0400
-Message-ID: <20260903223027.1739434-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/7] mm/kmemleak: use _irq lock/unlock variants in kmemleak_scan/_clear()
+Date: Thu,  3 Sep 2026 18:30:43 -0400
+Message-ID: <20260903223049.1740340-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090357-tidy-granite-4a68@gregkh>
-References: <2026090357-tidy-granite-4a68@gregkh>
+In-Reply-To: <2026090334-dreamboat-playpen-3c4e@gregkh>
+References: <2026090334-dreamboat-playpen-3c4e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,96 +47,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zi Yan <ziy@nvidia.com>
+From: Waiman Long <longman@redhat.com>
 
-[ Upstream commit c299a2285d9d8bda4da024455de65e3d00de6f17 ]
+[ Upstream commit 00c155066eca8bcfc9b255db017119b84eea6909 ]
 
-Patch series "Honor XA_FLAGS_ACCOUNT in xas_split_alloc() and charge to
-folio's memcg", v3.
+Patch series "mm/kmemleak: Avoid soft lockup in kmemleak_scan()", v2.
 
-__GFP_ACCOUNT is needed for xarray node allocation accounting when
-XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
-convergence regression") fixed a workingset regression with it.
-xas_split_alloc() does not have it and needs to be fixed.
+There are 3 RCU-based object iteration loops in kmemleak_scan().  Because
+of the need to take RCU read lock, we can't insert cond_resched() into the
+loop like other parts of the function.  As there can be millions of
+objects to be scanned, it takes a while to iterate all of them.  The
+kmemleak functionality is usually enabled in a debug kernel which is much
+slower than a non-debug kernel.  With sufficient number of kmemleak
+objects, the time to iterate them all may exceed 22s causing soft lockup.
 
-In addition, based on Sashiko's review[1] and Johannes' confirmation[2], to
-charge the right memcg, folio's memcg needs to be active during folio
-split. Add that before adding __GFP_ACCOUNT.
+  watchdog: BUG: soft lockup - CPU#3 stuck for 22s! [kmemleak:625]
 
-There is no workingset convergence regression related to missing
-__GFP_ACCOUNT in xas_split_alloc() and the impact to userspace should be
-minor.
+This patch series make changes to the 3 object iteration loops in
+kmemleak_scan() to prevent them from causing soft lockup.
 
-This patch (of 2):
+This patch (of 3):
 
-During a pagecache folio split, an xarray node allocation can happen and
-needs to charge at folio's memcg instead of folio split invoker's memcg,
-because for example folio split can happen during reclaim and reclaim's
-active memcg might not be folio's memcg.  Switch to folio's memcg at the
-beginning and switch back afterwards.
+kmemleak_scan() is called only from the kmemleak scan thread or from write
+to the kmemleak debugfs file.  Both are in task context and so we can
+directly use the simpler _irq() lock/unlock calls instead of the more
+complex _irqsave/_irqrestore variants.
 
-Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-0-38cb3ff325c5@nvidia.com
-Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-1-38cb3ff325c5@nvidia.com
-Link: https://sashiko.dev/#/patchset/20260727-add-gfp_account-to-xas_split_alloc-v1-1-9fae6bf64838%40nvidia.com?part=1 [1]
-Link: https://lore.kernel.org/all/amtcBZ-_QVRgCd6b@cmpxchg.org/ [2]
-Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
-Signed-off-by: Zi Yan <ziy@nvidia.com>
-Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: William Kucharski <william.kucharski@oracle.com>
-Cc: <stable@vger.kernel.org>
+Similarly, kmemleak_clear() is called only from write to the kmemleak
+debugfs file. The same change can be applied.
+
+Link: https://lkml.kernel.org/r/20220614220359.59282-1-longman@redhat.com
+Link: https://lkml.kernel.org/r/20220614220359.59282-2-longman@redhat.com
+Signed-off-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted the active-memcg scope from __folio_split() to split_huge_page_to_list_to_order() with shared out-path cleanup. ]
+Stable-dep-of: 5d10d4e19e6d ("mm/kmemleak: avoid soft lockup when scanning task stacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ mm/kmemleak.c | 18 ++++++++----------
+ 1 file changed, 8 insertions(+), 10 deletions(-)
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 29cbe43b60a4f..9e6df0a141621 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3418,6 +3418,7 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
- 	/* reset xarray order to new order after split */
- 	XA_STATE_ORDER(xas, &folio->mapping->i_pages, folio->index, new_order);
- 	bool is_anon = folio_test_anon(folio);
-+	struct mem_cgroup *memcg, *old_memcg;
- 	struct address_space *mapping = NULL;
- 	struct anon_vma *anon_vma = NULL;
- 	int order = folio_order(folio);
-@@ -3481,6 +3482,13 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
- 	if (folio_test_writeback(folio))
- 		return -EBUSY;
- 
-+	/*
-+	 * switch to folio's memcg as xarray node allocation can happen and
-+	 * needs to charge to it.
-+	 */
-+	memcg = get_mem_cgroup_from_folio(folio);
-+	old_memcg = set_active_memcg(memcg);
-+
- 	if (is_anon) {
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index b977c8b6af7e5..64f1033986e28 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -1407,7 +1407,6 @@ static void scan_gray_list(void)
+  */
+ static void kmemleak_scan(void)
+ {
+-	unsigned long flags;
+ 	struct kmemleak_object *object;
+ 	struct zone *zone;
+ 	int __maybe_unused i;
+@@ -1418,7 +1417,7 @@ static void kmemleak_scan(void)
+ 	/* prepare the kmemleak_object's */
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(object, &object_list, object_list) {
+-		raw_spin_lock_irqsave(&object->lock, flags);
++		raw_spin_lock_irq(&object->lock);
+ #ifdef DEBUG
  		/*
- 		 * The caller does not necessarily hold an mmap_lock that would
-@@ -3627,6 +3635,9 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
- 	if (mapping)
- 		i_mmap_unlock_read(mapping);
- out:
-+	/* restore to caller's old_memcg */
-+	set_active_memcg(old_memcg);
-+	mem_cgroup_put(memcg);
- 	xas_destroy(&xas);
- 	if (order == HPAGE_PMD_ORDER)
- 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+ 		 * With a few exceptions there should be a maximum of
+@@ -1435,7 +1434,7 @@ static void kmemleak_scan(void)
+ 		if (color_gray(object) && get_object(object))
+ 			list_add_tail(&object->gray_list, &gray_list);
+ 
+-		raw_spin_unlock_irqrestore(&object->lock, flags);
++		raw_spin_unlock_irq(&object->lock);
+ 	}
+ 	rcu_read_unlock();
+ 
+@@ -1503,14 +1502,14 @@ static void kmemleak_scan(void)
+ 	 */
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(object, &object_list, object_list) {
+-		raw_spin_lock_irqsave(&object->lock, flags);
++		raw_spin_lock_irq(&object->lock);
+ 		if (color_white(object) && (object->flags & OBJECT_ALLOCATED)
+ 		    && update_checksum(object) && get_object(object)) {
+ 			/* color it gray temporarily */
+ 			object->count = object->min_count;
+ 			list_add_tail(&object->gray_list, &gray_list);
+ 		}
+-		raw_spin_unlock_irqrestore(&object->lock, flags);
++		raw_spin_unlock_irq(&object->lock);
+ 	}
+ 	rcu_read_unlock();
+ 
+@@ -1530,7 +1529,7 @@ static void kmemleak_scan(void)
+ 	 */
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(object, &object_list, object_list) {
+-		raw_spin_lock_irqsave(&object->lock, flags);
++		raw_spin_lock_irq(&object->lock);
+ 		if (unreferenced_object(object) &&
+ 		    !(object->flags & OBJECT_REPORTED)) {
+ 			object->flags |= OBJECT_REPORTED;
+@@ -1540,7 +1539,7 @@ static void kmemleak_scan(void)
+ 
+ 			new_leaks++;
+ 		}
+-		raw_spin_unlock_irqrestore(&object->lock, flags);
++		raw_spin_unlock_irq(&object->lock);
+ 	}
+ 	rcu_read_unlock();
+ 
+@@ -1742,15 +1741,14 @@ static int dump_str_object_info(const char *str)
+ static void kmemleak_clear(void)
+ {
+ 	struct kmemleak_object *object;
+-	unsigned long flags;
+ 
+ 	rcu_read_lock();
+ 	list_for_each_entry_rcu(object, &object_list, object_list) {
+-		raw_spin_lock_irqsave(&object->lock, flags);
++		raw_spin_lock_irq(&object->lock);
+ 		if ((object->flags & OBJECT_REPORTED) &&
+ 		    unreferenced_object(object))
+ 			__paint_it(object, KMEMLEAK_GREY);
+-		raw_spin_unlock_irqrestore(&object->lock, flags);
++		raw_spin_unlock_irq(&object->lock);
+ 	}
+ 	rcu_read_unlock();
+ 
 -- 
 2.53.0
 
