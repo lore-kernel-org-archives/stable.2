@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03B74FDE42
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:48:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4B14FDE47
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788457717; cv=none; b=IgZeUxYRfe53eNLRATWvX8xhx6qfsUlQm9JBWEX4UNEBXdaA/mULLEw9ibkIZJzLKBc2Jr0Lixq7IJbMLbKMEN0YgLs+mqoqEHA0hraTT9Jlfj9YnHK0ALSsWSLcqp6o7OuqWAjxbCFyQf2EVWYgRFlwprZu3s651O9GhQtRlS0=
+	t=1788457718; cv=none; b=awzxnVa+F+sEwHYGinKZGQO4YNRwkUoCZ660RsojUT3s3JaGxXUKo3EnHQMyaHnjL7TDaUTMsZYbKNYSmrIJ5QLtGWWA6m+2GXWvsPw2lHi6raDd46fSgQ6EX/m+rfL0tjzVxnVmcmOerlhKyYzC51/7J00VQIw+12GBf3zOpNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788457717; c=relaxed/simple;
-	bh=Xv1FDhdC+OCVthmmpLxp065jGD9Bmni4JiLzQO6ogxo=;
+	s=arc-20240116; t=1788457718; c=relaxed/simple;
+	bh=9ZLgUjIPIm2uXChxHO2wqVlT/kv/0uDjJXBQx8MbJfQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j9/e6m9+AKdryu9c1xUlYiaJnzZFuKm6o013t+6mCspiz0lfyt0yazPkHstjVkc7MSD1OFRJi7v5e0Xxg5pMcCxltmC6AkNL2/KEQl0pn6FEb2vNUbbuTT1UR3cRW6dFATiY3V9246FLq59Mtw7Vk+3gpc15qB9NEIoh+rS+ocM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BAwzz/s0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=t9iz/+UK4cEVzwM9a929z0VD8/3YDHRdRvPnW12ye0E4LdFfMXcff+DL/A/5kVQM+ES+hKoRHSern+xIJawSjmpnH66wmSE2Rp5hEKfuR/3X4rHd7eFbh93WLOIQ4VoYLWa0cFch1AkdOAcC3mFgvVdtE8k9VMjYKo3k0ik2kXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSErrWTv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BAwzz/s0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D731F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSErrWTv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1369A1F00A3E;
 	Thu,  3 Sep 2026 17:48:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788457715;
-	bh=O1Bi5XYuxLAgTGhb2E03aODDxR6Y2F3xp0uv7lwzs+Y=;
+	s=k20260515; t=1788457716;
+	bh=Ngxi2YVMoIcWeiLhV82AJ1V7eJPOWXFRJjHLtADfCq8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BAwzz/s0yQzoSExNPnmv55d/jN4ORIvlK7k6pP8j5SFhrzuGtLsLpuWY0q63DmxDl
-	 Jox5MsU5HTxLH25mrL+8zm6Kt8p4ABX3nN8WfX3yZvsE98SPXbAGfyujBqylB23zEt
-	 +fpwI9fD2+JmR4VoPN4I/rNLVW2Ga56czgmMM2D/4mZiWSZhcVtQqcTByAwamc3mOf
-	 pE/BxxHlHLmtg4dj0WVHgMIQOU3vztbZsQgm5VyGKaaKo0dC2909E2JciFH+AkgR0l
-	 axZNO8fJMPFvepaVbLBYu3xjkc6xdcvEzl/eltkCacdr2Nuj0IsRqB1c+vRZNjP4qc
-	 C4VFgAzSutH7g==
+	b=bSErrWTvSMR+8MqvKXNpM6VCrwr59/c7RADVB9AvXBoclewR2tt39pwGuuXIbWR6f
+	 ibl+0fltJAaL6fAlXI52ErenTyiqTtFqlRZj4F5E9MksKjaUBEB1r/4BR00yyobimJ
+	 d0himPAQWTnSUjJ4VlmRVRSGAcAj/LbdWEPzzD4bdbNV00k4DqUfuixVyaLbKihfWl
+	 vbFeNhVMdDPldO81NkFHvnprx7ZwN3By5NF1qoxv1KT69tBfj395Te7XTxPZU6zeSG
+	 1CLfbNIGXSGwYbG7sJMvKNAXdujDKLCctQ7C8kgCJq3IEgVtdy7UXmVIUQjaZvbgLc
+	 k+gTKtdTE6COA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Waiman Long <longman@redhat.com>,
+Cc: Jim Cromie <jim.cromie@gmail.com>,
 	Catalin Marinas <catalin.marinas@arm.com>,
-	Muchun Song <songmuchun@bytedance.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/4] mm/kmemleak: simplify kmemleak_cond_resched() usage
-Date: Thu,  3 Sep 2026 13:48:30 -0400
-Message-ID: <20260903174832.1263842-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/4] kmemleak: drop (age <increasing>) from leak record
+Date: Thu,  3 Sep 2026 13:48:31 -0400
+Message-ID: <20260903174832.1263842-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260903174832.1263842-1-sashal@kernel.org>
 References: <2026090332-elliptic-contort-6cb3@gregkh>
@@ -48,153 +47,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Waiman Long <longman@redhat.com>
+From: Jim Cromie <jim.cromie@gmail.com>
 
-[ Upstream commit 6061e740822530a4ef443548b19c4e0bc6342c7a ]
+[ Upstream commit 88f9ee2b3040991ff40628fa9e3516ebe36dd6fa ]
 
-Patch series "mm/kmemleak: Simplify kmemleak_cond_resched() & fix UAF", v2.
+Patch series "tweak kmemleak report format".
 
-It was found that a KASAN use-after-free error was reported in the
-kmemleak_scan() function.  After further examination, it is believe that
-even though a reference is taken from the current object, it does not
-prevent the object pointed to by the next pointer from going away after a
-cond_resched().
+These 2 patches make minor changes to the report:
 
-To fix that, additional flags are added to make sure that the current
-object won't be removed from the object_list during the duration of the
-cond_resched() to ensure the validity of the next pointer.
+1st strips "age <increasing>" from output.  This makes the output
+idempotent; unchanging until a new leak is reported.
 
-While making the change, I also simplify the current usage of
-kmemleak_cond_resched() to make it easier to understand.
+2nd adds the backtrace.checksum to the "backtrace:" line.  This lets a
+user see repeats without actually reading the whole backtrace.  So now
+the backtrace line looks like this:
+
+  backtrace (crc 603070071):
+
+I surveyed for un-wanted effects upon users:
+
+Syzkaller parses kmemleak in executor/common_linux.h:
+static void check_leaks(char** frames, int nframes)
+
+It just counts occurrences of "unreferenced object", specifically it
+does not look for "age", nor would it choke on "crc" being added.
+
+github has 3 repos with "kmemleak" mentioned, all are moribund.
+gitlab has 0 hits on "kmemleak".
 
 This patch (of 2):
 
-The presence of a pinned argument and the 64k loop count make
-kmemleak_cond_resched() a bit more complex to read.  The pinned argument
-is used only by first kmemleak_scan() loop.
+Displaying age is pretty, but counter-productive; it changes with
+current-time, so it surrenders idempotency of the output, which breaks
+simple hash-based cataloging of the records by the user.
 
-Simplify the usage of kmemleak_cond_resched() by removing the pinned
-argument and always do a get_object()/put_object() sequence.  In addition,
-the 64k loop is removed by using need_resched() to decide if
-kmemleak_cond_resched() should be called.
+The trouble: sequential reads, wo new leaks, get new results:
 
-Link: https://lkml.kernel.org/r/20230119040111.350923-1-longman@redhat.com
-Link: https://lkml.kernel.org/r/20230119040111.350923-2-longman@redhat.com
-Signed-off-by: Waiman Long <longman@redhat.com>
+  :#> sum /sys/kernel/debug/kmemleak
+  53439    74 /sys/kernel/debug/kmemleak
+  :#> sum /sys/kernel/debug/kmemleak
+  59066    74 /sys/kernel/debug/kmemleak
+
+and age is why (nothing else changes):
+
+  :#> grep -v age /sys/kernel/debug/kmemleak | sum
+  58894    67
+  :#> grep -v age /sys/kernel/debug/kmemleak | sum
+  58894    67
+
+Since jiffies is already printed in the "comm" line, age adds nothing.
+
+Notably, syzkaller reads kmemleak only for "unreferenced object", and
+won't care about this reform of age-ism.  A few moribund github repos
+mention it, but don't compile.
+
+Link: https://lkml.kernel.org/r/20231116224318.124209-1-jim.cromie@gmail.com
+Link: https://lkml.kernel.org/r/20231116224318.124209-2-jim.cromie@gmail.com
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Muchun Song <songmuchun@bytedance.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: 5d10d4e19e6d ("mm/kmemleak: avoid soft lockup when scanning task stacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 48 ++++++++++++------------------------------------
- 1 file changed, 12 insertions(+), 36 deletions(-)
+ mm/kmemleak.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index eaa89f20cd35d..83f885a55bff7 100644
+index 83f885a55bff7..904b5d396e124 100644
 --- a/mm/kmemleak.c
 +++ b/mm/kmemleak.c
-@@ -1475,22 +1475,17 @@ static void scan_gray_list(void)
- /*
-  * Conditionally call resched() in a object iteration loop while making sure
-  * that the given object won't go away without RCU read lock by performing a
-- * get_object() if !pinned.
-- *
-- * Return: false if can't do a cond_resched() due to get_object() failure
-- *	   true otherwise
-+ * get_object() if necessaary.
-  */
--static bool kmemleak_cond_resched(struct kmemleak_object *object, bool pinned)
-+static void kmemleak_cond_resched(struct kmemleak_object *object)
- {
--	if (!pinned && !get_object(object))
--		return false;
-+	if (!get_object(object))
-+		return;	/* Try next object */
+@@ -348,14 +348,12 @@ static void print_unreferenced(struct seq_file *seq,
+ 	int i;
+ 	unsigned long *entries;
+ 	unsigned int nr_entries;
+-	unsigned int msecs_age = jiffies_to_msecs(jiffies - object->jiffies);
  
- 	rcu_read_unlock();
- 	cond_resched();
- 	rcu_read_lock();
--	if (!pinned)
--		put_object(object);
--	return true;
-+	put_object(object);
- }
+ 	nr_entries = stack_depot_fetch(object->trace_handle, &entries);
+ 	warn_or_seq_printf(seq, "unreferenced object 0x%08lx (size %zu):\n",
+ 			  object->pointer, object->size);
+-	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu (age %d.%03ds)\n",
+-			   object->comm, object->pid, object->jiffies,
+-			   msecs_age / 1000, msecs_age % 1000);
++	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu\n",
++			   object->comm, object->pid, object->jiffies);
+ 	hex_dump_object(seq, object);
+ 	warn_or_seq_printf(seq, "  backtrace:\n");
  
- /*
-@@ -1504,15 +1499,12 @@ static void kmemleak_scan(void)
- 	struct zone *zone;
- 	int __maybe_unused i;
- 	int new_leaks = 0;
--	int loop_cnt = 0;
- 
- 	jiffies_last_scan = jiffies;
- 
- 	/* prepare the kmemleak_object's */
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(object, &object_list, object_list) {
--		bool obj_pinned = false;
--
- 		raw_spin_lock_irq(&object->lock);
- #ifdef DEBUG
- 		/*
-@@ -1538,19 +1530,13 @@ static void kmemleak_scan(void)
- 
- 		/* reset the reference count (whiten the object) */
- 		object->count = 0;
--		if (color_gray(object) && get_object(object)) {
-+		if (color_gray(object) && get_object(object))
- 			list_add_tail(&object->gray_list, &gray_list);
--			obj_pinned = true;
--		}
- 
- 		raw_spin_unlock_irq(&object->lock);
- 
--		/*
--		 * Do a cond_resched() every 64k objects to avoid soft lockup.
--		 */
--		if (!(++loop_cnt & 0xffff) &&
--		    !kmemleak_cond_resched(object, obj_pinned))
--			loop_cnt--; /* Try again on next object */
-+		if (need_resched())
-+			kmemleak_cond_resched(object);
- 	}
- 	rcu_read_unlock();
- 
-@@ -1617,14 +1603,9 @@ static void kmemleak_scan(void)
- 	 * scan and color them gray until the next scan.
- 	 */
- 	rcu_read_lock();
--	loop_cnt = 0;
- 	list_for_each_entry_rcu(object, &object_list, object_list) {
--		/*
--		 * Do a cond_resched() every 64k objects to avoid soft lockup.
--		 */
--		if (!(++loop_cnt & 0xffff) &&
--		    !kmemleak_cond_resched(object, false))
--			loop_cnt--;	/* Try again on next object */
-+		if (need_resched())
-+			kmemleak_cond_resched(object);
- 
- 		/*
- 		 * This is racy but we can save the overhead of lock/unlock
-@@ -1659,14 +1640,9 @@ static void kmemleak_scan(void)
- 	 * Scanning result reporting.
- 	 */
- 	rcu_read_lock();
--	loop_cnt = 0;
- 	list_for_each_entry_rcu(object, &object_list, object_list) {
--		/*
--		 * Do a cond_resched() every 64k objects to avoid soft lockup.
--		 */
--		if (!(++loop_cnt & 0xffff) &&
--		    !kmemleak_cond_resched(object, false))
--			loop_cnt--;	/* Try again on next object */
-+		if (need_resched())
-+			kmemleak_cond_resched(object);
- 
- 		/*
- 		 * This is racy but we can save the overhead of lock/unlock
 -- 
 2.53.0
 
