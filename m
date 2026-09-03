@@ -1,110 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704C74BB7FD
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B1D4CC29E;
+	Thu,  3 Sep 2026 15:20:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448793; cv=none; b=Y3X5/PYBDnw+AibKco37euPK+ZEZEtT2UizO4lP/zYVfPmFaMkJIRBpiZ7q41+XNjGP9e+aQeLvhWDsoQikSStss0YOA8LMcVuP+aK4w5EbPj2VqP1FOrOR3EoRxBrI7uHXkEYNBDZte1hiHdj9fgeLdvbZDOT5NsLSbxEUBOqU=
+	t=1788448840; cv=none; b=XvRUEtyNcMcvhubsZTiKjplPIvJ8uJlr+xzIA0MTfF7pieQE1PwRU5W1i7h3DSIMAShnDMjH2lGLaUy0D1OLnTCUaNQqoCIodgWTRD8HsizKOe1jSiz4lKXke7OVF6O3zOqk8ioUfKIhpY/94/RJB2NoPU/E5t0UzoI9bxOeqRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448793; c=relaxed/simple;
-	bh=gmZ6xw/c/DoSCWb/lX1Lq9OB3Qt/DzpRrNriiddpTVQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DMcJFW8yLXE8D10lLXZzAhOIZy+SONucB/Obrcdml7lLB7JRZmh+2xx/+IfL9UM0vlWIsW4ndBbctEiOrRBRoHR5IGjzS2DKYHDWB8ugRUxz4Wo+wezsklzD4dMLJlbquaWngYS9OaRGE5mYUdWX1S0T2oHBm4qzLDAxRuwv+G4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AlVvnj/J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448840; c=relaxed/simple;
+	bh=oAY7hv/EwUzgz64rd4cjEjliORWWEShw0sw1SZsO4nQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FeYfIFDtDDyR3POWlidbxUAy9Ndaf8n9zl94nYu10EZmyKBs30/p1Z6FnjKsU0NNbizCE9KYYAzb0n/kz+gT9AzylwALXMMvAFeH2HiQlTwh03b3btkIzVC3qDpB1M33rvFRuHBtii/TLpV7Ag+SNm2bQU2kdmbCcW0LiymWg1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Cum6BF2Y; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AlVvnj/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923A01F000E9;
-	Thu,  3 Sep 2026 15:19:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788448792;
-	bh=AW0WwdZTqtYaff/+DOuhUNTfsnRis30g2cfZIQBIRTU=;
-	h=Subject:To:Cc:From:Date;
-	b=AlVvnj/Jg8yUdyT7PktrpgIJkvzGrI+9Ebt9rvXf2IIMZWkVIHHnSA3CPNo+ZNPBn
-	 ZRiMrpcuYTNpgSDnLKf/pbEgInvxPPKqHtf2AubTH+WVgA1KACQxpkMuuoMLNQcAL2
-	 ox14MJBIgI3ZnEqnpzMs8Zu77av5Vm76UCJpsSEo=
-Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: Add support for OMEN MAX 16-ak0xxx" failed to apply to 6.18-stable tree
-To: krishna.chomal108@gmail.com,ilpo.jarvinen@linux.intel.com,yahmedd043@gmail.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:56:37 +0200
-Message-ID: <2026090337-factoid-slander-d0ac@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Cum6BF2Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788448838; x=1819984838;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=oAY7hv/EwUzgz64rd4cjEjliORWWEShw0sw1SZsO4nQ=;
+  b=Cum6BF2YDzfVYOB2UewO1GJmvRl0hcBVNU5gmZ9/DIe/udGQq9C+J5PZ
+   t/IvPFV4hZBTzcQNNEDKDRCgeOjQO4EO+UTHsfx/2hdLjGruHIZMzB6wn
+   PUhsT1dKNdrSzP3NPdyAArYMnNP1A24P381GORJVLOiwTTndaL/oAjr4M
+   1ipq6NgisELmwNsnfqkTg7vgujmx7ij92qOFYnpyehAcq5LQ7Pdi3GXn1
+   t6t1Bp0TIl0IAaOFZpWkICdMAHoZBlDWP7yGUp2UKg1FJ9bp1UPFeqsQV
+   8f1/3f/2KuxWNu0kzHDD9JVsb9qbiLdMzT91KJtytSEDsJNL15bZp1dMX
+   g==;
+X-CSE-ConnectionGUID: gV3kLeUyQua4v5U3tAxudA==
+X-CSE-MsgGUID: A/zgvJxoTKy8MtOtI4htUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88077057"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="88077057"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:20:38 -0700
+X-CSE-ConnectionGUID: L15uMUjtSp+DIHSuVLnD6A==
+X-CSE-MsgGUID: GJQFniDjRSewum2khlSAXg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="299626458"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.159])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:20:36 -0700
+Date: Thu, 3 Sep 2026 17:20:29 +0200
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	miguel.vadillo@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cvs: Add sensor node in bound callback
+Message-ID: <apmPgC1ffSp60Mcb@mdjait-mobl>
+References: <20260903100753.3176233-1-antti.laakso@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903100753.3176233-1-antti.laakso@linux.intel.com>
 
+Hello Antti,
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Thank you for the patch!
 
-To reproduce the conflict and resubmit, you may use the following commands:
+On Thu, Sep 03, 2026 at 01:07:53PM +0300, Antti Laakso wrote:
+> Sensor device nodes are created in the complete callback, which is only
+> called when all devices are successfully registered. If any device fails
+> to register, e.g. due to a missing driver, the complete callback is
+> never invoked and sensor nodes are not created.
+> 
+> Create sensor device nodes in the bound callback instead, ensuring they
+> are available as soon as sensor is bound regardless of other devices
+> registration status.
+> 
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x a7320d6eb9c4240c948cd9c64582b3bd04cbaf4b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-factoid-slander-d0ac@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+This does actually fix the issue I had on my Dell laptop with two
+camera sensors:
+HIMX1092 OVTI02C1
 
-Possible dependencies:
+But for the HIMX1092 a driver does not exist (yet) in upstream.
 
+Tested-by: Mehdi Djait <mehdi.djait@linux.intel.com> # Dell XPS 13 9350 + IPU7
+Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
 
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a7320d6eb9c4240c948cd9c64582b3bd04cbaf4b Mon Sep 17 00:00:00 2001
-From: Krishna Chomal <krishna.chomal108@gmail.com>
-Date: Tue, 23 Jun 2026 19:43:14 +0530
-Subject: [PATCH] platform/x86: hp-wmi: Add support for OMEN MAX 16-ak0xxx
- (8DD6)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-The HP OMEN MAX 16-ak0xxx (board ID: 8DD6) has the same WMI interface
-as other Victus S boards, but requires quirks for correctly switching
-thermal profile.
-
-After testing we know that (similar to another HP Omen Max 16 device,
-board ID 8D87), the embedded controller on this board does not expose
-thermal profile which means we have to intentionally disable EC readback.
-
-Add the DMI board name to victus_s_thermal_profile_boards[] table and
-map it to omen_v1_no_ec_thermal_params.
-
-Testing on board 8DD6 confirmed that platform profile is registered
-successfully and fan RPMs are readable and controllable.
-
-Tested-by: Yahia Ahmed <yahmedd043@gmail.com>
-Cc: stable@vger.kernel.org # v6.18+
-Signed-off-by: Krishna Chomal <krishna.chomal108@gmail.com>
-Link: https://patch.msgid.link/20260623141314.33947-1-krishna.chomal108@gmail.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 0dcf2901259e..34c9b941bdd8 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -310,6 +310,10 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8D87") },
- 		.driver_data = (void *)&omen_v1_no_ec_board_params,
- 	},
-+	{
-+		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD6") },
-+		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
-+	},
- 	{
- 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E35") },
- 		.driver_data = (void *)&omen_v1_legacy_board_params,
-
+> Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+> ---
+>  drivers/media/i2c/cvs/v4l2.c | 13 +++++++++----
+>  1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
+> index 9fadca7a3bee..863112cde266 100644
+> --- a/drivers/media/i2c/cvs/v4l2.c
+> +++ b/drivers/media/i2c/cvs/v4l2.c
+> @@ -13,6 +13,7 @@
+>  #include <media/v4l2-async.h>
+>  #include <media/v4l2-common.h>
+>  #include <media/v4l2-ctrls.h>
+> +#include <media/v4l2-device.h>
+>  #include <media/v4l2-event.h>
+>  #include <media/v4l2-fwnode.h>
+>  #include <media/v4l2-mc.h>
+> @@ -400,7 +401,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+>  				struct v4l2_async_connection *asc)
+>  {
+>  	struct icvs *ctx = notifier_to_csi(notifier);
+> -	int pad;
+> +	int pad, ret;
+>  
+>  	pad = media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode,
+>  					  MEDIA_PAD_FL_SOURCE);
+> @@ -409,9 +410,13 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+>  
+>  	ctx->remote = &sd->entity.pads[pad];
+>  
+> -	return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
+> -				     ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
+> -				     MEDIA_LNK_FL_IMMUTABLE);
+> +	ret = media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
+> +				    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
+> +				    MEDIA_LNK_FL_IMMUTABLE);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return v4l2_device_register_subdev_nodes(sd->v4l2_dev);
+>  }
+>  
+>  /**
+> -- 
+> 2.55.0
+> 
