@@ -1,149 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C79B84BB806
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23674B66F6;
+	Thu,  3 Sep 2026 14:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446456; cv=none; b=YFqDotZDwW9K7e9Uq0kV+kFe21h/C8TKlpkKZlJ5U7exwY6jLjlbFqZTGeCsZkWPm+IWydRE4WLTop5NkAx1rkUIZPi00kbZ0oATdatmp36hrYRO1WtaQAaUvspEJW2whY0xSyiqD9hYqAI2zQ6ogfNu9IL7EBJp++PZHpBqPRs=
+	t=1788446460; cv=none; b=WUsBI3IunWBdbttfYEmR7CFethnsdA2TpAk0ht8hdKw05QdFyYXdkCWBJvjybecWgbWEw+jQoURZUHbQzXm8DqOTrBVBwsMyhF+o40/c+j765lL8OwJAp87VUJka7ejHG9Mfg0XOOEftY5Jn0LB2WG8vKRVOc0Jx2ekO26RuH4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446456; c=relaxed/simple;
-	bh=r9Lpb97vKIBuITn03L9MTUTjzac9KM1YVsKiE2+G/2E=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G6URjzDwo2tRtKw9M9ZBwDUWMMAYcm7F04TeaAb6utCkEGoRhWN0b+zqnm42HLFTxxHgoSXyxD9e6g69upWlPQ6EJCDkKB5hybpyCnnMebZCfOYIruS8fWS/pzDoqfS6xbt3Ok+TaOgjdF8PmOl4HNFzYGu9dQwcxIUz+oFPHzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wTQh9LmW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788446460; c=relaxed/simple;
+	bh=4naB7UIPaDXCcNDksCUuirSZuL4IKfdjox4HXLjJDI0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j5xzorvGWHJ4tFDspsuZIK7RwggVa0Mn/Wadi6FuNjmXbxq3BmxyHr1GPGYeT2ESVEUAfU+Yq4dRN+pwsnwY4Ib3u8SNOKpnmvLbL269newqoVoYId6OHnoVW0qn5AI5qo67Y/ul9abOCAqrYqxt++Nh6+w7WmZViJRhnjxy3rY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HBTWuTmz; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wTQh9LmW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9CA61F00A3E;
-	Thu,  3 Sep 2026 14:40:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788446445;
-	bh=Rqq6AbW47RtB4bohLw5AkGZ5uF37jFdhjNV66hQ3Xp0=;
-	h=Subject:To:Cc:From:Date;
-	b=wTQh9LmWSsvUc5DgRBiaC9UxG9mb5a2f4guak6OYb47PMqM75KKdYfThwtrN9Nh4x
-	 o6prjNX2g8XuBWFM/gfbjvbJUdAbAT6qWs1BmD2DDPg6EsoTXeSXjWo2sqYWk83jk4
-	 TG/5kF7Zb27eSfnhqMQtduqeyYtoWj5LpxY5yT/Q=
-Subject: FAILED: patch "[PATCH] scsi: core: Fill in DMA padding bytes in" failed to apply to 6.1-stable tree
-To: p.vaganov@ideco.ru,bvanassche@acm.org,mkp@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:17:46 +0200
-Message-ID: <2026090346-overboard-amplify-cbc7@gregkh>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HBTWuTmz"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 2382253401F6;
+	Thu, 03 Sep 2026 16:40:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788446445;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=ozigZcNd1R53uOOyPgHz9kIrV8jED5fHr5sryjLmFzc=;
+	b=HBTWuTmzT13Y7VOAjc6IG2hB4+5maIPoHG0xJd58BuLMRoQqejE3KaRbXiDEEQ7I6orgvw
+	rpSlBrm9GR9M4Agx3kZZ+xw4k3ebSxaH57vk+n8Jr2ezAh07Jdv0u5XqCgcI1pOBI8zIQ/
+	AYze+VFui2F6UKX8qSwrJk9JS9uRK+8=
+Message-ID: <ff2ee3c5-c0fc-4aa6-b64a-c77e4a2242e2@ixit.cz>
+Date: Thu, 3 Sep 2026 16:40:44 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mfd: wcd934x: set DMA mask on parent to silence "DMA mask
+ not set"
+To: Lee Jones <lee@kernel.org>
+Cc: Thomas Tai <thomas.tai@oracle.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, mfd@lists.linux.dev,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260823-wcd-dma-v1-1-95e44a315ccf@ixit.cz>
+ <20260903124939.GT2133376@google.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260903124939.GT2133376@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 03/09/2026 14:49, Lee Jones wrote:
+> On Sun, 23 Aug 2026, David Heidelberg via B4 Relay wrote:
+> 
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> The wcd934x MFD parent (a slim_device) never initializes its
+>> dma_mask/coherent_dma_mask. When the DT-aware children pass through
+>> of_dma_configure() this triggers the "DMA mask not set" warning for
+>> each child.
+>>
+>> Cc: stable@vger.kernel.org
+>> Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
+>> Assisted-by: tencent:hy3
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/mfd/wcd934x.c | 6 ++++++
+>>   1 file changed, 6 insertions(+)
+>>
+>> diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
+>> index 3c3080e8c8cf7..70ee13791d52b 100644
+>> --- a/drivers/mfd/wcd934x.c
+>> +++ b/drivers/mfd/wcd934x.c
+>> @@ -1,12 +1,13 @@
+>>   // SPDX-License-Identifier: GPL-2.0
+>>   // Copyright (c) 2019, Linaro Limited
+>>   
+>>   #include <linux/clk.h>
+>> +#include <linux/dma-mapping.h>
+>>   #include <linux/gpio/consumer.h>
+>>   #include <linux/interrupt.h>
+>>   #include <linux/kernel.h>
+>>   #include <linux/mfd/core.h>
+>>   #include <linux/mfd/wcd934x/registers.h>
+>>   #include <linux/mfd/wcd934x/wcd934x.h>
+>>   #include <linux/module.h>
+>>   #include <linux/of.h>
+>> @@ -212,16 +213,21 @@ static int wcd934x_slim_status(struct slim_device *sdev,
+>>   static int wcd934x_slim_probe(struct slim_device *sdev)
+>>   {
+>>   	struct device *dev = &sdev->dev;
+>>   	struct device_node *np = dev->of_node;
+>>   	struct wcd934x_ddata *ddata;
+>>   	struct gpio_desc *reset_gpio;
+>>   	int ret;
+>>   
+>> +	if (!dev->dma_mask) {
+>> +		dev->dma_mask = &dev->coherent_dma_mask;
+>> +		dev->coherent_dma_mask = DMA_BIT_MASK(32);
+>> +	}
+>> +
+> 
+> Any reason not to use dma_coerce_mask_and_coherent()?
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Didn't knew about it. Sending v2.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 626147717bea776b61ed3631d2c26283760c4cc4
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090346-overboard-amplify-cbc7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 626147717bea776b61ed3631d2c26283760c4cc4 Mon Sep 17 00:00:00 2001
-From: Petr Vaganov <p.vaganov@ideco.ru>
-Date: Mon, 29 Jun 2026 01:52:21 +0700
-Subject: [PATCH] scsi: core: Fill in DMA padding bytes in
- scsi_alloc_sgtables()
-
-During fuzz testing, the following issue was discovered:
-
-BUG: KMSAN: uninit-value in __dma_map_sg_attrs+0x217/0x310
- __dma_map_sg_attrs+0x217/0x310
- dma_map_sg_attrs+0x4a/0x70
- ata_qc_issue+0x9f8/0x1420
- __ata_scsi_queuecmd+0x1657/0x1740
- ata_scsi_queuecmd+0x79a/0x920
- scsi_queue_rq+0x4472/0x4f40
- blk_mq_dispatch_rq_list+0x1cca/0x3ee0
- __blk_mq_sched_dispatch_requests+0x458/0x630
- blk_mq_sched_dispatch_requests+0x15b/0x340
- __blk_mq_run_hw_queue+0xe5/0x250
- __blk_mq_delay_run_hw_queue+0x138/0x780
- blk_mq_run_hw_queue+0x4bb/0x7e0
- blk_mq_sched_insert_request+0x2a7/0x4c0
- blk_execute_rq+0x497/0x8a0
- sg_io+0xbe0/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-
-Uninit was created at:
- __alloc_pages+0x5c0/0xc80
- alloc_pages+0xe0e/0x1050
- blk_rq_map_user_iov+0x2b77/0x6100
- blk_rq_map_user_io+0x2fa/0x4d0
- sg_io+0xad6/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
-
-Bytes 14-15 of 16 are uninitialized
-Memory access of size 16 starts at ffff88800cbdb000
-
-When processing the last unaligned element of the scatterlist, it is
-supplemented with missing bytes in the amount of pad_len.  These bytes
-remain uninitialized, which leads to a problem.
-
-Extend last_sg->length by pad_len first, then use sg_zero_buffer() to
-zero those pad_len bytes.  sg_zero_buffer() uses sg_miter internally,
-which correctly handles sg entries spanning multiple pages and padding
-that crosses a page boundary.
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Fixes: 40b01b9bbdf5 ("block: update bio according to DMA alignment padding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Petr Vaganov <p.vaganov@ideco.ru>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20260628185229.37957-1-p.vaganov@ideco.ru
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index 22e2e3223440..686cef2406b3 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1187,8 +1187,10 @@ blk_status_t scsi_alloc_sgtables(struct scsi_cmnd *cmd)
- 	if (blk_rq_bytes(rq) & rq->q->limits.dma_pad_mask) {
- 		unsigned int pad_len =
- 			(rq->q->limits.dma_pad_mask & ~blk_rq_bytes(rq)) + 1;
-+		unsigned int data_len = last_sg->length;
- 
- 		last_sg->length += pad_len;
-+		sg_zero_buffer(last_sg, 1, pad_len, data_len);
- 		cmd->extra_len += pad_len;
- 	}
- 
-
+David
