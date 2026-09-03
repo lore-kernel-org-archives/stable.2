@@ -1,119 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B91043264E2
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:08:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625FC4B1286
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:09:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444522; cv=none; b=g9Szr+Bvw9eLEm8BxDesOWlxvoQ/e1uqggBV4XIMqGrLtSfmwSWOVhteVhVwDg4dkDQkoFVgcrRs9E19SZDk2f+PsuNX+qiSG+AWUJiQIkXb4gjuAxUmkMemWOM7NoEwPHvbLBMmIgRpzqZ9uNPnHOsF/FyZVLfFT76S8NmZ7NE=
+	t=1788444601; cv=none; b=g+12irKGPa7t0OTq8jUiO2Fxb6DfUl8eDkEHO4ApuB7WzT6Xi6fP1JXVxR9yx+ZiZASo13ixYmuCikmo+aeUUvarxFwkk73prhzNuxHeYVzkrBWpapMDkENAy8u7ICSjVQ9NK4omxJoG6Wdr+vITxW9zQ3xpYpGU7lh7h8hADxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444522; c=relaxed/simple;
-	bh=VBJSNeOhOMmpznPSLOLjUqe7QMWxFWfIF45hC+ehqvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZE9B3HQdyyhiNDZsyPy0AOWTA3jRGp0LjHiZm3GwYXL3i8x2i4TsL5ERHdRmZ4SGhVU7d83eExiVtGh8UJtnzzCijWszTE5Ew7Lugz2QGJev+7SGgb0+6sSke/KTe4egRequrBQ6SBa+zxAJeNc4npp2Lw4CVs1gphR5wdIyTMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RqkYcwiO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444601; c=relaxed/simple;
+	bh=+gAcGmt/xxZpDNYTrG7z+20D6m7/JO5BWqC8Lc+Pa+Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xt3now62B54lCp7NJX0zPdeNz3S9DSAxzSVV7jQll5Wq5ywrV0ktKJHIJWRIZ60kIHFir1wx/c/TZHikCrbAMhw5goyrbRez3zOiYbmmC1JX0kU6bmvFqu5W+1BeFec4E7pFEhsIEGJLoB0YZKoGwtvJ5MQdqzjwgvvNy7kaZ88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=mAZkanw/; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RqkYcwiO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 800CF1F00AC4;
-	Thu,  3 Sep 2026 14:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444511;
-	bh=vINa9HWTurR3A2gnsmLxPZnhRBdiRccmwkofGuhWAdU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RqkYcwiObDDugVAqxGCl5DottOkj6j58V0tbQQT+oNmNfACp0KYVcb49nflFQCJIq
-	 9f9LUohFE6VN3MhjrWOUE+cQ4KW3njKwZaXMtXkMIyxwDaFkI81os9tUWDOT/y8De0
-	 s0pQe8AXHi4rrXFpUPWKkIAC9MLH7u5FDVs6a9130mZqteJ/yt8iWaxNmN8ExjtsZy
-	 dff6D7UMQZWJLbcSRoygKzeD7KhQctq//JOIjwgqM3HgRE/QyNxhj4G6+nCeQmXx/T
-	 NT8P5bNFHcbukk3a3rXIn1/Te9OzT+7701Z43FoIM1N9hkNWwcr6YVMXOT360PBsao
-	 Bki7MuZeP15fg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Quanfa Fu <quanfafu@gmail.com>,
-	"Tyler Hicks (Microsoft)" <code@tyhicks.com>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] apparmor: make aa_set_current_onexec return void
-Date: Thu,  3 Sep 2026 10:08:28 -0400
-Message-ID: <20260903140829.792947-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090358-postnasal-expediter-69a3@gregkh>
-References: <2026090358-postnasal-expediter-69a3@gregkh>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="mAZkanw/"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-836c8bdac50so27068057b3.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 07:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788444581; x=1789049381; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MdYFxMzLhAsz9CXEVO1o2mt6I0dz9BL/Meo6d0Bb364=;
+        b=mAZkanw/TyIItdAvPxAOx63vpebYVyo8tFKf0jiWPCXmC64pMI6BL+mkilUh0I0kqk
+         xv0p62emWfQ8+8xv079y/F9OUZOCTS3WSVCUcFRF7ZmX4DHKFsiXGYxHz5PuqsygG2j1
+         QOfyEaMsKoZalkSlMmKDgtzTFPImJZdxVcl+L3Y1y9zoJSQd8lWQ027BMWB0VQHlnnno
+         r+f9LtJcRqtWMalX/sDv7SMOo7l/Yvjb7mPG8eLUF/CqUs1TKboaaV1X+V3Cb4X22mxz
+         jdZ9QAPZ8/CO0djf2MD6ghIlPluWl9+F/SyW2y5QYvtPCY+X5bSBJuNWCms3uqAl2Szy
+         C+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444581; x=1789049381;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MdYFxMzLhAsz9CXEVO1o2mt6I0dz9BL/Meo6d0Bb364=;
+        b=O+GOMF9v836QI/q9Upy1vSQiI70PgybDE24XRFXZ68WG9SVhUHpsKznFCQej2mFyVo
+         JToiOiI4Jw1c7RTiZHQ02lkW+RgXnTNxBSnl0gyxA7g7Jm0JdX+c2lZ4LFoLgt+TUWQW
+         whEgBimaDcXzm58wxFqbD511QMQnZg/oIqYm7UcTvpRWcdG8+qOyWjh0jjzNmC51GUX4
+         Ls7cGPe+xmM1sBB4aWNOONApbrFr0rOjNvkX7NCfI+90lqW4CiFZc3OieB3Bbfi0ltGQ
+         byzh1LWK02q1FgFgYRR6vmrgGt4NXmN4NlHWUUvgnvsZWlZq3BWkrOYlRuW4uDd0Wf9e
+         1unQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJDNgIyYDQ6843mbQ0XNMG4T8kN84IqRI1pAz1s/zogP4YC3wfmqINR1Um5rH8TIFs4ZHWoTQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lL8PYssPpfZBA4D19LhQJrnmH5/+JD+M2PfF5nEGBW+cambobJ
+	XzbT9+sB4nD+SQ9GeCP4PYe7U4iFvgF6lvHjkmcRKzM+LTj0VV+ebcueMoVAFvutrl0=
+X-Gm-Gg: AYBFou2s83yFzpnOf8HbaIJN82zJOKgfKFPBrnwlBDHUXm+hZMrLEV8tWB4hcvcImms
+	nac6Oku10lft3T0j5gTvaRWRSb81DBjtO5PNv2CiX5d+k1P9rZX/n9rH7ba5gm9m76KjkEM+bno
+	D6EELW1RV2BHzIJQL7AAWBWhipwRf86sHIA3fTI4AhNGrLuPEyvJhDAa8R4UgE+rHKwLMpGg/3j
+	KRhp41wzod1g+3OkIl9VrW1YIP5/QWiC+J5Q3uWwYteqZFccaRxFM+oCE9VFVOk4ew8q1xYqNVP
+	qmRjRJZXH5laegw/O1cmtO0VfSS/3PB0NksZqPjrLzZqVtAR8uIJV3U8jgZ9WUNJdRee7fp+R7V
+	eO8Lok1OAemJhSWL9pPqVjUBQX/I2oeCXFnS2G56YH25tAxOAhULHz89l3clT2DQlMY5Gk6aXka
+	eWH1lfmlWfGvWJ1XXF+nj95H/rLjBNMpbstGVSVt27Hp8XsR4Sz+/WkC6seJeb
+X-Received: by 2002:a05:690c:c512:b0:81f:2403:9e70 with SMTP id 00721157ae682-86c51d40664mr58591657b3.19.1788444580869;
+        Thu, 03 Sep 2026 07:09:40 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c178435b5sm40369647b3.29.2026.09.03.07.09.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:09:39 -0700 (PDT)
+Date: Thu, 3 Sep 2026 10:09:38 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] mm/mglru: fix ineffective memory protection for
+ non-kswapd reclaim
+Message-ID: <20260903140938.GS3004@cmpxchg.org>
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+ <20260903031952.1120321-3-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903031952.1120321-3-ridong.chen@linux.dev>
 
-From: Quanfa Fu <quanfafu@gmail.com>
+On Thu, Sep 03, 2026 at 11:19:52AM +0800, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> For MGLRU, memory.min/low is not honored during global proactive reclaim
+> (writing to the root memory.reclaim) and global direct reclaim, because
+> these paths shrink memcgs using stale or effective protection (emin/elow).
+> It can be reproduced as follows:
+> 
+>   # echo 7 > /sys/kernel/mm/lru_gen/enabled
+>   # cd /sys/fs/cgroup
+>   # mkdir -p a/b
+>   # echo 100M > a/memory.min
+>   # echo +memory > a/cgroup.subtree_control
+>   # echo 100M > a/b/memory.min
+>   # echo $$ > a/b/cgroup.procs
+>   # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
+>   # cat a/b/memory.current
+>   222650368
+>   # echo 500M > memory.reclaim
+>   -bash: echo: write error: Resource temporarily unavailable
+>   # cat a/b/memory.current
+>   6070272
+> 
+> memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
+> protection. The traditional LRU path is not affected because
+> shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
+> visits during a top-down tree walk.
+> 
+> Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
+> moved the protection computation into lru_gen_age_node(), which only
+> runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
+> lru_gen_shrink_node() -> shrink_many() without any protection
+> computation, so emin/elow are whatever a previous kswapd run left behind
+> - or zero if kswapd never ran on this node. Relying on a prior kswapd
+> pass is not correct either: a memcg's emin/elow are derived from its
+> ancestors' memory.min/low settings and from children_min_usage, both of
+> which change over time, so emin/elow go stale even after kswapd has run
+> and must be recomputed at the point of reclaim.
+> 
+> Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
+> along the root-to-target path only, by iterating through the cgroup
+> ancestors array top-down. This avoids the full tree traversal that would
+> be needed with mem_cgroup_calculate_protection(), limiting the cost to
+> O(depth) per memcg - typically 3-5 levels.
+> 
+> Call it from shrink_one() for the non-kswapd path so that each memcg
+> about to be shrunk has correct protection values.
+> 
+> Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 
-[ Upstream commit 0897fcb1c1e7316375166e0a665237bce2391a09 ]
+With Barry's two points of feedback (changelog and comment),
 
-Change the return type to void since it always return 0, and no need
-to do the checking in aa_set_current_onexec.
-
-Signed-off-by: Quanfa Fu <quanfafu@gmail.com>
-Reviewed-by: "Tyler Hicks (Microsoft)" <code@tyhicks.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Stable-dep-of: 3f4ae5fab613 ("apparmor: fix cred UAF caused by begin_current_label_crit_section()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/domain.c       | 2 +-
- security/apparmor/include/task.h | 2 +-
- security/apparmor/task.c         | 5 +----
- 3 files changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/security/apparmor/domain.c b/security/apparmor/domain.c
-index f14f8a4e85946..2d91c76568b36 100644
---- a/security/apparmor/domain.c
-+++ b/security/apparmor/domain.c
-@@ -1498,7 +1498,7 @@ int aa_change_profile(const char *fqname, int flags)
- 		}
- 
- 		/* full transition will be built in exec path */
--		error = aa_set_current_onexec(target, stack);
-+		aa_set_current_onexec(target, stack);
- 	}
- 
- 	goto audit;
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index 29ba55107b7d6..13945e2495f0b 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -30,7 +30,7 @@ struct aa_task_ctx {
- };
- 
- int aa_replace_current_label(struct aa_label *label);
--int aa_set_current_onexec(struct aa_label *label, bool stack);
-+void aa_set_current_onexec(struct aa_label *label, bool stack);
- int aa_set_current_hat(struct aa_label *label, u64 token);
- int aa_restore_previous_label(u64 cookie);
- struct aa_label *aa_get_task_label(struct task_struct *task);
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index 0d7af707cccdd..1a7c9d02e31db 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -93,9 +93,8 @@ int aa_replace_current_label(struct aa_label *label)
-  * aa_set_current_onexec - set the tasks change_profile to happen onexec
-  * @label: system label to set at exec  (MAYBE NULL to clear value)
-  * @stack: whether stacking should be done
-- * Returns: 0 or error on failure
-  */
--int aa_set_current_onexec(struct aa_label *label, bool stack)
-+void aa_set_current_onexec(struct aa_label *label, bool stack)
- {
- 	struct aa_task_ctx *ctx = task_ctx(current);
- 
-@@ -103,8 +102,6 @@ int aa_set_current_onexec(struct aa_label *label, bool stack)
- 	aa_put_label(ctx->onexec);
- 	ctx->onexec = label;
- 	ctx->token = stack;
--
--	return 0;
- }
- 
- /**
--- 
-2.53.0
-
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
