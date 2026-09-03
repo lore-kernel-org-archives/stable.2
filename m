@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6CAE4B0C8E
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581DF4AF684
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443252; cv=none; b=GHSb198kBNtRkowXzmgMAzz9AIiUnzqWJ/tcaQgw2CinZYr7VR8uV/CZAvNSMk+hZhQRkvq58XvBU8pmABfaKHzRdS54VZId/5vYy+rVrjsuiz7YLXCYvwPaC+80bokgdrkZ4O/YO0DL0GmDysmtsP4yrA37J/JQj3MvwEINVf0=
+	t=1788443256; cv=none; b=NY2QxVq5pDkZtVh/5Ib01DuXkbINEbIcw8HnwpPJpmqK2EfWYoaRi8SEKKLB/SC1EKg8q+tBzxZ2fpKULHP0JHvphUt/FAHiDHN04V3ESFhgbKuT44/Z0nbGq2Ge3EIL5WZ+RO/59Zi0UPJsjcE9vCRjVFH7wto6PagnzWjBxtg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443252; c=relaxed/simple;
-	bh=RKTFz9WB+Ta0OxldbRzbXj1VarjOXguT0geiseTf1vo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rq682yW4Pd7sc+JIuGTrs8R2akQNnHE2Obv2qlZYbauZfjnIUGZM6v74fq3gjP/SEXb/eYdVxMIC1QCRpKlCYoGvxd4MAVPlAPqxangs07eyUHCwdymJKA+7hQr1FZzYGKqPwSA2W5KzOMQzlnpdawEqWuemzaSmHni45C6gf5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ms1nh+Hd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443256; c=relaxed/simple;
+	bh=Sqw4N6hugadQKVolTx9RZ0TCWxB3tM5DrzA2zlCfA4Q=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ddeHyxSio+h4fV00ureuddVP2LbZtJW/TbvG0H9v7Br/xUtLoqcOQF6mxk/xs45+4dxzgTcuRRuQoOioo0CpVp0qi4wAkJtJphkz16jW1wsQEbCFdR6RFJEiIz434M2kLw0giAR/uGMMA3xv7LmmaKWJIgNQJosypSIHNto/LF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZZ5RFFFi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ms1nh+Hd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F14741F00A3A;
-	Thu,  3 Sep 2026 13:47:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZZ5RFFFi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DFA1F00AC4;
+	Thu,  3 Sep 2026 13:47:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443236;
-	bh=12y+hOulbWsKpR76LY8ZgqAozCUeLhfyA/ZDPMjAi1g=;
+	s=korg; t=1788443248;
+	bh=8NiODs1tBic/xp+oVF4W9Rh0oUANz6NMmI38B28Ubk0=;
 	h=Subject:To:Cc:From:Date;
-	b=Ms1nh+HdtpaM4slPXcW/lMNyJejh6WiIqq3h4KuHVUKbF6QKNbFNv3qPWo3EKxez5
-	 UrkbTdCRrW54aepX/YDMq1qvdfM7edJHFNY9yrfxWCIFDi8aWkLViey0e/HWHHH2tS
-	 l/RV+vZS7vcdyDG/z8bJR/FSDde5gUzWGPSO9ljc=
-Subject: FAILED: patch "[PATCH] ceph: properly decrypt filenames in vmalloc() buffers" failed to apply to 6.6-stable tree
-To: cfsworks@gmail.com,CFSworks@gmail.com,amarkuze@redhat.com,idryomov@gmail.com
+	b=ZZ5RFFFi0W4SNeogJ2eNtCMDDMf5ZDGY1/FgiB7OZc7foHMjgdWzFqgNjejLTSuX7
+	 L/DFDfvd/ESvmI8WXrVSHLWW6yaBEY4JbHfZaEKQ1Bz5HnUOy2DFrAqbcCbzEtudNQ
+	 ns5cSWt6GNBwa2fVAafTEmvH3n5SouM9G0P8MCrE=
+Subject: FAILED: patch "[PATCH] btrfs: drop recovered reloc root refs on recovery failure" failed to apply to 5.10-stable tree
+To: 3497809730@qq.com,dsterba@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:23:29 +0200
-Message-ID: <2026090329-swerve-curly-d43d@gregkh>
+Date: Thu, 03 Sep 2026 15:24:00 +0200
+Message-ID: <2026090300-visible-upwind-24ae@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e939fc6a7bd969a58a150b7f188c1047138403e3
+git cherry-pick -x 6d8ba4572922e336f0b59a80751b018e1e135164
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090329-swerve-curly-d43d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090300-visible-upwind-24ae@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,151 +62,113 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e939fc6a7bd969a58a150b7f188c1047138403e3 Mon Sep 17 00:00:00 2001
-From: Sam Edwards <cfsworks@gmail.com>
-Date: Fri, 29 May 2026 20:06:46 -0700
-Subject: [PATCH] ceph: properly decrypt filenames in vmalloc() buffers
+From 6d8ba4572922e336f0b59a80751b018e1e135164 Mon Sep 17 00:00:00 2001
+From: Guanghui Yang <3497809730@qq.com>
+Date: Sun, 12 Jul 2026 04:22:32 +0000
+Subject: [PATCH] btrfs: drop recovered reloc root refs on recovery failure
 
-The fscrypt subsystem uses the scatterlist crypto API, inheriting its
-requirement that any buffers are in the linear mapping region. However,
-the messenger client uses kvmalloc() to create buffers for messages,
-which will occasionally place those buffers in the vmalloc() region when
-physical memory fragmentation doesn't permit a large enough kmalloc().
-The various callers of ceph_fname_to_usr() directly pass (slices of) raw
-messages from the MDS without considering that the messages may be in
-vmalloc() buffers, resulting in oopses especially on non-x86 platforms
-(see 'Closes:' for more details and a reproducer).
+During relocation recovery, each fs root gets a reference to its relocation
+root. If loading or adding a later root fails, or if the first transaction
+commit fails, btrfs_recover_relocation() jumps to out_unset before
+merge_reloc_roots() and clean_dirty_subvols().
 
-Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
-fname->ctext, fname->name, and/or oname->name buffers, using `tname`
-(which, when non-null, must be a linear address; when null, is briefly
-allocated as necessary) as a bounce buffer to avoid passing any
-inappropriate addresses to fscrypt_fname_disk_to_usr().
+put_reloc_control() drops the list-owned relocation root references, but it
+does not clear fs_root->reloc_root or drop the references owned by those
+pointers. Mount cleanup only drops them when BTRFS_FS_ERROR is set, so an
+error such as -ENOMEM while processing a later root can leave references
+behind.
 
-Additionally change parse_reply_info_readdir() -- the only function to
-supply its own `tname` -- to follow the new "tname must never come from
-vmalloc()" rule by passing NULL when the message is not in the linear
-region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
-exists only when processing the minority of messages that spill into
-vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
-messages. Still, if the overhead proves unreasonable in the future, it
-is easy enough to mitigate: a future change could allocate a bounce
-buffer in parse_reply_info_readdir() and use that as `tname` instead.
+Keep temporary references to the fs roots associated during recovery. On
+failure, clear their reloc_root pointers and drop the corresponding
+references. Once the first transaction commit succeeds, drop only the
+temporary fs root references and let the normal merge and cleanup paths
+handle the relocation roots.
 
-Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
-Cc: stable@vger.kernel.org
-Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
-Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
-Signed-off-by: Sam Edwards <CFSworks@gmail.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Fault injection on a pending-relocation image confirmed the cleanup gap.
+With an injected first-commit failure, 25 fs roots had reloc_root set with
+fs_error=0. With this fix, the same failure path drops that count to 0
+before mount fails.
 
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index 7493a3acd7d0..bc0a097a4cea 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -298,6 +298,10 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
-  * Otherwise, base64 decode the string, and then ask fscrypt to format it
-  * for userland presentation.
-  *
-+ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
-+ * linear-mapped region, this function slightly relaxes those requirements:
-+ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not tname.
-+ *
-  * Returns 0 on success or negative error code on error.
-  */
- int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
-@@ -305,11 +309,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- {
- 	struct inode *dir = fname->dir;
- 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
-+	struct fscrypt_str _oname;
- 	struct fscrypt_str iname;
- 	char *name = fname->name;
- 	int name_len = fname->name_len;
- 	int ret;
+Fixes: f44deb7442ed ("btrfs: hold a ref on the root->reloc_root")
+CC: stable@vger.kernel.org
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+
+diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
+index f14bb4158d8d..da54db75e7a9 100644
+--- a/fs/btrfs/relocation.c
++++ b/fs/btrfs/relocation.c
+@@ -5593,6 +5593,24 @@ static noinline_for_stack int mark_garbage_root(struct btrfs_root *root)
+ 	return ret;
+ }
  
-+	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
-+		return -EIO;
++static void release_recovered_fs_roots(struct list_head *roots, bool drop_reloc_refs)
++{
++	struct btrfs_root *root;
++	struct btrfs_root *next;
 +
- 	/* Sanity check that the resulting name will fit in the buffer */
- 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
- 		return -EIO;
-@@ -350,16 +358,18 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 		goto out_inode;
- 	}
- 
-+	if (!tname && (fname->ctext_len == 0 ||
-+		       unlikely(is_vmalloc_addr(fname->ctext)) ||
-+		       unlikely(is_vmalloc_addr(oname->name)))) {
-+		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
-+		if (ret)
-+			goto out_inode;
-+		tname = _tname.name;
++	list_for_each_entry_safe(root, next, roots, reloc_dirty_list) {
++		list_del_init(&root->reloc_dirty_list);
++		if (drop_reloc_refs) {
++			struct btrfs_root *reloc_root = root->reloc_root;
++
++			ASSERT(reloc_root);
++			root->reloc_root = NULL;
++			btrfs_put_root(reloc_root);
++		}
++		btrfs_put_root(root);
 +	}
++}
 +
- 	if (fname->ctext_len == 0) {
- 		int declen;
- 
--		if (!tname) {
--			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
--			if (ret)
--				goto out_inode;
--			tname = _tname.name;
--		}
--
- 		declen = base64_decode(name, name_len, tname, false, BASE64_IMAP);
- 		if (declen <= 0) {
- 			ret = -EIO;
-@@ -367,13 +377,28 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ /*
+  * recover relocation interrupted by system crash.
+  *
+@@ -5602,6 +5620,7 @@ static noinline_for_stack int mark_garbage_root(struct btrfs_root *root)
+ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ {
+ 	LIST_HEAD(reloc_roots);
++	LIST_HEAD(recovered_roots);
+ 	struct btrfs_key key;
+ 	struct btrfs_root *fs_root;
+ 	struct btrfs_root *reloc_root;
+@@ -5718,7 +5737,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 			ret = PTR_ERR(fs_root);
+ 			list_add_tail(&reloc_root->root_list, &reloc_roots);
+ 			btrfs_end_transaction(trans);
+-			goto out_unset;
++			goto out_drop_reloc_refs;
  		}
- 		iname.name = tname;
- 		iname.len = declen;
-+	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
-+		memcpy(tname, fname->ctext, fname->ctext_len);
-+
-+		iname.name = tname;
-+		iname.len = fname->ctext_len;
- 	} else {
- 		iname.name = fname->ctext;
- 		iname.len = fname->ctext_len;
+ 
+ 		ret = __add_reloc_root(reloc_root, rc);
+@@ -5727,15 +5746,17 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 			list_add_tail(&reloc_root->root_list, &reloc_roots);
+ 			btrfs_put_root(fs_root);
+ 			btrfs_end_transaction(trans);
+-			goto out_unset;
++			goto out_drop_reloc_refs;
+ 		}
++		ASSERT(list_empty(&fs_root->reloc_dirty_list));
+ 		fs_root->reloc_root = btrfs_grab_root(reloc_root);
+-		btrfs_put_root(fs_root);
++		list_add_tail(&fs_root->reloc_dirty_list, &recovered_roots);
  	}
  
--	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
--	if (!ret && (dir != fname->dir)) {
-+	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ? tname : oname->name;
-+	_oname.len = oname->len;
-+
-+	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
-+	if (ret)
-+		goto out;
-+
-+	if (unlikely(is_vmalloc_addr(oname->name)))
-+		memcpy(oname->name, _oname.name, _oname.len);
-+	oname->len = _oname.len;
-+
-+	if (dir != fname->dir) {
- 		char tmp_buf[BASE64_CHARS(NAME_MAX)];
+ 	ret = btrfs_commit_transaction(trans);
+ 	if (ret)
+-		goto out_unset;
++		goto out_drop_reloc_refs;
++	release_recovered_fs_roots(&recovered_roots, false);
  
- 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 80c72f295bcb..1cb95688c633 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -541,9 +541,13 @@ static int parse_reply_info_readdir(void **p, void *end,
- 			 * to do the base64_decode in-place. It's
- 			 * safe because the decoded string should
- 			 * always be shorter, which is 3/4 of origin
--			 * string.
-+			 * string. If this message was allocated with
-+			 * vmalloc() (happens, but rarely), leave it
-+			 * NULL and let ceph_fname_to_usr() allocate
-+			 * suitable temporary working space instead.
- 			 */
--			tname = _name;
-+			if (likely(!is_vmalloc_addr(_name)))
-+				tname = _name;
- 
- 			/*
- 			 * Set oname to _name too, and this will be
+ 	ret = merge_reloc_roots(rc);
+ 	if (ret)
+@@ -5753,6 +5774,8 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 	ret2 = clean_dirty_subvols(rc);
+ 	if (ret2 < 0 && !ret)
+ 		ret = ret2;
++out_drop_reloc_refs:
++	release_recovered_fs_roots(&recovered_roots, true);
+ out_unset:
+ 	unset_reloc_control(rc);
+ 	reloc_chunk_end(fs_info);
 
