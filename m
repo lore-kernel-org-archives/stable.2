@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FEC480961
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878B84C77CF
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447967; cv=none; b=PjaWvUUGcfZwcMJ4sThEnJAsavQ1nVkqEzlh5MKsSgXFin+UwWfs/sz9hIIGTks/FTfwVQZpcm+dxOxWVy6dX1/easuaGW/I32g5UI9745qsmFiPloQe1i8FVlEHT5+oOIDq4fzOkxvMEsrgiGgtylWffBQsOvDrsL9TUZ9lrQc=
+	t=1788447971; cv=none; b=fo96m3PiQSDDSWfmZEIz5Zm/iG+HcMiTbQc/ntwdQm8ATBJW9ZH8HHe+ppZ3/ZOlKqLd1nqY9kCO1QFSpKFaFY+jKbatF5C9rmz7VneT2CQevz8VLPuw/xSDcWIALGZyRnFgbNGeuiy1bmnwzTiG4SKrrrHLN2606ZmgeMz0w8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447967; c=relaxed/simple;
-	bh=Rm7CrCk688Qwm5dWuVW+Tl0KmhE5vvB0+zbkpZ8Enrk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lyijJgurEP85SEv270pT7gqmCMMU8gmYtSeGEdYWvPUjgxqGgqUfdv2pDrzzrcUGLxF28WTwspMOi0/FzeOOX/4mRm1VdeAxSEAliZMQyHuzlm2aH8+52zRbe3P6fLRSH7p1jzjHt19DqxzSXweHwvC8njCTCqhJO5suWvf3KIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gMdnkrZb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447971; c=relaxed/simple;
+	bh=cDLXZnM51y7zdzkpDpAc60n1rGyJxLo1z40gtqFE9uk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=op8l6Gy1jcsB2somWbG7ufzLJXIMkJj1Wg1s53WQLSyurhn/7jIPZMtn7pHBPCYaIldPfCkUbpD4TYkZ292F+8oEABzBhkUCzedgkharepsdyltwrINldvxknZHGzhjal2hnC6FLyRKiBBlbvvxFJbRCxOS/pRpgY01aYb6YqBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LntQrpng; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gMdnkrZb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1B61F000E9;
-	Thu,  3 Sep 2026 15:06:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LntQrpng"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E175D1F000E9;
+	Thu,  3 Sep 2026 15:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447966;
-	bh=Dxq1YKaNgf4/h15QOVmhCcSYdVW692Jo4x/Rt5rewgw=;
+	s=korg; t=1788447969;
+	bh=NQyKC1rndsUpzmeJRBMf/pGTP3qfdykGbAB9uQEDUtU=;
 	h=Subject:To:Cc:From:Date;
-	b=gMdnkrZbbt6QGlaHevqu2pdxGPwEH2OEDlfGjTaoIR4w8UnTfbnaNt6N8PxdVfLVY
-	 ysTJMGoswB2+xR1yRl+Ps2a28bXJTIJbZkmIUmCqdpOgcBZ3fAigaHoFinmGHLArp1
-	 t3qTKL5XvJf3gel5ZS8bFh4sloe0r4GtYEkWY7PY=
-Subject: FAILED: patch "[PATCH] platform/x86: ISST: Return error during profile addition" failed to apply to 6.6-stable tree
-To: srinivas.pandruvada@linux.intel.com,ilpo.jarvinen@linux.intel.com,sammiee5311@gmail.com
+	b=LntQrpngjdTjrwr1qMrBehDb1kliFiwbIK1ZBXSKqdabkA7+jxZtwjdxOnZHKhR7o
+	 /V871pLNZpJd0+MutFpW3TeX3EM8tx03R9nkZAXRnM8U9ysgHQRkQRA7AqNwglkthr
+	 o5AJHFdTaOD8GKAWwOfo2nO9Dc2QKu55ZeCYjLBw=
+Subject: FAILED: patch "[PATCH] platform/x86: int1092: Fix potential memory leak in" failed to apply to 6.12-stable tree
+To: nihaal@cse.iitm.ac.in,ilpo.jarvinen@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:48:39 +0200
-Message-ID: <2026090339-boxcar-confused-152e@gregkh>
+Date: Thu, 03 Sep 2026 16:48:57 +0200
+Message-ID: <2026090357-daylong-strangle-f0da@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f9a647cb8d90c09633a49a1e766e140e78012444
+git cherry-pick -x 30c906cff490c3601ee9ff110fe8115fabe75fd4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090339-boxcar-confused-152e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090357-daylong-strangle-f0da@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,107 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f9a647cb8d90c09633a49a1e766e140e78012444 Mon Sep 17 00:00:00 2001
-From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Date: Tue, 11 Aug 2026 15:21:33 -0700
-Subject: [PATCH] platform/x86: ISST: Return error during profile addition
+From 30c906cff490c3601ee9ff110fe8115fabe75fd4 Mon Sep 17 00:00:00 2001
+From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Date: Thu, 23 Jul 2026 18:14:15 +0530
+Subject: [PATCH] platform/x86: int1092: Fix potential memory leak in
+ sar_probe()
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-If sst_add_perf_profiles() fails for memory allocation, it continues
-to allow SST-CP (core-power) feature. But in practice this is not
-very useful as to achieve some frequencies via SST-CP, an SST-PP
-(perf-profile) level change is required.
+The memory allocated for device_mode_info in parse_package() called by
+sar_get_data() is not freed in some of the error paths in sar_probe().
+Fix that by converting to use device managed allocations.
 
-Fixes: 0ab147bb840f ("platform/x86: ISST: Parse SST MMIO and update instance")
-Cc: HyeongJun An <sammiee5311@gmail.com>
+Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
 Cc: stable@vger.kernel.org
-Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260811222134.3912626-2-srinivas.pandruvada@linux.intel.com
+Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
+Link: https://patch.msgid.link/20260723-platx86-v4-1-93b4a178b595@cse.iitm.ac.in
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 92d420e706f6..a50e3aa8c4d2 100644
---- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-+++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -339,7 +339,7 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
- 	if (!pd_info->perf_levels) {
- 		pd_info->pp_header.allowed_level_mask = 0;
- 		pd_info->pp_header.level_en_mask = 0;
--		return 0;
-+		return -ENOMEM;
+diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
+index 849f7b415c1e..7263114f0b3d 100644
+--- a/drivers/platform/x86/intel/int1092/intel_sar.c
++++ b/drivers/platform/x86/intel/int1092/intel_sar.c
+@@ -91,8 +91,10 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
+ 	    item->package.count <= data->total_dev_mode)
+ 		return AE_ERROR;
+ 
+-	data->device_mode_info = kmalloc_objs(struct wwan_device_mode_info,
+-					      data->total_dev_mode);
++	data->device_mode_info = devm_kmalloc_array(&context->sar_device->dev,
++						    data->total_dev_mode,
++						    sizeof(*data->device_mode_info),
++						    GFP_KERNEL);
+ 	if (!data->device_mode_info)
+ 		return AE_ERROR;
+ 
+@@ -253,7 +255,7 @@ static int sar_probe(struct platform_device *device)
+ 	if (!handle)
+ 		return -ENODEV;
+ 
+-	context = kzalloc_obj(*context);
++	context = devm_kzalloc(&device->dev, sizeof(*context), GFP_KERNEL);
+ 	if (!context)
+ 		return -ENOMEM;
+ 
+@@ -264,7 +266,7 @@ static int sar_probe(struct platform_device *device)
+ 	result = guid_parse(SAR_DSM_UUID, &context->guid);
+ 	if (result) {
+ 		dev_err(&device->dev, "SAR UUID parse error: %d\n", result);
+-		goto r_free;
++		return result;
  	}
  
- 	pd_info->ratio_unit = pd_info->pp_header.ratio_unit;
-@@ -370,7 +370,7 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
- static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domain_info *pd_info)
- {
- 	struct device *dev = &auxdev->dev;
--	int i, mask, levels;
-+	int i, ret, mask, levels;
+ 	for (reg = 0; reg < MAX_REGULATORY; reg++)
+@@ -272,43 +274,29 @@ static int sar_probe(struct platform_device *device)
  
- 	*((u64 *)&pd_info->sst_header) = readq(pd_info->sst_base);
- 	pd_info->sst_header.cp_offset *= 8;
-@@ -402,8 +402,12 @@ static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domai
- 			levels = i;
- 		mask <<= 1;
+ 	if (sar_get_device_mode(device) != AE_OK) {
+ 		dev_err(&device->dev, "Failed to get device mode\n");
+-		result = -EIO;
+-		goto r_free;
++		return -EIO;
  	}
-+
-+	ret = sst_add_perf_profiles(auxdev, pd_info, levels + 1);
-+	if (ret)
-+		return ret;
-+
- 	pd_info->max_level = levels;
--	sst_add_perf_profiles(auxdev, pd_info, levels + 1);
  
+ 	result = sysfs_create_group(&device->dev.kobj, &intcsar_group);
+ 	if (result) {
+ 		dev_err(&device->dev, "sysfs creation failed\n");
+-		goto r_free;
++		return result;
+ 	}
+ 
+ 	if (acpi_install_notify_handler(ACPI_HANDLE(&device->dev), ACPI_DEVICE_NOTIFY,
+ 					sar_notify, (void *)device) != AE_OK) {
+ 		dev_err(&device->dev, "Failed acpi_install_notify_handler\n");
+-		result = -EIO;
+-		goto r_sys;
++		sysfs_remove_group(&device->dev.kobj, &intcsar_group);
++		return -EIO;
+ 	}
  	return 0;
+-
+-r_sys:
+-	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+-r_free:
+-	kfree(context);
+-	return result;
  }
+ 
+ static void sar_remove(struct platform_device *device)
+ {
+-	struct wwan_sar_context *context = dev_get_drvdata(&device->dev);
+-	int reg;
+-
+ 	acpi_remove_notify_handler(ACPI_HANDLE(&device->dev),
+ 				   ACPI_DEVICE_NOTIFY, sar_notify);
+ 	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
+-	for (reg = 0; reg < MAX_REGULATORY; reg++)
+-		kfree(context->config_data[reg].device_mode_info);
+-
+-	kfree(context);
+ }
+ 
+ static struct platform_driver sar_driver = {
 
