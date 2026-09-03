@@ -1,207 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B2F383C6E
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC7637AA77
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479808; cv=none; b=YcEwjBvkhI8QK6apYzJSUwAtNHxI7LJ3U4+vuWPOhCBLbA3wMV5HLDaL0VelEjhKQ7719/G9Y971VMu44DjJcSdYTm/XmiMXOhktzO1hxIDqxpiCZHO3L38S8ilz+Ek3u0SOG+jLsprqkeCMxdKWwY3Pv1lFcNmBvYe8A6k8qZc=
+	t=1788479812; cv=none; b=VPRULl6ynb4ASDLm9NMvJCza8e6Cc0rFvCjWpZIhOMTB0rDf+R2ZabOK11S6lU357KI+T3pXnJUkujshAn73nal31q+X+OfKLnJTBXq0i3Y/5GtOlwF6DWD26cUeDnkf0kd4I51BKuC8jeLFDd/FEbPQop+VA7IXDnrPVtuzTUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479808; c=relaxed/simple;
-	bh=qUMYPh26RKG9DQ2MBUKAQjPzJozSmmkHPHb4Hjhc300=;
+	s=arc-20240116; t=1788479812; c=relaxed/simple;
+	bh=PEo9OCZlZIX4OW9b5u8fZIMYpiy5yPLTpADaqMjifh8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TvthiqHQ6GbAZs81CEcprUb11aRSg8U7mOkAjU2T+GmNDALcHw62IBRS+2KnmcrVh8WHqWv8xd1YvVnoSPPirMGslcyd2lLvRJwmAd7NxjNsOIHCVygy3N68EtAwZP8DX5dHijHJWSe9iCUqCxxzAyscwi6NJPZ39tu96XbXpKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/aujQWo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ET1546FWWIOUBqo+kBC6kqKRS7/R7eF67Z/7eyZvsCOZJKIKrbLZ5KhYkQw/J9hcxMht2pKWTpu1sluoDVqnIHhj85bkIok3eCG8bPfGUA0Xa3XdaVN29z7YwShj6Hu8eNUDPUqNpID26hmgry9Hm+oDn1kphTJFsBRgmcoN/30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJ8gyj9N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/aujQWo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563DF1F00A3D;
-	Thu,  3 Sep 2026 23:56:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJ8gyj9N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7911F00AC4;
+	Thu,  3 Sep 2026 23:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788479801;
-	bh=5xVzrZhZ+GoCWL6wOe9SgjftQb0pre8eyokaaoRKE+4=;
+	s=k20260515; t=1788479802;
+	bh=WjYuaMPHWRW1HV8fZgAKFp32fMMC0oavyYUR6v9JkOA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P/aujQWo65yxO+vBufh0/pHn+IO8W8cKfjLZv2mj+6IF1LZs6bF/CcD4Ys4bxXSic
-	 MzMZUPx8Ua1H0soJEvvI1CHyeZUQM4RMoGaKSOHhr+E37+YhSeqq41Jh3bR3l8GIO0
-	 SYHSQszWFAnuAL8FfPvzllFKi5ugXfkMOvD6+6cEewFs0G2Zuzz8rMmZ6I3EqXtvk8
-	 in+sm91zxxEHOs8CZvtknm7RS+qCAUNRYxCJpvHeKhKFhxb+L8O1mAnhkM58LF2jYh
-	 VQS4obEMTli1hS/UcKnm1RsckmGhRRrTLtZmWP79Ewa2xGlZKRDcZ922fqQ8yRkY7J
-	 n5JbYZElpaLRg==
+	b=EJ8gyj9Nhr0l2utot8sjKG6GIs90dzKYjIiJJheE2vxBhLlfcGmmd6T2nQhld1PrK
+	 DDI9RX0/ul6bpu4RhzwT+yF9wJXDQQ2N/a9fwuSZ8+uNwic3XWzQPk99cHVHKnbyz0
+	 hsoXOlDaHLaOC5ZAqP/ntCRq/QItge50shIphBijMoyktJ3xaQqJGK9KKpGwA0M6Kv
+	 M830Oigj7VFeiXJYJDQCH2P6HnrBLhiUCTlhk5LmLWwa5HbyEhmPTZu7euk6mk/gDN
+	 U8I6YWI1UMvPx2lmAvmMQXCV4Gblj3aZmIej7pnyByTPPbuTAOUdZl8kbh5aa6Vrw1
+	 1u7f9lC8UZp7A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
+Cc: Ye Liu <ye.liu@linux.dev>,
+	Sashiko <sashiko-bot@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Brendan Jackman <jackmanb@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-Date: Thu,  3 Sep 2026 19:56:31 -0400
-Message-ID: <20260903235631.1810157-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/page_owner: use memcg_data snapshot to avoid TOCTOU in print_page_owner_memcg()
+Date: Thu,  3 Sep 2026 19:56:39 -0400
+Message-ID: <20260903235639.1811043-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903235631.1810157-1-sashal@kernel.org>
-References: <2026090344-unusual-yippee-a1d0@gregkh>
- <20260903235631.1810157-1-sashal@kernel.org>
+In-Reply-To: <2026090314-dagger-sharpness-8cd1@gregkh>
+References: <2026090314-dagger-sharpness-8cd1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Dev Jain <dev.jain@arm.com>
+From: Ye Liu <ye.liu@linux.dev>
 
-[ Upstream commit f5407e9b697c940e78b27ff63c6e14d8d171adc3 ]
+[ Upstream commit 90f095b816e25c6a9e4446d299bac5007fdcb3df ]
 
-Patch series "Fix incorrect access of hugetlb pte entries", v3.
+print_page_owner_memcg() reads page->memcg_data via READ_ONCE() at the
+start to guard against tail pages and NULL data.  However, it later
+re-reads page->memcg_data locklessly in two places:
 
-There are various places which use ptep_get() to get the pte entry
-corresponding to a hugetlb folio.  Some arches (like s390) have special
-handling to compute the pteval, so they provide huge_ptep_get().  Use this
-helper consistently.
+1: page_memcg_check(page)
 
-Additionally, some code paths may provide huge_ptep_get with an unaligned
-address.  This is a problem on arm64 (I checked other arches and it looks
-fine for them), which is fixed in patch 1.  The fix is made to be
-backport-friendly: the cleaner fix would be to perhaps pass the hstate to
-huge_ptep_get() - that is wider churn and we can do that later.
+2: PageMemcgKmem(page) (via folio_memcg_kmem(), which includes
+   VM_BUG_ON assertions for tail pages and MEMCG_DATA_OBJEXTS)
 
-This patch (of 5):
+If the page is concurrently freed and reallocated as a THP tail page or
+slab page between these calls, the VM_BUG_ON assertions can trigger on
+CONFIG_DEBUG_VM=y builds, crashing the kernel.
 
-try_to_unmap_one() handles hugetlb folios when memory failure needs to
-replace a poisoned hugetlb mapping with a hwpoison entry.  In that case
-page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
-pvmw.pte, but the code reads it with ptep_get().
+Fix both TOCTOU issues by using the memcg_data snapshot throughout.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
-
-It is not clear whether this has a trivially visible effect to userspace.
-
-Just use huge_ptep_get() for dereferencing a huge pte pointer.
-
-Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
-Link: https://lore.kernel.org/20260703114202.365553-3-dev.jain@arm.com
-Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Reported-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
+Link: https://lore.kernel.org/20260714015117.78351-10-ye.liu@linux.dev
+Fixes: fcf8935832b8 ("mm/page_owner: print memcg information")
+Signed-off-by: Ye Liu <ye.liu@linux.dev>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Brendan Jackman <jackmanb@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted memcg_data decoding to Linux 6.6’s mixed mem_cgroup and obj_cgroup representation. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/hugetlb.h |  2 ++
- mm/rmap.c               | 16 ++++++++++------
- 2 files changed, 12 insertions(+), 6 deletions(-)
+ mm/page_owner.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index a3f6cdf8a2b6d..d09604498fa4d 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1277,6 +1277,8 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index 2d27f532df4c1..797fca82d4fa8 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -361,20 +361,28 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
  {
- }
+ #ifdef CONFIG_MEMCG
+ 	unsigned long memcg_data;
++	struct obj_cgroup *objcg;
+ 	struct mem_cgroup *memcg;
+ 	bool online;
+ 	char name[80];
  
-+pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep);
-+
- static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
- 					  unsigned long addr, pte_t *ptep)
- {
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 6053eb822a264..4348b35db465a 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1983,14 +1983,19 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+ 	rcu_read_lock();
+ 	memcg_data = READ_ONCE(page->memcg_data);
+-	if (!memcg_data)
++	if (!memcg_data || PageTail(page))
+ 		goto out_unlock;
  
--		/*
--		 * Handle PFN swap PTEs, such as device-exclusive ones, that
--		 * actually map pages.
--		 */
--		pteval = ptep_get(pvmw.pte);
-+		address = pvmw.address;
-+		if (folio_test_hugetlb(folio)) {
-+			pteval = huge_ptep_get(mm, address, pvmw.pte);
-+		} else {
-+			pteval = ptep_get(pvmw.pte);
-+		}
- 		if (likely(pte_present(pteval))) {
- 			pfn = pte_pfn(pteval);
- 		} else {
-+			/*
-+			 * Handle PFN swap PTEs, such as device-exclusive ones,
-+			 * that actually map pages.
-+			 */
- 			const softleaf_t entry = softleaf_from_pte(pteval);
+-	if (memcg_data & MEMCG_DATA_OBJCGS)
++	if (memcg_data & MEMCG_DATA_OBJCGS) {
+ 		ret += scnprintf(kbuf + ret, count - ret,
+ 				"Slab cache page\n");
++		goto out_unlock;
++	}
  
- 			pfn = softleaf_to_pfn(entry);
-@@ -1998,7 +2003,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
+-	memcg = page_memcg_check(page);
++	if (memcg_data & MEMCG_DATA_KMEM) {
++		objcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
++		memcg = objcg ? obj_cgroup_memcg(objcg) : NULL;
++	} else {
++		memcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
++	}
+ 	if (!memcg)
+ 		goto out_unlock;
  
- 		subpage = folio_page(folio, pfn - folio_pfn(folio));
--		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
- 
+@@ -382,7 +390,7 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
+ 	cgroup_name(memcg->css.cgroup, name, sizeof(name));
+ 	ret += scnprintf(kbuf + ret, count - ret,
+ 			"Charged %sto %smemcg %s\n",
+-			PageMemcgKmem(page) ? "(via objcg) " : "",
++			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
+ 			online ? "" : "offline ",
+ 			name);
+ out_unlock:
 -- 
 2.53.0
 
