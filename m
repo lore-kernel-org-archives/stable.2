@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2716C4B1269
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:48:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A45A4A92CF
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443292; cv=none; b=fNyYvt9LqRN4uu7tmpHTJjCEnUXNnb3MbD01cDqzK4yHl4/RQLoHY2QlXs4tulcGogjCAjJnh2MCbWoOOzltncIq00/rChbDYwDh9srGDrBFjq/j2eJpkaYOcTRf9hzNabQacETyqSFHCaxNFKZFuOPgqVW+vE4KkUE5oXCL/LM=
+	t=1788443290; cv=none; b=R78/aY4gSjNzHMAa12GGUq+tkmRb1z1/arNv9aXM1UYyNXg5Wrpm8KiSHhkUNRk7+Mvx/JHQL3xJiZf7t4b/5QooQ0tDCIAVuMs1Pm7aJKqK6vtNkXxO63nT5FQjOCPkjrWpTFRJkowjPpgpMHV7CQQFAqd/VNK4IQD0Kr2xGak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443292; c=relaxed/simple;
-	bh=xieixY3hmcWJPPsvu1YBG5IppBE5VTuihtktktQVCM0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=caKvjiqW6BzJPoNMXwkl9kvC94vcKcv1bd6OWUP1I2ytScIgOEJJOtlnunR3xIMkpsEi1wS6kQen18slJzlEPXzl0nZNbc4KX0DnLTjc883hunWTtFOttLmfnSckYeuk7ehntZEtJQugWybt8jqcToAuKbkQuOn2yGOd0e4WFDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CscXCPBk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443290; c=relaxed/simple;
+	bh=Hm+pjtKgKfySmdgKD6Z77Gxweg0O68PRP1Y0o3bOTA8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lMTbBtWU2bkWhCKZ3Br6VuoBbnvXMiuaJVMfC5UuYmtWxXKY9XL0goLZF9x9GhYuRN/uKNKqaplalx9qrycrJfS3+ciI4HciYXF8uxMX8chMmn9YVra5cNSrBKI1bhf4JMwejuEGq1/vG/TK4Mll6E145oN0/qSaC578EW02iAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LGCSTo64; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CscXCPBk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2862B1F00A3A;
-	Thu,  3 Sep 2026 13:48:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LGCSTo64"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0A51F00A3F;
+	Thu,  3 Sep 2026 13:47:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443284;
-	bh=qLZoP62k4mzju7eVKn7II0ZhLgZi6/E2923MaxECjm8=;
+	s=korg; t=1788443267;
+	bh=zB98At69RAmsWbWDG5JlqpC6J2Aa8eD9QRlgK6MKYSw=;
 	h=Subject:To:Cc:From:Date;
-	b=CscXCPBkCfr+Amx8ciBlejmls9GsptY30h2GpduRL+IYC7ikEXrWJ93IiUXbQ2xbp
-	 8nsYjp+L5ffRqYNN7IgrG2p75mAdNbB7KOUkjZ1oy/vVWLSuHLNIyQpxLtnQfRFNi6
-	 re/jdTYPCV7Rq6RU3z315wlGbqNK/IUIclfrfV08=
-Subject: FAILED: patch "[PATCH] cifs: fix loff_t underflow in cifs_remap_file_range() when" failed to apply to 5.10-stable tree
-To: sorenson@redhat.com,linkinjeon@kernel.org,pc@manguebit.org
+	b=LGCSTo64NK6r4uIzcxLhA35Pc6E6JV4JzmUhH3aJHQUkV4k+UNOgVymsY4BL3tjCk
+	 sVR+QWcfDEvbN7eV2VlkabvyCTdojbcQELCEjM7Brg3EGwEW8F5EBJ8FpiAWg44gbn
+	 f7wlJkHSYlFuj/vp2m4WtsS7IlEF4h20pSUovZok=
+Subject: FAILED: patch "[PATCH] btrfs: do not overwrite NODATASUM flag when removing" failed to apply to 6.1-stable tree
+To: wqu@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:25:22 +0200
-Message-ID: <2026090322-dweeb-catchy-bac2@gregkh>
+Date: Thu, 03 Sep 2026 15:24:30 +0200
+Message-ID: <2026090330-antelope-bullfrog-bfbf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6c322f5cf7476ded7a9a20f7be72462065a03c68
+git cherry-pick -x 15f7c86215e8d5f14b24127fa88af6c79363d50e
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090322-dweeb-catchy-bac2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090330-antelope-bullfrog-bfbf@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,56 +62,130 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6c322f5cf7476ded7a9a20f7be72462065a03c68 Mon Sep 17 00:00:00 2001
-From: Frank Sorenson <sorenson@redhat.com>
-Date: Sat, 22 Aug 2026 16:55:17 -0500
-Subject: [PATCH] cifs: fix loff_t underflow in cifs_remap_file_range() when
- len == 0
+From 15f7c86215e8d5f14b24127fa88af6c79363d50e Mon Sep 17 00:00:00 2001
+From: Qu Wenruo <wqu@suse.com>
+Date: Tue, 9 Jun 2026 08:43:34 +0930
+Subject: [PATCH] btrfs: do not overwrite NODATASUM flag when removing
+ NODATACOW flag
 
-With len == 0 (clone to EOF), the effective length is computed as:
+[TEST FAILURE]
+The test case generic/628 will fail if MOUNT_OPTIONS is set to
+"-o nodatasum":
 
-    len = src_inode->i_size - off;
+  FSTYP         -- btrfs
+  PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
+  MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
+  MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
 
-If off > i_size, this is a negative loff_t, corrupting the ByteCount
-in the FSCTL_DUPLICATE_EXTENTS_TO_FILE request and inverting the range
-in filemap_write_and_wait_range().  The existing off >= i_size check
-fires only after the ioctl has already been sent.
+  generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
+     --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
+     +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
+     @@ -8,8 +8,9 @@
+      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
+      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
+      test reflink flag not set iflag
+     +XFS_IOC_CLONE: Invalid argument
+      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
+     -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
+     +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
+     ...
 
-Snapshot i_size_read() once for both the bounds check and the length
-calculation, eliminating the TOCTOU and 32-bit torn-read risk.  Reject
-off > src_size with -EINVAL.  Treat off == src_size as a no-op,
-consistent with __generic_remap_file_range_prep().
+[CAUSE]
+The direct cause is that after "chattr +S", the btrfs inode will lose its
+NODATASUM flag inherited from the mount option. E.g.:
 
-Fixes: 04b38d601239 ("vfs: pull btrfs clone API to vfs layer")
+  # mkfs.btrfs -f $dev
+  # mount $dev $mnt -o nodatasum
+  # touch $mnt/foobar
+  # sync
+  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
+         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
+         	generation 9 transid 9 size 0 nbytes 0
+         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
+         	sequence 1 flags 0x1(NODATASUM)
+         	                     ^^^^^^^^^ Proper NODATASUM flag
+
+  # chattr +S $mnt/foobar
+  # sync
+  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
+  	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
+         	generation 9 transid 10 size 0 nbytes 0
+         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
+         	sequence 2 flags 0x20(SYNC)
+         	                      ^^^^ Only the new SYNC flag
+
+This makes the inode drop the old NODATASUM flag, while the new reflink
+destination will still inherit the NODATASUM flag.  The mismatching
+NODATASUM flags will cause the reflink to fail.
+
+The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
+set, we remove both NODATASUM and NODATACOW flag.
+
+However we should not touch NODATASUM flag, as data COW doesn't require
+checksum.  Only NODATACOW implies NODATASUM, but DATACOW doesn't imply
+DATASUM.
+
+The deeper problems are:
+
+- Fileattr API is too binary
+  It either clears or sets a flag, there is no "do not change" option.
+  So that why "chattr +S" implies "chattr -C", and is forcing us to
+  change NODATACOW along with NODATASUM flag.
+
+- No way to change NODATASUM through fileattr API
+  In fact NODATASUM can only be modified through mount option.
+
+The deeper problems are much harder to attack.
+
+[FIX]
+Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
+NODATASUM if "nodatasum" mount option is not set.
+
+This allows the existing "chattr +C" then "chattr -C" to remove
+both NODATACOW and NODATASUM flags on a default mount.
+
+But for a mount with "nodatasum" option, the NODATASUM inode flag will
+persist through either "chattr +C" and "chattr -C".
+
+Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 
-diff --git a/fs/smb/client/cifsfs.c b/fs/smb/client/cifsfs.c
-index 2073b29ff969..7ecd70efdfea 100644
---- a/fs/smb/client/cifsfs.c
-+++ b/fs/smb/client/cifsfs.c
-@@ -1413,8 +1413,19 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
- 
--	if (len == 0)
--		len = src_inode->i_size - off;
-+	if (len == 0) {
-+		loff_t src_size = i_size_read(src_inode);
-+
-+		if (off > src_size) {
-+			rc = -EINVAL;
-+			goto unlock;
-+		}
-+		len = src_size - off;
-+		if (!len) {
-+			rc = 0;
-+			goto unlock;
-+		}
-+	}
- 
- 	cifs_dbg(FYI, "clone range\n");
- 
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index 7e97a6aebf9b..32dd7bbd4d63 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -356,14 +356,21 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 			inode_flags |= BTRFS_INODE_NODATACOW;
+ 		}
+ 	} else {
+-		/*
+-		 * Revert back under same assumptions as above
+-		 */
+-		if (S_ISREG(inode->vfs_inode.i_mode)) {
+-			if (inode->vfs_inode.i_size == 0)
+-				inode_flags &= ~(BTRFS_INODE_NODATACOW |
+-						 BTRFS_INODE_NODATASUM);
+-		} else {
++		/* We can only change NODATACOW for zero-sized regular file. */
++		if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode.i_size == 0)) {
++			inode_flags &= ~BTRFS_INODE_NODATACOW;
++			/*
++			 * There is currently no way to change NODATASUM flag
++			 * through fileattr API.  If we unconditionally keep the
++			 * current NODATASUM flag, chattr +C then chattr -C will
++			 * keep the NODATASUM flag, and no way to remove that
++			 * flag.
++			 *
++			 * So respect the current mount option for NODATASUM flag.
++			 */
++			if (!btrfs_test_opt(fs_info, NODATASUM))
++				inode_flags &= ~BTRFS_INODE_NODATASUM;
++		} else if (!S_ISREG(inode->vfs_inode.i_mode)) {
+ 			inode_flags &= ~BTRFS_INODE_NODATACOW;
+ 		}
+ 	}
 
