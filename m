@@ -1,246 +1,130 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6151305687
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 11:52:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436355; cv=pass; b=lpfUq8y1toD3a6/hyBQMJCFcTR/Wh9iRPynLrt7SVwRWXqFXIX2OziB217SKsBXY9fS+2ciMh5hi7csonSXU87m+iJ0SNn6CTnN9Qm93irZDfbYtqu/1j+MG8Ozd6vn3P5VptLIdKSi+3FgF5HImBnEq0G4952nR4CuR6+yDFLk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436355; c=relaxed/simple;
-	bh=cyf8uSSy03fEDTKbXlCyyqKkzhQZsEN4reIazhmhJ/M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ReR3NKoe9veuA5uwsYreMPuMU7ON2xObeGWzCc8KMR5vf2RCCEXxq7ikVmYpzlH+5LG5w/7ogdpzm73EF+d+cQboLVY5ONvrQi0BiOILxqfvNZ6G2z88kxz+bwU7ozjx4d2t569BM2qNwk9JVAqsSKhTaYL4n6XbRSBF9oDFuG4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EVZWoEWw; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB02024CEEA;
+	Thu,  3 Sep 2026 11:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436494; cv=none; b=Ke6uGLZQLbHYiBP3c7mkHaYCQgHzzoTQ954eWQnzHSujZ5eIxCtwYeHkI9Bgj/kHLSA1bKFQoMvcec+6j4Ye/oIhhGwJil+bj5Y9A1tPu89fIyS6oLNIXSVZrnR5FSzkr05iZ6CxWQBUXmXvuvXQUbps3H2/zbZcSJqeYa1IXCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436494; c=relaxed/simple;
+	bh=Z5z37XkEsb61zGtLR1enwRiogwfaCgfOpyuB25jZx64=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KynWqsF2EOBXozgpUFRqANuqm1abKIHGFbAj1DYDoN1xYcEAkGNzBfXIGYen5sWjwr/UbxyNd/H9gjrK7kV9g/HkODMolx78h/gpr/qCZQqov3/fFfGR4zatmmvZwxovYKx2YPkk4IOwJ1zzI6dRTcrTqyGNBgXkp0mY3V6XSCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZwBmM0T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EVZWoEWw"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a615ab11b5so313434a12.0
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 04:52:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788436346; cv=none;
-        d=google.com; s=arc-20260327;
-        b=heEoNsO8lgBFeGFtAKWZQP47qnEl+i4gx8CjhwD0qmLAZkYhhoUlfryVTyQpMPwNQ+
-         ZxTIkGPaE+aPZe9rmkm71F0KZDh9ad4ppdKdWA0o9ljOFlBtt7g+IeUOQUr9unxVzvqd
-         eHna4IPOasV2p+w44LV0VnmAPJgc5xelBYakvRpF6lrfKutwg5X1CLT+7uN1Hq9KiyXB
-         zulR6b9zKV2Udd9is1y2QIHzEB7opbZGnrcI1TwKgoY/Hzke681vPeG6gKOy5SJS0KBh
-         +1VRfqpH0G1u1fygKkD0AsIlpndbjon/Q/mll0CQciZ0Jufju13+MYZqBNH16ZXw0vLA
-         mp8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=L1MtP6gVUVdXDgg6EZ1a4Wt0frubT3KBn7QT3mEi4Go=;
-        fh=UcaxQsmLI2dAMKxAg7aAGuIukezoU/N3vgC3AbeWrgI=;
-        b=non2yJdyGO32OQNfuI2PgD6T+AmRMqoNZHTN0+42KJC4BxYTbzaomDz3leSLS+9RSF
-         7VvQtRGXs/q8GvyS1+VqdA9/Q++lebtfbX9yKfEYqGdtG3ZjFG+KMmw3R6E/90WmOmno
-         V2lLV/2DyNeI+kO3eIESNIbWySRsBzOa4SSYpYwu8Qvp1uvKK6XGmga9lUbtqMVhp2Am
-         fsTSev4L6sYh7XuOAOzcPihSjy61bOZTJ6WG/+M02ZXwc1B4c7Xl4gPHJv2Wj0uo68jz
-         qp8uIwPmgazH5K+Fgtt5TixlvIKI4lucC/uWTzLUq91hjVVk9cG7JGiry/SZmWh4AoRa
-         vj0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788436346; x=1789041146; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L1MtP6gVUVdXDgg6EZ1a4Wt0frubT3KBn7QT3mEi4Go=;
-        b=EVZWoEWwnTXpQBVOUPsW3Ira8CqsD41zuMVUQb1bm1sniWBr4MIlTJhkz0r/X8mRkk
-         dpRC7zQgKSSWzwLKtvAQIqX3pojVL1B3k6miUlf+Eva9HFr4pL80gC4TujOuqKeDFN0i
-         CT5y1hk0cNGhap8HxphQZVVut4RgWeDgd4PSXbliX3QNyhSMXr0pITEJgsWX0OnP938i
-         I5vqaNdApme5OQgHRilezCM+5LfldYrE3ns5pBdV3EjSv/a59JXQ3oA4Ku1IT54/714M
-         70HS6rszsizZyskJIZeJctdpiS/YKUXfkMkXmZQv3FaegVmbrh06WK5fqybB9OuRfWw7
-         gQlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436346; x=1789041146;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L1MtP6gVUVdXDgg6EZ1a4Wt0frubT3KBn7QT3mEi4Go=;
-        b=fX3JoaH9aGY5Wk1QKnLfLsQbriP7aISy4z5449jO3o7u2Et3fnAw7tDgCJ1qCuwEKx
-         YIzyRNcq+cdGk7ApRF+fxFfjWFD0uQMtZX6ohOjZJb0ygTZeh0TRVUOjg6YBnB/+Miw8
-         +pUONGcj6WFP66c1qkI0hvWW2++gCZNqcaZH3KtJ3s3hwKW8Nzx1o034l+h4f0jW8LZ0
-         21x5kOVSiMeQlRr0FgEsVCBWJ9qEoRoghlZdFWsd3aclU3oPwBfr887LfhO8gvsqzhMf
-         eILFaFv3IPwslxBpKNnxnLCDN1xdYPLjhq/FU/bhBcbJsbnnecq8hpFw/ULmDMrxM0q9
-         eu0w==
-X-Forwarded-Encrypted: i=1; AKwUvBziyMY7a7DKlt17rf1AwRg27DWnjQ+wfVkr9m/jss4tD2aWFmCGK5WqmlSI6NIMG/jWCXFucPA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwDpXIgXF0+5JpazRUPqz2tJuBaaDwfzx8pAX3cmDIYYP9aH+Y
-	3gxYoKNP+lfvCCIE64e1BvdVf6C+4uE2ypSHdeTvEdiFWRZGFn/sYNslm24/z/yOOnbEfwmP5Kp
-	Zc2pGp946k9zSI1JpNmQz/OhVvuhkz7Q=
-X-Gm-Gg: AYBFou2iH1xpjd3/hvTWFsAZnuiggB4V7hZyuWdXXmd3u84CPsuOG8Eh7brRX8Io+bn
-	il2rj3OGXmeWUKC6c5OKoKTtjreHYPVbS+sscM6gfeucJwtrL+PhaZb0WPi52Hyc5m/TudR2+z7
-	ATksPoUq8yjinb8dkg2RBjJS1Al9N7rFXym0/yCha/0qLjqqoZw1fGj5VpGCdXWpdI/8SQ1Wxzj
-	gaiPCl1J7uEFwfuwLq+D6xEwYXj7z8bBMXBKSM6BTctuRPUzum5PigcpxDkTXi3RZQwUtW8evYr
-	UczZ4Yo+dnU0401IgVEDWa0pp053jFTQDC/XQ1F03gaSncO/RdWAZw3Y/0JwS8VRPTczjEOzJeM
-	=
-X-Received: by 2002:a05:6402:440b:b0:6a1:d68:338a with SMTP id
- 4fb4d7f45d1cf-6a6818d6c95mr4590928a12.0.1788436345485; Thu, 03 Sep 2026
- 04:52:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZwBmM0T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65D121F00A3D;
+	Thu,  3 Sep 2026 11:54:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788436483;
+	bh=lrsApyRAlrAEXb8oYNM0e4ki57YGn/dS7fq9ucKxGg0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JZwBmM0T8rEezI81rzPOtSKsc80CaL0qZizFtL+7BYIla5SMnNJZL1ZxJjRMEwgqb
+	 gR4JmwhGNnvMat1WcDCGZqu7ugwvVJniCdnA6UhbsOMP9uqja/6lqWPA5P0+bTISZ2
+	 iYoC9SwyK9kQeJxNYiAA40wW0wHu2XS+FjcP3KT8B0uJj5nqmZpICVU9QWKONsL/Y3
+	 paVGcie002Aj4ei1NEzGgFXNeJytaSUITaXeUQIHuwISBbexfo5nkDtfxHgItV1Uy1
+	 71giNJZPbXLuwvmZAmOD8nVNFOaOIb2w/nO5gDXg49SeKvBzyniUe7DWM0U9QA6hJ2
+	 aw5YXbYyerxvA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C09CB1980050;
+	Thu,  3 Sep 2026 07:54:37 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Thu, 03 Sep 2026 07:54:41 -0400
+X-ME-Sender: <xms:_V-Zaq-oLXG_tbRV5SL17ux8ZZWIWBI5lch0m-ICKJSNYjW1Kqxdcw>
+    <xme:_V-Zam649lsVdZSxRBe8Y4Fkv8iPQl4xoKF8yi7-uhpSI4N_82rXYncBjTcOcrgdl
+    jru2YnK1iltr_y3MKD6_bDjGKrjFVmUrmke9Ez28f6iFIpVUGTzVKo>
+X-ME-Received: <xmr:_V-ZanLB9z9pZZPNfG871FvzpdzBWebIxdafXCmQk9tqTj5p2-gfcwKhRxA>
+X-ME-Proxy-Cause: dmFkZTGRROi4E2jYkPmHGn8HmsKJK+DNhzW0iFBovk5qrcANvc/cyAdiFz8Bf10UjHIIr2
+    OCiNRxEcjH1fCCFWSCLqPb2F/nchosJWO+1x6Hoz+5AHWYM5O+CqFcxplyHcG2m0w7RAOJ
+    RUZ+jd9/a47JGJrOI5YRYubkQnZiRkL/W1JEXFNtY6qVzb0v768ExU2eXwalE45ySiF3R2
+    U4Z7aVpbGLrcxzX2HU/qf4+p9hJ62k5bAdwGbkZvc5vvqB0dtHm9E81ImbEPYAPyYZDO3Z
+    xZhLFBqWVSekOwAehorhA1EfjVwqRxpVeLw0fgGTvb/gfBm6l0b+TMrVkfw0ctulats7oK
+    wGlwKgXrS8Ti3z540MLDbn7ePC2qI/c2MtU5JUF+dLTMXiRyJivzXiYAn/9wsa0PY1oHXu
+    JzW2v+S/SSoVTcbO1JuhD4Nyd0FGNc3o4UObcbk6f1jbDrRJpNJ0EXmUmTp1mwjyGtksB+
+    E2wuRcH8c/rtBeyz+MDkuxCE+hb+/e2KAncEfo3PsPYjNhQU6LKaewoSsGySzAeR3lLM5U
+    GWx4Tu8ac0h3jZKjFsfGmSSulZ+hKt7eqz9x9VzuosBEqTQAVTDsESwXOF2SwVzeHoF5VZ
+    xwz0bboXiq1kvRifcmh7pN2ZbSSOgVvpoezUhaLz0B8RRjYLfKmMTOap1iWA
+X-ME-Proxy: <xmx:_V-ZauAr7fM7WQUuNYCB2wNA2X60UGgz1puUga-gXmYLooLrqGZshg>
+    <xmx:_V-ZagiOWoUgQIkkfpkSxwqFHXG16Z4VbZnV2_hDIOY49EB37rOr7Q>
+    <xmx:_V-ZaiN_RjR92LznnJrMHPgOIsfRfnKwP9OeVFLO-_u5WtWMYA1ElA>
+    <xmx:_V-ZasXGbsML7uAsQ1LEveq9goQh64MBgn9PW56oEWw-3GsSNWHk-w>
+    <xmx:_V-ZanCiw98vjCVwwHH4u5kXCgv2ETVbsI4nOpwXxgN_C3BUMY9LCzWE>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Sep 2026 07:54:36 -0400 (EDT)
+Date: Thu, 3 Sep 2026 12:54:35 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Vernon Yang <vernon2gm@gmail.com>, rick.p.edgecombe@intel.com
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, akpm@linux-foundation.org, david@kernel.org, hpa@zytor.com, 
+	rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au, pasha.tatashin@soleen.com, 
+	tj@kernel.org, rppt@kernel.org, yu-cheng.yu@intel.com, orsonpeters@gmail.com, 
+	linux-kernel@vger.kernel.org, x86@kernel.org, linux-mm@kvack.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-ID: <aplfcTfjeQUgnrvH@thinkstation>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824152057.216329-1-nicoyip.dev@gmail.com> <apkipe4r500gMfwx@secunet.com>
-In-Reply-To: <apkipe4r500gMfwx@secunet.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Thu, 3 Sep 2026 19:52:13 +0800
-X-Gm-Features: AcwNN1Uqyd2MMrjp6WqTlC7sD8-7Ze3YLOesPy3SU4_qPzuRaxEIC0IFeXGBbKg
-Message-ID: <CAAo+4rUt4FBGF=CFCriuMctiKQ=bRjpH45u4pNmyDLugCV6gFA@mail.gmail.com>
-Subject: Re: [PATCH net] xfrm: retry inexact policy lookup after node reinsertion
-To: Steffen Klassert <steffen.klassert@secunet.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Florian Westphal <fw@strlen.de>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
 
-On Thu, Sep 3, 2026 at 3:32=E2=80=AFPM Steffen Klassert
-<steffen.klassert@secunet.com> wrote:
->
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> --- Patch [1]: [PATCH net] xfrm: retry inexact policy lookup after node r=
-einsertion ---
-> commit 55045c9b49d306c47b0ee8e568d224e0bca94a3c
-> Author: Chengfeng Ye <nicoyip.dev@gmail.com>
->
-> xfrm: retry inexact policy lookup after node reinsertion
->
-> This adds a snapshot of the per-bin sequence counter around inexact
-> candidate discovery and evaluation in xfrm_policy_lookup_bytype(), and
-> retries the whole lookup if the counter changed.  The stated goal is to
-> reject lookups that overlap the bydst hlist hop done during node merge an=
-d
-> reinsertion.
->
-> No Link: tags are present in the commit header.
->
-> > During concurrent policy insertion and route lookup, KCSAN reported:
-> >
-> >   BUG: KCSAN: data-race in __xfrm_policy_link / xfrm_lookup_with_ifid
-> >   write to ... by task 92 on cpu 0:
-> >     __xfrm_policy_link
-> >     xfrm_policy_insert
-> >     xfrm_add_policy
-> >   read to ... by task 91 on cpu 1:
-> >     xfrm_lookup_with_ifid
-> >     xfrm_lookup_route
-> >     ip_route_output_flow
->
-> Discovered by: opus-5 =C2=B7 Missed by: sonnet-5, gpt-5-6-sol, sashiko-ge=
-mini =C2=B7 Confirmed by: gpt-5-6-sol
-> Can this KCSAN report come from the code the patch changes?
->
-> __xfrm_policy_link() in net/xfrm/xfrm_policy.c only does this:
->
->         switch (dir) {
->         case XFRM_POLICY_IN:
->         case XFRM_POLICY_FWD:
->         case XFRM_POLICY_OUT:
->                 pol->pos =3D xfrm_gen_pos(net);
->                 break;
->         }
->
->         list_add(&pol->walk.all, &net->xfrm.policy_all);
->         WRITE_ONCE(net->xfrm.policy_count[dir], net->xfrm.policy_count[di=
-r] + 1);
->         xfrm_pol_hold(pol);
->
-> The only one of those locations that xfrm_lookup_with_ifid() touches is
-> policy_count, and it reads it marked:
->
->         if (!if_id && ((dst_orig->flags & DST_NOXFRM) ||
->                        !READ_ONCE(net->xfrm.policy_count[XFRM_POLICY_OUT]=
-)))
->                 goto nopol;
->
-> Documentation/dev-tools/kcsan.rst states that if all concurrent accesses =
-to
-> a variable are properly marked, KCSAN will never trigger a watchpoint and
-> therefore never report the accesses.  Both sides here are marked, so how
-> was this pair reported?
->
-> The write side the changelog describes in prose is a different one: the
-> bydst hop in xfrm_policy_inexact_node_merge():
->
->         hlist_for_each_entry(tmp, &v->hhead, bydst) {
->                 tmp->bydst_reinsert =3D true;
->                 hlist_del_rcu(&tmp->bydst);
->         }
->
->         xfrm_policy_inexact_list_reinsert(net, n, family);
->
-> That path is reached via xfrm_policy_inexact_insert_node(), not via
-> __xfrm_policy_link(), and it also uses only marked writes
-> (hlist_del_rcu(), hlist_add_head_rcu(), hlist_add_behind_rcu()) against a
-> reader using hlist_for_each_entry_rcu().  So that pair would not be
-> reported by KCSAN either, which suggests the hazard being fixed is a
-> logical list-hop ordering problem between correctly marked RCU accesses
-> rather than a data race.
->
-> Could the changelog be reworded to describe the ordering problem directly=
-,
-> and either drop the KCSAN splat or replace it with a report that actually
-> corresponds to the accesses this patch guards?  With Cc: stable in place,
-> the quoted evidence is what backporters will use to judge the fix.
->
-> > diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-> > index 932a313b9460a..5d4e863863dfe 100644
-> > --- a/net/xfrm/xfrm_policy.c
-> > +++ b/net/xfrm/xfrm_policy.c
->
-> [ ... ]
->
-> > @@ -2191,12 +2192,18 @@ static struct xfrm_policy *xfrm_policy_lookup_b=
-ytype(struct net *net, u8 type,
-> >               goto skip_inexact;
-> >
-> >       bin =3D xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if=
-_id);
-> > -     if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, sadd=
-r,
-> > -                                                      daddr))
-> > +     if (!bin)
-> > +             goto skip_inexact;
-> > +
-> > +     inexact_sequence =3D read_seqcount_begin(&bin->count);
-> > +     if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr=
-))
-> >               goto skip_inexact;
-> >
-> >       pol =3D xfrm_policy_eval_candidates(&cand, ret, fl, type,
-> >                                         family, if_id);
-> > +     if (read_seqcount_retry(&bin->count, inexact_sequence))
-> > +             goto retry;
-> > +
->
-> Discovered by: opus-5 =C2=B7 Missed by: sonnet-5, gpt-5-6-sol, sashiko-ge=
-mini =C2=B7 Confirmed by: gpt-5-6-sol
-> Related to the above: this retry can only observe mutations that are
-> bracketed by write_seqcount_begin(&bin->count).  The chain updates done b=
-y
-> xfrm_policy_insert_list() and __xfrm_policy_unlink(), and the counter
-> update in __xfrm_policy_link() named in the quoted splat, do not run insi=
-de
-> any bin->count write section.
->
-> So even taken at face value, would this new read_seqcount_retry() have an=
-y
-> effect on the __xfrm_policy_link() versus xfrm_lookup_with_ifid() pair
-> quoted in the changelog?
+On Thu, Sep 03, 2026 at 11:16:08AM +0800, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+> silently discarding the hardware dirty bit.  The subsequent
+> pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+> _PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+> stripped from the value, so there is nothing left to transfer.
+> 
+> Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+> and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+> is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+> the dirty state.
+> 
+> One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+> 
+>     memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+>     madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+>                                       // folio marked lazyfree
+>     memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+>     mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+>     mprotect(buf, size, PROT_READ|PROT_WRITE);
+>     // ... memory pressure ...
+> 
+> Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+> no dirty bit set anywhere and frees it in
+> __discard_anon_folio_pmd_locked(), even though the data was rewritten
+> after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+> hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+> restores the PMD through pmd_modify() as well.
+> 
+> PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+> the dirty bit means rewritten data is never written back.
+> 
+> Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+> pte_modify() and pud_modify() do.  The existing
+> pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+> hardware-dirty <-> saved-dirty transition based on the write bit,
+> preserving the shadow-stack encoding rules.
+> 
+> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
 
+Hm. I don't understand why would this commit explicitly exclude
+_PAGE_DIRTY from the mask:
 
-Hi Steffen,
+-       val &= _HPAGE_CHG_MASK;
++       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
 
-The review is correct. While generating the changelog I mistakenly
-pointed the agent to the KCSAN report triggered for the data race
-already fixed by 66817a979426, and I'm sorry for the mistake. I will
-send a v2 to correct the changelog.
+Rick, could you comment? It doesn't look like a typo.
 
-Best regards,
-Chengfeng
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
