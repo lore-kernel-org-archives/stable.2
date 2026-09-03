@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB91E4B2CC8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBB04B2CC2
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444946; cv=none; b=YDpKvs2C1Juiz0JZt+WTNm9PmoNcU25otg73EsCKhI/t0hM/zYjoVFXeVilhhfTsQ9p310BU3Aw0J9isg/Y+ap+CmNVV5JdoW1eGBycFOywdCcXCN51OO+UC4qyDsvcMgaspaR/JWQweYjeF4OSvHWIBotFixApkCQId57DDago=
+	t=1788444946; cv=none; b=oXEd8a3slXwy9uJewVF6melE5rc8na2fMLjPNoXSkU6OpAamSm9SABig1ksn/eOQ+Ni8jdzIufKWzkatmZMtjHzWq/m+LWgNvpsniemnEMRmyA4gJ4okq4nWOI6rFs4eMcSeYk73uh3THc++Ux5vdh4T6eua4oWn9WkLoAf7x14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788444946; c=relaxed/simple;
-	bh=skeHtgJLRynVjIqUlLcrnBDfrvg0e9Oa+WphmTjXu7M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZjUk6nTdnXPiTXYz7hlHKBo6aeMXJNfoBmMxCaHdaZg4gEUsdVObnBWVs1SDGGdtlJvo9qkB8u7kFdHC+1FQ0CDX7vBXxKFm7lR0DjGAJtzT4qmOw35cvbdUk5JDaS6DuN9nAwRqaj0HtBBdlhxHFalL9PTGsla3PaJgryGOIKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MHowAK9k; arc=none smtp.client-ip=100.103.45.18
+	bh=URWsQI1MfVyDQmfrPm40dfNfroKIxeVXz+2Uk/wxcAc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B/ocj+2AuoHBDQLkFFHH4DV9n/0XYQVJRdhPHiCa6C4dmVXFAS26lOf1r0tiVB/aNE5XtB7HdOHLZSKhch8K3ncmbTaw04WAzC6GbzTcFjTOBiYdwGjXjLhWdnlN/p7QqHg9AhdeUch6+q7JETCpsHyf/jnxcIVdzeL2VcPj6es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LB4B+tBX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MHowAK9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33BF1F00A3E;
-	Thu,  3 Sep 2026 14:15:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LB4B+tBX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF74E1F00A3F;
+	Thu,  3 Sep 2026 14:15:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444926;
-	bh=SNnuJL0moj0uDJLLsuGy4gJ0pUQOZRRTIFGINZw8R4o=;
+	s=korg; t=1788444929;
+	bh=klQ5AwPdzejipvhBMB4Lw9cD8zGQHEukzDqpb2T3LuQ=;
 	h=Subject:To:Cc:From:Date;
-	b=MHowAK9k8hewZOpraK0BT5M37u+agUfTVODyD1hE4FPfoaQ+ydn7YdXEci9LtQY7n
-	 fzO8bn8fC4IYxg73mCX8lVKj2icy6vVDss2SVkczKHeZ215iy4gG+5r6q5wzkuzDLy
-	 wJeMLCXvrrc/bCRlEzAvocRcvQqMkmOFrm00KC18=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_conn: re-enable advertising only for" failed to apply to 5.10-stable tree
-To: valentin.kindschi@fiveco.ch,luiz.von.dentz@intel.com
+	b=LB4B+tBXZs4M2iHaarDeOFY44w3yk3Z3YNI4lXO9CKPt7N835Ckdy6WKNuA4yoWiX
+	 K9ahG5EFV9MyGD+eCYeI9ZmRClMJRbfAgSu5VgJrYJqIEbQXz2BSkYM0dHcyAucH8V
+	 wl3mNgq32dyFHYQjhPVfjDNoTA7OFOgxyVgVrpaE=
+Subject: FAILED: patch "[PATCH] Bluetooth: hci_core: use skb_get() instead of skb_clone() for" failed to apply to 6.1-stable tree
+To: xin.chen2@oss.qualcomm.com,luiz.von.dentz@intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:55:18 +0200
-Message-ID: <2026090318-staring-emphases-67af@gregkh>
+Date: Thu, 03 Sep 2026 15:55:31 +0200
+Message-ID: <2026090331-cheddar-preheated-6153@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed5fb41d3b6b6e665e7f97fd54bd1f9531c7477f
+git cherry-pick -x f5afdff569a09d1cb8cf19826199d024725576cb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090318-staring-emphases-67af@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090331-cheddar-preheated-6153@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,93 +62,67 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed5fb41d3b6b6e665e7f97fd54bd1f9531c7477f Mon Sep 17 00:00:00 2001
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Date: Tue, 18 Aug 2026 15:29:34 +0200
-Subject: [PATCH] Bluetooth: hci_conn: re-enable advertising only for
- peripheral role
+From f5afdff569a09d1cb8cf19826199d024725576cb Mon Sep 17 00:00:00 2001
+From: Xin Chen <xin.chen2@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 21:53:21 +0800
+Subject: [PATCH] Bluetooth: hci_core: use skb_get() instead of skb_clone() for
+ req_skb
 
-hci_le_conn_failed() unconditionally calls hci_enable_advertising(),
-although its own comment states advertising should be re-enabled only
-when the failed attempt was made as a peripheral.
+BT enable fails intermittently with -ETIMEDOUT (-110).  The kernel log
+shows the HCI Read Local Version command was sent and the firmware
+replied with status 0x00 (logged by hci_req_cmd_complete() BT_DBG),
+but the waiter in __hci_cmd_sync_sk() never woke up and timed out
+after 10 s:
 
-hci_le_conn_failed() is reached from hci_conn_failed() for every failed
-LE connection, including outgoing central connections. For a central
-attempt this enable is redundant: hci_le_create_conn_sync() already
-restores advertising via hci_resume_advertising_sync() in its done:
-block. Because hci_enable_advertising() only queues the work on
-cmd_sync_work, it runs *after* that resume has already succeeded and
-set HCI_LE_ADV.
+  bluetooth hci0: Opcode 0xfc00              // __hci_cmd_sync_sk
+  bluetooth hci0: opcode 0xfc00 plen 1       // hci_cmd_sync_add
+  bluetooth hci0: skb len 4                  // hci_cmd_sync_alloc
+  bluetooth hci0: length 1                   // hci_req_sync_run
+  Bluetooth: hci0 cmd_cnt 1 cmd queued 1     // hci_cmd_work
+  Bluetooth: hci0 type 1 len 4               // hci_send_frame
+  Bluetooth: opcode 0xfc00 status 0x00       // hci_req_cmd_complete
+  <-- req_skb NULL: req_complete_skb not set,
+      hci_cmd_sync_complete() never called,
+      req_status stays HCI_REQ_PEND            -->
+  <-- 10 s later: wait_event_interruptible_timeout expires -->
+  bluetooth hci0: end: err -110              // __hci_cmd_sync_sk
 
-The resulting HCI sequence, captured on a BCM43455 (no LE Extended
-Advertising, so legacy advertising is used):
+The root cause is that hci_send_cmd_sync() clones the sent command
+into hdev->req_skb so that hci_req_cmd_complete() can locate the
+registered completion callback.  Under memory pressure this
+skb_clone() fails, leaving hdev->req_skb NULL.  The firmware reply
+is received and processed, but hci_req_cmd_complete() finds NULL
+req_skb, so hci_cmd_sync_complete() is never called, req_status
+stays HCI_REQ_PEND, and the waiter times out with -ETIMEDOUT.
 
-  LE Create Connection                     Status Success
-  ... 13.8 s, peer never answers ...
-  LE Set Advertising Parameters (0x2006)   Success   <- done: resume,
-  LE Set Advertising Enable     (0x200a)   Success      HCI_LE_ADV set
-  LE Create Connection Cancel   (0x200e)   Success
-  LE Connection Complete                   Unknown Conn Id
-  LE Set Advertising Parameters (0x2006)   Command Disallowed (0x0c)
+req_skb is only used to read bt_cb(skb)->hci callbacks and opcode --
+it is never modified.  Replace skb_clone() with skb_get(), which
+simply increments the reference count of hdev->sent_cmd without
+allocating new memory and therefore cannot fail.
 
-The last command is the queued enable from hci_le_conn_failed() running
-as a second hci_enable_advertising_sync() pass. It clears HCI_LE_ADV
-(hci_sync.c, "Clear the HCI_LE_ADV bit temporarily"), then sends
-LE Set Advertising Parameters while the controller is still advertising,
-which the controller correctly rejects with Command Disallowed.
+This issue was first observed as a use-after-free in ttyport_close()
+when ttyport_open() failed, which was investigated in an earlier
+patch series [1].  That investigation led to the discovery of the
+true root cause described above.
 
-The disable-first call at the top of hci_enable_advertising_sync()
-cannot prevent this: hci_disable_advertising_sync() returns early
-without sending anything when HCI_LE_ADV is clear, so it is a no-op
-exactly when the flag is wrong.
+[1] https://lore.kernel.org/all/20250430111617.1151390-1-quic_cxin@quicinc.com/
 
-hci_enable_advertising_sync() then returns without sending LE Set
-Advertising Enable, so HCI_LE_ADV is never set again. The legacy
-software rotation loop re-arms hci_schedule_adv_instance_sync() every
-HCI_DEFAULT_ADV_DURATION (2 s), and its "already advertising" shortcut
-tests HCI_LE_ADV, which can no longer become true. The command is
-therefore retried every 2 s indefinitely:
-
-  Bluetooth: hci0: Opcode 0x2006 failed: -16
-
-Observed on a gateway as 5326 occurrences over 3 hours, ending only when
-bluetoothd was restarted. Connection attempts that succeed do not call
-hci_le_conn_failed() and never trigger this.
-
-Add the role test the comment already describes. Both other
-hci_enable_advertising() call sites reached from a failed/closed LE
-connection (hci_cs_disconnect() and hci_disconn_complete_evt()) already
-guard on conn->role == HCI_ROLE_SLAVE; this one was missed.
-
-Reproducing needs legacy advertising (ext_adv_capable() false, so the
-software rotation loop is used), simultaneous peripheral advertising and
-outgoing central connects, and a central connect that times out rather
-than failing fast.
-
-The Fixes tag points at the commit that introduced the advertising
-restart into this path for the directed-advertising (peripheral) case;
-the role test that the later commit 0b1db38ca26b ("Bluetooth: Fix check
-for direct advertising") added to the sibling paths was never applied
-here.
-
-Fixes: 3c857757ef6e ("Bluetooth: Add directed advertising support through connect()")
+Fixes: 2615fd9a7c25 ("Bluetooth: hci_sync: Fix overwriting request callback")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Signed-off-by: Xin Chen <xin.chen2@oss.qualcomm.com>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 19b7629b1cc1..8de98af2fb58 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1391,7 +1391,8 @@ static void hci_le_conn_failed(struct hci_conn *conn, u8 status)
- 	/* Enable advertising in case this was a failed connection
- 	 * attempt as a peripheral.
- 	 */
--	hci_enable_advertising(hdev);
-+	if (conn->role == HCI_ROLE_SLAVE)
-+		hci_enable_advertising(hdev);
- }
+diff --git a/net/bluetooth/hci_core.c b/net/bluetooth/hci_core.c
+index 509c820a693d..35a1be57e386 100644
+--- a/net/bluetooth/hci_core.c
++++ b/net/bluetooth/hci_core.c
+@@ -4093,7 +4093,7 @@ static int hci_send_cmd_sync(struct hci_dev *hdev, struct sk_buff *skb)
+ 	if (READ_ONCE(hdev->req_status) == HCI_REQ_PEND &&
+ 	    !hci_dev_test_and_set_flag(hdev, HCI_CMD_PENDING)) {
+ 		kfree_skb(hdev->req_skb);
+-		hdev->req_skb = skb_clone(hdev->sent_cmd, GFP_KERNEL);
++		hdev->req_skb = skb_get(hdev->sent_cmd);
+ 	}
  
- /* This function requires the caller holds hdev->lock */
+ 	return err;
 
