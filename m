@@ -1,118 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EE234CFCA;
-	Thu,  3 Sep 2026 23:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2433E3769FD;
+	Thu,  3 Sep 2026 23:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476740; cv=none; b=jPo0ANoxUb1qy1dwQou6OR14K+E6QVLsCx5Q4fho2yhHPL9bheTx6p6gtNKJPI+8aBsZlQhJAdPh6mK/eOc+cVup0GbbvrIGJkb7lixZDch5pm69yJV/mYX5Rh/azJcQSxfBGR/wAgC0I5IsOyMJmdHgsIbo3IgA+TEervcKI+s=
+	t=1788476927; cv=none; b=Zt1fnFbCaB7tJ5fEhcG1xyaAdd8TGb3Ui1ZXNsGmHx2YoBf5NdH990po9v1aPiWLPRRSflZWKm3/4S6S8nDJfUvvw3HL5WLLgDp2S1mqgMs6sl7ty+oI3zxKSryB54w54ZipCAP+S+rUj/qN3AaaaiS2+n6MNlh0u8d+sRniqNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788476740; c=relaxed/simple;
-	bh=7wAJrAQK5JISKKxRnovrwP/3jxpCcFk4jzbaLrD3EyU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=VfWjOAPmKQ7jvebE7dg4ZFYqp0gioS9pkrcuNUepnW7AkZ0rMwNjynFkPTNYvhrGIc82QF+RdywBOOKbMCZIAzuzx3sD4J0TIUJru1eftVQLa7I6lFbJ952O89H3NJSdi72dvK20w43zRJ3/kXv2zUJ4r1lkCRMYIpGIfCmtUtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhbzFe9+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788476927; c=relaxed/simple;
+	bh=18DPBe0iwWQ7yGhF5eQtvhLFjh9Wglm6olsLtIjVhKc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=NFQLBksoXsY9lwjXq1f8BDCmUHeT41zH1MV90dJEC8RpJFwFNeHkRtU4SpGxd+37AHSSYBwnmcFZyswPucyfYa+bNhQoCzkbHLSU+pNwovYv/XtV4cQbecT6mzDT1nzQ0jw50hlebmTv6Puv16l/oR9g+YJ8UkME0m8Q7/3nwjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MGp5qUEN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhbzFe9+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47861F000E9;
-	Thu,  3 Sep 2026 23:05:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MGp5qUEN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1631F000E9;
+	Thu,  3 Sep 2026 23:08:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788476738;
-	bh=R+eZylBeFLCipj4LV/kc98eg7afNWvoivAoeDLzItDA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=RhbzFe9+VofsnBnBsrlI2uKcJxFWNbA6X2O0NYvJoHWB5OIczyyLlkRshDMI1sxUh
-	 1JJP67iS77NDiWcBN0xt54SFSNDP2A3GFnfKvDWMoNbD/LqIIEL4U9Viwa6whtXPSD
-	 RvF/HjHJMkLv+ZEyq5KRFMjT+5LV4amfecS+TD610hHKEfL+WnhwwKIzYLfQUN/jws
-	 T3PsIabHhcbP/HOqk+nqREw0A47Gj+LV1eME83aZ/D0Wa3pONGDJ09tmkHOVaKG17W
-	 FP+1ln9raqw5EtZfYkEhpzGbUM6o6uU1HhVaJ+uoGv/1rmNaYBgRN7qB/qc4YZpruY
-	 UvDex7e77jhOg==
-Date: Thu, 3 Sep 2026 18:05:37 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Guixin Liu <kanie@linux.alibaba.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Jonathan Cameron <jic23@kernel.org>, Lukas Wunner <lukas@wunner.de>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	Kees Cook <kees@kernel.org>, Darshit Shah <darnshah@amazon.de>,
-	Brian Norris <briannorris@chromium.org>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	linux-pci@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] PCI/DPC: Honor "pcie_ports=native" when enabling DPC
-Message-ID: <20260903230537.GA2273943@bhelgaas>
+	s=k20260515; t=1788476925;
+	bh=hHj79ivnCIVQ9oSllj2cnlRWSVM8NqFq3uES2gy708g=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=MGp5qUENaJhoALBIifj9MxMBnpcVab85xm/plvjj3SBjz5XgEeG0DCEqwe68cAhTS
+	 Udfv3C17JKhGtkpIN09P+mqW3DSi8B1xdzsGoQpir/j3E+33Qsc0brhii8U3YWy661
+	 y/1LO8syJYXy1c0UsiHlTuLVa+gQdOlkodGyrbGNbbqmvlsFY8sNrhSEtFQxZkCUKo
+	 g5SkZFC7b8Xrh2/72cbvhQUlG/1Po41bUVpJl+FTJ6r21c0P32Xs/MZo2jeoyzt1IA
+	 6mt/aPoofbJ6cmMpgRR8Ynz7Sv+Vo+WT3RoT+JvsfYb7j9YeMBhr8ASsammssxEpo+
+	 hz1hGSxTa8H7w==
+Message-ID: <12ea8eda-403b-4932-90ba-beadb1354533@kernel.org>
+Date: Fri, 4 Sep 2026 07:08:42 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901064554.2178688-1-kanie@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
+ stable@vger.kernel.org, Wenjie Qi <qiwenjie@xiaomi.com>
+Subject: Re: [f2fs-dev] [PATCH v4] f2fs: drop pending discard commands before
+ reserving device alias
+To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
+References: <20260903161031.1280195-1-daeho43@gmail.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260903161031.1280195-1-daeho43@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 02:45:54PM +0800, Guixin Liu wrote:
-> Commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when
-> OS controls AER") replaced the AER service bit with host->native_aer
-> when deciding whether to create a DPC service device.  Unlike the AER
-> service bit, host->native_aer does not reflect the "pcie_ports=native"
-> command-line override.
+On 9/4/2026 12:10 AM, Daeho Jeong wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
-> Consequently, if firmware retains AER control, "pcie_ports=native" no
-> longer enables DPC on Root Ports that advertise both AER and DPC, even
-> though the option is documented to force native DPC handling.
+> When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
+> f2fs_reserve_device_alias() bulk-marks all blocks in the target device
+> range as valid in SIT.
 > 
-> Check pcie_ports_native explicitly so both command-line overrides
-> continue to work.
+> However, if the device was previously in the released state, stale
+> pending discard commands covering that range may still exist in dcc->root.
+> When f2fs_issue_discard_thread later processes those commands,
+> __check_sit_bitmap() detects valid blocks in the discard range and
+> triggers a kernel BUG().
 > 
-> Fixes: 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
+> To fix this:
+> 1. Introduce f2fs_drop_discard_cmd_range() to traverse the discard rbtree,
+>     drop all pending D_PREP discard commands in the range,
+>     and wait for any in-flight discard bios under dcc->cmd_lock.
+> 2. Call f2fs_drop_discard_cmd_range() in f2fs_ioc_reserve_dev_alias()
+>     before f2fs_reserve_device_alias().
+> 
+> Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
-> ---
->  drivers/pci/pcie/portdrv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
-> index a9cbfc1d2bc7..a05ee7980fb2 100644
-> --- a/drivers/pci/pcie/portdrv.c
-> +++ b/drivers/pci/pcie/portdrv.c
-> @@ -264,7 +264,7 @@ static int get_port_device_capability(struct pci_dev *dev)
->  	 */
->  	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
->  	    pci_aer_available() &&
-> -	    (pcie_ports_dpc_native || host->native_aer))
-> +	    (pcie_ports_native || pcie_ports_dpc_native || host->native_aer))
+> Signed-off-by: Daeho Jeong <daehojeong@google.com>
 
-Oh my goodness.  I think I completely dropped ball on this YEARS ago.
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-It's crazy that we have "pcie_ports_native" checking littered all
-over.  I think we should instead treat host->native_* as the single
-source of truth, and pay attention to pcie_ports_native when setting
-host->native_*.
-
-Sathy did some great work to do exactly that in 2020, and I never got
-it merged.  I wish I had some great excuse, but I looked at my 2020
-calendar and couldn't find one.  I think I just blew it.
-
-So I think we should resurrect that series and update it as needed and
-solve the problem that way.  I dug out the links just for
-completeness, but we should probably just start with the most recent
-ones (v11 or v12):
-
-  # v2 https://lore.kernel.org/r/cover.1590355211.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v3 https://lore.kernel.org/r/cover.1590355824.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v4 https://lore.kernel.org/r/cover.1590534843.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v5 https://lore.kernel.org/r/cover.1591545462.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v6 https://lore.kernel.org/r/cover.1593195899.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v7 https://lore.kernel.org/r/cover.1595006564.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v8 https://lore.kernel.org/r/cover.1595649348.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v9 https://lore.kernel.org/r/cover.1600457297.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v9 https://lore.kernel.org/r/20200928011131.MI-pJpJNRQw6c35j_O6019flLWHe08C4WvKPmKEbnik@z/
-  # v10 https://lore.kernel.org/r/cover.1603738449.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v11 https://lore.kernel.org/r/cover.1603766889.git.sathyanarayanan.kuppuswamy@linux.intel.com/
-  # v12 https://lore.kernel.org/r/20201126011816.711106-1-helgaas@kernel.org/
-
->  		services |= PCIE_PORT_SERVICE_DPC;
->  
->  	/* Enable bandwidth control if more than one speed is supported. */
-> -- 
-> 2.43.7
-> 
+Thanks,
