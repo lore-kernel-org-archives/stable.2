@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B42369D54
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:47:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A60386453
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:47:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788461258; cv=none; b=mdHPbFkYFQxpKG9G77Yyi7VI9lz+SsUyplqHLqGtIgi3ExwQSEXewdIpSVWZLZcTIEKkbYLXKpzi208pwh+DJzEnBxXtKfzk2MtriR606Z+7GZyhO/XI9imGWRWb8c3lqVY5i4ZFN0x3ZhsD7pfjBP7Oa08luSgrOQ6/IjqNcBo=
+	t=1788461259; cv=none; b=WYm1y2rf/weIATWDllmfAiVp1ls1Qgi5OzVwfsj7AIv/8VjvxTczH+eIr7+v8eV4XPqGZg3BMkI2BxIS/kv6oXZAY9+lf2aETIdeKcdEzhqdwo8JJ+9h28ZL1BOxc4DVRDXYqCZP2lta1/LkJlJpn9jcWwyRAsO2pnqLRaOvZXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788461258; c=relaxed/simple;
-	bh=06luRnJyOJ49JeDeo+odA1GowIm3LEgWD22COAR8gBo=;
+	s=arc-20240116; t=1788461259; c=relaxed/simple;
+	bh=OrzdtIHg1O7QHbi/P9pBk/tU9yeKrecL83x7SWQQj4o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TG+aY7F5c0mlX+RDGio1W++H5F07uwvEqXSnmunFTTXmDYfbhLdscqwGYWHqE9ljdWsr6V0rJiW66c+PhPie7MTJmMXc6EY/p5Uq90fdABoo0/zL5MbMRibwk2e8FqGdaCxpD0MZqb937Q6vNYFL8nVFzd79PSGGjf+V5nLxYY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oo/vNe+R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K594Iv/VtcWgcZ9ufBaG3FjvHl958eBgXD1lbp3e70M2vkkQ/aLkOxE/oD3G/l8HGKbpS9it8lZbQEk8vfDyXCauri7kWkcQ/trve9l5V4wncbo+UPQcfPZzpGyX4eGzhg74Gw2maQyC2Gz+1i0It9BCJMjYwBmmx+tsoNoCzws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=abmlioJh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oo/vNe+R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8801F00A3D;
-	Thu,  3 Sep 2026 18:47:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="abmlioJh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46B5E1F00A3F;
+	Thu,  3 Sep 2026 18:47:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788461257;
-	bh=yUczLQzfXS1qd0awYHdK80Ivc6QuJFNdSytPyj4pdYk=;
+	s=k20260515; t=1788461258;
+	bh=qr5vjsiHSuUVLXExWi2FPZRGg6ZZrYsQVSsKYMHDPMI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oo/vNe+RyphH58zKMOVbTAF/FoPuPwm0pFvUf9LRLOZ/CWjvI+XbjnfSIwqhQwEPf
-	 PS9yh1+M7sDxdSbBEpzS+DCPZX/MzJIS/vrHl7Iv6mjQf7Zg0o1xasZw7Aaa4eLKgV
-	 EsqnseQ6jTG2bOM9zgGrCVOCKZjzEubIURhbQAacgb7/rpXQSu+2fEDitlN2rhfmpd
-	 rG03WsK1/S3t0MQHm0ASH4TSJzDmfDU3ZqfDnjPJE2jd36pEBYMoejOJM9pUVBBHxB
-	 nVUpcdt1EJQ+ibwpeHrHqcwiSSbs7PAWMXa+AOfwx2LlLD1Bf3eSWc1j2M++ycCPkQ
-	 sUhlanWC6zKBw==
+	b=abmlioJhlpcfdvi8QcKpO1Dn3KEGTdlbtQ6iPuYGaZdPO2/L+zbR6KWvVUrkkUhpb
+	 ZtafR37UuyzcDhxEkMlnk1zOrhZH+cvy5ulG03LAJZU0Wtsx5VrxApsStHuMlbJmRH
+	 4EaLih5uA3Nd+LM6WZePFqALTH5RZ5yoSJ/eBr4GuWYODkAigKbvXpTHV0Nfj1yvcR
+	 3SYgeDGe5ZLNP5b3YhfkIeNtIe+io849bUxirCFo3nPufWUB33mNZAeu1wtSzC/59M
+	 TachsqBnV4fxFwinyJefQEsz359QMtHdQLxrXeSoT/2f7QDaoMz3NKHG23waXfqDRF
+	 ycN4gE4EUvl+w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Waiman Long <longman@redhat.com>,
@@ -33,9 +33,9 @@ Cc: Waiman Long <longman@redhat.com>,
 	Muchun Song <songmuchun@bytedance.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/7] mm/kmemleak: skip unlikely objects in kmemleak_scan() without taking lock
-Date: Thu,  3 Sep 2026 14:47:28 -0400
-Message-ID: <20260903184733.1484444-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/7] mm/kmemleak: prevent soft lockup in first object iteration loop of kmemleak_scan()
+Date: Thu,  3 Sep 2026 14:47:29 -0400
+Message-ID: <20260903184733.1484444-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260903184733.1484444-1-sashal@kernel.org>
 References: <2026090333-boney-opium-0272@gregkh>
@@ -50,53 +50,18 @@ Content-Transfer-Encoding: 8bit
 
 From: Waiman Long <longman@redhat.com>
 
-[ Upstream commit 64977918c2381aaadd544535708294213cc964f6 ]
+[ Upstream commit 6edda04ccc7cfb281d139e352dbd5dd933bd2751 ]
 
-There are 3 RCU-based object iteration loops in kmemleak_scan().  Because
-of the need to take RCU read lock, we can't insert cond_resched() into the
-loop like other parts of the function.  As there can be millions of
-objects to be scanned, it takes a while to iterate all of them.  The
-kmemleak functionality is usually enabled in a debug kernel which is much
-slower than a non-debug kernel.  With sufficient number of kmemleak
-objects, the time to iterate them all may exceed 22s causing soft lockup.
+The first RCU-based object iteration loop has to modify the object count.
+So we cannot skip taking the object lock.
 
-  watchdog: BUG: soft lockup - CPU#3 stuck for 22s! [kmemleak:625]
+One way to avoid soft lockup is to insert occasional cond_resched() call
+into the loop.  This cannot be done while holding the RCU read lock which
+is to protect objects from being freed.  However, taking a reference to
+the object will prevent it from being freed.  We can then do a
+cond_resched() call after every 64k objects safely.
 
-In this particular bug report, the soft lockup happen in the 2nd iteration
-loop.
-
-In the 2nd and 3rd loops, most of the objects are checked and then skipped
-under the object lock.  Only a selected fews are modified.  Those objects
-certainly need lock protection.  However, the lock/unlock operation is
-slow especially with interrupt disabling and enabling included.
-
-We can actually do some basic check like color_white() without taking the
-lock and skip the object accordingly.  Of course, this kind of check is
-racy and may miss objects that are being modified concurrently.  The cost
-of missed objects, however, is just that they will be discovered in the
-next scan instead.  The advantage of doing so is that iteration can be
-done much faster especially with LOCKDEP enabled in a debug kernel.
-
-With a debug kernel running on a 2-socket 96-thread x86-64 system
-(HZ=1000), the 2nd and 3rd iteration loops speedup with this patch on the
-first kmemleak_scan() call after bootup is shown in the table below.
-
-                   Before patch                    After patch
-  Loop #    # of objects  Elapsed time     # of objects  Elapsed time
-  ------    ------------  ------------     ------------  ------------
-    2        2,599,850      2.392s          2,596,364       0.266s
-    3        2,600,176      2.171s          2,597,061       0.260s
-
-This patch reduces loop iteration times by about 88%.  This will greatly
-reduce the chance of a soft lockup happening in the 2nd or 3rd iteration
-loops.
-
-Even though the first loop runs a little bit faster, it can still be
-problematic if many kmemleak objects are there.  As the object count has
-to be modified in every object, we cannot avoid taking the object lock.
-So other way to prevent soft lockup will be needed.
-
-Link: https://lkml.kernel.org/r/20220614220359.59282-3-longman@redhat.com
+Link: https://lkml.kernel.org/r/20220614220359.59282-4-longman@redhat.com
 Signed-off-by: Waiman Long <longman@redhat.com>
 Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Muchun Song <songmuchun@bytedance.com>
@@ -104,41 +69,64 @@ Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: 5d10d4e19e6d ("mm/kmemleak: avoid soft lockup when scanning task stacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ mm/kmemleak.c | 28 +++++++++++++++++++++++++++-
+ 1 file changed, 27 insertions(+), 1 deletion(-)
 
 diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 8f7aa881566e5..f7e12d12b5b8e 100644
+index f7e12d12b5b8e..e52f0cbed6f2b 100644
 --- a/mm/kmemleak.c
 +++ b/mm/kmemleak.c
-@@ -1504,6 +1504,13 @@ static void kmemleak_scan(void)
- 	 */
+@@ -1413,12 +1413,16 @@ static void kmemleak_scan(void)
+ 	struct zone *zone;
+ 	int __maybe_unused i;
+ 	int new_leaks = 0;
++	int loop1_cnt = 0;
+ 
+ 	jiffies_last_scan = jiffies;
+ 
+ 	/* prepare the kmemleak_object's */
  	rcu_read_lock();
  	list_for_each_entry_rcu(object, &object_list, object_list) {
-+		/*
-+		 * This is racy but we can save the overhead of lock/unlock
-+		 * calls. The missed objects, if any, should be caught in
-+		 * the next scan.
-+		 */
-+		if (!color_white(object))
-+			continue;
++		bool obj_pinned = false;
++
++		loop1_cnt++;
  		raw_spin_lock_irq(&object->lock);
- 		if (color_white(object) && (object->flags & OBJECT_ALLOCATED)
- 		    && update_checksum(object) && get_object(object)) {
-@@ -1531,6 +1538,13 @@ static void kmemleak_scan(void)
- 	 */
- 	rcu_read_lock();
- 	list_for_each_entry_rcu(object, &object_list, object_list) {
+ #ifdef DEBUG
+ 		/*
+@@ -1433,10 +1437,32 @@ static void kmemleak_scan(void)
+ #endif
+ 		/* reset the reference count (whiten the object) */
+ 		object->count = 0;
+-		if (color_gray(object) && get_object(object))
++		if (color_gray(object) && get_object(object)) {
+ 			list_add_tail(&object->gray_list, &gray_list);
++			obj_pinned = true;
++		}
+ 
+ 		raw_spin_unlock_irq(&object->lock);
++
 +		/*
-+		 * This is racy but we can save the overhead of lock/unlock
-+		 * calls. The missed objects, if any, should be caught in
-+		 * the next scan.
++		 * Do a cond_resched() to avoid soft lockup every 64k objects.
++		 * Make sure a reference has been taken so that the object
++		 * won't go away without RCU read lock.
 +		 */
-+		if (!color_white(object))
-+			continue;
- 		raw_spin_lock_irq(&object->lock);
- 		if (unreferenced_object(object) &&
- 		    !(object->flags & OBJECT_REPORTED)) {
++		if (!(loop1_cnt & 0xffff)) {
++			if (!obj_pinned && !get_object(object)) {
++				/* Try the next object instead */
++				loop1_cnt--;
++				continue;
++			}
++
++			rcu_read_unlock();
++			cond_resched();
++			rcu_read_lock();
++
++			if (!obj_pinned)
++				put_object(object);
++		}
+ 	}
+ 	rcu_read_unlock();
+ 
 -- 
 2.53.0
 
