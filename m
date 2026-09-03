@@ -1,153 +1,144 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9512165EA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 00:21:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4662165EA;
+	Thu,  3 Sep 2026 00:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788394872; cv=none; b=lWpOVfh+f4+o0mNKifxz/ttd71N6dbyjBz06LIEeIG+51dJxQjQLlsmVCIAieuSPuFAIalgH/tXpLvq99XJbKDGpB6mfFYPhGgubmbkp4yKZPFSv3Zcba5kNeFM7ejKeWhIVWOC5uUo2o4oj8Xu/j5Gr1PHGxn5Td88LAcoMJYo=
+	t=1788394943; cv=none; b=g9RDyklMHfvSjgxGUGKAmhyMyrrm3j2+Sbk/pB4aGghcoRefcIP9H2C9w/37eFbbx3rS/6hQKdMyViZzhhmj3RoYOIkqAGgkIpnDD71LuKgshBjb4i+VkYrNBfrrPrwwqrma9d6WN3WF5V3wl/Nm15lSUs7nae68nkiDPwi2X5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788394872; c=relaxed/simple;
-	bh=mjFAKiXB7ZAxn25FoteH1IzY/8IF7hq0XuQIZiUcbvI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iA2RGr486HgzQZRi8HPkcd0tUr1ZmrCMnpj0UZRKs/UvMCKKnE7o5zjtxxY35DNo64Q9ejRmFO4eOdMXzuV3Drjf8oLGsFj3r8mqjSUY55iSucYOSzuupRRb7T3ii0QCZrNmtXB7wXwW2sDHpOAuYIqSIOxOl4iTou2YVPlptHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/77lARf; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788394943; c=relaxed/simple;
+	bh=UlvUCkiHz50e+s02GSf4sNxeCeKccUxCMvFeqxSZ6wY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=OqKYFL3EWUVNZ1Iv0IsN4bhfgIS5sq4bRMiA7mAPrcbiaUWCBIHX3EPBZR2FHi5PcSGKA3uDX49UVFkoZi4T8xuBr3zm4Yj+jgfB4yLQrK5KRbpAAU4IBNOl6DRhkMAZF0JBJANgsyW7wcfIoNGboHtKsk1HfCBhP2O8PzVFyd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcTGa2Q0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/77lARf"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48441a2ba14so1581179f8f.1
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 17:21:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788394869; x=1788999669; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4p+kVOqrl9TNdjQ0Ytm/XdNA1rDd6yPAPDCtXX/9+oM=;
-        b=R/77lARfp+Sb4OkbWjeEDxOY/ycfah7we/aWQIz9auOmNaMqkLIqhsxAD1lsT9AMRE
-         D3mpscDv7Z0WMVZlg4HIq2xgT95HjiCbA1/6cPuqQh6gr/i42zPBngLivr35NaRu4poz
-         6MKBJAq/ZnOOqG07h6xNfPBroFVeyY26x2JyA+JO4D1fbppwwofGEKOHHB5jsoSZkvuT
-         1C+aeg4ZAvlZGTt4WwWu0jKHMqAHEpc8D9SiOb3zbWLXE4ISpP52Q4oK6hgPYe8rSZyP
-         xttsit+Ee+w7eSPeGCdP0zDYmO/hdHQIxUrjoT36kfkFibMi4bPdJ2KI5sLOTNz2Q6jZ
-         EgCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788394869; x=1788999669;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4p+kVOqrl9TNdjQ0Ytm/XdNA1rDd6yPAPDCtXX/9+oM=;
-        b=IngxFGigQzZUhmuqJByTA8dBS2J4TJrQey7NSwhauXk7IJu7JA2UfX1QU2fs+xE90p
-         Z0sMKfLzM7+yg0LMR9OHP3yUXiooSu/IltAYeFR17VBXYdvQFwQW2oxwBU7/c08Rqqi5
-         AAm9hOXGhjNGtWr+uKMeChOjJ09I/5NnCHAd2xwAyln2aor24HITOV6lRZt9tv+Rzbgx
-         sEeBgIkyeTMc0d7tChHZg5Z5wpRyaBXEKE7N6bTUrpu0KiKTKM7kGjZww7UGARD9yk5P
-         tW6ZOZA9ULpf+j/TSjUNVHmSJ2Zu7U9l4Qn9Hn6OTh/E4g9O3ERboyj7rJoBxza8zHxO
-         BHtA==
-X-Forwarded-Encrypted: i=1; AKwUvBxddI7JEj7GJjooOr3ikc5KacM8k5XTlg6q1+q01YP0OQbmorpkEjWs+fjS2drFT5kd+8vRv+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5btxxsUMYAarRwRC37YvXg82zseB6LYC7jp7P6n3goy1ctovO
-	KR8qGGZTM//8uUmw7s1BmAbZR+FXxjXlI6AaKuj946cTXqT9hj9HNP77QEpQHQP/
-X-Gm-Gg: AYBFou2PppMQdFeTj0e57oqCmeNqfiGKLC8K68a/GsNS24fbSDxE3kjFFdGlQ17fbCH
-	mkYzCk13aauq52CsjrpHwm0/aY+yvoMFZD8G1fT/xyRfU572u+5YfFIvKYc8E7MHW8s/VO8awta
-	p98DwTTsiYJwC7fP3SnXkcGZil8owXa2XefTOT0BHuVpWq6PNvKX559Azrl+meyxX58GCaFl0+X
-	Xeob3hYDz6l8KWHt7o/CMSlhybrx1uytjsFGGH1Eqc/qbkjXEQ91z7Q2+mTuyFk4739qvmaihp/
-	JH6zYX0D56eZz20CESngSlKXHj01gmxPwzO7SNYfJXYfbTp1Uh14E7xyALqTXp68gwkR9ZJsEfX
-	Q6fFoSmKR3i0U+lai4Gz76/MpHRFWtxixylSeC7PRM1QJsHolt2mDed25f9HDfwKCJ6Y7Ywl9xI
-	GBDYlfCaovXTnoaySB1UWAB8UjesOITNArx81svo5R7ZpzHhDuIgdSF9Qkf2bp4Pu7u262zGsKN
-	wRUy+lDcDtK9pK4omukF8Y9sCsBEGO+CguQtHCBrB+KvrgWX948MJXCIB6Z8GtN3mtU3EPAaDjb
-	dNymXpV5HVGRs4grmXV9K17izEllRZXMWI26TFnSsJTR8j5yuS1t2iLJYioFRyeYkmSoOQZaz1t
-	ffqWe
-X-Received: by 2002:a05:6000:22c8:b0:484:4779:bcdb with SMTP id ffacd0b85a97d-48488deb822mr15780139f8f.6.1788394868328;
-        Wed, 02 Sep 2026 17:21:08 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea961sm9709743f8f.28.2026.09.02.17.21.06
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 17:21:07 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] fs_pin: publish pins with RCU list helpers
-Date: Thu,  3 Sep 2026 02:21:00 +0200
-Message-Id: <20260903002100.34822-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcTGa2Q0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1E969C2BCC7;
+	Thu,  3 Sep 2026 00:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788394943;
+	bh=UlvUCkiHz50e+s02GSf4sNxeCeKccUxCMvFeqxSZ6wY=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZcTGa2Q0JtbR6jdZL9rojMa2UwfoBpMjFwjoAGxIYoJCNTPEs9ppciVljqEuAamFA
+	 /D8ecoOrWIdBJqdBWskHa6Wdswb0Ltk4TpdWVRB+zrQdSDnguDBA76TWvB5GohD2qQ
+	 fdM8J7oxhn0rvb5WU8zlpVwvKplGuDibkYgh5TI//1PzAhihaYx/IK1WWM+I23T2lU
+	 yXkbLfxk/nkwPrrt1kBk2z/UyBMOqXMC9qVETWooEbj2xD/scUO47S2WiY+R7sHmn3
+	 gcxK9vN4aQsmM/qjlpRk7nujTAS+1rmde9EqfEAvDwecNkn4qaAu/pJmM3MYD/fIdz
+	 HOpA6ouny2rNA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B306C624DA;
+	Thu,  3 Sep 2026 00:22:23 +0000 (UTC)
+From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
+Date: Thu, 03 Sep 2026 00:22:21 +0000
+Subject: [PATCH] usb: typec: tcpm: recover after failure to start the frs
+ ams
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-frs-error-handling-v1-1-ad0fee541847@google.com>
+X-B4-Tracking: v=1; b=H4sIALy9mGoC/x2MWwqAIBAAryL73YIpPa8SfVittRAaK0QQ3j3pc
+ xhmXkgkTAlG9YLQzYljKFBXCtbDhZ2Qt8JgtGn1oC16SUgiUbDo7eSwo2ns0ndOD94ZKOEl5Pn
+ 5p9Oc8weebwfzZAAAAA==
+X-Change-ID: 20260903-frs-error-handling-253b87a09fa2
+To: Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kyle Tso <kyletso@google.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ RD Babiera <rdbabiera@google.com>, stable@vger.kernel.org, 
+ Amit Sunil Dhamne <amitsd@google.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788394942; l=3025;
+ i=amitsd@google.com; s=20241031; h=from:subject:message-id;
+ bh=biiAX9QFebDyRLFSxDi+iEYh4i0wJY7gp/fEzN5Cur0=;
+ b=V2p3cEa2GfvG7Yf4C0cILt1385Ga0C2k75aUm3QPFGxW89AAsZsEVxxe5/8psQB+KPeV+QC7Z
+ BgGVMtpvF6XB9oHL8iUhPu6MZEu/xxVSDiMwP9DPyzEX9YqBODXkVKx
+X-Developer-Key: i=amitsd@google.com; a=ed25519;
+ pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
+X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
+ auth_id=262
+X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
+Reply-To: amitsd@google.com
 
-pin_insert() initializes a pin before adding it under pin_lock.  The kill
-paths read the list heads under RCU without taking that lock.  Plain hlist
-insertion does not publish the earlier initialization to those readers.
+From: Amit Sunil Dhamne <amitsd@google.com>
 
-KCSAN weak-memory checking reported acct_on() callback initialization
-racing with pin_kill() after the superblock-list publication.  The
-corresponding LKMM model permits the stale read with plain publication;
-the RCU release/acquire pair forbids it.
+Reset the port if the tcpm fails to start the FAST_ROLE_SWAP AMS by
+initiating error recovery on it.
 
-Use the RCU hlist add and dereference helpers for both pin lists.
+This helps in cases where some cables (incorrectly) signal an FRS to
+an FRS capable port during disconnection. The TCPC autonomously starts
+sourcing VBUS on detecting the FRS signal. However, the VBUS sourcing is
+left on when the FAST_ROLE_SWAP AMS fails to start (as tcpm_sink_tx_ok
+is 0 as CC is open due to the cable disconnect). This is because the
+code sets the state to INVALID_STATE without resetting the port state.
 
-Fixes: 2798d4ce6160 ("acct: get rid of acct_lock for acct->count")
+Log snippet before changes:
+[  101.401960] AMS FAST_ROLE_SWAP start
+[  101.401971] Sink TX No Go
+[  101.401982] sourcing vbus
+[  101.401987] VBUS on
+[  101.402159] VBUS on
+[  109.257809] CC1: 0 -> 0, CC2: 5 -> 0 [state SNK_READY, polarity 1, disconnected]
+[  111.267442] VBUS on
+
+After changes:
+[   70.541211] AMS FAST_ROLE_SWAP start
+[   70.541220] Sink TX No Go
+[   70.541228] state change SNK_READY -> ERROR_RECOVERY [rev3 NONE_AMS]
+[   70.541362] VBUS on
+[   70.541365] sourcing vbus
+[   70.541367] VBUS on
+[   70.541374] state change ERROR_RECOVERY -> PORT_RESET [rev3 NONE_AMS]
+[   70.541410] disable vbus discharge ret:0
+[   70.543028] Setting usb_comm capable false
+[   70.544009] Setting voltage/current limit 0 mV 0 mA
+[   70.544034] polarity 0
+[   70.544239] Requesting mux state 0, usb-role 0, orientation 0
+[   70.555550] cc:=0
+[   70.555595] pending state change PORT_RESET -> PORT_RESET_WAIT_OFF @ 100 ms [rev3 NONE_AMS]
+[   70.555697] VBUS off
+[   70.555702] VBUS VSAFE0V
+[   70.555762] CC1: 5 -> 0, CC2: 0 -> 0 [state PORT_RESET, polarity 0, disconnected]
+[   70.587794] VBUS off
+[   70.587799] VBUS VSAFE0V
+[   70.655672] state change PORT_RESET -> PORT_RESET_WAIT_OFF [delayed 100 ms]
+[   70.655682] state change PORT_RESET_WAIT_OFF -> SNK_UNATTACHED [rev3 NONE_AMS]
+[   70.655686] Start toggling
+[   70.656274] CC1: 0 -> 0, CC2: 0 -> 0 [state TOGGLING, polarity 0, disconnected]
+
+Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 ---
-Reviewer notes:
+ drivers/usb/typec/tcpm/tcpm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Tested on arm64 (Raspberry Pi 400, Cortex-A72) at cf72cbb39da8 with clang,
-strict KCSAN, and weak-memory modeling.  Concurrent acct(path) and
-read-only remounts produced one __arm64_sys_acct()/pin_kill() report in
-the baseline.  Disassembly identified both accesses as pin->kill and the
-write as modeled past pin_insert().
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index a8cd1959c426..c1045d850897 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -7113,7 +7113,7 @@ static void tcpm_pd_event_handler(struct kthread_work *work)
+ 				port->upcoming_state = FR_SWAP_SEND;
+ 				ret = tcpm_ams_start(port, FAST_ROLE_SWAP);
+ 				if (ret == -EAGAIN)
+-					port->upcoming_state = INVALID_STATE;
++					tcpm_set_state(port, ERROR_RECOVERY, 0);
+ 			} else {
+ 				tcpm_log(port, "Discarding FRS_SIGNAL! Not in sink ready");
+ 			}
 
-With this patch, the report was absent at five times the baseline
-exposure, while unrelated control races continued to fire.  The LKMM
-plain-publication test is "Sometimes"; its RCU counterpart is "Never".
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-frs-error-handling-253b87a09fa2
 
-This demonstrates modeled reordering, not an observed crash.  Plain KCSAN
-also found no report in about 400,000 acct() cycles.
+Best regards,
+-- 
+Amit Sunil Dhamne <amitsd@google.com>
 
- fs/fs_pin.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
 
---- a/fs/fs_pin.c
-+++ b/fs/fs_pin.c
-@@ -1,5 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <linux/fs.h>
-+#include <linux/rculist.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include "internal.h"
-@@ -22,8 +23,8 @@
- void pin_insert(struct fs_pin *pin, struct vfsmount *m)
- {
- 	spin_lock(&pin_lock);
--	hlist_add_head(&pin->s_list, &m->mnt_sb->s_pins);
--	hlist_add_head(&pin->m_list, &real_mount(m)->mnt_pins);
-+	hlist_add_head_rcu(&pin->s_list, &m->mnt_sb->s_pins);
-+	hlist_add_head_rcu(&pin->m_list, &real_mount(m)->mnt_pins);
- 	spin_unlock(&pin_lock);
- }
-
-@@ -73,7 +74,7 @@
- 	while (1) {
- 		struct hlist_node *p;
- 		rcu_read_lock();
--		p = READ_ONCE(m->mnt_pins.first);
-+		p = rcu_dereference(hlist_first_rcu(&m->mnt_pins));
- 		if (!p) {
- 			rcu_read_unlock();
- 			break;
-@@ -87,7 +88,7 @@
- 	while (1) {
- 		struct hlist_node *q;
- 		rcu_read_lock();
--		q = READ_ONCE(p->first);
-+		q = rcu_dereference(hlist_first_rcu(p));
- 		if (!q) {
- 			rcu_read_unlock();
- 			break;
