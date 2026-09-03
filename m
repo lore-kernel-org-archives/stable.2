@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688B94B8DFC
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424334B26F0
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:04:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447885; cv=none; b=VRoYvV7cAoFRNVzsd1fzdyshq5DJXYZRbn9RNuQm/mJMaZKjtLPVAtWctDDs6DGfpRwV9oV5msSExv5XayWTlDzjXit+JyOoJkyX++cRH3AYKz5UDyLzw0cK7QtYvDA6LYsiK2YqsfimZCuWdsuMHSidhMbpVIukU8857n+BMZE=
+	t=1788447888; cv=none; b=Tp8i/pfNOAw/90wqFcWwU2wq1G12m2d/v9xheBcH5wM+5AMqVvRhvVvHcVCDzK5bIJ/0gm9zaWNkxqIGGeJRQ6Qhs8/69YhO7e8GzE2piMb0VPgN153PPq7QzGRHeHV6Rlagw4MHTyzpcEOfvacIHaJsovwxsyAilJhKIEYEEmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447885; c=relaxed/simple;
-	bh=RLTLF+mG9C3Tnz3saQ5dBGsASVR4xlVPlGYro0JjDME=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G2Nz9WVe5bo6ZqrouhqiAGRkRAzCcfywtBpoxyZGiv1sJ9Xp9nAw7DnM2hm4ytIx5j9TMO7p2I2+XlP3K92kDuULuffue/ghWJmmvIHdRHH3LomARsqI8PDSKZjgx5HsBSCd8ElwwqtYmMb9DxTc4o+ZnmBOy+KuUFKOJM9cDBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hgrNVQYs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447888; c=relaxed/simple;
+	bh=nWpp8dN0bL6LEg02p7j2oQCu2gC5ztEWlqZ2G9fVDwQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ktKF278A7IjgjitO8YY/RPDzZ3jhtlWGsG/8MrdiWKmMxGbD+gWUuuQbRjVaaiZJ3QVHdBnleXSBP/L6MvcYwQRf4q3OfFQvJlQb6LND2guPxYuIxrJAop6MlLe/vz6J3boScTmvtCBpLk3Qs24PTxzRWcQOEpHj2VyCgUCRHv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xSUBS3/n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hgrNVQYs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C35371F000E9;
-	Thu,  3 Sep 2026 15:04:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xSUBS3/n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2211F000E9;
+	Thu,  3 Sep 2026 15:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447884;
-	bh=4el6Ku2VoQMRMILBBJ0xyQKsT1I7fxTdA2DaR8Ju9W8=;
+	s=korg; t=1788447887;
+	bh=JLoHjjxeUbbFtL4NipiGn25iYems7IABVBunbwaQmfA=;
 	h=Subject:To:Cc:From:Date;
-	b=hgrNVQYscGlKdYoDsEyLjbGZnzIaqNg9HnPl8A8UNfRNWXhkF/eYqsrIez6Q7q7ra
-	 ELOaNEH1jr3quMz1QLs2pobrS9riMwPyzVhs2aGzy9zyp6HCnefKeT64edf2oZYMSn
-	 L6U4v4hZy3mOF0CisXLNPyWRvB3dpwUsMDIHXz90=
-Subject: FAILED: patch "[PATCH] PCI: Allow per function PCI slots to fix slot reset on s390" failed to apply to 5.15-stable tree
-To: alifm@linux.ibm.com,bhelgaas@google.com,schnelle@linux.ibm.com
+	b=xSUBS3/ndPWEqcL1dQ/7tl1vFia9HritZm/vp2bhYRnUcskI9EggWgkrurhgUYsWW
+	 erSfoYNNRfQ0cGlLacmjCvLWhIMjahvbgv7M32d+HhsAGTgf2eMKM8O9iqmP00IE2a
+	 LMzDiguNJ2x67CbbvKLQugWk6pEDd9gszpOJeuCE=
+Subject: FAILED: patch "[PATCH] PCI/AER: Emit TLP Log only for unmasked errors" failed to apply to 6.12-stable tree
+To: lukas@wunner.de,bhelgaas@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:42:57 +0200
-Message-ID: <2026090357-campsite-deed-f492@gregkh>
+Date: Thu, 03 Sep 2026 16:43:26 +0200
+Message-ID: <2026090326-reconfirm-upwind-742d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x dcc5bec09e23bbc4f9de055a11fce9937244f2c8
+git cherry-pick -x a8bf2dd750de7d682fdaa2127f4e3217ce9c4a82
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090357-campsite-deed-f492@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090326-reconfirm-upwind-742d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,153 +62,43 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From dcc5bec09e23bbc4f9de055a11fce9937244f2c8 Mon Sep 17 00:00:00 2001
-From: Farhan Ali <alifm@linux.ibm.com>
-Date: Wed, 5 Aug 2026 09:55:15 -0700
-Subject: [PATCH] PCI: Allow per function PCI slots to fix slot reset on s390
+From a8bf2dd750de7d682fdaa2127f4e3217ce9c4a82 Mon Sep 17 00:00:00 2001
+From: Lukas Wunner <lukas@wunner.de>
+Date: Fri, 24 Jul 2026 17:24:04 +0200
+Subject: [PATCH] PCI/AER: Emit TLP Log only for unmasked errors
 
-On s390 systems, which use a machine level hypervisor, PCI devices are
-always accessed through a form of PCI pass-through which fundamentally
-operates on a per PCI function granularity. This is also reflected in the
-s390 PCI hotplug driver which creates hotplug slots for individual PCI
-functions. Its reset_slot() function, which is a wrapper for
-zpci_hot_reset_device(), thus also resets individual functions.
+Per PCIe r7.0 sec 6.2.5, the prefix and header of an offending TLP is only
+recorded for unmasked Uncorrectable Errors.  Yet when the AER driver
+determines whether a prefix and header has been logged, it does not take
+the Uncorrectable Error Mask Register into account.  Fix it.
 
-Currently, the pci_create_slot() assigns the same pci_slot object to
-multifunction devices. This approach worked fine on s390 systems that only
-exposed virtual functions as individual PCI domains to the operating
-system.  Since commit 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-s390 supports exposing the topology of multifunction PCI devices by
-grouping them in a shared PCI domain. This creates a problem when resetting
-a function through the hotplug driver's slot_reset() interface.
-
-When attempting to reset a function through the hotplug driver, the shared
-slot assignment causes the wrong function to be reset instead of the
-intended one. It also leaks memory as we do create a pci_slot object for
-the function, but don't correctly free it in pci_slot_release().
-
-Add a flag for struct pci_slot to allow per function PCI slots for
-functions managed through a hypervisor, which exposes individual PCI
-functions while retaining the topology. Since we can use all 8 bits for
-slot 'number' (for ARI devices), change slot 'number' u16 to account for
-special values PCI_SLOT_PLACEHOLDER and PCI_SLOT_ALL_DEVICES.
-
-Fixes: 44510d6fa0c0 ("s390/pci: Handling multifunctions")
-Suggested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Signed-off-by: Farhan Ali <alifm@linux.ibm.com>
+Fixes: 6c2b374d7485 ("PCI-Express AER implemetation: AER core and aerdriver")
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
 Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260805165518.794-3-alifm@linux.ibm.com
+Cc: stable@vger.kernel.org # v2.6.19+
+Link: https://patch.msgid.link/2e712b96ba5bfc729d78bfc23f7fb7d285aa3d6d.1784905909.git.lukas@wunner.de
 
-diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index 77b17b13ee61..350bae907ebf 100644
---- a/drivers/pci/pci.c
-+++ b/drivers/pci/pci.c
-@@ -4897,8 +4897,9 @@ static int pci_reset_hotplug_slot(struct hotplug_slot *hotplug, bool probe)
+diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
+index c21139b9079b..4d1d99662086 100644
+--- a/drivers/pci/pcie/aer.c
++++ b/drivers/pci/pcie/aer.c
+@@ -954,7 +954,8 @@ void pci_print_aer(struct pci_dev *dev, int aer_severity,
+ 		status = aer->uncor_status;
+ 		mask = aer->uncor_mask;
+ 		info.level = KERN_ERR;
+-		tlp_header_valid = tlp_header_logged(status, aer->cap_control);
++		tlp_header_valid = tlp_header_logged(status & ~mask,
++						     aer->cap_control);
+ 	}
  
- static int pci_dev_reset_slot_function(struct pci_dev *dev, bool probe)
- {
--	if (dev->multifunction || dev->subordinate || !dev->slot ||
--	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET)
-+	if (dev->subordinate || !dev->slot ||
-+	    dev->dev_flags & PCI_DEV_FLAGS_NO_BUS_RESET ||
-+	    (dev->multifunction && !dev->slot->per_func_slot))
- 		return -ENOTTY;
+ 	info.status = status;
+@@ -1343,7 +1344,7 @@ int aer_get_device_error_info(struct aer_err_info *info, int i)
+ 		pci_read_config_dword(dev, aer + PCI_ERR_CAP, &aercc);
+ 		info->first_error = PCI_ERR_CAP_FEP(aercc);
  
- 	return pci_reset_hotplug_slot(dev->slot->hotplug, probe);
-diff --git a/drivers/pci/slot.c b/drivers/pci/slot.c
-index 42ff66461f74..897223f01f6a 100644
---- a/drivers/pci/slot.c
-+++ b/drivers/pci/slot.c
-@@ -72,6 +72,23 @@ static ssize_t cur_speed_read_file(struct pci_slot *slot, char *buf)
- 	return bus_speed_read(slot->bus->cur_bus_speed, buf);
- }
- 
-+static bool pci_dev_matches_slot(struct pci_dev *dev, struct pci_slot *slot)
-+{
-+	if (slot->per_func_slot)
-+		return dev->devfn == slot->number;
-+
-+	return slot->number == PCI_SLOT_ALL_DEVICES ||
-+		PCI_SLOT(dev->devfn) == slot->number;
-+}
-+
-+static bool pci_slot_enabled_per_func(void)
-+{
-+	if (IS_ENABLED(CONFIG_S390))
-+		return true;
-+
-+	return false;
-+}
-+
- static void pci_slot_release(struct kobject *kobj)
- {
- 	struct pci_dev *dev;
-@@ -82,8 +99,7 @@ static void pci_slot_release(struct kobject *kobj)
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &slot->bus->devices, bus_list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = NULL;
- 	up_read(&pci_bus_sem);
- 
-@@ -187,8 +203,7 @@ void pci_dev_assign_slot(struct pci_dev *dev)
- 
- 	mutex_lock(&pci_slot_mutex);
- 	list_for_each_entry(slot, &dev->bus->slots, list)
--		if (slot->number == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot->number)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	mutex_unlock(&pci_slot_mutex);
- }
-@@ -299,6 +314,9 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 	slot->bus = pci_bus_get(parent);
- 	slot->number = slot_nr;
- 
-+	if (pci_slot_enabled_per_func())
-+		slot->per_func_slot = 1;
-+
- 	slot->kobj.kset = pci_slots_kset;
- 
- 	slot_name = make_slot_name(name);
-@@ -319,8 +337,7 @@ struct pci_slot *pci_create_slot(struct pci_bus *parent, int slot_nr,
- 
- 	down_read(&pci_bus_sem);
- 	list_for_each_entry(dev, &parent->devices, bus_list)
--		if (slot_nr == PCI_SLOT_ALL_DEVICES ||
--		    PCI_SLOT(dev->devfn) == slot_nr)
-+		if (pci_dev_matches_slot(dev, slot))
- 			dev->slot = slot;
- 	up_read(&pci_bus_sem);
- 
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index 3824a8dd551e..8593384489db 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -79,17 +79,18 @@
-  * and, if ARI Forwarding is enabled, functions may appear to be on multiple
-  * devices.
-  */
--#define PCI_SLOT_ALL_DEVICES	0xfe
-+#define PCI_SLOT_ALL_DEVICES	0xfeff
- 
- /* Used to identify a slot as a placeholder */
--#define PCI_SLOT_PLACEHOLDER	0xff
-+#define PCI_SLOT_PLACEHOLDER	0xffff
- 
- /* pci_slot represents a physical slot */
- struct pci_slot {
- 	struct pci_bus		*bus;		/* Bus this slot is on */
- 	struct list_head	list;		/* Node in list of slots */
- 	struct hotplug_slot	*hotplug;	/* Hotplug info (move here) */
--	unsigned char		number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	u16			number;		/* Device nr, or PCI_SLOT_ALL_DEVICES */
-+	unsigned int		per_func_slot:1; /* Allow per function slot */
- 	struct kobject		kobj;
- };
- 
+-		if (tlp_header_logged(info->status, aercc)) {
++		if (tlp_header_logged(info->status & ~info->mask, aercc)) {
+ 			info->tlp_header_valid = 1;
+ 			pcie_read_tlp_log(dev, aer + PCI_ERR_HEADER_LOG,
+ 					  aer + PCI_ERR_PREFIX_LOG,
 
