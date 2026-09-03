@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5928B4A5ED2
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:54:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6582481FAB
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:54:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440081; cv=none; b=N3rYgmLPEaNjAz9p3xp0ms1mWeH0PY4qz4FYy+WKMYp48bbmSysKzL/r9cfYnxlYk/YHimzDIN931suMvIOffubxKUYdnb43ftKUAeUe/tP+6lwGfMS2rGmeZX9yUgBg+r375ZySCY7Xxw/UhliVpZ8OHt/5cQdG2p8DkRjWdxU=
+	t=1788440084; cv=none; b=j+gBW2s5hcx4SykgkU72F0BUPE2ZSxK7aI6Em5C0/7KyQ568cbBe+PoXeL1iFtwyzWwKuRXc6hCksA54ZA11K+PEScK67G3t1A8xlD6sSjJ1jLh4FvdVN8r+aeRo/NzfPKMBwsNVoC2MI2oIf1WbQcwnyYC7ov74yBn0obRJ5lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440081; c=relaxed/simple;
-	bh=oEtiHkrUMPNRGkFAvvTFYTsUyzlV2yOTW/CO4yhBeL8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DyeaAz4YAIGy/eWW5L3J2fHFlzH/lQABSDdLqkhC0bWK6zbekSX/T8EPiU8Nghv2YWxtJzgIxOwa+p8atOFUjFr1SFKlnW+Sd5mFvJcgOPw4Bfcdaa32dakmYC9NhsAFd4yP7lWIFJklCw/pqxiIvmKV3C+p8SOeAhESuhzb6P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hGWCt2j7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788440084; c=relaxed/simple;
+	bh=kKKPZu+eCKAuui2+TzPp+vZeyhGK+R944bpm8gF8yH8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MO7zILOkByNkublEpShY6/GEVRYgjrNQKUaVBVm+VEoknKZPHno5rVFlwyUZjxqB79+I9up/0XK6d6vX+WFjmbaBaEP0ags/lVW2LDDMsLT9c1BOukAtwduexLswdC2uvIBiqV2GInGhRBkCQPKxxY3ANtO9ASRanbkmaPZrHmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=eRTt8V9h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hGWCt2j7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8862C1F000E9;
-	Thu,  3 Sep 2026 12:54:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="eRTt8V9h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDB01F000E9;
+	Thu,  3 Sep 2026 12:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440080;
-	bh=S843kAD8DLMo5Zbb3mDOviU38spQaKK7XlpQxhM7UvI=;
+	s=korg; t=1788440082;
+	bh=nKLFnfqrTOk7SXFl9TA2/c4poUTleM7lXucdipB6Aao=;
 	h=Subject:To:Cc:From:Date;
-	b=hGWCt2j7DjjDPGAWBQwR+A3SgYJaYWD9TM1cfhUkvLTIZTJ5Y3a7PQZ7YU8CCW65x
-	 zCqU4wQiStOl0xDhJCjZeJHkovKnoC/gk2Wkolm4OLk2+dTdNe09oBhh8AIo19+5e8
-	 A3DiOjq1geQq9EksadksiRJVemOyKYy7dX/ixpR8=
-Subject: FAILED: patch "[PATCH] tracing: Fix logged instance name on creation failure" failed to apply to 6.6-stable tree
-To: vdonnefort@google.com,mhiramat@kernel.org,rostedt@goodmis.org
+	b=eRTt8V9h+uLXm7ZhNNYIpXN9bN8uVoh11BunFDkymvnXILGip/ZeA7czrxDg0ZS7u
+	 S0fEPlIC7MICcHGoQPIGtBX0pF2HclKkYt937r+M05dyzTjb4mlT/cN63g83M48EgN
+	 MwKvLttybtyoKrwPmL9wCd3WtzFynJEByBE94uDo=
+Subject: FAILED: patch "[PATCH] serial: imx: serialize imx_uart_ports[] lifetime" failed to apply to 6.1-stable tree
+To: kmehltretter@gmail.com,Frank.Li@nxp.com,gregkh@linuxfoundation.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 14:36:05 +0200
-Message-ID: <2026090305-creole-floral-cc49@gregkh>
+Date: Thu, 03 Sep 2026 14:38:32 +0200
+Message-ID: <2026090332-deputize-flying-c9c8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x a9a01be2834a529cbd490ccbab02643f0c1735f2
+git cherry-pick -x 8b0b29fdcb47907ae0296b8fe829e918e05e300f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090305-creole-floral-cc49@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090332-deputize-flying-c9c8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,37 +62,90 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a9a01be2834a529cbd490ccbab02643f0c1735f2 Mon Sep 17 00:00:00 2001
-From: Vincent Donnefort <vdonnefort@google.com>
-Date: Fri, 7 Aug 2026 09:54:23 +0100
-Subject: [PATCH] tracing: Fix logged instance name on creation failure
+From 8b0b29fdcb47907ae0296b8fe829e918e05e300f Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Fri, 31 Jul 2026 20:18:44 +0200
+Subject: [PATCH] serial: imx: serialize imx_uart_ports[] lifetime
 
-When boot instance creation fails, the kernel incorrectly logs "(null)"
-as the instance name because strsep() consumes curr_str entirely during
-parsing.
+imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
+before uart_add_one_port() because console setup uses the table. The entry
+is not cleared when adding the port fails or after removal, leaving a
+dangling pointer.
 
-Print the properly parsed name variable instead. And while at it log
-the error code.
+A sibling probe can register the shared console through that stale entry.
+This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
+sibling UART, unbinding the console UART and rebinding the sibling.
 
+Keep the entry valid through uart_remove_one_port(), then clear it. Protect
+port addition and removal together with their table updates so sibling
+operations cannot interleave. Reject an occupied slot rather than
+clobbering an active port during a duplicate-line probe.
+
+Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
+Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
+Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260807085423.4175161-1-vdonnefort@google.com
-Fixes: cb1f98c5e574 ("tracing: Add creation of instances at boot command line")
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260731181844.11330-6-kmehltretter@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 89dc1c0ebb90..740c5f358b75 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -9726,7 +9726,8 @@ __init static void enable_instances(void)
+diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+index 95fdb60e06a7..513dbe95f7e9 100644
+--- a/drivers/tty/serial/imx.c
++++ b/drivers/tty/serial/imx.c
+@@ -22,6 +22,7 @@
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/ktime.h>
++#include <linux/mutex.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/rational.h>
+ #include <linux/slab.h>
+@@ -2080,6 +2081,9 @@ static const struct uart_ops imx_uart_pops = {
  
- 		tr = trace_array_create_systems(name, NULL, addr, size);
- 		if (IS_ERR(tr)) {
--			pr_warn("Tracing: Failed to create instance buffer %s\n", curr_str);
-+			pr_warn("Tracing: Failed to create instance buffer '%s' (%ld)\n", name,
-+				PTR_ERR(tr));
- 			continue;
- 		}
+ static struct imx_port *imx_uart_ports[UART_NR];
  
++/* Held across uart_add/remove_one_port(); console callbacks must not take it. */
++static DEFINE_MUTEX(imx_uart_ports_lock);
++
+ #if IS_ENABLED(CONFIG_SERIAL_IMX_CONSOLE)
+ static void imx_uart_console_putchar(struct uart_port *port, unsigned char ch)
+ {
+@@ -2621,11 +2625,19 @@ static int imx_uart_probe(struct platform_device *pdev)
+ 			goto err_clk;
+ 	}
+ 
+-	imx_uart_ports[sport->port.line] = sport;
+-
+ 	platform_set_drvdata(pdev, sport);
+ 
+-	ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
++	scoped_guard(mutex, &imx_uart_ports_lock) {
++		if (imx_uart_ports[sport->port.line]) {
++			ret = -EBUSY;
++		} else {
++			imx_uart_ports[sport->port.line] = sport;
++			ret = uart_add_one_port(&imx_uart_uart_driver,
++						&sport->port);
++			if (ret)
++				imx_uart_ports[sport->port.line] = NULL;
++		}
++	}
+ 
+ err_clk:
+ 	clk_disable_unprepare(sport->clk_ipg);
+@@ -2637,7 +2649,9 @@ static void imx_uart_remove(struct platform_device *pdev)
+ {
+ 	struct imx_port *sport = platform_get_drvdata(pdev);
+ 
++	guard(mutex)(&imx_uart_ports_lock);
+ 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
++	imx_uart_ports[sport->port.line] = NULL;
+ }
+ 
+ static void imx_uart_restore_context(struct imx_port *sport)
 
