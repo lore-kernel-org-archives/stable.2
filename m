@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8E44B1291
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A674B1299
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443355; cv=none; b=A/tGRW5r9rR/Lw2WQbZSRc8Icg6sgGHIqTfiNr5DUk9vENcCjnyjpj8n88/vpyguvnMIWHkDPrBNQRegbCqEnmlCGpFHKLP1eBVknbZ5faib6EN1wX29cO7thf7pTdFPqjOqIIj7bJin7wXv/85o5IuP6lZSe7DJBxGtoLpCHLg=
+	t=1788443355; cv=none; b=AmxIQYA18SEQ/mFf58FIQMuzx6QZuxH4iC8w9OShy19Kh0CCsKbouv9lXxzM1IgGev35rwz0YEID9UTel2Tjx/3nggCsKtrbTqDc6dq0yxNvDyldScybgqBPRXToJ0EDx5wZ7F65BqHplnrK5xy77i4owlcfrUu3uwLJNBu7pn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788443355; c=relaxed/simple;
-	bh=1vHz8LoFG/rAlHdoFp2d0y2zmYXH/4ysaw5cc5a75os=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Unu4JMDE/En1XbnYwhHKiFg5bFDJn2IwX4X9YMatXtAnS54KGhH35N8+RK0lsN9BkCA6Bx6NAG3vwB5HgNOFSIBzwxCQOw7d6RgJsalPv8JkzZWpryIUbANWAyrb0CZi7fW5ht4EqgZuYGlQCwkHwZflc5tGI79BOHcbbp57NnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DkVAbBep; arc=none smtp.client-ip=100.103.45.18
+	bh=qQfmWXXNpeNHMtWLrLTCuuozJeevoQGZZnZKKB7Pi2s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=i0GNwFHVKqIC9huD0ZCBQgEc2rvX/DQTVmKmRjrJH80GsjcXnf53mLm1SN6XCS72UzNGwdPjbeJy599wZBK4iuX72rAbp8Aclcnu46H9YzMNFN0w1mzr3wsCiI0SC30To5rIo5orX35HzNLwIFX7sFhVY72UT2ocxTo55zm8xno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hzDGv3fP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DkVAbBep"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F5B1F00A3A;
-	Thu,  3 Sep 2026 13:49:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hzDGv3fP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1ABB1F00A3D;
+	Thu,  3 Sep 2026 13:48:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443347;
-	bh=nBv/e83FdPNi2NhxMjl5Zvi1RA758WCkrLxIHkp6mFM=;
+	s=korg; t=1788443338;
+	bh=WGRi2ijHOXmtLsAYYOsoHYINgv5tNbOAIPNPvvBUJgs=;
 	h=Subject:To:Cc:From:Date;
-	b=DkVAbBepkXX06TmzCEBsPqHj/kOKviG2wXBy5H1+rNtD/ELh4YUnC49oYoE6IAx5x
-	 9JsDCMfkeJFFmNEgn+INBkJm7SzWyMRdKeqVLKJyxYUIoNtScnw/s7KLgpbhywTSzp
-	 4EJUXYL21pGrxCsgakXxNfKZbU3f3VUA1GAF48DU=
-Subject: FAILED: patch "[PATCH] smb: client: fix use-before-check of ReparseDataLength in" failed to apply to 6.18-stable tree
-To: sorenson@redhat.com,linkinjeon@kernel.org,pc@manguebit.org
+	b=hzDGv3fPtn2aJLjzzy83D6Og8TPb2MsZqBTAU/9PtlMBymZgnyTmMl1vepe3b0ap+
+	 A8fznGjU7Zjwzgne7eZRpruXT2eMddrAZaEfZj/AZdDBWxOV/Tj72V1quJcDWGUQvS
+	 ljVRthg3i2X09BuXXbgt+Qc2LNCTyM+5WiVcXfHA=
+Subject: FAILED: patch "[PATCH] smb: client: fix OOB read/write from unvalidated DataOffset" failed to apply to 6.6-stable tree
+To: sorenson@redhat.com,grayhat@foxmail.com,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:27:13 +0200
-Message-ID: <2026090313-underfed-kilogram-a0bd@gregkh>
+Date: Thu, 03 Sep 2026 15:27:03 +0200
+Message-ID: <2026090303-reprocess-unexpired-2698@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 05f78e6cf34ea3a285053bd5999e08e8ac298bd5
+git cherry-pick -x 6343c1da561962688f203362d80d6a3bfa39fa1b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090313-underfed-kilogram-a0bd@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090303-reprocess-unexpired-2698@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,52 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 05f78e6cf34ea3a285053bd5999e08e8ac298bd5 Mon Sep 17 00:00:00 2001
+From 6343c1da561962688f203362d80d6a3bfa39fa1b Mon Sep 17 00:00:00 2001
 From: Frank Sorenson <sorenson@redhat.com>
-Date: Mon, 17 Aug 2026 12:16:57 -0500
-Subject: [PATCH] smb: client: fix use-before-check of ReparseDataLength in
- reparse_buf_ptr()
+Date: Tue, 11 Aug 2026 21:41:26 -0500
+Subject: [PATCH] smb: client: fix OOB read/write from unvalidated DataOffset
+ in coalesce_t2()
 
-reparse_buf_ptr() reads buf->ReparseDataLength before checking that
-count covers the full fixed header:
+coalesce_t2() computes data pointers directly from server-supplied
+DataOffset fields with no validation against buffer bounds:
 
-    buf = (struct reparse_data_buffer *)((u8 *)io + off);
-    len = sizeof(*buf);                          /* 8 bytes */
-    rdlen = le16_to_cpu(buf->ReparseDataLength); /* offset 4, 2 bytes */
+  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+  data_area_of_tgt += total_in_tgt;
+  ...
+  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
 
-    if (count < len || count < rdlen + len)      /* check comes after */
+A small DataOffset can push a pointer below the actual byte area,
+overwriting header fields; a large one can push it past the buffer
+end, causing out-of-bounds heap reads (source) or writes (target).
+The BCC overflow guard does not prevent this: BCC reflects how much
+data is present, while DataOffset controls where in the buffer it
+starts.
 
-struct reparse_data_buffer has ReparseDataLength at offset 4.  If a
-server returns OutputCount < 6, the read at offset 4-5 reaches past
-the end of the received data.  The off+count bounds against iov_len
-were already validated, but that does not protect against count being
-smaller than sizeof(*buf).
+The "validate target area" comment present since the function was
+first written in 2005 was a placeholder that was never implemented.
 
-Split the check: verify count >= sizeof(*buf) before reading
-ReparseDataLength, then verify count covers the data region.
+Add lower- and upper-bound checks for both data pointers before the
+memcpy, and before any target header fields are modified.
 
-Fixes: a158bb66b137 ("smb: client: optimise reparse point querying")
+Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
 Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/smb2inode.c b/fs/smb/client/smb2inode.c
-index bcaa44814b71..98ea5c6c34af 100644
---- a/fs/smb/client/smb2inode.c
-+++ b/fs/smb/client/smb2inode.c
-@@ -41,9 +41,11 @@ static struct reparse_data_buffer *reparse_buf_ptr(struct kvec *iov)
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index 966f2cf83a51..66daa5a37e4a 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -375,12 +375,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr, unsigned int *pdu_len)
+ 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
  
- 	buf = (struct reparse_data_buffer *)((u8 *)io + off);
- 	len = sizeof(*buf);
--	rdlen = le16_to_cpu(buf->ReparseDataLength);
-+	if (count < len)
-+		return ERR_PTR(smb_EIO2(smb_eio_trace_reparse_rdlen, count, 0));
+-	/* validate target area */
+ 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
  
--	if (count < len || count < rdlen + len)
-+	rdlen = le16_to_cpu(buf->ReparseDataLength);
-+	if (count < rdlen + len)
- 		return ERR_PTR(smb_EIO2(smb_eio_trace_reparse_rdlen, count, rdlen));
- 	return buf;
- }
+ 	data_area_of_tgt += total_in_tgt;
+ 
++	/*
++	 * DataOffset fields are server-supplied and not validated against
++	 * buffer bounds; check both data pointers before mutating the
++	 * target header.
++	 */
++	if (data_area_of_tgt < (char *)target_hdr +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_tgt + total_in_src >
++	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
++		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++	if (data_area_of_src < second_buf +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_src + total_in_src >
++	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
++		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++
+ 	total_in_tgt += total_in_src;
+ 	/* is the result too big for the field? */
+ 	if (total_in_tgt > USHRT_MAX) {
 
