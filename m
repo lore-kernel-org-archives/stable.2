@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F42334C77D2
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D604C77A2
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447983; cv=none; b=C2m6CL5RT0lBGIOhWxp4NwZlwV0lE/19tXIUzvouBAdotS59OcGS8SAElkpOmTH7/0k9X7K1QwZMAaEb6eINu1PCuxvvLLRZ8ahDKn/zXHEAjC7faSN3fGrPXSVaTJNxU72cbMOwRusS/8ckjn/zHyOuP28OBQhvgtaSHmtwzRA=
+	t=1788447985; cv=none; b=ezsUtdYsxZtareoESLx39Vq8paE/cndA4FEPCI9fCxqeYqo6qSr5HQrfLce0tzhZ8hKm3YG14CduPMBB2a9LQmlhy3oRFO1auD2fUB9xmdVwMdoM4AQUl4+ad1Y7+9WFmTqUrN2pAupRH4NQA5VvMWh9zUGIQrzrlyMZ7qJ5Rtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447983; c=relaxed/simple;
-	bh=m8zAZ0zti11ciEwCNaw1hK7CY5vRk1T8Wk7xdrNIUPc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TnEJBSTJhzOWizVchpAiTz2WR4bFC0LllXKJ4DJ0WqXVPZDFLq/XcIwUPPpxX1HkV2NwRdP3CTauSR5tlENaJ+qDU3Zm0inU6I2VFli2R5Ph/6becKSDDSGqcVqfkJ2IZLq8NU/QgGpvEhBk1xYW5uE/sE565EybXrIg3IdXKTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QZmzzN+d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447985; c=relaxed/simple;
+	bh=7j62tLEpeO0rL50FZXCsL9/YfFwBDBoC9XpJvYNuwAg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=baA+O37fkeGwkreVdw5BmkWP70S64wPp01bCmU1wklEKBjK9ldoEIxUqOlmsVL4vVR25qmol1Jj/v9TXXbBmDoA4TDVtQ+Fbeb77x0vE3WSns+HFFbi/oDbXjGyguCEflk2LI8SvgvrjSEU03cCegukkhIMUDjhgKmxEwnWDP3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oPOplGCq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QZmzzN+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B06E1F000E9;
-	Thu,  3 Sep 2026 15:06:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oPOplGCq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36C631F00A3A;
+	Thu,  3 Sep 2026 15:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447980;
-	bh=R25peUjYWO8E0QCeP50bgsV2ge+yODnUze/8jKV6JWA=;
+	s=korg; t=1788447983;
+	bh=yJVlp6eg7HpDZulazuvf82F26CkhnjBchsL5fAhXEZM=;
 	h=Subject:To:Cc:From:Date;
-	b=QZmzzN+d6/Lh+Akb3ZZUvipwNkPivJVj4sdhZd2fbKF0gXmdNUpqYAYq5lgDE0EKn
-	 umvBmQQ2bFynWtKr6zJj+Em26kUIMvpgO9bRst2wEK01XP4CTSpYsrk+rfYv48xz2N
-	 jYHzaR8lxJLcxToxPC/KTkijlv8hVbnUHzn6G/Vk=
-Subject: FAILED: patch "[PATCH] platform/x86: int1092: Fix potential memory leak in" failed to apply to 6.6-stable tree
-To: nihaal@cse.iitm.ac.in,ilpo.jarvinen@linux.intel.com
+	b=oPOplGCq4SjYFyEaGmrpm7zeWafIhFcfbDoq1BvEt9wrBPEm/2+KIxICSQxtmE45A
+	 Nebi1vr6061rWJqey8f5vypRHaxjp41Kr8O9KBhfGcYFs0urnNiVMOTW7OJcpE1Ecf
+	 ZBbZ7eP9i/y6+S6xOGwpwilJ2+tdL0BkJlYDvACQ=
+Subject: FAILED: patch "[PATCH] platform/x86: think-lmi: Fix certificate thumbprint sysfs" failed to apply to 6.6-stable tree
+To: thorsten.blum@linux.dev,ilpo.jarvinen@linux.intel.com,mpearson-lenovo@squebb.ca
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:48:58 +0200
-Message-ID: <2026090358-valuables-resolved-cee0@gregkh>
+Date: Thu, 03 Sep 2026 16:49:26 +0200
+Message-ID: <2026090326-unmixable-concur-5982@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30c906cff490c3601ee9ff110fe8115fabe75fd4
+git cherry-pick -x 4f3183f5ae9b8ddfe338d79a96146a05342bbe50
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090358-valuables-resolved-cee0@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090326-unmixable-concur-5982@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,107 +62,55 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30c906cff490c3601ee9ff110fe8115fabe75fd4 Mon Sep 17 00:00:00 2001
-From: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Date: Thu, 23 Jul 2026 18:14:15 +0530
-Subject: [PATCH] platform/x86: int1092: Fix potential memory leak in
- sar_probe()
+From 4f3183f5ae9b8ddfe338d79a96146a05342bbe50 Mon Sep 17 00:00:00 2001
+From: Thorsten Blum <thorsten.blum@linux.dev>
+Date: Mon, 10 Aug 2026 14:05:57 +0200
+Subject: [PATCH] platform/x86: think-lmi: Fix certificate thumbprint sysfs
+ output
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The memory allocated for device_mode_info in parse_package() called by
-sar_get_data() is not freed in some of the error paths in sar_probe().
-Fix that by converting to use device managed allocations.
+cert_thumbprint() already returns the accumulated output length, but
+certificate_thumbprint_show() adds that value to count again, making the
+next line use the wrong offset. Errors returned by cert_thumbprint() are
+also ignored and their negative values added to count.
 
-Fixes: dcfbd31ef4bc ("platform/x86: BIOS SAR driver for Intel M.2 Modem")
+Assign the total length to count instead and propagate errors correctly.
+
+Fixes: b49f72e7f96d ("platform/x86: think-lmi: Certificate authentication support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Abdun Nihaal <nihaal@cse.iitm.ac.in>
-Link: https://patch.msgid.link/20260723-platx86-v4-1-93b4a178b595@cse.iitm.ac.in
+Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Link: https://patch.msgid.link/20260810120556.149416-2-thorsten.blum@linux.dev
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-diff --git a/drivers/platform/x86/intel/int1092/intel_sar.c b/drivers/platform/x86/intel/int1092/intel_sar.c
-index 849f7b415c1e..7263114f0b3d 100644
---- a/drivers/platform/x86/intel/int1092/intel_sar.c
-+++ b/drivers/platform/x86/intel/int1092/intel_sar.c
-@@ -91,8 +91,10 @@ static acpi_status parse_package(struct wwan_sar_context *context, union acpi_ob
- 	    item->package.count <= data->total_dev_mode)
- 		return AE_ERROR;
+diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
+index e3e683bf3469..ca266657e16c 100644
+--- a/drivers/platform/x86/lenovo/think-lmi.c
++++ b/drivers/platform/x86/lenovo/think-lmi.c
+@@ -745,6 +745,8 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
+ 		return -EOPNOTSUPP;
  
--	data->device_mode_info = kmalloc_objs(struct wwan_device_mode_info,
--					      data->total_dev_mode);
-+	data->device_mode_info = devm_kmalloc_array(&context->sar_device->dev,
-+						    data->total_dev_mode,
-+						    sizeof(*data->device_mode_info),
-+						    GFP_KERNEL);
- 	if (!data->device_mode_info)
- 		return AE_ERROR;
- 
-@@ -253,7 +255,7 @@ static int sar_probe(struct platform_device *device)
- 	if (!handle)
- 		return -ENODEV;
- 
--	context = kzalloc_obj(*context);
-+	context = devm_kzalloc(&device->dev, sizeof(*context), GFP_KERNEL);
- 	if (!context)
- 		return -ENOMEM;
- 
-@@ -264,7 +266,7 @@ static int sar_probe(struct platform_device *device)
- 	result = guid_parse(SAR_DSM_UUID, &context->guid);
- 	if (result) {
- 		dev_err(&device->dev, "SAR UUID parse error: %d\n", result);
--		goto r_free;
-+		return result;
+ 	for (i = 0; i < ARRAY_SIZE(thumbtypes); i++) {
++		ssize_t ret;
++
+ 		if (tlmi_priv.pwdcfg.core.password_mode >= TLMI_PWDCFG_MODE_MULTICERT) {
+ 			/* Format: 'SVC | SMC, Thumbtype' */
+ 			wmistr = kasprintf(GFP_KERNEL, "%s,%s",
+@@ -756,8 +758,12 @@ static ssize_t certificate_thumbprint_show(struct kobject *kobj, struct kobj_att
+ 		}
+ 		if (!wmistr)
+ 			return -ENOMEM;
+-		count += cert_thumbprint(buf, wmistr, count);
++
++		ret = cert_thumbprint(buf, wmistr, count);
+ 		kfree(wmistr);
++		if (ret < 0)
++			return ret;
++		count = ret;
  	}
  
- 	for (reg = 0; reg < MAX_REGULATORY; reg++)
-@@ -272,43 +274,29 @@ static int sar_probe(struct platform_device *device)
- 
- 	if (sar_get_device_mode(device) != AE_OK) {
- 		dev_err(&device->dev, "Failed to get device mode\n");
--		result = -EIO;
--		goto r_free;
-+		return -EIO;
- 	}
- 
- 	result = sysfs_create_group(&device->dev.kobj, &intcsar_group);
- 	if (result) {
- 		dev_err(&device->dev, "sysfs creation failed\n");
--		goto r_free;
-+		return result;
- 	}
- 
- 	if (acpi_install_notify_handler(ACPI_HANDLE(&device->dev), ACPI_DEVICE_NOTIFY,
- 					sar_notify, (void *)device) != AE_OK) {
- 		dev_err(&device->dev, "Failed acpi_install_notify_handler\n");
--		result = -EIO;
--		goto r_sys;
-+		sysfs_remove_group(&device->dev.kobj, &intcsar_group);
-+		return -EIO;
- 	}
- 	return 0;
--
--r_sys:
--	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
--r_free:
--	kfree(context);
--	return result;
- }
- 
- static void sar_remove(struct platform_device *device)
- {
--	struct wwan_sar_context *context = dev_get_drvdata(&device->dev);
--	int reg;
--
- 	acpi_remove_notify_handler(ACPI_HANDLE(&device->dev),
- 				   ACPI_DEVICE_NOTIFY, sar_notify);
- 	sysfs_remove_group(&device->dev.kobj, &intcsar_group);
--	for (reg = 0; reg < MAX_REGULATORY; reg++)
--		kfree(context->config_data[reg].device_mode_info);
--
--	kfree(context);
- }
- 
- static struct platform_driver sar_driver = {
+ 	return count;
 
