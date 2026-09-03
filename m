@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D51DE4E56E7
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED1F4E56F8
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450014; cv=none; b=A/IxHLvMBPuQpmL2C6QONoNSnvkHtAH7OksMbUVrva9GgqDsP0B0lxjW/e4sZXU51fCXTZI5Zyvf3v4h96B62S7onVK8tsRpgqHQFHN9wdeG2hcanH3GweL2FlDftw0qmOeKGSG6zEVHrgdkJGhxP0Hh9SjZTL8aAGRMxmR1158=
+	t=1788450016; cv=none; b=oie93zwVq3TEtV4GgOGMgyEBSYm8++KSh1Uxc6CYfEMz2opXaAl9ZHRRFKqBrb5uMiiTKKIkBKLEPh6TuL/y0NgRO9ozm4Thmf7m5hQbDmVLWAgQuDmfAec8ZijFuBBiVDfmnK0wZRVjeYIVGCpAb+HZIQGY5nKItpGhFHdx9ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450014; c=relaxed/simple;
-	bh=QHwSfXZk3IaJ672/LtToAtWdRVd+ITtR7fghu9E5YZk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hgQD3/4RvYYoMwG5hQdibAD/yvIwnwwocOpqpVfsi92JaYfsMBfZQLSI3vaUV89F4O3+ZSJoMglvns3fg4U+woVZUTlKl/qgzwUrMmp2kKMQr6EZABAI6edr2HVXApHG6jmPpN6Rt1tmCLYZNmFWBiJ1WM/p8l8n+/zqt7ZnaUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=en4+npAm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788450016; c=relaxed/simple;
+	bh=KqpP71GrVR9XabCUb/0MgiAN1yMMwIBsp7LTfJgZMBI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YYwQSwUsTE4Vf3ZOfCTMVbU5g2cQ/UEZRzYXXEMiV2/NeJoMWPfKvfo7CrhnpywQY6/aEcOsDT8wsQZKSVaWam5SyECRV45FZorrSFUYbdiC71UNzg/S24J05TclOKhfYvDAzMf0oomIVr0nv7CI6Y/v6Vo+jVeHVTTxAKCSokk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A3zLhx4h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="en4+npAm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB1A1F00A3A;
-	Thu,  3 Sep 2026 15:40:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A3zLhx4h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061181F000E9;
+	Thu,  3 Sep 2026 15:40:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788450012;
-	bh=G8zHSGI66G13Mm0txUE14ht0QzxkVEHAEuPpmvZqoXo=;
+	s=korg; t=1788450015;
+	bh=muWZaaLgV0Ly+TqLC0zp+vYp2hgGuhtClSrXufbeW+A=;
 	h=Subject:To:Cc:From:Date;
-	b=en4+npAmq1fmizGjyr6gvKa2+nhh3HXCuFg/Ftq+NswKYsHdqHZhrxOYiI+ASsCtz
-	 3QiXQjpVCMluZYauHNej7pimA5EQy77sPwfplUk8jPqvJYf+aKu0rAvIBYQLkipHyG
-	 18H4J8qjzqDoKJoHSwYOWMlbIYhlZ9wBbcIyA7SI=
-Subject: FAILED: patch "[PATCH] ALSA: hda/ext: preserve PPLCCTL bits when clearing reset" failed to apply to 5.10-stable tree
-To: raoxu@uniontech.com,tiwai@suse.de
+	b=A3zLhx4hwdL/K9rXjEoAEif8J7ctMA09qTmZETi9fmngZrdhRYAHmNXLXMVG4w0L6
+	 9sLCKxA0kKIZ5I96Wg3taEiuhiRfMxDKw20RNKUuRZqMHNhl3sq/UYJNDpDxgE7c/C
+	 lQO5xIZy0weLLt60b5yZk6AaANCbU9zyTwDOzUb4=
+Subject: FAILED: patch "[PATCH] ALSA: pcxhr: initialize mutexes before requesting threaded" failed to apply to 5.10-stable tree
+To: runyu.xiao@seu.edu.cn,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:13:45 +0200
-Message-ID: <2026090345-hangnail-getup-f661@gregkh>
+Date: Thu, 03 Sep 2026 17:14:09 +0200
+Message-ID: <2026090309-dimly-regulator-21d3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 36aa66de481d29edd63cbad9b5c4dc18c340fdf6
+git cherry-pick -x 6c97817e20598e5473094e0e38d1f51f1cf4dfff
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090345-hangnail-getup-f661@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090309-dimly-regulator-21d3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,47 +62,55 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 36aa66de481d29edd63cbad9b5c4dc18c340fdf6 Mon Sep 17 00:00:00 2001
-From: Xu Rao <raoxu@uniontech.com>
-Date: Thu, 13 Aug 2026 14:55:24 +0800
-Subject: [PATCH] ALSA: hda/ext: preserve PPLCCTL bits when clearing reset
+From 6c97817e20598e5473094e0e38d1f51f1cf4dfff Mon Sep 17 00:00:00 2001
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Date: Tue, 18 Aug 2026 22:47:17 +0800
+Subject: [PATCH] ALSA: pcxhr: initialize mutexes before requesting threaded
+ IRQ
 
-snd_hdac_ext_stream_reset() polls PPLCCTL for STRST by masking the
-register value with AZX_PPLCCTL_STRST:
+pcxhr_probe() requests pcxhr_threaded_irq() before initializing
+mgr->lock, even though the threaded handler takes that mutex.
 
-	val = readl(...) & AZX_PPLCCTL_STRST;
+Initialize the manager locks before request_threaded_irq() so an
+early interrupt cannot run against uninitialized mutex state during
+probe.
 
-The same masked value is then used when clearing STRST. Since val
-contains no bits other than STRST, clearing STRST from it always
-produces zero. The subsequent writel() therefore writes zero to the
-entire PPLCCTL register instead of clearing only the reset bit.
-
-PPLCCTL contains other stream control fields, including the stream tag
-in AZX_PPLCCTL_STRM_MASK. Those fields must not be modified as a side
-effect of clearing stream reset.
-
-Use snd_hdac_updatel() to clear STRST, matching the existing set-reset
-path and preserving all unrelated PPLCCTL bits.
-
-Fixes: df203a4e46f4 ("ALSA: hdac_ext: add extended stream capabilities")
+Fixes: 9bef72bdb26e ("ALSA: pcxhr: Use nonatomic PCM ops")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Link: https://patch.msgid.link/43BB7930B0F07C09+20260813065524.1955696-1-raoxu@uniontech.com
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://patch.msgid.link/20260818144717.2269918-1-runyu.xiao@seu.edu.cn
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/hda/core/ext/stream.c b/sound/hda/core/ext/stream.c
-index 4c7506d49f55..517bd151fcc3 100644
---- a/sound/hda/core/ext/stream.c
-+++ b/sound/hda/core/ext/stream.c
-@@ -210,8 +210,8 @@ void snd_hdac_ext_stream_reset(struct hdac_ext_stream *hext_stream)
- 			break;
- 		udelay(3);
- 	} while (--timeout);
--	val &= ~AZX_PPLCCTL_STRST;
--	writel(val, hext_stream->pplc_addr + AZX_REG_PPLCCTL);
-+	snd_hdac_updatel(hext_stream->pplc_addr, AZX_REG_PPLCCTL,
-+			 AZX_PPLCCTL_STRST, 0);
- 	udelay(3);
+diff --git a/sound/pci/pcxhr/pcxhr.c b/sound/pci/pcxhr/pcxhr.c
+index 25a640304430..60cc0721d0a6 100644
+--- a/sound/pci/pcxhr/pcxhr.c
++++ b/sound/pci/pcxhr/pcxhr.c
+@@ -1535,6 +1535,13 @@ static int pcxhr_probe(struct pci_dev *pci,
+ 	mgr->pci = pci;
+ 	mgr->irq = -1;
  
- 	timeout = 50;
++	/* ISR lock  */
++	mutex_init(&mgr->lock);
++	mutex_init(&mgr->msg_lock);
++
++	/* init setup mutex*/
++	mutex_init(&mgr->setup_mutex);
++
+ 	if (request_threaded_irq(pci->irq, pcxhr_interrupt,
+ 				 pcxhr_threaded_irq, IRQF_SHARED,
+ 				 KBUILD_MODNAME, mgr)) {
+@@ -1548,13 +1555,6 @@ static int pcxhr_probe(struct pci_dev *pci,
+ 		 "Digigram at 0x%lx & 0x%lx, 0x%lx irq %i",
+ 		 mgr->port[0], mgr->port[1], mgr->port[2], mgr->irq);
+ 
+-	/* ISR lock  */
+-	mutex_init(&mgr->lock);
+-	mutex_init(&mgr->msg_lock);
+-
+-	/* init setup mutex*/
+-	mutex_init(&mgr->setup_mutex);
+-
+ 	mgr->prmh = kmalloc(sizeof(*mgr->prmh) +
+ 			    sizeof(u32) * (PCXHR_SIZE_MAX_LONG_STATUS -
+ 					   PCXHR_SIZE_MAX_STATUS),
 
