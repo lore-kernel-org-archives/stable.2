@@ -1,133 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6573D31197C;
-	Thu,  3 Sep 2026 16:34:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B014EC65D;
+	Thu,  3 Sep 2026 16:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453295; cv=none; b=jRn43mvLwtOUTPtuz8NWCe85//dsI36m+qQj8mOPibgNf3lUwoUGAYoKOTPQkRY16z2WeHg/PTEkLVBCaYAyAwJcxjYD8EtdYJP2GanU4B/8WfNoWOauUqbSaYCekXhg22QXDdE47+fBVVVGTOxgrcsLY0we/g33mSCZK5C3jkI=
+	t=1788453377; cv=none; b=D/7FLFM589UNwwy5L4urO2MZKIUJwes8H8enYqOYYyMfodNClwwHV871m8saNGv8f4wzgAR6l5f2OzXWnyFuIOZkM++NyoLsu/wloASEcJuJ/hTQ3qCkMpnzCUBLjeiesWKeTbS3wjUCcWhSxvLTT+Gg+qm2O34OCUFvunjEt1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453295; c=relaxed/simple;
-	bh=9tRGciWWFbnSnrrF3OKias/50sPvR/jiJhm8Ny0+9fU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C73huMgxqGurjzPa5Cm3iaWIeTNftgGS6Kp2PQP+xUFl/MlgJeO1AuFecSap88TUZvVFq6bVAwbLF3Gn0eBbgUHb2uVSe1WSAGs8M68f6o7vbBl+Ueg7VJl3m24kWfN024EGDzthdMLbEVc6ydO038tFGUVyFhCV8iw4V4Onjwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X82RyIC4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788453377; c=relaxed/simple;
+	bh=gpmW+HyIEeTLjdRiH+3o2uIBKCjT3Tbs/vkL0DojWCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FmZUF2V+6nkpmTkkyhG2v8IvIwN47UzbnHNI0Q9BTtzDZAf1vSgwrqwwIdDOw89pI2SBfRQlRYohCTn19zTFQrdV8kw9tVbBjkVMqA1uFNEV9pXSRycDCvOqi1t2Jgw67LYN+gfI7Q02DIliwNmogB/8EPlLMWRWI5RHcyU6Vno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3eoz13k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X82RyIC4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 120841F000E9;
-	Thu,  3 Sep 2026 16:34:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3eoz13k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD81D1F000E9;
+	Thu,  3 Sep 2026 16:36:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788453294;
-	bh=sPpd4BiOXdHYd+zYzn/cAKnpUzJQKqamADjGx4FRbbg=;
-	h=From:To:Cc:Subject:Date;
-	b=X82RyIC4lRPgB68QH9TN5luNM3hQer7JDQ9pv8s2F/T1B9UNcc6lJv8ZrGK2dpJ+R
-	 qLdUspXMlBvpD7vwky5WTyhTEaTE80Mj/mbacCRgK479OEztJPoBR7gW6Oi+iowa+R
-	 +0k9d2NMhzbvuUK2NUnkzaFtSoHTEWfO3DDRnRMM7CpJyXoT//lewSpcSFw+MMyeCt
-	 IMsSefabYVodb71U290jeXIC/fPqoHL7hAm9u/k5r9H/FQ6yfS1OOnKiC9iryU5Urn
-	 UefwbigKR7mIKWaypOsNKJfyYotyGaKpCHnSmg++1U5Uw3yE8zBpnPtoBKA1RW17O2
-	 fk70xU7XuBcsw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2AOp-00000006Hyn-3s1J;
-	Thu, 03 Sep 2026 18:34:51 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: fix ioctl hangup race
-Date: Thu,  3 Sep 2026 18:34:39 +0200
-Message-ID: <20260903163439.1499055-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788453376;
+	bh=+H+rYBzctxn3i+op7YWkFQodYaXTN0tMGbK1SZja320=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e3eoz13khe0EtmAwLz5TdAPFlgdaXJbp46ZLGW31ghMH32HrwIUZuGUJpKVFMKfSj
+	 7lew5lpaB+QPYN3K/zonQCjyj5ub6+y1KU8hIz+Nbka0ALAuO+CC88ZGzCPLpTYiZz
+	 rEpDGNaKDMMtbnmRZKAAOJWMCRRglyeRAGYr75FtY89gkXHAqYYJX46mPOuuaUlWCA
+	 MoT5npZYXppLrpqmIQeowhAhK7L0Jm1v4beUI6TqsncOVxqqweA6uYOHtOQxumqc4Q
+	 UyZypgPtdlHBoieGypjle1sjQyJUJX1DuEXP3Sv3mfahPWRyYkmaJH7uItNtspyGRs
+	 RU4PQ2siQrDKw==
+Date: Thu, 3 Sep 2026 19:36:12 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org,
+	christian.koenig@amd.com, alex@shazbot.org, ankita@nvidia.com,
+	chriscli@google.com, david.laight.linux@gmail.com,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
+Message-ID: <20260903163612.GD24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <20260901170849.4052816-3-dhu@x6u.co>
+ <20260902120832.GB2890729@ziepe.ca>
+ <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
+ <20260903134938.GI2890729@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903134938.GI2890729@ziepe.ca>
 
-The tty ioctls can race with hangup and end up calling into a tty
-driver for a device that is already gone or powered down.
+On Thu, Sep 03, 2026 at 10:49:38AM -0300, Jason Gunthorpe wrote:
+> On Wed, Sep 02, 2026 at 07:07:50PM -0400, David Hu wrote:
+> > On Wed, Sep 2, 2026 at 8:08 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > >
+> > > On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
+> > > > From: David Hu <xuehaohu@google.com>
+> > > >
+> > > > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > > > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> > > > first entry, resulting in non-page-aligned DMA addresses for all
+> > > > subsequent entries.
+> > >
+> > > This patch is fine, but pedenatically a scatterlist's entry limit
+> > > should be bounded to dma_get_max_seg_size(), though I don't think it
+> > > helps this. Operating scatterlists at the size limits has proven
+> > > problematic in a number of places already...
+> > >
+> > > > In addition, a non-page-aligned sgl length will trigger an edge case
+> > > > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+> > > > buffers, we will have a `va` with lowest bit set to 1. That will lead
+> > > > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+> > > > to find best page size for the mapping on the NIC side.
+> > >
+> > > That's an IB side bug, the newer logic that joins adjacent SGLs should
+> > > have avoided it?
+> > 
+> > Hi Jason,
+> > 
+> > Thank you for the review. I think you are right on both counts.
+> > Regarding the IB side, the new SGL joining logic in
+> > `ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |= va` is
+> > skipped for artifically split, contiguous SGLs. Since Christian has
+> > already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
+> > creating unnecessary noise on the list. If you prefer a followup,
+> > please let me know.
+> 
+> Nope, I'm fine, it just explains why it wasn't seen in other
+> tested. You were backporting and mix&matched things. It confirms the
+> upstream kernel was fine from the start.
 
-Add the missing checks to make sure the port has not been hung up before
-accessing the hardware to avoid issues like kernel panic due to
-unclocked accesses.
+All that time, I wondered why our testing didn't uncover any issues like
+this, given that the requirement to support large BARs was raised almost
+immediately during testing.
 
-Note that TIOCGSERIAL, TIOCGICOUNT and TIOCMIWAIT do not access hardware
-and are therefore not affected by the race.
+Thanks
 
-Fixes: 04f378b198da ("tty: BKL pushdown")
-Cc: stable@vger.kernel.org	# 2.6.26
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
-
-I've just sent a fix for USB serial here:
-
-	https://lore.kernel.org/r/20260903163146.1498497-1-johan@kernel.org
-
-and will take closer look at the other TTY drivers tomorrow.
-
-Johan
-
-
- drivers/tty/serial/serial_core.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 95774b0f1484..aac12be4ceac 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -896,7 +896,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	upf_t old_flags, new_flags;
- 	int retval;
- 
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	new_port = new_info->port;
-@@ -1119,7 +1119,7 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
- 	guard(mutex)(&port->mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
-@@ -1144,7 +1144,7 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
- 	 */
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
- 		uport = uart_port_check(state);
--		if (!uport)
-+		if (!uport || tty_io_error(tty))
- 			return -EIO;
- 
- 		if (tty_port_users(port) != 1)
-@@ -1646,7 +1646,7 @@ static void uart_set_termios(struct tty_struct *tty,
- 	guard(mutex)(&state->port.mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return;
- 
- 	/*
-@@ -1798,7 +1798,11 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
- 	 * 'timeout' / 'expire' give us the maximum amount of time
- 	 * we wait.
- 	 */
--	while (!port->ops->tx_empty(port)) {
-+	for (;;) {
-+		scoped_guard(mutex, &state->port.mutex) {
-+			if (tty_io_error(tty) || port->ops->tx_empty(port))
-+				break;
-+		}
- 		msleep_interruptible(jiffies_to_msecs(char_time));
- 		if (signal_pending(current))
- 			break;
--- 
-2.55.0
-
+> 
+> There are other importers besides RDMA, so I still think that this is
+> a good change regardless. Having each segment remain page aligned, and
+> staying away from ULONG_MAX that might trigger overflows is a friendly
+> and robust thing to do for less sophisticated importers.
+> 
+> Jason
+> 
