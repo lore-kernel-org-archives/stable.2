@@ -1,454 +1,166 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF784AF68D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:39:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FCE383991
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:39:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442756; cv=none; b=OlHlIwl2knN6GZtJptJnFyXItaSAF8EfSu/4uEfzFDO1+91ZrjniDEMIXViKn96ABEgJe5B0iM3FnkVsXoGFoAbbWVAxUqczQGs2nYDPh9n6d+BDw/egnttauWPeMh8CFwMB7LYDvlV3XG5HIDu7jMJqCbO6rkBX3OSCoojwQrQ=
+	t=1788442760; cv=none; b=ZxO8MeGxMymPzZ9gp/owaS6Ti6WCqBjWNZFQN4SKoqRaluj3kAzVNqww9yJjDXCLRx1trLagOlEG4lYLy4vFlTCnxoq95HzYISU5UW19j2SUP2NYInfWZ1TaQHDV1Klv6m+pK3KXu99/97ASaaVKSn200J/ksGkSi0gPIsG/+fc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442756; c=relaxed/simple;
-	bh=zTiw31JLMM4aECabt3EMjJbW3xO/zhVeBH0k+T/mBEw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NEKjKq4QwuEJ5EAqUoxLhm9iF/QnRArUB2UuREdA9P24yJuJluQ/q4AdHmVS8DQFm3ooQBKzBmE8Uk3wDVCc9wJyjGRyuAbJ9KNPYHeKjC7ijpZYQE4UnKvlGrg++W7Hn3uRgK/4h05/ePigPVXM96gnHc8TzAcCgT0wW8Tatlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KGOtAj6Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442760; c=relaxed/simple;
+	bh=9VDC+M2GVI4Z9SExQKedEXeqb38zlRf3JKQs61Vv3t8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Jp3o7B3GDLPdOsrtBulai1FcdbEpBoVkGVjGt7a0OSiE5FNWq/+MjEgwrghvB8SeEEM87axthDU8SFq9r0u0lkd8DMWvuHOeBE+Mje4P5mp6mFRyu+fL1D7U4qNcCgZY5vpqVXZJD4ElqnR4zzd9NLkvkearQb6ACg2sU2ZLfg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uzt69k1u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KGOtAj6Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C721F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uzt69k1u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C0F1F00AC4;
 	Thu,  3 Sep 2026 13:39:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442745;
-	bh=KgIyyktL63wsVuTLrQsl4myM47ElPS11fmwBFBIm4qI=;
-	h=Subject:To:Cc:From:Date;
-	b=KGOtAj6Qz4Pfr6bUUvqzHBRcGN4PjwwvdJjdIxp6m4pEyygiFDfBkJe+fgjTvTeIk
-	 Fh+6ydA9p2saWnpa/IYBDynZB3Sq0NWFa7Jwk2FANKFAKcTs2XJc63ClwDWvyTV7kj
-	 fuNPS/2McrJsaPq+P8Wa/FS2jJMU13ofstHCKxag=
-Subject: FAILED: patch "[PATCH] nfsd: convert nfsd_net boolean flags to unsigned long flags" failed to apply to 6.6-stable tree
-To: clm@meta.com,chuck.lever@oracle.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:12:13 +0200
-Message-ID: <2026090313-smuggling-unsworn-997b@gregkh>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788442744;
+	bh=s681rQg1sgSGFW3Ra5LMGxp5IcJUGO1zil+eBbsrURs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Uzt69k1uB6DvlnvBFh42CjIV71m16O0Moxkd81gwvrkKWQzSw+oayRcJQ3etAv16H
+	 xV8zKFHxWZ7gQSIpdQuW+66R45oBTxHQ8UyLwzT0rkCArVn9qbq/54NMiBu9RVKS/O
+	 9NWh9hdBj9DhnWIjlvPdIQ5qHusWwCJhQE0H5sxGl1e/HGp1HT+1XFgHitTEfX02LO
+	 +7xUMZP8kF6rzSfau0WjuchC6GHkNtDAIEE1JOX45MlWVRfYESBbGiOIdeaGE4aciA
+	 wP6dEbt+r23CV9up14FSdcd0weRocRYXjBB2Mm6x+6M4qAhQThyQxBeGFi0fQa7VOe
+	 eMLSpSPG9QYDA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] rust: rust_is_available: remove warning for `bindgen` 0.66.[01]
+Date: Thu,  3 Sep 2026 09:39:00 -0400
+Message-ID: <20260903133902.763984-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090303-moonshine-study-20ce@gregkh>
+References: <2026090303-moonshine-study-20ce@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Miguel Ojeda <ojeda@kernel.org>
 
-The patch below does not apply to the 6.6-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 41cfbb4295cf9fcdffa6c89ddc84dca2fa392c98 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+It is not possible anymore to fall into the issue that this warning was
+alerting about given the `bindgen` version bump.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
-git checkout FETCH_HEAD
-git cherry-pick -x 11a5fe42e1811f793e04ef885b639ea7668f439d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090313-smuggling-unsworn-997b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+Thus simplify by removing the machinery behind it, including tests.
 
-Possible dependencies:
+Reviewed-by: Tamir Duberstein <tamird@kernel.org>
+Link: https://patch.msgid.link/20260405235309.418950-19-ojeda@kernel.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Stable-dep-of: dc01dfb37b34 ("rust: rust_is_available: warn for `bindgen` < 0.72.1 && libclang >= 22")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ scripts/rust_is_available.sh             | 13 ------------
+ scripts/rust_is_available_bindgen_0_66.h |  2 --
+ scripts/rust_is_available_test.py        | 26 +++---------------------
+ 3 files changed, 3 insertions(+), 38 deletions(-)
+ delete mode 100644 scripts/rust_is_available_bindgen_0_66.h
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 11a5fe42e1811f793e04ef885b639ea7668f439d Mon Sep 17 00:00:00 2001
-From: Chris Mason <clm@meta.com>
-Date: Sat, 30 May 2026 09:19:19 -0400
-Subject: [PATCH] nfsd: convert nfsd_net boolean flags to unsigned long flags
- word
-
-nfsd_net contains several boolean fields that are accessed from
-concurrent contexts without serialization.  In particular,
-nfsd4_end_grace() guards its drain path with a plain bool:
-
-    if (nn->grace_ended)
-            return;
-    nn->grace_ended = true;
-
-The read and the write are independent, and nothing in struct
-nfsd_net serializes them.  At least two contexts can reach this
-code with no lock held:
-
-    laundromat path
-      laundry_wq kworker
-        nfs4_laundromat()
-          nfsd4_end_grace()
-
-    RECLAIM_COMPLETE path
-      nfsd compound kthread
-        nfsd4_reclaim_complete()
-          inc_reclaim_complete()
-            nfsd4_end_grace()
-
-Both callers can observe grace_ended == false on different CPUs,
-both store true, and both proceed into nfsd4_record_grace_done(),
-which invokes the active client_tracking_ops->grace_done callback.
-For tracking ops that drain reclaim_str_hashtbl (legacy_tracking_ops
-via nfsd4_recdir_purge_old, and the cld v1+ ops via
-nfsd4_cld_grace_done), grace_done calls nfs4_release_reclaim(),
-which walks every bucket of reclaim_str_hashtbl with no lock and
-calls nfs4_remove_reclaim_record() (list_del + kfree) on each
-entry.  Two concurrent walkers corrupt the list and double-free
-every nfs4_client_reclaim.  A concurrent nfsd4_find_reclaim_client()
-iterating the same bucket reads through freed memory.
-
-A third call site exists in nfs4_state_start_net() on the
-skip_grace startup path, but it runs under nfsd_mutex before any
-client has connected and before the laundromat's first delayed
-work fires, so it cannot race with the two callers above.
-
-Replace the scattered boolean fields in nfsd_net with a single
-unsigned long flags word and an enum nfsd_net_flag for the bit
-positions.  The grace_ended race is fixed by using
-test_and_set_bit(), which is atomic on all architectures.  The
-remaining flags (grace_end_forced, in_grace, somebody_reclaimed,
-track_reclaim_completes, nfsd_net_up, lockd_up) are converted to
-use test_bit/set_bit/clear_bit for consistency.  This avoids
-sub-word cmpxchg issues on architectures like Hexagon that only
-support word-sized atomic operations.
-
-Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
-Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chris Mason <clm@meta.com>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-3-f27e8eb4d974@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index 27da1a3edacb..37dfecb9d49d 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -28,6 +28,16 @@ struct cld_net;
- struct nfsd_net_cb;
- struct nfsd4_client_tracking_ops;
+diff --git a/scripts/rust_is_available.sh b/scripts/rust_is_available.sh
+index 93c0ef7fb3fb2..127f20950743d 100755
+--- a/scripts/rust_is_available.sh
++++ b/scripts/rust_is_available.sh
+@@ -161,19 +161,6 @@ if [ "$rust_bindings_generator_cversion" -lt "$rust_bindings_generator_min_cvers
+ 	echo >&2 "***"
+ 	exit 1
+ fi
+-if [ "$rust_bindings_generator_cversion" -eq 6600 ] ||
+-	[ "$rust_bindings_generator_cversion" -eq 6601 ]; then
+-	# Distributions may have patched the issue (e.g. Debian did).
+-	if ! "$BINDGEN" $(dirname $0)/rust_is_available_bindgen_0_66.h >/dev/null; then
+-		echo >&2 "***"
+-		echo >&2 "*** Rust bindings generator '$BINDGEN' versions 0.66.0 and 0.66.1 may not"
+-		echo >&2 "*** work due to a bug (https://github.com/rust-lang/rust-bindgen/pull/2567),"
+-		echo >&2 "*** unless patched (like Debian's)."
+-		echo >&2 "***   Your version:     $rust_bindings_generator_version"
+-		echo >&2 "***"
+-		warning=1
+-	fi
+-fi
  
-+enum nfsd_net_flag {
-+	NFSD_NET_GRACE_ENDED,
-+	NFSD_NET_GRACE_END_FORCED,
-+	NFSD_NET_IN_GRACE,
-+	NFSD_NET_SOMEBODY_RECLAIMED,
-+	NFSD_NET_TRACK_RECLAIM_COMPLETES,
-+	NFSD_NET_UP,
-+	NFSD_NET_LOCKD_UP,
-+};
-+
- enum {
- 	/* cache misses due only to checksum comparison failures */
- 	NFSD_STATS_PAYLOAD_MISSES,
-@@ -66,8 +76,7 @@ struct nfsd_net {
- 	struct cache_detail *nametoid_cache;
+ # Check that the `libclang` used by the Rust bindings generator is suitable.
+ #
+diff --git a/scripts/rust_is_available_bindgen_0_66.h b/scripts/rust_is_available_bindgen_0_66.h
+deleted file mode 100644
+index c0431293421c8..0000000000000
+--- a/scripts/rust_is_available_bindgen_0_66.h
++++ /dev/null
+@@ -1,2 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#define A "\0"
+diff --git a/scripts/rust_is_available_test.py b/scripts/rust_is_available_test.py
+index 4fcc319dea84e..b66fa59338443 100755
+--- a/scripts/rust_is_available_test.py
++++ b/scripts/rust_is_available_test.py
+@@ -54,17 +54,12 @@ else:
+ """)
  
- 	struct lock_manager nfsd4_manager;
--	bool grace_ended;
--	bool grace_end_forced;
-+	unsigned long flags;
- 	time64_t boot_time;
+     @classmethod
+-    def generate_bindgen(cls, version_stdout, libclang_stderr, version_0_66_patched=False, libclang_concat_patched=False):
++    def generate_bindgen(cls, version_stdout, libclang_stderr, libclang_concat_patched=False):
+         if libclang_stderr is None:
+             libclang_case = f"raise SystemExit({cls.bindgen_default_bindgen_libclang_failure_exit_code})"
+         else:
+             libclang_case = f"print({repr(libclang_stderr)}, file=sys.stderr)"
  
- 	struct dentry *nfsd_client_dir;
-@@ -117,19 +126,13 @@ struct nfsd_net {
- 	spinlock_t blocked_locks_lock;
- 
- 	struct file *rec_file;
--	bool in_grace;
- 	const struct nfsd4_client_tracking_ops *client_tracking_ops;
- 
- 	time64_t nfsd4_lease;
- 	time64_t nfsd4_grace;
--	bool somebody_reclaimed;
- 
--	bool track_reclaim_completes;
- 	atomic_t nr_reclaim_complete;
- 
--	bool nfsd_net_up;
--	bool lockd_up;
+-        if version_0_66_patched:
+-            version_0_66_case = "pass"
+-        else:
+-            version_0_66_case = "raise SystemExit(1)"
 -
- 	seqlock_t writeverf_lock;
- 	unsigned char writeverf[8];
+         if libclang_concat_patched:
+             libclang_concat_case = "print('pub static mut foofoo: ::std::os::raw::c_int;')"
+         else:
+@@ -74,8 +69,6 @@ else:
+ import sys
+ if "rust_is_available_bindgen_libclang.h" in " ".join(sys.argv):
+     {libclang_case}
+-elif "rust_is_available_bindgen_0_66.h" in " ".join(sys.argv):
+-    {version_0_66_case}
+ elif "rust_is_available_bindgen_libclang_concat.h" in " ".join(sys.argv):
+     {libclang_concat_case}
+ else:
+@@ -83,8 +76,8 @@ else:
+ """)
  
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index f4884827b7a0..505c96c14d9e 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -667,7 +667,7 @@ nfsd4_open(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		pr_warn("nfsd4_process_open2 failed to open newly-created file: status=%u\n",
- 			be32_to_cpu(status));
- 	if (reclaim && !status)
--		nn->somebody_reclaimed = true;
-+		set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- out:
- 	if (open->op_filp) {
- 		fput(open->op_filp);
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index 6ea25a52d2f4..c841da585142 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -167,7 +167,7 @@ nfsd4_create_clid_dir(struct nfs4_client *clp)
- 	end_creating(dentry);
- out:
- 	if (status == 0) {
--		if (nn->in_grace)
-+		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
- 			__nfsd4_create_reclaim_record_grace(clp, dname, nn);
- 		vfs_fsync(nn->rec_file, 0);
- 	} else {
-@@ -317,7 +317,7 @@ nfsd4_remove_clid_dir(struct nfs4_client *clp)
- 	nfs4_reset_creds(original_cred);
- 	if (status == 0) {
- 		vfs_fsync(nn->rec_file, 0);
--		if (nn->in_grace)
-+		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
- 			__nfsd4_remove_reclaim_record_grace(dname,
- 					HEXDIR_LEN, nn);
- 	}
-@@ -373,7 +373,7 @@ nfsd4_recdir_purge_old(struct nfsd_net *nn)
- {
- 	int status;
+     @classmethod
+-    def generate_bindgen_version(cls, stdout, version_0_66_patched=False):
+-        return cls.generate_bindgen(stdout, cls.bindgen_default_bindgen_libclang_stderr, version_0_66_patched)
++    def generate_bindgen_version(cls, stdout):
++        return cls.generate_bindgen(stdout, cls.bindgen_default_bindgen_libclang_stderr)
  
--	nn->in_grace = false;
-+	clear_bit(NFSD_NET_IN_GRACE, &nn->flags);
- 	if (!nn->rec_file)
- 		return;
- 	status = mnt_want_write_file(nn->rec_file);
-@@ -455,7 +455,7 @@ nfsd4_init_recdir(struct net *net)
+     @classmethod
+     def generate_bindgen_libclang_failure(cls):
+@@ -245,19 +238,6 @@ else:
+         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
+         self.assertIn(f"Rust bindings generator '{bindgen}' is too old.", result.stderr)
  
- 	nfs4_reset_creds(original_cred);
- 	if (!status)
--		nn->in_grace = true;
-+		set_bit(NFSD_NET_IN_GRACE, &nn->flags);
- 	return status;
- }
- 
-@@ -1362,7 +1362,7 @@ nfs4_cld_state_init(struct net *net)
- 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
- 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
- 	nn->reclaim_str_hashtbl_size = 0;
--	nn->track_reclaim_completes = true;
-+	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
- 	atomic_set(&nn->nr_reclaim_complete, 0);
- 
- 	return 0;
-@@ -1373,7 +1373,7 @@ nfs4_cld_state_shutdown(struct net *net)
- {
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	nn->track_reclaim_completes = false;
-+	clear_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
- 	kfree(nn->reclaim_str_hashtbl);
- }
- 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index c99538d36470..2e9773b3a60c 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -2675,7 +2675,7 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
- {
- 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
- 
--	if (!nn->track_reclaim_completes)
-+	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
- 		return;
- 	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
- 		return;
-@@ -5033,8 +5033,6 @@ nfsd4_init_leases_net(struct nfsd_net *nn)
- 
- 	nn->nfsd4_lease = 90;	/* default lease time */
- 	nn->nfsd4_grace = 90;
--	nn->somebody_reclaimed = false;
--	nn->track_reclaim_completes = false;
- 	nn->clverifier_counter = get_random_u32();
- 	nn->clientid_base = get_random_u32();
- 	nn->clientid_counter = nn->clientid_base + 1;
-@@ -6746,12 +6744,21 @@ nfsd4_renew(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- static void
- nfsd4_end_grace(struct nfsd_net *nn)
- {
--	/* do nothing if grace period already ended */
--	if (nn->grace_ended)
-+	/*
-+	 * nfsd4_end_grace() can be entered concurrently from the
-+	 * laundromat workqueue and from an nfsd compound thread
-+	 * handling RECLAIM_COMPLETE.  Without serialization, both
-+	 * callers can observe NFSD_NET_GRACE_ENDED clear and proceed
-+	 * into nfsd4_record_grace_done().  For tracking ops whose
-+	 * grace_done drains reclaim_str_hashtbl, that results in
-+	 * list corruption and a double free of every
-+	 * nfs4_client_reclaim entry.  Use an atomic test-and-set so
-+	 * exactly one caller proceeds.
-+	 */
-+	if (test_and_set_bit(NFSD_NET_GRACE_ENDED, &nn->flags))
- 		return;
- 
- 	trace_nfsd_grace_complete(nn);
--	nn->grace_ended = true;
- 	/*
- 	 * If the server goes down again right now, an NFSv4
- 	 * client will still be allowed to reclaim after it comes back up,
-@@ -6792,10 +6799,10 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
- {
- 	if (!nn->client_tracking_ops)
- 		return false;
--	if (READ_ONCE(nn->grace_ended))
-+	if (test_bit(NFSD_NET_GRACE_ENDED, &nn->flags))
- 		return false;
- 	/* laundromat_work must be initialised now, though it might be disabled */
--	WRITE_ONCE(nn->grace_end_forced, true);
-+	set_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
- 	/* mod_delayed_work() doesn't queue work after
- 	 * nfs4_state_shutdown_net() has called disable_delayed_work_sync()
- 	 */
-@@ -6812,15 +6819,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
- 	time64_t double_grace_period_end = nn->boot_time +
- 					   2 * nn->nfsd4_lease;
- 
--	if (READ_ONCE(nn->grace_end_forced))
-+	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
- 		return false;
--	if (nn->track_reclaim_completes &&
-+	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
- 			atomic_read(&nn->nr_reclaim_complete) ==
- 			nn->reclaim_str_hashtbl_size)
- 		return false;
--	if (!nn->somebody_reclaimed)
-+	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
- 		return false;
--	nn->somebody_reclaimed = false;
-+	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- 	/*
- 	 * If we've given them *two* lease times to reclaim, and they're
- 	 * still not done, give up:
-@@ -8611,7 +8618,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		nfs4_inc_and_copy_stateid(&lock->lk_resp_stateid, &lock_stp->st_stid);
- 		status = 0;
- 		if (lock->lk_reclaim)
--			nn->somebody_reclaimed = true;
-+			set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- 		break;
- 	case FILE_LOCK_DEFERRED:
- 		kref_put(&nbl->nbl_kref, free_nbl);
-@@ -9137,8 +9144,8 @@ static int nfs4_state_create_net(struct net *net)
- 	nn->conf_name_tree = RB_ROOT;
- 	nn->unconf_name_tree = RB_ROOT;
- 	nn->boot_time = ktime_get_real_seconds();
--	nn->grace_ended = false;
--	nn->grace_end_forced = false;
-+	clear_bit(NFSD_NET_GRACE_ENDED, &nn->flags);
-+	clear_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
- 	nn->nfsd4_manager.block_opens = true;
- 	INIT_LIST_HEAD(&nn->nfsd4_manager.list);
- 	INIT_LIST_HEAD(&nn->client_lru);
-@@ -9224,7 +9231,8 @@ nfs4_state_start_net(struct net *net)
- 	nfsd4_client_tracking_init(net);
- 	/* safe for laundromat to run now */
- 	enable_delayed_work(&nn->laundromat_work);
--	if (nn->track_reclaim_completes && nn->reclaim_str_hashtbl_size == 0)
-+	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
-+	    nn->reclaim_str_hashtbl_size == 0)
- 		goto skip_grace;
- 	printk(KERN_INFO "NFSD: starting %lld-second grace period (net %x)\n",
- 	       nn->nfsd4_grace, net->ns.inum);
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index fa92e31d19d6..5e3e60110ee6 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -1111,7 +1111,7 @@ static ssize_t write_v4_end_grace(struct file *file, char *buf, size_t size)
- 	}
- 
- 	return scnprintf(buf, SIMPLE_TRANSACTION_LIMIT, "%c\n",
--			 nn->grace_ended ? 'Y' : 'N');
-+			 test_bit(NFSD_NET_GRACE_ENDED, &nn->flags) ? 'Y' : 'N');
- }
- 
- #endif
-diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-index 4f1ab3222a4d..e45d46089959 100644
---- a/fs/nfsd/nfssvc.c
-+++ b/fs/nfsd/nfssvc.c
-@@ -351,7 +351,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 	int ret;
- 
--	if (nn->nfsd_net_up)
-+	if (test_bit(NFSD_NET_UP, &nn->flags))
- 		return 0;
- 
- 	ret = nfsd_startup_generic();
-@@ -364,11 +364,11 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 		goto out_socks;
- 	}
- 
--	if (nfsd_needs_lockd(nn) && !nn->lockd_up) {
-+	if (nfsd_needs_lockd(nn) && !test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 		ret = lockd_up(net, cred);
- 		if (ret)
- 			goto out_socks;
--		nn->lockd_up = true;
-+		set_bit(NFSD_NET_LOCKD_UP, &nn->flags);
- 	}
- 
- 	ret = nfsd_file_cache_start_net(net);
-@@ -386,7 +386,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 	if (ret)
- 		goto out_reply_cache;
- 
--	nn->nfsd_net_up = true;
-+	set_bit(NFSD_NET_UP, &nn->flags);
- 	return 0;
- 
- out_reply_cache:
-@@ -394,9 +394,9 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- out_filecache:
- 	nfsd_file_cache_shutdown_net(net);
- out_lockd:
--	if (nn->lockd_up) {
-+	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 		lockd_down(net);
--		nn->lockd_up = false;
-+		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
- 	}
- out_socks:
- 	nfsd_shutdown_generic();
-@@ -407,7 +407,7 @@ static void nfsd_shutdown_net(struct net *net)
- {
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	if (nn->nfsd_net_up) {
-+	if (test_bit(NFSD_NET_UP, &nn->flags)) {
- 		percpu_ref_kill_and_confirm(&nn->nfsd_net_ref, nfsd_net_done);
- 		wait_for_completion(&nn->nfsd_net_confirm_done);
- 
-@@ -415,18 +415,18 @@ static void nfsd_shutdown_net(struct net *net)
- 		nfs4_state_shutdown_net(net);
- 		nfsd_reply_cache_shutdown(nn);
- 		nfsd_file_cache_shutdown_net(net);
--		if (nn->lockd_up) {
-+		if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 			lockd_down(net);
--			nn->lockd_up = false;
-+			clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
- 		}
- 		wait_for_completion(&nn->nfsd_net_free_done);
- 	}
- 
- 	percpu_ref_exit(&nn->nfsd_net_ref);
- 
--	if (nn->nfsd_net_up)
-+	if (test_bit(NFSD_NET_UP, &nn->flags))
- 		nfsd_shutdown_generic();
--	nn->nfsd_net_up = false;
-+	clear_bit(NFSD_NET_UP, &nn->flags);
- }
- 
- static DEFINE_SPINLOCK(nfsd_notifier_lock);
+-    def test_bindgen_bad_version_0_66_0_and_0_66_1(self):
+-        for version in ("0.66.0", "0.66.1"):
+-            with self.subTest(version=version):
+-                bindgen = self.generate_bindgen_version(f"bindgen {version}")
+-                result = self.run_script(self.Expected.SUCCESS_WITH_WARNINGS, { "BINDGEN": bindgen })
+-                self.assertIn(f"Rust bindings generator '{bindgen}' versions 0.66.0 and 0.66.1 may not", result.stderr)
+-
+-    def test_bindgen_bad_version_0_66_0_and_0_66_1_patched(self):
+-        for version in ("0.66.0", "0.66.1"):
+-            with self.subTest(version=version):
+-                bindgen = self.generate_bindgen_version(f"bindgen {version}", True)
+-                result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen })
+-
+     def test_bindgen_libclang_failure(self):
+         bindgen = self.generate_bindgen_libclang_failure()
+         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
+-- 
+2.53.0
 
