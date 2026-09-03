@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA2D4B1483
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C114B1B20
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443381; cv=none; b=L7jboUS8PCbh4L+th8uHR5cSisb1g8+jueHeU18j0OW56BF614R5AaeIaCT5xXh9T4jzuzbGQCG1FH7q8mb7WU8kAZQTYt3Zed1NJUb6cyGXrSbTiYQ8RyqOhsY8rJF85lCwHWFLOyu6oQA6JQcl12/8W1GHFdCOEiRd+yYvsQo=
+	t=1788443385; cv=none; b=fFHyHs0LJAm0hB7i7lpL6+dMGMGeA5onsTpYwISqHJHv4cPdjXMg1PL/jyHImiY5R93RXLuwtcDKGMshp92bJq1pjJ1qPxJyP9TaldWfPCiUH8RgmcMPT2vUrBTLfTxuECtUnr0reBdURJHm/1ls+Bw1ynOk+7ZjEd4L6UkSGKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443381; c=relaxed/simple;
-	bh=F4Q8E05fimMkO7IIulUNS+YVrpQp6FoKd7bPoCaedL8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DrGI4uTNd0tkz2EkM+D/dR3SQvEcjtgb1jCxjrgfn4OVnoWdCZs/4MKPn8AKdZG1jRmi4IDrAAWAKY2D1yVSnpuxxxiKw5xIJ1aRJC/8TPgQnWnb4HsXju2n22FJLAmFCSl/tF9a5Ol5qGh88pUO3XTzxzumR7IytzKIwM908WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lt7CFxSG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443385; c=relaxed/simple;
+	bh=MZbklynLLoiCqKsvi1wdZeGp9EMLYsZlvXEA3p3H0bA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RnLehN7En8c4IORkURGDGQjTVvXgqNhjNXHHDQoi5rTYM+86AH9n1Ihq6EIaScjXWjq8R4ghHoQnelVYqWF6BnILmYUsaKZyd032Jp5sq8H03IiMAcnFgacWWGVOU8Mbej9wArxGY84uln7+MG8+OMAD0/xTdSNo5icLSFgYLb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v6uSsk/n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lt7CFxSG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39E21F00A3D;
-	Thu,  3 Sep 2026 13:49:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v6uSsk/n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 812DB1F00A3F;
+	Thu,  3 Sep 2026 13:49:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443370;
-	bh=FYGRjp/WoFQER32jCR3THbPSTvhrXo5fob1a+l8AOtI=;
+	s=korg; t=1788443373;
+	bh=tfjyASo6D4tGioyLaSgkzK7MKg9fi3SIqCFNJFTsXZ4=;
 	h=Subject:To:Cc:From:Date;
-	b=lt7CFxSGixbvMg5C3u2YhSybRTktFohiPObarpjvld0MwDNFrhmJP8P6qFV+C7Nb+
-	 u0cCucBXXUnBSaKuGl969AOnnj8qM4F0BK0VT2i27E3o/3rLXhAg1wVRs+Zy9ioMU5
-	 XR9kolrR1QHBtdQK091YwDxOb1T/djcPQuIMK0tU=
-Subject: FAILED: patch "[PATCH] smb: client: reject a tree connect response whose byte count" failed to apply to 6.1-stable tree
-To: hexlabsecurity@proton.me,linkinjeon@kernel.org,pc@manguebit.org
+	b=v6uSsk/nWh642+4OZPHsJqKplnWLPhJBauwid88bqqXW2p9tvMKumQd70FlMXOo1o
+	 k6eWSGzRUnhc2rnQ4gyUU6SkrbgpQTKyJXnJ8qn6aAJyH2Dlud1sWXy2WJrrqK+IIu
+	 0j+xnsiop66IhcoSsAZK8t/vAFRk0gHeeZRFBM00=
+Subject: FAILED: patch "[PATCH] HID: apple: preserve keyboard backlight across T2 resume" failed to apply to 6.12-stable tree
+To: dev@deq.rocks,jkosina@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:27:37 +0200
-Message-ID: <2026090336-expend-runaround-0e93@gregkh>
+Date: Thu, 03 Sep 2026 15:27:53 +0200
+Message-ID: <2026090353-legal-vanish-db81@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 65deb18359341141d37dc86fc7853511be3c87a7
+git cherry-pick -x 2b5d1495bd101f3d9c13caf3923754f48ee7371a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090336-expend-runaround-0e93@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090353-legal-vanish-db81@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,74 +62,80 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 65deb18359341141d37dc86fc7853511be3c87a7 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 21 Aug 2026 07:36:16 -0500
-Subject: [PATCH] smb: client: reject a tree connect response whose byte count
- is too small
+From 2b5d1495bd101f3d9c13caf3923754f48ee7371a Mon Sep 17 00:00:00 2001
+From: Andre Eikmeyer <dev@deq.rocks>
+Date: Sat, 18 Jul 2026 14:15:26 +0200
+Subject: [PATCH] HID: apple: preserve keyboard backlight across T2 resume
 
-CIFSTCon() bounds its strnlen() over the byte area with the server's
-ByteCount minus two, which for ByteCount 0 or 1 goes negative as an int
-and converts to a huge size_t.  The later subtraction wraps the __u16
-bytes_left, and that is what bounds cifs_strndup_from_utf16(): a bound of
-up to 65535 against a ~16 KB cifs_req_poolp object runs off the end of the
-slab object, and the bytes reach userspace through tcon->nativeFileSystem
-in /proc/fs/cifs/DebugData.
+The T2 virtual USB host controller re-enumerates the internal keyboard
+after system resume. The butterfly keyboard backlight currently uses
+LED_CORE_SUSPENDRESUME, so the LED core sends a blocking request to the
+old HID device while it is disappearing. That request fails with -ENODEV
+and the newly probed device starts with its backlight off.
 
-Reject a byte area too small for what the parser consumes.  Two bytes is
-the least it can consume, and no conformant response carries fewer.  The
-new trace point is the 129th smb_eio_trace entry, which __mode(byte)
-cannot represent, so the attribute goes with it.
+To fix this, we cache the requested brightness when the old HID device is
+removed and restore it when the replacement is probed. We let
+re-enumeration handle restoration instead of issuing a request through the
+stale device.
 
-Fixes: cc20c031bb06 ("cifs: convert CIFSTCon to use new unicode helper functions")
+Fixes: 1f95a6cd5ad7 ("HID: apple: ensure the keyboard backlight is off if suspending")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 1f77512252e7..f5aad5f61dce 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -615,6 +615,11 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
- 		tcon->tid = smb_buffer_response->Tid;
- 		bcc_ptr = pByteArea(smb_buffer_response);
- 		bytes_left = get_bcc(smb_buffer_response);
-+		if (bytes_left < 2) {
-+			rc = smb_EIO2(smb_eio_trace_tcon_bcc_too_small,
-+				      bytes_left, 2);
-+			goto out;
-+		}
- 		length = strnlen(bcc_ptr, bytes_left - 2);
- 		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
- 			is_unicode = true;
-@@ -670,6 +675,7 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
- 			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
- 		}
+diff --git a/drivers/hid/hid-apple.c b/drivers/hid/hid-apple.c
+index bf7dd0fbf249..a5f232cc2b66 100644
+--- a/drivers/hid/hid-apple.c
++++ b/drivers/hid/hid-apple.c
+@@ -91,6 +91,9 @@ struct apple_sc_backlight {
+ 	struct hid_device *hdev;
+ };
+ 
++/* T2 VHCI re-enumerates the internal keyboard across system resume. */
++static int apple_backlight_resume_brightness = -1;
++
+ struct apple_backlight_config_report {
+ 	u8 report_id;
+ 	u8 version;
+@@ -825,6 +828,7 @@ static int apple_backlight_led_set(struct led_classdev *led_cdev,
+ static int apple_backlight_init(struct hid_device *hdev)
+ {
+ 	int ret;
++	int brightness;
+ 	struct apple_sc *asc = hid_get_drvdata(hdev);
+ 	struct apple_backlight_config_report *rep;
+ 
+@@ -860,13 +864,20 @@ static int apple_backlight_init(struct hid_device *hdev)
+ 	asc->backlight->cdev.name = "apple::kbd_backlight";
+ 	asc->backlight->cdev.max_brightness = rep->backlight_on_max;
+ 	asc->backlight->cdev.brightness_set_blocking = apple_backlight_led_set;
+-	asc->backlight->cdev.flags = LED_CORE_SUSPENDRESUME;
++	/* VHCI re-enumeration restores the cached brightness in the next probe. */
+ 
+-	ret = apple_backlight_set(hdev, 0, 0);
++	brightness = READ_ONCE(apple_backlight_resume_brightness);
++	if (brightness < 0)
++		brightness = LED_OFF;
++	else
++		brightness = min_t(int, brightness, rep->backlight_on_max);
++
++	ret = apple_backlight_set(hdev, brightness, 0);
+ 	if (ret < 0) {
+ 		hid_err(hdev, "backlight set request failed: %d\n", ret);
+ 		goto cleanup_and_exit;
  	}
-+out:
- 	cifs_buf_release(smb_buffer);
- 	return rc;
++	asc->backlight->cdev.brightness = brightness;
+ 
+ 	ret = devm_led_classdev_register(&hdev->dev, &asc->backlight->cdev);
+ 
+@@ -999,6 +1010,9 @@ static void apple_remove(struct hid_device *hdev)
+ 
+ 	if (asc->quirks & APPLE_RDESC_BATTERY)
+ 		timer_delete_sync(&asc->battery_timer);
++	if (asc->backlight)
++		WRITE_ONCE(apple_backlight_resume_brightness,
++			   asc->backlight->cdev.brightness);
+ 
+ 	hid_hw_stop(hdev);
  }
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index 5b21ad3c15fb..12241abb8e2e 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -133,6 +133,7 @@
- 	EM(smb_eio_trace_sym_slash,			"sym_slash") \
- 	EM(smb_eio_trace_sym_target_len,		"sym_target_len") \
- 	EM(smb_eio_trace_symlink_file_size,		"symlink_file_size") \
-+	EM(smb_eio_trace_tcon_bcc_too_small,		"tcon_bcc_too_small") \
- 	EM(smb_eio_trace_tdis_in_reconnect,		"tdis_in_reconnect") \
- 	EM(smb_eio_trace_tx_chained_async,		"tx_chained_async") \
- 	EM(smb_eio_trace_tx_compress_failed,		"tx_compress_failed") \
-@@ -213,7 +214,7 @@
- #define EM(a, b) a,
- #define E_(a, b) a
- 
--enum smb_eio_trace		{ smb_eio_traces } __mode(byte);
-+enum smb_eio_trace		{ smb_eio_traces };
- enum smb3_rw_credits_trace	{ smb3_rw_credits_traces } __mode(byte);
- enum smb3_tcon_ref_trace	{ smb3_tcon_ref_traces } __mode(byte);
- 
 
