@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC444B5CC7
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DEE4B66E1
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445471; cv=none; b=DhZdDSsc6uTdZDP9d/UMMOmrE85FDcM+YcxnxdiNzpfeDqJZNSLtl9YeClVmVTB/CUNb4YTjbv19xM0z4n83Gfkg4sUvT/3YXccGOtDfdgOAfw+9JojJX9F7iegOpAl+QpuY8W6zmS6emai9JT27AqwbQVdrF52r0GocufF6b6M=
+	t=1788445479; cv=none; b=C8aaFnEORqQCFdFYnXGC0GFJIjnJ+aC4bVjja2ba0SlXk9E0+1hxQ+sp94tB4wZHOdiNPh7lUTzJTJNb0ZP5vOEa3zMRIpZQljIjCM38KwFvs60YkxEiCY6ommyfWAr72hDQMrvL43vUulyP9uk7GW5hDLKzlCVHM2gIjiJK/vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445471; c=relaxed/simple;
-	bh=x8Sr5IAC+scGNA77Sp4aXL+gSTQY/kfLxRlbdZdNiJA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B7hqhM7ckmdYvXnnTK2TzHnoNqr0E5ltNBoAJiQsLYHG3gr/BWlSmushWw9zUDRNAZ3cEy235IXcZ7rEhr+C1w6OZfhHp492qJecSJHJ3C//5pvK41ODW14oB9NtqzEVEiygjlhfJeBxT1QQY4+kVK4shfv/aeypvXNHcvtc7GI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SgtIzgDO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445479; c=relaxed/simple;
+	bh=W1cAsqF3xvbjryFEJQEpbz+Q91+25wEJNXVvo02c2co=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WKiU2Dq+SVXhYQKUv+AXN7h87iuYgq0S3lK4+7YQMcnANeNMLUWUeU+OdQTglL3sI9deAA5x+VkkdlZNJF6pyFNFwj4cUJFaP1e1hO3+dqZcwPvjN4fKgeMRDLcMDADQlhfkifAb6ByXYal+CVasP/P3qD0c3MW6dfPWzk5WscA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=i0VRKfl0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SgtIzgDO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9BD1F00A3A;
-	Thu,  3 Sep 2026 14:24:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="i0VRKfl0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B819B1F00ACF;
+	Thu,  3 Sep 2026 14:24:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445458;
-	bh=Vpakw36MmdpUUwuUXRLVaPvKiVTBZUxPrhapv1p0sv8=;
+	s=korg; t=1788445467;
+	bh=ACrNXXTOeaVsuh0JOHDAb8tyRE4YzAv2/5cMarJvoVE=;
 	h=Subject:To:Cc:From:Date;
-	b=SgtIzgDOt2UH49TJZPol+qjWIqKDqlQRqTV+SyNBAc7TdRuhy8psTqp3eSHQMcUjs
-	 1qV9ex4IKvkeARCFgIIbm2mcAj/uf8L9hs6Vu0VGY9xdkEbHnCeN+rT+re9haxqTYK
-	 BY+a6nrK7PYST6FcOWLnYQwvDRspVzq3oUjgKU+U=
-Subject: FAILED: patch "[PATCH] jbd2: check need_resched() when skipping busy checkpoint" failed to apply to 5.15-stable tree
-To: max.kellermann@ionos.com,jack@suse.cz,tytso@mit.edu,yi.zhang@huawei.com
+	b=i0VRKfl0PNTKQpE9UJiZiqfxwQ5OxFhZFJ2AHR5iuSusM6vK1n/qY7bxpy0pOwAW/
+	 DzRSjVupgotcoLDDX+Dw+wEzpB3oWU9QXbAVebJJUxugSBHeQFAD4QJL/WlU2g2bMU
+	 /mZoUJEeZpl12YCbFBZ4txB70aL1QKAmqICa/PKI=
+Subject: FAILED: patch "[PATCH] ipip: fix skb leak in collect_md mode when metadata_dst" failed to apply to 5.15-stable tree
+To: littlesmilingcloud@gmail.com,fmancera@suse.de,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:59:37 +0200
-Message-ID: <2026090337-absolve-bonnet-5b19@gregkh>
+Date: Thu, 03 Sep 2026 15:59:59 +0200
+Message-ID: <2026090359-hurry-disagree-2db4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x f213e12ff5c9590b1034ae8da0e6d09665c772d0
+git cherry-pick -x 6776efe4a52f289a3fc18f8adf19b035a7d8e1bb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-absolve-bonnet-5b19@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090359-hurry-disagree-2db4@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,54 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f213e12ff5c9590b1034ae8da0e6d09665c772d0 Mon Sep 17 00:00:00 2001
-From: Max Kellermann <max.kellermann@ionos.com>
-Date: Mon, 13 Jul 2026 12:22:28 +0200
-Subject: [PATCH] jbd2: check need_resched() when skipping busy checkpoint
- buffers
+From 6776efe4a52f289a3fc18f8adf19b035a7d8e1bb Mon Sep 17 00:00:00 2001
+From: Anton Danilov <littlesmilingcloud@gmail.com>
+Date: Wed, 19 Aug 2026 13:43:39 +0300
+Subject: [PATCH] ipip: fix skb leak in collect_md mode when metadata_dst
+ allocation fails
 
-journal_shrink_one_cp_list() skips busy checkpoint buffers when called
-with JBD2_SHRINK_BUSY_SKIP.  The continue statement on this path also
-skips the need_resched() check at the end of the loop body.
+In collect_md mode ipip_tunnel_rcv() returns 0 without freeing the skb
+when ip_tun_rx_dst() fails to allocate the metadata_dst. ipip_rcv() and
+mplsip_rcv() are registered as xfrm_tunnel handlers, so tunnel4_rcv()
+and tunnelmpls4_rcv() read the zero return as "the packet has been
+consumed" and do not free it either. The skb is leaked.
 
-Consequently, when a checkpoint list contains mostly busy buffers, the
-shrinker can walk the entire list while holding journal->j_list_lock,
-even when a reschedule has been requested.  Large checkpoint lists under
-memory pressure can therefore cause long lock hold times and leave other
-CPUs spinning on j_list_lock, resulting in soft lockups or RCU stalls.
+The other tunnel drivers all dispose of the packet at this point:
+ip6_tunnel.c jumps to its drop label, ip_gre.c and ip6_gre.c return
+PACKET_REJECT, which makes gre_rcv() free the skb. Only ipip returns 0.
 
-Route the busy-buffer path through the need_resched() check so that the
-shrinker can release j_list_lock and reschedule promptly, restoring
-parity with the clean-buffer path, which already checks need_resched().
-This does not change which checkpoint buffers are eligible for removal.
+Jump to the existing drop label instead. It frees the skb and still
+returns 0, so the packet keeps being reported as consumed, which is what
+we want here: the outer header has already been pulled, and neither the
+remaining handlers nor an ICMP unreachable have any use for it.
 
-Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
+Triggering this needs an ipip or mplsip tunnel in collect_md mode and an
+atomic allocation failure, which is why it has gone unnoticed.
+
+Fixes: cfc7381b3002 ("ip_tunnel: add collect_md mode to IPIP tunnel")
 Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260713102229.1598812-2-max.kellermann@ionos.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Signed-off-by: Anton Danilov <littlesmilingcloud@gmail.com>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
+Link: https://patch.msgid.link/20260819104338.432631-2-littlesmilingcloud@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 1508e2f54462..5266017565ac 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -389,7 +389,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 			ret = jbd2_journal_try_remove_checkpoint(jh);
- 			if (ret < 0) {
- 				if (type == JBD2_SHRINK_BUSY_SKIP)
--					continue;
-+					goto next;
- 				break;
- 			}
- 		}
-@@ -400,6 +400,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 			break;
- 		}
+diff --git a/net/ipv4/ipip.c b/net/ipv4/ipip.c
+index 1630325c77d3..f684baf8e58f 100644
+--- a/net/ipv4/ipip.c
++++ b/net/ipv4/ipip.c
+@@ -248,7 +248,7 @@ static int ipip_tunnel_rcv(struct sk_buff *skb, u8 ipproto)
  
-+next:
- 		if (need_resched())
- 			break;
- 	} while (jh != last_jh);
+ 			tun_dst = ip_tun_rx_dst(skb, flags, 0, 0);
+ 			if (!tun_dst)
+-				return 0;
++				goto drop;
+ 			ip_tunnel_md_udp_encap(skb, &tun_dst->u.tun_info);
+ 		}
+ 		skb_reset_mac_header(skb);
 
