@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEF54B1B3C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C8A4B2052
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444350; cv=none; b=RZ+cBAXHIpNyYE5Mf1mmnq1IPpAlrsEfVBwzAYIIBRlVYH6ucac6xzgjvsDhJLN/CkyvXiyE7KoE5OOT5SDAtL4HKZl+gOCcjfNNWMEEDrVe4SAgHt6rLgWxNqvethaMFsAncPPXxOs3G0eDoBQWgAywGJR0itY6j9D2i491Yn0=
+	t=1788444355; cv=none; b=E/0QFlF3CrKOcSp6nC8C4djWlkxcw9Zq7+Qf7WhDjSyKAaL2xObK1VyIldtXZtrV5ljgnFnoko7qGDqiHgAMZzCx6rPc7pjftsJPxkm/lmTjUNOCUTKB3NbtQhqFT/tShbwFibe8QqhXVM4QETMBgEer9J6oeVssBFwPTZAhjGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444350; c=relaxed/simple;
-	bh=VcID7VrNDfbrYfoFhO7H2FnPybavpI0+lR3XyRtOApo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dV9yc7leRzOLgDJ5ijMJoVmc00Lvp9M/4p8+SMYyevLGFuaZPgBprlxbgMi8ZKhRLNP6E3zL8IePdO2/KhSl5qx2D+24s8uRjEbu8ABvFxq1SwXdxTNmsAn10MEZt6Ctlxk5tljBefi0xHN8QtnyBV7PWzc69mNK9oYZQ8ni08A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uAd5Lsrn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444355; c=relaxed/simple;
+	bh=9W0lwWrv4OtTtSuDCRccfLPSzlCoUrtzjBoBDRbvd+s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jdqisOVzoW6/mgIeduZt/Ddaz7OSYFd8YBuNairr5vnkROn+sWorgDbMqwXtYmaajSQMTRm16yNUTlY/M+qWvWEqwpeu1TDwYjq1tsEmLd19jt9F8PfTyLqLlEx3ky8z+xKIiT8mWyCiow5stWSFDd1kTE85eWj8L+Q7WBJfZ2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pFkO49Vi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uAd5Lsrn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30161F000E9;
-	Thu,  3 Sep 2026 14:05:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pFkO49Vi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CDC1F00A3A;
+	Thu,  3 Sep 2026 14:05:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444346;
-	bh=P5g5YgfvvJWfmKfs6KXESaFm3gppS2fUzZcyVsfBY5Q=;
+	s=korg; t=1788444343;
+	bh=qniAwLSPx2RGU3N/ERSZgJ6CMkuyLkEZqiQcJR9HW48=;
 	h=Subject:To:Cc:From:Date;
-	b=uAd5LsrnWZOQBAedzJ/r4hOD3eij4Vl+M+4CMDT18qG98sVbqY9jNQw99gfpJkwKl
-	 wuQ9fvtLC+F+IYFOfXy9iLd/kawVZfDAZvUMpPqq38UyYzjjEuymmOaIkP+4Wu1u1y
-	 BAE0CeNBP/6vZA5q+XNMvQVZ5keIqU7gS8HxxikU=
-Subject: FAILED: patch "[PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+" failed to apply to 6.12-stable tree
+	b=pFkO49ViLktCBFHoRVYG0cwyKzcEBoEIsxEXrbHe6BLHi8Fj4YzP0t/ztGShINjWf
+	 OqTdIB2VzOXeTYZqHDBgoGsDZ2gz3SKxYowdeqO+BotuIzz9yAEpWJTNvOk01w2ROn
+	 jGr+TtTeeS3bg7JuwwUaGjkR7nSM1pbHNMD9v4S0=
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+" failed to apply to 6.6-stable tree
 To: christian.loehle@arm.com,rafael.j.wysocki@intel.com,sumitg@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 03 Sep 2026 15:44:08 +0200
-Message-ID: <2026090308-suffocate-napkin-a71b@gregkh>
+Message-ID: <2026090308-padlock-setting-e1ac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x df5a1d4a8cdfda20eb2581a85e81c7d436866534
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090308-suffocate-napkin-a71b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090308-padlock-setting-e1ac@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
