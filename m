@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3374B5134
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D744B2CCD
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444917; cv=none; b=YntMCzb9N6etzEYHJY7ibYAzRY2XvmGCiYYjCF6xlL3SYEp8zSZIS1m6jBvQHHo3CfesbPQdTYVT4/GoayiFMy6qDW4xSvpEpO3TUFs0ecalDoA8yqydJ1uqZM00rD+kGtRTj7bMam1uMlGROt+ldjt6+Mx3JpcM9DXGwFl/l5I=
+	t=1788444917; cv=none; b=aBkKyqWEYj4LOPP/KBRuGJuzRxiMqptWNWpiGe352y4t3syKh7PcM2V6tdx0ZeWogY+ZszBt4nYTDAaVP5e1zRK0RxDxejePnGi/uKCx4V0FkSJIh2RNBN4GMtsFN+rHRHpCvOhTi1Hz/tVMtxAJZQiNL5aIQ80zJ1pdR74Jdic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788444917; c=relaxed/simple;
-	bh=hSPb46YK5pZPip27GuuCjAuqKmzlFiXwlfTLUpklPtE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TbntKNAretRys2Nzt+np9mtOxiCGE91FXXtO7RPEVYc5xUyU0w3Zov4k3H6EZ5f8FiQnp3W3e07ujRMc2lo+6lVxtpZZfxnGrALaL1qV57LrAwsvxQqEqs96abn38Kr/9l1ZTNOudHkDW7DHItZATdYQD26e9atWFn5NS2Txbc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=duqdm5Sr; arc=none smtp.client-ip=100.103.45.18
+	bh=ngF5YqIe6AEerGciCF+y0U0jebwe8pVOa88XdVR0cOc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HUSmls+Jy3SOzikwfdFyzggu8F9tZbn9KKc2a3xegF6geXq2lI39GFU6B5uxOnorevZ8iqO+YQlZc0uV42K9UCFm1UAzIP0dNQsmkpAuhA8qBC2NrJKwPs8CxCnXU59+sKRWUS0bPQ2Q8O4HG4g00Wzrfe0braxkd1dRBWg5WAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pk74FSaE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="duqdm5Sr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139301F000E9;
-	Thu,  3 Sep 2026 14:14:51 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pk74FSaE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEC431F00ACA;
+	Thu,  3 Sep 2026 14:15:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444892;
-	bh=jbJgu7G7qFWXX2OaH897MOXjKtV/Jxk7eoxhu/m+3Wc=;
+	s=korg; t=1788444909;
+	bh=c1XWQZ/RCEGFJRtRSJrJYLrzKaixjZN8nrBGSl6BruQ=;
 	h=Subject:To:Cc:From:Date;
-	b=duqdm5SrQhLVA9cmXKjcVbJLRUvnhcQ3/Q9jnOlcEWFQfPR+IYvWMmbIdlfz3NWgd
-	 sUZ91P425w+zr6D8l4Spj7r1IH90ajJ/6GWctcAZNUwl8YqHA3YMyQ40HG5ys5EQB3
-	 wo4UsqUsng2r9zXchKKr6cB2ohLM8FXho7d4ZXR4=
-Subject: FAILED: patch "[PATCH] dm array: validate array block headers on read" failed to apply to 6.1-stable tree
-To: hexlabsecurity@proton.me,mpatocka@redhat.com,mtsai@redhat.com
+	b=pk74FSaEUbuqY2mz0FQx1bYOGBhaRMMdpPVKPDolVokR7xYXz18clTfySLnVud7HN
+	 Fl39C1wUc8Rx5Wa8RH3dLCGusFOGo/9hPXlov76t5QIIiVgeJHSX8w2nu3Pacgbp1e
+	 GP+5A6ICH/BPe5RJSsySsSmwpDnx8PWCBjh0ctXs=
+Subject: FAILED: patch "[PATCH] cpufreq: apple-soc: Fix OPP table cleanup" failed to apply to 6.18-stable tree
+To: haoxiang_li2024@163.com,viresh.kumar@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:53:04 +0200
-Message-ID: <2026090304-clamor-portfolio-a851@gregkh>
+Date: Thu, 03 Sep 2026 15:53:37 +0200
+Message-ID: <2026090337-angles-glacial-e8d2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2965787723084835b18dfe993cd450ebf5bd4540
+git cherry-pick -x d87cb889dc7ab1f2deecadf2a5e9023184bd7900
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-clamor-portfolio-a851@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-angles-glacial-e8d2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,99 +62,106 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2965787723084835b18dfe993cd450ebf5bd4540 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 31 Jul 2026 17:54:54 -0500
-Subject: [PATCH] dm array: validate array block headers on read
+From d87cb889dc7ab1f2deecadf2a5e9023184bd7900 Mon Sep 17 00:00:00 2001
+From: Haoxiang Li <haoxiang_li2024@163.com>
+Date: Fri, 3 Jul 2026 14:20:49 +0800
+Subject: [PATCH] cpufreq: apple-soc: Fix OPP table cleanup
 
-array_block_check() validates blocknr and csum and nothing else, while
-node_check(), next to it, has bounded the structural fields since both
-were written. dm_array_cursor_next() takes its loop bound from the
-on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
-a count larger than the block holds keeps the cursor in one block while
-the index grows past it and the read walks off the dm-bufio buffer --
-dm_cache_load_mappings() drives it once per cache block at activation.
+apple_soc_cpufreq_init() adds OPP tables from firmware, but
+some failure paths do not remove them. The driver also uses
+dev_pm_opp_remove_all_dynamic(), which is not the right cleanup
+helper for OPP tables loaded from firmware.
 
-Check the header against itself: reject a zero value_size, require
-max_entries to equal calc_max_entries() for that value_size and block
-size, and require nr_entries to fit. Equality rather than an upper bound,
-since a count below the real capacity trips BUG_ON() in fill_ablock() and
-trim_ablock(). Metadata dm-array writes satisfies all three.
+Use the cpumask OPP helper after the policy CPU mask has been
+populated. Pair it with the matching cpumask remove helper on
+failure paths and in apple_soc_cpufreq_exit(). This also removes
+the separate dev_pm_opp_set_sharing_cpus() call, as the cpumask
+helper loads the DT OPP tables for all CPUs in the policy.
 
-Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
-Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
+Fixes: 6286bbb40576 ("cpufreq: apple-soc: Add new driver to control Apple SoC CPU P-states")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
-index 8f8792e55806..7ba0a566f0ad 100644
---- a/drivers/md/persistent-data/dm-array.c
-+++ b/drivers/md/persistent-data/dm-array.c
-@@ -38,6 +38,14 @@ struct array_block {
-  */
- #define CSUM_XOR 595846735
- 
-+/*
-+ * Each array block can hold this many values.
-+ */
-+static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
-+{
-+	return (size_of_block - sizeof(struct array_block)) / value_size;
-+}
-+
- static void array_block_prepare_for_write(const struct dm_block_validator *v,
- 					  struct dm_block *b,
- 					  size_t size_of_block)
-@@ -55,6 +63,7 @@ static int array_block_check(const struct dm_block_validator *v,
- 			     size_t size_of_block)
- {
- 	struct array_block *bh_le = dm_block_data(b);
-+	uint32_t nr_entries, max_entries, value_size;
- 	__le32 csum_disk;
- 
- 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
-@@ -74,6 +83,26 @@ static int array_block_check(const struct dm_block_validator *v,
- 		return -EILSEQ;
+diff --git a/drivers/cpufreq/apple-soc-cpufreq.c b/drivers/cpufreq/apple-soc-cpufreq.c
+index 638e5bf72185..3f64f266e695 100644
+--- a/drivers/cpufreq/apple-soc-cpufreq.c
++++ b/drivers/cpufreq/apple-soc-cpufreq.c
+@@ -249,21 +249,19 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 		return -ENODEV;
  	}
  
-+	nr_entries = le32_to_cpu(bh_le->nr_entries);
-+	max_entries = le32_to_cpu(bh_le->max_entries);
-+	value_size = le32_to_cpu(bh_le->value_size);
-+
-+	if (!value_size) {
-+		DMERR_LIMIT("%s failed: value_size is zero", __func__);
-+		return -EILSEQ;
-+	}
-+
-+	if (max_entries != calc_max_entries(value_size, size_of_block)) {
-+		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
-+			    __func__, max_entries, value_size);
-+		return -EILSEQ;
-+	}
-+
-+	if (nr_entries > max_entries) {
-+		DMERR_LIMIT("%s failed: too many entries", __func__);
-+		return -EILSEQ;
-+	}
-+
- 	return 0;
- }
+-	ret = dev_pm_opp_of_add_table(cpu_dev);
+-	if (ret < 0) {
+-		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+-		return ret;
+-	}
++	priv = kzalloc_obj(*priv);
++	if (!priv)
++		return -ENOMEM;
  
-@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
- 		on_entries(info, ab, vt->dec);
- }
+ 	ret = apple_soc_cpufreq_find_cluster(policy, &reg_base, &info);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "%s: failed to get cluster info: %d\n", __func__, ret);
+-		return ret;
++		goto out_free_priv;
+ 	}
  
--/*
-- * Each array block can hold this many values.
-- */
--static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
--{
--	return (size_of_block - sizeof(struct array_block)) / value_size;
--}
+-	ret = dev_pm_opp_set_sharing_cpus(cpu_dev, policy->cpus);
+-	if (ret) {
+-		dev_err(cpu_dev, "%s: failed to mark OPPs as shared: %d\n", __func__, ret);
++	ret = dev_pm_opp_of_cpumask_add_table(policy->cpus);
++	if (ret < 0) {
++		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+ 		goto out_iounmap;
+ 	}
+ 
+@@ -271,19 +269,13 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 	if (ret <= 0) {
+ 		dev_dbg(cpu_dev, "OPP table is not ready, deferring probe\n");
+ 		ret = -EPROBE_DEFER;
+-		goto out_free_opp;
+-	}
 -
- /*
-  * Allocate a new array block.  The caller will need to unlock block.
-  */
+-	priv = kzalloc_obj(*priv);
+-	if (!priv) {
+-		ret = -ENOMEM;
+-		goto out_free_opp;
++		goto out_free_table;
+ 	}
+ 
+ 	ret = dev_pm_opp_init_cpufreq_table(cpu_dev, &freq_table);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "failed to init cpufreq table: %d\n", ret);
+-		goto out_free_priv;
++		goto out_free_table;
+ 	}
+ 
+ 	/* Get OPP levels (p-state indexes) and stash them in driver_data */
+@@ -318,12 +310,12 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 
+ out_free_cpufreq_table:
+ 	dev_pm_opp_free_cpufreq_table(cpu_dev, &freq_table);
+-out_free_priv:
+-	kfree(priv);
+-out_free_opp:
+-	dev_pm_opp_remove_all_dynamic(cpu_dev);
++out_free_table:
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ out_iounmap:
+ 	iounmap(reg_base);
++out_free_priv:
++	kfree(priv);
+ 	return ret;
+ }
+ 
+@@ -332,7 +324,7 @@ static void apple_soc_cpufreq_exit(struct cpufreq_policy *policy)
+ 	struct apple_cpu_priv *priv = policy->driver_data;
+ 
+ 	dev_pm_opp_free_cpufreq_table(priv->cpu_dev, &policy->freq_table);
+-	dev_pm_opp_remove_all_dynamic(priv->cpu_dev);
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ 	iounmap(priv->reg_base);
+ 	kfree(priv);
+ }
 
