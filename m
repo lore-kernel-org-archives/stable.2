@@ -1,135 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6CDB4A6CC8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC644A6CD8
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439456; cv=none; b=WnUpa5iVYB5Xnc8hGGMqsWoAgnzs8gOW4bGHeXUDAAzl3HXo5HASeeS+8TnFDUHb3xNNWX+WnqZagTFXRUB20dbuNsFcOs1bAvLcPSdMVx3q86cVS5EPlHlLuweDOrZbnupEQODfJe4zjUrL9hHxtKueCnFH37Fj/MtLSnrRpHA=
+	t=1788439457; cv=none; b=J2r1W7N0xU+rWwebtvVsXkvzr+TLoEgbnIKq7MtWKNM6K7U9oPy0kGtOsqPYRqr+/XyWlnuId2lJqVtP7/+kPhmjA0KSVMCEzBdrhhSvEkc5JQAB0Q4nsF6aWqoTsGNsBLeM0VWo9bMngbKBsj/q2vrLvGUcoPT+Uwh7ZMt2+Yo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439456; c=relaxed/simple;
-	bh=c/KPXBdgYBzws/6NhaRzSU00Au5plszZy416PnsAgqo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=vBWlUY3r5Ij5YjS/sZloyHhY1+wHAm2N7Xpg4XL32P1L74Q/1gwMOmXYaM1RplOzU4iPE/Od6yFZUz9h3rrqjgHLNw7YzFr5YBa9S6IuF+kvmDjDzFEbA4MfM7stfsb1XDGeAX7PvgyW6fxEZTtKc0QwatvrZ6K+ho+0aL1L6nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FC6mJD+u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439457; c=relaxed/simple;
+	bh=qWCj6/FKwNR+w9ys8WEEcPnqWL6QEM9dEnsZ80xAZrg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jGPqDyM7F9qFT8wWKXGVxk0Un4ErkzMcVMJlNUFrv+PTGhw0V9R8AC+PF8ebvgQUqLcAzXqfT7J8+1vM65eNTiVuj7c7f8AFcaFr7fv65cA8fTtTp0kekElhlJ8fqIR5Vx0sXenFXoZhyXt6tBxpCokvcazfLwz3U0toOOeiOzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MVRPz2BX; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FC6mJD+u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB02E1F000E9;
-	Thu,  3 Sep 2026 12:44:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439454;
-	bh=lMw6cjcYFH6QaxAF6iP00iAeC4t4nx/lfKGIjR9Jl7M=;
-	h=Subject:To:Cc:From:Date;
-	b=FC6mJD+uLgHGhqu/5GHXJ4uW1RImaWhVWmyiKv+CI1pWk8NbD4UC6sjIvzx/JCT1J
-	 IBREokMae9QhTjP+pYkln0YqMwRZlDdyZ+QCHF95fROzTaJn7jWJoP+FSqt5cCpe5P
-	 NfE54crDdu8g3xoshhtu4F1Y5Mf0A798ceTHdAME=
-Subject: FAILED: patch "[PATCH] KEYS: trusted: Fix TPM teardown ordering" failed to apply to 6.12-stable tree
-To: nicoyip.dev@gmail.com,jarkko@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:44:20 +0200
-Message-ID: <2026090320-scalded-unclaimed-9b48@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MVRPz2BX"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso1842328a91.1
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 05:44:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788439454; x=1789044254; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v1JpLmeHcDYci9TjzZaOlT2Qs79rEF11KvKmH8LlIEc=;
+        b=MVRPz2BXovBl7Q85HaOdXQlr5P6K6uZGmelqh+3ezVrBt/KW6Eoa6SFDscpivcchDn
+         fGr3113No163CY0ijQWB4kDeZ/qxnInktr+aojMyq48zcLV7VE8usOH8PRCBrfDumcGA
+         vo9H4PdDzblpdQcLLNFMLAftFQbSdgWNskLv0vJFJIFH7dJdfZw4BR1YUIaw4ek1u5J4
+         HaqrwIAmrea12UbDsVUGhlya2Ah8D+za3S9pD2cYYUSI5+SQT6NNhoIyJh3LKBnZ1tRa
+         HMRiQTiuD6Zj44KLiwsqdZ+WeMMNVOejiPsQe4mI/DBrkejAXKltLujcp20MFWSfz0aR
+         44cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788439454; x=1789044254;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v1JpLmeHcDYci9TjzZaOlT2Qs79rEF11KvKmH8LlIEc=;
+        b=eIZoMmO9x+SxEaUzQ337DU2jbWBxw5zmLdk07Ngc6hIfRRcrWMq/QrtNcJjBqB1n1U
+         A8iNmjnv9zi8+TEt3sB2pdtftLlH8t9VbWIUSFcF32vUJuy7755GXR/7ugTdyGSo1foo
+         0tZ87PzqTqS3yH4+jymRFS/kwnZmyqeNas6A09/SAtvySnTo8FLOxR6kyem/JerEB6Ws
+         RpSEAQKS03BU98Bm7AFrDzzJd1Ovhw8heoaRhdMUSYO+XvwLbeMSSBOoPSQI7z8mo0EQ
+         0LLURX9T3MKonJNukJ5KwDu2gTV66Xtbg/7gF8U8ZZPgIbyzL5T1ExP+a9MhdgM9py87
+         4hxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQhRuzkmETK1Sw2QEpN6Fl0roVaWpdm0MFc5iwhj0pTijE2XowjIKfCaZQOdGbkiH6oRMuBCI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGiyIa2mBgC5K+DYNPJRNr6dw3U8sWCjl09g4qz0sT48SJfXCg
+	UBiz4uF45fFs+7jzl+V5tMZ7nhZ5FJYzh4TxGwgPZ/4EtJUs0LpVji7M
+X-Gm-Gg: AYBFou2gY9CnDahzgCYZsdotugQSNmgr7ivVlgHGELKxpCv+8MAmBawFc6hzVWOgn5i
+	EcX/myGqsZvnDDIQGPxMrl0UvOhU2ekt9eq5k4rL6qsLSqmXXvyWtYciLgSTlsWbBGvhlsvZDeX
+	oTI0/gse73d08zNKbEdBzdMGyJTXndBSUOK+x3Ip6L6B51e7n9FW9i6vYJm9BiVJ9UpSnvCA7d1
+	gL8vOaeDEan1hJmz234CRIHRKLHGSbNXubv1w9GC6mmwsK/LkzMO9Qf7BWGHxR0LiMDDMjDWBEn
+	iuqH/ciZKIQimbJwi2hEcG5gNbq01iYL6M2xLmPcKyfsyq37SE5b7HOeCKCOuLMMV+aqt2EU7+L
+	sSnMV1bNam5p6CKADHtW/OYqRzHx+juQM5YFn0IesIoSQi/idMmHdiRYphPqo09+8tp8uD4OItt
+	mbY5/F51ttCsO/ACgkX1gnFh/DiIztMqtOqhb/T/KtQHU/nxl5QNimZqzHyHHiDMocR4TyEMLGZ
+	BM9qLs0evdccMt3
+X-Received: by 2002:a17:90b:264e:b0:398:dcf6:d40e with SMTP id 98e67ed59e1d1-39aee0c16cdmr19784168a91.17.1788439454461;
+        Thu, 03 Sep 2026 05:44:14 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm6268339a91.3.2026.09.03.05.44.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 05:44:14 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Thu,  3 Sep 2026 20:41:48 +0800
+Message-ID: <20260903124422.5340-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903003351.91088-1-sj@kernel.org>
+References: <20260903003351.91088-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+On Wed, 02 Sep 2026 17:33:50 -0700 SJ Park <sj@kernel.org> wrote:
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> On Thu,  3 Sep 2026 06:31:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > On Wed, 02 Sep 2026 07:48:03 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Wed,  2 Sep 2026 22:22:31 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > 
+> > > > On Wed, 02 Sep 2026 07:10:00 -0700 SJ Park <sj@kernel.org> wrote:
+> > > > 
+> > > > > On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > > > 
+> > > > > > When setting goal_tuner to 'temporal', if the goal is achieved,
+> > > > > > quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
+> > > > > > will always return true, even if no regions have been tried to apply at
+> > > > > > all.  This causes qt_exceeds to increase unexpectedly.
+> > > > > 
+> > > > > To me, this looks logically correct.  Could this cause any user issue?
+> > > > 
+> > > > Yes, I think this might cause unnecessary confusion for users,
+> > > 
+> > > If it is _might_ kind thing, please ask questions first, or add RFC tag at
+> > > least.
+> > > 
+> > > > at least
+> > > > it did for me.
+> > > 
+> > > If it confused you, definitely we need to fix it.  But if it is just confusing,
+> > > let's try to clarify by adding documentation, rather than changing existing
+> > > behaviors.
+> > 
+> > I agree that we should avoid unnecessary code changes if the issue is
+> > merely a matter of confusion.
+> > 
+> > However, I believe a code change is necessary in this specific case,
+> > rather than just adding documentation, for the following reasons:
+> > 
+> > First, this distorts the semantics of qt_exceeds.  It is a statistic
+> > meant to track actual quota full/overflows.  Incrementing qt_exceeds
+> > when the quota is completely unused (because the temporal goal is
+> > already met) misleads users and could break user-space monitoring tools
+> > or scripts that rely on this metric's accuracy.
+> 
+> As I mentioned in the previous comment, this doesn't look wrong to me.  I
+> understand some people could think differently.  That's why I think this is a
+> matter of clarification, not a bug to fix.
+> 
+> > 
+> > Second, considering its original behavior when it was first introduced,
+> > the recent changes [2] have inadvertently altered this behavior.
+> > 
+> > When qt_exceeds was first introduced [1], the conditional check was:
+> > 
+> >     if (quota->esz && quota->charged_sz >= quota->esz)
+> >             s->stat.qt_exceeds++;
+> > 
+> > Later, to handle cases where 'remaining quota < min_region_sz',
+> > damos_quota_is_full() was added [2].  When this function was added,
+> > quota->esz was replaced with !damos_quota_is_set(quota).
+> 
+> I don't find what's wrong with this.
+> 
+> > 
+> >     static bool damos_quota_is_full(struct damos_quota *quota,
+> >             unsigned long min_region_sz)
+> >     {
+> >         if (!damos_quota_is_set(quota))
+> >             return false;
+> >         if (quota->charged_sz >= quota->esz)
+> >             return true;
+> >         /*
+> >          * DAMOS action is applied per region, so <min_region_sz remaining
+> >          * quota means the quota is effectively full.
+> >          */
+> >         return quota->esz - quota->charged_sz < min_region_sz;
+> >     }
+> > 
+> > With the introduction of DAMOS_QUOTA_GOAL_TUNER_TEMPORAL [3], quota->
+> > esz == 0 carries two meanings: "unlimited quota" and "should not
+> > be applied".
+> 
+> I don't find how you think this way.
+> 
+> > This overlap causes the damos_quota_is_full() check to
+> > return true incorrectly in the temporal goal scenario, leading to the
+> > false positive in the statistic.
+> 
+> That still sounds like just a matter of different interpretations.  Let me know
+> if I'm missing something.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Thank you for keeping this discussion going!
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 5e2d672280d97d83de43031d93761b12dadd7b8a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-scalded-unclaimed-9b48@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+First, I would like to clarify my intention to avoid any
+misunderstanding.  My actual goal is to fix the semantic of the
+qt_exceeds statistic, rather than necessarily changing the underlying
+logic of damos_quota_is_full().
 
-Possible dependencies:
+Currently, there is an issue with how qt_exceeds is incremented.  When
+the quota is set very small, qt_exceeds increases frequently.  This
+produces a statistical trend that looks almost identical to the
+continuous increments caused by the Temporal Goal being achieved.
 
+The original intent of introducing qt_exceeds is to let users easily
+notice if the quota is too small.
 
+Commit Messages [1]:
 
-thanks,
+    mm/damon/schemes: account how many times quota limit has exceeded
 
-greg k-h
+    If the time/space quotas of a given DAMON-based operation scheme is too
+    small, the scheme could show unexpectedly slow progress.  However, there
+    is no good way to notice the case in runtime.  This commit extends the
+    DAMOS stat to provide how many times the quota limits exceeded so that
+    the users can easily notice the case and tune the scheme.
 
------------------- original commit in Linus's tree ------------------
+However, under the current behavior, users are forced to manually ignore
+or filter out the qt_exceeds increments that occur after the Temporal
+Goal is achieved.  This adds an unnecessary burden to the users and
+contradicts the core goal of making it "easy" for them to tune the
+scheme.
 
-From 5e2d672280d97d83de43031d93761b12dadd7b8a Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Tue, 11 Aug 2026 02:56:03 +0300
-Subject: [PATCH] KEYS: trusted: Fix TPM teardown ordering
+If we agree that this adds unnecessary burden, perhaps we could explore
+a minimal fix at the point where qt_exceeds is incremented, to skip the
+count when the Temporal Goal is already achieved, without touching
+damos_quota_is_full().
 
-trusted_tpm_exit() drops the TPM chip reference and frees the digest
-array before unregistering the trusted key type. key_type_lookup()
-holds key_types_sem for reading until the key operation finishes, while
-unregister_key_type() takes it for writing. It therefore provides the
-synchronization point that must precede backend teardown.
+Please let me know if I'm misunderstanding anything or missing some
+context!
 
-The current order permits this interleaving:
+[...]
 
-  CPU 0                              CPU 1
-  trusted_tpm_exit()                 key_type_lookup("trusted")
-    put_device(&chip->dev)             trusted_tpm_seal()
-    kfree(digests)                       pcrlock()
-    unregister_key_type()                  tpm_pcr_extend(..., digests)
+> > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
+> >     (Fri Jan 14 14:10:202022 -0800)
+> > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
+> >     (Mon Apr 27 18:33:50 2026 -0700)
+> > [3] af738a6a00c1f ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+> >     (Mon Mar 9 18:05:19 2026 -0700)
 
-CPU 1 can consequently dereference the freed digest array. The chip can
-also be released before callbacks stop using it.
-
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tpm_pcr_extend+0x1f0/0x200
-  Read of size 2 at addr ffff88810872d000 by task poc/89
-  Call Trace:
-    tpm_pcr_extend+0x1f0/0x200
-    pcrlock+0x42/0x70 [trusted]
-    trusted_tpm_seal+0x1b6/0x570 [trusted]
-    trusted_instantiate+0x293/0x340 [trusted]
-    __key_instantiate_and_link+0xb2/0x2b0
-    __key_create_or_update+0x61e/0xb50
-    __do_sys_add_key+0x1b8/0x310
-  Allocated by task 88:
-    __kmalloc_noprof+0x1a7/0x490
-    do_one_initcall+0xa1/0x390
-    do_init_module+0x2df/0x840
-  Freed by task 90:
-    kfree+0x131/0x3c0
-    trusted_tpm_exit+0x59/0xa0 [trusted]
-    __do_sys_delete_module+0x346/0x510
-
-Move unregister_key_type() before releasing either resource. This stops
-new lookups and waits for in-flight key operations to finish before the
-backend state is destroyed.
-
-Fixes: 0b6cf6b97b7e ("tpm: pass an array of tpm_extend_digest structures to tpm_pcr_extend()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/r/20260731140925.2973492-1-nicoyip.dev@gmail.com
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Tested-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index 13513819991e..8f57c6111e7e 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -987,9 +987,9 @@ static int __init trusted_tpm_init(void)
- static void trusted_tpm_exit(void)
- {
- 	if (chip) {
-+		unregister_key_type(&key_type_trusted);
- 		put_device(&chip->dev);
- 		kfree(digests);
--		unregister_key_type(&key_type_trusted);
- 	}
- }
- 
-
+Best regards,
+Rui Yan
