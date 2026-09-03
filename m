@@ -1,242 +1,83 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE1E48CFC;
-	Thu,  3 Sep 2026 03:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8601DDC33
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 03:02:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788404497; cv=none; b=Sy9aRbqpaRv7Zle5RJQC8B/aJXn12tIiKTqE71qC11T+VUwfFlnygD5xC/D17jFrRnE4pfP3sSxQYNucJue5z0KfGSlLAv2DD0HjvK3n6pT27vh6eZash0+KS6d6pQgu9IWpgSWrRIFlxA/mJei85wICV/wvlODKTU6vgD+vCr8=
+	t=1788404549; cv=none; b=jNlOyFFY3UuPYwRv92R6+3bYh5kf1CukvKQN1BFz2iHdOiDcy32615VQFMQQJbLx6gmf8MKEXYkQUj86ciJzT1BwdWZzABYR4hTDgbnHqdQGNrXWSICEe5iagOBHPpLv4FaoW3K1h7/E8aTKmQj7X0nvuerbydQ0n+ZTmkqZLPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788404497; c=relaxed/simple;
-	bh=2DtE4kXflOyOPHgQbVcdlq8uGI0Og9ZVoQKaVqksoUA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rKeUshKoljxrRjRMzae3M9CYygmMJu1DTJT0T+YVkKmr24obb827866KDHfuGFGfJIhsg76cwLN8fMFyLwigoArK+Cp7nh+Cqci/WY6xn5DgKwFnAUd0ZR4unfGlOYvS30Q2z7Cqw8YhaRpgnOpZAWhvUMERZP1ntHHoz7N6ZuU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BCkg+hfX; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788404549; c=relaxed/simple;
+	bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=D0l3hZVm0xGA6Pwpti1SQsdsoC+OeRkv4GFu0dMYpLQDVaFB+yYZvqsLOjucrzGJHN0cNWFYNazJR4YMO4mpWxMx7Jl5gNKZblTfVOzSASCjA5lxOfpxsq4FysAH6/j4hMORyQFT6K+G2INf1D6A3oPgAxaV4+C8bYCg4kOIEoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dsAEOPqE; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BCkg+hfX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=/vyZGP3AqBX16rWx2MyA0v2TVP0L/R2KvgKkquwUJ6Y=;
-	b=BCkg+hfXnR7HpemdNvTFxiDkzWZz3XejtFhXv2tAh9kgid9jvFe9G6eskXJBQL
-	AujjANF+0xaubImxq2v+wbbZP25K2d+ETrdLxhfrM+yk6ZRk8IO6wh77t3YaB4l0
-	fVZAYvYG3/i6ljWmQwp1LAjI596vR4ub7rP6VALm3hnRY=
-Received: from [IPV6:2409:8900:1a96:d5f:b0d5:8955:9102:74c7] (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnawDz4phqwbdwOQ--.17148S2;
-	Thu, 03 Sep 2026 11:01:08 +0800 (CST)
-Message-ID: <d576d6d6-e378-4124-817a-f019c09c391e@163.com>
-Date: Thu, 3 Sep 2026 11:01:07 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dsAEOPqE"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so2263946a91.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 20:02:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788404548; x=1789009348; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=dsAEOPqE2T//Zqe9xpBqiq2770L9IIkELVSkcjj2BTeIRea4k7F7WrQ7gT+g2f7Met
+         Cafev1aHMIgvIaQvCBm8yiExWturXRJFMWQ2pCa8EQ9I/AsfPXVO/zz7MhRTdyABlwVl
+         hKrN02PlXlYngrEWH+HI82jEzbbISVqnF13LRmgQV3ZUCz+sXAMEE+EtvP7qBsFhzcn8
+         Vbq48dWjBHLOBHD+OZG+bc3FPtX1RkxBaMhgISbP4x5OwPsgZ4uYFRLxQbk1guKLnxjz
+         VgITSBbKxDYer5oaKjsvl8C7JIfjUx3kgZJM71nN7pEqZV9thqULQIJuZ515AKFM0z0r
+         0NoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788404548; x=1789009348;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gm1y3HjSbfjetP2qj6SkQ/PvAerOiP935sq/jHQIUpg=;
+        b=Iz5K7uu7DSakt9posE4uxQn62K7/+CXd+HUw8yqPDTGRVvqBoGaNnepfsVrJZwAAsA
+         paRW17bL3PS3+tFaVbZNL8X0Gi36cXeO6rP6e53ahFlVRlcUe6KJVFoxNjTCl51sVAEj
+         14DDl0C64UsC+6fyT14KO7+po8QT8Z4nzcuxnMwg8zpRilzGIviG0PwWNCk6S9/8LxvE
+         xNhEEJwjhnFK1ejv0syjVXgYj0Yipz8bre1a0ZRxrLfi2xor8u+7EFBNbe5a9bkr+txZ
+         YUPsNQ+s0bUjexAcfQ8IEELkIHvJMt5iPJOA9fgKONkqeyncwop1RuYfAkypMgYt0hPu
+         lfhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwL+ZncmYYrVNxYZS264ETcgANlC2+bYugzpuT8U6lJdZSPNw4Db0FspvBNjMidUVyG9WT4dcw=@vger.kernel.org
+X-Gm-Message-State: AFuF++koWGIh2y1j45r2qcMXICJs0nF2CDPIc/vay4vng/n+45z9yJIY
+	aNyZQvr7vjr3J3h48CmI3hrc3YCH1dJXUbJc263LUyosUzNAf8WE9xI=
+X-Gm-Gg: AYBFou0QNQt68SeJG4xOJmsy/n5CrSNcSSaXEd1TWvrL/QSQGjb5CrW+NxI/v73QO0c
+	/xS4Jm1lCNva38aZ2W2wsEpS6nfCWNWMoUSIapvemvMQln8O9vte1s1MXjESFIjGG6YY+xnTHCr
+	RNPGqEqQjHYGRDMsp8oQon8aLm8VIYYPuVLjSapMyA//5IU2YR6txMbX6Ag1r1P5P6Fqo+UBdAV
+	ZJRsjpPlxIk5UujWUL8/geNhZfDYnE85BT8LeVoy/fsHe9DHJQTNIvukjbA9mPbjqQGrC+pGMsS
+	9Vwd3LynTiOZUp5Ot+V1zPUCzJIohGLXhJqfdEmHeQ339wQrvmP/91kukn9+kcXRemRttD9BWq+
+	FEeRRts+FJsf3I/SdaeVzhClbhIc3ANbljgd+uqgV0k/01mc2ukPfcVLZOCy5iC8IDbZc4Y1wyV
+	UV/Venm+Wa6piKUWQNh5x4KyJsXSx8oldo19uPnDMirKe9za7lr8THIDrqfPitIjU7FP9zW96Fl
+	h+U0dm9QzwZXFrv2mKD3IugjLHu
+X-Received: by 2002:a17:90b:184d:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-39aedfb8bb9mr15043842a91.6.1788404547583;
+        Wed, 02 Sep 2026 20:02:27 -0700 (PDT)
+Received: from anuj-MacBookPro ([2406:7400:63:f76b:3efb:3463:cad7:ba39])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325592d9c5sm2209189eec.11.2026.09.02.20.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 20:02:26 -0700 (PDT)
+Date: Thu, 3 Sep 2026 08:32:20 +0530
+From: Anuj Gupta <anuj1072538@gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, hch@lst.de, stable@vger.kernel.org, 
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/8] xfs: always set xfs_healthmon::first_event when
+ inserting at front of list
+Message-ID: <uohx7k2iv73uhqwl67qjioz6bknvxk7h5rccx6eqyrgxihjzht@nebg7c4evcav>
+References: <178832750217.3507776.15975397025387963886.stgit@frogsfrogsfrogs>
+ <178832750287.3507776.8244145130516180990.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ntfs: fix volume flag update races
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260903012104.185926-1-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260903012104.185926-1-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDnawDz4phqwbdwOQ--.17148S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4UZrWrAr4fCw1DGr1rZwb_yoW3CF1Dpr
-	s2yF9rKa1qyrnrWws7t3yIgw4S934rGr48Cry7Jw1av3sIyryUXF18K3WrA3Wvyr97Ar1x
-	XFWjyrW5uw1UZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U-db8UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hS2gWqY4vTjBwAA3J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178832750287.3507776.8244145130516180990.stgit@frogsfrogsfrogs>
 
-
-
-在 2026/9/3 09:21, Hongling Zeng 写道:
-> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-> vol->vol_flags outside any lock to compute the new value before handing
-> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-> the actual write. The read-modify-write is therefore not atomic, and two
-> concurrent callers can lose an update: ntfs_sync_fs() may derive a
-> "clean" value from vol->vol_flags while a writer concurrently records an
-> error and sets VOLUME_IS_DIRTY; the locked write then silently
-> overwrites the freshly-set dirty bit. The on-disk volume looks clean
-> despite the recorded errors, so chkdsk will not run on the next mount
-> and corrupted metadata can persist.
-> 
-> Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-> to set and to clear separately, and combine them with the current flag
-> state under the lock inside ntfs_write_volume_flags(). The set/clear
-> helpers pass only the bits to modify, not the complete flag state. The
-> bit manipulation is done on CPU-endian values, and the result is
-> converted back to little-endian before storing it. The wrappers keep
-> their signatures so callers are unchanged.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
-> - Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
->    VOLUME_IS_DIRTY under ni->mrec_lock.
-> - Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
->    unchanged.
-> - Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
->    set helper.
-> ---
->   fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
->   1 file changed, 45 insertions(+), 17 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index a1813093222b..a7977b95b967 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
->   }
->   
->   /*
-> - * ntfs_write_volume_flags - write new flags to the volume information flags
-> + * ntfs_write_volume_flags - apply flag changes to the volume information flags
->    * @vol:	ntfs volume on which to modify the flags
-> - * @flags:	new flags value for the volume information flags
-> + * @set_bits:	bits to set in the volume information flags
-> + * @clear_bits:	bits to clear in the volume information flags
->    *
->    * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
->    * instead (see below).
->    *
-> - * Replace the volume information flags on the volume @vol with the value
-> - * supplied in @flags.  Note, this overwrites the volume information flags, so
-> - * make sure to combine the flags you want to modify with the old flags and use
-> - * the result when calling ntfs_write_volume_flags().
-> + * Combine @set_bits and @clear_bits with the current in-memory flag state and
-> + * write the result back.  The set/clear helpers pass only the bits to modify,
-> + * not the complete flag state.  The read-modify-write happens under
-> + * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-> + * All bit manipulation is done on CPU-endian values, and the result is
-> + * converted back to little-endian before storing it.
->    *
->    * Return 0 on success and -errno on error.
->    */
-> -static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-> +static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-> +		const __le16 set_bits, const __le16 clear_bits,
-> +		const bool skip_if_errors)
->   {
->   	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
->   	struct volume_information *vi;
->   	struct ntfs_attr_search_ctx *ctx;
-> +	u16 flags;
->   	int err;
->   
-> -	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-> -			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
->   	mutex_lock(&ni->mrec_lock);
-> -	if (vol->vol_flags == flags)
-> +
-> +	if (skip_if_errors && NVolErrors(vol))
-> +		goto done;
-> +
-> +	flags = le16_to_cpu(vol->vol_flags);
-> +	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-> +	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-> +	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-> +			le16_to_cpu(vol->vol_flags), flags);
-> +
-> +	if (le16_to_cpu(vol->vol_flags) == flags)
->   		goto done;
->   
->   	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-> @@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
->   
->   	vi = (struct volume_information *)((u8 *)ctx->attr +
->   			le16_to_cpu(ctx->attr->data.resident.value_offset));
-> -	vol->vol_flags = vi->flags = flags;
-> +	vol->vol_flags = vi->flags = cpu_to_le16(flags);
->   	mark_mft_record_dirty(ctx->ntfs_ino);
->   	ntfs_attr_put_search_ctx(ctx);
->   done:
-> @@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
->    * @flags:	flags to set on the volume
->    *
->    * Set the bits in @flags in the volume information flags on the volume @vol.
-> + * The bits are combined with the current flag state under the lock in
-> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
->    *
->    * Return 0 on success and -errno on error.
->    */
->   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->   {
-> -	flags &= VOLUME_FLAGS_MASK;
-> -	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-> +	return ntfs_write_volume_flags(vol, flags, 0, false);
->   }
->   
->   /*
-> @@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->    * @flags:	flags to clear on the volume
->    *
->    * Clear the bits in @flags in the volume information flags on the volume @vol.
-> + * The bits are combined with the current flag state under the lock in
-> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
->    *
->    * Return 0 on success and -errno on error.
->    */
->   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
->   {
-> -	flags &= VOLUME_FLAGS_MASK;
-> -	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
-> -	return ntfs_write_volume_flags(vol, flags);
-> +	return ntfs_write_volume_flags(vol, 0, flags, false);
-> +}
-> +
-> +/*
-> + * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-> + * @vol:	ntfs volume whose dirty bit should be cleared
-> + *
-> + * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-> + * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-> + * recorded.
-> + */
-> +static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-> +{
-> +	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
->   }
->   
->   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-> @@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
->   		return 0;
->   
->   	/* If there are some dirty buffers in the bdev inode */
-> -	if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-> +	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
->   		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
->   		err = -EIO;
->   	}
-
-Hi Hongling,
-   Patch 1 fixes the race in ntfs_sync_fs(), but there are two other 
-sites with the same check-outside-lock-then-clear-inside-lock pattern:
-
-   1. super.c:315 (ntfs_reconfigure, remount read-only path)
-   2. super.c:1755 (ntfs_put_super, umount path)
-
-   Both use:
-       if (!NVolErrors(vol)) {   // check outside lock
-           if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY))  // clear 
-inside lock
-
-   The same race can occur: if an error thread sets NVolErrors() and the
-   dirty bit after the check but before the lock acquisition, the clear
-   operation will overwrite the freshly-set dirty bit.
-
-   Although the race window is much narrower for remount/umount, should
-   these two sites also be converted to use
-   ntfs_clear_volume_dirty_if_no_errors() for consistency?
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-
-
-Thanks,
-Baolin.
-
+Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
