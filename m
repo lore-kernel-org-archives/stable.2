@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E74C4A5EBE
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6909D4A5EBE
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439442; cv=none; b=hN0WY/t5Xm22WBHbgufuZ91xC08lgnqqtjePZf5DzC9pRh1nCoyBfswSER9oCOP/MNEvIHJI+dwhAj39nE2f1460gWQI9bOAlivpASU/KPB/0jVKTrbXSL52gVQ+0WMxtLp5L+k5fvdirWeanHrpj6q0OpoDjXy0acOIZjpptVQ=
+	t=1788439444; cv=none; b=H5sV0A8OeCHgLyp42i/fKH24XMPFhbMF5yH6hvVmd1dczOd2fUhj+/GrckYy0wBgdyjy75AU2l0HTYWn2n6MIk/C3mYCcVx0bBHq3En7tjxWIYBvDFVrNqmdVZD6rh/s+gjAETig9QrSipt1WNVGGqrjJKUQl2LlvQxI6SWVZk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439442; c=relaxed/simple;
-	bh=KWHo041RxeE33Dyl+192sIqxPDNHsM2sZ5F8amYiZG4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tvF3GmR8Q5GyG/b7T/gZY5mIIcno9e0UpcUL8+vPtZXUdoINA+/PKsR5DyGuK2ZdG52uJGRbnJG+k1oDfF/4Lmmp8kD+Rzgn9z2PB3QfogKedwayhgFAtridq4f/yJrwusuCSk/MBvrKXNAxz8j4hfek6+J9U15QhvvwNogfhhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y1CcCwn5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439444; c=relaxed/simple;
+	bh=vYsrnnE6Ix+v0x3fDiCCHWFk5YTrTC+38YBVdvenTHU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GFtXQExeUwCYH3feo9fg8Lpb6G3dHVB2kMT3kw2YbBY+I+O/K8F0B57EWsTgslJ8SXui3bjjkmIM2uk+h6eO2odocvIwsBj9zcKHM8/2FOkypgYeDSFo7Sw6VZ2Oaag4PTOz7dx42Fp/q/6j+BYTP7ZMGE5ktEktYYvZrfI8yBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ywXdGxt6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y1CcCwn5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A8A1F000E9;
-	Thu,  3 Sep 2026 12:43:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ywXdGxt6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC861F00A3A;
+	Thu,  3 Sep 2026 12:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439440;
-	bh=ufbTSpfhnVBrosAq+ur3tH39SYGnlk/nhitPmiJd74s=;
+	s=korg; t=1788439443;
+	bh=fsZRpPL7cWkuSeWu+raJ+dWCMLOGHS+iZmm6o0NhiZE=;
 	h=Subject:To:Cc:From:Date;
-	b=y1CcCwn5DOmNgqnB6+ejBN0IvZdfaokKuzyYApGWzpQ/WheILnbVnMnq9pcOJQYQO
-	 fclI1EEwI5jrBdHIAk0HzWIvEVlkCkCYcv8qaZ9qB5Isa+5/V0S7UM9lk/G3jinHj0
-	 IIafNm68pbI5b8RnjjHxdiXL+HKzP0ZXCK1fh8co=
-Subject: FAILED: patch "[PATCH] rust: rust_is_available: warn for `bindgen` < 0.72.1 &&" failed to apply to 6.12-stable tree
-To: ojeda@kernel.org,burak.emir@gmail.com
+	b=ywXdGxt6K/P72GiNLO1B5z6NVrrb+OkCPxqnhh5VN32wiB39UAVUjfMTHAyiO0diw
+	 a+GsfdX42Lb0JuqMblg6sQ6Aop1MQAEtpSlVVF8x6mcQ5fkiMeNjaU961nzEfSsqPf
+	 JI1+vM5KoTqr4E5r7HdOHFsZ7J7c8v1Uv473U6PQ=
+Subject: FAILED: patch "[PATCH] rust: devres: fix race between concurrent revokers" failed to apply to 6.18-stable tree
+To: dakr@kernel.org,aliceryhl@google.com,gary@garyguo.net,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:43:03 +0200
-Message-ID: <2026090303-moonshine-study-20ce@gregkh>
+Date: Thu, 03 Sep 2026 12:43:15 +0200
+Message-ID: <2026090315-banker-thank-0f7d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x dc01dfb37b34beeefcfe1c3055364d41a4070c7e
+git cherry-pick -x acc516dfa1972d31836b50abc0115216cd0fccc5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090303-moonshine-study-20ce@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090315-banker-thank-0f7d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,149 +62,101 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From dc01dfb37b34beeefcfe1c3055364d41a4070c7e Mon Sep 17 00:00:00 2001
-From: Miguel Ojeda <ojeda@kernel.org>
-Date: Sun, 19 Jul 2026 14:05:14 +0200
-Subject: [PATCH] rust: rust_is_available: warn for `bindgen` < 0.72.1 &&
- libclang >= 22
+From acc516dfa1972d31836b50abc0115216cd0fccc5 Mon Sep 17 00:00:00 2001
+From: Danilo Krummrich <dakr@kernel.org>
+Date: Sun, 28 Jun 2026 19:44:38 +0200
+Subject: [PATCH] rust: devres: fix race between concurrent revokers
 
-Starting with LLVM 22, `clang_getTypeDeclaration()` may return a forward
-declaration instead of the type definition. This made `bindgen` generate
-opaque types [1][2], which in turn made us fail with e.g.
+There is a potential race condition when two paths try to revoke a
+Devres concurrently.
 
-    error[E0609]: no field `__bindgen_anon_1` on type `bindings::kernel_param`
-      --> rust/kernel/module_param.rs:78:46
-       |
-    78 |         let container = unsafe { &*((*param).__bindgen_anon_1.arg.cast::<SetOnce<T>>()) };
-       |                                              ^^^^^^^^^^^^^^^^ unknown field
-       |
-       = note: available field is: `_address`
+The driver core's devres_release_all() calls Revocable::revoke() via the
+release callback, while Devres::drop() calls revoke_nosync() on another
+CPU.
 
-This was fixed in `bindgen` 0.72.1 [3].
+The revoker that does not claim the is_available swap returns
+immediately, but the revoker that did may still be executing
+drop_in_place() on the inner data. This can cause a use-after-free when
+the other revoker's caller proceeds to drop adjacent resources that
+drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
+SGTable freeing the backing sg_table and pages).
 
-In order to clarify what is going on and avoid confusion [4][5], add
-a warning to `rust_is_available.sh` about it when the versions match,
-similar to past warnings like the one removed in:
+Fix this by adding a Completion. The release callback signals the
+Completion after revoke() finishes, and Devres::drop() waits for it when
+it loses the is_available swap. This ensures the wrapped object is fully
+torn down before Devres::drop() returns.
 
-  commit ae64324ad5c1 ("rust: rust_is_available: remove warning for `bindgen` < 0.69.5 && libclang >= 19.1")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
+Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://patch.msgid.link/20260628174451.2275679-1-dakr@kernel.org
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-In addition, even if the versions match, check if the issue appears to
-not reproduce with the given binaries, to avoid a warning in such a case.
-
-Finally, include tests.
-
-[ Nathan, in parallel, updated the instructions of the LLVM+Rust
-  kernel.org toolchains [6] so that `--version` is not passed to
-  `cargo` for `bindgen`, and thus the latest `bindgen` is installed
-  by default, which should help to avoid some of these situations.
-
-  Thanks!
-
-    - Miguel ]
-
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Link: https://github.com/rust-lang/rust-bindgen/issues/3264 [1]
-Link: https://github.com/Rust-for-Linux/linux/issues/353 [2] # "Missing fields in nested class with LLVM 22."
-Link: https://github.com/rust-lang/rust-bindgen/pull/3278 [3]
-Reported-by: Burak Emir <burak.emir@gmail.com>
-Link: https://github.com/Rust-for-Linux/linux/issues/1247 [4]
-Link: https://lore.kernel.org/rust-for-linux/CABwQupNfMAJOGqRM9ke6tj4f53dCCsBDKU7Vp+zf8mwk7bqt8Q@mail.gmail.com/ [5]
-Link: https://mirrors.edge.kernel.org/pub/tools/llvm/rust/ [6]
-Tested-by: Burak Emir <burak.emir@gmail.com>
-Link: https://patch.msgid.link/20260719120514.159914-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-diff --git a/scripts/rust_is_available.sh b/scripts/rust_is_available.sh
-index 551f1ebd0dcb..c30983562a2f 100755
---- a/scripts/rust_is_available.sh
-+++ b/scripts/rust_is_available.sh
-@@ -208,6 +208,20 @@ if [ "$bindgen_libclang_cversion" -lt "$bindgen_libclang_min_cversion" ]; then
- 	exit 1
- fi
+diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
+index 20f94030f977..4a1e5eec78ab 100644
+--- a/rust/kernel/devres.rs
++++ b/rust/kernel/devres.rs
+@@ -21,7 +21,8 @@
+     sync::{
+         aref::ARef,
+         rcu,
+-        Arc, //
++        Arc,
++        Completion, //
+     },
+     types::{
+         CovariantForLt,
+@@ -39,6 +40,8 @@ struct Inner<T> {
+     node: Opaque<bindings::devres_node>,
+     #[pin]
+     data: Revocable<T>,
++    #[pin]
++    revocation: Completion,
+ }
  
-+if [ "$bindgen_libclang_cversion" -ge 2200000 ] &&
-+	[ "$rust_bindings_generator_cversion" -lt 7201 ]; then
-+	# Distributions may have patched the issue.
-+	if ! "$BINDGEN" $(dirname $0)/rust_is_available_bindgen_libclang_22.h | grep -q 'pub foo'; then
-+		echo >&2 "***"
-+		echo >&2 "*** Rust bindings generator '$BINDGEN' < 0.72.1 together with libclang >= 22"
-+		echo >&2 "*** may not work due to a bug (https://github.com/rust-lang/rust-bindgen/pull/3278)."
-+		echo >&2 "***   Your bindgen version:  $rust_bindings_generator_version"
-+		echo >&2 "***   Your libclang version: $bindgen_libclang_version"
-+		echo >&2 "***"
-+		warning=1
-+	fi
-+fi
-+
- # If the C compiler is Clang, then we can also check whether its version
- # matches the `libclang` version used by the Rust bindings generator.
- #
-diff --git a/scripts/rust_is_available_bindgen_libclang_22.h b/scripts/rust_is_available_bindgen_libclang_22.h
-new file mode 100644
-index 000000000000..6b33544c14a8
---- /dev/null
-+++ b/scripts/rust_is_available_bindgen_libclang_22.h
-@@ -0,0 +1,5 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+struct S;
-+struct S {
-+	int foo;
-+};
-diff --git a/scripts/rust_is_available_test.py b/scripts/rust_is_available_test.py
-index b205d792550d..22bdff980c35 100755
---- a/scripts/rust_is_available_test.py
-+++ b/scripts/rust_is_available_test.py
-@@ -54,16 +54,23 @@ else:
- """)
+ /// This abstraction is meant to be used by subsystems to containerize [`Device`] bound resources to
+@@ -55,6 +58,10 @@ struct Inner<T> {
+ /// After the [`Devres`] has been unbound it is not possible to access the encapsulated resource
+ /// anymore.
+ ///
++/// When a [`Devres`] is dropped, it is guaranteed that `T` has been fully dropped by the time
++/// [`Devres::drop`] returns, even if a concurrent revocation through the release callback is in
++/// progress.
++///
+ /// [`Devres`] users should make sure to simply free the corresponding backing resource in `T`'s
+ /// [`Drop`] implementation.
+ ///
+@@ -222,6 +229,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
+                     };
+                 }),
+                 data <- Revocable::new(data),
++                revocation <- Completion::new(),
+             }),
+             GFP_KERNEL,
+         )?;
+@@ -259,7 +267,9 @@ fn data(&self) -> &Revocable<T> {
+         // SAFETY: `inner` is a valid `Inner<T>` pointer.
+         let inner = unsafe { &*inner };
  
-     @classmethod
--    def generate_bindgen(cls, version_stdout, libclang_stderr):
-+    def generate_bindgen(cls, version_stdout, libclang_stderr, libclang_22_patched=False):
-         if libclang_stderr is None:
-             libclang_case = f"raise SystemExit({cls.bindgen_default_bindgen_libclang_failure_exit_code})"
-         else:
-             libclang_case = f"print({repr(libclang_stderr)}, file=sys.stderr)"
+-        inner.data.revoke();
++        if inner.data.revoke() {
++            inner.revocation.complete_all();
++        }
+     }
  
-+        if libclang_22_patched:
-+            libclang_22_case = "print('pub foo: ::std::os::raw::c_int,')"
-+        else:
-+            libclang_22_case = "pass"
-+
-         return cls.generate_executable(f"""#!/usr/bin/env python3
- import sys
- if "rust_is_available_bindgen_libclang.h" in " ".join(sys.argv):
-     {libclang_case}
-+elif "rust_is_available_bindgen_libclang_22.h" in " ".join(sys.argv):
-+    {libclang_22_case}
- else:
-     print({repr(version_stdout)})
- """)
-@@ -260,6 +267,27 @@ else:
-         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
-         self.assertIn(f"libclang (used by the Rust bindings generator '{bindgen}') is too old.", result.stderr)
- 
-+    def test_bindgen_bad_libclang_22(self):
-+        for (bindgen_version, libclang_version, expected_not_patched) in (
-+            ("0.71.1", "21.1.0", self.Expected.SUCCESS),
-+            ("0.71.1", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+            ("0.71.1", "22.1.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+
-+            ("0.72.0", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+
-+            ("0.72.1", "22.0.0", self.Expected.SUCCESS),
-+        ):
-+            with self.subTest(bindgen_version=bindgen_version, libclang_version=libclang_version):
-+                cc = self.generate_clang(f"clang version {libclang_version}")
-+                libclang_stderr = f"scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version {libclang_version} [-W#pragma-messages], err: false"
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr)
-+                result = self.run_script(expected_not_patched, { "BINDGEN": bindgen, "CC": cc })
-+                if expected_not_patched == self.Expected.SUCCESS_WITH_WARNINGS:
-+                    self.assertIn(f"Rust bindings generator '{bindgen}' < 0.72.1 together with libclang >= 22", result.stderr)
-+
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr, libclang_22_patched=True)
-+                result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen, "CC": cc })
-+
-     def test_clang_matches_bindgen_libclang_different_bindgen(self):
-         bindgen = self.generate_bindgen_libclang("scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version 999.0.0 [-W#pragma-messages], err: false")
-         result = self.run_script(self.Expected.SUCCESS_WITH_WARNINGS, { "BINDGEN": bindgen })
+     #[allow(clippy::missing_safety_doc)]
+@@ -363,6 +373,10 @@ fn drop(&mut self) {
+                 // this additional reference count.
+                 drop(unsafe { Arc::from_raw(Arc::as_ptr(&self.inner)) });
+             }
++        } else {
++            // The release callback is concurrently revoking; wait for it to finish
++            // `drop_in_place()` of the wrapped object before returning.
++            self.inner.revocation.wait_for_completion();
+         }
+     }
+ }
 
