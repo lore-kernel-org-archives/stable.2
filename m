@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA64C77A1
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39CC4B8DFC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448002; cv=none; b=HO0RXuqY2my8azXEOHYprhXAPMgdmtB5GmQgydQcUAYNFZEY2XGoCXD7FpNkdPdBORafZkWtqoO7MErj0whE572omLRGPgwESdsOlCyqG5X4p8MfVAsRq0JbZRrY2KyB09pUDxjbc/XTwOKZ3a+sZq7vfNX3P2Z+jvaMuz67My4=
+	t=1788448005; cv=none; b=uiVjOYmspkIy19akWOmgHKQwy2RwPKFrCACAj3LEM/+LRIVjx3CzwJKWlM6rTIRCwr3lnBsy8IFR79YWZhaAIJhZa0YHEucw+B0pPtTwCTamd/uasacNAb8dmN9ymHeZzEBia4hUr+yS9JjeYKcQ1RKRlpdoOygTqN3qrQSfMoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448002; c=relaxed/simple;
-	bh=Jfa+MQ9LjawLDkITauvSbYFqiuYxZ8j4+CVSUQWqpLg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j0ohI8Tg1n0Dkbr/0uN4/FeAVv9wwzaoIIxdP+npi4zrlSIgA20H29Oi3E0UWiElOI5KJZGuTNYVk+YSE7vh7j2iXquRBY5ZcGGyVMLE1fIs+VII3bhIzUHZ6axnyRoQ3dcyudL/0CO5AmxRkWoUnK3bXBtyYC0MOZ2C9VvCyFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qDo/hUVH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448005; c=relaxed/simple;
+	bh=RjKeWdMpH5gBUZXuq2V1QfMePWS3WrHRkcTy+9lcT+o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IQX95z3Hi/YFIMrXvdFVgh+u7u+zlUVx8SOfIpHIEgv8UMwUjO4UNftWhRu6r4D3Xcl2EKF12rgodjqK00P7RfbC49WDehOKFUIM27KW3lAe1y4azg2y3dOZwX/RsKdp3BheKvOWlTfey2GikxQT6k/4pTFP79vujf8bCESaUDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gIGvpVv3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qDo/hUVH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347FA1F000E9;
-	Thu,  3 Sep 2026 15:06:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gIGvpVv3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B1D1F000E9;
+	Thu,  3 Sep 2026 15:06:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788448000;
-	bh=9fNwZw8X02X/fDt3cCFNyNElksukSezTknt+pcMj5ug=;
+	s=korg; t=1788448003;
+	bh=5VMb8ylDULuuVwcC70fhTPa06ldRf4cAky0hIr9I0Us=;
 	h=Subject:To:Cc:From:Date;
-	b=qDo/hUVHvUQtdktTsdBmOfGmBmbnKDIdBfH0qgPQPics7RerYZbwV6/G/DwJSE4sn
-	 VUvr5cZrxrKB3a7WRxTiUI7NdJGerZyp9TmIgHbL6U0CPHIG+ipC24kJqr6lKzewH9
-	 ugP4J+nMlbwMz2vrBNKiibBE2o3wJtdzenSESRM0=
-Subject: FAILED: patch "[PATCH] platform/x86: think-lmi: Fix current password length check" failed to apply to 5.15-stable tree
-To: thorsten.blum@linux.dev,ilpo.jarvinen@linux.intel.com,mpearson-lenovo@squebb.ca
+	b=gIGvpVv3F6CBEiODlhsvQSJwvCWAxtKAwzNbeDq1yyZERUDJTeoo9F7QDWIjUC+yu
+	 9KfgsrFUaL1RpKVoDmIVSndQ0te/qCdDwq0/qEOV8O3sl6SSx5SVzdEyVoRuQRcDlI
+	 uSBgFCohD3eXyQHbzcebUbTYRv2IOb3QUo1AssLI=
+Subject: FAILED: patch "[PATCH] platform/x86/amd/pmc: Restore msg_port on amd_stb_s2d_init()" failed to apply to 6.6-stable tree
+To: mario.limonciello@amd.com,ilpo.jarvinen@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:49:43 +0200
-Message-ID: <2026090343-sarcastic-pound-fa39@gregkh>
+Date: Thu, 03 Sep 2026 16:50:07 +0200
+Message-ID: <2026090307-duly-earmark-1628@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 54745d563114b74f6fecebce68cd020d06c1772b
+git cherry-pick -x 9cef693bce96bb4c6952f48d855284cf7fa4f367
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090343-sarcastic-pound-fa39@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090307-duly-earmark-1628@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,52 +62,78 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 54745d563114b74f6fecebce68cd020d06c1772b Mon Sep 17 00:00:00 2001
-From: Thorsten Blum <thorsten.blum@linux.dev>
-Date: Tue, 18 Aug 2026 17:16:35 +0200
-Subject: [PATCH] platform/x86: think-lmi: Fix current password length check
+From 9cef693bce96bb4c6952f48d855284cf7fa4f367 Mon Sep 17 00:00:00 2001
+From: Mario Limonciello <mario.limonciello@amd.com>
+Date: Tue, 21 Jul 2026 13:17:51 -0500
+Subject: [PATCH] platform/x86/amd/pmc: Restore msg_port on amd_stb_s2d_init()
+ error paths
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-current_password_store() checks the password length before removing the
-trailing newline, which can reject valid passwords that are exactly
-->maxlen bytes long.
+dev->msg_port is switched to MSG_PORT_S2D before issuing the S2D SMU
+commands but is only restored to MSG_PORT_PMC on the success path.  The
+early "return -EIO" and "return -ENOMEM" leave the port stuck on
+MSG_PORT_S2D, so all subsequent SMU communication - including the s2idle
+prepare/restore handlers - is directed at the wrong mailbox.
 
-It also passes ->maxlen to strscpy(), which truncates passwords without
-a newline.
+Consolidate the exit path through a single label so the message port is
+always restored.
 
-Use strchrnul() to measure the password length up to the newline, then
-copy that many bytes and add a trailing NUL terminator using strscpy().
-
-Fixes: a40cd7ef22fb ("platform/x86: think-lmi: Add WMI interface support on Lenovo platforms")
+Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
 Cc: stable@vger.kernel.org
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-Link: https://patch.msgid.link/20260818151635.37094-2-thorsten.blum@linux.dev
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Link: https://patch.msgid.link/20260721181756.143084-2-mario.limonciello@amd.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
-diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
-index ca266657e16c..a0e3fa766e37 100644
---- a/drivers/platform/x86/lenovo/think-lmi.c
-+++ b/drivers/platform/x86/lenovo/think-lmi.c
-@@ -438,14 +438,13 @@ static ssize_t current_password_store(struct kobject *kobj,
- 	struct tlmi_pwd_setting *setting = to_tlmi_pwd_setting(kobj);
- 	size_t pwdlen;
+diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
+index 753d630f3283..83645c0a8d78 100644
+--- a/drivers/platform/x86/amd/pmc/mp1_stb.c
++++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
+@@ -289,7 +289,7 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
+ 	u32 phys_addr_low, phys_addr_hi;
+ 	u64 stb_phys_addr;
+ 	u32 size = 0;
+-	int ret;
++	int ret = 0;
  
--	pwdlen = strlen(buf);
-+	/* Strip newline; setting password won't work if one is present. */
-+	pwdlen = strchrnul(buf, '\n') - buf;
- 	/* pwdlen == 0 is allowed to clear the password */
- 	if (pwdlen && ((pwdlen < setting->minlen) || (pwdlen > setting->maxlen)))
- 		return -EINVAL;
+ 	if (!enable_stb)
+ 		return 0;
+@@ -307,8 +307,10 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
+ 	dev->msg_port = MSG_PORT_S2D;
  
--	strscpy(setting->password, buf, setting->maxlen);
--	/* Strip out CR if one is present, setting password won't work if it is present */
--	strreplace(setting->password, '\n', '\0');
-+	strscpy(setting->password, buf, pwdlen + 1);
- 	return count;
+ 	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
+-	if (size != S2D_TELEMETRY_BYTES_MAX)
+-		return -EIO;
++	if (size != S2D_TELEMETRY_BYTES_MAX) {
++		ret = -EIO;
++		goto out;
++	}
+ 
+ 	/* Get DRAM size */
+ 	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
+@@ -321,12 +323,16 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
+ 
+ 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
+ 
+-	/* Clear msg_port for other SMU operation */
+-	dev->msg_port = MSG_PORT_PMC;
+-
+ 	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
+-	if (!dev->stb_virt_addr)
+-		return -ENOMEM;
++	if (!dev->stb_virt_addr) {
++		ret = -ENOMEM;
++		goto out;
++	}
+ 
+-	return 0;
++	ret = 0;
++
++out:
++	/* Restore the default message port for subsequent SMU operations */
++	dev->msg_port = MSG_PORT_PMC;
++	return ret;
  }
- 
 
