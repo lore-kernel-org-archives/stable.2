@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED1F4E56F8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF444E66A1
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450016; cv=none; b=oie93zwVq3TEtV4GgOGMgyEBSYm8++KSh1Uxc6CYfEMz2opXaAl9ZHRRFKqBrb5uMiiTKKIkBKLEPh6TuL/y0NgRO9ozm4Thmf7m5hQbDmVLWAgQuDmfAec8ZijFuBBiVDfmnK0wZRVjeYIVGCpAb+HZIQGY5nKItpGhFHdx9ts=
+	t=1788450020; cv=none; b=YfSEUm+GjxswC5w6Dbay2wo8EwSRQaU/kh1oblc/mxG8D6Xy2KihGQtSLs5V7wnlb5KpZnEPtxr6kriGAOnMcx4XgfQA7JBqJIsNAT9nHn439TzQj1xAvLCahKM41+LOZNeuaMMLhlKcqN8YfAqRSugoVrYVBd5nyZ5euyOPuvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450016; c=relaxed/simple;
-	bh=KqpP71GrVR9XabCUb/0MgiAN1yMMwIBsp7LTfJgZMBI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YYwQSwUsTE4Vf3ZOfCTMVbU5g2cQ/UEZRzYXXEMiV2/NeJoMWPfKvfo7CrhnpywQY6/aEcOsDT8wsQZKSVaWam5SyECRV45FZorrSFUYbdiC71UNzg/S24J05TclOKhfYvDAzMf0oomIVr0nv7CI6Y/v6Vo+jVeHVTTxAKCSokk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A3zLhx4h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788450020; c=relaxed/simple;
+	bh=6nyk2M2wav/LzAsiR0vgTras11BhI9Zv0OyhQT47hb4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OUl30rNAJ4hXwiigwcACxAEx5LDFnEoR6rmBMi46i4cUAUi2zOjE8yzQAtyhunLsOd7EaKcfEe21eFEcZ3Six6oZga6ZC1XT/dZo4sd+i94JPyYVuNZyH06rEt7THIHfGWaS47We01AtpyD+10CqpDBVRiXe2iFVOSBryexDfxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=y6hL+u1i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A3zLhx4h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061181F000E9;
-	Thu,  3 Sep 2026 15:40:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="y6hL+u1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D488F1F000E9;
+	Thu,  3 Sep 2026 15:40:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788450015;
-	bh=muWZaaLgV0Ly+TqLC0zp+vYp2hgGuhtClSrXufbeW+A=;
+	s=korg; t=1788450018;
+	bh=wLoK5MSonbWX+CriL39rYXx1/f73avyeDJ+7zoVciA4=;
 	h=Subject:To:Cc:From:Date;
-	b=A3zLhx4hwdL/K9rXjEoAEif8J7ctMA09qTmZETi9fmngZrdhRYAHmNXLXMVG4w0L6
-	 9sLCKxA0kKIZ5I96Wg3taEiuhiRfMxDKw20RNKUuRZqMHNhl3sq/UYJNDpDxgE7c/C
-	 lQO5xIZy0weLLt60b5yZk6AaANCbU9zyTwDOzUb4=
-Subject: FAILED: patch "[PATCH] ALSA: pcxhr: initialize mutexes before requesting threaded" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,tiwai@suse.de
+	b=y6hL+u1iYr1CafNysK1v/bcvniuP6e4Z5NL1vsrIQLbp7sSkkQ9l6Tf/9pLj8bxuI
+	 CWBxz0D4HfSHErfEzYlpsGyD6vJfVDjT/spTSlkv1HziJxeNooVxIoQZaq9hEsJiMp
+	 vdTHF5zkqnPdFqWYPbPXpvlfjU2/oKbClaEUEsRU=
+Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable headset mic on F+ FLAPTOP r" failed to apply to 6.18-stable tree
+To: rauty@altlinux.org,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:14:09 +0200
-Message-ID: <2026090309-dimly-regulator-21d3@gregkh>
+Date: Thu, 03 Sep 2026 17:14:42 +0200
+Message-ID: <2026090342-absolute-prescribe-c362@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6c97817e20598e5473094e0e38d1f51f1cf4dfff
+git cherry-pick -x 7097666b993b37f4e47982026b703b2379a364f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090309-dimly-regulator-21d3@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090342-absolute-prescribe-c362@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,55 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6c97817e20598e5473094e0e38d1f51f1cf4dfff Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 18 Aug 2026 22:47:17 +0800
-Subject: [PATCH] ALSA: pcxhr: initialize mutexes before requesting threaded
- IRQ
+From 7097666b993b37f4e47982026b703b2379a364f8 Mon Sep 17 00:00:00 2001
+From: Ajrat Makhmutov <rauty@altlinux.org>
+Date: Sat, 8 Aug 2026 21:55:00 +0300
+Subject: [PATCH] ALSA: hda/realtek: Enable headset mic on F+ FLAPTOP r
 
-pcxhr_probe() requests pcxhr_threaded_irq() before initializing
-mgr->lock, even though the threaded handler takes that mutex.
+The BIOS of the F+ FLAPTOP r laptop (Realtek ALC897, SSID 1e63:6d9a)
+declares only pin 0x1b, the headphone output of the 3.5 mm combo jack.
+Every other external pin is left at 0x411111f0, so the headset mic pin
+0x19 is never parsed and no headset mic input exists. The pin is wired
+on this board - retasking it makes the headset mic record.
 
-Initialize the manager locks before request_threaded_irq() so an
-early interrupt cannot run against uninitialized mutex state during
-probe.
+Reuse ALC897_FIXUP_HP_HSMIC_VERB, which already sets the pin config this
+machine needs: 0x19 as a headset mic without its own presence detect.
+Only 0x1b reports jack presence here, so a mic pin with presence detect
+would leave the driver in auto-mic mode waiting for an event that never
+arrives.
 
-Fixes: 9bef72bdb26e ("ALSA: pcxhr: Use nonatomic PCM ops")
-Cc: stable@vger.kernel.org
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260818144717.2269918-1-runyu.xiao@seu.edu.cn
+Without the quirk the generic parser retasks the lone headphone pin as
+an input instead. That surfaces as a "Headphone Mic" input which records
+only the internal mic bleed, so the headset mic appears present but dead.
+
+Tested on ALT Linux, kernel 6.12, by recording a CTIA headset mic on the
+combo jack with the internal mic as a reference.
+
+ALSA info before the patch:
+https://alsa-project.org/db/?f=18363eddea933baee100c9bf461d0e5cf74c8de2
+
+ALSA info after the patch:
+https://alsa-project.org/db/?f=48ae2cd7aaf1eb0f24639ce83cd38cfd93b25f76
+
+Cc: stable@vger.kernel.org # 6.12.x
+Signed-off-by: Ajrat Makhmutov <rauty@altlinux.org>
+Link: https://patch.msgid.link/20260808185500.2564948-1-rauty@altlinux.org
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/pci/pcxhr/pcxhr.c b/sound/pci/pcxhr/pcxhr.c
-index 25a640304430..60cc0721d0a6 100644
---- a/sound/pci/pcxhr/pcxhr.c
-+++ b/sound/pci/pcxhr/pcxhr.c
-@@ -1535,6 +1535,13 @@ static int pcxhr_probe(struct pci_dev *pci,
- 	mgr->pci = pci;
- 	mgr->irq = -1;
+diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662.c
+index 2cf3664a35ff..a640292c4f10 100644
+--- a/sound/hda/codecs/realtek/alc662.c
++++ b/sound/hda/codecs/realtek/alc662.c
+@@ -852,6 +852,7 @@ static const struct hda_quirk alc662_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1b35, 0x1234, "CZC ET26", ALC662_FIXUP_CZC_ET26),
+ 	SND_PCI_QUIRK(0x1b35, 0x2206, "CZC P10T", ALC662_FIXUP_CZC_P10T),
+ 	SND_PCI_QUIRK(0x1c6c, 0x1239, "Compaq N14JP6-V2", ALC897_FIXUP_HP_HSMIC_VERB),
++	SND_PCI_QUIRK(0x1e63, 0x6d9a, "F+ FLAPTOP r", ALC897_FIXUP_HP_HSMIC_VERB),
  
-+	/* ISR lock  */
-+	mutex_init(&mgr->lock);
-+	mutex_init(&mgr->msg_lock);
-+
-+	/* init setup mutex*/
-+	mutex_init(&mgr->setup_mutex);
-+
- 	if (request_threaded_irq(pci->irq, pcxhr_interrupt,
- 				 pcxhr_threaded_irq, IRQF_SHARED,
- 				 KBUILD_MODNAME, mgr)) {
-@@ -1548,13 +1555,6 @@ static int pcxhr_probe(struct pci_dev *pci,
- 		 "Digigram at 0x%lx & 0x%lx, 0x%lx irq %i",
- 		 mgr->port[0], mgr->port[1], mgr->port[2], mgr->irq);
- 
--	/* ISR lock  */
--	mutex_init(&mgr->lock);
--	mutex_init(&mgr->msg_lock);
--
--	/* init setup mutex*/
--	mutex_init(&mgr->setup_mutex);
--
- 	mgr->prmh = kmalloc(sizeof(*mgr->prmh) +
- 			    sizeof(u32) * (PCXHR_SIZE_MAX_LONG_STATUS -
- 					   PCXHR_SIZE_MAX_STATUS),
+ #if 0
+ 	/* Below is a quirk table taken from the old code.
 
