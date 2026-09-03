@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A0C44B203B
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9EA4B1B3A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444338; cv=none; b=a0BN942lTkw8YTFK5bHZCxSGzik32oT/hsO+br5b5F17z+L2HwygwSf7XLQASgoIhv4G950EWgdMQrdX9cn0ge7guvsv5UHpyGdHN22F3ADZRiWGRXA8lSHp1txtCXHAJ6DBWCBx/EKpP5Qk4U3jAgSW98KHMFMxD2LBUA5znzo=
+	t=1788444339; cv=none; b=W7SNQnsYEtlVf+r3myfFYzWpiJl7fZO/UcDmQmtJI8dzm/ufWRo955jkIaFpTuB+1IlMpwRicUp+arJXRIoAcmo6lFrOPMtSygnPyu1E+oBBZ08+a8ttN3t5kHIEx7uEhUMM8e79sea6aef08dDAL2blgcoz9Dl+ENcAo1lc9dI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444338; c=relaxed/simple;
-	bh=8ezL5TvRjhGkEVs46caEmzDU7/5q4MmT4i4iDychwfY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mXNPL35nTYkOUGDfUIuI85HU6dvMyme+OsriW6eH8ucPa+xPSrQ210igpoisBea5kO1lKT5akq2pQDbGu843NnEdumomC8c8VMQl2G7n44T5j86uJEMAR/8Rr45A0SQKEnHx6bx6J7C2O3kgxPitEVOYLektn8TYxS41viDP2Kc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K/usHadO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444339; c=relaxed/simple;
+	bh=6KCAIueJ20jMLEto63uHD+VG3v+ifbibY1r+L8o4snc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ViY81/PyKcW3VWHua9qddI/AAvC4ZBIzvRr9+oK2JPSgF0FNmmmDYGpIHhHOZCBJ/GnhPRhlJobt6yyfn4YlofXrCqWlvCnaBHKz/aRQB5CYGFP4ahbHsZXHSf4yNTYRJFpCK0E2E97Sf2uKAdmnyL01Z56XYQ6VivOku2OQwtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MBRG8lcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K/usHadO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240AC1F00AC4;
-	Thu,  3 Sep 2026 14:05:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MBRG8lcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7031F00A3E;
+	Thu,  3 Sep 2026 14:05:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444323;
-	bh=uV4N67fT54bk5GXPsSBFjdJWH91oRzSs40SauE3S9Mo=;
+	s=korg; t=1788444318;
+	bh=mY0d+5You5LnEOGCbPD5xyBhVSn64+SxlFsFw0m6JDg=;
 	h=Subject:To:Cc:From:Date;
-	b=K/usHadOnsa9dI4aIzVdbeDaD8RbC+XD8UiOcwESWyn/ZmHoDNOcydus9nvXv7uQy
-	 SRJ6OpdPG6/95IaeE7yJhI/EFt3sZBYIgl9c0rOXAO03gW6dl9xHxycKvUdeTKCcWE
-	 zyzH9COti+WOBBMZdWshO2zwSxm75rgZk6+fJ6XM=
-Subject: FAILED: patch "[PATCH] fsnotify: Fix stale object mask after concurrent mark updates" failed to apply to 6.6-stable tree
+	b=MBRG8lcRmGH7zZS3kS6/rczjB3/hAJ7p35lbq57fA5ls9KKeuu4Q9XtWNSNX5Nrn5
+	 glVwsdcaHREtYaD4LXSlH3f1jYdf6z6qWxjsCh0hUiVHIKeIFCofU6sXQmmDKbrWJn
+	 7YvDgfhYxbI3483o0xB+15mtUxxfQLm0fVAXuLdE=
+Subject: FAILED: patch "[PATCH] fsnotify: Fix stale object mask after concurrent mark updates" failed to apply to 6.12-stable tree
 To: yjkwon0026@snu.ac.kr,amir73il@gmail.com,jack@suse.cz
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:42:36 +0200
-Message-ID: <2026090336-dance-salaried-2815@gregkh>
+Date: Thu, 03 Sep 2026 15:42:35 +0200
+Message-ID: <2026090335-magnetism-tipping-5204@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x e422777fdd4746de1109575c51e65038d4c5c1be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090336-dance-salaried-2815@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090335-magnetism-tipping-5204@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
