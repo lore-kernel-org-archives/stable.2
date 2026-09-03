@@ -1,40 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB845013D5
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CE236CDE9
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:17:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788459079; cv=none; b=Bvv5K/nfqNUqYo5c6I9C1IZY7WyOPpGAHqqa1Xv7cq35RHljC1sNkNt1+ywdng9m9mPCRdSzIAmeobEXl2K0Sjiag8NNIKnhU9SCa/ce0cBnf7uBbd0bPBMW7qrV2NuiPlOLYZnndTc2touzKq63xincStoSE+LrQOUs4cGI/Ek=
+	t=1788459453; cv=none; b=f+/pRj0ZGoIohqgsHm/Bt5WC4EJcY6MadcLzOttLvnUmbOW/IBGfA/kjvZ0wjbeEJnfTnHJN9PiWPbjX+WDS61DpWEXBC3bd48+4zjjjD4P1KZNVCa09KtO/HaqXMnMaYmRLakPdAQGGslpMw1pvuqXHQBFgjpqmg/jHwLKvN1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788459079; c=relaxed/simple;
-	bh=Gr38QibYW0tz2oei11XLlITSSWAewFSIj59z5vw16uQ=;
+	s=arc-20240116; t=1788459453; c=relaxed/simple;
+	bh=LaLQDi7t/LKk7162wI9+9ilXI0SeZO/a3eOXNvEcEz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xw7pHWNpeUQP5RXhmcECAzG00ZptjMsAPejzb8YaZ3+a4fy3v4s68Slw7gwkMAxil/awHAS/uFhUa7Y1wDwrf4ooTtMhJmG0lUwkoj7N3sSHIcft/vbdCm/JDxAmr3QbNxlOThAqm58rLdHwjlP19F1O1cKAuGGSDeKJ7RmoytI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZOLG323f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h3lwSLzB5EsqlP8aZUZ7k2qz9jTTPpXNuDW3f4wgPSxFlNCriSMyLZIAZlgRafx2n3PrhFqtkCTKtr+vJJFJ1Qa59YHQHJr9J3JyqURdBS6SHrVDtabnrW9tXqwAFJaBS/inbMdRWblZnbTQJ4nnLXq6062vNmWaaD6vdiY8zLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H63WgSvM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZOLG323f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AFE01F00A3D;
-	Thu,  3 Sep 2026 18:11:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H63WgSvM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59CE71F000E9;
+	Thu,  3 Sep 2026 18:17:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788459077;
-	bh=WjkLBbrh4Dqg6a5QmFXZHJp8Pxp1nkIP2oVupz2INJE=;
+	s=k20260515; t=1788459451;
+	bh=ZOY3CMdigTJQXUbUoSM4L00tE1ihtzrrQTBuqmF1EQ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZOLG323fJhTs08oF36EYX0QEWGhps5p20hYgmWwbKWFt+RfLHzSH9Dxk70ka/UqkW
-	 agltXs+Mim7dlOboq5AwAHUjLk60xfwEiVQe/6x9Q1FyyuT32igF/naobYCtp6tQ0c
-	 68XvAEpe3vHJTG10Drhw3M9nVvOI8iSC+ZyCv6/x+FUXUdlU5Bip3Sx9FNB7RUsDMK
-	 aApPoASQUuUIAXuhNDAEERHZRRX5NzkuWJ0n3lObx+4nDRLYRzbPz/XS9J+thMcY4z
-	 /M0WSM4/qQeE5ne33ES9oI8DVPDmGGj30WeNygM59HJWmCxZv5g2kbY7JjcKZkDsnk
-	 JUse0JQiy7Tmw==
-From: Miguel Ojeda <ojeda@kernel.org>
+	b=H63WgSvMVc9Stua5QFet4/lwiQOit4i47g3C1NSXZo7twVoBAShC4Hb3T8xY3hoGn
+	 tqvg5jzL/F3ByicFMDrpHMlZiIt+rAgqQhLwfjBCa5FM+kSlkCeO9f17Lty6w2srda
+	 hMiRWDr/SIXs15wT1qbXNDy2cicVbqMIv4VJjfpjSkK7zxfpv+QqBa6aMKe2HOoHiF
+	 Cz3600WotW0rUyLTMSZN0yF55W1Uy5lEr1aS7Dom3XWIVeobQDdARyi5DWuxQmxZN6
+	 AhTW2mleZcjdzSN+Xwud8gEkVBXPIcAokgQIBBnjarNoTTBKFc8xO2SpYiwcr8OCoA
+	 L7LDFRgOrPU2w==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Burak Emir <burak.emir@gmail.com>
-Subject: [PATCH 6.12.y] rust: rust_is_available: warn for `bindgen` < 0.72.1 && libclang >= 22
-Date: Thu,  3 Sep 2026 20:10:56 +0200
-Message-ID: <20260903181056.11003-1-ojeda@kernel.org>
-In-Reply-To: <2026090303-moonshine-study-20ce@gregkh>
-References: <2026090303-moonshine-study-20ce@gregkh>
+Cc: David Hildenbrand <david@redhat.com>,
+	Andy Lutomirks^H^Hski <luto@kernel.org>,
+	Borislav Betkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jann Horn <jannh@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	Lance Yang <ioworker0@gmail.com>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Matthew Wilcow (Oracle)" <willy@infradead.org>,
+	Michal Koutn <mkoutny@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	tejun heo <tj@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Zefan Li <lizefan.x@bytedance.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] mm: move hugetlb specific things in folio to page[3]
+Date: Thu,  3 Sep 2026 14:17:25 -0400
+Message-ID: <20260903181727.1432502-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090339-stapling-ecosystem-7341@gregkh>
+References: <2026090339-stapling-ecosystem-7341@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,158 +63,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Starting with LLVM 22, `clang_getTypeDeclaration()` may return a forward
-declaration instead of the type definition. This made `bindgen` generate
-opaque types [1][2], which in turn made us fail with e.g.
+From: David Hildenbrand <david@redhat.com>
 
-    error[E0609]: no field `__bindgen_anon_1` on type `bindings::kernel_param`
-      --> rust/kernel/module_param.rs:78:46
-       |
-    78 |         let container = unsafe { &*((*param).__bindgen_anon_1.arg.cast::<SetOnce<T>>()) };
-       |                                              ^^^^^^^^^^^^^^^^ unknown field
-       |
-       = note: available field is: `_address`
+[ Upstream commit 4eeec8c89a0c4a8c20fb13a4e7093cc8efce383d ]
 
-This was fixed in `bindgen` 0.72.1 [3].
+Let's just move the hugetlb specific stuff to a separate page, and stop
+letting it overlay other fields for now.
 
-In order to clarify what is going on and avoid confusion [4][5], add
-a warning to `rust_is_available.sh` about it when the versions match,
-similar to past warnings like the one removed in:
+This frees up some space in page[2], which we will use on 32bit to free up
+some space in page[1].  While we could move these things to page[3]
+instead, it's cleaner to just move the hugetlb specific things out of the
+way and pack the core-folio stuff as tight as possible.  ...  and we can
+minimize the work required in dump_folio.
 
-  commit ae64324ad5c1 ("rust: rust_is_available: remove warning for `bindgen` < 0.69.5 && libclang >= 19.1")
+We can now avoid re-initializing &folio->_deferred_list in hugetlb code.
 
-In addition, even if the versions match, check if the issue appears to
-not reproduce with the given binaries, to avoid a warning in such a case.
+Hopefully dynamically allocating "strut folio" in the future will further
+clean this up.
 
-Finally, include tests.
-
-[ Nathan, in parallel, updated the instructions of the LLVM+Rust
-  kernel.org toolchains [6] so that `--version` is not passed to
-  `cargo` for `bindgen`, and thus the latest `bindgen` is installed
-  by default, which should help to avoid some of these situations.
-
-  Thanks!
-
-    - Miguel ]
-
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Link: https://github.com/rust-lang/rust-bindgen/issues/3264 [1]
-Link: https://github.com/Rust-for-Linux/linux/issues/353 [2] # "Missing fields in nested class with LLVM 22."
-Link: https://github.com/rust-lang/rust-bindgen/pull/3278 [3]
-Reported-by: Burak Emir <burak.emir@gmail.com>
-Link: https://github.com/Rust-for-Linux/linux/issues/1247 [4]
-Link: https://lore.kernel.org/rust-for-linux/CABwQupNfMAJOGqRM9ke6tj4f53dCCsBDKU7Vp+zf8mwk7bqt8Q@mail.gmail.com/ [5]
-Link: https://mirrors.edge.kernel.org/pub/tools/llvm/rust/ [6]
-Tested-by: Burak Emir <burak.emir@gmail.com>
-Link: https://patch.msgid.link/20260719120514.159914-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-(cherry picked from commit dc01dfb37b34beeefcfe1c3055364d41a4070c7e)
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+Link: https://lkml.kernel.org/r/20250303163014.1128035-5-david@redhat.com
+Signed-off-by: David Hildenbrand <david@redhat.com>
+Cc: Andy Lutomirks^H^Hski <luto@kernel.org>
+Cc: Borislav Betkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+Cc: Lance Yang <ioworker0@gmail.com>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Matthew Wilcow (Oracle) <willy@infradead.org>
+Cc: Michal Koutn <mkoutny@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: tejun heo <tj@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Zefan Li <lizefan.x@bytedance.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 078e1a0fc41a ("mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- scripts/rust_is_available.sh                  | 14 +++++++++
- .../rust_is_available_bindgen_libclang_22.h   |  5 ++++
- scripts/rust_is_available_test.py             | 30 ++++++++++++++++++-
- 3 files changed, 48 insertions(+), 1 deletion(-)
- create mode 100644 scripts/rust_is_available_bindgen_libclang_22.h
+ include/linux/mm_types.h | 27 +++++++++++++++++----------
+ mm/hugetlb.c             |  1 -
+ mm/page_alloc.c          |  5 +++++
+ 3 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/scripts/rust_is_available.sh b/scripts/rust_is_available.sh
-index 93c0ef7fb3fb..c7577705d496 100755
---- a/scripts/rust_is_available.sh
-+++ b/scripts/rust_is_available.sh
-@@ -240,6 +240,20 @@ if [ "$bindgen_libclang_cversion" -ge 1900100 ] &&
- 	fi
- fi
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index ce3370823f9c7..469db1973362b 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -343,20 +343,23 @@ struct folio {
+ 			unsigned long _flags_2;
+ 			unsigned long _head_2;
+ 	/* public: */
+-			void *_hugetlb_subpool;
+-			void *_hugetlb_cgroup;
+-			void *_hugetlb_cgroup_rsvd;
+-			void *_hugetlb_hwpoison;
++			struct list_head _deferred_list;
+ 	/* private: the union with struct page is transitional */
+ 		};
++		struct page __page_2;
++	};
++	union {
+ 		struct {
+-			unsigned long _flags_2a;
+-			unsigned long _head_2a;
++			unsigned long _flags_3;
++			unsigned long _head_3;
+ 	/* public: */
+-			struct list_head _deferred_list;
++			void *_hugetlb_subpool;
++			void *_hugetlb_cgroup;
++			void *_hugetlb_cgroup_rsvd;
++			void *_hugetlb_hwpoison;
+ 	/* private: the union with struct page is transitional */
+ 		};
+-		struct page __page_2;
++		struct page __page_3;
+ 	};
+ };
  
-+if [ "$bindgen_libclang_cversion" -ge 2200000 ] &&
-+	[ "$rust_bindings_generator_cversion" -lt 7201 ]; then
-+	# Distributions may have patched the issue.
-+	if ! "$BINDGEN" $(dirname $0)/rust_is_available_bindgen_libclang_22.h | grep -q 'pub foo'; then
-+		echo >&2 "***"
-+		echo >&2 "*** Rust bindings generator '$BINDGEN' < 0.72.1 together with libclang >= 22"
-+		echo >&2 "*** may not work due to a bug (https://github.com/rust-lang/rust-bindgen/pull/3278)."
-+		echo >&2 "***   Your bindgen version:  $rust_bindings_generator_version"
-+		echo >&2 "***   Your libclang version: $bindgen_libclang_version"
-+		echo >&2 "***"
-+		warning=1
-+	fi
-+fi
-+
- # If the C compiler is Clang, then we can also check whether its version
- # matches the `libclang` version used by the Rust bindings generator.
- #
-diff --git a/scripts/rust_is_available_bindgen_libclang_22.h b/scripts/rust_is_available_bindgen_libclang_22.h
-new file mode 100644
-index 000000000000..6b33544c14a8
---- /dev/null
-+++ b/scripts/rust_is_available_bindgen_libclang_22.h
-@@ -0,0 +1,5 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+struct S;
-+struct S {
-+	int foo;
-+};
-diff --git a/scripts/rust_is_available_test.py b/scripts/rust_is_available_test.py
-index 4fcc319dea84..a5fadef98132 100755
---- a/scripts/rust_is_available_test.py
-+++ b/scripts/rust_is_available_test.py
-@@ -54,7 +54,7 @@ else:
- """)
+@@ -385,8 +388,12 @@ FOLIO_MATCH(compound_head, _head_1);
+ 			offsetof(struct page, pg) + 2 * sizeof(struct page))
+ FOLIO_MATCH(flags, _flags_2);
+ FOLIO_MATCH(compound_head, _head_2);
+-FOLIO_MATCH(flags, _flags_2a);
+-FOLIO_MATCH(compound_head, _head_2a);
++#undef FOLIO_MATCH
++#define FOLIO_MATCH(pg, fl)						\
++	static_assert(offsetof(struct folio, fl) ==			\
++			offsetof(struct page, pg) + 3 * sizeof(struct page))
++FOLIO_MATCH(flags, _flags_3);
++FOLIO_MATCH(compound_head, _head_3);
+ #undef FOLIO_MATCH
  
-     @classmethod
--    def generate_bindgen(cls, version_stdout, libclang_stderr, version_0_66_patched=False, libclang_concat_patched=False):
-+    def generate_bindgen(cls, version_stdout, libclang_stderr, version_0_66_patched=False, libclang_concat_patched=False, libclang_22_patched=False):
-         if libclang_stderr is None:
-             libclang_case = f"raise SystemExit({cls.bindgen_default_bindgen_libclang_failure_exit_code})"
-         else:
-@@ -70,6 +70,11 @@ else:
-         else:
-             libclang_concat_case = "pass"
- 
-+        if libclang_22_patched:
-+            libclang_22_case = "print('pub foo: ::std::os::raw::c_int,')"
-+        else:
-+            libclang_22_case = "pass"
-+
-         return cls.generate_executable(f"""#!/usr/bin/env python3
- import sys
- if "rust_is_available_bindgen_libclang.h" in " ".join(sys.argv):
-@@ -78,6 +83,8 @@ elif "rust_is_available_bindgen_0_66.h" in " ".join(sys.argv):
-     {version_0_66_case}
- elif "rust_is_available_bindgen_libclang_concat.h" in " ".join(sys.argv):
-     {libclang_concat_case}
-+elif "rust_is_available_bindgen_libclang_22.h" in " ".join(sys.argv):
-+    {libclang_22_case}
- else:
-     print({repr(version_stdout)})
- """)
-@@ -300,6 +307,27 @@ else:
-                 bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr, libclang_concat_patched=True)
-                 result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen, "CC": cc })
- 
-+    def test_bindgen_bad_libclang_22(self):
-+        for (bindgen_version, libclang_version, expected_not_patched) in (
-+            ("0.71.1", "21.1.0", self.Expected.SUCCESS),
-+            ("0.71.1", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+            ("0.71.1", "22.1.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+
-+            ("0.72.0", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+
-+            ("0.72.1", "22.0.0", self.Expected.SUCCESS),
-+        ):
-+            with self.subTest(bindgen_version=bindgen_version, libclang_version=libclang_version):
-+                cc = self.generate_clang(f"clang version {libclang_version}")
-+                libclang_stderr = f"scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version {libclang_version} [-W#pragma-messages], err: false"
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr)
-+                result = self.run_script(expected_not_patched, { "BINDGEN": bindgen, "CC": cc })
-+                if expected_not_patched == self.Expected.SUCCESS_WITH_WARNINGS:
-+                    self.assertIn(f"Rust bindings generator '{bindgen}' < 0.72.1 together with libclang >= 22", result.stderr)
-+
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr, libclang_22_patched=True)
-+                result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen, "CC": cc })
-+
-     def test_clang_matches_bindgen_libclang_different_bindgen(self):
-         bindgen = self.generate_bindgen_libclang("scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version 999.0.0 [-W#pragma-messages], err: false")
-         result = self.run_script(self.Expected.SUCCESS_WITH_WARNINGS, { "BINDGEN": bindgen })
+ /**
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index edae641407b96..01078a7289d53 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1798,7 +1798,6 @@ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ 		destroy_compound_gigantic_folio(folio, huge_page_order(h));
+ 		free_gigantic_folio(folio, huge_page_order(h));
+ 	} else {
+-		INIT_LIST_HEAD(&folio->_deferred_list);
+ 		__free_pages(&folio->page, huge_page_order(h));
+ 	}
+ }
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index ffdc71103c2ad..93c9a094ee8b0 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1032,6 +1032,11 @@ static int free_tail_page_prepare(struct page *head_page, struct page *page)
+ 			goto out;
+ 		}
+ 		break;
++	case 3:
++		/* the third tail page: hugetlb specifics overlap ->mappings */
++		if (IS_ENABLED(CONFIG_HUGETLB_PAGE))
++			break;
++		fallthrough;
+ 	default:
+ 		if (page->mapping != TAIL_MAPPING) {
+ 			bad_page(page, "corrupted mapping in tail page");
 -- 
-2.55.0
+2.53.0
 
