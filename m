@@ -1,123 +1,250 @@
-Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53F314F472A;
-	Thu,  3 Sep 2026 21:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.246.77.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5893AF65A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 21:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470970; cv=none; b=KEZEqqiuz6mgHx+WEBc1PqJ+nMO/+OpUfOQHBQXWvTm0+Ltr7sJIJtlzusww1MqQctcTub6uK5Yvru8ntUKISJ/pNPkxAif94jMmWmK8uEaq+EjCO8KY39jaL7K7zy0TDcPGv+7WJStiRHEZc6eeIxjO4hpCE+dyeTsVFHwUKrA=
+	t=1788472414; cv=none; b=D9GA962verpnqdvlYH7OxnrhD8MHEjzt5KyCBFQMHNZyUGOjHBFQLHwok44aDgQDueHUHil3tjkpiDlaI6ce4/Uu3XBAr/rXubmx/WzmtPh+pdEuwDCoelBNCCDcmjRt49mYq3XhTyZQTIBQWji7n0wVUTmtsaEnJbgzlC6hWy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470970; c=relaxed/simple;
-	bh=q8pcMeogMkU4qlO11JFsyWnAN9o9cBMIfEFlSdec1J0=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pv3USAU58jaSd1+OXB5mxzvR0lyRvmegRRiqbG+H0BS4mds4K4F0yWR1dHZ8ZEvba10RUS9FP4k0BWe/NRr/VOwa4B9sXa8eHrMBk8XKxoYmbiiPgFy1gnu5o1htN6D4Pz2iK6pJdXDZ+5b+/LPm9WnxBu9W6L5tjJm9uwsDzso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=XyrXqoz+; arc=none smtp.client-ip=44.246.77.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1788472414; c=relaxed/simple;
+	bh=NQHnFXQybAu3Ioryvf5E6HQAMgYxNIqOynFTC9y8eas=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ToX5JLkDCEOZocwUVWBReBvnMfpjdK8GwT4FH7Bh9vLwXrozS5O3t9WjvV9VA6KB7rfHYgHqffGytZ9TDCrzBmay86Zthi1bGx+WyMSsnvVGk4klH7qnpO8M4dAorFqhoLLaIE0YT56JL7uYsB1eBfExFEyMyjEhC1ioyrdRMWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ASA+Mwst; arc=none smtp.client-ip=209.85.215.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="XyrXqoz+"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ASA+Mwst"
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc39363cc88so435145a12.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 14:53:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1788470967; x=1820006967;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=b/PGv6fsBLjQbBYQNjtr/sT7YdkX65+4zpGYMWEY4wg=;
-  b=XyrXqoz+ictQzPveF9Die19y2Bz8pKsp0HoAovpkFJY9GqY1Dbm4wVLp
-   I4SiMcAgPQj8O1b5Mj+e28j5bO4JevtQVVliTjvNlpwxs8us3hpZL8TUm
-   ZiZVxd78Rg65RROvkvEZagSyNbO0SFtm5AokgkCK83vjgDZlHAdGxvt/h
-   e+CS5GwoO5KLluj5hZm/xCcpOlifFHaZ2KxmWuKU88KOQrrdrKnwIMMHR
-   zVyoIBstd2e3U/4oO5K5hf1ucYKXQUN3KDjxsTjaTAP5I9aeFuAqIyh5R
-   r0YSGkPPbI4Mo3m0GIYfK1c3cDHSyfwHsgDFEa9vGqynl4qxF5n93Lw/v
-   Q==;
-X-CSE-ConnectionGUID: xUH+S3glS0G/uhRxa2+pog==
-X-CSE-MsgGUID: 2IsLZ4BOR66tMo0I3nrOZw==
-X-IronPort-AV: E=Sophos;i="6.25,260,1779148800"; 
-   d="scan'208";a="27765075"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 21:29:24 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:16399]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.25:2525] with esmtp (Farcaster)
- id 01491d37-20cd-435e-a351-19c601d532f6; Thu, 3 Sep 2026 21:29:23 +0000 (UTC)
-X-Farcaster-Flow-ID: 01491d37-20cd-435e-a351-19c601d532f6
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 3 Sep 2026 21:29:23 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Thu, 3 Sep 2026 21:29:22 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Paulo Alcantara <pc@manguebit.org>, Namjae Jeon <linkinjeon@kernel.org>
-CC: <stable@vger.kernel.org>, Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, "Bharath
- SM" <bharathsm@microsoft.com>, <linux-cifs@vger.kernel.org>,
-	<samba-technical@lists.samba.org>, <linux-kernel@vger.kernel.org>, "Aurelien
- Aptel" <aaptel@suse.com>, <doebel@amazon.de>
-Subject: [PATCH] smb: client: avoid leaking refcount in cifs_queue_oplock_break()
-Date: Thu, 3 Sep 2026 21:28:58 +0000
-Message-ID: <20260903212858.728118-1-doebel@amazon.de>
-X-Mailer: git-send-email 2.50.1
+        d=google.com; s=20251104; t=1788472411; x=1789077211; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q16ZgSeH1OQWluNWitdhUJyCRd91odasWQO6Ll+KyBY=;
+        b=ASA+Mwst/djnu6B+X232jIFp/J8sSgfdi4B/VEfEweYHpxGPCh0my5ba0ZDRXDjCBo
+         0RCdX+M0imgmykrCDi7esk8EIHE1nSgL2nn3SJvmSWOVUywAL19imC+C2rPqdbsS7UcZ
+         K9FW/4mhZMFXYpt2sTzMzVyNvFDcjcrxQbyRvbRGtdHhiTQWPpTdPZPhTP5xf7e4G6Wb
+         XzvvXXx+IHZPiWd3+2GpJsGc7N5nNAKSPvlO94l8LhYAX94oVpZG5zov5UQFcUK4MO3e
+         9QFf9eWEHaboIUhkTlqksW6z6GxKsx0i0wX/CNmdigm7BGX7XDKkrE96xdDBfSg9VGjq
+         RZDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788472411; x=1789077211;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=q16ZgSeH1OQWluNWitdhUJyCRd91odasWQO6Ll+KyBY=;
+        b=s10UUdSz+i6i+f6N9GaqpKrFKHapuuRLSVr2tcRFtP0rJvJRVR4qNouxB6/hFfABCk
+         AHlcHLszxqI0wv+3VoQYodHct4jtZ87Eo2xohze8VY6StmH/Eyygi7oRwH1lOUAj64jB
+         NELGv+bp/+PRdlHPh/+yr35TnUYKbtkDPvggtqLxlni4CUhpK7W68uvS6gMJg6fjXmH9
+         FEv1Or6vcIw+oc9irgKkzDkfkDCPSVW5JR8jprXCYbgGy3+eTO2kQYAf91heTC8+Lf8I
+         x4dBpaikTKgzv+mZRVlpJOnKMFIwrdgzo4SBVFoWwGNAgLmgWTITQoHXOVgecw+dtFZf
+         nZhA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvgLQ0afIL5/V1F0QqlQ1e/AQk+8H+BpFUTSD+qBPtwmAZ0RSzIi3bmn5LA01fE5BVFIwCBD4=@vger.kernel.org
+X-Gm-Message-State: AFuF++neyvFnmN8ODqU8vyM/2AOQ+9Ok8u8zUbzbqGFWXrCJDTFTLhuA
+	m6d104LyRpaEWfXxYZhTHmPlNYJikSBPZAi7aFJqJHDtkQErDXPSuq95RBue4FsLONXSOnv5Jex
+	B+m+FYw==
+X-Received: from pgbfm22.prod.google.com ([2002:a05:6a02:4996:b0:cc1:b85e:b027])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:a11a:b0:3d1:2dc5:7d37
+ with SMTP id adf61e73a8af0-3da39b5c97dmr2195482637.3.1788472410527; Thu, 03
+ Sep 2026 14:53:30 -0700 (PDT)
+Date: Thu, 3 Sep 2026 14:53:29 -0700
+In-Reply-To: <20260903175856.4065099-1-yosry@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D035UWB003.ant.amazon.com (10.13.138.85) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+References: <20260903175856.4065099-1-yosry@kernel.org>
+Message-ID: <apnqonqMBZ2GeGEq@google.com>
+Subject: Re: [PATCH] KVM: SVM: Trigger new ASID allocation in both VMCBs on
+ pCPU switch
+From: Sean Christopherson <seanjc@google.com>
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="us-ascii"
 
-cifs_queue_oplock_break() unconditionally takes a reference on the
-target file before queueing cifs_oplock_break(). Only that work item
-decreases the reference counter again.
+On Thu, Sep 03, 2026, Yosry Ahmed wrote:
+> When the pCPU where the VMCB was mostly recently used is switched, reset
+> the ASID generation in both VMCBs, triggering new ASID allocation for
+> the immediate VMRUN as well as the next VMRUN on the other VMCB.
+> 
+> The ASID is shared between vmcb01 and vmcb02, and gets flushed on every
+> nested transition. However, since pCPU tracking is done per VMCB, it is
+> possible for one VMCB to allocate a new ASID when migrated to a new
+> pCPU, and then the other VMCB reuses that ASID on the old pCPU. This can
+> result in the same ASID being used by multiple vCPUs on the old pCPU.
+> 
+> Example scenario:
+> - vCPU runs on pCPU A, vmcb01 is active, asid=1.
+> - vCPU migrates to pCPU B, vmcb01 pCPU changes, new asid=2.
+> - Another vCPU runs on pCPU A and allocates asid=2 as well.
+> - vCPU migrates back to pCPU A, and then switches to vmcb02 before it
+>   runs again with vmcb01.
+> - No pCPU switch is detected for vmcb02, so VMRUN is done with asid=2.
+> - Two vCPUs end up using asid=2 on the same pCPU.
+> 
+> Keep the VMCB dirtying to the active VMCB only. Clean bits are tracked
+> by a pCPU for each VMCB, so do not unnecessarily dirty a VMCB if its
+> pCPU does not change.
+> 
+> Additionally, initialize the tracker pCPU for vmcb02 to -1 on nested
+> enablement, so that the new ASID allocation in the scenario above
+> happens even if EFER.SVME is disabled in L1 before migrating to the new
+> pCPU (so asid_generation in vmcb02 is not reset), but enabled before
+> returning to the old pCPU.
+> 
+> No performance regression was noticed when overcommitting L1 vCPUs in L0
+> (to force rescheduling), pinning L1 <-> L2 vCPUs, and running CPUID in a
+> tight loop bouncing between 2 vCPUs in L2.
+> 
+> An alternative (and perhaps more proper) fix would be tracking the ASID
+> per-VMCB instead (e.g. [1]). However, that's a more involved change, and
+> it would result in having different ASIDs for L1 and L2 without actually
+> properly maintaining them. It would probably work because all TLB
+> flushes target the current VMCB, and the other VMCB is always flushed on
+> nested transitions, but the code ends up in an arguably more fragile
+> state. Punt a proper clean fix to an incoming (and overdue) overhaul of
+> SVM's ASID usage [2].
+> 
+> [1]https://lore.kernel.org/lkml/20250205182402.2147495-2-yosry.ahmed@linux.dev/
+> [2]https://lore.kernel.org/kvm/20260728003557.1136583-1-yosry@kernel.org/
+> 
 
-If another oplock break arrives while that work is still queued,
-queue_work() will return false and not queue this second work item. As a
-result, we will never reach the point to drop the file reference again
-and are leaking this reference. This can be triggered when interacting
-with a slow-responding server.
+Fixes: 193015adf40d ("KVM: nSVM: Track the ASID generation of the vmcb vmrun through the vmcb")
 
-As a result, later unmount operations for this file system will fail with
+> Cc: stable@vger.kernel.org
+> Reported-by: Stefan Teodorescu <fane@google.com>
+> Signed-off-by: Yosry Ahmed <yosry@kernel.org>
+> ---
+> 
+> I wasn't sure if the last paragraph (or parts of it) fit in the
+> changelog or below ---, so I just put it all in the changelog, but feel
+> free to move things around.
 
-  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
-  VFS: Busy inodes after unmount of cifs (cifs)
-  kernel BUG at fs/super.c:777!
+I like having the alternative(s) listed in the changelog, it saves having to
+find the alternative when digging through git (if the reader is even aware there
+was/is an alternative).
 
-Fix this by only incrementing the reference count if the work has been
-queued successfully. Taking it after queue_work() is safe because all
-three callers hold tcon->open_file_lock across the call and
-_cifsFileInfo_put() decrements under that same lock, so a worker that
-starts the handler in the window cannot drop the reference before it has
-been taken.
+I agree with your assessment, tracking per-VMCB is absolutely the right approach
+given that the asid_generation is tracked per-VMCB.  But I hate how SVM manages
+ASIDs and want to burn it with fire.  Taking a quick-and-dirty approach will be
+good motivation for landing the overhaul of ASIDs.
 
-Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock break")
-Cc: stable@vger.kernel.org
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
----
- fs/smb/client/misc.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+I _was_ going to propose an alternative solution, but it subtly doesn't work.
+More below.
 
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index 46e1382e8e04b..dc7070d70467f 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -378,10 +378,11 @@ void cifs_queue_oplock_break(struct cifsFileInfo *cfile)
- 	 * open_file_lock to enforce the validity of it for the oplock
- 	 * break handler. The matching put is done at the end of the
- 	 * handler.
-+	 *
-+	 * Only take a reference if the work is actually queued.
- 	 */
--	cifsFileInfo_get(cfile);
+> ---
+>  arch/x86/kvm/svm/nested.c |  1 +
+>  arch/x86/kvm/svm/svm.c    | 20 ++++++++++++++++----
+>  2 files changed, 17 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+> index 73f37b050d0a0..0c55c71fc6010 100644
+> --- a/arch/x86/kvm/svm/nested.c
+> +++ b/arch/x86/kvm/svm/nested.c
+> @@ -1494,6 +1494,7 @@ int svm_allocate_nested(struct vcpu_svm *svm)
+>  	if (!svm->nested.msrpm)
+>  		goto err_free_vmcb02;
+>  
+> +	svm->nested.vmcb02.cpu = -1;
+>  	svm->nested.initialized = true;
+>  	return 0;
+>  
+> diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
+> index ea647938a2a65..c388c6598463e 100644
+> --- a/arch/x86/kvm/svm/svm.c
+> +++ b/arch/x86/kvm/svm/svm.c
+> @@ -3765,14 +3765,26 @@ static int pre_svm_run(struct kvm_vcpu *vcpu)
+>  	struct vcpu_svm *svm = to_svm(vcpu);
+>  
+>  	/*
+> -	 * If the previous vmrun of the vmcb occurred on a different physical
+> -	 * cpu, then mark the vmcb dirty and assign a new asid.  Hardware's
+> -	 * vmcb clean bits are per logical CPU, as are KVM's asid assignments.
+> +	 * If the previous VMRUN of the VMCB occurred on a different physical
+> +	 * cpu, then mark the VMCB dirty as hardware's clean bits are per pCPU.
+> +	 *
+> +	 * Reset the ASID generation in both VMCBs. This will lead to assigning
+> +	 * a new ASID now, and then again when switching to the other VMCB.
+> +	 * However, this is needed as the ASID is shared between the VMCBs, and
+> +	 * otherwise it would be possible to use an ASID allocated on one pCPU
+> +	 * on another, for example:
+> +	 * - vCPU migrates from pCPU A to pCPU B, allocates a new ASID.
+> +	 * - vCPU migrates back to pCPU A, and then switches the VMCB.
+> +	 * - The new VMCB does not detect a pCPU change and runs on pCPU A with
+> +	 *   the new ASID allocated on pCPU B, which is potentially used by
+> +	 *   another vCPU/VM.
+>  	 */
+>  	if (unlikely(svm->current_vmcb->cpu != vcpu->cpu)) {
+> -		svm->current_vmcb->asid_generation = 0;
+>  		vmcb_mark_all_dirty(svm->vmcb);
+>  		svm->current_vmcb->cpu = vcpu->cpu;
+> +		svm->vmcb01.asid_generation = 0;
+> +		if (svm->nested.initialized)
+
+Isn't conditioning the clear on nested.initialized wrong?  It's stupidly contrived,
+but I think it can happen?  Even if it can't, I don't see any reason to conditionally
+zero vmcb02.asid_generation.  Either it's buggy or it's a wash in terms of performance.
+
+ - vCPUx runs on pCPU A, vmcb02 is active, asid=1.
+ - vCPUx migrates to pCPU B, vmcb02 pCPU changes, new asid=2.
+ - vCPUz runs on pCPU A and allocates asid=2 as well.
+ - vCPUx switches to vmbc01 and disabled nested, but doesn't run, e.g. because
+   userspace stuffs EFER.
+ - vCPUx migrates back to pCPU A, and zeroes vmcb01.asid_generation, but not
+   vmcb02.asid_generation.
+ - vCPUx switches to vmcb02, without running vmcb01, again thanks to userspace.
+ - vCPUx does VMRUN on vmcb02 with asid=2. 
+ - Two vCPUs end up using asid=2 on the same pCPU.
+
+The "svm->current_vmcb->cpu != vcpu->cpu" check is also sketchy, but I don't think
+it's outright wrong?
+
+Ugh.  Jumping back a bit, I _was_ going to say that we could revert 193015adf40d
+and then do:
+
+diff --git arch/x86/kvm/svm/svm.c arch/x86/kvm/svm/svm.c
+index b4845e452e69..4c8e2fcd378e 100644
+--- arch/x86/kvm/svm/svm.c
++++ arch/x86/kvm/svm/svm.c
+@@ -1310,12 +1310,6 @@ void svm_switch_vmcb(struct vcpu_svm *svm, struct kvm_vmcb_info *target_vmcb)
+ {
+        svm->current_vmcb = target_vmcb;
+        svm->vmcb = target_vmcb->ptr;
 -
--	queue_work(cifsoplockd_wq, &cfile->oplock_break);
-+	if (queue_work(cifsoplockd_wq, &cfile->oplock_break))
-+		cifsFileInfo_get(cfile);
+-       /*
+-       * Workaround: we don't yet track the ASID generation
+-       * that was active the last time target_vmcb was run.
+-       */
+-       svm->asid_generation = 0;
  }
  
- void cifs_done_oplock_break(struct cifsInodeInfo *cinode)
--- 
-2.50.1
+ static int svm_vcpu_create(struct kvm_vcpu *vcpu)
+@@ -4531,6 +4525,9 @@ static __no_kcsan fastpath_t svm_vcpu_run(struct kvm_vcpu *vcpu, u64 run_flags)
+        sync_lapic_to_cr8(vcpu);
+ 
+        if (unlikely(svm->asid != svm->vmcb->control.asid)) {
++               if (svm->vmcb->control.tlb_ctl != TLB_CONTROL_FLUSH_ALL_ASID)
++                       svm->vmcb->control.tlb_ctl = TLB_CONTROL_FLUSH_ASID;
++
+                svm->vmcb->control.asid = svm->asid;
+                vmcb_mark_dirty(svm->vmcb, VMCB_ASID);
+        }
 
+
+But after reading the cover letter[*], I can't tell if 193015adf40d was a bug
+fix for a dirty/clean bits bug, a bug fix for ASID reuse, or an optimization (I
+thought it was an optimization until reading the cover letter and looking more
+at commit af18fa775d07 ("KVM: nSVM: Track the physical cpu of the vmcb vmrun
+through the vmcb").
+
+So yeah, hit this with a hammer and defer the proper fix to your cleanup series,
+because I have low confidence that doing a proper fix is the safest approach for
+LTS kernels.
+
+[*] https://lore.kernel.org/all/20210112164313.4204-1-cavery@redhat.com
