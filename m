@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59E214B512C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC394B26FC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444929; cv=none; b=suyUYawA4a0xvvwPulczncCaM8gxz99HoJgxkqLVmKXiGvd+hlz+FBwR0JcTs3uNXErBU/PS4QKyCflHdoEGOP/oUY3sqGPZcaTwIMQuEwJEUuiD0V7GvlqDgld85bwOYZciKP25UeRNHY65Rd7dQ0UpmLNocp+4JBkU0S6bYKM=
+	t=1788444930; cv=none; b=soNBq0DILLkWVGcNw3FPh+cKDci6wCZLuVOd1LW8NWqKSbsSYuQbe0jSQrVPBcbkLoS+hD1Yo0K9hRX0MzUKk4jKAukPHMrGyk6kV5KP1f2UkblBQWHWdD0couHwMj+VdFPUiRRQ59VZVco1QrlDZ0S30Hd6xAIeBy7rbljbXig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444929; c=relaxed/simple;
-	bh=FJgJBDY6ZdfUlFUI9PPWgt9WkhdnxQvLIC70ogPCoGU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uT/M0RLND3Ugav6vJA5dC17N8WrLYEbmEd4zPTM+d/cRTP8HLx+Az7mt4nop27pEOoKLPDYdnkQl5xIo74innOdjxUzivuSynlL9s3Mbolwo1qX+EASKciOZVibs8ZgSAy9s0bG7IcQFJH5qBPr66E62+ddCGmFZZCyMiv1JlmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=abBKGzE8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444930; c=relaxed/simple;
+	bh=GDhI/qB4cP8aNkEofgaWJH35KuN/XDBDSGKgrZz7kEU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UdmmqGocC+I8MyEDx+4OGO7tZwjfDMUn1MThgId3I+8AQD8fCd9U8IcYmLFNMnF++Y2Zj1Mec0qpqyldqXbCdjb9tMkjBi0a5TRZEdwh5mh6pFZFynBMeWEfY7zJuOw049UtEntt877Jmwtep+pZM+ZTaRvUSZBVZ8xWW2+EVFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W19VTX9j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="abBKGzE8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B9D51F000E9;
-	Thu,  3 Sep 2026 14:15:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W19VTX9j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B318B1F00ACF;
+	Thu,  3 Sep 2026 14:15:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444923;
-	bh=8x/tej7/mGDp0f26+wjBYAfzA/l1ZlkrjpO3R9RpgXw=;
+	s=korg; t=1788444912;
+	bh=vt2hx9j97DrTZYIE/mNJ6GMMaACABOwmciHJ0UyXInc=;
 	h=Subject:To:Cc:From:Date;
-	b=abBKGzE8CcjUlN6xgS/an/rgizYZ4GfdEjTEfCX+Hnn/BXpKVQj0R8uuhYHkvzKEn
-	 AywYK6YMzSvI9vvn2NTn9X5nvzdYPt3j3MExN9+jaBuKBXkjGoN+4ua4Bw76VCF5y0
-	 u+d8AyBkfSf/5rVfgChs6n+sn5Y3NO/ZvjkNBTJg=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_conn: re-enable advertising only for" failed to apply to 5.15-stable tree
-To: valentin.kindschi@fiveco.ch,luiz.von.dentz@intel.com
+	b=W19VTX9jg6AE2GXZPdggz74VZSC7u84Qca+RtmL7wEaxGJz2v62p6SZmkckbiD+cG
+	 eCP1invAe7btCrGvRfZ8EG4zcPzQx/bMlG5Va50B5ebcoAwixLYjjHX5O4a0NIoMCW
+	 lNYqqM9VUt4yxBKRueFnY9F0LdxhFp2PN4gnt3XQ=
+Subject: FAILED: patch "[PATCH] cpufreq: apple-soc: Fix OPP table cleanup" failed to apply to 6.6-stable tree
+To: haoxiang_li2024@163.com,viresh.kumar@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:55:18 +0200
-Message-ID: <2026090318-moodiness-majorette-1570@gregkh>
+Date: Thu, 03 Sep 2026 15:53:38 +0200
+Message-ID: <2026090338-avenge-apron-fe51@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x ed5fb41d3b6b6e665e7f97fd54bd1f9531c7477f
+git cherry-pick -x d87cb889dc7ab1f2deecadf2a5e9023184bd7900
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090318-moodiness-majorette-1570@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090338-avenge-apron-fe51@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,93 +62,106 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ed5fb41d3b6b6e665e7f97fd54bd1f9531c7477f Mon Sep 17 00:00:00 2001
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Date: Tue, 18 Aug 2026 15:29:34 +0200
-Subject: [PATCH] Bluetooth: hci_conn: re-enable advertising only for
- peripheral role
+From d87cb889dc7ab1f2deecadf2a5e9023184bd7900 Mon Sep 17 00:00:00 2001
+From: Haoxiang Li <haoxiang_li2024@163.com>
+Date: Fri, 3 Jul 2026 14:20:49 +0800
+Subject: [PATCH] cpufreq: apple-soc: Fix OPP table cleanup
 
-hci_le_conn_failed() unconditionally calls hci_enable_advertising(),
-although its own comment states advertising should be re-enabled only
-when the failed attempt was made as a peripheral.
+apple_soc_cpufreq_init() adds OPP tables from firmware, but
+some failure paths do not remove them. The driver also uses
+dev_pm_opp_remove_all_dynamic(), which is not the right cleanup
+helper for OPP tables loaded from firmware.
 
-hci_le_conn_failed() is reached from hci_conn_failed() for every failed
-LE connection, including outgoing central connections. For a central
-attempt this enable is redundant: hci_le_create_conn_sync() already
-restores advertising via hci_resume_advertising_sync() in its done:
-block. Because hci_enable_advertising() only queues the work on
-cmd_sync_work, it runs *after* that resume has already succeeded and
-set HCI_LE_ADV.
+Use the cpumask OPP helper after the policy CPU mask has been
+populated. Pair it with the matching cpumask remove helper on
+failure paths and in apple_soc_cpufreq_exit(). This also removes
+the separate dev_pm_opp_set_sharing_cpus() call, as the cpumask
+helper loads the DT OPP tables for all CPUs in the policy.
 
-The resulting HCI sequence, captured on a BCM43455 (no LE Extended
-Advertising, so legacy advertising is used):
-
-  LE Create Connection                     Status Success
-  ... 13.8 s, peer never answers ...
-  LE Set Advertising Parameters (0x2006)   Success   <- done: resume,
-  LE Set Advertising Enable     (0x200a)   Success      HCI_LE_ADV set
-  LE Create Connection Cancel   (0x200e)   Success
-  LE Connection Complete                   Unknown Conn Id
-  LE Set Advertising Parameters (0x2006)   Command Disallowed (0x0c)
-
-The last command is the queued enable from hci_le_conn_failed() running
-as a second hci_enable_advertising_sync() pass. It clears HCI_LE_ADV
-(hci_sync.c, "Clear the HCI_LE_ADV bit temporarily"), then sends
-LE Set Advertising Parameters while the controller is still advertising,
-which the controller correctly rejects with Command Disallowed.
-
-The disable-first call at the top of hci_enable_advertising_sync()
-cannot prevent this: hci_disable_advertising_sync() returns early
-without sending anything when HCI_LE_ADV is clear, so it is a no-op
-exactly when the flag is wrong.
-
-hci_enable_advertising_sync() then returns without sending LE Set
-Advertising Enable, so HCI_LE_ADV is never set again. The legacy
-software rotation loop re-arms hci_schedule_adv_instance_sync() every
-HCI_DEFAULT_ADV_DURATION (2 s), and its "already advertising" shortcut
-tests HCI_LE_ADV, which can no longer become true. The command is
-therefore retried every 2 s indefinitely:
-
-  Bluetooth: hci0: Opcode 0x2006 failed: -16
-
-Observed on a gateway as 5326 occurrences over 3 hours, ending only when
-bluetoothd was restarted. Connection attempts that succeed do not call
-hci_le_conn_failed() and never trigger this.
-
-Add the role test the comment already describes. Both other
-hci_enable_advertising() call sites reached from a failed/closed LE
-connection (hci_cs_disconnect() and hci_disconn_complete_evt()) already
-guard on conn->role == HCI_ROLE_SLAVE; this one was missed.
-
-Reproducing needs legacy advertising (ext_adv_capable() false, so the
-software rotation loop is used), simultaneous peripheral advertising and
-outgoing central connects, and a central connect that times out rather
-than failing fast.
-
-The Fixes tag points at the commit that introduced the advertising
-restart into this path for the directed-advertising (peripheral) case;
-the role test that the later commit 0b1db38ca26b ("Bluetooth: Fix check
-for direct advertising") added to the sibling paths was never applied
-here.
-
-Fixes: 3c857757ef6e ("Bluetooth: Add directed advertising support through connect()")
+Fixes: 6286bbb40576 ("cpufreq: apple-soc: Add new driver to control Apple SoC CPU P-states")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-diff --git a/net/bluetooth/hci_conn.c b/net/bluetooth/hci_conn.c
-index 19b7629b1cc1..8de98af2fb58 100644
---- a/net/bluetooth/hci_conn.c
-+++ b/net/bluetooth/hci_conn.c
-@@ -1391,7 +1391,8 @@ static void hci_le_conn_failed(struct hci_conn *conn, u8 status)
- 	/* Enable advertising in case this was a failed connection
- 	 * attempt as a peripheral.
- 	 */
--	hci_enable_advertising(hdev);
-+	if (conn->role == HCI_ROLE_SLAVE)
-+		hci_enable_advertising(hdev);
+diff --git a/drivers/cpufreq/apple-soc-cpufreq.c b/drivers/cpufreq/apple-soc-cpufreq.c
+index 638e5bf72185..3f64f266e695 100644
+--- a/drivers/cpufreq/apple-soc-cpufreq.c
++++ b/drivers/cpufreq/apple-soc-cpufreq.c
+@@ -249,21 +249,19 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 		return -ENODEV;
+ 	}
+ 
+-	ret = dev_pm_opp_of_add_table(cpu_dev);
+-	if (ret < 0) {
+-		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+-		return ret;
+-	}
++	priv = kzalloc_obj(*priv);
++	if (!priv)
++		return -ENOMEM;
+ 
+ 	ret = apple_soc_cpufreq_find_cluster(policy, &reg_base, &info);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "%s: failed to get cluster info: %d\n", __func__, ret);
+-		return ret;
++		goto out_free_priv;
+ 	}
+ 
+-	ret = dev_pm_opp_set_sharing_cpus(cpu_dev, policy->cpus);
+-	if (ret) {
+-		dev_err(cpu_dev, "%s: failed to mark OPPs as shared: %d\n", __func__, ret);
++	ret = dev_pm_opp_of_cpumask_add_table(policy->cpus);
++	if (ret < 0) {
++		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+ 		goto out_iounmap;
+ 	}
+ 
+@@ -271,19 +269,13 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 	if (ret <= 0) {
+ 		dev_dbg(cpu_dev, "OPP table is not ready, deferring probe\n");
+ 		ret = -EPROBE_DEFER;
+-		goto out_free_opp;
+-	}
+-
+-	priv = kzalloc_obj(*priv);
+-	if (!priv) {
+-		ret = -ENOMEM;
+-		goto out_free_opp;
++		goto out_free_table;
+ 	}
+ 
+ 	ret = dev_pm_opp_init_cpufreq_table(cpu_dev, &freq_table);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "failed to init cpufreq table: %d\n", ret);
+-		goto out_free_priv;
++		goto out_free_table;
+ 	}
+ 
+ 	/* Get OPP levels (p-state indexes) and stash them in driver_data */
+@@ -318,12 +310,12 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 
+ out_free_cpufreq_table:
+ 	dev_pm_opp_free_cpufreq_table(cpu_dev, &freq_table);
+-out_free_priv:
+-	kfree(priv);
+-out_free_opp:
+-	dev_pm_opp_remove_all_dynamic(cpu_dev);
++out_free_table:
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ out_iounmap:
+ 	iounmap(reg_base);
++out_free_priv:
++	kfree(priv);
+ 	return ret;
  }
  
- /* This function requires the caller holds hdev->lock */
+@@ -332,7 +324,7 @@ static void apple_soc_cpufreq_exit(struct cpufreq_policy *policy)
+ 	struct apple_cpu_priv *priv = policy->driver_data;
+ 
+ 	dev_pm_opp_free_cpufreq_table(priv->cpu_dev, &policy->freq_table);
+-	dev_pm_opp_remove_all_dynamic(priv->cpu_dev);
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ 	iounmap(priv->reg_base);
+ 	kfree(priv);
+ }
 
