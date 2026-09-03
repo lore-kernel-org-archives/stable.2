@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99781480961
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:07:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABCE94C77C1
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:07:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448021; cv=none; b=IE3nI7ajfNng3Bge9R7iqpIw42lDWHEFCv6A3ps8tt5XDykB2a4pE7tndjqXPgIQv2VEQ3Fu3C32Z4cNhz5YqJEiGX4fsTFtcHUeUmgPnG/eIzzxtaxkcohHXbfKO6ihT+/s7pnPZoic0z4sMRo3wF9PwPBaFNAO+4s4Kq1F6Yk=
+	t=1788448024; cv=none; b=tS3BVhs5kTquHJNFjjL07SMKJPddoF76dwKWqOmxyJcT6QhWjzj7v4RJKGUvlgA9WHYDWOWX75QUzsSiDZ6ezoAiDFJI6JNDm1ucZFbhC3LuKZfoULwx89WL/jP2tI6uxHDCjlb2WznKOeWDFUTtt2bs3l/115YFOv7wFlKCRBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448021; c=relaxed/simple;
-	bh=SxrOHXS7T/zPufR7L534X+DzHzUm9Qtt88qDApsgAeg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SOOcjwKtduHsiPuYiMbwMz+uPek2EAEFTUcXVN9whOg4ez7HKCu+cnjRZujNIbay5dzO4uLQhbeJyGy7mIc8YkLfCeMMmizw9igmKXoVKA+Mx7+KdftPaYBoMBhDWGpz2WPvgJSLwDldtjZ6NoW5AFx78K1S10pu5wRDC4/ytsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G1Buk+g2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448024; c=relaxed/simple;
+	bh=kazs3/AvmAKS5GMtHbEZ6zY5IUvtXvEYRgeuaX5Dm5w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QDGv5OqUaVxcsSXtngPE7yjYX1er4JBhkCNXdPQu1KmlTHyrPHGFxpTJEYbRlxfFpdmenDjqUREngh+reR2hooHF5VmqKwXcWy9STaTZ0QsrtxqorDy4SWhRwFMoeIZrgdGnnDS2T/VWMAQVwcBCevEFg6n3Ik+fUC0z2yPYYao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QlGlq5JB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G1Buk+g2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F362D1F000E9;
-	Thu,  3 Sep 2026 15:06:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QlGlq5JB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7EDB1F000E9;
+	Thu,  3 Sep 2026 15:07:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788448020;
-	bh=eeZeu00oTXYmg6Rno9iShM2nivcktCefZjnaeeLr7NQ=;
+	s=korg; t=1788448023;
+	bh=HpnMMv9ds47CVt4+3CbryAbWnP0ETB5sH/xEZJzHOfg=;
 	h=Subject:To:Cc:From:Date;
-	b=G1Buk+g2qpA4qu++LlvrTeD7fE8NMMJhop99bd0j7ujjcqLK7ZOKBC2MKZIaID/WH
-	 inpnjmh5eXAzjbSFSNnPTe1QmDXs4xzJLK5x9rGmtpECLz5p+nJBNoWfIzXq9ghfrK
-	 9JDDTnGvKoOOhbMgyRuL90wi0+K5IymzAjdmeABY=
-Subject: FAILED: patch "[PATCH] platform/x86/amd/pmc: Fix msg_port restoration in" failed to apply to 6.18-stable tree
-To: mario.limonciello@amd.com,ilpo.jarvinen@linux.intel.com
+	b=QlGlq5JBm5WmPSG8V8CZ7U0WeK0OiJoJqWYDJSTffA8CDK6u7y6uut7W9z4hYZPtf
+	 zS46VR9m7o7rXDN+E9Il4bB1jqIVvOi+mJu22hYJX1u8nXMwcYuZM+vcg0oIsiPvt/
+	 NSM2wW18L91lLoIOPxJzdcxm7sCJjrN1cEe67K3c=
+Subject: FAILED: patch "[PATCH] io_uring/waitid: honor task_work cancellation" failed to apply to 6.18-stable tree
+To: sh_def@163.com,axboe@kernel.dk
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:50:31 +0200
-Message-ID: <2026090331-president-referable-7380@gregkh>
+Date: Thu, 03 Sep 2026 16:52:44 +0200
+Message-ID: <2026090344-mooned-reconfirm-9822@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x cbb32ff92f8a62212e0f7384b1de986ced92082b
+git cherry-pick -x 14572de82e5022899e5856008bc9cac97004a88c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090331-president-referable-7380@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090344-mooned-reconfirm-9822@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,88 +62,88 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cbb32ff92f8a62212e0f7384b1de986ced92082b Mon Sep 17 00:00:00 2001
-From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Tue, 21 Jul 2026 13:17:52 -0500
-Subject: [PATCH] platform/x86/amd/pmc: Fix msg_port restoration in
- amd_stb_debugfs_open_v2()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 14572de82e5022899e5856008bc9cac97004a88c Mon Sep 17 00:00:00 2001
+From: Hui Su <sh_def@163.com>
+Date: Tue, 18 Aug 2026 18:33:36 +0800
+Subject: [PATCH] io_uring/waitid: honor task_work cancellation
 
-amd_stb_debugfs_open_v2() switches dev->msg_port to MSG_PORT_S2D to query
-S2D telemetry but only restores it to MSG_PORT_PMC on one path.  The early
-return on the dump_custom_stb path (and the error/allocation returns) leave
-the port stuck on MSG_PORT_S2D, so subsequent SMU communication - including
-the s2idle prepare/restore handlers - is directed at the wrong mailbox.
+io_waitid_cb() may run through the fallback task_work path when
+task_work_add() can no longer queue work to the originating task. The
+fallback runs from a kworker and io_uring marks such task work as
+canceled through tw.cancel.
 
-Consolidate the exit path through a single label so the message port is
-always restored, mirroring the fix in amd_stb_s2d_init().
+io_waitid_cb() currently ignores tw.cancel and calls __do_wait().
+waitid is task-context dependent: __do_wait() performs child lookup
+relative to current, and the retry path also uses
+current->signal->wait_chldexit. If the callback runs from the fallback
+kworker, current is therefore not the task that submitted the request.
 
-Reported-by: sashiko.dev
-Link: https://sashiko.dev/#/patchset/20260717162023.956346-1-mario.limonciello%40amd.com
-Fixes: 2851f4f8ed4e ("platform/x86/amd/pmc: Define enum for S2D/PMC msg_port and add helper function")
+Honor tw.cancel before entering __do_wait(). Complete the request with
+-ECANCELED and skip the siginfo copy, since canceled task work may run
+without the submitting task's userspace execution context.
+
+Keep the existing siginfo handling for normal waitid completion and
+explicit cancellation.
+
+Fixes: f31ecf671ddc ("io_uring: add IORING_OP_WAITID support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260721181756.143084-3-mario.limonciello@amd.com
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Hui Su <sh_def@163.com>
+Link: https://patch.msgid.link/20260818103336.1922818-2-sh_def@163.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 83645c0a8d78..90b8a5cebfa8 100644
---- a/drivers/platform/x86/amd/pmc/mp1_stb.c
-+++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -157,7 +157,7 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
- 	struct amd_pmc_dev *dev = filp->f_inode->i_private;
- 	u32 fsize, num_samples, val, stb_rdptr_offset = 0;
- 	struct amd_stb_v2_data *stb_data_arr;
--	int ret;
-+	int ret = 0;
- 
- 	/* Write dummy postcode while reading the STB buffer */
- 	ret = amd_stb_write(dev, AMD_PMC_STB_DUMMY_PC);
-@@ -176,22 +176,24 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
- 	 * the enhanced dram size. Note that we land here only for the
- 	 * platforms that support enhanced dram size reporting.
- 	 */
--	if (dump_custom_stb)
--		return amd_stb_handle_efr(filp);
-+	if (dump_custom_stb) {
-+		ret = amd_stb_handle_efr(filp);
-+		goto out;
-+	}
- 
- 	/* Get the num_samples to calculate the last push location */
- 	ret = amd_pmc_send_cmd(dev, S2D_NUM_SAMPLES, &num_samples, dev->stb_arg.s2d_msg_id, true);
--	/* Clear msg_port for other SMU operation */
--	dev->msg_port = MSG_PORT_PMC;
- 	if (ret) {
- 		dev_err(dev->dev, "error: S2D_NUM_SAMPLES not supported : %d\n", ret);
--		return ret;
-+		goto out;
+diff --git a/io_uring/waitid.c b/io_uring/waitid.c
+index 76af129ba8ca..596f2da40260 100644
+--- a/io_uring/waitid.c
++++ b/io_uring/waitid.c
+@@ -125,7 +125,7 @@ static void io_waitid_remove_wq(struct io_kiocb *req)
  	}
- 
- 	fsize = min(num_samples, S2D_TELEMETRY_BYTES_MAX);
- 	stb_data_arr = kmalloc_flex(*stb_data_arr, data, fsize);
--	if (!stb_data_arr)
--		return -ENOMEM;
-+	if (!stb_data_arr) {
-+		ret = -ENOMEM;
-+		goto out;
-+	}
- 
- 	stb_data_arr->size = fsize;
- 
-@@ -214,7 +216,10 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
- 
- 	filp->private_data = stb_data_arr;
- 
--	return 0;
-+out:
-+	/* Restore the default message port for subsequent SMU operations */
-+	dev->msg_port = MSG_PORT_PMC;
-+	return ret;
  }
  
- static ssize_t amd_stb_debugfs_read_v2(struct file *filp, char __user *buf, size_t size,
+-static void io_waitid_complete(struct io_kiocb *req, int ret)
++static void io_waitid_complete(struct io_kiocb *req, int ret, bool copy_si)
+ {
+ 	struct io_waitid *iw = io_kiocb_to_cmd(req, struct io_waitid);
+ 
+@@ -137,7 +137,10 @@ static void io_waitid_complete(struct io_kiocb *req, int ret)
+ 	hlist_del_init(&req->hash_node);
+ 	io_waitid_remove_wq(req);
+ 
+-	ret = io_waitid_finish(req, ret);
++	if (copy_si)
++		ret = io_waitid_finish(req, ret);
++	else
++		io_waitid_free(req);
+ 	if (ret < 0)
+ 		req_set_fail(req);
+ 	io_req_set_res(req, ret, 0);
+@@ -159,7 +162,7 @@ static bool __io_waitid_cancel(struct io_kiocb *req)
+ 	if (atomic_fetch_inc(&iw->refs) & IO_WAITID_REF_MASK)
+ 		return false;
+ 
+-	io_waitid_complete(req, -ECANCELED);
++	io_waitid_complete(req, -ECANCELED, true);
+ 	io_req_queue_tw_complete(req, -ECANCELED);
+ 	return true;
+ }
+@@ -202,6 +205,11 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+ 	int ret;
+ 
+ 	io_tw_lock(ctx, tw);
++	if (unlikely(tw.cancel)) {
++		io_waitid_complete(req, -ECANCELED, false);
++		io_req_task_complete(tw_req, tw);
++		return;
++	}
+ 
+ 	ret = __do_wait(&iwa->wo);
+ 
+@@ -229,7 +237,7 @@ static void io_waitid_cb(struct io_tw_req tw_req, io_tw_token_t tw)
+ 		}
+ 	}
+ 
+-	io_waitid_complete(req, ret);
++	io_waitid_complete(req, ret, true);
+ 	io_req_task_complete(tw_req, tw);
+ }
+ 
 
