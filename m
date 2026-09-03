@@ -1,97 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2427A4B04A8;
-	Thu,  3 Sep 2026 14:05:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60CE14B1B22
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444344; cv=none; b=pSy93YTmnuYUVt4Kv8K9oqra8O2eZV8sdIFq/nESotc3MNFcZHVvBtHhSxYcKlu+wqTYx8IlJ2MLNGQqEHYWKFA76CSoV5zDj707+gjZZlWXlSm3UqBQEAi1tFX4l0PdEWrmZHCxU3a63SmJn0YwyFUXbDpcDsSmxFHsgqsgNns=
+	t=1788444344; cv=none; b=SDe0d7HwybPT3AwOGy3oyjKiiaYWiOw1DmRz1OZHzA2GudMAtQZetFpksiXKWc5dsdhb/XWd6rwjJF5TXrJ2ouUx5ejhyo239hrSGs+/2pCjwbSK9ptVUYRmSdZMN+KBJfPwj3VqquTp3JI4OJXRzvnJqredpvzBSFZsG+kbsC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788444344; c=relaxed/simple;
-	bh=H2exkOVXvIrD9p5uc4sqHT4/wXdbw8AY8xV+9VDCOEM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q/cKgQSkmTGHnlamnr06GiBiSXaE+SSSgb5qBgYglCLPSC/gj71/i98CThjlxxKXiYK8U9pa1exn//6+tN73yRWYwQCAMLT/rixMIhv5UBEfJC5MH4ktjo5LtezfTFEF5oAjDf5SK/BIS4WB0UFHO+9eF4cVN1+aGow9VWo3MHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ckNGaMeG; arc=none smtp.client-ip=100.103.45.18
+	bh=QAqloB9wo8HVh+RhZ39my1ZzQ34rmt8f8EJrLKkpS20=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lRLQp55AJOWobJZPeJ4/GXHRXhzxUWZq55FWrIIhPDjVqwObG9zHZRGp4EZjS3ip6ksvB0cwy2tS0LQjfEkmqZGaAXVwmHkZKPGJI1kqy9ev0i3VVkv4p4vP64+vU5/OEFGZV1GFIRTjiuFR/14+IVonDmYMOLCxe/DWxvw1sno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x3dTqO58; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ckNGaMeG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70D421F00A3F;
-	Thu,  3 Sep 2026 14:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444333;
-	bh=MaD2aj64RBdEMELfyTFkH990wKoNoGi7GvA6hmcvB1E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ckNGaMeGbq4NUN+udET1ZeqZaP+BGvezF9qItzpVRqi1NymBYkzNSg86+L3OXPGkB
-	 EexP2DVFe5g98f91vY1sZHDg2Xrjipeliav9WcdTCsN3zRCdwABTgmM8MieUj9tfsp
-	 86ccDTkqUoMikZZId9aNy+KFjTUAqk/ybNomIzxkG0aAFm+GO08/LvmBdzxRYyR+SH
-	 e6tvxXoNGt9vheJJbfBxh9QgO+mYD84xk45nT2Uo5QWMB03U36BrL8nd1uMEyuDlDe
-	 yEkVZ/bucO/W7E7MNvQIMZAJ83Q/QiE73ZY/SMFmKvg9bgN+2R4fRecNLULJBlNtLV
-	 TAQjFgQCoQ5kg==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Thu,  3 Sep 2026 07:05:20 -0700
-Message-ID: <20260903140521.98604-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260903124422.5340-1-aethernet65535@gmail.com>
-References: 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x3dTqO58"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613C71F00ACF;
+	Thu,  3 Sep 2026 14:05:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788444334;
+	bh=hc9SJsxcl1jJvncSYIusk/AYk5KCgS9WwqRayDlczrI=;
+	h=Subject:To:Cc:From:Date;
+	b=x3dTqO58jts1UZq1+1xfG/+7kB6xBRjtWi8AJzYi+4vYbO0BrLh8tgXxt5auEphlz
+	 gCRmICup5Zpns5vISiTGkgibiYq2cykBybF6fQJ4U/36/iqHMMDZfYzC5c9W8cLJWt
+	 n81j1e7M5k2wZfT7bq+i6dMNTkyDKDZ+yyDfNZ5w=
+Subject: FAILED: patch "[PATCH] hugetlb: only adjust reservation during unmapping if mapcount" failed to apply to 6.12-stable tree
+To: guillaume@morinfr.org,akpm@linux-foundation.org,david@kernel.org,leitao@debian.org,muchun.song@linux.dev,osalvador@suse.de,riel@surriel.com,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 15:42:56 +0200
+Message-ID: <2026090356-destiny-subject-4d56@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 20:41:48 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-> On Wed, 02 Sep 2026 17:33:50 -0700 SJ Park <sj@kernel.org> wrote:
-> 
-> > On Thu,  3 Sep 2026 06:31:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-[...]
-> First, I would like to clarify my intention to avoid any
-> misunderstanding.  My actual goal is to fix the semantic of the
-> qt_exceeds statistic, rather than necessarily changing the underlying
-> logic of damos_quota_is_full().
-> 
-> Currently, there is an issue with how qt_exceeds is incremented.  When
-> the quota is set very small, qt_exceeds increases frequently.  This
-> produces a statistical trend that looks almost identical to the
-> continuous increments caused by the Temporal Goal being achieved.
-> 
-> The original intent of introducing qt_exceeds is to let users easily
-> notice if the quota is too small.
-> 
-> Commit Messages [1]:
-> 
->     mm/damon/schemes: account how many times quota limit has exceeded
-> 
->     If the time/space quotas of a given DAMON-based operation scheme is too
->     small, the scheme could show unexpectedly slow progress.  However, there
->     is no good way to notice the case in runtime.  This commit extends the
->     DAMOS stat to provide how many times the quota limits exceeded so that
->     the users can easily notice the case and tune the scheme.
-> 
-> However, under the current behavior, users are forced to manually ignore
-> or filter out the qt_exceeds increments that occur after the Temporal
-> Goal is achieved.  This adds an unnecessary burden to the users and
-> contradicts the core goal of making it "easy" for them to tune the
-> scheme.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Still I feel the problem is unclear.  Why the users need to manually ignore or
-filter out the increments under what situation?  Knowing specific and detailed
-case would be helpful.  Are you or some people you know doing that and feeling
-it is too much?  If so, what is the real use case?  For what purpose and how
-DAMON is being used?  Why and how the ignorance of qt_exceeds is being done and
-how painful it is?
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 5120b1e048d48596ffaec1a8412012a91adba73b
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090356-destiny-subject-4d56@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
 
 
-Thanks,
-SJ
 
-[...]
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 5120b1e048d48596ffaec1a8412012a91adba73b Mon Sep 17 00:00:00 2001
+From: Guillaume Morin <guillaume@morinfr.org>
+Date: Tue, 28 Jul 2026 21:29:03 +0200
+Subject: [PATCH] hugetlb: only adjust reservation during unmapping if mapcount
+ is 0
+
+Since df7a6d1f6405, __unmap_hugepage_range can adjust reservations.  In
+the case of folio mapped in both a parent and a child, if the parent
+unmaps the range first, the reservation adjustment will result in an
+underflow of the reserved count.  Once the child unmaps the range, the
+count is restored.  Change __unmap_hugepage_range() to check the mapcount
+before adjusting the reservation.
+
+Link: https://lore.kernel.org/all/alEJkwn5VlTTH_ZX@bender.morinfr.org/
+Link: https://lore.kernel.org/amkC_1Ya6OiUoiLZ@bender.morinfr.org
+Fixes: df7a6d1f6405 ("mm/hugetlb: restore the reservation if needed")
+Signed-off-by: Guillaume Morin <guillaume@morinfr.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 49bf325325c0..7d14511c20ad 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5218,6 +5218,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	bool adjust_reservation;
+ 	unsigned long last_addr_mask;
+ 
++	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+ 	WARN_ON(!is_vm_hugetlb_page(vma));
+ 	BUG_ON(start & ~huge_page_mask(h));
+ 	BUG_ON(end & ~huge_page_mask(h));
+@@ -5309,7 +5310,10 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 
+ 		/*
+ 		 * Restore the reservation for anonymous page, otherwise the
+-		 * backing page could be stolen by someone.
++		 * backing page could be stolen by someone. Restore only on the
++		 * last unmap, otherwise the owner could empty its resv map
++		 * while the folio is still mapped by a child. Note that holding
++		 * i_mmap_lock_write is needed to check the number of mappings.
+ 		 * If there we are freeing a surplus, do not set the restore
+ 		 * reservation bit.
+ 		 */
+@@ -5317,7 +5321,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 
+ 		spin_lock_irq(&hugetlb_lock);
+ 		if (!h->surplus_huge_pages && __vma_private_lock(vma) &&
+-		    folio_test_anon(folio)) {
++		    !folio_mapped(folio) && folio_test_anon(folio)) {
+ 			folio_set_hugetlb_restore_reserve(folio);
+ 			/* Reservation to be adjusted after the spin lock */
+ 			adjust_reservation = true;
+
