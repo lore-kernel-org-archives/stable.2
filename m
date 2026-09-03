@@ -1,410 +1,184 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97F9332629;
-	Thu,  3 Sep 2026 02:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F073346774
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 02:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788401984; cv=none; b=iEmuNxWoePcwucRZMd41AJeD2HX6FFEHQKQ9wWenIl0miOP5ReupG3UnNmuO1sDjLmOQEys9fGInG2lk8e6V9K4CdMd2OI+7809mVbdSMhGwC0Uafq6wFHEtuY3W1LL+yw6Z+ymEV+klX5VeNsQgHU0opFQgg36vpq/qRR4N/Nk=
+	t=1788402285; cv=none; b=L+BuHPVo0qavnPt2N9mKFYsvWtF5I6lnIwHM5/CPAqx8m6wx2hbfIVaMeBWSEKKP3RVw2pp3NGpjOOxz+xCJb8eqJ6I68JtAd/QRB06p5X/+fP+YIzUNY2BMIWEg+mVhP08Av6gR2BGx8y1e377z/XKY2fFG39uK6idLoWQtoXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788401984; c=relaxed/simple;
-	bh=l95jmmcfhzQfEJKuA3pP0qktxF71eyIcVOtj/grVNAE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bmkQCqc2LNFDLo/nezhrV8WMcLFw9cDKmKw/kb4UkqQoLM9jhxT3pl/V4/5E4c0NFf2AAOX2d+tyxYjMrwrZE4dF6YwIY1BI5VtbE7cwFD7z6EF0fwy6l+9plLtq9dPKmsKXfiJUE2PaL1MPvXyZror0t9GFoHAmPL8YoBt0EuA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e8ccbd1ea73d11f19a56ed5b684f684d-20260903
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:92905f81-4450-4ec2-82e1-080a45c38498,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:09f9f6664c5c5694674354c2a2158787,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50,E
-	DM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e8ccbd1ea73d11f19a56ed5b684f684d-20260903
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1833782011; Thu, 03 Sep 2026 10:19:36 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] ntfs: convert runtime error paths to mark volume dirty after recording errors
-Date: Thu,  3 Sep 2026 10:19:30 +0800
-Message-Id: <20260903021930.201169-3-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260903021930.201169-1-zenghongling@kylinos.cn>
-References: <20260903021930.201169-1-zenghongling@kylinos.cn>
+	s=arc-20240116; t=1788402285; c=relaxed/simple;
+	bh=6F03+qm0Bre/VKnLmITkhCR03ciDfFHEPe4T3bI/rIU=;
+	h=Date:Message-ID:MIME-Version:Content-Type:From:To:Cc:Subject:
+	 References:In-Reply-To; b=P+Fh4/ucKB29K4paC295LEQ37+qZDTWGvL1ZLQRHeomhel3HLr0ecVJ22cs/ON9riefeKxeproHZi3LWo3c97U9Z5fGQvVrM07hpHSeZhLXfkFF7g3Sy8jXMSMPV5vl8TKw4m6XOL/lnogyMoaEGJkdE2KtEmERUWG8c5Huhi+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com; spf=pass smtp.mailfrom=paul-moore.com; dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b=GnsOWqoL; arc=none smtp.client-ip=209.85.219.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=paul-moore.com header.i=@paul-moore.com header.b="GnsOWqoL"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-90d7fa95a58so15921776d6.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 19:24:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=paul-moore.com; s=google; t=1788402280; x=1789007080; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NxbHCn+xq0JEsuYb7obCbCtymJ2U1zlmOJGfFx1MyWs=;
+        b=GnsOWqoL9qeO1KO/f8AtRwzAZ8oa1y+YWwzBmgoW/v6lb/vcsxUf3bkAojn9Ob6pxb
+         fe/W0XHBNS/IZOIaVxWf8BQ8IYCaKKUuWqLHj3zrMU51AUmJvlHJUgFS59LfC1CwHF8G
+         R7gWl/X9ClIDSto4+eF/9Rh3e/aAfdZg922nG7MAgXAfzLwsPoszPwmUBcgmvwKQqkCq
+         d5vqCMRQ42jfNP+y04jfEZOTlxLg2oiRHmAWirKo0SCk4SbXi1cQriVcPPsalIhcNAud
+         X164Ohe4lAzFj2HS1Vn2B5ydzb4RKp+IMQGOwmuEsSg5kDrAiKg15Ebr0GSoudTpFsIm
+         HGyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788402280; x=1789007080;
+        h=in-reply-to:references:subject:cc:to:from:content-transfer-encoding
+         :content-type:mime-version:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NxbHCn+xq0JEsuYb7obCbCtymJ2U1zlmOJGfFx1MyWs=;
+        b=T6ytmm0gUuKjzPmvqIKXCK5G/tbHsQ5Am1pE3STdKRuimTktL7h7YrMDPk7vMe9wpx
+         pFeksoaWdNg8fvJ8CdL0xSwbuPO7ILFuz6muFfYhMLk7bYCmvvXEJH032OIZBX21vXLo
+         VyvyO+v7FhBpurjsCaRX6AzfjA47ppEU2ryxuHlguf4Wem8ammBbbEfXhcUuEyl5ot2g
+         vS20NetmXgTPixF2MdMRSI6dk/5+h7VPhP3V02UPbNakWwc2djwhQNFj9qSEvapqAE5B
+         LxFxn9+dIS/KioSNYsPp7pKGLODmjV4Vmk0PmB0q/Kt+LeaeLK1jGKz/A98kwK+flNSK
+         q2hw==
+X-Forwarded-Encrypted: i=1; AKwUvBzYNZyo+Kf517Lgz4NpQAsTtcvEciiUAk7tZgyEFvKS6k2cb7EirblsvizML/zMPD1S5vJ5A0o=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAqHA+7lLPI3jzPWLBhw4Q6z5JmLnSKmC3UQgKzqEgHmVTWfTX
+	+toDpimpMrK03mDg1dbmiOubsDUEWNeizx0mo/hZb2HkvP6Opl5Z8KKqnh07sW4Ahw==
+X-Gm-Gg: AYBFou0n0SnOKsJL5iL1OTvq5uB6+JnRqHLR3A5C9U25cY2ZcUqLBzO4JrKv17FP/9X
+	yJ3PDnyTxVa6v7p6dGq6H0KTvwIYF5OttP184MxrFgUFFS2c6ZIaENo4NG/8G9yO4bLSuF/mnQ4
+	dG0HdUFlTNRTjQXfAQlFC0CZwRoU+LP168j7PL1DMPv7pKitECbw0fw9v1PXrOIxZGbuRducUGC
+	xbYmjCc2qMLTNyaIfJaFmVl9sRvEXfY6cXdic4YNqiya+sbAmyx1QtbI/xsRncmeWRDb1Z6qAiJ
+	bMJ0Hi7jZ56sgb2QPdETVa2NXOULvmqoBzsRc8hqI12x2Gv2shkckZSKfGu8+YMErkhDfFjRile
+	DlC3o94ez8qvvECC6g4VrYg+74LrL3K3b32aAzo+24wEeCJQtSMLuAt2526yKdxaTpdLqKJYztE
+	sJzaDtNcqAWTDXZfptt1FpU6+FxismjBHjytk5v2LFfLZ9svooVr/rJqjQ3zojpGWB1ZFKCRWl4
+	458e2BudgNSi6WmR7BC3zsdPhB3Fau1iQ==
+X-Received: by 2002:a05:6214:21e6:b0:908:8f6e:52bd with SMTP id 6a1803df08f44-90ebabbeff6mr111657566d6.23.1788402280160;
+        Wed, 02 Sep 2026 19:24:40 -0700 (PDT)
+Received: from localhost (pool-71-126-255-178.bstnma.fios.verizon.net. [71.126.255.178])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ef0fbfbsm32797076d6.49.2026.09.02.19.24.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 19:24:39 -0700 (PDT)
+Date: Wed, 02 Sep 2026 22:24:38 -0400
+Message-ID: <5be8f666e660371dbc964c2348422a25@paul-moore.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 
+Content-Type: text/plain; charset=UTF-8 
+Content-Transfer-Encoding: 8bit 
+X-Mailer: pstg-pwork:20260902_1319/pstg-lib:20260902_1617/pstg-pwork:20260902_1319
+From: Paul Moore <paul@paul-moore.com>
+To: Tristan Madani <tristmd@gmail.com>, Stephen Smalley <stephen.smalley.work@gmail.com>
+Cc: Ondrej Mosnacek <omosnace@redhat.com>, Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH v2] selinux: use socket SID for SCTP ASCONF permission  checks
+References: <20260830201157.2084730-1-tristmd@gmail.com>
+In-Reply-To: <20260830201157.2084730-1-tristmd@gmail.com>
 
-Follow-up to the helper introduction: the runtime metadata-corruption
-paths in mft.c, lcnalloc.c, bitmap.c and inode.c still record the error
-flag with a bare NVolSetErrors(), leaving the same window in which
-ntfs_sync_fs() can acquire ni->mrec_lock, find NVolErrors() unset, and
-persist the volume as clean before the erroring thread records its
-error.
+On Aug 30, 2026 Tristan Madani <tristmd@gmail.com> wrote:
+> 
+> __selinux_socket_bind() and selinux_socket_connect_helper() call
+> sock_has_perm() which uses current_sid() as the AVC subject.  When
+> selinux_sctp_bind_connect() is invoked from the ASCONF processing
+> path (sctp_process_asconf), current refers to whichever task was
+> interrupted, so the permission check evaluates an unrelated subject.
+> 
+> Fix by extracting the sock_has_perm() call out of
+> __selinux_socket_bind() and selinux_socket_connect_helper() into
+> their callers.  The process-context wrappers (selinux_socket_bind,
+> selinux_socket_connect) call sock_has_perm() directly.
+> 
+> For selinux_sctp_bind_connect(), determine the caller SID based on
+> the optname: SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF
+> chunk parameter types only passed from the softirq processing path,
+> so use the socket own SID (sksec->sid), consistent with other
+> softirq-context hooks such as selinux_socket_sock_rcv_skb() and
+> selinux_sctp_assoc_request().  All other optnames originate from
+> process-context syscalls and use current_sid().
+> 
+> Factor out __sock_has_perm() with an explicit subject SID parameter
+> so that sock_has_perm() remains unchanged for all other callers.
+> 
+> Fixes: d452930fd3b9 ("selinux: Add SCTP support")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Paul Moore <paul@paul-moore.com>
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+> Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
+> ---
+> Changes in v2:
+>   - Do not use sksec->sid unconditionally; determine the caller SID
+>     based on the optname so that process-context callers (bind, connect,
+>     connectx, sendmsg) still use current_sid()  [Paul Moore, Sashiko]
+>   - Factor out __sock_has_perm() with an explicit SID parameter and keep
+>     sock_has_perm() as a thin wrapper for all other callers
+>   - Move the sock_has_perm() call out of __selinux_socket_bind() and
+>     selinux_socket_connect_helper() into their respective callers
+>     (selinux_socket_bind, selinux_socket_connect, selinux_sctp_bind_connect)
+>  security/selinux/hooks.c | 47 ++++++++++++++++++++++++++++++----------
+>  1 file changed, 35 insertions(+), 12 deletions(-)
 
-Convert the call sites that can run concurrently with sync and hold no
-mrec_lock, so the helper can take the $Volume inode's mrec_lock to
-persist VOLUME_IS_DIRTY:
+Hi Tristan, this looks much better thank you for putting together this
+revised patch.  Unfortunately, while looking at it I did notice one thing
+(below) which I think we need to change ...
 
- - the mft record allocation and $MFT data/$BITMAP extend rollback
-   paths (mft.c), which hold the runlist, mftbmp and lcnbmp locks,
-   all outer to the $Volume mrec_lock;
+> @@ -5731,13 +5737,25 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+>  				     struct sockaddr *address,
+>  				     int addrlen)
+>  {
+> +	struct sk_security_struct *sksec = selinux_sock(sk);
+>  	int len, err = 0, walk_size = 0;
+>  	void *addr_buf;
+>  	struct sockaddr *addr;
+> +	u32 caller_sid;
+>  
+>  	if (!selinux_policycap_extsockclass())
+>  		return 0;
+>  
+> +	/* SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF chunk
+> +	 * parameter types passed from sctp_process_asconf() in softirq
+> +	 * context where current is not meaningful. Use the socket own
+> +	 * SID for permission checks in that case; all other optnames
+> +	 * originate from process-context syscalls.
+> +	 */
+> +	caller_sid = (optname == SCTP_PARAM_SET_PRIMARY ||
+> +		      optname == SCTP_PARAM_ADD_IP) ?
+> +		     sksec->sid : current_sid();
 
- - the cluster allocation/free rollback paths (lcnalloc.c), which
-   hold vol->lcnbmp_lock;
+This should have caught my eye in the previous iteration, I'm sorry about
+that, but now that I'm looking at this it occurs to me that the sock's
+label isn't the subject in the ASCONF case, it's the label of the remote
+node (sksec->peer_sid).  After all, the ASCONF operation doesn't originate
+with the local socket, as would be implied by sksec->sid, it comes from the
+remote endpoint which is represented by sksec->peer_sid.
 
- - the bitmap rollback failure path (bitmap.c), which holds no
-   relevant lock;
+>  	/* Process one or more addresses that may be IPv4 or IPv6 */
+>  	addr_buf = address;
+>  
+> @@ -5767,13 +5785,18 @@ static int selinux_sctp_bind_connect(struct sock *sk, int optname,
+>  		case SCTP_PRIMARY_ADDR:
+>  		case SCTP_SET_PEER_PRIMARY_ADDR:
+>  		case SCTP_SOCKOPT_BINDX_ADD:
+> -			err = __selinux_socket_bind(sk, addr, len);
+> +			err = __sock_has_perm(sk, caller_sid, SOCKET__BIND);
+> +			if (!err)
+> +				err = __selinux_socket_bind(sk, addr, len);
+>  			break;
+>  		/* Connect checks */
+>  		case SCTP_SOCKOPT_CONNECTX:
+>  		case SCTP_PARAM_SET_PRIMARY:
+>  		case SCTP_PARAM_ADD_IP:
+>  		case SCTP_SENDMSG_CONNECT:
+> +			err = __sock_has_perm(sk, caller_sid, SOCKET__CONNECT);
+> +			if (err)
+> +				return err;
+>  			err = selinux_socket_connect_helper(sk, addr, len);
+>  			if (err)
+>  				return err;
+> -- 
+> 2.47.3
 
- - the inode read and writeback failure paths (inode.c), which run
-   under I_NEW or with the mrec_lock already released at err_out.
-
-The remaining call sites keep calling NVolSetErrors() directly, now
-with comments explaining why:
-
- - the mft record writeback paths (write_mft_record_nolock() and
-   ntfs_write_mft_block()) can run with a caller's mrec_lock held,
-   which for the $Volume inode itself would self-deadlock the helper;
-
- - the ntfs_attr_lookup() failure paths (ntfs_attr_find(),
-   ntfs_external_attr_find() and the ntfs_attr_make_non_resident()
-   rollback) run with the caller's mrec_lock held for the same
-   reason.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
- fs/ntfs/attrib.c   | 18 ++++++++++++++-
- fs/ntfs/bitmap.c   |  2 +-
- fs/ntfs/inode.c    |  8 +++----
- fs/ntfs/lcnalloc.c |  4 ++--
- fs/ntfs/mft.c      | 55 ++++++++++++++++++++++++++++------------------
- 5 files changed, 58 insertions(+), 29 deletions(-)
-
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 60264833bb63..5965a67b5971 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -964,6 +964,11 @@ static int ntfs_attr_find(const __le32 type, const __le16 *name,
- 	}
- 	ntfs_error(vol->sb, "mft %#llx, type %#x is corrupt. Run chkdsk.",
- 		   (long long)ctx->ntfs_ino->mft_no, le32_to_cpu(type));
-+	/*
-+	 * ntfs_attr_lookup() runs with the caller's mrec_lock held, so the
-+	 * dirty bit cannot be written here (it would self-deadlock for the
-+	 * $Volume inode); record the error flag only.
-+	 */
- 	NVolSetErrors(vol);
- 	return -EIO;
- }
-@@ -1501,8 +1506,14 @@ static int ntfs_external_attr_find(const __le32 type,
- 		err = -EIO;
- 	}
- 
--	if (err != -ENOMEM)
-+	if (err != -ENOMEM) {
-+		/*
-+		 * ntfs_attr_lookup() runs with the caller's mrec_lock
-+		 * held, so the dirty bit cannot be written here; record
-+		 * the error flag only.
-+		 */
- 		NVolSetErrors(vol);
-+	}
- 	return err;
- not_found:
- 	/*
-@@ -2236,6 +2247,11 @@ int ntfs_attr_make_non_resident(struct ntfs_inode *ni, const u32 data_size)
- 		if (ntfs_cluster_free_from_rl(vol, rl) < 0) {
- 			ntfs_error(vol->sb,
- 				"Failed to release allocated cluster(s) in error code path.  Run chkdsk to recover the lost cluster(s).");
-+			/*
-+			 * The caller may hold the mrec_lock of the inode
-+			 * being modified, so the dirty bit cannot be
-+			 * written here; record the error flag only.
-+			 */
- 			NVolSetErrors(vol);
- 		}
- 		kvfree(rl);
-diff --git a/fs/ntfs/bitmap.c b/fs/ntfs/bitmap.c
-index b1436b3151b9..6120cb301665 100644
---- a/fs/ntfs/bitmap.c
-+++ b/fs/ntfs/bitmap.c
-@@ -284,7 +284,7 @@ int __ntfs_bitmap_set_bits_in_run(struct inode *vi, const s64 start_bit,
- 		ntfs_error(vi->i_sb,
- 			"Failed to map subsequent page (error %i) and rollback failed (error %i). Aborting and leaving inconsistent metadata. Unmount and run chkdsk.",
- 			err, pos);
--		NVolSetErrors(NTFS_SB(vi->i_sb));
-+		ntfs_mark_volume_dirty_with_error(NTFS_SB(vi->i_sb));
- 	}
- 	return err;
- }
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 32edb4045178..0288f6a101dc 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -1245,7 +1245,7 @@ static int ntfs_read_locked_inode(struct inode *vi)
- 		ntfs_error(vol->sb,
- 			"Failed with error code %i.  Marking corrupt inode 0x%llx as bad.  Run chkdsk.",
- 			err, ni->mft_no);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	return err;
- }
-@@ -1473,7 +1473,7 @@ static int ntfs_read_locked_attr_inode(struct inode *base_vi, struct inode *vi)
- 			err, ni->mft_no, ni->type, ni->name_len,
- 			base_ni->mft_no);
- 	if (err != -ENOENT && err != -ENOMEM)
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	return err;
- }
- 
-@@ -1725,7 +1725,7 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
- 		"Failed with error code %i while reading index inode (mft_no 0x%llx, name_len %i.",
- 		err, ni->mft_no, ni->name_len);
- 	if (err != -EOPNOTSUPP && err != -ENOMEM)
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	return err;
- }
- 
-@@ -2883,7 +2883,7 @@ int __ntfs_write_inode(struct inode *vi, int sync)
- 		mark_inode_dirty(vi);
- 	else {
- 		ntfs_error(vi->i_sb, "Failed (error %i):  Run chkdsk.", -err);
--		NVolSetErrors(ni->vol);
-+		ntfs_mark_volume_dirty_with_error(ni->vol);
- 	}
- 	if (need_iput)
- 		iput(vi);
-diff --git a/fs/ntfs/lcnalloc.c b/fs/ntfs/lcnalloc.c
-index aa2e017a4384..dd6854f16136 100644
---- a/fs/ntfs/lcnalloc.c
-+++ b/fs/ntfs/lcnalloc.c
-@@ -763,7 +763,7 @@ switch_to_data1_zone:		search_zone = 2;
- 			ntfs_error(vol->sb,
- 				"Failed to rollback (error %i). Leaving inconsistent metadata! Unmount and run chkdsk.",
- 				err2);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 		}
- 		/* Free the runlist. */
- 		kvfree(rl);
-@@ -1044,7 +1044,7 @@ s64 __ntfs_cluster_free(struct ntfs_inode *ni, const s64 start_vcn, s64 count,
- 		ntfs_error(vol->sb,
- 			"Failed to rollback (error %i).  Leaving inconsistent metadata!  Unmount and run chkdsk.",
- 			(int)delta);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	ntfs_dec_free_clusters(vol, delta);
- 	up_write(&vol->lcnbmp_lock);
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 984a0827f9ac..d8791d7b9678 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -657,8 +657,15 @@ int write_mft_record_nolock(struct ntfs_inode *ni, struct mft_record *m, int syn
- 			"Not enough memory to write mft record. Redirtying so the write is retried later.");
- 		mark_mft_record_dirty(ni);
- 		err = 0;
--	} else
-+	} else {
-+		/*
-+		 * The writeback path can run with the caller's mrec_lock
-+		 * held, so the dirty bit cannot be written here (it would
-+		 * self-deadlock for the $Volume inode); record the error
-+		 * flag only.
-+		 */
- 		NVolSetErrors(vol);
-+	}
- 	return err;
- }
- 
-@@ -1150,7 +1157,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 			if (ntfs_cluster_free_from_rl(vol, rl2)) {
- 				ntfs_error(vol->sb, "Failed to deallocate allocated cluster.%s",
- 						es);
--				NVolSetErrors(vol);
-+				ntfs_mark_volume_dirty_with_error(vol);
- 			}
- 			kvfree(rl2);
- 			return PTR_ERR(rl);
-@@ -1285,7 +1292,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 		 * The only thing that is now wrong is ->allocated_size of the
- 		 * base attribute extent which chkdsk should be able to fix.
- 		 */
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 		return ret;
- 	}
- 	a = ctx->attr;
-@@ -1306,7 +1313,7 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 	down_write(&vol->lcnbmp_lock);
- 	if (ntfs_bitmap_clear_bit(vol->lcnbmp_ino, lcn)) {
- 		ntfs_error(vol->sb, "Failed to free allocated cluster.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	} else
- 		ntfs_inc_free_clusters(vol, 1);
- 	up_write(&vol->lcnbmp_lock);
-@@ -1317,16 +1324,16 @@ static int ntfs_mft_bitmap_extend_allocation_nolock(struct ntfs_volume *vol)
- 				a->data.non_resident.mapping_pairs_offset),
- 				rl2, ll, -1, NULL, NULL, NULL)) {
- 			ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 		}
- 		if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
- 			ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 		}
- 		mark_mft_record_dirty(ctx->ntfs_ino);
- 	} else if (status.mp_extended && ntfs_attr_update_mapping_pairs(mftbmp_ni, 0)) {
- 		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	if (ctx)
- 		ntfs_attr_put_search_ctx(ctx);
-@@ -1420,20 +1427,20 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
- 	mrec = map_mft_record(mft_ni);
- 	if (IS_ERR(mrec)) {
- 		ntfs_error(vol->sb, "Failed to map mft record.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 		return ret;
- 	}
- 	ctx = ntfs_attr_get_search_ctx(mft_ni, mrec);
- 	if (unlikely(!ctx)) {
- 		ntfs_error(vol->sb, "Failed to get search context.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 		goto unm_err_out;
- 	}
- 	if (ntfs_attr_lookup(mftbmp_ni->type, mftbmp_ni->name,
- 			mftbmp_ni->name_len, CASE_SENSITIVE, 0, NULL, 0, ctx)) {
- 		ntfs_error(vol->sb,
- 			"Failed to find first attribute extent of mft bitmap attribute.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- put_err_out:
- 		ntfs_attr_put_search_ctx(ctx);
- unm_err_out:
-@@ -1587,7 +1594,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 		if (ntfs_cluster_free_from_rl(vol, rl2)) {
- 			ntfs_error(vol->sb,
- 				"Failed to deallocate clusters from the mft data attribute.%s", es);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 		}
- 		kvfree(rl2);
- 		return PTR_ERR(rl);
-@@ -1721,7 +1728,7 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 		 * The only thing that is now wrong is ->allocated_size of the
- 		 * base attribute extent which chkdsk should be able to fix.
- 		 */
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 		return ret;
- 	}
- 	ctx->attr->data.non_resident.highest_vcn =
-@@ -1729,17 +1736,17 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- undo_alloc:
- 	if (ntfs_cluster_free(mft_ni, old_last_vcn, -1, ctx) < 0) {
- 		ntfs_error(vol->sb, "Failed to free clusters from mft data attribute.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 
- 	if (ntfs_rl_truncate_nolock(vol, &mft_ni->runlist, old_last_vcn)) {
- 		ntfs_error(vol->sb, "Failed to truncate mft data attribute runlist.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	if (mp_extended && ntfs_attr_update_mapping_pairs(mft_ni, 0)) {
- 		ntfs_error(vol->sb, "Failed to restore mapping pairs.%s",
- 			   es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	if (ctx) {
- 		a = ctx->attr;
-@@ -1750,16 +1757,16 @@ static int ntfs_mft_data_extend_allocation_nolock(struct ntfs_volume *vol)
- 					a->data.non_resident.mapping_pairs_offset),
- 				rl2, ll, -1, NULL, NULL, NULL)) {
- 				ntfs_error(vol->sb, "Failed to restore mapping pairs array.%s", es);
--				NVolSetErrors(vol);
-+				ntfs_mark_volume_dirty_with_error(vol);
- 			}
- 			if (ntfs_attr_record_resize(ctx->mrec, a, old_alen)) {
- 				ntfs_error(vol->sb, "Failed to restore attribute record.%s", es);
--				NVolSetErrors(vol);
-+				ntfs_mark_volume_dirty_with_error(vol);
- 			}
- 			mark_mft_record_dirty(ctx->ntfs_ino);
- 		} else if (IS_ERR(ctx->mrec)) {
- 			ntfs_error(vol->sb, "Failed to restore attribute search context.%s", es);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 		}
- 		ntfs_attr_put_search_ctx(ctx);
- 	}
-@@ -2322,7 +2329,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 			folio_unlock(folio);
- 			kunmap_local(m);
- 			folio_put(folio);
--			NVolSetErrors(vol);
-+			ntfs_mark_volume_dirty_with_error(vol);
- 			goto search_free_rec;
- 		}
- 		/*
-@@ -2475,7 +2482,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- undo_mftbmp_alloc_nolock:
- 	if (ntfs_bitmap_clear_bit(vol->mftbmp_ino, bit)) {
- 		ntfs_error(vol->sb, "Failed to clear bit in mft bitmap.%s", es);
--		NVolSetErrors(vol);
-+		ntfs_mark_volume_dirty_with_error(vol);
- 	}
- 	if (!base_ni || base_ni->mft_no != FILE_MFT)
- 		up_write(&vol->mftbmp_lock);
-@@ -2815,8 +2822,14 @@ static int ntfs_write_mft_block(struct folio *folio, struct writeback_control *w
- 			iput(ref_inos[nr_ref_inos]);
- 	}
- 
--	if (unlikely(err && err != -ENOMEM))
-+	if (unlikely(err && err != -ENOMEM)) {
-+		/*
-+		 * The writeback path can run with a caller's mrec_lock
-+		 * held, so the dirty bit cannot be written here; record
-+		 * the error flag only.
-+		 */
- 		NVolSetErrors(vol);
-+	}
- 	if (likely(!err))
- 		ntfs_debug("Done.");
- 	return err;
--- 
-2.25.1
-
+--
+paul-moore.com
