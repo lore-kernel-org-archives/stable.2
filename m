@@ -1,84 +1,123 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8156634D4CE
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 08:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422777; cv=none; b=DOEwAA3AiLNrP9krZqk33zzbDyScTOzUB6PewxLHo0TcBREBzlPgn/hrXTRT7vEKcI9UvV7aGF9d7VQAPK/nj/oSSqqEs7xejJt0wgT0HthwjFndVO2BoM5ZNF9WB77PxWklRua1B9fJQhi7L91+lc0XOtKd8wLceaRME6RePPw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422777; c=relaxed/simple;
-	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WeDzMcPgGO/qepHe862BqtE0FLCdeIt4JAWcAvuTCTIpmO9Aeu4H9YyLYCSpfDpcMMQG31D5B4tjs3nGX+RLFqScA2O3Km7/U1ZwbdcsgENfNgEvl1Ssdu14xvMMKrAzFN1eNRSsniWw4ZpnNOywnp4moipn/g9DQsgIXeKAwWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B3MGEt7o; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F853FF8A5
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 08:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788422960; cv=pass; b=IMUjuLEFJrjwKylzNt4WOUf8Z7URGYM8vz2KKIEv1zMWMA3MhY5EhxGVw/BSu3Ku2ASqNJ8YnGD4BllxL84Oz1NvjMffBq3Y7ZwGpZSp7qID/vxz1wYMcQHtOoW4T0sWHRSb+ytiDvQGQ9ZC1ePYAqWp+SEpncJTbFkTo7Eoi/o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788422960; c=relaxed/simple;
+	bh=dWEo3mp7frOFVKITzORF+6HHk5U6mbYoC8XrjT44of8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dVubYV+oYBGbsnL1HsfcpsPTcsXMqHJn6juoXcyKNbCAOyd8YxFqVn9ywtDfS9HCgE2kLJpPSau9VZUzIWEpof+rtQc19YRwOz8iMSBMhUICK7uOLFebai34DV11y8/75vpiciG5pLV7dkbOs7sxEUFFZLeN1U+YiOfC1nXDbn8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=k+HhOoMk; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B3MGEt7o"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C61B91A1983;
-	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 97DCF602B8;
-	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1907411C79B6F;
-	Thu,  3 Sep 2026 10:06:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788422772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
-	b=B3MGEt7o91rWgG+OB/jZ1KGIDkbGvXO5at21Ffhuhwy1BLzE7/eEvyCrcrZCz3B6PmJYwI
-	c2Kbsow6FPwqH6sYJflF0L917opYPsrVJEsRKMdIc0/3e2Wv1Ze0laRume828yiEgzxFVN
-	UBPjeyIziLfZJv7MggpfPWQIVKVKHgUxSlXqAL5vD2/yNgtNGXMvQ+IJJavF6S0cn4A6pT
-	4xolGMxPMlR0m/S4/mpwcwUThfNmj1pykbu5gApMlog13rrejTdvNibxWewkwdVg/avr4Z
-	mV9svE0JBMYT05Gj0Ay4yAPcbTPABP4VJyLxL8rZRhcelcHfjOubopJnlJClAA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
-  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
- <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
- <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
-In-Reply-To: <CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
-	(Alexey Charkov's message of "Wed, 2 Sep 2026 16:40:16 +0400")
-References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
-	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
-	<87ecfc81e9.fsf@bootlin.com>
-	<CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
-	<87y0dk6jpn.fsf@bootlin.com>
-	<CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 03 Sep 2026 10:06:08 +0200
-Message-ID: <87bjae7o9b.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="k+HhOoMk"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39faf9e2c62so14089361fa.3
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 01:09:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788422956; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ctp/5ZSUAE+M9rR0rTGhjc/JOoLBhln/g2Ljl4ON1LY7ExlS697M+oW/QXhcqjH0fV
+         F92m23HbE4L/iiXf4Baue9W9rZToBCIJ1wsLbEqiHBoAJGk/uhooW2UE9gb49yGvPYWy
+         ALMtgOlH8AHq3H7NiAiKPvmLACIrLZlXJUdGcMAMCioLH80Kp92LJ3iC/ACjCl4TREf/
+         VTZEmkdeF8JiOaG4ReqagID/i3qkmEMLR2kowhs8y2FeDhTythuijV2SOX9U4Mq0wZ13
+         TwY2K8srcjToJu306Cx1+vzvRL1RP2v212m/QTqNWNQO7FC/t6mjG8EhWt2yMKB7VDDX
+         ktXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
+        fh=DFLzQv2E4A32lj7K+RQq8wEAO5TTtsrooHX9eOJuSrc=;
+        b=KuUCWC1usNKX+XhiAfF8cTDQxXoR8Q+S/P3ugOc1L6Dc3kjYcie9c2NXH3X6ULN7GK
+         7stHOKvDrE5A9DYhDspfMLWupEY+FENUNatZizuJ8qT1NLT5snBNklxMdJuy1Mtto/Rc
+         T/9YtQWLUZGdefLn3rtoay+TcbdcXq0/SMkquP5OlUb9lJIt57ACYR52deCqOsipPLRq
+         YSh4fL0gVx2DA9OIXNuh4r8MTAmJP5ooabbuHLF/fUhYaqqUwDEEyt93sBc5bSXQONLi
+         XdeVgzgtsk5B2hYzdIbKk2tbyzxx5HI+BvcSa1fYeonCEb7Lhoa/pllttt1K8qPI3HfZ
+         7nCQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788422956; x=1789027756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
+        b=k+HhOoMk6tLRoMus9fcYwhdY69VwLNTc+4p+IDImaI4AoiK3BLP67bD4OJY3x17luV
+         tZDTqDifOEFMu4J4vHkZwLZMr+HsyumkVqzkU6ZI3pMB9g8U0ltgFtrlxD2e2/OxHa0+
+         iO6VWeVs5t2Yg9zM0mVufn79jPdTNOC/ffoVl0tSVHCYcm+oEHePv4JGolDmo7ARLW7s
+         eDNd/OkC703ZRdRC0/T7I+OwjmecjtMnyHyvq6E2rbRLgW9o3YmVn654PbY1CDt+8NTB
+         WMItEVfAcnlyzJkdSY6t2/9TlgxJtmbjfOXDXgRHiSAe4U3nJf0XZjZgTkFQqC2nsnJw
+         0jkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788422956; x=1789027756;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XTfy45raSGSmQ3CPJ+k8R7TpaweRcKOSHtZadmJbOaM=;
+        b=DY3k55YE87zHaypyLj9Yfks9M/PeiCKt2ujCRZ7dvzZ3JCB7OdpzWqxKC4tjVvVe7J
+         fIY9sI8DsIkNZXDY6A4e17yvC744hSXX7PqkEgfzujiCCwZAetVrk79vOGJw7VPefuLO
+         t8A3l7EH4rOkh0WUcgwKgvkoqyt4PnCj2DcnMW8pVFMKSFHM9vvYPZ9SXMlfeYEqpsS6
+         t2kvNz9r4T+4o2r3WXaVu0Gfu9d1L3jWvOo6JPC4xqfX6TgIJu9OR/wNfmmo8BtJUxZ0
+         myXlYkM9LgcA+XGPJlhzgJfi23C/+csGl3BKh7RieJFN3ZxzkoYiDeigMZAuNUlCdcR3
+         JxOA==
+X-Forwarded-Encrypted: i=1; AKwUvBx2KaxiRyEHUJlOu8gyrgfCfJ3AITVxoAcZ1pjKzgzPiXm9R3P7MBZQtnsqiZK76gxT/g1i19g=@vger.kernel.org
+X-Gm-Message-State: AFuF++koeuFcoGAGhJWbRkwXYKzfVPhnPbyzYZsk6SFo8dfw6vr/QzMC
+	cW3eImx/TNZxeB9N8tvhv0G8nUy82iH/SIfesJ2fD1DNPuh1O399B60CxbvYz3pxQO5pJHVdnhZ
+	DhHRE/xwzdF2OxyhqnkCyI6g7HKicFxgfg9yHUQF9YmU=
+X-Gm-Gg: AYBFou3+HhfhKzdrYQHGArnNIykPFktzW2qvZV0Zd8HRabmfMdZg5qpkjQtRfxP+E1v
+	EoMFCBTUITkWbs0jOfqwYblkWfIR+ZNrWMp4sk83172MW3jbdCUjvPDwJq+SzkFXUkGocRiL37o
+	/LGO86/4zGs3o2PqCfhvJ/4pvheLxEX4aCLsOljjd8LPVZxEZlpPaNdksfgbLW17qw/SrPwcobt
+	OtF/CZ2bhqsKqqkaCK5bJ/tlwvcDYguL/g7QFw6IRBRKr4eesZgfXk40NYJ0YUr1pWED3FZ5oVR
+	HH3HgbaTPT9Yt6ot/Miek6Mra6torA1sjIZLFeccirSXdBI1A1T+x8E+ss05fVTX8yQdBcL6N84
+	=
+X-Received: by 2002:a05:651c:4ca:b0:3a3:115d:daf0 with SMTP id
+ 38308e7fff4ca-3a35008931dmr18616021fa.6.1788422955902; Thu, 03 Sep 2026
+ 01:09:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <cover.1787903722.git.zihanx@nebusec.ai> <8e45ea5d0cf764267a90d959fa40f0f831aabf08.1787903722.git.zihanx@nebusec.ai>
+ <apKl65BbdyWCtre7@strlen.de> <CAANe3eT8ycDkomgpzZmni7hMrUX1fr2dE4QvQOcKCPEcw=J=2A@mail.gmail.com>
+ <apkahwSdQhuE6gRV@strlen.de>
+In-Reply-To: <apkahwSdQhuE6gRV@strlen.de>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Thu, 3 Sep 2026 16:09:03 +0800
+X-Gm-Features: AcwNN1Wd0FgsqLjcXjqWHA6w1DrMXZKkBLBFaJpau8ih4FBDSOgZEW2Xg9zNQoQ
+Message-ID: <CAANe3eS22cFoqz1DWAkLXkskZqO3istpX6ARSKvBKBBVKKKdtQ@mail.gmail.com>
+Subject: Re: [PATCH nf 1/1] netfilter: nf_dup: prevent asynchronous duplicate recursion
+To: Florian Westphal <fw@strlen.de>
+Cc: Pablo Neira Ayuso <pablo@netfilter.org>, "David S . Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Phil Sutter <phil@nwl.cc>, Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, coreteam@netfilter.org, 
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Alexey,
-
->> I haven't seen Sashiko's answer but isn't the goal of guards to just be
->> released whatever the actual return path?
+On Thu, Sep 3, 2026 at 2:58=E2=80=AFPM Florian Westphal <fw@strlen.de> wrot=
+e:
 >
-> I believe it's based on the guidance in [1]. In this particular case,
-> gotos don't jump outside the scope where I put the guard, so the
-> scope-based guard is still correct. However, stylistically, it is
-> indeed uncommon to see scope-based guards in functions using gotos.
-> Explicit lock/unlock is easy in this case, anyway.
+> zihan xi <zihanx@nebusec.ai> wrote:
+> > If you do prefer to keep a small nf_dup-only change, I can prepare eith=
+er:
+> >
+> > 1. disable IPv4/IPv6 dup in network namespaces owned by a non-initial u=
+ser
+> >    namespace; or
 >
-> [1] https://elixir.bootlin.com/linux/v7.2.2/source/include/linux/cleanup.=
-h#L148-L153
+> I think this is the better option, someone would have to explain
+> the use-case for DUP in a user netns.
 
-I never read that paragraph before, but okay, makes sense.
+Thanks. I will take this option and send a v2 that skips IPv4/IPv6
+duplication when the network namespace is owned by a non-initial user
+namespace.
 
-Thanks,
-Miqu=C3=A8l
+Best regards,
+Zihan Xi
