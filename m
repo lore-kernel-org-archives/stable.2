@@ -1,125 +1,193 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AA14B514D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCC40928C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444944; cv=none; b=HOuuZQSrNIbjU/q31k2Pzz4ICv2nK3GZxx/EtoIaN/0h0svMFYvNDEa/AjFWnuucU8PZ48+MCXoLU47GgrxTGQ3WKEfJG00yQZMxyZOxBjrayHcw/tuH3jqUmUgb9T9aBJmx9SHgFojEm0qSAgOjmeyTVn31ISXXAmIIEEqulNo=
+	t=1788444966; cv=none; b=Xu/HLaowJGWnwKDIPk0rqS4OLH6iHbVyvx+EvggIF+k5EDB3U05EuL/gxMoJRkrVA++6/jW/H2uck/ZaSOvBwQI5d62NBYYS+HfDvbs0SdTSdXWDMJsMkzURGCVNMeNOq0nI3fW7a0UO7sVulJxj0ST8ljS89WHr7gU1n0Z0Lw4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444944; c=relaxed/simple;
-	bh=iuQwfX9LCNOotgRONKQjvlTuKeq9ZIxCjgMtoxV1/yQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hKi7bvvlarNUy/c96iAXGHCvjuOcFNHCTo0bXDy4Ca6IO/oOgqYza75KcccZGCsshoNZHkAx5Azpr2LC1pkMAvhXH+fjVeIbFcZPUxBEUUVWsUEpQvoQIwjLQIr5CQwacbzzG7o/+958Qfi/MUSAgkntp2m0cHakW6Po7AS4j9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WDuLu0/f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444966; c=relaxed/simple;
+	bh=UUoCs3OS1DpEKPOf4QHK0Gnr950LiLZG3z9kQysx8iA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=JMjDaIKM7HJLeKf48x/UHxh7raYKGvxDPVs0/QlqZrdxPqxHYF8QMicOFPCRgQr2fmMtWiPwmPdwn4eoLrqFjBKInfNZFKgI1RxGovXWoL2l8vQ6Nlkazt5a+ILK6GZVndQvGadlzLleO0Fk7ZDMuTgV7L5Y9ptAELeMb+SnKPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cqqz5c/4; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WDuLu0/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B08A1F00AC4;
-	Thu,  3 Sep 2026 14:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444932;
-	bh=zrmmLv2aZhwPKMTVlQshyBTL9tgnFOb57smN8YEplIY=;
-	h=Subject:To:Cc:From:Date;
-	b=WDuLu0/fojMAn57IT0euXUu3cQvm3mRHpR02BINi6xL/UYWFM7GoApgb9cffEySn7
-	 j40LWgyXiBCWd47puvxutSbeFSblEaxy9q2c9O34DuQt2SjIl6Al7T0WeiwV+tUw2S
-	 y+KIbD+OK39lZ4+CcIXmqh7s0LqFNs3j42+VHLfw=
-Subject: FAILED: patch "[PATCH] Bluetooth: hci_sync: Clear HCI_CMD_PENDING when dropping the" failed to apply to 6.1-stable tree
-To: iabdelka@qti.qualcomm.com,johannes.goede@oss.qualcomm.com,luiz.von.dentz@intel.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:56:05 +0200
-Message-ID: <2026090305-playmaker-geriatric-db71@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cqqz5c/4"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d9db539a54so21500085ad.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 07:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788444953; x=1789049753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
+        b=Cqqz5c/44snunzLcV09QO2GkN8HQHyV27leGmNheGUk7hu0GeScRFj+k7lBzulgcoP
+         ptTrE6WUEDMyrCAmXSZyivs3MrgHZ2yIxKgAAq8baGpXNTlrClEPDM9EfQSATTW0n+bO
+         3VzhfsN04Fm4Pq2RNTFB41LuwbqvbT7zqh1P856F/FC8wWOHCEE0FYVqzdZjHiUd/FUF
+         F04dBva+GG24/yFuhDItlcyS7+5kPODQRxA731o4eSnxfUxsp4Z5PqZc02RImivOtb/I
+         9j9P6wQ6D9/5v6kj6fZCIPYGj8/nQJLRjdxjQUKSaJ5wGMhMGiUoCn+rqb2ooji63md1
+         onbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444953; x=1789049753;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
+        b=M/ZK/xx0vw30xpEMX0Vq91bC1VuNEtU14AtApfGYtxbf5YEpZ/sRnuF1/AvUabpoWy
+         0emwUPGxiwchcpk2IzS5UMInkhf//N3/4aDtiYqUdPZOwDqhTDZiqKTGFJj3aH6+DIWV
+         NzQKoZRdxTP108Ft6yuoczMIEGDVmz/WYxLGbManCDsWraJZ8CEAxyVJtpSn/Fwp5wMA
+         alU2sZ86nWv+JclmqSSUym5OXjUMfI9+COqUyfo6k2JnHq/pDP4DDPj7ttlyF7Q3Hf2F
+         /+GBU6ejFRI+gcE486Qqz1XDy0mD8+AvBAPWRuflnoFCVNIvAaPFdqkkPXn7e2mlzsG+
+         McSA==
+X-Forwarded-Encrypted: i=1; AKwUvBy143BolnPP0VH/UJ1ir2bc7nlb3MYtcBJ/VgcYxdTQvIf7CV3beZe/xTWEwxfnH9AMYT2Q4w0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3LN+/8LhxP3eniqd3kwFWkIHVGTxGfZ0oRFt1Y/bwZSHUeD/E
+	oQeUNEwP2jZ5D4Olpvxu91wGKA2pG1eDfdXC6z580L1M73xV/SiXsszL
+X-Gm-Gg: AYBFou3Dqm7XZBBXLtn7Nkc8ob+ZyPN35zDFg5bqQc6gqR5rR/a8hDAbprqo+1ixQfU
+	+iCkqFr21zC/wEAMWnGvgPjKHe/0220kpT0pbUsrSMhuKoYAmBm0q4W2VbJWlPyC51dJgd2BCb1
+	OVpjar/qr9ukowQj33ulZlGO/HR3TpzqTvYDKtEkHlsSsdqLbvkkA/GGdVdfhinCLeY0Hb4pImT
+	WuBd5T3q8nLrXVgBnWcFuNykFLOaVVPNtEy3gnsZWp98ux2adaQrCcbwA5uSW/xkF4wb8au1WPa
+	Mv5ZRgueVsWf/pbjSM1yirA1fqKUgXm2qLzc8kU13+6qxGQLJD5zvt7nesc6pyXiz3EjAaW/J4W
+	7JNzPaLM/6SfeqmG4rOQtgDisVwZZB67GjgjCoxUwQipHt4ckMtws+RDSokbZQyGW4w/43F9nwb
+	9bpqxfmtzhYSEHf32T1UWzn5Bk4lQazEAH6UT9S59oXgBUeTlK8NmsEUM8yV2natocdzvf93mnW
+	VEjPGdGQ4Zoq9YoF5Hb3V+J7Q==
+X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr21177322a91.13.1788444953135;
+        Thu, 03 Sep 2026 07:15:53 -0700 (PDT)
+Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5793909a91.4.2026.09.03.07.15.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:15:45 -0700 (PDT)
+From: Hongbing Hu <huhb04@gmail.com>
+X-Google-Original-From: Hongbing Hu <huhb1@xiaopeng.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hongbing Hu <huhb04@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: uvcvideo: defer cancelled buffer completion until copies finish
+Date: Thu,  3 Sep 2026 22:15:32 +0800
+Message-Id: <20260903141532.6693-1-huhb1@xiaopeng.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903131141.6368-1-huhb1@xiaopeng.com>
+References: <20260903131141.6368-1-huhb1@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Hongbing Hu <huhb04@gmail.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+uvc_queue_cancel() returns queued buffers to videobuf2 directly via
+vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
+still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
+run, userspace can dequeue and requeue the buffer while the old worker is
+still running, leading to the same list_head being inserted into irqqueue
+twice and corrupting the list.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The crash manifests in two ways depending on the drop-corrupted-frames
+module parameter:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x cb19774faa57c51efa189d8b8606aeabccebc53b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090305-playmaker-geriatric-db71@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+1. With the drop corrupted frames enabled, the old worker's
+   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
+   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
+   buf->queue even though userspace has already QBUF'd the same buffer and
+   added it to irqqueue.
 
-Possible dependencies:
+2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
+   second time. If userspace has already dequeued and requeued the buffer,
+   the second completion exposes it to userspace again, and the next
+   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
+   time.
 
+Both cases produce the kind of list_del corruption seen here:
 
+    list_del corruption. next->prev should be ..., but was ...
+    kernel BUG at lib/list_debug.c:64!
 
-thanks,
+Fix the cancel path to remove buffers from irqqueue and drop the queue's
+reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
+VB2 completion then only happens from uvc_queue_buffer_complete() once the
+last async reference is released, so userspace cannot reuse the buffer
+while an old worker still accesses it.
 
-greg k-h
+A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
+as an error and must not be requeued by the corrupted-frame policy. Normal
+malformed frames are still requeued/dropped as before.
 
------------------- original commit in Linus's tree ------------------
-
-From cb19774faa57c51efa189d8b8606aeabccebc53b Mon Sep 17 00:00:00 2001
-From: Ibrahim Abdelkader <iabdelka@qti.qualcomm.com>
-Date: Tue, 11 Aug 2026 10:37:29 +0200
-Subject: [PATCH] Bluetooth: hci_sync: Clear HCI_CMD_PENDING when dropping the
- last request
-
-A synchronous HCI command that never receives a response leaves
-HCI_CMD_PENDING set: hci_req_cmd_complete() is the only place that clears
-it, and it only runs when a response matching the last command sent
-arrives.
-
-hci_send_cmd_sync() populates hdev->req_skb only when the flag transitions
-from clear to set, while hci_dev_open_sync() and hci_dev_close_sync() drop
-req_skb without clearing the flag. After a timeout followed by either, the
-two disagree: the flag claims a request is outstanding while req_skb is
-NULL. Subsequent synchronous commands are then sent with no req_skb, so
-hci_event_packet() has nothing to match an arriving event against, and the
-caller times out even though the controller answered.
-
-Commands answered by Command Complete recover on their own, since
-hci_req_cmd_complete() clears the flag as a side effect. Drivers using
-__hci_cmd_sync_ev() with a custom event do not, because a vendor event
-never reaches that path. On a WCN3988 (hci_qca over UART) this makes a
-controller firmware hang unrecoverable: the driver injects a hardware
-error and re-runs qca_setup(), qca_read_soc_version() waits for
-HCI_EV_VENDOR, the reply arrives within 4 ms and is discarded, and every
-retry fails the same way. The adapter is left down until the driver is
-unbound and rebound, or power is removed.
-
-Clear the flag wherever the last request is dropped, restoring the
-invariant that req_skb is non-NULL exactly when HCI_CMD_PENDING is set.
-Verified on hardware by forcing a command timeout: without this change
-setup fails on every attempt, with it setup succeeds on the first.
-
-Fixes: 2615fd9a7c25 ("Bluetooth: hci_sync: Fix overwriting request callback")
+Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ibrahim Abdelkader <iabdelka@qti.qualcomm.com>
-Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+---
+v2: corrected author real name in From/SOB per maintainer feedback
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-index b5897545d795..4d6ab5d39e94 100644
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -5448,6 +5448,7 @@ int hci_dev_open_sync(struct hci_dev *hdev)
- 		if (hdev->req_skb) {
- 			kfree_skb(hdev->req_skb);
- 			hdev->req_skb = NULL;
-+			hci_dev_clear_flag(hdev, HCI_CMD_PENDING);
- 		}
+ drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f44..9206e0a355 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+  */
+ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ {
++	struct uvc_buffer *buf, *next;
++	struct list_head local_list;
+ 	unsigned long flags;
  
- 		clear_bit(HCI_RUNNING, &hdev->flags);
-@@ -5632,6 +5633,7 @@ int hci_dev_close_sync(struct hci_dev *hdev)
- 	if (hdev->req_skb) {
- 		kfree_skb(hdev->req_skb);
- 		hdev->req_skb = NULL;
-+		hci_dev_clear_flag(hdev, HCI_CMD_PENDING);
++	INIT_LIST_HEAD(&local_list);
++
+ 	spin_lock_irqsave(&queue->irqlock, flags);
+-	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++	while (!list_empty(&queue->irqqueue)) {
++		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
++		list_del(&buf->queue);
++		buf->state = UVC_BUF_STATE_ERROR;
++		list_add_tail(&buf->queue, &local_list);
++	}
+ 	/*
+ 	 * This must be protected by the irqlock spinlock to avoid race
+ 	 * conditions between uvc_buffer_queue and the disconnection event that
+@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ 	if (disconnect)
+ 		queue->flags |= UVC_QUEUE_DISCONNECTED;
+ 	spin_unlock_irqrestore(&queue->irqlock, flags);
++
++	/*
++	 * Release the queue-owned kref outside the irqlock. The final VB2
++	 * completion only happens from uvc_queue_buffer_complete() once all
++	 * asynchronous copy references have been released, preventing userspace
++	 * from reusing the buffer while an old worker still accesses it.
++	 */
++	list_for_each_entry_safe(buf, next, &local_list, queue) {
++		list_del(&buf->queue);
++		uvc_queue_buffer_release(buf);
++	}
+ }
+ 
+ /*
+@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
+ 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	if (buf->error && !uvc_no_drop_param) {
++	/*
++	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
++	 * errors. They must not be requeued by the corrupted-frame policy even
++	 * when buf->error is set.
++	 */
++	if (buf->state != UVC_BUF_STATE_ERROR &&
++	    buf->error && !uvc_no_drop_param) {
+ 		uvc_queue_buffer_requeue(queue, buf);
+ 		return;
  	}
- 
- 	clear_bit(HCI_RUNNING, &hdev->flags);
+-- 
+2.34.1
 
