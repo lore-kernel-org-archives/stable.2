@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586614BB5CA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612E44B716A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445929; cv=none; b=K2p1D8mJsDa7IN73DRiPf8WUPxesYAfbW+13It8CA17MQCUuQTdp37oTgjlQ6rmU7XvZV2mS75EIWPn32x820JFIbuL5lIoP/SAqL9iFAI7c1OPk2d/nHATOKbvvejzkdVgw2sd/jLOo2hjziRmoc8RSvuiD0BtjIwST4Z8dzTE=
+	t=1788445936; cv=none; b=G01pZ97LOBv0KFfyeK4x36PE4TXucttU9CB/26iIMf/sZRUPb7LusDMF27WACMPDxV/yfERLqWliDsWiKpjGZbOpE7GJL2ZKIu9qkox46xUP9L8uNhySoTNsveL+uXUmRipXAl7agHPiF3kjpmkHB7DetmmYuCobe5m7ddqgDzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445929; c=relaxed/simple;
-	bh=egg7w1EuYi/CtB2cIeVGD74mLn+2pwcJjzPPC28V3e4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oeFuTrqzNdIN/+qc2xPl+BRlO5WYyyEit335ZS7Ph8uOhcX5A/nQaUde1Q0/qepnSNEu8kM3BHApZjVfzk9yus1LxwT7S6k8BBpRwIL8oJrxDj+Lax2Ln5h+bphF3FpgbxcSV4wVV5jzsSVm2iyvNEecCVlmAr6lLG6/q6oZFX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UhzdgSpo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445936; c=relaxed/simple;
+	bh=jSuLG/bzKCj9X+uHMjAz9JGGpllCMJ4rvnkVYqU3qzQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TNePyS3Cj3xQOWUwTX9tpHWI9YJrj+GRFNY4QQOxjGY4J884Wy671PE2BxFrNrrUzW28ZZI2CnNKniitQap3edASQYcFdUZp3TEcme6NUs4l/8f+GQwPjDIDwogqCKsnMIsktCoPo6OST/OnzwLTwQCHW0shmVs5uGXeYqYv4MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QQCpiHWX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UhzdgSpo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE4A31F00A3D;
-	Thu,  3 Sep 2026 14:31:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QQCpiHWX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 815DA1F00AC4;
+	Thu,  3 Sep 2026 14:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445917;
-	bh=4oIyOcGtyXX8WXdpIoL+nak8eUNarkXUkLGTB1qwxDE=;
+	s=korg; t=1788445926;
+	bh=tEqwb4vDTbW32adLAoXqcrSwwIhdXJ0OqY8hxw9wZps=;
 	h=Subject:To:Cc:From:Date;
-	b=UhzdgSpoMXuVdXhXARBlTUdvcexAX7eVnv77egq8cQ9T9p+VRm25aYnSgw9bhShpJ
-	 S1NHxTRpX5bVdvRNG6tkuonFMEu9iGMXv3oJGteXIaCzbVdEDSR3XMCGC/ZAlKTGXb
-	 YYbx8WyiCO1vI9MCOjU1usX2gHIq0D/DfsGwuKLI=
-Subject: FAILED: patch "[PATCH] svcrdma: Reject Write/Reply chunks with segcount 0" failed to apply to 5.15-stable tree
-To: clm@meta.com,chuck.lever@oracle.com,jlayton@kernel.org
+	b=QQCpiHWX4z4a5foceb49aoIgSWbM3C5DnwUcNkgy+G5k8HgY/+n17WTDRJokv3rwr
+	 nrygPNVZINT1DHZbPPbcsIEZ5SH/IEeyoQOQRjurSHURcvw+tXpumP3XzL397Sx5r8
+	 o3P5iRqObX/8hftcwtJwSgrZw1OiqbDQYimsVEdE=
+Subject: FAILED: patch "[PATCH] svcrdma: Use svc_xprt_put to free listener on create failure" failed to apply to 5.10-stable tree
+To: cel@kernel.org,chuck.lever@oracle.com,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:10:44 +0200
-Message-ID: <2026090344-perfume-python-398c@gregkh>
+Date: Thu, 03 Sep 2026 16:10:56 +0200
+Message-ID: <2026090356-dehydrate-probe-c315@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9808eb7656666acc7291bae9ab6b987bd16e47e0
+git cherry-pick -x e346ef7bcb137f50c49f969330ab7dcf64ea1654
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090344-perfume-python-398c@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090356-dehydrate-probe-c315@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,85 +62,53 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9808eb7656666acc7291bae9ab6b987bd16e47e0 Mon Sep 17 00:00:00 2001
-From: Chris Mason <clm@meta.com>
-Date: Tue, 26 May 2026 09:35:59 -0400
-Subject: [PATCH] svcrdma: Reject Write/Reply chunks with segcount 0
+From e346ef7bcb137f50c49f969330ab7dcf64ea1654 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Wed, 27 May 2026 11:00:13 -0400
+Subject: [PATCH] svcrdma: Use svc_xprt_put to free listener on create failure
 
-A peer can send a Write or Reply chunk whose segcount field is zero.
-xdr_check_write_chunk() only rejects segcount > rc_maxpages, so zero
-passes the range check, and xdr_inline_decode(stream, 0) returns the
-current (non-NULL) cursor without advancing. The function returns
-true and pcl_alloc_write() then links a struct svc_rdma_chunk with
-ch_segcount == 0 onto rc_write_pcl or rc_reply_pcl.
+svc_rdma_create() calls kfree(cma_xprt) when
+svc_rdma_create_listen_id() fails. svc_xprt_init() has already
+acquired a net namespace reference via get_net_track(); kfree
+bypasses svc_xprt_free() which releases it.
 
-An earlier patch in this series made pcl_for_each_segment() safe for
-ch_segcount == 0, so this no longer drives the memory walk it used
-to. Rejecting the malformed frame at the decode boundary is still
-worthwhile as defense in depth: it keeps degenerate zero-segment
-chunks off the parsed chunk lists entirely, so any future consumer
-that walks ch_segments directly cannot observe one, and it makes the
-zero-floor easy to backport to trees where the macro change is more
-intrusive. RFC 8166 has no meaning for a Write/Reply chunk that
-describes no remote buffer, so no legitimate client is affected.
+Replace the kfree() with svc_xprt_put() so the kref_init birth
+reference drops to zero and svc_xprt_free() dispatches
+svc_rdma_free() to clean up properly. sc_cm_id is still NULL
+at that point; the preceding patch added the necessary NULL
+guard in svc_rdma_free().
 
-xdr_check_reply_chunk() funnels Reply chunks through
-xdr_check_write_chunk() and inherits the same rejection.
+svc_xprt_free() also drops the module reference via
+module_put(), but the caller _svc_xprt_create() does the same
+on xpo_create failure, double-putting the single
+try_module_get() it acquired. Take a compensating
+__module_get() before the svc_xprt_put() to keep the count
+balanced, matching the convention in svc_rdma_accept()'s error
+path.
 
-pcl_alloc_write() also links each chunk onto the parsed chunk list
-before filling its segment array. If a future change weakens the
-segcount-0 rejection, an incomplete chunk is visible to consumers
-during the fill loop. Reorder so that list_add_tail() follows the
-segment fill loop, ensuring only fully-populated chunks appear on
-the list.
-
-Fixes: 78147ca8b4a9 ("svcrdma: Add a "parsed chunk list" data structure")
+Fixes: 4fb8518bdac8 ("sunrpc: Tag svc_xprt with net")
 Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
 Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260526-rpc-kernel-bugs-v1-5-e251306ccca9@oracle.com
+Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-3-1b09bd87b6cd@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_pcl.c b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-index 1f8f7dad8b6f..18d1045799ce 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_pcl.c
-@@ -213,7 +213,6 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
- 		chunk = pcl_alloc_chunk(segcount, 0);
- 		if (!chunk)
- 			return false;
--		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+index 55e2ca036584..63dbf16dbe7f 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+@@ -388,7 +388,13 @@ static struct svc_xprt *svc_rdma_create(struct svc_serv *serv,
  
- 		for (j = 0; j < segcount; j++) {
- 			segment = &chunk->ch_segments[j];
-@@ -225,6 +224,7 @@ bool pcl_alloc_write(struct svc_rdma_recv_ctxt *rctxt,
- 			chunk->ch_length += segment->rs_length;
- 			chunk->ch_segcount++;
- 		}
-+		list_add_tail(&chunk->ch_list, &pcl->cl_chunks);
+ 	listen_id = svc_rdma_create_listen_id(net, sa, cma_xprt);
+ 	if (IS_ERR(listen_id)) {
+-		kfree(cma_xprt);
++		/* _svc_xprt_create() acquired one module reference and
++		 * puts it on xpo_create failure.  svc_xprt_free() puts
++		 * a second one when the kref drops to zero.  Take a
++		 * compensating reference so both puts are balanced.
++		 */
++		__module_get(cma_xprt->sc_xprt.xpt_class->xcl_owner);
++		svc_xprt_put(&cma_xprt->sc_xprt);
+ 		return ERR_CAST(listen_id);
  	}
- 	return true;
- }
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-index 15c1d8ae5301..f6a7533a7555 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_recvfrom.c
-@@ -510,10 +510,13 @@ static bool xdr_check_write_chunk(struct svc_rdma_recv_ctxt *rctxt)
- 		return false;
- 
- 	/* Before trusting the segcount value enough to use it in
--	 * a computation, perform a simple range check. This is an
--	 * arbitrary but sensible limit (ie, not architectural).
-+	 * a computation, perform a simple range check. A zero
-+	 * segcount describes no remote buffer and is rejected so
-+	 * downstream consumers never see a degenerate ch_segcount==0
-+	 * chunk. The upper bound is an arbitrary but sensible limit
-+	 * (ie, not architectural).
- 	 */
--	if (unlikely(segcount > rctxt->rc_maxpages))
-+	if (segcount == 0 || unlikely(segcount > rctxt->rc_maxpages))
- 		return false;
- 
- 	p = xdr_inline_decode(&rctxt->rc_stream,
+ 	cma_xprt->sc_cm_id = listen_id;
 
