@@ -1,144 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from correo.bicentenariobu.com.ve (correo.bicentenariobu.com.ve [8.242.232.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC7637AA77
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BC8927A92D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=8.242.232.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479812; cv=none; b=VPRULl6ynb4ASDLm9NMvJCza8e6Cc0rFvCjWpZIhOMTB0rDf+R2ZabOK11S6lU357KI+T3pXnJUkujshAn73nal31q+X+OfKLnJTBXq0i3Y/5GtOlwF6DWD26cUeDnkf0kd4I51BKuC8jeLFDd/FEbPQop+VA7IXDnrPVtuzTUo=
+	t=1788479974; cv=none; b=SVJe9wqSbIQmvcDSWYQVN7QkdB6Xb2FmoZR4sudJxASJn2WtVwlu3Pkpbv0MI1UTX51Xz42rZRwf7VGpAsDHFTpwVPTZbtqwP3eExBrrEum7AnIcKRkPSF4bXZ7wtSrX4QTGpnF/7bH/0MAqQaubsLxMXzkii/nLFkeVmb0rt4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479812; c=relaxed/simple;
-	bh=PEo9OCZlZIX4OW9b5u8fZIMYpiy5yPLTpADaqMjifh8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ET1546FWWIOUBqo+kBC6kqKRS7/R7eF67Z/7eyZvsCOZJKIKrbLZ5KhYkQw/J9hcxMht2pKWTpu1sluoDVqnIHhj85bkIok3eCG8bPfGUA0Xa3XdaVN29z7YwShj6Hu8eNUDPUqNpID26hmgry9Hm+oDn1kphTJFsBRgmcoN/30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJ8gyj9N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788479974; c=relaxed/simple;
+	bh=knuNoMPtT6sReeDl8KD1gC2XkYK/vT1XD+PtK71Zo0Y=;
+	h=From:Date:Subject:Message-Id:To:MIME-Version:Content-Type; b=X883rV2AF5rA+ywsA3Beuq303l9vvEK8Xjva6mDra1vwLDwFtr4odEfjrSF12snIs2E8iWAMVP0wol20RfT3oF+UEOiotlm6BisvDPzIxzWgUaekQBzinJY34aUd+ypZnpXMyBko/3W8wp5V+ipej7u0y4iI0rKGKzlj6Z9hNIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bicentenariobu.com.ve; spf=pass smtp.mailfrom=bicentenariobu.com.ve; dkim=fail (0-bit key) header.d=bicentenariobu.com.ve header.i=@bicentenariobu.com.ve header.b=k8r1fGtU reason="key not found in DNS"; arc=none smtp.client-ip=8.242.232.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bicentenariobu.com.ve
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bicentenariobu.com.ve
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJ8gyj9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A7911F00AC4;
-	Thu,  3 Sep 2026 23:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788479802;
-	bh=WjYuaMPHWRW1HV8fZgAKFp32fMMC0oavyYUR6v9JkOA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EJ8gyj9Nhr0l2utot8sjKG6GIs90dzKYjIiJJheE2vxBhLlfcGmmd6T2nQhld1PrK
-	 DDI9RX0/ul6bpu4RhzwT+yF9wJXDQQ2N/a9fwuSZ8+uNwic3XWzQPk99cHVHKnbyz0
-	 hsoXOlDaHLaOC5ZAqP/ntCRq/QItge50shIphBijMoyktJ3xaQqJGK9KKpGwA0M6Kv
-	 M830Oigj7VFeiXJYJDQCH2P6HnrBLhiUCTlhk5LmLWwa5HbyEhmPTZu7euk6mk/gDN
-	 U8I6YWI1UMvPx2lmAvmMQXCV4Gblj3aZmIej7pnyByTPPbuTAOUdZl8kbh5aa6Vrw1
-	 1u7f9lC8UZp7A==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=bicentenariobu.com.ve header.i=@bicentenariobu.com.ve header.b="k8r1fGtU"
+Received: from localhost (localhost [127.0.0.1])
+	by correo.bicentenariobu.com.ve (Postfix) with ESMTP id CBB0852813C6
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:33:04 -0400 (-04)
+Received: from correo.bicentenariobu.com.ve ([127.0.0.1])
+ by localhost (correo.bicentenariobu.com.ve [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id f4VAc9dQCeyz for <stable@vger.kernel.org>;
+ Thu,  3 Sep 2026 19:33:04 -0400 (-04)
+Received: from localhost (localhost [127.0.0.1])
+	by correo.bicentenariobu.com.ve (Postfix) with ESMTP id B471752813CA
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:33:04 -0400 (-04)
+DKIM-Filter: OpenDKIM Filter v2.10.3 correo.bicentenariobu.com.ve B471752813CA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=bicentenariobu.com.ve; s=CAA0586A-6184-11EF-87A6-C4273A49EA05;
+	t=1788478384; bh=knuNoMPtT6sReeDl8KD1gC2XkYK/vT1XD+PtK71Zo0Y=;
+	h=From:Date:Message-Id:To:MIME-Version;
+	b=k8r1fGtUEtc0h1uV/HgdSlXmjS3ge/VqfTvNMfxxFuF49hse936yXzzGqnusMj6pl
+	 4szv3Mhx7Ze0wpNOo58ZauNRBBLm5nX3hBTxltaCdTSxKFb/H3rf4rWtiGgaUvastn
+	 C3u3tI5skHc4PorThLMq7uadC9psRPe5Vg7moFVYi+o7XET0W3anGWauh90fPC+rso
+	 aTgrN1df+mVZVgTYEDh9iA7OGvQcQxZw1RULlju5G6EPvo+3BqInSXEimei3mfTBXS
+	 zECrsyd5O8yL0NhwdLOqy9Xlelefa6jssExMIkOrWCm0biGABXqBcwOnEKw9xXo7lD
+	 6SGrw15Avzxkg==
+X-Virus-Scanned: amavis at bicentenariobu.com.ve
+Received: from correo.bicentenariobu.com.ve ([127.0.0.1])
+ by localhost (correo.bicentenariobu.com.ve [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id 35v0ArZEJPe1 for <stable@vger.kernel.org>;
+ Thu,  3 Sep 2026 19:33:04 -0400 (-04)
+Received: from guyshel-280ac4 (unknown [213.177.179.60])
+	by correo.bicentenariobu.com.ve (Postfix) with ESMTPSA id 5807F52812BE
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:33:04 -0400 (-04)
+From: Ellen Coddington <root@bicentenariobu.com.ve>
+Date: Thu, 03 Sep 2026 16:33:04 -0700
+Subject: Note
+Message-Id: <SFVVVBNX7UU4.SK87J4VJT8PC@8.242.232.150>
 To: stable@vger.kernel.org
-Cc: Ye Liu <ye.liu@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Brendan Jackman <jackmanb@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/page_owner: use memcg_data snapshot to avoid TOCTOU in print_page_owner_memcg()
-Date: Thu,  3 Sep 2026 19:56:39 -0400
-Message-ID: <20260903235639.1811043-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090314-dagger-sharpness-8cd1@gregkh>
-References: <2026090314-dagger-sharpness-8cd1@gregkh>
+Sender: Ellen Coddington <root@bicentenariobu.com.ve>
+Reply-To: Ellen Coddington <Ellen_coddington@outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
 
-From: Ye Liu <ye.liu@linux.dev>
+Good day,
 
-[ Upstream commit 90f095b816e25c6a9e4446d299bac5007fdcb3df ]
+We are expanding our global supplier network and are seeking reliable
+partners to support the sourcing of selected pharmaceutical raw materials.
+We welcome qualified suppliers interested in a long-term business
+collaboration with competitive compensation based on successful transactions.
 
-print_page_owner_memcg() reads page->memcg_data via READ_ONCE() at the
-start to guard against tail pages and NULL data.  However, it later
-re-reads page->memcg_data locklessly in two places:
+If you are interested in this opportunity, please reply to this message,
+and we will share further details: Ellen_coddington@outlook.com
 
-1: page_memcg_check(page)
+We look forward to building a successful partnership with you.
 
-2: PageMemcgKmem(page) (via folio_memcg_kmem(), which includes
-   VM_BUG_ON assertions for tail pages and MEMCG_DATA_OBJEXTS)
-
-If the page is concurrently freed and reallocated as a THP tail page or
-slab page between these calls, the VM_BUG_ON assertions can trigger on
-CONFIG_DEBUG_VM=y builds, crashing the kernel.
-
-Fix both TOCTOU issues by using the memcg_data snapshot throughout.
-
-Link: https://lore.kernel.org/20260714015117.78351-10-ye.liu@linux.dev
-Fixes: fcf8935832b8 ("mm/page_owner: print memcg information")
-Signed-off-by: Ye Liu <ye.liu@linux.dev>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Brendan Jackman <jackmanb@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted memcg_data decoding to Linux 6.6’s mixed mem_cgroup and obj_cgroup representation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_owner.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 2d27f532df4c1..797fca82d4fa8 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -361,20 +361,28 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- {
- #ifdef CONFIG_MEMCG
- 	unsigned long memcg_data;
-+	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
- 	bool online;
- 	char name[80];
- 
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
--	if (!memcg_data)
-+	if (!memcg_data || PageTail(page))
- 		goto out_unlock;
- 
--	if (memcg_data & MEMCG_DATA_OBJCGS)
-+	if (memcg_data & MEMCG_DATA_OBJCGS) {
- 		ret += scnprintf(kbuf + ret, count - ret,
- 				"Slab cache page\n");
-+		goto out_unlock;
-+	}
- 
--	memcg = page_memcg_check(page);
-+	if (memcg_data & MEMCG_DATA_KMEM) {
-+		objcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
-+		memcg = objcg ? obj_cgroup_memcg(objcg) : NULL;
-+	} else {
-+		memcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
-+	}
- 	if (!memcg)
- 		goto out_unlock;
- 
-@@ -382,7 +390,7 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 	cgroup_name(memcg->css.cgroup, name, sizeof(name));
- 	ret += scnprintf(kbuf + ret, count - ret,
- 			"Charged %sto %smemcg %s\n",
--			PageMemcgKmem(page) ? "(via objcg) " : "",
-+			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
- 			online ? "" : "offline ",
- 			name);
- out_unlock:
--- 
-2.53.0
-
+Warm regards,
+Ellen Coddington
