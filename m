@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ECCA3F5BD7
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 09:56:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C5D631327F
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 09:56:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429386; cv=none; b=mhGj5wWJ/NeypvHNRv2w6RSarG9NBokWzrq3EsjmLMfA1r29dezlCplcSfQ+NI2sYpPvnLxyqkYqyAifRbvvc8KXM/pxuZDR850bUmY1Hf1hdNxVoxrdObp516SG1sghgQp/+qx9dCp4+DjUfbVTng1EJu9poloxi1imdyVJcOg=
+	t=1788429394; cv=none; b=RWbk+uYzosR3UGIXe4l8M8PZAAh77Vuu8Pd3gRWd3Bh1ly1rkepkFydObOU2AVtGS2O4q8aUiFOcss81Dr1vP+WrDuZR/7qQogHVccD6/O4heC+W7y2Vsp/UJUEToweIqhQpVOxk6ELq6eHOVFWXlqTxd5zqripvUju0n5cMqPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429386; c=relaxed/simple;
-	bh=hRuOLgXhB+WPMRAUf5/DJP08uvCSXwvBRuLFldgBs5I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OAsoJIsiHf5RnVfU2/0o7x0E53U6GCxRrLf7AvWuF0pSDjSymXajHnTb5/CxVrNQMKkgRaB/Md5RQBaz3/OTRlkdrQLpaBH71diS5voJi/yDhKerBMSvQSdFfSvVrXxRFYX+tpTGgy5aNGQGBO2kA6z3D2FbsmILLOlYBgiO+zY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zsIzQFCn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788429394; c=relaxed/simple;
+	bh=2yiKJL6znWxeIZrCyrZRpjJvcuQSuHOUegBi8j6SYgU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=s8fVKWbz8ys3VzizYb8FqmHlPYv19I7aegJVRSzUYhVIdhwXhLBHKUjYRewDEWBJivGVn7wa6c24USQP/6dOzuKMkgqpLmI6MGXijM6DkvE0iMSI237BSY8nTDUsExQ8aUmrJG8l5pAdrCY1QIVIrsDK5Y1NO0r6+nnHgVq86ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Er+nrqxx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zsIzQFCn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5731F1F000E9;
-	Thu,  3 Sep 2026 09:56:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Er+nrqxx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78EC41F000E9;
+	Thu,  3 Sep 2026 09:56:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788429384;
-	bh=5KAjGdcFdapfg0Es6RRAB87zUjDrH5uwavE4g612KT8=;
+	s=korg; t=1788429393;
+	bh=Ecook38XgRcEGLKoPMbHMYM5kUJ3kPcuw3t8Qrix0/Q=;
 	h=Subject:To:Cc:From:Date;
-	b=zsIzQFCnweMxCDHtQL7PRtB3SX+0xUl8G3NaE8mt+5Qy9JBoZ2jLSeXt/rCNcuFPW
-	 v1Jug1f7avqCBUsGh3325TB+pVfSO77ZNz1cDZfYjPLSEABL6VLb1+zJ/1DGrJQdzc
-	 QU0t21hkXBN5pm/2B2pYw9Vloe0V8sr5KztMCR68=
-Subject: FAILED: patch "[PATCH] ovl: fix double end_creating() on the casefold-mismatch path" failed to apply to 6.18-stable tree
-To: vivek.parikh@breachx.ai,amir73il@gmail.com,brauner@kernel.org
+	b=Er+nrqxx74p6HJpQwHHC3GsZlIqxZSV1ulUrxiWOPlBGNxiKbbFqYMUMFS4UUIlSB
+	 rnsKAn2N36e+8aqTocARWRYuHAHf/29Mn3imTWfrZCYiEaC3SWjxhF0pBDFvHxvux4
+	 zRHgQoP3zHboe5Gi/rFjC7qHuY2RYkd5hwFizsWo=
+Subject: FAILED: patch "[PATCH] pidfd: hold exec_update_lock around namespace ioctl" failed to apply to 6.18-stable tree
+To: me@black-desk.cn,brauner@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 11:56:19 +0200
-Message-ID: <2026090319-clanking-sandstone-d89f@gregkh>
+Date: Thu, 03 Sep 2026 11:56:28 +0200
+Message-ID: <2026090328-fleshed-scrambler-e1f2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 077ab8985ee278c3d8618182d335b0f0cd919e16
+git cherry-pick -x 9688a46802939da28f00cb40e8129615d5d4af39
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090319-clanking-sandstone-d89f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090328-fleshed-scrambler-e1f2@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,96 +62,111 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 077ab8985ee278c3d8618182d335b0f0cd919e16 Mon Sep 17 00:00:00 2001
-From: Vivek Parikh <vivek.parikh@breachx.ai>
-Date: Wed, 5 Aug 2026 10:27:54 +0530
-Subject: [PATCH] ovl: fix double end_creating() on the casefold-mismatch path
+From 9688a46802939da28f00cb40e8129615d5d4af39 Mon Sep 17 00:00:00 2001
+From: Chen Linxuan <me@black-desk.cn>
+Date: Fri, 31 Jul 2026 22:50:08 +0800
+Subject: [PATCH] pidfd: hold exec_update_lock around namespace ioctl
 
-ovl_create_real() releases the new dentry twice when the casefold
-consistency check fails.  The S_IFDIR branch calls end_creating() and
-sets err, then falls through to the common out: label which calls
-end_creating() on the same dentry again:
+The PIDFD_GET_*_NAMESPACE ioctls in pidfd_ioctl() perform a filesystem
+credentials ptrace access check before handing out a namespace file
+descriptor.  The accompanying comment states that the code "mirrors nsfs
+behavior", but, unlike the corresponding procfs paths, it does so without
+holding the target task's exec_update_lock.
 
-	case S_IFDIR:
-		newdentry = ovl_do_mkdir(ofs, dir, newdentry, attr->mode);
-		err = PTR_ERR_OR_ZERO(newdentry);
-		if (!err && ofs->casefold != ovl_dentry_casefolded(newdentry)) {
-			pr_warn_ratelimited(...);
-			end_creating(newdentry);	/* first */
-			err = -EINVAL;
-		}
-		break;
-	...
-	if (err)
-		goto out;
-	...
- out:
-	if (err) {
-		end_creating(newdentry);	/* second, same dentry */
-		return ERR_PTR(err);
-	}
+proc_ns_get_link() and proc_ns_readlink() both take exec_update_lock for
+reading around the ptrace check and the namespace lookup, so that the
+credentials used for the access decision match those of the task when its
+namespace is read.  Without it, a caller can pass the check against the
+target's old credentials and then read the namespace after the target has
+execve()'d a setuid binary and committed new credentials -- accessing
+namespace information it should have been denied.
 
-end_creating() is end_dirop(), which does inode_unlock() on the parent
-and dput() on the dentry, so the parent directory's i_rwsem is unlocked
-twice and the dentry is put twice.  The second unlock releases a lock
-that is not held, which is what wedges every later creation under that
-parent, and the second dput() drops a reference that was never taken.
+Hold exec_update_lock for reading around the ptrace check and the
+namespace lookup so that pidfd truly mirrors nsfs behavior, as the comment
+already claims.  open_namespace() itself runs outside the lock: once a
+namespace reference is obtained it carries its own refcount and is opened
+with the caller's own credentials, so a concurrent execve() on the target
+can no longer affect the outcome.
 
-The branch was added by commit dfc7da402ccc ("ovl: Check for casefold
-consistency when creating new dentries") as a bare dput(), which already
-released the reference twice; commit fe497f0759e0 ("VFS: change
-vfs_mkdir() to unlock on failure.") converted both sites to
-end_creating(), adding the double unlock.
-
-This is reachable by an unprivileged user.  The casefold consistency of
-the layers is validated at mount time in ovl_parse_layer(), and again on
-every lookup in ovl_lookup_single(), but ofs->workdir is the internal
-"work" subdirectory created inside the user-supplied workdir, and that
-subdirectory is not re-checked.  Marking it casefolded after the mount
-therefore makes every ovl_create_temp() inherit the wrong state - and
-that path reaches ovl_create_real() through ovl_start_creating_temp(),
-which uses start_creating() with a generated name and so never runs the
-lookup-time check.
-
-  unshare -Urm
-  mount -t tmpfs -o casefold=utf8-12.1.0 tmpfs mnt
-  mkdir -p mnt/lower/d mnt/upper mnt/work mnt/merged
-  mount -t overlay ovl -o lowerdir=mnt/lower,\
-        upperdir=mnt/upper,workdir=mnt/work mnt/merged
-  chattr +F mnt/work/work
-  mkdir mnt/merged/d/sub		# directory copy-up
-
-  overlayfs: wrong inherited casefold (work/#5)
-
-and the next copy-up blocks forever on the parent's i_rwsem:
-
-  mkdir           D  start_creating+0x65/0xb0
-                     ovl_start_creating_temp+0xb0/0xe0 [overlay]
-                     ovl_create_temp+0xa3/0x1d0 [overlay]
-                     ovl_copy_up_one+0x1f1c/0x21c0 [overlay]
-                     ovl_copy_up_flags+0xf5/0x140 [overlay]
-                     ovl_create_object+0xb7/0x220 [overlay]
-                     ovl_mkdir+0x23/0x40 [overlay]
-
-Drop the end_creating() from the branch and let out: own the cleanup,
-which is what every other error path in this function already does.
-
-Fixes: dfc7da402ccc ("ovl: Check for casefold consistency when creating new dentries")
+Fixes: 5b08bd408534 ("pidfs: allow retrieval of namespace file descriptors")
 Cc: stable@vger.kernel.org
-Signed-off-by: Vivek Parikh <vivek.parikh@breachx.ai>
-Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Chen Linxuan <me@black-desk.cn>
+Link: https://patch.msgid.link/20260731-pidfd-exec-update-lock-v1-1-b388f2f3a8b0@black-desk.cn
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index a7a393b04277..3cd8194cbb1d 100644
---- a/fs/overlayfs/dir.c
-+++ b/fs/overlayfs/dir.c
-@@ -188,7 +188,6 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
- 			if (!err && ofs->casefold != ovl_dentry_casefolded(newdentry)) {
- 				pr_warn_ratelimited("wrong inherited casefold (%pd2)\n",
- 						    newdentry);
--				end_creating(newdentry);
- 				err = -EINVAL;
- 			}
- 			break;
+diff --git a/fs/pidfs.c b/fs/pidfs.c
+index aaa609ddab04..7fc3c1f5a578 100644
+--- a/fs/pidfs.c
++++ b/fs/pidfs.c
+@@ -531,6 +531,7 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	struct task_struct *task __free(put_task) = NULL;
+ 	struct nsproxy *nsp __free(put_nsproxy) = NULL;
+ 	struct ns_common *ns_common = NULL;
++	int error;
+ 
+ 	if (!pidfs_ioctl_valid(cmd))
+ 		return -ENOIOCTLCMD;
+@@ -554,20 +555,33 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	if (arg)
+ 		return -EINVAL;
+ 
++	/*
++	 * We're trying to open a file descriptor to the namespace so perform a
++	 * filesystem cred ptrace check. Hold @task's exec_update_lock for the
++	 * duration of the ptrace check and the namespace lookup so that the
++	 * credentials used for the access decision match those of @task at the
++	 * time its namespace is read, preventing a concurrent execve() from
++	 * swapping the task's credentials in between the check and the use. We
++	 * mirror nsfs behavior.
++	 */
++	error = down_read_killable(&task->signal->exec_update_lock);
++	if (error)
++		return error;
++
++	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
++		error = -EACCES;
++		goto out_unlock;
++	}
++
+ 	scoped_guard(task_lock, task) {
+ 		nsp = task->nsproxy;
+ 		if (nsp)
+ 			get_nsproxy(nsp);
+ 	}
+-	if (!nsp)
+-		return -ESRCH; /* just pretend it didn't exist */
+-
+-	/*
+-	 * We're trying to open a file descriptor to the namespace so perform a
+-	 * filesystem cred ptrace check. Also, we mirror nsfs behavior.
+-	 */
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		return -EACCES;
++	if (!nsp) {
++		error = -ESRCH; /* just pretend it didn't exist */
++		goto out_unlock;
++	}
+ 
+ 	switch (cmd) {
+ 	/* Namespaces that hang of nsproxy. */
+@@ -649,11 +663,16 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ #endif
+ 		break;
+ 	default:
+-		return -ENOIOCTLCMD;
++		error = -ENOIOCTLCMD;
+ 	}
+ 
+-	if (!ns_common)
+-		return -EOPNOTSUPP;
++	if (!error && !ns_common)
++		error = -EOPNOTSUPP;
++
++out_unlock:
++	up_read(&task->signal->exec_update_lock);
++	if (error)
++		return error;
+ 
+ 	/* open_namespace() unconditionally consumes the reference */
+ 	return open_namespace(ns_common);
 
