@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B264A64ED
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1F63921EC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439450; cv=none; b=LSjl9YF5eG80nSU1WIi5IjSlJq9CcN6vUUh3XTgqMGwVnjUbYSlqPkWKBu/FYG/dkrYRoAuwrfJ7BHAGQrffkQD5lwanPBtADRvXGn7CT7SnzI3RvZTXFfj022rEvit035DvHJ12YLnypP7gLWC1yNwl4eKOm+nhpCEgY+LUuz0=
+	t=1788439452; cv=none; b=nzyTmtCfrDNYBTbQ6iiKEekjGEJdQwxK+y/OXkmBHPOcCrTmgz409xzU5ptYKRIdhzHy6cAHKJQ1kHxlBJyikSeQI52XpTLnybCmejFl9FPIvbYCF38ZBv1hz6hghmtIRzB8Gc7lcsbl2Bl10ijlXrZh7HI0oU4tGprllTDKgv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439450; c=relaxed/simple;
-	bh=uow83jLLZ08mrA9lyQYcfbbFHZWc4tlcGDVQjyoLgnY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dUh0i3y/JK/0JdPllgHDIhkwYR3L7hZKk5L/pJ/1puf2FXjZTOwFnaV1Fststl5Mj7cBToEyP4k4COoUr5QjeurbSpgCu8wF+PMwHOa4co7r0QpvgimbDhm8gC/SbpmxyObjm4CuzNhiv1FN2s2sEyueoNvx1+kL5XzxUytOpxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Rdz2pCy4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439452; c=relaxed/simple;
+	bh=K75ttGvW0clM4VRaqNwpcP3fc8dSrTDs5mtxiPb1Yno=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aYZhbtA9nr85nnhmsKtXV5CoFiydijO8Km5cAtJgDIdLy5FcUsVIfPegtu4x+HoDpfdGMmlyks6m5bbl1pP6E3iXhCRQ6QEQrUMvDSERw8cIO/8cP9DNImx1lxEsuCNeEeAihHN3ggf0oIbJpmEvgsZOS4RqllfleNS12xzfASw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0zfi9oFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Rdz2pCy4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D9161F000E9;
-	Thu,  3 Sep 2026 12:44:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0zfi9oFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C471F000E9;
+	Thu,  3 Sep 2026 12:44:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439448;
-	bh=1TE9OML6GbflRhVh7fcm5pW0F+P4/V3u31hTZ1znx1M=;
+	s=korg; t=1788439451;
+	bh=5ao1uhDfccQH+AyEtQYvc5eAQQOB1u9qsJM4/tBmqHc=;
 	h=Subject:To:Cc:From:Date;
-	b=Rdz2pCy4Lv5mUL30IqedHzj8UVKX8adXsQ++T8pJY5HwsHljdELfUNVuYNs+6qoel
-	 Rs+OTSw2oAowEyV/cG+0ci4Pr83NpfqrHmVZlhSbQDKVDEXL7GBczSEr+WKhkqG+O2
-	 EsY246ocUnI5NRFmtzVVi5pWNytP0FoyavZ7IqbE=
-Subject: FAILED: patch "[PATCH] objtool/rust: add one more `noreturn` Rust function" failed to apply to 6.18-stable tree
-To: ojeda@kernel.org,aliceryhl@google.com,jpoimboe@kernel.org,peterz@infradead.org
+	b=0zfi9oFEPjCiY6jkxnezlm1ljx71wXBOPInMMm2JJX6mvXhabtQZIzePOfpNT62zk
+	 wt1t1wiJYpgPe9qYDssTbEpa6VrLCZIs1N0wj20Iu26BWlgJt7/EzSGlDx0Gj34uwg
+	 yYJxCeADd9rJ8AGXkiCCWzjaxGtx/hcu8wFHiOh4=
+Subject: FAILED: patch "[PATCH] KEYS: trusted: Fix TPM teardown ordering" failed to apply to 6.6-stable tree
+To: nicoyip.dev@gmail.com,jarkko@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:43:41 +0200
-Message-ID: <2026090341-uncanny-legwarmer-a899@gregkh>
+Date: Thu, 03 Sep 2026 12:44:20 +0200
+Message-ID: <2026090320-bagful-script-16a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 993f235c4af49d0e912cc28abe6d733531600237
+git cherry-pick -x 5e2d672280d97d83de43031d93761b12dadd7b8a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090341-uncanny-legwarmer-a899@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-bagful-script-16a2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,68 +62,74 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 993f235c4af49d0e912cc28abe6d733531600237 Mon Sep 17 00:00:00 2001
-From: Miguel Ojeda <ojeda@kernel.org>
-Date: Wed, 5 Aug 2026 16:45:24 +0200
-Subject: [PATCH] objtool/rust: add one more `noreturn` Rust function
+From 5e2d672280d97d83de43031d93761b12dadd7b8a Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Tue, 11 Aug 2026 02:56:03 +0300
+Subject: [PATCH] KEYS: trusted: Fix TPM teardown ordering
 
-When the pointer formatting series [1] is applied and KUnit tests
-are enabled, `objtool` would report an error with any of our
-supported Rust versions. For instance, with Rust 1.97.1:
+trusted_tpm_exit() drops the TPM chip reference and frees the digest
+array before unregistering the trusted key type. key_type_lookup()
+holds key_types_sem for reading until the key operation finishes, while
+unregister_key_type() takes it for writing. It therefore provides the
+synchronization point that must precede backend teardown.
 
-    rust/kernel.o: error: objtool: _R..._4core3fmt7Pointer3fmtB7_()
-    falls through to next function _R..._4core7convert5AsRefNtB5_4BStrE6as_ref()
+The current order permits this interleaving:
 
-Or, with Rust 1.85.0:
+  CPU 0                              CPU 1
+  trusted_tpm_exit()                 key_type_lookup("trusted")
+    put_device(&chip->dev)             trusted_tpm_seal()
+    kfree(digests)                       pcrlock()
+    unregister_key_type()                  tpm_pcr_extend(..., digests)
 
-    rust/kernel.o: error: objtool: _R..._4core3fmt7Pointer3fmtB7_()
-    falls through to next function _R..._4core3ffi5c_str4CStrENtNtBS_3fmt7Display3fmtB7_()
+CPU 1 can consequently dereference the freed digest array. The chip can
+also be released before callbacks stop using it.
 
-This happens due to calls to the `noreturn` symbol:
+KASAN reported:
 
-    core::str::slice_error_fail
+  BUG: KASAN: slab-use-after-free in tpm_pcr_extend+0x1f0/0x200
+  Read of size 2 at addr ffff88810872d000 by task poc/89
+  Call Trace:
+    tpm_pcr_extend+0x1f0/0x200
+    pcrlock+0x42/0x70 [trusted]
+    trusted_tpm_seal+0x1b6/0x570 [trusted]
+    trusted_instantiate+0x293/0x340 [trusted]
+    __key_instantiate_and_link+0xb2/0x2b0
+    __key_create_or_update+0x61e/0xb50
+    __do_sys_add_key+0x1b8/0x310
+  Allocated by task 88:
+    __kmalloc_noprof+0x1a7/0x490
+    do_one_initcall+0xa1/0x390
+    do_init_module+0x2df/0x840
+  Freed by task 90:
+    kfree+0x131/0x3c0
+    trusted_tpm_exit+0x59/0xa0 [trusted]
+    __do_sys_delete_module+0x346/0x510
 
-Thus add the mangled one to the list so that `objtool` knows it is
-actually `noreturn`.
+Move unregister_key_type() before releasing either resource. This stops
+new lookups and waits for in-flight key operations to finish before the
+backend state is destroyed.
 
-See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
-for more details.
+Fixes: 0b6cf6b97b7e ("tpm: pass an array of tpm_extend_digest structures to tpm_pcr_extend()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/r/20260731140925.2973492-1-nicoyip.dev@gmail.com
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
-[ While the series [1] mentioned above was not applied in a way
-  that triggered this, Gary found another case [2]:
-
-    I am seeing this function causing issue on my 1.85.1 -Os build, although the
-    error message is different this time:
-
-        rust/kernel.o: warning: objtool: _R..._5range9RangeFromjEE5indexCsldbe0TGTmNx_6kernel+0x1d:
-        stack state mismatch: cfa1=4+8 cfa2=4+16
-
-    Disassembly shows that the function call before the warning location
-    is a call to _4core3str16slice_error_fail, and objtool thought it can
-    return (which will end up with a unbalanced stack if it does return).
-
-  Thus apply it. - Miguel ]
-
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Reported-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://lore.kernel.org/rust-for-linux/anLxXvCKBcAVf91_@google.com/
-Link: https://lore.kernel.org/rust-for-linux/20260706-hashedptr-v13-0-377a07f2f78d@kylinos.cn/ [1]
-Link: https://lore.kernel.org/rust-for-linux/DKS7U9UHY6XR.2JC0EBIPCI06Z@garyguo.net/ [2]
-Link: https://patch.msgid.link/20260805144524.233362-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 87db9f4ed9e2..3ab5b9f1c6a4 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -195,6 +195,7 @@ static bool is_rust_noreturn(const struct symbol *func)
- 	return str_ends_with(func->name, "_4core3num20from_str_radix_panic")				||
- 	       str_ends_with(func->name, "_4core3num22from_ascii_radix_panic")				||
- 	       str_ends_with(func->name, "_4core3num28from_ascii_bytes_radix_panic")			||
-+	       str_ends_with(func->name, "_4core3str16slice_error_fail")				||
- 	       str_ends_with(func->name, "_4core5sliceSp15copy_from_slice17len_mismatch_fail")		||
- 	       str_ends_with(func->name, "_4core6option13expect_failed")				||
- 	       str_ends_with(func->name, "_4core6option13unwrap_failed")				||
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index 13513819991e..8f57c6111e7e 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -987,9 +987,9 @@ static int __init trusted_tpm_init(void)
+ static void trusted_tpm_exit(void)
+ {
+ 	if (chip) {
++		unregister_key_type(&key_type_trusted);
+ 		put_device(&chip->dev);
+ 		kfree(digests);
+-		unregister_key_type(&key_type_trusted);
+ 	}
+ }
+ 
 
