@@ -1,42 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481914C6EEF
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:00:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B154F4C6F0B
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447648; cv=none; b=jD/W3pOAQpdQCPpS4IYC4P4BFdXH89qOJPfzGV3q5Ob+WilTolip1MJ5nJwXf4lQstVn1FuCxl7Qprbx8v4wh8yu0dhVh0GbDnEAHJjgWVDCVNBwFcDBmZYWqeVy+LQ8QuZRxqZ663PxfA895T5KP+BYM6XQl2FW3Y4/CEacjpc=
+	t=1788447657; cv=none; b=pI11B8GPZPHLh/IRu572PQN1CgDPGvZNO9bqTtuCkjE8JvTESJe+ja1l2II8ZUzLKaMuNrT8aMiCJ0k7HJwKgVfhTXPRQUc2xdv67KaK46CNtG64fcCB1D7fGxK8YT6wm5B4n64+3Ra3SuXNRmfRyOOjHouITD8NrrMZlIepNpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447648; c=relaxed/simple;
-	bh=xcJkbqHq6/Qpm8/rkb9HFtj0Nqd+LKyMydPeSjmE9dE=;
+	s=arc-20240116; t=1788447657; c=relaxed/simple;
+	bh=qR6I65TBUXXYDlS3SqevKs29URLK3b41b2fD1aP8vEM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kWpDYnj96Esh9YbmtzD8c3lUBvoMBDDY8TV923A2XP0FjL7gMqtUnjJNDP9MpAE6xhuwKeScSgTRO2Q+c8p5LYYw6JFpSJMg38K2VnxcbhXnKnoYNU1GifewLyQFbjuGF0ykI2WI6AjXIRYxyXaDDKexlPYJE+Gx4PfHQ7zhrNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QLgCStq5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ti83t3fCyz28948y3U4ZlkkUaEygC9BqkXG5YKP1s5VNrJHbpbew3sYEaPd/IzXp84PZIv3VK9VSf3oZdv8cg5T/yP7vKteL8bF9tyZnQhRLj0h7+J5SBSL8NKy3mhcpoLTzSxQVw2yLQEs7uXJrmRDZ8xgBoo0+7j4A/boyzQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDFSGLfc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QLgCStq5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E35D1F00A3A;
-	Thu,  3 Sep 2026 15:00:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDFSGLfc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ACDC1F00A3D;
+	Thu,  3 Sep 2026 15:00:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788447647;
-	bh=PMT57Dsq/Xzh80M9xx5BqvchArYSaC3g0GJvK8zSy3g=;
+	s=k20260515; t=1788447655;
+	bh=9qTvfI+I3HyQumKDOuMv4+M1D3yVbmAjws5fN5cBGvA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QLgCStq59GLvJ30BdqfKGeLbT/6iMFPGq/b1ivrYoww1wqjKI6URDscvSpo6qkyyj
-	 fGSp5VljsB526W+e5s8+LL/phWL4VP3K/Ql3yBt6NygqAPdqNBkgYrBT/bmYUkoaC4
-	 fkqKWWaqPgL+Pzfs72ExrOxJsEKXwZZi+WF/+U/94xwNuCqcGQrJcVpmTzisXdbor5
-	 qhRmXkg5WWwm+MYF7za14LGXSd7KKkLn0hJM7mZi82PmX3PuRwMCwm+Bo43my9Exh9
-	 GN689jF7ZbnjrEVyRXY6oyCV/TmDEuRCTRDkfOpwT4CSFFARD71dF4xtbZWOOoyk+4
-	 uVUBH0/0OPyHw==
+	b=FDFSGLfcsU/+Va9ZqaOmo9haLFSNBMX++yabBJXb5We9GzS892unZHzyv2xUtnFT+
+	 ZaK17NN2r65UvF3avgitv88zRoonZYxVm/t3JmeAVsswE/bMEIdkjBREuazeJjCanK
+	 /c4R6vB1+Xg9+ekxLLc0ByLbYScf4qfDH9+jv6OUwMyQ9h1SU6l6aU/P5cAyageli1
+	 FLk2hNpm8bBZ35ysbQUPvJeGuO60eS/tMkdiiSmxtpIymyZJxnX3/04xVreqRHPVjG
+	 M2SaUu2nYybISFW50Vwzq+Sdu6CNpFLqk+PtIHGJZFQXMxuu26AyZbf7McO/2d1exA
+	 i2+3i079v9uTg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
+Cc: David Hildenbrand <david@redhat.com>,
+	Andy Lutomirks^H^Hski <luto@kernel.org>,
+	Borislav Betkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Jann Horn <jannh@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	"Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
+	Lance Yang <ioworker0@gmail.com>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Matthew Wilcow (Oracle)" <willy@infradead.org>,
+	Michal Koutn <mkoutny@suse.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	tejun heo <tj@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Zefan Li <lizefan.x@bytedance.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] KEYS: trusted: Fix TPM teardown ordering
-Date: Thu,  3 Sep 2026 11:00:44 -0400
-Message-ID: <20260903150044.855866-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] mm: move hugetlb specific things in folio to page[3]
+Date: Thu,  3 Sep 2026 11:00:49 -0400
+Message-ID: <20260903150051.856389-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090320-scalded-unclaimed-9b48@gregkh>
-References: <2026090320-scalded-unclaimed-9b48@gregkh>
+In-Reply-To: <2026090322-cucumber-clumsily-daf5@gregkh>
+References: <2026090322-cucumber-clumsily-daf5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,81 +63,132 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: David Hildenbrand <david@redhat.com>
 
-[ Upstream commit 5e2d672280d97d83de43031d93761b12dadd7b8a ]
+[ Upstream commit 4eeec8c89a0c4a8c20fb13a4e7093cc8efce383d ]
 
-trusted_tpm_exit() drops the TPM chip reference and frees the digest
-array before unregistering the trusted key type. key_type_lookup()
-holds key_types_sem for reading until the key operation finishes, while
-unregister_key_type() takes it for writing. It therefore provides the
-synchronization point that must precede backend teardown.
+Let's just move the hugetlb specific stuff to a separate page, and stop
+letting it overlay other fields for now.
 
-The current order permits this interleaving:
+This frees up some space in page[2], which we will use on 32bit to free up
+some space in page[1].  While we could move these things to page[3]
+instead, it's cleaner to just move the hugetlb specific things out of the
+way and pack the core-folio stuff as tight as possible.  ...  and we can
+minimize the work required in dump_folio.
 
-  CPU 0                              CPU 1
-  trusted_tpm_exit()                 key_type_lookup("trusted")
-    put_device(&chip->dev)             trusted_tpm_seal()
-    kfree(digests)                       pcrlock()
-    unregister_key_type()                  tpm_pcr_extend(..., digests)
+We can now avoid re-initializing &folio->_deferred_list in hugetlb code.
 
-CPU 1 can consequently dereference the freed digest array. The chip can
-also be released before callbacks stop using it.
+Hopefully dynamically allocating "strut folio" in the future will further
+clean this up.
 
-KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in tpm_pcr_extend+0x1f0/0x200
-  Read of size 2 at addr ffff88810872d000 by task poc/89
-  Call Trace:
-    tpm_pcr_extend+0x1f0/0x200
-    pcrlock+0x42/0x70 [trusted]
-    trusted_tpm_seal+0x1b6/0x570 [trusted]
-    trusted_instantiate+0x293/0x340 [trusted]
-    __key_instantiate_and_link+0xb2/0x2b0
-    __key_create_or_update+0x61e/0xb50
-    __do_sys_add_key+0x1b8/0x310
-  Allocated by task 88:
-    __kmalloc_noprof+0x1a7/0x490
-    do_one_initcall+0xa1/0x390
-    do_init_module+0x2df/0x840
-  Freed by task 90:
-    kfree+0x131/0x3c0
-    trusted_tpm_exit+0x59/0xa0 [trusted]
-    __do_sys_delete_module+0x346/0x510
-
-Move unregister_key_type() before releasing either resource. This stops
-new lookups and waits for in-flight key operations to finish before the
-backend state is destroyed.
-
-Fixes: 0b6cf6b97b7e ("tpm: pass an array of tpm_extend_digest structures to tpm_pcr_extend()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://lore.kernel.org/r/20260731140925.2973492-1-nicoyip.dev@gmail.com
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Tested-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-[ preserved the additional trusted_shash_release() cleanup after unregister_key_type() ]
+Link: https://lkml.kernel.org/r/20250303163014.1128035-5-david@redhat.com
+Signed-off-by: David Hildenbrand <david@redhat.com>
+Cc: Andy Lutomirks^H^Hski <luto@kernel.org>
+Cc: Borislav Betkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
+Cc: Lance Yang <ioworker0@gmail.com>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Matthew Wilcow (Oracle) <willy@infradead.org>
+Cc: Michal Koutn <mkoutny@suse.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: tejun heo <tj@kernel.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Zefan Li <lizefan.x@bytedance.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 078e1a0fc41a ("mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/keys/trusted-keys/trusted_tpm1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/mm_types.h | 27 +++++++++++++++++----------
+ mm/hugetlb.c             |  1 -
+ mm/page_alloc.c          |  5 +++++
+ 3 files changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-index e73f2c6c817a0..b5781c5071395 100644
---- a/security/keys/trusted-keys/trusted_tpm1.c
-+++ b/security/keys/trusted-keys/trusted_tpm1.c
-@@ -1069,10 +1069,10 @@ static int __init trusted_tpm_init(void)
- static void trusted_tpm_exit(void)
- {
- 	if (chip) {
-+		unregister_key_type(&key_type_trusted);
- 		put_device(&chip->dev);
- 		kfree(digests);
- 		trusted_shash_release();
--		unregister_key_type(&key_type_trusted);
- 	}
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 2113f7da182c6..08ae1793f29d9 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -382,20 +382,23 @@ struct folio {
+ 			unsigned long _flags_2;
+ 			unsigned long _head_2;
+ 	/* public: */
+-			void *_hugetlb_subpool;
+-			void *_hugetlb_cgroup;
+-			void *_hugetlb_cgroup_rsvd;
+-			void *_hugetlb_hwpoison;
++			struct list_head _deferred_list;
+ 	/* private: the union with struct page is transitional */
+ 		};
++		struct page __page_2;
++	};
++	union {
+ 		struct {
+-			unsigned long _flags_2a;
+-			unsigned long _head_2a;
++			unsigned long _flags_3;
++			unsigned long _head_3;
+ 	/* public: */
+-			struct list_head _deferred_list;
++			void *_hugetlb_subpool;
++			void *_hugetlb_cgroup;
++			void *_hugetlb_cgroup_rsvd;
++			void *_hugetlb_hwpoison;
+ 	/* private: the union with struct page is transitional */
+ 		};
+-		struct page __page_2;
++		struct page __page_3;
+ 	};
+ };
+ 
+@@ -430,8 +433,12 @@ FOLIO_MATCH(compound_head, _head_1);
+ 			offsetof(struct page, pg) + 2 * sizeof(struct page))
+ FOLIO_MATCH(flags, _flags_2);
+ FOLIO_MATCH(compound_head, _head_2);
+-FOLIO_MATCH(flags, _flags_2a);
+-FOLIO_MATCH(compound_head, _head_2a);
++#undef FOLIO_MATCH
++#define FOLIO_MATCH(pg, fl)						\
++	static_assert(offsetof(struct folio, fl) ==			\
++			offsetof(struct page, pg) + 3 * sizeof(struct page))
++FOLIO_MATCH(flags, _flags_3);
++FOLIO_MATCH(compound_head, _head_3);
+ #undef FOLIO_MATCH
+ 
+ /**
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index e910ed0c43d0b..4e4f3587731ed 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -1702,7 +1702,6 @@ static void __update_and_free_hugetlb_folio(struct hstate *h,
+ 
+ 	folio_ref_unfreeze(folio, 1);
+ 
+-	INIT_LIST_HEAD(&folio->_deferred_list);
+ 	hugetlb_free_folio(folio);
  }
  
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 259249a37faf0..d8209a512019e 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1005,6 +1005,11 @@ static int free_tail_page_prepare(struct page *head_page, struct page *page)
+ 			goto out;
+ 		}
+ 		break;
++	case 3:
++		/* the third tail page: hugetlb specifics overlap ->mappings */
++		if (IS_ENABLED(CONFIG_HUGETLB_PAGE))
++			break;
++		fallthrough;
+ 	default:
+ 		if (page->mapping != TAIL_MAPPING) {
+ 			bad_page(page, "corrupted mapping in tail page");
 -- 
 2.53.0
 
