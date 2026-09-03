@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF1064B66EA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99781480961
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:07:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448019; cv=none; b=ZdhFT3IZIexGSmoRr+noeML/VOX7K+NZeADlIkJVYbD44ioDqPDYKe8d3xQLjjH+N9pL0VyqGRidUIo9mmwBl0G4iLZTmxo+V8uygi23GsW+q36i/OD5OaO7lELJQ+LKFFlYE86vI5FtTr8SUM6Spv9wHvsJ7Eo9LGX/KtdGAWI=
+	t=1788448021; cv=none; b=IE3nI7ajfNng3Bge9R7iqpIw42lDWHEFCv6A3ps8tt5XDykB2a4pE7tndjqXPgIQv2VEQ3Fu3C32Z4cNhz5YqJEiGX4fsTFtcHUeUmgPnG/eIzzxtaxkcohHXbfKO6ihT+/s7pnPZoic0z4sMRo3wF9PwPBaFNAO+4s4Kq1F6Yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448019; c=relaxed/simple;
-	bh=eDwhEVVIv91VLmNatWWDmxVZdPvaSXtZL/KFQYA2bkI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rnYrWB8y80qUfYBG/NkeLRTz7VKjDirmxcst4TMksxzs0zwPW31YKsa+GixdCCT/t0ehfUiuD2/sOYGzqehtl9IzVVNPl1+Ze/CWPxqbIwFgZmVHW/g68TgWzT+HnJc2i1bSUnVczX4JSdFH70NJyCK0QNx+oi390w15jhZ9XKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EjenV60T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448021; c=relaxed/simple;
+	bh=SxrOHXS7T/zPufR7L534X+DzHzUm9Qtt88qDApsgAeg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SOOcjwKtduHsiPuYiMbwMz+uPek2EAEFTUcXVN9whOg4ez7HKCu+cnjRZujNIbay5dzO4uLQhbeJyGy7mIc8YkLfCeMMmizw9igmKXoVKA+Mx7+KdftPaYBoMBhDWGpz2WPvgJSLwDldtjZ6NoW5AFx78K1S10pu5wRDC4/ytsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G1Buk+g2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EjenV60T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271DC1F000E9;
-	Thu,  3 Sep 2026 15:06:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G1Buk+g2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F362D1F000E9;
+	Thu,  3 Sep 2026 15:06:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788448017;
-	bh=6xkSR0tCt00k2k9P3XX3Z4vlndLuOCJLw8JoqLOHjWs=;
+	s=korg; t=1788448020;
+	bh=eeZeu00oTXYmg6Rno9iShM2nivcktCefZjnaeeLr7NQ=;
 	h=Subject:To:Cc:From:Date;
-	b=EjenV60TLqJ+1tERPwdTz8Ejys8XyEC1LzYJXJA8v1Aq4km3hHnU6+sUhAzpWoYli
-	 U2msEj1zxt5px2Dfc0wXpt/Rh/fkllKcQ6LkNtL9sQ9e0a8UKT0jBra9LxK1RHd8HG
-	 1IN3leZ/OYRryO3BANb6kJdHwazbl7VSrYMnaBBo=
-Subject: FAILED: patch "[PATCH] platform/x86/amd/pmc: Propagate SMU errors and validate S2D" failed to apply to 6.12-stable tree
-To: mario.limonciello@amd.com,francisdb@gmail.com,ilpo.jarvinen@linux.intel.com
+	b=G1Buk+g2qpA4qu++LlvrTeD7fE8NMMJhop99bd0j7ujjcqLK7ZOKBC2MKZIaID/WH
+	 inpnjmh5eXAzjbSFSNnPTe1QmDXs4xzJLK5x9rGmtpECLz5p+nJBNoWfIzXq9ghfrK
+	 9JDDTnGvKoOOhbMgyRuL90wi0+K5IymzAjdmeABY=
+Subject: FAILED: patch "[PATCH] platform/x86/amd/pmc: Fix msg_port restoration in" failed to apply to 6.18-stable tree
+To: mario.limonciello@amd.com,ilpo.jarvinen@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:50:17 +0200
-Message-ID: <2026090316-rogue-eggnog-a086@gregkh>
+Date: Thu, 03 Sep 2026 16:50:31 +0200
+Message-ID: <2026090331-president-referable-7380@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0225c1d637687b03726f00ac65b6def843d2c464
+git cherry-pick -x cbb32ff92f8a62212e0f7384b1de986ced92082b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090316-rogue-eggnog-a086@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090331-president-referable-7380@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,95 +62,88 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0225c1d637687b03726f00ac65b6def843d2c464 Mon Sep 17 00:00:00 2001
+From cbb32ff92f8a62212e0f7384b1de986ced92082b Mon Sep 17 00:00:00 2001
 From: Mario Limonciello <mario.limonciello@amd.com>
-Date: Tue, 21 Jul 2026 13:17:53 -0500
-Subject: [PATCH] platform/x86/amd/pmc: Propagate SMU errors and validate S2D
- address
+Date: Tue, 21 Jul 2026 13:17:52 -0500
+Subject: [PATCH] platform/x86/amd/pmc: Fix msg_port restoration in
+ amd_stb_debugfs_open_v2()
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-amd_stb_s2d_init() discards the return value of several S2D SMU commands.
-When the SMU refuses a command (e.g. "SMU cmd failed. err: 0xff") the
-failure is only noticed indirectly - if at all - and reported as -EIO,
-masking the real error.
+amd_stb_debugfs_open_v2() switches dev->msg_port to MSG_PORT_S2D to query
+S2D telemetry but only restores it to MSG_PORT_PMC on one path.  The early
+return on the dump_custom_stb path (and the error/allocation returns) leave
+the port stuck on MSG_PORT_S2D, so subsequent SMU communication - including
+the s2idle prepare/restore handlers - is directed at the wrong mailbox.
 
-More seriously, the S2D_PHYS_ADDR_LOW/HIGH return values are ignored, so
-on failure phys_addr_low/hi are left uninitialised and the assembled
-address is passed straight to devm_ioremap().  When the SMU leaves them at
-zero this maps physical address 0 and trips the ioremap-on-RAM warning:
+Consolidate the exit path through a single label so the message port is
+always restored, mirroring the fix in amd_stb_s2d_init().
 
-  amd_pmc AMDI000B:00: SMU cmd failed. err: 0xff
-  ioremap on RAM at 0x0000000000000000 - 0x0000000000ffffff
-  WARNING: CPU: 13 PID: 4592 at arch/x86/mm/ioremap.c:...
-
-Check the return value of each SMU command and propagate it, and reject a
-zero physical address before calling devm_ioremap().
-
-Reported-by: Francis De Brabandere <francisdb@gmail.com>
-Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221759
-Tested-by: Francis De Brabandere <francisdb@gmail.com>
-Fixes: 3d7d407dfb05 ("platform/x86: amd-pmc: Add support for AMD Spill to DRAM STB feature")
+Reported-by: sashiko.dev
+Link: https://sashiko.dev/#/patchset/20260717162023.956346-1-mario.limonciello%40amd.com
+Fixes: 2851f4f8ed4e ("platform/x86/amd/pmc: Define enum for S2D/PMC msg_port and add helper function")
 Cc: stable@vger.kernel.org
 Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-Link: https://patch.msgid.link/20260721181756.143084-4-mario.limonciello@amd.com
+Link: https://patch.msgid.link/20260721181756.143084-3-mario.limonciello@amd.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
 diff --git a/drivers/platform/x86/amd/pmc/mp1_stb.c b/drivers/platform/x86/amd/pmc/mp1_stb.c
-index 90b8a5cebfa8..1ec0e599df7f 100644
+index 83645c0a8d78..90b8a5cebfa8 100644
 --- a/drivers/platform/x86/amd/pmc/mp1_stb.c
 +++ b/drivers/platform/x86/amd/pmc/mp1_stb.c
-@@ -311,30 +311,39 @@ int amd_stb_s2d_init(struct amd_pmc_dev *dev)
- 	/* Spill to DRAM feature uses separate SMU message port */
- 	dev->msg_port = MSG_PORT_S2D;
+@@ -157,7 +157,7 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
+ 	struct amd_pmc_dev *dev = filp->f_inode->i_private;
+ 	u32 fsize, num_samples, val, stb_rdptr_offset = 0;
+ 	struct amd_stb_v2_data *stb_data_arr;
+-	int ret;
++	int ret = 0;
  
--	amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_TELEMETRY_SIZE, &size, dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
+ 	/* Write dummy postcode while reading the STB buffer */
+ 	ret = amd_stb_write(dev, AMD_PMC_STB_DUMMY_PC);
+@@ -176,22 +176,24 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
+ 	 * the enhanced dram size. Note that we land here only for the
+ 	 * platforms that support enhanced dram size reporting.
+ 	 */
+-	if (dump_custom_stb)
+-		return amd_stb_handle_efr(filp);
++	if (dump_custom_stb) {
++		ret = amd_stb_handle_efr(filp);
 +		goto out;
- 	if (size != S2D_TELEMETRY_BYTES_MAX) {
- 		ret = -EIO;
- 		goto out;
++	}
+ 
+ 	/* Get the num_samples to calculate the last push location */
+ 	ret = amd_pmc_send_cmd(dev, S2D_NUM_SAMPLES, &num_samples, dev->stb_arg.s2d_msg_id, true);
+-	/* Clear msg_port for other SMU operation */
+-	dev->msg_port = MSG_PORT_PMC;
+ 	if (ret) {
+ 		dev_err(dev->dev, "error: S2D_NUM_SAMPLES not supported : %d\n", ret);
+-		return ret;
++		goto out;
  	}
  
--	/* Get DRAM size */
--	ret = amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true);
--	if (ret || !dev->dram_size)
-+	/* Get DRAM size; fall back to the default if the query fails */
-+	if (amd_pmc_send_cmd(dev, S2D_DRAM_SIZE, &dev->dram_size, dev->stb_arg.s2d_msg_id, true) ||
-+	    !dev->dram_size)
- 		dev->dram_size = S2D_TELEMETRY_DRAMBYTES_MAX;
- 
- 	/* Get STB DRAM address */
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low, dev->stb_arg.s2d_msg_id, true);
--	amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi, dev->stb_arg.s2d_msg_id, true);
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_LOW, &phys_addr_low,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
-+	ret = amd_pmc_send_cmd(dev, S2D_PHYS_ADDR_HIGH, &phys_addr_hi,
-+			       dev->stb_arg.s2d_msg_id, true);
-+	if (ret)
-+		goto out;
- 
- 	stb_phys_addr = ((u64)phys_addr_hi << 32 | phys_addr_low);
--
--	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
--	if (!dev->stb_virt_addr) {
--		ret = -ENOMEM;
-+	if (!stb_phys_addr) {
-+		dev_err(dev->dev, "S2D phys addr query returned invalid address\n");
-+		ret = -ENXIO;
- 		goto out;
- 	}
- 
--	ret = 0;
-+	dev->stb_virt_addr = devm_ioremap(dev->dev, stb_phys_addr, dev->dram_size);
-+	if (!dev->stb_virt_addr)
+ 	fsize = min(num_samples, S2D_TELEMETRY_BYTES_MAX);
+ 	stb_data_arr = kmalloc_flex(*stb_data_arr, data, fsize);
+-	if (!stb_data_arr)
+-		return -ENOMEM;
++	if (!stb_data_arr) {
 +		ret = -ENOMEM;
++		goto out;
++	}
  
- out:
- 	/* Restore the default message port for subsequent SMU operations */
+ 	stb_data_arr->size = fsize;
+ 
+@@ -214,7 +216,10 @@ static int amd_stb_debugfs_open_v2(struct inode *inode, struct file *filp)
+ 
+ 	filp->private_data = stb_data_arr;
+ 
+-	return 0;
++out:
++	/* Restore the default message port for subsequent SMU operations */
++	dev->msg_port = MSG_PORT_PMC;
++	return ret;
+ }
+ 
+ static ssize_t amd_stb_debugfs_read_v2(struct file *filp, char __user *buf, size_t size,
 
