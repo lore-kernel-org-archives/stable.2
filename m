@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 733044B5CC0
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8244B66D6
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445455; cv=none; b=hoLpAH7lpsmWPdEPY2UkzCW6nMk6LUE2fgoV0ldNRWg7767uyatWKAdynaT5duVZccg5oG9VC5QFHZRM4xQGdYZwCOuS4hzKJTMJyvW8ooZHziTlih4zOrcUro8dtfCFIZzpSevkhhz4+ahtT9+4vax0w7KLHpzl749+ZQbKcuo=
+	t=1788445465; cv=none; b=NbUbGAPBgkrnkRDuGr7Cw9cOo7Vpu2mw9dOtCsOwJ77yG3PH+oLl0VvWSGHO7PvIcK0+PmLaKhfY4tp49VTK9lfcjwUj3JsSTPHqNyL426igLYpoCVJKqg+TSyNQOab6hmN2o3VyaqWwg1+kUQftAL6f75MGhPVIAPFo0gW76IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445455; c=relaxed/simple;
-	bh=9kW8gvCaHnHeQYdbgIbhe5LeiA6I9sN+gnOSsXrhTew=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ONzOmvOYtGG27dMI88wM3v1z/ZwwzxJ0SUPgfgG/Am9veihwJWUBXGjfiUnz6KSXs5S1pHoQ5KvdjKb6Wfl+VI/WZ1yT4QM0YLPQozz9pCv5kCTpR50g706Is2nhrpq04fS/vVpUTLQGbAts03K7h5mHt/UAVukuYjF6zqud4FA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tIjSxQj7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445465; c=relaxed/simple;
+	bh=0LExA4SPcJ9n7GmDMsYbI9Lm4C5fmixU1bgvkfyjlx4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=up9/xpwnnHC2kjtZ8j0ES8v03V5OQBtUHrdlPaGYji9sS+bOeEY3vo1VK39/T68LIAEGuuTlXDZG1CXLMD+mGgr9Xbv02fkTDClAavIm6Xonb13lZ6+3HCXnSwVlRl2UEhldnqpp55RaNp+lUo47aFyRDH3xWoTkl4VNa1O6ol4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IB2Ose1i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tIjSxQj7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA3DB1F00A3A;
-	Thu,  3 Sep 2026 14:24:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IB2Ose1i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1DA1F00A3F;
+	Thu,  3 Sep 2026 14:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445447;
-	bh=Dyvyn9GqBGjPpYMjnYrso2G4t3NnEmK1ShWtjTKfTa8=;
+	s=korg; t=1788445453;
+	bh=cC6JY4yuYkMvt2DaXk0BnA4M+cKKEKl2+RYSzQ6JnZc=;
 	h=Subject:To:Cc:From:Date;
-	b=tIjSxQj7EiBTM/oHsFV/6/KLGlb6PIb0yBZAtuYLjsO0Az6I+Ne9Np3OpERwmM8YD
-	 MXKDeBetpbCzR77ebIDwPt02o5NU2yNYArJPnnt58HVwz9s0DVEPtriY84RyI7cOtP
-	 HZ9rPJazWSva086HboPH3JVPRXOtFMS9PlZGL+Jg=
-Subject: FAILED: patch "[PATCH] kho: fix size calculation in kho_preserved_memory_reserve()" failed to apply to 6.18-stable tree
-To: pratyush@kernel.org,rppt@kernel.org,sashiko-bot@kernel.org
+	b=IB2Ose1iezd0iFTuv4MxpcGK21v5vV+4Yvk3R5y22P8gVhul2HuFryvCVuvbEoCf1
+	 X7BfNmWHcP+iRhpWlf3J1C69QIucNMBjqeoAHtx9EX+wQ3yrtfmeqZwsPMn3PjVpW+
+	 tU9Z/Lq3h+t8dxEvlQ9GivnHgeooOPyj2TfdgjLU=
+Subject: FAILED: patch "[PATCH] jbd2: bound shrinker scans by examined checkpoint buffers" failed to apply to 6.6-stable tree
+To: max.kellermann@ionos.com,jack@suse.cz,tytso@mit.edu,yi.zhang@huawei.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:59:07 +0200
-Message-ID: <2026090307-agreement-travesty-c6c9@gregkh>
+Date: Thu, 03 Sep 2026 15:59:24 +0200
+Message-ID: <2026090324-reemerge-botany-12c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded
+git cherry-pick -x 15cb16496446b94e67f7abcb049b8e2c75cd3d02
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090307-agreement-travesty-c6c9@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090324-reemerge-botany-12c4@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,43 +62,116 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3a0b8fa2eb36afc88b62a95f33f0c77c71fa5ded Mon Sep 17 00:00:00 2001
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
-Date: Mon, 27 Jul 2026 17:02:39 +0200
-Subject: [PATCH] kho: fix size calculation in kho_preserved_memory_reserve()
+From 15cb16496446b94e67f7abcb049b8e2c75cd3d02 Mon Sep 17 00:00:00 2001
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Mon, 13 Jul 2026 12:22:29 +0200
+Subject: [PATCH] jbd2: bound shrinker scans by examined checkpoint buffers
 
-kho_preserved_memory_reserve() calculates the size of a preservation by
-doing 1 << (order + PAGE_SHIFT). Since the '1' is a 32-bit integer, it
-can only be shifted by 31. That is, it will only work for preservations
-up to 2 GiB. Larger preservations will trigger undefined behaviour.
+The jbd2 shrinker currently accounts only checkpoint buffers that it
+successfully releases against nr_to_scan.  Busy buffers therefore do not
+consume the scan budget.
 
-While preservations larger than 2 GiB can't be obtained via folios
-currently, they can be obtained via kho_preserve_pages().
+If a checkpoint transaction contains mostly busy buffers, the shrinker
+can scan its entire checkpoint list while holding journal->j_list_lock.
+Large checkpoint lists can result in excessive lock hold times and leave
+other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
 
-For example, memblock reserve_mem uses kho_preserve_pages().
-Reservations larger than 2 GiB are valid and will trigger this bug if
-properly aligned.
+Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
+every buffer examined, including busy buffers.  Pass NULL from checkpoint
+cleanup paths so their existing full-list behavior is preserved.
 
-Fix it by using 1UL for shifting.
+This restores the scan-budget semantics that existed before
+journal_shrink_one_cp_list() was changed to always scan a complete
+checkpoint list.
 
-Fixes: fc33e4b44b27 ("kexec: enable KHO support for memory preservation")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
-Link: https://patch.msgid.link/20260727150240.889555-1-pratyush@kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
 
-diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
-index 175c08a6e41e..6fad9152387a 100644
---- a/kernel/liveupdate/kexec_handover.c
-+++ b/kernel/liveupdate/kexec_handover.c
-@@ -501,7 +501,7 @@ static int __init kho_preserved_memory_reserve(phys_addr_t phys,
- 	struct page *page;
- 	u64 sz;
+diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+index 5266017565ac..513273712010 100644
+--- a/fs/jbd2/checkpoint.c
++++ b/fs/jbd2/checkpoint.c
+@@ -358,15 +358,16 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ /*
+  * journal_shrink_one_cp_list
+  *
+- * Find all the written-back checkpoint buffers in the given list
+- * and try to release them. If the whole transaction is released, set
+- * the 'released' parameter. Return the number of released checkpointed
+- * buffers.
++ * Find written-back checkpoint buffers in the given list and try to release
++ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
++ * transaction is released, set the 'released' parameter. Return the number of
++ * released checkpointed buffers.
+  *
+  * Called with j_list_lock held.
+  */
+ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 						enum jbd2_shrink_type type,
++						unsigned long *nr_to_scan,
+ 						bool *released)
+ {
+ 	struct journal_head *last_jh;
+@@ -375,13 +376,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ 	int ret;
  
--	sz = 1 << (order + PAGE_SHIFT);
-+	sz = 1UL << (order + PAGE_SHIFT);
- 	page = kho_get_preserved_page(phys, order);
+ 	*released = false;
+-	if (!jh)
++	if (!jh || (nr_to_scan && !*nr_to_scan))
+ 		return 0;
  
- 	/* Reserve the memory preserved in KHO in memblock */
+ 	last_jh = jh->b_cpprev;
+ 	do {
+ 		jh = next_jh;
+ 		next_jh = jh->b_cpnext;
++		if (nr_to_scan)
++			(*nr_to_scan)--;
+ 
+ 		if (type == JBD2_SHRINK_DESTROY) {
+ 			ret = __jbd2_journal_remove_checkpoint(jh);
+@@ -403,7 +406,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
+ next:
+ 		if (need_resched())
+ 			break;
+-	} while (jh != last_jh);
++	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
+ 
+ 	return nr_freed;
+ }
+@@ -425,7 +428,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
+ 	tid_t tid = 0;
+ 	unsigned long nr_freed = 0;
+-	unsigned long freed;
+ 	bool first_set = false;
+ 
+ again:
+@@ -458,10 +460,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+ 		next_transaction = transaction->t_cpnext;
+ 		tid = transaction->t_tid;
+ 
+-		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-						   JBD2_SHRINK_BUSY_SKIP, &released);
+-		nr_freed += freed;
+-		(*nr_to_scan) -= min(*nr_to_scan, freed);
++		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
++						       JBD2_SHRINK_BUSY_SKIP,
++						       nr_to_scan, &released);
+ 		if (*nr_to_scan == 0)
+ 			break;
+ 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
+@@ -517,7 +518,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
+ 		transaction = next_transaction;
+ 		next_transaction = transaction->t_cpnext;
+ 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
+-					   type, &released);
++					   type, NULL, &released);
+ 		/*
+ 		 * This function only frees up some memory if possible so we
+ 		 * dont have an obligation to finish processing. Bail out if
 
