@@ -1,193 +1,139 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCCC40928C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:15:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1AB4B5412;
+	Thu,  3 Sep 2026 14:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444966; cv=none; b=Xu/HLaowJGWnwKDIPk0rqS4OLH6iHbVyvx+EvggIF+k5EDB3U05EuL/gxMoJRkrVA++6/jW/H2uck/ZaSOvBwQI5d62NBYYS+HfDvbs0SdTSdXWDMJsMkzURGCVNMeNOq0nI3fW7a0UO7sVulJxj0ST8ljS89WHr7gU1n0Z0Lw4=
+	t=1788445162; cv=none; b=NE5uDKhFlL7jJXuLO12RPpNJUl4Bn/UkEZL3PAT/KExpsn5u3rdyLhkFr4yjfIxMdYyjFOFpkQBUS1mzAzcCo0XtZcKlKT9ACRfuaKy1DnjyZO+WNBt2PsZc3Iy/1+tLEX9WmoCl8fcetNDFgvKpRVQp/+sEnF0L6y2RytvsEWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444966; c=relaxed/simple;
-	bh=UUoCs3OS1DpEKPOf4QHK0Gnr950LiLZG3z9kQysx8iA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=JMjDaIKM7HJLeKf48x/UHxh7raYKGvxDPVs0/QlqZrdxPqxHYF8QMicOFPCRgQr2fmMtWiPwmPdwn4eoLrqFjBKInfNZFKgI1RxGovXWoL2l8vQ6Nlkazt5a+ILK6GZVndQvGadlzLleO0Fk7ZDMuTgV7L5Y9ptAELeMb+SnKPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cqqz5c/4; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788445162; c=relaxed/simple;
+	bh=Gvv3xws9lDSoCUycNPBtoGcVCIGgjwwMxk9617wb79M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=knoVoLMyilbJbpRCtVFYJeWO0RG27I9a8+pWgIiqoM8CRarv46jPeM7yAi1Ps3sjF1U9nXdC+YM/kbMolcdMDFq+M9oZV+wJNmwP2qQ2U54qA9hbXcrHZdyVN0dvgus++G9i+K0bOsFL3Ju5C9W27qaiqKdU5WGFvzQTldt1llg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SrdITyXD; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cqqz5c/4"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d9db539a54so21500085ad.0
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 07:15:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788444953; x=1789049753; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=Cqqz5c/44snunzLcV09QO2GkN8HQHyV27leGmNheGUk7hu0GeScRFj+k7lBzulgcoP
-         ptTrE6WUEDMyrCAmXSZyivs3MrgHZ2yIxKgAAq8baGpXNTlrClEPDM9EfQSATTW0n+bO
-         3VzhfsN04Fm4Pq2RNTFB41LuwbqvbT7zqh1P856F/FC8wWOHCEE0FYVqzdZjHiUd/FUF
-         F04dBva+GG24/yFuhDItlcyS7+5kPODQRxA731o4eSnxfUxsp4Z5PqZc02RImivOtb/I
-         9j9P6wQ6D9/5v6kj6fZCIPYGj8/nQJLRjdxjQUKSaJ5wGMhMGiUoCn+rqb2ooji63md1
-         onbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444953; x=1789049753;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=M/ZK/xx0vw30xpEMX0Vq91bC1VuNEtU14AtApfGYtxbf5YEpZ/sRnuF1/AvUabpoWy
-         0emwUPGxiwchcpk2IzS5UMInkhf//N3/4aDtiYqUdPZOwDqhTDZiqKTGFJj3aH6+DIWV
-         NzQKoZRdxTP108Ft6yuoczMIEGDVmz/WYxLGbManCDsWraJZ8CEAxyVJtpSn/Fwp5wMA
-         alU2sZ86nWv+JclmqSSUym5OXjUMfI9+COqUyfo6k2JnHq/pDP4DDPj7ttlyF7Q3Hf2F
-         /+GBU6ejFRI+gcE486Qqz1XDy0mD8+AvBAPWRuflnoFCVNIvAaPFdqkkPXn7e2mlzsG+
-         McSA==
-X-Forwarded-Encrypted: i=1; AKwUvBy143BolnPP0VH/UJ1ir2bc7nlb3MYtcBJ/VgcYxdTQvIf7CV3beZe/xTWEwxfnH9AMYT2Q4w0=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3LN+/8LhxP3eniqd3kwFWkIHVGTxGfZ0oRFt1Y/bwZSHUeD/E
-	oQeUNEwP2jZ5D4Olpvxu91wGKA2pG1eDfdXC6z580L1M73xV/SiXsszL
-X-Gm-Gg: AYBFou3Dqm7XZBBXLtn7Nkc8ob+ZyPN35zDFg5bqQc6gqR5rR/a8hDAbprqo+1ixQfU
-	+iCkqFr21zC/wEAMWnGvgPjKHe/0220kpT0pbUsrSMhuKoYAmBm0q4W2VbJWlPyC51dJgd2BCb1
-	OVpjar/qr9ukowQj33ulZlGO/HR3TpzqTvYDKtEkHlsSsdqLbvkkA/GGdVdfhinCLeY0Hb4pImT
-	WuBd5T3q8nLrXVgBnWcFuNykFLOaVVPNtEy3gnsZWp98ux2adaQrCcbwA5uSW/xkF4wb8au1WPa
-	Mv5ZRgueVsWf/pbjSM1yirA1fqKUgXm2qLzc8kU13+6qxGQLJD5zvt7nesc6pyXiz3EjAaW/J4W
-	7JNzPaLM/6SfeqmG4rOQtgDisVwZZB67GjgjCoxUwQipHt4ckMtws+RDSokbZQyGW4w/43F9nwb
-	9bpqxfmtzhYSEHf32T1UWzn5Bk4lQazEAH6UT9S59oXgBUeTlK8NmsEUM8yV2natocdzvf93mnW
-	VEjPGdGQ4Zoq9YoF5Hb3V+J7Q==
-X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr21177322a91.13.1788444953135;
-        Thu, 03 Sep 2026 07:15:53 -0700 (PDT)
-Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5793909a91.4.2026.09.03.07.15.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:15:45 -0700 (PDT)
-From: Hongbing Hu <huhb04@gmail.com>
-X-Google-Original-From: Hongbing Hu <huhb1@xiaopeng.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hongbing Hu <huhb04@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: uvcvideo: defer cancelled buffer completion until copies finish
-Date: Thu,  3 Sep 2026 22:15:32 +0800
-Message-Id: <20260903141532.6693-1-huhb1@xiaopeng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903131141.6368-1-huhb1@xiaopeng.com>
-References: <20260903131141.6368-1-huhb1@xiaopeng.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SrdITyXD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788445139; x=1819981139;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=Gvv3xws9lDSoCUycNPBtoGcVCIGgjwwMxk9617wb79M=;
+  b=SrdITyXDoCQYZmO6b0cNiHAdQ7mDVcHWZngPxmY+RpYUo1scIWyQOoWH
+   oexNIh3/BAh79MIaC1anhpy2UKvDN5M4wx4NaoljUgw2GPgcWaR5/P8xQ
+   MZrXxqgFDdggMUiwSQMJk4YgD8b+f97Z/Elb8LCwFOJFM6uJ6NAM+fMrM
+   iBuiXR12q9BI5v9T3rk/5DOUpQt+/RIzGCrPcTrU12l4zeD2uWhIU1wtz
+   1dwZuo0IvGJOTuqAZMh4tdZesLwtSwLq9ImA4EyWLLLs0OroalW01AtZi
+   qwEKOEV3whJ8nr/Vfoqm9PlDn7IJ03c/tFcceZSR1f/4T6P4JTNr38x7X
+   Q==;
+X-CSE-ConnectionGUID: RuttNeiLToeIOzwW0YKphg==
+X-CSE-MsgGUID: AhJ7g3inRPuBke38wEml6Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="111702622"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="111702622"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:18:55 -0700
+X-CSE-ConnectionGUID: wVQ2ynyeR8qedvMnTrUv+A==
+X-CSE-MsgGUID: u5dzNVK0Q4uW1v/b4op80w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="269732715"
+Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:18:55 -0700
+Message-ID: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
+Date: Thu, 3 Sep 2026 07:18:54 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+To: Kiryl Shutsemau <kas@kernel.org>, Vernon Yang <vernon2gm@gmail.com>,
+ rick.p.edgecombe@intel.com
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, akpm@linux-foundation.org, david@kernel.org,
+ hpa@zytor.com, rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
+ pasha.tatashin@soleen.com, tj@kernel.org, rppt@kernel.org,
+ yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org,
+ x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+ <aplfcTfjeQUgnrvH@thinkstation>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <aplfcTfjeQUgnrvH@thinkstation>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Hongbing Hu <huhb04@gmail.com>
+On 9/3/26 04:54, Kiryl Shutsemau wrote:
+>> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+>> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+> Hm. I don't understand why would this commit explicitly exclude
+> _PAGE_DIRTY from the mask:
+> 
+> -       val &= _HPAGE_CHG_MASK;
+> +       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
+> 
+> Rick, could you comment? It doesn't look like a typo.
 
-uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-run, userspace can dequeue and requeue the buffer while the old worker is
-still running, leading to the same list_head being inserted into irqqueue
-twice and corrupting the list.
+My guess is that it's some remnant from an earlier version of the patch.
+The asymmetry with pte_modify() vs. pmd_modify() just can't be explained
+any other way. It _might_ have been some attempt to say, "Hey
+_PAGE_DIRTY is now a part of the pgprot_t since it's part of the
+'permissions' of a shadow stack PTE" that got abandoned.
 
-The crash manifests in two ways depending on the drop-corrupted-frames
-module parameter:
+But I don't see anything wrong with the fix at all.
 
-1. With the drop corrupted frames enabled, the old worker's
-   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
-   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
-   buf->queue even though userspace has already QBUF'd the same buffer and
-   added it to irqqueue.
+It does give me pause that this has been losing user data for so long,
+but it must just be a weird combination of features that few folks use
+together (huge pages + MADV_FREE).
 
-2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
-   second time. If userspace has already dequeued and requeued the buffer,
-   the second completion exposes it to userspace again, and the next
-   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
-   time.
-
-Both cases produce the kind of list_del corruption seen here:
-
-    list_del corruption. next->prev should be ..., but was ...
-    kernel BUG at lib/list_debug.c:64!
-
-Fix the cancel path to remove buffers from irqqueue and drop the queue's
-reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-VB2 completion then only happens from uvc_queue_buffer_complete() once the
-last async reference is released, so userspace cannot reuse the buffer
-while an old worker still accesses it.
-
-A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
-as an error and must not be requeued by the corrupted-frame policy. Normal
-malformed frames are still requeued/dropped as before.
-
-Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongbing Hu <huhb04@gmail.com>
----
-v2: corrected author real name in From/SOB per maintainer feedback
-
- drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index 3c002c8f44..9206e0a355 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
-  */
- void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- {
-+	struct uvc_buffer *buf, *next;
-+	struct list_head local_list;
- 	unsigned long flags;
- 
-+	INIT_LIST_HEAD(&local_list);
-+
- 	spin_lock_irqsave(&queue->irqlock, flags);
--	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-+	while (!list_empty(&queue->irqqueue)) {
-+		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-+		list_del(&buf->queue);
-+		buf->state = UVC_BUF_STATE_ERROR;
-+		list_add_tail(&buf->queue, &local_list);
-+	}
- 	/*
- 	 * This must be protected by the irqlock spinlock to avoid race
- 	 * conditions between uvc_buffer_queue and the disconnection event that
-@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- 	if (disconnect)
- 		queue->flags |= UVC_QUEUE_DISCONNECTED;
- 	spin_unlock_irqrestore(&queue->irqlock, flags);
-+
-+	/*
-+	 * Release the queue-owned kref outside the irqlock. The final VB2
-+	 * completion only happens from uvc_queue_buffer_complete() once all
-+	 * asynchronous copy references have been released, preventing userspace
-+	 * from reusing the buffer while an old worker still accesses it.
-+	 */
-+	list_for_each_entry_safe(buf, next, &local_list, queue) {
-+		list_del(&buf->queue);
-+		uvc_queue_buffer_release(buf);
-+	}
- }
- 
- /*
-@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
- 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
- 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
- 
--	if (buf->error && !uvc_no_drop_param) {
-+	/*
-+	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-+	 * errors. They must not be requeued by the corrupted-frame policy even
-+	 * when buf->error is set.
-+	 */
-+	if (buf->state != UVC_BUF_STATE_ERROR &&
-+	    buf->error && !uvc_no_drop_param) {
- 		uvc_queue_buffer_requeue(queue, buf);
- 		return;
- 	}
--- 
-2.34.1
 
