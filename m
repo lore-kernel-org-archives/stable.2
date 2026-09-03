@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B58334BAA14
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:30:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4DC4B8DE2
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:30:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445838; cv=none; b=uELhmjWAmb/aEcbhNUg5Yd248hn20ApuYrgbJjxstVnkatqUNusUHYFJN5aclgO+RaxXSOcxNn5T56zxu8ppoVJkEOVmNm/6JuXkA3xgAg4grhBNwKq4FcaOh6NeHhY3J5PRyI1Yar5D1O1zkI9Npl+NwfS/M1XTw4ilqu4yXFQ=
+	t=1788445838; cv=none; b=cegwyjieSF5MzSCADZXtao2WZUm2rxrFLi4rvGG90Z7+JJATdfgVgL71epa5qkoP3YRpfcSSLbid4BRd1ipNlr0WXQpoEOrQK6bCirqx4PFj8i92ZnDxVSXnUZYgcbGfdYKX9ux1fCfsK17aL2GDqgnuR7AfPvJ4OhQ/WCzBk/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788445838; c=relaxed/simple;
-	bh=XrbcSOgFLV0YjQ0awXpkNvFsBnnCrMzSWcLTVR2DVLs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KE8b66WQSqZ+JnORA+MtlYKi2lJpvGvz9K5FsLARasB19sGMmvkyYu8Fm1j2upGaKBiKwrc2RI+jDs68hwZPugsTxCwIiL12qPbluzkKA6z9oDyOiATc28QoISerC5BJqGpSG+ZkkKI9IhWK6SLl+5wwQDOnqD8ECtK5LQccQPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2GBjYWUz; arc=none smtp.client-ip=100.103.45.18
+	bh=gaeuULTvdiWt161V7+4HsNbke3hv3wVI/C5MklMyinQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PHYFfnVCV31yJ8rGUUxNAsfO4bv+NQgqZzlG/QfG7z+5chzHMPYcFlhlMCT8ummqlU6L7Uu5E3rqHzKEwnsYurWQaLzLMKHTMQaBzWOs9jJoKO9Xgpf91TWNFbNgsNOq+L8w/kDRlaRj00d8e+7jX3WFWZ8YrmKZn+08j5mXTos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1nbMQn4E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2GBjYWUz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC4801F000E9;
-	Thu,  3 Sep 2026 14:30:23 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1nbMQn4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E3111F00A3F;
+	Thu,  3 Sep 2026 14:30:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445824;
-	bh=KZceEK90K70+2Z3NDCsWweADX4kDSg3NpaimilqOmUQ=;
+	s=korg; t=1788445815;
+	bh=/O3tGR8JWeK9aypoQufm8x/VqQxTslI3okP/6NgyMx8=;
 	h=Subject:To:Cc:From:Date;
-	b=2GBjYWUzRSUevcT5Parht35a0MQgRNVnRq1sXSKfuNl9c4z5yNZRxvYtxoHb/4ac3
-	 /5TJBdHnyCpw0KW2Di+u4kmoCbW1pnCKp3RyHIyvdQ54lNijCvHJfhW9Ikx+FndIeB
-	 fwtcm1kQ3W6yPQ4vWbGoxyT9720mDF3/lIquzfU8=
-Subject: FAILED: patch "[PATCH] SUNRPC: fix gssx_dec_option_array error path bugs" failed to apply to 6.6-stable tree
-To: clm@meta.com,chuck.lever@oracle.com,jlayton@kernel.org
+	b=1nbMQn4Egua2F1+Y2Nb+LCbsrn2fOqD3sTs05i0zRkwjQzi0+0bjQ6ovp65sWEp1x
+	 cY5Y3TlRIr4dWFE8gyqAtWuZkeUBZOIVD3/xeU1thnbvOf+yg5LC/xbYVl3eybeZzo
+	 PfwtPYcNxvB2PIhFFVbIsxBXOEOYjxYhOvTIk+pE=
+Subject: FAILED: patch "[PATCH] sunrpc: defer rq_argp and rq_resp free until after RCU grace" failed to apply to 5.10-stable tree
+To: jlayton@kernel.org,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:07:01 +0200
-Message-ID: <2026090301-irritant-cage-55aa@gregkh>
+Date: Thu, 03 Sep 2026 16:06:51 +0200
+Message-ID: <2026090351-divinely-underpay-2e28@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5e9a94539b1ec17a89177d952badfd0d844d694a
+git cherry-pick -x c479bde671cbe2f9e152834a8b0eb7c3c295bbaf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090301-irritant-cage-55aa@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090351-divinely-underpay-2e28@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,109 +62,65 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5e9a94539b1ec17a89177d952badfd0d844d694a Mon Sep 17 00:00:00 2001
-From: Chris Mason <clm@meta.com>
-Date: Thu, 28 May 2026 15:32:09 -0400
-Subject: [PATCH] SUNRPC: fix gssx_dec_option_array error path bugs
+From c479bde671cbe2f9e152834a8b0eb7c3c295bbaf Mon Sep 17 00:00:00 2001
+From: Jeff Layton <jlayton@kernel.org>
+Date: Thu, 11 Jun 2026 16:00:47 -0400
+Subject: [PATCH] sunrpc: defer rq_argp and rq_resp free until after RCU grace
+ period
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Four coupled defects in the gssx XDR option-array decoder make the
-error paths unsafe: a NULL deref in the caller, a refcount leak on
-the decoded group_info, and a latent use-after-free that the leak
-fix would otherwise expose.
+svc_rqst_free() frees rqstp->rq_argp and rqstp->rq_resp synchronously
+via kfree(), but defers the rqstp struct free via kfree_rcu().  After
+svc_exit_thread() calls list_del_rcu() and svc_rqst_free(), there is
+a window where RCU readers that started before list_del_rcu() can still
+traverse the thread list and find the rqstp.  These readers (e.g.
+nfsd_nl_rpc_status_get_dumpit()) dereference rqstp->rq_argp, which has
+already been freed — a use-after-free.
 
-gssx_dec_option_array() sets oa->count = 1 before allocating
-oa->data.  If that allocation fails, -ENOMEM is returned with
-oa->count == 1 and oa->data == NULL.  All other error paths jump
-to free_oa: which frees oa->data and NULLs it but also leaves
-oa->count == 1.  The caller trusts the count:
+Fix this by moving the kfree of rq_argp and rq_resp into an explicit
+call_rcu() callback alongside the struct free.  Resources not accessed
+by RCU readers (bvec, buffer pages, scratch folio, auth_data) remain
+synchronously freed.
 
-    gssp_accept_sec_context_upcall()
-      gssx_dec_accept_sec_context()
-        gssx_dec_option_array()        /* fails, count=1 data=NULL */
-      data = res.options.data[0].value /* NULL deref */
-
-Independently, free_creds: releases the partially decoded svc_cred
-with a bare kfree(creds).  gssx_dec_linux_creds() installs a
-groups_alloc() result into creds->cr_group_info; that object is
-kvmalloc-backed and refcounted, and only put_group_info() reaches
-kvfree().  A plain kfree(creds) drops the wrapper and leaks the
-group_info allocation.
-
-The natural fix for the leak is to call free_svc_cred(creds) before
-kfree(creds), but free_svc_cred() invokes put_group_info() on
-creds->cr_group_info unconditionally when non-NULL.  The existing
-out_free_groups: path in gssx_dec_linux_creds() already called
-groups_free() on that pointer without clearing it, so once
-free_svc_cred() is wired in, the subsequent put_group_info() would
-touch freed memory.
-
-Fix all four together:
-
-  - Move the oa->count = 1 assignment below the oa->data allocation
-    so it is never set when oa->data is NULL.
-  - Reset oa->count to 0 at free_oa: so count and data stay
-    coherent and the caller sees an empty option array.
-  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
-    so the refcounted cr_group_info is released.  free_svc_cred()
-    either NULL-guards each field explicitly (cr_group_info has
-    an if() check) or delegates to a helper that is NULL-safe
-    itself (kfree for the string fields, gss_mech_put() which
-    guards with if(gm) at gss_mech_switch.c:342), so it is safe
-    to call on a partially decoded svc_cred where only
-    cr_uid/cr_gid/cr_group_info have been written and everything
-    else is zero from kzalloc.
-  - In gssx_dec_linux_creds()'s out_free_groups: path, release
-    cr_group_info with put_group_info() rather than groups_free()
-    so the teardown matches free_svc_cred()'s refcount-aware path,
-    and clear the pointer so a later free_svc_cred() on the same
-    creds does not release it a second time.
-
-Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
+Fixes: 812443865c5f ("sunrpc: add a rcu_head to svc_rqst and use kfree_rcu to free it")
 Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-4-5b90e276f2d9@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-index fceee648d545..f2b8f919adea 100644
---- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
-+++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
- 
- 	return 0;
- out_free_groups:
--	groups_free(creds->cr_group_info);
-+	put_group_info(creds->cr_group_info);
-+	creds->cr_group_info = NULL;
- 	return err;
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index 86d39610cf0a..dd80a2eaaa74 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -716,6 +716,15 @@ svc_release_buffer(struct svc_rqst *rqstp)
+ 	}
  }
  
-@@ -242,12 +243,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 		return 0;
- 
- 	/* we recognize only 1 currently: CREDS_VALUE */
--	oa->count = 1;
--
- 	oa->data = kmalloc_obj(struct gssx_option);
- 	if (!oa->data)
- 		return -ENOMEM;
- 
-+	oa->count = 1;
++static void svc_rqst_free_rcu(struct rcu_head *head)
++{
++	struct svc_rqst *rqstp = container_of(head, struct svc_rqst, rq_rcu_head);
 +
- 	creds = kzalloc_obj(struct svc_cred);
- 	if (!creds) {
- 		err = -ENOMEM;
-@@ -294,8 +295,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
- 	return 0;
++	kfree(rqstp->rq_resp);
++	kfree(rqstp->rq_argp);
++	kfree(rqstp);
++}
++
+ static void
+ svc_rqst_free(struct svc_rqst *rqstp)
+ {
+@@ -724,10 +733,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
+ 	svc_release_buffer(rqstp);
+ 	if (rqstp->rq_scratch_folio)
+ 		folio_put(rqstp->rq_scratch_folio);
+-	kfree(rqstp->rq_resp);
+-	kfree(rqstp->rq_argp);
+ 	kfree(rqstp->rq_auth_data);
+-	kfree_rcu(rqstp, rq_rcu_head);
++	call_rcu(&rqstp->rq_rcu_head, svc_rqst_free_rcu);
+ }
  
- free_creds:
-+	free_svc_cred(creds);
- 	kfree(creds);
- free_oa:
-+	oa->count = 0;
- 	kfree(oa->data);
- 	oa->data = NULL;
- 	return err;
+ static struct svc_rqst *
 
