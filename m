@@ -1,63 +1,120 @@
-Received: from jasonwiebedairy.com (jasonwiebedairy.com [45.79.9.129])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7DE843F074A
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 21:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.9.129
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E4439A4D6;
+	Thu,  3 Sep 2026 21:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469895; cv=none; b=pB/tbqwK9q9oywZRQEdji2h5z18yZsQNwpWmKAEOVJ+/Ze+Wm7boc0fuZ8TxSPVTiEI00tUIgV0waXhJ2HWbZDEt+5dP91C468zlmYWGYIvJ8nPjuMQRfGijxtPoQahPGbT+gQEEAq2dj1QAyV8LANGr/54lrSFwZpCWzsCcqC0=
+	t=1788470086; cv=none; b=pKXOKLVYMA76/IBuNF8aNQk7diWbWW0IZNhw+wR7IxVi4P5amHusnkbzBXf/m2hkvsjYGnxsAs+ErU2F1xFnjHaXqiIuPdoWgyXTSfTx7o/P1OT2/yKg+31k1XhXOJ7UPBIPYMJf+JBTVNrpAJq0T9d2R38KEiG+HUVbBWe1zBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469895; c=relaxed/simple;
-	bh=6V+1BHNv0rXvby/42oduHDy3q8uEde1Zv+oyXE8EZEM=;
-	h=Message-ID:Date:To:Cc:From:Subject:Content-Type; b=uimpbp7xDmr75w71gOBJTZP/WXo05qq5UorBzOkfGv4iGRhx27Ax3H8Bav1/cIZA6SkDoXU6vxFdXTKbJrK93fvO3P7BPJZJVhnq1KE1ciUZNxunD2w3XhQNhtZAI8j3dFl4MjWn6VVsnKsdkH8/jmoH4jOu+UHws/liZ3QJMew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=benjiwiebe.com; spf=pass smtp.mailfrom=benjiwiebe.com; dkim=pass (1024-bit key) header.d=benjiwiebe.com header.i=@benjiwiebe.com header.b=X7HlPNMC; arc=none smtp.client-ip=45.79.9.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=benjiwiebe.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=benjiwiebe.com
+	s=arc-20240116; t=1788470086; c=relaxed/simple;
+	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JfnNw3ovE5SZXHURoiN9QP6sj/wg17lJtf86hD1TdD9iPZCEfV86YQS/EoAPiHCMAGXKl7jtwHvE1CwW35VIL2yKDMlVdwxND64IsITsFRaUo2mtkVZlpOAXqlZ/3NL14g+zL3WlhEM0x82sIw00atgz64IVLNrzk8dqoB4Bf+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyynRAsX; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=benjiwiebe.com header.i=@benjiwiebe.com header.b="X7HlPNMC"
-Message-ID: <c26ff09f-48d6-4ef3-9feb-8a8e6d6f37ba@benjiwiebe.com>
-DKIM-Filter: OpenDKIM Filter v2.11.0 jasonwiebedairy.com EE8A1C0354
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=benjiwiebe.com;
-	s=default; t=1788469331;
-	bh=h5i5c3DfuYwkJat1s1T5twJ9jlLVLzEh+TkSp4TH950=;
-	h=Date:To:Cc:From:Subject:From;
-	b=X7HlPNMC+eFkkhx9ksxzdffFGVl7c+nJ7xjYN5VLv/J0TuMHhmjCFg4HnfDySRys8
-	 /HFMbTev6mLm8BxQJL61BU1F3SwECLO7KM4kyQ1zTQrEURqIkMzXe7o7h3KLk8CZbu
-	 j2yDTjNct6k98MsyXIHBnXX7wT+rzg/SkHDA4S1c=
-Date: Thu, 3 Sep 2026 16:02:10 -0500
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stable@vger.kernel.org
-Cc: regressions@lists.linux.dev, chuck.lever@oracle.com
-From: Benji Wiebe <itsme@benjiwiebe.com>
-Subject: [REGRESSION] reads and writes hang if NFS server has v3 disabled
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyynRAsX"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E907FC2BCB8;
+	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788470085;
+	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=SyynRAsXw8WE+yZUw7IOMPSnAtIqgNa2Hv+OTJcVf5/oya6WKp8sKrXnO+4lgJWeM
+	 NaWlvMwtpGpP9Fb77U1pSvLTy4pBW1SS1awTGNO7EamkN/EE70y3xarw3BZ7eFTXRS
+	 uRj3NOTU9iuENE9lLcFToET9Q2rJqOtPz+OEgFRR14nrtGtIfUEnrh12siDzlm0uRR
+	 RwZBUR5V1+w5jaPGxKPwfBna+kH6b+Dfw2O7IWAzab3CQ/ibUbcDd9vuaNlU1Aq8Fe
+	 O/Bg8yUI9uEJURQloEAn/HuQLCs22uKlIR4lXZYQ9aIf59qA5VKLVo22zY0TFqX+Qw
+	 HKIcIT2RHn7FA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6198C61DD3;
+	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
+From: Roman Prucha via B4 Relay <devnull+zorgan.roman.gmail.com@kernel.org>
+Date: Thu, 03 Sep 2026 23:14:44 +0200
+Subject: [PATCH] ALSA: ctxfi: Fix CA20K2 S/PDIF passthrough
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-ctxfi-spdif-conf9-fix-v1-1-5e4e3e1f801c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsESDPtKdCjdrb2YaIQg/T3pO
+ AMzFTIloQxzVyHRI1mu0GDoO3DnFg5C8Y1hVKNRVml0d2HBHL0wuiuwRZaCu1WWJ9LGeAetjYm
+ a/r/L+r4f6f2l2GcAAAA=
+X-Change-ID: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Colin Ian King <colin.i.king@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Roman Prucha <zorgan.roman@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470085; l=1760;
+ i=zorgan.roman@gmail.com; s=20260903; h=from:subject:message-id;
+ bh=jp1ueNFuA7dYZ45fIz/uA/BuyiO44DD0w6SFBbr7Fa0=;
+ b=z3wyA/sdLPH8AAAP3N3Tqh9wZQJozr+KoUi594t9AJYiIajbW0/CJga6QNj9JUZYR/aLf3hMp
+ LZ8Q2LFr1REC5GQA9FP6t1eVQsRP6woUy8JBsHMOVV3uUk7feiqmH0L
+X-Developer-Key: i=zorgan.roman@gmail.com; a=ed25519;
+ pk=nrIfal6DL0s9II7312EtRS98gHuLh87xybqQk8LhJw4=
+X-Endpoint-Received: by B4 Relay for zorgan.roman@gmail.com/20260903 with
+ auth_id=1001
+X-Original-From: Roman Prucha <zorgan.roman@gmail.com>
+Reply-To: zorgan.roman@gmail.com
 
-I'm using a minimal Fedora 45 VM (kvm) for testing.  I export a 
-directory with rw and mount it from my personal computer running Fedora 
-45 as well.
-If /etc/nfs.conf has vers3=n, then reads and writes hang in D+ state, 
-and there's a continuous loop of V3 NULL calls, with the server replying 
-that it only supports v4.
-If nfs.conf has vers3=y, then the reads and writes succeed.
-Introduced in 70b7e3526c53d9dd, still present in the latest 
-mainline/master (841e384b841a).
+From: Roman Prucha <zorgan.roman@gmail.com>
 
-The hung state can be rescued by changing the setting and restarting 
-nfs-server, at which point the read/write will complete.
+dao_rsc_init() encodes the DAIO configuration as
 
-I can do more testing / get more information as needed.
+    conf = (desc->msr & 0x7) | (desc->passthru << 3);
 
-Here's links to pcap files with it working/bugged:
-http://grepper.net/lkml-files/nfs-working.pcap
-http://grepper.net/lkml-files/nfs-bugged.pcap
-http://grepper.net/lkml-files/nfs-bug-kernel.config
+S/PDIF passthrough uses msr=1 and passthru=1, resulting in
+conf=9.
 
-#regzbot introduced:  70b7e3526c53d9dd7caccdbeff5b0485640d8cf1
+daio_mgr_dao_init() masks conf with 0xf, but handles only values
+1, 2, 4 and 8 when programming ATXCTL_NUC. As a result, conf=9
+falls through to the default case and leaves NUC at its previous
+setting.
 
---
-Benji Wiebe
+On a Creative X-Fi Titanium HD SB1270 (CA20K2), this breaks AC3
+IEC61937 passthrough when snd_ctxfi runs with
+reference_rate=48000,multiple=2. The receiver detects a non-audio
+stream but cannot decode the AC3 payload.
+
+With the unmodified driver, multiple=1 makes the same stream work.
+Handle conf=9 through the same NUC=0 path as conf=1.
+
+The change was runtime tested on the SB1270 with multiple=2 using
+IEC958 stereo PCM, pre-encoded AC3 IEC61937 passthrough and ALSA
+A52 live 5.1 encoding.
+
+Fixes: 26a9630c72eb ("ALSA: ctxfi: cthw20k2: fix mask on conf to allow 4 bits")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Roman Prucha <zorgan.roman@gmail.com>
+---
+ sound/pci/ctxfi/cthw20k2.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/pci/ctxfi/cthw20k2.c b/sound/pci/ctxfi/cthw20k2.c
+index 07e1490a6d17..36066ffe8784 100644
+--- a/sound/pci/ctxfi/cthw20k2.c
++++ b/sound/pci/ctxfi/cthw20k2.c
+@@ -994,6 +994,7 @@ static int daio_mgr_dao_init(struct hw *hw, void *blk, unsigned int idx, unsigne
+ 		/* S/PDIF output */
+ 		switch ((conf & 0xf)) {
+ 		case 1:
++		case 9:
+ 			set_field(&ctl->txctl[idx], ATXCTL_NUC, 0);
+ 			break;
+ 		case 2:
+
+---
+base-commit: 7f71fd44a1089b362eacf87e1f451ddd4fb7df62
+change-id: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
+
+Best regards,
+-- 
+Roman Prucha <zorgan.roman@gmail.com>
+
+
