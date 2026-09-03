@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4471E4B3393
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EE14B339C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444872; cv=none; b=uVZnJt/1Rf2ERG6lJtgiy4S0QAC/AsX7j+OdnAsOa530GYLCWCaEUWJ4WOACXZ5nyNmaashzy4k/OAa+O8QyucUZkkF/hR6EAqBE1pAKaYIydG3D5Tu4VrIcx8PA1hhQPokUindhZS9/yLieztwj6ivpIDKEl7s+Cq+g591lohs=
+	t=1788444872; cv=none; b=IrKDWCUd4LqkyP9/20kzDPkPhR7SJ8py4AROojk0pb90x5ActO/Ls5rDM+g59+eZ3qlbUSvAi79ecImcC1oyZ3SGoGtwuURIbjxH1uS87clLjpaUq5isP7VTt+lGamzbfi106hXa53dhP8oW2V8Ukxk3X8cNBLg1NVLsP9Xfmgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788444872; c=relaxed/simple;
-	bh=ulWT4ZfdNuxJpZ6NU0jEWlJmcUlzFaHLJ/A91bQH0Ak=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pMsFCCr2bHICHdovAly80smZkLljLJDjntYwLFyEt+ld5B4UK0db2fs6LGfCatrLi7CKrVwkHYt++qiDAyX1L6NfjANUEvyJfNUaAeFzRl7eV//YU6HaQ/H1sKLmqiUsFalga6bBI5arhviSPKIs3ps+XXgstCrPjaDqStRk3B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lUY9R765; arc=none smtp.client-ip=100.103.45.18
+	bh=jwSLnEsjCR8q4tnBvzK5kEdW+/erxbtvACa/o9BnEqw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EbgG0MpWYOQHL4dMXRHCL9zZo/yglobLetg76nRAokSrJFIHmm1h0kOifIDAzFZ7iCFgE4/tgoBVqKWthQkv++ymakCKRc3bcFUIggYBP5IjOXlzjdbcrS089UshldtJ+NXE9GiC7Jc2D1OAO8QllE6il9ebdJOkdOq2lFBzq38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KJp1Q+GI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lUY9R765"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD28D1F00A3D;
-	Thu,  3 Sep 2026 14:14:17 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KJp1Q+GI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0111F00A3A;
+	Thu,  3 Sep 2026 14:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444858;
-	bh=lhigEwD8ga2tj1+CT70LQ8F+iN6rKyIWr/PrTxQJN0Y=;
+	s=korg; t=1788444864;
+	bh=DeTBKNSadiUuGoUaw69dCRSsbW0lrRA02Pd+ZrkcnRI=;
 	h=Subject:To:Cc:From:Date;
-	b=lUY9R765T5sZUPgEqr6Zw23PdQysyY9Oi+UFhaSp/ZS2dNmAvnfuoTcKPDdupSACX
-	 oeJz1CWcQLYmgMYnhVNwSWx/DWeb4ScPltEkn1vIeYh1iEFB6Rvkr7VW+iztsEUgyR
-	 O/zdOuD3df4kKQwawc9uuEO7SuasJlNwHVfMY1Dw=
-Subject: FAILED: patch "[PATCH] bpf: Disable preemption in __bpf_get_stack" failed to apply to 6.1-stable tree
-To: borkmann@iogearbox.net,andrii@kernel.org,chen.dylane@linux.dev,info@starlabs.sg,jolsa@kernel.org
+	b=KJp1Q+GI8ymwZVqxmBunXiANLMmBgu9SvVJgwNi2MuKJOOu884uywT3ywAM185tdP
+	 3re3tWbq5lVz1P17QBL6cRnH7mFZEHIaAPlQ505MoCOsLu/PSrtkwm3QyAJ0W+Vkc6
+	 v0aCzxa5PmXyJkYQDLL6JSCFlNW2eXV4NATmFpWA=
+Subject: FAILED: patch "[PATCH] bpf: Disable preemption in bpf_get_stackid" failed to apply to 7.2-stable tree
+To: jolsa@kernel.org,andrii@kernel.org,chen.dylane@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:50:33 +0200
-Message-ID: <2026090332-suffrage-hatchback-38cf@gregkh>
+Date: Thu, 03 Sep 2026 15:51:45 +0200
+Message-ID: <2026090344-joystick-majestic-6d7c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x b1a47b2708d4e95dbd23aee2ec83752190897b3f
+git cherry-pick -x 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090332-suffrage-hatchback-38cf@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090344-joystick-majestic-6d7c@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,62 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b1a47b2708d4e95dbd23aee2ec83752190897b3f Mon Sep 17 00:00:00 2001
-From: Daniel Borkmann <borkmann@iogearbox.net>
-Date: Mon, 3 Aug 2026 23:01:47 +0200
-Subject: [PATCH] bpf: Disable preemption in __bpf_get_stack
+From 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d Mon Sep 17 00:00:00 2001
+From: Jiri Olsa <jolsa@kernel.org>
+Date: Mon, 3 Aug 2026 23:01:42 +0200
+Subject: [PATCH] bpf: Disable preemption in bpf_get_stackid
 
-get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
-releases its recursion slot via put_callchain_entry() before returning,
-so nothing keeps the entry reserved while __bpf_get_stack() consumes
-it below.
+The get_perf_callchain call needs disabled preemption plus we need
+it disabled as long as we access its returned trace entries buffer.
 
-A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
-on a PREEMPT kernel, which runs under migrate_disable() but not
-preempt_disable()) can be scheduled out between obtaining the entry
-and the copy. Another task scheduled on the same CPU then reuses the
-same per-CPU buffer and overwrites trace->nr with a larger value.
-copy_len is then computed from the inflated trace->nr and can exceed
-the caller's buffer, causing an out-of-bounds write in the memcpy()
-and in the build_id path.
+Note the bpf_get_stackid_pe function is executed already with
+preemption disabled.
 
-The rcu_read_lock() taken here alone does not prevent this. It is
-only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
-not disable preemption; it merely keeps perf's callchain buffer array
-alive (freed via call_rcu()) and does nothing to stop another task
-from reusing the entry.
-
-Disable preemption around obtaining the callchain entry and copying
-it into the caller's buffer, so the entry cannot be reused underneath
-us and trace->nr stays bounded by max_depth. Build ID resolution may
-fault and is therefore deferred until after preemption is re-enabled;
-by then the instruction pointers have already been copied into buf,
-so it operates only on that private copy. Note, preempt_disable() also
-subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
-since a preempt-disabled section is an RCU read-side critical section
-for the callchain buffers' call_rcu() reclaim.
-
-Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
+Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
 Reported-by: Tao Chen <chen.dylane@linux.dev>
-Reported-by: STAR Labs SG <info@starlabs.sg>
-Signed-off-by: Daniel Borkmann <borkmann@iogearbox.net>
 Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/20260803210149.296496-11-jolsa@kernel.org
+Link: https://lore.kernel.org/bpf/20260803210149.296496-6-jolsa@kernel.org
 
-Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
-[ changed Fixes: commit ]
+Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
 
 diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 7f728d319a65..121caa90707b 100644
+index 3ee0034daf52..5b18d728f4b8 100644
 --- a/kernel/bpf/stackmap.c
 +++ b/kernel/bpf/stackmap.c
-@@ -815,6 +815,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+@@ -632,20 +632,22 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
+ 		return -EINVAL;
  
- 	max_depth = stack_map_calculate_max_depth(size, elem_size, flags);
+ 	max_depth = stack_map_calculate_max_depth(map->value_size, elem_size, flags);
+-	trace = get_perf_callchain(regs, kernel, user, max_depth,
+-				   false, false, 0);
  
-+	preempt_disable();
- 	if (may_fault)
- 		rcu_read_lock(); /* need RCU for perf's callchain below */
+-	if (unlikely(!trace))
+-		/* couldn't fetch the stack trace */
+-		return -EFAULT;
++	scoped_guard(preempt) {
++		trace = get_perf_callchain(regs, kernel, user, max_depth,
++					   false, false, 0);
++		if (unlikely(!trace))
++			/* couldn't fetch the stack trace */
++			return -EFAULT;
  
-@@ -828,6 +829,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	if (unlikely(!trace) || trace->nr < skip) {
- 		if (may_fault)
- 			rcu_read_unlock();
-+		preempt_enable();
- 		goto err_fault;
- 	}
+-	err = stackid_fastpath(&stackid, map, trace, flags);
+-	if (err != -ENOENT)
+-		return err;
++		err = stackid_fastpath(&stackid, map, trace, flags);
++		if (err != -ENOENT)
++			return err;
  
-@@ -836,6 +838,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	/* trace should not be dereferenced after this point */
- 	if (may_fault)
- 		rcu_read_unlock();
-+	preempt_enable();
+-	new_bucket = stackid_new_bucket(&stackid, map);
+-	if (!new_bucket)
+-		return -ENOMEM;
++		new_bucket = stackid_new_bucket(&stackid, map);
++		if (!new_bucket)
++			return -ENOMEM;
++	}
  
- 	return callchain_finalize(buf, size, trace_nr, elem_size, flags, may_fault);
- 
+ 	return stackid_install(&stackid, map, new_bucket, flags);
+ }
 
