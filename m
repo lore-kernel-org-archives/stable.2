@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0573E4ACC67
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7024AF667
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442847; cv=none; b=SFDpBaOnSuJc14bqGzxapYdnenmHbkRc2yGRJO/+C1k9j1WJSs0/HpRmO5libJW6GCkCQp4wmQEUQgHsL5WXYXxOKpyMHMFQgCM/V3dzZwkS1Z80swjP7n8mBKvm8CIHLR94L/6KF+ifD6jDLp6kb1FMYKWEewxCEh6mjlZofts=
+	t=1788442851; cv=none; b=X+DN7XvCjsMZDNhNlVzM5AoFcz6oAgPOQtnbrYPh5vzxxFlSwdQAIqe6CHE3HAS01L1504dLyrpPa5Wlk7YBPuDADrcNiNbn3b9Dr/aGmCnHYaRpiw3wq4Auv/1f1nKYSF2TOLrM+ZobwHxF1gk83Q3DDR1UMIxI6/1OvjPBr84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442847; c=relaxed/simple;
-	bh=/OHwKfl9SP2cs6QB8qbvjRgnQXfbGjzkGWGGWB1+cQs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rFrhowpgFihIm9WigVF9d0KXmd9z1ZpIrOcRxrDuMS7QAUJpaGEVtnVP2IBf+dPO00BfjgOoSdki/xobb2AoTsXZy52X2ZwQ5OrO3akPcgbxIwIg4hG8lNAVkT3Rx2fTr9Cj0crtcr3wDudQj9jxjxhReYQ5fkSxf6x8fsrThfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oIpEWnsC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442851; c=relaxed/simple;
+	bh=u+sYdgsHwbeUtyJrmECSm5uQ6Q0AkP1SwVzdWJ4xTao=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bctH9vzUX9e22pVuNHIM5G59zFVGsoj4bNJOj3nInFD6H0LFLMPJev2Ykqh7lqgxU+QZZeLoJKE2K0VA90UAQXZW9/oX4FTUNlO35Kf203GZjAzCxhdQcY2l4oh0wumm8hl+krZtHN3tttVgLO+iHolHQ/CVwpy28PK/JrNSA44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j0/PLEVd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oIpEWnsC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79BA51F000E9;
-	Thu,  3 Sep 2026 13:40:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j0/PLEVd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A481F00ACF;
+	Thu,  3 Sep 2026 13:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442834;
-	bh=9YRoEA+KUvyKNOwoswWuEjFw2Op7b15QyVV1DrnCQKY=;
+	s=korg; t=1788442836;
+	bh=UNeaRlX7oLkqBFljhV2WQ8S7nVRM8KmpeFpaj5oTUJM=;
 	h=Subject:To:Cc:From:Date;
-	b=oIpEWnsCJu+gikVCggBJMvZ0Sg2L1poVj+Cq4mbePCjhedBQNlj6XQEWh8I1vFOpH
-	 5NG/OQxOZ/r341xcRkR98vrMOLFIu3h9FhoxiKjZwqXG3/Wb7laH84Ih4n5Rrq6Z1C
-	 AA2++h3BfFIOXJxTq+h4IjVqlGOu6p7a5jiSdCvw=
-Subject: FAILED: patch "[PATCH] nfsd: fix stale s2s_cp_stateids IDR entry for async COPY" failed to apply to 6.12-stable tree
+	b=j0/PLEVdvkGcFDwOiB80FDgQRXXa6mxmM7Jnr+5KUr9kAhr6taPjrIx5Ae5CiGWzu
+	 hqW5Y6J97wNGo0lo/eu2av/oonJPag0IFjHGVxY+Tb/lShAtG9pUO76KapdckY7EK3
+	 m1zKNfbzm61NQhe9AgV6CViOeIfuSqwYB7c85AjE=
+Subject: FAILED: patch "[PATCH] nfsd: fix stale s2s_cp_stateids IDR entry for async COPY" failed to apply to 5.15-stable tree
 To: jlayton@kernel.org,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:15:20 +0200
-Message-ID: <2026090320-purple-stiffness-b344@gregkh>
+Date: Thu, 03 Sep 2026 15:15:21 +0200
+Message-ID: <2026090321-unblock-fondling-c1c2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x d0beaee498e11880e72826026db0e9c9890fc114
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-purple-stiffness-b344@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090321-unblock-fondling-c1c2@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
