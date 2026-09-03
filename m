@@ -1,135 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B1D4CC29E;
-	Thu,  3 Sep 2026 15:20:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 759054D8DAD;
+	Thu,  3 Sep 2026 15:21:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448840; cv=none; b=XvRUEtyNcMcvhubsZTiKjplPIvJ8uJlr+xzIA0MTfF7pieQE1PwRU5W1i7h3DSIMAShnDMjH2lGLaUy0D1OLnTCUaNQqoCIodgWTRD8HsizKOe1jSiz4lKXke7OVF6O3zOqk8ioUfKIhpY/94/RJB2NoPU/E5t0UzoI9bxOeqRI=
+	t=1788448904; cv=none; b=X/d3r1yco94y2tLf9OLvdLuDnRnduolrcHke7F+FZKv1Gy5V2wlSfA8F3DO3YszhpHZgW+RxecHYJ5Z6fgLEQ0F3fXOYPJ+GnufIEY9V+W/RnL8BoHB+79z1kIe8l4wuet+/iaA5Awi6JO2odnAMzri0oeBqHtEWOeyNeT2+vFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448840; c=relaxed/simple;
-	bh=oAY7hv/EwUzgz64rd4cjEjliORWWEShw0sw1SZsO4nQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FeYfIFDtDDyR3POWlidbxUAy9Ndaf8n9zl94nYu10EZmyKBs30/p1Z6FnjKsU0NNbizCE9KYYAzb0n/kz+gT9AzylwALXMMvAFeH2HiQlTwh03b3btkIzVC3qDpB1M33rvFRuHBtii/TLpV7Ag+SNm2bQU2kdmbCcW0LiymWg1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Cum6BF2Y; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788448904; c=relaxed/simple;
+	bh=nRTYXO+CiccuUTUk2c7qbiCnWkPrZRtzyZnhjjtQ0lQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MXc30WUnmDa8lfb0av/yoEyIOBzA+YJOT8T/VKUBnGWpjSmD9AAScpzkcsJD4drAfHO9xWeorn7naUWvZC31TwY/k5ftUczmTj5p+88oV9wKz0Pi7H4B3x7Zs5rlHgPdyhuTLe1Kjpwh/X74OJMOJxr8UUwSj2xnGPjosTjLdk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TM9LNJhq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Cum6BF2Y"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788448838; x=1819984838;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oAY7hv/EwUzgz64rd4cjEjliORWWEShw0sw1SZsO4nQ=;
-  b=Cum6BF2YDzfVYOB2UewO1GJmvRl0hcBVNU5gmZ9/DIe/udGQq9C+J5PZ
-   t/IvPFV4hZBTzcQNNEDKDRCgeOjQO4EO+UTHsfx/2hdLjGruHIZMzB6wn
-   PUhsT1dKNdrSzP3NPdyAArYMnNP1A24P381GORJVLOiwTTndaL/oAjr4M
-   1ipq6NgisELmwNsnfqkTg7vgujmx7ij92qOFYnpyehAcq5LQ7Pdi3GXn1
-   t6t1Bp0TIl0IAaOFZpWkICdMAHoZBlDWP7yGUp2UKg1FJ9bp1UPFeqsQV
-   8f1/3f/2KuxWNu0kzHDD9JVsb9qbiLdMzT91KJtytSEDsJNL15bZp1dMX
-   g==;
-X-CSE-ConnectionGUID: gV3kLeUyQua4v5U3tAxudA==
-X-CSE-MsgGUID: A/zgvJxoTKy8MtOtI4htUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="88077057"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="88077057"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:20:38 -0700
-X-CSE-ConnectionGUID: L15uMUjtSp+DIHSuVLnD6A==
-X-CSE-MsgGUID: GJQFniDjRSewum2khlSAXg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="299626458"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.159])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:20:36 -0700
-Date: Thu, 3 Sep 2026 17:20:29 +0200
-From: Mehdi Djait <mehdi.djait@linux.intel.com>
-To: Antti Laakso <antti.laakso@linux.intel.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	miguel.vadillo@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: cvs: Add sensor node in bound callback
-Message-ID: <apmPgC1ffSp60Mcb@mdjait-mobl>
-References: <20260903100753.3176233-1-antti.laakso@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TM9LNJhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 03871C2BCB8;
+	Thu,  3 Sep 2026 15:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788448904;
+	bh=nRTYXO+CiccuUTUk2c7qbiCnWkPrZRtzyZnhjjtQ0lQ=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=TM9LNJhqh63TPLqxn9QelRqtpLUMOMMtPCO6KDOhbxZR8QLdLjQrFTzsWMXeIwjlr
+	 sAjxEY5WygijwxKZA79JsITT84njLuhqKLrihYMwC4bwyFYxWw1CpmA/4SMdI0xv/V
+	 49uKhVOdKH2VAUk886fPRRp1iYDB0ppzfsCqXjscCFD69j3dQxIx2ie54qPWinm2l3
+	 6Md+fPWhqkuWoWcpfAAmgUX1JkuJMBJVJW4zQ1HU+OCU+Me1yrnN+Aae2cZqX95aad
+	 mGhACj4uKWPrecB4uuhBhU/8vyHbL/w5pqn4K6laW6oTZVT7fgXUxk1EmhLqyCj2pb
+	 1RfFqoISDHLbw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E243FC624A4;
+	Thu,  3 Sep 2026 15:21:43 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v3 0/2] wcd934x fixes
+Date: Thu, 03 Sep 2026 17:21:41 +0200
+Message-Id: <20260903-wcd-dma-v3-0-d3920c6563c4@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903100753.3176233-1-antti.laakso@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBQFf4V0bU0fgK0r/8O4gPZWroliWqwo4
+ d9tcYGJy0nOzJlIAI8QyL6YiIeIAftbArkpiOma2xko2sREMFEzJSR9GkvttaGtrQUHkFqpHUn
+ ruweH41I6nr4cHu0FzJD1vOgwDL1/LVeR591/NXLKqa6gLBvJK2PcAUcctuZNcjOK1dLsxxLJ4
+ kob56qaNUKt1jzPH8as9wLkAAAA
+X-Change-ID: 20260823-wcd-dma-bd621ee39887
+To: Lee Jones <lee@kernel.org>, Thomas Tai <thomas.tai@oracle.com>, 
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=840; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=nRTYXO+CiccuUTUk2c7qbiCnWkPrZRtzyZnhjjtQ0lQ=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmZCG3KXrAunwVO0uDPNrVIgmhb6EIr46J/1lS
+ hhjh/PS4C6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapmQhgAKCRBgAj/E00kg
+ cq25EADD6cqCfFx+SY9+V8JFxnvfgpMuKQcpqH0ptsE2wSEqx10jK6ZaFLrJ9JhV0dUG+A5b0lK
+ BDKomYmY1qf7TC40wL4Oj0kbPbuRdXuxW+/Ddk+0HEU9e/GTrwxMbk6rk7ji42ZnF7rZoJWhOQH
+ QM/tOa1GI75lYWV5Oi60EuGOhztTTtX0AO4FGftwAfAd6kTgUk3mA4gQv/aQdc3GC8y7TiZhfYU
+ 7cbFOkUD8gBNJeQl8ehg2ycxhvNo7pzLmxfYuSvLcq7Jk71b9qUPJh3RtfoAHpSvjgpSzJH5pA1
+ U2R3fd4Hr1Sv06xSZbucCwLMnjuTEIlzB63hlnrE1bl2vfdGY7Q1ImUemXLieygIkiRdsLrCN2r
+ oTw8+4pA8mgVdQe7w2bjIb7zA6aE8k9BuNQCLYDUlAnevg79K0AoEE1aUzxPCSSUUhpZG/XFpAd
+ 0FEMwwUlFnQ9I+r0qethICNWmB9+HGsTzPTmiYpYG7TpQ+rWZtwRIoOxOONcdG6IhVzKhnx4foK
+ WLe3GQt6VjBIypOFZZtQog27mhl1VVKKiTg6lP8GpVXsXSCv1SL4kipy3i4AjKqOj8kgFqm03Le
+ WgbEXhCJcbeILhgSceELzSM1KilyVPdKRoI+jKhdiw8ZkFSLuIOcVjFYVgzrHqd9wU9hylxF4UC
+ e9pgA+WqtUhfMTQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hello Antti,
+$subj
 
-Thank you for the patch!
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v3:
+- Capitalize commit names. (Sashiko)
+- Add commit addressing the NULL deref when of_irq_get fails. (Sashiko)
+- Link to v2: https://patch.msgid.link/20260903-wcd-dma-v2-1-189cff560a28@ixit.cz
 
-On Thu, Sep 03, 2026 at 01:07:53PM +0300, Antti Laakso wrote:
-> Sensor device nodes are created in the complete callback, which is only
-> called when all devices are successfully registered. If any device fails
-> to register, e.g. due to a missing driver, the complete callback is
-> never invoked and sensor nodes are not created.
-> 
-> Create sensor device nodes in the bound callback instead, ensuring they
-> are available as soon as sensor is bound regardless of other devices
-> registration status.
-> 
+Changes in v2:
+- Use dma_coerce_mask_and_coherent. (Lee)
+- Link to v1: https://patch.msgid.link/20260823-wcd-dma-v1-1-95e44a315ccf@ixit.cz
 
-This does actually fix the issue I had on my Dell laptop with two
-camera sensors:
-HIMX1092 OVTI02C1
+---
+David Heidelberg (2):
+      mfd: wcd934x: Fix NULL pointer dereference on IRQ probe deferral
+      mfd: wcd934x: Set DMA mask on parent to silence "DMA mask not set"
 
-But for the HIMX1092 a driver does not exist (yet) in upstream.
+ drivers/mfd/wcd934x.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+---
+base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
+change-id: 20260823-wcd-dma-bd621ee39887
 
-Tested-by: Mehdi Djait <mehdi.djait@linux.intel.com> # Dell XPS 13 9350 + IPU7
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
-> Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
-> ---
->  drivers/media/i2c/cvs/v4l2.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
-> index 9fadca7a3bee..863112cde266 100644
-> --- a/drivers/media/i2c/cvs/v4l2.c
-> +++ b/drivers/media/i2c/cvs/v4l2.c
-> @@ -13,6 +13,7 @@
->  #include <media/v4l2-async.h>
->  #include <media/v4l2-common.h>
->  #include <media/v4l2-ctrls.h>
-> +#include <media/v4l2-device.h>
->  #include <media/v4l2-event.h>
->  #include <media/v4l2-fwnode.h>
->  #include <media/v4l2-mc.h>
-> @@ -400,7 +401,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
->  				struct v4l2_async_connection *asc)
->  {
->  	struct icvs *ctx = notifier_to_csi(notifier);
-> -	int pad;
-> +	int pad, ret;
->  
->  	pad = media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode,
->  					  MEDIA_PAD_FL_SOURCE);
-> @@ -409,9 +410,13 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
->  
->  	ctx->remote = &sd->entity.pads[pad];
->  
-> -	return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
-> -				     ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
-> -				     MEDIA_LNK_FL_IMMUTABLE);
-> +	ret = media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
-> +				    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
-> +				    MEDIA_LNK_FL_IMMUTABLE);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return v4l2_device_register_subdev_nodes(sd->v4l2_dev);
->  }
->  
->  /**
-> -- 
-> 2.55.0
-> 
+
