@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 611414B1B4C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F048F4B1499
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444345; cv=none; b=f5gGb6Vr9PQ6GLWGHfZWD9U6Zx3jCW1vKmtjmbrj64/bLe5JguVUqv1aQrA6Y5W4zYvM5C4GtfBYap28smFljI/50DKwobMXLSgCORw3upsMhmXYGTnQf/OW/VOdKDL70PhnvBmbdICrdUp1gt+ZkKunIn6rNEJOgpzlyYnIgn0=
+	t=1788444345; cv=none; b=Ye8CngpczlHlpx5wUuwV8+j7LPIVW5pXjF3vigNMmQEtOkPpMXCjSSp0LIFqPjp+OjcQ5TjlXTzZtLBNTNpufB0Uoe3HLcTDHAswnhpF+UdCtWZZrZTVaq05GbPV7LWrY8fZvUFBvlMLdjcp8N7hA7G7TyiWdpc3wmEhh1UCzKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788444345; c=relaxed/simple;
-	bh=syCq3GDaYwJnxRC3xQqms1YrBvQCeMqNBVTLEh9Y0IY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FE/T8a+0d42bxmDSAh/UbZ6fEq9nIOE9d5Icuk1SIO8w31npVU/d7nkVvKsKshwP4UXtuzOS2nO0ZF6O2fgAiHkIauaY3RmC45dmDLIxTVoyHZHxAqkH7bWl4ONQV8iM7mrQB5JdP7bxBWUktfblC7TfEgvRIP1X9+PPwv0adzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gVSKI94o; arc=none smtp.client-ip=100.103.45.18
+	bh=Gi/JowNR/39SU9huNIGWLS/GIvlAV2SUwBSEiWACC6c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iBsfeRVY9A8RoRwWtdFHnwWHYrA0MTkcu3YQQF+/rE479HGOgUpY2q8NDT1acgWgXYZlX9gMJhsqYtNUsEEhEoIzPn8vePGnYlEKuXEPo4nrggCLhdJ54zrZy/CECx+L7cRRES5D2asD1mVwWZsbnAU/uOZOk7PtWqbAzcu78LE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=X2vWAvro; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gVSKI94o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0DC1F00ADB;
-	Thu,  3 Sep 2026 14:05:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="X2vWAvro"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16A7A1F000E9;
+	Thu,  3 Sep 2026 14:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444337;
-	bh=jCl8q9s2wtYEkysfjmrwsmXKDTQKT0NxM5gowgiCuLQ=;
+	s=korg; t=1788444340;
+	bh=Mhpj5gaBBurpzxjqaxZSfHnG1rorbdKL2cnZqu3eQEw=;
 	h=Subject:To:Cc:From:Date;
-	b=gVSKI94o8AVhmLn2IqFUUViLujuj3vwTxX2cNR9JodmXqDE8CTaqWJs74Ho85PARh
-	 MmxeWnp3jH/F/MTqylIPSQiWd27vacVP5omg0Y3FRrbr4BnruR+N+IyoO02YnTf9Si
-	 xNi/lV7yfpZv7XpX+pleZJ+Pa324S+gfl8qNiahs=
-Subject: FAILED: patch "[PATCH] acpi/apei/ghes: Use raw_spinlock_t for CXL CPER work locks" failed to apply to 6.12-stable tree
-To: terry.bowman@amd.com,dave.jiang@intel.com,jonathan.cameron@oss.qualcomm.com,sashiko@linuxfoundation.org,tony.luck@intel.com
+	b=X2vWAvroB/+dn4W4XSAVRY4z+53g6or9lTlv5/9S7/NZBdsh13bTlOl/qJouSU41v
+	 kPAwnNSYCk5JxrQ3lzpJrfxA2/SFopHd+CYKExtJ/dHMG+sPbwtJ8CCCInZWvbtjOk
+	 IgYOENgWWXqRtZEivdy9sMv+QNmdmtXdWsErSEpk=
+Subject: FAILED: patch "[PATCH] ACPI: battery: Protect all properties with a separated mutex" failed to apply to 7.2-stable tree
+To: i@rong.moe,anhollander516@gmail.com,rafael.j.wysocki@intel.com,rickk1166@gmail.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:43:35 +0200
-Message-ID: <2026090335-waking-roundworm-32ca@gregkh>
+Date: Thu, 03 Sep 2026 15:43:57 +0200
+Message-ID: <2026090357-tweet-veal-37b7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6625ca499c3131ef63be3215f8f942d7a097ea3a
+git cherry-pick -x 9e409f1dff7841634e4b101111d6427f979c0aac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090335-waking-roundworm-32ca@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090357-tweet-veal-37b7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,195 +62,382 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6625ca499c3131ef63be3215f8f942d7a097ea3a Mon Sep 17 00:00:00 2001
-From: Terry Bowman <terry.bowman@amd.com>
-Date: Mon, 3 Aug 2026 17:17:59 -0500
-Subject: [PATCH] acpi/apei/ghes: Use raw_spinlock_t for CXL CPER work locks
+From 9e409f1dff7841634e4b101111d6427f979c0aac Mon Sep 17 00:00:00 2001
+From: Rong Zhang <i@rong.moe>
+Date: Sun, 9 Aug 2026 07:43:55 +0800
+Subject: [PATCH] ACPI: battery: Protect all properties with a separated mutex
 
-The CXL CPER work registration and unregistration helpers acquire
-cxl_cper_work_lock and cxl_cper_prot_err_work_lock with a spinlock
-guard(), which leaves local interrupts enabled. The corresponding post
-paths (cxl_cper_post_event(), cxl_cper_post_prot_err()) execute in hard
-IRQ context (they are called from the GHES error notification path) and
-acquire the same locks with an irqsave guard().
+The acpi_battery_get_property() callback calls acpi_battery_get_state()
+without any lock held. On some devices, it happens that the property
+cache has expired before a uevent reaches userspace, triggering
+simultaneous attempts to evaluate _BST. See [1] for an analysis to sysrq
+stacktraces on one of the these devices.
 
-If a CPU is holding one of these locks via a spinlock guard() when a GHES
-interrupt arrives on the same CPU, the IRQ handler spins on the held lock
-waiting for it to release, while the lock holder is preempted by the IRQ.
-The result is a deadlock.
+In a few cases, including when the AML is sleeping or acquiring a mutex,
+ACPICA drops the namespace and interpreter locks and allows the
+evaluation of _BST to start while another task is still evaluating it.
+This could somehow confuse the interpreter and lead to chaos in AML
+mutexes on some devices, see [2] for an example.
 
-Convert both locks from spinlock_t to raw_spinlock_t and use guard() at
-all call sites. On PREEMPT_RT kernels spinlock_t is backed by rt_mutex and
-sleeping from hard IRQ context is not permitted; raw_spinlock_t is safe in
-both contexts.
+Not holding the lock is also prone to race conditions, for example:
 
-Add WARN_ONCE to both register functions to surface double-registration
-bugs at runtime.
+                CPU0                | 	         CPU1
+acpi_battery_get_property()         |
+  acpi_battery_get_state()          |
+    [update_time expired]           |
+    extract_package()               | acpi_battery_get_property()
+    battery->update_time = jiffies  |   acpi_battery_get_state()
+    kfree()                         |     [up to date]
+                                    |   [read capacity_now]
+    [fix capacity_now due to quirk] |
 
-Restructure both unregister functions to clear the global work pointer
-under the lock before calling cancel_work_sync(), closing the window
-where a CPER interrupt could schedule work on a pointer about to be
-freed. Add kfifo_reset() after cancel_work_sync() so stale entries
-are not replayed on next module load.
+where CPU1 gets raw capacity_now before CPU0 fixes it to a meaningful
+value.
 
-Both kfifos are single-consumer: only one work_struct is registered at
-a time, enforced by the WARN_ONCE guard in the register functions.
-kfifo_reset() is safe outside the lock because cancel_work_sync() has
-already quiesced the consumer, and no new consumer can register until
-the current module exit completes and a fresh module init runs.
+The existing mutex update_lock is not applicapable for
+acpi_battery_get_property(), as some code path could call or wait for
+acpi_battery_get_property() while holding update_lock.
 
-Remove the redundant cancel_work_sync() call from cxl_ras_exit() and
-cxl_pci_driver_exit(). The CPER unregister functions now quiesce
-the work internally.
+Therefore, introduce a mutex called property_lock to protect all
+accesses to battery properties, so that acpi_battery_get_property() can
+take the advantage of the mutex and synchronize itself. With the mutex,
+acpi_battery_get_state() are synchronized in all code paths calling it,
+and its cache mechanism can always clamp the frequency of _BST
+evaluations according to cache_time.
 
-Reported-by: Sashiko <sashiko@linuxfoundation.org>
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Fixes: 5e4a264bf8b5 ("acpi/ghes: Process CXL Component Events")
-Fixes: 36f257e3b0ba ("acpi/ghes, cxl/pci: Process CXL CPER Protocol Errors")
-Cc: stable@vger.kernel.org
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/20260803221810.3685703-4-terry.bowman@amd.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+The helper function acpi_battery_handle_discharging() for quirky devices
+has to be inlined due to the change, as the mutex must be unlocked
+before calling the expensive power_supply_is_system_supplied() helper
+function.
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 3236a3ce79d6..ca7a138c1ff2 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -749,7 +749,7 @@ static DEFINE_KFIFO(cxl_cper_prot_err_fifo, struct cxl_cper_prot_err_work_data,
- 		    CXL_CPER_PROT_ERR_FIFO_DEPTH);
+Fixes: 86bfd21a0baf ("ACPI: battery: Drop redundant locking")
+Reported-by: Rick <rickk1166@gmail.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221065#c85 [1]
+Reported-by: Avraham Hollander <anhollander516@gmail.com>
+Tested-by: Avraham Hollander <anhollander516@gmail.com>
+Closes: https://lore.kernel.org/linux-acpi/CAP1mzZReJCn6df5DwEPu-JCQUyr=Pu1cg5xKCMttWZkHCQtVmQ@mail.gmail.com [2]
+Signed-off-by: Rong Zhang <i@rong.moe>
+Cc: All applicable <stable@vger.kernel.org>
+Link: https://patch.msgid.link/20260809-b4-acpi-battery-notification-v5-1-788d54fa2e35@rong.moe
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+diff --git a/drivers/acpi/battery.c b/drivers/acpi/battery.c
+index 0084f308b790..670853ec3a4d 100644
+--- a/drivers/acpi/battery.c
++++ b/drivers/acpi/battery.c
+@@ -17,6 +17,7 @@
+ #include <linux/kernel.h>
+ #include <linux/kfifo.h>
+ #include <linux/list.h>
++#include <linux/lockdep.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/platform_device.h>
+@@ -105,6 +106,9 @@ struct acpi_battery {
+ 	struct delayed_work acpi_notif_dwork;
+ 	struct notifier_block pm_nb;
+ 	struct list_head list;
++	unsigned long flags;
++
++	struct mutex property_lock; /* Protects properties below. */
+ 	unsigned long update_time;
+ 	int revision;
+ 	int rate_now;
+@@ -131,7 +135,6 @@ struct acpi_battery {
+ 	char oem_info[MAX_STRING_LENGTH];
+ 	int state;
+ 	int power_unit;
+-	unsigned long flags;
+ };
  
- /* Synchronize schedule_work() with cxl_cper_prot_err_work changes */
--static DEFINE_SPINLOCK(cxl_cper_prot_err_work_lock);
-+static DEFINE_RAW_SPINLOCK(cxl_cper_prot_err_work_lock);
- struct work_struct *cxl_cper_prot_err_work;
- 
- static void cxl_cper_post_prot_err(struct cxl_cper_sec_prot_err *prot_err,
-@@ -761,7 +761,7 @@ static void cxl_cper_post_prot_err(struct cxl_cper_sec_prot_err *prot_err,
- 	if (cxl_cper_sec_prot_err_valid(prot_err))
- 		return;
- 
--	guard(spinlock_irqsave)(&cxl_cper_prot_err_work_lock);
-+	guard(raw_spinlock_irqsave)(&cxl_cper_prot_err_work_lock);
- 
- 	if (!cxl_cper_prot_err_work)
- 		return;
-@@ -780,10 +780,11 @@ static void cxl_cper_post_prot_err(struct cxl_cper_sec_prot_err *prot_err,
- 
- int cxl_cper_register_prot_err_work(struct work_struct *work)
- {
--	if (cxl_cper_prot_err_work)
--		return -EINVAL;
-+	guard(raw_spinlock_irqsave)(&cxl_cper_prot_err_work_lock);
- 
--	guard(spinlock)(&cxl_cper_prot_err_work_lock);
-+	if (WARN_ONCE(cxl_cper_prot_err_work,
-+		      "CPER-CXL kfifo consumer already registered\n"))
-+		return -EINVAL;
- 	cxl_cper_prot_err_work = work;
- 	return 0;
+ #define to_acpi_battery(x) power_supply_get_drvdata(x)
+@@ -189,20 +192,6 @@ static bool acpi_battery_is_degraded(struct acpi_battery *battery)
+ 		battery->full_charge_capacity < battery->design_capacity;
  }
-@@ -791,11 +792,18 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_register_prot_err_work, "CXL");
  
- int cxl_cper_unregister_prot_err_work(struct work_struct *work)
- {
--	if (cxl_cper_prot_err_work != work)
--		return -EINVAL;
-+	scoped_guard(raw_spinlock_irqsave, &cxl_cper_prot_err_work_lock) {
-+		if (WARN_ONCE(cxl_cper_prot_err_work != work,
-+			      "CPER-CXL kfifo consumer mismatch on unregister\n"))
-+			return -EINVAL;
-+		cxl_cper_prot_err_work = NULL;
+-static int acpi_battery_handle_discharging(struct acpi_battery *battery)
+-{
+-	/*
+-	 * Some devices wrongly report discharging if the battery's charge level
+-	 * was above the device's start charging threshold atm the AC adapter
+-	 * was plugged in and the device thus did not start a new charge cycle.
+-	 */
+-	if ((battery_ac_is_broken || power_supply_is_system_supplied()) &&
+-	    battery->rate_now == 0)
+-		return POWER_SUPPLY_STATUS_NOT_CHARGING;
+-
+-	return POWER_SUPPLY_STATUS_DISCHARGING;
+-}
+-
+ static int acpi_battery_get_property(struct power_supply *psy,
+ 				     enum power_supply_property psp,
+ 				     union power_supply_propval *val)
+@@ -210,15 +199,41 @@ static int acpi_battery_get_property(struct power_supply *psy,
+ 	int full_capacity = ACPI_BATTERY_VALUE_UNKNOWN, ret = 0;
+ 	struct acpi_battery *battery = to_acpi_battery(psy);
+ 
+-	if (acpi_battery_present(battery)) {
+-		/* run battery update only if it is present */
+-		acpi_battery_get_state(battery);
+-	} else if (psp != POWER_SUPPLY_PROP_PRESENT)
+-		return -ENODEV;
++	/* run battery update only if it is present */
++	if (!acpi_battery_present(battery)) {
++		switch (psp) {
++		case POWER_SUPPLY_PROP_PRESENT:
++			val->intval = 0;
++			return 0;
++		default:
++			return -ENODEV;
++		}
 +	}
 +
-+	cancel_work_sync(work);
++	mutex_lock(&battery->property_lock);
 +
-+	/* Discard stale entries so they are not replayed on next module load */
-+	kfifo_reset(&cxl_cper_prot_err_fifo);
- 
--	guard(spinlock)(&cxl_cper_prot_err_work_lock);
--	cxl_cper_prot_err_work = NULL;
- 	return 0;
++	acpi_battery_get_state(battery);
++
+ 	switch (psp) {
+ 	case POWER_SUPPLY_PROP_STATUS:
++		/*
++		 * Some devices wrongly report discharging if the battery's charge level
++		 * was above the device's start charging threshold atm the AC adapter
++		 * was plugged in and the device thus did not start a new charge cycle.
++		 */
+ 		if (battery->state & ACPI_BATTERY_STATE_DISCHARGING)
+-			val->intval = acpi_battery_handle_discharging(battery);
++			if (battery->rate_now != 0) {
++				val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
++			} else if (battery_ac_is_broken) {
++				val->intval = POWER_SUPPLY_STATUS_NOT_CHARGING;
++			} else {
++				mutex_unlock(&battery->property_lock);
++
++				val->intval = power_supply_is_system_supplied()
++					? POWER_SUPPLY_STATUS_NOT_CHARGING
++					: POWER_SUPPLY_STATUS_DISCHARGING;
++				return 0;
++			}
+ 		else if (battery->state & ACPI_BATTERY_STATE_CHARGING)
+ 			/* Check the rate and capacity to validate the status. */
+ 			if (!acpi_battery_is_full(battery) ||
+@@ -321,6 +336,8 @@ static int acpi_battery_get_property(struct power_supply *psy,
+ 	default:
+ 		ret = -EINVAL;
+ 	}
++
++	mutex_unlock(&battery->property_lock);
+ 	return ret;
  }
- EXPORT_SYMBOL_NS_GPL(cxl_cper_unregister_prot_err_work, "CXL");
-@@ -811,7 +819,7 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_prot_err_kfifo_get, "CXL");
- DEFINE_KFIFO(cxl_cper_fifo, struct cxl_cper_work_data, CXL_CPER_FIFO_DEPTH);
  
- /* Synchronize schedule_work() with cxl_cper_work changes */
--static DEFINE_SPINLOCK(cxl_cper_work_lock);
-+static DEFINE_RAW_SPINLOCK(cxl_cper_work_lock);
- struct work_struct *cxl_cper_work;
+@@ -556,6 +573,8 @@ static int acpi_battery_get_info(struct acpi_battery *battery)
+ 	int use_bix;
+ 	int result = -ENODEV;
  
- static void cxl_cper_post_event(enum cxl_event_type event_type,
-@@ -831,7 +839,7 @@ static void cxl_cper_post_event(enum cxl_event_type event_type,
++	lockdep_assert_held(&battery->property_lock);
++
+ 	if (!acpi_battery_present(battery))
+ 		return 0;
+ 
+@@ -595,6 +614,8 @@ static int acpi_battery_get_state(struct acpi_battery *battery)
+ 	acpi_status status = 0;
+ 	struct acpi_buffer buffer = { ACPI_ALLOCATE_BUFFER, NULL };
+ 
++	lockdep_assert_held(&battery->property_lock);
++
+ 	if (!acpi_battery_present(battery))
+ 		return 0;
+ 
+@@ -648,6 +669,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
+ {
+ 	acpi_status status = 0;
+ 
++	lockdep_assert_held(&battery->property_lock);
++
+ 	if (!acpi_battery_present(battery) ||
+ 	    !test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags))
+ 		return -ENODEV;
+@@ -665,6 +688,8 @@ static int acpi_battery_set_alarm(struct acpi_battery *battery)
+ 
+ static int acpi_battery_init_alarm(struct acpi_battery *battery)
+ {
++	lockdep_assert_held(&battery->property_lock);
++
+ 	/* See if alarms are supported, and if so, set default */
+ 	if (!acpi_has_method(battery->device->handle, "_BTP")) {
+ 		clear_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags);
+@@ -682,6 +707,8 @@ static ssize_t acpi_battery_alarm_show(struct device *dev,
+ {
+ 	struct acpi_battery *battery = to_acpi_battery(dev_get_drvdata(dev));
+ 
++	guard(mutex)(&battery->property_lock);
++
+ 	return sysfs_emit(buf, "%d\n", battery->alarm * 1000);
+ }
+ 
+@@ -697,6 +724,8 @@ static ssize_t acpi_battery_alarm_store(struct device *dev,
+ 	if (err)
+ 		return err;
+ 
++	guard(mutex)(&battery->property_lock);
++
+ 	battery->alarm = x / 1000;
+ 	if (acpi_battery_present(battery))
+ 		acpi_battery_set_alarm(battery);
+@@ -881,12 +910,17 @@ static int sysfs_add_battery(struct acpi_battery *battery)
+ 		.no_wakeup_source = true,
+ 	};
+ 	bool full_cap_broken = false;
++	int power_unit;
+ 
+-	if (!ACPI_BATTERY_CAPACITY_VALID(battery->full_charge_capacity) &&
+-	    !ACPI_BATTERY_CAPACITY_VALID(battery->design_capacity))
+-		full_cap_broken = true;
++	scoped_guard(mutex, &battery->property_lock) {
++		power_unit = battery->power_unit;
+ 
+-	if (battery->power_unit == ACPI_BATTERY_POWER_UNIT_MA) {
++		if (!ACPI_BATTERY_CAPACITY_VALID(battery->full_charge_capacity) &&
++		    !ACPI_BATTERY_CAPACITY_VALID(battery->design_capacity))
++			full_cap_broken = true;
++	}
++
++	if (power_unit == ACPI_BATTERY_POWER_UNIT_MA) {
+ 		if (full_cap_broken) {
+ 			battery->bat_desc.properties =
+ 			    charge_battery_full_cap_broken_props;
+@@ -940,6 +974,9 @@ static void sysfs_remove_battery(struct acpi_battery *battery)
+ static void find_battery(const struct dmi_header *dm, void *private)
+ {
+ 	struct acpi_battery *battery = (struct acpi_battery *)private;
++
++	lockdep_assert_held(&battery->property_lock);
++
+ 	/* Note: the hardcoded offsets below have been extracted from
+ 	 * the source code of dmidecode.
+ 	 */
+@@ -971,6 +1008,8 @@ static void find_battery(const struct dmi_header *dm, void *private)
+  */
+ static void acpi_battery_quirks(struct acpi_battery *battery)
+ {
++	lockdep_assert_held(&battery->property_lock);
++
+ 	if (test_bit(ACPI_BATTERY_QUIRK_PERCENTAGE_CAPACITY, &battery->flags))
  		return;
+ 
+@@ -1023,30 +1062,38 @@ static void acpi_battery_quirks(struct acpi_battery *battery)
+ static int acpi_battery_update(struct acpi_battery *battery, bool resume)
+ {
+ 	int result = acpi_battery_get_status(battery);
++	bool wakeup;
+ 
+ 	if (result)
+ 		return result;
+ 
+ 	if (!acpi_battery_present(battery)) {
+ 		sysfs_remove_battery(battery);
+-		battery->update_time = 0;
++		scoped_guard(mutex, &battery->property_lock)
++			battery->update_time = 0;
+ 		return 0;
  	}
  
--	guard(spinlock_irqsave)(&cxl_cper_work_lock);
-+	guard(raw_spinlock_irqsave)(&cxl_cper_work_lock);
+ 	if (resume)
+ 		return 0;
  
- 	if (!cxl_cper_work)
- 		return;
-@@ -849,10 +857,11 @@ static void cxl_cper_post_event(enum cxl_event_type event_type,
+-	if (!battery->update_time) {
+-		result = acpi_battery_get_info(battery);
++	scoped_guard(mutex, &battery->property_lock) {
++		if (!battery->update_time) {
++			result = acpi_battery_get_info(battery);
++			if (result)
++				return result;
++			acpi_battery_init_alarm(battery);
++		}
++
++		result = acpi_battery_get_state(battery);
+ 		if (result)
+ 			return result;
+-		acpi_battery_init_alarm(battery);
+-	}
++		acpi_battery_quirks(battery);
  
- int cxl_cper_register_work(struct work_struct *work)
- {
--	if (cxl_cper_work)
-+	guard(raw_spinlock_irqsave)(&cxl_cper_work_lock);
-+	if (WARN_ONCE(cxl_cper_work,
-+		      "CXL CPER kfifo consumer already registered\n"))
- 		return -EINVAL;
- 
--	guard(spinlock)(&cxl_cper_work_lock);
- 	cxl_cper_work = work;
- 	return 0;
- }
-@@ -860,11 +869,18 @@ EXPORT_SYMBOL_NS_GPL(cxl_cper_register_work, "CXL");
- 
- int cxl_cper_unregister_work(struct work_struct *work)
- {
--	if (cxl_cper_work != work)
--		return -EINVAL;
-+	scoped_guard(raw_spinlock_irqsave, &cxl_cper_work_lock) {
-+		if (WARN_ONCE(cxl_cper_work != work,
-+			      "CXL CPER kfifo consumer mismatch on unregister\n"))
-+			return -EINVAL;
-+		cxl_cper_work = NULL;
+-	result = acpi_battery_get_state(battery);
+-	if (result)
+-		return result;
+-	acpi_battery_quirks(battery);
++		wakeup = ((battery->state & ACPI_BATTERY_STATE_CRITICAL) ||
++			  (test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags) &&
++			   (battery->capacity_now <= battery->alarm)));
 +	}
-+
-+	cancel_work_sync(work);
-+
-+	/* Discard stale entries so they are not replayed on next module load */
-+	kfifo_reset(&cxl_cper_fifo);
  
--	guard(spinlock)(&cxl_cper_work_lock);
--	cxl_cper_work = NULL;
+ 	if (!battery->bat) {
+ 		result = sysfs_add_battery(battery);
+@@ -1058,9 +1105,7 @@ static int acpi_battery_update(struct acpi_battery *battery, bool resume)
+ 	 * Wakeup the system if battery is critical low
+ 	 * or lower than the alarm level
+ 	 */
+-	if ((battery->state & ACPI_BATTERY_STATE_CRITICAL) ||
+-	    (test_bit(ACPI_BATTERY_ALARM_PRESENT, &battery->flags) &&
+-	     (battery->capacity_now <= battery->alarm)))
++	if (wakeup)
+ 		acpi_pm_wakeup_event(battery->phys_dev);
+ 
+ 	return result;
+@@ -1073,12 +1118,14 @@ static void acpi_battery_refresh(struct acpi_battery *battery)
+ 	if (!battery->bat)
+ 		return;
+ 
+-	power_unit = battery->power_unit;
++	scoped_guard(mutex, &battery->property_lock) {
++		power_unit = battery->power_unit;
+ 
+-	acpi_battery_get_info(battery);
++		acpi_battery_get_info(battery);
+ 
+-	if (power_unit == battery->power_unit)
+-		return;
++		if (power_unit == battery->power_unit)
++			return;
++	}
+ 
+ 	/* The battery has changed its reporting units. */
+ 	sysfs_remove_battery(battery);
+@@ -1170,17 +1217,21 @@ static int battery_notify(struct notifier_block *nb,
+ 		} else {
+ 			int result;
+ 
+-			result = acpi_battery_get_info(battery);
+-			if (result)
+-				return result;
++			scoped_guard(mutex, &battery->property_lock) {
++				result = acpi_battery_get_info(battery);
++				if (result)
++					return result;
++			}
+ 
+ 			result = sysfs_add_battery(battery);
+ 			if (result)
+ 				return result;
+ 		}
+ 
+-		acpi_battery_init_alarm(battery);
+-		acpi_battery_get_state(battery);
++		scoped_guard(mutex, &battery->property_lock) {
++			acpi_battery_init_alarm(battery);
++			acpi_battery_get_state(battery);
++		}
+ 	}
+ 
  	return 0;
- }
- EXPORT_SYMBOL_NS_GPL(cxl_cper_unregister_work, "CXL");
-diff --git a/drivers/cxl/core/ras.c b/drivers/cxl/core/ras.c
-index 99fb00949c2f..bc74d4848132 100644
---- a/drivers/cxl/core/ras.c
-+++ b/drivers/cxl/core/ras.c
-@@ -137,7 +137,6 @@ int cxl_ras_init(void)
- void cxl_ras_exit(void)
- {
- 	cxl_cper_unregister_prot_err_work(&cxl_cper_prot_err_work);
--	cancel_work_sync(&cxl_cper_prot_err_work);
- }
+@@ -1345,6 +1396,10 @@ static int acpi_battery_probe(struct platform_device *pdev)
+ 	if (result)
+ 		return result;
  
- static void cxl_dport_map_ras(struct cxl_dport *dport)
-diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
-index 267c679b0b3c..7c6faee7f85e 100644
---- a/drivers/cxl/pci.c
-+++ b/drivers/cxl/pci.c
-@@ -1083,7 +1083,6 @@ static int __init cxl_pci_driver_init(void)
- static void __exit cxl_pci_driver_exit(void)
- {
- 	cxl_cper_unregister_work(&cxl_cper_work);
--	cancel_work_sync(&cxl_cper_work);
- 	pci_unregister_driver(&cxl_pci_driver);
- }
++	result = devm_mutex_init(&pdev->dev, &battery->property_lock);
++	if (result)
++		return result;
++
+ 	if (acpi_has_method(battery->device->handle, "_BIX"))
+ 		set_bit(ACPI_BATTERY_XINFO_PRESENT, &battery->flags);
  
 
