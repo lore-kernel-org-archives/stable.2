@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D97E3B42C3
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C354ADD8A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:18:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788441521; cv=none; b=BveTnH06l8qp0RxUDG1TZbHImDhYgbJOqXoB7LLVhOoZtOaElBDZENqMSZiEGBuOUZ6yFT6S9ebbvkzVxjFe8kKWmRNjD9vNigqTlv/whTJdHbyIiNy+t3JxkN8u4RGKmKZfox9Q8IQdktdOSDbkNq2UaQE23plWh5xeNdk2bhI=
+	t=1788441530; cv=none; b=WI+bpEo+e552vRBsWIORhC5Di6x9wa6GtTyczJugi5iYUAghZnJnqv+scK6wzP7fWuQjQ/h5MCUwTvmgL423nd0fOryevti2y6oBsWbRSSRC51eZMgG6d+yAxKYqfMWXcGZxJdmUyg/myGM8gJS3Vu/aNvrEQ/6lTBp43HydvBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788441521; c=relaxed/simple;
-	bh=wHxTT8DqviiQUaNtuX/YKBmoFBxRrl2B3IBbq/aASMs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ncghITMrP2lDCMpBTj1EXrltQjWSk1UvLtOddWnnMGtlbsValCuaE5oeVKaokEwLJtYW0QPzwBVwZOwuyjyqDdJzO5liGljbKdKXVANOCSl/8JvGBKsOn7MtAmeFJIM91pzPlp/3rbf11cxFMuKYAmXHphG08hD/wzQimt5NXBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WfzdFzxF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788441530; c=relaxed/simple;
+	bh=6jz97UaXnmL+qCWe6zR/i6BPmGxxljRglv4fMY8AjTw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hLfyxv7JlzbsBWttqJSIG/laLFmozFvYF+VZCuoxKPLmA74yNOjZ+qqsziivdI3LD0BtncuokjOOkilMWvIlIkyC+TthmVtjru9tEGbgvpzSMPRzw+7zBeLBV3TYZDBqJWf0mu/9tKxvHNjbE7iEDki+UGbeedO9G8n56ioJKB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fj1BVxmw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WfzdFzxF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592DA1F00A3E;
-	Thu,  3 Sep 2026 13:18:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fj1BVxmw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F30911F00AC4;
+	Thu,  3 Sep 2026 13:18:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788441511;
-	bh=FUKEFRlrW/C3oXlnMxwq+eYp3NoUkOvJEzxTUmBOHps=;
+	s=korg; t=1788441517;
+	bh=/BkcAdVwtVZenypdEsI+V75ODPLE38f35dqaYUGBHhQ=;
 	h=Subject:To:Cc:From:Date;
-	b=WfzdFzxFGTQp9+mUO8jP1FMNHqSTDIVYrT1YiJ54uxUbvnECseT01M8ywWY8De/Po
-	 AKA49a6uCwderZqum+j5w++37EhYLIIfIYg2eS+ga8YTmc3dbM8+Lg4ICJwLIJa+pY
-	 T0FDfs9ZlJLzDsHsFZzhvrNmKCOHOGH26tbZoiUo=
-Subject: FAILED: patch "[PATCH] nfsd: widen nfsd_genl_rqstp address fields to" failed to apply to 6.12-stable tree
-To: jlayton@kernel.org,chuck.lever@oracle.com
+	b=fj1BVxmwVeeiWRAXJDRfSJsOC3pV06bBsH6O4ALzk3DK2bctNGsbK+HK2wajMBZSG
+	 IeSOmZk3Ot5eLF7hf8mq1eosIFkUJ9QjuQuAy9UCiCSD4EIx9t18JoTzHSVM/a9AeU
+	 9aDjeusEe2UrRCwUvxAhfWskWcVuTk1RC8INb8RM=
+Subject: FAILED: patch "[PATCH] nfsd: check nfsd4_acl_to_attr() return value in" failed to apply to 6.18-stable tree
+To: jlayton@kernel.org,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:08:58 +0200
-Message-ID: <2026090358-starry-expulsion-6b91@gregkh>
+Date: Thu, 03 Sep 2026 15:09:50 +0200
+Message-ID: <2026090350-lizard-judo-a248@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x a99d720ed2a5258564e5e9d5f39f3184a030d354
+git cherry-pick -x 2c7912732184773dbd371a411da87af1cc080b86
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090358-starry-expulsion-6b91@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090350-lizard-judo-a248@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,81 +62,60 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a99d720ed2a5258564e5e9d5f39f3184a030d354 Mon Sep 17 00:00:00 2001
+From 2c7912732184773dbd371a411da87af1cc080b86 Mon Sep 17 00:00:00 2001
 From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 2 Jun 2026 12:23:17 -0400
-Subject: [PATCH] nfsd: widen nfsd_genl_rqstp address fields to
- sockaddr_storage
+Date: Thu, 11 Jun 2026 16:00:48 -0400
+Subject: [PATCH] nfsd: check nfsd4_acl_to_attr() return value in
+ nfsd4_create()
 
-struct nfsd_genl_rqstp declares rq_daddr and rq_saddr as plain
-"struct sockaddr" (16 bytes). When an IPv6 NFS client is connected,
-nfsd_genl_rpc_status_compose_msg() casts these fields to
-"struct sockaddr_in6 *" (28 bytes) and reads sin6_addr at offset 8..24,
-which extends 8 bytes past the end of the 16-byte sockaddr field into
-the adjacent rq_flags member. The 16-byte nla_put_in6_addr then ships 8
-bytes of truncated IPv6 address followed by 8 bytes of rq_flags to
-userspace via the NFSD_A_RPC_STATUS_SADDR6/DADDR6 netlink attributes.
+nfsd4_create() stores the return value of nfsd4_acl_to_attr() in
+status, but the switch(create->cr_type) block unconditionally
+overwrites it in every branch. ACL translation errors are silently
+discarded, and the CREATE proceeds without the requested ACL.
 
-This is reachable by any unprivileged process in the network namespace
-because NFSD_CMD_RPC_STATUS_GET uses GENL_CMD_CAP_DUMP without
-GENL_ADMIN_PERM.
+Add an early exit check after nfsd4_acl_to_attr(), matching the
+pattern already used in nfsd4_setattr().
 
-Fix by widening rq_daddr and rq_saddr to struct sockaddr_storage so the
-IPv6 casts operate within bounds, copying sizeof(struct sockaddr_storage)
-bytes in the memcpy calls so the full address is captured, and
-zero-initializing the genl_rqstp stack variable to prevent leaking
-uninitialized tail bytes through netlink.
-
-Fixes: bd9d6a3efa97 ("NFSD: add rpc_status netlink support")
+Fixes: c0cbe70742f4 ("NFSD: add posix ACLs to struct nfsd_attrs")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
+Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260602-nfsd-testing-v2-5-e4ea62e3cd5c@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ cel: prefer NFS4ERR_BADTYPE over NFS4ERR_ATTRNOTSUPP ]
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-5-5b90e276f2d9@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 5e3e60110ee6..c2ec30e6b51f 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -1414,8 +1414,8 @@ static int create_proc_exports_entry(void)
- unsigned int nfsd_net_id;
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 623a89a1f34e..eb8a2a16839f 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -848,6 +848,20 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 	if (status)
+ 		goto out_aftermask;
  
- struct nfsd_genl_rqstp {
--	struct sockaddr		rq_daddr;
--	struct sockaddr		rq_saddr;
-+	struct sockaddr_storage	rq_daddr;
-+	struct sockaddr_storage	rq_saddr;
- 	unsigned long		rq_flags;
- 	ktime_t			rq_stime;
- 	__be32			rq_xid;
-@@ -1450,7 +1450,7 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
- 			NFSD_A_RPC_STATUS_PAD))
- 		return -ENOBUFS;
- 
--	switch (genl_rqstp->rq_saddr.sa_family) {
-+	switch (genl_rqstp->rq_saddr.ss_family) {
- 	case AF_INET: {
- 		const struct sockaddr_in *s_in, *d_in;
- 
-@@ -1527,7 +1527,7 @@ int nfsd_nl_rpc_status_get_dumpit(struct sk_buff *skb,
- 		list_for_each_entry_rcu(rqstp,
- 				&nn->nfsd_serv->sv_pools[i].sp_all_threads,
- 				rq_all) {
--			struct nfsd_genl_rqstp genl_rqstp;
-+			struct nfsd_genl_rqstp genl_rqstp = {};
- 			unsigned int status_counter;
- 
- 			if (rqstp_index++ < cb->args[1]) /* already consumed */
-@@ -1551,9 +1551,9 @@ int nfsd_nl_rpc_status_get_dumpit(struct sk_buff *skb,
- 			genl_rqstp.rq_stime = rqstp->rq_stime;
- 			genl_rqstp.rq_opcnt = 0;
- 			memcpy(&genl_rqstp.rq_daddr, svc_daddr(rqstp),
--			       sizeof(struct sockaddr));
-+			       sizeof(struct sockaddr_storage));
- 			memcpy(&genl_rqstp.rq_saddr, svc_addr(rqstp),
--			       sizeof(struct sockaddr));
-+			       sizeof(struct sockaddr_storage));
- 
- #ifdef CONFIG_NFSD_V4
- 			if (rqstp->rq_vers == NFS4_VERSION &&
++	/* Sanitize cr_type to avoid returning ATTRNOTSUPP. */
++	switch (create->cr_type) {
++	case NF4LNK:
++	case NF4BLK:
++	case NF4CHR:
++	case NF4SOCK:
++	case NF4FIFO:
++	case NF4DIR:
++		break;
++	default:
++		status = nfserr_badtype;
++		goto out_aftermask;
++	}
++
+ 	if (create->cr_acl) {
+ 		if (attrs.na_dpacl || attrs.na_pacl) {
+ 			status = nfserr_inval;
+@@ -855,6 +869,8 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 		}
+ 		status = nfsd4_acl_to_attr(create->cr_type, create->cr_acl,
+ 								&attrs);
++		if (status != nfs_ok)
++			goto out_aftermask;
+ 	}
+ 	current->fs->umask = create->cr_umask;
+ 	switch (create->cr_type) {
 
