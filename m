@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CCFB4B2051
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB47E45A2A1
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444387; cv=none; b=YeYo8ceuYmErVsS0XvNTJYu7edXLUyChblL6pLbivyJv0CjQdCMOJfu2Qb9B2H+yTr+I0L21trbKRLVeNDmwCLOjHXCN74X8k0UWXHZNuoi1ruxSayP3skq92qqVHcEq2UfLncH3D8ihL4f+ltaf4Qs1LXbUTWnPxGo/+5PpPSc=
+	t=1788444396; cv=none; b=fgGUxgzKQvOkJF3k7wxVHIPwKCuGr3rpNyDTDep79F7r1Wh0Sa2fEdxGA6iJnGJEaYhvMijVGjjpYhgfXVrx5V1Nt/jKIHWy5zXQOQ0FXmW6J46i/F1dJJgdCo5LsT1D3ptYP5Y9a5If48FQUnnNvs9rLjzsVGOnnlYBMCAT1aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444387; c=relaxed/simple;
-	bh=Bcyr3zCJSYW94Hpox2yBMi/LwfX8gqtMEOzddd5hS5k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rklboOXscnyQZIENliWBww2seWbDnTN2KfTXOwogWXEe5jg4WvcIMMiijtq7r5Vz+zwjJqvV2erRbyxq9sC2RY91QMr1ArWyawgnmp7WwVbxPm1F4RjCFjPM49CYOuf4YE3fMFN5FuDZFd7pdhgcjgL1PwAa2y/4fH9XxFgBc5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mmL2lt3S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444396; c=relaxed/simple;
+	bh=AZ23zauV5sTFOVfcN5vbXt1RB2MccMrzA9GNR21KzNw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B4cJfCNZr7HEYwy6N1fYeP2lfBKn1OPH2Ahoa/qC7Whdp9qNyYcUERLkg7Lptwm0yedkt+g8/zCj3cckdz47f8v2q/GtZTyvtyTkyKMLxveG5TxbxWMtoEYeis9U5NJdzIC0fbAT+c9fBlaMy5d2D9R+fKiSHT1PzUML9OodkMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2gQYgZxv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mmL2lt3S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC0FC1F00A3E;
-	Thu,  3 Sep 2026 14:06:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2gQYgZxv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 581A41F00A3F;
+	Thu,  3 Sep 2026 14:06:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444377;
-	bh=puT6LM80G1FO7zqE0/7IOE9B1yw+4eeAnJuH3iMsJ4s=;
+	s=korg; t=1788444385;
+	bh=3Vsvl3IWg9U2OO26QtnnSvTl7yg/9K3uDLOS/CuqpuU=;
 	h=Subject:To:Cc:From:Date;
-	b=mmL2lt3SdX4NodPc0cfAqxw9gFVclTLHriilcnbe2L1bC/PoDpi7lBafooi7WYH1q
-	 rSShcSZl5CKaSRTDCCWrftmVSY2jSH2YsldomCY4Y3hSwowEuJkgFCb54hrF3eYEcx
-	 I3SqMuDhDuSdkFTuVygqQ2uJ3nhnFoZ+gCdYBty8=
-Subject: FAILED: patch "[PATCH] auxdisplay: charlcd: cancel backlight work on registration" failed to apply to 5.10-stable tree
-To: getshell@seu.edu.cn,andriy.shevchenko@linux.intel.com,geert@linux-m68k.org
+	b=2gQYgZxv8VAj4BZYEmqkgEFpwhrDT+I81UYuSe/doF2eTS3f5cKJJ1f3RA6qJ2fMQ
+	 vFDpfTnn/Wb1nvf3xJdOY9HMoW6EOJvIUlnI4/48eThENSX7kTsc7ycLs1I9lUKRQ0
+	 JCMnu2WbykYxPY+/oTtbSb7pmUORLwVNMtKsIYFQ=
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+" failed to apply to 6.18-stable tree
+To: christian.loehle@arm.com,rafael.j.wysocki@intel.com,sumitg@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:45:50 +0200
-Message-ID: <2026090350-stencil-mud-1d68@gregkh>
+Date: Thu, 03 Sep 2026 15:48:09 +0200
+Message-ID: <2026090309-negation-laboring-bb8a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e3e3bf40916c1e810df03958cfa7ba6883cdce79
+git cherry-pick -x df5a1d4a8cdfda20eb2581a85e81c7d436866534
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090350-stencil-mud-1d68@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090309-negation-laboring-bb8a@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,75 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e3e3bf40916c1e810df03958cfa7ba6883cdce79 Mon Sep 17 00:00:00 2001
-From: Hongyan Xu <getshell@seu.edu.cn>
-Date: Sat, 15 Aug 2026 18:59:50 +0800
-Subject: [PATCH] auxdisplay: charlcd: cancel backlight work on registration
- failure
+From df5a1d4a8cdfda20eb2581a85e81c7d436866534 Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Mon, 3 Aug 2026 21:35:29 +0100
+Subject: [PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+
 
-With CONFIG_CHARLCD_BL_FLASH, charlcd_init() schedules bl_work before
-charlcd_register() calls misc_register(). If registration fails, the
-caller frees the charlcd object while delayed work still contains its
-address.
+When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
+calls cppc_get_desired_perf() because some platforms repurpose Desired
+Performance to report actual delivered performance.
 
-Add charlcd_deinit() to cancel the delayed work and turn the backlight
-off. Use it for both registration rollback and normal unregistration.
+ACPI 6.5 defines _CPC revision 3 and lists Read/Write as the Optional
+Attribute of Desired Performance. ACPI 6.6 advances _CPC to revision 4 and
+lists only Write, so invoking that workaround for revision 4 or later would
+require a register read that the interface no longer specifies.
 
-Fixes: 39f8ea46724e ("auxdisplay: charlcd: Extract character LCD core from misc/panel")
+Make cppc_get_desired_perf() return -EOPNOTSUPP for _CPC revision 4 or
+later. Use the revision retained in the per-CPU CPC descriptor rather than
+the platform-wide FADT revision.
+
+The _CPC revision may still not accurately describe the implemented
+register semantics. If a nominally revision 3 platform implements a
+non-readable Desired Performance register, a read may return zero and make
+cppc_cpufreq_get_rate() report 0 kHz. Treat a zero read as unusable and
+fall back to the cached OSPM request, just as for a failed read.
+
+Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
 Cc: stable@vger.kernel.org
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Suggested-by: Sumit Gupta <sumitg@nvidia.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://patch.msgid.link/20260803203531.1268651-2-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-diff --git a/drivers/auxdisplay/charlcd.c b/drivers/auxdisplay/charlcd.c
-index 09020bb8ad15..ae2692ec3963 100644
---- a/drivers/auxdisplay/charlcd.c
-+++ b/drivers/auxdisplay/charlcd.c
-@@ -595,6 +595,16 @@ static int charlcd_init(struct charlcd *lcd)
- 	return 0;
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 53d09ca98f06..42aeb749ebe0 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -1316,15 +1316,30 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
+ 	return cpc_write(cpu, reg, val);
  }
  
-+static void charlcd_deinit(struct charlcd *lcd)
++static bool cppc_desired_perf_readable(const struct cpc_desc *cpc_desc)
 +{
-+	struct charlcd_priv *priv = charlcd_to_priv(lcd);
-+
-+	if (lcd->ops->backlight) {
-+		cancel_delayed_work_sync(&priv->bl_work);
-+		lcd->ops->backlight(lcd, CHARLCD_OFF);
-+	}
++	return cpc_desc->version < CPPC_V4_REV;
 +}
 +
- struct charlcd *charlcd_alloc(unsigned int drvdata_size)
+ /**
+  * cppc_get_desired_perf - Get the desired performance register value.
+  * @cpunum: CPU from which to get desired performance.
+  * @desired_perf: Return address.
+  *
+- * Return: 0 for success, -EIO otherwise.
++ * Return: 0 for success, -EOPNOTSUPP for _CPC revision 4 or later, and a
++ * negative errno otherwise.
+  */
+ int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
  {
- 	struct charlcd_priv *priv;
-@@ -654,8 +664,10 @@ int charlcd_register(struct charlcd *lcd)
- 		return ret;
- 
- 	ret = misc_register(&charlcd_dev);
--	if (ret)
-+	if (ret) {
-+		charlcd_deinit(lcd);
- 		return ret;
-+	}
- 
- 	the_charlcd = lcd;
- 	register_reboot_notifier(&panel_notifier);
-@@ -665,16 +677,11 @@ EXPORT_SYMBOL_GPL(charlcd_register);
- 
- int charlcd_unregister(struct charlcd *lcd)
- {
--	struct charlcd_priv *priv = charlcd_to_priv(lcd);
--
- 	unregister_reboot_notifier(&panel_notifier);
- 	charlcd_puts(lcd, "\x0cLCD driver unloaded.\x1b[Lc\x1b[Lb\x1b[L-");
- 	misc_deregister(&charlcd_dev);
- 	the_charlcd = NULL;
--	if (lcd->ops->backlight) {
--		cancel_delayed_work_sync(&priv->bl_work);
--		priv->lcd.ops->backlight(&priv->lcd, CHARLCD_OFF);
--	}
-+	charlcd_deinit(lcd);
- 
- 	return 0;
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
++
++	if (!cpc_desc)
++		return -ENODEV;
++
++	/* _CPC revision 4 no longer specifies Desired Performance as readable. */
++	if (!cppc_desired_perf_readable(cpc_desc))
++		return -EOPNOTSUPP;
++
+ 	return cppc_get_reg_val(cpunum, DESIRED_PERF, desired_perf);
  }
+ EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 6fe0e972952a..80893844353c 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -836,7 +836,7 @@ static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
+ 	 * value first as some platforms may update the actual delivered perf
+ 	 * there; if failed, resort to the cached desired perf.
+ 	 */
+-	if (cppc_get_desired_perf(cpu, &delivered_perf))
++	if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
+ 		delivered_perf = cpu_data->perf_ctrls.desired_perf;
+ 
+ 	return cppc_perf_to_khz(&cpu_data->perf_caps, delivered_perf);
 
