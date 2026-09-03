@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9104AF161
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:39:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FA4AEBE8
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442816; cv=none; b=e7LKCb6ctd4PO52ZZirodkPLKjkk4xyg+2BxCTNySd02rRkQTO+J+cKBS+gPiW85s94c7G+U2/S9hEPKwEEskgohKg45tAO6ejUos6qIaioSrATGmRFTOF/ViHM7eOn/VKLDcC2Yj3wUbZaUIdZPZSgJK8N+JpaFKEL8z8BqbW4=
+	t=1788442816; cv=none; b=tIkDJv4ASqEMS/6m/rTVHw9OSkynY04ox3VVKqmZt1HrP76LhwTHnVudo9Z9yRSytbMlMs9e98c69WqlnYib75GnDimHKqD6CMqC9h6dULVFE8nRUMNoPwpilyn9HDj9JgOn7/TqyeGYJRgtS/g5lXKPIL6vrLjIdqHnkYSRCrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788442816; c=relaxed/simple;
-	bh=476UJ6DhKDsRavNtKz7G9j97cF5krieYS9R/eQk3ULM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KT9U9+1dmZiV2KSpayXEA9VnClxvU7pqK/l6ifQNWJBQCoXbcX6esT+3I99mJhMKqmVTP7ixt+8x5ovlrhisPIvkf63qwdVvGXl5SL1CLWay05HAvEj7fMM3Cp28hoyZIg6K9zuHa9XMU3Ve3nqG5DsfG9ot/597LTrWzeAPj+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ufdFRDpy; arc=none smtp.client-ip=100.103.45.18
+	bh=WAxiW4ebjVBU4TA7MwCzIsjeY9cV/jDE22BM900FlD0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=upxXKjg/2m7+wAyppeKTOurlA9kSsEvJ5yK3qtvoJhB3OmpiJ5QkmhQg6OqvWZfZGqLMUoz+uyOP4bl239UbV2yDv2Akb2CSdzt1P+7oSAPG3ep2gZstmxB5SGTDqM3b0pBTeQccdteWO1N3zLWwEs5I8ZyjfTYzrye5iyH1+uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dgsX6HDo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ufdFRDpy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0AA1F00AC4;
-	Thu,  3 Sep 2026 13:39:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dgsX6HDo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E5B1F000E9;
+	Thu,  3 Sep 2026 13:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442791;
-	bh=q8uJC28bqigQPWqpvZojrXphpfQlRALXltkmRVgp6p4=;
+	s=korg; t=1788442805;
+	bh=zMBqbG8BgvMVLA1UY68+9/yG1su8yH9t+l7kTnxZCys=;
 	h=Subject:To:Cc:From:Date;
-	b=ufdFRDpy7kCz15adZVux3Sqi7hsbyZRs/YZLFhfIrKMVNog70Iaadcnd9W/Jqyp3F
-	 eR6PjhWgorr/jcozB8/5ynDnFcQqs8yYp9cQHNY1Wwvad1oHBtSmywEdxan7cO14+X
-	 MYvIiD3x7+HI7eOn7klh9Dsic0uEi0tcK9zNEiaE=
-Subject: FAILED: patch "[PATCH] nfsd: fix clock domain mismatch in clients_still_reclaiming()" failed to apply to 6.12-stable tree
-To: jlayton@kernel.org,cel@kernel.org
+	b=dgsX6HDonbMnNIjHzdOXK2UuYvNfpn1gm5GiynxAWIDYkAq3M/9E9jn7126lgBMsZ
+	 Cq1HikOZp1UnimmftifRV+NI14OBCJVN9lsbrxtvNOKBxkqVKMLphZadMeEOoQM8AK
+	 hu555Fr0qTeBIaLggtj+XMOV40Xtvj0Gvqon9nZE=
+Subject: FAILED: patch "[PATCH] nfsd: fix fcache_disposal UAF by inlining dispose state into" failed to apply to 6.1-stable tree
+To: jlayton@kernel.org,chuck.lever@oracle.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:13:15 +0200
-Message-ID: <2026090314-portal-hardy-c77c@gregkh>
+Date: Thu, 03 Sep 2026 15:13:40 +0200
+Message-ID: <2026090340-pesky-jaybird-39c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 09ea3eb9a518565f5bca386e81b993ed8825f5e8
+git cherry-pick -x bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090314-portal-hardy-c77c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090340-pesky-jaybird-39c7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,66 +62,197 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 09ea3eb9a518565f5bca386e81b993ed8825f5e8 Mon Sep 17 00:00:00 2001
+From bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4 Mon Sep 17 00:00:00 2001
 From: Jeff Layton <jlayton@kernel.org>
-Date: Thu, 11 Jun 2026 16:00:55 -0400
-Subject: [PATCH] nfsd: fix clock domain mismatch in clients_still_reclaiming()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 2 Jun 2026 12:23:19 -0400
+Subject: [PATCH] nfsd: fix fcache_disposal UAF by inlining dispose state into
+ nfsd_net
 
-clients_still_reclaiming() computes a deadline from nn->boot_time
-(CLOCK_REALTIME, ~1.7 billion) but compares it against
-ktime_get_boottime_seconds() (CLOCK_BOOTTIME, seconds since boot).
-The comparison is always false — it would take ~54 years of uptime
-for BOOTTIME to exceed the REALTIME-derived deadline.
+nfsd_file_dispose_list_delayed() defers fput() to nfsd service threads
+via a per-net freeme queue, preventing the shrinker and GC worker from
+bearing the cost of closing files (see ffb402596147).  However, the
+queue lives in a separately-allocated struct nfsd_fcache_disposal that
+is freed by nfsd_free_fcache_disposal_net() during per-net teardown.
+The global shrinker, laundrette, and fsnotify callbacks can still be
+inside nfsd_file_dispose_list_delayed() dereferencing that pointer,
+causing a use-after-free.
 
-This means any client can hold the server in grace indefinitely by
-sending CLAIM_PREVIOUS OPEN requests, blocking all non-reclaim
-operations for all other clients.
+Inline the spinlock and freeme list directly into struct nfsd_net (as
+fcache_dispose_lock and fcache_dispose_list), eliminating the separately
+allocated struct nfsd_fcache_disposal entirely.  These fields now have
+the same lifetime as the net namespace itself, so there is no dangling
+pointer to chase.
 
-Add boot_time_bt (CLOCK_BOOTTIME) alongside the existing boot_time
-and use it for the deadline computation. boot_time (CLOCK_REALTIME)
-is preserved for its cl_boot clientid-nonce role.
+nfsd_file_cache_start_net() now just initializes the inline fields and
+cannot fail due to allocation.  nfsd_file_cache_shutdown_net() drains
+the inline list directly instead of freeing a separate struct.  The
+alloc/free helpers are removed.
 
-Fixes: 20b7d86f29d3 ("nfsd: use boottime for lease expiry calculation")
+Fixes: 1463b38e7cf3 ("NFSD: simplify per-net file cache management")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
+Assisted-by: Claude:claude-opus-4-6
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-12-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Link: https://patch.msgid.link/20260602-nfsd-testing-v2-7-e4ea62e3cd5c@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index 19beb4d482be..da5a44c31acb 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -62,11 +62,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_total_age);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_evictions);
+ 
+-struct nfsd_fcache_disposal {
+-	spinlock_t lock;
+-	struct list_head freeme;
+-};
+-
+ static struct kmem_cache		*nfsd_file_slab;
+ static struct kmem_cache		*nfsd_file_mark_slab;
+ static struct list_lru			nfsd_file_lru;
+@@ -422,25 +417,25 @@ nfsd_file_dispose_list(struct list_head *dispose)
+ }
+ 
+ /**
+- * nfsd_file_dispose_list_delayed - move list of dead files to net's freeme list
++ * nfsd_file_dispose_list_delayed - queue dead files for nfsd thread disposal
+  * @dispose: list of nfsd_files to be disposed
+  *
+- * Transfers each file to the "freeme" list for its nfsd_net, to eventually
+- * be disposed of by the per-net garbage collector.
++ * Transfers each file to the dispose list in its nfsd_net and wakes an nfsd
++ * thread to do the actual close.  This keeps the cost of fput() in the nfsd
++ * threads rather than in the shrinker or GC worker.
+  */
+ static void
+ nfsd_file_dispose_list_delayed(struct list_head *dispose)
+ {
+-	while(!list_empty(dispose)) {
++	while (!list_empty(dispose)) {
+ 		struct nfsd_file *nf = list_first_entry(dispose,
+ 						struct nfsd_file, nf_gc);
+ 		struct nfsd_net *nn = net_generic(nf->nf_net, nfsd_net_id);
+-		struct nfsd_fcache_disposal *l = nn->fcache_disposal;
+ 		struct svc_serv *serv;
+ 
+-		spin_lock(&l->lock);
+-		list_move_tail(&nf->nf_gc, &l->freeme);
+-		spin_unlock(&l->lock);
++		spin_lock(&nn->fcache_dispose_lock);
++		list_move_tail(&nf->nf_gc, &nn->fcache_dispose_list);
++		spin_unlock(&nn->fcache_dispose_lock);
+ 
+ 		/*
+ 		 * The filecache laundrette is shut down after the
+@@ -464,17 +459,15 @@ nfsd_file_dispose_list_delayed(struct list_head *dispose)
+  */
+ void nfsd_file_net_dispose(struct nfsd_net *nn)
+ {
+-	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
+-
+-	if (!list_empty(&l->freeme)) {
++	if (!list_empty(&nn->fcache_dispose_list)) {
+ 		LIST_HEAD(dispose);
+ 		int i;
+ 
+-		spin_lock(&l->lock);
+-		for (i = 0; i < 8 && !list_empty(&l->freeme); i++)
+-			list_move(l->freeme.next, &dispose);
+-		spin_unlock(&l->lock);
+-		if (!list_empty(&l->freeme)) {
++		spin_lock(&nn->fcache_dispose_lock);
++		for (i = 0; i < 8 && !list_empty(&nn->fcache_dispose_list); i++)
++			list_move(nn->fcache_dispose_list.next, &dispose);
++		spin_unlock(&nn->fcache_dispose_lock);
++		if (!list_empty(&nn->fcache_dispose_list)) {
+ 			/*
+ 			 * Wake up another thread to share the work
+ 			 * *before* doing any actual disposing.
+@@ -698,11 +691,11 @@ nfsd_file_queue_for_close(struct inode *inode, struct list_head *dispose)
+ }
+ 
+ /**
+- * nfsd_file_close_inode - attempt a delayed close of a nfsd_file
++ * nfsd_file_close_inode - attempt a deferred close of a nfsd_file
+  * @inode: inode of the file to attempt to remove
+  *
+  * Close out any open nfsd_files that can be reaped for @inode. The
+- * actual freeing is deferred to the dispose_list_delayed infrastructure.
++ * actual freeing is deferred to the nfsd service threads.
+  *
+  * This is used by the fsnotify callbacks and setlease notifier.
+  */
+@@ -952,42 +945,14 @@ __nfsd_file_cache_purge(struct net *net)
+ 	nfsd_file_dispose_list(&dispose);
+ }
+ 
+-static struct nfsd_fcache_disposal *
+-nfsd_alloc_fcache_disposal(void)
+-{
+-	struct nfsd_fcache_disposal *l;
+-
+-	l = kmalloc_obj(*l);
+-	if (!l)
+-		return NULL;
+-	spin_lock_init(&l->lock);
+-	INIT_LIST_HEAD(&l->freeme);
+-	return l;
+-}
+-
+-static void
+-nfsd_free_fcache_disposal(struct nfsd_fcache_disposal *l)
+-{
+-	nfsd_file_dispose_list(&l->freeme);
+-	kfree(l);
+-}
+-
+-static void
+-nfsd_free_fcache_disposal_net(struct net *net)
+-{
+-	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
+-
+-	nfsd_free_fcache_disposal(l);
+-}
+-
+ int
+ nfsd_file_cache_start_net(struct net *net)
+ {
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+-	nn->fcache_disposal = nfsd_alloc_fcache_disposal();
+-	return nn->fcache_disposal ? 0 : -ENOMEM;
++	spin_lock_init(&nn->fcache_dispose_lock);
++	INIT_LIST_HEAD(&nn->fcache_dispose_list);
++	return 0;
+ }
+ 
+ /**
+@@ -1006,8 +971,10 @@ nfsd_file_cache_purge(struct net *net)
+ void
+ nfsd_file_cache_shutdown_net(struct net *net)
+ {
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
+ 	nfsd_file_cache_purge(net);
+-	nfsd_free_fcache_disposal_net(net);
++	nfsd_file_dispose_list(&nn->fcache_dispose_list);
+ }
+ 
+ void
 diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index 5c33c96da28e..03724bef10a7 100644
+index f6b8b340bf8e..5c33c96da28e 100644
 --- a/fs/nfsd/netns.h
 +++ b/fs/nfsd/netns.h
-@@ -78,6 +78,7 @@ struct nfsd_net {
- 	struct lock_manager nfsd4_manager;
- 	unsigned long flags;
- 	time64_t boot_time;
-+	time64_t boot_time_bt;	/* same instant in CLOCK_BOOTTIME */
+@@ -216,7 +216,8 @@ struct nfsd_net {
+ 	/* utsname taken from the process that starts the server */
+ 	char			nfsd_name[UNX_MAXNODENAME+1];
  
- 	struct dentry *nfsd_client_dir;
+-	struct nfsd_fcache_disposal *fcache_disposal;
++	spinlock_t		fcache_dispose_lock;
++	struct list_head	fcache_dispose_list;
  
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 3dc0c0f6eb5d..17cb3b0ad956 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -6870,7 +6870,7 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
-  */
- static bool clients_still_reclaiming(struct nfsd_net *nn)
- {
--	time64_t double_grace_period_end = nn->boot_time +
-+	time64_t double_grace_period_end = nn->boot_time_bt +
- 					   2 * nn->nfsd4_lease;
+ 	siphash_key_t		siphash_key;
  
- 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
-@@ -9245,6 +9245,7 @@ static int nfs4_state_create_net(struct net *net)
- 	nn->conf_name_tree = RB_ROOT;
- 	nn->unconf_name_tree = RB_ROOT;
- 	nn->boot_time = ktime_get_real_seconds();
-+	nn->boot_time_bt = ktime_get_boottime_seconds();
- 	clear_bit(NFSD_NET_GRACE_ENDED, &nn->flags);
- 	clear_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
- 	nn->nfsd4_manager.block_opens = true;
 
