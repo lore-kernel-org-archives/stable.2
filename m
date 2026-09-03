@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6909D4A5EBE
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BA9423A80
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439444; cv=none; b=H5sV0A8OeCHgLyp42i/fKH24XMPFhbMF5yH6hvVmd1dczOd2fUhj+/GrckYy0wBgdyjy75AU2l0HTYWn2n6MIk/C3mYCcVx0bBHq3En7tjxWIYBvDFVrNqmdVZD6rh/s+gjAETig9QrSipt1WNVGGqrjJKUQl2LlvQxI6SWVZk4=
+	t=1788439447; cv=none; b=Dvr0f9dfRYHN2GUR5u7c+4y0qUUATN18y7a0OL0OjZjUpiAQ1PkIh3Xjfn2Obhi9ifrApCK6LK+1VLIwUahafMZDMZn5QzCC3zeIGuWaD4vzH6jjCDz6taqMzu6LUPiMeHPz6iGCmZInf4q565v6+spm8yEr1Zm1+eVLwXDEdoo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439444; c=relaxed/simple;
-	bh=vYsrnnE6Ix+v0x3fDiCCHWFk5YTrTC+38YBVdvenTHU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GFtXQExeUwCYH3feo9fg8Lpb6G3dHVB2kMT3kw2YbBY+I+O/K8F0B57EWsTgslJ8SXui3bjjkmIM2uk+h6eO2odocvIwsBj9zcKHM8/2FOkypgYeDSFo7Sw6VZ2Oaag4PTOz7dx42Fp/q/6j+BYTP7ZMGE5ktEktYYvZrfI8yBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ywXdGxt6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439447; c=relaxed/simple;
+	bh=nyzaMcaVbPDLLWivgVM/xpyuHzEEJ2r7mHb7QugScK0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DwNiS1NNoTeP9wsXL3gMrvQxREUVMfpDedA2W0wUfbXdL2OL36RCjE2J3d5eWlGbH6x9caWrxR3pAVtLLdHIxxwiP0uYaUQNHrQ3Pg3Pl/obajuBtDzia9obnVwTQXurhqbFXFHzyuC+OOM9QoQaSvHL11Ra+m/KyMZVjjbIyeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Sd7mtlhN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ywXdGxt6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EC861F00A3A;
-	Thu,  3 Sep 2026 12:44:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Sd7mtlhN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B4E1F000E9;
+	Thu,  3 Sep 2026 12:44:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439443;
-	bh=fsZRpPL7cWkuSeWu+raJ+dWCMLOGHS+iZmm6o0NhiZE=;
+	s=korg; t=1788439445;
+	bh=fL6n82hNxepNlduZi9abCFdi3JFh+l/xPeQ3wk2EY4g=;
 	h=Subject:To:Cc:From:Date;
-	b=ywXdGxt6K/P72GiNLO1B5z6NVrrb+OkCPxqnhh5VN32wiB39UAVUjfMTHAyiO0diw
-	 a+GsfdX42Lb0JuqMblg6sQ6Aop1MQAEtpSlVVF8x6mcQ5fkiMeNjaU961nzEfSsqPf
-	 JI1+vM5KoTqr4E5r7HdOHFsZ7J7c8v1Uv473U6PQ=
-Subject: FAILED: patch "[PATCH] rust: devres: fix race between concurrent revokers" failed to apply to 6.18-stable tree
-To: dakr@kernel.org,aliceryhl@google.com,gary@garyguo.net,sashiko-bot@kernel.org
+	b=Sd7mtlhNtsfQipwNgcj0IXPPKHsBr//a7BbQ4sgKfh2z3OyX4hR51oG6NzWvNQCP0
+	 Asxjuin7wrgfjmHpA3ELKLOIDZuPsngV6ym/XxU2Xq9F06bsXfbHrvyCod2r8yFBsR
+	 erdfF/6Yqf73XZ6omKzh42Fo1zT8cIvYK9OOTMEQ=
+Subject: FAILED: patch "[PATCH] objtool/rust: add one more `noreturn` Rust function" failed to apply to 6.12-stable tree
+To: ojeda@kernel.org,aliceryhl@google.com,jpoimboe@kernel.org,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:43:15 +0200
-Message-ID: <2026090315-banker-thank-0f7d@gregkh>
+Date: Thu, 03 Sep 2026 12:43:41 +0200
+Message-ID: <2026090341-pyromania-recoil-5ed5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x acc516dfa1972d31836b50abc0115216cd0fccc5
+git cherry-pick -x 993f235c4af49d0e912cc28abe6d733531600237
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090315-banker-thank-0f7d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090341-pyromania-recoil-5ed5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,101 +62,68 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From acc516dfa1972d31836b50abc0115216cd0fccc5 Mon Sep 17 00:00:00 2001
-From: Danilo Krummrich <dakr@kernel.org>
-Date: Sun, 28 Jun 2026 19:44:38 +0200
-Subject: [PATCH] rust: devres: fix race between concurrent revokers
+From 993f235c4af49d0e912cc28abe6d733531600237 Mon Sep 17 00:00:00 2001
+From: Miguel Ojeda <ojeda@kernel.org>
+Date: Wed, 5 Aug 2026 16:45:24 +0200
+Subject: [PATCH] objtool/rust: add one more `noreturn` Rust function
 
-There is a potential race condition when two paths try to revoke a
-Devres concurrently.
+When the pointer formatting series [1] is applied and KUnit tests
+are enabled, `objtool` would report an error with any of our
+supported Rust versions. For instance, with Rust 1.97.1:
 
-The driver core's devres_release_all() calls Revocable::revoke() via the
-release callback, while Devres::drop() calls revoke_nosync() on another
-CPU.
+    rust/kernel.o: error: objtool: _R..._4core3fmt7Pointer3fmtB7_()
+    falls through to next function _R..._4core7convert5AsRefNtB5_4BStrE6as_ref()
 
-The revoker that does not claim the is_available swap returns
-immediately, but the revoker that did may still be executing
-drop_in_place() on the inner data. This can cause a use-after-free when
-the other revoker's caller proceeds to drop adjacent resources that
-drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
-SGTable freeing the backing sg_table and pages).
+Or, with Rust 1.85.0:
 
-Fix this by adding a Completion. The release callback signals the
-Completion after revoke() finishes, and Devres::drop() waits for it when
-it loses the is_available swap. This ensures the wrapped object is fully
-torn down before Devres::drop() returns.
+    rust/kernel.o: error: objtool: _R..._4core3fmt7Pointer3fmtB7_()
+    falls through to next function _R..._4core3ffi5c_str4CStrENtNtBS_3fmt7Display3fmtB7_()
 
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
-Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20260628174451.2275679-1-dakr@kernel.org
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+This happens due to calls to the `noreturn` symbol:
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 20f94030f977..4a1e5eec78ab 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -21,7 +21,8 @@
-     sync::{
-         aref::ARef,
-         rcu,
--        Arc, //
-+        Arc,
-+        Completion, //
-     },
-     types::{
-         CovariantForLt,
-@@ -39,6 +40,8 @@ struct Inner<T> {
-     node: Opaque<bindings::devres_node>,
-     #[pin]
-     data: Revocable<T>,
-+    #[pin]
-+    revocation: Completion,
- }
- 
- /// This abstraction is meant to be used by subsystems to containerize [`Device`] bound resources to
-@@ -55,6 +58,10 @@ struct Inner<T> {
- /// After the [`Devres`] has been unbound it is not possible to access the encapsulated resource
- /// anymore.
- ///
-+/// When a [`Devres`] is dropped, it is guaranteed that `T` has been fully dropped by the time
-+/// [`Devres::drop`] returns, even if a concurrent revocation through the release callback is in
-+/// progress.
-+///
- /// [`Devres`] users should make sure to simply free the corresponding backing resource in `T`'s
- /// [`Drop`] implementation.
- ///
-@@ -222,6 +229,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
-                     };
-                 }),
-                 data <- Revocable::new(data),
-+                revocation <- Completion::new(),
-             }),
-             GFP_KERNEL,
-         )?;
-@@ -259,7 +267,9 @@ fn data(&self) -> &Revocable<T> {
-         // SAFETY: `inner` is a valid `Inner<T>` pointer.
-         let inner = unsafe { &*inner };
- 
--        inner.data.revoke();
-+        if inner.data.revoke() {
-+            inner.revocation.complete_all();
-+        }
-     }
- 
-     #[allow(clippy::missing_safety_doc)]
-@@ -363,6 +373,10 @@ fn drop(&mut self) {
-                 // this additional reference count.
-                 drop(unsafe { Arc::from_raw(Arc::as_ptr(&self.inner)) });
-             }
-+        } else {
-+            // The release callback is concurrently revoking; wait for it to finish
-+            // `drop_in_place()` of the wrapped object before returning.
-+            self.inner.revocation.wait_for_completion();
-         }
-     }
- }
+    core::str::slice_error_fail
+
+Thus add the mangled one to the list so that `objtool` knows it is
+actually `noreturn`.
+
+See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+for more details.
+
+[ While the series [1] mentioned above was not applied in a way
+  that triggered this, Gary found another case [2]:
+
+    I am seeing this function causing issue on my 1.85.1 -Os build, although the
+    error message is different this time:
+
+        rust/kernel.o: warning: objtool: _R..._5range9RangeFromjEE5indexCsldbe0TGTmNx_6kernel+0x1d:
+        stack state mismatch: cfa1=4+8 cfa2=4+16
+
+    Disassembly shows that the function call before the warning location
+    is a call to _4core3str16slice_error_fail, and objtool thought it can
+    return (which will end up with a unbalanced stack if it does return).
+
+  Thus apply it. - Miguel ]
+
+Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Reported-by: Alice Ryhl <aliceryhl@google.com>
+Link: https://lore.kernel.org/rust-for-linux/anLxXvCKBcAVf91_@google.com/
+Link: https://lore.kernel.org/rust-for-linux/20260706-hashedptr-v13-0-377a07f2f78d@kylinos.cn/ [1]
+Link: https://lore.kernel.org/rust-for-linux/DKS7U9UHY6XR.2JC0EBIPCI06Z@garyguo.net/ [2]
+Link: https://patch.msgid.link/20260805144524.233362-1-ojeda@kernel.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 87db9f4ed9e2..3ab5b9f1c6a4 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -195,6 +195,7 @@ static bool is_rust_noreturn(const struct symbol *func)
+ 	return str_ends_with(func->name, "_4core3num20from_str_radix_panic")				||
+ 	       str_ends_with(func->name, "_4core3num22from_ascii_radix_panic")				||
+ 	       str_ends_with(func->name, "_4core3num28from_ascii_bytes_radix_panic")			||
++	       str_ends_with(func->name, "_4core3str16slice_error_fail")				||
+ 	       str_ends_with(func->name, "_4core5sliceSp15copy_from_slice17len_mismatch_fail")		||
+ 	       str_ends_with(func->name, "_4core6option13expect_failed")				||
+ 	       str_ends_with(func->name, "_4core6option13unwrap_failed")				||
 
