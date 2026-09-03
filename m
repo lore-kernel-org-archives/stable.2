@@ -1,135 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4246C4B1484
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E88495041;
+	Thu,  3 Sep 2026 13:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443388; cv=none; b=C1EzdwA6s4+IY1lF6KYxEkAXxS2G8cCzPdOY+Jkf1aoDZtBT/mCJPTrudZ68Fr+8/CagYDXDw5Ca0mtuVPT409ggsOE+m78HPkiI38RELXXTZtVNDKzxWUigsgSUxPuEDXgjlg92T2a1DyKa9WqAiuPFs/14+khckLDkCsr3qjU=
+	t=1788443391; cv=none; b=A+ePJpVi063ZzwZgzXWr+a9Aarkk1rdU+oNn5F1fYIY5lONikaP9IaYUfvo8CnB6Ve0LK9Vr+YU+9yu/rMIGLuz6THi6hcKaT0aSMDawlWQx/AJC9Hb+AZO14gx5EM8+4u25xImFxuIOGM8+B0h6ccMnBm/C7x1IqR0czQvAtVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443388; c=relaxed/simple;
-	bh=FkvODYAlBT2B6Hyf4u24bQ78AjrYlmBEJ2mmPEI/ZIY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k7a2xqymnB0f2Cbj0ap7TWZYvDIHsggDwYPSix7dHC9poJEI0lx7ttQJF/rho9PPVJxE6J9Q4q/WwFHJd8eGW3Y0YtpcuG2KLYie9AiiAkipeENEAQGPw4epwIfrunNHedjKgawJ15//aY0MF2htj0BzQ1w0Sg3xFQhu8w1vDTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KDI/e6G7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443391; c=relaxed/simple;
+	bh=mzr2tSXvaH7QytRlE1diPlsz+ZNOf69Bgld2/cPQ4t8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YNugDX0lIShJAVghLZc1r6FDZ9wdHRx+NRKFB8faLUEBEb/uLBldoeJ7u68S/7konKElyeu7gzXnQbv+rAiCchJjhfo61eQq2cjLGHUwTraoMROzYu2iIiKPDoAJdhhgMz9NiN+0ClpNpzoybkPEIjR3wj5CgK0zl316cmkQ3Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaeBrCsC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KDI/e6G7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37501F00A3A;
-	Thu,  3 Sep 2026 13:49:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443367;
-	bh=9dyDI+PT6qoWUgk7iLRd7iajOXhtAMp4oH+75QlVQIU=;
-	h=Subject:To:Cc:From:Date;
-	b=KDI/e6G7pSsY4j2JkKkP/SEIHVdvVpbZZf46vH1+oAef/GE0D9lEqEIBg05RL+wBT
-	 j1jgCYFiTSVgzpjGc2SezhkdfGTxDVhbZMYncmgt+W7bedcCGgNPUXrze6wpyVO2AN
-	 8rYfbp8oxEyBhq2KeqHDrZSmrRueChv6vJXzscEc=
-Subject: FAILED: patch "[PATCH] smb: client: reject a tree connect response whose byte count" failed to apply to 5.10-stable tree
-To: hexlabsecurity@proton.me,linkinjeon@kernel.org,pc@manguebit.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:27:37 +0200
-Message-ID: <2026090337-crease-stuffing-cff2@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaeBrCsC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 077FC1F00ACA;
+	Thu,  3 Sep 2026 13:49:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788443380;
+	bh=N1gBpF65Vg6Gyw/Zq6rh5fI5TdbcUPlG3RhMgbn70b8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FaeBrCsCT6Bl7pLBp0xGDbAO+DYJ1i8KLk0r28Fs2BQlmHWX95+u0w7z1rZFWtt9a
+	 bzf22vPAdGdjddw2VNxD6l6iA8fWPC7C8ChSYOWN6yWRu4+I3RrP1PsYUuuHqkWBbq
+	 QxM94vcd7FK5QCmetDCCNmZAPbD1JfYCwo23k1OHDwhUZO3j2acgBvsPfLX/1tw+Pz
+	 2WP8nPz5hfbD6RcBuWJYmuUyxsrfrquTRa7a5P8Krg7mQiQlc4Mju94kRehlcNY5VA
+	 n7MX0B2q3uPo/lhZV3xp5pshTus3KAZCX/mrU4i87RNYTjQTVDMQXHKXkWhGIQ+UTR
+	 LpX/YBzzGg3FQ==
+From: SJ Park <sj@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	Kunwu Chan <kunwu.chan@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 3/4] mm/damon/core: copy nid for eligible_mem_bp damos quota goal commit
+Date: Thu,  3 Sep 2026 06:49:32 -0700
+Message-ID: <20260903134932.98268-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260903084547.960584-1-kunwu.chan@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+On Thu,  3 Sep 2026 16:45:45 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+> On Tue,  1 Sep 2026 17:27:22 -0700 SJ Park <sj@kernel.org> wrote:
+[...]
+> > This issue was discovered [1] by Sashiko.
+> > 
+> > [1] https://lore.kkernel.org/20260827045035.94611-1-sj@kernel.org
+> 
+> Hi SJ,
+> 
+> The fix is consistent with the other node-based quota metrics. I also 
+> checked that damos_get_node_eligible_mem_bp() directly uses goal->nid 
+> when calculating the current value.
+> 
+> One minor typo: the [1] has an extra k (kkernel should be kernel).
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Nice catch, thank you Kunwu!  Andrew, could you please fix this when you pick
+this series up?  Let me know if you prefer reposting the series with the fix.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 65deb18359341141d37dc86fc7853511be3c87a7
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-crease-stuffing-cff2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+> 
+> Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-Possible dependencies:
+Appreciate all the reviews, Kunwu!
 
 
+Thanks,
+SJ
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 65deb18359341141d37dc86fc7853511be3c87a7 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 21 Aug 2026 07:36:16 -0500
-Subject: [PATCH] smb: client: reject a tree connect response whose byte count
- is too small
-
-CIFSTCon() bounds its strnlen() over the byte area with the server's
-ByteCount minus two, which for ByteCount 0 or 1 goes negative as an int
-and converts to a huge size_t.  The later subtraction wraps the __u16
-bytes_left, and that is what bounds cifs_strndup_from_utf16(): a bound of
-up to 65535 against a ~16 KB cifs_req_poolp object runs off the end of the
-slab object, and the bytes reach userspace through tcon->nativeFileSystem
-in /proc/fs/cifs/DebugData.
-
-Reject a byte area too small for what the parser consumes.  Two bytes is
-the least it can consume, and no conformant response carries fewer.  The
-new trace point is the 129th smb_eio_trace entry, which __mode(byte)
-cannot represent, so the attribute goes with it.
-
-Fixes: cc20c031bb06 ("cifs: convert CIFSTCon to use new unicode helper functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 1f77512252e7..f5aad5f61dce 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -615,6 +615,11 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
- 		tcon->tid = smb_buffer_response->Tid;
- 		bcc_ptr = pByteArea(smb_buffer_response);
- 		bytes_left = get_bcc(smb_buffer_response);
-+		if (bytes_left < 2) {
-+			rc = smb_EIO2(smb_eio_trace_tcon_bcc_too_small,
-+				      bytes_left, 2);
-+			goto out;
-+		}
- 		length = strnlen(bcc_ptr, bytes_left - 2);
- 		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
- 			is_unicode = true;
-@@ -670,6 +675,7 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
- 			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
- 		}
- 	}
-+out:
- 	cifs_buf_release(smb_buffer);
- 	return rc;
- }
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index 5b21ad3c15fb..12241abb8e2e 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -133,6 +133,7 @@
- 	EM(smb_eio_trace_sym_slash,			"sym_slash") \
- 	EM(smb_eio_trace_sym_target_len,		"sym_target_len") \
- 	EM(smb_eio_trace_symlink_file_size,		"symlink_file_size") \
-+	EM(smb_eio_trace_tcon_bcc_too_small,		"tcon_bcc_too_small") \
- 	EM(smb_eio_trace_tdis_in_reconnect,		"tdis_in_reconnect") \
- 	EM(smb_eio_trace_tx_chained_async,		"tx_chained_async") \
- 	EM(smb_eio_trace_tx_compress_failed,		"tx_compress_failed") \
-@@ -213,7 +214,7 @@
- #define EM(a, b) a,
- #define E_(a, b) a
- 
--enum smb_eio_trace		{ smb_eio_traces } __mode(byte);
-+enum smb_eio_trace		{ smb_eio_traces };
- enum smb3_rw_credits_trace	{ smb3_rw_credits_traces } __mode(byte);
- enum smb3_tcon_ref_trace	{ smb3_tcon_ref_traces } __mode(byte);
- 
-
+[...]
