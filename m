@@ -1,241 +1,148 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6582F4E378B
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8720B4E13EF
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449892; cv=none; b=edmDNtwrEeLy5vuvOExEAHGGjx4adq9x4e0dwRA/n9aVmu306WaLn+0Im/LhSHLFQWIlsjIihIKFbAOeUT6R65r31qXa4XdRiAmGOO2ERs2tLlx7Y5B8pBktQ1kUiCdHOmJH4NPP71uACa/5W1VcXSASgzN+oD5RcCnhprCByg8=
+	t=1788449894; cv=none; b=e3a0Uftkzlr8+bFKH46AxLQEVP/zCGN27wgFk4rafkx19onzyY/8VQ7UNdP1ztFAWaxbu2BP5oPmcPdkJNE57jDkor28m/oSqcRlfT8MyR926t9DgDNyzQgZ9LAqVAAZUvQM9kri67cpDWKee2+jwfXjuuw5jxL59BOiw7F87z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449892; c=relaxed/simple;
-	bh=caYB2KQfZkmimHu3iLkGws4zqzbSS2hV/ftxCbqThpk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H1WcLLazZhjVvPN33Q8HQFBFPn4wJXFdAOvcLlthWgc3PGktHFhGbsIcyG46oARhDEk5FQKPvUknLQsD2uhcq2/Jbxzg9g0GLNWVe8dWYNfWc0dSmP4KaewntE12gjq/WFiJCRuDwUiG1IQklJQnG4826gpRyENyJk/JL9SThNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kGNBllMh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449894; c=relaxed/simple;
+	bh=6gJU1gx/bHtXg2UTUZWZxmU8qa4y8IPj5oWuzMQvMH8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UNFxowjPAdoOahhxtNiuR58b1D2a7ZRmYkQExuK6U/OLisxTEfJhDOY4lazsNW9UYJLLMMKodbVe7VJc+II6TOGPIDXpS0wwNtbb4O7toZIkRrbxKT+TiKsp7rkhwWPM3ON8Q5nT21I0MSLGic3dm3YeUSHpAGIoT554Au0wexI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IqWKayhr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kGNBllMh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5EF81F00A3E;
-	Thu,  3 Sep 2026 15:38:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788449891;
-	bh=fF+hGmLzjK061qg/D6VephCIfKDVY+EORzn4J+pWjKM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kGNBllMh2E7wzbOwDjIqPWMMEOzUke1gfrUvaHxS0uGMszsLqRa62S37NJimnttL7
-	 iymWTjIV9c34ICnD+W9zpmn/A+GuGbLWioxZS5+2q96p9n/5t25LR3jiX8xdUTYXww
-	 lkolURjyTfJNozaMKOiSbfUt11HDxDwvpO7tcQyzrh8iZiXHzG4BT/TrsnA5ylnyMK
-	 5Y0VjdkZjdzW9qArsSTPq+/vrHboq1O9QlUQsG6qqvUf9lGTx14yP1Y9xdHzDiSWXA
-	 0LFCqBA1sHoUdY6me0o8Od8tIrzctHvEEHion1YVP/10K0J8rz4Vf7QkJANWO3t3DG
-	 dXSUmS2XMohbA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jann Horn <jannh@google.com>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] apparmor: fix cred UAF caused by begin_current_label_crit_section()
-Date: Thu,  3 Sep 2026 11:38:08 -0400
-Message-ID: <20260903153808.902621-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090301-dugout-avenue-6c86@gregkh>
-References: <2026090301-dugout-avenue-6c86@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IqWKayhr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B711F000E9;
+	Thu,  3 Sep 2026 15:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788449893;
+	bh=cy8w4YP781Ydy7tEGxJBqglPZNJIyo31yrYEL6twtH0=;
+	h=Subject:To:Cc:From:Date;
+	b=IqWKayhr1CXJSrddorwmFHIMKvSIb1MAFhZZp495SKBXUHFSpFwqy4ab1RU5QVIGI
+	 lPbehe27r+UJVQ858F7eJxcjXb/MYq4IvnGM8Nb86l6YKpVQzkbGN6ZlxwQlwZZtYi
+	 IpBT9ajuW7tvQ7T+yninILwv1hroFhkSKpVUn6Bs=
+Subject: FAILED: patch "[PATCH] net: ntb_netdev: Fix TX busy and drop handling" failed to apply to 6.12-stable tree
+To: den@valinux.co.jp,dave.jiang@intel.com,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 17:08:38 +0200
+Message-ID: <2026090338-handiness-send-b02b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Jann Horn <jannh@google.com>
 
-[ Upstream commit 3f4ae5fab613dca01d6a2a8210dd832e009fcf47 ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-AppArmor's begin_current_label_crit_section() is a scary function called
-from lots of LSM hooks (in particular VFS/socket-related ones) that checks
-if the label referenced by the current creds is marked FLAG_STALE, and if
-so, attempts to use aa_replace_current_label() to replace the creds with an
-updated version that uses a new label.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The first problem with this is that it would directly lead to UAF of
-`struct cred` if anything in the kernel takes a pointer to the current
-creds and accesses these past a security hook invocation that replaces
-creds, like so:
-```
-const struct cred *cred = current_cred();
-alloc_file_pseudo(...);
-uid_t uid = cred->euid;
-```
-I don't know if anything in the kernel actually does this, but I think it
-is very surprising that this pattern could lead to UAF.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8aaa47351db0f93a5c5297fbafdfa8bc75e8ae49
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090338-handiness-send-b02b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-The second problem is that things go wrong when aa_replace_current_label()
-runs with overridden credentials. aa_replace_current_label() bails out if
-`current_cred() != current_real_cred()` (mirroring the check in
-proc_pid_attr_write()), but this check can't actually reliably detect
-overridden credentials because the overridden creds can be the same as the
-objective creds.
+Possible dependencies:
 
-So in approximately the following scenario, things go wrong:
 
-1. task begins with <creds A> (as both objective and subjective creds),
-   with refcount=2
-2. task grabs an extra reference on <creds A> for overriding
-3. task calls override_creds(<creds A>), which returns a pointer to the old
-   subjective creds (<creds A>)
-4. task enters AppArmor LSM hook
-5. AppArmor checks that objective/subjective creds are equal
-6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
-   <creds A>
-7. task leaves AppArmor LSM hook
-8. task calls revert_creds(<creds A>)
-9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
-   task_struct logically holds two references to <creds B>
-10. another task drops the extra reference on <creds A> that was used for
-    overriding, refcount drops to 0
-11. now task->real_cred points to freed creds
 
-At this point, any access to current_cred() will be UAF.
+thanks,
 
-I have a test case where I run aa-disable on a profile while a process
-using that profile is blocked on splice() from a FUSE passthrough file into
-a full pipe; after the profile update, the pipe becomes empty, splice()
-resumes, the credentials go out of sync, and a subsequent getuid() syscall
-results in a KASAN UAF splat.
+greg k-h
 
-To fix this, instead of directly replacing creds, do it via task_work that
-will run at the end of the current syscall. (The point in time at which the
-cred replacement happens should have no correctness impact; it is just a
-performance optimization to avoid unnecessarily touching the refcount of
-the new label.)
+------------------ original commit in Linus's tree ------------------
 
-Note that AppArmor still performs direct cred replacements in the
-sb_pivotroot LSM hook after this change, and that direct cred replacements
-can still happen in VFS ->write() callbacks via proc_pid_attr_write().
+From 8aaa47351db0f93a5c5297fbafdfa8bc75e8ae49 Mon Sep 17 00:00:00 2001
+From: Koichiro Den <den@valinux.co.jp>
+Date: Mon, 17 Aug 2026 14:35:17 +0900
+Subject: [PATCH] net: ntb_netdev: Fix TX busy and drop handling
 
-There are two options for what to do with aa_dup_task_ctx(): Either
-explicitly reset new->label_replacement_pending after the entire
-aa_task_ctx has been copied, or switch to manually copying members over.
-I am switching to manually copying members over because that should make
-bugs more obvious.
+Currently, ntb_netdev returns NETDEV_TX_BUSY for every enqueue error. It
+also increments the drop and error counters while leaving the skb owned
+by the qdisc, and may return BUSY with the subqueue still awake.
+Retrying a permanent error cannot succeed either.
 
+The unconditional BUSY return and premature accounting date back to the
+initial driver. The error-path queue stop was later removed without
+changing that return value. The current flow-control code includes a
+resource check, but ntb_netdev does not honor its result before enqueue.
+
+Honor the resource check before enqueue. For -EAGAIN and -EBUSY, stop
+the subqueue, arm the existing reaper timer, and return BUSY without
+touching the skb. For other errors, free the skb, increment tx_dropped,
+and return NETDEV_TX_OK.
+
+Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
+Fixes: d723485cb4ca ("ntb_netdev: remove tx timeout")
+Fixes: e74bfeedad08 ("NTB: Add flow control to the ntb_netdev")
 Cc: stable@vger.kernel.org
-Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
-Signed-off-by: Jann Horn <jannh@google.com>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-[ preserved the 5.15 aa_set_current_onexec() return type and omitted unrelated newer-tree headers ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- security/apparmor/include/cred.h |  6 +-----
- security/apparmor/include/task.h | 15 +++++++++++----
- security/apparmor/task.c         | 28 ++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 9 deletions(-)
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/20260817053519.4135287-3-den@valinux.co.jp
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
-index 0b9ae4804ef73..ea38198277536 100644
---- a/security/apparmor/include/cred.h
-+++ b/security/apparmor/include/cred.h
-@@ -161,13 +161,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
+diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
+index 029a4a532a10..02b35cf53a62 100644
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -199,8 +199,10 @@ static int __ntb_netdev_maybe_stop_tx(struct net_device *netdev,
+ static int ntb_netdev_maybe_stop_tx(struct net_device *ndev,
+ 				    struct ntb_netdev_queue *q, int size)
  {
- 	struct aa_label *label = aa_current_raw_label();
+-	if (__netif_subqueue_stopped(ndev, q->qid) ||
+-	    (ntb_transport_tx_free_entry(q->qp) >= size))
++	if (__netif_subqueue_stopped(ndev, q->qid))
++		return -EBUSY;
++
++	if (ntb_transport_tx_free_entry(q->qp) >= size)
+ 		return 0;
  
--	might_sleep();
--
- 	if (label_is_stale(label)) {
- 		label = aa_get_newest_label(label);
--		if (aa_replace_current_label(label) == 0)
--			/* task cred will keep the reference */
--			aa_put_label(label);
-+		aa_schedule_stale_label_replacement();
- 	}
+ 	return __ntb_netdev_maybe_stop_tx(ndev, q, size);
+@@ -256,21 +258,30 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
  
- 	return label;
-diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
-index f13d12373b25e..cdc8aead8c340 100644
---- a/security/apparmor/include/task.h
-+++ b/security/apparmor/include/task.h
-@@ -21,15 +21,22 @@ static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
-  * @onexec: profile to transition to on next exec  (MAY BE NULL)
-  * @previous: profile the task may return to     (MAY BE NULL)
-  * @token: magic value the task must know for returning to @previous_profile
-+ * @label_replacement_tw: for aa_schedule_stale_label_replacement()
-+ * @label_replacement_pending: is @label_replacement_tw pending?
-+ *
-+ * When changing this, check if aa_dup_task_ctx() needs to be updated.
-  */
- struct aa_task_ctx {
- 	struct aa_label *nnp;
- 	struct aa_label *onexec;
- 	struct aa_label *previous;
- 	u64 token;
-+	struct callback_head label_replacement_tw;
-+	bool label_replacement_pending;
- };
+ 	q = &dev->queues[qid];
  
- int aa_replace_current_label(struct aa_label *label);
-+void aa_schedule_stale_label_replacement(void);
- int aa_set_current_onexec(struct aa_label *label, bool stack);
- int aa_set_current_hat(struct aa_label *label, u64 token);
- int aa_restore_previous_label(u64 cookie);
-@@ -56,10 +63,10 @@ static inline void aa_free_task_ctx(struct aa_task_ctx *ctx)
- static inline void aa_dup_task_ctx(struct aa_task_ctx *new,
- 				   const struct aa_task_ctx *old)
- {
--	*new = *old;
--	aa_get_label(new->nnp);
--	aa_get_label(new->previous);
--	aa_get_label(new->onexec);
-+	new->nnp = aa_get_label(old->nnp);
-+	new->onexec = aa_get_label(old->onexec);
-+	new->previous = aa_get_label(old->previous);
-+	new->token = old->token;
+-	ntb_netdev_maybe_stop_tx(ndev, q, tx_stop);
++	if (unlikely(ntb_netdev_maybe_stop_tx(ndev, q, tx_stop)))
++		return NETDEV_TX_BUSY;
+ 
+ 	rc = ntb_transport_tx_enqueue(q->qp, skb, skb->data, skb->len);
+-	if (rc)
+-		goto err;
++	if (rc) {
++		if (rc == -EAGAIN || rc == -EBUSY) {
++			netif_stop_subqueue(ndev, q->qid);
++			mod_timer(&q->tx_timer,
++				  jiffies + usecs_to_jiffies(tx_time));
++			return NETDEV_TX_BUSY;
++		}
++
++		goto drop;
++	}
+ 
+ 	/* check for next submit */
+ 	ntb_netdev_maybe_stop_tx(ndev, q, tx_stop);
+ 
+ 	return NETDEV_TX_OK;
+ 
+-err:
++drop:
++	dev_kfree_skb_any(skb);
+ 	ndev->stats.tx_dropped++;
+-	ndev->stats.tx_errors++;
+-	return NETDEV_TX_BUSY;
++	return NETDEV_TX_OK;
  }
  
- /**
-diff --git a/security/apparmor/task.c b/security/apparmor/task.c
-index d17130ee6795d..4815aa8f637a7 100644
---- a/security/apparmor/task.c
-+++ b/security/apparmor/task.c
-@@ -12,6 +12,8 @@
-  * should return to the previous cred if it has not been modified.
-  */
- 
-+#include <linux/task_work.h>
-+
- #include "include/cred.h"
- #include "include/task.h"
- 
-@@ -83,6 +85,32 @@ int aa_replace_current_label(struct aa_label *label)
- 	return 0;
- }
- 
-+static void aa_replace_stale_label_tw_func(struct callback_head *tw)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+	struct aa_label *label;
-+
-+	ctx->label_replacement_pending = false;
-+	label = aa_current_raw_label();
-+	if (!label_is_stale(label))
-+		return;
-+	label = aa_get_newest_label(label);
-+	aa_replace_current_label(label);
-+	aa_put_label(label);
-+}
-+
-+/* replace the current task's stale label on syscall return */
-+void aa_schedule_stale_label_replacement(void)
-+{
-+	struct aa_task_ctx *ctx = task_ctx(current);
-+
-+	if (ctx->label_replacement_pending)
-+		return;
-+	init_task_work(&ctx->label_replacement_tw, aa_replace_stale_label_tw_func);
-+	if (task_work_add(current, &ctx->label_replacement_tw, TWA_RESUME) == 0)
-+		ctx->label_replacement_pending = true;
-+}
-+
- 
- /**
-  * aa_set_current_onexec - set the tasks change_profile to happen onexec
--- 
-2.53.0
+ static void ntb_netdev_tx_timer(struct timer_list *t)
 
