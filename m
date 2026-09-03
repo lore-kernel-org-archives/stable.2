@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 312484E80C3
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FDB4E2348
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449937; cv=none; b=uXn+HgQtMb7jpM4kNprTiyWegNdQB2AS6E5PPAQG+iPd2shbSfRFYeSzQUIc3m3HGJEb3T73IS2H+fVqysoF+pNaIIUSR8vUrPRibHeIgVMtoBQvb4bzgA0/RZN8sbvUEY41UC1WfxQ8D0MhWgIzi0GGhA0o7tje2mYbWjr6/qE=
+	t=1788449941; cv=none; b=AOc3XpkDDO5S3jkvX5N9WkyWMQIMcn5NIc09607Mv9m+6PhrGoZZot3SnVs9n5oAtuNNL4lOQl2WKohp9S/pVSEO3zu7ghhEymhIirPpaBLa4fnvOX2HwHnLSuM+usWSO/eGEIumnvIKO50x8HO4OlqY5USCVnkQ+9ThbHwDa50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449937; c=relaxed/simple;
-	bh=n3ZlbsH7Hk496HKAugrOYH+9P1hXcmGoFBgV7pnKl8Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GEe1dvAp8vLdJu3VLE6GV5SUDRnZlvwr5Drp2zB+PyVZV4+Kw5DFpmm72FWxCLToaioRf+GUvvV0dJW0DEZr5m9ED97RPYRJhkUb04PKuKgiQ3jX41A/fEovjghnzjuq9mxBW2dYGyNBSetQc3YIIHJuqYt8CmWpJOl39I0EzFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KSoyQK/q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449941; c=relaxed/simple;
+	bh=MgJMhic1aQyhj3bAfR74WzXqf99R5ecXOFQ/Iq9/TDI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MQK4KEt1lpWfdQ71JSKNrJ6GtMGgMM0IaPaAvFjlK/mYsT14ulE532sE2vP+g9SViROkuvOyzPp7ahi0EhFMC1mT365ZXP7RVVWqZ3hEw4xPfI+gVQ+H6UM1fp6OFK69hC+D9gRwjeYmAnp1xR0RMQsjF1PzDp1IQwDiK0Mn3fA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g2vx0UN5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KSoyQK/q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C111F000E9;
-	Thu,  3 Sep 2026 15:38:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g2vx0UN5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AAC1F00A3F;
+	Thu,  3 Sep 2026 15:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449936;
-	bh=WhCjVAtBVrQzD7ww2pw+eOVUIFaL0Iie9pVHsQEkb14=;
+	s=korg; t=1788449938;
+	bh=EdiDEI8GGKgzuLBXlUDVOAdOV6sHZLIvPACAFeoQZz8=;
 	h=Subject:To:Cc:From:Date;
-	b=KSoyQK/qK0uPEdU3kDkeNBoczZofBM5tDaPraHqYv48QzJaoDY2I0ll4T5ZMPh5wl
-	 Vje0EXq/bcFYNdqES4kJHyGklAfrWGNCI7llzngBrP8y46LJrFFvlzmj+nsjgxPRSj
-	 3esWO8XTDFthSB7P9Tv1Q3OJzHmO5kaWrpdGq9YU=
-Subject: FAILED: patch "[PATCH] net/smc: stop killed, freed and out_of_sync sharing a byte" failed to apply to 5.10-stable tree
-To: hidayath@linux.ibm.com,horms@kernel.org,kuba@kernel.org,mjambigi@linux.ibm.com
+	b=g2vx0UN5IFA/LkzPEuBliowCfw1Gy8s4wYlWwyx0Aiw8vA16V0nXtb6Z8ZBtT+xwW
+	 GQny4nr/1jEyp9JhcqAVHkxtrBoPUxlo97h4+tbkXzah7/nvOE6k/cWi+0F99y9e0g
+	 FBoZ0HSAqWgEHIg56K6oaCSWnSBQYzz2f5BdDako=
+Subject: FAILED: patch "[PATCH] net: fix spurious TX timeout after dev_activate()" failed to apply to 5.10-stable tree
+To: leitao@debian.org,kerneljasonxing@gmail.com,nb@tipi-net.de,pabeni@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:10:14 +0200
-Message-ID: <2026090314-stumble-payback-2ef5@gregkh>
+Date: Thu, 03 Sep 2026 17:10:52 +0200
+Message-ID: <2026090352-stinking-autism-dd92@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x db51a8658c11a82432b64999519a269c3aabb447
+git cherry-pick -x 82aeed2400786bd3f79d88cb8b8f42e6127e5923
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090314-stumble-payback-2ef5@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-stinking-autism-dd92@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,52 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From db51a8658c11a82432b64999519a269c3aabb447 Mon Sep 17 00:00:00 2001
-From: Hidayath Khan <hidayath@linux.ibm.com>
-Date: Thu, 20 Aug 2026 09:46:41 +0200
-Subject: [PATCH] net/smc: stop killed, freed and out_of_sync sharing a byte
+From 82aeed2400786bd3f79d88cb8b8f42e6127e5923 Mon Sep 17 00:00:00 2001
+From: Breno Leitao <leitao@debian.org>
+Date: Tue, 25 Aug 2026 03:50:10 -0700
+Subject: [PATCH] net: fix spurious TX timeout after dev_activate()
 
-The three connection state flags are single-bit bitfields, so they occupy
-one byte of struct smc_connection and every store to one is a
-read-modify-write of the other two:
+While debugging another issue today, I found out that my TX queue is
+reported as stopped for 4294907392 ms (49.7 days), on a machine that
+had been up for four minutes.
 
-    u8  killed : 1;
-    u8  freed : 1;
-    u8  out_of_sync : 1;
+    bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 23 timed out 4294907392 ms
 
-They are not written under a common lock. smc_cdc_msg_validate() sets
-out_of_sync from the receive tasklet, while smc_conn_kill() sets killed
-from process context under lock_sock(), and the receive path does not defer
-to the backlog when the socket is owned -- smc_cdc_msg_recv() takes only
-bh_lock_sock().
+4294907392 is not an elapsed time. It is the value of jiffies at that
+moment: INITIAL_JIFFIES is 4294667296, which leaves jiffies 59 seconds
+short of wrapping.
 
-Give each flag its own byte so a store no longer touches its neighbours.
-All readers test them as booleans and are unchanged. struct smc_connection
-grows by two bytes.
+dev_activate() runs transition_one_qdisc() over every TX queue, which
+resets trans_start to 0, and then stamps only queue 0 through
+netif_trans_update().
 
-Fixes: b286a0651e44 ("net/smc: handle incoming CDC validation message")
+Stamp jiffies instead. A queue stopped across dev_activate() now gets a
+full watchdog_timeo of grace, and is still reported if it is stopped
+that long.
+
+Fixes: 9b36627acecd ("net: remove dev->trans_start")
 Cc: stable@vger.kernel.org
-Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
-Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260820074642.966856-2-hidayath@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Link: https://patch.msgid.link/20260825-trans_start-v2-1-286b4d6d70cb@debian.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/net/smc/smc.h b/net/smc/smc.h
-index 52145df83f6e..427b6d63b993 100644
---- a/net/smc/smc.h
-+++ b/net/smc/smc.h
-@@ -277,9 +277,9 @@ struct smc_connection {
- 						 * 0 for SMC-R, 32 for SMC-D
- 						 */
- 	u64			peer_token;	/* SMC-D token of peer */
--	u8			killed : 1;	/* abnormal termination */
--	u8			freed : 1;	/* normal termination */
--	u8			out_of_sync : 1; /* out of sync with peer */
-+	u8			killed;		/* abnormal termination */
-+	u8			freed;		/* normal termination */
-+	u8			out_of_sync;	/* out of sync with peer */
- };
+diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
+index ef2b4bf51564..4539dc2c6d38 100644
+--- a/net/sched/sch_generic.c
++++ b/net/sched/sch_generic.c
+@@ -1278,7 +1278,7 @@ static void transition_one_qdisc(struct net_device *dev,
  
- struct smc_sock {				/* smc sock container */
+ 	rcu_assign_pointer(dev_queue->qdisc, new_qdisc);
+ 	if (need_watchdog_p) {
+-		WRITE_ONCE(dev_queue->trans_start, 0);
++		WRITE_ONCE(dev_queue->trans_start, jiffies);
+ 		*need_watchdog_p = 1;
+ 	}
+ }
 
