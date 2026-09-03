@@ -1,120 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68E4439A4D6;
-	Thu,  3 Sep 2026 21:14:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C03D41D4D6
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 21:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470086; cv=none; b=pKXOKLVYMA76/IBuNF8aNQk7diWbWW0IZNhw+wR7IxVi4P5amHusnkbzBXf/m2hkvsjYGnxsAs+ErU2F1xFnjHaXqiIuPdoWgyXTSfTx7o/P1OT2/yKg+31k1XhXOJ7UPBIPYMJf+JBTVNrpAJq0T9d2R38KEiG+HUVbBWe1zBo=
+	t=1788470929; cv=none; b=I6ugCb+6tzmo7BpeaahY0dUKc/zBoq1DTjwuq41YGhoVK/9E4VVssxwcszqTHkA5hHSLf/J6/Ix9PReN6qHK7g15k4jY3Iql6eJbnM7Dy/mTg4xNO1yn/nmtwRXJauAYFcPQiaGZo6T00QY5U8BEw4knOCf4Syf50MSf4dPzgqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470086; c=relaxed/simple;
-	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JfnNw3ovE5SZXHURoiN9QP6sj/wg17lJtf86hD1TdD9iPZCEfV86YQS/EoAPiHCMAGXKl7jtwHvE1CwW35VIL2yKDMlVdwxND64IsITsFRaUo2mtkVZlpOAXqlZ/3NL14g+zL3WlhEM0x82sIw00atgz64IVLNrzk8dqoB4Bf+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SyynRAsX; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788470929; c=relaxed/simple;
+	bh=k0UGZFBcM14tGAANtsBQoJQ41jp8M2g/X5OqTmiEaO4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A0pSvWy+eY+rQdpHUdDPNnN99ASjIET/PVCVwOzZk7deWqkHA+8q230bDiKluXgzXxcFSRC4D98zCOu4kH/ywRIM+zqzX5B+1u3f82WAxjIgbQawkuE5rWUJUL/mQF91omfXh8dMVghyn1wjH4lnCBApIJhJWKS7xjg1YHAqX+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6LLObSL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SyynRAsX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E907FC2BCB8;
-	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788470085;
-	bh=yzce8FF3PyDdb5RQtEjJfbqeXqKMx5wRV8Hd5Zq8t08=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=SyynRAsXw8WE+yZUw7IOMPSnAtIqgNa2Hv+OTJcVf5/oya6WKp8sKrXnO+4lgJWeM
-	 NaWlvMwtpGpP9Fb77U1pSvLTy4pBW1SS1awTGNO7EamkN/EE70y3xarw3BZ7eFTXRS
-	 uRj3NOTU9iuENE9lLcFToET9Q2rJqOtPz+OEgFRR14nrtGtIfUEnrh12siDzlm0uRR
-	 RwZBUR5V1+w5jaPGxKPwfBna+kH6b+Dfw2O7IWAzab3CQ/ibUbcDd9vuaNlU1Aq8Fe
-	 O/Bg8yUI9uEJURQloEAn/HuQLCs22uKlIR4lXZYQ9aIf59qA5VKLVo22zY0TFqX+Qw
-	 HKIcIT2RHn7FA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6198C61DD3;
-	Thu,  3 Sep 2026 21:14:45 +0000 (UTC)
-From: Roman Prucha via B4 Relay <devnull+zorgan.roman.gmail.com@kernel.org>
-Date: Thu, 03 Sep 2026 23:14:44 +0200
-Subject: [PATCH] ALSA: ctxfi: Fix CA20K2 S/PDIF passthrough
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6LLObSL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389141F01559
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 21:28:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788470928;
+	bh=k0UGZFBcM14tGAANtsBQoJQ41jp8M2g/X5OqTmiEaO4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=i6LLObSLtGpatkgwi6KPh3eawDHXxEPmL9XWmOukud9xDMYe73W6TDF+yI+H6LDAV
+	 HLKP3nZAkecCFDthJecFI4tVVADwf1Z6bEb9xHCOd1+VDsn+nPXBsut9flDwiOuEZt
+	 5sS5Z9P3yoZ5erFjno9cpguThjpLJdTY8e2FCIzHE+IGurpKiaxiFaubgl8SSOMj03
+	 Vdpj3IlfsDh0F5fNZJPMqNE6uIHA+ywXW55sWzy8pATHcrOn8Fu0O0SzjwrvoA/N+6
+	 Rgs1DWr21E0kV33xsjs1BdaJx61raLLh+xSJ0gIux4qDhhYv4y2e9T9F8XcOiAfHlV
+	 I2gahjG86Zxbg==
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90e7fd978beso6401896d6.1
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 14:28:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwBXGsdmPH3m5uI24IKSoy0KV47FHbG3tX82qB7FPYoW7H+ixybVom2B/8ATIFUkmo/CW+DJTc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwceHiVDkA69RVnJSWvNiQxEB+gqoj4V0/W/FO5yXv1vJrc1XH
+	zCQZxcV2H/9KQIR4tb/VBn9uYy/+bgapJyxbSxyeWmdk+Zo14qX2UUHrnxJsfvr1oy9wAmhiNom
+	ebm3HZLx26lXD7pQ09qnnkvPj/sRLRRw=
+X-Received: by 2002:a05:620a:21c9:b0:939:597:e7af with SMTP id
+ af79cd13be357-939804784a0mr126943385a.35.1788470927443; Thu, 03 Sep 2026
+ 14:28:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-ctxfi-spdif-conf9-fix-v1-1-5e4e3e1f801c@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MQQqAIBAAvxJ7bsESDPtKdCjdrb2YaIQg/T3pO
- AMzFTIloQxzVyHRI1mu0GDoO3DnFg5C8Y1hVKNRVml0d2HBHL0wuiuwRZaCu1WWJ9LGeAetjYm
- a/r/L+r4f6f2l2GcAAAA=
-X-Change-ID: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Colin Ian King <colin.i.king@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.de>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Roman Prucha <zorgan.roman@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470085; l=1760;
- i=zorgan.roman@gmail.com; s=20260903; h=from:subject:message-id;
- bh=jp1ueNFuA7dYZ45fIz/uA/BuyiO44DD0w6SFBbr7Fa0=;
- b=z3wyA/sdLPH8AAAP3N3Tqh9wZQJozr+KoUi594t9AJYiIajbW0/CJga6QNj9JUZYR/aLf3hMp
- LZ8Q2LFr1REC5GQA9FP6t1eVQsRP6woUy8JBsHMOVV3uUk7feiqmH0L
-X-Developer-Key: i=zorgan.roman@gmail.com; a=ed25519;
- pk=nrIfal6DL0s9II7312EtRS98gHuLh87xybqQk8LhJw4=
-X-Endpoint-Received: by B4 Relay for zorgan.roman@gmail.com/20260903 with
- auth_id=1001
-X-Original-From: Roman Prucha <zorgan.roman@gmail.com>
-Reply-To: zorgan.roman@gmail.com
+References: <20260820142956.1414337-1-qiwenjie@xiaomi.com> <3fa43eaca792bc0bbde4b82a6c1fcdd3f528b398.1787999152.git.qiwenjie@xiaomi.com>
+ <4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com>
+ <20260829111621.41ed2bc9a0e99e3367eb96c3@linux-foundation.org>
+ <ef160933595c365f2c47597b260bc7ecd98ed7ce.1788029516.git.qiwenjie@xiaomi.com> <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
+In-Reply-To: <076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 4 Sep 2026 05:28:36 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
+X-Gm-Features: AcwNN1UfF8fjF6Gm62yh0ikVnF99aXRfOugf7CCehE6ggJ06AxtYcFJ6rS-ls8g
+Message-ID: <CAGsJ_4xMK=rPXCH5OiCOYHKRQp-w+xDJQusJ_ykbuAuLZr+8bA@mail.gmail.com>
+Subject: Re: [PATCH v4] mm: filemap: retain mapped dropbehind folios
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Wenjie Qi <qwjhust@gmail.com>, willy@infradead.org, jack@suse.cz, 
+	akpm@linux-foundation.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, axboe@kernel.dk, 
+	trond.myklebust@hammerspace.com, jaegeuk@kernel.org, chao@kernel.org, 
+	qiwenjie@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Roman Prucha <zorgan.roman@gmail.com>
+On Sun, Aug 30, 2026 at 7:59=E2=80=AFPM Tal Zussman <tz2294@columbia.edu> w=
+rote:
+>
+> On 8/30/26 6:25 AM, Wenjie Qi wrote:
+> > From: Wenjie Qi <qiwenjie@=E2=80=8Axiaomi.=E2=80=8Acom> Fault-around ca=
+n map ready dropbehind
+> > folios without going through the normal page-cache lookup that clears
+> > dropbehind. A mapping represents a competing cached user, but writeback
+> > completion can currently
+> > ZjQcmQRYFpfptBannerStart
+> > This Message Is From an External Sender
+> > This message came from outside your organization.
+> > ZjQcmQRYFpfptBannerEnd
+> >
+> > From: Wenjie Qi <qiwenjie@xiaomi.com>
+> >
+> > Fault-around can map ready dropbehind folios without going through the
+> > normal page-cache lookup that clears dropbehind. A mapping represents a
+> > competing cached user, but writeback completion can currently unmap tha=
+t
+> > folio. A later mmap access must then fault it back in.
+> >
+> > Retain mapped folios instead. For a mapped folio,
+> > folio_unmap_invalidate() can call unmap_mapping_folio(), which takes
+> > i_mmap_rwsem and may sleep. Retaining the folio also avoids this path w=
+hen
+> > folio_end_dropbehind() runs in non-preemptible task context.
+> >
+> > Unmapped dropbehind folios continue through the existing invalidation p=
+ath.
+> >
+> > Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when wr=
+iteback completes")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+> > Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> > Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> > ---
+> > The mapped-plus-dropbehind state was reproduced in QEMU. The patched
+> > kernel retained the mapped folio and continued to evict the unmapped
+> > dontcache folio. I did not reproduce the sleeping-in-atomic warning and
+> > am not aware of an existing report.
+> >
+>
+> I was able to trigger the sleeping-while-atomic BUG on current mainline w=
+ith
+> some help from Claude. The reproducer itself is straightforward enough, b=
+ut the
+> configuration was a little finicky. The atomic context comes from using
+> threadirqs so that virtblk_done() completes requests from the irq thread =
+under
+> local_bh_disable() and the vq spinlock with irqs off, so in_task() is tru=
+e but
+> the i_mmap_rwsem down_read() sleeps. It also needed 1 vCPU (so completion=
+ stays
+> in the irq thread rather than softirq) and ext4 -o dioread_lock (so end_i=
+o runs
+> inline instead of on a workqueue). With v4 applied the bug is gone, so:
+>
 
-dao_rsc_init() encodes the DAIO configuration as
+Thanks, Tal. Then I'm getting quite confused. Since with Wenjie's
+patch, we are no longer going to sleep for dropbehind in `filemap.c`,
+do we still need all the complex logic in the block device and file
+system layers to move dropbehind to a workqueue task context?
 
-    conf = (desc->msr & 0x7) | (desc->passthru << 3);
+> Tested-by: Tal Zussman <tz2294@columbia.edu>
+>
 
-S/PDIF passthrough uses msr=1 and passthru=1, resulting in
-conf=9.
-
-daio_mgr_dao_init() masks conf with 0xf, but handles only values
-1, 2, 4 and 8 when programming ATXCTL_NUC. As a result, conf=9
-falls through to the default case and leaves NUC at its previous
-setting.
-
-On a Creative X-Fi Titanium HD SB1270 (CA20K2), this breaks AC3
-IEC61937 passthrough when snd_ctxfi runs with
-reference_rate=48000,multiple=2. The receiver detects a non-audio
-stream but cannot decode the AC3 payload.
-
-With the unmodified driver, multiple=1 makes the same stream work.
-Handle conf=9 through the same NUC=0 path as conf=1.
-
-The change was runtime tested on the SB1270 with multiple=2 using
-IEC958 stereo PCM, pre-encoded AC3 IEC61937 passthrough and ALSA
-A52 live 5.1 encoding.
-
-Fixes: 26a9630c72eb ("ALSA: ctxfi: cthw20k2: fix mask on conf to allow 4 bits")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Roman Prucha <zorgan.roman@gmail.com>
----
- sound/pci/ctxfi/cthw20k2.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/pci/ctxfi/cthw20k2.c b/sound/pci/ctxfi/cthw20k2.c
-index 07e1490a6d17..36066ffe8784 100644
---- a/sound/pci/ctxfi/cthw20k2.c
-+++ b/sound/pci/ctxfi/cthw20k2.c
-@@ -994,6 +994,7 @@ static int daio_mgr_dao_init(struct hw *hw, void *blk, unsigned int idx, unsigne
- 		/* S/PDIF output */
- 		switch ((conf & 0xf)) {
- 		case 1:
-+		case 9:
- 			set_field(&ctl->txctl[idx], ATXCTL_NUC, 0);
- 			break;
- 		case 2:
-
----
-base-commit: 7f71fd44a1089b362eacf87e1f451ddd4fb7df62
-change-id: 20260903-ctxfi-spdif-conf9-fix-b909f7e366dc
-
-Best regards,
--- 
-Roman Prucha <zorgan.roman@gmail.com>
-
-
+Thanks
+Barry
