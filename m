@@ -1,63 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92314457A6
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:59:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838DA4A0F0D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:59:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454769; cv=none; b=rPaHE4lrShIRA/7cSvV34Nh+J4KrrGHHy5xcVhMFpI8YOGtD0Wl2nLiXKw+2J5BuX19bldDALYOqSpSbUWd5MB6PlgHme6EK+ljy3BOe4YBEmvPHTIhEetr98U0n2kLCPD3N85ojKb7vRHIgy0KZoYVKq5G5G7vBpQ4Jif1BYXw=
+	t=1788454770; cv=none; b=l2dPWxGJPzL7t+/wkWze9cNBR8bgw4sBiXpqKgRMgdLrkolUbnvBwsAczHzoSAE843A/0AVjrBWSGOH7kAZSoP6U50alU1miW+t0r53s1s/Pt9Z6RYUD6q6YU5OfgwNRwoV6Xh+oGNWJOGw9N+z3sN5SbOnQ9jSArUwYsgVJkzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454769; c=relaxed/simple;
-	bh=pqBUpKO9RuobgoPBnBbbON59ufC1xI/K26lpi5/cmiE=;
+	s=arc-20240116; t=1788454770; c=relaxed/simple;
+	bh=uFwyPrMw+wg63FARYv+aKemuKy65rBTozFyoK4nXqtk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HjhPUOz7wUVYik+VhX5RpHVju/agnEEiQRkPuvOlkJYf6GP/fjoxyPuJpJvKuzK/1u92S8naVinq4qu3EnhSQis7U5PCeKLYCdpXOSKb2w53uAUVU9qWExtvLq3jl0cnBt8sBVGtYZVKTa8a2iLz3jxuSjwY8rHtDXe+3x1ZzMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUsdki0E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=r0tGOYO6dlMf/EWpaBvGyPnYO2KHfvKwbli72jeqOLEs9dsNjPVjgWEde8BDynmfTzsQjA31t8o/RZBud7r44MqoR5bNv+ydOeoD9kpH9FqAgrmx+MCXtoG0Ho5EGfmd9CmWJabnwFGJgvCrpRvda8pVTU7IyqCsgmec0KgrxZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T3rZ3Rz+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUsdki0E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A765F1F00A3E;
-	Thu,  3 Sep 2026 16:59:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T3rZ3Rz+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9931F000E9;
+	Thu,  3 Sep 2026 16:59:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788454767;
-	bh=lh+2guTtP83su1Wt56D+kO8kCRt6Dlnf2TXILka9pF4=;
+	s=k20260515; t=1788454769;
+	bh=L+u4Dj38mBfWpdCmqi/7NMOVH4Xq3lE6fPMrPoqbWTo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZUsdki0E0JXSnTkeYxgk2am+tf/WjLSYCnp/IOMjeeHYZq19cDpb2h85p3uHWsADH
-	 CzQE74El7pVamlhRlfVwn9AaePejK6K9a7vViW9zHVGyxk4gwZdBID6RGAJHsjkp5U
-	 yUTGgPnrVcykKILoqrGLXZaBWVOZAs1rs8yJQKRkZVFuDyrYDCngwboEFWc3chGtdj
-	 FKy9s/POcdRC7n1idIiOJc7vZLWQ0GfDf7v5v/lQ9eygbC7CrA6xjCY4H5ZSyJgiYY
-	 RHHI5TulR6lIPYg9Fp4XrpKlMeBUEcfBkZsEfkQgFty9zDSGKQ2UsUyaWioxRQsrRG
-	 WTW83Oxf7XH2A==
+	b=T3rZ3Rz++o1UOdqSxY6D7MGQ2JKwCEOS1JKAd7PkLpNYYEhbqtHQP7nY2+sTbffXA
+	 C5EtOfKXyu1D4t98oOLuhKE3iDnxSPJuHpPpj+Tn6UMCXXIkKs+Wq1za3WK/nK1BoJ
+	 yb21CvAhM60kEGhj0LY/toajyaHLytcZYmDP/DalN9MfZWCc8lPO728bU8l+s0T7lR
+	 Ol+38ttVIv2zyEN+VO8mCc1a7oST5LxMI4ZI86lZnJnNz2MA3UFgRZx5gOnXSBIxId
+	 4tNX/1tbdypqtnfroxGhGbm2KaRPnoMrDfLTIYkongwtsnxFZ2vuuD9Ye5eDObuyNv
+	 aKCdAMPrECaLA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kiryl Shutsemau <kas@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Baoquan He <bhe@redhat.com>,
-	Christoph Lameter <cl@gentwo.org>,
-	David Rientjes <rientjes@google.com>,
-	Frank van der Linden <fvdl@google.com>,
-	Harry Yoo <harry.yoo@oracle.com>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
+Cc: Muchun Song <songmuchun@bytedance.com>,
 	Oscar Salvador <osalvador@suse.de>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Usama Arif <usamaarif642@gmail.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	WANG Xuerui <kernel@xen0n.name>,
-	Zi Yan <ziy@nvidia.com>,
+	Frank van der Linden <fvdl@google.com>,
+	"Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Oscar Salvador (SUSE)" <osalvador@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Vlastimil Babka <vbabka@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/5] hugetlb: remove VMEMMAP_SYNCHRONIZE_RCU
-Date: Thu,  3 Sep 2026 12:59:13 -0400
-Message-ID: <20260903165914.1085906-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] mm/hugetlb_vmemmap: fix __hugetlb_vmemmap_optimize_folios()
+Date: Thu,  3 Sep 2026 12:59:14 -0400
+Message-ID: <20260903165914.1085906-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260903165914.1085906-1-sashal@kernel.org>
 References: <2026090320-cufflink-ambitious-4582@gregkh>
@@ -70,137 +60,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kiryl Shutsemau <kas@kernel.org>
+From: Muchun Song <songmuchun@bytedance.com>
 
-[ Upstream commit 01b1d0ffb6f7f37f466033cf167959946309ed3d ]
+[ Upstream commit 6e25c6a9c7eff141ecfc966ecdb7801db2a8810e ]
 
-The VMEMMAP_SYNCHRONIZE_RCU flag triggered synchronize_rcu() calls to
-prevent a race between HVO remapping and page_ref_add_unless().  The race
-could occur when a speculative PFN walker tried to modify the refcount on
-a struct page that was in the process of being remapped to a fake head.
+__hugetlb_vmemmap_optimize_folios() uses incorrect arguments when handling
+bootmem HugeTLB folios.
 
-With fake heads eliminated, page_ref_add_unless() no longer needs RCU
-protection.
+The section number passed to register_page_bootmem_memmap() is derived
+from the vmemmap virtual address of folio->page instead of the folio PFN,
+so the bootmem memmap metadata can be registered against the wrong
+section.  The helper is also given HUGETLB_VMEMMAP_RESERVE_SIZE even
+though it expects a page count, not a size in bytes.  In addition, the
+write-protect range is based on pages_per_huge_page(h), which does not
+cover the full HugeTLB vmemmap area and can leave part of the shared tail
+vmemmap mapping writable.
 
-Remove the flag and synchronize_rcu() calls.
+Fix the section lookup to use folio_pfn(folio), use
+HUGETLB_VMEMMAP_RESERVE_PAGES when registering the reserved memmap pages,
+and use hugetlb_vmemmap_size(h) for the write-protect range.
 
-Link: https://lkml.kernel.org/r/20260227194302.274384-15-kas@kernel.org
-Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Albert Ou <aou@eecs.berkeley.edu>
-Cc: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: Christoph Lameter <cl@gentwo.org>
-Cc: David Rientjes <rientjes@google.com>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Harry Yoo <harry.yoo@oracle.com>
-Cc: Huacai Chen <chenhuacai@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Palmer Dabbelt <palmer@dabbelt.com>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: WANG Xuerui <kernel@xen0n.name>
-Cc: Zi Yan <ziy@nvidia.com>
+Link: https://lore.kernel.org/20260612035903.2468601-3-songmuchun@bytedance.com
+Fixes: 752fe17af693 ("mm/hugetlb: add pre-HVO framework")
+Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Oscar Salvador <osalvador@suse.de>
+Reviewed-by: Frank van der Linden <fvdl@google.com>
+Cc: "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>
+Cc: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Cc: Nicholas Piggin <npiggin@gmail.com>
+Cc: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Cc: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: Usama Arif <usama.arif@linux.dev>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 6e25c6a9c7ef ("mm/hugetlb_vmemmap: fix __hugetlb_vmemmap_optimize_folios()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/hugetlb_vmemmap.c | 20 ++++----------------
- 1 file changed, 4 insertions(+), 16 deletions(-)
+ mm/hugetlb_vmemmap.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 1f1c2ccca3159..f96d00a3ef2ee 100644
+index f96d00a3ef2ee..0afacf93ca4cd 100644
 --- a/mm/hugetlb_vmemmap.c
 +++ b/mm/hugetlb_vmemmap.c
-@@ -45,8 +45,6 @@ struct vmemmap_remap_walk {
- #define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
- /* Skip the TLB flush when we remap the PTE */
- #define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
--/* synchronize_rcu() to avoid writes from page_ref_add_unless() */
--#define VMEMMAP_SYNCHRONIZE_RCU		BIT(2)
- 	unsigned long		flags;
- };
+@@ -615,12 +615,12 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
+ 			 * mirrored tail page structs RO.
+ 			 */
+ 			spfn = (unsigned long)&folio->page;
+-			epfn = spfn + pages_per_huge_page(h);
++			epfn = spfn + hugetlb_vmemmap_size(h);
+ 			vmemmap_wrprotect_hvo(spfn, epfn, folio_nid(folio),
+ 					HUGETLB_VMEMMAP_RESERVE_SIZE);
+-			register_page_bootmem_memmap(pfn_to_section_nr(spfn),
++			register_page_bootmem_memmap(pfn_to_section_nr(folio_pfn(folio)),
+ 					&folio->page,
+-					HUGETLB_VMEMMAP_RESERVE_SIZE);
++					HUGETLB_VMEMMAP_RESERVE_PAGES);
+ 			continue;
+ 		}
  
-@@ -407,9 +405,6 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
- 	if (!folio_test_hugetlb_vmemmap_optimized(folio))
- 		return 0;
- 
--	if (flags & VMEMMAP_SYNCHRONIZE_RCU)
--		synchronize_rcu();
--
- 	vmemmap_start	= (unsigned long)&folio->page;
- 	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
- 
-@@ -442,7 +437,7 @@ static int __hugetlb_vmemmap_restore_folio(const struct hstate *h,
-  */
- int hugetlb_vmemmap_restore_folio(const struct hstate *h, struct folio *folio)
- {
--	return __hugetlb_vmemmap_restore_folio(h, folio, VMEMMAP_SYNCHRONIZE_RCU);
-+	return __hugetlb_vmemmap_restore_folio(h, folio, 0);
- }
- 
- /**
-@@ -465,14 +460,11 @@ long hugetlb_vmemmap_restore_folios(const struct hstate *h,
- 	struct folio *folio, *t_folio;
- 	long restored = 0;
- 	long ret = 0;
--	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH | VMEMMAP_SYNCHRONIZE_RCU;
-+	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH;
- 
- 	list_for_each_entry_safe(folio, t_folio, folio_list, lru) {
- 		if (folio_test_hugetlb_vmemmap_optimized(folio)) {
- 			ret = __hugetlb_vmemmap_restore_folio(h, folio, flags);
--			/* only need to synchronize_rcu() once for each batch */
--			flags &= ~VMEMMAP_SYNCHRONIZE_RCU;
--
- 			if (ret)
- 				break;
- 			restored++;
-@@ -521,8 +513,6 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
- 
- 	static_branch_inc(&hugetlb_optimize_vmemmap_key);
- 
--	if (flags & VMEMMAP_SYNCHRONIZE_RCU)
--		synchronize_rcu();
- 	/*
- 	 * Very Subtle
- 	 * If VMEMMAP_REMAP_NO_TLB_FLUSH is set, TLB flushing is not performed
-@@ -582,7 +572,7 @@ void hugetlb_vmemmap_optimize_folio(const struct hstate *h, struct folio *folio)
- {
- 	LIST_HEAD(vmemmap_pages);
- 
--	__hugetlb_vmemmap_optimize_folio(h, folio, &vmemmap_pages, VMEMMAP_SYNCHRONIZE_RCU);
-+	__hugetlb_vmemmap_optimize_folio(h, folio, &vmemmap_pages, 0);
- 	free_vmemmap_page_list(&vmemmap_pages);
- }
- 
-@@ -610,7 +600,7 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
- 	struct folio *folio;
- 	int nr_to_optimize;
- 	LIST_HEAD(vmemmap_pages);
--	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH | VMEMMAP_SYNCHRONIZE_RCU;
-+	unsigned long flags = VMEMMAP_REMAP_NO_TLB_FLUSH;
- 
- 	nr_to_optimize = 0;
- 	list_for_each_entry(folio, folio_list, lru) {
-@@ -664,8 +654,6 @@ static void __hugetlb_vmemmap_optimize_folios(struct hstate *h,
- 		int ret;
- 
- 		ret = __hugetlb_vmemmap_optimize_folio(h, folio, &vmemmap_pages, flags);
--		/* only need to synchronize_rcu() once for each batch */
--		flags &= ~VMEMMAP_SYNCHRONIZE_RCU;
- 
- 		/*
- 		 * Pages to be freed may have been accumulated.  If we
 -- 
 2.53.0
 
