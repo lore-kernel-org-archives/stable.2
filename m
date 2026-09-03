@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389594B66E7
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC3B4B66E8
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445490; cv=none; b=ShWqJX6ejBydpYdmxcQpl2pgVEHIXArKNZnS3cGut8yr8Umc6ztVVpQkaVhznmDVpsTfpej9PtBzNPnaKe6rEiqDIuHApVE65fCPoMUTM+BAqlWcaNdwYoIN9zD0hqRDxBi83Gz+ICAC40URar1tPzXoCOWeaxxqw7kXDWw7hzk=
+	t=1788445490; cv=none; b=deOAOXrZ97MLblNKw6X+cPh4RDwSNhkC/PLqREBTIACXu3R9yj7lL+M3OPbmihQzKnX3PmjlbB8Ep7WXUzDOV9zmj0w7TcPoASOVlJRVYuKuc5pvpTM5knVeDykYCjAfUsozSM4c4efVO2enltIyqqxzZiZlhsjsCBzq7BzGMi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788445490; c=relaxed/simple;
-	bh=/4yF8qkbM6CT+JQ/yXeJJ9AIO42HGEETujVZTEHuTGY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lRd5rxaifJ55vlzNKQbN5SqBL7dW9WFrVUvBFaTVBIj8oXQA5oww64lNfkD9/1SIQ0qNmw9Um/g+Pl37SI3jjVA31YE4Lx1sVFazoSnvEYak+/y4eKZWys/4VCnlm1lRdEmv9ldMx6ZQIs9PkWeLQ++4zYICIpC2WE95M4m22ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UrCHiL7Y; arc=none smtp.client-ip=100.103.45.18
+	bh=DxmKPiUge5SGqNrGUv0uYwyRfeIehz3PokhZZ4xbp/U=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qfKmhstP71d+b9PfCgUj1bOiH7V67rutGKwA7tOtoe3RGk7xtXwEncNN7zqSVw3pA3H3xDPI2kqyBVX2gLJixPD4irg5y9EkHyflNZD+mobkREnvs4UQKc2ExEV2OK4er3kj2iSz8wgH3kAWQTPx2LHQdYOCNJtOy9nplGhzwS0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=IFXs2ycg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UrCHiL7Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3A71F00A3A;
-	Thu,  3 Sep 2026 14:24:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="IFXs2ycg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D551F00A3D;
+	Thu,  3 Sep 2026 14:24:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445481;
-	bh=zt+54kqa2ZFQNN1M8cuJYoBNkxuWcgFSnfdw4jyXwKs=;
+	s=korg; t=1788445487;
+	bh=YUvf5Um4G2y8LoRmnXr4bAvvy7ldk3dc0/PceuU8WM0=;
 	h=Subject:To:Cc:From:Date;
-	b=UrCHiL7YJDUr9gz5bc+yn+slg4P8pNbGs+4KA0sLD6aN9UFFbA9eSOy80B5MT3Ssm
-	 S2u5X8J5bO+sgUjJT/dBXupihSPo7wUTu7b9G7Gs284//+M0CB6bZM5Y5//2BT4Oew
-	 6Q4qRSjkdZ1uv2tuVz3XxbCbRwZ+0FaTGiJOKPbA=
-Subject: FAILED: patch "[PATCH] ip: orphan prefetched skbs before multicast forwarding" failed to apply to 5.10-stable tree
-To: zhilinz@nebusec.ai,idosch@nvidia.com,pabeni@redhat.com,vega@nebusec.ai
+	b=IFXs2ycgjQX5gUWt0ZQgPL797a4prFc94OzlYWfGF4X2CQkEXdnEBo0PXdX7KrRYX
+	 CadHKvf7mib2A8Olza3ewImjNV3X0JAXlAse5LzMNwLJnUp/D1hAQ1sirUKjQAfR4Y
+	 RIwNbodDH9f4izmxoZ+Ynce8A8BJ4ZhpMqJ1vc9g=
+Subject: FAILED: patch "[PATCH] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()" failed to apply to 6.1-stable tree
+To: andrea.mayer@uniroma2.it,horms@kernel.org,kuba@kernel.org,xmei5@asu.edu
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:00:20 +0200
-Message-ID: <2026090320-tiptop-scrooge-9ea0@gregkh>
+Date: Thu, 03 Sep 2026 16:00:50 +0200
+Message-ID: <2026090350-camcorder-skillful-ef4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e36ce6e78fe3fc3c071a26750783b7ba081ce10d
+git cherry-pick -x f826df95332c07380206dbd54178b6eefb311aba
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-tiptop-scrooge-9ea0@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090350-camcorder-skillful-ef4f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,64 +62,136 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e36ce6e78fe3fc3c071a26750783b7ba081ce10d Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Thu, 13 Aug 2026 00:36:38 +0800
-Subject: [PATCH] ip: orphan prefetched skbs before multicast forwarding
+From f826df95332c07380206dbd54178b6eefb311aba Mon Sep 17 00:00:00 2001
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+Date: Mon, 17 Aug 2026 15:26:44 +0200
+Subject: [PATCH] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
 
-IPv4 and IPv6 input preserve an skb->sk association installed by
-bpf_sk_assign() so that local delivery can use the selected socket under
-RCU. Both address families can also prefetch a socket in UDP early demux.
-In both paths (BPF and UDP early demux) a reference is not guaranteed to
-be held on the socket.
+ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
+check when reading idev->cnf.rpl_seg_enabled.
 
-When a multicast packet is not locally deliverable, IPv6 hands the
-original skb to ip6_mr_input(). IPv4's ip_mr_input() similarly keeps the
-original skb when local delivery is not needed. Either path can put the
-skb on an unresolved multicast route queue or forward it after the
-receive-side RCU section ends.
+When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
+dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
+check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
+dev->ip6_ptr already NULL.
 
-After the prefetched socket is destroyed, a later skb free invokes
-sock_pfree() and dereferences the stale skb->sk. Orphan the skb before
-each non-local multicast forwarding path. Local delivery retains the
-original skb; the existing skb_clone() calls provide multicast forwarding
-with a socket-free clone.
+Reproduced by flooding the receiving interface with ping6 traffic while
+flapping its MTU between 1500 and 1200:
 
-Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
-Fixes: 08842c43d016 ("udp: no longer touch sk->sk_refcnt in early demux")
+ BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
+ Read of size 4 at addr 00000000000006b4 by task ping6/394
+
+ CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
+ Call Trace:
+  <IRQ>
+  kasan_report+0xc6/0x100
+  ipv6_rpl_srh_rcv+0xb3/0x1070
+  ip6_protocol_deliver_rcu+0x759/0x9a0
+  ip6_input_finish+0xa8/0x1b0
+  ip6_input+0xe1/0x490
+  ipv6_rcv+0x33d/0x460
+  __netif_receive_skb_one_core+0xd6/0x130
+  process_backlog+0x2cc/0xa00
+  __napi_poll.constprop.0+0x56/0x270
+  net_rx_action+0x327/0x730
+  handle_softirqs+0x11e/0x630
+  do_softirq+0xb3/0xf0
+  </IRQ>
+
+Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
+ipv6_rthdr_rcv(), which already has an idev lookup.
+
+Fix the NULL dereference on the RPL path by checking idev in
+ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
+an argument and no longer call __in6_dev_get(), so the packet is now
+dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
+
+Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/0c52eb3d7532aaf8bccf37e0f7c922143c639735.1786552223.git.zhilinz@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 1d9a4ac14fce..e5f2b1c6150d 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -2213,6 +2213,9 @@ int ip_mr_input(struct sk_buff *skb)
- 	if (IPCB(skb)->flags & IPSKB_FORWARDED)
- 		goto dont_forward;
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index 9c677eb1d1a6..51941ad656a3 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -368,23 +368,16 @@ static void seg6_update_csum(struct sk_buff *skb)
+ 			   (__be32 *)addr);
+ }
  
-+	if (!local)
-+		skb_orphan(skb);
+-static int ipv6_srh_rcv(struct sk_buff *skb)
++static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
+ 	struct net *net = dev_net(skb->dev);
+ 	struct ipv6_sr_hdr *hdr;
+-	struct inet6_dev *idev;
+ 	struct in6_addr *addr;
+ 	int accept_seg6;
+ 
+ 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
+ 
+-	idev = __in6_dev_get(skb->dev);
+-	if (!idev) {
+-		kfree_skb(skb);
+-		return -1;
+-	}
+-
+ 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
+ 			  READ_ONCE(idev->cnf.seg6_enabled));
+ 
+@@ -485,12 +478,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
+ 	return -1;
+ }
+ 
+-static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
++static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
+ 	struct net *net = dev_net(skb->dev);
+-	struct inet6_dev *idev;
+ 	struct ipv6hdr *oldhdr;
+ 	unsigned int chdr_len;
+ 	unsigned char *buf;
+@@ -499,8 +491,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 	u64 n = 0;
+ 	u32 r;
+ 
+-	idev = __in6_dev_get(skb->dev);
+-
+ 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
+ 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
+ 	if (!accept_rpl_seg) {
+@@ -689,10 +679,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	switch (hdr->type) {
+ 	case IPV6_SRCRT_TYPE_4:
+ 		/* segment routing */
+-		return ipv6_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_srh_rcv(skb, idev);
+ 	case IPV6_SRCRT_TYPE_3:
+ 		/* rpl segment routing */
+-		return ipv6_rpl_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_rpl_srh_rcv(skb, idev);
+ 	default:
+ 		break;
+ 	}
+@@ -837,6 +831,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
+ 			  (&hdr->type) - skb_network_header(skb));
+ 	return -1;
 +
- 	mrt = ipmr_rt_fib_lookup(net, skb);
- 	if (IS_ERR(mrt)) {
- 		kfree_skb(skb);
-diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index 8972863c93ee..d332ec60f915 100644
---- a/net/ipv6/ip6_input.c
-+++ b/net/ipv6/ip6_input.c
-@@ -622,6 +622,7 @@ int ip6_mc_input(struct sk_buff *skb)
- 		if (deliver) {
- 			skb2 = skb_clone(skb, GFP_ATOMIC);
- 		} else {
-+			skb_orphan(skb);
- 			skb2 = skb;
- 			skb = NULL;
- 		}
++disabled:
++	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
++	return -1;
+ }
+ 
+ static const struct inet6_protocol rthdr_protocol = {
 
