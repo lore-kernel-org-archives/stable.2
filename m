@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3C54A92CA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:07:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2F54A6CF9
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:07:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440834; cv=none; b=uiz7UkhI6ECNX1Pf8h5yCE7gwgJaF+UC6c5qwFtOltL/OE0w72JGPhPJrhZoHbWWy1KAWOwr3TqCYFqHboGBIfKcufbj/941v3mnFNvpPK39nQsl5EGiuA0PhwpZomKF0hSwP2hZFTPVsApUz3FaIZ1iC2c0G8xWDnoCpxFKgks=
+	t=1788440832; cv=none; b=U8jict/wttfm8+tkAQQ7juKhLwac8fh+De0QYuD67Qh3/z9HjzevEzX+qldEOaiOk2xFk6LFWlTVq2l1jAbiZVEbgAlUhl9ulNGZpniLaj6jFvwP1oXEmR6Ek2yvFhjVhqh1EfaPUrMLwG6bYLMaLbMcMEnlxX+Zfd7NJTkSN28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440834; c=relaxed/simple;
-	bh=QWkCsInBscbt8Y/dkXzuPAovGOVyL4c5LOWYXDFSKZw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rr9jtPttbR6TZZe5WPHEJkTtnC9+odqq/KbmF9dQyxxP5g257MWA9PGdfuVWdsfbtGvzD+xWuxNBz1Y2OQXrI7H93fZCXTzrplOJSBiWHGmlpLd3kjTg7HNE47zQNhV+OFV1yFIkAi6w27DGumnoJPcGZ8to7HOz4BZ/Xeuiqzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GHYs8EbE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788440832; c=relaxed/simple;
+	bh=zrpmo1sHh+vYuDtcid6WImdUQ28PL5mDzanyLXqOxPA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qj76sm3+R5aDKPOqXcJPxMUPnQMn+4/aKTQW/9X6MhdreDZk97njUBi0CxciYfmxF8fJrPPN9C46iMaSK4HkjEPrcOYgC56MT8ArsxpMhP3TvNSia8LCkhiZrKwbyIbIc5ObDQ/QY9/YSeEmYzm5omi+qhr07+nn009jGP+MuRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o48GdHgj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GHYs8EbE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F311F00A3D;
-	Thu,  3 Sep 2026 13:07:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o48GdHgj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC77D1F00A3E;
+	Thu,  3 Sep 2026 13:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440824;
-	bh=QYQ/b81Wv/R8P00xGLpzpQAQ07xB05xkvmb0Q17k7QY=;
+	s=korg; t=1788440827;
+	bh=ocfBiK4prX8NKb/SM7E/I873S6uHEY8775599uOFds0=;
 	h=Subject:To:Cc:From:Date;
-	b=GHYs8EbEhCbNzZ60h8qCIoZrX/iM0wTAgnCyoCWBpH7zN/8MCWbB/CJEMyAtF5KGh
-	 SRNj5/oGduMI9Kxj+TZ+wtqgoKXlDvWLjvYjZ8/Eboyoe1nF3nGaWOpCUwwz9fwTnz
-	 GB1E1KRRNK6qZJxD8ag/7tdW71B+DWbWE120RoEI=
-Subject: FAILED: patch "[PATCH] NFSD: check truncate permission under inode lock" failed to apply to 6.6-stable tree
+	b=o48GdHgjWYjiFdYqVfB+vInNMw/xqidiguS6TuHmcfE8anax1c9sA8RfguO6X+VWs
+	 5AE7Qq5cs1kXoDn2SED7a6+aFAELSwQNn767CWbvppY+48VygDZ5CG5jbCVn+LOIGR
+	 Z0TvcFE4i6qjMyDkuInIJf735p1EUUM5e3mlthsg=
+Subject: FAILED: patch "[PATCH] NFSD: check truncate permission under inode lock" failed to apply to 5.10-stable tree
 To: cel@kernel.org,chuck.lever@oracle.com,clm@meta.com,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:02:39 +0200
-Message-ID: <2026090339-resolute-antennae-cd2d@gregkh>
+Date: Thu, 03 Sep 2026 15:02:40 +0200
+Message-ID: <2026090340-darkness-disposal-745f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x b778e0e0a16759f22a70579c3cf8d254a40d4a7f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090339-resolute-antennae-cd2d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090340-darkness-disposal-745f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
