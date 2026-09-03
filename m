@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C006C4B0C9D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF54646C4CD
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443239; cv=none; b=sZ/MOKoyZVMBXWQ+oCPIukAd5AtNwgz91qp94HqlntMzRkKD12Jt1KkAYQOpQBgAbG8lE+sr+tLq6H2fuw2WBbIuvDc18RG1h8RQX3t8b9Qjy5Ewy7EkYTn0xVI3kI849PvUlDRWamKDYjZ4MfbXqkWuifEE6Z6sxNEf6AzjRLs=
+	t=1788443242; cv=none; b=p7UxXcaGafKciOOLS/1xwl5IkG2Wo/mMJfMEjs5d2wigXajRD9hejyhzxBh+wTd97Gppiq/cAwYYcSF83REXcPpaZA050dQLUeMASPCrnsF9u13NqR4J3lAvLG/v7remqwhOte11+J4lBjEu/9EC+PwlC3e6Tm0CczVyFysZ4p4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443239; c=relaxed/simple;
-	bh=uF8UjylqKOahqsG8q3yIiBg4hBiapbBetrOgD443T8I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hvu00AyURnauUvhUKTiLdI3RE74jWQJBhQwsTrA27wfnwPr8EVIgmWvl03nMHImtjlbxymQNWYB8pVhoye8pBzwpho8KMSHIVzFlkaPIyCVvuVL9hWUARREApYjTVZvBuNSVdSmIuuMsAHq/uU0KxlpGLI+MumN+q2oeRDYB4s8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kSWGbSvM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443242; c=relaxed/simple;
+	bh=v6RnBa1aFpMRozNqT5SGjedUD3SRyX+bp96efgjhlkA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Zutqt4opYf8eXjo0hlszMNE5zpLqnWOy8Vv0Uf9CiZjDRx3lqXBAXjFTx0WW/U9UdvuQjiERRRlav+d36bHheeKqtoKNDvvKtdkj6k8cuzk3YvXNLb0w7jQ7AEsijZYpof54SmgR4l0bqJTLD7Tch8SNdhfOsK8SLZsmcE1TAHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0ah6V0Kc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kSWGbSvM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2279B1F00A3D;
-	Thu,  3 Sep 2026 13:47:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0ah6V0Kc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EE971F00AC4;
+	Thu,  3 Sep 2026 13:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443233;
-	bh=doIE07ie1D6SPep4xptf8lqEuduFmpql6MP/Awerqqc=;
+	s=korg; t=1788443225;
+	bh=aJ199U8fcSquaZ+yK0t8cFqNezsmMBNtqJAmU2Irwus=;
 	h=Subject:To:Cc:From:Date;
-	b=kSWGbSvM7hvN3KfQU5az4clq+zeaCpVpySTxA9mua63mMzSUatG8ASrqazg9cy9Iu
-	 WUWlk0N+28F2wQsTsRZtEoGPRGQd1Gi70uWTrqJEBS1MYyt0OPJFf/11emuR9HdfbB
-	 TO9iQ02HkT7g46IvKmF17VNxTG28IneIRrZDo4eI=
-Subject: FAILED: patch "[PATCH] ceph: properly decrypt filenames in vmalloc() buffers" failed to apply to 6.18-stable tree
-To: cfsworks@gmail.com,CFSworks@gmail.com,amarkuze@redhat.com,idryomov@gmail.com
+	b=0ah6V0KckEal7TEOLRUaVjzXqm481+PkbIV8aD7xF7sT5GG0A1sAsJtwmog+EofCl
+	 GEg3qU5f6PXjhyDYDKLK5hdSXOTRhzwP7f5hmbHEYoUB3JMeV3NgAhtdGJmlR3g2m/
+	 2eOwkhro+CXudnu6/W+gfYHxJahlSNqfDPBkzzHk=
+Subject: FAILED: patch "[PATCH] ceph: do not repeat ceph_trim_dentries() if no progress" failed to apply to 5.10-stable tree
+To: max.kellermann@ionos.com,amarkuze@redhat.com,idryomov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:23:28 +0200
-Message-ID: <2026090328-gaffe-reacquire-4866@gregkh>
+Date: Thu, 03 Sep 2026 15:23:12 +0200
+Message-ID: <2026090312-grinning-resurrect-3acf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e939fc6a7bd969a58a150b7f188c1047138403e3
+git cherry-pick -x e7d7aa7b730178278109c41fa1b17b06873065d5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090328-gaffe-reacquire-4866@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090312-grinning-resurrect-3acf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,151 +62,130 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e939fc6a7bd969a58a150b7f188c1047138403e3 Mon Sep 17 00:00:00 2001
-From: Sam Edwards <cfsworks@gmail.com>
-Date: Fri, 29 May 2026 20:06:46 -0700
-Subject: [PATCH] ceph: properly decrypt filenames in vmalloc() buffers
+From e7d7aa7b730178278109c41fa1b17b06873065d5 Mon Sep 17 00:00:00 2001
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Tue, 7 Jul 2026 23:42:28 +0200
+Subject: [PATCH] ceph: do not repeat ceph_trim_dentries() if no progress
+ possible
 
-The fscrypt subsystem uses the scatterlist crypto API, inheriting its
-requirement that any buffers are in the linear mapping region. However,
-the messenger client uses kvmalloc() to create buffers for messages,
-which will occasionally place those buffers in the vmalloc() region when
-physical memory fragmentation doesn't permit a large enough kmalloc().
-The various callers of ceph_fname_to_usr() directly pass (slices of) raw
-messages from the MDS without considering that the messages may be in
-vmalloc() buffers, resulting in oopses especially on non-x86 platforms
-(see 'Closes:' for more details and a reproducer).
+ceph_cap_reclaim_work() re-queues itself for as long as
+ceph_trim_dentries() returns -EAGAIN, which happens whenever a lease
+walk exhausts its `nr_to_scan` budget.  This creates a busy loop that
+consumes CPU without making any progress when there is nothing to
+reclaim: with no cap pressure (`count==0`) and every scanned lease
+still valid, each pass runs the full scan budget down to zero and
+returns `-EAGAIN`, only to be queued again immediately.
 
-Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
-fname->ctext, fname->name, and/or oname->name buffers, using `tname`
-(which, when non-null, must be a linear address; when null, is briefly
-allocated as necessary) as a bounce buffer to avoid passing any
-inappropriate addresses to fscrypt_fname_disk_to_usr().
+The dir-lease walk made this worse.  When `expire_dir_lease` is
+`false` (i.e. we have no intention of reclaiming dir leases),
+__dir_lease_check() returned `TOUCH` for every valid lease.  `TOUCH`
+moves the dentry to the tail of the list and resets `di->time` via
+__dentry_dir_lease_touch(), so a walk over N valid leases pointlessly
+rewrote the list, refreshed the timestamps (preventing them from ever
+aging out) and always drained `nr_to_scan`, guaranteeing the `-EAGAIN`
+requeue.
 
-Additionally change parse_reply_info_readdir() -- the only function to
-supply its own `tname` -- to follow the new "tname must never come from
-vmalloc()" rule by passing NULL when the message is not in the linear
-region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
-exists only when processing the minority of messages that spill into
-vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
-messages. Still, if the overhead proves unreasonable in the future, it
-is easy enough to mitigate: a future change could allocate a bounce
-buffer in parse_reply_info_readdir() and use that as `tname` instead.
+Fix this in three steps:
 
-Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
+ - Return `KEEP` instead of `TOUCH` when `expire_dir_lease` is
+   `false`.  If we are not going to reclaim the lease, leave it in
+   place instead of churning the list and resetting its timestamp; the
+   walk then terminates naturally (or via `STOP` at the first fresh
+   lease).
+
+ - Only return `-EAGAIN` from the first (dentry-lease) walk when something
+   was actually freed.  A full batch that frees nothing means retrying
+   the same list immediately is futile; fall through to the dir-lease
+   walk instead.
+
+ - After both walks, bail out with success (0) when nothing was freed
+   and there is no cap pressure (`count==0`).  There is no reason to
+   keep retrying when we are not over the cap limit and made no
+   progress.
+
+Under real cap pressure (`count>0`) the reclaim path is unchanged and
+still retries via `-EAGAIN`.
+
+Without this patch, I saw 500 ceph_trim_dentries() calls per second on
+our web servers.  This is very visible in `/proc/lock_stat` (5 minute
+capture):
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:        126180         128218           0.04        8063.44    15986965.20         124.69        1573354        5296812           0.04        8291.28    74164526.48          14.00
+ -----------------------
+ &mdsc->dentry_list_lock         111736          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2631          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           3878          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock           9973          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ -----------------------
+ &mdsc->dentry_list_lock         123621          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           1822          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2720          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             55          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+With this patch:
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:          1203           1215           0.16         408.88       33082.88          27.23        4320501        7357389           0.04         500.64     1961578.00           0.27
+ -----------------------
+ &mdsc->dentry_list_lock           1029          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            169          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             16          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock              1          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ -----------------------
+ &mdsc->dentry_list_lock            158          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock            858          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            182          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock             17          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+__dentry_leases_walk() is almost gone.  The total wait time is reduced
+by a factor of 483.  That will give some latency gains to
+ceph_readdir().
+
 Cc: stable@vger.kernel.org
-Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
-Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
-Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+Fixes: 37c4efc1ddf9 ("ceph: periodically trim stale dentries")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index 7493a3acd7d0..bc0a097a4cea 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -298,6 +298,10 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
-  * Otherwise, base64 decode the string, and then ask fscrypt to format it
-  * for userland presentation.
-  *
-+ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
-+ * linear-mapped region, this function slightly relaxes those requirements:
-+ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not tname.
-+ *
-  * Returns 0 on success or negative error code on error.
-  */
- int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
-@@ -305,11 +309,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- {
- 	struct inode *dir = fname->dir;
- 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
-+	struct fscrypt_str _oname;
- 	struct fscrypt_str iname;
- 	char *name = fname->name;
- 	int name_len = fname->name_len;
- 	int ret;
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index d5d8f935fb62..f4e0bf244fd2 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -1770,11 +1770,11 @@ static int __dir_lease_check(const struct dentry *dentry,
+ 	if (ret > 0) {
+ 		if (time_before(jiffies, di->time + lwc->dir_lease_ttl))
+ 			return STOP;
++		if (!lwc->expire_dir_lease)
++			return KEEP;
+ 		/* Move dentry to tail of dir lease list if we don't want
+ 		 * to delete it. So dentries in the list are checked in a
+ 		 * round robin manner */
+-		if (!lwc->expire_dir_lease)
+-			return TOUCH;
+ 		if (dentry->d_lockref.count > 0 ||
+ 		    (di->flags & CEPH_DENTRY_REFERENCED))
+ 			return TOUCH;
+@@ -1801,7 +1801,7 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.dir_lease = false;
+ 	lwc.nr_to_scan  = CEPH_CAPS_PER_RELEASE * 2;
+ 	freed = __dentry_leases_walk(mdsc, &lwc);
+-	if (!lwc.nr_to_scan) /* more invalid leases */
++	if (freed > 0 && !lwc.nr_to_scan) /* more invalid leases */
+ 		return -EAGAIN;
  
-+	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
-+		return -EIO;
+ 	if (lwc.nr_to_scan < CEPH_CAPS_PER_RELEASE)
+@@ -1811,6 +1811,10 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.expire_dir_lease = freed < count;
+ 	lwc.dir_lease_ttl = mdsc->fsc->mount_options->caps_wanted_delay_max * HZ;
+ 	freed +=__dentry_leases_walk(mdsc, &lwc);
++	if (freed == 0 && count == 0)
++		/* no progress possible currently, retry futile */
++		return 0;
 +
- 	/* Sanity check that the resulting name will fit in the buffer */
- 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
- 		return -EIO;
-@@ -350,16 +358,18 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 		goto out_inode;
- 	}
+ 	if (!lwc.nr_to_scan) /* more to check */
+ 		return -EAGAIN;
  
-+	if (!tname && (fname->ctext_len == 0 ||
-+		       unlikely(is_vmalloc_addr(fname->ctext)) ||
-+		       unlikely(is_vmalloc_addr(oname->name)))) {
-+		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
-+		if (ret)
-+			goto out_inode;
-+		tname = _tname.name;
-+	}
-+
- 	if (fname->ctext_len == 0) {
- 		int declen;
- 
--		if (!tname) {
--			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
--			if (ret)
--				goto out_inode;
--			tname = _tname.name;
--		}
--
- 		declen = base64_decode(name, name_len, tname, false, BASE64_IMAP);
- 		if (declen <= 0) {
- 			ret = -EIO;
-@@ -367,13 +377,28 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
- 		}
- 		iname.name = tname;
- 		iname.len = declen;
-+	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
-+		memcpy(tname, fname->ctext, fname->ctext_len);
-+
-+		iname.name = tname;
-+		iname.len = fname->ctext_len;
- 	} else {
- 		iname.name = fname->ctext;
- 		iname.len = fname->ctext_len;
- 	}
- 
--	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
--	if (!ret && (dir != fname->dir)) {
-+	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ? tname : oname->name;
-+	_oname.len = oname->len;
-+
-+	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
-+	if (ret)
-+		goto out;
-+
-+	if (unlikely(is_vmalloc_addr(oname->name)))
-+		memcpy(oname->name, _oname.name, _oname.len);
-+	oname->len = _oname.len;
-+
-+	if (dir != fname->dir) {
- 		char tmp_buf[BASE64_CHARS(NAME_MAX)];
- 
- 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 80c72f295bcb..1cb95688c633 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -541,9 +541,13 @@ static int parse_reply_info_readdir(void **p, void *end,
- 			 * to do the base64_decode in-place. It's
- 			 * safe because the decoded string should
- 			 * always be shorter, which is 3/4 of origin
--			 * string.
-+			 * string. If this message was allocated with
-+			 * vmalloc() (happens, but rarely), leave it
-+			 * NULL and let ceph_fname_to_usr() allocate
-+			 * suitable temporary working space instead.
- 			 */
--			tname = _name;
-+			if (likely(!is_vmalloc_addr(_name)))
-+				tname = _name;
- 
- 			/*
- 			 * Set oname to _name too, and this will be
 
