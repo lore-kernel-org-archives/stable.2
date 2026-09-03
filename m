@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73FC4AF9D3
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A88D4AF66B
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442856; cv=none; b=B/qrZazmeSrmeGEGOyKWBRZbxeM7ysA5i1HOaKzq645QUkQAKjeDHpv7pLFNgfJOctoGOiMIZZhIeRkQHF9bCWgmbBvLJRAHlCDpg/zDA3kxKm7Pj4UAuYa4FD4YKrOqmW5NDvuM3qp7NV85812vgzzUSorqP8wG8sqz43RhxUE=
+	t=1788442863; cv=none; b=eRPhpShV2ZJdE30YbxnY23iuKy9fhIRdbThEaT/hhRWW5nCtBml6GDlyaEejfD+6fyvAFH0N8taiIgJrzqw3pTdF+5gMkROOK8J7m3WoUQ11W4EyIiXZjJRvKYKNT3MyHEZ/Z0gCYfXoKV89EH4vt4G/m3wV64xSXbPdPmC4D2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442856; c=relaxed/simple;
-	bh=qMFp3X5MJs0qAwdd5Hqgw3NnPoIR2Bmb5vYk3ux3J1w=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IQ9xf204AH0+OKXGsCv90w18fWAuAlfr3hFdOoKwn+HLgJMUVd37TTTI+R12fnoUe6YbtKRbojCb4J6grN1P5i3zAY2COnzHVoX+QBDA1rckx6mzgobarW5cKpWWNFEbdNQaA3K3SN+P38apShIzi7etHrUmldsZfWbh2i6ziHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2uB926p2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442863; c=relaxed/simple;
+	bh=gt4dcPwBld6xYsm/N+rtJYOfrcBGEglUmRvp2OegelE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=quVg1pdFeV05L4wZz7ssbgXtfuTm1o+OMh7i97f+hQhqN3cxAbKnTWRR5P+vOzIRgFl/1e7RFsaAMfPFRBi/HsxLPuK75E94nK0pdvC1nB/G9CKAvlTImYoa/AnVmINKeyIbQ3fhaIiV4qA+v1oV/egmDBqCsStH/4JnFvtOUPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tioZC7qT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2uB926p2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31D0D1F00A3D;
-	Thu,  3 Sep 2026 13:40:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tioZC7qT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B44E61F000E9;
+	Thu,  3 Sep 2026 13:40:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442839;
-	bh=nFvOdq/SXM5cLPOq/RFY9o7DAbyhbagP0kl6FrMLVos=;
+	s=korg; t=1788442848;
+	bh=UXjPQpMLGiSKAlBJOVSPjTGEd6vdFjpl1grG1FZOg9I=;
 	h=Subject:To:Cc:From:Date;
-	b=2uB926p22SGP7UJRtmFW7IGCLu5+KPaONwM+wjWs5/YlI7fiMlh37wEUMiWwlSH3D
-	 rH6sE/fbRtZuH0lqUdLW1wdUmonBJbyzLcqKNAs5z41yTx9kcxoNjbETNHmNhY+QnI
-	 5F9OeZFOFZXP7dTpWJTtOHsQxQrUsIWjQo2t4Mn8=
-Subject: FAILED: patch "[PATCH] nfsd: fix stale s2s_cp_stateids IDR entry for async COPY" failed to apply to 6.1-stable tree
-To: jlayton@kernel.org,cel@kernel.org
+	b=tioZC7qT2/1oY2xE6z/JkwL3KL1D32NUoMxgtYT/ahHz94F7xQ/TllKYWuZcQA1HN
+	 TB0AWWmiMsHfRf9XHAIL6Mez0+IWUJkSHLGYB9irUaB/RdMjYp0acX9VHY6sdW3yX9
+	 JAmDER/lPk9oGQdbz2oK86xrd8x9AV/7z2l/W93A=
+Subject: FAILED: patch "[PATCH] nfsd: gate nfs2 setacl by argp->mask" failed to apply to 6.1-stable tree
+To: cel@kernel.org,chuck.lever@oracle.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:15:21 +0200
-Message-ID: <2026090321-immorally-carried-7c28@gregkh>
+Date: Thu, 03 Sep 2026 15:16:49 +0200
+Message-ID: <2026090349-thorn-wispy-da17@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x d0beaee498e11880e72826026db0e9c9890fc114
+git cherry-pick -x a3a7e20ed66d3f04d37883c398da8a113b430769
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090321-immorally-carried-7c28@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090349-thorn-wispy-da17@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,51 +62,65 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d0beaee498e11880e72826026db0e9c9890fc114 Mon Sep 17 00:00:00 2001
-From: Jeff Layton <jlayton@kernel.org>
-Date: Fri, 10 Jul 2026 10:00:07 -0400
-Subject: [PATCH] nfsd: fix stale s2s_cp_stateids IDR entry for async COPY
+From a3a7e20ed66d3f04d37883c398da8a113b430769 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <cel@kernel.org>
+Date: Sat, 30 May 2026 16:58:16 -0400
+Subject: [PATCH] nfsd: gate nfs2 setacl by argp->mask
 
-For an async COPY, nfsd4_copy() called nfs4_init_copy_state() before
-dup_copy_fields(), so the s2s_cp_stateids IDR was pointed at
-&u->copy->cp_stateid -- memory in the per-rqstp COMPOUND buffer that is
-reused by the next request. dup_copy_fields() copies only the value into
-async_copy, so the IDR slot dangled at the transient buffer for the whole
-background copy. Any IDR walker then dereferences reused request memory:
-the laundromat reads cs_type from it and, if the bytes look like an
-expired NFS4_COPYNOTIFY_STID, follows into
-refcount_dec()/idr_remove()/kfree() on garbage; manage_cpntf_state() has
-the same exposure via idr_find().
+The NFSACL v2 SETACL path shares the decoder convention used by its
+v3 sibling: nfsaclsvc_decode_setaclargs() fills in argp->acl_access
+only when NFS_ACL is set in the request mask and argp->acl_default
+only when NFS_DFACL is set, leaving the other pointer NULL because
+the argument buffer is zeroed up to pc_argzero before decode.
 
-Duplicate the fields first, then register the stateid on the stable
-async_copy. result->cb_stateid is unchanged.
+nfsacld_proc_setacl() then hands both pointers to set_posix_acl()
+unconditionally. set_posix_acl(idmap, dentry, type, NULL) is the VFS
+"remove this ACL type" operation, so an omitted arm is
+indistinguishable from an explicit request to delete that ACL. A
+SETACL carrying only NFS_ACL silently strips the directory's default
+ACL; mask=0 strips both.
 
-Fixes: e0639dc5805a ("NFSD introduce async copy feature")
+This is the same defect just fixed in nfsd3_proc_setacl(); apply the
+same remedy. Gate each set_posix_acl() call on its mask bit and
+initialize error to 0 so that a request with neither bit set leaves
+the on-disk ACLs untouched and returns success. The out_drop_lock
+path and the unconditional posix_acl_release() in
+nfsaclsvc_release_setacl() already tolerate the skipped arms.
+
+Fixes: a257cdd0e217 ("[PATCH] NFSD: Add server support for NFSv3 ACLs.")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260710-nfsd-testing-v3-3-a0ff7db6aa3e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index b2f1a9bc9202..b9049a3d7c07 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -2237,11 +2237,12 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		async_copy->cp_src = kmalloc_obj(*async_copy->cp_src);
- 		if (!async_copy->cp_src)
- 			goto out_dec_async_copy_err;
--		if (!nfs4_init_copy_state(nn, copy))
--			goto out_dec_async_copy_err;
--		memcpy(&result->cb_stateid, &copy->cp_stateid.cs_stid,
--			sizeof(result->cb_stateid));
- 		dup_copy_fields(copy, async_copy);
-+
-+		if (!nfs4_init_copy_state(nn, async_copy))
-+			goto out_dec_async_copy_err;
-+		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
-+			sizeof(result->cb_stateid));
- 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
- 			       FMODE_NOCMTIME) != 0)
- 			async_copy->attr_update = true;
+diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
+index 76305b86c1a9..827f90194c43 100644
+--- a/fs/nfsd/nfs2acl.c
++++ b/fs/nfsd/nfs2acl.c
+@@ -115,14 +115,19 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
+ 
+ 	inode_lock(inode);
+ 
+-	error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry, ACL_TYPE_ACCESS,
+-			      argp->acl_access);
+-	if (error)
+-		goto out_drop_lock;
+-	error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry, ACL_TYPE_DEFAULT,
+-			      argp->acl_default);
+-	if (error)
+-		goto out_drop_lock;
++	error = 0;
++	if (argp->mask & NFS_ACL) {
++		error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry,
++				      ACL_TYPE_ACCESS, argp->acl_access);
++		if (error)
++			goto out_drop_lock;
++	}
++	if (argp->mask & NFS_DFACL) {
++		error = set_posix_acl(&nop_mnt_idmap, fh->fh_dentry,
++				      ACL_TYPE_DEFAULT, argp->acl_default);
++		if (error)
++			goto out_drop_lock;
++	}
+ 
+ 	inode_unlock(inode);
+ 
 
