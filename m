@@ -1,81 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7DA634D384;
-	Thu,  3 Sep 2026 05:43:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD763911CF
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 05:43:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788414213; cv=none; b=AumMvKfENIqsSH43Tx6NfkIkl++sirm4vTg5IOCCRuaiAZFoHUZXKB5G8VkCSA0tn3/alOJr7ntfyKmjxexxvYL2K8a0OA7kmMZRj3ywJqmWRaekayDZcBcx9udbT9pcVfMGFQPM70yDqXl/4t3VBqGudgtOUpPZCZlvWsJCLQ8=
+	t=1788414221; cv=none; b=M9jCdmytRuyFdsx8SkpfrPum3vFs7H2dgOVu7GGokUeacNoji4UUsSiw/mVMfSu9jfHQeiSymVHZS42KewdbHwylXukKVF1MLnEnmLRlbcRAvOhvVaFj9ZQAJz0u2HUasbiA4AHVAlM2UweMPEczE3Um03rBNTN2pNrXDJGMWx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788414213; c=relaxed/simple;
-	bh=g2PDjSegKx5T/xDiqarJ9JwBQIGrXylvcofgoYKR/Eg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U2miZGhb3jL1yBJRfSGh405Vx7KJCo3XqUaSDHllOUluA9J5uFymaVyys8Nm5sgcrFab/VY50pIyqN1mVy/IldDhP8j2Y8+Ldw2ZM8MPjIZhvSlzTB23oUcAE+RKKQCPI1lzTNTQ7swTvM2F8usdhCTkaPRCYFpL21mVxAGppLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NluFXz/w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788414221; c=relaxed/simple;
+	bh=ofiLLHLDfwzySuuunJRX4J2e22gy3Ugg6yJTkjpKmwI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aUNqJTG7iAYwRDI7lcKgGJ3xZzXeoNjBxTQOD0QGy1zwdkNdWcaV1RN9LH3dtTkQD1JxocO++K5iL+BkJJPrYbyBXy78y96vgUkreMQMLOe01E3sUOK4fZQjPO9QmcdjjYXsz948Z2jNp/uvu8fUtnrRb9CFN2lV1aAz9/HbePw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrgtiVPd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NluFXz/w"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 9E9CE1F000E9;
-	Thu,  3 Sep 2026 05:43:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrgtiVPd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5731F00ADB
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 05:43:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788414210;
-	bh=YQ2oSKOGpZ56PZr7U+GT6KlG+zk+3THE8RBOtiHlXNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NluFXz/wt0LQWpdWMWHSzjHrzp2M5F1Gt37np9uUJPCgoekjJOm/ehv2PyGTiXNPR
-	 HDvcz36NjjVsnpXNr6VaKSFsXFGSu3eMw2CN2WKvq8yb5yWrknxZwSHe2nrH4RyyfK
-	 rbMT4aJT13L/BHT56LNM5y+SQk7E/ELgxR54LeJpOqodboR+3MaQOhn3TFPNRqxe6l
-	 oSVNUR8ZX8A3Y7Ic/pLZwLhCi9AEt8ggS48FlpbSESicO0eAUshSx1c8J4K/jfL1fg
-	 dyzUm9Yqv+Vdvjdmq1wsUtXAQMB2Q65pSf2Qvi4VNwvfWKX7JYMIeU7nJAwSdBvKvD
-	 WzJojr1Q9RXPg==
-Date: Wed, 2 Sep 2026 22:43:30 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 3/5] xfs: compute dquot checksum after resetting dd_lsn
- in repair
-Message-ID: <20260903054330.GA127607@frogsfrogsfrogs>
-References: <178832750681.3508131.6009513367948627110.stgit@frogsfrogsfrogs>
- <178832750773.3508131.8667220003399042973.stgit@frogsfrogsfrogs>
- <20260902072341.GC26173@lst.de>
- <20260902153703.GN1933798@frogsfrogsfrogs>
- <20260903053517.GC16469@lst.de>
+	s=k20260515; t=1788414218;
+	bh=XcpoTZXG1MHyNgHtd/cSLu6It3M3M1eToJKHs3JQ6hc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PrgtiVPdA0g4/tl0Kip/5jB0JvVV0TUsAZ6fIyXNYguAeTaP5CROBB/Ch61T0jAbS
+	 HPEK9dBN9PZDv4GqvT+Zhn/QDN9ZTcKMiaEK8J5MtwrYqNYS9+lwzI9+eS8pgPFaNV
+	 ib01PZKyoDLal22E6HsF9ufv+6MVxlTPNPr7ZG7eWmLHW1PtSyOauQknYm8+r5L5Sg
+	 jjafxhrxb3crgN1+Jyd6ErDDsuA1XB34gLgzPi2d3ynDy7x9Wp56Bh9qg9aXes2eid
+	 wSQHtrxOXM2h9VmWeZolaSaQUUT1P+9WaiIi7JquR3Jq7Wxgl+AhR/zu1XpygMQUzd
+	 yMqdL0v0axQGg==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15e2dab83eso30892966b.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 22:43:38 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw8P/u++QyRnNH7Jd+SS0wE/RNpXCJho9dGHEVWnoSY5wSJTobL6ADfkiR7lvYW/cNaLXwSBtg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzUhMZy1Op6MusyrX6XCX8ngMeaiX5UK8XwumBJ+77ICoGiKWN
+	i2j5xQnQB1S803xeXXEvrm6G/Pl0N+UaHtpLVVAM8TICQpMb0o1M2NIOyhZichGMRuUBa33qTS6
+	1FcSOUYwmp6an98q0i091xjC5cqhvuOY=
+X-Received: by 2002:a17:907:c003:b0:c21:180c:d82d with SMTP id
+ a640c23a62f3a-c25d55bb06cmr666009866b.20.1788414217171; Wed, 02 Sep 2026
+ 22:43:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903053517.GC16469@lst.de>
+References: <20260901182136.13745-1-cenzhang@linux.microsoft.com>
+In-Reply-To: <20260901182136.13745-1-cenzhang@linux.microsoft.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 3 Sep 2026 14:43:25 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8L2i9QHzRu-wq9BUS_BUHOkcFUyGpGO=FHrDvJ0ei8sA@mail.gmail.com>
+X-Gm-Features: AcwNN1UvCEc8oUBLYY2XF2vqejSf66y3cJqjX4QnBbUfsGV7QaFnvrDkspB_UP8
+Message-ID: <CAKYAXd8L2i9QHzRu-wq9BUS_BUHOkcFUyGpGO=FHrDvJ0ei8sA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fix tree connection use-after-free in smb2_tree_connect()
+To: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Cc: smfrench@gmail.com, senozhatsky@chromium.org, tom@talpey.com, 
+	chenxiaosong@chenxiaosong.com, nicholas@carlini.com, bahubali.bg@samsung.com, 
+	kees@kernel.org, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, AutonomousCodeSecurity@microsoft.com, xmei5@asu.edu, 
+	tgopinath@linux.microsoft.com, kys@microsoft.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 03, 2026 at 07:35:17AM +0200, Christoph Hellwig wrote:
-> On Wed, Sep 02, 2026 at 08:37:03AM -0700, Darrick J. Wong wrote:
-> > On Wed, Sep 02, 2026 at 09:23:41AM +0200, Christoph Hellwig wrote:
-> > > On Tue, Sep 01, 2026 at 10:49:16PM -0700, Darrick J. Wong wrote:
-> > > > From: Darrick J. Wong <djwong@kernel.org>
-> > > > 
-> > > > LOLLM complains that xrep_quota_block updates dd_lsn after calculating
-> > > > the crc of the ondisk dquot.  That's clearly broken, so fix that.
-> > > 
-> > > Yeah:
-> > > 
-> > > Reviewed-by: Christoph Hellwig <hch@lst.de>
-> > > 
-> > > Also why do we set the lsn to 0, shouldn't that contain a valid value
-> > > (probably the current LSN, but I'd have to look deeper at what this
-> > > does in detail)
-> > 
-> > Hmm.  When I wrote this dquot repair code I was mirroring what
-> > xfs_qm_init_dquot_blk does (memsets the new dquot buffer to zeroes,
-> > doesn't explicitly touch dd_lsn).
-> > 
-> > It probably ought to be set to the current LSN but we don't really have
-> > a dquot log item for determining that, and assigning 0 here means that
-> > any subsequent logged dquot item will always be recovered into the
-> > ondisk dquot that xrep_quota_block writes.
-> 
-> Can we capture this for the future in comments somewhere?
-
-Will add that and repost.
-
---D
+On Wed, Sep 2, 2026 at 3:21=E2=80=AFAM Cen Zhang (Microsoft Security FORGE
+Labs) <cenzhang@linux.microsoft.com> wrote:
+>
+> ksmbd_tree_conn_connect() publishes a new tree connection in
+> sess->tree_conns with a single reference and returns its pointer to
+> smb2_tree_connect(). The handler continues to initialize the object and
+> build the response after publication. A concurrent session logoff can
+> erase the connection and drop that reference, freeing the object while
+> the handler still uses it.
+>
+> BUG: KASAN: slab-use-after-free in smb2_tree_connect+0xe3d/0xf90
+>   smb2_tree_connect (fs/smb/server/smb2pdu.c:2872)
+>   handle_ksmbd_work
+>   process_one_work
+>   worker_thread
+>   kthread
+>
+> After xa_store() succeeds, take a second reference before releasing
+> tree_conns_lock. The original reference belongs to the xarray entry and
+> the second belongs to the creating smb2_tree_connect() handler.
+>
+> Keep the references balanced in every path:
+>
+> - On normal exit or an error after publication, smb2_tree_connect()
+>   drops its creator reference. Error cleanup also calls
+>   ksmbd_tree_conn_disconnect(), which drops the xarray reference only if
+>   it removes the exact entry.
+> - SMB2 TREE_DISCONNECT uses the same helper to remove the entry and drop
+>   its xarray reference. The request's existing lookup reference remains
+>   owned by the request and is released by the existing cleanup.
+> - Session LOGOFF removes each entry and drops its xarray reference. If
+>   it wins the race, later cleanup sees that the entry is gone and does
+>   not drop that reference again.
+>
+> To enforce this ownership, claim the disconnected state and erase the
+> exact entry atomically under tree_conns_lock. This guarantees one drop
+> for the xarray reference and one drop by each in-flight user, regardless
+> of which teardown path wins. If logoff removes the entry before
+> initialization completes, fail the connect instead of marking the
+> detached object TREE_CONNECTED.
+>
+> Fixes: 33b235a6e6eb ("ksmbd: fix race condition between tree conn lookup =
+and disconnect")
+> Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+> Cc: AutonomousCodeSecurity@microsoft.com
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.=
+microsoft.com>
+Applied it to #ksmbd-for-next.
+Thanks!
