@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 952404B2CC6
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:08:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FBA4B203A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:08:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444499; cv=none; b=UZwhfyo+W/bJO3JnbyqMRMwOoCKuRl35ubPZ8dvlAwkrIUPnm/EhKMBACJWEWlGwLfuk33bpBA3e6jr8R+AIQ6i0++xcikc0SauwiRBIdVHYcQPqrDGgr3rtnKYOIS/sfy9b/NNi9k+Fk4veH8reLVsjsiMpS1aLFf6vrmtFv1Y=
+	t=1788444520; cv=none; b=rPPemAWbtJ5rffBOS0p4LQTMZSE12yRdsHbJM8GcaTpPtpVzHmde3YdazOXcnVMTAoq0UyOH7ZbT8BJjvxoLSBwg05/QmiGnIYMpLyhBxieWJgrZJdwYizr63a+hq3HkHNOLUo7omXoNa9TX6WPy7wjmU3Y2oWgzc1lwOaTNyHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444499; c=relaxed/simple;
-	bh=A1aLYCfpVU5UmDBhMBSYmupbV3hhM1g9xkmIEo4r0x0=;
+	s=arc-20240116; t=1788444520; c=relaxed/simple;
+	bh=W55T7lvUnMkEOe080LqViL/R/5LgG+M3CWjhCoAmTW8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GuFJ2xMn8PM7WCctBB8RL/lxdX6MfMmW9CC74dLh0eYXhwXFzSptNHXuw0FfrQZmNYygOLWLZWrnJ4Tggpa1D1SM94+b05DhfxKMR1qbcugh2aOZqqHxGfat+Y4xpEl5V4ueTrXrIbm9LTTpkKHUegvQy6Hm2uWxsvK0hV8Dtyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVGKvCTq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tlUgEx9IE6js84U3nxHSjTqoKpRyQuMQoQotgOq1I5uWLYLZnoEmrwWYIphOfSoEJ7rrZa/76weaE9448V44iQWKpHUCsx+VnB4MD83Gga6/lqyDd8hD8efj41nraT6ynNzzwohadEDC2EVd2QANb93XBkHyfO93jOr2LW5jBgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EM7TL8Bi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVGKvCTq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721971F00ACA;
-	Thu,  3 Sep 2026 14:08:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EM7TL8Bi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5832F1F00A3D;
+	Thu,  3 Sep 2026 14:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444490;
-	bh=KWt8V/W7scnalKvcS2EtTAD1oAm/j49Dyij2hFzr/9k=;
+	s=k20260515; t=1788444511;
+	bh=BCCkghoT6jmT0PJ3XqOg9+fhPzdEcOdRd/9Urs6SpWc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lVGKvCTqFnuB9/Rl4CMt4poIhIce4vh/HtzhOjMqZDsQBBmW01nTNkKMisadcTAAN
-	 SQzJy1pZPc20gf1cHPzHYFtMAlpoTGEUiuCfJ/oQnG5cKf5pqHbkthWJj0IGdTrfK4
-	 bKiveUV8RhdhCt8T+7N2mUCddkopOCWXrq0cFo8Y8pY6r9mmha+vA49wGw59/AoUd/
-	 ULHKms3FZLU3qz//Fkol55obD41gZX6PSSQd+fdQzx1X+B5NzuhNdzghC25kJQDKno
-	 lF79pHtLUMkJw5WQ9q+FW7vdeUB82gvvTWN6+kOLq56MD5AWtwUJkFHheO9CAbobIb
-	 C660sWjePeocQ==
+	b=EM7TL8BiPtwIl397vPMZKL6ROQcv9ydvewwl6UnBldIURbFjZfNFBv/mFZrn/7Psc
+	 HGUQaif/VsFma2gCYkVcJMvBg6SLU/ZLTz3b4ucAXowO1b3jV0U/ZEBvAoJmF2WZRS
+	 rLYhcUQl7BfAGpwSO+r6yUYA8OVFlVVH9zGiZfv5IbkWXDPQcjJm+aKiUMuzZchwxh
+	 ldeZ9BjAVcYp5E31vzoaOMBU0skD2baGmUQ8omHrGykW33dLjHlmS+crMqwT9SfMN2
+	 7vYw5D12g82EcbopAQGnbAUMix5jQU3VGtaZvjNMi7MyeQlBMkTt4cLlAmlwnNWDVD
+	 322XVh/5Uyqlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
+Cc: Jann Horn <jannh@google.com>,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] rust: devres: fix race between concurrent revokers
-Date: Thu,  3 Sep 2026 10:08:06 -0400
-Message-ID: <20260903140806.792338-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] apparmor: fix cred UAF caused by begin_current_label_crit_section()
+Date: Thu,  3 Sep 2026 10:08:29 -0400
+Message-ID: <20260903140829.792947-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903140806.792338-1-sashal@kernel.org>
-References: <2026090315-banker-thank-0f7d@gregkh>
- <20260903140806.792338-1-sashal@kernel.org>
+In-Reply-To: <20260903140829.792947-1-sashal@kernel.org>
+References: <2026090358-postnasal-expediter-69a3@gregkh>
+ <20260903140829.792947-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,106 +46,195 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Danilo Krummrich <dakr@kernel.org>
+From: Jann Horn <jannh@google.com>
 
-[ Upstream commit acc516dfa1972d31836b50abc0115216cd0fccc5 ]
+[ Upstream commit 3f4ae5fab613dca01d6a2a8210dd832e009fcf47 ]
 
-There is a potential race condition when two paths try to revoke a
-Devres concurrently.
+AppArmor's begin_current_label_crit_section() is a scary function called
+from lots of LSM hooks (in particular VFS/socket-related ones) that checks
+if the label referenced by the current creds is marked FLAG_STALE, and if
+so, attempts to use aa_replace_current_label() to replace the creds with an
+updated version that uses a new label.
 
-The driver core's devres_release_all() calls Revocable::revoke() via the
-release callback, while Devres::drop() calls revoke_nosync() on another
-CPU.
+The first problem with this is that it would directly lead to UAF of
+`struct cred` if anything in the kernel takes a pointer to the current
+creds and accesses these past a security hook invocation that replaces
+creds, like so:
+```
+const struct cred *cred = current_cred();
+alloc_file_pseudo(...);
+uid_t uid = cred->euid;
+```
+I don't know if anything in the kernel actually does this, but I think it
+is very surprising that this pattern could lead to UAF.
 
-The revoker that does not claim the is_available swap returns
-immediately, but the revoker that did may still be executing
-drop_in_place() on the inner data. This can cause a use-after-free when
-the other revoker's caller proceeds to drop adjacent resources that
-drop_in_place() still references (e.g., Devres<DmaMappedSgt> racing with
-SGTable freeing the backing sg_table and pages).
+The second problem is that things go wrong when aa_replace_current_label()
+runs with overridden credentials. aa_replace_current_label() bails out if
+`current_cred() != current_real_cred()` (mirroring the check in
+proc_pid_attr_write()), but this check can't actually reliably detect
+overridden credentials because the overridden creds can be the same as the
+objective creds.
 
-Fix this by adding a Completion. The release callback signals the
-Completion after revoke() finishes, and Devres::drop() waits for it when
-it loses the is_available swap. This ensures the wrapped object is fully
-torn down before Devres::drop() returns.
+So in approximately the following scenario, things go wrong:
+
+1. task begins with <creds A> (as both objective and subjective creds),
+   with refcount=2
+2. task grabs an extra reference on <creds A> for overriding
+3. task calls override_creds(<creds A>), which returns a pointer to the old
+   subjective creds (<creds A>)
+4. task enters AppArmor LSM hook
+5. AppArmor checks that objective/subjective creds are equal
+6. AppArmor replaces both cred pointers with <creds B> and drops 2 refs on
+   <creds A>
+7. task leaves AppArmor LSM hook
+8. task calls revert_creds(<creds A>)
+9. now task->cred is <creds A> while task->real_cred is <creds B>, but the
+   task_struct logically holds two references to <creds B>
+10. another task drops the extra reference on <creds A> that was used for
+    overriding, refcount drops to 0
+11. now task->real_cred points to freed creds
+
+At this point, any access to current_cred() will be UAF.
+
+I have a test case where I run aa-disable on a profile while a process
+using that profile is blocked on splice() from a FUSE passthrough file into
+a full pipe; after the profile update, the pipe becomes empty, splice()
+resumes, the credentials go out of sync, and a subsequent getuid() syscall
+results in a KASAN UAF splat.
+
+To fix this, instead of directly replacing creds, do it via task_work that
+will run at the end of the current syscall. (The point in time at which the
+cred replacement happens should have no correctness impact; it is just a
+performance optimization to avoid unnecessarily touching the refcount of
+the new label.)
+
+Note that AppArmor still performs direct cred replacements in the
+sb_pivotroot LSM hook after this change, and that direct cred replacements
+can still happen in VFS ->write() callbacks via proc_pid_attr_write().
+
+There are two options for what to do with aa_dup_task_ctx(): Either
+explicitly reset new->label_replacement_pending after the entire
+aa_task_ctx has been copied, or switch to manually copying members over.
+I am switching to manually copying members over because that should make
+bugs more obvious.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/dri-devel/20260612202841.2577C1F000E9@smtp.kernel.org/
-Fixes: 05aa6fb1c21d ("rust: scatterlist: Add abstraction for sg_table")
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Link: https://patch.msgid.link/20260628174451.2275679-1-dakr@kernel.org
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Fixes: c75afcd153f6 ("AppArmor: contexts used in attaching policy to system objects")
+Signed-off-by: Jann Horn <jannh@google.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- rust/kernel/devres.rs | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ security/apparmor/include/cred.h |  6 +-----
+ security/apparmor/include/task.h | 15 +++++++++++----
+ security/apparmor/task.c         | 27 +++++++++++++++++++++++++++
+ 3 files changed, 39 insertions(+), 9 deletions(-)
 
-diff --git a/rust/kernel/devres.rs b/rust/kernel/devres.rs
-index 08c1f73144209..67471946f2b58 100644
---- a/rust/kernel/devres.rs
-+++ b/rust/kernel/devres.rs
-@@ -19,7 +19,8 @@
-     sync::{
-         aref::ARef,
-         rcu,
--        Arc, //
-+        Arc,
-+        Completion, //
-     },
-     types::ForeignOwnable,
+diff --git a/security/apparmor/include/cred.h b/security/apparmor/include/cred.h
+index 58fdc72af6645..3fea4da22d08c 100644
+--- a/security/apparmor/include/cred.h
++++ b/security/apparmor/include/cred.h
+@@ -148,13 +148,9 @@ static inline struct aa_label *begin_current_label_crit_section(void)
+ {
+ 	struct aa_label *label = aa_current_raw_label();
+ 
+-	might_sleep();
+-
+ 	if (label_is_stale(label)) {
+ 		label = aa_get_newest_label(label);
+-		if (aa_replace_current_label(label) == 0)
+-			/* task cred will keep the reference */
+-			aa_put_label(label);
++		aa_schedule_stale_label_replacement();
+ 	}
+ 
+ 	return label;
+diff --git a/security/apparmor/include/task.h b/security/apparmor/include/task.h
+index 13945e2495f0b..d9f3fd466b16e 100644
+--- a/security/apparmor/include/task.h
++++ b/security/apparmor/include/task.h
+@@ -21,15 +21,22 @@ static inline struct aa_task_ctx *task_ctx(struct task_struct *task)
+  * @onexec: profile to transition to on next exec  (MAY BE NULL)
+  * @previous: profile the task may return to     (MAY BE NULL)
+  * @token: magic value the task must know for returning to @previous_profile
++ * @label_replacement_tw: for aa_schedule_stale_label_replacement()
++ * @label_replacement_pending: is @label_replacement_tw pending?
++ *
++ * When changing this, check if aa_dup_task_ctx() needs to be updated.
+  */
+ struct aa_task_ctx {
+ 	struct aa_label *nnp;
+ 	struct aa_label *onexec;
+ 	struct aa_label *previous;
+ 	u64 token;
++	struct callback_head label_replacement_tw;
++	bool label_replacement_pending;
  };
-@@ -28,6 +29,8 @@
- struct Inner<T: Send> {
-     #[pin]
-     data: Revocable<T>,
-+    #[pin]
-+    revocation: Completion,
+ 
+ int aa_replace_current_label(struct aa_label *label);
++void aa_schedule_stale_label_replacement(void);
+ void aa_set_current_onexec(struct aa_label *label, bool stack);
+ int aa_set_current_hat(struct aa_label *label, u64 token);
+ int aa_restore_previous_label(u64 cookie);
+@@ -56,10 +63,10 @@ static inline void aa_free_task_ctx(struct aa_task_ctx *ctx)
+ static inline void aa_dup_task_ctx(struct aa_task_ctx *new,
+ 				   const struct aa_task_ctx *old)
+ {
+-	*new = *old;
+-	aa_get_label(new->nnp);
+-	aa_get_label(new->previous);
+-	aa_get_label(new->onexec);
++	new->nnp = aa_get_label(old->nnp);
++	new->onexec = aa_get_label(old->onexec);
++	new->previous = aa_get_label(old->previous);
++	new->token = old->token;
  }
  
- /// This abstraction is meant to be used by subsystems to containerize [`Device`] bound resources to
-@@ -44,6 +47,10 @@ struct Inner<T: Send> {
- /// After the [`Devres`] has been unbound it is not possible to access the encapsulated resource
- /// anymore.
- ///
-+/// When a [`Devres`] is dropped, it is guaranteed that `T` has been fully dropped by the time
-+/// [`Devres::drop`] returns, even if a concurrent revocation through the release callback is in
-+/// progress.
-+///
- /// [`Devres`] users should make sure to simply free the corresponding backing resource in `T`'s
- /// [`Drop`] implementation.
- ///
-@@ -133,6 +140,7 @@ pub fn new<E>(dev: &Device<Bound>, data: impl PinInit<T, E>) -> Result<Self>
-         let inner = Arc::pin_init(
-             try_pin_init!(Inner {
-                 data <- Revocable::new(data),
-+                revocation <- Completion::new(),
-             }),
-             GFP_KERNEL,
-         )?;
-@@ -171,7 +179,9 @@ fn data(&self) -> &Revocable<T> {
-         // `devm_add_action()`, hence `ptr` must be a valid pointer to `Inner<T>`.
-         let inner = unsafe { Arc::from_raw(ptr.cast::<Inner<T>>()) };
+ /**
+diff --git a/security/apparmor/task.c b/security/apparmor/task.c
+index 1a7c9d02e31db..44305bf07af66 100644
+--- a/security/apparmor/task.c
++++ b/security/apparmor/task.c
+@@ -14,6 +14,7 @@
  
--        inner.data.revoke();
-+        if inner.data.revoke() {
-+            inner.revocation.complete_all();
-+        }
-     }
+ #include <linux/gfp.h>
+ #include <linux/ptrace.h>
++#include <linux/task_work.h>
  
-     fn remove_action(&self) -> bool {
-@@ -266,6 +276,10 @@ fn drop(&mut self) {
-                 // this additional reference count.
-                 drop(unsafe { Arc::from_raw(Arc::as_ptr(&self.inner)) });
-             }
-+        } else {
-+            // The release callback is concurrently revoking; wait for it to finish
-+            // `drop_in_place()` of the wrapped object before returning.
-+            self.inner.revocation.wait_for_completion();
-         }
-     }
+ #include "include/audit.h"
+ #include "include/cred.h"
+@@ -88,6 +89,32 @@ int aa_replace_current_label(struct aa_label *label)
+ 	return 0;
  }
+ 
++static void aa_replace_stale_label_tw_func(struct callback_head *tw)
++{
++	struct aa_task_ctx *ctx = task_ctx(current);
++	struct aa_label *label;
++
++	ctx->label_replacement_pending = false;
++	label = aa_current_raw_label();
++	if (!label_is_stale(label))
++		return;
++	label = aa_get_newest_label(label);
++	aa_replace_current_label(label);
++	aa_put_label(label);
++}
++
++/* replace the current task's stale label on syscall return */
++void aa_schedule_stale_label_replacement(void)
++{
++	struct aa_task_ctx *ctx = task_ctx(current);
++
++	if (ctx->label_replacement_pending)
++		return;
++	init_task_work(&ctx->label_replacement_tw, aa_replace_stale_label_tw_func);
++	if (task_work_add(current, &ctx->label_replacement_tw, TWA_RESUME) == 0)
++		ctx->label_replacement_pending = true;
++}
++
+ 
+ /**
+  * aa_set_current_onexec - set the tasks change_profile to happen onexec
 -- 
 2.53.0
 
