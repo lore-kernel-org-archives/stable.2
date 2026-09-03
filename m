@@ -1,140 +1,180 @@
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0282F4B1472
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F8F4AF9F3
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443404; cv=none; b=Lp3TW60yTy08JZ30cv51mODSHpkCd9XObTUqPzL4XVg261xPdbgO2xF16D5b4Fd/rHPb9FFIQ1lSwIW1cGEHJsl5iSXoG2FGw7pVohYg2yM8BAcvb9v6jJ190Kg7zBUzSuCldW4YcGigcAVSuFv1GOE6JEePBQhS8yUAGxyzzng=
+	t=1788443406; cv=none; b=PlfoGeZzLr9phZxGH+xZKMYsKh80I6O3ujOB0YtvzTAvf70O6uaQg6+JUgjfFfpKMt0mv72jq5fwTVgiJ24nYfJ1xpjwqOKLcgAE92T3uQS3H/v8tGtOVkB5O+PaD1EHU3/YW9esx5XefLnjfknfEk5OhKuQvAOiObjuWz8Bc4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443404; c=relaxed/simple;
-	bh=tSyD1Hrg7szl6jqzgDqZId8g0ww2LMpu6Dfemvgzz8k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C/05ZpyD4+GTjA64f5DKRMN0o9AEPoIxg2taVdNOry5VbK8gXoftlDDYEYzx5fUue9viyH9q8KzAiw1klZ8iRMl8eK4gFKkAThPjPtVfTxbGt7wiJOEyIK3HO3j5yyUadQ/SgSlCOI2ndyVQAGq/JXncG6S9kow0jcA1TJ2RQ6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=MpPJsuDe; arc=none smtp.client-ip=209.85.222.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788443406; c=relaxed/simple;
+	bh=8TkDqT7TtAG1jQYRle6yW0+ozMIqYyyatU7V6ZD7JyI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KFce1U5yxPIhWsOgo/LzJ1HWE6QHnJQtwmNUpB+m4gWj7brc7E2/9qPkfxv/tebtEwpS3UiVtsuH02I7X7HRIbtBbw9PbAl6B6lsOHko09BA3/OEUhVz+sFj8o4oZtzW7xrjFCWBo/3oooh5VBxjp5BGFTGSc0CEclw4lQhAHSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dx9VI9Ic; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="MpPJsuDe"
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93959320373so194469785a.1
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 06:49:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788443381; x=1789048181; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W0FzzBf86DLShcrb30vlY9xIuH5mW18Cg/ZW31lMTS4=;
-        b=MpPJsuDexzOd7SuYo7TZrLszXuq+B5jx0n3e880yaVs+/VWFG0FA+XKvNrgPxPQV+3
-         iEe092RSaGDKUx33b50nHCBVRyTT/H9HIp2NlCKfeuJBKAnZ3FgCmkSJt0g/7n0HOKLM
-         mkugSzMVSZyJ8EvZA94i32GgC0FDe51SSik/DSmNZi/kk2hWxsO3Pf30Y2Sz0fiER3cK
-         JFd07dZrt7iVrfPZqW0am5ofXh7LkRiONBBylGiSnj9yl6Plt5y/jcd3EwTor5LPy7GL
-         g8nl9Sy1otolDHEXwK9YokB2KHmse4yIKASpWQZBRvYjV4lUDLkcxWdKds6yEgne3Jt4
-         yZfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788443381; x=1789048181;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=W0FzzBf86DLShcrb30vlY9xIuH5mW18Cg/ZW31lMTS4=;
-        b=E4qOwcXx8eAeluGNiCQbe9242nbm7jOdxqN2whsUhsogL74p7XXkMHcIYEiR4W34ZL
-         GZ+JQ85rrzIBV9XRQQ0J+Hps5wlHcKUgPnmPGvByDqw1pmD0N0gp9kccXQNwRb8MoGRT
-         QZxhfy6kIJCCN6iFj3C9EyetAqU5rrvA+zR4M4LyboDa0OLqqneQbZe+7qkshMd1ffdy
-         CH1d3L6c0p4znXFQFw32ZyLVeM9ZhxAwJ7LbpNio0J4Pi8va/HrcZQTNFh30HmiuxciD
-         ICK+ur6dJ294f3Y4559wI5rJsAqBu52lbV4QwQ4us+BpSzFz84GEQUPO8jetZInHcmZ5
-         qe7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxvW9UlmTOGYBH8izF6L2xgGwHeNy6sHvk/74z35IWXBELUTNwjV1s37z6rvYcZAnSMVMamfN0=@vger.kernel.org
-X-Gm-Message-State: AFuF++myCRP3kY0zetnXm29G8AThvhgwxi1jzmd+qYP70QFWD154aMNJ
-	PJvIlrXeIEwaWfe+sKu6Ecz3GNzTYie2crFkDU8IdkbbpeFswl41aETYQBXVnjJoXzk=
-X-Gm-Gg: AYBFou1SHo1oG7oC7UisNSkuq4SnLAYjP5K51GQQzBLODDYVgMPCmE6oto2wSKdCgxY
-	QzptR6XQRNDPqpO5PTWU1fdye/hGjRvkhTaNSNo/RhjA4HkOzOLiaYj02J2Cx4+H0SjjlxBg1yN
-	JdmDubCysoqHj7tyNEQmcNLWixiTlk0ns6kUS4ACDhKqbrDluxrUtvTlXhE+Pv90chN1KPvA7jE
-	DXkxFRc3VUOvaZIq90kTJODHZocpaCUsfQHi+SE3k41RiCKInCXrgd40pdM2KvrdWyuOXBMS4sI
-	2fJ7kzNEx8SUW9SZKvmuRllnBQxxqXSIbVOce5LWSOsyi0lyFEUftbu3PSDUsKlfQoycpeaMp1r
-	hia2Zbn+ny5+9jO/cSZu+QKtQxuHSLiuiR0UkyvtKMexZ8jI+zbZEJy67AEwwFerZs2uexcFPYh
-	L4T8q0kKswpj1G3oG74WVO//TvcfUmg5capfVyRZXq/OlAXWcDIkwOnrLZxvFWEr5M5Awg37AMc
-	SseBLVIApOlGvxMorkGOonDzxqRaSl/MWJqBUtmwHKgYA==
-X-Received: by 2002:a05:620a:47b6:b0:936:576e:227b with SMTP id af79cd13be357-93960f3c98amr1203618685a.24.1788443380734;
-        Thu, 03 Sep 2026 06:49:40 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f398a18sm497088985a.37.2026.09.03.06.49.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 06:49:39 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x27ow-0000000H8XN-3MX1;
-	Thu, 03 Sep 2026 10:49:38 -0300
-Date: Thu, 3 Sep 2026 10:49:38 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: David Hu <dhu@x6u.co>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
-	kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
-	stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260903134938.GI2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
- <20260902120832.GB2890729@ziepe.ca>
- <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dx9VI9Ic"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0F8F1F00A3E;
+	Thu,  3 Sep 2026 13:49:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788443393;
+	bh=XecTs9EltpeqlnuPjk6xglDNk0GhqpGdSzNb8ts6PIE=;
+	h=Subject:To:Cc:From:Date;
+	b=Dx9VI9Icwn3RUGGuEtZmtx5Jpb38e8MybOHVWo4/d2OHbqySWEsbvGME2x7ILGDwV
+	 Z3f75T6dQwLETy/acr6v8A7W/SAEOArmyvZLwMRyEkdLl34fb6VXGgEvWDrxApYPFM
+	 BijfsnkVFKLEOFga9kRaVSb95zLu7UqtQGBFRhaU=
+Subject: FAILED: patch "[PATCH] HID: sony: clean up device list on probe failure" failed to apply to 6.18-stable tree
+To: doruk@0sec.ai,jkosina@suse.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 15:28:43 +0200
+Message-ID: <2026090343-eligible-knickers-2dfe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
 
-On Wed, Sep 02, 2026 at 07:07:50PM -0400, David Hu wrote:
-> On Wed, Sep 2, 2026 at 8:08 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> > > From: David Hu <xuehaohu@google.com>
-> > >
-> > > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> > > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> > > first entry, resulting in non-page-aligned DMA addresses for all
-> > > subsequent entries.
-> >
-> > This patch is fine, but pedenatically a scatterlist's entry limit
-> > should be bounded to dma_get_max_seg_size(), though I don't think it
-> > helps this. Operating scatterlists at the size limits has proven
-> > problematic in a number of places already...
-> >
-> > > In addition, a non-page-aligned sgl length will trigger an edge case
-> > > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> > > buffers, we will have a `va` with lowest bit set to 1. That will lead
-> > > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> > > to find best page size for the mapping on the NIC side.
-> >
-> > That's an IB side bug, the newer logic that joins adjacent SGLs should
-> > have avoided it?
-> 
-> Hi Jason,
-> 
-> Thank you for the review. I think you are right on both counts.
-> Regarding the IB side, the new SGL joining logic in
-> `ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |= va` is
-> skipped for artifically split, contiguous SGLs. Since Christian has
-> already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
-> creating unnecessary noise on the list. If you prefer a followup,
-> please let me know.
 
-Nope, I'm fine, it just explains why it wasn't seen in other
-tested. You were backporting and mix&matched things. It confirms the
-upstream kernel was fine from the start.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-There are other importers besides RDMA, so I still think that this is
-a good change regardless. Having each segment remain page aligned, and
-staying away from ULONG_MAX that might trigger overflows is a friendly
-and robust thing to do for less sophisticated importers.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Jason
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 7c65699a3a311198a07659a614fe64d45924839e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090343-eligible-knickers-2dfe@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 7c65699a3a311198a07659a614fe64d45924839e Mon Sep 17 00:00:00 2001
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+Date: Sun, 26 Jul 2026 14:45:51 +0200
+Subject: [PATCH] HID: sony: clean up device list on probe failure
+
+sony_input_configured() adds some controllers to sony_device_list before
+HID core registers their input devices. input_register_device() can fail
+after the callback returns successfully. sony_probe() then observes that
+HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
+The devres-managed sony_sc is freed while its list node remains linked, so
+the next matching controller traverses freed memory.
+
+Initialize the list node and device ID to inactive states. Make list
+removal idempotent and run the driver-private cleanup on every probe
+failure path. This also makes a second cleanup safe when
+sony_input_configured() already unwound a partial initialization before
+sony_probe() handles the missing input claim.
+
+Found by 0sec (https://0sec.ai) using automated source analysis;
+verified against the HID input registration and probe unwind paths.
+
+Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+Cc: stable@vger.kernel.org
+Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index 253fff4066eb..56471b7b052d 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -1982,11 +1982,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
+ 
+ static void sony_remove_dev_list(struct sony_sc *sc)
+ {
+-	if (sc->list_node.next) {
+-		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
+-			list_del(&(sc->list_node));
+-		}
+-	}
++	guard(spinlock_irqsave)(&sony_dev_list_lock);
++
++	if (!list_empty(&sc->list_node))
++		list_del_init(&sc->list_node);
+ }
+ 
+ static int sony_get_bt_devaddr(struct sony_sc *sc)
+@@ -2127,6 +2126,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
+ 	}
+ }
+ 
++static void sony_cleanup(struct sony_sc *sc)
++{
++	sony_cancel_work_sync(sc);
++	sony_remove_dev_list(sc);
++	sony_release_device_id(sc);
++}
++
+ static int sony_input_configured(struct hid_device *hdev,
+ 					struct hid_input *hidinput)
+ {
+@@ -2313,9 +2319,7 @@ static int sony_input_configured(struct hid_device *hdev,
+ err_close:
+ 	hid_hw_close(hdev);
+ err_stop:
+-	sony_cancel_work_sync(sc);
+-	sony_remove_dev_list(sc);
+-	sony_release_device_id(sc);
++	sony_cleanup(sc);
+ 	return ret;
+ }
+ 
+@@ -2339,6 +2343,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return -ENOMEM;
+ 
+ 	spin_lock_init(&sc->lock);
++	INIT_LIST_HEAD(&sc->list_node);
++	sc->device_id = -1;
+ 
+ 	sc->quirks = quirks;
+ 	hid_set_drvdata(hdev, sc);
+@@ -2367,6 +2373,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	ret = hid_hw_start(hdev, connect_mask);
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
++		sony_cleanup(sc);
+ 		return ret;
+ 	}
+ 
+@@ -2421,7 +2428,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ err:
+ 	usb_free_urb(sc->ghl_urb);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ 	return ret;
+ }
+@@ -2436,13 +2443,7 @@ static void sony_remove(struct hid_device *hdev)
+ 	}
+ 
+ 	hid_hw_close(hdev);
+-
+-	sony_cancel_work_sync(sc);
+-
+-	sony_remove_dev_list(sc);
+-
+-	sony_release_device_id(sc);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ }
+ 
+
