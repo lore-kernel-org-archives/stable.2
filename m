@@ -1,189 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18A4369D54
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:47:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 524143839A3;
+	Thu,  3 Sep 2026 18:48:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788461264; cv=none; b=LgMERLFmK3kATFdTnyEhrxddKbSHb2uWAIcT83h1PWtJhmC06jgqcfgYqogZw3d802luUCv6wUayWdW08h4Au/wzweAeb9AP0+ujJe1fj6/vqD6QtAmaoRv1vzwtqNkt90VY6yEnLF3G4XQ6nQuNgAUvrQO2zLSiiYQKmiAf5u4=
+	t=1788461307; cv=none; b=OdI1H54wEw7yb+GFyMfwr8LPdoTwS48R19m97e1L8PibDp8ggJLuFiWO8WOWJh226+OfVcxOey0RIIJAqnDFoHlzqkbxjPzQeSIzsu4DXxvAXjK52YAjhtSF80JS6orPmp7JqSkG+VKFmiUUacNrM9SSTgG6V/zpmid7iLeBd/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788461264; c=relaxed/simple;
-	bh=KPEq/CIzsOLJI6gZMvFfI6TjfS/zH1RhcWF9UqgN60U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UQVz2OzOvgD5eI45yKGkf50McF9ObNRcD22Rv9FArjUF0BV4eDcEYDJRiqrA60CkEJbjwYwZ3fJmMtDGxFawsg6g03FDobfkoJIXxn3vNMy9Sd7Fg8LyY8vkVonBSdVOwOvgc6UOSkz7W4rftBv45Tfcxkmi1RUdchZ8hVqF6wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CSmgrQnx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788461307; c=relaxed/simple;
+	bh=eYqJkW8WQGe1IHlUm/v/qniQukq4VSbN/p+PUerw6Mk=;
+	h=Date:To:From:Subject:Message-Id; b=IxdxRRwjzmNzbnqJxcqFjb5yikIqs1BFSLBTP0YmcAUr42JXVrF8Fdv2QGN4vyIcxnbgAR+zrV0KH4xZPTxa29lJsA4h2UOffh34k5m1jHKaWHLerbcKDmQm1mzKUxVbiNEeXc0mH9S/UP0kfL+USGsT3eGqWALagazLx/hcaQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=QEFWWmmc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CSmgrQnx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BCE21F000E9;
-	Thu,  3 Sep 2026 18:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788461262;
-	bh=0ySJEk0Wp7kZIWvBi7E2DWMedcOQkEwvs7GRaW4nsjg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CSmgrQnxkKiqFGBJoJDgchMNP/QQnvRdcGpcgDR52iZuhl4m1Ow9HpWRDRpe2iGRL
-	 L8BKYYCdg88+fvN83PocOd0i1VudtJOrKp6hNpM6zM/3xiRGEs+Gf2MLcN8uq+SYjK
-	 OZYACqEBba8jC3wP5KquwMLfHamaEACL0Mp5VuqDhaDdazz1otIod3Ou2LxoqE9h/z
-	 wY5mC6EO+FVglibA1a4GJFFTEjCo8/KGAAs+8+Zqhwe8oEnxTRil5O9KtjknDgANwH
-	 x2WZnDFe7tOkvnnWKHQivXXnqHUh2qSuyTKcWq1tUjwprQ9FQ5IKggVQbP7MTvqNlR
-	 clBPs5RlhsaXA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Breno Leitao <leitao@debian.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Lance Yang <lance.yang@linux.dev>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Qian Cai <cai@lca.pw>,
-	SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 7/7] mm/kmemleak: avoid soft lockup when scanning task stacks
-Date: Thu,  3 Sep 2026 14:47:33 -0400
-Message-ID: <20260903184733.1484444-7-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903184733.1484444-1-sashal@kernel.org>
-References: <2026090333-boney-opium-0272@gregkh>
- <20260903184733.1484444-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QEFWWmmc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93DB01F000E9;
+	Thu,  3 Sep 2026 18:48:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788461304;
+	bh=WcfGjHZDh5Z2IlTjPsvPr96hVOC/VO6nnIgpt7fLAwQ=;
+	h=Date:To:From:Subject;
+	b=QEFWWmmcuY//P7BtQA94WBtPmMDIx4HqCY87gqTempLKuWTEWij8UTQPXqZIPKopW
+	 dsigV7Uk98wYLmGHClku3RSRE4YQ8exIQfhDXSAofDbKl30YnDAuM2jIxA2oIq5jgU
+	 cpXb2egrO9DF4z46YzGlOEXoW8jjy9jF8xirFbJw=
+Date: Thu, 03 Sep 2026 11:48:24 -0700
+To: mm-commits@vger.kernel.org,tangzw515@gmail.com,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,joseph.qi@linux.alibaba.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch added to mm-nonmm-unstable branch
+Message-Id: <20260903184824.93DB01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 5d10d4e19e6daa487f0cd0ea6cba472325de92f9 ]
+The patch titled
+     Subject: ocfs2: skip uninitialized lockres in ocfs2_mark_lockres_freeing()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch
 
-Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch
 
-kmemleak_scan() scans every task stack under one rcu_read_lock() with no
-reschedule point, which can trip the soft lockup watchdog on hosts with
-very many threads.
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-That prints the following message, depending on the workload+host
-configuration:
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-      watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-       scan_block
-       kmemleak_scan
-       kmemleak_scan_thread
-       kthread
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
-tasks
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-Patches 2-3 let the scan loops stop early once a scan is interrupted.
+------------------------------------------------------
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+Subject: ocfs2: skip uninitialized lockres in ocfs2_mark_lockres_freeing()
+Date: Thu, 3 Sep 2026 18:47:44 +0800
 
-This patch (of 3):
+A hard readonly mount skips ocfs2_dlm_init(), so the per-osb lock
+resources are never initialized and osb->cconn stays NULL.  Before commit
+550842cc60987 ("ocfs2: fix freeing uninitialized resource on
+ocfs2_dlm_shutdown") ocfs2_dismount_volume() only called
+ocfs2_dlm_shutdown() when osb->cconn was set.  It now calls it
+unconditionally, so unmounting a hard readonly mount drops the osb locks
+and takes the never initialized l_lock in ocfs2_mark_lockres_freeing(). 
+With lockdep enabled this triggers:
 
-kmemleak_scan() walks every thread and scans its kernel stack under a
-single rcu_read_lock() with no reschedule point.  On a host with very many
-threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
-a CPU long enough to trip the soft lockup watchdog:
+INFO: trying to register non-static key.  The code is fine but needs
+lockdep annotation, or maybe you didn't initialize this object before use?
+turning off the locking correctness validator.
 
-  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
-   scan_block
-   kmemleak_scan
-   kmemleak_scan_thread
-   kthread
+ocfs2_drop_lock() and ocfs2_lock_res_free() already skip lock resources
+without OCFS2_LOCK_INITIALIZED.  Add the same check to
+ocfs2_mark_lockres_freeing(), which is reachable before them through
+ocfs2_simple_drop_lockres(), so an uninitialized lockres is never touched.
 
-A cond_resched() cannot be added directly: the loop runs inside an RCU
-read-side critical section.
-
-Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
-lock only to look up and pin each task.  The stack is then scanned with no
-lock held, so cond_resched() runs between tasks and the scan stops early
-on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
-iteration pattern and keeps each RCU critical section short.
-
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
-Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
-Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-Cc: Qian Cai <cai@lca.pw>
-Cc: SeongJae Park <sj@kernel.org>
+Link: https://lore.kernel.org/20260903104744.2164235-1-joseph.qi@linux.alibaba.com
+Fixes: 550842cc60987 ("ocfs2: fix freeing uninitialized resource on ocfs2_dlm_shutdown")
+Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reported-by: ZW Tang <tangzw515@gmail.com>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 51 ++++++++++++++++++++++++++++++++++++++-------------
- 1 file changed, 38 insertions(+), 13 deletions(-)
 
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 023d1300dbb40..e24fbb2b15035 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -1452,6 +1452,42 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
- 	put_object(object);
- }
+ fs/ocfs2/dlmglue.c |    4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- a/fs/ocfs2/dlmglue.c~ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing
++++ a/fs/ocfs2/dlmglue.c
+@@ -3525,6 +3525,10 @@ void ocfs2_mark_lockres_freeing(struct o
+ 	struct ocfs2_mask_waiter mw;
+ 	unsigned long flags, flags2;
  
-+/*
-+ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
-+ * up and pinned within its own RCU read-side section, so no lock is held across
-+ * the scan and the walk cannot trip the soft lockup watchdog.
-+ */
-+static void kmemleak_scan_task_stacks(void)
-+{
-+	struct pid *pid;
-+	int nr = 1;
++	/* We didn't get anywhere near actually using this lockres. */
++	if (!(lockres->l_flags & OCFS2_LOCK_INITIALIZED))
++		return;
 +
-+	do {
-+		struct task_struct *p = NULL;
-+
-+		rcu_read_lock();
-+		pid = find_ge_pid(nr, &init_pid_ns);
-+		if (pid) {
-+			nr = pid_nr(pid) + 1;
-+			p = pid_task(pid, PIDTYPE_PID);
-+			if (p)
-+				get_task_struct(p);
-+		}
-+		rcu_read_unlock();
-+
-+		if (p) {
-+			void *stack = try_get_task_stack(p);
-+
-+			if (stack) {
-+				scan_block(stack, stack + THREAD_SIZE, NULL);
-+				put_task_stack(p);
-+			}
-+			put_task_struct(p);
-+		}
-+		cond_resched();
-+	} while (pid && !scan_should_stop());
-+}
-+
- /*
-  * Print one leak inline. The hex dump is gated on OBJECT_ALLOCATED so it
-  * does not touch user memory that was freed concurrently; the rest of the
-@@ -1533,19 +1569,8 @@ static void kmemleak_scan(void)
- 	/*
- 	 * Scanning the task stacks (may introduce false negatives).
- 	 */
--	if (kmemleak_stack_scan) {
--		struct task_struct *p, *g;
--
--		rcu_read_lock();
--		for_each_process_thread(g, p) {
--			void *stack = try_get_task_stack(p);
--			if (stack) {
--				scan_block(stack, stack + THREAD_SIZE, NULL);
--				put_task_stack(p);
--			}
--		}
--		rcu_read_unlock();
--	}
-+	if (kmemleak_stack_scan)
-+		kmemleak_scan_task_stacks();
+ 	ocfs2_init_mask_waiter(&mw);
  
- 	/*
- 	 * Scan the objects already referenced from the sections scanned
--- 
-2.53.0
+ 	spin_lock_irqsave(&lockres->l_lock, flags);
+_
+
+Patches currently in -mm which might be from joseph.qi@linux.alibaba.com are
+
+ocfs2-fix-deadlock-in-inline-data-truncate-transactions.patch
+ocfs2-exit-recovery-thread-on-mount-error-path.patch
+ocfs2-free-replay-slots-in-ocfs2_recovery_exit.patch
+ocfs2-defer-suballocator-block-group-reclaim-to-workqueue.patch
+ocfs2-restrict-ocfs2_invalid_slot-suballoc-slot-to-system-inodes.patch
+ocfs2-validate-suballoc-bit-during-inode-read.patch
+ocfs2-validate-suballoc-slot-and-bit-of-xattr-and-dir-index-blocks.patch
+ocfs2-validate-suballoc-slot-and-bit-of-extent-and-refcount-blocks.patch
+ocfs2-allow-xattr-bucket-entries-to-span-multiple-blocks.patch
+ocfs2-reject-inconsistent-xattr-bucket-during-defrag.patch
+ocfs2-skip-uninitialized-lockres-in-ocfs2_mark_lockres_freeing.patch
 
