@@ -1,201 +1,418 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95C64AF161
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:39:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDEAD4AE11C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:39:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442763; cv=none; b=sfFtPWfqHUHtyVXlhcHANJKruuuyxgDohor341KWqECvrCCmPehbjvNa3J7ntsltgbpV2dt8ccDMFG6ponenKkqWuvJW1IT1difZZUn+TnBq5FhbGVeoyitEKVySC9TvmBIDawazhaeStaVPnt3zJO6RKpFLdwklmhlZyebxlxc=
+	t=1788442771; cv=none; b=DeLsxi6mtYuuBd029jGILYm/SqVNQFjEEAR1VLjua205d4XxcAInK1/hjxc93YldH0yvAfNPrrxtjpaBiUCr03A+fgbEXESvq07+E7OjqgWiB9aYo2+adK8qkaAZmUlb31SPfmbXF/SEfTaO2RTkHLdJbNEuU1gJ0tnNDgS01LE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442763; c=relaxed/simple;
-	bh=W3PxekqU5Mb1/yH3S1YJjHQkioAkQTZKS/GERL4jxpk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PM2m4V84xdSglLw8pqjC+ydSz4fsmGCV1ljKN7O7WeIkS07V33pOHIyaWSOZoq/Wik8Gvmc4WJAwcAz3rEMDlw/Nad0hGxDJuzmS5WPifuxvV16wojNVgAtwRh6eTLOdSU0qmflVJUL2ir7AjoOoMHHGwwMLqGJNlg5Bgv/wrIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnIDX0Yw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442771; c=relaxed/simple;
+	bh=j1poewUxK81CMDBhiSRcBI/P/cgNVJNL5RX3Vr7/dE8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B3u8lnLX84RzeHhdeD/h7cKIoPDAosV7V8Y5a+uHEIPXyR5ArVS0GCugrQs5jIALT4q227sGk66Dy5N4NBBLFSZg3OCUJaSw3gR+6Fpvdybb9BT0VvYQXCtIY5djOe/tWCUN3Ze5K3B+wyVhxk8LzP8qu5ef0mmgZpcc0HJ4Fpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1QvYaNfu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnIDX0Yw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89B11F000E9;
-	Thu,  3 Sep 2026 13:39:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788442746;
-	bh=0aK4CKyVfOFlLzhNQQZOascHIy49QCVnyIY2HlAOgqc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EnIDX0YwqkwSPXiZcTsQ3b7BjHsiNM77mYlalTGFeQ917sU8Ci6qNLkHQZLE/c/UM
-	 cvQ/SVRWz1TDA397JfOLkPJgx8n/1mIpK9jrYr2Dsron7BuO+Tna5jewg+U2ysdyrO
-	 +0MAdp84pgjDGx7fIcT8i6W2gSoIcz04+28go7ZgxruBrZcm993PufSr2jVvTtJ4g/
-	 rGxSK4B8pM5bUvvRG8jeyhm0yCvB2i4C+I7DL9oNe53J4hvSZI+z64dFg1ymKZdYaw
-	 dS866iXoCttPwKNiJ4Mi2NjK41XH+ypnapx+vBBVVG1u6ztnVw4YPFkAqR5xE85dkA
-	 rRq5Oo79IrqDg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Miguel Ojeda <ojeda@kernel.org>,
-	Burak Emir <burak.emir@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] rust: rust_is_available: warn for `bindgen` < 0.72.1 && libclang >= 22
-Date: Thu,  3 Sep 2026 09:39:02 -0400
-Message-ID: <20260903133902.763984-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903133902.763984-1-sashal@kernel.org>
-References: <2026090303-moonshine-study-20ce@gregkh>
- <20260903133902.763984-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1QvYaNfu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6C71F00A3E;
+	Thu,  3 Sep 2026 13:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788442754;
+	bh=hwJ5rqJo+Y5cEnU/gjVvLUoSW2bLPijuBpCJcEZeIf8=;
+	h=Subject:To:Cc:From:Date;
+	b=1QvYaNfuYkRkKiAmYkyYYidDHThvr2esOKFLBj/48Sszn6HMVHyMCGb8AdIHXnOp2
+	 RyDtfG6FAAGDQfo+dwLE9tCU3Lk+kP2MzIKJVwPL2zxszoBtWQf4jW7hV+AySiPHqr
+	 oj8ZqslrnHIbRHnDxvUt1tj4zoR7Hxy7+8mQ8LdY=
+Subject: FAILED: patch "[PATCH] nfsd: dedup nfs4_client_to_reclaim inserts" failed to apply to 6.12-stable tree
+To: jlayton@kernel.org,chuck.lever@oracle.com,clm@meta.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 15:12:25 +0200
+Message-ID: <2026090325-triage-suitor-da06@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Miguel Ojeda <ojeda@kernel.org>
 
-[ Upstream commit dc01dfb37b34beeefcfe1c3055364d41a4070c7e ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Starting with LLVM 22, `clang_getTypeDeclaration()` may return a forward
-declaration instead of the type definition. This made `bindgen` generate
-opaque types [1][2], which in turn made us fail with e.g.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-    error[E0609]: no field `__bindgen_anon_1` on type `bindings::kernel_param`
-      --> rust/kernel/module_param.rs:78:46
-       |
-    78 |         let container = unsafe { &*((*param).__bindgen_anon_1.arg.cast::<SetOnce<T>>()) };
-       |                                              ^^^^^^^^^^^^^^^^ unknown field
-       |
-       = note: available field is: `_address`
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9b57793863f69c608691c98e57c2f9be2db9dfed
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090325-triage-suitor-da06@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-This was fixed in `bindgen` 0.72.1 [3].
+Possible dependencies:
 
-In order to clarify what is going on and avoid confusion [4][5], add
-a warning to `rust_is_available.sh` about it when the versions match,
-similar to past warnings like the one removed in:
 
-  commit ae64324ad5c1 ("rust: rust_is_available: remove warning for `bindgen` < 0.69.5 && libclang >= 19.1")
 
-In addition, even if the versions match, check if the issue appears to
-not reproduce with the given binaries, to avoid a warning in such a case.
+thanks,
 
-Finally, include tests.
+greg k-h
 
-[ Nathan, in parallel, updated the instructions of the LLVM+Rust
-  kernel.org toolchains [6] so that `--version` is not passed to
-  `cargo` for `bindgen`, and thus the latest `bindgen` is installed
-  by default, which should help to avoid some of these situations.
+------------------ original commit in Linus's tree ------------------
 
-  Thanks!
+From 9b57793863f69c608691c98e57c2f9be2db9dfed Mon Sep 17 00:00:00 2001
+From: Jeff Layton <jlayton@kernel.org>
+Date: Sat, 30 May 2026 09:19:20 -0400
+Subject: [PATCH] nfsd: dedup nfs4_client_to_reclaim inserts
 
-    - Miguel ]
+nfs4_client_to_reclaim() unconditionally allocates a new
+nfs4_client_reclaim, prepends it to reclaim_str_hashtbl[], and bumps
+reclaim_str_hashtbl_size with no check for an existing entry for the
+same client name.  After a reboot with a populated recovery directory
+that inflates the counter by one for every client that reclaims:
 
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-Link: https://github.com/rust-lang/rust-bindgen/issues/3264 [1]
-Link: https://github.com/Rust-for-Linux/linux/issues/353 [2] # "Missing fields in nested class with LLVM 22."
-Link: https://github.com/rust-lang/rust-bindgen/pull/3278 [3]
-Reported-by: Burak Emir <burak.emir@gmail.com>
-Link: https://github.com/Rust-for-Linux/linux/issues/1247 [4]
-Link: https://lore.kernel.org/rust-for-linux/CABwQupNfMAJOGqRM9ke6tj4f53dCCsBDKU7Vp+zf8mwk7bqt8Q@mail.gmail.com/ [5]
-Link: https://mirrors.edge.kernel.org/pub/tools/llvm/rust/ [6]
-Tested-by: Burak Emir <burak.emir@gmail.com>
-Link: https://patch.msgid.link/20260719120514.159914-1-ojeda@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- scripts/rust_is_available.sh                  | 14 +++++++++
- .../rust_is_available_bindgen_libclang_22.h   |  5 ++++
- scripts/rust_is_available_test.py             | 30 ++++++++++++++++++-
- 3 files changed, 48 insertions(+), 1 deletion(-)
- create mode 100644 scripts/rust_is_available_bindgen_libclang_22.h
+    boot:    load_recdir()
+               nfs4_client_to_reclaim(name)   /* entry #1, size++ */
 
-diff --git a/scripts/rust_is_available.sh b/scripts/rust_is_available.sh
-index 4531f9dd19d31..12f2b2e766532 100755
---- a/scripts/rust_is_available.sh
-+++ b/scripts/rust_is_available.sh
-@@ -212,6 +212,20 @@ if [ "$bindgen_libclang_cversion" -lt "$bindgen_libclang_min_cversion" ]; then
- 	exit 1
- fi
+    grace:   RECLAIM_COMPLETE
+               __nfsd4_create_reclaim_record_grace()
+                 nfs4_client_to_reclaim(name) /* entry #2, size++ */
+
+inc_reclaim_complete() ends the grace period early only when
+
+    atomic_inc_return(&nn->nr_reclaim_complete) ==
+        nn->reclaim_str_hashtbl_size
+
+With reclaim_str_hashtbl_size at 2N and nr_reclaim_complete capped at
+N, the equality never holds and the fast end-of-grace path is dead.
+The grace period always runs out the full 90-second laundromat timer,
+and the shadow entry left in the hash table carries a dangling cr_clp
+for any reader that walks it.
+
+Fix nfs4_client_to_reclaim() to look the name up with
+nfsd4_find_reclaim_client() first and, on a hit, fold the new
+princhash into the existing record (if it lacks one) and return that
+record without allocating or touching reclaim_str_hashtbl_size.  On
+kmemdup() failure during the fold-in, return NULL so
+__cld_pipe_inprogress_downcall() surfaces -EFAULT to nfsdcld, matching
+the miss-path contract.
+
+Add an rw_semaphore (reclaim_str_hashtbl_lock) to struct nfsd_net that
+serialises all access to reclaim_str_hashtbl[] and
+reclaim_str_hashtbl_size.  Writers (nfs4_client_to_reclaim,
+nfs4_remove_reclaim_record callers) hold the write side; readers
+(nfsd4_cld_check*, inc_reclaim_complete, clients_still_reclaiming,
+nfs4_has_reclaimed_state, nfsd4_check_legacy_client) hold the read
+side.  All call sites are in sleepable context, and none is a hot
+path, so the rwsem cost is negligible.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
+Cc: stable@vger.kernel.org
+Assisted-by: kres:claude-opus-4-7
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-4-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 37dfecb9d49d..f6b8b340bf8e 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -93,6 +93,7 @@ struct nfsd_net {
+ 	 */
+ 	struct list_head *reclaim_str_hashtbl;
+ 	int reclaim_str_hashtbl_size;
++	struct rw_semaphore reclaim_str_hashtbl_lock;
+ 	struct list_head *conf_id_hashtbl;
+ 	struct rb_root conf_name_tree;
+ 	struct list_head *unconf_id_hashtbl;
+@@ -105,7 +106,10 @@ struct nfsd_net {
+ 	 * close_lru holds (open) stateowner queue ordered by nfs4_stateowner.so_time
+ 	 * for last close replay.
+ 	 *
+-	 * All of the above fields are protected by the client_mutex.
++	 * reclaim_str_hashtbl[], reclaim_str_hashtbl_size are protected by
++	 * reclaim_str_hashtbl_lock.
++	 *
++	 * All of the remaining fields are protected by the client_lock.
+ 	 */
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index c841da585142..d513971fb119 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -285,10 +285,12 @@ __nfsd4_remove_reclaim_record_grace(const char *dname, int len,
+ 		return;
+ 	}
+ 	name.len = len;
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp)
+ 		nfs4_remove_reclaim_record(crp, nn);
++	up_write(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
+ }
  
-+if [ "$bindgen_libclang_cversion" -ge 2200000 ] &&
-+	[ "$rust_bindings_generator_cversion" -lt 7201 ]; then
-+	# Distributions may have patched the issue.
-+	if ! "$BINDGEN" $(dirname $0)/rust_is_available_bindgen_libclang_22.h | grep -q 'pub foo'; then
-+		echo >&2 "***"
-+		echo >&2 "*** Rust bindings generator '$BINDGEN' < 0.72.1 together with libclang >= 22"
-+		echo >&2 "*** may not work due to a bug (https://github.com/rust-lang/rust-bindgen/pull/3278)."
-+		echo >&2 "***   Your bindgen version:  $rust_bindings_generator_version"
-+		echo >&2 "***   Your libclang version: $bindgen_libclang_version"
-+		echo >&2 "***"
-+		warning=1
-+	fi
-+fi
-+
- # If the C compiler is Clang, then we can also check whether its version
- # matches the `libclang` version used by the Rust bindings generator.
- #
-diff --git a/scripts/rust_is_available_bindgen_libclang_22.h b/scripts/rust_is_available_bindgen_libclang_22.h
-new file mode 100644
-index 0000000000000..6b33544c14a81
---- /dev/null
-+++ b/scripts/rust_is_available_bindgen_libclang_22.h
-@@ -0,0 +1,5 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+struct S;
-+struct S {
-+	int foo;
-+};
-diff --git a/scripts/rust_is_available_test.py b/scripts/rust_is_available_test.py
-index d6d54b7ea42a0..e14cf2c5695e3 100755
---- a/scripts/rust_is_available_test.py
-+++ b/scripts/rust_is_available_test.py
-@@ -54,16 +54,23 @@ else:
- """)
+ static void
+@@ -484,6 +486,7 @@ nfs4_legacy_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
  
-     @classmethod
--    def generate_bindgen(cls, version_stdout, libclang_stderr):
-+    def generate_bindgen(cls, version_stdout, libclang_stderr, libclang_22_patched=False):
-         if libclang_stderr is None:
-             libclang_case = f"raise SystemExit({cls.bindgen_default_bindgen_libclang_failure_exit_code})"
-         else:
-             libclang_case = f"print({repr(libclang_stderr)}, file=sys.stderr)"
+ 	return 0;
+ }
+@@ -598,13 +601,16 @@ nfsd4_check_legacy_client(struct nfs4_client *clp)
+ 		goto out_enoent;
+ 	}
+ 	name.len = HEXDIR_LEN;
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp) {
+ 		set_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags);
+ 		crp->cr_clp = clp;
+-		return 0;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
++	if (crp)
++		return 0;
  
-+        if libclang_22_patched:
-+            libclang_22_case = "print('pub foo: ::std::os::raw::c_int,')"
-+        else:
-+            libclang_22_case = "pass"
-+
-         return cls.generate_executable(f"""#!/usr/bin/env python3
- import sys
- if "rust_is_available_bindgen_libclang.h" in " ".join(sys.argv):
-     {libclang_case}
-+elif "rust_is_available_bindgen_libclang_22.h" in " ".join(sys.argv):
-+    {libclang_22_case}
- else:
-     print({repr(version_stdout)})
- """)
-@@ -248,6 +255,27 @@ else:
-         result = self.run_script(self.Expected.FAILURE, { "BINDGEN": bindgen })
-         self.assertIn(f"libclang (used by the Rust bindings generator '{bindgen}') is too old.", result.stderr)
+ out_enoent:
+ 	return -ENOENT;
+@@ -1176,6 +1182,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		return 0;
  
-+    def test_bindgen_bad_libclang_22(self):
-+        for (bindgen_version, libclang_version, expected_not_patched) in (
-+            ("0.71.1", "21.1.0", self.Expected.SUCCESS),
-+            ("0.71.1", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
-+            ("0.71.1", "22.1.0", self.Expected.SUCCESS_WITH_WARNINGS),
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1191,6 +1198,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data!\n",
+ 				__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1201,9 +1209,11 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1215,6 +1225,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 	struct cld_net *cn = nn->cld_net;
+ #endif
+ 	struct nfs4_client_reclaim *crp;
++	unsigned int princhashlen;
+ 	char *principal = NULL;
+ 
+ 	/* did we already find that this client is stable? */
+@@ -1222,6 +1233,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1237,6 +1249,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data\n",
+ 					__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1247,23 +1260,31 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+-	if (crp->cr_princhash.len) {
++	princhashlen = crp->cr_princhash.len;
++	if (princhashlen) {
+ 		u8 digest[SHA256_DIGEST_SIZE];
++		u8 *pdata;
+ 
+ 		if (clp->cl_cred.cr_raw_principal)
+ 			principal = clp->cl_cred.cr_raw_principal;
+ 		else if (clp->cl_cred.cr_principal)
+ 			principal = clp->cl_cred.cr_principal;
+-		if (principal == NULL)
++		if (principal == NULL) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 		sha256(principal, strlen(principal), digest);
+-		if (memcmp(crp->cr_princhash.data, digest,
+-				crp->cr_princhash.len))
++		pdata = crp->cr_princhash.data;
++		if (memcmp(pdata, digest, princhashlen)) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 	}
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1362,6 +1383,7 @@ nfs4_cld_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	atomic_set(&nn->nr_reclaim_complete, 0);
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 2e9773b3a60c..c88637406773 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -2677,14 +2677,21 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
+ 
+ 	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 		return;
+-	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
 +
-+            ("0.72.0", "22.0.0", self.Expected.SUCCESS_WITH_WARNINGS),
++	down_read(&nn->reclaim_str_hashtbl_lock);
++	if (!nfsd4_find_reclaim_client(clp->cl_name, nn)) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		return;
++	}
+ 	if (atomic_inc_return(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		printk(KERN_INFO "NFSD: all clients done reclaiming, ending NFSv4 grace period (net %x)\n",
+ 				clp->net->ns.inum);
+ 		nfsd4_end_grace(nn);
++		return;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ static void expire_client(struct nfs4_client *clp)
+@@ -6821,10 +6828,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
+ 
+ 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 		return false;
+-	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+-			atomic_read(&nn->nr_reclaim_complete) ==
+-			nn->reclaim_str_hashtbl_size)
+-		return false;
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags)) {
++		int size;
 +
-+            ("0.72.1", "22.0.0", self.Expected.SUCCESS),
-+        ):
-+            with self.subTest(bindgen_version=bindgen_version, libclang_version=libclang_version):
-+                cc = self.generate_clang(f"clang version {libclang_version}")
-+                libclang_stderr = f"scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version {libclang_version} [-W#pragma-messages], err: false"
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr)
-+                result = self.run_script(expected_not_patched, { "BINDGEN": bindgen, "CC": cc })
-+                if expected_not_patched == self.Expected.SUCCESS_WITH_WARNINGS:
-+                    self.assertIn(f"Rust bindings generator '{bindgen}' < 0.72.1 together with libclang >= 22", result.stderr)
++		down_read(&nn->reclaim_str_hashtbl_lock);
++		size = nn->reclaim_str_hashtbl_size;
++		up_read(&nn->reclaim_str_hashtbl_lock);
++		if (atomic_read(&nn->nr_reclaim_complete) == size)
++			return false;
++	}
+ 	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
+ 		return false;
+ 	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+@@ -8994,9 +9006,13 @@ bool
+ nfs4_has_reclaimed_state(struct xdr_netobj name, struct nfsd_net *nn)
+ {
+ 	struct nfs4_client_reclaim *crp;
++	bool found;
+ 
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	return (crp && crp->cr_clp);
++	found = (crp && crp->cr_clp);
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	return found;
+ }
+ 
+ /*
+@@ -9009,10 +9025,39 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 	unsigned int strhashval;
+ 	struct nfs4_client_reclaim *crp;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
 +
-+                bindgen = self.generate_bindgen(f"bindgen {bindgen_version}", libclang_stderr, libclang_22_patched=True)
-+                result = self.run_script(self.Expected.SUCCESS, { "BINDGEN": bindgen, "CC": cc })
++	/*
++	 * A reclaim record for this client name may already exist (for
++	 * example, populated at boot from the recovery directory before
++	 * an in-grace RECLAIM_COMPLETE or an nfsdcld downcall delivers
++	 * the same name). Dedup here so reclaim_str_hashtbl_size stays
++	 * equal to the number of distinct client names; inc_reclaim_complete
++	 * relies on that equality to end the grace period via the fast path.
++	 */
++	crp = nfsd4_find_reclaim_client(name, nn);
++	if (crp) {
++		if (princhash.len && crp->cr_princhash.len == 0) {
++			void *pdata = kmemdup(princhash.data, princhash.len,
++					      GFP_KERNEL);
++			if (pdata) {
++				crp->cr_princhash.data = pdata;
++				crp->cr_princhash.len = princhash.len;
++			} else {
++				dprintk("%s: failed to allocate memory for princhash.data!\n",
++					__func__);
++				crp = NULL;
++			}
++		}
++		up_write(&nn->reclaim_str_hashtbl_lock);
++		return crp;
++	}
 +
-     def test_clang_matches_bindgen_libclang_different_bindgen(self):
-         bindgen = self.generate_bindgen_libclang("scripts/rust_is_available_bindgen_libclang.h:2:9: warning: clang version 999.0.0 [-W#pragma-messages], err: false")
-         result = self.run_script(self.Expected.SUCCESS_WITH_WARNINGS, { "BINDGEN": bindgen })
--- 
-2.53.0
+ 	name.data = kmemdup(name.data, name.len, GFP_KERNEL);
+ 	if (!name.data) {
+ 		dprintk("%s: failed to allocate memory for name.data!\n",
+ 			__func__);
++		up_write(&nn->reclaim_str_hashtbl_lock);
+ 		return NULL;
+ 	}
+ 	if (princhash.len) {
+@@ -9021,6 +9066,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 			dprintk("%s: failed to allocate memory for princhash.data!\n",
+ 				__func__);
+ 			kfree(name.data);
++			up_write(&nn->reclaim_str_hashtbl_lock);
+ 			return NULL;
+ 		}
+ 	} else
+@@ -9040,6 +9086,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 		kfree(name.data);
+ 		kfree(princhash.data);
+ 	}
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ 	return crp;
+ }
+ 
+@@ -9059,6 +9106,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 	struct nfs4_client_reclaim *crp = NULL;
+ 	int i;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++) {
+ 		while (!list_empty(&nn->reclaim_str_hashtbl[i])) {
+ 			crp = list_entry(nn->reclaim_str_hashtbl[i].next,
+@@ -9067,6 +9115,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 		}
+ 	}
+ 	WARN_ON_ONCE(nn->reclaim_str_hashtbl_size);
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ /*
 
