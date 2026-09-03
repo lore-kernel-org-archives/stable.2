@@ -1,45 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4094EE868
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E524F472D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788454776; cv=none; b=Buuhs9PX3rmZ9vwi4asSI+n68hfQNGUE/1EhTbbEkmF7w/H9U8MPmKnGe+KCv2YIyOak7/RLbsapF+FOIBKS022/8oCkR4i1fZ/vAl4190xYp2S1MNbulfzVx7tD0hfSLcWL9DZYF2OPkwRAGKNMprGxWeGZg5K2rbHV49y2nVg=
+	t=1788454777; cv=none; b=WPKAq6fMIUwuTeOkTrAuvk63WQo/R0rCI4VOYvRXzB17dWOzybNTpAt1Ob/7BzwqmXLwk9abDbFItC/8xtapA+CN9torJZdEEnpy2D/whrYq988JyGTtGpsoUyT2npeVJhWn7KkAS1k8YQy07LRGKlGI++toL+JGVKE9Y5gE1zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788454776; c=relaxed/simple;
-	bh=BsVu+GIS6wUjss08IEJO6w2p6uJz7O44lhOb6cahFAM=;
+	s=arc-20240116; t=1788454777; c=relaxed/simple;
+	bh=fN9ZDh2pv9fxXCINVZiQd5D+QkfXWu9pZor4lMCGccY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=slB52KzV9MEZMOMKprVjTSv3x7+khlOilm1pcZyak0gXDlSHg3hPBo5Jdkfrfsna0Jfj6kWbCiPQG5vrrR+JoR0UyCw0uJhST+Nmab8nHnWNtlmOvAJjigsXRXoLot4z8ztS6gwYs3bdF83c5U++VpFMzTYTD2SuLxpShnzRNB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NfrY2FBE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PsZbTQVslD/yEFO4IWUbLxPEpzi92vgl+ZBGosjztQ8XPIJiKnnUYkJdVGk9YE+onb3wglh1C+E3/aVlwJsX97gR5whjDQJ+2R+NCXsAQcJFOlWaqyd6cq3pFsSpqmQLsebSVH80sorEzqEdCH7VIMRBkFbhKGtoh+bBYmmHmSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvC2hFw+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NfrY2FBE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5421F000E9;
-	Thu,  3 Sep 2026 16:59:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvC2hFw+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADBDB1F00A3E;
+	Thu,  3 Sep 2026 16:59:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788454774;
-	bh=TIdGkbS4Cfa9aZbU3aNIh/A8h0AbRHRYRnmozzmtzW8=;
+	s=k20260515; t=1788454776;
+	bh=lyZMdFEWIEMmR6f/iOY/RRTXFV+cpLpM2oB9cFQsL98=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NfrY2FBE9WT/HHybLeQ4KRX7ZX9N8378xySeF15SoQF77WY29EZEQJ+TFSWWYNuyS
-	 1vbPhmT/Hi2b+X9cUrML8g1aNKYUnW7SPu1/b9uNsilr35VNNkTekgrHp5IKGxQR2U
-	 v9s/uWTw07S/hqpoyYcLWBOqV71WQzD2sq/P5I9tmOhnp605hBmmTKJ0igcRAwIAe8
-	 S2qk0A9ZKbMK+aWV0FHtZRT1nqLlhLi+2JsGk8yZrZKglIGC5OT/pCmoX2aAFesC6d
-	 1BowoXvmeqFSb6Hf3ripjXtfJ5NOMVSo8M0tNT5kxFuf8YqwgN33r4/89ix6a8/sOe
-	 KSUFuglaPYtaA==
+	b=nvC2hFw++7RbPWuAvkrZyy7woVeZRITbBJvuJZ0Ee06zEOxEPNAkwYTxysdwkdxk0
+	 FqmMcXVxtKNGMPAvZLmdRqffqe0PAyZpqQdhtESoEiWeB+dbs3+Ai5fyzS09pEBLEB
+	 RNZat67RUbfafaQ5/ntIDt6xJkNk7Kb3TPvHh4ZpmtYZE2T+3WOkVflg/WdkgQwhSX
+	 9UK5jZCGFLwVEwaFKyGGf5IlycHnI6ssniT3CDd6k+YK5cQMcUGM02eUnJMleE3GKJ
+	 2j2eYdP7N8gqvS62GxkoZsbANnH8L6ANjoaGSyJXTRuBMAtj+MP+e9DqYWvTJN3G3c
+	 BHTBSY9W0AwfQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: gao xu <gaoxu2@honor.com>,
+Cc: Breno Leitao <leitao@debian.org>,
 	Barry Song <baohua@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Yosry Ahmed <yosry.ahmed@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Oscar Salvador <osalvador@suse.de>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/2] mm: fix possible NULL pointer dereference in __swap_duplicate
-Date: Thu,  3 Sep 2026 12:59:30 -0400
-Message-ID: <20260903165931.1089311-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/2] mm, swap: ratelimit bad swap entry reports
+Date: Thu,  3 Sep 2026 12:59:31 -0400
+Message-ID: <20260903165931.1089311-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090323-probe-impolite-bac9@gregkh>
+In-Reply-To: <20260903165931.1089311-1-sashal@kernel.org>
 References: <2026090323-probe-impolite-bac9@gregkh>
+ <20260903165931.1089311-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,111 +55,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: gao xu <gaoxu2@honor.com>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit c3e998398de48a7528842f05858a3a6bb21002e6 ]
+[ Upstream commit f9dc428249ed962a70acf301f01eae8578449161 ]
 
-Add a NULL check on the return value of swp_swap_info in __swap_duplicate
-to prevent crashes caused by NULL pointer dereference.
+A corrupt page table hands the same bogus entry to get_swap_device() on
+every access to the mapping, and every rejection is logged.  One machine
+logged 6185620 copies of the same line in a few hours.
 
-The reason why swp_swap_info() returns NULL is unclear; it may be due
-to CPU cache issues or DDR bit flips.  The probability of this issue is
-very small - it has been observed to occur approximately 1 in 500,000
-times per week.  The stack info we encountered is as follows:
+swap_dup_entry_direct() prints the same message from the fork path, once
+per call: the WARN_ON_ONCE() guarding it warns once, the pr_err() inside
+does not.
 
-Unable to handle kernel NULL pointer dereference at virtual address
-0000000000000058
-[RB/E]rb_sreason_str_set: sreason_str set null_pointer
-Mem abort info:
-  ESR = 0x0000000096000005
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x05: level 1 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000005, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-user pgtable: 4k pages, 39-bit VAs, pgdp=00000008a80e5000
-[0000000000000058] pgd=0000000000000000, p4d=0000000000000000,
-pud=0000000000000000
-Internal error: Oops: 0000000096000005 [#1] PREEMPT SMP
-Skip md ftrace buffer dump for: 0x1609e0
-...
-pc : swap_duplicate+0x44/0x164
-lr : copy_page_range+0x508/0x1e78
-sp : ffffffc0f2a699e0
-x29: ffffffc0f2a699e0 x28: ffffff8a5b28d388 x27: ffffff8b06603388
-x26: ffffffdf7291fe70 x25: 0000000000000006 x24: 0000000000100073
-x23: 00000000002d2d2f x22: 0000000000000008 x21: 0000000000000000
-x20: 00000000002d2d2f x19: 18000000002d2d2f x18: ffffffdf726faec0
-x17: 0000000000000000 x16: 0010000000000001 x15: 0040000000000001
-x14: 0400000000000001 x13: ff7ffffffffffb7f x12: ffeffffffffffbff
-x11: ffffff8a5c7e1898 x10: 0000000000000018 x9 : 0000000000000006
-x8 : 1800000000000000 x7 : 0000000000000000 x6 : ffffff8057c01f10
-x5 : 000000000000a318 x4 : 0000000000000000 x3 : 0000000000000000
-x2 : 0000006daf200000 x1 : 0000000000000001 x0 : 18000000002d2d2f
-Call trace:
- swap_duplicate+0x44/0x164
- copy_page_range+0x508/0x1e78
- copy_process+0x1278/0x21cc
- kernel_clone+0x90/0x438
- __arm64_sys_clone+0x5c/0x8c
- invoke_syscall+0x58/0x110
- do_el0_svc+0x8c/0xe0
- el0_svc+0x38/0x9c
- el0t_64_sync_handler+0x44/0xec
- el0t_64_sync+0x1a8/0x1ac
-Code: 9139c35a 71006f3f 54000568 f8797b55 (f9402ea8)
----[ end trace 0000000000000000 ]---
-Kernel panic - not syncing: Oops: Fatal exception
-SMP: stopping secondary CPUs
+Rate limit all three prints.
 
-The patch seems to only provide a workaround, but there are no more
-effective software solutions to handle the bit flips problem.  This path
-will change the issue from a system crash to a process exception, thereby
-reducing the impact on the entire machine.
-
-akpm: this is probably a kernel bug, but this patch keeps the system
-running and doesn't reduce that bug's debuggability.
-
-Link: https://lkml.kernel.org/r/e223b0e6ba2f4924984b1917cc717bd5@honor.com
-Signed-off-by: gao xu <gaoxu2@honor.com>
+Link: https://lore.kernel.org/20260818-swap_part_one-v1-1-a4fc58119fc0@debian.org
+Fixes: 23b230ba8ac3 ("mm/swap: print bad swap offset entry in get_swap_device")
+Signed-off-by: Breno Leitao <leitao@debian.org>
 Reviewed-by: Barry Song <baohua@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Yosry Ahmed <yosry.ahmed@linux.dev>
+Reviewed-by: Nhat Pham <nphamcs@gmail.com>
+Acked-by: Kairui Song <kasong@tencent.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Baoquan He <baoquan.he@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: f9dc428249ed ("mm, swap: ratelimit bad swap entry reports")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/swapfile.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ mm/swapfile.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 9710e9793b16f..14a9a84d97f86 100644
+index 14a9a84d97f86..5dd9bee3f46f6 100644
 --- a/mm/swapfile.c
 +++ b/mm/swapfile.c
-@@ -3299,13 +3299,19 @@ void si_swapinfo(struct sysinfo *val)
-  */
- static int __swap_duplicate(swp_entry_t entry, unsigned char usage)
- {
--	struct swap_info_struct *p;
-+	struct swap_info_struct *si, *p;
- 	struct swap_cluster_info *ci;
- 	unsigned long offset;
- 	unsigned char count;
- 	unsigned char has_cache;
- 	int err;
+@@ -1287,11 +1287,11 @@ struct swap_info_struct *get_swap_device(swp_entry_t entry)
  
-+	si = swp_swap_info(entry);
-+	if (WARN_ON_ONCE(!si)) {
-+		pr_err("%s%08lx\n", Bad_file, entry.val);
-+		return -EINVAL;
-+	}
-+
- 	p = get_swap_device(entry);
- 	if (!p)
+ 	return si;
+ bad_nofile:
+-	pr_err("%s: %s%08lx\n", __func__, Bad_file, entry.val);
++	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_file, entry.val);
+ out:
+ 	return NULL;
+ put_out:
+-	pr_err("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
++	pr_err_ratelimited("%s: %s%08lx\n", __func__, Bad_offset, entry.val);
+ 	percpu_ref_put(&si->users);
+ 	return NULL;
+ }
+@@ -3308,7 +3308,7 @@ static int __swap_duplicate(swp_entry_t entry, unsigned char usage)
+ 
+ 	si = swp_swap_info(entry);
+ 	if (WARN_ON_ONCE(!si)) {
+-		pr_err("%s%08lx\n", Bad_file, entry.val);
++		pr_err_ratelimited("%s%08lx\n", Bad_file, entry.val);
  		return -EINVAL;
+ 	}
+ 
 -- 
 2.53.0
 
