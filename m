@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60344B0CA6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE11D4B1287
 	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:45:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443173; cv=none; b=FZIriuz6DRAOE5DFXZz80fA+Fj9hOH11XaD9FeG0U0q8jJf88uyr+izuILc5TVqbilbAOFIFmXtEPd9YQClY+VhHO06V6kLn0NCqE5sJeJfHOtacmof/8511/RNxX/I954KfRBd9PnCjKEobTbwdv135cuBxKympgIF+p+H+BRk=
+	t=1788443173; cv=none; b=e/CVMHHqhqYTYGDPVdqvYeSxAqPa3dZ0npoFwG6FUPMhFvSmOeseOG3ILrLUFfhsbm+c5r5SwmDCZgw8D96FiXCubdNmFDq/vdvwx2MJE7a1wYtC3qU9QK1TeL25Gesu5IiIDzvKymtapE2RwultdHMs+PRC9UeCQWrFxScFGBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788443173; c=relaxed/simple;
-	bh=pfkBLuwmKILmY2gx7av8PBjha0yC3Aroo8JSgfk0kXA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=HGgAX0f3acB6ww8/SVgHm7gTWoc5ll0rJ0zdmHOFs7ad5IqfWFjNBWos6gAob3G35aGuO4JtXk4e9eTVKmBzVC+SlzZqOBQQ4mUE8rfoD69PzOXHahh/kXLICAZYLJzZil02kj2FOVRwgVNXcFotN1nuQ+59CeKgRy8MV2iJ+pU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JNfsVgyf; arc=none smtp.client-ip=100.103.45.18
+	bh=5ggY20dXZi3eImMfaTU1Mw5Gr+KwXW8q0a5wtADy3TI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mxBlhVPb5FXV0ITxZp+0iUHCsdwR2EqOC4oQYBjYT9wlxH8XSC6Ii4MaSXr6VtBmLBeqm+4C6WOH04rxz3ZlqO7wlhUgfya8G7smIr1DrtR8TY4McsBsMT2okE4B/qrtrapvrOIyPK3hijZOHQYBgfHDayKgQYgWOU8XUrHasc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PK2zlytn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JNfsVgyf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2592F1F00A3D;
-	Thu,  3 Sep 2026 13:45:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PK2zlytn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC9F1F00A3A;
+	Thu,  3 Sep 2026 13:45:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443157;
-	bh=UDXfYe6jj9sEXcxgNvaRffQDTD25PwuAvYSuek8LNew=;
+	s=korg; t=1788443154;
+	bh=thdCThM9doOttdGTKv9bRfn7zTlfZBe32Stil74RpK8=;
 	h=Subject:To:Cc:From:Date;
-	b=JNfsVgyfxgKEgSNK2NpWJpc8qLBdztua14ZttNOmzWr02q/oQjzQojMUM2VEedJkL
-	 i7UgiUccphd84h0ET8sS3pHZ+Pxu8MMrFsOj9ColkwoZQJTyyNuwSLEW3BGtR/7baE
-	 d75cIW3Pydkkg6Ho+7gjD0kE5/JoO6ZkeOrtFCDM=
-Subject: FAILED: patch "[PATCH] NFSD: Prevent client use-after-free during delegation revoke" failed to apply to 6.1-stable tree
+	b=PK2zlytnI1TBxAcoz0Ttp3qgJOgTBAF2w5J21mP0Xa8J6eCalgxnkGqsyNvIIUb2L
+	 Feqxj+gao77lkZxq4PDkWwZC2VObshv7ycrxuwA6FO9v7x6wNyNRotDNnpqiofQ5E7
+	 uQ2UP+s6kH0BN5aPmdAXKaZtviY9hbnf8EXpEE0o=
+Subject: FAILED: patch "[PATCH] NFSD: Prevent client use-after-free during delegation revoke" failed to apply to 5.15-stable tree
 To: cel@kernel.org,jlayton@kernel.org,neil@brown.name
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 03 Sep 2026 15:20:36 +0200
-Message-ID: <2026090336-pleat-borough-58de@gregkh>
+Message-ID: <2026090336-purplish-snowfall-6629@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4683ca76b3b7e5808338491c6eb3c20e6b4894d5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090336-pleat-borough-58de@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090336-purplish-snowfall-6629@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
