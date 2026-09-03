@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908774AF9DF
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D744B0CB9
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:46:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443195; cv=none; b=pHsIlP6Xja37HteqT3HInCebKAxNj9e47CBB6ZwxCgtvmFpruBdTDokKCUTerPheKJZpxbgt2/CP7I5kpHPvDe7R2GzOPciPvCKRHVfhLtagL8ChHXHekHRUlsMZZLaOlElKQ8sQm+qVqp/62Oy7JmW4mM3Rey1cWwlTWKl85S4=
+	t=1788443197; cv=none; b=ffAQP0CTqGgbMzGkA1tmUYxS/BRK3hRTL+opYXIJcaaLj4s87OFxNDtIRkb0vXomJSTdaVXo4JX9T6LBsTEiAIBdJQrwaBwFoUw896X7pa8Gm0fWa58RzeJhClOLpafgri8kYWjq75+u27yA3yITxTnsdrbkMB1PFTUcZqo1A8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443195; c=relaxed/simple;
-	bh=FENan/nchL6s8C2CgXYNhIqn8ximuEzj9PiyNz7/iv0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=vFEL/SLdl87OIE6EEWgaKIvN2HbXErhCkBM7GVSJ4xB8xennBlW1UZLP6WTgzWVlbfr0TzIP4NUiIYPs9mvyZhQw13Q+UivuTCGmhgwv0ZPZTot5vKrneGmILtIpcRCNZOqwJU7AVJvcE1p5CyE8JaVp0IHqcDERjXrAKc6V1o4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yWzpEZrY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443197; c=relaxed/simple;
+	bh=2ELihBXFJ7qRHOF6LdTOFzQzyXNG+3C5pbZ59q42oWk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T3yz5dgJPhkCnMljWmSQ49vMXknMcLi7Nz6KeTwAL4qumkOrsX+UsWceeUHGjRljh8v233G5+xE1+bUIoceSSyyaQjcIdoU/1wbMSughla1tGGKNV7begBxFsbPdpzJUMXATHI+X5X5fNvwFF6K26TGK+YE+pJhupOWUIx9AqfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TSOe5Rq5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yWzpEZrY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04D5B1F00ACA;
-	Thu,  3 Sep 2026 13:46:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TSOe5Rq5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CE3E1F00A3A;
+	Thu,  3 Sep 2026 13:46:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443188;
-	bh=rtZ8gcEAlYsgACkeQ8kffD31Cl5OY4syeRnhYPXFfBE=;
+	s=korg; t=1788443185;
+	bh=wXg1Xs0BKJV1KpqLp60s8VCSaGhli+yfR9JTWJZVwyg=;
 	h=Subject:To:Cc:From:Date;
-	b=yWzpEZrY0+BO3cNg5mLOKxaiwh1xmc6dnhFQ8ZZdwRGPxyYneAzZsbsX/WpHB12xM
-	 dOm8j1xgCp+1tT39e8nRtoVAz5U/zu4CmnjAHZeckEAPPl+1s+BsQWWFnZ2vFwLlEl
-	 OPPXFbb0rnHtoFPCtUok37yN74uFKwolJoGCLjgY=
-Subject: FAILED: patch "[PATCH] ceph: bound copied dentry name length in NFS export get_name" failed to apply to 6.1-stable tree
-To: michael.bommarito@gmail.com,idryomov@gmail.com,slava@dubeyko.com
+	b=TSOe5Rq50LcaOjlygRmz7iDLHIYCnHtMim2KYwdPR+Q0Ra/8jFcElHcJlK/5EEUoW
+	 5n6PdLcSRrhG7bjW3WY/aGeVH8QvwDa5tFRxp/YvErGAH1E9OKTau1X29xFPZw9GuT
+	 o3cnpaCw/t738smBTifhqP7j/5UIMo+WWxJbtryk=
+Subject: FAILED: patch "[PATCH] ceph: force a cap message when a deferred revoke can't be" failed to apply to 5.15-stable tree
+To: max.kellermann@ionos.com,amarkuze@redhat.com,idryomov@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:22:17 +0200
-Message-ID: <2026090317-designing-flagstone-ad4f@gregkh>
+Date: Thu, 03 Sep 2026 15:21:51 +0200
+Message-ID: <2026090351-albatross-exporter-7046@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x eff8013c5a8916613c742ae5a2cc341cb605c0ae
+git cherry-pick -x 8fdf946445732c2bcd685abc8bd0e509d2ebc158
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090317-designing-flagstone-ad4f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090351-albatross-exporter-7046@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,89 +62,183 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From eff8013c5a8916613c742ae5a2cc341cb605c0ae Mon Sep 17 00:00:00 2001
-From: Michael Bommarito <michael.bommarito@gmail.com>
-Date: Sat, 11 Jul 2026 11:07:05 -0400
-Subject: [PATCH] ceph: bound copied dentry name length in NFS export get_name
+From 8fdf946445732c2bcd685abc8bd0e509d2ebc158 Mon Sep 17 00:00:00 2001
+From: Max Kellermann <max.kellermann@ionos.com>
+Date: Tue, 18 Aug 2026 20:40:05 +0200
+Subject: [PATCH] ceph: force a cap message when a deferred revoke can't be
+ acked immediately
 
-ceph_get_name() copies the MDS-supplied name into the caller's
-NAME_MAX-sized buffer with memcpy(name, rinfo->dname, rinfo->dname_len)
-and then writes name[rinfo->dname_len] = 0, without checking dname_len
-against NAME_MAX. A malicious or buggy MDS that returns a LOOKUPNAME reply
-with dname_len > NAME_MAX overflows the buffer. __get_snap_name() copies
-rde->name / rde->name_len the same unchecked way.
+When the MDS revokes capabilities, handle_cap_grant() normally
+guarantees a response by setting `CHECK_CAPS_FLUSH_FORCE` (see
+commit 31634d7597d8 ("ceph: force sending a cap update msg back to MDS
+for revoke op")), so ceph_check_caps() sends a cap message even if the
+client would otherwise decide it has nothing to do.  That guarantee is
+skipped whenever the revoke has to be deferred (via revoke_wait):
+revoking Fb while dirty data is still buffered (writeback is queued
+first) or revoking Fc while pages are cached (async invalidation is
+queued first).
 
-Impact: a malicious or compromised Ceph MDS overflows the NAME_MAX name
-buffer in a client's NFS-export get_name path, a slab out-of-bounds write
-reported by KASAN. Reachable when a CephFS mount is re-exported over NFS.
+In those cases, the ack is left to the deferred completion
+(ceph_put_wrbuffer_cap_refs() after writeback, or the invalidate
+worker after invalidation); both of which call ceph_check_caps(ci,0)
+i.e.  without `CHECK_CAPS_FLUSH_FORCE`.  Nothing gets sent under one
+of the following conditions:
 
-Add ceph_export_copy_name(), which rejects lengths above NAME_MAX with
--ENAMETOOLONG before the copy, and use it in both ceph_get_name() and
-__get_snap_name().
+- the inode is retaining caps because the file was used recently
+  (file_wanted != 0; retain |= CEPH_CAP_ANY)
+
+- the revoked cap is still used because the page was re-cached (e.g. a
+  file being re-read)
+
+- the MDS has meanwhile re-granted, so `issued==implemented` and the
+  client sees nothing being revoked
+
+The client then never emits the cap message which the MDS is waiting
+for.  The MDS blocks on the revoke indefinitely and logs, for minutes
+or hours:
+
+  client.NNN isn't responding to mclientcaps(revoke), ino 0x... pending
+  pAsxLsXsxFsxcrwb issued pAsxLsXsxFsxcrwb, sent 964.899182 seconds ago
+
+The client-side state at that point shows the full cap set still
+issued, nothing in the revoking/flushing sets.  Thus nothing gets
+sent.
+
+This patch fixes it by remembering that a forced response is expected.
+When a revoke is deferred, set `CEPH_I_FLUSH_FORCE` on the inode.
+ceph_check_caps() replays it as `CHECK_CAPS_FLUSH_FORCE`, so whichever
+path re-checks the inode next (the writeback/invalidate completion,
+the delayed worker, or any other caller) is guaranteed to send a cap
+message to the MDS.  __prep_cap() clears the flag once a message is
+actually built.
+
+This is the deferred-path counterpart of the existing
+`CHECK_CAPS_FLUSH_FORCE` handling; a normal (non-deferred) revoke
+still forces the response inline as before.
 
 Cc: stable@vger.kernel.org
-Fixes: 19913b4eac4a ("ceph: add get_name() NFS export callback")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Fixes: 31634d7597d8 ("ceph: force sending a cap update msg back to MDS for revoke op")
+Fixes: 257e6172ab36 ("ceph: don't let check_caps skip sending responses for revoke msgs")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-diff --git a/fs/ceph/export.c b/fs/ceph/export.c
-index b2f2af104679..debb9634b9e3 100644
---- a/fs/ceph/export.c
-+++ b/fs/ceph/export.c
-@@ -442,6 +442,16 @@ static struct dentry *ceph_fh_to_parent(struct super_block *sb,
- 	return dentry;
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index 539a24965afe..bcb04c6cb92c 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -987,6 +987,27 @@ int __ceph_caps_revoking_other(struct ceph_inode_info *ci,
+ 	return 0;
  }
  
-+static int ceph_export_copy_name(char *name, const char *src, u32 len)
++/*
++ * Return true if any cap of this inode holds caps which the MDS has
++ * revoked, but which we have not released yet.
++ */
++static bool __ceph_is_any_revoking(const struct ceph_inode_info *ci)
 +{
-+	if (len > NAME_MAX)
-+		return -ENAMETOOLONG;
++	const struct rb_node *p;
 +
-+	memcpy(name, src, len);
-+	name[len] = '\0';
-+	return 0;
++	lockdep_assert_held(&ci->i_ceph_lock);
++
++	for (p = rb_first(&ci->i_caps); p; p = rb_next(p)) {
++		const struct ceph_cap *cap =
++			rb_entry(p, struct ceph_cap, ci_node);
++
++		if (cap->implemented & ~cap->issued)
++			return true;
++	}
++
++	return false;
 +}
 +
- static int __get_snap_name(struct dentry *parent, char *name,
- 			   struct dentry *child)
+ int __ceph_caps_used(struct ceph_inode_info *ci)
  {
-@@ -513,9 +523,8 @@ static int __get_snap_name(struct dentry *parent, char *name,
- 			BUG_ON(!rde->inode.in);
- 			if (ceph_snap(inode) ==
- 			    le64_to_cpu(rde->inode.in->snapid)) {
--				memcpy(name, rde->name, rde->name_len);
--				name[rde->name_len] = '\0';
--				err = 0;
-+				err = ceph_export_copy_name(name, rde->name,
-+							    rde->name_len);
- 				goto out;
- 			}
- 		}
-@@ -580,8 +589,8 @@ static int ceph_get_name(struct dentry *parent, char *name,
+ 	int used = 0;
+@@ -1431,6 +1452,9 @@ static void __prep_cap(struct cap_msg_args *arg, struct ceph_inode_info *ci,
+ 	cap->implemented &= cap->issued | used;
+ 	cap->mds_wanted = want;
  
- 	rinfo = &req->r_reply_info;
- 	if (!IS_ENCRYPTED(dir)) {
--		memcpy(name, rinfo->dname, rinfo->dname_len);
--		name[rinfo->dname_len] = 0;
-+		err = ceph_export_copy_name(name, rinfo->dname,
-+					    rinfo->dname_len);
- 	} else {
- 		struct fscrypt_str oname = FSTR_INIT(NULL, 0);
- 		struct ceph_fname fname = { .dir	= dir,
-@@ -595,10 +604,9 @@ static int ceph_get_name(struct dentry *parent, char *name,
- 			goto out;
++	if ((ci->i_ceph_flags & CEPH_I_FLUSH_FORCE) != 0 && !__ceph_is_any_revoking(ci))
++		clear_bit(CEPH_I_FLUSH_FORCE_BIT, &ci->i_ceph_flags);
++
+ 	arg->session = cap->session;
+ 	arg->ino = ceph_vino(inode).ino;
+ 	arg->cid = cap->cap_id;
+@@ -2048,6 +2072,14 @@ void ceph_check_caps(struct ceph_inode_info *ci, int flags)
  
- 		err = ceph_fname_to_usr(&fname, NULL, &oname, NULL);
--		if (!err) {
--			memcpy(name, oname.name, oname.len);
--			name[oname.len] = 0;
--		}
-+		if (!err)
-+			err = ceph_export_copy_name(name, oname.name,
-+						    oname.len);
- 		ceph_fname_free_buffer(dir, &oname);
+ 	if (ci->i_ceph_flags & CEPH_I_FLUSH)
+ 		flags |= CHECK_CAPS_FLUSH;
++	/*
++	 * A revoke whose response was deferred (see handle_cap_grant()) must
++	 * still be acknowledged.  Replay the forced flush here so that even a
++	 * check triggered by writeback/invalidation completion sends a cap
++	 * message to the MDS.
++	 */
++	if (ci->i_ceph_flags & CEPH_I_FLUSH_FORCE)
++		flags |= CHECK_CAPS_FLUSH_FORCE;
+ retry:
+ 	/* Caps wanted by virtue of active open files. */
+ 	file_wanted = __ceph_caps_file_wanted(ci);
+@@ -3774,13 +3806,30 @@ static void handle_cap_grant(struct inode *inode,
+ 	BUG_ON(cap->issued & ~cap->implemented);
+ 
+ 	/* don't let check_caps skip sending a response to MDS for revoke msgs */
+-	if (!revoke_wait && le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
+-		cap->mds_wanted = 0;
+-		flags |= CHECK_CAPS_FLUSH_FORCE;
+-		if (cap == ci->i_auth_cap)
+-			check_caps = 1; /* check auth cap only */
+-		else
+-			check_caps = 2; /* check all caps */
++	if (le32_to_cpu(grant->op) == CEPH_CAP_OP_REVOKE) {
++		if (revoke_wait) {
++			/*
++			 * We can't ack the revoke yet: the response is deferred
++			 * until the writeback or cache invalidation queued above
++			 * completes.  Set the CEPH_I_FLUSH_FORCE flag to remember
++			 * that a forced cap message is owed so that deferred
++			 * completion (ceph_put_wrbuffer_cap_refs() or the
++			 * invalidate worker, both of which call ceph_check_caps())
++			 * actually sends one, even if by then the revoked caps look
++			 * unused, the inode is retaining caps, or the MDS has
++			 * re-granted them.  Without this, the cap message is never
++			 * sent and the MDS hangs ("isn't responding to
++			 * mclientcaps(revoke)").
++			 */
++			set_bit(CEPH_I_FLUSH_FORCE_BIT, &ci->i_ceph_flags);
++		} else {
++			cap->mds_wanted = 0;
++			flags |= CHECK_CAPS_FLUSH_FORCE;
++			if (cap == ci->i_auth_cap)
++				check_caps = 1; /* check auth cap only */
++			else
++				check_caps = 2; /* check all caps */
++		}
  	}
- out:
+ 
+ 	if (extra_info->inline_version > 0 &&
+diff --git a/fs/ceph/super.h b/fs/ceph/super.h
+index 0020ccd0f974..72d4e30304dc 100644
+--- a/fs/ceph/super.h
++++ b/fs/ceph/super.h
+@@ -709,6 +709,10 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
+ #define CEPH_I_ASYNC_CREATE_BIT		(12) /* async create in flight for this */
+ #define CEPH_I_SHUTDOWN_BIT		(13) /* inode is no longer usable */
+ #define CEPH_I_ASYNC_CHECK_CAPS_BIT	(14) /* check caps after async creating finishes */
++#define CEPH_I_FLUSH_FORCE_BIT		(15) /* a revoke's response was deferred;
++					      * force a cap message to the MDS once
++					      * the deferred work completes
++					      */
+ 
+ #define CEPH_I_DIR_ORDERED		(1 << CEPH_I_DIR_ORDERED_BIT)
+ #define CEPH_I_FLUSH			(1 << CEPH_I_FLUSH_BIT)
+@@ -721,6 +725,7 @@ static inline struct inode *ceph_find_inode(struct super_block *sb,
+ #define CEPH_I_ODIRECT			(1 << CEPH_I_ODIRECT_BIT)
+ #define CEPH_I_ASYNC_CREATE		(1 << CEPH_I_ASYNC_CREATE_BIT)
+ #define CEPH_I_SHUTDOWN			(1 << CEPH_I_SHUTDOWN_BIT)
++#define CEPH_I_FLUSH_FORCE		(1 << CEPH_I_FLUSH_FORCE_BIT)
+ 
+ /*
+  * Masks of ceph inode work.
 
