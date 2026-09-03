@@ -1,140 +1,156 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 992F2384CD1;
-	Thu,  3 Sep 2026 18:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C04B3CB54D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:00:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788461481; cv=none; b=bdbyLnPyjaSbo+mzwJf7Hqv8cp+rl9XmWmq82Bii7jmvg3SKZmMxOThI1uzOWdOrstf2SNnD8heSev2u/gUo7zmBlxPDVzT3I0C57AlfOv9M+l3AWiKdohsbFOQfHHLGLWdD2XLtXT6/j/6pqx8nGnITvomH+lPhCbgVYZhM5cQ=
+	t=1788462056; cv=none; b=oFaMpYIhacDXVzjb5n8+T+v95pwNRh0cvS/2/0H2DvBd7irOgD0LmHy/Ii1DaB8FAShBYdDsXtx8GZ5GuXNyPyFXKQ+pIJuwbgu3OMJ+nPQF3Bw4m7bydPmTD+pS64MAFdYKi3+DfXxtY18qvF6sRIqLV5Dj/i8gtFrAnQBgNQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788461481; c=relaxed/simple;
-	bh=iHcU2RXuw3ix/FqMa08c18FL3/q2t4eEtWuf9N23UNc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h95VAX4kv7/y8tZdPj1ORqEwJ+kBJMegXA1uQM/9PgayVSrhhmE0WgC3dsmMrnJDbbzNDo95hpkHOvXvrIeXHKc3yq+2rNtXbd1CD0c4Mp6k+x4PB7jdUnvGNGilezloTI4nTJsEPPqDJU/JrEWl1fX4kM3TURnNU429lpzblaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=SAxuB+QN; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788462056; c=relaxed/simple;
+	bh=+UzAMDt9on0h4lHLhZr+KtNI1s6q4CzZfQOSs/zHGt8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YsHwGIIX9BGHz4jgRH6/Dy7Gtn3g5ER0pOGqoMoPYQspV6iz3dt9MqrWyezwgEcUeOeH2pvSwbFjMWjSR5NS0O8VuSOovAgmv6thOmSzMmtSL4vN8A/6USexPjd2ACiFN/Q+1sbtM9Zb0zuOTXe4hmxZ6j7BsEFqxjiZGyYk1KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEmKSM/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="SAxuB+QN"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hbTFr5LrkzKn76;
-	Thu, 03 Sep 2026 20:51:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788461472;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ljjuDSq9jtR3ksKnCJ8xHYRcpmhBC+ZvoIAugnI2lCg=;
-	b=SAxuB+QNndnOiFRoFsMfH97VfY2vZ/iIwOTMwq6BSSm4IlOMzHXCDyWIpkVw/9e7F2FHD2
-	/MTkBoaXPpncw894963YJRSZwVhRAhhp5ilLX0hI2pr5AeeSsV2VghO888P9g3bFaMd0iq
-	WtB2JD8s0/E8nadmCxgXvSTYdeRho3pziBbln2nQdFDV0QbMK8RPL1/In1imx0wdWzR4Fv
-	Lo0QPdfbnr1+ATdEXgqUYFzr/DS8WziETs9ymf4/zs3by9dDBc6+4gZ3fvTevFckDQMJSW
-	tvNvcGx/NtVXWzG2ohyOr4ZtFuRzNpX1yt1oiSbBSeK/3S59aQM7fV+rgDwKFA==
-Message-ID: <e5b47840-6c45-4e00-8907-7766dd1d4607@mailbox.org>
-Date: Thu, 3 Sep 2026 20:51:06 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEmKSM/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A63B1F00A3F;
+	Thu,  3 Sep 2026 19:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788462026;
+	bh=77zLKgCat7VRA2FUKJUXA6HIWCC8tb7xY7F3ncSX6FA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FEmKSM/ZZsjZNZwn2P7sUE/ANdSaZaGnA1evbu297Qwi5vj1Hcx3SOqs8dwRmHX7+
+	 xSbaJ35iFfVTG7cp5DepL5sMJWRO1IbpXqDhoWF4LtiUu1BZL8IPAEz16DJ8ddDX8I
+	 IPYhK2msXKbJbU2FhdZexFhKCZjYO08pZDZapy5ce7NMWXU1/BdAT7Z7Lm8VQbVcvR
+	 xeGfvG9nf3gVo8LdS60lKQ8OhphjM5ihVpCywxBzgLt1OU8oPl7lk1V4jHkgNbfNrb
+	 oJ6R7ZBigindUtSDR4vwZH9m2Jv60diUrpxXgNx2/2gWFdwvmYGXqwc2ZrsseiApO5
+	 hceJIR7vOaTqg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dev Jain <dev.jain@arm.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Harry Yoo <harry@kernel.org>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Jann Horn <jannh@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Mel Gorman <mel@csn.ul.ie>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ralph Campbell <rcampbell@nvidia.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] mm/migrate: use huge_ptep_get() in remove_migration_pte()
+Date: Thu,  3 Sep 2026 15:00:19 -0400
+Message-ID: <20260903190019.1523110-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260903190019.1523110-1-sashal@kernel.org>
+References: <2026090332-posh-plaster-8398@gregkh>
+ <20260903190019.1523110-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
- Max_Payload_Size to 256 Bytes
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: linux-pci@vger.kernel.org, stable@vger.kernel.org,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Ziyao Li <liziyao@uniontech.com>, Rong Zhang <i@rong.moe>,
- Huacai Chen <chenhuacai@loongson.cn>
-References: <20260903173216.GA2145418@bhelgaas>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20260903173216.GA2145418@bhelgaas>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: da9182bb6e4e7c6071b
-X-MBO-RS-META: 18qawh44pghaq6gy9km6bho69jfg3f4c
+Content-Transfer-Encoding: 8bit
 
-Hello Bjorn,
+From: Dev Jain <dev.jain@arm.com>
 
-On 9/3/26 7:32 PM, Bjorn Helgaas wrote:
-> [+cc Ziyao, Rong, Huacai for similar Loongson MRRS issue]
-> 
-> On Fri, Aug 21, 2026 at 04:05:51AM +0200, Marek Vasut wrote:
->> R-Car Gen4 PCIe controller has a hardware limitation of 256 Bytes
->> Max_Payload_Size (MPS). PCIe specification indicates that the MPS
->> must not exceed minimum MPS of any element along the packet path.
->> Force limit Max_Payload_Size to at most 256 Bytes for each device
->> connected to this PCIe controller.
-> 
-> IIUC the PCI core already enforces this limit, and what this patch
-> does is double-check that this limit is observed with this check,
-> right?
+[ Upstream commit ac1ec50d71b953524100ddc09057ee61a3dfaff3 ]
 
-That is correct, this was changed in V3, I missed the commit message 
-update, sorry.
+remove_migration_pte() converts migration entries back to present PTEs
+after folio migration completes.  For hugetlb folios,
+page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
+pvmw.pte, but the code reads it with ptep_get().
 
-Would you like me to respin the patch one more time with an updated 
-commit message, or would you be willing to fix it up in tree ?
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(),
+pte_present() etc to misbehave.
 
->    +	WARN_ON(pcie_get_mps(dev) > 256);
-> 
-> More below.
+It is not clear whether this has a trivially visible effect to userspace.
 
+Use huge_ptep_get() to dereference a huge pte pointer.
 
-[...]
+Link: https://lore.kernel.org/20260703114202.365553-5-dev.jain@arm.com
+Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/migrate.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
->> +	bridge->no_inc_mrrs = 1;
->> +	if (pcie_get_readrq(dev) > 256) {
->> +		pci_info(dev, "Limiting MRRS to 256 bytes\n");
->> +		pcie_set_readrq(dev, 256);
->> +	}
-> 
-> It would be nice if all the platforms that need no_inc_mrrs could
-> apply it the same way, but I assume you saw loongson_mrrs_quirk() and
-> loongson_set_min_mrrs_quirk() in the process of finding no_inc_mrrs,
-> and chose a different implementation strategy for some reason, e.g.,
-> this way doesn't have to include device IDs for all the Root Ports?
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 64f6ee8b7fbde..afa21182a7ab7 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -221,7 +221,11 @@ static bool remove_migration_pte(struct folio *folio,
+ 			continue;
+ 		}
+ #endif
+-		old_pte = ptep_get(pvmw.pte);
++		if (folio_test_hugetlb(folio))
++			old_pte = huge_ptep_get(vma->vm_mm, pvmw.address,
++						pvmw.pte);
++		else
++			old_pte = ptep_get(pvmw.pte);
+ 		if (rmap_walk_arg->map_unused_to_zeropage &&
+ 		    try_to_map_unused_to_zeropage(&pvmw, folio, old_pte, idx))
+ 			continue;
+-- 
+2.53.0
 
-The loongson quirk won't work if the PCIe controller driver is built as 
-a module, which the R-Car Gen4 PCIe driver can be, and in fact is often 
-built as a module, because it depends on firmware which is loaded from 
-filesystem.
-
-If the controller driver is built as a module, then 
-DECLARE_PCI_FIXUP_ENABLE() is not applied, the 
-DECLARE_PCI_FIXUP_ENABLE() is applied only on boot and therefore only 
-for built-in drivers.
-
-I got burnt by DECLARE_PCI_FIXUP_ENABLE() in V1 of this patch.
-
-However, there is also another part to this -- the 
-rcar_gen4_pcie_enable_device() is called for every device on the bus and 
-applies the MRRS limitation to every device on the bus that is 
-downstream of the controller, not only the controller. This is necessary 
-on this controller variant, else hardware like PCIe SSDs with MRRS 
-higher than the controller break.
-
-> Maybe we should rework no_inc_mrrs in such a way that drivers could
-> set a max MRRS in the struct pci_host_bridge and make
-> pcie_write_mrrs() and pcie_set_readrq() pay attention to it?  That
-> might let us get rid of the FIXUP approach.
-In light of the last paragraph above, that the MRRS has to be limited 
-also on all devices downstream of this particular controller, I would 
-like to ask -- does the Loongson controller have the same limitation or 
-not ? If not, then I would argue this quirk should be isolated to this 
-controller variant ; else, I am happy to start on the core patches.
-
-[...]
-
-Thank you for your help !
