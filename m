@@ -1,44 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C52E2663
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:40:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4119239446D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:40:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788460834; cv=none; b=KIAN+7RWsc7rszyAEgp8rIMkhZzN5iLF/rIA0pnRx6JKEkXKMwf+K2FWfrsiYtpwbKwkxfelU/qO2r0P4cmICTMBFiSvyvJAXbLYtllvi1aLa+p+t9hB44P4p/0NFhSYqP+yVyrhrwYxIH3o3lWIT9C47t4E65J+5aSd9RZ2wHc=
+	t=1788460836; cv=none; b=WvjEfXLyaJ/pKT4kYUENWu+CUerElpQZncPgHTlBOJ9ttqEqOc/RFPcO5jibj2EtUWxD8FekoYH9LoMjuP/uQh6qKnvAARZb39oYKOWSGh2cdU0Nt9oc+bHOqS21ZAuRfa0hYITHxKgwGAM7vbJtXDoEjNO3ro1aHzHcmQE5mmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788460834; c=relaxed/simple;
-	bh=JN3cWO8OGnu1zX1JB/47aOTsL2MFQgqWltBArCoqnM8=;
+	s=arc-20240116; t=1788460836; c=relaxed/simple;
+	bh=vr/aGos6iIFoKpRQvYBL7Nqydc9pSSJqF3KZT0VkjWU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oYZrPF2w3l3PXx18G7SoTei4FL9+hcdzzOvpgLheuuliV+ayc/4J4FmI3XbOoes6umQzpb5oAS62ucSdH0GJ2CGSeWzWbUYnunygX5EqndYcveOx85GfSTVYNQm9i370OLbReieSw5WKf4bEzgTvOlUQnbbNbseAG8OAAiqG+Bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PrtohTWf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G9VvwZMy3k8xsFDOx9JZvNr1iU0v5ULd5K8SNzRrttRaBqbLnSS/UZmeGB8HoGj6HG8kgAjoITrZIqvS35U9Vjp+Ozgax+jwYoK2Ii6Xg+4lGfsf0TEzRYPPLM6c3Y5SjV7NsHVqVNqNBFGVG1e49qJnmGSyrRcG1HtgdTLM8aA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jw4LEcH8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PrtohTWf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CA81F00A3D;
-	Thu,  3 Sep 2026 18:40:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jw4LEcH8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 933B41F000E9;
+	Thu,  3 Sep 2026 18:40:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788460831;
-	bh=Vvg4o+C1wafZjo7bAKbK5wAcwZMYcZLicq267Lp0HUM=;
+	s=k20260515; t=1788460833;
+	bh=LVgiJ4D09L3/+TI9PYc7Gr1zGRctez4NIabMk1BqZf4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PrtohTWfQzlP0TIZS587IbalX4WWXF9L9KQdXrKuS0sGCL6/capXGEYcnlw7liVa5
-	 lMZl7UAAZas2CC5xqf/eQhtI/ZXMPc5unk9qgtLslQoejOnIQxBg4XOvzpshxMOWjK
-	 /qsZ6ndg27gTUb2NbuWfDQP1Cy3lYm54N1A/as3+hAOPXYwkuzouoIiU8XuRTgYgju
-	 kcWJ3oRAqCW0r/lLkFXwot/zkjF/riI7cpcoZbcixSfmyumhgZhRgRhsAmtFNijef/
-	 PWXdMP4PalEgEjSSrS+UZWiiy7Ur2gS8E8r/fJIsFeWIF+l0LNg0aXMK/qIdeEB8Ei
-	 0p/tSh6vbez6w==
+	b=jw4LEcH8Khu6mGCt/bG3deibQelyZJj1ibDtuz3bmJoUyY0b+NyaLZs8XQsfffcXs
+	 +o8wAY4EM8QsMrnWJJF/VR/0V5jCrcYKMvqBJET0Uiacx3pC1kqTpQumc5HqWtOFpv
+	 zCF5qUu20v3sI8HVs4zyrJCI7j7PTW2ClY/L8tHLJDFPhz+jjX2COwGjAGCXxumheK
+	 8AvJ+L6/bV2NFErTHpjm80EQlSHw3AQC8M0R3enU2ZxOGiIiPyWgRlK7P9nPnnXD/+
+	 d7b9nd4G8rYVWZ7YFWrntdb5cXqoZe3MrUXQRZyq9Auk13279HZo6Q4gTW7aTCLCKX
+	 fVFHS3DzUJkuA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yu Zhao <yuzhao@google.com>,
-	Bharata B Rao <bharata@amd.com>,
+Cc: Kairui Song <kasong@tencent.com>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chen Ridong <chenridong@huaweicloud.com>,
+	Chris Li <chrisl@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	David Stevens <stevensd@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
 	Kalesh Singh <kaleshsingh@google.com>,
-	Barry Song <v-songbaohua@oppo.com>,
-	David Stevens <stevensd@chromium.org>,
-	Kairui Song <kasong@tencent.com>,
+	Leno Hou <lenohou@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vernon Yang <vernon2gm@gmail.com>,
+	Wei Xu <weixugc@google.com>,
+	Yafang <laoar.shao@gmail.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Yu Zhao <yuzhao@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] mm/mglru: optimize deactivation
-Date: Thu,  3 Sep 2026 14:40:25 -0400
-Message-ID: <20260903184027.1474890-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] mm/mglru: use the common routine for dirty/writeback reactivation
+Date: Thu,  3 Sep 2026 14:40:26 -0400
+Message-ID: <20260903184027.1474890-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260903184027.1474890-1-sashal@kernel.org>
 References: <2026090303-freezable-flatness-e858@gregkh>
@@ -51,240 +65,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yu Zhao <yuzhao@google.com>
+From: Kairui Song <kasong@tencent.com>
 
-[ Upstream commit cc8ec7be78ffaa29f6e0781fd12602974970eb53 ]
+[ Upstream commit 75d4c3f5fb980de1b620adede47e43dff4d6a5f3 ]
 
-Do not shuffle a folio in the deactivation paths if it is already in the
-oldest generation.  This reduces the LRU lock contention.
+Currently MGLRU will move the dirty writeback folios to the second oldest
+gen instead of reactivate them like the classical LRU.  This might help to
+reduce the LRU contention as it skipped the isolation.  But as a result we
+will see these folios at the LRU tail more frequently leading to
+inefficient reclaim.
 
-Before this patch, the contention is reproducible by FIO, e.g.,
+Besides, the dirty / writeback check after isolation in shrink_folio_list
+is more accurate and covers more cases.  So instead, just drop the special
+handling for dirty writeback, use the common routine and re-activate it
+like the classical LRU.
 
-  fio -filename=/dev/nvme1n1p2 -direct=0 -thread -size=1024G \
-      -rwmixwrite=30  --norandommap --randrepeat=0 -ioengine=sync \
-      -bs=4k -numjobs=400 -runtime=25000 --time_based \
-      -group_reporting -name=mglru
+This should in theory improve the scan efficiency.  These folios will be
+rotated back to LRU tail once writeback is done so there is no risk of
+hotness inversion.  And now each reclaim loop will have a higher success
+rate.  This also prepares for unifying the writeback and throttling
+mechanism with classical LRU, we keep these folios far from tail so
+detecting the tail batch will have a similar pattern with classical LRU.
 
-  98.96%--_raw_spin_lock_irqsave
-          folio_lruvec_lock_irqsave
-          |
-           --98.78%--folio_batch_move_lru
-               |
-                --98.63%--deactivate_file_folio
-                          mapping_try_invalidate
-                          invalidate_mapping_pages
-                          invalidate_bdev
-                          blkdev_common_ioctl
-                          blkdev_ioctl
+The micro optimization that avoids LRU contention by skipping the
+isolation is gone, which should be fine.  Compared to IO and writeback
+cost, the isolation overhead is trivial.
 
-After this patch, deactivate_file_folio() bails out early without taking
-the LRU lock.
+And using the common routine also keeps the folio's referenced bits (tier
+bits), which could improve metrics in the long term.  Also no more need to
+clean reclaim bit as the common routine will make use of it.
 
-A side effect is that a folio can be left at the head of the oldest
-generation, rather than the tail.  If reclaim happens at the same time, it
-cannot reclaim this folio immediately.  Since there is no known
-correlation between truncation and reclaim, this side effect is considered
-insignificant.
+Note the common routine updates a few throttling and writeback counters,
+which are not used, and never have been for the MGLRU case.  We will start
+making use of these in later commits.
 
-Link: https://lkml.kernel.org/r/20241231043538.4075764-3-yuzhao@google.com
-Reported-by: Bharata B Rao <bharata@amd.com>
-Closes: https://lore.kernel.org/CAOUHufawNerxqLm7L9Yywp3HJFiYVrYO26ePUb1jH-qxNGWzyA@mail.gmail.com/
-Signed-off-by: Yu Zhao <yuzhao@google.com>
-Tested-by: Kalesh Singh <kaleshsingh@google.com>
-Cc: Barry Song <v-songbaohua@oppo.com>
-Cc: David Stevens <stevensd@chromium.org>
-Cc: Kairui Song <kasong@tencent.com>
+Link: https://lore.kernel.org/20260428-mglru-reclaim-v7-10-02fabb92dc43@tencent.com
+Signed-off-by: Kairui Song <kasong@tencent.com>
+Reviewed-by: Axel Rasmussen <axelrasmussen@google.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Chen Ridong <chenridong@huaweicloud.com>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: David Stevens <stevensd@google.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Kalesh Singh <kaleshsingh@google.com>
+Cc: Leno Hou <lenohou@gmail.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Vernon Yang <vernon2gm@gmail.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: Yafang <laoar.shao@gmail.com>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Yu Zhao <yuzhao@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: f7e698e326b2 ("mm/mglru: fix and remove redundant unevictable folio handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/swap.c   | 49 +++++++++++++++++++++++++++++++++++++++++--------
- mm/vmscan.c | 38 ++++++++++++++++++++++++++++++--------
- 2 files changed, 71 insertions(+), 16 deletions(-)
+ mm/vmscan.c | 21 ---------------------
+ 1 file changed, 21 deletions(-)
 
-diff --git a/mm/swap.c b/mm/swap.c
-index ff846915db454..94fa59d230b18 100644
---- a/mm/swap.c
-+++ b/mm/swap.c
-@@ -411,7 +411,8 @@ static void __lru_cache_activate_folio(struct folio *folio)
- }
- 
- #ifdef CONFIG_LRU_GEN
--static void folio_inc_refs(struct folio *folio)
-+
-+static void lru_gen_inc_refs(struct folio *folio)
- {
- 	unsigned long new_flags, old_flags = READ_ONCE(folio->flags);
- 
-@@ -438,10 +439,34 @@ static void folio_inc_refs(struct folio *folio)
- 		new_flags |= old_flags & ~LRU_REFS_MASK;
- 	} while (!try_cmpxchg(&folio->flags, &old_flags, new_flags));
- }
--#else
--static void folio_inc_refs(struct folio *folio)
-+
-+static bool lru_gen_clear_refs(struct folio *folio)
-+{
-+	struct lru_gen_folio *lrugen;
-+	int gen = folio_lru_gen(folio);
-+	int type = folio_is_file_lru(folio);
-+
-+	if (gen < 0)
-+		return true;
-+
-+	set_mask_bits(&folio->flags, LRU_REFS_MASK | LRU_REFS_FLAGS, 0);
-+
-+	lrugen = &folio_lruvec(folio)->lrugen;
-+	/* whether can do without shuffling under the LRU lock */
-+	return gen == lru_gen_from_seq(READ_ONCE(lrugen->min_seq[type]));
-+}
-+
-+#else /* !CONFIG_LRU_GEN */
-+
-+static void lru_gen_inc_refs(struct folio *folio)
-+{
-+}
-+
-+static bool lru_gen_clear_refs(struct folio *folio)
- {
-+	return false;
- }
-+
- #endif /* CONFIG_LRU_GEN */
- 
- /**
-@@ -460,7 +485,7 @@ static void folio_inc_refs(struct folio *folio)
- void folio_mark_accessed(struct folio *folio)
- {
- 	if (lru_gen_enabled()) {
--		folio_inc_refs(folio);
-+		lru_gen_inc_refs(folio);
- 		return;
- 	}
- 
-@@ -556,7 +581,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
-  */
- static void lru_deactivate_file(struct lruvec *lruvec, struct folio *folio)
- {
--	bool active = folio_test_active(folio);
-+	bool active = folio_test_active(folio) || lru_gen_enabled();
- 	long nr_pages = folio_nr_pages(folio);
- 
- 	if (folio_test_unevictable(folio))
-@@ -621,7 +646,10 @@ static void lru_lazyfree(struct lruvec *lruvec, struct folio *folio)
- 
- 	lruvec_del_folio(lruvec, folio);
- 	folio_clear_active(folio);
--	folio_clear_referenced(folio);
-+	if (lru_gen_enabled())
-+		lru_gen_clear_refs(folio);
-+	else
-+		folio_clear_referenced(folio);
- 	/*
- 	 * Lazyfree folios are clean anonymous folios.  They have
- 	 * the swapbacked flag cleared, to distinguish them from normal
-@@ -689,6 +717,9 @@ void deactivate_file_folio(struct folio *folio)
- 	if (folio_test_unevictable(folio) || !folio_test_lru(folio))
- 		return;
- 
-+	if (lru_gen_enabled() && lru_gen_clear_refs(folio))
-+		return;
-+
- 	folio_batch_add_and_move(folio, lru_deactivate_file);
- }
- 
-@@ -702,8 +733,10 @@ void deactivate_file_folio(struct folio *folio)
-  */
- void folio_deactivate(struct folio *folio)
- {
--	if (folio_test_unevictable(folio) || !folio_test_lru(folio) ||
--	    !(folio_test_active(folio) || lru_gen_enabled()))
-+	if (folio_test_unevictable(folio) || !folio_test_lru(folio))
-+		return;
-+
-+	if (lru_gen_enabled() ? lru_gen_clear_refs(folio) : !folio_test_active(folio))
- 		return;
- 
- 	folio_batch_add_and_move(folio, lru_deactivate);
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index e5cdf114c3ba5..7a112f93a681a 100644
+index 7a112f93a681a..f38fe097a46be 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -4313,7 +4313,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		       int tier_idx)
- {
- 	bool success;
--	bool dirty, writeback;
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
-@@ -4359,8 +4358,9 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+@@ -4358,23 +4358,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
  		return true;
  	}
  
--	dirty = folio_test_dirty(folio);
--	writeback = folio_test_writeback(folio);
-+	bool dirty = folio_test_dirty(folio);
-+	bool writeback = folio_test_writeback(folio);
-+
- 	if (type == LRU_GEN_FILE && dirty) {
- 		sc->nr.file_taken += delta;
- 		if (!writeback)
-@@ -4627,12 +4627,23 @@ static int evict_folios(struct lruvec *lruvec, struct scan_control *sc, int swap
- 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
- 
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
-+		DEFINE_MIN_SEQ(lruvec);
-+
- 		if (!folio_evictable(folio)) {
- 			list_del(&folio->lru);
- 			folio_putback_lru(folio);
- 			continue;
- 		}
- 
-+		/* retry folios that may have missed folio_rotate_reclaimable() */
-+		if (!skip_retry && !folio_test_active(folio) && !folio_mapped(folio) &&
-+		    !folio_test_dirty(folio) && !folio_test_writeback(folio)) {
-+			if (!folio_test_referenced(folio) && !folio_test_locked(folio)) {
-+				list_move(&folio->lru, &clean);
-+				continue;
-+			}
-+		}
-+
- 		if (folio_test_reclaim(folio) &&
- 		    (folio_test_dirty(folio) || folio_test_writeback(folio))) {
- 			/* restore LRU_REFS_FLAGS cleared by isolate_folio() */
-@@ -4644,14 +4655,25 @@ static int evict_folios(struct lruvec *lruvec, struct scan_control *sc, int swap
- 		if (skip_retry || folio_test_active(folio) || folio_test_referenced(folio) ||
- 		    folio_mapped(folio) || folio_test_locked(folio) ||
- 		    folio_test_dirty(folio) || folio_test_writeback(folio)) {
-+			unsigned long seq = READ_ONCE(lruvec->lrugen.max_seq);
-+
- 			/* don't add rejected folios to the oldest generation */
--			set_mask_bits(&folio->flags, LRU_REFS_MASK | LRU_REFS_FLAGS,
--				      BIT(PG_active));
-+			if (!folio_test_active(folio)) {
-+				if ((type == LRU_GEN_ANON && !folio_test_swapcache(folio)) ||
-+				    (folio_test_reclaim(folio) &&
-+				     (folio_test_dirty(folio) || folio_test_writeback(folio))))
-+					seq--;
-+				else if (min_seq[type] + MIN_NR_GENS < seq)
-+					seq = min_seq[type] + 1;
-+				else
-+					seq = min_seq[type];
-+			}
-+
-+			if (seq == min_seq[type])
-+				set_mask_bits(&folio->flags, LRU_REFS_MASK | LRU_REFS_FLAGS,
-+					      BIT(PG_active));
- 			continue;
- 		}
+-	bool dirty = folio_test_dirty(folio);
+-	bool writeback = folio_test_writeback(folio);
 -
--		/* retry folios that may have missed folio_rotate_reclaimable() */
--		list_move(&folio->lru, &clean);
- 	}
+-	if (type == LRU_GEN_FILE && dirty) {
+-		sc->nr.file_taken += delta;
+-		if (!writeback)
+-			sc->nr.unqueued_dirty += delta;
+-	}
+-
+-	/* waiting for writeback */
+-	if (folio_test_locked(folio) || writeback ||
+-	    (type == LRU_GEN_FILE && dirty)) {
+-		gen = folio_inc_gen(lruvec, folio, true);
+-		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
+-		return true;
+-	}
+-
+ 	return false;
+ }
  
- 	spin_lock_irq(&lruvec->lru_lock);
+@@ -4402,10 +4385,6 @@ static bool isolate_folio(struct lruvec *lruvec, struct folio *folio, struct sca
+ 	if (!folio_test_referenced(folio))
+ 		folio_clear_lru_refs(folio);
+ 
+-	/* for shrink_folio_list() */
+-	folio_clear_reclaim(folio);
+-	folio_clear_referenced(folio);
+-
+ 	success = lru_gen_del_folio(lruvec, folio, true);
+ 	VM_WARN_ON_ONCE_FOLIO(!success, folio);
+ 
 -- 
 2.53.0
 
