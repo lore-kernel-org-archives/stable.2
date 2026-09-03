@@ -1,191 +1,284 @@
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D271468C35
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 20:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788468990; cv=none; b=ddwHTb+Hhm59Ecozvcv2QF6fVLZ6i2LssaR/4LxN+Zgz3mfIdi+rQd+vml08OUTcPaVxjRSOYs202UOAzR2bjtmO6bzt84GofbX7baclMhbOIiieSwVMBzXMxrexbH3MB+Q7e7Q3UJu/inZYe0NmLrHyVCQErRP783z/lRzStHs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788468990; c=relaxed/simple;
-	bh=asM3u2jh2/97ma/RigKr/jhcfK2a1T/GQYGyli6hKw4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iJs8b4x5VU/X9UThaYrtPcv8uq7isTY+z7IpOJ5lJlcIYhNtgHNL0ozEUq5/r03qge3/X0DM9ih/L/RVYjIL7Wxc3HQeZbK40SBGzVWFxrgSOXQmpN3fTosrTaEuGiinODwnGqxIIJW9RxjbBv1tEFn3fcQ/OjWU7KO2t+pg35c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=oybCd1ev; arc=none smtp.client-ip=209.85.160.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A888C378D93;
+	Thu,  3 Sep 2026 21:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788469476; cv=fail; b=T17cyqG//r1VNUJQvna6cfqhwlnPoGXkdT/vTnxVpC7SL4OVda+RD8q45VXU/wyb5lsZRM5oeGbzpvDa3063DRJC9wwZXAmc4hErR1ZpXl9D3Mri40fI8CwEJZ3VnLSJi22qRJSK6NKbWqnc1YJf+pLnMGf0MCJs2VTZRFIrCw0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788469476; c=relaxed/simple;
+	bh=2EELXHOi12sG8UfBM/fFxCr/rAU5Keg8EmpZ2/wl49g=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LuF4HEeOMO+IpISwUB/isvYubljkel/7OMeeEEwNZGr5ELg6gC1AEztK8pb33AK05xSP4o04XSQ74MO8bDIAGqsxikRzmpQIGcBZREOBp/+HXyDlnAhA4/0ZUuQGPgKqRLMOjgMvCc6fZPDRYheXvpeE0vhKQ+1G5uJHEHWGelc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TNScuQsM; arc=fail smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="oybCd1ev"
-Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52d5bfa4bafso5051071cf.3
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 13:56:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1788468981; x=1789073781; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=omcuQrXyWn92mT7/l5cfyeWdZD8VtU1sSuEMsPrFlZA=;
-        b=oybCd1evk4sAK+iGb2ojUB9x+GtRbYMjyKcG5CdCgfMiCGLieM3mKh9/digSW31lyO
-         y76otpy2sV37+9OE+fzYDzVB65TDOfzo/CJjdGXgZUDDk2Xuhay1nyN8nt6YD+yAk8qG
-         VWeIATpbzMWK5B2O8zbJtj/n7hjY1CJiskFL0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788468981; x=1789073781;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=omcuQrXyWn92mT7/l5cfyeWdZD8VtU1sSuEMsPrFlZA=;
-        b=skh2GwXrzWFktseLRkrI7jVG8KsO2y20q9FUdlVPIB1juIefJvQAJjq89dkxB54Ok6
-         84jLdpgiyND3odzm/Kh5m9l5jM/l4afxVDptNN0GmadpOTZGIImLYZINMEDEUw/3ccJp
-         eiZCCetf+YqfcoeL6nyWgJopNG3bJkrmCM/Eb3kMP9ffC2yFN7JGy0METOin5PsZTfHD
-         IEeRzdmhYYWPxM7hfU2+hOiIgL7yHuf7AhQNLZSWwzADPuegtaPtRtIknuS89l6J9y+M
-         Znaob3UIuFDo5g1BlZB/H+qcnogbtTKPouTENY3/mJmnoT9XFn3r6ylUJ5ymRTJqu9t8
-         sGXA==
-X-Forwarded-Encrypted: i=1; AKwUvByG45vrvb1lhfvnO4YIRzUrZs84FLuQMj/8w72j61nPn7LDuBaDGNXv4Ytg3qvHr8PQbugFlpM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lOBhLAtPaOadtTgSnn3zqehSOp+dbyyns7cJrWJvISi8rmqSKd
-	/V/SZj0L1eSJFhSXZP0Wewgm3jyzzjN2UCzMl4iyvCRlsCvCTC39MkSewcEtBqZqiA==
-X-Gm-Gg: AYBFou3F1MDbBOI9QRR/E4Qi2lgibbPmPV45zb5av3/OezhM/dtQh+PYFMBN+l2HRZ8
-	OJ8eu62+guxjztXbl7JNzSEOIqY8WRh108nt6kvPjX6i8ot1lzW9C64TuEqJf9J1FbDV0yk5Z+w
-	HHs4EsLumOqa6uShkA//aMhQKdLyVxg8iUl4qXi/4kEzfVV8g46gcBI1fw6TcCjKC9O1S7FL3/8
-	EoCkD6PjYD+EdJMHZZOEhQ3IiWjak6kbt2aAy8BV/cPUO5wRIrUT0N0tG5xLrxC/GicdPn/QzE0
-	5oc1cjgBWPR5Aly0MDrxB+gvKITVJDB9djoqKYXuMtgGMPNB6CK6gDPxD6rn79RtN1vbFia4S+T
-	pOQ2QdwQLLVNppEoLx8tlnzkXG4QI2PRH9EsnJP/PmLl7MR/Iz7JU2pP2gskX0NuYjmbSVopBwr
-	nEFdIz5QRy/i0Ku5CVYgE5rA2YBOiE43jxOcC+xMe0xDsX7DSf90cbhrmfnJ3qQIyKghZOXurIN
-	Svm3wNCszz29+e2t/J1kVttYJF57sTgqqp76oTaYaqJuCQtM2Vq0t+Fhv5lxsXzLscKuXfssi+m
-	bTY1Cgod0y5A
-X-Received: by 2002:ac8:7f0f:0:b0:52f:b9ad:9dc1 with SMTP id d75a77b69052e-530548ea102mr18677551cf.20.1788468981102;
-        Thu, 03 Sep 2026 13:56:21 -0700 (PDT)
-Received: from majuu.waya (pool-174-112-106-84.cpe.net.cable.rogers.com. [174.112.106.84])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305422fc07sm5509881cf.31.2026.09.03.13.56.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 13:56:20 -0700 (PDT)
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-To: netdev@vger.kernel.org
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	stable@vger.kernel.org,
-	Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Victor Nogueira <victor@mojatatu.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH net 1/2] net/sched: codel: bound the dropping loop per dequeue call
-Date: Thu,  3 Sep 2026 16:56:15 -0400
-Message-Id: <QDISC-1L5H.v1.20260903184552@mojatatu.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TNScuQsM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788469474; x=1820005474;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=2EELXHOi12sG8UfBM/fFxCr/rAU5Keg8EmpZ2/wl49g=;
+  b=TNScuQsMpXsOB9pWULNxDLIivQVnTw+s+wo9JQQorZPDMEPyGaWoRA4J
+   HyUyNDxMO95IM7B5BOCBVY6S+ZNiJDuGvxzGWIjV+H1BDQL/NzbqkZGz6
+   uIEIPlso3w/iJmFoWDxEOMVFVgkIlfZH40t+4xRbbifjH7IiAE3IKHW3X
+   eIcfrPQ1h6SszYtB5DyqUPnbLEdtqNsl1f0hJe9Kusber21CqetzIWetk
+   f5/YSijC1YezIJqOe8M8A1bTPvccJn9v9h8ZdFL1eOpt8Oj9T5qL10OcG
+   o8pO0JSkorTpOpTRT4NmydnoT9XQsM1acr7uCUulThWTyxS38+jpofVrs
+   g==;
+X-CSE-ConnectionGUID: fIoei6HDToq2Jugouxd1iw==
+X-CSE-MsgGUID: ZzVIRMxvS3GRYEEGPGCIuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="76520757"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="76520757"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 14:04:32 -0700
+X-CSE-ConnectionGUID: eHurqparQwmk73CFBdc6Rg==
+X-CSE-MsgGUID: jkItDA0ZQ7G+sLqzHBeNiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="294707337"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 14:04:32 -0700
+Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 14:04:31 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 3 Sep 2026 14:04:31 -0700
+Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.38) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 3 Sep 2026 14:04:31 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NhGOdhvwK1whtxF+Rq1yC3sfC0XFA4nZIOzBXVrDCKH5XxrDOcbWXAALUvxBNlA+8tC1l0aH66iXBPuIuzCwdz2PKpYo0BE6TEpMtbTyb57aILxr0t8YH3+kfPmKXTUuDm+xQObIe2kvDpt+RLFZz1YsZaaWa/3FMC9ebaAztXsWBnuTonUNq6dTbZmcUG4XN32XrKsbpRO76L60/0sL7kGCVx2ju5Jfcq5SPD4qei8x/mU2tZun20fBODmZRjmMKJOp1H+9FKFrH0uGNKKhgipnrP7iM43B+fC6S1MBt4u74bQlZT5CPS7rC4CztKWga++35HNTEFb5yo8qi7tkww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Gh4svpHZlb6ODgSBqtA1ng8YnJoR6nR3Zn7xHpa0Nuk=;
+ b=pujVTWrDJnG5Eu9T0X4pZDLjHaMfbTT8xE3YnwWLHAlUWXRYPQyvNrfIOYYpl7iTon4O0aUgGAnXYKXcWx9Bw4+E02gcBiQsSn6njM5uhS7bcdpKVEezQfv6wzBhRBKnBSKIlPhP6I+zB1Lpqq6ZCEgwI8ZF+XPIRuoptt2Z74dNZcqey3NbfK5AToewCXZBpeQ6IyW6qsSP3Dtm2mp3tTaqyZXUK4HIltq4hd2txSka2a6hfSlxpHmz9o5pP6jPK2tOeOtJw9TdRuOt2jgu0BMDpX0iVbXUiM6KfqoKpBh/KW+GBkV4lkjeYTAOfYjBq4Urx92hm0ZvLlV0mGzG9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
+ DSWPR11MB9821.namprd11.prod.outlook.com (2603:10b6:8:4e1::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 21:04:30 +0000
+Received: from DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
+ ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 21:04:29 +0000
+Message-ID: <96ca6bc4-a03a-4e4e-b82c-f5202cdf21ac@intel.com>
+Date: Thu, 3 Sep 2026 14:04:28 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
+ GNR systems
+To: Borislav Petkov <bp@alien8.de>
+CC: <linux-kernel@vger.kernel.org>, <x86@kernel.org>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <dave.hansen@linux.intel.com>, <hpa@zytor.com>,
+	<andrew.cooper3@citrix.com>, <arjan.van.de.ven@intel.com>,
+	<stable@vger.kernel.org>
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
+ <20260901231634.714144-2-chang.seok.bae@intel.com>
+ <20260903015154.GMapjSujbkKGzyihVB@fat_crate.local>
+Content-Language: en-US
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <20260903015154.GMapjSujbkKGzyihVB@fat_crate.local>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR03CA0003.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a::8) To DS0PR11MB7925.namprd11.prod.outlook.com
+ (2603:10b6:8:f8::18)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|DSWPR11MB9821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 16fe747c-54bb-4f3b-a591-08df09fef205
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|23010399003|366016|1800799024|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: MPoikdqfKe4SO4DypCiM6ik5OPahp0HfmXHg0rL+1GW8pKxDyJzMB+fYwqhv0KXlNIhK56rAZXDMIVXtK9QARkmmHfUwVuYSiW/z3HEUhV6h5SMTdkF2QVq6/WyCAbA6xi/utg4AARVJ76igflsh+qNpIW7n57ukwW5m2mUFA9sZuhp2D4hbYEEsiWSTYCMiKu7mkvm4IrzFfCV/yH+qSIf76RE1hhaBMbkqD4AkH7Q1wy4+Nkj58KAUhKcyVF2HR/dckkLXkVOe+3N97ueg42a7UZkI2N/Tgz+vs9jfg9tNngFhNutGzn+i8K92GRnz9dCOvYmcXQ8baLrhgf1Kd+FdiHflT4mVCtrD99rIJy4n3Bq5HA/rY240smmXn9u9QALJGYZcL2qoAAh2MJppHbxwtYo7CaqqnVgwfq0Omr2iBUAru7F4bMhxlnyGXevDhr1dGzNnyBP04kcR611GV1b6lXpKE0W8tAVEMueon5NbunypuB1pklSa1UwnuskT1UJKeeF9Ym6jMW/+NEf+cReqgO2/vZElSh+AeItPWbWucaKj9dluiAXTeCIpz0V32/WCPoemzHEcQmRRY3XXn5rlYICdCmKSH0isus3DmFmZwRvAYOmxOaVZo2FJy/9OTuz4SKLTjCofJlC+zHggrYIAYV7DBCJlaqTs4xtiu6s=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?alhQdHE1eHFnWEo4NFJUcEgxME5RendrVWwzVm1yVzdkZHlIejRGUkt2cy9o?=
+ =?utf-8?B?NTczaWxjTlZtSWVQNHdsWml0YUhYSHdNUWRxM2VSRE8ydTBBaDlrWEhjc0ND?=
+ =?utf-8?B?SWg1eVlwTC9JMTRGOG5LRnpqWVNua3ZqRUVIQTVwVEdsNVBSdWE1Snoxd1d3?=
+ =?utf-8?B?RkJmS3duVFd2Qk1ObHpJeHVoZWFPdXBlbkdaQWlETmZ4d3BmTlFNc0k1bi9n?=
+ =?utf-8?B?dW9CbXNkMyt3bkxmSHlXMmROZWRFWnNXcCtxdXRTU3hMNjByRkFzMnZmK1RT?=
+ =?utf-8?B?RGZQOGhhUVFqR2lJV29FT3BYUW1Qd284VVkxVjhBeC9oeitqMDVnWHlaT0p6?=
+ =?utf-8?B?dVVQUlYwd2ppVVV6ekhlbzVwbDdKUU5DZFdNbUZlOCtWWlNLcW1WaWJqVEdh?=
+ =?utf-8?B?ZXFMWXl4a3ZQbzhqL2F3WHBkd0J3d1k5ZzF6TnRvSUhsdUVJR1d6RDJIeExm?=
+ =?utf-8?B?OHZNdmtUN3N3RWFuNVNVQmUvZVhrNmNGVVZXaXZvcFdkMm1UY2c3VTRueW5n?=
+ =?utf-8?B?ZzAvNzhqRnRtYWM4NWF4UGptWDJSSFNldTg2WjRBS3ZJVUQ0dFF2ejRNSTNR?=
+ =?utf-8?B?QkRIcUtWaTJ4UGFrUnJYRHpqclhOalYwTmcveFVFQmkxY0wrOWFxak5DNzFl?=
+ =?utf-8?B?T0NUUUNHVmxVZ2ZLVHFJcHFnTklCaFN1QzFKbFBXQWFxOGlaMkp5NThoWlFw?=
+ =?utf-8?B?U0FmWEowZTVwSC90ZnAzSWFVMjBwZTA5a0VCaEJUQVBwZ0Zac1N4T3lsMnZO?=
+ =?utf-8?B?WHV6YkNGZUVwMzFCYzJrQWxkVUlZbTNCYy84V3pPZHFUY25hb016clZOcGpj?=
+ =?utf-8?B?d3V6aFRJaFZEdXVtTEx4NHkrQ0sxbVB6ZmQzYUd0eE9tcWdKa1JITTY0UWhY?=
+ =?utf-8?B?NmI1cUVjdzRxK0pMeXZoa01tc1RwMTdibXhMaGRDbUNJQXBjSlBuOXZaNnMr?=
+ =?utf-8?B?M0RpSXI5WE53SG13QkNYbjVSSVJ5UGgxaE5nbzZORUhmWmVNSUtHd1Y0RTlv?=
+ =?utf-8?B?TVZTeXRRMlJwSmNwZkxRY3RhbVUwWHJkYUs5YWhFVVpZdXdjaFZ5NURHN09W?=
+ =?utf-8?B?K255cExuMXdhcTdvVmhLemVqQmxwMnJNV2pzd2NWOTdvWGp1Sk5TSW1JN2Rz?=
+ =?utf-8?B?RStQaGE2elZwaWVZaFFhQWh6dGd4ZmNvdDlvMTNiekJXaGVpOGNLU1RqWGdt?=
+ =?utf-8?B?SFZBSWx1RUlVTkFxQkZqYWxaWUpBZ2pzamxmbEwrMGVFbGY5ZVJocGZhVHJM?=
+ =?utf-8?B?WDIzL0g1cjZzM2orcDRQcUtPK2NXZ1loL0d3OGVjU3lIaUNRQzgyR2FMRTY4?=
+ =?utf-8?B?S2pjOTVhNnlHZG0zZFdlTlBqVVlWV3lMYXRJODFaOUZ3aGxtRGRranhCZUFn?=
+ =?utf-8?B?VEd4K0N5N2pDa1IrbS9rZ1lsdTl2R1krRGhsQXZYdGM4Nm9yK252N0FzN3pn?=
+ =?utf-8?B?bmlZNEN5YUZxSmpEeldBdGszdlNMSjlUVVZqTDBCcEVBRHlkVUxCMG5kNU52?=
+ =?utf-8?B?blMwWVE3bVZrYm9jRUlDWUlTT1hPUkZKcWI5Tzg0blo0T3NsaENNS3RTT3pU?=
+ =?utf-8?B?QkJwck9NU1R0R2RCVVEwL3lFbjNKaHVrbjZhaDZLL2IxYkZIV1c3bjlTMWk1?=
+ =?utf-8?B?S2xQZGQvbFlRTEtReEdLUFRTM0Fub2lhL01aOHBCTFZsQkhPUWUzOW1ieWo2?=
+ =?utf-8?B?NHE3S1ByeE9ST1JPeVR6eVhxVWV6OTVzTGdtWE1PcDVHT2ZDVGhwN2cvc1dN?=
+ =?utf-8?B?UmNkOGM2VjlTUkdNTE5jWEVRdUt4WGh2UTR5ZVhkY1dpNlFQWVFPTWVqZVFs?=
+ =?utf-8?B?QUtVSmhXY0x6RFhmOUo2S0ZnSW5WbTR4WDh6L0hweC91QkF6bE53c1FqZm5r?=
+ =?utf-8?B?SHVZWXhXNTVZVGFhYWhIdHcydytQUzRDSFVBZzJVbU8xbDRVczlObHdRci96?=
+ =?utf-8?B?Ly81VHFXeVRzN1JTbHhVb2VBK05Xa3d4ZVh1QVQ5Z2JwWlJEblEreWZPVVZ4?=
+ =?utf-8?B?eHlRWis4SXFyRk9CcXRPK0c2ZnppN2VWSVVOeGw1OFB0amFEbVBESFRtZWVx?=
+ =?utf-8?B?YlVHSDFuU0dSOXJidXRha3p4OGY2Q2VOT1FOc1ltUDdHbDFnS2lMUDdKRXh0?=
+ =?utf-8?B?TXFjckpMTmtPbGdhSWVveFRTeHI0ck5IRkt2ZjhZWTlmWHBKZlJRQVB5cTRW?=
+ =?utf-8?B?cElEQ1RpREhWdlpudW9nbnN5eVdjZm12NHBiY21WWXRmWW5lYjczbDVrTngw?=
+ =?utf-8?B?c3VxTE1WUDN5R3ZuY1FPb1J0WEJ5WHdseHVoSzBsL0JLZVQzaFNxdktQMUNo?=
+ =?utf-8?B?dExDa0hJeHdiYVcwcnhaNUVjbXh1QXh2WGlVSHV1SzZGSXFtREpWZz09?=
+X-Exchange-RoutingPolicyChecked: kG4CslXdASwioUuQ8+FPe1i2tyARQPT4BSYcHOKjGnUZqpKjTWh5K2cStL2lx8U9GeOhvWgcjPw8maXfFmEHMPxH4Jeo6zP5ziENS5JRT4dE5zSdlXnWDar3gpbD1DzxQx9igDBSLa26Ar+BFAy6YlpzQM6myME4bdvMG0bthRdO3QhWYocwoE80XDw9JW9Oi68byt7AXu7Ldk/2g73GD47PAx2I3E5onxJQhZXEuRUEpWvxpEiOTbIifBiRJ+qJk3YBWQQeF0mY4uliOd0CoeuX88Whkk2uEp/ELG2kuAJVh5c+rJb/ESYgZ9r+gBNunHmoYVUEAcwNmRZfezJohA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16fe747c-54bb-4f3b-a591-08df09fef205
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 21:04:29.8911
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: petdxpNdTVWSJXwT+SMaRMEHCAX8hb0d/L2TC6gYBmIxLmu0CE1Uirg2JzD6qvIaPeNATWQ/Zl9yh2SZgHnSvewxpOhouF7WyPi9tENcrkU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR11MB9821
+X-OriginatorOrg: intel.com
 
-The CoDel control law schedules the next drop one interval/sqrt(count)
-after the previous drop, using the configured interval
-(codel_params.interval). For very small intervals the scheduled step
-rounds down to zero, so the dropping loop in codel_dequeue() never
-advances and drains the entire backlog under the qdisc lock in one
-call - an unprivileged user can trigger a soft lockup this way.
+On 9/2/2026 6:51 PM, Borislav Petkov wrote:
+> On Tue, Sep 01, 2026 at 11:16:26PM +0000, Chang S. Bae wrote:
+>> +static bool is_loading_denied(struct cpu_signature *sig, u32 rev)
+> 
+> This naming is not better, sorry.
+> 
+> Is loading denied means the loading in general is denied because <raisin> or
+> are you trying to check whether this particular revision should not be loaded?
+> 
+> I think it is latter.
+> 
+> So you wanna say
+> 
+> 	revision_blacklisted()
+> 
+> or so.
 
-Fix in the shared codel code used by both codel and fq_codel:
+Maybe revision_banned()?
 
-1. Make the control-law step at least 1 tick so the dropping loop
-   always moves forward.
+> 
+>> +{
+>> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
+>> +
+>> +	/*
+>> +	 * Revision 0x1000405 contains prerequisite changes for subsequent
+>> +	 * microcode updates on Granite Rapids systems. Updates directly from
+>> +	 * an older revision to this or a newer one can result in #MC (GNR98).
+>> +	 *
+>> +	 * This dependency can be indicated from the minimum revision field.
+>> +	 * However, revision 0x1000423 has an incorrect minimum revision in its
+> 
+> So you lost me here: 0x1000423 is not tested anywhere - just mentioned here.
+> 
+> So what I understand is: usually, dependencies like that can be expressed with
+> minrev but *in addition* to the current issue, patch 0x1000423 has minrev
+> wrong so that dependency cannot be upheld there either.
+> 
+> But then why even mention it if you're not going to test it?
+> 
+> Why do we care about GNR101 at all?
+> 
 
-2. Cap the dropping loop at CODEL_MAX_DROPS_PER_DEQUEUE (256) drops
-   per codel_dequeue() call, resyncing drop_next to now when the cap
-   is hit: the catch-up owed to the loop grows with the idle gap and
-   the backlog, which no interval threshold can bound. This is a
-   deliberate behaviour change after long idle gaps.
+My original intention was to explain why rejection is need for the late 
+loading path. There is a minrev check, but broken with that case.
 
-The cap applies to fq_codel (4b549a2ef4be) and the mac80211 TXQ path
-(fixed interval, cap only).
+But to preserve the legacy behavior, the minrev check isn't enforced by 
+default. So what's the point of mentioning? Yes, if we need to ban 
+particular revisions, we need to do it everywhere.
 
-The target sojourn delay (codel_params.target) is not validated: it
-does not feed the control law, so a sub-tick value is aggressive
-rather than deadlock-prone.
+So mentioning minrev is just distracting readers as long as rejection is 
+based on revision number in the first place. Let me remove minrev 
+wording from this patch.
 
-Conditions to recreate the bug (repro from vega@nebusec.ai):
-  - tc qdisc add dev lo root handle 1: tbf rate 1kbit burst 2kb limit 1000000
-  - tc qdisc add dev lo parent 1:1 handle 10: codel interval 2us target 1ms noecn limit 1000000 (same for fq_codel)
-  - unpatched kernel: tc accepts it; a UDP flood under the 1kbit tbf
-    soft-lockups (watchdog: BUG: soft lockup) while one
-    codel_dequeue() call drops the backlog under the qdisc lock
-  - patched kernel: same setup, at most 256 drops per dequeue call,
-    no soft lockup
+>> +	 * header (GNR101).
+>> +	 *
+>> +	 * Prevent loading 0x1000405 or later unless the CPU has already been
+>> +	 * updated to 0x1000405 or later.
+>> +	 */
+>> +	if (vfm == INTEL_GRANITERAPIDS_X &&
+>> +	    x86_stepping(sig->sig) == 1 &&
+>> +	    sig->pf & 0x95 &&
+>> +	    sig->rev < 0x1000405 &&
+>> +	    rev >= 0x1000405) {
+> 
+> You don't really need to test rev here - it is enough that sig->rev is
+> < 0x1000405 - that already makes you susceptible and then you can check rev
+> inside the { }.
 
-Fixes: 76e3cc126bb2 ("codel: Controlled Delay AQM")
-Reported-by: Vega <vega@nebusec.ai>
-Tested-by: Victor Nogueira <victor@mojatatu.com>
-Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
----
- include/net/codel.h      |  5 +++++
- include/net/codel_impl.h | 16 +++++++++++++++-
- 2 files changed, 20 insertions(+), 1 deletion(-)
+Yeah, I'd like to simplify like that, though. Intel repository looks to 
+have three published revisions before 0x1000405. So there can be a valid 
+update between those revisions.
 
-diff --git a/include/net/codel.h b/include/net/codel.h
-index aa80f744826c..183d43c2bd43 100644
---- a/include/net/codel.h
-+++ b/include/net/codel.h
-@@ -140,6 +140,11 @@ struct codel_vars {
- /* needed shift to get a Q0.32 number from rec_inv_sqrt */
- #define REC_INV_SQRT_SHIFT (32 - REC_INV_SQRT_BITS)
- 
-+/* Cap on drops per codel_dequeue() call: the loop's work depends on the
-+ * idle gap and backlog, both outside our control; resync when exceeded.
-+ */
-+#define CODEL_MAX_DROPS_PER_DEQUEUE 256
-+
- /**
-  * struct codel_stats - contains codel shared variables and stats
-  * @maxpacket:	largest packet we've seen so far
-diff --git a/include/net/codel_impl.h b/include/net/codel_impl.h
-index 2c1f0ec309e9..9e779cd4d6de 100644
---- a/include/net/codel_impl.h
-+++ b/include/net/codel_impl.h
-@@ -93,12 +93,17 @@ static void codel_Newton_step(struct codel_vars *vars)
-  * CoDel control_law is t + interval/sqrt(count)
-  * We maintain in rec_inv_sqrt the reciprocal value of sqrt(count) to avoid
-  * both sqrt() and divide operation.
-+ *
-+ * Clamp the increment to at least 1 tick: a very small interval (or a
-+ * large count) can truncate it to zero, stalling the dropping loop.
-  */
- static codel_time_t codel_control_law(codel_time_t t,
- 				      codel_time_t interval,
- 				      u32 rec_inv_sqrt)
- {
--	return t + reciprocal_scale(interval, rec_inv_sqrt << REC_INV_SQRT_SHIFT);
-+	return t + max_t(u32, 1,
-+			 reciprocal_scale(interval,
-+					  rec_inv_sqrt << REC_INV_SQRT_SHIFT));
- }
- 
- static bool codel_should_drop(const struct sk_buff *skb,
-@@ -156,6 +161,7 @@ static struct sk_buff *codel_dequeue(void *ctx,
- 	struct sk_buff *skb = dequeue_func(vars, ctx);
- 	codel_time_t now;
- 	bool drop;
-+	unsigned int drops = 0;
- 
- 	if (!skb) {
- 		vars->first_above_time = 0;
-@@ -180,6 +186,14 @@ static struct sk_buff *codel_dequeue(void *ctx,
- 			 */
- 			while (vars->dropping &&
- 			       codel_time_after_eq(now, vars->drop_next)) {
-+				if (++drops > CODEL_MAX_DROPS_PER_DEQUEUE) {
-+					/* fell far behind the schedule */
-+					WRITE_ONCE(vars->drop_next,
-+						   codel_control_law(now,
-+								     params->interval,
-+								     vars->rec_inv_sqrt));
-+					break;
-+				}
- 				/* dont care of possible wrap
- 				 * since there is no more divide.
- 				 */
--- 
-2.43.0
+So still need to allow:
+   old_rev < 0x1000405 -> new_rev < 0x1000405
 
+while rejecting:
+   old_rev < 0x1000405 -> new_rev >= 0x1000405
+
+> 
+>> +		if (rev == 0x1000405)
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is not loadable.\n");
+>> +		else
+>> +			pr_err_once("Erratum GNR98: 0x1000405 is required before 0x%x.\n", rev);
+>> +		pr_err_once("Please update the system BIOS or firmware.\n");
+> 
+> This is useless most of the time because client won't usually get BIOS
+> updates. You can tell people they should update their microcode packages
+> instead. That's where we can really help.
+> 
+
+I see.
+
+I think anyone seeing this message has probably already tried updating 
+microcode. With `GNR98` in the message, they would still need to decode 
+it by looking up the erratum and its workaround if want to follow up on it:
+
+   Workaround: None identified. Software should avoid updating MCU
+   versions earlier than 0x1000405 to 0x1000405 or later until the system
+   is Firmware Interface Table (FIT) loaded with UEFI FW/BIOS to
+   0x1000405 or later.
+
+Then there isn't much point of the additional message, I suppose. I'll 
+remove it.
+
+>>   
+>> -	if (is_blacklisted(cpu))
+>> +	if (is_late_loading_denied(cpu))
+> 
+> Aaaah, you wanna be politically correct and can't use "blacklisted" anymore.
+> 
+> Well, you're not introducing new usage so you don't have to touch old usage.
+> And "is denied" does not express the situation properly. Try a better one.
+Okay. I'll leave the existing "is_blacklisted(cpu)" as it-is since it 
+already exists and probably descriptive enough. Also assuming it will 
+remain distinctive from the new one, e.g. revision_banned(...).
+
+Thanks,
+Chang
