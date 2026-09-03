@@ -1,144 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC80511E6F;
-	Thu,  3 Sep 2026 19:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FD750C2B0;
+	Thu,  3 Sep 2026 19:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788464242; cv=none; b=QuHbFT99eSF+lRybxDkmY2ioSOK9NApW8k3Eg8blb2vSaAsVza/su+nPk5+xlX/BCtKOwUgNQcVk/vchXbTSHFGTwvMeXvogvh0VAafjEdxvRgoI4wV7JarmNAfQm9yLIlAiw8BDGYlag59D6D1Ix4pA8lXbk9uyO87g/VWUSnw=
+	t=1788464324; cv=none; b=CsSOXav0c6m8rLWBG4hAVrQ8YgQ6gTeLSE/89n3piRuCuiy3OY3vlac2KOLkOs4KjGnvyrRqwCC2bjlNHzoDDl3/oVkp1Mtx2kxXX9wrFWgVoPoseL43yG8JG/BIw8Ii664WYqyfSekZyO1Ong9jBdHMrJL3xBGzS/QTh/+Z9Ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788464242; c=relaxed/simple;
-	bh=rGTB/itmqwEZSAvCeCcxIqgOm5URRbEnVgHmYN5B5rI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=LT3fEhoRtEZk0YcB8kQ/mISIu6Jh4ofM1K9SW6IFV/ngba+ONFwFtstu/cAPu1Ab8LsPosv4DuJX7vAJYC/lmpUWCv0WjrvYUeP4Sot3ncu4KXh3M3AzKFX3IfdExiuqzUzbJqfn3hU/7F5cAy7SR4osIE9+CzxC5PMGOxAlEpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EFOCNA6m; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788464324; c=relaxed/simple;
+	bh=gew2yDtkf5z8s1FZ8dufcMkQRPtNVQ3jS42FmfkUNVA=;
+	h=Date:To:From:Subject:Message-Id; b=WiCSXazoIqxikqS+2RiVGnWOXgWPA0iTwPvt34q/a/XQCXyAtj+3EGXwAAO3lstF7N7p6eJ9eGi9ihZxf1vCCn5z+xz4gntnFqzfhCu6WAvB2NBaik1DVSy5/ZtGrESaEflHC15o+uLZLPiIoEd/8VlqLKbzSXStOyXCwCjHd4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=gUB/z4N4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EFOCNA6m"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 927EDC2BCB8;
-	Thu,  3 Sep 2026 19:37:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788464240;
-	bh=rGTB/itmqwEZSAvCeCcxIqgOm5URRbEnVgHmYN5B5rI=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=EFOCNA6mKyEBH/hiGZBXa7gua3O+B7jvv5sd7s+O9zBUB+sArSM9LJHgX/+Ta+N4i
-	 ZDNtdb7qbNaWdUVm7Mrsq/3l9YoR6oOpsQCb2s3QsA6vDg9GnwAV7ntMlixc4i/gCC
-	 /pN0sBoR79LYg84dsONjqLjzlx2Jul28Lkq9j5kfNJpSfARc14at+5I0nd28yd3NCV
-	 iRK8EzEhkBAUc+seRnF2JDvJRJBqpwmBwfAZhlxpYzGgo/fPFy3q4z1NnukzZ9qRdX
-	 EqRSV5F0SUJItoVVAp5EpSvCyHqEFVk+EOXrGHhzu+n+vEE1KcMAZ9aoGJlhNymlkK
-	 80XeFadxygGmQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F9C7C624D7;
-	Thu,  3 Sep 2026 19:37:20 +0000 (UTC)
-From: Jean-Baptiste Maneyrol via B4 Relay <devnull+jean-baptiste.maneyrol.tdk.com@kernel.org>
-Date: Thu, 03 Sep 2026 21:37:13 +0200
-Subject: [PATCH] iio: imu: inv_icm42600: fix odr change not caught in
- certain cases
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="gUB/z4N4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCC61F000E9;
+	Thu,  3 Sep 2026 19:38:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788464306;
+	bh=TWbiTkDy+Qn5ANIu2XO2cI5+nEoeiUEgBCkEk3x1uSA=;
+	h=Date:To:From:Subject;
+	b=gUB/z4N4TNczXYlVMzb9hO1Ex6uib/S23XLcHNC8Fs44nwQ8/12Mxns5+QRF/uVHj
+	 zQahyDtpFwyZIVx9NispycGrMr4UDXfWTIc+kjMunodGO6hCbfazBr7WArflYbQVMJ
+	 Z8MaT1eiWUyia81h1BXn5KxNSKunVYCu2+boCYGA=
+Date: Thu, 03 Sep 2026 12:38:26 -0700
+To: mm-commits@vger.kernel.org,zhoujinmeng@bytedance.com,stable@vger.kernel.org,shakeel.butt@linux.dev,roman.gushchin@linux.dev,osalvador@suse.de,nphamcs@gmail.com,muchun.song@linux.dev,mhocko@kernel.org,hannes@cmpxchg.org,david@kernel.org,jinmengzhou22@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch added to mm-new branch
+Message-Id: <20260903193826.ADCC61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-iio-imu-inv-icm42600-fix-odr-change-never-caught-v1-1-029c5f1cbce2@tdk.com>
-X-B4-Tracking: v=1; b=H4sIAGjMmWoC/y2NwQqDMBBEf0X23IU0tYr9leIhJquuYFISEwriv
- 3fbenzDzLwdEkWmBI9qh0iFEwcvcL1UYGfjJ0J2wqCVblSnbsgckNeM7AuyXWuJFY78xuAinhN
- PhQRMnuYNB9foutV346gFuX1FkvpP+ez/nPKwkN2+HjiOD6/NEpOUAAAA
-X-Change-ID: 20260903-iio-imu-inv-icm42600-fix-odr-change-never-caught-bd624725ade7
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: Jean-Baptiste Maneyrol <jmaneyrol@invensense.com>, 
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788464239; l=2940;
- i=jean-baptiste.maneyrol@tdk.com; s=20240923; h=from:subject:message-id;
- bh=m60S/Iw6rtSEbJaApo5jUI0iF3VazngX65yETOcKHwE=;
- b=w9aaIbjDwjHyWh2vnYmdg7uSe/Z5FtSOJUuNtoDF944JZ7VLjbzR5zlMVdP5tnpRYSzShiv5R
- +pdmEs+el5vAuIShf+0fdu1LFJ0Ik6SZJe0qKkWiulg7tZuj16H8296
-X-Developer-Key: i=jean-baptiste.maneyrol@tdk.com; a=ed25519;
- pk=bRqF1WYk0hR3qrnAithOLXSD0LvSu8DUd+quKLxCicI=
-X-Endpoint-Received: by B4 Relay for
- jean-baptiste.maneyrol@tdk.com/20240923 with auth_id=218
-X-Original-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
-Reply-To: jean-baptiste.maneyrol@tdk.com
 
-From: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
 
-When using both accel and gyro with different frequencies, the ODR
-change flag in the FIFO header can be sometime in a packet with
-invalid data. Since we are ignoring these packets, we miss the ODR
-change and any further change are blocked until sensor is turned off.
+The patch titled
+     Subject: mm/hugetlb: charge folios to the target mm's memcg
+has been added to the -mm mm-new branch.  Its filename is
+     mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch
 
-Fix this by moving the packet data validity check after the ODR change
-flag check.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch
 
-Fixes: ec74ae9fd37c ("iio: imu: inv_icm42600: add accurate timestamping")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
+
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+Subject: mm/hugetlb: charge folios to the target mm's memcg
+Date: Thu, 3 Sep 2026 15:50:48 +0800
+
+HugeTLB folios are currently charged to the memcg of the allocating task. 
+This gives the wrong result when a userfaultfd handler populates a HugeTLB
+VMA that belongs to another process.  The UFFDIO_COPY ioctl operates on
+the userfaultfd context's mm, but get_mem_cgroup_from_current() charges
+the folio to the handler's memcg instead.
+
+This can be reproduced by placing the faulting process and its userfaultfd
+handler in different memory cgroups.  Have the target process register a
+HugeTLB mapping with userfaultfd, trigger a missing fault, and let the
+handler resolve it with UFFDIO_COPY.  The hugepage usage is then reported
+in the handler's memory.current instead of the target's.
+
+The generic userfaultfd population path avoids this problem by charging
+folios to dst_vma->vm_mm.
+
+Pass the target mm through hugetlb_alloc_folio() and charge the folio by
+using get_mem_cgroup_from_mm().  This preserves the existing charge timing
+and error handling while making HugeTLB userfaultfd population consistent
+with the generic path.
+
+Link: https://lore.kernel.org/20260903075048.3316-1-zhoujinmeng@bytedance.com
+Fixes: 8cba9576df60 ("hugetlb: memcg: account hugetlb-backed memory in memory controller")
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c | 8 ++++----
- drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c  | 8 ++++----
- 2 files changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
-index 3197081a808a..65d29de8ecf9 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_accel.c
-@@ -1235,15 +1235,15 @@ int inv_icm42600_accel_parse_fifo(struct iio_dev *indio_dev)
- 		if (size <= 0)
- 			return size;
- 
--		/* skip packet if no accel data or data is invalid */
--		if (accel == NULL || !inv_icm42600_fifo_is_data_valid(accel))
--			continue;
--
- 		/* update odr */
- 		if (odr & INV_ICM42600_SENSOR_ACCEL)
- 			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
- 							st->fifo.nb.total, no);
- 
-+		/* skip packet if no accel data or data is invalid */
-+		if (accel == NULL || !inv_icm42600_fifo_is_data_valid(accel))
-+			continue;
-+
- 		memcpy(&buffer.accel, accel, sizeof(buffer.accel));
- 		/* convert 8 bits FIFO temperature in high resolution format */
- 		buffer.temp = temp ? (*temp * 64) : 0;
-diff --git a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c b/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
-index 9de5c383665f..4e20d61d897b 100644
---- a/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
-+++ b/drivers/iio/imu/inv_icm42600/inv_icm42600_gyro.c
-@@ -816,15 +816,15 @@ int inv_icm42600_gyro_parse_fifo(struct iio_dev *indio_dev)
- 		if (size <= 0)
- 			return size;
- 
--		/* skip packet if no gyro data or data is invalid */
--		if (gyro == NULL || !inv_icm42600_fifo_is_data_valid(gyro))
--			continue;
--
- 		/* update odr */
- 		if (odr & INV_ICM42600_SENSOR_GYRO)
- 			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
- 							st->fifo.nb.total, no);
- 
-+		/* skip packet if no gyro data or data is invalid */
-+		if (gyro == NULL || !inv_icm42600_fifo_is_data_valid(gyro))
-+			continue;
-+
- 		memcpy(&buffer.gyro, gyro, sizeof(buffer.gyro));
- 		/* convert 8 bits FIFO temperature in high resolution format */
- 		buffer.temp = temp ? (*temp * 64) : 0;
+ include/linux/hugetlb.h    |    3 ++-
+ include/linux/memcontrol.h |    8 +++++---
+ mm/hugetlb.c               |    9 ++++++---
+ mm/memcontrol.c            |    6 ++++--
+ 4 files changed, 17 insertions(+), 9 deletions(-)
 
----
-base-commit: 183f05a300eab41e4578337eac59335730dfebf9
-change-id: 20260903-iio-imu-inv-icm42600-fix-odr-change-never-caught-bd624725ade7
+--- a/include/linux/hugetlb.h~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/include/linux/hugetlb.h
+@@ -694,7 +694,8 @@ enum hugetlb_alloc_flag {
+ #define HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS BIT(HUGETLB_ALLOC_USE_GLOBAL_RESERVATIONS_BIT)
+ 
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+-		struct mempolicy_interpreted *mpoli, u8 alloc_flags);
++		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
++		u8 alloc_flags);
+ struct folio *alloc_hugetlb_folio(struct vm_area_struct *vma,
+ 				unsigned long addr, bool cow_from_owner);
+ struct folio *alloc_hugetlb_folio_nodemask(struct hstate *h, int preferred_nid,
+--- a/include/linux/memcontrol.h~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/include/linux/memcontrol.h
+@@ -648,7 +648,8 @@ static inline int mem_cgroup_charge(stru
+ 	return __mem_cgroup_charge(folio, mm, gfp);
+ }
+ 
+-int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp);
++int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
++			      gfp_t gfp);
+ 
+ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
+ 				   struct mm_struct *mm, gfp_t gfp);
+@@ -1147,9 +1148,10 @@ static inline int mem_cgroup_charge(stru
+ 	return 0;
+ }
+ 
+-static inline int mem_cgroup_charge_hugetlb(struct folio* folio, gfp_t gfp)
++static inline int mem_cgroup_charge_hugetlb(struct folio *folio,
++					    struct mm_struct *mm, gfp_t gfp)
+ {
+-        return 0;
++	return 0;
+ }
+ 
+ static inline int mem_cgroup_swapin_charge_folio(struct folio *folio,
+--- a/mm/hugetlb.c~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/mm/hugetlb.c
+@@ -2844,6 +2844,7 @@ void wait_for_freed_hugetlb_folios(void)
+  * hugetlb_alloc_folio - Allocate a hugetlb folio.
+  * @h: Hugetlb state control block.
+  * @mpoli: Interpreted memory policy to use for allocation.
++ * @mm: Memory descriptor of the allocation target.
+  * @alloc_flags: Flags controlling the allocation behavior.
+  *
+  * Allocates a hugetlb folio and handles cgroup charging and global hstate
+@@ -2853,7 +2854,8 @@ void wait_for_freed_hugetlb_folios(void)
+  *         -ENOSPC if cgroup charging fails or no folio is available.
+  */
+ struct folio *hugetlb_alloc_folio(struct hstate *h,
+-		struct mempolicy_interpreted *mpoli, u8 alloc_flags)
++		struct mempolicy_interpreted *mpoli, struct mm_struct *mm,
++		u8 alloc_flags)
+ {
+ 	bool charge_hugetlb_cgroup_rsvd = alloc_flags &
+ 					  HUGETLB_ALLOC_CHARG_CGROUP_RSVD;
+@@ -2908,7 +2910,8 @@ struct folio *hugetlb_alloc_folio(struct
+ 
+ 	spin_unlock_irq(&hugetlb_lock);
+ 
+-	ret = mem_cgroup_charge_hugetlb(folio, gfp | __GFP_RETRY_MAYFAIL);
++	ret = mem_cgroup_charge_hugetlb(folio, mm,
++					gfp | __GFP_RETRY_MAYFAIL);
+ 	/*
+ 	 * Unconditionally increment NR_HUGETLB here because if
+ 	 * mem_cgroup_charge_hugetlb failed, freeing the page will
+@@ -3058,7 +3061,7 @@ struct folio *alloc_hugetlb_folio(struct
+ 		.nodemask = nodemask,
+ 	};
+ 
+-	folio = hugetlb_alloc_folio(h, &mpoli, alloc_flags);
++	folio = hugetlb_alloc_folio(h, &mpoli, vma->vm_mm, alloc_flags);
+ 
+ 	mpol_cond_put(mpol);
+ 
+--- a/mm/memcontrol.c~mm-hugetlb-charge-folios-to-the-target-mms-memcg
++++ a/mm/memcontrol.c
+@@ -5275,6 +5275,7 @@ int __mem_cgroup_charge(struct folio *fo
+ /**
+  * mem_cgroup_charge_hugetlb - charge the memcg for a hugetlb folio
+  * @folio: folio being charged
++ * @mm: mm context of the allocation target
+  * @gfp: reclaim mode
+  *
+  * This function is called when allocating a huge page folio, after the page has
+@@ -5284,9 +5285,10 @@ int __mem_cgroup_charge(struct folio *fo
+  * Returns ENOMEM if the memcg is already full.
+  * Returns 0 if either the charge was successful, or if we skip the charging.
+  */
+-int mem_cgroup_charge_hugetlb(struct folio *folio, gfp_t gfp)
++int mem_cgroup_charge_hugetlb(struct folio *folio, struct mm_struct *mm,
++			      gfp_t gfp)
+ {
+-	struct mem_cgroup *memcg = get_mem_cgroup_from_current();
++	struct mem_cgroup *memcg = get_mem_cgroup_from_mm(mm);
+ 	int ret = 0;
+ 
+ 	/*
+_
 
-Best regards,
---  
-Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>
+Patches currently in -mm which might be from jinmengzhou22@gmail.com are
 
+mm-hugetlb-charge-folios-to-the-target-mms-memcg.patch
 
