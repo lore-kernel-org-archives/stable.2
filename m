@@ -1,139 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1AB4B5412;
-	Thu,  3 Sep 2026 14:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4D74B5407
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:24:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445162; cv=none; b=NE5uDKhFlL7jJXuLO12RPpNJUl4Bn/UkEZL3PAT/KExpsn5u3rdyLhkFr4yjfIxMdYyjFOFpkQBUS1mzAzcCo0XtZcKlKT9ACRfuaKy1DnjyZO+WNBt2PsZc3Iy/1+tLEX9WmoCl8fcetNDFgvKpRVQp/+sEnF0L6y2RytvsEWI=
+	t=1788445454; cv=none; b=kBku0t12WyNDHqMA7fpqpJGCrdq/DTlfIV0+bU9gHfZVA2ZgVxbSB1oiSJvEhG5q8LOiK4H1gCwgL4GY7ZFVhv3XN7ACptKYq1Cj71Gd4rsqVQQf5Tpxdg9cRO+U7y1npZA5m/7qDgG7OeddQqxAs0CfhIOy87bLPYt8fKXaYOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445162; c=relaxed/simple;
-	bh=Gvv3xws9lDSoCUycNPBtoGcVCIGgjwwMxk9617wb79M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=knoVoLMyilbJbpRCtVFYJeWO0RG27I9a8+pWgIiqoM8CRarv46jPeM7yAi1Ps3sjF1U9nXdC+YM/kbMolcdMDFq+M9oZV+wJNmwP2qQ2U54qA9hbXcrHZdyVN0dvgus++G9i+K0bOsFL3Ju5C9W27qaiqKdU5WGFvzQTldt1llg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SrdITyXD; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788445454; c=relaxed/simple;
+	bh=pCZFWHWV9rYl7ghkmoIWUDfZNYXDMCVLCtTJm1DPkp4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=N0lLMjWJEb2PVgIZvsEsylj6elcgsW/IZOp0G9Krvko/OSMPYN0NuJZ9SYyUZr/1oa++8qz/s+mG2l9oFtylIEwtXFiew4Eyf98aMlgIQCq1kxXHjSYSHAYtPnsYt22SLRCS0AqP7WJsWf+C2zvH6jRPDGK4+dOKIa6i7qjXvls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B6bkF7eY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SrdITyXD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788445139; x=1819981139;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Gvv3xws9lDSoCUycNPBtoGcVCIGgjwwMxk9617wb79M=;
-  b=SrdITyXDoCQYZmO6b0cNiHAdQ7mDVcHWZngPxmY+RpYUo1scIWyQOoWH
-   oexNIh3/BAh79MIaC1anhpy2UKvDN5M4wx4NaoljUgw2GPgcWaR5/P8xQ
-   MZrXxqgFDdggMUiwSQMJk4YgD8b+f97Z/Elb8LCwFOJFM6uJ6NAM+fMrM
-   iBuiXR12q9BI5v9T3rk/5DOUpQt+/RIzGCrPcTrU12l4zeD2uWhIU1wtz
-   1dwZuo0IvGJOTuqAZMh4tdZesLwtSwLq9ImA4EyWLLLs0OroalW01AtZi
-   qwEKOEV3whJ8nr/Vfoqm9PlDn7IJ03c/tFcceZSR1f/4T6P4JTNr38x7X
-   Q==;
-X-CSE-ConnectionGUID: RuttNeiLToeIOzwW0YKphg==
-X-CSE-MsgGUID: AhJ7g3inRPuBke38wEml6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="111702622"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="111702622"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:18:55 -0700
-X-CSE-ConnectionGUID: wVQ2ynyeR8qedvMnTrUv+A==
-X-CSE-MsgGUID: u5dzNVK0Q4uW1v/b4op80w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="269732715"
-Received: from jmaxwel1-mobl.amr.corp.intel.com (HELO [10.125.110.172]) ([10.125.110.172])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 07:18:55 -0700
-Message-ID: <314f11c1-ce5e-4b36-b296-0ab742550851@intel.com>
-Date: Thu, 3 Sep 2026 07:18:54 -0700
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B6bkF7eY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C70171F000E9;
+	Thu,  3 Sep 2026 14:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788445444;
+	bh=Ava1+jmDePAFURDMvVheznIvHkA7VgDpqW2tKfhcoA4=;
+	h=Subject:To:Cc:From:Date;
+	b=B6bkF7eYcHreS7pOhGR+vvtsfqTVbw00Nm7+ubWP6dfiuxq4TZ+6CIenCUtir5xUZ
+	 4MeJ+UX1+EDpqiBQT1EYb8TYx+EyjUTSICDwKfrp28RHkDDQ40dNTRiDpZHTIa8Fuj
+	 uc9YN+FSXoGcfEMWg8Fk+Y7l4DGqzw63tMbrN/7s=
+Subject: FAILED: patch "[PATCH] kasan: fix cache shrink race with CPU hotplug" failed to apply to 6.1-stable tree
+To: sh_def@163.com,akpm@linux-foundation.org,andreyknvl@gmail.com,dvyukov@google.com,glider@google.com,qiang1.zhang@intel.com,ryabinin.a.a@gmail.com,stable@vger.kernel.org,vincenzo.frascino@arm.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 15:58:58 +0200
+Message-ID: <2026090357-uneasily-gauze-359b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
-To: Kiryl Shutsemau <kas@kernel.org>, Vernon Yang <vernon2gm@gmail.com>,
- rick.p.edgecombe@intel.com
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, akpm@linux-foundation.org, david@kernel.org,
- hpa@zytor.com, rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
- pasha.tatashin@soleen.com, tj@kernel.org, rppt@kernel.org,
- yu-cheng.yu@intel.com, orsonpeters@gmail.com, linux-kernel@vger.kernel.org,
- x86@kernel.org, linux-mm@kvack.org, Vernon Yang <yanglincheng@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260903031608.1194238-1-vernon2gm@gmail.com>
- <aplfcTfjeQUgnrvH@thinkstation>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
- oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
- 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
- ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
- VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
- iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
- c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
- pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
- ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
- QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
- c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
- LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
- lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
- MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
- IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
- aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
- I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
- E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
- F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
- CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
- P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
- 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
- GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
- MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
- Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
- lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
- 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
- qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
- BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
- 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
- vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
- FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
- l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
- yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
- +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
- asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
- WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
- sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
- KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
- MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
- hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
- vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
-In-Reply-To: <aplfcTfjeQUgnrvH@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26 04:54, Kiryl Shutsemau wrote:
->> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
->> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-> Hm. I don't understand why would this commit explicitly exclude
-> _PAGE_DIRTY from the mask:
-> 
-> -       val &= _HPAGE_CHG_MASK;
-> +       val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
-> 
-> Rick, could you comment? It doesn't look like a typo.
 
-My guess is that it's some remnant from an earlier version of the patch.
-The asymmetry with pte_modify() vs. pmd_modify() just can't be explained
-any other way. It _might_ have been some attempt to say, "Hey
-_PAGE_DIRTY is now a part of the pgprot_t since it's part of the
-'permissions' of a shadow stack PTE" that got abandoned.
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-But I don't see anything wrong with the fix at all.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-It does give me pause that this has been losing user data for so long,
-but it must just be a weird combination of features that few folks use
-together (huge pages + MADV_FREE).
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8790303cbaac52a11dfed4aab261f8ea60682525
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090357-uneasily-gauze-359b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 8790303cbaac52a11dfed4aab261f8ea60682525 Mon Sep 17 00:00:00 2001
+From: Hui Su <sh_def@163.com>
+Date: Sat, 8 Aug 2026 11:14:59 +0800
+Subject: [PATCH] kasan: fix cache shrink race with CPU hotplug
+
+kasan_quarantine_remove_cache() first invokes per_cpu_remove_cache() on
+all online CPUs.  Each callback moves objects belonging to the cache from
+cpu_quarantine to the CPU's shrink_qlist, where they can later be freed
+from task context.
+
+kmem_cache_destroy() invokes the quarantine removal path while holding
+cpus_read_lock(), but kmem_cache_shrink() does not.  The latter can
+therefore race with CPU offlining as follows:
+
+  kmem_cache_shrink()             CPU hotplug
+  -------------------             -----------
+  on_each_cpu()
+    CPU1 moves objects to
+    CPU1's shrink_qlist
+  on_each_cpu() returns
+                                  CPU1 goes offline
+                                  kasan_cpu_offline()
+                                    drains cpu_quarantine
+                                    leaves shrink_qlist untouched
+  for_each_online_cpu()
+    skips CPU1
+
+The objects left on CPU1's shrink_qlist are not returned to the slab
+allocator.  This may prevent kmem_cache_shrink() from releasing slabs that
+would otherwise become empty.  If CPU1 remains offline, a later
+kmem_cache_destroy() also skips the list and can report that the cache
+still contains objects.
+
+An intermittent occurrence was observed with a virtio-9p filesystem.  The
+mount and umount commands both returned 0, but the kernel logged the
+following during the userspace-triggered teardown:
+
+  [  2994.380134][  T111] BUG 9p-fcall-cache-1 (Tainted: G    B              ): Objects remaining on __kmem_cache_shutdown()
+  [  2994.381140][  T111] Object 0xff11000004361118 @offset=4376
+  [  2994.381607][  T111] Allocated in p9_fcall_init+0x201/0x400 age=19564 cpu=1 pid=104
+  [  2994.382591][  T111]  p9_fcall_init+0x201/0x400
+  [  2994.382810][  T111]  p9_tag_alloc+0x12f/0x700
+  [  2994.382982][  T111]  p9_client_prepare_req+0x102/0x3e0
+  [  2994.383165][  T111]  p9_client_rpc+0x1ab/0xa50
+  [  2994.383334][  T111]  p9_client_getattr_dotl+0xb0/0x1a0
+  [  2994.383515][  T111]  v9fs_vfs_getattr_dotl+0x115/0x360
+  [  2994.383719][  T111]  vfs_getattr_nosec+0x22c/0x3a0
+  [  2994.383910][  T111]  vfs_statx+0xd7/0x170
+  [  2994.384062][  T111]  vfs_fstatat+0x45/0x80
+  [  2994.384215][  T111]  __do_sys_newfstatat+0x84/0xe0
+  [  2994.384386][  T111]  do_syscall_64+0x115/0x6a0
+  [  2994.384566][  T111]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+  [  2994.399720][  T111] WARNING: mm/slub.c:1244 at __kmem_cache_shutdown+0x363/0x500, CPU#0: busybox/111
+  [  2994.405655][  T111] Call Trace:
+  [  2994.406325][  T111]  kmem_cache_destroy+0x73/0x1b0
+  [  2994.406630][  T111]  p9_client_destroy+0x271/0x3c0
+  [  2994.407210][  T111]  v9fs_session_close+0x3c/0x260
+  [  2994.407409][  T111]  v9fs_kill_super+0x48/0x90
+  [  2994.407584][  T111]  deactivate_locked_super+0xa3/0x160
+  [  2994.407778][  T111]  cleanup_mnt+0x1dd/0x3e0
+
+Thus, a successful umount left objects in the 9p fcall cache and prevented
+the cache from being destroyed cleanly.
+
+Per-CPU shrink_qlist storage exists for every possible CPU, and each list
+is protected by its own raw spinlock.  Iterate over possible CPUs so that
+a list populated before its CPU went offline is drained as well.
+
+for_each_possible_cpu() can do more work than for_each_online_cpu(), but
+this change only affects CONFIG_KASAN_GENERIC kernels.  The extra work is
+limited to cache shrink and cache destruction paths and does not affect
+the normal allocation/free fast path.  It adds one raw-spinlock-protected
+scan of each possible CPU's shrink list.  These lists are normally empty;
+a non-empty list is traversed to remove objects belonging to the cache
+being shrunk or destroyed.
+
+Link: https://lore.kernel.org/20260808031459.3032812-1-sh_def@163.com
+Fixes: 07d067e4f2ce ("kasan: fix sleeping function called from invalid context on RT kernel")
+Signed-off-by: Hui Su <sh_def@163.com>
+Reviewed-by: Andrey Ryabinin <ryabinin.a.a@gmail.com>
+Cc: Alexander Potapenko <glider@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Cc: "Zhang, Qiang1" <qiang1.zhang@intel.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/mm/kasan/quarantine.c b/mm/kasan/quarantine.c
+index 6958aa713c67..16f4e67beee8 100644
+--- a/mm/kasan/quarantine.c
++++ b/mm/kasan/quarantine.c
+@@ -355,7 +355,12 @@ void kasan_quarantine_remove_cache(struct kmem_cache *cache)
+ 	 */
+ 	on_each_cpu(per_cpu_remove_cache, cache, 1);
+ 
+-	for_each_online_cpu(cpu) {
++	/*
++	 * A CPU can go offline after on_each_cpu() returns, leaving cache
++	 * objects on that CPU's shrink list. Scan all possible CPUs to
++	 * drain those lists.
++	 */
++	for_each_possible_cpu(cpu) {
+ 		sq = per_cpu_ptr(&shrink_qlist, cpu);
+ 		raw_spin_lock_irqsave(&sq->lock, flags);
+ 		qlist_move_cache(&sq->qlist, &to_free, cache);
 
