@@ -1,97 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9EA36896D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B2F383C6E
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479803; cv=none; b=WkvH4VPAp+E1tFvJpPI/LoQYqoTVHj2lOU1qXFCqh3EvlYo/2xNBfR+k6AKa5+oReLAc1aSXXWSrbHigKL9YvrHvrKFWXBTgv8HN8S0izNwnTmpnDV1PKqdz0kxApqQ6ZZxDrTI8GYch8TJRajkf9ID8LtJv25GSvRA8gEbYWyk=
+	t=1788479808; cv=none; b=YcEwjBvkhI8QK6apYzJSUwAtNHxI7LJ3U4+vuWPOhCBLbA3wMV5HLDaL0VelEjhKQ7719/G9Y971VMu44DjJcSdYTm/XmiMXOhktzO1hxIDqxpiCZHO3L38S8ilz+Ek3u0SOG+jLsprqkeCMxdKWwY3Pv1lFcNmBvYe8A6k8qZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479803; c=relaxed/simple;
-	bh=v8K645T4yjo3L6ArwIVX3+gXFSrFjNmlDjZTPvLopfY=;
+	s=arc-20240116; t=1788479808; c=relaxed/simple;
+	bh=qUMYPh26RKG9DQ2MBUKAQjPzJozSmmkHPHb4Hjhc300=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zbkhf1ovo6dOjM8+MFL32/nUmxJSnkSF/yZVr1IDuoaZ3rvI/5n/YefdKah8nAUBva/jli7sFcr4dl9CMEbeniXwBGhOPegZ5HSjCUDnn175PXs8RZpbH9zDd0LxULSsF4QVlhqSKcz3tgtSy0ivnX5s/OUwrMeuaOuEcPBJ7rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGLED+z0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TvthiqHQ6GbAZs81CEcprUb11aRSg8U7mOkAjU2T+GmNDALcHw62IBRS+2KnmcrVh8WHqWv8xd1YvVnoSPPirMGslcyd2lLvRJwmAd7NxjNsOIHCVygy3N68EtAwZP8DX5dHijHJWSe9iCUqCxxzAyscwi6NJPZ39tu96XbXpKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P/aujQWo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGLED+z0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5321F00A3E;
-	Thu,  3 Sep 2026 23:56:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P/aujQWo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 563DF1F00A3D;
+	Thu,  3 Sep 2026 23:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788479798;
-	bh=UBsxmxV1O1XurUZBS7Az8xX+oedQKNxI/FIOuuARqKA=;
+	s=k20260515; t=1788479801;
+	bh=5xVzrZhZ+GoCWL6wOe9SgjftQb0pre8eyokaaoRKE+4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AGLED+z0W9g+rV+9egF1a7NDzSaLK0ps89cU4SivohztlP+e4v2bbS+lHoKULpXnB
-	 fqEzwkQ4HW38sUZd2x10L0feDzfpdBBCKD/qtXdKOAuXlERP6/w+cX7RP6QpZGhCvV
-	 jEyQoipONCrYYm5c+d6Q3istyUOGhgZWurVXEmuVZhZzEB+iS+gwimOirV2HSfARow
-	 83yHkC7yVJ3GaQqU0Czhfl+YuaKkNH3tILl0zI6o4ilPvzQLpOM9ikowDA9uIYF73v
-	 R4my3J4QbJBpbHAf1Fszd6Kmn7z5yz5N4HJ81kUWOkxKWDOLuhaVDIDvcLOn7GP/c6
-	 jhMIPbF1zwqjQ==
+	b=P/aujQWo65yxO+vBufh0/pHn+IO8W8cKfjLZv2mj+6IF1LZs6bF/CcD4Ys4bxXSic
+	 MzMZUPx8Ua1H0soJEvvI1CHyeZUQM4RMoGaKSOHhr+E37+YhSeqq41Jh3bR3l8GIO0
+	 SYHSQszWFAnuAL8FfPvzllFKi5ugXfkMOvD6+6cEewFs0G2Zuzz8rMmZ6I3EqXtvk8
+	 in+sm91zxxEHOs8CZvtknm7RS+qCAUNRYxCJpvHeKhKFhxb+L8O1mAnhkM58LF2jYh
+	 VQS4obEMTli1hS/UcKnm1RsckmGhRRrTLtZmWP79Ewa2xGlZKRDcZ922fqQ8yRkY7J
+	 n5JbYZElpaLRg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Baoquan He <bhe@redhat.com>,
-	Barry Song <baohua@kernel.org>,
-	Byungchul Park <byungchul@sk.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Chris Li <chrisl@kernel.org>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@redhat.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Gregory Price <gourry@gourry.net>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Hugh Dickins <hughd@google.com>,
-	Jan Kara <jack@suse.cz>,
-	Jann Horn <jannh@google.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kairui Song <kasong@tencent.com>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Leon Romanovsky <leon@kernel.org>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Mathew Brost <matthew.brost@intel.com>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
+Cc: Dev Jain <dev.jain@arm.com>,
+	David Hildenbrand <david@kernel.org>,
 	Muchun Song <muchun.song@linux.dev>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Harry Yoo <harry@kernel.org>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Jann Horn <jannh@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Mel Gorman <mel@csn.ul.ie>,
 	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Nico Pache <npache@redhat.com>,
 	Oscar Salvador <osalvador@suse.de>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Peter Xu <peterx@redhat.com>,
+	Pedro Falcato <pfalcato@suse.de>,
 	Rakie Kim <rakie.kim@sk.com>,
+	Ralph Campbell <rcampbell@nvidia.com>,
 	Rik van Riel <riel@surriel.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
-	SeongJae Park <sj@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Wei Xu <weixugc@google.com>,
-	xu xin <xu.xin16@zte.com.cn>,
-	Yuanchu Xie <yuanchu@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
 	Zi Yan <ziy@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] mm: avoid unnecessary use of is_swap_pmd()
-Date: Thu,  3 Sep 2026 19:56:30 -0400
-Message-ID: <20260903235631.1810157-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+Date: Thu,  3 Sep 2026 19:56:31 -0400
+Message-ID: <20260903235631.1810157-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090344-unusual-yippee-a1d0@gregkh>
+In-Reply-To: <20260903235631.1810157-1-sashal@kernel.org>
 References: <2026090344-unusual-yippee-a1d0@gregkh>
+ <20260903235631.1810157-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -100,328 +76,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+From: Dev Jain <dev.jain@arm.com>
 
-[ Upstream commit aa62204cb680d8ff32497181fc9e0dac4956f7e5 ]
+[ Upstream commit f5407e9b697c940e78b27ff63c6e14d8d171adc3 ]
 
-PMD 'non-swap' swap entries are currently used for PMD-level migration
-entries and device private entries.
+Patch series "Fix incorrect access of hugetlb pte entries", v3.
 
-To add to the confusion in this terminology we use is_swap_pmd() in an
-inconsistent way similar to how is_swap_pte() was being used - sometimes
-adopting the convention that !pmd_none(), !pmd_present() implies PMD 'swap'
-entry, sometimes not.
+There are various places which use ptep_get() to get the pte entry
+corresponding to a hugetlb folio.  Some arches (like s390) have special
+handling to compute the pteval, so they provide huge_ptep_get().  Use this
+helper consistently.
 
-This patch handles the low-hanging fruit of cases where we can simply
-substitute other predicates for is_swap_pmd().
+Additionally, some code paths may provide huge_ptep_get with an unaligned
+address.  This is a problem on arm64 (I checked other arches and it looks
+fine for them), which is fixed in patch 1.  The fix is made to be
+backport-friendly: the cleaner fix would be to perhaps pass the hstate to
+huge_ptep_get() - that is wider churn and we can do that later.
 
-No functional change intended.
+This patch (of 5):
 
-Link: https://lkml.kernel.org/r/8a1704b36a009c18032d5bea4cb68e71448fbbe5.1762812360.git.lorenzo.stoakes@oracle.com
-Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+try_to_unmap_one() handles hugetlb folios when memory failure needs to
+replace a poisoned hugetlb mapping with a hwpoison entry.  In that case
+page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
+pvmw.pte, but the code reads it with ptep_get().
+
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+etc to misbehave.
+
+It is not clear whether this has a trivially visible effect to userspace.
+
+Just use huge_ptep_get() for dereferencing a huge pte pointer.
+
+Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
+Link: https://lore.kernel.org/20260703114202.365553-3-dev.jain@arm.com
+Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Reported-by: David Hildenbrand <david@kernel.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: Barry Song <baohua@kernel.org>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
 Cc: Byungchul Park <byungchul@sk.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>
-Cc: Chris Li <chrisl@kernel.org>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
 Cc: Gregory Price <gourry@gourry.net>
-Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: Harry Yoo <harry@kernel.org>
 Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Jan Kara <jack@suse.cz>
 Cc: Jann Horn <jannh@google.com>
-Cc: Janosch Frank <frankja@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
 Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Mathew Brost <matthew.brost@intel.com>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
 Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Nico Pache <npache@redhat.com>
 Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Peter Xu <peterx@redhat.com>
+Cc: Pedro Falcato <pfalcato@suse.de>
 Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
 Cc: Rik van Riel <riel@surriel.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Sven Schnelle <svens@linux.ibm.com>
-Cc: Vasily Gorbik <gor@linux.ibm.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Wei Xu <weixugc@google.com>
-Cc: xu xin <xu.xin16@zte.com.cn>
-Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
 Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: f5407e9b697c ("mm/rmap: use huge_ptep_get() in try_to_unmap_one()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/task_mmu.c       | 15 +++++++++---
- include/linux/mm_types.h |  2 ++
- include/linux/swapops.h  | 12 +++++++++-
- mm/huge_memory.c         |  4 +++-
- mm/memory.c              | 49 ++++++++++++++++++++++------------------
- mm/page_table_check.c    | 12 ++++++----
- mm/rmap.c                |  4 +++-
- 7 files changed, 66 insertions(+), 32 deletions(-)
+ include/linux/hugetlb.h |  2 ++
+ mm/rmap.c               | 16 ++++++++++------
+ 2 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index 6dc16295e307f..5c3d966b70f26 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -1073,10 +1073,12 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	bool present = false;
- 	struct folio *folio;
- 
-+	if (pmd_none(*pmd))
-+		return;
- 	if (pmd_present(*pmd)) {
- 		page = vm_normal_page_pmd(vma, addr, *pmd);
- 		present = true;
--	} else if (unlikely(thp_migration_supported() && is_swap_pmd(*pmd))) {
-+	} else if (unlikely(thp_migration_supported())) {
- 		swp_entry_t entry = pmd_to_swp_entry(*pmd);
- 
- 		if (is_pfn_swap_entry(entry))
-@@ -2004,6 +2006,9 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 	if (vma->vm_flags & VM_SOFTDIRTY)
- 		flags |= PM_SOFT_DIRTY;
- 
-+	if (pmd_none(pmd))
-+		goto populate_pagemap;
-+
- 	if (pmd_present(pmd)) {
- 		page = pmd_page(pmd);
- 
-@@ -2014,7 +2019,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 			flags |= PM_UFFD_WP;
- 		if (pm->show_pfn)
- 			frame = pmd_pfn(pmd) + idx;
--	} else if (thp_migration_supported() && is_swap_pmd(pmd)) {
-+	} else if (thp_migration_supported()) {
- 		swp_entry_t entry = pmd_to_swp_entry(pmd);
- 		unsigned long offset;
- 
-@@ -2041,6 +2046,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
- 			flags |= PM_FILE;
- 	}
- 
-+populate_pagemap:
- 	for (; addr != end; addr += PAGE_SIZE, idx++) {
- 		u64 cur_flags = flags;
- 		pagemap_entry_t pme;
-@@ -2411,6 +2417,9 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index a3f6cdf8a2b6d..d09604498fa4d 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1277,6 +1277,8 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
  {
- 	unsigned long categories = PAGE_IS_HUGE;
- 
-+	if (pmd_none(pmd))
-+		return categories;
-+
- 	if (pmd_present(pmd)) {
- 		struct page *page;
- 
-@@ -2428,7 +2437,7 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
- 			categories |= PAGE_IS_PFNZERO;
- 		if (pmd_soft_dirty(pmd))
- 			categories |= PAGE_IS_SOFT_DIRTY;
--	} else if (is_swap_pmd(pmd)) {
-+	} else {
- 		swp_entry_t swp;
- 
- 		categories |= PAGE_IS_SWAPPED;
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 8b1045c51e0a6..f9c552744b71a 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -285,6 +285,8 @@ typedef struct {
- 	unsigned long val;
- } swp_entry_t;
- 
-+typedef swp_entry_t softleaf_t;
-+
- #if defined(CONFIG_MEMCG) || defined(CONFIG_SLAB_OBJ_EXT)
- /* We have some extra room after the refcount in tail pages. */
- #define NR_PAGES_IN_LARGE_FOLIO
-diff --git a/include/linux/swapops.h b/include/linux/swapops.h
-index 57aad87e46a65..1966b4890d469 100644
---- a/include/linux/swapops.h
-+++ b/include/linux/swapops.h
-@@ -120,6 +120,8 @@ static inline unsigned long swp_offset_pfn(swp_entry_t entry)
- 	return swp_offset(entry) & SWP_PFN_MASK;
  }
  
-+#define softleaf_to_pfn swp_offset_pfn
++pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep);
 +
- /* check whether a pte points to a swap entry */
- static inline int is_swap_pte(pte_t pte)
+ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+ 					  unsigned long addr, pte_t *ptep)
  {
-@@ -139,6 +141,8 @@ static inline swp_entry_t pte_to_swp_entry(pte_t pte)
- 	return swp_entry(__swp_type(arch_entry), __swp_offset(arch_entry));
- }
- 
-+#define softleaf_from_pte pte_to_swp_entry
-+
- /*
-  * Convert the arch-independent representation of a swp_entry_t into the
-  * arch-dependent pte representation.
-@@ -572,7 +576,13 @@ static inline pmd_t swp_entry_to_pmd(swp_entry_t entry)
- 
- static inline int pmd_is_migration_entry(pmd_t pmd)
- {
--	return is_swap_pmd(pmd) && is_migration_entry(pmd_to_swp_entry(pmd));
-+	swp_entry_t entry;
-+
-+	if (pmd_present(pmd))
-+		return 0;
-+
-+	entry = pmd_to_swp_entry(pmd);
-+	return is_migration_entry(entry);
- }
- #else  /* CONFIG_ARCH_ENABLE_THP_MIGRATION */
- static inline int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 227aeffae8eed..8564a92d83f0b 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2293,9 +2293,11 @@ static pmd_t move_soft_dirty_pmd(pmd_t pmd)
- 
- static pmd_t clear_uffd_wp_pmd(pmd_t pmd)
- {
-+	if (pmd_none(pmd))
-+		return pmd;
- 	if (pmd_present(pmd))
- 		pmd = pmd_clear_uffd_wp(pmd);
--	else if (is_swap_pmd(pmd))
-+	else
- 		pmd = pmd_swp_clear_uffd_wp(pmd);
- 
- 	return pmd;
-diff --git a/mm/memory.c b/mm/memory.c
-index 6b4cdb8bd8dbb..72793ec631072 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -6320,34 +6320,39 @@ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
- 	if (pmd_none(*vmf.pmd) &&
- 	    thp_vma_allowable_order(vma, vm_flags, TVA_PAGEFAULT, PMD_ORDER)) {
- 		ret = create_huge_pmd(&vmf);
--		if (!(ret & VM_FAULT_FALLBACK))
-+		if (ret & VM_FAULT_FALLBACK)
-+			goto fallback;
-+		else
- 			return ret;
--	} else {
--		vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
-+	}
- 
--		if (unlikely(is_swap_pmd(vmf.orig_pmd))) {
--			VM_BUG_ON(thp_migration_supported() &&
--					  !pmd_is_migration_entry(vmf.orig_pmd));
--			if (pmd_is_migration_entry(vmf.orig_pmd))
--				pmd_migration_entry_wait(mm, vmf.pmd);
--			return 0;
--		}
--		if (pmd_trans_huge(vmf.orig_pmd)) {
--			if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
--				return do_huge_pmd_numa_page(&vmf);
-+	vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
-+	if (pmd_none(vmf.orig_pmd))
-+		goto fallback;
- 
--			if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
--			    !pmd_write(vmf.orig_pmd)) {
--				ret = wp_huge_pmd(&vmf);
--				if (!(ret & VM_FAULT_FALLBACK))
--					return ret;
--			} else {
--				huge_pmd_set_accessed(&vmf);
--				return 0;
--			}
-+	if (unlikely(!pmd_present(vmf.orig_pmd))) {
-+		VM_BUG_ON(thp_migration_supported() &&
-+				  !pmd_is_migration_entry(vmf.orig_pmd));
-+		if (pmd_is_migration_entry(vmf.orig_pmd))
-+			pmd_migration_entry_wait(mm, vmf.pmd);
-+		return 0;
-+	}
-+	if (pmd_trans_huge(vmf.orig_pmd)) {
-+		if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
-+			return do_huge_pmd_numa_page(&vmf);
-+
-+		if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
-+		    !pmd_write(vmf.orig_pmd)) {
-+			ret = wp_huge_pmd(&vmf);
-+			if (!(ret & VM_FAULT_FALLBACK))
-+				return ret;
-+		} else {
-+			huge_pmd_set_accessed(&vmf);
-+			return 0;
- 		}
- 	}
- 
-+fallback:
- 	return handle_pte_fault(&vmf);
- }
- 
-diff --git a/mm/page_table_check.c b/mm/page_table_check.c
-index 0a5ab62c9c59d..91c4dacc41fb8 100644
---- a/mm/page_table_check.c
-+++ b/mm/page_table_check.c
-@@ -223,10 +223,14 @@ EXPORT_SYMBOL(__page_table_check_ptes_set);
- 
- static inline void page_table_check_pmd_flags(pmd_t pmd)
- {
--	if (pmd_present(pmd) && pmd_uffd_wp(pmd))
--		WARN_ON_ONCE(pmd_write(pmd));
--	else if (is_swap_pmd(pmd) && pmd_swp_uffd_wp(pmd))
--		WARN_ON_ONCE(swap_cached_writable(pmd_to_swp_entry(pmd)));
-+	if (pmd_present(pmd)) {
-+		if (pmd_uffd_wp(pmd))
-+			WARN_ON_ONCE(pmd_write(pmd));
-+	} else if (pmd_swp_uffd_wp(pmd)) {
-+		swp_entry_t entry = pmd_to_swp_entry(pmd);
-+
-+		WARN_ON_ONCE(swap_cached_writable(entry));
-+	}
- }
- 
- void __page_table_check_pmds_set(struct mm_struct *mm, pmd_t *pmdp, pmd_t pmd,
 diff --git a/mm/rmap.c b/mm/rmap.c
-index 4c78c71099093..6053eb822a264 100644
+index 6053eb822a264..4348b35db465a 100644
 --- a/mm/rmap.c
 +++ b/mm/rmap.c
-@@ -1991,7 +1991,9 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+@@ -1983,14 +1983,19 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+ 
+-		/*
+-		 * Handle PFN swap PTEs, such as device-exclusive ones, that
+-		 * actually map pages.
+-		 */
+-		pteval = ptep_get(pvmw.pte);
++		address = pvmw.address;
++		if (folio_test_hugetlb(folio)) {
++			pteval = huge_ptep_get(mm, address, pvmw.pte);
++		} else {
++			pteval = ptep_get(pvmw.pte);
++		}
  		if (likely(pte_present(pteval))) {
  			pfn = pte_pfn(pteval);
  		} else {
--			pfn = swp_offset_pfn(pte_to_swp_entry(pteval));
-+			const softleaf_t entry = softleaf_from_pte(pteval);
-+
-+			pfn = softleaf_to_pfn(entry);
- 			VM_WARN_ON_FOLIO(folio_test_hugetlb(folio), folio);
++			/*
++			 * Handle PFN swap PTEs, such as device-exclusive ones,
++			 * that actually map pages.
++			 */
+ 			const softleaf_t entry = softleaf_from_pte(pteval);
+ 
+ 			pfn = softleaf_to_pfn(entry);
+@@ -1998,7 +2003,6 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
  		}
+ 
+ 		subpage = folio_page(folio, pfn - folio_pfn(folio));
+-		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
  
 -- 
 2.53.0
