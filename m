@@ -1,277 +1,118 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249E137268A
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 22:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28EE234CFCA;
+	Thu,  3 Sep 2026 23:05:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476369; cv=none; b=BiAgeEQlB3XIjdy/fcDSZZFMflByYcIpT14xgB/IoKwbBmYMCg7OHzokdI7jdwA1tvzYtN9o8PL/jeqhnqHC4/t18r7GXt0SieKduDKshbZ1Dbhc5VCF6uDWpDriMlqfP0J7OTIFI/3OpASTVlt7jJO/raZjjEjXGoQyJNyqDrI=
+	t=1788476740; cv=none; b=jPo0ANoxUb1qy1dwQou6OR14K+E6QVLsCx5Q4fho2yhHPL9bheTx6p6gtNKJPI+8aBsZlQhJAdPh6mK/eOc+cVup0GbbvrIGJkb7lixZDch5pm69yJV/mYX5Rh/azJcQSxfBGR/wAgC0I5IsOyMJmdHgsIbo3IgA+TEervcKI+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788476369; c=relaxed/simple;
-	bh=PqW9tqmW9F2B4lcssAx2e+YT+CUUTBw6AIB9Ts0OgxQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B63HHd+DIFUtqdz7xCdJ8DsVWjQW3jChIWM+hrmAv9U1XXdH53NabjPAWeCdh2OL2tn/rgsULk+laHmgU6uD/tkYj9R8VfZXKbI48ALKX2Oc6VV8xWX8P8X7W8y424GZIAxjJCVbFhhn0egtT3EUZ/mVm8SxAIhaMxyndxiwvNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=T4cs7WiO; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788476740; c=relaxed/simple;
+	bh=7wAJrAQK5JISKKxRnovrwP/3jxpCcFk4jzbaLrD3EyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=VfWjOAPmKQ7jvebE7dg4ZFYqp0gioS9pkrcuNUepnW7AkZ0rMwNjynFkPTNYvhrGIc82QF+RdywBOOKbMCZIAzuzx3sD4J0TIUJru1eftVQLa7I6lFbJ952O89H3NJSdi72dvK20w43zRJ3/kXv2zUJ4r1lkCRMYIpGIfCmtUtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RhbzFe9+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="T4cs7WiO"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so392665f8f.1
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 15:59:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788476364; x=1789081164; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hKArYctGJ4c8BFSi537cYU55OgevfeFg9JTuZatHHeY=;
-        b=T4cs7WiOyWTkTphHF6/XsRXOEo84E8Z9R4a+AooHYUOVGWzAbJUq6cbpxGdozJeDlm
-         sMxKS43gnMbzIfigeMlbt+fwFxxaHgXKAyPQoLQ0sbUJ65zQUwbt32lb9oUe2Zj9VE1W
-         7P8pTBVnX1m6r1Fo7Qk9nLYOgl1wdTuc6b3sp5ZjMYHk7ywr62g/ft5J6pXLqQ5rsOTq
-         UWJ0DKHNUeNL3FkS6q67ywdlOqTn+iYkYK1U1Cx+TSKXaVGRmkRpzFUV7XIkEb+Zw1Fl
-         3tWQYQAp0ZhE7CdP0sl8OesvKVSeMFZsHbR2mQA9/drt+xQ+JLptVcmhrRta77Em1z9n
-         P2rA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788476364; x=1789081164;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hKArYctGJ4c8BFSi537cYU55OgevfeFg9JTuZatHHeY=;
-        b=GJaSurBki4R7wWS9zgQZXk2v/v43igW1V7tNpk0r7qfVCeY8aPzbhwtxe/ZJv5HTU0
-         atErf1Rc7sVbOr9GHTjjCGGd7XYP5GbIKLrYVB5aDgNkm8rhndkCjkeDM+70r6k/zgmx
-         5RT5+mwHCXqfAZT4am/t62A0Y8slpLcNe8KEeVLtNR4v8ecF5IPdlftBofuC3Gmsg5e+
-         E7GK4DcvDGkZkezMjrhC5ZV4/XXlgqH/+Mo3vhq3O575RpHAQQCG36GkSB1AP8jnHdQd
-         l6fEXCZj7YaT3juie5JLCGg9w4imAEzWiEUmMhl88KNXKpZXG1Uw2ZhE7L+mda+xoz7G
-         KYmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxfAPEBqrwHSN0kBt/KcDEItEezpw/CLFTCCZ2cP6BbwUgpfoy15/8/RvYajsORx36Ri9rj55Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8ukVR1LlS0X1Eiq3qj4qydX8PsXvqgvSdUoSMAthDI7fZvrzL
-	DwcvZvaxZzaB7+ScNyynEpStaEQaBAu3oIdi/fw4RP8LDm2aPh94XaowCvMstsETeAM=
-X-Gm-Gg: AYBFou2TqbSgmgiNAmKxT9ymOs3jw4FKHEJuCNV3KJKlWNvAePoTuwdhihTqWHb2r/B
-	ocan1PgfAF74JnN1JrUbhLNBrHfaCoB1QpNUohJxkCMB8LEJHbguVLQ1UTgv3U19a9GpcVvnfe5
-	MP0XIcVxQmzwx+Ivhdz2tgGTjsy61xStIio2JudtKTvGEnW/lNXmOzUeEbj+bi6U7jVJMbyUVPT
-	jKIZad6H6lS180lqPeT+z0uOabzKakJjZ1k/VFYpMm8pzh39sBjO6LjBe6BYad28hiwroSFIeE5
-	kKoS91VqMmuFBcshQZdz7N/5xkk807rpNUy7YzrSE9gpIUEARJmkIm+WQRkS6L+ejN4wQ5ZOipM
-	aO57JD8PGGu75+lkdmN5mWqtFxqkvsooHT2pRrdHEW78uA7VAU2yiXiZx5VI7N0ppiXgGPW77MK
-	oQi7TADk2OBRo5WRnUM005ppgNWrDdzzhfsj47O8OHcjRBNgElQYC5hlFwWPIFfCdwrVhh
-X-Received: by 2002:a05:6000:25c2:b0:482:e2f2:19c1 with SMTP id ffacd0b85a97d-4858703f827mr3881421f8f.2.1788476364322;
-        Thu, 03 Sep 2026 15:59:24 -0700 (PDT)
-Received: from [192.168.0.35] ([93.107.91.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9a56sm1448006f8f.15.2026.09.03.15.59.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 15:59:23 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Thu, 03 Sep 2026 23:59:07 +0100
-Subject: [PATCH v14 1/4] phy: core: Fix use-after-free in phy_get paths
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RhbzFe9+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47861F000E9;
+	Thu,  3 Sep 2026 23:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788476738;
+	bh=R+eZylBeFLCipj4LV/kc98eg7afNWvoivAoeDLzItDA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=RhbzFe9+VofsnBnBsrlI2uKcJxFWNbA6X2O0NYvJoHWB5OIczyyLlkRshDMI1sxUh
+	 1JJP67iS77NDiWcBN0xt54SFSNDP2A3GFnfKvDWMoNbD/LqIIEL4U9Viwa6whtXPSD
+	 RvF/HjHJMkLv+ZEyq5KRFMjT+5LV4amfecS+TD610hHKEfL+WnhwwKIzYLfQUN/jws
+	 T3PsIabHhcbP/HOqk+nqREw0A47Gj+LV1eME83aZ/D0Wa3pONGDJ09tmkHOVaKG17W
+	 FP+1ln9raqw5EtZfYkEhpzGbUM6o6uU1HhVaJ+uoGv/1rmNaYBgRN7qB/qc4YZpruY
+	 UvDex7e77jhOg==
+Date: Thu, 3 Sep 2026 18:05:37 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Guixin Liu <kanie@linux.alibaba.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Jonathan Cameron <jic23@kernel.org>, Lukas Wunner <lukas@wunner.de>,
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+	Kees Cook <kees@kernel.org>, Darshit Shah <darnshah@amazon.de>,
+	Brian Norris <briannorris@chromium.org>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-pci@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/DPC: Honor "pcie_ports=native" when enabling DPC
+Message-ID: <20260903230537.GA2273943@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-1-01ef1eced075@linaro.org>
-References: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
-In-Reply-To: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4896;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=PqW9tqmW9F2B4lcssAx2e+YT+CUUTBw6AIB9Ts0OgxQ=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmfvGaPneFS+DA4dpavnsinID7MBmg4q52oC3G
- HG/1MMsjaeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapn7xgAKCRAicTuzoY3I
- Ou7qD/0Vwb+/DK1cHGSRf047U7hRatmKhpsTaydg7KJzmBxNz15oSuVvm8xp86gIXG75+V4c3XZ
- W7uJeLm9oEeN0XXnBSooRDOLIWdLh2600gRTuKMI0EIz1HXPi8X7GWTg5cVE1KTHBZC+jQSPUzs
- TP0uhPgA9rn4UDe2FgC9+At4P3EhFQtvKCoU9eMQ9Z/g6jvLUw5Bl2/QCJZI9xDj1vUu1OGzf4B
- dXS8jILQyaJvHE7vQHeOHsYgBT9ftVzLwGXDMEjbJzLL+s5j3wauE9pCQdMa/o5CWxoeISzI/cb
- /z2Hn4mpZ2wlsMHR5FI+JpBS9jNR/CsQQiFWggJEJeYT7UcvKj01Pt4QWg/l4IRhxeHPRtUswDp
- aaO+XQ/RVYpGoYpzMkhw8w0RkAgoMpiJXl1dflGJ8fuA5Uz1+NB4itT09q6/n0DgmDz1rBaKWuU
- ryZMRkrJvyhXmYVdoR6DL5nYdmwEkAVvHhyTmy9ZIhHxxBAylFfl8+0Z7iFm1O8OcVew0SKwuEV
- bgiEv0+p9V47WvtHua1uZLYeWnt0HgIZGBzTIIywpkJ96R4kLDMor/akP9juZR6LYzFjTqc86YN
- Ag7m1ndHZljlibM2L8BwVTuIdK4mIUJHZck7QXh5oXkUeDOB7SlpVkVJPmB6z8laxl9rS9daFdi
- yT6NMd6qoiYqZEQ==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901064554.2178688-1-kanie@linux.alibaba.com>
 
-Sashiko asked during a patch review if the existing usage pattern had a
-race condition; specifically in of_phy_get() if it was possible between
-returning from _of_phy_get() and running try_module_get() that a module
-might be unbound leading to use-after-free.
+On Tue, Sep 01, 2026 at 02:45:54PM +0800, Guixin Liu wrote:
+> Commit 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when
+> OS controls AER") replaced the AER service bit with host->native_aer
+> when deciding whether to create a DPC service device.  Unlike the AER
+> service bit, host->native_aer does not reflect the "pcie_ports=native"
+> command-line override.
+> 
+> Consequently, if firmware retains AER control, "pcie_ports=native" no
+> longer enables DPC on Root Ports that advertise both AER and DPC, even
+> though the option is documented to force native DPC handling.
+> 
+> Check pcie_ports_native explicitly so both command-line overrides
+> continue to work.
+> 
+> Fixes: 97ca178c899d ("PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+> ---
+>  drivers/pci/pcie/portdrv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/pci/pcie/portdrv.c b/drivers/pci/pcie/portdrv.c
+> index a9cbfc1d2bc7..a05ee7980fb2 100644
+> --- a/drivers/pci/pcie/portdrv.c
+> +++ b/drivers/pci/pcie/portdrv.c
+> @@ -264,7 +264,7 @@ static int get_port_device_capability(struct pci_dev *dev)
+>  	 */
+>  	if (pci_find_ext_capability(dev, PCI_EXT_CAP_ID_DPC) &&
+>  	    pci_aer_available() &&
+> -	    (pcie_ports_dpc_native || host->native_aer))
+> +	    (pcie_ports_native || pcie_ports_dpc_native || host->native_aer))
 
-Looking at the code this appears to be so, there is no linkage between the
-phy and module under a synchronisation primitive.
+Oh my goodness.  I think I completely dropped ball on this YEARS ago.
 
-Using the phy_provider_mutex in phy_get() will ensure there is a link between
-the returned phy pointer and the module_get() bumping the module reference
-count.
+It's crazy that we have "pcie_ports_native" checking littered all
+over.  I think we should instead treat host->native_* as the single
+source of truth, and pay attention to pcie_ports_native when setting
+host->native_*.
 
-Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-same usage pattern.
+Sathy did some great work to do exactly that in 2020, and I never got
+it merged.  I wish I had some great excuse, but I looked at my 2020
+calendar and couldn't find one.  I think I just blew it.
 
-phy_provider_unregister() must take the phy_provider_mutex so amending
-phy_get()/of_phy_get() to take that same mutex guarantees there is no
-use-after-free.
+So I think we should resurrect that series and update it as needed and
+solve the problem that way.  I dug out the links just for
+completeness, but we should probably just start with the most recent
+ones (v11 or v12):
 
-Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- drivers/phy/phy-core.c | 41 ++++++++++++++++++++++++++---------------
- 1 file changed, 26 insertions(+), 15 deletions(-)
+  # v2 https://lore.kernel.org/r/cover.1590355211.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v3 https://lore.kernel.org/r/cover.1590355824.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v4 https://lore.kernel.org/r/cover.1590534843.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v5 https://lore.kernel.org/r/cover.1591545462.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v6 https://lore.kernel.org/r/cover.1593195899.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v7 https://lore.kernel.org/r/cover.1595006564.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v8 https://lore.kernel.org/r/cover.1595649348.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v9 https://lore.kernel.org/r/cover.1600457297.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v9 https://lore.kernel.org/r/20200928011131.MI-pJpJNRQw6c35j_O6019flLWHe08C4WvKPmKEbnik@z/
+  # v10 https://lore.kernel.org/r/cover.1603738449.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v11 https://lore.kernel.org/r/cover.1603766889.git.sathyanarayanan.kuppuswamy@linux.intel.com/
+  # v12 https://lore.kernel.org/r/20201126011816.711106-1-helgaas@kernel.org/
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 21aaf2f76e53e..cd9ace125567a 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -124,13 +124,11 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
- 	const char *dev_id = dev_name(dev);
- 	struct phy_lookup *p, *pl = NULL;
- 
--	mutex_lock(&phy_provider_mutex);
- 	list_for_each_entry(p, &phys, node)
- 		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
- 			pl = p;
- 			break;
- 		}
--	mutex_unlock(&phy_provider_mutex);
- 
- 	return pl ? pl->phy : ERR_PTR(-ENODEV);
- }
-@@ -635,11 +633,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 		goto out_put_node;
- 	}
- 
--	mutex_lock(&phy_provider_mutex);
- 	phy_provider = of_phy_provider_lookup(args.np);
- 	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
- 		phy = ERR_PTR(-EPROBE_DEFER);
--		goto out_unlock;
-+		goto out_put_node;
- 	}
- 
- 	if (!of_device_is_available(args.np)) {
-@@ -653,8 +650,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- out_put_module:
- 	module_put(phy_provider->owner);
- 
--out_unlock:
--	mutex_unlock(&phy_provider_mutex);
- out_put_node:
- 	of_node_put(args.np);
- 
-@@ -678,15 +673,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
- 	if (con_id)
- 		index = of_property_match_string(np, "phy-names", con_id);
- 
-+	mutex_lock(&phy_provider_mutex);
-+
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
- 
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
- 
- 	get_device(&phy->dev);
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(of_phy_get);
-@@ -786,6 +787,7 @@ struct phy *phy_get(struct device *dev, const char *string)
- 	struct phy *phy;
- 	struct device_link *link;
- 
-+	mutex_lock(&phy_provider_mutex);
- 	if (dev->of_node) {
- 		if (string)
- 			index = of_property_match_string(dev->of_node, "phy-names",
-@@ -796,15 +798,18 @@ struct phy *phy_get(struct device *dev, const char *string)
- 	} else {
- 		if (string == NULL) {
- 			dev_WARN(dev, "missing string\n");
--			return ERR_PTR(-EINVAL);
-+			phy = ERR_PTR(-EINVAL);
-+			goto out_unlock;
- 		}
- 		phy = phy_find(dev, string);
- 	}
- 	if (IS_ERR(phy))
--		return phy;
-+		goto out_unlock;
- 
--	if (!try_module_get(phy->ops->owner))
--		return ERR_PTR(-EPROBE_DEFER);
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
- 
- 	get_device(&phy->dev);
- 
-@@ -813,6 +818,8 @@ struct phy *phy_get(struct device *dev, const char *string)
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(phy_get);
-@@ -961,15 +968,17 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 	if (!ptr)
- 		return ERR_PTR(-ENOMEM);
- 
-+	mutex_lock(&phy_provider_mutex);
- 	phy = _of_phy_get(np, index);
- 	if (IS_ERR(phy)) {
- 		devres_free(ptr);
--		return phy;
-+		goto out_unlock;
- 	}
- 
- 	if (!try_module_get(phy->ops->owner)) {
- 		devres_free(ptr);
--		return ERR_PTR(-EPROBE_DEFER);
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
- 	}
- 
- 	get_device(&phy->dev);
-@@ -982,6 +991,8 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 		dev_dbg(dev, "failed to create device link to %s\n",
- 			dev_name(phy->dev.parent));
- 
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
- 	return phy;
- }
- EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
-
--- 
-2.55.0
-
+>  		services |= PCIE_PORT_SERVICE_DPC;
+>  
+>  	/* Enable bandwidth control if more than one speed is supported. */
+> -- 
+> 2.43.7
+> 
