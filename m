@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3CE4B1265
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:48:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 139334B04AF
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443340; cv=none; b=mSeM+bp3NvwGZXHcndUx/+NjyJC3wv15FQebP8Xc3HzSW5fxpi7RhuARicahgCBfrwHM4G3D/Z7sQliY3+XoKUpJje8+T/sVPEv5qAFCU0r1AI4nf9n4wea4MBg6uKZLJks3K38H6igeYGycVEM3TXOc0Bi4QyzQKyZ7P6apojI=
+	t=1788443342; cv=none; b=lMrYvVyg9aCj/9ZpKLAR1iMOaZmNaCDdbQtVIWmrRG1DNmoiBBTpsolJydgdZkTzhQSw/ay0uh/nQ23xHHMsJZP/+uwnbxfT7hgQrLWBtuzIXZN2eJ/lzJk4Bb5x3RLZa2fpjlmruptdygbULHzYUPm2IXs58+MDZRJNx6rLjKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443340; c=relaxed/simple;
-	bh=GqqboMv0EwhG4eRG/VHntTyyJkgh8FhmoA2tyb3Vk5U=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rrt0fczx6f2Rod0g5xfeuxxQFNeQ3Dd/FXzNY/vWicnddtepiMI380zRIqWVzXcJJ46kE399NXdeTcKQ8TMeRkfl8hzFwxBjpeISJwPKqQNj2FkXsx0eaNQ2qkRFejsnWKa0TmHuK5UPl7/Je6gzki1rYv6c1lxVG2elVUmUkuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ii3Mus2Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443342; c=relaxed/simple;
+	bh=eqS8VSCwrFvKZGU7F/9ulC+/vLygh+XDzoX7exujuWE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ly8jK1S+tQ3uJJBlByH61LOo0IN9koXvTsGQ7e7u8EvIIbxN2NF5ag/4Y/fUbSTHE03hukXuoJ7qEbVx9D+sXhodwov2mhgMeQi/N/6rUdzWkB8eicD0MHa13tEarkMIr2eF/DzELqsCkAkRajr2jxOZQSsgeeC1zE5e58caUXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rg956bxU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ii3Mus2Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3CE1F00AC4;
-	Thu,  3 Sep 2026 13:48:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rg956bxU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669991F00A3E;
+	Thu,  3 Sep 2026 13:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443318;
-	bh=MeP+h4EdOqogCNTLq/fHq1GpZR3tLI6009CkNbqjeXs=;
+	s=korg; t=1788443326;
+	bh=1vIYz5AnBPObDjB+BjO26hdECcgrfSSLFCjMMpAWTi8=;
 	h=Subject:To:Cc:From:Date;
-	b=ii3Mus2YdGU6LiQge9/9/3t7Wv7qlJ7nBZbeZxWnAh/8OuWkgDP+S9s6EwdmQ77Xe
-	 eKt5FPgFZHJJuoykU8p8kcPF0SaLIX8bsBwoWQg0+rFsUm6XJEpCLxW+R0K6iMB+EZ
-	 L/x/ARkbe4qumODdv5xg+3MBj18/l6xZkCLKsk1U=
-Subject: FAILED: patch "[PATCH] smb: client: fix UAF and buffer leak in cifs_check_trans2()" failed to apply to 6.1-stable tree
-To: sorenson@redhat.com,linkinjeon@kernel.org,pc@manguebit.org
+	b=rg956bxUMaH5ayNNxweYY9PUC6Ya8lju1XdmMqxAqD83Nr96e2P57ZSEBk2sk2l+M
+	 OhlTVeAZCFVktJ91MsDJxoz9bHDX4mU7w9/M/W1BNoPusZZLSAApBy5fgMblcSXbM3
+	 W03+LUO9S7fVXGuhuaMwnTmQP0kH/gV7AUL6GtH4=
+Subject: FAILED: patch "[PATCH] smb: client: clear ce->tgthint in free_tgts()" failed to apply to 5.10-stable tree
+To: fredric.cover.lkernel@gmail.com,chenxiaosong@kylinos.cn,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:26:04 +0200
-Message-ID: <2026090304-drowsily-unread-e280@gregkh>
+Date: Thu, 03 Sep 2026 15:26:18 +0200
+Message-ID: <2026090318-driven-showgirl-ba4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 730d0bb19507b9e19c2fe5343109ac618e2fbce5
+git cherry-pick -x b1b741cf8e7ce1b91d937e23decd3d3358748700
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-drowsily-unread-e280@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090318-driven-showgirl-ba4f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,57 +62,38 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 730d0bb19507b9e19c2fe5343109ac618e2fbce5 Mon Sep 17 00:00:00 2001
-From: Frank Sorenson <sorenson@redhat.com>
-Date: Wed, 12 Aug 2026 21:39:51 -0500
-Subject: [PATCH] smb: client: fix UAF and buffer leak in cifs_check_trans2()
- for malformed secondary T2
+From b1b741cf8e7ce1b91d937e23decd3d3358748700 Mon Sep 17 00:00:00 2001
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Date: Fri, 24 Jul 2026 15:01:46 -0700
+Subject: [PATCH] smb: client: clear ce->tgthint in free_tgts()
 
-When a valid primary TRANSACT2 response has been received (mid->resp_buf
-set, mid->multiRsp true) and a subsequent secondary response causes
-cifs_check_trans2() to return false -- either because the SMB header is
-invalid (malformed != 0) or because check2ndT2() rejects the PDU --
-handle_mid() overwrites mid->resp_buf with the new buffer (leaking the
-primary buffer) and, because mid->multiRsp is set, skips the
-server->smallbuf/bigbuf NULL-out.  When the user thread frees
-mid->resp_buf, server->smallbuf or server->bigbuf is left dangling; the
-demux thread reuses it for the next packet, resulting in a use-after-free.
+When free_tgts() frees all structures in ce->tlist, ce->tgthint
+is left pointing to one of the freed cache_dfs_tgt structures.
 
-Combine both early-exit conditions and, when mid->multiRsp is already
-set, abort the pending transaction inline: set multiEnd, call
-dequeue_mid() with malformed=true, and return true so handle_mid() exits
-without touching mid->resp_buf or the server buffer pointers.
+If ce->tgthint is not reset before it is used later, it results
+in a use-after-free.
 
-Fixes: 316cf94a910f ("CIFS: Move trans2 processing to ops struct")
-Cc: stable@vger.kernel.org # cifs_check_trans2() is in smb1ops.c on kernels < 7.0
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Set ce->tgthint to NULL in free_tgts() after the elements are
+freed to reflect that no elements remain.
+
+Fixes: 54be1f6c1c37 ("cifs: Add DFS cache routines")
+Cc: stable@vger.kernel.org # depends on: smb: client: harden DFS cache against invalid target hints
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
-index 66daa5a37e4a..42e95cc1bd89 100644
---- a/fs/smb/client/smb1transport.c
-+++ b/fs/smb/client/smb1transport.c
-@@ -449,10 +449,18 @@ bool
- cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
- 		  char *buf, int malformed)
- {
--	if (malformed)
--		return false;
--	if (check2ndT2(buf) <= 0)
-+	if (malformed || check2ndT2(buf) <= 0) {
-+		/* mid->multiRsp blocks the server buf detach in handle_mid();
-+		 * returning false here would leak resp_buf and leave a dangling
-+		 * server->smallbuf/bigbuf after the user thread frees resp_buf.
-+		 */
-+		if (mid->multiRsp) {
-+			mid->multiEnd = true;
-+			dequeue_mid(server, mid, true);
-+			return true;
-+		}
- 		return false;
-+	}
- 	mid->multiRsp = true;
- 	if (mid->resp_buf) {
- 		/* merge response - fix up 1st*/
+diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
+index c9ace4326a35..86dba25b7a5a 100644
+--- a/fs/smb/client/dfs_cache.c
++++ b/fs/smb/client/dfs_cache.c
+@@ -122,6 +122,8 @@ static inline void free_tgts(struct cache_entry *ce)
+ 		kfree(t->name);
+ 		kfree(t);
+ 	}
++
++	WRITE_ONCE(ce->tgthint, NULL);
+ }
+ 
+ static inline void flush_cache_ent(struct cache_entry *ce)
 
