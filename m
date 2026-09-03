@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79BCF4A6CEF
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC514A841F
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439458; cv=none; b=Ix3f4JWtRb73Nbd8aJ+ePzYZvrKPDtKK5lPi9UKTXLEVfPp0uZZxo2XjHmTuA1pNN+85ADWFVLna+CP7z5fBDSW15KxiY4gQ56ati+Nq+bc3fuEN1c6qXXOR/t4Pidvj7MmrIfqxv2LMGnmdNn0nWx/h+GGSbYFZFYL9UajjPGQ=
+	t=1788439461; cv=none; b=CFHTqBkWQOlDtFTGc28bA7gbgL030hn/jicGaB5S0OrlUAubmICjj2EdlXv0bWN5ygO6Bwk7/EYHjlk1/s47J0ViZJ299gYQRjEQat2gtK39BLJuA1bibCWeofA3IwyYnZJhwuuxcdKXcA2CFSURv4+qbfnNMzn/6gCmdAcc+LQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439458; c=relaxed/simple;
-	bh=b06yZXEaQqSIBMxK4oPujXJDGFQglvMo64Klui6GPSc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pG+GSMAPOD4w8WUSv0y05V/DAXYqOQo/ojljWzV2va9lQ+8igtDktcyI6MAs3q3H39DrNsQn4ka0ggRkm/I5jiLpJRFmrl5iUE7YQdklpl9aydYDqwjObWD3vhe8yCZYnQRLugqWDK5ZFZNT7muWbrrQ25kTmSygqlbIALRMXVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dmhDrnIN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439461; c=relaxed/simple;
+	bh=G/Tx0nsDv5QNQOedTfFWnluEJ4a2BSH+LM/nRETwNx4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pIOkA0WhfhgkJjJNNSDPuL0EAUB/c7q3eOx9GQkmwMa8lAzZw9vSjDA9N5HhHjqsxjxgvSPmJ0JtHhASMCRfwDz/5407nsBLQGMLTVHE6tYDsNYYGhQDKmPXI82ZSoONtUW24l+D97H1LCY6tzzKJpRwdeYoIIKGSIp4HO/ZhuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YzhWzFoS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dmhDrnIN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C7F31F000E9;
-	Thu,  3 Sep 2026 12:44:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YzhWzFoS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68F791F000E9;
+	Thu,  3 Sep 2026 12:44:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439457;
-	bh=02NxK4dQWoSxrCpL0ndYHTGBswi7gdyR7YpBEoMDFjc=;
+	s=korg; t=1788439459;
+	bh=0bbro+fo3GEVqelAUYWpKPQ0Wej0qoNLF5Z1V7YjPKs=;
 	h=Subject:To:Cc:From:Date;
-	b=dmhDrnINpjfqGF2P3xjZA/mhVvvSfHmxr1xAlLTu7tOLzSEQho7iDl5WBYsbinZrw
-	 BY1kQvwsApHThakSzkJ6iXJIgeewjBqLJZix9AWayBp3XpyAOxGIPKJxD0x534smft
-	 A054KnoM+Ehvd6oF+WIKJR22DlW3QJUB7KyT2CaA=
-Subject: FAILED: patch "[PATCH] KEYS: trusted: Fix TPM teardown ordering" failed to apply to 5.15-stable tree
+	b=YzhWzFoSInGKjqVUvh4ZtHibZJeMfzDDWA5EPt7YQIwEyTBgNLGCiONNA02siYx7G
+	 wh49ysuZpO/Q8HvTlozvVY3AInq5gEgtzJRCvRPNF3W5cdyQfa6lTtnlyddqP3bboZ
+	 tFLJMAkiNZ/zKdErrsqEhcRWm4Oy9fWX9Yvv/txk=
+Subject: FAILED: patch "[PATCH] KEYS: trusted: Fix TPM teardown ordering" failed to apply to 6.1-stable tree
 To: nicoyip.dev@gmail.com,jarkko@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 03 Sep 2026 12:44:21 +0200
-Message-ID: <2026090321-fiction-outthink-69f9@gregkh>
+Message-ID: <2026090321-mulch-raking-c26b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5e2d672280d97d83de43031d93761b12dadd7b8a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090321-fiction-outthink-69f9@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090321-mulch-raking-c26b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
