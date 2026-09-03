@@ -1,144 +1,160 @@
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EED92472F82;
-	Thu,  3 Sep 2026 22:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7535C514757
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 22:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788473497; cv=none; b=WTapX0XNC8iOle4s2SF2kkLo/ZvtfthdNm65pBAjtoMuPv3ZA90KH/c9YS9RkILwjRQ0FTen2D0NqF5/WSgGrhrupKYi5yGCXGz8KulSMIb/cxFfxmSr4YudReAAuPIcBzwvxkC1qhdCQH7ceQQfJzfgGDJPJ4FOPPTpa+wmg24=
+	t=1788473582; cv=none; b=hGJ3BzloaQETc4mPZmavrJob4DNJz+jmECDrbc5yOURFGehmYewvJIzI13/4AwctA7G1rtQu+mWY6FdrjE8EKw3q489qlyP3FEIHDAdlsks1rr2SJQgqYeL3QqR1SSFE/IxGX9Azo1DW/yBHgJM/Om1fn9SPoZ+rFWoljEohtL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788473497; c=relaxed/simple;
-	bh=W4adNK9wHap67IwYHlPqYCU2ZuM/zEiJSpxe6p88pU4=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BY/lYre3889kdzF8mXiWd2749C1Whg0dgXmJWZ/lhb8WS4XVKVgIWUj8mukHS9+SadKZSMGFtQn7MrNg4C+7c9jjCfJVI91c6wycJeqYBiiQHVNIzopK8L3mlzc7bu9SNFzcRCtxlzElnfKiiEq1L/iqW2L+1bz2zYkrOOryU1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=KEuw7Wz+; arc=none smtp.client-ip=44.245.243.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1788473582; c=relaxed/simple;
+	bh=mCXl7hYmx+ndy9uHkKMY6/NSTPgobj/jX5zj7F6t2xY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E0KxpkgZWC16iCXY+Ib3izdsJirl/30T4wNVW5H5Nz2o3DfgI/8NOLV3YFZdhDgOcy/YRkp2B3CBj/Xy9d+bI0a2i8xzIke+OhJYIcDgIBwJVd5oqq171T9Z8EYWGlXZZGk6kZ3MU/d5wAN0pOmsmqtGm7fIv+hukoc6MbXy6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fRB5Z/m+; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="KEuw7Wz+"
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fRB5Z/m+"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6aso18825ad.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 15:13:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1788473495; x=1820009495;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=8bvVSKGyqzAbltjDl6J/8kLDZ0LjBdrpennMpgSZanY=;
-  b=KEuw7Wz+v5lCenYVBAFuT6Ceax+EMDTFv4nc4cS1vhSuFisKNrwTXh0w
-   v7hcysXJblGNYLhavva4OPlM29TRY1JFaHYKZa8JilOvTF57xvkIDG2qp
-   R29A3f4B/rg4YQ9o2njvJEF1IU6ytySNS5pEIHii3HYB+n0ZXPYjzwEs7
-   NkDtruQeajjdolTql8QJABRIT46hsnGXnVzMW61/b5Uw1GA42wm81rnnZ
-   ECEEs1MyGOANHgFT/rDTtiwwNrZdGN6TMYN7YsBwI99/q9iCxA305QjhX
-   SkaEnn78zi01G/RrXa1PZyEqgNcWIP0MFw7Ck89+uJz/lvv6vjBCNxC8W
-   w==;
-X-CSE-ConnectionGUID: noX85ADCTkuAETgCnDGBEA==
-X-CSE-MsgGUID: fwrdIkPLQqOvHY+3wrmteQ==
-X-IronPort-AV: E=Sophos;i="6.25,260,1779148800"; 
-   d="scan'208";a="27266811"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 22:11:35 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.234:26155]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.25:2525] with esmtp (Farcaster)
- id 6def88e6-3c67-48f7-8b54-f8752f10b407; Thu, 3 Sep 2026 22:11:35 +0000 (UTC)
-X-Farcaster-Flow-ID: 6def88e6-3c67-48f7-8b54-f8752f10b407
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Thu, 3 Sep 2026 22:11:35 +0000
-Received: from dev-dsk-surajjs-2c-afd24e6d.us-west-2.amazon.com
- (10.189.247.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Thu, 3 Sep 2026
- 22:11:34 +0000
-From: Suraj Jitindar Singh <surajjs@amazon.com>
-To: <stable@vger.kernel.org>
-CC: Bjorn Topel <bjorn@kernel.org>, Magnus Karlsson
-	<magnus.karlsson@intel.com>, Maciej Fijalkowski
-	<maciej.fijalkowski@intel.com>, <netdev@vger.kernel.org>,
-	<bpf@vger.kernel.org>, Jason Xing <kernelxing@tencent.com>, "Stanislav
- Fomichev" <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.12.y] xsk: cache csum_start/csum_offset to fix TOCTOU in xsk_skb_metadata()
-Date: Thu, 3 Sep 2026 22:11:30 +0000
-Message-ID: <20260903221130.27316-1-surajjs@amazon.com>
-X-Mailer: git-send-email 2.47.3
+        d=google.com; s=20251104; t=1788473581; x=1789078381; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2BhoMTsCGjfbPMb6MMxew+QnW15SLqCs6w2K4dK+HP0=;
+        b=fRB5Z/m+UHGT1Gqf8zg9vnWdUDUi34WRUe7RKs4+2s/TCfzjnQbaTf1VPPGMeS4EHX
+         b1jvNkXK1P1qSc0S3QPywO8cmSxKdwL4oO+KesIxVupX3DV31obHd5/R2DKI4VkR0zzq
+         eymzS4GAaVHqgk+ewHMlvVBm0o5PfDS+t6VVhbnP8w7wwVJVuYpTDhWF0WeAoLtczNVJ
+         pmIPWVSIeZ6DQSG7sss2Jndi+UauNMwCG1tEm/jXGo26Zr/E+yvROCgx593E114viuqo
+         ztHxibHjFhZF85+k4SQ2Y0E+1c6zL0KxfU3qHEvXGIRIXFT7YQQZUR9MknDdWxABEBw3
+         h5gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788473581; x=1789078381;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2BhoMTsCGjfbPMb6MMxew+QnW15SLqCs6w2K4dK+HP0=;
+        b=p+CIORABqar2M4tUEeLLQBhAMPkztYxkF8vE/ivJ8EpR5xEHCN2KIafhIEe3zdT0XF
+         ZdY656ddPaBe/uU6j3t5sAg2cwiFvwirf+lyHwQ9Du6m8ipdg3w/VZPCVOUqd4CZTWQr
+         qkpv4KDTeR/ZZKfpk0SKzsPSy7I9lmj/OPFiYJCc3//anm7xhhcTeTn7z6ZOJ81hkTOH
+         p8eutThPSlLEJRAl9MYIZWFIYh0zaMASLAVVIkpOc1o22z4+kRXD3ZLF1NmSXBS8ivGL
+         qolL9d7Sy05DylXiyBlsJmU948Ob95XaNgvcU6NnJeE12LxSBIjgRdivXG7HtP35IfGm
+         Iabg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6PBw0gW3AUZnZ5fiSV/zen+3ATwYD9n4ap56Fja8A1S94Kno3R0S9mOIB6UA1PWdoNKQ1rXw=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6MVcHzQLuY5S+lIl/YYxgL3UDXdsZbY5QOJp+Lty882PE/LKj
+	qrM3GUmuoYkveSpKH1M7755Apn14Mxggf7UH5TCCcQXIPreRMY+gbd/CRToyb4orVTbt3gw4cjU
+	A8i/W0g==
+X-Gm-Gg: AYBFou13YZZ1hywJEhJqZS/GB8nVjrwCZSgYL9+P2s+MRRdv7baH8fuOaj2ra2MlR+l
+	VpWD2wVAd75SgOxsqdSqcKQn+OOwS64fgqab6qvaK3OFiB9awXGQeAoT/MQOOltpVI5WXWnCMwB
+	J37LZbmYz1dev+no/zf/sAdJP3FSXJKnAMlvoBEne7N3lr8JoKccX7zNdzyie8VOYq468RxdBAu
+	j9eNsyCpHne0B0czB2e481CzdPfXRHym42V31eZ2nZPVP0hMVrWtD9U1xwjIvP4g8aLg9wl51z+
+	WcIdsn0s6UYt/rpwmXRO+vbucQcJ9heHLn0ZuwtlM9jjnnlMT76u/+W0Pur+j0DYHZPJhh9b37G
+	ZukT7KnfEcORoUAb1LTgMzQjLZ6qXfSwCDu3Fol28Wh+cMa0pxV9u3NVeZHUjkVUkHiZBb4dSVE
+	upSjRNlsj/JLELahgpzjnnglUq7y9Fr7cUS9w0HJj6NAGSTWgJLSd60oh0bcoBPrvYSO5AZd6JT
+	5mRwEW8gcz9iEQrpBFXD/EmxAGJJ2OiPv/W27yEmy2BvUyoA0wL548Sm9ZZTLGlqA80AAoLTqDg
+	oMT6M78=
+X-Received: by 2002:a17:902:c948:b0:2c0:defb:557e with SMTP id d9443c01a7336-2db16b4ff3amr517615ad.1.1788473579861;
+        Thu, 03 Sep 2026 15:12:59 -0700 (PDT)
+Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm954256a91.9.2026.09.03.15.12.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 15:12:59 -0700 (PDT)
+Date: Thu, 3 Sep 2026 22:12:55 +0000
+From: Carlos Llamas <cmllamas@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
+	Todd Kjos <tkjos@android.com>,
+	Christian Brauner <brauner@kernel.org>, kernel-team@android.com,
+	linux-kernel@vger.kernel.org,
+	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
+Message-ID: <apnw5zOSnfoajNsX@google.com>
+References: <20260901205250.1638304-1-cmllamas@google.com>
+ <20260901205250.1638304-6-cmllamas@google.com>
+ <apgbjOsfn4oFMmAC@google.com>
+ <aphOAx2CINlw3m6Y@google.com>
+ <apkoe-g5Cj9U8Kqt@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC001.ant.amazon.com (10.13.139.197) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apkoe-g5Cj9U8Kqt@google.com>
 
-From: Jason Xing <kernelxing@tencent.com>
+On Thu, Sep 03, 2026 at 07:57:47AM +0000, Alice Ryhl wrote:
+> On Wed, Sep 02, 2026 at 04:25:39PM +0000, Carlos Llamas wrote:
+> > On Wed, Sep 02, 2026 at 12:50:20PM +0000, Alice Ryhl wrote:
+> > > On Tue, Sep 01, 2026 at 08:52:45PM +0000, Carlos Llamas wrote:
+> > > > Certain operations like a failed mremap() might trigger vm_ops->close()
+> > > > on temporary mappings. To avoid tearing-down the main binder mapping on
+> > > > these, let's verify that the VMA matches the expected starting address.
+> > > > 
+> > > > Cc: stable@vger.kernel.org
+> > > > Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
+> > > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > > Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
+> > > > Signed-off-by: Carlos Llamas <cmllamas@google.com>
+> > > > ---
+> > > >  drivers/android/binder.c | 3 +++
+> > > >  1 file changed, 3 insertions(+)
+> > > > 
+> > > > diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+> > > > index 185128577829..3d359490436e 100644
+> > > > --- a/drivers/android/binder.c
+> > > > +++ b/drivers/android/binder.c
+> > > > @@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
+> > > >  {
+> > > >  	struct binder_proc *proc = vma->vm_private_data;
+> > > >  
+> > > > +	if (vma->vm_start != proc->alloc.vm_start)
+> > > > +		return;
+> > > 
+> > > So .. this does work in the case of mremap, but how about instead doing
+> > > this?
+> > > 
+> > > static int binder_mremap(struct vm_area_struct *vma)
+> > > {
+> > > 	vma->vm_private_data = NULL;
+> > > 	return -EINVAL;
+> > > }
+> > > 
+> > > and then check for NULL in binder_vma_close() instead? I think that
+> > > logic would be a bit easier to understand.
+> > 
+> > Yeah, I agree that is easier to read. However, not all exit paths that
+> > close a copied vma actually call op->mremap(). We would miss those and
+> > accidentally brick binder.
+> 
+> What about setting it to NULL in op->open(), then?
 
-commit 22ba97ea9cc1f63a0d0244fae38057ed452b6ac7 upstream.
+I suppose that would technically work because ->open() would only be
+called for subsequent operations after the initial ->mmap(). However,
+that might be more complex to understand without this "mm-specific"
+context no? A comment would again be needed to explain why we clear
+vma->vm_private_data for the common readers...
 
-The TX metadata area resides in the UMEM buffer which is memory-mapped
-and concurrently writable by userspace. In xsk_skb_metadata(),
-csum_start and csum_offset are read from shared memory for bounds
-validation, then read again for skb assignment. A malicious userspace
-application can race to overwrite these values between the two reads,
-bypassing the bounds check and causing out-of-bounds memory access
-during checksum computation in the transmit path.
+	/*
+	 * Subsequent ->open() calls after the initial ->mmap() are
+	 * considered invalid ops and as such we mark ->vm_private_data
+	 * invalid and avoid IPC tear-down upon its ->close().
+	 */
+	 vma->vm_private_data = NULL;
 
-Fix this by reading csum_start and csum_offset into local variables
-once, then using the local copies for both validation and assignment.
+I don't hate this idea, but I don't see the easier-to-read argument
+either. I'll switch to this if you really think is better.
 
-Note that other metadata fields (flags, launch_time) and the cached
-csum fields may be mutually inconsistent due to concurrent userspace
-writes, but this is benign: the only security-critical invariant is
-that each field's validated value is the same one used, which local
-caching guarantees.
+Ultimately, we are trying to find a way to identify the "original"
+mapping and avoid shutting down the IPC on invalid clones. Do you
+believe using vma->vm_start is not a reliable way? Or perhaps not
+straight-forward?
 
-Closes: https://lore.kernel.org/all/20260503200927.73EA1C2BCB4@smtp.kernel.org/
-Reviewed-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-Signed-off-by: Jason Xing <kernelxing@tencent.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Fixes: 48eb03dd2630 ("xsk: Add TX timestamp and TX checksum offload support")
-Link: https://patch.msgid.link/20260530042630.80626-1-kerneljasonxing@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ 6.12: Apply fix in xsk_build_skb() since missing patch
-	30c3055f9c0d ("xsk: wrap generic metadata handling onto separate
-	function") added in v6.18 which moves handling to separate
-	function xsk_skb_metadata(). ]
-Signed-off-by: Suraj Jitindar Singh <surajjs@amazon.com>
----
- net/xdp/xsk.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
-index da7e11e3bfad..76675ce70f03 100644
---- a/net/xdp/xsk.c
-+++ b/net/xdp/xsk.c
-@@ -665,6 +665,7 @@ static struct sk_buff *xsk_build_skb(struct xdp_sock *xs,
- 	struct xsk_tx_metadata *meta = NULL;
- 	struct net_device *dev = xs->dev;
- 	struct sk_buff *skb = xs->skb;
-+	u16 csum_start, csum_offset;
- 	bool first_frag = false;
- 	int err;
- 
-@@ -733,15 +734,17 @@ static struct sk_buff *xsk_build_skb(struct xdp_sock *xs,
- 			}
- 
- 			if (meta->flags & XDP_TXMD_FLAGS_CHECKSUM) {
--				if (unlikely(meta->request.csum_start +
--					     meta->request.csum_offset +
-+				csum_start = READ_ONCE(meta->request.csum_start);
-+				csum_offset = READ_ONCE(meta->request.csum_offset);
-+
-+				if (unlikely(csum_start + csum_offset +
- 					     sizeof(__sum16) > len)) {
- 					err = -EINVAL;
- 					goto free_err;
- 				}
- 
--				skb->csum_start = hr + meta->request.csum_start;
--				skb->csum_offset = meta->request.csum_offset;
-+				skb->csum_start = hr + csum_start;
-+				skb->csum_offset = csum_offset;
- 				skb->ip_summed = CHECKSUM_PARTIAL;
- 
- 				if (unlikely(xs->pool->tx_sw_csum)) {
--- 
-2.47.3
+--
+Carlos Llamas
