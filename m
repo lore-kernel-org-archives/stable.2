@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6BB34E66B4
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FA84E2375
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:38:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449926; cv=none; b=tL6Z4zLS1ygyzJDYiPMa/WWygKiOc6/ZLhBrg85LBhFnmyL46ZXBciNzLMjjIl7woS3oR4ygwFdy1W7XcSx3KR5KVir/Jy9PUuXqSQ1iF3mxXFXET4b+KZC8dZbtVZmHh8nge4m9v5el9IrkjRR7iwwtGEbz3Gw9mXh19RSRF4M=
+	t=1788449929; cv=none; b=P+qYHDaJgtD4HGlu39FR2T9kkiHS6YCK01Tjoh3fMVRwm9XvQlnaf/sS8ZaV4xw3275g59ELAtgX3lBMcbGaq8gJKMWcaoTTYkqVmIsYVUf9iCS4QAiL0LONeIT6olb9gsY/eUHzr8nvzYPTstmeBazUwtrYFlQVj11R2YYqZAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449926; c=relaxed/simple;
-	bh=tEn57XUeWz2vlbWQJAqxN8Pc66GLqo6PBXzfUC/9mGI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KOhVG6L8F9cWVain12WEFFJlTPCIYuvHYIIQP7uq5ep2IAcvO6HnRmvqQ6lU4UlVfWB3F/f4KmXjkqTirceGLojA5+zH4YOuBDo0kyu5EjDOHrSeKNT7/jS9GitWAkvs7cMWZy7suJpBn0hZ+dbna9JT/PmPxooujoqzQ0QNX/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cXmEIuJn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449929; c=relaxed/simple;
+	bh=i2SqzLst+IK4eZO466/Kc/t4nId4MckYxEGDEDlm3Zc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nqZqP923dNjV3/epjPUugZlODv0wNDxIHNlkGQVuOtJ0m78C8qGT90FXpE3iD6xze7hT+JfFKtasIxLz1rt3mgQZFDpseNnC2/vPuPiBqb596fnYapmRGhmEUcefjcTNDnLoP0i485dVUYWvLVYN7k4kcez78sVhWmUzwXzDpJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F36M5bTz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cXmEIuJn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DC841F000E9;
-	Thu,  3 Sep 2026 15:38:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F36M5bTz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0190E1F000E9;
+	Thu,  3 Sep 2026 15:38:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449924;
-	bh=lmy3l5igbFXh+YzrFsfIe2UiC903W9Yk1xEsHhBTS6o=;
+	s=korg; t=1788449927;
+	bh=Zx46DkR8TIN6Op6NO8eLXdwAyeix1qzWqDkdFYOhX2E=;
 	h=Subject:To:Cc:From:Date;
-	b=cXmEIuJn52yZnHKCRAIAPoMHtjyiz23dOOFVVLkr1251VDaRPgx9klXLWucYYIy+d
-	 R+r80KXOv4q2PMtzZzFmjoVcpoRNbqQWWqJxGIrxI4qWMFscqoS8cVwTlOSeWRCy+i
-	 RGj47/CV7QUr1V52egweqMAXGPiILR6VraNTUNp0=
-Subject: FAILED: patch "[PATCH] net/smc: stop killed, freed and out_of_sync sharing a byte" failed to apply to 6.6-stable tree
+	b=F36M5bTzwCPZmrIa1ClLie9A4DJQo9oHY/78HZ/RhkFjmVE/uQZGAhHJHsylZeS+i
+	 8z9gaEx0RFqpHrQGmOT3RIkGCHNHRZdHuLkiKenpPP0kbhZrsCCtDvYmwGA06FLsQM
+	 1FwwCT0TqpxqrtkRtiAhpabqzvCemLcd5hdBJ++M=
+Subject: FAILED: patch "[PATCH] net/smc: stop killed, freed and out_of_sync sharing a byte" failed to apply to 6.12-stable tree
 To: hidayath@linux.ibm.com,horms@kernel.org,kuba@kernel.org,mjambigi@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Thu, 03 Sep 2026 17:10:12 +0200
-Message-ID: <2026090312-cedar-failing-0a11@gregkh>
+Message-ID: <2026090312-corporal-discover-f40c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x db51a8658c11a82432b64999519a269c3aabb447
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090312-cedar-failing-0a11@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090312-corporal-discover-f40c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
