@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C514B66CD
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:31:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5A1495519
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:31:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445880; cv=none; b=sGXPBP4I0jMBmLw5UgTuTREnrcrjgmsJvw+NS4QWqFXNmMuuk6WvHDRgr9fmN3uQhSF+9mpj12ar9Z4b1DY5QwOl+/X4DeKoRsp2K8x7JFzKp+LRrsxpgCRPqW0E0TTlnz3h8utVZ8ugG00wTRHiHPblvdISia8wpdaNvrdayj0=
+	t=1788445883; cv=none; b=uO5VhNROzrCS52bS/aNm2rI7nxdMefnsZ9zTnNbpR7tl7GBOF5GJyvWAz3rV+uTjJbrgbt3usAHtze0QyleSLbpmNuPdtRcRMiUlWtcoBn/w587x1h+mWLBbS7nZfF4UIgzQh7wSJnIrAff1iEciYL3mZnJmRyeqyHDRhsU+VI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445880; c=relaxed/simple;
-	bh=R4Mjp1Z6BDvxqaAHhj/mtjSC9MOTHmiRV0m9tkEpq+M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CKa/XtwtlO0mipFE8Xgi0e9UoxH2sPjG+CMbCdsO9SH4aS05AnQv6Dc8z+mxtgfMWuCCTIXoIp0L+27LQEGtP9QeNWI+XiDM4EBGV8y7SrCKtykW6f+IFUYhLjIAqnIssy8pj77x9GPCoi39rdv3CfIXHPf74iFAvHq5487tIlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u/HR/Fyd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445883; c=relaxed/simple;
+	bh=6y+LKXAr6Imf2IPVbDUM3rmtioBnJ7QuFq9v04mnmIg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=X85LIcyR1h3pOtTo8zu65SbApf+Oa1NyR8H/7YqkFo9gn/s/YlZZSqYqlboGPfRpyWIALobfp+FkzwvTPLNGmTDpTVc1FfmtRHre9tKBbU+bTv2EMYb/FujA0qH+ON8IdT7Y0mb5mP1ntvXhXpk4NgnjjCYjCKGqdnSS7fby208=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fY9Bxmij; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u/HR/Fyd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D0D1F00AC4;
-	Thu,  3 Sep 2026 14:31:00 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fY9Bxmij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65BEF1F00A3D;
+	Thu,  3 Sep 2026 14:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445860;
-	bh=THy9mWXCq+fKN7UA8eNBGeCsdgtYg6uq/BN3B7EC5TE=;
+	s=korg; t=1788445874;
+	bh=Uu7L6dkqpedeegaBhAb0JuOOIXNFZ4u1KbW2XuMuC0I=;
 	h=Subject:To:Cc:From:Date;
-	b=u/HR/Fydj8WHVHknMJ8GdqkPfAeVDBxYPWO7R0EOX9mu3a+mbQMlW75gyHIHeI5Pt
-	 wCu25NXHZZAn1lLQ+cWBpVudEjTjPb4ll5vghMW+u2jzdAdg2+rUzdr0X97TH8dKWb
-	 GaBuatwthz9pMfPHdSWz7HRXxP13gry7cHaX6hgM=
-Subject: FAILED: patch "[PATCH] svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id" failed to apply to 6.12-stable tree
+	b=fY9BxmijVM6gK687LEd25KXB70dxbY1ZvXcyYC4Zgkg26RESMZpmDovF1keRvDg8n
+	 9yValXMIxyhMsVfpz4t0uDYt4z2TwSVhOPksxmjChT1r4e8Qn7C6IL7JIT0PPB07CP
+	 VvkLrEaPOYbMkDex+rKNdbDGYGPDkJwaXZOJzllI=
+Subject: FAILED: patch "[PATCH] svcrdma: Reject connection when transport allocation fails" failed to apply to 5.10-stable tree
 To: cel@kernel.org,chuck.lever@oracle.com,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:09:09 +0200
-Message-ID: <2026090308-mutual-wrangle-377a@gregkh>
+Date: Thu, 03 Sep 2026 16:10:04 +0200
+Message-ID: <2026090304-champion-prevent-c92a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 4488e912973773d64368828acf3b8e39d93650ae
+git cherry-pick -x 0944462247dcb7de7622cdaaadf5f05c52707dab
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090308-mutual-wrangle-377a@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-champion-prevent-c92a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,68 +62,77 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 4488e912973773d64368828acf3b8e39d93650ae Mon Sep 17 00:00:00 2001
+From 0944462247dcb7de7622cdaaadf5f05c52707dab Mon Sep 17 00:00:00 2001
 From: Chuck Lever <cel@kernel.org>
-Date: Wed, 27 May 2026 11:00:12 -0400
-Subject: [PATCH] svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id
+Date: Wed, 27 May 2026 11:00:14 -0400
+Subject: [PATCH] svcrdma: Reject connection when transport allocation fails
 
-svc_rdma_free() caches rdma->sc_cm_id->device before teardown,
-then calls rdma_destroy_id(sc_cm_id) which frees the cm_id.
-rpcrdma_rn_unregister() follows, but between those two calls
-the transport's sc_rn entry is still installed in the device's
-rd_xa. A concurrent ib_unregister_device walk can dispatch
-svc_rdma_xprt_done() against the now-freed sc_cm_id.
+handle_connect_req() returns without action when
+svc_rdma_create_xprt() fails to allocate the new transport.
+The CM core returns 0 for CONNECT_REQUEST events, so it does
+not destroy the new rdma_cm_id. Each allocation failure under
+memory pressure leaks one rdma_cm_id, and a remote peer driving
+connection attempts can amplify this.
 
-Move rpcrdma_rn_unregister() before rdma_destroy_id() so the
-transport's notification entry is removed from the xarray before
-the cm_id it references is destroyed.
+Reject the connection by returning a non-zero status from the
+CM event handler, which tells the CM core to destroy the
+orphaned cm_id.
 
-Also guard the sc_cm_id dereference with a NULL check: the
-following patches introduce paths that reach svc_rdma_free()
-with sc_cm_id == NULL (listener create failure, ADDR_CHANGE
-replacement failure).
-
-Fixes: c4de97f7c454 ("svcrdma: Handle device removal outside of the CM event handler")
+Fixes: 377f9b2f4529 ("rdma: SVCRDMA Core Transport Services")
 Cc: stable@vger.kernel.org
 Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-2-1b09bd87b6cd@oracle.com
+Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-4-1b09bd87b6cd@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index 9268b6105a74..55e2ca036584 100644
+index 63dbf16dbe7f..656b2bd258a9 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -648,10 +648,15 @@ static void svc_rdma_free(struct svc_xprt *xprt)
+@@ -246,12 +246,16 @@ svc_rdma_parse_connect_private(struct svcxprt_rdma *newxprt,
+  * structure for the listening endpoint.
+  *
+  * This function creates a new xprt for the new connection and enqueues it on
+- * the accept queue for the listent xprt. When the listen thread is kicked, it
++ * the accept queue for the listen xprt. When the listen thread is kicked, it
+  * will call the recvfrom method on the listen xprt which will accept the new
+  * connection.
++ *
++ * Return values:
++ *     %0: Do not destroy @new_cma_id
++ *     %1: Destroy @new_cma_id (allocation failure)
+  */
+-static void handle_connect_req(struct rdma_cm_id *new_cma_id,
+-			       struct rdma_conn_param *param)
++static int handle_connect_req(struct rdma_cm_id *new_cma_id,
++			      struct rdma_conn_param *param)
  {
- 	struct svcxprt_rdma *rdma =
- 		container_of(xprt, struct svcxprt_rdma, sc_xprt);
--	struct ib_device *device = rdma->sc_cm_id->device;
-+	struct ib_device *device;
+ 	struct svcxprt_rdma *listen_xprt = new_cma_id->context;
+ 	struct svcxprt_rdma *newxprt;
+@@ -261,7 +265,7 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
+ 				       listen_xprt->sc_xprt.xpt_net,
+ 				       ibdev_to_node(new_cma_id->device));
+ 	if (!newxprt)
+-		return;
++		return 1;
+ 	newxprt->sc_cm_id = new_cma_id;
+ 	new_cma_id->context = newxprt;
+ 	svc_rdma_parse_connect_private(newxprt, param);
+@@ -295,6 +299,7 @@ static void handle_connect_req(struct rdma_cm_id *new_cma_id,
  
- 	might_sleep();
- 
-+	if (!rdma->sc_cm_id)
-+		goto out_free;
-+
-+	device = rdma->sc_cm_id->device;
-+
- 	/* This blocks until the Completion Queues are empty */
- 	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
- 		ib_drain_qp(rdma->sc_qp);
-@@ -676,11 +681,13 @@ static void svc_rdma_free(struct svc_xprt *xprt)
- 	if (rdma->sc_pd && !IS_ERR(rdma->sc_pd))
- 		ib_dealloc_pd(rdma->sc_pd);
- 
-+	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
-+		rpcrdma_rn_unregister(device, &rdma->sc_rn);
-+
- 	/* Destroy the CM ID */
- 	rdma_destroy_id(rdma->sc_cm_id);
- 
--	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
--		rpcrdma_rn_unregister(device, &rdma->sc_rn);
-+out_free:
- 	kfree(rdma);
+ 	set_bit(XPT_CONN, &listen_xprt->sc_xprt.xpt_flags);
+ 	svc_xprt_enqueue(&listen_xprt->sc_xprt);
++	return 0;
  }
  
+ /**
+@@ -318,8 +323,7 @@ static int svc_rdma_listen_handler(struct rdma_cm_id *cma_id,
+ 
+ 	switch (event->event) {
+ 	case RDMA_CM_EVENT_CONNECT_REQUEST:
+-		handle_connect_req(cma_id, &event->param.conn);
+-		break;
++		return handle_connect_req(cma_id, &event->param.conn);
+ 	case RDMA_CM_EVENT_ADDR_CHANGE:
+ 		listen_id = svc_rdma_create_listen_id(cma_rdma->xpt_net,
+ 						      sap, cma_xprt);
 
