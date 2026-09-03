@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF534AF660
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE94130EF80
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443259; cv=none; b=lf2OP+5/4s547giVN9sJcvp6B1Y4v17CuRIi312k8bGIrRkEY7kcfEmP9LMonTBFiI+OVNAfw9wInraixe+FRjucJ1yhAyzdeXAJ84KLKXxX1wJVZAi3e/n6qKUe8C6M+RNkQKchBcTQgioSTV6F+wWtd576nrkDxZzbIG8PYDk=
+	t=1788443263; cv=none; b=f0BAFPI6A/aC6T7L2A7o6AwQtAVp2hZfHs6Q8oe5kSKS6wWU6qd29nvnO0jxqRFZ8vqWuT/X3kpKjshOk3V9BPGPK2skHJOieJl9e3RfjwdVjPqYbFVXXw2p0ADpoIkuvD7+k/yoz3hxCKLy9j47E7ms6sbcSwX+wN2LvTzyMiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443259; c=relaxed/simple;
-	bh=iKm5s0uQ+sPIHVj9vLauRyofqqYtANPDh8R8NtcQ4rw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T55WqXksWurl6YjM2gewlSAd1aEhoKOT/ttr45Fam4AzAZPvjA61GJdzcz1XpL2xvMYq+tNBPddlRsT9qvhA8Xvg3C+L3dgb7nG7zMt4BtCbhWSbt2e/WAs3O+WwQU2otzhW4PPEuL/Y3wQAHh+BsfvKOhiip5lxTf7l+yeIHC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hM3QnOqn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443263; c=relaxed/simple;
+	bh=VzCcM6iSX7qR79Zg6aR3QKwDsiV7WyucQiMx9jGrRkE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ijXZGB8d7l2afsvrAC2wGtaRQvO9aqlbUV6RsD91yGf9qZGyMDZZ4HG/j3mSly5PmDYJAxBoTtEdbvGTt++9RiSHlzuopvD5oYF94NsR5jpn93wXlrcQyUk/zYks914roTVuuihlwHDdnSHu3oJrQykuI3GWstq/Fxc78+W4rB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=14XNCccL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hM3QnOqn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9251C1F00A3F;
-	Thu,  3 Sep 2026 13:47:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="14XNCccL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2DF1F00A3A;
+	Thu,  3 Sep 2026 13:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443245;
-	bh=mnM31PiFaIbDsEvNy3/Xk/W4NK88Oq0tG3JAbSKDJGU=;
+	s=korg; t=1788443253;
+	bh=t/rEYxakYZLdr0FINPaP65e24nsxigeD8iMa28leeW0=;
 	h=Subject:To:Cc:From:Date;
-	b=hM3QnOqnOY+vHO7x6bUY9eSkwyedvH3yAHkkoi8jH6UUgQpsBf7nKRqZkNAhnpY/r
-	 exTGPqIhESHpIDWZNGt+M4urnOCBIq+N3wE/KzAUhs4a2uUIHPSCTEpK+8fI9dsYLn
-	 lGWLfz9bXZm5z90ELYi004QttJQ8IyHBS5D+rHwM=
-Subject: FAILED: patch "[PATCH] btrfs: drop recovered reloc root refs on recovery failure" failed to apply to 6.1-stable tree
-To: 3497809730@qq.com,dsterba@suse.com
+	b=14XNCccLHxiiU9ho0bnq6lQPRw448XYAm57/P2OfOVkYa7w9IY5KIbjx25R8r+9f9
+	 ILEI7LbAFVoa13BcotkivW8piZIOp+wOMXpnOVDbhZraFaV+K5WB9hqOBUpvQv6n++
+	 UYMmrQIuxpW12WstF3Uewxojs8c3l7PWtwSMM2Sk=
+Subject: FAILED: patch "[PATCH] btrfs: fix extent map leak in NOCOW direct I/O write" failed to apply to 6.1-stable tree
+To: shuangpeng.kernel@gmail.com,dsterba@suse.com,fdmanana@suse.com,wqu@suse.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:23:59 +0200
-Message-ID: <2026090359-float-gamma-d28d@gregkh>
+Date: Thu, 03 Sep 2026 15:24:10 +0200
+Message-ID: <2026090310-catchy-recollect-7ab5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6d8ba4572922e336f0b59a80751b018e1e135164
+git cherry-pick -x 3f950867c307c5413d628a153ac44915bd117ffd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090359-float-gamma-d28d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090310-catchy-recollect-7ab5@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,113 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6d8ba4572922e336f0b59a80751b018e1e135164 Mon Sep 17 00:00:00 2001
-From: Guanghui Yang <3497809730@qq.com>
-Date: Sun, 12 Jul 2026 04:22:32 +0000
-Subject: [PATCH] btrfs: drop recovered reloc root refs on recovery failure
+From 3f950867c307c5413d628a153ac44915bd117ffd Mon Sep 17 00:00:00 2001
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Date: Sun, 5 Jul 2026 01:46:35 -0400
+Subject: [PATCH] btrfs: fix extent map leak in NOCOW direct I/O write
 
-During relocation recovery, each fs root gets a reference to its relocation
-root. If loading or adding a later root fails, or if the first transaction
-commit fails, btrfs_recover_relocation() jumps to out_unset before
-merge_reloc_roots() and clean_dirty_subvols().
+btrfs_dio_iomap_begin() calls btrfs_get_extent(), which returns an
+extent map reference that must be dropped on all exit paths.
 
-put_reloc_control() drops the list-owned relocation root references, but it
-does not clear fs_root->reloc_root or drop the references owned by those
-pointers. Mount cleanup only drops them when BTRFS_FS_ERROR is set, so an
-error such as -ENOMEM while processing a later root can leave references
-behind.
+For direct writes into a NOCOW range, btrfs_get_blocks_direct_write()
+keeps using that extent map and asks btrfs_create_dio_extent() to
+allocate the ordered extent. If that fails, for example because
+btrfs_alloc_ordered_extent() fails, the function returns the error
+without dropping the input extent map. The PREALLOC path avoided this by
+dropping the input extent map before replacing it with the newly created
+one.
 
-Keep temporary references to the fs roots associated during recovery. On
-failure, clear their reloc_root pointers and drop the corresponding
-references. Once the first transaction commit succeeds, drop only the
-temporary fs root references and let the normal merge and cleanup paths
-handle the relocation roots.
+Check the error from btrfs_create_dio_extent() before replacing the
+map and drop the input extent map on failure.
 
-Fault injection on a pending-relocation image confirmed the cleanup gap.
-With an injected first-commit failure, 25 fs roots had reloc_root set with
-fs_error=0. With this fix, the same failure path drops that count to 0
-before mount fails.
-
-Fixes: f44deb7442ed ("btrfs: hold a ref on the root->reloc_root")
+Fixes: 5f9a8a51d8b9 ("Btrfs: add semaphore to synchronize direct IO writes with fsync")
 CC: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index f14bb4158d8d..da54db75e7a9 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -5593,6 +5593,24 @@ static noinline_for_stack int mark_garbage_root(struct btrfs_root *root)
- 	return ret;
- }
- 
-+static void release_recovered_fs_roots(struct list_head *roots, bool drop_reloc_refs)
-+{
-+	struct btrfs_root *root;
-+	struct btrfs_root *next;
-+
-+	list_for_each_entry_safe(root, next, roots, reloc_dirty_list) {
-+		list_del_init(&root->reloc_dirty_list);
-+		if (drop_reloc_refs) {
-+			struct btrfs_root *reloc_root = root->reloc_root;
-+
-+			ASSERT(reloc_root);
-+			root->reloc_root = NULL;
-+			btrfs_put_root(reloc_root);
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index b80dc45c3ff9..27d227f5bdc0 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -280,17 +280,24 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 		em2 = btrfs_create_dio_extent(BTRFS_I(inode), dio_data, start,
+ 					      &file_extent, type);
+ 		btrfs_dec_nocow_writers(bg);
+-		if (type == BTRFS_ORDERED_PREALLOC) {
++		if (IS_ERR(em2)) {
++			ret = PTR_ERR(em2);
++			btrfs_free_extent_map(em);
++			*map = NULL;
++			goto out;
 +		}
-+		btrfs_put_root(root);
-+	}
-+}
 +
- /*
-  * recover relocation interrupted by system crash.
-  *
-@@ -5602,6 +5620,7 @@ static noinline_for_stack int mark_garbage_root(struct btrfs_root *root)
- int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
- {
- 	LIST_HEAD(reloc_roots);
-+	LIST_HEAD(recovered_roots);
- 	struct btrfs_key key;
- 	struct btrfs_root *fs_root;
- 	struct btrfs_root *reloc_root;
-@@ -5718,7 +5737,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
- 			ret = PTR_ERR(fs_root);
- 			list_add_tail(&reloc_root->root_list, &reloc_roots);
- 			btrfs_end_transaction(trans);
--			goto out_unset;
-+			goto out_drop_reloc_refs;
++		/*
++		 * True NOCOW writes don't need to create a new extent map,
++		 * while PREALLOC writes must replace the existing one.
++		 */
++		if (em2) {
++			ASSERT(type == BTRFS_ORDERED_PREALLOC);
+ 			btrfs_free_extent_map(em);
+ 			*map = em2;
+ 			em = em2;
  		}
  
- 		ret = __add_reloc_root(reloc_root, rc);
-@@ -5727,15 +5746,17 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
- 			list_add_tail(&reloc_root->root_list, &reloc_roots);
- 			btrfs_put_root(fs_root);
- 			btrfs_end_transaction(trans);
--			goto out_unset;
-+			goto out_drop_reloc_refs;
- 		}
-+		ASSERT(list_empty(&fs_root->reloc_dirty_list));
- 		fs_root->reloc_root = btrfs_grab_root(reloc_root);
--		btrfs_put_root(fs_root);
-+		list_add_tail(&fs_root->reloc_dirty_list, &recovered_roots);
- 	}
- 
- 	ret = btrfs_commit_transaction(trans);
- 	if (ret)
--		goto out_unset;
-+		goto out_drop_reloc_refs;
-+	release_recovered_fs_roots(&recovered_roots, false);
- 
- 	ret = merge_reloc_roots(rc);
- 	if (ret)
-@@ -5753,6 +5774,8 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
- 	ret2 = clean_dirty_subvols(rc);
- 	if (ret2 < 0 && !ret)
- 		ret = ret2;
-+out_drop_reloc_refs:
-+	release_recovered_fs_roots(&recovered_roots, true);
- out_unset:
- 	unset_reloc_control(rc);
- 	reloc_chunk_end(fs_info);
+-		if (IS_ERR(em2)) {
+-			ret = PTR_ERR(em2);
+-			goto out;
+-		}
+-
+ 		dio_data->nocow_done = true;
+ 	} else {
+ 		/* Our caller expects us to free the input extent map. */
 
