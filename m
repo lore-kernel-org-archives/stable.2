@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F33C4D8DAF
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8B24E56FC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:40:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450022; cv=none; b=Isyv9NoEqSdsB9rIMcXwlS2Ep65aSa3CHI9K8gbBbaOy6PhiZ1tbNqOg7fnrTtgEiXBZ51D68amkIVnZjvBa0SEd/XD1Jw/wGEDvv0uMZVJnwlef1bjZoysmwm1MzDC0Jep7yNXHaDA6Dbh38jxLWcnQGHhS+3IBHgeCIQOHRKo=
+	t=1788450025; cv=none; b=mc2LGpCFy27ksvKd/em8pUVWBjqoRqbLP9MxpUrXP4QBbuzCEKfWOA3bAeLLCN0vAaF3+IHucycKRkDi8ZmYhwmjhIeDr9BgM0/dCWAwYtLyecp4uFOv9b8pqX+AejUcVRHsCvfPX9QRJKyHl2gu4seSeFDrxTyINxloiYoNzZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450022; c=relaxed/simple;
-	bh=HLy/4aLS6xtg/YJ3fRX/1YNAc/on57k3t3i5LwlV7JI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZWk1P+nWyPVCHwhAaxp9Z1+sqJAmlhYC/j0DnV6HZp4NLTzU69StSli++tOWiSyruQrRyB4NRVwlWtOVxx/5eydNHo1VwdM/rA44H4E1TvTDnAsuRZkfoz4lhO+0rurKEB/zSvNu/fpg746NoKZIs6/oWdAslVH7LLNOgDu6FTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DYOJAs9z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788450025; c=relaxed/simple;
+	bh=SaEkbOFkLSejS5mHflA6ZkFyaJsoC/Px0EVSdwjjNjs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Puw5DOb8wKoaraytI4DcrhOx7JOySF79yZZH+RAO6MzoYw5C9l90sGRJzuSw5FaAFwTWMxFeQlwi024oBna+8TeW6XzZOH3FRJgt/UypEWb5tjfN1NbtPGucIfx2VnOx6d9d6Z3lKoaaQdir/G/UQmDzM9LACURtsXZHMCsD2sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tXFZMKLP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DYOJAs9z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91831F000E9;
-	Thu,  3 Sep 2026 15:40:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tXFZMKLP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8413A1F000E9;
+	Thu,  3 Sep 2026 15:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788450021;
-	bh=HZ8FfkhwHIBbCV5dM5HBKaal4Pda1GbTPmJ3FTi3bQU=;
+	s=korg; t=1788450024;
+	bh=sPltmOtPyoV+s3F4uekVR8RLnRyha5Dwqlf6A+tGzHc=;
 	h=Subject:To:Cc:From:Date;
-	b=DYOJAs9znuJ2kzW2iCABeFRWm0NLS1cMKabj1TS15Zq8UORDSz/eA9aNJRd9AnAql
-	 xPngKVjZuATY5QrWFWm0X2shi2qZrG0xBagPjl2PBp6DZKeuN3GmtZTugu20+PSALV
-	 mZSkSd7yX91PA3i+toHWRE9bSCTiY+UUcIauJe2c=
-Subject: FAILED: patch "[PATCH] ALSA: hda/realtek: Enable headset mic on F+ FLAPTOP r" failed to apply to 6.12-stable tree
-To: rauty@altlinux.org,tiwai@suse.de
+	b=tXFZMKLPaAmhUTVo5hIt0pDDMRkMr7s/wqGpMWuIpFia6ez7IKNPeBRzITk32wGUe
+	 EwnHVifHHVayF3Fb9vXf9kK80NrTiGsryPyVjXrDVkDylRgljSBFzs+Qr0wdcQ1gyu
+	 LBW2vTsDhbvGeC0bKRxMQThxtn02msP48TDHLV1o=
+Subject: FAILED: patch "[PATCH] net/smc: fix use-after-free in smc_rx_pipe_buf_release()" failed to apply to 5.15-stable tree
+To: hidayath@linux.ibm.com,horms@kernel.org,kuba@kernel.org,mjambigi@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:14:43 +0200
-Message-ID: <2026090343-excretion-chubby-36c1@gregkh>
+Date: Thu, 03 Sep 2026 17:18:44 +0200
+Message-ID: <2026090344-judgingly-mace-1efd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7097666b993b37f4e47982026b703b2379a364f8
+git cherry-pick -x c924884743e948e25625b7fbf3ee2a9325a204a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090343-excretion-chubby-36c1@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090344-judgingly-mace-1efd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,51 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7097666b993b37f4e47982026b703b2379a364f8 Mon Sep 17 00:00:00 2001
-From: Ajrat Makhmutov <rauty@altlinux.org>
-Date: Sat, 8 Aug 2026 21:55:00 +0300
-Subject: [PATCH] ALSA: hda/realtek: Enable headset mic on F+ FLAPTOP r
+From c924884743e948e25625b7fbf3ee2a9325a204a7 Mon Sep 17 00:00:00 2001
+From: Hidayath Khan <hidayath@linux.ibm.com>
+Date: Thu, 20 Aug 2026 09:46:42 +0200
+Subject: [PATCH] net/smc: fix use-after-free in smc_rx_pipe_buf_release()
 
-The BIOS of the F+ FLAPTOP r laptop (Realtek ALC897, SSID 1e63:6d9a)
-declares only pin 0x1b, the headphone output of the 3.5 mm combo jack.
-Every other external pin is left at 0x411111f0, so the headset mic pin
-0x19 is never parsed and no headset mic input exists. The pin is wired
-on this board - retasking it makes the headset mic record.
+smc_rx_splice() hands RMB pages to a pipe and takes a socket reference
+per entry so the smc_sock stays alive until the reader finishes. The
+connection does not: a concurrent close runs smc_conn_free(), which
+releases the receive buffer back to the link group pool.
 
-Reuse ALC897_FIXUP_HP_HSMIC_VERB, which already sets the pin config this
-machine needs: 0x19 as a headset mic without its own presence detect.
-Only 0x1b reports jack presence here, so a mic pin with presence detect
-would leave the driver in auto-mic mode waiting for an event that never
-arrives.
+smc_rx_pipe_buf_release() tests sk_state before taking the socket lock.
+The state can change between the test and the lock, and
+smc_rx_update_cons() then dereferences conn->rmb_desc and walks
+conn->lgr, which smc_conn_free() has already released. On the
+is_reg_err path smcr_buf_unuse() frees the descriptor outright, so
+this is a use-after-free.
 
-Without the quirk the generic parser retasks the lone headphone pin as
-an input instead. That surfaces as a "Headphone Mic" input which records
-only the internal mic bleed, so the headset mic appears present but dead.
+Take the socket lock first and test conn->freed instead.
+smc_conn_free() sets that flag before releasing anything, and every
+caller holds the socket lock. The two paths exclude each other: either
+the pipe release runs first with everything valid, or it sees the flag
+and skips the update.
 
-Tested on ALT Linux, kernel 6.12, by recording a CTIA headset mic on the
-combo jack with the internal mic as a reference.
+Fixes: 9014db202cb7 ("smc: add support for splice()")
+Cc: stable@vger.kernel.org
+Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260820074642.966856-3-hidayath@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-ALSA info before the patch:
-https://alsa-project.org/db/?f=18363eddea933baee100c9bf461d0e5cf74c8de2
-
-ALSA info after the patch:
-https://alsa-project.org/db/?f=48ae2cd7aaf1eb0f24639ce83cd38cfd93b25f76
-
-Cc: stable@vger.kernel.org # 6.12.x
-Signed-off-by: Ajrat Makhmutov <rauty@altlinux.org>
-Link: https://patch.msgid.link/20260808185500.2564948-1-rauty@altlinux.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-
-diff --git a/sound/hda/codecs/realtek/alc662.c b/sound/hda/codecs/realtek/alc662.c
-index 2cf3664a35ff..a640292c4f10 100644
---- a/sound/hda/codecs/realtek/alc662.c
-+++ b/sound/hda/codecs/realtek/alc662.c
-@@ -852,6 +852,7 @@ static const struct hda_quirk alc662_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1b35, 0x1234, "CZC ET26", ALC662_FIXUP_CZC_ET26),
- 	SND_PCI_QUIRK(0x1b35, 0x2206, "CZC P10T", ALC662_FIXUP_CZC_P10T),
- 	SND_PCI_QUIRK(0x1c6c, 0x1239, "Compaq N14JP6-V2", ALC897_FIXUP_HP_HSMIC_VERB),
-+	SND_PCI_QUIRK(0x1e63, 0x6d9a, "F+ FLAPTOP r", ALC897_FIXUP_HP_HSMIC_VERB),
+diff --git a/net/smc/smc_rx.c b/net/smc/smc_rx.c
+index 5c9e4d8b57de..197fddc6271f 100644
+--- a/net/smc/smc_rx.c
++++ b/net/smc/smc_rx.c
+@@ -115,16 +115,15 @@ static void smc_rx_pipe_buf_release(struct pipe_inode_info *pipe,
+ 				    struct pipe_buffer *buf)
+ {
+ 	struct smc_spd_priv *priv = (struct smc_spd_priv *)buf->private;
++	struct smc_connection *conn = &priv->smc->conn;
+ 	struct smc_sock *smc = priv->smc;
+-	struct smc_connection *conn;
+ 	struct sock *sk = &smc->sk;
  
- #if 0
- 	/* Below is a quirk table taken from the old code.
+-	if (sk->sk_state == SMC_CLOSED ||
+-	    sk->sk_state == SMC_PEERFINCLOSEWAIT ||
+-	    sk->sk_state == SMC_APPFINCLOSEWAIT)
+-		goto out;
+-	conn = &smc->conn;
+ 	lock_sock(sk);
++	if (conn->freed) {
++		release_sock(sk);
++		goto out;
++	}
+ 	smc_rx_update_cons(smc, priv->len);
+ 	release_sock(sk);
+ 	if (atomic_sub_and_test(priv->len, &conn->splice_pending))
 
