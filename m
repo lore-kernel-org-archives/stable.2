@@ -1,58 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8542D4FECD8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12A23955EB
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 18:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788460021; cv=none; b=E+chnfBGb8hAdJHwAHFAbipdFo8d8RKrECivB2ae1i7E/Xw3zvuhERoWYvfsWRnVTd+Bgn5dE4j//fNhLdIroJkJMKfNpHPQbAyrz65FMU8LLtf9KBOYWcTR4w5L4cpbnUfTJMMNJ7axC4e8/AYxHGOvm2LbSXnccPv2g8ckfcM=
+	t=1788460023; cv=none; b=ZycXUJ6FgA8vPMLOxpksX+OYXpeWVskaSy4T3vDv6mTQbRBxJarvdmgeIE38YTA3sn1SLsnK2MOmMnn8NF/bzCMndI8b1Oin9HoXoeRLilTHzqHCgkQgs6XsEs6kaaem5wkr/4Rj3ql4+BEQOjdEkfX2C94/vRaPKu5P9U3AYf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788460021; c=relaxed/simple;
-	bh=N2cLLmjSPyy6QQV9EJUR28J5Nty7M5oOc9CIx6/x2ms=;
+	s=arc-20240116; t=1788460023; c=relaxed/simple;
+	bh=Ix/ATtqJ3hKoU+tKKzZkWmxp3nykmPdchUUoP+YBbCI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SJSwBtbCwveG8860d7tJD6FEOh+cp051ZqACG2tkaS5w9A5TnH685e9/FfpHPOmW8CSW0NlckJWmhD2zsb0lQwXo7MSm96MVnDbv0xc4t+tu0Rlb5XHP+iQZXM/OSCVBOg6offeMwpHHFfc1LeE7l7Adc2XQKBj2v5FWHfZrz6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A94Nir3K; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bxGTHi8mB2wQMQcptGYrt3pHasM8QuqJsJtmeJxaJYfjZf3zynKUZzBpSJFjS6fJa+7jJynbLHzxErSRnP3WGo7B0iDi8fQLYoh+ZG2LP3jwpgyL4qmdyndfbU6WNHfswUbjt62A2CEGe6NeY6UZqCgAhEBxgJkd5bVkotxKUos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMNgVJHv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A94Nir3K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4931F00A3F;
-	Thu,  3 Sep 2026 18:26:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMNgVJHv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1F951F00A3D;
+	Thu,  3 Sep 2026 18:26:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788460016;
-	bh=0JacJlZHP5zvVRvDN2RKRi4zv3h1AMbXJFwBrKKaSf8=;
+	s=k20260515; t=1788460018;
+	bh=DoujJvo90l+lRI/VJwzU3awvrdHxZEsQL6EA3Ofs4zo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A94Nir3KL14uNKG1XKmpU8805BZdvNhkMxx9QZ5/geqlBffthXWlgvyWzxfCX2OnC
-	 ZluR1OG9jBNmlbmk3IKdG+azlZwhIU30x/QkeqN4jQaE2F+Esv8kctB3d3wHWJJwZk
-	 5R2RmaSC+he5BU1A3sP10xKD8PFPFGeK1mI6JcsgkHQ74F/0CZVRzN3a9qePLNVCEI
-	 JNUKHicHE8MB6SRQj+tPJtsTUe0+XUNqIKW7A/thFKOpY0CJlt6RW/Ear5a06MYAjk
-	 BJDUm34XDUf0lB+z1ekRTLGvJqhGappx3ZzSuW4K9U0/LgKd6QBd3+nQSt3pNOpIrE
-	 xPSe5hLM7lfpg==
+	b=AMNgVJHvyXER/yvcWxBJa3fnH/fGwpW83yZ7IUGDJUkoXLA+YGGWmmbXp9jaowR84
+	 TCCWkvOB3D21Q8BFhqGyygC05zcKIL6hfEzhlh1TAXvUf4dxxGPLB4q+BG2rgi0o94
+	 hnPny/iK05JFAWhj0x3JCTquzBL0EptWZTO7ANrXflS81PYxpdfJmjqf6+Nw+eE0GY
+	 QsGWuFsZKmiHPkIn8Fx/kr5b8+3P6INdp2tEY+eaiBBgqdYtfeDLYAV0Tizz8mM8p1
+	 NXsM8HmekI+DTaIwqm+FvD6r4fVgwPRlB/GDgu9k6LolT5jUpQCYa4qnuHvPe76huC
+	 eXrNdUIV0OE/w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Muchun Song <songmuchun@bytedance.com>,
-	Qi Zheng <zhengqi.arch@bytedance.com>,
-	Zi Yan <ziy@nvidia.com>,
-	David Hildenbrand <david@redhat.com>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
+Cc: Zi Yan <ziy@nvidia.com>,
 	Wei Yang <richard.weiyang@gmail.com>,
-	Harry Yoo <harry.yoo@oracle.com>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"David Hildenbrand (Red Hat)" <david@kernel.org>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Barry Song <baohua@kernel.org>,
 	Dev Jain <dev.jain@arm.com>,
-	Hugh Dickins <hughd@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
 	Lance Yang <lance.yang@linux.dev>,
 	Liam Howlett <liam.howlett@oracle.com>,
 	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Muchun Song <muchun.song@linux.dev>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
 	Nico Pache <npache@redhat.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
 	Ryan Roberts <ryan.roberts@arm.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/6] mm: thp: use folio_batch to handle THP splitting in deferred_split_scan()
-Date: Thu,  3 Sep 2026 14:26:46 -0400
-Message-ID: <20260903182650.1451393-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/6] mm/huge_memory: change folio_split_supported() to folio_check_splittable()
+Date: Thu,  3 Sep 2026 14:26:47 -0400
+Message-ID: <20260903182650.1451393-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260903182650.1451393-1-sashal@kernel.org>
 References: <2026090356-glacial-cornball-be8c@gregkh>
@@ -65,297 +59,222 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Muchun Song <songmuchun@bytedance.com>
+From: Zi Yan <ziy@nvidia.com>
 
-[ Upstream commit 776bde7caf80f6af72b087cafe7d9f607b14716d ]
+[ Upstream commit bdd0d69a32c2aa6437d23e35acc705758b835a75 ]
 
-The maintenance of the folio->_deferred_list is intricate because it's
-reused in a local list.
+Patch series "Improve folio split related functions", v4.
 
-Here are some peculiarities:
+This patchset improves several folio split related functions to avoid
+future misuse.  The changes are:
 
-   1) When a folio is removed from its split queue and added to a local
-      on-stack list in deferred_split_scan(), the ->split_queue_len isn't
-      updated, leading to an inconsistency between it and the actual
-      number of folios in the split queue.
+1. Consolidated folio splittable checks by moving truncated folio check,
+   huge zero folio check, and writeback folio check into
+   folio_split_supported(). Changed the function return type. Renamed it
+   to folio_check_splittable() for clarification.
 
-   2) When the folio is split via split_folio() later, it's removed from
-      the local list while holding the split queue lock. At this time,
-      the lock is not needed as it is not protecting anything.
+2. Replaced can_split_folio() with open coded folio_expected_ref_count()
+   and folio_ref_count() and introduced folio_cache_ref_count().
 
-   3) To handle the race condition with a third-party freeing or migrating
-      the preceding folio, we must ensure there's always one safe (with
-      raised refcount) folio before by delaying its folio_put(). More
-      details can be found in commit e66f3185fa04 ("mm/thp: fix deferred
-      split queue not partially_mapped"). It's rather tricky.
+3. Changed min_order_for_split() to always return an order.
 
-We can use the folio_batch infrastructure to handle this clearly.  In this
-case, ->split_queue_len will be consistent with the real number of folios
-in the split queue.  If list_empty(&folio->_deferred_list) returns false,
-it's clear the folio must be in its split queue (not in a local list
-anymore).
+4. Fixed folio split stats counting.
 
-In the future, we will reparent LRU folios during memcg offline to
-eliminate dying memory cgroups, which requires reparenting the split queue
-to its parent first.  So this patch prepares for using
-folio_split_queue_lock_irqsave() as the memcg may change then.
+Motivation
+==========
+This is based on Wei's observation[1] and solves several potential
+issues:
+1. Dereferencing NULL folio->mapping in try_folio_split_to_order() if it
+   is called on truncated folios.
+2. Not handling of negative return value of min_order_for_split() in
+   mm/memory-failure.c
 
-Link: https://lkml.kernel.org/r/59cb6b6fb5ffcff9d23b81890b252960139ad8e7.1762762324.git.zhengqi.arch@bytedance.com
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand <david@redhat.com>
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+There is no bug in the current code.
+
+This patch (of 4):
+
+folio_split_supported() used in try_folio_split_to_order() requires
+folio->mapping to be non NULL, but current try_folio_split_to_order() does
+not check it.  There is no issue in the current code, since
+try_folio_split_to_order() is only used in truncate_inode_partial_folio(),
+where folio->mapping is not NULL.
+
+To prevent future misuse, move folio->mapping NULL check (i.e., folio is
+truncated) into folio_split_supported().  Since folio->mapping NULL check
+returns -EBUSY and folio_split_supported() == false means -EINVAL, change
+folio_split_supported() return type from bool to int and return error
+numbers accordingly.  Rename folio_split_supported() to
+folio_check_splittable() to match the return type change.
+
+While at it, move is_huge_zero_folio() check and folio_test_writeback()
+check into folio_check_splittable() and add kernel-doc.
+
+Remove all warnings inside folio_check_splittable() and give warnings
+in __folio_split() instead, so that bool warns parameter can be removed.
+
+Link: https://lkml.kernel.org/r/20251126210618.1971206-1-ziy@nvidia.com
+Link: https://lkml.kernel.org/r/20251126210618.1971206-2-ziy@nvidia.com
+Signed-off-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Wei Yang <richard.weiyang@gmail.com>
-Reviewed-by: Harry Yoo <harry.yoo@oracle.com>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
 Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
 Cc: Barry Song <baohua@kernel.org>
 Cc: Dev Jain <dev.jain@arm.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Lance Yang <lance.yang@linux.dev>
 Cc: Liam Howlett <liam.howlett@oracle.com>
 Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
 Cc: Nico Pache <npache@redhat.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Stable-dep-of: c299a2285d9d ("mm/huge_memory: use folio's memcg inside __folio_split()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 130 ++++++++++++++++++++++++-----------------------
- 1 file changed, 66 insertions(+), 64 deletions(-)
+ include/linux/huge_mm.h |  6 ++--
+ mm/huge_memory.c        | 72 +++++++++++++++++++++++------------------
+ 2 files changed, 43 insertions(+), 35 deletions(-)
 
+diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
+index 240cbc6764809..9bafcdb4d66ac 100644
+--- a/include/linux/huge_mm.h
++++ b/include/linux/huge_mm.h
+@@ -369,8 +369,8 @@ int split_huge_page_to_list_to_order(struct page *page, struct list_head *list,
+ 		unsigned int new_order);
+ int min_order_for_split(struct folio *folio);
+ int split_folio_to_list(struct folio *folio, struct list_head *list);
+-bool folio_split_supported(struct folio *folio, unsigned int new_order,
+-		bool uniform_split, bool warns);
++int folio_check_splittable(struct folio *folio, unsigned int new_order,
++			   bool uniform_split);
+ int folio_split(struct folio *folio, unsigned int new_order, struct page *page,
+ 		struct list_head *list);
+ /*
+@@ -390,7 +390,7 @@ int folio_split(struct folio *folio, unsigned int new_order, struct page *page,
+ static inline int try_folio_split_to_order(struct folio *folio,
+ 		struct page *page, unsigned int new_order)
+ {
+-	if (!folio_split_supported(folio, new_order, false, /* warns= */ false))
++	if (folio_check_splittable(folio, new_order, false))
+ 		return split_huge_page_to_list_to_order(&folio->page, NULL,
+ 				new_order);
+ 	return folio_split(folio, new_order, page, NULL);
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 11a58a93f361b..27d97afd22be1 100644
+index 27d97afd22be1..dc53a92308513 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -3686,19 +3686,21 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 	bool is_anon = folio_test_anon(folio);
- 	struct address_space *mapping = NULL;
- 	struct anon_vma *anon_vma = NULL;
--	int order = folio_order(folio);
-+	int old_order = folio_order(folio);
- 	struct folio *new_folio, *next;
-+	int extra_pins;
- 	int nr_shmem_dropped = 0;
--	int remap_flags = 0;
--	int extra_pins, ret;
--	pgoff_t end;
--	bool is_hzp;
-+	enum ttu_flags ttu_flags = 0;
-+	pgoff_t end = 0;
-+	int ret;
- 
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
- 	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
- 
--	if (folio != page_folio(split_at) || folio != page_folio(lock_at))
--		return -EINVAL;
-+	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
- 	/*
- 	 * Folios that just got truncated cannot get split. Signal to the
-@@ -3710,14 +3712,12 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 	if (!is_anon && !folio->mapping)
- 		return -EBUSY;
- 
--	if (new_order >= folio_order(folio))
--		return -EINVAL;
--
--	if (!folio_split_supported(folio, new_order, uniform_split, /* warn = */ true))
--		return -EINVAL;
-+	if (new_order >= old_order) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
- 
--	is_hzp = is_huge_zero_folio(folio);
--	if (is_hzp) {
-+	if (is_huge_zero_folio(folio)) {
- 		pr_warn_ratelimited("Called split_huge_page for huge zero page\n");
- 		return -EBUSY;
- 	}
-@@ -3725,6 +3725,13 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 	if (folio_test_writeback(folio))
- 		return -EBUSY;
- 
-+	ret = folio_split_supported(folio, new_order, uniform_split,
-+				    /* warns = */ false) ? 0 : -EINVAL;
-+	if (ret) {
-+		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
-+		goto out;
-+	}
-+
- 	if (is_anon) {
- 		/*
- 		 * The caller does not necessarily hold an mmap_lock that would
-@@ -3817,21 +3824,22 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		struct lruvec *lruvec;
- 		int expected_refs;
- 
--		if (folio_order(folio) > 1 &&
--		    !list_empty(&folio->_deferred_list)) {
--			ds_queue->split_queue_len--;
-+		if (folio_order(folio) > 1) {
-+			if (!list_empty(&folio->_deferred_list)) {
-+				ds_queue->split_queue_len--;
-+				/*
-+				 * Reinitialize page_deferred_list after removing the
-+				 * page from the split_queue, otherwise a subsequent
-+				 * split will see list corruption when checking the
-+				 * page_deferred_list.
-+				 */
-+				list_del_init(&folio->_deferred_list);
-+			}
- 			if (folio_test_partially_mapped(folio)) {
- 				folio_clear_partially_mapped(folio);
- 				mod_mthp_stat(folio_order(folio),
- 					      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
- 			}
--			/*
--			 * Reinitialize page_deferred_list after removing the
--			 * page from the split_queue, otherwise a subsequent
--			 * split will see list corruption when checking the
--			 * page_deferred_list.
--			 */
--			list_del_init(&folio->_deferred_list);
- 		}
- 		split_queue_unlock(ds_queue);
- 		if (mapping) {
-@@ -3941,8 +3949,8 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		shmem_uncharge(mapping->host, nr_shmem_dropped);
- 
- 	if (!ret && is_anon)
--		remap_flags = RMP_USE_SHARED_ZEROPAGE;
--	remap_page(folio, 1 << order, remap_flags);
-+		ttu_flags = (enum ttu_flags)RMP_USE_SHARED_ZEROPAGE;
-+	remap_page(folio, 1 << old_order, ttu_flags);
- 
- 	/*
- 	 * Drop the mapping while the inode is still pinned. @folio stays
-@@ -3985,9 +3993,9 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		i_mmap_unlock_read(mapping);
- out:
- 	xas_destroy(&xas);
--	if (order == HPAGE_PMD_ORDER)
-+	if (old_order == HPAGE_PMD_ORDER)
- 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
--	count_mthp_stat(order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
-+	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
+@@ -3603,15 +3603,40 @@ static int __split_unmapped_folio(struct folio *folio, int new_order,
  	return ret;
  }
  
-@@ -4230,35 +4238,40 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+-bool folio_split_supported(struct folio *folio, unsigned int new_order,
+-		bool uniform_split, bool warns)
++/**
++ * folio_check_splittable() - check if a folio can be split to a given order
++ * @folio: folio to be split
++ * @new_order: the smallest order of the after split folios (since buddy
++ *             allocator like split generates folios with orders from @folio's
++ *             order - 1 to new_order).
++ * @uniform_split: perform uniform split or not (non-uniform split)
++ *
++ * folio_check_splittable() checks if @folio can be split to @new_order using
++ * the requested split method. The truncated folio check must come first.
++ *
++ * Context: folio must be locked.
++ *
++ * Return: 0 - @folio can be split to @new_order, otherwise an error number is
++ * returned.
++ */
++int folio_check_splittable(struct folio *folio, unsigned int new_order,
++			   bool uniform_split)
  {
- 	struct deferred_split *ds_queue;
- 	unsigned long flags;
--	LIST_HEAD(list);
--	struct folio *folio, *next, *prev = NULL;
--	int split = 0, removed = 0;
-+	struct folio *folio, *next;
-+	int split = 0, i;
-+	struct folio_batch fbatch;
++	VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);
++	/*
++	 * Folios that just got truncated cannot get split. Signal to the
++	 * caller that there was a race.
++	 *
++	 * TODO: this will also currently refuse folios without a mapping in the
++	 * swapcache (shmem or to-be-anon folios).
++	 */
++	if (!folio->mapping && !folio_test_anon(folio))
++		return -EBUSY;
 +
-+	folio_batch_init(&fbatch);
- 
-+retry:
- 	ds_queue = split_queue_lock_irqsave(sc->nid, sc->memcg, &flags);
- 	/* Take pin on all head pages to avoid freeing them under us */
- 	list_for_each_entry_safe(folio, next, &ds_queue->split_queue,
- 							_deferred_list) {
- 		if (folio_try_get(folio)) {
--			list_move(&folio->_deferred_list, &list);
--		} else {
-+			folio_batch_add(&fbatch, folio);
-+		} else if (folio_test_partially_mapped(folio)) {
- 			/* We lost race with folio_put() */
--			if (folio_test_partially_mapped(folio)) {
--				folio_clear_partially_mapped(folio);
--				mod_mthp_stat(folio_order(folio),
--					      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
--			}
--			list_del_init(&folio->_deferred_list);
--			ds_queue->split_queue_len--;
-+			folio_clear_partially_mapped(folio);
-+			mod_mthp_stat(folio_order(folio),
-+				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+ 	if (folio_test_anon(folio)) {
+ 		/* order-1 is not supported for anonymous THP. */
+-		VM_WARN_ONCE(warns && new_order == 1,
+-				"Cannot split to order-1 folio");
+ 		if (new_order == 1)
+-			return false;
++			return -EINVAL;
+ 	} else if (!uniform_split || new_order) {
+ 		if (IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) &&
+ 		    !mapping_large_folio_support(folio->mapping)) {
+@@ -3632,9 +3657,7 @@ bool folio_split_supported(struct folio *folio, unsigned int new_order,
+ 			 * case, the mapping does not actually support large
+ 			 * folios properly.
+ 			 */
+-			VM_WARN_ONCE(warns,
+-				"Cannot split file folio to non-0 order");
+-			return false;
++			return -EINVAL;
  		}
-+		list_del_init(&folio->_deferred_list);
-+		ds_queue->split_queue_len--;
- 		if (!--sc->nr_to_scan)
- 			break;
-+		if (!folio_batch_space(&fbatch))
-+			break;
  	}
- 	split_queue_unlock_irqrestore(ds_queue, flags);
  
--	list_for_each_entry_safe(folio, next, &list, _deferred_list) {
-+	for (i = 0; i < folio_batch_count(&fbatch); i++) {
- 		bool did_split = false;
- 		bool underused = false;
-+		struct deferred_split *fqueue;
- 
-+		folio = fbatch.folios[i];
- 		if (!folio_test_partially_mapped(folio)) {
- 			/*
- 			 * See try_to_map_unused_to_zeropage(): we cannot
-@@ -4281,38 +4294,27 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
- 		}
- 		folio_unlock(folio);
- next:
-+		if (did_split || !folio_test_partially_mapped(folio))
-+			continue;
- 		/*
--		 * split_folio() removes folio from list on success.
- 		 * Only add back to the queue if folio is partially mapped.
- 		 * If thp_underused returns false, or if split_folio fails
- 		 * in the case it was underused, then consider it used and
- 		 * don't add it back to split_queue.
- 		 */
--		if (did_split) {
--			; /* folio already removed from list */
--		} else if (!folio_test_partially_mapped(folio)) {
--			list_del_init(&folio->_deferred_list);
--			removed++;
--		} else {
--			/*
--			 * That unlocked list_del_init() above would be unsafe,
--			 * unless its folio is separated from any earlier folios
--			 * left on the list (which may be concurrently unqueued)
--			 * by one safe folio with refcount still raised.
--			 */
--			swap(folio, prev);
-+		fqueue = folio_split_queue_lock_irqsave(folio, &flags);
-+		if (list_empty(&folio->_deferred_list)) {
-+			list_add_tail(&folio->_deferred_list, &fqueue->split_queue);
-+			fqueue->split_queue_len++;
- 		}
--		if (folio)
--			folio_put(folio);
-+		split_queue_unlock_irqrestore(fqueue, flags);
+@@ -3647,12 +3670,16 @@ bool folio_split_supported(struct folio *folio, unsigned int new_order,
+ 	 * here.
+ 	 */
+ 	if ((!uniform_split || new_order) && folio_test_swapcache(folio)) {
+-		VM_WARN_ONCE(warns,
+-			"Cannot split swapcache folio to non-0 order");
+-		return false;
++		return -EINVAL;
  	}
-+	folios_put(&fbatch);
  
--	spin_lock_irqsave(&ds_queue->split_queue_lock, flags);
--	list_splice_tail(&list, &ds_queue->split_queue);
--	ds_queue->split_queue_len -= removed;
--	spin_unlock_irqrestore(&ds_queue->split_queue_lock, flags);
+-	return true;
++	if (is_huge_zero_folio(folio))
++		return -EINVAL;
++
++	if (folio_test_writeback(folio))
++		return -EBUSY;
++
++	return 0;
+ }
+ 
+ /*
+@@ -3702,31 +3729,12 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 		goto out;
+ 	}
+ 
+-	/*
+-	 * Folios that just got truncated cannot get split. Signal to the
+-	 * caller that there was a race.
+-	 *
+-	 * TODO: this will also currently refuse shmem folios that are in the
+-	 * swapcache.
+-	 */
+-	if (!is_anon && !folio->mapping)
+-		return -EBUSY;
 -
--	if (prev)
--		folio_put(prev);
-+	if (sc->nr_to_scan && !list_empty(&ds_queue->split_queue)) {
-+		cond_resched();
-+		goto retry;
-+	}
+ 	if (new_order >= old_order) {
+ 		ret = -EINVAL;
+ 		goto out;
+ 	}
  
- 	/*
- 	 * Stop shrinker if we didn't split any page, but the queue is empty.
+-	if (is_huge_zero_folio(folio)) {
+-		pr_warn_ratelimited("Called split_huge_page for huge zero page\n");
+-		return -EBUSY;
+-	}
+-
+-	if (folio_test_writeback(folio))
+-		return -EBUSY;
+-
+-	ret = folio_split_supported(folio, new_order, uniform_split,
+-				    /* warns = */ false) ? 0 : -EINVAL;
++	ret = folio_check_splittable(folio, new_order, uniform_split);
+ 	if (ret) {
+ 		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
+ 		goto out;
 -- 
 2.53.0
 
