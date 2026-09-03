@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB554A4988
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:45:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFA84AA021
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439552; cv=none; b=M+cVd1gspWbF4EEwX7RzJhCSb2AqAgEbrnLm8bknL4J3Gkz1yA+SjKlOK/ghE1JGbQX6139ZiLML+XRJf0DHDaYoFw0sQcnor4JTMihRb5WngrSGVid8lGUM9zuf/ZcVa2GSnrIrMOKhyo2MBYWva9DXSU8lm8zfHlXUB8BDcMQ=
+	t=1788439556; cv=none; b=fd60kT2OJ5L7MJy34DYptJibvAB+r36h1a4VV8HS5F0f9rng7vwOQmPylnd26j0LMmqO5qb/5F6krXfTiDPJ44oGtoH7wwIy1WEHAYt29wt31IADGqQ46//GIs9rg3lkv011xuPAHC6HSb47kv+xZyyHojJIH4rf7plgOFY0UXw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439552; c=relaxed/simple;
-	bh=ISqVLT9HPbErp+yn/TjRoIQuH/WzzWw3U76gxPaqRQo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=uXZun5dIGFaRTEDvmQMsndyp25W8qgu0LCyN1aUlhfrLNtcMdNF7r61lHxO70xp1q6Ewo7fJQIYZes1wMNS0YN/RijVE+js9hgo+k4rQhyysuBNtig0T64B+aJb3BqIap/94nGpyBhMnuBiGa+vuxX8mAu8to5Et7AAp7zr+H9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=noDu9wD0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439556; c=relaxed/simple;
+	bh=6qaW76XtL3r0d/yT/Vm7rNf1hvDwjXxXJruEe1M4Rx0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nwj9cKTVSAF1Zzf4qxsV/T3XDXgeK5r+loAOAjZstTJEtS6E4U9hPX8q37WZobCOpi63MCr8aLpBeTJXdnHThrBaYSc8Guxyw0rMq26TP2S2QKSYdwTTfpAB3hjfYnUnLgIPyFkWwWQdmOuWcgArHQ2h9Q/YefXVaAfvTc2LLQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XJbj8gBc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="noDu9wD0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 205831F00A3A;
-	Thu,  3 Sep 2026 12:45:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XJbj8gBc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEAF51F00A3D;
+	Thu,  3 Sep 2026 12:45:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439550;
-	bh=esVvzhd5E/nhjeThyG7mN71ORCiNRHYT6C6dVL8bfD8=;
+	s=korg; t=1788439553;
+	bh=OJooIpip14k/uXx2IAEtAE7+v35mCTWhFJM2HLyB4eU=;
 	h=Subject:To:Cc:From:Date;
-	b=noDu9wD0BzXMAGtNL4oWLI54OBy5VqyM01IooSBFe4wQshfDo61rLX9zUlW0Yxx+f
-	 fBEK1ps2bNGIBVcfvPWr3DLtYR74+zu+n4ng9zKZ8DCEi8TpWb+YjFVgDLlCv87VDE
-	 NhKEn/xQMCGVboI/oh+J21ZXTt/vT7oZvkD30PZ8=
-Subject: FAILED: patch "[PATCH] mm/mglru: fix and remove redundant unevictable folio handling" failed to apply to 6.6-stable tree
-To: kasong@tencent.com,akpm@linux-foundation.org,axelrasmussen@google.com,baohua@kernel.org,baolin.wang@linux.alibaba.com,bgeffon@google.com,david@kernel.org,hannes@cmpxchg.org,heftig@archlinux.org,ljs@kernel.org,mhocko@kernel.org,oleksandr@natalenko.name,shakeel.butt@linux.dev,stable@vger.kernel.org,steven@liquorix.net,suleiman@google.com,weixugc@google.com,yuanchu@google.com,yuzhao@google.com
+	b=XJbj8gBcpFtYq9KQJXdr74JDK40KS2F3GurAZaHeLSQP6vdkIxMahPHfF+VrjO0hy
+	 qcQbqWjNBAlnlXr7hdY9v/XQLbRZuhA/OahExOfn940/EoEdlvzL6Pok6RUTanDDzL
+	 OAOfmAwHK54+4JZZIMdiOr0Y4RnuFw04AzQlsiGA=
+Subject: FAILED: patch "[PATCH] mm/migrate: use huge_ptep_get() in remove_migration_pte()" failed to apply to 6.6-stable tree
+To: dev.jain@arm.com,ak@linux.intel.com,akpm@linux-foundation.org,anshuman.khandual@arm.com,apopple@nvidia.com,byungchul@sk.com,catalin.marinas@arm.com,dave.hansen@intel.com,david@kernel.org,gourry@gourry.net,harry@kernel.org,j-nomura@ce.jp.nec.com,jannh@google.com,joshua.hahnjy@gmail.com,jpoimboe@kernel.org,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,matthew.brost@intel.com,mel@csn.ul.ie,muchun.song@linux.dev,nao.horiguchi@gmail.com,osalvador@suse.de,pfalcato@suse.de,rakie.kim@sk.com,rcampbell@nvidia.com,riel@surriel.com,ryan.roberts@arm.com,stable@vger.kernel.org,vbabka@kernel.org,will@kernel.org,ying.huang@linux.alibaba.com,ziy@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:48:04 +0200
-Message-ID: <2026090304-economist-cost-ccd2@gregkh>
+Date: Thu, 03 Sep 2026 12:48:32 +0200
+Message-ID: <2026090332-posh-plaster-8398@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x f7e698e326b239a91ea15844817551921209e826
+git cherry-pick -x ac1ec50d71b953524100ddc09057ee61a3dfaff3
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-economist-cost-ccd2@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090332-posh-plaster-8398@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,108 +62,76 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7e698e326b239a91ea15844817551921209e826 Mon Sep 17 00:00:00 2001
-From: Kairui Song <kasong@tencent.com>
-Date: Wed, 12 Aug 2026 20:22:39 +0800
-Subject: [PATCH] mm/mglru: fix and remove redundant unevictable folio handling
+From ac1ec50d71b953524100ddc09057ee61a3dfaff3 Mon Sep 17 00:00:00 2001
+From: Dev Jain <dev.jain@arm.com>
+Date: Fri, 3 Jul 2026 11:41:57 +0000
+Subject: [PATCH] mm/migrate: use huge_ptep_get() in remove_migration_pte()
 
-sort_folio() has a shortcut for moving folios that are no longer evictable
-but are still sitting on a generation list.  However, this shortcut is
-buggy.  It does not follow the PG_lru usage convention, and it has a more
-serious issue.
+remove_migration_pte() converts migration entries back to present PTEs
+after folio migration completes.  For hugetlb folios,
+page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
+pvmw.pte, but the code reads it with ptep_get().
 
-Unevictable folios are not threaded on lists[LRU_UNEVICTABLE], so that
-folio->lru can be reused to hold folio->mlock_count (see the comment in
-lruvec_init()).  Hence lruvec_add_folio() skips the list_add() for them,
-and every other place that turns a folio unevictable initialises
-mlock_count explicitly: lru_add() sets it to 0, __mlock_folio() and
-__mlock_new_folio() set it to !!folio_test_mlocked(folio).  sort_folio()
-sets nothing, and the lru_gen_del_folio() right above it may have already
-poisoned folio->lru via list_del(), so mlock_count ends up aliasing
-LIST_POISON2, which reads as 0x122, i.e.  290.  The result is user
-visible.  On munlock, __munlock_folio() decrements that bogus count, finds
-it still non-zero and bails out before clearing PG_mlocked, so the folio
-remains unevictable and the Mlocked accounting stays inflated until the
-folio is freed.
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(),
+pte_present() etc to misbehave.
 
-The shortcut also touches the LRU flags in the wrong order.  It calls
-lru_gen_del_folio() while PG_lru is still set, so a concurrent
-folio_test_clear_lru() (e.g.  compaction, folio_isolate_lru()) can succeed
-on a folio that has already been taken off the generation list, which may
-lead to unexpected behavior.
+It is not clear whether this has a trivially visible effect to userspace.
 
-So fix it by isolating them as common folios and letting the generic
-shrink path cull them.  This matches the classical LRU behavior, and there
-should be no visible effect on the generic eviction or isolation behavior.
+Use huge_ptep_get() to dereference a huge pte pointer.
 
-There is no performance concern either, such a folio goes through this
-once, and then it is off the generation lists for good.
-
-Link: https://lore.kernel.org/20260812-mglru-mlock-fix-v2-1-a3fec5853c08@tencent.com
-Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
-Signed-off-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
+Link: https://lore.kernel.org/20260703114202.365553-5-dev.jain@arm.com
+Fixes: 290408d4a250 ("hugetlb: hugepage migration core")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Acked-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Oleksandr Natalenko <oleksandr@natalenko.name>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Steven Barrett <steven@liquorix.net>
-Cc: Suleiman Souhlal <suleiman@google.com>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: Yu Zhao <yuzhao@google.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6c35f7e21465..c1404a59523d 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4649,7 +4649,6 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
- static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_control *sc,
- 		       int tier_idx)
- {
--	bool success;
- 	int gen = folio_lru_gen(folio);
- 	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
-@@ -4661,15 +4660,9 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 
- 	VM_WARN_ON_ONCE_FOLIO(gen >= MAX_NR_GENS, folio);
- 
--	/* unevictable */
--	if (!folio_evictable(folio)) {
--		success = lru_gen_del_folio(lruvec, folio, true);
--		VM_WARN_ON_ONCE_FOLIO(!success, folio);
--		folio_set_unevictable(folio);
--		lruvec_add_folio(lruvec, folio);
--		__count_vm_events(UNEVICTABLE_PGCULLED, delta);
--		return true;
--	}
-+	/* unevictable: let it through and the generic path will cull it */
-+	if (!folio_evictable(folio))
-+		return false;
- 
- 	/* promoted */
- 	if (gen != lru_gen_from_seq(lrugen->min_seq[type])) {
-@@ -4922,11 +4915,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
- 		DEFINE_MIN_SEQ(lruvec);
- 
--		if (!folio_evictable(folio)) {
--			list_del(&folio->lru);
--			folio_putback_lru(folio);
-+		/* move_folios_to_lru() culls unevictable folios via folio_putback_lru() */
-+		if (!folio_evictable(folio))
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 1977905ce12c..b6f56b67e367 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -372,7 +372,11 @@ static bool remove_migration_pte(struct folio *folio,
  			continue;
--		}
- 
- 		/* retry folios that may have missed folio_rotate_reclaimable() */
- 		if (!skip_retry && !folio_test_active(folio) && !folio_mapped(folio) &&
+ 		}
+ #endif
+-		old_pte = ptep_get(pvmw.pte);
++		if (folio_test_hugetlb(folio))
++			old_pte = huge_ptep_get(vma->vm_mm, pvmw.address,
++						pvmw.pte);
++		else
++			old_pte = ptep_get(pvmw.pte);
+ 		if (rmap_walk_arg->map_unused_to_zeropage &&
+ 		    try_to_map_unused_to_zeropage(&pvmw, folio, old_pte, idx))
+ 			continue;
 
