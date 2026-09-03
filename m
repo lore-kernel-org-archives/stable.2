@@ -1,231 +1,509 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87FB54BC022;
-	Thu,  3 Sep 2026 14:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 054214BD0E3
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447332; cv=none; b=tkzOF87gjYwchdIrpuOnMtKr8G2yyLvDlMqTlo0UhfIPdgaUUv6zsKLJF6qM8jTKNbBLzwMUFKw7V+RlFA844fU0WWTVYRUYyqv0rb54sEPeBXOIRK89wx/dyt4cvo8oUEiS8MrN8v4+Ya5pOtSoZ10futJck3+Nt1GVqRCR47I=
+	t=1788447334; cv=none; b=E89sFXM+0C+/2VL8hg9Hs33CLaZWXJbb55lCHa55n8qkOfpzzzCvy72DirZ9ZlkkAVxdcVrn6WYHwPB4HfpSkgH/O1QGdCl4+uvg6cV/NOukdZ6OFvkcmVAJJdKLdLjJSjb/S0fNfXQCntq+4raKc3u8k+Zv9zQ2XWF9jFepNXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447332; c=relaxed/simple;
-	bh=dMAVsBKsZQ7Ik69y/mvFH6kBKvXIlz1hQPHV8YuEXVE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KHANwkosFPeY4BJc4SpC2Tdxk11nOGpbtwKzCG25T68yM9R6lEZXO/52qnhbSG79wo5Ny0pvLE7grevp2h8aQ5JkgVQDRiCJ3gj3eP4LlNhN6Wh/C7KeR3Vyj1pDXq+4N9iZtqvnlIWxXQbCCsaVb7FbwJTixwbv3xCvKgpdxeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=s5fDDOH/; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FtsB/wZA; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ALDL6KUu; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=LjHNPKsr; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788447334; c=relaxed/simple;
+	bh=iDNpB85oEkJUX26i/2FqsxE3NMGw+rW+ujnTIO/4/rg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ceqVYLH0yfUbvU8QXHrbivFNU2h+DdWDf/PC/vmsL4cwUOb125k4duBAceLp8P/Mpx3/YfsqnB815cOXQ42RMGLAJaL2RsI+66QpG2utLxyBsFxE29ul4rRiWTRO/ctzEUDF3hEDf/xXASteXK0XXm+lDyuuSjXAG8cuOM63KDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x/f1SvwT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="s5fDDOH/";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FtsB/wZA";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ALDL6KUu";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="LjHNPKsr"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3BC5B1FB75;
-	Thu,  3 Sep 2026 14:55:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788447319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ouYq8jEG/YnOzue8Ui4hUUZcZuiA7sjGHnKRkO31T/k=;
-	b=s5fDDOH/CRuRHIc4OZuZqrbAcHSMlNS2p88e04exkBQ5yaibKC5sFI+R6Vk0JRl7U+lMxa
-	iwtVbfvmGqfPOuruwwEW5EaNrtzjDgDYQzEFtt8WlCjyeES0hnZtcQ6bThJJm6FToJu16l
-	a28+zBkQuoRP67q8Yg8xyhgF2WfXcds=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788447319;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ouYq8jEG/YnOzue8Ui4hUUZcZuiA7sjGHnKRkO31T/k=;
-	b=FtsB/wZAMY5oob7JwCjJv+FhiUwecqszK+uoyIiY44MwgI8vNGlzqht9EyR2uwbVBVAtyM
-	F2L45CF6EyB4GJDA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=ALDL6KUu;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=LjHNPKsr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788447315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ouYq8jEG/YnOzue8Ui4hUUZcZuiA7sjGHnKRkO31T/k=;
-	b=ALDL6KUub4ChAr93EzfllCpbBa/bmdO4/Siqkuqm30KFTS17ktwjsPuZtFNlzxK/oM8fHT
-	NdtmxhIk3AZud+syZbdfjYSnl/jwmmtR95kdRnvycraFQoA2UBMeFlAtTKtw15BxgUCHqY
-	5yAvvtZuzeK/fV5W6DhCVBOEXBdz2iA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788447315;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ouYq8jEG/YnOzue8Ui4hUUZcZuiA7sjGHnKRkO31T/k=;
-	b=LjHNPKsrVSoliqlCO/vsZc+BjLalIUt38bgAOCFL0FlSlWbrNVRC4jkV5i++QMLQGEhy5j
-	K5QDQGZEZp+ZO3Dw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62C58136D9;
-	Thu,  3 Sep 2026 14:55:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id p/C2K1GKmWqkLwAAD6G6ig
-	(envelope-from <krisman@suse.de>); Thu, 03 Sep 2026 14:55:13 +0000
-From: Gabriel Krisman Bertazi <krisman@suse.de>
-To: Aohan Mei <ljp1205831794@gmail.com>, io-uring@vger.kernel.org
-Cc: axboe@kernel.dk, Aohan Mei <henrymei@tencent.com>, TencentOS Corvus AI
- <corvus@tencent.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] io_uring/net: commit all consumed buffers on bundle
- recv retry
-In-Reply-To: <20260902022552.1890610-1-ljp1205831794@gmail.com>
-Organization: SUSE
-References: <20260902022552.1890610-1-ljp1205831794@gmail.com>
-Date: Thu, 03 Sep 2026 11:55:06 -0300
-Message-ID: <87o6ee5qr9.fsf@mailhost.krisman.be>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x/f1SvwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C841F00A3A;
+	Thu,  3 Sep 2026 14:55:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788447332;
+	bh=omFysWOejLSRgb8FvEpOpS2nawno2d3ZEMD8IWO3o7Y=;
+	h=Subject:To:Cc:From:Date;
+	b=x/f1SvwTNg6WE3VVyPXxnRrXdUhBLwMrVcfm4ICMgS504sy26ipOnDZksAn2JxjOq
+	 TJfRy/Q5GQu779+Ay3MaEtkT295fSoIKkpEXU60pXFF+aK1VRC+KXbO6/Mj8WpgTdJ
+	 YlDdAuAEOfAhkvoyMU9QORTWJQbNrqabfV5IGepQ=
+Subject: FAILED: patch "[PATCH] openvswitch: Fix CT limit teardown use-after-free" failed to apply to 6.1-stable tree
+To: xuyuqiabc@gmail.com,enjou1224z@gmail.com,i.maximets@ovn.org,kuba@kernel.org,tonanli66@gmail.com,vega@nebusec.ai
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 16:30:50 +0200
+Message-ID: <2026090350-galvanize-epidermal-77ae@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: 3BC5B1FB75
-X-Spamd-Result: default: False [-4.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	HAS_ORG_HEADER(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -4.51
-
-Aohan Mei <ljp1205831794@gmail.com> writes:
-
-> From: Aohan Mei <henrymei@tencent.com>
->
-> For a bundle receive (IORING_RECVSEND_BUNDLE) using a provided
-> buffer ring, the initial issue peeks N buffers and defers the
-> commit via REQ_F_BUFFERS_COMMIT. If MSG_WAITALL (or a short read
-> on a streaming socket) yields a partial result,
-> io_net_kbuf_recyle() commits only the buffers covering that first
-> partial round and clears REQ_F_BUFFERS_COMMIT. On subsequent poll
-> armed retries, sel.buf_list is reset to NULL while
-> REQ_F_BUFFER_RING prevents re-selection, so neither the retry
-> rounds nor the final io_recv_finish() -> io_put_kbufs() ever
-> commit the remaining buffers that have already been written to.
->
-> This leaves bl->head accounting for only the first partial round
-> rather than all consumed buffers. Buffers that already hold
-> received data stay visible in the ring and are handed out again
-> to later requests, corrupting or dropping application data.
->
-> Defer the commit entirely: do not commit in io_net_kbuf_recyle(),
-> keeping REQ_F_BUFFERS_COMMIT set for the final completion; recover
-> the buffer list on retry so the final commit has it available; and
-> derive the number of committed buffers from the total received
-> bytes rather than the final round, so a short last read cannot
-> under-count.
->
-> Fixes: 41b70df5b38b ("io_uring/net: commit partial buffers on retry")
-> Reported-by: TencentOS Corvus AI <corvus@tencent.com>
-> Cc: stable@vger.kernel.org
-> Assisted-by: CodeBuddy:Kimi-K3
-> Signed-off-by: Aohan Mei <henrymei@tencent.com>
-> ---
->  io_uring/kbuf.c | 4 ++--
->  io_uring/kbuf.h | 2 ++
->  io_uring/net.c  | 7 ++++---
->  3 files changed, 8 insertions(+), 5 deletions(-)
->
-> diff --git a/io_uring/kbuf.c b/io_uring/kbuf.c
-> index 7c309173dd19..c4bae8f00173 100644
-> --- a/io_uring/kbuf.c
-> +++ b/io_uring/kbuf.c
-> @@ -76,8 +76,8 @@ bool io_kbuf_commit(struct io_kiocb *req,
->  	return true;
->  }
->  
-> -static inline struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
-> -							unsigned int bgid)
-> +struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
-> +					  unsigned int bgid)
->  {
->  	lockdep_assert_held(&ctx->uring_lock);
->  
-> diff --git a/io_uring/kbuf.h b/io_uring/kbuf.h
-> index 401773e1ef80..7079f2dec9e0 100644
-> --- a/io_uring/kbuf.h
-> +++ b/io_uring/kbuf.h
-> @@ -71,6 +71,8 @@ struct io_br_sel io_buffer_select(struct io_kiocb *req, size_t *len,
->  				  unsigned buf_group, unsigned int issue_flags);
->  int io_buffers_select(struct io_kiocb *req, struct buf_sel_arg *arg,
->  		      struct io_br_sel *sel, unsigned int issue_flags);
-> +struct io_buffer_list *io_buffer_get_list(struct io_ring_ctx *ctx,
-> +					  unsigned int bgid);
->  int io_buffers_peek(struct io_kiocb *req, struct buf_sel_arg *arg,
->  		    struct io_br_sel *sel);
->  void io_destroy_buffers(struct io_ring_ctx *ctx);
-> diff --git a/io_uring/net.c b/io_uring/net.c
-> index fbe719d86c46..bff4514c0100 100644
-> --- a/io_uring/net.c
-> +++ b/io_uring/net.c
-> @@ -483,8 +483,6 @@ static int io_net_kbuf_recyle(struct io_kiocb *req, struct io_buffer_list *bl,
->  			      struct io_async_msghdr *kmsg, int len)
->  {
->  	req->flags |= REQ_F_BL_NO_RECYCLE;
-> -	if (req->flags & REQ_F_BUFFERS_COMMIT)
-> -		io_kbuf_commit(req, bl, len, io_bundle_nbufs(kmsg, len));
->  	return IOU_RETRY;
->  }
-
-Hi Aohan,
-
-This looks fishy.  This function no longer commits and recycling is now
-basically a nop. but io_send also relies on it.  Doesn't it break the
-commit for io_send on a short write?
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
 
->  
-> @@ -877,7 +875,8 @@ static inline bool io_recv_finish(struct io_kiocb *req,
->  	if (sr->flags & IORING_RECVSEND_BUNDLE) {
->  		size_t this_ret = sel->val - sr->done_io;
->  
-> -		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
-> +		cflags |= io_put_kbufs(req, this_ret, sel->buf_list,
-> +				       io_bundle_nbufs(kmsg, sel->val));
->  		if (sr->flags & IORING_RECV_RETRY)
->  			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
->  		if (sr->mshot_len && sel->val >= sr->mshot_len)
-> @@ -1221,6 +1220,8 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
->  			goto out_free;
->  		}
->  		sr->buf = NULL;
-> +	} else if (req->flags & REQ_F_BUFFER_RING) {
-> +		sel.buf_list = io_buffer_get_list(req->ctx, sr->buf_group);
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-I'm not sure, but during a retry, you can drop the ctx lock.  are you
-guaranteed to get the same buffer you had before?
+To reproduce the conflict and resubmit, you may use the following commands:
 
--- 
-Gabriel Krisman Bertazi
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 403f96c32c9e24600093d7d0c61c17daeedca957
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090350-galvanize-epidermal-77ae@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 403f96c32c9e24600093d7d0c61c17daeedca957 Mon Sep 17 00:00:00 2001
+From: Yuqi Xu <xuyuqiabc@gmail.com>
+Date: Fri, 21 Aug 2026 11:19:38 +0800
+Subject: [PATCH] openvswitch: Fix CT limit teardown use-after-free
+
+Packet processing uses CT limit state under RCU, while netns teardown
+frees that state under ovs_mutex. The CT limit pointer was neither removed
+from readers nor protected by a grace period, allowing packet processing to
+dereference the freed state.
+
+An unprivileged user can trigger this bug from a user and network
+namespace, causing a slab-use-after-free in ovs_ct_execute() when the
+netns is torn down.
+
+Publish the CT limit pointer through RCU, remove it before teardown, and
+wait for readers before freeing its contents. Keep ovs_mutex around
+individual CT limit updates, and use the RCU read-side lock while GET
+traverses the RCU-protected limit lists.
+
+Netns teardown detaches the RCU-protected CT limit state in the pernet
+.pre_exit callback while holding ovs_mutex.  The pernet core guarantees an
+RCU grace period between the .pre_exit and .exit callbacks, so the .exit
+callback completes the teardown without adding any extra synchronization.
+
+The netlink command handlers do not need NULL checks because the userspace
+netlink socket holds an active reference to its network namespace while a
+request is processed. The per-netns exit path therefore cannot run
+concurrently with SET, DEL, or GET for that socket's namespace.
+
+Fixes: 11efd5cb04a1 ("openvswitch: Support conntrack zone limit")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/all/cover.1784711445.git.xuyuqiabc@gmail.com
+Co-developed-by: Nan Li <tonanli66@gmail.com>
+Signed-off-by: Nan Li <tonanli66@gmail.com>
+Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+Reviewed-by: Ren Wei <enjou1224z@gmail.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Link: https://patch.msgid.link/288fbd5459d92b9dd0dcc6faf625f04819161ff3.1787280296.git.xuyuqiabc@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index 49eb2b0d234d..27115967e5d9 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -932,10 +932,14 @@ static int ovs_ct_check_limit(struct net *net,
+ 			      const struct ovs_conntrack_info *info)
+ {
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+-	const struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
++	const struct ovs_ct_limit_info *ct_limit_info;
+ 	u32 per_zone_limit, connections;
+ 	u32 conncount_key;
+ 
++	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
++	if (!ct_limit_info)
++		return 0;
++
+ 	conncount_key = info->zone.id;
+ 
+ 	per_zone_limit = ct_limit_get(ct_limit_info, info->zone.id);
+@@ -1579,40 +1583,55 @@ static void __ovs_ct_free_action(struct ovs_conntrack_info *ct_info)
+ #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
+ static int ovs_ct_limit_init(struct net *net, struct ovs_net *ovs_net)
+ {
++	struct ovs_ct_limit_info *info;
+ 	int i, err;
+ 
+-	ovs_net->ct_limit_info = kmalloc_obj(*ovs_net->ct_limit_info);
+-	if (!ovs_net->ct_limit_info)
++	info = kmalloc_obj(*info);
++	if (!info)
+ 		return -ENOMEM;
+ 
+-	ovs_net->ct_limit_info->default_limit = OVS_CT_LIMIT_DEFAULT;
+-	ovs_net->ct_limit_info->limits =
++	info->default_limit = OVS_CT_LIMIT_DEFAULT;
++	info->limits =
+ 		kmalloc_objs(struct hlist_head, CT_LIMIT_HASH_BUCKETS);
+-	if (!ovs_net->ct_limit_info->limits) {
+-		kfree(ovs_net->ct_limit_info);
++	if (!info->limits) {
++		kfree(info);
+ 		return -ENOMEM;
+ 	}
+ 
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; i++)
+-		INIT_HLIST_HEAD(&ovs_net->ct_limit_info->limits[i]);
++		INIT_HLIST_HEAD(&info->limits[i]);
+ 
+-	ovs_net->ct_limit_info->data = nf_conncount_init(net, sizeof(u32));
++	info->data = nf_conncount_init(net, sizeof(u32));
+ 
+-	if (IS_ERR(ovs_net->ct_limit_info->data)) {
+-		err = PTR_ERR(ovs_net->ct_limit_info->data);
+-		kfree(ovs_net->ct_limit_info->limits);
+-		kfree(ovs_net->ct_limit_info);
++	if (IS_ERR(info->data)) {
++		err = PTR_ERR(info->data);
++		kfree(info->limits);
++		kfree(info);
+ 		pr_err("openvswitch: failed to init nf_conncount %d\n", err);
+ 		return err;
+ 	}
++	rcu_assign_pointer(ovs_net->ct_limit_info, info);
+ 	return 0;
+ }
+ 
+-static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
++static void *ovs_ct_limit_exit_start(struct ovs_net *ovs_net)
+ {
+-	const struct ovs_ct_limit_info *info = ovs_net->ct_limit_info;
++	return rcu_replace_pointer(ovs_net->ct_limit_info, NULL,
++				   lockdep_ovsl_is_held());
++}
++
++/* The CT limit state must be detached by ovs_ct_limit_exit_start() and an
++ * RCU grace period must elapse before this function runs.  The pernet core
++ * guarantees the grace period between the .pre_exit and .exit callbacks.
++ */
++static void ovs_ct_limit_exit_finish(struct net *net, void *data)
++{
++	const struct ovs_ct_limit_info *info = data;
+ 	int i;
+ 
++	if (!info)
++		return;
++
+ 	nf_conncount_destroy(net, info->data);
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
+ 		struct hlist_head *head = &info->limits[i];
+@@ -1620,7 +1639,7 @@ static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
+ 		struct hlist_node *next;
+ 
+ 		hlist_for_each_entry_safe(ct_limit, next, head, hlist_node)
+-			kfree_rcu(ct_limit, rcu);
++			kfree(ct_limit);
+ 	}
+ 	kfree(info->limits);
+ 	kfree(info);
+@@ -1659,12 +1678,13 @@ static bool check_zone_id(int zone_id, u16 *pzone)
+ 	return false;
+ }
+ 
+-static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+-				       struct ovs_ct_limit_info *info)
++static int ovs_ct_limit_set_zone_limit(struct ovs_net *ovs_net,
++				       struct nlattr *nla_zone_limit)
+ {
+ 	struct ovs_zone_limit *zone_limit;
+-	int rem;
++	struct ovs_ct_limit_info *info;
+ 	u16 zone;
++	int rem;
+ 
+ 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
+ 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
+@@ -1673,6 +1693,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 		if (unlikely(zone_limit->zone_id ==
+ 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			info->default_limit = zone_limit->limit;
+ 			ovs_unlock();
+ 		} else if (unlikely(!check_zone_id(
+@@ -1689,6 +1710,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 			ct_limit->limit = zone_limit->limit;
+ 
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			ct_limit_set(info, ct_limit);
+ 			ovs_unlock();
+ 		}
+@@ -1703,12 +1725,13 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 	return 0;
+ }
+ 
+-static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+-				       struct ovs_ct_limit_info *info)
++static int ovs_ct_limit_del_zone_limit(struct ovs_net *ovs_net,
++				       struct nlattr *nla_zone_limit)
+ {
+ 	struct ovs_zone_limit *zone_limit;
+-	int rem;
++	struct ovs_ct_limit_info *info;
+ 	u16 zone;
++	int rem;
+ 
+ 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
+ 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
+@@ -1717,6 +1740,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+ 		if (unlikely(zone_limit->zone_id ==
+ 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			info->default_limit = OVS_CT_LIMIT_DEFAULT;
+ 			ovs_unlock();
+ 		} else if (unlikely(!check_zone_id(
+@@ -1724,6 +1748,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+ 			OVS_NLERR(true, "zone id is out of range");
+ 		} else {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			ct_limit_del(info, zone);
+ 			ovs_unlock();
+ 		}
+@@ -1767,6 +1792,7 @@ static int __ovs_ct_limit_get_zone_limit(struct net *net,
+ 	return nla_put_nohdr(reply, sizeof(zone_limit), &zone_limit);
+ }
+ 
++/* Called with RCU read lock held. */
+ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 				       struct nlattr *nla_zone_limit,
+ 				       struct ovs_ct_limit_info *info,
+@@ -1790,12 +1816,10 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 							&zone))) {
+ 			OVS_NLERR(true, "zone id is out of range");
+ 		} else {
+-			rcu_read_lock();
+ 			limit = ct_limit_get(info, zone);
+ 
+ 			err = __ovs_ct_limit_get_zone_limit(
+ 				net, info->data, zone, limit, reply);
+-			rcu_read_unlock();
+ 			if (err)
+ 				return err;
+ 		}
+@@ -1810,6 +1834,7 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 	return 0;
+ }
+ 
++/* Called with RCU read lock held. */
+ static int ovs_ct_limit_get_all_zone_limit(struct net *net,
+ 					   struct ovs_ct_limit_info *info,
+ 					   struct sk_buff *reply)
+@@ -1822,19 +1847,16 @@ static int ovs_ct_limit_get_all_zone_limit(struct net *net,
+ 	if (err)
+ 		return err;
+ 
+-	rcu_read_lock();
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
+ 		head = &info->limits[i];
+ 		hlist_for_each_entry_rcu(ct_limit, head, hlist_node) {
+ 			err = __ovs_ct_limit_get_zone_limit(net, info->data,
+ 				ct_limit->zone, ct_limit->limit, reply);
+ 			if (err)
+-				goto exit_err;
++				return err;
+ 		}
+ 	}
+ 
+-exit_err:
+-	rcu_read_unlock();
+ 	return err;
+ }
+ 
+@@ -1844,7 +1866,6 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
+ 	struct sk_buff *reply;
+ 	struct ovs_header *ovs_reply_header;
+ 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_SET,
+@@ -1857,8 +1878,8 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
+-	err = ovs_ct_limit_set_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
+-					  ct_limit_info);
++	err = ovs_ct_limit_set_zone_limit(ovs_net,
++					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
+ 	if (err)
+ 		goto exit_err;
+ 
+@@ -1878,7 +1899,6 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
+ 	struct sk_buff *reply;
+ 	struct ovs_header *ovs_reply_header;
+ 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_DEL,
+@@ -1891,8 +1911,8 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
+-	err = ovs_ct_limit_del_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
+-					  ct_limit_info);
++	err = ovs_ct_limit_del_zone_limit(ovs_net,
++					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
+ 	if (err)
+ 		goto exit_err;
+ 
+@@ -1912,7 +1932,7 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
+ 	struct ovs_header *ovs_reply_header;
+ 	struct net *net = sock_net(skb->sk);
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
++	struct ovs_ct_limit_info *ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_GET,
+@@ -1926,18 +1946,19 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
++	rcu_read_lock();
++	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
+ 	if (a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]) {
+ 		err = ovs_ct_limit_get_zone_limit(
+ 			net, a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT], ct_limit_info,
+ 			reply);
+-		if (err)
+-			goto exit_err;
+ 	} else {
+ 		err = ovs_ct_limit_get_all_zone_limit(net, ct_limit_info,
+ 						      reply);
+-		if (err)
+-			goto exit_err;
+ 	}
++	rcu_read_unlock();
++	if (err)
++		goto exit_err;
+ 
+ 	nla_nest_end(reply, nla_reply);
+ 	genlmsg_end(reply, ovs_reply_header);
+@@ -2012,12 +2033,29 @@ int ovs_ct_init(struct net *net)
+ 	return err;
+ }
+ 
+-void ovs_ct_exit(struct net *net)
++/* Must be called with ovs_mutex held.  Detaches the RCU-protected
++ * ct_limit_info and stores it in ovs_net->ct_limit_exit_data for
++ * ovs_ct_exit_finish() to complete the teardown after an RCU grace period.
++ */
++void ovs_ct_exit_start(struct net *net __maybe_unused)
++{
++#if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
++	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
++
++	ovs_net->ct_limit_exit_data = ovs_ct_limit_exit_start(ovs_net);
++#endif
++}
++
++/* Completes the CT limit teardown.  The pernet core guarantees an RCU
++ * grace period between detaching the state in ovs_ct_exit_start() and
++ * this call, so no RCU readers remain.
++ */
++void ovs_ct_exit_finish(struct net *net)
+ {
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+ 
+ #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
+-	ovs_ct_limit_exit(net, ovs_net);
++	ovs_ct_limit_exit_finish(net, ovs_net->ct_limit_exit_data);
+ #endif
+ 
+ 	if (ovs_net->xt_label)
+diff --git a/net/openvswitch/conntrack.h b/net/openvswitch/conntrack.h
+index 317e525c8a11..ab21d032fde3 100644
+--- a/net/openvswitch/conntrack.h
++++ b/net/openvswitch/conntrack.h
+@@ -14,7 +14,8 @@ enum ovs_key_attr;
+ 
+ #if IS_ENABLED(CONFIG_NF_CONNTRACK)
+ int ovs_ct_init(struct net *);
+-void ovs_ct_exit(struct net *);
++void ovs_ct_exit_start(struct net *net);
++void ovs_ct_exit_finish(struct net *net);
+ bool ovs_ct_verify(struct net *, enum ovs_key_attr attr);
+ int ovs_ct_copy_action(struct net *, const struct nlattr *,
+ 		       const struct sw_flow_key *, struct sw_flow_actions **,
+@@ -40,7 +41,8 @@ void ovs_ct_free_action(const struct nlattr *a);
+ 
+ static inline int ovs_ct_init(struct net *net) { return 0; }
+ 
+-static inline void ovs_ct_exit(struct net *net) { }
++static inline void ovs_ct_exit_start(struct net *net) { }
++static inline void ovs_ct_exit_finish(struct net *net) { }
+ 
+ static inline bool ovs_ct_verify(struct net *net, int attr)
+ {
+diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+index f2d5b5ab38de..100a2ce4d74d 100644
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -2742,6 +2742,13 @@ static void __net_exit list_vports_from_net(struct net *net, struct net *dnet,
+ 	}
+ }
+ 
++static void __net_exit ovs_pre_exit_net(struct net *dnet)
++{
++	ovs_lock();
++	ovs_ct_exit_start(dnet);
++	ovs_unlock();
++}
++
+ static void __net_exit ovs_exit_net(struct net *dnet)
+ {
+ 	struct datapath *dp, *dp_next;
+@@ -2752,7 +2759,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
+ 
+ 	ovs_lock();
+ 
+-	ovs_ct_exit(dnet);
++	ovs_ct_exit_finish(dnet);
+ 
+ 	list_for_each_entry_safe(dp, dp_next, &ovs_net->dps, list_node)
+ 		__dp_destroy(dp);
+@@ -2776,6 +2783,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
+ 
+ static struct pernet_operations ovs_net_ops = {
+ 	.init = ovs_init_net,
++	.pre_exit = ovs_pre_exit_net,
+ 	.exit = ovs_exit_net,
+ 	.id   = &ovs_net_id,
+ 	.size = sizeof(struct ovs_net),
+diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
+index 696640e88fa7..b2c2b8da12d4 100644
+--- a/net/openvswitch/datapath.h
++++ b/net/openvswitch/datapath.h
+@@ -164,7 +164,10 @@ struct dp_upcall_info {
+  * Protected by genl_mutex.
+  * @dp_notify_work: A work notifier to handle port unregistering.
+  * @masks_rebalance: A work to periodically optimize flow table caches.
+- * @ct_limit_info: A hash table of conntrack zone connection limits.
++ * @ct_limit_info: Hash table of conntrack zone connection limits. Protected
++ * by RCU; updates and teardown are serialized by ovs_mutex. May be NULL during
++ * netns teardown.
++ * @ct_limit_exit_data: CT limit state detached at .pre_exit, freed at .exit.
+  * @xt_label: Whether connlables are configured for the network or not.
+  */
+ struct ovs_net {
+@@ -172,7 +175,8 @@ struct ovs_net {
+ 	struct work_struct dp_notify_work;
+ 	struct delayed_work masks_rebalance;
+ #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
+-	struct ovs_ct_limit_info *ct_limit_info;
++	struct ovs_ct_limit_info __rcu *ct_limit_info;
++	struct ovs_ct_limit_info *ct_limit_exit_data;
+ #endif
+ 	bool xt_label;
+ };
+
