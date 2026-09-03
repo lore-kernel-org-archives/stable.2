@@ -1,43 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B0E4F4742
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BD643DA20
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:08:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455284; cv=none; b=NZTIP10A9E3WUtUYwrOEFs7/2RfhUPyfKrEO2j2uGlN4wn/GlDTkZGz8u1kPoDUgO+ksH8O3LZLrFmeqSyTNnAIQEuEkJrZoJ05m797oqu0O9v3QuPFiOuA6f1HBa7IPJxFR2ABFzhsnQmqYGvR0ObgDUdlzqyUgmOa5KmdFihg=
+	t=1788455287; cv=none; b=psPb7LNOKOhbIUv+cfg+EH4xbciaHu+Ki5p3PWsnXyWHwefjZqq4tdH7EB+G16xnQWf3s5TsFuFWHqvVHyPkvm9fmQ+rJdDnKkHTajr4QlDq2Vm0xLmDlQRN0q7ecbHhgZyXwGhhGVXOhRoqBFEwfB5PfkmNwJMCFH5w2PO+ijc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455284; c=relaxed/simple;
-	bh=IOCqnB6Tyk+SIYb2C19h3h7vS0sHML9jD3dXL7eaEs0=;
+	s=arc-20240116; t=1788455287; c=relaxed/simple;
+	bh=oxmsojq9yJeGtER6XsElY32Ndly06sxUbBgrgYh88B4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jlF9BjvZBa40b0g95766fLizKNzse2DuFLmt+R3jDDBfonggJbLpSjub0wYBfT41qJv1pVetFAXIAmmnaB84wrt9xg22JD2omMTcJpiU+B+t1bQjfH3IwC+mvbur3AvDiziri+D273I9Y2fj1AR/svyOP9iAE7TAbZHezqav3Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrRT7f0D; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nB5y8RdI+SEAWHxlApCh6r5hB7yxFeHu0MnI07f1YI4UGgkWsJfqkWmxNZd2tajD3pmLaCW04b3v8YyhhUEnKDPC0mxJiqcQzHhq3Kn57DcN6Uoe3k/YbUc9/RtuTmTKkzxiIloSz4u1FqV47SxA85NeTF53bPVyjnJRIkvlzIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+CWfKuX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrRT7f0D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1153D1F000E9;
-	Thu,  3 Sep 2026 17:08:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+CWfKuX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E80481F00A3F;
+	Thu,  3 Sep 2026 17:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788455282;
-	bh=nd1tNY8iwn3VUpq/BGdLYzKtB5xRcCGojtdJlJ2oknE=;
+	s=k20260515; t=1788455284;
+	bh=JA7qUSj/wHssKdIOGyUep6SFa4gChWrWppWZbQleQ1g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nrRT7f0D40dkCID9swfw2/ROEyAPKndfqadWgSma6xTvUkDgIxjMbyWGE8PCvpwuE
-	 GjOLoFBDnHm1yUTwC4j+8OXL+F3CwOaMObCNXYsc7KUz2cQBuluPdCO2vpSVJaOCjm
-	 Lj9rtby4y1/ZhqozAmbm+qdN3tqJXPeT1HOb6drTClTS+0OeboIhfECb8k6jgaDm9H
-	 QFOMUSZHxuYHcHYWysbRQ5M3J3SpmBMHGzPeCs+c7FY2IOADhpoacO5zeI1bArk7qi
-	 hQFaxCBVS/9Y9uy55KDJL/ZL0BredmjJz22SUW++iKLsltCABazqww+BE3LIyZSog5
-	 O0scnpnLbbuYw==
+	b=D+CWfKuXEo5g30MWpFsZnFINmGuTtR0660a8v0JQD5p9ZlN83reqjFbB2OBA9Zln4
+	 u1XDGslTM8RTG2tgLtt7S7t8JgZN5ffsNvtDW93KpQsHsLGRHERQobPD7coqeopoN0
+	 BxyMI9Ht6ltU7P504mYpGMzVlB8yoCSZFbB4GKfYTFZGBe8RFBQfJwNFav5ftayjWc
+	 MXstOjwuLr9FldfsH3r/IMLqCnmF4oq0UapNQzqrHkMkyBHvrqd2bYbfLhOmUbTU7t
+	 4cp5P4JsKtPysJQuEUOHPWSL9MyuCsRyC9zoAcZxijJ7LOjCpros1dDvzi58OqGA4Q
+	 hE/V7bU3UwaHg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jim Cromie <jim.cromie@gmail.com>,
+Cc: Breno Leitao <leitao@debian.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Lance Yang <lance.yang@linux.dev>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Qian Cai <cai@lca.pw>,
+	SeongJae Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] kmemleak: drop (age <increasing>) from leak record
-Date: Thu,  3 Sep 2026 13:07:58 -0400
-Message-ID: <20260903170759.1111466-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] mm/kmemleak: avoid soft lockup when scanning task stacks
+Date: Thu,  3 Sep 2026 13:07:59 -0400
+Message-ID: <20260903170759.1111466-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090332-ivy-cornflake-86f3@gregkh>
+In-Reply-To: <20260903170759.1111466-1-sashal@kernel.org>
 References: <2026090332-ivy-cornflake-86f3@gregkh>
+ <20260903170759.1111466-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,92 +52,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jim Cromie <jim.cromie@gmail.com>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 88f9ee2b3040991ff40628fa9e3516ebe36dd6fa ]
+[ Upstream commit 5d10d4e19e6daa487f0cd0ea6cba472325de92f9 ]
 
-Patch series "tweak kmemleak report format".
+Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
 
-These 2 patches make minor changes to the report:
+kmemleak_scan() scans every task stack under one rcu_read_lock() with no
+reschedule point, which can trip the soft lockup watchdog on hosts with
+very many threads.
 
-1st strips "age <increasing>" from output.  This makes the output
-idempotent; unchanging until a new leak is reported.
+That prints the following message, depending on the workload+host
+configuration:
 
-2nd adds the backtrace.checksum to the "backtrace:" line.  This lets a
-user see repeats without actually reading the whole backtrace.  So now
-the backtrace line looks like this:
+      watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+       scan_block
+       kmemleak_scan
+       kmemleak_scan_thread
+       kthread
 
-  backtrace (crc 603070071):
+Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
+tasks
 
-I surveyed for un-wanted effects upon users:
+Patches 2-3 let the scan loops stop early once a scan is interrupted.
 
-Syzkaller parses kmemleak in executor/common_linux.h:
-static void check_leaks(char** frames, int nframes)
+This patch (of 3):
 
-It just counts occurrences of "unreferenced object", specifically it
-does not look for "age", nor would it choke on "crc" being added.
+kmemleak_scan() walks every thread and scans its kernel stack under a
+single rcu_read_lock() with no reschedule point.  On a host with very many
+threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
+a CPU long enough to trip the soft lockup watchdog:
 
-github has 3 repos with "kmemleak" mentioned, all are moribund.
-gitlab has 0 hits on "kmemleak".
+  watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
+   scan_block
+   kmemleak_scan
+   kmemleak_scan_thread
+   kthread
 
-This patch (of 2):
+A cond_resched() cannot be added directly: the loop runs inside an RCU
+read-side critical section.
 
-Displaying age is pretty, but counter-productive; it changes with
-current-time, so it surrenders idempotency of the output, which breaks
-simple hash-based cataloging of the records by the user.
+Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
+lock only to look up and pin each task.  The stack is then scanned with no
+lock held, so cond_resched() runs between tasks and the scan stops early
+on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
+iteration pattern and keeps each RCU critical section short.
 
-The trouble: sequential reads, wo new leaks, get new results:
-
-  :#> sum /sys/kernel/debug/kmemleak
-  53439    74 /sys/kernel/debug/kmemleak
-  :#> sum /sys/kernel/debug/kmemleak
-  59066    74 /sys/kernel/debug/kmemleak
-
-and age is why (nothing else changes):
-
-  :#> grep -v age /sys/kernel/debug/kmemleak | sum
-  58894    67
-  :#> grep -v age /sys/kernel/debug/kmemleak | sum
-  58894    67
-
-Since jiffies is already printed in the "comm" line, age adds nothing.
-
-Notably, syzkaller reads kmemleak only for "unreferenced object", and
-won't care about this reform of age-ism.  A few moribund github repos
-mention it, but don't compile.
-
-Link: https://lkml.kernel.org/r/20231116224318.124209-1-jim.cromie@gmail.com
-Link: https://lkml.kernel.org/r/20231116224318.124209-2-jim.cromie@gmail.com
-Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
+Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
+Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
+Signed-off-by: Breno Leitao <leitao@debian.org>
 Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+Cc: Qian Cai <cai@lca.pw>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 5d10d4e19e6d ("mm/kmemleak: avoid soft lockup when scanning task stacks")
+[ kept the existing 6.6 leak-reporting context while adding only the task-stack helper and call-site replacement ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/kmemleak.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ mm/kmemleak.c | 51 ++++++++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 38 insertions(+), 13 deletions(-)
 
 diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index e2e41de55c02b..b6e57e344bd6e 100644
+index b6e57e344bd6e..6fd6c57a02dfd 100644
 --- a/mm/kmemleak.c
 +++ b/mm/kmemleak.c
-@@ -355,14 +355,12 @@ static void print_unreferenced(struct seq_file *seq,
- 	int i;
- 	unsigned long *entries;
- 	unsigned int nr_entries;
--	unsigned int msecs_age = jiffies_to_msecs(jiffies - object->jiffies);
+@@ -1514,6 +1514,42 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+ 	put_object(object);
+ }
  
- 	nr_entries = stack_depot_fetch(object->trace_handle, &entries);
- 	warn_or_seq_printf(seq, "unreferenced object 0x%08lx (size %zu):\n",
- 			  object->pointer, object->size);
--	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu (age %d.%03ds)\n",
--			   object->comm, object->pid, object->jiffies,
--			   msecs_age / 1000, msecs_age % 1000);
-+	warn_or_seq_printf(seq, "  comm \"%s\", pid %d, jiffies %lu\n",
-+			   object->comm, object->pid, object->jiffies);
- 	hex_dump_object(seq, object);
- 	warn_or_seq_printf(seq, "  backtrace:\n");
++/*
++ * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
++ * up and pinned within its own RCU read-side section, so no lock is held across
++ * the scan and the walk cannot trip the soft lockup watchdog.
++ */
++static void kmemleak_scan_task_stacks(void)
++{
++	struct pid *pid;
++	int nr = 1;
++
++	do {
++		struct task_struct *p = NULL;
++
++		rcu_read_lock();
++		pid = find_ge_pid(nr, &init_pid_ns);
++		if (pid) {
++			nr = pid_nr(pid) + 1;
++			p = pid_task(pid, PIDTYPE_PID);
++			if (p)
++				get_task_struct(p);
++		}
++		rcu_read_unlock();
++
++		if (p) {
++			void *stack = try_get_task_stack(p);
++
++			if (stack) {
++				scan_block(stack, stack + THREAD_SIZE, NULL);
++				put_task_stack(p);
++			}
++			put_task_struct(p);
++		}
++		cond_resched();
++	} while (pid && !scan_should_stop());
++}
++
+ /*
+  * Scan data sections and all the referenced memory blocks allocated via the
+  * kernel's standard allocators. This function must be called with the
+@@ -1605,19 +1641,8 @@ static void kmemleak_scan(void)
+ 	/*
+ 	 * Scanning the task stacks (may introduce false negatives).
+ 	 */
+-	if (kmemleak_stack_scan) {
+-		struct task_struct *p, *g;
+-
+-		rcu_read_lock();
+-		for_each_process_thread(g, p) {
+-			void *stack = try_get_task_stack(p);
+-			if (stack) {
+-				scan_block(stack, stack + THREAD_SIZE, NULL);
+-				put_task_stack(p);
+-			}
+-		}
+-		rcu_read_unlock();
+-	}
++	if (kmemleak_stack_scan)
++		kmemleak_scan_task_stacks();
  
+ 	/*
+ 	 * Scan the objects already referenced from the sections scanned
 -- 
 2.53.0
 
