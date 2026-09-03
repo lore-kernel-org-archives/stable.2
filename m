@@ -1,172 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04383F3285
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 09:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4247C3FE363;
+	Thu,  3 Sep 2026 09:58:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429403; cv=none; b=N2hk3KwwKY0FVQojHOjYNv/YvSpzx/GBRw87xd1Q1XFusGZP4aTtO2AFhHoUDhiDER4cKye+fiJ7vbDg31V/XKFO0XTUMNVJgruecDzPWFHJzKhHMHRouXuE45VVeV3Z1/I3dbA+MGnfrRsR40ey9K0Kmf1dlC4Ql/OVvr2kaa4=
+	t=1788429492; cv=none; b=mP1699QCZDiPcSbJXvWBGrd8651fqmxoAlcfKbsZ6iDo8VQxBw/UyxTq4bulIwXDhXeq98NvtKmMXdUdTA6ioh9PcQxNFj+pU+J6aUPD9OKy3ymUDgOsn5lnIJtYS0Ii4OGmXFFa5R8F3HWyAxmLmBIXuhm5x+77lUUnx7RjHnE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429403; c=relaxed/simple;
-	bh=E30orwjWWfVlMmZxDqecfsLLOGZSu1hs+7k0VsI5/Zk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RJhbBj6SUj8m8HJvhCQAaoefUiddUhao7rtwK/UMZcyEGVb+smNCp4W2A3eEHgMdTbW7rW/aiAt++dsO2yyFUryP8AigDGfhZn13TeVt05PBs3unEzVd+Afjrox0IC81NSaTlPkIHGeCPgrKWpiI536KMDTQAA7Gs8Ia94PR6Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=03SmLaP8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788429492; c=relaxed/simple;
+	bh=fRwgEYGItg/BspoQU8Cd0R1u8oFtv7rMnbB8ZHSfbRg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rza6pY5s/3IcWz6ahESDVMvw8ZjBCQWliQlRWSN0mvmekqSTDZwNA7MrdG5tbFWcDxB2OiY7DugbjhBOMMABuLdy5hvzjg3sQvMohcAHB5npSozaFdN+o8XYiO1AnrM5IwcL4tcXFIxjJvGTDHLvqrXy7PdTdHEDKjvFr4bUvXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=EBzNOV51; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="03SmLaP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36521F000E9;
-	Thu,  3 Sep 2026 09:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788429401;
-	bh=oaUY10J0qKDVlTEwPlwBqW3cVQdZLZrUlEqWRnqwrdM=;
-	h=Subject:To:Cc:From:Date;
-	b=03SmLaP8p1sgNQGImLr41cRHAzZBOA2Heyxd7yb8v9OUGqPIXcPrEP/h4UQ3s9hoE
-	 W7MVvKviwvQgxvdDZTifRtyF+r/9WzTUQa3TphiEb0HdkNTweCp1rmjgHGdGN2wtBW
-	 v1Rq7pQthXTIVStEgKUy5N07bBU0TeASzQYgpAMY=
-Subject: FAILED: patch "[PATCH] pidfd: hold exec_update_lock around namespace ioctl" failed to apply to 6.12-stable tree
-To: me@black-desk.cn,brauner@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 11:56:28 +0200
-Message-ID: <2026090328-espresso-reveler-1a6b@gregkh>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="EBzNOV51"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A2CA51A1975;
+	Thu,  3 Sep 2026 09:58:09 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CEA3602B8;
+	Thu,  3 Sep 2026 09:58:09 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 53B4111C79654;
+	Thu,  3 Sep 2026 11:58:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788429484; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=fRwgEYGItg/BspoQU8Cd0R1u8oFtv7rMnbB8ZHSfbRg=;
+	b=EBzNOV51j1dg+dq8phVr6PjKQkRZ8y628vNuUFxB39MbG/OCCfEyqhNOEPpINDpmBbLkaq
+	SZyupqL46w3GPIVS1oHns2PjxdKWkCv+78qnlgCfyMNYJzy6KQKNlpUkyfQ9wWgitDRt+g
+	3fEzLMs2RCHnnwblzvgjXdDAV22JbgxBX5fdl4v0M9CshbaecPNY2isN7l+mmbqi8yOjM8
+	7bK7ZHeC6HR/K9RsxKXITHO2CRDciNcwS1+Cr/J8mMqdP3fGD2fnyLmY03nxhdb2NRGjH5
+	986anQ/bkVbK2xfbJ5DgkwfMVbba/ORJ9sr0OICQBMlXPpgpjMBRT2togmm9SQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Ernest Van Hoecke <ernestvanhoecke@gmail.com>,  Bartosz Golaszewski
+ <brgl@kernel.org>,  Rob Herring <robh@kernel.org>,  Saravana Kannan
+ <saravanak@kernel.org>,  Frank Li <Frank.li@oss.nxp.com>,  Kieran Bingham
+ <kieran.bingham@ideasonboard.com>,  Pengutronix Kernel Team
+ <kernel@pengutronix.de>,  Stephen Boyd <sboyd@kernel.org>,  Brian Masney
+ <bmasney@redhat.com>,  Linus Walleij <linusw@kernel.org>,  Uwe
+ =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,  Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>,  Geert Uytterhoeven <geert@linux-m68k.org>,
+  Leonardo Costa <leonardo.costa@toradex.com>,  devicetree@vger.kernel.org,
+  linux-gpio@vger.kernel.org,  linux-pwm@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Ernest Van Hoecke
+ <ernest.vanhoecke@toradex.com>,  stable@vger.kernel.org
+Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
+In-Reply-To: <20260902185513.4867bc92@bootlin.com> (Herve Codina's message of
+	"Wed, 2 Sep 2026 18:55:13 +0200")
+References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
+	<20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
+	<CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
+	<qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
+	<20260902185513.4867bc92@bootlin.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 03 Sep 2026 11:57:58 +0200
+Message-ID: <874ig664ih.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello Ernest,
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+On 02/09/2026 at 18:55:13 +02, Herve Codina <herve.codina@bootlin.com> wrot=
+e:
 
-To reproduce the conflict and resubmit, you may use the following commands:
+> Hi Ernest, Bartosz,
+>
+> On Wed, 2 Sep 2026 15:22:36 +0200
+> Ernest Van Hoecke <ernestvanhoecke@gmail.com> wrote:
+>
+>> On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
+>> > On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
+>> > <ernestvanhoecke@gmail.com> said:=20=20
+>> > > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>> > >
+>> > > GPIO consumers use of_parse_phandle_with_args_map() to resolve speci=
+fiers
+>> > > through gpio-map properties. fw_devlink instead parses GPIO properti=
+es as=20=20
+>> >=20
+>> > Unlike PWM, there's no such thing as "gpio-map" properties.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9688a46802939da28f00cb40e8129615d5d4af39
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090328-espresso-reveler-1a6b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+Just as an FYI, there is a pending series to extend the nexus
+node concept to clocks, this may also require some fw-devlink magic :-)
 
-Possible dependencies:
+Link: https://lore.kernel.org/linux-clk/20260807-schneider-v7-2-rc1-eip201-=
+upstream-v5-0-8785f9531cf0@bootlin.com/T/#m16ddef087544db31b5f434fa44be70aa=
+d0b5e37e
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9688a46802939da28f00cb40e8129615d5d4af39 Mon Sep 17 00:00:00 2001
-From: Chen Linxuan <me@black-desk.cn>
-Date: Fri, 31 Jul 2026 22:50:08 +0800
-Subject: [PATCH] pidfd: hold exec_update_lock around namespace ioctl
-
-The PIDFD_GET_*_NAMESPACE ioctls in pidfd_ioctl() perform a filesystem
-credentials ptrace access check before handing out a namespace file
-descriptor.  The accompanying comment states that the code "mirrors nsfs
-behavior", but, unlike the corresponding procfs paths, it does so without
-holding the target task's exec_update_lock.
-
-proc_ns_get_link() and proc_ns_readlink() both take exec_update_lock for
-reading around the ptrace check and the namespace lookup, so that the
-credentials used for the access decision match those of the task when its
-namespace is read.  Without it, a caller can pass the check against the
-target's old credentials and then read the namespace after the target has
-execve()'d a setuid binary and committed new credentials -- accessing
-namespace information it should have been denied.
-
-Hold exec_update_lock for reading around the ptrace check and the
-namespace lookup so that pidfd truly mirrors nsfs behavior, as the comment
-already claims.  open_namespace() itself runs outside the lock: once a
-namespace reference is obtained it carries its own refcount and is opened
-with the caller's own credentials, so a concurrent execve() on the target
-can no longer affect the outcome.
-
-Fixes: 5b08bd408534 ("pidfs: allow retrieval of namespace file descriptors")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chen Linxuan <me@black-desk.cn>
-Link: https://patch.msgid.link/20260731-pidfd-exec-update-lock-v1-1-b388f2f3a8b0@black-desk.cn
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/fs/pidfs.c b/fs/pidfs.c
-index aaa609ddab04..7fc3c1f5a578 100644
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -531,6 +531,7 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	struct task_struct *task __free(put_task) = NULL;
- 	struct nsproxy *nsp __free(put_nsproxy) = NULL;
- 	struct ns_common *ns_common = NULL;
-+	int error;
- 
- 	if (!pidfs_ioctl_valid(cmd))
- 		return -ENOIOCTLCMD;
-@@ -554,20 +555,33 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- 	if (arg)
- 		return -EINVAL;
- 
-+	/*
-+	 * We're trying to open a file descriptor to the namespace so perform a
-+	 * filesystem cred ptrace check. Hold @task's exec_update_lock for the
-+	 * duration of the ptrace check and the namespace lookup so that the
-+	 * credentials used for the access decision match those of @task at the
-+	 * time its namespace is read, preventing a concurrent execve() from
-+	 * swapping the task's credentials in between the check and the use. We
-+	 * mirror nsfs behavior.
-+	 */
-+	error = down_read_killable(&task->signal->exec_update_lock);
-+	if (error)
-+		return error;
-+
-+	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
-+		error = -EACCES;
-+		goto out_unlock;
-+	}
-+
- 	scoped_guard(task_lock, task) {
- 		nsp = task->nsproxy;
- 		if (nsp)
- 			get_nsproxy(nsp);
- 	}
--	if (!nsp)
--		return -ESRCH; /* just pretend it didn't exist */
--
--	/*
--	 * We're trying to open a file descriptor to the namespace so perform a
--	 * filesystem cred ptrace check. Also, we mirror nsfs behavior.
--	 */
--	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
--		return -EACCES;
-+	if (!nsp) {
-+		error = -ESRCH; /* just pretend it didn't exist */
-+		goto out_unlock;
-+	}
- 
- 	switch (cmd) {
- 	/* Namespaces that hang of nsproxy. */
-@@ -649,11 +663,16 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
- #endif
- 		break;
- 	default:
--		return -ENOIOCTLCMD;
-+		error = -ENOIOCTLCMD;
- 	}
- 
--	if (!ns_common)
--		return -EOPNOTSUPP;
-+	if (!error && !ns_common)
-+		error = -EOPNOTSUPP;
-+
-+out_unlock:
-+	up_read(&task->signal->exec_update_lock);
-+	if (error)
-+		return error;
- 
- 	/* open_namespace() unconditionally consumes the reference */
- 	return open_namespace(ns_common);
-
+Thanks,
+Miqu=C3=A8l
