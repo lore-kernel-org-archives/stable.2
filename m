@@ -1,61 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2BD2418A37
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:31:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD5724F7971
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 17:31:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456717; cv=none; b=tKxx5tGVNjPtcjCcyv4TH8lQN0o6CuVfUNcq8CQsDeOv6LevRmqXny/oxi27tqdkCD7zj0yWt2H4Q90d1CRCpzEWVQaOOmSot5oXdKpqPma/JhI0KgblAFlXQGmwoXynPVL+RVUZM2FxnPYZt9wcZXaitfaPKaDN1VJ8bEUO25c=
+	t=1788456719; cv=none; b=XMf8v3XIw9gBqLXSI2IgE77F97qcdOU7GR0uu7UbU1J6Dn3GXg1WABzJwBARbvU7FUNcS/wS/FnD2WWlxbfJhjKEUTYqs/wUF80Yn/6aedwdQRyMLrYas6xVP6pIpyBEgrr4aWIdiS7+Fx7xkYsleB51nTwWZtWOHxLQg4Xc6Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456717; c=relaxed/simple;
-	bh=0P7MMgB5Pj3H/FFGQ5X8TN+ZecnKCFBztG9A3rCTUnU=;
+	s=arc-20240116; t=1788456719; c=relaxed/simple;
+	bh=tF339B5iCbUJ6l27X4ZvF7VTg5+SzxM+a4d9mCDj3ho=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hio8uwm95woPpqbB5MIiCcQQs4JjePWoCzKBWx23Kxme1oE2ldVZEo3E0ugK6VATiFboYkezr3p8/RL21Aazd6yAJjh1bE+surNsyulSYgWCbIi4AMD/MoJcyzzNT6ASgCdI/vA2/cBvSamlcgMnnQ4692veA3J4UT7K/cxnjlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XKPCpxCq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cd23fKJZ5cPUCuJjyxa2zM/PIk2712uSrDsuYq1lmWoDStIMmllm3rpEF/J/5l4am//tctIhcA6OVK3I4s4KKIoy7aHqQSpbslGXY1r48Lu6OjisDbMX5BnVdPjLQsQ017aRxEgJy7JJYc99TY4ni4K9e/NestY2BbCtE8/932w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HzCIQEBk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XKPCpxCq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445ED1F000E9;
-	Thu,  3 Sep 2026 17:31:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HzCIQEBk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15F21F00ACA;
+	Thu,  3 Sep 2026 17:31:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456715;
-	bh=kB+JDdzkU6c4v4dAZQFf121AsJeRLDZEkNfgqH0sluI=;
+	s=k20260515; t=1788456717;
+	bh=M2+E+94QEhnVWPT6+a5Ua3dA65ZAQxNC4zby43GupjQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XKPCpxCquTaEy3anbNR50mcjcLMHrELfunS1AbuWfhP96NvLPx0WdXSZ+oxkanNt8
-	 a4DYN8O3bhZLENDQEr9hmTJS8X64t/F2MSuL4+phORSTdJt+koVRJISZarENeDbUCP
-	 mZMy9um01lIXU+VRl5gZLTgqKiavbaygmxxLgh/7haadysBu2z6Z3CkV0sGHynNPlX
-	 jaCRuVlOCmKLGnD/eJCw1QJp+5+XCH5zS7djMJhL1k2zturTj3vQJ7SVKIqUQZL5gQ
-	 7dM1sNgSU71nkvSVN25aKFB7hDBO51hDclkIsJ6EtpkIEq101OCNMuW9J5eYVoSDZH
-	 qJfVE3MXbImiA==
+	b=HzCIQEBkSvcM4jzJCRZTA1y0uNZ2XtAKvICaw0AAKahdg1vPu7ucZmzAiD5dK/RmM
+	 3Zu3kGeWLEcJr8Uh7SQ2Meak4NELmsdj3/o3QUO/msoP7PLksRSmtp5kctYXxur6Px
+	 y/pX19XiYBoa3TYeA09L4/Kq0UBcQaAZpuNLV9PD6fvstMw08VEZv01vyiQBEPvfwa
+	 U7nRwcYlGAA6k0iBrKUZaYK+2CQS7IK/ZPIkegPCBfY8uEr9scB/KasBJp3kZKqU5E
+	 W+YIeNgaQVnYeuH2A2b+DeEe3iw6vczdcOtBDTSg95BaLhfx7sx7l6fzSNNIjQjF4U
+	 h5suHTk2Cp1LQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Kairui Song <kasong@tencent.com>,
-	Axel Rasmussen <axelrasmussen@google.com>,
 	Barry Song <baohua@kernel.org>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Chen Ridong <chenridong@huaweicloud.com>,
-	Chris Li <chrisl@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Brian Geffon <bgeffon@google.com>,
 	David Hildenbrand <david@kernel.org>,
-	David Stevens <stevensd@google.com>,
+	"Jan Alexander Steffens (heftig)" <heftig@archlinux.org>,
 	Johannes Weiner <hannes@cmpxchg.org>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Leno Hou <lenohou@gmail.com>,
 	Lorenzo Stoakes <ljs@kernel.org>,
 	Michal Hocko <mhocko@kernel.org>,
+	Oleksandr Natalenko <oleksandr@natalenko.name>,
 	Shakeel Butt <shakeel.butt@linux.dev>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vernon Yang <vernon2gm@gmail.com>,
+	Steven Barrett <steven@liquorix.net>,
+	Suleiman Souhlal <suleiman@google.com>,
 	Wei Xu <weixugc@google.com>,
-	Yafang <laoar.shao@gmail.com>,
 	Yuanchu Xie <yuanchu@google.com>,
 	Yu Zhao <yuzhao@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] mm/mglru: use the common routine for dirty/writeback reactivation
-Date: Thu,  3 Sep 2026 13:31:50 -0400
-Message-ID: <20260903173151.1184862-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] mm/mglru: fix and remove redundant unevictable folio handling
+Date: Thu,  3 Sep 2026 13:31:51 -0400
+Message-ID: <20260903173151.1184862-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090302-rimless-porthole-95c2@gregkh>
+In-Reply-To: <20260903173151.1184862-1-sashal@kernel.org>
 References: <2026090302-rimless-porthole-95c2@gregkh>
+ <20260903173151.1184862-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,110 +64,111 @@ Content-Transfer-Encoding: 8bit
 
 From: Kairui Song <kasong@tencent.com>
 
-[ Upstream commit 75d4c3f5fb980de1b620adede47e43dff4d6a5f3 ]
+[ Upstream commit f7e698e326b239a91ea15844817551921209e826 ]
 
-Currently MGLRU will move the dirty writeback folios to the second oldest
-gen instead of reactivate them like the classical LRU.  This might help to
-reduce the LRU contention as it skipped the isolation.  But as a result we
-will see these folios at the LRU tail more frequently leading to
-inefficient reclaim.
+sort_folio() has a shortcut for moving folios that are no longer evictable
+but are still sitting on a generation list.  However, this shortcut is
+buggy.  It does not follow the PG_lru usage convention, and it has a more
+serious issue.
 
-Besides, the dirty / writeback check after isolation in shrink_folio_list
-is more accurate and covers more cases.  So instead, just drop the special
-handling for dirty writeback, use the common routine and re-activate it
-like the classical LRU.
+Unevictable folios are not threaded on lists[LRU_UNEVICTABLE], so that
+folio->lru can be reused to hold folio->mlock_count (see the comment in
+lruvec_init()).  Hence lruvec_add_folio() skips the list_add() for them,
+and every other place that turns a folio unevictable initialises
+mlock_count explicitly: lru_add() sets it to 0, __mlock_folio() and
+__mlock_new_folio() set it to !!folio_test_mlocked(folio).  sort_folio()
+sets nothing, and the lru_gen_del_folio() right above it may have already
+poisoned folio->lru via list_del(), so mlock_count ends up aliasing
+LIST_POISON2, which reads as 0x122, i.e.  290.  The result is user
+visible.  On munlock, __munlock_folio() decrements that bogus count, finds
+it still non-zero and bails out before clearing PG_mlocked, so the folio
+remains unevictable and the Mlocked accounting stays inflated until the
+folio is freed.
 
-This should in theory improve the scan efficiency.  These folios will be
-rotated back to LRU tail once writeback is done so there is no risk of
-hotness inversion.  And now each reclaim loop will have a higher success
-rate.  This also prepares for unifying the writeback and throttling
-mechanism with classical LRU, we keep these folios far from tail so
-detecting the tail batch will have a similar pattern with classical LRU.
+The shortcut also touches the LRU flags in the wrong order.  It calls
+lru_gen_del_folio() while PG_lru is still set, so a concurrent
+folio_test_clear_lru() (e.g.  compaction, folio_isolate_lru()) can succeed
+on a folio that has already been taken off the generation list, which may
+lead to unexpected behavior.
 
-The micro optimization that avoids LRU contention by skipping the
-isolation is gone, which should be fine.  Compared to IO and writeback
-cost, the isolation overhead is trivial.
+So fix it by isolating them as common folios and letting the generic
+shrink path cull them.  This matches the classical LRU behavior, and there
+should be no visible effect on the generic eviction or isolation behavior.
 
-And using the common routine also keeps the folio's referenced bits (tier
-bits), which could improve metrics in the long term.  Also no more need to
-clean reclaim bit as the common routine will make use of it.
+There is no performance concern either, such a folio goes through this
+once, and then it is off the generation lists for good.
 
-Note the common routine updates a few throttling and writeback counters,
-which are not used, and never have been for the MGLRU case.  We will start
-making use of these in later commits.
-
-Link: https://lore.kernel.org/20260428-mglru-reclaim-v7-10-02fabb92dc43@tencent.com
+Link: https://lore.kernel.org/20260812-mglru-mlock-fix-v2-1-a3fec5853c08@tencent.com
+Fixes: ac35a4902374 ("mm: multi-gen LRU: minimal implementation")
 Signed-off-by: Kairui Song <kasong@tencent.com>
-Reviewed-by: Axel Rasmussen <axelrasmussen@google.com>
 Reviewed-by: Barry Song <baohua@kernel.org>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Chen Ridong <chenridong@huaweicloud.com>
-Cc: Chris Li <chrisl@kernel.org>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Brian Geffon <bgeffon@google.com>
 Cc: David Hildenbrand <david@kernel.org>
-Cc: David Stevens <stevensd@google.com>
+Cc: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kalesh Singh <kaleshsingh@google.com>
-Cc: Leno Hou <lenohou@gmail.com>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
 Cc: Michal Hocko <mhocko@kernel.org>
+Cc: Oleksandr Natalenko <oleksandr@natalenko.name>
 Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vernon Yang <vernon2gm@gmail.com>
+Cc: Steven Barrett <steven@liquorix.net>
+Cc: Suleiman Souhlal <suleiman@google.com>
 Cc: Wei Xu <weixugc@google.com>
-Cc: Yafang <laoar.shao@gmail.com>
 Cc: Yuanchu Xie <yuanchu@google.com>
 Cc: Yu Zhao <yuzhao@google.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: f7e698e326b2 ("mm/mglru: fix and remove redundant unevictable folio handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/vmscan.c | 19 -------------------
- 1 file changed, 19 deletions(-)
+ mm/vmscan.c | 19 +++++--------------
+ 1 file changed, 5 insertions(+), 14 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 95b1179a14e78..dbb23967322db 100644
+index dbb23967322db..f28b454adbaa7 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -4474,7 +4474,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
+@@ -4473,7 +4473,6 @@ void lru_gen_soft_reclaim(struct mem_cgroup *memcg, int nid)
+ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_control *sc,
  		       int tier_idx)
  {
- 	bool success;
--	bool dirty, writeback;
+-	bool success;
  	int gen = folio_lru_gen(folio);
  	int type = folio_is_file_lru(folio);
  	int zone = folio_zonenum(folio);
-@@ -4524,21 +4523,6 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
- 		return true;
- 	}
+@@ -4485,15 +4484,9 @@ static bool sort_folio(struct lruvec *lruvec, struct folio *folio, struct scan_c
  
--	dirty = folio_test_dirty(folio);
--	writeback = folio_test_writeback(folio);
--	if (type == LRU_GEN_FILE && dirty) {
--		sc->nr.file_taken += delta;
--		if (!writeback)
--			sc->nr.unqueued_dirty += delta;
--	}
--
--	/* waiting for writeback */
--	if (writeback || (type == LRU_GEN_FILE && dirty)) {
--		gen = folio_inc_gen(lruvec, folio, true);
--		list_move(&folio->lru, &lrugen->folios[gen][type][zone]);
+ 	VM_WARN_ON_ONCE_FOLIO(gen >= MAX_NR_GENS, folio);
+ 
+-	/* unevictable */
+-	if (!folio_evictable(folio)) {
+-		success = lru_gen_del_folio(lruvec, folio, true);
+-		VM_WARN_ON_ONCE_FOLIO(!success, folio);
+-		folio_set_unevictable(folio);
+-		lruvec_add_folio(lruvec, folio);
+-		__count_vm_events(UNEVICTABLE_PGCULLED, delta);
 -		return true;
 -	}
--
- 	return false;
- }
++	/* unevictable: let it through and the generic path will cull it */
++	if (!folio_evictable(folio))
++		return false;
  
-@@ -4566,9 +4550,6 @@ static bool isolate_folio(struct lruvec *lruvec, struct folio *folio, struct sca
- 	if (!folio_test_referenced(folio))
- 		set_mask_bits(&folio->flags.f, LRU_REFS_MASK, 0);
+ 	/* promoted */
+ 	if (gen != lru_gen_from_seq(lrugen->min_seq[type])) {
+@@ -4743,11 +4736,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
+ 		DEFINE_MIN_SEQ(lruvec);
  
--	/* for shrink_folio_list() */
--	folio_clear_reclaim(folio);
--
- 	success = lru_gen_del_folio(lruvec, folio, true);
- 	VM_WARN_ON_ONCE_FOLIO(!success, folio);
+-		if (!folio_evictable(folio)) {
+-			list_del(&folio->lru);
+-			folio_putback_lru(folio);
++		/* move_folios_to_lru() culls unevictable folios via folio_putback_lru() */
++		if (!folio_evictable(folio))
+ 			continue;
+-		}
  
+ 		/* retry folios that may have missed folio_rotate_reclaimable() */
+ 		if (!skip_retry && !folio_test_active(folio) && !folio_mapped(folio) &&
 -- 
 2.53.0
 
