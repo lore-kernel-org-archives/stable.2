@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100C24B5413
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E954AE108
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:25:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445524; cv=none; b=azDMiI8pVU0mixdfFqb0dcUXiBDtF2d8qBrA7ZpYS3ZZl7ZB27b08BPj0lbF4YJPlzmXNchquJsDuIJ6OWtBrWza8im8DCc9w1ghWAvm5WcccIYzCYstdz9sbCPGrLiNMnlBIqmdSceZZ7ym2gQ2OpGgjVENcS2Z6ELcdUt1fWc=
+	t=1788445526; cv=none; b=HjYZdxbMdesdsYaLvAH+gQjgZEBlTZUFt3skKsTiB5Uw3IboOD2XFPKe+hmRySCaU06XX7rOxrS5p6bKyRgjUxQ82612wkMarrolaejfw0tUyPTp1RxHfRyUHOmHn3qZeE4u6hg6vj+kA1ieNIkUcdhO+RFVnyGmfnZPZ3zbNDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445524; c=relaxed/simple;
-	bh=KpBVCzT+YNiC+7Ki4Zlqd5LZTI8zVHxh40eScFeIHbY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GZfFYJuRxxPaIIEBcHZ0u6W3tzCUIjGtrMeFrp+iO19Vy/fQ9BLmNFI6i2RLefgCINZRB9GPCunURb7HP36bJLdUECtgxTxnQhslRDAXkWrZ618PZ6i3s8efVmiDEZdFlXw4Nyv3CZWS/yZdHKl4q7TZJkLH7yg5G+ObXTyM1Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DHgZMaCa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445526; c=relaxed/simple;
+	bh=WVS2jQ03jIz8HfdSehC21Hs34BQYFA5NLtWzvBmAuiE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XgiLlOCu4qKYyzh7ee10NIirEWNcIURhXdh+JMSU1PHDHcK59Ga5LgU2cooq0a7wMC5F9YKk30LsqK72SgF8AwjvZAVH0qX0lFVXRCaXai8Nje+CCV73JDFKO5HiBWkt9syZxrNW7xybZIFLxebPM12ULmRiNcNi1iQ+aa2KhBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HWs4uXH1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DHgZMaCa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B1E61F00A3D;
-	Thu,  3 Sep 2026 14:25:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HWs4uXH1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DBB1F00AC4;
+	Thu,  3 Sep 2026 14:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445512;
-	bh=KVtGUWqOsmdS7WFb0gfzx7Kghn/G53FGrZltOAHZzpc=;
+	s=korg; t=1788445515;
+	bh=JHrXz6QG4d3wAzIP2NuN+V5fulKo212OjYG5PdqpYQg=;
 	h=Subject:To:Cc:From:Date;
-	b=DHgZMaCaBSNuAGbUKFNihEUw5gkwiqevocSGMjSADoYp+FeWJbySH3pi0xUmlA2Y+
-	 wZufeMb+tbtRF2BVKbQjSXSgCCjK2RmyS+EmHw/DMA3jGGFC3ZSXZ098kewQQTQwD0
-	 yNlb2YxVyFz5d0wtGRc7jOLvZVlMjk2NutGSnfq4=
-Subject: FAILED: patch "[PATCH] mailbox: qcom-ipcc: fix duplicate channel allocation across" failed to apply to 5.10-stable tree
-To: anup.vishwakarma@oss.qualcomm.com,jassisinghbrar@gmail.com
+	b=HWs4uXH108n34nq9k5vWfuzEQn1c2qdwlXYQRigjWBtvnsOMXkBPefqYy1KRa6Xlc
+	 QVfQXF9EjYXEq+UtYXPekP/wH5/Zh2KvvXF4lpKmtzEuHI6pIFo1h3r1vdzOpqKMLl
+	 QvXxewpSO0XKIafIRCE9R107CqVU0kl9msFSWAxY=
+Subject: FAILED: patch "[PATCH] nouveau/gem: reserve the bo in the info ioctl around the vma" failed to apply to 5.15-stable tree
+To: airlied@redhat.com,dakr@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:01:42 +0200
-Message-ID: <2026090342-wildfire-scrambler-d994@gregkh>
+Date: Thu, 03 Sep 2026 16:03:05 +0200
+Message-ID: <2026090305-skeleton-brush-8637@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 66c7bcad72430a02c860521031350b84b31ad9a8
+git cherry-pick -x 5e17160d41d92823f3379c1982e1369680c5ce4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090342-wildfire-scrambler-d994@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090305-skeleton-brush-8637@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,64 +62,48 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 66c7bcad72430a02c860521031350b84b31ad9a8 Mon Sep 17 00:00:00 2001
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Wed, 5 Aug 2026 14:34:07 +0530
-Subject: [PATCH] mailbox: qcom-ipcc: fix duplicate channel allocation across
- holes
+From 5e17160d41d92823f3379c1982e1369680c5ce4d Mon Sep 17 00:00:00 2001
+From: Dave Airlie <airlied@redhat.com>
+Date: Fri, 12 Jun 2026 12:06:58 +1000
+Subject: [PATCH] nouveau/gem: reserve the bo in the info ioctl around the vma
+ lookup
 
-The IPCC of_xlate() both scans for a free mailbox channel and checks
-for duplicate references to the same underlying IPCC channel. When a
-channel has been shutdown it might have left a hole in the channel
-list, which would terminate the search without considering duplicates
-later in the list.
+In the non-uvmm path, there could be a race between the info lookup
+finding the vma, and the gem close path closing the vma leading
+to a use-after-free.
 
-Continue the traversal of the channel list to detect and reject
-duplicates, while keeping track of the first free channel.
+Spotted with the help of Opus 4.6.
 
-Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
+Signed-off-by: Dave Airlie <airlied@redhat.com>
+Fixes: e758a3111914 ("drm/nouveau: fixup gem_info ioctl to return client-specific bo virtual")
 Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
+Link: https://patch.msgid.link/20260612020658.3176270-1-airlied@gmail.com
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
-index e5ebb4a237ff..185b63f724d4 100644
---- a/drivers/mailbox/qcom-ipcc.c
-+++ b/drivers/mailbox/qcom-ipcc.c
-@@ -167,7 +167,7 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
- {
- 	struct qcom_ipcc *ipcc = to_qcom_ipcc(mbox);
- 	struct qcom_ipcc_chan_info *mchan;
--	struct mbox_chan *chan;
-+	struct mbox_chan *chan, *free_chan = NULL;
- 	struct device *dev;
- 	int chan_id;
- 
-@@ -180,16 +180,21 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
- 		chan = &ipcc->chans[chan_id];
- 		mchan = chan->con_priv;
- 
--		if (!mchan)
--			break;
--		else if (mchan->client_id == ph->args[0] &&
--				mchan->signal_id == ph->args[1])
-+		if (!mchan) {
-+			/* Keep scanning past holes to reject duplicate channel requests. */
-+			if (!free_chan)
-+				free_chan = chan;
-+		} else if (mchan->client_id == ph->args[0] &&
-+				mchan->signal_id == ph->args[1]) {
- 			return ERR_PTR(-EBUSY);
-+		}
- 	}
- 
--	if (chan_id >= mbox->num_chans)
-+	if (!free_chan)
- 		return ERR_PTR(-EBUSY);
- 
-+	chan = free_chan;
+diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
+index 20dba02d6175..c5a24dff4b69 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_gem.c
++++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
+@@ -313,11 +313,20 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
+ 	rep->offset = nvbo->offset;
+ 	if (vmm->vmm.object.oclass >= NVIF_CLASS_VMM_NV50 &&
+ 	    !nouveau_cli_uvmm(cli)) {
++		int ret;
 +
- 	mchan = devm_kzalloc(dev, sizeof(*mchan), GFP_KERNEL);
- 	if (!mchan)
- 		return ERR_PTR(-ENOMEM);
++		ret = ttm_bo_reserve(&nvbo->bo, false, false, NULL);
++		if (ret)
++			return ret;
++
+ 		vma = nouveau_vma_find(nvbo, vmm);
+-		if (!vma)
++		if (!vma) {
++			ttm_bo_unreserve(&nvbo->bo);
+ 			return -EINVAL;
++		}
+ 
+ 		rep->offset = vma->addr;
++		ttm_bo_unreserve(&nvbo->bo);
+ 	} else
+ 		rep->offset = 0;
+ 
 
