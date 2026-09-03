@@ -1,34 +1,83 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32BB142901E;
-	Thu,  3 Sep 2026 08:14:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D42853B2FCA
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 08:33:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423262; cv=none; b=npDY3I3gEdcPDGJneGsKMgDCL6I7DqQ6Gath+AdooHX8oLt6BhAPgEpo02LRn5QhCWiFdXB2uwp+YkKv724OEWqCPocY8oJjgj62XPXd7Ap3zfS/Y1nV15HrYAy1QYXiuHKoDxwHrQ5OyNMXCaaFYc1b6H5qk+otnjCkX6t4p2A=
+	t=1788424412; cv=none; b=bqx0CyxZk26bYsIHCp0yD72DQHh7+xakQzzk5mjR7NuH0nqebibNiRiteo0Hy5IYj7n/iGgUcvslvh8SIdkgZ6SCqbFqQVERoeH3pgOz54n6ZKTyMC0E406cM3bvXxJ75miSZui0FetGbIEMxZIPcRzhMqaCQO3MAkfheGZJmEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423262; c=relaxed/simple;
-	bh=Fw7BxLvsbgQ86okN3kmwTci7n9D52Axek9VNy0RaIU8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VzZYEhJID4LUJ5QwitYLIy8qM3zw/PkHV/yzcbqkuYbayVCupON/R8VFb0+++jVJjKvUcLxgumP7G5MBlBBHj6HTIhcuS5UGeaehfH7VWFDCadQpr4P2JaChfHEGC/Mec7DYlW0TjEP3g24G2EPvQ8/wJzHtDz3CPT4N7Jy12nY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA38z1QLJlq5HToAA--.1433S3;
-	Thu, 03 Sep 2026 16:14:09 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgAnd59PLJlqIR9PBA--.53562S2;
-	Thu, 03 Sep 2026 16:14:07 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-pm@vger.kernel.org
-Cc: sre@kernel.org,
-	pali@kernel.org,
-	songl@zju.edu.cn,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1788424412; c=relaxed/simple;
+	bh=D6LEF5qrYz6DbFwcjMxDSZY/iZagbFXt2muTMD4vUes=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fNQYNrSOH8s16jFduPQ+lkHU40APEAzQHiUM/qlBL2lxxZ3CS2RhZaiSxm2SG7zTbezjlrM4b8n4/5AVnL+ylYjESIZMR9gnExRmH6R4qxy824WRzWLePvz5Hyz2RE4oceRYlxBAtjKNrQZ7jpKf5jJ60ozA6jmjf0xi5/wzpZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M5t8ubOs; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M5t8ubOs"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc147d86bebso831122a12.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 01:33:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788424410; x=1789029210; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OociqrsBmV/E6a5jpk0qDALr4bKhrSE+A8mgKI0tJ1g=;
+        b=M5t8ubOsX6jeEy4gU7oPAUeJVi7f+V9euo3pYU7IgkCvU7XTCjpajBwqPZ2Jn3/p5/
+         7Fvr3lMNi1sR+VRMwI9vwKYtCsmXQOgcBrpjdB2cxRRd20Yo2fkMsyqCzRkAy8nvw0Pd
+         SdDnNaZEiK/udGXTBvlmqzx1AjSI5WkFnjAPA3A9RkW0/MMb0srbLnV3oSmqeq7N6gbg
+         3yj8vZ+RkjOR8UUlEjc23eWAO00IiS1WJbPiYnULvFB/Onjm9H3Uur9ksXqku1sRq4ix
+         vQoAxmy9qQvxbMbAb7kjHJ1nWCzLuqNLyx+GHT/z/TyvBcryFaNByA0HAFzUjKKHVXHF
+         EoxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788424410; x=1789029210;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OociqrsBmV/E6a5jpk0qDALr4bKhrSE+A8mgKI0tJ1g=;
+        b=OSLKPABbcUUxdX/ZsCI/hon3AXnzlxyqpDb0mTspEVMv0e+uwYOChDwvZq8B7yLh+I
+         bCMeXKuRFIXP+iwyj+GIV+lJKzCFLxS8DsWJnt/pi83kCCoNgUEoqIgqnsVX5b86NiRd
+         /Xr1fmNZOdT9hTPh71ArYrJQeOb9eeKLovHmMbieXKceiVMq5PKBtbUAtzGYCA6tZcaF
+         VOSTL8gAkXAuPzk+mtXmsIDIKA5n6u5YQ3L4k83mFCovIaaUqVfoRLJx0bZFrr8ZvV4e
+         mXJmaBCLaQjqwQxX/OfrfeJNgegD02ruIBg4ZRW4f9ww3xfskdCg69gWeRpm/CD1/jj1
+         Jutw==
+X-Forwarded-Encrypted: i=1; AKwUvBxPPC06BoCIFmmZQ0Oxu8QbIsWRI4it/abLSHOT1CFIbin3g/kKrhi3HG6HbcZty+bDJ+jNWDo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlvYFKV+dKTKc847LYtT0KfUR8cZ0ZJwSp0+be3K0ngS0HsOE+
+	daTwkjqpcINbO39L0XKzX3bYolA9wDR5Yyit3B2hI2RzS/qqdN8OsAUW
+X-Gm-Gg: AYBFou0ANlISaYOeEf2PyuUqpHxpAAhwmDDidd1Tn9UM7yWeU9h3VUT9dZrTld7Y6Ns
+	HQS31O9ePd9WslquBGHfS79mkxT6Cu3iyvxUbR9CbfEfkbxBzzIrcvAt+Nwi06CKzMpkgyqeyaR
+	DVp/bH1SmJsLd8glsNuiJG/YZhIc6cR6aF5yhbDhDpEoPPSoVhpKR9mbK1rkksesejIIyn737D0
+	U5KmYRMZTVgpLVHuXR1t33m7LXNsRs2LbZXwTu6KutYQqXvyasVNA5jfSGI6XFUJxcqprT+o1m4
+	rKnjS9MtwDhY6/No7sC/vq31qUGjxuEC/XfIGH4G7cerCsS1d5GRnX1hoQanacRa2JmF5DCrg8C
+	OJJXACKu74MaZYM+V6/k4uiWUUqww0feW+y7kxDXdzjsSLqPADN0ym1DjLW+55mUhRFYjZJe700
+	Ejp3s8Kv3gQwdAejUogzI5BspMiTcDsggviTlGqVgyWrr3awXI74g6qA1XtFk3GwkpyHYHFtCh
+X-Received: by 2002:a17:90b:3cc3:b0:398:9bd3:d6d4 with SMTP id 98e67ed59e1d1-39b132d819emr1843780a91.14.1788424410133;
+        Thu, 03 Sep 2026 01:33:30 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083e4fafsm4001175a91.1.2026.09.03.01.33.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:33:29 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: SJ Park <sj@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove
-Date: Thu,  3 Sep 2026 08:13:12 +0000
-Message-Id: <20260903081312.225535-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	Kunwu Chan <kunwu.chan@gmail.com>
+Subject: Re: [PATCH 1/4] mm/damon/tests/core-kunit: test committing psi goal to psi goal
+Date: Thu,  3 Sep 2026 16:33:18 +0800
+Message-ID: <20260903083319.451754-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902002725.108635-2-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,93 +85,49 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgAnd59PLJlqIR9PBA--.53562S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?ecW1RwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBER98Gut3pRAqL25x45OSmWT3tKOMGM1Yeg3bEbqJ0DULzE
-	ac8tacSo18P7+NsbbyWp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxAr18tr1UJrWDKw43Cw1rAFc_yoW5GF43pr
-	Z3CrWY93y8ZFWUG3WUWa12vFy7GrZYqFW8Gry7Gay2k3Zrtryktry5KF9YgF4jyrZ5CFWS
-	vFW3t34xCr43CrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-The di->work poll work is queued from the poll callback itself and from
-bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
-bq27xxx_battery_teardown() runs while the power_supply is still
-registered, so external_power_changed() can re-arm the work after the
-cancel, and it runs after the driver data has been freed.
+On Tue,  1 Sep 2026 17:27:20 -0700 SJ Park <sj@kernel.org> wrote:
 
-Register a devm_delayed_work_autocancel() before
-devm_power_supply_register(), so on unwind the power_supply is
-unregistered first, after which no new external_power_changed()
-callback can be dispatched, and the poll work is cancelled only then.
-Drop the now-redundant cancel from bq27xxx_battery_teardown().
+> damon_test_commit_quota_goal_for() is set to test committing a new psi
+> goal on an existing psi goal.  However, damon_test_commit_quota_goal()
+> is mistakenly not covering the test case.  Add the test case.
+> 
+> Fixes: 99f89debafc5 ("mm/damon/tests/core-kunit: add damos_commit_quota_goal() test")
+> Cc: <stable@vger.kernel.org> # 6.19.x
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  mm/damon/tests/core-kunit.h | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+> index 7071ec277b007..f1e11548c771b 100644
+> --- a/mm/damon/tests/core-kunit.h
+> +++ b/mm/damon/tests/core-kunit.h
+> @@ -793,6 +793,13 @@ static void damos_test_commit_quota_goal(struct kunit *test)
+>  		.last_psi_total = 456,
+>  	};
+>  
+> +	damos_test_commit_quota_goal_for(test, &dst,
+> +			&(struct damos_quota_goal) {
+> +			.metric = DAMOS_QUOTA_SOME_MEM_PSI_US,
+> +			.target_value = 234,
+> +			.current_value = 345,
+> +			.last_psi_total = 567,
+> +			});
+>  	damos_test_commit_quota_goal_for(test, &dst,
+>  			&(struct damos_quota_goal){
+>  			.metric = DAMOS_QUOTA_USER_INPUT,
+> -- 
+> 2.47.3
+> 
 
-This issue was found by an in-house static analysis tool.
+Thanks SJ. The added case correctly exercises the PSI -> PSI commit 
+path before the existing tests change the destination metric.
 
-Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
-index 45f0e39b8c2d..f175c5a99188 100644
---- a/drivers/power/supply/bq27xxx_battery.c
-+++ b/drivers/power/supply/bq27xxx_battery.c
-@@ -43,6 +43,7 @@
-  */
- 
- #include <linux/device.h>
-+#include <linux/devm-helpers.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/param.h>
-@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	};
- 	int ret;
- 
--	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
- 	ret = devm_mutex_init(di->dev, &di->lock);
- 	if (ret)
- 		return ret;
-@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
- 	psy_desc->get_property = bq27xxx_battery_get_property;
- 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
- 
-+	/* Cancel the poll work after the power_supply is unregistered. */
-+	ret = devm_delayed_work_autocancel(di->dev, &di->work,
-+					   bq27xxx_battery_poll);
-+	if (ret)
-+		return ret;
-+
- 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
- 	if (IS_ERR(di->bat))
- 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
-@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
- 	mutex_lock(&di->lock);
- 	di->removed = true;
- 	mutex_unlock(&di->lock);
--
--	cancel_delayed_work_sync(&di->work);
- }
- EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
- 
+Thanks,
+Kunwu
 
+
+Sent using hkml (https://github.com/sjp38/hackermail)
