@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACE44E56C0
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:37:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E6CB4E3ECB
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449863; cv=none; b=ZQ4oUWavnCqWG8ZJdSczvzEoDKWw2aMCHeCbvJd78gmuM8BTMGAp/Oh2pECkPuHx3IS1vxAaTaPRkiUS6sCbw4Pq1QIrWN8N7fk71/2ndXGkNtWJvWFhHqJqprdeGL/u8ihFiZsWkB52CvDeJk8WA3p1Br7aN54igoRb38MTKTg=
+	t=1788449867; cv=none; b=jeOPZzRM54ZwsWf6kUbceO/KqDm+04Qwk0z2N/zz6CvkzDx8uTjRmfbDXNEIshTf6xVkCZwnq5q3F5gzh2heGSgEy17GxyqFbVmeNb0aGsNp48E/a/3YxxS7NUQn7sL86qbWNR+1M3eNFkQxvQv5wO9Dqt534A5W6XJDZr5GvtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449863; c=relaxed/simple;
-	bh=5JHf00Zqj9gNaI8k6tw8cTlg4YthioOyS1OnKTr4CqI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hvK/8ni5kzJt3BoJcElSaYtMKcN4/9ujA9DAV57qDIpW7w/okY5cZfZdRWkghixkF91IJGsEcU2YZzyA+zGUD+vdaVVRB6RTaVJHzgPAS9jyn/q4nd934ODm2n9xd58TUcnzuCyjBXQIi4tCEwOuLb4+fcgZrYElO8z47KjR9w4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=toxsNoTk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449867; c=relaxed/simple;
+	bh=14uZvy9nlE+uBsIjuM9yTeSrYOGGHDQZabbvB3GbR9w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BbbBJQd3s1KG6tbna1ctk0VoMXMj56STnwuKo0N5gMK9WHId3Sl+soM5yxDVmp3maz6rcXNNEpXWZkhEuPAS4nwO1cG83jyKNwbxnvA1cKrCSWle9u/wbNkCNdhTe6LRDkF2HwNMRF2y6Es0QsDhmqyrAGOrpLG3Loh919Rb5gE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BS73yCgx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="toxsNoTk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7231F000E9;
-	Thu,  3 Sep 2026 15:37:41 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BS73yCgx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5CC1F00A3A;
+	Thu,  3 Sep 2026 15:37:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449862;
-	bh=9b2GDNF2zJWtQTBDxJa3W38tzomgxHqC/8Io7SyQuOM=;
+	s=korg; t=1788449865;
+	bh=PbfvUJqqxQeL2yTmUax1FIkgZz0uCh8pxOugKd4CvKQ=;
 	h=Subject:To:Cc:From:Date;
-	b=toxsNoTkV9nVvO6Rlb15qOvuWhDr/q0Nk3+m2eXrEdS/Huqd09lMKqTNccJQ/dOg4
-	 kDYaDjGuu/z7UjFuqm7gFhkP+DSOpc8FYXnvx5CWO6PXyZjq95BYl6VP+FOuj75NQ+
-	 8ynX8+8d2Izl0YmRgJ43W5eHkwNhtDRUrWXjJ8/U=
-Subject: FAILED: patch "[PATCH] net: l2tp: do not propagate multicast notification errors" failed to apply to 5.10-stable tree
-To: zihanx@nebusec.ai,horms@kernel.org,kuba@kernel.org,vega@nebusec.ai
+	b=BS73yCgxWsISwL5nmJSh+BoVF+rZ/UvytwHHGJsUtm+BFVySGvf1UvTnqQe58ZySv
+	 ACb6OH7/3lis7Jm6/AkW/bsa027YFsyYxw2MfJKF1ZzSkeFZEy2bNfkK2uUsKqvUKI
+	 ehZcna2RnikfevZcO/nBCrGbho/jrb8yHZva738A=
+Subject: FAILED: patch "[PATCH] net: ravb: avoid dereferencing an invalid PTP clock" failed to apply to 5.10-stable tree
+To: luoxuanqiang@kylinos.cn,kuba@kernel.org,vadim.fedorenko@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:06:42 +0200
-Message-ID: <2026090342-wasp-unplowed-934c@gregkh>
+Date: Thu, 03 Sep 2026 17:07:22 +0200
+Message-ID: <2026090322-pulmonary-valium-161a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x af20e269f7459d2ce69887fdf2fad7caf986c865
+git cherry-pick -x 1f77af0aaf277413ff32f6ff8c2c4282bd64c897
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090342-wasp-unplowed-934c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090322-pulmonary-valium-161a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,78 +62,95 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From af20e269f7459d2ce69887fdf2fad7caf986c865 Mon Sep 17 00:00:00 2001
-From: Zihan Xi <zihanx@nebusec.ai>
-Date: Thu, 20 Aug 2026 18:40:28 +0000
-Subject: [PATCH] net: l2tp: do not propagate multicast notification errors
+From 1f77af0aaf277413ff32f6ff8c2c4282bd64c897 Mon Sep 17 00:00:00 2001
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Date: Tue, 11 Aug 2026 18:37:32 +0800
+Subject: [PATCH] net: ravb: avoid dereferencing an invalid PTP clock
 
-The tunnel create, tunnel modify, session create, and session modify
-netlink handlers send multicast notifications through helpers that can fail
-while allocating or encoding a message, or while multicasting it.
+The PTP clock is unavailable before the first open, so querying its
+index can dereference a NULL pointer. Registration failures can also
+leave an error pointer in priv->ptp.clock.
 
-For tunnel and session create/modify, a notification is sent after the live
-operation has completed. Returning a best-effort notification error as the
-command result can therefore report failure for an operation that already
-committed and can cause callers to retry and accumulate live objects.
+Cache the PHC index separately and report -1 while no clock is
+registered. Normalize registration errors to NULL and preserve the
+static timestamping capabilities.
 
-Keep sending notifications for listener visibility, but do not propagate
-their best-effort status as the command result. This also keeps the tunnel
-modify command consistent with the other notification-only paths.
-
-Fixes: 33f72e6f0c67 ("l2tp : multicast notification to the registered listeners")
+Fixes: a0d2f20650e8 ("Renesas Ethernet AVB PTP clock driver")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/54f48e812ca0424c47ffdb9a8182180921f7e6b2.1787247008.git.zihanx@nebusec.ai
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Link: https://patch.msgid.link/20260811103733.62599-2-xuanqiang.luo@linux.dev
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index c0c4d1ebc7a3..38aac59d052c 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -251,8 +251,8 @@ static int l2tp_nl_cmd_tunnel_create(struct sk_buff *skb, struct genl_info *info
- 		kfree(tunnel);
- 		goto out;
+diff --git a/drivers/net/ethernet/renesas/ravb.h b/drivers/net/ethernet/renesas/ravb.h
+index 5e56ec9b1013..2a4fcb12a63c 100644
+--- a/drivers/net/ethernet/renesas/ravb.h
++++ b/drivers/net/ethernet/renesas/ravb.h
+@@ -1028,6 +1028,7 @@ struct ravb_ptp_perout {
+ struct ravb_ptp {
+ 	struct ptp_clock *clock;
+ 	struct ptp_clock_info info;
++	int phc_index;
+ 	u32 default_addend;
+ 	u32 current_addend;
+ 	int extts[N_EXT_TS];
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index 5f88733094d0..db0229e00849 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -1779,7 +1779,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+ 			(1 << HWTSTAMP_FILTER_NONE) |
+ 			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+ 			(1 << HWTSTAMP_FILTER_ALL);
+-		info->phc_index = ptp_clock_index(priv->ptp.clock);
++		info->phc_index = READ_ONCE(priv->ptp.phc_index);
  	}
--	ret = l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
--				 L2TP_CMD_TUNNEL_CREATE);
-+	l2tp_tunnel_notify(&l2tp_nl_family, info, tunnel,
-+			   L2TP_CMD_TUNNEL_CREATE);
- 	l2tp_tunnel_put(tunnel);
  
- out:
-@@ -308,8 +308,8 @@ static int l2tp_nl_cmd_tunnel_modify(struct sk_buff *skb, struct genl_info *info
- 		goto out;
- 	}
+ 	return 0;
+@@ -2953,6 +2953,7 @@ static int ravb_probe(struct platform_device *pdev)
+ 	priv->rstc = rstc;
+ 	priv->ndev = ndev;
+ 	priv->pdev = pdev;
++	priv->ptp.phc_index = -1;
+ 	priv->num_tx_ring[RAVB_BE] = BE_TX_RING_SIZE;
+ 	priv->num_rx_ring[RAVB_BE] = BE_RX_RING_SIZE;
+ 	if (info->nc_queues) {
+diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethernet/renesas/ravb_ptp.c
+index 226c6c0ab945..cbec7c057d71 100644
+--- a/drivers/net/ethernet/renesas/ravb_ptp.c
++++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+@@ -315,6 +315,7 @@ void ravb_ptp_interrupt(struct net_device *ndev)
+ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ {
+ 	struct ravb_private *priv = netdev_priv(ndev);
++	struct ptp_clock *clock;
+ 	unsigned long flags;
  
--	ret = l2tp_tunnel_notify(&l2tp_nl_family, info,
--				 tunnel, L2TP_CMD_TUNNEL_MODIFY);
-+	l2tp_tunnel_notify(&l2tp_nl_family, info,
-+			   tunnel, L2TP_CMD_TUNNEL_MODIFY);
+ 	priv->ptp.info = ravb_ptp_info;
+@@ -327,7 +328,15 @@ void ravb_ptp_init(struct net_device *ndev, struct platform_device *pdev)
+ 	ravb_modify(ndev, GCCR, GCCR_TCSS, GCCR_TCSS_ADJGPTP);
+ 	spin_unlock_irqrestore(&priv->lock, flags);
  
- 	l2tp_tunnel_put(tunnel);
+-	priv->ptp.clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	clock = ptp_clock_register(&priv->ptp.info, &pdev->dev);
++	if (IS_ERR(clock)) {
++		netdev_err(ndev, "failed to register PTP clock: %pe\n", clock);
++		clock = NULL;
++	}
++
++	priv->ptp.clock = clock;
++	if (clock)
++		WRITE_ONCE(priv->ptp.phc_index, ptp_clock_index(clock));
+ }
  
-@@ -648,8 +648,8 @@ static int l2tp_nl_cmd_session_create(struct sk_buff *skb, struct genl_info *inf
- 		session = l2tp_session_get(net, tunnel->sock, tunnel->version,
- 					   tunnel_id, session_id);
- 		if (session) {
--			ret = l2tp_session_notify(&l2tp_nl_family, info, session,
--						  L2TP_CMD_SESSION_CREATE);
-+			l2tp_session_notify(&l2tp_nl_family, info, session,
-+					    L2TP_CMD_SESSION_CREATE);
- 			l2tp_session_put(session);
- 		}
- 	}
-@@ -713,8 +713,8 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	if (info->attrs[L2TP_ATTR_RECV_TIMEOUT])
- 		session->reorder_timeout = nla_get_msecs(info->attrs[L2TP_ATTR_RECV_TIMEOUT]);
+ void ravb_ptp_stop(struct net_device *ndev)
+@@ -337,5 +346,7 @@ void ravb_ptp_stop(struct net_device *ndev)
+ 	ravb_write(ndev, 0, GIC);
+ 	ravb_write(ndev, 0, GIS);
  
--	ret = l2tp_session_notify(&l2tp_nl_family, info,
--				  session, L2TP_CMD_SESSION_MODIFY);
-+	l2tp_session_notify(&l2tp_nl_family, info,
-+			    session, L2TP_CMD_SESSION_MODIFY);
- 
- 	l2tp_session_put(session);
- 
+-	ptp_clock_unregister(priv->ptp.clock);
++	WRITE_ONCE(priv->ptp.phc_index, -1);
++	if (priv->ptp.clock)
++		ptp_clock_unregister(priv->ptp.clock);
+ }
 
