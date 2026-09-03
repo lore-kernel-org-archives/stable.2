@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE504C77D9
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FEC480961
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:06:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788447965; cv=none; b=NfT1Yl3ve8KclGE4trh/sPH8VPkH9or2DYBq+PC56Hi+aqXPoQOTpR6yHEFf+qv7tDx5DhYIoGL38byMFGXRnJgOa46eFgxmBuPN/+zNVrApq6juKht7HKD4SJ6jVfodQ3mtmS2z7isv8L3r0/kJ+norxizvWFZU7NEdYwKMrN8=
+	t=1788447967; cv=none; b=PjaWvUUGcfZwcMJ4sThEnJAsavQ1nVkqEzlh5MKsSgXFin+UwWfs/sz9hIIGTks/FTfwVQZpcm+dxOxWVy6dX1/easuaGW/I32g5UI9745qsmFiPloQe1i8FVlEHT5+oOIDq4fzOkxvMEsrgiGgtylWffBQsOvDrsL9TUZ9lrQc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788447965; c=relaxed/simple;
-	bh=CyFyABs2Z448Vm0UpRIExJhGXCglmy5rV2XwKhwvpl8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qCbVlgrHAfqEbzad2Wg9DhfDr0oQbueC1t+WHZBTq2S4dfsTsLITEtT8qyy1rve+YBk9xYXYuUIyDcWxOTS2LdEYpYOdkZ3Uu+qA0SGi87sh2IZnpvXOE8utOCb64ZyP9+6ls8QXHzgKFgc8hpfwtJbI9BkuJBzI1jmJqHMs1e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=V9MlFZ+d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788447967; c=relaxed/simple;
+	bh=Rm7CrCk688Qwm5dWuVW+Tl0KmhE5vvB0+zbkpZ8Enrk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=lyijJgurEP85SEv270pT7gqmCMMU8gmYtSeGEdYWvPUjgxqGgqUfdv2pDrzzrcUGLxF28WTwspMOi0/FzeOOX/4mRm1VdeAxSEAliZMQyHuzlm2aH8+52zRbe3P6fLRSH7p1jzjHt19DqxzSXweHwvC8njCTCqhJO5suWvf3KIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gMdnkrZb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="V9MlFZ+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 344651F000E9;
-	Thu,  3 Sep 2026 15:06:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gMdnkrZb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C1B61F000E9;
+	Thu,  3 Sep 2026 15:06:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788447963;
-	bh=xMBiqxPwweM59U5q2y8Mk/5XG1cPGcSdQTG9rJw4GpM=;
+	s=korg; t=1788447966;
+	bh=Dxq1YKaNgf4/h15QOVmhCcSYdVW692Jo4x/Rt5rewgw=;
 	h=Subject:To:Cc:From:Date;
-	b=V9MlFZ+dw0Q8U3+bcYBliWfvNamqv9QuATR2srdMMYlDuM1ANPjWpiVrchqJ872+T
-	 vYQ4sjrmMllGAki/+I9ZqyhFhWk059oYgnMxs6PXo8AGGFVFHgH49ZLep4uVNjQrQu
-	 vxPkO14FfDJkGISSJ9VDoXoqiSS7dfHH6Q76knhw=
-Subject: FAILED: patch "[PATCH] platform/x86: ISST: Validate parameter for frequency and" failed to apply to 6.6-stable tree
-To: srinivas.pandruvada@linux.intel.com,ilpo.jarvinen@linux.intel.com
+	b=gMdnkrZbbt6QGlaHevqu2pdxGPwEH2OEDlfGjTaoIR4w8UnTfbnaNt6N8PxdVfLVY
+	 ysTJMGoswB2+xR1yRl+Ps2a28bXJTIJbZkmIUmCqdpOgcBZ3fAigaHoFinmGHLArp1
+	 t3qTKL5XvJf3gel5ZS8bFh4sloe0r4GtYEkWY7PY=
+Subject: FAILED: patch "[PATCH] platform/x86: ISST: Return error during profile addition" failed to apply to 6.6-stable tree
+To: srinivas.pandruvada@linux.intel.com,ilpo.jarvinen@linux.intel.com,sammiee5311@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:48:29 +0200
-Message-ID: <2026090329-hypnotic-unaware-0736@gregkh>
+Date: Thu, 03 Sep 2026 16:48:39 +0200
+Message-ID: <2026090339-boxcar-confused-152e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 574b59bb4b6bfcfd1f639d02f1041b314d43a2e6
+git cherry-pick -x f9a647cb8d90c09633a49a1e766e140e78012444
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090329-hypnotic-unaware-0736@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090339-boxcar-confused-152e@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,53 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 574b59bb4b6bfcfd1f639d02f1041b314d43a2e6 Mon Sep 17 00:00:00 2001
+From f9a647cb8d90c09633a49a1e766e140e78012444 Mon Sep 17 00:00:00 2001
 From: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Date: Tue, 11 Aug 2026 15:15:12 -0700
-Subject: [PATCH] platform/x86: ISST: Validate parameter for frequency and
- priority
+Date: Tue, 11 Aug 2026 15:21:33 -0700
+Subject: [PATCH] platform/x86: ISST: Return error during profile addition
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Validate range for frequency and proportional priority while setting
-CLOS parameters.
+If sst_add_perf_profiles() fails for memory allocation, it continues
+to allow SST-CP (core-power) feature. But in practice this is not
+very useful as to achieve some frequencies via SST-CP, an SST-PP
+(perf-profile) level change is required.
 
-Fixes: 12a7d2cb811d ("platform/x86: ISST: Add SST-CP support via TPMI")
+Fixes: 0ab147bb840f ("platform/x86: ISST: Parse SST MMIO and update instance")
+Cc: HyeongJun An <sammiee5311@gmail.com>
 Cc: stable@vger.kernel.org
 Signed-off-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Link: https://patch.msgid.link/20260811221514.3905817-5-srinivas.pandruvada@linux.intel.com
+Link: https://patch.msgid.link/20260811222134.3912626-2-srinivas.pandruvada@linux.intel.com
 Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 
 diff --git a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-index 8f63694da897..ee2e1ec1b103 100644
+index 92d420e706f6..a50e3aa8c4d2 100644
 --- a/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
 +++ b/drivers/platform/x86/intel/speed_select_if/isst_tpmi_core.c
-@@ -658,6 +658,9 @@ static long isst_if_core_power_state(void __user *argp)
+@@ -339,7 +339,7 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
+ 	if (!pd_info->perf_levels) {
+ 		pd_info->pp_header.allowed_level_mask = 0;
+ 		pd_info->pp_header.level_en_mask = 0;
+-		return 0;
++		return -ENOMEM;
+ 	}
  
- #define SST_MAX_CLOS			3
- 
-+#define SST_MAX_FREQ			0xff
-+#define SST_CLOS_MAX_PRIORITY		0x0f
-+
- static long isst_if_clos_param(void __user *argp)
+ 	pd_info->ratio_unit = pd_info->pp_header.ratio_unit;
+@@ -370,7 +370,7 @@ static int sst_add_perf_profiles(struct auxiliary_device *auxdev,
+ static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domain_info *pd_info)
  {
- 	struct tpmi_per_power_domain_info *power_domain_info;
-@@ -677,6 +680,15 @@ static long isst_if_clos_param(void __user *argp)
- 		if (power_domain_info->write_blocked || !capable(CAP_SYS_ADMIN))
- 			return -EPERM;
+ 	struct device *dev = &auxdev->dev;
+-	int i, mask, levels;
++	int i, ret, mask, levels;
  
-+		if (!in_range(clos_param.min_freq_mhz / SST_MUL_FACTOR_FREQ, 0, SST_MAX_FREQ + 1))
-+			return -EINVAL;
+ 	*((u64 *)&pd_info->sst_header) = readq(pd_info->sst_base);
+ 	pd_info->sst_header.cp_offset *= 8;
+@@ -402,8 +402,12 @@ static int sst_main(struct auxiliary_device *auxdev, struct tpmi_per_power_domai
+ 			levels = i;
+ 		mask <<= 1;
+ 	}
 +
-+		if (!in_range(clos_param.max_freq_mhz / SST_MUL_FACTOR_FREQ, 0, SST_MAX_FREQ + 1))
-+			return -EINVAL;
++	ret = sst_add_perf_profiles(auxdev, pd_info, levels + 1);
++	if (ret)
++		return ret;
 +
-+		if (!in_range(clos_param.prop_prio, 0, SST_CLOS_MAX_PRIORITY + 1))
-+			return -EINVAL;
-+
- 		_write_cp_info("clos.min_freq", clos_param.min_freq_mhz,
- 			       (SST_CLOS_CONFIG_0_OFFSET + clos_param.clos * SST_REG_SIZE),
- 			       SST_CLOS_CONFIG_MIN_START, SST_CLOS_CONFIG_MIN_WIDTH,
+ 	pd_info->max_level = levels;
+-	sst_add_perf_profiles(auxdev, pd_info, levels + 1);
+ 
+ 	return 0;
+ }
 
