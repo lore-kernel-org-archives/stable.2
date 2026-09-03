@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE1C4A5C5C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685754A5C50
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:55:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440106; cv=none; b=oz2vgUgPGLXE+Sz5bLvfUrKGw1R8tfdBBPFd1bUY0/HK4IcrLaTgDPeiYM4s2d0NjGB3a1K5Iqk0S7eY1wuyaibfQ8z49zNc1Y1zp7bmJJ10mYlabW6ZgJ4j5PKImzmmbw0rUPQ+HM76UKz4ejampcUBpIE0Gbk3+ELCqy2GtqM=
+	t=1788440109; cv=none; b=mnueFW+/D2wLqDKgID7yxzHfApUNKqeEQ8fz7ZhNH9gwyge66vIGc90gvcedNtMYaHeCIWVKF8CLz1beO4srmgvavbqhEjEZpkVE3KRnV41beti/PDRa0PRA0XEzm6PkPdtrxlvjTaYglLvXpStLnHS+pulOArhcDBpRre5Hwpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440106; c=relaxed/simple;
-	bh=aJLTK6bs8UQsnuBBl+9dvVVHEXN1XV3BuZOYtJuMBUQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sWbh/yy6Fx8Zhn42S4KrKsaB32pJxwDbbopyoeZi/+Zjji+8OWQTw4Eollvvcaw5Ek1oJ9m4qQxlMfpMbfTuuCDHsYydBJmUTmILaFFzyRtyTHk4plZaUW04jqVpDgqo86Z9BSj0jyfunxvKBIWs26sgWoiM6PMH+3AwJz+DFo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jfYm45Gr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788440109; c=relaxed/simple;
+	bh=inzKW4+MtLYU6DU7PC3/1q7fkMhsGn4SU2zFxrskHo0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=d7UjS6j2g1SO9DfBdeS+N4xmaUh2e11BpOOiP0wPtNHea3yYRc1q2OGM1KBldtfj79gdAsaixWnOZnn4HOexYsezf9FuJn8JRQGJ4lxSOkpEPooHRiNca5yL3NeugSzstCQ+gocaZD7Sai/bYir+w0SugkiNhT2PgDaJINJu3j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JMhUoIOy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jfYm45Gr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E45271F000E9;
-	Thu,  3 Sep 2026 12:55:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JMhUoIOy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2F501F000E9;
+	Thu,  3 Sep 2026 12:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440105;
-	bh=m4boewaUvEHR4GPtqcKn3HcDNgBwrNKSjZUr0q7wlRQ=;
+	s=korg; t=1788440108;
+	bh=A1YYvUt3YDw69IJi6rlkl+SajAEr4j2ztlJfn7WvznI=;
 	h=Subject:To:Cc:From:Date;
-	b=jfYm45GrxkZX5oK2cN34c+yMg9lx0ouNO1OS1b4WwK3Jyo0BtZa0gXflSBQcSY5i1
-	 q0lcpDX4LwW8SjAIG9Fe1O9b5/ynItpyqjy1MnaO16LBqcVKf/ioQ/wqLP8k5KYdzM
-	 v3Opo5jAxABkm2LcG98AxXJtxMlGG1ZKdvGncYcE=
-Subject: FAILED: patch "[PATCH] usb: gadget: at91_udc: drain polled-VBUS timer/work before" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,gregkh@linuxfoundation.org
+	b=JMhUoIOy0FgAYpj22FX8n6Pg0KZaKZTB8NoPqvmUFhVFqvKH6+a3xMg3wZkvRsqlf
+	 O9TP5QEyCFktaD1Z4EWAMoTxkyrxHekObefjl7dlOz30+zuh+SGkuqkRlZcPOFPAN2
+	 LaZuaO2wKjoH89ysDNxbqmeQteMxEaykChwBQrNI=
+Subject: FAILED: patch "[PATCH] usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command" failed to apply to 6.6-stable tree
+To: huangwei@kylinos.cn,boddah8794@gmail.com,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 14:39:20 +0200
-Message-ID: <2026090320-causal-nutrient-ad4a@gregkh>
+Date: Thu, 03 Sep 2026 14:40:07 +0200
+Message-ID: <2026090307-cannot-posh-1230@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x c27d13ce4bab80fbdf6523928071b6c24b37606c
+git cherry-pick -x eb4573cf2fd860b20adfae050c3f6ec6ddc3abdb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090320-causal-nutrient-ad4a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090307-cannot-posh-1230@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,95 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c27d13ce4bab80fbdf6523928071b6c24b37606c Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Sun, 19 Jul 2026 04:28:39 +0000
-Subject: [PATCH] usb: gadget: at91_udc: drain polled-VBUS timer/work before
- udc is freed
+From eb4573cf2fd860b20adfae050c3f6ec6ddc3abdb Mon Sep 17 00:00:00 2001
+From: Huang Wei <huangwei@kylinos.cn>
+Date: Wed, 5 Aug 2026 16:57:25 +0800
+Subject: [PATCH] usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command
+ completion
 
-In polled-VBUS mode (board.vbus_pin && board.vbus_polled), probe arms a
-self-restarting cycle: at91_vbus_timer() schedules vbus_timer_work, and
-at91_vbus_timer_work() calls at91_vbus_update() and re-arms the timer via
-mod_timer(). Both recover the same udc through container_of and dereference
-it on every iteration.
+The synchronous command completion path in ucsi_sync_control_common()
+hardcodes a 5 second (5 * HZ) timeout when waiting for the PPM to signal
+command completion via ACPI notification. This value matched
+UCSI_TIMEOUT_MS when it was still 5000 ms, but it was not updated when
+that macro was later raised to 10000 ms to fix PPM reset timeouts.
 
-Neither teardown path cancels this cycle. udc is devm-allocated, so it is
-freed after at91udc_remove() returns, and is likewise freed when probe
-fails and devres runs. A timer callback or work item that is pending or
-running at either point dereferences the freed udc.
+As a result, the two PPM communication paths are now inconsistent: the
+polling path in ucsi_reset_ppm() respects the 10 second timeout, while
+the event-driven completion path still uses 5 seconds. On machines where
+the firmware is slow to respond during boot (e.g. some Lenovo ThinkPad
+models such as the E14 Gen 7), commands sent after the PPM reset, such
+as SET_NOTIFICATION_ENABLE and GET_CAPABILITY, can exceed 5 seconds and
+cause UCSI initialization to fail with:
 
-Add at91_udc_shutdown_vbus_timer() and call it from at91udc_remove() and
-from the usb_add_gadget_udc() failure path in probe; the remaining probe
-error paths fail before the timer is armed. timer_shutdown_sync() waits
-for a running callback and clears timer->function, which makes the work
-handler's mod_timer() a permanent no-op; cancel_work_sync() then drains
-any pending or running work whose re-arm attempt now does nothing. The
-timer must be shut down first, since cancelling the work alone would let
-the timer re-queue it. The guard mirrors probe: in IRQ mode the timer and
-work_struct are never initialized.
+    ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
 
-This does not require a fault; a normal driver unbind can interleave with
-an already queued work item.
+Once UCSI init aborts, USB-C PD negotiation never completes, which in
+turn blocks USB-C dock enumeration since the dock depends on a successful
+PD contract.
 
-This issue was found by an in-house static analysis tool.
+Replace the hardcoded 5 * HZ with msecs_to_jiffies(UCSI_TIMEOUT_MS) so
+that both communication paths share a single, consistent timeout value,
+and future adjustments to UCSI_TIMEOUT_MS are picked up automatically.
 
-Fixes: 4037242c4f5f ("ARM: 6209/3: at91_udc: Add vbus polarity and polling mode")
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=221740
+Link: https://bugzilla.kernel.org/show_bug.cgi?id=2183790
+Fixes: bf4f9ae1cb08c ("usb: typec: ucsi: increase timeout for PPM reset operations")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260719042839.3167094-1-fanwu01@zju.edu.cn
+Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Fedor Pchelkin <boddah8794@gmail.com>
+Link: https://patch.msgid.link/20260805085725.389761-1-huangwei@kylinos.cn
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/gadget/udc/at91_udc.c b/drivers/usb/gadget/udc/at91_udc.c
-index 5aa360ba4f03..8e5d7fb71549 100644
---- a/drivers/usb/gadget/udc/at91_udc.c
-+++ b/drivers/usb/gadget/udc/at91_udc.c
-@@ -1794,6 +1794,19 @@ static void at91udc_of_init(struct at91_udc *udc, struct device_node *np)
- 		udc->caps = match->data;
- }
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index ecbda2a3783c..bef3f9b71d71 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -91,7 +91,8 @@ int ucsi_sync_control_common(struct ucsi *ucsi, u64 command, u32 *cci,
+ 	if (ret)
+ 		goto out_clear_bit;
  
-+/*
-+ * The work handler re-arms this timer, so shut the timer down before
-+ * draining the work; otherwise it restarts the polling cycle.
-+ */
-+static void at91_udc_shutdown_vbus_timer(struct at91_udc *udc)
-+{
-+	if (!(udc->board.vbus_pin && udc->board.vbus_polled))
-+		return;
-+
-+	timer_shutdown_sync(&udc->vbus_timer);
-+	cancel_work_sync(&udc->vbus_timer_work);
-+}
-+
- static int at91udc_probe(struct platform_device *pdev)
- {
- 	struct device	*dev = &pdev->dev;
-@@ -1907,7 +1920,7 @@ static int at91udc_probe(struct platform_device *pdev)
- 	}
- 	retval = usb_add_gadget_udc(dev, &udc->gadget);
- 	if (retval)
--		goto err_unprepare_iclk;
-+		goto err_shutdown_vbus;
- 	dev_set_drvdata(dev, udc);
- 	device_init_wakeup(dev, 1);
- 	create_debug_file(udc);
-@@ -1915,6 +1928,8 @@ static int at91udc_probe(struct platform_device *pdev)
- 	INFO("%s version %s\n", driver_name, DRIVER_VERSION);
- 	return 0;
+-	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
++	if (!wait_for_completion_timeout(&ucsi->complete,
++					 msecs_to_jiffies(UCSI_TIMEOUT_MS)))
+ 		ret = -ETIMEDOUT;
  
-+err_shutdown_vbus:
-+	at91_udc_shutdown_vbus_timer(udc);
- err_unprepare_iclk:
- 	clk_unprepare(udc->iclk);
- err_unprepare_fclk:
-@@ -1933,6 +1948,9 @@ static void at91udc_remove(struct platform_device *pdev)
- 	DBG("remove\n");
- 
- 	usb_del_gadget_udc(&udc->gadget);
-+
-+	at91_udc_shutdown_vbus_timer(udc);
-+
- 	if (udc->driver) {
- 		dev_err(&pdev->dev,
- 			"Driver still in use but removing anyhow\n");
+ out_clear_bit:
 
