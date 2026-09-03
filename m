@@ -1,164 +1,101 @@
-Received: from mta0.migadu.com (out-42.mta0.migadu.com [91.218.175.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425253655E9
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 04:03:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8606630E838;
+	Thu,  3 Sep 2026 04:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788408233; cv=none; b=t5yUqQ9kldr2bSLw6aXiagSWFUeD8I+uPlHAkjaZ9hLxBwylURYT6hBeTGTD9xcQcuH0W7feGPOx0GHrdSAHubolwYsJny4kYx5dovE5nW6x78hL3DpCsnvmZnjLGcBELB8jLKA7SiXTd2/cTDpjvOSahxGVtLRM9x9s6iMsHxI=
+	t=1788408639; cv=none; b=Hvvk0cy5atJS1I4ODzdohuam1dLSu+SICu3ueCWJzhmiNTr0Mza4afl8yj1LswVHodfG+7lus7xBOU78BZJGWgSfsFNutwpnILPPez7ct1EYSUhfLrrHnRmD3JJkrITQcskxq2WFdm7kxoLBVqqpP4sYQbyyAGKJhWCyIB+W+bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788408233; c=relaxed/simple;
-	bh=/Cx+kQIoXQn4f56wMN2TAMtu+h068kTZbFYbYyLO0HE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bgoZRAqY/akM5afgdjAsrjf5PuE75bwcr3jC627KLBqbMjXhj6xANkYXsb1iYN/DspqPlFLB4QVW9T48SSmrMsCNjZeNka/KEFS8N9HTrm4UFi/BnUCgZf3RY49ovu4uvpRuxoabLv/Mf7uBMx1aAVFCrJaF9wUXnvnFULu8y08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MdDMt0F6; arc=none smtp.client-ip=91.218.175.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788408639; c=relaxed/simple;
+	bh=KNd+nd9Vh/3BA6bvemAo2iC2v8uZdp1XUSsdpTZOtbI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GE9C9f5D3Z6VsPPh1qciTPqkPYcHf/rBu6uEe0IajJIiP96IhRi94caol3A2VpwuMGeZDhWw3wbfSSvv7vK7FeP+Zgjb/FzqKAXnxKm0NnBky36+TlXJCdEWXhveo3VE7FMiJeq1tj+pIvF8dIqIvLXFd4Cl14b91/S4h6wPCzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=iLrCPn6Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MdDMt0F6"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/Cx+kQIoXQn4f56wMN2TAMtu+h068kTZbFYbYyLO0HE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788408229; v=1; x=1789013029;
- b=MdDMt0F6Sn82OrNSECBXHyv1ujwPZvQDqRZymovSMo0kiGSP6UG6zfpLdQHFQt9+rdNnHaAd
- 3QWyWwBL8A+bYwuv8qT5zEfl8V1Cl6BWBf6v6fjBP2JzPs5uS6nEyMoZmFpy/vgRO0cykIFURBQ
- 192ndQuRhQrkI9I7+ZA//p2s=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7fbf072aebaeb1e4;
-	Thu, 03 Sep 2026 04:03:49 +0000
-X-Mizu-Trace-ID: 7fbf072aebaeb1e4
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christian Brauner <christian@brauner.io>
-Cc: Meta kernel team <kernel-team@meta.com>,
-	linux-kselftest@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/3] kernfs: don't lose IN_DELETE_SELF when decoding a file handle
-Date: Wed,  2 Sep 2026 21:02:52 -0700
-Message-ID: <20260903040253.670020-2-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903040253.670020-1-shakeel.butt@linux.dev>
-References: <20260903040253.670020-1-shakeel.butt@linux.dev>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="iLrCPn6Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A4F1F000E9;
+	Thu,  3 Sep 2026 04:10:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788408638;
+	bh=dL2GJG9/VEyZC05fJEAiBzLjrdjvGGpM9qesuwNO/8A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iLrCPn6YZCAlBAwXZwTAIdv0FOoVgaIvXkp85YUvAtva/DcWv+UfPMmZ1f1Qeel/M
+	 E3o716U1yotV0GGqCyL/NVfk4KWFdUrX2QxXClXlgsc4i8GDaPIrQtztSq6ciJ1Qwf
+	 Msb3J6OsTV+BEs5F70tk9Ku135lnzQZSNKAjACYA=
+Date: Wed, 2 Sep 2026 21:10:36 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, david@kernel.org, hpa@zytor.com,
+ rmclure@linux.ibm.com, andrew+kernel@donnellan.id.au,
+ pasha.tatashin@soleen.com, kas@kernel.org, tj@kernel.org, rppt@kernel.org,
+ rick.p.edgecombe@intel.com, yu-cheng.yu@intel.com, orsonpeters@gmail.com,
+ linux-kernel@vger.kernel.org, x86@kernel.org, linux-mm@kvack.org, Vernon
+ Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-Id: <20260902211036.8184c6e5535669bd73c71fd0@linux-foundation.org>
+In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-__kernfs_remove() clears i_nlink on the inode each superblock holds for
-the node, and finds those inodes with ilookup().  A lookup that has
-pinned the node but has not put its new inode in the inode hash yet is
-invisible to that pass:
+On Thu,  3 Sep 2026 11:16:08 +0800 Vernon Yang <vernon2gm@gmail.com> wrote:
 
-  CPU0                                    CPU1
-  open_by_handle_at()
-    kernfs_find_and_get_node_by_id()
-      pins the node, still active
-                                          rmdir()
-                                            marks the subtree removing
-                                            ilookup() finds no inode
-    kernfs_get_inode()
-      hashes an inode with i_nlink 1
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+> silently discarding the hardware dirty bit.  The subsequent
+> pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+> _PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+> stripped from the value, so there is nothing left to transfer.
+> 
+> Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+> and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+> is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+> the dirty state.
+> 
+> One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+> 
+>     memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+>     madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+>                                       // folio marked lazyfree
+>     memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+>     mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+>     mprotect(buf, size, PROT_READ|PROT_WRITE);
+>     // ... memory pressure ...
+> 
+> Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+> no dirty bit set anywhere and frees it in
+> __discard_anon_folio_pmd_locked(), even though the data was rewritten
+> after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+> hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+> restores the PMD through pmd_modify() as well.
+> 
+> PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+> the dirty bit means rewritten data is never written back.
+> 
+> Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+> pte_modify() and pud_modify() do.  The existing
+> pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+> hardware-dirty <-> saved-dirty transition based on the write bit,
+> preserving the shadow-stack encoding rules.
 
-Nothing corrects it afterwards, because kernfs_refresh_inode() skips
-set_nlink() for a directory being removed and never touches i_nlink for
-a file.  The inode keeps the i_nlink of 1 that inode_init_always() gave
-it, and dentry_unlink_inode() only sends IN_DELETE_SELF when i_nlink is
-0, so a watcher is never told the node went away.
+Yeah, this is exactly what I came up with, using chatgpt.
 
-kernfs_rwsem keeps the other callers of kernfs_get_inode() in fs/kernfs
-out of that window, and the one outside it, cgroup_may_write(), is kept
-out by cgroup_mutex, which cgroup_destroy_locked() holds across its
-kernfs_remove().  __kernfs_fh_to_dentry() has neither; it has created
-inodes without a lock ever since exportfs support was added.
+> Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
 
-Take kernfs_rwsem for reading, as ->get_parent already does.  It has to
-cover the lookup by id as well, not just kernfs_get_inode():
-__kernfs_remove() marks and deactivates the whole subtree under the write
-lock before kernfs_drain() first drops it, so under the read lock an
-active node is one that is not going away, and the lookup returns NULL
-for the rest.  The other outcome, that CPU0 takes the lock first, leaves
-the inode in the hash before the ilookup() pass runs, so the pass finds
-it.
+We definitely want a Reported-by: Orson here.  He obviously did a ton
+of work on this, and it's the least we can do to thank him.  I'll add it.
 
-The same argument covers ->fh_to_parent, since a node cannot be active
-while an ancestor is being removed.
-
-Reproduced with a 300ms delay in __kernfs_fh_to_dentry(), between the
-lookup by id and kernfs_get_inode(): one task decodes a handle for a
-file in a cgroup directory while another rmdir()s that directory.  The
-result has st_nlink 1 without this patch and 0 with it.
-
-->get_parent keeps a window of its own that this does not close.  It
-already holds the same lock, but it has no active check, so
-reconnect_path() can still build an inode for an ancestor whose removal
-has finished, on the very open_by_handle_at() that got here.  Closing
-that wants the active test rather than another lock, and it changes what
-->get_parent returns for a node that is already gone, so it is left to
-the series that reworks these paths.
-
-Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- fs/kernfs/mount.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
-index f183a96778b9..c15ba6357162 100644
---- a/fs/kernfs/mount.c
-+++ b/fs/kernfs/mount.c
-@@ -124,22 +124,32 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
- 		return NULL;
- 	}
- 
--	kn = kernfs_find_and_get_node_by_id(info->root, id);
--	if (!kn)
--		return ERR_PTR(-ESTALE);
-+	/*
-+	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
-+	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
-+	 * inodes under the write lock, so under the read lock either
-+	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
-+	 * in the inode hash before the ilookup() pass goes looking for it.
-+	 */
-+	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
-+		kn = kernfs_find_and_get_node_by_id(info->root, id);
-+		if (!kn)
-+			return ERR_PTR(-ESTALE);
- 
--	if (get_parent) {
--		struct kernfs_node *parent;
-+		if (get_parent) {
-+			struct kernfs_node *parent;
- 
--		parent = kernfs_get_parent(kn);
-+			parent = kernfs_get_parent(kn);
-+			kernfs_put(kn);
-+			kn = parent;
-+			if (!kn)
-+				return ERR_PTR(-ESTALE);
-+		}
-+
-+		inode = kernfs_get_inode(sb, kn);
- 		kernfs_put(kn);
--		kn = parent;
--		if (!kn)
--			return ERR_PTR(-ESTALE);
- 	}
- 
--	inode = kernfs_get_inode(sb, kn);
--	kernfs_put(kn);
- 	return d_obtain_alias(inode);
- }
- 
--- 
-2.53.0-Meta
+> Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 
