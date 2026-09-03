@@ -1,46 +1,66 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5325146AF2D;
-	Thu,  3 Sep 2026 16:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95FB94EE847
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453131; cv=none; b=sO4VH70HImFWJ9lT19fE3cxbdolsENdUn99Pa+i/9b2hkdoh7PpvQ9vqqt3pUw04P5lQ84St6mfT9CC2D+Gh4uYDAUjTqSxLUmrQjoUFrP8kR7PrK9K/hHA7No0dM1KoJAeapiZnIjDLhhfXkRhfotIA/9nbGNP0s1yq109KQQ4=
+	t=1788453233; cv=none; b=HJZI/7gEeV88CD7Xe4Kdn84ase1MgqZwL7Exu/7YrD8DQ5ibpyvsGYNJWuJcBLp51esQ9kbdNtRoPblCgxSGmKjroPSzo5/UWEnLzmk6aYaxGoIEHEwKcUH77RkYy6b2xI4Cbkxypr+Rfv7bivGkQV79U4Nz9sy8oeEgQSEBE9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453131; c=relaxed/simple;
-	bh=WUZokowoDkDS2Yc9+UMoiB2ZIr5Goq5O5KsmBl4Zvpw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PPa236YGtO3EU5/jfRMs6JXjTH80txsxSCZ4wWAe6LQyuUiRTsIG4pOmfx+0nobo06ASFYvyaD4nOnNlbVEDcIZSF2zW1fhMsh+8fDGS25MalHRebfHF1lmDBiivJx4+oy/i0kM5vcAck7+qpiH/nTU3udAXNYa2ty8B9H92IJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkIaq77Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788453233; c=relaxed/simple;
+	bh=lGFKKFJXCvM7ReTE/c3F8bVLAswhsnrq+pnmXZpqfs0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EmJiMe7NMKxeP7GP6ngLlLZtFIOJvxnktACOfj/5xvKUIEc4a4iLT2n+Bi88wKysVbXFoWQm0Ps1+KZRk5ybm2ryRQ16KSK2nXoy3YyPrAvUgEJzoRVGcEzc0maXQsY8GCxN/5No0LRbLJN5nQQqC2sxvTLo/UPPadmuRepKjR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUHlo8LY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkIaq77Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15E81F000E9;
-	Thu,  3 Sep 2026 16:32:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUHlo8LY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97A9A1F00A3E;
+	Thu,  3 Sep 2026 16:33:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788453129;
-	bh=4DCsX+XCpCFPdqcsEllnbWXW7cI8TsWxWBiP3bjx1x0=;
-	h=From:To:Cc:Subject:Date;
-	b=kkIaq77QuIJsumSR9O0s/7aZvDNXWayhe8/MONY79XNcjHpXez4a/BnVb8a8Os8Nn
-	 AfVnju2fI3WOqDAh+OgfQ4TbB/ld8OiTvzoWCAPSbyyUvwMjiyTZE0Fx5p5z059ciu
-	 sXIuRpOJQS6L2sRBglXE2b7HD6itGal/EQzHT7RzwepMdBaxZOyWLvOnJXVNuwSU2c
-	 wRgkOWIli9jYl43Y977gUE5+G2B8Brp0iZpIPydqrJExCazkvwShfrYQfG5KM/wFpV
-	 S1oH7htRi/E8kBZoymNeOqTyd7Gjp0CR+XtyoKZAjpRAnn4uhR0fR2kO1Pmy9dkt+D
-	 XA/LbUevwUsvA==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2AMB-00000006Hpk-1vjj;
-	Thu, 03 Sep 2026 18:32:07 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nick Bowler <nbowler@draconx.ca>,
-	syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] USB: serial: fix ioctl hangup race
-Date: Thu,  3 Sep 2026 18:31:46 +0200
-Message-ID: <20260903163146.1498497-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788453231;
+	bh=APkcCPsLoO37nQn5oAGFSzbAQSV9X2mtjUhOdATSObI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RUHlo8LYO+lL2h6Vjq/n07+VqdB1SUw85Mv9LstttGXwhNtXUTDLlnorYj6XdaUJE
+	 Vpd9V+sLd+0w0fYCjCHIH3IzH8ZuhpsU/fqCS/Uhyyk2F/oXx/zgdpSzif5+bR7YJO
+	 exauGiSKZ040NPBK7XmqM0EP7BHwleBRPSweFtABwuUxM2rZD5nr79XkVKURZ3l2gw
+	 F1f9kqTxkiW8rXzxezgaB7Ubw0sRXs97u24WV9nvScTOiMoPNQ75/bTaO5kpoHKcJH
+	 4Dmre4AUUBJwlr+fR+JCMDmBxJsDbAl0AFkbA/W+ySp7vMeqcRsh7qCsbKHO1aeg/g
+	 3LD2NHMQ9Ny5w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Baoquan He <bhe@redhat.com>,
+	Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Frank van der Linden <fvdl@google.com>,
+	Harry Yoo <harry.yoo@oracle.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Usama Arif <usamaarif642@gmail.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/3] mm/hugetlb: defer vmemmap population for bootmem hugepages
+Date: Thu,  3 Sep 2026 12:33:45 -0400
+Message-ID: <20260903163347.987961-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090313-purgatory-bondless-206f@gregkh>
+References: <2026090313-purgatory-bondless-206f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,291 +69,215 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The tty ioctls can race with hangup and end up calling into a tty driver
-for a device that is already gone or powered down.
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-Serialise the callbacks using the tty port mutex and add the missing
-checks to make sure the port has not been hung up before accessing port
-driver data or hardware.
+[ Upstream commit 209e6d9eb13aaf1b6e0fc6f76afc00d055e5ba12 ]
 
-This specifically avoids dereferencing a NULL-pointer if a device is
-disconnected during lengthy break signalling.
+Currently, the vmemmap for bootmem-allocated gigantic pages is populated
+early in hugetlb_vmemmap_init_early().  However, the zone information is
+only available after zones are initialized.  If it is later discovered
+that a page spans multiple zones, the HVO mapping must be undone and
+replaced with a normal mapping using vmemmap_undo_hvo().
 
-Note that TIOCGICOUNT and TIOCMIWAIT do not access port driver data or
-hardware and are therefore not affected by the race.
+Defer the actual vmemmap population to hugetlb_vmemmap_init_late().  At
+this stage, zones are already initialized, so it can be checked if the
+page is valid for HVO before deciding how to populate the vmemmap.
 
-Fixes: f34d7a5b7010 ("tty: The big operations rework")
-Reported-by: Nick Bowler <nbowler@draconx.ca>
-Link: https://lore.kernel.org/all/CADyTPExB2kYOOwkO0JqGhKaYVDqO9uS9WCw0J=MCTdVhcGOogA@mail.gmail.com/
-Reported-by: syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/r/6a9087a4.4d659fcc.734b4.0013.GAE@google.com
-Cc: stable@vger.kernel.org	# 2.6.26
-Signed-off-by: Johan Hovold <johan@kernel.org>
+This allows us to remove vmemmap_undo_hvo() and the complex logic required
+to rollback HVO mappings.
+
+In hugetlb_vmemmap_init_late(), if HVO population fails or if the zones
+are invalid, fall back to a normal vmemmap population.
+
+Postponing population until hugetlb_vmemmap_init_late() also makes zone
+information available from within vmemmap_populate_hvo().
+
+Link: https://lkml.kernel.org/r/20260227194302.274384-10-kas@kernel.org
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Christoph Lameter <cl@gentwo.org>
+Cc: David Rientjes <rientjes@google.com>
+Cc: Frank van der Linden <fvdl@google.com>
+Cc: Harry Yoo <harry.yoo@oracle.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Usama Arif <usamaarif642@gmail.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: b1b7c045e808 ("mm/hugetlb: initialize gigantic bootmem hugepage struct pages earlier")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ include/linux/mm.h   |  2 --
+ mm/hugetlb_vmemmap.c | 37 +++++++++++++++----------------
+ mm/sparse-vmemmap.c  | 53 --------------------------------------------
+ 3 files changed, 18 insertions(+), 74 deletions(-)
 
-Note that the port driver data NULL-deref is unique for USB serial and
-does specifically not affect cdc-acm.
-
-I'm posting fixes for serial core and USB serial today will take a
-closer look at the other TTY drivers tomorrow.
-
-Johan
-
-
- drivers/usb/serial/generic.c    | 10 +++-
- drivers/usb/serial/usb-serial.c | 94 ++++++++++++++++++++++++++-------
- drivers/usb/serial/xr_serial.c  | 10 ++--
- 3 files changed, 86 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/usb/serial/generic.c b/drivers/usb/serial/generic.c
-index 6eaf74930aa3..17272701fab0 100644
---- a/drivers/usb/serial/generic.c
-+++ b/drivers/usb/serial/generic.c
-@@ -266,6 +266,7 @@ EXPORT_SYMBOL_GPL(usb_serial_generic_chars_in_buffer);
- void usb_serial_generic_wait_until_sent(struct tty_struct *tty, long timeout)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 92ba2489f2374..50710a5d4a05f 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4101,8 +4101,6 @@ int vmemmap_populate(unsigned long start, unsigned long end, int node,
+ 		struct vmem_altmap *altmap);
+ int vmemmap_populate_hvo(unsigned long start, unsigned long end, int node,
+ 			 unsigned long headsize);
+-int vmemmap_undo_hvo(unsigned long start, unsigned long end, int node,
+-		     unsigned long headsize);
+ void vmemmap_wrprotect_hvo(unsigned long start, unsigned long end, int node,
+ 			  unsigned long headsize);
+ void vmemmap_populate_print_last(void);
+diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+index 96ee2bd16ee15..90ecee4c377ee 100644
+--- a/mm/hugetlb_vmemmap.c
++++ b/mm/hugetlb_vmemmap.c
+@@ -789,7 +789,6 @@ void __init hugetlb_vmemmap_init_early(int nid)
  {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
- 	unsigned int bps;
- 	unsigned long period;
- 	unsigned long expire;
-@@ -285,7 +286,14 @@ void usb_serial_generic_wait_until_sent(struct tty_struct *tty, long timeout)
- 					__func__, jiffies_to_msecs(timeout),
- 					jiffies_to_msecs(period));
- 	expire = jiffies + timeout;
--	while (!port->serial->type->tx_empty(port)) {
-+	for (;;) {
-+		mutex_lock(&tport->mutex);
-+		if (tty_io_error(tty) || port->serial->type->tx_empty(port)) {
-+			mutex_unlock(&tport->mutex);
-+			break;
-+		}
-+		mutex_unlock(&tport->mutex);
-+
- 		schedule_timeout_interruptible(period);
- 		if (signal_pending(current))
- 			break;
-diff --git a/drivers/usb/serial/usb-serial.c b/drivers/usb/serial/usb-serial.c
-index 9c51b44e2284..f3c594f1a806 100644
---- a/drivers/usb/serial/usb-serial.c
-+++ b/drivers/usb/serial/usb-serial.c
-@@ -400,17 +400,13 @@ static unsigned int serial_chars_in_buffer(struct tty_struct *tty)
- static void serial_wait_until_sent(struct tty_struct *tty, int timeout)
- {
- 	struct usb_serial_port *port = tty->driver_data;
--	struct usb_serial *serial = port->serial;
+ 	unsigned long psize, paddr, section_size;
+ 	unsigned long ns, i, pnum, pfn, nr_pages;
+-	unsigned long start, end;
+ 	struct huge_bootmem_page *m = NULL;
+ 	void *map;
  
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
- 	if (!port->serial->type->wait_until_sent)
- 		return;
- 
--	mutex_lock(&serial->disc_mutex);
--	if (!serial->disconnected)
--		port->serial->type->wait_until_sent(tty, timeout);
--	mutex_unlock(&serial->disc_mutex);
-+	port->serial->type->wait_until_sent(tty, timeout);
- }
- 
- static void serial_throttle(struct tty_struct *tty)
-@@ -438,8 +434,13 @@ static int serial_get_serial(struct tty_struct *tty, struct serial_struct *ss)
- 	struct usb_serial_port *port = tty->driver_data;
- 	struct tty_port *tport = &port->port;
- 	unsigned int close_delay, closing_wait;
-+	int ret = 0;
- 
- 	mutex_lock(&tport->mutex);
-+	if (tty_io_error(tty)) {
-+		ret = -EIO;
-+		goto out_unlock;
-+	}
- 
- 	close_delay = jiffies_to_msecs(tport->close_delay) / 10;
- 	closing_wait = tport->closing_wait;
-@@ -452,10 +453,10 @@ static int serial_get_serial(struct tty_struct *tty, struct serial_struct *ss)
- 
- 	if (port->serial->type->get_serial)
- 		port->serial->type->get_serial(tty, ss);
+@@ -815,14 +814,6 @@ void __init hugetlb_vmemmap_init_early(int nid)
+ 		paddr = virt_to_phys(m);
+ 		pfn = PHYS_PFN(paddr);
+ 		map = pfn_to_page(pfn);
+-		start = (unsigned long)map;
+-		end = start + nr_pages * sizeof(struct page);
 -
-+out_unlock:
- 	mutex_unlock(&tport->mutex);
+-		if (vmemmap_populate_hvo(start, end, nid,
+-					HUGETLB_VMEMMAP_RESERVE_SIZE) < 0)
+-			continue;
+-
+-		memmap_boot_pages_add(HUGETLB_VMEMMAP_RESERVE_SIZE / PAGE_SIZE);
  
--	return 0;
-+	return ret;
- }
+ 		pnum = pfn_to_section_nr(pfn);
+ 		ns = psize / section_size;
+@@ -860,28 +851,36 @@ void __init hugetlb_vmemmap_init_late(int nid)
+ 		h = m->hstate;
+ 		pfn = PHYS_PFN(phys);
+ 		nr_pages = pages_per_huge_page(h);
++		map = pfn_to_page(pfn);
++		start = (unsigned long)map;
++		end = start + nr_pages * sizeof(struct page);
  
- static int serial_set_serial(struct tty_struct *tty, struct serial_struct *ss)
-@@ -471,6 +472,10 @@ static int serial_set_serial(struct tty_struct *tty, struct serial_struct *ss)
- 		closing_wait = msecs_to_jiffies(closing_wait * 10);
+ 		if (!hugetlb_bootmem_page_zones_valid(nid, m)) {
+ 			/*
+ 			 * Oops, the hugetlb page spans multiple zones.
+-			 * Remove it from the list, and undo HVO.
++			 * Remove it from the list, and populate it normally.
+ 			 */
+ 			list_del(&m->list);
  
- 	mutex_lock(&tport->mutex);
-+	if (tty_io_error(tty)) {
-+		ret = -EIO;
-+		goto out_unlock;
-+	}
+-			map = pfn_to_page(pfn);
+-
+-			start = (unsigned long)map;
+-			end = start + nr_pages * sizeof(struct page);
+-
+-			vmemmap_undo_hvo(start, end, nid,
+-					 HUGETLB_VMEMMAP_RESERVE_SIZE);
+-			nr_mmap = end - start - HUGETLB_VMEMMAP_RESERVE_SIZE;
++			vmemmap_populate(start, end, nid, NULL);
++			nr_mmap = end - start;
+ 			memmap_boot_pages_add(DIV_ROUND_UP(nr_mmap, PAGE_SIZE));
  
- 	if (!capable(CAP_SYS_ADMIN)) {
- 		if (close_delay != tport->close_delay ||
-@@ -498,6 +503,7 @@ static int serial_ioctl(struct tty_struct *tty,
- 					unsigned int cmd, unsigned long arg)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
- 	int retval = -ENOIOCTLCMD;
- 
- 	dev_dbg(&port->dev, "%s - cmd 0x%04x\n", __func__, cmd);
-@@ -508,8 +514,21 @@ static int serial_ioctl(struct tty_struct *tty,
- 			retval = port->serial->type->tiocmiwait(tty, arg);
- 		break;
- 	default:
--		if (port->serial->type->ioctl)
-+		if (!port->serial->type->ioctl)
-+			break;
+ 			memblock_phys_free(phys, huge_page_size(h));
+ 			continue;
+-		} else
++		}
 +
-+		if (cmd == TIOCSRS485)
-+			down_write(&tty->termios_rwsem);
++		if (vmemmap_populate_hvo(start, end, nid,
++					 HUGETLB_VMEMMAP_RESERVE_SIZE) < 0) {
++			/* Fallback if HVO population fails */
++			vmemmap_populate(start, end, nid, NULL);
++			nr_mmap = end - start;
++		} else {
+ 			m->flags |= HUGE_BOOTMEM_ZONES_VALID;
++			nr_mmap = HUGETLB_VMEMMAP_RESERVE_SIZE;
++		}
 +
-+		mutex_lock(&tport->mutex);
-+		if (tty_io_error(tty))
-+			retval = -EIO;
-+		else
- 			retval = port->serial->type->ioctl(tty, cmd, arg);
-+		mutex_unlock(&tport->mutex);
-+
-+		if (cmd == TIOCSRS485)
-+			up_write(&tty->termios_rwsem);
++		memmap_boot_pages_add(DIV_ROUND_UP(nr_mmap, PAGE_SIZE));
  	}
- 
- 	return retval;
-@@ -519,25 +538,40 @@ static void serial_set_termios(struct tty_struct *tty,
- 		               const struct ktermios *old)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
- 
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
--	if (port->serial->type->set_termios)
--		port->serial->type->set_termios(tty, port, old);
--	else
-+	if (!port->serial->type->set_termios) {
- 		tty_termios_copy_hw(&tty->termios, old);
-+		return;
-+	}
-+
-+	mutex_lock(&tport->mutex);
-+	if (!tty_io_error(tty))
-+		port->serial->type->set_termios(tty, port, old);
-+	mutex_unlock(&tport->mutex);
+ }
+ #endif
+diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+index 37522d6cb3988..032a81450838b 100644
+--- a/mm/sparse-vmemmap.c
++++ b/mm/sparse-vmemmap.c
+@@ -302,59 +302,6 @@ int __meminit vmemmap_populate_basepages(unsigned long start, unsigned long end,
+ 	return vmemmap_populate_range(start, end, node, altmap, -1, 0);
  }
  
- static int serial_break(struct tty_struct *tty, int break_state)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
-+	int ret;
- 
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
--	if (port->serial->type->break_ctl)
--		return port->serial->type->break_ctl(tty, break_state);
-+	if (!port->serial->type->break_ctl)
-+		return -ENOTTY;
- 
--	return -ENOTTY;
-+	mutex_lock(&tport->mutex);
-+	if (tty_io_error(tty))
-+		ret = -EIO;
-+	else
-+		ret = port->serial->type->break_ctl(tty, break_state);
-+	mutex_unlock(&tport->mutex);
-+
-+	return ret;
- }
- 
- static int serial_proc_show(struct seq_file *m, void *v)
-@@ -578,24 +612,44 @@ static int serial_proc_show(struct seq_file *m, void *v)
- static int serial_tiocmget(struct tty_struct *tty)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
-+	int ret;
- 
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
--	if (port->serial->type->tiocmget)
--		return port->serial->type->tiocmget(tty);
--	return -ENOTTY;
-+	if (!port->serial->type->tiocmget)
-+		return -ENOTTY;
-+
-+	mutex_lock(&tport->mutex);
-+	if (tty_io_error(tty))
-+		ret = -EIO;
-+	else
-+		ret = port->serial->type->tiocmget(tty);
-+	mutex_unlock(&tport->mutex);
-+
-+	return ret;
- }
- 
- static int serial_tiocmset(struct tty_struct *tty,
- 			    unsigned int set, unsigned int clear)
- {
- 	struct usb_serial_port *port = tty->driver_data;
-+	struct tty_port *tport = &port->port;
-+	int ret;
- 
- 	dev_dbg(&port->dev, "%s\n", __func__);
- 
--	if (port->serial->type->tiocmset)
--		return port->serial->type->tiocmset(tty, set, clear);
--	return -ENOTTY;
-+	if (!port->serial->type->tiocmset)
-+		return -ENOTTY;
-+
-+	mutex_lock(&tport->mutex);
-+	if (tty_io_error(tty))
-+		ret = -EIO;
-+	else
-+		ret = port->serial->type->tiocmset(tty, set, clear);
-+	mutex_unlock(&tport->mutex);
-+
-+	return ret;
- }
- 
- static int serial_get_icount(struct tty_struct *tty,
-diff --git a/drivers/usb/serial/xr_serial.c b/drivers/usb/serial/xr_serial.c
-index 352c765d8803..c08f4aa14a3d 100644
---- a/drivers/usb/serial/xr_serial.c
-+++ b/drivers/usb/serial/xr_serial.c
-@@ -850,12 +850,9 @@ static int xr_get_rs485_config(struct tty_struct *tty,
- 	struct usb_serial_port *port = tty->driver_data;
- 	struct xr_data *data = usb_get_serial_port_data(port);
- 
--	down_read(&tty->termios_rwsem);
--	if (copy_to_user(argp, &data->rs485, sizeof(data->rs485))) {
--		up_read(&tty->termios_rwsem);
-+	/* core holds port mutex */
-+	if (copy_to_user(argp, &data->rs485, sizeof(data->rs485)))
- 		return -EFAULT;
+-/*
+- * Undo populate_hvo, and replace it with a normal base page mapping.
+- * Used in memory init in case a HVO mapping needs to be undone.
+- *
+- * This can happen when it is discovered that a memblock allocated
+- * hugetlb page spans multiple zones, which can only be verified
+- * after zones have been initialized.
+- *
+- * We know that:
+- * 1) The first @headsize / PAGE_SIZE vmemmap pages were individually
+- *    allocated through memblock, and mapped.
+- *
+- * 2) The rest of the vmemmap pages are mirrors of the last head page.
+- */
+-int __meminit vmemmap_undo_hvo(unsigned long addr, unsigned long end,
+-				      int node, unsigned long headsize)
+-{
+-	unsigned long maddr, pfn;
+-	pte_t *pte;
+-	int headpages;
+-
+-	/*
+-	 * Should only be called early in boot, so nothing will
+-	 * be accessing these page structures.
+-	 */
+-	WARN_ON(!early_boot_irqs_disabled);
+-
+-	headpages = headsize >> PAGE_SHIFT;
+-
+-	/*
+-	 * Clear mirrored mappings for tail page structs.
+-	 */
+-	for (maddr = addr + headsize; maddr < end; maddr += PAGE_SIZE) {
+-		pte = virt_to_kpte(maddr);
+-		pte_clear(&init_mm, maddr, pte);
 -	}
--	up_read(&tty->termios_rwsem);
- 
- 	return 0;
- }
-@@ -871,10 +868,9 @@ static int xr_set_rs485_config(struct tty_struct *tty,
- 		return -EFAULT;
- 	xr_sanitize_serial_rs485(&rs485);
- 
--	down_write(&tty->termios_rwsem);
-+	/* core holds termios rwsem and port mutex */
- 	data->rs485 = rs485;
- 	xr_set_flow_mode(tty, port, NULL);
--	up_write(&tty->termios_rwsem);
- 
- 	if (copy_to_user(argp, &rs485, sizeof(rs485)))
- 		return -EFAULT;
+-
+-	/*
+-	 * Clear and free mappings for head page and first tail page
+-	 * structs.
+-	 */
+-	for (maddr = addr; headpages-- > 0; maddr += PAGE_SIZE) {
+-		pte = virt_to_kpte(maddr);
+-		pfn = pte_pfn(ptep_get(pte));
+-		pte_clear(&init_mm, maddr, pte);
+-		memblock_phys_free(PFN_PHYS(pfn), PAGE_SIZE);
+-	}
+-
+-	flush_tlb_kernel_range(addr, end);
+-
+-	return vmemmap_populate(addr, end, node, NULL);
+-}
+-
+ /*
+  * Write protect the mirrored tail page structs for HVO. This will be
+  * called from the hugetlb code when gathering and initializing the
 -- 
-2.55.0
+2.53.0
 
