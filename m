@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D104AFE0A
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895664B339C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444898; cv=none; b=sPNcNjDjJZwDe0z1QpJAPiEVfzhoEV9Xn6L7bFf1vrUStfVOj7HG/EvUkANifEeIHz+ah/6TmjtM9xsBLnZTdceSEMVUYnXVA7eq3rTYyzZuux4bN18MnC0Oq3pRdfdT/9KW4egPawFflWXiqhW/FzdVbTWOqPrix/XiLYCWwf4=
+	t=1788444912; cv=none; b=OzZ8Cjf84q4M6RcVzVZwtW5orsV43G7nFfNyyrtiz4uv7lVNuhy3kFZ0nHLwgv7Mxo03VLvySf8LDCE1Z/3w8Sz1mlWA0W+4NLwjlO9oUkb6DXpeFKt0PnHi5gIldIrINSkFf1t3WhXI4qkFf3BudZuT+FVMP4xWRUMBL0cGHHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444898; c=relaxed/simple;
-	bh=LKJXc6kRDNTMdlQv07PbTAt9Of+bGM/9UAbFIHnXID8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CHhCzstkhRmleJYjiZbruyeLD8ah/PkAYospB+U7Rho6P/WeOtm2S+Yw3PWx1Elj0JhhREnTz7H022HxhMrOAowWid83F4TlAXWFa2X2xc0U34dtdw+XbX6Ak9SRb+dxBxTXtHgWbJNeyMt8ZxxYA3kCbj5nR+L8bpMYNu2Y2ZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ShAgJ2Jk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444912; c=relaxed/simple;
+	bh=TiCtw98GYtE4btF+BD3wt2iSuaxRHWbWVRLqkwZSv3o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hk3VCTaHFHlHHpG3QGPiNCmY7JF3yY/hkMT61Knh58UwwwfFck/QHBn/wKdem2LcXosfNWYEBphkNCjvAVIsdaIm2URRfywFJ9AqZSTL1rZbhit8BRSlPHc95unaejb/JsqZa4GmvwaokKUkhu7sX6tWe6JF923sPSFxOfrJCWs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KWg/wSSF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ShAgJ2Jk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3612A1F00A3E;
-	Thu,  3 Sep 2026 14:14:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KWg/wSSF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1EE1F00AC4;
+	Thu,  3 Sep 2026 14:14:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444889;
-	bh=nf5X23VKt8yzj0gOKD/jwdiwYfsG47nn+1XwnCJqwoc=;
+	s=korg; t=1788444895;
+	bh=QXgbD/zq3it6noHmy5SvzaUQidGfGG9opL05zn4Kaf8=;
 	h=Subject:To:Cc:From:Date;
-	b=ShAgJ2Jk33n+9eHnqvEGSxVlD+LTSYXMv7pyyNGZIuNhBcz+8GPjX+aJFz5hFqrE9
-	 nMTdy8lBb5Dy4GVhtRZUWP9SDVW3WJytL+XRpRsubwg0LdFMLNAXGQrEDVzlLyAO2+
-	 yYDrikMIZ+yLlt2tWs2Ok/mjYudp684dlCA+Dph0=
-Subject: FAILED: patch "[PATCH] dm array: validate array block headers on read" failed to apply to 5.10-stable tree
-To: hexlabsecurity@proton.me,mpatocka@redhat.com,mtsai@redhat.com
+	b=KWg/wSSFU+Z6GjxpwmCshIiBNU74pxkJzTw5t8x0OIhSr9IzaqCwuhcIrQWWUUArx
+	 B4i1+hkjhtti15XKINpsiItiBM+xdeOP3OdyGh3x67DUHCa/R2sGf30bALBqZTkwxi
+	 tHgdcmcxujCEB6amo4TRwsiTLHncTAqhdFr3Ox2Q=
+Subject: FAILED: patch "[PATCH] coresight: etm3x: Fix cntr_val_show() to match" failed to apply to 6.6-stable tree
+To: visitorckw@gmail.com,james.clark@linaro.org,suzuki.poulose@arm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:53:04 +0200
-Message-ID: <2026090304-edging-moonrise-e655@gregkh>
+Date: Thu, 03 Sep 2026 15:53:27 +0200
+Message-ID: <2026090327-scion-anaconda-5706@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2965787723084835b18dfe993cd450ebf5bd4540
+git cherry-pick -x 41fb4e925528aefa4b7a5f76c7f81db99c0d0f38
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-edging-moonrise-e655@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090327-scion-anaconda-5706@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,99 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2965787723084835b18dfe993cd450ebf5bd4540 Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 31 Jul 2026 17:54:54 -0500
-Subject: [PATCH] dm array: validate array block headers on read
+From 41fb4e925528aefa4b7a5f76c7f81db99c0d0f38 Mon Sep 17 00:00:00 2001
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+Date: Tue, 2 Dec 2025 08:26:13 +0000
+Subject: [PATCH] coresight: etm3x: Fix cntr_val_show() to match
+ cntr_val_store() behavior
 
-array_block_check() validates blocknr and csum and nothing else, while
-node_check(), next to it, has bounded the structural fields since both
-were written. dm_array_cursor_next() takes its loop bound from the
-on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
-a count larger than the block holds keeps the cursor in one block while
-the index grows past it and the read walks off the dm-bufio buffer --
-dm_cache_load_mappings() drives it once per cache block at activation.
+The cntr_val_show() function was intended to print the values of all
+counters using a loop. However, due to a buffer overwrite issue with
+sprintf(), it effectively only displayed the value of the last counter.
 
-Check the header against itself: reject a zero value_size, require
-max_entries to equal calc_max_entries() for that value_size and block
-size, and require nr_entries to fit. Equality rather than an upper bound,
-since a count below the real capacity trips BUG_ON() in fill_ablock() and
-trim_ablock(). Metadata dm-array writes satisfies all three.
+The companion function, cntr_val_store(), allows users to modify a
+specific counter selected by 'cntr_idx'. To maintain consistency
+between read and write operations and to align with the ETM4x driver
+behavior, modify cntr_val_show() to report only the value of the
+currently selected counter.
 
-Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
-Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
+This change removes the loop and the "counter %d:" prefix, printing
+only the hexadecimal value. It also adopts sysfs_emit() for standard
+sysfs output formatting.
+
+Fixes: a939fc5a71ad ("coresight-etm: add CoreSight ETM/PTM driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Link: https://lore.kernel.org/r/20251202082613.3265761-1-visitorckw@gmail.com
 
-diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
-index 8f8792e55806..7ba0a566f0ad 100644
---- a/drivers/md/persistent-data/dm-array.c
-+++ b/drivers/md/persistent-data/dm-array.c
-@@ -38,6 +38,14 @@ struct array_block {
-  */
- #define CSUM_XOR 595846735
- 
-+/*
-+ * Each array block can hold this many values.
-+ */
-+static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
-+{
-+	return (size_of_block - sizeof(struct array_block)) / value_size;
-+}
-+
- static void array_block_prepare_for_write(const struct dm_block_validator *v,
- 					  struct dm_block *b,
- 					  size_t size_of_block)
-@@ -55,6 +63,7 @@ static int array_block_check(const struct dm_block_validator *v,
- 			     size_t size_of_block)
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+index 762109307b86..b3c67e96a82a 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+@@ -717,26 +717,19 @@ static DEVICE_ATTR_RW(cntr_rld_event);
+ static ssize_t cntr_val_show(struct device *dev,
+ 			     struct device_attribute *attr, char *buf)
  {
- 	struct array_block *bh_le = dm_block_data(b);
-+	uint32_t nr_entries, max_entries, value_size;
- 	__le32 csum_disk;
+-	int i, ret = 0;
+ 	u32 val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	struct etm_config *config = &drvdata->config;
  
- 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
-@@ -74,6 +83,26 @@ static int array_block_check(const struct dm_block_validator *v,
- 		return -EILSEQ;
+ 	if (!coresight_get_mode(drvdata->csdev)) {
+ 		spin_lock(&drvdata->spinlock);
+-		for (i = 0; i < drvdata->nr_cntr; i++)
+-			ret += sprintf(buf, "counter %d: %x\n",
+-				       i, config->cntr_val[i]);
++		val = config->cntr_val[config->cntr_idx];
+ 		spin_unlock(&drvdata->spinlock);
+-		return ret;
++	} else {
++		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
  	}
  
-+	nr_entries = le32_to_cpu(bh_le->nr_entries);
-+	max_entries = le32_to_cpu(bh_le->max_entries);
-+	value_size = le32_to_cpu(bh_le->value_size);
-+
-+	if (!value_size) {
-+		DMERR_LIMIT("%s failed: value_size is zero", __func__);
-+		return -EILSEQ;
-+	}
-+
-+	if (max_entries != calc_max_entries(value_size, size_of_block)) {
-+		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
-+			    __func__, max_entries, value_size);
-+		return -EILSEQ;
-+	}
-+
-+	if (nr_entries > max_entries) {
-+		DMERR_LIMIT("%s failed: too many entries", __func__);
-+		return -EILSEQ;
-+	}
-+
- 	return 0;
- }
- 
-@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
- 		on_entries(info, ab, vt->dec);
- }
- 
--/*
-- * Each array block can hold this many values.
-- */
--static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
--{
--	return (size_of_block - sizeof(struct array_block)) / value_size;
--}
+-	for (i = 0; i < drvdata->nr_cntr; i++) {
+-		val = etm_readl(drvdata, ETMCNTVRn(i));
+-		ret += sprintf(buf, "counter %d: %x\n", i, val);
+-	}
 -
- /*
-  * Allocate a new array block.  The caller will need to unlock block.
-  */
+-	return ret;
++	return sysfs_emit(buf, "%#x\n", val);
+ }
+ 
+ static ssize_t cntr_val_store(struct device *dev,
 
