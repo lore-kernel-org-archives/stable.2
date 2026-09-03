@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19CF64B0CA6
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:45:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB844AFE38
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:45:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443150; cv=none; b=mfQ7y9l7hJ7Epb8MvPWLMvyvjFds4LS+6zb3CBqx+SIxFvgvDec3bncSty9OCetd6he7+KRGOpPfDebpeI8f1sa1ZYbRbWZSN8G43AaDrftYwEw9VeScuglZDSkj9hMMQdq0oXjHwPSBUWf+ZLQx+qRZLXHkjto9PjNw8GJHkHw=
+	t=1788443148; cv=none; b=M/MqsWgYtI5MKXIfU+kiYmkqYCWsYj2Jzf00h+Vggq5c8bgyMOAsMRjK03PqB0vPcrCEzDF3rnunv68Tnnco21ZRgoC8dJZh/iBMT/d+w/OYT5OH9aZPpQ8N6zOtZ4TMet0BvLPl/bEU/4nafPy4+DFeQw7aLn0tBy2hJ/V6JXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443150; c=relaxed/simple;
-	bh=gTVdGFUMPJ9CqQF4knXxVe1HwaaJKbwK7KeA7GpiNVc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kYtzHybD8vtrOHAxzx+WOcf+9mi+BB6O+3H+6WUjwWCJ7Qd0FZtsXs3mjh4HIhD90rqgdGdkNIZStXgeq7AmACJAZw1UBxojgscUaCZcB9X0mWqNNcQASh0DdSSQnPSJ33iX9/8y4Bk+OMmKxby5XD9K0kwtDq5gIza04eDPnWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BclH8Lub; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443148; c=relaxed/simple;
+	bh=R4zbYoUBb9sBIotUKr9L34WJQSZl3OlKEYcwkH2o9uE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=u2xQaDdzDUGRjFZtX4aIVi/CbczpFQZgFldZNX2oJvriJg4tlfMm6hypRm043dvVxUaTic8z24ibUrYv8kXg4FNfba5KxaEJuzEHelqXe7ZSnrUrHujle+rHhkmq9sI33Lu9XkftU5xbiMUUB6WMLt3On1/7869E8Ew9aFok0Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=w8olWo1V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BclH8Lub"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47E81F00A3D;
-	Thu,  3 Sep 2026 13:45:42 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="w8olWo1V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65B2E1F000E9;
+	Thu,  3 Sep 2026 13:45:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443143;
-	bh=rsOP4Lo5wco96ykHTJqyEQJhk9+Dj4vBTyCKng0DAPo=;
+	s=korg; t=1788443134;
+	bh=pwAf+ampds13JKeuc0SnVs47D+rn+hSARjnukzRaEdE=;
 	h=Subject:To:Cc:From:Date;
-	b=BclH8Lub3tH5Vq7fPxS/TNhWeox1CGJLDgdWG1y2V5kX2LWwEOvSarVHX+BLkALe4
-	 EyI90BKLCHZk7ap0rnMEJDYaJiUC92qQwIwjZvoqa4SuPzJPBS87Tt/ee5SoqZEgqb
-	 oEbv1N7LL5ZCsh1ZVfb9aUl5DbIFPT1V/8vQyhTg=
-Subject: FAILED: patch "[PATCH] NFSD: Prevent client use-after-free during admin state" failed to apply to 6.12-stable tree
-To: cel@kernel.org,jlayton@kernel.org,neil@brown.name
+	b=w8olWo1VUFqrNdCDyOPg/rDqOTz/iNgpYZPtlJ0GFk+hL19I1Ifx2GlXqWFD5A/Gk
+	 E0FOLopdPEyWKSxb+WpDSx3RzQgLQRSwZE7pWYBN54mptC6I/EgmxOgl+PFAvwnLDE
+	 zb6i3WY4Zvc8jYkTen9XV315nOpAQEWqIdSysBaQ=
+Subject: FAILED: patch "[PATCH] nfsd: reject out-of-range nseconds in NFSv3 SETATTR and" failed to apply to 5.15-stable tree
+To: robbieko@synology.com,cel@kernel.org,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:20:10 +0200
-Message-ID: <2026090309-skedaddle-crumb-8439@gregkh>
+Date: Thu, 03 Sep 2026 15:19:07 +0200
+Message-ID: <2026090307-suave-unlucky-a08a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x e270e5a0778e5bff852c8862ce9576ce70359393
+git cherry-pick -x eb0eca7720662ba5847df1510e73801f7f473094
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090309-skedaddle-crumb-8439@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090307-suave-unlucky-a08a@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,84 +62,149 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e270e5a0778e5bff852c8862ce9576ce70359393 Mon Sep 17 00:00:00 2001
-From: Chuck Lever <cel@kernel.org>
-Date: Thu, 9 Jul 2026 13:40:26 -0400
-Subject: [PATCH] NFSD: Prevent client use-after-free during admin state
- revocation
+From eb0eca7720662ba5847df1510e73801f7f473094 Mon Sep 17 00:00:00 2001
+From: Robbie Ko <robbieko@synology.com>
+Date: Tue, 16 Jun 2026 13:39:59 +0800
+Subject: [PATCH] nfsd: reject out-of-range nseconds in NFSv3 SETATTR and
+ create ops
 
-A stateid holds only a bare pointer to its nfs4_client; a stateid
-reference does not pin it.  The client survives only because
-__destroy_client() drains its stateids before free_client() runs.
+A client can send an NFSv3 SETATTR, CREATE, MKDIR, SYMLINK or MKNOD
+carrying an atime or mtime whose nseconds field is out of range. The
+value is well-formed on the wire and decodes cleanly into a valid
+uint32, but it is not a valid timespec64: tv_nsec must be less than
+NSEC_PER_SEC.
 
-nfsd4_revoke_states() drops nn->client_lock across revoke_one_stid(),
-which dereferences the client to revoke a stateid and read
-clp->cl_minorversion.  A teardown racing the dropped lock can free
-the client first.
+Nothing in the setattr path clamps it. notify_change() runs the time
+through timestamp_truncate(), which does not reduce tv_nsec below
+NSEC_PER_SEC when the filesystem supports nanosecond granularity
+(s_time_gran == 1), and the inode atime/mtime setters store it verbatim
+(only ctime is normalized, via inode_set_ctime_to_ts()). The
+un-normalized value then corrupts on-disk metadata: ext4's
+ext4_encode_extra_time() shifts tv_nsec left by EXT4_EPOCH_BITS, which
+overflows the 32-bit extra field and clobbers the seconds-epoch bits, so
+the stored seconds (and thus the year) are wrong on read-back. XFS with
+bigtime mis-stores the timestamp for the same reason.
 
-Pinning cl_rpc_users under client_lock blocks the DESTROY_CLIENTID and
-EXCHANGE_ID teardown, which refuses while cl_rpc_users is non-zero.
-force_expire_client() ignores it: once its wait for cl_rpc_users to
-reach zero has passed, a later pin goes unnoticed.
+Validate the client-supplied atime/mtime in the proc handlers and return
+NFS3ERR_INVAL before anything is changed. RFC 1813 lists NFS3ERR_INVAL
+for SETATTR and describes it as the error for a value the server 'can
+not store ... in its own representation'; the client maps it to EINVAL.
 
-Under client_lock, skip a client whose cl_time is already zero --
-force_expire_client() clears it there before waiting -- otherwise pin
-cl_rpc_users before dropping the lock.  The walk then either sees the
-expiry and skips, or pins in time for that wait to cover the revoke.
+Checking in the proc handlers, rather than in nfsd_setattr(), keeps the
+rejection in front of object creation. The create operations create the
+object before nfsd_create_setattr() runs, so a late failure would leave
+the new object behind and turn a non-idempotent request into a namespace
+change that reports failure. The check is therefore done up front, for
+the create operations before the object is created.
 
-Fixes: 1c13bf9f2e3c ("nfsd: allow lock state ids to be revoked and then freed")
+tv_nsec is a long, so the comparison casts it to unsigned long (the same
+width) rather than to u32, matching timespec64_valid(). A u32 cast would
+truncate on 64-bit; the unsigned long cast also rejects a value that
+became negative when an out-of-range u32 wire nseconds was assigned to a
+32-bit long.
+
+Only client-supplied times are checked: SET_TO_SERVER_TIME requests
+carry no client value. The sattrguard3 ctime is deliberately left alone:
+an out-of-range guard simply never matches the object's ctime and yields
+NFS3ERR_NOT_SYNC via the existing guardtime comparison, which is the
+protocol-correct outcome rather than rejecting the request.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: NeilBrown <neil@brown.name>
+Signed-off-by: Robbie Ko <robbieko@synology.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260709-cel-v4-3-1d519d9be0cb@kernel.org
+Link: https://patch.msgid.link/20260616054027.2360930-2-robbieko@synology.com
 Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index efeb2a2e9c8f..565fa2ff5ba5 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1965,9 +1965,19 @@ void nfsd4_revoke_states(struct nfsd_net *nn, struct super_block *sb)
- 		struct nfs4_client *clp;
- 	retry:
- 		list_for_each_entry(clp, head, cl_idhash) {
--			struct nfs4_stid *stid = find_one_sb_stid(clp, sb,
--								  sc_types);
-+			struct nfs4_stid *stid;
+diff --git a/fs/nfsd/nfs3proc.c b/fs/nfsd/nfs3proc.c
+index aeda7a802bdf..617a70d13292 100644
+--- a/fs/nfsd/nfs3proc.c
++++ b/fs/nfsd/nfs3proc.c
+@@ -29,6 +29,25 @@ static int	nfs3_ftypes[] = {
+ 	S_IFIFO,		/* NF3FIFO */
+ };
+ 
++/*
++ * Reject a client-supplied atime or mtime whose nanoseconds field is out
++ * of range. Such a value is well-formed on the wire but is not a valid
++ * timespec64, and storing it verbatim can corrupt on-disk timestamps.
++ * tv_nsec is a long, so it is cast to unsigned long (the same width) to
++ * catch both an over-large value and one that became negative when an
++ * out-of-range u32 wire nseconds was assigned to a 32-bit long.
++ */
++static bool nfsd3_time_in_range(const struct iattr *iap)
++{
++	if ((iap->ia_valid & ATTR_ATIME_SET) &&
++	    (unsigned long)iap->ia_atime.tv_nsec >= NSEC_PER_SEC)
++		return false;
++	if ((iap->ia_valid & ATTR_MTIME_SET) &&
++	    (unsigned long)iap->ia_mtime.tv_nsec >= NSEC_PER_SEC)
++		return false;
++	return true;
++}
 +
-+			/*
-+			 * force_expire_client() ignores cl_rpc_users once
-+			 * its wait_event() has passed, so pinning cannot
-+			 * keep an already-expiring client alive; the
-+			 * expiry path revokes its states instead.
-+			 */
-+			if (is_client_expired(clp))
-+				continue;
-+			stid = find_one_sb_stid(clp, sb, sc_types);
- 			if (stid) {
-+				atomic_inc(&clp->cl_rpc_users);
- 				spin_unlock(&nn->client_lock);
- 				revoke_one_stid(nn, clp, stid);
- 				nfs4_put_stid(stid);
-@@ -1980,6 +1990,9 @@ void nfsd4_revoke_states(struct nfsd_net *nn, struct super_block *sb)
- 					 */
- 					nn->nfs40_last_revoke =
- 						ktime_get_boottime_seconds();
-+				if (atomic_dec_and_test(&clp->cl_rpc_users) &&
-+				    is_client_expired(clp))
-+					wake_up_all(&expiry_wq);
- 				goto retry;
- 			}
- 		}
-@@ -3394,6 +3407,11 @@ static void force_expire_client(struct nfs4_client *clp)
+ static __be32 nfsd3_map_status(__be32 status)
+ {
+ 	switch (status) {
+@@ -101,9 +120,14 @@ nfsd3_proc_setattr(struct svc_rqst *rqstp)
+ 				SVCFH_fmt(&argp->fh));
  
- 	trace_nfsd_clid_admin_expired(&clp->cl_clientid);
+ 	fh_copy(&resp->fh, &argp->fh);
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	if (argp->check_guard)
+ 		guardtime = &argp->guardtime;
+ 	resp->status = nfsd_setattr(rqstp, &resp->fh, &attrs, guardtime);
++out:
+ 	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+@@ -265,6 +289,8 @@ nfsd3_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
  
-+	/*
-+	 * cl_time is cleared under client_lock before the wait so a
-+	 * revocation walk pinning cl_rpc_users under it either skips
-+	 * this client or is seen by this wait_event().
-+	 */
- 	spin_lock(&nn->client_lock);
- 	clp->cl_time = 0;
- 	spin_unlock(&nn->client_lock);
+ 	trace_nfsd_vfs_create(rqstp, fhp, S_IFREG, argp->name, argp->len);
+ 
++	if (!nfsd3_time_in_range(iap))
++		return nfserr_inval;
+ 	if (isdotent(argp->name, argp->len))
+ 		return nfserr_exist;
+ 	if (!(iap->ia_valid & ATTR_MODE))
+@@ -400,8 +426,13 @@ nfsd3_proc_mkdir(struct svc_rqst *rqstp)
+ 	argp->attrs.ia_valid &= ~ATTR_SIZE;
+ 	fh_copy(&resp->dirfh, &argp->fh);
+ 	fh_init(&resp->fh, NFS3_FHSIZE);
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, S_IFDIR, 0, &resp->fh);
++out:
+ 	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+@@ -415,6 +446,10 @@ nfsd3_proc_symlink(struct svc_rqst *rqstp)
+ 		.na_iattr	= &argp->attrs,
+ 	};
+ 
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	if (argp->tlen == 0) {
+ 		resp->status = nfserr_inval;
+ 		goto out;
+@@ -471,6 +506,11 @@ nfsd3_proc_mknod(struct svc_rqst *rqstp)
+ 		goto out;
+ 	}
+ 
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
++
+ 	type = nfs3_ftypes[argp->ftype];
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, type, rdev, &resp->fh);
 
