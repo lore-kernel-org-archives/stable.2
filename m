@@ -1,238 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF112E7622;
-	Thu,  3 Sep 2026 02:41:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155DC3546F6
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 02:41:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788403262; cv=none; b=Wnc2zn4S5qpXplEhy9tcy3L8Xx737Mu+At1fRQF+Sj7jMQ2s9bR57aYwHNn1sWnCU9ICU/saRbkvaLxPNrMt20N9EzabPSIRInNseTILoR9GGOeZuGXsGRj0s1sMa3V9G+97RJAIkb5vtoWYTH94aSd+poijfKVBSAVKyw26C7M=
+	t=1788403267; cv=none; b=VOXCH55b2U7aQVDURTY9rmLzvfjAC7Hx04ffpTNFH0tmTYXEtDy4NLqQSvTBRFv5olXD4oQc5HU7kJZEDol6X2SLhsHYCrQtI14Qffi86RFYHqAZ3S6p6WJxmi8neEmWW9haO1JJh4LSOtiv0OgQF+M9BZIaro4KwDV7HE/r0Vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788403262; c=relaxed/simple;
-	bh=gJ+5OHmwalQRPj0PFTrbr5rKjzhumhV93+UMbSmFAYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dwSDQbcz9AZ4lt3yUJb1hMK8LDL029fxVuiHjvux/uAAsGs/aOqpNxlK4DMkPYSXMp5jjDaBqVMWWQ8Bw3Yd5HlhzuBMzcX8puminSkTVw1Sy38dqpkt+PrbvytZoNX6LYgxnOCcy9Up0rS4sZqiNOgPuubONGPCADZffc+fueM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lj5mG7NA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lj5mG7NA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 663FB1F000E9;
-	Thu,  3 Sep 2026 02:41:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788403260;
-	bh=uIPul49R2Fclph0FgWFNmp+obxjhTncsHWqiHMNoOFQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lj5mG7NAmcchdADS1eKpG+Lg/2k2IfZFEOYqMEAW+7ChKxqazgS448WT01ug2lSMR
-	 TW+cK+IDuMxIQLmwMUXuIqFAgKa0McowfvgR2vf19bsjB/So7uiqJswJqjBgYcm6ra
-	 xbJye739Q67n/LkeiGAIKU3ZSRGezb5tCVn87NwztDJr48U2LF75+g+MifLz0DZvJI
-	 BMKHSV78AjTLpgSBgAt8gBo2/5oaght9R4OgL3Z2j71Gru5/lvFb9WsC/NDRDLo8jG
-	 K9sJpX/UKw4iHO+J7/Crr/z2gmR/o/3ZpMnXEhkfe20ftLS3ehw16W/q1OoPUZpclm
-	 olxxn8DDEqbpA==
-From: Jakub Kicinski <kuba@kernel.org>
-To: ssvatenko@iit.org.ua
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Raju.Rangoju@amd.com,
-	PrashanthKumar.K.R@amd.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net 1/2] amd-xgbe: fix comm_ownership mutex deadlock on SFP module removal
-Date: Wed,  2 Sep 2026 19:40:59 -0700
-Message-ID: <20260903024059.2957610-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828092023.105405-2-ssvatenko@iit.org.ua>
-References: <20260828092023.105405-2-ssvatenko@iit.org.ua>
+	s=arc-20240116; t=1788403267; c=relaxed/simple;
+	bh=lr0aR1UY7uIm1dLJJqyF/T2lElAnVVpA0WzNuk3EPMI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=JTqczoZ3LBvi4aoWSbDQxD8006v1Y2iWXepdI4pzXV9l1cPqTsv4a2MARx/cqt7qFfA7hhVbG07/wfVPBX3z3ZtFUpRHc4CT/jciz81JMMEnds1R/VAh4WIFbpgPujVfwB+WuMtCjOEeJqeyHe0C2xw+sDHCMeqW1kgY9i3drcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6b13d095a33so1584782eaf.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 19:41:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788403265; x=1789008065;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iRtqUWnllCctgJmjQTfsRI6sPQicPo1I015+mx/n+3o=;
+        b=Sy7a2rahLTt8rU5d5swImbpKbDZgwh0cSMmTwBNj/307qkViTP82Z3Oji8OfbUu2zJ
+         AfHJlqs+/zx1TcEOEqqFC7M5OgaJ7hz/tzkcM0L7jRIdsQ2KS0ztcw4S563bHVCIMGkU
+         LUB9m5M9wTMEYTkMUNqk+J/uwmMMB7sKnEe4eWYTqSnhDX6x8uO11z4e6jwb5nClUWnI
+         LR2bvCHvO66pzRBG4vB+yTosmpJDa6qK2rmYeAGY/nhgwKh6tgjzYciAChMLKN8Gkcw3
+         LsJoG9YAN9W0N6dWByXbwPvP4tBNJnnuPTpbysdrF4Bgv+Rvdy0GoiOcNMlZIWxsAkZy
+         wUOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhlS0vjluHAr6ipGTZtTwUfGF/X3mJn+KueIm9LYo0g41ciPkCNKr86GvBoDBOorZC3CcaZOM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l91jKD9SFTi/qf4BLw4ocrUQ+TWhRB46PGByxcGubPPCJ9D89A
+	vA2fCeNYlYEzfZHva8YcRd7+/SvVaB9DtYdD8AxhSsdfNsMV/afp4UpcR4mT5T6bXAoKpdrlEFi
+	/PArooLGs3ZtP31tTy317YE3i3cjV3t0bhwo5Y0/ackIOmkcC9cdvrHGmZao=
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:2918:b0:6b0:4199:3cc4 with SMTP id
+ 006d021491bc7-6b48173f922mr8898596eaf.27.1788403265029; Wed, 02 Sep 2026
+ 19:41:05 -0700 (PDT)
+Date: Wed, 02 Sep 2026 19:41:05 -0700
+In-Reply-To: <20260903022452.111316-2-adrianox@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a98de41.9266084e.bf0d7.0015.GAE@google.com>
+Subject: Re: [syzbot] [usb?] general protection fault in keyspan_break_ctl
+From: syzbot <syzbot+473d7477c523b41d4046@syzkaller.appspotmail.com>
+To: adrianox@gmail.com, johan@kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-amd-xgbe: fix comm_ownership mutex deadlock on SFP module removal
+Hello,
 
-The patch stops xgbe_phy_sfp_read_eeprom() from freeing the external PHY
-device and instead defers that to xgbe_phy_sfp_detect(), which now drops
-xgbe_phy_comm_lock before calling xgbe_phy_sfp_mod_absent() or
-xgbe_phy_free_phy_device() and re-acquires it only around
-xgbe_phy_sfp_external_phy().  A couple of questions about the new
-sequence below.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+general protection fault in keyspan_break_ctl
 
-> diff --git a/drivers/net/ethernet/amd/xgbe/xgbe-phy-v2.c b/drivers/net/ethernet/amd/xgbe/xgbe-phy-v2.c
-> index 59a074ed312a5..a264ec5bb0851 100644
-> --- a/drivers/net/ethernet/amd/xgbe/xgbe-phy-v2.c
-> +++ b/drivers/net/ethernet/amd/xgbe/xgbe-phy-v2.c
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000013: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000098-0x000000000000009f]
+CPU: 3 UID: 0 PID: 6463 Comm: syz.3.20 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 24 67 42 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc9000334fca8 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff87c9835c
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff888059412000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000000000
+R13: ffff888038a76e00 R14: ffff88802aef6020 R15: ffff88802aef60c8
+FS:  00007f62980d46c0(0000) GS:ffff8880d5e61000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f41412c8d58 CR3: 0000000025cea000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ serial_break+0xcb/0x160 drivers/usb/serial/usb-serial.c:538
+ send_break drivers/tty/tty_io.c:2456 [inline]
+ send_break+0x194/0x3b0 drivers/tty/tty_io.c:2442
+ tty_ioctl+0xa2f/0x1640 drivers/tty/tty_io.c:2737
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f629719e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f62980d4028 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007f6297425fa0 RCX: 00007f629719e0d9
+RDX: 0000000000000000 RSI: 0000000000005425 RDI: 0000000000000004
+RBP: 00007f6297235024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f6297426038 R14: 00007f6297425fa0 R15: 00007ffcf04a40e8
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:keyspan_break_ctl+0x8e/0xe0 drivers/usb/serial/keyspan.c:608
+Code: ff ff ff e8 24 67 42 fa 83 fb ff 48 b8 00 00 00 00 00 fc ff df 49 8d bc 24 9c 00 00 00 0f 94 c3 48 89 fa 0f b6 db 48 c1 ea 03 <0f> b6 14 02 48 89 f8 83 e0 07 83 c0 03 38 d0 7c 04 84 d2 75 1d 41
+RSP: 0018:ffffc9000334fca8 EFLAGS: 00010203
+RAX: dffffc0000000000 RBX: 0000000000000001 RCX: ffffffff87c9835c
+RDX: 0000000000000013 RSI: 00000000ffffffff RDI: 000000000000009c
+RBP: ffff888059412000 R08: 0000000000000005 R09: 00000000ffffffff
+R10: 00000000ffffffff R11: 0000000000000000 R12: 0000000000000000
+R13: ffff888038a76e00 R14: ffff88802aef6020 R15: ffff88802aef60c8
+FS:  00007f62980d46c0(0000) GS:ffff8880d5d61000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055aeb7ddb480 CR3: 0000000025cea000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess), 2 bytes skipped:
+   0:	ff                   	ljmp   (bad)
+   1:	e8 24 67 42 fa       	call   0xfa42672a
+   6:	83 fb ff             	cmp    $0xffffffff,%ebx
+   9:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  10:	fc ff df
+  13:	49 8d bc 24 9c 00 00 	lea    0x9c(%r12),%rdi
+  1a:	00
+  1b:	0f 94 c3             	sete   %bl
+  1e:	48 89 fa             	mov    %rdi,%rdx
+  21:	0f b6 db             	movzbl %bl,%ebx
+  24:	48 c1 ea 03          	shr    $0x3,%rdx
+* 28:	0f b6 14 02          	movzbl (%rdx,%rax,1),%edx <-- trapping instruction
+  2c:	48 89 f8             	mov    %rdi,%rax
+  2f:	83 e0 07             	and    $0x7,%eax
+  32:	83 c0 03             	add    $0x3,%eax
+  35:	38 d0                	cmp    %dl,%al
+  37:	7c 04                	jl     0x3d
+  39:	84 d2                	test   %dl,%dl
+  3b:	75 1d                	jne    0x5a
+  3d:	41                   	rex.B
 
-[ ... ]
 
-> @@ -1296,26 +1300,45 @@ static void xgbe_phy_sfp_detect(struct xgbe_prv_data *pdata)
->  	/* Read the SFP signals and check for module presence */
->  	xgbe_phy_sfp_signals(pdata);
->  	if (phy_data->sfp_mod_absent) {
-> +		/* xgbe_phy_sfp_mod_absent() calls xgbe_phy_free_phy_device(),
-> +		 * which can call back into this driver's MDIO read/write
-> +		 * routines via phy_detach() -> phy_suspend(). Those routines
-> +		 * take the comm ownership mutex themselves, so it must be
-> +		 * released before making this call.
-> +		 */
-> +		xgbe_phy_put_comm_ownership(pdata);
->  		xgbe_phy_sfp_mod_absent(pdata);
-> -		goto put;
-> +		goto settings;
->  	}
->  
->  	ret = xgbe_phy_sfp_read_eeprom(pdata);
-> +	xgbe_phy_put_comm_ownership(pdata);
->  	if (ret) {
->  		/* Treat any error as if there isn't an SFP plugged in */
->  		xgbe_phy_sfp_reset(phy_data);
->  		xgbe_phy_sfp_mod_absent(pdata);
-> -		goto put;
-> +		goto settings;
->  	}
->  
-> +	/* Same reasoning as above: this must run without the comm
-> +	 * ownership mutex held.
-> +	 */
-> +	if (phy_data->sfp_changed)
-> +		xgbe_phy_free_phy_device(pdata);
+Tested on:
 
-[Severity: High]
-Can freeing phy_data->phydev here race with the ethtool configuration
-path and turn into a use-after-free write?
+commit:         940de590 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10641f79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
+dashboard link: https://syzkaller.appspot.com/bug?extid=473d7477c523b41d4046
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=10f81f79580000
 
-Before this patch the teardown could not actually complete from the
-service work, because phy_detach() -> phy_suspend() -> genphy_suspend()
--> xgbe_phy_mii_read_c22() -> xgbe_phy_get_comm_ownership() deadlocked
-on the mutex that was still held.  That is the hang this commit fixes.
-With the mutex released, xgbe_phy_free_phy_device() now runs to
-completion from:
-
-xgbe_service()
-  xgbe_phy_status()
-    xgbe_phy_link_status()
-      xgbe_phy_sfp_detect()
-        xgbe_phy_sfp_mod_absent() / xgbe_phy_free_phy_device()
-
-xgbe_service() holds neither RTNL nor pdata->an_mutex, and
-xgbe_phy_free_phy_device() dereferences the shared pointer before
-clearing it:
-
-	if (phy_data->phydev) {
-		phy_detach(phy_data->phydev);
-		phy_device_remove(phy_data->phydev);
-		phy_device_free(phy_data->phydev);
-		phy_data->phydev = NULL;
-	}
-
-Meanwhile ethtool -s / ethtool -A enter xgbe_set_link_ksettings() /
-xgbe_set_pauseparam() under only "if (netif_running(netdev))", then
-__xgbe_phy_config_aneg() (which takes pdata->an_mutex only) calls
-xgbe_phy_an_config():
-
-	if (!phy_data->phydev)
-		return 0;
-
-	phy_data->phydev->autoneg = pdata->phy.autoneg;
-	linkmode_and(phy_data->phydev->advertising, ...);
-	...
-	ret = phy_start_aneg(phy_data->phydev);
-
-The freeing path holds no lock the consumer path takes, so can the
-phy_device be freed between that NULL check and the writes?  The same
-window looks present for phy_init_hw(phy_data->phydev) and the
-phy_data->phydev dereferences in xgbe_phy_phydev_flowctrl().  Neither
-ethtool entry point flushes or cancels pdata->service_work; only
-xgbe_stop() does that, which is why the existing free in
-xgbe_phy_stop() is safe.
-
-Also, phy_detach() uses rtnl_dereference(dev->hwprov) and calls
-phy_link_topo_del_phy(), so it expects RTNL to be held.  Should the
-teardown be moved into a context that holds RTNL or an_mutex, or be
-serialized against the phydev consumers some other way?
-
->  	xgbe_phy_sfp_parse_eeprom(pdata);
->  
-> -	xgbe_phy_sfp_external_phy(pdata);
-> +	/* Re-acquire ownership for the external PHY access below; it talks
-> +	 * to the SFP over I2C directly and needs the mutex held again.
-> +	 */
-> +	ret = xgbe_phy_get_comm_ownership(pdata);
-> +	if (!ret) {
-> +		xgbe_phy_sfp_external_phy(pdata);
-> +		xgbe_phy_put_comm_ownership(pdata);
-> +	}
-
-[Severity: Medium]
-What happens to phy_data->sfp_phy_avail when this second
-xgbe_phy_get_comm_ownership() fails?
-
-xgbe_phy_get_comm_ownership() can return -ETIMEDOUT after polling
-XP_I2C_MUTEX / XP_MDIO_MUTEX for five seconds and printing "unable to
-obtain hardware mutexes".  There is no else branch here, so the failure
-is neither propagated nor reflected in driver state.
-
-By this point the "SFP changed" edge has already been consumed:
-xgbe_phy_sfp_read_eeprom() set phy_data->sfp_changed = 1 and copied the
-new image into phy_data->sfp_eeprom, xgbe_phy_free_phy_device() already
-cleared phy_data->phydev, and xgbe_phy_sfp_parse_eeprom() reprogrammed
-sfp_base/sfp_speed.
-
-xgbe_phy_sfp_external_phy() is the only writer of sfp_phy_avail and
-self-disables on the next poll:
-
-	if (!phy_data->sfp_changed)
-		return;
-
-	phy_data->sfp_phy_avail = 0;
-	...
-	ret = xgbe_phy_i2c_mii_read(pdata, MII_BMCR);
-	if (ret < 0)
-		return;
-
-	phy_data->sfp_phy_avail = 1;
-
-On the following service poll the EEPROM compares equal, sfp_changed
-becomes 0, and this function returns immediately, so does sfp_phy_avail
-keep the value computed for the previous module until the module is
-physically re-plugged?
-
-The consumer xgbe_phy_find_phy_device() gates on that flag:
-
-	if ((phy_data->port_mode == XGBE_PORT_MODE_SFP) &&
-	    !phy_data->sfp_phy_avail)
-		return 0;
-
-so a stale 1 after a copper-to-fiber swap would make get_phy_device()
-fail and return -ENODEV up through xgbe_phy_an_config() ->
-__xgbe_phy_config_aneg() -> xgbe_phy_start(), and a stale 0 for a newly
-inserted 1000BASE-T module would leave its internal PHY unattached even
-though xgbe_phy_sfp_phy_settings() just advertised 10/100/1000baseT.
-xgbe_phy_link_status() sets *an_restart = 1 whenever sfp_changed is
-set, so xgbe_phy_config_aneg() acts on the stale flag right away.
-
-Before this patch a mutex timeout aborted xgbe_phy_sfp_detect() with all
-bookkeeping untouched and the next poll re-ran the whole sequence.  Would
-it make sense to handle this like the read_eeprom error path does, i.e.
-xgbe_phy_sfp_reset() plus xgbe_phy_sfp_mod_absent(), or otherwise avoid
-committing sfp_eeprom/sfp_changed before the probe can be retried?  The
-commit message does not mention this new failure path.
-
->  
-> -put:
-> +settings:
->  	xgbe_phy_sfp_phy_settings(pdata);
-> -
-> -	xgbe_phy_put_comm_ownership(pdata);
->  }
-
-Both observations are still present at the end of the series, since the
-following patch touches only xgbe-mdio.c.
--- 
-pw-bot: cr
