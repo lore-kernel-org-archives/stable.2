@@ -1,78 +1,138 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-27.ptr.blmpb.com (va-2-27.ptr.blmpb.com [209.127.231.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C671B4B2CB5;
-	Thu,  3 Sep 2026 14:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 363154B270F
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:12:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444764; cv=none; b=e2phhPctW5hOSQ53KCM6mX3GX7DgcmJ9LzcErBRrv9bSdZxwEIZqFjqK1EgzHxpyuictYW+1s0lyNojewbVEUoumKWGEF+ddxgV+A5B1nYDo2TNSJLqgIrmlLy9D/190K3weANybxl54aNjbDl7/QfI2DCdygFchzmTyN3Ul8s8=
+	t=1788444783; cv=none; b=k710+nhF8WOQryhBnDVLEq7vPz9rzVFblnGPtlyCNWpuAzytSFoFfONKS+u4PPsdCfpLsWeW2UVVMrDVg0GyU03oncrdfTUzc6ec+tWblZvRAr3+jjcuZv0jzbsRjCzvRPNlmJtjMQHn5KzY7MDnglA8KX5WHiwkScm1mPPFgWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444764; c=relaxed/simple;
-	bh=2QVB//AclfNeAbju+0IYoO6raZ3d7xQbfRbudoLgbH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JmQ3d1yNqt/Q11d4GzH7U1kJut947Ecmqqcy0PvPk0VpPq3Bl/dlRSG/y2VB9avbQIIsYP8DSeHo7kfgWK9ruGvSjfsC18R8yys88Fo9xReO5lAJLEX18IzLm3vULSGk4S/rNBxAYBnwSgwsrZVrzCBXAmUwzdo/y/5stmAe9fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=GjRQ17cT; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1788444783; c=relaxed/simple;
+	bh=puSA5liMU6OpiwuG3Ma1tWEIw4biXvPc5legy2szouk=;
+	h=From:Mime-Version:Date:Content-Type:To:Cc:Subject:Message-Id; b=kTcXOMkwqwtHFT+HpMXB6FstCIAuN3i15T1qMNWPP6epSJGktFIyz5l2rFTEBcKBIXT9NASmRy5OBJ/9jbBXCW9zp2Smila5h1vsqia4f2xiXn0YX5iZMBwIF/a1eW1hvSQXSdp5ytWaaBblawWGzyrvWblFUd+D+xJGQfjiWX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=FPFXknmN; arc=none smtp.client-ip=209.127.231.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="GjRQ17cT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=HDphPTZasBW/m6rqPKWNWdlcoSOfg9Wv3BLKy1YJmFk=; b=GjRQ17cTZGJyO9RseyyaQA+rJ2
-	KFNRg9yVF0nvIwkEzkEfH5NFEWW8acQDmuKl1f6q6vQ7hOzImiIke6iL7hFX1C+f6tBGJf+Ol2V+d
-	VuOnEMMB3JdoROXdxAxA/ilFfkTGkMt8LL6JoSRAgFSTaGoLP9VoY6dqRK2TiMGA4r07hJDy8Mvll
-	cmXc0yGIA/VDpi2tfF4vsdgfV8buO5SyDx3nPWjAxOJ9Laa3Hc30GvLHcbbVE2PXOKlVadljZYaIr
-	whRPifETlbniKBgzN9KMCSWvw6CT6YutHQB62x/U6kYBr/SDQuhUBOZ4Jgb59PjyzScnJ1Ql0JJlj
-	77ooFAow==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>,
-	Andy Yan <andy.yan@rock-chips.com>,
-	Yudi Yang <2000jedi@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Damon Ding <damon.ding@rock-chips.com>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] drm/rockchip: analogix_dp: bound endpoint name formatting
-Date: Thu,  3 Sep 2026 16:12:03 +0200
-Message-ID: <178844472024.2481528.12971315442057669333.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901195511.2761251-1-2000jedi@gmail.com>
-References: <20260901195511.2761251-1-2000jedi@gmail.com>
+	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="FPFXknmN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2510091218; d=moonshot.ai; t=1788444764; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=g3dTl09kOzRbhIjm5SK5uaKZxMYR1BcThZlmWS3SkPY=;
+ b=FPFXknmNh0MZNPekFcRZaXKDsmcAWmPh1ZKPDl7o9saV5FUdG4khV9CjvBpztEgPuWK9ZE
+ 5xKtOgSX76BDGBp6pYyTlGiuhpsFGWEYT5VWdAKomf1HRGU6qwrei4fj/yHidYyaYLGZmp
+ oo/JqdZejFgEi3SV9pyMW7fD3b74AN9dIuYHLjqvbLYSx8HmDUz/4oRMSJuJ2nbYJS6l3g
+ VWftcKvWE4DBobIVVgggt0j/HRBFJA1sNN9skFLZ8rJto81PVEVnTX7QjEMTv/r/J7tq0d
+ 2KbApi5x9q4UhApXdvaAJOA+I7LQm1Hj1lf30DxcH8Cwb5G7eAo2jM+rhiEamw==
+From: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Content-Transfer-Encoding: 7bit
+X-Lms-Return-Path: <lba+26a99805a+f725be+vger.kernel.org+yilinzhang@moonshot.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Thu, 03 Sep 2026 22:12:42 +0800
+Date: Thu,  3 Sep 2026 22:12:03 +0800
+Content-Type: text/plain; charset=UTF-8
+To: "Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>
+Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Kimi Security Team" <bug-report@moonshot.ai>, 
+	"Weiming Shi" <shiweiming@moonshot.ai>
+Subject: [PATCH] inet: frags: invalidate queues before flushing them
+Message-Id: <20260903141204.40934-1-yilinzhang@moonshot.ai>
+X-Mailer: git-send-email 2.34.1
+X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
 
+fqdir_pre_exit() flushes the skbs from incomplete queues without
+changing their completion state. A fragment which found a queue before
+high_thresh was cleared can then acquire the queue lock and reuse stale
+reassembly metadata.
 
-On Tue, 01 Sep 2026 14:55:11 -0500, Yudi Yang wrote:
-> rockchip_dp_drm_encoder_enable() uses sprintf() to format a device tree
-> path into a 32-byte stack buffer. Device tree paths are not limited to
-> this size, so a sufficiently long path can overflow the buffer.
-> 
-> Use snprintf() with the destination size to truncate the generated name
-> and keep the writes within bounds.
-> 
-> [...]
+For IPv6, this can make ip6_frag_reasm() use the old nhoffset with a
+new skb and access memory out of bounds. The resulting heap corruption
+can be leveraged for local privilege escalation when unprivileged
+network namespaces are available.
 
-Applied, thanks!
+Kill each queue before flushing it in fqdir_pre_exit(). This marks the
+queue complete and releases any timer reference removed by
+inet_frag_kill(), while leaving the hash reference for the asynchronous
+fqdir teardown. In-flight fragments consequently take the existing
+complete-queue drop path without changing the reusable-queue semantics
+of inet_frag_queue_flush().
 
-[1/1] drm/rockchip: analogix_dp: bound endpoint name formatting
-      commit: bc69439d983cc491cc86e01fafc1deb94e1bb85e
+KASAN report:
 
-Best regards,
+  BUG: KASAN: slab-out-of-bounds in ipv6_frag_rcv (net/ipv6/reassembly.c:289 (discriminator 2) net/ipv6/reassembly.c:229 (discriminator 2) net/ipv6/reassembly.c:391 (discriminator 2))
+  Write of size 1 at addr ff110001039c6e00 by task poc/771
+  Call Trace:
+  ? ipv6_frag_rcv (net/ipv6/reassembly.c:289 (discriminator 2) net/ipv6/reassembly.c:229 (discriminator 2) net/ipv6/reassembly.c:391 (discriminator 2))
+  ipv6_frag_rcv (net/ipv6/reassembly.c:289 (discriminator 2) net/ipv6/reassembly.c:229 (discriminator 2) net/ipv6/reassembly.c:391 (discriminator 2))
+  ip6_protocol_deliver_rcu (net/ipv6/ip6_input.c:479 (discriminator 5))
+  ip6_input_finish (net/ipv6/ip6_input.c:534)
+  ipv6_rcv (include/net/dst.h:480 (discriminator 3) net/ipv6/ip6_input.c:119 (discriminator 3) net/ipv6/ip6_input.c:109 (discriminator 3) include/linux/netfilter.h:325 (discriminator 3) include/linux/netfilter.h:319 (discriminator 3) net/ipv6/ip6_input.c:351 (discriminator 3))
+  packet_sendmsg (net/packet/af_packet.c:3110 net/packet/af_packet.c:3142)
+  __x64_sys_sendmmsg (net/socket.c:2883 net/socket.c:2880 net/socket.c:2880)
+  The buggy address belongs to the object at ff110001039c6b40
+  which belongs to the cache skbuff_small_head of size 704
+  The buggy address is located 0 bytes to the right of
+  allocated 704-byte region [ff110001039c6b40, ff110001039c6e00)
+
+  BUG: KASAN: slab-out-of-bounds in ip6_protocol_deliver_rcu (net/ipv6/ip6_input.c:423 (discriminator 1))
+  Read of size 1 at addr ff110001039c6e08 by task poc/771
+  Call Trace:
+  ? ip6_protocol_deliver_rcu (net/ipv6/ip6_input.c:423 (discriminator 1))
+  ip6_protocol_deliver_rcu (net/ipv6/ip6_input.c:423 (discriminator 1))
+  ip6_input_finish (net/ipv6/ip6_input.c:534)
+  ipv6_rcv (include/net/dst.h:480 (discriminator 3) net/ipv6/ip6_input.c:119 (discriminator 3) net/ipv6/ip6_input.c:109 (discriminator 3) include/linux/netfilter.h:325 (discriminator 3) include/linux/netfilter.h:319 (discriminator 3) net/ipv6/ip6_input.c:351 (discriminator 3))
+  packet_sendmsg (net/packet/af_packet.c:3110 net/packet/af_packet.c:3142)
+  __x64_sys_sendmmsg (net/socket.c:2883 net/socket.c:2880 net/socket.c:2880)
+  packet_sendmsg (net/packet/af_packet.c:2959 net/packet/af_packet.c:3053 net/packet/af_packet.c:3142)
+  __x64_sys_sendmmsg (net/socket.c:2883 net/socket.c:2880 net/socket.c:2880)
+  The buggy address belongs to the object at ff110001039c6b40
+  which belongs to the cache skbuff_small_head of size 704
+  The buggy address is located 8 bytes to the right of
+  allocated 704-byte region [ff110001039c6b40, ff110001039c6e00)
+
+Fixes: 006a5035b495 ("inet: frags: flush pending skbs in fqdir_pre_exit()")
+Cc: stable@vger.kernel.org
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Tested-by: Weiming Shi <shiweiming@moonshot.ai>
+Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
+---
+ net/ipv4/inet_fragment.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
+--- a/net/ipv4/inet_fragment.c
++++ b/net/ipv4/inet_fragment.c
+@@ -235,15 +235,22 @@ void fqdir_pre_exit(struct fqdir *fqdir)
+ 	rhashtable_walk_start(&hti);
+ 
+ 	while ((fq = rhashtable_walk_next(&hti))) {
++		int refs = 0;
++
+ 		if (IS_ERR(fq)) {
+ 			if (PTR_ERR(fq) != -EAGAIN)
+ 				break;
+ 			continue;
+ 		}
+ 		spin_lock_bh(&fq->lock);
+-		if (!(fq->flags & INET_FRAG_COMPLETE))
++		if (!(fq->flags & INET_FRAG_COMPLETE)) {
++			inet_frag_kill(fq, &refs);
++		}
++
++		if (fq->flags & INET_FRAG_HASH_DEAD)
+ 			inet_frag_queue_flush(fq, 0);
+ 		spin_unlock_bh(&fq->lock);
++		inet_frag_putn(fq, refs);
+ 	}
+ 
+ 	rhashtable_walk_stop(&hti);
 -- 
-Heiko Stuebner <heiko@sntech.de>
+2.43.0
