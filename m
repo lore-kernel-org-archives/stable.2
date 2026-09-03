@@ -1,150 +1,428 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C48736896D;
-	Thu,  3 Sep 2026 23:55:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9EA36896D
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:56:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479736; cv=none; b=LiAnnJ4RXjA7+WrMZbr2AvsGHgx/mnrTt+uN0oCoIxs2bD1cBQWwzAul62qESuF0bNt4z8RZ+rQQWwQojVlyDyVpr0CjetDUUg606JcpcwMVvIKmyDwgxU3XL8v0iee31Jmhnv/OyTwkLUfFMn8vJx9rbVti0NsZgrbtsUTBkc4=
+	t=1788479803; cv=none; b=WkvH4VPAp+E1tFvJpPI/LoQYqoTVHj2lOU1qXFCqh3EvlYo/2xNBfR+k6AKa5+oReLAc1aSXXWSrbHigKL9YvrHvrKFWXBTgv8HN8S0izNwnTmpnDV1PKqdz0kxApqQ6ZZxDrTI8GYch8TJRajkf9ID8LtJv25GSvRA8gEbYWyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479736; c=relaxed/simple;
-	bh=EWIqrdXxmFzBpVvYQZAvyQrAaWzx2aA4+vuWt/WTOBU=;
-	h=Date:To:From:Subject:Message-Id; b=hYb+xsylMo+vxIWV8396y2DZjGLD0YVqxZ6DvGlJINJpxJREJlxMPQaL5v3X66VzgaVBag6lu9eArqOuzsYcEYyobIrqtcrO2rYCvfbt12ge1fGRDetqVsc0+TCZ13IO5wdlbDlOpV1InLkX1TKKRMxVpJwRkRAYv+GkDyyDQ+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=1qMeO2ys; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788479803; c=relaxed/simple;
+	bh=v8K645T4yjo3L6ArwIVX3+gXFSrFjNmlDjZTPvLopfY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zbkhf1ovo6dOjM8+MFL32/nUmxJSnkSF/yZVr1IDuoaZ3rvI/5n/YefdKah8nAUBva/jli7sFcr4dl9CMEbeniXwBGhOPegZ5HSjCUDnn175PXs8RZpbH9zDd0LxULSsF4QVlhqSKcz3tgtSy0ivnX5s/OUwrMeuaOuEcPBJ7rE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AGLED+z0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="1qMeO2ys"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05831F000E9;
-	Thu,  3 Sep 2026 23:55:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788479735;
-	bh=gQ43+T65oPryyT5UvnBbA9jnzO/m3sStBQrel6+PjF4=;
-	h=Date:To:From:Subject;
-	b=1qMeO2yspt+nVRgZe2eHRGLLsuy2khh/XVbPpJbi21azHPAlqNVDe885w0XVUH0Si
-	 LkAX7Tx1PO0x578wwFoU3neHK5KKouxUmNENdjJQB3M/ceTgggyItInnSRkj8R3bpu
-	 ynjn5A/iVB0GHGBwU6Dj0JBX+sUVAh+fEoF5J5DM=
-Date: Thu, 03 Sep 2026 16:55:34 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,richard120310@gmail.com,handyhandyman.adam@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch added to mm-nonmm-unstable branch
-Message-Id: <20260903235534.F05831F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AGLED+z0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5321F00A3E;
+	Thu,  3 Sep 2026 23:56:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788479798;
+	bh=UBsxmxV1O1XurUZBS7Az8xX+oedQKNxI/FIOuuARqKA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=AGLED+z0W9g+rV+9egF1a7NDzSaLK0ps89cU4SivohztlP+e4v2bbS+lHoKULpXnB
+	 fqEzwkQ4HW38sUZd2x10L0feDzfpdBBCKD/qtXdKOAuXlERP6/w+cX7RP6QpZGhCvV
+	 jEyQoipONCrYYm5c+d6Q3istyUOGhgZWurVXEmuVZhZzEB+iS+gwimOirV2HSfARow
+	 83yHkC7yVJ3GaQqU0Czhfl+YuaKkNH3tILl0zI6o4ilPvzQLpOM9ikowDA9uIYF73v
+	 R4my3J4QbJBpbHAf1Fszd6Kmn7z5yz5N4HJ81kUWOkxKWDOLuhaVDIDvcLOn7GP/c6
+	 jhMIPbF1zwqjQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan He <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>,
+	Byungchul Park <byungchul@sk.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Gregory Price <gourry@gourry.net>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jan Kara <jack@suse.cz>,
+	Jann Horn <jannh@google.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Leon Romanovsky <leon@kernel.org>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Mathew Brost <matthew.brost@intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Nico Pache <npache@redhat.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Peter Xu <peterx@redhat.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	SeongJae Park <sj@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Wei Xu <weixugc@google.com>,
+	xu xin <xu.xin16@zte.com.cn>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] mm: avoid unnecessary use of is_swap_pmd()
+Date: Thu,  3 Sep 2026 19:56:30 -0400
+Message-ID: <20260903235631.1810157-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090344-unusual-yippee-a1d0@gregkh>
+References: <2026090344-unusual-yippee-a1d0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-The patch titled
-     Subject: lib/plist: fix plist_requeue() corrupting order in the last bucket
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch
+[ Upstream commit aa62204cb680d8ff32497181fc9e0dac4956f7e5 ]
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch
+PMD 'non-swap' swap entries are currently used for PMD-level migration
+entries and device private entries.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+To add to the confusion in this terminology we use is_swap_pmd() in an
+inconsistent way similar to how is_swap_pte() was being used - sometimes
+adopting the convention that !pmd_none(), !pmd_present() implies PMD 'swap'
+entry, sometimes not.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+This patch handles the low-hanging fruit of cases where we can simply
+substitute other predicates for is_swap_pmd().
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+No functional change intended.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Adam Harshbarger <handyhandyman.adam@gmail.com>
-Subject: lib/plist: fix plist_requeue() corrupting order in the last bucket
-Date: Thu, 3 Sep 2026 17:24:56 -0500
-
-plist_requeue() is meant to move a node to the end of its own priority
-run.  When the node heads the *last* priority bucket it is instead placed
-at the head of the whole list, leaving the plist unsorted:
-
-  built:      A(prio 0) B(prio 1) C(prio 1)
-  requeue(B): B(prio 1) A(prio 0) C(prio 1)
-  expected:   A(prio 0) C(prio 1) B(prio 1)
-
-prio_list is a *headless* circular ring of the nodes that lead each
-priority bucket.  The shortcut added by commit 95d4b3450ebe ("lib/plist.c:
-add shortcut for plist_requeue()") takes
-
-	iter = list_entry(iter->prio_list.next, struct plist_node,
-			  prio_list);
-	node_next = &iter->node_list;
-
-which from the last bucket wraps round to the *first* bucket, so node_next
-ends up pointing at the head of the list rather than at its end.  The
-plist_for_each_continue() loop immediately below it computes the correct
-answer (&head->node_list) for that case.
-
-With any bucket after it the shortcut is correct, which is why this went
-unnoticed: the benchmark in that commit measured elapsed time and never
-checked the resulting order.
-
-Keep the shortcut -- it is a real win -- but exclude the case where iter's
-bucket is the last one, which is exactly when its ring successor is the
-first bucket again.
-
-Reachable from mm/swapfile.c, which rotates swap_avail_heads[] with
-plist_requeue().  It takes three or more swap devices: at least two
-distinct priorities, so that a later bucket exists for the ring to wrap
-round from, and two or more devices sharing the lowest priority, so that
-plist_requeue() does not return early.  One device per priority returns
-early at the node->prio != iter->prio test.  A single priority is also
-safe, but for a different reason worth stating: with one bucket no node is
-ever linked onto prio_list at all -- plist_add() skips it for the first
-node and for every node whose predecessor shares its priority -- so
-list_empty(&iter->prio_list) holds and the shortcut is never entered.
-
-Tested by driving three implementations -- the pre-95d4b3450ebe code,
-current mainline, and this patch -- through 1,084,492 identical random
-add/del/requeue operations over 24 nodes and 1..5 distinct priorities,
-comparing the resulting node_list node for node after every operation:
-
-  variant             differs from pre-95d4b3450ebe  left list unsorted
-  pre-95d4b3450ebe    -- (reference)                                  0
-  mainline                                  289,297             276,660
-  this patch                                      0                   0
-
-Link: https://lore.kernel.org/20260903222456.1881786-1-handyhandyman.adam@gmail.com
-Fixes: 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
-Signed-off-by: Adam Harshbarger <handyhandyman.adam@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: I Hsin Cheng <richard120310@gmail.com>
-Cc: <stable@vger.kernel.org> # v6.15+
+Link: https://lkml.kernel.org/r/8a1704b36a009c18032d5bea4cb68e71448fbbe5.1762812360.git.lorenzo.stoakes@oracle.com
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Jann Horn <jannh@google.com>
+Cc: Janosch Frank <frankja@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Mathew Brost <matthew.brost@intel.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Wei Xu <weixugc@google.com>
+Cc: xu xin <xu.xin16@zte.com.cn>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: f5407e9b697c ("mm/rmap: use huge_ptep_get() in try_to_unmap_one()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/proc/task_mmu.c       | 15 +++++++++---
+ include/linux/mm_types.h |  2 ++
+ include/linux/swapops.h  | 12 +++++++++-
+ mm/huge_memory.c         |  4 +++-
+ mm/memory.c              | 49 ++++++++++++++++++++++------------------
+ mm/page_table_check.c    | 12 ++++++----
+ mm/rmap.c                |  4 +++-
+ 7 files changed, 66 insertions(+), 32 deletions(-)
 
- lib/plist.c |    7 +++++++
- 1 file changed, 7 insertions(+)
-
---- a/lib/plist.c~lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket
-+++ a/lib/plist.c
-@@ -174,8 +174,15 @@ void plist_requeue(struct plist_node *no
- 	/*
- 	 * After plist_del(), iter is the replacement of the node.  If the node
- 	 * was on prio_list, take shortcut to find node_next instead of looping.
-+	 *
-+	 * prio_list is a headless ring, so from the LAST bucket ->next wraps
-+	 * round to the first one; in that case node_next is the list head.
- 	 */
- 	if (!list_empty(&iter->prio_list)) {
-+		struct plist_node *first = plist_first(head);
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 6dc16295e307f..5c3d966b70f26 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -1073,10 +1073,12 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	bool present = false;
+ 	struct folio *folio;
+ 
++	if (pmd_none(*pmd))
++		return;
+ 	if (pmd_present(*pmd)) {
+ 		page = vm_normal_page_pmd(vma, addr, *pmd);
+ 		present = true;
+-	} else if (unlikely(thp_migration_supported() && is_swap_pmd(*pmd))) {
++	} else if (unlikely(thp_migration_supported())) {
+ 		swp_entry_t entry = pmd_to_swp_entry(*pmd);
+ 
+ 		if (is_pfn_swap_entry(entry))
+@@ -2004,6 +2006,9 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+ 	if (vma->vm_flags & VM_SOFTDIRTY)
+ 		flags |= PM_SOFT_DIRTY;
+ 
++	if (pmd_none(pmd))
++		goto populate_pagemap;
 +
-+		if (iter->prio_list.next == &first->prio_list)
-+			goto queue;
- 		iter = list_entry(iter->prio_list.next, struct plist_node,
- 				  prio_list);
- 		node_next = &iter->node_list;
-_
-
-Patches currently in -mm which might be from handyhandyman.adam@gmail.com are
-
-lib-plist-fix-plist_requeue-corrupting-order-in-the-last-bucket.patch
+ 	if (pmd_present(pmd)) {
+ 		page = pmd_page(pmd);
+ 
+@@ -2014,7 +2019,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+ 			flags |= PM_UFFD_WP;
+ 		if (pm->show_pfn)
+ 			frame = pmd_pfn(pmd) + idx;
+-	} else if (thp_migration_supported() && is_swap_pmd(pmd)) {
++	} else if (thp_migration_supported()) {
+ 		swp_entry_t entry = pmd_to_swp_entry(pmd);
+ 		unsigned long offset;
+ 
+@@ -2041,6 +2046,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+ 			flags |= PM_FILE;
+ 	}
+ 
++populate_pagemap:
+ 	for (; addr != end; addr += PAGE_SIZE, idx++) {
+ 		u64 cur_flags = flags;
+ 		pagemap_entry_t pme;
+@@ -2411,6 +2417,9 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
+ {
+ 	unsigned long categories = PAGE_IS_HUGE;
+ 
++	if (pmd_none(pmd))
++		return categories;
++
+ 	if (pmd_present(pmd)) {
+ 		struct page *page;
+ 
+@@ -2428,7 +2437,7 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
+ 			categories |= PAGE_IS_PFNZERO;
+ 		if (pmd_soft_dirty(pmd))
+ 			categories |= PAGE_IS_SOFT_DIRTY;
+-	} else if (is_swap_pmd(pmd)) {
++	} else {
+ 		swp_entry_t swp;
+ 
+ 		categories |= PAGE_IS_SWAPPED;
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 8b1045c51e0a6..f9c552744b71a 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -285,6 +285,8 @@ typedef struct {
+ 	unsigned long val;
+ } swp_entry_t;
+ 
++typedef swp_entry_t softleaf_t;
++
+ #if defined(CONFIG_MEMCG) || defined(CONFIG_SLAB_OBJ_EXT)
+ /* We have some extra room after the refcount in tail pages. */
+ #define NR_PAGES_IN_LARGE_FOLIO
+diff --git a/include/linux/swapops.h b/include/linux/swapops.h
+index 57aad87e46a65..1966b4890d469 100644
+--- a/include/linux/swapops.h
++++ b/include/linux/swapops.h
+@@ -120,6 +120,8 @@ static inline unsigned long swp_offset_pfn(swp_entry_t entry)
+ 	return swp_offset(entry) & SWP_PFN_MASK;
+ }
+ 
++#define softleaf_to_pfn swp_offset_pfn
++
+ /* check whether a pte points to a swap entry */
+ static inline int is_swap_pte(pte_t pte)
+ {
+@@ -139,6 +141,8 @@ static inline swp_entry_t pte_to_swp_entry(pte_t pte)
+ 	return swp_entry(__swp_type(arch_entry), __swp_offset(arch_entry));
+ }
+ 
++#define softleaf_from_pte pte_to_swp_entry
++
+ /*
+  * Convert the arch-independent representation of a swp_entry_t into the
+  * arch-dependent pte representation.
+@@ -572,7 +576,13 @@ static inline pmd_t swp_entry_to_pmd(swp_entry_t entry)
+ 
+ static inline int pmd_is_migration_entry(pmd_t pmd)
+ {
+-	return is_swap_pmd(pmd) && is_migration_entry(pmd_to_swp_entry(pmd));
++	swp_entry_t entry;
++
++	if (pmd_present(pmd))
++		return 0;
++
++	entry = pmd_to_swp_entry(pmd);
++	return is_migration_entry(entry);
+ }
+ #else  /* CONFIG_ARCH_ENABLE_THP_MIGRATION */
+ static inline int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 227aeffae8eed..8564a92d83f0b 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2293,9 +2293,11 @@ static pmd_t move_soft_dirty_pmd(pmd_t pmd)
+ 
+ static pmd_t clear_uffd_wp_pmd(pmd_t pmd)
+ {
++	if (pmd_none(pmd))
++		return pmd;
+ 	if (pmd_present(pmd))
+ 		pmd = pmd_clear_uffd_wp(pmd);
+-	else if (is_swap_pmd(pmd))
++	else
+ 		pmd = pmd_swp_clear_uffd_wp(pmd);
+ 
+ 	return pmd;
+diff --git a/mm/memory.c b/mm/memory.c
+index 6b4cdb8bd8dbb..72793ec631072 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -6320,34 +6320,39 @@ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+ 	if (pmd_none(*vmf.pmd) &&
+ 	    thp_vma_allowable_order(vma, vm_flags, TVA_PAGEFAULT, PMD_ORDER)) {
+ 		ret = create_huge_pmd(&vmf);
+-		if (!(ret & VM_FAULT_FALLBACK))
++		if (ret & VM_FAULT_FALLBACK)
++			goto fallback;
++		else
+ 			return ret;
+-	} else {
+-		vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
++	}
+ 
+-		if (unlikely(is_swap_pmd(vmf.orig_pmd))) {
+-			VM_BUG_ON(thp_migration_supported() &&
+-					  !pmd_is_migration_entry(vmf.orig_pmd));
+-			if (pmd_is_migration_entry(vmf.orig_pmd))
+-				pmd_migration_entry_wait(mm, vmf.pmd);
+-			return 0;
+-		}
+-		if (pmd_trans_huge(vmf.orig_pmd)) {
+-			if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
+-				return do_huge_pmd_numa_page(&vmf);
++	vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
++	if (pmd_none(vmf.orig_pmd))
++		goto fallback;
+ 
+-			if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
+-			    !pmd_write(vmf.orig_pmd)) {
+-				ret = wp_huge_pmd(&vmf);
+-				if (!(ret & VM_FAULT_FALLBACK))
+-					return ret;
+-			} else {
+-				huge_pmd_set_accessed(&vmf);
+-				return 0;
+-			}
++	if (unlikely(!pmd_present(vmf.orig_pmd))) {
++		VM_BUG_ON(thp_migration_supported() &&
++				  !pmd_is_migration_entry(vmf.orig_pmd));
++		if (pmd_is_migration_entry(vmf.orig_pmd))
++			pmd_migration_entry_wait(mm, vmf.pmd);
++		return 0;
++	}
++	if (pmd_trans_huge(vmf.orig_pmd)) {
++		if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
++			return do_huge_pmd_numa_page(&vmf);
++
++		if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
++		    !pmd_write(vmf.orig_pmd)) {
++			ret = wp_huge_pmd(&vmf);
++			if (!(ret & VM_FAULT_FALLBACK))
++				return ret;
++		} else {
++			huge_pmd_set_accessed(&vmf);
++			return 0;
+ 		}
+ 	}
+ 
++fallback:
+ 	return handle_pte_fault(&vmf);
+ }
+ 
+diff --git a/mm/page_table_check.c b/mm/page_table_check.c
+index 0a5ab62c9c59d..91c4dacc41fb8 100644
+--- a/mm/page_table_check.c
++++ b/mm/page_table_check.c
+@@ -223,10 +223,14 @@ EXPORT_SYMBOL(__page_table_check_ptes_set);
+ 
+ static inline void page_table_check_pmd_flags(pmd_t pmd)
+ {
+-	if (pmd_present(pmd) && pmd_uffd_wp(pmd))
+-		WARN_ON_ONCE(pmd_write(pmd));
+-	else if (is_swap_pmd(pmd) && pmd_swp_uffd_wp(pmd))
+-		WARN_ON_ONCE(swap_cached_writable(pmd_to_swp_entry(pmd)));
++	if (pmd_present(pmd)) {
++		if (pmd_uffd_wp(pmd))
++			WARN_ON_ONCE(pmd_write(pmd));
++	} else if (pmd_swp_uffd_wp(pmd)) {
++		swp_entry_t entry = pmd_to_swp_entry(pmd);
++
++		WARN_ON_ONCE(swap_cached_writable(entry));
++	}
+ }
+ 
+ void __page_table_check_pmds_set(struct mm_struct *mm, pmd_t *pmdp, pmd_t pmd,
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 4c78c71099093..6053eb822a264 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -1991,7 +1991,9 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 		if (likely(pte_present(pteval))) {
+ 			pfn = pte_pfn(pteval);
+ 		} else {
+-			pfn = swp_offset_pfn(pte_to_swp_entry(pteval));
++			const softleaf_t entry = softleaf_from_pte(pteval);
++
++			pfn = softleaf_to_pfn(entry);
+ 			VM_WARN_ON_FOLIO(folio_test_hugetlb(folio), folio);
+ 		}
+ 
+-- 
+2.53.0
 
