@@ -1,30 +1,30 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 57B03386C13
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:02:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D7944E66C9
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:09:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788451344; cv=none; b=omZirG+b5AKhHH3DJNxW8k2qAWWvLGV6tOhGtBXdDccgNK24hgqdllR6z/7YVFZ9w1PNZBKcwvWyohx0t7RKEe1SGYeYTerBhWE8s1kcGAFUiUHzc/WbIUILyWnfUYBuEaVQB/Utu/+mOmvP0Vi6ELqDL0HNtIs5P+zE+HurLxo=
+	t=1788451778; cv=none; b=PbngRzgLClxMJea8mK7A/3WrkOkeHqm7rrX0adybRXSi/PYoMwo/Tgxz21N5UQO7QlDDzFjpZ7uO96uNI5HlGb+cQMj8NRAm4Ydl6ak97wxO3Uhz3N6OMttL5Fwan+3I8lGz3IYt7miJInfC1VJ7kmaUBcr5m1STgDmBiqekKeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788451344; c=relaxed/simple;
-	bh=7wp1kWs+QgJguMz/3ql2nzYAizeYa5SfMN2gcbV8kko=;
+	s=arc-20240116; t=1788451778; c=relaxed/simple;
+	bh=3t8TSRHLgsruODs8g93S7xT69TcJqB9/taE1x1e1Qog=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dMa4PWrjhhKo5qqlY0YG69B6k8ESzf3h1M63cKm7JfyXwl1Mt53uxN9j8Fn8uQZ29kO6Bf3j0JlBZxXlLsbsXDPC5azIsJlj5HId6GQAEEKvxCSmKbUnntd4YyYViGmjpzbhQ6rwwNBJFfD3EXUCx9cmpjouiUac6QTn2bLLfA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=arulWcLm; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=Nk2ThIYAVocj/quCJjXY6up/jdQC6mXLItz1RCHZ2jQAsU4Qk/8ODlms6Kk3Dv19w6j/qm35DsIC03Ob0RVPxd4NonlJBy20KL3IeIkus6y89YN2I2MJ2mBK4z96Ax3jKeTBlTahu8YB+UjjFytVVnEgqLspKo+4BUDGiwezq2g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rpv/eUuh; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="arulWcLm"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.18])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 4358620B7135;
-	Thu,  3 Sep 2026 09:01:38 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4358620B7135
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rpv/eUuh"
+Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.19])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 3D58D20B712B;
+	Thu,  3 Sep 2026 09:08:57 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3D58D20B712B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788451300;
-	bh=wK1DCIO7DfIXRSXB5ITwEoflz+/TBhaZbDlM1pseWQ0=;
+	s=default; t=1788451739;
+	bh=uhKZ0j2GG5ww69L8N6+F1WTfR4MZPj6Iu12FQXUltpc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=arulWcLm/GAlFG82DTD77tQBUGxgZGI7tsfr+dflYIo1dufFrKOI0di9cquVj61yR
-	 kQ1MMUHea7PCzPmUlvGbZ5SbHoVxH9ggUcGyW8G23Nh3ey+dt9td/qbwtkh50Tj3mg
-	 J7HhuefxU+28ntIOzScPJRfZObo9Hhjm5+jq7Vtk=
+	b=rpv/eUuhdiJTjkebiJTLl26yUM7CihiibbgybIt19hVtfrqEGrOjHu7Ygo8V96kyA
+	 EoznoOA8TFQ8SGVKq1VnHuQn/+BMt+9Rxx+kYJWySq9sdst2GGuhQVu5QyLYaEuTVt
+	 YsMiPmr8tM2AATvmP69yoqsrQDMxtF4c2vkptIRY=
 From: Naman Jain <namjain@linux.microsoft.com>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -33,13 +33,14 @@ Cc: gregkh@linuxfoundation.org,
 	mhklinux@outlook.com,
 	shradhagupta@linux.microsoft.com,
 	tglx@kernel.org,
-	wei.liu@kernel.org
-Subject: [PATCH 6.12.y] PCI: hv: Set irq_retrigger callback for the Hyper-V PCI MSI irqchip
-Date: Thu,  3 Sep 2026 16:02:11 +0000
-Message-ID: <20260903160211.18606-1-namjain@linux.microsoft.com>
+	wei.liu@kernel.org,
+	namjain@linux.microsoft.com
+Subject: [PATCH 6.6.y] PCI: hv: Set irq_retrigger callback for the Hyper-V PCI MSI irqchip
+Date: Thu,  3 Sep 2026 16:09:30 +0000
+Message-ID: <20260903160930.36419-1-namjain@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026090341-dealt-backless-3cbe@gregkh>
-References: <2026090341-dealt-backless-3cbe@gregkh>
+In-Reply-To: <2026090342-landlady-deflected-5dd5@gregkh>
+References: <2026090342-landlady-deflected-5dd5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,10 +79,10 @@ Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index e87e54acff4b0..e9bdb4aa3b9ba 100644
+index e379ed9b5d2eb..94ee9d19a48bc 100644
 --- a/drivers/pci/controller/pci-hyperv.c
 +++ b/drivers/pci/controller/pci-hyperv.c
-@@ -2051,6 +2051,7 @@ static struct irq_chip hv_msi_irq_chip = {
+@@ -2058,6 +2058,7 @@ static struct irq_chip hv_msi_irq_chip = {
  	.name			= "Hyper-V PCIe MSI",
  	.irq_compose_msi_msg	= hv_compose_msi_msg,
  	.irq_set_affinity	= irq_chip_set_affinity_parent,
