@@ -1,138 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B02382F28
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:31:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3217B3F9A05
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 19:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788463907; cv=none; b=nQ7rjxRqJY8/w6RU10V79OIuqkCa0DNQY9QwPiBpM3J4b43r9dgbti050608CEkHmrLQ2gw42mBm1gbpVSwtdQBmfeosjgwFo2cs10J10c1Qy395hutCgR20OE7hHuTZ0vXknSjrNno2l68y5de6ZeEpGwGeJbrlB3k9rvF7/gc=
+	t=1788463920; cv=none; b=RHhwgkLwJiGRQWEfESJlHmlruH+d7ExFP8OZkBd94NnirVXVuY5N2H19A3kCGyjO9O3OPJDxEe7t0XXxWZxd1gWyZ4BHklAxdBuyAhomPewxowv0mY/BalaF2mSpRYRidbN1g8MQA3wRkEvnMSNmt9jk3764WDUTCAuvfBUeFwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788463907; c=relaxed/simple;
-	bh=bxoR50/4lvHFzJofApKvO7WHZ/sBpeTSQTcYcp49Opo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qjjL/37JJBiTc7t4Q+BC5ONVq1mMUsB2aNbbFCUrbdHlhyQXX9YNo0lNoS5CLQz0ByES5XjG1m9VB1noSltbk04QgACTwIPE4FgNtxiqBvhBJHfc8Pm3EGwF1hGtlopvH1XAOZrn2Y2U+j2w+t9uyoPl5NaxsHo3AfPP73XZ/7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kTg3kgKz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788463920; c=relaxed/simple;
+	bh=C2Xbm9+vzgljPIndJIOSD3k72as3GmPv88a9h7S6LMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b5r5DGxFtRsgwKsxptfJhtIMyhYL6Rs2JOocHQt1O2U+FtX+GQMOMCmpEheAsXah7qmr7YbOU47MibaUTQtebEhcQkOXAE78a22ozH2sUpzATMuz+15+DByEolHDm2Lq2Wcisi7+RzhUEhxcu5hcIMeT1Tp18hu9zeMyqcjNP6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ahpAz3gW; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kTg3kgKz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9031F000E9;
-	Thu,  3 Sep 2026 19:31:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788463897;
-	bh=9SXjOobqieHguZBrDM5DlIsO+yERis4KMVcJY/lpDnU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kTg3kgKzA2dhKgsKVoGzvvDsWzF5fanOEHk9FS2x3toNiDtXD3P5ZWWrFEql6rq0/
-	 PCDvqjy0XT3KtnujySl3/mqdARxAUUiwjDmW8q4Ou1LJtNmSsQFTaGj8kEeHaGie9a
-	 mFejJK+3Cw9x8YNPzZE8YspuT6b7B5U6CH8vIwpxfLABz3AZ+oCTmHFyBrEndst8jc
-	 THog2zrSKE/FtLpHpZRgtIf0G8K4VAIxoa2zr1G5Qsb167SGU4xFUqiDMV69O4LnUt
-	 68zheY6phwBYyLYKvUMgl26Rg6Q5z6KE0mjryBbjR5pyLIbDA1SFPXfZzI2ZsMhiAE
-	 GM983MZMJweYw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Hugh Dickins <hughd@google.com>,
-	Ackerley Tng <ackerleytng@google.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Peter Xu <peterx@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
-Date: Thu,  3 Sep 2026 15:31:34 -0400
-Message-ID: <20260903193134.1609095-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090339-crisped-bouncy-5af4@gregkh>
-References: <2026090339-crisped-bouncy-5af4@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ahpAz3gW"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d71a50caa9so3116585ad.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 12:31:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788463907; x=1789068707; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GQSkipTqdF0eZVVJZB/2cKUlfMOe+A+ZO44Cnwhe5No=;
+        b=ahpAz3gWj1x2gH2wEpEQn8wPnvenPZmx5felEXQ7mIm9LnkzzmilSlUC2Y8CL+P4g8
+         mVCZRKRzrEtogXQgYR/oUP34tegjGjiRAk3wMC9JpXkhTw5IBiEiLWv6f8uYAQkL1SY+
+         +ZUHC8/U6Fy9fOOQXb8bB0gZ7TWRdOScASSA5rvrdC13ePXkmMPHWrd0E25OJGs8guDK
+         BSUfoXhu1Zmy5YKyOxZ/ya7rBImtqYILO+rr/uBjzWPdGZI1lUYfDAGGlqo0Xx08wvQv
+         SUszXg6yD+T4gE6n36iNtAZrqgwFjqVCW7mFb/y63VWSf+gbNPukIig0/F2oZ6pcmocg
+         3tKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788463907; x=1789068707;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GQSkipTqdF0eZVVJZB/2cKUlfMOe+A+ZO44Cnwhe5No=;
+        b=dGsX7qYKPVvTe4JYwa5XeSuzQwKPZitk6WncUbmNOMgUryNQdIUCbOkGcn8amk8fKi
+         Z7UFSlG3I9chq2+vMffgZTDdRFeizPemu39p1NIpycSGQ1oYgEw/3xqq/pgNfGS42e+B
+         QxpBcYQLIo6GpuRoYApp79R2p/1UkW272ql2V8+Bj/N3yXDUl7C/INWnzS7td/subQK/
+         +VgJcd7hegDzNJWaMJx9oSwFQDbPWsIzEP/YXj+VnTdEkSsF2aEV+NM/38HJYAKnFFof
+         iRqzJ6GHhU+oUnrqUikuyZrTAtKfassAgafdeUSG54v13RLcC/pBWyf0TwSVJ9F5BDW0
+         ZLCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpBWDLvY3PVm6ng9my7WE/1TC9LWy9/o9nqMD4W0GtrT2DgYNN2YTcBFTT+p5kLRIeJmrRrCQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNST72kjcmJ/em9M2h2dBeqUfbhGCUpZQzrC8t0nLB8RYK+x7n
+	zEe1d+Bt5i1yN+sdO5vBMI2e2YXfogm/hPIsnWiYGJc4rh2rCnvHEPZJ
+X-Gm-Gg: AYBFou1RgCaFgpZpbW08Wb0ueFs6ulMOMWpFJjnm3mdC6IF3ObRhqk9ubxduhM+NuHg
+	ll6Bi+CFUvfTkOL9CXKc5p++7WN9r9P6XXMtd26qQlpNzyk9MnzLX2cieM99gtGpyahmyvDmXnb
+	8eex70vr4Hw5zyGvgXFFW5zPe9mgjc4A06w0ayODlK4ec13JGhQ8d4cFV6ZAz1c30AQTvKMF7hP
+	PvnNqwKHrDXR7IpiB4pG1ZgXvFIWxnydMP30b8acL1CxVb6C+OLaqf89rd5n2dn/GVabYHw/fda
+	iBONdJh8WwHn0I7tL8xEZjXacNZfIADXGKejJ7QGrrC6cYTk8nOL0+QSkm6p24hq2mRUZwVEj3s
+	6h66glflzhFsdr0wAMYriFlwjdxXYxcQH755SgaydMujkD4JJZ5cCZUJ6+X5FakufY3G6xMi1BT
+	b9ug0i7OmkxURvxoHIcQWTVCu4Ik05ndJOCAkcvVosRYTpARCqfJkG5aqNrNIhjKpyI3RMSFYnf
+	YF8Kk7R
+X-Received: by 2002:a17:90b:4b90:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39b2610f2fbmr1013004a91.8.1788463906583;
+        Thu, 03 Sep 2026 12:31:46 -0700 (PDT)
+Received: from v4bel ([58.123.110.97])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd291sm471223a91.6.2026.09.03.12.31.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 12:31:46 -0700 (PDT)
+Date: Fri, 4 Sep 2026 04:31:40 +0900
+From: Hyunwoo Kim <imv4bel@gmail.com>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
+	ncardwell@google.com, dsahern@kernel.org, idosch@nvidia.com,
+	horms@kernel.org, willemb@google.com, andrew+netdev@lunn.ch,
+	kees@kernel.org, jiayuan.chen@linux.dev, kerneljasonxing@gmail.com,
+	ij@kernel.org, martin.lau@kernel.org, shakeel.butt@linux.dev,
+	matttbe@kernel.org, martineau@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	imv4bel@gmail.com
+Subject: Re: [PATCH net v2 6/8] tcp: fix use-after-free in the lockless
+ listener path
+Message-ID: <apnLHKKs8VWnMopj@v4bel>
+References: <20260824033331.1084971-1-imv4bel@gmail.com>
+ <20260824033331.1084971-7-imv4bel@gmail.com>
+ <apaAskNL-IvdcR7h@v4bel>
+ <e121d343-9a4a-4f93-86c1-c96dd37f1ae1@redhat.com>
+ <20260901085102.5c58a5b0@kernel.org>
+ <CANn89i+px52TtJy3S9=uHxGj3s-WueguRo1Z_4FxO=02KLmwmQ@mail.gmail.com>
+ <apnHqmYZQ4yzOP4N@v4bel>
+ <CAAVpQUAVXFrRuxPCKW_4qqAAdjTpv+arijYODeFMfXshKqajHw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAVpQUAVXFrRuxPCKW_4qqAAdjTpv+arijYODeFMfXshKqajHw@mail.gmail.com>
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+On Thu, Sep 03, 2026 at 12:28:15PM -0700, Kuniyuki Iwashima wrote:
+> On Thu, Sep 3, 2026 at 12:17 PM Hyunwoo Kim <imv4bel@gmail.com> wrote:
+> >
+> > On Tue, Sep 01, 2026 at 05:57:04PM +0200, Eric Dumazet wrote:
+> > > On Tue, Sep 1, 2026 at 5:51 PM Jakub Kicinski <kuba@kernel.org> wrote:
+> > > >
+> > > > On Tue, 1 Sep 2026 10:03:51 +0200 Paolo Abeni wrote:
+> > > > > > Looking at this further, unhashing the listener and then calling
+> > > > > > synchronize_net() lets the disconnect path handle it. MPTCP needs a fix
+> > > > > > too, though, because it closes and reuses the first subflow directly
+> > > > > > without going through tcp_disconnect().
+> > > > >
+> > > > > This looks like a more palatable approach: this patch in the current
+> > > > > format looked way too invasive to me.
+> > > >
+> > > > I likely lack context on this, but I was wondering whether we should
+> > > > potentially disallow the transitions between listening and data sockets
+> > > > instead of fixing these endless bugs?
+> > >
+> > > +2 I think I mentioned this at some point.
+> > >
+> > > Same for IPV6_ADDRFORM : we should not allow transformed socket to
+> > > even use tcp_disconnect().
+> >
+> > So.. do you have a plan for this work?
+> 
+> I'll post a patch to disallow the buggy transformation.
+> https://lore.kernel.org/netdev/CAAVpQUAWjBuF1Rgze0Vt_XvkUT=Ajw-F+Kh+s2iHk38c8iAapg@mail.gmail.com/
 
-[ Upstream commit 078e1a0fc41a42baaf113383b52dab8874c0b967 ]
-
-folio_may_be_lru_cached() is currently only true for small folios, and
-for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
-of 1 in try_grab_folio()/try_grab_folio_fast().
-
-Consequently, our
-
-	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
-
-check in collect_longterm_unpinnable_folios() will currently always
-identify "reference mismatch" and first drain the local LRU cache to then
-drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
-is really called after pinning the folios with FOLL_PIN.
-
-Add a comment because the current code is not quite intuitive: we used to
-drain only to make sure the folio_isolate_lru() would succeed. But then we
-also started draining to make later migration more reliable.
-
-We'll refactor that code soon a bit, to also make it usable in other
-context where we really want to remove any references from LRU caches.
-
-Let's add CC stable, because having an easy way for excessive LRU cache
-draining on all CPUs does not sound right. In common scenarios we
-don't expect to ever have to drain.
-
-Link: https://lore.kernel.org/20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org
-Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
-Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Hugh Dickins <hughd@google.com>
-Cc: Ackerley Tng <ackerleytng@google.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted pages_or_folios iteration to page-array iteration and folio_has_pincount() to folio_test_large() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/gup.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/mm/gup.c b/mm/gup.c
-index 72e01b8311d7c..bed94c3d6e82b 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -1972,6 +1972,8 @@ static unsigned long collect_longterm_unpinnable_pages(
- 
- 	for (i = 0; i < nr_pages; i++) {
- 		struct folio *folio = page_folio(pages[i]);
-+		const int pin_refs = folio_test_large(folio) ?
-+			1 : GUP_PIN_COUNTING_BIAS;
- 
- 		if (folio == prev_folio)
- 			continue;
-@@ -1990,15 +1992,20 @@ static unsigned long collect_longterm_unpinnable_pages(
- 			continue;
- 		}
- 
-+		/*
-+		 * We drain not only to make the folio_isolate_lru() succeed,
-+		 * but also to remove any other folio references from LRU
-+		 * caches.
-+		 */
- 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain();
- 			drained = 1;
- 		}
- 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain_all();
- 			drained = 2;
- 		}
--- 
-2.53.0
-
+Understood. I hope my Reported-by: will be included in that patch.
