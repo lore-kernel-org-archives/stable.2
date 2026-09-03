@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9563B71B9;
-	Thu,  3 Sep 2026 06:06:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640BE3C09FB;
+	Thu,  3 Sep 2026 06:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788415562; cv=none; b=irLHk0CYl0U3utLxnwfRcU/N/9tAcFvCO+kZjfBUa1jo4dT/ozibyWRCBnI6QZIjuP9Sb3GKFKTN6oA/xOh2odW1sDK6ZeiQd1AOopGQRe7f6vI3dg+W6WesmyCTr2TtbM+qxmFgskH9FaZUHtiHbdefMOEDYUCqyZ9oIB9dnYI=
+	t=1788415568; cv=none; b=OS370I8PoLOz7PbSUupFFwiKxqVwM7GkEapkqhhG+p8y2K6LLeTYkhXrZaMBrgxiEIhae6IjZyoUsc0ppvUItN5Bi3F17mruJpLr+uzU7Lju0s/5HXFk/TydVYVWoSJxqZIRICqE5ITGnNP8G8JqE/6Wvx+6kAeCEnO3HUkcGPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788415562; c=relaxed/simple;
-	bh=8vKxvD5rnsA9Lk5u40COaL8yDrJkiPfkHX8qaIvPwbQ=;
+	s=arc-20240116; t=1788415568; c=relaxed/simple;
+	bh=Hf50wIdEtUYwIE8R+P8ZMDX5BO2k1ObIWzhImBNdmzg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=JR59GyJVkuEndSg8E3yV+dHyXXkkbn7TloB7OTaBl7tsn5Dh91iFmZtmep3UtFo1ORfJ7cvve8Yk6bS+jdeIWpglE1rprSbUYMMjwLIz/skfmAgOQ+BIt1V4sJhW7/TEJ3huJ7wmzYXIv914aZzp7y6A7bmCYZJQlx7lETrGI9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPIfoYyZ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gCsdVXVypRNaxz1KnhJnZU6TLEY8ek4/DMFvlGARBAFHWa/cWrPA/H5/glOjn7YWixAuWyprd7PJY1L7+456E1T2Y+/IKNcEgy8GdAuXriR1VcEArCt30pHAaFNkr61gIvFqMQ4mNfdqwiscBrFkicsw/kUnnV8/HzGMeQ+ijyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aNpO/5cI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPIfoYyZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EFD41F000E9;
-	Thu,  3 Sep 2026 06:05:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aNpO/5cI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C3E1F000E9;
+	Thu,  3 Sep 2026 06:06:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788415561;
-	bh=dGbuKQzCb+UHwOAPHwE1ViHqK+C4Fg3jIdt76aIXTtE=;
+	s=k20260515; t=1788415567;
+	bh=D+8VM3oxzeogg1E6CiZJ5DN3kP+UXnZK2Ooo5gu20/8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=cPIfoYyZW6NF//rtHPEyX3rn/E7aOumoJoVXn9MVIibiBOO7cVroG4F3YamCpdax1
-	 RhsACg7jW73ZeQSUTazJMva1sACyNkfkdtlmERHcMZYaFkmk+dgSBbZx0lL2TjoOLE
-	 iEwe4wO98AfOz14PGIJPDzn2+v6LzKtMSKBBSS8M18/WZJQxrOdSsWEZ5I6o0yeD+A
-	 i366l8RXuZ0IIV/cwwazmhKCkNHn9RfnEBRSFnM1soQxV2+EpkoeTePXLTCaiRIdNO
-	 FfshleO8C7DCNdrTXokVByJOgyRxaJckVJy7x3TC3+EyVxNcKso8mkESXyBWF0J8zn
-	 mw1hbDCKiF15A==
+	b=aNpO/5cIf3OJkIuagrDD2TmS78GCho7l7v8zj530DzzHw9I4pbB0U9OkhmM5Ct7py
+	 3AjFpy0dl9exLSADNtOIS5N+fPZe+baKc7CCRBDq2+V0bAtOdqnt5sB1Zh+AEdnJea
+	 J4WdbiVx2OVO6AXvu+cfqvvsmdwfgHpLlMuB37dcRUahwvrHxffEp8cOnFqBvrCgyS
+	 ua9F2y6/Isi3nDbGMD7bR8yktAnZCW6abMMFAj8Ty5GbnhDfYp4PycYJFUZqFKKkrL
+	 y90ipi/ND5Vje+YEwghQ0FXyCXOI1p5XZ2QBlNr6KGpqMOIHKnPBwGtislf42B/k++
+	 7rMxdkE4kAKXg==
 From: Carlos Maiolino <cem@kernel.org>
-To: linux-xfs@vger.kernel.org, Lin Jiapeng <ljp1205831794@gmail.com>
-Cc: stable@vger.kernel.org, djwong@kernel.org, hch@lst.de, 
- jiapenglin@tencent.com
-In-Reply-To: <20260728071921.81156-1-jiapenglin@tencent.com>
-References: <20260728071921.81156-1-jiapenglin@tencent.com>
-Subject: Re: [PATCH v3] xfs: fix exchange-range reflink flag clearing issue
- with INO1_WRITTEN
-Message-Id: <178841555975.1198521.11635969278161610368.b4-ty@kernel.org>
-Date: Thu, 03 Sep 2026 08:05:59 +0200
+To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+In-Reply-To: <178780640140.3528187.6786220801490019229.stgit@frogsfrogsfrogs>
+References: <178780640140.3528187.6786220801490019229.stgit@frogsfrogsfrogs>
+Subject: Re: [PATCHSET v2 1/2] xfs: LLM-inspired bug fixes, part 7
+Message-Id: <178841556579.1198521.11942736274781732357.b4-ty@kernel.org>
+Date: Thu, 03 Sep 2026 08:06:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,28 +44,31 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Tue, 28 Jul 2026 15:19:10 +0800, Lin Jiapeng wrote:
-> When exchanging two full-file ranges, xmi_can_exchange_reflink_flags()
-> can move the reflink inode flag from the file that currently has it to
-> the other file, as long as exactly one side is marked.  This assumes
-> that the file contents, and therefore all shared extents, are exchanged.
+On Wed, 26 Aug 2026 22:30:57 -0700, Darrick J. Wong wrote:
+> Here's a seventh batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+> mwa...
 > 
-> That assumption is not true when XFS_EXCHMAPS_INO1_WRITTEN is set.
-> xfs_exchmaps_can_skip_mapping() can skip hole and unwritten mappings
-> from file1, so an exchange can complete without moving every mapping
-> that the earlier flag-swap decision accounted for.  In that case the
-> post-operation cleanup can clear the reflink flag from an inode that
-> still owns shared written extents.  Later writes then take the
-> non-reflink write path and may update blocks that should still have
-> been protected by CoW, which shows up as data corruption between
-> reflink-related files.
+> v2: add rvbs, tweak some of the commit messages
+> 
+> If you're going to start using this code, I strongly recommend pulling
+> from my git trees, which are linked below.
 > 
 > [...]
 
 Applied to for-next, thanks!
 
-[1/1] xfs: fix exchange-range reflink flag clearing issue with INO1_WRITTEN
-      commit: f3772e189ee8e37860c2bb365f6ac3517db937e9
+[1/6] xfs: don't spin forever on zero-length dirents when salvaging them
+      commit: 583c8e8767839bc5f4ac07f14e69506a26ceb914
+[2/6] xfs: don't stash removename operations with unknown ftype
+      commit: b2362aac3c915e9f01e0bae3e869b94d371076c8
+[3/6] xfs: log the tempip after we convert it to extents format
+      commit: 6aaa121b24a3f556af65dda2c368e15cc8efb1d9
+[4/6] xfs: fix parent rec lookup initialization in xrep_metapath_unlink
+      commit: e5604e9446fdb6a6963120e9b0cfc9016ca91c0b
+[5/6] xfs: handle reconnecting metadir subdirectories
+      commit: 0b0a74f7fcbbd7be189bf4c50c0889858c951a67
+[6/6] xfs: lock the healthmon when inserting unmount event
+      commit: 41fbf820b6d04ef5a6d4e89931c38da2419b1680
 
 Best regards,
 -- 
