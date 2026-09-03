@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D734AF152
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9388F4B1B51
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444324; cv=none; b=TnZYlR5XSVQcn5sT8jZKRALn88jkbjmb3qDaR5PPXplWPrFo9O7Pih/MYqf1mp1bzB6AxcLOxs2NfBff1rzaqI0rlcfbzU4JbHFgiQSRcXAobgLBDhOkEaSGcTQY2GPJ+Iyn7bfhQyzUWr6Cj1SR+u2I7XvYUReVco2r9rTcG6Y=
+	t=1788444332; cv=none; b=GSrkKB52LQ2P4fRAE9Ez4Hw2vIUXR6s9eTlVR3Xblq9P+BW7kPPggLds28R71zE4BNvMpXPPsmWFMnY5jZL0izSo3dWEa/pRoWVj1gL9XHDj5uDR15wyLBGCckXmPPNQpYspKiiGHb+NlLm8gmQ7UfLODA+bpMw0VqrECuhsSgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444324; c=relaxed/simple;
-	bh=J+V58UhnrwxofdylzRwg3uuRFZutEr3v4v+9r5p9QRM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=SGvEXa0Holtiqzxh924S8S4OstVPPo6a1dZRz6nmejyIhSnxpaEMnkpH4RMqvaeZflZwTnlS/A5c7hp1s8SXmIDRVg461bTfzXsEIizmLr4rAhVDy8XU9Jg+DelXFKBjAMJ4l253ka++8OA3rmo4QYtMOmj1v5ZkjJF1LKyqdRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=04mE1hLf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444332; c=relaxed/simple;
+	bh=0y1NoTBeD8NMIiI/qp7etuqAe8N21UcT1uSwfA5OO3w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c7zMURRFYlibR16sJ5dDmgFloXrRwwjKlVZzM/lZWH5nRFTHHhP9yVxUCN/6OyoiqBvL2flL+DCOFAwJms+tfTnY7i0hF/rZ8rQcSuaBp1Qo9PlJFDpVkPS4CqcVrFWkz6BQdeZJSyNmtera6ZhFlFOQU1UWVpnOKB5sZBbnfV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BY2bK6yB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="04mE1hLf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93CF41F00A3D;
-	Thu,  3 Sep 2026 14:05:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BY2bK6yB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510E61F00A3F;
+	Thu,  3 Sep 2026 14:05:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444315;
-	bh=+6b/Ma+fbw5Zv2/CYPfs5f9wFMOvkczUf2v5e4wL3LY=;
+	s=korg; t=1788444320;
+	bh=IeQ8K2eO07xwUQwZJKr4FQZfITFbtwHimuC2wRZ90/w=;
 	h=Subject:To:Cc:From:Date;
-	b=04mE1hLfq9jJnJDXOPG7Il1vpYDqmh+roKuS8X5ce8iADP6Lu4a/9gU1OpXzA7RSt
-	 EP2I1PBlcmVRZCrLLhcD/F1kd6KhVICpvlQwIotvgLYOnnYQw1NIBfrqKtnd062uI3
-	 agOvxBOD5Q9RK0zZWQBClFhDy9WLY5JoHtKWuVwo=
-Subject: FAILED: patch "[PATCH] fbdev: ssd1307fb: defer I2C transfers from damage callbacks" failed to apply to 5.10-stable tree
-To: sh_def@163.com,deller@gmx.de
+	b=BY2bK6yBCIpg/FZPzqdFTuNGGEy9XUMoELtyMlPC+dbZaBHMrRYNBOqv09ovLatrM
+	 I8b0mdpLUwp/i29M5OuRuVPlsYvZbazV5B7NDl3qeSvkm21nk5YfoMNXBz5TTzcDTz
+	 dj80jGO5p5JKO878O6lumfmHEMGaxwlXC0WsSdUA=
+Subject: FAILED: patch "[PATCH] fsnotify: Fix stale object mask after concurrent mark updates" failed to apply to 6.18-stable tree
+To: yjkwon0026@snu.ac.kr,amir73il@gmail.com,jack@suse.cz
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:41:52 +0200
-Message-ID: <2026090352-freebie-sprain-0960@gregkh>
+Date: Thu, 03 Sep 2026 15:42:35 +0200
+Message-ID: <2026090335-leotard-duffel-dd93@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9ad709afdfa32509ed64938a6d9cd00db3cd54c2
+git cherry-pick -x e422777fdd4746de1109575c51e65038d4c5c1be
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-freebie-sprain-0960@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090335-leotard-duffel-dd93@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,234 +62,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9ad709afdfa32509ed64938a6d9cd00db3cd54c2 Mon Sep 17 00:00:00 2001
-From: Hui Su <sh_def@163.com>
-Date: Tue, 4 Aug 2026 02:39:57 +0800
-Subject: [PATCH] fbdev: ssd1307fb: defer I2C transfers from damage callbacks
+From e422777fdd4746de1109575c51e65038d4c5c1be Mon Sep 17 00:00:00 2001
+From: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Date: Sun, 2 Aug 2026 10:58:00 +0900
+Subject: [PATCH] fsnotify: Fix stale object mask after concurrent mark updates
 
-The fbdev damage callbacks may run from fbcon while printk has disabled
-preemption.  They currently update the display synchronously, which enters
-the sleeping I2C transfer path from atomic context.
+When a mark gets a new event bit, fanotify and inotify may avoid
+recalculating the object mask if the cached aggregate already contains that
+bit. This is racy with a recalculation triggered by a concurrent update to
+another mark on the same connector.
 
-A complete report from an RK3566 system follows:
+The concurrent scan can read the mark before the new bit is added, while
+the updater reads the old aggregate before that scan publishes its result.
+The updater then skips recalculation and the scan publishes a mask without
+the bit, leaving the object mask stale after both updates complete.
 
-  [  258.129004] watchdog: watchdog0: watchdog did not stop!
-  [  258.129067] BUG: scheduling while atomic: systemd/1/0x00000003
-  [  258.129076] Modules linked in: algif_hash algif_skcipher af_alg bnep
-  binfmt_misc lz4hc lz4 zram snd_soc_hdmi_codec brcmfmac_wcc hci_uart
-  fb_ssd1306(C) fbtft(C) btqca btrtl btintel btsdio snd_soc_simple_card
-  motorcomm pwm_fan snd_soc_simple_card_utils ssd130x_spi nls_iso8859_1
-  ssd130x btbcm drm_shmem_helper display_connector brcmfmac ssd1307fb
-  brcmutil bluetooth cfg80211 rfkill snd_soc_rockchip_i2s_tdm
-  snd_soc_rk817 hantro_vpu snd_soc_core snd_compress snd_pcm_dmaengine
-  v4l2_vp9 snd_pcm v4l2_h264 rockchip_rga snd_timer rk_crypto2
-  spi_rockchip_sfc videobuf2_dma_contig snd sm3_generic v4l2_mem2mem
-  videobuf2_dma_sg dwmac_rk sm3 soundcore videobuf2_memops videobuf2_v4l2
-  stmmac_platform dw_hdmi_cec videodev videobuf2_common dw_hdmi_i2s_audio
-  stmmac rk817_charger pcs_xpcs mc cpufreq_dt sch_fq_codel ip_tables
-  x_tables autofs4
-  [  258.129215] Preemption disabled at:
-  [  258.129216] [<ffff80008012f96c>] vprintk_emit+0x11c/0x340
-  [  258.129234] CPU: 0 PID: 1 Comm: systemd Tainted: G         C
-  6.6.0-rc5-rockchip-rk356x #4
-  [  258.129239] Hardware name: Rockchip RK3566 OPi 3B (DT)
-  [  258.129243] Call trace:
-  [  258.129245]  dump_backtrace+0xa0/0x128
-  [  258.129252]  show_stack+0x20/0x38
-  [  258.129256]  dump_stack_lvl+0x60/0xb0
-  [  258.129265]  dump_stack+0x18/0x28
-  [  258.129269]  __schedule_bug+0xa0/0xc8
-  [  258.129274]  __schedule+0x9ac/0xd30
-  [  258.129279]  schedule+0x60/0x100
-  [  258.129282]  schedule_timeout+0x194/0x338
-  [  258.129289]  rk3x_i2c_xfer_common.isra.0+0x384/0x498
-  [  258.129296]  rk3x_i2c_xfer+0x20/0x60
-  [  258.129300]  __i2c_transfer+0x194/0x648
-  [  258.129308]  i2c_transfer+0x9c/0x130
-  [  258.129313]  i2c_transfer_buffer_flags+0x64/0x98
-  [  258.129318]  ssd1307fb_update_rect+0x42c/0x560 [ssd1307fb]
-  [  258.129334]  ssd1307fb_defio_imageblit+0x34/0x50 [ssd1307fb]
-  [  258.129343]  soft_cursor+0x13c/0x210
-  [  258.129350]  bit_cursor+0x2dc/0x550
-  [  258.129354]  fbcon_cursor+0xec/0x108
-  [  258.129359]  hide_cursor+0x44/0xc8
-  [  258.129365]  vt_console_print+0x398/0x3b0
-  [  258.129370]  console_flush_all.isra.0+0x17c/0x410
-  [  258.129377]  console_unlock+0x4c/0x100
-  [  258.129382]  vprintk_emit+0x1c8/0x340
-  [  258.129386]  vprintk_default+0x40/0x58
-  [  258.129389]  vprintk+0xb8/0xd0
-  [  258.129392]  _printk+0x68/0x98
-  [  258.129398]  watchdog_release+0x170/0x230
-  [  258.129404]  __fput+0xbc/0x288
-  [  258.129409]  __fput_sync+0x58/0x70
-  [  258.129413]  __arm64_sys_close+0x40/0x90
-  [  258.129419]  invoke_syscall+0x4c/0x118
-  [  258.129426]  el0_svc_common.constprop.0+0x48/0xf0
-  [  258.129432]  do_el0_svc+0x24/0x38
-  [  258.129437]  el0_svc+0x48/0x100
-  [  258.129443]  el0t_64_sync_handler+0xc0/0xc8
-  [  258.129448]  el0t_64_sync+0x190/0x198
-  [  258.573087] ------------[ cut here ]------------
-  [  258.573098] DEBUG_LOCKS_WARN_ON(val > preempt_count())
-  [  258.573111] WARNING: CPU: 0 PID: 1 at kernel/sched/core.c:5871
-  preempt_count_sub+0x9c/0x148
-  [  258.573130] Modules linked in: algif_hash algif_skcipher af_alg bnep
-  binfmt_misc lz4hc lz4 zram snd_soc_hdmi_codec brcmfmac_wcc hci_uart
-  fb_ssd1306(C) fbtft(C) btqca btrtl btintel btsdio snd_soc_simple_card
-  motorcomm pwm_fan snd_soc_simple_card_utils ssd130x_spi nls_iso8859_1
-  ssd130x btbcm drm_shmem_helper display_connector brcmfmac ssd1307fb
-  brcmutil bluetooth cfg80211 rfkill snd_soc_rockchip_i2s_tdm
-  snd_soc_rk817 hantro_vpu snd_soc_core snd_compress snd_pcm_dmaengine
-  v4l2_vp9 snd_pcm v4l2_h264 rockchip_rga snd_timer rk_crypto2
-  spi_rockchip_sfc videobuf2_dma_contig snd sm3_generic v4l2_mem2mem
-  videobuf2_dma_sg dwmac_rk sm3 soundcore videobuf2_memops videobuf2_v4l2
-  stmmac_platform dw_hdmi_cec videodev videobuf2_common dw_hdmi_i2s_audio
-  stmmac rk817_charger pcs_xpcs mc cpufreq_dt sch_fq_codel ip_tables
-  x_tables autofs4
-  [  258.573268] CPU: 0 PID: 1 Comm: systemd Tainted: G        WC
-  6.6.0-rc5-rockchip-rk356x #4
-  [  258.573274] Hardware name: Rockchip RK3566 OPi 3B (DT)
-  ** 37 printk messages dropped **
-  [  258.574064] Preemption disabled at:
-  ** 42 printk messages dropped **
-  [  259.190237] Preemption disabled at:
+This can be reproduced with two fanotify groups watching the same inode:
+one thread removes FAN_MODIFY from one existing mark while another thread
+adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
+writes can fail to produce FAN_MODIFY for the group whose mark now contains
+the bit. This was reproduced on an unmodified v6.12.95 kernel. The
+equivalent inotify interleaving loses IN_MODIFY events.
 
-Track damage in the driver's private data under a spinlock and merge
-multiple updates into a bounding rectangle.  Queue the existing
-deferred-I/O work immediately for damage reported by fbdev drawing and
-write helpers, so allocation and I2C transfers run from process context
-without adding the configured mmap refresh delay.  Keep full-screen
-updates for dirty mmap pages, for which no precise rectangle is available.
+For normal fanotify additions, recalculate whenever the raw mark mask
+changes. The normal mask is not cleared asynchronously, so an unchanged
+addition cannot introduce missing interest. Always recalculate ignore-mask
+updates because FS_MODIFY handling may clear the ignore mask without taking
+mark->lock, making snapshot comparisons unreliable.
 
-Tested on an RK3566 board with a 128x64 OLED by running five rounds of 250
-KERN_EMERG messages in total while issuing framebuffer writes every 15 ms.
-No atomic-sleep, preemption, or lockdep warning occurred.  Kprobe tracing
-also confirmed that cursor-only damage remained an 8x16 partial update.
+Always recalculate after updating an existing inotify watch. Its replace
+path temporarily sets mark->mask to zero, so a concurrent scan can observe
+zero even when the old and final masks are equal. Assigning the replacement
+mask directly would avoid the transient zero, but existing-watch updates
+are infrequent, so unconditional recalculation is simpler.
 
-Fixes: a2ed00da5047 ("drivers/video: add support for the Solomon SSD1307 OLED Controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hui Su <sh_def@163.com>
-Signed-off-by: Helge Deller <deller@gmx.de>
+Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
+Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
+Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
+Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
+Suggested-by: Jan Kara <jack@suse.cz>
+Suggested-by: Amir Goldstein <amir73il@gmail.com>
+Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Link: https://patch.msgid.link/20260802015801.2426818-1-yjkwon0026@snu.ac.kr
+Signed-off-by: Jan Kara <jack@suse.cz>
 
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index 644b8d97b381..c4fdecafd856 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -14,6 +14,7 @@
- #include <linux/module.h>
- #include <linux/property.h>
- #include <linux/pwm.h>
-+#include <linux/spinlock.h>
- #include <linux/uaccess.h>
- #include <linux/regulator/consumer.h>
+diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
+index 463495a78693..a32c6634d592 100644
+--- a/fs/notify/fanotify/fanotify_user.c
++++ b/fs/notify/fanotify/fanotify_user.c
+@@ -1321,16 +1321,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
+ static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
+ 				      __u32 mask, unsigned int fan_flags)
+ {
++	__u32 old_mask;
+ 	bool recalc;
  
-@@ -72,6 +73,13 @@ struct ssd1307fb_par {
- 	struct i2c_client *client;
- 	u32 height;
- 	struct fb_info *info;
-+	/* Pending damage, with exclusive x2/y2, protected by damage_lock. */
-+	spinlock_t damage_lock;
-+	bool damage_pending;
-+	u32 damage_x1;
-+	u32 damage_x2;
-+	u32 damage_y1;
-+	u32 damage_y2;
- 	u8 lookup_table[4];
- 	u32 page_offset;
- 	u32 col_offset;
-@@ -302,19 +310,49 @@ static int ssd1307fb_blank(int blank_mode, struct fb_info *info)
- 		return ssd1307fb_write_cmd(par->client, SSD1307FB_DISPLAY_ON);
- }
- 
-+static void ssd1307fb_schedule_damage(struct fb_info *info, u32 x, u32 y,
-+				      u32 width, u32 height)
-+{
-+	struct ssd1307fb_par *par = info->par;
-+	unsigned long flags;
-+	u32 x2, y2;
-+
-+	if (!width || !height || x >= par->width || y >= par->height)
-+		return;
-+
-+	x2 = x + min(width, par->width - x);
-+	y2 = y + min(height, par->height - y);
-+
-+	spin_lock_irqsave(&par->damage_lock, flags);
-+	if (par->damage_pending) {
-+		par->damage_x1 = min(par->damage_x1, x);
-+		par->damage_y1 = min(par->damage_y1, y);
-+		par->damage_x2 = max(par->damage_x2, x2);
-+		par->damage_y2 = max(par->damage_y2, y2);
+ 	spin_lock(&fsn_mark->lock);
+-	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
++	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS)) {
++		old_mask = fsn_mark->mask;
+ 		fsn_mark->mask |= mask;
+-	else
++		recalc = old_mask != fsn_mark->mask;
 +	} else {
-+		par->damage_x1 = x;
-+		par->damage_y1 = y;
-+		par->damage_x2 = x2;
-+		par->damage_y2 = y2;
-+		par->damage_pending = true;
-+	}
-+	spin_unlock_irqrestore(&par->damage_lock, flags);
-+
-+	/* Advance an already-pending mmap update as well. */
-+	mod_delayed_work(system_wq, &info->deferred_work, 0);
-+}
-+
- static void ssd1307fb_defio_damage_range(struct fb_info *info, off_t off, size_t len)
- {
- 	struct ssd1307fb_par *par = info->par;
- 
--	ssd1307fb_update_display(par);
-+	ssd1307fb_schedule_damage(info, 0, 0, par->width, par->height);
- }
- 
- static void ssd1307fb_defio_damage_area(struct fb_info *info, u32 x, u32 y,
- 					u32 width, u32 height)
- {
--	struct ssd1307fb_par *par = info->par;
+ 		fsn_mark->ignore_mask |= mask;
 -
--	ssd1307fb_update_rect(par, x, y, width, height);
-+	ssd1307fb_schedule_damage(info, x, y, width, height);
- }
- 
- FB_GEN_DEFAULT_DEFERRED_SYSMEM_OPS(ssd1307fb,
-@@ -329,7 +367,30 @@ static const struct fb_ops ssd1307fb_ops = {
- 
- static void ssd1307fb_deferred_io(struct fb_info *info, struct list_head *pagereflist)
- {
--	ssd1307fb_update_display(info->par);
-+	struct ssd1307fb_par *par = info->par;
-+	unsigned long flags;
-+	u32 x, y, width, height;
-+
-+	spin_lock_irqsave(&par->damage_lock, flags);
-+	if (!list_empty(pagereflist)) {
-+		x = 0;
-+		y = 0;
-+		width = par->width;
-+		height = par->height;
-+		par->damage_pending = false;
-+	} else if (par->damage_pending) {
-+		x = par->damage_x1;
-+		y = par->damage_y1;
-+		width = par->damage_x2 - par->damage_x1;
-+		height = par->damage_y2 - par->damage_y1;
-+		par->damage_pending = false;
-+	} else {
-+		spin_unlock_irqrestore(&par->damage_lock, flags);
-+		return;
+-	recalc = fsnotify_calc_mask(fsn_mark) &
+-		~fsnotify_conn_mask(fsn_mark->connector);
++		recalc = true;
 +	}
-+	spin_unlock_irqrestore(&par->damage_lock, flags);
-+
-+	ssd1307fb_update_rect(par, x, y, width, height);
- }
  
- static int ssd1307fb_init(struct ssd1307fb_par *par)
-@@ -601,6 +662,7 @@ static int ssd1307fb_probe(struct i2c_client *client)
- 	par = info->par;
- 	par->info = info;
- 	par->client = client;
-+	spin_lock_init(&par->damage_lock);
+ 	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
+ 	spin_unlock(&fsn_mark->lock);
+diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+index ed37491c1618..5f19c24ec187 100644
+--- a/fs/notify/inotify/inotify_user.c
++++ b/fs/notify/inotify/inotify_user.c
+@@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+ {
+ 	struct fsnotify_mark *fsn_mark;
+ 	struct inotify_inode_mark *i_mark;
+-	__u32 old_mask, new_mask;
+ 	int replace = !(arg & IN_MASK_ADD);
+ 	int create = (arg & IN_MASK_CREATE);
+ 	int ret;
+@@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
+ 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
  
- 	par->device_info = device_get_match_data(dev);
+ 	spin_lock(&fsn_mark->lock);
+-	old_mask = fsn_mark->mask;
+ 	if (replace) {
+ 		fsn_mark->mask = 0;
+ 		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
+ 	}
+ 	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
+ 	fsn_mark->flags |= inotify_arg_to_flags(arg);
+-	new_mask = fsn_mark->mask;
+ 	spin_unlock(&fsn_mark->lock);
  
+-	if (old_mask != new_mask) {
+-		/* more bits in old than in new? */
+-		int dropped = (old_mask & ~new_mask);
+-		/* more bits in this fsn_mark than the inode's mask? */
+-		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
+-
+-		/* update the inode with this new fsn_mark */
+-		if (dropped || do_inode)
+-			fsnotify_recalc_mask(fsn_mark->connector);
+-
+-	}
++	fsnotify_recalc_mask(fsn_mark->connector);
+ 
+ 	/* return the wd */
+ 	ret = i_mark->wd;
 
