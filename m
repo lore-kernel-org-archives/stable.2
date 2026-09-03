@@ -1,83 +1,88 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA8830E83F
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 03:14:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CDD3624CC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 03:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788405246; cv=none; b=mZHD8NF1S/1yq5J1j6qniWGaSOhgbXrYTP7vuTpiF4fR/qqAc42WnxhnajACbuUb6E8tokIPgRLia5MxXmLOxXT6sYICXy38xN5Qjf0BL8y7fpC833XH34o7ODC+0L0jOm7sB8WlNkZtpNNpkosuR0BEL7oyuSTb9sZF3jmHFjc=
+	t=1788405428; cv=none; b=OwU3+KnjQEXmKAYhmZWPtPvQQKxdvsN5kD5TsdinL9yn9jqc8BZuv4wenEHRFvfDJZwcGHGnWm0TXM9bgBNfQBwxbPfwiVRhNDfSNlh2lAbkMx7iF+cpVt1Q5cEFdxnEjq3EJUv0anfVUjD1R8eWDn2TfpLYvaMntiEtfXweUbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788405246; c=relaxed/simple;
-	bh=Gdn6FlTTrtnoQY7PyAJfU2F9mE8bnDKAHVlEH3i2pI0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lBjWwzvmTBzqwxKC94YT0nqwfRz9M6VQmiOEjF+JMXB1ombdsgeDJPFFW03NfO2Scy5VEJy131eou+jXUMczVnhFjWGS8KkJ9bU6giPPIn9Yrbjy0vt/Al4uCNmNa5PMwL587UA/6N81ZLrFB0TbuEQAWOCUOXD8aD6xubRbjnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsI7vf+d; arc=none smtp.client-ip=209.85.214.176
+	s=arc-20240116; t=1788405428; c=relaxed/simple;
+	bh=uh3PjXoLjosxsg+DIsuL1EOEHL16VgIJEnVi4iERdns=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QWXh9wsPACJQqiJzhmviB0GUapbcITIZBlMYkKcItHO7YyAjv6o8xFubRau0pyjUDJrAyM3iuwvbi8Ord7rlfvtoywi0hYlxx9Jn2VV/QxSnvEZJF4Bu88igcPL44tb3HqZp/CuFhhwCMzmSsq4xaAYQlXTUPx5MyD+46Ju4vFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XgZbhmcI; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsI7vf+d"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d53197d8b5so16997365ad.3
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 20:14:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XgZbhmcI"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d71ae3455aso27065695ad.1
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 20:17:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788405245; x=1789010045; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vESU/1COBgvnCI0rsLCZoKytSIIaf3V11jedMnJg7JU=;
-        b=bsI7vf+dc/Hom2bUfNW2LIsPdRYqWhGggoiRxXQBLrsFf651ewjgPOY+T/QMe92pi2
-         qaZ10i5GudVWlMJ3l+FrvWMFvKrmlAQ+l/aDI2V7r6JwzkDuDS5C0kbQ0ZjVXrqcPVrT
-         dNBtlukCor+ejxIvA9udM8mp4nbR/qRobRXqut0Ym5hmEuUS/q55RnNC1MB5+q1+VB0k
-         3Kc6zesKY4j4uMJx5VQgjSyjzQbGbf/ROxfdwn2X4JFGBm7Hxf5ptwhcdjQSpwstUjeE
-         gFyOP1Gj3SYoDgzpH0XDavI3478dQIuIYbLk8dlY5Psc4A7kQbcHfxhwNy9JVtX0qLVM
-         fHpA==
+        d=gmail.com; s=20251104; t=1788405426; x=1789010226; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6Ry9aZAR4rOnvuBv9WAZuiM8CW7iBdIw7/zNBIgTZE4=;
+        b=XgZbhmcIord8qddUxjh9ZF05p4x9Kn2vmIbmxSyrUmTV3UTyvZI3fxcZ+wP8VxJOJe
+         EhqSM6o+STzLiD/4UR2mBiE+zgrb6zuFmA8yyAvjdhi7kYAunWx5bSIAcVcGe4UGX7gI
+         1eQpFazPTeetc2v9audCvMYOou3B3eEXbbr1x10DVPHPLHsU7q7JUK95YQ6gFsP5pi3p
+         OlJQeHwRqewTwlSh44Qgp3wwHmemkd1yGvRpV2bfZkiFXdMYEIqytWFBr6YKFRTF8TkZ
+         U1sb25tcqSIfbhYXe9UTWxERzQnSLiNl4iw2sJTFDasEDYsAzceCO7rnPweYG6NpcOZ/
+         qJcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788405245; x=1789010045;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vESU/1COBgvnCI0rsLCZoKytSIIaf3V11jedMnJg7JU=;
-        b=Fg20U8veCLnOa6Wh6huqqeKP60IIUE+M3WzVddKCsVaWSW2qG+SqpRcqZwrG3PDp8K
-         AnHdIvFSXGdjkKCPBlF0q99JqdEpqhX6C+lVmAyjfLOXEzk8jBdApMNh9gkyheOcET2U
-         7LRTZIHcI0eDE9zot/tKqOtGl70gpS0eBZ4ZPpmIKN/r0Qi96AqSPiEpx6UX3gOTaszu
-         /maSg2IWTzjk0dqd6UPxunIBbbhXLZjLmtq76QISpOzFTi/Y7PLGjqvV6ZW408Xta1it
-         xGQor0R+qUd8LF0mjDdfNFQo9+Gzz/eMCOHQRpbbzztglY/DAashutCMAnpEHe7QYF1a
-         s4dA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjsL0VuzPoX3wCxJoBXwsN8aRsi2IM1lzZvKIw5C654B8mQtb4tObeKt7Bq26FBujwTExH5TU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l6b7vIcq7JdNotBRMP1mk6J68P5fcINBmLXCNz0LbF4FA+h/BS
-	4L0aeTPHJMT1PBFKbcX1XF5CPRkPaCcCZGF/BeDl90dPCilYZoGZGiP1
-X-Gm-Gg: AYBFou2tzyYekwdFdD7La7xY93TiLfloJ6giV/HHWlsEOmvv6LdXNXe+lmmaEasbnEg
-	k10PYVBo4VvP/PNAYxNLpu4df5gGGX6qmRRMXZ7eYD4XO7wHHlGIANP22rmB1pJw33p2RTKNumw
-	AliJc+P1/t09hxoqR7NvncrEeZfCdWsBRqzlob4kYDH099M2oX7qLq7tu9OVoxOQpBmMGHNV/R8
-	sU9q0TrLtbOYlgFsoWq6T680TFcLtb7019hbk1QLT0lDK2XxZgkNckvDLqYzFRcUfI4mryYewC2
-	YzxXe/N/zyjbR2oDFVc6E1qEsZU5fSHSavMSpdsHPByXwn/+4haQCQ4nP7130DKWGCACKewKfpJ
-	rXbX0wi5ogc+tUckavGm6u9f7ebU1f43OA3MgQ37YpnteTJPD8V4dPaE+eGxI+W9o4x9Yc4S55w
-	3F4TQHYVU6eJvOeGoCXsUyhnD2wclR5uEfM2+GxseutZRiwM1sv13kfEYfBqDm/+fGU7WQebMql
-	M1G35EoZXSTciKgp/1UPIIVmnqr
-X-Received: by 2002:a17:903:1aab:b0:2da:f1b1:56c4 with SMTP id d9443c01a7336-2daf1b16445mr104380145ad.3.1788405244535;
-        Wed, 02 Sep 2026 20:14:04 -0700 (PDT)
-Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe0e0d5bsm2824825ad.12.2026.09.02.20.13.59
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 20:14:04 -0700 (PDT)
-From: Lian Wang <lianux.mm@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	Quanmin Yan <yanquanmin1@huawei.com>,
-	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
+        d=1e100.net; s=20251104; t=1788405426; x=1789010226;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6Ry9aZAR4rOnvuBv9WAZuiM8CW7iBdIw7/zNBIgTZE4=;
+        b=S8/GRkdNJxMDf6Bi3EIlooijMMS3PtER9H2Yu1dtQhYpZ1JtyKgqjqArPXsZSHz9eg
+         g9m07M3ongbq0lXKNnc4UJ5Xr/ZZyvCzC53d/9ZQJeAVSi922wbt2FQ/NYlKdYoZKfHZ
+         0nl1kmqT+28fGVhPz3kx8ml9fH5G4zH2XKp6VJ1M9w3CYQ6b7rZDizuG00e4eLlo/y0p
+         YLAZbYQFtk0im6WblMxpBw3rCkTkTO5AqNdrL3syLIoiR8cI8RX+MvQIbc6IZn4Ql+IM
+         gDaocpxoFHHIf6PXaK0NHVzPHRPFqD4FoXW/EOrH/R/mLPruRlx5hS28lvXNjbMUM13m
+         m9dg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/5i6XRW9uqYy5lNp426u1TTra0VwYX6Pyy/84h1agYdbSUncd4E5uzLmpxMq4khYhzQ05Z78=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuNC02eQauGRtClO2i6bEyqkcJH52+OJJyLy0u+AcNxdMAePL+
+	dTrb4qfNEo2UPNSQPgd3c0/mn0G0pYNo3LKnFh95C0oxVW4iikzXd5eG
+X-Gm-Gg: AYBFou1RjyqBDIGVUXI2LiF21nkFdu9+WZGoIxsLo/RbxZcs4sQGfmvcnKEUaDXU4fT
+	i9776CPiISvt8GHXFvwupGQtZ9//rbNuVFSMt0FePijRwlxYnMSWlquX8QiAGa0dJQ/UJJ+HTF2
+	Iys9rqVHSAcvYmzA/WLNd9sXGb8zdjVvn2nNeXY9QPHBmJKbCEk8XopkYsn94k7FneLjWwXScLS
+	LewACYpJyfIea9YZabZH6AUE4s2QlUyMFc6voTNRKHKnz4z9Qpx4YU55ohABmw9Ky3QAfl5NX+c
+	rBkdz/Zcrg/zeY5Ljbm4f4yv8EvNnffPpoDSI9XWfx3DODo7cPjPZxSFtSSZLLTUe0S17ixXtsp
+	zMR7grkdfQFvj3bXitL8QTXwbNF0mdNUj9Scd7KTthWboEsz6LSqN12v71kK+xx9Hu9LWbLcp2C
+	VA1mQz4tWJptphaOywwTDGnVJecUTuuZoY4cDmoIET9blfxYiNSHH6a0pT0yMS02gt2dok0Y7FY
+	Z8=
+X-Received: by 2002:a17:903:2290:b0:2d6:ffa1:429b with SMTP id d9443c01a7336-2daec62c280mr119641375ad.7.1788405425604;
+        Wed, 02 Sep 2026 20:17:05 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe62d1d1sm2831855ad.24.2026.09.02.20.17.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 20:17:04 -0700 (PDT)
+From: Vernon Yang <vernon2gm@gmail.com>
+To: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	akpm@linux-foundation.org,
+	david@kernel.org
+Cc: hpa@zytor.com,
+	rmclure@linux.ibm.com,
+	andrew+kernel@donnellan.id.au,
+	pasha.tatashin@soleen.com,
+	kas@kernel.org,
+	tj@kernel.org,
+	rppt@kernel.org,
+	rick.p.edgecombe@intel.com,
+	yu-cheng.yu@intel.com,
+	orsonpeters@gmail.com,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 0/4] mm/damon: fix misc bugs in kunit, quota goals and sysfs refresh_ms
-Date: Thu,  3 Sep 2026 11:13:28 +0800
-Message-ID: <20260903031345.82679-1-lianux.mm@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902002725.108635-1-sj@kernel.org>
-References: <20260902002725.108635-1-sj@kernel.org>
+	x86@kernel.org,
+	linux-mm@kvack.org,
+	Vernon Yang <yanglincheng@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Date: Thu,  3 Sep 2026 11:16:08 +0800
+Message-ID: <20260903031608.1194238-1-vernon2gm@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,29 +91,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi SJ,
+From: Vernon Yang <yanglincheng@kylinos.cn>
 
-> Patch 1 fixes the DAMOS quota goals commit unit test to cover a
-> mistakenly uncovered case.  Patches 2 and 3 fix the bugs in DAMOS PSI
-> goal initialization and eligible_mem_bp online commit, respectively.
-> Patch 4 fixes the bug in DAMON sysfs refresh_ms file handling.
+pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+silently discarding the hardware dirty bit.  The subsequent
+pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+stripped from the value, so there is nothing left to transfer.
 
-I reviewed and tested the integrated four-patch series in mm-new:
+Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+the dirty state.
 
-  a20e38846efb..72dc8fdaae62
+One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
 
-The integrated commits had stable patch-ids matching the posted patches.
-DAMON KUnit passed 42/42 tests.  I also ran test-only eligible_mem_bp nid and
-two-kdamond refresh-isolation regression cases; they passed 42/42 and 43/43
-tests, respectively.  Both test-only changes were then removed and the
-worktree returned clean at the unchanged series tip.
+    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+                                      // folio marked lazyfree
+    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+    mprotect(buf, size, PROT_READ|PROT_WRITE);
+    // ... memory pressure ...
 
-These were functional UML KUnit tests.  The fixes look good to me.
+Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+no dirty bit set anywhere and frees it in
+__discard_anon_folio_pmd_locked(), even though the data was rewritten
+after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+restores the PMD through pmd_modify() as well.
 
-For the series:
+PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+the dirty bit means rewritten data is never written back.
 
-Reviewed-by: Lian Wang <lianux.mm@gmail.com>
-Tested-by: Lian Wang <lianux.mm@gmail.com>
+Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+pte_modify() and pud_modify() do.  The existing
+pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+hardware-dirty <-> saved-dirty transition based on the write bit,
+preserving the shadow-stack encoding rules.
 
-Thanks,
-Lian
+Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+---
+ arch/x86/include/asm/pgtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
+index d5f4917c1edc..d551120a7c88 100644
+--- a/arch/x86/include/asm/pgtable.h
++++ b/arch/x86/include/asm/pgtable.h
+@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot)
+ 	pmdval_t val = pmd_val(pmd), oldval = val;
+ 	pmd_t pmd_result;
+ 
+-	val &= (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
++	val &= _HPAGE_CHG_MASK;
+ 	val |= check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
+ 	val = flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
+ 
+-- 
+2.53.0
+
