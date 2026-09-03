@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A99F4AE8B8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:48:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21764AE8B3
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:48:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439687; cv=none; b=HJOKdW2ujCHwHSxOtIgmFc+ffyjRRdKELPFOBQsBZrbdAhuayQELxtrSFZaPUelvL+mRg733vX6l7BbLOmzKwY5K/ZMWQ6R+yO1ORDy2Yo+4Lfr2PflSxwDT9FINQj/pqXIXSmH7PnxyR65aGgWAn7qjiIVcudGac9gDpdUpp2o=
+	t=1788439690; cv=none; b=XRAW1QvIUXwNKiR1AKXNWDErkC/npRkWId92VCrEyWuDWXyG5+H8s6uwFDsMEHuH8CbfGBjLQXGLMR3HMOed7RFM60QoYQy8j1mAtENjWfYScVfit7L2+6twTVdFuGM3VTIiTJ5iT6eC1tQz1i4c4PQk/1GedQqsFiQgtp0/4co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439687; c=relaxed/simple;
-	bh=hKmme/4FmL5gtkYjm/clstNKYueuBZnJJYuXfNJTioQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=teUXnRh8P2pmxPLYColcHWs1t248w3mHYN2SavWElvqMfzAoce9R6VjCbkWcGNb0rl7lx4PAFovZD9bDUTGfkRFmztYMukK5SEatvWVyiSQkDArPxAEruQl2Xc6hw7Z+Uj1fpxFbYXjiKUeGinFKZBiHbKy1Me8kA5Uvi2Rl1+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fehPvx+d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439690; c=relaxed/simple;
+	bh=HTreIdRFIfkY9hRiVX54qU+931bqchrg3j3P1DMEr0M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=TPXvaikO+krH6ttFBJMtD37Ns0idL6x0Z2msXXAbpU3L+4uyTXTCljuul0t5HT1BfZX2FShJX9cQT4CwB3IwpSLoABAlfS1BiTkaBe1g3wWej5LNWsuyl7LGFp/kW5/yt0G80RXicGA6O+MkFYCY4MPjhI0XibSrRIF+GCgRa3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o9rpunPE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fehPvx+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2376A1F000E9;
-	Thu,  3 Sep 2026 12:48:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o9rpunPE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F36551F000E9;
+	Thu,  3 Sep 2026 12:48:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439685;
-	bh=qkQ045fExxQCTcSkjOc4Cx7apfQexFgHaolI/GJySOo=;
+	s=korg; t=1788439688;
+	bh=9ov9bbAXKDflBfPhTEG8gNQd968BfgvOJR/CQBhf3ds=;
 	h=Subject:To:Cc:From:Date;
-	b=fehPvx+dFrQn2DwlALLE7OywbZAD2jFZCyQYwHtjA2turdpLSjMYVgysluvST63fH
-	 OOLwVevKjtzUx2mpeQIPU4I+rPz3x/QOqYh8zlL7OsgBeNm6v+sWemtFAFvgz0pbxl
-	 ZrYDzWwOifTv3ZYecZQVd8fWluIbb6a/kf8FkF30=
-Subject: FAILED: patch "[PATCH] mm/page_alloc: don't spin_trylock() when disallowed in" failed to apply to 7.2-stable tree
-To: brendan.jackman@linux.dev,akpm@linux-foundation.org,ast@kernel.org,bigeasy@linutronix.de,hannes@cmpxchg.org,harry@kernel.org,jackmanb@google.com,mhocko@suse.com,rostedt@goodmis.org,shakeel.butt@linux.dev,stable@vger.kernel.org,surenb@google.com,vbabka@kernel.org,ziy@nvidia.com
+	b=o9rpunPE60Fsyr5YRPxjL52vmd4WlooIUACf7E2AwyzfGpG02LI48d324mp/yp4wo
+	 FWg/CXkJAKrD4zzs6dUaMOH6CXXQXpTfub0rSxBI3BaeinCc6TYi9vUQq/LI9v8KyR
+	 a32eq3ySKv9vyZIORrzmEVEadOTvTDJ84e/1hE3A=
+Subject: FAILED: patch "[PATCH] mm/gup: fix always draining LRU caches in" failed to apply to 6.12-stable tree
+To: david@kernel.org,ackerleytng@google.com,akpm@linux-foundation.org,hughd@google.com,jgg@ziepe.ca,jhubbard@nvidia.com,kas@kernel.org,peterx@redhat.com,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 13:12:57 +0200
-Message-ID: <2026090356-yen-rejoicing-ad88@gregkh>
+Date: Thu, 03 Sep 2026 13:28:22 +0200
+Message-ID: <2026090322-cucumber-clumsily-daf5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 52dcc33881e55189650404f833c0e6b7913d6c16
+git cherry-pick -x 078e1a0fc41a42baaf113383b52dab8874c0b967
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090356-yen-rejoicing-ad88@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090322-cucumber-clumsily-daf5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,52 +62,82 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 52dcc33881e55189650404f833c0e6b7913d6c16 Mon Sep 17 00:00:00 2001
-From: Brendan Jackman <brendan.jackman@linux.dev>
-Date: Wed, 15 Jul 2026 09:03:59 +0000
-Subject: [PATCH] mm/page_alloc: don't spin_trylock() when disallowed in
- free_one_page()
+From 078e1a0fc41a42baaf113383b52dab8874c0b967 Mon Sep 17 00:00:00 2001
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Fri, 31 Jul 2026 22:27:53 +0200
+Subject: [PATCH] mm/gup: fix always draining LRU caches in
+ collect_longterm_unpinnable_folios()
 
-__free_frozen_pages() checks can_spin_trylock() before entering into the
-main free_frozen_page_commit()/free_one_page() path, but before this it
-can get to free_one_page() via the !pcp_allowed_order() and
-MIGRATE_ISOLATE paths.
+folio_may_be_lru_cached() is currently only true for small folios, and
+for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
+of 1 in try_grab_folio()/try_grab_folio_fast().
 
-The !pcp_allowed_order() path depends on usage by callers so might not be
-possible in practice.  The MIGRATE_ISOLATE path probably means kernel
-crashes and privilege escalation if anyone ever did memory hotplug and BPF
-tracing on a PREEMPT_RT or !SMP build.
+Consequently, our
 
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-2-fadc49952dda@google.com
-Signed-off-by: Brendan Jackman <jackmanb@google.com>
-Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260710-spin-trylock-followup-v1-0-affb5fe5ed00%40google.com?part=2
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
+	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
+
+check in collect_longterm_unpinnable_folios() will currently always
+identify "reference mismatch" and first drain the local LRU cache to then
+drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
+is really called after pinning the folios with FOLL_PIN.
+
+Add a comment because the current code is not quite intuitive: we used to
+drain only to make sure the folio_isolate_lru() would succeed. But then we
+also started draining to make later migration more reliable.
+
+We'll refactor that code soon a bit, to also make it usable in other
+context where we really want to remove any references from LRU caches.
+
+Let's add CC stable, because having an easy way for excessive LRU cache
+draining on all CPUs does not sound right. In common scenarios we
+don't expect to ever have to drain.
+
+Link: https://lore.kernel.org/20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org
+Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
+Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Acked-by: Hugh Dickins <hughd@google.com>
+Cc: Ackerley Tng <ackerleytng@google.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Peter Xu <peterx@redhat.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index b3487c00971e..891f687e622c 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -1559,7 +1559,7 @@ static void free_one_page(struct zone *zone, struct page *page,
- 	unsigned long flags;
+diff --git a/mm/gup.c b/mm/gup.c
+index 8ea3de60e82d..bce275c7dbb6 100644
+--- a/mm/gup.c
++++ b/mm/gup.c
+@@ -2273,6 +2273,7 @@ static unsigned long collect_longterm_unpinnable_folios(
  
- 	if (unlikely(fpi_flags & FPI_TRYLOCK)) {
--		if (!spin_trylock_irqsave(&zone->lock, flags)) {
-+		if (!can_spin_trylock() || !spin_trylock_irqsave(&zone->lock, flags)) {
- 			add_page_to_zone_llist(zone, page, order);
- 			return;
+ 	for (folio = pofs_get_folio(pofs, i); folio;
+ 	     folio = pofs_next_folio(folio, pofs, &i)) {
++		const int pin_refs = folio_has_pincount(folio) ? 1 : GUP_PIN_COUNTING_BIAS;
+ 
+ 		if (folio_is_longterm_pinnable(folio))
+ 			continue;
+@@ -2287,15 +2288,20 @@ static unsigned long collect_longterm_unpinnable_folios(
+ 			continue;
+ 		}
+ 
++		/*
++		 * We drain not only to make the folio_isolate_lru() succeed,
++		 * but also to remove any other folio references from LRU
++		 * caches.
++		 */
+ 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
+ 				folio_ref_count(folio) !=
+-				folio_expected_ref_count(folio) + 1) {
++				folio_expected_ref_count(folio) + pin_refs) {
+ 			lru_add_drain();
+ 			drained = 1;
+ 		}
+ 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
+ 				folio_ref_count(folio) !=
+-				folio_expected_ref_count(folio) + 1) {
++				folio_expected_ref_count(folio) + pin_refs) {
+ 			lru_add_drain_all();
+ 			drained = 2;
  		}
 
