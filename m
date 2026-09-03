@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B7A4A8FEA
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:06:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4134D4A92EC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:06:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440800; cv=none; b=Ob1EJ7XEaJY4aFlMU5WUD1+QI9ADO75FTKodleibcJWeCXZ+pEV/eNZdC3uzblHhJ3YQmMKr9WOslMmbGrW39XCCyhbdX0PFUZw8DA0B3wXNnVxQnFScRO5B3mnNaOaWEaj3OztEhldXIKz3lTLfqoojqP33+n64tBP8L0A8xac=
+	t=1788440800; cv=none; b=XsNoCskUMX3h4sd995n17tugtpxbyOP2v3H9TchTowDJX6qAeVarLXR3iQoTzG4QJHvZQNd2fy9urpozAR31RItIv9KSCIsxMWOYTaiXnt0AVcP1mRXVNxEsI0pKJe/HFvzJLOAi/i70jQONE7VfDu7j190i9pXQjQaCL6t6A6g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788440800; c=relaxed/simple;
-	bh=y7FoP7qwCJhbcLnxkZsYDFTOLOQpyv8HE0e84Adca6w=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W3PQgpuPClfqJXgCER2izQr0WV+J/v4qiNygJCVBvJDOe4l8UoCpiow2XeMpn5sZsK9jEJrkVTej+9IGcJnUZmiZougGjm9t3z2lBrQfjPLZE+hDQe6eNuHqaMsWhqcCz0ytBQ/7MwwZuTUUh3Cu1/cW1S7MTpvoqdX4epsVLbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2vcZvCYe; arc=none smtp.client-ip=100.103.45.18
+	bh=0TPYtdahaUc1FNLivOQKlBYawR2pAdWJH8VymSI4Wz0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oC39V9JOmo9DabmNr9XhnI4GrJ5slQJFmXWFqefPbRIVua1NXYnH3KnLeCSDVhHC1SsgLTDqteOTRRdHMGGiqLdm3hH9vrvkEmTewkmAZuE5fXoA0ShnJ9KxO4ACxYnKqZVpz6pWNzZpEJRcHuy5uWrEEvFB9Y8DarQ50VCrnc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=as3SKeEB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2vcZvCYe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FBB91F00A3A;
-	Thu,  3 Sep 2026 13:06:32 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="as3SKeEB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B96D1F00A3D;
+	Thu,  3 Sep 2026 13:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440793;
-	bh=gLFROfpvzpsPVlq3tAOUpadCc7XaLieOddyYcd3wB7w=;
+	s=korg; t=1788440790;
+	bh=z3Lf+DXkzit877Z9d8u9wDwGwf9NjIqHQ8VvMSzcxMI=;
 	h=Subject:To:Cc:From:Date;
-	b=2vcZvCYeTJdy1GYnp8pew3DJz9uLl84bTa9eivy2SRgO1ssLj48gobiYQeKMY6e7q
-	 uci1ruw0VbkywFHmi0blqq/kItUnWtxePsQ1CmiDYgfAlWbWKvwQJl7Z0K9zCdMSJk
-	 uYyRFqHtG2wcxZ6YftJ7p5/0nW7yJuEoBJ4/FjQU=
-Subject: FAILED: patch "[PATCH] zram: fix out-of-bounds access in writeback_store()" failed to apply to 6.6-stable tree
+	b=as3SKeEBwmG9OgEoX/MRNlieOMZd/cBd98xRZiQNnPQTqPJX8RtyM8+q4qYG0AhBN
+	 UJ0DNyM2wf4sWHDPn6NBNGQLresqVY1TnctEum4WwtDhinv2T77KfUbiNJTBFNpxn4
+	 HgYl/N6aqyyCeOsyASdou9waX6pgfNF5lsIZgLos=
+Subject: FAILED: patch "[PATCH] zram: fix out-of-bounds access in writeback_store()" failed to apply to 6.18-stable tree
 To: xialonglong@kylinos.cn,akpm@linux-foundation.org,axboe@kernel.dk,minchan@kernel.org,senozhatsky@chromium.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:01:05 +0200
-Message-ID: <2026090305-dimly-backboned-037d@gregkh>
+Date: Thu, 03 Sep 2026 15:01:04 +0200
+Message-ID: <2026090304-strategy-zoning-2279@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 894913e2d35c46ff19a77530907771ae57862b96
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090305-dimly-backboned-037d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090304-strategy-zoning-2279@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
