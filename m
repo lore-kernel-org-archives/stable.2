@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E7F4E56CC
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF664E235A
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449968; cv=none; b=otJ0+yZ9bffjOpXqwjxfgucBN+sOhqhimJlUwBjFSjVETy0Aul2zxA7pT+MQ/xRIbdXzo2I3GByycExj1qLJDHDV1Ukete4QRX35w4lylVYHz/rY1jR7s5rYhgsdavEIs18b/r7bVcjX096/YrzcbjFmCX1ny3alGJkquRVTPps=
+	t=1788449971; cv=none; b=bmgmacFqZnCOEuSzKyxgXE9ROhgHTY2i5tAY45t7CmKHDbt8APZREfSQYxAE3hZA/1srUuhn5gvK9KbrPxv6i7c/w+eVmo9bvvvReixUwZMY2uNBsI0/uTKYX6PsiLZLNWK6Bjx0iLd894BeVRV76WVMIE5QSgDV2HVwPHKIX2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449968; c=relaxed/simple;
-	bh=V0pb3/RIBeJTUCEw7jcKamTSw2O6MHTzsFA1TELb8bA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZWrSl2QCb+C1YBSFhGM5p3/nJppP9gKPv/4hLe/c1xphNWs09vRHcMbNPkaJEx8z+Ozr72wEwZs/fgNztvQRiL7p1aQEn8rSkKSlfJOLAU972HfySBPQm+YNsIIYGp04dgLzaXrVgtkjUf1+iZEs4qbkdpGJyZJvxCEK2dfyupg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TsrEmbK9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449971; c=relaxed/simple;
+	bh=3NW5621g9/TNOrKFf9OtBfNSNIj+3ChMVnoxmv7g1tA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QdmIWK2g/bDvnQdP1Is6s62oxZuvsrGo44ZyFq7UyW4qBryZTcsSE/pifkE1jifw6KSKb7BENJFCQhEWhX5ogTBTMgOyMETeMagsWkRjzME1U6tLdm1FQt12y2Yinh7k7IrYXTKDpQTm7po555lrsXduXlmQ/7LknWnhwEmBEEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aRfx4V13; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TsrEmbK9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2BED1F000E9;
-	Thu,  3 Sep 2026 15:39:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aRfx4V13"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEACC1F000E9;
+	Thu,  3 Sep 2026 15:39:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449967;
-	bh=03yKDdJpysS+1eZRB62148fxN1QEcUAq8RxND4ubcoc=;
+	s=korg; t=1788449970;
+	bh=1e4kWkgMMsrCS7iciMTjzMD4tifAr/IkKHEjArFfnFY=;
 	h=Subject:To:Cc:From:Date;
-	b=TsrEmbK9/aRMnXMyys7h5K4N+XBkz97ftg9hCp+hVlyB/H/LE7py2ZjTAKgMznnlK
-	 Mn+8uOeq0gzjCoApdemTMVdrkRVgFOsmzGEY/oKr2PdiAqI0H/EOs46+g/stousPDz
-	 MedPmxfVoxjcIhq16zPU6hJPJLY3IQyTpSGGWL24=
-Subject: FAILED: patch "[PATCH] net: skbuff: don't skb_tx_error() the source skb in" failed to apply to 5.15-stable tree
-To: norbert@doyensec.com,i.maximets@ovn.org,pabeni@redhat.com,willemb@google.com
+	b=aRfx4V13GlOXX6jgHIV5Ixqqczuq/CKFwbOMZddmDSv0zxl8PcLEDBPRgv0yTNrY8
+	 nLo0ggD49y6clUbCX4/UUO8MM1MlCrW+bbKUIrV58KQfpIlsV4AcSLRbrVVw2rcpOH
+	 xKhAqc+tpBgolzcjlFGMAlE/oFpNJr21j/5e7arA=
+Subject: FAILED: patch "[PATCH] hwrng: stm32 - Fix runtime PM cleanup on registration failure" failed to apply to 6.12-stable tree
+To: pengcan@kylinos.cn,herbert@gondor.apana.org.au,linusw@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:11:21 +0200
-Message-ID: <2026090321-bagpipe-overripe-485d@gregkh>
+Date: Thu, 03 Sep 2026 17:12:18 +0200
+Message-ID: <2026090318-jester-velocity-118b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8ece906150128d5ec2462aabcc978c568433eca4
+git cherry-pick -x 1163a476a568f6c0f852d469c8e4c5a5f805adac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090321-bagpipe-overripe-485d@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090318-jester-velocity-118b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,54 +62,61 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8ece906150128d5ec2462aabcc978c568433eca4 Mon Sep 17 00:00:00 2001
-From: Norbert Szetei <norbert@doyensec.com>
-Date: Sat, 22 Aug 2026 11:13:47 +0200
-Subject: [PATCH] net: skbuff: don't skb_tx_error() the source skb in
- skb_zerocopy()
+From 1163a476a568f6c0f852d469c8e4c5a5f805adac Mon Sep 17 00:00:00 2001
+From: Can Peng <pengcan@kylinos.cn>
+Date: Sat, 18 Jul 2026 11:29:37 +0800
+Subject: [PATCH] hwrng: stm32 - Fix runtime PM cleanup on registration failure
 
-skb_zerocopy() copies frags from @from into @to. On an
-skb_orphan_frags() failure it calls skb_tx_error(@from), a destructive
-operation on the source skb the copy helper does not own. That completes
-@from's zerocopy uarg and clears SKBFL_ALL_ZEROCOPY, including the
-SKBFL_SHARED_FRAG page-ownership marker.
+stm32_rng_probe() enables autosuspend and runtime PM before registering the
+hwrng. If devm_hwrng_register() fails, probe returns with runtime PM left
+enabled and autosuspend still selected.
 
-Both callers already report the failure on their own drop path.
-nfnetlink_queue does it at nla_put_failure, and Open vSwitch does it in
-the flow-miss drop arm of ovs_dp_process_packet(), so nothing is lost by
-dropping it here.
+The remove callback also only disables runtime PM and does not undo
+pm_runtime_use_autosuspend().
 
-On Open vSwitch's OVS_ACTION_ATTR_USERSPACE path the skb is not freed on
-this error: do_execute_actions() ignores output_userspace()'s return
-value and, unless the upcall was the last action, keeps forwarding the
-same skb through the flow's remaining actions. The uarg is completed
-while that skb is still in flight, telling the producer its buffers are
-free, and SKBFL_SHARED_FRAG is cleared on an skb the rest of the stack
-still handles. That flag is what makes esp_input() call skb_cow_data()
-instead of decrypting in place, so a later local ESP delivery can
-decrypt over frags the skb does not own privately.
+Use devm_pm_runtime_enable() so runtime PM is unwound automatically on
+probe failure and driver detach. Since the managed cleanup also disables
+runtime PM,drop the remove callback.
 
-Leave error reporting to the callers.
-
-Fixes: 36d5fe6a0007 ("core, nfqueue, openvswitch: Orphan frags in skb_zerocopy and handle errors")
+Fixes: c6a97c42e399 ("hwrng: stm32 - add support for STM32 HW RNG")
 Cc: stable@vger.kernel.org
-Suggested-by: Ilya Maximets <i.maximets@ovn.org>
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/6E3A780D-FB87-421F-9964-B1D457D7D106@doyensec.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Can Peng <pengcan@kylinos.cn>
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index d4382b68d56e..ab3d161247b9 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3914,7 +3914,6 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
- 	skb_len_add(to, len + plen);
+diff --git a/drivers/char/hw_random/stm32-rng.c b/drivers/char/hw_random/stm32-rng.c
+index 9a8c00586ab0..f5bfe54c01dc 100644
+--- a/drivers/char/hw_random/stm32-rng.c
++++ b/drivers/char/hw_random/stm32-rng.c
+@@ -368,11 +368,6 @@ static int stm32_rng_init(struct hwrng *rng)
+ 	return 0;
+ }
  
- 	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC))) {
--		skb_tx_error(from);
- 		if (j > 0)
- 			put_page(virt_to_head_page(from->head));
- 		return -ENOMEM;
+-static void stm32_rng_remove(struct platform_device *ofdev)
+-{
+-	pm_runtime_disable(&ofdev->dev);
+-}
+-
+ static int __maybe_unused stm32_rng_runtime_suspend(struct device *dev)
+ {
+ 	struct stm32_rng_private *priv = dev_get_drvdata(dev);
+@@ -590,7 +585,9 @@ static int stm32_rng_probe(struct platform_device *ofdev)
+ 
+ 	pm_runtime_set_autosuspend_delay(dev, 100);
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_enable(dev);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
+ 
+ 	return devm_hwrng_register(dev, &priv->rng);
+ }
+@@ -602,7 +599,6 @@ static struct platform_driver stm32_rng_driver = {
+ 		.of_match_table = stm32_rng_match,
+ 	},
+ 	.probe = stm32_rng_probe,
+-	.remove = stm32_rng_remove,
+ };
+ 
+ module_platform_driver(stm32_rng_driver);
 
