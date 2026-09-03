@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2598B4E8E1D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE9094EBAD4
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449943; cv=none; b=qoWrc2DidrjAUsi+hayA3ggoWkYjW55/dHyPaTyM/+qWQJvSgdMUz8oop754NBGzRr2pnsUnipsdqN8MMTbJZ2MJVUMN5JxawhkJSLnLXirJpwQALRCedBIb3D7mIR9PzYanQM/Qx82JmoiqHT28Vhz7mw2DWZ0J3u8GkQa0VjM=
+	t=1788449946; cv=none; b=nhGj1xIFUYpN//Y8Gdhd/ryKOZJMQuekrDhgsV4AyT6ktoNfUyXTPxCrdUk5fUTGCu2gVe30n1jxTo1JE62UZdzcznNYDC3m3vZbZadnyICC+KBB13tIDFBddysFckVaxOYnm3IDidPwKbhRip8YdiKXRjnyJTJ37w/mwywjmWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449943; c=relaxed/simple;
-	bh=6KOFgS0FvpPkGlnrm+1LZw8wnph7AqeLUo3RPen7uPU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RQdqMHISufjn1ZLkynPJpBO530JGiMuniX2gWeO08DLzE2PNN8Yd7I/yHWiShRM+s8T2/UhFki+SSaIKK5zcrXMaNiTtFW2mnklVAcv6YATMPMOjrlpJOsjs32vCQW/gOIXUIIcLsQsJBXPHSNVACS3/5UUfC1Lc3Y9axZ+4xYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KnnXm/mM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449946; c=relaxed/simple;
+	bh=cskD6jYYimUvfR/Srd3ShTDVYyZ/cEqh1w02VrxaXEo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=j3J20HO7ZSz9SpqbSvdW+vRwdEDI/9YGiczylEKUnNgvVbO3rZIoK6uebLdjRfXbsX+fy1XIa5TcGax6gHehmWcKf3JZyJce/ReqC6UZZ51XGTxaWzLY4wnUt/HNWEqCF/+CF+OXaoKTs5j9JQhyd8sfPtUkWqiTreX6ur+0cJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=G8NsKhSd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KnnXm/mM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DF01F00ACA;
-	Thu,  3 Sep 2026 15:39:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="G8NsKhSd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05E241F00A3E;
+	Thu,  3 Sep 2026 15:39:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449941;
-	bh=DjHuBPLSRkRo/yJqdFMbcLdnxHtSNiOyhmDlg9R4bh0=;
+	s=korg; t=1788449944;
+	bh=mlfcn2BmHOsuE/grZQLHS4UpdL2equUIZ3v3AU7gh0I=;
 	h=Subject:To:Cc:From:Date;
-	b=KnnXm/mMBmxma8n3hnRCUdv9Z44e5LKKY+MxCFjlEkguMs+BWSMjKyccFf2g8NqQJ
-	 bhVop9TSmsT34mTxdBBdhOtGI0UMmBRcLzmdnLVirRNJOPLaP6fl5oPRBUBmAGG9vL
-	 ujG57pVUlYTneauvhozJbhKEX3sOndzIRbCTvO6w=
-Subject: FAILED: patch "[PATCH] net: fix spurious TX timeout after dev_activate()" failed to apply to 5.15-stable tree
-To: leitao@debian.org,kerneljasonxing@gmail.com,nb@tipi-net.de,pabeni@redhat.com
+	b=G8NsKhSdcmP04aOnMRhBVo63F9Kodgljgy3IxhjRmzpY7wT9JbuKYiAYkbJXzi+1K
+	 PQHAv8rRjdHnXs3aW8Fl7ClCZfjFn0qgH2apcFpShk7NWvqymNrq2gzV/O4CN3fFyF
+	 38MB2SNtqLYUFVYIk0MvSWKBDZocJYHHd9D/48DU=
+Subject: FAILED: patch "[PATCH] net: skbuff: don't touch shared zerocopy state in" failed to apply to 5.10-stable tree
+To: norbert@doyensec.com,i.maximets@ovn.org,pabeni@redhat.com,payload.jang@gmail.com,willemb@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:10:52 +0200
-Message-ID: <2026090352-dealmaker-grope-80e1@gregkh>
+Date: Thu, 03 Sep 2026 17:11:10 +0200
+Message-ID: <2026090310-contort-crabmeat-e1bf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 82aeed2400786bd3f79d88cb8b8f42e6127e5923
+git cherry-pick -x f66bdb1cc0fcd227a062378f8be0b5873aa5600a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-dealmaker-grope-80e1@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090310-contort-crabmeat-e1bf@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 82aeed2400786bd3f79d88cb8b8f42e6127e5923 Mon Sep 17 00:00:00 2001
-From: Breno Leitao <leitao@debian.org>
-Date: Tue, 25 Aug 2026 03:50:10 -0700
-Subject: [PATCH] net: fix spurious TX timeout after dev_activate()
+From f66bdb1cc0fcd227a062378f8be0b5873aa5600a Mon Sep 17 00:00:00 2001
+From: Norbert Szetei <norbert@doyensec.com>
+Date: Sat, 22 Aug 2026 11:15:08 +0200
+Subject: [PATCH] net: skbuff: don't touch shared zerocopy state in
+ skb_tx_error()
 
-While debugging another issue today, I found out that my TX queue is
-reported as stopped for 4294907392 ms (49.7 days), on a machine that
-had been up for four minutes.
+skb_tx_error() completes the zerocopy uarg and clears
+SKBFL_ALL_ZEROCOPY, and skb_zcopy_downgrade_managed() clears
+SKBFL_MANAGED_FRAG_REFS. Both live in skb_shinfo(), which every clone
+shares, while the caller only owns the reference it is about to drop.
+Through a clone it tells the producer its pages are free and drops
+SKBFL_SHARED_FRAG for an skb that is still in flight.
 
-    bnxt_en 0002:01:00.0 eth0: NETDEV WATCHDOG: CPU: 28: transmit queue 23 timed out 4294907392 ms
+Open vSwitch reaches this with a non-last OVS_ACTION_ATTR_RECIRC:
+clone_execute() sends a skb_clone() into ovs_dp_process_packet() while
+do_execute_actions() keeps forwarding the original, and skb_clone()
+does not privatise the frags here -- skb_orphan_frags() returns early
+on SKBFL_DONT_ORPHAN. A flow miss on the clone then strips the marker
+from the packet still being forwarded, and a later local ESP delivery
+decrypts in place over frags it does not own privately.
 
-4294907392 is not an elapsed time. It is the value of jiffies at that
-moment: INITIAL_JIFFIES is 4294667296, which leaves jiffies 59 seconds
-short of wrapping.
+Skip it for a cloned skb. Nothing is lost: skb_release_data() clears
+the zerocopy state once the last reference to the shared data goes.
 
-dev_activate() runs transition_one_qdisc() over every TX queue, which
-resets trans_start to 0, and then stamps only queue 0 through
-netif_trans_update().
-
-Stamp jiffies instead. A queue stopped across dev_activate() now gets a
-full watchdog_timeo of grace, and is still reported if it is stopped
-that long.
-
-Fixes: 9b36627acecd ("net: remove dev->trans_start")
+Fixes: 25121173f7b1 ("skb: api to report errors for zero copy skbs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
-Link: https://patch.msgid.link/20260825-trans_start-v2-1-286b4d6d70cb@debian.org
+Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Tested-by: Jongmin Jang <payload.jang@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/CFAB292A-674B-4C14-BB2C-BB8830AD5659@doyensec.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 
-diff --git a/net/sched/sch_generic.c b/net/sched/sch_generic.c
-index ef2b4bf51564..4539dc2c6d38 100644
---- a/net/sched/sch_generic.c
-+++ b/net/sched/sch_generic.c
-@@ -1278,7 +1278,7 @@ static void transition_one_qdisc(struct net_device *dev,
- 
- 	rcu_assign_pointer(dev_queue->qdisc, new_qdisc);
- 	if (need_watchdog_p) {
--		WRITE_ONCE(dev_queue->trans_start, 0);
-+		WRITE_ONCE(dev_queue->trans_start, jiffies);
- 		*need_watchdog_p = 1;
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index ab3d161247b9..b9541329f1a7 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -1417,10 +1417,13 @@ EXPORT_SYMBOL(skb_dump);
+  *
+  *	Report xmit error if a device callback is tracking this skb.
+  *	skb must be freed afterwards.
++ *
++ *	Does nothing for a cloned skb: the zerocopy state lives in
++ *	skb_shinfo(), which the clones share.
+  */
+ void skb_tx_error(struct sk_buff *skb)
+ {
+-	if (skb) {
++	if (skb && !skb_cloned(skb)) {
+ 		skb_zcopy_downgrade_managed(skb);
+ 		skb_zcopy_clear(skb, true);
  	}
- }
 
