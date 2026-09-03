@@ -1,188 +1,168 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A67F3002A9;
-	Thu,  3 Sep 2026 01:52:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EF92EEE9D;
+	Thu,  3 Sep 2026 01:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788400370; cv=none; b=rlb6B3BX2pGdodcNM0DLwt08U3hVvvUKJR2qIXufSpSrzYpak+TG6OVFd9jSK8Thk1ctJCUaClwXondIkgvw1MtacGMEoZs8yPhErB5dLI7VQE/YdOzxZNXT8nJWIuevrEmknldEHK7XXB+v8RWtg6cglZoPzLfOSV8sujIoKoo=
+	t=1788400494; cv=none; b=H8DE4nM3ndTLw1+b2URuJaGFt7xmCyoY2j3xgxEzXvdyoYoy/0A0cUr0oOWzVAHD2r5DYeb7a7rrGwbz6PoldxtvRlUo9smsR59Qf4wriRayQ6hcnhrTDKqjBssvk6/A6nGf/xpPoahxk+a0wgF3CjyGmnpHP0NyVEqJVV8ioKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788400370; c=relaxed/simple;
-	bh=BPMxLrFZvJjAIDilf0/JQYcl9EOiv5YCfUpd3Y1TxEE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SRDxoPmh/xorEuks09JM86qTz6bAymzVKFb5p9UZD0jB4BZGc4UEGi1YnpMniODgTdz02SX9s/Oohpkded1mmzp5McJ31ooA5DvNBipHo0uu9EZS7hBAlfN5Tqaz8L5+/0k3FJqIA/2H4kHleTUTtJesgPxIefcLShG1aaCvFAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=UcdH67Y6; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788400494; c=relaxed/simple;
+	bh=aLHhpEQdgO7uQWT/JcOunt2mxBPonGQ15ua7MBOAAM0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=hko55H6Os/eEj6xAAl8pl697+0kNxT8sLITRNl9mh6dJFghUpeVFmOT3qCu9ZEXizEKK0Mj3m0NM9ij90yrE3rTD83rmlAYKErt9uBBlqobkKteI3zjbUxlwX4O2Otw6UbTSDdoj7/JFp5pDQxfemKwz+eB2/7NzOvWJfj0dMck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yeawN7Gy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="UcdH67Y6"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E83F740E016C;
-	Thu,  3 Sep 2026 01:52:44 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 2WRY7zjPmZgx; Thu,  3 Sep 2026 01:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788400328; bh=2UUatXLSffeF0BsLHmu1+wqtFrFN8+UbBafBkI67yBs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UcdH67Y6KWCctvT+15SmLXK1gD8zOpa4q+fvScRLlwD5YdQ/leTBlUmGLHNCYknTA
-	 ok7k2cSywhuWreIOqQdTzj6F7XRUP7aTCfeuZ1zS5ax0o95gmKhRoZTCF5cODIH4/5
-	 p4RWxSuV3Ufdi3/M1VfSuywyUTz2PlZGl1AWhBnJ6uHwiOpsZutL0Oiz9CAmN/etDF
-	 M55f2LjxzOnbrdXaQymI+jd8+7w4azDnSFt7sqKsbjVmGWFQBUPSHmSiQWFaBkFB2t
-	 qtkdtsWbvm1s9w4ldGUjBBnWLq6R+TrQjTY2QFTKX+oGMs+PFuSXxpOvQdi6mfKKfg
-	 ymWzlwFoL7/tv7gjda57TITE3wL3H2XC3Ve77QdCoBPxYQEJf0ScTNZMYQWAKKdCgC
-	 zwAjXVLWGc6GJz6miXYP+o7EUunwz28n1G57zLeuNqT52Sx+7vES+U2mYGOyX3Ru5d
-	 DG7eRzaz9JyoGO7JsnNQIFzFMU98RNd4bqr81LJzSPHzO36KzuCIt5P10vhZpZBKu3
-	 BqZgoO1VkmudNKcxi6pfy4dTj63GGsTm4WnUCLzo8yxNom23hndMv68ZLswj7+tX1r
-	 l1/NpEDQ+g7puV+4Ii587kk+EWIqvwGS6Ui7jENPuJx6dNL9umTTPE9BJ8qfvFS/4z
-	 lwqTU8UKeIPt3QL3psGiSWyo=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4D3D640E03D5;
-	Thu,  3 Sep 2026 01:51:58 +0000 (UTC)
-Date: Wed, 2 Sep 2026 18:51:55 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
-	andrew.cooper3@citrix.com, arjan.van.de.ven@intel.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
- GNR systems
-Message-ID: <20260903015154.GMapjSujbkKGzyihVB@fat_crate.local>
-References: <20260901231634.714144-1-chang.seok.bae@intel.com>
- <20260901231634.714144-2-chang.seok.bae@intel.com>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yeawN7Gy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02EF1F000E9;
+	Thu,  3 Sep 2026 01:54:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788400492;
+	bh=gHmtDEPfgNa8T8L87oSiVhjCoLBlb5om5vFe4YPpkQE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=yeawN7GyCWIsCaemmopXXvBAdCqRnHWmFWKvAp5QnCCQl6S6aD4DGWTYn2s0jrkl/
+	 ZCt/+Et3K2+sLkhjDH2EOIVDnvL/ITKYlNtpy/RhUPPtcdv/2I7iHcxADslp9KZbSn
+	 +ZRykQwCtAxPRZAwGvwwo7P8CEv3g83mPlN2SDoA=
+Date: Wed, 2 Sep 2026 18:54:51 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+f12658786a4153df5113@syzkaller.appspotmail.com>
+Cc: jannh@google.com, kunwu.chan@gmail.com, kunwu.chan@linux.dev,
+ liam@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ lixinhai.lxh@gmail.com, ljs@kernel.org, pfalcato@suse.de,
+ stable@vger.kernel.org, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
+Subject: Re: [syzbot] [mm?] WARNING in vma_set_pgoff
+Message-Id: <20260902185451.5ba1a829a15bb2799d121bd1@linux-foundation.org>
+In-Reply-To: <6a9896aa.e163c37b.143a1.000d.GAE@google.com>
+References: <6a87853b.ae6ddae5.3da009.0023.GAE@google.com>
+	<6a9896aa.e163c37b.143a1.000d.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901231634.714144-2-chang.seok.bae@intel.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 11:16:26PM +0000, Chang S. Bae wrote:
-> +static bool is_loading_denied(struct cpu_signature *sig, u32 rev)
+On Wed, 02 Sep 2026 14:35:38 -0700 syzbot <syzbot+f12658786a4153df5113@syzkaller.appspotmail.com> wrote:
 
-This naming is not better, sorry.
+> syzbot has found a reproducer for the following issue on:
+> 
+> HEAD commit:    89a312991dc6 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=101ab0f9580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+> dashboard link: https://syzkaller.appspot.com/bug?extid=f12658786a4153df5113
+> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+> userspace arch: i386
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=151ec39e580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1761ef79580000
+> 
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/9e57f69218a4/disk-89a31299.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/c6ae7c71d018/vmlinux-89a31299.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/82fb8eee8abf/bzImage-89a31299.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
 
-Is loading denied means the loading in general is denied because <raisin> or
-are you trying to check whether this particular revision should not be loaded?
+Thanks.
 
-I think it is latter.
+> ------------[ cut here ]------------
+> pgoff != vma->vm_start >> 12
+> WARNING: mm/vma.h:277 at assert_sane_pgoff mm/vma.h:277 [inline], CPU#1: syz.0.17/5876
+> WARNING: mm/vma.h:277 at vma_set_pgoff+0x246/0x2d0 mm/vma.h:283, CPU#1: syz.0.17/5876
 
-So you wanna say
+AI tells me Lorenzo already fixed this with "mm/mremap: reset unfaulted
+VMA page offset for MREMAP_DONTUNMAP".  This is presently in
+mm-hotfixes-unstable so I'll send it in to Linus next week.
 
-	revision_blacklisted()
+Err, make that this week.
 
-or so.
 
-> +{
-> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
-> +
-> +	/*
-> +	 * Revision 0x1000405 contains prerequisite changes for subsequent
-> +	 * microcode updates on Granite Rapids systems. Updates directly from
-> +	 * an older revision to this or a newer one can result in #MC (GNR98).
-> +	 *
-> +	 * This dependency can be indicated from the minimum revision field.
-> +	 * However, revision 0x1000423 has an incorrect minimum revision in its
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
-So you lost me here: 0x1000423 is not tested anywhere - just mentioned here.
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: mm/mremap: reset unfaulted VMA page offset for MREMAP_DONTUNMAP
+Date: Tue, 25 Aug 2026 08:55:26 +0100
 
-So what I understand is: usually, dependencies like that can be expressed with
-minrev but *in addition* to the current issue, patch 0x1000423 has minrev
-wrong so that dependency cannot be upheld there either.
+Uniquely an mremap() invocation using the MREMAP_DONTUNMAP flag can reset
+a faulted VMA into an unfaulted one.
 
-But then why even mention it if you're not going to test it?
+It does so after the page tables have been moved to the copied VMA with
+MREMAP_DONTUNMAP leaving the old VMA in place which is naturally unfaulted
+as the page tables it had are no longer present.
 
-Why do we care about GNR101 at all?
+However, in doing so, it violates the invariant that the anonymous page
+offset of an unfaulted VMA is vma->vm_start >> PAGE_SHIFT.
 
-> +	 * header (GNR101).
-> +	 *
-> +	 * Prevent loading 0x1000405 or later unless the CPU has already been
-> +	 * updated to 0x1000405 or later.
-> +	 */
-> +	if (vfm == INTEL_GRANITERAPIDS_X &&
-> +	    x86_stepping(sig->sig) == 1 &&
-> +	    sig->pf & 0x95 &&
-> +	    sig->rev < 0x1000405 &&
-> +	    rev >= 0x1000405) {
+This is because a VMA may have been faulted in, mremap()'d (causing a
+delta between its page offset and vma->vm_start >> PAGE_SHIFT), and then
+mremap()'d again with MREMAP_DONTUNMAP resulting in the unfaulting.
 
-You don't really need to test rev here - it is enough that sig->rev is
-< 0x1000405 - that already makes you susceptible and then you can check rev
-inside the { }.
+This condition is a violation of a fundamental assumption in mm, but now
+also triggers an assert in assert_sane_pgoff() which explicitly checks for
+this condition.
 
-> +		if (rev == 0x1000405)
-> +			pr_err_once("Erratum GNR98: 0x1000405 is not loadable.\n");
-> +		else
-> +			pr_err_once("Erratum GNR98: 0x1000405 is required before 0x%x.\n", rev);
-> +		pr_err_once("Please update the system BIOS or firmware.\n");
+Correct it by resetting the VMA's page offset at the point of completing
+the MREMAP_DONTUNMAP operation.
 
-This is useless most of the time because client won't usually get BIOS
-updates. You can tell people they should update their microcode packages
-instead. That's where we can really help.
+Link: https://lore.kernel.org/20260825-fix-mremap-dontunmap-pgoff-v1-1-39a40b2c98b3@kernel.org
+Fixes: 1583aa278f5f ("mm: mremap: unlink anon_vmas when mremap with MREMAP_DONTUNMAP success")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reported-by: syzbot+f12658786a4153df5113@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6a87853b.ae6ddae5.3da009.0023.GAE@google.com/
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Cc: Jann Horn <jannh@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Li Xinhai <lixinhai.lxh@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
-> +		return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  /* Scan blob for microcode matching the boot CPUs family, model, stepping */
->  static __init struct microcode_intel *scan_microcode(void *data, size_t size,
->  						     struct ucode_cpu_info *uci,
-> @@ -330,6 +362,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
->  		if (!intel_find_matching_signature(data, &uci->cpu_sig))
->  			continue;
->  
-> +		if (is_loading_denied(&uci->cpu_sig, mc_header->rev))
-> +			continue;
-> +
->  		/*
->  		 * For saving the early microcode, find the matching revision which
->  		 * was loaded on the BSP.
-> @@ -878,6 +913,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
->  		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
->  			continue;
->  
-> +		if (is_loading_denied(&uci->cpu_sig, mc_header.rev))
-> +			continue;
-> +
->  		is_safe = ucode_validate_minrev(&mc_header);
->  		if (force_minrev && !is_safe)
->  			continue;
-> @@ -905,7 +943,7 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
->  	return UCODE_ERROR;
->  }
->  
-> -static bool is_blacklisted(unsigned int cpu)
-> +static bool is_late_loading_denied(unsigned int cpu)
->  {
->  	struct cpuinfo_x86 *c = &cpu_data(cpu);
->  
-> @@ -936,7 +974,7 @@ static enum ucode_state request_microcode_fw(int cpu, struct device *device)
->  	struct kvec kvec;
->  	char name[30];
->  
-> -	if (is_blacklisted(cpu))
-> +	if (is_late_loading_denied(cpu))
+ mm/mremap.c |   22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-Aaaah, you wanna be politically correct and can't use "blacklisted" anymore.
+--- a/mm/mremap.c~mm-mremap-reset-unfaulted-vma-page-offset-for-mremap_dontunmap
++++ a/mm/mremap.c
+@@ -1331,18 +1331,30 @@ static void dontunmap_complete(struct vm
+ {
+ 	unsigned long start = vrm->addr;
+ 	unsigned long end = vrm->addr + vrm->old_len;
+-	unsigned long old_start = vrm->vma->vm_start;
+-	unsigned long old_end = vrm->vma->vm_end;
++	struct vm_area_struct *vma = vrm->vma;
++	unsigned long old_start = vma->vm_start;
++	unsigned long old_end = vma->vm_end;
+ 
+ 	/* We always clear VMA_LOCKED[ONFAULT]_BIT on the old VMA. */
+-	vma_clear_flags_mask(vrm->vma, VMA_LOCKED_MASK);
++	vma_clear_flags_mask(vma, VMA_LOCKED_MASK);
+ 
+ 	/*
+ 	 * anon_vma links of the old vma is no longer needed after its page
+ 	 * table has been moved.
+ 	 */
+-	if (new_vma != vrm->vma && start == old_start && end == old_end)
+-		unlink_anon_vmas(vrm->vma);
++	if (new_vma != vma && start == old_start && end == old_end) {
++		const pgoff_t pgoff_unfaulted = vma->vm_start >> PAGE_SHIFT;
++
++		unlink_anon_vmas(vma);
++		/*
++		 * The VMA is now unfaulted and it is an invariant that
++		 * unfaulted anonymous VMAs have page offset equal to
++		 * vma->vm_start >> PAGE_SHIFT.
++		 */
++		vma_set_anon_pgoff(vma, pgoff_unfaulted);
++		if (vma_is_anonymous(vma) && !vma->vm_file)
++			vma_set_pgoff(vma, pgoff_unfaulted);
++	}
+ 
+ 	/* Because we won't unmap we don't need to touch locked_vm. */
+ }
+_
 
-Well, you're not introducing new usage so you don't have to touch old usage.
-And "is denied" does not express the situation properly. Try a better one.
-
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
