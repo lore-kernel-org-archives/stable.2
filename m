@@ -1,37 +1,37 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.166.228])
+Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.166.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF2C37DAA3;
-	Thu,  3 Sep 2026 00:00:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DF336F8F9;
+	Thu,  3 Sep 2026 00:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.166.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393644; cv=none; b=H6Wb1bYj5Psxq5qNSUyR5FDu9dKax7lTenl59FtXiCLdCRmwlFamYmBqqY4y4h54Ok5rIMjYWqaotR8P1nsVycXJpTZJVjW30n7WfnkYbajInwV6oP874mJkTbYKrQefDj0CscwWynY/zwokjYH0F20zb6NmF2pa/+/pLpK05vM=
+	t=1788393646; cv=none; b=ORXXhRXPjRRYSd+PuHyBIVj7JK0k3ZJJvVFs9e3qDNd6ilU/phBMhyib+qP18pBzRXM69jZUeKeyOudISZFGLw8vmy2MrJVTRHxlsKAioRdBt3QK9kp0GShsYeV8C6wj9Io3E8W48f50ObXM6F6XA1T1s8ehdsP9f1qNoOvFEWs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393644; c=relaxed/simple;
-	bh=9i64R4d3krm0e8EjQ2O+D2A0uMFpGMipNf8JLjr7FdI=;
+	s=arc-20240116; t=1788393646; c=relaxed/simple;
+	bh=02tH3wBgev3EXTNZ6XrvuGGgwkdoM92FA28bcktVpWU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=iioIIr1LjJaAYh6kmf/rc0+d83agEuh5lsH2Xncsb2aQFaORjXz68btF7bEzyE2MMEnYdrQfa8IwePMJvfsyyQH6w0eBeujNp2V/Wyre35bqu/SC+LM75l5oyXySRTcZ+IV7JINBbbhwfPJDaKqyqLJgLXwDg4ZGhYbOJGcc5sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ZO6jXUhB; arc=none smtp.client-ip=192.19.166.228
+	 MIME-Version; b=o1UwBuQckyGlJwzVFqQhpZDDuS5y/EhKrsfwzIjXHoVdKj8fzUBCDU6nV+ShWhz/O+55swiP5E+GTIh9XeIw1tWwEkRqwD+liGII4mmZujrTj7eRmaoirKAYSXp5oW8Sm3//qYwwAtJLogyj2QJ12Juq+IW87NKGLjuwhgPyQ/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=fMbkXasF; arc=none smtp.client-ip=192.19.166.231
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ZO6jXUhB"
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="fMbkXasF"
 Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 4D748C0000FA;
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id B7964C0000D7;
 	Wed,  2 Sep 2026 17:00:36 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 4D748C0000FA
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com B7964C0000D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
 	s=dkimrelay; t=1788393636;
-	bh=9i64R4d3krm0e8EjQ2O+D2A0uMFpGMipNf8JLjr7FdI=;
+	bh=02tH3wBgev3EXTNZ6XrvuGGgwkdoM92FA28bcktVpWU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ZO6jXUhBCORUi+zeZ5YBUxGliIPrxBn8SKfbfvAN6ViTMveYTgmJbQ2tvmerLBvlD
-	 YyRNYDaiRAWikRVRa2vKp459KSllykdSbYRZT8dGygQ7kXXSVV/1BxIF9ya3v5RgG9
-	 skSmmIGLfhU8WGf08secktOlbWtHyk53wT7BP7yg=
+	b=fMbkXasFVxjvJbItu848btjTSdJe+R9W4Pk/SOmMufig6I2yPVWQFyDDcZedYXfTU
+	 udvjjUR8SZo8wiV/G3aC3TL6GJ0SDw3HYigeMIUOneKUT14V8Ug+8riv+sXUVcqCIR
+	 L6sCC44QCQ7oyn5I4KHf3xkO1p3CjTRyYWpn/Cm0=
 Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 1D156A9F;
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 8620FA9A;
 	Wed,  2 Sep 2026 17:00:36 -0700 (PDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: stable@vger.kernel.org
@@ -51,9 +51,9 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	linux-kernel@vger.kernel.org (open list),
 	mptcp@lists.linux.dev (open list:NETWORKING [MPTCP]),
 	bcm-kernel-feedback-list@broadcom.com
-Subject: [PATCH stable 5.15.y] tcp: fix potential race in tcp_v6_syn_recv_sock()
-Date: Wed,  2 Sep 2026 17:00:27 -0700
-Message-Id: <20260903000029.3508006-2-florian.fainelli@broadcom.com>
+Subject: [PATCH stable 6.6.y] tcp: fix potential race in tcp_v6_syn_recv_sock()
+Date: Wed,  2 Sep 2026 17:00:29 -0700
+Message-Id: <20260903000029.3508006-4-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260903000029.3508006-1-florian.fainelli@broadcom.com>
 References: <20260903000029.3508006-1-florian.fainelli@broadcom.com>
@@ -108,16 +108,16 @@ Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
  net/ipv4/tcp_fastopen.c            |  2 +-
  net/ipv4/tcp_ipv4.c                |  8 ++-
  net/ipv4/tcp_minisocks.c           |  2 +-
- net/ipv6/tcp_ipv6.c                | 98 +++++++++++++-----------------
+ net/ipv6/tcp_ipv6.c                | 97 +++++++++++++-----------------
  net/mptcp/subflow.c                |  6 +-
  net/smc/af_smc.c                   |  6 +-
- 9 files changed, 66 insertions(+), 66 deletions(-)
+ 9 files changed, 66 insertions(+), 65 deletions(-)
 
 diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 7a015055fe6d..97e8969b3796 100644
+index 3eb715f66cbf..b7935e293757 100644
 --- a/include/net/inet_connection_sock.h
 +++ b/include/net/inet_connection_sock.h
-@@ -41,7 +41,9 @@ struct inet_connection_sock_af_ops {
+@@ -42,7 +42,9 @@ struct inet_connection_sock_af_ops {
  				      struct request_sock *req,
  				      struct dst_entry *dst,
  				      struct request_sock *req_unhash,
@@ -129,10 +129,10 @@ index 7a015055fe6d..97e8969b3796 100644
  	u16	    net_frag_header_len;
  	u16	    sockaddr_len;
 diff --git a/include/net/tcp.h b/include/net/tcp.h
-index be91d81d66ab..dc532cbde05e 100644
+index 23d830a7a6c8..7392f51a3479 100644
 --- a/include/net/tcp.h
 +++ b/include/net/tcp.h
-@@ -446,7 +446,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+@@ -461,7 +461,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
  				  struct request_sock *req,
  				  struct dst_entry *dst,
  				  struct request_sock *req_unhash,
@@ -144,10 +144,10 @@ index be91d81d66ab..dc532cbde05e 100644
  int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len);
  int tcp_connect(struct sock *sk);
 diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index 03b0505178f9..5a61f9a364ad 100644
+index e14356207795..9deeb3f8215e 100644
 --- a/net/ipv4/syncookies.c
 +++ b/net/ipv4/syncookies.c
-@@ -201,7 +201,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
+@@ -199,7 +199,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
  	bool own_req;
  
  	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
@@ -157,10 +157,10 @@ index 03b0505178f9..5a61f9a364ad 100644
  		refcount_set(&req->rsk_refcnt, 1);
  		tcp_sk(child)->tsoffset = tsoff;
 diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index 1c50867d3e7e..f3ed7d5ff7ef 100644
+index 408985eb74ee..51bd11588d6d 100644
 --- a/net/ipv4/tcp_fastopen.c
 +++ b/net/ipv4/tcp_fastopen.c
-@@ -251,7 +251,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
+@@ -247,7 +247,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
  	bool own_req;
  
  	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
@@ -170,10 +170,10 @@ index 1c50867d3e7e..f3ed7d5ff7ef 100644
  		return NULL;
  
 diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index f7693166c516..32b55a6b5e03 100644
+index 3f9e1cfde008..163c8726a17d 100644
 --- a/net/ipv4/tcp_ipv4.c
 +++ b/net/ipv4/tcp_ipv4.c
-@@ -1556,7 +1556,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+@@ -1566,7 +1566,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
  				  struct request_sock *req,
  				  struct dst_entry *dst,
  				  struct request_sock *req_unhash,
@@ -184,7 +184,7 @@ index f7693166c516..32b55a6b5e03 100644
  {
  	struct inet_request_sock *ireq;
  	bool found_dup_sk = false;
-@@ -1612,6 +1614,10 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
+@@ -1622,6 +1624,10 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
  	}
  	sk_setup_caps(newsk, dst);
  
@@ -196,10 +196,10 @@ index f7693166c516..32b55a6b5e03 100644
  
  	tcp_sync_mss(newsk, dst_mtu(dst));
 diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 061225d645e6..be4fb0ce2574 100644
+index 86f0feb2497f..d6d64697ce89 100644
 --- a/net/ipv4/tcp_minisocks.c
 +++ b/net/ipv4/tcp_minisocks.c
-@@ -769,7 +769,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
+@@ -817,7 +817,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
  	 * socket is created, wait for troubles.
  	 */
  	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
@@ -209,10 +209,10 @@ index 061225d645e6..be4fb0ce2574 100644
  		goto listen_overflow;
  
 diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index dea59b123eb7..77069176137d 100644
+index 689c0b383ebf..f13fdd1214aa 100644
 --- a/net/ipv6/tcp_ipv6.c
 +++ b/net/ipv6/tcp_ipv6.c
-@@ -1234,11 +1234,48 @@ static void tcp_v6_restore_cb(struct sk_buff *skb)
+@@ -1180,11 +1180,48 @@ static void tcp_v6_restore_cb(struct sk_buff *skb)
  		sizeof(struct inet6_skb_parm));
  }
  
@@ -262,7 +262,7 @@ index dea59b123eb7..77069176137d 100644
  {
  	struct inet_request_sock *ireq;
  	struct ipv6_pinfo *newnp;
-@@ -1254,61 +1291,10 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
+@@ -1200,60 +1237,10 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
  #endif
  	struct flowi6 fl6;
  
@@ -279,7 +279,6 @@ index dea59b123eb7..77069176137d 100644
 -
 -		inet_sk(newsk)->pinet6 = tcp_inet6_sk(newsk);
 -
--		newinet = inet_sk(newsk);
 -		newnp = tcp_inet6_sk(newsk);
 -		newtp = tcp_sk(newsk);
 -
@@ -329,10 +328,10 @@ index dea59b123eb7..77069176137d 100644
  
  	if (sk_acceptq_is_full(sk))
 diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 2ec22660ba7a..33b16ea7ae5b 100644
+index d3b5c2d48b53..db2e3a1ebb6e 100644
 --- a/net/mptcp/subflow.c
 +++ b/net/mptcp/subflow.c
-@@ -670,7 +670,9 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+@@ -788,7 +788,9 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
  					  struct request_sock *req,
  					  struct dst_entry *dst,
  					  struct request_sock *req_unhash,
@@ -343,7 +342,7 @@ index 2ec22660ba7a..33b16ea7ae5b 100644
  {
  	struct mptcp_subflow_context *listener = mptcp_subflow_ctx(sk);
  	struct mptcp_subflow_request_sock *subflow_req;
-@@ -720,7 +722,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+@@ -834,7 +836,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
  
  create_child:
  	child = listener->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
@@ -353,10 +352,10 @@ index 2ec22660ba7a..33b16ea7ae5b 100644
  	if (child && *own_req) {
  		struct mptcp_subflow_context *ctx = mptcp_subflow_ctx(child);
 diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index fe014abcfa4f..1fa44d64958c 100644
+index 087102ff3c64..dba856528890 100644
 --- a/net/smc/af_smc.c
 +++ b/net/smc/af_smc.c
-@@ -76,7 +76,9 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
+@@ -119,7 +119,9 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
  					  struct request_sock *req,
  					  struct dst_entry *dst,
  					  struct request_sock *req_unhash,
@@ -367,7 +366,7 @@ index fe014abcfa4f..1fa44d64958c 100644
  {
  	struct smc_sock *smc;
  	struct sock *child;
-@@ -101,7 +103,7 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
+@@ -144,7 +146,7 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
  
  	/* passthrough to original syn recv sock fct */
  	child = smc->ori_af_ops->syn_recv_sock(sk, skb, req, dst, req_unhash,
