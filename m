@@ -1,144 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9AAC31E823
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 23:50:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0966A367B67;
+	Thu,  3 Sep 2026 23:53:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788479421; cv=none; b=Hgns5dXbSZ5u0nywgaNZ2yMGpkmBCEZRo9i2eG+doHSVxUGVpakOmP1QpC3okBLroOIHsTrNGiMkNemQ50YlLXnQBy9DElrTGelTo+1oE1G3he4p7lN58ssWb+/aelYVROaXx9YRfQFdaCSrRsDGIYXcmO2ND6jHgposX+8sGaw=
+	t=1788479611; cv=none; b=jWrPLXc27fv8lMjHaGUSf2gRtIxx7orsGhV7MphppFlvrZzpeJeNJfvilIQiklDtqjyX7ohvNiBT6IOGPsQpjqRCm3Z14Vr3VRSk0dJyupfmBqLKOmQyyjQwJm23stUKNenVO4CfWWOiXmPkw6d+2UaXkeSn68lNYihBbsd5pLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788479421; c=relaxed/simple;
-	bh=hppceOpWXiCC7EqCtZd1R6pLABgHvNnChLrbRyiLF/A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KxZc0j3MeZf0WACKPmdGwphrqb+L/HDT0aHFjrlbyX8Ze5LrtQZAuTmll7D/Cc0GQs1tK4iQ0LaUC1h47vpVl6aQ5xKWsT1lD+4FTo3F9nc9FW6JOJPSU87BhDJtyRccXw8ml4QCjN8U2bTkuWOBBwA2xgImEygljv+pnNgNcGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLI1xRJc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788479611; c=relaxed/simple;
+	bh=1oX3pvRXVVEy28Z48yATJwM23C1A7pxgKjaHrF/bOXY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=CH8hZ/4oUXV4M7X/c0K3B7zXIaqV7OiStFvx/0GW1Ur2nQbMb0MiL1HeOE/pZ0/o+b4PF+oQmxUGE/KWt2cnV37A4Yusk38j2ENl7CTf51MGfmR94SXtT/VEVMOqhx0nBLU+smTc7HRsWif5ySSPzvRqN2tFzQt3DrB8sksjuGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Uk+m9wlV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLI1xRJc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 466DF1F00A3D;
-	Thu,  3 Sep 2026 23:50:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788479419;
-	bh=/7NUdW/hMwX+Ft52klzjW8ibceNApwTOHTPTfCH+5g8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kLI1xRJceX8D3Dq2k7ExNYUibgNSTTQhfeaxOdnfYwzvfEN4CtHHoGtlvihQL+sT/
-	 OFhqaoKnidep4eXPYrjijvITFl4OEvE7mrzILC2ja/g7I82ENFCPc9YbKE6aWvBVNN
-	 bcvtGLjJLe4+GsBdsOgtqKM4FczCnF0Bj5x8vJJRFwMZl/OmIDSlJ1vR2pNjSNvfcq
-	 KL2PURDLe1sxfLFooqGous1JH1LhoeuM6wNii/ZJydzUkmqYq6SlL05vl9dBNm/VMG
-	 HgkHPbO7pQFq6GC3orqVKNZIEAUER1agh0vcUNfHpDuNowI3ykVFY9QwqQaS26IqdN
-	 /Kf8+piy6Q0EQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ye Liu <ye.liu@linux.dev>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Brendan Jackman <jackmanb@google.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/page_owner: use memcg_data snapshot to avoid TOCTOU in print_page_owner_memcg()
-Date: Thu,  3 Sep 2026 19:50:16 -0400
-Message-ID: <20260903235016.1804338-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090314-dayroom-oblong-b702@gregkh>
-References: <2026090314-dayroom-oblong-b702@gregkh>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Uk+m9wlV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770721F000E9;
+	Thu,  3 Sep 2026 23:53:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788479609;
+	bh=UF7yqAp8ad+9sMAMDxO8x1qaT7SamIPUcIuJfPgR/wE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Uk+m9wlVUndtTSDqMjlQ18780tb8+rvugNYeEio+29CXjGT3nCz5uJkUU4dmL/8N2
+	 KLPVjhXRir+7Ku8w5RHFhLFfU308IBkFDEm1noTc2OaDDHiZKDYmuyCmKShEMvUmme
+	 RXswuNalV7Mu1dLlbMS3bVXItpa0zTpfSefpfZqc=
+Date: Thu, 3 Sep 2026 16:53:28 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Adam Harshbarger <handyhandyman.adam@gmail.com>
+Cc: I Hsin Cheng <richard120310@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, stable@vger.kernel.org
+Subject: Re: [PATCH] lib/plist: fix plist_requeue() corrupting order in the
+ last bucket
+Message-Id: <20260903165328.2e781581d28ce1f4dbbc0da7@linux-foundation.org>
+In-Reply-To: <20260903222456.1881786-1-handyhandyman.adam@gmail.com>
+References: <20260903222456.1881786-1-handyhandyman.adam@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Ye Liu <ye.liu@linux.dev>
+On Thu,  3 Sep 2026 17:24:56 -0500 Adam Harshbarger <handyhandyman.adam@gmail.com> wrote:
 
-[ Upstream commit 90f095b816e25c6a9e4446d299bac5007fdcb3df ]
+> plist_requeue() is meant to move a node to the end of its own priority
+> run.  When the node heads the *last* priority bucket it is instead placed
+> at the head of the whole list, leaving the plist unsorted:
+> 
+> ...
+>
+> Reachable from mm/swapfile.c, which rotates swap_avail_heads[] with
+> plist_requeue().  It takes three or more swap devices: at least two
+> distinct priorities, so that a later bucket exists for the ring to wrap
+> round from, and two or more devices sharing the lowest priority, so that
+> plist_requeue() does not return early.  One device per priority returns
+> early at the node->prio != iter->prio test.  A single priority is also
+> safe, but for a different reason worth stating: with one bucket no node
+> is ever linked onto prio_list at all -- plist_add() skips it for the
+> first node and for every node whose predecessor shares its priority --
+> so list_empty(&iter->prio_list) holds and the shortcut is never entered.
+> 
+> ...
+>
 
-print_page_owner_memcg() reads page->memcg_data via READ_ONCE() at the
-start to guard against tail pages and NULL data.  However, it later
-re-reads page->memcg_data locklessly in two places:
+Thanks.
 
-1: page_memcg_check(page)
+> Fixes: 95d4b3450ebe ("lib/plist.c: add shortcut for plist_requeue()")
+> Cc: stable@vger.kernel.org # v6.15+
 
-2: PageMemcgKmem(page) (via folio_memcg_kmem(), which includes
-   VM_BUG_ON assertions for tail pages and MEMCG_DATA_OBJEXTS)
-
-If the page is concurrently freed and reallocated as a THP tail page or
-slab page between these calls, the VM_BUG_ON assertions can trigger on
-CONFIG_DEBUG_VM=y builds, crashing the kernel.
-
-Fix both TOCTOU issues by using the memcg_data snapshot throughout.
-
-Link: https://lore.kernel.org/20260714015117.78351-10-ye.liu@linux.dev
-Fixes: fcf8935832b8 ("mm/page_owner: print memcg information")
-Signed-off-by: Ye Liu <ye.liu@linux.dev>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Brendan Jackman <jackmanb@google.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: David Hildenbrand (Arm) <david@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted memcg_data decoding to Linux 6.6’s mixed mem_cgroup and obj_cgroup representation. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_owner.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/mm/page_owner.c b/mm/page_owner.c
-index 4e2723e1b300d..e76bd0fad80ee 100644
---- a/mm/page_owner.c
-+++ b/mm/page_owner.c
-@@ -363,20 +363,28 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- {
- #ifdef CONFIG_MEMCG
- 	unsigned long memcg_data;
-+	struct obj_cgroup *objcg;
- 	struct mem_cgroup *memcg;
- 	bool online;
- 	char name[80];
- 
- 	rcu_read_lock();
- 	memcg_data = READ_ONCE(page->memcg_data);
--	if (!memcg_data)
-+	if (!memcg_data || PageTail(page))
- 		goto out_unlock;
- 
--	if (memcg_data & MEMCG_DATA_OBJCGS)
-+	if (memcg_data & MEMCG_DATA_OBJCGS) {
- 		ret += scnprintf(kbuf + ret, count - ret,
- 				"Slab cache page\n");
-+		goto out_unlock;
-+	}
- 
--	memcg = page_memcg_check(page);
-+	if (memcg_data & MEMCG_DATA_KMEM) {
-+		objcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
-+		memcg = objcg ? obj_cgroup_memcg(objcg) : NULL;
-+	} else {
-+		memcg = (void *)(memcg_data & ~MEMCG_DATA_FLAGS_MASK);
-+	}
- 	if (!memcg)
- 		goto out_unlock;
- 
-@@ -384,7 +392,7 @@ static inline int print_page_owner_memcg(char *kbuf, size_t count, int ret,
- 	cgroup_name(memcg->css.cgroup, name, sizeof(name));
- 	ret += scnprintf(kbuf + ret, count - ret,
- 			"Charged %sto %smemcg %s\n",
--			PageMemcgKmem(page) ? "(via objcg) " : "",
-+			(memcg_data & MEMCG_DATA_KMEM) ? "(via objcg) " : "",
- 			online ? "" : "offline ",
- 			name);
- out_unlock:
--- 
-2.53.0
+Why the cc:stable?  A description of the userspace impact would help
+people understand the need for backporting.  Please always include
+such a description when fixing things.
 
