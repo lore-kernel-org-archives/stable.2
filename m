@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 291EF4E56DB
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC9C4E56C5
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:39:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449991; cv=none; b=pUQvBR2Byh5ig8i4Cw2Frd91S6vlCz6DXyUYU1hvXeP7X7ROVc9ONfUO/+AHaq7V3ah3A64ITgp4ICZ+f2HVH1blRoT182cDR5iKUE6L2Sdpd6g5+b3W6SHOBx9Dk7P/tBQT3aPTOjAze7CJF//bzzi1Y/xx8Rb83h2+bmcjtDw=
+	t=1788449994; cv=none; b=hFeUtyt84t+ag0i/RkJZwpv4pk/vt4Gi2nxoowm5L8zZltcIMSEERdkVY35kDODYfYF9MllE7SEkW48sb3LKGjzGPkPdBLsp+Z8TUk3hXJzk/+Vb+cg+29ZFUIp4JO5+wyazKx3gDOKwUmmBoX5DeGTa/CJItlA5mD7mtV9WIkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449991; c=relaxed/simple;
-	bh=EdgobFxrg1P65Qnr5elE80ruHcdtNIH/NSktOOzx6qs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sWdqTSUkKnhVAr8OVegDJCeKFQQkaLr6XEGXOpP2tJBHpW2nlAINtphRhfwL6WWtLPXUltOPjPqILHlSf3KdLYfTBRdN5iYj+SxAENaU5IxWNSlSenfVwEOnUogxSaUAiQG8DV5J8mj8afE2lHb2bRbc43JK+ElXUcgDhmDHLHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XSVa3fYC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788449994; c=relaxed/simple;
+	bh=WoBDdFh/3DpqotJrYImnqA5NTOeeHgc2P+dauydW3ig=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ae6MUp0VbBgIBjg9zQHbsXYTdXMdQ68O4Tk5gnf/ia1jFZYep/vKkpfD1AiOVPP8ffCo5fEwy0joq3RLLYdWYnkRER1nUds5GX7Jp87J9VUsJ5XMQgx375kqyDHUpSHvvOLGlH0j4JOSRFiHYlvbXngK6L7Q6n9KpLANjXyk4MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A1gg4BMg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XSVa3fYC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F8E1F000E9;
-	Thu,  3 Sep 2026 15:39:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A1gg4BMg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561221F000E9;
+	Thu,  3 Sep 2026 15:39:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788449990;
-	bh=M1G+zKYJkFGfktI4aoc0KDDoVtP5oaaJ3LYnVtTb1b0=;
+	s=korg; t=1788449992;
+	bh=XKHNDyIdWo/QwEZzLW2DzvITl27SUcKwAMm3ZxrnLo8=;
 	h=Subject:To:Cc:From:Date;
-	b=XSVa3fYCLEKHA0IZuPR/nuKbeVCY4+8i3VZFx2cgoxYQaMnMAqFNEtMlCJ3fXCWO5
-	 mmsZkM2l1W2SJeur/t+KBDary7zdBBRR4pohQQOH2gp+cH6+LIV2UWZ14lc8w+7p7v
-	 2PrdSwoTdH/nNPwuEVjtDoC6YR1oeo7YJq6jepE8=
-Subject: FAILED: patch "[PATCH] mfd: sm501: Fix potential memory leaks during remove" failed to apply to 6.6-stable tree
+	b=A1gg4BMgBeupbPMsFW3/ChGrZNQIOJqn4ztQzgATEZEBxzgOmYsRYpovi5UYs79Fu
+	 RLfjiOjxmXN586aRmdhEmTVhDd942ruRA8S5ROpBImWbGM+sAmMpVznN4RCsg1607a
+	 HnuNmoviIWrvdC2k2/j6ssIhvzul4yWvDN1SxU88=
+Subject: FAILED: patch "[PATCH] mfd: sm501: Fix potential memory leaks during remove" failed to apply to 5.10-stable tree
 To: nihaal@cse.iitm.ac.in,lee@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 17:12:51 +0200
-Message-ID: <2026090351-moistness-unmoral-5211@gregkh>
+Date: Thu, 03 Sep 2026 17:12:52 +0200
+Message-ID: <2026090352-pavestone-customary-a077@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 83feedd9d83c0c5199f98c72df0a6196b4aefb4d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090351-moistness-unmoral-5211@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-pavestone-customary-a077@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
