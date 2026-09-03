@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4293C4B513D
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8916D4B512C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444892; cv=none; b=uS0AYYgepme2GWOExvZESqEk0mrNJt8JDJtED4pT6XC6vXxps5Qd5gIMBgBogoVQ0QcXJAhMg+EZYa+5jj5X2cUcNH+koWb+R0tcpvPp6dQ6kTrkniVfW+lUL+bfbEHHl/t4MgQ6OWUfCUk1QoqOsSvC+ils/IL2k01zLhyyzj0=
+	t=1788444897; cv=none; b=KKTraQVGp6J2ZzAl20MukmtQ+GEIXLVrVVobDULQiBGjyKkngKL9U3qctXXhMlXrLVMs3BiPynxt+LJtSTjEr4tDa9qNtnThrALNby6coi8caH3uN4WJnQCYx5r/O6YIsxWlCQzTqiUPkDzrkTEZMRMB5kxsVm6RmamtIWc+e5k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444892; c=relaxed/simple;
-	bh=Dp9roZoGfrtFYyqBx/fuMH7K84NsYIGqejisV5CXxpI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=P83VtGA8wFI5paLq1oXyAiRZdX7t3usrfawViVC0u67+CTsPalQWK51p+qe2CcfLAmAEQX8BICHN8g2fVkneZjtpiFi3L1t+3deUGFIg6cVwi+82wt5uYVRUiOYpNg7kJ1/ey6567/DNgiO3yMGhHIWC7HMPAH6M45mAkCo7uSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=St5bV2dZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444897; c=relaxed/simple;
+	bh=KkkyhbI83/5TH1mBrJ4rGXGFLNfgpsJaBjB7noKmnnk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=P6rAqBW8unICPBapCx6XknbNNbzwLfjPa8og6Fs8KpHw3sqjGfNDJYg2Qd8fyYr2EPDkOGfWTao8Pzi9NqcZztI1z0mC6ttQvHGR0G+398ibvcL0YWOjuiA8NXOiE9WU0hb54qsU2ch4qO1ibZf6arhRNQzS2g/mijPZarkDMhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=awHMqHAE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="St5bV2dZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3460F1F00ADB;
-	Thu,  3 Sep 2026 14:14:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="awHMqHAE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F4B31F00A3F;
+	Thu,  3 Sep 2026 14:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444869;
-	bh=L5h1IJJ1OvtaiHfLm3dYvLT3jm17VnRSwvUgHXjDDCQ=;
+	s=korg; t=1788444881;
+	bh=hSeJN6rcdJJsotr1vvUyz8a5GaDRVDapYflYH9GctxU=;
 	h=Subject:To:Cc:From:Date;
-	b=St5bV2dZPuD3x4SPuwC/xxtkF57mXoJ9lYxQwWmapAl4KA9tHF3q9/+82YFlqnl4p
-	 CUSvmgMKZDx5EYkCsJA3eIKysgM56C2qw7M2lvP5BMPb9wuaUMXbHOwSvMC5q/7g9o
-	 qlv+ShysZmLmkiSuWnRZKwcQLSNRRvtsG4JwSrxA=
-Subject: FAILED: patch "[PATCH] bpf: Disable preemption in bpf_get_stackid" failed to apply to 6.12-stable tree
+	b=awHMqHAEjXArqDmKiOB36bPutnI4WgSdzmfl64is7n5PJ2qM9o6Na8IhBgWuh1Hht
+	 79loWbmWXY2hY9iN/hvsxX5hu3k/P3JcE2H03pQjoxz1cAZhctmTFdzmZ+k8RDef89
+	 2dPi7BtGvhKDmvjZolPJxgt7eLWfk1TB2lauM/TA=
+Subject: FAILED: patch "[PATCH] bpf: Disable preemption in bpf_get_stackid" failed to apply to 5.10-stable tree
 To: jolsa@kernel.org,andrii@kernel.org,chen.dylane@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:51:50 +0200
-Message-ID: <2026090349-donor-crunching-700c@gregkh>
+Date: Thu, 03 Sep 2026 15:51:59 +0200
+Message-ID: <2026090359-enhance-frostbite-43b5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090349-donor-crunching-700c@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090359-enhance-frostbite-43b5@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
