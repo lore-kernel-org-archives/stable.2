@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD4D4AFE12
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0144B5131
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:14:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444891; cv=none; b=L9EAKjB9BL9lK71+NLQFMDNS5BtfOdKqFJm6Ju3DR4xBCYzbwbBJ6ulrsZm13jFPoMGl12LM0MLPgQqsxrUZKZd0u8Ns7KLN5xfvPebcs2mar44zCrDX35hXDUEgLibk+K2/DrpI7rJ2dZEne8MbWj1Em5nKuBrmSmUBKm8+Gg4=
+	t=1788444889; cv=none; b=pt2TTCHJiE7RSzXpA0oQ7ISbhwSjmbiyEWJzWcYNHeJCcGF2E7o1k5f1W3ekwoMZ6Pd1893HtsyclkyTernV7t2oq2kRwrYe6304YkSJEHpOe1ubVXBhEkmm2oUCimzD4s9oqc5MqMQ+0Sd+4Ci5qsFxworZOcOd3x+ecT45NWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444891; c=relaxed/simple;
-	bh=r6PmZ+cXSLYdiGuu0rXxIxIhz8qrMqeQ9TxEiiPLzo0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=oN4wjpUN5SccgL9i93USBsvmmZGr3l5IGYdsZxgl9qbJePEDvOANhJ0G6fquHsaiW2D81n0/nPjZYu+P2o2p81dn3/rOmuvNapx9ngAxvcb1yUrYJXE8auDVRCz8NdR7Q08MQmHpV6DCiXRBTqPfZl3Q1AA47VM3816DYa6ZcPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OtmxwqDH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444889; c=relaxed/simple;
+	bh=49GP0YyVjfMU5mMYPReaEqC3pWVZoC0nDAhywkvmpPg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bWQs7dlfswezWiO/9Ub9SpraBFWstvK5zvWyhbyJ8Wil7s96yEXPERw8ptV9KbVS8FJWD/BaCryNu9Pyts3XkmfA1BLFelu2Km/5k4t5KNQx9n2QzDw9zZfXo9U5q3SDiJnWXDst6TgNyDazSlKj5dd55187H0YemGvQo89p6yM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OkPFPA5b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OtmxwqDH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D967E1F000E9;
-	Thu,  3 Sep 2026 14:14:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OkPFPA5b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D94D1F00AC4;
+	Thu,  3 Sep 2026 14:14:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444875;
-	bh=w3BmxNvdH+E91Gwhry6lKHWwdTM7bKEyLIWTF1keH3o=;
+	s=korg; t=1788444884;
+	bh=VWSb8IGGq1hDrVs4WW0cTx4FmmASoAjgJf6cYZZ3rDg=;
 	h=Subject:To:Cc:From:Date;
-	b=OtmxwqDHJ7qzO3SzcvRc/AyPozW09zfFxJNeWT018LZLgC1esnlZ9Masfhvtv4KQK
-	 q+bHvuFp+rAmSWZzQeYuDpb4oCuPL4bCCufsbF6RSVLFqnfpjMuNX7D+WKG7qVO/8f
-	 63gsPdKCVpwJ5FN8qVquuk2WV6lCtNCU3Chp/Dxg=
-Subject: FAILED: patch "[PATCH] bpf: Disable preemption in bpf_get_stackid" failed to apply to 6.1-stable tree
-To: jolsa@kernel.org,andrii@kernel.org,chen.dylane@linux.dev
+	b=OkPFPA5bPQ1TcT85XMxmYkPDs9f9ATuU52PzEeSfOScTPW+l4iOuXrMzVqYz89MXc
+	 g4p/wyIyfz8/a9mNpFs+J9eO5/u57LlSnZAjxrzFghMccAWBt+c3jmnthVkLWzzlfQ
+	 6xsWajIrY4x5W/JQwbe6CijImN4l5M3wdsBNclG4=
+Subject: FAILED: patch "[PATCH] dm array: validate array block headers on read" failed to apply to 6.6-stable tree
+To: hexlabsecurity@proton.me,mpatocka@redhat.com,mtsai@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:51:54 +0200
-Message-ID: <2026090354-evolution-kitty-6754@gregkh>
+Date: Thu, 03 Sep 2026 15:53:03 +0200
+Message-ID: <2026090303-flyover-viscous-2098@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d
+git cherry-pick -x 2965787723084835b18dfe993cd450ebf5bd4540
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090354-evolution-kitty-6754@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090303-flyover-viscous-2098@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,62 +62,99 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 15f1bd8574662f1b7b26aaa2e23ebf4066f0117d Mon Sep 17 00:00:00 2001
-From: Jiri Olsa <jolsa@kernel.org>
-Date: Mon, 3 Aug 2026 23:01:42 +0200
-Subject: [PATCH] bpf: Disable preemption in bpf_get_stackid
+From 2965787723084835b18dfe993cd450ebf5bd4540 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Fri, 31 Jul 2026 17:54:54 -0500
+Subject: [PATCH] dm array: validate array block headers on read
 
-The get_perf_callchain call needs disabled preemption plus we need
-it disabled as long as we access its returned trace entries buffer.
+array_block_check() validates blocknr and csum and nothing else, while
+node_check(), next to it, has bounded the structural fields since both
+were written. dm_array_cursor_next() takes its loop bound from the
+on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
+a count larger than the block holds keeps the cursor in one block while
+the index grows past it and the read walks off the dm-bufio buffer --
+dm_cache_load_mappings() drives it once per cache block at activation.
 
-Note the bpf_get_stackid_pe function is executed already with
-preemption disabled.
+Check the header against itself: reject a zero value_size, require
+max_entries to equal calc_max_entries() for that value_size and block
+size, and require nr_entries to fit. Equality rather than an upper bound,
+since a count below the real capacity trips BUG_ON() in fill_ablock() and
+trim_ablock(). Metadata dm-array writes satisfies all three.
 
-Fixes: d5a3b1f69186 ("bpf: introduce BPF_MAP_TYPE_STACK_TRACE")
-Reported-by: Tao Chen <chen.dylane@linux.dev>
-Signed-off-by: Jiri Olsa <jolsa@kernel.org>
-Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
+Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
+Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/bpf/20260803210149.296496-6-jolsa@kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-Closes: https://lore.kernel.org/bpf/20260206090653.1336687-2-chen.dylane@linux.dev/
-
-diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 3ee0034daf52..5b18d728f4b8 100644
---- a/kernel/bpf/stackmap.c
-+++ b/kernel/bpf/stackmap.c
-@@ -632,20 +632,22 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 		return -EINVAL;
+diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
+index 8f8792e55806..7ba0a566f0ad 100644
+--- a/drivers/md/persistent-data/dm-array.c
++++ b/drivers/md/persistent-data/dm-array.c
+@@ -38,6 +38,14 @@ struct array_block {
+  */
+ #define CSUM_XOR 595846735
  
- 	max_depth = stack_map_calculate_max_depth(map->value_size, elem_size, flags);
--	trace = get_perf_callchain(regs, kernel, user, max_depth,
--				   false, false, 0);
++/*
++ * Each array block can hold this many values.
++ */
++static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
++{
++	return (size_of_block - sizeof(struct array_block)) / value_size;
++}
++
+ static void array_block_prepare_for_write(const struct dm_block_validator *v,
+ 					  struct dm_block *b,
+ 					  size_t size_of_block)
+@@ -55,6 +63,7 @@ static int array_block_check(const struct dm_block_validator *v,
+ 			     size_t size_of_block)
+ {
+ 	struct array_block *bh_le = dm_block_data(b);
++	uint32_t nr_entries, max_entries, value_size;
+ 	__le32 csum_disk;
  
--	if (unlikely(!trace))
--		/* couldn't fetch the stack trace */
--		return -EFAULT;
-+	scoped_guard(preempt) {
-+		trace = get_perf_callchain(regs, kernel, user, max_depth,
-+					   false, false, 0);
-+		if (unlikely(!trace))
-+			/* couldn't fetch the stack trace */
-+			return -EFAULT;
+ 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
+@@ -74,6 +83,26 @@ static int array_block_check(const struct dm_block_validator *v,
+ 		return -EILSEQ;
+ 	}
  
--	err = stackid_fastpath(&stackid, map, trace, flags);
--	if (err != -ENOENT)
--		return err;
-+		err = stackid_fastpath(&stackid, map, trace, flags);
-+		if (err != -ENOENT)
-+			return err;
- 
--	new_bucket = stackid_new_bucket(&stackid, map);
--	if (!new_bucket)
--		return -ENOMEM;
-+		new_bucket = stackid_new_bucket(&stackid, map);
-+		if (!new_bucket)
-+			return -ENOMEM;
++	nr_entries = le32_to_cpu(bh_le->nr_entries);
++	max_entries = le32_to_cpu(bh_le->max_entries);
++	value_size = le32_to_cpu(bh_le->value_size);
++
++	if (!value_size) {
++		DMERR_LIMIT("%s failed: value_size is zero", __func__);
++		return -EILSEQ;
 +	}
- 
- 	return stackid_install(&stackid, map, new_bucket, flags);
++
++	if (max_entries != calc_max_entries(value_size, size_of_block)) {
++		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
++			    __func__, max_entries, value_size);
++		return -EILSEQ;
++	}
++
++	if (nr_entries > max_entries) {
++		DMERR_LIMIT("%s failed: too many entries", __func__);
++		return -EILSEQ;
++	}
++
+ 	return 0;
  }
+ 
+@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
+ 		on_entries(info, ab, vt->dec);
+ }
+ 
+-/*
+- * Each array block can hold this many values.
+- */
+-static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
+-{
+-	return (size_of_block - sizeof(struct array_block)) / value_size;
+-}
+-
+ /*
+  * Allocate a new array block.  The caller will need to unlock block.
+  */
 
