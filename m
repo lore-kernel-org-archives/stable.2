@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93B24A3D52
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DF9D4A2A7E
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:22:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438161; cv=none; b=UVk990CGsAW5BSS73x+k4aer/zGrIKMSjnq1vWWFyD8/vWC1H/RNeYRtQc+w5UHGyiBXsQwMYwxn743xEFK8gsRi3eHCc+rOniTSjv+iBei4mQFP7HCzYPNf8CzAwcrNXP26o4vH3HsgEnwvtTa4bXDcdOz7Q5OJlJkAkgthvfk=
+	t=1788438162; cv=none; b=S9wezMadwwum03odlEjSZtWrxjpooRXl6dChVfzDxXNvOCUSek9tDDHKKayJeMY6j1XddFDkeKv5/LjnGLiBcSRYk8PViy1AE4kp+3L1bjfVoXNYPAJLhgOPbGgWBQAQb5GynwBwp4+oObmCOND073Cu32WCllgOBXeSdlYWU44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438161; c=relaxed/simple;
-	bh=VSCeR1zhpUVJVX8TimnnZQE79xHkj0Hi7Pqc11IvCl8=;
+	s=arc-20240116; t=1788438162; c=relaxed/simple;
+	bh=CUlccwZJXtJ7NAMnCT3CrAaPRfB8MoRuOMhC03QboTU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JtE4pbbJ+hmOyyQsv+D+H51xUyuwIvfjNEnlTw60C1c1WFQ21fFzNuggTKJ5KjNAkb6Si5aaww/v7tKoxcSzw02qH5MjXyQhWs3wJFfzUEUho78tLVRcfHRYjFhsWIddA+rwnZk78z6dnx4951G6UOyrxmCS/K/tYNa9daz4b5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wiu4XeXu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XsNLd/pl46HkQcVPZinsaXXdNQsPGRK2nIRccVykEHpWEFqkiC2pgsBlbe8lx3YP4bhLL6xyv9lJkJaDbNdeXQZ2znFnI6BHf6GKJzm/Whieu+bHp/RCpNxKuzBdyI9pN75FS8wxp0JEuZlIHdmgA0rOHTE9IXN8idweQaNbOHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j70Nq/5v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wiu4XeXu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED1751F000E9;
-	Thu,  3 Sep 2026 12:22:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j70Nq/5v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0481F00A3E;
+	Thu,  3 Sep 2026 12:22:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788438158;
-	bh=JCzheon1sv0hxLNEu4ePaueyTf+9WJVpTsUv3o7daRs=;
+	s=k20260515; t=1788438159;
+	bh=AE4MlWnAxpGmuou83Kf4ToH9jpp+SLSD3pNQP/q2KM8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wiu4XeXutRNzNqSXGmaepWQ2gQfQik+vhmQwoDdf3fbPLmyUEfaCPgT7r7ErNoORO
-	 2ShQLTnzP5X+WgN5axBnkflSMZo7ElUYi+d2Sf76jLAzCoknnz6FzmgyQftqLYw6Xk
-	 PJtyeuH0E7Vii3xGW42kbx280RbMzpK0p3/dLRjkdp9sMGWTbwTBde52zFpfKMWPr+
-	 OVJ0/ZKIyCtkMNWejsLkGhF+UOHIlipgoWTaOBHccW/40AUNqrXK0X+o6ngWuJx9XN
-	 9+yqHkVRK/DwnL81/Fd3oNOSFzEDvN50kPouAlooWZjx3kTvy0qDEsjNb1N1wqv9+t
-	 LsVEOICmqOICg==
+	b=j70Nq/5vopLuWtZWrILnBNM1XnLDmz+pirNKEDSaU1CiGR2LzBEASKP2K+2ppyHvB
+	 BeAuY6Vc+PSkqlQsSymgPIu64+voyvHd5j/sFLXI0wKV4T1ClyGo24/QOxPDtdHBP7
+	 Ej1ZepRmxB6HQc3B40QCTbfda1nA3KKSqTLFha7OTsrp3Mvuhy5tLx048lhVZ9ETZd
+	 M7m0U9TNEbEw/MoeG+VLJkVwbwuwoNyElTShp3G3AZFQh/SKebW+31fvYfth2XsgNJ
+	 o+REgVuWkmLO5Z5k9z6KKJ/bmDSC856DaAzflOItwcf6Rppe1C3JQjqnAyF6k/Kkn8
+	 firt9/INphS+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
+Cc: Chen Linxuan <me@black-desk.cn>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] pidfs: simplify PIDFD_GET_<type>_NAMESPACE ioctls
-Date: Thu,  3 Sep 2026 08:22:35 -0400
-Message-ID: <20260903122236.709194-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] pidfd: hold exec_update_lock around namespace ioctl
+Date: Thu,  3 Sep 2026 08:22:36 -0400
+Message-ID: <20260903122236.709194-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090328-fleshed-scrambler-e1f2@gregkh>
+In-Reply-To: <20260903122236.709194-1-sashal@kernel.org>
 References: <2026090328-fleshed-scrambler-e1f2@gregkh>
+ <20260903122236.709194-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,136 +46,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Chen Linxuan <me@black-desk.cn>
 
-[ Upstream commit a71e4f103aed69e7a11ea913312726bb194c76ee ]
+[ Upstream commit 9688a46802939da28f00cb40e8129615d5d4af39 ]
 
-We have reworked namespaces sufficiently that all this special-casing
-shouldn't be needed anymore
+The PIDFD_GET_*_NAMESPACE ioctls in pidfd_ioctl() perform a filesystem
+credentials ptrace access check before handing out a namespace file
+descriptor.  The accompanying comment states that the code "mirrors nsfs
+behavior", but, unlike the corresponding procfs paths, it does so without
+holding the target task's exec_update_lock.
 
-Link: https://patch.msgid.link/20251117-eidesstattlich-apotheke-36d2e644079f@brauner
-Signed-off-by: Christian Brauner <brauner@kernel.org>
-Stable-dep-of: 9688a4680293 ("pidfd: hold exec_update_lock around namespace ioctl")
+proc_ns_get_link() and proc_ns_readlink() both take exec_update_lock for
+reading around the ptrace check and the namespace lookup, so that the
+credentials used for the access decision match those of the task when its
+namespace is read.  Without it, a caller can pass the check against the
+target's old credentials and then read the namespace after the target has
+execve()'d a setuid binary and committed new credentials -- accessing
+namespace information it should have been denied.
+
+Hold exec_update_lock for reading around the ptrace check and the
+namespace lookup so that pidfd truly mirrors nsfs behavior, as the comment
+already claims.  open_namespace() itself runs outside the lock: once a
+namespace reference is obtained it carries its own refcount and is opened
+with the caller's own credentials, so a concurrent execve() on the target
+can no longer affect the outcome.
+
+Fixes: 5b08bd408534 ("pidfs: allow retrieval of namespace file descriptors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chen Linxuan <me@black-desk.cn>
+Link: https://patch.msgid.link/20260731-pidfd-exec-update-lock-v1-1-b388f2f3a8b0@black-desk.cn
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/pidfs.c | 75 ++++++++++++++++++++++++++----------------------------
- 1 file changed, 36 insertions(+), 39 deletions(-)
+ fs/pidfs.c | 43 +++++++++++++++++++++++++++++++------------
+ 1 file changed, 31 insertions(+), 12 deletions(-)
 
 diff --git a/fs/pidfs.c b/fs/pidfs.c
-index 34987fcdd9a87..7282ac3db0795 100644
+index 7282ac3db0795..2e50594e0e877 100644
 --- a/fs/pidfs.c
 +++ b/fs/pidfs.c
-@@ -456,7 +456,6 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+@@ -456,6 +456,7 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
  	struct task_struct *task __free(put_task) = NULL;
  	struct nsproxy *nsp __free(put_nsproxy) = NULL;
  	struct ns_common *ns_common = NULL;
--	struct pid_namespace *pid_ns;
++	int error;
  
  	if (!pidfs_ioctl_valid(cmd))
  		return -ENOIOCTLCMD;
-@@ -498,66 +497,64 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+@@ -479,20 +480,33 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	if (arg)
+ 		return -EINVAL;
+ 
++	/*
++	 * We're trying to open a file descriptor to the namespace so perform a
++	 * filesystem cred ptrace check. Hold @task's exec_update_lock for the
++	 * duration of the ptrace check and the namespace lookup so that the
++	 * credentials used for the access decision match those of @task at the
++	 * time its namespace is read, preventing a concurrent execve() from
++	 * swapping the task's credentials in between the check and the use. We
++	 * mirror nsfs behavior.
++	 */
++	error = down_read_killable(&task->signal->exec_update_lock);
++	if (error)
++		return error;
++
++	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
++		error = -EACCES;
++		goto out_unlock;
++	}
++
+ 	scoped_guard(task_lock, task) {
+ 		nsp = task->nsproxy;
+ 		if (nsp)
+ 			get_nsproxy(nsp);
+ 	}
+-	if (!nsp)
+-		return -ESRCH; /* just pretend it didn't exist */
+-
+-	/*
+-	 * We're trying to open a file descriptor to the namespace so perform a
+-	 * filesystem cred ptrace check. Also, we mirror nsfs behavior.
+-	 */
+-	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+-		return -EACCES;
++	if (!nsp) {
++		error = -ESRCH; /* just pretend it didn't exist */
++		goto out_unlock;
++	}
+ 
  	switch (cmd) {
  	/* Namespaces that hang of nsproxy. */
- 	case PIDFD_GET_CGROUP_NAMESPACE:
--		if (IS_ENABLED(CONFIG_CGROUPS)) {
--			get_cgroup_ns(nsp->cgroup_ns);
--			ns_common = to_ns_common(nsp->cgroup_ns);
--		}
-+		if (!ns_ref_get(nsp->cgroup_ns))
-+			break;
-+		ns_common = to_ns_common(nsp->cgroup_ns);
- 		break;
- 	case PIDFD_GET_IPC_NAMESPACE:
--		if (IS_ENABLED(CONFIG_IPC_NS)) {
--			get_ipc_ns(nsp->ipc_ns);
--			ns_common = to_ns_common(nsp->ipc_ns);
--		}
-+		if (!ns_ref_get(nsp->ipc_ns))
-+			break;
-+		ns_common = to_ns_common(nsp->ipc_ns);
- 		break;
- 	case PIDFD_GET_MNT_NAMESPACE:
--		get_mnt_ns(nsp->mnt_ns);
-+		if (!ns_ref_get(nsp->mnt_ns))
-+			break;
- 		ns_common = to_ns_common(nsp->mnt_ns);
- 		break;
- 	case PIDFD_GET_NET_NAMESPACE:
--		if (IS_ENABLED(CONFIG_NET_NS)) {
--			ns_common = to_ns_common(nsp->net_ns);
--			get_net_ns(ns_common);
--		}
-+		if (!ns_ref_get(nsp->net_ns))
-+			break;
-+		ns_common = to_ns_common(nsp->net_ns);
- 		break;
- 	case PIDFD_GET_PID_FOR_CHILDREN_NAMESPACE:
--		if (IS_ENABLED(CONFIG_PID_NS)) {
--			get_pid_ns(nsp->pid_ns_for_children);
--			ns_common = to_ns_common(nsp->pid_ns_for_children);
--		}
-+		if (!ns_ref_get(nsp->pid_ns_for_children))
-+			break;
-+		ns_common = to_ns_common(nsp->pid_ns_for_children);
- 		break;
- 	case PIDFD_GET_TIME_NAMESPACE:
--		if (IS_ENABLED(CONFIG_TIME_NS)) {
--			get_time_ns(nsp->time_ns);
--			ns_common = to_ns_common(nsp->time_ns);
--		}
-+		if (!ns_ref_get(nsp->time_ns))
-+			break;
-+		ns_common = to_ns_common(nsp->time_ns);
- 		break;
- 	case PIDFD_GET_TIME_FOR_CHILDREN_NAMESPACE:
--		if (IS_ENABLED(CONFIG_TIME_NS)) {
--			get_time_ns(nsp->time_ns_for_children);
--			ns_common = to_ns_common(nsp->time_ns_for_children);
--		}
-+		if (!ns_ref_get(nsp->time_ns_for_children))
-+			break;
-+		ns_common = to_ns_common(nsp->time_ns_for_children);
- 		break;
- 	case PIDFD_GET_UTS_NAMESPACE:
--		if (IS_ENABLED(CONFIG_UTS_NS)) {
--			get_uts_ns(nsp->uts_ns);
--			ns_common = to_ns_common(nsp->uts_ns);
--		}
-+		if (!ns_ref_get(nsp->uts_ns))
-+			break;
-+		ns_common = to_ns_common(nsp->uts_ns);
- 		break;
- 	/* Namespaces that don't hang of nsproxy. */
- 	case PIDFD_GET_USER_NAMESPACE:
--		if (IS_ENABLED(CONFIG_USER_NS)) {
--			rcu_read_lock();
--			ns_common = to_ns_common(get_user_ns(task_cred_xxx(task, user_ns)));
--			rcu_read_unlock();
-+		scoped_guard(rcu) {
-+			struct user_namespace *user_ns;
-+
-+			user_ns = task_cred_xxx(task, user_ns);
-+			if (!ns_ref_get(user_ns))
-+				break;
-+			ns_common = to_ns_common(user_ns);
- 		}
- 		break;
- 	case PIDFD_GET_PID_NAMESPACE:
--		if (IS_ENABLED(CONFIG_PID_NS)) {
--			rcu_read_lock();
-+		scoped_guard(rcu) {
-+			struct pid_namespace *pid_ns;
-+
- 			pid_ns = task_active_pid_ns(task);
--			if (pid_ns)
--				ns_common = to_ns_common(get_pid_ns(pid_ns));
--			rcu_read_unlock();
-+			if (!ns_ref_get(pid_ns))
-+				break;
-+			ns_common = to_ns_common(pid_ns);
+@@ -558,11 +572,16 @@ static long pidfd_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
  		}
  		break;
  	default:
+-		return -ENOIOCTLCMD;
++		error = -ENOIOCTLCMD;
+ 	}
+ 
+-	if (!ns_common)
+-		return -EOPNOTSUPP;
++	if (!error && !ns_common)
++		error = -EOPNOTSUPP;
++
++out_unlock:
++	up_read(&task->signal->exec_update_lock);
++	if (error)
++		return error;
+ 
+ 	/* open_namespace() unconditionally consumes the reference */
+ 	return open_namespace(ns_common);
 -- 
 2.53.0
 
