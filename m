@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BE44BB80B
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500C24B1B5B
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:32:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445951; cv=none; b=Mqe/9z6eWTwo07onSORiP3rORoShvE/u6pv8t0DwIaCC5oXYhe8dwsI4aqhz0baQc46F8jqHv5dX4bSgmFu7FRKaKXis2Y6ODmfZRwAFDLAcoN6xRJU+WZMnpkUcKxkRDUvaQ88+w+VRg4gqgWIdifo07hDybzFOEGw8hCCKjho=
+	t=1788445952; cv=none; b=BE6Y2lxAsoroeH81UU04wdmNJupZ8ybZRMXoJCUEAykOfKCUBp/mCGK0e95gk6ynmBBcKMSZFblZRLT37talrEOYfX09UoLcgOO0aDiXE/1p9fSJWqAb+OTR2itI8kj1pVC9g39Vd9yzfjSkxG5BpN0yihCJbCweCvufXvzZzvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445951; c=relaxed/simple;
-	bh=8MwZlssephbhNg6oj/X3kuIj3QUgzxvE3iJm+qYljKU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=plNjT3qAlhW+n07r/0uzvrrFqMnxQ6dPzaPMx5O89bjsPw0HSRBFRUWRcMjzeXESVWII5Cu6IbrbEq3wyGLI2RyfprBDDa9ZEE5JIvDJ+T+oCmNL4wJF4t3Gbj7Ruuh618sogNpVZnXT3dvX8mENi85Ui1QPwWePko4zzXbtq8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZurusvOa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445952; c=relaxed/simple;
+	bh=0aogg7ozhCGymjvV3wkT6sHgoI26ufwM86kqaMiGHpU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ucivNt0p06/SRv+9sjKHYZXXFdcq8h11yyygOCmnG6k44cJZv33aom3i/+4/uv/Aat0nNBm0Hyv8Jj+hUzNQ9VVGDFkl/4uMWRuVtwmeq3AG5nUNaVJhd+LJs2A8iTMxh+q4L8Q2igj0aV9fO1AVdRbsvq+k4rLFdSjUoDSFjLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hqQ0pG4S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZurusvOa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12EB1F000E9;
-	Thu,  3 Sep 2026 14:32:19 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hqQ0pG4S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4A01F00A3F;
+	Thu,  3 Sep 2026 14:32:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445940;
-	bh=4fC59/EtalFbbjxoUCUvaSkYutTG/65t0sSqaktXK3s=;
+	s=korg; t=1788445943;
+	bh=DKHUsN57FoQa2DCOAvHA/ZF6tWwWAkE2s2ticpi+St4=;
 	h=Subject:To:Cc:From:Date;
-	b=ZurusvOahPPeov11OMrJ+Jy4AdxckZWHXyETuXpWzEg8hrbKDmO0foqOrRRAC1MKi
-	 uflgYnpdGFhrWvYsJruOYcp0WvpQqPkafT8Z+nLd8Zh2m5XKE79Z5FYsSHvnpQHBQ+
-	 ps6I8+lqSy/Mt1mXE8zAxGBG3mq01XsOmb83e650=
-Subject: FAILED: patch "[PATCH] staging: media: tegra-video: vi: fix probe failure on skipped" failed to apply to 5.10-stable tree
-To: alvinhuang0603@gmail.com,hverkuil+cisco@kernel.org
+	b=hqQ0pG4Sw9OZYajOp6ges94gB8ZNJsm3z2mJ+qQC9/ah807aJm5Br5t4WSRpdAvv+
+	 qFAWGbRpsr2NSGL4SA9z8N82HlEV0O9UyL5sJ9qTIvHmszSvyPXWmSJGrJf5VcWzjg
+	 EwFwGV86twxSbhmfOFbM0TiVRKBeIDS08H/HO+CU=
+Subject: FAILED: patch "[PATCH] sched/core: Make core-sched flips wait for in-flight" failed to apply to 6.12-stable tree
+To: tj@kernel.org,peterz@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:12:33 +0200
-Message-ID: <2026090333-bankroll-pueblo-bde6@gregkh>
+Date: Thu, 03 Sep 2026 16:13:10 +0200
+Message-ID: <2026090310-heftiness-overbite-2cac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x ae15adeed9f7ec54989175fe3c9e0815186821bc
+git cherry-pick -x f3629c63a4af3e491381780bc6c123cb498c4c40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090333-bankroll-pueblo-bde6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090310-heftiness-overbite-2cac@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,68 +62,107 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From ae15adeed9f7ec54989175fe3c9e0815186821bc Mon Sep 17 00:00:00 2001
-From: Hao-Qun Huang <alvinhuang0603@gmail.com>
-Date: Tue, 7 Jul 2026 23:24:25 +0800
-Subject: [PATCH] staging: media: tegra-video: vi: fix probe failure on skipped
- last port
+From f3629c63a4af3e491381780bc6c123cb498c4c40 Mon Sep 17 00:00:00 2001
+From: Tejun Heo <tj@kernel.org>
+Date: Fri, 7 Aug 2026 11:02:17 -1000
+Subject: [PATCH] sched/core: Make core-sched flips wait for in-flight
+ selections
 
-tegra_vi_channels_alloc() iterates over port nodes and skips those
-whose reg property cannot be read or whose remote endpoint fails
-v4l2_fwnode_endpoint_parse(), leaving the negative result of the
-failed call in ret. If that happens on the last port node, the loop
-ends with ret still negative and tegra_vi_init() fails the whole VI
-probe.
+Core scheduling's pick_next_task() operates on all sibling rqs under one
+acquisition of the shared core-wide lock. A ->pick_task() that releases the
+rq lock leaves every sibling __lock momentarily free, letting
+__sched_core_flip(false) complete mid-selection and rebind rq_lockp() under
+it. The selection resumes on the split locks, touching sibling state it no
+longer protects, and __schedule() finally releases a lock that was never
+taken while leaking the one that was.
 
-The same defective port earlier in the ports node is skipped silently,
-so probing succeeds or fails depending on the order of the port nodes.
-The CSI equivalent, tegra_csi_channels_alloc(), returns 0
-unconditionally after its loop and does not have this problem.
+Count in-flight core-wide selections in the leader's rq->core_pick_in_flight
+and make __sched_core_flip() wait for the count to drain. The count only
+changes under the shared lock, which the flip holds while sampling, so no
+other ordering is needed. The wait can repeat while selections overlap, but
+the flip backs off between samples and flips are rare cookie-lifetime
+events.
 
-Use a separate variable for the per-port checks so that only fatal
-errors end up in ret.
+sched_core_cpu_deactivate() moves the count to the new leader - a stale copy
+left behind would bias it forever if that CPU later returns as its own
+leader.
 
-Fixes: 1ebaeb09830f ("media: tegra-video: Add support for external sensor capture")
-Fixes: 2ac4035a78c9 ("media: tegra-video: Add support for x8 captures with gang ports")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
+Cc: stable@vger.kernel.org # v5.14+
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
-diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
-index ce09949178f6..01622013c109 100644
---- a/drivers/staging/media/tegra-video/vi.c
-+++ b/drivers/staging/media/tegra-video/vi.c
-@@ -1257,6 +1257,7 @@ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
- 	struct device_node *parent;
- 	struct v4l2_fwnode_endpoint v4l2_ep = { .bus_type = 0 };
- 	unsigned int lanes;
-+	int err;
- 	int ret = 0;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 84ef83316562..0130463798f8 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -443,6 +443,17 @@ static void __sched_core_flip(bool enabled)
  
- 	ports = of_get_child_by_name(node, "ports");
-@@ -1267,8 +1268,8 @@ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
- 		if (!of_node_name_eq(port, "port"))
- 			continue;
+ 		sched_core_lock(cpu, &flags);
  
--		ret = of_property_read_u32(port, "reg", &port_num);
--		if (ret < 0)
-+		err = of_property_read_u32(port, "reg", &port_num);
-+		if (err < 0)
- 			continue;
++		/*
++		 * A core-wide selection may have the shared rq lock temporarily
++		 * released by a lock-dropping ->pick_task(). Flipping would
++		 * rebind rq_lockp() under it. Wait it out.
++		 */
++		while (cpu_rq(cpu)->core->core_pick_in_flight) {
++			sched_core_unlock(cpu, &flags);
++			cpu_relax();
++			sched_core_lock(cpu, &flags);
++		}
++
+ 		for_each_cpu(t, smt_mask)
+ 			cpu_rq(t)->core_enabled = enabled;
  
- 		if (port_num > vi->soc->vi_max_channels) {
-@@ -1289,10 +1290,10 @@ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
+@@ -6236,6 +6247,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 		return __pick_next_task(rq, rf);
+ 	}
  
- 		ep = of_graph_get_endpoint_by_regs(parent, 0, 0);
- 		of_node_put(parent);
--		ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep),
-+		err = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep),
- 						 &v4l2_ep);
- 		of_node_put(ep);
--		if (ret)
-+		if (err)
- 			continue;
++	rq->core->core_pick_in_flight++;
++
+ 	/*
+ 	 * If there were no {en,de}queues since we picked (IOW, the task
+ 	 * pointers are all still valid), and we haven't scheduled the last
+@@ -6450,6 +6463,7 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	}
  
- 		lanes = v4l2_ep.bus.mipi_csi2.num_data_lanes;
+ out_set_next:
++	rq->core->core_pick_in_flight--;
+ 	put_prev_set_next_task(rq, rq->donor, next);
+ 	if (rq->core->core_forceidle_count && next == rq->idle)
+ 		queue_core_balance(rq);
+@@ -6644,6 +6658,13 @@ static void sched_core_cpu_deactivate(unsigned int cpu)
+ 	core_rq->core_forceidle_seq        = rq->core_forceidle_seq;
+ 	core_rq->core_forceidle_occupation = rq->core_forceidle_occupation;
+ 
++	/*
++	 * A stale leftover would bias the count forever if this CPU later
++	 * returns as its own leader. Move, don't copy.
++	 */
++	core_rq->core_pick_in_flight       = rq->core_pick_in_flight;
++	rq->core_pick_in_flight            = 0;
++
+ 	/*
+ 	 * Accounting edge for forced idle is handled in pick_next_task().
+ 	 * Don't need another one here, since the hotplug thread shouldn't
+@@ -9060,6 +9081,7 @@ void __init sched_init(void)
+ 		rq->core_forceidle_count = 0;
+ 		rq->core_forceidle_occupation = 0;
+ 		rq->core_forceidle_start = 0;
++		rq->core_pick_in_flight = 0;
+ 
+ 		rq->core_cookie = 0UL;
+ #endif
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 56acf502ba26..450b6a04669f 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -1358,6 +1358,7 @@ struct rq {
+ 	unsigned int		core_forceidle_seq;
+ 	unsigned int		core_forceidle_occupation;
+ 	u64			core_forceidle_start;
++	unsigned int		core_pick_in_flight;
+ #endif /* CONFIG_SCHED_CORE */
+ 
+ 	/* Scratch cpumask to be temporarily used under rq_lock */
 
