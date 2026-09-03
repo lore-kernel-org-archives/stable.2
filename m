@@ -1,106 +1,140 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE66537C91A;
-	Thu,  3 Sep 2026 05:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71BE37B027
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 05:24:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788413051; cv=none; b=qW7GT2s7u2XclEdSyBFeQyOuKlsdoHb049ygCQjbQecMmXcwofR85nV6mvbkR2+M+bhH5vj6go9ejmxAD1Xba1SDqsv8SSPJgSVeAH6rnecGnMewzlsQiJb8DO+69SO3FM1TmVYiL1SsWEkrl5Z7aB8gRWl+ti4lI4uAPE68ckY=
+	t=1788413079; cv=none; b=cTRPzrerPoZ1FXDfCeoHgjkmqg9iNGxPzkxsNjOTrHc89EuBIfOj7Z4ywUN6Jv4CvCd+o6BauAMqi0SQoL8wcjZq6zL9+okWNC9/O6gTSvbmcNmXPHcYksQ+tb9hyRAR+2cDo9dfIckYYqbXr5FMzKhXvYwOpGP4a1NE45X/LfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788413051; c=relaxed/simple;
-	bh=1PA+XMFaH5TzOgo1SJ3emfN3CYUgHe/uZnNmVOJLC50=;
+	s=arc-20240116; t=1788413079; c=relaxed/simple;
+	bh=0a04xuGfZEnN8UMPNsBOdE49AQHMmpI2tutaj6KALUo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h4wMSib/0IFXYHO3z4XMeyXhFdI8Fj6Hp2xYLmUWk5c6mGpx4PlVN3crM4weeBJEfpIHKZRvggtX1cg16Ozjy9Y8ruBooVRQ7onA+GjNV8+Pq75iHlrLRDp0F4mbk2qEIH/WG+pHNfAlg0DfhoTOVQOU9RkI9AkI4BpVhTDQn6E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=SvIeRoWi reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=igvS58HucpbRGRCr/Oolz64GK3K/T5diNEnAcnnUcwo62AU0dvlKglu3jruA4tK3pnWOkNFboVDPYNFz//s1xuBvYtBa/Dhpuzjr3bZiISD0Vc3c4UZo1Z+pTVtTqdQAzIkKn17Tg3cC0kMyX+Uq8pyubxNvgNgPXA3qGm1EU9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g869To07; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="SvIeRoWi"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0A17040E02C2;
-	Thu,  3 Sep 2026 05:24:06 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id l2s1PqN88mk5; Thu,  3 Sep 2026 05:23:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788413034; bh=qPSQhfgflmafwjyzeoKa7tQbzZZtFrhYulM1lgDSmNk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SvIeRoWiIwa3jt1ek0kmuYqEg5ZhX/jcXzd21z41NnssiBuMNkZX/3OP/wc2W3f01
-	 tf0KfUouvdO2cofe5VisYuxAUfDwxstPBAG8WxWQeQTIqK+vGkqLk75S+va1HMjevj
-	 t1gY4sY3thvRUcu7aueN8FroSwtNR0VKQhSW2gwW+p3lX27wU0no7+wvqGv/IQzx8x
-	 ZEJMLig2m/C0oE472YGF1WXMTMDd5zv/WColutNhTvouVpe+83CtQ8+6hYi0XUkPMF
-	 XTiC/CTbfykodpeXtjzDE6cJ9jjS9QqTqCqOGhPkjLC7Uclget+vE2bpwAI9UWggI7
-	 CEx4kgOw1DxBNQGF+2alQH8Nm5cnW0DMc2I4mZ1eh8VXTN/0E4qZam/PJSIx1BFEM3
-	 Dg4FSGF3bqYISxIa8M2gZmqchRoMmD+KiiF+NGlH/IAkwAFD/ggn3wzfcCXJA94mcp
-	 4s/YlKIKPPnGsPiUXwWqPbPoyDXZZVJucW4qSfRdgfxN/nx0YtztVMi/KYXwmuAuGD
-	 OsB/gD5xq+X27Srbrd9ha0vEvv43JodyBXj8vuAxe70eC/VN/uEgDt0bfFn37K9ayA
-	 MCK8pdhhYgIjGgGh1e7UvMnkJgwPBEFRhKSZU2ELpbnMLapMFazW8LWQi8tttWq8VS
-	 VgKhLKAWt875JGFUZggQALyE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id B154040E024B;
-	Thu,  3 Sep 2026 05:23:28 +0000 (UTC)
-Date: Wed, 2 Sep 2026 22:23:25 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, rust-for-linux@vger.kernel.org, tglx@kernel.org,
-	mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
-	ojeda@kernel.org, nathan@kernel.org, boqun@kernel.org,
-	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
-	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
-	dakr@kernel.org, daniel.almeida@collabora.com, tamird@kernel.org,
-	acourbot@nvidia.com, work@onurozkan.dev,
-	Omar Avelar <omar.avelar@intel.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] x86/build/64: Prevent native builds from generating
- APX instructions
-Message-ID: <20260903052325.GKapkETZDh2AU8aWNP@fat_crate.local>
-References: <20260807151715.7247-1-chang.seok.bae@intel.com>
- <CANiq72=bEB5-GvvroXigiCVtHjGtkhs1ARkk+mDbvjNAR4XKVQ@mail.gmail.com>
- <b00de567-f828-4ad8-a6ab-6ab1c47de68e@intel.com>
- <CANiq72kT7KozY5yXyCFpN7-7rc1Rbw1cLPs-c5AFuKYVu2f4KA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g869To07"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d8f265cbe6so18275925ad.0
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 22:24:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788413077; x=1789017877; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pSlJB3l1ic1Ak7Bmpv9oySIlyoLmdFz3JH+5LO86wZ8=;
+        b=g869To079KWOT6EU6WbVxNF0upyN0Kh/UlDhBTfVCciExc3Z+dZZvVrMf4x/NE314o
+         7+YU7Fbaiwq2J5qO0cZoVqAWRRUpQ0fTu59otr55qLv+Kdaqj6VrfVi4D5EXpU6OlEXM
+         Kq3r2r5NiSkUaZX4gtcqglgMi7BwZgUDEzA4ldERSHzu8enPBatdFCGv7lDN35HPjoFt
+         Zlnek4p98gPG3Nnd+kFrv9EPF6Kopj9X2eKjrIFirusdIHco7HZNO5xnZ58TpTORHaFU
+         YXEI/SpeLShQwfllk2ERr4lmDo85kF4BQIPfdmlDZIamYFEj6wY3lhfENLztsEL9OBaZ
+         SU0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788413077; x=1789017877;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pSlJB3l1ic1Ak7Bmpv9oySIlyoLmdFz3JH+5LO86wZ8=;
+        b=iLwQZo6P41RJFq5bUS/8XFNjDutV4OTmmZkcABetTdYq3ySX074uJJKKu8YKL1Kt7c
+         CsK5QUeK4oppvHhAT+5P41FNUyKfTJCj3QmF6hnB7TosOMbS3hEvpIUz1kYHS05XK5CU
+         XSmPoSz59LzRs/lQC7MF/Q38EHBLVXcJcBltCnBYfCBpxMvHA7wLIkAiI3ip+RuK6MGS
+         YAQIyLI3yqh3d10CcIE4mPUwGtl3pJApgXBxy+bWebQ/n/Yjozy+1hCI7gJ8a2tKgWJS
+         7AS2t5uvcA3Hu44rIyjxBy4uM5dmVjya4Oabb31aP7xmoPgax9v/xZ9Y6N4pIT6yvvJa
+         QKNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwQJWx4Z5uY5S/bbHYtmRQfkDR8gCOygJXIJf+AH8XuM4pO2nwB00G8i8viMA6ZJkFZuN236lQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQuBhRSwqyPrdNwgekm4JEbENFkxVHdTUYb9Gfec8O4//PVUAK
+	KLO7lCcPJDmXsQ0eOq7Xiw7rNcgoLalL9xzgSSqW966PlnKnkWwqL7wa
+X-Gm-Gg: AYBFou1QQ/1hABSymUGywk/WF/1z2okWp7FHSMrDJ5kSNGAB0F5YaGQ7yKbGzL2t+R+
+	SaBYd14eZXTn0jAeGnOG0QdH7YumlWFnYEgX266zaXzNxwrvlXbpQaIaWKFVwC5kpeKM94qpSlP
+	3b7FwimZz5vuhQrHNHnPMOVk0yc/0bp2W9kncMEZJ4lgRrdWZWda/VYMwj/HypW0ffKPdn/KdCI
+	A13ctmRB/TXW5icL1vCA+WOyqULTn7Q5Ovnwe3PInDaK2952jLWBRdp0FaUupoeCWJ67/5DBDnF
+	EPzkgzpANJ3WfOBWb7+8fcmh7VcD14y28dWTBOFhsi7PNyW9X0IFV+zB47scFoVEy0pLtJVjDYS
+	crpuAUAZeqWpAy8/qlqHrVmh38LZnLqWVbuauTpZ/ZVpbbHU84XNsKfNNAAamhlWUVk5e6JXBRo
+	nkgQPHj2yKy6XHL7cBBU48NkPxhlaPPoNX596eJCEawK4sDz3Ure6Wo59cQVTgD/ezcuTwffTv7
+	2A=
+X-Received: by 2002:a17:90a:c106:b0:380:f85c:94b4 with SMTP id 98e67ed59e1d1-39aedf1a98dmr16024181a91.7.1788413076702;
+        Wed, 02 Sep 2026 22:24:36 -0700 (PDT)
+Received: from localhost.localdomain ([240e:b8f:1df9:a600:c693:b19f:ada0:748])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62a54f6sm2738544a91.1.2026.09.02.22.24.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 22:24:36 -0700 (PDT)
+Date: Thu, 3 Sep 2026 13:24:27 +0800
+From: Vernon Yang <vernon2gm@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, david@kernel.org, hpa@zytor.com, rmclure@linux.ibm.com, 
+	andrew+kernel@donnellan.id.au, pasha.tatashin@soleen.com, kas@kernel.org, tj@kernel.org, 
+	rppt@kernel.org, rick.p.edgecombe@intel.com, yu-cheng.yu@intel.com, 
+	orsonpeters@gmail.com, linux-kernel@vger.kernel.org, x86@kernel.org, linux-mm@kvack.org, 
+	Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: Fix pmd_modify() dropping the dirty bit
+Message-ID: <94ada6d8-4513-4aea-bde8-98fc589e2b6c@gmail.com>
+References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+ <20260902211036.8184c6e5535669bd73c71fd0@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <CANiq72kT7KozY5yXyCFpN7-7rc1Rbw1cLPs-c5AFuKYVu2f4KA@mail.gmail.com>
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260902211036.8184c6e5535669bd73c71fd0@linux-foundation.org>
 
-On Mon, Aug 10, 2026 at 05:24:55PM +0200, Miguel Ojeda wrote:
-> On Sat, Aug 8, 2026 at 5:21=E2=80=AFAM Chang S. Bae <chang.seok.bae@int=
-el.com> wrote:
+On Wed, Sep 02, 2026 at 09:10:36PM -0700, Andrew Morton wrote:
+> On Thu,  3 Sep 2026 11:16:08 +0800 Vernon Yang <vernon2gm@gmail.com> wrote:
+>
+> > From: Vernon Yang <yanglincheng@kylinos.cn>
 > >
-> > Yes, I intended =E2=80=9Cthe commit=E2=80=9D to refer to the one in t=
-he Fixes: tag. To
-> > make it explicit, I can add the commit back here:
->=20
-> > I=E2=80=99ll add the link to reference the status of the Rust support=
-. Thanks.
->=20
-> > Yes, I have included it.
->=20
-> Thanks! With those:
->=20
-> Acked-by: Miguel Ojeda <ojeda@kernel.org>
->=20
-> I guess this would go through the x86 tree? Otherwise, please let me kn=
-ow.
+> > pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
+> > silently discarding the hardware dirty bit.  The subsequent
+> > pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
+> > _PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
+> > stripped from the value, so there is nothing left to transfer.
+> >
+> > Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
+> > and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
+> > is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
+> > the dirty state.
+> >
+> > One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+> >
+> >     memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
+> >     madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
+> >                                       // folio marked lazyfree
+> >     memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
+> >     mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
+> >     mprotect(buf, size, PROT_READ|PROT_WRITE);
+> >     // ... memory pressure ...
+> >
+> > Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
+> > no dirty bit set anywhere and frees it in
+> > __discard_anon_folio_pmd_locked(), even though the data was rewritten
+> > after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
+> > hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
+> > restores the PMD through pmd_modify() as well.
+> >
+> > PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
+> > the dirty bit means rewritten data is never written back.
+> >
+> > Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
+> > pte_modify() and pud_modify() do.  The existing
+> > pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
+> > hardware-dirty <-> saved-dirty transition based on the write bit,
+> > preserving the shadow-stack encoding rules.
+>
+> Yeah, this is exactly what I came up with, using chatgpt.
+>
+> > Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=cNbNApCWqdthRjd76LThtSPg@mail.gmail.com/
+>
+> We definitely want a Reported-by: Orson here.  He obviously did a ton
+> of work on this, and it's the least we can do to thank him.  I'll add it.
 
-I can take a v2 with feedback from this thread integrated.
+Yeah, I missed adding Reported-by: Orson, Sorry. Thank you for adding
+it.
 
-Thx.
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+--
+Cheers,
+Vernon
