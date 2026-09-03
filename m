@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB754B149F
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEF54B1B3C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:05:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444346; cv=none; b=Qykc+8Yf3FQ5H5ZpttN53cJwQjwHOjOhqePMDr+nNmL3urd8vJFp5yx/NVUNiDrFSiHyogaycHh01Dq+9M9tX6NyIJ/DKOF9wFqULuh3jSbRwMXO/AVUUoZjH1WcOr45MkjYv2tkuda3anaEuvg1MrT5GR6HYJQdhAZC1vJh7xE=
+	t=1788444350; cv=none; b=RZ+cBAXHIpNyYE5Mf1mmnq1IPpAlrsEfVBwzAYIIBRlVYH6ucac6xzgjvsDhJLN/CkyvXiyE7KoE5OOT5SDAtL4HKZl+gOCcjfNNWMEEDrVe4SAgHt6rLgWxNqvethaMFsAncPPXxOs3G0eDoBQWgAywGJR0itY6j9D2i491Yn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444346; c=relaxed/simple;
-	bh=yNEA8h4/X92fhUl+GtGjXey9DUEy3umZkAmr5fPwLCo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=gMMT5pulvGddzXGULYHAGHmnl8dNxNFXvI5/Fp6GQLgW93FzqnSfNYgP+QZ9RnZKFdPqkP8j5pUfrr8c2S/knTNX1+PIJ87WQM+FPT9eB7IZI2vqwSu+KMcAhfZV0N71ViF0e1npvtabaF2Ijmwj8/YSRFxfCk1jFaoLBpSSeR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gmeczNep; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444350; c=relaxed/simple;
+	bh=VcID7VrNDfbrYfoFhO7H2FnPybavpI0+lR3XyRtOApo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dV9yc7leRzOLgDJ5ijMJoVmc00Lvp9M/4p8+SMYyevLGFuaZPgBprlxbgMi8ZKhRLNP6E3zL8IePdO2/KhSl5qx2D+24s8uRjEbu8ABvFxq1SwXdxTNmsAn10MEZt6Ctlxk5tljBefi0xHN8QtnyBV7PWzc69mNK9oYZQ8ni08A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uAd5Lsrn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gmeczNep"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6D3C1F00A3D;
-	Thu,  3 Sep 2026 14:05:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uAd5Lsrn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30161F000E9;
+	Thu,  3 Sep 2026 14:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788444329;
-	bh=aqpgNQJ7uJhiMB54Y3DQiE/nPzF/FO5yk9vueZm9PxQ=;
+	s=korg; t=1788444346;
+	bh=P5g5YgfvvJWfmKfs6KXESaFm3gppS2fUzZcyVsfBY5Q=;
 	h=Subject:To:Cc:From:Date;
-	b=gmeczNepEBWwnvT3rws+toGb2NB94ZKfPGNEyso6jUBGPLZG3xuIicaVZtd3hnzBa
-	 h260u7IKk5zh1kAanBh9DrbdjaW+6hH0G50BvsV5Sm2JdayCq/bGA2xzkpkESmQJRV
-	 kwkBvvqJCoSRAa1KRKFZi2uxqGNVrzM/5C/565Sc=
-Subject: FAILED: patch "[PATCH] fsnotify: Fix stale object mask after concurrent mark updates" failed to apply to 6.1-stable tree
-To: yjkwon0026@snu.ac.kr,amir73il@gmail.com,jack@suse.cz
+	b=uAd5LsrnWZOQBAedzJ/r4hOD3eij4Vl+M+4CMDT18qG98sVbqY9jNQw99gfpJkwKl
+	 wuQ9fvtLC+F+IYFOfXy9iLd/kawVZfDAZvUMpPqq38UyYzjjEuymmOaIkP+4Wu1u1y
+	 BAE0CeNBP/6vZA5q+XNMvQVZ5keIqU7gS8HxxikU=
+Subject: FAILED: patch "[PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+" failed to apply to 6.12-stable tree
+To: christian.loehle@arm.com,rafael.j.wysocki@intel.com,sumitg@nvidia.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:42:37 +0200
-Message-ID: <2026090337-hatbox-diameter-e873@gregkh>
+Date: Thu, 03 Sep 2026 15:44:08 +0200
+Message-ID: <2026090308-suffocate-napkin-a71b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x e422777fdd4746de1109575c51e65038d4c5c1be
+git cherry-pick -x df5a1d4a8cdfda20eb2581a85e81c7d436866534
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-hatbox-diameter-e873@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090308-suffocate-napkin-a71b@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,117 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e422777fdd4746de1109575c51e65038d4c5c1be Mon Sep 17 00:00:00 2001
-From: Youngjae Kwon <yjkwon0026@snu.ac.kr>
-Date: Sun, 2 Aug 2026 10:58:00 +0900
-Subject: [PATCH] fsnotify: Fix stale object mask after concurrent mark updates
+From df5a1d4a8cdfda20eb2581a85e81c7d436866534 Mon Sep 17 00:00:00 2001
+From: Christian Loehle <christian.loehle@arm.com>
+Date: Mon, 3 Aug 2026 21:35:29 +0100
+Subject: [PATCH] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+
 
-When a mark gets a new event bit, fanotify and inotify may avoid
-recalculating the object mask if the cached aggregate already contains that
-bit. This is racy with a recalculation triggered by a concurrent update to
-another mark on the same connector.
+When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
+calls cppc_get_desired_perf() because some platforms repurpose Desired
+Performance to report actual delivered performance.
 
-The concurrent scan can read the mark before the new bit is added, while
-the updater reads the old aggregate before that scan publishes its result.
-The updater then skips recalculation and the scan publishes a mask without
-the bit, leaving the object mask stale after both updates complete.
+ACPI 6.5 defines _CPC revision 3 and lists Read/Write as the Optional
+Attribute of Desired Performance. ACPI 6.6 advances _CPC to revision 4 and
+lists only Write, so invoking that workaround for revision 4 or later would
+require a register read that the interface no longer specifies.
 
-This can be reproduced with two fanotify groups watching the same inode:
-one thread removes FAN_MODIFY from one existing mark while another thread
-adds FAN_MODIFY to the other mark. After both fanotify_mark() calls return,
-writes can fail to produce FAN_MODIFY for the group whose mark now contains
-the bit. This was reproduced on an unmodified v6.12.95 kernel. The
-equivalent inotify interleaving loses IN_MODIFY events.
+Make cppc_get_desired_perf() return -EOPNOTSUPP for _CPC revision 4 or
+later. Use the revision retained in the per-CPU CPC descriptor rather than
+the platform-wide FADT revision.
 
-For normal fanotify additions, recalculate whenever the raw mark mask
-changes. The normal mask is not cleared asynchronously, so an unchanged
-addition cannot introduce missing interest. Always recalculate ignore-mask
-updates because FS_MODIFY handling may clear the ignore mask without taking
-mark->lock, making snapshot comparisons unreliable.
+The _CPC revision may still not accurately describe the implemented
+register semantics. If a nominally revision 3 platform implements a
+non-readable Desired Performance register, a read may return zero and make
+cppc_cpufreq_get_rate() report 0 kHz. Treat a zero read as unusable and
+fall back to the cached OSPM request, just as for a failed read.
 
-Always recalculate after updating an existing inotify watch. Its replace
-path temporarily sets mark->mask to zero, so a concurrent scan can observe
-zero even when the old and final masks are equal. Assigning the replacement
-mask directly would avoid the transient zero, but existing-watch updates
-are infrequent, so unconditional recalculation is simpler.
+Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
+Cc: stable@vger.kernel.org
+Suggested-by: Sumit Gupta <sumitg@nvidia.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://patch.msgid.link/20260803203531.1268651-2-christian.loehle@arm.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-Link: https://lore.kernel.org/all/CACwKKmCZdiZDoFuYm6LZhQ=XvHPk0fNKH=X3LmoXMqakYqJaNw@mail.gmail.com/
-Fixes: 63c882a05416 ("inotify: reimplement inotify using fsnotify")
-Fixes: 912ee3946c5e ("fanotify: do not call fanotify_update_object_mask in fanotify_add_mark")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.0
-Suggested-by: Jan Kara <jack@suse.cz>
-Suggested-by: Amir Goldstein <amir73il@gmail.com>
-Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
-Link: https://patch.msgid.link/20260802015801.2426818-1-yjkwon0026@snu.ac.kr
-Signed-off-by: Jan Kara <jack@suse.cz>
-
-diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-index 463495a78693..a32c6634d592 100644
---- a/fs/notify/fanotify/fanotify_user.c
-+++ b/fs/notify/fanotify/fanotify_user.c
-@@ -1321,16 +1321,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
- static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
- 				      __u32 mask, unsigned int fan_flags)
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index 53d09ca98f06..42aeb749ebe0 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -1316,15 +1316,30 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
+ 	return cpc_write(cpu, reg, val);
+ }
+ 
++static bool cppc_desired_perf_readable(const struct cpc_desc *cpc_desc)
++{
++	return cpc_desc->version < CPPC_V4_REV;
++}
++
+ /**
+  * cppc_get_desired_perf - Get the desired performance register value.
+  * @cpunum: CPU from which to get desired performance.
+  * @desired_perf: Return address.
+  *
+- * Return: 0 for success, -EIO otherwise.
++ * Return: 0 for success, -EOPNOTSUPP for _CPC revision 4 or later, and a
++ * negative errno otherwise.
+  */
+ int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
  {
-+	__u32 old_mask;
- 	bool recalc;
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
++
++	if (!cpc_desc)
++		return -ENODEV;
++
++	/* _CPC revision 4 no longer specifies Desired Performance as readable. */
++	if (!cppc_desired_perf_readable(cpc_desc))
++		return -EOPNOTSUPP;
++
+ 	return cppc_get_reg_val(cpunum, DESIRED_PERF, desired_perf);
+ }
+ EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 6fe0e972952a..80893844353c 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -836,7 +836,7 @@ static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
+ 	 * value first as some platforms may update the actual delivered perf
+ 	 * there; if failed, resort to the cached desired perf.
+ 	 */
+-	if (cppc_get_desired_perf(cpu, &delivered_perf))
++	if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
+ 		delivered_perf = cpu_data->perf_ctrls.desired_perf;
  
- 	spin_lock(&fsn_mark->lock);
--	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS))
-+	if (!(fan_flags & FANOTIFY_MARK_IGNORE_BITS)) {
-+		old_mask = fsn_mark->mask;
- 		fsn_mark->mask |= mask;
--	else
-+		recalc = old_mask != fsn_mark->mask;
-+	} else {
- 		fsn_mark->ignore_mask |= mask;
--
--	recalc = fsnotify_calc_mask(fsn_mark) &
--		~fsnotify_conn_mask(fsn_mark->connector);
-+		recalc = true;
-+	}
- 
- 	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
- 	spin_unlock(&fsn_mark->lock);
-diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-index ed37491c1618..5f19c24ec187 100644
---- a/fs/notify/inotify/inotify_user.c
-+++ b/fs/notify/inotify/inotify_user.c
-@@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- {
- 	struct fsnotify_mark *fsn_mark;
- 	struct inotify_inode_mark *i_mark;
--	__u32 old_mask, new_mask;
- 	int replace = !(arg & IN_MASK_ADD);
- 	int create = (arg & IN_MASK_CREATE);
- 	int ret;
-@@ -555,27 +554,15 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
- 	i_mark = container_of(fsn_mark, struct inotify_inode_mark, fsn_mark);
- 
- 	spin_lock(&fsn_mark->lock);
--	old_mask = fsn_mark->mask;
- 	if (replace) {
- 		fsn_mark->mask = 0;
- 		fsn_mark->flags &= ~INOTIFY_MARK_FLAGS;
- 	}
- 	fsn_mark->mask |= inotify_arg_to_mask(inode, arg);
- 	fsn_mark->flags |= inotify_arg_to_flags(arg);
--	new_mask = fsn_mark->mask;
- 	spin_unlock(&fsn_mark->lock);
- 
--	if (old_mask != new_mask) {
--		/* more bits in old than in new? */
--		int dropped = (old_mask & ~new_mask);
--		/* more bits in this fsn_mark than the inode's mask? */
--		int do_inode = (new_mask & ~READ_ONCE(inode->i_fsnotify_mask));
--
--		/* update the inode with this new fsn_mark */
--		if (dropped || do_inode)
--			fsnotify_recalc_mask(fsn_mark->connector);
--
--	}
-+	fsnotify_recalc_mask(fsn_mark->connector);
- 
- 	/* return the wd */
- 	ret = i_mark->wd;
+ 	return cppc_perf_to_khz(&cpu_data->perf_caps, delivered_perf);
 
