@@ -1,74 +1,34 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C3F4192FC
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 08:11:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 32BB142901E;
+	Thu,  3 Sep 2026 08:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423105; cv=none; b=LlhIV1waWGEOXcdiVI2JIYtSBaJl8bZrWtE34r7UmNvyURHUSYoa/RBHg1fBBjn/1UHPb1Q0rA7ClVu9iVn2ao5DVk3tV8dT5DfvmznINLIZTCneI7ihWXpmaGxvUhEEnlnROwkqEeImkLvT6Al+k3r6WhYmJEAl67ZYzx3qDtw=
+	t=1788423262; cv=none; b=npDY3I3gEdcPDGJneGsKMgDCL6I7DqQ6Gath+AdooHX8oLt6BhAPgEpo02LRn5QhCWiFdXB2uwp+YkKv724OEWqCPocY8oJjgj62XPXd7Ap3zfS/Y1nV15HrYAy1QYXiuHKoDxwHrQ5OyNMXCaaFYc1b6H5qk+otnjCkX6t4p2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423105; c=relaxed/simple;
-	bh=Xghtyt6ElU9KfeHqS2XyTMJZnCsweO3xMPanse4xLdE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mbR52a/LpGYe9LwIyKsUnPi7bqK6pxvkvVmcDlnR8arH9dEoWmCJB9zSkd0Oaj6PpCpyykFvDT0Y2VpEGuW9jrKsWIEmkn3FBG5EIR7z64n9uFFsr9WTzwrTg3ztXA44I94IGGFIpveXDg8nE0ZzWMruS1tuRaIhCajHzxuqTjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIHvzsjV; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIHvzsjV"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3965d3d9ab8so1818898a91.3
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 01:11:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788423104; x=1789027904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/Yz/sPhDz2lFb8/Y0OGM2xcNq9RbNJiy8D9exw5GDnk=;
-        b=KIHvzsjVVGHJzw2KxZdaPTKQlhgFP0ze6y/rIyiIzoEV7ibu+o7125fKOo/V01R4Df
-         xQSrtOhwFVWtnOhKHH2tYSwFool/JhxLIswxcYtAc9M25JxILIuCYtiE9ySLV0BO4WUo
-         xzxdH75ckaUA8S37Rxb1Z27HPe90K+dJSTcMGNdn0VkBKPtcyCl4quj4SitdM/XhSe4t
-         HbNVGuuezgPVtiYo/DFcYbunjWlS7PadLMfxBPJlqI3j6bDm3RFSA49Q07Mw7Ze2xBQy
-         Zzc9V4r9tk+mLCoWzcpGCW9d/qmr+qymbFLcL0awzj7PSmrTCNiqoSyHUAjtEKFOngIm
-         fgpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788423104; x=1789027904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/Yz/sPhDz2lFb8/Y0OGM2xcNq9RbNJiy8D9exw5GDnk=;
-        b=UbDbqr9i34GJrC7Mt29RjstDY0AizSXmbg5D95MqJ2zgJeMow9Gab/+UbZyAof0Xrf
-         +s3JR6M54kT2uS1+r7jKFkkScgYpL80DrPg7qlRM1sCpowoXWRrY3yb7B7h/NBBLqw4k
-         CSpnYDH1ZKWaKEi2515XvXiDizw+5YG1meMiRpeRY0vMTTkvVlXUA4P+eNH4r1pA0R8c
-         P4NH1z78lZ97mIB28OHiQVSe6AR0YVsJTidAcIqU3ejJDaZh6ILoMC0ULMjQiIYjvj8g
-         rTCcxQxUhdXcCdW0dLZQE0+RY88SggIcXks4+V+GF03weaJT7rYs24xK+WSi6ATLP/qJ
-         WOkw==
-X-Forwarded-Encrypted: i=1; AKwUvByMYBKq83JqhOGwJv6ugf1sBjLnCDMKCz7PstlX5vx75W9wAZEdsmxMxqzFbobnf/DHQ54tAiM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldfuttOKzssFxY3xnkOrGobFgy8kUOm7qeWOZxeOBpD1HfwI84
-	EFdjSSCC0XUE7gStdUF2vkNLzl/MzciLEHutxQcYKFgOP2X7urASOWOOlxqbmQ==
-X-Gm-Gg: AYBFou3hpCQ7ebXjlacxUMFsKQvqD4oHBYPqtDPK+uSyHFYWLMc3EGHhyOePBLLB88O
-	TesSWrnP6OI13xAQNoW9dQbYUYAT0ONiV5awYUgVMwpDpgQv0mm8lV6eMK98f2VQFSCo8/Cx6ek
-	bD37GMHbZJZzWhOmEezTwGGTM01h7NyWO9zB6Iy6NkA+F86AZsQnjAGRscDd5XiQ6hr8hduvyUM
-	BJiWre0rQWAAtfaqijvUqKHLeHKxjUieJ0av4uGaaxla0V++bOWMXdNszwpR3cZSa6IAr37jmMJ
-	mUgnSCR/gwhtlQtvPkvmA3V2IhY5JFypdifDSSySmjnZ2hrHGp0cZS6Upmv0r06L/ZOmrm+EpOT
-	24UZWIlBHGeK/XKWtd/YVr6k41LNI1T6LqIMxIMoynpDcc0bGSHCvqqQV3yVUJiHamJL84RcwEM
-	Vlxx4cuTtycj3uiu0uth/+Rqtg5e5ARX4bN6v7f6ZsXWEFt4MjqNdc30bSQbWgcQ9w3Q==
-X-Received: by 2002:a17:90b:1dc1:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39aee13c22dmr16834798a91.17.1788423103692;
-        Thu, 03 Sep 2026 01:11:43 -0700 (PDT)
-Received: from Default ([2409:40f4:101d:c1aa:6821:531d:eb9f:2aaa])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3326e39365dsm4519895eec.20.2026.09.03.01.11.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:11:43 -0700 (PDT)
-From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: raven@themaw.net
-Cc: bodonnel@redhat.com,
-	brauner@kernel.org,
-	autofs@vger.kernel.org,
+	s=arc-20240116; t=1788423262; c=relaxed/simple;
+	bh=Fw7BxLvsbgQ86okN3kmwTci7n9D52Axek9VNy0RaIU8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VzZYEhJID4LUJ5QwitYLIy8qM3zw/PkHV/yzcbqkuYbayVCupON/R8VFb0+++jVJjKvUcLxgumP7G5MBlBBHj6HTIhcuS5UGeaehfH7VWFDCadQpr4P2JaChfHEGC/Mec7DYlW0TjEP3g24G2EPvQ8/wJzHtDz3CPT4N7Jy12nY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA38z1QLJlq5HToAA--.1433S3;
+	Thu, 03 Sep 2026 16:14:09 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgAnd59PLJlqIR9PBA--.53562S2;
+	Thu, 03 Sep 2026 16:14:07 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pm@vger.kernel.org
+Cc: sre@kernel.org,
+	pali@kernel.org,
+	songl@zju.edu.cn,
 	linux-kernel@vger.kernel.org,
-	Jeffin Philip <jeffinphilip14@gmail.com>,
-	syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] fs: autofs: fix memory leak in autofs_fill_super()
-Date: Thu,  3 Sep 2026 13:40:48 +0530
-Message-ID: <20260903081048.132524-1-jeffinphilip14@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] power: supply: bq27xxx: Ensure poll work is cancelled on remove
+Date: Thu,  3 Sep 2026 08:13:12 +0000
+Message-Id: <20260903081312.225535-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,39 +36,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgAnd59PLJlqIR9PBA--.53562S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?ecW1RwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBER98Gut3pRAqL25x45OSmWT3tKOMGM1Yeg3bEbqJ0DULzE
+	ac8tacSo18P7+NsbbyWp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr18tr1UJrWDKw43Cw1rAFc_yoW5GF43pr
+	Z3CrWY93y8ZFWUG3WUWa12vFy7GrZYqFW8Gry7Gay2k3Zrtryktry5KF9YgF4jyrZ5CFWS
+	vFW3t34xCr43CrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-In autofs_fill_super(), we create a new inode using
-autofs_new_ino(), however, if we fail to create root_inode,
-(that is, root_inode failure path), we return -ENOMEM without
-freeing the new inode(ino) that we created causing a memory leak.
-Fix this by adding autofs_free_ino() to free the inode we created
-in root_inode failure path before returning ENOMEM.
+The di->work poll work is queued from the poll callback itself and from
+bq27xxx_external_power_changed(). The cancel_delayed_work_sync() in
+bq27xxx_battery_teardown() runs while the power_supply is still
+registered, so external_power_changed() can re-arm the work after the
+cancel, and it runs after the driver data has been freed.
 
-Reported-by: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=df1db6e034b3953e19f5
-Fixes: 66917f85db60 ("autofs: add: new_inode check in autofs_fill_super()")
+Register a devm_delayed_work_autocancel() before
+devm_power_supply_register(), so on unwind the power_supply is
+unregistered first, after which no new external_power_changed()
+callback can be dispatched, and the poll work is cancelled only then.
+Drop the now-redundant cancel from bq27xxx_battery_teardown().
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: 740b755a3b34 ("bq27x00: Poll battery state")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- fs/autofs/inode.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/power/supply/bq27xxx_battery.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/fs/autofs/inode.c b/fs/autofs/inode.c
-index c1e210cec436..6b15a3717ba7 100644
---- a/fs/autofs/inode.c
-+++ b/fs/autofs/inode.c
-@@ -323,8 +323,10 @@ static int autofs_fill_super(struct super_block *s, struct fs_context *fc)
- 		return -ENOMEM;
+diff --git a/drivers/power/supply/bq27xxx_battery.c b/drivers/power/supply/bq27xxx_battery.c
+index 45f0e39b8c2d..f175c5a99188 100644
+--- a/drivers/power/supply/bq27xxx_battery.c
++++ b/drivers/power/supply/bq27xxx_battery.c
+@@ -43,6 +43,7 @@
+  */
  
- 	root_inode = autofs_get_inode(s, S_IFDIR | 0755);
--	if (!root_inode)
-+	if (!root_inode) {
-+		autofs_free_ino(ino);
- 		return -ENOMEM;
-+	}
+ #include <linux/device.h>
++#include <linux/devm-helpers.h>
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/param.h>
+@@ -2234,7 +2235,6 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	};
+ 	int ret;
  
- 	root_inode->i_uid = ctx->uid;
- 	root_inode->i_gid = ctx->gid;
--- 
-2.55.0
+-	INIT_DELAYED_WORK(&di->work, bq27xxx_battery_poll);
+ 	ret = devm_mutex_init(di->dev, &di->lock);
+ 	if (ret)
+ 		return ret;
+@@ -2255,6 +2255,12 @@ int bq27xxx_battery_setup(struct bq27xxx_device_info *di)
+ 	psy_desc->get_property = bq27xxx_battery_get_property;
+ 	psy_desc->external_power_changed = bq27xxx_external_power_changed;
+ 
++	/* Cancel the poll work after the power_supply is unregistered. */
++	ret = devm_delayed_work_autocancel(di->dev, &di->work,
++					   bq27xxx_battery_poll);
++	if (ret)
++		return ret;
++
+ 	di->bat = devm_power_supply_register(di->dev, psy_desc, &psy_cfg);
+ 	if (IS_ERR(di->bat))
+ 		return dev_err_probe(di->dev, PTR_ERR(di->bat),
+@@ -2281,8 +2287,6 @@ void bq27xxx_battery_teardown(struct bq27xxx_device_info *di)
+ 	mutex_lock(&di->lock);
+ 	di->removed = true;
+ 	mutex_unlock(&di->lock);
+-
+-	cancel_delayed_work_sync(&di->work);
+ }
+ EXPORT_SYMBOL_GPL(bq27xxx_battery_teardown);
+ 
 
