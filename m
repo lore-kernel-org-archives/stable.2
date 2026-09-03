@@ -1,148 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520CB4C9003
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233E04562B7
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 15:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448044; cv=none; b=hHPTHVeFSsf3rDv/mj3lHmCLYCAjC/U28XxyXBF8fwkOZ8BCXVDHWgZfcrBcB3iae/9KzyVdHeERFfd/tRBCsvv0NTyIJ0Fz8AoMWKvtsnDuLw0ICE7bBiV3bDqv76NAYn955kap3KoB5J7TkmB/6Js1Z3iluOmfAZ1sqxqzBo4=
+	t=1788448048; cv=none; b=GE9HmOXvrhK99OPCylsdyRQq4Sdc6Q7mM0Hl1fxSzp49vHRXHQ/TkFYafE27g3R0U28UDD6CUplzgB4eyhZBEWY5pU111QY3osz9OYDNJp4dfUXbUpQBgIw8NTopMO1vlOlpMUJBUHxwAPNZktO2rngea4u6sUwgIm36VANfhEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448044; c=relaxed/simple;
-	bh=DwM+Esd2y4lNt7e1QxsHA2YfqTGycKOWgY1M9ylwTK4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=o55D6HyvPN9ObP4bxa+PTWsr3HY/eEl5ITktItDkBO8KrnIujwGis3HSehswT3y6q/Ohqz93QcUnaW5nMTlH8L6dFjf7B+LWpdpEMr+ex8TYsMsDs8HiSsEysvCWs5eXxH7apMWIyKIc4m4YydqCiQjiKZUaCb90bPnsnBTK5iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yhl8j2c2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448048; c=relaxed/simple;
+	bh=1lEQLRAz9XQa9g6yOY6QDTDgEquBw1j/9KlRYXL0+3A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OMc+V7M3JPYtjdXQ3ezqZaXJEBFUoplwbAhoyp680U2KkQp/ejq+KA7IktX8cMWorVSIF9etbv38yEUQpBgKcQXWKnGUUb7LRUUKIvisGhO9suh6sorZ3p55R3b9jraukcwexvkTH9RFTs7IRwCifjBd3UdWDe49YNB0XWa9MRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5nN7yPt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yhl8j2c2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A08DC1F00A3A;
-	Thu,  3 Sep 2026 15:07:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788448043;
-	bh=fht4L0JX2Ox98wir9tvlM5Ofj7JfJUrIDKKpn/IGQg0=;
-	h=Subject:To:Cc:From:Date;
-	b=yhl8j2c2vkmpCVtVsSZi0rMpSZq0OCHLS6++vFAWR4U1Fy6jKN25S7xKvLw8jH3de
-	 tUFVc7J8qigdKxsy4Po9eZoR1AgBuoQ1h33N/o/t1PB4s9ZouifONYgf3aoCob1PqN
-	 iPLkLv+WgYwtLuwVYWkBdJUEpTYkcxVXRiaSu7zs=
-Subject: FAILED: patch "[PATCH] net: dsa: realtek: use gpiod_set_value_cansleep for reset" failed to apply to 5.15-stable tree
-To: a.fatoum@pengutronix.de,alvin.sipraga@analog.com,kuba@kernel.org,linusw@kernel.org,luizluca@gmail.com,o.rempel@pengutronix.de,stable@vger.kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:54:51 +0200
-Message-ID: <2026090351-frail-oil-2778@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5nN7yPt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F4B51F00A3A;
+	Thu,  3 Sep 2026 15:07:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788448047;
+	bh=rA+UfU8VSihi/K/nqL5LTR4dMv2fWokDF1ns10gNr6w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=H5nN7yPttxqxI1GSgcJ8gTpDlIkO9mIIOWDGegg/vlrWou6SHQnZQYR8cGVWdTquo
+	 yc1yvU5z1DQ4COW5rQRRc/y+fxqPMCkppuMSbfpZAlZ4OpgqOINH96unbZpY88FyBO
+	 ArzR8tkbaQYyS2CPzRqAPBeel/92sEOpQdA3hU7t78FXZFPZgjNNABocimEzdVvU+t
+	 io2y32f0opZ958JWrT6AmCxlGo/GcEOhDCpZTmO+yVoz289aQ+UVG9HGTtbUQwj7AJ
+	 aPIysQSRH3I+vxRaNpheSj/24bie0a7+HLZ/yc9lqFs/iWtWX6iLYVKgBhjuyTxc1M
+	 xrBza6ZRn+eJg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] KEYS: trusted: Fix TPM teardown ordering
+Date: Thu,  3 Sep 2026 11:07:24 -0400
+Message-ID: <20260903150724.863748-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090320-bagful-script-16a2@gregkh>
+References: <2026090320-bagful-script-16a2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 5e2d672280d97d83de43031d93761b12dadd7b8a ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+trusted_tpm_exit() drops the TPM chip reference and frees the digest
+array before unregistering the trusted key type. key_type_lookup()
+holds key_types_sem for reading until the key operation finishes, while
+unregister_key_type() takes it for writing. It therefore provides the
+synchronization point that must precede backend teardown.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x fb58b6a696b30bcbfbe0cfc0a91b19c816a955fc
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090351-frail-oil-2778@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+The current order permits this interleaving:
 
-Possible dependencies:
+  CPU 0                              CPU 1
+  trusted_tpm_exit()                 key_type_lookup("trusted")
+    put_device(&chip->dev)             trusted_tpm_seal()
+    kfree(digests)                       pcrlock()
+    unregister_key_type()                  tpm_pcr_extend(..., digests)
 
+CPU 1 can consequently dereference the freed digest array. The chip can
+also be released before callbacks stop using it.
 
+KASAN reported:
 
-thanks,
+  BUG: KASAN: slab-use-after-free in tpm_pcr_extend+0x1f0/0x200
+  Read of size 2 at addr ffff88810872d000 by task poc/89
+  Call Trace:
+    tpm_pcr_extend+0x1f0/0x200
+    pcrlock+0x42/0x70 [trusted]
+    trusted_tpm_seal+0x1b6/0x570 [trusted]
+    trusted_instantiate+0x293/0x340 [trusted]
+    __key_instantiate_and_link+0xb2/0x2b0
+    __key_create_or_update+0x61e/0xb50
+    __do_sys_add_key+0x1b8/0x310
+  Allocated by task 88:
+    __kmalloc_noprof+0x1a7/0x490
+    do_one_initcall+0xa1/0x390
+    do_init_module+0x2df/0x840
+  Freed by task 90:
+    kfree+0x131/0x3c0
+    trusted_tpm_exit+0x59/0xa0 [trusted]
+    __do_sys_delete_module+0x346/0x510
 
-greg k-h
+Move unregister_key_type() before releasing either resource. This stops
+new lookups and waits for in-flight key operations to finish before the
+backend state is destroyed.
 
------------------- original commit in Linus's tree ------------------
+Fixes: 0b6cf6b97b7e ("tpm: pass an array of tpm_extend_digest structures to tpm_pcr_extend()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Link: https://lore.kernel.org/r/20260731140925.2973492-1-nicoyip.dev@gmail.com
+Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Tested-by: Jarkko Sakkinen <jarkko@kernel.org>
+Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+[ preserved the additional trusted_shash_release() cleanup after unregister_key_type() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ security/keys/trusted-keys/trusted_tpm1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-From fb58b6a696b30bcbfbe0cfc0a91b19c816a955fc Mon Sep 17 00:00:00 2001
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Date: Fri, 14 Aug 2026 13:01:02 +0200
-Subject: [PATCH] net: dsa: realtek: use gpiod_set_value_cansleep for reset
- GPIO
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-rtl83xx_reset_assert() and rtl83xx_reset_deassert() are only called from
-the probe path, which may sleep and is not timing-critical.  When the
-reset GPIO is provided by a sleeping controller such as an I2C I/O
-expander, gpiod_set_value() warns:
-
-  WARNING: drivers/gpio/gpiolib.c:4030 at gpiod_set_value+0x44/0x80, CPU#1: kworker/u16:4/61
-  Hardware name: B&O MAP CA33 Rev f (UNKNOWN) (DT)
-  Workqueue: events_unbound deferred_probe_work_func
-  pc : gpiod_set_value+0x44/0x80
-  lr : rtl83xx_probe+0x1d8/0x3a0
-  Call trace:
-   gpiod_set_value+0x44/0x80 (P)
-   rtl83xx_probe+0x1d8/0x3a0
-   realtek_mdio_probe+0x24/0xa0
-   mdio_probe+0x38/0x78
-   really_probe+0xc4/0x3e0
-   __driver_probe_device+0x15c/0x1b8
-   driver_probe_device+0xb4/0x120
-   __device_attach_driver+0xb8/0x1a0
-   bus_for_each_drv+0x88/0xf0
-   __device_attach+0xa0/0x1d8
-   device_initial_probe+0x54/0x68
-   bus_probe_device+0x38/0xa0
-   deferred_probe_work_func+0xb8/0x120
-   process_one_work+0x184/0x4e8
-   worker_thread+0x188/0x308
-   kthread+0x130/0x150
-   ret_from_fork+0x10/0x20
-
-Switch both helpers to gpiod_set_value_cansleep() so such a reset GPIO can
-be used without triggering the warning.
-
-The reset GPIO has been driven with the non-sleeping gpiod_set_value()
-since the driver was added in v4.19.  The call has since been refactored
-across several files - from realtek-smi.c / realtek-mdio.c into the common
-rtl83xx.c module and then into the rtl83xx_reset_assert() and
-rtl83xx_reset_deassert() helpers (both in v6.9).  This patch therefore
-applies as-is only to kernels that carry those helpers (v6.9+); older
-stable kernels need the same gpiod_set_value_cansleep() conversion at the
-corresponding open-coded call sites.
-
-Fixes: d8652956cf37 ("net: dsa: realtek-smi: Add Realtek SMI driver")
-Cc: <stable@vger.kernel.org> # 6.9.x
-Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
-Reviewed-by: Alvin Šipraga <alvin.sipraga@analog.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Reviewed-by: Luiz Angelo Daros de Luca <luizluca@gmail.com>
-Link: https://patch.msgid.link/20260814110102.2362246-1-o.rempel@pengutronix.de
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/drivers/net/dsa/realtek/rtl83xx.c b/drivers/net/dsa/realtek/rtl83xx.c
-index 9dd50b20c000..d2e92bab55d2 100644
---- a/drivers/net/dsa/realtek/rtl83xx.c
-+++ b/drivers/net/dsa/realtek/rtl83xx.c
-@@ -321,7 +321,7 @@ void rtl83xx_reset_assert(struct realtek_priv *priv)
- 			 "Failed to assert the switch reset control: %pe\n",
- 			 ERR_PTR(ret));
- 
--	gpiod_set_value(priv->reset, true);
-+	gpiod_set_value_cansleep(priv->reset, true);
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index ddcbfaede6849..3b1ee879419c4 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -1058,10 +1058,10 @@ static int __init trusted_tpm_init(void)
+ static void trusted_tpm_exit(void)
+ {
+ 	if (chip) {
++		unregister_key_type(&key_type_trusted);
+ 		put_device(&chip->dev);
+ 		kfree(digests);
+ 		trusted_shash_release();
+-		unregister_key_type(&key_type_trusted);
+ 	}
  }
  
- void rtl83xx_reset_deassert(struct realtek_priv *priv)
-@@ -334,7 +334,7 @@ void rtl83xx_reset_deassert(struct realtek_priv *priv)
- 			 "Failed to deassert the switch reset control: %pe\n",
- 			 ERR_PTR(ret));
- 
--	gpiod_set_value(priv->reset, false);
-+	gpiod_set_value_cansleep(priv->reset, false);
- }
- 
- /**
+-- 
+2.53.0
 
