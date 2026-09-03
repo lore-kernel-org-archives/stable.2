@@ -1,46 +1,71 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BA9F04E80D2
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 306DC44B69C
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 16:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452370; cv=none; b=pw0P337zNJmZrl3q2Nsagpj8YRQ2lvxBsLoyZ9erLokgmUryriFD1iComOg6RBDyf+raO6unXSukFF3x4fwaZFLtmU+ob/nMVMIi8SY0U47D16MEIsqZZX6TGNpo6NKYcpoi94VRaFeoufwlg27T2DCePjdr+Qu63zjEDlUYv6M=
+	t=1788452456; cv=none; b=IlFf3j6chzLvuH+m5fgU+UbS2B+GjHBJ+8+Y2mePtJ+/1EnacWPIAT2A8TBgxtGG1mxexqTKkXgAqnTAM/oVr7n8TmssD7wXZ5P9Rc2lkQum6zNq8FvoPlm8mykrRQNg3jud7JUcn7JYyONcU0HSPyX4DQbsEyWX7GT7GiVdVM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452370; c=relaxed/simple;
-	bh=CRqQTsRO7q0L3GQFXL3KeEsDLCb6TvH1oEnTovBIEb4=;
+	s=arc-20240116; t=1788452456; c=relaxed/simple;
+	bh=pkOVY+rOFwhayuhQUynax0s+TTxHBzjKY1U+GdjwiM8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IAdiIxwyCaHPPvZlWckNlRa6U/A2f2W/49ei3netWCQDRH7aWwS57mxaXi/o7SALGbPJNRZQO3cJPUdP70hqlHP0pWk5i26ifrrk5jBsWKpO9H8TAgLJKN+rsXxkgyQQ0BvuUoBSS6UY8GavfGLkWA70vatclEPvUKZRJU2RNYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=XHq8L4f6; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 MIME-Version; b=JKovEPtZXOcoqupg1IZuUQo+2vWG9u8DYXY6wrAidU9TnnAQgnvo5QTLULDJonMHJ19QMVqvdwCyiFVE2hXvbrvkmTYYxUE+X8mm/yCmxOxcngzttEXOx+vQM0Kfj/4iFa6jfqwwTUFT+qwkeSfRf6uPI4gvlmFmkzxdHMZ2UUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGvzLm7k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="XHq8L4f6"
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.21])
-	by linux.microsoft.com (Postfix) with ESMTPSA id D40E120B712B;
-	Thu,  3 Sep 2026 09:18:48 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D40E120B712B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788452331;
-	bh=ivCqi1+FwC0DdzIroEXthPMAlwue8gQTsCKALVC7SVU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=XHq8L4f6mmGTss4DOAVLqQlDb1AzKGE/+Tyiq4QJpr7iy2pXXfPMnZ7gQopqcJdTv
-	 hJLWVyi8X98Pg7aLT8AYm7f1+QO/LKd/wytQdJBgA3ESB8cBDvbNSpgP9nkMcdGIqG
-	 aoWoe0QgsOIayTZKqb+DGLbVX02Sb4VnRxexSlPw=
-From: Naman Jain <namjain@linux.microsoft.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGvzLm7k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46DDB1F000E9;
+	Thu,  3 Sep 2026 16:20:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788452453;
+	bh=9BsN+SFWewNj4VZMXGi8K9jcoKyqMbRmUQ3aar2GqPM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bGvzLm7kCDtNqttOrLrsxS6J87jInLRhB45znJPCJvy/XQeug/jrlwB2x7SHN0u99
+	 LuEDbQyBn+krvueBW+RIRMCM7hvxxFz0qlBjyMC1LAAQORy0+21Ts/18VVOOKtPDfp
+	 AJSYEOl1/CgRc5W87Uf4dgVqxj+hhXwY8AmzlYMpWTPMLHdhpU50SuNCDUvVcd8Qbl
+	 tAE+4g6bEMnvzuwbzoqj3ggyXDVtSh07jnbvgoM1CH8td5xdPd9Jzjgq+2IvWgiVs3
+	 xhhGQWRR1owD/Ptj0nOAZMhV55iN8wBFPoKP8pVnkLHgYqZIuWsE+Bdgs1yWVjqd/O
+	 DXGdX258KoNww==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7561F198006E;
+	Thu,  3 Sep 2026 12:20:51 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Thu, 03 Sep 2026 12:20:51 -0400
+X-ME-Sender: <xms:Yp6Zaibuaa6Sqyj1zSQGCksYF8y7LEY_OG99pHN5fQZk6v-QkOAHcQ>
+    <xme:Yp6ZagWpSH1xjvN0SJ6Z7Nd7aFQzRIvzqy3FNaINTfwVvGVcd7xNeyYtocPVAlomP
+    x0oea1FVkFAsZfCDNAZp4KRBiRXhmt_u2eudYTeYe8O-l7XBubFeFebXw>
+X-ME-Received: <xmr:Yp6Zar_rbtRrJtgUERjBguKl9D1R82O5Hyr4ePcY7DKJ4794BXhQkypSA3g>
+X-ME-Proxy-Cause: dmFkZTEmtPCeWfWCgcVgl36IQTvGnpiboPiJ+fe2aGcwIl9J54Mx6OVyJV/YDxrlB/1HDd
+    X2M9+Oy8MbZWDXIenOlYCG/S1M1ROlh20Kc3QeSkzJxMufRyWBa+inirEi1GNCYuacfUCt
+    m+B9A26YT6Q13YoZ1fhaq6lpcG01Nlj5M5J3Rk7stpXf3TsmEUSEyvpzRONPQlr6FpZu9k
+    bwu+Cn6HP5Cvkyox+0ec4JMflJ4WuMrpaRfRxuzczSAqfPcO9NrnodeFUjo61C+W1dFDTl
+    bK/6M/uV+YlYz/hDvwFiI6MHNozoiYhDFO1Z+i4+nmu90py9ji9OC85FyypSO5XnQFSphS
+    IP5s8hI+SfXQeucBNPpoyVVc5+JNRFakHUqy7fWPMUq+U9AzgPGdehE77cTpUBW7EywoGr
+    U3exSLqLry/lg+cm1NbS47f1zneI4emBJcd6KALXlGiFMU8cG78MZ/gjhjdZe7/OLyqpGZ
+    9QL64YV4f1a8N9Bj+2HItItG1sVqiTtl/IHgpU07GqmCC6Fkhk1uWqrvyMsjjvrdJT6Jwb
+    sNBaq8es09eql2FwguRRiSvjYxCuMjDl+/p6uYoy1+QDe3itU1/YVsR0s/4SUpR7dusPzM
+    uY4pG1+tFC3zxnAUPzR2p/CvwPkTXP2LObO9jSBx9WZ3q49zAtvcxBalE/YQ
+X-ME-Proxy: <xmx:Yp6Zap_-6Q_aoB67Pt2YNgguqnPjuJ7Mtw-YLvBKbJSlj65V87WkEA>
+    <xmx:Yp6ZarQfPImCk_wNaDBG4gqBHy1Pqc0sgxU6cCslEP5-GjbskhSgdw>
+    <xmx:Yp6ZateltFOUwvrPPLyJxHDeyGRE4zOP-6IVB6oV4A5Pi-Qc4j7zpA>
+    <xmx:Yp6ZavCa0oymCxK4XgjmmXQAsxcGB4V02LD1kzR2FJYoUCGopXmaCQ>
+    <xmx:Y56Zavn3bHQk4Lm6m21FOl0WAFB-uT7i9FUCY_HB7Tzkn1mKN7q9Zxss>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Sep 2026 12:20:50 -0400 (EDT)
+From: Kiryl Shutsemau <kas@kernel.org>
 To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	gargaditya@linux.microsoft.com,
-	longli@microsoft.com,
-	mhklinux@outlook.com,
-	shradhagupta@linux.microsoft.com,
-	tglx@kernel.org,
-	wei.liu@kernel.org,
-	namjain@linux.microsoft.com
-Subject: [PATCH 5.15.y] PCI: hv: Set irq_retrigger callback for the Hyper-V PCI MSI irqchip
-Date: Thu,  3 Sep 2026 16:19:22 +0000
-Message-ID: <20260903161922.87232-1-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026090343-twirl-opt-bff6@gregkh>
-References: <2026090343-twirl-opt-bff6@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH 6.1.y] x86/tdx: Fix zero-extension for 32-bit port I/O
+Date: Thu,  3 Sep 2026 17:20:49 +0100
+Message-ID: <20260903162049.584007-1-kas@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026090347-doze-watch-fde3@gregkh>
+References: <2026090347-doze-watch-fde3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,47 +74,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Hyper-V vPCI MSI irqchip never installs an irq_retrigger() callback.
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-On CPU hot-unplug fixup_irqs() migrates the interrupts which are affine to
-the outgoing CPU to a new target. If an interrupt still has its pending bit
-set in the outgoing CPU's IRR at that point, fixup_irqs() resends it on the
-new target through the irqchip's irq_retrigger() callback. As the Hyper-V
-PCI/MSI chip does not provide that callback, the pending interrupt is
-silently dropped, which can result in lost interrupts, stalls and "No irq
-handler for vector" messages during CPU hotplug.
+According to x86 architecture rules, 32-bit operations zero-extend the
+result to 64 bits. The current implementation of handle_in() only masks
+the lower 32 bits, which preserves the upper 32 bits of RAX when a
+32-bit port IN instruction is emulated.
 
-Install irq_chip_retrigger_hierarchy() as the irq_retrigger() callback for
-the Hyper-V PCI/MSI irqchip, so that a pending interrupt is resent on its
-new target CPU via the parent x86 vector domain.
+Use insn_assign_reg() to write the result back into RAX with proper
+partial-register-write semantics: 1- and 2-byte forms leave the upper
+bits untouched, the 4-byte form zero-extends to the full register.
 
-Fixes: 4daace0d8ce85 ("PCI: hv: Add paravirtual PCI front-end for Microsoft Hyper-V VMs")
-Cc: stable@vger.kernel.org
-Suggested-by: Long Li <longli@microsoft.com>
-Suggested-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Aditya Garg <gargaditya@linux.microsoft.com>
-Reviewed-by: Shradha Gupta <shradhagupta@linux.microsoft.com>
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
-Reviewed-by: Michael Kelley <mhklinux@outlook.com>
-Signed-off-by: Wei Liu <wei.liu@kernel.org>
-(cherry picked from commit 86bdd16e8f390d51bae9e77a4bc4164ca2f580fe)
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+Fixes: 03149948832a ("x86/tdx: Port I/O: Add runtime hypercalls")
+Reported-by: Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+Link: https://lore.kernel.org/all/CAKw_Dz96rfSQc6Rn+9QBcUFHhmkK+9zu+P=bxowfZwxrATCBRg@mail.gmail.com/
+Cc:stable@vger.kernel.org
+Link: https://patch.msgid.link/20260713133753.223947-4-kirill@shutemov.name
+(cherry picked from commit 941370fc93cc3474e26811f4d3b062903eefe2cf)
+[ kas: adjust for the __tdx_hypercall(&args, TDX_HCALL_HAS_OUTPUT)
+  calling convention in this tree; no other change ]
+Signed-off-by: Kiryl Shutsemau <kas@kernel.org>
 ---
- drivers/pci/controller/pci-hyperv.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/x86/coco/tdx/tdx.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 7917ed426f6a7..ef3beda509186 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -1655,6 +1655,7 @@ static struct irq_chip hv_msi_irq_chip = {
- 	.irq_compose_msi_msg	= hv_compose_msi_msg,
- 	.irq_set_affinity	= hv_set_affinity,
- 	.irq_ack		= irq_chip_ack_parent,
-+	.irq_retrigger		= irq_chip_retrigger_hierarchy,
- 	.irq_mask		= hv_irq_mask,
- 	.irq_unmask		= hv_irq_unmask,
- };
+diff --git a/arch/x86/coco/tdx/tdx.c b/arch/x86/coco/tdx/tdx.c
+index a896d2d6f21f..2f42892b456e 100644
+--- a/arch/x86/coco/tdx/tdx.c
++++ b/arch/x86/coco/tdx/tdx.c
+@@ -462,8 +462,8 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+ 		.r13 = PORT_READ,
+ 		.r14 = port,
+ 	};
+-	u64 mask = GENMASK(BITS_PER_BYTE * size - 1, 0);
+ 	bool success;
++	u64 val;
+ 
+ 	/*
+ 	 * Emulate the I/O read via hypercall. More info about ABI can be found
+@@ -471,11 +471,9 @@ static bool handle_in(struct pt_regs *regs, int size, int port)
+ 	 * "TDG.VP.VMCALL<Instruction.IO>".
+ 	 */
+ 	success = !__tdx_hypercall(&args, TDX_HCALL_HAS_OUTPUT);
++	val = success ? args.r11 : 0;
+ 
+-	/* Update part of the register affected by the emulated instruction */
+-	regs->ax &= ~mask;
+-	if (success)
+-		regs->ax |= args.r11 & mask;
++	insn_assign_reg(&regs->ax, val, size);
+ 
+ 	return success;
+ }
 -- 
-2.43.0
+2.55.0
 
