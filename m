@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AC84BB5B9
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:41:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96384B66D7
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:41:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446479; cv=none; b=FYpkm4PQ8gDc/H6diiaNw5f9lInx6hH42sBaltsrU+ChE/Lv/BTYdavCFne2DAlctjWNlCFxzhyyKwxeQEaRWa8qsiYZHzr/KnKZTWGYkNdssX2lOo5+Fh6v7U3Bbe9geQiqHapTskBRBdfTFVJhoUOWR+s4OlS/n/0HIdUzT3g=
+	t=1788446475; cv=none; b=XGamXKojJjGW1y3/BWE78d52fAOtNE3wT3N4ENHT0t7anWdZ9DobXP87jjQPKALk6pYSJyiA8k1d9Gf/zOrQlNu828ZzoDI81w93ddhSx4nYWvd6gdgnTkowLL4mcdXFxAJusNapKaa+hA8L4OarpwOiTsU7PQbeBvGkdbZr6XU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446479; c=relaxed/simple;
-	bh=H0h1fAtTpNyRsN+yqYdrMHCjrl2/hz4wstIrxKeV2n0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c0p/nbknKydJTLAk9A/PSPAJyyNCRGfqiIBgG57PtjAErpDEmmJUBPbk8zTeDcDoyep1uNqtKEfwOr0sELO1q8WeQWnBvdy0zIe2SMB1fy5/bsE1uFrcYF60lIkYGEJoSnH6314+YN6XzggwPW2JtratZED0jzJRHhv5VqdHCVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HD9NGFog; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788446475; c=relaxed/simple;
+	bh=5369dt5vKLYx8AsdZvWQKiQvtHiaa9HPMA1E2LPtB/4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JsURh7mDLajKzqOaY3gHDAN2cl70cdNeI9h5GFKIYX7ZbFgakCnugjfVKAEPeG7YxFcrNoIVKIkOobt2LL0/eIruI9eFjJQaEkwq+YMlOJkGBpWbY12TsZT10geES1MBAxksrirP4WwUivLLWa2CXhcmzc1nCpw1cZmafLbWwEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l611NK9i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HD9NGFog"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0372D1F00A3D;
-	Thu,  3 Sep 2026 14:41:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l611NK9i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31AD81F000E9;
+	Thu,  3 Sep 2026 14:41:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788446473;
-	bh=yJ+4sayB6118YP6HhU1Sfob4QpRMJkVciwD94q7TTvQ=;
+	s=korg; t=1788446470;
+	bh=HSCroLBA0469+QFnUm50bvWjYBSHrseRhneST8DLJ50=;
 	h=Subject:To:Cc:From:Date;
-	b=HD9NGFogidgg0yFb0OTNQ1tXscQtHc2XUzOQrGfon7RwXa6QSi+H+LO9BZFJJW8c5
-	 pH/PHNE0DM3XauEuyGkkqqz4jHLOH8RAIXlVAi2/WYUoj+JA7xUAJ0F1M+kFLxoO6W
-	 KQWqOAA9iSLivVMyfcfDqLeVi2msis2tdBrzR1Rg=
-Subject: FAILED: patch "[PATCH] ring-buffer: Fix subbuf resize race with" failed to apply to 6.12-stable tree
-To: vdonnefort@google.com,rostedt@goodmis.org,sashiko-bot@kernel.org
+	b=l611NK9iPPOapT2DX2CSUxgQ8runt+HtL53sHiZ8BYtx7pjG5eUr6cIoemvuJs8WG
+	 InDSPA6/1GmbLddAULNrRXEUDK4t8TRvtglc9J1ykfZbCOwtk8Fv4MVRaQ+tcunjcA
+	 CFTYxKqzHZDrhPMDo0GHv34zTs2mkcjIklYW3yv4=
+Subject: FAILED: patch "[PATCH] RDMA/ionic: Embed counter driver data in rdma_counter" failed to apply to 6.18-stable tree
+To: abhijit.gangurde@amd.com,leon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:22:52 +0200
-Message-ID: <2026090352-announcer-magnify-98b4@gregkh>
+Date: Thu, 03 Sep 2026 16:21:19 +0200
+Message-ID: <2026090319-cesspool-drapery-a749@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e743527c5bfdceda1095bc0a9e596e2aebb6a9c3
+git cherry-pick -x cf3ebd89e754015625fee90aa938f6bc79a2c974
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-announcer-magnify-98b4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090319-cesspool-drapery-a749@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,40 +62,248 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e743527c5bfdceda1095bc0a9e596e2aebb6a9c3 Mon Sep 17 00:00:00 2001
-From: Vincent Donnefort <vdonnefort@google.com>
-Date: Thu, 13 Aug 2026 14:11:47 +0100
-Subject: [PATCH] ring-buffer: Fix subbuf resize race with
- ring_buffer_alloc_read_page()
+From cf3ebd89e754015625fee90aa938f6bc79a2c974 Mon Sep 17 00:00:00 2001
+From: Abhijit Gangurde <abhijit.gangurde@amd.com>
+Date: Wed, 5 Aug 2026 11:02:54 +0530
+Subject: [PATCH] RDMA/ionic: Embed counter driver data in rdma_counter
+ allocation
 
-ring_buffer_alloc_read_page() is racy with ring_buffer_subbuf_order_set,
-it can allocate a reader page with an outdated order. This isn't a big
-issue, the user can still re-allocate a new reader page and try again.
+Commit 7e53b31acc7f ("RDMA/core: Create and destroy rdma_counter using
+rdma_zalloc_drv_obj()") requires drivers implementing counter ops to
+embed struct rdma_counter in a driver-specific struct, register its size
+via INIT_RDMA_OBJ_SIZE, and provide a counter_init callback.
 
-However, what is more problematic is if the value of subbuf_order
-changes in the middle of ring_buffer_alloc_read_page(). In that case,
-bpage->order might not match the actual allocated memory.
+The ionic driver was merged without this adaptation, causing a NULL
+pointer dereference in alloc_and_bind() since rdma_zalloc_drv_obj()
+allocates zero bytes when size_rdma_counter is unset.
 
-Use bpage->order for the allocation to prevent this race.
+Consolidate struct ionic_counter into a new struct ionic_rdma_counter
+that embeds struct rdma_counter, replace the xarray with a lightweight
+ida for ID allocation, and add the required counter_init and
+INIT_RDMA_OBJ_SIZE declarations.
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813131152.3589632-6-vdonnefort@google.com
-Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Fixes: ea4c399642b8 ("RDMA/ionic: Implement device stats ops")
+Cc: stable@vger.kernel.org # 6.18
+Signed-off-by: Abhijit Gangurde <abhijit.gangurde@amd.com>
+Link: https://patch.msgid.link/20260805053254.4023262-2-abhijit.gangurde@amd.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index e436793ed5c1..796c10319d6a 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -7018,7 +7018,7 @@ ring_buffer_alloc_read_page(struct trace_buffer *buffer, int cpu)
- 	if (bpage->data) {
- 		rb_init_data_page(bpage->data);
- 	} else {
--		bpage->data = alloc_cpu_data(cpu, cpu_buffer->buffer->subbuf_order);
-+		bpage->data = alloc_cpu_data(cpu, bpage->order);
- 		if (!bpage->data) {
- 			kfree(bpage);
- 			return ERR_PTR(-ENOMEM);
+diff --git a/drivers/infiniband/hw/ionic/ionic_hw_stats.c b/drivers/infiniband/hw/ionic/ionic_hw_stats.c
+index f72c9837e135..4f0a2dedbdfe 100644
+--- a/drivers/infiniband/hw/ionic/ionic_hw_stats.c
++++ b/drivers/infiniband/hw/ionic/ionic_hw_stats.c
+@@ -235,35 +235,34 @@ static int ionic_get_hw_stats(struct ib_device *ibdev,
+ static struct rdma_hw_stats *
+ ionic_counter_alloc_stats(struct rdma_counter *counter)
+ {
++	struct ionic_rdma_counter *cntr = to_ionic_rdma_counter(counter);
+ 	struct ionic_ibdev *dev = to_ionic_ibdev(counter->device);
+-	struct ionic_counter *cntr;
+-	int err;
++	struct rdma_hw_stats *stats;
++	int id;
+ 
+-	cntr = kzalloc_obj(*cntr);
+-	if (!cntr)
+-		return NULL;
+-
+-	/* buffer for current values from the device */
+ 	cntr->vals = kzalloc(PAGE_SIZE, GFP_KERNEL);
+ 	if (!cntr->vals)
+-		goto err_vals;
++		return NULL;
+ 
+-	err = xa_alloc(&dev->counter_stats->xa_counters, &counter->id,
+-		       cntr,
+-		       XA_LIMIT(0, IONIC_MAX_QPID),
+-		       GFP_KERNEL);
+-	if (err)
+-		goto err_xa;
++	id = ida_alloc_max(&dev->counter_stats->counter_ida,
++			   IONIC_MAX_QPID, GFP_KERNEL);
++	if (id < 0)
++		goto err_ida;
+ 
+-	INIT_LIST_HEAD(&cntr->qp_list);
++	counter->id = id;
+ 
+-	return rdma_alloc_hw_stats_struct(dev->counter_stats->stats_hdrs,
+-					 dev->counter_stats->queue_stats_count,
+-					 RDMA_HW_STATS_DEFAULT_LIFESPAN);
+-err_xa:
++	stats = rdma_alloc_hw_stats_struct(dev->counter_stats->stats_hdrs,
++					   dev->counter_stats->queue_stats_count,
++					   RDMA_HW_STATS_DEFAULT_LIFESPAN);
++	if (!stats)
++		goto err_hw_stats;
++
++	return stats;
++
++err_hw_stats:
++	ida_free(&dev->counter_stats->counter_ida, id);
++err_ida:
+ 	kfree(cntr->vals);
+-err_vals:
+-	kfree(cntr);
+ 
+ 	return NULL;
+ }
+@@ -271,14 +270,10 @@ ionic_counter_alloc_stats(struct rdma_counter *counter)
+ static int ionic_counter_dealloc(struct rdma_counter *counter)
+ {
+ 	struct ionic_ibdev *dev = to_ionic_ibdev(counter->device);
+-	struct ionic_counter *cntr;
+-
+-	cntr = xa_erase(&dev->counter_stats->xa_counters, counter->id);
+-	if (!cntr)
+-		return -EINVAL;
++	struct ionic_rdma_counter *cntr = to_ionic_rdma_counter(counter);
+ 
++	ida_free(&dev->counter_stats->counter_ida, counter->id);
+ 	kfree(cntr->vals);
+-	kfree(cntr);
+ 
+ 	return 0;
+ }
+@@ -287,13 +282,8 @@ static int ionic_counter_bind_qp(struct rdma_counter *counter,
+ 				 struct ib_qp *ibqp,
+ 				 u32 port)
+ {
+-	struct ionic_ibdev *dev = to_ionic_ibdev(counter->device);
++	struct ionic_rdma_counter *cntr = to_ionic_rdma_counter(counter);
+ 	struct ionic_qp *qp = to_ionic_qp(ibqp);
+-	struct ionic_counter *cntr;
+-
+-	cntr = xa_load(&dev->counter_stats->xa_counters, counter->id);
+-	if (!cntr)
+-		return -EINVAL;
+ 
+ 	list_add_tail(&qp->qp_list_counter, &cntr->qp_list);
+ 	ibqp->counter = counter;
+@@ -313,29 +303,23 @@ static int ionic_counter_unbind_qp(struct ib_qp *ibqp, u32 port)
+ 	return 0;
+ }
+ 
+-static int ionic_get_qp_stats(struct ib_device *ibdev,
+-			      struct rdma_hw_stats *hw_stats,
+-			      u32 counter_id)
++static int ionic_counter_update_stats(struct rdma_counter *counter)
+ {
+-	struct ionic_ibdev *dev = to_ionic_ibdev(ibdev);
+-	struct ionic_counter_stats *cs;
+-	struct ionic_counter *cntr;
++	struct ionic_rdma_counter *cntr = to_ionic_rdma_counter(counter);
++	struct ionic_ibdev *dev = to_ionic_ibdev(counter->device);
++	struct ionic_counter_stats *cs = dev->counter_stats;
+ 	dma_addr_t hw_stats_dma;
+ 	struct ionic_qp *qp;
+ 	int rc, stat_i = 0;
+ 
+-	cs = dev->counter_stats;
+-	cntr = xa_load(&cs->xa_counters, counter_id);
+-	if (!cntr)
+-		return -EINVAL;
+-
+ 	hw_stats_dma = dma_map_single(dev->lif_cfg.hwdev, cntr->vals,
+ 				      PAGE_SIZE, DMA_FROM_DEVICE);
+ 	rc = dma_mapping_error(dev->lif_cfg.hwdev, hw_stats_dma);
+ 	if (rc)
+ 		return rc;
+ 
+-	memset(hw_stats->value, 0, sizeof(u64) * hw_stats->num_counters);
++	memset(counter->stats->value, 0,
++	       sizeof(u64) * counter->stats->num_counters);
+ 
+ 	list_for_each_entry(qp, &cntr->qp_list, qp_list_counter) {
+ 		rc = ionic_hw_stats_cmd(dev, hw_stats_dma, PAGE_SIZE,
+@@ -345,7 +329,7 @@ static int ionic_get_qp_stats(struct ib_device *ibdev,
+ 			goto err_cmd;
+ 
+ 		for (stat_i = 0; stat_i < cs->queue_stats_count; ++stat_i)
+-			hw_stats->value[stat_i] +=
++			counter->stats->value[stat_i] +=
+ 				ionic_v1_stat_val(&cs->hdr[stat_i],
+ 						  cntr->vals,
+ 						  PAGE_SIZE);
+@@ -360,11 +344,6 @@ static int ionic_get_qp_stats(struct ib_device *ibdev,
+ 	return rc;
+ }
+ 
+-static int ionic_counter_update_stats(struct rdma_counter *counter)
+-{
+-	return ionic_get_qp_stats(counter->device, counter->stats, counter->id);
+-}
+-
+ static int ionic_alloc_counters(struct ionic_ibdev *dev)
+ {
+ 	struct ionic_counter_stats *cs = dev->counter_stats;
+@@ -424,12 +403,22 @@ static const struct ib_device_ops ionic_hw_stats_ops = {
+ 	.get_hw_stats = ionic_get_hw_stats,
+ };
+ 
++static void ionic_counter_init(struct rdma_counter *counter)
++{
++	struct ionic_rdma_counter *cntr = to_ionic_rdma_counter(counter);
++
++	INIT_LIST_HEAD(&cntr->qp_list);
++}
++
+ static const struct ib_device_ops ionic_counter_stats_ops = {
+ 	.counter_alloc_stats = ionic_counter_alloc_stats,
+ 	.counter_dealloc = ionic_counter_dealloc,
+ 	.counter_bind_qp = ionic_counter_bind_qp,
+ 	.counter_unbind_qp = ionic_counter_unbind_qp,
+ 	.counter_update_stats = ionic_counter_update_stats,
++	.counter_init = ionic_counter_init,
++
++	INIT_RDMA_OBJ_SIZE(rdma_counter, ionic_rdma_counter, rdma_counter),
+ };
+ 
+ void ionic_stats_init(struct ionic_ibdev *dev)
+@@ -458,7 +447,7 @@ void ionic_stats_init(struct ionic_ibdev *dev)
+ 			return;
+ 		}
+ 
+-		xa_init_flags(&dev->counter_stats->xa_counters, XA_FLAGS_ALLOC);
++		ida_init(&dev->counter_stats->counter_ida);
+ 
+ 		ib_set_device_ops(&dev->ibdev, &ionic_counter_stats_ops);
+ 	}
+@@ -467,7 +456,7 @@ void ionic_stats_init(struct ionic_ibdev *dev)
+ void ionic_stats_cleanup(struct ionic_ibdev *dev)
+ {
+ 	if (dev->counter_stats) {
+-		xa_destroy(&dev->counter_stats->xa_counters);
++		ida_destroy(&dev->counter_stats->counter_ida);
+ 		kfree(dev->counter_stats->hdr);
+ 		kfree(dev->counter_stats->stats_hdrs);
+ 		kfree(dev->counter_stats);
+diff --git a/drivers/infiniband/hw/ionic/ionic_ibdev.h b/drivers/infiniband/hw/ionic/ionic_ibdev.h
+index d7adaa161e6f..32b6a8a45fa2 100644
+--- a/drivers/infiniband/hw/ionic/ionic_ibdev.h
++++ b/drivers/infiniband/hw/ionic/ionic_ibdev.h
+@@ -332,14 +332,21 @@ struct ionic_counter_stats {
+ 	int queue_stats_count;
+ 	struct ionic_v1_stat *hdr;
+ 	struct rdma_stat_desc *stats_hdrs;
+-	struct xarray xa_counters;
++	struct ida counter_ida;
+ };
+ 
+-struct ionic_counter {
++struct ionic_rdma_counter {
++	struct rdma_counter rdma_counter;
+ 	void *vals;
+ 	struct list_head qp_list;
+ };
+ 
++static inline struct ionic_rdma_counter *
++to_ionic_rdma_counter(struct rdma_counter *counter)
++{
++	return container_of(counter, struct ionic_rdma_counter, rdma_counter);
++}
++
+ static inline struct ionic_ibdev *to_ionic_ibdev(struct ib_device *ibdev)
+ {
+ 	return container_of(ibdev, struct ionic_ibdev, ibdev);
 
