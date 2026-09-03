@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21EE84AE11C
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4246C4B1484
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443391; cv=none; b=nnJYU6/pkX6yu6CXZjAqRyiNr7jOEVRvIlpsZY9I3hL/JN2wxWoBkJU2v2TeU21vmqhLcH4jK137C9ki2n78FsRS1Xgo3w5oLJt7B2htBR9Yz9Y7iAGxNbeFe6tKmpYXLveQYOcMtRDPnN1lJFLs/uK2Vpki4a213CldME9JMvA=
+	t=1788443388; cv=none; b=C1EzdwA6s4+IY1lF6KYxEkAXxS2G8cCzPdOY+Jkf1aoDZtBT/mCJPTrudZ68Fr+8/CagYDXDw5Ca0mtuVPT409ggsOE+m78HPkiI38RELXXTZtVNDKzxWUigsgSUxPuEDXgjlg92T2a1DyKa9WqAiuPFs/14+khckLDkCsr3qjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443391; c=relaxed/simple;
-	bh=0sz1VwnR8q51Zo8SoIxO1cske4ccyzIwlswB3WBJCJ8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jz7wuviwABu6Rs2BHh1m4z1p/+oczvJYBSNmJGYo7+4Q+JC/R9L8prJoI47JlOH6ptJfLtmyUDyaIwM9LribmfL1xcMBvDf/6Ij2XRlIAGttfDbggOgXZBtI9+0KIxKSi5noEJxly1ET8Yf1SGGWf+CBBK/+KT1Cf0fguaw1qaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kBJXf6E9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443388; c=relaxed/simple;
+	bh=FkvODYAlBT2B6Hyf4u24bQ78AjrYlmBEJ2mmPEI/ZIY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k7a2xqymnB0f2Cbj0ap7TWZYvDIHsggDwYPSix7dHC9poJEI0lx7ttQJF/rho9PPVJxE6J9Q4q/WwFHJd8eGW3Y0YtpcuG2KLYie9AiiAkipeENEAQGPw4epwIfrunNHedjKgawJ15//aY0MF2htj0BzQ1w0Sg3xFQhu8w1vDTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KDI/e6G7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kBJXf6E9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692481F00A3E;
-	Thu,  3 Sep 2026 13:49:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KDI/e6G7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37501F00A3A;
+	Thu,  3 Sep 2026 13:49:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443376;
-	bh=54SveKXXfySU8WtXZBQxCAkungHK4M9IZT1n+VrrXXs=;
+	s=korg; t=1788443367;
+	bh=9dyDI+PT6qoWUgk7iLRd7iajOXhtAMp4oH+75QlVQIU=;
 	h=Subject:To:Cc:From:Date;
-	b=kBJXf6E9jyRDo51AlqNciInXPTMfVtzLmcosvnCyNVgSmbUo5ZLcgMjrVWzUz/5F7
-	 6zJwORhtb1LddzpVChrWk9vbrk/fYIaF72uIv99fOPGRlri512vOjhKPTEyCjale8+
-	 DyyZ3leFAF2zdNGeoSP4hmB9NxkO3Rh7FK4sKhjg=
-Subject: FAILED: patch "[PATCH] HID: sony: fix UAF of ghl_poke_timer / ghl_urb at driver" failed to apply to 6.12-stable tree
-To: doruk@0sec.ai,jkosina@suse.com
+	b=KDI/e6G7pSsY4j2JkKkP/SEIHVdvVpbZZf46vH1+oAef/GE0D9lEqEIBg05RL+wBT
+	 j1jgCYFiTSVgzpjGc2SezhkdfGTxDVhbZMYncmgt+W7bedcCGgNPUXrze6wpyVO2AN
+	 8rYfbp8oxEyBhq2KeqHDrZSmrRueChv6vJXzscEc=
+Subject: FAILED: patch "[PATCH] smb: client: reject a tree connect response whose byte count" failed to apply to 5.10-stable tree
+To: hexlabsecurity@proton.me,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:28:31 +0200
-Message-ID: <2026090331-parakeet-crate-4239@gregkh>
+Date: Thu, 03 Sep 2026 15:27:37 +0200
+Message-ID: <2026090337-crease-stuffing-cff2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x a26705bd2e2728833e7a538ce91e58a5eeff496a
+git cherry-pick -x 65deb18359341141d37dc86fc7853511be3c87a7
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090331-parakeet-crate-4239@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090337-crease-stuffing-cff2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,77 +62,74 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a26705bd2e2728833e7a538ce91e58a5eeff496a Mon Sep 17 00:00:00 2001
-From: Doruk Tan Ozturk <doruk@0sec.ai>
-Date: Fri, 24 Jul 2026 16:27:03 +0200
-Subject: [PATCH] HID: sony: fix UAF of ghl_poke_timer / ghl_urb at driver
- unbind
+From 65deb18359341141d37dc86fc7853511be3c87a7 Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Fri, 21 Aug 2026 07:36:16 -0500
+Subject: [PATCH] smb: client: reject a tree connect response whose byte count
+ is too small
 
-For GHL (Guitar Hero Live) dongles, sony_probe() arms a periodic timer:
-ghl_magic_poke() (the timer callback) submits sc->ghl_urb, and the URB
-completion ghl_magic_poke_cb() re-arms the timer with mod_timer().
+CIFSTCon() bounds its strnlen() over the byte area with the server's
+ByteCount minus two, which for ByteCount 0 or 1 goes negative as an int
+and converts to a huge size_t.  The later subtraction wraps the __u16
+bytes_left, and that is what bounds cifs_strndup_from_utf16(): a bound of
+up to 65535 against a ~16 KB cifs_req_poolp object runs off the end of the
+slab object, and the bytes reach userspace through tcon->nativeFileSystem
+in /proc/fs/cifs/DebugData.
 
-sony_remove() drained the timer with timer_delete_sync() and then freed
-the URB with usb_free_urb():
+Reject a byte area too small for what the parser consumes.  Two bytes is
+the least it can consume, and no conformant response carries fewer.  The
+new trace point is the 129th smb_eio_trace entry, which __mode(byte)
+cannot represent, so the attribute goes with it.
 
-	timer_delete_sync(&sc->ghl_poke_timer);
-	usb_free_urb(sc->ghl_urb);
-
-timer_delete_sync() does not block re-arming, and while the URB is in
-flight the timer is not pending, so the sync delete is a no-op. A URB
-completion that runs after the delete re-arms the timer, and usb_free_urb()
-only drops a reference -- it does not kill an in-flight URB. sc is
-allocated with devm_kzalloc() and freed once sony_remove() returns, so the
-re-armed ghl_poke_timer (embedded in sc) then fires on freed memory, a
-use-after-free from timer softirq. This is a disconnect/rmmod race.
-
-Poison the URB first, then shut the timer down, before freeing the URB.
-usb_poison_urb() kills any in-flight URB and permanently rejects further
-submissions, so a poke timer that is still pending cannot re-submit the
-URB from ghl_magic_poke() in the window before timer_shutdown_sync() runs.
-usb_kill_urb() would not suffice: it only cancels the in-flight URB and
-leaves it submittable once it returns, so the pending timer could
-re-submit it and put a fresh URB in flight over the freed sc.
-timer_shutdown_sync() then drains any last callback and blocks re-arming.
-The probe error path is unaffected: it is only reached before the timer
-is armed.
-
-Reproduced under KASAN on next-20260710 via dummy_hcd + raw-gadget
-emulation of the GHL PS4 dongle (VID 0x1430 / PID 0x07bb): hid-sony binds
-and arms the poke timer, the poke URB is held in flight, the driver is
-unbound (freeing sc), then the URB is released. The completion re-arms the
-timer on the freed sc, and the re-armed timer fires ~8 s later:
-
-  BUG: KASAN: slab-use-after-free in ghl_magic_poke+0x98/0xb0
-  Read of size 8 at addr ffff88810b02fd50 by task swapper/0/0
-   ghl_magic_poke+0x98/0xb0
-   call_timer_fn+0x35/0x2b0
-   __run_timers+0x69c/0x9a0
-   run_timer_softirq+0x173/0x2a0
-  Allocated by task 169:  sony_probe
-  Freed by task 338:      devres_release_group <- hid_device_remove (sony_remove)
-
-Found by 0sec (https://0sec.ai) using automated source analysis.
-
-Fixes: cc894ac55360 ("HID: sony: support for ghlive ps3/wii u dongles")
+Fixes: cc20c031bb06 ("cifs: convert CIFSTCon to use new unicode helper functions")
 Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index 5a7ab08cb825..52d156e1db39 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -2424,7 +2424,9 @@ static void sony_remove(struct hid_device *hdev)
- 	struct sony_sc *sc = hid_get_drvdata(hdev);
- 
- 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
--		timer_delete_sync(&sc->ghl_poke_timer);
-+		/* poison, not kill: a pending timer must not re-submit during teardown */
-+		usb_poison_urb(sc->ghl_urb);
-+		timer_shutdown_sync(&sc->ghl_poke_timer);
- 		usb_free_urb(sc->ghl_urb);
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index 1f77512252e7..f5aad5f61dce 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -615,6 +615,11 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
+ 		tcon->tid = smb_buffer_response->Tid;
+ 		bcc_ptr = pByteArea(smb_buffer_response);
+ 		bytes_left = get_bcc(smb_buffer_response);
++		if (bytes_left < 2) {
++			rc = smb_EIO2(smb_eio_trace_tcon_bcc_too_small,
++				      bytes_left, 2);
++			goto out;
++		}
+ 		length = strnlen(bcc_ptr, bytes_left - 2);
+ 		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
+ 			is_unicode = true;
+@@ -670,6 +675,7 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
+ 			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
+ 		}
  	}
++out:
+ 	cifs_buf_release(smb_buffer);
+ 	return rc;
+ }
+diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
+index 5b21ad3c15fb..12241abb8e2e 100644
+--- a/fs/smb/client/trace.h
++++ b/fs/smb/client/trace.h
+@@ -133,6 +133,7 @@
+ 	EM(smb_eio_trace_sym_slash,			"sym_slash") \
+ 	EM(smb_eio_trace_sym_target_len,		"sym_target_len") \
+ 	EM(smb_eio_trace_symlink_file_size,		"symlink_file_size") \
++	EM(smb_eio_trace_tcon_bcc_too_small,		"tcon_bcc_too_small") \
+ 	EM(smb_eio_trace_tdis_in_reconnect,		"tdis_in_reconnect") \
+ 	EM(smb_eio_trace_tx_chained_async,		"tx_chained_async") \
+ 	EM(smb_eio_trace_tx_compress_failed,		"tx_compress_failed") \
+@@ -213,7 +214,7 @@
+ #define EM(a, b) a,
+ #define E_(a, b) a
+ 
+-enum smb_eio_trace		{ smb_eio_traces } __mode(byte);
++enum smb_eio_trace		{ smb_eio_traces };
+ enum smb3_rw_credits_trace	{ smb3_rw_credits_traces } __mode(byte);
+ enum smb3_tcon_ref_trace	{ smb3_tcon_ref_traces } __mode(byte);
  
 
