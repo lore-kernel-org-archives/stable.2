@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FEA4B0C90
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:47:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C4A4B126B
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:48:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788443296; cv=none; b=F6kUyARiqoJzCxdz59cUNR21GEhY3ViDOeAcWjjvpSAEoJZqxTxkX3OLLwyzgCIfSYQZaJJJjFAD2ssujl4+m+x8rJB82tCLNpX6dl9JUThZmmMjeUs1WBbZ+4LvtOIa3NvJB3gh+HyG4PgTXI6TKrAp5Wkmrd3ttudIuM3noQ0=
+	t=1788443301; cv=none; b=D4gloRoeclUmp4FjMPLMeYu67f8Cy0Jxxv2LOLt7G8AWBAVo10BIkaP9me63UhibEf/2SGtsWrvl1Fpv3JQ2XbsWhYnjN+bvjP/OzPcUI1ExN0J1w1XGYsMSeEWiW5bG/75TSLwXqevuaHpqhnQ3XBdGD4Zzhxuv86n7BAN6z8M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788443296; c=relaxed/simple;
-	bh=jB1LrUv+YKvusZY2MRpcqBUSfoum03Da+SkP2BSNic0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=trKLo4pHuckEiH5jb29xeGu1G+8kVTR7AkD+8voRjcb3zaYWkLVcoQlDJZyIBhYDZiKeNYKB8a9k3oggcieOmgbe82y0lM0Rbmdu1sFQLqmp1g3IMAmeCEwZJ2T6CKU7D/oGIPgqeEbqcyzoX/qecIEfdbrjD9X/Ij4nWIyRxFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NRhKJOfb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788443301; c=relaxed/simple;
+	bh=WJj8H6UN7iENYhcqu3uc/6gDKBgBa7la1MIKWCpXhoU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AQG+yc3ZyGuAW7PDt+xKSgo1bp1xfBhFaDvFYrEoB7Hr7cipmfGrzrLnrhDl0zLgBF6jO+VBCk/irbWHZ4ijmCuOztuloKoClta8mLsEd6ERcPUl+BFDqyElbgRYAOrjW/4m3sBf4hkqjAo7P7wTrsHs4026bTyJk+oAs90YVCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dFjY4oya; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NRhKJOfb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 396E61F00A3D;
-	Thu,  3 Sep 2026 13:47:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dFjY4oya"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363A41F00A3F;
+	Thu,  3 Sep 2026 13:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788443270;
-	bh=skaEjsKf0T1pexFX1MYtxoIJQ4lLctVWfMyl8xWpTHM=;
+	s=korg; t=1788443295;
+	bh=3jq9eaclZTNXbmKdCrJ8FgZBfnpyWaMb1fUR82Qag0s=;
 	h=Subject:To:Cc:From:Date;
-	b=NRhKJOfb9NhLXbcbXA7y3Xk3zJtPnKXUhixPBl1cbOIf/ndtb8nlCUd7qFF3oJ8io
-	 Yh7xb4HhotLy3vadH3Zwjb98gba5tM57ZrW/iMb2yJN04AVDcwrl6LQEaXzJDiGY4W
-	 nEiyqDXMQAQQqbEanjdPmTTSCKtzy+JS2qejwYX8=
-Subject: FAILED: patch "[PATCH] btrfs: do not overwrite NODATASUM flag when removing" failed to apply to 6.12-stable tree
-To: wqu@suse.com
+	b=dFjY4oya64Ww+qk06aKVVEpG79vUSJfC482wwD3YduScsJ6XNLeT1sb0aYnjRjQ1s
+	 PxLumHtPf8Y2JYoseXfNJhtxd4cer+FTYnJRxp59zSg0f4aIEqJ5fC6tKeuGFeDl3g
+	 t4/mO9cqTziCEV+qzozd8bvgum0R1Udk/wSWDINo=
+Subject: FAILED: patch "[PATCH] smb: client: clear setuid/setgid bit on write with" failed to apply to 6.1-stable tree
+To: yijiangshan@kylinos.cn,linkinjeon@kernel.org,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:24:30 +0200
-Message-ID: <2026090330-nappy-discharge-0af0@gregkh>
+Date: Thu, 03 Sep 2026 15:25:52 +0200
+Message-ID: <2026090352-devoutly-coke-eb9e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 15f7c86215e8d5f14b24127fa88af6c79363d50e
+git cherry-pick -x b8e5dc4f95e5484159b343903f302eb6d783f2e6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090330-nappy-discharge-0af0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090352-devoutly-coke-eb9e@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,130 +62,102 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 15f7c86215e8d5f14b24127fa88af6c79363d50e Mon Sep 17 00:00:00 2001
-From: Qu Wenruo <wqu@suse.com>
-Date: Tue, 9 Jun 2026 08:43:34 +0930
-Subject: [PATCH] btrfs: do not overwrite NODATASUM flag when removing
- NODATACOW flag
+From b8e5dc4f95e5484159b343903f302eb6d783f2e6 Mon Sep 17 00:00:00 2001
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+Date: Thu, 16 Jul 2026 10:22:14 +0800
+Subject: [PATCH] smb: client: clear setuid/setgid bit on write with
+ cifsacl/modefromsid/posix extensions
 
-[TEST FAILURE]
-The test case generic/628 will fail if MOUNT_OPTIONS is set to
-"-o nodatasum":
+When a file has the setuid or setgid bit set and is written to, the VFS
+strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
+together with an ATTR_MODE carrying the already-cleared mode.
 
-  FSTYP         -- btrfs
-  PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
-  MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
-  MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
+ATTR_MODE in that case:
 
-  generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
-     --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
-     +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
-     @@ -8,8 +8,9 @@
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
-      test reflink flag not set iflag
-     +XFS_IOC_CLONE: Invalid argument
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-     -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
-     +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
-     ...
+	/* skip mode change if it's just for clearing setuid/setgid */
+	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+		attrs->ia_valid &= ~ATTR_MODE;
 
-[CAUSE]
-The direct cause is that after "chattr +S", the btrfs inode will lose its
-NODATASUM flag inherited from the mount option. E.g.:
+This is fine for the default mount, where the mode is only emulated via
+the DOS read-only attribute and cannot represent the setuid/setgid bits
+anyway.  However, with the "cifsacl" or "modefromsid" mount options the
+mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
+the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
+and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
+via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
+the cleared mode is never pushed to the server, so the setuid/setgid bit
+survives the write.
 
-  # mkfs.btrfs -f $dev
-  # mount $dev $mnt -o nodatasum
-  # touch $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 9 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 1 flags 0x1(NODATASUM)
-         	                     ^^^^^^^^^ Proper NODATASUM flag
+This is a security issue: on local filesystems the setuid bit is stripped
+when a file is written, but over these cifs.ko mounts the bit persists on
+the server, potentially allowing an unexpected privilege escalation on
+subsequent execution.
 
-  # chattr +S $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-  	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 10 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 2 flags 0x20(SYNC)
-         	                      ^^^^ Only the new SYNC flag
+Fix this in two places:
 
-This makes the inode drop the old NODATASUM flag, while the new reflink
-destination will still inherit the NODATASUM flag.  The mismatching
-NODATASUM flags will cause the reflink to fail.
+  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
+     when the mode is emulated via the DOS read-only attribute (i.e.
+     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
+     in effect), so that the cleared mode is propagated to the server
+     in the ACL / POSIX cases.
 
-The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
-set, we remove both NODATASUM and NODATACOW flag.
+  2. cifs_setattr_unix(): this function is only called when Unix
+     extensions are in effect, so the mode is always stored on the
+     server.  Remove the shortcut entirely so that the cleared mode is
+     always pushed.
 
-However we should not touch NODATASUM flag, as data COW doesn't require
-checksum.  Only NODATACOW implies NODATASUM, but DATACOW doesn't imply
-DATASUM.
-
-The deeper problems are:
-
-- Fileattr API is too binary
-  It either clears or sets a flag, there is no "do not change" option.
-  So that why "chattr +S" implies "chattr -C", and is forcing us to
-  change NODATACOW along with NODATASUM flag.
-
-- No way to change NODATASUM through fileattr API
-  In fact NODATASUM can only be modified through mount option.
-
-The deeper problems are much harder to attack.
-
-[FIX]
-Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
-NODATASUM if "nodatasum" mount option is not set.
-
-This allows the existing "chattr +C" then "chattr -C" to remove
-both NODATACOW and NODATASUM flags on a default mount.
-
-But for a mount with "nodatasum" option, the NODATASUM inode flag will
-persist through either "chattr +C" and "chattr -C".
-
-Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
+Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
 Cc: stable@vger.kernel.org
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 7e97a6aebf9b..32dd7bbd4d63 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -356,14 +356,21 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 			inode_flags |= BTRFS_INODE_NODATACOW;
- 		}
- 	} else {
--		/*
--		 * Revert back under same assumptions as above
--		 */
--		if (S_ISREG(inode->vfs_inode.i_mode)) {
--			if (inode->vfs_inode.i_size == 0)
--				inode_flags &= ~(BTRFS_INODE_NODATACOW |
--						 BTRFS_INODE_NODATASUM);
--		} else {
-+		/* We can only change NODATACOW for zero-sized regular file. */
-+		if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode.i_size == 0)) {
-+			inode_flags &= ~BTRFS_INODE_NODATACOW;
-+			/*
-+			 * There is currently no way to change NODATASUM flag
-+			 * through fileattr API.  If we unconditionally keep the
-+			 * current NODATASUM flag, chattr +C then chattr -C will
-+			 * keep the NODATASUM flag, and no way to remove that
-+			 * flag.
-+			 *
-+			 * So respect the current mount option for NODATASUM flag.
-+			 */
-+			if (!btrfs_test_opt(fs_info, NODATASUM))
-+				inode_flags &= ~BTRFS_INODE_NODATASUM;
-+		} else if (!S_ISREG(inode->vfs_inode.i_mode)) {
- 			inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		}
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index 0afff761aab9..5f58fb46363d 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3214,9 +3214,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 		attrs->ia_valid &= ~(ATTR_CTIME | ATTR_MTIME);
  	}
+ 
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+-		attrs->ia_valid &= ~ATTR_MODE;
++	/*
++	 * This function is only called when Unix extensions are in effect,
++	 * so the mode is always sent to and stored on the server.  Do not
++	 * skip the mode change when clearing setuid/setgid bits: dropping
++	 * ATTR_MODE here would leave those bits set on the server after a
++	 * write, which is a security issue.
++	 */
+ 
+ 	args = kmalloc_obj(*args);
+ 	if (args == NULL) {
+@@ -3425,8 +3429,23 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
+ 	}
+ 
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
++	/*
++	 * Skip the mode change if it is only being done to clear the
++	 * setuid/setgid bits *and* the mode is emulated via the DOS
++	 * read-only attribute (the default, non-ACL case), which cannot
++	 * represent the setuid/setgid bits anyway.
++	 *
++	 * When the mode is instead stored on the server - i.e. with the
++	 * cifsacl or modefromsid mount options (via an ACL) or with the
++	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
++	 * the server.  Dropping ATTR_MODE here would leave the setuid/
++	 * setgid bit set on the server after a write, which is a security
++	 * issue (the bits are not stripped as they are on local
++	 * filesystems).
++	 */
++	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
++	    !((sbflags & (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
++	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
+ 		attrs->ia_valid &= ~ATTR_MODE;
+ 
+ 	if (attrs->ia_valid & ATTR_MODE) {
 
