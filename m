@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8FA4AEBE8
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493E54AF689
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442816; cv=none; b=tIkDJv4ASqEMS/6m/rTVHw9OSkynY04ox3VVKqmZt1HrP76LhwTHnVudo9Z9yRSytbMlMs9e98c69WqlnYib75GnDimHKqD6CMqC9h6dULVFE8nRUMNoPwpilyn9HDj9JgOn7/TqyeGYJRgtS/g5lXKPIL6vrLjIdqHnkYSRCrk=
+	t=1788442820; cv=none; b=K/zyk3anDCPwYT3AZi0wcrgkGtJ3rmeDdhk/gd5iDphG60CtLw1gWQSDEDTK4BY2bKp4z1sbF9m1EEVbb06x0N5xDoSUIpH0AVPvN9rZf/66/EmDrxWyxhCBteEXhCEcHl+CPbDEe/cZmQMT2LEcan9IpRycGPaTGgUxiy+DGC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442816; c=relaxed/simple;
-	bh=WAxiW4ebjVBU4TA7MwCzIsjeY9cV/jDE22BM900FlD0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=upxXKjg/2m7+wAyppeKTOurlA9kSsEvJ5yK3qtvoJhB3OmpiJ5QkmhQg6OqvWZfZGqLMUoz+uyOP4bl239UbV2yDv2Akb2CSdzt1P+7oSAPG3ep2gZstmxB5SGTDqM3b0pBTeQccdteWO1N3zLWwEs5I8ZyjfTYzrye5iyH1+uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dgsX6HDo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442820; c=relaxed/simple;
+	bh=k5n6DhVgb4yYjfhOKLCAodmZO2RaBRFziRzu6SBOihw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Or6kpIKsTEYkuSfZvyXVwJo77SlEftUtcvEQjEhSgsQF9Lqs+SB6nXLYL882MexyuhNKTDJe/53j1rIv9uHERuiYxAgp00WFx05wOtIMarmPSGIOxQemk5q2cKwnkGKDV4M4j1LPK7Bbw/B3PzrYRAy29nmh0sSaxzShFUQVGWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dB0Ejbcw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dgsX6HDo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E5B1F000E9;
-	Thu,  3 Sep 2026 13:40:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dB0Ejbcw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40EB41F000E9;
+	Thu,  3 Sep 2026 13:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788442805;
-	bh=zMBqbG8BgvMVLA1UY68+9/yG1su8yH9t+l7kTnxZCys=;
+	s=korg; t=1788442816;
+	bh=yKVfmqDN2CcoVJGzcYcNERiuv7n7338qCuZN+cdizE0=;
 	h=Subject:To:Cc:From:Date;
-	b=dgsX6HDonbMnNIjHzdOXK2UuYvNfpn1gm5GiynxAWIDYkAq3M/9E9jn7126lgBMsZ
-	 Cq1HikOZp1UnimmftifRV+NI14OBCJVN9lsbrxtvNOKBxkqVKMLphZadMeEOoQM8AK
-	 hu555Fr0qTeBIaLggtj+XMOV40Xtvj0Gvqon9nZE=
-Subject: FAILED: patch "[PATCH] nfsd: fix fcache_disposal UAF by inlining dispose state into" failed to apply to 6.1-stable tree
-To: jlayton@kernel.org,chuck.lever@oracle.com
+	b=dB0EjbcwyXGuiAbajAEuYTFhORvDX+cddaL9ZwjJOC58YPJFB9gFl3rEw0D7Rqh5C
+	 bNQaEnkVpwoTEvgxwps4KKceMbyWFnL7MYWvDuP4UcFa3+dgN8W4OF2pJM94bbxoni
+	 PtBMEWb6Ro2DgI2bEAp8DvyqYHVZn28ox8EvputU=
+Subject: FAILED: patch "[PATCH] nfsd: fix netlink dumpit error handling for rpc_status_get" failed to apply to 6.12-stable tree
+To: jlayton@kernel.org,cel@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:13:40 +0200
-Message-ID: <2026090340-pesky-jaybird-39c7@gregkh>
+Date: Thu, 03 Sep 2026 15:14:19 +0200
+Message-ID: <2026090318-disbelief-saddling-d516@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4
+git cherry-pick -x e13d505af73a1e013aa81806652d4378b21cfca2
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090340-pesky-jaybird-39c7@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090318-disbelief-saddling-d516@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,197 +62,135 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4 Mon Sep 17 00:00:00 2001
+From e13d505af73a1e013aa81806652d4378b21cfca2 Mon Sep 17 00:00:00 2001
 From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 2 Jun 2026 12:23:19 -0400
-Subject: [PATCH] nfsd: fix fcache_disposal UAF by inlining dispose state into
- nfsd_net
+Date: Thu, 11 Jun 2026 16:00:46 -0400
+Subject: [PATCH] nfsd: fix netlink dumpit error handling for rpc_status_get
 
-nfsd_file_dispose_list_delayed() defers fput() to nfsd service threads
-via a per-net freeme queue, preventing the shrinker and GC worker from
-bearing the cost of closing files (see ffb402596147).  However, the
-queue lives in a separately-allocated struct nfsd_fcache_disposal that
-is freed by nfsd_free_fcache_disposal_net() during per-net teardown.
-The global shrinker, laundrette, and fsnotify callbacks can still be
-inside nfsd_file_dispose_list_delayed() dereferencing that pointer,
-causing a use-after-free.
+nfsd_genl_rpc_status_compose_msg() returns -ENOBUFS on nla_put failure
+without calling genlmsg_cancel(), leaving a partial message in the skb.
+The caller then propagates -ENOBUFS directly, which the netlink dump
+infrastructure treats as a fatal error, aborting the entire dump.
 
-Inline the spinlock and freeme list directly into struct nfsd_net (as
-fcache_dispose_lock and fcache_dispose_list), eliminating the separately
-allocated struct nfsd_fcache_disposal entirely.  These fields now have
-the same lifetime as the net namespace itself, so there is no dangling
-pointer to chase.
+The correct netlink dump convention is:
+ - Cancel any partial message with genlmsg_cancel()
+ - If prior messages were added to the skb (skb->len > 0), save the
+   current iterator position and return skb->len to paginate
+ - Only return a negative errno when no messages fit at all
 
-nfsd_file_cache_start_net() now just initializes the inline fields and
-cannot fail due to allocation.  nfsd_file_cache_shutdown_net() drains
-the inline list directly instead of freeing a separate struct.  The
-alloc/free helpers are removed.
+Fix compose_msg to cancel the partial message on all nla_put failure
+paths, and fix the caller to paginate when possible rather than
+returning a fatal error.
 
-Fixes: 1463b38e7cf3 ("NFSD: simplify per-net file cache management")
+A second defect surfaces once pagination actually works: cb->args[1]
+records the resume index within the pool named by cb->args[0], but the
+inner loop applied it to every pool from cb->args[0] onward. After a
+mid-pool pause, a later dump call drains the resume pool and continues
+into subsequent pools within the same call, where the stale cb->args[1]
+caused the first N threads of each following pool to be skipped. On
+per-CPU or per-node pool configurations this silently dropped active
+requests from the dump. Apply the saved thread index only to the pool
+matching cb->args[0], and start every subsequent pool from thread 0.
+
+Fixes: bd9d6a3efa97 ("NFSD: add rpc_status netlink support")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
+Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260602-nfsd-testing-v2-7-e4ea62e3cd5c@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ cel: fold in 20/21 to avoid bisect hazard ]
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-3-5b90e276f2d9@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 
-diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
-index 19beb4d482be..da5a44c31acb 100644
---- a/fs/nfsd/filecache.c
-+++ b/fs/nfsd/filecache.c
-@@ -62,11 +62,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
- static DEFINE_PER_CPU(unsigned long, nfsd_file_total_age);
- static DEFINE_PER_CPU(unsigned long, nfsd_file_evictions);
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 38c7468906a1..4814550880a3 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1452,7 +1452,7 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	    nla_put_s64(skb, NFSD_A_RPC_STATUS_SERVICE_TIME,
+ 			ktime_to_us(genl_rqstp->rq_stime),
+ 			NFSD_A_RPC_STATUS_PAD))
+-		return -ENOBUFS;
++		goto out_cancel;
  
--struct nfsd_fcache_disposal {
--	spinlock_t lock;
--	struct list_head freeme;
--};
--
- static struct kmem_cache		*nfsd_file_slab;
- static struct kmem_cache		*nfsd_file_mark_slab;
- static struct list_lru			nfsd_file_lru;
-@@ -422,25 +417,25 @@ nfsd_file_dispose_list(struct list_head *dispose)
- }
+ 	switch (genl_rqstp->rq_saddr.ss_family) {
+ 	case AF_INET: {
+@@ -1468,7 +1468,7 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 				 s_in->sin_port) ||
+ 		    nla_put_be16(skb, NFSD_A_RPC_STATUS_DPORT,
+ 				 d_in->sin_port))
+-			return -ENOBUFS;
++			goto out_cancel;
+ 		break;
+ 	}
+ 	case AF_INET6: {
+@@ -1484,7 +1484,7 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 				 s_in->sin6_port) ||
+ 		    nla_put_be16(skb, NFSD_A_RPC_STATUS_DPORT,
+ 				 d_in->sin6_port))
+-			return -ENOBUFS;
++			goto out_cancel;
+ 		break;
+ 	}
+ 	}
+@@ -1492,10 +1492,14 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	for (i = 0; i < genl_rqstp->rq_opcnt; i++)
+ 		if (nla_put_u32(skb, NFSD_A_RPC_STATUS_COMPOUND_OPS,
+ 				genl_rqstp->rq_opnum[i]))
+-			return -ENOBUFS;
++			goto out_cancel;
  
- /**
-- * nfsd_file_dispose_list_delayed - move list of dead files to net's freeme list
-+ * nfsd_file_dispose_list_delayed - queue dead files for nfsd thread disposal
-  * @dispose: list of nfsd_files to be disposed
-  *
-- * Transfers each file to the "freeme" list for its nfsd_net, to eventually
-- * be disposed of by the per-net garbage collector.
-+ * Transfers each file to the dispose list in its nfsd_net and wakes an nfsd
-+ * thread to do the actual close.  This keeps the cost of fput() in the nfsd
-+ * threads rather than in the shrinker or GC worker.
-  */
- static void
- nfsd_file_dispose_list_delayed(struct list_head *dispose)
- {
--	while(!list_empty(dispose)) {
-+	while (!list_empty(dispose)) {
- 		struct nfsd_file *nf = list_first_entry(dispose,
- 						struct nfsd_file, nf_gc);
- 		struct nfsd_net *nn = net_generic(nf->nf_net, nfsd_net_id);
--		struct nfsd_fcache_disposal *l = nn->fcache_disposal;
- 		struct svc_serv *serv;
- 
--		spin_lock(&l->lock);
--		list_move_tail(&nf->nf_gc, &l->freeme);
--		spin_unlock(&l->lock);
-+		spin_lock(&nn->fcache_dispose_lock);
-+		list_move_tail(&nf->nf_gc, &nn->fcache_dispose_list);
-+		spin_unlock(&nn->fcache_dispose_lock);
- 
- 		/*
- 		 * The filecache laundrette is shut down after the
-@@ -464,17 +459,15 @@ nfsd_file_dispose_list_delayed(struct list_head *dispose)
-  */
- void nfsd_file_net_dispose(struct nfsd_net *nn)
- {
--	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
--
--	if (!list_empty(&l->freeme)) {
-+	if (!list_empty(&nn->fcache_dispose_list)) {
- 		LIST_HEAD(dispose);
- 		int i;
- 
--		spin_lock(&l->lock);
--		for (i = 0; i < 8 && !list_empty(&l->freeme); i++)
--			list_move(l->freeme.next, &dispose);
--		spin_unlock(&l->lock);
--		if (!list_empty(&l->freeme)) {
-+		spin_lock(&nn->fcache_dispose_lock);
-+		for (i = 0; i < 8 && !list_empty(&nn->fcache_dispose_list); i++)
-+			list_move(nn->fcache_dispose_list.next, &dispose);
-+		spin_unlock(&nn->fcache_dispose_lock);
-+		if (!list_empty(&nn->fcache_dispose_list)) {
- 			/*
- 			 * Wake up another thread to share the work
- 			 * *before* doing any actual disposing.
-@@ -698,11 +691,11 @@ nfsd_file_queue_for_close(struct inode *inode, struct list_head *dispose)
- }
- 
- /**
-- * nfsd_file_close_inode - attempt a delayed close of a nfsd_file
-+ * nfsd_file_close_inode - attempt a deferred close of a nfsd_file
-  * @inode: inode of the file to attempt to remove
-  *
-  * Close out any open nfsd_files that can be reaped for @inode. The
-- * actual freeing is deferred to the dispose_list_delayed infrastructure.
-+ * actual freeing is deferred to the nfsd service threads.
-  *
-  * This is used by the fsnotify callbacks and setlease notifier.
-  */
-@@ -952,42 +945,14 @@ __nfsd_file_cache_purge(struct net *net)
- 	nfsd_file_dispose_list(&dispose);
- }
- 
--static struct nfsd_fcache_disposal *
--nfsd_alloc_fcache_disposal(void)
--{
--	struct nfsd_fcache_disposal *l;
--
--	l = kmalloc_obj(*l);
--	if (!l)
--		return NULL;
--	spin_lock_init(&l->lock);
--	INIT_LIST_HEAD(&l->freeme);
--	return l;
--}
--
--static void
--nfsd_free_fcache_disposal(struct nfsd_fcache_disposal *l)
--{
--	nfsd_file_dispose_list(&l->freeme);
--	kfree(l);
--}
--
--static void
--nfsd_free_fcache_disposal_net(struct net *net)
--{
--	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
--	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
--
--	nfsd_free_fcache_disposal(l);
--}
--
- int
- nfsd_file_cache_start_net(struct net *net)
- {
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	nn->fcache_disposal = nfsd_alloc_fcache_disposal();
--	return nn->fcache_disposal ? 0 : -ENOMEM;
-+	spin_lock_init(&nn->fcache_dispose_lock);
-+	INIT_LIST_HEAD(&nn->fcache_dispose_list);
-+	return 0;
- }
- 
- /**
-@@ -1006,8 +971,10 @@ nfsd_file_cache_purge(struct net *net)
- void
- nfsd_file_cache_shutdown_net(struct net *net)
- {
-+	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 	genlmsg_end(skb, hdr);
+ 	return 0;
 +
- 	nfsd_file_cache_purge(net);
--	nfsd_free_fcache_disposal_net(net);
-+	nfsd_file_dispose_list(&nn->fcache_dispose_list);
++out_cancel:
++	genlmsg_cancel(skb, hdr);
++	return -ENOBUFS;
  }
  
- void
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index f6b8b340bf8e..5c33c96da28e 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -216,7 +216,8 @@ struct nfsd_net {
- 	/* utsname taken from the process that starts the server */
- 	char			nfsd_name[UNX_MAXNODENAME+1];
+ /**
+@@ -1523,10 +1527,20 @@ int nfsd_nl_rpc_status_get_dumpit(struct sk_buff *skb,
  
--	struct nfsd_fcache_disposal *fcache_disposal;
-+	spinlock_t		fcache_dispose_lock;
-+	struct list_head	fcache_dispose_list;
+ 	for (i = 0; i < nn->nfsd_serv->sv_nrpools; i++) {
+ 		struct svc_rqst *rqstp;
++		long thread_skip = 0;
  
- 	siphash_key_t		siphash_key;
+ 		if (i < cb->args[0]) /* already consumed */
+ 			continue;
+ 
++		/*
++		 * The saved thread index only applies to the pool the dump
++		 * was resumed in. Subsequent pools must start from thread 0,
++		 * otherwise their first cb->args[1] threads are silently
++		 * skipped.
++		 */
++		if (i == cb->args[0])
++			thread_skip = cb->args[1];
++
+ 		rqstp_index = 0;
+ 		list_for_each_entry_rcu(rqstp,
+ 				&nn->nfsd_serv->sv_pools[i].sp_all_threads,
+@@ -1534,7 +1548,7 @@ int nfsd_nl_rpc_status_get_dumpit(struct sk_buff *skb,
+ 			struct nfsd_genl_rqstp genl_rqstp = {};
+ 			unsigned int status_counter;
+ 
+-			if (rqstp_index++ < cb->args[1]) /* already consumed */
++			if (rqstp_index++ < thread_skip) /* already consumed */
+ 				continue;
+ 			/*
+ 			 * Acquire rq_status_counter before parsing the rqst
+@@ -1588,8 +1602,14 @@ int nfsd_nl_rpc_status_get_dumpit(struct sk_buff *skb,
+ 
+ 			ret = nfsd_genl_rpc_status_compose_msg(skb, cb,
+ 							       &genl_rqstp);
+-			if (ret)
++			if (ret) {
++				if (skb->len) {
++					cb->args[0] = i;
++					cb->args[1] = rqstp_index - 1;
++					ret = skb->len;
++				}
+ 				goto out;
++			}
+ 		}
+ 	}
  
 
