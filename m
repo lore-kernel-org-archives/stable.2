@@ -1,159 +1,114 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EE831F991
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 03:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FA8830E83F
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 03:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788405229; cv=none; b=oahjIjZlq/Ae/S+DvyZFqE8amiW0xUNPaLhS6nkbXODDZ4RwQI8QDgsqZT1oquxASZIYu3crsV8OodN6VZ7BciSuNi8hhJeVQQI1nDm/4z0TF6Je5CqUJQxrx36LXlq+DE7RxbR/ZYDoRI3UXeV3rT4jJpneE1VeotCxhbNTm/o=
+	t=1788405246; cv=none; b=mZHD8NF1S/1yq5J1j6qniWGaSOhgbXrYTP7vuTpiF4fR/qqAc42WnxhnajACbuUb6E8tokIPgRLia5MxXmLOxXT6sYICXy38xN5Qjf0BL8y7fpC833XH34o7ODC+0L0jOm7sB8WlNkZtpNNpkosuR0BEL7oyuSTb9sZF3jmHFjc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788405229; c=relaxed/simple;
-	bh=CshTmL+8XoyHo3HWtopNI4aZFLUjYTuRU2/2Ijnc6f4=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=Z60UTKRTm4w7QeysxaoMq+obIbddaukFo97t280CBlLavOB1DKMWhqw3j0kS8gzY52O2DRXZ3VkJOTXlIvHC2mW3Q3e5SyxsQspDFD1X7Kx2X2K+oiaE5ClVbK1CHKHjXP7u3daHgPzDOup5pcxjKWBiDYtJ1lgVd3Zd4zJzh/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ft3RGVCY; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1788405246; c=relaxed/simple;
+	bh=Gdn6FlTTrtnoQY7PyAJfU2F9mE8bnDKAHVlEH3i2pI0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lBjWwzvmTBzqwxKC94YT0nqwfRz9M6VQmiOEjF+JMXB1ombdsgeDJPFFW03NfO2Scy5VEJy131eou+jXUMczVnhFjWGS8KkJ9bU6giPPIn9Yrbjy0vt/Al4uCNmNa5PMwL587UA/6N81ZLrFB0TbuEQAWOCUOXD8aD6xubRbjnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bsI7vf+d; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ft3RGVCY"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso25193305ad.0
-        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 20:13:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bsI7vf+d"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d53197d8b5so16997365ad.3
+        for <stable@vger.kernel.org>; Wed, 02 Sep 2026 20:14:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788405227; x=1789010027; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pb11Sv5Oqcejo9Niy+ADZ+x65tQwyCrGSX+ts1QvInA=;
-        b=ft3RGVCYp/2kdfsi1CEeB73UFw1PQg/FHJIgy5xlqy/bG8+2uMRLm+/rQS6Ie/J7V/
-         v7zajtrgle8bFkCFAF0kDsYUcyFDoLtP8oC3Pm5T9NO4xmJQ0cRZlQ0bzD/ro1keGEaW
-         +6IuVfUqRh57Akkawe2k2KBR+uYQPth67hv3NybuIO42MEDyHE5n28NVjqM2Y03IzhmM
-         Mh3Nv0BzYLDrebnRhYp/ph/v2LM+iO6XPuml4IBvDDw3u4FIm7kjUE9AepHdrfp9uVAi
-         vt5jzvK6rlqHnmKHUxWT5A9fcCj/bUSzqD4Zf+4MWuC7wO1Gjaj1rAq7NdZDjRhlFFTV
-         wufw==
+        d=gmail.com; s=20251104; t=1788405245; x=1789010045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vESU/1COBgvnCI0rsLCZoKytSIIaf3V11jedMnJg7JU=;
+        b=bsI7vf+dc/Hom2bUfNW2LIsPdRYqWhGggoiRxXQBLrsFf651ewjgPOY+T/QMe92pi2
+         qaZ10i5GudVWlMJ3l+FrvWMFvKrmlAQ+l/aDI2V7r6JwzkDuDS5C0kbQ0ZjVXrqcPVrT
+         dNBtlukCor+ejxIvA9udM8mp4nbR/qRobRXqut0Ym5hmEuUS/q55RnNC1MB5+q1+VB0k
+         3Kc6zesKY4j4uMJx5VQgjSyjzQbGbf/ROxfdwn2X4JFGBm7Hxf5ptwhcdjQSpwstUjeE
+         gFyOP1Gj3SYoDgzpH0XDavI3478dQIuIYbLk8dlY5Psc4A7kQbcHfxhwNy9JVtX0qLVM
+         fHpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788405227; x=1789010027;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pb11Sv5Oqcejo9Niy+ADZ+x65tQwyCrGSX+ts1QvInA=;
-        b=mADUyDUBJuoBasntGyHpE6HhgzyfOOa3V8kGmjBy5OcBsUeRnkY1RrckL16VJMhUaA
-         QeaGRGoMm5OmVOywjLtu4SeibHQsdk/YXOjbBrf6TzlJIf3o4USBwC4cRudAcax5D7HX
-         ZtXx0MWaCSacR6eOYEyURTu/9Cl6kYfCYIabK7ACsolJBKK7yT/9VOlILbuI6KC9Jl0Z
-         pmxHKTM/IQB1mqR9KhQopNvCDuSR6Y80Chuyz0f643TWPtaWxxyTT0HzHTKUGAgyPUAM
-         NiyXCy3rsV8AlpHkd4wIU3L68nUBHJHfSFS/nKXenA8Z6SN0MeAm/E8WbzGY2Dtd0inG
-         j/QQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmAkZJ7S7n1MwIcK0zk5t1AakJYOzrVeupBYuhrLpDBlO+5eLS+c/m08/RNqB9iCvI5dp8qno=@vger.kernel.org
-X-Gm-Message-State: AFuF++kt5IGAwiOnKGrNWuoQsTItG++AopWDyiF2W+9fBSM8ApkA1S3z
-	uhuhFBwz2goELSXQxUyNvDFNoj2OiH2V1TDYDhi6IWjJOAI1kbVWA3KuDHvnlsTBoRUm7vXRiZM
-	8I8omHKsayWRYTkHE80fCFw==
-X-Received: from pjuy11.prod.google.com ([2002:a17:90a:d70b:b0:38e:813b:9944])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:2750:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39aedf5d887mr14329828a91.1.1788405226424;
- Wed, 02 Sep 2026 20:13:46 -0700 (PDT)
-Date: Thu,  3 Sep 2026 11:13:44 +0800
+        d=1e100.net; s=20251104; t=1788405245; x=1789010045;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vESU/1COBgvnCI0rsLCZoKytSIIaf3V11jedMnJg7JU=;
+        b=Fg20U8veCLnOa6Wh6huqqeKP60IIUE+M3WzVddKCsVaWSW2qG+SqpRcqZwrG3PDp8K
+         AnHdIvFSXGdjkKCPBlF0q99JqdEpqhX6C+lVmAyjfLOXEzk8jBdApMNh9gkyheOcET2U
+         7LRTZIHcI0eDE9zot/tKqOtGl70gpS0eBZ4ZPpmIKN/r0Qi96AqSPiEpx6UX3gOTaszu
+         /maSg2IWTzjk0dqd6UPxunIBbbhXLZjLmtq76QISpOzFTi/Y7PLGjqvV6ZW408Xta1it
+         xGQor0R+qUd8LF0mjDdfNFQo9+Gzz/eMCOHQRpbbzztglY/DAashutCMAnpEHe7QYF1a
+         s4dA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjsL0VuzPoX3wCxJoBXwsN8aRsi2IM1lzZvKIw5C654B8mQtb4tObeKt7Bq26FBujwTExH5TU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6b7vIcq7JdNotBRMP1mk6J68P5fcINBmLXCNz0LbF4FA+h/BS
+	4L0aeTPHJMT1PBFKbcX1XF5CPRkPaCcCZGF/BeDl90dPCilYZoGZGiP1
+X-Gm-Gg: AYBFou2tzyYekwdFdD7La7xY93TiLfloJ6giV/HHWlsEOmvv6LdXNXe+lmmaEasbnEg
+	k10PYVBo4VvP/PNAYxNLpu4df5gGGX6qmRRMXZ7eYD4XO7wHHlGIANP22rmB1pJw33p2RTKNumw
+	AliJc+P1/t09hxoqR7NvncrEeZfCdWsBRqzlob4kYDH099M2oX7qLq7tu9OVoxOQpBmMGHNV/R8
+	sU9q0TrLtbOYlgFsoWq6T680TFcLtb7019hbk1QLT0lDK2XxZgkNckvDLqYzFRcUfI4mryYewC2
+	YzxXe/N/zyjbR2oDFVc6E1qEsZU5fSHSavMSpdsHPByXwn/+4haQCQ4nP7130DKWGCACKewKfpJ
+	rXbX0wi5ogc+tUckavGm6u9f7ebU1f43OA3MgQ37YpnteTJPD8V4dPaE+eGxI+W9o4x9Yc4S55w
+	3F4TQHYVU6eJvOeGoCXsUyhnD2wclR5uEfM2+GxseutZRiwM1sv13kfEYfBqDm/+fGU7WQebMql
+	M1G35EoZXSTciKgp/1UPIIVmnqr
+X-Received: by 2002:a17:903:1aab:b0:2da:f1b1:56c4 with SMTP id d9443c01a7336-2daf1b16445mr104380145ad.3.1788405244535;
+        Wed, 02 Sep 2026 20:14:04 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe0e0d5bsm2824825ad.12.2026.09.02.20.13.59
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 02 Sep 2026 20:14:04 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	Quanmin Yan <yanquanmin1@huawei.com>,
+	Ravi Jonnalagadda <ravis.opensrc@gmail.com>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/4] mm/damon: fix misc bugs in kunit, quota goals and sysfs refresh_ms
+Date: Thu,  3 Sep 2026 11:13:28 +0800
+Message-ID: <20260903031345.82679-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902002725.108635-1-sj@kernel.org>
+References: <20260902002725.108635-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260903031344.3740524-1-stanleyjhu@google.com>
-Subject: [PATCH] scsi: ufs: core: Prevent MMIO access and drain in-flight
- commands during shutdown
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <mkp@kernel.org>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-scsi@vger.kernel.org
-Cc: Bart Van Assche <bvanassche@acm.org>, Seunghwan Baek <sh8267.baek@samsung.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>, 
-	Bean Huo <beanhuo@micron.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Stanley Jhu <stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Commit 19a198b67767 ("scsi: ufs: core: Put the normal LU into
-SDEV_OFFLINE when ufs device wl-lun suspend") transitioned normal
-logical units into SDEV_OFFLINE during ufshcd_wl_shutdown() to prevent
-requeue deadlocks. However, setting SDEV_OFFLINE does not wait for
-in-flight or currently dispatching requests to drain.
+Hi SJ,
 
-If an I/O request races past scsi_queue_rq() right as or before
-SDEV_OFFLINE is set, or if an asynchronous command execution suffers
-scheduling delays, it can arrive in ufshcd_queuecommand() or issue MMIO
-writes after ufshcd_wl_shutdown() has powered off the UFS controller
-(is_powered = false, regulators disabled, clocks gated). Writing to MMIO
-registers of a power-gated or clock-gated controller triggers fatal
-hardware bus errors, system hangs, or kernel panics.
+> Patch 1 fixes the DAMOS quota goals commit unit test to cover a
+> mistakenly uncovered case.  Patches 2 and 3 fix the bugs in DAMOS PSI
+> goal initialization and eligible_mem_bp online commit, respectively.
+> Patch 4 fixes the bug in DAMON sysfs refresh_ms file handling.
 
-Fix this with a dual-layer defense:
-1. In ufshcd_queuecommand(), check if hba->shutting_down is set. Reject
-   any non-WLUN / non-PM requests immediately with DID_NO_CONNECT before
-   any MMIO register access.
-   Note that checking !hba->is_powered is unnecessary here because
-   hba->shutting_down is asserted prior to disabling clocks and
-   regulators in ufshcd_wl_shutdown(), and module removal drains and
-   destroys all request queues via scsi_remove_host() before is_powered
-   is cleared.
-2. In ufshcd_wl_shutdown(), invoke ufshcd_wait_for_pending_cmds() after
-   taking regular LUNs offline to drain all existing hardware transfer
-   and task management requests before putting the device into powerdown
-   mode and powering down the host controller. Warn if draining times
-   out after 1 second.
+I reviewed and tested the integrated four-patch series in mm-new:
 
-Fixes: 19a198b67767 ("scsi: ufs: core: Put the normal LU into SDEV_OFFLINE when ufs device wl-lun suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- drivers/ufs/core/ufshcd.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+  a20e38846efb..72dc8fdaae62
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 2ba244cf40ac..6d78e34a19b2 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -3105,6 +3105,25 @@ static enum scsi_qc_status ufshcd_queuecommand(struct Scsi_Host *host,
- 	int err = 0;
- 	struct ufs_hw_queue *hwq = NULL;
- 
-+	/*
-+	 * During host shutdown, fail any incoming regular I/O commands
-+	 * immediately. This prevents stray requests that bypassed SCSI queue
-+	 * offline checks from writing to MMIO doorbells after the controller
-+	 * is power-gated (causing fatal bus errors / panics).
-+	 *
-+	 * Note: Checking !hba->is_powered is not needed here because:
-+	 * 1. During shutdown, hba->shutting_down is set prior to cutting
-+	 *    controller power, so shutting_down alone fully covers the
-+	 *    unpowered window.
-+	 * 2. During module removal, scsi_remove_host() freezes and destroys
-+	 *    all request queues before hba->is_powered is set to false in
-+	 *    ufshcd_hba_exit().
-+	 */
-+	if (unlikely(READ_ONCE(hba->shutting_down))) {
-+		if (!is_device_wlun(cmd->device) ||
-+		    !(scsi_cmd_to_rq(cmd)->rq_flags & RQF_PM)) {
-+			set_host_byte(cmd, DID_NO_CONNECT);
-+			scsi_done(cmd);
-+			return 0;
-+		}
-+	}
-+
- 	switch (hba->ufshcd_state) {
- 	case UFSHCD_STATE_OPERATIONAL:
- 		break;
-@@ -10931,6 +10950,14 @@ static void ufshcd_wl_shutdown(struct scsi_device *sdev)
- 		scsi_device_set_state(sdev, SDEV_OFFLINE);
- 		mutex_unlock(&sdev->state_mutex);
- 	}
-+
-+	/*
-+	 * Drain all in-flight transfer and task management requests before
-+	 * putting the device into low power and turning off controller power.
-+	 */
-+	if (ufshcd_wait_for_pending_cmds(hba, USEC_PER_SEC))
-+		dev_warn(hba->dev,
-+			 "timed out waiting for in-flight commands during shutdown\n");
-+
- 	__ufshcd_wl_suspend(hba, UFS_SHUTDOWN_PM);
- 
- 	/*
--- 
-2.43.0
+The integrated commits had stable patch-ids matching the posted patches.
+DAMON KUnit passed 42/42 tests.  I also ran test-only eligible_mem_bp nid and
+two-kdamond refresh-isolation regression cases; they passed 42/42 and 43/43
+tests, respectively.  Both test-only changes were then removed and the
+worktree returned clean at the unchanged series tip.
+
+These were functional UML KUnit tests.  The fixes look good to me.
+
+For the series:
+
+Reviewed-by: Lian Wang <lianux.mm@gmail.com>
+Tested-by: Lian Wang <lianux.mm@gmail.com>
+
+Thanks,
+Lian
