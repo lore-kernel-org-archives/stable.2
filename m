@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAA543713E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B743802B;
 	Thu,  3 Sep 2026 11:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433502; cv=none; b=ukhSeAHYBNl/uObcDu5JE7bFX1nzNHr1jd60/suuogeymFYvXCTxz3zJcg+ctuvXCz+jNGlogs4wGvBsddDy1Lw/2pRny8jCYSgV8CZ3GMVLdV9+4gfNiEsEG5Snh3gpoL96vnz1WjKF6Kq/RIWWwXj8YeT+7OwVJfwQ43LoMvQ=
+	t=1788433502; cv=none; b=bdh6JbA1AyeK/Gpiou9+hU4CLx9QRjv0/y4qUm+7Yqdu+R55muq4lEiv0A9INNZX8vOvk0ckG/Bz0bwoDXOuWg4uASyK9UyqOCCVSYGCrCGHCjH+xvxaH7nMnt+5NpbGmotuHPGc3QXuwpO/AGd+K9u35Eb4EbxmnDAAHghxiN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788433502; c=relaxed/simple;
-	bh=70biVnXZdTszpQN4ocqjee9GNCAdrxxcGK9CdJ0YKwk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fvUC7Ua9jRT313XmiBP0j6FaPTFJdSGTNsP3j6khOgDHhXIeDU79HkiLdaLOOs6Osks82j2R0BWZv2r0uiJSdkOWiv0h+OTvMzzXwXEeyNJqc1binkfx2qiyeenZ7lpENO4+UDAxtrwNCgYc7AcnhZdlBKHyZQSwn421sU3UUUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sPVwrY+Z; arc=none smtp.client-ip=10.30.226.201
+	bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YCbRibP+aH5B4DWzVCMP0Zm0Tr7fK2AUpySbPMAW4i9T3qO72UYF0sTHJ1dW23fogSHo8uvfADoIfdw9d6APMgvFEkNNRbtv/sMxBwWNWyS/jbuW0VgxXzlD8pbgd3VmdabxJEgSU0Pi1yf/GjAbVx1pmzxGY9RSgRyw0/kvKmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mFCkdzTr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sPVwrY+Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E874EC2BCFF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mFCkdzTr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C1BFAC2BCB8;
 	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788433502;
-	bh=70biVnXZdTszpQN4ocqjee9GNCAdrxxcGK9CdJ0YKwk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sPVwrY+ZaDf5hyRwgVKkCbkv/bZ4RkiD5gjHzOfzXbdumwynH0CB3AvKQXI2cvTTx
-	 JF1Zpe9OsNa8N6ycLasFlO5a2YSS9yWjwAq6LwPaQr+2WAbaZ2xD433dqPOMljFQrN
-	 +O91AbNiKv5nqOmu5z5m+RiHMd0ZsqcOc4ZRPQg33yTA86craXmbZYrG0uU6bqj8GU
-	 QQ4SzCjw8dgPempsdz/2IUt4E7N3nVaZE4FMmplMgd3p1dcjf8TY9Utl3rTpfK15WW
-	 ooYYmid1etnGHjEfbb4SNa4Ijc49tSZat/eCO0mfRYHDTyZs2ZxP8iUfLmbK1mVVZy
-	 fqvgl7m0qufuQ==
+	s=k20201202; t=1788433501;
+	bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=mFCkdzTrcSdmyR5iKFV9USwemu8vEWao1HKaZnWhteT7j1xIV+9/XxudH48leb4mI
+	 XZYQNIYqz0eHJTY9n6W3YOn4m17F2EQyLuVzPdH0AxAKuaCmL34qOijSpshpJiy/0j
+	 1LHN3pl6/h6Tu5Ddb1DGVOt9KavphcTzoTYe2hCyfRAI4fBVF4rnDrPkhuJsNVMWue
+	 4ANp1YqHymwKE/IYqbmj7yeAQci39dnOownBdkvsEvrsIo98fRWCoPhTWKUiPVZv5E
+	 +eYNkkVQmpvuCe+G29W/mmS5iCySQi8OZ1Gr5NaJscB3PdC/x40MyO53YSQxDxVzjN
+	 V0MD3cyAUVTjw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C457EC624D7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95839C624A4;
 	Thu,  3 Sep 2026 11:05:01 +0000 (UTC)
 From: Mark Amirkan via B4 Relay <devnull+markdamirkan.gmail.com@kernel.org>
-Date: Thu, 03 Sep 2026 04:04:21 -0700
-Subject: [PATCH v2 2/2] perf evsel: Validate RAW sample before byte
- swapping
+Subject: [PATCH v2 0/2] perf evsel: Validate cross-endian samples before
+ byte swapping
+Date: Thu, 03 Sep 2026 04:04:19 -0700
+Message-Id: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,9 +41,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-sympwn-linux-002-final-v2-v2-2-0aee1fca1f95@gmail.com>
-References: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
-In-Reply-To: <20260903-sympwn-linux-002-final-v2-v2-0-0aee1fca1f95@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0K6dkxbSEVX3sOwKGWAMdCSFiqEc
+ HcBL+DyJe+/v7KAnjCwR7Iyj5ECObuDvCTMtNo2CFTtzCSXit95CmHph4+Fjuw0A+cSarK6gyg
+ BU67zqpaCG8H2/eCxpvlsv4ofh6l8oxmP4GG0FEbnl/M8isP75ycKEHAzCjOhVJmL7Nn0mrqrc
+ T0rtm37AtTpQTXUAAAA
+X-Change-ID: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
  Arnaldo Carvalho de Melo <acme@kernel.org>, 
  Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -54,11 +56,11 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 Cc: Mark Amirkan <markdamirkan@gmail.com>, linux-perf-users@vger.kernel.org, 
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788433501; l=4545;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788433501; l=1879;
  i=markdamirkan@gmail.com; s=pscsi-20260818; h=from:subject:message-id;
- bh=UB7egJdlaxZNL6OHQ6khTPm+2pfri3frePTZlRlCqf8=;
- b=ie3cYz6bQEfs+7mvYXYFFEqddNBl59PMbYh/SgBtwFegU4qnuAC341JnrdPcbmwXJi6LUG27f
- t4WHIpSRyzdAH8mL50TibG20qKsbP6WTbEOtkxTRPvdcndh+7VO3akw
+ bh=fjTgsBxrgzCHCQ91O9VNEkGJ05DbXsonzo80saT7PMk=;
+ b=GpM47J3aBt0a9DqS1ASyqN8OypFVI95A2mbLkewsLzx9dio0alYw/4LnMDxNyc4d1utR2ynbE
+ 4YbH83CSykhD+DCIwF8V3HDNEeN8uHKdr7err1DcrwNpeaezl8hTpYq
 X-Developer-Key: i=markdamirkan@gmail.com; a=ed25519;
  pk=/wb49ibt4gZFDncmhFQBYtjPvzT1tfJtvK4Mqt1P2Wc=
 X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
@@ -66,150 +68,52 @@ X-Endpoint-Received: by B4 Relay for markdamirkan@gmail.com/pscsi-20260818
 X-Original-From: Mark Amirkan <markdamirkan@gmail.com>
 Reply-To: markdamirkan@gmail.com
 
-From: Mark Amirkan <markdamirkan@gmail.com>
+Two paths in __evsel__parse_sample() use values from an
+opposite-endian perf.data record to modify the record before checking that
+the data fits within event->header.size.
 
-For an opposite-endian RAW sample, __evsel__parse_sample() passes the
-input-controlled size to mem_bswap_64() before checking whether the
-payload fits in the event. A truncated record can therefore make the helper
-read and write past the event boundary.
+Patch 1 checks the complete branch stack before swapping entry flags.
+Patch 2 checks the RAW payload and the complete 64-bit words touched by
+mem_bswap_64() before swapping the data.
 
-A crafted perf.data file makes perf report crash with SIGSEGV. ASan
-reports the out-of-bounds access. A regression test puts backed data past
-the declared end and shows that it is changed before the parser returns
--EFAULT.
+The malformed branch-stack and RAW records reproduce as out-of-bounds
+reads and writes. Each patch adds a Sample parsing regression test that
+checks rejected records do not modify data past the declared event.
 
-Move the bounds checks before mem_bswap_64(). Check the rounded length too,
-because the helper accesses complete 64-bit words. Complete records are
-handled as before.
-
-Fixes: f9d8adb345d7 ("perf evsel: Fix swap for samples with raw data")
-Cc: stable@vger.kernel.org
-Assisted-by: Symbolic
 Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
 ---
- tools/perf/tests/sample-parsing.c | 61 +++++++++++++++++++++++++++++++++++++++
- tools/perf/util/evsel.c           | 17 ++++++-----
- 2 files changed, 70 insertions(+), 8 deletions(-)
+Changes in v2:
+- Add the adjacent PERF_SAMPLE_RAW fix found during v1 review.
+- Keep the branch-stack fix unchanged.
+- Link to v1: https://patch.msgid.link/20260903-sympwn-linux-002-final-v2-v1-1-7c6e4166b814@gmail.com
 
-diff --git a/tools/perf/tests/sample-parsing.c b/tools/perf/tests/sample-parsing.c
-index 583951534937..bd30f6d4c31b 100644
---- a/tools/perf/tests/sample-parsing.c
-+++ b/tools/perf/tests/sample-parsing.c
-@@ -461,6 +461,55 @@ static int test_truncated_branch_stack(void)
- 	return 0;
- }
- 
-+static int test_truncated_swapped_raw(u16 event_size, u32 raw_size)
-+{
-+	struct perf_event_attr attr = {
-+		.sample_type = PERF_SAMPLE_RAW,
-+	};
-+	struct {
-+		struct perf_event_header header;
-+		union {
-+			u64 value;
-+			u32 words[2];
-+		} raw;
-+		u64 canary;
-+	} input = {
-+		.header = {
-+			.type = PERF_RECORD_SAMPLE,
-+			.size = event_size,
-+		},
-+		/* Parsing a pre-swapped word exchanges these two u32 values. */
-+		.raw.words = { 0x12345678, raw_size },
-+		.canary = 0x8877665544332211ULL,
-+	};
-+	struct perf_sample sample;
-+	struct evsel *evsel;
-+	u64 raw = input.raw.value;
-+	u64 canary = input.canary;
-+	int err;
-+
-+	evsel = evsel__new(&attr);
-+	if (!evsel)
-+		return -1;
-+
-+	evsel->sample_size = __evsel__sample_size(attr.sample_type);
-+	err = __evsel__parse_sample(evsel, (union perf_event *)&input,
-+				    &sample, /*needs_swap=*/true);
-+	perf_sample__exit(&sample);
-+	evsel__put(evsel);
-+
-+	if (err != -EFAULT) {
-+		pr_debug("truncated swapped RAW sample (size %u, raw %u) returned %d, expected -EFAULT\n",
-+			 event_size, raw_size, err);
-+		return -1;
-+	}
-+	if (input.raw.value != raw || input.canary != canary) {
-+		pr_debug("truncated swapped RAW sample modified data before validation\n");
-+		return -1;
-+	}
-+	return 0;
-+}
-+
- /**
-  * test__sample_parsing - test sample parsing.
-  *
-@@ -481,6 +530,18 @@ static int test__sample_parsing(struct test_suite *test __maybe_unused, int subt
- 	if (err)
- 		return err;
- 
-+	/* The declared RAW payload extends past an otherwise aligned event. */
-+	err = test_truncated_swapped_raw(sizeof(struct perf_event_header) +
-+					 sizeof(u64), 16);
-+	if (err)
-+		return err;
-+
-+	/* The final complete word touched by mem_bswap_64() extends past it. */
-+	err = test_truncated_swapped_raw(sizeof(struct perf_event_header) +
-+					 sizeof(u32) + 9, 9);
-+	if (err)
-+		return err;
-+
- 	/*
- 	 * Fail the test if it has not been updated when new sample format bits
- 	 * were added.  Please actually update the test rather than just change
-diff --git a/tools/perf/util/evsel.c b/tools/perf/util/evsel.c
-index cc0bc0857754..ce429eb247b6 100644
---- a/tools/perf/util/evsel.c
-+++ b/tools/perf/util/evsel.c
-@@ -3584,7 +3584,10 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 	}
- 
- 	if (type & PERF_SAMPLE_RAW) {
-+		const __u64 *raw;
-+
- 		OVERFLOW_CHECK_u64(array);
-+		raw = array;
- 		u.val64 = *array;
- 
- 		/*
-@@ -3600,16 +3603,14 @@ int __evsel__parse_sample(struct evsel *evsel, union perf_event *event,
- 		}
- 		data->raw_size = u.val32[0];
- 
--		/*
--		 * The raw data is aligned on 64bits including the
--		 * u32 size, so it's safe to use mem_bswap_64.
--		 */
--		if (swapped)
--			mem_bswap_64((void *) array, data->raw_size);
--
- 		array = (void *)array + sizeof(u32);
--
- 		OVERFLOW_CHECK(array, data->raw_size, max_size);
-+		if (swapped) {
-+			/* mem_bswap_64() accesses complete 64-bit words. */
-+			sz = roundup((u64)data->raw_size, sizeof(u64));
-+			OVERFLOW_CHECK(raw, sz, max_size);
-+			mem_bswap_64((void *)raw, data->raw_size);
-+		}
- 		data->raw_data = (void *)array;
- 		array = (void *)array + data->raw_size;
- 	}
+To: Peter Zijlstra <peterz@infradead.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Ian Rogers <irogers@google.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: James Clark <james.clark@linaro.org>
+Cc: linux-perf-users@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-Git-146)
+---
+Mark Amirkan (2):
+      perf evsel: Validate branch stack before byte swapping
+      perf evsel: Validate RAW sample before byte swapping
+
+ tools/perf/tests/sample-parsing.c | 109 ++++++++++++++++++++++++++++++++++++++
+ tools/perf/util/evsel.c           |  20 +++----
+ 2 files changed, 120 insertions(+), 9 deletions(-)
+---
+base-commit: aadea57f532882d8bab444646863c7ef8a778ff1
+change-id: 20260903-sympwn-linux-002-final-v2-e30a8df210c1
+
+Best regards,
+--  
+Mark Amirkan <markdamirkan@gmail.com>
 
 
