@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5360A412C11
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:54:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0874A5EAA
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:54:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440092; cv=none; b=X4yoPVWDNNHJoQSL/9MF5ENcBB+oDtaihpAKCA4V7O7f816bMjSz+8FkyImYZ2KhnwubjLHE25p6dG19tpEMhVkXZDmaP54EksSNVzq81xvKnDsg4tOOkKMj8Qpr/iDvinvacd9WUM0YjNCSzGyKDskNUJyJbG4eUBqmwpWrpzU=
+	t=1788440095; cv=none; b=KUDt7j4z4sc3j60uoAydBJuaBl78IjNqNY40+r7kRIbQNIazt9DnDr7tO38Q4xTEUGdb4OU5bglg/bRXiDrzTGij5stMBMKelYmc01Mme9gFoimoBGIXYVbqmRPMBM798zPz2KO+p99ydfsUeUeUtKlPLqcVBlfE6j45PYOuMok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440092; c=relaxed/simple;
-	bh=4Qnuwh8qJ9xxewXE4b4+QkEZUdSzFKXNTdWLgf7OmuQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=nLDc+GoX84GO8W4YfOrB5oR9VmsB4emie82h1PdjO1HH0lJha/MPe+6hKvP484RNaic7dRiGkOJYTn9oYYOS55iABl3i31brhwGDf6Dc+Gjl85HQBT9kq9Y04HdvSZAD4o2nh1/C8QucFyb4i9tguFfmlaCjb1TwF5rfKQLCFgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OSjm5hC2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788440095; c=relaxed/simple;
+	bh=8TJGYUs5/EsTTxJWFatcb/UE+0S6M3E5d8jV/7tQ6eQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ivxaeywXBNOHp7RyspsAVmFb1J9ewy/VloDrdR4BeoOHZZIK6IY2DvydjiPl6LPJ9EEYphhsCJYXIhs/ATn8PjfUfaAsnt4bg2CN243CeV/85QVYDiuyll3XkSbBl6Aw6MBvkjZn5BHo6Nl1T8bLKx2HHhiQS2cYk52DcTjfyZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ck+QkYOm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OSjm5hC2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00361F000E9;
-	Thu,  3 Sep 2026 12:54:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ck+QkYOm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D131F00A3A;
+	Thu,  3 Sep 2026 12:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440091;
-	bh=wnZpLloYfMTgOjoCRz7eG18QlFiPfgMmpjWMSBZJE+s=;
+	s=korg; t=1788440094;
+	bh=qJshW6/1fTkjJpx4UmSeRIdMLJFUo5W5dxxHjcgBrQk=;
 	h=Subject:To:Cc:From:Date;
-	b=OSjm5hC2Z4jNRIRqpzvi5D77wDpYqlINQW577aU5zg9H8gndtjcjTRB6xhLJrgVa3
-	 LfxukRg6wzThK9NrfA1xXWye3nxocN7jkGinXob/jfMHdx4kyhOT1DySMwo9wmuOPx
-	 0bBwx+xBnFLmP/P+ikbvBfX9EiQCb9e7YTjcQcLU=
-Subject: FAILED: patch "[PATCH] serial: imx: serialize imx_uart_ports[] lifetime" failed to apply to 5.15-stable tree
-To: kmehltretter@gmail.com,Frank.Li@nxp.com,gregkh@linuxfoundation.org,sashiko-bot@kernel.org
+	b=ck+QkYOmR52paR5i/Y3fRBGVSFWK7J8jsYze9v//NuYs6F0UIz/lvGMiXKDt2t15G
+	 v/pSu786FVetsca63oCVJglCu0oWccoBQtKFZ8Fv0aFi83qQnl0rPxtI8YVtIvie+8
+	 krKS/DCyRNo6VdKGyLH2zdb2OJ/KsJUNXIV+03bU=
+Subject: FAILED: patch "[PATCH] usb: dwc2: gadget: Exit partial power down state when" failed to apply to 5.10-stable tree
+To: flavra@baylibre.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 14:38:33 +0200
-Message-ID: <2026090333-scared-direness-4881@gregkh>
+Date: Thu, 03 Sep 2026 14:38:59 +0200
+Message-ID: <2026090359-explicit-driveway-3cc2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8b0b29fdcb47907ae0296b8fe829e918e05e300f
+git cherry-pick -x bf1e90189a98ca4a824fd64b4f3c6043d13c98ea
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090333-scared-direness-4881@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090359-explicit-driveway-3cc2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,90 +62,66 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8b0b29fdcb47907ae0296b8fe829e918e05e300f Mon Sep 17 00:00:00 2001
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Fri, 31 Jul 2026 20:18:44 +0200
-Subject: [PATCH] serial: imx: serialize imx_uart_ports[] lifetime
+From bf1e90189a98ca4a824fd64b4f3c6043d13c98ea Mon Sep 17 00:00:00 2001
+From: Francesco Lavra <flavra@baylibre.com>
+Date: Tue, 28 Jul 2026 17:44:20 +0200
+Subject: [PATCH] usb: dwc2: gadget: Exit partial power down state when
+ changing USB pull-up
 
-imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
-before uart_add_one_port() because console setup uses the table. The entry
-is not cleared when adding the port fails or after removal, leaving a
-dangling pointer.
+When a USB host suspends a connected device, the DWC2 USB device controller
+enters a partial power down state where controller registers are not
+accessible. If the USB gadget is then disconnected or deactivated
+(e.g. when a gadget function is unbound from the controller), the `pullup`
+callback in struct usb_gadget_ops is invoked; if the controller is kept in
+partial power down, the register write in dwc2_hsotg_core_disconnect() does
+not take effect; as a result, the USB host keeps seeing the device as
+connected, even though the device is disabled.
 
-A sibling probe can register the shared console through that stale entry.
-This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
-sibling UART, unbinding the console UART and rebinding the sibling.
+Properly exit partial power down state in the pullup callback, so that the
+USB host detects a device disconnection as intended.
 
-Keep the entry valid through uart_remove_one_port(), then clear it. Protect
-port addition and removal together with their table updates so sibling
-operations cannot interleave. Reject an occupied slot rather than
-clobbering an active port during a duplicate-line probe.
-
-Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
-Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
-Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
+Fixes: 97861781daff ("usb: dwc2: Allow entering hibernation from USB_SUSPEND interrupt")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260731181844.11330-6-kmehltretter@gmail.com
+Signed-off-by: Francesco Lavra <flavra@baylibre.com>
+Link: https://patch.msgid.link/20260728154420.2021519-1-flavra@baylibre.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
-index 95fdb60e06a7..513dbe95f7e9 100644
---- a/drivers/tty/serial/imx.c
-+++ b/drivers/tty/serial/imx.c
-@@ -22,6 +22,7 @@
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/ktime.h>
-+#include <linux/mutex.h>
- #include <linux/pinctrl/consumer.h>
- #include <linux/rational.h>
- #include <linux/slab.h>
-@@ -2080,6 +2081,9 @@ static const struct uart_ops imx_uart_pops = {
- 
- static struct imx_port *imx_uart_ports[UART_NR];
- 
-+/* Held across uart_add/remove_one_port(); console callbacks must not take it. */
-+static DEFINE_MUTEX(imx_uart_ports_lock);
-+
- #if IS_ENABLED(CONFIG_SERIAL_IMX_CONSOLE)
- static void imx_uart_console_putchar(struct uart_port *port, unsigned char ch)
+diff --git a/drivers/usb/dwc2/gadget.c b/drivers/usb/dwc2/gadget.c
+index c8b02c27d27d..102169b40419 100644
+--- a/drivers/usb/dwc2/gadget.c
++++ b/drivers/usb/dwc2/gadget.c
+@@ -4680,6 +4680,7 @@ static int dwc2_hsotg_pullup(struct usb_gadget *gadget, int is_on)
  {
-@@ -2621,11 +2625,19 @@ static int imx_uart_probe(struct platform_device *pdev)
- 			goto err_clk;
+ 	struct dwc2_hsotg *hsotg = to_hsotg(gadget);
+ 	unsigned long flags;
++	int ret = 0;
+ 
+ 	dev_dbg(hsotg->dev, "%s: is_on: %d op_state: %d\n", __func__, is_on,
+ 		hsotg->op_state);
+@@ -4691,6 +4692,13 @@ static int dwc2_hsotg_pullup(struct usb_gadget *gadget, int is_on)
  	}
  
--	imx_uart_ports[sport->port.line] = sport;
--
- 	platform_set_drvdata(pdev, sport);
- 
--	ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
-+	scoped_guard(mutex, &imx_uart_ports_lock) {
-+		if (imx_uart_ports[sport->port.line]) {
-+			ret = -EBUSY;
-+		} else {
-+			imx_uart_ports[sport->port.line] = sport;
-+			ret = uart_add_one_port(&imx_uart_uart_driver,
-+						&sport->port);
-+			if (ret)
-+				imx_uart_ports[sport->port.line] = NULL;
+ 	spin_lock_irqsave(&hsotg->lock, flags);
++	if (hsotg->in_ppd) {
++		ret = dwc2_exit_partial_power_down(hsotg, 0, true);
++		if (ret) {
++			dev_err(hsotg->dev, "exit partial_power_down failed\n");
++			goto exit;
 +		}
 +	}
+ 	if (is_on) {
+ 		hsotg->enabled = 1;
+ 		dwc2_hsotg_core_init_disconnected(hsotg, false);
+@@ -4704,9 +4712,10 @@ static int dwc2_hsotg_pullup(struct usb_gadget *gadget, int is_on)
+ 	}
  
- err_clk:
- 	clk_disable_unprepare(sport->clk_ipg);
-@@ -2637,7 +2649,9 @@ static void imx_uart_remove(struct platform_device *pdev)
- {
- 	struct imx_port *sport = platform_get_drvdata(pdev);
+ 	hsotg->gadget.speed = USB_SPEED_UNKNOWN;
++exit:
+ 	spin_unlock_irqrestore(&hsotg->lock, flags);
  
-+	guard(mutex)(&imx_uart_ports_lock);
- 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
-+	imx_uart_ports[sport->port.line] = NULL;
+-	return 0;
++	return ret;
  }
  
- static void imx_uart_restore_context(struct imx_port *sport)
+ static int dwc2_hsotg_vbus_session(struct usb_gadget *gadget, int is_active)
 
