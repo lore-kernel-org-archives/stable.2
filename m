@@ -1,157 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBA64A841B
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497394A8FFC
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 13:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788440852; cv=none; b=DjFFMk3jCUdL6QgFsNLnqH32VM89pV3xvGu05v3nRRqn+RtdzavOTf7TSO7Uq9CQ/34SZ29s4sy+vyqpkibhU9hGR9gqaQPDx6KqrA/60Oa5FzOybjFVN2vWLjtRe/9oE0z4NEk55vnu3SP+rb84DGRQRr72/CiihILd4DEkatY=
+	t=1788441166; cv=none; b=nhBzeykQuMQZu9/Z8Hz3iBV+aENz31C6ag9gCN6rVFnBTu92D5b6FxDalJSjGvSS0quOPKsUmCOPsuq3beK39ecLSMPAtQVqY7Ws6j4U+SwgW0yCUq0UAFP8H46/36zgeKMCg71Wj4mjlN8opuaYKFuAI5dk18rkNDiTn8WJCJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788440852; c=relaxed/simple;
-	bh=pXq70cNLkaq0q4nJDtB9BNNQT70+y+b5uash2SFNRPo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XZiIS/fElGZF2V2xVfQkm9vZoRwAo+RGNNIw5H1F0Q07vWXgMiKZqYjqOlTu4ZvzhcT3OmTX39Ac4EKXqnKeExgsGGqAhsboSPmV8qdeO9ISr5L569/pXwr62jpZzO6+AFB+H3332BhvK+x7xpRHI8BvqAlqyD1GO+Z75cT9VCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gRhij82j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788441166; c=relaxed/simple;
+	bh=6PpOaDvG7B4yvqN1w+kxiA04SVsuNsaPu4+LJMpskEw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=N2hioXnnUj2bESCX+iO31AJy5NvZInWD7gh0tS69k4XAKIQSvmAG9UWgRWw3dHRbyPz6eY7KOo14xuqawI17HGdit3pZydmGNcXSH/xp6/1iftAEu1rpz/BBdZdAJkGOnXOlVsSkrlNG1Xy0F/Bc9CanY8mPmWS7w5HZYLvdIXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8s9A9xv; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gRhij82j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FB21F00A3D;
-	Thu,  3 Sep 2026 13:07:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788440835;
-	bh=rEK+bclHHqO2mMCtHMytq6VJNH19JfLVNa5zQi50XOs=;
-	h=Subject:To:Cc:From:Date;
-	b=gRhij82j10onjIGH4nuIqDoPF/AWMfYwd7xB7JmQeGyB8z7nr+7SQUMXHfBF8hwdc
-	 T6s6ze8/hku2gIeUMZnCtJLE3h+MhnekKzkz3ZXq/6kN8qM+iC58F1eUqsJGha9Hxs
-	 IRRDKuInxnV4ruk5Iz9pBGplfPDB7aMm2WRpZ6KQ=
-Subject: FAILED: patch "[PATCH] device property: fix infinite loop in" failed to apply to 5.15-stable tree
-To: xu.yang_2@nxp.com,andriy.shevchenko@linux.intel.com,gregkh@linuxfoundation.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 15:04:48 +0200
-Message-ID: <2026090348-triceps-paramount-f040@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8s9A9xv"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-381b831d535so3788747a91.0
+        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 06:12:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788441145; x=1789045945; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=emV5n6JyzwHHJDAPrwbCGMimUu0hxMHFjSvszb+s2d8=;
+        b=G8s9A9xviegaRJ1PT8In18usvKg6pbJd0MfCSZiMPT/2NnsJ1cEcxgXvuCeAS+NWcg
+         fPsXczn9AEtPOeEHL6YzuMH/eftJHUcF+rNIgpoaow7D0VQ3ysf2sMDA7hug+lStG3Im
+         x3pRq+/Mx74F05QU5RLW/iQyXQ+qnc62SfwbAcLsEKdzbR5Rv/xWbWkR3vZzer8P9Lg8
+         jT3/beCzSwq62YNpsZzLhYKti/YOzW4v1klTMeiJfJtKBgp0SGq93hSLtIhJCHvQ2SSk
+         M+baGQmiNXFEZh03+tiV5pUOnpVyeO+Uuo0UYaeKUlvgmvEmhGBgW0i+d+vDaOTGHzDW
+         EvAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788441145; x=1789045945;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=emV5n6JyzwHHJDAPrwbCGMimUu0hxMHFjSvszb+s2d8=;
+        b=F6mtBI8l0KkkoV5KvUUDoKKoYojMIDQZ/MzxJ77kjE+9krYFyGgJ7SsT4pj2yranwB
+         YVCC43Om8N91oFisNruwBMIHldFOjF7UMUc4Lx8Ju9dOB4TfLYOvugnC2PI2PRK0Zy0M
+         UHrob6Sp0smFv7YYY4p1jtxvfDtES0/FXZ5XQCUEoA3kA+CHf5dVpwUqoe1ugRUC2LVH
+         BRuqzM4mwHmXdbNwmMGkzO04vihKii6KckbnNm9KOymRKDW/NW03ShTUQ6gT6djrXY7W
+         2SudB1UqqDWW6HpeKrvYt64STmkmRrcKLvJE8jrKqI7K/RummcDD2vMEGBcMrRIUNd8O
+         X/8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxXWtLFIq6KnpCF3OTYHgw6biW+BvyhwwCOxl1m3/8HaXOp2/ekRlORwuXHZnafgq6TXKDJGhw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2ihbjGHK7noi5TKZqjAL8ElDADzuz/IjYvMEdr3/EgD0znqjf
+	eMoOTZj00CLn1IuSSQ9hzJB01gK8jaom8w7X+4aFz7xSpPaH4Z/WESq8
+X-Gm-Gg: AYBFou32euA5voWelYANLS7PvRjGqsoF3QhisxpfmOLw6kOW0MC2K3+0pcterPA1xqv
+	sDFMdECprqgOs1BBvgVxmfYOUTE5u9ggv6DrQJzZ8nDCaV4IC8GAiaWWGsr9BOm+3szdaKqEvYN
+	65GtVn1BqgXQaxXcYWdsYaC69D3KP7Cnah2NnziEBukVaQJUT75JVZJrrW46MSXY4uYrgAFGkGf
+	Ca/tGLx3c58HyEV/v8MBY5+p3LtuVvAKNZkRBSdRKjl9ZO51JaJXHIkP7IqMOljxAaJylgCJGqY
+	GnLgbZT/+P5GBe6i8DUpp+qIqvtDsUmIDFoEHsNikYt7iktLx87WIqDiczUIHMrYY+IMcO50tWm
+	aR0hQEec3Dmeryhlxyju/p4m/lXGczhSZWEdjqlaYJlAGWbq0dntkdPYIiMwsx59fu4jnb7kJU8
+	k2+miKXLm/SMk2uyqzvc0xGhs9J6o5ViMRGMealpyD2Raxyxp9jylkEjq07r7Z66sBVc4OjqWUn
+	gRsf7Rg/oLYrps=
+X-Received: by 2002:a17:90b:2688:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39aee162e08mr21243652a91.16.1788441144840;
+        Thu, 03 Sep 2026 06:12:24 -0700 (PDT)
+Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae902354asm2692820a91.2.2026.09.03.06.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 06:12:24 -0700 (PDT)
+From: huhb1 <huhb04@gmail.com>
+X-Google-Original-From: huhb1 <huhb1@xiaopeng.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	huhb04 <huhb04@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: defer cancelled buffer completion until copies finish
+Date: Thu,  3 Sep 2026 21:11:41 +0800
+Message-Id: <20260903131141.6368-1-huhb1@xiaopeng.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: huhb04 <huhb04@gmail.com>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+uvc_queue_cancel() returns queued buffers to videobuf2 directly via
+vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
+still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
+run, userspace can dequeue and requeue the buffer while the old worker is
+still running, leading to the same list_head being inserted into irqqueue
+twice and corrupting the list.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The crash manifests in two ways depending on the drop-corrupted-frames
+module parameter:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 1900692555826753adab8799a1a8d50bb1ee200c
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090348-triceps-paramount-f040@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+1. With the drop corrupted frames enabled, the old worker's
+   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
+   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
+   buf->queue even though userspace has already QBUF'd the same buffer and
+   added it to irqqueue.
 
-Possible dependencies:
+2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
+   second time. If userspace has already dequeued and requeued the buffer,
+   the second completion exposes it to userspace again, and the next
+   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
+   time.
 
+Both cases produce the kind of list_del corruption seen here:
 
+    list_del corruption. next->prev should be ..., but was ...
+    kernel BUG at lib/list_debug.c:64!
 
-thanks,
+Fix the cancel path to remove buffers from irqqueue and drop the queue's
+reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
+VB2 completion then only happens from uvc_queue_buffer_complete() once the
+last async reference is released, so userspace cannot reuse the buffer
+while an old worker still accesses it.
 
-greg k-h
+A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
+as an error and must not be requeued by the corrupted-frame policy. Normal
+malformed frames are still requeued/dropped as before.
 
------------------- original commit in Linus's tree ------------------
-
-From 1900692555826753adab8799a1a8d50bb1ee200c Mon Sep 17 00:00:00 2001
-From: Xu Yang <xu.yang_2@nxp.com>
-Date: Thu, 11 Jun 2026 22:31:06 +0200
-Subject: [PATCH] device property: fix infinite loop in
- fwnode_for_each_child_node()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-When iterate over children of a fwnode that has a secondary fwnode,
-fwnode_get_next_child_node() can enter an infinite loop if the secondary
-fwnode has more than one child.
-
-                       Parent        Child
-      (Primary fwnode)   FWa:   {FWa1, FWa2, FWa3}
-    (Secondary fwnode)   FWb:   {FWb1, FWb2}
-
-In this case:
-
- ┌─> fwnode_get_next_child_node(FWa, FWa1)
- │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa1) returns FWa2
- │
- │   ...
- │
- │   fwnode_get_next_child_node(FWa, FWa3)
- │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWa3) returns NULL
- │    - fwnode_call_ptr_op(FWb, get_next_child_node, FWa3) returns FWb1
- │
- │   fwnode_get_next_child_node(FWa, FWb1)
- │    - fwnode_call_ptr_op(FWa, get_next_child_node, FWb1) returns FWa1
- └────┘
-
-This cause fwnode_for_each_child_node() to loop indefinitely, reapeatedly
-output {FWa1, FWa2, FWa3, FWb1, FWa1, ...}.
-
-The root cause is that when the current child (FWb1) belongs to the
-secondary fwnode, calling get_next_child_node() on the parimary fwnode
-incorrectly returns the first child (FWa1) again instead of NULL.
-
-Fix this by dynamically checking the parent fwnode of the current child
-before calling get_next_child_node(). This approach follows the pattern
-established in commit b5b41ab6b0c1 ("device property: Check
-fwnode->secondary in fwnode_graph_get_next_endpoint()").
-
-Fixes: 2692c614f8f0 ("device property: Allow secondary lookup in fwnode_get_next_child_node()")
+Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-Tested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Tested-by: Xu Yang <xu.yang_2@nxp.com>
-Link: https://patch.msgid.link/20260611203537.1786399-2-andriy.shevchenko@linux.intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: huhb04 <huhb04@gmail.com>
+---
+ drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/base/property.c b/drivers/base/property.c
-index e08eadd66f4f..e0f570f48bc3 100644
---- a/drivers/base/property.c
-+++ b/drivers/base/property.c
-@@ -807,18 +807,31 @@ struct fwnode_handle *
- fwnode_get_next_child_node(const struct fwnode_handle *fwnode,
- 			   struct fwnode_handle *child)
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f44..9206e0a355 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+  */
+ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
  {
-+	const struct fwnode_handle *parent;
-+	struct fwnode_handle *child_parent __free(fwnode_handle) = NULL;
- 	struct fwnode_handle *next;
++	struct uvc_buffer *buf, *next;
++	struct list_head local_list;
+ 	unsigned long flags;
  
--	if (IS_ERR_OR_NULL(fwnode))
-+	/*
-+	 * If this function is in a loop and the previous iteration returned
-+	 * an child from fwnode->secondary, then we need to use the secondary
-+	 * as parent rather than @fwnode.
-+	 */
-+	if (child) {
-+		child_parent = fwnode_get_parent(child);
-+		parent = child_parent;
-+	} else {
-+		parent = fwnode;
++	INIT_LIST_HEAD(&local_list);
++
+ 	spin_lock_irqsave(&queue->irqlock, flags);
+-	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++	while (!list_empty(&queue->irqqueue)) {
++		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
++		list_del(&buf->queue);
++		buf->state = UVC_BUF_STATE_ERROR;
++		list_add_tail(&buf->queue, &local_list);
 +	}
-+	if (IS_ERR_OR_NULL(parent))
- 		return NULL;
- 
- 	/* Try to find a child in primary fwnode */
--	next = fwnode_call_ptr_op(fwnode, get_next_child_node, child);
-+	next = fwnode_call_ptr_op(parent, get_next_child_node, child);
- 	if (next)
- 		return next;
- 
- 	/* When no more children in primary, continue with secondary */
--	return fwnode_call_ptr_op(fwnode->secondary, get_next_child_node, child);
-+	return fwnode_get_next_child_node(parent->secondary, NULL);
+ 	/*
+ 	 * This must be protected by the irqlock spinlock to avoid race
+ 	 * conditions between uvc_buffer_queue and the disconnection event that
+@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ 	if (disconnect)
+ 		queue->flags |= UVC_QUEUE_DISCONNECTED;
+ 	spin_unlock_irqrestore(&queue->irqlock, flags);
++
++	/*
++	 * Release the queue-owned kref outside the irqlock. The final VB2
++	 * completion only happens from uvc_queue_buffer_complete() once all
++	 * asynchronous copy references have been released, preventing userspace
++	 * from reusing the buffer while an old worker still accesses it.
++	 */
++	list_for_each_entry_safe(buf, next, &local_list, queue) {
++		list_del(&buf->queue);
++		uvc_queue_buffer_release(buf);
++	}
  }
- EXPORT_SYMBOL_GPL(fwnode_get_next_child_node);
  
+ /*
+@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
+ 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	if (buf->error && !uvc_no_drop_param) {
++	/*
++	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
++	 * errors. They must not be requeued by the corrupted-frame policy even
++	 * when buf->error is set.
++	 */
++	if (buf->state != UVC_BUF_STATE_ERROR &&
++	    buf->error && !uvc_no_drop_param) {
+ 		uvc_queue_buffer_requeue(queue, buf);
+ 		return;
+ 	}
+-- 
+2.34.1
 
