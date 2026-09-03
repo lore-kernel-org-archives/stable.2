@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F08B46C85A
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642AE4A8FF5
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:44:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439489; cv=none; b=BtPLt4mMn4eRcU/VjQCPWo/atBHpbOpAwr2DMlWqV21ONZyUW5xv/ZQ/EZqWKkdfHfab15TsE8luWF78nxr8WrHOueJJseLV0eEdoTG1kNcjnMJt3kByjKHWu3ifOrUtDyJ9xucn2fhjCBQYWmOQODFRIUOryGa3hWjSt38zN24=
+	t=1788439492; cv=none; b=c39Fl/Z8XEokynAiMTsYJdN7jxznoufKyaLHrMmsUvXIwND2g3DCQrAFiOe3F1diaJnMHFa53x3dMEO1R+a4QlOzDbchNPgjtXJEpqA6MORvOPY8kpq89wBI44N806iFPT/IVafUy2i8+xKHdR12NCTZGupCIV0/ubJsb6zC9GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439489; c=relaxed/simple;
-	bh=dkePCbh187+bfTBH86FD+/QvHQ22hb5irjZK38XG0j4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W/rSzTgI9SMEKD1ajOOWtIQvoHLzwjVIylj+30OCp2KI7r4T57N6ceOBIXUknUzZh+YZzLccMd7AlO6oy5vVnFjZKqVJ3HueOIL6zRP+dIMEJtcC2XPI0xC9tMi1JCtGzw0Kwg+FPiDdsVvBOiLvKhJ07l55Ra3MO2AeKeveay4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FKdMEdHV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439492; c=relaxed/simple;
+	bh=uyAPvFhg/yP3nCizS6gB1OiPKrGuWHnpBF93DghgwsM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BOef4nEwngW9GLSuQxWRcJ9FkJ6MoE4xOHCkxLZQYlWRK4hAOno41PVqnhb1ML8JU9ohyIj2eaNA2+H7sTNwAJDcqTjckFgLSqHp3N6hHOeC9tm9eWTGt1XgQFC/p7uw2hezdUQuS8oTxMrVcAA0u0NoaXDXMgVasQAMSKXa6pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=R34iNAnI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FKdMEdHV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDDCE1F000E9;
-	Thu,  3 Sep 2026 12:44:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="R34iNAnI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A298B1F000E9;
+	Thu,  3 Sep 2026 12:44:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788439488;
-	bh=1TFMMkUYu06ZQZxUMg8TO/c9Z5Lz0pmknrJVyeLMadY=;
+	s=korg; t=1788439491;
+	bh=YhS9Xud4eVzNnH1h3AYBXxEVIHpJOSnYZdvt6xCIJpI=;
 	h=Subject:To:Cc:From:Date;
-	b=FKdMEdHVL9jGof3DYrPLas79tyaZWp/jALVNL6mGyVcqW2QEP4CR/OHOVXVehy8gy
-	 DS3IP3cVhwPkAiGXQgkmiG4ODt17n13Ig5u160S0U8SgQc5FVuCqzKCeCMAodgRrYR
-	 Peiu9vLqb06wC1WUf9ImjfQNBcrZoyA3OQ8iISc4=
-Subject: FAILED: patch "[PATCH] mm/gup: fix always draining LRU caches in" failed to apply to 6.1-stable tree
-To: david@kernel.org,ackerleytng@google.com,akpm@linux-foundation.org,hughd@google.com,jgg@ziepe.ca,jhubbard@nvidia.com,kas@kernel.org,peterx@redhat.com,stable@vger.kernel.org
+	b=R34iNAnIthw5LzDv+yOS/aMmBWKxeA5mCsjdr94Oqa0hdi67LrNy8Qww2uyACuqvV
+	 rPOdHgGiuAAptKn6/GEWIXVIMAXXMZ+Vxpye/nwoQcO9bv9XRgzu9YyBao7XgLoYDY
+	 vQoA0crtq9DIGKleYow29I5+uagrJa7YU9BZjIfE=
+Subject: FAILED: patch "[PATCH] mm/huge_memory: use folio's memcg inside __folio_split()" failed to apply to 6.18-stable tree
+To: ziy@nvidia.com,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hannes@cmpxchg.org,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,ryan.roberts@arm.com,stable@vger.kernel.org,william.kucharski@oracle.com,willy@infradead.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 12:46:40 +0200
-Message-ID: <2026090339-crisped-bouncy-5af4@gregkh>
+Date: Thu, 03 Sep 2026 12:46:56 +0200
+Message-ID: <2026090356-glacial-cornball-be8c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 078e1a0fc41a42baaf113383b52dab8874c0b967
+git cherry-pick -x c299a2285d9d8bda4da024455de65e3d00de6f17
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090339-crisped-bouncy-5af4@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090356-glacial-cornball-be8c@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,82 +62,117 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 078e1a0fc41a42baaf113383b52dab8874c0b967 Mon Sep 17 00:00:00 2001
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Fri, 31 Jul 2026 22:27:53 +0200
-Subject: [PATCH] mm/gup: fix always draining LRU caches in
- collect_longterm_unpinnable_folios()
+From c299a2285d9d8bda4da024455de65e3d00de6f17 Mon Sep 17 00:00:00 2001
+From: Zi Yan <ziy@nvidia.com>
+Date: Tue, 4 Aug 2026 17:04:27 -0400
+Subject: [PATCH] mm/huge_memory: use folio's memcg inside __folio_split()
 
-folio_may_be_lru_cached() is currently only true for small folios, and
-for small folios FOLL_PIN adds GUP_PIN_COUNTING_BIAS references instead
-of 1 in try_grab_folio()/try_grab_folio_fast().
+Patch series "Honor XA_FLAGS_ACCOUNT in xas_split_alloc() and charge to
+folio's memcg", v3.
 
-Consequently, our
+__GFP_ACCOUNT is needed for xarray node allocation accounting when
+XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
+convergence regression") fixed a workingset regression with it.
+xas_split_alloc() does not have it and needs to be fixed.
 
-	folio_ref_count(folio) != folio_expected_ref_count(folio) + 1
+In addition, based on Sashiko's review[1] and Johannes' confirmation[2], to
+charge the right memcg, folio's memcg needs to be active during folio
+split. Add that before adding __GFP_ACCOUNT.
 
-check in collect_longterm_unpinnable_folios() will currently always
-identify "reference mismatch" and first drain the local LRU cache to then
-drain the LRU cache on all CPUs, as collect_longterm_unpinnable_folios()
-is really called after pinning the folios with FOLL_PIN.
+There is no workingset convergence regression related to missing
+__GFP_ACCOUNT in xas_split_alloc() and the impact to userspace should be
+minor.
 
-Add a comment because the current code is not quite intuitive: we used to
-drain only to make sure the folio_isolate_lru() would succeed. But then we
-also started draining to make later migration more reliable.
 
-We'll refactor that code soon a bit, to also make it usable in other
-context where we really want to remove any references from LRU caches.
+This patch (of 2):
 
-Let's add CC stable, because having an easy way for excessive LRU cache
-draining on all CPUs does not sound right. In common scenarios we
-don't expect to ever have to drain.
+During a pagecache folio split, an xarray node allocation can happen and
+needs to charge at folio's memcg instead of folio split invoker's memcg,
+because for example folio split can happen during reclaim and reclaim's
+active memcg might not be folio's memcg.  Switch to folio's memcg at the
+beginning and switch back afterwards.
 
-Link: https://lore.kernel.org/20260731-check_and_migrate_movable_folios-v1-1-e0002d7b791e@kernel.org
-Fixes: 98c6d259319e ("mm/gup: check ref_count instead of lru before migration")
-Fixes: a09a8a1fbb37 ("mm/gup: local lru_add_drain() to avoid lru_add_drain_all()")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Hugh Dickins <hughd@google.com>
-Cc: Ackerley Tng <ackerleytng@google.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: John Hubbard <jhubbard@nvidia.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Peter Xu <peterx@redhat.com>
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-0-38cb3ff325c5@nvidia.com
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-1-38cb3ff325c5@nvidia.com
+Link: https://sashiko.dev/#/patchset/20260727-add-gfp_account-to-xas_split_alloc-v1-1-9fae6bf64838%40nvidia.com?part=1 [1]
+Link: https://lore.kernel.org/all/amtcBZ-_QVRgCd6b@cmpxchg.org/ [2]
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: William Kucharski <william.kucharski@oracle.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/gup.c b/mm/gup.c
-index 8ea3de60e82d..bce275c7dbb6 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -2273,6 +2273,7 @@ static unsigned long collect_longterm_unpinnable_folios(
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index a8174d1d3848..ced400f72d43 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -4105,34 +4105,42 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
+ 	struct folio *end_folio = folio_next(folio);
+ 	bool is_anon = folio_test_anon(folio);
++	struct mem_cgroup *memcg, *old_memcg;
+ 	struct address_space *mapping = NULL;
+ 	struct anon_vma *anon_vma = NULL;
+ 	int old_order = folio_order(folio);
+ 	struct folio *new_folio, *next;
+ 	int nr_shmem_dropped = 0;
+ 	enum ttu_flags ttu_flags = 0;
+-	int ret;
+ 	pgoff_t end = 0;
++	int ret;
  
- 	for (folio = pofs_get_folio(pofs, i); folio;
- 	     folio = pofs_next_folio(folio, pofs, &i)) {
-+		const int pin_refs = folio_has_pincount(folio) ? 1 : GUP_PIN_COUNTING_BIAS;
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
+ 	VM_WARN_ON_ONCE_FOLIO(!folio_test_large(folio), folio);
  
- 		if (folio_is_longterm_pinnable(folio))
- 			continue;
-@@ -2287,15 +2288,20 @@ static unsigned long collect_longterm_unpinnable_folios(
- 			continue;
- 		}
+ 	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
+ 		ret = -EINVAL;
+-		goto out;
++		goto out_no_memcg;
+ 	}
  
-+		/*
-+		 * We drain not only to make the folio_isolate_lru() succeed,
-+		 * but also to remove any other folio references from LRU
-+		 * caches.
-+		 */
- 		if (drained == 0 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain();
- 			drained = 1;
- 		}
- 		if (drained == 1 && folio_may_be_lru_cached(folio) &&
- 				folio_ref_count(folio) !=
--				folio_expected_ref_count(folio) + 1) {
-+				folio_expected_ref_count(folio) + pin_refs) {
- 			lru_add_drain_all();
- 			drained = 2;
- 		}
+ 	if (new_order >= old_order) {
+ 		ret = -EINVAL;
+-		goto out;
++		goto out_no_memcg;
+ 	}
+ 
+ 	ret = folio_check_splittable(folio, new_order, split_type);
+ 	if (ret) {
+ 		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
+-		goto out;
++		goto out_no_memcg;
+ 	}
+ 
++	/*
++	 * switch to folio's memcg as xarray node allocation can happen and
++	 * needs to charge to it.
++	 */
++	memcg = get_mem_cgroup_from_folio(folio);
++	old_memcg = set_active_memcg(memcg);
++
+ 	if (is_anon) {
+ 		/*
+ 		 * The caller does not necessarily hold an mmap_lock that would
+@@ -4275,6 +4283,10 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
+ 	if (mapping)
+ 		i_mmap_unlock_read(mapping);
+ out:
++	/* restore to caller's old_memcg */
++	set_active_memcg(old_memcg);
++	mem_cgroup_put(memcg);
++out_no_memcg:
+ 	xas_destroy(&xas);
+ 	if (is_pmd_order(old_order))
+ 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
 
