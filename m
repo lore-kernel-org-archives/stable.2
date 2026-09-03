@@ -1,188 +1,112 @@
-Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+Received: from mta1.migadu.com (out-116.mta1.migadu.com [95.215.58.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911384A3841
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438746; cv=pass; b=A4XPElqFEfjc4tODvQvws3evtVvDsDVFApK3nkQT71eMTSq9cz3v5RK44oXnUfFI1VtAOytpUckjwTE1syYdWDYun94y3fFw4W7PzI5j7oHuhSv/Hehq+v+l7naJs1LQDHY4jUz5pgvFaJ/EDWE6a7zc1/b1m0+Qs8N0K3fL0IA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438746; c=relaxed/simple;
-	bh=K5kiV1pGpE/oIFL9kGCW0HX9tRAcBztC6D1QkspHn8U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=c/P1Sryhthv6utaH9Keu5WF78Ddv4LW6/NaNQmDJEtUsWDBHHeOpYnobQ0X1TBz0sAX3AOOKRTEfrrOkAaqFxX4ioAkYifrhsLKdoo4alnM8P/CQosDNRMbjDukzBMCAFW1N7uEFFzoWbP0SGOwYXl5cnCeUQWBMlDvOiuG/shM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgfoRvA/; arc=pass smtp.client-ip=209.85.160.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727C24A4835
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 12:32:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.116
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788438757; cv=none; b=bwIQ426k8zz1DieYE3DmKC7zEtf807bKL4D6byjD0isbtSNhxWxBU1DZMND/dD/hthcqA5dvoUri5TkMnBaOl5Vo3MZfzEGkc4MvzPiKyKLVuYuu9LbYpeg1wbBtcaa1z2khya0lAFxG3XHeNehQc9f4zpL3M6gp/oKDk+3CQWo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788438757; c=relaxed/simple;
+	bh=wT/Kh+SYC9N2PwFI4PChHwKHi3/2o0RhO4bSbbh0O1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lZd2nS/IVckokLf1/bvhwq1k6xPSBRHVpaJFQIIrToDyjGJyqCKVpSKfkH3STclm2eMB3SbdU+Xw2YSxW1oXlC7NS40ADRWWL7YCeQVcwKINCC3m7SJVp6PJTmis6NDX8cHx0XQsYnzakqR+rMXN+ZJPCAXaQBTJk7HYr375ogQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Nm2VVeOB; arc=none smtp.client-ip=95.215.58.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgfoRvA/"
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-45837e52d8aso1816158fac.0
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 05:32:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788438743; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U+IvGi5Q9auNVebm+n5sSd89b/i5QWrKoVPsn/KsrLXBP2xwwt2Kr4VG1qnqeU10x8
-         xXgG7nRjL3kx2N7F/+2nJKarQB66elr6CGFs1UvJBc1NzHvSEQsLuzt+zQyiztFprLEz
-         MPCgKcye7zQIwsbST0Ja4rjHBXXHzqYpOxpNgcIv8Fsy87zpgGgnhHCwvVZAnuEKdcTB
-         g3h0S2Y6UK59SazBcGdZgzpw7GYJhj8fYHbixNa0C1evGcini1cuCnXBjJcf1EyP5n/k
-         cQ7IRpc3gcJ/bolGotCzVHvGTOvxEmVLiTiqJeycandA5/YBGqHmDohlU/2G2CeKuWAY
-         Nrfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XokyMpC2uz3u3fmnMRd3git/TgidI+/M4SWX22okfiM=;
-        fh=n1yjwA01LJonopXIGBkCByr3fAAUvG5OAP6cnd1Mqe4=;
-        b=gFWNdDg8vBy687Zneq+lkGKEpTIUSul9QdoUAj+LcLpfptvf5w3MvqxlPko8BjHYGF
-         h94wM/41NKEMDUS9tugAzCbTm3XPJcLmXFA+PcgpHCljOKwkQVSzFrKaa9gk688l0Tl4
-         0UlNQOW/wFRg4mqFqM5HfUKPNcWn6i5ndDscBv64u/CZXU/BVNizlKZUo8TrOJlLFTNJ
-         qoEvoyNEbq2mEPf80W7ZiLil5RwRqqoJb6EFRMq+hQdiNPsgcVAPtuWB3GdqGYUQGvUs
-         gULS8ZSaQCdvie9AKrln2UXyT27bX/lH9cFxrf1HiFTN9GOpDRGtnRM8tlbvpGN2xc1d
-         ho7A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788438743; x=1789043543; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XokyMpC2uz3u3fmnMRd3git/TgidI+/M4SWX22okfiM=;
-        b=dgfoRvA/NYejTEOAcvgS5wUA+8Z7Urc+ZwLFeZMzwkYe8Gsee24JnU1vFaR8vrkukS
-         VEjXvsdufXzqB31LlH3k0u/xi8R3IRMZ79F8skPW2lqixi5QqVGjUdjLnXqslMDGFCfi
-         whgIIpIG9GE9vSdixHZ1WZu/ocmvrH+zUGmMQtOZpmorMCHj5eF7TlleVPwJ2t9TTdrI
-         YePQ1g6iyv3guIFM8n32idn3bsQ0HnK4bNjXir08C75sJO4jUcm8S9iY1Z289zmb2Seu
-         x9xgMOJrvlXRpuKuvCR18BM8SSjQayEWTY1OsMhsE3VycGcyYU/IHvCBOJBGApRZbrCl
-         INyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788438743; x=1789043543;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XokyMpC2uz3u3fmnMRd3git/TgidI+/M4SWX22okfiM=;
-        b=LYh3AbEmi5ckOZBWhikzz1yWeV9ZIEiV+ETmjSOqDoTEuj2/29HGm+1KsDs9bCK0Jh
-         dQFu1cIKZt7qx7BiIKIKLaAPwhC+0YAEGVkcUxPLbOIKAHoKdDNB1+E+sRc2wam3voez
-         Y9xIdySAnXnlDUa43r3lDuwOZzDwcfurBqJ5U6YhrDpxAFmtFaubOw2CGLQNkPnAFwDn
-         gX3UMsPcFU3bP+DLxcElSH5pKtXEZYE5ap23SqMNuXZVoXGwZQd00NihKRxMXYPJOvoy
-         IXbotg7C/dpi1d+sDfZgOltv3WzagJTAL6JHPUfaGpQoWUDwYfpaGSuRU+/uYvrbN+yI
-         VU8w==
-X-Forwarded-Encrypted: i=1; AKwUvBw1u6kBkRpD6HPF39QVYn+F54DgIttdGEWd2UVRV9q6QS1GWHFahbGn375Sl0ij1gPWwCdtuZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSePpvsmOH9fu0dQYj/UCZkyEneF7sYvBO9/wgHNuW616+0qcH
-	/++hkicv2PEmvF7pB5J6bWyMqXdtsag+GXccxFHACC1qoec++wOv4y6hYWGhvr9z6LT9DoxnoR4
-	ZuLR4KP8SRFrlJ0PivZdU6N5vvJTz24uNwg==
-X-Gm-Gg: AYBFou22mFSYpIFPcsb/58JlZprqAhms+djqQ3ZVli7QnzuA0tPcnG0lY3VfV2IsCeL
-	4g8tEzDtLrC8d7Gxcy+wyX2T3mVQr0UgeGC5YDkirDmzMlFUkVGXz8zC/LZTq3NjiMtrknLcyrX
-	Qz1D7hmDnSz8g6RcL3Yeb+jl+r5n56DhqPWIWqGbXWHQ1jp7udy3qbV8Ecvw88/hNKadZu+6YrH
-	Fx16eUhoQltzu4WR9K6yMYUUhwSpoMmdacJCV5TMK8fAaoKhUWDvgvphfQNhpjF/4rbEMbIy8vY
-	KXgOG7oYO2OQaQXfZFPSNmmV/zHA0H79tummXfK6H9zb
-X-Received: by 2002:a05:6870:46aa:b0:451:b3ae:e444 with SMTP id
- 586e51a60fabf-46f858a7dc3mr10636349fac.1.1788438743135; Thu, 03 Sep 2026
- 05:32:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Nm2VVeOB"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=wT/Kh+SYC9N2PwFI4PChHwKHi3/2o0RhO4bSbbh0O1M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788438753; v=1; x=1789043553;
+ b=Nm2VVeOBoZ+V7v+tz5GQRu69JxpPVqZt+0uZ5sFu6xP747gehCnuwBtfRwIIjaFGJtN2rfpk
+ UWdit0ktwRZklbmMuD/2flKVjI20sW3ldTPrGcfERy+IDTpUlb+yqGU0zz/ObxHwC7NIJKzRu/d
+ dIFcQyv/5M4Cqkr5SUYxPq6k=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 29adbccee56dd346;
+	Thu, 03 Sep 2026 12:32:32 +0000
+X-Mizu-Trace-ID: 29adbccee56dd346
+X-Migadu-Flow: FLOW_OUT
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: linux-wpan@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	david.girault@qorvo.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: [PATCH net v2 0/2] mac802154: fix queued RX descriptor lifetime
+Date: Thu,  3 Sep 2026 20:32:00 +0800
+Message-ID: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830201157.2084730-1-tristmd@gmail.com> <5be8f666e660371dbc964c2348422a25@paul-moore.com>
-In-Reply-To: <5be8f666e660371dbc964c2348422a25@paul-moore.com>
-From: Stephen Smalley <stephen.smalley.work@gmail.com>
-Date: Thu, 3 Sep 2026 08:32:11 -0400
-X-Gm-Features: AcwNN1V5N92UiGFZ-i9pCIWxt79RhFNzFeD5m_A-JclL3TKEK35sC70WcAPuReg
-Message-ID: <CAEjxPJ7b4nd7ak7HJ+AdZKyuE-kwfV_hpyx0r8Umz7ECAYVVEQ@mail.gmail.com>
-Subject: Re: [PATCH v2] selinux: use socket SID for SCTP ASCONF permission checks
-To: Paul Moore <paul@paul-moore.com>
-Cc: Tristan Madani <tristmd@gmail.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
-	Richard Haines <richard_c_haines@btinternet.com>, selinux@vger.kernel.org, 
-	stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 10:24=E2=80=AFPM Paul Moore <paul@paul-moore.com> wr=
-ote:
->
-> On Aug 30, 2026 Tristan Madani <tristmd@gmail.com> wrote:
-> >
-> > __selinux_socket_bind() and selinux_socket_connect_helper() call
-> > sock_has_perm() which uses current_sid() as the AVC subject.  When
-> > selinux_sctp_bind_connect() is invoked from the ASCONF processing
-> > path (sctp_process_asconf), current refers to whichever task was
-> > interrupted, so the permission check evaluates an unrelated subject.
-> >
-> > Fix by extracting the sock_has_perm() call out of
-> > __selinux_socket_bind() and selinux_socket_connect_helper() into
-> > their callers.  The process-context wrappers (selinux_socket_bind,
-> > selinux_socket_connect) call sock_has_perm() directly.
-> >
-> > For selinux_sctp_bind_connect(), determine the caller SID based on
-> > the optname: SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF
-> > chunk parameter types only passed from the softirq processing path,
-> > so use the socket own SID (sksec->sid), consistent with other
-> > softirq-context hooks such as selinux_socket_sock_rcv_skb() and
-> > selinux_sctp_assoc_request().  All other optnames originate from
-> > process-context syscalls and use current_sid().
-> >
-> > Factor out __sock_has_perm() with an explicit subject SID parameter
-> > so that sock_has_perm() remains unchanged for all other callers.
-> >
-> > Fixes: d452930fd3b9 ("selinux: Add SCTP support")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Paul Moore <paul@paul-moore.com>
-> > Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> > Reviewed-by: Stephen Smalley <stephen.smalley.work@gmail.com>
-> > ---
-> > Changes in v2:
-> >   - Do not use sksec->sid unconditionally; determine the caller SID
-> >     based on the optname so that process-context callers (bind, connect=
-,
-> >     connectx, sendmsg) still use current_sid()  [Paul Moore, Sashiko]
-> >   - Factor out __sock_has_perm() with an explicit SID parameter and kee=
-p
-> >     sock_has_perm() as a thin wrapper for all other callers
-> >   - Move the sock_has_perm() call out of __selinux_socket_bind() and
-> >     selinux_socket_connect_helper() into their respective callers
-> >     (selinux_socket_bind, selinux_socket_connect, selinux_sctp_bind_con=
-nect)
-> >  security/selinux/hooks.c | 47 ++++++++++++++++++++++++++++++----------
-> >  1 file changed, 35 insertions(+), 12 deletions(-)
->
-> Hi Tristan, this looks much better thank you for putting together this
-> revised patch.  Unfortunately, while looking at it I did notice one thing
-> (below) which I think we need to change ...
->
-> > @@ -5731,13 +5737,25 @@ static int selinux_sctp_bind_connect(struct soc=
-k *sk, int optname,
-> >                                    struct sockaddr *address,
-> >                                    int addrlen)
-> >  {
-> > +     struct sk_security_struct *sksec =3D selinux_sock(sk);
-> >       int len, err =3D 0, walk_size =3D 0;
-> >       void *addr_buf;
-> >       struct sockaddr *addr;
-> > +     u32 caller_sid;
-> >
-> >       if (!selinux_policycap_extsockclass())
-> >               return 0;
-> >
-> > +     /* SCTP_PARAM_SET_PRIMARY and SCTP_PARAM_ADD_IP are ASCONF chunk
-> > +      * parameter types passed from sctp_process_asconf() in softirq
-> > +      * context where current is not meaningful. Use the socket own
-> > +      * SID for permission checks in that case; all other optnames
-> > +      * originate from process-context syscalls.
-> > +      */
-> > +     caller_sid =3D (optname =3D=3D SCTP_PARAM_SET_PRIMARY ||
-> > +                   optname =3D=3D SCTP_PARAM_ADD_IP) ?
-> > +                  sksec->sid : current_sid();
->
-> This should have caught my eye in the previous iteration, I'm sorry about
-> that, but now that I'm looking at this it occurs to me that the sock's
-> label isn't the subject in the ASCONF case, it's the label of the remote
-> node (sksec->peer_sid).  After all, the ASCONF operation doesn't originat=
-e
-> with the local socket, as would be implied by sksec->sid, it comes from t=
-he
-> remote endpoint which is represented by sksec->peer_sid.
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-Are you sure that's the behavior you want? I don't think there is
-precedent for performing the socket layer checks with the peer SID as
-the subject rather than the local socket SID, and if using NetLabel,
-that peer SID will be limited to the peer's MLS label and whatever
-type was assigned via netlabelctl.
+mac802154 queues one descriptor per received beacon or MAC command, but
+each worker invocation dequeues only one. Since queue_work() coalesces
+attempts to queue the same pending work item, a burst can add more
+descriptors than scheduled invocations. A later frame may schedule another
+invocation, but also adds a descriptor, so it does not necessarily reduce
+the backlog. Descriptors can therefore remain queued indefinitely once
+reception stops. The RX path, workers, and scan cleanup also access the
+descriptor lists without common synchronization.
+
+A queued descriptor carries its receiving interface beyond the RCU
+read-side critical section without holding a netdev reference. If the
+interface is removed first, the worker can dereference freed memory.
+
+Protect the descriptor lists with a spinlock and keep the workers running
+until the queues are empty. Then hold the netdev for the lifetime of each
+queued descriptor to prevent it from being freed too early.
+
+This ordering is required. Without the queue-draining fix, a descriptor
+stranded by queue_work() coalescing would also strand its netdev reference,
+as netdev_put() runs only when the descriptor is released, leaving the
+netdev pinned indefinitely.
+
+---
+Changes:
+v2:
+  Patch 1 (new):
+  - Serialize descriptor list access and requeue each worker while another
+    descriptor remains.
+  - Detach queued beacons under the same lock before scan cleanup frees
+    them.
+
+  Patch 2:
+  - Replace the v1 drain_workqueue() approach, which does not cover work
+    queued after the drain or the DEL_INTERFACE path, with a netdev
+    reference held by each queued descriptor. (Sashiko.)
+
+v1: https://lore.kernel.org/all/20260828101905.26865-1-xuanqiang.luo@linux.dev/
+
+Xuanqiang Luo (2):
+  mac802154: serialize and drain queued RX descriptors
+  mac802154: pin netdevs for queued RX descriptors
+
+ include/net/cfg802154.h      |  2 ++
+ net/mac802154/ieee802154_i.h |  2 ++
+ net/mac802154/main.c         |  1 +
+ net/mac802154/rx.c           | 36 ++++++++++++++++++++++++++++++------
+ net/mac802154/scan.c         |  8 +++++++-
+ 5 files changed, 42 insertions(+), 7 deletions(-)
+
+
+base-commit: dc4b95b8fee95113587e93ca116356032d271371
+-- 
+2.43.0
