@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE9A44BAA13
-	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:32:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F064BA9F2
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:35:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445975; cv=none; b=IXvh6Ij33iHWhIuY9n/F8OAySCAg2IlfNnYHjzJ3Z2OQGJc0MBTNSEnP41ImXYALjrc8OS7fG5WXQx6orO+U8tkitGTV0aElCuzeHP98/xhy2MEsAZ7l6s8AluEXy+CunZjk0ExkWLKW4Um7PA25+mr/zWQRqGwrDPMDmv5Cd4A=
+	t=1788446113; cv=none; b=aEQjb7BfNi0NHjMIJmt96YfjJNeBE2IEDTcN1f3QKEoVL69lEQpQQ527lo0uex2qDJj/s3jcjq+YW/h6v7896ZVMhRh0KFO1xtz4xig8z5dNh+k9Wof0rEAVcoXvTnNC1vq5GkKdiuQGv/iRfqrwZ0Wzp/tLCkjBcIqCIN0jiNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445975; c=relaxed/simple;
-	bh=YvrHb9eSCiZeE28eJsh6mpxozf+17PNVfsdcxZ/LBN0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FDRHJh7wwphBR/YkBwKE8OlCzlIgWGN39BORXolBm9EZQZQ6CpBciakSC1rKo9V+F4gFeshaoYyROMDDwu+YkDsNBnuyS/WL0JTsLyMWMpUfM5VGf21JQm04c7spEo32Fp5KBVuiBgbTalK2pwxJD4VTxXTpcxfPM8C1P9Bbsjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g0SMwaQq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788446113; c=relaxed/simple;
+	bh=L9+l3U1EJNl6oEB7Ist9Awd8zbzMQ1H6MPUjbvlbjmE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iXBiiLIxGlv/k6j5JK3l1Wt9CqoN76XH4qo4aH9YQDRr0L41G+yO9pzVl1jrJBDfuEhiUDXdeqootxh0A0OSPPXx5IH4tYarMibrg454wVM/gfyAa+Qo7EGOw7eVzRNPRfGpg2nD4fO+c4UPPL4NZdYOqBee9Drdigys82zO89U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aeyOaH+Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g0SMwaQq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B251F00AC4;
-	Thu,  3 Sep 2026 14:32:45 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aeyOaH+Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C2C91F00A3E;
+	Thu,  3 Sep 2026 14:35:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788445965;
-	bh=txfMwvzBaBb41Zt08A3GaQke3pTWyxNsdmxSW6MLBmA=;
+	s=korg; t=1788446106;
+	bh=+PF8+GrAB8ibFc7MpKa67wOYuA3mj7zztMubydg3L3w=;
 	h=Subject:To:Cc:From:Date;
-	b=g0SMwaQqI1shXfSsQFZ/Y1+CdZQVylN25uCbW8OGqxUFQ9DNlo8isDAPG94Wn3K+M
-	 AEJSTGvP1dcE/ZuBVBdT4IndOVHEv+hphi3KoLziPnVjKmSpiklT+Aq0akyhXQBDQ8
-	 B8J6PUaC1qFqgqQ6vK/G1VId1w+OgnUkhuJfreDo=
-Subject: FAILED: patch "[PATCH] sched_ext: Fix inverted ops.core_sched_before() invocation" failed to apply to 6.12-stable tree
-To: tj@kernel.org
+	b=aeyOaH+ZwVY0p5iNHQtYtxnTMN/4ruPWlB4uNM57MamY/n4IQGBen07FZPRE8bPsD
+	 5BOyQ6Yi96MXojNLDugBg1F/S9QiyQ4z3fUVTFaF5fXcOZvvRbkkCQW+WAlJLodIEB
+	 AkkH1R0Pu14ULeNeXEui8s81OQ5TOA+5TSTPtrAU=
+Subject: FAILED: patch "[PATCH] SUNRPC: Reject short RFC 4121 MIC tokens in" failed to apply to 6.12-stable tree
+To: chuck.lever@oracle.com,clm@meta.com,jlayton@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 03 Sep 2026 16:15:00 +0200
-Message-ID: <2026090300-shifting-wobbly-b1a8@gregkh>
+Date: Thu, 03 Sep 2026 16:16:30 +0200
+Message-ID: <2026090330-cranberry-daredevil-a4d4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x f7b6d128dd49a6eec09066ecfd29095f12588786
+git cherry-pick -x b94f6719dcd9f7a609bc5f459f85795900e77d25
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090300-shifting-wobbly-b1a8@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090330-cranberry-daredevil-a4d4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,75 +62,64 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f7b6d128dd49a6eec09066ecfd29095f12588786 Mon Sep 17 00:00:00 2001
-From: Tejun Heo <tj@kernel.org>
-Date: Sat, 15 Aug 2026 13:08:28 -1000
-Subject: [PATCH] sched_ext: Fix inverted ops.core_sched_before() invocation
+From b94f6719dcd9f7a609bc5f459f85795900e77d25 Mon Sep 17 00:00:00 2001
+From: Chuck Lever <chuck.lever@oracle.com>
+Date: Sat, 23 May 2026 12:52:37 -0400
+Subject: [PATCH] SUNRPC: Reject short RFC 4121 MIC tokens in
+ gss_krb5_verify_mic_v2
 
-scx_prio_less() implements prio_less() semantics - %true means that @a is
-the lower priority and should run after @b. ops.core_sched_before() is
-documented to return %true when @a should run before @b. scx_prio_less()
-returns the op's value as-is, inverting the documented semantics at runtime.
+gss_krb5_verify_mic_v2() reads the token ID at ptr[0..1], the flags
+byte at ptr[2], and padding at ptr[3..7], then passes
+ptr + GSS_KRB5_TOK_HDR_LEN and cksum_len to gss_krb5_mic_build_sg().
+None of these accesses check read_token->len first.
 
-Call the op with the arguments swapped.
+The minimum safe token size is GSS_KRB5_TOK_HDR_LEN (16) plus
+ctx->krb5e->cksum_len (12-24, depending on the enctype).  All callers
+accept shorter tokens from the wire:
 
-scx_qmap followed the wiring instead of the documentation and returned %true
-for the younger task, so the two inversions canceled out and it behaved as
-intended. Flip its comparison to match. scx_qmap is likely the only current
-user in or out of the kernel tree. Any scheduler written the same way needs
-the same flip, while schedulers following the documentation are fixed by
-this change.
+ - gss_unwrap_resp_integ() enforces only an upper bound
+   (offset + len <= rcv_buf->len) before allocating
+   mic.data = kmalloc(len) and passing it to gss_verify_mic().
+   A malicious NFS server can therefore supply a short checksum
+   opaque, producing a small slab allocation that the Kerberos MIC
+   verifier reads past.
 
-Fixes: 7b0888b7cc19 ("sched_ext: Implement core-sched support")
-Cc: stable@vger.kernel.org # v6.12+
-Signed-off-by: Tejun Heo <tj@kernel.org>
+ - gss_validate() enforces only len <= RPC_MAX_AUTH_SIZE (400)
+   before passing the wire-supplied length to
+   gss_validate_seqno_mic(), which constructs a mic xdr_netobj
+   and calls gss_verify_mic().
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 2ae1df58939d..9014c814a00a 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -3528,6 +3528,8 @@ void ext_server_init(struct rq *rq)
-  *
-  * When ops.core_sched_before() is enabled, @p->scx.core_sched_at is used to
-  * implement FIFO ordering within each local DSQ. See pick_task_scx().
-+ *
-+ * Return: %true if @a should run after @b.
-  */
- bool scx_prio_less(const struct task_struct *a, const struct task_struct *b,
- 		   bool in_fi)
-@@ -3536,6 +3538,10 @@ bool scx_prio_less(const struct task_struct *a, const struct task_struct *b,
- 	struct scx_sched *sch_b = scx_task_sched(b);
+ - svcauth_gss_verify_header() enforces only
+   checksum.len >= XDR_UNIT (4 bytes) before dispatching to
+   gss_verify_mic().
+
+ - svcauth_gss_unwrap_integ() checks only that the checksum fits
+   in gsd->gsd_scratch.
+
+Add a length guard at the top of gss_krb5_verify_mic_v2(), before any
+ptr[] access or scatterlist construction.  Well-formed MIC tokens from
+gss_krb5_get_mic_v2() already have exactly GSS_KRB5_TOK_HDR_LEN +
+cksum_len bytes, so valid traffic is unaffected.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: de9c17eb4a91 ("gss_krb5: add support for new token formats in rfc4121")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260523165237.510204-1-cel@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+
+diff --git a/net/sunrpc/auth_gss/gss_krb5_unseal.c b/net/sunrpc/auth_gss/gss_krb5_unseal.c
+index b5fb70419faa..4d12d49434c2 100644
+--- a/net/sunrpc/auth_gss/gss_krb5_unseal.c
++++ b/net/sunrpc/auth_gss/gss_krb5_unseal.c
+@@ -89,6 +89,9 @@ gss_krb5_verify_mic_v2(struct krb5_ctx *ctx, struct xdr_buf *message_buffer,
  
- 	/*
-+	 * scx_prio_less() returns whether @a should run after @b while
-+	 * ops.core_sched_before() returns whether its first argument should run
-+	 * before the second. Swap the arguments.
-+	 *
- 	 * The const qualifiers are dropped from task_struct pointers when
- 	 * calling ops.core_sched_before(). Accesses are controlled by the
- 	 * verifier.
-@@ -3544,8 +3550,8 @@ bool scx_prio_less(const struct task_struct *a, const struct task_struct *b,
- 	    !scx_bypassing(sch_a, task_cpu(a)))
- 		return SCX_CALL_OP_2TASKS_RET(sch_a, core_sched_before,
- 					      task_rq(a),
--					      (struct task_struct *)a,
--					      (struct task_struct *)b);
-+					      (struct task_struct *)b,
-+					      (struct task_struct *)a);
- 	else
- 		return time_after64(a->scx.core_sched_at, b->scx.core_sched_at);
- }
-diff --git a/tools/sched_ext/scx_qmap.bpf.c b/tools/sched_ext/scx_qmap.bpf.c
-index dd0434437835..723f45fe0cbc 100644
---- a/tools/sched_ext/scx_qmap.bpf.c
-+++ b/tools/sched_ext/scx_qmap.bpf.c
-@@ -900,7 +900,7 @@ static s64 task_qdist(struct task_struct *p)
- bool BPF_STRUCT_OPS(qmap_core_sched_before,
- 		    struct task_struct *a, struct task_struct *b)
- {
--	return task_qdist(a) > task_qdist(b);
-+	return task_qdist(a) < task_qdist(b);
- }
+ 	dprintk("RPC:       %s\n", __func__);
  
- /*
++	if (read_token->len < GSS_KRB5_TOK_HDR_LEN + cksum_len)
++		return GSS_S_DEFECTIVE_TOKEN;
++
+ 	memcpy(&be16_ptr, (char *) ptr, 2);
+ 	if (be16_to_cpu(be16_ptr) != KG2_TOK_MIC)
+ 		return GSS_S_DEFECTIVE_TOKEN;
 
