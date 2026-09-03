@@ -1,144 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C8B4B514A;
-	Thu,  3 Sep 2026 14:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50684B3381
+	for <stable@vger.kernel.org>; Thu,  3 Sep 2026 14:46:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788446534; cv=none; b=roLJH1PfeM/I6bfFX6NH32xhPc6ZHbJ65g7U2t7DSahKywWzT5/6qMLMnYX8ShfOIkXMxPgCy3v2cJJXJ0ncMra+xxBsJB2dO/6QKMWCOaJcRlH25ZS0Kqy4n/1t5R6CJrtCXgXXTGsgvaKHeQZvpxs/rwxL9kKQXhmXEEQBIck=
+	t=1788446803; cv=none; b=CLLovbGJNLhCNd7rSsRKHb616A/ZrxQWx/9IJmh/vfkQtzZ4cG43Zp4lhObmRko8j0ylJ/ShI6p8hy989yBLTaygUzGgERjFy0lu9FUbFlrOlVjYlqG/1Rmu8uiih8cX0DuLgZ4WlZbiNI7oZYAlth+JioVzHi0hnWR1X4JCYXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788446534; c=relaxed/simple;
-	bh=1eU2JFdLN2zRvrHwu2M2unvrPHYwHBvrDbFtZEd4H5c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DvB7himsr9aKq/+FDvYwubDK+f8Ti48uj6Q9qpuIDOtUO2NaUEGOvDMUs036Rkq0GCLwWQ3YiUmHIezC1/+eMTx8CzksMkMP4TUrwTAV2frKbDj2qT7IydjVHikVsev3I11hxpzcr1OX0Fd6NtrlSvb1dBnqdfrXqngwZkExb4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdJz1xkr; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788446803; c=relaxed/simple;
+	bh=HhpKMveicPW5fPLSM5sy+y5YJgWwaDswcAn+gorUZeA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Tt43qhMYFX83474tj8POnyXdX2axB19jc5csy8iwk/rgADJjb48RlfxgoT8MvN1FnMlAHYaLCU0nzQD8veGbzNNhmEHRZgkw5s6eusRUNqhZvAW3tgFWvajKrH4DTG81LtK0CQUjf8LXqW8D/nIQ8/xs9wmXMVqOomvCM0g+/t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xRq2szRd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdJz1xkr"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9D3B0C2BCF7;
-	Thu,  3 Sep 2026 14:42:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788446532;
-	bh=1eU2JFdLN2zRvrHwu2M2unvrPHYwHBvrDbFtZEd4H5c=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MdJz1xkrnmALYw6gGUhKMSkYTC/Z35Si2duFv1yeuRveqAJOxYZVkCV6YY3lkhiS6
-	 Mlh7EzOA2vOoRMFZMThdYPwuffl0HYkxGEKWW95jOB9fa/+QmZrSM7wXC+kel/JlSw
-	 NiVZ5zphcOLuOz9YFkLH8kMj9cHLkvutZO4f2CYnhPk6erxpB66RQmc8TDiFLslv5H
-	 z6aY8O1Sv11QP50G0LgsCS91arrYyjisqpii7kciCec6UV3eY9DYLrZbI9oTTCc3Kw
-	 sviwIOyNSx8LolPacaNaZQZmMa9mTnRpr3ErDlKMHq/q+D+/hmRwo7Mf2CA/Ephohn
-	 XL1S0Ek4iy/jg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88BC9C624D6;
-	Thu,  3 Sep 2026 14:42:12 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 03 Sep 2026 16:42:05 +0200
-Subject: [PATCH v2] mfd: wcd934x: set DMA mask on parent to silence "DMA
- mask not set"
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xRq2szRd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135F81F000E9;
+	Thu,  3 Sep 2026 14:46:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788446801;
+	bh=2oGs8eIvGkQYUwh4mPXE/rOqG7LUj2F9gsZb1Qjb4p8=;
+	h=Subject:To:Cc:From:Date;
+	b=xRq2szRdT17uUDh9kAz/CNkf135DlgrfHwgrkZGUXe7NWT5/u0Bb+Ok18/a+BaXnA
+	 pviCw+9kffhAqfAzdHti03N1E6EqoXRS912HO+cN+v+ifB7rAe2NM+yRCOoAsSb3W5
+	 9BFVJZ7ATQ09HO9HBoJugK4LtuWSaJ7HfgWO0u9E=
+Subject: FAILED: patch "[PATCH] ocfs2: validate directory-index entry counts when reading" failed to apply to 6.18-stable tree
+To: doruk@0sec.ai,akpm@linux-foundation.org,gechangwei@live.cn,heming.zhao@suse.com,jlbec@evilplan.org,joseph.qi@linux.alibaba.com,junxiao.bi@oracle.com,kees@kernel.org,mark@fasheh.com,piaojun@huawei.com,stable@vger.kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Thu, 03 Sep 2026 16:29:39 +0200
+Message-ID: <2026090339-enjoyer-humming-d784@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-wcd-dma-v2-1-189cff560a28@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNwQ6CMBAFf4Xs2RraAhZP/ofhAO0iayKQFitK+
- u+2ePQ4ybx5Gzi0hA7O2QYWPTmaxgjikIEe2vGGjExkELmociUke2nDzKNlnakER5S1UieI9my
- xp3UvXZsfu2d3R72keTIGcstk3/uV58n7r3rOOKtLLIpW8lLr/kIrLUf9gSaE8AWA+Hi8rgAAA
- A==
-X-Change-ID: 20260823-wcd-dma-bd621ee39887
-To: Lee Jones <lee@kernel.org>, Thomas Tai <thomas.tai@oracle.com>, 
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: mfd@lists.linux.dev, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, stable@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2047; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=e4yf9rBUgYZaQShtQ8iyZHTpSxzA2vYCFo3z/MlZY7k=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmYdDchD6Bd3Yl6ccNGcFCf3Ai6x3Lw/D3jIDW
- 2YJIeSNfW2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapmHQwAKCRBgAj/E00kg
- ckh8EACFNiPKRLYjFzbw35XOYudJEilTISA7Ga/oT9BQJkjVL96HVhfEuDvanfZ355eFGPQL3tg
- wQYAyXODxcVpS/KmkIbka04Ac+avStrbOHsHP9UbgZLaS9i9G2rhQuDOEMqo2mwRCFd5WnVzpEU
- ZKnk92+t2tpAPj2mbRERBkB2MEadp1rLei9r4jeMp87U5m7iPAlCGBLSv5MI5gGIKO0AHiJ5EKz
- OWm2SqAcJklTDxJO6cCfUdFbhXWPna5Bf4rlotAaQexTbLiYp9lv6wUaNkOWWU+so0HMW/YQUOD
- yYjzEU9bFxPywa7+xv/Wm9LMmCBSQQ5YQI999nLfm1F9/vauNphJ7JDSl7UpcT9Vgqlm0EglXJS
- 9qkVGc+sHI+/dDaVwKgkDONY/XHn04ASfCTIZVDYDWxdTCCvhAwbxHaTI9wZiV8NaI/UmAsDvDo
- Pl/tQPcTp42DeJe4xN2olti6LZ7YwHd828Qvopuw08zvn2wsN4Jv70mcEnJ9KFwWip2ApFYP6fc
- v6ICk3KHfbgAQuaGyy4v0RxF40qKFfKEObApfeDg9c3V6eohDlYXO4BMlen2R/7VBeDiG3PaGRh
- pzE+cetTpYuDjEJFZulaaXZz4o7DzfJX0bcN+W825JJYh+R8BTLMIrpvaE10tcJDJBh0zwgT8CH
- wwjTx069DSMe2fA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
 
-The wcd934x MFD parent (a slim_device) never initializes its
-dma_mask/coherent_dma_mask. When the DT-aware children pass through
-of_dma_configure() this triggers the "DMA mask not set" warning for
-each child.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Cc: stable@vger.kernel.org
-Fixes: f959dcd6ddfd ("dma-direct: Fix potential NULL pointer dereference")
-Assisted-by: tencent:hy3
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v2:
-- Use dma_coerce_mask_and_coherent. (Lee)
-- Link to v1: https://patch.msgid.link/20260823-wcd-dma-v1-1-95e44a315ccf@ixit.cz
----
- drivers/mfd/wcd934x.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-diff --git a/drivers/mfd/wcd934x.c b/drivers/mfd/wcd934x.c
-index 3c3080e8c8cf7..853edda9b6da7 100644
---- a/drivers/mfd/wcd934x.c
-+++ b/drivers/mfd/wcd934x.c
-@@ -1,12 +1,13 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (c) 2019, Linaro Limited
- 
- #include <linux/clk.h>
-+#include <linux/dma-mapping.h>
- #include <linux/gpio/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
- #include <linux/mfd/core.h>
- #include <linux/mfd/wcd934x/registers.h>
- #include <linux/mfd/wcd934x/wcd934x.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -212,16 +213,21 @@ static int wcd934x_slim_status(struct slim_device *sdev,
- static int wcd934x_slim_probe(struct slim_device *sdev)
- {
- 	struct device *dev = &sdev->dev;
- 	struct device_node *np = dev->of_node;
- 	struct wcd934x_ddata *ddata;
- 	struct gpio_desc *reset_gpio;
- 	int ret;
- 
-+	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to set dma mask\n");
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x bc70726ddad53c7e9a9a85915bf2415b0d4f42f9
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090339-enjoyer-humming-d784@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From bc70726ddad53c7e9a9a85915bf2415b0d4f42f9 Mon Sep 17 00:00:00 2001
+From: Doruk Tan Ozturk <doruk@0sec.ai>
+Date: Mon, 13 Jul 2026 22:56:25 +0200
+Subject: [PATCH] ocfs2: validate directory-index entry counts when reading
+ metadata
+
+ocfs2_validate_dx_leaf() and ocfs2_validate_dx_root() check the ECC and
+signature of an indexed-directory block before it reaches higher-level
+callers, but neither validator bounds the ocfs2_dx_entry_list counts
+against the capacity of the block that holds them.
+
+ocfs2_dx_dir_search() then walks
+
+	for (i = 0; i < le16_to_cpu(entry_list->de_num_used); i++)
+		dx_entry = &entry_list->de_entries[i];
+
+over de_num_used entries with no bounds check.  entry_list is either
+dx_leaf->dl_list (from ocfs2_read_dx_leaf) or, for an inline root,
+dx_root->dr_entries.  A crafted on-disk image can set de_num_used (and
+de_count, which is the __counted_by_le() bound of de_entries) to 0xffff
+and make the walk read far past the end of the 4KB metadata block, giving
+a slab out-of-bounds read reachable from any path lookup, stat() or open()
+on an indexed directory once the image is mounted.
+
+Commit 775c17386a6f ("ocfs2: validate dx_root extent list fields during
+block read") already bounds dr_list for the non-inline dx_root, but left
+the inline dr_entries path and the dx_leaf dl_list unchecked.  Add the
+same read-time validation for both entry lists: de_count must equal the
+capacity of the block (ocfs2_dx_entries_per_leaf()/per_root()) and
+de_num_used must not exceed de_count, rejecting corrupted metadata with
+-EFSCORRUPTED before ocfs2_dx_dir_search() can walk an out-of-range entry
+array.
+
+de_count is always written as exactly the block capacity when a leaf or
+inline root is formatted, so the equality check does not reject any valid
+image.
+
+Found by 0sec automated security-research tooling (https://0sec.ai).
+
+Link: https://lore.kernel.org/20260713205625.92391-1-doruk@0sec.ai
+Fixes: 9b7895efac90 ("ocfs2: Add a name indexed b-tree to directory inodes")
+Fixes: 4ed8a6bb083b ("ocfs2: Store dir index records inline")
+Assisted-by: 0sec:claude-opus-4-8
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Kees Cook <kees@kernel.org>
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Junxiao Bi <junxiao.bi@oracle.com>
+Cc: Changwei Ge <gechangwei@live.cn>
+Cc: Jun Piao <piaojun@huawei.com>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+diff --git a/fs/ocfs2/dir.c b/fs/ocfs2/dir.c
+index 047d1b486f4a..7e09a5a4d49e 100644
+--- a/fs/ocfs2/dir.c
++++ b/fs/ocfs2/dir.c
+@@ -625,6 +625,28 @@ static int ocfs2_validate_dx_root(struct super_block *sb,
+ 					  le16_to_cpu(el->l_count));
+ 			goto bail;
+ 		}
++	} else {
++		struct ocfs2_dx_entry_list *dl_list = &dx_root->dr_entries;
 +
- 	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
- 	if (!ddata)
- 		return	-ENOMEM;
++		if (le16_to_cpu(dl_list->de_count) !=
++		    ocfs2_dx_entries_per_root(sb)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid de_count %u (expected %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(dl_list->de_count),
++					  ocfs2_dx_entries_per_root(sb));
++			goto bail;
++		}
++
++		if (le16_to_cpu(dl_list->de_num_used) >
++		    le16_to_cpu(dl_list->de_count)) {
++			ret = ocfs2_error(sb,
++					  "Dir Index Root # %llu has invalid de_num_used %u (de_count %u)\n",
++					  (unsigned long long)le64_to_cpu(dx_root->dr_blkno),
++					  le16_to_cpu(dl_list->de_num_used),
++					  le16_to_cpu(dl_list->de_count));
++			goto bail;
++		}
+ 	}
  
- 	ddata->irq = of_irq_get(np, 0);
- 	if (ddata->irq < 0)
- 		return dev_err_probe(ddata->dev, ddata->irq,
- 				     "Failed to get IRQ\n");
-
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260823-wcd-dma-bd621ee39887
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
+ bail:
+@@ -664,10 +686,25 @@ static int ocfs2_validate_dx_leaf(struct super_block *sb,
+ 		return ret;
+ 	}
+ 
+-	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf)) {
+-		ret = ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
+-				  7, dx_leaf->dl_signature);
+-	}
++	if (!OCFS2_IS_VALID_DX_LEAF(dx_leaf))
++		return ocfs2_error(sb, "Dir Index Leaf has bad signature %.*s\n",
++				   7, dx_leaf->dl_signature);
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_count) !=
++	    ocfs2_dx_entries_per_leaf(sb))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_count %u (expected %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_count),
++				   ocfs2_dx_entries_per_leaf(sb));
++
++	if (le16_to_cpu(dx_leaf->dl_list.de_num_used) >
++	    le16_to_cpu(dx_leaf->dl_list.de_count))
++		return ocfs2_error(sb,
++				   "Dir Index Leaf # %llu has invalid de_num_used %u (de_count %u)\n",
++				   (unsigned long long)le64_to_cpu(dx_leaf->dl_blkno),
++				   le16_to_cpu(dx_leaf->dl_list.de_num_used),
++				   le16_to_cpu(dx_leaf->dl_list.de_count));
+ 
+ 	return ret;
+ }
 
