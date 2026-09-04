@@ -1,127 +1,103 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7963B2FF9
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:05:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A139D39EF1C;
+	Fri,  4 Sep 2026 09:05:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512737; cv=none; b=WfDVhz/q06BQU5laNfu8mvuIDcKCHhwxbIfu4vbRse14/UlyPxY2hFVBkZYwmsUwr3uAJCiwSyI8BZGlYVwqV58AeePt+bwwWv3ZdKB/1RBEu/4lZsNOaSBAZ9lTrcs87LxZEftefBHwvXPLxeYmwwic60ayeSrUDo5x84+NLTw=
+	t=1788512754; cv=none; b=Vc/xFMx9ld/0s2C5SJiYgJtUsT2F4egDeobJ0F6EEOJUn0Dg1fB1h9nMonfxiGdqZRzCivFqTRe6nTs5PgV0qs/K4XQdkm0U8l4J15X5kqk5WWFNIXkNo64WLDkW+sgbccEeUevwLPXsP+aOEC6rsk6UjNDdOzW0GpxvtPRS+RQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512737; c=relaxed/simple;
-	bh=tyiKsnKP2Q1B8vzdYLwG+d91t4hoWOMCZzutfInZDTE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pUPk7lUi9mm1MEvCtyI2e03hVCZFLkP1OEzzbafyd2En3h6wXQ2XpIZWljKbzMIEJHzufc9GsUDg9KXQYmkiUwZXwyntzsrnr0BqHbAhYkp86/yIGrpEQzdBnuIu/Q6P4ErWs/QqSj5Mwhr4CjMayGQkT4OeeBb6aPG+2u2miYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-495501e57beso3363205e9.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:05:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512734; x=1789117534;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h2ZdDQmTsmtCFNwtAuH5zqDc70iCn2MM2/S3cYlW+rI=;
-        b=IXvb+X8h9KbMJ2nMsaJv4cmN+nbPPrBcUU/TE2rUJIRCy6HIoyoKmIK5Y2qB+TRBgO
-         8Ib40kWq2lVroBUALabCXpRfjtyhwQmqUG4lB5qnRotVJFH0lSufD2twemVhIw/clvIP
-         cU17+iWweFy5oPVikcJP5UZWnbpMPuk8v+SoKoXsPKQ2ncHi+nLOVanlO6iBrluxn6mr
-         oKnmlaRveN5xgsOKHU1QouGnDKDIORKqGOJUNdWm7AyHfzq1A0/66HpuoyuC6X3RrHKB
-         8MdamuMdZ23+nU+6IAkjxGFAXXnYkgYmLhzxN25PmE+QiQNd81S089IwXyFp/c6y3WaH
-         teyg==
-X-Gm-Message-State: AFuF++kf0pAMQWd1lLg4U98TEwyuPlLsvNLVsIoV84yvVopBFhLnjeRU
-	b8nd/yhsVc/XS14E44T3G55xwv5c9FrtP2viqQDFIvRyTZZ7RQ8tICrywaKiixfN
-X-Gm-Gg: AYBFou3sLeK85Hhl/dKmejLXmOPTm7XCkdqKMHefOiscbyUFzBDoCh9Z1so/BBNwQ2d
-	BXFz02OHXJPaAgUiTSU//m41451ngOslnsBteNNiuDccY+9Z+O2QN94jTeLAzuV0j6lZ+cjYxxj
-	NPkhy5ajvVg60fDh7SZO0jN5Q1iU1vQGROmiK/Z4UQMFbrSlyZ5qRb5n2WV5lKsbQxvheaoY0Kk
-	yZzTLvTMqqVhNQBsFYAcGGl+Ha6jyrIp5pGUx1VRF3JPBkFsxC6mu5+7RrwmaZEoKsRGFXvijQI
-	9y71Q5AuaxnEczToiOCr1Qgs8Vcw8K1tU+snje0Roz7KLP6pplnTx85LDhwXUyJpElk6JcSv05G
-	Rxa4j6c84iRIsh3Kq1Hd6MDbYcNGA0LYNjB4ZNihuetg2sfVXO1bjOjZh72Fks+IM3WvMdmssi+
-	YuXCJrmAfJRUGPMv0AuGvwq0kaAwHQLqwiuN+48ft+PNMlQstPgEuJjh1CPOHRutYtIyLYOJfSG
-	FIL17bL5iGhE0feH/nq+PUnsEkByg==
-X-Received: by 2002:a05:600c:4685:b0:499:8704:242c with SMTP id 5b1f17b1804b1-49cf7f32214mr49124725e9.0.1788512732575;
-        Fri, 04 Sep 2026 02:05:32 -0700 (PDT)
-Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm153972615e9.13.2026.09.04.02.05.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:05:32 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: stable@vger.kernel.org
-Cc: Norbert Szetei <norbert@doyensec.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 6.1.y] net: skbuff: don't skb_tx_error() the source skb in skb_zerocopy()
-Date: Fri,  4 Sep 2026 11:05:28 +0200
-Message-ID: <20260904090529.1808224-1-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026090320-disfigure-stony-5e76@gregkh>
-References: <2026090320-disfigure-stony-5e76@gregkh>
+	s=arc-20240116; t=1788512754; c=relaxed/simple;
+	bh=ipcHRxzW/g7VAbOv/YCHkXwa+Zj3T9xePkroGbszt7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Jeug0RlJQGt5voMJbSj15iFN3A+wqerAS9FwjSCAmgqJ78ssLNWRsDFDmIzDn6Br4vaxU6uEqbWCFiPRsN5fVnFAL1roozkaHDsaA1e8D7hXtvyrvlv0MptWzJCzP8MYPYVkM0bXv5lVNdpC/gZvOP473+M8KkaRtNvSgxtp2NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=lcczhL0i; arc=none smtp.client-ip=115.124.30.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="lcczhL0i"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788512742; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=HvVcR1L5HLtDSGjj5QAvynuTIH/BiFENIznYFocO2Uw=;
+	b=lcczhL0i1+cS3e7USBlJfyNcU6OkC6qKih29D+N0aY1oqkIfuAKlGhxK2m41aBPRzX8v0s1ZFQ4nom/Yq/oXpRZq/l3iZIWP/wA7zTyizXIcEX+77cFY8PM+bzZHzmNXOUo+snDgWcFiIkFq/rd3TV0kLfGS3fd/0RSYo5BwM3w=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XAIQHTh_1788512738;
+Received: from 30.178.82.219(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XAIQHTh_1788512738 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 17:05:40 +0800
+Message-ID: <d40413c0-d826-4797-b768-644f38f4e5b6@linux.alibaba.com>
+Date: Fri, 4 Sep 2026 17:05:36 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm: memcg: settle memory.high debt after THP faults
+ with non-blocking gfp
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@suse.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Xunlei Pang <xlpang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Chris Down <chris@chrisdown.name>, Chuanhua Han <hanchuanhua@oppo.com>,
+ Kairui Song <kasong@tencent.com>, linux-mm@kvack.org,
+ cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260904035407.4098627-1-qinyuntan@linux.alibaba.com>
+ <20260904035407.4098627-2-qinyuntan@linux.alibaba.com>
+ <de28b6a7-7f51-4344-8139-1ec412604062@linux.alibaba.com>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <de28b6a7-7f51-4344-8139-1ec412604062@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Norbert Szetei <norbert@doyensec.com>
+Hi Baolin,
 
-[ Upstream commit 8ece906150128d5ec2462aabcc978c568433eca4 ]
+On 9/4/26 2:50 PM, Baolin Wang wrote:
+> 
+> 
+> On 9/4/26 11:54 AM, Qinyun Tan wrote:
+> 
+> This doesn't convince me. If the user sets defrag=defer, it means large folio allocations should not block, so using gfpflags_allow_blocking() to decide whether to call mem_cgroup_handle_over_high() is reasonable.
+> 
+> If you call mem_cgroup_handle_over_high() directly in the allocation functions, it would definitely increase allocation latency. This is not what we expect when setting defrag=defer.
+> 
+> On the other hand, I wonder if briefly exceeding memory.high is really a problem in the real products. If this is only to fix the test_memcg_high_sync selftest below, which is full of magic numbers, I don't think it makes much sense.
+> 
+I agree defrag expresses that the THP *allocation* should not block,
+and the patch keeps the allocation path untouched.
 
-skb_zerocopy() copies frags from @from into @to. On an
-skb_orphan_frags() failure it calls skb_tx_error(@from), a destructive
-operation on the source skb the copy helper does not own. That completes
-@from's zerocopy uarg and clears SKBFL_ALL_ZEROCOPY, including the
-SKBFL_SHARED_FRAG page-ownership marker.
+That said, let me share a small comparison I ran, which shows what
+this means for memory.high in practice.  Same kernel, one mlock(40M)
+in a cgroup with memory.high=30M (no memory.max set), measuring
+end-to-end mlock() time:
 
-Both callers already report the failure on their own drop path.
-nfnetlink_queue does it at nla_put_failure, and Open vSwitch does it in
-the flow-miss drop arm of ovs_dp_process_packet(), so nothing is lost by
-dropping it here.
+              no memory.high    memory.high=30M
+  THP on      0.00s              2.03s
+  THP off     0.01s             33.73s
 
-On Open vSwitch's OVS_ACTION_ATTR_USERSPACE path the skb is not freed on
-this error: do_execute_actions() ignores output_userspace()'s return
-value and, unless the upcall was the last action, keeps forwarding the
-same skb through the flow's remaining actions. The uarg is completed
-while that skb is still in flight, telling the producer its buffers are
-free, and SKBFL_SHARED_FRAG is cleared on an skb the rest of the stack
-still handles. That flag is what makes esp_input() call skb_cow_data()
-instead of decrypting in place, so a later local ESP delivery can
-decrypt over frags the skb does not own privately.
+With 4K pages the populate is throttled on every charge batch and
+the cost scales with the overshoot -- memory.high working as
+documented.  With THP, all 40M is populated unthrottled and the
+entire enforcement collapses into one penalty sleep on return to
+userspace, clamped at MEMCG_MAX_HIGH_DELAY_JIFFIES (2s) -- a flat
+fee independent of the overshoot (a 200M mlock pays the same 2s).
 
-Leave error reporting to the callers.
+So the same workload under the same memory.high gets a completely
+different level of enforcement depending on the folio order of the
+allocation.  That looks more like a design question than anything
+else, and I'm not sure the current behavior is what we expect --
+would like to hear your thoughts.
 
-Fixes: 36d5fe6a0007 ("core, nfqueue, openvswitch: Orphan frags in skb_zerocopy and handle errors")
-Cc: stable@vger.kernel.org
-Suggested-by: Ilya Maximets <i.maximets@ovn.org>
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/6E3A780D-FB87-421F-9964-B1D457D7D106@doyensec.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ 7.2 and earlier do not have the put_page() call on the error path ]
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
----
- net/core/skbuff.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Thanks again for taking the time to review, much appreciated!
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 6575a76a312e1..455fa9f83ec00 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3353,10 +3353,9 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
- 
- 	skb_len_add(to, len + plen);
- 
--	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC))) {
--		skb_tx_error(from);
-+	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC)))
- 		return -ENOMEM;
--	}
-+
- 	skb_zerocopy_clone(to, from, GFP_ATOMIC);
- 
- 	for (i = 0; i < skb_shinfo(from)->nr_frags; i++) {
--- 
-2.55.0
-
+Thanks,
+Qinyun Tan
