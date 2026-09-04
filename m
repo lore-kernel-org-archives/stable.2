@@ -1,286 +1,227 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5972034D93C
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 21:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB033B19A3;
+	Fri,  4 Sep 2026 22:09:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.147.86
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556767; cv=pass; b=n4KiRUrHNW64az2gg3rI23g7T8E2OkEbphypwjr6WvqpgmaE7SkoYbZA7mGTao0rKXoGwxbUlnZi3fvg9ou9B09XTtqW92SnaVTwpTd/i0JdycBtWYKFmdaDQE6vTN/MbHtjNbUKNna7rvtjTc7iR1ro5/wISCuPWojIlB7/Vos=
+	t=1788559765; cv=fail; b=IhVXaSWfQ2OG75Phg4XEE7iVq3e19YCCaXcVb6HuqD6jkMyA+E0jsAu+B3FtDVoUSLu93B///yY7kX9ImtHGBQCO4Lnzrs3AUl2psSk/LrKfOfd2s2uiGgoyrbE9A/P/aW3AO39lB25hyyb790hOpzw5922KWkvbHSQTopQHD1s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556767; c=relaxed/simple;
-	bh=zIRIJE2AGHcUOE1+Invane5EQjk28+ssl8PL6PvjdRg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L9QW73llfoK7G1JSHyXcfh0kTXqT3K7++Hcx5ufDF3Dtm6Zi88E/M/oyonZ6Se+D4FdJnE3a5a9drsJ7P9DXeLpEdB1FEGIg441l9KNCBgEqvFnS78nFpkm6exM8GRU0GA0K8jJGERxNf0CD0QBaQzOWwegOS+qqf6r4b1f5VQU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=DmzzUH5z; arc=pass smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	s=arc-20240116; t=1788559765; c=relaxed/simple;
+	bh=XUSGrz5a4x0eA+3rxXUI6Z/3pmlN9A4Q708DtEwy/Qo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ulNNzPO+OlTV4fxcbuilF/XLfq9OpKPJP6mAbAc4P2ljlCgN70yEUKGOMSER+qnr06F7SX7sfaE6YhO4CEEX2xrx8sGku5PgqTA39xH4GQw+VMQUPe74HNkUqjzQx5J5rqxJM/Fh33aiPAtwOPtBsc4HyElOcMdxVlEbPku3xyY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=jl/eMBra; arc=fail smtp.client-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="DmzzUH5z"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-853c07a76adso1342481b3a.0
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 14:19:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788556765; cv=none;
-        d=google.com; s=arc-20260327;
-        b=shdzLmXlkgl1pyT3FRO4DdNeBCeATEj3lVDYULJrJfupTmVarn4Gz6ChXOp59s3SU6
-         4k1J68EthmO/nb19p1spEOZE0FFmgcRdQ9zBeNvOCOK/t7KLRCafGVxt8fAavJ+sXmTg
-         vjQ6pSmuL8KP5+Zp5NCNhbX+9UpD98oK8gwP/nKRkNkiudEnmdMZAOkuAwvdSyYe8ZDN
-         5bBzg/4sY5G1Hyq/krJTShwEVG8gWM9YVAfu6+r65RB1xhxkmOTSMkY8HDtbl9+8HFvL
-         LwNU+0fhaqslIHIb4w4VHVxLp65VHVaivufIylwyFSqWShKN32tRlWVhUdZyu0vhQCuh
-         96/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oLRCH+U/8BGHSBOTZJVb7cSifq3coNuuOCxdIL9/vPg=;
-        fh=syKL4ljJC3ebyVkkfVI1AMMoyzIu0D3OyHQCWj0nFAU=;
-        b=nKsLielp4aL5nVTi61yFaZsqmtqQxuvZQCdvNRQZUpTdWNaPJVqzRi38qRRLeWIt77
-         o453iMxZQRn+5c6sKcjFcM9MwNlFkNPg48tZafqX3PzIak4X9/+dIsnAWYyjCuPKtSMD
-         Oi2aiG3a/i7QegZFu2b/kJwuw7KR8mHrPsmEDJMHWJjT/iRrxlt7yDpSKBOWqzsPKXIE
-         trMB9KYTh+nWi3yeRE8tF9X5gFLoZBdHBP9AQV87v7c+eE2lWU8mnINX2vNwGmuvJwVA
-         KrnsVVTqX96Co7teg+vURkiUJuayIXt2LqOJOwlEmRu7t+o2RaXlmAQYKzl4uwi5XfC5
-         od2w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1788556765; x=1789161565; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oLRCH+U/8BGHSBOTZJVb7cSifq3coNuuOCxdIL9/vPg=;
-        b=DmzzUH5zwNjhorqQXC+g1EQccLiSTTwl786gFHxI8nSgngdj/EaDf0ynZp99JVQ7pH
-         sOL68UXbfcTyxRyiDc6t1B3O/3KxPF5v7d3CZT5Qnxsl9Azlvh692p48NCqLRONmNHw+
-         6h0ew6iMD9RgBb9uWxcGFK5WrNFsoVWTsMBys=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788556765; x=1789161565;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oLRCH+U/8BGHSBOTZJVb7cSifq3coNuuOCxdIL9/vPg=;
-        b=rV3umN1LsAZxay0tZ6Eohp5G1gZ9MJtyNNLZycRjkDkPC68Ji8/fan6Eg2DBarPmTD
-         i4heAJa2nMAZtm+8aI6kRk8LDnbssDJIdcCUTqEsLfCY+dOFU8iecwVtvDISl4rsXBTn
-         JGPWjNXojZtTAv4bgB20f4cvqePrYYz+DFlP6OiWDJ1/qBeFKvKmjB3m56ThFIMkHOtg
-         OYEJsPDtMI+iVZTFvg2KCgQ/nhRSv1voRDH5z4vffYRSo6YfJNNiEZBmDWKDIYyottWt
-         JiHbIfxN6oCi91knZMmxMqWYSh5pOaUk0/R0fRtQHbNjcv6xkja3W74LsCNEniVPMOQf
-         EXUA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8VSE0B+CuJQhD/AR5iTDnNdiAFetm+pfLI9mEY+dAEsIEL3sOnhFrnpYqG8Qs3dQE0B5aZvg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUjMzQIX27ghZvtkAnnZUKA+ZZd1TD6/P9SGEeSyLs6bv45ft3
-	AF3rBKCBhGJ/fJbUDLNSJKNSyOhDI8JL6pZU4Xm3Wt+K3Q5P9bdby6oHy613jqAd9ahURW+2IcE
-	d7wo7oWbJylGteSH1Q5MIzFmrYt+QDYaPeCjhNP9NrqDXKPhi6zjt12K5
-X-Gm-Gg: AYBFou2acFxyspHxy8HsM9lvJ/GsUUkAZmhYgsJjuxiwjhEAxscbw18sDiHAepgxbr8
-	IaWrMYrk3loY4CK5AJ752YT7E+p+XzHsxEbVFxsx37TfS5KEQEcPSKVRE8SwtOY8Z0UYcGCy+M2
-	qJnXJKCXPPXgFuPNMOJDz4k5ORUxx7EZIvUcO9GvU6eLha78IL/pj5Mmaq+vv8mezqTU1JTIyFd
-	qA3Si4x27CzhKf+N+2blHNOXPA7Cj0lBqbsvlQPwo17HwK3knsgwNadW2xCp8PI6jrKC2/T2zry
-	ggK/PxFrur7E4qUS58sChg6hyK5JL1Y66inou/guDh+PVv84g1oPqtPE5O/C3+hfEKGHWlk8w4I
-	t6M2MSZVjJTHuBSTRIi4wfXc=
-X-Received: by 2002:a05:6a00:3007:b0:846:4d4c:23f8 with SMTP id
- d2e1a72fcca58-861662d4c34mr12212323b3a.1.1788556764562; Fri, 04 Sep 2026
- 14:19:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="jl/eMBra"
+Received: from pps.filterd (m0134422.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684M2hPL3058027;
+	Fri, 4 Sep 2026 22:09:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps0720; bh=XU
+	SGrz5a4x0eA+3rxXUI6Z/3pmlN9A4Q708DtEwy/Qo=; b=jl/eMBraJHzQG2hFYc
+	eS6l5NjFSWUec5GZxorw7nrmA1uspV4ewVfJ5xCvIHhLGqVGM2SVhlsf7SBlrCoT
+	xPI3UTYK9sapzz8GXy2kLtaUt1DsiWeppjLtS5XsqqaoSytWjrkr++WDXff9ILE5
+	rBhHXaX2nAfnHKirKDPUh4dxVfEdTpCdgseTXk9ZZu0OluE6j0yEv7hJ+YUgBl4B
+	fJ+45qWovy06dF1Du2hd1a+I4JHdDnLmQOWHTHyzEL3dvAxzxVnGLyBR5GvR7YE4
+	0SrX/uXe0AzpaTMUN/SwLl1BjZX1iYezrIsCTl5G9FO9Kq05W2ASCkuydiFRWmQS
+	jMow==
+Received: from p1lg14878.it.hpe.com (p1lg14878.it.hpe.com [16.230.97.204])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4gg078d4bu-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 22:09:03 +0000 (GMT)
+Received: from p1wg14926.americas.hpqcorp.net (unknown [10.119.18.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by p1lg14878.it.hpe.com (Postfix) with ESMTPS id B6309D2E4;
+	Fri,  4 Sep 2026 22:09:02 +0000 (UTC)
+Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
+ p1wg14926.americas.hpqcorp.net (10.119.18.115) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 4 Sep 2026 10:09:00 -1200
+Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
+ p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Fri, 4 Sep 2026 10:09:00 -1200
+Received: from p1wg14920.americas.hpqcorp.net (16.230.19.123) by
+ p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Fri, 4 Sep 2026 10:08:59 -1200
+Received: from BL0PR07CU001.outbound.protection.outlook.com (192.58.206.35) by
+ edge.it.hpe.com (16.230.19.123) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
+ 2026 10:08:59 -1200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AroJl6epJHOCWMoJ14t7mhcSMePUNVO1wdXsoHvgyrUspjTzIA3dDqBX3XOTXiK7ga4ZMwN5Qq9W6qPlv77Aj5RHFosQ6gmU5nRxF4iTSuQZO/l8ObBglafLjW6Dv2DJY69wJJK7B6kwOLkLrMGG01aul8utv7gzuR8cT5bo8TO5jpBfOtO5DJ150d0oEdVDLBd09fFGAf6/bJXs04hHZlPTrIyPAjLYLmt+XzXDd1nCny+C2JgpX1RWO71OSTRvLFuW/d+JmYShLfHcb3XIdHann/AdVu4Mz7dKq7jTxim8UgQ+iPeEtkCNWs249UNLKxPNXziEj8EnCssbGD516w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XUSGrz5a4x0eA+3rxXUI6Z/3pmlN9A4Q708DtEwy/Qo=;
+ b=St8Qu8yrLfqv7Nd1F52MJS6X/h0FZrJjvEHbQ8vyDnrq2JFb6RYfFccWOlqKypPzHfj+GoNTVEwVycryLVLe42Dt5DVPJm4HxbxBPBuytKbL0zNQdgNw6Cz6Ya3TcbZY6YQE3rnlqOgWiduXQxEcTUyk9rH+aSRjCHpQFwcLcZI4Y5D1bi0wyhTRoHbygwg0qW8vrZes2QGJkgFuExGb7tOy50WcxgLSNPiiGi1+Ogoi7tOqh5XIhJ7MJuW+59iEZAtfcCEKMDwk7mmDPre3YieLCGr6mzYdib1wdG2KjO21rN6r2GLUkPsG074MBIxeRhMXW5D2OVXH/n9EJXvHdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
+ header.d=hpe.com; arc=none
+Received: from CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:610:1cc::7)
+ by DM4PR84MB2118.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:4d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 22:08:58 +0000
+Received: from CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::2c54:3534:122f:e74f]) by CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::2c54:3534:122f:e74f%5]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 22:08:57 +0000
+From: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+To: Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>,
+        "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>
+CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        Sanman Pradhan
+	<psanman@juniper.net>,
+        "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: [PATCH 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page decoding
+Thread-Topic: [PATCH 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+Thread-Index: AQHdPLn7b/djOMSNskOiiqFfbinNkg==
+Date: Fri, 4 Sep 2026 22:08:56 +0000
+Message-ID: <20260904220843.495082-2-sanman.pradhan@hpe.com>
+References: <20260904220843.495082-1-sanman.pradhan@hpe.com>
+In-Reply-To: <20260904220843.495082-1-sanman.pradhan@hpe.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR84MB3523:EE_|DM4PR84MB2118:EE_
+x-ms-office365-filtering-correlation-id: 4f865083-6d0b-4831-0581-08df0ad11d85
+x-ld-processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|366016|23010399003|38070700021|6133799003|10067099003|56012099006|18002099003|22082099003|3023799007;
+x-microsoft-antispam-message-info: sRQ9JJYzFYBD450tHVQY+1hsZQQkns1OMWPFA5wU0GSkLxI081ERUE6lKw4O9y62jrExIRmR5iKB2twEf54PxGlan82xyYpnzi6JGKzRsUx6RduNDajHVN6FOdqm0Shnk60XnxiJ19LG4Mf8OCJ+FPg7dJf4cTZ9uT3NNe0NpquxM6EzLB/bSwfXRFarxUXTKMa9mAEvKf+ZiLPiv4Piuu7eQBir60rjRwoC0hzbt0ZbV0jXaa42PQdc19dfg2Yt1C1hjeIiRpoC2OnFwfjtOl/ZkoYygSjoHd6BILD/dbjZTQzubVlPAvr+OW581j9x8TrNYNLsYFdEiahwMdS0+soqeqBowYlGtTT4zBiVURIjxkaXfsZIdaGG3KUW3f1wr2q/7G6gbvVEHuOo4ExxawFL8do74FV0NuOXauhjNRSswE1Pmg34U1q8CsXrjsdcek73LMEYSrY8VqQdm5baTtScJNT62/jijto4ekkKxcv4UOdRlfcoduPVYOuvPSse+HWsqDX03tizKMNiDGiyMPYURuYcRQON6V/AuzSsUpcukzzkXLUuYSBor5uizjRFclZV4p+9NAtzlIXzK1RszbLeww0dp5muVLVXFurxdZCzRC8aYlz4HKtqungx+daCNH1hVQWBDWkUlFpVIpB4r1SWypomOZhPunFxxJclrvgt4GKjb5iNEr6MIiO/u5OGHAOju4uKDM8NzeCdmWT7PQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(23010399003)(38070700021)(6133799003)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dTVGUEFwUGhsZVN2TS8xcHF4NEs0WVZYU3NwTWIzd21sYnFOLzVlMlAyYmds?=
+ =?utf-8?B?MEVGSENOUTZIempZOEl2V29sOUxJQzdOSmVQeW9yVm1mVkV4S1dZU3RhL1Ba?=
+ =?utf-8?B?bmFLT2oyZm13MXE2Y0ozbnEzUlFXS2kzTzZUUTF4ZzdmWFpyNURjeXdvODBq?=
+ =?utf-8?B?anVlNVQwRUpwYmJWalpsSmlPcU9xQ0RKenBHVVhIYzB6WGxETG9DekNEM3JE?=
+ =?utf-8?B?ZmpIVy9HTlJmVVBHbFo4V1FhY1AyVWVPSFg5SisvZnZOYU0rVmo2RTBPcDBM?=
+ =?utf-8?B?aFR5S3hISmlldDhYSWIvcjlldEl4SE56anZrS2RZVzJQcTVoMlJxcVJwS3BL?=
+ =?utf-8?B?a2t5RmNSLzNqRXJ3dS9NQlZsdUhzYlRtWC9Cb1BDVnFXYVhLcFpkbVdGTGNS?=
+ =?utf-8?B?YjdUaGRCNzArR1hOaXBtNjZYZWlWdm1zVXg2WjIzelhOS1ZvV1FIYloycGpV?=
+ =?utf-8?B?YTRKbCs0aVRrNit4N2xIWlFmMFdVaUNHaERhUSs3eGVtemUrVzZTdHpkaUN5?=
+ =?utf-8?B?TDJOeWp6d2wxU3F6Q0gxV2xPeG05TkRXam1xWEduTXJvS24wV2kwSlc3NWJs?=
+ =?utf-8?B?bmRTcTFaWE8wNnlKTTlueDhIbnNRQlBtSnZEZXByNVZGdWQ4MkRKdlgzNGw5?=
+ =?utf-8?B?TFBRQ1MvQlJ3TUxoZG41dkVNUnlkcHNFRHJXdmwyelc5REFkVmhwNnpKWEZY?=
+ =?utf-8?B?UEpqMDBNNVd1ZjZwbVpCdkx4SnpBZThDR24wekFpVWhEWmNtaFk3VWRRRW02?=
+ =?utf-8?B?b3pPR0ZuL2VOTzZkTmh6TmR4a09hb2ZWRXVqcGY5OVZQOWIzSGlOVTZMMTA1?=
+ =?utf-8?B?QXc5Ym9FZXZ1OHl6RHVJY3Urcld4RU1aditwbk5WVEl4TTR0cmFTZWM4Q0Qy?=
+ =?utf-8?B?aGdlbzM3emJBQWhqbVptVHhaZGxhb2lpN2QxclB2R3pEMytLYVR4bkc0L3d6?=
+ =?utf-8?B?cVdtOWFLRVpqOHNzdzhSdFNZc0tiSFZaUzN2OXhTRE5MalhlVlNobkZDSXc2?=
+ =?utf-8?B?bkNZU2h4VUNCenhzL3pZQTNWWU8zN2tMY0l3TmRwUHp1NkFRaUR5WnI1ZURI?=
+ =?utf-8?B?N0hiUDJ1SFZMQ21NU2ozR3FJRTJ5SU1rM0xWY0xCczM1ZUQyc1ljamhmSVZX?=
+ =?utf-8?B?MlNIMHcxRlQ4TEVsK0pObEJXc2E1YmNhVzNibC82QWFUaGJ4R2pkTS9XeVpL?=
+ =?utf-8?B?ZXdoRW5WSHI5V2tiamxseWQ3ZkRCMHg5ZGIweGFnazVYcmg5OWUvOGZvVEFu?=
+ =?utf-8?B?RzBabFZZK3pyVFZHeDhiY0U3bzVQZklIUlpJYldVbm0xOWJlcXVES1lpNmtN?=
+ =?utf-8?B?U2N1ZVJ2ekJpWXhKZ0ROTlVzOVgvZklrMnlXUU1vaHJ0V1UvbGovem5WeEVX?=
+ =?utf-8?B?R3hla1I4SjlvSlA2Q3lQdWNhRWhXZUVBVWZvMnk5ZGx4dVozTjZpZlBnZDFZ?=
+ =?utf-8?B?MUkzVlVwRGVvRUxWS01PeVI0cGwrS2FMRnlQS0ZmRzRJYWZocWdaRi9LbDNs?=
+ =?utf-8?B?TFdjTW5ub1loNlZXaldKT3RiekhCSG9rRVZGejFPanNTcUhGbU8zZmNDUnRx?=
+ =?utf-8?B?Q2hrOC9uN2hIekJkVnNpL1doemM5TlZoR3lzbThGM3FHLy9PRlUzT0pNY3lY?=
+ =?utf-8?B?UXQ0MndsRDZuSEFabkNtbTFEaEJSTXRxYjlGTTAxWk5wSU5DODdTL0ozU0Iz?=
+ =?utf-8?B?RExZeVFSQ0lrbEZpVm4xNWJmM0ZDVlhxRStBd2psRzhVVDluRUZ2YUpSSEpL?=
+ =?utf-8?B?OUxKQ21pZVFFaGg1ZFdtNEFpZlNRdHFFNmZGQlA5NzI4UEdqUWNUMk1wWXlM?=
+ =?utf-8?B?a0t6YmZaMzVVTG0vVEFXZHU2WS9PdW5ETnlkc3NMZERIWXRiclBjUFFLUlc1?=
+ =?utf-8?B?eXA5dnAxQzQyNFVIYkpkZGdoU0E0eXdMcDJhYjlTT2xUM0ZVY1BnTElXRDY0?=
+ =?utf-8?B?QlBIY2o0WThOOHNsZVFuNXBqRHQ3M0VuWVBTeHZOb25LWnRhRXlNUXV5Vmg4?=
+ =?utf-8?B?SFc4eWJIenZ5ZVlIcTZzdWVDRHhkWSs5aFhOQjdsTVdEOWdBa096NG9WVm9F?=
+ =?utf-8?B?djRaMkw2LzVSSkowNHczaDZNK1lMR0pUUXBNamxKeW94c0RudTUyMUd4Rjdl?=
+ =?utf-8?B?SGpnaUp3K1h5Um5ZZ3pHcXg5MXMvZFJlN2haN2RoMjVlc08xM3ViVVFYWDRz?=
+ =?utf-8?B?dE1mM0J6emx2SDZKV0NiUGpmUTEra0dCTmMzQ0xZaWRRSGVKcXVzVHdTeCtJ?=
+ =?utf-8?B?Mms0MVBUQlVRTFBXZklsSGNkb2MrVnZmVjU1eERxQkxia2dySDlWUVp6VGVa?=
+ =?utf-8?Q?qfieJ+g/ddg/6SdpjZ?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-0CFC.v3.20260901204856@mojatatu.com.8> <178851496878.4131868.2069895170229482350@kernel.org>
-In-Reply-To: <178851496878.4131868.2069895170229482350@kernel.org>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Fri, 4 Sep 2026 17:19:12 -0400
-X-Gm-Features: AcwNN1X4rPq8Wr5crkVB_76iRnNWdS3etBNl9qA_K2l3cZKDPDzbSYA8CDd1o-E
-Message-ID: <CAM0EoMke5h0wdNaTGQxTSALrFPPGNeMLad1p8arTakfPHa+NsA@mail.gmail.com>
-Subject: Re: [PATCH net v3 7/9] net/sched: drr: clamp quantum in change class
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net, 
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	victor@mojatatu.com, vega@nebusec.ai, shuah@kernel.org, 
-	linux-kselftest@vger.kernel.org, toke@redhat.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-Exchange-RoutingPolicyChecked: ANpI4kT+ZU6qNFXa41je3iHnYdFuscCgBStPM7gEeo1zy07rFTcJtXAcePz2npdluwdtiUvzzF8T/4GKkORRrfODY98tqvDsx30oUZ7FpRNc95Um1iT/othBYbVY+sqoX7uI32KFlzINp2Rf7ze/QvqI6zgHWNQdeR5Ji+lJP9wgwAQiuOBfZ3NFC8FbTid4T75L2fa9ejClJMpYOjqPEeGOZE2u4wwMC/0VSuUEY92nTpLmaxz7CUwCzqRpaLi5n6158YsJk8vCJw0PR7gssv77oLMcnh38ZFWxGt80UAh1++yOE35GZik8HSmB7FCLL6JU92Omy7f9XFgh7ii2FQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f865083-6d0b-4831-0581-08df0ad11d85
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 22:08:56.9175
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: aoDwTU1VbDMTFzdr1DQZzmaL+ncO9M0LlJpDWf9ciWIVyC32uEhohRi+ucocGF0bo5u4dN5NGaFWeRtonviGjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR84MB2118
+X-OriginatorOrg: hpe.com
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDIwNSBTYWx0ZWRfX1WDm48sxZpDM
+ thsHWf6fO+nbEX41ApA/iwj0Ue4T7yN2/gA6/SVNNN/UmRPX70u+IFiJHMbsQr4rGYz2LvZxy3b
+ wmy6ylm88RWuSulLUapdpmj5FeykcNfCX+GFBCYFFxglqfpyxLwcP54xSbYEcy0jq/kPzE4MI3Z
+ /UuaR2KEdBYFYVNI5KyNjeIjXskC7G61XaR8IOzgmChQWuLyxGa8+/jkg/XdlL9D/GpBkYpj0mY
+ BfDPfsqf5wn0WbuxI9sf5eo/bZHFimGkngxDL6j4HRUV9ZU+m1hdKMDYlML96tEQcp1PHipP5Hg
+ ytAiPLq8Uc6lZN1A6ZqomcfM1wcnpDjiq1gUelMiRbfbxEtSsv+EjaNJhIET5bQWMJ1TxN8mz2H
+ vMjtJOwSW1zoyiCLiHUwweOf39MSol5DkZCtWULF1T/vLN83HMIzSVOBttaOvRCwJRTgV0pLmi+
+ NPBx8ipIbIeHCfi9evg==
+X-Proofpoint-GUID: EUEorOpXv26JdpVs6BYIxO9GkPVvG9IW
+X-Authority-Analysis: v=2.4 cv=NOrlPU6g c=1 sm=1 tr=0 ts=6a9b4180 cx=c_pps
+ a=UObrlqRbTUrrdMEdGJ+KZA==:117 a=UObrlqRbTUrrdMEdGJ+KZA==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22 a=ModqzXLkJJ0tFyq98apW:22
+ a=OUXY8nFuAAAA:8 a=VwQbUJbxAAAA:8 a=HKJLD0rnby66v6-aK0UA:9 a=QEXdDO2ut3YA:10
+ a=cAcMbU7R10T-QSRYIcO_:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDIwNSBTYWx0ZWRfXzzmCSArIl3Bj
+ JtU015SsvcS+wiPWkRXzq3byZ8Buu+KMYUquZmnirQtByNSzBSdh3hiMYvf/ndSyCKM6JJFGT0X
+ sAAU77CQ0nKpbd207Fa5ArhlCh3iFPk=
+X-Proofpoint-ORIG-GUID: BfcB4eLTJ-hGrS8tZLo2r3EUPWl5x0yf
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_06,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 adultscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040205
 
-On Fri, Sep 4, 2026 at 5:42=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wrot=
-e:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider:
->
-> Critical: 0 =C2=B7 High: 1 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> - [High] net/sched/sch_drr.c:85 and :87 (drr_change_class) silently
->   rewrite an administrator-supplied TCA_DRR_QUANTUM instead of honouring=
-=E2=80=A6
-
-
-Valid as a "description". My view is the patch is fine.
-The rewrite-vs-reject choice is the series' deliberate uAPI - the
-whole point is that a too-small quantum is crazy as illustrated by the
-series so it  is never installed...
-I am not sure if sashiko is looking at the net tree which has commit
-8f735d64382d but qdisc_pkt_len cap which is clamp-style already, and
-Eric accepted v3 on this basis.
-The asymmetry is discoverable by re-read (dump echoes the stored value).
-Summary: If the series is resent, we will state the rewrite behaviour
-in the changelog.
-
-> - [Medium] Commit message premise and reproduction recipe do not match
->   the tree the patch applies to, and an undeclared stable-backport=E2=80=
-=A6
->
-
-Very valid, if i understood correctly. I think you mean: backporting
-on trees matching Fixes: 13d2a1d2b032 there is no QDISC_PKT_LEN_MAX
-cap, so things will go crazy there...
-
-I would say It's worth mentioning 8f735d64382d as a backport
-prerequisite not sure if that's in the commit, although i am not
-familiar enough with the backport rules to make that call.
-+Cc stable@vger.kernel.org
-
-
-cheers,
-jamal
-
-> net/sched: drr: clamp quantum in change class
->
-> This adds a clamp_t(u32, quantum, 256, 1 << 20) in drr_change_class(),
-> applied both to an explicitly supplied TCA_DRR_QUANTUM and to the
-> psched_mtu() fallback, so that the deficit-refill loop in drr_dequeue()
-> cannot iterate on a very small quantum.  The existing rejection of an
-> explicit quantum of zero is kept.
->
-> Two questions below, one about the changelog and one about the new
-> clamping behaviour.
->
-> > drr_change_class() rejects explicit quantum=3D=3D0 but falls back to
-> > psched_mtu() with no floor. With a crafted size table qdisc_pkt_len
-> > reaches ~2 GiB, so quantum=3D1 (or a zero psched_mtu on a headerless
-> > device) makes the deficit-refill loop spin under the qdisc lock.
->
-> [Severity: Medium]
->
-> Is the "~2 GiB" figure still accurate for this tree?  The baseline
-> already ends __qdisc_calculate_pkt_len() in net/sched/sch_api.c with:
->
->         /* A size table can inflate qdisc_pkt_len() beyond any real packe=
-t
->          * (via overhead, the data table, or size_log); cap it so deficit
->          * schedulers such as DRR/ETS terminate their refill loops.
->          */
->         pkt_len =3D clamp_t(int, pkt_len, 1, QDISC_PKT_LEN_MAX);
->         qdisc_skb_cb(skb)->pkt_len =3D pkt_len;
->
-> with QDISC_PKT_LEN_MAX defined as (1 << 20) in include/net/pkt_sched.h.
->
-> Since drr_dequeue() advances the deficit by one quantum per round:
->
->         WRITE_ONCE(cl->deficit, cl->deficit + READ_ONCE(cl->quantum));
->
-> wouldn't the worst case with quantum=3D1 be around 1M rounds rather than
-> ~2^31?  The loop bound seems tied to that packet-length cap, not to a
-> 2 GiB length.
->
-> Related to that, the recipe given:
->
-> >   tc qdisc add dev dummy0 root drr
-> >   tc class add dev dummy0 parent 1: classid 1:1 drr quantum 1
->
-> installs no size table and sends no traffic, so it does not appear to
-> exercise the refill loop at all.  Could the reproducer be extended to
-> include the size table and a transmit step?
->
-> There is also a backport angle.  With the new floor at 256 the effective
-> iteration bound (~4096 rounds) comes from QDISC_PKT_LEN_MAX rather than
-> from this change.  Trees matching "Fixes: 13d2a1d2b032" have no such cap,
-> so this hunk on its own still allows roughly 8.4M refill iterations per
-> dequeue there.  Should the QDISC_PKT_LEN_MAX commit be named as a
-> backport prerequisite?
->
-> > diff --git a/net/sched/sch_drr.c b/net/sched/sch_drr.c
-> > index 91b1ef824afaf..8621d057edd9f 100644
-> > --- a/net/sched/sch_drr.c
-> > +++ b/net/sched/sch_drr.c
-> > @@ -82,8 +82,9 @@ static int drr_change_class(struct Qdisc *sch, u32 cl=
-assid, u32 parentid,
-> >                       NL_SET_ERR_MSG(extack, "Specified DRR quantum can=
-not be zero");
-> >                       return -EINVAL;
-> >               }
-> > +             quantum =3D clamp_t(u32, quantum, 256, 1 << 20);
->
-> [Severity: High]
->
-> Should an out-of-range quantum be rewritten rather than rejected here?
-> Only the exact value 0 returns -EINVAL; every other value now falls
-> through this clamp and is committed, either via the existing-class path
-> in drr_change_class():
->
->                 if (tb[TCA_DRR_QUANTUM])
->                         WRITE_ONCE(cl->quantum, quantum);
->
-> or via cl->quantum =3D quantum on the create path.  Netlink then returns
-> success for a configuration that was not applied.
->
-> Does this create a set/get asymmetry?  drr_dump_class() reports the
-> stored value:
->
->         if (nla_put_u32(skb, TCA_DRR_QUANTUM, READ_ONCE(cl->quantum)))
->
-> so "tc class add ... drr quantum 1" succeeds and reads back 256.
->
-> Does this also change service ratios silently?  drr_dequeue() refills by
-> cl->quantum each round, so relative shares are the ratio of class
-> quanta.  A 10:100 weighting would become 256:256, and 4 MiB:1 MiB would
-> become 1 MiB:1 MiB, on any later "tc class change ... quantum <n>"
-> against a class that worked before.
->
-> The declared policy still advertises the whole u32 range:
->
->         [TCA_DRR_QUANTUM]       =3D { .type =3D NLA_U32 },
->
-> The sibling implementation of the same bounded-quantum idea rejects
-> instead of mutating, in net/sched/sch_qfq.c:
->
->         static const struct netlink_range_validation lmax_range =3D {
->                 .min =3D QFQ_MIN_LMAX,
->                 .max =3D QFQ_MAX_LMAX,
->         };
->
->         static const struct nla_policy qfq_policy[TCA_QFQ_MAX + 1] =3D {
->                 [TCA_QFQ_WEIGHT] =3D NLA_POLICY_RANGE(NLA_U32, 1, QFQ_MAX=
-_WEIGHT),
->                 [TCA_QFQ_LMAX] =3D NLA_POLICY_FULL_RANGE(NLA_U32, &lmax_r=
-ange),
->         };
->
-> and the sfq patch in this same series rejects the identical upper bound
-> in sfq_change():
->
->         if (ctl->quantum > 1 << 20) {
->                 NL_SET_ERR_MSG_MOD(extack, "quantum too large");
->                 return -EINVAL;
->         }
->
-> Would a declared NLA_POLICY_FULL_RANGE (or an explicit -EINVAL plus
-> extack) be preferable, which would also subsume the zero check?
->
-> One more on the upper bound: a quantum larger than qdisc_pkt_len() cannot
-> add refill rounds, so the 1 << 20 maximum does not seem related to the
-> loop described in the changelog.  Is the narrowing of the accepted range
-> intentional, and if so should it be spelled out in the commit message?
-> The message currently reads:
->
-> > Add clamp_t(u32, quantum, 256, 1<<20) after the zero reject and on the
-> > fallback path. The explicit-zero reject is preserved.
->
-> which reads as a hardening change with no behaviour change, and does not
-> mention that previously accepted values are now altered.  That seems
-> worth stating given the Fixes: tag implies a stable backport.
->
-> >       } else
-> > -             quantum =3D psched_mtu(qdisc_dev(sch));
-> > +             quantum =3D clamp_t(u32, (u32)psched_mtu(qdisc_dev(sch)),=
- 256, 1 << 20);
-> >
-> >       if (cl !=3D NULL) {
-> >               if (tca[TCA_RATE]) {
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/QDISC-0CFC.v3.20260901204856%40mojatatu.com
+RnJvbTogU2FubWFuIFByYWRoYW4gPHBzYW5tYW5AanVuaXBlci5uZXQ+Cgp0cHM1MzY3Nl9pZGVu
+dGlmeSgpIHJlYWRzIHRoZSBVU0VSX0RBVEFfMDMgcGhhc2UgY29uZmlndXJhdGlvbiB0byBjb3Vu
+dAp0aGUgcGhhc2VzIGFzc2lnbmVkIHRvIGVhY2ggY2hhbm5lbCBhbmQgZGVyaXZlIHRoZSBudW1i
+ZXIgb2YgUE1CdXMgcGFnZXMuCkluIGVhY2ggMTYtYml0IHBoYXNlIGRlc2NyaXB0b3IgdGhlIGNo
+YW5uZWwgKFBBR0UpIGlzIGVuY29kZWQgaW4gYml0IDQgYW5kCnRoZSBmaXJpbmcgb3JkZXIgaW4g
+Yml0cyAzOjAsIGJ1dCB0aGUgY29kZSB0ZXN0ZWQgYml0IDMgKDB4MDgpLCB3aGljaCBpcwpwYXJ0
+IG9mIHRoZSBmaXJpbmctb3JkZXIgZmllbGQuCgpUUFM1MzY3NiBzdXBwb3J0cyB1cCB0byBzZXZl
+biBwaGFzZXMsIHNvIGZpcmluZy1vcmRlciBiaXQgMyBpcyBuZXZlciBzZXQuCkFzIGEgcmVzdWx0
+IHRoZSBleGlzdGluZyB0ZXN0IGNsYXNzaWZpZXMgZXZlcnkgZW5hYmxlZCBwaGFzZSBhcyBjaGFu
+bmVsIEEuCk9uIGEgZHVhbC1jaGFubmVsIGNvbmZpZ3VyYXRpb24gdGhlIHBoYXNlcyBhc3NpZ25l
+ZCB0byBjaGFubmVsIEIgYXJlCnRoZXJlZm9yZSBtaXNjb3VudGVkIGFzIGNoYW5uZWwgQSBhbmQg
+cGFnZSAxIGlzIG5vdCBleHBvc2VkLgoKVGVzdCB0aGUgUEFHRSBmaWVsZCAoYml0IDQpIGluc3Rl
+YWQuCgpGaXhlczogY2IzZDM3YjU5MDEyICgiaHdtb246IChwbWJ1cy90cHM1MzY3OSkgQWRkIHN1
+cHBvcnQgZm9yIFRJIFRQUzUzNjc2IikKQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKU2lnbmVk
+LW9mZi1ieTogU2FubWFuIFByYWRoYW4gPHBzYW5tYW5AanVuaXBlci5uZXQ+Ci0tLQogZHJpdmVy
+cy9od21vbi9wbWJ1cy90cHM1MzY3OS5jIHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0
+aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9od21vbi9wbWJ1cy90
+cHM1MzY3OS5jIGIvZHJpdmVycy9od21vbi9wbWJ1cy90cHM1MzY3OS5jCmluZGV4IGZhMGZkZjFl
+M2U2YzkuLjY4MDMzOWE2YjkwZmUgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvaHdtb24vcG1idXMvdHBz
+NTM2NzkuYworKysgYi9kcml2ZXJzL2h3bW9uL3BtYnVzL3RwczUzNjc5LmMKQEAgLTE4OCw3ICsx
+ODgsNyBAQCBzdGF0aWMgaW50IHRwczUzNjc2X2lkZW50aWZ5KHN0cnVjdCBpMmNfY2xpZW50ICpj
+bGllbnQsCiAJCXJldHVybiAtRUlPOwogCWZvciAoaSA9IDA7IGkgPCAyICogVFBTNTM2NzZfTUFY
+X1BIQVNFUzsgaSArPSAyKSB7CiAJCWlmIChidWZbaSArIDFdICYgMHg4MCkgewotCQkJaWYgKGJ1
+ZltpXSAmIDB4MDgpCisJCQlpZiAoYnVmW2ldICYgQklUKDQpKQogCQkJCXBoYXNlc19iKys7CiAJ
+CQllbHNlCiAJCQkJcGhhc2VzX2ErKzsKLS0gCjIuMzQuMQoK
