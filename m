@@ -1,63 +1,47 @@
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C834CB8C4;
-	Fri,  4 Sep 2026 16:21:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15853C1090
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538879; cv=none; b=XySc6qFgWGuGYFLdfhfSFYM3RJkMr7uiaPcFLpje32ggJ/dKNOoWFfGf3Maqu+8z7dESPNMJFHig9gBy0lr3Vm1o1vWV0r0m+xh9q1iDO+/kU50JxLH5mz4/VY2jmKHCrcWjoMjT81bwt17h0wN9tAzyLPjSYWOFwCrLBJ7uCBE=
+	t=1788538911; cv=none; b=D1v9zVlSWf9/pNiv6uoI/FNOf11wzW1fKUraAIKUEHFwtSQZEUrhfz+dJKwAhyBuEbZS+vnKFhacRnPatgy/IKXCOvlVIbpDaGrxWa00CIBJfkK0BBZhAwiLD2UMp2Ef7ONf/28EqrfXP7eDkexemrYG5gcVTYpZ9kO+0b7Hr6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538879; c=relaxed/simple;
-	bh=N7HXUlxgT+PwrqkX+rdX69GAhdbSoHp7PQ5xKuoczrw=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=kWM5VOdOujUGY88w2bEeRJIme6lnnFjWYZChlRvorv4nwWrEsHT1XeLdl0a55cFqRkOc444rNkcAD18OuCT0XUTXJe18Uf3nPj0CveoVF1dE+i0kGQTqmpiJhW9isqb+Fh5vnMWBRTpIaISFpe9SBcrLpPJKY46zoR6ECGJpAcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=D1rfOdVC; arc=none smtp.client-ip=203.205.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788538911; c=relaxed/simple;
+	bh=IHeu/vY8Ldi+UPDTbGtNij6eztDixVMGEyp+8zvdq3g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m5G5z5ME5Q9HGA/IGPM1V044QhRMo8Tn+ReiYkR5shPa6HJLlcOpfHvVRH3nQT46bi1Ww5XkfASQdeOPX3QNZMHTDE9hUU0M6AT/28uX0X/E1tmRfysoIHr6nnXdoY5UplyaS1B7TccNZ62Kr2UfA2do07LVFZbgoc5T7Im+a0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlXMLIvo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="D1rfOdVC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788538869; bh=vxTXE7HOEBi2t5JWj1r5UaidcWmJ6DtV7Ta6E6ywxz4=;
-	h=From:To:Cc:Subject:Date;
-	b=D1rfOdVCWSKktOIArCksp3K3wWmpNMJScldTmj9ALLIWqqjt1Y/sc1rXt3XCulMc7
-	 dfF3qyPOVK2eHn4p2glN2Kmj+PAi6rQTTmDDjPjmfCEASPtHCWTPLgwLRE8fhzgCwb
-	 +UFjqe+ZX0lApeTJ4z4KFqwQH8V5ppYvojGkv/mk=
-Received: from xgyy.localdomain ([2408:8352:603:550:7022:3b83:9f7:e2a7])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 5432E695; Sat, 05 Sep 2026 00:21:03 +0800
-X-QQ-mid: xmsmtpt1788538863tb5f60adh
-Message-ID: <tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com>
-X-QQ-XMAILINFO: MDbayGdXPuoeAktxJbu/jBXgAJ9QqmqP3b6oM3oKpaHEuCmCF+REkSlHarxE4u
-	 g+v576zskM03OhwwB5I2v4DX1ct0KCwAjQphvh2+HWuV41/Eqn3iA1R2pMcKSnwgPwmafEE96tAS
-	 wQH00ObKWqzaHOTEUdqOulDU8hxKQXQjBrOUWZwRfBth9MdQMBm1K293Ahw1MhJvxMLHso8GAxt5
-	 bOVjDg5IxNWI7t0+l9d1If7g82kKys+tIPcZfddAb3+E+1WTM44WHkXGcVglv2YupbgOpwFc4L0k
-	 9g1tU7vbiZoJU27wbrS9fjTxWgrbSbaKOAZF6YxV2sA7g2WwMBfSBU4AzTf84ditgfV3hNuz9Mjn
-	 9+gZJR3NQcUv9f9XgBavmXd9XVRMEP73w70qVBtXrIzFkvcVuaB74RJBjbRp3JewtquEpKGlkXWo
-	 ZCMNLyFBeyQroe4NS+gDv4GkklwAmUo1u9LncWD6e2Afa0Xs1RWUV1QwBnNRAGz2tkczpvk8JF0L
-	 jASnfT0pWuX8q8GCr+bXQ8B6S5H5XmEcUiwFVWY8MrkNkvO0ca1fmkpVvDYZl3KjYw9sMOXRA3/V
-	 XS0oBr1MRetC0rqxCcCQfM5Dtpigwqenj9Ej2f5xxCT+aF1766CtPK8VTQGEMz4edifVr2c1h/Jk
-	 MqwRWUZeonQ5XAYLFBNw1mJOVcydwacmhd/eB2u5z0pp4/+LTtQf67P6z5WrC/lxO1fGtX+QMuW+
-	 QJpjNknFsWS51vSDSl7fGUyAtvM/UcQUrQgkkjYPfNcbXw7+YklWGMVZ5I1mgsMLPOB7uObzpf36
-	 jGUIVciHKmfIVbhdZqSmAAnHUDnQQwFVWnaXIZAiJ6td63mUeau4N4JM6he0LTvXDdDhR82kzeEX
-	 PkE8sw3m8AxE5tDGTbN4jAXzxkwRxwruCAfs2p38SFjEnqRODKeiZMLJhjFVh/WtqiEbN02wsU5W
-	 DLM0ZQHn3ft3fbynSZkjaEWMvjhJDjzvCstJCEwcpPqJhfEjD7+GtfB3TT+bynKH9gBTL6vvCkdj
-	 BdvmCnEzd4gzd6UJwJKhuVUk2Xyei1hDSQLdgFqDn4Gm4klNSyQg8XAFsjWEWoZZkW2PNvfu7eMT
-	 NUN8amraSY/djPJoFqwBhfi3qcID4tM/2tXZ94
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Zhu Ling <zhuling0805@qq.com>
-To: linux-can@vger.kernel.org
-Cc: mkl@pengutronix.de,
-	mailhol@kernel.org,
-	nsekhar@ti.com,
-	faiz_abbas@ti.com,
-	s-anna@ti.com,
-	fcooper@ti.com,
-	linux-kernel@vger.kernel.org,
-	Zhu Ling <zhuling0805@qq.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute sizing
-Date: Sat,  5 Sep 2026 00:20:58 +0800
-X-OQ-MSGID: <20260904162100.13674-1-zhuling0805@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlXMLIvo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2261F00A3D;
+	Fri,  4 Sep 2026 16:21:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788538909;
+	bh=sxRns+Xv2HloLANXz/1FUaJVmohi9dz7MlfFqFYep6I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dlXMLIvoyHLb6T6+WhrbSxD2dvufxsG/QpYOKOmvlm00F2iAQkDQQ/li+pBykR7vY
+	 S6XHkSrT8IFMV++Cs7ybaJBPaW9SVtqBZlaCQNgSXIDiBq6Kga8zQb6VDFm6lsZNlI
+	 sSrz0BVhhoNPmL7hC4zLFUP9xNJla1xrlaooThAxSbsB2olmzQhDeWlmWEzqhorV9l
+	 FdDiathYkaPjSkT1PDs1ww26olRivNGRhJtMRyl+OMwvPA5/h+H0hVihYwSxbSQQvD
+	 fQXzvnUu85QeWQnvpsia6gNJTcYG9cPJ/ktPBdhVX81hHv9QXHHO8Cegcj+RVhw4DT
+	 aNTfxjWsXCNVw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Chris Mason <clm@meta.com>,
+	Brian Geffon <bgeffon@google.com>,
+	David Stevens <stevensd@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Richard Chang <richardycc@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] zram: fixup read_block_state()
+Date: Fri,  4 Sep 2026 12:21:45 -0400
+Message-ID: <20260904162146.1210685-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090353-pyramid-reanalyze-9bb9@gregkh>
+References: <2026090353-pyramid-reanalyze-9bb9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,36 +50,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-can_fill_info() emits IFLA_CAN_BITRATE_MAX with nla_put(), which consumes
-space for both the attribute header and its aligned payload. However,
-can_get_size() accounts for the payload only. The resulting underestimate
-can make filling the netlink response fail with -EMSGSIZE when the skb has
-no remaining slack.
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-Use nla_total_size() to account for the complete attribute.
+[ Upstream commit 8b05d2d8af817c6a1e23032df51e7ad83030d543 ]
 
-Fixes: 2290aefa2e90 ("can: dev: Add support for limiting configured bitrate")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhu Ling <zhuling0805@qq.com>
+ac_time is now in seconds, do not use ktime_to_timespec64()
+
+[akpm@linux-foundation.org: remove now-unused local `ts']
+[akpm@linux-foundation.org: fix build]
+Link: https://lkml.kernel.org/r/20260115033031.3818977-1-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reported-by: Chris Mason <clm@meta.com>
+Closes: https://lkml.kernel.org/r/20260114124522.1326519-1-clm@meta.com
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: David Stevens <stevensd@google.com>
+Cc: Minchan Kim <minchan@google.com>
+Cc: Richard Chang <richardycc@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+[ Stable tree note: The ac_time conversion described above is not present
+  here, so retain the ktime_t conversion and microsecond output.  Move the
+  timespec64 temporary into the scan loop instead, allowing the follow-up
+  bounds fix to move nr_pages initialization under init_lock cleanly. ]
+
+Stable-dep-of: 391f057f44a5 ("zram: fix out-of-bounds access in read_block_state()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/can/dev/netlink.c | 2 +-
+ drivers/block/zram/zram_drv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-index 766d455950f5..ba26c61a82c2 100644
---- a/drivers/net/can/dev/netlink.c
-+++ b/drivers/net/can/dev/netlink.c
-@@ -822,7 +822,7 @@ static size_t can_get_size(const struct net_device *dev)
- 	if (priv->bitrate_const)				/* IFLA_CAN_BITRATE_CONST */
- 		size += nla_total_size(sizeof(*priv->bitrate_const) *
- 				       priv->bitrate_const_cnt);
--	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
-+	size += nla_total_size(sizeof(priv->bitrate_max));	/* IFLA_CAN_BITRATE_MAX */
- 	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 0c422e4179ad5..91a1cec8a6e3f 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -879,7 +879,6 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
+ 	ssize_t index, written = 0;
+ 	struct zram *zram = file->private_data;
+ 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+-	struct timespec64 ts;
  
- 	size += can_data_bittiming_get_size(&priv->fd,
-
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
+ 	kbuf = kvmalloc(count, GFP_KERNEL);
+ 	if (!kbuf)
+@@ -894,6 +893,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
+ 
+ 	for (index = *ppos; index < nr_pages; index++) {
+ 		int copied;
++		struct timespec64 ts;
+ 
+ 		zram_slot_lock(zram, index);
+ 		if (!zram_allocated(zram, index))
 -- 
-2.43.0
+2.53.0
 
