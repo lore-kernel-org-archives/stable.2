@@ -1,86 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7EF408035;
-	Fri,  4 Sep 2026 05:35:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB403815E1
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 05:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500156; cv=none; b=TiefyyEh2uUyYLJiIKmVOy0ILPMxqOp86xwzTb8KsFp8+Z056kzATv9uPBXFWKZpzY3JEWVLlakvJK4dmgjHBynfhnsTHfOw+UuYxBeyf4UxFXdZN/sf5dQYNHpkGk8MAcr32K6GY+JWvCcbVIo7G9tiJSHEBvmwJbGfD8smCQ4=
+	t=1788500157; cv=none; b=AzPrjJgHCwiEGWOmsO2SHHPCfydKPi2LliOWbE8veAfa/IXWNqAd13MbDFZvlWPXK0Gko8d2BOH/RqtmaxvN0YwJZanfimcuKGMarU87zexkeF9gk2WEVHfsaLylXtFOxJLDV1OjzG6sb2sW7JXt74VOqiuvy3j/ZCw885NYqrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500156; c=relaxed/simple;
-	bh=6m3LlVQWCCJLDdNkUWsxdaucwFOjnSzxcqLfv96K3HM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kOCtR6IIeDp8p6FXi3m8GMkX4iMImzJmSXeI0jG5GT/MM0ULesweOGnwDFRISSj+I9auLLj+fdujCySnUB2Khq0ZNL5Emf9vYhW2H6Bou2FCkCqjcsZKy+mHaQUZzGbugWEbQDuKBdU0hfGacCt9U53mn253z9wJ/CJ8GWwRF9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cNJLPx3C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788500157; c=relaxed/simple;
+	bh=77g48iWvSbKpNeXgHSm13bhzN3E6IkG87uMszLIteak=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tWdzHPzleyq7pL+IIdeivdZU49zfHRcqS11UAZdEsMJhzG4Fmil5oiOC63Pz8Uq/h/sMmW+TdGhUIacaPLf8UJn6cZVVlcs7Rx/hUmHWJIC3ARA8YGsS22k0xfXT8nHmfVckPvfuAHScq527NFY2C0Q3WfI6iBOBpZTLNw/Qntc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYGmuMGF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cNJLPx3C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420671F00A3D;
-	Fri,  4 Sep 2026 05:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788500154;
-	bh=tCVTOaY0rYjpQfcAuI55tv+1HsyK60vgYhEfhzpBiWo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNJLPx3CicIAV1Izwz1Bi4nCsIzphCEXlBuZ2xrQaHD8jGx06BRYbTc8N5XuL8ppF
-	 vPbAkpBI5Fi7NDF455jR4lAvgcwnJHA4Yy5bZ8jP61PFlpQTiVyuHlP3Z/nvGbzaA2
-	 cw0ifyx6/2U8J+hbOG2qR+dXsQ2O28CC/nXoyCcU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>
-Subject: [PATCH 7.2 669/713] i3c: renesas: Clean DATBAS register on detach
-Date: Fri,  4 Sep 2026 07:00:37 +0200
-Message-ID: <20260904045818.832093385@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
-References: <20260904045803.810145556@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYGmuMGF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03B8D1F00A3E;
+	Fri,  4 Sep 2026 05:35:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788500156;
+	bh=NVHPwUYYqzujasMCvGqDFet1STtVvlZL/crOlmfg2NM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=DYGmuMGFneF7JxYKOLndLamcmuBsAWk8xX1QZjuvDVNG+GOX44KLmlCdRnxHTtL7q
+	 I0qE0cPle6eBa5usX/ysHZYixKSr0+lEhLJohAL+CQOriVgdJRw7K0iZRp6fjNmRip
+	 Yp1rzL7MIlxHGEDzPKVXz8JsHON6x0wl77jjU/QTFypEFmbd5G47bLzWd3ocBRBob+
+	 CId7g8DJZc1cJLS3Se6deAnaqjKmftq40yBRXlQdyw0dZOc6VZNpc3RE9LqyCcSdY0
+	 TA+Og7zdHkp0UYaJrlsi8W3f2GrZv17N+ycIpErfu9fPjxZljM0UHSQ2YseJ0DrqXf
+	 ANEb48WIP7Xjg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: gregkh@linuxfoundation.org, ruanjinjie@huawei.com
+Cc: stable@vger.kernel.org
+Subject: [PATCH 6.18.y] entry: Fix seccomp bypass after ptrace with TSYNC
+In-Reply-To: <2026090330-tightwad-steep-b6f8@gregkh>
+References: <2026090330-tightwad-steep-b6f8@gregkh>
+Date: Fri, 04 Sep 2026 07:35:53 +0200
+Message-ID: <87ik4la892.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Jinjie Ruan <ruanjinjie@huawei.com>
 
-------------------
+commit 4a3591287fb7f808e209b4974ed337f609a2006b upstream.
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Sashiko review pointed out the following issue.
 
-commit 797ed83c0cd495be4b345750c59e0363bf4d6207 upstream.
+If a thread is stopped in syscall_trace_enter() for ptrace, another
+thread can install a seccomp filter with SECCOMP_FILTER_FLAG_TSYNC
+(e.g., via seccomp_attach_filter()). This will successfully set
+SYSCALL_WORK_SECCOMP on the stopped thread, but syscall_trace_enter()
+evaluates a cached 'work' variable sampled on entry. Consequently,
+the subsequent check for SYSCALL_WORK_SECCOMP misses the newly
+assigned flag, and the filter is silently bypassed.
 
-The controller uses DATBAS registers on TX/RX logic. Clean the DATBAS
-register for the detached I3C device to avoid issues.
+This race condition could allow an unprivileged process to execute
+a prohibited system call (e.g., execve) that the newly installed filter
+was intended to block, especially since the tracer might have modified
+the system call number during the ptrace stop.
 
-Fixes: d028219a9f14 ("i3c: master: Add basic driver for the Renesas I3C controller")
+Fix this by re-reading the syscall_work flags after ptrace handling,
+so that any new SYSCALL_WORK_SECCOMP flag set by another thread via
+TSYNC during the ptrace stop is observed before the subsequent
+seccomp check.
+
+Fixes: 142781e108b1 ("entry: Provide generic syscall entry functionality")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Link: https://patch.msgid.link/20260713130545.568657-8-claudiu.beznea+renesas@tuxon.dev
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/all/20260629132914.1135C1F000E9@smtp.kernel.org/
+Link: https://patch.msgid.link/20260713025712.416366-1-ruanjinjie@huawei.com
 ---
- drivers/i3c/master/renesas-i3c.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/drivers/i3c/master/renesas-i3c.c
-+++ b/drivers/i3c/master/renesas-i3c.c
-@@ -924,6 +924,8 @@ static void renesas_i3c_detach_i3c_dev(s
- 	struct i3c_master_controller *m = i3c_dev_get_master(dev);
- 	struct renesas_i3c *i3c = to_renesas_i3c(m);
- 
-+	renesas_writel(i3c->regs, DATBAS(data->index), 0);
+ kernel/entry/syscall-common.c |    3 +++
+ 1 file changed, 3 insertions(+)
+---
+--- a/kernel/entry/syscall-common.c
++++ b/kernel/entry/syscall-common.c
+@@ -37,6 +37,9 @@ long syscall_trace_enter(struct pt_regs
+ 		ret = ptrace_report_syscall_entry(regs);
+ 		if (ret || (work & SYSCALL_WORK_SYSCALL_EMU))
+ 			return -1L;
 +
- 	i3c_dev_set_master_data(dev, NULL);
- 	i3c->addrs[data->index] = 0;
- 	i3c->free_pos |= BIT(data->index);
-
-
++		/* ptrace might have changed work flags */
++		work = READ_ONCE(current_thread_info()->syscall_work);
+ 	}
+ 
+ 	/* Do seccomp after ptrace, to catch any tracer changes. */
