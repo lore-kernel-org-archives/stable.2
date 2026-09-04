@@ -1,51 +1,49 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B906C4FC8C9
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 17:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C764F4723
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 17:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788543476; cv=none; b=ho9s/GTwIBFRN1mUnZYC9zwjGYyiIG86sKKIwLeTwTpAVzbBiMWope8ZeZkHs2AwnL2+4ASvwTNYiwjh5IE2uT6ZdJdfWTdK8NDuSl7Hl6WGpl3aQinG0nJHh6G0J3Z9dxHp6IPxtAU55rVhOwZpT8RIrOrCZk3f703d94OABao=
+	t=1788543481; cv=none; b=rFpA6c8KSno8ATQWUbfkuV8yacqjZ0hUhguR6IpPRBQqeWDPqEgeRZn9iNrPfEiUXYyZ0JnpmDXfSrpUp80mSbb8/JMIYWFUCG3SD3dwxJ0HvR/oK9amQvx3J4WZpxCzKWr5XTRoO33LoyioGnTBFMxSXQ1ScMLGSwyONmobeLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788543476; c=relaxed/simple;
-	bh=ZpZ45xiAlB+4IooyikvfI6oO0AW6kFrfdX8SmCt6Fsg=;
+	s=arc-20240116; t=1788543481; c=relaxed/simple;
+	bh=IiKpIb78OuaUgZYZhZ32BfQqeunq1kdvpm8jWyRnizQ=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=hBefWXYe9edPUOZPmOMgD7FNW+ccchkrHQLMgwiQvXMdlYHdqo55YtPCQunHK/SwYMOAncZHc06BULgVPwjSVoVnsz7GYky/7EC2QRpdXWyiT8EyfhrSMJViYtKIiRVDPmSIZt8UMu0YB20M7U71nc6dLrAAQXQlAgBMf4kntvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=f/ZPwRO7; arc=none smtp.client-ip=185.246.84.56
+	 MIME-Version:Content-Type; b=su+bsCBsY7q1OT0qx12ug1DGYvSh0ONnmV3rlWr8wAUKrawxeEguwDJT+nsc4yorqoYe+6E/Y/P/zhL2kbH3gNXW1W6abIP7xoM1HdxarWAYBFjOAxUyVIS8HUre+FZthmqJY1ZwbWP2S3zVMsE17ejWNl9pSJExP+hWtedHeSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=D5YsaLZH; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="f/ZPwRO7"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="D5YsaLZH"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F14521A19B2;
-	Fri,  4 Sep 2026 17:37:51 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 8A3024E41519;
+	Fri,  4 Sep 2026 17:37:57 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C2D4C6057F;
-	Fri,  4 Sep 2026 17:37:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 16DB811C78705;
-	Fri,  4 Sep 2026 19:37:43 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5F2916057F;
+	Fri,  4 Sep 2026 17:37:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4EA8C11C79AE2;
+	Fri,  4 Sep 2026 19:37:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788543466; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1788543472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=NGCtegBMvxhNV72n4BBpE6YScdV3H5CF5sxKQIzh0Ns=;
-	b=f/ZPwRO7/I98nP+2Y3r7GcCxegsAiq2CPVsDw6AWSZ4bOAkfqTNfEq7YMLZWuTGAwzdM0l
-	0o3SKr06fPLG7rC6Np8Pa4qyAGdG7QnpxWUP3IiYlmoEF7ywWc+YVbycvBFsi3e4xuEwY+
-	Cl/saTLeRbixzd5XnGjIsfvpaEIiq2RESr6kPYe0Cdh62+mVl0BxVb3eEHMmpvZeFdq+6C
-	H0ge0sDfjLMHHcF7t0YcuC2osRS0yhzGOw/HoupNYP2+6i9nxdZayfCne8GglwvEzUNTvg
-	MRjBP/NLNXyw+XYCGtJsBsYUn8TdVzAynGznF/HyL/4edq16WpZERk8JicYC5g==
+	bh=sRwuyM3KB9pVS5pi5uzPWsr88LNSKO5QvEKxVsYBojg=;
+	b=D5YsaLZHrmgAQIQVkaWNAmZ8KqgfCx3R/Hrv6r+1uDta3TlZ2gT+7g6NxLSZUzKo4rI20H
+	UOFEypirf42od5JaOvHb6qOljsp4Z016iZlbun6EsIwDoN96CeM8CTIm2DSjCcdcXUhs03
+	xpnw7VEj9skynJiN1EOdRuxdP09850MC6LxAJqLPZVgSGK7Nav6wshOG9npEROrdo+ETB/
+	cHiFo0wmjcFbP49qjsQfqqUQf6mtXqGN5Zl16D5T+qTVFVaYZvH+q2Hx6B03B6nTy8W6vF
+	g+2gUhy/ixxdu8CwuyGCbqasVc5qMT4RpLZXBz4F9/rUKsfUGogGI4t2XYHJ6g==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: joern@lazybastard.org, richard@nod.at, vigneshr@ti.com, 
- linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Pei Xiao <xiaopei01@kylinos.cn>
-Cc: syzbot+b320a4d5f65a61dbbf89@syzkaller.appspotmail.com, 
- =?utf-8?q?J=C3=B6rn_Engel?= <joern@barelysecure.org>, 
- stable@vger.kernel.org
-In-Reply-To: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
-References: <25ec7ba58facdf29b42ca43dcf11cd98e2089a5f.1786589041.git.xiaopei01@kylinos.cn>
-Subject: Re: [PATCH v3] mtd: block2mtd: Fix divide error when erase_size is
- zero
-Message-Id: <178854346368.1467647.15981574582759186211.b4-ty@bootlin.com>
-Date: Fri, 04 Sep 2026 19:37:43 +0200
+To: Richard Weinberger <richard@nod.at>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Peter Pan <peterpandong@micron.com>, 
+ Boris Brezillon <bbrezillon@kernel.org>, han.xu@oss.nxp.com
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Han Xu <han.xu@nxp.com>, stable@vger.kernel.org
+In-Reply-To: <20260813-spinand_qe-v2-1-376193ac7b1a@nxp.com>
+References: <20260813-spinand_qe-v2-1-376193ac7b1a@nxp.com>
+Subject: Re: [PATCH v2] mtd: spinand: Enable QE on all dies
+Message-Id: <178854347108.1467647.2799589444007410894.b4-ty@bootlin.com>
+Date: Fri, 04 Sep 2026 19:37:51 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,20 +55,22 @@ Content-Transfer-Encoding: 8bit
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 13 Aug 2026 10:48:12 +0800, Pei Xiao wrote:
-> The erase size is parsed from the "block2mtd" module parameter and can
-> be set to zero. add_device() then evaluates
+On Thu, 13 Aug 2026 08:07:24 -0500, han.xu@oss.nxp.com wrote:
+> The QUAD ENABLE (QE) bit is stored in a per-die configuration
+> register on some SPI-NAND devices. When a device contains multiple
+> dies, updating the QE bit only on the currently selected die can
+> leave the remaining dies operating in non-quad mode.
 > 
->         if (size % erase_size)
-> 
-> with a zero divisor, which triggers a divide error:
+> Iterate over all targets and update the QE setting on each die
+> during initialization to ensure consistent quad I/O operation
+> across the entire device.
 > 
 > [...]
 
 Applied to mtd/fixes, thanks!
 
-[1/1] mtd: block2mtd: Fix divide error when erase_size is zero
-      commit: b5965c4221165045e19736794ca5f48ae3d67142
+[1/1] mtd: spinand: Enable QE on all dies
+      commit: 63d6cace2c4a7f36c1cb44f1bb5e0f3ef19e5c7f
 
 Patche(s) should be available on mtd/linux.git and will be
 part of the next PR (provided that no robot complains by then).
