@@ -1,75 +1,44 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94233AE198
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 05:21:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA373D6664;
+	Fri,  4 Sep 2026 05:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788499269; cv=none; b=pLh6e6l3y94u27uV48pO6i0i6Z+EJXraDtT8Xwh6yinIwsTXBb3ehrQ176OFyTbm+SPjNnokoPoUKm7ZgHRZ+kp7Wye/ssd10i/RGVm2VKNLJrsv0OD3qKvEap6TgSZnyVBaPYVzi3r4McZa+R8/uiyiOzFu0r1lkyiaibkUvtw=
+	t=1788499269; cv=none; b=DZVN4w4DC3xcmMGtcz/0WnavuHrRHUgMPOHD3SBB1DFIKnrAmcbik8Xgob6zgqKmTl2lSsbE5vSCITXt2WwRQ+w691HpepcZobK9zHeonmPpISRcfILY6v86xdB4bc0muACw7SuDGKxGdtkuZDWuPIyLA7vxfGmohk2nb1j49VQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788499269; c=relaxed/simple;
-	bh=bw8idzDqY+WuTnwVqKBc9dwfUNPmvKtLIFb9sTimgSA=;
+	bh=3qX0aGIyR+nSYq7NtW/OFtS/XoGrkDo7GLgbuZFwtpg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=igK3T8X1fHKJwPxgQY0M9cQ+B0DKjyPd45Uv2cIZQnZvjmGsEWejFcDscMJno50gy9gdsXwoLyVsgzAswoLZUxpkZPxorEFNXXNeh9IwT/DI2hc1Su8OZEedlB00GF540TIu6fItCB+SW7ie7Qm60AzDxF6/sdyBKzuIRttl2Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PxIDQzhG; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=dyiQq2soDO77TrGNHGQB/PtxGo9oe7DlmKbltf6y4rYnEZjVy95rNThCZrGJf7k0FMj8WprYo11ALlJu//pcUF+nq7pirWX4/ZSBy5UFvUqPnQO7vOOxFAyEuhLUZ4HOsogmdbNAT1q74stANWuT2AD8six8O4FiCD6n00zLgS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0B4Qog4B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PxIDQzhG"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84830c774a0so644636b3a.1
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 22:21:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788499267; x=1789104067; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L3EHpehCxZtLURNDjp+bNAgtij9Wvbx1WGmSA+OoVmA=;
-        b=PxIDQzhGuCpsWXTmqIy5eaGJ0mPUpO5bOljjhiL4aWs1lXqNnZt/MMY+amBPDxzMbm
-         zYCm3XnU6l8Obhdp3NjsZYmPiqQhaKfZtF5yJMnPkqNf2k5qkseHZcrs5F5/AMQXeDXW
-         nP5hIpqTQcHXM1r1+tOL0q5b38hbVVpVofGDy91+OHhU24XI81gFiR4h2VpYWo4RBn1Z
-         cVG25Pa19QF3lsXbSy24yIAEhFZOZHY3ixgR+WKzgcfKYpahRLbQPNj4AzVphwLrY5O3
-         P0z+sPYW+7RYkZm5CNg0mA2Gn13DD49OGlOGd+O6q4XIok0jjf70H3xgdtU068XFnYkl
-         /IaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788499267; x=1789104067;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L3EHpehCxZtLURNDjp+bNAgtij9Wvbx1WGmSA+OoVmA=;
-        b=Tn6tyDT9edaIWaXiO68W4fqCrDAF33PI+e5rwjzPiwwmalWN9BHn3ZMYlMgeIQ21aw
-         2iaQsOkTmcve2GLmSiUAOWhL7b7AHl+WKM1/qt4ivlpsw+rrapIer01lD5qFMi03idjN
-         amyWraeP2jecdhT54SgAwY/NdTRE6sDkyQ4jK6iMOe8JLRftbx92sLjpUSaZ6kqh9QJ/
-         IwLL2kEAXT6e49gZNFliHBAnbs/O/7MKVU9LgqCZXs/zPsAcDNwOvbI13KTnQYTYzdSg
-         W+7kVJ2tVmPH5u3iseiF31nV5/O0eOqvWsgy6txHWQXz0DhiF+ksYCNbfA9HJdM2Ky4V
-         K0gA==
-X-Gm-Message-State: AFuF++krvkrKSngMUs0lZdGt6Gr+Vzoj8pKBejkTZLXWJr3ZO9T3Kb61
-	1O7nVSmz4gSDfls/IRaYJCCBI8oG3kkF9KrbHK/gAq9bt8iWbHWZpmZ2vvERmA==
-X-Gm-Gg: AYBFou1LJ/tI0fHA+Naq2BVF7uYTLAuDFwrFtjBs68K62FsBNLwJau9YLeHPAH++4fU
-	D709n48qKVU/vov6PigCnTgYG5JCIH6KjoBMG0x7OJGgq6V9UWZRX5TndZLYGzvwkvXFnf88MVH
-	zl+BADvyuEYjOyZkhnhr2GB+t+azhPPtaunCX/xTOX7F9yh66Me7YVWH5N3qRmbHE9Wgn1coj+W
-	407YCotfZ+1QrP/CSJYeU8H64tP3DwFwplEorlxPFfKw9ywxmi0VFm2CMKiEaLEginmgo9l7LEN
-	+gzTLSf+igaxY80y8R5NnAqw3b2t3pJK8eMcqh42Sz96yOImOmtvA++sT1dhb7CjUTutRM40e2j
-	IWgqCsTZGdw7AicnBY9pC0YbNZ/WFn61Oowz8q5llt75Mss089nfQ7xnfBsDvbp5pqLSvcv+jrE
-	NB5D+2QGgZs4KqaVwwsDSDHfjB1KzNzAljxdrNQR0oGQd/tQXUezrFD5XIbNAvBAy78HfT/2NmG
-	Y31MgHeo3QmvK4txPqQZTN1nRxaKYdKqXciGGgMZf6RFWryIAeZ43CO9YU0xYjkd8N6IrWNb9FV
-	g1SeFPobwQRP1OetDbVM9xVIBQzAYbpMQh9IDO0mlR/MXIKmX+J8mpPkumHj91K4I2GMDqx1sD4
-	tKQpnMHCerevpLXYrL72V61vzGMCWDcomTQUWsQo92zPpX8/N
-X-Received: by 2002:a05:6a20:4388:b0:3da:1e2f:3be9 with SMTP id adf61e73a8af0-3da3a0b0070mr5812163637.22.1788499267061;
-        Thu, 03 Sep 2026 22:21:07 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45515436asm443322a12.3.2026.09.03.22.21.04
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 03 Sep 2026 22:21:06 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0B4Qog4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E77FC1F00ACA;
+	Fri,  4 Sep 2026 05:21:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788499267;
+	bh=fsaMh9YBRKySe32l8zDT4SHlYpBanVmFYoy+zbJtmwM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=0B4Qog4BzE36cX0jkgMccAumjY5+EyLJfGQ/7gB3X2nNkxGZSwbyDz0fg2ESaMrwL
+	 3tj0U2MThVjJmKPjHHQLamIOr44NeMKtCAk8jBxEDTwEoaMpROkG5rDv3EV87IA/T0
+	 sd2Isgz+ViPQ8an5tUrJP3T18RQD7Vnp9HcEWHKA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>
-Subject: [PATCH 6.6.y] wifi: mt76: mt7996: validate default EEPROM firmware size
-Date: Fri,  4 Sep 2026 11:06:00 +0545
-Message-ID: <20260904052100.15696-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <2026090432-semester-ambiguity-70b2@gregkh>
-References: <2026090432-semester-ambiguity-70b2@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Zwerschke <cito@online.de>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Subject: [PATCH 7.2 314/713] Bluetooth: btusb: Add ASUS USB-BT540 for Realtek 8761CU
+Date: Fri,  4 Sep 2026 06:54:42 +0200
+Message-ID: <20260904045810.872012956@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+References: <20260904045803.810145556@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,41 +47,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The default EEPROM firmware is parsed and copied as a full EEPROM
-without checking its length. A truncated file can make the driver
-read beyond the firmware buffer during variant validation or the
-fallback copy.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Reject files shorter than MT7996_EEPROM_SIZE before parsing or
-copying the firmware.
+------------------
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+From: Christoph Zwerschke <cito@online.de>
+
+commit 980084de4d9b25193398d89a1c0430ba3501b683 upstream.
+
+Add the vendor/product ID (0x0b05, 0x1bef) to the usb_device_id table for
+the Realtek RTL8761CU-based ASUS USB-BT540 adapter. It binds via the
+generic Bluetooth class today, so BTUSB_REALTEK is never set and the
+rtl8761cu firmware is not loaded, leaving the controller non-functional.
+With the entry the driver loads rtl_bt/rtl8761cu_fw.bin (already shipped by
+linux-firmware) and the adapter works (tested: A2DP and ASHA).
+
+Similar to commit bc597f0cc44f
+("Bluetooth: btusb: Add TP-Link UB600 for Realtek 8761BUV").
+
+Device info from /sys/kernel/debug/usb/devices:
+
+T:  Bus=01 Lev=01 Prnt=01 Port=01 Cnt=01 Dev#= 22 Spd=12   MxCh= 0
+D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=0b05 ProdID=1bef Rev= 2.00
+S:  Manufacturer=Realtek
+S:  Product=Bluetooth Controller
+C:* #Ifs= 2 Cfg#= 1 Atr=e0 MxPwr=100mA
+I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
+E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Link: https://patch.msgid.link/20260713115412.67095-1-acharyalaxman8848@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-(cherry picked from commit 653c6e289b13cc6942f3e8f8e3c568e70fa42d1f)
+Signed-off-by: Christoph Zwerschke <cito@online.de>
+Reviewed-by: Paul Menzel <pmenzel@molgen.mpg.de>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/bluetooth/btusb.c |    4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-index 544b6c6f1..8cc1d7ae4 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-@@ -43,6 +43,12 @@ mt7996_eeprom_load_default(struct mt7996_dev *dev)
- 		goto out;
- 	}
+--- a/drivers/bluetooth/btusb.c
++++ b/drivers/bluetooth/btusb.c
+@@ -850,6 +850,10 @@ static const struct usb_device_id quirks
+ 	{ USB_DEVICE(0x37ad, 0x0600), .driver_info = BTUSB_REALTEK |
+ 						     BTUSB_WIDEBAND_SPEECH },
  
-+	if (fw->size < MT7996_EEPROM_SIZE) {
-+		dev_err(dev->mt76.dev, "Invalid default bin size\n");
-+		ret = -EINVAL;
-+		goto out;
-+	}
++	/* Additional Realtek 8761CU Bluetooth devices */
++	{ USB_DEVICE(0x0b05, 0x1bef), .driver_info = BTUSB_REALTEK |
++						     BTUSB_WIDEBAND_SPEECH },
 +
- 	memcpy(eeprom, fw->data, MT7996_EEPROM_SIZE);
- 	dev->flash_mode = true;
- 
--- 
-2.51.2
+ 	/* Additional Realtek 8821AE Bluetooth devices */
+ 	{ USB_DEVICE(0x0b05, 0x17dc), .driver_info = BTUSB_REALTEK },
+ 	{ USB_DEVICE(0x13d3, 0x3414), .driver_info = BTUSB_REALTEK },
+
 
