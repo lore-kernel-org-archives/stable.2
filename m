@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C93452BE31
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB96D47126A
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553957; cv=none; b=BsVdvKjqsvFmuBITLSK7R16tlGC4sgjpMtmEPSHGksgmV4Gq7kv56/nmhfzXx03OD4ZXzlIg9UiShrLYEvSvkjBmbXXSQJq3GjBi0vWdka8KSt+N6PH5GauosArhqxl+ZdGFpcv6/wKvSx9oG96uYhzT8BkywkF0yRwbAroeqyY=
+	t=1788553960; cv=none; b=GYiBc66ejUYWsjxHStySMEtYsyLpuLttUADxTR+wiW36tP1ErTPd7sBMAQi41pSwSWgJA0bwiZQN0GynGelfvmFV3DhF+iDThohxD+H7cy+nu95oOCtqw4Hj+DD4CH7+zuSNchdCxLkBKXSngwajEJ370eQfAprW/2r/7cIKR2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553957; c=relaxed/simple;
-	bh=MlnvCM/m3ubmuERZ+5fVcmH4xLynaGMJmzQlGt/osus=;
+	s=arc-20240116; t=1788553960; c=relaxed/simple;
+	bh=pFFhZOKx+NMIiXBu9N7zgAIkYctbhKt+oP7CP1hmLRM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L8cQxKyR84n9UjG/90cTlf5K3fvYC0YLuFfpUSJQSIiNgxh5DUZq1voDB/Bjs53+X1gUA/U16ghlGyFEDiz+Nb3/5fXJf4ukQR+aTJpSHFY94LwwjBmZipCSW5DbO/JYz8fTj24piJNCpKrF9v4lmkpUVvm8cwGkeDFo3p6aHdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bP0rKb7q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EDCwMYcFdLGIVqQrjm4Gn17H1LowvUexCDHovOkVBPRpHDWGOnUAY2Er3ZS/vw1GDxAN+vUI+WOS0EeKki771gcut2QnEI8miZAEpELXTZqOWOzyq3dV65ok9ewNCh0WFCtPhL+XzYvmA6BTjXgMDpHbXBykUBTXSsrBcpCbsyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVtSEpDu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bP0rKb7q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 978551F0155C;
-	Fri,  4 Sep 2026 20:32:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVtSEpDu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F6651F0155A;
+	Fri,  4 Sep 2026 20:32:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553949;
-	bh=gVHsaUioZgQJvVi4NTJnbdbNS4snvauMWcHHul2CJEw=;
+	s=k20260515; t=1788553937;
+	bh=aeKv02Z7kIOlNYI+m3tGIzZpzKsyXnxNiLyJ7ggENuM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bP0rKb7qeVs3KkNeohlEw1tgYYpbWsRWnlaq3cuxtdDrKhqtz34uSLaSpj8m+Rzl8
-	 QMw2kgDGdLZ4ybLlUeFVCtdM9zyazwmxLGoyVoOxUd80RDnASbevb51ZsSyEAvD+qb
-	 yrVYg1w2tWKvOOoya2A0X7giDo+ny2KGR7ApRAtHUX6VGorIzNFpsvOIhnqy4xCb4x
-	 lB+ZfHiLXmTTqvaQTTVJap1rDLvLHstYx1ImcCgP2X7FPq46YPiwQVqFW5qaMsmy6N
-	 lnXGWxNVFU6OY4zrywUoDgAn4XQkCXr5WrTjzzQ5yJjOnDbODJpTkc8x0pyb73IhFe
-	 Cy3kfxoH4ouMw==
+	b=KVtSEpDuaC0FbWwwmRT4I5xrZ60hPlBbG5bYfuJmc2vDFyFhJ+XuNmbaI60vwBXGw
+	 ACDFMpNHFbV9ty2ch79ImmgzLmsbXwU7nn58pZlRAbnUMvVINTIWFZbDEZ8/QyirSE
+	 +SHWcvA06MLfe7bU9Djksndi50PCSdvCbDbQLWZOa8n5NJOV/zmmdD19nO3Zxx9Imp
+	 4W9d/YgTXBtfVwubuy7ADRGDeAkB2K+kVeBlJfVgle1stnRolLubyx/x9LwGLab9H/
+	 szW4H8ArXrbkuQv8MPUcYyNxG2qxODixixXKJ0x6k7gGq2zQUXgY3RjO7of4F7ZRER
+	 C7FHkPY+wQ5gw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
+Cc: Yuwen Chen <ywen.chen@foxmail.com>,
 	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Brian Geffon <bgeffon@google.com>,
 	Minchan Kim <minchan@kernel.org>,
+	Richard Chang <richardycc@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 9/9] zsmalloc: account for handle size in class lookup
-Date: Fri,  4 Sep 2026 16:32:17 -0400
-Message-ID: <20260904203217.1548415-9-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/5] zram: fix the issue that the write - back limits might overflow
+Date: Fri,  4 Sep 2026 16:32:10 -0400
+Message-ID: <20260904203211.1547892-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904203217.1548415-1-sashal@kernel.org>
-References: <2026090349-deniable-copilot-d36a@gregkh>
- <20260904203217.1548415-1-sashal@kernel.org>
+In-Reply-To: <20260904203211.1547892-1-sashal@kernel.org>
+References: <2026090323-dreamboat-stable-993d@gregkh>
+ <20260904203211.1547892-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,78 +50,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Yuwen Chen <ywen.chen@foxmail.com>
 
-[ Upstream commit f7bf5cd5b5f2b13fe2361860880c4e214c08b440 ]
+[ Upstream commit 04d31610a7221cca624646241b1f6b3edd6c99fd ]
 
-zs_lookup_class_index() lets zram recompression decide whether a newly
-compressed object would use a smaller size class.  It currently classifies
-the payload size directly, while zs_malloc() adds ZS_HANDLE_SIZE before
-selecting the class.
+When the page size exceeds 4KB, if bd_wb_limit is set to a value that is
+not aligned with the page size, it will cause a numerical wrap-around
+issue for bd_wb_limit.  For example, when the page size is set to 16KB and
+bd_wb_limit is set to 3, after one write-back operation, the value of
+bd_wb_limit will become -1.  More seriously, since bd_wb_limit is an
+unsigned number, its value may become as large as 2^64 - 1.
 
-This makes lookup disagree with allocation near size-class boundaries.
-With 4 KiB pages, CONFIG_ZSMALLOC_CHAIN_SIZE=8, and 64-bit handles, a
-1025-to-1024-byte recompression appears to move from class 64 to class 62
-although both allocations use class 64.  Conversely, a 1049-to-1025-byte
-recompression appears to stay in class 64 although the allocations move
-from class 65 to class 64.
+The core reason for this problem is that the unit of bd_wb_limit is 4KB.
+For example, when a write-back occurs on a system with a page size of
+16KB, 4 needs to be subtracted from bd_wb_limit.  This operation takes
+place in the zram_account_writeback_submit function.
 
-As a result, zram can accept replacements with no allocation benefit or
-reject ones that would save memory, potentially marking the object
-incompressible.
+This patch fixes the issue by limiting bd_wb_limit to be an integer
+multiple of PAGE_SIZE / 4096.
 
-Factor size-class selection into lookup_size_class(), account for the
-handle there, and use the helper for both lookup and allocation.
-
-Link: https://lore.kernel.org/20260809115518.3791787-1-xialonglong2025@163.com
-Fixes: 7c2af309abd2 ("zram: add size class equals check into recompression")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Link: https://lkml.kernel.org/r/tencent_5936CFE72BAB2BA76887BB69DCC1B5E67C05@qq.com
+Fixes: 1d69a3f8ae77 ("zram: idle writeback fixes and cleanup")
+Signed-off-by: Yuwen Chen <ywen.chen@foxmail.com>
+Acked-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Brian Geffon <bgeffon@google.com>
 Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
+Cc: Richard Chang <richardycc@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: dde75313eed0 ("zram: set default primary compressor in zram_destroy_comps()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/zsmalloc.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/block/zram/zram_drv.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index b63864f5fa398..dde7162701f2a 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -498,6 +498,11 @@ static int get_size_class_index(int size)
- 	return min_t(int, ZS_SIZE_CLASSES - 1, idx);
- }
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 29c6ca1586630..2e26f40e70f34 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -544,6 +544,16 @@ static ssize_t writeback_limit_store(struct device *dev,
+ 	if (kstrtoull(buf, 10, &val))
+ 		return ret;
  
-+static struct size_class *lookup_size_class(struct zs_pool *pool, size_t size)
-+{
-+	return pool->size_class[get_size_class_index(size + ZS_HANDLE_SIZE)];
-+}
++	/*
++	 * When the page size is greater than 4KB, if bd_wb_limit is set to
++	 * a value that is not page - size aligned, it will cause value
++	 * wrapping. For example, when the page size is set to 16KB and
++	 * bd_wb_limit is set to 3, a single write - back operation will
++	 * cause bd_wb_limit to become -1. Even more terrifying is that
++	 * bd_wb_limit is an unsigned number.
++	 */
++	val = rounddown(val, PAGE_SIZE / 4096);
 +
- static inline void class_stat_add(struct size_class *class, int type,
- 				  unsigned long cnt)
- {
-@@ -1140,7 +1145,7 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size)
- {
- 	struct size_class *class;
- 
--	class = pool->size_class[get_size_class_index(size)];
-+	class = lookup_size_class(pool, size);
- 
- 	return class->index;
- }
-@@ -1349,9 +1354,7 @@ unsigned long zs_malloc(struct zs_pool *pool, size_t size, gfp_t gfp)
- 	if (!handle)
- 		return (unsigned long)ERR_PTR(-ENOMEM);
- 
--	/* extra space in chunk to keep the handle */
--	size += ZS_HANDLE_SIZE;
--	class = pool->size_class[get_size_class_index(size)];
-+	class = lookup_size_class(pool, size);
- 
- 	/* class->lock effectively protects the zpage migration */
- 	spin_lock(&class->lock);
+ 	down_write(&zram->init_lock);
+ 	zram->bd_wb_limit = val;
+ 	up_write(&zram->init_lock);
 -- 
 2.53.0
 
