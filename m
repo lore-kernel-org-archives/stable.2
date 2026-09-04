@@ -1,51 +1,97 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBDB237F75D;
-	Fri,  4 Sep 2026 02:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBB837105A
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 03:02:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490549; cv=none; b=gSk988m6/l44X6Lw7y652qPggg9NnG5wtWRQar1MTWyA5gAhEHrEqC0dg0KyXEPlSrhJABtNU906cc1XkopPXjgXKZmb5R68TR0WaUsTNVrQXb8xo0Y0+0iWMzJ1mB3pxT4wkbZ50x4dWSbIZvo4QLgDUiDNCUjgUAivIT8Iwkw=
+	t=1788490963; cv=none; b=Nb6L6Ul3bgY1YX6CiIFlIobKtrCY5S3U7M20BoTljuQF7Sr+undz3uQ6h51+ArKYYSQc580DHRGEsR6hJdI2R8mKSpRPXpWxn+Q6/Zl1Yp46LmjY+8j7u5zNrJjCJ5idQW28JobMtDOJImwwXWVD+2DvTdIcWIUHIPg+ge31618=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490549; c=relaxed/simple;
-	bh=ayJK+HZz42MN9d+6Jv+414RKqVEQUF61wxmTPGFP8GY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XWzSEVnpzoI3TYb0Jh7tA/iyOMSO6mq9BX0D7ciLMlQC29xGpxDHDDij5PvfFXd5lYY6MrQxj2ytkmtfQXji/HmsJ4WVLFwJLv1KbBLSS9Bxit7kwqHiD5+JzmJhbzkAR9wKStUKf69BaZgge4Cp5Td2KAs7MoWwjGxAXa5TzkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=nKuAQAEJ; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788490963; c=relaxed/simple;
+	bh=akeob6XfXs7SdIi114MOz8ha4JoM56LNE4TXs7JTldE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Qg3CIsSfCrPgOEmmdxikQr/FgSKQK7/UUg40Kv1Q4ML5f+I6UeHPU2l+9X1mWi3bFYhjZFTqH4zRcw4QdHhRYtCf6C7Ert7bGL6+fPggrvWuQaJvyAG+Yd8CdfohMkZkdXltmO7hLEXccT4vS9yW4tIlIBH3D5AvBXSkSllHT3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gTxcTPqN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="nKuAQAEJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788490506;
-	bh=vNJNcmINo8z0o+qLjxXN5uDfE3solxvp/+KUbiVp1HA=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=nKuAQAEJyn+2r7UCBrrL5k18wbNX2FpTlxduV2yv7jm0HR2ENEZLmG60sfE1yexlv
-	 2JB07XSeQc8nH2Fn7DLVAZHYtK/swfs4cl4Xf5q3w91hY4f4ptedxNJkMYIJ43E2oV
-	 oxUF/lOM8qWlcI+R42hCocArvDmkLydh/+BPBXVo=
-X-QQ-mid: zesmtpgz9t1788490501t82984c02
-X-QQ-Originating-IP: PNHvcRxiT/yvDV9slVVTV8ms5SAzjho/q2+6CCMqSBw=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 04 Sep 2026 10:54:59 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6873530075859553180
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: brgl@kernel.org
-Cc: marcel@holtmann.org,
-	luiz.dentz@gmail.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
-Date: Fri,  4 Sep 2026 10:54:57 +0800
-Message-ID: <049D60B81C44FFA9+20260904025457.3523467-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gTxcTPqN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9FF1F00A3D;
+	Fri,  4 Sep 2026 03:02:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788490960;
+	bh=SjajfVbJxTsJ7O5RlHjlZWOkwqnv6R+r1a/8wD1QmfI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gTxcTPqNocd0tN7/nikWB1RTpPKFekkLGnGpw9XFyq8s9PZU8W2ZEFMZOI3lu2wwc
+	 dJ7QrXbatcUy53VyGIGQV8yXpYbOWgA9dCtwVG2NPkZFMBSRNIyDlq0ljAYLkV/gyP
+	 4QcSHTIAGl84m+O7lduk5Z3VqvhmKKX56VtFK6+aXwLLbmXeG7vRdgFeSs/IXOeAR3
+	 89I6pnR+THykZfB+ywhYdMvFBEUFyABY26GczN1uLkyPRGxqWLwRYF0jsfzJ0GcGev
+	 vcmjymTguiVCWLgAuJ0XFk38OxCE8BskhEG8LBZlq7Cdv+UpzXN5vR229RMn7iJiT+
+	 qpXQZLYQUL66w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan He <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>,
+	Byungchul Park <byungchul@sk.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Gregory Price <gourry@gourry.net>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jan Kara <jack@suse.cz>,
+	Jann Horn <jannh@google.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Leon Romanovsky <leon@kernel.org>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Mathew Brost <matthew.brost@intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Nico Pache <npache@redhat.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Peter Xu <peterx@redhat.com>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	SeongJae Park <sj@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Wei Xu <weixugc@google.com>,
+	xu xin <xu.xin16@zte.com.cn>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] mm: avoid unnecessary use of is_swap_pmd()
+Date: Thu,  3 Sep 2026 23:02:32 -0400
+Message-ID: <20260904030233.2306854-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090358-glandular-hardiness-9af2@gregkh>
+References: <2026090358-glandular-hardiness-9af2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,95 +99,513 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MkYdL7H1i+/EVbNJ6Qni/ZIs8lgbVIiHQXwwvHBwUKHO7w37/NEyKaWr
-	80Ofl+3lMHBHFEoJTUJGGieNj+X5ZTjLN8JZ6L5sBkMkpLc+JCBihfm20yJIS2x/91B3ZYI
-	wQOhR5SYhwu1PSqSe6Xa3odJS4wj5YIf5hvhzdqPH43v7dk8A+/pf4bXL9dIl90J2wXgNWO
-	zYMG2ljDHxx3LjdAOH2GBV022ccQ7PnLXWajmWcoEZXtfvMN058liuHy8jxnd/5yMuIflfy
-	XLvyO7WMmGHK/AAbd/lF9E1p14QrmmhNWYdGpYxD+9EtpImQjnmmcQrjK6Tm6OLgsM4dGUC
-	3EC9HESzSfL1DqtQfCQzgrh7lzpmEHM7/gk7+Q7uGohaaAt8AkRa01F7J5eAOigMcE7Pa2c
-	oLvr+J17bfSMfQuFE4KA4gJeWScO0GT+OmvXtTuiQudQx0Ge37xVMOX3mCaqOb5LKYnkyHf
-	xWKnQnqvHTkNeHyzlqie59+p5Z71f+IQ/Qp3G+hvt/WyLmVA8nSNpKQ8HGTfuoiO/h6Su7l
-	uZAgKDo3GBkEBmZEtOvopzzKgewKbAv/xlFCM8Y6sfPt94H+Ga3QspADTHUGpniLOMxT8f3
-	X3e0BAVxu3oHbfkwdZOlDexa0+qfEVgYwaod5m9PjnsuNL6C5i58zo8zb7QfcdWZLn/nrlk
-	bf5gVwJqeW1CQAszuDC+HMl+RIL1OA032dM4DcBSH5bz/WMdF2LiNO1IHWeuxSwVEQ6nVhB
-	lmNPKG4csuINhNYqf9B5AXYwk/UxpHkIvIEom/HvjICBMbIMc96l0k4I590HQedZtF/I6rG
-	SM2ak18xgvVO2Q7kwqnjLG51p3Tqm+9uC7+W5mrgmg38zEsGUQuWngcZFpgcgY0wCFI1yuP
-	hJCUQcx5VBGsC8uAmFbrfuGguSKeWohQTWLiAao1nPyEDYMThmvFlxFY9fmUgNcsaKUZ1/9
-	YlpoUuFi2kMfh3k/GfFGfyQXfbkd5dxaoMPfaSuPvXU+kAiGyB56uZWonkNwf0urNV6s5Pi
-	Nn1Rjh7hTlEUkA+9KUurQjoH+rY5ly6wfwyFzJkYubxv7Mzk5w91x8IeUROKYHCkkgYjDM3
-	n5LjdblA7Zh
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-The command and ACL RPMsg endpoints store struct btqcomsmd as their
-callback private data. The receive callbacks dereference btq->hdev
-without taking an hci_dev reference.
+[ Upstream commit aa62204cb680d8ff32497181fc9e0dac4956f7e5 ]
 
-The current teardown order frees the hci_dev before destroying the RPMsg
-endpoints in both the hci_register_dev() error path and the driver remove
-path. If WCNSS delivers data in that window, the endpoint callback can
-run with an already freed hci_dev and pass it to the Bluetooth core.
+PMD 'non-swap' swap entries are currently used for PMD-level migration
+entries and device private entries.
 
-For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
-the callback under the channel recv_lock. The receive path holds the same
-lock while invoking the callback, so destroying the endpoints first both
-prevents new callbacks and serializes with any callback already running.
+To add to the confusion in this terminology we use is_swap_pmd() in an
+inconsistent way similar to how is_swap_pte() was being used - sometimes
+adopting the convention that !pmd_none(), !pmd_present() implies PMD 'swap'
+entry, sometimes not.
 
-Destroy the command and ACL endpoints before hci_free_dev(). Keep
-hci_unregister_dev() first during remove so the HCI core stops issuing
-operations before the transport endpoints are shut down. In the full
-registration-error cleanup path, return directly after freeing the hci_dev
-to avoid falling through to the partial-construction labels and destroying
-the endpoints twice.
+This patch handles the low-hanging fruit of cases where we can simply
+substitute other predicates for is_swap_pmd().
 
-Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
-Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
-Cc: stable@vger.kernel.org
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+No functional change intended.
+
+Link: https://lkml.kernel.org/r/8a1704b36a009c18032d5bea4cb68e71448fbbe5.1762812360.git.lorenzo.stoakes@oracle.com
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Heiko Carstens <hca@linux.ibm.com>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Jann Horn <jannh@google.com>
+Cc: Janosch Frank <frankja@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Mathew Brost <matthew.brost@intel.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: SeongJae Park <sj@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: Wei Xu <weixugc@google.com>
+Cc: xu xin <xu.xin16@zte.com.cn>
+Cc: Yuanchu Xie <yuanchu@google.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 9be12ffa78cd ("mm/rmap: use huge_ptep_get() in try_to_migrate_one()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
-- Add Acked-by from Bartosz Golaszewski and Reviewed-by from Dmitry
-  Baryshkov.
-- Resend as requested by Luiz Augusto von Dentz.
+ fs/proc/task_mmu.c       |  15 ++++-
+ include/linux/mm_types.h |   3 +
+ include/linux/swapops.h  |  12 +++-
+ mm/huge_memory.c         |   4 +-
+ mm/memory.c              |  49 ++++++++-------
+ mm/page_table_check.c    |  12 ++--
+ mm/rmap.c                | 126 ++++++++++++++++-----------------------
+ 7 files changed, 117 insertions(+), 104 deletions(-)
 
-Link: https://lore.kernel.org/linux-bluetooth/0CB2D8D715AB9933%2B20260713072543.3348755-1-raoxu@uniontech.com/
-
- drivers/bluetooth/btqcomsmd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
-index d2e13fcb6bab..d669ea4eb3eb 100644
---- a/drivers/bluetooth/btqcomsmd.c
-+++ b/drivers/bluetooth/btqcomsmd.c
-@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 44dc442b4f0e7..cfcf0daa1e626 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -860,10 +860,12 @@ static void smaps_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	bool present = false;
+ 	struct folio *folio;
  
- hci_free_dev:
-+	rpmsg_destroy_ept(btq->cmd_channel);
-+	rpmsg_destroy_ept(btq->acl_channel);
- 	hci_free_dev(hdev);
-+	return ret;
- destroy_cmd_channel:
- 	rpmsg_destroy_ept(btq->cmd_channel);
- destroy_acl_channel:
-@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
- 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
++	if (pmd_none(*pmd))
++		return;
+ 	if (pmd_present(*pmd)) {
+ 		page = vm_normal_page_pmd(vma, addr, *pmd);
+ 		present = true;
+-	} else if (unlikely(thp_migration_supported() && is_swap_pmd(*pmd))) {
++	} else if (unlikely(thp_migration_supported())) {
+ 		swp_entry_t entry = pmd_to_swp_entry(*pmd);
  
- 	hci_unregister_dev(btq->hdev);
--	hci_free_dev(btq->hdev);
+ 		if (is_pfn_swap_entry(entry))
+@@ -1786,6 +1788,9 @@ static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
+ 		if (vma->vm_flags & VM_SOFTDIRTY)
+ 			flags |= PM_SOFT_DIRTY;
  
- 	rpmsg_destroy_ept(btq->cmd_channel);
- 	rpmsg_destroy_ept(btq->acl_channel);
++		if (pmd_none(pmd))
++			goto populate_pagemap;
 +
-+	hci_free_dev(btq->hdev);
+ 		if (pmd_present(pmd)) {
+ 			page = pmd_page(pmd);
+ 
+@@ -1798,7 +1803,7 @@ static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
+ 				frame = pmd_pfn(pmd) + idx;
+ 		}
+ #ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+-		else if (is_swap_pmd(pmd)) {
++		else {
+ 			swp_entry_t entry = pmd_to_swp_entry(pmd);
+ 			unsigned long offset;
+ 
+@@ -1826,6 +1831,7 @@ static int pagemap_pmd_range(pmd_t *pmdp, unsigned long addr, unsigned long end,
+ 				flags |= PM_FILE;
+ 		}
+ 
++populate_pagemap:
+ 		for (; addr != end; addr += PAGE_SIZE, idx++) {
+ 			u64 cur_flags = flags;
+ 			pagemap_entry_t pme;
+@@ -2172,6 +2178,9 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
+ {
+ 	unsigned long categories = PAGE_IS_HUGE;
+ 
++	if (pmd_none(pmd))
++		return categories;
++
+ 	if (pmd_present(pmd)) {
+ 		struct page *page;
+ 
+@@ -2189,7 +2198,7 @@ static unsigned long pagemap_thp_category(struct pagemap_scan_private *p,
+ 			categories |= PAGE_IS_PFNZERO;
+ 		if (pmd_soft_dirty(pmd))
+ 			categories |= PAGE_IS_SOFT_DIRTY;
+-	} else if (is_swap_pmd(pmd)) {
++	} else {
+ 		swp_entry_t swp;
+ 
+ 		categories |= PAGE_IS_SWAPPED;
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 2113f7da182c6..ca4e4a1c2d0b9 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -283,6 +283,9 @@ typedef struct {
+ 	unsigned long val;
+ } swp_entry_t;
+ 
++/* Transitional name used by newer MM fixes. */
++typedef swp_entry_t softleaf_t;
++
+ /**
+  * struct folio - Represents a contiguous set of bytes.
+  * @flags: Identical to the page flags.
+diff --git a/include/linux/swapops.h b/include/linux/swapops.h
+index d988ce9516510..d06bda5be5768 100644
+--- a/include/linux/swapops.h
++++ b/include/linux/swapops.h
+@@ -139,6 +139,10 @@ static inline swp_entry_t pte_to_swp_entry(pte_t pte)
+ 	return swp_entry(__swp_type(arch_entry), __swp_offset(arch_entry));
  }
  
- static const struct of_device_id btqcomsmd_of_match[] = {
++/* Transitional softleaf spellings for the equivalent swap entry helpers. */
++#define softleaf_from_pte(pte) pte_to_swp_entry(pte)
++#define softleaf_to_pfn(entry) swp_offset_pfn(entry)
++
+ /*
+  * Convert the arch-independent representation of a swp_entry_t into the
+  * arch-dependent pte representation.
+@@ -569,7 +573,13 @@ static inline pmd_t swp_entry_to_pmd(swp_entry_t entry)
+ 
+ static inline int is_pmd_migration_entry(pmd_t pmd)
+ {
+-	return is_swap_pmd(pmd) && is_migration_entry(pmd_to_swp_entry(pmd));
++	swp_entry_t entry;
++
++	if (pmd_present(pmd))
++		return 0;
++
++	entry = pmd_to_swp_entry(pmd);
++	return is_migration_entry(entry);
+ }
+ #else  /* CONFIG_ARCH_ENABLE_THP_MIGRATION */
+ static inline int set_pmd_migration_entry(struct page_vma_mapped_walk *pvmw,
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 29cbe43b60a4f..6fc4e1fb88ae6 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2149,9 +2149,11 @@ static pmd_t move_soft_dirty_pmd(pmd_t pmd)
+ 
+ static pmd_t clear_uffd_wp_pmd(pmd_t pmd)
+ {
++	if (pmd_none(pmd))
++		return pmd;
+ 	if (pmd_present(pmd))
+ 		pmd = pmd_clear_uffd_wp(pmd);
+-	else if (is_swap_pmd(pmd))
++	else
+ 		pmd = pmd_swp_clear_uffd_wp(pmd);
+ 
+ 	return pmd;
+diff --git a/mm/memory.c b/mm/memory.c
+index 359de59c39b1a..c493f18cfb3ab 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5901,34 +5901,39 @@ static vm_fault_t __handle_mm_fault(struct vm_area_struct *vma,
+ 	    thp_vma_allowable_order(vma, vm_flags,
+ 				TVA_IN_PF | TVA_ENFORCE_SYSFS, PMD_ORDER)) {
+ 		ret = create_huge_pmd(&vmf);
+-		if (!(ret & VM_FAULT_FALLBACK))
++		if (ret & VM_FAULT_FALLBACK)
++			goto fallback;
++		else
+ 			return ret;
+-	} else {
+-		vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
++	}
+ 
+-		if (unlikely(is_swap_pmd(vmf.orig_pmd))) {
+-			VM_BUG_ON(thp_migration_supported() &&
+-					  !is_pmd_migration_entry(vmf.orig_pmd));
+-			if (is_pmd_migration_entry(vmf.orig_pmd))
+-				pmd_migration_entry_wait(mm, vmf.pmd);
+-			return 0;
+-		}
+-		if (pmd_trans_huge(vmf.orig_pmd) || pmd_devmap(vmf.orig_pmd)) {
+-			if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
+-				return do_huge_pmd_numa_page(&vmf);
++	vmf.orig_pmd = pmdp_get_lockless(vmf.pmd);
++	if (pmd_none(vmf.orig_pmd))
++		goto fallback;
+ 
+-			if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
+-			    !pmd_write(vmf.orig_pmd)) {
+-				ret = wp_huge_pmd(&vmf);
+-				if (!(ret & VM_FAULT_FALLBACK))
+-					return ret;
+-			} else {
+-				huge_pmd_set_accessed(&vmf);
+-				return 0;
+-			}
++	if (unlikely(!pmd_present(vmf.orig_pmd))) {
++		VM_BUG_ON(thp_migration_supported() &&
++				  !is_pmd_migration_entry(vmf.orig_pmd));
++		if (is_pmd_migration_entry(vmf.orig_pmd))
++			pmd_migration_entry_wait(mm, vmf.pmd);
++		return 0;
++	}
++	if (pmd_trans_huge(vmf.orig_pmd) || pmd_devmap(vmf.orig_pmd)) {
++		if (pmd_protnone(vmf.orig_pmd) && vma_is_accessible(vma))
++			return do_huge_pmd_numa_page(&vmf);
++
++		if ((flags & (FAULT_FLAG_WRITE|FAULT_FLAG_UNSHARE)) &&
++		    !pmd_write(vmf.orig_pmd)) {
++			ret = wp_huge_pmd(&vmf);
++			if (!(ret & VM_FAULT_FALLBACK))
++				return ret;
++		} else {
++			huge_pmd_set_accessed(&vmf);
++			return 0;
+ 		}
+ 	}
+ 
++fallback:
+ 	return handle_pte_fault(&vmf);
+ }
+ 
+diff --git a/mm/page_table_check.c b/mm/page_table_check.c
+index 509c6ef8de400..ee52927e9e66b 100644
+--- a/mm/page_table_check.c
++++ b/mm/page_table_check.c
+@@ -228,10 +228,14 @@ EXPORT_SYMBOL(__page_table_check_ptes_set);
+ 
+ static inline void page_table_check_pmd_flags(pmd_t pmd)
+ {
+-	if (pmd_present(pmd) && pmd_uffd_wp(pmd))
+-		WARN_ON_ONCE(pmd_write(pmd));
+-	else if (is_swap_pmd(pmd) && pmd_swp_uffd_wp(pmd))
+-		WARN_ON_ONCE(swap_cached_writable(pmd_to_swp_entry(pmd)));
++	if (pmd_present(pmd)) {
++		if (pmd_uffd_wp(pmd))
++			WARN_ON_ONCE(pmd_write(pmd));
++	} else if (pmd_swp_uffd_wp(pmd)) {
++		swp_entry_t entry = pmd_to_swp_entry(pmd);
++
++		WARN_ON_ONCE(swap_cached_writable(entry));
++	}
+ }
+ 
+ void __page_table_check_pmd_set(struct mm_struct *mm, pmd_t *pmdp, pmd_t pmd)
+diff --git a/mm/rmap.c b/mm/rmap.c
+index ea9c6d540d498..36a2e0eb8be48 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2001,9 +2001,9 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
++	bool anon_exclusive, writable, ret = true;
+ 	pte_t pteval;
+ 	struct page *subpage;
+-	bool anon_exclusive, ret = true;
+ 	struct mmu_notifier_range range;
+ 	enum ttu_flags flags = (enum ttu_flags)(long)arg;
+ 	unsigned long pfn;
+@@ -2070,24 +2070,21 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+ 
+-		pfn = pte_pfn(ptep_get(pvmw.pte));
+-
+-		if (folio_is_zone_device(folio)) {
+-			/*
+-			 * Our PTE is a non-present device exclusive entry and
+-			 * calculating the subpage as for the common case would
+-			 * result in an invalid pointer.
+-			 *
+-			 * Since only PAGE_SIZE pages can currently be
+-			 * migrated, just set it to page. This will need to be
+-			 * changed when hugepage migrations to device private
+-			 * memory are supported.
+-			 */
+-			VM_BUG_ON_FOLIO(folio_nr_pages(folio) > 1, folio);
+-			subpage = &folio->page;
++		/*
++		 * Handle PFN swap PTEs, such as device-exclusive ones, that
++		 * actually map pages.
++		 */
++		pteval = ptep_get(pvmw.pte);
++		if (likely(pte_present(pteval))) {
++			pfn = pte_pfn(pteval);
+ 		} else {
+-			subpage = folio_page(folio, pfn - folio_pfn(folio));
++			const softleaf_t entry = softleaf_from_pte(pteval);
++
++			pfn = softleaf_to_pfn(entry);
++			VM_WARN_ON_FOLIO(folio_test_hugetlb(folio), folio);
+ 		}
++
++		subpage = folio_page(folio, pfn - folio_pfn(folio));
+ 		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
+@@ -2141,7 +2138,10 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			}
+ 			/* Nuke the hugetlb page table entry */
+ 			pteval = huge_ptep_clear_flush(vma, address, pvmw.pte);
+-		} else {
++			if (pte_dirty(pteval))
++				folio_mark_dirty(folio);
++			writable = pte_write(pteval);
++		} else if (likely(pte_present(pteval))) {
+ 			flush_cache_page(vma, address, pfn);
+ 			/* Nuke the page table entry. */
+ 			if (should_defer_flush(mm, flags)) {
+@@ -2159,54 +2159,23 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			} else {
+ 				pteval = ptep_clear_flush(vma, address, pvmw.pte);
+ 			}
++			if (pte_dirty(pteval))
++				folio_mark_dirty(folio);
++			writable = pte_write(pteval);
++		} else {
++			pte_clear(mm, address, pvmw.pte);
++			writable = is_writable_device_private_entry(pte_to_swp_entry(pteval));
+ 		}
+ 
+-		/* Set the dirty flag on the folio now the pte is gone. */
+-		if (pte_dirty(pteval))
+-			folio_mark_dirty(folio);
++		VM_WARN_ON_FOLIO(writable && folio_test_anon(folio) &&
++				!anon_exclusive, folio);
+ 
+ 		/* Update high watermark before we lower rss */
+ 		update_hiwater_rss(mm);
+ 
+-		if (folio_is_device_private(folio)) {
+-			unsigned long pfn = folio_pfn(folio);
+-			swp_entry_t entry;
+-			pte_t swp_pte;
+-
+-			if (anon_exclusive)
+-				WARN_ON_ONCE(folio_try_share_anon_rmap_pte(folio,
+-									   subpage));
+-
+-			/*
+-			 * Store the pfn of the page in a special migration
+-			 * pte. do_swap_page() will wait until the migration
+-			 * pte is removed and then restart fault handling.
+-			 */
+-			entry = pte_to_swp_entry(pteval);
+-			if (is_writable_device_private_entry(entry))
+-				entry = make_writable_migration_entry(pfn);
+-			else if (anon_exclusive)
+-				entry = make_readable_exclusive_migration_entry(pfn);
+-			else
+-				entry = make_readable_migration_entry(pfn);
+-			swp_pte = swp_entry_to_pte(entry);
++		if (PageHWPoison(subpage)) {
++			VM_WARN_ON_FOLIO(folio_is_device_private(folio), folio);
+ 
+-			/*
+-			 * pteval maps a zone device page and is therefore
+-			 * a swap pte.
+-			 */
+-			if (pte_swp_soft_dirty(pteval))
+-				swp_pte = pte_swp_mksoft_dirty(swp_pte);
+-			if (pte_swp_uffd_wp(pteval))
+-				swp_pte = pte_swp_mkuffd_wp(swp_pte);
+-			set_pte_at(mm, pvmw.address, pvmw.pte, swp_pte);
+-			trace_set_migration_pte(pvmw.address, pte_val(swp_pte),
+-						folio_order(folio));
+-			/*
+-			 * No need to invalidate here it will synchronize on
+-			 * against the special swap migration pte.
+-			 */
+-		} else if (PageHWPoison(subpage)) {
+ 			pteval = swp_entry_to_pte(make_hwpoison_entry(subpage));
+ 			if (folio_test_hugetlb(folio)) {
+ 				hugetlb_count_sub(folio_nr_pages(folio), mm);
+@@ -2216,8 +2185,8 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 				dec_mm_counter(mm, mm_counter(folio));
+ 				set_pte_at(mm, address, pvmw.pte, pteval);
+ 			}
+-
+-		} else if (pte_unused(pteval) && !userfaultfd_armed(vma)) {
++		} else if (likely(pte_present(pteval)) && pte_unused(pteval) &&
++			   !userfaultfd_armed(vma)) {
+ 			/*
+ 			 * The guest indicated that the page content is of no
+ 			 * interest anymore. Simply discard the pte, vmscan
+@@ -2233,6 +2202,11 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			swp_entry_t entry;
+ 			pte_t swp_pte;
+ 
++			/*
++			 * arch_unmap_one() is expected to be a NOP on
++			 * architectures where we could have PFN swap PTEs,
++			 * so we'll not check/care.
++			 */
+ 			if (arch_unmap_one(mm, vma, address, pteval) < 0) {
+ 				if (folio_test_hugetlb(folio))
+ 					set_huge_pte_at(mm, address, pvmw.pte,
+@@ -2243,8 +2217,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 				page_vma_mapped_walk_done(&pvmw);
+ 				break;
+ 			}
+-			VM_BUG_ON_PAGE(pte_write(pteval) && folio_test_anon(folio) &&
+-				       !anon_exclusive, subpage);
+ 
+ 			/* See folio_try_share_anon_rmap_pte(): clear PTE first. */
+ 			if (folio_test_hugetlb(folio)) {
+@@ -2269,7 +2241,7 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			 * pte. do_swap_page() will wait until the migration
+ 			 * pte is removed and then restart fault handling.
+ 			 */
+-			if (pte_write(pteval))
++			if (writable)
+ 				entry = make_writable_migration_entry(
+ 							page_to_pfn(subpage));
+ 			else if (anon_exclusive)
+@@ -2278,15 +2250,23 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 			else
+ 				entry = make_readable_migration_entry(
+ 							page_to_pfn(subpage));
+-			if (pte_young(pteval))
+-				entry = make_migration_entry_young(entry);
+-			if (pte_dirty(pteval))
+-				entry = make_migration_entry_dirty(entry);
+-			swp_pte = swp_entry_to_pte(entry);
+-			if (pte_soft_dirty(pteval))
+-				swp_pte = pte_swp_mksoft_dirty(swp_pte);
+-			if (pte_uffd_wp(pteval))
+-				swp_pte = pte_swp_mkuffd_wp(swp_pte);
++			if (likely(pte_present(pteval))) {
++				if (pte_young(pteval))
++					entry = make_migration_entry_young(entry);
++				if (pte_dirty(pteval))
++					entry = make_migration_entry_dirty(entry);
++				swp_pte = swp_entry_to_pte(entry);
++				if (pte_soft_dirty(pteval))
++					swp_pte = pte_swp_mksoft_dirty(swp_pte);
++				if (pte_uffd_wp(pteval))
++					swp_pte = pte_swp_mkuffd_wp(swp_pte);
++			} else {
++				swp_pte = swp_entry_to_pte(entry);
++				if (pte_swp_soft_dirty(pteval))
++					swp_pte = pte_swp_mksoft_dirty(swp_pte);
++				if (pte_swp_uffd_wp(pteval))
++					swp_pte = pte_swp_mkuffd_wp(swp_pte);
++			}
+ 			if (folio_test_hugetlb(folio))
+ 				set_huge_pte_at(mm, address, pvmw.pte, swp_pte,
+ 						hsz);
 -- 
-2.50.1
+2.53.0
+
