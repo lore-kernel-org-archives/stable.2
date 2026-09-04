@@ -1,35 +1,44 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B8442589A;
-	Fri,  4 Sep 2026 06:19:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81728425CC6;
+	Fri,  4 Sep 2026 06:19:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502793; cv=none; b=t5eLN83/jgQ0giShepOwZR7zelmAiEGaV1Ibp4dia2GU+cbsNJ3Sg3057lDWzHXlvjA4R09yeENqc7dxIwllBb0Ccqre/XIurZge8Es/hTAkUNJr5ZqJBlZdXjcfZBPzlabMU+V/P7FUGnXijGRy95kwQjB+fWEkzBZO9aMoTGU=
+	t=1788502794; cv=none; b=aHJ56sKogCjjVHHfg9O+DqMp0aDz3iADD5NLtfBSPpHV5UHNjwK4ZX7MQHX+9rnOvZJQ+mRgCgrAeobsm9t0n7If+CTCoqbuc1nCYmc+DHx9OmXWETfvWrGjzzpwyP+UfC0kKrnPosWIdH4SPDf8zVswKcQBuTm6E+htKTnqPGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502793; c=relaxed/simple;
-	bh=pY8eaE5vNrrmMYQDkPv8itR2+AiEIdrHKNYTuPq0Dww=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nyomPU8NwriDDBUbFT4atNUg+WIoCCTTRVvPoOdmkdX6ZSLVbPbbtE2k6obUrWg7veXBL/SRVEhvXK1bbVM/HuLXWRn7LFANQdVUVZ+1fbuC5MRdF53cyYgK8gA6hBSQ/RiYfLDBK3WkyDvPWZ7TgRfSHngdmy6VbV/1Zh8t/as=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=hrGQc5xR; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788502794; c=relaxed/simple;
+	bh=sJc8/oySmjSO3qvmzR3M6gdo51crxVqny52oET0H/3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=K2tLWcBZYJqfuqr+FCvTGqtCDZnFm3td0D+pgqvbwGAxOMDtlyrMxvBgtaXCUbEFdIYLriqW4ofCLCvtJVFlkdwuxW1EpT9AmS73tyMLnvWQWIJWUDSQC3fxqkbJIJJVy3gm/yc/hC5dKa4L6RuUlDL1rmuJG1cunfYYeiVY1Y0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gi6PLjwN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hrGQc5xR"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c858fe13;
-	Fri, 4 Sep 2026 14:19:45 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Tien Sung Ang <tiensung.ang@altera.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>
-Cc: Ley Foon Tan <lftan@altera.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] mailbox: altera: shut down RX polling timer on channel teardown
-Date: Fri,  4 Sep 2026 14:19:39 +0800
-Message-Id: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gi6PLjwN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D461F00A3E;
+	Fri,  4 Sep 2026 06:19:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788502793;
+	bh=hjekiOiqkgLRgHUXLTyNc+bv6fJW/Dyb2127U99Ft/k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gi6PLjwN+7q1/qVb9nfWuOwPtrF0h6eVdpOcVRehbt2SzIm9dCQbEwKQhrvqamn3N
+	 HWDzZfoqzXD/atJFyOnyUFr87ze8C97SYXzbDYNn4K27Z9uFJ5xrx/Eqe3gnyXZAVl
+	 KCirAJ+UT6FNMpZS41QdoZA6gqi4OL+VeH7SeX7M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Alexandra Winter <wintera@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Bryam Vargas <hexlabsecurity@proton.me>
+Subject: [PATCH 6.12 333/403] net/iucv: filter frames in afiucv_hs_rcv() by ingress device
+Date: Fri,  4 Sep 2026 07:02:16 +0200
+Message-ID: <20260904045742.396369763@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
+References: <20260904045734.806166532@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,45 +46,84 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06b12bf3403a1kunm3777d3672b1a7
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkhLVhoYHklDH0JISUNDSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=hrGQc5xRMhDJ1Yrq5VDo/yIChdDtyY7QRNMvHh2n2dir0IkaXQiYop57vZBfFH/K1NtE/Ia/5EmEwWQ2v+l+Km1xTOqr1ONg2Cht+H0ufVFEuUPKfcl+ItVvQMmU2Jp+SeYcvqofyrjjogRTlPfZJ87SfQMFPJZc6lLcoh/Ynlw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=bUMd/QSqPH6ZTZ1nOBmDQQy6dXi2Rqoi8xDUyta1Hew=;
-	h=date:mime-version:subject:message-id:from;
 
-The RX polling callback unconditionally rearms the timer after it
-processes mailbox data.  altera_mbox_shutdown() uses
-timer_delete_sync(), which waits for a running callback but does not
-prevent that callback from rearming the timer after the deletion.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Use timer_shutdown_sync() for the final polling teardown so the timer
-cannot be queued again while the mailbox channel is being released.
-The timer is reinitialized with timer_setup() on a later channel startup,
-so polling mode remains reusable.
+------------------
 
-Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
+From: Alexandra Winter <wintera@linux.ibm.com>
+
+commit 80230a18c164a4b5bbc048fe2768b219ac17bc5a upstream.
+
+afiucv_hs_rcv() selects a socket from iucv_sk_list by matching four 8-byte
+name fields in the transport header alone. No check is made against the
+net_device the frame arrived on.
+
+This can cause a frame arriving on any netdev to be delivered to an AF_IUCV
+socket. Three problems follow.
+
+First, a frame arriving over HiperSockets can be delivered to a socket
+bound to the classic z/VM IUCV transport, which has iucv->hs_dev == NULL.
+iucv_sock_bind() takes the classic path whenever the requested userid
+matches iucv_userid, even on a guest that also has a HiperSockets device
+carrying the same identifier. The child socket created by
+afiucv_hs_callback_syn() for such a match inherits hs_dev = NULL and
+transport = AF_IUCV_TRANS_HIPER, so the first send() on it returns -ENODEV.
+The socket delivered to accept() is unusable.
+
+Second, a frame arriving on one netdev can be delivered to a socket bound
+to a different IQD device. Which can lead to
+- Accept-queue exhaustion (DoS)
+- Attacker-controlled peer identity in the child socket
+- Data injection into existing sockets
+- Fabric noise on the IQD fabric, where bogus replies are sent
+- killing established connections
+
+Third, all AF_IUCV sockets live in init_net, as iucv_sock_alloc() calls
+sk_alloc(&init_net, ...). But even frames arriving on netdev devices in a
+namespace can be delivered to an IUCV socket. So a process in an
+unprivileged user and network namespace holding only the CAP_NET_RAW
+capability valid within that namespace can send a raw ETH_P_AF_IUCV frame
+on its own lo device and have it matched against init_net sockets.
+
+Fix all three by skipping any socket whose hs_dev does not match the
+ingress device. A classic z/VM IUCV socket has hs_dev == NULL; the ingress
+dev is never NULL, so classic sockets are skipped automatically. An unbound
+HIPER socket also has hs_dev == NULL and is skipped. A bound HIPER socket
+is only reachable from the exact IQD device it was bound to. Because hs_dev
+is always a device in init_net (iucv_sock_bind() scans
+for_each_netdev_rcu(&init_net, ...) exclusively), a frame whose ingress
+device belongs to another namespace never matches any socket.
+
+Note that AF_IUCV over HiperSockets provides no per-connection
+authentication: no sequence numbers, no TLS, no nonce. The four name fields
+identifying a connection are exchanged in plaintext on the shared
+HiperSockets segment (VCHID). Any host on the same HiperSockets segment
+could spoof any frame type against an existing connection. That is a
+protocol-level property unchanged by this patch. The fix reduces the attack
+surface to peers present on the same HiperSockets segment.
+
+Fixes: 3881ac441f64 ("af_iucv: add HiperSockets transport")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Co-developed-by: Bryam Vargas <hexlabsecurity@proton.me>
+Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
+Link: https://patch.msgid.link/20260821125501.3718748-1-wintera@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ net/iucv/af_iucv.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
-index 17278c257..7cb91413e 100644
---- a/drivers/mailbox/mailbox-altera.c
-+++ b/drivers/mailbox/mailbox-altera.c
-@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
- 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
- 		free_irq(mbox->irq, chan);
- 	} else if (!mbox->is_sender) {
--		timer_delete_sync(&mbox->rxpoll_timer);
-+		timer_shutdown_sync(&mbox->rxpoll_timer);
- 	}
- }
- 
--- 
-2.34.1
+--- a/net/iucv/af_iucv.c
++++ b/net/iucv/af_iucv.c
+@@ -2078,6 +2078,8 @@ static int afiucv_hs_rcv(struct sk_buff
+ 	sk = NULL;
+ 	read_lock(&iucv_sk_list.lock);
+ 	sk_for_each(sk, &iucv_sk_list.head) {
++		if (iucv_sk(sk)->hs_dev != dev)
++			continue;
+ 		if (trans_hdr->flags == AF_IUCV_FLAG_SYN) {
+ 			if ((!memcmp(&iucv_sk(sk)->src_name,
+ 				     trans_hdr->destAppName, 8)) &&
+
 
