@@ -1,118 +1,97 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE943DDB11
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 07:54:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508443; cv=pass; b=EFea2cfrPUXxG3ilCFjKSYHzJ2bjkOfO+V/OR2BiFAP+cWbP4dd7qGf1WSzOWRH+zvcSaO3jlK2o4y/IfXxjsno+vS4jyD8Z3BsxgqDJWYUDFTV0KISwRaZMpSOojFsGfTbhPpEkBav1oektdg7t1Ix1DWmwj7o4NR58oXkorEM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508443; c=relaxed/simple;
-	bh=wcvjg+AYhNTqXh7GWpJ5CTmwV5GIrw6stmgUibgREwI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Lv9nQ1JhA7cOxN49gioZ3BIKyzafn3KG7nwdXtUywRVzViZYWdtw4BqXmKjWkbmlsW4v3XBTDfyhJMJ9r3MvEAMpXZRWBkcBstpSQcq79W7W3sWdP+HA8eg5CHTDPx/3iHRQ1JNBhJTXXeqO/75Jw/t6a8NRSuYbfVMxkK9YoE4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O5Ha0LCa; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A492E3DB62B
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 07:57:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788508627; cv=none; b=V1N9oQtNguimamXHk3xgNIVeMDPo+/lgSeh+LEGSrCI/fiV28SndKf8KZPNCa1hqT7NYhYL/cZSvZosF8Qaam/CBvCN2i4GWrvOWRg/bwuCszfC4eHlgpbDJLD5+qlKmjkmjxSPHClEPzj2TAxNARNdHDdZXr7gDoJnnEoUnaI8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788508627; c=relaxed/simple;
+	bh=aVDnSf0y+hMXWr8hLybg6AD3WaQCpewMz60QImDAXo4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jS2Do0YvfBe9FwPp6BZFmn9jx+u/qAiQGSwZeJYvegET5FrvUVRZFoVeiySycCgiTJxhX/42RpojY32pNLKlRdFVBWTxShT5P3TpdWaFX1OKVV0arZ1Q+G/TX/OT03JyJAaNzadRkbtSrAv+gKWdSXph7yxQQeJgpBdTLg/hxEo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=amfyVfZy; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O5Ha0LCa"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0d3105cso77696e87.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 00:54:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788508440; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Khxc6ZOZf4gc24uNqzBgWvyJ0WrYgBLwqi6WlKbqRmnPjTyi7DhthP/irPT7sy3wxx
-         KHyYKVA7E27zUwGI5sv+8uqOyCv8ayUXL34PLNiA347hEjOZfmXB/1r/EyAwKoMIJv6N
-         Aeb98bFvKXGabsBtwW6PWNWtpNlnSOcsQlQr6/DostnyTY4r0pzSeURP18iOGpGO7Bqk
-         1JSAirWXPG4DKI0ToTFN9YnFW3c5Mvf6/7oJD//CkDilZ7MZsPCoCP5NVKgZpD7Rz7JP
-         C0padaqTAO7VIKurS61LWt0Vl5D84ZMVZ4Js8b2ga3hs7kj2CXrdkRNvhLUNeDYG1JOV
-         Cvlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=owvm6o4N7RgrNbsjjtTXPv1xxL39SmJXwndV799foiA=;
-        fh=vfI1A2KEFG2cW53/qz1WVieGYpNuGEycv3J46V1F/GU=;
-        b=heCciJ9Xbws0kI82l5rOkJKrbiAiXe+XqDYE5IFQ862KgGgOA5dUsQMm1IQTa48bhm
-         EVUutjxptu8i7epHVomyWQteRCsezu9VqJpPTNd/wkyT6ua1wDc2NHH3Co/knrvU071h
-         n+MmtF4bM6s+ycUkaRdYPh/+QfKaMs3osJh5z472vnZgJhwsj/9G7jpeb/bXWDh66WPC
-         nwybxS0Pa/9bAQ+KBi3axQX/SqNWcjt7VBgEPNsASnbfSsYIojgM8o3gYfYIV3Gx7Q6N
-         HwjFdczXyOsijvusSDvhpvQcMR/whH42Z3cspnCIfeMpgZXbQFhEClhpM3fKl5tFydxT
-         MAcA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="amfyVfZy"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d590f4c291so1768335ad.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 00:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788508440; x=1789113240; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=owvm6o4N7RgrNbsjjtTXPv1xxL39SmJXwndV799foiA=;
-        b=O5Ha0LCaibk7BsN2nnHRyBzDMoqbeVXj5KTG3iJa5bLBX1zaE7CCw+7tqynZbCad1C
-         zKk0wGe2lGm9v7jlCPvKyWM7DIbuJ1lWAfC07Q73g05JniSSHS2XEqh3addsSD/ILEK4
-         e0LNEJ0jiwUU8cOl64RzGGsQni7ST0veQEpKsSbA70F+vL7l2CckfG2epzWIcVATwYjx
-         8/EFEfd+k0fEhbeiqJJ/QsnK15T78IuYMNTypbfI36ymH+jULsqyiBHiDHX6qNKrHoPC
-         jwc+xryBwpXHFzhXMtKiBbqmvcDQQTMvlQPnL9vTOOvVYdVZa/KILsRPvvQnAnNp/tqF
-         I60Q==
+        d=gmail.com; s=20251104; t=1788508626; x=1789113426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jWQHmm7FHocENum1rYYpf4ViVc4iq1jYrch0jAvV5fM=;
+        b=amfyVfZy/wGOpn8p40yB65QgXV0kAEAn1iPbjWRERHkGEpYVPRxeCzWM4ceL2UbDvN
+         K6Y8zgW5xLn1sDMI/GtAgKFT18bTmtutXjL5B48CagAeGpc7qpcUgCgjiPduFAeFTPeU
+         hP8cg0kxrDVAOri6YXGGl+aYJoAVRC0OJHlKY+x1i9+wlSM52tORn56n0Ojl7olu135f
+         jtzzRN/3HrVfPR99HbfbGl0+l4EVDLvwEvt0YgNovz+pXufqqyxxH6Tubt8EmRD+X1MY
+         IvJA7pyFkVJFMkN4di5aPOR7s7yHxMkIOV6nzuU8WFu9z8/8HIZQJTdPHQbB4vYzhZIC
+         6tLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788508440; x=1789113240;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=owvm6o4N7RgrNbsjjtTXPv1xxL39SmJXwndV799foiA=;
-        b=s9olL8Fo4ZnTEq0LqwIovpref/MmfeuYj7iFT/zqUnEzeI0iHPhaBxEOVOrODbGwdU
-         zhtAUvexXKoD9WgdR3qq4iK5GBul7iF8NPsXsxo9oVqo1f5rPzB3u5a/x+kZW1F/XMN2
-         +JibiaEUOJWdx6Oxs1frQN2xQkOxAgtTFL22tJsYlJjuXMUxr1ya00arXIPsOkliNLM2
-         RrXEwNEzUrCxwX9CeKI1LV6ocU9TR34Zf3cWPaQ1UKp9XBpK8F+5HusM+SolpgGYIHgz
-         iR0mbphDBaKcizf5QJY42MTr9tlUCedd7kYQ4NaurN8NwGqiDzo3d/msDYjkljEQmd/t
-         38WQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwNeRUyhqLjq8yk0zNbrtWs0K26rHtgtKMQjeeu5T7EsFRtoThJkT0dBPgkcfYkVGniW/ey27M=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9xd0F2JcE7W8ZIOcpsBGsB781j4tN8KUI2bhCikxzfXYfO0AU
-	Z0JT3q94zPIX0O1jX9aIPB1Hp4sYmorL0TZGipQTFYsjM/DQpaOf2JwrCse8+RBh8Sm2SsUkQ3x
-	GS7N5tAmiNcFlv1Swnkex4Ddo/94mZrg=
-X-Gm-Gg: AYBFou3UHo2sqy8yV5nSNYDFU9S2vAevwYI9s792LIJCZU3e+Xmyj1Hhr42CicT1xt0
-	JRXU/UBpknsbSqNnJRxYm+LwvKb90wTA8udsj2cQN1N3AbLuYXFKdGWOk9mw6xq5QVkgBtsVfa7
-	gk5e8DT17VeKGRjxNBPxvccFhMtjRRf9HmpUj7phD4pTe3Cd07Yp7BB6A3hgPr7NY8G6Wzgybwt
-	j0Qysfgx8aS8GnI24R3vyEcs1z5yQIwCXEnQtA6PjdvETp+53Ezfulvla5S9EGghuFXQ8Isupg1
-	wRDd6LVxldDM7dPeKxfCPE0ghQD70Suck64OHth+k/o83NTZZvPLZrrrrS2RPx7wiiicTr2wGV8
-	OSlclVAROR117zrIu5/TyXsi0ia+vXhh47vuqdgusJalH1LAeMobRuFmckXPWnLgOmlsM5tc=
-X-Received: by 2002:a05:6512:4027:b0:5b6:4b2:c408 with SMTP id
- 2adb3069b0e04-5b61707fca1mr702903e87.6.1788508439773; Fri, 04 Sep 2026
- 00:53:59 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788508626; x=1789113426;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jWQHmm7FHocENum1rYYpf4ViVc4iq1jYrch0jAvV5fM=;
+        b=UlV33mEr4oix7aOQzKBywdn1oZJwv0mBmgpxfEzlJVuCI1VqDlDmuz5jV1fQ7RGihw
+         rycw2CHQ3mCVsABurSAtVj1R7eOZKzzENaRsP/XcfzK9dODkQV9iL04KIRC3thg6DwRH
+         Ym2GzCOig3cL7Wgjn/Lv0OnmS3aGASrmNdV7qHpcZmxqku5ghsgFq/CzeJuBj8STUHCZ
+         lv0cMeMs0fVrprYY2givhCssyPXT0n3oZ/q/xfzyue+e4+NCROEufnBoe7Muy118Ul39
+         DhkNLoGHDTCbDkf2CmkiH5ghnzu46FssrnXPvkrXYx2GGMkFqUfJYsJfr1sRaj+wlxQC
+         eJcw==
+X-Forwarded-Encrypted: i=1; AKwUvBx58s33H2R5MF7XwvmIR4HP/UMraiNgKjOmfJODh5onZSXWcaHzt2iSmCjTyYAbpI9NJMNL/bs=@vger.kernel.org
+X-Gm-Message-State: AFuF++llFFb8lpEIjWbm3t9cfSHS7d+92MUjrddTpkw9wAtnTChJP/co
+	04nDdc9+D1ngszzox4mY20mSV0cwyWpqkfazQmXL86oinA1ok4V0vAwB
+X-Gm-Gg: AYBFou0G2l97QW2mCfvgrb4KQTAglQVs038XA79VBXinueS5tfChD1Vwyfp+PYk5c3m
+	FXIUj0kC0ZuvlY/5fbyoe7IMcrSu7qNJvOy90+42wPnLh4KcrjI2Be+c1UkAC+7je3WhM6P1coX
+	lQ9onhoo0yWRHUfNTa7dc5We54qSHYgqALNNPAvod3Bm/n6Nh2iZqU13v/bXhsF2b2ypbXln2V+
+	zllp3gTVaQiCLPUQKRORmY/7xwfspoEtZ5tXg6elJ6z9UxUIlCdMYdBJ1CCxsKH5nb9j45mD9Ec
+	alv7JMwe0DY84T1lEDaGvJHco2M9DZNuKqwfo4aM0Z3MxPwSi8tl3DPgfc5RGDNKFYWpSMd6GHX
+	DLEizB3+Q+y/a4FZohS9/jKYEe4j9Jz6L+jVnlcLYV+rg3wPNvXjlxVcMLkwr2/NO0ZnbVCtkKm
+	TXu3Z62+uGyqTDI58L+laL8xCtWS6BsE96bPt9NYr/n5GU3BAB1cOiFPuungyZ7K73PjeISh7FB
+	SVjJvOgYavkbw==
+X-Received: by 2002:a17:90a:ec85:b0:398:bad2:c10 with SMTP id 98e67ed59e1d1-39b26301360mr4300158a91.6.1788508625750;
+        Fri, 04 Sep 2026 00:57:05 -0700 (PDT)
+Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b261549f3sm3139517a91.16.2026.09.04.00.57.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 00:57:05 -0700 (PDT)
+From: Frank Zhang <rmxpzlb@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] rust: rcpufreq_dt: add module alias
+Date: Fri,  4 Sep 2026 15:56:35 +0800
+Message-ID: <20260904075635.14840-1-rmxpzlb@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902150353.23666-1-ojeda@kernel.org>
-In-Reply-To: <20260902150353.23666-1-ojeda@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 4 Sep 2026 09:53:39 +0200
-X-Gm-Features: AcwNN1VBz_mYbTOURWZnSU-eJEinL5edJeBG0q2HqJ5Fc-4KupKLS4ugizaXgSI
-Message-ID: <CANiq72knf0aMUjLzmDFf96RV5yE9PjQSgVQgeUX1LQ8SsU5_Dw@mail.gmail.com>
-Subject: Re: [PATCH] rust: kbuild: add intrinsics to fix Rust 1.100.0 builds
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 5:04=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wrot=
-e:
->
-> I sent a PR to upstream Rust to make the methods simply `#[inline]`
-> instead, and it seems like it will be merged, so we can most likely
-> skip this workaround:
->
->   https://github.com/rust-lang/rust/pull/162191
+Add the missing `platform:cpufreq-dt` module alias so that the driver
+can be automatically loaded when the platform device is registered.
 
-The PR has been merged for Rust 1.100.0, so no patch needed.
+Fixes: 06149d8f2216 ("cpufreq: Add Rust-based cpufreq-dt driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
 
-Cheers,
-Miguel
+diff --git a/drivers/cpufreq/rcpufreq_dt.rs b/drivers/cpufreq/rcpufreq_dt.rs
+index 10106fa13095..32a508d82f68 100644
+--- a/drivers/cpufreq/rcpufreq_dt.rs
++++ b/drivers/cpufreq/rcpufreq_dt.rs
+@@ -219,4 +219,5 @@ fn probe<'bound>(
+     authors: ["Viresh Kumar <viresh.kumar@linaro.org>"],
+     description: "Generic CPUFreq DT driver",
+     license: "GPL v2",
++    alias: ["platform:cpufreq-dt"],
+ }
+-- 
+2.55.0
+
