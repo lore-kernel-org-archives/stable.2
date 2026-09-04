@@ -1,93 +1,101 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE0232ED4E;
-	Fri,  4 Sep 2026 07:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8594052D4;
+	Fri,  4 Sep 2026 07:02:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505234; cv=none; b=aUM1DM1t3tbasoWTTcA+El+CSMjrkSQP1CWHZXjby8PzeLjjGL5eUr9kLkseiygm52WbITNR8wKqwDVyMBfKnODQPpJvGelXX4xK1YQTxM0/EXUjHMc7W/0H3rxS6TwVyhrXKr6j3dyIYiScp6pGaculqkDJw4DtQLyzlGYd04Q=
+	t=1788505380; cv=none; b=HwS+vLgFQz3jLWsSmpd1U+/GyL5KnLFnzqiDwAxuPLi9cKvBEnPLsnqHJJuk7I9GZxkYhgihS5lPhNV2SRTawQeR/g1j5buDsI7qewkfPefgRpKgO0m5d0LVndaZLMyGQ3t8WS5lOMMsrASR+D7G7aKZcqiXUsNkTM0ibpVTXnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505234; c=relaxed/simple;
-	bh=SOJ8QCflRbkW8jpMaQoN3egliz/RPrUaGCkqQ+5BElk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GbpnwqH3MX1p/S0BqbYSV1O0gn8egvhanxBwe7aH8QMYFamXeNDrkFnuwt972vc5MT3II/gSLkH1a51bPjevqVWE3Y0ePgwcaGsh+lZ3qOqEXLsPWikP9lC2UYGBTWAtz4eOn8vGMQ03zLkWecQgtN4kif3qsq0h5qP2s91YZMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WbO+boOa; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788505380; c=relaxed/simple;
+	bh=LDWBVc1y+1fryeW3GilPMmIhntjcCvC5Zt4gLC2u4w4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=rKzbnGGAFOSfZ6JS9gL4GmWyIKonJHYCU6ROFAXcwebux1pmKljQVzTzWn1aGP3OBUH55ogZY0QLMqY6mw1yeBrze9U2lHf/K4R+z7TZqd7k85jNOkkhAGEdyY1XjVdeGEfEOGlUoMFJCLBOOI9J52dMCG1CPpsLAWXKI5OklLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BiEbd8l9; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WbO+boOa"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c86dea68;
-	Fri, 4 Sep 2026 15:00:19 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Kurt Hackel <kurt.hackel@oracle.com>
-Cc: ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] ocfs2: shut down idle timer during socket teardown
-Date: Fri,  4 Sep 2026 15:00:14 +0800
-Message-Id: <20260904070014.4049073-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BiEbd8l9"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbnV64XTpz8tYt;
+	Fri, 04 Sep 2026 09:02:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788505374; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vkTXhSUxZlPterV5lsTm8TrVGWaiq1FzBIugDqMjlws=;
+	b=BiEbd8l92lFlcr7LOcHlM8gA643/Vc9+1R88BCQ7NzVLApWfJAPWQCSWRvFFy281WlhDw0
+	PezwhO4w2JR7tNEQQH7wLJ0xpNY13YGV850R808XXB6pO40xbojMW1Jh0ww70CgKNGs8lh
+	vppiq1JZ+oEiD1LcYM53MrdvvtqC44Pn7ihn+GGfL4EtqliQOErxqEXF1uNwiWVwKF0B/F
+	WjEPHaFa0wQcZSKfF4PtK60sCOedyJUXgI7yYCs41ZSnXP/gqvEGIQYK36fPK8MqTy9YnF
+	avdvHuMEJGM2V3bz6DXJopyh4JfC1x/4kFC+6+DNIkJs4M6qUk0kttMe+oU18g==
+Message-ID: <fcecfac828dc3f338d59125d6f0306534e1e2429.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/sched: Create a fake device for KUnit tests
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+  Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
+ Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
+ <oushixiong@kylinos.cn>, stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 09:02:47 +0200
+In-Reply-To: <20260903121558.782854-1-oushixiong1025@163.com>
+References: <20260903121558.782854-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06b37e1e603a1kunma597ccf12d247
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTUlDVkJNHkkfGhlDSEhJGlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=WbO+boOa7XZEEcM7AncrzXxwxm03MYOM8GNKZ3BOz0v0bCCZc08oORGuR3nlfebO1ClBhLYS2drkm7bqG0fXz9ZoBFtFlnCog6Ei06g+LOgDRPX/eZlEdko6ibLaESfhnAXbi3uElgh8cme37PT99JeHutm3l9m0IEHP5ckz69g=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=ZjSgnYmrCgIxaVCe4AaedaNBdz6nUCnBC2pw0ArPvbk=;
-	h=date:mime-version:subject:message-id:from;
+X-MBO-RS-META: 4djizz5oszf5r9qr1y37yya6k5mi3tz1
+X-MBO-RS-ID: 75dbe8cd375fafa4137
 
-o2net_idle_timer() rearms sc_idle_timeout from its callback. The socket
-shutdown path uses timer_delete_sync(), which waits for a running callback
-but does not prevent the callback from rearming the timer after deletion.
+On Thu, 2026-09-03 at 20:15 +0800, oushixiong1025@163.com wrote:
+>=20
 
-The socket container is released after this path, and sc_kref_release()
-expects the timer to be inactive. Use timer_shutdown_sync() so the timer
-cannot be queued again during teardown.
+[=E2=80=A6]
 
-Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- fs/ocfs2/cluster/tcp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> +
+> =C2=A0#include "sched_tests.h"
+> =C2=A0
+> =C2=A0/*
+> @@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_sc=
+heduler_ops =3D {
+> =C2=A0 */
+> =C2=A0struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, l=
+ong timeout)
+> =C2=A0{
+> +	static unsigned int instance;
 
-diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
-index 474fe1414..cef8cfa2a 100644
---- a/fs/ocfs2/cluster/tcp.c
-+++ b/fs/ocfs2/cluster/tcp.c
-@@ -733,7 +733,7 @@ static void o2net_shutdown_sc(struct work_struct *work)
- 	if (o2net_unregister_callbacks(sc->sc_sock->sk, sc)) {
- 		/* we shouldn't flush as we're in the thread, the
- 		 * races with pending sc work structs are harmless */
--		timer_delete_sync(&sc->sc_idle_timeout);
-+		timer_shutdown_sync(&sc->sc_idle_timeout);
- 		o2net_sc_cancel_delayed_work(sc, &sc->sc_keepalive_work);
- 		sc_put(sc);
- 		kernel_sock_shutdown(sc->sc_sock, SHUT_RDWR);
-@@ -1513,7 +1513,7 @@ static void o2net_sc_send_keep_req(struct work_struct *work)
- 	sc_put(sc);
- }
- 
--/* socket shutdown does a timer_delete_sync against this as it tears down.
-+/* socket shutdown shuts down this timer as it tears down.
-  * we can't start this timer until we've got to the point in sc buildup
-  * where shutdown is going to be involved */
- static void o2net_idle_timer(struct timer_list *t)
--- 
-2.34.1
+I know statics are initialized to 0 automatically, but writing it out
+explicitly is probably advantageous for readability, especially since
+we're incrementing.
 
+> =C2=A0	struct drm_sched_init_args args =3D {
+> =C2=A0		.ops		=3D &drm_mock_scheduler_ops,
+> =C2=A0		.num_rqs	=3D DRM_SCHED_PRIORITY_COUNT,
+> @@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
+t kunit *test, long timeout)
+> =C2=A0		.name		=3D "drm-mock-scheduler",
+> =C2=A0	};
+> =C2=A0	struct drm_mock_scheduler *sched;
+> +	struct device *dev;
+> +	char name[64];
+> =C2=A0	int ret;
+> =C2=A0
+> =C2=A0	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
+> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, sched);
+> =C2=A0
+> +	snprintf(name, sizeof(name), "%s-%u", args.name, ++instance);
+
+Any particular reason why you begin with index 1?
