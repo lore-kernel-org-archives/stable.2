@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1FA4EE872
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:56:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1AC4CC27E
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:58:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537393; cv=none; b=K5kqLGgSj7HhJHcLkNW9b5nmM6GPyh0gj7vSsJWXlDSTlfeXxmfhB344n1gRc+wHiwMnTLPs/EjQdj9PHTFteqk4ehjbi5o7yOseLF2D4zcPmG13udjqUqhGXkKAD7+0D5Ko9FYrtsIJ9t95Zffye/Khc6uhgSYC5bhdS0mCno8=
+	t=1788537530; cv=none; b=uJ5Ive6AI4GfnMfKmBRZnXaHyYlZzM8+P+NNiwBvPsX7VOTmz8EA+ji4fpJHEV839WYgxQtozqf4B8frZVbEVkzBnVC3WuT12bqiRuVKcj655hf9qzRT/wfXLugtg4kGTpeOH0kqhvsMpq1hBU/cCu2Jj69aBG4l+mFGezxKx+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537393; c=relaxed/simple;
-	bh=+kjV75Hdw7xdVw8wNajSXGH9UiBVJnxKgtz4TpScMiE=;
+	s=arc-20240116; t=1788537530; c=relaxed/simple;
+	bh=gNYe8WpJlYxjwHmCGtGWwK/Gotg8voaqjdDyK2fF1Ng=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RPCm5M86CkoULNq1whuS4V+A9RhmsWaiwRpOp4vvTgwg7RJDClWLfAxMlht0/1wjg1m4nAi1RXnBhxqNOoAiBR+KW1mNF3dolfatiLPcOgmgLmwmITDkaRR1CL39OGf+CYev198XpJzK+uVKng0frC7tM0sl+HlgDRXPOIifWMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awKEwnOV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PlG0VcyCEx/NBEYN4OV6uSPwasNbSkm+1KxdcOxNf51O6ojMt6CqtCNKhubfUaPdSmYOF3wcsW9op26+cUWlsIpoKVI23EhZ1p2bybDwb5ClybYfCGjHwidBC3yWUbzfVHX3zpi6gLYnTpP2V08LfzsZqmtWXpbBOm8m2COeE48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X0tDRVCv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awKEwnOV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5F11F00A3D;
-	Fri,  4 Sep 2026 15:56:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X0tDRVCv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 328961F00A3D;
+	Fri,  4 Sep 2026 15:58:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788537386;
-	bh=KJoeSKRDrcJCUaw+U1Olvl5kDK1LdFcv4hqgLeEwxLI=;
+	s=k20260515; t=1788537528;
+	bh=twzyJBbT4/SBfKcOB1N5Li4kkT+xzVRkYiANx/6hABM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=awKEwnOVHe8kPcTaqvD37Fbcn5euUujv64HdKr5RvsziYW8406hhkF/114XkJQ6g4
-	 5Z6AlGILtWpM5k7SB+Wehia638dRbvEG3u2IZpEH0MMktfYtk5nHGR8tXXG0voU5cp
-	 OMLMQ9dJDA6fAbxK7TBEh640lkqsSVvld5+ggsS9+zevbHhVHmlC9/65VFsrlMZ3fj
-	 CM3XIPSv260bT80unLSeVsxV5kYoYZkn8LxKIiK/JepwxtbTXQuFHJOjPeyZMa2W9f
-	 6A/bV87Z2JXElbohMUo6f3TWh+bg/5kIh/IOxiFdcM7SJKE0dwmMTh4sAW1kHQ9xNA
-	 E1MWOMDge2gCw==
+	b=X0tDRVCv1/IsfET/7SGEjlDQtK2HeLXiigQs5mdZH9SEFSsfWlg2lMC+gmqi6YgcG
+	 sQuYiQ3tlroeQrbcnFOwK14JxK2dLrhsvmMVU0KZvvMlTwVgLRKtlCPic0722oO8um
+	 QwQ5CyKuIrzUe65soZeYpINXkReTm9fQiUiBbE7BTouaJJMcB45QdXvwupq6KnY/Ph
+	 j2VrDbVtpyiuT2A29G4Cf9v5VrrJ5uEJIDAJcx9/2xb6ykFKv9cYUQVMSFWY5q9oY+
+	 /8UPqMYl3YEHLNxvkzBshFeZwneBB54JO/1bbRkJj4tFrfQ14rcpQtBcd8eu4EBgDf
+	 FcmuRB+isqBsQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Minchan Kim <minchan@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] zram: fix out-of-bounds access in writeback_store()
-Date: Fri,  4 Sep 2026 11:56:23 -0400
-Message-ID: <20260904155624.1062954-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/7] usb: typec: ucsi: move ucsi_acknowledge() from ucsi_read_error()
+Date: Fri,  4 Sep 2026 11:58:40 -0400
+Message-ID: <20260904155846.1071149-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090304-strategy-zoning-2279@gregkh>
-References: <2026090304-strategy-zoning-2279@gregkh>
+In-Reply-To: <2026090307-cannot-posh-1230@gregkh>
+References: <2026090307-cannot-posh-1230@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,75 +46,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit 894913e2d35c46ff19a77530907771ae57862b96 ]
+[ Upstream commit a7d2fa776976294d39d4cf36b25ca43be8325c3f ]
 
-Patch series "zram: fix stale scan bounds after reinitialization".
+As a preparation for reworking UCSI command handling, move
+ucsi_acknowledge() for the failed command from ucsi_read_error() to
+ucsi_exec_command().
 
-Both writeback_store() and read_block_state() derive their table scan
-bounds from zram->disksize before acquiring dev_lock.  If the device is
-reset and reinitialized with a smaller disksize between that read and lock
-acquisition, the bound can describe the old table while the scan operates
-on the new one.  This can lead to out-of-bounds slot accesses.
-
-Move both bound calculations under dev_lock so each bound remains
-consistent with the table throughout its scan.  Keep the fixes separate
-because the affected interfaces originate from different commits and can
-be backported independently.
-
-This patch (of 2):
-
-writeback_store() calculates the table scan bounds before taking dev_lock.
-A reset followed by reconfiguration with a smaller disksize can therefore
-replace zram->table while writeback_store() is waiting for the lock.  Once
-it acquires the lock, it sees an initialized device but scans the new
-table using the old upper bound, resulting in an out-of-bounds access.
-
-Calculate the number of pages while holding dev_lock so the scan bound
-matches the table protected by the lock.
-
-Link: https://lore.kernel.org/20260804065919.3970386-1-xialonglong2025@163.com
-Link: https://lore.kernel.org/20260804065919.3970386-2-xialonglong2025@163.com
-Fixes: a939888ec38b ("zram: support idle/huge page writeback")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted dev_lock protection to the older init_lock and pp_in_progress locking scheme ]
+Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20240627-ucsi-rework-interface-v4-1-289ddc6874c7@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: eb4573cf2fd8 ("usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/zram/zram_drv.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index f51dd33784291..f9e469cee927f 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -946,8 +946,8 @@ static ssize_t writeback_store(struct device *dev,
- 			       const char *buf, size_t len)
- {
- 	struct zram *zram = dev_to_zram(dev);
--	u64 nr_pages = zram->disksize >> PAGE_SHIFT;
--	unsigned long lo = 0, hi = nr_pages;
-+	u64 nr_pages;
-+	unsigned long lo = 0, hi;
- 	struct zram_pp_ctl *ctl = NULL;
- 	char *args, *param, *val;
- 	ssize_t ret = len;
-@@ -970,6 +970,9 @@ static ssize_t writeback_store(struct device *dev,
- 		goto release_init_lock;
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index b0d5f071664fe..37c6d7d7c46ae 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -70,11 +70,6 @@ static int ucsi_read_error(struct ucsi *ucsi)
+ 	u16 error;
+ 	int ret;
+ 
+-	/* Acknowledge the command that failed */
+-	ret = ucsi_acknowledge(ucsi, false);
+-	if (ret)
+-		return ret;
+-
+ 	ret = ucsi_exec_command(ucsi, UCSI_GET_ERROR_STATUS);
+ 	if (ret < 0)
+ 		return ret;
+@@ -153,13 +148,14 @@ static int ucsi_exec_command(struct ucsi *ucsi, u64 cmd)
  	}
  
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
-+	hi = nr_pages;
+ 	if (cci & UCSI_CCI_ERROR) {
+-		if (cmd == UCSI_GET_ERROR_STATUS) {
+-			ret = ucsi_acknowledge(ucsi, false);
+-			if (ret)
+-				return ret;
++		/* Acknowledge the command that failed */
++		ret = ucsi_acknowledge(ucsi, false);
++		if (ret)
++			return ret;
+ 
++		if (cmd == UCSI_GET_ERROR_STATUS)
+ 			return -EIO;
+-		}
 +
- 	ctl = init_pp_ctl();
- 	if (!ctl) {
- 		ret = -ENOMEM;
+ 		return ucsi_read_error(ucsi);
+ 	}
+ 
 -- 
 2.53.0
 
