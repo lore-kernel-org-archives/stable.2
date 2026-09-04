@@ -1,114 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B230F4A9D4B
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 14:29:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9D8381EB6;
+	Fri,  4 Sep 2026 14:32:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788532183; cv=none; b=bhuTCZRYhRqqPscF5FRnS/R/Qlpu/xMgjbjMwb/HxUbxnlqza8MOSclHsf+oUASQwv485T734kt7/d6b3mygMkc7a56NnogayNBUjJMVXZb4dQcgR1kOZGX3TGpmtKcOwjp+MlDxumEe4dQY/PzsaDrOW5wjJBpfaXnBO+Y3LcI=
+	t=1788532337; cv=none; b=QFp15yWFKgfeEX4U/v31sA1TEgUFst4RKE9GiV+t4tNSB3wCb7AbW9l59SLJ4iQ6Afsbq2D4qcNExvha1Kh4/Gym33/7Spj8wF7no6i3OBRuEItM2cWSK/dzZgOv66/SyKsqpkgq53pHrkyvuFjEILm1IGsEgZ2E3NT70Rumr+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788532183; c=relaxed/simple;
-	bh=JXH6+ThsPYnrXpFrMNIvtXwvciUNvcR52qq63GHuS2E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mvZuRVlJUppTgAhbxY1SOCbtcocG3Td5xXMSDffh3VUPjetpgr5JuiKToZ7JlB5b9x0caePKP3lF33DdP6lZLHp7QqgjiBVK/wKx5WteJqo00EU9T6Z0cy831W2cJS5FJ0MocqT1xREst7pUTrX3aU0gI6EoLvpD4Lv3eZm60kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMrkgboW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788532337; c=relaxed/simple;
+	bh=dqsRKbAh8CMrEc3skpMZ5PokRpgWQyA/3UkUc8pn39U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TOVSGCwwG2CgRSGCc6zDJIdZPxgOrTKgil+D5GRKWgTyJj2Rx5EfMDFYiStP9tU4t2ccwFPW9oskELBHJ/TEiUYCItFfWsqP7tWGcHOh4Rf5cJOYp5dGb2BQ9McnIsJbPoDeHrWd6+CxVc5p0AgSWv8xufm0Mnlhtj9B7IOOZfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmiBxtgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMrkgboW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B77871F00A3E;
-	Fri,  4 Sep 2026 14:29:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmiBxtgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3EDA1F00A3D;
+	Fri,  4 Sep 2026 14:32:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788532182;
-	bh=YD7QdqAjh3xTqu5dJ4IuD81T6B2V2IX/BtFI8Oo0fvw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WMrkgboW7RQ1dHuYXa3TlIrC8IxNtUZ+Yr4NbGS6S3KiUMsdwhwVIfRFc7eTecR8N
-	 1H9THnhb3WGLb4cCWwLqY6prYNH+/33P6D+qd/1vXGdgGW3qOLCBVtImfQl0gtbRiH
-	 cmrUvYEdSap+ihYK18oTnkHHRG5Ma+qJH0ZtwS+Xbf7U4ofDYobAMUyF2WtkosMrvm
-	 AKkCkO2Ej9YNPsCU6spOztUO8TDHCANL+ffQmdqpDyAHEqnJIrjZd2jBhxqjgMQs2Z
-	 /wwtCioV+CHCS1A4JtIO5R/Coy8Rc8KKYp79yO4MTlYQlxFxs7PXbImwYTizJv11BS
-	 u7GLPsrqierZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Neill Kapron <nkapron@google.com>,
-	Xingyu Jin <xingyuj@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] usb: gadget: f_fs: Fix Use-After-Free in AIO error path
-Date: Fri,  4 Sep 2026 10:29:39 -0400
-Message-ID: <20260904142939.798242-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904142939.798242-1-sashal@kernel.org>
-References: <2026090331-width-covenant-cd4e@gregkh>
- <20260904142939.798242-1-sashal@kernel.org>
+	s=k20260515; t=1788532336;
+	bh=d+O012cIavAI0ujYW26k+aWCjKOSb9qbSR86lFvYnd8=;
+	h=From:Date:Subject:To:Cc;
+	b=UmiBxtgR/T5raT7CoumzmJ48BTwWw3sMkg6cNt4bB5zYgVpj5dRAHBqZWRh3v1gCl
+	 rWTq5EdiUBYt19DdfvTfFvSHbkBqZ6rpIjVC+bPRfRetVndmYbleq7zRGCbAGtxVdH
+	 qCEN/TudGyUPlNpBrH7VdxZSCqTsZFhEn5ILb4GtzH3bS1qFIwohbi4xbKMGJwQDbo
+	 LK4kunEQAyBYgEflA8s1va6+nmBdXxNTd5GVH5qyb41UhTPcBYOLHVKoUEBIsSt1di
+	 gS/Y032GIR1ez3J3ymUqgiQxa8yEEYAShWf1A3zo4nM6Ro5QKAosixsAuE+Z0U8BC/
+	 8xSf8IYBs0Bfw==
+From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+Date: Fri, 04 Sep 2026 14:31:38 +0000
+Subject: [PATCH] irqchip/riscv-imsic: Fix MMIO regset lookup loop bound
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-nr_mmios-v1-1-3a19dc74fab8@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAEnWmmoC/yXM7QpAQBCF4VvR/La1FhtuRZKPwShLO0ht7t3i5
+ 1PvOQ4YLSFDETiweBLTajyiMIBuasyIgnpvUFJpmctEGFsvC60sMp1hrPMeVdqCzzeLA13fVVn
+ 95qOdsdvfPdz3A1ncUOVsAAAA
+X-Change-ID: 20260904-nr_mmios-868e369de25b
+To: Anup Patel <anup@brainfault.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>
+Cc: Anup Patel <apatel@ventanamicro.com>, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ "GUO Ren (XuanTie)" <guoren@kernel.org>
+X-Mailer: b4 0.16.0
 
-From: Neill Kapron <nkapron@google.com>
+The nr_mmios is the number of entries in the MMIO resource array, while
+j is the index used to iterate over the array. Testing nr_mmios directly
+makes the loop condition permanently true whenever at least one MMIO
+region exists.
 
-[ Upstream commit e78dcb1f7ec271449c54984dc90c62a5ba272de7 ]
+So, change
+  for (j = 0; nr_mmios; j++) {
+to
+  for (j = 0; j < nr_mmios; j++) {
 
-In ffs_epfile_write_iter() and ffs_epfile_read_iter(), when ffs_epfile_io()
-fails with an error other than -EIOCBQUEUED, the io_data structure (`p`) is
-freed. However, for AIO operations, the kiocb cancel function was already
-armed and kiocb->private was set to `p`.
-
-If a concurrent cancel operation (such as sys_io_cancel()) executes after
-ffs_epfile_io() fails but before the function frees `p`, a Use-After-Free
-can occur when the cancellation handler accesses the freed pointer.
-
-To securely fix this race condition, we must properly un-arm the
-cancellation. Invoking `kiocb->ki_complete()` does exactly this by
-acquiring `ctx->ctx_lock` and safely removing the kiocb from the active
-sequence. In doing so, it ensures that a parallel io_cancel can no longer
-discover the kiocb, effectively closing the race window.
-
-We then return -EIOCBQUEUED to notify the VFS layer that the kiocb has been
-consumed and it should avoid attempting to complete the request again or
-triggering subsequent completion handlers.
-
-Fixes: de2080d41b5d ("gadget/function/f_fs.c: close leaks")
+Fixes: 21a8f8a0eb35 ("irqchip: Add RISC-V incoming MSI controller early driver")
 Cc: stable@vger.kernel.org
-Reported-by: Xingyu Jin <xingyuj@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Neill Kapron <nkapron@google.com>
-Link: https://patch.msgid.link/20260724235100.106011-1-nkapron@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: GUO Ren (XuanTie) <guoren@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+This patch fixes an out-of-bounds access in the RISC-V IMSIC MMIO
+resource lookup.
+---
+ drivers/irqchip/irq-riscv-imsic-state.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index a00bf66bdf878..df66441bec46f 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -1255,8 +1255,10 @@ static ssize_t ffs_epfile_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	if (res == -EIOCBQUEUED)
- 		return res;
- 	if (p->aio) {
-+		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p);
-+		return -EIOCBQUEUED;
- 	} else {
- 		*from = p->data;
- 	}
-@@ -1304,9 +1306,11 @@ static ssize_t ffs_epfile_read_iter(struct kiocb *kiocb, struct iov_iter *to)
- 		return res;
- 
- 	if (p->aio) {
-+		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p->to_free);
- 		kfree(p);
-+		return -EIOCBQUEUED;
- 	} else {
- 		*to = p->data;
- 	}
--- 
-2.53.0
+diff --git a/drivers/irqchip/irq-riscv-imsic-state.c b/drivers/irqchip/irq-riscv-imsic-state.c
+index b8d1bbbf42f7..008dfcf343e5 100644
+--- a/drivers/irqchip/irq-riscv-imsic-state.c
++++ b/drivers/irqchip/irq-riscv-imsic-state.c
+@@ -896,7 +896,7 @@ int __init imsic_setup_state(struct fwnode_handle *fwnode, void *opaque)
+ 		index = nr_mmios;
+ 		reloff = i * BIT(global->guest_index_bits) *
+ 			 IMSIC_MMIO_PAGE_SZ;
+-		for (j = 0; nr_mmios; j++) {
++		for (j = 0; j < nr_mmios; j++) {
+ 			if (reloff < resource_size(&mmios[j])) {
+ 				index = j;
+ 				break;
+
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260904-nr_mmios-868e369de25b
+
+Best regards,
+--  
+GUO Ren (XuanTie) <guoren@kernel.org>
 
