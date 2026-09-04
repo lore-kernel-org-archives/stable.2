@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D93C3F8ED6
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:40:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B9037189A
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:48:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788496855; cv=none; b=mcHtSkxd2qdc7vHwUCFYhW9TUx+aVYutuuYKO2kxGg1ApX97GWQvh1xfSzEMyinsxCEP/jF8SJiLqpePeHryVNxH9vDxS5PVeXPy+ITSrnbxAVSiV0cXde+qZGeocbHT3yylbWMxZzgLubAhcXkmNzL9KnxKM5PlwHpdCG4vipo=
+	t=1788497319; cv=none; b=WqOlowuIW0oP00276SvmHzk+p4sJkUn1Ice00svRLhlISlWjdCF3jLzUADvpjxBopJvIV393ioaHcSnXd5P0QDAR+7MO75+MGd3NuhDOZhGMzIOXU5jC3HwI78/72jcgjJ5mdqmLbfHnV/hRtdVGjP7Eq/zaz+/n5xp3vKPV14Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788496855; c=relaxed/simple;
-	bh=H+K6S8PlrseNdfi3cUFr7+2W6g8jas3R4a0nhaa4g54=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CCF41xVW3uwljNxb4lom9y8D64L/KaKFYZ3C2hwx3hibY9chOjXvL1qcugmNlCjpf9C5zFZpin+nEH95iANY0Zm6oKqdZrk5DobghaKxteaoBAR4G7NpROtjc6AJQdFuj/eanSaEXJmnG3ge8J6vzhEZFLbajT6un3YE5CYvwcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UhPy8/Ez; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788497319; c=relaxed/simple;
+	bh=BL6g5IselamQufmAy9ROFDdg8+7wKoa3CLkqYAiwKKg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=V9eUu86Q0ij0JJuHepFg7T3B0XV663ttcHe09+owJE9zeGbqt2KTxMzcrStCTLste3GfK+f/pr7F+VOYtiQSh7JwEU7Lcrpnb0nIYcmjCrh7t4KkwFttrO9BJAEfetSfcQDcUNZv7Cs7mOQo4zao5P9QyoXkT9lEJmDygbTO6qQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GEyFzV6X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UhPy8/Ez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5851F00A3E;
-	Fri,  4 Sep 2026 04:40:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GEyFzV6X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E971F00A3D;
+	Fri,  4 Sep 2026 04:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788496854;
-	bh=Iu1aujYTX4KWhl6kBry2K7HqR0xruxTKVXCP6bKIbFs=;
+	s=korg; t=1788497318;
+	bh=yNOao+ohdSX9c7tZCj22wNg5M0nziVI+ZmU67+aOG9g=;
 	h=Subject:To:Cc:From:Date;
-	b=UhPy8/Ez4AUva8dFmEet6rFwCEGhzO5QToT2KZUDjB2B0BpJZ05FZ6OwFLMH9t1KM
-	 KSEdylcX8hOrE9hLZ1usLhDycCYW8T3set5EkuY9gHbnGL29ysr1UdnVo1oPWBTR+4
-	 aIvAMByMKz8FzORPmRxIU0xJWnDsQ4oLSj+FR9is=
-Subject: FAILED: patch "[PATCH] dm-pcache: validate the persisted dirty_tail chain at load" failed to apply to 6.18-stable tree
-To: hexlabsecurity@proton.me,mpatocka@redhat.com
+	b=GEyFzV6X9rems2vBC3mnY1lgik5VRB6+XIu6Nf5PHFeafPvQGwUy6m+/WThfgW07x
+	 8MhIEOEXz+zt+H42ZINHg7AQY1iDVwTVl64Hx/tr3RngCfuHXqaec0Imr83Sr87BpQ
+	 T7n6G75hTfSRjfpmxe7+vEOH2LqR6vOZf9mbwobg=
+Subject: FAILED: patch "[PATCH] wifi: rtw89: pci: add .shutdown callback to stop rfkill" failed to apply to 6.18-stable tree
+To: yhchen312@gmail.com,pkshih@realtek.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 04 Sep 2026 06:40:11 +0200
-Message-ID: <2026090411-harsh-specks-0d82@gregkh>
+Date: Fri, 04 Sep 2026 06:48:32 +0200
+Message-ID: <2026090432-juvenile-roundworm-d5e3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 58d620ee9e01d4bdbceaf2ae1450d307a2a9d58b
+git cherry-pick -x 667c12782aaf8dd3cb2213e528fe63a73cb63345
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090411-harsh-specks-0d82@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090432-juvenile-roundworm-d5e3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,143 +62,195 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 58d620ee9e01d4bdbceaf2ae1450d307a2a9d58b Mon Sep 17 00:00:00 2001
-From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 17 Jul 2026 06:27:03 -0500
-Subject: [PATCH] dm-pcache: validate the persisted dirty_tail chain at load
+From 667c12782aaf8dd3cb2213e528fe63a73cb63345 Mon Sep 17 00:00:00 2001
+From: "Yuhang.chen" <yhchen312@gmail.com>
+Date: Wed, 29 Jul 2026 09:41:42 +0800
+Subject: [PATCH] wifi: rtw89: pci: add .shutdown callback to stop rfkill
+ polling on reboot
 
-The writeback worker follows the persisted dirty_tail chain, which is
-decoded from the cache device independently of the key_tail chain that
-cache_replay() walks and bounds. A crafted image, whose on-media fields are
-authenticated only by a crc32c with a fixed seed, can aim dirty_tail at a
-chain of last ksets that never terminates, so cache_writeback_fn() re-arms
-itself with no delay forever.
+Since the hardware rfkill polling was introduced, arm64 platforms can
+panic with an asynchronous SError during warm reboot:
 
-Walk the dirty_tail chain once at load with the same hop cap cache_replay()
-uses and fail the table load with -EIO if it does not reach an end within
-n_segs hops.
+  SError Interrupt on CPU8, code 0x00000000be000011 -- SError
+  Workqueue: events_power_efficient rfkill_poll [rfkill]
+    rtw89_pci_ops_read8+0x94/0x160 [rtw89_pci]
+    rtw89_core_rfkill_poll+0x50/0x1e0 [rtw89_core]
+    rtw89_ops_rfkill_poll+0x40/0x68 [rtw89_core]
+    ieee80211_rfkill_poll+0x3c/0x70 [mac80211]
+    cfg80211_rfkill_poll+0x40/0x2a0 [cfg80211]
+    rfkill_poll+0x30/0x88 [rfkill]
+  Kernel panic - not syncing: Asynchronous SError Interrupt
 
-Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
+On the reboot path the kernel only runs device_shutdown(), which calls
+each driver's .shutdown callback; .remove is not invoked.  The rtw89 PCI
+driver had no .shutdown callback, so nothing stopped the rfkill polling
+work while the platform was tearing the PCIe link down.  Once the link
+is gone, the next MMIO read from the poll handler targets a
+non-responding device and is reported as a fatal asynchronous SError on
+arm64.
+
+Add rtw89_pci_shutdown(), wired to all rtw89 PCI device drivers, which
+sets a new RTW89_FLAG_SHUTDOWN flag (mirroring the USB
+RTW89_FLAG_UNPLUGGED pattern).  When the flag is set,
+rtw89_ops_rfkill_poll() returns early, so no MMIO read is issued to the
+chip after shutdown begins and the SError no longer occurs.
+
+This does not call the full .remove path from .shutdown, to keep the
+shutdown handler minimal and avoid running the non-idempotent teardown
+twice.
+
+Fixes: 0b38e6277aed ("wifi: rtw89: add support for hardware rfkill")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Suggested-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Yuhang.chen <yhchen312@gmail.com>
+Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260729014142.2746777-1-yhchen312@gmail.com
 
-diff --git a/drivers/md/dm-pcache/cache.c b/drivers/md/dm-pcache/cache.c
-index a94eadb7affd..b0b3e21677de 100644
---- a/drivers/md/dm-pcache/cache.c
-+++ b/drivers/md/dm-pcache/cache.c
-@@ -202,6 +202,7 @@ static int cache_tail_init(struct pcache_cache *cache)
- {
- 	struct dm_pcache *pcache = CACHE_TO_PCACHE(cache);
- 	bool new_cache = !(cache->cache_info.flags & PCACHE_CACHE_FLAGS_INIT_DONE);
-+	int ret;
+diff --git a/drivers/net/wireless/realtek/rtw89/core.h b/drivers/net/wireless/realtek/rtw89/core.h
+index 09c19a6b9058..889a94d7f534 100644
+--- a/drivers/net/wireless/realtek/rtw89/core.h
++++ b/drivers/net/wireless/realtek/rtw89/core.h
+@@ -6453,6 +6453,7 @@ enum rtw89_flags {
+ 	RTW89_FLAG_CHANGING_INTERFACE,
+ 	RTW89_FLAG_HW_RFKILL_STATE,
+ 	RTW89_FLAG_UNPLUGGED,
++	RTW89_FLAG_SHUTDOWN,
  
- 	if (new_cache) {
- 		__set_bit(0, cache->seg_map);
-@@ -218,6 +219,12 @@ static int cache_tail_init(struct pcache_cache *cache)
- 			pcache_dev_err(pcache, "Corrupted key tail or dirty tail.\n");
- 			return -EIO;
- 		}
-+
-+		ret = cache_verify_dirty_tail(cache);
-+		if (ret) {
-+			pcache_dev_err(pcache, "dirty tail chain does not terminate (crafted cache image?)\n");
-+			return ret;
-+		}
- 	}
+ 	NUM_OF_RTW89_FLAGS,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/mac80211.c b/drivers/net/wireless/realtek/rtw89/mac80211.c
+index e381aacda667..c1be69a3c192 100644
+--- a/drivers/net/wireless/realtek/rtw89/mac80211.c
++++ b/drivers/net/wireless/realtek/rtw89/mac80211.c
+@@ -2004,7 +2004,8 @@ static void rtw89_ops_rfkill_poll(struct ieee80211_hw *hw)
+ 	lockdep_assert_wiphy(hw->wiphy);
  
- 	return 0;
-diff --git a/drivers/md/dm-pcache/cache.h b/drivers/md/dm-pcache/cache.h
-index d9e3e09f18e3..8809ec5ae943 100644
---- a/drivers/md/dm-pcache/cache.h
-+++ b/drivers/md/dm-pcache/cache.h
-@@ -666,6 +666,8 @@ static inline int cache_decode_dirty_tail(struct pcache_cache *cache)
- 				&cache->dirty_tail_index);
+ 	/* wl_disable GPIO get floating when entering LPS */
+-	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags))
++	if (test_bit(RTW89_FLAG_RUNNING, rtwdev->flags) ||
++	    test_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags))
+ 		return;
+ 
+ 	rtw89_core_rfkill_poll(rtwdev, false);
+diff --git a/drivers/net/wireless/realtek/rtw89/pci.c b/drivers/net/wireless/realtek/rtw89/pci.c
+index c5b82fc46d06..8c3f4eb52cc5 100644
+--- a/drivers/net/wireless/realtek/rtw89/pci.c
++++ b/drivers/net/wireless/realtek/rtw89/pci.c
+@@ -4878,6 +4878,19 @@ void rtw89_pci_remove(struct pci_dev *pdev)
  }
+ EXPORT_SYMBOL(rtw89_pci_remove);
  
-+int cache_verify_dirty_tail(struct pcache_cache *cache);
-+
- int pcache_cache_init(void);
- void pcache_cache_exit(void);
- #endif /* _PCACHE_CACHE_H */
-diff --git a/drivers/md/dm-pcache/cache_key.c b/drivers/md/dm-pcache/cache_key.c
-index f3ce319037be..1caea11a61a3 100644
---- a/drivers/md/dm-pcache/cache_key.c
-+++ b/drivers/md/dm-pcache/cache_key.c
-@@ -858,6 +858,75 @@ int cache_replay(struct pcache_cache *cache)
- 	return ret;
- }
- 
-+/*
-+ * cache_verify_dirty_tail - reject a persisted dirty_tail whose last-kset
-+ * chain does not terminate.
-+ *
-+ * dirty_tail is decoded independently of the key_tail chain cache_replay()
-+ * walks, so replay's hop cap does not cover it. A crafted chain that loops
-+ * back on itself makes the writeback worker re-arm forever; walk it once here
-+ * with the same cap and fail the load if it does not end within n_segs hops.
-+ */
-+int cache_verify_dirty_tail(struct pcache_cache *cache)
++void rtw89_pci_shutdown(struct pci_dev *pdev)
 +{
-+	struct pcache_cache_pos pos;
-+	struct pcache_cache_kset_onmedia *kset_onmedia;
-+	u32 to_copy, last_hops = 0, count = 0;
-+	int ret = 0;
++	struct ieee80211_hw *hw = pci_get_drvdata(pdev);
++	struct rtw89_dev *rtwdev;
 +
-+	kset_onmedia = kzalloc(PCACHE_KSET_ONMEDIA_SIZE_MAX, GFP_KERNEL);
-+	if (!kset_onmedia)
-+		return -ENOMEM;
++	if (!hw)
++		return;
 +
-+	cache_pos_copy(&pos, &cache->dirty_tail);
-+
-+	while (true) {
-+		to_copy = min(PCACHE_KSET_ONMEDIA_SIZE_MAX, cache_seg_remain(&pos));
-+		ret = copy_mc_to_kernel(kset_onmedia, cache_pos_addr(&pos), to_copy);
-+		if (ret) {
-+			ret = -EIO;
-+			goto out;
-+		}
-+
-+		/* A missing, short or corrupt kset is the normal end of the chain. */
-+		if (!kset_onmedia_valid(kset_onmedia) ||
-+		    kset_onmedia->crc != cache_kset_crc(kset_onmedia)) {
-+			ret = 0;
-+			goto out;
-+		}
-+
-+		if (kset_onmedia->flags & PCACHE_KSET_FLAGS_LAST) {
-+			if (!cache_seg_id_valid(cache, kset_onmedia->next_cache_seg_id)) {
-+				ret = -EIO;
-+				goto out;
-+			}
-+
-+			if (++last_hops > cache->n_segs) {
-+				ret = -EIO;
-+				goto out;
-+			}
-+
-+			pos.cache_seg = &cache->segments[kset_onmedia->next_cache_seg_id];
-+			pos.seg_off = 0;
-+			continue;
-+		}
-+
-+		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&pos)) {
-+			ret = -EIO;
-+			goto out;
-+		}
-+
-+		cache_pos_advance(&pos, get_kset_onmedia_size(kset_onmedia));
-+		if (++count > 512) {
-+			cond_resched();
-+			count = 0;
-+		}
-+	}
-+out:
-+	kfree(kset_onmedia);
-+	return ret;
++	rtwdev = hw->priv;
++	set_bit(RTW89_FLAG_SHUTDOWN, rtwdev->flags);
 +}
++EXPORT_SYMBOL(rtw89_pci_shutdown);
 +
- int cache_tree_init(struct pcache_cache *cache, struct pcache_cache_tree *cache_tree, u32 n_subtrees)
- {
- 	int ret;
+ MODULE_AUTHOR("Realtek Corporation");
+ MODULE_DESCRIPTION("Realtek PCI 802.11ax wireless driver");
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/drivers/net/wireless/realtek/rtw89/pci.h b/drivers/net/wireless/realtek/rtw89/pci.h
+index 0e1557cedd20..cba52584ea68 100644
+--- a/drivers/net/wireless/realtek/rtw89/pci.h
++++ b/drivers/net/wireless/realtek/rtw89/pci.h
+@@ -1752,6 +1752,7 @@ struct pci_device_id;
+ 
+ int rtw89_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id);
+ void rtw89_pci_remove(struct pci_dev *pdev);
++void rtw89_pci_shutdown(struct pci_dev *pdev);
+ void rtw89_pci_basic_cfg(struct rtw89_dev *rtwdev, bool resume);
+ void rtw89_pci_ops_reset(struct rtw89_dev *rtwdev);
+ int rtw89_pci_ltr_set(struct rtw89_dev *rtwdev, bool en);
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8851be.c b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
+index 459d2e778b83..81c62296c32d 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8851be.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8851be.c
+@@ -94,6 +94,7 @@ static struct pci_driver rtw89_8851be_driver = {
+ 	.id_table	= rtw89_8851be_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
+index 142a45a2e718..3defb0748648 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852ae.c
+@@ -96,6 +96,7 @@ static struct pci_driver rtw89_8852ae_driver = {
+ 	.id_table	= rtw89_8852ae_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852be.c b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
+index 1c622a99c070..9b48e70c2b56 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852be.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852be.c
+@@ -98,6 +98,7 @@ static struct pci_driver rtw89_8852be_driver = {
+ 	.id_table	= rtw89_8852be_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
+index 73c7ebd33ab4..850ae9cbac18 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852bte.c
+@@ -100,6 +100,7 @@ static struct pci_driver rtw89_8852bte_driver = {
+ 	.id_table	= rtw89_8852bte_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
+index bb5d5745aa62..daff152f66bc 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8852ce.c
+@@ -123,6 +123,7 @@ static struct pci_driver rtw89_8852ce_driver = {
+ 	.id_table	= rtw89_8852ce_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
+index 8f3a1cd463d9..e82c866dfa36 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8922ae.c
+@@ -113,6 +113,7 @@ static struct pci_driver rtw89_8922ae_driver = {
+ 	.id_table	= rtw89_8922ae_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops_be,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8922de.c b/drivers/net/wireless/realtek/rtw89/rtw8922de.c
+index 09400a0efcfd..a71e41f28544 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8922de.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8922de.c
+@@ -113,6 +113,7 @@ static struct pci_driver rtw89_8922de_driver = {
+ 	.id_table	= rtw89_8922de_id_table,
+ 	.probe		= rtw89_pci_probe,
+ 	.remove		= rtw89_pci_remove,
++	.shutdown	= rtw89_pci_shutdown,
+ 	.driver.pm	= &rtw89_pm_ops_be,
+ 	.err_handler    = &rtw89_pci_err_handler,
+ };
 
