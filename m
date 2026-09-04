@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42A73368B8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A35C2D2385
 	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527899; cv=none; b=aQBBUmy5OL8EwzCOteaSc6r5JaqriJeL9XsJlUwEzep40IAka1KI1fH5fPA0dFfIL0yc8KsLDpuTvE0QJWKOFcpGpq7n/rv+xEmI6ccSXTrYZOR0rxBiLs8vd3YlEdV4q3cHSelyVlyWENC5jLC2UP5g1ZmtMCOS/E2n1dWEPsc=
+	t=1788527902; cv=none; b=k3joGdubNrj9mEqX0TtfpwbaX1XESDCB+Tzt3QRmCeEFB3BnXTbx/O2snpRmlC2Ey/uHVysxe3WlCeY7JSRgK7FrqYcFajxvIb5AQ6PZt5Cl2+x8haG0YTfz9SDCunP9WMu/KA5BAjVxQscGW7J14C18XGDEIlMyC8V8KbG82sA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527899; c=relaxed/simple;
-	bh=4Ifj5fXeZ70eEACHMG6tC59AGHmYZNRk+9/MhSJSchk=;
+	s=arc-20240116; t=1788527902; c=relaxed/simple;
+	bh=WdyAKzHpoisOlZsZH2fywSTNWA1ruDt4nnUkyeoD8/M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C7xy2Q7zDYyJq8LXot9nxIUfLwDkvafPTDdV6dWooc59IN47r/tv/iuxcL6Z8Q6tnlOU9XQisri9R4aJ0asXT/yMtkG0LCA8J7xzwGPxGEMU7r7BiGdCSihzLh0D/us5Rli7fg4FFNUvVI/ANGu8CHrxhF1TTiHmrTJW8jjhWbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hyrB6H5n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AHzUAT9/HVDVz7r0pf90MwNhnfxymemP/LKQGpOyOBRU+zVYzSFKyU4sqHEOLkmg4eWbUcYnVuMn/7+ivmoV6qgaMYBTNpmj4ldVf5Asr7yU02Qd9hNjcSADHPSO/Gc25UNOITpkjjXSdyA+0mlOGQ+4z9oENqW315on776mbOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iG7oURlK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hyrB6H5n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA631F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iG7oURlK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66EA1F00ACA;
 	Fri,  4 Sep 2026 13:18:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788527895;
-	bh=vGSuhgTVcXg1//cRLCcIqOZ6O3FGRrxOpAreaGbK4nk=;
+	bh=qOg9AgW2rwLbqIgpSJeT2chm4LhIqh4+xRqjfVguBtQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hyrB6H5nW/Jw9OfuhwP9xrNBxKEMD1VgtPWkQQ04Vks/aDTg9WhyrNzL9YkKzeQAf
-	 +WDnsx1Q32LHQxEz9rFoQscm/Q44EBq31pQsG1n2cGycKL8uw17kT/0Mxv3uZ51vT2
-	 bKMfX7W7CCI+Z18u+70T8M/1DEfsNVV7oP5wxkONTkncTReD5wM0zv+XhYwFZDPkws
-	 KN2mAKnGfF3/NsNy54YoorLizQrCEYr73UU/b2ae7ux1tdjH8PYYk03GRhYE2vCE4j
-	 VsXwvjF2fvWNDdWrv0ciP18fb71GhXP3dkRzGSICi7ISJFIQKAzQCji84f5Ki/1OxW
-	 zSTYHxi9EMggQ==
+	b=iG7oURlKUojtY2H6ncrFOAKc8R1/2My2iXl2ksx19gwazAZvSeOr3baDz2i/7Da2+
+	 gq/aSqMJqIRH9Em2XKwbRK4hAzMFWNuoIpRm8DrTh33A+MpaQQfCCQ2jtoG8Bu3M46
+	 UJcIr/JPQ4zYf7JiJOR3DU5qeHyvOBS8QlE5vPkeDkFIaZNtHQ/h2YcM6sFRobEQGE
+	 1+PavnJ0sWpwYJE2LnFKHjFWMhygEENJ/mA+LjKfJu7IJnAKW+phvhO4eS1Q4DwWzx
+	 lfmkRRpPhQpNGixOwDtqGsD9X7ZOv1L105wmiZUGmlSuUopW6aDwTO0RaByUOkluob
+	 k3tvhVo4/2lTg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Hildenbrand <david@redhat.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Dan Carpenter <dan.carpenter@linaro.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/6] fs/proc/task_mmu: convert smaps_hugetlb_range() to work on folios
-Date: Fri,  4 Sep 2026 09:18:07 -0400
-Message-ID: <20260904131809.503371-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] tracing: Fix NULL vs IS_ERR() check in enable_instances()
+Date: Fri,  4 Sep 2026 09:18:12 -0400
+Message-ID: <20260904131813.503518-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904131809.503371-1-sashal@kernel.org>
-References: <2026090314-mumps-septum-7049@gregkh>
- <20260904131809.503371-1-sashal@kernel.org>
+In-Reply-To: <2026090305-creole-floral-cc49@gregkh>
+References: <2026090305-creole-floral-cc49@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,60 +47,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Hildenbrand <david@redhat.com>
+From: Dan Carpenter <dan.carpenter@linaro.org>
 
-[ Upstream commit 6401a2e6900843a77a27873c0529dea68f61193d ]
+[ Upstream commit 94dfa500e7deddceff22768bb994f0fa67bd2fd0 ]
 
-Let's get rid of another page_mapcount() check and simply use
-folio_likely_mapped_shared(), which is precise for hugetlb folios.
+The trace_array_create_systems() function returns error pointers, not
+NULL.  Fix the check to match.
 
-While at it, use huge_ptep_get() + pte_page() instead of ptep_get() +
-vm_normal_page(), just like we do in pagemap_hugetlb_range().
-
-No functional change intended.
-
-Link: https://lkml.kernel.org/r/20240417092313.753919-3-david@redhat.com
-Signed-off-by: David Hildenbrand <david@redhat.com>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
-Cc: Muchun Song <muchun.song@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: e87df0d5d696 ("mm/page_vma_mapped: use huge_ptep_get() for hugetlb")
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Fixes: e645535a954a ("tracing: Add option to use memmapped memory for trace boot instance")
+Link: https://lore.kernel.org/9b23ea03-d709-435f-a309-461c3d747457@moroto.mountain
+Signed-off-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: a9a01be2834a ("tracing: Fix logged instance name on creation failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/proc/task_mmu.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ kernel/trace/trace.c | 25 ++++++++++++++++++-------
+ 1 file changed, 18 insertions(+), 7 deletions(-)
 
-diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-index d0896bf8e12f0..1a9c1c9e53e4e 100644
---- a/fs/proc/task_mmu.c
-+++ b/fs/proc/task_mmu.c
-@@ -723,19 +723,20 @@ static int smaps_hugetlb_range(pte_t *pte, unsigned long hmask,
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index f57baf67726da..61e7c857a4652 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -9416,11 +9416,17 @@ static int trace_array_create_dir(struct trace_array *tr)
+ }
+ 
+ static struct trace_array *
+-trace_array_create_systems(const char *name, const char *systems)
++trace_array_create_systems(const char *name, const char *systems,
++			   unsigned long range_addr_start,
++			   unsigned long range_addr_size)
  {
- 	struct mem_size_stats *mss = walk->private;
- 	struct vm_area_struct *vma = walk->vma;
--	struct page *page = NULL;
--	pte_t ptent = ptep_get(pte);
-+	pte_t ptent = huge_ptep_get(pte);
-+	struct folio *folio = NULL;
+ 	struct trace_array *tr;
+ 	int ret;
  
- 	if (pte_present(ptent)) {
--		page = vm_normal_page(vma, addr, ptent);
-+		folio = page_folio(pte_page(ptent));
- 	} else if (is_swap_pte(ptent)) {
- 		swp_entry_t swpent = pte_to_swp_entry(ptent);
++	/* Reserved-memory trace buffers are not supported by this kernel. */
++	(void)range_addr_start;
++	(void)range_addr_size;
++
+ 	ret = -ENOMEM;
+ 	tr = kzalloc(sizeof(*tr), GFP_KERNEL);
+ 	if (!tr)
+@@ -9494,7 +9500,7 @@ trace_array_create_systems(const char *name, const char *systems)
  
- 		if (is_pfn_swap_entry(swpent))
--			page = pfn_swap_entry_to_page(swpent);
-+			folio = pfn_swap_entry_folio(swpent);
+ static struct trace_array *trace_array_create(const char *name)
+ {
+-	return trace_array_create_systems(name, NULL);
++	return trace_array_create_systems(name, NULL, 0, 0);
+ }
+ 
+ static int instance_mkdir(const char *name)
+@@ -9548,7 +9554,7 @@ struct trace_array *trace_array_get_by_name(const char *name, const char *system
+ 			goto out_unlock;
  	}
--	if (page) {
--		if (page_mapcount(page) >= 2 || hugetlb_pmd_shared(pte))
-+	if (folio) {
-+		if (folio_likely_mapped_shared(folio) ||
-+		    hugetlb_pmd_shared(pte))
- 			mss->shared_hugetlb += huge_page_size(hstate_vma(vma));
- 		else
- 			mss->private_hugetlb += huge_page_size(hstate_vma(vma));
+ 
+-	tr = trace_array_create_systems(name, systems);
++	tr = trace_array_create_systems(name, systems, 0, 0);
+ 
+ 	if (IS_ERR(tr))
+ 		tr = NULL;
+@@ -10300,6 +10306,7 @@ __init static void enable_instances(void)
+ {
+ 	struct trace_array *tr;
+ 	char *curr_str;
++	char *name;
+ 	char *str;
+ 	char *tok;
+ 
+@@ -10308,17 +10315,21 @@ __init static void enable_instances(void)
+ 	str = boot_instance_info;
+ 
+ 	while ((curr_str = strsep(&str, "\t"))) {
++		unsigned long addr = 0;
++		unsigned long size = 0;
+ 
+ 		tok = strsep(&curr_str, ",");
++		name = tok;
+ 
+ 		if (IS_ENABLED(CONFIG_TRACER_MAX_TRACE))
+-			do_allocate_snapshot(tok);
++			do_allocate_snapshot(name);
+ 
+-		tr = trace_array_get_by_name(tok, NULL);
+-		if (!tr) {
+-			pr_warn("Failed to create instance buffer %s\n", curr_str);
++		tr = trace_array_create_systems(name, NULL, addr, size);
++		if (IS_ERR(tr)) {
++			pr_warn("Tracing: Failed to create instance buffer %s\n", curr_str);
+ 			continue;
+ 		}
++
+ 		/* Allow user space to delete it */
+ 		trace_array_put(tr);
+ 
 -- 
 2.53.0
 
