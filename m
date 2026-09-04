@@ -1,158 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FB6147042E
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:41:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C5A47042E
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:41:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518494; cv=none; b=jmqdXUMLDzLUyCIWDVJctijW9r1hKGij24OrCobNAUmMoHdeXFVzcWy7EmjvVkpoJR5QUSfMpeC0YmBVx6aWjG8r6p0MJhbh3wKfgCGBqCzCRBqAfKIRCx//MQY9CAZ1fpN8TI1enKfIBgouXW6u/q21Qn8wYiwG8K+/58fQ9sw=
+	t=1788518498; cv=none; b=WiJnTibQEYOjuGREzwLZfPG/qSl1kOrJhQ0XjEWtxml41YKO2gDutrEVQBQe7oUvkbIMZRN2ZZGXnETQ820kZ0aodphQrdaLpyB/WmN+7tQAEyT0kF+3DZgSuk/VQKp4Zmq6pOte1mBmoukIdPTAyNYicmGpjlFq/2U+36uYBCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518494; c=relaxed/simple;
-	bh=ixfcj3aLxfC4FE6zeBtlfRQMOrZCROCGny+UNPhhOI4=;
+	s=arc-20240116; t=1788518498; c=relaxed/simple;
+	bh=MKqIacV5CKxE0lf8GCx35i9p2VkVkqXJ9upFwzYNKic=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LqxrIysz5iPwbzxM0uwrnoeymi2aIVQo5J9s0ZPRsK12F66TnSPXEUPV/WGVWf3W/Bhr6Uvh0mRZ1jFLRAXkL58tO8CMTWguAKBzTX7w5wtzuVF/p5Q77aVh/bcg2K5+XmhmSXLZu8HdqakT49bVISD8MdBLVN/avqbEULQosvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A29pIDV8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iox9/QCu0r2lsu3wIFILMeR7zQVVwabgy7KSjcxd//AMg8Mlh/PD8WMWKwtFRdPphUMRcZU/dbSB7tdxIDg+6WPRb9Y6kw92zUt4G8XoqBbZ6RYsLsPvxFK0G0akgLanE0DD0qse9RZ/y9Ad8dvj3LXLqg+xrYTHgCeqhYIiwa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvL1pD+d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A29pIDV8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106A21F00A3D;
-	Fri,  4 Sep 2026 10:41:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvL1pD+d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1467E1F00A3E;
+	Fri,  4 Sep 2026 10:41:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788518491;
-	bh=5Euj/k/58CoMIFihv4eErIdWErtvB/jMPGraMuvkilI=;
+	s=k20260515; t=1788518494;
+	bh=/hyYZM1CqdTYv1aQz9RitZy4ivaqTm2yuzEo9OJvII8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A29pIDV8LqpWdupo/ek8QYL76Jgbp/qHrBu5vfhD/4x1gikxfFPQgitvSotjt86qO
-	 a0qkbwdA3byXTOCAo/9UUiLgFVjuDcRxXqUko+UDIgaJWwf2Dt8MQrfT2laYokri1v
-	 3fRUETrVQpMtg5rUQ+E8I0gygtyp6xtEIiqiyl18xUub0Vvm9UnGqNLdxKJBknpo+X
-	 LppKLJxNZLCUD5ZnAh9/eHuz135VVqhcVn/qg9Z6gFF5Z3Cjbenb7fYkjEiQN+QwCu
-	 763IANPQqaWiMdoeA+JvCfO1pH3ZQrA//a5aodscv3PcWRLIXHT/X+pfXAR63e5ppM
-	 077qmkoa/4brg==
+	b=QvL1pD+dKctMlYyO+OZio2pmBikSJkNmA1HmMOtnx8UlsLUSG/g9mo8HznBoB0k2P
+	 Cr7+vsvdjOtUbKfIa4kAevcjE3zzXfIIps9yZxnmcfylJX2efqCb9ObHD+4es/b3t4
+	 57iccrR5R836eVOvMkT4XpaFHS7ajl+LFpd5RrKIcQ8YgypPHK1Uv2aiVxq2kj/fic
+	 CUkrNZH/elZ68iylPPKI3uop55KWEzseDYuxxLsi1iqYKb+s8+Z644TPxvc7ZoPEIs
+	 yW1nX86MlVhcsNBqaoOsYKPq7vnCvUTUGHqQaYuMV+ByfbQJ+1Stq4O04C0JZiRkXf
+	 ft2f5Pbwmc0Uw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Roger Pau Monne <roger@xenproject.org>,
-	Juergen Gross <jgross@suse.com>,
-	Matthias Goergens <matthias.goergens@gmail.com>,
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	John Johansen <john.johansen@canonical.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] x86/xen: fix init of balloon stats again
-Date: Fri,  4 Sep 2026 06:41:28 -0400
-Message-ID: <20260904104128.2544168-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] apparmor: fix out-of-bounds write when null terminating a label vec
+Date: Fri,  4 Sep 2026 06:41:32 -0400
+Message-ID: <20260904104132.2545191-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904104128.2544168-1-sashal@kernel.org>
-References: <2026090358-maimed-fraying-66f7@gregkh>
- <20260904104128.2544168-1-sashal@kernel.org>
+In-Reply-To: <2026090321-antitrust-overlord-343b@gregkh>
+References: <2026090321-antitrust-overlord-343b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Roger Pau Monne <roger@xenproject.org>
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-[ Upstream commit 5d00a11d484e7b31a358cd81afebccb4602dbe8c ]
+[ Upstream commit 9f1e40193eef7f047e6b77cfb4b4cafdecd7a123 ]
 
-The handling of extra memory regions done in balloon_add_regions() is not
-correct for PV guests, since the initial target is set to reflect the real
-memory the system has, not what's described on the memory map, which can be
-higher if memory != maxmem.
+aa_vec_unique() null terminates at vec[n - dups] when VEC_FLAG_TERMINATE
+is passed. If the components are all distinct no duplicates are dropped,
+dups is 0 and the terminator goes to vec[n], so the caller has to provide
+room for n + 1 entries.
 
-Introduce separate logic for addition vs subtraction in
-balloon_add_regions() and handle extra regions correctly by adding them to
-the total amount of pages, instead of subtracting from the current and
-target pages amounts.
+aa_label_strn_parse() sets up its vector with vec_setup(profile, vec, len,
+gfp) and then calls aa_vec_unique(vec, len, VEC_FLAG_TERMINATE), but
+vec_setup() does not reserve the terminator entry. Up to LOCAL_VEC_ENTRIES
+it uses the local array of LOCAL_VEC_ENTRIES pointers, above that it
+allocates exactly len pointers. The terminator therefore lands one entry
+past the end of the local array when len is LOCAL_VEC_ENTRIES, and one
+entry past the end of the allocation when len is larger.
 
-In the common case PV domU/dom0 and PVH dom0 will use the addition path,
-since the initial target reflects the real assigned memory.  HVM and PVH
-domUs use the subtraction path, since the target is set based on the amount
-of memory reported in the memory map, without accounting for released
-regions.
+len comes from the number of "//&" separated components in the label name
+and label_count_strn_entries() does not bound it. An unprivileged task
+reaches the parse by writing to /proc/self/attr/apparmor/current or through
+lsm_set_self_attr(2), both of which go through do_setattr(), and the name
+is parsed before the change_profile permission is checked.
+The query_label() path behind the securityfs .access file, which is
+mode 0666, performs no permission check at all. Every component has to
+resolve to a loaded profile, so a system with policy loaded is required.
 
-Fixes: 87af633689ce ("x86/xen: fix balloon target initialization for PVH dom0")
-Fixes: 0949c646d646 ("Partial revert "x86/xen: fix balloon target initialization for PVH dom0"")
-Signed-off-by: Roger Pau Monné <roger@xenproject.org>
+The other two VEC_FLAG_TERMINATE users work on a label vec that
+aa_label_alloc() has already sized with "+ 1 for null terminator entry on
+vec". Reserve the same entry in vec_setup() and DEFINE_VEC(). Passing
+len + 1 from the caller instead would move len == LOCAL_VEC_ENTRIES out of
+the local array and into kzalloc().
+
+Fixes: f1bd904175e8 ("apparmor: add the base fns() for domain labels")
 Cc: stable@vger.kernel.org
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Tested-by: Matthias Goergens <matthias.goergens@gmail.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260805094008.95778-1-roger@xenproject.org>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ replaced unavailable kzalloc_objs() with equivalent kcalloc() allocation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/balloon.c | 29 +++++++++++++++++++----------
- 1 file changed, 19 insertions(+), 10 deletions(-)
+ security/apparmor/include/label.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 9e7ba37fe8d46..7591fb2f5bc66 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -675,7 +675,7 @@ void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages)
- }
- EXPORT_SYMBOL(xen_free_ballooned_pages);
+diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
+index 9887bfbab0f3d..43565faae2ba5 100644
+--- a/security/apparmor/include/label.h
++++ b/security/apparmor/include/label.h
+@@ -22,7 +22,7 @@ struct aa_ns;
  
--static int __init balloon_add_regions(void)
-+static int __init balloon_add_regions(bool append)
- {
- 	unsigned long start_pfn, pages;
- 	unsigned long pfn, extra_pfn_end;
-@@ -699,19 +699,26 @@ static int __init balloon_add_regions(void)
- 			balloon_append(pfn_to_page(pfn));
+ #define LOCAL_VEC_ENTRIES 8
+ #define DEFINE_VEC(T, V)						\
+-	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES];	\
++	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES + 1];	\
+ 	struct aa_ ## T **(V)
  
- 		/*
--		 * Extra regions are accounted for in the physmap, but need
--		 * decreasing from current_pages and target_pages to balloon
--		 * down the initial allocation, because they are already
--		 * accounted for in total_pages.
-+		 * There are two different use-cases depending on how the
-+		 * initial memory target is fetched.  For PVH dom0 and PV the
-+		 * target is usually set to reflect the domain assigned memory,
-+		 * and hence extra regions need adding.
-+		 *
-+		 * OTOH for HVM and PVH domU the target is set to the amount of
-+		 * RAM reported in the memory map, and hence extra regions need
-+		 * subtracting to reflect the real memory usage.
- 		 */
- 		pages = extra_pfn_end - start_pfn;
--		if (pages >= balloon_stats.current_pages ||
--		    pages >= balloon_stats.target_pages) {
-+		if (append) {
-+			balloon_stats.total_pages += pages;
-+		} else if (pages >= balloon_stats.current_pages ||
-+		           pages >= balloon_stats.target_pages) {
- 			WARN(1, "Extra pages underflow current target");
- 			return -ERANGE;
-+		} else {
-+			balloon_stats.current_pages -= pages;
-+			balloon_stats.target_pages -= pages;
- 		}
--		balloon_stats.current_pages -= pages;
--		balloon_stats.target_pages -= pages;
- 	}
- 
- 	return 0;
-@@ -722,6 +729,7 @@ static int __init balloon_init(void)
- 	struct task_struct *task;
- 	long current_pages = 0;
- 	domid_t domid = DOMID_SELF;
-+	bool append = true;
- 	int rc;
- 
- 	if (!xen_domain())
-@@ -741,6 +749,7 @@ static int __init balloon_init(void)
- 		} else {
- 			if (xen_unpopulated_pages >= get_num_physpages())
- 				goto underflow;
-+			append = false;
- 			current_pages = get_num_physpages() -
- 			                xen_unpopulated_pages;
- 		}
-@@ -763,7 +772,7 @@ static int __init balloon_init(void)
- 	register_sysctl_init("xen/balloon", balloon_table);
- #endif
- 
--	rc = balloon_add_regions();
-+	rc = balloon_add_regions(append);
- 	if (rc)
- 		return rc;
+ #define vec_setup(T, V, N, GFP)						\
+@@ -30,10 +30,10 @@ struct aa_ns;
+ 	if ((N) <= LOCAL_VEC_ENTRIES) {					\
+ 		typeof(N) i;						\
+ 		(V) = (_ ## V ## _localtmp);				\
+-		for (i = 0; i < (N); i++)				\
++		for (i = 0; i <= (N); i++)				\
+ 			(V)[i] = NULL;					\
+ 	} else								\
+-		(V) = kzalloc(sizeof(struct aa_ ## T *) * (N), (GFP));	\
++		(V) = kcalloc((N) + 1, sizeof(struct aa_ ## T *), (GFP)); \
+ 	(V) ? 0 : -ENOMEM;						\
+ })
  
 -- 
 2.53.0
