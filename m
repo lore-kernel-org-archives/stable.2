@@ -1,185 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFBA409624;
-	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEC543DA20
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522317; cv=none; b=Lue9i4nY+as8LSzOzpEPbovd7J/wk+M25UVQA3DXMNT5yEVR1gw+Lqt+1JwsEguKsSEjpiReAv+bODanEKjntIoL+W+x7eUfmZL6W63JNaPExfjLh4WT0G++TrIBsFdC16EshBSrqLzerAP4LiltnZqTjTtHLKHVvcblWdUNDkc=
+	t=1788522485; cv=none; b=hhtekQ6fWPsbxMOHbD2vmpxX3pWn9z5LdrIVP6WH3BlhRipdeXMtGzr3HuNxVXUzN95Ya3eWZiHgkEMGLoRgAqeQC2TKCe4b4Xj4HSBj8BLVMa10ywJ54QukGodCfY225h9CfSho6lmPxtMvlkHsB/CJ3nxCqLSe7xIGYEs8hL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522317; c=relaxed/simple;
-	bh=FaBeAMRHl+rx7geJPB4JImFJWNXCPdDdVLQ6qarzyo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pJCznAd8kv3YIJPm82d0bumJrIAoWDBAJ//kVTbQoiHWzBm6IaIexSXhzWcEZaU+zK7clq/iuRxH9Bl6vBle1vmbPEvMh0vDi8eQQD/3pG3GNc43LTHX8/S18aiNaNnWfoXBwBNQfg0FIcSTRQWgdFIsgArL19aBj0cfkB+gBco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdD6/emr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788522485; c=relaxed/simple;
+	bh=PMVHlQ+lhEnLgdxcgIqty8LXVk2+tGnBne4lOgrKIXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KmSWyCloKp6rs/Vet0RH2ZMKkSvcoQnZsDOVSB8KAIFNWsOwkCYn9iLHe/p8pyqBlvKxtLgBz4elHm9ABQzaT2LEv6UHW8LZy+i6AlKDTnG1Y2IpFle4nt3MBJV8N6urCJDnX8E9CPsJNPjqTwUD3nVBpZ7nwDBo3YTbGfM0oyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SoHuvIaI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdD6/emr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59FA61F00A3E;
-	Fri,  4 Sep 2026 11:45:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SoHuvIaI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEE481F00A3D;
+	Fri,  4 Sep 2026 11:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788522315;
-	bh=LwuY1rXitDNsVaFuMeOwWfQr8oiaOeC08TkleCwI42o=;
-	h=From:To:Cc:Subject:Date;
-	b=XdD6/emrU5rkPfWMRVXbfIoandoNpOuK2XWf3WDm0OP26AYSRWpMzTsFfU7HrdQnZ
-	 mCrcJSxldahWmJ//fy7ZJDhV9dmwO4URUVvEd/H3WBwm6dnrUZ6hipQ4qryJ2f7io1
-	 55Kx82LGhDfnDaPVLKbKvXBv2NzhUcHiSpNFg7SDFDIA3unXb8/Lot6tlqy2tdG2ED
-	 sF9QsTlSZBlGjq0DDDbOUEVlQat1217qT3MPJwm+PNzovt+IZWxT+WGvA+WF4YbTCR
-	 s5QEZqWeMEyaMEcP5oLW7lF12CXEL0XYxplGRRC1HZQGzrl+6ANr+HXiPbg7NnUZ0I
-	 GQ4zV8l6BueYw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2SM4-00000006z1P-40Db;
-	Fri, 04 Sep 2026 13:45:12 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] serial: fix ioctl hangup race
-Date: Fri,  4 Sep 2026 13:44:48 +0200
-Message-ID: <20260904114448.1664502-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788522483;
+	bh=CloU/G0xaWfk6L26mptspaEPc6Uk5d3zfq56gmPk64I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SoHuvIaIJTapf71EHQMAdOJ9XFwGSLdqJ8jWNXiJi/BvDcBklNHHObiHvFU3lUbEu
+	 jD6KtJkhWvXyTeeId42xSefkHqgdb4+M7MqtLA3TBLBHYN/YAWqdj7LbqxI6GhQqbm
+	 NwOpmLZS2PQXUm5MqvmK1iRzDRaaODh9t1XLwGIiagZHNfLmisKN73jHP/njcYEZNi
+	 s4ACrHWkKdzXThpr3kAeeXrc1OR30ddBSEafOQUYmIZ8KSo5thA5DzTmAJKTbBbBTX
+	 JmZtxANujaCw/G3Qiv2oqhXz6vJkaSboDFjQarCcZBJw6kWEuUi9jY+0zEdGO3N7HM
+	 Dc6+JjTAQyq7w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] serial: imx: Convert to platform remove callback returning void
+Date: Fri,  4 Sep 2026 07:47:59 -0400
+Message-ID: <20260904114800.3757105-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090332-deputize-flying-c9c8@gregkh>
+References: <2026090332-deputize-flying-c9c8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The tty ioctls can race with hangup and end up calling into a tty
-driver for a device that is already gone or powered down.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-Add the missing checks to make sure the port has not been hung up before
-accessing the hardware to avoid issues like kernel panic due to
-unclocked accesses.
+[ Upstream commit c066f87314b7fbbf4d72d38957436a98e7b7e503 ]
 
-Note that TIOCGSERIAL, TIOCGICOUNT do not access hardware and are
-therefore not affected by the race.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-Fixes: 04f378b198da ("tty: BKL pushdown")
-Cc: stable@vger.kernel.org	# 2.6.26
-Signed-off-by: Johan Hovold <johan@kernel.org>
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
+
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20231110152927.70601-18-u.kleine-koenig@pengutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 8b0b29fdcb47 ("serial: imx: serialize imx_uart_ports[] lifetime")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ drivers/tty/serial/imx.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-I botched the scoped_guard() conversion as Sashiko pointed out so here's
-a v2.
-
-Johan
-
-
-Changes in v2
- - include TIOCMIWAIT which also access hardware
- - replace broken scoped_guard() construct in wait loop
-
-
- drivers/tty/serial/serial_core.c | 36 +++++++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 95774b0f1484..b0d3902fe4fc 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -896,7 +896,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	upf_t old_flags, new_flags;
- 	int retval;
- 
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	new_port = new_info->port;
-@@ -1119,7 +1119,7 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
- 	guard(mutex)(&port->mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
-@@ -1144,7 +1144,7 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
- 	 */
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
- 		uport = uart_port_check(state);
--		if (!uport)
-+		if (!uport || tty_io_error(tty))
- 			return -EIO;
- 
- 		if (tty_port_users(port) != 1)
-@@ -1199,7 +1199,7 @@ static void uart_enable_ms(struct uart_port *uport)
-  * FIXME: This wants extracting into a common all driver implementation
-  * of TIOCMWAIT using tty_port.
-  */
--static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
-+static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *state, unsigned long arg)
- {
- 	struct uart_port *uport;
- 	struct tty_port *port = &state->port;
-@@ -1213,9 +1213,17 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	uport = uart_port_ref(state);
- 	if (!uport)
- 		return -EIO;
--	scoped_guard(uart_port_lock_irq, uport) {
--		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
--		uart_enable_ms(uport);
-+
-+	scoped_guard(mutex, &port->mutex) {
-+		if (tty_io_error(tty)) {
-+			ret = -EIO;
-+			goto out_deref;
-+		}
-+
-+		scoped_guard(uart_port_lock_irq, uport) {
-+			memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-+			uart_enable_ms(uport);
-+		}
- 	}
- 
- 	add_wait_queue(&port->delta_msr_wait, &wait);
-@@ -1245,6 +1253,7 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	}
- 	__set_current_state(TASK_RUNNING);
- 	remove_wait_queue(&port->delta_msr_wait, &wait);
-+out_deref:
- 	uart_port_deref(uport);
- 
+diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+index 47e59664dbde6..020ede9568af4 100644
+--- a/drivers/tty/serial/imx.c
++++ b/drivers/tty/serial/imx.c
+@@ -2534,13 +2534,11 @@ static int imx_uart_probe(struct platform_device *pdev)
  	return ret;
-@@ -1567,7 +1576,7 @@ uart_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ }
  
- 	/* This should only be used when the hardware is present. */
- 	if (cmd == TIOCMIWAIT)
--		return uart_wait_modem_status(state, arg);
-+		return uart_wait_modem_status(tty, state, arg);
+-static int imx_uart_remove(struct platform_device *pdev)
++static void imx_uart_remove(struct platform_device *pdev)
+ {
+ 	struct imx_port *sport = platform_get_drvdata(pdev);
  
- 	/* rs485_config requires more locking than others */
- 	if (cmd == TIOCSRS485)
-@@ -1646,7 +1655,7 @@ static void uart_set_termios(struct tty_struct *tty,
- 	guard(mutex)(&state->port.mutex);
+ 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
+-
+-	return 0;
+ }
  
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return;
+ static void imx_uart_restore_context(struct imx_port *sport)
+@@ -2709,7 +2707,7 @@ static const struct dev_pm_ops imx_uart_pm_ops = {
  
- 	/*
-@@ -1798,7 +1807,14 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
- 	 * 'timeout' / 'expire' give us the maximum amount of time
- 	 * we wait.
- 	 */
--	while (!port->ops->tx_empty(port)) {
-+	for (;;) {
-+		mutex_lock(&state->port.mutex);
-+		if (tty_io_error(tty) || port->ops->tx_empty(port)) {
-+			mutex_unlock(&state->port.mutex);
-+			break;
-+		}
-+		mutex_unlock(&state->port.mutex);
-+
- 		msleep_interruptible(jiffies_to_msecs(char_time));
- 		if (signal_pending(current))
- 			break;
+ static struct platform_driver imx_uart_platform_driver = {
+ 	.probe = imx_uart_probe,
+-	.remove = imx_uart_remove,
++	.remove_new = imx_uart_remove,
+ 
+ 	.driver = {
+ 		.name = "imx-uart",
 -- 
-2.55.0
+2.53.0
 
