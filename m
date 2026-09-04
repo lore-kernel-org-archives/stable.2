@@ -1,78 +1,75 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9E44FB9AA
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12771331EB3
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:43:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788536189; cv=none; b=gh6zFpftsClbzW4QjDMfaD7L/+oR+0xwABwcGOaT5EAQQJQ6BTuPGB8cec9HBpvOa75IU1QlW/MCslbbXAne7cgkQz8iYoLEzy/tJw3nnrFCvop16W78XqoTXftktcT0vbsYxcprSYMcB0h2EvS//rCMA0xO+eCfEgRjQaPlt7Q=
+	t=1788536624; cv=none; b=O4VmAFKNnHUYPdkdHYeWTUSKxcaFbW3hQ2uEFSEXWK3OK2w9KDLuESlJZZKUoolCVNnOFbuAYMNcwemANDSKTUcxMAyteNzHkAW0OqkwYSNnj5rKd7xp2gerk463C974r/nI2vRbhpS6z6gtUs83noLVzNfOuvMVvmv/uMYpu1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788536189; c=relaxed/simple;
-	bh=yEI4BV6iNvGNTp6yVxJz/nr+ZKBl7Obpkxk5Yr1QfAU=;
+	s=arc-20240116; t=1788536624; c=relaxed/simple;
+	bh=xDSHLEJvv4S+ehumGrY7kGM1/OxoDe456ngMA0CCd3E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eTGeq9HjannmkT266oRhbGT8VOjBon2Ep/5Tsm5IyrxYfnjPDh+4fcNGeGN+Cz98qm0YehMP6ZrA0BuTc7Z6koUv6HqmtUtl+UWTQM6dtdVKNZQ9Aa1a7U6Ws5C91b4NXAGQXzh9bnKaK8OtRK7QuK+00bF1k+orLr91hacdke8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WgTXdtQ1; arc=none smtp.client-ip=209.85.210.176
+	 MIME-Version; b=UNlpJF+I5axI4g0iFvHmQ3jaUCzWKc1zzVbAXrvNvqHfdh5G/EHJ+jM+UKD6N4nc56nz3ONhSFSAIu0Xckw7MHZ/hMiy1UHt1seTNqFbXTrNnOIdNbYz/f9jgfzT86jq0tYLtlepCd8+cF2JVbIlbRNYu1UgUL84d5+otNa/6d4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mS6NAUNr; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WgTXdtQ1"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso1097527b3a.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 08:36:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mS6NAUNr"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso12832555e9.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 08:43:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788536187; x=1789140987; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788536620; x=1789141420; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=owo9HPKkc5Wy9mPuxsDxORlEguNqRT/FIkEdbsJf07w=;
-        b=WgTXdtQ10RN2bkdXQs1QZ9/01v+3awSURx8sEBr9tEJEBPkpTrb/HJckrRgUP5bboV
-         50SBqfaIuusVlvz78WExrOu0+dIbUGhRYcqlNdl58cI1dypzewGmMXJyF4CCt1iuPzqY
-         xqysF0Nu9DqnJJoW3jcBw81qnYVWGudtSPavWe7QncqkECpJkQAjBPPIKdSSaJIjzfT7
-         dm12dqjR68f40/qrcQzvo0ojGW+ZJ7cQa1qCr6BcjmKkuPK5rgLWmmPp7W/RSqOHCmBv
-         HAcH1vH482chzk6ZTe+IygZNayXlupM/CmETe/aeMb1RkNHMVqvwsEnlfFon5k/mmtza
-         HITg==
+        bh=HM9v/R2KBbxz5YchFa2QaH+CPRH5+oB0Pe0BiyXQ77I=;
+        b=mS6NAUNr1mM4BBRmWAXSc/645EnwLLpRQLw9f8lI06nfwD7Nj3GI2d1eFtT8y0Ox/O
+         HpMURrDDfdXoG7jibdZDos7e/7mbzOxrNkk06vhTv86Y/EYRZPnF+iYVQyoDfyXF24B/
+         gnUt3gdOdYCvCxY58Vl+Zfo9XJwd1059oNTHmvCUP0Ni92UirebpmEwzOotUgIZkLrwJ
+         vnv3TS5saG7UfjSjWQ5DmlTIEGKwviEu/cQBHyx85UXCkeqPXndby2ahFncgTZ9FNc30
+         F8sENxFJ1YmPhb00KVOvgKbI01VAPkFGU2zqkc4QoRHeAvAREqLfZnEIEuNo4hisn5Iv
+         QQVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788536187; x=1789140987;
+        d=1e100.net; s=20251104; t=1788536620; x=1789141420;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=owo9HPKkc5Wy9mPuxsDxORlEguNqRT/FIkEdbsJf07w=;
-        b=S7Zl6nCWXJeTwe2rhD81cUvueQgzjHUBsI+ajHyfvH+fRDdoEyREh4uN4gcBUxD5cY
-         iY+P08+ijzn4XbEWI58j4HyPIXE0Y7ZN0tfhL4XeLPR/wVbK+kg2PWxg/UiwPZ2Zt1wk
-         otBjfM+nfyEH6KlMShU1UemAfJ9VYYTjHpD0l4YDK7dq34CO9z8CcD6dLLKOKC0HeBTu
-         tiPvc/hBopo9IcSMqseTUIImyrzIQXuX2UF3lFYVs7oHmcakbZB01BTsG2wKUcDTfnyQ
-         PNhSlQ4BznBlxXuzMQC2cFyFu07hXvhUPL64UUrcjG0FkvyULwjPeSflzjNVdPswI2sm
-         4lgA==
-X-Forwarded-Encrypted: i=1; AKwUvBzABRZiSnmi1IiSyWm1TyxO7B9LqioSoJRfvy8um83fknvZrYv8fvtNawOWqiRcH/IT+fmvn/Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpumH6ggLT8PEn6Bt9X9D04u8Eitl7zzXFumnSGLsiyE3dGBtA
-	SfldNNb5NjZ+SCvNsylM5ODu45VKpBLgHFfYvwy9+eMHyYhMYMRhsuhw
-X-Gm-Gg: AYBFou2pcbVzs2LJ3ZjnNFTB2xO7iI25LxvuOJFIGTwoopueY8V28lLgAXvDPmZFWbF
-	14jLLonGYVvsS3wDvsmmZgOYK+zwpJx+DAYNzIlQGhHSvSAGtPEJQm1TyLfa2IUDUGS1LYBk+Yy
-	5YG4r4g23HcJ4CrNN9FvWpVnBETeo8rjXalLQo/HAjeGFHpY9ch/eoM2H31e39OMQIw6cBqU1MB
-	esgcWpkZzzOlKBmqCnXsMTDgXbRUV4yGZ+Lqm9VncQfz4HAp9HxbY6Cx8UkauwWZRN82738HKEC
-	vbzhwij3NzL9oplj+rbwqPUwqJgdj6ecM+U+0SCPI5JLBLrTQRreTfKakrEYQq9/4dcLp6BuFdW
-	J6/v+kIXoP6YmRzGUzqcpY39Js9l7+w+c5NUsCmt9RXd+OIuWKkv8Mj1TA5qXIngq08aMr8Mx4f
-	tHxEvnSPgpznGD9HC8ettTC1HKBb+EcJU7bgNECAPiqCaYSOQokJ+8B6nIMmBHCVCWABfE9nD34
-	w68lA/fFtDlkyo=
-X-Received: by 2002:a05:6a00:b91:b0:829:b08f:7353 with SMTP id d2e1a72fcca58-8619ae94866mr5005293b3a.7.1788536186798;
-        Fri, 04 Sep 2026 08:36:26 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2001:f40:906:1c06:7a81:226b:e033:d971])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152f32447sm1277202b3a.38.2026.09.04.08.36.23
+        bh=HM9v/R2KBbxz5YchFa2QaH+CPRH5+oB0Pe0BiyXQ77I=;
+        b=fvutFBPZT7FHJTQd8bZ0gp5tCMOzZ5gfBg+eM0YUy8Acsq5is7k/djcYgdu/COzing
+         IZ+lOnlje8g00cIAGZ+XxdODhRhXU49dNKVJ6zFHPzaF3SaGazIIdgmAzsAQtfPIqcY1
+         x5sgQY+kU+dCEHnjKsrRShVxkQjieC1urlcAAZUzL5ps0WWeDHR92LafW/WxlD7Z0mHT
+         9tFd9oAIPj/ndncqwQzipDjwwtsWEvxxXtbxj8oouo5qgUYi8aI4gyDVXomGyyPLksZ3
+         FYednBOrvPihfr8TPHyEoXbdgBz0gu+EYnJJmvhJ9NmcT6FN60DbxqU3p3syLaIgzlUk
+         ITAA==
+X-Gm-Message-State: AFuF++mSNuzizvVL7pXphBUGYx4sc66HIXzZircjlLHTDnxvxkiZ/zje
+	g98D6lgiglgaF5l52SmmPXjg8+eis0OxMDzTvrwxVl0tnXw9XC9p3E8YPY0v3cJA
+X-Gm-Gg: AYBFou3t/x2pFmk86cwNUdN+XcoEV5KXWRmeCaucud3KqWPZndENPODbfY2gtIoCV4o
+	gguImWFae89NezQkSqTkX2wZk+hpqdg9zo03mKXreohfS+iZZgmfnVN1kIFnuHXVoCEjV8K6fA3
+	ouk4ZcIHHbEyX4e2ArBUnLkIHx1foOtefYh7KgqlgQK5ixE0qWxsyB4rTHp1e7MRuYsHqcx/DK0
+	Pm7RnvB5Va9ZZb06G1Q6mItgzwep2MTJMgCKbXWoSLmmI7cwACzcWel6oxsDPLMNkg5Se6CrQ94
+	Ef9z1oK/1ipVwaiIZSJAXKpGkK1rJIhrazQsBROz0hCVyvQYvHsK70ncYNBSfQ3UjZL+2Q17e5x
+	zKxZ0vSjno1LHTGdkV/oOKLN4YG/ee1414xTcNaOJUTBikGODBQ93vMZJL54q46hC7SqbqDLweX
+	0ujVIxXbelG6B2Ep+dZykbMEo62CqYqXktcQMw4P6kib5P80fOFYkdcKt35tOCJZvz4u7BZdgdv
+	KsRVR0NGv82Mg==
+X-Received: by 2002:a05:600c:1da8:b0:49c:cf18:494e with SMTP id 5b1f17b1804b1-49cf825a530mr86119915e9.12.1788536619983;
+        Fri, 04 Sep 2026 08:43:39 -0700 (PDT)
+Received: from localhost (ip87-106-108-193.pbiaas.com. [87.106.108.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf5135353sm88862085e9.2.2026.09.04.08.43.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 08:36:26 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Fri,  4 Sep 2026 23:35:38 +0800
-Message-ID: <20260904153637.9670-1-aethernet65535@gmail.com>
+        Fri, 04 Sep 2026 08:43:39 -0700 (PDT)
+From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	brauner@kernel.org,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Subject: 
+Date: Fri,  4 Sep 2026 17:42:41 +0200
+Message-ID: <20260904154240.68162-2-gnoack3000@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904140535.64833-1-sj@kernel.org>
-References: <20260904140535.64833-1-sj@kernel.org>
+In-Reply-To: <2026090317-trapped-overload-3e96@gregkh>
+References: <2026090317-trapped-overload-3e96@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,104 +78,238 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 07:05:35 -0700 SJ Park <sj@kernel.org> wrote:
+From f4c2168991ca1b1f4a1d00e755f43621f2ed89d1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>
+Date: Thu, 13 Aug 2026 11:31:53 +0200
+Subject: [PATCH 6.12.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for
+ whiteout creation
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-> On Fri,  4 Sep 2026 16:07:41 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > First, I'd like to clarify that this isn't a problem encountered by a
-> > real user, it's just a scenario I came up with.
-> 
-> Thank you for clarifying this.
-> 
-> > 
-> > 1. Users sample qt_exceeds periodically (e.g., every 10 minutes).
-> 
-> What's the purpose of this sampling?
-> 
-> > 
-> > 2. Within this 10 minute sampling interval, the counter aggregates both
-> >    the real quota exhaustions and the increments caused by esz==0.
-> > 
-> > 3. When users notice a high qt_exceeds value, they eventually realize
-> >    (perhaps by reading the code or documentation) that it includes the
-> >    counts from the esz==0 state.
-> > 
-> > 4. To get the actual quota exhaustion statistics, the user is now forced
-> >    to perform additional testing and implement external filtering to
-> >    separate the esz==0 increments from the real exceeds.
-> > 
-> > Even if we explicitly state in the documentation that qt_exceeds
-> > includes the esz==0 counts, it still burdens the user.  The user still
-> > has to figure out how to filter out the esz==0 increments externally to
-> > get the signal they actually care about.
-> 
-> Users set the temporal goal.  They can know when the goal is achieved since
-> most of the goal metrics are already exposed to user space.  Users can also
-> show the current effective quotas.  I agree that can be cumbersome, but how
-> problematic it is?  Also, as I asked above, why they want to do this after all?
-> 
-> > 
-> > Honestly, I struggle to imagine any valid use case where a user would
-> > actually rely on the qt_exceeds increments caused by esz==0 to make
-> > decisions.
-> > 
-> > If the only purpose of qt_exceeds is to let users "easily notice" if the
-> > quota is too small,
-> 
-> I agree it could be a signal to show if the quota is too small.  But the real
-> purpose of qt_exceeds is, in my opinion, letting users understand how DAMOS is
-> internally working now.  After all, how much quota means if it is too small or
-> not?  That all depends on the real use case and complicated things including
-> their SLO etc.
+From: Günther Noack <gnoack@google.com>
 
-Thank you for your clarify.
+Whiteout objects are used in the upper layer of an OverlayFS to
+indicate that the file with this name does not exist in the unified
+view, even if it is present in one of the lower layer file systems.
 
-> 
-> If documentation is saying the purpose of qt_exceeds is to show if the quota is
-> too small, that is what need to be updated.
+For the userspace implementations of OverlayFS (fuse-overlayfs),
+whiteout objects can be created from userspace as well:
 
-I completely agree your perspective.
+* mknod(2) with S_IFCHR and makedev(0, 0)
+* renameat2(2) with RENAME_WHITEOUT,
+  creating the whiteout in the old place of the moved file.
 
-This is the current documentation of qt_exceeds:
+This commit guards whiteout creation in both of these cases with
+LANDLOCK_ACCESS_FS_MAKE_REG.  Whiteout objects are *not* considered
+character devices and are not bound to a driver.
 
-    - ``qt_exceeds``: Total number of times the quota of the scheme has exceeded.
+LANDLOCK_ACCESS_FS_MAKE_REG describes the same permission class as a
+whiteout object: creating one is the only S_IFCHR creation that the VFS
+exempts from CAP_MKNOD, so it is as unprivileged as creating a regular
+file, while LANDLOCK_ACCESS_FS_MAKE_CHAR and
+LANDLOCK_ACCESS_FS_MAKE_BLOCK keep meaning the creation of devices that
+expose a kernel interface [1].
 
-Although it state the purpose of this statistic, I think adding a
-note to clarify that this stat also increase when the quota is zero (but
-not unlimited) would be helpful for users.  For example:
+For the mknod(2) case, introduce a Landlock erratum.  The creation of
+whiteout objects through mknod(2) was previously guarded using
+LANDLOCK_ACCESS_FS_MAKE_CHAR, and it is now guarded using
+LANDLOCK_ACCESS_FS_MAKE_REG.
 
-    Usually, a quota of zero means the DAMOS scheme has an unlimited
-    quota, so qt_exceeds will not increase.  However, if user sets a
-    temporal quota goal, the quota is set to zero once the goal is
-    [over]-achieved.  In this situation, qt_exceeds will still increase.
+For the renameat2(2) case, fix a bug: Before this commit, renameat2(2)
+with RENAME_WHITEOUT would create a directory entry even when all
+LANDLOCK_ACCESS_FS_MAKE_* rights were denied.
 
-I can prepare a formal documentation patch based on this if you agree.
+This does not affect normal renames within layered OverlayFS mounts:
+When doing a regular rename() on a mounted fuse-overlayfs, it is the
+fuse-overlayfs daemon that exercises renameat2() with RENAME_WHITEOUT,
+and only the Landlock domain of that daemon is checked there.
 
-[...]
+Suggested-by: Christian Brauner <brauner@kernel.org>
+Suggested-by: Mickaël Salaün <mic@digikod.net>
+Cc: stable@vger.kernel.org
+Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
+Depends-on: 49c9e09d9610 ("landlock: Fix handling of disconnected directories")
+Depends-on: fe72ce6710cb ("landlock: Add errata documentation section")
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260720.chow9ohYie5b@digikod.net [1]
+Link: https://patch.msgid.link/20260813093157.1436894-3-gnoack@google.com
+[mic: Record why LANDLOCK_ACCESS_FS_MAKE_REG is the matching right, and
+add link(2) to the user doc]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+(cherry picked from commit 672fa082d48b21e1fb62cdb184fee41513e53421)
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+---
+ include/uapi/linux/landlock.h    |  1 +
+ security/landlock/errata/abi-1.h | 23 ++++++++++++++++++
+ security/landlock/fs.c           | 40 +++++++++++++++++++++++++-------
+ 3 files changed, 55 insertions(+), 9 deletions(-)
 
-That said, it's not important for me to add explanations to the
-document, but may I know why commit [2] changed the behavior which
-introduced by commit [1]?
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index c223572f8229..94cfad88082f 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -177,6 +177,7 @@ struct landlock_net_port_attr {
+  *   device.
+  * - %LANDLOCK_ACCESS_FS_MAKE_DIR: Create (or rename) a directory.
+  * - %LANDLOCK_ACCESS_FS_MAKE_REG: Create (or rename or link) a regular file.
++ *   This also guards the creation of whiteout objects as used in OverlayFS.
+  * - %LANDLOCK_ACCESS_FS_MAKE_SOCK: Create (or rename or link) a UNIX domain
+  *   socket.
+  * - %LANDLOCK_ACCESS_FS_MAKE_FIFO: Create (or rename or link) a named pipe.
+diff --git a/security/landlock/errata/abi-1.h b/security/landlock/errata/abi-1.h
+index e8a2bff2e5b6..80930957e84d 100644
+--- a/security/landlock/errata/abi-1.h
++++ b/security/landlock/errata/abi-1.h
+@@ -14,3 +14,26 @@
+  * actions.
+  */
+ LANDLOCK_ERRATUM(3)
++
++/**
++ * DOC: erratum_4
++ *
++ * Erratum 4: Creation of whiteout objects
++ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ *
++ * This fix changes the access rights required for the creation of whiteout
++ * objects through :manpage:`mknod(2)`, :manpage:`renameat2(2)`, or
++ * :manpage:`link(2)`.  Creating whiteout objects is now guarded by
++ * ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
++ *
++ * Whiteout objects are used in OverlayFS to mark the absence of a file in an
++ * upper file system.  Despite being created with ``S_IFCHR``, whiteout objects
++ * do not count as character devices.
++ *
++ * Impact:
++ *
++ * Sandboxed programs that create OverlayFS whiteouts (such as fuse-overlayfs)
++ * now require ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of
++ * ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
++ */
++LANDLOCK_ERRATUM(4)
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index bb4a9e82156a..b96a4daa5b2a 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -20,6 +20,7 @@
+ #include <linux/falloc.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
++#include <linux/kdev_t.h>
+ #include <linux/kernel.h>
+ #include <linux/limits.h>
+ #include <linux/list.h>
+@@ -954,7 +955,7 @@ static int current_check_access_path(const struct path *const path,
+ 	return check_access_path(dom, path, access_request);
+ }
+ 
+-static access_mask_t get_mode_access(const umode_t mode)
++static access_mask_t get_mode_access(const umode_t mode, const dev_t dev)
+ {
+ 	switch (mode & S_IFMT) {
+ 	case S_IFLNK:
+@@ -962,6 +963,9 @@ static access_mask_t get_mode_access(const umode_t mode)
+ 	case S_IFDIR:
+ 		return LANDLOCK_ACCESS_FS_MAKE_DIR;
+ 	case S_IFCHR:
++		/* Whiteout objects are guarded with MAKE_REG. */
++		if (dev == WHITEOUT_DEV)
++			return LANDLOCK_ACCESS_FS_MAKE_REG;
+ 		return LANDLOCK_ACCESS_FS_MAKE_CHAR;
+ 	case S_IFBLK:
+ 		return LANDLOCK_ACCESS_FS_MAKE_BLOCK;
+@@ -978,6 +982,13 @@ static access_mask_t get_mode_access(const umode_t mode)
+ 	}
+ }
+ 
++static access_mask_t get_dentry_access(const struct dentry *const dentry)
++{
++	const struct inode *const inode = d_backing_inode(dentry);
++
++	return get_mode_access(inode->i_mode, inode->i_rdev);
++}
++
+ static access_mask_t maybe_remove(const struct dentry *const dentry)
+ {
+ 	if (d_is_negative(dentry))
+@@ -1067,6 +1078,7 @@ static bool collect_domain_accesses(
+  * @new_dentry: Destination file or directory.
+  * @removable: Sets to true if it is a rename operation.
+  * @exchange: Sets to true if it is a rename operation with RENAME_EXCHANGE.
++ * @whiteout: Sets to true if it is a rename operation with RENAME_WHITEOUT.
+  *
+  * Because of its unprivileged constraints, Landlock relies on file hierarchies
+  * (and not only inodes) to tie access rights to files.  Being able to link or
+@@ -1115,7 +1127,8 @@ static bool collect_domain_accesses(
+ static int current_check_refer_path(struct dentry *const old_dentry,
+ 				    const struct path *const new_dir,
+ 				    struct dentry *const new_dentry,
+-				    const bool removable, const bool exchange)
++				    const bool removable, const bool exchange,
++				    const bool whiteout)
+ {
+ 	const struct landlock_ruleset *const dom = get_current_fs_domain();
+ 	bool allow_parent1, allow_parent2;
+@@ -1134,18 +1147,25 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+ 	if (exchange) {
+ 		if (unlikely(d_is_negative(new_dentry)))
+ 			return -ENOENT;
+-		access_request_parent1 =
+-			get_mode_access(d_backing_inode(new_dentry)->i_mode);
++		access_request_parent1 = get_dentry_access(new_dentry);
+ 	} else {
+ 		access_request_parent1 = 0;
+ 	}
+-	access_request_parent2 =
+-		get_mode_access(d_backing_inode(old_dentry)->i_mode);
++	access_request_parent2 = get_dentry_access(old_dentry);
+ 	if (removable) {
+ 		access_request_parent1 |= maybe_remove(old_dentry);
+ 		access_request_parent2 |= maybe_remove(new_dentry);
+ 	}
+ 
++	/*
++	 * In case of renameat2(2) with RENAME_WHITEOUT, a whiteout object is
++	 * created in the source location, so we require an additional access
++	 * right there.
++	 */
++	if (whiteout)
++		access_request_parent1 |=
++			get_mode_access(S_IFCHR | WHITEOUT_MODE, WHITEOUT_DEV);
++
+ 	/* The mount points are the same for old and new paths, cf. EXDEV. */
+ 	if (old_dentry->d_parent == new_dir->dentry) {
+ 		/*
+@@ -1417,7 +1437,7 @@ static int hook_path_link(struct dentry *const old_dentry,
+ 			  struct dentry *const new_dentry)
+ {
+ 	return current_check_refer_path(old_dentry, new_dir, new_dentry, false,
+-					false);
++					false, false);
+ }
+ 
+ static int hook_path_rename(const struct path *const old_dir,
+@@ -1428,7 +1448,8 @@ static int hook_path_rename(const struct path *const old_dir,
+ {
+ 	/* old_dir refers to old_dentry->d_parent and new_dir->mnt */
+ 	return current_check_refer_path(old_dentry, new_dir, new_dentry, true,
+-					!!(flags & RENAME_EXCHANGE));
++					!!(flags & RENAME_EXCHANGE),
++					!!(flags & RENAME_WHITEOUT));
+ }
+ 
+ static int hook_path_mkdir(const struct path *const dir,
+@@ -1445,7 +1466,8 @@ static int hook_path_mknod(const struct path *const dir,
+ 
+ 	if (!dom)
+ 		return 0;
+-	return check_access_path(dom, dir, get_mode_access(mode));
++	return check_access_path(dom, dir,
++				 get_mode_access(mode, new_decode_dev(dev)));
+ }
+ 
+ static int hook_path_symlink(const struct path *const dir,
+-- 
+2.55.0
 
-Commit [1] Behavior:
-
-    if (quota->esz && quota->changed_sz >= quota->esz)
-        s->stat.qt_exceeds++;
-
-Commit [2] Behavior:
-
-    if (damos_quota_is_full(quota, c->min_region_sz))
-        s->stat.qt_exceeds++;
-
-Before commit [2], qt_exceeds will only increase when quota->esz is not
-zero, but after commit [2], qt_exceeds also increase even when
-quota->esz is zero.  I'd love to understand the rationale behind this
-change to better grasp the design evolution.
-
-[1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
-    (Fri Jan 14 14:10:20 2022 -0800)
-[2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-    (Mon Apr 27 18:33:50 2026 -0700)
-
-Best regards,
-Rui Yan
