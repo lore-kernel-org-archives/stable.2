@@ -1,42 +1,61 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4C5417BF8;
-	Fri,  4 Sep 2026 06:07:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80A89358378
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 06:07:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502046; cv=none; b=uZJYdG/EozbVhikr2gtcMegwrxW/m5XcCoisSNXUv+PxXG1PXdLihaGGrTis4fft5SIvnxaRsHTsTNyDIrh3y2vQS3EXclFqjVpgIZz6lwd1madlJ4fmhZAr+Cg1bVXhs6FzkBgI1JV9UI4f89+T0KCuRGkrrOo+8nh9pIJPFQk=
+	t=1788502047; cv=none; b=D4GSssV3Xn9KKPkxQ5xqCfxxMpaOFZN41I6zWvlczXlpXkixcF9roVFspEdPpMr4181GP/6djIBmeivIzqW70WJw7+hhV0OxBa3qae4mZPxxKuxLiNXMk0Ww31NXOu2HKZpT9diPFd+AFdSF8Bv4h7MjXqdFyZ4FyNHu5eVflA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502046; c=relaxed/simple;
-	bh=w7j4DxVucjol79ywPOYLGGFzxTk8bf2jbrYWMe7axoA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TTm2u0x0DredpyMlGQIy1iY7RykJ/5daATo7nA15hlv6UnaCzyAbd2fbtMCjXM7TiYMfF0eJk3AQ3ucalu3wcI4ceaS4DQm/G2EHViVrV5YGLpQyxIhBVxORaMII7xVSNr7LkIP1g9m3olKBBBq2LVfb+Ja28IuBQ3bq281LYKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=aCX0jSbZ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="aCX0jSbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D13001F00A3D;
-	Fri,  4 Sep 2026 06:07:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788502045;
-	bh=Rn9xsSxX4/Hdf+cRZi1moz7WtTNud3Xa5F9Qm/WTsxE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aCX0jSbZGh8BxpAiWM3ZWBr6c/UFq0k2900I3hS9KBKChvtGshh6x8TbUoSzrKdiX
-	 2X6YHCMKZIr4iqUqReSpjIVudra1qORyhx2n/4ouTbgh/pWrcqecLTjD398UhQ1S8i
-	 /koV8jMAqohRspN+NAAdQiVE+vOOXlZWdtre8ofw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chuck Lever <cel@kernel.org>
-Subject: [PATCH 6.12 069/403] NFSD: Encode only the status in NFS-ACL v2 GETACL error replies
-Date: Fri,  4 Sep 2026 06:57:52 +0200
-Message-ID: <20260904045736.407814586@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
-References: <20260904045734.806166532@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1788502047; c=relaxed/simple;
+	bh=OfT3XxWYJYsLyekUE8AYRGRGg/tCiDb56aMjQq9HR74=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FnYK07YsFO+F5hugf0iFBwydZC3tZAqw1sHqDhGHqQP5RMqkibFK7mFxUR2/Hle+IssmEAgcFdhayBI+/zJrOgKSSlP681gd9z1sdl3hOsGeVcle5w5AbXRwDNdIMgxBqiHjiRPvbiXOJFGxWtKDVwGZe6cm4jQ+eGcaW/pHAYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: e19e6918a82611f19a56ed5b684f684d-20260904
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN
+	HR_FROM_NAME, HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
+	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED
+	SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e9a13aa0-801c-437b-b6d5-202e1bfab0dd,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.19,REQID:e9a13aa0-801c-437b-b6d5-202e1bfab0dd,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:e77fb0c4ec3163943b26d0d1387bde94,BulkI
+	D:260904140159BPD4Y87M,BulkQuantity:1,SF:17|19|66|78|81|82|102|127|136|850
+	|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil
+	,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BR
+	R:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e19e6918a82611f19a56ed5b684f684d-20260904
+X-User: liuzhe1@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <liuzhe1@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1212150570; Fri, 04 Sep 2026 14:07:17 +0800
+From: Zhe Liu <liuzhe1@kylinos.cn>
+To: lzlzzz548943@163.com
+Cc: Zhe Liu <liuzhe1@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] sched/fair: Remove the write-order dependency between cpu.max and cpu.max.burst
+Date: Fri,  4 Sep 2026 14:06:28 +0800
+Message-Id: <20260904060630.486691-2-liuzhe1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260904060630.486691-1-liuzhe1@kylinos.cn>
+References: <20260904060630.486691-1-liuzhe1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,80 +64,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Keep the configured burst independent of the current quota and cap it
+when CFS refills runtime. This allows quota and burst updates in either
+order.
 
-------------------
+Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
 
-From: Chuck Lever <cel@kernel.org>
-
-commit ed4edddad19babf76b56882ad9600f5646b167a0 upstream.
-
-The NFSv2 ACL GETACL reply is a union that carries file attributes
-and ACL data only when the status is NFS_OK. All error cases are
-void results. However, currently the NFSv2 ACL GETACL result encoder
-decides whether to append the "OK" body by testing only whether the
-file handle resolved to a positive dentry, not the actual reply
-status.
-
-A GETACL request that resolves its file handle but then fails for
-another reason (an unsupported mask value, a getattr failure, or an
-ACL retrieval error) therefore appends file attributes and ACL data
-after the error status on the wire. Worse, when the mask is
-rejected, fh_getattr() hasn't been called at all, so those
-attributes are serialized from a zero-filled kstat and are junk.
-
-The logic before the xdr_stream conversion used the reply status.
-Revert to that approach (but keep the xdr_stream conversion in
-place).
-
-Fixes: f8cba47344f7 ("NFSD: Update the NFSv2 GETACL result encoder to use struct xdr_stream")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260712150911.48461-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
 ---
- fs/nfsd/nfs2acl.c |   31 +++++++++++++++----------------
- 1 file changed, 15 insertions(+), 16 deletions(-)
+ kernel/sched/core.c | 3 +--
+ kernel/sched/fair.c | 3 ++-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
---- a/fs/nfsd/nfs2acl.c
-+++ b/fs/nfsd/nfs2acl.c
-@@ -248,22 +248,21 @@ nfsaclsvc_encode_getaclres(struct svc_rq
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..5269b8cfcf7f 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
+ 	if (quota_us != RUNTIME_INF && quota_us > max_bw_runtime_us)
+ 		return -EINVAL;
  
- 	if (!svcxdr_encode_stat(xdr, resp->status))
- 		return false;
--
--	if (dentry == NULL || d_really_is_negative(dentry))
--		return true;
--	inode = d_inode(dentry);
--
--	if (!svcxdr_encode_fattr(rqstp, xdr, &resp->fh, &resp->stat))
--		return false;
--	if (xdr_stream_encode_u32(xdr, resp->mask) < 0)
--		return false;
--
--	if (!nfs_stream_encode_acl(xdr, inode, resp->acl_access,
--				   resp->mask & NFS_ACL, 0))
--		return false;
--	if (!nfs_stream_encode_acl(xdr, inode, resp->acl_default,
--				   resp->mask & NFS_DFACL, NFS_ACL_DEFAULT))
--		return false;
-+	switch (resp->status) {
-+	case nfs_ok:
-+		inode = d_inode(dentry);
-+		if (!svcxdr_encode_fattr(rqstp, xdr, &resp->fh, &resp->stat))
-+			return false;
-+		if (xdr_stream_encode_u32(xdr, resp->mask) < 0)
-+			return false;
-+		if (!nfs_stream_encode_acl(xdr, inode, resp->acl_access,
-+					   resp->mask & NFS_ACL, 0))
-+			return false;
-+		if (!nfs_stream_encode_acl(xdr, inode, resp->acl_default,
-+					   resp->mask & NFS_DFACL, NFS_ACL_DEFAULT))
-+			return false;
-+		break;
-+	}
+-	if (quota_us != RUNTIME_INF && (burst_us > quota_us ||
+-					burst_us + quota_us > max_bw_runtime_us))
++	if (burst_us > max_bw_runtime_us)
+ 		return -EINVAL;
  
- 	return true;
+ #ifdef CONFIG_CFS_BANDWIDTH
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 6d881e530f89..488de18d477e 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
+ 		cfs_b->nr_burst++;
+ 	}
+ 
+-	cfs_b->runtime = min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
++	cfs_b->runtime = min(cfs_b->runtime,
++			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
+ 	cfs_b->runtime_snap = cfs_b->runtime;
  }
-
-
+ 
+-- 
+2.25.1
