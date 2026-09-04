@@ -1,126 +1,123 @@
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41E864A2A4E;
-	Fri,  4 Sep 2026 13:49:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D5E030E858
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:50:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529763; cv=none; b=ApjScsmDu4xuZWvatMyHWDwDOu5ecejWX7dUn0J8dl24IuY8s+S32CzhexgxoM0dz+2vZrn+m3sh+D0m7VUTYyq+6PIGw0aDhh7+aRRWHk9lCu8X0bffdOhQOCZaBMRlBMRPa1yqQ8SEUGXlyIS0KMuItuHxBIpuVrfGInYZIg8=
+	t=1788529827; cv=none; b=KuDUCXsRab70nN4YVQZPMbk7Jbru/KB4P8jpIfsyVpG1xMI4Ey3P9eQrr52LL//fYyzseSB5nLok/CRQdwmjHxzVtGo0LA6VZ548/35xMGz/2SCIEuut0XMj85OYNN0R3A0B0bY5ofYXq4/tVuzY3zxhp+B+LYnbtCOgSm5WwOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529763; c=relaxed/simple;
-	bh=3SXRMRMqTwVSy4jcRmG6pKzLM4R603s1n0fh2maGVbs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XbiEyNXp2y/3pSYw4zj+qi+MKrFOuS1ZI5NLSlhCvaZe2ch1s4QVQQ9Yni3bbkrmLzgg3iBX+Jbm3PJ5GScD8q6HaM3Iwz4MhfGxyiefJEzsxqpYN8L+Reke54HWNjA25g2MPkZbozDCcN1QHaZ3PFMO9FRn2eopIworEhHfMPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAnET9TzJpqbG_uAA--.631S3;
-	Fri, 04 Sep 2026 21:49:08 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app3 (Coremail) with SMTP id zS_KCgA3cXRSzJpq_WTuBA--.64619S2;
-	Fri, 04 Sep 2026 21:49:06 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: linux-cifs@vger.kernel.org
-Cc: sfrench@samba.org,
-	pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	sprasad@microsoft.com,
-	tom@talpey.com,
-	bharathsm@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred close
-Date: Fri,  4 Sep 2026 13:48:11 +0000
-Message-Id: <20260904134811.338427-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788529827; c=relaxed/simple;
+	bh=nP8cjA1efQ4TYHu5+FfueC6gxgfJe4MBgBSQ1+Vv9Ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gI6V6H+k6SQ9ql4U8O2Z9ahADUs50fQ85mzphHdBz/7NqX8P7gIwJbcUta28Kr46fqQZwOzuQCHqNPY7ZIcpjwgu+pW4OYiEgH3IEomk8FMiQROJdUOAtO8PkhZ5V+uuXKPuPK3fs9xCLgMgg2zubzyPQdyaxU5ROFez83Bwmgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wi2hlVpB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wi2hlVpB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A481F00A3D;
+	Fri,  4 Sep 2026 13:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788529826;
+	bh=cI/21DbeJwFCRBZmpRxn1lumPS7WZ0vKpBQesI6/qog=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Wi2hlVpBLthrBctdG7Q7l1O92ikQfk1HnQxxH5SG90wTGb2KvLrzTEn3NqdDSz7jq
+	 T01L9r1hGplEgvgC+wQbAwmssC7PcUK9TJ9fjDPPPx5Y8G8MtcqkwxXjgiYeLr0Qv6
+	 zq5azqbuiCLXAsDgYUWoTqJvDX5x+10n2/w8FoEWyjY4yKVKFyluEsd925pw5r8YbS
+	 LZvDWaEux1ctz+PwQ+GCUMd/7ZeXF10cas9xnIVBUuS3lsQA8YMUERziGA7LYWCYoB
+	 WG2T/rZGeK27qcfSN8bp3i0fo7s1a/9PxqLdr9pEfp6D2QwZc3E21g2aaF50ClwiNr
+	 icg07GgL50d3w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] usb: gadget: at91_udc: Convert to platform remove callback returning void
+Date: Fri,  4 Sep 2026 09:50:22 -0400
+Message-ID: <20260904135023.585066-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090318-hummus-copier-f77f@gregkh>
+References: <2026090318-hummus-copier-f77f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zS_KCgA3cXRSzJpq_WTuBA--.64619S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?X/nDcgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnZPoDCNGYdHSfuFmYJL54WNt83ay2J0i+S7+PPVtfzwfE9cPXZJtUAGV6RxEt2ReoGE4
-	nVCfbKY8Wu6drHXg51HN5RPxYw6l01w8CbPzC/8w
-X-Coremail-Antispam: 1Uk129KBj93XoWxAr4DGrWkGFyDGw17ZF4rtFc_yoW5Jw15pF
-	WYgry5Jr95GrW7Kw1UXanrW3WYvFn7AF45ur97WF1fAas5J3yaqr4ftayqgF4xC395A3W0
-	qF4UZayqvr4UZacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
-	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
-	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
-	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
-	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
-	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
-	WUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
-	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-When cifs_close() defers a close, it hands the cifsFileInfo reference
-of the closing struct file to the queued work. Each execution of
-smb2_deferred_work_close() drops one such reference.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-deferred_close_scheduled can be false while the work is pending: the
-workqueue clears PENDING when the callback starts to run, before the
-callback clears the flag under deferred_lock. A close in that
-interval requeues the running work, and the callback then clears the
-flag, leaving the requeued work pending with the flag down. A later
-cifs_open() can reuse the handle and its cifs_close() reaches the
-same branch: queue_delayed_work() fails because the work is still
-pending, but cifs_close() returns without dropping the closing file's
-reference. The cifsFileInfo count stays pinned and its tlink, dentry
-and server handle are leaked.
+[ Upstream commit cbd1b152519a581bfe14fb6b14ea6e57cca426c1 ]
 
-Check the return value and hand off the reference only when work was
-actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
-the mod_delayed_work() branch above: the pending execution already
-owns its reference.
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-This issue was found by an in-house static analysis tool.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+In the error path emit an error message replacing the (less useful)
+message by the core. Apart from the improved error message there is no
+change in behaviour.
+
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20231120215830.71071-2-u.kleine-koenig@pengutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: c27d13ce4bab ("usb: gadget: at91_udc: drain polled-VBUS timer/work before udc is freed")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/file.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/usb/gadget/udc/at91_udc.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index ac89c1ba56b1..acb6ac1bbddc 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -1490,11 +1490,18 @@ int cifs_close(struct inode *inode, struct file *file)
- 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
- 						cfile->fid.persistent_fid,
- 						cifs_sb->ctx->closetimeo);
--				queue_delayed_work(deferredclose_wq,
--						&cfile->deferred, cifs_sb->ctx->closetimeo);
--				cfile->deferred_close_scheduled = true;
--				spin_unlock(&cinode->deferred_lock);
--				return 0;
-+				/*
-+				 * Each queued execution owns one reference.
-+				 * If nothing was queued, the reference of
-+				 * the closing file is dropped below.
-+				 */
-+				if (queue_delayed_work(deferredclose_wq,
-+						       &cfile->deferred,
-+						       cifs_sb->ctx->closetimeo)) {
-+					cfile->deferred_close_scheduled = true;
-+					spin_unlock(&cinode->deferred_lock);
-+					return 0;
-+				}
- 			}
- 			spin_unlock(&cinode->deferred_lock);
- 			_cifsFileInfo_put(cfile, true, false);
+diff --git a/drivers/usb/gadget/udc/at91_udc.c b/drivers/usb/gadget/udc/at91_udc.c
+index a9a7b3fc60ec9..96d0aabe3c85e 100644
+--- a/drivers/usb/gadget/udc/at91_udc.c
++++ b/drivers/usb/gadget/udc/at91_udc.c
+@@ -1927,7 +1927,7 @@ static int at91udc_probe(struct platform_device *pdev)
+ 	return retval;
+ }
+ 
+-static int at91udc_remove(struct platform_device *pdev)
++static void at91udc_remove(struct platform_device *pdev)
+ {
+ 	struct at91_udc *udc = platform_get_drvdata(pdev);
+ 	unsigned long	flags;
+@@ -1935,8 +1935,11 @@ static int at91udc_remove(struct platform_device *pdev)
+ 	DBG("remove\n");
+ 
+ 	usb_del_gadget_udc(&udc->gadget);
+-	if (udc->driver)
+-		return -EBUSY;
++	if (udc->driver) {
++		dev_err(&pdev->dev,
++			"Driver still in use but removing anyhow\n");
++		return;
++	}
+ 
+ 	spin_lock_irqsave(&udc->lock, flags);
+ 	pullup(udc, 0);
+@@ -1946,8 +1949,6 @@ static int at91udc_remove(struct platform_device *pdev)
+ 	remove_debug_file(udc);
+ 	clk_unprepare(udc->fclk);
+ 	clk_unprepare(udc->iclk);
+-
+-	return 0;
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -2003,7 +2004,7 @@ static int at91udc_resume(struct platform_device *pdev)
+ #endif
+ 
+ static struct platform_driver at91_udc_driver = {
+-	.remove		= at91udc_remove,
++	.remove_new	= at91udc_remove,
+ 	.shutdown	= at91udc_shutdown,
+ 	.suspend	= at91udc_suspend,
+ 	.resume		= at91udc_resume,
+-- 
+2.53.0
 
