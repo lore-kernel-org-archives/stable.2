@@ -1,96 +1,71 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BC73F58F5
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 08:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B8133B2FF9;
+	Fri,  4 Sep 2026 08:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511979; cv=none; b=EsucnrE/3fDpIjg+GdG9noYJ3FweaRcxZGlr8j8GAzUgmYhEa5gKEyzhJF3S7x6bkXXDuuHUoA+J5tsFiveOovoEOq8xLEfTgKc200Mg0LkfSpagyZEgYng4POO4p8PL0mjBDSWWzxbNoCiM5sRPd/PtW+cUYdWdAyxdUMUo1Co=
+	t=1788512242; cv=none; b=VWIGYhxaC7H/APHkAeSRgwOau5hV26mMxOlWCjjP+Oz5+pz/03lrZQtrpwRWbup+ux63Oa8jXAIyGh1H3OWvHnR0Ub+gFxvkFeQOF8GxwskpmZfZ+1QnTymywR/+UKjgUgpNO1DYdKuSz/3545BSNl2LOcCWIAGWqqO0MzwSwzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511979; c=relaxed/simple;
-	bh=fASjv53DZwsUggOXhd/KS0Sl12OjEb7SLiFFAfWyVpI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QmghDJdazmI+Zbd6Ratnua2VnDy3UHuwdi/8zLJqdZu1vWQ767zFEFzMbBlCgPHofmHDPC/JsB+kn+FXTOxgnMLWP/PuV61mtGvSCICpQMxL6CvHgmxoLVexp2dhVdcJMjnDzjSKcTGEtwNqJW64l02iqoWg9B+/kNzqunZL4GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 016ba8aca83e11f19a56ed5b684f684d-20260904
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e2d06210-5bc6-4cb8-909a-482a4ba7c03a,IP:0,U
-	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:b6ab868a27b7a9a21e041c51ec84c36b,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	5|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
-	A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 016ba8aca83e11f19a56ed5b684f684d-20260904
-X-User: zhangyunfei1@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zhangyunfei1@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 116729281; Fri, 04 Sep 2026 16:52:49 +0800
-From: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-To: zyf1352022@163.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH iwl-net] idpf: fix NULL pointer dereference and memory leak in interrupt request
-Date: Fri,  4 Sep 2026 16:52:46 +0800
-Message-Id: <20260904085246.890745-1-zhangyunfei1@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788512242; c=relaxed/simple;
+	bh=ERD8AXf7TXdChYSQwrK17KfmoT8D4LTgr4jpnf6Z4mg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yy9Qh8aWrhdq68saHHqNmMzNXSjgJ9WZNx58fr/JTsMfXWsv5EMjtD/dMrNgYAMZ2TkroXL67fqzaXCxWKah8dY9J8lcffJ5knB6V6MSXIXCinDGOmXLrS62dF//6xMSWcWHEbeuNo3xli9T0X8YKqMjQ8XmzHWgJijHWJvlUY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/2us4wd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/2us4wd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D9D1F00A3D;
+	Fri,  4 Sep 2026 08:57:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788512240;
+	bh=wWF99opmQx/qnYkYmHdnP27kszT/uZGrr1lE6vZT9p4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m/2us4wdnkpYFO1XWnR8zKf8Q2e92y8D63Qdi/gR9cKDajjhCyPR3OIIn1/rGEyDs
+	 xXbr9ao9y5uARg/uh/N8WKN/uC+m5Prc9GfunqkwVZ7dfiFpejuMVUoMXfE9KSM8Zf
+	 a9as4npkAHJcgyd6AUP8qNys+kiD3OLgYtlJjvHm1GLlLnGdQ0oDPb8GPhz5CY2lEt
+	 tdAd9S/ikYCHFmRZMMXO+t9yaVYlyIv9ZgPzD2wOrquSEiBtNtUm3pIxMG+W9B2aD0
+	 tBGbImNH93TDY5VUn8KkGS4oJW8mkzDYGxrEvcZ5DJ/HggRgu+eIf2SxlQuNO2B1ra
+	 1D0Jkjzmjcl0Q==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x2Pja-00000006lYm-2QBo;
+	Fri, 04 Sep 2026 10:57:18 +0200
+Date: Fri, 4 Sep 2026 10:57:18 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com,
+	Yang Zi <2959243019@qq.com>
+Subject: Re: [PATCH v2] greybus: operation: fix out-of-bounds write in
+ message allocation
+Message-ID: <apqH7j3tQiXZqiOk@hovoldconsulting.com>
+References: <20260902145916.63052-1-adrianox@gmail.com>
+ <apqDK5dHYGaJRwx1@hovoldconsulting.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apqDK5dHYGaJRwx1@hovoldconsulting.com>
 
-The kasprintf() call in idpf_vport_intr_req_irq() can return NULL on
-memory pressure, but the result is passed directly to request_irq()
-without a NULL check. The IRQ core then stores this pointer as
-action->name and dereferences it later from /proc/interrupts and
-procfs, leading to a NULL pointer dereference.
+On Fri, Sep 04, 2026 at 10:36:59AM +0200, Johan Hovold wrote:
+> On Wed, Sep 02, 2026 at 10:59:16AM -0400, Adriano Cordova wrote:
+> > The incoming message size from the device header (header.size) is
+> > trusted without checking that it is at least the size of the message
+> > header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
+> > underflows request_size in gb_operation_create_incoming(), wraps around
+> > in gb_operation_message_alloc(), and results in a tiny buffer that is
+> > then written past its end in gb_operation_message_init().
+> 
+> Is it really? I was under the impression the only issue here was the
+> potential zero-size-pointer deref.
 
-Add a NULL check after kasprintf() and bail out with -ENOMEM.
+You're right of course, there's a potential small (7 byte) OOB write
+here too.
 
-Additionally, when request_irq() fails, request_threaded_irq() frees
-the irqaction itself without taking ownership of the name string, so
-the caller-allocated name is leaked. Free it on the error path only.
-On the success path the name is owned by the irq action and released
-later via kfree(free_irq(...)) in the cleanup loop, so it must not be
-freed here.
-
-Fixes: d4d558718266 ("idpf: initialize interrupts and enable vport")
-Cc: stable@vger.kernel.org # 6.7
-Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
----
- drivers/net/ethernet/intel/idpf/idpf_txrx.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.c b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-index 24b91be25676..86dedf5c1c09 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-@@ -4063,12 +4063,17 @@ static int idpf_vport_intr_req_irq(struct idpf_vport *vport,
- 
- 		name = kasprintf(GFP_KERNEL, "%s-%s-%s-%d", drv_name, if_name,
- 				 vec_name, vector);
-+		if (!name) {
-+			err = -ENOMEM;
-+			goto free_q_irqs;
-+		}
- 
- 		err = request_irq(irq_num, idpf_vport_intr_clean_queues, 0,
- 				  name, q_vector);
- 		if (err) {
- 			netdev_err(vport->netdev,
- 				   "Request_irq failed, error: %d\n", err);
-+			kfree(name);
- 			goto free_q_irqs;
- 		}
- 
--- 
-2.25.1
-
+Johan
