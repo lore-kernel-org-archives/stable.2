@@ -1,43 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F8D42589C;
-	Fri,  4 Sep 2026 06:19:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502792; cv=none; b=j3wtz3m5MX3eDq1fZsR39XlgmFpyt0CmoE7CjU3LpOkLckWNO90T085aAnYGDbcjWOUhYEjF/U8uCBau4pNYw7lqGoGMCcnD6LZtwSMpr6u4T7EqCU5QgQUXcB3tBK4uvLysxN0OEWG8NLvSFR2vJxfjzXKXp/DmFLVfKicHxFU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502792; c=relaxed/simple;
-	bh=bDQj4TVQMRXr71x7iv9CAmNLbkqOMwWwuvOuk5k+nEE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BgxerZMbA4U0+5UrqxofpPbtUqCRwy4Nxxy9o0Pa6NTXhULdO3/AMkM2d9DRzgHChlE2hQ2XG2cpJLhBlZuzrbLxvJ7NcEqmbkLK/IcUfsuzj8V6A2YZhrgYChUBr+0yhtN2ApU/wCCb/qM+Kg6Ayw+cengdKmFtwev14O3sKjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EShABQQS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EShABQQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0857B1F00A3D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B8442589A;
 	Fri,  4 Sep 2026 06:19:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788502790;
-	bh=Zss+Gvw2oYl1wxvNsLWsnzhha7AWIzW1B5Z3iy1bGgQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EShABQQSi28VXxXnJaTZhBkxjb/W44etXa4aQj6j+1Y/njKFFycQRQyguyWWzJ+GM
-	 W0bxIWq/8j/V7QF0pXWhNsMF5Tc08wK9YIy0ftTK4wYscB7UGDBeP6Ruz+W2Fsx6YU
-	 qbZOma/ecJnpT6kfBJr3HBcIt4bMBzUOjUDLESj8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Seiji Nishikawa <snishika@redhat.com>,
-	Corey Minyard <corey@minyard.net>
-Subject: [PATCH 6.12 332/403] ipmi: si: Fix NULL pointer dereference after failed registration
-Date: Fri,  4 Sep 2026 07:02:15 +0200
-Message-ID: <20260904045742.375232565@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
-References: <20260904045734.806166532@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788502793; cv=none; b=t5eLN83/jgQ0giShepOwZR7zelmAiEGaV1Ibp4dia2GU+cbsNJ3Sg3057lDWzHXlvjA4R09yeENqc7dxIwllBb0Ccqre/XIurZge8Es/hTAkUNJr5ZqJBlZdXjcfZBPzlabMU+V/P7FUGnXijGRy95kwQjB+fWEkzBZO9aMoTGU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788502793; c=relaxed/simple;
+	bh=pY8eaE5vNrrmMYQDkPv8itR2+AiEIdrHKNYTuPq0Dww=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nyomPU8NwriDDBUbFT4atNUg+WIoCCTTRVvPoOdmkdX6ZSLVbPbbtE2k6obUrWg7veXBL/SRVEhvXK1bbVM/HuLXWRn7LFANQdVUVZ+1fbuC5MRdF53cyYgK8gA6hBSQ/RiYfLDBK3WkyDvPWZ7TgRfSHngdmy6VbV/1Zh8t/as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=hrGQc5xR; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="hrGQc5xR"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c858fe13;
+	Fri, 4 Sep 2026 14:19:45 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Tien Sung Ang <tiensung.ang@altera.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Ley Foon Tan <lftan@altera.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] mailbox: altera: shut down RX polling timer on channel teardown
+Date: Fri,  4 Sep 2026 14:19:39 +0800
+Message-Id: <20260904061939.4039320-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,84 +37,45 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06b12bf3403a1kunm3777d3672b1a7
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkhLVhoYHklDH0JISUNDSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=hrGQc5xRMhDJ1Yrq5VDo/yIChdDtyY7QRNMvHh2n2dir0IkaXQiYop57vZBfFH/K1NtE/Ia/5EmEwWQ2v+l+Km1xTOqr1ONg2Cht+H0ufVFEuUPKfcl+ItVvQMmU2Jp+SeYcvqofyrjjogRTlPfZJ87SfQMFPJZc6lLcoh/Ynlw=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=bUMd/QSqPH6ZTZ1nOBmDQQy6dXi2Rqoi8xDUyta1Hew=;
+	h=date:mime-version:subject:message-id:from;
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+The RX polling callback unconditionally rearms the timer after it
+processes mailbox data.  altera_mbox_shutdown() uses
+timer_delete_sync(), which waits for a running callback but does not
+prevent that callback from rearming the timer after the deletion.
 
-------------------
+Use timer_shutdown_sync() for the final polling teardown so the timer
+cannot be queued again while the mailbox channel is being released.
+The timer is reinitialized with timer_setup() on a later channel startup,
+so polling mode remains reusable.
 
-From: Seiji Nishikawa <snishika@redhat.com>
-
-commit 6d920a75df9a83ab096b3cde7a643b656e4fdfeb upstream.
-
-try_smi_init() allocates new_smi->si_sm and later calls
-ipmi_register_smi_mod(), which maps to ipmi_add_smi().
-
-During ipmi_add_smi(), the upper IPMI message handler obtains the
-initial BMC device information through __bmc_get_device_id(). This can
-fail if the BMC does not return a successful response to the Get Device
-ID command.
-
-When the BMC returns a nonzero completion code, the device-id helper
-retries the command and eventually returns -EIO if the device ID still
-cannot be fetched.
-
-On this failure path, ipmi_add_smi() logs "Unable to get the device id"
-and goes to out_err_started, where it invokes the lower driver's
-shutdown callback. try_smi_init() then logs the returned registration
-failure:
-
- ipmi_si IPI0001:00: IPMI message handler: Unable to get the device id: -5
- ipmi_si IPI0001:00: Unable to register device: error -5
-
-For ipmi_si, the shutdown callback is shutdown_smi(), which cleans up
-the SI state machine data, frees smi_info->si_sm, and sets
-smi_info->si_sm and smi_info->intf to NULL.
-
-However, intf->in_shutdown is not set on this failed-registration
-rollback path. Therefore, the asynchronous redo_bmc_reg work item can
-still retry BMC device-id probing after the lower driver has already
-cleared its SI state machine data. In the observed case, that retry path
-reached start_next_msg(), which passed the NULL smi_info->si_sm pointer
-to the selected KCS state machine handler:
-
-BUG: unable to handle kernel NULL pointer dereference at 0000000000000000
-Workqueue: events redo_bmc_reg [ipmi_msghandler]
-RIP: start_kcs_transaction+0x2c/0x190 [ipmi_si]
-Call Trace:
- start_next_msg+0x50/0x80 [ipmi_si]
- check_start_timer_thread.part.9+0x3b/0x50 [ipmi_si]
- sender+0x69/0x80 [ipmi_si]
- i_ipmi_request+0x2ac/0x9d0 [ipmi_msghandler]
- __get_device_id.isra.29+0xaa/0x180 [ipmi_msghandler]
- __bmc_get_device_id+0xef/0x950 [ipmi_msghandler]
- redo_bmc_reg+0x52/0x60 [ipmi_msghandler]
- process_one_work+0x1a7/0x360
-
-Set intf->in_shutdown on the out_err_started path before invoking the
-lower driver's shutdown callback. This prevents later redo_bmc_reg
-retries from using an interface whose lower driver state has been
-cleaned up, and applies the same shutdown state to other IPMI interfaces
-as well.
-
-Fixes: 2512e40e48d2 ("ipmi: Rework SMI registration failure")
+Fixes: f62092f6d77d ("mailbox: Add Altera mailbox driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Seiji Nishikawa <snishika@redhat.com>
-Message-ID: <20260630174348.1483814-1-snishika@redhat.com>
-Signed-off-by: Corey Minyard <corey@minyard.net>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/char/ipmi/ipmi_msghandler.c |    1 +
- 1 file changed, 1 insertion(+)
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
---- a/drivers/char/ipmi/ipmi_msghandler.c
-+++ b/drivers/char/ipmi/ipmi_msghandler.c
-@@ -3692,6 +3692,7 @@ int ipmi_add_smi(struct module         *
-  out_err_bmc_reg:
- 	ipmi_bmc_unregister(intf);
-  out_err_started:
-+	intf->in_shutdown = true;
- 	if (intf->handlers->shutdown)
- 		intf->handlers->shutdown(intf->send_info);
-  out_err:
-
+diff --git a/drivers/mailbox/mailbox-altera.c b/drivers/mailbox/mailbox-altera.c
+index 17278c257..7cb91413e 100644
+--- a/drivers/mailbox/mailbox-altera.c
++++ b/drivers/mailbox/mailbox-altera.c
+@@ -270,7 +270,7 @@ static void altera_mbox_shutdown(struct mbox_chan *chan)
+ 		writel_relaxed(~0, mbox->mbox_base + MAILBOX_INTMASK_REG);
+ 		free_irq(mbox->irq, chan);
+ 	} else if (!mbox->is_sender) {
+-		timer_delete_sync(&mbox->rxpoll_timer);
++		timer_shutdown_sync(&mbox->rxpoll_timer);
+ 	}
+ }
+ 
+-- 
+2.34.1
 
