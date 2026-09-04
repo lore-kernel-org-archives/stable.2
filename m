@@ -1,96 +1,127 @@
-Received: from mta-65-227.siemens.flowmailer.net (mta-65-227.siemens.flowmailer.net [185.136.65.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f65.google.com (mail-wm1-f65.google.com [209.85.128.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0B542AFAA
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425F33B2FF9
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512546; cv=none; b=kz9DW6CMKI4JpBxtORs0/vk3AEVHOd4pFR0yPNDTbgrngX6xaH9J69mwakOazQPuf+DHuJ3ONuUhAVWFTXw7yihkwtqZF1Hty78BTg9mC1n0hVNR8IfEp1BhU+DG3+Ybjih2JdhB0N+UVxZXVXbyc6Si2mAAS52JhFkkhHkAakY=
+	t=1788512643; cv=none; b=uwG2vBWoAuAZj64/TblPJLaNrU7oq804wZPWVe+M05BP+Qg9BPD3AZ6IMAgbJ2SSRHv1q36cQMOiUAR21h/M9crr6ASz9dKDScqcoX5xypq4cGvPUhxFg5JshT32w4wYv5uNfIMx9Z5S2q+NmbjJNRPmJuDR0ZJ12cM9rwIyq5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512546; c=relaxed/simple;
-	bh=zwOgrFX7s8Bq/2iYUD9jj5MO5VT9r915r6LJ7serWUc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=n8dycFxXE0MJDFWq8o/ltvsRaWigg4t9iD24/DlO1V6A+H/qCkfQw5dKliOu62Ft/M83v1SHpHAVyDj1mQYX90XzNWkhTLpvPJl1ZsKMZagYhhbHw+r647RANPoiJX76PBxKW2IaiDt3DVbKRm0V1kMrOHZzSU/3jPSVpXabRtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=florian.bezdeka@siemens.com header.b=DqbGfofz; arc=none smtp.client-ip=185.136.65.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=florian.bezdeka@siemens.com header.b="DqbGfofz"
-Received: by mta-65-227.siemens.flowmailer.net with ESMTPSA id 20260904085212a08ad4cc2a0002077d
-        for <stable@vger.kernel.org>;
-        Fri, 04 Sep 2026 10:52:12 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=florian.bezdeka@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=zwOgrFX7s8Bq/2iYUD9jj5MO5VT9r915r6LJ7serWUc=;
- b=DqbGfofztkaz5loDe1pvYHs+fSnVuiHF577LWy+0S0V/gzc+AFS6eJOU+RRdkG4gaJSFIg
- AwORgqQUBoV15D9z0UIyPQZBsNYXV1RyrBoFmwFwnyrekd4hLvJSSImKO8MANuwMUiYk+Oco
- Re2zvZVIrpfvXEIhXkOnk3DsdHN3LMrU1nHEaJVvlUNgMBVh3xzarVWnDS844/yG1l+Tok/v
- 8+SSzFJlhmnO9YMTkTzHhVSdPeDFf5ATodCNxKFoCd9MpQ6c+OvtlnRzMgcUpEhnFTqBUZsS
- Z5USkNAdM2STGSeyHzcjZ0dErdxGQWBaoOwt9mEUTBgnW+cALk+UB15g==;
-Message-ID: <63d5cd58e9b85acccdaaac9aed4a8c550cc7b868.camel@siemens.com>
-Subject: Re: [QUESTION] Are these issues PREEMPT_RT-specific?
-From: Florian Bezdeka <florian.bezdeka@siemens.com>
-To: Ran Hongyun <ranhongyun1@huawei.com>, namcao@linutronix.de
-Cc: axboe@kernel.dk, bigeasy@linutronix.de, brauner@kernel.org, 
-	clrkwllms@kernel.org, frederic@kernel.org, jack@suse.cz,
- jdamato@fastly.com, 	john.ogness@linutronix.de, kprateek.nayak@amd.com,
- linux-fsdevel@vger.kernel.org, 	linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, 	linux-rt-users@vger.kernel.org,
- mkarsten@uwaterloo.ca, rostedt@goodmis.org, 	stable@vger.kernel.org,
- torvalds@linux-foundation.org, viro@zeniv.linux.org.uk, 
-	vschneid@redhat.com, xry111@xry111.site, chengzhihao1@huawei.com, 
-	yangerkun@huawei.com, yi.zhang@huawei.com, wozizhi@huawei.com
-Date: Fri, 04 Sep 2026 10:52:11 +0200
-In-Reply-To: <20260904081149.3000727-1-ranhongyun1@huawei.com>
-References: 
-	<ec92458ea357ec503c737ead0f10b2c6e4c37d47.1752581388.git.namcao@linutronix.de>
-	 <20260904081149.3000727-1-ranhongyun1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788512643; c=relaxed/simple;
+	bh=1D+3eClQRH0xz7aWP1UEe6CybsXw35PjDghXgtmmdKs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fevTKwswKc4JeCvNVhIZhqCj657/YhaarewDkYVQ82X0xlSAQ/KTWx4fS2ORhd/q2jpguU8LFy6kjghqnOtv/NHOf3KvbHrqyxvzGqqXVSfABrSxrZhVTi7s7vjins/qV28ETlSGhQrjWEXc8YdhpDW6Z6VB4oac/3HCpFPLU6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm1-f65.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso13573405e9.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:04:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788512640; x=1789117440;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=n7UtRKE3U0Ks23n/1GxFei94Hynj6k8csNy/A05njHA=;
+        b=b9lW6UhFvtD9PAr25oKLOihy4D4c31Bc0TVSkYuT7p705rRBCC/jily13HsoTOgDgb
+         dsdJ+P+IUVmEPq+Gc/HqZq3lPmP6YMnJFbMiWHFyaGyWVyTtg2ISzOEO4Y9QiZ8gy1fB
+         bb9uzjN/TX/VQB7Q5JRW7RDZbsu35k9ft5NMPdNWuClKTeRd++xLpq6KsBBNVtmvlbeh
+         Q4UQZyyapMVkUzYS2TGwK/KiwDfY0XAxcyNccyHS6jcTD4p3a5xdrvC8bTPS6IemU1sp
+         Pwzn7j5WIWu25QvhlEnYideyRDchIiRz8UKYP6a6xozK8+ZnyY2gfA/qvo1xpzPEeRjY
+         Y9bw==
+X-Gm-Message-State: AFuF++kfQyiaJI9T4UbH1VMJzmWYKtKXx3vpxCnqhE/y/IcXtA9SmURQ
+	JrsB43/epc+UAvTOvxt0GLFuM6liTWMIlPOdKeea8QlJvQ4oMaqEzWdcsj3Iwhoe
+X-Gm-Gg: AYBFou3eXRrLGKIYEabaZs1cRyKil7Xx2dIwBxUpgVpDEO/Y9gOFKd2wEkShhW72wl+
+	0zTEbAgpdG2iZ+3TpXyHsS92/73mhbF9Qr4K1beQZq8t2zRR/7kTrT+3KHlw30azuxa826bLk84
+	trxMtUY6X0Eng2iUh2I2MFLzszMu7kMJFaYjrPfWumwX5v19UZMDaa1LmR97wSdLk729sgRl0tE
+	ckHF8oHFVlJA11iTxnEfbpOK/n7wH9R66mhhCXUVe5LNOsNzjVGKlqr7hcnBhV65l+BzL+slXxs
+	gzImN2JcA5mZb6sr7DnezMfxbe0Z3K39fZvDEGZKDVxmBfvUD0avFQ2jdEbDXjdWui2+CbNwZU7
+	Hfdp99CvcVUCMjf2GkYZIqOtSqZ8r6j2JO+X36DG+b/7vqwAdjkkqQoC+o5aTZK0tg+ENPrAZG1
+	tX8IS8gOK7NYqusuquUHIfRaCFj3Tv006maduV6ZqjT27YsU886bf/EpNySk3IsNeltuXU0lH5p
+	TjqfKHLB+BmB0uQruI=
+X-Received: by 2002:a05:600c:a41a:b0:49c:f13d:ffe9 with SMTP id 5b1f17b1804b1-49cf13e05b7mr69026535e9.13.1788512638756;
+        Fri, 04 Sep 2026 02:03:58 -0700 (PDT)
+Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm5056686f8f.1.2026.09.04.02.03.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 02:03:58 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: stable@vger.kernel.org
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 6.6.y] net: skbuff: don't skb_tx_error() the source skb in skb_zerocopy()
+Date: Fri,  4 Sep 2026 11:03:47 +0200
+Message-ID: <20260904090356.1807583-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026090320-magazine-dripping-c3d8@gregkh>
+References: <2026090320-magazine-dripping-c3d8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-68982:519-21489:flowmailer
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-09-04 at 16:11 +0800, Ran Hongyun wrote:
-> The commit eb0d280c2751 ("eventpoll: Replace rwlock with spinlock") aims =
-to fix:
->=20
-> 1.Priority inversion =E2=80=93 On PREEMPT_RT, rwlock_t readers lack prior=
-ity
-> inheritance (PI), so a low-priority reader holding the lock can be
-> preempted by a medium-priority task, blocking a high-priority writer
-> indefinitely.
->=20
-> 2.Stall =E2=80=93 A reader (p_read) holding the lock can be throttled by =
-CFS
-> bandwidth control and scheduled out. A writer (p_write) blocks waiting
-> for the lock, and a timer thread (ktimers/n) needed to replenish p_read's
-> runtime is blocked due to writer-fairness (286deb7ec03d). This forms a
-> circular dependency and stalls the system.
->=20
-> Are these issues PREEMPT_RT-specific?=20
+From: Norbert Szetei <norbert@doyensec.com>
 
-No, but it's way more critical on PREEMPT_RT. !RT systems will see a
-"performance" or "throughput" drop but not a critical system stall.
+[ Upstream commit 8ece906150128d5ec2462aabcc978c568433eca4 ]
 
->=20
-> Any clarification would be appreciated.
+skb_zerocopy() copies frags from @from into @to. On an
+skb_orphan_frags() failure it calls skb_tx_error(@from), a destructive
+operation on the source skb the copy helper does not own. That completes
+@from's zerocopy uarg and clears SKBFL_ALL_ZEROCOPY, including the
+SKBFL_SHARED_FRAG page-ownership marker.
 
-2. was addressed in 6.18 by deferring the throttling to the place where
-a task exits to user mode. See [1] for further reference.
+Both callers already report the failure on their own drop path.
+nfnetlink_queue does it at nla_put_failure, and Open vSwitch does it in
+the flow-miss drop arm of ovs_dp_process_packet(), so nothing is lost by
+dropping it here.
 
-[1] was not backported to older (stable) kernels but the commit you
-referenced at the top was, so the 2. problem is gone there was well.
+On Open vSwitch's OVS_ACTION_ATTR_USERSPACE path the skb is not freed on
+this error: do_execute_actions() ignores output_userspace()'s return
+value and, unless the upcall was the last action, keeps forwarding the
+same skb through the flow's remaining actions. The uarg is completed
+while that skb is still in flight, telling the producer its buffers are
+free, and SKBFL_SHARED_FRAG is cleared on an skb the rest of the stack
+still handles. That flag is what makes esp_input() call skb_cow_data()
+instead of decrypting in place, so a later local ESP delivery can
+decrypt over frags the skb does not own privately.
 
-HTH,
-Florian
+Leave error reporting to the callers.
 
+Fixes: 36d5fe6a0007 ("core, nfqueue, openvswitch: Orphan frags in skb_zerocopy and handle errors")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/6E3A780D-FB87-421F-9964-B1D457D7D106@doyensec.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ 7.2 and earlier do not have the put_page() call on the error path ]
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+---
+ net/core/skbuff.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-[1] https://lore.kernel.org/all/20250829081120.806-1-ziqianlu@bytedance.com=
-/
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 732204d99822a..73a987081dec8 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3626,10 +3626,9 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
+ 
+ 	skb_len_add(to, len + plen);
+ 
+-	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC))) {
+-		skb_tx_error(from);
++	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC)))
+ 		return -ENOMEM;
+-	}
++
+ 	skb_zerocopy_clone(to, from, GFP_ATOMIC);
+ 
+ 	for (i = 0; i < skb_shinfo(from)->nr_frags; i++) {
+-- 
+2.55.0
+
