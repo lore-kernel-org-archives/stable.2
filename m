@@ -1,48 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D19A3AE6E2
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:53:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB0AB3AA4E8
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:53:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490414; cv=none; b=o/zwf7WwGWY9TJaXT8iwIYj6T7XOxcAWSDoounRrNtSyJ0MZIJC0IzFdYsZ3jA06yIXKrz3mvQod0bQNn3SFqbD70ypJ0U0BGVtDuXxHQDzdEnp0Ms/GM2Qv+qx/DzACOl3FiSPQXeYPvfhlGOHZZu69bYItfYdcEFRRlCR9oIA=
+	t=1788490418; cv=none; b=Onh+vg+Q4JbKr3VmbD6GaltqkjFBwTq3anlNPezozACAtA0+dhVUEOsYp7ABK2v0rwsiv7uUiDvhII6c5md/5NP3QsB94WDYEiSIz2rutNzDVe4qeFMldWXtHpz5zRhRwpiRK3BWauyGUtZN7Dht8ODwuryNSN8Ccqm4AIb0NwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490414; c=relaxed/simple;
-	bh=1u7kZDTVZc4xsLYREgBcMmq3guMtTqkNdBghq0vpiXY=;
+	s=arc-20240116; t=1788490418; c=relaxed/simple;
+	bh=amAUJGNaLg+zsEVcWUypkOYd9Vt6wPYm8HQsIew3Q7I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KCTtOwQYqhIsRx+t5RsKq60IQU56jUnNSRGVrvVsnesftaWfnYCapdQ6m5vWK5mYg9y0tXmqm4kRPOpw+8cQtWLhVMsSjhyu80UVsY2Weof//+6+Meyqlvp2XjlDEN4Zees0IkqfNXf1mkMf+rl7+AU1JkIWDfIdAH3oQ43465w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ixNU5hvI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UsxZYgBxGcPgLM9VMQgTbbn2XfQlRgfWDLbad/S+4+eYIQ2SUEpepBHEakn+A0bOaj/zx7xZqtlLu6ir9WK8XnCTfEAOQAt521D+KqwQOVCS+ejv40/4I4VVVSLrmBrytLzmvgq5PLhePWXmGO57qpBJk5ACcuYPsSbt9caB+GI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Am6ka1JT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ixNU5hvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BD91F00A3E;
-	Fri,  4 Sep 2026 02:53:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Am6ka1JT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB3AC1F00A3D;
+	Fri,  4 Sep 2026 02:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788490413;
-	bh=AhI/GdZzVxI5DuQfQlAGcWsdE+gZSGeStfsOxEIaFRY=;
+	s=k20260515; t=1788490416;
+	bh=EpfG+1g4RpyPca8eXjxOWCrPOKr7jV7ymYJd4KgQScE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ixNU5hvIBDKrms6cvirJNzwpfdMvFtA4y3Jkwjwr7nSfbgysXGgsWMi0cG6aSrHbl
-	 RoUOneTialz4orXpcOBcOeemaFLEA51PDILTGoAyX7y4ZyITheDCfN4QVbOixG3WV2
-	 SZMk6qENxJG2lTw+YtsdwAF+15LowKlKN5Ig6ZcdYGz0wxvUucSjrqgtGs/paMG2HE
-	 gfXqxajpD/+N7v0bQ1ZgUhQa3PQh06qPEJLobHxmTOYNCM+I5t4oaNkoBJAz5lSjt9
-	 zrv6+Ng/7BTKKVqoxAiDQmRBdaC0LpmJVrIjMCtvOdilSXjbU2YXCLI6EBjznnC7f4
-	 dfq1vgs8vsutg==
+	b=Am6ka1JT7Q8djI3emQuco26fkDVJ0I3QG5b4cn+Nd2vlyn5KwVkhD5VnBmUbmSZ30
+	 fkuBfmKYaa2zWtzJUKvhPSdjo1wkP3qxRPi3Fs/s7BQBI7wBqonJSBzaxOpu6glCg6
+	 z11lDb1UPSWa6FJ0bpW9zLd0lKgzhMqQn7ga4TGtnJB4JWXYztBp1mUJjXxHPS/mVH
+	 zZzVzjuG2SBH0saiLvA4c2IQOUwlCtuNceGhY+qxmWwlKZuzCbQ5GDSYQEDxL4Ikxb
+	 u37bLHN14KTp0cvwxXJdyyswvIAwwmvLvVEZsowpFTqrl7DlBGQ1GVw0y16xS/ei68
+	 EXWL1gM/VHv6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	gargaditya@linux.microsoft.com,
-	longli@microsoft.com,
-	mhklinux@outlook.com,
-	shradhagupta@linux.microsoft.com,
-	tglx@kernel.org,
-	wei.liu@kernel.org,
-	namjain@linux.microsoft.com
-Subject: Re: [PATCH 5.15.y] PCI: hv: Set irq_retrigger callback for the Hyper-V PCI MSI irqchip
-Date: Thu,  3 Sep 2026 22:53:04 -0400
-Message-ID: <20260903-daily-reply-0014-re-pci-hv-irq-retrigger-5.15@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Binbin Wu <binbin.wu@linux.intel.com>,
+	Borys Tsyrulnikov <tsyrulnikov.borys@gmail.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: Re: [PATCH 6.1.y] x86/tdx: Fix zero-extension for 32-bit port I/O
+Date: Thu,  3 Sep 2026 22:53:07 -0400
+Message-ID: <20260903-daily-reply-0017-re-tdx-32bit-port-io-zext-6.1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260903161922.87232-1-namjain@linux.microsoft.com>
-References: <20260903161922.87232-1-namjain@linux.microsoft.com>
+In-Reply-To: <20260903162049.584007-1-kas@kernel.org>
+References: <20260903162049.584007-1-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,11 +48,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Install irq_chip_retrigger_hierarchy() as the irq_retrigger() callback
-> for the Hyper-V PCI/MSI irqchip, so that a pending interrupt is resent
-> on its new target CPU via the parent x86 vector domain.
+> Use insn_assign_reg() to write the result back into RAX with proper
+> partial-register-write semantics: 1- and 2-byte forms leave the upper
+> bits untouched, the 4-byte form zero-extends to the full register.
 
-Queued for 5.15, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
