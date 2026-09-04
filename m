@@ -1,61 +1,60 @@
-Received: from mail-wm2-f4.google.com (mail-wm2-f4.google.com [74.125.225.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AEE9426429
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED07B41378D;
+	Fri,  4 Sep 2026 09:08:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512853; cv=none; b=NixAVOHSgXvFjiIIcDDenNEEdAL5O3yprBPdM4kb7WyHrzo1iYi7OYxAQYd6SazDFbdbBy6jky8ZGo6LUa7Cn21HFPh/E0trnIfa866CC7ct0bwF39Klg2gEYlLA9er7lek1xLreOkPg/bdVdGfuZqu2eKOmcNdnF5PONLjWZVU=
+	t=1788512893; cv=none; b=Ch4kR9RckndpnsmffFsM8/8IQ0+yARxxhJk5j03O7/DinZEdff7wqzwcazrmbs4sG0l1jvAIVlLeAZ1NtIbnbXYVk/Faed3UaP2rv94BfIlmNNrzsgKVrESXmG+vSatnxptn3TImoFWT7R2SF15hYFFmE2gcyNV2dLfJLK7QcL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512853; c=relaxed/simple;
-	bh=4cKNJUwL9aLmZxuhqWe67AeCwxD+/uMhiTWlmOnvUSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y/3CRjcbERQA1n7mm38I7ujzsl45mjjOE6Zzy2SdvFRKyxR2zYPyeQrDDQhi1946G2bFryfchIVa92YHTsuB7/z26WyfkgbeIVzQU7wtMqkq5cvBiVrHi37i/pmGqr7S0LHih8+i/nfFE3Ub2BQv+iu/aKxxrh1YTLWX7bfkgMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f4.google.com with SMTP id 5b1f17b1804b1-49cd71f9909so1572535e9.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:07:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512850; x=1789117650;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F5k7JkWBuo3+eR3CH+IYuOTUgLQO1cVd2Um1pcilyqk=;
-        b=YJx9rmIhznMd56/CGRXsk6r2EMneegsIVGKBrOennRGF4S9G4zlvwetyKTNFpDs1FM
-         ATo7FUL8mxPl9GuNYNNdWfY7HEOp/pchxfUZDjpI7yR14SdKuBV5fAbNl4w00zRf+tID
-         EJFXb71L9uF4Hc/KePVf/hs+qg8M82BkCi3iAQlehiTIOxHJIiPb4EYBBNEwPp8yg5Hq
-         12Z4HyV+kYdDVtuFgw3FzT9FNiwpMwSp2YD/zh4a/GJFvZ5Z+5kNtxwop6H7OkNKq0u3
-         UChN9Olhild9edpkFxq9Rpool2ZjvK512YdQFbvHHxYTTUjs4zoKy5Ama6g46gF0atgn
-         wTwA==
-X-Gm-Message-State: AFuF++kUFrNXJYwCoSorEXjhsxPIlCv81Rv0dWRLSgWFS8MUWj3hxr/Y
-	GtU5TnwiD87GS63anQ/COj/0Ic3wSv0oFgGDzn1fpro2Y7vH/f5R+QupbCepEAO6
-X-Gm-Gg: AYBFou0NUXdTuCnyENSg5/84YH0m9osIiUPrHb0YtxMXLy1M2YhDJHXjzSUUO9LZajb
-	hdIzGJd4icOC6cCaizDv/4bVNg+Ff7KmmzU6YpUsVOmEZ2JVTkYUG0j3frFig3DTcpnT3oZXauB
-	wcRxmH1eYPVTU6K9BemJqwiSt090zT9+XOKNJGwg92ZibAgTrAmPkzg/gaCAeF2LiVc50asCFy0
-	2clmwYVn5Q7r3XewQdFOxa24r6kbr56vA0lLe8bN2K6fpYxqOyojbEa8NnY33pq/4mTmXjEW7Za
-	dWKk8yZAxRfBmAVFxmeRekt4qcGi7mKDMM/oPzdSI91eL5E/gHh7t6jgf7DyNLYn+m8sIfPVHvH
-	3kDQJl0kN4LxrbOw8SqnHX3WF1afvLl1WJO3akrCKsR0tNHMR66znuMtqLxDBX5jCLL+fhxZ0QO
-	7z/2+3jr8MAx3WjtFJOD7jyRSOnAxDwp19JZN7k2NUk5xFcZ+QfoFwvvFONNl7Y43u42SxQHgae
-	IX6seg5yKMYY9vYoQcza4JrSnQOPw==
-X-Received: by 2002:a05:600c:6214:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49cf825115bmr79388255e9.13.1788512849773;
-        Fri, 04 Sep 2026 02:07:29 -0700 (PDT)
-Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee60bae6sm169702405e9.9.2026.09.04.02.07.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:07:29 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: stable@vger.kernel.org
-Cc: Norbert Szetei <norbert@doyensec.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Paolo Abeni <pabeni@redhat.com>
-Subject: [PATCH 5.15.y] net: skbuff: don't skb_tx_error() the source skb in skb_zerocopy()
-Date: Fri,  4 Sep 2026 11:07:25 +0200
-Message-ID: <20260904090726.1808822-1-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026090321-bagpipe-overripe-485d@gregkh>
-References: <2026090321-bagpipe-overripe-485d@gregkh>
+	s=arc-20240116; t=1788512893; c=relaxed/simple;
+	bh=mpp8J/bdPgjdIK7sO/uqXP3TH5N7hJZ7Ozy+GE2tPgs=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Y3px0S+NhaKvqDWsEyV1KeoO+7HtVw/bivfGSt8zmbHALOh7/v7AsC9BXw44I7skG4ugikEHtZuYipVAQfLX4B33hbIpXu5oiqphnfzEejBH8zv50GH92wTPp9MaecfGvIOqIe8nh7eud9qQLmspKDSx5xbtw+QHqmy9ho/hBmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=g0nx9wQG; arc=none smtp.client-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="g0nx9wQG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788512885; bh=8NiL8xBnx4VOBYvUVLUUesLzYp6GgKuRjNDNS4J7pLA=;
+	h=From:To:Cc:Subject:Date;
+	b=g0nx9wQGiabIXzjZKeSN4UV5/afmXJEu6/5MwpipLj0KoqV/gobOdjXomDfgS0Luh
+	 +Ml/qQYas+G7kVyI/sygxv//yhRNJC2pUHPGcjzIsEZ7jT3AQGxzGZN7ZQsMM1na//
+	 KEV4Y0YN6qSAElcvaBPv3PSN6zazk3phJug66DWk=
+Received: from WIN-B62RPRBL2BM.localdomain ([218.76.62.144])
+	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
+	id 1F2B1CFF; Fri, 04 Sep 2026 17:07:50 +0800
+X-QQ-mid: xmsmtpt1788512870tls3ahoyl
+Message-ID: <tencent_CAA125B50CDEC8BA29F4B982356549608D07@qq.com>
+X-QQ-XMAILINFO: Ny1z5KCLb2WW8KoFC/CiCfd4NILi8+4OakqGMacXJQxH7dMFeBZNNOgxXAu8uk
+	 xKyEPdz7N6X0ERgE9r3NT7lAmtnHAjy9Uv+ruRCcHRUG0WDi8fI/8fg/JfUBZjRtnwXOCu5/mzqR
+	 xYpwg/7b8ZgmmGP8ztXqZmGWBlKQlmGpJ1Q1NdCUQk0qOMc6rHvExHCGRstmmIT55/td0axh5Mzu
+	 YLw7zUBE/LuEiAX8MjaAocRYnDJUfruXzhKE2CE6ZYr9lPxWrCUs0ZBYiVrwYKvLr5pXXqP09CbA
+	 pHMjkRmnt0jptu6GEaZgGBVxT7yWggOO4HpNzb1Hh8SScFFcho/DGEO8opxSIdMDUBSi8m7ZuVKp
+	 uH0nAmJemU1qypeTToEFRlWVNU5A0qYufPVoIuv4YrEf3q/P9sMFMhb3XJNSfZvHq4PZcgw9ulzA
+	 Vq8+N1NUBM59o1Ox3g28CXUGnxO/xs7FW658CxUT+TYU1ulniY6JXIZnOUDQGrySeOfXe/9Kbhwj
+	 GOJOUYi2P9mb6LyRjE3y623kzUHy5rjlOK2rm0uW3e5u33EzewB9qpULi/c6cZj98F/g/5gXQgRH
+	 au8DaZhKvwKZB7miGaRp7KSvbhRCJrCD8CNt7SI7brkDAkAjpqpmywejUfg1dQV9Z8A2muVsASiK
+	 y+n4k8h6GGyNDMZBnkpiFB1oWjLyO4rwppJjdmBcaktXK5rGh3wSIIPIl3ZKEhM910kPV+Yu7z2U
+	 RAuzsa0RBKQfZ1DZsB5fsn91/IuMc/JOAhCQGx9LEJteId7ZunwfYDixQTjvTiuWOuY0Ac2Y1n/B
+	 qTYtSwWoykMBjMFWr1QzseajNUt0TpAbEe1K/TQpindUTdDgdwQvNkiwY2cmcuFEKYQH6x+tL2Iu
+	 weMvB0WGjjHQIuQnDgYv44PU7QpdLXfWvSW0FhMBs4d0xbVf24oAtJ/y3Opp72nkmTo7NEqxevlZ
+	 B8dforGdMABOC86USzOawFkle4H6iKQ9mgbfhkbACTEnsrQSgbz1wTVMsY3pQsNIGvlPaiWHYyK6
+	 /K/s6TyIvnHvEpy8lvBaye0CdQgzFKwSToCpM97NZsesOP77LIJxQrjEpiW425XMeSGuFOgQ5WKO
+	 HLMYl1ZjXQhPO0kcI=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Zhu Ling <zhuling0805@qq.com>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Zhu Ling <zhuling0805@qq.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mmc: core: Fix OF node reference leak on card add failure
+Date: Fri,  4 Sep 2026 17:07:46 +0800
+X-OQ-MSGID: <20260904090749.199662-1-zhuling0805@qq.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,64 +63,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Norbert Szetei <norbert@doyensec.com>
+mmc_of_find_child_device() returns a device node with its reference count
+incremented. mmc_add_card() stores the reference before calling
+device_add(), while the card is marked present only after device_add()
+succeeds.
 
-[ Upstream commit 8ece906150128d5ec2462aabcc978c568433eca4 ]
+If device_add() fails, the callers release the card through
+mmc_remove_card(). However, mmc_remove_card() only drops the OF node
+reference for a present card, leaking the reference on this error path.
 
-skb_zerocopy() copies frags from @from into @to. On an
-skb_orphan_frags() failure it calls skb_tx_error(@from), a destructive
-operation on the source skb the copy helper does not own. That completes
-@from's zerocopy uarg and clears SKBFL_ALL_ZEROCOPY, including the
-SKBFL_SHARED_FRAG page-ownership marker.
+Move of_node_put() outside the present-card conditional so the reference
+is released for both registered cards and card-add failures.
 
-Both callers already report the failure on their own drop path.
-nfnetlink_queue does it at nla_put_failure, and Open vSwitch does it in
-the flow-miss drop arm of ovs_dp_process_packet(), so nothing is lost by
-dropping it here.
-
-On Open vSwitch's OVS_ACTION_ATTR_USERSPACE path the skb is not freed on
-this error: do_execute_actions() ignores output_userspace()'s return
-value and, unless the upcall was the last action, keeps forwarding the
-same skb through the flow's remaining actions. The uarg is completed
-while that skb is still in flight, telling the producer its buffers are
-free, and SKBFL_SHARED_FRAG is cleared on an skb the rest of the stack
-still handles. That flag is what makes esp_input() call skb_cow_data()
-instead of decrypting in place, so a later local ESP delivery can
-decrypt over frags the skb does not own privately.
-
-Leave error reporting to the callers.
-
-Fixes: 36d5fe6a0007 ("core, nfqueue, openvswitch: Orphan frags in skb_zerocopy and handle errors")
+Fixes: 25185f3f31c9 ("mmc: Add SDIO function devicetree subnode parsing")
 Cc: stable@vger.kernel.org
-Suggested-by: Ilya Maximets <i.maximets@ovn.org>
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/6E3A780D-FB87-421F-9964-B1D457D7D106@doyensec.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ 7.2 and earlier do not have the put_page() call on the error path ]
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Zhu Ling <zhuling0805@qq.com>
 ---
- net/core/skbuff.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/mmc/core/bus.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index 6281cfed03bb2..952444595bf14 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -3217,10 +3217,9 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
- 	to->len += len + plen;
- 	to->data_len += len + plen;
+diff --git a/drivers/mmc/core/bus.c b/drivers/mmc/core/bus.c
+index be5cf338bdeb..92ad39c0cabc 100644
+--- a/drivers/mmc/core/bus.c
++++ b/drivers/mmc/core/bus.c
+@@ -417,8 +417,8 @@ void mmc_remove_card(struct mmc_card *card)
+ 				mmc_hostname(card->host), card->rca);
+ 		}
+ 		device_del(&card->dev);
+-		of_node_put(card->dev.of_node);
+ 	}
++	of_node_put(card->dev.of_node);
  
--	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC))) {
--		skb_tx_error(from);
-+	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC)))
- 		return -ENOMEM;
--	}
-+
- 	skb_zerocopy_clone(to, from, GFP_ATOMIC);
- 
- 	for (i = 0; i < skb_shinfo(from)->nr_frags; i++) {
--- 
-2.55.0
+ 	if (host->cqe_enabled) {
+ 		host->cqe_ops->cqe_disable(host);
 
