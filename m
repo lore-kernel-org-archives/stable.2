@@ -1,114 +1,123 @@
-Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC5A4A3F23;
-	Fri,  4 Sep 2026 13:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6D74A4419
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 14:00:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529907; cv=none; b=V5ezTQXqHdXnPKqJRbIWMCBEnQ/qxtr8twkU/wUNySx2jID3YQZgnASrdcfPknMpTyMTpKZqsnNX4rjTi5kOeeVSSZ4IiB/1wyOJqN+KZz+d+IslzSUw2urZxMTWYwBBkRxYJXSN3TvmPp3nT7uBP0QuQFovORm46oTxA8gR5dw=
+	t=1788530425; cv=none; b=ppe+HS4exNuMPCCQsxtrvwUtxSqqz1CjLjbid+fShrEYW8YvLos0gossWGFNWO1byDgRTeRWjv6Dz+DJ5TS3dp52llHCMv1++1KguulRDwngbJzyglUKp5e/jzbwTpl7wlh9a140KvNfJEM9xeZJHfxJ4fvr8vSZmktIAoKmp7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529907; c=relaxed/simple;
-	bh=UP2AOMoFiDkqCZm9fPRYAQ9P/bwunRxSM8xSykBy0nE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=V9oYlEVc0FJBjQXW6gt7invFIrlHNnQPaTsy8x90C2per0m+zqhueatoJon34fs+1Dm8UC6Se+0F/OImdxgpcxqRfUtc3HKHQg5QfrmiCvOOeh+wqGWexdmHOqfv5LSSPfsR+UyvJiurEAStvqYO7xRiOteDmynt9hLe2zXohrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=kjBI7tEw; arc=none smtp.client-ip=193.238.174.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
+	s=arc-20240116; t=1788530425; c=relaxed/simple;
+	bh=RQsIkUE8WWoagJ2UUQBU8i7UtcFCtK+IAFza3LXPpGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gZ1138tx4zuWJOcJCVFdwQNRFuUQj1O1abOX3VRuUUuXnko2br42mHh173XCdtRPg/AqJ/zEn76YT9Y6Ka4Pca3jdsfqrCXUv/kr8erL2tnsp77aWv64/6XQY9fWYN/t+gASInIZvXzrU846DhY+gCX50ZNWzxdKxyxNr9U1xPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EpG2WxeC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="kjBI7tEw"
-Received: from mx.ssi.bg (localhost [127.0.0.1])
-	by mx.ssi.bg (Potsfix) with ESMTP id 9BE0921CCD;
-	Fri, 04 Sep 2026 16:51:37 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
-	:content-type:content-type:date:from:from:in-reply-to:message-id
-	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
-	 bh=re5UvXCW6fX+YwiDYFoYO1WEu/C98eP8jKAhfROih0g=; b=kjBI7tEwrzc3
-	2Uc3NxARVTC6A+3Q5Fj0GNgULfpGokuJ6Ad2pwdub0ntCwIeqn3bRnmYt7KHXsfc
-	jpRLJuFW8ea5xSOw9WvGCwLbNqCZGQo9FNeTDcbZplZVIO5n6DIHtcTAHnoyFECf
-	qhlbj/vhCtCQURv3C5vFJAX39MxnOJV/lg5XDe0BPUPENLrjAGg6nw8ems6MEbzo
-	n92ut9i1lYAjurw4QLnKU9awQFyBnUxnmR05rSM0VOIThSTH6puT0Iiwb9TKxXpz
-	bNQeELCmmLLt99ZbJI24nsbHGBjIuqEI4ZvsWRBBpP2BYY6NuRQSI59tPhOJTQ4n
-	GSFvD/ukP1SscPcshQv78KSlSuxAbmIWPdLng7cxA8oOIR9h+VU/3XhH+pCLbxzE
-	57rq3RZOObZL+bOvABk4PoVnz8jopBD4RFbiBmLW5iYidd41oglrX9CUTFf2pb5n
-	yOU2SDARNng8RcOvN8eZp06zqVO9moeuOvfrfyYeIf6Oy7dHr1iZwqV/11PuPpEr
-	tpj6YjIIKL7MrpxZuHGi9RDZcC6mQyOOeDJK162VTafGfgxs2pZsYbW0sCevinMF
-	jhcbdCulo8EysPNFT0jahVNksvlJ0bS/CrEY2ovBm48aKPyi17eEgRTdxptR9IEv
-	cVEsujMHfVGh4IwHT7momdgzhYvWDnI=
-Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
-	by mx.ssi.bg (Potsfix) with ESMTPS;
-	Fri, 04 Sep 2026 16:51:37 +0300 (EEST)
-Received: from ja.ssi.bg (unknown [213.16.62.126])
-	by box.ssi.bg (Potsfix) with ESMTPSA id 9A36760236;
-	Fri,  4 Sep 2026 16:51:38 +0300 (EEST)
-Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 684DpWEu052369;
-	Fri, 4 Sep 2026 16:51:34 +0300
-Date: Fri, 4 Sep 2026 16:51:32 +0300 (EEST)
-From: Julian Anastasov <ja@ssi.bg>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
-        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
-        netfilter-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH net] ipvs: shut down destination trash timer on netns
- cleanup
-In-Reply-To: <20260904071908.4052966-1-runyu.xiao@seu.edu.cn>
-Message-ID: <98268ae8-1007-78c7-8124-2d37454d8b46@ssi.bg>
-References: <20260904071908.4052966-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EpG2WxeC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0D9D1F00A3D;
+	Fri,  4 Sep 2026 14:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788530424;
+	bh=3k2uPmPxuA9iv6XknSWKYG+ESHY75m5ch2z13nAtMT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EpG2WxeCMBMQlvn1fcpcMZyXFKCGIAxz4Qq+OpxVsReXIkFyRenD1gM3zfOrnbIUy
+	 S6CgEdCgoB2kH1Jex+SmPeMrUr3TluEJlfiz23X+Oq4RilPMC0f21qUGvQQayA/XhP
+	 eeOafrA8pBg4JoWkgD+Oryjzr2HVSWuMS5cCj4A2OPojnHZEwZFNuBOwpcdptrE5eQ
+	 kChoD9XcO0KmEZrdnA9867OhIfDKxnl3cdlbWx0lfqX5UQQGbY0J0jzKhG8LWYV9s8
+	 2waM+bY6kuYUzL7d1pCXnsW4A/ZR42kzt53nhjCwY5q4YqOoKBb9KtsNvKY43G8czx
+	 buWLjFJ5mW9rQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] usb: gadget: at91_udc: Convert to platform remove callback returning void
+Date: Fri,  4 Sep 2026 10:00:21 -0400
+Message-ID: <20260904140022.656875-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090319-deranged-stage-7532@gregkh>
+References: <2026090319-deranged-stage-7532@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-	Hello,
+[ Upstream commit cbd1b152519a581bfe14fb6b14ea6e57cca426c1 ]
 
-On Fri, 4 Sep 2026, Runyu Xiao wrote:
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-> ip_vs_dest_trash_expire() accesses the per-network-namespace IPVS state
-> and rearms the destination trash timer while entries remain.  The
-> cleanup path uses timer_delete_sync(), which waits for a running callback
-> but still allows a racing callback to rearm the timer.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-	timer_delete_sync() can safely stop timer if it
-is rearmed by its callback: __timer_delete_sync() waits
-the callback to finish (the callback can rearm it) and
-then detach it if pending. There must be another call flow
-that can rearm it later, otherwise this patch is not needed.
+In the error path emit an error message replacing the (less useful)
+message by the core. Apart from the improved error message there is no
+change in behaviour.
 
-	During cleanup, we do not start the timer from
-ip_vs_trash_put_dest(). May be I'm missing something?
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20231120215830.71071-2-u.kleine-koenig@pengutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: c27d13ce4bab ("usb: gadget: at91_udc: drain polled-VBUS timer/work before udc is freed")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/gadget/udc/at91_udc.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-> Use timer_shutdown_sync() when the per-network-namespace destination
-> trash is finally cleaned up.  This prevents the callback from being
-> queued again before the IPVS state is released.
-> 
-> Fixes: f2431e6e9255 ("IPVS: netns, trash handling")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> 
-> diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
-> index 4c1c73944..0eb6cdb5f 100644
-> --- a/net/netfilter/ipvs/ip_vs_ctl.c
-> +++ b/net/netfilter/ipvs/ip_vs_ctl.c
-> @@ -1192,7 +1192,7 @@ static void ip_vs_trash_cleanup(struct netns_ipvs *ipvs)
->  {
->  	struct ip_vs_dest *dest, *nxt;
->  
-> -	timer_delete_sync(&ipvs->dest_trash_timer);
-> +	timer_shutdown_sync(&ipvs->dest_trash_timer);
->  	/* No need to use dest_trash_lock */
->  	list_for_each_entry_safe(dest, nxt, &ipvs->dest_trash, t_list) {
->  		list_del(&dest->t_list);
-> -- 
-> 2.34.1
-
-Regards
-
---
-Julian Anastasov <ja@ssi.bg>
+diff --git a/drivers/usb/gadget/udc/at91_udc.c b/drivers/usb/gadget/udc/at91_udc.c
+index d9ad9adf7348f..c2637bb5a65ae 100644
+--- a/drivers/usb/gadget/udc/at91_udc.c
++++ b/drivers/usb/gadget/udc/at91_udc.c
+@@ -1942,7 +1942,7 @@ static int at91udc_probe(struct platform_device *pdev)
+ 	return retval;
+ }
+ 
+-static int at91udc_remove(struct platform_device *pdev)
++static void at91udc_remove(struct platform_device *pdev)
+ {
+ 	struct at91_udc *udc = platform_get_drvdata(pdev);
+ 	unsigned long	flags;
+@@ -1950,8 +1950,11 @@ static int at91udc_remove(struct platform_device *pdev)
+ 	DBG("remove\n");
+ 
+ 	usb_del_gadget_udc(&udc->gadget);
+-	if (udc->driver)
+-		return -EBUSY;
++	if (udc->driver) {
++		dev_err(&pdev->dev,
++			"Driver still in use but removing anyhow\n");
++		return;
++	}
+ 
+ 	spin_lock_irqsave(&udc->lock, flags);
+ 	pullup(udc, 0);
+@@ -1961,8 +1964,6 @@ static int at91udc_remove(struct platform_device *pdev)
+ 	remove_debug_file(udc);
+ 	clk_unprepare(udc->fclk);
+ 	clk_unprepare(udc->iclk);
+-
+-	return 0;
+ }
+ 
+ #ifdef CONFIG_PM
+@@ -2018,7 +2019,7 @@ static int at91udc_resume(struct platform_device *pdev)
+ #endif
+ 
+ static struct platform_driver at91_udc_driver = {
+-	.remove		= at91udc_remove,
++	.remove_new	= at91udc_remove,
+ 	.shutdown	= at91udc_shutdown,
+ 	.suspend	= at91udc_suspend,
+ 	.resume		= at91udc_resume,
+-- 
+2.53.0
 
