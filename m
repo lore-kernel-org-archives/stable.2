@@ -1,529 +1,176 @@
-Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F55B442FA0
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07FA73DDDCD
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515324; cv=none; b=TjeYozphsna7v3kO6VvwP/T9Fv/fF85KtY4uL9dl2DGrVozEGQDf+tSvuy+poMnRQTyqIJ9iAN51fkHwQQBMhWv1ToNvxtqoubcGRJnTHp4N4I57KQyEg2oAs+zgUwfw/CoGy0Q4jC0G8NRjaWGNhct3d8TZ41G02bBAkzUb2Hw=
+	t=1788515363; cv=none; b=ARjVTB2L6VdjkXZOB/etPh+VBH1gzDwxXZMlRDwPORsg4V0t6p+Ilc+261lAQuthEsmv9eY7rEbTrv8d/rhN5+ts81EyrqpHrpNjk2/L/0eKyN2FQA+JWjnZTDKpZxZW05xyzZf41znyPVhDKa9D5LvttS+J/hKVgdAPWQCkHjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515324; c=relaxed/simple;
-	bh=oOS5TYr9KmkmF7VHhrxHpuu76uSree4LSZG/2KBEZfM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jWr9C3iu4UECYsGFvJH88nhM6ee7xaaDBzgMuyDCIlJ7AQLPjkZbU9uDecsYBIWKQftgvPwTKKgvafDz59xHkZtkoQZvCBWSGy6MGTVzRGpA0nvKf1fZOLACoHYRPrV8mEKurFSZPkWcJ/oHVN05W4pgNWGPd9b9+cfd2PTL83g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f7.google.com with SMTP id 5b1f17b1804b1-49add2a23e5so3414655e9.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:48:42 -0700 (PDT)
+	s=arc-20240116; t=1788515363; c=relaxed/simple;
+	bh=qwOrA9Mnggk2KEvsaY2C0xYJG/NKATBTng/ahFDLjXo=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=JkRpp54uF+bsMwxA4w9iS4GGpYqD8gtjAq/6eSBPyQR3E6YXuTdLlremUdkvhEoSKsj+SMCwbCrdiePeWrZErdRCXoYh9/+A6RY1Sqh5v/7j7jFWQS6by3TnGMZni+LN1o74RUuUp3VavBNwSOtcc9Fu8JhLwCXRJiA3ImFdZaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=j5aPS2Ea; arc=none smtp.client-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="j5aPS2Ea"
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49ccfbe060aso6015845e9.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:49:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788515360; x=1789120160; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tD9YUdJxEY0AYwxtY9VhW4RfuJzXRZj3kSymY7ndAy4=;
+        b=j5aPS2EaC3L/vhT89qQk70ZtBtK4MN6y6ARnr0TY7AVkFkhOVX9kmcGioxhM7EHLpk
+         d2acoy0PVEcGMLuBws5P40ZGkt55/A5ifdFFFAUrfZ5nEjZHD26JxZVuNKksdsKCrXjl
+         yblKLPPjEnGfL7nG4fP2NxLlqK7v4raA7l9b7PrQUXVP1/bSEyE+7htsG70ShqUWmHlo
+         mqCoCNx3URxEGG0KzEoRKSlU+AgeIBTAfaBnPLPPYyRCZp8ilpd4U0+IngeG4RIRy/8t
+         ayBkygI+nwVRbHcdGXVaDhfbTJ3FusCWHfzcmgBtVJsoYPkPl4gCUQQNyT40sCa/rVbr
+         siIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788515320; x=1789120120;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rAsj+YckDhYSNq2L55LWz/LqpnwaaAf9E1UvrKvqWu8=;
-        b=Tutfq9ttz/myadWdSoAd/uVca9NtlImrifwJYzD4S5tJy9Xo3ESowC3eYrkknWb9KL
-         yWofNgu90dO61Ze4fTw/NDUA/MHHzLKuioLSijsnUucNtyxE5IAdL2rfcoOOuir01qPE
-         HY+SXZoXHU/z78AVLSrjgrG4CpMIJavYpxw8L+n3O5kLqM5aQnuYhZys7F0z7IuD9tSL
-         kt9HhtnI7t+2uAuHn6cqfC8bOltrIcNT1KfPOpfaJmwxAHM1fjdBTDqp+Mjddpgx4jRB
-         5mZVYV3H9z5OiYva9BAvXkataaY9LSJMmQtzNQiHPsDKlCcJTMsi79pwMCI8sZtPvo6m
-         pX0w==
-X-Gm-Message-State: AFuF++nwVx0mIqmZBjr2QTgKgnhzJyAZwTH+1anoSEERX163t75QHfF8
-	s59nvLZCmmVtBSmiHxL7femLVm3exQxcIFRuHBleFQbHpQdVDM/rBozlDu+bnXD7
-X-Gm-Gg: AYBFou1IhyndPd6OGWRo9RCFoO0UEUV4VF7+Cwl3WYZDV8cZ/VjOEOQyatxMQ9rIdDm
-	JNM7WrksNKvBYnFKEJwrhqWzVQXkRymOCW2H+XuvGC1zusKB44mQYuBiWP+d0hj7mFN+m4kf86u
-	9x8dB+BotUIBPmt4q5lJPEn+Eyw4kp1VmPNJl+OfNonuFhfFMvYZxqLSVTie7O9jl79tg9esw1S
-	x2o0sHN8wARco3MLOMt2KvXiry2im8uBi/Zgvevk1A/0KSdqI9wxyH4wV9hMyH+MSJDFfWWZrfa
-	30R31kAUIzeFlaoDAvdswXDlHbaj7WV+EOhdSCR8tIjFBbpEtf7TeM/eWSPrZN1FQzpicZe+VDE
-	P8hJht5+Zd0CH6PvLj+TgXcTxl0jPmJqfS630Nx0a9//tZ3Ju2aItbHLL8Fwt2ZivyX+BDcdoVl
-	DkQCwkmqEUYwfIs5sU4eSWkYus5WrD9dzj3nZfCx09yyIJGrfNWD5EFqsqXJnpAmRzYNeoCwfwY
-	jipbLYZKwaFe8shYyw=
-X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr47071845e9.2.1788515320178;
-        Fri, 04 Sep 2026 02:48:40 -0700 (PDT)
-Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm145501045e9.6.2026.09.04.02.48.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:48:39 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: stable@vger.kernel.org
-Cc: Eelco Chaudron <echaudro@redhat.com>,
-	Aaron Conole <aconole@redhat.com>,
-	Yuqi Xu <xuyuqiabc@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Nan Li <tonanli66@gmail.com>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10.y 2/2] openvswitch: Fix CT limit teardown use-after-free
-Date: Fri,  4 Sep 2026 11:48:18 +0200
-Message-ID: <20260904094826.1817930-3-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904094826.1817930-1-i.maximets@ovn.org>
-References: <2026090351-garnish-ferocious-2169@gregkh>
- <20260904094826.1817930-1-i.maximets@ovn.org>
+        d=1e100.net; s=20251104; t=1788515360; x=1789120160;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tD9YUdJxEY0AYwxtY9VhW4RfuJzXRZj3kSymY7ndAy4=;
+        b=Rred2EqVHIvYDiuFNx4QrN32X11izWbwDSXdsmPeubMTreeBk2XLgVCo/irEuinGCQ
+         47VzuoKcXpi6rH40lGeuH1U2X9lnOJuMM2nBw3ogwn5Oma7JWsmA9LIctwalhadufgOx
+         BksFXDHRhzLFT9GJPdIwWacqy1E4387DRXC12U0otvyb2VyJ87hXiVewVRrED6Sdrcwi
+         kOvjuYlEqFnzfXfqZUGedke6a7Pg5PgvMvZizGPEIvYZeA9C2jZqBSLZ22Vd76xq6lPb
+         mv6cck2b3b81Vc3afexyAa1VAGi+k0famRWJFZXGOK83WxkqPeIDeRhxEq5hwPEJ2jyc
+         FyaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRagNMaqAzunfRu0CZ0js+OOFtwzkmQmCMbqS2JGonKJR1VSQpHJG2F6fbB5nxSp2mcpJLIgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ5tbQ/Jrb49G+mNrYn0pREQ6lfe8Pe35ao8UT8JUPjrewja33
+	nlBdjL7/pPTi4S53Vvy0cFoq4DM3FMiXw7Uh5A0zfcpUhbP9q/2QrxAwgtnI5w+dmQxNA2dXT2G
+	C+Quyofm1UZ6Exmd4zQ==
+X-Received: from wrqe18.prod.google.com ([2002:a5d:6d12:0:b0:484:3a05:4b1])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:628b:b0:49c:fa21:e742 with SMTP id 5b1f17b1804b1-49cfa21e956mr24670005e9.24.1788515360004;
+ Fri, 04 Sep 2026 02:49:20 -0700 (PDT)
+Date: Fri, 4 Sep 2026 09:49:15 +0000
+In-Reply-To: <apnw5zOSnfoajNsX@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20260901205250.1638304-1-cmllamas@google.com> <20260901205250.1638304-6-cmllamas@google.com>
+ <apgbjOsfn4oFMmAC@google.com> <aphOAx2CINlw3m6Y@google.com>
+ <apkoe-g5Cj9U8Kqt@google.com> <apnw5zOSnfoajNsX@google.com>
+Message-ID: <apqUGyD7-AOhBu5q@google.com>
+Subject: Re: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
+From: Alice Ryhl <aliceryhl@google.com>
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
+	Christian Brauner <brauner@kernel.org>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 
-From: Yuqi Xu <xuyuqiabc@gmail.com>
+On Thu, Sep 03, 2026 at 10:12:55PM +0000, Carlos Llamas wrote:
+> On Thu, Sep 03, 2026 at 07:57:47AM +0000, Alice Ryhl wrote:
+> > On Wed, Sep 02, 2026 at 04:25:39PM +0000, Carlos Llamas wrote:
+> > > On Wed, Sep 02, 2026 at 12:50:20PM +0000, Alice Ryhl wrote:
+> > > > On Tue, Sep 01, 2026 at 08:52:45PM +0000, Carlos Llamas wrote:
+> > > > > Certain operations like a failed mremap() might trigger vm_ops->close()
+> > > > > on temporary mappings. To avoid tearing-down the main binder mapping on
+> > > > > these, let's verify that the VMA matches the expected starting address.
+> > > > > 
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
+> > > > > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > > > > Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
+> > > > > Signed-off-by: Carlos Llamas <cmllamas@google.com>
+> > > > > ---
+> > > > >  drivers/android/binder.c | 3 +++
+> > > > >  1 file changed, 3 insertions(+)
+> > > > > 
+> > > > > diff --git a/drivers/android/binder.c b/drivers/android/binder.c
+> > > > > index 185128577829..3d359490436e 100644
+> > > > > --- a/drivers/android/binder.c
+> > > > > +++ b/drivers/android/binder.c
+> > > > > @@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
+> > > > >  {
+> > > > >  	struct binder_proc *proc = vma->vm_private_data;
+> > > > >  
+> > > > > +	if (vma->vm_start != proc->alloc.vm_start)
+> > > > > +		return;
+> > > > 
+> > > > So .. this does work in the case of mremap, but how about instead doing
+> > > > this?
+> > > > 
+> > > > static int binder_mremap(struct vm_area_struct *vma)
+> > > > {
+> > > > 	vma->vm_private_data = NULL;
+> > > > 	return -EINVAL;
+> > > > }
+> > > > 
+> > > > and then check for NULL in binder_vma_close() instead? I think that
+> > > > logic would be a bit easier to understand.
+> > > 
+> > > Yeah, I agree that is easier to read. However, not all exit paths that
+> > > close a copied vma actually call op->mremap(). We would miss those and
+> > > accidentally brick binder.
+> > 
+> > What about setting it to NULL in op->open(), then?
+> 
+> I suppose that would technically work because ->open() would only be
+> called for subsequent operations after the initial ->mmap(). However,
+> that might be more complex to understand without this "mm-specific"
+> context no? A comment would again be needed to explain why we clear
+> vma->vm_private_data for the common readers...
+> 
+> 	/*
+> 	 * Subsequent ->open() calls after the initial ->mmap() are
+> 	 * considered invalid ops and as such we mark ->vm_private_data
+> 	 * invalid and avoid IPC tear-down upon its ->close().
+> 	 */
+> 	 vma->vm_private_data = NULL;
+> 
+> I don't hate this idea, but I don't see the easier-to-read argument
+> either. I'll switch to this if you really think is better.
+> 
+> Ultimately, we are trying to find a way to identify the "original"
+> mapping and avoid shutting down the IPC on invalid clones. Do you
+> believe using vma->vm_start is not a reliable way? Or perhaps not
+> straight-forward?
 
-[ Upstream commit 403f96c32c9e24600093d7d0c61c17daeedca957 ]
+The reason I find vma->vm_start to be non-obvious is ... how do you know
+that the second vma can't have the same value for vm_start?
 
-Packet processing uses CT limit state under RCU, while netns teardown
-frees that state under ovs_mutex. The CT limit pointer was neither removed
-from readers nor protected by a grace period, allowing packet processing to
-dereference the freed state.
+Does mremap() work for splitting a vma into two? Then the first half of
+the resulting two vmas will have the same vm_start. Or does it support
+resizing it, which results in a new vma with the same vm_start? Or can
+we create a vma of length zero at that address?
 
-An unprivileged user can trigger this bug from a user and network
-namespace, causing a slab-use-after-free in ovs_ct_execute() when the
-netns is torn down.
+After some verification, I found that these do not apply because the vma
+created by mremap() can't overlap with the old one. But it was not
+obvious to me.
 
-Publish the CT limit pointer through RCU, remove it before teardown, and
-wait for readers before freeing its contents. Keep ovs_mutex around
-individual CT limit updates, and use the RCU read-side lock while GET
-traverses the RCU-protected limit lists.
+And in fact I do think we *can* create a new vma with the same vm_start
+like this:
 
-Netns teardown detaches the RCU-protected CT limit state in the pernet
-.pre_exit callback while holding ovs_mutex.  The pernet core guarantees an
-RCU grace period between the .pre_exit and .exit callbacks, so the .exit
-callback completes the teardown without adding any extra synchronization.
+1. mremap() the original VMA to a second VMA at a different address
+2. Close the original VMA
+3. mremap() the second VMA to the original address, creating a third VMA
+   at that location
 
-The netlink command handlers do not need NULL checks because the userspace
-netlink socket holds an active reference to its network namespace while a
-request is processed. The per-netns exit path therefore cannot run
-concurrently with SET, DEL, or GET for that socket's namespace.
+and the third VMA would get past the vm_start check when you close it.
 
-Fixes: 11efd5cb04a1 ("openvswitch: Support conntrack zone limit")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Link: https://lore.kernel.org/all/cover.1784711445.git.xuyuqiabc@gmail.com
-Co-developed-by: Nan Li <tonanli66@gmail.com>
-Signed-off-by: Nan Li <tonanli66@gmail.com>
-Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-Reviewed-by: Ren Wei <enjou1224z@gmail.com>
-Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
-Link: https://patch.msgid.link/288fbd5459d92b9dd0dcc6faf625f04819161ff3.1787280296.git.xuyuqiabc@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ 7.0+ uses kmalloc_obj[s] while older versions use kmalloc[_array]
-  6.12+ doesn't have a 'family' argument in nf_conncount_init/destroy ]
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
----
- net/openvswitch/conntrack.c | 122 +++++++++++++++++++++++-------------
- net/openvswitch/conntrack.h |   6 +-
- net/openvswitch/datapath.c  |  10 ++-
- net/openvswitch/datapath.h  |   8 ++-
- 4 files changed, 98 insertions(+), 48 deletions(-)
+Or perhaps:
 
-diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
-index 50a345ccd9430..054985727abc0 100644
---- a/net/openvswitch/conntrack.c
-+++ b/net/openvswitch/conntrack.c
-@@ -1156,10 +1156,14 @@ static int ovs_ct_check_limit(struct net *net,
- 			      const struct ovs_conntrack_info *info)
- {
- 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
--	const struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
-+	const struct ovs_ct_limit_info *ct_limit_info;
- 	u32 per_zone_limit, connections;
- 	u32 conncount_key;
- 
-+	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
-+	if (!ct_limit_info)
-+		return 0;
-+
- 	conncount_key = info->zone.id;
- 
- 	per_zone_limit = ct_limit_get(ct_limit_info, info->zone.id);
-@@ -1860,43 +1864,56 @@ static void __ovs_ct_free_action(struct ovs_conntrack_info *ct_info)
- #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
- static int ovs_ct_limit_init(struct net *net, struct ovs_net *ovs_net)
- {
-+	struct ovs_ct_limit_info *info;
- 	int i, err;
- 
--	ovs_net->ct_limit_info = kmalloc(sizeof(*ovs_net->ct_limit_info),
--					 GFP_KERNEL);
--	if (!ovs_net->ct_limit_info)
-+	info = kmalloc(sizeof(*info), GFP_KERNEL);
-+	if (!info)
- 		return -ENOMEM;
- 
--	ovs_net->ct_limit_info->default_limit = OVS_CT_LIMIT_DEFAULT;
--	ovs_net->ct_limit_info->limits =
-+	info->default_limit = OVS_CT_LIMIT_DEFAULT;
-+	info->limits =
- 		kmalloc_array(CT_LIMIT_HASH_BUCKETS, sizeof(struct hlist_head),
- 			      GFP_KERNEL);
--	if (!ovs_net->ct_limit_info->limits) {
--		kfree(ovs_net->ct_limit_info);
-+	if (!info->limits) {
-+		kfree(info);
- 		return -ENOMEM;
- 	}
- 
- 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; i++)
--		INIT_HLIST_HEAD(&ovs_net->ct_limit_info->limits[i]);
-+		INIT_HLIST_HEAD(&info->limits[i]);
- 
--	ovs_net->ct_limit_info->data =
--		nf_conncount_init(net, NFPROTO_INET, sizeof(u32));
-+	info->data = nf_conncount_init(net, NFPROTO_INET, sizeof(u32));
- 
--	if (IS_ERR(ovs_net->ct_limit_info->data)) {
--		err = PTR_ERR(ovs_net->ct_limit_info->data);
--		kfree(ovs_net->ct_limit_info->limits);
--		kfree(ovs_net->ct_limit_info);
-+	if (IS_ERR(info->data)) {
-+		err = PTR_ERR(info->data);
-+		kfree(info->limits);
-+		kfree(info);
- 		pr_err("openvswitch: failed to init nf_conncount %d\n", err);
- 		return err;
- 	}
-+	rcu_assign_pointer(ovs_net->ct_limit_info, info);
- 	return 0;
- }
- 
--static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
-+static void *ovs_ct_limit_exit_start(struct ovs_net *ovs_net)
-+{
-+	return rcu_replace_pointer(ovs_net->ct_limit_info, NULL,
-+				   lockdep_ovsl_is_held());
-+}
-+
-+/* The CT limit state must be detached by ovs_ct_limit_exit_start() and an
-+ * RCU grace period must elapse before this function runs.  The pernet core
-+ * guarantees the grace period between the .pre_exit and .exit callbacks.
-+ */
-+static void ovs_ct_limit_exit_finish(struct net *net, void *data)
- {
--	const struct ovs_ct_limit_info *info = ovs_net->ct_limit_info;
-+	const struct ovs_ct_limit_info *info = data;
- 	int i;
- 
-+	if (!info)
-+		return;
-+
- 	nf_conncount_destroy(net, NFPROTO_INET, info->data);
- 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
- 		struct hlist_head *head = &info->limits[i];
-@@ -1904,7 +1921,7 @@ static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
- 		struct hlist_node *next;
- 
- 		hlist_for_each_entry_safe(ct_limit, next, head, hlist_node)
--			kfree_rcu(ct_limit, rcu);
-+			kfree(ct_limit);
- 	}
- 	kfree(info->limits);
- 	kfree(info);
-@@ -1943,12 +1960,13 @@ static bool check_zone_id(int zone_id, u16 *pzone)
- 	return false;
- }
- 
--static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
--				       struct ovs_ct_limit_info *info)
-+static int ovs_ct_limit_set_zone_limit(struct ovs_net *ovs_net,
-+				       struct nlattr *nla_zone_limit)
- {
- 	struct ovs_zone_limit *zone_limit;
--	int rem;
-+	struct ovs_ct_limit_info *info;
- 	u16 zone;
-+	int rem;
- 
- 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
- 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
-@@ -1957,6 +1975,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
- 		if (unlikely(zone_limit->zone_id ==
- 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
- 			ovs_lock();
-+			info = ovsl_dereference(ovs_net->ct_limit_info);
- 			info->default_limit = zone_limit->limit;
- 			ovs_unlock();
- 		} else if (unlikely(!check_zone_id(
-@@ -1973,6 +1992,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
- 			ct_limit->limit = zone_limit->limit;
- 
- 			ovs_lock();
-+			info = ovsl_dereference(ovs_net->ct_limit_info);
- 			ct_limit_set(info, ct_limit);
- 			ovs_unlock();
- 		}
-@@ -1987,12 +2007,13 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
- 	return 0;
- }
- 
--static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
--				       struct ovs_ct_limit_info *info)
-+static int ovs_ct_limit_del_zone_limit(struct ovs_net *ovs_net,
-+				       struct nlattr *nla_zone_limit)
- {
- 	struct ovs_zone_limit *zone_limit;
--	int rem;
-+	struct ovs_ct_limit_info *info;
- 	u16 zone;
-+	int rem;
- 
- 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
- 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
-@@ -2001,6 +2022,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
- 		if (unlikely(zone_limit->zone_id ==
- 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
- 			ovs_lock();
-+			info = ovsl_dereference(ovs_net->ct_limit_info);
- 			info->default_limit = OVS_CT_LIMIT_DEFAULT;
- 			ovs_unlock();
- 		} else if (unlikely(!check_zone_id(
-@@ -2008,6 +2030,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
- 			OVS_NLERR(true, "zone id is out of range");
- 		} else {
- 			ovs_lock();
-+			info = ovsl_dereference(ovs_net->ct_limit_info);
- 			ct_limit_del(info, zone);
- 			ovs_unlock();
- 		}
-@@ -2051,6 +2074,7 @@ static int __ovs_ct_limit_get_zone_limit(struct net *net,
- 	return nla_put_nohdr(reply, sizeof(zone_limit), &zone_limit);
- }
- 
-+/* Called with RCU read lock held. */
- static int ovs_ct_limit_get_zone_limit(struct net *net,
- 				       struct nlattr *nla_zone_limit,
- 				       struct ovs_ct_limit_info *info,
-@@ -2074,12 +2098,10 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
- 							&zone))) {
- 			OVS_NLERR(true, "zone id is out of range");
- 		} else {
--			rcu_read_lock();
- 			limit = ct_limit_get(info, zone);
- 
- 			err = __ovs_ct_limit_get_zone_limit(
- 				net, info->data, zone, limit, reply);
--			rcu_read_unlock();
- 			if (err)
- 				return err;
- 		}
-@@ -2094,6 +2116,7 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
- 	return 0;
- }
- 
-+/* Called with RCU read lock held. */
- static int ovs_ct_limit_get_all_zone_limit(struct net *net,
- 					   struct ovs_ct_limit_info *info,
- 					   struct sk_buff *reply)
-@@ -2106,19 +2129,16 @@ static int ovs_ct_limit_get_all_zone_limit(struct net *net,
- 	if (err)
- 		return err;
- 
--	rcu_read_lock();
- 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
- 		head = &info->limits[i];
- 		hlist_for_each_entry_rcu(ct_limit, head, hlist_node) {
- 			err = __ovs_ct_limit_get_zone_limit(net, info->data,
- 				ct_limit->zone, ct_limit->limit, reply);
- 			if (err)
--				goto exit_err;
-+				return err;
- 		}
- 	}
- 
--exit_err:
--	rcu_read_unlock();
- 	return err;
- }
- 
-@@ -2128,7 +2148,6 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
- 	struct sk_buff *reply;
- 	struct ovs_header *ovs_reply_header;
- 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
--	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
- 	int err;
- 
- 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_SET,
-@@ -2141,8 +2160,8 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
- 		goto exit_err;
- 	}
- 
--	err = ovs_ct_limit_set_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
--					  ct_limit_info);
-+	err = ovs_ct_limit_set_zone_limit(ovs_net,
-+					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
- 	if (err)
- 		goto exit_err;
- 
-@@ -2162,7 +2181,6 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
- 	struct sk_buff *reply;
- 	struct ovs_header *ovs_reply_header;
- 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
--	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
- 	int err;
- 
- 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_DEL,
-@@ -2175,8 +2193,8 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
- 		goto exit_err;
- 	}
- 
--	err = ovs_ct_limit_del_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
--					  ct_limit_info);
-+	err = ovs_ct_limit_del_zone_limit(ovs_net,
-+					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
- 	if (err)
- 		goto exit_err;
- 
-@@ -2196,7 +2214,7 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
- 	struct ovs_header *ovs_reply_header;
- 	struct net *net = sock_net(skb->sk);
- 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
--	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
-+	struct ovs_ct_limit_info *ct_limit_info;
- 	int err;
- 
- 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_GET,
-@@ -2210,18 +2228,19 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
- 		goto exit_err;
- 	}
- 
-+	rcu_read_lock();
-+	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
- 	if (a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]) {
- 		err = ovs_ct_limit_get_zone_limit(
- 			net, a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT], ct_limit_info,
- 			reply);
--		if (err)
--			goto exit_err;
- 	} else {
- 		err = ovs_ct_limit_get_all_zone_limit(net, ct_limit_info,
- 						      reply);
--		if (err)
--			goto exit_err;
- 	}
-+	rcu_read_unlock();
-+	if (err)
-+		goto exit_err;
- 
- 	nla_nest_end(reply, nla_reply);
- 	genlmsg_end(reply, ovs_reply_header);
-@@ -2291,12 +2310,29 @@ int ovs_ct_init(struct net *net)
- #endif
- }
- 
--void ovs_ct_exit(struct net *net)
-+/* Must be called with ovs_mutex held.  Detaches the RCU-protected
-+ * ct_limit_info and stores it in ovs_net->ct_limit_exit_data for
-+ * ovs_ct_exit_finish() to complete the teardown after an RCU grace period.
-+ */
-+void ovs_ct_exit_start(struct net *net __maybe_unused)
-+{
-+#if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
-+	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
-+
-+	ovs_net->ct_limit_exit_data = ovs_ct_limit_exit_start(ovs_net);
-+#endif
-+}
-+
-+/* Completes the CT limit teardown.  The pernet core guarantees an RCU
-+ * grace period between detaching the state in ovs_ct_exit_start() and
-+ * this call, so no RCU readers remain.
-+ */
-+void ovs_ct_exit_finish(struct net *net)
- {
- 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
- 
- #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
--	ovs_ct_limit_exit(net, ovs_net);
-+	ovs_ct_limit_exit_finish(net, ovs_net->ct_limit_exit_data);
- #endif
- 
- 	if (ovs_net->xt_label)
-diff --git a/net/openvswitch/conntrack.h b/net/openvswitch/conntrack.h
-index 59dc32761b91f..ad9081d7023d5 100644
---- a/net/openvswitch/conntrack.h
-+++ b/net/openvswitch/conntrack.h
-@@ -14,7 +14,8 @@ enum ovs_key_attr;
- 
- #if IS_ENABLED(CONFIG_NF_CONNTRACK)
- int ovs_ct_init(struct net *);
--void ovs_ct_exit(struct net *);
-+void ovs_ct_exit_start(struct net *net);
-+void ovs_ct_exit_finish(struct net *net);
- bool ovs_ct_verify(struct net *, enum ovs_key_attr attr);
- int ovs_ct_copy_action(struct net *, const struct nlattr *,
- 		       const struct sw_flow_key *, struct sw_flow_actions **,
-@@ -39,7 +40,8 @@ void ovs_ct_free_action(const struct nlattr *a);
- 
- static inline int ovs_ct_init(struct net *net) { return 0; }
- 
--static inline void ovs_ct_exit(struct net *net) { }
-+static inline void ovs_ct_exit_start(struct net *net) { }
-+static inline void ovs_ct_exit_finish(struct net *net) { }
- 
- static inline bool ovs_ct_verify(struct net *net, int attr)
- {
-diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-index b5ab925d63a42..83b0b0bc486c4 100644
---- a/net/openvswitch/datapath.c
-+++ b/net/openvswitch/datapath.c
-@@ -2599,6 +2599,13 @@ static void __net_exit list_vports_from_net(struct net *net, struct net *dnet,
- 	}
- }
- 
-+static void __net_exit ovs_pre_exit_net(struct net *dnet)
-+{
-+	ovs_lock();
-+	ovs_ct_exit_start(dnet);
-+	ovs_unlock();
-+}
-+
- static void __net_exit ovs_exit_net(struct net *dnet)
- {
- 	struct datapath *dp, *dp_next;
-@@ -2609,7 +2616,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
- 
- 	ovs_lock();
- 
--	ovs_ct_exit(dnet);
-+	ovs_ct_exit_finish(dnet);
- 
- 	list_for_each_entry_safe(dp, dp_next, &ovs_net->dps, list_node)
- 		__dp_destroy(dp);
-@@ -2633,6 +2640,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
- 
- static struct pernet_operations ovs_net_ops = {
- 	.init = ovs_init_net,
-+	.pre_exit = ovs_pre_exit_net,
- 	.exit = ovs_exit_net,
- 	.id   = &ovs_net_id,
- 	.size = sizeof(struct ovs_net),
-diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index 26f310f807083..9a330aaaa7585 100644
---- a/net/openvswitch/datapath.h
-+++ b/net/openvswitch/datapath.h
-@@ -139,7 +139,10 @@ struct dp_upcall_info {
-  * Protected by genl_mutex.
-  * @dp_notify_work: A work notifier to handle port unregistering.
-  * @masks_rebalance: A work to periodically optimize flow table caches.
-- * @ct_limit_info: A hash table of conntrack zone connection limits.
-+ * @ct_limit_info: Hash table of conntrack zone connection limits. Protected
-+ * by RCU; updates and teardown are serialized by ovs_mutex. May be NULL during
-+ * netns teardown.
-+ * @ct_limit_exit_data: CT limit state detached at .pre_exit, freed at .exit.
-  * @xt_label: Whether connlables are configured for the network or not.
-  */
- struct ovs_net {
-@@ -147,7 +150,8 @@ struct ovs_net {
- 	struct work_struct dp_notify_work;
- 	struct delayed_work masks_rebalance;
- #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
--	struct ovs_ct_limit_info *ct_limit_info;
-+	struct ovs_ct_limit_info __rcu *ct_limit_info;
-+	struct ovs_ct_limit_info *ct_limit_exit_data;
- #endif
- 	bool xt_label;
- };
--- 
-2.55.0
+1. unmap the first half of the original vma
+2. mremap() the remainder back to vm_start, which is no longer overlap
 
+Now, in the current code that's actually harmless because we already set
+mapped to false in this scenario ... will it be harmless in all future
+versions of this code? Maybe not? Future authors may see the vm_start
+check and conclude "after this check I know for sure this code runs only
+once" and do something that's illegal if called twice.
+
+Alice
