@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB7920D4FF
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 00:20:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37C0226CFE
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 00:20:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481226; cv=none; b=tqMHRwX3Xd3lOtr/bi1tYRm/lA1JTtFD6frVY8ig2JNlNt13HE8YX+kx2BGDMflm1zc1D+HD1wv1/n/3AeOSlnhQooYmbFM52RfcEw1N69NBsYBOCVfg42MtxbbZpnDTGk9ttapNQWGACP7jtaxStU8hSO1x1EotpN2+aHbdxxQ=
+	t=1788481226; cv=none; b=ZO7tkbjSJqcnUEl46uGHaE+Bvd8SyXt6FMrkCd/7eMNYw1a6uaOgQPid1aC44l3vvig0Al+TBKAz4AO0yx41K6HBZ1j1/UutOzCg1/jGiEPWgW9JU0d1aVkM5Ou8S03RR84T2Mq9aTUkwhW9TZu8Qm/w8E7R19SV6p+rwv1t+JQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788481226; c=relaxed/simple;
-	bh=F2NcxLV5YKTa4vT6Hhlh1+LrdjoDd0snjYkAa4gEvUA=;
+	bh=ZN3by5gPtsmnkNUSlRDovrsf7kj0sVtjgPau3BiUhPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XpcZmJqN6ESDFQP5dLu+N2M7aBUSSxaHT1tjYLFNzGQVleV0w0+9mEYpRo61Q9a9Ep/kjrthVzgYmN85M3Qvbp/+tVK656HbiMGli8y5mnMiQencIEL4pK/009jz88KlaqC/tw6zTEbWtYSpkbvw+i/3CYC+tMxjNwbZFD5l6rE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S2scyPZS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F8jFKF5MjTuyECBE/qDgcR6ZATFMQnFzd1JqB0Zyp1FjH+TdxqcE4oWYED2EZsvTZTbqo4h0nW5Bf5YkK4/mm8EQppNO4CkEmV8n+jr+9UsUajGrX/KRKInj1Fvd7SM3s478We/w4nSJMayfcJxNSTvjskH/7vcOdtsU94xlKEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7V0zofM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S2scyPZS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECF4F1F000E9;
-	Fri,  4 Sep 2026 00:20:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7V0zofM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0061F00A3E;
+	Fri,  4 Sep 2026 00:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788481224;
-	bh=01U0dP+UODhQiAjPhmcHPSxkSif5JbhijMhYlAxdTGg=;
+	s=k20260515; t=1788481225;
+	bh=DhEgbBsckaTK42m/R4zo/CrCDT8A2PUFJvhR6pa/M5w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S2scyPZSotnAVOAbd/9W34THitr6tCH0D+FzBnM52s84Iqpsjk3OmwQjWOWCix3jE
-	 7D3Xqnyk+TeqhcnWzd2LDr9fNvY3IVGFowga2Czm+uQmzIlS/EHzigWYc9gloBBCga
-	 zwRujQdquRGbJwMWkBJTuSj1HIQ3Htk46B+1kQIPGRIEgCT0VOlNH191zRbQCh6YiK
-	 q8c+zcGgoNyjf2hKxTrhwYlzKeaawlk77eKR+El+LulmO2hQwODvet7g8eF0EAx04N
-	 5ifInfTQ3UrXrGoXeR55Rzyb9V+7mA/T1J8M5teHK1d4hyviMIcIjkrkQdZZyduf/+
-	 wXUKzv2CFMKUw==
+	b=U7V0zofM90TJ3z6K6F/J2P4xxLqS6uGoi80u+vrHz+WWQ5tZxTGDugmHOj4tu9do0
+	 MsCmh6hqeNbbCcs/aWmATWySCVLQIUH+DynhmKH1WlmkhH92ooWTon+W5bKeHbMqzJ
+	 +JjTAsZ6biapFWLgyd734PdOsIHGQM2eS3vjZyoZ/DxwQ3ct5D+sCz1I78Wsw0lznJ
+	 Sv+fMPTfvgJAbdF3MUZbfAwHNGmbH4q2ecCBkBwlGXPXWmdCeq5MuMySaN9Gt1JB1Z
+	 kmXSDVqeN6ZhKb2c52Ks3aVoo7hMkMQ5G/VGpIn38XaXNg0089Ks8Hd7sQYZhVU8we
+	 /Kxb1DrJY3NeQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vlastimil Babka <vbabka@suse.cz>,
-	Harry Yoo <harry.yoo@oracle.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	"Liam R. Howlett" <Liam.Howlett@oracle.com>,
+Cc: Li Xiasong <lixiasong1@huawei.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	"Harry Yoo (Oracle)" <harry@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] mm/slab: move and refactor __kmem_cache_alias()
-Date: Thu,  3 Sep 2026 20:20:21 -0400
-Message-ID: <20260904002022.2105689-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] mm/slub: fix missing debugfs entries for caches created before sysfs init
+Date: Thu,  3 Sep 2026 20:20:22 -0400
+Message-ID: <20260904002022.2105689-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090309-defame-darkening-edde@gregkh>
+In-Reply-To: <20260904002022.2105689-1-sashal@kernel.org>
 References: <2026090309-defame-darkening-edde@gregkh>
+ <20260904002022.2105689-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,203 +47,194 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vlastimil Babka <vbabka@suse.cz>
+From: Li Xiasong <lixiasong1@huawei.com>
 
-[ Upstream commit 8598351edc42f38d2a1eaed9abca39c98e7b0bbf ]
+[ Upstream commit 7e98f856395618011c517f767fb80ac3fe90de2b ]
 
-Move __kmem_cache_alias() to slab_common.c since it's called by
-__kmem_cache_create_args() and calls find_mergeable() that both
-are in this file. We can remove two slab.h declarations and make
-them static. Instead declare sysfs_slab_alias() from slub.c so
-that __kmem_cache_alias() can keep calling it.
+slab_debugfs_init() creates the slab debugfs root at device initcall
+time, while slab_sysfs_init() moves slab_state to FULL at late initcall
+time. SLAB_STORE_USER caches created in this window miss their debugfs
+entries because do_kmem_cache_create() skips debugfs_slab_add() when
+slab_state <= UP. This was observed with MPTCP's request_sock_subflow_v6
+cache, whose slab debugfs directory was missing.
 
-Add args parameter to __kmem_cache_alias() and find_mergeable() instead
-of align and ctor. With that we can also move the checks for usersize
-and sheaf_capacity there from __kmem_cache_create_args() and make the
-result more symmetric with slab_unmergeable().
+The affected window is:
 
-No functional changes intended.
+  slab_debugfs_init()
+    slab_debugfs_root = debugfs_create_dir(...)
+    list_for_each_entry(s, &slab_caches, list)
+      debugfs_slab_add(s)
 
-Reviewed-by: Harry Yoo <harry.yoo@oracle.com>
-Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-Reviewed-by: Liam R. Howlett <Liam.Howlett@oracle.com>
-Signed-off-by: Vlastimil Babka <vbabka@suse.cz>
-Stable-dep-of: 7e98f8563956 ("mm/slub: fix missing debugfs entries for caches created before sysfs init")
+  kmem_cache_create(..., SLAB_STORE_USER, ...)
+    do_kmem_cache_create()
+      if (slab_state <= UP)
+        return without debugfs entries
+
+  slab_sysfs_init()
+    slab_state = FULL
+
+Initialize the debugfs root and add debugfs entries while holding
+slab_mutex, walking slab_caches exactly once and handling both sysfs
+and debugfs entries in the same pass. This gives the sysfs and debugfs
+initialization an explicit order and prevents caches from being
+created between the debugfs scan and slab_state reaching FULL.
+
+Gate the new slab_late_init() on either sysfs or debugfs being enabled,
+with the slab_kset creation and alias_list processing factored into
+helpers that have empty no-sysfs variants, as suggested by Vlastimil
+Babka. On slab_kset_init() failure, slab_state stays below FULL so
+kmem_cache_create() keeps taking the early-boot path, matching prior
+behavior.
+
+Guard debugfs_slab_release() against an uninitialized debugfs root,
+since the root is now created later and a cache may be released before
+it exists.
+
+Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall")
+Cc: stable@vger.kernel.org
+Suggested-by: Vlastimil Babka <vbabka@kernel.org>
+Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
+Link: https://patch.msgid.link/20260729101849.3734287-1-lixiasong1@huawei.com
+Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/slab.h        |  8 +++-----
- mm/slab_common.c | 44 +++++++++++++++++++++++++++++++++++++-------
- mm/slub.c        | 30 +-----------------------------
- 3 files changed, 41 insertions(+), 41 deletions(-)
+ mm/slub.c | 76 +++++++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 48 insertions(+), 28 deletions(-)
 
-diff --git a/mm/slab.h b/mm/slab.h
-index c452f2a32c801..0b49960bf07c9 100644
---- a/mm/slab.h
-+++ b/mm/slab.h
-@@ -299,9 +299,12 @@ struct kmem_cache {
- #define SLAB_SUPPORTS_SYSFS 1
- void sysfs_slab_unlink(struct kmem_cache *s);
- void sysfs_slab_release(struct kmem_cache *s);
-+int sysfs_slab_alias(struct kmem_cache *s, const char *name);
- #else
- static inline void sysfs_slab_unlink(struct kmem_cache *s) { }
- static inline void sysfs_slab_release(struct kmem_cache *s) { }
-+static inline int sysfs_slab_alias(struct kmem_cache *s, const char *name)
-+							{ return 0; }
- #endif
- 
- void *fixup_red_left(struct kmem_cache *s, void *p);
-@@ -422,11 +425,6 @@ extern void create_boot_cache(struct kmem_cache *, const char *name,
- 			unsigned int useroffset, unsigned int usersize);
- 
- int slab_unmergeable(struct kmem_cache *s);
--struct kmem_cache *find_mergeable(unsigned size, unsigned align,
--		slab_flags_t flags, const char *name, void (*ctor)(void *));
--struct kmem_cache *
--__kmem_cache_alias(const char *name, unsigned int size, unsigned int align,
--		   slab_flags_t flags, void (*ctor)(void *));
- 
- slab_flags_t kmem_cache_flags(slab_flags_t flags, const char *name);
- 
-diff --git a/mm/slab_common.c b/mm/slab_common.c
-index 085af9a96fd92..edd49796be4c9 100644
---- a/mm/slab_common.c
-+++ b/mm/slab_common.c
-@@ -175,15 +175,22 @@ int slab_unmergeable(struct kmem_cache *s)
- 	return 0;
- }
- 
--struct kmem_cache *find_mergeable(unsigned int size, unsigned int align,
--		slab_flags_t flags, const char *name, void (*ctor)(void *))
-+static struct kmem_cache *find_mergeable(unsigned int size, slab_flags_t flags,
-+		const char *name, struct kmem_cache_args *args)
- {
- 	struct kmem_cache *s;
-+	unsigned int align;
- 
- 	if (slab_nomerge)
- 		return NULL;
- 
--	if (ctor)
-+	if (args->ctor)
-+		return NULL;
-+
-+	if (IS_ENABLED(CONFIG_HARDENED_USERCOPY) && args->usersize)
-+		return NULL;
-+
-+	if (args->sheaf_capacity)
- 		return NULL;
- 
- 	flags = kmem_cache_flags(flags, name);
-@@ -192,7 +199,7 @@ struct kmem_cache *find_mergeable(unsigned int size, unsigned int align,
- 		return NULL;
- 
- 	size = ALIGN(size, sizeof(void *));
--	align = calculate_alignment(flags, align, size);
-+	align = calculate_alignment(flags, args->align, size);
- 	size = ALIGN(size, align);
- 
- 	list_for_each_entry_reverse(s, &slab_caches, list) {
-@@ -253,6 +260,31 @@ static struct kmem_cache *create_cache(const char *name,
- 	return ERR_PTR(err);
- }
- 
-+static struct kmem_cache *
-+__kmem_cache_alias(const char *name, unsigned int size, slab_flags_t flags,
-+		   struct kmem_cache_args *args)
-+{
-+	struct kmem_cache *s;
-+
-+	s = find_mergeable(size, flags, name, args);
-+	if (s) {
-+		if (sysfs_slab_alias(s, name))
-+			pr_err("SLUB: Unable to add cache alias %s to sysfs\n",
-+			       name);
-+
-+		s->refcount++;
-+
-+		/*
-+		 * Adjust the object sizes so that we clear
-+		 * the complete object on kzalloc.
-+		 */
-+		s->object_size = max(s->object_size, size);
-+		s->inuse = max(s->inuse, ALIGN(size, sizeof(void *)));
-+	}
-+
-+	return s;
-+}
-+
- /**
-  * __kmem_cache_create_args - Create a kmem cache.
-  * @name: A string which is used in /proc/slabinfo to identify this cache.
-@@ -324,9 +356,7 @@ struct kmem_cache *__kmem_cache_create_args(const char *name,
- 		    object_size - args->usersize < args->useroffset))
- 		args->usersize = args->useroffset = 0;
- 
--	if (!args->usersize && !args->sheaf_capacity)
--		s = __kmem_cache_alias(name, object_size, args->align, flags,
--				       args->ctor);
-+	s = __kmem_cache_alias(name, object_size, flags, args);
- 	if (s)
- 		goto out_unlock;
- 
 diff --git a/mm/slub.c b/mm/slub.c
-index 5ddd2a5c9e79b..32d6b238e5088 100644
+index 32d6b238e5088..8fdbe531a0cba 100644
 --- a/mm/slub.c
 +++ b/mm/slub.c
-@@ -351,11 +351,8 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
+@@ -351,14 +351,20 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
  
  #ifdef SLAB_SUPPORTS_SYSFS
  static int sysfs_slab_add(struct kmem_cache *);
--static int sysfs_slab_alias(struct kmem_cache *, const char *);
++static int __init slab_kset_init(void);
++static void __init slab_sysfs_process_aliases(void);
  #else
  static inline int sysfs_slab_add(struct kmem_cache *s) { return 0; }
--static inline int sysfs_slab_alias(struct kmem_cache *s, const char *p)
--							{ return 0; }
++static inline int slab_kset_init(void) { return 0; }
++static inline void slab_sysfs_process_aliases(void) { }
  #endif
  
  #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_SLUB_DEBUG)
-@@ -8533,31 +8530,6 @@ void __init kmem_cache_init_late(void)
+ static void debugfs_slab_add(struct kmem_cache *);
++static void __init slab_debugfs_root_init(void);
+ #else
+ static inline void debugfs_slab_add(struct kmem_cache *s) { }
++static inline void slab_debugfs_root_init(void) { }
  #endif
+ 
+ enum stat_item {
+@@ -9791,28 +9797,20 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
+ 	return 0;
  }
  
--struct kmem_cache *
--__kmem_cache_alias(const char *name, unsigned int size, unsigned int align,
--		   slab_flags_t flags, void (*ctor)(void *))
--{
+-static int __init slab_sysfs_init(void)
++static int __init slab_kset_init(void)
+ {
+-	struct kmem_cache *s;
+-	int err;
+-
+-	mutex_lock(&slab_mutex);
+-
+ 	slab_kset = kset_create_and_add("slab", NULL, kernel_kobj);
+ 	if (!slab_kset) {
+-		mutex_unlock(&slab_mutex);
+ 		pr_err("Cannot register slab subsystem.\n");
+ 		return -ENOMEM;
+ 	}
+ 
+-	slab_state = FULL;
++	return 0;
++}
+ 
+-	list_for_each_entry(s, &slab_caches, list) {
+-		err = sysfs_slab_add(s);
+-		if (err)
+-			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
+-			       s->name);
+-	}
++static void __init slab_sysfs_process_aliases(void)
++{
++	int err;
+ 
+ 	while (alias_list) {
+ 		struct saved_alias *al = alias_list;
+@@ -9824,12 +9822,41 @@ static int __init slab_sysfs_init(void)
+ 			       al->name);
+ 		kfree(al);
+ 	}
++}
++#endif /* SLAB_SUPPORTS_SYSFS */
++
++#if defined(SLAB_SUPPORTS_SYSFS) || \
++	(defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS))
++static int __init slab_late_init(void)
++{
++	struct kmem_cache *s;
++	int err;
+ 
++	mutex_lock(&slab_mutex);
++
++	err = slab_kset_init();
++	if (err)
++		goto out;
++
++	slab_debugfs_root_init();
++	slab_state = FULL;
++
++	list_for_each_entry(s, &slab_caches, list) {
++		if (sysfs_slab_add(s))
++			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
++			       s->name);
++
++		if (s->flags & SLAB_STORE_USER)
++			debugfs_slab_add(s);
++	}
++
++	slab_sysfs_process_aliases();
++out:
+ 	mutex_unlock(&slab_mutex);
+-	return 0;
++	return err;
+ }
+-late_initcall(slab_sysfs_init);
+-#endif /* SLAB_SUPPORTS_SYSFS */
++late_initcall(slab_late_init);
++#endif
+ 
+ #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
+ static int slab_debugfs_show(struct seq_file *seq, void *v)
+@@ -10021,23 +10048,16 @@ static void debugfs_slab_add(struct kmem_cache *s)
+ 
+ void debugfs_slab_release(struct kmem_cache *s)
+ {
++	if (unlikely(!slab_debugfs_root))
++		return;
++
+ 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
+ }
+ 
+-static int __init slab_debugfs_init(void)
++static void __init slab_debugfs_root_init(void)
+ {
 -	struct kmem_cache *s;
 -
--	s = find_mergeable(size, align, flags, name, ctor);
--	if (s) {
--		if (sysfs_slab_alias(s, name))
--			pr_err("SLUB: Unable to add cache alias %s to sysfs\n",
--			       name);
+ 	slab_debugfs_root = debugfs_create_dir("slab", NULL);
 -
--		s->refcount++;
+-	list_for_each_entry(s, &slab_caches, list)
+-		if (s->flags & SLAB_STORE_USER)
+-			debugfs_slab_add(s);
 -
--		/*
--		 * Adjust the object sizes so that we clear
--		 * the complete object on kzalloc.
--		 */
--		s->object_size = max(s->object_size, size);
--		s->inuse = max(s->inuse, ALIGN(size, sizeof(void *)));
--	}
+-	return 0;
 -
--	return s;
--}
--
- int do_kmem_cache_create(struct kmem_cache *s, const char *name,
- 			 unsigned int size, struct kmem_cache_args *args,
- 			 slab_flags_t flags)
-@@ -9790,7 +9762,7 @@ struct saved_alias {
- 
- static struct saved_alias *alias_list;
- 
--static int sysfs_slab_alias(struct kmem_cache *s, const char *name)
-+int sysfs_slab_alias(struct kmem_cache *s, const char *name)
- {
- 	struct saved_alias *al;
- 
+ }
+-__initcall(slab_debugfs_init);
+ #endif
+ /*
+  * The /proc/slabinfo ABI
 -- 
 2.53.0
 
