@@ -1,188 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B47C46EF79
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D884189DD
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521136; cv=none; b=rObS+bhDgciy0UqnLhuxW3YjEe7XFsGop6bKiU3rONXHpx8aXp6Bfda8z92e8olEnpr7lggsjOYbZRWuTCNL5+FL3GMaS3ObQnc+D6JBMeNUmjqLqJd0JJk4478ee86YhGN1Gtt35NZOZ8erNExKB9TeGN0OsKDl1OisPX921X4=
+	t=1788521720; cv=none; b=mMcir/6vmeN7I4ZFWDb0WQAvp55Rxq5c+0tcdRzH/mL+LoxUx4d5gsodvO7Sy0va1eKglFiVBOxClAdhHmSpUH5pKo5cyVaXISet2JGfouw9HrhyfhUNS4Bq1wwzQ5l/qLkDHRo4RtoxSJlQ3k4I0dpjOs4AEIIU7QGAzzlsEqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521136; c=relaxed/simple;
-	bh=3zg+m78oCq8FoH2C82UwCzwEn3UK9Vr3p+x83043AL8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zf0W3URwwHy2krT0TKfK1vgKb0g6rpoBmO+j8ipQf+N3f/rX+96yFsF8b9tM4G2wfurrSmTpMAKgWH9hEo8d58DuwLxoR6i0sZX0p1eFa0Tc9OzZ3KLS/mNoclKmUST5jDPOiRDWUJbK1Pt9WvX86o/1M9L1gx3ryVPgRlqc9Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kd79Fxta; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788521720; c=relaxed/simple;
+	bh=JglLg/LgJp0dywx6AE5xoqogojkQHfa2ZApqxJ+SFZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=keo/eySLJoBGAwaqqtnMTIyhDJz8MZ6Zmrskt5sr4eDVS4B9XP+BETrCDpMEF7BSnvYcHqEl/pA35f7UEobDtuj28PFbI1oHSKfHpxbSU4yy33j2hCNqiH95JQ8aHIAo9GhBK3m0ze+xT1iUfmFZz+HUZnYOdlp1iIF8C4aCQ3c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RSVN6i6p; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kd79Fxta"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80111F00A3D;
-	Fri,  4 Sep 2026 11:25:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788521133;
-	bh=DZcVpMP5HDdYhlgu1ccm04lVVHYWmo0zsg7abG483AI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kd79FxtaVQ1PBKwG37ufIvIRkeNC4zEdJaxACGHH/fO56TW8qH3XcYUDOeCsJoPZd
-	 hQ7PMSZsdWwZ2CvnOUYondB8hLXu9DqJJ36cqVbj3be2vGkUXvCiv9oyXK8LQg0rz5
-	 PjbISAAv1F9t1biNtMdAKN/bbymAZf070uxxV6SRAonN0fdo1AdrJu0F96EZwopHwp
-	 FgncJo6ghOUNUnHjV9PFtD+eAbtd+zjsmDO673YjhntR0wQUZoDs9AoA8Ia6NfLj82
-	 1EHmK81qqSvHFn1J3tIlTdqwQ/jd3/aQP9EmZVtP+XruzBptPGyaAgSTWb5qjChB27
-	 099FTDHsUuXcQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
-Date: Fri,  4 Sep 2026 07:25:29 -0400
-Message-ID: <20260904112529.3415033-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090346-evaluator-pointless-7f22@gregkh>
-References: <2026090346-evaluator-pointless-7f22@gregkh>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RSVN6i6p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788521717;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p0MLdv5y2UxO/lkU2upp311RNrEDjChpWavqlsKcB0A=;
+	b=RSVN6i6pPAmyzSuUq2uaf/n8zOrRLdBEJF9sh6eU4MUT3XV3MJKHVwdlSiahcxalqjDJ7P
+	sGEQjAoMjzTFFq3IIVMAtm0QSsi9VAiWDOnyUIDPrzSf0CHL7RQC/L/OiIOn0gskdUkRD7
+	+PWpbh9ew8PJnSMlIucFDKnF9W7n2bQ=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-bVnjE0JoP2u-GsRzfT9ZsQ-1; Fri,
+ 04 Sep 2026 07:35:14 -0400
+X-MC-Unique: bVnjE0JoP2u-GsRzfT9ZsQ-1
+X-Mimecast-MFC-AGG-ID: bVnjE0JoP2u-GsRzfT9ZsQ_1788521712
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C55991893EFD;
+	Fri,  4 Sep 2026 11:35:11 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 508A218005BD;
+	Fri,  4 Sep 2026 11:35:08 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Fri,  4 Sep 2026 13:35:11 +0200 (CEST)
+Date: Fri, 4 Sep 2026 13:35:07 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch 1/8] signal: Prevent exec() race
+Message-ID: <apqs6wgDtpdLI-k8@redhat.com>
+References: <20260904112100.683893401@kernel.org>
+ <20260904112202.074391651@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904112202.074391651@kernel.org>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-From: Dev Jain <dev.jain@arm.com>
+Thomas, I can't read this series today, will try on Weekend.
 
-[ Upstream commit f5407e9b697c940e78b27ff63c6e14d8d171adc3 ]
+But you didn't reply to
+https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
+Let me quote that email here:
 
-Patch series "Fix incorrect access of hugetlb pte entries", v3.
+	OK... lets suppose the exiting task T passes exit_signals().
 
-There are various places which use ptep_get() to get the pte entry
-corresponding to a hugetlb folio.  Some arches (like s390) have special
-handling to compute the pteval, so they provide huge_ptep_get().  Use this
-helper consistently.
+	Suppose we have an "ignored" timer tmr. Another sub-thread calls
+	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
+	in ->ignored_posix_timers list.
 
-Additionally, some code paths may provide huge_ptep_get with an unaligned
-address.  This is a problem on arm64 (I checked other arches and it looks
-fine for them), which is fixed in patch 1.  The fix is made to be
-backport-friendly: the cleaner fix would be to perhaps pass the hstate to
-huge_ptep_get() - that is wider churn and we can do that later.
+	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
+	it should check it too?
 
-This patch (of 5):
+	Or perhaps it makes more sense to check PF_EXITING in
+	posixtimer_get_target() ?
 
-try_to_unmap_one() handles hugetlb folios when memory failure needs to
-replace a poisoned hugetlb mapping with a hwpoison entry.  In that case
-page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
-pvmw.pte, but the code reads it with ptep_get().
+and at first glance it seems that this version doesn't differ in this respect?
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
+Sorry if I missed something (again ;) but I'd better ask just in case.
 
-It is not clear whether this has a trivially visible effect to userspace.
-
-Just use huge_ptep_get() for dereferencing a huge pte pointer.
-
-Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
-Link: https://lore.kernel.org/20260703114202.365553-3-dev.jain@arm.com
-Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Reported-by: David Hildenbrand <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/hugetlb.h | 2 ++
- mm/rmap.c               | 7 ++++++-
- 2 files changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 6b78a0f457d95..aa089e58bc41f 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1199,6 +1199,8 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
- {
- }
- 
-+pte_t huge_ptep_get(pte_t *ptep);
-+
- static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
- 					  unsigned long addr, pte_t *ptep)
- {
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 886000da89a6f..4c8afa9ffb7ba 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1527,8 +1527,13 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 			break;
- 		}
- 
-+		if (folio_test_hugetlb(folio))
-+			pteval = huge_ptep_get(pvmw.pte);
-+		else
-+			pteval = ptep_get(pvmw.pte);
-+
- 		subpage = folio_page(folio,
--					pte_pfn(*pvmw.pte) - folio_pfn(folio));
-+					pte_pfn(pteval) - folio_pfn(folio));
- 		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
--- 
-2.53.0
+Oleg.
 
