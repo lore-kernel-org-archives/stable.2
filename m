@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450844F55B7
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:58:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9CA4FECDC
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537536; cv=none; b=Nwlf8I5pB60/QenYYfbo1W+Ci/G0BNNANk1YyDuvjVnQRjeCuWlxy9pOrn19mHja8snAnwRIZeAC+NM6TEKCoPOTz9AyLvCpPBDTXZDIKQS9mBAdzu9cbibm6xdQ35BYJi/IQsjThPh7FeAZudIO2BHxjjruPeFutZA6FFhPraU=
+	t=1788537536; cv=none; b=G8PcEeXUnGrnvoPJL1IrO6qMZEYIEYKHukJW09yCShHTGODpP2OypJffgRp4uaZHkqnfuS+YvfShAJqzp0yQowj9b26/t6MLvSS0Ti7MXxXze9GOvQDcNQGusvDBLMZ6nU8uF1aom+rZm6fEwqMSSK6QHaKiJZK0Yv5Eq5dFFhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788537536; c=relaxed/simple;
-	bh=Vw6h8CHJPm4McmyGoWulhK5FQcnsAz1o9B1l5XaTMlw=;
+	bh=V8VaD5mKGf5Mx9oBPH+au9YsOCQ+8gEKWn6ekqzXz2c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XiupWu+xH/kxusN3REol4I0wdQagYFMbQ2m1rQdN7hRK25TffILHAkEpW6kAJovg/vi4lks4ijhmjlOEE3E/xt9nPeeYbB8qKLhvD0MquWXDkpSzVlFlJLkscKvHYotaSw3CqHSClwsNII/3F7qbVmY5J8HZDRTEBrtD7C3yXzQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FGkn2ugX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k/bqU65iSQQfsgn2aNQniBNVPTc3BNRJZfw0q92M4+4GIO4USShxx/m6KOA7bQ/HaRe0kkTQgWjK/hkSNih/gfHXBL7xPHVgm15kt30+9jRMe1oN5bYr/QW0JF9npSR2SYd3voe8j6/Ca7m/hutdzSEk/01Z4bRH/bKAGIh/5ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HAx5XjXR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FGkn2ugX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C0E21F0155A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HAx5XjXR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D922A1F0155F;
 	Fri,  4 Sep 2026 15:58:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788537534;
-	bh=/CkhMBEy3Qb1qwUC2hzuUvIOwxNM0aLH1Un+2Oqo744=;
+	bh=k59Poq50BvscHZZ/NDHxfRRslOzYQNBbabZY4zeejEs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FGkn2ugXJUtM5KlA1ZGbElyiD1wzunPpObs4wa6rVH+Hru0kwudL6sBwVyyzpzz/u
-	 ydVSWFDCkaJ+eH5cyhumb7c/tvATVqeVLqVjkyt+svxUv1OIbfuh9m4wfcBXoww6lZ
-	 PGU04FOx13HpNBXALpVmGlMiNEDsLQQ9u3Bxz9iID7RW71hH3fpeWxrdww3BoSk/Ng
-	 EswI5clrSZ4QnKO9LooYF8casnWQbrMP7XT6dRTaBy6fBkZl6lNpgb8jq4s+aB57Go
-	 6je9tT5WWhCmzGUKd7MXBZeT5bSbgYMafEAqIPY30TcJ+nB3331ytbk+PcrHlxOKRm
-	 oOQhy+jJURyuw==
+	b=HAx5XjXR0rKRf7bZhxYDVpRio2aMavAFLwFF/UhgeW4F3cUg8T9POXLHDlZNcOg7x
+	 E1buN6lHxSQVK8ZPL7hx0FuIFi4qf9x5naVPgZnOShhDmjFIRma3ABaZM65vwDzPe1
+	 R4qpVhWvimyGR71BNjgvUppZHm3ugZRpe+7kHgmtNQbsDhNbah5eFuveivoJ8rlL2J
+	 ZWLPTGlJ64mIJftH8j+Vn0iNKXCbc8a15eaeciaiq0dUcgDOzcbJWFeg6EtCPcI7XN
+	 CY0PqYOrkuub4qaAAKnzAFwHg0xGsGIV0Jlm1nCM/UDkqjybxxiu7DECXXliPvIMep
+	 Dw1+AqMXb1p8Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Huang Wei <huangwei@kylinos.cn>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Fedor Pchelkin <boddah8794@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Chris Mason <clm@meta.com>,
+	Brian Geffon <bgeffon@google.com>,
+	David Stevens <stevensd@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Richard Chang <richardycc@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 7/7] usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion
-Date: Fri,  4 Sep 2026 11:58:46 -0400
-Message-ID: <20260904155846.1071149-7-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] zram: fixup read_block_state()
+Date: Fri,  4 Sep 2026 11:58:51 -0400
+Message-ID: <20260904155852.1071464-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904155846.1071149-1-sashal@kernel.org>
-References: <2026090307-cannot-posh-1230@gregkh>
- <20260904155846.1071149-1-sashal@kernel.org>
+In-Reply-To: <2026090352-imaginary-automaker-68e8@gregkh>
+References: <2026090352-imaginary-automaker-68e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,62 +50,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huang Wei <huangwei@kylinos.cn>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit eb4573cf2fd860b20adfae050c3f6ec6ddc3abdb ]
+[ Upstream commit 8b05d2d8af817c6a1e23032df51e7ad83030d543 ]
 
-The synchronous command completion path in ucsi_sync_control_common()
-hardcodes a 5 second (5 * HZ) timeout when waiting for the PPM to signal
-command completion via ACPI notification. This value matched
-UCSI_TIMEOUT_MS when it was still 5000 ms, but it was not updated when
-that macro was later raised to 10000 ms to fix PPM reset timeouts.
+ac_time is now in seconds, do not use ktime_to_timespec64()
 
-As a result, the two PPM communication paths are now inconsistent: the
-polling path in ucsi_reset_ppm() respects the 10 second timeout, while
-the event-driven completion path still uses 5 seconds. On machines where
-the firmware is slow to respond during boot (e.g. some Lenovo ThinkPad
-models such as the E14 Gen 7), commands sent after the PPM reset, such
-as SET_NOTIFICATION_ENABLE and GET_CAPABILITY, can exceed 5 seconds and
-cause UCSI initialization to fail with:
+[akpm@linux-foundation.org: remove now-unused local `ts']
+[akpm@linux-foundation.org: fix build]
+Link: https://lkml.kernel.org/r/20260115033031.3818977-1-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reported-by: Chris Mason <clm@meta.com>
+Closes: https://lkml.kernel.org/r/20260114124522.1326519-1-clm@meta.com
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: David Stevens <stevensd@google.com>
+Cc: Minchan Kim <minchan@google.com>
+Cc: Richard Chang <richardycc@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-    ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
+[ Stable tree note: The ac_time conversion described above is not present
+  here, so retain the ktime_t conversion and microsecond output.  Move the
+  timespec64 temporary into the scan loop instead, allowing the follow-up
+  bounds fix to move nr_pages initialization under init_lock cleanly. ]
 
-Once UCSI init aborts, USB-C PD negotiation never completes, which in
-turn blocks USB-C dock enumeration since the dock depends on a successful
-PD contract.
-
-Replace the hardcoded 5 * HZ with msecs_to_jiffies(UCSI_TIMEOUT_MS) so
-that both communication paths share a single, consistent timeout value,
-and future adjustments to UCSI_TIMEOUT_MS are picked up automatically.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221740
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=2183790
-Fixes: bf4f9ae1cb08c ("usb: typec: ucsi: increase timeout for PPM reset operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Fedor Pchelkin <boddah8794@gmail.com>
-Link: https://patch.msgid.link/20260805085725.389761-1-huangwei@kylinos.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 391f057f44a5 ("zram: fix out-of-bounds access in read_block_state()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/block/zram/zram_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 9f736a34b4f1c..a4c13476c8001 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -65,7 +65,8 @@ int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
- 	if (ret)
- 		goto out_clear_bit;
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index f51dd33784291..84d977505ca52 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1136,7 +1136,6 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
+ 	ssize_t index, written = 0;
+ 	struct zram *zram = file->private_data;
+ 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+-	struct timespec64 ts;
  
--	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
-+	if (!wait_for_completion_timeout(&ucsi->complete,
-+					 msecs_to_jiffies(UCSI_TIMEOUT_MS)))
- 		ret = -ETIMEDOUT;
+ 	kbuf = kvmalloc(count, GFP_KERNEL);
+ 	if (!kbuf)
+@@ -1151,6 +1150,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
  
- out_clear_bit:
+ 	for (index = *ppos; index < nr_pages; index++) {
+ 		int copied;
++		struct timespec64 ts;
+ 
+ 		zram_slot_lock(zram, index);
+ 		if (!zram_allocated(zram, index))
 -- 
 2.53.0
 
