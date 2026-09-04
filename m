@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC503F88B8
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:40:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D93C3F8ED6
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788496852; cv=none; b=IaH+eOckVj1EpNUoAUokiBs1UDnIjA6photU48O323CxNoY1oXgDdXGQ+fsS7G00d5yTcz1JbGEZY7HuhBiji8/VeIkevLHXS75VqMxIjPta7HwsHknkbFkUaVLiQ36LyWZulraziVTM+wMTbta0VPgOVe58LXCIGSJpxpiM6Oo=
+	t=1788496855; cv=none; b=mcHtSkxd2qdc7vHwUCFYhW9TUx+aVYutuuYKO2kxGg1ApX97GWQvh1xfSzEMyinsxCEP/jF8SJiLqpePeHryVNxH9vDxS5PVeXPy+ITSrnbxAVSiV0cXde+qZGeocbHT3yylbWMxZzgLubAhcXkmNzL9KnxKM5PlwHpdCG4vipo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788496852; c=relaxed/simple;
-	bh=LO9mMgkeEa6SU5xH1/PJS2yUnztQleRWEbGPONvs0xg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RXJUDky/MddoVzTfcXcL94ZZw4ykXl58/igmLiVCXRG+ggRnhD2XNEH+wjrGlhdVRMMBhmEAsY1QuOAhw+3afbhvkPHsFbIt2DRFgH+nWEbUxqDGxgZteT2v+DGlgdC7dAnF6r2wT1g9yx4DFpolpfCfmrHa8O0azBvw76cInsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ArVk+J1c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788496855; c=relaxed/simple;
+	bh=H+K6S8PlrseNdfi3cUFr7+2W6g8jas3R4a0nhaa4g54=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CCF41xVW3uwljNxb4lom9y8D64L/KaKFYZ3C2hwx3hibY9chOjXvL1qcugmNlCjpf9C5zFZpin+nEH95iANY0Zm6oKqdZrk5DobghaKxteaoBAR4G7NpROtjc6AJQdFuj/eanSaEXJmnG3ge8J6vzhEZFLbajT6un3YE5CYvwcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UhPy8/Ez; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ArVk+J1c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4DA61F00ACF;
-	Fri,  4 Sep 2026 04:40:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UhPy8/Ez"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B5851F00A3E;
+	Fri,  4 Sep 2026 04:40:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788496851;
-	bh=YowbseWjf/TUnoGS1iPJt4xa+hVTH1zIgozPvSWjL9o=;
+	s=korg; t=1788496854;
+	bh=Iu1aujYTX4KWhl6kBry2K7HqR0xruxTKVXCP6bKIbFs=;
 	h=Subject:To:Cc:From:Date;
-	b=ArVk+J1c3Q5ji38AhqkfJFKbxNe5pRiVpn81DbrcyiyJm/r08bdw2Y7bl6ApV3MQw
-	 B4pgtu5oiAaa1gj/ei213ZZjxXtJiwWUIegV0aAyUwnpVJXWEjptMips951PD1bNIL
-	 uLOeMJo1Igh75DsLQpkJNWeDlSs1ipoEdHhtdTkw=
-Subject: FAILED: patch "[PATCH] dm-pcache: validate the persisted dirty_tail chain at load" failed to apply to 7.2-stable tree
+	b=UhPy8/Ez4AUva8dFmEet6rFwCEGhzO5QToT2KZUDjB2B0BpJZ05FZ6OwFLMH9t1KM
+	 KSEdylcX8hOrE9hLZ1usLhDycCYW8T3set5EkuY9gHbnGL29ysr1UdnVo1oPWBTR+4
+	 aIvAMByMKz8FzORPmRxIU0xJWnDsQ4oLSj+FR9is=
+Subject: FAILED: patch "[PATCH] dm-pcache: validate the persisted dirty_tail chain at load" failed to apply to 6.18-stable tree
 To: hexlabsecurity@proton.me,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 04 Sep 2026 06:40:10 +0200
-Message-ID: <2026090410-haven-virus-13f7@gregkh>
+Date: Fri, 04 Sep 2026 06:40:11 +0200
+Message-ID: <2026090411-harsh-specks-0d82@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 58d620ee9e01d4bdbceaf2ae1450d307a2a9d58b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090410-haven-virus-13f7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090411-harsh-specks-0d82@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
