@@ -1,88 +1,148 @@
-Received: from mta1.migadu.com (out-241.mta1.migadu.com [95.215.58.241])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2114B43E9FC
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:08:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E48E443E4D
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516526; cv=none; b=tG7rJ7HSC866ZFDTdiZ+VSjSKLSASQqXKRkJMIdRBgHemWWavULvRTiDMVuFXM2444aOUYiC2IapieuyFX3HaHnX7VVUQwFqp8sy/BN3isp2BZv26wpfMm+8KEYGAIhlQcrUZXqL2hMZKwoIPJhbfJ5fPp2SPt+/eB6MMpw+Au8=
+	t=1788517573; cv=none; b=rLVFVkT8xd3Aei/iZpI0gvmR9YhgRuI4LbU4fpRQK8qG6g8f5LPFwFtw+9Br2PxTb5elfEy+SHVfj4/6jl56qtqXDEKCkVT1YXb0GfkQAW4pTGBJ79HBZHORltWBqGHInYUhC98HMYYrqGYzQOrz4rOtiZso3aM9Xa/ilT003RM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516526; c=relaxed/simple;
-	bh=i1Y0VjW9BWwPMAg7mYJjxBDW5inPM6uPrRZpBnIMpe8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MarAAUkhXKFz8vgn6q616m0KKhSRMVuJjEuA8V8p91LP/CFJlVEP3UMqhFHeUPh+o580GHXNwY0hrm+I3jvkJh+vFQZ3gRYtW+B78yr4Nj24S1tOxEWtp7mWib64oJcpKgThvLY/o4+y5MzKghj5lEI1LM1QleYnnFno3sHkJrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tmYTvYS4; arc=none smtp.client-ip=95.215.58.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788517573; c=relaxed/simple;
+	bh=rm0cgSkyePdb0TIKGTVPe5pgNno3rpqxW6Qht5RNYKs=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tpBhH2Pxc5eAQPiEOFhGK7jZ0CYa17TufRa0fiHJ9AVN3dF3+0TohaoXcPiAUHqpeeX++69tK4qa6Qd/zsHoTKLbDdJyNfHaXzbGVsfsX7j8UcExhDBbzUW9ia8bGbH1UCPXzcUdyA5dvW/e3CTZUarVkUyxRB5KtvRGQ4EuZSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=QPY9G30p; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=8LQEZ4Kf; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=SCdzZpgM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ji4tOIVZ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tmYTvYS4"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=i1Y0VjW9BWwPMAg7mYJjxBDW5inPM6uPrRZpBnIMpe8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788516521; v=1; x=1789121321;
- b=tmYTvYS4navZS5aFJLWEb6aQ5oXUXWP8ck1mcUQZnNvi6kETcbFogzsHa58tdYiLJx3qG86T
- 6xtjBUQCQNdWFuHfdTsAV93X442a4Vb2upuL/FS1oSyegMa4yMEOTAzpj3TH54YW5/e3aeaHG4r
- UhOCh9h15CK+tk33Lqzevcr4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e463b848106c95a2;
-	Fri, 04 Sep 2026 10:08:31 +0000
-X-Mizu-Trace-ID: e463b848106c95a2
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <783cc6a6-78ff-4bbd-ae64-7cadfdead560@linux.dev>
-Date: Fri, 4 Sep 2026 11:08:24 +0100
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="QPY9G30p";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="8LQEZ4Kf";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="SCdzZpgM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ji4tOIVZ"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A8D4E228D0;
+	Fri,  4 Sep 2026 10:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788517551; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
+	b=QPY9G30pxOlRQRLr5YlyLoHbkh6aFAU9g2OYo5NOwSpB9m+H36/lgC4bReDkFkx9KcFkXP
+	ybOR1yRcoPbjSpSXQK8jT+W/Ce9WEZ0H/zSqvR6oh26cC3uKNuvyG5jnBipC2tDJCzGKvC
+	Y3AO9aTC7IhAA5nKWxI162ugodOdreA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788517551;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
+	b=8LQEZ4KfvUHzZzBeyy9xcgDmcq4yqYNy4uaMVE/0jhTz2f1JUArZPeSIUCXtE6hx0IcO4Q
+	fVIAtEGm8xWfFeAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788517547; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
+	b=SCdzZpgMnC50Q6XsMEXDtrdQc3ZhJhRYAf8XTSKlMOua4y+MWY/jzxc+yNjNdReMB+lH6f
+	ycng1EO2shL9oTuroN+l1Uv3NxZmwvbitIOQRT0NYjZoRqrtcgp788KetJTwMxvYRAyOll
+	c4+I+RubjVRrmaJ+tFgR6W7yFGUqtaw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788517547;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FXZEZTVRA+G8eyu4HzT/YM+2x3IU6orNt2nSuWc118Y=;
+	b=ji4tOIVZRHthdxKah7QMOHsXvy2K/8lnOHt9K7eGXy1RofQLAVTm5sslbWh3vx2hA6fj5d
+	qmnndcdMjcqbcsCQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61C5713726;
+	Fri,  4 Sep 2026 10:25:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id pgSiFqucmmqESwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Fri, 04 Sep 2026 10:25:47 +0000
+Date: Fri, 04 Sep 2026 12:25:46 +0200
+Message-ID: <87wlt15n4l.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] ALSA: usbusx2y: fix in04_last array size causing slab OOB read
+In-Reply-To: <20260904095154.3905899-1-tristmd@gmail.com>
+References: <20260904095154.3905899-1-tristmd@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] ptp: ocp: prevent watchdog rearming during detach
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>,
- Richard Cochran <richardcochran@gmail.com>,
- Jonathan Lemon <jonathan.lemon@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
-References: <20260904064308.4044677-1-runyu.xiao@seu.edu.cn>
-Content-Language: en-US
-From: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-In-Reply-To: <20260904064308.4044677-1-runyu.xiao@seu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Level: 
+X-Spam-Score: -3.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid,talencesecurity.com:email,imap1.dmz-prg2.suse.org:helo]
 
-On 04/09/2026 07:43, Runyu Xiao wrote:
-> ptp_ocp_detach() uses timer_delete_sync() to stop the watchdog before
-> freeing the ptp_ocp state. timer_delete_sync() waits for a callback that is
-> already running but does not prevent the callback from rearming the timer.
+On Fri, 04 Sep 2026 11:51:54 +0200,
+Tristan Madani wrote:
 > 
-> Since ptp_ocp_watchdog() unconditionally calls mod_timer(), detach can
-> return with the watchdog pending. A later callback can access freed state.
+> From: Tristan Madani <tristan@talencesecurity.com>
 > 
-> Use timer_shutdown_sync() for the final watchdog teardown. This ensures the
-> callback is complete and cannot rearm the timer before the state is freed.
+> The in04_last array in struct usx2ydev is declared as char[24], but
+> in04_buf (the source for memcpy) is allocated with kmalloc(21).  In
+> i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization path):
 > 
-> Fixes: 773bda964921 ("ptp: ocp: Expose various resources on the timecard.")
+>     memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
+> 
+> This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
+> past the end of the kmalloc-32 object.
+> 
+> The comparison loop already uses the correct bound of 21:
+> 
+>     for (i = 0; i < 21; i++) {
+> 
+> Fix by reducing the in04_last array to 21 bytes, matching the actual
+> USB interrupt transfer size and the in04_buf allocation.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Codex:GPT-5
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> ---
->   drivers/ptp/ptp_ocp.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index 3d26ec1f7..6b5f615a2 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-> @@ -4870,7 +4870,7 @@ ptp_ocp_detach(struct ptp_ocp *bp)
->   	ptp_ocp_debugfs_remove_device(bp);
->   	ptp_ocp_detach_sysfs(bp);
->   	ptp_ocp_attr_group_del(bp);
-> -	timer_delete_sync(&bp->watchdog);
-> +	timer_shutdown_sync(&bp->watchdog);
->   	/* Disable interrupts on all timestampers */
->   	if (bp->ts0)
->   		ptp_ocp_ts_enable(bp->ts0, 0, false);
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Better to introduce a constant definition and use it in all places
+instead of magic numbers.  Could you rework your patches with it?
+
+
+thanks,
+
+Takashi
