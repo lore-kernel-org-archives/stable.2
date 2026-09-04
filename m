@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B863FE36A
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:39:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC503F88B8
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:40:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788496796; cv=none; b=ofJlpKLYlG4hfB9H4SebS8HhOaRmJVWJqFOKHo/lEDRJjcL5x/GQcjHO857yHfbA+Wh5g13zNy3ko2m0971CWKOHolnjJG19IYL0MtZRadyi2y6j0tjl8ExNG40iwb++qlAleF704SJcv3nKORxUXhOAM+siPDB1y0MHYIGNJmw=
+	t=1788496852; cv=none; b=IaH+eOckVj1EpNUoAUokiBs1UDnIjA6photU48O323CxNoY1oXgDdXGQ+fsS7G00d5yTcz1JbGEZY7HuhBiji8/VeIkevLHXS75VqMxIjPta7HwsHknkbFkUaVLiQ36LyWZulraziVTM+wMTbta0VPgOVe58LXCIGSJpxpiM6Oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788496796; c=relaxed/simple;
-	bh=wcmrGYm2G9XukWEOibtN2dhVcIFATwHOdKm/G3jrKL0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fEngrDK19WMpCOSOX5LR6eD/AadNQXB6d+WWH9gNQgtYMQ8vzp9zaCB1emSuu1QwS8g0CyiNnMha5iqrBHHGDl8cQdYzm8RYm5TR+uFsHIKzNFARFA8LY99/i3YFjZgZH4SJ/4lsb6DPAEiY+ZVhFUs+E1LGu+0w7d5v/k1vqDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FwdJETp/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788496852; c=relaxed/simple;
+	bh=LO9mMgkeEa6SU5xH1/PJS2yUnztQleRWEbGPONvs0xg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RXJUDky/MddoVzTfcXcL94ZZw4ykXl58/igmLiVCXRG+ggRnhD2XNEH+wjrGlhdVRMMBhmEAsY1QuOAhw+3afbhvkPHsFbIt2DRFgH+nWEbUxqDGxgZteT2v+DGlgdC7dAnF6r2wT1g9yx4DFpolpfCfmrHa8O0azBvw76cInsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ArVk+J1c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FwdJETp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 004181F00A3D;
-	Fri,  4 Sep 2026 04:39:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ArVk+J1c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4DA61F00ACF;
+	Fri,  4 Sep 2026 04:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788496794;
-	bh=5uyVRAx8H/C+WxxXr8wQ9rX5h/SGY5bGF7tBkuwDaPk=;
+	s=korg; t=1788496851;
+	bh=YowbseWjf/TUnoGS1iPJt4xa+hVTH1zIgozPvSWjL9o=;
 	h=Subject:To:Cc:From:Date;
-	b=FwdJETp/D4kvFlJ5IdatDpEpEjGLrzHoBzSHCe6vz/rhfR1mqZglYw/p4fijkiUMl
-	 mepyzk5WXUd1Wh/gtLoEx9uO2aR7nF4bBsWHEWeezqlLVilKxNKoGpAXxx+jTlInl1
-	 EtzLfkZno1xerjaRWsdiqbV7TSiJ2vKQ+K9/eTM4=
-Subject: FAILED: patch "[PATCH] dm-pcache: reject a kset that overruns its segment" failed to apply to 6.18-stable tree
+	b=ArVk+J1c3Q5ji38AhqkfJFKbxNe5pRiVpn81DbrcyiyJm/r08bdw2Y7bl6ApV3MQw
+	 B4pgtu5oiAaa1gj/ei213ZZjxXtJiwWUIegV0aAyUwnpVJXWEjptMips951PD1bNIL
+	 uLOeMJo1Igh75DsLQpkJNWeDlSs1ipoEdHhtdTkw=
+Subject: FAILED: patch "[PATCH] dm-pcache: validate the persisted dirty_tail chain at load" failed to apply to 7.2-stable tree
 To: hexlabsecurity@proton.me,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 04 Sep 2026 06:39:26 +0200
-Message-ID: <2026090426-rebirth-deflected-dbea@gregkh>
+Date: Fri, 04 Sep 2026 06:40:10 +0200
+Message-ID: <2026090410-haven-virus-13f7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7ac1f10f987a2ffae4aecf0e2ceca8f552b665cb
+git cherry-pick -x 58d620ee9e01d4bdbceaf2ae1450d307a2a9d58b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090426-rebirth-deflected-dbea@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090410-haven-virus-13f7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,69 +62,143 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7ac1f10f987a2ffae4aecf0e2ceca8f552b665cb Mon Sep 17 00:00:00 2001
+From 58d620ee9e01d4bdbceaf2ae1450d307a2a9d58b Mon Sep 17 00:00:00 2001
 From: Bryam Vargas <hexlabsecurity@proton.me>
-Date: Fri, 17 Jul 2026 06:26:58 -0500
-Subject: [PATCH] dm-pcache: reject a kset that overruns its segment
+Date: Fri, 17 Jul 2026 06:27:03 -0500
+Subject: [PATCH] dm-pcache: validate the persisted dirty_tail chain at load
 
-cache_replay(), the writeback worker and the GC worker read a kset of
-get_kset_onmedia_size() bytes and advance the position by it. A forged
-key_num makes that size exceed the segment's remaining space, so the
-advance walks past the segment and trips the cache_pos_advance() BUG_ON.
+The writeback worker follows the persisted dirty_tail chain, which is
+decoded from the cache device independently of the key_tail chain that
+cache_replay() walks and bounds. A crafted image, whose on-media fields are
+authenticated only by a crc32c with a fixed seed, can aim dirty_tail at a
+chain of last ksets that never terminates, so cache_writeback_fn() re-arms
+itself with no delay forever.
 
-Reject a kset whose on-media size exceeds cache_seg_remain() before use.
+Walk the dirty_tail chain once at load with the same hop cap cache_replay()
+uses and fail the table load with -EIO if it does not reach an end within
+n_segs hops.
 
 Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
 Cc: stable@vger.kernel.org
 Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-diff --git a/drivers/md/dm-pcache/cache_gc.c b/drivers/md/dm-pcache/cache_gc.c
-index 1ed513745023..c483c7a3afaf 100644
---- a/drivers/md/dm-pcache/cache_gc.c
-+++ b/drivers/md/dm-pcache/cache_gc.c
-@@ -146,6 +146,11 @@ void pcache_cache_gc_fn(struct work_struct *work)
- 			continue;
+diff --git a/drivers/md/dm-pcache/cache.c b/drivers/md/dm-pcache/cache.c
+index a94eadb7affd..b0b3e21677de 100644
+--- a/drivers/md/dm-pcache/cache.c
++++ b/drivers/md/dm-pcache/cache.c
+@@ -202,6 +202,7 @@ static int cache_tail_init(struct pcache_cache *cache)
+ {
+ 	struct dm_pcache *pcache = CACHE_TO_PCACHE(cache);
+ 	bool new_cache = !(cache->cache_info.flags & PCACHE_CACHE_FLAGS_INIT_DONE);
++	int ret;
+ 
+ 	if (new_cache) {
+ 		__set_bit(0, cache->seg_map);
+@@ -218,6 +219,12 @@ static int cache_tail_init(struct pcache_cache *cache)
+ 			pcache_dev_err(pcache, "Corrupted key tail or dirty tail.\n");
+ 			return -EIO;
  		}
- 
-+		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&key_tail)) {
-+			atomic_inc(&cache->gc_errors);
-+			return;
-+		}
 +
- 		for (i = 0; i < kset_onmedia->key_num; i++) {
- 			struct pcache_cache_key key_tmp = { 0 };
++		ret = cache_verify_dirty_tail(cache);
++		if (ret) {
++			pcache_dev_err(pcache, "dirty tail chain does not terminate (crafted cache image?)\n");
++			return ret;
++		}
+ 	}
  
+ 	return 0;
+diff --git a/drivers/md/dm-pcache/cache.h b/drivers/md/dm-pcache/cache.h
+index d9e3e09f18e3..8809ec5ae943 100644
+--- a/drivers/md/dm-pcache/cache.h
++++ b/drivers/md/dm-pcache/cache.h
+@@ -666,6 +666,8 @@ static inline int cache_decode_dirty_tail(struct pcache_cache *cache)
+ 				&cache->dirty_tail_index);
+ }
+ 
++int cache_verify_dirty_tail(struct pcache_cache *cache);
++
+ int pcache_cache_init(void);
+ void pcache_cache_exit(void);
+ #endif /* _PCACHE_CACHE_H */
 diff --git a/drivers/md/dm-pcache/cache_key.c b/drivers/md/dm-pcache/cache_key.c
-index f4459b2e1b3b..d00497f9e462 100644
+index f3ce319037be..1caea11a61a3 100644
 --- a/drivers/md/dm-pcache/cache_key.c
 +++ b/drivers/md/dm-pcache/cache_key.c
-@@ -818,6 +818,11 @@ int cache_replay(struct pcache_cache *cache)
- 		}
+@@ -858,6 +858,75 @@ int cache_replay(struct pcache_cache *cache)
+ 	return ret;
+ }
  
- 		/* Replay the kset and check for errors. */
-+		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(pos)) {
++/*
++ * cache_verify_dirty_tail - reject a persisted dirty_tail whose last-kset
++ * chain does not terminate.
++ *
++ * dirty_tail is decoded independently of the key_tail chain cache_replay()
++ * walks, so replay's hop cap does not cover it. A crafted chain that loops
++ * back on itself makes the writeback worker re-arm forever; walk it once here
++ * with the same cap and fail the load if it does not end within n_segs hops.
++ */
++int cache_verify_dirty_tail(struct pcache_cache *cache)
++{
++	struct pcache_cache_pos pos;
++	struct pcache_cache_kset_onmedia *kset_onmedia;
++	u32 to_copy, last_hops = 0, count = 0;
++	int ret = 0;
++
++	kset_onmedia = kzalloc(PCACHE_KSET_ONMEDIA_SIZE_MAX, GFP_KERNEL);
++	if (!kset_onmedia)
++		return -ENOMEM;
++
++	cache_pos_copy(&pos, &cache->dirty_tail);
++
++	while (true) {
++		to_copy = min(PCACHE_KSET_ONMEDIA_SIZE_MAX, cache_seg_remain(&pos));
++		ret = copy_mc_to_kernel(kset_onmedia, cache_pos_addr(&pos), to_copy);
++		if (ret) {
 +			ret = -EIO;
 +			goto out;
 +		}
 +
- 		ret = kset_replay(cache, kset_onmedia);
- 		if (ret)
- 			goto out;
-diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm-pcache/cache_writeback.c
-index 34c34b448e04..7a85a9aed18e 100644
---- a/drivers/md/dm-pcache/cache_writeback.c
-+++ b/drivers/md/dm-pcache/cache_writeback.c
-@@ -261,6 +261,11 @@ void cache_writeback_fn(struct work_struct *work)
- 		goto queue_work;
- 	}
- 
-+	if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&dirty_tail)) {
-+		atomic_inc(&cache->writeback_errors);
-+		goto unlock;
-+	}
++		/* A missing, short or corrupt kset is the normal end of the chain. */
++		if (!kset_onmedia_valid(kset_onmedia) ||
++		    kset_onmedia->crc != cache_kset_crc(kset_onmedia)) {
++			ret = 0;
++			goto out;
++		}
 +
- 	ret = cache_kset_insert_tree(cache, kset_onmedia);
- 	if (ret) {
- 		atomic_inc(&cache->writeback_errors);
++		if (kset_onmedia->flags & PCACHE_KSET_FLAGS_LAST) {
++			if (!cache_seg_id_valid(cache, kset_onmedia->next_cache_seg_id)) {
++				ret = -EIO;
++				goto out;
++			}
++
++			if (++last_hops > cache->n_segs) {
++				ret = -EIO;
++				goto out;
++			}
++
++			pos.cache_seg = &cache->segments[kset_onmedia->next_cache_seg_id];
++			pos.seg_off = 0;
++			continue;
++		}
++
++		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&pos)) {
++			ret = -EIO;
++			goto out;
++		}
++
++		cache_pos_advance(&pos, get_kset_onmedia_size(kset_onmedia));
++		if (++count > 512) {
++			cond_resched();
++			count = 0;
++		}
++	}
++out:
++	kfree(kset_onmedia);
++	return ret;
++}
++
+ int cache_tree_init(struct pcache_cache *cache, struct pcache_cache_tree *cache_tree, u32 n_subtrees)
+ {
+ 	int ret;
 
