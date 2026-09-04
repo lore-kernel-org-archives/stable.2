@@ -1,94 +1,105 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D884189DD
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B4F47CC75
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788521720; cv=none; b=mMcir/6vmeN7I4ZFWDb0WQAvp55Rxq5c+0tcdRzH/mL+LoxUx4d5gsodvO7Sy0va1eKglFiVBOxClAdhHmSpUH5pKo5cyVaXISet2JGfouw9HrhyfhUNS4Bq1wwzQ5l/qLkDHRo4RtoxSJlQ3k4I0dpjOs4AEIIU7QGAzzlsEqk=
+	t=1788522064; cv=none; b=LfnG7cX6GhX4Atvx4fzxA6dqWY9BKfSkNe0MKss/MuFmPqTKJ3s+rAi5lEE1LQgWfYOKtESY1gL/OEn0uoN2PuxSKUpEWIl2Rnn9xWrNI9XrBnbokqd9wgvUMNWNhf7LRB/dXql7AX6o1OuXek8EVQd92o81z+rlopIq3tKeqPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788521720; c=relaxed/simple;
-	bh=JglLg/LgJp0dywx6AE5xoqogojkQHfa2ZApqxJ+SFZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=keo/eySLJoBGAwaqqtnMTIyhDJz8MZ6Zmrskt5sr4eDVS4B9XP+BETrCDpMEF7BSnvYcHqEl/pA35f7UEobDtuj28PFbI1oHSKfHpxbSU4yy33j2hCNqiH95JQ8aHIAo9GhBK3m0ze+xT1iUfmFZz+HUZnYOdlp1iIF8C4aCQ3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RSVN6i6p; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788522064; c=relaxed/simple;
+	bh=Wm+I/FNrA+d9D0F19TcOy2Tw2EWdGJGikYvv0P4OqtE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=A6OMkwtpdVhpVw5ci4Rz9yRC5QEIw1IciD2LzJX4R9DM4127a5hUSN9Oa+k1HWuSb7Nmj253L0tkfsZha6H4GOkHQOfTm46rlt36OznlDigBGIltKbuvlTONjOqVfEdkGXRdWXj0Gs5b4XrpNK2sxFZrWDAuyZpbj+iaVTMNwxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EtYEXlAK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RSVN6i6p"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788521717;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=p0MLdv5y2UxO/lkU2upp311RNrEDjChpWavqlsKcB0A=;
-	b=RSVN6i6pPAmyzSuUq2uaf/n8zOrRLdBEJF9sh6eU4MUT3XV3MJKHVwdlSiahcxalqjDJ7P
-	sGEQjAoMjzTFFq3IIVMAtm0QSsi9VAiWDOnyUIDPrzSf0CHL7RQC/L/OiIOn0gskdUkRD7
-	+PWpbh9ew8PJnSMlIucFDKnF9W7n2bQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-bVnjE0JoP2u-GsRzfT9ZsQ-1; Fri,
- 04 Sep 2026 07:35:14 -0400
-X-MC-Unique: bVnjE0JoP2u-GsRzfT9ZsQ-1
-X-Mimecast-MFC-AGG-ID: bVnjE0JoP2u-GsRzfT9ZsQ_1788521712
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C55991893EFD;
-	Fri,  4 Sep 2026 11:35:11 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 508A218005BD;
-	Fri,  4 Sep 2026 11:35:08 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri,  4 Sep 2026 13:35:11 +0200 (CEST)
-Date: Fri, 4 Sep 2026 13:35:07 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch 1/8] signal: Prevent exec() race
-Message-ID: <apqs6wgDtpdLI-k8@redhat.com>
-References: <20260904112100.683893401@kernel.org>
- <20260904112202.074391651@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EtYEXlAK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1820D1F00A3D;
+	Fri,  4 Sep 2026 11:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788522061;
+	bh=T+1+wiz9xkyFoASybsA5jb2V5dTwRZMAFdNTaQkDqJA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EtYEXlAKdXgN/8h12AjfZzIx+q09oFKCOsGmNkdKO6xGFVmYeb1Sbvb07a0rR4Cso
+	 78aYDs5WyGh9JI7zTcdJgVOMyfx/8cgDaSkEZti5f9CmuA0TDvvBJ5Bu8grXTWmwXk
+	 zLmZ2u3Sk2bqH1Al5A/2c4DporwElTUxeGl71lJ2RrzP9AeArWsHb54cEjQj6ufEST
+	 ZDaJJA7g0WR8rjX4VoBVlA1+swtnh4xXAReueTdc4YnWovv4XBOxOj2IRiwYTIsk/3
+	 wW8dPA+n4xy1afxgbTVGZ7Fotf8vABEik+wEIT9sSC/oKWGAUYNwhdwqjfSy9LS97o
+	 1ZWL98w0uqk1Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] serial: imx: Convert to platform remove callback returning void
+Date: Fri,  4 Sep 2026 07:40:58 -0400
+Message-ID: <20260904114059.3685169-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090332-sizing-praising-4243@gregkh>
+References: <2026090332-sizing-praising-4243@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904112202.074391651@kernel.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thomas, I can't read this series today, will try on Weekend.
+From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 
-But you didn't reply to
-https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
-Let me quote that email here:
+[ Upstream commit c066f87314b7fbbf4d72d38957436a98e7b7e503 ]
 
-	OK... lets suppose the exiting task T passes exit_signals().
+The .remove() callback for a platform driver returns an int which makes
+many driver authors wrongly assume it's possible to do error handling by
+returning an error code. However the value returned is ignored (apart
+from emitting a warning) and this typically results in resource leaks.
 
-	Suppose we have an "ignored" timer tmr. Another sub-thread calls
-	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
-	in ->ignored_posix_timers list.
+To improve here there is a quest to make the remove callback return
+void. In the first step of this quest all drivers are converted to
+.remove_new(), which already returns void. Eventually after all drivers
+are converted, .remove_new() will be renamed to .remove().
 
-	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
-	it should check it too?
+Trivially convert this driver from always returning zero in the remove
+callback to the void returning variant.
 
-	Or perhaps it makes more sense to check PF_EXITING in
-	posixtimer_get_target() ?
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.kernel.org/r/20231110152927.70601-18-u.kleine-koenig@pengutronix.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 8b0b29fdcb47 ("serial: imx: serialize imx_uart_ports[] lifetime")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/serial/imx.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-and at first glance it seems that this version doesn't differ in this respect?
-
-Sorry if I missed something (again ;) but I'd better ask just in case.
-
-Oleg.
+diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
+index 60d48d857b1c0..11d5fa8249f28 100644
+--- a/drivers/tty/serial/imx.c
++++ b/drivers/tty/serial/imx.c
+@@ -2502,13 +2502,11 @@ static int imx_uart_probe(struct platform_device *pdev)
+ 	return ret;
+ }
+ 
+-static int imx_uart_remove(struct platform_device *pdev)
++static void imx_uart_remove(struct platform_device *pdev)
+ {
+ 	struct imx_port *sport = platform_get_drvdata(pdev);
+ 
+ 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
+-
+-	return 0;
+ }
+ 
+ static void imx_uart_restore_context(struct imx_port *sport)
+@@ -2677,7 +2675,7 @@ static const struct dev_pm_ops imx_uart_pm_ops = {
+ 
+ static struct platform_driver imx_uart_platform_driver = {
+ 	.probe = imx_uart_probe,
+-	.remove = imx_uart_remove,
++	.remove_new = imx_uart_remove,
+ 
+ 	.driver = {
+ 		.name = "imx-uart",
+-- 
+2.53.0
 
