@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54D3536C0CD
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:18:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7BB64CA764
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538731; cv=none; b=irsdkZEKvAQhhaB8NcBS9fWneZTOLKrzIbHPmUMx7HTI+fHiMVp+0s5N9Z6Y/x+j/1hUsAdwdQi8TAKvey2gIjljAJmCgIu45hvLMXqyZFCgAmBjranhzEwk5BkC8n8eEr7XdzGDdnUEg/RPbwY+wF0HzZAR5ChQHoGTM3TOAPk=
+	t=1788538734; cv=none; b=PGNwlM3WBAm4z+zjfOnqKnHvkjdATdeDnIIJQ7iaxgXO53xl3CNsEE4IWVL7sbZveiNR59FHeFgPDyo4M0NtA14CbSlsW5ew4DwWF+pSQoqRfUhycfUuP1Sd4bthhRYvq+eoSSA/d814/jHChsMlXyaCd+0fafA+JBl1IDKTZ8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538731; c=relaxed/simple;
-	bh=akjiP9r6aGZFVaFuTV4xO4inC06yx1CbzVLMerEToh4=;
+	s=arc-20240116; t=1788538734; c=relaxed/simple;
+	bh=nBixZw3/1BkQyzToGEomClwqPJ2mncw8+26Z2hHqfxo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WgTVog9pVppu0BZVLStMcE5s/84w2vFYhWzgMd0C1cGjPsQOFRpbTZqEG+7ATnSvwtuklaYf54s0rd8Miy5Mhbifgn4Yf/DYGucJecVSfx3TPTQDo/gRozdvPng77bUFHkJZnM1CT57eqYn30BCJd5KpghXyPLtdH//YLEOW8lE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IjdEbgOL; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=OAekyQ22tQZpTQ9MKjjj9eHUkuRStXK+Q7u3JgP8mNL5KB3e2dVr5WQCHuzW3VpdCpGuJi+oVtdIOd1rfAmZsp+FfKHf8ziT0IDzrbBrEkdd43IpPhifusWRPDDbQxqpN+1Gkm4UHawbMEMgFWzschDzpErn1R2mfMEV6DUlb5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SzGq2iA5; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IjdEbgOL"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SzGq2iA5"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CDD46152B;
-	Fri,  4 Sep 2026 09:18:45 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C4EB1BCA;
+	Fri,  4 Sep 2026 09:18:43 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 893413F8D6;
-	Fri,  4 Sep 2026 09:18:47 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 390853F8D6;
+	Fri,  4 Sep 2026 09:18:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788538729; bh=akjiP9r6aGZFVaFuTV4xO4inC06yx1CbzVLMerEToh4=;
+	t=1788538727; bh=nBixZw3/1BkQyzToGEomClwqPJ2mncw8+26Z2hHqfxo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IjdEbgOLb1z6qV8YYTmdsm+bm7XWNTXJFFp0fWlsypZJknlxUCCUXWa9ykBtweIl1
-	 XcQ+vTcX/ul1/P5HDnUHxsgEU98gdeDDwnBUJHtQ62Tngwss/4Y+v0KKsV9A/YmJE0
-	 ug1mFV7/tOysivevkM947WV/GNR89Ch51b0pu7yw=
+	b=SzGq2iA5rQ+zWCWm0tmiIlgMADjCbI/9IFmR9Zpb7wjp8x2zPNPNWRac6iHQxNei/
+	 JbDZ2gO1aGGr6HZukCxwyhgcOw6ZILeA0qpHG9vWnNE6/UyrFVUQW+dnQiDAF60us9
+	 lAYrvwXb7bwVUF74uYYa297Rdqt/viyo8ckDLgpw=
 From: Mark Rutland <mark.rutland@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: ada.coupriediaz@arm.com,
@@ -43,9 +43,9 @@ Cc: ada.coupriediaz@arm.com,
 	vladimir.murzin@arm.com,
 	will@kernel.org,
 	yang@os.amperecomputing.com
-Subject: [PATCH v3 09/21] arm64: percpu: Factor out percpu offset asm
-Date: Fri,  4 Sep 2026 17:17:46 +0100
-Message-Id: <20260904161758.376504-10-mark.rutland@arm.com>
+Subject: [PATCH v3 08/21] arm64: ptrace: Always inline pt_regs_[read,write}_reg()
+Date: Fri,  4 Sep 2026 17:17:45 +0100
+Message-Id: <20260904161758.376504-9-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
 References: <20260904161758.376504-1-mark.rutland@arm.com>
@@ -57,14 +57,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Depending on whether the kernel runs at EL1 or EL2, the percpu offset is
-stored in either TPIDR_EL1 or TPIDR_EL2, and __kern_my_cpu_offset() uses
-an ALTERNATIVE() sequence to read the relevant TPIDR_ELx.
+In subsequent patches we'll want to use pt_regs_read_reg() and
+pt_regs_write_reg() in noinstr code.
 
-In subsequent patches we'll need to read the percpu offset in other
-assembly sequences. Factor the ALTERNATIVE sequence out of
-__kern_my_cpu_offset() into a new __KERN_ASM_CPU_OFFSET() macro so that
-we can share the code sequence.
+To ensure noinstr safety, both functions must be inlined into their
+caller. As both functions are marked as 'inline' rather than
+'__always_inline', that's not strictly guaranteed, and the compiler is
+permitted to generate out-of-line copies.
+
+Mark both functions as '__always_inline' to ensure this.
 
 There should be no functional change as a result of this patch.
 
@@ -81,42 +82,34 @@ Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Yang Shi <yang@os.amperecomputing.com>
 ---
- arch/arm64/include/asm/percpu.h | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+ arch/arm64/include/asm/ptrace.h | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 8cf4068ce1b56..746d2a56f48bb 100644
---- a/arch/arm64/include/asm/percpu.h
-+++ b/arch/arm64/include/asm/percpu.h
-@@ -29,6 +29,11 @@ static inline unsigned long __hyp_my_cpu_offset(void)
- 	return read_sysreg(tpidr_el2);
- }
- 
-+#define __KERN_ASM_CPU_OFFSET(dst)					\
-+	ALTERNATIVE("mrs " dst ", tpidr_el1",				\
-+		    "mrs " dst ", tpidr_el2",				\
-+		       ARM64_HAS_VIRT_HOST_EXTN)
-+
- static inline unsigned long __kern_my_cpu_offset(void)
+diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
+index f7dc5fb9427d6..f635c3453a858 100644
+--- a/arch/arm64/include/asm/ptrace.h
++++ b/arch/arm64/include/asm/ptrace.h
+@@ -266,7 +266,8 @@ static inline u64 regs_get_register(struct pt_regs *regs, unsigned int offset)
+  * Read a register given an architectural register index r.
+  * This handles the common case where 31 means XZR, not SP.
+  */
+-static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
++static __always_inline unsigned long
++pt_regs_read_reg(const struct pt_regs *regs, int r)
  {
- 	unsigned long off;
-@@ -37,11 +42,11 @@ static inline unsigned long __kern_my_cpu_offset(void)
- 	 * We want to allow caching the value, so avoid using volatile and
- 	 * instead use a fake stack read to hazard against barrier().
- 	 */
--	asm(ALTERNATIVE("mrs %0, tpidr_el1",
--			"mrs %0, tpidr_el2",
--			ARM64_HAS_VIRT_HOST_EXTN)
--		: "=r" (off) :
--		"Q" (*(const unsigned long *)current_stack_pointer));
-+	asm(
-+	__KERN_ASM_CPU_OFFSET("%0")
-+	: "=r" (off)
-+	: "Q" (*(const unsigned long *)current_stack_pointer)
-+	);
- 
- 	return off;
+ 	return (r == 31) ? 0 : regs->regs[r];
  }
+@@ -275,8 +276,8 @@ static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
+  * Write a register given an architectural register index r.
+  * This handles the common case where 31 means XZR, not SP.
+  */
+-static inline void pt_regs_write_reg(struct pt_regs *regs, int r,
+-				     unsigned long val)
++static __always_inline void
++pt_regs_write_reg(struct pt_regs *regs, int r, unsigned long val)
+ {
+ 	if (r != 31)
+ 		regs->regs[r] = val;
 -- 
 2.30.2
 
