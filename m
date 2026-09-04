@@ -1,109 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DCD3B71B2;
-	Fri,  4 Sep 2026 15:47:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74330495045
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788536870; cv=none; b=tqwSBIcfirptSAsB74zmOF/k8gux83fa5NV8jnxqWkvPf/NlMVLXsMUZ3xk07feecLla8fcdBe3q6Wj9ypYfC1PEEupSmvSqhQ/9X4RWpzigebNlCVtdvHmIgR/JE9QOwlPw6fCWdnd7lIOA9Dl1UgOxy0jNNoGCRkHNQc1gGtI=
+	t=1788537194; cv=none; b=qWmlDGp991/flx5K5cs3wKZNo6aUo2bDR8kglj0TctOxJVEjxeb9CWLGQ2fI4xJ/wiBSwcXoS/r9dnrqAXAe5qE6scoEJSLQ3YVzV0B+w4NW/qgLffX3QvwIACjHeA3Trf1pkMdxz/MeMstXfJyk5ONOTAFKsqaD8dih7Keup+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788536870; c=relaxed/simple;
-	bh=MrtDPdKK6+y0wKBVfyAfce9pIfxUCbofuyPis37UJuQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f6eHoyjP7YaqAC0N0r12wJrUZeQwE2j5/fjUbUe93fEbo0dmXlNyODBG8b7nePRljQUG6tI/pTbC+Dl7bTOgA/O9L3+BBzmD+ha8AO9I2alWgQmGdaArzF9eKAHm9BSn2DhQfeF6Wy/eyFeStqOv/EoaKp48LWk0EalCvEWyIjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ojE90wuK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788537194; c=relaxed/simple;
+	bh=5KUfU2UUZ3fPmA3o93xPIyFBexPShXAE5Elg3/MLXI0=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=ICrSIi9tGvvOc1YHtFyQ7W9fpcZNhRVFDCFuRH1HTtWurSdAByQb9oNAC1Ayxmxe3vKg7TvpDdgq6+ZgRxGD03W38UyUTPjJMPh2zy+QYUDwjcfMl5EjUZEWN+3DUlb8Uf2FedpZd/TX/BZ32ZQMEqEooeISoY1d1BEwh8Zxf88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YGqbt+qS; arc=none smtp.client-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ojE90wuK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 100801F00A3E;
-	Fri,  4 Sep 2026 15:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788536868;
-	bh=EjdSb+K10ky5dmPg7vs00e63TFoxXUI10QkkhzPXUY8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ojE90wuKhmvUgXyMF7xHuX1bmV+ITNcrtxp4p4nyb88qQ0ueF1d3BP83ug04rSJvG
-	 +SYr+p3Bb5yWc4BoJzArt/yRk39kIW015J3g0JjX9iiW7w2fu3GyOhbV3RtaZIQtsb
-	 yW1QTti8JFJWYzKx4sJefTLB//ViJ/3vBgyRLsMk=
-Date: Fri, 4 Sep 2026 17:44:59 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Syed Labeeq Sajid Bukhari <syedlabeeq@gmail.com>
-Cc: linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
-	stern@rowland.harvard.edu, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: storage: sierra_ms: reject short SWoC info transfers
-Message-ID: <2026090423-trifle-employee-129d@gregkh>
-References: <CAF4-o1c6XLbJr5umK+FRmMetcRkxH5JnRjMUpWw7OpnkUWbvVQ@mail.gmail.com>
- <2026090452-appetizer-pacifist-57e5@gregkh>
- <CAF4-o1fTYbxEb95NVsvcJ7=jdJB+vXpzspqcgwhNn=+FBsOsNg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YGqbt+qS"
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so1661267a91.3
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 08:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788537192; x=1789141992; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Pt0L+O53/xVVWaghU8W5mtgRgEzuJWx3ygItaBNaDoI=;
+        b=YGqbt+qS+5wY17ubQ5x1Kg8vThfV7Vw4gk2cQ773f74jldwXq2WADwq0yy8Y06zHQK
+         u0Evd62RedatoonDavbxzP7//6zD4abUvMUOpAozjpFDGMANCdiA/SbOwSgN+T5+mFBA
+         qT4ykgR6fd4hXaRcpf0x3sD3CUSe9Isu4MaflY+5IAUMbu1V5f5Iv56nGUZB9S7sTxcJ
+         he5zIhFWH7ymmJcdrcv+O+91Kw7lW2jLBNQfpG/E4Jpp5rbYWUFuNKVQ4Bneu6bn9GDX
+         KT//8hZVCbwEj/WT5jCKSbuXlq06dzOLDHE0IUreKAV0EM0GBOD+xxkv2FLaVJF+KTHZ
+         lyVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788537192; x=1789141992;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pt0L+O53/xVVWaghU8W5mtgRgEzuJWx3ygItaBNaDoI=;
+        b=gWslK6V7dZEs350znttjS901r99NP7G1Jgdyks+GnPAB+cCIrIqvhOUPmYn5yjm1l8
+         R1/v9CrjybPk5en8IA1uD4eVb+rW3T5vshCOH5ann3fB3A+p/UujSFE4eNsSR9HTf2XF
+         B+GZFslQb7HWZxgu0g6fKMr2ZPOwshWKST9c8lthZqL8NFO4Lz4KwVRrVfkw+EKRsLgC
+         iHSxdXmiWMTRz6Ula7SLUOC7V+9/2leCK1bcU1Ct6b3tdG/F6y0FDkn7ZlSMRCA+IA7d
+         0rEw4b7FA/WQiiyuiRRvEoCW5X1Sle5Ula7zMmGZxJch9mEkklTH8OsuSf0zC5OlO+6X
+         klAA==
+X-Forwarded-Encrypted: i=1; AKwUvBxnQ28Kh/2TB+XbDtb5Jnr/+wa4uFHrAcsWgz1sIfHfkrjPwyZ33vPILL8LRPLvm/de6qD3elQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLvyOn4miFsSRglldG/Y/Dw1GbgNNVX+BP/Lipu9j+Of8+pAGU
+	ad8sQi1oOW+ELdjEIgASZwFOy4yTAvX5jpWrE4zEj8Jqo0Gs65Ob92VQoE5fbAC1OdMXuyilIQz
+	A65Tho8AHjv9WXew4VF0wQw==
+X-Received: from pjyp14.prod.google.com ([2002:a17:90a:e70e:b0:395:1a86:4fe8])
+ (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:e7ce:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39b2624a1bbmr9099604a91.19.1788537191083;
+ Fri, 04 Sep 2026 08:53:11 -0700 (PDT)
+Date: Fri,  4 Sep 2026 23:53:05 +0800
+In-Reply-To: <20260904155307.150443-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAF4-o1fTYbxEb95NVsvcJ7=jdJB+vXpzspqcgwhNn=+FBsOsNg@mail.gmail.com>
+Mime-Version: 1.0
+References: <20260904155307.150443-1-stanleyjhu@google.com>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260904155307.150443-2-stanleyjhu@google.com>
+Subject: [PATCH v2 1/3] rpmb: core: Pin parent device and guard requests with rwsem
+From: Stanley Jhu <stanleyjhu@google.com>
+To: Jens Wiklander <jens.wiklander@linaro.org>, 
+	"Martin K . Petersen" <martin.petersen@oracle.com>, linux-scsi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Cc: Bart Van Assche <bvanassche@acm.org>, Brian Kao <brian.kao@mediatek.com>, 
+	Brian Kao <powenkao@google.com>, Avri Altman <avri.altman@wdc.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, Stanley Jhu <stanleyjhu@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 04, 2026 at 08:27:46PM +0500, Syed Labeeq Sajid Bukhari wrote:
-> Hi Greg,
-> 
-> Thanks for the quick look, and apologies for the corrupted patch -- I sent
-> sent it via a web mail client, which messed up with the whitespaces. I will
-> resend it properly with git send-email, with the patch also attached.
-> 
-> On the short-transfer concern:
-> 
-> The SWoC query explicitly asks the device for exactly
-> sizeof(struct swoc_info) (wLength = 60). This vendor command has a
-> fixed-size response, and the driver already implicitly assumes a full
-> answer today: containsFullLinuxPackage() and truinst_show()
-> unconditionally read fields at fixed offsets (bytes 9-12) that a short
-> transfer would never have written. So with a short answer the current code
-> already makes its mode-switch decision on uninitialized garbage. The
-> patch only makes that failure explicit instead of silent.
+When an RPMB device is unregistered, device_del(&rdev->dev) drops the
+driver core's reference to the parent device. If external callers still
+hold references to rdev, rdev outlives the parent provider (e.g. UFS
+host). Once the parent is freed, subsequent access to rdev->dev.parent
+causes a Use-After-Free (UAF).
 
-Ok, that's a good "proof" that this should be ok.
+Additionally, lockless access in rpmb_route_frames() races with parent
+teardown, risking frame dispatch against an unpowered or torn-down host.
 
-> Two further points:
-> 
-> * sierra_ms_init() retries the query up to 3 times on failure, so a
->   transient short transfer during probe is tolerated, not fatal.
-> 
-> * There is core precedent: usb_control_msg_recv() in usb/core/message.c
->   rejects short transfers with -EREMOTEIO, i.e. the USB core itself
->   treats a short control-IN as an error.
+Fix these issues by explicitly pinning the parent device for the
+lifetime of the RPMB device, and guarding in-flight requests against
+device unregistration with an rw_semaphore teardown barrier.
 
-usb_control_msg_recv() is designed to work that way, it's not any sort
-of "proof" that this is ok for this device :)
+Fixes: 1e9046e3a154 ("rpmb: add Replay Protected Memory Block (RPMB) subsystem")
+Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
+Cc: stable@vger.kernel.org
+---
+Changes in v2:
+- New patch in v2 addressing cross-subsystem UAF and TOCTOU races (sashiko-bot).
+- Pin parent device with get_device() in register and put_device() in release.
+- Introduce rw_semaphore and dead flag to serialize in-flight requests.
+ drivers/misc/rpmb-core.c | 24 +++++++++++++++++-------
+ include/linux/rpmb.h     |  5 +++++
+ 2 files changed, 25 insertions(+), 4 deletions(-)
 
-> To answer the testing question directly and honestly: no, I do not have
-> the physical hardware, so this was not tested against a real Sierra
-> TRU-Install device. It was tested with a fully controllable emulated
-> device (raw_gadget on dummy_hcd, VID 0x1199 PID 0x0fff) against a
-> self-built 6.12.108 kernel:
-> 
-> * full 60-byte response: enumeration and truinst reads behave exactly as
->   before (attribute created, values printed);
-> * short response: the query now fails with -EIO instead of exposing
->   uninitialized heap through the world-readable truinst attribute.
+diff --git a/drivers/misc/rpmb-core.c b/drivers/misc/rpmb-core.c
+index ecf14acf230a..c0e19cfe3faa 100644
+--- a/drivers/misc/rpmb-core.c
++++ b/drivers/misc/rpmb-core.c
+@@ -50,11 +50,21 @@ EXPORT_SYMBOL_GPL(rpmb_dev_put);
+ int rpmb_route_frames(struct rpmb_dev *rdev, u8 *req,
+ 		      unsigned int req_len, u8 *rsp, unsigned int rsp_len)
+ {
+-	if (!req || !req_len || !rsp || !rsp_len)
++	int ret;
++
++	if (!rdev || !req || !req_len || !rsp || !rsp_len)
+ 		return -EINVAL;
+ 
+-	return rdev->descr.route_frames(rdev->dev.parent, req, req_len,
+-					rsp, rsp_len);
++	down_read(&rdev->lock);
++	if (rdev->dead || !device_is_registered(&rdev->dev)) {
++		up_read(&rdev->lock);
++		return -ENODEV;
++	}
++
++	ret = rdev->descr.route_frames(rdev->dev.parent, req, req_len,
++				       rsp, rsp_len);
++	up_read(&rdev->lock);
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(rpmb_route_frames);
+ 
+@@ -62,6 +72,7 @@ static void rpmb_dev_release(struct device *dev)
+ {
+ 	struct rpmb_dev *rdev = to_rpmb_dev(dev);
+ 
++	put_device(rdev->dev.parent);
+ 	ida_free(&rpmb_ida, rdev->id);
+ 	kfree(rdev->descr.dev_id);
+ 	kfree(rdev);
+@@ -133,6 +144,10 @@ int rpmb_dev_unregister(struct rpmb_dev *rdev)
+ 	if (!rdev)
+ 		return -EINVAL;
+ 
++	down_write(&rdev->lock);
++	rdev->dead = true;
++	up_write(&rdev->lock);
++
+ 	device_del(&rdev->dev);
+ 
+ 	rpmb_dev_put(rdev);
+@@ -164,6 +179,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ 	rdev = kzalloc_obj(*rdev);
+ 	if (!rdev)
+ 		return ERR_PTR(-ENOMEM);
++	init_rwsem(&rdev->lock);
+ 	rdev->descr = *descr;
+ 	rdev->descr.dev_id = kmemdup(descr->dev_id, descr->dev_id_len,
+ 				     GFP_KERNEL);
+@@ -179,7 +195,7 @@ struct rpmb_dev *rpmb_dev_register(struct device *dev,
+ 
+ 	dev_set_name(&rdev->dev, "rpmb%d", rdev->id);
+ 	rdev->dev.class = &rpmb_class;
+-	rdev->dev.parent = dev;
++	rdev->dev.parent = get_device(dev);
+ 
+ 	ret = device_register(&rdev->dev);
+ 	if (ret) {
+diff --git a/include/linux/rpmb.h b/include/linux/rpmb.h
+index ed3f8e431eff..2d8a41716883 100644
+--- a/include/linux/rpmb.h
++++ b/include/linux/rpmb.h
+@@ -7,6 +7,7 @@
+ #define __RPMB_H__
+ 
+ #include <linux/device.h>
++#include <linux/rwsem.h>
+ #include <linux/types.h>
+ 
+ /**
+@@ -48,15 +49,19 @@ struct rpmb_descr {
+  * struct rpmb_dev - device which can support RPMB partition
+  *
+  * @dev              : device
++ * @lock             : protects in-flight operations against teardown
+  * @id               : device_id
+  * @list_node        : linked list node
+  * @descr            : RPMB description
++ * @dead             : set to true when device is unregistered
+  */
+ struct rpmb_dev {
+ 	struct device dev;
++	struct rw_semaphore lock;
+ 	int id;
+ 	struct list_head list_node;
+ 	struct rpmb_descr descr;
++	bool dead;
+ };
+ 
+ #define to_rpmb_dev(x)		container_of((x), struct rpmb_dev, dev)
+-- 
+2.55.0.979.g7e5102b832-goog
 
-
-That's a fake device, real devices are what really matters for testing,
-you know this :)
-
-> If you would rather avoid any risk on some devices you mentioned, I
-> can respin this the other way: allocate the swoc_info buffer with
-> kzalloc() in truinst_show()/sierra_ms_init() instead of rejecting short
-> transfers. That closes the uninitialized-data exposure without changing
-> behavior for short answers (the unwritten tail becomes deterministic
-> zeros). Happy to send whichever variant you prefer.
-
-kzalloc() is good, and is what we have done for other types of issues
-like this:
-	https://lore.kernel.org/r/20260819-usb_misc_random-v1-1-43a0dcee3a32@kroah.com
-but as the data is being accessed, this should be ok.  Worst case, we
-get a bug report and fix it afterward like we have for other times we
-have messed up.
-
-thanks,
-
-greg k-h
