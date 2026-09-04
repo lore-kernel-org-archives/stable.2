@@ -1,64 +1,42 @@
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD3144A40F;
-	Fri,  4 Sep 2026 10:28:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C78E451992
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517712; cv=none; b=uoWoyEjFSWpFg1Jl8udECi2YCPIn4SSI9/ZMdazngNemttXYxus3pRgaJiF5VsTx9nuOHCmSGsjAAlbdO9b6A3v0fW7xWeUStnjdj38XVNC/yyZWF+8i+7ZCGuc9Iglt6jLbUc5PxhDKBIIBqrr9JREHkaqPSbOMFOS0fftWPaM=
+	t=1788517789; cv=none; b=QHDiTx58ca5+6CnZIXnYOBoJkNBIBxsI0pVE6YTZjhmOKiKUE8ifcEcLE9tb4lHXoJciOZp3kzAIzivxxAZ6izH2v+mJaHpJmLx9F5gTJpOWOPl5D97ZpkYUJkyE0FpOY9vXf79rm1WwOu54eAWFvQnySrhGaYayboMGn8mLRDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517712; c=relaxed/simple;
-	bh=VwG46Gp/XoiLsGNlDYkbSmVmIWuzR2igKIrFYd0lTX4=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=rCHlLWBOl/8kO6t8nK7laV2FuiwzGXO8SGJ48GxwjB7k8oDHkGyOLFBPUtuRUtGS3FOhhcHVEenqi91nsTK5pwt2VS4VIjX0hIvTJVaZv7pgfP7M2Gfv/Z1e8OnSCg7v/PWKJ+z3YBgZ3scC6q0NvINf/i5yPTvQwmUjf8ZzrIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=aIajdNzb; arc=none smtp.client-ip=162.62.57.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788517789; c=relaxed/simple;
+	bh=eeHXegopGSO9TrtDqRq0OWQ3UTYXdSbvNnRvR81+LlA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dv70aVJYkVNTxirEJyI79gwWcwjY74a7LR8U4MhL0XfW9WxIX1ss+AiZrF6mSU/i+EOlYHPEeWi61VtyIOp1PEvToVW/dZOiQP5uRfTOajxsbVYek/HO9CDrB6OPdiT3MLj+TZCGozC9jWhAlWoSlBMYSC5fQi/tYO4IOW/Kyoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZwMc6wID; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="aIajdNzb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788517703; bh=7LEq0udsdRFSQfGgzguwffOKv7bCMQnMZP/17uLi6go=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZwMc6wID"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690BD1F00A3D;
+	Fri,  4 Sep 2026 10:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788517787;
+	bh=UOp86vyMyz8ax7MOS7YPHkcLRYCSUPy0j+zkx8h4GYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aIajdNzbA+5ZKvSm6q1lelyq3zABEFUivSlT64LOCwcHzVFnnMj690RyED/GTQJ0R
-	 Ej0NNrkmOC1qXbguIJ54xdMriclIzZ8uoHXKJo/8GXm0PAamq79tMTvB6FxIm0J8Os
-	 s2fZAwlSz6ayHJagYZIA9ZN0s7BkTeJIZvS8eT00=
-Received: from ws006419.mbzu.ae ([5.195.0.150])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 6BA1EAAE; Fri, 04 Sep 2026 18:26:58 +0800
-X-QQ-mid: xmsmtpt1788517618t5vmfugz9
-Message-ID: <tencent_0D4EB3807DBF6095A7F5A9455D902DBA9708@qq.com>
-X-QQ-XMAILINFO: OFpInORavztRyQdl1JiXuVC0ttpYKudvrsd0yTM3j58+cRNhGtvI0OUgLakqEe
-	 XoR1cxEtaMRllVnFD7q1rF8C6oDzmeCTimWdVhGZlRnc8nUnMM2FzdIGJBV32HhLLABdR1J+bolR
-	 WYeM1CBOYXKjH3N4yy0xD+3u2TCRWKXXdd2vos4KYSW3K8EyCuArr2pLMMJjicbu4X1h+tkYp0yp
-	 PTCfFQfdJfKHyRfqsjAQMrEizvwWg184DajnQgAeQi/L36TQu/ccO9T8fwdSYKN1CLlPxAxBkvZu
-	 9NUPsBGNMQ5exD77qOFVPg6e9n+c9UfsxablKEYzNGGBbsIKc07EpS8Hz/2J2nNytefpBguV/c+1
-	 e1dRdxT98vZQ3t5M+7vpiStAUUvr0jexLd1rdsBBAVF/JwYc1PocBYY8iTrfNbwr/fJ77WNEGu+i
-	 DHNJXysQTpAmSigjMpMgCD/RALMfo+XO+4eKKSGqSHoAJU7Kp3Al+TEgNmKrjbt8FXPL1UiC2wMs
-	 GND3ImU11ZogLnl4qUBR9lSPbkTiMCIZo4K9eWCJC79c771iuukw59D5FK3s00IXjzjE2U1Pa+02
-	 uAvr3TPsHyYweZV19G2YTr8mZiINnlxh5rweY+bAwXau//yTVdfOZT0nVdxodFcg3KpqsmTbNZIE
-	 +l6wBVBBmyzFeXQVtRBV0p9wz/o7YIOBomKhbZ2ujkVwWcVMQR8KzNcipW2mpsRUEUCqv4bvc5Tf
-	 OhpMQVlsu6fdze0tgdBUMcwDQZsZrYrPJE+I+vD1UU9DIrsxFkIiRVfEPRym7MHak/mF99bdrlq8
-	 9+Al3vkVMX3DYK9XyDtaf4WmDly7NF1CITPy8vn6I822TpHfKCBI36Ssj+++tyBNTazKLahSDda8
-	 1/fDiUd+n/q+OI20qDNDF18sEZRSSwQ4jltjKDf685gw4HcLuV3GW0OGa6N79n8MbEfgI2MLnfV7
-	 T/Lelf/ZVzZhst5hKi96VsZlnl+/CmMi0qHm+WgdmVgLmW6iE2VSsEPLsVR7l+U1iRkVTLRwONhd
-	 IdAIiO/EX+WWgZrgYglxSw4HS1swbXMoOQJZBVR/vdDJvNG4t3gjho6fa8hG86jBCtednP5gXF4R
-	 mISGL2
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Jiawen Liu <1298662399@qq.com>
-To: Deepak Saxena <dsaxena@plexity.net>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Jiawen Liu <1298662399@qq.com>
-Subject: [PATCH v2] char: omap-rng: fix runtime PM cleanup
-Date: Fri,  4 Sep 2026 14:26:54 +0400
-X-OQ-MSGID: <20260904102654.394495-1-1298662399@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
-References: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
+	b=ZwMc6wIDJ/vsTUdxd13iyA+kRhPLcvdAN2AoieqEarOFxlfKbonBmJjqDHh8tUQhx
+	 YFYawm0XYXfdZWtd5zctNJaM97K30StB6KcRM5i9HmxQfhU+h2rVh9idiALBZxUSkf
+	 TiEkUSIiJxYgWjmEoJByMqKr1PmPBv9IFnVDIy7U1Uy7Dn6APM+L9ohOx27/CzA2e6
+	 ZOaLXWtSUO4pJb4x8ssrsFfj4Qr/lG/xZgPO/RpAeSi+BAhOe26jh9TB00JkCGXO54
+	 dLtIi6ur2R8dS8vrZhPjVJt5Q+XHtc6QSfZuJKhadfMaaPt84yVYX50tB32X4eV04W
+	 5m4x0CLJbg5Rw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Hyunwoo Kim <imv4bel@gmail.com>,
+	John Johansen <john.johansen@canonical.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] apparmor: fix out-of-bounds write when null terminating a label vec
+Date: Fri,  4 Sep 2026 06:29:45 -0400
+Message-ID: <20260904102945.2499120-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090321-librarian-canopy-80fd@gregkh>
+References: <2026090321-librarian-canopy-80fd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,76 +45,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-omap_rng_probe() enables runtime PM before requesting its optional clocks.
-If either devm_clk_get() returns -EPROBE_DEFER, the direct return leaves
-the runtime PM usage count elevated and runtime PM enabled. The second
-clock lookup can also leave the first clock enabled.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Route each deferred-probe path through resource-matched cleanup. Return
-directly after cleanup so normal probe deferrals remain quiet.
+[ Upstream commit 9f1e40193eef7f047e6b77cfb4b4cafdecd7a123 ]
 
-Fixes: 43ec540e6f9b ("hwrng: omap - move clock related code to omap_rng_probe()")
+aa_vec_unique() null terminates at vec[n - dups] when VEC_FLAG_TERMINATE
+is passed. If the components are all distinct no duplicates are dropped,
+dups is 0 and the terminator goes to vec[n], so the caller has to provide
+room for n + 1 entries.
+
+aa_label_strn_parse() sets up its vector with vec_setup(profile, vec, len,
+gfp) and then calls aa_vec_unique(vec, len, VEC_FLAG_TERMINATE), but
+vec_setup() does not reserve the terminator entry. Up to LOCAL_VEC_ENTRIES
+it uses the local array of LOCAL_VEC_ENTRIES pointers, above that it
+allocates exactly len pointers. The terminator therefore lands one entry
+past the end of the local array when len is LOCAL_VEC_ENTRIES, and one
+entry past the end of the allocation when len is larger.
+
+len comes from the number of "//&" separated components in the label name
+and label_count_strn_entries() does not bound it. An unprivileged task
+reaches the parse by writing to /proc/self/attr/apparmor/current or through
+lsm_set_self_attr(2), both of which go through do_setattr(), and the name
+is parsed before the change_profile permission is checked.
+The query_label() path behind the securityfs .access file, which is
+mode 0666, performs no permission check at all. Every component has to
+resolve to a loaded profile, so a system with policy loaded is required.
+
+The other two VEC_FLAG_TERMINATE users work on a label vec that
+aa_label_alloc() has already sized with "+ 1 for null terminator entry on
+vec". Reserve the same entry in vec_setup() and DEFINE_VEC(). Passing
+len + 1 from the caller instead would move len == LOCAL_VEC_ENTRIES out of
+the local array and into kzalloc().
+
+Fixes: f1bd904175e8 ("apparmor: add the base fns() for domain labels")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: John Johansen <john.johansen@canonical.com>
+[ replaced unavailable kzalloc_objs() with equivalent kcalloc() allocation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Use the full author name in From and Signed-off-by.
-- Return directly after deferred-probe cleanup to keep deferrals quiet.
-- Add Fixes and Cc stable tags.
+ security/apparmor/include/label.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-v1: https://lore.kernel.org/all/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com/
-Sashiko review: https://sashiko.dev/#/patchset/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A%40qq.com
-
- drivers/char/hw_random/omap-rng.c | 22 ++++++++++++++++++----
- 1 file changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/char/hw_random/omap-rng.c b/drivers/char/hw_random/omap-rng.c
-index 5e8b50f15db7..c22d70a031e2 100644
---- a/drivers/char/hw_random/omap-rng.c
-+++ b/drivers/char/hw_random/omap-rng.c
-@@ -459,8 +459,10 @@ static int omap_rng_probe(struct platform_device *pdev)
- 	}
+diff --git a/security/apparmor/include/label.h b/security/apparmor/include/label.h
+index 5aca0f612f8fd..55b5372ecf240 100644
+--- a/security/apparmor/include/label.h
++++ b/security/apparmor/include/label.h
+@@ -22,7 +22,7 @@ struct aa_ns;
  
- 	priv->clk = devm_clk_get(&pdev->dev, NULL);
--	if (PTR_ERR(priv->clk) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	if (PTR_ERR(priv->clk) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err_pm_runtime;
-+	}
- 	if (!IS_ERR(priv->clk)) {
- 		ret = clk_prepare_enable(priv->clk);
- 		if (ret) {
-@@ -471,8 +473,10 @@ static int omap_rng_probe(struct platform_device *pdev)
- 	}
+ #define LOCAL_VEC_ENTRIES 8
+ #define DEFINE_VEC(T, V)						\
+-	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES];	\
++	struct aa_ ## T *(_ ## V ## _localtmp)[LOCAL_VEC_ENTRIES + 1];	\
+ 	struct aa_ ## T **(V)
  
- 	priv->clk_reg = devm_clk_get(&pdev->dev, "reg");
--	if (PTR_ERR(priv->clk_reg) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	if (PTR_ERR(priv->clk_reg) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err_pm_runtime_clock_1;
-+	}
- 	if (!IS_ERR(priv->clk_reg)) {
- 		ret = clk_prepare_enable(priv->clk_reg);
- 		if (ret) {
-@@ -497,6 +501,16 @@ static int omap_rng_probe(struct platform_device *pdev)
+ #define vec_setup(T, V, N, GFP)						\
+@@ -30,10 +30,10 @@ struct aa_ns;
+ 	if ((N) <= LOCAL_VEC_ENTRIES) {					\
+ 		typeof(N) i;						\
+ 		(V) = (_ ## V ## _localtmp);				\
+-		for (i = 0; i < (N); i++)				\
++		for (i = 0; i <= (N); i++)				\
+ 			(V)[i] = NULL;					\
+ 	} else								\
+-		(V) = kzalloc(sizeof(struct aa_ ## T *) * (N), (GFP));	\
++		(V) = kcalloc((N) + 1, sizeof(struct aa_ ## T *), (GFP)); \
+ 	(V) ? 0 : -ENOMEM;						\
+ })
  
- 	return 0;
- 
-+err_pm_runtime_clock_1:
-+	if (!IS_ERR(priv->clk))
-+		clk_disable_unprepare(priv->clk);
-+	goto err_pm_runtime;
-+
-+err_pm_runtime:
-+	pm_runtime_put_sync(&pdev->dev);
-+	pm_runtime_disable(&pdev->dev);
-+	return ret;
-+
- err_register:
- 	priv->base = NULL;
- 	pm_runtime_put_sync(&pdev->dev);
 -- 
-2.34.1
+2.53.0
 
