@@ -1,177 +1,188 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCA44734CF;
-	Fri,  4 Sep 2026 11:22:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B47C46EF79
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520951; cv=none; b=fjm63Yq5Bdb8xWoBL7ma+7ywhNHIKRCzBhirOzDMITeDmc4w8gu7btiKo8uiUsCFg3sJ1b/fZocD0NxegtDcY2xPAxWpSalGXL9qgIL0E3V72xSEk2efx3eNGn6+tI4byPxb+U6iEOroV4L6BsO4vTkBvdfFMr1MhTzVRAeFPeU=
+	t=1788521136; cv=none; b=rObS+bhDgciy0UqnLhuxW3YjEe7XFsGop6bKiU3rONXHpx8aXp6Bfda8z92e8olEnpr7lggsjOYbZRWuTCNL5+FL3GMaS3ObQnc+D6JBMeNUmjqLqJd0JJk4478ee86YhGN1Gtt35NZOZ8erNExKB9TeGN0OsKDl1OisPX921X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520951; c=relaxed/simple;
-	bh=c6LKdjCRtX9r7BkpBqhHl3YDIF7wMKwHPOCCdDBstSs=;
-	h=Date:Message-ID:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=hpPD3zvrFULw6lFUpUdTZ17cdnwXw8bSYdJp30AZ6n7iGwUZEtxDpQU2LFK4w9u3jwBEO3lobgQx1XPtnhpzKiHUFvGqm42c0DbM75qmYZlez7ediQRwKHHcOBOlQH0ibrgSbbosxRKM8oN5Vnmh6j57KBDoR4pvhXHQ+1Bf32Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hBnkU74I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788521136; c=relaxed/simple;
+	bh=3zg+m78oCq8FoH2C82UwCzwEn3UK9Vr3p+x83043AL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zf0W3URwwHy2krT0TKfK1vgKb0g6rpoBmO+j8ipQf+N3f/rX+96yFsF8b9tM4G2wfurrSmTpMAKgWH9hEo8d58DuwLxoR6i0sZX0p1eFa0Tc9OzZ3KLS/mNoclKmUST5jDPOiRDWUJbK1Pt9WvX86o/1M9L1gx3ryVPgRlqc9Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kd79Fxta; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hBnkU74I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B98361F00A3E;
-	Fri,  4 Sep 2026 11:22:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kd79Fxta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B80111F00A3D;
+	Fri,  4 Sep 2026 11:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788520949;
-	bh=/MjvIu2eMcDyB476Ez37rVlvnO35eZxH5+YssIQfLa8=;
-	h=Date:From:To:Cc:Subject:References;
-	b=hBnkU74I3TP8Z6ELqV8PmhBwn3sZ+74wmbRjNTGlhsCzAV9686nKBr2wqOa8wAbSr
-	 5As/v5CNR1vokggX3aPjFYZRwNAL++foP23zxITyNuTDqmttVFGiT+F3pEt5f/feVz
-	 izDRxechzOORanTN0YK6euKRx52zGjYIGnjyHcKo5Ri/QY1T3sUgWH07BV9VSdmDve
-	 ucxXZSaVtQH/Lp6+datI+UCZVWdlP6Ye794dEhQWKOnRAlHWTRuTbnA3geeurDXt2u
-	 cdtsVVg/bvdFK8dChV/Tw4zwgJao85UFhiBqwIjr/3C7Rhe7FirBGBFV0ZHoGpG0io
-	 Qk6pAGlfC3dWw==
-Date: Fri, 04 Sep 2026 13:22:26 +0200
-Message-ID: <20260904112202.131242426@kernel.org>
-User-Agent: quilt/0.69
-From: Thomas Gleixner <tglx@kernel.org>
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
- Oleg Nesterov <oleg@redhat.com>,
- Frederic Weisbecker <frederic@kernel.org>,
- Christian Brauner <brauner@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- John Stultz <jstultz@google.com>,
- Ingo Molnar <mingo@kernel.org>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- "Eric W. Biederman" <ebiederm@xmission.com>,
- stable@vger.kernel.org
-Subject: [patch 2/8] exec: Cleanup POSIX timers right after de_thread()
-References: <20260904112100.683893401@kernel.org>
+	s=k20260515; t=1788521133;
+	bh=DZcVpMP5HDdYhlgu1ccm04lVVHYWmo0zsg7abG483AI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kd79FxtaVQ1PBKwG37ufIvIRkeNC4zEdJaxACGHH/fO56TW8qH3XcYUDOeCsJoPZd
+	 hQ7PMSZsdWwZ2CvnOUYondB8hLXu9DqJJ36cqVbj3be2vGkUXvCiv9oyXK8LQg0rz5
+	 PjbISAAv1F9t1biNtMdAKN/bbymAZf070uxxV6SRAonN0fdo1AdrJu0F96EZwopHwp
+	 FgncJo6ghOUNUnHjV9PFtD+eAbtd+zjsmDO673YjhntR0wQUZoDs9AoA8Ia6NfLj82
+	 1EHmK81qqSvHFn1J3tIlTdqwQ/jd3/aQP9EmZVtP+XruzBptPGyaAgSTWb5qjChB27
+	 099FTDHsUuXcQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dev Jain <dev.jain@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Harry Yoo <harry@kernel.org>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Jann Horn <jannh@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Mel Gorman <mel@csn.ul.ie>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ralph Campbell <rcampbell@nvidia.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/rmap: use huge_ptep_get() in try_to_unmap_one()
+Date: Fri,  4 Sep 2026 07:25:29 -0400
+Message-ID: <20260904112529.3415033-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090346-evaluator-pointless-7f22@gregkh>
+References: <2026090346-evaluator-pointless-7f22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+From: Dev Jain <dev.jain@arm.com>
 
-A per-thread CPU timer holds a reference to the PID of the thread it is
-attached to and, while it is armed, its node is queued in that thread's
-posix_cputimers. The task is looked up by that PID.
+[ Upstream commit f5407e9b697c940e78b27ff63c6e14d8d171adc3 ]
 
-When a non-leader thread exec()s, de_thread() changes which task owns
-that PID. pid_task(timer->it.cpu.pid, PIDTYPE_PID) then returns NULL,
-but the node is still queued on tsk, which is alive. timer_lock_sighand()
-takes a failed lookup to mean that the node is already dequeued, so it
-has nothing to undo.
+Patch series "Fix incorrect access of hugetlb pte entries", v3.
 
-begin_new_exec() calls posix_cpu_timers_exit(me) right after
-exec_task_namespaces() and that removes the leftover node, so the state
-normally stays invisible. But bprm->point_of_no_return is set before
-de_thread(), so if unshare_files(), set_mm_exe_file(), exec_mmap() or
-exec_task_namespaces() fails, the task dies before it gets there.
-exit_itimers() then frees the k_itimer while its node is still queued,
-and reaping tsk later erases that freed node from the rbtree.
+There are various places which use ptep_get() to get the pte entry
+corresponding to a hugetlb folio.  Some arches (like s390) have special
+handling to compute the pteval, so they provide huge_ptep_get().  Use this
+helper consistently.
 
-In short:
+Additionally, some code paths may provide huge_ptep_get with an unaligned
+address.  This is a problem on arm64 (I checked other arches and it looks
+fine for them), which is fixed in patch 1.  The fix is made to be
+backport-friendly: the cleaner fix would be to perhaps pass the hstate to
+huge_ptep_get() - that is wider churn and we can do that later.
 
-      the non-leader thread B           the parent
+This patch (of 5):
 
-  timer_create(CLOCK_THREAD_CPUTIME_ID)
-  timer_settime()
-    arm_timer()            // the node is queued on B
-  execve()
-    de_thread(B)
-      exchange_tids(B, leader)  // B's PID now belongs to the leader
-      release_task(leader)
-        __exit_signal(leader)
-          posix_cpu_timers_exit(leader)  // cleans leader's queue, not B's
-          __unhash_process(leader)  // that PID has no task anymore
-    exec_mmap()
-      mmap_read_lock_killable(old_mm)
-                                kill(B, SIGKILL)
-      // -EINTR
-  get_signal()
-    do_exit()
-      exit_itimers()
-        posix_timer_delete()
-          posix_cpu_timer_del()
-        posix_timer_unhash_and_free()  // freed while still queued
-                                wait4()
-                                  release_task(B)
-                                    posix_cpu_timers_exit(B)
-                                      cleanup_timerqueue()
-                                        timerqueue_del()  // use-after-free
+try_to_unmap_one() handles hugetlb folios when memory failure needs to
+replace a poisoned hugetlb mapping with a hwpoison entry.  In that case
+page_vma_mapped_walk() returns the pte pointer to the hugetlb folio in
+pvmw.pte, but the code reads it with ptep_get().
 
-Move the POSIX timer cleanup right after de_thread() before any of the
-later failure conditions brings the task into do_exit().
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+etc to misbehave.
 
-[ tglx: Move the cleanup right after de_thread() ]
+It is not clear whether this has a trivially visible effect to userspace.
 
-Fixes: 55e8c8eb2c7b ("posix-cpu-timers: Store a reference to a pid not a task")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/ao7Q8miiuLAPVnWv@v4bel
+Just use huge_ptep_get() for dereferencing a huge pte pointer.
+
+Link: https://lore.kernel.org/20260703114202.365553-1-dev.jain@arm.com
+Link: https://lore.kernel.org/20260703114202.365553-3-dev.jain@arm.com
+Fixes: c7ab0d2fdc84 ("mm: convert try_to_unmap_one() to use page_vma_mapped_walk()")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Reported-by: David Hildenbrand <david@kernel.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v3:
-  Move the cleanup right after de_thread() - Oleg
-  Rework change log
+ include/linux/hugetlb.h | 2 ++
+ mm/rmap.c               | 7 ++++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Add the trigger sequence and the KASAN log to the commit message.
-- v1: https://lore.kernel.org/all/anfgrsPlUdwBhdrp@v4bel/
----
- fs/exec.c |   29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1115,6 +1115,17 @@ static struct file *bprm_identity_file(c
- 	return bprm->file;
+diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+index 6b78a0f457d95..aa089e58bc41f 100644
+--- a/include/linux/hugetlb.h
++++ b/include/linux/hugetlb.h
+@@ -1199,6 +1199,8 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
+ {
  }
  
-+static void posixtimer_exec(struct task_struct *me)
-+{
-+#ifdef CONFIG_POSIX_TIMERS
-+	spin_lock_irq(&me->sighand->siglock);
-+	posix_cpu_timers_exit(me);
-+	spin_unlock_irq(&me->sighand->siglock);
-+	exit_itimers(me);
-+	flush_itimer_signals();
-+#endif
-+}
++pte_t huge_ptep_get(pte_t *ptep);
 +
- /*
-  * Calling this is the point of no return. None of the failures will be
-  * seen by userspace since either the process is already taking a fatal
-@@ -1152,6 +1163,16 @@ int begin_new_exec(struct linux_binprm *
- 	retval = de_thread(me);
- 	if (retval)
- 		goto out;
-+
-+	/*
-+	 * This must be done here to ensure that POSIX CPU timers which were
-+	 * armed on the current task are dequeued from me::posix_cputimers.
-+	 * That ensures that in case of a TID switch the deletion of the related
-+	 * POSIX timer will not free an enqueued timer because the TID lookup
-+	 * failed as the original target TID was the old leader.
-+	 */
-+	posixtimer_exec(me);
-+
- 	/* see the comment in check_unsafe_exec() */
- 	current->fs->in_exec = 0;
- 	/*
-@@ -1192,14 +1213,6 @@ int begin_new_exec(struct linux_binprm *
- 	if (retval)
- 		goto out_unlock;
+ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+ 					  unsigned long addr, pte_t *ptep)
+ {
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 886000da89a6f..4c8afa9ffb7ba 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -1527,8 +1527,13 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			break;
+ 		}
  
--#ifdef CONFIG_POSIX_TIMERS
--	spin_lock_irq(&me->sighand->siglock);
--	posix_cpu_timers_exit(me);
--	spin_unlock_irq(&me->sighand->siglock);
--	exit_itimers(me);
--	flush_itimer_signals();
--#endif
--
- 	/*
- 	 * Make the signal table private.
- 	 */
++		if (folio_test_hugetlb(folio))
++			pteval = huge_ptep_get(pvmw.pte);
++		else
++			pteval = ptep_get(pvmw.pte);
++
+ 		subpage = folio_page(folio,
+-					pte_pfn(*pvmw.pte) - folio_pfn(folio));
++					pte_pfn(pteval) - folio_pfn(folio));
+ 		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
+-- 
+2.53.0
 
