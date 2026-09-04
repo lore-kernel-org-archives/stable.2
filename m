@@ -1,136 +1,129 @@
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com [209.85.210.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710CD44605B
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 22:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3694F3A6B8F;
+	Fri,  4 Sep 2026 22:44:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788561575; cv=none; b=OPqqR0bZ7IzWm4kO2dfe7nBFknNdL/LWUhffIoPE71t8WUcFJBi1NwvEBDclS5ZQeIz0rVjyjel92K0e8OwJnNXLeF5/+eGskDusETb+aEex0cW1QrZlUyxPRVUPX1cVkZAhh4SgvwPCddTJXEhcU/lAGRUOoc4E5rsKGkQ6e34=
+	t=1788561841; cv=none; b=FzW6fqD+dCsvNolKDNCp8WhEI7KWDw6Lf/vUvPMlMTfDQaU8HWo0GlOfEz7YAwfIDs8RkuqmtIX3EhfTtayMet1qL6h/JfKUuWvELrWD1kylV2Nfeld+nqgE1NBkZZOuixSuDMhP+8LCuI4V+gKK3vi8AnUT+oOSihg5M8dguDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788561575; c=relaxed/simple;
-	bh=iBM2Aon1Yd8l6bN24Yt2ji5Rw3iayumL16MfoDmzTJ0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ovZPvygMSo0Yseo1sye8iJ0JXWQ65ZS9EI+AtIVAoOBIBHhAi35a6feBA/bxmEHksytQdxCSKorsJktZpX5C0vSh7qF8R51QL2ssMmhfCwTnYWfFQiCkvaCfUjvc1+/WXwvcvCQjW4U7sYJoxj7NhPruiktz66zQSHk8/Hw/g84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYqH4o1A; arc=none smtp.client-ip=209.85.210.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788561841; c=relaxed/simple;
+	bh=HfVH5EMzz9zcj2NHRsaCia2CtO9Ns0wpkZxpGiGQyWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gN+kXuzbWl0fhasKYRJfHRtQvyW5i1Y7egsP6bB3snUf5uxNQdGNuYCx4ykZ2SIv74oZBr48zTrD21hu5nKncTcdLw8jz8sMx7Eq047haa4n5H9/YQqrrYm7meYOR1YDn1RQRJnAatxXOBO3ifTn3pUsDqb7o3WB/Xag5awhBYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH+vGmAy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYqH4o1A"
-Received: by mail-ot1-f53.google.com with SMTP id 46e09a7af769-7f5934ba2a5so969366a34.3
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 15:39:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788561572; x=1789166372; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=5YxDY3gpgXUEyHB4LKpf5sbAqmUcywMUpLTIkNPDeQo=;
-        b=IYqH4o1AP1c1AWeKaC+Xt3UD84zClv+5pji7iy6ErgpjwSWXJzzVtWXoy+Pds9rC3R
-         y3R2KgttIifw1xkVKdRl+UXNqjXM3wiuTLEv9GWYYJybJA0Y1D1XjPuTypHNGdwqfT5a
-         NqEbItxhiZn22NuDWHTH06VBpRz9t1QKrkucdqkVuNeAcGSEWDm4l1Bb6fD7pNZSOW49
-         Xn9OyJFpu3h+FqIz6cZ1qhXoqMz1th3uGg0V36OQGZg46L7ChLOBc81ScvuTXhifB1ZS
-         zQe8/mZ38d/nS/NPCwOegscd9hJGoxAdEkmiVTDd55LDEMmuhgOXfr2A67fVpsSyyfpP
-         WVBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788561572; x=1789166372;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=5YxDY3gpgXUEyHB4LKpf5sbAqmUcywMUpLTIkNPDeQo=;
-        b=XC3FnZEw4FUfPq1VcdW0fUkAqnf1IBieqa3r8tiOVSPCEW2/xDkSz6RF3jTTRAnQkC
-         1rDmeUGgeq3tHr6rGCVO3ljTIkaByrEUvy+Okz4IPLzO+wdEGnpBNb2AVa++Ozs9hTME
-         rs9jzQ9tvITz89RFgAWFwf0nNe2MMRr5KDwQqzIK+fSfYIvRkgbSSUu1Jcq1m8WChgPS
-         xTBQIQFtlNmbwQOUMed/79SHKKoSR3lseuvhFhlD0mwfvqGvUcvUhYs3hhA7eKFsR/TZ
-         GD+Y3AkqTOj/pZGnObeaKGvg9IRX+UixkoYiMYx3fKetmnTHIAz1cxvNAXziUr15Tf0y
-         pXzg==
-X-Forwarded-Encrypted: i=1; AKwUvBwFclEMqGW60ilyEwOVvSFSJg7dabrbQ3eYD8fp3JYZf890UvBNfpJxat697x/eCkGZwhFmLZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++l45nZRPiseDtCrR9ZhhykANaZgEdTk2YBirY9bc4uLoH/FVPez
-	GVnSYf9Mo2LIXb4NISoCx1C6jwqsowyFAbIL50XBffVyBSz2oqFToU7E
-X-Gm-Gg: AYBFou3hxLWxsRh3E7G/1phTy+zLHQMwZ5EvxvTYfzVP0tD7OzvQFaan8E3n5UmWwQD
-	NLJcBG817P7ppBxFk6aDVYyDacTB1L3E+pZcFNOnQ2uRi09UQBRwhitl6G3PGOJMBrmJE3+0Dks
-	LszD2mwB5QrMfP96XhvLKTaamnpp4js5X4C5dWSzWTLCgWXokRFRusrd8ecP5uc5a3uQwIZe5AB
-	NJGO8Em7yl0Ppd2MHdW1JmjDFf+h6eT8iepHfl9obye8ayfj/C/doIEPXSynE85oUUcvE6q+3wN
-	HxmvpkFckkhozHzyT+qLis72wP8T2AuALQUhM8UFHSEEW1FcDU42LdB1peqDfFXSNDotkALYTs6
-	HR0bumDGb1/pFuX0yclUAFNarWKSdooJHfeODtwR97gjNTRZk5UAmzaH3D4aTnjneYyyaiFRX64
-	UkbgaauI/vMiQfTP/hntC6UzfI3sijOctW4WLxEZhhcCbvXE/Wr98uf6knMtznTB9qEBZRQEcLD
-	XC4mAfebcer/WiTa3/iFIptF8xTfbKHijetESriIZQMNCMEpkOBqXiX782x1KrtlXf6ri5sE0Kv
-	Ez+5YsWOGarO2NGOwTBcya1MMxAUA+RHlrYHThZ5DU0S+1IrkbvAzcrE/ZXEdRorM3Vx+gsCxXh
-	++DoTFVHp+POCsJwwV9Q=
-X-Received: by 2002:a05:6820:1c87:b0:6a1:8192:4d89 with SMTP id 006d021491bc7-6b6fe2b1023mr6553755eaf.29.1788561572187;
-        Fri, 04 Sep 2026 15:39:32 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475523da013sm3488655fac.1.2026.09.04.15.39.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 15:39:31 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 04 Sep 2026 16:39:27 -0600
-Subject: [PATCH v2] mtd: rawnand: sunxi: fit maximized ECC step to page
- size
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH+vGmAy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CED71F00A3D;
+	Fri,  4 Sep 2026 22:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788561840;
+	bh=yIBEs8YvYOUCU6TvDhVSB8/Kdd+pjsmMutlDKBRYBV4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KH+vGmAy8blbtGE5K+Li+x8WNh6h3UNfJ6M3MRudX8a2ucHrFk0ChPc4O4uhTCsYg
+	 7wp/6ZwddAvuwqKLCcezqxpPNrgmsn5JE4ErSsX9fqskxkclO5jrLDSVtYKqGgXior
+	 KO6NrigTkjkxFU4wQ7/osFXLbuYITgrzTVR8+Y/ocIY828zTYsugCntiA/pHfCL2Il
+	 4szNZsawV/CjkW1Jjkio93x+Fh+Z7NHiNkXoc9cEoVdovurOGIkufMhqYo7j6qEqyP
+	 QcmLhz0ozj+ceQ3xkqF2a5gb4G/02GeY095lpDZVRpYvR5MZYjFVVcQDog7v23kQt4
+	 yijDwdivJT7uw==
+From: Jakub Kicinski <kuba@kernel.org>
+To: raoxu@uniontech.com
+Cc: Jakub Kicinski <kuba@kernel.org>,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	maciej.fijalkowski@intel.com,
+	kuniyu@google.com,
+	linux-usb@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v2] net: usb: ipheth: stop RX URB on ndo_stop
+Date: Fri,  4 Sep 2026 15:43:57 -0700
+Message-ID: <20260904224357.4041665-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <351B4C70CB12AE0F+20260901050604.2523039-1-raoxu@uniontech.com>
+References: <351B4C70CB12AE0F+20260901050604.2523039-1-raoxu@uniontech.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCQAyF4auUrA3EwdrqVcTFdCZqRGOZjKVQe
- nejrh7/5nsLGBdhg2OzQOFJTF7qETYNpFvUK6NkbwgU9nSgHdp7eEr10VlQo2bklNAqjzjFh+R
- YXUDitttS3w8td+DWWPgi8+/ndP63Q3dO9YvDun4AApqGjokAAAA=
-X-Change-ID: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, 
- Boris Brezillon <bbrezillon@kernel.org>
-Cc: linux-mtd@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-When nand-ecc-maximize is set, the driver unconditionally selects a
-1024-byte ECC step. A NAND with a 512-byte page consequently produces
-zero ECC steps before the available OOB bytes are divided by the step
-count.
-
-The older sunxi NAND controllers support 512-byte ECC blocks. Select the
-smaller of the page size and the preferred 1024-byte step, using a
-512-byte step for a 512-byte page while retaining 1024-byte steps for
-larger pages. Unsupported smaller steps and controllers without
-512-byte support continue to be rejected by the existing checks.
-
-Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
-Cc: stable@vger.kernel.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 ---
-Changes in v2:
-- fix ECC maximization at its source by selecting a 512-byte step for
-  512-byte pages instead of validating the derived step count
-- retain 1024-byte steps for larger pages and the existing capability checks
-- rebase on the current MTD nand/next branch
-- Link to v1: https://patch.msgid.link/20260811060651.227431-1-james.hilliard1@gmail.com
----
- drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+net: usb: ipheth: stop RX URB on ndo_stop
 
-diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 83666dd6cb2a..de1e6b49f79a 100644
---- a/drivers/mtd/nand/raw/sunxi_nand.c
-+++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -2084,7 +2084,7 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand_chip *nand,
- 	if (nanddev->ecc.user_conf.flags & NAND_ECC_MAXIMIZE_STRENGTH) {
- 		int bytes = mtd->oobsize;
- 
--		ecc->size = 1024;
-+		ecc->size = min_t(unsigned int, mtd->writesize, 1024);
- 		nsectors = mtd->writesize / ecc->size;
- 
- 		if (!nfc->caps->reg_user_data_len) {
+ipheth_close() previously stopped the netdev queue and disabled the carrier
+work but left the RX URB submitted, so an in-flight RX could still deliver
+packets and re-arm itself after an administrative link down.  This commit
+adds a usb_kill_urb() on the RX URB in ndo_stop, deliberately leaving an
+in-flight TX URB to complete on its own.
 
----
-base-commit: def559a215699aa2f2d8ef98f30156b9d562a154
-change-id: 20260904-submit-sunxi-nand-ecc-step-validation-0e571088b5e7
+> diff --git a/drivers/net/usb/ipheth.c b/drivers/net/usb/ipheth.c
+> index 2b490114d2327..6b90fe1e0e382 100644
+> --- a/drivers/net/usb/ipheth.c
+> +++ b/drivers/net/usb/ipheth.c
+> @@ -505,6 +505,7 @@ static int ipheth_close(struct net_device *net)
+>  	 * it, so that such a schedule_delayed_work() is a no-op.
+>  	 */
+>  	disable_delayed_work_sync(&dev->carrier_work);
+> +	usb_kill_urb(dev->rx_urb);
+>  	return 0;
+>  }
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+[Severity: Low]
+Can this make a plain "ip link set ethN down" print a KERN_ERR line while
+RX traffic is flowing?
 
+usb_kill_urb() does atomic_inc(&urb->reject) before it unlinks and waits,
+so a giveback that is already in progress can run ipheth_rcvbulk_callback()
+with status 0 and fall through to the resubmit:
+
+drivers/net/usb/ipheth.c:ipheth_rcvbulk_callback() {
+	...
+rx_submit:
+	dev->confirmed_pairing = true;
+	ipheth_rx_submit(dev, GFP_ATOMIC);
+}
+
+That resubmit then hits the reject check in usb_hcd_submit_urb():
+
+drivers/usb/core/hcd.c:usb_hcd_submit_urb() {
+	...
+	/* Check that the URB isn't being killed */
+	if (unlikely(atomic_read(&urb->reject))) {
+		rc = -EPERM;
+		goto done;
+	}
+
+and ipheth_rx_submit() logs that unconditionally:
+
+drivers/net/usb/ipheth.c:ipheth_rx_submit() {
+	...
+	retval = usb_submit_urb(dev->rx_urb, mem_flags);
+	if (retval)
+		dev_err(&dev->intf->dev, "%s: usb_submit_urb: %d\n",
+			__func__, retval);
+
+Before this change urb->reject was never raised on the close path, so this
+-EPERM branch was not reachable from ndo_stop.
+
+The two sites also seem to disagree about what -EPERM means: ipheth_close()
+treats the blocked resubmit as the intended outcome, while
+ipheth_rx_submit() reports it as a device error.  Would it be worth teaching
+ipheth_rx_submit() (or the rx_submit path in ipheth_rcvbulk_callback()) to
+skip the dev_err() for -EPERM?
+
+Related to that, ipheth_rcvbulk_callback() discards the return value of
+ipheth_rx_submit(), so the now-expected -EPERM and a genuine failure such
+as -ENOMEM, which leaves RX dead until the next ipheth_open(), are treated
+identically.  Should the callback distinguish them?
+
+Should the commit message also mention the new log output on the close path?
+-- 
+pw-bot: cr
