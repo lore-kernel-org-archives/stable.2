@@ -1,126 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.ssi.bg (mx.ssi.bg [193.238.174.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4478B32F764
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC5A4A3F23;
+	Fri,  4 Sep 2026 13:51:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.238.174.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529830; cv=none; b=elUZGA2AOAZ8I+oUE4461XmBNQ4wY0wT2s7TzVUp2de3v7shEjwgQEQMr7bbDqMOeuCbhQ5E+SBfsgviWGi8iF6Q5rjDaTJrnyOZbAo19vIF3luST+gPfcAJeS6H2hyxe9L9QM5o5iD35hUpFz+Tyv9nraiZd8/tAjP7YnTfji8=
+	t=1788529907; cv=none; b=V5ezTQXqHdXnPKqJRbIWMCBEnQ/qxtr8twkU/wUNySx2jID3YQZgnASrdcfPknMpTyMTpKZqsnNX4rjTi5kOeeVSSZ4IiB/1wyOJqN+KZz+d+IslzSUw2urZxMTWYwBBkRxYJXSN3TvmPp3nT7uBP0QuQFovORm46oTxA8gR5dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529830; c=relaxed/simple;
-	bh=j4UyS1/VlmlVPjN7xCCiZR9wGe9f4Pd3AN6Wi0dLRoo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IUlr6psIdtPspztSDjqWxmb+tTwAtdccWBt/OlrbnDxfEwuHDsTRapHcimX7dVKqrsDftrnWeaN8IqqDC6l3Y5I2Il2nQq6t7e/7nzLjynaSzB4D5kuooMS0dDfrNU5y73EY4qY5ORnRV7DcOgvCD/hPfBLd30kW7O0+0d1i8j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mXRojQQt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529907; c=relaxed/simple;
+	bh=UP2AOMoFiDkqCZm9fPRYAQ9P/bwunRxSM8xSykBy0nE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=V9oYlEVc0FJBjQXW6gt7invFIrlHNnQPaTsy8x90C2per0m+zqhueatoJon34fs+1Dm8UC6Se+0F/OImdxgpcxqRfUtc3HKHQg5QfrmiCvOOeh+wqGWexdmHOqfv5LSSPfsR+UyvJiurEAStvqYO7xRiOteDmynt9hLe2zXohrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg; spf=pass smtp.mailfrom=ssi.bg; dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b=kjBI7tEw; arc=none smtp.client-ip=193.238.174.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ssi.bg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ssi.bg
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mXRojQQt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548DB1F00A3F;
-	Fri,  4 Sep 2026 13:50:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529828;
-	bh=CHyVWdsfIr942oyFWzKOZ7Rr4n2/eGMJgwUYogxqLYs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mXRojQQtH47ptxtvJjyoEDsCTTXAF3g8dfM9PhfO8z5hU4R/hTZBb6zb7PU/fE+8m
-	 8kDu1hnUIwycpRCgMfPaxRZgPouZ1ktIJ/whlIZgV3/AgxahkaN5iym8CSi/LM2Voq
-	 Y7ZgYir8r/sqJjmsmobZ3nqXlwny/7eNasiqzsGzr9LwstWW4Ax8oRAoOms3hgV7Bz
-	 tAg0S2U12HchozBYh6vwLaRy00H7mIQPk4c4wIkYk9tsTZIuvqrN5eeOb4E1iyw042
-	 6Qh5eMV0VEqddEwOhDXFinZq6IEczKzyYguLN5OD+TT0RlH6gHMHM7qD8y9kz0GkzT
-	 UVCWJznjWV7Vg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Brendan Jackman <jackmanb@google.com>,
-	sashiko-bot@kernel.org,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	"Harry Yoo (Oracle)" <harry@kernel.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/page_alloc: don't spin_trylock() in NMI on UP
-Date: Fri,  4 Sep 2026 09:50:25 -0400
-Message-ID: <20260904135026.585148-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090331-gooey-backup-bb1d@gregkh>
-References: <2026090331-gooey-backup-bb1d@gregkh>
+	dkim=pass (4096-bit key) header.d=ssi.bg header.i=@ssi.bg header.b="kjBI7tEw"
+Received: from mx.ssi.bg (localhost [127.0.0.1])
+	by mx.ssi.bg (Potsfix) with ESMTP id 9BE0921CCD;
+	Fri, 04 Sep 2026 16:51:37 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ssi.bg; h=cc:cc
+	:content-type:content-type:date:from:from:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=ssi;
+	 bh=re5UvXCW6fX+YwiDYFoYO1WEu/C98eP8jKAhfROih0g=; b=kjBI7tEwrzc3
+	2Uc3NxARVTC6A+3Q5Fj0GNgULfpGokuJ6Ad2pwdub0ntCwIeqn3bRnmYt7KHXsfc
+	jpRLJuFW8ea5xSOw9WvGCwLbNqCZGQo9FNeTDcbZplZVIO5n6DIHtcTAHnoyFECf
+	qhlbj/vhCtCQURv3C5vFJAX39MxnOJV/lg5XDe0BPUPENLrjAGg6nw8ems6MEbzo
+	n92ut9i1lYAjurw4QLnKU9awQFyBnUxnmR05rSM0VOIThSTH6puT0Iiwb9TKxXpz
+	bNQeELCmmLLt99ZbJI24nsbHGBjIuqEI4ZvsWRBBpP2BYY6NuRQSI59tPhOJTQ4n
+	GSFvD/ukP1SscPcshQv78KSlSuxAbmIWPdLng7cxA8oOIR9h+VU/3XhH+pCLbxzE
+	57rq3RZOObZL+bOvABk4PoVnz8jopBD4RFbiBmLW5iYidd41oglrX9CUTFf2pb5n
+	yOU2SDARNng8RcOvN8eZp06zqVO9moeuOvfrfyYeIf6Oy7dHr1iZwqV/11PuPpEr
+	tpj6YjIIKL7MrpxZuHGi9RDZcC6mQyOOeDJK162VTafGfgxs2pZsYbW0sCevinMF
+	jhcbdCulo8EysPNFT0jahVNksvlJ0bS/CrEY2ovBm48aKPyi17eEgRTdxptR9IEv
+	cVEsujMHfVGh4IwHT7momdgzhYvWDnI=
+Received: from box.ssi.bg (box.ssi.bg [193.238.174.46])
+	by mx.ssi.bg (Potsfix) with ESMTPS;
+	Fri, 04 Sep 2026 16:51:37 +0300 (EEST)
+Received: from ja.ssi.bg (unknown [213.16.62.126])
+	by box.ssi.bg (Potsfix) with ESMTPSA id 9A36760236;
+	Fri,  4 Sep 2026 16:51:38 +0300 (EEST)
+Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
+	by ja.ssi.bg (8.18.2/8.18.2) with ESMTP id 684DpWEu052369;
+	Fri, 4 Sep 2026 16:51:34 +0300
+Date: Fri, 4 Sep 2026 16:51:32 +0300 (EEST)
+From: Julian Anastasov <ja@ssi.bg>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+cc: Simon Horman <horms@verge.net.au>, Pablo Neira Ayuso <pablo@netfilter.org>,
+        netdev@vger.kernel.org, lvs-devel@vger.kernel.org,
+        netfilter-devel@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH net] ipvs: shut down destination trash timer on netns
+ cleanup
+In-Reply-To: <20260904071908.4052966-1-runyu.xiao@seu.edu.cn>
+Message-ID: <98268ae8-1007-78c7-8124-2d37454d8b46@ssi.bg>
+References: <20260904071908.4052966-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Brendan Jackman <jackmanb@google.com>
 
-[ Upstream commit 3105ae628fb785d48b49256468be4f21a7b3cfc0 ]
+	Hello,
 
-Patch series "mm/page_alloc: fixes for free_pages_nolock() on RT/UP".
+On Fri, 4 Sep 2026, Runyu Xiao wrote:
 
-Pre-existing bugs found by Sashiko during review of this other series:
-https://lore.kernel.org/all/20260703-alloc-trylock-v5-0-c87b714e19d3@google.com/
+> ip_vs_dest_trash_expire() accesses the per-network-namespace IPVS state
+> and rearms the destination trash timer while entries remain.  The
+> cleanup path uses timer_delete_sync(), which waits for a running callback
+> but still allows a racing callback to rearm the timer.
 
-I have not reproduced these bugs, and I suspect there is no real-world
-user that is affected by them.
+	timer_delete_sync() can safely stop timer if it
+is rearmed by its callback: __timer_delete_sync() waits
+the callback to finish (the callback can rearm it) and
+then detach it if pending. There must be another call flow
+that can rearm it later, otherwise this patch is not needed.
 
-This patch (of 2):
+	During cleanup, we do not start the timer from
+ip_vs_trash_put_dest(). May be I'm missing something?
 
-As noted in can_spin_trylock(), using this is unsafe in this context.
-commit 620b46ed6ae17 ("mm/page_alloc: return NULL early from
-alloc_frozen_pages_nolock() in NMI on UP") fixed this on the alloc side
-but missed the free side.
+> Use timer_shutdown_sync() when the per-network-namespace destination
+> trash is finally cleaned up.  This prevents the callback from being
+> queued again before the IPVS state is released.
+> 
+> Fixes: f2431e6e9255 ("IPVS: netns, trash handling")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> 
+> diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+> index 4c1c73944..0eb6cdb5f 100644
+> --- a/net/netfilter/ipvs/ip_vs_ctl.c
+> +++ b/net/netfilter/ipvs/ip_vs_ctl.c
+> @@ -1192,7 +1192,7 @@ static void ip_vs_trash_cleanup(struct netns_ipvs *ipvs)
+>  {
+>  	struct ip_vs_dest *dest, *nxt;
+>  
+> -	timer_delete_sync(&ipvs->dest_trash_timer);
+> +	timer_shutdown_sync(&ipvs->dest_trash_timer);
+>  	/* No need to use dest_trash_lock */
+>  	list_for_each_entry_safe(dest, nxt, &ipvs->dest_trash, t_list) {
+>  		list_del(&dest->t_list);
+> -- 
+> 2.34.1
 
-Impact: If BPF programs using these features in NMI (probably tracing) are
-present on non-SMP builds this might crash the kernel and is probably
-exploitable by local attackers for privilege escalation.
+Regards
 
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-0-fadc49952dda@google.com
-Link: https://lore.kernel.org/20260715-alloc-nolock-fixes-v1-1-fadc49952dda@google.com
-Fixes: 8c57b687e833 ("mm, bpf: Introduce free_pages_nolock()")
-Signed-off-by: Brendan Jackman <jackmanb@google.com>
-Reported-by: sashiko-bot@kernel.org
-Closes: https://sashiko.dev/#/patchset/20260703-alloc-trylock-v5-0-c87b714e19d3%40google.com?part=18
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/page_alloc.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 775e02b797a3b..5beada35e4793 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -2965,8 +2965,10 @@ static void __free_frozen_pages(struct page *page, unsigned int order,
- 		migratetype = MIGRATE_MOVABLE;
- 	}
- 
--	if (unlikely((fpi_flags & FPI_TRYLOCK) && IS_ENABLED(CONFIG_PREEMPT_RT)
--		     && (in_nmi() || in_hardirq()))) {
-+	if (unlikely((fpi_flags & FPI_TRYLOCK) &&
-+		     ((IS_ENABLED(CONFIG_PREEMPT_RT) &&
-+		       (in_nmi() || in_hardirq())) ||
-+		      (!IS_ENABLED(CONFIG_SMP) && in_nmi())))) {
- 		add_page_to_zone_llist(zone, page, order);
- 		return;
- 	}
--- 
-2.53.0
+--
+Julian Anastasov <ja@ssi.bg>
 
