@@ -1,138 +1,123 @@
-Received: from mail-43102.protonmail.ch (mail-43102.protonmail.ch [185.70.43.102])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BCD3B6C0A
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.102
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C2CB650AC0F
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541160; cv=none; b=VDdpcA4h6D+mxnbkl7x34rBLAXDvNGgLuYVmIr2LcjcDWY6KymSQjsOgVGkKZ84O4xwqQK0qP6R0OEevP6VYd+BcYFexc+A+j2YhnUS8lRi36RoGBVAkkQYR1jt69XxcGtefbvylD9T412VVDxdyj2vkkKaIL3cMKRR9niYQ1wo=
+	t=1788541182; cv=none; b=f+SHu2KCdz6Qi9qqYqO97DD/R/SccRccQepLP/QS5t6GynUGSSAj5d1S9DKtWjoRfkzd/AK+HW5A/w58azZCczJtpsCLFqA1tKe2/vlMx9Qf3Foz3xegbcb0FmAkL51Beepoix5aTN6IVTxuKd2xaQHnHOJCW6Rnnux42stKz1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541160; c=relaxed/simple;
-	bh=o9Q6bSxOywdc7gF+cE+BCQuIJUchKN3az3fgt5KoPWY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZGvXVx8g59/jY5ruVgvs+TLDM7dx/zM1jrnOA99tK5sOG6H0BPkDoGPjS18P7MLItaTTyRhMgr+JvsuzwCT2aFfL+mHCygdwXW9xgajCIAk8QWOs7SWqPSziBGmhOufTcyOM35/oCrCrfDxVpuST7OwdISoFCtTt7eWDSqnz5+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Hq7sWd89; arc=none smtp.client-ip=185.70.43.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788541182; c=relaxed/simple;
+	bh=pUGiK76B/cGSXLCAJDeQJWe6X+z6/ttgCiv66ralV/s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=jcsAXJ7ag1QxpFPkWPKHPdlR4LGIwyTBtyjVXELFBUoZSJXxSoEKBX5rThAv+BgY8IGfWwpdc4bqDM0iBAUtAqWgS3kXE1YCtS9v8WWrD/hsWEonGyCC124kT09R80klVEP+KZ8NcvVN5X/sLAbGbLHySfxcVkPm6jemv/EwdD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WVzc1af6; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Hq7sWd89"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1788541148; x=1788800348;
-	bh=DSNbEdW7Jvy+2LDd2zlNN7BRgqvrqs518O/OJb2Se7M=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Hq7sWd89bvWNlHoJ7+9RO1ndSmN4ebuMzzNocWnbPE0QOIJkY3B+MaDZMmp1DkjCB
-	 L0ojTXbua3aCPMeDWn/SWa+bc3dQVZZPrpD4aUChnFI6cVQW99BlJdXOlVyQ2d7R4+
-	 qRMTc2iRATabkyE/hmEWK595mVQmIsRTZNZixBKeWzRBlJql1aXtKBHDig82chVgW6
-	 +bCxrHqtkOdj0QT3u+mgxtUatD/HLTjE+zGTfPYkiY5rmgiJrCLeXOL9pHAY0pizuk
-	 mnZO/B4ZHMmpHuHEI27QxGFEIKDza6H1R80zIte/e2vEurtgzUOwtKVN1WGUJQo4IT
-	 kgOe2Nxx6azPQ==
-Date: Fri, 04 Sep 2026 16:58:57 +0000
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Cole Munz <Munzzyy1@proton.me>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v2] usb: dwc3: gadget: don't error on dequeue of a completed request
-Message-ID: <7bef11b63feb88f89b37bbc86323ed3dba794f43.1788541086.git.Munzzyy1@proton.me>
-In-Reply-To: <2026090406-unrevised-stays-4832@gregkh>
-References: <20260904161344.2191362-1-Munzzyy1@proton.me> <2026090406-unrevised-stays-4832@gregkh>
-Feedback-ID: 209578162:user:proton
-X-Pm-Message-ID: 47c0cd66bb113c2f63ae6620b0e6fc449b32e129
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WVzc1af6"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 272F2153B;
+	Fri,  4 Sep 2026 09:59:36 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 75EA53F673;
+	Fri,  4 Sep 2026 09:59:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788541179; bh=pUGiK76B/cGSXLCAJDeQJWe6X+z6/ttgCiv66ralV/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=WVzc1af6BsoBN+nSWzGu7WuzcrXUgXXhkngtMEHQvkQu14E0Ge9JYX/Qv5SHpWfXl
+	 jfmqv9NQQatVww2rTjQ+T2HARXaDpUs50Spu3XanEmF/cpCN6Pe8iKGz8A0yxmmpiJ
+	 Qf1PBDRJeqmXVQEZzyZQWk2Vxa5Ja4/Jla7oXmOo=
+From: Mark Rutland <mark.rutland@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com,
+	ardb@kernel.org,
+	catalin.marinas@arm.com,
+	cl@gentwo.org,
+	david.laight.linux@gmail.com,
+	james.morse@arm.com,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	peterz@infradead.org,
+	ruanjinjie@huawei.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com,
+	vladimir.murzin@arm.com,
+	will@kernel.org,
+	yang@os.amperecomputing.com
+Subject: [PATCH v3 13/21] arm64: entry: sdei: Make 'tsk' available
+Date: Fri,  4 Sep 2026 17:59:26 +0100
+Message-Id: <20260904165926.377036-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
+References: <20260904161758.376504-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Dequeuing a request that has already been given back logs an error and
-returns -EINVAL:
+For regular entry/exit sequences, we use 'tsk' (x28) to hold the current
+task pointer, allowing this to be used by various assembly macros. The
+SDEI entry/exit sequence uses x28 to hold the value of the interrupted
+sp_el0, and doesn't retain the current task pointer in a register.
 
-  dwc3 23000000.usb: request 00000000ad92f1c4 was not queued to ep0out
+These differences makes it awkward to share assembly macros across
+regular entry/exit and SDEI entry/exit, and risk surprises.
 
-f_fs hits this on every teardown. functionfs_unbind() dequeues ep0req
-unconditionally before freeing it, which
-commit ce405d561b02 ("usb: gadget: f_fs: Ensure ep0req is dequeued
-before free_request") made deliberate to close a use-after-free. By then
-the control transfer has long completed, so dwc3_gadget_ep_dequeue()
-finds the request on none of cancelled_list, pending_list or
-started_list and falls through to the error path.
+Align the SDEI entry/exit sequence with regular entry/exit, keeping the
+current task pointer in 'tsk', and preserving the interrupted sp_el0 in
+another (callee-saved) register. I've used x20 as x19 was already in
+used for the relevant sdei_registered_event, and these are the
+lowest-numbered registers above x18 (which we must preserve for shadow
+call stack).
 
-Nothing is actually wrong. The request is not queued, which is what the
-caller asked for, and both callers ignore the return value and free the
-request straight after. The only effect is an error line in every gadget
-teardown, which buries real USB errors.
-
-dwc3 already tracks enough to tell the two cases apart.
-dwc3_gadget_ep_alloc_request() sets DWC3_REQUEST_STATUS_UNKNOWN, both
-__dwc3_gadget_ep_queue() and __dwc3_gadget_ep0_queue() set
-DWC3_REQUEST_STATUS_QUEUED, and dwc3_gadget_giveback() sets
-DWC3_REQUEST_STATUS_COMPLETED. A request that reaches the end of dequeue
-with status COMPLETED was queued to this endpoint and has finished.
-Anything else was never queued here, or the driver lost track of it.
-Keep the error for those, and return success for a completed request.
-
-A completed request still has to be dequeued on the endpoint it belongs
-to. req->dep is set once at allocation and never changes, and
-__dwc3_gadget_ep_queue() rejects the same mismatch with a WARN, so a
-wrong-endpoint dequeue stays on the error path here as well.
-
-This is narrower than the cdnsp fix for the same caller,
-commit 34f08eb0ba6e ("usb: cdnsp: Fixes issue with dequeuing not queued
-requests"), which returns 0 whenever usb_request::status is not
--EINPROGRESS. That also swallows a request that was never queued, since
-status is zero out of allocation. Going by dwc3's own request status
-keeps that case an error, which is what was asked for when a separate
-ep0 dequeue was proposed in 2022.
-
-Fixes: 72246da40f37 ("usb: Introduce DesignWare USB3 DRD Driver")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/linux-usb/20221117054917.30104-1-quic_ugoswam=
-i@quicinc.com/
-Assisted-by: LLM sparse
-Signed-off-by: Cole Munz <Munzzyy1@proton.me>
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yang Shi <yang@os.amperecomputing.com>
 ---
-All three were missing, sorry about that.
+ arch/arm64/kernel/entry.S | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-v2: add Fixes:, Cc: stable and Assisted-by tags. No code change.
-
- drivers/usb/dwc3/gadget.c | 19 ++++++++++++++++---
- 1 file changed, 16 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index fa944856f956..f68eb9254afa 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -2181,9 +2181,22 @@ static int dwc3_gadget_ep_dequeue(struct usb_ep *ep,
- =09=09}
- =09}
-=20
--=09dev_err(dwc->dev, "request %p was not queued to %s\n",
--=09=09request, ep->name);
--=09ret =3D -EINVAL;
-+=09/*
-+=09 * The request is on none of this endpoint's lists. That is the
-+=09 * expected state once it has been given back: a function may dequeue
-+=09 * a request before freeing it, and f_fs does so unconditionally for
-+=09 * ep0req in functionfs_unbind(). Nothing is queued, which is what the
-+=09 * caller asked for, so report success. Any other status means the
-+=09 * request was never queued here or the driver lost track of it, and
-+=09 * stays an error. So does a completed request handed to the wrong
-+=09 * endpoint: req->dep is fixed at allocation, and the queue side
-+=09 * rejects the same mismatch.
-+=09 */
-+=09if (req->status !=3D DWC3_REQUEST_STATUS_COMPLETED || req->dep !=3D dep=
-) {
-+=09=09dev_err(dwc->dev, "request %p was not queued to %s\n",
-+=09=09=09request, ep->name);
-+=09=09ret =3D -EINVAL;
-+=09}
- out:
- =09spin_unlock_irqrestore(&dwc->lock, flags);
-=20
---=20
-2.55.0
-
+diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
+index a6ec5c5a2d29c..0902c1bd9dd3d 100644
+--- a/arch/arm64/kernel/entry.S
++++ b/arch/arm64/kernel/entry.S
+@@ -1023,11 +1023,12 @@ SYM_CODE_START(__sdei_asm_handler)
+ 
+ 	/*
+ 	 * We may have interrupted userspace, or a guest, or exit-from or
+-	 * return-to either of these. We can't trust sp_el0, restore it.
++	 * return-to either of these. Preserve the interrupted sp_el0, and
++	 * initialize sp_el0 to the current task.
+ 	 */
+-	mrs	x28, sp_el0
+-	ldr_this_cpu	dst=x0, sym=__entry_task, tmp=x1
+-	msr	sp_el0, x0
++	mrs	x20, sp_el0
++	ldr_this_cpu    dst=tsk, sym=__entry_task, tmp=x1
++	msr	sp_el0, tsk
+ 
+ 	/* If we interrupted the kernel point to the previous stack/frame. */
+ 	and     x0, x3, #0xc
+@@ -1043,7 +1044,7 @@ SYM_CODE_START(__sdei_asm_handler)
+ 	mov	x1, x19
+ 	bl	__sdei_handler
+ 
+-	msr	sp_el0, x28
++	msr	sp_el0, x20
+ 	/* restore regs >x17 that firmware won't restore */
+ 	mov	x4, x19         // keep x4 for __sdei_asm_exit_trampoline
+ 	ldp	x18, x19, [x4, #SDEI_EVENT_INTREGS + 16 * 9]
+-- 
+2.30.2
 
