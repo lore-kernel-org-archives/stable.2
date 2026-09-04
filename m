@@ -1,73 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6304A5C4A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5214EA394
 	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553932; cv=none; b=ZtGhUDzlZrC0MBvOa5ek/akgqdW5LHsotEiZa7pWiBSyXLxhNLiA9xg2A5XjTl44GhimHm2bYwnG40eSIhKPUMiwHeiqPFbHnF8yXYb6K59T0l3+BT3P55poMFW7PdXLVKQFLxMNbSgoI8LpZZ0iT1gnYft88xpdge+tU1DucOM=
+	t=1788553932; cv=none; b=UxDAPfZfd3RxuwzNx29W3vXWRzixcsW+/RQO7DaK3ML8lIlCfB4f0HGDrc0oIcXQ7EyG3qQF2WwUMXben3ySMuOkyf2+2w1dxK1AktVbdoxgt9eC5DPhsPKLi+iLrNUh3waC03E/AA+KToyjYvaasCQfcL62ZIyPDpa/cFySFKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788553932; c=relaxed/simple;
-	bh=fiKBn/XLASKhW0bKJCUmDkFyPyClr+dWOvE0vj5uIGY=;
+	bh=DzQsuW8MfS+GkYuj0xuBh+J/kyNdtgsxJLUaRQbJlW8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bEnhGgL9f7ERmHm91hYRjCJ7uQoh9ouZ1oD2o0PL97huBWaxy11RU5cX617BplUGUxDsnSrtROK8Muv1sRwSuurk0F2FlL2jWKCh/T4nb+t2DH7w1pdvn+sX7cvigdmWWJhZylmmD5cPX9WLH5LYwQEV1DpI6iPlEj4n3qOsSx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhI+89nw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WbpBszntd5qgstuJGmib3X6VaLXoOeyAt5m4lrsU9+CzDM4VrjS/+tsZDvRtkT9PkCjGjEq3uCtkKjIHamvha/dTixhz6jikvrMhtba0eCw74yZHGpDSbVvnf/FiOJYW5F/+YrD2+5kHm3J4aFL4bnip9qtDMLP4DESEToLTRcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itgPqsJl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhI+89nw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D1B1F00ACA;
-	Fri,  4 Sep 2026 20:32:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itgPqsJl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430F01F00AC4;
+	Fri,  4 Sep 2026 20:32:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553926;
-	bh=JnIZgHzrEHITN9RNc5kqZtJHtYSSY+gdz6sIQ4v+Kd4=;
+	s=k20260515; t=1788553925;
+	bh=xxHg4RdsOct2KGaqTZxn2TimW/QZNmuehTG9QVpeOsE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FhI+89nwMP1eip/c+1TTWHzw/in016imFEUKqP99RVNJrqyH0iyQ0bwgBciMB/pc9
-	 lmczSqjxW/V0aSj+GXnDbfOwW4CIwb1E08nTmqb9qf8bArpVcu5iHNFhUNZUXLrbFL
-	 Rmzuy7q2WK11XuL1ZW9t90u90fX97WRc/c6lXS1NRIJP1KRSAXbL6pYuvN/8869+HZ
-	 KDoel3c/iZ+0af4UtUjgkYjlzgzQ5B7TjJ6ecKsMZfQAmXk94/d8fu+z4IQtYYwRCU
-	 HZEb8DJjVmX7fQ8jLysrs/8zRaphgWEsWceJ7d0AbBnGrBeCw7ZK48ZW3YL9i4qhkl
-	 rKmptNC9nXwaw==
+	b=itgPqsJlz25TdMjr+Lzbu71q7WwwJGXIWA+pPRZHe5A5CGXHesvAnwAZzxtgK4lb2
+	 gES5sUMX2HOZEdzUPmz7/u8O/9N3xEqEGjUw1wxTfRRb1rpUwswiPQGqRpxSVAyDux
+	 CHBNmTdhGSh+wZiaRjDRL/t7CQ0H6sVqOgLe1vG3yiaA7sIhCakY/IVM4udsjhtm6h
+	 AiFrhQ1aQUYexmQwOrSHvwtanap4y5JrD2kFlLpNtEN01yopsNfsLsjx7dlW3H8j1J
+	 eN9oyW9u+YfUFVPFEojR2jYUm0w0avggsYxxetuCIsOWCt2P3aNJ2kjmMb2kKN2Oua
+	 E910n/Z8vuu1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Minchan Kim <minchan@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Subject: [PATCH 6.6.y 1/4] zram: use zram_read_from_zspool() in writeback
 Date: Fri,  4 Sep 2026 16:32:00 -0400
-Message-ID: <20260904203200.1546524-2-sashal@kernel.org>
+Message-ID: <20260904203203.1546745-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904203200.1546524-1-sashal@kernel.org>
-References: <2026090327-numerous-array-4fc1@gregkh>
- <20260904203200.1546524-1-sashal@kernel.org>
+In-Reply-To: <2026090305-dimly-backboned-037d@gregkh>
+References: <2026090305-dimly-backboned-037d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,83 +46,253 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dev Jain <dev.jain@arm.com>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit e87df0d5d6962bde50f55f6d02b779daa394f894 ]
+[ Upstream commit b8d3ff7bb5111c6a88d5672469de445d9b46cf22 ]
 
-check_pte() is the final validation step in page_vma_mapped_walk().  It
-reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
-range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
-entry.
+We only can read pages from zspool in writeback, zram_read_page() is not
+really right in that context not only because it's a more generic function
+that handles ZRAM_WB pages, but also because it requires us to unlock slot
+between slot flag check and actual page read.  Use zram_read_from_zspool()
+instead and do slot flags check and page read under the same slot lock.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
-
-It is not clear whether this has a trivially visible effect to userspace.
-
-Use huge_ptep_get() to dereference a huge pte pointer.
-
-Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
+Link: https://lkml.kernel.org/r/20241218063513.297475-7-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Minchan Kim <minchan@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 894913e2d35c ("zram: fix out-of-bounds access in writeback_store()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_vma_mapped.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/block/zram/zram_drv.c | 136 ++++++++++++++++++----------------
+ 1 file changed, 71 insertions(+), 65 deletions(-)
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index d9ee1a33db344..6e4482bc06a95 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -85,7 +85,13 @@ static inline bool pfn_is_match(struct page *page, unsigned long pfn)
- static bool check_pte(struct page_vma_mapped_walk *pvmw)
- {
- 	unsigned long pfn;
--	pte_t ptent = ptep_get(pvmw->pte);
-+	pte_t ptent;
-+
-+	if (is_vm_hugetlb_page(pvmw->vma))
-+		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-+				      pvmw->pte);
-+	else
-+		ptent = ptep_get(pvmw->pte);
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 0c422e4179ad5..d547f2d251fd2 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -54,8 +54,8 @@ static size_t huge_class_size;
+ static const struct block_device_operations zram_devops;
  
- 	if (pvmw->flags & PVMW_MIGRATION) {
- 		swp_entry_t entry;
+ static void zram_free_page(struct zram *zram, size_t index);
+-static int zram_read_page(struct zram *zram, struct page *page, u32 index,
+-			  struct bio *parent);
++static int zram_read_from_zspool(struct zram *zram, struct page *page,
++				 u32 index);
+ 
+ static int zram_slot_trylock(struct zram *zram, u32 index)
+ {
+@@ -623,19 +623,42 @@ static void read_from_bdev_async(struct zram *zram, struct page *page,
+ #define IDLE_WRITEBACK			(1<<1)
+ #define INCOMPRESSIBLE_WRITEBACK	(1<<2)
+ 
++/* Map newer writeback setup context to the 6.6 page allocation. */
++#define zram_pp_ctl page
++#define pp_ctl page
++#define init_pp_ctl() alloc_page(GFP_KERNEL)
++
+ static ssize_t writeback_store(struct device *dev,
+-		struct device_attribute *attr, const char *buf, size_t len)
++			       struct device_attribute *attr,
++			       const char *buf, size_t len)
+ {
+ 	struct zram *zram = dev_to_zram(dev);
+-	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+-	unsigned long index = 0;
++	u64 nr_pages = zram->disksize >> PAGE_SHIFT;
++	unsigned long lo = 0, hi = nr_pages;
++	struct zram_pp_ctl *pp_ctl = NULL;
++	ssize_t ret = len;
++	int err, mode = 0;
+ 	struct bio bio;
+ 	struct bio_vec bio_vec;
+-	struct page *page;
+-	ssize_t ret = len;
+-	int mode, err;
+ 	unsigned long blk_idx = 0;
+ 
++	guard(rwsem_write)(&zram->init_lock);
++	if (!init_done(zram))
++		return -EINVAL;
++
++	if (!zram->backing_dev)
++		return -ENODEV;
++
++	nr_pages = zram->disksize >> PAGE_SHIFT;
++	hi = nr_pages;
++
++	pp_ctl = init_pp_ctl();
++	if (!pp_ctl)
++		return -ENOMEM;
++#undef init_pp_ctl
++#undef pp_ctl
++#undef zram_pp_ctl
++
+ 	if (sysfs_streq(buf, "idle"))
+ 		mode = IDLE_WRITEBACK;
+ 	else if (sysfs_streq(buf, "huge"))
+@@ -645,35 +668,22 @@ static ssize_t writeback_store(struct device *dev,
+ 	else if (sysfs_streq(buf, "incompressible"))
+ 		mode = INCOMPRESSIBLE_WRITEBACK;
+ 	else {
+-		if (strncmp(buf, PAGE_WB_SIG, sizeof(PAGE_WB_SIG) - 1))
+-			return -EINVAL;
++		if (strncmp(buf, PAGE_WB_SIG, sizeof(PAGE_WB_SIG) - 1)) {
++			ret = -EINVAL;
++			goto release_init_lock;
++		}
+ 
+-		if (kstrtol(buf + sizeof(PAGE_WB_SIG) - 1, 10, &index) ||
+-				index >= nr_pages)
+-			return -EINVAL;
++		if (kstrtoul(buf + sizeof(PAGE_WB_SIG) - 1, 10, &lo) ||
++		    lo >= nr_pages) {
++			ret = -EINVAL;
++			goto release_init_lock;
++		}
+ 
+-		nr_pages = 1;
++		hi = lo + 1;
+ 		mode = PAGE_WRITEBACK;
+ 	}
+ 
+-	down_read(&zram->init_lock);
+-	if (!init_done(zram)) {
+-		ret = -EINVAL;
+-		goto release_init_lock;
+-	}
+-
+-	if (!zram->backing_dev) {
+-		ret = -ENODEV;
+-		goto release_init_lock;
+-	}
+-
+-	page = alloc_page(GFP_KERNEL);
+-	if (!page) {
+-		ret = -ENOMEM;
+-		goto release_init_lock;
+-	}
+-
+-	for (; nr_pages != 0; index++, nr_pages--) {
++	for (; lo < hi; lo++) {
+ 		spin_lock(&zram->wb_limit_lock);
+ 		if (zram->wb_limit_enable && !zram->bd_wb_limit) {
+ 			spin_unlock(&zram->wb_limit_lock);
+@@ -690,40 +700,38 @@ static ssize_t writeback_store(struct device *dev,
+ 			}
+ 		}
+ 
+-		zram_slot_lock(zram, index);
+-		if (!zram_allocated(zram, index))
++		zram_slot_lock(zram, lo);
++		if (!zram_allocated(zram, lo))
+ 			goto next;
+ 
+-		if (zram_test_flag(zram, index, ZRAM_WB) ||
+-				zram_test_flag(zram, index, ZRAM_SAME) ||
+-				zram_test_flag(zram, index, ZRAM_UNDER_WB))
++		if (zram_test_flag(zram, lo, ZRAM_WB) ||
++				zram_test_flag(zram, lo, ZRAM_SAME) ||
++				zram_test_flag(zram, lo, ZRAM_UNDER_WB))
+ 			goto next;
+ 
+ 		if (mode & IDLE_WRITEBACK &&
+-		    !zram_test_flag(zram, index, ZRAM_IDLE))
++		    !zram_test_flag(zram, lo, ZRAM_IDLE))
+ 			goto next;
+ 		if (mode & HUGE_WRITEBACK &&
+-		    !zram_test_flag(zram, index, ZRAM_HUGE))
++		    !zram_test_flag(zram, lo, ZRAM_HUGE))
+ 			goto next;
+ 		if (mode & INCOMPRESSIBLE_WRITEBACK &&
+-		    !zram_test_flag(zram, index, ZRAM_INCOMPRESSIBLE))
++		    !zram_test_flag(zram, lo, ZRAM_INCOMPRESSIBLE))
+ 			goto next;
+ 
+ 		/*
+ 		 * Clearing ZRAM_UNDER_WB is duty of caller.
+ 		 * IOW, zram_free_page never clear it.
+ 		 */
+-		zram_set_flag(zram, index, ZRAM_UNDER_WB);
++		zram_set_flag(zram, lo, ZRAM_UNDER_WB);
+ 		/* Need for hugepage writeback racing */
+-		zram_set_flag(zram, index, ZRAM_IDLE);
+-		zram_slot_unlock(zram, index);
+-		if (zram_read_page(zram, page, index, NULL)) {
+-			zram_slot_lock(zram, index);
+-			zram_clear_flag(zram, index, ZRAM_UNDER_WB);
+-			zram_clear_flag(zram, index, ZRAM_IDLE);
+-			zram_slot_unlock(zram, index);
+-			continue;
++		zram_set_flag(zram, lo, ZRAM_IDLE);
++		if (zram_read_from_zspool(zram, page, lo)) {
++			zram_clear_flag(zram, lo, ZRAM_UNDER_WB);
++			zram_clear_flag(zram, lo, ZRAM_IDLE);
++			goto next;
+ 		}
++		zram_slot_unlock(zram, lo);
+ 
+ 		bio_init(&bio, zram->bdev, &bio_vec, 1,
+ 			 REQ_OP_WRITE | REQ_SYNC);
+@@ -736,10 +744,10 @@ static ssize_t writeback_store(struct device *dev,
+ 		 */
+ 		err = submit_bio_wait(&bio);
+ 		if (err) {
+-			zram_slot_lock(zram, index);
+-			zram_clear_flag(zram, index, ZRAM_UNDER_WB);
+-			zram_clear_flag(zram, index, ZRAM_IDLE);
+-			zram_slot_unlock(zram, index);
++			zram_slot_lock(zram, lo);
++			zram_clear_flag(zram, lo, ZRAM_UNDER_WB);
++			zram_clear_flag(zram, lo, ZRAM_IDLE);
++			zram_slot_unlock(zram, lo);
+ 			/*
+ 			 * BIO errors are not fatal, we continue and simply
+ 			 * attempt to writeback the remaining objects (pages).
+@@ -762,18 +770,18 @@ static ssize_t writeback_store(struct device *dev,
+ 		 * mark ZRAM_IDLE once it found the slot was ZRAM_UNDER_WB.
+ 		 * Thus, we could close the race by checking ZRAM_IDLE bit.
+ 		 */
+-		zram_slot_lock(zram, index);
+-		if (!zram_allocated(zram, index) ||
+-			  !zram_test_flag(zram, index, ZRAM_IDLE)) {
+-			zram_clear_flag(zram, index, ZRAM_UNDER_WB);
+-			zram_clear_flag(zram, index, ZRAM_IDLE);
++		zram_slot_lock(zram, lo);
++		if (!zram_allocated(zram, lo) ||
++			  !zram_test_flag(zram, lo, ZRAM_IDLE)) {
++			zram_clear_flag(zram, lo, ZRAM_UNDER_WB);
++			zram_clear_flag(zram, lo, ZRAM_IDLE);
+ 			goto next;
+ 		}
+ 
+-		zram_free_page(zram, index);
+-		zram_clear_flag(zram, index, ZRAM_UNDER_WB);
+-		zram_set_flag(zram, index, ZRAM_WB);
+-		zram_set_element(zram, index, blk_idx);
++		zram_free_page(zram, lo);
++		zram_clear_flag(zram, lo, ZRAM_UNDER_WB);
++		zram_set_flag(zram, lo, ZRAM_WB);
++		zram_set_element(zram, lo, blk_idx);
+ 		blk_idx = 0;
+ 		atomic64_inc(&zram->stats.pages_stored);
+ 		spin_lock(&zram->wb_limit_lock);
+@@ -781,15 +789,13 @@ static ssize_t writeback_store(struct device *dev,
+ 			zram->bd_wb_limit -=  1UL << (PAGE_SHIFT - 12);
+ 		spin_unlock(&zram->wb_limit_lock);
+ next:
+-		zram_slot_unlock(zram, index);
++		zram_slot_unlock(zram, lo);
+ 	}
+ 
+ 	if (blk_idx)
+ 		free_block_bdev(zram, blk_idx);
+ 	__free_page(page);
+ release_init_lock:
+-	up_read(&zram->init_lock);
+-
+ 	return ret;
+ }
+ 
 -- 
 2.53.0
 
