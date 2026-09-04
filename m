@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3CE51E45A
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 18:45:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4D051C331
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 18:49:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788547504; cv=none; b=tSo5yr+5JK8kYyeUuEFWG7py9pP4oF6P0J268fe74BwB5eu6rqswd5mHlzyJ9130PPG+LpzxhiJQTTvYBlxucMU9OBBSrCPBLB3oz1DdKb10dHDet1ygBo/FzovQCie4Xxzvysh45EPiKmnojRMEe99OEZiIoThMryTxhXaY95Y=
+	t=1788547795; cv=none; b=LAe5OHLhF0V/QmpLAKIcvhgiyRoMxjlnPv6nwuCrzIjRwwaaRwDrXDq0/U4XXUtbcYfVrwExXjskBK95ZKnZs6q+jYlwG3vWaOaOrUPG0uVNe1OZMBa4xgM55bCFyZtzBn2SzHNKgjK/kKs9TWGUOgFDzEtfz0Uh419V2QRN7Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788547504; c=relaxed/simple;
-	bh=48AKiUMBx+CoNNrc8Pt4qIgzacSmMbysK35CY29ztoo=;
+	s=arc-20240116; t=1788547795; c=relaxed/simple;
+	bh=EBNg/Gg0MmpJ0ZsWFicZ7v8yzWxApFVcWDKHIrGbFsU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BXpzE+J3kji1XEjdYSOwDwdNmaeAk3BAKH+GU9+R3DqCkWvMSnduKtb0scr1FFdWz828J9bAq3a1bzVmaa4ZTFDahiRbnrAs688HheUE4JPg8KylXO4WaD9ytNyG6ksTjoV4/dMHaG4uv6574v2F9q0F2IVT+aflnJvYwlm8GX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdfQdUQN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JweHxU+5+sUJrJUpbzuZQDTJgwYs2qyYpeByfVKR9kGflKEgpCgSN/xcmLhucv0C3yNp8E5trcU3Au7+ysFn948JrenEsUXOcUh/7ZsPYU5i0RT9raptZEkyLBZZPyjvcE7sBAcXGEAsP7byCZTsjkk6j+DKdmq3/hyJ1n929Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9bYvEVm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdfQdUQN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1591F00A3F;
-	Fri,  4 Sep 2026 18:45:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9bYvEVm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16D0B1F00A3D;
+	Fri,  4 Sep 2026 18:49:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788547503;
-	bh=mEHsYJOHSryjv1njVJgnA5+qKPs6zE+GmgJsiB6ZT+8=;
+	s=k20260515; t=1788547792;
+	bh=zfZBSXb90vl+AkWB64pA4J3YN0CD3lEkIsj5oLMjkYs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IdfQdUQNLjpDcWLLdncETcUV2Igp6qYHo8LrZSvNdoQhlEcQ2CzwmRU3YUSaMmBLT
-	 jdVIR4ctIJAJtycqLaRlmaWnfQRYvDpx6/Q86lNv7JOW4Qc5YDIfNZXcn50KkEkJQv
-	 anN9CfwWwXqlI77kbfdluPxh/XWgm7J0XcCnI9Ftb7cH7I0JIMmtcl82kSF+zwD1x3
-	 o1SotvUDA1V2+nzCid4Zl+UH8vbpbKTsPdPhsiRCWTrNYn2ibsWU7zFwZ64yb0DsKx
-	 owzXZ2AZOIBli06ImcYt/KTdGmHr2qGgHOahPLuv4G281m7rNmcBr79gIVGfCUWI+f
-	 zF2iCQNTeA/KA==
+	b=W9bYvEVmEL9JBniKXGW9hKc/HC2/xbUyOh2NfhObb4q3QO1/VAhuYy8eNGIy/IeRN
+	 Zozsuiz/303AhtR+l9tn0CChRer8uztcoV2/qM8ohfNoGkcF+O67dz+w8YDJU90TOE
+	 ydo1fWBHLEnc5+30QBClxZbfezOx5CMzBSlAJ3rm5IDH74wHw7CqPg4/loAiHfI0MS
+	 pOlK2uQO1CB6J06IGIPreDMwmAZqhOOLyYj65I4Fc5pH+s+vHtT9eWGShhvPiMjdt7
+	 +ITMEHPveCDjas4UbB4Car4w7CXcPdtgzxN0S3tJxyBAFhvpxyOUTDSqQPyiFK+f3o
+	 /+oSvaqd5W/8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
 	Sergey Senozhatsky <senozhatsky@chromium.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Minchan Kim <minchan@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] zram: fix out-of-bounds access in read_block_state()
-Date: Fri,  4 Sep 2026 14:44:59 -0400
-Message-ID: <20260904184459.1345418-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] zram: move lockmap to be per-zram instead per table
+Date: Fri,  4 Sep 2026 14:49:49 -0400
+Message-ID: <20260904184950.1353771-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904184459.1345418-1-sashal@kernel.org>
-References: <2026090354-deafening-decorated-22e7@gregkh>
- <20260904184459.1345418-1-sashal@kernel.org>
+In-Reply-To: <2026090337-onshore-thermos-9127@gregkh>
+References: <2026090337-onshore-thermos-9127@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,55 +48,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-[ Upstream commit 391f057f44a51cc9418da5cba78b014324174264 ]
+[ Upstream commit dbb7ba9c7fa81a48ed2a108ad684cf3655f3ae4b ]
 
-read_block_state() calculates nr_pages before taking dev_lock.  If the
-device is reset and reinitialized with a smaller disksize before lock
-acquisition, nr_pages still describes the old table.  The subsequent loop
-can then call slot_lock() past the end of the newly allocated table.
+Patch series "zram: lockmap tweaks".
 
-Read disksize after acquiring dev_lock and checking that the device is
-initialized.  The read lock then keeps the table and its bound stable for
-the duration of the scan.
+This patch (of 2):
 
-Link: https://lore.kernel.org/20260804065919.3970386-3-xialonglong2025@163.com
-Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+The zram object contains an array zram_table_entry.  Each one has a `lock'
+variable and each has a matching struct lockdep_map.  This mimics a struct
+mutex.
+
+It uses always the same key for all lockdep_map instances.  This makes it
+look like the same lock to lockdep.  Therefore it could be reduced to have
+one lockdep_map per struct zram.
+
+Use only one struct lockdep_map per struct zram.
+
+Link: https://lore.kernel.org/20260714141300.3945672-1-bigeasy@linutronix.de
+Link: https://lore.kernel.org/20260714141300.3945672-2-bigeasy@linutronix.de
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Tested-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 Cc: Jens Axboe <axboe@kernel.dk>
 Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: a8b5875741d4 ("zram: fix slot lock bit position on big-endian 64-bit")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/zram/zram_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/block/zram/zram_drv.c | 21 +++++++++------------
+ drivers/block/zram/zram_drv.h |  2 +-
+ 2 files changed, 10 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index d1f4b61509a0c..5c44967b1c73f 100644
+index ace65c586072b..4223002d80b41 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -885,7 +885,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 	char *kbuf;
- 	ssize_t index, written = 0;
- 	struct zram *zram = file->private_data;
--	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-+	unsigned long nr_pages;
+@@ -57,14 +57,12 @@ static size_t huge_class_size;
+ static const struct block_device_operations zram_devops;
  
- 	kbuf = kvmalloc(count, GFP_KERNEL);
- 	if (!kbuf)
-@@ -898,6 +898,8 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 		return -EINVAL;
+ static void slot_free(struct zram *zram, u32 index);
+-#define slot_dep_map(zram, index) (&(zram)->table[(index)].dep_map)
+ 
+-static void slot_lock_init(struct zram *zram, u32 index)
++static void slot_lock_init(struct zram *zram)
+ {
+ 	static struct lock_class_key __key;
+ 
+-	lockdep_init_map(slot_dep_map(zram, index), "zram->table[index].lock",
+-			 &__key, 0);
++	lockdep_init_map(&zram->table_lock_map, "zram->table[index].lock", &__key, 0);
+ }
+ 
+ /*
+@@ -84,8 +82,8 @@ static __must_check bool slot_trylock(struct zram *zram, u32 index)
+ 	unsigned long *lock = &zram->table[index].__lock;
+ 
+ 	if (!test_and_set_bit_lock(ZRAM_ENTRY_LOCK, lock)) {
+-		mutex_acquire(slot_dep_map(zram, index), 0, 1, _RET_IP_);
+-		lock_acquired(slot_dep_map(zram, index), _RET_IP_);
++		mutex_acquire(&zram->table_lock_map, 0, 1, _RET_IP_);
++		lock_acquired(&zram->table_lock_map, _RET_IP_);
+ 		return true;
  	}
  
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
-+
- 	for (index = *ppos; index < nr_pages; index++) {
- 		int copied;
- 		struct timespec64 ts;
+@@ -96,16 +94,16 @@ static void slot_lock(struct zram *zram, u32 index)
+ {
+ 	unsigned long *lock = &zram->table[index].__lock;
+ 
+-	mutex_acquire(slot_dep_map(zram, index), 0, 0, _RET_IP_);
++	mutex_acquire(&zram->table_lock_map, 0, 0, _RET_IP_);
+ 	wait_on_bit_lock(lock, ZRAM_ENTRY_LOCK, TASK_UNINTERRUPTIBLE);
+-	lock_acquired(slot_dep_map(zram, index), _RET_IP_);
++	lock_acquired(&zram->table_lock_map, _RET_IP_);
+ }
+ 
+ static void slot_unlock(struct zram *zram, u32 index)
+ {
+ 	unsigned long *lock = &zram->table[index].__lock;
+ 
+-	mutex_release(slot_dep_map(zram, index), _RET_IP_);
++	mutex_release(&zram->table_lock_map, _RET_IP_);
+ 	clear_and_wake_up_bit(ZRAM_ENTRY_LOCK, lock);
+ }
+ 
+@@ -1984,7 +1982,7 @@ static void zram_meta_free(struct zram *zram, u64 disksize)
+ 
+ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
+ {
+-	size_t num_pages, index;
++	size_t num_pages;
+ 
+ 	num_pages = disksize >> PAGE_SHIFT;
+ 	zram->table = vzalloc(array_size(num_pages, sizeof(*zram->table)));
+@@ -2001,8 +1999,7 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
+ 	if (!huge_class_size)
+ 		huge_class_size = zs_huge_class_size(zram->mem_pool);
+ 
+-	for (index = 0; index < num_pages; index++)
+-		slot_lock_init(zram, index);
++	slot_lock_init(zram);
+ 
+ 	return true;
+ }
+diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
+index 08d1774c15db6..8290dc6e23352 100644
+--- a/drivers/block/zram/zram_drv.h
++++ b/drivers/block/zram/zram_drv.h
+@@ -74,7 +74,6 @@ struct zram_table_entry {
+ #endif
+ 		} attr;
+ 	};
+-	struct lockdep_map dep_map;
+ };
+ 
+ struct zram_stats {
+@@ -107,6 +106,7 @@ struct zram_stats {
+ 
+ struct zram {
+ 	struct zram_table_entry *table;
++	struct lockdep_map table_lock_map;
+ 	struct zs_pool *mem_pool;
+ 	struct zcomp *comps[ZRAM_MAX_COMPS];
+ 	struct zcomp_params params[ZRAM_MAX_COMPS];
 -- 
 2.53.0
 
