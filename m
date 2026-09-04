@@ -1,182 +1,211 @@
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D66501F48
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:53:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540783; cv=pass; b=HR1OhGqGlRszVoLeEo3teNxoIsyNy6E5/9nmcpWLKwzrzzil9h8lzU8OnyfSTJ7wHx1K6a1Z37nXKTK0lBweMp9VmgiyQFuUNpTwtpI5ZgbaWkw8FkslJTf2H7o8rhmIIm90ZGwjQc3gcMa6EvARP0kcJlMrNlvTbTfM6pPpI70=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540783; c=relaxed/simple;
-	bh=nCqEeX/YmPXgBfiXFWn13hZN8T7Z+lPuAqTre4JIEAc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lG5dbOI9aLLDQmhhApg/ZBHVnl3NoaX4j15E55FBnX9ITDSHRFRCrhSsXRRZKbaR7kbEfvDZK+rK1V6CjY32WA3lThW5E8rPhVBSUFKBFhAQwrmIJlUlAhN2TiVvI72ZRYRSENTo6pwmGUpdgzwFqAuSMoHCc1pk30+OLua+uHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SmjnUSD7; arc=pass smtp.client-ip=209.85.222.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 073EF4A0EEF
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788540885; cv=none; b=jdZTuIYYYPZzZrcJ/DCm2wknZEzGiYgo920qtc9CLCsK1w8EUbP5Re5dV5UFyCOYg4aiat8VUlSBntWh+kd3r/qBNlpEjU9zlRuypluREnnYPtrrVaCa2WHzmaQjyTQUQsFnnE5XAcVvTl39prOFI0SOemMvEAF93Pl/WPaDCLg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788540885; c=relaxed/simple;
+	bh=KFeNIBrLxZQpzLqw1ayvd3v5I1936Z3GzJgS3GkPOo0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=e9TUGR6av6TluaebnsmCF/EKkcQ4AHmUgXTctUBQ6jErkoj5rvfMjhIsQ/nXDihrS6kwoRSNX2mpVUTktQmmRgw/RnLZ97EcRUmid+K8E6+o6QgirtavniWDmKgcNz8Bb6pQTFlP4vqDg099R3vb+r770UEUSv9Dd0UY4XrapLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bp1Qc9x1; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SmjnUSD7"
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-97cc72fe0f3so1542775241.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 09:53:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788540780; cv=none;
-        d=google.com; s=arc-20260327;
-        b=s9hBvYdJFFPD/Pc9h+XG05PmHOA67wUBy6pG6aNcZvGntJZP9E/JVoWpaNSfZ0GMCF
-         9l5yD0OxXB234/miMErLQqaCtSpHYszhBx9++LQexFe1e6VtmHMDqmZ4R517zBm+x/gL
-         ex+9g5ZFIYeOPJ9Q1+Rz1azb4WmuForItkhNwaqSmfaWcBmppot38oshnxm+fPel7Yy2
-         I34eRORrGmMDEEYd93AG5X1q2W+I3Me8ZnzsV6HXLye0FExLXHxg7BRoLE9Ar7ZgHvK8
-         NczL47CKdbJ80h68C/jJW6wfbCYVZYwsVUOYqjSbw+BOovD9optOLFLaH5mdD4xUK80r
-         bqow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ien2o60ZIi4QpF5qZ3s+1MoomCrROw/TLgJB8j1A6bc=;
-        fh=kEex2FD9d6K+Mk8cgVWuT/+cr5Psd22+6uPtAiaAifI=;
-        b=czOXSVnz8kd+kPGIb/a96MerTb2aa9PHJS5XtmC36YSzslAnll9fdrZlsnI+occ9uI
-         Nuv9stGTNWqyiq57p1KXarCeM3FstRdcZgNnyil17EqbLvVCUHtmvE019RQbhPSN9XIo
-         obeAVCU311OOFkaplfYq+MJB08AODaKTNDOlROnG3iNQlhsZCLBLskYCKShGtTyNz1p2
-         nCK54QpWjgKqUF1VV6w6x7RsPVBc525Zk0qahf8CyMFxvTnnszinBUQRFe3tSPsyQpJG
-         M7PtrqtwBwty7N3h0Wc5Jw1DlmlBb8u0+xVDLboNWGgZ06Q4muLRLyk7nKkUUeRvMntO
-         jF4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788540780; x=1789145580; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ien2o60ZIi4QpF5qZ3s+1MoomCrROw/TLgJB8j1A6bc=;
-        b=SmjnUSD7RGTHvpg/GV8Xa4QSny9Za0MZvaW0SAgHdChhZjIZNjB5pUhNWjLJnWJybf
-         MNKdF5L/AEgZjMdlYlB1/7xPVUVMWA1yTShfai6QQ2EH+UR4kt7B8SwJppBaUwyvP3F6
-         spWx/WtASEMx1qLp4DkQ+6gkd6ui3jjIlVYjd1xtFEXP/VEE6HS+scmICRLYZdC7EHcK
-         FsL2kaYkRydjYZV5KunAORFRLQday9Jw1vHuNfqKZR7ofc4artZCCNnrjHuMBpVwrMtK
-         zZqhbbth87rz9/fAgE8fzyxZANiA151h+FNPi7KBM/ce24cUB0GOkkCFqUowtGSkkjiq
-         o4xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540780; x=1789145580;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ien2o60ZIi4QpF5qZ3s+1MoomCrROw/TLgJB8j1A6bc=;
-        b=raHGrJ7hNrWOmRu5PdxieNH1RUiN+umC0f1i+JR+r9fqmvj+Q7rD3n9VsKWxdEP+4P
-         B/tBD0SMu5FoS6kToaNye20C1uR4SUt34zCzvu0K3hyG+y1cwJ2iB11un/uU5TLdDIYL
-         n2YRyQXajXtEAB6pgo8xvciXOA11Q1Dnh5pHMNOtdZb2Z0djU2SGa+9jQddAZehK1Ich
-         uy8rfmgU7MGSgJ3e/ZOXkbR1NDaSqjbgLClDqWPPVz62a4FTkcSspHd3GLWNoR1l4vGM
-         o4HuBvn2DWmnJaaFgUSAxVSuD81FyVmEVi9i/p/IH8WvW4eOuNx/YVR3mdqauCubl1vP
-         QGrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxnz6YuRg/qH81N4giqVZBC8OOhVSj+c6JYWgi9Thmi1Vdxq+OHmvU5Dxxvg8gEtgz0ybYecTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++l11FV5z+doA3Ul8aTJyYZiZqZ7SQTDCTFdvHb7RaGh50IeozWU
-	0yCLFlXqPa7VrMLRJJd64dPb6h9KUhV4pJrqNOW8VK6idEreOq2ePrLUqqYabGbiOgHjvvNGVkC
-	Wpg8hDDcjp09KYlfL2yY7WGrTapACDiY=
-X-Gm-Gg: AYBFou2wWAp06rMKVdh8/RF4IT+9g70Ol9NgSS7IB+7fRcel9QG/wzl3FV6EccvpH0K
-	gNS6LN4e8eM4T9tg0bYZEM/vkzT1zCb9iyyi+0oRYva4wSkGnW5cI0Kl/rtttetOlqND5tA/d7R
-	UkL6ht+8p7YFGiLa9Jfld95Lu+2/3ZJ+7ZPpN8PC3rzjrtDREoh8yNrnbkwfpMadJvP55Sxx3Qf
-	avL4rXRzcl4NVXElRH8D5lcJYqh/eMXQMi+WNPo9u2QoK8knQkkIyMcSdaMWmVHrflgm4M4sLq7
-	v6Iv70Coz8YOlm0XgLjHiRll/lX94dKDim6Qb5r5NyJZq8R0njB8QMLbxlQAE8hApjmzIKL0sUl
-	lq/YMiTDdL3JUEMi08HBmFk9kF49sq+cOhKJmK2LC03kaslxKvKrXft7HRFS8bEUlRw02AwPu1I
-	Q13hh0wsx4gp+jeRkSshHjIO5eorOQtaZ/euTisQ==
-X-Received: by 2002:a05:6102:4b01:b0:786:a11e:484d with SMTP id
- ada2fe7eead31-78a4a86b686mr1500572137.6.1788540780511; Fri, 04 Sep 2026
- 09:53:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bp1Qc9x1"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A2EC152B;
+	Fri,  4 Sep 2026 09:54:38 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D65433F673;
+	Fri,  4 Sep 2026 09:54:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788540882; bh=KFeNIBrLxZQpzLqw1ayvd3v5I1936Z3GzJgS3GkPOo0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bp1Qc9x1Y9v42Z0LcCy/WpelGFL5GNGAYDEfpsbJ+BDL8SBtTd1YCSFZKp69FTuzl
+	 xaof4qNcSOS9n8+Hp/7VAy3a6f9bdD9c8FgjRKspTiWZJiRDFijcVsR+CbUZhkFbKI
+	 t4b89OCHH6uh7EnxNT76IvTAVapJbGG22Ed5EPho=
+From: Mark Rutland <mark.rutland@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com,
+	ardb@kernel.org,
+	catalin.marinas@arm.com,
+	cl@gentwo.org,
+	david.laight.linux@gmail.com,
+	james.morse@arm.com,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	peterz@infradead.org,
+	ruanjinjie@huawei.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com,
+	vladimir.murzin@arm.com,
+	will@kernel.org,
+	yang@os.amperecomputing.com
+Subject: [PATCH v3 01/21] arm64: percpu: Fix this_cpu_write() casting
+Date: Fri,  4 Sep 2026 17:54:04 +0100
+Message-Id: <20260904165404.376821-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
+References: <20260904161758.376504-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811060651.227431-1-james.hilliard1@gmail.com> <87ecf911jr.fsf@bootlin.com>
-In-Reply-To: <87ecf911jr.fsf@bootlin.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Fri, 4 Sep 2026 12:52:49 -0400
-X-Gm-Features: AcwNN1VzoX6Wx03j6h-GsWo7X9YwKmv-DqDt9ZWJFHiKu2jY-uxo82M8zbL9kdI
-Message-ID: <CADvTj4p3kFN+4NeeouXscPrnHTWKbauVcYXnh2uW1OGHUL_sbQ@mail.gmail.com>
-Subject: Re: [PATCH] mtd: rawnand: sunxi: reject invalid ECC step sizes
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: linux-mtd@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	stable@vger.kernel.org, Richard Weinberger <richard@nod.at>, 
-	Vignesh Raghavendra <vigneshr@ti.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Richard Genoud <richard.genoud@bootlin.com>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	Boris Brezillon <bbrezillon@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 4, 2026 at 9:25=E2=80=AFAM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
->
-> On 11/08/2026 at 00:06:48 -06, James Hilliard <james.hilliard1@gmail.com>=
- wrote:
->
-> > ECC maximization forces a 1024-byte ECC step and divides the
-> > available OOB bytes by the number of steps. A NAND with a smaller
-> > page therefore produces zero steps and a division by zero.
->
-> No, steps cannot be < 1. If they are, it's a bug that must be fixed.
+The arm64 implementation of this_cpu_write() casts 'val' to unsigned
+long. This is necessary to handle cases where 'val' is a pointer type,
+and to avoid spurious compiler warnings for the (unreachable!) cases
+where the pointer type would be cast to a smaller integer type.
 
-The zero step count is created by the Sunxi maximization path itself.
-sunxi_nand_hw_ecc_ctrl_init() unconditionally sets ecc->size to 1024,
-including for a 512-byte-page NAND, before calculating nsectors.
+Unfortunately, the cast is applied to 'val' rather than '(val)', which
+won't always generate the expected value when 'val' is an expression.
 
-The controller attach callback runs before nand_scan_tail(), so this
-division happens before the generic ECC handling can reject the
-configuration or fall back to software ECC.
+For example, for this_cpu_write(pcp, zero - 1), where 'pcp' is a u64 and
+'zero' is a u32:
 
-For this case, would you expect the Sunxi maximization path to retain a
-512-byte ECC step on 512-byte-page NANDs, rather than selecting 1024 and
-then validating the resulting step count?
+* 'zero'                      ===> (u32) 0x00000000
+* 'zero - 1'                  ===> (u32) 0xffffffff
+* '(unsigned long)zero - 1'   ===> (u64) 0xffffffffffffffff
+* '(unsigned long)(zero - 1)' ===> (u64) 0x00000000ffffffff
 
-> > An explicitly configured ECC step which is larger than, or does not
-> > divide, the page also produces an unusable step count before the NAND
-> > core can diagnose the configuration.
-> >
-> > Validate the step size at both points where the driver derives the
-> > number of sectors and reject invalid geometries.
-> >
-> > Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > ---
-> >  drivers/mtd/nand/raw/sunxi_nand.c | 17 +++++++++++++++--
-> >  1 file changed, 15 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/s=
-unxi_nand.c
-> > index 45ccbce91551..ad314c0e30b2 100644
-> > --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> > +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-> > @@ -2032,6 +2032,15 @@ static void sunxi_nand_detach_chip(struct nand_c=
-hip *nand)
-> >       sunxi_nand->user_data_bytes =3D NULL;
-> >  }
-> >
-> > +static int sunxi_nfc_ecc_steps(struct mtd_info *mtd, unsigned int step=
-_size)
-> > +{
-> > +     if (!step_size || mtd->writesize < step_size ||
-> > +         mtd->writesize % step_size)
->
-> I don't get it, mtd->writesize < step_size is conceptually
-> impossible. If that happens, it must be fixed earlier than that.
+Fix this by adding brackets around 'val'
 
-An explicitly configured step reaches the controller attach callback
-after the NAND geometry has been detected but before nand_scan_tail().
-The Sunxi binding permits step sizes of 512 and 1024 without constraining
-them against the detected page size.
+The bug described above can be seen from the disassembly of the
+following test code:
 
-Could you clarify where you expect this invariant to be established:
-in the raw NAND core before ->attach_chip(), or in the Sunxi driver when
-it selects or consumes the ECC configuration?
+| void this_cpu_write_zero_minus_1(u64 __percpu *pcp)
+| {
+| 	u32 zero = 0;
+| 	this_cpu_write(*pcp, zero - 1);
+| }
+|
+| void this_cpu_write_zero_minus_1_brackets(u64 __percpu *pcp)
+| {
+| 	u32 zero = 0;
+| 	this_cpu_write(*pcp, (zero - 1));
+| }
 
-> > +             return -EINVAL;
-> > +
-> > +     return mtd->writesize / step_size;
-> > +}
-> > +
-> >  static int sunxi_nfc_maximize_user_data(struct nand_chip *nand, uint32=
-_t oobsize,
-> >                                       int ecc_bytes, int nsectors)
-> >  {
->
-> Thanks,
-> Miqu=C3=A8l
+Generated code before this patch:
+
+| <this_cpu_write_zero_minus_1>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffffffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        add     x0, x0, x3
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+|
+| <this_cpu_write_zero_minus_1_brackets>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        sub     x0, x0, #0x1
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+
+Generated code after this patch:
+
+| <this_cpu_write_zero_minus_1>:
+|        paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mrs     x1, sp_el0
+|        mov     x29, sp
+|        ldr     w2, [x1, #8]
+|        add     w2, w2, #0x1
+|        str     w2, [x1, #8]
+|        mov     x3, #0xffffffff
+|        mrs     x2, tpidr_el1
+|        str     x3, [x0, x2]
+|        ldr     x0, [x1, #8]
+|        sub     x0, x0, #0x1
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     bl      preempt_schedule_notrace
+| 2:     ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+|
+| <this_cpu_write_zero_minus_1_brackets>:
+|        b       this_cpu_write_zero_minus_1
+
+Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+Reported-by: David Laight <david.laight.linux@gmail.com>
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: David Laight <david.laight.linux@gmail.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Acked-by: Christopher Lameter (Ampere) <cl@gentwo.org>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+Cc: stable@vger.kernel.org
+---
+ arch/arm64/include/asm/percpu.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+index b57b2bb009677..63bbfd4944a37 100644
+--- a/arch/arm64/include/asm/percpu.h
++++ b/arch/arm64/include/asm/percpu.h
+@@ -179,13 +179,13 @@ PERCPU_RET_OP(add, add, ldadd)
+ 	_pcp_protect_return(__percpu_read_64, pcp)
+ 
+ #define this_cpu_write_1(pcp, val)	\
+-	_pcp_protect(__percpu_write_8, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
+ #define this_cpu_write_2(pcp, val)	\
+-	_pcp_protect(__percpu_write_16, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
+ #define this_cpu_write_4(pcp, val)	\
+-	_pcp_protect(__percpu_write_32, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
+ #define this_cpu_write_8(pcp, val)	\
+-	_pcp_protect(__percpu_write_64, pcp, (unsigned long)val)
++	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
+ 
+ #define this_cpu_add_1(pcp, val)	\
+ 	_pcp_protect(__percpu_add_case_8, pcp, val)
+-- 
+2.30.2
+
