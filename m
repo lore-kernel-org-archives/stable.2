@@ -1,80 +1,45 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F847358378;
-	Fri,  4 Sep 2026 06:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57154417BF8;
+	Fri,  4 Sep 2026 06:20:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502857; cv=none; b=i2D2uNZFI2Qb7CPh3Wd+soOqysobgPdDDWmEnSpzBcPfmGLT8mucikXJ3lFvu2OzzBjRRfj086i2gDHGXvGU4VNNBlHlDdrLO9nUyhIsS7c4mOFmSFr5S9N+eEfbdcSJCPnrk+OV1gOgac4uks5VCUW62EvfAleDGgdoJVSMzVI=
+	t=1788502857; cv=none; b=R2tqDLDCV8oTPVmMJXya+4ehhU3oOBuNXJUFNg6pQOfg2mfnXAJrH6mZ688HMAtYJ8J0hiuLkRuFP1JALuZRnN7eAO6/R+SeJm7Jtm4az9HmF+CkU+ovvyOmysM7QYO8MBWgE4OBN3gUs607CppewsQPYu+uDQGmXJnLtN/R+lw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788502857; c=relaxed/simple;
-	bh=OfT3XxWYJYsLyekUE8AYRGRGg/tCiDb56aMjQq9HR74=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O90GUS3kzVgz/TjiugMju2bldU/immtqK4xAWUsX6MxxihLFAmJ0DVcsWavE+ODKLZs++jHM6CfnOZq/7h32UDH/Pzv4hE4FTSIUe4+tQw3fUkoKIViY34MpnCO5SoIq+64QVghzTHWCgwOL5Gnn9kWr5MEHyd9tPWE10EapVf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: c1f55886a82811f19a56ed5b684f684d-20260904
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN, HR_FROM_NAME
-	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
-	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
-	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_EXISTED
-	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, CIE_GOOD
-	CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:9d7a1e0c-694a-456e-9df9-882ad9aeb903,IP:10,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:30
-X-CID-INFO: VERSION:1.3.19,REQID:9d7a1e0c-694a-456e-9df9-882ad9aeb903,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:30
-X-CID-META: VersionHash:7db8b62,CLOUDID:762f98f57e8331037737a825e3a18d9a,BulkI
-	D:260904140159BPD4Y87M,BulkQuantity:2,SF:17|19|66|78|81|82|102|127|136|850
-	|865|898,TC:nil,Content:0|15|50|99,EDM:5|-100,IP:-2,URL:0,File:nil,RT:nil,
-	Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR
-	:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: c1f55886a82811f19a56ed5b684f684d-20260904
-X-User: liuzhe1@kylinos.cn
-Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <liuzhe1@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 217919923; Fri, 04 Sep 2026 14:20:43 +0800
-From: Zhe Liu <liuzhe1@kylinos.cn>
-To: mkoutny@suse.com
-Cc: bsegall@google.com,
-	cgroups@vger.kernel.org,
-	corbet@lwn.net,
-	dietmar.eggemann@arm.com,
-	hannes@cmpxchg.org,
-	juri.lelli@redhat.com,
-	kprateek.nayak@amd.com,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	liuzhe1@kylinos.cn,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	rostedt@goodmis.org,
-	skhan@linuxfoundation.org,
-	tj@kernel.org,
-	vincent.guittot@linaro.org,
-	vschneid@redhat.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/3] sched/fair: Remove the write-order dependency between cpu.max and cpu.max.burst
-Date: Fri,  4 Sep 2026 14:20:11 +0800
-Message-Id: <20260904062013.504236-2-liuzhe1@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260904062013.504236-1-liuzhe1@kylinos.cn>
-References: <aobnZEh1hfIBhswD@localhost.localdomain>
- <20260904062013.504236-1-liuzhe1@kylinos.cn>
+	bh=5tj0bUPpSr6tknFtU55tg2rnxt1b9yE17BXyVTSi/Zk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=c6lwCP6hhOioVXzHuK98DJlURIAZEuXMC0IyD2Wwgv5qPL74SUPoJVDdImpkPnNEjXlYMYD3GvQ/NUrfQB5PNWVBzRN3U9LBxW2ilsdbwmrKH+kGMasnKXV80E1pGmKI8n7ruNoFYJ3+Sj8I31N/6kTW2DCAUc1uzK400cZvzng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nxMyNH0G; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nxMyNH0G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE53F1F00A3E;
+	Fri,  4 Sep 2026 06:20:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788502856;
+	bh=PXJEAatYkR8DylZP8difJ11sJxihwCncKEZkXDovBkg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nxMyNH0GNHeLeMVNFZN5KJn6f5mBzf9CROm9OKiw236U7xGMV3/dgWxz5EHIn2vml
+	 g6rTqM1Ag9lh3si2XQNH/ItbNFDx9pfGOAnPd7LlsiE7Kx0uPupvpeLwYtH1TIjEu5
+	 N1XG3tot4HkXYU3fhLOrv63Hw+nytQf32Zd94yHk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Breno Leitao <leitao@debian.org>,
+	Hidayath Khan <hidayath@linux.ibm.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.12 353/403] net/smc: fix socket refcount leak in smc_switch_conns()
+Date: Fri,  4 Sep 2026 07:02:36 +0200
+Message-ID: <20260904045742.841551458@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
+References: <20260904045734.806166532@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,46 +48,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Keep the configured burst independent of the current quota and cap it
-when CFS refills runtime. This allows quota and burst updates in either
-order.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
+------------------
 
+From: Hidayath Khan <hidayath@linux.ibm.com>
+
+commit 719296c4aa8213d4ac8002e77d5956d436bc98d0 upstream.
+
+smc_switch_conns() takes a reference on the SMC socket before dropping
+lgr->conns_lock, so the connection stays alive while the CDC slot is
+fetched:
+
+        sock_hold(&smc->sk);
+        read_unlock_bh(&lgr->conns_lock);
+        /* pre-fetch buffer outside of send_lock, might sleep */
+        rc = smc_cdc_get_free_slot(conn, to_lnk, &wr_buf, NULL, &pend);
+        if (rc)
+                goto err_out;
+
+The err_out label only drops the wr_tx link reference, so this early exit
+returns without the matching sock_put(). The second error exit is not
+affected, because sock_put() has already run by then.
+
+A leaked sk_refcnt means the smc_sock is never destroyed. Its send and
+receive buffers stay allocated, and for a user socket the reference held
+on the network namespace is never released, so the netns can no longer be
+torn down.
+
+smc_cdc_get_free_slot() fails when the target link goes down or when the
+connection has been killed while the switch is in progress. Both are
+reachable during the link failover this function implements, so the leak
+is triggered by the same hardware events that make smc_switch_conns() run
+in the first place.
+
+Restructure so there is a single sock_put() covering both outcomes,
+instead of adding a second one to the error path.
+
+Fixes: 95f7f3e7dc6b ("net/smc: improved fix wait on already cleared link")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
+Reviewed-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Hidayath Khan <hidayath@linux.ibm.com>
+Link: https://patch.msgid.link/20260820144729.1019399-1-hidayath@linux.ibm.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/sched/core.c | 3 +--
- kernel/sched/fair.c | 3 ++-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ net/smc/smc_core.c |   14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index f78275192036..5269b8cfcf7f 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
- 	if (quota_us != RUNTIME_INF && quota_us > max_bw_runtime_us)
- 		return -EINVAL;
- 
--	if (quota_us != RUNTIME_INF && (burst_us > quota_us ||
--					burst_us + quota_us > max_bw_runtime_us))
-+	if (burst_us > max_bw_runtime_us)
- 		return -EINVAL;
- 
- #ifdef CONFIG_CFS_BANDWIDTH
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 6d881e530f89..488de18d477e 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
- 		cfs_b->nr_burst++;
- 	}
- 
--	cfs_b->runtime = min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
-+	cfs_b->runtime = min(cfs_b->runtime,
-+			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
- 	cfs_b->runtime_snap = cfs_b->runtime;
- }
- 
--- 
-2.25.1
+--- a/net/smc/smc_core.c
++++ b/net/smc/smc_core.c
+@@ -1129,13 +1129,13 @@ again:
+ 		read_unlock_bh(&lgr->conns_lock);
+ 		/* pre-fetch buffer outside of send_lock, might sleep */
+ 		rc = smc_cdc_get_free_slot(conn, to_lnk, &wr_buf, NULL, &pend);
+-		if (rc)
+-			goto err_out;
+-		/* avoid race with smcr_tx_sndbuf_nonempty() */
+-		spin_lock_bh(&conn->send_lock);
+-		smc_switch_link_and_count(conn, to_lnk);
+-		rc = smc_switch_cursor(smc, pend, wr_buf);
+-		spin_unlock_bh(&conn->send_lock);
++		if (!rc) {
++			/* avoid race with smcr_tx_sndbuf_nonempty() */
++			spin_lock_bh(&conn->send_lock);
++			smc_switch_link_and_count(conn, to_lnk);
++			rc = smc_switch_cursor(smc, pend, wr_buf);
++			spin_unlock_bh(&conn->send_lock);
++		}
+ 		sock_put(&smc->sk);
+ 		if (rc)
+ 			goto err_out;
+
+
