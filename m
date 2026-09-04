@@ -1,240 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37C0226CFE
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 00:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9715920D4FF;
+	Fri,  4 Sep 2026 00:22:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788481226; cv=none; b=ZO7tkbjSJqcnUEl46uGHaE+Bvd8SyXt6FMrkCd/7eMNYw1a6uaOgQPid1aC44l3vvig0Al+TBKAz4AO0yx41K6HBZ1j1/UutOzCg1/jGiEPWgW9JU0d1aVkM5Ou8S03RR84T2Mq9aTUkwhW9TZu8Qm/w8E7R19SV6p+rwv1t+JQ=
+	t=1788481362; cv=none; b=E9Ptg7pKgaiYs4P8S0c12xlNIRn+0PlXzOS8kgaRPoveX8vjfTZtBWdF8Y+CGudrPoFGnPpsqI3VLNFgL3E4rVSz7g1GAuCNK+OWgv5f+l0qdRVsBo3vonzNAtErBqR5hetkPEUiCXE+N/6+Vrs2MKKa2aBvRCZQf/cvCiVbTJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788481226; c=relaxed/simple;
-	bh=ZN3by5gPtsmnkNUSlRDovrsf7kj0sVtjgPau3BiUhPo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F8jFKF5MjTuyECBE/qDgcR6ZATFMQnFzd1JqB0Zyp1FjH+TdxqcE4oWYED2EZsvTZTbqo4h0nW5Bf5YkK4/mm8EQppNO4CkEmV8n+jr+9UsUajGrX/KRKInj1Fvd7SM3s478We/w4nSJMayfcJxNSTvjskH/7vcOdtsU94xlKEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U7V0zofM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788481362; c=relaxed/simple;
+	bh=KkqA4JfpC+qZOcDSnPV5aLKF2fE3aJNceKGtVymIhq4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mBt4JTXTACUvkYLV66uv61prYi+ilwXw+cbH9V8ilU5fudbZ0frLIPb26i6c3EtnD/+XzidDijfmpO0rzDv4ooCdbny3J7guvmCHM8NfEiuGdbPjGevuB2pnMld36m87GQqRH/ME6XS1klh+LVeVHMAxu5WydKo6/srU4UN0ibw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KYh/XthK; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U7V0zofM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0061F00A3E;
-	Fri,  4 Sep 2026 00:20:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788481225;
-	bh=DhEgbBsckaTK42m/R4zo/CrCDT8A2PUFJvhR6pa/M5w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U7V0zofM90TJ3z6K6F/J2P4xxLqS6uGoi80u+vrHz+WWQ5tZxTGDugmHOj4tu9do0
-	 MsCmh6hqeNbbCcs/aWmATWySCVLQIUH+DynhmKH1WlmkhH92ooWTon+W5bKeHbMqzJ
-	 +JjTAsZ6biapFWLgyd734PdOsIHGQM2eS3vjZyoZ/DxwQ3ct5D+sCz1I78Wsw0lznJ
-	 Sv+fMPTfvgJAbdF3MUZbfAwHNGmbH4q2ecCBkBwlGXPXWmdCeq5MuMySaN9Gt1JB1Z
-	 kmXSDVqeN6ZhKb2c52Ks3aVoo7hMkMQ5G/VGpIn38XaXNg0089Ks8Hd7sQYZhVU8we
-	 /Kxb1DrJY3NeQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Li Xiasong <lixiasong1@huawei.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Harry Yoo (Oracle)" <harry@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm/slub: fix missing debugfs entries for caches created before sysfs init
-Date: Thu,  3 Sep 2026 20:20:22 -0400
-Message-ID: <20260904002022.2105689-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904002022.2105689-1-sashal@kernel.org>
-References: <2026090309-defame-darkening-edde@gregkh>
- <20260904002022.2105689-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KYh/XthK"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C30B2153B;
+	Thu,  3 Sep 2026 17:22:34 -0700 (PDT)
+Received: from [192.168.20.93] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 267F03F673;
+	Thu,  3 Sep 2026 17:22:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788481358; bh=KkqA4JfpC+qZOcDSnPV5aLKF2fE3aJNceKGtVymIhq4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=KYh/XthKzWv3g/3lQJv5JF/5Ky5DX9BV4DT9cklnPx5jre4t8JO5Pqpx+ej9aRHLN
+	 NpPWsHrFvZK/YnpCJdAcsJeVqhDgy+Ri1ycxSm4qBtaxcuMsph/jCVrcDsshkl44Gy
+	 +hBfOkMhIuhYtnrGwBfwjTGS5+91RLTb2kIQ3tQ4=
+Message-ID: <bbbc33a1-cfd6-4cac-82c0-253888ca933a@arm.com>
+Date: Thu, 3 Sep 2026 19:22:36 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] tools: linux/types.h: Add 128-bit integer types
+ for arm64 UAPI structures
+To: Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+ Arnaldo Carvalho de Melo <acme@redhat.com>,
+ David Matlack <dmatlack@google.com>, stable <stable@vger.kernel.org>
+References: <20260626141730.5976-1-will@kernel.org>
+ <20260626141730.5976-2-will@kernel.org>
+Content-Language: en-US
+From: Jeremy Linton <jeremy.linton@arm.com>
+In-Reply-To: <20260626141730.5976-2-will@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Li Xiasong <lixiasong1@huawei.com>
+Hi,
 
-[ Upstream commit 7e98f856395618011c517f767fb80ac3fe90de2b ]
+Please consider this for all supported stable/LTS kernels.
 
-slab_debugfs_init() creates the slab debugfs root at device initcall
-time, while slab_sysfs_init() moves slab_state to FULL at late initcall
-time. SLAB_STORE_USER caches created in this window miss their debugfs
-entries because do_kmem_cache_create() skips debugfs_slab_add() when
-slab_state <= UP. This was observed with MPTCP's request_sock_subflow_v6
-cache, whose slab debugfs directory was missing.
+Without this commit, older kernel trees will fail to build tools on 
+systems running newer kernel headers.
 
-The affected window is:
+Upstream commit:
 
-  slab_debugfs_init()
-    slab_debugfs_root = debugfs_create_dir(...)
-    list_for_each_entry(s, &slab_caches, list)
-      debugfs_slab_add(s)
+10a47fb67340 ("tools: linux/types.h: Add 128-bit integer types for arm64 
+UAPI structures")
 
-  kmem_cache_create(..., SLAB_STORE_USER, ...)
-    do_kmem_cache_create()
-      if (slab_state <= UP)
-        return without debugfs entries
+Thanks,
 
-  slab_sysfs_init()
-    slab_state = FULL
-
-Initialize the debugfs root and add debugfs entries while holding
-slab_mutex, walking slab_caches exactly once and handling both sysfs
-and debugfs entries in the same pass. This gives the sysfs and debugfs
-initialization an explicit order and prevents caches from being
-created between the debugfs scan and slab_state reaching FULL.
-
-Gate the new slab_late_init() on either sysfs or debugfs being enabled,
-with the slab_kset creation and alias_list processing factored into
-helpers that have empty no-sysfs variants, as suggested by Vlastimil
-Babka. On slab_kset_init() failure, slab_state stays below FULL so
-kmem_cache_create() keeps taking the early-boot path, matching prior
-behavior.
-
-Guard debugfs_slab_release() against an uninitialized debugfs root,
-since the root is now created later and a cache may be released before
-it exists.
-
-Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall")
 Cc: stable@vger.kernel.org
-Suggested-by: Vlastimil Babka <vbabka@kernel.org>
-Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
-Link: https://patch.msgid.link/20260729101849.3734287-1-lixiasong1@huawei.com
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/slub.c | 76 +++++++++++++++++++++++++++++++++++--------------------
- 1 file changed, 48 insertions(+), 28 deletions(-)
 
-diff --git a/mm/slub.c b/mm/slub.c
-index 32d6b238e5088..8fdbe531a0cba 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -351,14 +351,20 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
- 
- #ifdef SLAB_SUPPORTS_SYSFS
- static int sysfs_slab_add(struct kmem_cache *);
-+static int __init slab_kset_init(void);
-+static void __init slab_sysfs_process_aliases(void);
- #else
- static inline int sysfs_slab_add(struct kmem_cache *s) { return 0; }
-+static inline int slab_kset_init(void) { return 0; }
-+static inline void slab_sysfs_process_aliases(void) { }
- #endif
- 
- #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_SLUB_DEBUG)
- static void debugfs_slab_add(struct kmem_cache *);
-+static void __init slab_debugfs_root_init(void);
- #else
- static inline void debugfs_slab_add(struct kmem_cache *s) { }
-+static inline void slab_debugfs_root_init(void) { }
- #endif
- 
- enum stat_item {
-@@ -9791,28 +9797,20 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
- 	return 0;
- }
- 
--static int __init slab_sysfs_init(void)
-+static int __init slab_kset_init(void)
- {
--	struct kmem_cache *s;
--	int err;
--
--	mutex_lock(&slab_mutex);
--
- 	slab_kset = kset_create_and_add("slab", NULL, kernel_kobj);
- 	if (!slab_kset) {
--		mutex_unlock(&slab_mutex);
- 		pr_err("Cannot register slab subsystem.\n");
- 		return -ENOMEM;
- 	}
- 
--	slab_state = FULL;
-+	return 0;
-+}
- 
--	list_for_each_entry(s, &slab_caches, list) {
--		err = sysfs_slab_add(s);
--		if (err)
--			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
--			       s->name);
--	}
-+static void __init slab_sysfs_process_aliases(void)
-+{
-+	int err;
- 
- 	while (alias_list) {
- 		struct saved_alias *al = alias_list;
-@@ -9824,12 +9822,41 @@ static int __init slab_sysfs_init(void)
- 			       al->name);
- 		kfree(al);
- 	}
-+}
-+#endif /* SLAB_SUPPORTS_SYSFS */
-+
-+#if defined(SLAB_SUPPORTS_SYSFS) || \
-+	(defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS))
-+static int __init slab_late_init(void)
-+{
-+	struct kmem_cache *s;
-+	int err;
- 
-+	mutex_lock(&slab_mutex);
-+
-+	err = slab_kset_init();
-+	if (err)
-+		goto out;
-+
-+	slab_debugfs_root_init();
-+	slab_state = FULL;
-+
-+	list_for_each_entry(s, &slab_caches, list) {
-+		if (sysfs_slab_add(s))
-+			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
-+			       s->name);
-+
-+		if (s->flags & SLAB_STORE_USER)
-+			debugfs_slab_add(s);
-+	}
-+
-+	slab_sysfs_process_aliases();
-+out:
- 	mutex_unlock(&slab_mutex);
--	return 0;
-+	return err;
- }
--late_initcall(slab_sysfs_init);
--#endif /* SLAB_SUPPORTS_SYSFS */
-+late_initcall(slab_late_init);
-+#endif
- 
- #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
- static int slab_debugfs_show(struct seq_file *seq, void *v)
-@@ -10021,23 +10048,16 @@ static void debugfs_slab_add(struct kmem_cache *s)
- 
- void debugfs_slab_release(struct kmem_cache *s)
- {
-+	if (unlikely(!slab_debugfs_root))
-+		return;
-+
- 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
- }
- 
--static int __init slab_debugfs_init(void)
-+static void __init slab_debugfs_root_init(void)
- {
--	struct kmem_cache *s;
--
- 	slab_debugfs_root = debugfs_create_dir("slab", NULL);
--
--	list_for_each_entry(s, &slab_caches, list)
--		if (s->flags & SLAB_STORE_USER)
--			debugfs_slab_add(s);
--
--	return 0;
--
- }
--__initcall(slab_debugfs_init);
- #endif
- /*
-  * The /proc/slabinfo ABI
--- 
-2.53.0
+
+On 6/26/26 9:17 AM, Will Deacon wrote:
+> The arm64 UAPI exposes some 128-bit integer types to represent things
+> such as fpsimd registers in the sigcontext. In preparation for defining
+> these using the '__u128' typedef implemented by uapi/linux/types.h, copy
+> that typedef over to the private linux/types.h header used by the tools
+> directory.
+> 
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Arnaldo Carvalho de Melo <acme@redhat.com>
+> Cc: David Matlack <dmatlack@google.com>
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>   tools/include/linux/types.h | 5 +++++
+>   1 file changed, 5 insertions(+)
+> 
+> diff --git a/tools/include/linux/types.h b/tools/include/linux/types.h
+> index d41f8a261bce..b6c473b7920d 100644
+> --- a/tools/include/linux/types.h
+> +++ b/tools/include/linux/types.h
+> @@ -23,6 +23,11 @@ typedef enum {
+>   	__GFP_HIGH
+>   } gfp_t;
+>   
+> +#ifdef __SIZEOF_INT128__
+> +typedef __signed__ __int128 __s128 __attribute__((aligned(16)));
+> +typedef unsigned __int128 __u128 __attribute__((aligned(16)));
+> +#endif
+> +
+>   /*
+>    * We define u64 as uint64_t for every architecture
+>    * so that we can print it with "%"PRIx64 without getting warnings.
 
