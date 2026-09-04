@@ -1,89 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBE6418348;
-	Fri,  4 Sep 2026 06:23:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67ACD19049B;
+	Fri,  4 Sep 2026 06:25:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503020; cv=none; b=tYSA/eyb6YofvCozEwLGZdjMJBMhYYxjm/apCHBAjrZrQGYiZE6P9sRKji6jJIHE+f7FfnZ0pdf2yVqMi0mxfvd6dBTkNACpIOrB9sFU3VdQ8XQ++Rd5cdutyc4cXjsqfzgz5/rOE/D+uRT6YSiVeIG1ClgyVDT6fxjzldth8I8=
+	t=1788503158; cv=none; b=eY1TGAVlXC5FazyXnB1gxgx5zuurI6OebI9FLFhpZk14q8P6WEFKSytOZ+xr8hgGptZ7r+J45TITaYJ3N2KGGWt0uiV+UCI1UWptuW9GuvZEMdPT1Dm6dANoNM+8NECs1FIztrnb7bmVTXUFd/hSGBJC+SxxkjY6Zfz913WE/fI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788503020; c=relaxed/simple;
-	bh=ggYho2v6Vi7S9IqpO9L1zxzjMZRclyVc+ZgH7Tlyg/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZfYGlta5jPzMrrCe7TFJN2WBBVHZap15oDiE/tWzbnA3+OS6bU9BpHqiOCYz/IMwtLpDJCA1hCBFzA3Nu/XjLwarGUuMeTKTqxwbe04OA3T7fd0oTz6+lSBkL++5INwJRIFq8gYk3BR0hEQhnY0io/2Ydd0lHUtKLOy9nqFalbI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=j3tA5/I5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788503158; c=relaxed/simple;
+	bh=JDG4tJ3Q3YdoOoNeTt+HXP2MmqStTXKcx0FiJvY2SPY=;
+	h=Date:Subject:From:To:Cc:Message-ID:MIME-Version:Content-Type; b=eumrtLmRCqBx7IwGkzxl7ziWv8D8Lydg0WpdkrBucwIYmA6GYg1++lm4gQ361uXW8y8c2eWPvQMfcjam4wMD1j+gwSggrMZcvKAtoRAC7n7fsv8+AQWCTPTzLWUyd3OHozffyAXZAuaaMsIpxIj0B3crUz+/eXOG+NZXvaDtlZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P+6vX3BK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="j3tA5/I5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 545041F00A3E;
-	Fri,  4 Sep 2026 06:23:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788503018;
-	bh=Vwhe2JYT/N4RlkyGot/kZhgGOvf5y6VsagoGcvUhBvY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j3tA5/I5M//BRPGniS7OwhMMrV0I8mLPVCrodBO9HgLonkcdxEo5+yJFQ9prZVqGJ
-	 +0zWYC2bRAQZ3G//sdQIAJXEAXBJf4kXuIPXCuuHUMT78ujjrYAODl5k153wX89jZ0
-	 25OtvMXL0eF9l0OkCw+Nbts8ipf365FQx05MHyNY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 6.12 362/403] ALSA: aloop: Check card index validity at probe
-Date: Fri,  4 Sep 2026 07:02:45 +0200
-Message-ID: <20260904045743.042304377@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
-References: <20260904045734.806166532@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P+6vX3BK"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id DCAC31F00A3D;
+	Fri,  4 Sep 2026 06:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788503157;
+	bh=kkpvFFFtuUjS6DM1M9pl2zRaBgvSuXkTaQs94dcMjAU=;
+	h=Date:Subject:From:To:Cc;
+	b=P+6vX3BKvArhV8VLpinlyLKPdEG+nQ2S+oK+sxvoa0GkRCtp4ax4J1DZVLkHbXf8A
+	 PD3dCY5NX0zIXaUCUZOtn/HkGgHz28qnIwfhPR2uxRAPkVhEWAQGemZ/VX+tU8hBlX
+	 Fo/V0k9fB2VYHUKmTJoY4KRZsbRh7XJIcs9+TU6ZhdbMkjaeXGqoMsm1G+WhmAvJNr
+	 QXwBvdD6grilepEBdb2MIlPnNdFjjDoIfHvFawfhLBJ3hgR3p8jbyDFUGnORaUe72H
+	 PJScG3PgehX/LUt7KsvcWSHwytD6wKjq3t95beY+0nUKSEk/F9hXDXiWqlaEyBDDq4
+	 rmtEG2+Fz6pgw==
+Date: Thu, 03 Sep 2026 23:25:56 -0700
+Subject: [PATCHSET] xfs: LLM-inspired bug fixes, part 11
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: cem@kernel.org, hch@lst.de, djwong@kernel.org
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <178850312462.1198660.3332635535003842521.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Hi all,
 
-------------------
+Here's an eleventh batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+mwa...
 
-From: Takashi Iwai <tiwai@suse.de>
+If you're going to start using this code, I strongly recommend pulling
+from my git trees, which are linked below.
 
-commit 819b106a9fd2ef3fd8abf898b9a8e4524eca8f48 upstream.
+With a bit of luck, this should all go splendidly.
+Comments and questions are, as always, welcome.
 
-aloop driver blindly trusts that the given devptr->id value is within
-the proper card index range at probe.  It's OK for the devices the
-driver itself creates at the module probe time, but if the device is
-bound manually via sysfs interface, this could be -1 as "none", and
-this leads to OOB access for index[] and other parameters.
+--D
 
-Add a sanity check for the card index and warn/correct it if it's a
-value out of the range.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20260806153227.1460166-2-tiwai@suse.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+kernel git tree:
+https://git.kernel.org/cgit/linux/kernel/git/djwong/xfs-linux.git/log/?h=llm-fixes-11
 ---
- sound/drivers/aloop.c |    6 ++++++
- 1 file changed, 6 insertions(+)
-
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -1822,6 +1822,12 @@ static int loopback_probe(struct platfor
- 	int dev = devptr->id;
- 	int err;
- 
-+	if (dev < 0 || dev >= SNDRV_CARDS) {
-+		dev_warn(&devptr->dev,
-+			 "Invalid card index %d, using default 0\n", dev);
-+		dev = 0;
-+	}
-+
- 	err = snd_devm_card_new(&devptr->dev, index[dev], id[dev], THIS_MODULE,
- 				sizeof(struct loopback), &card);
- 	if (err < 0)
-
+Commits in this patchset:
+ * xfs: snapshot scrub stats when rendering them
+ * xfs: report healthy filesystem events in scrub stats
+ * xfs: report runtime failures in scrub
+ * xfs: remove redundant function declaration
+ * xfs: snapshot old AGFL before rewriting it
+ * xfs: bail out on bitmap errors in xrep_agfl_fill
+---
+ fs/xfs/scrub/dabtree.h         |    2 --
+ fs/xfs/scrub/agheader_repair.c |   41 ++++++++++++++++++++++++++----------
+ fs/xfs/scrub/stats.c           |   45 ++++++++++++++++++++++++++--------------
+ 3 files changed, 58 insertions(+), 30 deletions(-)
 
