@@ -1,159 +1,120 @@
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778B244238D
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F3543DA50;
+	Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514858; cv=none; b=XSmIf8m+R1y6Mg5nHT9nyDYPcPi4rYKE+P8aKs2J+196JXod28Bo57TanS2UzRW4jc+nptmmWGaRVi32gHfPdfRGP1MI0r7q3kZn65vFZ2JpPYHbe63UlGmMziWOMJdXvZFRk+SDN4gPZvucgNK2et6e1ZjjgDuiqG4IvwKQLF8=
+	t=1788514885; cv=none; b=foM6P+XxL7UjegCDmcFO3p7u1hpsf7Ycv/RyZWJeTibN7L1RCiAd3n5fVGRDf+T8A5Dw9pIgs5Yym5ExzaiSv7vXBipSZiQjhszW4ZdiSjTVhMQ3fBDUDE9yyOrdfQHpLkTXn636IwAWSqG/ECnlNdFIFSuhz9Lbj5MJL8e20EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514858; c=relaxed/simple;
-	bh=ho/52/p04ArcEHoYn7XPv3stLX1St2y5PEusO5BX3T0=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=j1V05eFC5ubd5Ky2fRbMcFzvTvZ4uz04GIPpTXROZ7fXnjXFWs9X94u/NX1uflLBwdO96e/thZPEqpXjDrL7+WKuukUndusySWI0ksDQKR7Gp6TK8QAZWMim6dQzvy09BVbWCJmE0NgeDKJzAINEggLCh2Y5r3KmHxyqVPpL67w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vJIjVgi/; arc=none smtp.client-ip=209.85.214.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sonalipradhan.bounces.google.com
+	s=arc-20240116; t=1788514885; c=relaxed/simple;
+	bh=HCmMlpryXOxcY4yzq1qoyVe6hzr/B4LAVEL/btEkEMQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dZcqUJKjaYCjWAtG+ajzV3Dblof7u2U/7GKgz0pbniGcrNY/gpP02/JD8IoKyqZTZISrRJ5+Umr/QiM1JgboLKUPZYKH8boIc2hApCrCY7t0NFGogiMMS0BfNkGlarsNK1u7MqoWXFhOXbJ5otkDRy0L9ECC37t0kaw6fJYr+TA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhP6ESyO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vJIjVgi/"
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfa4e4684bso20933605ad.2
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:40:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788514857; x=1789119657; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K4mhV9MSta3oYwggEM8uZ8Zw8CbEKn79tdknc0viU4c=;
-        b=vJIjVgi/l6gaqaCv58eS+I4be4HJo5huge7hK2QDB2KbDhbZXTGZb78r6Unro/r04S
-         oBhmi84spxvHS5PV49NHbeMDFprb02LB1DDEUdDhoGSF/Hy0enAv3erVKqCmZIxYAvFX
-         1FH+zA0KitmQ8PnAeKm30s708LL6NJED20FWI5NGISHmVLoXhwzVBOrtq6CEyqUdYS44
-         lxsE6LYkWNCkXxNjPz/UfZrMO6Snrr/Z8EnAvgsn9goNJD8ekWLIZN51a6BR1scfxwgo
-         y20unlqOj/Cn+b+pmappONwNFhkHKtCcw7DVAct+BH2/fq2FFD09Z8cOIRM3wmcFcs3G
-         7fZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788514857; x=1789119657;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K4mhV9MSta3oYwggEM8uZ8Zw8CbEKn79tdknc0viU4c=;
-        b=AHOcjKWHNVNeRVOcB2wU2i7yR5D+hXihjJyzah0JrV9mKANh9ma7AGMtlBBnQMHHy3
-         EnE44Lcjx3k4+mAdjJKcR8Pu7AEwEZ+ZFBnBFGTLT7m/Pe/N4mYYbqX1SuMsmlvqV5f1
-         Bed2oovW57bBBfSEItz3tN25IpG/VURTR2GloC3oLru0MMBXkg+l4QVIaXaXLpzGfq+n
-         xr4DRtN05+4ItpRuVVnzZR3J3Jz+qOXCcWeG78a/OalN5JeJtZD9+YPbRjcPN4OrBzaw
-         MJA3itsbXJAMJkzr8aHWhfev3ccqgLZttIq/YbMZKj510vcn+oNYkLdr9hEjM1tGMDkS
-         f/Hw==
-X-Gm-Message-State: AFuF++kfKokw/+T7cGr/ubE//HSd3RaEfhghZUZuVK96I7ki8UwyQBgy
-	+95M2IRaISlS4rS9TQIczRcjvRd1syKrVrNekjNgv0vzGVHLjYFtUznkRYNJM8RYN7LSFhazYFh
-	JAD0hrrbS0AT/my6pPbpPdtIEKcfEPlPUJNQCPOjp6O6PVWQXqRMuvLLzrp7ACPMmkeBNG7+Hb+
-	BC9nx8614HhCWNo+Me4rIowvnAErOCCN++Mr6gEIg8PJe2zqiXRCcZzXicGHDauYhvakGJzKBWL
-	A==
-X-Received: from plqu15.prod.google.com ([2002:a17:902:a60f:b0:2ca:ddb3:59fc])
- (user=sonalipradhan job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:902:7788:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2db127c0b20mr54278235ad.12.1788514856346;
- Fri, 04 Sep 2026 02:40:56 -0700 (PDT)
-Date: Fri,  4 Sep 2026 09:40:52 +0000
-In-Reply-To: <2026090324-poker-gradient-aafb@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhP6ESyO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56F701F00A3D;
+	Fri,  4 Sep 2026 09:41:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788514883;
+	bh=gvPcMOkhHBzDPGhH9hGOV04M6RWv20p4fZMpX2/W66Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mhP6ESyORyrJr2xtF0KtGRFoa+22b9Rru63v2O6rIwt30IPZqi+EDuyFNd3p7niAB
+	 twl5vI+yrYRltMerjwYH8aB+8i6KvKpgLk41QMoSo2Tb1zleYhHKJ+Ls0Hy+EQlCsT
+	 Mz/wwj34eQE2a0XP2iaOUg1BNFPDQUeH+Um5uKcyK0RY1dfNPVFwFvbuLghU9ECf9d
+	 GXRyMISIyscmnfmTo6L7uso7/bgP/jIEg1QzIlH0mSF+IalVeX3cb1W2QmAND/CnIm
+	 HcqJAVcWAA3IPwGxVxZbVuVHt/F9mr8crH0KzMfFX6snisuUop9dkDda1Wz2YgwH32
+	 KydTWHKvGE79g==
+Message-ID: <51b3dd1a-5595-4538-b792-a679b6813a6f@kernel.org>
+Date: Fri, 4 Sep 2026 10:41:15 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <2026090324-poker-gradient-aafb@gregkh>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-Message-ID: <20260904094052.592539-1-sonalipradhan@google.com>
-Subject: [PATCH 5.10.y] usb: gadget: u_audio: Fix use-after-free on sound card disconnect
-From: Sonali Pradhan <sonalipradhan@google.com>
-To: stable@vger.kernel.org
-Cc: Sonali Pradhan <sonalipradhan@google.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 1/4] phy: core: Fix use-after-free in phy_get paths
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+ Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
+References: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
+ <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-1-01ef1eced075@linaro.org>
+ <2aXo5I_5YqQ6uikqbIOWs7L__EwJV2oTs24Jqa-YRqGIU2FOT1O4bixGBbTzbaiBuENyW0XkWbqAJJQnxgSnWQ==@protonmail.internalid>
+ <CAFEp6-2nWfjF18R9pw0xFt92GcPORKKa+ix8czQ=m512TYuP8Q@mail.gmail.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <CAFEp6-2nWfjF18R9pw0xFt92GcPORKKa+ix8czQ=m512TYuP8Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-commit 858965947081d10d41d9a1010a540d3d5eea958b upstream.
+On 04/09/2026 08:45, Loic Poulain wrote:
+>> -       mutex_lock(&phy_provider_mutex);
+> Then, now we're moving the responsibility to the callers, maybe we should have:
+>      lockdep_assert_held(&phy_provider_mutex)
 
-g_audio_cleanup() invokes snd_card_free_when_closed() to initiate sound
-card teardown and immediately frees the underlying struct snd_uac_chip
-context. However, snd_card_free_when_closed() returns asynchronously
-while ALSA control elements (kctls) remain open in userspace.
+An LLM suggested the same thing to me but, I thought the resulting patch 
+"looked messy".
 
-When userspace control applications access or close these open file
-descriptors, kctl callbacks attempt to dereference kctl->private_data
-pointing to &uac->c_prm or &uac->p_prm within the freed uac structure,
-resulting in a use-after-free (UAF) memory corruption.
+Do you want it added, its only three additional callsites.
 
-Fix this issue by deferring the destruction of struct snd_uac_chip until
-all references to the ALSA sound card are released. Register a custom
-card->private_free callback (u_audio_card_free) during g_audio_setup()
-that frees uac and its associated playback/capture request and ring
-buffers only when the sound card reference count drops to zero.
-
-Fixes: 6c67ed9ad9b8 ("usb: gadget: u_audio: don't let userspace block driver unbind")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
-Link: https://patch.msgid.link/20260810071237.2207680-1-sonalipradhan@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-[sonalipradhan: resolved ureq field naming and placement conflicts for 5.10-stable]
-Signed-off-by: Sonali Pradhan <sonalipradhan@google.com>
 ---
- drivers/usb/gadget/function/u_audio.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/usb/gadget/function/u_audio.c b/drivers/usb/gadget/function/u_audio.c
-index a387ff2c8b73..2d190d6f628c 100644
---- a/drivers/usb/gadget/function/u_audio.c
-+++ b/drivers/usb/gadget/function/u_audio.c
-@@ -486,6 +486,20 @@ void u_audio_stop_playback(struct g_audio *audio_dev)
- }
- EXPORT_SYMBOL_GPL(u_audio_stop_playback);
- 
-+static void u_audio_card_free(struct snd_card *card)
-+{
-+	struct snd_uac_chip *uac = card->private_data;
-+
-+	if (!uac)
-+		return;
-+
-+	kfree(uac->p_prm.ureq);
-+	kfree(uac->c_prm.ureq);
-+	kfree(uac->p_prm.rbuf);
-+	kfree(uac->c_prm.rbuf);
-+	kfree(uac);
-+}
-+
- int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 					const char *card_name)
- {
-@@ -560,6 +574,8 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 		goto fail;
- 
- 	uac->card = card;
-+	card->private_data = uac;
-+	card->private_free = u_audio_card_free;
- 
- 	/*
- 	 * Create first PCM device
-@@ -591,6 +607,8 @@ int g_audio_setup(struct g_audio *g_audio, const char *pcm_name,
- 
- snd_fail:
- 	snd_card_free(card);
-+	return err;
-+
- fail:
- 	kfree(uac->p_prm.ureq);
- 	kfree(uac->c_prm.ureq);
-@@ -616,12 +634,6 @@ void g_audio_cleanup(struct g_audio *g_audio)
- 	card = uac->card;
- 	if (card)
- 		snd_card_free_when_closed(card);
--
--	kfree(uac->p_prm.ureq);
--	kfree(uac->c_prm.ureq);
--	kfree(uac->p_prm.rbuf);
--	kfree(uac->c_prm.rbuf);
--	kfree(uac);
- }
- EXPORT_SYMBOL_GPL(g_audio_cleanup);
- 
--- 
-2.55.0.979.g7e5102b832-goog
-
+bod
