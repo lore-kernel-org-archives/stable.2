@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6F1D3F86EF
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:38:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C35CD3EC801
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:39:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788496719; cv=none; b=g+CUu6yAIC1VtVrLqRZ/HfFbiaYxl2Skqu76sFbVB9p/DDMpAsQb8LpvgFvjhwhzly6G1FP7lsYWiSeRToEW2miSVy/8fPvjcioomkqa/0rbZx+gj/V1CFrGovt1v3lL193pzytILlTE3XC5/Ml5fZg58zMpmxJ+zBDEEoKIy58=
+	t=1788496793; cv=none; b=MVBjsLwjR0BkopZ4zIVdRSZEvck1TkS528BLO+9ZO73NACe15TSKcphxublLt4k7pPwjkX624QS2zYQOvK6tq5wBRwOSN8RsvTsrHo5Lk0NmNDutlrhtI0B7/V0glxPtabj5mtAzIgHS8uikyrsxIRe1Zu6ENc/53VSeRr/qvvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788496719; c=relaxed/simple;
-	bh=pL+36XSnSge/pMih6E5cOLpQxAUjW3CE2utsaL7u9Lc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=G+ZrBo6HAt1VMfqJN/TEMKXaKDukRTPd1s7bWTWsqkSt93RWnqMbubSDITvTjPQXqcFM3AC2cNDR0HhZocKRjNrivD/sBrC/6hWllD941HazIJSS0b50w2sms5rH8339iJtJyDt+J9SVu6zxJOhH2+NPKFfhFxdUjSkrkcPhakc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZAZPbZHV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788496793; c=relaxed/simple;
+	bh=VMY/JC6Pk9G394uXk1SsWORYi5Qj4zw+Z967l15miFs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YRFrMAWtLn5DN05AtdGGRzMPm9bBwyyC+pHjLzZSWuY9VAZu1nvZ2aq0yEnbZ8DhCT4POsC8663j6uNElF7ESo3ZGUzNmuDsrWAPGhrFIAhbwRaIyn7cuJmCj18RtkVRzwBUapTjufvIz9Jz2h6rmSJ+HLQ0clJo/tFRtFLOm1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Uy1eU+4F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZAZPbZHV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8031F00A3F;
-	Fri,  4 Sep 2026 04:38:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Uy1eU+4F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2892C1F00A3D;
+	Fri,  4 Sep 2026 04:39:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788496717;
-	bh=KCebsc4FMjhGImqt+Wb4IgV2wqM7ZCgEjRx1yNbrh34=;
+	s=korg; t=1788496791;
+	bh=Xfvq/OU6+zbpiTgRBvagkNc6gxPYKs1mjQ9LY/naZww=;
 	h=Subject:To:Cc:From:Date;
-	b=ZAZPbZHVk7uCGIq/IDW95Pi4KYQ6J0ilssXRkpisiIksoqEDxvR5DBcYNFEu7eYoS
-	 wOO2yu9+t6jMpQ9e6Oddgza6u2KBYLmT02+mzwl6BMyZhxr5tA9eAXPiXrKUFdXcyU
-	 FpV4cK+MX9o4HZghaGIvVwnBi01DHhvPk3J+lUEw=
-Subject: FAILED: patch "[PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,pkshih@realtek.com
+	b=Uy1eU+4FncI1HBE7CTPhUGRAt6rn56Gtxr0q0f5IbtgJbKJcqW4ZQAWcgWbuJLQHT
+	 a2vKjng6LBHC4D5c2atx56xZ4Vb0/cRMfy/sNvZL9t57buO7/fGKQofiK4wIXYSTXm
+	 pJYkx4SlA9xvgW2ctynKh0ucmRe5pPig54qE5aBQ=
+Subject: FAILED: patch "[PATCH] dm-pcache: reject a kset that overruns its segment" failed to apply to 7.2-stable tree
+To: hexlabsecurity@proton.me,mpatocka@redhat.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 04 Sep 2026 06:38:20 +0200
-Message-ID: <2026090420-fleshy-punctured-8063@gregkh>
+Date: Fri, 04 Sep 2026 06:39:25 +0200
+Message-ID: <2026090425-mutiny-unsent-560b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6c080026ecc17eecb103f8927c64ea73a74bb818
+git cherry-pick -x 7ac1f10f987a2ffae4aecf0e2ceca8f552b665cb
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090420-fleshy-punctured-8063@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090425-mutiny-unsent-560b@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,110 +62,69 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6c080026ecc17eecb103f8927c64ea73a74bb818 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Tue, 30 Jun 2026 03:31:17 +0000
-Subject: [PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
+From 7ac1f10f987a2ffae4aecf0e2ceca8f552b665cb Mon Sep 17 00:00:00 2001
+From: Bryam Vargas <hexlabsecurity@proton.me>
+Date: Fri, 17 Jul 2026 06:26:58 -0500
+Subject: [PATCH] dm-pcache: reject a kset that overruns its segment
 
-rtl8xxxu arms rx_urb_wq from the RX completion path:
-rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
-queues it on rx_urb_pending_list and, once the list grows past
-RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
-rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
-container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
-which anchors it on rx_anchor and dereferences priv->udev.
+cache_replay(), the writeback worker and the GC worker read a kset of
+get_kset_onmedia_size() bytes and advance the position by it. A forged
+key_num makes that size exceed the segment's remaining space, so the
+advance walks past the segment and trips the cache_pos_advance() BUG_ON.
 
-rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
-update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
-the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
-rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
-producing a use-after-free.  The window opens under active RX traffic
-(pending count above the watermark) followed by a disconnect.
+Reject a kset whose on-media size exceeds cache_seg_remain() before use.
 
-There are two teardown races to close:
-
-  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
-    but called schedule_work() after dropping the lock.  A completion
-    that observed shutdown == false and released the lock could then call
-    schedule_work() after rtl8xxxu_stop() had set shutdown and
-    cancel_work_sync() had already returned, arming the worker to run
-    after the teardown.  Move schedule_work() under the same !shutdown
-    branch so the arming decision is atomic with the shutdown check.
-
-  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
-    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
-    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
-    URB that escaped the kill.  In rtl8xxxu_stop(), call
-    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
-    drained first.
-
-After priv->shutdown is set under rx_urb_lock, completions can no longer
-queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
-worker, and the following usb_kill_anchored_urbs() kills the URBs it may
-have submitted.
-
-rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
-guarantees .stop() runs for a live interface before ieee80211_free_hw()
-frees priv.  The probe error path needs no cancel: rx_urb_wq is
-INIT_WORK()'d there but cannot have been scheduled, since no URB is
-submitted before ieee80211_register_hw() succeeds.
-
-This bug was found by static analysis.
-
-Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
+Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
-Link: https://patch.msgid.link/20260630033117.3377-1-fanwu01@zju.edu.cn
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
-diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-index 4e8a4769603c..bddbd0990de7 100644
---- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
-+++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
-@@ -5837,14 +5837,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
- {
- 	struct sk_buff *skb;
- 	unsigned long flags;
--	int pending = 0;
+diff --git a/drivers/md/dm-pcache/cache_gc.c b/drivers/md/dm-pcache/cache_gc.c
+index 1ed513745023..c483c7a3afaf 100644
+--- a/drivers/md/dm-pcache/cache_gc.c
++++ b/drivers/md/dm-pcache/cache_gc.c
+@@ -146,6 +146,11 @@ void pcache_cache_gc_fn(struct work_struct *work)
+ 			continue;
+ 		}
  
- 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
++		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&key_tail)) {
++			atomic_inc(&cache->gc_errors);
++			return;
++		}
++
+ 		for (i = 0; i < kset_onmedia->key_num; i++) {
+ 			struct pcache_cache_key key_tmp = { 0 };
  
- 	if (!priv->shutdown) {
- 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
- 		priv->rx_urb_pending_count++;
--		pending = priv->rx_urb_pending_count;
-+		/*
-+		 * Arm the worker under rx_urb_lock so this is atomic with the
-+		 * shutdown check: moving it out of the lock would let a
-+		 * completion arm the work after rtl8xxxu_stop() canceled it.
-+		 */
-+		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
-+			schedule_work(&priv->rx_urb_wq);
- 	} else {
- 		skb = (struct sk_buff *)rx_urb->urb.context;
- 		dev_kfree_skb_irq(skb);
-@@ -5852,9 +5857,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
+diff --git a/drivers/md/dm-pcache/cache_key.c b/drivers/md/dm-pcache/cache_key.c
+index f4459b2e1b3b..d00497f9e462 100644
+--- a/drivers/md/dm-pcache/cache_key.c
++++ b/drivers/md/dm-pcache/cache_key.c
+@@ -818,6 +818,11 @@ int cache_replay(struct pcache_cache *cache)
+ 		}
+ 
+ 		/* Replay the kset and check for errors. */
++		if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(pos)) {
++			ret = -EIO;
++			goto out;
++		}
++
+ 		ret = kset_replay(cache, kset_onmedia);
+ 		if (ret)
+ 			goto out;
+diff --git a/drivers/md/dm-pcache/cache_writeback.c b/drivers/md/dm-pcache/cache_writeback.c
+index 34c34b448e04..7a85a9aed18e 100644
+--- a/drivers/md/dm-pcache/cache_writeback.c
++++ b/drivers/md/dm-pcache/cache_writeback.c
+@@ -261,6 +261,11 @@ void cache_writeback_fn(struct work_struct *work)
+ 		goto queue_work;
  	}
  
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
--
--	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
--		schedule_work(&priv->rx_urb_wq);
- }
- 
- static void rtl8xxxu_rx_urb_work(struct work_struct *work)
-@@ -7506,6 +7508,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
- 	priv->shutdown = true;
- 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
- 
-+	/*
-+	 * Cancel before killing rx_anchor: the worker re-anchors every URB
-+	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
-+	 * after the kill could submit a URB that escapes it.
-+	 */
-+	cancel_work_sync(&priv->rx_urb_wq);
++	if (get_kset_onmedia_size(kset_onmedia) > cache_seg_remain(&dirty_tail)) {
++		atomic_inc(&cache->writeback_errors);
++		goto unlock;
++	}
 +
- 	usb_kill_anchored_urbs(&priv->rx_anchor);
- 	usb_kill_anchored_urbs(&priv->tx_anchor);
- 	if (priv->usb_interrupts)
+ 	ret = cache_kset_insert_tree(cache, kset_onmedia);
+ 	if (ret) {
+ 		atomic_inc(&cache->writeback_errors);
 
