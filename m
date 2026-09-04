@@ -1,59 +1,61 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D66E133A9CF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300C831AABF;
 	Fri,  4 Sep 2026 13:08:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527299; cv=none; b=spAzBtV0OVbW/bF6KpjI5Hl6DOCIHj7iovsHpeHmYem6KKzwFYTKfz674EO4rW3icD0GdMOZpycjQ6U8CMR3cJ3QAsvBKGYMm3sLVnWvDA0dbY1rwMzaPriV4xMNReNPuQI2uxRWLuF/3FkvAL7E2esK+PVB+lW9JH526E+aRvY=
+	t=1788527299; cv=none; b=Gd4ZaRUhv+rD/f4NFQEg94/XHpmiS4ETuFnGnudzv/mVGFxCGuRtUNXJVuoGNy3uRg3DpHGJ6Caiej9DVc/SdOgflwQmakuxDF/79zrqGvOEmRAeCjDotcNoPn3B7lqs0ps0z0eer1cwlYISHv9xK/gLR24X4rRtIFyKvnOWUxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788527299; c=relaxed/simple;
-	bh=oSQ1tgTxjQ/nAh6wKbjk9v6VA6GjgDtaHqqb9wNHM6E=;
+	bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uuBRf+2z/AOGhqXGkeKV+tcTFsQRz+W0kTR2zrL0ICeAP+LIYChjidRHvl+sipm7Wek1QuqKeh3yfAYLculxISMR9EIEMRMKKrgXGTfXQVlnrlHfo7g2eHQXDnQcqkOMSuqqlCqx/TM7rJKZiSUpRl+PYhtBW99g1mzKfM8JGKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=tLw1L+fS; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=U07lkFxg; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=QUGDhmZ72NTWD22QJ1SDyOrabqCRKn4sEak9dKNB7czyNlDoJJUNeQS9cfrl6Y438QtHcC3vk7NP0+NcSckOuqq+hmdmZNfcwZHR471Q5NFmFzkO4rejX5sh7LTyGiv+xW+IOMTmYvOVx4thH1tNtLc93/T//iZ21J4mCChMQDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=rzBP5T8K; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=oPbKw0PA; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="tLw1L+fS";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="U07lkFxg"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="rzBP5T8K";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="oPbKw0PA"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527287; bh=oSQ1tgTxjQ/nAh6wKbjk9v6VA6GjgDtaHqqb9wNHM6E=;
+	t=1788527287; bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=tLw1L+fSwv9udcVuKcdA6HAheKhtKV0UzmHwGCf4NeLSgOZU8PcScs9diaMorPS7P
-	 5EyvcWP8VfEi96Sp/Ud2j2wKs8OBmDvObHe+m3lCmDUjhVfJTI5vQQAGL5niepRChw
-	 St+eJrdCfHeazxyNiD+VRwIIrsvb+Yfq5w4Nd2khCFeMzFjv9JOBVjDv5utRoCvU5G
-	 PPEPP3kVpJJV2xikDoldOof2/4rHkfzdRORFFuBMdJXfSoCsFQ9G+IHbMg8mapqdAi
-	 s9UwbRISnvRUYjfUH7nADq43Ata+6tnItN3F7n4/jLtMOjuWU0rwzLpwDiCY0aAHkD
-	 90Cp0zbb7Wa/Q==
+	b=rzBP5T8KLoJoqr4pkxxtD+4QwYcqcxJ6pznwae0VwHJzP4lPL/P+EAD6ebt/8X5zS
+	 4/t+nnDChsNQb4VzRBPe8p1ieq1SEDRCVHaTFmb08CFK+nDbnxe4B6t5s1W+QtrZzg
+	 ReM/ewaCDS9TeTMiTlkeVN7591AxM4e/ahz8m5XldQpKne6P7LoaKaMMjr0gg2Zfs7
+	 6xUEPENGD1UQ8cIKH5PfBZnAH5AjTTJoIey1OVtH2Np//AggkwG989qxjLes3/eMZC
+	 VGjArYBmjWe5yJB4I9M4Kc3YizmluaIhG/TPoSvmxB4ljP6lGOAfO81YKkZocKGGr2
+	 aPNZ9mPbsltkQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 4D8D54144C; Fri, 04 Sep 2026 14:08:07 +0100 (BST)
+	id 86D6141450; Fri, 04 Sep 2026 14:08:07 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527284; bh=oSQ1tgTxjQ/nAh6wKbjk9v6VA6GjgDtaHqqb9wNHM6E=;
+	t=1788527285; bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=U07lkFxgsmhJJNPxk20xKniDXHGBb+rinGojK6mKF7KdHia765FApiTRlxKukq4tw
-	 mGqVWVxzzQaM09lZP9P4amvqjPYssds2oqjsySOvOrkrEmLluVRaP9VrjVNpIkohgt
-	 3UwN7zrRNhUjaxRuAah/MonPM9UYJ08TcteJUc4KExd6tThtGgOtMxNch9Hievq4Hf
-	 buYFymCbWnvIZ0jH+jdLWyaYIVQDY9fKUp5FEen5GZwazekzE1ouknuDSPHqVhJpe/
-	 4jNQQqP42WLGaa0/V4oeembTcOTP1kI9x44+HpDQUvJLTTRdGg35VrPmnJusAHvA2v
-	 RykoKzfrGyIAw==
+	b=oPbKw0PArsQIkM3yEhouU/J1T6usaFIQZ/OYINADgLz3b1mC+R9yZuiLYOYRw7m2g
+	 OMTtITDSAdlxQXqp1X/s/fPJf88Kbkf42zUEMrsCDZ3M/k5nFxNtbPpzP1mJMQu3I/
+	 11cO8gaRI9JSDSO2qFTYB8XkkrOcBX9sdY7RB90H38Lqx6A44Nc8qh9ts9zZHZfIUR
+	 pkykreUWIFtB+lGgXIq6JwRlMjIRMFb8KUvpqcyUtgfUbhnxzt9QtzMfQRPJl7iQzo
+	 cgVABMpmv7oWhj8thn5OqjEmN4l1SmH9bmEhRNx2OwDrnD7+ekpoRQ/b1zMugOwyD/
+	 tWl6MzsGkIKUQ==
 Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id C90834145E;
-	Fri, 04 Sep 2026 14:08:04 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 5273541471;
+	Fri, 04 Sep 2026 14:08:05 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 15/17] media: serial_ir: Fix race condition where timer can be re-armed
-Date: Fri,  4 Sep 2026 14:07:43 +0100
-Message-ID: <29986d0b254c38a154ba0683fe988d6412d5722e.1788526920.git.sean@mess.org>
+Subject: [PATCH v3 16/17] media: rc: After rc_unregister_device() timers can be re-armed
+Date: Fri,  4 Sep 2026 14:07:44 +0100
+Message-ID: <9a0007543dea39b08f2c6124e005ddc90afa10a2.1788526920.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788526920.git.sean@mess.org>
 References: <cover.1788526920.git.sean@mess.org>
@@ -65,51 +67,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ensure the timer is deleted after the irq is freed, but before rcdev.
+If rc_keydown() is called after rc_register_device(), then the timers
+can be re-armed. Delete them again for a final time.
 
-Fixes: 2940c7e49775 ("[media] serial_ir: generate timeout")
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/serial_ir.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/media/rc/rc-main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/media/rc/serial_ir.c b/drivers/media/rc/serial_ir.c
-index 992fff82b524..35741a8da63a 100644
---- a/drivers/media/rc/serial_ir.c
-+++ b/drivers/media/rc/serial_ir.c
-@@ -481,6 +481,11 @@ static int serial_ir_tx_carrier(struct rc_dev *dev, u32 carrier);
- static int serial_ir_open(struct rc_dev *rcdev);
- static void serial_ir_close(struct rc_dev *rcdev);
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index 795ac0fe4858..a40d1bb75822 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1785,6 +1785,11 @@ void rc_free_device(struct rc_dev *dev)
+ 	if (!dev)
+ 		return;
  
-+static void devm_timer_delete_sync(void *timer)
-+{
-+	timer_delete_sync(timer);
-+}
++	if (dev->input_dev) {
++		timer_delete_sync(&dev->timer_keyup);
++		timer_delete_sync(&dev->timer_repeat);
++	}
 +
- static int serial_ir_probe(struct platform_device *dev)
- {
- 	struct rc_dev *rcdev;
-@@ -535,6 +540,11 @@ static int serial_ir_probe(struct platform_device *dev)
+ 	input_put_device(dev->input_dev);
  
- 	timer_setup(&serial_ir.timeout_timer, serial_ir_timeout, 0);
- 
-+	result = devm_add_action_or_reset(&dev->dev, devm_timer_delete_sync,
-+					  &serial_ir.timeout_timer);
-+	if (result)
-+		return result;
-+
- 	result = devm_request_irq(&dev->dev, irq, serial_ir_irq_handler,
- 				  share_irq ? IRQF_SHARED : 0,
- 				  KBUILD_MODNAME, &hardware);
-@@ -798,7 +808,6 @@ static int __init serial_ir_init_module(void)
- 
- static void __exit serial_ir_exit_module(void)
- {
--	timer_delete_sync(&serial_ir.timeout_timer);
- 	serial_ir_exit();
- }
- 
+ 	put_device(&dev->dev);
 -- 
 2.55.0
 
