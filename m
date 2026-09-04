@@ -1,130 +1,157 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D4F38A72C
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:50:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AB9221F2F
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490203; cv=none; b=WwqMbCo11bCRH4i9nqoFpU4lCgz4rn0Xt1BPKLVw1RDLPzN4rlI79qUTrO1+mp/YuK94IwzMIsgaeLf8Fj1KbDsk9T74GMA1xoNAtXF/qodQTPcxxkgrkNSJj2C0xo7HBVA2gIDyl+/RtP7HnVcgWfT8Me6D/6pJGeQLVu+AnYQ=
+	t=1788490337; cv=none; b=gokkj0EvQOdxw6JyC2CjzZkxUhKzkDn2S4a2sRV1z0N+B+LbdvPal0Nr66qiaAoXgV3vafoUyksiZKYnrawxAKCBAkHq7h5+fz4NdhGu9bfQvwzPoSPsS3vAIO0oEHsTDkb1hMHczBigwk58lXM9Er84XEQEULiKpGjVxUw5O+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490203; c=relaxed/simple;
-	bh=3MvmmwZvg6iNS8mwVIF3MT/6jIAt9thoEh08Kl3QeSg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NkMAXT93Q84y//Vl9+3C0zFJyV8Ivyu8Hfvf1TDlwFgBqlZeSifL0wV0FC4AYi/8nnPP7/zwYIP52TMtX/ZpoSIbnyEkIw6xFx7SdF31Y+i81b/lwAJcnZJXOze9UtByu0Gzd3DPPjJrpDHK4BgekH8zhs5idc7HeQI3AUwQvXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p+BSAFKZ; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788490337; c=relaxed/simple;
+	bh=i58fuKLDZk7N0dzGb7DqN6w88xQo9tsbSpKrrgSjGoY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tYkUP3wsrNkHdwo1nXBq9z2Fz/LAI08SkL7/3VZhIrIhgmgexA+55Ja1fzi2DABZnWCNtKxXnMc63QE7iBJ2lC5fdW4mK7N+trxw7d/PalhKOLYwxzW1/EQq79jBo00KNNHJstVCa3RanHuga7tz02j+6GowXw0aAocjZoie/EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcmd4iPc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p+BSAFKZ"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-398a5aad413so397862a91.3
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 19:50:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788490201; x=1789095001; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PG96oKZZP2N6Xo9cvn741u/vr6DaKEDABY2UEKMrlX4=;
-        b=p+BSAFKZoEMCJX3Et+074ZqcSeh6VnY0F6Dh1XF4ar6b1WRKTyJKjyhvxjzvwhWAZl
-         0oeTfzKfaOtu52ZHQyCZWwHxxjEBToZTcRPBqou9hEtAGZV4T/otq1PpZQY9dVD1eu+I
-         SrrecpSeXsur2rtKrDGt4MPBniXZBg/TeR8gFW+jSXwAF0Wy2FuOwLLOMB79MvJxVVnJ
-         b1oWzM8aD+w/SAdDGoNjuf69PeWPQX9XyCkCQ8/u+xqBoAZ6rYi9FQqKWyTWaJZkVP/T
-         T2KiN419nXrXdgk/cMOpUVJ0ozw2p9OYwNH6PbJgC/fOeWjw6vyQunIKDHMZ6MZKmUQF
-         xxdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788490201; x=1789095001;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PG96oKZZP2N6Xo9cvn741u/vr6DaKEDABY2UEKMrlX4=;
-        b=tEc5DAup8L4pBh59rTPw2rSRbI30YS61QszTNfJ7cBTDnVHVfbmashOumjtOucdzdI
-         hp7nqY/5Z72GHI7OuIEZ8FGzxMo7Iipk9Sqdlu04UGobDOUcS6W5vu9fdOCOcYe99M07
-         jV72sJoncEXm4F0B2ITV9Y1YmBCKZirK9qb4TFUlkJM0kGHvzCmIQHqiUhN+FzZxp+n0
-         pqu+xevMIHiBFcArbkpKKGlQoQtefQMfMSgbLAV2/eLv1ZCjfyS499Hel+XH9aX/EB0X
-         rh2UdCpTNY8mQyze4sjpzc0kyWb9SaG2gYkBKM51aowBf9o9H0pOYiOUmzWVnJI+6CSi
-         4C/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxsJ2avC3t+3w6gQtizxT08FDUYkPkUyLT11knH0M14UJkS91sbQMaUT7SzTPJHX/AKRI/WxTY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPC3AZtIfN0JEeSJgF+6HIgCl8PRd1aZz3mXnUbEwXQLdBcDC9
-	t2YpFpQrtx0aTnCFMMu+6sqe5ZgiCXrQ3VLlniSYrUh1RdwlHKkK24g6
-X-Gm-Gg: AYBFou25biECjqGmTpNjH/Bg1vJFLl+5rNvAO8KJJyfvd7bfrCzHwyGDcGRi8n7hE4Y
-	Ymh2b3TmnQrteItDR4GjTNpipPlSxFWKF0sjPGO8ganPeiTQjHksCQOFywdOYFP/KjFNcA97snq
-	aS+/1njiveA9X1tpDzMA0bEdaLbcUlusxhU44jAB7MjvS+x9UHZ4YFbxlD5MZN2MG3OK0ozj90U
-	texo6zymTWHd8Wn5dhQA1072VKyQpvHyoUZgEuQVt2bhf4LG+UkuZNcL6ADrW9CupzRAUWrNUEH
-	YwFOr9OEs/bE1jn6+wMlkjjEnXyxnNUxuDvkvzqf26/aOLCuvH+YHbqFdt0YG+TCWyHQnziioHO
-	V7P81LC0YVkYgksFQx5Jk/s0JX8w1PedbcEEeHVkGREiO1/PF3ErExzhu/1xuPTvOyniEtTPAQM
-	0GkrYBObbHU8oA/+8aUvPPb9yILX5M54dkf6DLkmpZdGRxWrIfMCPYWHGHmmcDUAJjj30aBzvcm
-	9PebU3t1adUMnCKt2s=
-X-Received: by 2002:a17:90b:4c86:b0:395:5f43:4ec4 with SMTP id 98e67ed59e1d1-39b25f78ab8mr4417800a91.0.1788490201512;
-        Thu, 03 Sep 2026 19:50:01 -0700 (PDT)
-Received: from kernel ([103.219.206.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm3762634eec.16.2026.09.03.19.49.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 19:50:01 -0700 (PDT)
-Date: Fri, 4 Sep 2026 08:19:53 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: clabbe@baylibre.com, herbert@gondor.apana.org.au, davem@davemloft.net
-Cc: skhan@linuxfoundation.org, me@brighamcampbell.com, jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] crypto: amlogic: Fix IRQ handler return value and
- fallthrough logic
-Message-ID: <apox0f2D6bYOYOnj@kernel>
-References: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcmd4iPc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6871F1F000E9;
+	Fri,  4 Sep 2026 02:52:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788490335;
+	bh=yiCPMhT58sIfzi4t7oqSZ4kkYAhgkwHNeIwWiQfTCwc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jcmd4iPc/KjsraBUE4WjMkSPzoO1FvKd514ZIeMqH0AAfFiD4rlyQEAuaXfOpa+8V
+	 6PX9TNw1cPJGZfumU9wbIRe2mvSyiUCKYi3P6O9defrA7qMxhl8MIhCiKbu1koUY1F
+	 W/OT73C2lsP3TtjFvDWTZ0FD5wIrqUvdOFSNVy5T7GMN3kDoD8u2xTKPTJU/W87Zt+
+	 zstnd7z2I76/n9CwmtGsy0nr9aV2QcpxUjfJBXWVi4Mkn7fFLxcH6VJCFtZrSyOVgd
+	 4NEPlilDQVNkYbGUQ38UMNj2evdPIH7lAlOH6RYNmP+5Txb1hANd6Mnn/9n5Qve1Mp
+	 I+mbpkiV3nTyA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/huge_memory: use folio's memcg inside __folio_split()
+Date: Thu,  3 Sep 2026 22:52:12 -0400
+Message-ID: <20260904025212.2265508-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090358-bouncy-state-b521@gregkh>
+References: <2026090358-bouncy-state-b521@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 08:42:43PM +0530, Mohamad Raizudeen wrote:
-> In irqreturn_t_meson_irq_handler(), when an interrupt matches a flow
-> but the status register is empty, the driver prints an error but
-> doesn't return. It falls through the loop and incorrectly prints an
-> `unknown irq` message.
-> 
-> Fix this by returning IRQ_HANDLED immediately after the error print.
-> 
-> Additionally, the handler returns IRQ_HANDLED for genuinely unknown
-> interrupts. This masks false interrupts and prevents the kernel from
-> detecting interrupts. Return IRQ_NONE instead for unhandled
-> interrupts.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
-> Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-> ---
->  drivers/crypto/amlogic/amlogic-gxl-core.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
-> index 6cb33949915f..302b398405e2 100644
-> --- a/drivers/crypto/amlogic/amlogic-gxl-core.c
-> +++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
-> @@ -38,11 +38,12 @@ static irqreturn_t meson_irq_handler(int irq, void *data)
->  				return IRQ_HANDLED;
->  			}
->  			dev_err(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
-> +			return IRQ_HANDLED; 
->  		}
->  	}
->  
->  	dev_err(mc->dev, "%s %d from unknown irq\n", __func__, irq);
-> -	return IRQ_HANDLED;
-> +	return IRQ_NONE;
->  }
->  
->  static struct meson_alg_template mc_algs[] = {
-> -- 
-> 2.53.0
->
-Hi,
+From: Zi Yan <ziy@nvidia.com>
 
-Just following up on this patch. Please let me know if you have any
-feedback or if further changes are needed.
+[ Upstream commit c299a2285d9d8bda4da024455de65e3d00de6f17 ]
 
-Thanks,
-Mohamad Raizudeen
+Patch series "Honor XA_FLAGS_ACCOUNT in xas_split_alloc() and charge to
+folio's memcg", v3.
+
+__GFP_ACCOUNT is needed for xarray node allocation accounting when
+XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
+convergence regression") fixed a workingset regression with it.
+xas_split_alloc() does not have it and needs to be fixed.
+
+In addition, based on Sashiko's review[1] and Johannes' confirmation[2], to
+charge the right memcg, folio's memcg needs to be active during folio
+split. Add that before adding __GFP_ACCOUNT.
+
+There is no workingset convergence regression related to missing
+__GFP_ACCOUNT in xas_split_alloc() and the impact to userspace should be
+minor.
+
+This patch (of 2):
+
+During a pagecache folio split, an xarray node allocation can happen and
+needs to charge at folio's memcg instead of folio split invoker's memcg,
+because for example folio split can happen during reclaim and reclaim's
+active memcg might not be folio's memcg.  Switch to folio's memcg at the
+beginning and switch back afterwards.
+
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-0-38cb3ff325c5@nvidia.com
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-1-38cb3ff325c5@nvidia.com
+Link: https://sashiko.dev/#/patchset/20260727-add-gfp_account-to-xas_split_alloc-v1-1-9fae6bf64838%40nvidia.com?part=1 [1]
+Link: https://lore.kernel.org/all/amtcBZ-_QVRgCd6b@cmpxchg.org/ [2]
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: William Kucharski <william.kucharski@oracle.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted get_mem_cgroup_from_folio() to the older folio_memcg()/css_tryget() sequence in split_huge_page_to_list() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/huge_memory.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 35a9a0271492d..f9354625100cd 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2676,6 +2676,7 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	struct folio *folio = page_folio(page);
+ 	struct deferred_split *ds_queue = get_deferred_split_queue(&folio->page);
+ 	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
++	struct mem_cgroup *memcg, *old_memcg;
+ 	struct anon_vma *anon_vma = NULL;
+ 	struct address_space *mapping = NULL;
+ 	int extra_pins, ret;
+@@ -2694,6 +2695,19 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	if (folio_test_writeback(folio))
+ 		return -EBUSY;
+ 
++	/*
++	 * switch to folio's memcg as xarray node allocation can happen and
++	 * needs to charge to it.
++	 */
++#ifdef CONFIG_MEMCG
++	memcg = folio_memcg(folio);
++	if (!memcg || WARN_ON_ONCE(!css_tryget(&memcg->css)))
++		memcg = root_mem_cgroup;
++#else
++	memcg = NULL;
++#endif
++	old_memcg = set_active_memcg(memcg);
++
+ 	if (folio_test_anon(folio)) {
+ 		/*
+ 		 * The caller does not necessarily hold an mmap_lock that would
+@@ -2821,6 +2835,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	if (mapping)
+ 		i_mmap_unlock_read(mapping);
+ out:
++	/* restore to caller's old_memcg */
++	set_active_memcg(old_memcg);
++	mem_cgroup_put(memcg);
+ 	xas_destroy(&xas);
+ 	count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+ 	return ret;
+-- 
+2.53.0
+
