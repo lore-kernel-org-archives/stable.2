@@ -1,46 +1,44 @@
-Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549BE525A6F
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:28:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52BB47B43A
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553746; cv=none; b=YAws45n4UVtO+g0BubAg4DEI6+Y3eCCKuXoctlaYIR7kkvBA6U08qf8SFA8IoV8V5V7rH9MbEb3r5NnsvMQeVXwv8GDnDUBVdeKNasuFTHgl6tf6xUJYq9jwIwW83tcAXAHtvPdcAlal09c+YyiVk028H3ckgApk4mCArZpmNGU=
+	t=1788553927; cv=none; b=lTxT/Raug6KuyZV1B835Rt3PX9y1P5xq4T6H5qZb5iExW2aGgL58bGve993eLIQdXyHkIJ+ss8yLNkS13Ba8sage3X5CRjlNB6zanYPDaMaHypbueFkgRy+lHEm2YYvzErLfJRlmZIP8AF7LLNh/05ok4hrQGWRaXgFyHb1dBgk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553746; c=relaxed/simple;
-	bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UcfByiuI+4DBF7V1S923gXKKuQ1xFNmfLm/tWwa7UgWVfCABdZrX107dTgmPFHM76bmxUfjthCxrI1AdKVi3kTrITC1MQ3L9DXUH2WXuBD4hxwzlygGOs/ZmvPIKHdigdz4zdqYm9ehunK45pcRKC4Tt4a4kU3uP237wm2QQNz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=B7HSMM7I; arc=none smtp.client-ip=95.215.58.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	s=arc-20240116; t=1788553927; c=relaxed/simple;
+	bh=Zd7jLdXE6V51ReNsDma2CEPq0ADMT7lqWe2D/KiryGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Oyp5+BUvcM5jn7IxNohVvy3xJvL4Id9Grs1ENf2VQlmaDjIyCTMfczQ+RMZn2ncxksjgMxxIueohCWCRp3/e1o28v6zYYFZCKRE6Ch0AkSybnexTNF1bbRWzEnOof2S/2QwvZa+KFGkGHppspxVrop0gZs9+hRKTeu8A5Na08cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3syS+vL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="B7HSMM7I"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788553713; v=1; x=1789158513;
- b=B7HSMM7IwSo5NUxLvnaSWoS6kQJFXFUEcW+p9knhulztEaDupnbIBm0FMSwvICj5+7q534aZ
- bdOkr4LwGHK7hkDX7Tgk8oW1Q4s6I2+2vVUasGqYFBrCxLlZTxqEwQ25jqDQj1aCzTffZMSTBhJ
- KVNLdKQIHcLVE5pEDTBaeN4MXhsxwyAN3UO6WWty3xzOcGqBm+fez2kNEaLsTelho1Wp8stsqYK
- K0Ot5tQEbyh+nT+8cz8MMSTB3nWPvzNSR+1eVRcKRjrqlgEY25CnkRyQ2mTsKDHSp5RyP3fsRuO
- JDMEvIs5VaLb8vVh0OG4lz4DJExT1qz7hO1WRU00rUg5Q==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 32954092dbf4826d;
-	Fri, 04 Sep 2026 20:28:23 +0000
-X-Mizu-Trace-ID: 32954092dbf4826d
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Alexander Wetzel <Alexander@wetzel-home.de>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: mac80211: drop the monitor filter counts on stop, not just sometimes
-Date: Fri,  4 Sep 2026 13:28:17 -0700
-Message-ID: <20260904202817.12564-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3syS+vL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F098C1F00A3E;
+	Fri,  4 Sep 2026 20:31:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788553915;
+	bh=Xx9TVCrEfe/rJbaz7cNyDs+n/sspTU02FUlyMBjmn14=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n3syS+vLumQPrMtwjCYChz2kIMT9UrkHfCcJ4DruWbMcDPKD445BmNFHVPJz2Nfxb
+	 23MQS6rcQQV0pYoSxEGMnfamrr6A4NJYqhX7u1w3EE3sfxj1rcwKccIS14HR+p+9nM
+	 1hDIC0zYjoIBfh9SaOHrGTORyZfszo223NdhynyQHdAiOM5p2uzXalkQlzUZOUK9LI
+	 Vmv+96sDRCaZsL9lxRlshEm3rPXHr0Co1K/WIppCEGHkK/fLwBvQip2uKJexAMCHyZ
+	 3npPWzC1JPUVMzaz3vSeMMU3pQIRBmWtcTF/DqsaNA04DbxmmuKoB0gb1k88Zqh3is
+	 an8T+UeF0LMqg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] NFSD: check truncate permission under inode lock
+Date: Fri,  4 Sep 2026 16:31:52 -0400
+Message-ID: <20260904203152.1546362-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904203152.1546362-1-sashal@kernel.org>
+References: <2026090339-resolute-antennae-cd2d@gregkh>
+ <20260904203152.1546362-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,52 +47,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Bringing a monitor up raises the receive filter counts for every monitor.
-Taking one down lowers them only inside the branch that retires the
-virtual monitor. So an active monitor leaves an increment behind on every
-cycle, and the hardware keeps delivering frames nobody asked for.
+From: Chuck Lever <chuck.lever@oracle.com>
 
-Dropping cooked monitor support indented the decrement into that branch.
-It sat outside before.
+[ Upstream commit b778e0e0a16759f22a70579c3cf8d254a40d4a7f ]
 
-Counts after each up, down and delete cycle on a 7921 USB part:
+nfsd_setattr() checks whether a size update needs NFSD_MAY_TRUNC
+before it takes inode_lock(). The comparison uses the file size sampled
+by that unlocked read, but the actual ATTR_SIZE update is applied later
+under inode_lock() by notify_change().
 
-  without   cycle one ends at 1, cycle two starts at 2
-  with      every cycle starts and ends at 1, in any order
+This leaves a TOCTOU window for append-only files. If a client sends a
+SETATTR that does not shrink the file at the time of the unlocked
+sample, a concurrent append can extend the file before nfsd_setattr()
+takes inode_lock(). notify_change() then applies a real truncation
+without the NFSD_MAY_TRUNC check that rejects IS_APPEND(inode). The VFS
+truncate syscall paths perform their own append-only checks before
+calling notify_change(), so NFSD must make this decision against the
+locked size it is about to change.
 
-Move the decrement back out so it mirrors the increment.
+Split the write-count acquisition from the truncation permission check.
+Keep get_write_access() before the locked setattr work, then recheck
+whether the requested size is below i_size_read(inode) after inode_lock()
+has been acquired and before notify_change(ATTR_SIZE). This also avoids
+the plain unlocked inode->i_size load.
 
-Fixes: 286e69677065 ("wifi: mac80211: Drop cooked monitor support")
+Fixes: 783112f7401f ("nfsd: special case truncates some more")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Assisted-by: kres:claude-opus-4-7
+Reported-by: Chris Mason <clm@meta.com>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-6-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-The counts are fcsfail, plcpfail, control, pspoll, other_bss and the one
-that keeps TX status reporting armed. Changing flags on a running monitor
-still balances, so only the open and stop pair drift.
+ fs/nfsd/vfs.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-v2: changelog rewritten by hand, and the counts above are measured on
-    hardware.
-
-v1: https://lore.kernel.org/linux-wireless/20260825043754.66918-1-lucid_duck@justthetip.ca/
-
- net/mac80211/iface.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
-index 43460a705a6b..9b400caf2765 100644
---- a/net/mac80211/iface.c
-+++ b/net/mac80211/iface.c
-@@ -630,8 +630,9 @@ static void ieee80211_do_stop(struct ieee80211_sub_if_data *sdata, bool going_do
- 				hw_reconf_flags |= IEEE80211_CONF_CHANGE_MONITOR;
- 			}
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index 200fe34a104c7..0d81ffc254bad 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -415,21 +415,22 @@ nfsd_sanitize_attrs(struct inode *inode, struct iattr *iap)
+ }
  
--			ieee80211_adjust_monitor_flags(sdata, -1);
- 		}
+ static __be32
+-nfsd_get_write_access(struct svc_rqst *rqstp, struct svc_fh *fhp,
+-		struct iattr *iap)
++nfsd_may_truncate(struct svc_rqst *rqstp, struct svc_fh *fhp,
++		  struct iattr *iap)
+ {
+ 	struct inode *inode = d_inode(fhp->fh_dentry);
+ 
+-	if (iap->ia_size < inode->i_size) {
+-		__be32 err;
++	if (iap->ia_size >= i_size_read(inode))
++		return nfs_ok;
+ 
+-		err = nfsd_permission(&rqstp->rq_cred,
+-				      fhp->fh_export, fhp->fh_dentry,
+-				      NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
+-		if (err)
+-			return err;
+-	}
+-	return nfserrno(get_write_access(inode));
++	return nfsd_permission(&rqstp->rq_cred, fhp->fh_export, fhp->fh_dentry,
++			       NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
++}
 +
-+		ieee80211_adjust_monitor_flags(sdata, -1);
- 		break;
- 	case NL80211_IFTYPE_NAN:
- 		/* Check if any open NAN_DATA interfaces */
++static __be32
++nfsd_get_write_access(struct svc_fh *fhp)
++{
++	return nfserrno(get_write_access(d_inode(fhp->fh_dentry)));
+ }
+ 
+ static int __nfsd_setattr(struct dentry *dentry, struct iattr *iap)
+@@ -546,12 +547,17 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	 * setattr call.
+ 	 */
+ 	if (size_change) {
+-		err = nfsd_get_write_access(rqstp, fhp, iap);
++		err = nfsd_get_write_access(fhp);
+ 		if (err)
+ 			return err;
+ 	}
+ 
+ 	inode_lock(inode);
++	if (size_change) {
++		err = nfsd_may_truncate(rqstp, fhp, iap);
++		if (err)
++			goto out_unlock;
++	}
+ 	err = fh_fill_pre_attrs(fhp);
+ 	if (err)
+ 		goto out_unlock;
 -- 
-2.55.0
+2.53.0
 
