@@ -1,135 +1,112 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC74551C34C
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FC2350A18
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 21:08:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788555542; cv=none; b=IOEjy+8ejk2NsAFDTLTJH3Q+tka3dW9yk2GoldBL/iH6tSf8ZjX+mhCjpp5lZQ1MtKZlSdadXI8VQ4k51vSosnWwxKA1GGVZOdJCi04CDRP7O6jJZYNG5kQwZM+OD7wjLHFwqZs7RD/Nc7z+dgqcmN+d4C4RYQMeZbgNwi7q3Ts=
+	t=1788556105; cv=none; b=EyM6G3o3MxPlto06U0gTXVbVpPl2/1FbV6UiG+EXswFQyaG6OT51L2oF3UiGp5jaWosiaIXUDHfjGIuFeyaEz2NuxPEstgtPY/0BSvHtd7cxoG389u65i0RZcLAbo9ijeoe/qMMnyX1HiDBbeMONRgbqbZQ5Q31GY/7SfadlzjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788555542; c=relaxed/simple;
-	bh=mYlsgrDQw0VP89f1tdnzaO8DqqEdv28FwA5WFWNhrC0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=myCsnYdbbid3De5SbEc/fNY0kNmCuKoKfRG7JNmlY1iQWB2KUWcwnRcokLAKnnfXV2dZR57EcK4sw8mdtFp3MH7HBQMBBpfXXb6ZBGcWapWLtjtyijqJo8OR8CZA9YRf03brig57/+qzLfNjaj2vzmk6VDzVB3CJm84OkK4z6yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEvoXsBU; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788556105; c=relaxed/simple;
+	bh=TLbkhy7UhS98+n2pJ1BtGLZtz1S+VYaSrwgfIluJQvk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EXtoOoRlNUdEDaWkRv9RP28gjNL61HFgsri4vlpKgi6Nlk72Bqda94WQZqGSB6ToU6wYRW3Z1uWCM175EjSHiZ2QK7uzs5mPyQkiwLZbZnLzEpdxMxPclv8zmCorXvj/KYXExoB6k/JdEdo09Y17rDmz/fgnlSV3vycMed+FxUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hKQB6+Ae; arc=none smtp.client-ip=209.85.167.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEvoXsBU"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8be0409fso11117625e9.2
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 13:58:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hKQB6+Ae"
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-4b21f09ec76so1189072b6e.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 14:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788555532; x=1789160332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+GiCJMpso1xWAYxd1379kkeROa3TRTeuMW+d9bTg3hU=;
-        b=UEvoXsBUmeXCU+P+1p+ppbdPrtqpOCEGBRxLqIBm9qvmZP3AoY7HhIA+qwmouy3pFr
-         uFLuBzN1kCAHh8LxQZ/KMeHxt5/PuwTnurBeS+xoLLp68qG/PTSH4Ivn8RhEwa6p4wEY
-         R/U/Bmw9SVd04gzb0tpHw4qA7Q+4u/4jdhavXwu7WM+vKNDEfy7Fo+xUVq7XDo0KZkut
-         T1LZ2mgpAJSCfOljHOUA1kDdsxjrou7qS/T/v61woMKacAzsDNfqvBG4bT/4EXb4bWm9
-         9JWbCYraDbGWzvJA4VucHe6M1QTg7qE29Di2g9kUFqiwd0C68jCpKqUWK+SvtDpBCGwO
-         2YZQ==
+        d=linuxfoundation.org; s=google; t=1788556100; x=1789160900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
+        b=hKQB6+AeHcrv91DJJrKy/lpU0rfxaaj5ynT2KAELjDocSimnwmV2ArKafAUO93CCoq
+         JCgGGfKSynjZ41PKBkOCzdDtoJbB9qkIh+dKj+N6RjEl+0x16RR5UIHgX2NzsyogZqYR
+         HfUhmcFubkDuYcBSHz0yoDsT7CzhGqh4aevEk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788555532; x=1789160332;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+GiCJMpso1xWAYxd1379kkeROa3TRTeuMW+d9bTg3hU=;
-        b=lYulooNkWUxi6cf4M/GA7L4EnNYH0iLUrhYO/SY13XuHwG5Uc728vIXgLmLuLdwwht
-         v+zA/z+SA33C5YlKvL6OulXcsn1LkJOViJ6wf71KzcqnIQ4gEWa2x/jr/Wco9uzojEC2
-         eWj4yvkAOhYxZktuqWniQJX7pCd99lHs/iZpdXJX0C081osHflXI4knrhdH6QeB47E+h
-         obpGEZK0FjK21ICYqCDIRhWJX+pK8btIBXushewdpsbofwGdPFn2wUJHsn8/5aoKyUxJ
-         L6xrwwQXfriAkmrPrm4h3plJTdiPdpY7aMRKru7SmlXOZvhJDZdqIK2hQnVCp2LTP3OE
-         lTRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxod4pxbl2RVM+vNqUNM2aYcy3zRXuezMMgEYyEzBKrr/u47LExnOmJnnGf3E3mGZywHP6Akxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++loJwfvSGiBC29tyMHIV05aO7iTwG0sLpPRGf/97IX0e0o1/slu
-	iwuY44l735fh2/gF3r2b4L+usnpDuWVNiye703c5q+kPsM6DbCPOxdY=
-X-Gm-Gg: AYBFou395XamioGIGZvPp6GI3bQ+Jkn39wxRkZHslCz4Teyq96XHVzzJJUu4ASkacbe
-	AANU02ip+RnCYwTRH3BEqJCT2aJaDlyTj1TSYzN8dqGINfixWOavkH0S1te/gIlfn+g4yHU2qVV
-	y48ooN/7cDgdfJqfa/J5ti24iq46BmzgkIV90Or9WOT12tzBZdb9vOMZMDX9l+ZHQskEnzaRNwd
-	fFBqm2qco9pKbx/ke1sfKkn02WU3Eg/Hby0rHsLQcwnKgEKkW5xfjsAGIlHc7hXGTjZbAKTR55m
-	576d/BzJByt7XiBxnziSYgGFMOqhP3Un6gC9oxNZ55lX42o/Eq2eNpSbUVyGA1Kx2IcEBoCQcs5
-	Lldp2VJBYXFxgmURRFEVFPFMqlorH1/6DXCG1O9ESi34Mu7LzLG3lFXrQKA4DOq1UtaIplCBJpU
-	D1G9S4xblME9EiigdwM5MvKn/JlvQeww==
-X-Received: by 2002:a05:600c:83c4:b0:499:db6d:bc97 with SMTP id 5b1f17b1804b1-49cf7f5058emr97223535e9.0.1788555531716;
-        Fri, 04 Sep 2026 13:58:51 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm153781665e9.0.2026.09.04.13.58.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:58:51 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 2/2] ALSA: usbusx2y: validate URB actual_length in interrupt callback
-Date: Fri,  4 Sep 2026 20:58:26 +0000
-Message-ID: <20260904205826.4071119-2-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260904205826.4071119-1-tristmd@gmail.com>
-References: <20260904205826.4071119-1-tristmd@gmail.com>
+        d=1e100.net; s=20251104; t=1788556100; x=1789160900;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WBcQO8IW5vaft9DEnj/gUzJmSXgNK0HzXFdKXlnG8Tw=;
+        b=kxtSFmZ2k7l3m8CVecepIkVdJxwdHj5zS61naIa9+zBCc1vXD3UPf2IRGVDilQ+NBV
+         +NkaJdhj0/NPxuV7pZkxmBr3SMvQV2/uLi0StUVbpRv6cqg/7jw/nMX2+YGIGLlAkoDf
+         T1lT75bTgUml/IMyDYOZ6jHyH/b+WI+P82mVdWbJPe5YAwlr44jTBQd5Gb63c62HpfjH
+         3evtS+jJ6K/l34zTwIGep/0sDS5ZB+z8xsv8pboLPjZxAZ2xAMMP9WVaeNZ/X4op9RrN
+         FS9QJgYynGuk64G/s7eNc/uWI6BBsKYKJA47MC5nSEHPMl7codI+R4W8q/YdM7pl8vm4
+         U8Zg==
+X-Forwarded-Encrypted: i=1; AKwUvByoczCjazUccvVSacS3025b44pDmdbBfDh9ixAwKFA3ng0EOK4VPr3xn2NPe085gWj9co9UtCY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzJAEXS8c48mHZ7OiDYchVYe2RUAjyEuV7Ilb8gVh0T8F6AYid
+	yaAQ9OnXo/FFIJx16p2K+NZHObu6QAhFoGdql4W10OiOcLD7R9XsgRIH2JmFIW9aHfaku9eDd+6
+	kKXbfqQI=
+X-Gm-Gg: AYBFou1htSqE3n2QHvV388YD9NZFXkSKJM4UeRHCE+jtxFTi/qzsKDHAtXghC6VqK+P
+	GrPV4+6mi4qKPjo40f6+Ngw9Ys7+NG7gV8Kt+rQ1KuKg2ckHZSwT/Hve5ej10TTM0kLvpP1ATpX
+	HGyciepXeCXMwXv2KRfBkZ9gJcSAy01pHeTffoR07PLw/umxZD1Dqjf6mfO5swPpg5PGV9tvB73
+	MgivcuGTzG+xwBEFUgOx3IfkKegENYjEgCBrirqCaC8ys851ffY3N6Kkfs76Ptm7jV3pPObSDGR
+	N57rhbfhYEyr4Z+gfS3SPDRn988bNSpUQvGspMbW8bvuvYYsuujTnraKmmygSvHTMUYckodXRIV
+	IjuNvVuZ2XLFsVO1rCXbsZzaHAPk0e1G1UINS5bUUAeX/co1/moLQfoQe9RylByGt/oH1rMY6uf
+	2zypCwiPT1UvQ9lGQlKEumjTY8L8KeEBZIXI5DYVgafM4VVc0ak0GqraeQmiQ44eVpBhnM
+X-Received: by 2002:a05:6808:23c3:b0:4b3:7efc:e970 with SMTP id 5614622812f47-4b96026e6ecmr6951990b6e.5.1788556099903;
+        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971b97c72sm3487810b6e.15.2026.09.04.14.08.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 14:08:19 -0700 (PDT)
+Message-ID: <fe373fd0-6577-4f5c-8285-d8398d867797@linuxfoundation.org>
+Date: Fri, 4 Sep 2026 15:08:16 -0600
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <20260904045803.810145556@linuxfoundation.org>
+Content-Language: en-US
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+On 9/3/26 22:49, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.4 release.
+> There are 713 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
+> 
 
-i_usx2y_in04_int() processes the interrupt URB data without checking
-urb->actual_length.  A short transfer from a malfunctioning device
-would cause the handler to process uninitialized heap data from the
-kmalloc-allocated in04_buf, which is then copied to the mmap-accessible
-ctl_snapshot[] array.
+Compiled and booted on my test system. No dmesg regressions.
 
-Fix by using kzalloc() for in04_buf to zero-initialize the buffer,
-and adding an actual_length check to skip processing on short
-transfers while still resubmitting the URB.
+Tested-by: Shuah Khan <skhan@linuxfoundation.org>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-v2: Use USX2Y_IN04_SIZE constant instead of bare literal
- sound/usb/usx2y/usbusx2y.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 200b708aacd6d..108f9bddf9aa3 100644
---- a/sound/usb/usx2y/usbusx2y.c
-+++ b/sound/usb/usx2y/usbusx2y.c
-@@ -189,6 +189,9 @@ static void i_usx2y_in04_int(struct urb *urb)
- 		return;
- 	}
- 
-+	if (urb->actual_length < USX2Y_IN04_SIZE)
-+		goto resubmit;
-+
- 	if (us428ctls) {
- 		diff = -1;
- 		if (us428ctls->ctl_snapshot_last == -2) {
-@@ -253,6 +256,7 @@ static void i_usx2y_in04_int(struct urb *urb)
- 	if (err)
- 		dev_err(&urb->dev->dev, "in04_int() usb_submit_urb err=%i\n", err);
- 
-+resubmit:
- 	urb->dev = usx2y->dev;
- 	usb_submit_urb(urb, GFP_ATOMIC);
- }
-@@ -305,7 +309,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
- 		goto error;
- 	}
- 
--	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
-+	usx2y->in04_buf = kzalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
- 	if (!usx2y->in04_buf) {
- 		err = -ENOMEM;
- 		goto error;
--- 
-2.47.3
-
+thanks,
+-- Shuah
