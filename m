@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0B33BCD28
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C854DA52E
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 15:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537221; cv=none; b=YshSeGqvZVNhGR+zy8JmDQfmBazXa4eBXw0jfmh8X/BX9D94NomFr+c0eFisMBmiZeB17DqLst2pp+WxryLLPZ4IHzY+dYo4Y7U6SvDSH3HM2xviiFeI/5DwAtZedaCsZutHNCLPgJ9EKfTlamGmwmASuPkOn+sMlHC+KtGmt1U=
+	t=1788537221; cv=none; b=rPXCdzkL0LfcLKec0htFfs3g4BZzTWQ1UtzO9Q8Wf1FTXod6ohGag3YQEFjWKwCjqcsomEZUGBc9EZtP7Uy7SsTITWejQkwpY0FNpvZVcuAfUe9ltoNnE9U6yQFZdKjgbP/mzufOIqtjuQTIH/deVK5iHhcvLLg8m0GcGxyuxUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788537221; c=relaxed/simple;
-	bh=wWgG7sjV9nscaDv1Mq3ZKEfp6g3wkkmBwslvdUb/uqI=;
+	bh=lhyZ+fQFBI2Jg9LLFkx+SuZyUxSN3dAtA7SPpZKzvSo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=or3yCTx61pbvsgXF2rj6xrZ8gKLLzVkiH5u18BLkvtMgyMlF+67IkCabNnlMV6YzTzhrRi3qM+3E4HFWNN1Ku2KdADQtEjuOGw31xlMeJA1qJEB6Vbm5YriGP3jvitg3mXblZTe52+hEHyVtPM2XCZ6z1kgHacA4/N2ijDsHD+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYNT07Ek; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qUGlV34IImSmpMxo6/tkowJhjIfUL6MU8rajWOggp7UFbgAV9upBrElpKga7vFpCf6DUqEJjIevauc0VIuc0pf+ww9gbxcxM9XxBCsUGKjGhtOSlSfU+EQQNIc8BH2oQak/Dp14CIb0SXaqiHOC48D80A08mLK3PRfLT4P8A2Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfpHVqFF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYNT07Ek"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFD61F00A3E;
-	Fri,  4 Sep 2026 15:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfpHVqFF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BB61F00AC4;
+	Fri,  4 Sep 2026 15:53:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788537219;
-	bh=SE7A+hEEmdWKihLpAHPJaTZ6iGhW63pnM5KrloEBSiM=;
+	s=k20260515; t=1788537220;
+	bh=Qr8HN1zGIImDdwM/tN18Su/k876N5TyK3TevHXWNnpA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NYNT07Ek+rG44NSANO0ckdUl9EpIdebh9t2ZcynK9nvji1+QM8P1RH9wqiWS9mCWq
-	 cV9ZOgwycCAqXsuBw1NxAmhaFHZwo3NWF3jyQlciOPgvfxoRNY1yaMkoj4uNi4x+Ku
-	 /AyT2FpdDFj7cZlw0D+hVm0ZKlO8r1nU/8d0RJI2o+SNqsTG+S4VwCyWKVq6sMkVPk
-	 onOWwcjp5IYMzhrQQ6dn7n+xbby9yOB9/pJeEVlKgi0XJvy41q1vFRz3IZ/MuC+4Q7
-	 LMPLNsN0LO18k7fwf1N16p5zXKwO7GNh70vfAOcFL8gYtNf1k+qM1WRPvUZFxoMwTb
-	 yYony1P4AI4OQ==
+	b=LfpHVqFFRo0yuAoOAeXAlUfv6Aj//rDKyme0/R3voe25zPWHuBJ+SpkPxR3TAHQBk
+	 d/8LGDNdxXWtFPkKcZTB0i5jLbJWZYIND9WNnqXRMTrFCIzazSi56CruQ3H0VZRdtN
+	 rXkYsnMNc+Ootn6ZLAbbTYqUT73Z8MF31rTeFy1v9wN193BpqRRHFsB19JfEind74G
+	 eBuXbhs6m96KghE3aE8GbDG+3wsw16E1VdbYqwEuIjihfHtXcJpLBJmGsCtvJLJm9k
+	 OJNJ5gIYXPaGLnNNTYqVSQbH+hTyMtaj48BDME2H/kNtLRWK+932Ca0cf5k2BL+0kS
+	 7CsA4fdnP4xBA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/6] block: use flags instead of bit fields for blkdev_dio
-Date: Fri,  4 Sep 2026 11:53:32 -0400
-Message-ID: <20260904155336.1042108-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/6] usb: remove res2 argument from gadget code completions
+Date: Fri,  4 Sep 2026 11:53:33 -0400
+Message-ID: <20260904155336.1042108-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904155336.1042108-1-sashal@kernel.org>
 References: <2026090333-willfully-art-ea0b@gregkh>
@@ -48,130 +48,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit 09ce8744253a038eb658c14f9dc3b77fa021fc9f ]
+[ Upstream commit 4c3d8accdce26afa8089609593aa92965b500f72 ]
 
-This generates a lot better code for me, and bumps performance from
-7650K IOPS to 7750K IOPS. Looking at profiles for the run and running
-perf diff, it confirms that we're now sending a lot less time there:
+The USB gadget code is the only code that every tried to utilize the
+2nd argument of the aio completions, but there are strong suspicions
+that it was never actually used by anything on the userspace side.
 
-     6.38%     -2.80%  [kernel.vmlinux]  [k] blkdev_direct_IO
+Out of the 3 cases that touch it, two of them just pass in the same
+as res, and the last one passes in error/transfer in res like any
+other normal use case.
 
-Taking it from the 2nd most cycle consumer to only the 9th most at
-3.35% of the CPU time.
+Remove the 2nd argument, pass 0 like the rest of the in-kernel users
+of kiocb based IO.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Link: https://lore.kernel.org/linux-block/20211021174021.273c82b1.john@metanate.com/
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Stable-dep-of: e78dcb1f7ec2 ("usb: gadget: f_fs: Fix Use-After-Free in AIO error path")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/fops.c | 34 ++++++++++++++++++++--------------
- 1 file changed, 20 insertions(+), 14 deletions(-)
+ drivers/usb/gadget/function/f_fs.c | 2 +-
+ drivers/usb/gadget/legacy/inode.c  | 6 ++----
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/block/fops.c b/block/fops.c
-index c23529d08929d..9359368ca7cf4 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -126,6 +126,12 @@ static ssize_t __blkdev_direct_IO_simple(struct kiocb *iocb,
- 	return ret;
- }
- 
-+enum {
-+	DIO_MULTI_BIO		= 1,
-+	DIO_SHOULD_DIRTY	= 2,
-+	DIO_IS_SYNC		= 4,
-+};
-+
- struct blkdev_dio {
- 	union {
- 		struct kiocb		*iocb;
-@@ -133,9 +139,7 @@ struct blkdev_dio {
- 	};
- 	size_t			size;
- 	atomic_t		ref;
--	bool			multi_bio : 1;
--	bool			should_dirty : 1;
--	bool			is_sync : 1;
-+	unsigned int		flags;
- 	struct bio		bio;
- };
- 
-@@ -152,13 +156,13 @@ static int blkdev_iopoll(struct kiocb *kiocb, bool wait)
- static void blkdev_bio_end_io(struct bio *bio)
- {
- 	struct blkdev_dio *dio = bio->bi_private;
--	bool should_dirty = dio->should_dirty;
-+	bool should_dirty = dio->flags & DIO_SHOULD_DIRTY;
- 
- 	if (bio->bi_status && !dio->bio.bi_status)
- 		dio->bio.bi_status = bio->bi_status;
- 
--	if (!dio->multi_bio || atomic_dec_and_test(&dio->ref)) {
--		if (!dio->is_sync) {
-+	if (!(dio->flags & DIO_MULTI_BIO) || atomic_dec_and_test(&dio->ref)) {
-+		if (!(dio->flags & DIO_IS_SYNC)) {
- 			struct kiocb *iocb = dio->iocb;
- 			ssize_t ret;
- 
-@@ -170,7 +174,7 @@ static void blkdev_bio_end_io(struct bio *bio)
- 			}
- 
- 			dio->iocb->ki_complete(iocb, ret, 0);
--			if (dio->multi_bio)
-+			if (dio->flags & DIO_MULTI_BIO)
- 				bio_put(&dio->bio);
- 		} else {
- 			struct task_struct *waiter = dio->waiter;
-@@ -210,17 +214,19 @@ static ssize_t __blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter,
- 	bio = bio_alloc_kiocb(iocb, nr_pages, &blkdev_dio_pool);
- 
- 	dio = container_of(bio, struct blkdev_dio, bio);
--	dio->is_sync = is_sync = is_sync_kiocb(iocb);
--	if (dio->is_sync) {
-+	is_sync = is_sync_kiocb(iocb);
-+	if (is_sync) {
-+		dio->flags = DIO_IS_SYNC;
- 		dio->waiter = current;
- 		bio_get(bio);
- 	} else {
-+		dio->flags = 0;
- 		dio->iocb = iocb;
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 7800f3b881ed0..bb1fe2f37289e 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -841,7 +841,7 @@ static void ffs_user_copy_worker(struct work_struct *work)
+ 		kthread_unuse_mm(io_data->mm);
  	}
  
- 	dio->size = 0;
--	dio->multi_bio = false;
--	dio->should_dirty = is_read && iter_is_iovec(iter);
-+	if (is_read && iter_is_iovec(iter))
-+		dio->flags |= DIO_SHOULD_DIRTY;
+-	io_data->kiocb->ki_complete(io_data->kiocb, ret, ret);
++	io_data->kiocb->ki_complete(io_data->kiocb, ret, 0);
  
- 	/*
- 	 * Don't plug for HIPRI/polled IO, as those should go straight
-@@ -263,7 +269,7 @@ static ssize_t __blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter,
+ 	if (io_data->ffs->ffs_eventfd && !kiocb_has_eventfd)
+ 		eventfd_signal(io_data->ffs->ffs_eventfd, 1);
+diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
+index ed28aaa82e251..e6ffbc82d48c4 100644
+--- a/drivers/usb/gadget/legacy/inode.c
++++ b/drivers/usb/gadget/legacy/inode.c
+@@ -473,7 +473,7 @@ static void ep_user_copy_worker(struct work_struct *work)
+ 		ret = -EFAULT;
  
- 		if (is_read) {
- 			bio->bi_opf = REQ_OP_READ;
--			if (dio->should_dirty)
-+			if (dio->flags & DIO_SHOULD_DIRTY)
- 				bio_set_pages_dirty(bio);
- 		} else {
- 			bio->bi_opf = dio_bio_write_op(iocb);
-@@ -285,7 +291,7 @@ static ssize_t __blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter,
- 				WRITE_ONCE(iocb->ki_cookie, qc);
- 			break;
- 		}
--		if (!dio->multi_bio) {
-+		if (!(dio->flags & DIO_MULTI_BIO)) {
- 			/*
- 			 * AIO needs an extra reference to ensure the dio
- 			 * structure which is embedded into the first bio
-@@ -293,7 +299,7 @@ static ssize_t __blkdev_direct_IO(struct kiocb *iocb, struct iov_iter *iter,
- 			 */
- 			if (!is_sync)
- 				bio_get(bio);
--			dio->multi_bio = true;
-+			dio->flags |= DIO_MULTI_BIO;
- 			atomic_set(&dio->ref, 2);
- 			do_poll = false;
- 		} else {
+ 	/* completing the iocb can drop the ctx and mm, don't touch mm after */
+-	iocb->ki_complete(iocb, ret, ret);
++	iocb->ki_complete(iocb, ret, 0);
+ 
+ 	kfree(priv->buf);
+ 	kfree(priv->to_free);
+@@ -500,11 +500,9 @@ static void ep_aio_complete(struct usb_ep *ep, struct usb_request *req)
+ 		kfree(priv->to_free);
+ 		kfree(priv);
+ 		iocb->private = NULL;
+-		/* aio_complete() reports bytes-transferred _and_ faults */
+-
+ 		iocb->ki_complete(iocb,
+ 				req->actual ? req->actual : (long)req->status,
+-				req->status);
++				0);
+ 	} else {
+ 		/* ep_copy_to_user() won't report both; we hide some faults */
+ 		if (unlikely(0 != req->status))
 -- 
 2.53.0
 
