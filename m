@@ -1,105 +1,124 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71303E1CFB
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 06:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E33382F0F;
+	Sun,  6 Sep 2026 07:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788677698; cv=none; b=gIi4IH+IyFWnSwGNjiXE0gLkCyWZ1NkArSbJRWcxglRK13RjrP3hhMazFzMbY/oEb9561OJtsxpcJLIwCNPOnBJxRXQVKykdqjy0ZGoUgLPgfrnOxsw40dJc2I40ROdo/YlaJ7zWU6LTY4qK3RhubPUvRI8m1GE+vNmQo2tSylI=
+	t=1788678585; cv=none; b=PcLokD0h92t4KCE5jtUORkN4Si6B8kIPtJlA0DPUuJ5t7pimTBtf4deyfsXI/gJMXAjOV3IE07QZcZYy6vYHo06eD66YH3+PewkMnfL1PbNENpTU2f0vZc8dyXVcqYRDhjBxIJFWh4JmbhsDsDROYMqD8JflqExbkorMlxtBIww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788677698; c=relaxed/simple;
-	bh=ihV5OQaoP6INSs81OrTckxcfcEXn8Vp2Yb3BUC0Q+Ao=;
+	s=arc-20240116; t=1788678585; c=relaxed/simple;
+	bh=nsZCOwoyPne1CMbhMeg/R0tgtHypCmcpilYIufjMp3I=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=QAqdMMy2x3whLLfNgt1Nk9UJp5jNVZkQOqdw23jmMXwL8edZ6SxArCibH6ljxTS901q05ESWyNSN6oYOqk/MYKnFGqN/hBDs5vus9bb48q4qi4AGqp+qVR9G13A9SDog/4A+vc/zn+fPSkP10bTedMUwfpfBFlnKhlf3I5u3K18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KHK5b4vX; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=IyVo3WVRI3u6D5lC1ceQddNYrtaur3fDb5vnooDfhGw0jjgu0SfaSgnko69nfxEUMbHiyuMpr62fN13Xsgo6C0cyDy9E9W6uOomzIKC14izYCsLJq0aKNO+tY2UXkE7Y3fbEIVM6Weu9DspxT1ZVAjHwXiw5d0ApII5i+ToiRN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=k9lxunKi; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KHK5b4vX"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2247600a91.2
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 23:54:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788677694; x=1789282494; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=C3R8tPe9lOjKH7p6qWRmtf7FvkJ+tCfMXgIaxL2nfTQ=;
-        b=KHK5b4vXZPLdKdm82/aABRkIgKSIsefrvhCfViOHR2LuWjQ3KLV9b7HjMK1v9PqL5D
-         VIriafVMFI0+XTo/xdhSbqYjY+0m0jK1bA33aLCIc0RgzNlCtbAenOkFDldj/5XGXimZ
-         d2RSEotZsuK6/dNkMwe7UYcFTrSyHt48vOPy+cPojKIniCBqzDhJQAbsyr5PjIuWughH
-         j9Oq4N1ZNAejzResRWo/2B9prPZ9N6Uui/6j6LeqqNiUBeRHG7DUkOOV0qtFlofFw33a
-         bdCxWWnRqXs0Kf7kwK0ywbFOuwnDvxU/tGbLW7mCA7sNsEJONjwtJkBRfdzL/Iinw4lG
-         yfkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788677694; x=1789282494;
-        h=content-transfer-encoding:content-type:in-reply-to:references:cc:to
-         :subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C3R8tPe9lOjKH7p6qWRmtf7FvkJ+tCfMXgIaxL2nfTQ=;
-        b=i4Roc7vRx1C30tfVzupJh39wpIEAHfDGTSv7fH80lm6om0jTS2J81jhovXKc38LrWI
-         0SvV5QsY/SU0XWLwvSBIRZOHuuJa4b3Ay7fBU/3YDdvVn5Zwp7c81mLqlZYkF63IpqNQ
-         CLzfi3skWlOYTHALogFnirOXT5jlexiUiQ0AnkWu8XuYPhITDAGqf9nE2VW304J870bZ
-         x716Gb2VPMQXWryuZeHtUSbHFpCMO0VJuHh3TOOJq7G5D4proptwG4bJrsqVSC7j10yt
-         Li+Qs72FhVc8DwCJ0XFfcR5LEWr9YpJYbwzOsJ6DdZcBBSkUjn0zplXXSmrGDirzF0tf
-         /dQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzHRk6FRwWCnXWg9RnGBcs/Zu+6OZQJhT+4TOgyBCvftl0Ko+WGanchfT+/jOCclgcGsh1BkIQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPuO2cVq2K8rkxxZLyF1hguPJf7UC9CGGNFmDOnVFEmYnzBHQV
-	FZ2Wg/oWwO56MzNqb7R/dKELJ41whYaHzUKB4KYh9ju55ETXoaITofjd
-X-Gm-Gg: AYBFou0BtoLfK3tzC8ehjlUjfgmllCY9xaI86Kx4XwJIuCVPKjzlK/Byvqdtu1HDBwS
-	8grK/PjP/RimJe60aag32W/bFeBzqX3CSklYKgZMpxdDUxVdzVMOWmbE08nytOMsCWjkZP97jtp
-	gMQ112EQRQYfd1zSzZUr844xI5DHD83mJe3Q6Z+RhxfY2CiUJ7D3ZtK+FZhcybpYXrnQxN2X2Kw
-	rCQwrIScyieyEkiTU6Am8ssxFxyzCw+qJGQ+ERjUgc1mdDkzS1jwC7LbdzIBju372mkGi+UtkOv
-	HMcK1E7/jM0KoFZzloWKqCRMYTsfEv29DRXwJVGC1SzmBLxVT4GLMlFs9jJBJR+q4ijiOMg3FQN
-	t+9iWzi3EKnMMbG8FK+DxoAe3DYIPFVC4iR7Cd2LK6g6LT1LhT3IrKSuah0gGykEJtcyuh28ICZ
-	JaFG3q/dWv6Ln8qlFViW3IxOle9CXBI57d569rAsPuc9gJh8tU0PMF9+Jl8bTt/a6tLhFdw3tYe
-	iffU4IOiH1GLQ==
-X-Received: by 2002:a17:90b:4984:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39b26104798mr22897521a91.6.1788677694175;
-        Sat, 05 Sep 2026 23:54:54 -0700 (PDT)
-Received: from [172.29.66.128] ([120.236.174.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc060sm22686761a91.3.2026.09.05.23.54.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 23:54:53 -0700 (PDT)
-Message-ID: <4d101d62-9ccb-4e3c-a7a7-8d0c273f0d69@gmail.com>
-Date: Sun, 6 Sep 2026 14:54:52 +0800
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="k9lxunKi"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hd1Xr4k76zKmTw;
+	Sun, 06 Sep 2026 09:09:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788678572;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Gyn4fPqGTOF40mffXejqlLjAKh4vqNHJDhi4UbrP1d8=;
+	b=k9lxunKitmp3hMYebAHJ24mQL5In+6gG++q6e9SSB1dxZSes5i47LAH/8jobBDS0gmvK5P
+	LWGMwBlxsc+91H1o/etvw0eZqT3VXFNs2drPQ4E+mAmqcAYG3XevO3n3YlUwW1KJwVpsJu
+	P4uX9ULd9FA4pyMo6Gz1eKnMCJQB4FUq13/HVW+g5mE7Y1oWfzrDK+irtrqDgBU2UmDbTn
+	xujc/FdSQ2obGVLWqWSISXjYiCOjjjJ5XGKPVkVUgra8rBKJl7bYaX/pgjQwW7GeK6+rmp
+	Xy/0gQXRT2H7DpWruNfF1F+7S5QJXCNfe/zNBkPerCfl43bTGco0IfDAKWkabg==
+Message-ID: <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
+Date: Fri, 4 Sep 2026 23:53:03 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Zhian Liang <liangzhan5dev@gmail.com>
-Subject: Re: [PATCH 1/2] Input: tca8418_keypad - Add devm cleanup to disable
- interrupts on unload
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260903192942.21906-1-liangzhan5dev@gmail.com>
- <apvip-xz2GFH96uU@google.com>
-In-Reply-To: <apvip-xz2GFH96uU@google.com>
+From: Marek Vasut <marek.vasut@mailbox.org>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+To: Rong Zhang <i@rong.moe>, Bjorn Helgaas <helgaas@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org,
+ stable@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Koichiro Den <den@valinux.co.jp>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Ziyao Li <liziyao@uniontech.com>, Huacai Chen <chenhuacai@loongson.cn>,
+ Richard Zhu <hongxing.zhu@nxp.com>
+References: <20260903202706.GA2234456@bhelgaas>
+ <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
+Content-Language: en-US
+In-Reply-To: <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: 4ydkocobnf67bucge1hj8x51ydhjbots
+X-MBO-RS-ID: d82f86a892c3b203f9a
 
-Hi Dmitry,
+On 9/4/26 7:42 PM, Rong Zhang wrote:
 
-The INT output is "active-low interrupt output, open drain structure" (Datasheet §5, pin
-table). With the handler gone but hardware still enabled, a key press pulls INT low with nobody to service it.
-And the driver requests the IRQ with IRQF_SHARED,
+Hello everyone,
 
-	error = devm_request_threaded_irq(dev, client->irq,
-					  NULL, tca8418_irq_handler,
-					  IRQF_SHARED | IRQF_ONESHOT,
-					  client->name, keypad_data);
-	if (error) {
-		dev_err(dev, "Unable to claim irq %d; error %d\n",
-			client->irq, error);
-		return error;
-	}
+>>> In light of the last paragraph above, that the MRRS has to be limited also
+>>> on all devices downstream of this particular controller, I would like to ask
+>>> -- does the Loongson controller have the same limitation or not ? If not,
+>>> then I would argue this quirk should be isolated to this controller variant
+>>> ; else, I am happy to start on the core patches.
+> 
+> ACK. I agreed that it should make our life easier.
+> 
+>>
+>> I don't know if we'll get a real answer for Loongson (there's no
+>> maintainer listed for it, hint hint :)),
+>>
+> 
+> (+CC Jiaxun)
+> 
+> The driver was introduced by Jiaxun without updating MAINTAINERS. I guess
+> he'd be willing to be listed as a maintainer.
+> 
+> I don't work for Loongson, but I do maintain several MIPS-based Loongson
+> devices for the Golang community with my colleagues and personally own a
+> MIPS-based Loongson-LS3A4000-7A1000-NUC-SE mini PC. I do some PCIe
+> experiments on it from time to time for fun. So I am OK if someone wants
+> to list me as a maintainer or reviewer :)
+> 
+>> but my guess is that it does
+>> apply to all devices downstream of the Loongson controller.
+> 
+> I believe this is the case. Maybe Jiaxun can shed a light on it too.
+> 
+> Just checked the kmsg log from April, the firmware seemed to only clamp
+> MRRS for devices directly connected to the root ports. IOW, it seemed to
+> only clamp MRRS for the upstream port of a PCIe switch, so
+> loongson_set_min_mrrs_quirk() had to fix up downstream ports.
+> 
+> If you need more information I can do some more experiments with the PCIe
+> switch card.
 
-this stuck interrupt is seen by every other device sharing the line, and may trigger "nobody cared" IRQ storms or, in the worst case, cause the kernel to disable the shared IRQ line entirely, breaking unrelated devices.
+Please look at the commit message [1] , that lists the exact test and 
+the PCIe NVMe SSD which triggers the data corruption (let me know if 
+something is unclear). I think any PCIe NVMe SSD which is non-HMB with 
+MRRS on the SSD size that is > MRRS on the controller side will trigger 
+this issue too. If you could reproduce it on the Loongson, then yes, it 
+is affected. You might have to disable the current MRRS workaround in 
+the Loongson PCIe driver though as it might hide the issue.
 
-The same leak happens on driver unbind (I think it's a rare case though).
+Thank you for your help !
 
--- 
-Zhian
++CC NXP, because they have similar controller on MX95 (and others, but 
+the MX95 is closest to this I think)
+
+[1] 
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=37ca1997d2eeec86ad065008d6387fd15d18934c
