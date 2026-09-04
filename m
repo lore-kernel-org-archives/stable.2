@@ -1,73 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F59E44D686
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC7344A40F
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 10:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517809; cv=none; b=etCqGreNy0l+G8Fqb/o90ScTUatcWimLW7KEh9Ix7m8cxucb1ujr4FXTgWgR01mNVEyQMQQLT/Ks59k9iy487azUs7MdAw0w5QcRa4SgyP/OpKbsLTElYDO7Sov6Q0LW3qtKTrID5/YYpKgdcYFy5YMtyx0etmGh8V+Lu1fCH4I=
+	t=1788517818; cv=none; b=M6qEGh7Xt/4WKtC2Cx9eo1srxozKGa/XCldaZEDZleNrRr/gkzV18ePy5/YNTuPtmiXse7La0e1UTy9V9FdkJRn2rTh8tZ25ZS4pzxThwk/qsF5ZnBI8810Ngow2yywombkALUFCGFE10R1PBgJxIqhfc7vvoGYFZKBpgn333Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517809; c=relaxed/simple;
-	bh=KbuNazDXCpxoWn7PpzwKcPG44bbC9anbWAbVx0tAxgM=;
+	s=arc-20240116; t=1788517818; c=relaxed/simple;
+	bh=pcxHM0P/eM6nNVHPYH+UxvmRNRq7bbW6Vl4qst+UdU4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lW8BjjKyhluj5tFNP2NLs+JVbPPTJD8SBCqwagTM4W4f7UUSYVDx+C16IjzJ+6A4oCBsu46G0OW20XojvFpge2We19gEWWF0UHyJeIEJsagEPeHnkHbLv9wY4G8FNu+P8zvz6JfcxL2mUU/Y+pz0YnLthR6oSKHs8QZyXWUfwtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A82PFmno; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cP6YjAIq+aYri6BvqTmqc57gKRNisx1eJNpNgHTm4esEEEFnN29+9ieLvs1HxfW3ZPbcLDdvPMP3po9DwI8D7TgQ67hGQAa5RDtnVbow6o65dSWkFsVNfFQotmUIOon12l/ZvZEDXJ4jJAf4KWhuHEfKgBfqHTYu4XYdDj04mr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C5irC+Wb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A82PFmno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A97F1F00A3D;
-	Fri,  4 Sep 2026 10:30:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C5irC+Wb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2FB1F00A3F;
+	Fri,  4 Sep 2026 10:30:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517806;
-	bh=WGvHEXJw2cWEjCUAcKMcyjLE8r44mftDbkODuowUMWY=;
+	s=k20260515; t=1788517817;
+	bh=cTQ5LaaO4UfRX4KsdCusIcRVlKytUaX9wu4EdX8Jjhs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A82PFmnoXBva/t0NufSKm1kCUczKV/1kkcPjYB0mO1wuKGFXqIzxBQID2t1h1zb82
-	 oDBGloxZJhSrGZf/aXJAFoGqNmX1b2Ue56Tuhpzizl6qlg3UvdzqjhZfHSpyxuYgwY
-	 tEXNUScPFAFa3ZQHDwSZ0uneOcCkhf+e271HQUf7Fa9V87lukpl/XQVARP6IEHmSCx
-	 NQHsWvCLWkn6/AvoGVrgPQh9q7D1r8tUf56g/IecwDs1R5SSkzHUnyPmeBLItYsfoU
-	 3K/m1mXH822KpJpEF8bMWZS+yjiXDdvABlYbYBcp/oxBm7jm4b6fkgamwAwgnkURh4
-	 cZzaQxabBixsQ==
+	b=C5irC+WbWQfNBAC03ju18GBvYqbDaqlU1qg0xfcWGDbyR6ItEq0uAkUFwwv3yyVe6
+	 2QmiAibUiC+k5O3pNbqhaH3IgMfk8UrDWDcRYzzyz7vzXYoct2OZ6v4XtYFi+gb+i4
+	 TpEC/ORzmt1ztb80/rJgtUSFpQyZ3NEAdEiCHCFWrMSn5AoXZTLAofrrQlTSZeprQ0
+	 2BAF5jJ6fn2ZPBi2QcQsDnk248PHX0fXRWD0VYggAwtkU88nxHsJaEmyqfQsaPtB76
+	 M7nNqwXIKApr2uSsSxrzoNTO5m1nDyuF3Bu2W9o+V4exy9DGwkG8ZddR0wXF31LhL6
+	 coLVVWTO9M1Cg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Yao Zi <me@ziyao.cc>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mm/rmap: use huge_ptep_get() in try_to_migrate_one()
-Date: Fri,  4 Sep 2026 06:29:55 -0400
-Message-ID: <20260904102955.2499533-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] x86/locking: Use sfence for wmb() if SSE is available
+Date: Fri,  4 Sep 2026 06:30:15 -0400
+Message-ID: <20260904103015.2500965-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904102955.2499533-1-sashal@kernel.org>
-References: <2026090359-effects-precinct-7e44@gregkh>
- <20260904102955.2499533-1-sashal@kernel.org>
+In-Reply-To: <2026090322-entrap-donation-7004@gregkh>
+References: <2026090322-entrap-donation-7004@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,104 +45,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dev Jain <dev.jain@arm.com>
+From: Yao Zi <me@ziyao.cc>
 
-[ Upstream commit 9be12ffa78cd087d41086f937a156435d4e588e9 ]
+[ Upstream commit d824ed1307680dd482f607b0e707c575f70668c4 ]
 
-try_to_migrate_one() is used by folio migration to replace a present
-mapping with a migration entry. For hugetlb folios, page_vma_mapped_walk()
-returns the pte pointer to the hugetlb folio in pvmw.pte, but the code
-reads the huge pte entry with ptep_get().
+When adding cc clobber to wmb()'s definition, the alternative()
+condition to use sfence was incorrectly raised from X86_FEATURE_XMM to
+X86_FEATURE_XMM2.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
+Restore the correct constraint for potential better performance on
+machines without SSE2.
 
-It is not clear whether this has a trivially visible effect to userspace.
-
-Use huge_ptep_get() to dereference a huge pte pointer.
-
-Commit a98a2f0c8ce1 copied the bug from try_to_unmap_one into
-try_to_migrate_one.
-
-[akpm@linux-foundation.org: coding-style cleanups]
-Link: https://lore.kernel.org/20260703114202.365553-4-dev.jain@arm.com
-Fixes: a98a2f0c8ce1 ("mm/rmap: split migration into its own function")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Fixes: bd922477d935 ("locking/x86: Add cc clobber for ADDL")
+Signed-off-by: Yao Zi <me@ziyao.cc>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260801182953.15069-1-me@ziyao.cc
+[ preserved the Linux 6.6 "lock; addl" syntax instead of upstream "lock addl" ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/rmap.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ arch/x86/include/asm/barrier.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index ec5d17c5a47c4..39c62b6c04507 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1892,14 +1892,18 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
- 
--		/*
--		 * Handle PFN swap PTEs, such as device-exclusive ones, that
--		 * actually map pages.
--		 */
--		pteval = ptep_get(pvmw.pte);
-+		address = pvmw.address;
-+		if (folio_test_hugetlb(folio))
-+			pteval = huge_ptep_get(mm, address, pvmw.pte);
-+		else
-+			pteval = ptep_get(pvmw.pte);
- 		if (likely(pte_present(pteval))) {
- 			pfn = pte_pfn(pteval);
- 		} else {
-+			/*
-+			 * Handle PFN swap PTEs, such as device-exclusive ones,
-+			 * that actually map pages.
-+			 */
- 			const softleaf_t entry = softleaf_from_pte(pteval);
- 
- 			pfn = softleaf_to_pfn(entry);
-@@ -1907,7 +1911,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
- 
- 		subpage = folio_page(folio, pfn - folio_pfn(folio));
--		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
- 
+diff --git a/arch/x86/include/asm/barrier.h b/arch/x86/include/asm/barrier.h
+index d0795b5fab46a..fc85b3df0f0fb 100644
+--- a/arch/x86/include/asm/barrier.h
++++ b/arch/x86/include/asm/barrier.h
+@@ -17,7 +17,7 @@
+ #define rmb() asm volatile(ALTERNATIVE("lock; addl $0,-4(%%esp)", "lfence", \
+ 				       X86_FEATURE_XMM2) ::: "memory", "cc")
+ #define wmb() asm volatile(ALTERNATIVE("lock; addl $0,-4(%%esp)", "sfence", \
+-				       X86_FEATURE_XMM2) ::: "memory", "cc")
++				       X86_FEATURE_XMM) ::: "memory", "cc")
+ #else
+ #define __mb()	asm volatile("mfence":::"memory")
+ #define __rmb()	asm volatile("lfence":::"memory")
 -- 
 2.53.0
 
