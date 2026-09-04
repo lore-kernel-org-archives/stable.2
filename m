@@ -1,74 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6203944213B;
-	Fri,  4 Sep 2026 09:57:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0F2A446849;
+	Fri,  4 Sep 2026 09:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515869; cv=none; b=nrbwtA2aWDeoOzFYJFJA2yAhYq3nVfy8ATeeMxv6ng0h5qxK1aFKBa6GGQEc+4PtZYnUqG4y7RDf97CmMz4q48791t6ZVTqL1JyfUUC3QDvraef+Z/n08mo8WpKshjy40vbYao1Dli4gh3e9e5Otx9Pu/6JncyUPFCqlnsS2kLo=
+	t=1788515909; cv=none; b=ud8A6E+dw63IkduwUDnhZfVCjs/TjUFUDLK2PwjOWlV5sonntOlIXGycxJUoI0YhuO8FsQcnFrcO1nM4XvFEEDvMZaczbkC/3Id9pdm+aXzlm0QX3VmQ0ya7YxEfuGcLESHJqJGADqb1+1+JjkVD0mzD7hRipnRYjnbPppr/goY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515869; c=relaxed/simple;
-	bh=/15UFxxirqrO6Bz4pIRkXUatQQguIa781LW8rPq7u7k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=ho1aZrAFriayRsSxU9+5A4i4n0JFBUTtadcFQQL/6US6fp4y2LzgVgTsJtdK+2jJfeP55gwEpv55g1Z+sg8l5LVNVwW/ZsqRMsRg1BrnHXbAuCYg6Lk868ziUVfyo4uEq/Dsl4gjRtBLWayIuLdzWxnHpRR66QPGWuySku6a55k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BrXcC9Rz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788515909; c=relaxed/simple;
+	bh=s4CNOlTDV053ilbihX92ii1iVx3b5CKxABqJW/sPDAk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XnqLW+SUTjhSVCPTb+hlz/ZcAb9pgP6fd9MRSDX3xEOoBDfBga64ZPcQHjKI+MCDcRQPN/XWpNtiS4yScO3iyx/cwrOq1pCi5e366sd69hOKoRu6+MhjoEZrGN6J4eZdjQzAML1zosm2a9SWh2c2Nx92H+b4TNNRryOXGi2eaus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=wZKgQCj6; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BrXcC9Rz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D2F1F00A3D;
-	Fri,  4 Sep 2026 09:57:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788515867;
-	bh=/15UFxxirqrO6Bz4pIRkXUatQQguIa781LW8rPq7u7k=;
-	h=Date:From:Subject:Cc:To:References:In-Reply-To;
-	b=BrXcC9RzxRJ6NySORcZpN3sm3JkaldhaXPz+gnhZPMY1EadAYOkbv4Nh5Rpok4xMz
-	 jLBZqo3QXsnSPvLzrXQKY1lru15mUz64nWx8UpmzTZazPuNYvX6gj+3UchvxheCpgM
-	 TN00/LFSCsjOOJhFKBbSg0v7k4F4RQCiRRudG8ZSFo6wwe+TI7Ke0ptJ89XOYElo9Z
-	 MAsOxGQAco306BHkGjpdFKPw7xYp595gjA0o/3xytpx4/qOw2hgjndho2ZTTz9F0xM
-	 K2QBq067hYHrOEbggHjG6zJ7whSRFEImLMpJ4UZr6/zZPljZNHbYhmB2GaFs1rPIg2
-	 s9AyF43jcFZ1Q==
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="wZKgQCj6"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=s4CNOlTDV053ilbihX92ii1iVx3b5CKxABqJW/sPDAk=;
+	t=1788515907; x=1789725507; b=wZKgQCj67sYaMqZeVcYvXouW5iJ6WB7WjJPzgik3hciViVB
+	5Sj0mKtb3A5l504IeKbYbLRI50VFlnzK/P3Plhgk34b6L8dgypesyz53uyRMZxyI112XinuSuQxTl
+	YJCBl8ixI4Pov58Ygyq/SxysFW/7OW5cuZqqxKLZhwafurxGcrSkB+aVdnXTK/G3gBFuCKx9flVU1
+	amq6z656BSUp1Bu5y2uaskT69RMES8o5XtvDs9U0OmPKU8XMamQLSunhRjZxyPYN0hG0li7xfX12t
+	nyYvbfVY9i2hgpgbfMzYU+C7stuvh9pxeMWvzx5gUDqaSrpKwB+GyrDKRVFJsYlA==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x2Qgi-00000001Jh1-2F9m;
+	Fri, 04 Sep 2026 11:58:24 +0200
+Message-ID: <cbbf805aae72d8a605cff52a5264d1048a476f7c.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless] wifi: mac80211_hwsim: send config events to
+ the radio's net namespace
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 11:58:23 +0200
+In-Reply-To: <20260809113908.2218030-1-maoyixie.tju@gmail.com> (sfid-20260809_133916_629664_627885BC)
+References: <20260809113908.2218030-1-maoyixie.tju@gmail.com>
+	 (sfid-20260809_133916_629664_627885BC)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 11:57:44 +0200
-Message-Id: <DL6FYL70FVCX.10MCZIPFSVJ5G@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-Cc: <phasta@kernel.org>, <christian.koenig@amd.com>, <tursulin@ursulin.net>,
- <matthew.brost@intel.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <mdaenzer@redhat.com>,
- <alessio.belle@imgtec.com>, <luigi.santivetti@imgtec.com>,
- <stable@vger.kernel.org>
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
-In-Reply-To: <20260904080618.2098450-2-malhyuk97@gmail.com>
+MIME-Version: 1.0
+X-malware-bazaar: not-scanned
 
-On Fri Sep 4, 2026 at 10:06 AM CEST, Jonghyuk Kim(MalHyuk) wrote:
-> Fixes: 506aa8b02a8d ("dma-fence: Add safe access helpers and document the=
- rules")
-> Cc: stable@vger.kernel.org # we don't know since when
+On Sun, 2026-08-09 at 19:39 +0800, Maoyi Xie wrote:
+> hwsim_mcast_config_msg() sends config notifications. Its info =3D=3D NULL
+> path uses genlmsg_multicast(), which delivers to init_net only. That
+> path runs on an asynchronous radio destroy, from remove_user_radios() on
+> a closed socket or hwsim_exit_net() on teardown.
 
-How is that? If there's a Fixes: tag it expresses that this commit introduc=
-ed
-the bug, so it should be known exactly since when it is present.
+How's any of that "where it runs" part useful?
 
-However, I don't think this is the correct Fixes: tag, the bug was present
-before. I think it was present all the way back to commit f556cb0caeec
-("drm/amd: add scheduler fence implementation (v2)").
+> hwsim is per-namespace, and a radio records its namespace in wiphy_net()
+> of its wiphy. A radio in a non-initial namespace therefore has its
+> DEL_RADIO sent to init_net, with its id and name. An unprivileged
+> listener there receives it, since the config group has no flags and
+> needs no capability to join. The radio's own namespace is never told.
+>=20
+> Send to the radio's namespace with genlmsg_multicast_netns(), using
+> wiphy_net() of its wiphy, the net the GET and DUMP filters already use.
+>=20
+> I found this with a static check for multicast that ignores the object's
+> namespace. I reproduced it in a qemu VM as an unprivileged user, with no
+> hardware and no kernel changes. A process creates a radio in its own
+> namespace and exits. An init_net listener receives the DEL_RADIO before
+> the patch, and nothing after it.
+>=20
+> hwsim is a test driver, so the leaked metadata is low value. The fix
+> still matters, since the radio's own namespace should hear about it.
 
-It is also not the case that it wasn't a bug before we had per-context
-schedulers, it's just that it became much more likely to trigger with
-per-context schedulers; nothing prevents the kernel from having a reference
-count of a DMA fence after the driver was unbound and hence the
-per-device/per-ring scheduler was torn down.
+etc.
 
-More in general, putting "we don't know since when" for the stable folks is
-rough. If neither the author of the patch nor the maintainers of the subsys=
-tem
-can figure it out, how are the stable folks supposed to?
+Please rewrite the commit message.
+
+> Fixes: 100cb9ff40e0 ("mac80211_hwsim: Allow managing radios from non-init=
+ial namespaces")
+> Cc: stable@vger.kernel.org
+
+That doesn't really seem needed.
+
+johannes
