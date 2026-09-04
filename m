@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D0F2E8DEC;
-	Fri,  4 Sep 2026 14:12:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027D94A8FD1
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 14:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531160; cv=none; b=BrlbcPNck2htAK7n/mkRJ853CD1M7GTm4Y+zVCYKmUW6PnHgUH/XSObSKoduG8r8+/7zFvwFGeWm7LJwnXgXALfkJ12Ra2kSUwX0Nh+VZD+XRMlLe55rNgKOl+OJb5iER7i8WrcU8eorV5FNj/e0Xueoyeytka6j97UPqnw2GeE=
+	t=1788531161; cv=none; b=TW9nLl9WBYFGXsBy6RqzBO9uUkHHCQ2PVxd8W+Qo2G+I2HQa6OuX0eQgH6uHEGIQfeNASUyA2gJR4qPZq5PrBwgMjJWxWLpm1HbaNcDL+Wlc7kRvJ1qwN3wNgT/SI2qelIKGCUQTX/aFMk4mdyUvt9BLxaCNTETSHaH+wf0TAqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531160; c=relaxed/simple;
-	bh=UEWlKWPr9JXPi0SPi/EYHDoJZTTbt+OtxwtkVKc/W+g=;
+	s=arc-20240116; t=1788531161; c=relaxed/simple;
+	bh=4JtxpubpIDaW26gj2nXAkR98P56puzbSWWN3SnVTBxw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DIm4WWLMb7qnY7kN4Wje3pkIMyLhJ6CK7toEdQfB6Hzrw110GaxpYQlfKsaz3i6Y1qiFe0hmdpYXing3eFajiJfZBdwG1i5LciJ6yf18Y2+d1gVbed7hjtFEZcEXvzyyhI+hpTfPmo6uM4o5JN/NA0Adxq2DWqEC2SYOZQ3RbD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KO+u9VQn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Y4naU1fF8VJn5r67A3YZsZHv78YxPEPPpJiQ0gdKBj4C/vWu4+DZ/TnWp7xPG0ygh2uMpSM0pmlDjbOye6BWfZ0Tuez0sQOPzg7p2qCjk3u8+h3XB5eZbq9vWrv00B/6pB/WObqYsQxV7YUuBchCfyx58neXbpEfLCIip6YD1k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d31w5z5c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KO+u9VQn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC0C1F00A3D;
-	Fri,  4 Sep 2026 14:12:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d31w5z5c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FBA01F00A3E;
+	Fri,  4 Sep 2026 14:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531158;
-	bh=NQQXN7XObmy/sQCXJZB13q5gSBD0fJWt3C/4V22QsxA=;
+	s=k20260515; t=1788531159;
+	bh=zcjCcuIKUd86S2z3nxmxiL62uFu/aU1fTg0bXNPuSeY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KO+u9VQniIXowtbYT5Ps3Z3LI0BDv1d1mZvRthzWWYtlaMTWB4TGFEk0LYJzfYHNW
-	 TfPA4Nx7eZPAN2HWcw2S7RbmBNr4KyzxzxP3JPI7E43dO34bxXw/Ds/KZx3R50Z8Zm
-	 4PX1R/IkacBD3eBlGjAod8VbSTvE4YA3d+a6h5EwWuSMHKnNIjojY9ZXSQWrNwsmMH
-	 Bo0HA4RECWGfEut8EQyOwJEgBsmYVPgj1Ay7jZifzB66IvwmVQuevE1aVQWepxQ3v7
-	 xRJrZ8B9y7ItTFVN+VggjJjbrw/BM9UnGM2sQFYnm4qiQ0bfs1JKMIxkpzW/DtqYgv
-	 vpoeUUL+rVS7w==
+	b=d31w5z5ct3fWg/PByY3D6NVBoWQAl/Q10s75PUEP1ErLrk785jNvNMnZOvfCZ8/oW
+	 f9yvk23JwG4p/iOR4rYn0un55EBFkLSVttgoRYmwrDQCStytuZQlkVmi7U3MHnBaDY
+	 Dg33myaRTTE5rPMY7bvFq7iST0zjLrlilR+6umoQ+hhNrtQ3Tx96duPMnua9Lx/VlR
+	 WN9ASCEelvxze/ixcuLBH2K1IWvrRVi5Rtciu/GsblvYHNeGGoefHLDHqwfZ2MlA8e
+	 UPH5zL6w4f41u9Lypx9OmAFeRgpr6ntbWjUyPuteCuXETK2VPVc6Ll7ssgzt4IXzjX
+	 wwCaXO18aY+iA==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: kernelci-results@groups.io
 Cc: Sasha Levin <sashal@kernel.org>,
 	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	Darshit Shah <darnshah@amazon.de>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
-	Guixin Liu <kanie@linux.alibaba.com>,
-	Lukas Wunner <lukas@wunner.de>
-Subject: Re: [PATCH 7.2 532/713] PCI/DPC: Allow DPC on all Downstream Ports when OS controls AER
-Date: Fri,  4 Sep 2026 10:12:32 -0400
-Message-ID: <20260904133500.rc-reply-0001-pci-dpc-aer@kernel.org>
+	KernelCI bot <bot@kernelci.org>
+Subject: Re: [REGRESSION] stable-rc/linux-5.10.y: (build)implicit declaration of function 'put_unaligned_le16' [-Werror=impl...
+Date: Fri,  4 Sep 2026 10:12:33 -0400
+Message-ID: <20260904133600.rc-reply-0002-pci-sysfs-unaligned@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apqJFWNrcajdFyad@wunner.de>
-References: <20260904045803.810145556@linuxfoundation.org> <20260904045815.744991650@linuxfoundation.org> <apqJFWNrcajdFyad@wunner.de>
+In-Reply-To: <178850515502.887.10241922684330722879@kernelci.org>
+References: <178850515502.887.10241922684330722879@kernelci.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,15 +45,17 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 11:02:13AM +0200, Lukas Wunner wrote:
-> Guixin Liu has found a problem with this upstream commit:
+> New build issue found on stable-rc/linux-5.10.y:
 >
-> https://lore.kernel.org/all/20260901064554.2178688-1-kanie@linux.alibaba.com/
->
-> There's no fix in Linus' tree yet, so it might be best to hold off
-> for now on backporting the offending commit to stable kernels.
+> implicit declaration of function 'put_unaligned_le16'
+> [-Werror=implicit-function-declaration] in drivers/pci/pci-sysfs.o
+> (drivers/pci/pci-sysfs.c)
 
-Dropped from the 7.2, 6.18, 6.12 and 6.6 queues, thanks.
+Thanks! This is the same issue as the 6.12.y, 6.1.y and 5.15.y
+reports from this run.
+
+Both patches are now dropped from the 5.10, 5.15, 6.1, 6.6 and 6.12
+queues. Thanks for the report.
 
 -- 
 Thanks,
