@@ -1,44 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C78551E42B
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 18:35:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D4B51E43F
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 18:35:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546924; cv=none; b=nyjDlFhK6CC1xHCQjGQnc5J5wNhlvmsdPa8xy6Q6bypvTYsN+kSHEduyGylwqZC27nlpqqh7ePzg89PPV9AYxbQyUFUJLYGTK0ZBEDDkrQeM/nOa/1edDY0DVLVT1OFoXxaAXOAYeTzBaeS3IzmrxQI3x/RF7uBHxQnM9MSTNSk=
+	t=1788546922; cv=none; b=g3tJkBYHm2JTFWHePgriO0D8kU0OFHQ4nn9PRzhXIRn/ubUIxL6jHPO7Xi0QIA8S0SloqtvLi6qj3RWtjSrynwo6Wm3CU+yF/ub+0Ucs3A+MYMnQ1Hwtja91R/+dlQtFXOSpOLFUVYIPf5Ty0buSgEnEZaRdyEFwMVNhZiSjf24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546924; c=relaxed/simple;
-	bh=WYgXGktuRjobafyL5MvKI84Atzaq256crnQ2j/Abijs=;
+	s=arc-20240116; t=1788546922; c=relaxed/simple;
+	bh=SwB5XgCNwZBZphq1fUqPaSUe3DwbNAy3L97ncGtq5ck=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OFUW6SZjmPI0j+reaJRVC5YUuz3evRFvDU2amf/8bOWRigZJSw8WwkpAAZWIRhYZzFf5cxVUjbza7D+VDrn2nqNMqgeIM2Pm2dVG836PC9PTiQKzVfl2xZFxH+3k6dzX+krFG0aiOh8g+w/nHTShqE1fk+ZtEmEJY1LM1C5+1L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIdNLMpV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AtykZU2RYlLOyjNAOEG1HNpuUs90Fz8LX59EHMHd66FsjAsnQlCRbC4CNDmu1TcoUGub8lxSXAJM4s2tVbQlkHNXM62AeUq7kE0MJwnjHq/LGhFXDF7TiD4VIM8O3G/aJNKkmifHppm6M5oZ2ERGssLyZ8qetsqU6eFYnjeJ1mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hq5oj68G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIdNLMpV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267A11F00ADB;
-	Fri,  4 Sep 2026 18:35:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hq5oj68G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459341F00A3F;
+	Fri,  4 Sep 2026 18:35:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788546913;
-	bh=+BC0BYeObthNICC7r6fNuVsswfI/HMrA8OfRYovXsJA=;
+	s=k20260515; t=1788546908;
+	bh=fp63aQ2sKP0Ix60opvhlrR66crkLY0dNLr90wEWC/ww=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YIdNLMpVNtsJIq5q8X4MiQuP7p/MeZe0pkCKkih9WrkYmRyao4z6yteD7umRfNPug
-	 UXvqBriKABqGhe02woaqloTyvJOf6txkQopWm7GBSiDrlmboXxDnk42iBt0OYgsAfA
-	 p8CzNu6t2sSZJMN2Oj3etReBVdcsXxoVmIEg5e7QM46K6yntq6sNWCIY2ET5Za7Re0
-	 BskXCiAizJCHPBeT4ut3v06ODYzDfQ5n/U1Ot6vFaujo3kjQ4eYKqZRYfw6mHofHca
-	 eMKKLFMp1poEMT4YCH1Q6gKxjYrT6I8UK2azcSi/Ajp1POh+ftoycp/3Quu9fZVnh8
-	 2JyW3DRn+OngQ==
+	b=Hq5oj68GsQxd44Dwy7wqpicBt6N2Feze+0IgJRLOWWZe8ddEuZDSUbJ/6aZuvz0nY
+	 ZAWVXl04Vp33V9KHwGDa/CL4i63RH7Ag1pIQMzwriLTUoydYzkReddTmp+JoCANki7
+	 YoczAXdvzo8Ro8aoZCNgNmXHj9HjXW90I7fKw2XPKeQWmli8phEkPs+fyzx99QgQm5
+	 8oHbJHLMrojpjhhALa5IeGU1hqbpZDRLOO3z1WzPxtN9F89rK2Nbk5rdJ7JNZAhSPD
+	 lk87jLCWQxvNdoDoyifpKmLcOLF4hAJZjet5v3/MXZVrYMXixZiKZobLlMfKVNxxmd
+	 yBrUAyzyq4v3Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Neill Kapron <nkapron@google.com>,
-	Xingyu Jin <xingyuj@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Dev Jain <dev.jain@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Harry Yoo <harry@kernel.org>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Jann Horn <jannh@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Mel Gorman <mel@csn.ul.ie>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ralph Campbell <rcampbell@nvidia.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 4/4] usb: gadget: f_fs: Fix Use-After-Free in AIO error path
-Date: Fri,  4 Sep 2026 14:35:09 -0400
-Message-ID: <20260904183509.1323404-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Date: Fri,  4 Sep 2026 14:35:02 -0400
+Message-ID: <20260904183502.1323253-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904183509.1323404-1-sashal@kernel.org>
-References: <2026090334-tiring-good-fffe@gregkh>
- <20260904183509.1323404-1-sashal@kernel.org>
+In-Reply-To: <20260904183502.1323253-1-sashal@kernel.org>
+References: <2026090326-clutch-freeness-d94a@gregkh>
+ <20260904183502.1323253-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,68 +76,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Neill Kapron <nkapron@google.com>
+From: Dev Jain <dev.jain@arm.com>
 
-[ Upstream commit e78dcb1f7ec271449c54984dc90c62a5ba272de7 ]
+[ Upstream commit e87df0d5d6962bde50f55f6d02b779daa394f894 ]
 
-In ffs_epfile_write_iter() and ffs_epfile_read_iter(), when ffs_epfile_io()
-fails with an error other than -EIOCBQUEUED, the io_data structure (`p`) is
-freed. However, for AIO operations, the kiocb cancel function was already
-armed and kiocb->private was set to `p`.
+check_pte() is the final validation step in page_vma_mapped_walk().  It
+reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
+range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
+entry.
 
-If a concurrent cancel operation (such as sys_io_cancel()) executes after
-ffs_epfile_io() fails but before the function frees `p`, a Use-After-Free
-can occur when the cancellation handler accesses the freed pointer.
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+etc to misbehave.
 
-To securely fix this race condition, we must properly un-arm the
-cancellation. Invoking `kiocb->ki_complete()` does exactly this by
-acquiring `ctx->ctx_lock` and safely removing the kiocb from the active
-sequence. In doing so, it ensures that a parallel io_cancel can no longer
-discover the kiocb, effectively closing the race window.
+It is not clear whether this has a trivially visible effect to userspace.
 
-We then return -EIOCBQUEUED to notify the VFS layer that the kiocb has been
-consumed and it should avoid attempting to complete the request again or
-triggering subsequent completion handlers.
+Use huge_ptep_get() to dereference a huge pte pointer.
 
-Fixes: de2080d41b5d ("gadget/function/f_fs.c: close leaks")
-Cc: stable@vger.kernel.org
-Reported-by: Xingyu Jin <xingyuj@google.com>
-Assisted-by: Antigravity:gemini-3.1-pro
-Signed-off-by: Neill Kapron <nkapron@google.com>
-Link: https://patch.msgid.link/20260724235100.106011-1-nkapron@google.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/gadget/function/f_fs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/page_vma_mapped.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 19d7b0cec0b03..3d4b8d9b355ac 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -1225,8 +1225,10 @@ static ssize_t ffs_epfile_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	if (res == -EIOCBQUEUED)
- 		return res;
- 	if (p->aio) {
-+		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p);
-+		return -EIOCBQUEUED;
- 	} else {
- 		*from = p->data;
- 	}
-@@ -1276,9 +1278,11 @@ static ssize_t ffs_epfile_read_iter(struct kiocb *kiocb, struct iov_iter *to)
- 		return res;
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index 3f003623eef45..e07f4b80d44b1 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -87,7 +87,13 @@ static inline bool pfn_is_match(struct page *page, unsigned long pfn)
+ static bool check_pte(struct page_vma_mapped_walk *pvmw)
+ {
+ 	unsigned long pfn;
+-	pte_t ptent = ptep_get(pvmw->pte);
++	pte_t ptent;
++
++	if (is_vm_hugetlb_page(pvmw->vma))
++		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
++				      pvmw->pte);
++	else
++		ptent = ptep_get(pvmw->pte);
  
- 	if (p->aio) {
-+		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p->to_free);
- 		kfree(p);
-+		return -EIOCBQUEUED;
- 	} else {
- 		*to = p->data;
- 	}
+ 	if (pvmw->flags & PVMW_MIGRATION) {
+ 		swp_entry_t entry;
 -- 
 2.53.0
 
