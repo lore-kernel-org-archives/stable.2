@@ -1,35 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1406513564;
-	Fri,  4 Sep 2026 16:57:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED3F451476C
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:57:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541045; cv=none; b=XD8p8xVQdVl405nPV3yq3m0V4bMDtCS1ay8TO80cn6PU925OsRazX2M/N0f5lsdduxv8bFJwUzeF2kc4Qdt2kvuOhscwbpdNG8dNz2/49HpDIZ6qKBJiZAPcgLKvOThepqo9YVBgOksPooMIeN6oD17mabDvKqAd0q9L29pTwMk=
+	t=1788541051; cv=none; b=tyU/n1Zw3KEiqNWx9xGW7E6hB9zbsSpvbnnFzzAvhrv2aA99yERhLk5XoIQtWipDRmYCiX+JACPVqT8foFJ8OJGikuPKhuGW7QouvQVqn0B/kdE+tUlodrbkJD+bxK3Movwf39mbBGY4upDsHyFSWHegOoX6pARH52KJyKACNPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541045; c=relaxed/simple;
-	bh=TMS6nElHUv9PW/vu4oDQgnH0oz79d1wxu+JfD+TP2vw=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=T/HAdDORCUVfv6LJ8KX/aeWVSisQFbQBdh8s5KqEUERKZ55f44htwwXq+rVIAxN5V5mrQFhxV9rupop1V30g3kEQrul63u+EotH7E8+TA9Z6rdRu40kZxnmR9ERIfg/5kRHGzq58gX5ZIXPjB1pQ32GAa37hNXHinTsrAE5NVPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q4I26FZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788541051; c=relaxed/simple;
+	bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=q8+TU+KeYNQgRPmv/vBi9tYiyH/5AiNp7IuuJ6+tL3Kkghg7rSw7ylTFrdBlZZ6H/hpGNX1P6z/wShvvA3lGvn3mBvnwPbfMc7oKpeceLeXBUYoIAiqC7/TT4w64qum5UHikJmuOCzUvWEoRMrNpnlos1bzM9nIuXjbxgWLTR4c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qxzpoHOT; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q4I26FZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBF41F00A3F;
-	Fri,  4 Sep 2026 16:57:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788541043;
-	bh=AeV3yyLfLRe+VbWsMimr7r2EXKFZGRtitq/WNlvi64M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Q4I26FZM/XVYYHNnYCG6LFg3oZfqt3KL7lFviCoy4rvrt/l6JPESFEsWyQwRtn8nt
-	 XYoyZpJThe4/bVatxDDx+vTFUYCC2VppieuTjM7gqEQaOGRWkh73JrsyFjO0j3Qq2n
-	 zNejp5Dq2YC54iXQqqTXHVbo76s5bsMYZ+JAquqy/deyknYO/YcmJm/rGVK5kRrefF
-	 gk2ceuA/2d+j+TbEr4k/AYExGrV2aPrcGAhnv+9tY6SQHgf0p8P8CDvr6xbLgcN9S5
-	 y/8LBP+0Vg/6kxjGLSrHjyrJSYVLFZujgFT7KCHjMITHhqRZQVa/aMwPT6rgeT+uns
-	 0e3jU7V9p0NPQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A873924A50;
-	Fri,  4 Sep 2026 16:56:25 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qxzpoHOT"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79E75153B;
+	Fri,  4 Sep 2026 09:57:24 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3576D3F673;
+	Fri,  4 Sep 2026 09:57:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788541048; bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=qxzpoHOTgWEdAhhYXCTrpUWRPuJpE0oydIVXIBLlipwaPhlOCOmKKbqc0M+RGkmPZ
+	 nNFrwOptCCUypgLCxVkbijvBb02WOlMNTO2Boxi72bnAwyvnLZ682Vhxh3v9R/Qvxz
+	 yaBQHfla4Z7lixsPss2Ty25w0ItkpgcV6FVhVKGs=
+From: Mark Rutland <mark.rutland@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com,
+	ardb@kernel.org,
+	catalin.marinas@arm.com,
+	cl@gentwo.org,
+	david.laight.linux@gmail.com,
+	james.morse@arm.com,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	peterz@infradead.org,
+	ruanjinjie@huawei.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com,
+	vladimir.murzin@arm.com,
+	will@kernel.org,
+	yang@os.amperecomputing.com
+Subject: [PATCH v3 06/21] arm64: preempt: Simplify and optimize __preempt_count_dec_and_test()
+Date: Fri,  4 Sep 2026 17:57:09 +0100
+Message-Id: <20260904165709.376981-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
+References: <20260904161758.376504-1-mark.rutland@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,46 +56,181 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before
- freeing hci_dev
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <178854098363.344939.15503505083732657527.git-patchwork-notify@kernel.org>
-Date: Fri, 04 Sep 2026 16:56:23 +0000
-References: <049D60B81C44FFA9+20260904025457.3523467-1-raoxu@uniontech.com>
-In-Reply-To: <049D60B81C44FFA9+20260904025457.3523467-1-raoxu@uniontech.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: brgl@kernel.org, marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- bartosz.golaszewski@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com
 
-Hello:
+In arm64's __preempt_count_dec_and_test(), the final conditional load of
+'ti->preempt_count' is always executed in the common case. The
+conditional load leads to unfortunate code generation for
+preempt_enable[_notrace](), and it would be better to unconditionally
+load 'ti->preempt_count', as described below.
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
+On arm64, struct thread_info contains the following union:
 
-On Fri,  4 Sep 2026 10:54:57 +0800 you wrote:
-> From: Xu Rao <raoxu@uniontech.com>
-> 
-> The command and ACL RPMsg endpoints store struct btqcomsmd as their
-> callback private data. The receive callbacks dereference btq->hdev
-> without taking an hci_dev reference.
-> 
-> The current teardown order frees the hci_dev before destroying the RPMsg
-> endpoints in both the hci_register_dev() error path and the driver remove
-> path. If WCNSS delivers data in that window, the endpoint callback can
-> run with an already freed hci_dev and pass it to the Bluetooth core.
-> 
-> [...]
+| union {
+|         u64             preempt_count;
+|         struct {
+|                 u32     count;
+|                 u32     need_resched;
+|         } preempt;
+| };
 
-Here is the summary with links:
-  - [v2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
-    https://git.kernel.org/bluetooth/bluetooth-next/c/b3850074b2c4
+Note: 'need_resched' is encoded so that '0' means a reschedule is
+needed, and '1' means a reschedule is NOT needed.
 
-You are awesome, thank you!
+The core logic of __preempt_count_dec_and_test() is:
+
+| static inline bool __preempt_count_dec_and_test(void)
+| {
+|         struct thread_info *ti = current_thread_info();
+|         u64 pc = READ_ONCE(ti->preempt_count);
+|
+|         WRITE_ONCE(ti->preempt.count, --pc);
+|
+|         return !pc || !READ_ONCE(ti->preempt_count);
+| }
+
+The '!pc' condition can only be true when both:
+
+* The initial value of 'need_resched' was 0, meaning that a reschedule
+  is needed. This should be rare.
+
+* The initial value of 'count' was exactly 1. This cannot be true for a
+  nested preempt_disable() ... preempt_enable() sequence.
+
+Hence in common cases, '!pc' will be false, and it's necessary to
+execute the final READ_ONCE(ti->preempt_count).
+
+This results in a conditional branch in the common case, as can be seen
+when __preempt_count_dec_and_test() is outlined:
+
+| <outline___preempt_count_dec_and_test>:
+|        mrs     x2, sp_el0
+|        ldr     x1, [x2, #8]
+|        mov     w0, #0x1
+|        sub     x1, x1, #0x1
+|        str     w1, [x2, #8]
+|        cbz     x1, 1f
+|        ldr     x0, [x2, #8]
+|        cmp     x0, #0x0
+|        cset    w0, eq  // eq = none
+| 1:     ret
+
+It would be better to avoid the special case for 'pc == 0', and to
+always load 'ti->preempt_count' after decrementing 'ti->preempt.count'.
+For the common cases this will remove a conditional branch. For the rare
+cases where preemption is needed initially, this only adds a single
+load, whose cost should be dominated by other factors.
+
+Remove the special case for 'pc == 0', and always load the combined
+'ti->preempt_count' after decrementing 'ti->preempt.count'.
+
+The removal of the conditional branch helps with code generation, as the
+compiler can more easily move a dependent slow path out-of-line, as
+demonstrated with the following compiled with GCC 15.2.0:
+
+| void outline_preempt_enable_notrace(void)
+| {
+|        preempt_enable_notrace();
+| }
+
+Before this patch:
+
+| <outline_preempt_enable_notrace>:
+|        mrs     x1, sp_el0
+|        ldr     x0, [x1, #8]
+|        sub     x0, x0, #0x1
+|        str     w0, [x1, #8]
+|        cbz     x0, 1f
+|        ldr     x0, [x1, #8]
+|        cbnz    x0, 2f
+| 1:     paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mov     x29, sp
+|        bl      preempt_schedule_notrace
+|        ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+| 2:     ret
+
+After this patch:
+
+| <outline_preempt_enable_notrace>:
+|        mrs     x0, sp_el0
+|        ldr     w1, [x0, #8]
+|        sub     w1, w1, #0x1
+|        str     w1, [x0, #8]
+|        ldr     x0, [x0, #8]
+|        cbz     x0, 1f
+|        ret
+| 1:     paciasp
+|        stp     x29, x30, [sp, #-16]!
+|        mov     x29, sp
+|        bl      preempt_schedule_notrace
+|        ldp     x29, x30, [sp], #16
+|        autiasp
+|        ret
+
+Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Yang Shi <yang@os.amperecomputing.com>
+---
+ arch/arm64/include/asm/preempt.h | 29 +++++++++++------------------
+ 1 file changed, 11 insertions(+), 18 deletions(-)
+
+diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
+index 9ecc2766a9f21..92ae2eb95a738 100644
+--- a/arch/arm64/include/asm/preempt.h
++++ b/arch/arm64/include/asm/preempt.h
+@@ -75,30 +75,23 @@ static inline int __preempt_count_sub_return(int val)
+ 	return pc;
+ }
+ 
+-static inline bool __preempt_count_dec_and_test(void)
+-{
+-	struct thread_info *ti = current_thread_info();
+-	u64 pc = READ_ONCE(ti->preempt_count);
+-
+-	/* Update only the count field, leaving need_resched unchanged */
+-	WRITE_ONCE(ti->preempt.count, --pc);
+-
+-	/*
+-	 * If we wrote back all zeroes, then we're preemptible and in
+-	 * need of a reschedule. Otherwise, we need to reload the
+-	 * preempt_count in case the need_resched flag was cleared by an
+-	 * interrupt occurring between the non-atomic READ_ONCE/WRITE_ONCE
+-	 * pair.
+-	 */
+-	return !pc || !READ_ONCE(ti->preempt_count);
+-}
+-
+ static inline bool should_resched(int preempt_offset)
+ {
+ 	u64 pc = READ_ONCE(current_thread_info()->preempt_count);
+ 	return pc == preempt_offset;
+ }
+ 
++static inline bool __preempt_count_dec_and_test(void)
++{
++	/*
++	 * We must load the combined 'prempt_count' after decrementing
++	 * 'preempt.count' as an interrupt could modify 'need_resched' before
++	 * __preempt_count_sub() writes back to 'preempt.count'.
++	 */
++	__preempt_count_sub(1);
++	return should_resched(0);
++}
++
+ #ifdef CONFIG_PREEMPTION
+ 
+ void preempt_schedule(void);
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.30.2
 
