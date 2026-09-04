@@ -1,123 +1,127 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+Received: from mail-wm2-f6.google.com (mail-wm2-f6.google.com [74.125.225.134])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC7B361956
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 08:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0283D2FE1
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 08:59:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512350; cv=none; b=nESN4hW+oToWa+pDd0/bc9RjNjgb79um1wHXTMlt96DUuohaYwx/FGbrDm8xqwtVcZsVIo5A8/3s0/KEx5aoz/wN8i/8W8QkJp8l+ATfxDthHaYqQKbE5lnUt4Y3LuAI2uT9o3SoMJIRpUPmZMU6lSZgcP7jUsZaNG0nlXUUMms=
+	t=1788512388; cv=none; b=Bwl+XcQtLrE+j0aE5bm8fquYfLoAz9XKP56PZUWld/VkcgzbzgDrLJuNPW1FdcgGb2SpGTlbHNGF+E5TEW3nJ+KiHKJwTqUAV1sznYq8GJt7BWBiZr02ooQcbpAzsGa+guh4jvTro38b813MNcD7NnXJCsWO+T+NvoF9BypmhQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512350; c=relaxed/simple;
-	bh=SozhmnzFeLOWBvp9LHmCR7SRqfv6JZZgW6xkk5DNtyg=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=U9iuq7BAD2FaNEuzygkmm+KuYy/UStov84ziSF10uvnZ69Ymbrr5+sWgdK7c23/XkY2oSu2U3Ufi+tcZD5kP96PddpSnutI+s/qxw8cDbK5c27fAWX0hpGoS+NYqKFkdrfJIxfzuYSxU8+Z7YqzF45Qeq6YCfSzxfMxCE8FxeEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=ZDS+O1wL; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="ZDS+O1wL"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca80d708489so587120a12.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 01:59:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1788512347; x=1789117147; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=14VxQqR+vTCHKrJiJq/aScbH6G6cx0vqmm2HyaxsnbA=;
-        b=ZDS+O1wL8qIzKPIJkThhHV3578GJDGM3ZDGkibgAAx3/5LZleIzjF0EvdrI6Hccd1V
-         RVh6eF1QxIrCtjWGIqIn/B11+orqrYd43tSnuWtKW6/rOForBpQsyV9yHPDZrui2HyjO
-         4mP57pjfYEGLdnFOqR2LOH3kXN+JJEr+DappyzEM4Q3xKYnYH31sUq+++wAZb1vGVnGH
-         k1glhagYMaEUhe4CEeYpz2SLmjFh91P9wijvO5rFauCmjuVrRRVlQGgeSUpGlUUPjNt2
-         DcXcTEQ28IyvYGnrtjfLSNxg3/fEm0Vbm8esIfU0ShfpcD53GtSIME9hHZhyklMicUQR
-         dB8Q==
+	s=arc-20240116; t=1788512388; c=relaxed/simple;
+	bh=YlNjyVAtYi5kB2kGJVxI+wuzYU3qGNleCoKDQseGhmg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=k9v874++WP6LCXyoj5WNe6Rsem+V/ST7sBhRN3VIEy50tD3IlvSa1rLLJY2y3Y2ZMbWZ7xfYeG8+mNTByRP9wP/KfoqOFnvwjQop5F+CjE78upIkNCU9ok50V715xU8Fdm02bIT1b4uMouIEnZJfBKQxMBleYinIdHZOJPoUUH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f6.google.com with SMTP id 5b1f17b1804b1-499c930cb9cso1807905e9.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 01:59:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788512347; x=1789117147;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=14VxQqR+vTCHKrJiJq/aScbH6G6cx0vqmm2HyaxsnbA=;
-        b=YxjP+5qN226a8chqioQ72oleBXGbPbbdS4pGqHnLiayL9y153Bf0ElZLBmhp7hUkPn
-         4fVtl0moqZpp6GaJcZLE4OWsa3E4mhQotOYZCqjVVOht6Qp0FvUX8lbQz6L77UuM2T9D
-         zYIkgzwXO/2lTTxCRYj7+qxalTzx1bvcBsKF6GUm7mvaL1C2+rdtD5H7WvnLexzObWQn
-         Zb2PpsPiBM8hHKMhAQyo2d7kkKF1+/SgQCZqtoAEeQQDly+YyTv3T3Ya/KPnRjJpnHMq
-         JZ34c8Jgq1nsug0shtILvSUYqCiZrS1pE22lnuzZDaMyibBJ3RXEjYPioILgHF2VQ642
-         WLyw==
-X-Gm-Message-State: AFuF++ljIbzAQ19zMam7Fx+AU/cTVVuzoIrQ494CpIRuh3WS0aceet1G
-	COtvJNMErT46xEs8VWcEP5fbm/UTozRBYon8GmwCzoXstFI9IhEzB7xWj55uXmrcZPo=
-X-Gm-Gg: AYBFou0tpD9g/liBnX5b37ftU7vN+2U1a3d1WtU0Xj72az68MW8d+x+r/O/ZJyyDc4C
-	gzXwbqwP24YsnnGEfLwwZ77Q7R7SgWolNG+enc+3RaIw8esU3YMOsOKU9tv/cv+yxZUl/LzzhWL
-	pZOwV1rD/TeWAzXPjZl8HTH3JAsxswd90v1N4ZccL//fDh7guk0J4MexfrtmCp7kJfDbXlx6vpU
-	KVS51floalAoDnYujbP8EpEoT2iTmWr+Qqt3RXmYu2GW+bfafe8MFrqJVQxKLVxkUmUUixWtqyB
-	aUF8lsNDYCMLgBxrrXK8gpVO0rx2qU0wD22teCosIjxxUZfce0Aa66aLXRL7HqRs+1a2xtDT71N
-	K1hSW5QAQdThj57fBZNSmNtBKIw613WAIpv8nyhK6xlyQM7f2GWKkSthJ87OjnvoCrxlOoJ/rau
-	GLBn0fgiVfz2igZlKHuqZgZ0np5d8SMZnil4JTt5AuLImITWEyPzi79Yk7kKZOtKB5EA==
-X-Received: by 2002:a17:90a:c88f:b0:380:8bb9:aba9 with SMTP id 98e67ed59e1d1-39b07f3216bmr13222483a91.3.1788512347318;
-        Fri, 04 Sep 2026 01:59:07 -0700 (PDT)
-Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432435ec2bsm4736832c88.3.2026.09.04.01.59.05
+        d=1e100.net; s=20251104; t=1788512385; x=1789117185;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CAxLF3rWTCcSM9eL9fn8arDhVYjVJZtO1+a3N0N3bKI=;
+        b=eh97ppp8PkKUgSoJF0O21CeU4+GFAxCLj8JkKBd1aOMe3P2lDLAAAOl9cBW+CDY+Uv
+         RAX81oz3Fggp97gzG8s6cAXm40oEaTbVWc5RSs3nB5Su5gDPRSoYQeVYKa4fjXOrzsNu
+         6ezK7fKQuZ1hxhr7VB3/VSDWPga2FfdZYNBPmVe+ACt9uHjFjuJOOpGiW6CsYeM7hfsP
+         n4pASFwO3U4I7kkGP6lMbhPX9HKj418A+W+zW9PqnIztKNB5KhPqVmOfWIeFhZGtZxXF
+         VXZ/gFGou3+okJlPPiR60gMWe0L77+iSvfPtc0fW+stvSkJBukoINQtv6yw1Ah+4SqD5
+         DQsg==
+X-Gm-Message-State: AFuF++nvUAlpDGxrSFFrG+uN5CnCFZxYU5/nTIrJmQqsgGMdOiv6Uzx0
+	1pau3QeI6eUZ0VyENSkBnaJL1R5CY555sHAdfeq1UJOMKakJKP6WXrWwc4Gb9wFY
+X-Gm-Gg: AYBFou1WfMtkty5JhLvOflixv3zxQ4NQsv52mWRPzyrWP0ljUoWs2uBUGv3YTYHF4TH
+	LNXIkb83WZnwfv3dIeV0of8XYm8gUh32InpW3UPTnUdp679d4Y5uR8HJSfgSgtvuT0RI/Q7uu50
+	DOZ54yh0WuvfgsjGuq1hNCWuglvLDGMDBTju8p90OGNO38sU3AkIi9rbvJvXr6boU84bhGq+/Rj
+	DyJ4HcYEV7P8hxFomov7uaoYG86lyehfsECODHw1pFCRpiwjWAknOtqsZPvbX4hb7u3EJwiuU+q
+	zrdSx8q6qewC1kuToCetY8G0/5vMCAHx8tprfUugLtt3Ipj6y7TN3qyeFAtoJIF9tmMMEeBVe1/
+	sz46s+KTZxhtUsqBEDLwQBl4t1HAPrPOwhs94LR1urs+fYl9V9YskW7orqgYLQ/DvnVlyk+yhYT
+	SKmLqlShtuzvD3bn960nGi37gVKSIxMigtqSLAs7g9n9l4uf6Uqzb0akONKPihHQueGuFNUksp7
+	QEcBdErToUtI9UE2cg=
+X-Received: by 2002:a05:600c:8b05:b0:499:9240:9a1c with SMTP id 5b1f17b1804b1-49cf82787camr44064135e9.15.1788512384803;
+        Fri, 04 Sep 2026 01:59:44 -0700 (PDT)
+Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm127654275e9.3.2026.09.04.01.59.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:59:06 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+        Fri, 04 Sep 2026 01:59:44 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: stable@vger.kernel.org
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 6.18.y] net: skbuff: don't skb_tx_error() the source skb in skb_zerocopy()
+Date: Fri,  4 Sep 2026 10:59:39 +0200
+Message-ID: <20260904085941.1806194-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026090319-gonad-edge-05ea@gregkh>
+References: <2026090319-gonad-edge-05ea@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)call to undeclared
- function
- 'huge_ptep_get'; ISO C99 and later do n...
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+Content-Transfer-Encoding: 8bit
+
+From: Norbert Szetei <norbert@doyensec.com>
+
+[ Upstream commit 8ece906150128d5ec2462aabcc978c568433eca4 ]
+
+skb_zerocopy() copies frags from @from into @to. On an
+skb_orphan_frags() failure it calls skb_tx_error(@from), a destructive
+operation on the source skb the copy helper does not own. That completes
+@from's zerocopy uarg and clears SKBFL_ALL_ZEROCOPY, including the
+SKBFL_SHARED_FRAG page-ownership marker.
+
+Both callers already report the failure on their own drop path.
+nfnetlink_queue does it at nla_put_failure, and Open vSwitch does it in
+the flow-miss drop arm of ovs_dp_process_packet(), so nothing is lost by
+dropping it here.
+
+On Open vSwitch's OVS_ACTION_ATTR_USERSPACE path the skb is not freed on
+this error: do_execute_actions() ignores output_userspace()'s return
+value and, unless the upcall was the last action, keeps forwarding the
+same skb through the flow's remaining actions. The uarg is completed
+while that skb is still in flight, telling the producer its buffers are
+free, and SKBFL_SHARED_FRAG is cleared on an skb the rest of the stack
+still handles. That flag is what makes esp_input() call skb_cow_data()
+instead of decrypting in place, so a later local ESP delivery can
+decrypt over frags the skb does not own privately.
+
+Leave error reporting to the callers.
+
+Fixes: 36d5fe6a0007 ("core, nfqueue, openvswitch: Orphan frags in skb_zerocopy and handle errors")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Fri, 04 Sep 2026 08:59:05 -0000
-Message-ID: <178851234496.923.2041501270018737797@kernelci.org>
-
-New build issue found on stable-rc/linux-6.18.y:
-
+Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/6E3A780D-FB87-421F-9964-B1D457D7D106@doyensec.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ 7.2 and earlier do not have the put_page() call on the error path ]
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
-call to undeclared function 'huge_ptep_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration] in mm/page_vma_mapped.o (mm/page_vma_mapped.c) [logspec:kbuild,kbuild.compiler.error]
----
+ net/core/skbuff.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/mm/page_vma_mapped.c:110:11: error: call to undeclared function 'huge_ptep_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  110 |                 ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-      |                         ^
-1 error generated.
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index e75baa72a22e3..133cd56f7b5e1 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -3856,10 +3856,9 @@ skb_zerocopy(struct sk_buff *to, struct sk_buff *from, int len, int hlen)
+ 
+ 	skb_len_add(to, len + plen);
+ 
+-	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC))) {
+-		skb_tx_error(from);
++	if (unlikely(skb_orphan_frags(from, GFP_ATOMIC)))
+ 		return -ENOMEM;
+-	}
++
+ 	skb_zerocopy_clone(to, from, GFP_ATOMIC);
+ 
+ 	for (i = 0; i < skb_shinfo(from)->nr_frags; i++) {
+-- 
+2.55.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:cc8e3250a79e15d3b98cd0b7eee6825df4d6d4a0
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  96ff57c9007ff0391c80864ebe06496d592e3b02
-
-# Builds where the incident occurred:
-
-## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a9a5fe6e41d7f97d6fd77bf
-
-## multi_v7_defconfig on (arm):
-- compiler: clang-21
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a9a5fe2e41d7f97d6fd7777
-
-#kernelci issue maestro:cc8e3250a79e15d3b98cd0b7eee6825df4d6d4a0
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
