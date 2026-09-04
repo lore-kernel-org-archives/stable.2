@@ -1,110 +1,108 @@
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE9E422556;
-	Fri,  4 Sep 2026 19:34:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.42.244.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1086938DC64;
+	Fri,  4 Sep 2026 19:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788550457; cv=none; b=SWErOYWW86eMOI07qWVf0NGPhW6Zr0kdZAdZ/xJdb6CBcNAG6eI3QEP9YmE3Ee9x71R82q5GywGNbHC/mkqUyuFkVYbG7tmxdIYeGmg6xp1vCBh0CSrPpJgHzphlohnew0sFE2ssdX1DN5rA+QsmrEx3mqhIkgzbik2h2/sci0g=
+	t=1788551270; cv=none; b=lJUmt8FZo078u0jWKJ1xfSoTeg1o4xbcRy39N518yGQwPqPrVILp++GOj/d2GQW76/lflL3q5V1+HFIj5eqbz0V0HJw9MLeFB6F5QKMtdnmGSNsL1T0cAa+pba8xTd8t0AFFwalyvcqdqlEH7a/fTVHV2O36J6FBaI3AM93Tyo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788550457; c=relaxed/simple;
-	bh=ul2Pp845XsmKQL5GK4uGTi+u/lX7nZmo/2YJ5Kq7L3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcJgbrOY8G1MkYgV4BAX624iHuz2RMtHLyLUw7AHFghSWJqHZpvoES72MdLfNZZE8Ij0bKud8IvmPXqcndXANQaZ9fAS0mp7anFiTNrXrDf2b68xOQkZ3Vz+HL1hDCs1iOURvhhE5818jvZOVnkraVbD7A8xAaD+8ETpxDPeY/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com; spf=pass smtp.mailfrom=fritz.com; dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b=RkDEoQft; arc=none smtp.client-ip=212.42.244.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fritz.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fritz.com
+	s=arc-20240116; t=1788551270; c=relaxed/simple;
+	bh=Y5OfE5RetYN+Tz0y0lxN+Zusr9FUzQLGAiWkpONLRus=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=qk/OE3lxbIJpL5Cs/fIiT+HKecqlaufI0DuU7FhWdjaHJSpILRWTIe3dWfK/X163nX1KorAp7078DQgU1gdpcFRW8XOIRmt5gsZjeLlW+F5exDBHACgUQIRQydpUi2KV42KMJjk0W8c72FP21b0qff0obcyTAyqTuFt2n2Bnx9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=N6ehktTz; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fritz.com header.i=@fritz.com header.b="RkDEoQft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=fritz.com; s=mail;
-	t=1788550452; bh=ul2Pp845XsmKQL5GK4uGTi+u/lX7nZmo/2YJ5Kq7L3M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RkDEoQftAc6i3bh8mLGyHEPOoazbjCmA9oGyIbuUik5U5o5utl+oYIY0a2oBwS5mb
-	 csRwSXCy9udULbg5wyavD3GQwoYdBopsNsgvWgwHhs7ryu5GSLPsAGvwUGjvUaPXs0
-	 hIVCcvgsDPNVkgUs1UiMWEDhmQDD+Wi+sojTj+6xGBwlZkrEMthhPiCCwWhMcTSNxz
-	 CIsK4GmX3iPmjx5ZJjwWjBN8z5NmMvRYtElg3RkdlvC2af7E7/Ox5GbtC24KDnm+Lh
-	 WoFbPXA2WOPaf7ZPvUm9T5tivY4OzsJ9i9lqX9CetiV/+TOI4Mn5Wn55bQN8FZZ3B5
-	 jFLIolKAgpdxA==
-Received: from [212.42.244.78] (helo=mail.avm.de)
-	by mail.avm.de with ESMTP (eXpurgate 4.57.1)
-	(envelope-from <n.schier@fritz.com>)
-	id 6a9b1d34-2a57-7f0000032729-7f000001d982-1
-	for <multiple-recipients>; Fri, 04 Sep 2026 21:34:12 +0200
-Received: from mail-auth.fritz.com (unknown [212.42.244.78])
-	by mail.avm.de (Postfix) with ESMTPS;
-	Fri,  4 Sep 2026 21:34:12 +0200 (CEST)
-Date: Fri, 4 Sep 2026 21:34:10 +0200
-From: Nicolas Schier <n.schier@fritz.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] scripts/sorttable: Mark long_size as __maybe_unused
-Message-ID: <20260904-dancing-cobalt-ibex-8a039c@l-nschier-aarch64>
-References: <20260831-sorttable-long_size-unused-but-set-global-v1-1-8a96b88697e5@kernel.org>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="N6ehktTz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1788551170;
+	bh=ySogpzswJxoAl7WyHwxHElt28x3uWsH2QkWK4MRVu8A=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=N6ehktTzUMyZSanvsXF+R4tFJ3qnrf0Hf4zuA0XDAwGWqzokLnm7pGgZP/j3c+RIc
+	 CFul2yDQqcZA2Av4jjocFlm2OHTYa+dmv7blSPCtL1eaYjoNUZjwDqNkGfFTg8eGpJ
+	 hTeTHcwoK5KIR8KsemhUjinAn5MZgiP9PdbQjj9Y=
+X-QQ-mid: zesmtpsz8t1788551165t062e92ba
+X-QQ-Originating-IP: Mh6UQHmyb+mASp+4mMFL/LbRJAAX0oMHj0gvmf4T3tc=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Sat, 05 Sep 2026 03:46:01 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 7964370203424878226
+EX-QQ-RecipientCnt: 21
+From: Wentao Guan <guanwentao@uniontech.com>
+To: gregkh@linuxfoundation.org
+Cc: achill@achill.org,
+	akpm@linux-foundation.org,
+	broonie@kernel.org,
+	conor@kernel.org,
+	f.fainelli@gmail.com,
+	hargar@microsoft.com,
+	jonathanh@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux@roeck-us.net,
+	lkft-triage@lists.linaro.org,
+	patches@kernelci.org,
+	patches@lists.linux.dev,
+	pavel@nabladev.com,
+	rwarsow@gmx.de,
+	shuah@kernel.org,
+	sr@sladewatkins.com,
+	stable@vger.kernel.org,
+	sudipm.mukherjee@gmail.com,
+	torvalds@linux-foundation.org,
+	Wentao Guan <guanwentao@uniontech.com>
+Subject: Re: [PATCH 6.18 000/552] 6.18.50-rc1 review
+Date: Sat,  5 Sep 2026 03:46:00 +0800
+Message-Id: <20260904194600.10243-1-guanwentao@uniontech.com>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20260904045747.813364717@linuxfoundation.org>
+References: <20260904045747.813364717@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-sorttable-long_size-unused-but-set-global-v1-1-8a96b88697e5@kernel.org>
-Organization: FRITZ! Technology GmbH
-x-ms-reactions: disallow
-X-purgate-ID: 149429::1788550452-5FCA770C-C8D5CEF8/0/0
-X-purgate-type: clean
-X-purgate-size: 1785
-X-Notice: Whitelisted
-X-purgate: This mail is considered clean (visit https://www.eleven.de for further information)
-X-purgate: clean
-X-pfmilter: host: postfix-mx-01  mail-id: 773A0A0389  external: no
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NAU+NnQ/rJI9mukbpEhTMINu7zZJb8x50Tm4ob9vXGLbh9takl3VAlfv
+	sfo/wOWgfgawj/OQ1pAe8U+PGNBR9bLIlpNJsaUXjrW85oiEuk2G7K4xDjEPjcmKXl7vAZp
+	v3gzHvqFBh+IM9Z+iueBv8373FRX4cNQjGBbwGQCP2/0K6bBKwkWlhRMpjy+As+4T9NUoBW
+	6XmKTHmUyFFLROUeDziVVw7pD/OFcRuSatv4HFkX0XAO81R3/eg0hHpYIElr68cNoEd+pIU
+	hq/4ClGXzlj0NlpQHGpFvu2ewKN8iAVVtsTd64COCNtJB10bwu29duwPggERE7ptEPbneyp
+	xmKXhaxit4QYrROZjqsmzM0Gnx8omuL9cBrv9joTH9UbFOxXcau/Ou4IIcRvd3iyca70stl
+	hrA/ZMmJQTGOxmtNa9ZhRFMuGVXeIQ3AUWosDkacDJYWlO87QFJ6NCrfDD7uhXXWZkaxmTU
+	YQxVw6UTN8EYYZuy7MuEnAZdjZh+VY6L1PY5UjGz50i6NPT8G5SYz1LTpiQlN51+cZkU34J
+	gV/XJLKTYder6jFAIV2Z8iPSW/2U/CbTxQ2d80j6I61EOkp5bhaaRzXBNqB8Du4To6BGo6O
+	INUTsWNuLz0g/eOK06O51scfmOv/y+hac5+lCHUDnpJFqZyF+0XKZPPss9FtbtN6vB9QY5R
+	JgoFaeOar3m68LD26icuGOxeT9hqWO2KEr9qTxars0a+wF3xSWZ2Dj7tx0B5L5OYbAnnuWY
+	NIUARsOh2ZHuw0F6nldDjvbIWwpOUcJIsLfRvC8ZIAQECapnEvDreSORDBKHdaRai5gleei
+	gcI3CmU30AZFht8gTLp+podg2ko25fEfpNQBG/4+TxiQ5k+vqhItQ5LGk26HmaDymM5DOWz
+	VqSRXnWmoI6B/8eMrrJbt/R5ljbLe8dM0gOFstiCNQs5qm++ulYkrWfGLn1RiMP55detrzk
+	CutoM7ulURZtNK0TECNfh1npuKwRI4fBfPKVxmM0NZzDblvdLYf7p2f6XJMd7HgIe5qs6gG
+	WIb0RQUG4RbVG+RIyoOqBnDqQTtRiiGUztIxUZFHRz9u8wXRW/+B/XdbDSvWVFwUmg0UKf7
+	Hpt/gANLX8d
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Aug 31, 2026 at 06:46:31PM -0700, Nathan Chancellor wrote:
-> When building in a kernel tree prior to commit b055f4c431e3 ("sorttable:
-> Move ELF parsing into scripts/elf-parse.[ch]") with clang-23 or newer,
-> which implements a new warning under -Wunused-but-set-variable for
-> static global variable, there is a warning from sorttable because
-> long_size is unused when MCOUNT_SORT_ENABLED is not set:
-> 
->   scripts/sorttable.c:452:12: error: variable 'long_size' set but not used [-Werror,-Wunused-but-set-global]
->     452 | static int long_size;
->         |            ^
-> 
-> Mark long_size as __maybe_unused to avoid inserting more ugly #ifdef
-> directives while insuring the warning does not reappear, as the
-> aforementioned change does not alter the uses of long_size, so it
-> appears to be coincidence that the warning disappears after this
-> refactoring.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-> ---
-> This is breaking our builds on stable:
-> 
->   https://github.com/ClangBuiltLinux/continuous-integration2/actions/runs/33143924291
-> 
-> There was a previous patch sent for this issue
-> 
->   https://lore.kernel.org/20260603191708.27241-1-beakthoven@gmail.com/
-> 
-> but it was marked as stable only. I think this should be taken via
-> mainline and backported the normal way, as it appears to be coincidence
-> that the warning is not present in mainline. It does not look like
-> scripts/sorttable.c has a formal owner according to MAINTAINERS so this
-> could either go through one of Steve's trees or the kbuild tree.
-> ---
->  scripts/sorttable.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Build tested in our x86,arm64,loongarch,riscv config successfully without error.
 
-Thanks!
+Tested-by: Wentao Guan <guanwentao@uniontech.com>
 
-Tested-by: Nicolas Schier <n.schier@fritz.com>
+Best Regards
+Wentao Guan
 
--- 
-Nicolas
+Log:
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Sat Sep  5 02:03:27 CST 2026
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Sat Sep  5 02:18:48 CST 2026
+Linux version 6.18.50-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT
+Linux version 6.18.50-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Sat Sep  5 02:34:29 CST 2026
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) # SMP PREEMPT_DYNAMIC
+Linux version 6.18.50-rc1-g96ff57c9007f (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Sat Sep  5 01:40:19 CST 2026
+	
