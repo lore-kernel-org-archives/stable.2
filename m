@@ -1,103 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58D34D2EC5
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:21:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99DC53859D3;
+	Fri,  4 Sep 2026 16:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538912; cv=none; b=F+lAXwr6Pv8vf0OL0dOeUEG4Mjof8seS8zKRIQOZKQdsWw2xT6Rry0zbGm8e0xSxd3tGCf0hSVLGkVzF3TCxwzzb1tf1hRJhAHvZfKBXV1a2qElCgyuLhfxo2V8Md4W/U5xBCKsxaAqgAucgEkvgdxtwykGVEWOJwH729ilS+vA=
+	t=1788539241; cv=none; b=JLyId6892Z2Kh5Jlyz9/Ug5uTTb7iZO9TfkLzwv0/6qKah+jA8We2ES8xRSicAYSBjK4LgCzRr5JXXNR6RL65noSTwrevl+abjQH2BFWkXEHjkwJHT5KPVmIW3PFwRoqyFADh9sEbQhp3s0wrBVGrbxv1SObbxPtvZX6JaFSLo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538912; c=relaxed/simple;
-	bh=0HB/ZvoM9h72JpKBfd75CU530SbUUC1O1yc77qcnQ1c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cc8RIArWb3y4G+EqSTGOfZw6utRDjP2ohQTGDcxQsWrOJt7cXXTLI81QVKy7BEJoK97hpsEIkMM58WlVtQKtGgYXR1NyrfMICJaPnbn0gBDfrrG9rGX+Q/4p2d/BqRitWVnngAU5rCY9KGfb70Cc6luwt+RVc7y+NIYg0OWVUFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZheE+dn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788539241; c=relaxed/simple;
+	bh=tcK1Sx3A/CgqQXi7lMc9CzKjjKqQl5lJcjHTne3CQ5M=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=F8t6YWF49wRvUJRd2Q48ikP1f2n3U9WFWclTVGQCxF7rPKij3GlWS305+ULQqarkoyUy6Il+WD0kfu1ww3exMk7ejnjg1H/GjAd9VLfXSeRU0F/izYPNoS7vAA5x/5GPBLPZ7NB4/4AMjDPQ7XnkX/ut2/WmxBkZbkJKgl2dxQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=a4fbSzMt; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZheE+dn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70CF1F00A3E;
-	Fri,  4 Sep 2026 16:21:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788538910;
-	bh=/ipNylu59QHAJ0Q4cpe1Ihdd3PcR+OqrPt6Zh1mVdaw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OZheE+dnDT2taG5qtm8KX3wAWbPjLymGgj3Sa7XPpu8ORLrFcH63jN7YNcE8O1E1g
-	 k6LENFfXH+WK6LKrpcrKYXh57ahhouWBeAYK3xj/gOPgec3UMKzQ4wYljIWf7gRgyc
-	 CIBAmDFCWX7lmcpqJbkNZiYx06CjBMMqc3m+yzB97Y7AMNnvNM3h7gasUgjx8U7/mS
-	 hyF/gy6ywC8IkS9Ei8IND7GKa5GJuFg1qXBOYEOFxY55DDV2Gqis4OIn547EMgPlAy
-	 e9d2x7kMb3gDy1ibuS1QE2O7s5GiPyqqS1zTIRLBMPiehB0E8Hdd314nFk6A9dIXvL
-	 UQzPrWfRhW9Kg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Minchan Kim <minchan@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] zram: fix out-of-bounds access in read_block_state()
-Date: Fri,  4 Sep 2026 12:21:46 -0400
-Message-ID: <20260904162146.1210685-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904162146.1210685-1-sashal@kernel.org>
-References: <2026090353-pyramid-reanalyze-9bb9@gregkh>
- <20260904162146.1210685-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="a4fbSzMt"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C9DBF4E41512;
+	Fri,  4 Sep 2026 16:27:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 846846057F;
+	Fri,  4 Sep 2026 16:27:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1F9C911C79C69;
+	Fri,  4 Sep 2026 18:27:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788539236; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=tcK1Sx3A/CgqQXi7lMc9CzKjjKqQl5lJcjHTne3CQ5M=;
+	b=a4fbSzMtovlKZk0i83+sjZqERhs3qxLjjLyPZ3ODm2FW3X1jlllTrIODuwL6uFJAbFLbtA
+	mQkVU+ZwsrPJVJNI5YGQuWa3hAEMwnt/kT9Qtgx7H76gXMrbHRlgH8l7f3eVHpmvW9Plj2
+	TcfCY0g5RBUB0abNTohhJ2sp3/86qbFR3LpxBVUBvqzVnCN0gpFMJg8bIqCtkHitqOpaA4
+	d+ldqyNvkBV3lfhnVt+KWl8xMHcq5J0Wb+XS3GX4p+yIV2BzJXCAkUopPC8yZG+BnfbYg3
+	YpTYjPTwk+iiz9agYIHOTu2iYSI0iiJ98i7e9XneTiVJ4UpYI5dnbx/6eZk3Bw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  alex.aring@gmail.com,
+  stefan@datenfreihafen.org,  david.girault@qorvo.com,
+  davem@davemloft.net,  edumazet@google.com,  kuba@kernel.org,
+  pabeni@redhat.com,  horms@kernel.org,  stable@vger.kernel.org,  Xuanqiang
+ Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v2 1/2] mac802154: serialize and drain queued RX
+ descriptors
+In-Reply-To: <20260903123202.60152-2-xuanqiang.luo@linux.dev> (Xuanqiang Luo's
+	message of "Thu, 3 Sep 2026 20:32:01 +0800")
+References: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
+	<20260903123202.60152-2-xuanqiang.luo@linux.dev>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 04 Sep 2026 18:27:10 +0200
+Message-ID: <87qzj9yobl.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+On 03/09/2026 at 20:32:01 +08, Xuanqiang Luo <xuanqiang.luo@linux.dev> wrote:
 
-[ Upstream commit 391f057f44a51cc9418da5cba78b014324174264 ]
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>
+> queue_work() coalesces attempts to queue an already pending work item.
+> The RX workers, however, consume only one descriptor per invocation. A
+> burst can therefore leave later descriptors queued until another frame
+> arrives, while the final descriptor may remain queued indefinitely.
+>
+> The RX tasklet, workers, and scan cleanup also access the descriptor
+> lists without synchronization.
+>
+> Protect both lists with a spinlock. Publish each descriptor and queue its
+> work while holding the lock. Remove each descriptor from the list before
+> processing it and, if another descriptor remains, queue the work again so
+> it runs after the current invocation.
+>
+> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+> Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-read_block_state() calculates nr_pages before taking dev_lock.  If the
-device is reset and reinitialized with a smaller disksize before lock
-acquisition, nr_pages still describes the old table.  The subsequent loop
-can then call slot_lock() past the end of the newly allocated table.
-
-Read disksize after acquiring dev_lock and checking that the device is
-initialized.  The read lock then keeps the table and its bound stable for
-the duration of the scan.
-
-Link: https://lore.kernel.org/20260804065919.3970386-3-xialonglong2025@163.com
-Fixes: c0265342bff4 ("zram: introduce zram memory tracking")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/block/zram/zram_drv.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 91a1cec8a6e3f..c83ef64521ee5 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -878,7 +878,7 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 	char *kbuf;
- 	ssize_t index, written = 0;
- 	struct zram *zram = file->private_data;
--	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-+	unsigned long nr_pages;
- 
- 	kbuf = kvmalloc(count, GFP_KERNEL);
- 	if (!kbuf)
-@@ -891,6 +891,8 @@ static ssize_t read_block_state(struct file *file, char __user *buf,
- 		return -EINVAL;
- 	}
- 
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
-+
- 	for (index = *ppos; index < nr_pages; index++) {
- 		int copied;
- 		struct timespec64 ts;
--- 
-2.53.0
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
