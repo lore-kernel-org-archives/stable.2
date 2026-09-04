@@ -1,90 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BAE3EC6AE
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 05:38:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F30414DF6;
+	Fri,  4 Sep 2026 05:38:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500329; cv=none; b=kNKjIV1NwNARddEdwegqta72E0aSk0ah2zSpo8M+OIpbbZkz9GirTACDWlpm984w0W9dYHCqvfmzIFur9wdCusuWyArRts+EjbRywhoG5ZgZ0cJb/baiCYw9GI4a11Y65rkGP9qaE5UZuQHXRDaMsibQ5d3a0viiufXfoPSGICo=
+	t=1788500330; cv=none; b=PTzYPFudUYCaxnype7fMYc+R19o4mYTPWjbLgB8TBfWcQyOSWEW+R8cf6fUfr96bHt0VzGmqpgFnzt6RICsMEz7NyYVSyys1kj6+0QzDsena2xGFA1G4nDPiqgjYqezwK+dYO8zIRufRssvwMfbJO4iY/zwoisBHVatPqijbELA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500329; c=relaxed/simple;
-	bh=JxYmCxlJJowzNmZPMfXJ7tH/eI9WB2OxTwVR65rzFTo=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=p1hFZ0qRFYLwUIilcmvqdBcJIK8cnWTkNwKq+t2qelDtUSe28fG7Z0OXPtzoEtG1eBDv6zg24NaMuY8X8oeBC5ZxgditTFi+iTEdExqQp0gjjAfX0/HNxFtxvRIel4FiOtUR0xTpsvRFBHMkfTPuFuIXhTjoerPz6rnNDic+kjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CoMOFePp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788500330; c=relaxed/simple;
+	bh=UICByc2tyvI7hUzE8fwlu9sFU6WnZGEDIcRnoU9gy78=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tqMIhXXA2/L0yMLKwGfIzTeLb5wr+IIK+9GSFwXuJ+5RHFaz+XMHFh+PVLI713JKmFwZJ8CQZLqGrNIofoMBvC5roCzoP7hFsleYYEfZmvSJLaN9b9jli6+4vhzF/ALyQz2su1RNpQFQKHTuCO02FhYMbIyMrLYZ87OjazD03b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ik/Ve3qO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CoMOFePp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01A501F00A3E;
-	Fri,  4 Sep 2026 05:38:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788500327;
-	bh=v0rvcMGmSTbkELKcYG/vBG/hpeH6RhyD3WN33WanTw4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=CoMOFePpf6zD92zHQQsKaUfY2/l0Gl8JogM434NL/aEpcRzE+vImOYaWay8gpoz2e
-	 vtvLT/3DZsJPFgJY3EWiev2OjmkIjiAQNto2ikNYFlyMBxL8GIu+Mo3O+OzbdgwsVq
-	 +UyU1iiPBLaQZTWL32ESGMQ1yLqo6/aR5HYSPuOIDqpO4eJBS3aAQt517VrH74kGIX
-	 KlRoouHoy2w+0I8Gjn3rMckAgmmWJXrywRI252Wub1ZxoGKQC2aAOGqIyFzqhdojHD
-	 6S5mlDyJZULBR3b7DdHEpFVutIiXTXhIWq4MqK9cnZGZMTvUZabsOIAfcHcE3uUnQR
-	 Oq1V1u6/cU4Sw==
-From: Thomas Gleixner <tglx@kernel.org>
-To: gregkh@linuxfoundation.org, ruanjinjie@huawei.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 5.10.y] entry: Fix seccomp bypass after ptrace with TSYNC
-In-Reply-To: <2026090332-laborer-mandarin-6dec@gregkh>
-References: <2026090332-laborer-mandarin-6dec@gregkh>
-Date: Fri, 04 Sep 2026 07:38:44 +0200
-Message-ID: <87a4pxa84b.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ik/Ve3qO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB4F11F00A3D;
+	Fri,  4 Sep 2026 05:38:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788500329;
+	bh=7U/zFcdBT+KC6Rmbx3gncSPnmHS9uyXXq6cLCxpXOi8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ik/Ve3qONP7N5cP1tGW1B/7dDpJyizeXWaaYARRSVfDmYC7tYqMmkXtdLVatEXpWh
+	 agYP1BH3q28OAkxdYGma7ge32pa/tklnWu6lhUTvINgxf6XTi6OfvvKfy3BRjEtN9Q
+	 sBnFnb5o2H2ioFbTaCTCBABGm8ybGwwAWFZLcleM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Indrek Kruusa <indrek.kruusa@gmail.com>,
+	Felix Yan <felixonmars@archlinux.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH 6.18 019/552] clocksource/drivers/timer-sun4i: Advertise a real minimum delta
+Date: Fri,  4 Sep 2026 06:52:56 +0200
+Message-ID: <20260904045748.260757901@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045747.813364717@linuxfoundation.org>
+References: <20260904045747.813364717@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-commit 4a3591287fb7f808e209b4974ed337f609a2006b upstream.
+------------------
 
-Sashiko review pointed out the following issue.
+From: Felix Yan <felixonmars@archlinux.org>
 
-If a thread is stopped in syscall_trace_enter() for ptrace, another
-thread can install a seccomp filter with SECCOMP_FILTER_FLAG_TSYNC
-(e.g., via seccomp_attach_filter()). This will successfully set
-SYSCALL_WORK_SECCOMP on the stopped thread, but syscall_trace_enter()
-evaluates a cached 'work' variable sampled on entry. Consequently,
-the subsequent check for SYSCALL_WORK_SECCOMP misses the newly
-assigned flag, and the filter is silently bypassed.
+commit d21808328225ab8cee46885bf9a0dffcefbe630e upstream.
 
-This race condition could allow an unprivileged process to execute
-a prohibited system call (e.g., execve) that the newly installed filter
-was intended to block, especially since the tracer might have modified
-the system call number during the ptrace stop.
+sun4i_clkevt_next_event() compensates for the timer stop/start
+synchronization delay by programming evt - TIMER_SYNC_TICKS into the
+hardware interval register. The clockevent device currently advertises
+TIMER_SYNC_TICKS as min_delta_ticks, so the clockevents core is allowed
+to call set_next_event() with evt == TIMER_SYNC_TICKS.
 
-Fix this by re-reading the syscall_work flags after ptrace handling,
-so that any new SYSCALL_WORK_SECCOMP flag set by another thread via
-TSYNC during the ptrace stop is observed before the subsequent
-seccomp check.
+That programs a zero-tick interval. With oneshot/highres/nohz timer
+operation this can leave the next event stuck, which was observed as a
+boot hang on Allwinner D1 after the clockevents core started reusing
+forced minimum-delta events.
 
-Fixes: 142781e108b1 ("entry: Provide generic syscall entry functionality")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Advertise one extra tick instead, so the smallest event accepted by the
+core still programs at least one hardware tick after the synchronization
+compensation.
+
+Fixes: 12e1480bcb49 ("clocksource: sun4i: Report the minimum tick that we can program")
+Reported-by: Indrek Kruusa <indrek.kruusa@gmail.com>
+Closes: https://lore.kernel.org/linux-riscv/CA+fTLhgLmTY+exGujKf8OYYQvcEW5X5NJ_5sLq2AYL6zER2c0A@mail.gmail.com/
+Assisted-by: Codex:gpt-5.5
+Signed-off-by: Felix Yan <felixonmars@archlinux.org>
+Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
+Tested-by: Indrek Kruusa <indrek.kruusa@gmail.com>
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260629132914.1135C1F000E9@smtp.kernel.org/
-Link: https://patch.msgid.link/20260713025712.416366-1-ruanjinjie@huawei.com
+Link: https://lore.kernel.org/linux-riscv/CA+fTLhgLmTY+exGujKf8OYYQvcEW5X5NJ_5sLq2AYL6zER2c0A@mail.gmail.com/
+Link: https://patch.msgid.link/20260624220434.4183732-1-felixonmars@archlinux.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/entry/common.c |    3 +++
- 1 file changed, 3 insertions(+)
----
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -51,6 +51,9 @@ static long syscall_trace_enter(struct p
- 		ret = arch_syscall_enter_tracehook(regs);
- 		if (ret || (ti_work & _TIF_SYSCALL_EMU))
- 			return -1L;
-+
-+		/* ptrace might have changed work flags */
-+		ti_work = READ_ONCE(current_thread_info()->flags);
- 	}
+ drivers/clocksource/timer-sun4i.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/clocksource/timer-sun4i.c
++++ b/drivers/clocksource/timer-sun4i.c
+@@ -208,7 +208,7 @@ static int __init sun4i_timer_init(struc
+ 	sun4i_timer_clear_interrupt(timer_of_base(&to));
  
- 	/* Do seccomp after ptrace, to catch any tracer changes. */
+ 	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
+-					TIMER_SYNC_TICKS, 0xffffffff);
++					TIMER_SYNC_TICKS + 1, 0xffffffff);
+ 
+ 	/* Enable timer0 interrupt */
+ 	val = readl(timer_of_base(&to) + TIMER_IRQ_EN_REG);
+
+
