@@ -1,40 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A3251E420;
-	Fri,  4 Sep 2026 19:11:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtpfb2-g21.free.fr (smtpfb2-g21.free.fr [212.27.42.10])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F5B63BCD3D
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 19:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788549078; cv=none; b=Ncm5ZxM9fwXREZF43K9bHhVKJhiQjVe9RGvllB8fle6IHKC65cY82sQ/b8yRl54IzieVQtIceUP2VDHxcAer5ZFX2i7DX8YGlRmty+L8il6J9KC5Mu5C9W07R3H5vOO+k8Tj6lRlA6Ucgi5O7UYLgnWAPxrxDmd4OcRg+nYyHek=
+	t=1788549876; cv=none; b=TDAWDBTas0EIMcCBEPe9d67vLiyyOLqONa/vDFbEjZUDXUrH9PBmF7gEvxJzPaM0BLq/l0ow/VIMGaANbxl0sX5k7BbxCs4Vf3XGbjRpwtJ9emo7VmjCQFPzcN5CgR4/aiLFu7R24C9VaWZSeKhijbJHY84eHSO9NPrre2SUoFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788549078; c=relaxed/simple;
-	bh=gEOfkFHZ9af9svT9+dXawwOcTFgvWc10jhcoZlp/MIc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VraRswj744MmJ1zLwjS3lKZ0sU0Ejx+Z6gKJ+/Hc/hMGZbbDV/zmzXoLPwBYZFvGYuGcEmipEYtnZB9KZBadu0ARGBh1L6kYaLs43AXDoBRaBbtjCXgkmvuE1cVLYhHXkAcK1JayuYOeEb3kxM8Q6AZ1bjTNJk21JPiWkz6yiMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FtWZlf7G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788549876; c=relaxed/simple;
+	bh=Gk5sG5NYiQgumRroRz89wCni4F97j60zgbfDFei7ahk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=d3Ysuz36w7c7pwx2d+PO9y3T8J4wNIeOa03+3hu4bnw195oQUruzKkksOMYXqtHAeArZeRTgnIiJigZAOj2gH1n0GpMoLb8yZ2jdec7Vi4ks+c1ne6Fn1jjwRmNrP0Q7T1HDlmxUgVvo2/FvtmXZuPGlZ+J0gaAG3z6oo4fyZXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org; spf=pass smtp.mailfrom=morinfr.org; dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b=Zc+hbo17; arc=none smtp.client-ip=212.27.42.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=morinfr.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=morinfr.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FtWZlf7G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A4E31F00A3D;
-	Fri,  4 Sep 2026 19:11:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788549068;
-	bh=y52RuhkkJuSDFqrCRyElx0MLvy6+2qa0k5F9DQhN3aU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FtWZlf7GPC9GxbI8xxK6IjM9PbsPzt9RCofG+ewouqd+mh5n+xkTqPvpjnNpTSUNv
-	 Kitg8kFn5EqxWbJR6iaweClssmBK960dwVteJRInxk3cEHY7c/sKVSC2PgUPJIpws+
-	 3AwPpVFPyTlj1c64/SEfe9rBDOemYWIjMnfBkbfqVDpBjBbqK/YWJ36Kt/2D/HV5f/
-	 eW4slXxmLpLrV4fkNXaig6zML2LDGhNB/SHVjPRGTWZH9+dhJPMDX4VlK8P8J6nLut
-	 XUQwZf2El+aFGZEwy/UM9xbw8du/+06+X4GUB40CqxAR6ZaGbzNR2CItgA736XTYUz
-	 73XnvTTOYG7FA==
-Date: Fri, 4 Sep 2026 21:11:04 +0200
-From: Carlos Maiolino <cem@kernel.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: hch@lst.de, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH v1.1 6/6] xfs: bail out on bitmap errors in xrep_agfl_fill
-Message-ID: <apsXvoWqcaTaz93Q@andromeda.toxiclabs.cc>
-References: <178850312462.1198660.3332635535003842521.stgit@frogsfrogsfrogs>
- <178850312625.1198660.12540549019476735065.stgit@frogsfrogsfrogs>
- <20260904161302.GC1933798@frogsfrogsfrogs>
+	dkim=pass (1024-bit key) header.d=morinfr.org header.i=@morinfr.org header.b="Zc+hbo17"
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
+	by smtpfb2-g21.free.fr (Postfix) with ESMTP id 96779428BE8
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 21:15:20 +0200 (CEST)
+Received: from bender.morinfr.org (unknown [82.66.66.112])
+	by smtp4-g21.free.fr (Postfix) with ESMTPS id C99FA19F593;
+	Fri,  4 Sep 2026 21:15:04 +0200 (CEST)
+Authentication-Results: smtp4-g21.free.fr;
+	dkim=pass (1024-bit key; unprotected) header.d=morinfr.org header.i=@morinfr.org header.a=rsa-sha256 header.s=20170427 header.b=Zc+hbo17;
+	dkim-atps=neutral
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=morinfr.org
+	; s=20170427; h=In-Reply-To:Content-Type:MIME-Version:Message-ID:Subject:Cc:
+	To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:References:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=Bet1ENQIidJOOmEUh1wloYG6lEbqDq/1uE9YGY3qGjk=; b=Zc+hbo173rbyUTcVzDil1jQwXc
+	lU9iF5bo3+uiup93uybj8z0M2440ZJ6FQzpm9IBu2Afecn14ZAbD+YwohkJJ2KpUTb19VSYUqgIW3
+	ChORtSDTieVKQSE3E+a1AakxIfsOR9bixf09V4mvoPhn2S9eAFhOzYEv06peeaN7u4cs=;
+Received: from guillaum by bender.morinfr.org with local (Exim 4.98.2)
+	(envelope-from <guillaume@morinfr.org>)
+	id 1x2ZNQ-00000002jby-14XJ;
+	Fri, 04 Sep 2026 21:15:04 +0200
+Date: Fri, 4 Sep 2026 21:15:04 +0200
+From: Guillaume Morin <guillaume@morinfr.org>
+To: stable@vger.kernel.org
+Cc: akpm@linux-foundation.org, leitao@debian.org, muchun.song@linux.dev,
+	osalvador@suse.de, gregkh@linuxfoundation.org, riel@surriel.com
+Subject: [PATCH 6.12.y]  hugetlb: only adjust reservation during unmapping if
+ mapcount
+Message-ID: <apsYuFimfru7WaJn@bender.morinfr.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,43 +52,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904161302.GC1933798@frogsfrogsfrogs>
+In-Reply-To: <2026090356-destiny-subject-4d56@gregkh>
 
-On Fri, Sep 04, 2026 at 09:13:02AM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
-> 
-> LOLLM also points out that the xagb_bitmap_set call in xrep_agfl_fill
-> can fail, but we don't check the result of xagb_bitmap_walk, so we
-> silently drop the error and proceed with inconsistent incore data.
-> That shouldn't be allowed.
-> 
-> Cc: <stable@vger.kernel.org> # v6.6
-> Fixes: 014ad53732d2ba ("xfs: use per-AG bitmaps to reap unused AG metadata blocks during repair")
-> Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-> Assisted-by: LOLLM # finding obvious bugs
-> --
-> v1.1: fix commit message
+This is a backport of 5120b1e048d48596ffaec1a8412012a91adba73b which
+failed to apply to the 6.12 branch
+
+Since df7a6d1f6405, __unmap_hugepage_range can adjust reservations.  In
+the case of folio mapped in both a parent and a child, if the parent
+unmaps the range first, the reservation adjustment will result in an
+underflow of the reserved count.  Once the child unmaps the range, the
+count is restored.  Change __unmap_hugepage_range() to check the mapcount
+before adjusting the reservation.
+
+Link: https://lore.kernel.org/all/alEJkwn5VlTTH_ZX@bender.morinfr.org/
+Link: https://lore.kernel.org/amkC_1Ya6OiUoiLZ@bender.morinfr.org
+Fixes: df7a6d1f6405 ("mm/hugetlb: restore the reservation if needed")
+Signed-off-by: Guillaume Morin <guillaume@morinfr.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+(cherry picked from commit 5120b1e048d48596ffaec1a8412012a91adba73b)
+Signed-off-by: Guillaume Morin <guillaume@morinfr.org>
+---
+ mm/hugetlb.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index e910ed0c43d0..185faeaf5c08 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5523,6 +5523,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 	bool adjust_reservation;
+ 	unsigned long last_addr_mask;
+ 
++	i_mmap_assert_write_locked(vma->vm_file->f_mapping);
+ 	WARN_ON(!is_vm_hugetlb_page(vma));
+ 	BUG_ON(start & ~huge_page_mask(h));
+ 	BUG_ON(end & ~huge_page_mask(h));
+@@ -5613,7 +5614,10 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 
+ 		/*
+ 		 * Restore the reservation for anonymous page, otherwise the
+-		 * backing page could be stolen by someone.
++		 * backing page could be stolen by someone. Restore only on the
++		 * last unmap, otherwise the owner could empty its resv map
++		 * while the folio is still mapped by a child. Note that holding
++		 * i_mmap_lock_write is needed to check the number of mappings.
+ 		 * If there we are freeing a surplus, do not set the restore
+ 		 * reservation bit.
+ 		 */
+@@ -5621,7 +5625,7 @@ void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 
+ 		spin_lock_irq(&hugetlb_lock);
+ 		if (!h->surplus_huge_pages && __vma_private_lock(vma) &&
+-		    folio_test_anon(page_folio(page))) {
++		    !folio_mapped(page_folio(page)) && folio_test_anon(page_folio(page))) {
+ 			folio_set_hugetlb_restore_reserve(page_folio(page));
+ 			/* Reservation to be adjusted after the spin lock */
+ 			adjust_reservation = true;
+-- 
+2.39.1
 
 
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-
-> ---
->  fs/xfs/scrub/agheader_repair.c |    4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/fs/xfs/scrub/agheader_repair.c b/fs/xfs/scrub/agheader_repair.c
-> index 46c95354ca6438..a66b611588c47f 100644
-> --- a/fs/xfs/scrub/agheader_repair.c
-> +++ b/fs/xfs/scrub/agheader_repair.c
-> @@ -699,7 +699,9 @@ xrep_agfl_init_header(
->  	 */
->  	xagb_bitmap_init(&af.used_extents);
->  	af.agfl_bno = xfs_buf_to_agfl_bno(agfl_bp);
-> -	xagb_bitmap_walk(agfl_extents, xrep_agfl_fill, &af);
-> +	error = xagb_bitmap_walk(agfl_extents, xrep_agfl_fill, &af);
-> +	if (error && error != -ECANCELED)
-> +		goto err_undo;
->  	error = xagb_bitmap_disunion(agfl_extents, &af.used_extents);
->  	if (error)
->  		goto err_undo;
-> 
+-- 
+Guillaume Morin <guillaume@morinfr.org>
