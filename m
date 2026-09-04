@@ -1,119 +1,109 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204F0473C65;
-	Fri,  4 Sep 2026 16:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DAB11E7C02;
+	Fri,  4 Sep 2026 16:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788539261; cv=none; b=m/tsrj7BMbhPDGd4OvTEZdA6/+lFUzvnjIGUvsiqEVU1xXnNgkBsl0nosSg7WGM3w643oRvpaZdJVU4eVhgD6+EavjTpUQaUOODNPKRi35fp/m17re2vm1oZIE8OPy/RvOGMMEAsPsw3cofocV8A+q/WaqZKVLPfgMQ5hU09Y6k=
+	t=1788539397; cv=none; b=BAtrpweIJE6GQLv6oyjG6u3j+cORw6ynVNJTXlX1lN8dh4ZMzWMM48C/va30voxmB6TMckyzcS6/X+7nrWYPC8XUNvutNWAJrbUVBp7jnUemebxLd/VgV3jdDZ4CjdwshZtQvmPfQA4jOQmbHhSaIiDLUPJ6e/6c9Tc12cUQRhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788539261; c=relaxed/simple;
-	bh=x4elf8yNPJA0v5b9x3Z1EMG5dwZtqIg0e6XMDVweATY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=T198Y6bOztEuMewRR8hpnalbQSLlVRtW+O9DD5MWhV0YZBPGj89w4Q/iHYCh5hmlVBLD0+6dcpVwzwDn+pqJJfllrhjyBdnZS5JdGlu9bBMeslLOkbpfh/EdzcO/M1HLLK5CdpTi6GN/d/3OobW/8t4EGjDAEqNDcdNVc2yuJ/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=OKEiv/ZI; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1788539397; c=relaxed/simple;
+	bh=kNwmH73VN/KLnq5GP1jIEEERq85oS6f+kg0FA6mt9io=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=Ac2E179e2Ugzhj1XT/9km7lnFWPrJlQjhxipD1zo7Z/aDzh7D6+scvQyiEJA7At0DERX3qrV57iD1Hczj6KIpJ+kjIFtuUBSfXfipxETUE8gzDeoTDG0QSAcyXkcXC83GIRgCmGsxM3MhZ5dXiORS6ywuK6UC4IWwf+De86AiR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tli4roSQ; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="OKEiv/ZI"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tli4roSQ"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 9AA7E1A19AB;
-	Fri,  4 Sep 2026 16:27:38 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C2FBA1A19AE;
+	Fri,  4 Sep 2026 16:29:53 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6EB026057F;
-	Fri,  4 Sep 2026 16:27:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E210611C783E9;
-	Fri,  4 Sep 2026 18:27:35 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 95D4D6057F;
+	Fri,  4 Sep 2026 16:29:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 51C3D11C783E9;
+	Fri,  4 Sep 2026 18:29:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788539257; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=EiAdr21m+t8nZuiLRogn0ySzF7tcNXTsG+HSx+JU1Bg=;
-	b=OKEiv/ZIX5iP6wlesIEB5HlxL7FtN/SV0CXjKDqhX9DE0yp/CEZizmv2uN6I0bYWq7P4HH
-	VZ8qNwi6pSHdHMrS/k9rmq2DF1MLsw8Ej6xFH4oC9JTQsMtjUZzb/jdD/2EeLXdD9CNTZ6
-	oVBh9MWxCkBSTzeHvn2BZdAVT/7evpkrLpUJVzfRLY8WyQvPSXm4TahBxS+PW0oYSM04Lu
-	7BPuHpfrEWQ8bX6i5nzB/OHHZ1T9mx57unsFT+LE7YvdupG5eWumBxl2ddt2ohP6pS9ynr
-	TUCHHO6WuG+KmmL0xBhUwymrc09v4e7dIXN8qiO66zGPEBr67CUugbLOwxO6Tg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  alex.aring@gmail.com,
-  stefan@datenfreihafen.org,  david.girault@qorvo.com,
-  davem@davemloft.net,  edumazet@google.com,  kuba@kernel.org,
-  pabeni@redhat.com,  horms@kernel.org,  stable@vger.kernel.org,  Xuanqiang
- Luo <luoxuanqiang@kylinos.cn>
-Subject: Re: [PATCH net v2 2/2] mac802154: pin netdevs for queued RX
- descriptors
-In-Reply-To: <20260903123202.60152-3-xuanqiang.luo@linux.dev> (Xuanqiang Luo's
-	message of "Thu, 3 Sep 2026 20:32:02 +0800")
-References: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-	<20260903123202.60152-3-xuanqiang.luo@linux.dev>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Fri, 04 Sep 2026 18:27:35 +0200
-Message-ID: <87ld9hyoaw.fsf@bootlin.com>
+	t=1788539388; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=kNwmH73VN/KLnq5GP1jIEEERq85oS6f+kg0FA6mt9io=;
+	b=tli4roSQ824Du4r3VYXVsVfLicDno0qyN3Ha47gRUwqcrOoVKzbPWYIMm/A+QD3MjDbzW9
+	Q6Z795H5I6MmB5FRVqRP/yJXZZY6HIQborVlbQGZjDsU+MGrWZfBMZnTHudwKXuU00952e
+	dRZcyemVgbzo/7lyoJpUnDohmP/lWTkUjmvPDjDFxu+jyhydNW7eBbDBu2g00Muyt26L37
+	pnRnCx8+P7X3OlfajEno4Tcj1VOpkEwGxNfMCqvnpM2qmRxF9gEoqQBZ7TxXM/kg/KkjB4
+	Qtz2GsGm/WAz/zTyt7AAxCWRF7DafahMpwAE7cCoJFWU7GpUc1nIDTRy+BU9WA==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 18:29:41 +0200
+Message-Id: <DL6OAOW07VTV.3T0UVU3HUJJF5@bootlin.com>
+Subject: Re: [PATCH net v2] net: macb: initialize PTP state before
+ registering clock
+Cc: "Richard Cochran" <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Jianhao Xu"
+ <jianhao.xu@seu.edu.cn>
+To: "Runyu Xiao" <runyu.xiao@seu.edu.cn>, "Nicolas Ferre"
+ <nicolas.ferre@microchip.com>, "Claudiu Beznea"
+ <claudiu.beznea@microchip.com>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+ <20260904030439.3994047-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260904030439.3994047-1-runyu.xiao@seu.edu.cn>
 X-Last-TLS-Session-Version: TLSv1.3
 
-On 03/09/2026 at 20:32:02 +08, Xuanqiang Luo <xuanqiang.luo@linux.dev> wrote:
+Hello Runyu,
 
-> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Your To/Cc list is incorrect. Have you checked out a recent kernel and
+used b4 or get_maintainer.pl?
+
+That is documented in Documentation/process/submitting-patches.rst
+
+And your clanker even has its own version nowadays that mentions it as
+well: Documentation/process/coding-assistants.rst
+
+On Fri Sep 4, 2026 at 5:04 AM CEST, Runyu Xiao wrote:
+> gem_ptp_init() registers the PTP clock before initializing
+> bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
+> publishes the PTP character device, userspace may invoke PTP callbacks
+> before the lock and hardware are ready.
 >
-> The RX path keeps the receiving sub-interface in queued beacon and MAC
-> command descriptors after leaving its RCU read-side critical section. An
-> interface can therefore be unregistered and freed before mac_wq consumes
-> the descriptor, leading to a use-after-free such as:
+> In addition, gem_ptp_init() is called from both the interface open and
+> resume paths. Reinitializing tsu_clk_lock there can reset the lock while
+> timestamp processing is using it.
 >
->   BUG: KASAN: slab-use-after-free in mac802154_rx_mac_cmd_worker+0xc0/0x498 [mac802154]
->   Read of size 8 at addr ffff0000c6db0ba8 by task kworker/u16:3/61
->   ...
->   Call trace:
->    show_stack+0x20/0x38 (C)
->    dump_stack_lvl+0x78/0x90
->    print_address_description.constprop.0+0x88/0x398
->    print_report+0xa8/0x278
->    kasan_report+0xa8/0xf8
->    __asan_load8+0x9c/0xc0
->    mac802154_rx_mac_cmd_worker+0xc0/0x498 [mac802154]
->    process_one_work+0x334/0x8b8
->   ...
->   Allocated by task 630:
->    kasan_save_stack+0x2c/0x58
->    kasan_save_track+0x20/0x40
->    kasan_save_alloc_info+0x40/0x58
->    __kasan_kmalloc+0xa0/0xb8
->    __kvmalloc_node_noprof+0x1e8/0x588
->    alloc_netdev_mqs+0x74/0x7f0
->    ieee802154_if_add+0xac/0x630 [mac802154]
->    ieee802154_register_hw+0x31c/0x3d0 [mac802154]
->    fakelb_add_one+0x250/0x318 [fakelb]
->   ...
->   Freed by task 652:
->    kasan_save_stack+0x2c/0x58
->    kasan_save_track+0x20/0x40
->    kasan_save_free_info+0x4c/0x78
->    __kasan_slab_free+0x60/0x90
->    kfree+0x194/0x478
->    kvfree+0x44/0x60
->    netdev_release+0x4c/0x68
->    device_release+0xac/0x130
->    kobject_cleanup+0x84/0x248
->    kobject_put+0x98/0xf8
->    netdev_run_todo+0x3a0/0x5e0
->    rtnl_unlock+0x18/0x30
->    ieee802154_unregister_hw+0x48/0x90 [mac802154]
->    fakelb_remove+0xe8/0x148 [fakelb]
+> Initialize tsu_clk_lock once during probe and initialize the TSU before
+> registering the PTP clock.
 >
-> Hold the receiving netdev from before a descriptor is queued until the
-> descriptor is released. Since sdata is the netdev's private data, this also
-> keeps sdata valid while a worker or scan cleanup accesses the descriptor.
->
-> Fixes: 57588c71177f ("mac802154: Handle passive scanning")
-> Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+> Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> Link: https://lore.kernel.org/all/20260830153520.2710520-1-runyu.xiao@seu=
+.edu.cn/
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+This is technically correct, though I'm pretty sure the window is tiny.
+I always prefer when such commits indicate if the issue was faced in
+real life *or not*. So here the commit would be better off mentioning
+that this is a theoretical bug never encountered in the wild.
+
+Seeing your patches sent my guess is not.
+https://lore.kernel.org/netdev/?q=3Df%3Arunyu.xiao%40seu.edu.cn
+
+Also you forgot the Reviewed-by trailer sent to you on V1.
+
+Reviewed-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
