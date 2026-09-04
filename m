@@ -1,119 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9165849483F;
-	Fri,  4 Sep 2026 13:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E921741684D
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527413; cv=none; b=cbsQ2bRlicwkxx8Av1LP97n/KWpZ7gvep6TEqirQH8MtXGkaY04afYmwMZt1D4fwMorUeV3s/CIQuAU0lesqJKxRFIjhOFZv9vgTJs17KKFeDD892304M80CVlabf3sOqReR1UpzsFDszIXtAZMV6ZdoqbciEU6FfNZrKXMMwmY=
+	t=1788527634; cv=none; b=Gvjs4H/KRMxD8+WPT8rGRJEAEPaU+HMIIOrKH3WO9E3J2/RWipHitHqaSshSjSbT2VzNeuJAw1vf75IiqwwleUx0/v/CE7PhOGjIwalC8CxOCB+EpOzzF45lP7eFbxdBPInWI1XlhwQXx92TMKmnL+OoXRpXl+BORHLoM8eqpAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527413; c=relaxed/simple;
-	bh=07WAM1SfjOXKV0WA0TwbLd8Yy1QpCX1zVyf9xGCo5KI=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=B79QN72nlCeegfwIkdR3WvZqj8I1IsG6ls3h18M8zmNu+v4ruYPNIbrttGEUrR9ukW1KGrVGz1yCYb2gyI3PnJV8l5pQUNMj1y5iNEPfP7Xl28QzJAJumi/Jjgi9lU4twvo5SNDVYH85zbOdiXjjPLLc7Su1lIbH/+IvkLTjhHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bf3MFPLM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788527634; c=relaxed/simple;
+	bh=qeW9HjB/GlkaIQLm8ZbJVD+c0HOdwkjWG+Sfd7Hjcqk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n+KGaAt58Ek3WVsbgDfwDaxoDVdO/YriqtkIrQO0sZbyvN6BnXJdBDVUdPVas3ZIcDJrBoVpFuxlw1WZnKjJfNbDPiIs2F7jdxoMPAintVjo+5phKkWQywJNsWHiKIX2TBVdN5vdrPbIbqegQo2L34/7BMI6qycAOMZVutC14sA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=roep+fbF; arc=none smtp.client-ip=209.85.161.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bf3MFPLM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA9A1F00A3E;
-	Fri,  4 Sep 2026 13:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788527409;
-	bh=07WAM1SfjOXKV0WA0TwbLd8Yy1QpCX1zVyf9xGCo5KI=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Bf3MFPLMgJ2DQesHLlSJb9aDVkS+Usu6Q9leJY1kL6PenJ3MeVxglGqnWamkY0Xbm
-	 iXxAVKBZlcQLDGEMkqcQpciVoruoz++mOxfIMn5/+inwWhx/94x6k1TMyR2py1j1ui
-	 /A0Ki0AHm3ecdWS3E9MSMRqMQFPDPWwjAGYuKcyV9ZuD8avPkCms6Wtvo9lJ+ujjlc
-	 yR5ZmXv2q3r7tSAmvLgFAf/hTHQq+IBiQSVI6gyNYvZ0xF8JaFQpz2jA25Qlaq6S6G
-	 eKogJ/Cm//8lnpaokmL08lC7bh7HLiPyKAqtbbbD+dwe6ORq0QGNLdVrCG+bAMi0lf
-	 pRSvUgVMNVN0g==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id EAB6EF40066;
-	Fri,  4 Sep 2026 09:10:07 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Fri, 04 Sep 2026 09:10:07 -0400
-X-ME-Sender: <xms:L8Oaagi9WWKK5RJI-fcSCEIx1D3k9ex1X5UJ62mnuFe3VC0NV6duWg>
-    <xme:L8Oaaj2A-Y5o-xamteP3-LaKmORrguOx4KV8QKTfMzXgcJyWtkMTaX7KJ9C-N4Ur2
-    UdbKUtfr1z8clmtgyjHH3eX4FjFxHNlUZGPGbbijECS6DfAI8-PqspU>
-X-ME-Proxy-Cause: dmFkZTG3Hr5U8nL9jz62ZL93FO6z18bs2jb882+m+rBBuUiAAdw/C36HqM8Z6wp9AjT65u
-    sG8zrQlSZD5cjtaGZ2czfNpbrQ+5rNQ+X93USqIweUdGNjOtehYLlCZyVIH015Dh41eCHW
-    U6BTVR15G0bdyBQyFpPeYoSsrcRSVoIwWkCPwOzR4lfzAHR79uZanEfjD05EGT26m5v8/H
-    59hj9zsjFOAvP4dLyzHYUycKbzW3mX1pQng811ClDWg5fBXl+XgQ8vDKahIt06KoSVvT/8
-    xrdBbr9lWNklv87woii/HDVovmGRBHG3OdzoXugkOOhhzPdYcRC815E8MNKowdTR8/oJIa
-    r4BmKijPvhwtROWW/7EdOt+fJapeKCOpOwxuH1d6XYdVcdYjtaXH/FFeBcvY95adTElqWu
-    FKsVrG5vn/K8LslM2x0XMHiOcRWiFezo3/fkwdmAZBWFrEXH4zynD5twqMnwWw2QyNJoor
-    UfwKl6on6iZO8eQG/l4JY1b8BLj0EFNuruLL7CYsNECqq5LDnF3wAdDoIXmeoGKXas0ybO
-    rQokFy9H1ZsJgBFOfWoNHee2rtrgadaXD++cmTooxiexWFI+e82gmE8Yk9OO4L33I+yqaD
-    K9V+Hb3BH3g50S8WV/Eh/0XnWEGTKfkQIuZIVxX0LJCYdzxePy9JPEskzdZA
-X-ME-Proxy: <xmx:L8OaauVze4D8urO4NlGW7LXDxykaeMJ_2v9xEqRmOingKUWEplW-Wg>
-    <xmx:L8OaauRXPQOh272f92d48hp_MmwGVxe3iT0LsDDoqpzq5-qID9C82A>
-    <xmx:L8OaasOeCIXhqJ7-k78pmSqEOimX30rUEj-2jHyp7NhkysJEEBsqJA>
-    <xmx:L8OaasQ6AL2rkOpATskfVHX5T9d365Ji1OUnoqsSZ0ti3cxj6TNfJA>
-    <xmx:L8OaaqjsCjlKnVNVfJB3PuktpGb0LsYhYwr9Ok1naNFI7JtMvEnvPirx>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id BFC8F7811F4; Fri,  4 Sep 2026 09:10:07 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="roep+fbF"
+Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6b1c75f0049so763905eaf.3
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 06:13:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788527630; x=1789132430; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/o90ljmvuQQUSHocuJOX1OqLfyNrCD/R11+CTsvEbww=;
+        b=roep+fbFqxg5iARC6e0T7klxq8PXaQgwZI06wgAhPNg53hsBhlxDq/LZoAaouTYjDd
+         1sFmkD/Zbpsx82iPLR2Jac9l2YLmsbnPctkS/PSHzLU37WGek5qqeyJ8fZm+nwnDx6Yz
+         Sg4NRJFAm8JyIYVI7Wl7Dr0eYRcBEuyfbkHvomWMwx4U+ZXTlFLESp71wEc8N+6eR8ef
+         vzX9WktyJendVdsoNHMSvkfUOjzdZbo91N7cZkOZMvgw4pJtugTolcQxLl8pfNsnjIjn
+         2OzIKZny+vvmI/NaN+kBVN61O06MCipInM9ApD2sHQBjrxm7gwL21myVjFwQFdHALgJG
+         5hrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788527630; x=1789132430;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/o90ljmvuQQUSHocuJOX1OqLfyNrCD/R11+CTsvEbww=;
+        b=Sx6tENwbOWasmTu0aHe11LceeBeL1aAlABioFGC84Oe0Cu+DiEZawnhiwJYGVsRVRW
+         EfV+vR2WIdXl7B2yEDOR31JIZIJlmyTliiuWcC2OWII1Mx/TeAnpjfrzwv8GmdErorCB
+         22NLjXNWLczjauNCrCnwHy+4OAf9vZWwCjCLRuLU/ihDkeAq1y6OBNepx/WPFQF5+oKk
+         u0w5hNAhU5mTltrMY3LmqjIuFrhtX3qFvYyL3NgCjM7eeeX6OxQOM5VnX23v6mjGtGoo
+         s6jFKeXpyjStSZh7ufoFzDypbKstKHBrbLusfUIqtBbMMx//4/dIvF4lbXCN3BKTusjo
+         v9GA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0PU9fiOqbepMhDJ0hW5ExibtwHSKOcaZL5mqwqQmXzLe2XKAjMO6250XrY+D7g5NnQ/JF3as=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVBTPquSYNxhUsuZ8XyvKCV7Rk/l8XF+61pRGi4CfxVNbQdw9F
+	9CmuNxd9PRPN+Ih8TsjMieoPhTd6W4ZnOe+h+yd3tE43B4pe2BE6YkbX
+X-Gm-Gg: AYBFou1JJCbYlKciXXQWD/Hk6q0zICYHD8XRljL9qbzYQxngoNjfyy9kEIedyjPDSls
+	ac/74oHmEgKGnEiUm0GNgme1Ke2hVkAVB8ROavwyR/hwAgtsg2zszf9Jfbr5k+gzYSX0AhgmmAT
+	DKhbt3rqtqMBuLkuQzCXtkA/D2BxrFcXS2ANkhdb1POGD4MV4ThMs56BmMXAZHZlfcdnFojzafp
+	M1Or2e0onBJInLpG3espac6j28DpF+mnPbhJuD3BzEe0CAvFFPVSO0ZlD9scZgcq4Y4kANr0PtV
+	zNfo2XTGrCJyQTNYEPJ5nj370jA50NHYmRf5TB2BhTV/ZNNMvIgXFbhl8mBOJEzzYT9xXjTRibZ
+	GMFThvPuy6UtDBpsXYCHcEbaQKMdKwJXhwWnvzK15yEzU4TyAFWTd+49LsOikpU5b19YBqm++Ev
+	ERlgPAIaMnV/QwbnhTGe8MCUN52G9O1jsJ0HwY8HngZYvST4Rt/h/Nl7CNKSQNiKakFjtjob3rA
+	5KxoT3HWYwqpowOfXyDH+4Xy/rMcg==
+X-Received: by 2002:a05:6820:162b:b0:6b7:46fc:1cf with SMTP id 006d021491bc7-6b746fc2ed1mr2604016eaf.46.1788527629952;
+        Fri, 04 Sep 2026 06:13:49 -0700 (PDT)
+Received: from localhost ([2409:40c4:180:9098:c5e4:83d7:dd06:4e15])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm10301543eec.15.2026.09.04.06.13.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 06:13:49 -0700 (PDT)
+Date: Fri, 4 Sep 2026 18:43:43 +0530
+From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
+To: Mathias Nyman <mathias.nyman@linux.intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Michal Pecio <michal.pecio@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
+	regressions@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from
+ runtime resume
+Message-ID: <apq4FFSD2QKG-jUu@eggarch>
+References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
+ <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
+ <a6a8526f-4b6f-46f7-9d02-05bfe3efcd48@linux.intel.com>
+ <apbrp8EaJoIfEg5X@eggarch>
+ <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
+ <apg16LtZ-ru9MIBQ@eggarch>
+ <082467bf-d045-45d7-b097-97a5790e79d6@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AXS_LISVHZGo
-Date: Fri, 04 Sep 2026 09:09:47 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: "Benji Wiebe" <itsme@benjiwiebe.com>, "Jeff Layton" <jlayton@kernel.org>
-Cc: "Linux kernel regressions list" <regressions@lists.linux.dev>,
- linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Message-Id: <c734eeb8-8486-4491-bb4d-b9656cbaffbe@app.fastmail.com>
-In-Reply-To: <c3d06b9f-7da5-479f-be4f-9c0136631ce9@oracle.com>
-References: <c26ff09f-48d6-4ef3-9feb-8a8e6d6f37ba@benjiwiebe.com>
- <c3d06b9f-7da5-479f-be4f-9c0136631ce9@oracle.com>
-Subject: Re: [REGRESSION] reads and writes hang if NFS server has v3 disabled
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <082467bf-d045-45d7-b097-97a5790e79d6@linux.intel.com>
 
-[ Adding correct addresses from MAINTAINERS ]
+On Thu, Sep 03, 2026 at 10:42:48AM +0300, Mathias Nyman wrote:
+> On 9/2/26 21:21, Lovekesh Solanki wrote:
+> > On Wed, Sep 02, 2026 at 03:10:41PM +0300, Mathias Nyman wrote:
+> > > It's possible PCI side or pm core already provides some easy way for xhci driver to check this.
+> > > This specific issue is currently not on my todo list, yet.
+> > Alright, would you like to me to work on this? I could look into
+> > that side and possibly come up with an approach.
+> 
+> Yes, please, that would be great.
+I took a look at the PCI / PM side, and it seems to me there isn't any
+reliable approach for xhci driver to use right now.
 
-On Fri, Sep 4, 2026, at 9:05 AM, Chuck Lever wrote:
-> I'm using a minimal Fedora 45 VM (kvm) for testing.=E2=80=8A=C2=A0 I e=
-xport a
-> directory with rw and mount it from my personal computer running Fedora
-> 45 as well. If /etc/nfs.=E2=80=8Aconf has vers3=3Dn, then reads and wr=
-ites hang in
-> D+ state, and there's a continuous
->
->
-> I'm using a minimal Fedora 45 VM (kvm) for testing.=C2=A0 I export a=20
-> directory with rw and mount it from my personal computer running Fedor=
-a=20
-> 45 as well.
-> If /etc/nfs.conf has vers3=3Dn, then reads and writes hang in D+ state=
-,=20
-> and there's a continuous loop of V3 NULL calls, with the server replyi=
-ng=20
-> that it only supports v4.
-> If nfs.conf has vers3=3Dy, then the reads and writes succeed.
-> Introduced in 70b7e3526c53d9dd, still present in the latest=20
-> mainline/master (841e384b841a).
->
-> The hung state can be rescued by changing the setting and restarting=20
-> nfs-server, at which point the read/write will complete.
->
-> I can do more testing / get more information as needed.
->
-> Here's links to pcap files with it working/bugged:
-> http://grepper.net/lkml-files/nfs-working.pcap
-> http://grepper.net/lkml-files/nfs-bugged.pcap
-> http://grepper.net/lkml-files/nfs-bug-kernel.config
->
-> #regzbot introduced:=C2=A0 70b7e3526c53d9dd7caccdbeff5b0485640d8cf1
+The pci_check_pme_status() both checks and clears the pme status bit 
+and the pci core devours it inside pci_pme_wakeup(), and 
+pm_request_resume is async so xhci's runtime_resume may run much later
+after the bit is already gone. We can't simply export pci_check_pme_status()
+that wouldn't give any useful info.
 
-It's not immediately obvious to me why 70b7e3526c53d9dd should
-cause this kind of behavior regression.
+One solution I can think of would be adding a pme_wake_detected bitfield
+on pci_dev struct, we set it in pci_pme_wakeup() when PME is confirmed
+and we clear it in pci_pm_runtime_resume() after the driver has
+returned.
+Then, we could directly read via pdev->pme_wake_detected in its own
+resume.
 
-Jeff, it's a netlink change. Can you triage?
+What are your thoughts on this?
 
-
---=20
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+Regards,
+Lovekesh
