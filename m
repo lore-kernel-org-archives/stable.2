@@ -1,122 +1,84 @@
-Received: from mta0.migadu.com (out-199.mta0.migadu.com [91.218.175.199])
+Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F94439F96
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:22:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A2D3911A8
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788513738; cv=none; b=Er/d6Vov4MuwmSpOgyFT3FzdoP8/sZgo0JAN1LfgeVW9Gr94P8apZiEYX7T4hIQFBo6Fj7hMmJgpMbJbHCcyz0qrjI2q0Ccf4kaLj5tXwZ9FIeMpphKVWauOFBxgYfMPygHrwBBUc/wcufH0xa+21fQlgBQQ6YuBmBcRG2JJYMM=
+	t=1788514097; cv=none; b=O+7gGG0G2AXte/k2MuxMI2tmmFhUsQ0uN9A0I6D1YV5BeEVYrYRt2/vkOI0RfFetLQWDcU0x1DZdQjONogTeODMJy2vdeJfG6Ffqt3XSFJ91tB5UnJoUxmSUumFSl2pXOkN5pFFeTKffYCl3SfdrrMG78+9As6LBzFeTYcw/6AY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788513738; c=relaxed/simple;
-	bh=XNzKjHkngtqCqjAb20SyRUTjszAkf7AltK/o8l/wh4c=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=m8mvnfrbULPCsLbCBlpgq4TYW4FscbMgpyrP4yDT0CoKZUBSP3KuHfJUeR9bUHjGY7aoG19pl6kgidVtZcsGaeLZjDvyQlxT1qEddrK54T1aRzdcAuL5HQbtQ9EI7DFcK5irUesmd+H6mzT9ymtTIJNnoOIhclwkE+PiraHncqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jliOTdxF; arc=none smtp.client-ip=91.218.175.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jliOTdxF"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XNzKjHkngtqCqjAb20SyRUTjszAkf7AltK/o8l/wh4c=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788513720; v=1; x=1789118520;
- b=jliOTdxFdYOZ523Ol/7jwNqyhcK0HU6euwaS4w3sdOU+PTG1z1P4JzL+WfoNJeh5KCXt5Exw
- v0RkuFBpw6+D2R5ZOkXs91Gw0QEYBZWkO5kagk9sjHjUYxlToHVSfSF62tDlFjUflyXpkqMWtce
- kVvdtQ88SbF5hOhDmWaRcEaE=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4d2c5bf555aa2c40;
-	Fri, 04 Sep 2026 09:21:50 +0000
-X-Mizu-Trace-ID: 4d2c5bf555aa2c40
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <ce007c25-8d49-4df4-9508-3af911f90eb7@linux.dev>
-Date: Fri, 4 Sep 2026 17:21:42 +0800
+	s=arc-20240116; t=1788514097; c=relaxed/simple;
+	bh=EmyiOP6XPU9hCNhNZcQqvM05fyAVZEM4igPZJnzfA/U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=T8kO3esul401KvTYC16yovJUzV2wKfocNuBb82JgJo7QBOQCbyHN3Pr68kQHysJAiGBZLeATXTxbhCPmee8xTH8vcExs2QF8ISthBwzsWRxrz5qzqA6zfw5b2Vs+US6Z9UqoHvUd1oUCH1IGHNxx+dW9b9/kR0Pur05NHI5Zfl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-49b92ccb8e0so2415035e9.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:28:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788514094; x=1789118894;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8SM8f5UmSN3Nb5n/niWiO3g3/GWzy/AsaKxBGdLsIvs=;
+        b=U11bW4hN8OCjoqR9zTR19BeIDEJltgJyaAko4zVYpt2l9L7o3kc5A0dB+yO5dVB6Ub
+         SduvFe4Eos6Bz5PSMM0fdA+cJTp6aVt7dcDOIsmGJiF0RrrLO5ldwa6QUt/TAtxO2HhD
+         1UqE1MlYcN9/fdPEOTiE+BsPw9gjWCK9ByGKrbaxEZsVkk1LCgNnCGr3b9DymeUq3MlE
+         lHrQJTXGR++Pp/lvtTJDtFRHFIMdbIGgCSiZwsgJzOwkbrn9QtoxuDP0rUQSAqw9+kmJ
+         RYXwILPjDm3327YNyLJsm7s10Omqwh3J2ETHMIYM2CR7DYClWW4pslUvkkPfCHqE++fH
+         w+aA==
+X-Gm-Message-State: AFuF++n3ucnIQJqvDTMFD26w1iskpTW1S7pw9RZeVpGQFxt70Nz9h+/d
+	Kv8IbXQRtUBp0iVZ3yjGQWCOfCws4nqXEAeoeqKfrpasP1+dVA2TPWfz7KGWlj09
+X-Gm-Gg: AYBFou3PZgloPh+ls8Yk5qrKtlK792FSQMtUtJ9tOE6n26/oxJAIsmSODe6KdmtcSja
+	JzkqwLyLZqlEbMZ9fcXiqOrOv4P+IfsyRXDTeiZeLA7C/3f67ky7yiPzKMmzCldEGYczrHoz1eb
+	uC6ovhTBaHqNO8xjS4GkZxlmimWSdJEahk/5VVILGl/6xxzsB04ubvx99raDeHl/VOyLhSgSD77
+	d94nN2a3Osi+/lw4+LD3FLGc9oZIjr2eIkpQZ82kiCROXYFku7dBLb4wno+/7s6m8+z34m1GkVd
+	410m3xqJInFQn/5co8xp/phbIZjhc7KAa9O7aMveWWhPQwCyiVu6YDTeu99sAPw+DLPqKy4jZrN
+	6rcpvjPNj0PYCfsiU7hnnVHjFIU1//FTtf35T7a9bhNexIoauwwKLaSfytu2/FIDKyA1LoY17pO
+	4baKPnVtLhLGT0XTVeVImkjzE4Wct5bO3AJ3pJVykUw1qWp2JHmmuj7udDGG+Hh1jD318DzcqOW
+	Ep83qK+cTAsCt+gqEK32rDoWJfQSg==
+X-Received: by 2002:a05:600c:1548:b0:49c:fc6e:a3d4 with SMTP id 5b1f17b1804b1-49cfc6ea70fmr19349885e9.19.1788514094232;
+        Fri, 04 Sep 2026 02:28:14 -0700 (PDT)
+Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b1320sm5108934f8f.27.2026.09.04.02.28.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 02:28:13 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: stable@vger.kernel.org
+Cc: Eelco Chaudron <echaudro@redhat.com>,
+	Aaron Conole <aconole@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>
+Subject: [PATCH 6.12.y 0/2] Backport 'openvswitch: Fix CT limit teardown use-after-free'
+Date: Fri,  4 Sep 2026 11:27:45 +0200
+Message-ID: <20260904092810.1813221-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026090349-submitter-decorated-2272@gregkh>
+References: <2026090349-submitter-decorated-2272@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, bsegall@google.com, cgroups@vger.kernel.org,
- corbet@lwn.net, dietmar.eggemann@arm.com, hannes@cmpxchg.org,
- juri.lelli@redhat.com, kprateek.nayak@amd.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- mgorman@suse.de, mingo@redhat.com, peterz@infradead.org,
- rostedt@goodmis.org, skhan@linuxfoundation.org, tj@kernel.org,
- vincent.guittot@linaro.org, vschneid@redhat.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] sched/fair: Remove the write-order dependency
- between cpu.max and cpu.max.burst
-To: Zhe Liu <liuzhe1@kylinos.cn>, mkoutny@suse.com
-References: <aobnZEh1hfIBhswD@localhost.localdomain>
- <20260904062013.504236-1-liuzhe1@kylinos.cn>
- <20260904062013.504236-2-liuzhe1@kylinos.cn>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260904062013.504236-2-liuzhe1@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi, Zhe,
+The patch doesn't apply well without the previous kernel-doc fix.
+It seems cleaner to backport both instead of modifying the main patch.
 
-在 2026/9/4 14:20, Zhe Liu 写道:
-> Keep the configured burst independent of the current quota and cap it
-> when CFS refills runtime. This allows quota and burst updates in either
-> order.
-> 
+Ilya Maximets (1):
+  net: openvswitch: fix kernel-doc warnings in internal headers
 
-Ran the selftests on next-20260903 in a VM: all 10 test_cpu cases pass
-with the series applied, and test_cpucg_max_burst fails on the unpatched
-kernel, so the test does catch the old behavior.
+Yuqi Xu (1):
+  openvswitch: Fix CT limit teardown use-after-free
 
-One problem (spotted by sashiko, an automated overflow checker; I
-re-did the arithmetic): dropping the burst_us + quota_us <=
-max_bw_runtime_us check is not safe. With quota and burst both near
-MAX_BW, the period-scaling path in sched_cfs_period_timer() can double
-both up to 512x, and the new clamp quota + min(burst, quota) in
-__refill_cfs_bandwidth_runtime() then wraps u64 to 0, leaving the group
-with zero runtime on every refill.
+ net/openvswitch/conntrack.c | 121 +++++++++++++++++++++++-------------
+ net/openvswitch/conntrack.h |   6 +-
+ net/openvswitch/datapath.c  |  10 ++-
+ net/openvswitch/datapath.h  |  26 +++++---
+ net/openvswitch/vport.h     |   9 +++
+ 5 files changed, 120 insertions(+), 52 deletions(-)
 
-I believe you can just drop the burst_us > quota_us comparison and keep
-the sum check. Both write-order cases still pass that way: burst=80ms
-with quota=50ms gives 130ms, well under the limit.
-
-Tested-by: Tao Cui <cuitao@kylinos.cn>
-
-> Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
-> ---
->  kernel/sched/core.c | 3 +--
->  kernel/sched/fair.c | 3 ++-
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index f78275192036..5269b8cfcf7f 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
->  	if (quota_us != RUNTIME_INF && quota_us > max_bw_runtime_us)
->  		return -EINVAL;
->  
-> -	if (quota_us != RUNTIME_INF && (burst_us > quota_us ||
-> -					burst_us + quota_us > max_bw_runtime_us))
-> +	if (burst_us > max_bw_runtime_us)
->  		return -EINVAL;
->  
->  #ifdef CONFIG_CFS_BANDWIDTH
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 6d881e530f89..488de18d477e 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
->  		cfs_b->nr_burst++;
->  	}
->  
-> -	cfs_b->runtime = min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
-> +	cfs_b->runtime = min(cfs_b->runtime,
-> +			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
->  	cfs_b->runtime_snap = cfs_b->runtime;
->  }
->  
+-- 
+2.55.0
 
