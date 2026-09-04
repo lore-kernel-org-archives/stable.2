@@ -1,144 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27676446859
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 14:23:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE19B476072
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 14:23:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531800; cv=none; b=KYMzt581iVXlUPLodt1My2On4CaZKq24W9Vth/Ds6CC5UFwCF0K9w7C/NZonFt7HKZz1fPCcSv6aFQH1ldMYOwKmZYIcRnOvszpDrwVbubZf/RrlMi7bMXujxLJnmP1NJNgGFUs/1OlswSC1WG0n+7TgtDHc2hCItj/9Dy5E8zg=
+	t=1788531801; cv=none; b=J5DESx8zep71zhNhRkhcjRHVE4sC3EDAX4Z24MDBR6EIyg7xdAy/7qdjuy1ocPtWYF5W081+dtbkXzW1JvvontQTwDd/Or3/38aj810FMP9a3KdGIGOamiFwYG2lXxHPmVb3bfiORgUtTD9D4Q5VCtSDukjPFKkiW4Y6AjAUuUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531800; c=relaxed/simple;
-	bh=eO3lwemXvrMRbuBfi+Bc3EPcTylp1ir9432SDGq5c4E=;
+	s=arc-20240116; t=1788531801; c=relaxed/simple;
+	bh=X48ysqbvYnFnU8JRevRhRCWQfQFxt0K6vvUYeq2RphU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SexYO4T8xeDKysPCZXToag5LmnpQHorppRHByh56ff7mCRcAdSoz4FDHf+Hu5K1tq9sWvgqOVBEwKxUQm4Jx/2riFkrj4dANn5B4k5o7r1na/Diif8OFg/38l/Jje9aGz/3U+m1mCE6ihEDRUkVqQto7CH/B1LbeSt5Q96122XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gm4UwYfn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ukPLt0leOc2SKwUdoW4ru8+rMRVIoJLnaDyRjR6qsHCQ6PceA15lIdhqPB8/Nw4wDvK8UwdiQOxvDHVoSUFm9OKXqb4+i2IKpRf2+Dv9KcIlyl91JCvflofAqe1XZHQTBokvoJV1gh0hMy6a21ql1O/Xw96/bfOV6TOMfQTD45k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMGLlJ1D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gm4UwYfn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EDF41F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMGLlJ1D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11DD51F00A3E;
 	Fri,  4 Sep 2026 14:23:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531798;
-	bh=wnzRK3HlDNXlDdnxZSpXFT3X8xHgFldfP50o1kH8QIk=;
+	s=k20260515; t=1788531799;
+	bh=9W/ey3gKoJqWcPrP+9v62XtMrpgI/8bNQRrlgabz1EQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gm4UwYfnl+1gAEgZzTdl+v/kUZdk22RVXKcrY4EE2mNQQHB8jGB9CeILUcId4MjQj
-	 oVtZJvxEfwJFGAkmCSFivhtBFL7/kQntoStI4yar4FubniPUPAJhJkqpgCyomIMs8H
-	 8zZrgRc2tJFfOUzNFj6eXnqmXyQdT6A5xfeQ5Yz0TBNsDNNQDnZfClgE1OdgLayGHf
-	 KX/brvwbqhqYCrIvy40JcXlC+71nRxUzYMJw5ZKjE045ii2Vqgw8XvprRru0DfUH0o
-	 O/kmzlvdv0nJRAIOF5Lw3rqhyK1SM3qwXXX92hp7gD+OEex7cgNgey4hY4wj/zW8yS
-	 L7wY+hDJ6mZNA==
+	b=hMGLlJ1DH0VyGgiU8ICd4vzpCiqpzTEqSF10tQGOVS4IZw1hTAEP6hOdOAHC4FW/T
+	 KytH1lT3psT/O8YSZdAYkMrJaIMHqBVl5uUBoidABQDWxm0yRJfwgAn3VDYOEIuZ7a
+	 tnBguIINe4s9K5bHYGGPdLum7Y0CectiYOjnLdbwp0Q/jaujzOjcGP4d/8K2+Eo4hN
+	 zL9bf+mIXo7IkPPU04yXUuqDcNuTjV3cXQHfbhdPRttbnWXTN+lbz/MW5Kx/qpy/MM
+	 4dcSMVeq58L+gMMINUDqwd1JkIGVCNp/h3NFqwiM6tyn2Rvlrqu0zLf3agKhUrb9b1
+	 r8f/xzdS7aS2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] serial: imx: Convert to platform remove callback returning void
-Date: Fri,  4 Sep 2026 10:23:15 -0400
-Message-ID: <20260904142316.780585-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] serial: imx: serialize imx_uart_ports[] lifetime
+Date: Fri,  4 Sep 2026 10:23:16 -0400
+Message-ID: <20260904142316.780585-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090333-applause-active-107a@gregkh>
+In-Reply-To: <20260904142316.780585-1-sashal@kernel.org>
 References: <2026090333-applause-active-107a@gregkh>
+ <20260904142316.780585-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit c066f87314b7fbbf4d72d38957436a98e7b7e503 ]
+[ Upstream commit 8b0b29fdcb47907ae0296b8fe829e918e05e300f ]
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+imx_uart_probe() publishes its devm-allocated port in imx_uart_ports[]
+before uart_add_one_port() because console setup uses the table. The entry
+is not cleared when adding the port fails or after removal, leaving a
+dangling pointer.
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
+A sibling probe can register the shared console through that stale entry.
+This was reproduced under KASAN on QEMU mcimx6ul-evk by unbinding a
+sibling UART, unbinding the console UART and rebinding the sibling.
 
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
+Keep the entry valid through uart_remove_one_port(), then clear it. Protect
+port addition and removal together with their table updates so sibling
+operations cannot interleave. Reject an occupied slot rather than
+clobbering an active port during a duplicate-line probe.
 
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Link: https://lore.kernel.org/r/20231110152927.70601-18-u.kleine-koenig@pengutronix.de
+Fixes: dbff4e9ea2e8 ("IMX UART: remove statically initialized tables")
+Fixes: 9f322ad064f9 ("imx: serial: handle initialisation failure correctly")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/20260719162850.043B41F000E9@smtp.kernel.org
+Link: https://lore.kernel.org/all/20260719222501.CB4CB1F000E9@smtp.kernel.org
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260731181844.11330-6-kmehltretter@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 8b0b29fdcb47 ("serial: imx: serialize imx_uart_ports[] lifetime")
+[ replaced guard() and scoped_guard() with explicit mutex_lock() and mutex_unlock() calls for GNU89 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/base/platform.c         |  4 +++-
- drivers/tty/serial/imx.c        |  6 +++---
- include/linux/platform_device.h | 11 +++++++++++
- 3 files changed, 17 insertions(+), 4 deletions(-)
+ drivers/tty/serial/imx.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-index 647066229fec3..94a4c8184cc91 100644
---- a/drivers/base/platform.c
-+++ b/drivers/base/platform.c
-@@ -783,7 +783,9 @@ static int platform_drv_remove(struct device *_dev)
- 	struct platform_device *dev = to_platform_device(_dev);
- 	int ret = 0;
- 
--	if (drv->remove)
-+	if (drv->remove_new)
-+		drv->remove_new(dev);
-+	else if (drv->remove)
- 		ret = drv->remove(dev);
- 	dev_pm_domain_detach(_dev, true);
- 
 diff --git a/drivers/tty/serial/imx.c b/drivers/tty/serial/imx.c
-index 6e49928bb8646..b558cee2966f3 100644
+index b558cee2966f3..329b72f648fa3 100644
 --- a/drivers/tty/serial/imx.c
 +++ b/drivers/tty/serial/imx.c
-@@ -2467,11 +2467,11 @@ static int imx_uart_probe(struct platform_device *pdev)
- 	return ret;
- }
+@@ -21,6 +21,7 @@
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/ktime.h>
++#include <linux/mutex.h>
+ #include <linux/pinctrl/consumer.h>
+ #include <linux/rational.h>
+ #include <linux/slab.h>
+@@ -1987,6 +1988,9 @@ static const struct uart_ops imx_uart_pops = {
  
--static int imx_uart_remove(struct platform_device *pdev)
-+static void imx_uart_remove(struct platform_device *pdev)
+ static struct imx_port *imx_uart_ports[UART_NR];
+ 
++/* Held across uart_add/remove_one_port(); console callbacks must not take it. */
++static DEFINE_MUTEX(imx_uart_ports_lock);
++
+ #if IS_ENABLED(CONFIG_SERIAL_IMX_CONSOLE)
+ static void imx_uart_console_putchar(struct uart_port *port, int ch)
+ {
+@@ -2455,11 +2459,18 @@ static int imx_uart_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
+-	imx_uart_ports[sport->port.line] = sport;
+-
+ 	platform_set_drvdata(pdev, sport);
+ 
+-	ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
++	mutex_lock(&imx_uart_ports_lock);
++	if (imx_uart_ports[sport->port.line]) {
++		ret = -EBUSY;
++	} else {
++		imx_uart_ports[sport->port.line] = sport;
++		ret = uart_add_one_port(&imx_uart_uart_driver, &sport->port);
++		if (ret)
++			imx_uart_ports[sport->port.line] = NULL;
++	}
++	mutex_unlock(&imx_uart_ports_lock);
+ 
+ err_clk:
+ 	clk_disable_unprepare(sport->clk_ipg);
+@@ -2471,7 +2482,10 @@ static void imx_uart_remove(struct platform_device *pdev)
  {
  	struct imx_port *sport = platform_get_drvdata(pdev);
  
--	return uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
-+	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
++	mutex_lock(&imx_uart_ports_lock);
+ 	uart_remove_one_port(&imx_uart_uart_driver, &sport->port);
++	imx_uart_ports[sport->port.line] = NULL;
++	mutex_unlock(&imx_uart_ports_lock);
  }
  
  static void imx_uart_restore_context(struct imx_port *sport)
-@@ -2638,7 +2638,7 @@ static const struct dev_pm_ops imx_uart_pm_ops = {
- 
- static struct platform_driver imx_uart_platform_driver = {
- 	.probe = imx_uart_probe,
--	.remove = imx_uart_remove,
-+	.remove_new = imx_uart_remove,
- 
- 	.id_table = imx_uart_devtype,
- 	.driver = {
-diff --git a/include/linux/platform_device.h b/include/linux/platform_device.h
-index e7a83b0218077..331d785505e98 100644
---- a/include/linux/platform_device.h
-+++ b/include/linux/platform_device.h
-@@ -203,7 +203,18 @@ extern void platform_device_put(struct platform_device *pdev);
- 
- struct platform_driver {
- 	int (*probe)(struct platform_device *);
-+
-+	/*
-+	 * Traditionally the remove callback returned an int which however is
-+	 * ignored by the driver core. This led to wrong expectations by driver
-+	 * authors who thought returning an error code was a valid error
-+	 * handling strategy. To convert to a callback returning void, new
-+	 * drivers should implement .remove_new() until the conversion is done
-+	 * that eventually makes .remove() return void.
-+	 */
- 	int (*remove)(struct platform_device *);
-+	void (*remove_new)(struct platform_device *);
-+
- 	void (*shutdown)(struct platform_device *);
- 	int (*suspend)(struct platform_device *, pm_message_t state);
- 	int (*resume)(struct platform_device *);
 -- 
 2.53.0
 
