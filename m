@@ -1,123 +1,126 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2861D476078
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41E864A2A4E;
+	Fri,  4 Sep 2026 13:49:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.161.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529667; cv=none; b=EZAXIbKOcamQILjXRmnnyGUlUCEVJPUyatF0mrE+W/00z9qK8kq7XHF5wWr1p2wry42kWbKL7UG7WHad3lRFzEcHdRKhP3YX0f4lMXKm619TkkquFc3RcNCl17Dr2bOudzXETxQQkdyVAZOWGCQylCoK3cOu1biiyzEXCWuBSzM=
+	t=1788529763; cv=none; b=ApjScsmDu4xuZWvatMyHWDwDOu5ecejWX7dUn0J8dl24IuY8s+S32CzhexgxoM0dz+2vZrn+m3sh+D0m7VUTYyq+6PIGw0aDhh7+aRRWHk9lCu8X0bffdOhQOCZaBMRlBMRPa1yqQ8SEUGXlyIS0KMuItuHxBIpuVrfGInYZIg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529667; c=relaxed/simple;
-	bh=25i2A2szwLSgteJ1M4DB1p6sapXWkvoq0Ium9ucg/S0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F6OBqKa55vHGbzrjjbTExxYzet03GOeOks9e6xJFSqXf9ocGFCVIj2TkaWpdSVOGwnO9ucMPzHzou/9nWkfahTZX2PZQyiapdIpkzyEfbaV0qtxQrKHRhxt5C9VwWe+T6CMEJw+IsyUdhLkWo6WrpFyoO9JuAhbZmf17NR+pptU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bFVVkt6m; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hn91cg8v; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bFVVkt6m";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hn91cg8v"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788529665;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7CNErS5IWCEX+tiB7+LPr05wOYMkfDYDiJg4qp80fOA=;
-	b=bFVVkt6mSQ0oRDUi4lB9p5tOZLCynfHGKKLFNAgmLQpyOFtKzqpDE9PrWcxSdMafZ8ys29
-	h8FFZJCXnp0RSJrRW/NAkloqCuZI8SK1cDlcyuZuRtfnJ1VL3gBscvJpK2zliCr5OpqQVP
-	pXrfgAa6z19jfcsLDioLReAg92TYr+w=
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-15-lcJuz_uCOQup4ygYXVU1nw-1; Fri, 04 Sep 2026 09:47:44 -0400
-X-MC-Unique: lcJuz_uCOQup4ygYXVU1nw-1
-X-Mimecast-MFC-AGG-ID: lcJuz_uCOQup4ygYXVU1nw_1788529663
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c20e5890680so89817766b.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 06:47:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788529663; x=1789134463; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7CNErS5IWCEX+tiB7+LPr05wOYMkfDYDiJg4qp80fOA=;
-        b=hn91cg8vCZaQVhLELQMFiW41ixqlSwyI8elOQ8vuKIpGQo+5vxHWvn/OnNim09USZG
-         1r15kxC+dIwQHZ7x2csPWtFPrFSX3OZ4C85f7CNEpwLL4/i8pPUnk66kDpPAcLEA7ROZ
-         w6src9jYPyEKCcYNlh3QTnR4TkKZdpEdO5OFw+F388oniDeW13Ws/X8aXLBbnWJ9DkzC
-         kYBtwVlNNp2T4UgHRumVraGUw78ezZ7fMPWv9/Di12IXTAql+e0BnNS+E+XydJc+VmYY
-         7iBNaqF2uaeydF6VBDaHfuqyDj6blrf/zTkPfPDaruDYMn6crZbMscM+/DUBllYhca+s
-         refQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788529663; x=1789134463;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7CNErS5IWCEX+tiB7+LPr05wOYMkfDYDiJg4qp80fOA=;
-        b=MyA0bnrW8EEZIZPlspi5FK70PX0jtAqpY0usnFB/wWav5TOmzgDyxB0FhQRNGsQZNb
-         +Oq39y1W9CNzsMbHX94E3ioG69/X9nj2AodlB+2nTLCb1DB6wkDmHQlCnXhcfTiem8RO
-         a3Lz+12LnsEoESmu9vw1eM62agcjU1YRgplm9pkmzXBmW5eWUpubLKEANLBhBJ/WtlaS
-         9on5uHwKuZyhhhCGoleHu1L+GuWMmmMSJxwR335g3KrzArVFa2grQfyUnc0kU1F5cDhG
-         kY6anx5X3LnXfRyzdPZOINorRK3hjpc2o+jP+648So9xtumK1qSYMdFYysUcarZgrZqo
-         DKAg==
-X-Gm-Message-State: AFuF++mbXbP+4cWG9PczSJ/sk2m+fe0ChgfVX0GYIc3/ZET9MmsIjsOd
-	bP3k95MW/goCOqXitWwGBNFOLVJ/H/U0SriCbrObj/VJT21wJ8oNmlAXhulfu7dbgUeWJsdYmX0
-	MRP9QbdtHhlH3BmkRU81mtmgaH0TmXM6119SRXSvC2eW54Gg2pFZ8699hk46MadPlsA==
-X-Gm-Gg: AYBFou3erfoAkf3+IZUTYJ4EFHtz8GWqc9h1y+oiQQK3x+WvvSZoJ46Wof4fgsDv9mQ
-	Lgd6HHxXU/zpLat7N5NGn3hCTSYV8o5ZOEb6qhTq2yMltzx0NtIIYo/qIcncDNvwgtTirDDKSrH
-	DhIqNiSMdihinFLlBumIHR5mXUiCYRi3POsZ/I0BFhMtR349e/HWmUNmUWOA9H/NUQa+lrSNIRQ
-	Rb9onJNKT5jzd3frYf+xcCvy9IY3qghduLTuN+I7wL2mk7yNpVWeSRFj0xcViS8jURyLeBkfrHE
-	mnDfCidAc9P5FDTXY5RYbqptQgjj1LptEOGVMon+IFEfZc7RmOAnifZX59/kl+JP5uApVInQYL/
-	UKMItfAqZ3XLMvL5hXZAewDqi0xhWKBO6sV1u4spKtyJPnLfM
-X-Received: by 2002:a05:6402:5508:b0:6a7:ea54:397 with SMTP id 4fb4d7f45d1cf-6a7ea542423mr1199568a12.40.1788529662653;
-        Fri, 04 Sep 2026 06:47:42 -0700 (PDT)
-X-Received: by 2002:a05:6402:5508:b0:6a7:ea54:397 with SMTP id 4fb4d7f45d1cf-6a7ea542423mr1199548a12.40.1788529662151;
-        Fri, 04 Sep 2026 06:47:42 -0700 (PDT)
-Received: from [172.16.2.95] (5920ab7b.static.cust.trined.nl. [89.32.171.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c1bee2sm1212418a12.29.2026.09.04.06.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:47:39 -0700 (PDT)
-From: Eelco Chaudron <echaudro@redhat.com>
-To: Ilya Maximets <i.maximets@ovn.org>
-Cc: stable@vger.kernel.org, Aaron Conole <aconole@redhat.com>
-Subject: Re: [PATCH 5.10.y 0/2] Backport
- 'openvswitch: Fix CT limit teardown use-after-free'
-Date: Fri, 04 Sep 2026 15:47:37 +0200
-X-Mailer: MailMate (3.0r7028)
-Message-ID: <1D27342B-45A7-481A-8754-B61DD5C5396F@redhat.com>
-In-Reply-To: <20260904094826.1817930-1-i.maximets@ovn.org>
-References: <2026090351-garnish-ferocious-2169@gregkh>
- <20260904094826.1817930-1-i.maximets@ovn.org>
+	s=arc-20240116; t=1788529763; c=relaxed/simple;
+	bh=3SXRMRMqTwVSy4jcRmG6pKzLM4R603s1n0fh2maGVbs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XbiEyNXp2y/3pSYw4zj+qi+MKrFOuS1ZI5NLSlhCvaZe2ch1s4QVQQ9Yni3bbkrmLzgg3iBX+Jbm3PJ5GScD8q6HaM3Iwz4MhfGxyiefJEzsxqpYN8L+Reke54HWNjA25g2MPkZbozDCcN1QHaZ3PFMO9FRn2eopIworEhHfMPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.161.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAnET9TzJpqbG_uAA--.631S3;
+	Fri, 04 Sep 2026 21:49:08 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgA3cXRSzJpq_WTuBA--.64619S2;
+	Fri, 04 Sep 2026 21:49:06 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-cifs@vger.kernel.org
+Cc: sfrench@samba.org,
+	pc@manguebit.org,
+	ronniesahlberg@gmail.com,
+	sprasad@microsoft.com,
+	tom@talpey.com,
+	bharathsm@microsoft.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred close
+Date: Fri,  4 Sep 2026 13:48:11 +0000
+Message-Id: <20260904134811.338427-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-MS-Reactions: disallow
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgA3cXRSzJpq_WTuBA--.64619S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?X/nDcgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNt83ay2J0i+S7+PPVtfzwfE9cPXZJtUAGV6RxEt2ReoGE4
+	nVCfbKY8Wu6drHXg51HN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoWxAr4DGrWkGFyDGw17ZF4rtFc_yoW5Jw15pF
+	WYgry5Jr95GrW7Kw1UXanrW3WYvFn7AF45ur97WF1fAas5J3yaqr4ftayqgF4xC395A3W0
+	qF4UZayqvr4UZacCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Cr1j6rxdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6x
+	kI12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7xvr2IYc2Ij64vIr40E4x8a64kEw24l42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
+When cifs_close() defers a close, it hands the cifsFileInfo reference
+of the closing struct file to the queued work. Each execution of
+smb2_deferred_work_close() drops one such reference.
 
+deferred_close_scheduled can be false while the work is pending: the
+workqueue clears PENDING when the callback starts to run, before the
+callback clears the flag under deferred_lock. A close in that
+interval requeues the running work, and the callback then clears the
+flag, leaving the requeued work pending with the flag down. A later
+cifs_open() can reuse the handle and its cifs_close() reaches the
+same branch: queue_delayed_work() fails because the work is still
+pending, but cifs_close() returns without dropping the closing file's
+reference. The cifsFileInfo count stays pinned and its tlink, dentry
+and server handle are leaked.
 
-On 4 Sep 2026, at 11:48, Ilya Maximets wrote:
+Check the return value and hand off the reference only when work was
+actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
+the mod_delayed_work() branch above: the pending execution already
+owns its reference.
 
-> The patch doesn't apply well without the previous kernel-doc fix.
-> It seems cleaner to backport both instead of modifying the main patch.
->
-> Ilya Maximets (1):
->   net: openvswitch: fix kernel-doc warnings in internal headers
->
-> Yuqi Xu (1):
->   openvswitch: Fix CT limit teardown use-after-free
->
->  net/openvswitch/conntrack.c | 122 +++++++++++++++++++++++-------------
->  net/openvswitch/conntrack.h |   6 +-
->  net/openvswitch/datapath.c  |  10 ++-
->  net/openvswitch/datapath.h  |  26 +++++---
->  net/openvswitch/vport.h     |   8 +++
->  5 files changed, 119 insertions(+), 53 deletions(-)
->
-> -- 
-> 2.55.0
-The backport looks good to me.
+This issue was found by an in-house static analysis tool.
 
-Acked-by: Eelco Chaudron <echaudro@redhat.com>
+Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ fs/smb/client/file.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index ac89c1ba56b1..acb6ac1bbddc 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1490,11 +1490,18 @@ int cifs_close(struct inode *inode, struct file *file)
+ 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
+ 						cfile->fid.persistent_fid,
+ 						cifs_sb->ctx->closetimeo);
+-				queue_delayed_work(deferredclose_wq,
+-						&cfile->deferred, cifs_sb->ctx->closetimeo);
+-				cfile->deferred_close_scheduled = true;
+-				spin_unlock(&cinode->deferred_lock);
+-				return 0;
++				/*
++				 * Each queued execution owns one reference.
++				 * If nothing was queued, the reference of
++				 * the closing file is dropped below.
++				 */
++				if (queue_delayed_work(deferredclose_wq,
++						       &cfile->deferred,
++						       cifs_sb->ctx->closetimeo)) {
++					cfile->deferred_close_scheduled = true;
++					spin_unlock(&cinode->deferred_lock);
++					return 0;
++				}
+ 			}
+ 			spin_unlock(&cinode->deferred_lock);
+ 			_cifsFileInfo_put(cfile, true, false);
 
