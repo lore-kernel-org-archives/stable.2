@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFB42417D1
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:38:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A04C3EC684
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 04:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788496698; cv=none; b=cOOt1cicS88wn3qwGH7ZDKXJVguhGL0oC2w/V5vn/uNHNFb0BNlFDStYQX6NHzn6EE2CimPmyZm85wVkWeEn4XO6P6DJDGAwjqnbCjJhLBxFLVP/heLQnkr+LSm1xX6UTsmGkFqCXzkoTJaAAIw+3ae9FJtDKeOOkfhtsLIqzuo=
+	t=1788496705; cv=none; b=gu4hDqDpvvzY4Oni0ARbrPE53J3q8Mjw8Z8u5JTbvgjY4y+Q3KMH+eCa+w8uiqjtXDd03BRkv8qSGkT+UflolYVUw7Q07Mj7hkkXWeBllXMRXUoU11k2kgMNPqS9dVXhdRUj35JDBJn+LJeDMumPAuZNvapt1WY/EcEK9WZZFtA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788496698; c=relaxed/simple;
-	bh=kMSJm4vRfwrU77eEcm919P8lp7qunUR1loHO5M+xKdk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mNWvjncpU9bAw9f/oCNZrW+WqDEcL3maZ165UeUp9a4/M3vqmmM5fTcuSDTXCFHevV0fFngk7hzGhkm1KNxgj0H3Rw12jXePQKyP9RDOlhfFnWx+d9atix2U8euV9r+DR0QeSLijEwC/nMtxnW62tzzzfKXRDOpB8L37AzC8OOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QvmLausF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788496705; c=relaxed/simple;
+	bh=MkHObBcUKEnxtNACq0pcgb/VTZFKNgiRV2r0owIc2hU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rxA6xddRoId8hMSuIqXBDGhsRu17kbuzkWXyOrWQjQ8UnwoCSvRw39KszLE5z3hSu4Sia2AgPMrfjNbg/4DdiUd1p+n4rb4ygR5FZtMyEbtMbkugr3HhqHvwjzrUfz38Oqagbw+9chgQcIH2TT4XgvE+ujTqBl1yrBpPcbXT9uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jAUE6/dn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QvmLausF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63FA31F00A3D;
-	Fri,  4 Sep 2026 04:38:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jAUE6/dn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CA941F00A3D;
+	Fri,  4 Sep 2026 04:38:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788496696;
-	bh=BlfojEoOBH0IW2VPRFDkVNYFrSU4M3L3KYfJfh9F7AA=;
+	s=korg; t=1788496703;
+	bh=4OdfLuQ9IRJwyU5C6vkMovFf6myA8CI4d/RGBZS6vWk=;
 	h=Subject:To:Cc:From:Date;
-	b=QvmLausFmx7Z7nI2hqLHJ4i+s2t7kUhsyao4NCaq7BDTeP5IAmPx8v09clgZElgzv
-	 G4FJKmn+xIoG0ObHk5w+CDvo/aPkyIFGTTbLk0DQnPpd3wm0TefO6QObxMLW1zJii6
-	 GnmJaNrE26cctzfF68J1PsSbqucn/kN6eliTbo8g=
-Subject: FAILED: patch "[PATCH] i3c: master: Fix use-after-free of master->this" failed to apply to 5.15-stable tree
-To: adrian.hunter@intel.com,Frank.Li@nxp.com,alexandre.belloni@bootlin.com
+	b=jAUE6/dnV69pJiBe44ELhUcDX/VbJFwJrXXfGgFsCuCePTWRJoCqi0kwqLswCM5fM
+	 Kpz4whJQWkg6tHzKhHVfd8n6KIgnvaxe4GoeIZomCwPOAGWdm/Jln9l+xlrdMIlWMn
+	 YYp/JQ0FhrQdnmBjF1stI0cRzs9GAap7OuSksMsw=
+Subject: FAILED: patch "[PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop" failed to apply to 6.6-stable tree
+To: fanwu01@zju.edu.cn,pkshih@realtek.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Fri, 04 Sep 2026 06:37:32 +0200
-Message-ID: <2026090432-surpass-exciting-1def@gregkh>
+Date: Fri, 04 Sep 2026 06:38:17 +0200
+Message-ID: <2026090417-tweak-sinner-8280@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x feb0ed76601f3c2f91f08688c5a7d8b9d382f720
+git cherry-pick -x 6c080026ecc17eecb103f8927c64ea73a74bb818
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090432-surpass-exciting-1def@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090417-tweak-sinner-8280@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,87 +62,110 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From feb0ed76601f3c2f91f08688c5a7d8b9d382f720 Mon Sep 17 00:00:00 2001
-From: Adrian Hunter <adrian.hunter@intel.com>
-Date: Fri, 7 Aug 2026 17:56:28 +0300
-Subject: [PATCH] i3c: master: Fix use-after-free of master->this
+From 6c080026ecc17eecb103f8927c64ea73a74bb818 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Tue, 30 Jun 2026 03:31:17 +0000
+Subject: [PATCH] wifi: rtl8xxxu: fix use-after-free from rx_urb_wq on stop
 
-sysfs attribute callbacks for the master controller device dereference
-master->this.  However, master->this is freed in
-i3c_master_detach_free_devs() before the master device itself is
-released.
+rtl8xxxu arms rx_urb_wq from the RX completion path:
+rtl8xxxu_rx_complete() hands the URB to rtl8xxxu_queue_rx_urb(), which
+queues it on rx_urb_pending_list and, once the list grows past
+RTL8XXXU_RX_URB_PENDING_WATER, schedules rx_urb_wq.  The worker
+rtl8xxxu_rx_urb_work() drains rx_urb_pending_list, recovers priv through
+container_of, and resubmits each URB through rtl8xxxu_submit_rx_urb(),
+which anchors it on rx_anchor and dereferences priv->udev.
 
-As a result, sysfs accesses can dereference a freed master->this
-pointer, leading to a use-after-free.
+rtl8xxxu_stop() cancels the sibling work items (c2hcmd_work, ra_watchdog,
+update_beacon_work) but never cancels rx_urb_wq, so a worker armed during
+the last burst of RX traffic can run rtl8xxxu_rx_urb_work() after
+rtl8xxxu_disconnect() has called ieee80211_free_hw(), which frees priv,
+producing a use-after-free.  The window opens under active RX traffic
+(pending count above the watermark) followed by a disconnect.
 
-Keep master->this alive until i3c_masterdev_release(), which is called
-after the master device and its sysfs state are being torn down. Do not
-free master->this as part of the normal device detach path.
+There are two teardown races to close:
 
-On the error path in i3c_master_set_info(), reset master->this and
-bus.cur_master to NULL before freeing the allocated device.
+  * rtl8xxxu_queue_rx_urb() decided whether to enqueue under rx_urb_lock
+    but called schedule_work() after dropping the lock.  A completion
+    that observed shutdown == false and released the lock could then call
+    schedule_work() after rtl8xxxu_stop() had set shutdown and
+    cancel_work_sync() had already returned, arming the worker to run
+    after the teardown.  Move schedule_work() under the same !shutdown
+    branch so the arming decision is atomic with the shutdown check.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+  * rtl8xxxu_rx_urb_work() anchors every URB it drained back onto
+    rx_anchor through rtl8xxxu_submit_rx_urb().  A worker still running
+    when usb_kill_anchored_urbs(&priv->rx_anchor) returned would submit a
+    URB that escaped the kill.  In rtl8xxxu_stop(), call
+    cancel_work_sync(&priv->rx_urb_wq) before the kill so the worker is
+    drained first.
+
+After priv->shutdown is set under rx_urb_lock, completions can no longer
+queue rx_urb_wq. cancel_work_sync() then drains the last queued or running
+worker, and the following usb_kill_anchored_urbs() kills the URBs it may
+have submitted.
+
+rtl8xxxu_disconnect() is covered because ieee80211_unregister_hw()
+guarantees .stop() runs for a live interface before ieee80211_free_hw()
+frees priv.  The probe error path needs no cancel: rx_urb_wq is
+INIT_WORK()'d there but cannot have been scheduled, since no URB is
+submitted before ieee80211_register_hw() succeeds.
+
+This bug was found by static analysis.
+
+Fixes: 26f1fad29ad9 ("New driver: rtl8xxxu (mac80211)")
 Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-5-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260630033117.3377-1-fanwu01@zju.edu.cn
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index abb582645a2e..2357874bb9d6 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -842,6 +842,11 @@ static struct attribute *i3c_masterdev_attrs[] = {
- };
- ATTRIBUTE_GROUPS(i3c_masterdev);
- 
-+static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
-+{
-+	kfree(dev);
-+}
-+
- static void i3c_masterdev_release(struct device *dev)
+diff --git a/drivers/net/wireless/realtek/rtl8xxxu/core.c b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+index 4e8a4769603c..bddbd0990de7 100644
+--- a/drivers/net/wireless/realtek/rtl8xxxu/core.c
++++ b/drivers/net/wireless/realtek/rtl8xxxu/core.c
+@@ -5837,14 +5837,19 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  {
- 	struct i3c_master_controller *master = dev_to_i3cmaster(dev);
-@@ -854,6 +859,8 @@ static void i3c_masterdev_release(struct device *dev)
- 	i3c_bus_cleanup(bus);
+ 	struct sk_buff *skb;
+ 	unsigned long flags;
+-	int pending = 0;
  
- 	fwnode_handle_put(dev->fwnode);
-+
-+	i3c_master_free_i3c_dev(master->this);
- }
+ 	spin_lock_irqsave(&priv->rx_urb_lock, flags);
  
- static const struct device_type i3c_masterdev_type = {
-@@ -1125,11 +1132,6 @@ static void i3c_device_release(struct device *dev)
- 	kfree(i3cdev);
- }
- 
--static void i3c_master_free_i3c_dev(struct i3c_dev_desc *dev)
--{
--	kfree(dev);
--}
--
- static struct i3c_dev_desc *
- i3c_master_alloc_i3c_dev(struct i3c_master_controller *master,
- 			 const struct i3c_device_info *info)
-@@ -2266,6 +2268,8 @@ int i3c_master_set_info(struct i3c_master_controller *master,
- 	return 0;
- 
- err_free_dev:
-+	master->bus.cur_master = NULL;
-+	master->this = NULL;
- 	i3c_master_free_i3c_dev(i3cdev);
- 
- 	return ret;
-@@ -2286,7 +2290,8 @@ static void i3c_master_detach_free_devs(struct i3c_master_controller *master)
- 					i3cdev->boardinfo->init_dyn_addr,
- 					I3C_ADDR_SLOT_FREE);
- 
--		i3c_master_free_i3c_dev(i3cdev);
-+		if (i3cdev != master->this)
-+			i3c_master_free_i3c_dev(i3cdev);
+ 	if (!priv->shutdown) {
+ 		list_add_tail(&rx_urb->list, &priv->rx_urb_pending_list);
+ 		priv->rx_urb_pending_count++;
+-		pending = priv->rx_urb_pending_count;
++		/*
++		 * Arm the worker under rx_urb_lock so this is atomic with the
++		 * shutdown check: moving it out of the lock would let a
++		 * completion arm the work after rtl8xxxu_stop() canceled it.
++		 */
++		if (priv->rx_urb_pending_count > RTL8XXXU_RX_URB_PENDING_WATER)
++			schedule_work(&priv->rx_urb_wq);
+ 	} else {
+ 		skb = (struct sk_buff *)rx_urb->urb.context;
+ 		dev_kfree_skb_irq(skb);
+@@ -5852,9 +5857,6 @@ static void rtl8xxxu_queue_rx_urb(struct rtl8xxxu_priv *priv,
  	}
  
- 	list_for_each_entry_safe(i2cdev, i2ctmp, &master->bus.devs.i2c,
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+-
+-	if (pending > RTL8XXXU_RX_URB_PENDING_WATER)
+-		schedule_work(&priv->rx_urb_wq);
+ }
+ 
+ static void rtl8xxxu_rx_urb_work(struct work_struct *work)
+@@ -7506,6 +7508,13 @@ static void rtl8xxxu_stop(struct ieee80211_hw *hw, bool suspend)
+ 	priv->shutdown = true;
+ 	spin_unlock_irqrestore(&priv->rx_urb_lock, flags);
+ 
++	/*
++	 * Cancel before killing rx_anchor: the worker re-anchors every URB
++	 * it drained via rtl8xxxu_submit_rx_urb(), so a worker still running
++	 * after the kill could submit a URB that escapes it.
++	 */
++	cancel_work_sync(&priv->rx_urb_wq);
++
+ 	usb_kill_anchored_urbs(&priv->rx_anchor);
+ 	usb_kill_anchored_urbs(&priv->tx_anchor);
+ 	if (priv->usb_interrupts)
 
