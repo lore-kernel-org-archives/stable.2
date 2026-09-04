@@ -1,111 +1,78 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE56D4457CF;
-	Fri,  4 Sep 2026 10:03:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED04430CDD;
+	Fri,  4 Sep 2026 10:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788516216; cv=none; b=N6xawto9geJGeWlvBD477QnwcqtY3tH4FoszASi16q04uSgNhId7QJ54Y8In3591oGGpjxoL9u/qolqv4W4DFsFf9U6C6+6I3CwSFpHYpb+u1i27uulpRyCs/dYAT5+urzCYEceUTFsUA3zATemchZr6sO2738/ekTjcj93WCAM=
+	t=1788516248; cv=none; b=Bc7ScyWZF856i1C8oPk51FvbCWo+xQyisvV+RCBbY9S77tyTUsPqKW57Ial+KZ21fJNh+S6De/R+Jy1DgiFJ3suukpI3C0V349S5pDvxnfOc3QMXuDuq5mynTtsLyMUR4TTvthkG6fsSysF+Q9NA5CIfrujWj8Gj5jMS/LtQFV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788516216; c=relaxed/simple;
-	bh=M1vZqPD+4vQsNANJR+sQ007pkNH6Vmq/4XYKUlLLSSg=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=oGLeMmcIM2RxXhoPAK5NAmBg/ttdvTxcyZ+dkGv8a8Q/r760USlbN3/46pkudtFmXnA7N3sTeiRWotK6bwY2UukrNU3oX5+EkEywnyv2OW7IAkf6ETgF3PJ4L7+SVA4lnKpKbo2ZfEafnbtlgIuR+Csp/D7qOUueKOPrpZd58dU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=xkxWhQlU; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788516248; c=relaxed/simple;
+	bh=hbEHNZjNb2+Ld3Mkt0yA0iOhtAQ67RA2zuLHvbusUTk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bJgCQ2uOsGb55deZIqlapdvo9eZzBSFuoUBmEqEgTW8YgzOuXtL3G+cSddfryRz8+UE3K+21fFnxPrOSE39f++t3/+5jdeyZN+R84RcqwB1inMaaRI11uKCrjvN5AdHqK9i05JI7b/5fTdRBpv99DNJhdeS/lD29bUM8olCoIwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=ATsOQn+E; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="xkxWhQlU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788516208; bh=uoOzDZAWnJsWiO6JD2emY2QKQ6LRtpmLOtpWO9+xJq8=;
-	h=From:To:Cc:Subject:Date;
-	b=xkxWhQlUYxl0stNa8t4bhRfA09/1sLUKlhXc0kZh8Jvxdz1R5BvVXHlYg+vdolDdW
-	 /d6cmwb49w/wVkD0KdwLRCHLTCZT6Fkh/s39HzIiI2sdCNCgIfrnVb1xUjrzJwQyhL
-	 waVWSahTxJj0332SVRXFezT04gmzl4/gKy8X4yQU=
-Received: from ws006419.mbzu.ae ([5.195.0.150])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 679E487; Fri, 04 Sep 2026 18:01:39 +0800
-X-QQ-mid: xmsmtpt1788516099tz2afw6ez
-Message-ID: <tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com>
-X-QQ-XMAILINFO: MqrcRCpyXC2G804zZZefQ1CweJmOuOcT296XVGv53lkvPGThFIeOAQvAZexdZT
-	 ZF2Q8MdzCBXv+rWpJt9uV6wsp7j1a5NIkhCleh2p/sGxft71k04XZkV+aUnGGLQkfZUbg0YbI2CA
-	 D+ROGP0+oxW0aRzbxtMqncStyzmmDh4v1EvaXmuhHyNHpTANKRfFct3JsDMWJrQd+QkuxkE2ujf1
-	 NJRvE5dXY20JeH+eGz1qd/sQb3x2X+DVn2fxvMGiuRAkSHKiTZaBXFtV+RA91RKuH891/ZD6Is5U
-	 DB4e1cqV95LAVSc1GIQVN5A5brsb8mKiC3hcE2qq/GZ7y+uEGV8Ne0W6QD649yqYsZ82D51ShChC
-	 P+GP58j4Kjq9zukp+C6/F/rPQmPP2lSNXsAko1VXHbXUuGk6dP/iEAFIxCfJiZ6dNDRsZMC/xPb9
-	 UYEzbbsWQmdRC/Cw84q3YhquUfL+sai+SkzjNJFCvrkMEX6caVJRxaY13NUUh4imNxFNYkpD9Vxl
-	 3pjhzLutPE5qjcMf3xMAfqsp3/B6MFBFqSA2cZKZL2ocmiM4nN0h+7WxAqMQp8hS97dWpOrdLyJw
-	 4GbljK6gAGTDe7eWr0Fj0+CKJUwn0kXHJwBI+JxR4HluNxAEWHpR3M+IT2IDywExrgk0zp/pBRQs
-	 FoVR/yk8GLzVkycEvLziQwoJkfw4CNGnsMrwmQJN7ozD/kTQ7gz0cmbL1CNyJ28SidTlMRn5gHqv
-	 fCKCdIf7kcoBpQnQbG5/JLzm6vMmL0tLXmeVG67IsYQrN05MR4V6LhmcjH4BLRBoNbZGzfczAwUg
-	 2pVNTp9fle6GE/HXaJ0udOOVuNQzFhQAC9ZKcHuL/buI5wermR1IvMegFmeZnu6ct4yge+3rSAqb
-	 Z9hUYpPIr3OdTqRip6dKE87o8jZ2XtjzN5ASjJFmhnGEaWLc9tWEiBW4gmzGox9nArXcQYw0xbBA
-	 ALc8sIdQ3H2+EqSDsF7OWXUuLtx9bvROpQ/ecf59uBpMcXv5oA9MLDbT8wPastSOJiXHuZlUqw01
-	 tFWfbVQ241n1p3FAKqbhMpw8e784O1VNKMZPg2PA==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-From: Jiawen Liu <1298662399@qq.com>
-To: Lukasz Luba <lukasz.luba@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	linux-pm@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	stable@vger.kernel.org,
-	Jiawen Liu <1298662399@qq.com>
-Subject: [PATCH v2] memory: exynos5422-dmc: handle clock enable failures
-Date: Fri,  4 Sep 2026 14:01:35 +0400
-X-OQ-MSGID: <20260904100135.251091-1-1298662399@qq.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="ATsOQn+E"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=mMGMmTBPnv/kImMcTLVTQXomXRkjMP0R6Sz7NE/gcLA=;
+	t=1788516246; x=1789725846; b=ATsOQn+EFB9KwZQo7drrxpezyN2pxgFDqc0Yjfws10lSx4D
+	lB+8Ifkw8ajYhK3E9kNbP1c4i1qHxihBbhShgJMCbqxYAxUaoZYdbabsvzwUE02np8oPjc+0kwWA5
+	Bpxll3pmBU032V0atM8YOllm5yTVYSuCcD7sXUk5EZc13OcCbnn2B1HzbB08+XIKaR+vL+DYSTi9Y
+	FazLKdAZ8xkFcdJTH4ov+Q4vJ1BxeNdW1tx5YSfSQLk8o4Edlrgn9/UQd4Jj+zoCMGq/I8LFqnM5H
+	xY06v6HTPNKO2lBQWiYMvD50N/yoVIqrFESo9nlGqo0bmwMZ0PPUE2FLp4Jr+Khw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x2Qm9-00000001JsI-2cN9;
+	Fri, 04 Sep 2026 12:04:01 +0200
+Message-ID: <bad8369e7e41339f443c0d018bfa7243e8c284b9.camel@sipsolutions.net>
+Subject: Re: [PATCH v4] wifi: mwifiex: validate HT/VHT capability and
+ operation IE lengths
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Doruk Tan Ozturk <doruk@0sec.ai>, briannorris@chromium.org
+Cc: francesco@dolcini.it, kees@kernel.org, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Fri, 04 Sep 2026 12:04:00 +0200
+In-Reply-To: <20260814134707.85925-1-doruk@0sec.ai>
+References: <20260814134707.85925-1-doruk@0sec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-Check the return values of clk_prepare_enable() for fout_bpll and
-mout_bpll.
+On Fri, 2026-08-14 at 15:47 +0200, Doruk Tan Ozturk wrote:
+>=20
+> Assisted-by: 0sec:multi-model
 
-If enabling fout_bpll fails, propagate the error. If enabling mout_bpll
-fails, disable fout_bpll before returning. This keeps the clock enable
-count balanced on probe error paths.
+If you're going to use LLMs anyway, how about you ask another instance
+to review your patches? :-)
 
-Fixes: 6e7674c3c6df ("memory: Add DMC driver for Exynos5422")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
----
-Changes in v2:
-- Use the full author name in From and Signed-off-by.
-- Add Fixes and Cc stable tags.
-- Generate the submission with git format-patch.
+>  - Use sizeof(*ptr) for the length checks instead of naming the struct
+>    type, so a check cannot drift from the type the pointer is
+>    dereferenced as. bcn_ht_cap/bcn_ht_oper/bcn_vht_cap/bcn_vht_oper/
+>    oper_mode are all typed pointers.
 
- drivers/memory/samsung/exynos5422-dmc.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> +++ b/drivers/net/wireless/marvell/mwifiex/util.c
+> @@ -721,7 +721,7 @@ mwifiex_set_sta_ht_cap(struct mwifiex_private *priv, =
+const u8 *ies,
+> =20
+>  	ht_cap_ie =3D (void *)cfg80211_find_ie(WLAN_EID_HT_CAPABILITY, ies,
+>  					     ies_len);
+> -	if (ht_cap_ie) {
+> +	if (ht_cap_ie && ht_cap_ie->len >=3D sizeof(struct ieee80211_ht_cap)) {
 
-diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
-index 788d49c688b1..98c319552583 100644
---- a/drivers/memory/samsung/exynos5422-dmc.c
-+++ b/drivers/memory/samsung/exynos5422-dmc.c
-@@ -1297,8 +1297,15 @@ static int exynos5_dmc_init_clks(struct exynos5_dmc *dmc)
- 	if (ret)
- 		return ret;
- 
--	clk_prepare_enable(dmc->fout_bpll);
--	clk_prepare_enable(dmc->mout_bpll);
-+	ret = clk_prepare_enable(dmc->fout_bpll);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(dmc->mout_bpll);
-+	if (ret) {
-+		clk_disable_unprepare(dmc->fout_bpll);
-+		return ret;
-+	}
- 
- 	/*
- 	 * Some bootloaders do not set clock routes correctly.
--- 
-2.34.1
+missed that, ht_cap is in scope so can be sizeof(*ht_cap).
 
+johannes
