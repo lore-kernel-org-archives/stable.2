@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52BB47B43A
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:31:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB94051C32B
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:31:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553927; cv=none; b=lTxT/Raug6KuyZV1B835Rt3PX9y1P5xq4T6H5qZb5iExW2aGgL58bGve993eLIQdXyHkIJ+ss8yLNkS13Ba8sage3X5CRjlNB6zanYPDaMaHypbueFkgRy+lHEm2YYvzErLfJRlmZIP8AF7LLNh/05ok4hrQGWRaXgFyHb1dBgk=
+	t=1788553927; cv=none; b=gphqh6oq2ybB/AMdhgVTy7tvj5RcWzoXwRF4NbvWL1oSYqW+U7oOHG/r174xdyGLR4a3giLCtBZz0iSFNHd9knz6OM50PMo17hWw2BBiZUd8UkR+3bxzUpm9hqaEDba9cy528APQFyNmRJ2M4GU+w4bygf/LwHanpI+v1c6cpFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788553927; c=relaxed/simple;
-	bh=Zd7jLdXE6V51ReNsDma2CEPq0ADMT7lqWe2D/KiryGg=;
+	bh=AwSWzI+SmWtNI+RRezAqDa2VOE9A1x0Skj+m4PXmaTc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oyp5+BUvcM5jn7IxNohVvy3xJvL4Id9Grs1ENf2VQlmaDjIyCTMfczQ+RMZn2ncxksjgMxxIueohCWCRp3/e1o28v6zYYFZCKRE6Ch0AkSybnexTNF1bbRWzEnOof2S/2QwvZa+KFGkGHppspxVrop0gZs9+hRKTeu8A5Na08cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n3syS+vL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CWSE6ErR4jACM+YHx8JHsguoJycXqyLqc8U1e5u4+jpGyzyXBEdTSF5fXpAAVBTq18eBNwFKcsVc5is+FW22oxToDJqBOlRz9jmodBfURhF+DEJhzf/F9FV+a+8QxrlGbBI6Ltn5eYppSxesrp6gMBzwqABKhrgAl0eziw6I43c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxCP1Uwk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n3syS+vL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F098C1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxCP1Uwk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3741F00A3D;
 	Fri,  4 Sep 2026 20:31:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553915;
-	bh=Xx9TVCrEfe/rJbaz7cNyDs+n/sspTU02FUlyMBjmn14=;
+	s=k20260515; t=1788553914;
+	bh=sfMMRFAOyPzbIKOC6FvZ65lwsHgHAYUWDgKsIvdEBAE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n3syS+vLumQPrMtwjCYChz2kIMT9UrkHfCcJ4DruWbMcDPKD445BmNFHVPJz2Nfxb
-	 23MQS6rcQQV0pYoSxEGMnfamrr6A4NJYqhX7u1w3EE3sfxj1rcwKccIS14HR+p+9nM
-	 1hDIC0zYjoIBfh9SaOHrGTORyZfszo223NdhynyQHdAiOM5p2uzXalkQlzUZOUK9LI
-	 Vmv+96sDRCaZsL9lxRlshEm3rPXHr0Co1K/WIppCEGHkK/fLwBvQip2uKJexAMCHyZ
-	 3npPWzC1JPUVMzaz3vSeMMU3pQIRBmWtcTF/DqsaNA04DbxmmuKoB0gb1k88Zqh3is
-	 an8T+UeF0LMqg==
+	b=jxCP1Uwk1MQjFpcN8XoYLMHYhmBxm5zOCp/zn9H+zSDRsuRXDnH43VjZSavFe59yx
+	 S1YpBLC4kaVvJIeLfKm6YZhoboZF/coadEBsXow7I8UslMunw8EZ/uTikFLWh7BZtL
+	 zh6U5AQeXN6/PMBUatbNQFcM9avs3uYLVNudHYAfUNmCUGv+81kRYNVDDEXFb/mgHB
+	 vYNNiUouIf+srAxU/poow4t/u2fctW5CMC1sC2CB3UA+jrIPb97v8bKibFccICi5vg
+	 +gS0E4SWCP498JNqNdJjMJX2efjcevnOobiWyNRloEq5s2eDaabMEitRS8aWEln6b8
+	 yha2bBggx5XeA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Chris Mason <clm@meta.com>,
+Cc: NeilBrown <neilb@suse.de>,
 	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] NFSD: check truncate permission under inode lock
-Date: Fri,  4 Sep 2026 16:31:52 -0400
-Message-ID: <20260904203152.1546362-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] nfsd: Pass 'cred' instead of 'rqstp' to some functions.
+Date: Fri,  4 Sep 2026 16:31:51 -0400
+Message-ID: <20260904203152.1546362-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904203152.1546362-1-sashal@kernel.org>
+In-Reply-To: <2026090339-resolute-antennae-cd2d@gregkh>
 References: <2026090339-resolute-antennae-cd2d@gregkh>
- <20260904203152.1546362-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,99 +46,255 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: NeilBrown <neilb@suse.de>
 
-[ Upstream commit b778e0e0a16759f22a70579c3cf8d254a40d4a7f ]
+[ Upstream commit 9fd45c16f3e3b95b458e049c77f4d7dfef673a52 ]
 
-nfsd_setattr() checks whether a size update needs NFSD_MAY_TRUNC
-before it takes inode_lock(). The comparison uses the file size sampled
-by that unlocked read, but the actual ATTR_SIZE update is applied later
-under inode_lock() by notify_change().
+nfsd_permission(), exp_rdonly(), nfsd_setuser(), and nfsexp_flags()
+only ever need the cred out of rqstp, so pass it explicitly instead of
+the whole rqstp.
 
-This leaves a TOCTOU window for append-only files. If a client sends a
-SETATTR that does not shrink the file at the time of the unlocked
-sample, a concurrent append can extend the file before nfsd_setattr()
-takes inode_lock(). notify_change() then applies a real truncation
-without the NFSD_MAY_TRUNC check that rejects IS_APPEND(inode). The VFS
-truncate syscall paths perform their own append-only checks before
-calling notify_change(), so NFSD must make this decision against the
-locked size it is about to change.
+This makes the interfaces cleaner.
 
-Split the write-count acquisition from the truncation permission check.
-Keep get_write_access() before the locked setattr work, then recheck
-whether the requested size is below i_size_read(inode) after inode_lock()
-has been acquired and before notify_change(ATTR_SIZE). This also avoids
-the plain unlocked inode->i_size load.
-
-Fixes: 783112f7401f ("nfsd: special case truncates some more")
-Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-6-f27e8eb4d974@kernel.org
+Signed-off-by: NeilBrown <neilb@suse.de>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: b778e0e0a167 ("NFSD: check truncate permission under inode lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/vfs.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+ fs/nfsd/auth.c      | 14 +++++++-------
+ fs/nfsd/auth.h      |  2 +-
+ fs/nfsd/export.h    |  3 ++-
+ fs/nfsd/nfs4state.c |  3 ++-
+ fs/nfsd/nfsfh.c     |  6 +++---
+ fs/nfsd/nfsproc.c   |  9 +++++----
+ fs/nfsd/vfs.c       | 21 ++++++++++++---------
+ fs/nfsd/vfs.h       |  4 ++--
+ 8 files changed, 34 insertions(+), 28 deletions(-)
 
+diff --git a/fs/nfsd/auth.c b/fs/nfsd/auth.c
+index e6beaaf4f1700..93e33d1ee8917 100644
+--- a/fs/nfsd/auth.c
++++ b/fs/nfsd/auth.c
+@@ -5,26 +5,26 @@
+ #include "nfsd.h"
+ #include "auth.h"
+ 
+-int nfsexp_flags(struct svc_rqst *rqstp, struct svc_export *exp)
++int nfsexp_flags(struct svc_cred *cred, struct svc_export *exp)
+ {
+ 	struct exp_flavor_info *f;
+ 	struct exp_flavor_info *end = exp->ex_flavors + exp->ex_nflavors;
+ 
+ 	for (f = exp->ex_flavors; f < end; f++) {
+-		if (f->pseudoflavor == rqstp->rq_cred.cr_flavor)
++		if (f->pseudoflavor == cred->cr_flavor)
+ 			return f->flags;
+ 	}
+ 	return exp->ex_flags;
+ 
+ }
+ 
+-int nfsd_setuser(struct svc_rqst *rqstp, struct svc_export *exp)
++int nfsd_setuser(struct svc_cred *cred, struct svc_export *exp)
+ {
+ 	struct group_info *rqgi;
+ 	struct group_info *gi;
+ 	struct cred *new;
+ 	int i;
+-	int flags = nfsexp_flags(rqstp, exp);
++	int flags = nfsexp_flags(cred, exp);
+ 
+ 	/* discard any old override before preparing the new set */
+ 	revert_creds(get_cred(current_real_cred()));
+@@ -32,10 +32,10 @@ int nfsd_setuser(struct svc_rqst *rqstp, struct svc_export *exp)
+ 	if (!new)
+ 		return -ENOMEM;
+ 
+-	new->fsuid = rqstp->rq_cred.cr_uid;
+-	new->fsgid = rqstp->rq_cred.cr_gid;
++	new->fsuid = cred->cr_uid;
++	new->fsgid = cred->cr_gid;
+ 
+-	rqgi = rqstp->rq_cred.cr_group_info;
++	rqgi = cred->cr_group_info;
+ 
+ 	if (flags & NFSEXP_ALLSQUASH) {
+ 		new->fsuid = exp->ex_anon_uid;
+diff --git a/fs/nfsd/auth.h b/fs/nfsd/auth.h
+index dbd66424f600b..8c5031bbbcee2 100644
+--- a/fs/nfsd/auth.h
++++ b/fs/nfsd/auth.h
+@@ -12,6 +12,6 @@
+  * Set the current process's fsuid/fsgid etc to those of the NFS
+  * client user
+  */
+-int nfsd_setuser(struct svc_rqst *, struct svc_export *);
++int nfsd_setuser(struct svc_cred *cred, struct svc_export *exp);
+ 
+ #endif /* LINUX_NFSD_AUTH_H */
+diff --git a/fs/nfsd/export.h b/fs/nfsd/export.h
+index 4a48b2ad56067..3174fc05bf02a 100644
+--- a/fs/nfsd/export.h
++++ b/fs/nfsd/export.h
+@@ -99,7 +99,8 @@ struct svc_expkey {
+ #define EX_NOHIDE(exp)		((exp)->ex_flags & NFSEXP_NOHIDE)
+ #define EX_WGATHER(exp)		((exp)->ex_flags & NFSEXP_GATHERED_WRITES)
+ 
+-int nfsexp_flags(struct svc_rqst *rqstp, struct svc_export *exp);
++struct svc_cred;
++int nfsexp_flags(struct svc_cred *cred, struct svc_export *exp);
+ __be32 check_xprtsec_policy(struct svc_export *exp, struct svc_rqst *rqstp);
+ __be32 check_security_flavor(struct svc_export *exp, struct svc_rqst *rqstp);
+ __be32 check_nfsd_access(struct svc_export *exp, struct svc_rqst *rqstp);
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index f21878a7f3939..586f2677c294c 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -6605,7 +6605,8 @@ nfs4_check_file(struct svc_rqst *rqstp, struct svc_fh *fhp, struct nfs4_stid *s,
+ 
+ 	nf = nfs4_find_file(s, flags);
+ 	if (nf) {
+-		status = nfsd_permission(rqstp, fhp->fh_export, fhp->fh_dentry,
++		status = nfsd_permission(&rqstp->rq_cred,
++					 fhp->fh_export, fhp->fh_dentry,
+ 				acc | NFSD_MAY_OWNER_OVERRIDE);
+ 		if (status) {
+ 			nfsd_file_put(nf);
+diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
+index 283c1a60c8460..e41c1efc46997 100644
+--- a/fs/nfsd/nfsfh.c
++++ b/fs/nfsd/nfsfh.c
+@@ -102,7 +102,7 @@ static bool nfsd_originating_port_ok(struct svc_rqst *rqstp, int flags)
+ static __be32 nfsd_setuser_and_check_port(struct svc_rqst *rqstp,
+ 					  struct svc_export *exp)
+ {
+-	int flags = nfsexp_flags(rqstp, exp);
++	int flags = nfsexp_flags(&rqstp->rq_cred, exp);
+ 
+ 	/* Check if the request originated from a secure port. */
+ 	if (!nfsd_originating_port_ok(rqstp, flags)) {
+@@ -113,7 +113,7 @@ static __be32 nfsd_setuser_and_check_port(struct svc_rqst *rqstp,
+ 	}
+ 
+ 	/* Set user creds for this exportpoint */
+-	return nfserrno(nfsd_setuser(rqstp, exp));
++	return nfserrno(nfsd_setuser(&rqstp->rq_cred, exp));
+ }
+ 
+ static inline __be32 check_pseudo_root(struct svc_rqst *rqstp,
+@@ -402,7 +402,7 @@ fh_verify(struct svc_rqst *rqstp, struct svc_fh *fhp, umode_t type, int access)
+ 
+ skip_pseudoflavor_check:
+ 	/* Finally, check access permissions. */
+-	error = nfsd_permission(rqstp, exp, dentry, access);
++	error = nfsd_permission(&rqstp->rq_cred, exp, dentry, access);
+ out:
+ 	trace_nfsd_fh_verify_err(rqstp, fhp, type, access, error);
+ 	if (error == nfserr_stale)
+diff --git a/fs/nfsd/nfsproc.c b/fs/nfsd/nfsproc.c
+index 36370b957b633..97aab34593ef0 100644
+--- a/fs/nfsd/nfsproc.c
++++ b/fs/nfsd/nfsproc.c
+@@ -331,10 +331,11 @@ nfsd_proc_create(struct svc_rqst *rqstp)
+ 					 *   echo thing > device-special-file-or-pipe
+ 					 * by doing a CREATE with type==0
+ 					 */
+-					resp->status = nfsd_permission(rqstp,
+-								 newfhp->fh_export,
+-								 newfhp->fh_dentry,
+-								 NFSD_MAY_WRITE|NFSD_MAY_LOCAL_ACCESS);
++					resp->status = nfsd_permission(
++						&rqstp->rq_cred,
++						newfhp->fh_export,
++						newfhp->fh_dentry,
++						NFSD_MAY_WRITE|NFSD_MAY_LOCAL_ACCESS);
+ 					if (resp->status && resp->status != nfserr_rofs)
+ 						goto out_unlock;
+ 				}
 diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index 200fe34a104c7..0d81ffc254bad 100644
+index 5dc798e89e97b..200fe34a104c7 100644
 --- a/fs/nfsd/vfs.c
 +++ b/fs/nfsd/vfs.c
-@@ -415,21 +415,22 @@ nfsd_sanitize_attrs(struct inode *inode, struct iattr *iap)
- }
+@@ -423,8 +423,9 @@ nfsd_get_write_access(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	if (iap->ia_size < inode->i_size) {
+ 		__be32 err;
  
- static __be32
--nfsd_get_write_access(struct svc_rqst *rqstp, struct svc_fh *fhp,
--		struct iattr *iap)
-+nfsd_may_truncate(struct svc_rqst *rqstp, struct svc_fh *fhp,
-+		  struct iattr *iap)
- {
- 	struct inode *inode = d_inode(fhp->fh_dentry);
- 
--	if (iap->ia_size < inode->i_size) {
--		__be32 err;
-+	if (iap->ia_size >= i_size_read(inode))
-+		return nfs_ok;
- 
--		err = nfsd_permission(&rqstp->rq_cred,
--				      fhp->fh_export, fhp->fh_dentry,
--				      NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
--		if (err)
--			return err;
--	}
--	return nfserrno(get_write_access(inode));
-+	return nfsd_permission(&rqstp->rq_cred, fhp->fh_export, fhp->fh_dentry,
-+			       NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
-+}
-+
-+static __be32
-+nfsd_get_write_access(struct svc_fh *fhp)
-+{
-+	return nfserrno(get_write_access(d_inode(fhp->fh_dentry)));
- }
- 
- static int __nfsd_setattr(struct dentry *dentry, struct iattr *iap)
-@@ -546,12 +547,17 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	 * setattr call.
- 	 */
- 	if (size_change) {
--		err = nfsd_get_write_access(rqstp, fhp, iap);
-+		err = nfsd_get_write_access(fhp);
+-		err = nfsd_permission(rqstp, fhp->fh_export, fhp->fh_dentry,
+-				NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
++		err = nfsd_permission(&rqstp->rq_cred,
++				      fhp->fh_export, fhp->fh_dentry,
++				      NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
  		if (err)
  			return err;
  	}
+@@ -809,7 +810,8 @@ nfsd_access(struct svc_rqst *rqstp, struct svc_fh *fhp, u32 *access, u32 *suppor
  
- 	inode_lock(inode);
-+	if (size_change) {
-+		err = nfsd_may_truncate(rqstp, fhp, iap);
-+		if (err)
-+			goto out_unlock;
-+	}
- 	err = fh_fill_pre_attrs(fhp);
+ 			sresult |= map->access;
+ 
+-			err2 = nfsd_permission(rqstp, export, dentry, map->how);
++			err2 = nfsd_permission(&rqstp->rq_cred, export,
++					       dentry, map->how);
+ 			switch (err2) {
+ 			case nfs_ok:
+ 				result |= map->access;
+@@ -1453,7 +1455,8 @@ nfsd_create_locked(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	dirp = d_inode(dentry);
+ 
+ 	dchild = dget(resfhp->fh_dentry);
+-	err = nfsd_permission(rqstp, fhp->fh_export, dentry, NFSD_MAY_CREATE);
++	err = nfsd_permission(&rqstp->rq_cred, fhp->fh_export, dentry,
++			      NFSD_MAY_CREATE);
  	if (err)
- 		goto out_unlock;
+ 		goto out;
+ 
+@@ -2180,9 +2183,9 @@ nfsd_statfs(struct svc_rqst *rqstp, struct svc_fh *fhp, struct kstatfs *stat, in
+ 	return err;
+ }
+ 
+-static int exp_rdonly(struct svc_rqst *rqstp, struct svc_export *exp)
++static int exp_rdonly(struct svc_cred *cred, struct svc_export *exp)
+ {
+-	return nfsexp_flags(rqstp, exp) & NFSEXP_READONLY;
++	return nfsexp_flags(cred, exp) & NFSEXP_READONLY;
+ }
+ 
+ #ifdef CONFIG_NFSD_V4
+@@ -2426,8 +2429,8 @@ nfsd_setxattr(struct svc_rqst *rqstp, struct svc_fh *fhp, char *name,
+  * Check for a user's access permissions to this inode.
+  */
+ __be32
+-nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
+-					struct dentry *dentry, int acc)
++nfsd_permission(struct svc_cred *cred, struct svc_export *exp,
++		struct dentry *dentry, int acc)
+ {
+ 	struct inode	*inode = d_inode(dentry);
+ 	int		err;
+@@ -2458,7 +2461,7 @@ nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
+ 	 */
+ 	if (!(acc & NFSD_MAY_LOCAL_ACCESS))
+ 		if (acc & (NFSD_MAY_WRITE | NFSD_MAY_SATTR | NFSD_MAY_TRUNC)) {
+-			if (exp_rdonly(rqstp, exp) ||
++			if (exp_rdonly(cred, exp) ||
+ 			    __mnt_is_readonly(exp->ex_path.mnt))
+ 				return nfserr_rofs;
+ 			if (/* (acc & NFSD_MAY_WRITE) && */ IS_IMMUTABLE(inode))
+diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
+index bf695d5cc04e4..6c41770efe33d 100644
+--- a/fs/nfsd/vfs.h
++++ b/fs/nfsd/vfs.h
+@@ -153,8 +153,8 @@ __be32		nfsd_readdir(struct svc_rqst *, struct svc_fh *,
+ __be32		nfsd_statfs(struct svc_rqst *, struct svc_fh *,
+ 				struct kstatfs *, int access);
+ 
+-__be32		nfsd_permission(struct svc_rqst *, struct svc_export *,
+-				struct dentry *, int);
++__be32		nfsd_permission(struct svc_cred *cred, struct svc_export *exp,
++				struct dentry *dentry, int acc);
+ 
+ static inline int fh_want_write(struct svc_fh *fh)
+ {
 -- 
 2.53.0
 
