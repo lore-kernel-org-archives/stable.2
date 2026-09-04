@@ -1,48 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5973ACF10;
-	Fri,  4 Sep 2026 02:53:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1A43AEB35;
+	Fri,  4 Sep 2026 02:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490408; cv=none; b=Nc64BetfxK2lTayBwSbs33OVGvsINxtESL4FRXbmf6KELZk+j6IUuS6n9O2+x/EWVcWbo69PZpRaRYOM95BlZz3UcPG/aO0a+Klt/UrGVHMkoPKBYpTQmijRH0TaPvp8Wk7Ij0NqsDke76DHHWW6V4bd0gDgmlFV9TQQ3fnd0l8=
+	t=1788490409; cv=none; b=SfozfnoxFXGYSFkvgHQUMZGIW9D1oHJnXeRLQwoTR+X/7R5TXZYC7+gzJ66NgWBsiPjqQ1Hj254rvbiuez2VXm0Xr7DL2P+kv3pfRRtUzmMxL5aoWDP4mToC1MH7hlquNAALRdxgHJav7ucCYvWwQEf5sYyQHrfCnB/YEMFHpqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490408; c=relaxed/simple;
-	bh=v4PrwhcvY/QD23+xwj0El/vO62iH1VO3XAFBNf1jDs8=;
+	s=arc-20240116; t=1788490409; c=relaxed/simple;
+	bh=EikTUJUHdxyIwacE8DRfLaVQJUhkD9g52077MweOpZU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SNPTXRQ3/het5WhHcqBBkcHT9ZTrpdJFl36yai6S/DB1hKqMw5FprojYIXENthSKinbua4Ak8Q58oqFJy6u9X7TkLbkPdk5VkJTMhXURHY9Qj9M5QfcOW7Tawi2SzfnycHeCXApKfPmVlrAs5YyMAa2NdtPd9O3fTdscdNvER0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXAcs+pP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=lNlpIYtKIN1CiHttMSSKtIS40TCU8GyQ7L/KCNjd4iIjzXz5iiZRHd8b1qH1dXYXBKNGcMN8VHkShjxGnidiP3yMm4Fv+H/bpqEvEng9TGTbBdNyhqCJz2NAF53UXG+mGrOnST8nO8aSiLi9KFhAiQiwrwpDSnVK+zH7izKoUaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bpabTSB0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXAcs+pP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9CF1F000E9;
-	Fri,  4 Sep 2026 02:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bpabTSB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BE61F00ACA;
+	Fri,  4 Sep 2026 02:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788490404;
-	bh=UXsZWCSVeHm+XqpEpW4P+QbJSFu19m8hCINjgwCu7wg=;
+	s=k20260515; t=1788490407;
+	bh=1q0bmQISm09UgwvoqemBnCbtpVp9VO/Fl15gqCq6VAo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JXAcs+pPvndPEDGlFjP5QiZcFP9IvnAq36rVxYzTMxrJp4ToZ1reWt45PptqAxj9T
-	 8rZ/DeXadHqmW9BgPFHFKOYHaeAdBuvmorngEUkF56g6suZF5sEgm6M/tBIoQC/WUq
-	 2IZaSPk3PzApZUhQ2GtAFcSrJykrqOJALrbAuVxOYB25svexLOuLYiXHmAw8J/Y07A
-	 5jesUmQiFd7YzQSxrwUWumegndm0Ze1sCBg6Hi7NZyyt9vpO/fDILxqp/aPPyMsfsn
-	 fKMwbH+BZajSOD8Y4ApIfXKCIz6d9YYfJvioFPwDmVfNJOyA87grNB3mIbbuduI4rH
-	 eqUJnJNmnMG4w==
+	b=bpabTSB0ezP5YwM6U+xnOnHAsIWzQ93TlgxZNhcJtUC8ogP7g/K/BP1jaVydh56R8
+	 mkaA571Xi9ajsJ7k2hlo7JrREZeWcVfuDCSxYzD5rsThL+5UY77xFq9c08w8+KRFbH
+	 eBESl6TKXzfpik3zxA5RyMiFBvUuYVA7U1k5+tQjxRln5wjrIrskeFbiLh76ZcFM9t
+	 OP/XIehRRK/EuC3tni581CcfppDvg60734tX+idJVJfen8NhLYFpFOmHcwBD7L731m
+	 gj1CQpmVF03r6TTJO/ywBKJBDzF08BDTFmmS4SlCJLoVgqPEAQmy+Vhg0PvSGD1wDJ
+	 S3Xesp99hbtYw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	pvmohammedanees2003@gmail.com,
-	akpm@linux-foundation.org,
-	joseph.qi@linux.alibaba.com,
-	mark@fasheh.com,
-	jlbec@evilplan.org,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Miguel Garcia <miguelgarciaroman8@gmail.com>
-Subject: Re: [PATCH 6.1.y] ocfs2: fix deadlock in ocfs2_get_system_file_inode
-Date: Thu,  3 Sep 2026 22:52:58 -0400
-Message-ID: <20260903-daily-reply-0007-re-ocfs2-deadlock-withdraw-6.1@kernel.org>
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5.10.y 0/2] mptcp: fix ADD_ADDR retransmission socket leaks
+Date: Thu,  3 Sep 2026 22:53:00 -0400
+Message-ID: <20260903-daily-reply-0010-re-mptcp-add-addr-rtx-leaks-5.10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <178845186455.1865019.8043691693828475058@gmail.com>
-References: <178845186455.1865019.8043691693828475058@gmail.com>
+In-Reply-To: <20260903083512.99864-1-kmehltretter@gmail.com>
+References: <20260903083512.99864-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,12 +52,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please drop this patch. This branch already contains e79c0fc4f61e, a
-> backport of upstream f5b1910e23f1 that removes system_file_mutex and
-> fixes the lock inversion. The older trylock change is unnecessary and
-> can cause failed directory lookups. Sorry for the noise.
+> Backport the two ordered ADD_ADDR retransmission timer fixes missing
+> from 5.10.y. Patch 1 makes every terminal path release the socket
+> reference held by the timer. Patch 2 uses sock_put() so the last
+> reference frees the socket, while avoiding a timer self-deadlock during
+> destruction.
 
-Ack
+Queued the series for 5.10, thanks.
 
 -- 
 Thanks,
