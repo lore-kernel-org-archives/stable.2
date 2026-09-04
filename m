@@ -1,111 +1,102 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E933D9DB6
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 21:12:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84D839A4A7
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 21:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788556328; cv=none; b=qCwIKiOaaAfuwO1c9NLsR/yac970vtRxMUCdVzx/ecdxocagdNKa81IUz1QTXmn1OfYM263+spqeE+TVrCYGvCKv2EW03uELEeYzZMUkt49kD9bbglEUl9nkXy2u7eqs+4hqyzRi3w0apkA+5A8bdAh86+FM68wrMrSfJnwVQAE=
+	t=1788556628; cv=none; b=nxmZum7/lq+ECMTdF+avKCCerZVFCYLsoYQEuypZrnkyrhIacygMUJMarx7h4by1hrr7Fg6y/59ZABmQCJxEwHw7SUsiY+DidLX5THsHOr0EpvZE8/9vGZSeQZOt8zuPOOrw3KSr6o5yWgMCTtBxpJdaNQgLpCcYR45kGIbTreE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788556328; c=relaxed/simple;
-	bh=XZ2O6+CuggsNKjJUiXGcVa4gfM4JZiv3nmeSny7FCe4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BzRL+NwMUF8mEulTctfs9SsMq4Wr9yfGFiX2ZLk2EpgDfwNuq0tcOBTgyAIVOad289P3aNGOpX2WmP/GacsdY+qg6o7RfrBCcdKKzz9rizUOduW+3FDwyjLsH2wFhLGkAtjvBbAfcw/tcTHnSIP3z4+Dhwy2EC1VSZGKSjABgkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y1GEkaYu; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788556628; c=relaxed/simple;
+	bh=fbcfuCNP59X+xpC5IcevYHcbPlbySqO8B0ppbV4rWIo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=QaoJdr6QlD90Z0miioK5PFqb5oJTrEIbF00uL06iQRM91RGBSfGOuvHb2QVTn2txhetU885pRHdVhauX1LlaDjaO9g7kDUe/Bu/+XMmwRfFcDnBNf2pciX8bre4b8TWP2gkPtuIzK0VqcZ19vXpgJBO/FJ6gKB12c744/8FE4dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PawRyZl3; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y1GEkaYu"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f4f3683fbcso1670223a34.0
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 14:12:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PawRyZl3"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so13877425e9.2
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 14:17:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google; t=1788556323; x=1789161123; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5AT5dBqnr/v+Pip1Q+2K4mDw2hDT4rcmlPRVl1ccW1U=;
-        b=Y1GEkaYuRJPVsuyM1iyN5x5+9Twg/UlZOBeCAk1v97/vyg12JfXXiFUUZwwELybSkA
-         +K4smh1eypeywKyKW0ZUoVPA6pEJ2VqJmycx4vPxtMLoCIUSGv5uzZdBfKzHcJyAjzmY
-         U0VUqvP5Dv2X0OeOjNhqanARKofuYufywQYfU=
+        d=gmail.com; s=20251104; t=1788556625; x=1789161425; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QMge+xrP5bwgHdzm4UEAERiB2kJzyUIFVLBR/fB/uZk=;
+        b=PawRyZl30RpsIFWClGmdd5nmrJpROzKDJfL5WiC3/1bYqUf+GJfpC7BOgtce7NkiJZ
+         +fw1/nLgFZBbiMdda4pZaXaOs8+Aknc74gh+XfsCqlYuEupkBcTv67FPaCMJ0VkDcSgU
+         TvdMer0cq5zfEH94Io+tmQXiV5hVPKj0mh8bWaHE+m7k6lW3ns/x860RAVO+OZuZ/Knw
+         F8WV1nHKz4xEtcMz7WmoHYfGL7UeyNX4wZjBKQ7jBXxVg20FdVDkLtGcGHONTbvGsfOI
+         Ihm3yCF/s6CY4FTkKK+43P6fA1JXmv8wQgG1TY3VY5g+rWQ5E6sElA//aGg+4P+gCfgQ
+         zGIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788556323; x=1789161123;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5AT5dBqnr/v+Pip1Q+2K4mDw2hDT4rcmlPRVl1ccW1U=;
-        b=GuBzR7zxOxxAleH+REK6k+U7HMvFlKNpnY/h195rlxg64i3A3zt18nWjuVzkcXq4hD
-         H3KjRqudPIe4YjkizI9xhoj5uuPoHTXBa/Ka+zI/hFWRfz5Dvg8pOb+HD/XyrVgAeqte
-         Rl/MtdRqVLqVglUBH2TA3OdRZ4xHX35k7GlcHaM6Wk4KJwYdjezkZ6ICW6X/RU58T2rp
-         9eZFNqkdooQ9PFHFxNfBt3eJZf3Q6ew87TlCmWHaPRMw1QPqehnas7iSNUpASYpIH56D
-         jLzhQFu6m2pZ66yqDECl/3dRtX+a/eYV75M9taRFmt+/TQKLn3qGVtMqM0S3yycvUPI+
-         mgrA==
-X-Forwarded-Encrypted: i=1; AKwUvBz3FFZx+xrOOxzsG/W9FYw8rvP0g9/ssm/8mNN6Mt5JKTgTMdj1Fj/Q4OiOVq7x7O5JTpRJi1M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kSUkhQdhaK4XChjlKH7JDmROSKRcKwdBAfdwUdZdVhB84oVG0O
-	6txtFoXuTJ9PMyAHyfDzw3twVuddTaItqtCwjRE5PZxdPYHzUzWIaNs+yQtr9mK0+IU=
-X-Gm-Gg: AYBFou2tiFJjOoQ/ukyIKh5LeEUMrAU7TIEhDHV9vNaCHDz/mugaSBs+g5LEsbtymPZ
-	rVfzXfXXla+Xi6me4juCBFYm5Op0oDALJtO2aSuL2CQtCYjR/Sgl3hb+rThS+jC4r5g/P6+MxfL
-	L0xCL27iNF89AZQ3AG5gb/b/jXXjXRVwox7G+jzbsadabP5E1qr7nHhkJuDDhqDPxeC2RB1j475
-	on4uCnjNxp85FLMiWH2hT8ix2oYBW1y/+7ArMeksyUfaqKLhjVXtOJLClzT//MeTg6IzATDmwEQ
-	KTpLTFGECSbPZkZ2XBf44SrOsexegC2BNbvr8OzAMlADHqkwQeXDE6rks2vLSjuiU5sT3CSzrft
-	x17FTJAa0BM1wQkxXnCZT/kfQ1d1pd8tibPqHjNbLh4bB8L/BkDthLvSWauxVtUZpxCyNFpRG/p
-	eqnw0slPC0fFH5ffZ6B9ia2o8diIXO0XocirfrQjAphODb8QFJkKuXaYkUT6JgzPMCMU9e1Q==
-X-Received: by 2002:a05:6830:4392:b0:7f1:e04d:fc4e with SMTP id 46e09a7af769-7f899a8aa7amr8040035a34.2.1788556323643;
-        Fri, 04 Sep 2026 14:12:03 -0700 (PDT)
-Received: from [192.168.1.128] ([38.15.57.99])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7aeac18sm4031241a34.25.2026.09.04.14.11.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 14:12:03 -0700 (PDT)
-Message-ID: <82febd53-023f-48e0-a0b2-c5da95f069e2@linuxfoundation.org>
-Date: Fri, 4 Sep 2026 15:11:55 -0600
+        d=1e100.net; s=20251104; t=1788556625; x=1789161425;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QMge+xrP5bwgHdzm4UEAERiB2kJzyUIFVLBR/fB/uZk=;
+        b=gIMXqijFzX9Kb13dk15kH2dssn/6iPRn9cl4RydF3hfjyvdDjjA2T5Zs8t7gfVMr/2
+         il56iBGGXgnXzkepa6lbzUCFeR622vYh/uHjFi0ATLOIlKoodyhTFAH2WLiFad5tQmsC
+         6ZYHFJqljCzuoCq5vgd3wMlGxC47x7cOI6xdurRbVc6y5dPSEvV0yastneUpgITHZ5vG
+         Bo5UR6JPBgirxLhTbE3jxtLJkgp5ezQDOVAa9/GqHuJvQvVAvhq+cQalB8L0NJ8ylAVi
+         rz3FWhm3Lbm9IS4ReAxmi5YcciwUf2YYyOLk2Wcq0QJsGRsqSyl9nFLN07sYrNYazW/S
+         ikwA==
+X-Forwarded-Encrypted: i=1; AKwUvBxdeaG9OBsLl4dluV9g1C/41lU+VN5ZzhcM2YnUZWFLRkPxoEKH9B9tyFzRI9iAVXIm743DSmI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lDp+VBg+QtT8zUATdXhbqHFfJoEkX2T5sBAiU1jyXEErTbYUNg
+	DeAhd3AQudzUfV8Ah9CS+syCUKTPgsFyvjmPTqKE5d9MKjBGhfrIeM4=
+X-Gm-Gg: AYBFou3D+xMTCMOrgEdvn4/b7uV4nZnkHRBsnwPNoDGH9LdlXzqVeZA+fo0Ix45JwUR
+	pH0/08S52nM5TOjCrqfWGbTEguw7/i5tixv7gZZZkNJGfG6NZvj/9PJ/bm5f35UD+W28XFTRNHD
+	nCAodVAR90NJfPmYs+vbb3jLqs7OrkhcN0Uz9g3uagdO0Ce+/buAT9OuoqvNpav1oxAIyd671Y8
+	Ey68x5xNoreUJyJpWZblItkmypCa9t4GWuzEZhPTy7pxqbCWRtg1S2p08ojvjA1pnC4WqAG8Z7w
+	hVWe0s6fKp/m31dH9Q9ckmysZzfzSZ5PHnbMGyqG5lDPIAgrEaW5JQ+HlYcqJq9/NY77fL5jgsq
+	xTeyfbOjuA0qlr4HI0T5Pzmz4pIcfIFbuelTmd+2tUKF6utX8DqiUxd+nn9uicapSv26H3bNrEA
+	o8ViUyi06O+V9cG29j+EeU5y+Ro3aRtQWVnbqw9OF/TGV308dxd+aBUDZBXWH6jpwpiHJypjFuc
+	FE=
+X-Received: by 2002:a05:600c:350f:b0:499:b65d:124f with SMTP id 5b1f17b1804b1-49cf825d1dcmr82117795e9.11.1788556624926;
+        Fri, 04 Sep 2026 14:17:04 -0700 (PDT)
+Received: from kali (88-170-213-78.subs.proxad.net. [88.170.213.78])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce591f846sm102532995e9.1.2026.09.04.14.17.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 14:17:03 -0700 (PDT)
+From: Tristan Madani <tristmd@gmail.com>
+To: Derek J. Clark <derekjohn.clark@gmail.com>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
+Subject: Re: [PATCH] HID: hid-oxp: use cancel_delayed_work_sync() in remove
+Date: Fri, 04 Sep 2026 21:17:02 -0000
+Message-ID: <178855662286.3192124.2102579968112413785@gmail.com>
+In-Reply-To: <949B786B-375B-4F2F-B209-C135EC62E1A5@gmail.com>
+References: <20260904105800.3923987-1-tristmd@gmail.com>
+ <949B786B-375B-4F2F-B209-C135EC62E1A5@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 000/403] 6.12.109-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260904045734.806166532@linuxfoundation.org>
-Content-Language: en-US
-From: Shuah Khan <skhan@linuxfoundation.org>
-In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/3/26 22:56, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.12.109 release.
-> There are 403 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.109-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
-> 
+Hi Derek,
 
-Compiled and booted on my test system. No dmesg regressions.
+Thanks for the review.
 
-Tested-by: Shuah Khan <skhan@linuxfoundation.org>
+One thing the Sashiko bot flagged, and I think it's valid: if
+oxp_hid_probe() returns early on an unknown usage page (the
+default: return 0 path), the delayed work items are never
+initialized via INIT_DELAYED_WORK().  In that case,
+cancel_delayed_work_sync() in remove() would call __flush_work()
+on a zero-filled work struct, which hits WARN_ON(!work->func).
 
-thanks,
--- Shuah
+The non-sync cancel_delayed_work() didn't trigger this because it
+never calls __flush_work().
+
+Do you think this path is actually reachable in practice, or are
+the usage page IDs exhaustive for all matched devices?  If it can
+happen, I can send a v2 that guards the cancels.
+
+Thanks,
+Tristan
