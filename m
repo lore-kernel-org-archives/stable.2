@@ -1,277 +1,299 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9547C46DFF1
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:15:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520524; cv=none; b=gHeFsR6sCB5zGEUA8A4Du8nWn6sMS+8GkA9PtFp7g35lqRAHtt6KhiM6UUV4nE2u480yKvtVmmsCSZ7ncM3O3wCR3BGlTPYIRFSyleQ0ozMZy2eRzAlmpEoS6tzfw1+KX3lI0Juqvu94RIjVkvc7hvTqNtFznvQEK8/ADXyJcgI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520524; c=relaxed/simple;
-	bh=laE+sia8mPgillYHXMIscme4r9eE9nE/nf5h2GbR4Q8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sJyGz7tzSoq+Refpij7TLv36SXVBQXFFxl7gdS9bqgbwMNF99aA3rJJosokzjHjW1XJHPmDuL+SAQ0Xnibbb/e0btnYIbUl4xq4TLrhsbPdml6+iY4ulMTW/iip1grsnYA+MGRmM05IaQvgoWEJqmv+0JILy62UVFzNCttdgQp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oJvEuoGQ; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF0430C606
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:16:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788520611; cv=pass; b=gZA1ztSgGhYrTjUaVeta0vIWb1gx/AXMHL5UprNqfwvInS/v/c1bPD9akqlP9qGVRu61/P4zlw+gJ/A9uFM8cuwCE/OKE61QWXmxi0ILRDXFYrCyVQM1JomixZxVByGtjIIxVWwceP2Hzn4xirwDAl5+040L8xh4bQmSB0mest0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788520611; c=relaxed/simple;
+	bh=GlELz1T0laEM2UP4PdR8l9IlbnpjSa6WpjTjjQvZ4yQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U6abqBbpZRPK8TA6pXFtlcOJHzqA3yT14fOx3rBAuX6ALwwTPZuDWsExXXUPuk9KUsMX/NRaQmsp4t0sjr9LmpXhpqpfASwW3R0ix6ZV5ssilINF5KbbWyM/etdgi6pfZG7aUmi3MDRbarZT1Bkk3nOanwJpykQDP/iZmcDIygc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DEu0EkTY; arc=pass smtp.client-ip=209.85.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oJvEuoGQ"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-384c94c9423so99955a91.2
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 04:15:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DEu0EkTY"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a6142b49aeso125803a12.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 04:16:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788520607; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Otlf/WFxoacrbQDytkYc5LO7VYso1MX4no0VKBlkYZ/4gi55EcHuHHckc6L6hLTJLK
+         uXofqdCm9GVaTeSIr6pmwTFizkgmJ5N2Kg6YKF+oLtqrLz+epNE0cAhQ34M1icbgxFEF
+         JfccbzQsYTiosuEQsIqzXtau5XwxkGHYy8QzsQsBPyXP9dCntLwv0K8OZ0CrvEx0DppZ
+         ramvRZCbkLe19vg5dx9/7iamrhv7fOh0iBC2Nl1rXE+659AbA39/GfVURz5tcj0RiITQ
+         FWOY0ju7ELn8KbJX+gPZsPt3nf1RIjJh978/lSJrpBO7zdzq7Z2hR4m/+DuJXpJuhtKy
+         z2Uw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bb6pYk3J7dZNtV3i+q1lQ3BM7UOiq2BxPAGRui36oR8=;
+        fh=9FC2dyUT5DTOjUHQfCss1ZsQFt8Vr9++M5N4LSaJX+I=;
+        b=ptdilpvokcf3ML0GN6QK3jScIHxfUkr+IA/TewWfH6rW8kOr2QT4peeFKxgorKYbty
+         hEeVM6FDOEnbbGaSPOdRlV6MSG1vMIealB8B5CrAcOWjGDJgE90nyo4mVZu8/WOhTD5Z
+         GNUvZMqMeO+Rk+JgEKtn57yo07DdeEImRkr8GyapalMRj+5woxrywWMLozAbhZHHsq5V
+         T4MCR8mo0JaTqV9bCisTJlK72r1FWT5+37/hEKtX6vCpnTIfSWf5kODATv+5paTztiLf
+         mmZpJHOn2wkRXaMk+0LeRbFdni5N506FAk/HxvReyno6BoT5vn+hRcyug7W9m6IupGGo
+         HPyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520522; x=1789125322; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x1FYMpVCeMLMTXdyiCXyvGERdlik2E3HPbOrHaGq/l0=;
-        b=oJvEuoGQQeZCTzzG1Y4pVr3d4rXEkbvC2zvEPj5mCQRzGW1GJ7iTVmpmPSELFtDGJN
-         5TeQa9Dl9D7ykIL+ipt+uCkzgd5vkd1qNrsZFtImZKDvFsBtlmf7iZuDaEN28TcFElEY
-         jGk4Q9dfrO0Ve1zFo4yGATN7D0ML3o/QDFGIJn4gA3LBGPquhMVAbwPNUNJ8cR8uKsaj
-         GZDJPK9mT0nXxQMwRQZ5HqMSz0eblyBTiiNbrDb4iFTgER81iKR1JfyCB46yhh/S4TjK
-         FpIEBqX0uwbcQCn0+q10XMrc1mDyZNMfx+FiTfYqxoNSZe0c1xbwPwqBQVHmUPMPAhRn
-         FGzw==
+        d=gmail.com; s=20251104; t=1788520607; x=1789125407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bb6pYk3J7dZNtV3i+q1lQ3BM7UOiq2BxPAGRui36oR8=;
+        b=DEu0EkTYoPGQpCD4Njcx/a22p4AkIfWZgbqa7aNUhr8tvE2P2fVBZPh4nTQrjFmaZd
+         HLGA7WyjjqCljnpnshU4zXB1xlxRzXDvInjNeAclKF84M3GCTkxedaYnVc8BeAXwzdwb
+         r5AcedBQ0Pv7CqmENIAzjQXFDPB6fNHP6EN6vvA4CifIjElFdxdkG031303VLRQ27EL1
+         azsKCV9qHmgjmT25uirh5T9vSRBeTTnExwLw5DtNqaL46fI6FnBWmTATTrkCawSRSpQE
+         lvajMPxUzAfMVkY9mZv+7ANIPQhvAsS98z0475wC3patWhM1iePEeXzrPVz6+OY2oB/M
+         BKXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520522; x=1789125322;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x1FYMpVCeMLMTXdyiCXyvGERdlik2E3HPbOrHaGq/l0=;
-        b=seNnY4GMLdiTkX1mKCLXPNGcFPjEUJoLgrmVgOIe6cBDcAO0yLXeqXNj8PJ0MOWHil
-         RlXqDRR2FQhQNPpwScavQOWGv08a+Ga5hyh27tK/BJt5BgiuI7BAfpoGijPmmmJBe297
-         zdcwBnIDdH4tVrLKP/TJmHfFVw9EqpjnkEOaiYmAEI7iZxPUTmBgbBXIKTSiLzCOPOGS
-         u2z3FzfBqug2vsEXiou3OdufPf1An3EeDDP9Pu6Pyfx8u1nl9rSMtxHtFZPXXFhgDDZz
-         QqFlayIgvUNWMaHTrRfCyHLY2tc/rptlG2qf4fL4mh7lwyg3YH01N7nT2TvFOOH7cBA5
-         x6Hg==
-X-Forwarded-Encrypted: i=1; AKwUvBxIU5G+qqG2jTG8Y9rnqUAMX07AukNikXWWDceVWnvgFqX5it4PgYnENClnQ7Dk1oICB67vumU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nk3Mzn9O0vkYj7/JmcQeH+2x3V/sHQCkMMFwRTS2X+wsGQpTHS
-	3nZOnrZ5nss03Y+n/hSyLKVV8WtXfRokIM8GmOD6NmKAi8ad/Pur0BiZ
-X-Gm-Gg: AYBFou2ua3zrmeYC5iXQIS7IgyWUzEBhGYySro+lla8lvn9RE5Sv0eC9R0HZNozrZX5
-	nd14sxXoXp16blYyEhTbEq+OebeA0ge07XQoMXOEKaQrlq0jbY23SquMd4oZPg67bTEEouioq2H
-	lpEN7SiqkodXbypSQ9WYZCFEmzpIpxyLbEcF7UVhbR53alEdZa3PPHwrVyTtNi/pjiZ3LoLdiue
-	Tf0gUnqPmDxHDRn2bDeCj/QE0vnW3KWfhE4cvcPB4gdLN+M2lTqZsqbxaefHd1vGXXoDC8XEDQh
-	DejhVlc5Xr6pxgTHjcR1Cfg7OZ04WCxw09+SrLBsvexhYHsP1IT0x2JOanEQyfWsjmPjy9/XCX9
-	+bAf39Gg8Xo2DPHErxtKubJzZBekPtWWuYbXOM5BKvF2LnYPUNIKUrpV6PqJAhQ2R345iopt2SC
-	AZ1rmaL/gi1s332j2cso8FSiOji3fFY1OHVmWh5aMI8JzOlLEoZVAs/4i7h195FtJtufYt6Es44
-	31ehJntEOYigjVqVEOGEO8sy4b2IpkYHdpE2Ubpz8yz3b5wkxiaI4iV0A==
-X-Received: by 2002:a17:90b:4b86:b0:38e:76f8:fcbb with SMTP id 98e67ed59e1d1-39b26252efemr5210672a91.4.1788520521754;
-        Fri, 04 Sep 2026 04:15:21 -0700 (PDT)
-Received: from localhost.localdomain (45.78.64.189.16clouds.com. [45.78.64.189])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm6081862eec.13.2026.09.04.04.15.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 04:15:20 -0700 (PDT)
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-To: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net v3] net: pin protocol module before inet socket allocation
-Date: Fri,  4 Sep 2026 19:15:14 +0800
-Message-ID: <20260904111514.584264-1-nicoyip.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788520607; x=1789125407;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bb6pYk3J7dZNtV3i+q1lQ3BM7UOiq2BxPAGRui36oR8=;
+        b=hGml0Q8XMlDnm30YgeDFe87VSwj5G1QiIPCNOSyQ1ukQogjQowelfjpFmZZvlud8Or
+         ed80kvY21kpWvUdeTc2wP1qK4qyDdjhWHF0rIxQbCODgaXGvIrZ+0LAwB5uhJ+BowunL
+         BVwxkLZ5tVhOZ91aVtmdYal+iXW+ZLGKRCDkU0htnQk6ProA4O1j598JGcu1/dh9PkoY
+         305ozaUyonKOczEG1yDKJM2eZKTkFltlGM0uFF/CEKmicepCbRnB6a4TDCXCjKJOr9xm
+         G85INqMUospcPiUUXzRbP2ZmG2dEY1UDANJ6LVYetVzwcrcvoBfvApybcSGwsVksKi4/
+         ZVwg==
+X-Forwarded-Encrypted: i=1; AKwUvBzUozCQji7iq455YMfgxEsrLIPliROKqi8j/vyrnNlF5Ib/+EkaczaUxly85mDi35W3RP1Fnp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/FgUYdGo6VTNKiZx5j+v3YtxiPqAmylUVO5zArLvO4SCy1TJ/
+	8wxfZnn7vxzw3B97EMnqOhc/lj0qkg6dP/o389DwsTmKZbQYlsJLf/8+6oEOaFL4gR/JHy36Lxh
+	A/8wJ2XqbuEMHPSmmYh1agiDQ5M6EeBM=
+X-Gm-Gg: AYBFou3n5E2k7CewVZqxxJ1GgKwV9tqb3HRlt+zib0LTil64U78cqdyghs2Sytc6e/M
+	SZ1ek4UEKHo2EMuY9McREqrrEjRV+QN8q+hyZwGMzIYd17B+07v62rbilLNsOYvyqoZBCqsSf8o
+	YCaBWQuE8oAbi5i8Soqp26tlhWH5eZ9NBzumMRTF94TKox/HrixHfRE/N4q6jSCLhGKO5FqDwiU
+	kTZ0sJF5DTHy7Mwf/a82NNLhu+cV1HR4rP9+XOK6F6+BUU15A0WGXbxbXawfPxuXv2DNd4gjG1H
+	BZ9p4WPgGVKxKlYB8Unh2pIja0eip1v6FUoW2fMQIBP5EHLv+RGz95H6el3UFWdzYN0GrRjXDNM
+	YPtv4qQbHbw==
+X-Received: by 2002:a05:6402:2b93:b0:6a6:6500:1530 with SMTP id
+ 4fb4d7f45d1cf-6a7e8d97088mr1522492a12.2.1788520606519; Fri, 04 Sep 2026
+ 04:16:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260825172349.232794-1-nicoyip.dev@gmail.com> <20260830235706.746689-1-kuba@kernel.org>
+In-Reply-To: <20260830235706.746689-1-kuba@kernel.org>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Fri, 4 Sep 2026 19:16:34 +0800
+X-Gm-Features: AcwNN1WuxFT_PFRJpA_TW09qtlpO3VJuFjW9iPQKb07AghOxEPzl1Ws0nhyCgxo
+Message-ID: <CAAo+4rWgdyOfm665U=7oSvpNeJV3jhC3cRstb5g9Yt_KEzCNYA@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: pin protocol module before inet socket allocation
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: edumazet@google.com, kuniyu@google.com, pabeni@redhat.com, 
+	willemb@google.com, davem@davemloft.net, horms@kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-inet_create() and inet6_create() look up the protocol under
-rcu_read_lock(), then drop RCU before using the resulting proto.
-sk_alloc() uses GFP_KERNEL, so RCU cannot be held across it.
+On Mon, Aug 31, 2026 at 7:57=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
+ote:
+>
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: pin protocol module before inet socket allocation
+>
+> inet_create() and inet6_create() look up the inet_protosw under RCU and t=
+hen
+> drop RCU before using answer_prot across the sleeping sk_alloc().  The pa=
+tch
+> takes try_module_get(answer_prot->owner) while still under RCU and drops =
+the
+> reference on every path after sk_alloc().
+>
+> > diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
+> > index 32d006c1a8eed..88a18ac0e6e42 100644
+> > --- a/net/ipv4/af_inet.c
+> > +++ b/net/ipv4/af_inet.c
+> > @@ -325,6 +325,10 @@ static int inet_create(struct net *net, struct soc=
+ket *sock, int protocol,
+> >       sock->ops =3D answer->ops;
+> >       answer_prot =3D answer->prot;
+> >       answer_flags =3D answer->flags;
+> > +     if (!try_module_get(answer_prot->owner)) {
+> > +             err =3D -EPROTONOSUPPORT;
+> > +             goto out_rcu_unlock;
+> > +     }
+> >       rcu_read_unlock();
+> >
+> >       WARN_ON(!answer_prot->slab);
+>
+> [Severity: High]
+> Does a plain try_module_get() here cover the case where the protocol modu=
+le
+> is still inside its own init and then rolls back?
+>
+> try_module_get() only gates on module_is_live():
+>
+> kernel/module/main.c:try_module_get() {
+>         ...
+>                 if (likely(module_is_live(module) &&
+>                            atomic_inc_not_zero(&module->refcnt) !=3D 0))
+>         ...
+> }
+>
+> include/linux/module.h:
+> /* FIXME: It'd be nice to isolate modules during init, too, so they
+>    aren't used before they (may) fail. */
+> static inline bool module_is_live(struct module *mod)
+> {
+>         return mod->state !=3D MODULE_STATE_GOING;
+> }
+>
+> So the pin succeeds for a module in MODULE_STATE_COMING, i.e. while
+> do_one_initcall(mod->init) is still running with module_mutex dropped.
+>
+> Some protocol modules publish the protosw early in init and then destroy =
+the
+> slab from their init-failure unwind, which does not consult the module
+> refcount:
+>
+> net/sctp/protocol.c:sctp_v4_protosw_exit() {
+>         inet_unregister_protosw(&sctp_stream_protosw);
+>         inet_unregister_protosw(&sctp_seqpacket_protosw);
+>         proto_unregister(&sctp_prot);
+> }
+>
+> reached from the err_protosw_init label in sctp_init() after
+> sctp_v4_protosw_init() has already registered the protosw.  net/smc has t=
+he
+> same shape:
+>
+> net/smc/smc_inet.c:smc_inet_init() {
+>         ...
+> out_inet6_protosw:
+>         proto_unregister(&smc_inet6_prot);
+> out_inet6_prot:
+>         inet_unregister_protosw(&smc_inet_protosw);
+>         proto_unregister(&smc_inet_prot);
+>         ...
+> }
+>
+> Can the sequence the commit message describes still happen with that?
+>
+> CPU 0 inet_create                  CPU 1 modprobe sctp (mod->init)
+> rcu_read_lock()                    sctp_v4_protosw_init()  /* published *=
+/
+> answer_prot =3D answer->prot
+> try_module_get()  /* COMING -> ok */
+> rcu_read_unlock()                  /* later init step fails */
+>                                    sctp_v4_protosw_exit()
+>                                      inet_unregister_protosw()
+>                                        synchronize_net() /* returns at on=
+ce */
+>                                      proto_unregister()
+>                                        kmem_cache_destroy(slab)
+> WARN_ON(!answer_prot->slab)
+> sk_alloc() -> kmem_cache_alloc(stale)
+>
+> The kernel's own helper rejects exactly this state, which suggests a plai=
+n
+> reference is not a lifetime guarantee during init:
+>
+> kernel/module/main.c:
+> /*
+>  * We require a truly strong try_module_get(): 0 means success.
+>  * Otherwise an error is returned due to ongoing or failed
+>  * initialization etc.
+>  */
+> static inline int strong_try_module_get(struct module *mod)
+> {
+>         BUG_ON(mod && mod->state =3D=3D MODULE_STATE_UNFORMED);
+>         if (mod && mod->state =3D=3D MODULE_STATE_COMING)
+>                 return -EBUSY;
+>
+> Would rejecting owners in MODULE_STATE_COMING (or taking a reference tied=
+ to
+> the protosw/proto lifetime instead of the module refcount) close the resi=
+dual
+> window?
+>
+> > @@ -398,6 +402,8 @@ static int inet_create(struct net *net, struct sock=
+et *sock, int protocol,
+> >               if (err)
+> >                       goto out_sk_release;
+> >       }
+> > +out_module_put:
+> > +     module_put(answer_prot->owner);
+> >  out:
+> >       return err;
+> >  out_rcu_unlock:
+>
+> [Severity: High]
+> On the same init-failure path, can module_put(answer_prot->owner) here re=
+ad
+> freed memory?
+>
+> answer_prot lives in the module's .data, and do_init_module() frees the m=
+odule
+> image without waiting for foreign references:
+>
+> kernel/module/main.c:do_init_module() {
+>         ...
+> fail:
+>         /* Try to protect us from buggy refcounters. */
+>         mod->state =3D MODULE_STATE_GOING;
+>         synchronize_rcu();
+>         module_put(mod);
+>         ...
+>         free_module(mod);
+> }
+>
+> That is unlike the delete_module() path, which does the refcount handshak=
+e in
+> try_stop_module()/try_release_module_ref().  So after free_module() runs,
+> both answer_prot->owner and the sock->ops pointer already stored above re=
+fer
+> to freed module memory.
+>
+> [ ... ]
+>
+> > diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
+> > index 282912a119999..82b390ce3e0cd 100644
+> > --- a/net/ipv6/af_inet6.c
+> > +++ b/net/ipv6/af_inet6.c
+> > @@ -170,6 +170,10 @@ static int inet6_create(struct net *net, struct so=
+cket *sock, int protocol,
+> >       sock->ops =3D answer->ops;
+> >       answer_prot =3D answer->prot;
+> >       answer_flags =3D answer->flags;
+> > +     if (!try_module_get(answer_prot->owner)) {
+> > +             err =3D -EPROTONOSUPPORT;
+> > +             goto out_rcu_unlock;
+> > +     }
+> >       rcu_read_unlock();
+> >
+> >       WARN_ON(!answer_prot->slab);
+>
+> [Severity: High]
+> inet6_create() has the same exclusion, and it also dereferences the proto=
+sw
+> after RCU is dropped:
+>
+>         sk->sk_backlog_rcv      =3D answer->prot->backlog_rcv;
+>
+> Does the COMING-module case above apply here too, given that sctp and smc
+> register their IPv6 protosw during init and unwind through
+> inet_unregister_protosw() + proto_unregister() on failure?
+>
+> [ ... ]
+> --
+> pw-bot: cr
 
-A loadable protocol can be unregistered in that window.
-inet_unregister_protosw() waits with synchronize_net() only for readers
-still in the RCU section. After rcu_read_unlock(), module exit can run
-proto_unregister(), destroy prot->slab, and free the module. inet_create()
-then uses a dangling proto pointer:
 
-  CPU 0 inet_create                     CPU 1 l2tp_ip_exit
-  rcu_read_lock()
-  answer_prot = answer->prot
-  rcu_read_unlock()                     inet_unregister_protosw()
-                                          synchronize_net()
-                                        proto_unregister()
-                                          kmem_cache_destroy(slab)
-  WARN_ON(!answer_prot->slab)
-  sk_alloc() -> kmem_cache_alloc(stale)
+Thanks, a v3 is sent to address both the problems.
 
-This was reproduced with socket(AF_INET, SOCK_DGRAM, IPPROTO_L2TP)
-racing delete_module("l2tp_ip"):
-
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: maybe wild-memory-access in range
-  RIP: kmem_cache_alloc_noprof+0x63/0x370
-  Call Trace:
-   sk_prot_alloc+0x74/0x2c0
-   sk_alloc+0x2b/0x6c0
-   inet_create+0x2cd/0xd40
-   __sock_create+0x1c3/0x430
-   __sys_socket+0x116/0x1d0
-
-A protosw can also be published while its owner is in
-MODULE_STATE_COMING. try_module_get() accepts modules in that state, but
-module initialization failure does not wait for such references before
-freeing the module. A protocol initialization unwind can therefore destroy
-the slab and module image despite the reference.
-
-Cache the proto and its owner while still under RCU. Reject an owner in
-MODULE_STATE_COMING, then pin it before leaving the RCU section. The RCU
-section protects the rejection path against initialization failure, while
-the module reference protects the allocation path against normal unload.
-sk_prot_alloc() obtains the socket-lifetime reference. Drop the temporary
-reference after sk_alloc(). In inet6_create(), use the cached proto rather
-than dereferencing the protosw after leaving RCU.
-
-Fixes: a79af59efd20 ("[NET]: Fix module reference counts for loadable protocol modules")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
----
-Changes in v3:
-- Reject protocol owners in MODULE_STATE_COMING before taking a temporary
-  module reference.
-- Cache the owner under RCU and use that pointer for module_put().
-- Use the cached proto for the IPv6 backlog callback instead of
-  dereferencing the protosw after RCU unlock.
-
-Changes in v2:
-- Pin answer_prot->owner in inet_create()/inet6_create() under RCU instead
-  of reordering try_module_get() in sk_prot_alloc().
-
-Link: https://lore.kernel.org/netdev/20260825172349.232794-1-nicoyip.dev@gmail.com/ [v2]
-Link: https://lore.kernel.org/netdev/20260823171311.3857087-1-nicoyip.dev@gmail.com/ [v1]
----
- net/ipv4/af_inet.c  | 16 +++++++++++++---
- net/ipv6/af_inet6.c | 18 ++++++++++++++----
- 2 files changed, 27 insertions(+), 7 deletions(-)
-
-diff --git a/net/ipv4/af_inet.c b/net/ipv4/af_inet.c
-index 32d006c1a8ee..6b87f0b6cc22 100644
---- a/net/ipv4/af_inet.c
-+++ b/net/ipv4/af_inet.c
-@@ -263,6 +263,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	struct inet_protosw *answer;
- 	struct inet_sock *inet;
- 	struct proto *answer_prot;
-+	struct module *answer_owner;
- 	unsigned char answer_flags;
- 	int try_loading_module = 0;
- 	int err;
-@@ -322,9 +323,16 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	    !ns_capable(net->user_ns, CAP_NET_RAW))
- 		goto out_rcu_unlock;
- 
--	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
-+	answer_owner = answer_prot->owner;
- 	answer_flags = answer->flags;
-+	if (answer_owner &&
-+	    (module_is_coming(answer_owner) ||
-+	     !try_module_get(answer_owner))) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
-+	sock->ops = answer->ops;
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -332,7 +340,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOMEM;
- 	sk = sk_alloc(net, PF_INET, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	err = 0;
- 	if (INET_PROTOSW_REUSE & answer_flags)
-@@ -398,6 +406,8 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -406,7 +416,7 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- 
-diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index 282912a11999..1df8b2e7e243 100644
---- a/net/ipv6/af_inet6.c
-+++ b/net/ipv6/af_inet6.c
-@@ -110,6 +110,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	struct sock *sk;
- 	struct inet_protosw *answer;
- 	struct proto *answer_prot;
-+	struct module *answer_owner;
- 	unsigned char answer_flags;
- 	int try_loading_module = 0;
- 	int err;
-@@ -167,9 +168,16 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	    !ns_capable(net->user_ns, CAP_NET_RAW))
- 		goto out_rcu_unlock;
- 
--	sock->ops = answer->ops;
- 	answer_prot = answer->prot;
-+	answer_owner = answer_prot->owner;
- 	answer_flags = answer->flags;
-+	if (answer_owner &&
-+	    (module_is_coming(answer_owner) ||
-+	     !try_module_get(answer_owner))) {
-+		err = -EPROTONOSUPPORT;
-+		goto out_rcu_unlock;
-+	}
-+	sock->ops = answer->ops;
- 	rcu_read_unlock();
- 
- 	WARN_ON(!answer_prot->slab);
-@@ -177,7 +185,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	err = -ENOBUFS;
- 	sk = sk_alloc(net, PF_INET6, GFP_KERNEL, answer_prot, kern);
- 	if (!sk)
--		goto out;
-+		goto out_module_put;
- 
- 	sock_init_data(sock, sk);
- 
-@@ -201,7 +209,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 	sk->sk_family		= PF_INET6;
- 	sk->sk_protocol		= protocol;
- 
--	sk->sk_backlog_rcv	= answer->prot->backlog_rcv;
-+	sk->sk_backlog_rcv	= answer_prot->backlog_rcv;
- 
- 	inet_sk(sk)->pinet6 = np = inet6_sk_generic(sk);
- 	np->hop_limit	= -1;
-@@ -251,6 +259,8 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- 		if (err)
- 			goto out_sk_release;
- 	}
-+out_module_put:
-+	module_put(answer_owner);
- out:
- 	return err;
- out_rcu_unlock:
-@@ -259,7 +269,7 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
- out_sk_release:
- 	sk_common_release(sk);
- 	sock->sk = NULL;
--	goto out;
-+	goto out_module_put;
- }
- 
- int __inet6_bind(struct sock *sk, struct sockaddr_unsized *uaddr, int addr_len,
--- 
-2.43.0
+Best regards,
+Chengfeng
