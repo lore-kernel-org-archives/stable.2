@@ -1,61 +1,63 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7747C3E9C2F
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC74551C34C
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:58:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788555514; cv=none; b=jIQNNdXheDRM8ZPKYHHOJ277mAw8Mt815q3LzOFUBWVjHxTQ053+ipkAcO13bfs/HEP4KTH1jSiEFxEstNy8dzpW0ZvRmQgSkdsLGZO5PrUmvuydtywKHOXjJVE/eVWFfvo0YkIbGkMBwpGsb4RCuCyhQ+IWKuXGPV6JPJYrDpE=
+	t=1788555542; cv=none; b=IOEjy+8ejk2NsAFDTLTJH3Q+tka3dW9yk2GoldBL/iH6tSf8ZjX+mhCjpp5lZQ1MtKZlSdadXI8VQ4k51vSosnWwxKA1GGVZOdJCi04CDRP7O6jJZYNG5kQwZM+OD7wjLHFwqZs7RD/Nc7z+dgqcmN+d4C4RYQMeZbgNwi7q3Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788555514; c=relaxed/simple;
-	bh=28uhGPjiJ2KFbOvQJhv6vfgzO9MJUM/PdqW0N3evoOk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QnDZpdc1q/Do/vXKwh8YsgItdbjJWAhyEZrnDNCv7IoRcoMlHFFXGAMz5Jz8V/N5aWGytzvp2Rn/NEYKC0EwPfNvNkyweS/e/1XRG3RropYntpz5rDf0g3EysBkS/kU8eCrgCI92r5bUmUz+1ORq7A1l/TZEk4x/2Q3zgz5TDOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PH8V1WhP; arc=none smtp.client-ip=209.85.221.43
+	s=arc-20240116; t=1788555542; c=relaxed/simple;
+	bh=mYlsgrDQw0VP89f1tdnzaO8DqqEdv28FwA5WFWNhrC0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=myCsnYdbbid3De5SbEc/fNY0kNmCuKoKfRG7JNmlY1iQWB2KUWcwnRcokLAKnnfXV2dZR57EcK4sw8mdtFp3MH7HBQMBBpfXXb6ZBGcWapWLtjtyijqJo8OR8CZA9YRf03brig57/+qzLfNjaj2vzmk6VDzVB3CJm84OkK4z6yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEvoXsBU; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PH8V1WhP"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-484374f54d0so937072f8f.3
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 13:58:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEvoXsBU"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8be0409fso11117625e9.2
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 13:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788555509; x=1789160309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6FQ7QnZPMANOssRW33us2G5YSu4ovcViTbmXD59gXys=;
-        b=PH8V1WhP4MY8/RkgToK5DzOTP94PWrxluTheX7jM4xFd/4tlkSj5iBlHTTNrGiY+oi
-         73OnMu2r3Pxdn4gOg0zeC9stTthceOp7FusjPU5ghzSvwFDRUokBlMj/P6kxu6LgbzVR
-         TfMT9ymXggb1RfNnxLKlLyH3Se7LcfRnnpKVtNg0bZq84ptI5vtBxerIEoU4+SwWObGu
-         nBD+NgXOFTts79Z2yAi57saCm1oNH0ycr9JOq2GEFbiaGvfToCk0DjYlYIIWcjn4joIF
-         rquE4JEEd0QMhfEo9T1fryjnHJWbysushTntxOcVWjyONbeQLGCzLnyneF4YyLwRrun3
-         jKWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788555509; x=1789160309;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788555532; x=1789160332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6FQ7QnZPMANOssRW33us2G5YSu4ovcViTbmXD59gXys=;
-        b=d3R8yTm3FHeZc3F1KP9aFeCEBA3gv011XQD8iNMBXjaozr6bb59gVyq6m4S8wYBkDF
-         7hC3Ct02JG6R+l0G0WY1irHkbWBVYhTzVtuKMxyIg3RJIR55Rl/Lo+nFgYB7+ULdZ8/m
-         CrKpKqBB40xYElmmLm3f9LncIes4rXy/lOJ+L4OPwbRzTbPs4U31rYA+nbOBZMVbmsgO
-         zHpXuZbeGJbHURjDj94h1OXiOBPdWdiPbXJnnmvxmJ/Gqq+odphoNR3dqTsQtTvVLAyR
-         DRRwUfRjjkBPo4lo7czUTGYA1UGreSrwz9FWp/+Zx8/yveWBAvi5f2L5LIh6zVmT9ZmU
-         L/Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBxPHpOPOjtAbfRAANz4vJ5EUhH2VSy9HeeElYxaa43m4miMthRSkh3PtqxMMl5wqLw6XA0ym7A=@vger.kernel.org
-X-Gm-Message-State: AFuF++ny05XMMLmYkh6YMYHZ09Q//9JnHqQiD7UJ9ArBUFqO+zeCLdpe
-	D11kPfvq6au+5lv8/Mrhl3f+2/W3HQDh7uX41TmUr8OLI5WsRWLpXFE=
-X-Gm-Gg: AYBFou0t6gMCZr5s4TZvqOxDmWFqcVZWBgvv8Znhr71AzlrYm+l/bGAOqfBPwIolLOl
-	u/xkjoDIMg3PW5Jb3bwYF7Lrck75Xdb3gbrBcmAxOlB8+5SE/oW3Uvd6pvv/xmI+87nEU3KNtZh
-	OBma4xlCU07PbhUIOWBaSBrvbSY2r9pDTHWftWZA9j4LwxZOIPHpMjcgn/I78sNtwzfgktcp63N
-	8ilfyW4W1w/c9E9L/Eu3jtc/jxfK0Tkt/Hb7Zr6zytJTi4kkwp0cMLFjTub+9y04cSFZ0I8O44b
-	r+dvKBImvZ9+7RcmgB4tAXPGd5ALuSMfGgE+TuIECy+I5hV2FsaJ5AvVo53BogGCaFKaPgfp7sp
-	PA13m9xSAmgL1+WDNlw+uS3TBJxUUu/UrOU49nv6wxCUEkOmikqAxKaYm90XbELKqxZEkmMt5fb
-	qGjMR7xZYlAj9AVV3o7f6EN7PK7XBJeWzzK6k97rFfbw==
-X-Received: by 2002:a05:6000:26c4:b0:485:847c:4c64 with SMTP id ffacd0b85a97d-4858729b6f7mr16087150f8f.28.1788555508729;
-        Fri, 04 Sep 2026 13:58:28 -0700 (PDT)
+        bh=+GiCJMpso1xWAYxd1379kkeROa3TRTeuMW+d9bTg3hU=;
+        b=UEvoXsBUmeXCU+P+1p+ppbdPrtqpOCEGBRxLqIBm9qvmZP3AoY7HhIA+qwmouy3pFr
+         uFLuBzN1kCAHh8LxQZ/KMeHxt5/PuwTnurBeS+xoLLp68qG/PTSH4Ivn8RhEwa6p4wEY
+         R/U/Bmw9SVd04gzb0tpHw4qA7Q+4u/4jdhavXwu7WM+vKNDEfy7Fo+xUVq7XDo0KZkut
+         T1LZ2mgpAJSCfOljHOUA1kDdsxjrou7qS/T/v61woMKacAzsDNfqvBG4bT/4EXb4bWm9
+         9JWbCYraDbGWzvJA4VucHe6M1QTg7qE29Di2g9kUFqiwd0C68jCpKqUWK+SvtDpBCGwO
+         2YZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788555532; x=1789160332;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+GiCJMpso1xWAYxd1379kkeROa3TRTeuMW+d9bTg3hU=;
+        b=lYulooNkWUxi6cf4M/GA7L4EnNYH0iLUrhYO/SY13XuHwG5Uc728vIXgLmLuLdwwht
+         v+zA/z+SA33C5YlKvL6OulXcsn1LkJOViJ6wf71KzcqnIQ4gEWa2x/jr/Wco9uzojEC2
+         eWj4yvkAOhYxZktuqWniQJX7pCd99lHs/iZpdXJX0C081osHflXI4knrhdH6QeB47E+h
+         obpGEZK0FjK21ICYqCDIRhWJX+pK8btIBXushewdpsbofwGdPFn2wUJHsn8/5aoKyUxJ
+         L6xrwwQXfriAkmrPrm4h3plJTdiPdpY7aMRKru7SmlXOZvhJDZdqIK2hQnVCp2LTP3OE
+         lTRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxod4pxbl2RVM+vNqUNM2aYcy3zRXuezMMgEYyEzBKrr/u47LExnOmJnnGf3E3mGZywHP6Akxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++loJwfvSGiBC29tyMHIV05aO7iTwG0sLpPRGf/97IX0e0o1/slu
+	iwuY44l735fh2/gF3r2b4L+usnpDuWVNiye703c5q+kPsM6DbCPOxdY=
+X-Gm-Gg: AYBFou395XamioGIGZvPp6GI3bQ+Jkn39wxRkZHslCz4Teyq96XHVzzJJUu4ASkacbe
+	AANU02ip+RnCYwTRH3BEqJCT2aJaDlyTj1TSYzN8dqGINfixWOavkH0S1te/gIlfn+g4yHU2qVV
+	y48ooN/7cDgdfJqfa/J5ti24iq46BmzgkIV90Or9WOT12tzBZdb9vOMZMDX9l+ZHQskEnzaRNwd
+	fFBqm2qco9pKbx/ke1sfKkn02WU3Eg/Hby0rHsLQcwnKgEKkW5xfjsAGIlHc7hXGTjZbAKTR55m
+	576d/BzJByt7XiBxnziSYgGFMOqhP3Un6gC9oxNZ55lX42o/Eq2eNpSbUVyGA1Kx2IcEBoCQcs5
+	Lldp2VJBYXFxgmURRFEVFPFMqlorH1/6DXCG1O9ESi34Mu7LzLG3lFXrQKA4DOq1UtaIplCBJpU
+	D1G9S4xblME9EiigdwM5MvKn/JlvQeww==
+X-Received: by 2002:a05:600c:83c4:b0:499:db6d:bc97 with SMTP id 5b1f17b1804b1-49cf7f5058emr97223535e9.0.1788555531716;
+        Fri, 04 Sep 2026 13:58:51 -0700 (PDT)
 Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm5789563f8f.4.2026.09.04.13.58.27
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm153781665e9.0.2026.09.04.13.58.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 13:58:27 -0700 (PDT)
+        Fri, 04 Sep 2026 13:58:51 -0700 (PDT)
 From: Tristan Madani <tristmd@gmail.com>
 To: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>
@@ -63,10 +65,12 @@ Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH v2 1/2] ALSA: usbusx2y: fix in04_last array size mismatch with in04_buf
-Date: Fri,  4 Sep 2026 20:58:25 +0000
-Message-ID: <20260904205826.4071119-1-tristmd@gmail.com>
+Subject: [PATCH v2 2/2] ALSA: usbusx2y: validate URB actual_length in interrupt callback
+Date: Fri,  4 Sep 2026 20:58:26 +0000
+Message-ID: <20260904205826.4071119-2-tristmd@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260904205826.4071119-1-tristmd@gmail.com>
+References: <20260904205826.4071119-1-tristmd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,84 +81,55 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-The in04_last array in struct usx2ydev is declared as char[24], but
-in04_buf is allocated as sizeof(struct us428_ctls) which is 21 bytes.
-In i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization
-path):
+i_usx2y_in04_int() processes the interrupt URB data without checking
+urb->actual_length.  A short transfer from a malfunctioning device
+would cause the handler to process uninitialized heap data from the
+kmalloc-allocated in04_buf, which is then copied to the mmap-accessible
+ctl_snapshot[] array.
 
-    memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
-
-This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
-past the end of the source object.
-
-Introduce a USX2Y_IN04_SIZE constant defined as sizeof(struct
-us428_ctls) and use it consistently for the in04_last array, the
-in04_buf allocation, the URB transfer length, and the comparison loop,
-replacing the bare 24 and 21 literals throughout.
+Fix by using kzalloc() for in04_buf to zero-initialize the buffer,
+and adding an actual_length check to skip processing on short
+transfers while still resubmitting the URB.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
 ---
-v2: Introduce USX2Y_IN04_SIZE constant and replace all magic number
-    occurrences, per Takashi Iwai review [Takashi Iwai]
- sound/usb/usx2y/usbusx2y.c | 6 +++---
- sound/usb/usx2y/usbusx2y.h | 4 +++-
- 2 files changed, 6 insertions(+), 4 deletions(-)
+v2: Use USX2Y_IN04_SIZE constant instead of bare literal
+ sound/usb/usx2y/usbusx2y.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 4190227c5a2a5..200b708aacd6d 100644
+index 200b708aacd6d..108f9bddf9aa3 100644
 --- a/sound/usb/usx2y/usbusx2y.c
 +++ b/sound/usb/usx2y/usbusx2y.c
-@@ -196,7 +196,7 @@ static void i_usx2y_in04_int(struct urb *urb)
- 			memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
- 			us428ctls->ctl_snapshot_last = -1;
- 		} else {
--			for (i = 0; i < 21; i++) {
-+			for (i = 0; i < USX2Y_IN04_SIZE; i++) {
- 				if (usx2y->in04_last[i] != ((char *)usx2y->in04_buf)[i]) {
- 					if (diff < 0)
- 						diff = i;
-@@ -305,7 +305,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+@@ -189,6 +189,9 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 		return;
+ 	}
+ 
++	if (urb->actual_length < USX2Y_IN04_SIZE)
++		goto resubmit;
++
+ 	if (us428ctls) {
+ 		diff = -1;
+ 		if (us428ctls->ctl_snapshot_last == -2) {
+@@ -253,6 +256,7 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 	if (err)
+ 		dev_err(&urb->dev->dev, "in04_int() usb_submit_urb err=%i\n", err);
+ 
++resubmit:
+ 	urb->dev = usx2y->dev;
+ 	usb_submit_urb(urb, GFP_ATOMIC);
+ }
+@@ -305,7 +309,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
  		goto error;
  	}
  
--	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
-+	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
+-	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
++	usx2y->in04_buf = kzalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
  	if (!usx2y->in04_buf) {
  		err = -ENOMEM;
  		goto error;
-@@ -313,7 +313,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
- 
- 	init_waitqueue_head(&usx2y->in04_wait_queue);
- 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
--			 usx2y->in04_buf, 21,
-+			 usx2y->in04_buf, USX2Y_IN04_SIZE,
- 			 i_usx2y_in04_int, usx2y,
- 			 10);
- 	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
-diff --git a/sound/usb/usx2y/usbusx2y.h b/sound/usb/usx2y/usbusx2y.h
-index 6a76d04bf1c7d..7b6deed17d4b1 100644
---- a/sound/usb/usx2y/usbusx2y.h
-+++ b/sound/usb/usx2y/usbusx2y.h
-@@ -5,6 +5,8 @@
- #include "../midi.h"
- #include "usbus428ctldefs.h"
- 
-+#define USX2Y_IN04_SIZE	sizeof(struct us428_ctls)
-+
- #define NRURBS	        2
- 
- /* Default value used for nr of packs per urb.
-@@ -55,7 +57,7 @@ struct usx2ydev {
- 	int			stride;
- 	struct urb		*in04_urb;
- 	void			*in04_buf;
--	char			in04_last[24];
-+	char			in04_last[USX2Y_IN04_SIZE];
- 	unsigned int		in04_int_calls;
- 	struct snd_usx2y_urb_seq	*us04;
- 	wait_queue_head_t	in04_wait_queue;
 -- 
 2.47.3
 
