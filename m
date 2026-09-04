@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7BB64CA764
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A039F3BFAEE
 	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:18:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538734; cv=none; b=PGNwlM3WBAm4z+zjfOnqKnHvkjdATdeDnIIJQ7iaxgXO53xl3CNsEE4IWVL7sbZveiNR59FHeFgPDyo4M0NtA14CbSlsW5ew4DwWF+pSQoqRfUhycfUuP1Sd4bthhRYvq+eoSSA/d814/jHChsMlXyaCd+0fafA+JBl1IDKTZ8o=
+	t=1788538734; cv=none; b=t/KSIoSdfaqkymUoQOwQDHpv+rKE4iVHSUBScZlmYahoeOnZzct+Y4i4LKJKgBa+RkdFR1ZSP6SLp2EdYji/c+krVc+tCD5z9ozHvJUaE4r4aEh01YFZ1gEA23YoERI9XCBbJqE96cSA1DFthy9xu3otIzAbwz1vjax8ODMrooU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788538734; c=relaxed/simple;
-	bh=nBixZw3/1BkQyzToGEomClwqPJ2mncw8+26Z2hHqfxo=;
+	bh=w07zAcxGPrwpKNC+UEkyQF6OePGiGiP3sL6U5wQzJsI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OAekyQ22tQZpTQ9MKjjj9eHUkuRStXK+Q7u3JgP8mNL5KB3e2dVr5WQCHuzW3VpdCpGuJi+oVtdIOd1rfAmZsp+FfKHf8ziT0IDzrbBrEkdd43IpPhifusWRPDDbQxqpN+1Gkm4UHawbMEMgFWzschDzpErn1R2mfMEV6DUlb5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SzGq2iA5; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=XWMHlWW2XG12XpYjvpASGN9xXNwPNUikS3dy6R3ZL5/SmFU2RA9dlpRnzAPtmRM2GKXbJOJ3nuVfhY/5JZsWm5CZvR3ug6WaFioMQozTzmKDKtRU4WqMabxVQRtBDnNswtHvbzolYjxHjkzEX7ZIpHdAJwAcQ5aqSfUu0ZJS0Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gM/bDQR0; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SzGq2iA5"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gM/bDQR0"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C4EB1BCA;
-	Fri,  4 Sep 2026 09:18:43 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B9D61FC4;
+	Fri,  4 Sep 2026 09:18:48 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 390853F8D6;
-	Fri,  4 Sep 2026 09:18:45 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D840B3F8D6;
+	Fri,  4 Sep 2026 09:18:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788538727; bh=nBixZw3/1BkQyzToGEomClwqPJ2mncw8+26Z2hHqfxo=;
+	t=1788538731; bh=w07zAcxGPrwpKNC+UEkyQF6OePGiGiP3sL6U5wQzJsI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=SzGq2iA5rQ+zWCWm0tmiIlgMADjCbI/9IFmR9Zpb7wjp8x2zPNPNWRac6iHQxNei/
-	 JbDZ2gO1aGGr6HZukCxwyhgcOw6ZILeA0qpHG9vWnNE6/UyrFVUQW+dnQiDAF60us9
-	 lAYrvwXb7bwVUF74uYYa297Rdqt/viyo8ckDLgpw=
+	b=gM/bDQR0GbHmXFnoDfCIxntg9/jiTMGUld1GSVVhLOI655uh4ePdJjINsHtpR7EYk
+	 8/ZBWBG1XkImKS60gBJzKdF9oHS/WsTyjcfb4aOhDMVJyStvGP1H/s/effCLFH0mHf
+	 8KA7b6GDkKdN4a7+D7OYdZuJZ4aqp2PLJhh/Qy1I=
 From: Mark Rutland <mark.rutland@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: ada.coupriediaz@arm.com,
@@ -43,9 +43,9 @@ Cc: ada.coupriediaz@arm.com,
 	vladimir.murzin@arm.com,
 	will@kernel.org,
 	yang@os.amperecomputing.com
-Subject: [PATCH v3 08/21] arm64: ptrace: Always inline pt_regs_[read,write}_reg()
-Date: Fri,  4 Sep 2026 17:17:45 +0100
-Message-Id: <20260904161758.376504-9-mark.rutland@arm.com>
+Subject: [PATCH v3 10/21] arm64: gpr-num: Add wxN aliases for wN registers
+Date: Fri,  4 Sep 2026 17:17:47 +0100
+Message-Id: <20260904161758.376504-11-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
 References: <20260904161758.376504-1-mark.rutland@arm.com>
@@ -57,59 +57,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In subsequent patches we'll want to use pt_regs_read_reg() and
-pt_regs_write_reg() in noinstr code.
+Some A64 instructions require a W register name for specific register
+arguments, and will not accept an X register name. For example:
 
-To ensure noinstr safety, both functions must be inlined into their
-caller. As both functions are marked as 'inline' rather than
-'__always_inline', that's not strictly guaranteed, and the compiler is
-permitted to generate out-of-line copies.
+	STRH <Wt>, [<Xn|SP>, (<Wm>|<Xm>){, <extend> {<amount>}}]
 
-Mark both functions as '__always_inline' to ensure this.
+This is painful when writing macros for inline assembly, especially
+where a single register is used as both an X register and a W register.
 
-There should be no functional change as a result of this patch.
+We solved this for plain assembly by adding a wxN alias for each xN
+register in commit:
+
+  4c4dcd3541f83d21 ("arm64: assembler: introduce wxN aliases for wN registers")
+
+Add the same facility for inline assembly, with a new
+__DEFINE_ASM_GPR_ALIASES macro.
+
+As with the other macros in gpr-num.h, different escaping is necessary
+for inline vs non-inline assembly, so we can't share a single definition
+that we stringify().
 
 Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 Cc: Ard Biesheuvel <ardb@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: James Morse <james.morse@arm.com>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>
 Cc: Marc Zyngier <maz@kernel.org>
 Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Yang Shi <yang@os.amperecomputing.com>
 ---
- arch/arm64/include/asm/ptrace.h | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/gpr-num.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/include/asm/ptrace.h b/arch/arm64/include/asm/ptrace.h
-index f7dc5fb9427d6..f635c3453a858 100644
---- a/arch/arm64/include/asm/ptrace.h
-+++ b/arch/arm64/include/asm/ptrace.h
-@@ -266,7 +266,8 @@ static inline u64 regs_get_register(struct pt_regs *regs, unsigned int offset)
-  * Read a register given an architectural register index r.
-  * This handles the common case where 31 means XZR, not SP.
-  */
--static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
-+static __always_inline unsigned long
-+pt_regs_read_reg(const struct pt_regs *regs, int r)
- {
- 	return (r == 31) ? 0 : regs->regs[r];
- }
-@@ -275,8 +276,8 @@ static inline unsigned long pt_regs_read_reg(const struct pt_regs *regs, int r)
-  * Write a register given an architectural register index r.
-  * This handles the common case where 31 means XZR, not SP.
-  */
--static inline void pt_regs_write_reg(struct pt_regs *regs, int r,
--				     unsigned long val)
-+static __always_inline void
-+pt_regs_write_reg(struct pt_regs *regs, int r, unsigned long val)
- {
- 	if (r != 31)
- 		regs->regs[r] = val;
+diff --git a/arch/arm64/include/asm/gpr-num.h b/arch/arm64/include/asm/gpr-num.h
+index a114e4f8209b0..240cd25d55c5a 100644
+--- a/arch/arm64/include/asm/gpr-num.h
++++ b/arch/arm64/include/asm/gpr-num.h
+@@ -21,6 +21,11 @@
+ "	.equ	.L__gpr_num_xzr, 31\n"				\
+ "	.equ	.L__gpr_num_wzr, 31\n"
+ 
++#define __DEFINE_ASM_GPR_ALIASES									\
++"	.irp	n,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30\n"	\
++"	wx\\n	.req	w\\n\n"										\
++"	.endr\n"
++
+ #endif /* __ASSEMBLER__ */
+ 
+ #endif /* __ASM_GPR_NUM_H */
 -- 
 2.30.2
 
