@@ -1,91 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA20C415B71
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 05:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0197B4137B2;
+	Fri,  4 Sep 2026 05:37:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500220; cv=none; b=Xz9ydHa/xxGfVhQrkn+L2C8lGsHly9B/aqPyuP53TBtBrLVe5Q+bQf+IBr3hAVN62R+fGxQXGMOL4zuZHxNRssTlPCYibeh1mpMxhYABDTmFj4kyPYQBPovHN9VRR/gh0G8WumJtcBfKa1JIU7vQMhLXLxmxuC6M8RBvGZ9bCeM=
+	t=1788500221; cv=none; b=YzaBvumOIfVFxhTpbNCn29wcrzWVI8TiKQb8224UsBpUW8X8ljBUfTxtYy51dIBaAiRNdJhg+4wUxD0byO8Kqtb5MoAJKEiBN9pnlnlLr0XcDD+BqSWcEdtgnXziKM5pG2oV0jfHh9eZibBFYe3ezPc5z88++K2TZ8RcTE1TDFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500220; c=relaxed/simple;
-	bh=CKQBjtLW2OAIZ23M87UUkaixWFnUkORqjMkdRU/cOu8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=BAdfswZ818elp2DDZMJvvDWjmPX3dx3ra7lSQtF5bGp+kNlNgpu9WFmudDcQeviqxrqEHj6U6QdnH+NijXEzeTlM/43dWC6u1RIqcmC0Ch2kuDt/L+aL3Qop98maazAgLmx5Oy3Kqb3wVbD+OOeuXvdustZSugVx5tSsKG9T5HY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MZXk5hHe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788500221; c=relaxed/simple;
+	bh=RD0muWh/oZqJp3SKjkHl8hpOEm8wChvqYllP9gnHGtk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aEOBuE/Y79wBF2/FkPX9g/0qFmucGprr+7oLopvwUzkYdYj+IPhYJxIPEyBopRxDnjjLJlUgWJs1JA1A5EgrXg5HoWfFuyBijCJrRowPhUkiceQzo6PW8a03kPtdaQbvrJZL0bWxkDufdHa4lCcfR+d2OZ0t1JvKlV0fgd09CFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=RSGgkg5W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MZXk5hHe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0D831F00A3E;
-	Fri,  4 Sep 2026 05:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788500218;
-	bh=35oGggnYaL1BYq6dWIq7UbI7mZoQbYF7ydm0fzT6o6I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=MZXk5hHeotSmPfuikBCGBfbZn/2hNW5E+KEvOuCfKVFiCmnb7m1O0fDDLWHq1v9oP
-	 BVbjoC5wgbEZ8Vx8LvQpDmBBLvRIoFKWc7mWDMJfJxNm5B4DBJ8hugb4IXPKtZku/m
-	 GbiDMt2kql/8F3UBe0l6kf+Cp85KvTmBF+60ov6nEipBrrEoFav8fXIWS3KxJwQA54
-	 k7zOOfPAF4jy6yTE2h1iWCLQ9qTMpbrGfoBvzucIZEMFARxkE4uP/wngBWASaP9E/Y
-	 Hraskr5gTQQk4YOqRK6zJmgzfb7/qB4qhrGuKXSJeYVjqL3C3WwTxsRxd5HkbZl6ni
-	 cM3G7lIoxNzgg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: gregkh@linuxfoundation.org, ruanjinjie@huawei.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH 6.1.y, 6.6.y, 6.12.y] entry: Fix seccomp bypass after ptrace
- with TSYNC
-In-Reply-To: <2026090330-yearling-lemon-2d51@gregkh>
-References: <2026090330-yearling-lemon-2d51@gregkh>
-Date: Fri, 04 Sep 2026 07:36:55 +0200
-Message-ID: <87fqzpa87c.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RSGgkg5W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AC211F00A3D;
+	Fri,  4 Sep 2026 05:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788500219;
+	bh=fPBspul85xxe6haCdssGkR4KFwmZqw9DHXeWe0L4XhM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RSGgkg5WsVmTF1EuDJ+WiwRmh5S+oozyk3Ylu60U9IEw3HQVpOtOJ/hbzLD5ztilJ
+	 dQO7yMLga+1tpJv9ff9X8G3zwJNgotwVUhFH/31OyMhZldvMhdbvG5Dh4eTeaU22Tq
+	 fnSbCZkloGTsG3YMUSmjJQVUruVQMAU5f4sdPYuI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Traockl <281473483+Traockl@users.noreply.github.com>,
+	Devin Wittmayer <lucid_duck@justthetip.ca>,
+	Felix Fietkau <nbd@nbd.name>
+Subject: [PATCH 7.2 694/713] wifi: mt76: mt7925: cancel mlo_pm_work on stop
+Date: Fri,  4 Sep 2026 07:01:02 +0200
+Message-ID: <20260904045819.400585362@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+References: <20260904045803.810145556@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-commit 4a3591287fb7f808e209b4974ed337f609a2006b upstream.
+------------------
 
-Sashiko review pointed out the following issue.
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
 
-If a thread is stopped in syscall_trace_enter() for ptrace, another
-thread can install a seccomp filter with SECCOMP_FILTER_FLAG_TSYNC
-(e.g., via seccomp_attach_filter()). This will successfully set
-SYSCALL_WORK_SECCOMP on the stopped thread, but syscall_trace_enter()
-evaluates a cached 'work' variable sampled on entry. Consequently,
-the subsequent check for SYSCALL_WORK_SECCOMP misses the newly
-assigned flag, and the filter is silently bypassed.
+commit 81faf578320df2dfc682a96baa6e85851dd68b6f upstream.
 
-This race condition could allow an unprivileged process to execute
-a prohibited system call (e.g., execve) that the newly installed filter
-was intended to block, especially since the tracer might have modified
-the system call number during the ptrace stop.
+mt7925 queues mlo_pm_work with a 5 second delay during multi-link
+power-save setup and never cancels it on the stop path. If the device is
+torn down inside that window, the work outlives the teardown and its timer
+fires afterwards, trying to queue onto the workqueue that is already gone:
 
-Fix this by re-reading the syscall_work flags after ptrace handling,
-so that any new SYSCALL_WORK_SECCOMP flag set by another thread via
-TSYNC during the ptrace stop is observed before the subsequent
-seccomp check.
+  workqueue: cannot queue mt7925_mlo_pm_work [mt7925_common] on wq phy0
+  WARNING: kernel/workqueue.c:2283 at __queue_work+0x59/0xa0, CPU#1: swapper/1/0
+   call_timer_fn+0x2a/0x140
+   __run_timers+0x203/0x330
+   run_timer_softirq+0x86/0xf0
 
-Fixes: 142781e108b1 ("entry: Provide generic syscall entry functionality")
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+mt7921 already has its own stop callback, so add one for mt7925 that
+cancels the work before calling mt792x_stop(). mt7925_ops backs both the
+PCIe and USB drivers, so this covers both.
+
+Fixes: 276a56883257 ("wifi: mt76: mt7925: update the power-saving flow")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260629132914.1135C1F000E9@smtp.kernel.org/
-Link: https://patch.msgid.link/20260713025712.416366-1-ruanjinjie@huawei.com
+Tested-by: Traockl <281473483+Traockl@users.noreply.github.com>
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Link: https://patch.msgid.link/20260627202946.25598-1-lucid_duck@justthetip.ca
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- kernel/entry/common.c |    3 +++
- 1 file changed, 3 insertions(+)
----
---- a/kernel/entry/common.c
-+++ b/kernel/entry/common.c
-@@ -45,6 +45,9 @@ long syscall_trace_enter(struct pt_regs
- 		ret = ptrace_report_syscall_entry(regs);
- 		if (ret || (work & SYSCALL_WORK_SYSCALL_EMU))
- 			return -1L;
-+
-+		/* ptrace might have changed work flags */
-+		work = READ_ONCE(current_thread_info()->syscall_work);
+ drivers/net/wireless/mediatek/mt76/mt7925/main.c |   11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/main.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/main.c
+@@ -2485,10 +2485,19 @@ static void mt7925_channel_switch_rx_bea
  	}
+ }
  
- 	/* Do seccomp after ptrace, to catch any tracer changes. */
++static void mt7925_stop(struct ieee80211_hw *hw, bool suspend)
++{
++	struct mt792x_dev *dev = mt792x_hw_dev(hw);
++
++	cancel_delayed_work_sync(&dev->mlo_pm_work);
++
++	mt792x_stop(hw, suspend);
++}
++
+ const struct ieee80211_ops mt7925_ops = {
+ 	.tx = mt792x_tx,
+ 	.start = mt7925_start,
+-	.stop = mt792x_stop,
++	.stop = mt7925_stop,
+ 	.add_interface = mt7925_add_interface,
+ 	.remove_interface = mt792x_remove_interface,
+ 	.config = mt7925_config,
+
+
