@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 657ED4A9D78
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:18:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BCBF4A9D48
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:18:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538718; cv=none; b=EdMBhcZlTTrStGg+taZIJLk3pZFBOMuCJjLSHSgDNzu22YWYryb3cXG3QvulZW2oRjXfk7PBMKD4HU7e5uU3FAokNTaTyDlLuV8YIH+5gjMVs8ock2RsLgxNySO3cFTwEYorU5tpeysv9/m41sky2SX9oJzXwFG5LDB25bKVQpQ=
+	t=1788538723; cv=none; b=J2W2f8Vxu/rB5h+QUV50e5oJ7SrHYzq8EPZccJlskdHi9/SXBLLktYhYdnq7KZjmw9PI/o8+4UqgxUwCo+2EYG4DdWH6mXAIvkAfjwTDy2OhfXRZ/bStVGz2VwEJRaazndoeJ5qIuVV3jmWKP/qwcMwK7jdP/8p6/+cGa5sfN64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538718; c=relaxed/simple;
-	bh=VNTopBOMSkbcm9JObmGqJlQAEJJ4Esr4E5Inmoq7/1A=;
+	s=arc-20240116; t=1788538723; c=relaxed/simple;
+	bh=Dku5Deo1eRRXqpsPtgYa4sf2TVZxd3PZhvBhEyKq1EI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=Mash4blyZirBstV2hnnBIT4bBr+GBJc0wCR7iww9ld5ZP4kvbKevgvTf24KDw0uOsL1myDdOZQ73J/FFYx7CT6xjRGsuW+KJCY6mpHTfaO2rbvj5BJZEt1SyRWewpwal2SLzZqOE1B7cDvEl2Kx42jYp1hCCY3rjNY4//Lv8lLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FnElP0XC; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=kJVDizMQX9ewqyPMCJXF6z7YzpuqIZmzaOegd2PX4cO9BnmO9JpUN+heXwV4s5UN8gN39nFtisygMokoAxfhDUgwzsyNuJWfuzGgLhmydPqkLoAoS4hZ6jXEIS7NiN9spZBVDPMnkoc0pTNuy3bM/idG/NJyLdp4QkBUeKJcBiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=HL3AgFia; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FnElP0XC"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="HL3AgFia"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DDD4E152B;
-	Fri,  4 Sep 2026 09:18:31 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 818B61595;
+	Fri,  4 Sep 2026 09:18:36 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 951143FB7F;
-	Fri,  4 Sep 2026 09:18:33 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3F1F33FBD2;
+	Fri,  4 Sep 2026 09:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788538715; bh=VNTopBOMSkbcm9JObmGqJlQAEJJ4Esr4E5Inmoq7/1A=;
+	t=1788538720; bh=Dku5Deo1eRRXqpsPtgYa4sf2TVZxd3PZhvBhEyKq1EI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FnElP0XC/Lud9MIzr6OOcRyDIulmEImgxyNGRQpXnKCWyBPRz0FY6RkwT9wIiDI22
-	 2GCgirH2Y+Se8pYXG99OcBgFochdX/us/Mg2eygivxq4J3kk9x3cOWPzbLpDxBnX4R
-	 Y8PDF2A5Xik9DKwuqCMjp4joWDf/XqvqaDTg1ZJM=
+	b=HL3AgFiaPLEiFmTJz7F1HxgNKFrTuFJMuiLp8Ng7WEz3wOuxClIpuRtDfsS9A/owU
+	 rilQPzsYqVxdlp3s0lXVPey0y0bmJ0WNLJU76OcBUXQiMspFqdruooCWgQB256lk9o
+	 Zf/JKCY8DSbp1WkfduD92kVlXZfr34BVAx/AZIaw=
 From: Mark Rutland <mark.rutland@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: ada.coupriediaz@arm.com,
@@ -43,9 +43,9 @@ Cc: ada.coupriediaz@arm.com,
 	vladimir.murzin@arm.com,
 	will@kernel.org,
 	yang@os.amperecomputing.com
-Subject: [PATCH v3 03/21] arm64: percpu: Fix LSE operations on {8,16}-bit types
-Date: Fri,  4 Sep 2026 17:17:40 +0100
-Message-Id: <20260904161758.376504-4-mark.rutland@arm.com>
+Subject: [PATCH v3 05/21] arm64: cmpxchg128: LSE: Remove redundant operands
+Date: Fri,  4 Sep 2026 17:17:42 +0100
+Message-Id: <20260904161758.376504-6-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
 References: <20260904161758.376504-1-mark.rutland@arm.com>
@@ -57,68 +57,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The assembly for __percpu_##name##_case_##sz() and
-__percpu_##name##_return_case_##sz() doesn't use the 'sfx' macro
-argument to form the LSE instruction. Without 'sfx', a W register
-argument will imply a 32-bit memory location, and consequently
-{8,16}-bit ops will erroneously read and write 32 bits of memory when
-the LSE instruction is used.
+The LSE assembly for cmpxhg128*() has redundant operands which cause
+unnecessary register pressure. These operands can be removed without
+adverse effects, as described below.
 
-Fix this by appending 'sfx' to 'op_lse' to LSE instruction. It is not
-necessary (and not valid) to append 'sfx' to 'op_llsc', as 'op_llsc' is
-a register-register operation which does not access memory (and does not
-take a size suffix).
+It is necessary to force specific registers for the 64-bit halves of
+'old' and 'new', as the encoding of CASP[A][L] requires that these
+halves are allocated into even/odd register pairs, and contemporary
+versions of LLVM don't support a mechanism to allocate a value into an
+even/odd register pair for inline assembly. We manually allocate these
+into x0/x1/x2/x3.
+
+It is not necessary to force the address into a specific register, as
+the encoding of CASP[A][L] can accept this in any GPR or SP. Hence, it
+is not necessary to manually allocate the address into x4 for the
+'[ptr]' operand. The assembly uses the '[v]' operand, and contemporary
+compilers happen to allocate '[v]' into a separate register from
+'[ptr]', meaning that '[ptr]' only serves to create register pressure.
+
+It is not necessary to allocate the '[oldval1]' and '[oldval2]'
+operands, as these are not used by the assembly. The assembly uses the
+'[old1]' and '[old2]' operands for both input and output. The
+'[oldval1]' and '[oldval2]' operands only serve to create register
+pressure.
+
+Remove the redundant operands. This saves on register pressure, as
+demonstrated by the test case below. There's still some unfortunate
+register shuffling due to the manual allocation of 'old' and 'new', but
+this should be less prominent within a larger function.
 
 Test case:
 
-| void outline_this_cpu_add_u8(u8 __percpu *p, u8 v)
+| u128 outline_cmpxchg128(u128 *p, u128 old, u128 new)
 | {
-| 	this_cpu_add(*p, v);
+| 	return cmpxchg128(p, old, new);
 | }
 
-Generated inline code (same before and after this patch):
+Generated code before this patch:
 
-| <outline_this_cpu_add_u8>:
-|        paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mrs     x2, sp_el0
-|        mov     x29, sp
-|        ldr     w3, [x2, #8]
-|        add     w3, w3, #0x1
-|        str     w3, [x2, #8]
-|        mrs     x3, tpidr_el1
-|        add     x0, x0, x3
-| 1:     ldxrb   w5, [x0]        // <----------------
-|        add     w5, w5, w1      // LL/SC alternative
-|        stxrb   w4, w5, [x0]    // instructions here
-|        cbnz    w4, 1b          // <----------------
-|        ldr     x0, [x2, #8]
-|        sub     x0, x0, #0x1
-|        str     w0, [x2, #8]
-|        cbz     x0, 2f
-|        ldr     x0, [x2, #8]
-|        cbnz    x0, 3f
-| 2:     bl      preempt_schedule_notrace
-| 3:     ldp     x29, x30, [sp], #16
-|        autiasp
+| <outline_cmpxchg128>:
+|        mov     x6, x0
+|        mov     x1, x3
+|        mov     x0, x2
+|        b       1f
+|        mov     x2, x4
+|        mov     x3, x5
+|        mov     x4, x6
+|        mov     x5, x0
+|        mov     x7, x1
+|        caspal  x0, x1, x2, x3, [x6]
+|        ret
+| 1:     prfm    pstl1strm, [x6]
+| 2:     ldxp    x8, x7, [x6]
+|        cmp     x8, x0
+|        ccmp    x7, x3, #0x0, eq
+|        b.ne    3f
+|        stlxp   w2, x4, x5, [x6]
+|        cbnz    w2, 2b
+|        dmb     ish
+| 3:     mov     x0, x8
+|        mov     x1, x7
 |        ret
 
-Generated LSE alternative before this patch:
+Generated code after this patch:
 
-|        ldadd   w1, w5, [x0]    // 32-bit LDADD
-|        nop
-|        nop
-|        nop
+| <outline_cmpxchg128>:
+|        mov     x6, x0
+|        mov     x0, x2
+|        b       1f
+|        mov     x1, x3
+|        mov     x2, x4
+|        mov     x3, x5
+|        caspal  x0, x1, x2, x3, [x6]
+|        ret
+| 1:     prfm    pstl1strm, [x6]
+| 2:     ldxp    x8, x7, [x6]
+|        cmp     x8, x0
+|        ccmp    x7, x3, #0x0, eq
+|        3f
+|        stlxp   w2, x4, x5, [x6]
+|        cbnz    w2, 2b
+|        dmb     ish
+| 3:     mov     x0, x8
+|        mov     x1, x7
+|        ret
 
-Generated LSE alternative after this patch:
-
-|        ldaddb  w1, w5, [x0]    // 8-bit LDADDB
-|        nop
-|        nop
-|        nop
-
-Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
 Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
 Cc: Ard Biesheuvel <ardb@kernel.org>
 Cc: Catalin Marinas <catalin.marinas@arm.com>
@@ -129,33 +154,31 @@ Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Yang Shi <yang@os.amperecomputing.com>
-Cc: stable@vger.kernel.org
 ---
- arch/arm64/include/asm/percpu.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/arm64/include/asm/atomic_lse.h | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 31193bcf89a2b..8cf4068ce1b56 100644
---- a/arch/arm64/include/asm/percpu.h
-+++ b/arch/arm64/include/asm/percpu.h
-@@ -77,7 +77,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
- 	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
- 	"	cbnz	%w[loop], 1b",					\
- 	/* LSE atomics */						\
--		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
-+		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
- 		__nops(3))						\
- 	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
- 	  [ptr] "+Q"(*(u##sz *)ptr)					\
-@@ -98,7 +98,7 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
- 	"	stxr" #sfx "\t%w[loop], %" #w "[ret], %[ptr]\n"		\
- 	"	cbnz	%w[loop], 1b",					\
- 	/* LSE atomics */						\
--		#op_lse "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
-+		#op_lse #sfx "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
- 		#op_llsc "\t%" #w "[ret], %" #w "[ret], %" #w "[val]\n"	\
- 		__nops(2))						\
- 	: [loop] "=&r" (loop), [ret] "=&r" (ret),			\
+diff --git a/arch/arm64/include/asm/atomic_lse.h b/arch/arm64/include/asm/atomic_lse.h
+index afad1849c4cf5..d588af0565331 100644
+--- a/arch/arm64/include/asm/atomic_lse.h
++++ b/arch/arm64/include/asm/atomic_lse.h
+@@ -291,15 +291,13 @@ __lse__cmpxchg128##name(volatile u128 *ptr, u128 old, u128 new)		\
+ 	register unsigned long x1 asm ("x1") = o.high;			\
+ 	register unsigned long x2 asm ("x2") = n.low;			\
+ 	register unsigned long x3 asm ("x3") = n.high;			\
+-	register unsigned long x4 asm ("x4") = (unsigned long)ptr;	\
+ 									\
+ 	asm volatile(							\
+ 	__LSE_PREAMBLE							\
+ 	"	casp" #mb "\t%[old1], %[old2], %[new1], %[new2], %[v]\n"\
+ 	: [old1] "+&r" (x0), [old2] "+&r" (x1),				\
+ 	  [v] "+Q" (*(u128 *)ptr)					\
+-	: [new1] "r" (x2), [new2] "r" (x3), [ptr] "r" (x4),		\
+-	  [oldval1] "r" (o.low), [oldval2] "r" (o.high)			\
++	: [new1] "r" (x2), [new2] "r" (x3)				\
+ 	: cl);								\
+ 									\
+ 	r.low = x0; r.high = x1;					\
 -- 
 2.30.2
 
