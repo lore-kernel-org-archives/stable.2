@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4538E3B47F0
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D59414E80CD
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553945; cv=none; b=TR0Wc7jaUyYSvIZnJYR5HBslQ7BnojidzqFnNyJ/TPyQS/CH4L2w9wzrif9JeaArWornhKxYPU9tS7scVO1DSC11mfaD9pSRYtPiyeuOvIGu3qkUMZ/AAwLw4hgnWugja5aVJZ3VwXGkwjPKJzGOv71qOREPAmFoqx//97jcy5M=
+	t=1788553942; cv=none; b=W8EgH4IZKyrb8EVJEnw5tavSt6efm9ksxXwnDAc2SkNrM+FQBZjjh6b1bIbRodBrPJQjNlu++pzfo5Dn5hhHLw0KEMGYv7f8hG8VJW89xaJP2LKlQINBptLwThXZmKph33nSNyHtFmgZaTuMiTtQjhw1PVJzaJKj4Unr61l6rlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553945; c=relaxed/simple;
-	bh=cKK+q46aKF7uI5u3uZniB3WdUB0jFcn3OOvoUbmqavs=;
+	s=arc-20240116; t=1788553942; c=relaxed/simple;
+	bh=MPtPmYz0UQE2CLr3GsSxVgdEE321YCUk934Fd4v1BC8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rlq6FLRA0VukgNwB/mRsuocHAIucNU6X0icX69counXhIgdEcnM3wEfKoYcw1ovdY26uAHwUq9k0ayRBcAIaH0D8+KXZPeHHYO9M5408Wf3ZoZhG7bCEBWWtKIMobJNJjFtCU5596vtIlMgKdbGM/tj4wfWu+39IpEVmcgOy7ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CsZb8YlK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iINsiMN2p/zbnkx6j/svy1nCps1XydfTD1f3wHeO1y4gDm7Z+J/QGA7VB0Vk1HTptjrgeHKv7A0y7d2Afgor+YAw/4o1LaFwUUKNCWYYvb3ZhZMHfD5XsNGuWZrm94EXkJ2McrX7FWLa/x3BEs3bGWBYcGDkkN4oE0y1vEzUDHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnIx0Alm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CsZb8YlK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EB5E1F00A3D;
-	Fri,  4 Sep 2026 20:32:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnIx0Alm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33C3E1F00ACA;
+	Fri,  4 Sep 2026 20:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553929;
-	bh=sJK/XxTNn7At+QYyw5K9QU+HJ9u+gEkWLHwkeJ4YxFA=;
+	s=k20260515; t=1788553935;
+	bh=86PB7/2JzUS/3xqeXQuq+V86iBSVuEuol06ePYZwgzg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CsZb8YlKV9Y+SkQa6BZT85MIDlCfDbXapOMqQV8WkPjjZBkXaOzlS/IM+l8Z7uTO7
-	 IKWx8KCqHfV8u8LoC2Fg2yMzgg7ucsN+xKm26Le2EDaO+JTHwP1BPOsFay7XcOyjUP
-	 LauU8BmYW7ntIY+uSY/J2bKj6kfvFVw93DCFY3yZxHu/4yMV4E0QOKn+w+Z3rVwNKb
-	 GbY+nxLCbXUgoTJax8m9iY8/U1yMwdk/1j2f5HWWlxqAe8jA5jgbMkf5l/IukLO9LR
-	 xFMY/CY4Aj1GeFueTv04T0tuKBr4ko9Ts9NMtuFW951xux6HOSvpOfK+fVs5oer/jk
-	 oPmVefvNPxN+g==
+	b=gnIx0AlmV/BaD3j/aosnPkcQkFCcYrhgMnh0l/G7G70edMwz4I2bNWCSp0RJXag+r
+	 GWEaHkDyxMgfNmZ/tqzXHHYYGfjWht89TnW8LqhYr9EtZ9eXWyZ2cwD+sNYZIX1FI2
+	 fJT7hIEtBMFJu02O0ZJQqeLLr/sBLEiSi1WrrNLiBeyFNDcvSP2V/dnjtdhRcZMOCp
+	 lDy5N2u2x51een1ypUrCmTBDEjUX6e1iauWLYnu79wMQrKnKt0S2psOFQJgHWrRe/h
+	 zYvqQ8SHVWBiJDZkvN0YAXLldf+mXupRevLmkRmt1Ya1aB9p84P5mVtO9ejKFBxhqL
+	 1jDy8BMiHuDUQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Brian Geffon <bgeffon@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Richard Chang <richardycc@google.com>,
+	Yuwen Chen <ywen.chen@foxmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] usb: typec: ucsi: extract common code for command handling
-Date: Fri,  4 Sep 2026 16:32:06 -0400
-Message-ID: <20260904203207.1547529-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/5] zram: drop wb_limit_lock
+Date: Fri,  4 Sep 2026 16:32:08 -0400
+Message-ID: <20260904203211.1547892-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090308-uneasy-legible-48cb@gregkh>
-References: <2026090308-uneasy-legible-48cb@gregkh>
+In-Reply-To: <20260904203211.1547892-1-sashal@kernel.org>
+References: <2026090323-dreamboat-stable-993d@gregkh>
+ <20260904203211.1547892-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,267 +50,154 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit 584e8df58942338602c70686b451b5c3093543a1 ]
+[ Upstream commit a4f506c569e1320c2db4a32955e47961fcf02b05 ]
 
-Extract common functions to handle command sending and to handle events
-from UCSI. This ensures that all UCSI glue drivers handle the ACKs in
-the same way.
+We don't need wb_limit_lock.  Writeback limit setters take an exclusive
+write zram init_lock, while wb_limit modifications happen only from a
+single task and under zram read init_lock.  No concurrent wb_limit
+modifications are possible (we permit only one post-processing task at a
+time).  Add lockdep assertions to wb_limit mutators.
 
-The CCG driver used DEV_CMD_PENDING both for internal
-firmware-related commands and for UCSI control handling. Leave the
-former use case intact.
+While at it, fixup coding styles.
 
-Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
-Link: https://lore.kernel.org/r/20240627-ucsi-rework-interface-v4-6-289ddc6874c7@linaro.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-[ sashal: Reduced backport -- upstream 584e8df589423 touches 7 file(s), this
-  backport carries 4. Not backported here:
-  drivers/usb/typec/ucsi/ucsi_glink.c
-  drivers/usb/typec/ucsi/ucsi_stm32g0.c
-  drivers/usb/typec/ucsi/ucsi_yoga_c630.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: eb4573cf2fd8 ("usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion")
+Link: https://lkml.kernel.org/r/20251122074029.3948921-5-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reviewed-by: Brian Geffon <bgeffon@google.com>
+Cc: Minchan Kim <minchan@google.com>
+Cc: Richard Chang <richardycc@google.com>
+Cc: Yuwen Chen <ywen.chen@foxmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: dde75313eed0 ("zram: set default primary compressor in zram_destroy_comps()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c      | 44 ++++++++++++++++++++++++++++++
- drivers/usb/typec/ucsi/ucsi.h      |  5 ++++
- drivers/usb/typec/ucsi/ucsi_acpi.c | 36 ++----------------------
- drivers/usb/typec/ucsi/ucsi_ccg.c  | 24 +++-------------
- 4 files changed, 55 insertions(+), 54 deletions(-)
+ drivers/block/zram/zram_drv.c | 23 ++++-------------------
+ drivers/block/zram/zram_drv.h |  1 -
+ 2 files changed, 4 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 34b6965ee30b5..2fade504b6235 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -36,6 +36,49 @@
-  */
- #define UCSI_SWAP_TIMEOUT_MS	5000
- 
-+void ucsi_notify_common(struct ucsi *ucsi, u32 cci)
-+{
-+	if (UCSI_CCI_CONNECTOR(cci))
-+		ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
-+
-+	if (cci & UCSI_CCI_ACK_COMPLETE &&
-+	    test_bit(ACK_PENDING, &ucsi->flags))
-+		complete(&ucsi->complete);
-+
-+	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
-+	    test_bit(COMMAND_PENDING, &ucsi->flags))
-+		complete(&ucsi->complete);
-+}
-+EXPORT_SYMBOL_GPL(ucsi_notify_common);
-+
-+int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
-+{
-+	bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
-+	int ret;
-+
-+	if (ack)
-+		set_bit(ACK_PENDING, &ucsi->flags);
-+	else
-+		set_bit(COMMAND_PENDING, &ucsi->flags);
-+
-+	ret = ucsi->ops->async_write(ucsi, UCSI_CONTROL, &command,
-+				     sizeof(command));
-+	if (ret)
-+		goto out_clear_bit;
-+
-+	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
-+		ret = -ETIMEDOUT;
-+
-+out_clear_bit:
-+	if (ack)
-+		clear_bit(ACK_PENDING, &ucsi->flags);
-+	else
-+		clear_bit(COMMAND_PENDING, &ucsi->flags);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
-+
- static int ucsi_acknowledge_command(struct ucsi *ucsi)
- {
- 	u64 ctrl;
-@@ -1413,6 +1456,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
- 
- 	INIT_WORK(&ucsi->work, ucsi_init_work);
- 	mutex_init(&ucsi->ppm_lock);
-+	init_completion(&ucsi->complete);
- 	ucsi->dev = dev;
- 	ucsi->ops = ops;
- 
-diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
-index 44c788b4a8b38..655c62586d88a 100644
---- a/drivers/usb/typec/ucsi/ucsi.h
-+++ b/drivers/usb/typec/ucsi/ucsi.h
-@@ -4,6 +4,7 @@
- #define __DRIVER_USB_TYPEC_UCSI_H
- 
- #include <linux/bitops.h>
-+#include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/power_supply.h>
- #include <linux/types.h>
-@@ -303,6 +304,7 @@ struct ucsi {
- #define EVENT_PENDING	0
- #define COMMAND_PENDING	1
- #define ACK_PENDING	2
-+	struct completion complete;
- #define EVENT_PROCESSING	3
- };
- 
-@@ -348,6 +350,9 @@ int ucsi_send_command(struct ucsi *ucsi, u64 command,
- void ucsi_altmode_update_active(struct ucsi_connector *con);
- int ucsi_resume(struct ucsi *ucsi);
- 
-+void ucsi_notify_common(struct ucsi *ucsi, u32 cci);
-+int ucsi_sync_control_common(struct ucsi *ucsi, u64 command);
-+
- #if IS_ENABLED(CONFIG_POWER_SUPPLY)
- int ucsi_register_port_psy(struct ucsi_connector *con);
- void ucsi_unregister_port_psy(struct ucsi_connector *con);
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 0c88d5bf09cae..ea6a47e3c304a 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -20,8 +20,6 @@ struct ucsi_acpi {
- 	struct device *dev;
- 	struct ucsi *ucsi;
- 	void __iomem *base;
--	struct completion complete;
--	unsigned long flags;
- 	guid_t guid;
- };
- 
-@@ -69,29 +67,7 @@ static int ucsi_acpi_async_write(struct ucsi *ucsi, unsigned int offset,
- static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
- 				const void *val, size_t val_len)
- {
--	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
--	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
--	int ret;
--
--	if (ack)
--		set_bit(ACK_PENDING, &ua->flags);
--	else
--		set_bit(COMMAND_PENDING, &ua->flags);
--
--	ret = ucsi_acpi_async_write(ucsi, offset, val, val_len);
--	if (ret)
--		goto out_clear_bit;
--
--	if (!wait_for_completion_timeout(&ua->complete, 60 * HZ))
--		ret = -ETIMEDOUT;
--
--out_clear_bit:
--	if (ack)
--		clear_bit(ACK_PENDING, &ua->flags);
--	else
--		clear_bit(COMMAND_PENDING, &ua->flags);
--
--	return ret;
-+	return ucsi_sync_control_common(ucsi, *(u64 *)val);
- }
- 
- static const struct ucsi_operations ucsi_acpi_ops = {
-@@ -110,14 +86,7 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
- 	if (ret)
- 		return;
- 
--	if (UCSI_CCI_CONNECTOR(cci))
--		ucsi_connector_change(ua->ucsi, UCSI_CCI_CONNECTOR(cci));
--
--	if (cci & UCSI_CCI_ACK_COMPLETE && test_bit(ACK_PENDING, &ua->flags))
--		complete(&ua->complete);
--	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
--	    test_bit(COMMAND_PENDING, &ua->flags))
--		complete(&ua->complete);
-+	ucsi_notify_common(ua->ucsi, cci);
- }
- 
- static int ucsi_acpi_probe(struct platform_device *pdev)
-@@ -160,7 +129,6 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
- 	if (ret)
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index 1f0727c0b1748..a9f69da092ba5 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -512,9 +512,7 @@ static ssize_t writeback_limit_enable_store(struct device *dev,
  		return ret;
  
--	init_completion(&ua->complete);
- 	ua->dev = &pdev->dev;
+ 	down_write(&zram->init_lock);
+-	spin_lock(&zram->wb_limit_lock);
+ 	zram->wb_limit_enable = val;
+-	spin_unlock(&zram->wb_limit_lock);
+ 	up_write(&zram->init_lock);
+ 	ret = len;
  
- 	ua->ucsi = ucsi_create(&pdev->dev, &ucsi_acpi_ops);
-diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
-index 8d69bc5bff20a..ba5c7fecaca22 100644
---- a/drivers/usb/typec/ucsi/ucsi_ccg.c
-+++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
-@@ -211,8 +211,6 @@ struct ucsi_ccg {
- 	u16 fw_build;
- 	struct work_struct pm_work;
+@@ -529,9 +527,7 @@ static ssize_t writeback_limit_enable_show(struct device *dev,
+ 	struct zram *zram = dev_to_zram(dev);
  
--	struct completion complete;
--
- 	u64 last_cmd_sent;
- 	bool has_multiple_dp;
- 	struct ucsi_ccg_altmode orig[UCSI_MAX_ALTMODES];
-@@ -564,7 +562,6 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
+ 	down_read(&zram->init_lock);
+-	spin_lock(&zram->wb_limit_lock);
+ 	val = zram->wb_limit_enable;
+-	spin_unlock(&zram->wb_limit_lock);
+ 	up_read(&zram->init_lock);
  
- 	mutex_lock(&uc->lock);
- 	pm_runtime_get_sync(uc->dev);
--	set_bit(DEV_CMD_PENDING, &uc->flags);
+ 	return sysfs_emit(buf, "%d\n", val);
+@@ -549,9 +545,7 @@ static ssize_t writeback_limit_store(struct device *dev,
+ 		return ret;
  
- 	if (offset == UCSI_CONTROL && val_len == sizeof(uc->last_cmd_sent)) {
- 		uc->last_cmd_sent = *(u64 *)val;
-@@ -582,15 +579,7 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
- 		}
- 	}
+ 	down_write(&zram->init_lock);
+-	spin_lock(&zram->wb_limit_lock);
+ 	zram->bd_wb_limit = val;
+-	spin_unlock(&zram->wb_limit_lock);
+ 	up_write(&zram->init_lock);
+ 	ret = len;
  
--	ret = ucsi_ccg_async_write(ucsi, offset, val, val_len);
--	if (ret)
--		goto err_clear_bit;
--
--	if (!wait_for_completion_timeout(&uc->complete, msecs_to_jiffies(5000)))
--		ret = -ETIMEDOUT;
--
--err_clear_bit:
--	clear_bit(DEV_CMD_PENDING, &uc->flags);
-+	ret = ucsi_sync_control_common(ucsi, *(u64 *)val);
- err_put:
- 	pm_runtime_put_sync(uc->dev);
- 	mutex_unlock(&uc->lock);
-@@ -621,16 +610,12 @@ static irqreturn_t ccg_irq_handler(int irq, void *data)
- 	if (ret)
- 		goto err_clear_irq;
- 
--	if (UCSI_CCI_CONNECTOR(cci))
--		ucsi_connector_change(uc->ucsi, UCSI_CCI_CONNECTOR(cci));
--
--	if (test_bit(DEV_CMD_PENDING, &uc->flags) &&
--	    cci & (UCSI_CCI_ACK_COMPLETE | UCSI_CCI_COMMAND_COMPLETE))
--		complete(&uc->complete);
--
- err_clear_irq:
- 	ccg_write(uc, CCGX_RAB_INTR_REG, &intr_reg, sizeof(intr_reg));
- 
-+	if (!ret)
-+		ucsi_notify_common(uc->ucsi, cci);
-+
- 	return IRQ_HANDLED;
+@@ -559,15 +553,13 @@ static ssize_t writeback_limit_store(struct device *dev,
  }
  
-@@ -1344,7 +1329,6 @@ static int ucsi_ccg_probe(struct i2c_client *client,
- 	uc->dev = dev;
- 	uc->client = client;
- 	mutex_init(&uc->lock);
--	init_completion(&uc->complete);
- 	INIT_WORK(&uc->work, ccg_update_firmware);
- 	INIT_WORK(&uc->pm_work, ccg_pm_workaround_work);
+ static ssize_t writeback_limit_show(struct device *dev,
+-		struct device_attribute *attr, char *buf)
++				    struct device_attribute *attr, char *buf)
+ {
+ 	u64 val;
+ 	struct zram *zram = dev_to_zram(dev);
  
+ 	down_read(&zram->init_lock);
+-	spin_lock(&zram->wb_limit_lock);
+ 	val = zram->bd_wb_limit;
+-	spin_unlock(&zram->wb_limit_lock);
+ 	up_read(&zram->init_lock);
+ 
+ 	return sysfs_emit(buf, "%llu\n", val);
+@@ -747,18 +739,17 @@ static int zram_writeback_slots(struct zram *zram, struct zram_pp_ctl *ctl)
+ 	int ret = 0, err;
+ 	u32 index;
+ 
++	lockdep_assert_held_read(&zram->init_lock);
++
+ 	page = alloc_page(GFP_KERNEL);
+ 	if (!page)
+ 		return -ENOMEM;
+ 
+ 	while ((pps = select_pp_slot(ctl))) {
+-		spin_lock(&zram->wb_limit_lock);
+ 		if (zram->wb_limit_enable && !zram->bd_wb_limit) {
+-			spin_unlock(&zram->wb_limit_lock);
+ 			ret = -EIO;
+ 			break;
+ 		}
+-		spin_unlock(&zram->wb_limit_lock);
+ 
+ 		if (!blk_idx) {
+ 			blk_idx = alloc_block_bdev(zram);
+@@ -824,10 +815,8 @@ static int zram_writeback_slots(struct zram *zram, struct zram_pp_ctl *ctl)
+ 		zram_set_handle(zram, index, blk_idx);
+ 		blk_idx = 0;
+ 		atomic64_inc(&zram->stats.pages_stored);
+-		spin_lock(&zram->wb_limit_lock);
+ 		if (zram->wb_limit_enable && zram->bd_wb_limit > 0)
+ 			zram->bd_wb_limit -=  1UL << (PAGE_SHIFT - 12);
+-		spin_unlock(&zram->wb_limit_lock);
+ next:
+ 		zram_slot_unlock(zram, index);
+ 		release_pp_slot(zram, pps);
+@@ -2467,7 +2456,7 @@ static void zram_destroy_comps(struct zram *zram)
+ 
+ static void zram_reset_device(struct zram *zram)
+ {
+-	down_write(&zram->init_lock);
++	guard(rwsem_write)(&zram->init_lock);
+ 
+ 	zram->limit_pages = 0;
+ 
+@@ -2483,7 +2472,6 @@ static void zram_reset_device(struct zram *zram)
+ 	reset_bdev(zram);
+ 
+ 	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+-	up_write(&zram->init_lock);
+ }
+ 
+ static ssize_t disksize_store(struct device *dev,
+@@ -2695,9 +2683,6 @@ static int zram_add(void)
+ 	device_id = ret;
+ 
+ 	init_rwsem(&zram->init_lock);
+-#ifdef CONFIG_ZRAM_WRITEBACK
+-	spin_lock_init(&zram->wb_limit_lock);
+-#endif
+ 
+ 	/* gendisk structure */
+ 	zram->disk = blk_alloc_disk(&lim, NUMA_NO_NODE);
+diff --git a/drivers/block/zram/zram_drv.h b/drivers/block/zram/zram_drv.h
+index 6cee93f9c0d06..8f64317e3b6c5 100644
+--- a/drivers/block/zram/zram_drv.h
++++ b/drivers/block/zram/zram_drv.h
+@@ -127,7 +127,6 @@ struct zram {
+ 	bool claim; /* Protected by disk->open_mutex */
+ #ifdef CONFIG_ZRAM_WRITEBACK
+ 	struct file *backing_dev;
+-	spinlock_t wb_limit_lock;
+ 	bool wb_limit_enable;
+ 	u64 bd_wb_limit;
+ 	struct block_device *bdev;
 -- 
 2.53.0
 
