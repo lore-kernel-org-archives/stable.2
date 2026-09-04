@@ -1,101 +1,89 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8594052D4;
-	Fri,  4 Sep 2026 07:02:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96AE377A8B
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 07:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505380; cv=none; b=HwS+vLgFQz3jLWsSmpd1U+/GyL5KnLFnzqiDwAxuPLi9cKvBEnPLsnqHJJuk7I9GZxkYhgihS5lPhNV2SRTawQeR/g1j5buDsI7qewkfPefgRpKgO0m5d0LVndaZLMyGQ3t8WS5lOMMsrASR+D7G7aKZcqiXUsNkTM0ibpVTXnU=
+	t=1788505447; cv=none; b=o9NeR3m/qGmf7hoJsyFaX/SJpE3ztnMfmRhTQbFCSUm5hiyjSRlew2TeH9gkQTEesTcQdpdBlU8yDpOQ/kw7jiMKQm8Mf2NLF07rqgf5NC2dtvsEoFBj98VpCQDYjcdnm5T5IXbXqcNDtDI7tnMRtZeZd3LZfVReNft8vrhaMJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505380; c=relaxed/simple;
-	bh=LDWBVc1y+1fryeW3GilPMmIhntjcCvC5Zt4gLC2u4w4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rKzbnGGAFOSfZ6JS9gL4GmWyIKonJHYCU6ROFAXcwebux1pmKljQVzTzWn1aGP3OBUH55ogZY0QLMqY6mw1yeBrze9U2lHf/K4R+z7TZqd7k85jNOkkhAGEdyY1XjVdeGEfEOGlUoMFJCLBOOI9J52dMCG1CPpsLAWXKI5OklLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BiEbd8l9; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788505447; c=relaxed/simple;
+	bh=m8Vq14wjGEle04nPXsdB4QEY1+8wvsxldq81mjFlg2c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PE4ExvhjUHPeKNu2qnwm86NVEWcmQCluw6APepkrQD2ppaa0dI174ek6HKVwTUD/8NBtIHvtqpZtRJRA0yCveqc+Q+kEr4yZQ5O2dWayE6n9ybpeEaCmjWMlkcPOmXafWoHEtVeJwfJG1u8c57X71xxtz4z4pkFR0xDPPunJQ08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hSVw5txk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BiEbd8l9"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hbnV64XTpz8tYt;
-	Fri, 04 Sep 2026 09:02:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788505374; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vkTXhSUxZlPterV5lsTm8TrVGWaiq1FzBIugDqMjlws=;
-	b=BiEbd8l92lFlcr7LOcHlM8gA643/Vc9+1R88BCQ7NzVLApWfJAPWQCSWRvFFy281WlhDw0
-	PezwhO4w2JR7tNEQQH7wLJ0xpNY13YGV850R808XXB6pO40xbojMW1Jh0ww70CgKNGs8lh
-	vppiq1JZ+oEiD1LcYM53MrdvvtqC44Pn7ihn+GGfL4EtqliQOErxqEXF1uNwiWVwKF0B/F
-	WjEPHaFa0wQcZSKfF4PtK60sCOedyJUXgI7yYCs41ZSnXP/gqvEGIQYK36fPK8MqTy9YnF
-	avdvHuMEJGM2V3bz6DXJopyh4JfC1x/4kFC+6+DNIkJs4M6qUk0kttMe+oU18g==
-Message-ID: <fcecfac828dc3f338d59125d6f0306534e1e2429.camel@mailbox.org>
-Subject: Re: [PATCH v2] drm/sched: Create a fake device for KUnit tests
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
-  Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
- <oushixiong@kylinos.cn>, stable@vger.kernel.org
-Date: Fri, 04 Sep 2026 09:02:47 +0200
-In-Reply-To: <20260903121558.782854-1-oushixiong1025@163.com>
-References: <20260903121558.782854-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hSVw5txk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818231F00A3D;
+	Fri,  4 Sep 2026 07:04:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788505445;
+	bh=iBXF5v1VOSzvxor8PqmVy7xN/iYE8cXe4jVbYbzgvRg=;
+	h=From:To:Cc:Subject:Date;
+	b=hSVw5txkdUb6t10+1fBJEidf3szXKlD/yKG7dT2Yi8chQzFdZW6c8w0EzXCuZprUh
+	 ugfcnZKsfYu9IxxEP3iS4QfJ0+Mg8sHvBn0DLgcxTSOd2ciViKG02KPyizGCaSaCa4
+	 5zoBZkBu18MROvb2MxlPPtHbXJOtyV71euyieULA4wsihrx3F+XR7vSlQGkfm/VzgF
+	 rDdkAMJDzKXJ+V7ifL9s+NyBvFtuVX2V0YnJRB71dIGxlI+O5znRBqBe4U/8uNKnPf
+	 tJbZFWoKTfjXu+uuBILtxJfTLGQnaVGNz0MH0siz9SHUZz/VlWwe8KHmxbflNP0H4o
+	 O9/3AL/gXSBEw==
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: tzungbi@kernel.org,
+	alsa-devel@alsa-project.org,
+	stable@vger.kernel.org
+Subject: [PATCH 6.1.y] ALSA: seq: Fix port lock leak in deliver_to_subscribers()
+Date: Fri,  4 Sep 2026 07:03:49 +0000
+Message-ID: <20260904070349.80497-1-tzungbi@kernel.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: 4djizz5oszf5r9qr1y37yya6k5mi3tz1
-X-MBO-RS-ID: 75dbe8cd375fafa4137
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-03 at 20:15 +0800, oushixiong1025@163.com wrote:
->=20
+Commit 46397622a3fa ("ALSA: seq: Add UMP support") mistakenly removed
+the `snd_seq_port_unlock(src_port)` call in deliver_to_subscribers().
+As a result, every time an event is delivered to a subscriber, the
+source port's `use_lock` atomic counter is increased but never
+decreased.
 
-[=E2=80=A6]
+The leak prevents ALSA sequencer ports from closing cleanly.  When the
+client process exits or destroys the port, port_delete() hangs forever
+at snd_use_lock_sync().  The process becomes stuck in an unkillable D
+state, triggering the following warning:
 
-> +
-> =C2=A0#include "sched_tests.h"
-> =C2=A0
-> =C2=A0/*
-> @@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_sc=
-heduler_ops =3D {
-> =C2=A0 */
-> =C2=A0struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, l=
-ong timeout)
-> =C2=A0{
-> +	static unsigned int instance;
+    ALSA: seq_lock: waiting [1 left] in sound/core/seq/seq_ports.c:250
 
-I know statics are initialized to 0 automatically, but writing it out
-explicitly is probably advantageous for readability, especially since
-we're incrementing.
+Restore the missing `snd_seq_port_unlock(src_port)`.
 
-> =C2=A0	struct drm_sched_init_args args =3D {
-> =C2=A0		.ops		=3D &drm_mock_scheduler_ops,
-> =C2=A0		.num_rqs	=3D DRM_SCHED_PRIORITY_COUNT,
-> @@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struc=
-t kunit *test, long timeout)
-> =C2=A0		.name		=3D "drm-mock-scheduler",
-> =C2=A0	};
-> =C2=A0	struct drm_mock_scheduler *sched;
-> +	struct device *dev;
-> +	char name[64];
-> =C2=A0	int ret;
-> =C2=A0
-> =C2=A0	sched =3D kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
-> =C2=A0	KUNIT_ASSERT_NOT_NULL(test, sched);
-> =C2=A0
-> +	snprintf(name, sizeof(name), "%s-%u", args.name, ++instance);
+Note that commit 177ccf811df4 ("ALSA: seq: Support MIDI 2.0 UMP Endpoint
+port") incidentally resolved this issue upstream when it refactored the
+locking logic into a wrapper function.  However, since the commit
+introduces a new feature and might not be suitable for stable release
+branches, this targeted fix is necessary.
 
-Any particular reason why you begin with index 1?
+Fixes: d7e2ce72833b ("ALSA: seq: Add UMP support")
+Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+---
+ sound/core/seq/seq_clientmgr.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
+index 9b82fccd959c..37930d74e394 100644
+--- a/sound/core/seq/seq_clientmgr.c
++++ b/sound/core/seq/seq_clientmgr.c
+@@ -733,6 +733,7 @@ static int deliver_to_subscribers(struct snd_seq_client *client,
+ 		read_unlock(&grp->list_lock);
+ 	else
+ 		up_read(&grp->list_mutex);
++	snd_seq_port_unlock(src_port);
+ 	memcpy(event, &event_saved, saved_size);
+ 	return (result < 0) ? result : num_ev;
+ }
+-- 
+2.55.0.979.g7e5102b832-goog
+
