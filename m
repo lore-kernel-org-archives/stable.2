@@ -1,73 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC72632F76D
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D4A32F75B
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:18:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527908; cv=none; b=nlOjDXpIUV088Roq4Roe+Lv8FA94P9FLiSjDBhM2hxLcYgfMh2tOznXGLqHGKBHxKZVf6Z9wNRsq3aFr3KQwgQd/uAjsdmIqFXum9tv8xpYt4yTJhRdhc1q1T0RIjt1PXq7jct6uiLVuMvs1RC60s5vl1W3DM0KmVLLhyNaWvm8=
+	t=1788527921; cv=none; b=ELREwt1+P8teOWZjmgh21iJKyO3zuAoZACWexISA+KIrZ9DdeACMeHGp+rQrphyCrrur62u2jMwuAPySxZ1O1wYc/GusLy8bbNqcZqQOAGqJXh6v17gLkZw3NmaMtZjYKBqACYWPA5xoHIVoJqpUlE1UOUrqtkCrEU+AfUhV/Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527908; c=relaxed/simple;
-	bh=jSWfa4rjlnH5RiJLivgJVt+mbcm/Zh7Z/YEgFHmBPs8=;
+	s=arc-20240116; t=1788527921; c=relaxed/simple;
+	bh=E+xM0KaxILa0drbBPJjrN7ZhUX5gYyKN0nDdvbjoR2U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NahLQpySGXsoVTAPvRqWMNGpfhi8jXgqPT9NskSKS+C2S+z2dGLpfq4AsUWDPWZTS3Of1YwWJS4lAV6P+ehLWr6yaO86UcZYxnPMK+XH2006ZAcujSk7cLKHuceBAJZ+S++RAP9iEkJiCY19FVMILSvYGuwjaQYvA7hsQIVD3jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bz0NBK/n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QHdGl6brBdEm3oIi9etIyeFP7RUhMF50/pCtCf+NBPqnnenLjafXxuRx+o+ehzCaNxvHmNf0kHOfuZGrS2gEcDXmzTe/AHleVltdwfromMsiEpb8LRiduRdNZ3ozPq7ccDA3tYYVijHNrvIpdp+Z9yNMpRBEiy9gdPmUm7tCodo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MPjAIryi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bz0NBK/n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DCB91F00ADF;
-	Fri,  4 Sep 2026 13:18:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MPjAIryi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B8D91F00A3D;
+	Fri,  4 Sep 2026 13:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788527899;
-	bh=ZGfOeXHWfb+zgnX4DatNGGMVzqZZT54rlDOYKPzz+pg=;
+	s=k20260515; t=1788527915;
+	bh=6xs4alKN25r7IKcBT4PGNZXlPKvtpUtZYJhZeOhFOTU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Bz0NBK/n7WxTMzkiUyiVPnrs1lIrEIu+L0ohfmskY0vI8FfAVMH1w+AzayzL8x4rD
-	 kErF0PgevzKaDLe/LhucfBn9neO81QfCG/Rf9GWogJPS/BxXIj8nKFm/HLOKMYakaE
-	 KMKEImmsHWepcGLgVhEep0PcQ5bNy8aYz4r/KtXPfVYger3RqqP80kSuNXdqPmbaAu
-	 llgkahFAWrKt5OAH5rmok5GEXDaTYhRoAmv+oU+ux8aIlfBAHLrLHetd8IZSRDMCIF
-	 zsnWBgmJ4Ecm2481XXBpQottHUk+uIGrFG94/bCvwtoEcb8I2gdqM9ZPiSJMdDeroN
-	 yZo0Nki+RpY2g==
+	b=MPjAIryiw6TbHhw4rT3Lg4IqdNTOkzCDQZirhzbDjyyZuiO2lfM11W9SBZRV88HTN
+	 lSNsodA5ix4SwAghV+PMOvAdF29l8vaeO9GqRCAaMw4Y+v6SziEJAz93VFe5DkIsw2
+	 /L34lItv3p2QMhYw2LGzYCsys9dvzRXerDNfTck53UXvekGeQFnjVlzGf2OBQcFBHn
+	 HSBz+wUcojt3HSeEblY1koT6C+2mDqVBUyLDRZ5lEcHeDI0a7MUUTRv9VRlMG6uge8
+	 +97blBot9XP8CxvbClg9zNdtRr+NF77bdPRwBxo2ZMyUDExsK57DogWIT6d7R4oBI9
+	 KMHsNwMu3gEmg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+	SeongJae Park <sj@kernel.org>,
+	Vlastimil Babka <vbabka@suse.cz>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
 	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Baoquan He <bhe@redhat.com>,
+	Barry Song <baohua@kernel.org>,
 	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Chris Li <chrisl@kernel.org>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@redhat.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
 	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
+	Heiko Carstens <hca@linux.ibm.com>,
 	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Hugh Dickins <hughd@google.com>,
+	Jan Kara <jack@suse.cz>,
 	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
 	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
 	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
+	Leon Romanovsky <leon@kernel.org>,
+	Liam Howlett <liam.howlett@oracle.com>,
+	Mathew Brost <matthew.brost@intel.com>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Miaohe Lin <linmiaohe@huawei.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
 	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Nico Pache <npache@redhat.com>,
 	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Peter Xu <peterx@redhat.com>,
 	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
 	Rik van Riel <riel@surriel.com>,
 	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Wei Xu <weixugc@google.com>,
+	xu xin <xu.xin16@zte.com.cn>,
+	Yuanchu Xie <yuanchu@google.com>,
 	Zi Yan <ziy@nvidia.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 6/6] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
-Date: Fri,  4 Sep 2026 09:18:09 -0400
-Message-ID: <20260904131809.503371-6-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] mm: replace pmd_to_swp_entry() with softleaf_from_pmd()
+Date: Fri,  4 Sep 2026 09:18:27 -0400
+Message-ID: <20260904131828.504592-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904131809.503371-1-sashal@kernel.org>
-References: <2026090314-mumps-septum-7049@gregkh>
- <20260904131809.503371-1-sashal@kernel.org>
+In-Reply-To: <2026090359-rejoicing-splatter-c71f@gregkh>
+References: <2026090359-rejoicing-splatter-c71f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,83 +100,220 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dev Jain <dev.jain@arm.com>
+From: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
 
-[ Upstream commit e87df0d5d6962bde50f55f6d02b779daa394f894 ]
+[ Upstream commit 0ac881efe16468503e8c1e7d8a7210b75f027ce3 ]
 
-check_pte() is the final validation step in page_vma_mapped_walk().  It
-reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
-range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
-entry.
+Introduce softleaf_from_pmd() to do the equivalent operation for PMDs that
+softleaf_from_pte() fulfils, and cascade changes through code base
+accordingly, introducing helpers as necessary.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
+We are then able to eliminate pmd_to_swp_entry(),
+is_pmd_migration_entry(), is_pmd_device_private_entry() and
+is_pmd_non_present_folio_entry().
 
-It is not clear whether this has a trivially visible effect to userspace.
+This further establishes the use of leaf operations throughout the code
+base and further establishes the foundations for eliminating
+is_swap_pmd().
 
-Use huge_ptep_get() to dereference a huge pte pointer.
+No functional change intended.
 
-Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
-Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
+[lorenzo.stoakes@oracle.com: check writable, not readable/writable, per Vlastimil]
+  Link: https://lkml.kernel.org/r/cd97b6ec-00f9-45a4-9ae0-8f009c212a94@lucifer.local
+Link: https://lkml.kernel.org/r/3fb431699639ded8fdc63d2210aa77a38c8891f1.1762812360.git.lorenzo.stoakes@oracle.com
+Signed-off-by: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Reviewed-by: SeongJae Park <sj@kernel.org>\
+Reviewed-by: Vlastimil Babka <vbabka@suse.cz>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>
 Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Axel Rasmussen <axelrasmussen@google.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baoquan He <bhe@redhat.com>
+Cc: Barry Song <baohua@kernel.org>
 Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>
+Cc: Chris Li <chrisl@kernel.org>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: David Hildenbrand <david@redhat.com>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
 Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
+Cc: Heiko Carstens <hca@linux.ibm.com>
 Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Hugh Dickins <hughd@google.com>
+Cc: Jan Kara <jack@suse.cz>
 Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Janosch Frank <frankja@linux.ibm.com>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
 Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Kairui Song <kasong@tencent.com>
+Cc: Kemeng Shi <shikemeng@huaweicloud.com>
 Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Liam Howlett <liam.howlett@oracle.com>
+Cc: Mathew Brost <matthew.brost@intel.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Miaohe Lin <linmiaohe@huawei.com>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Muchun Song <muchun.song@linux.dev>
 Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Nico Pache <npache@redhat.com>
 Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: Peter Xu <peterx@redhat.com>
 Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
 Cc: Rik van Riel <riel@surriel.com>
 Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Sven Schnelle <svens@linux.ibm.com>
+Cc: Vasily Gorbik <gor@linux.ibm.com>
+Cc: Wei Xu <weixugc@google.com>
+Cc: xu xin <xu.xin16@zte.com.cn>
+Cc: Yuanchu Xie <yuanchu@google.com>
 Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+[ sashal: Reduced backport -- upstream 0ac881efe1646 touches 18 file(s), this
+  backport carries 2. Not backported here:
+  fs/proc/task_mmu.c
+  include/linux/migrate.h
+  include/linux/swapops.h
+  mm/damon/ops-common.c
+  mm/filemap.c
+  mm/hmm.c
+  mm/huge_memory.c
+  mm/khugepaged.c
+  ... and 8 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 9be12ffa78cd ("mm/rmap: use huge_ptep_get() in try_to_migrate_one()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/page_vma_mapped.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ include/linux/leafops.h | 18 ++++++++++++++++
+ mm/rmap.c               | 48 +++++++++++++++++++++++++----------------
+ 2 files changed, 48 insertions(+), 18 deletions(-)
+ create mode 100644 include/linux/leafops.h
 
-diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
-index dcc1ee3d059e9..23c098a35c234 100644
---- a/mm/page_vma_mapped.c
-+++ b/mm/page_vma_mapped.c
-@@ -97,7 +97,13 @@ static bool map_pte(struct page_vma_mapped_walk *pvmw, spinlock_t **ptlp)
- static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
- {
- 	unsigned long pfn;
--	pte_t ptent = ptep_get(pvmw->pte);
-+	pte_t ptent;
+diff --git a/include/linux/leafops.h b/include/linux/leafops.h
+new file mode 100644
+index 0000000000000..7c441356f52a8
+--- /dev/null
++++ b/include/linux/leafops.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_LEAFOPS_H
++#define _LINUX_LEAFOPS_H
 +
-+	if (is_vm_hugetlb_page(pvmw->vma))
-+		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
-+				      pvmw->pte);
-+	else
-+		ptent = ptep_get(pvmw->pte);
++/*
++ * The stable tree still represents non-present page-table leaves with
++ * swp_entry_t.  Keep the leafops names used by the dependent fix as aliases
++ * until the wider leafops conversion reaches this tree.
++ */
++#include <linux/swapops.h>
++
++typedef swp_entry_t softleaf_t;
++
++#define softleaf_from_pte	pte_to_swp_entry
++#define softleaf_from_pmd	pmd_to_swp_entry
++#define softleaf_to_pfn		swp_offset_pfn
++
++#endif /* _LINUX_LEAFOPS_H */
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 886000da89a6f..ff1d0a18f1fca 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -57,7 +57,7 @@
+ #include <linux/sched/task.h>
+ #include <linux/pagemap.h>
+ #include <linux/swap.h>
+-#include <linux/swapops.h>
++#include <linux/leafops.h>
+ #include <linux/slab.h>
+ #include <linux/init.h>
+ #include <linux/ksm.h>
+@@ -83,6 +83,13 @@
  
- 	if (pvmw->flags & PVMW_MIGRATION) {
- 		swp_entry_t entry;
+ #include "internal.h"
+ 
++/*
++ * The mm and address arguments were added to huge_ptep_get() after this
++ * stable series.  Accept the newer call shape used by the dependent fix while
++ * retaining the architecture-specific one-argument implementation in 6.1.
++ */
++#define huge_ptep_get(mm, address, ptep) huge_ptep_get(ptep)
++
+ static struct kmem_cache *anon_vma_cachep;
+ static struct kmem_cache *anon_vma_chain_cachep;
+ 
+@@ -1847,6 +1854,7 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 	bool anon_exclusive, ret = true;
+ 	struct mmu_notifier_range range;
+ 	enum ttu_flags flags = (enum ttu_flags)(long)arg;
++	unsigned long pfn;
+ 
+ 	/*
+ 	 * When racing against e.g. zap_pte_range() on another cpu,
+@@ -1889,8 +1897,14 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ #ifdef CONFIG_ARCH_ENABLE_THP_MIGRATION
+ 		/* PMD-mapped THP migration entry */
+ 		if (!pvmw.pte) {
+-			subpage = folio_page(folio,
+-				pmd_pfn(*pvmw.pmd) - folio_pfn(folio));
++			pmd_t pmdval = *pvmw.pmd;
++
++			if (likely(pmd_present(pmdval)))
++				pfn = pmd_pfn(pmdval);
++			else
++				pfn = softleaf_to_pfn(softleaf_from_pmd(pmdval));
++
++			subpage = folio_page(folio, pfn - folio_pfn(folio));
+ 			VM_BUG_ON_FOLIO(folio_test_hugetlb(folio) ||
+ 					!folio_test_pmd_mappable(folio), folio);
+ 
+@@ -1906,23 +1920,21 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
+ 		/* Unexpected PMD-mapped THP? */
+ 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+ 
+-		if (folio_is_zone_device(folio)) {
+-			/*
+-			 * Our PTE is a non-present device exclusive entry and
+-			 * calculating the subpage as for the common case would
+-			 * result in an invalid pointer.
+-			 *
+-			 * Since only PAGE_SIZE pages can currently be
+-			 * migrated, just set it to page. This will need to be
+-			 * changed when hugepage migrations to device private
+-			 * memory are supported.
+-			 */
+-			VM_BUG_ON_FOLIO(folio_nr_pages(folio) > 1, folio);
+-			subpage = &folio->page;
++		/*
++		 * Handle PFN swap PTEs, such as device-exclusive ones, that
++		 * actually map pages.
++		 */
++		pteval = ptep_get(pvmw.pte);
++		if (likely(pte_present(pteval))) {
++			pfn = pte_pfn(pteval);
+ 		} else {
+-			subpage = folio_page(folio,
+-					pte_pfn(*pvmw.pte) - folio_pfn(folio));
++			const softleaf_t entry = softleaf_from_pte(pteval);
++
++			pfn = softleaf_to_pfn(entry);
++			VM_WARN_ON_FOLIO(folio_test_hugetlb(folio), folio);
+ 		}
++
++		subpage = folio_page(folio, pfn - folio_pfn(folio));
+ 		address = pvmw.address;
+ 		anon_exclusive = folio_test_anon(folio) &&
+ 				 PageAnonExclusive(subpage);
 -- 
 2.53.0
 
