@@ -1,63 +1,37 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543BB377AB6
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 06:59:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE0232ED4E;
+	Fri,  4 Sep 2026 07:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505159; cv=none; b=lSSwo1C61X/s287wVTQsXz71TkYBa7GKIAc8NDD2XI87b7QGerBV92P872OShdHD3J6av97kATJ639osAvVjBW6a89dzgJ3SVGIBE/dXI5z92QfHmV7wIfLX20IN7uXtmdY8mQyqRVxuLOP3dPoz/e8Qg+/4nNtj1CbMtYxdmdk=
+	t=1788505234; cv=none; b=aUM1DM1t3tbasoWTTcA+El+CSMjrkSQP1CWHZXjby8PzeLjjGL5eUr9kLkseiygm52WbITNR8wKqwDVyMBfKnODQPpJvGelXX4xK1YQTxM0/EXUjHMc7W/0H3rxS6TwVyhrXKr6j3dyIYiScp6pGaculqkDJw4DtQLyzlGYd04Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505159; c=relaxed/simple;
-	bh=1ivyFHyI5GeXLnezrxv9NKWb14XNX/q+Mi7QHDIhh6w=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=fCQM4UP2Mtq8rORNi0c62yTGEU/X2bNCXhMdEZXDBMw2L2JQN0lZHQrA8vg7T0J0lTJSp0nO3Z9YHRSkpuq5puAMCC6WuXy4mHUZ1FjGmQwnXrC7D7TOjch0xrpo6PUWORuIQth61P0nSuNyyG6Gkpw8iiNZ4PxX/+8p5mmFrPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=bgo7nvYy; arc=none smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1788505234; c=relaxed/simple;
+	bh=SOJ8QCflRbkW8jpMaQoN3egliz/RPrUaGCkqQ+5BElk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GbpnwqH3MX1p/S0BqbYSV1O0gn8egvhanxBwe7aH8QMYFamXeNDrkFnuwt972vc5MT3II/gSLkH1a51bPjevqVWE3Y0ePgwcaGsh+lZ3qOqEXLsPWikP9lC2UYGBTWAtz4eOn8vGMQ03zLkWecQgtN4kif3qsq0h5qP2s91YZMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WbO+boOa; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="bgo7nvYy"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so715115a12.3
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 23:59:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1788505157; x=1789109957; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9j+di7PwoHDlYj5ykzQrp8EKEuntXVjEfdcqzQ2J66s=;
-        b=bgo7nvYyLQkD92rG/S8NtN9Qf5miUyMVdfDayahAXpFh65IklbejWw+tfWXCtT3kft
-         bcAvEJagREhnpYWOWQXRFkHhXOO5BstZXWgjBkBPjBcvvDCN7h9Ak+MLxttTD0/BTb7W
-         46Nv5f0Z4GoBum1HNU//bZdLe6iTv5/y1GOSS1wwayvBTekNP1PxNV0ca9iCtHLdAmcj
-         A7f/sH9cbqwqyosV+IvqosT4yDaGN0R9qBBFSm084HELI2PyoO0GFV/uIEtFvjWm2dSS
-         m0ZBODfi1SwD9WTA9DkWRpSgGhU6af3NcZmAYqgqBYp+sb7xXzDc3kSSG+7n6IcDOpT6
-         TfUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788505157; x=1789109957;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9j+di7PwoHDlYj5ykzQrp8EKEuntXVjEfdcqzQ2J66s=;
-        b=BQ5/Fc2iWbZRey0NqAp+4MJpa/8QA/jnnFxz312RMEKJPcul4TWXYcAXHfg7sF9m5J
-         68Dl4pjgdzs0bdSMbrUp4RbLC4aKbhXlOdGJa3Xtm7hH4Y1Dm637t+IY3qR/MGNmlPyq
-         XL9eyfQkvVTKqJO3FhQ1CMtVbN3t0beCVqURryAyM2Us1nmbNtuJ1Klxlq/FJl4++xmC
-         UixO5p6hfqRKAfWiF6WaqIQReZ7cJwGDhDXDm/dQF/R5qDq4mQs3SvfJTgVkdkMLRwmX
-         0ErmvbEN5XYU4Aw9Qi0AXQAsQQC8CRiG9jiaA3+wDFFQA8eCrQMLTcQVEpn3jz6T2r7g
-         M/8A==
-X-Gm-Message-State: AFuF++mBP9wVpvYqsttvO76JdCFQKaam2s+z0eE2cMfLoDn73yOGth4+
-	kZ5BkSela1OPZHehdRJ+YZTBt8CpOA8+IxzeHzFyUueg2b1B4kqZWwU8n2A5H8BTh+w=
-X-Gm-Gg: AYBFou2E+X5rYXX66GC43tvq4OBGcG5vZ/3niO/J4Lt3z72uXCzUted0e1IGXPpoElA
-	qYx6THlg7dVFur7POZd73CdDUj6H/4aon+hWuKucJqNVFQvFdXOO+vjwStfSeBJoXpZdVx6qkEO
-	fnYQ+ma0fKR6ShHg95J6YOpphCYlCBC3DRM/7wGuD9jgXJ/j59iLgIbmBjzyhn76QewPUKd2wLf
-	skt8ygRzmDGLNmSQjlbtAkCsjOCIAd+3mjnXQ3Whi5Wv76Nk3c1jruvYHG0bxSrZUQ/J698zQ34
-	qDGeEaN2IJt9ZAMc6b+yZnM1XHa+3oiuj1K9gO69qX/sNfojXyR5jNcvewaP+Ql8f0f1KNHVUZa
-	thBsOzgEhuDy0blpABsFGrpsuC5ZtqjBXRTqIjx9pV8teB9fWCouBetzkag8yJkcWdDCv0tntJA
-	+R1k2B0INmhT16oo5+KIHHqOUjGIsRHypXQTDkmLMWbtnDOp6A63wHQLRa6F1NZNU=
-X-Received: by 2002:a05:6a20:3ca8:b0:3c4:46ca:334b with SMTP id adf61e73a8af0-3da39cf4744mr6092021637.9.1788505156273;
-        Thu, 03 Sep 2026 23:59:16 -0700 (PDT)
-Received: from 41049dfc76e5 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534d25sm4391767eec.5.2026.09.03.23.59.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 23:59:15 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WbO+boOa"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c86dea68;
+	Fri, 4 Sep 2026 15:00:19 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Kurt Hackel <kurt.hackel@oracle.com>
+Cc: ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] ocfs2: shut down idle timer during socket teardown
+Date: Fri,  4 Sep 2026 15:00:14 +0800
+Message-Id: <20260904070014.4049073-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,67 +39,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E10=2Ey=3A_=28build=29implicit?=
- =?utf-8?q?_declaration_of_function_=E2=80=98put=5Funaligned=5Fle16=E2=80=99?=
- =?utf-8?q?_=5B-Werror=3Dimpl=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+X-HM-Tid: 0aa06b37e1e603a1kunma597ccf12d247
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTUlDVkJNHkkfGhlDSEhJGlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=WbO+boOa7XZEEcM7AncrzXxwxm03MYOM8GNKZ3BOz0v0bCCZc08oORGuR3nlfebO1ClBhLYS2drkm7bqG0fXz9ZoBFtFlnCog6Ei06g+LOgDRPX/eZlEdko6ibLaESfhnAXbi3uElgh8cme37PT99JeHutm3l9m0IEHP5ckz69g=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=ZjSgnYmrCgIxaVCe4AaedaNBdz6nUCnBC2pw0ArPvbk=;
+	h=date:mime-version:subject:message-id:from;
+
+o2net_idle_timer() rearms sc_idle_timeout from its callback. The socket
+shutdown path uses timer_delete_sync(), which waits for a running callback
+but does not prevent the callback from rearming the timer after deletion.
+
+The socket container is released after this path, and sc_kref_release()
+expects the timer to be inactive. Use timer_shutdown_sync() so the timer
+cannot be queued again during teardown.
+
+Fixes: 98211489d414 ("[PATCH] OCFS2: The Second Oracle Cluster Filesystem")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Fri, 04 Sep 2026 06:59:15 -0000
-Message-ID: <178850515502.887.10241922684330722879@kernelci.org>
-
-New build issue found on stable-rc/linux-5.10.y:
-
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
-implicit declaration of function ‘put_unaligned_le16’ [-Werror=implicit-function-declaration] in drivers/pci/pci-sysfs.o (drivers/pci/pci-sysfs.c) [logspec:kbuild,kbuild.compiler.error]
----
+ fs/ocfs2/cluster/tcp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/pci/pci-sysfs.c:887:17: error: implicit declaration of function ‘put_unaligned_le16’ [-Werror=implicit-function-declaration]
-  887 |                 put_unaligned_le16(*(u16 *)&val, buf);
-      |                 ^~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/pci/pci-sysfs.c:890:17: error: implicit declaration of function ‘put_unaligned_le32’ [-Werror=implicit-function-declaration]
-  890 |                 put_unaligned_le32(val, buf);
-      |                 ^~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/pci/pci-sysfs.c: In function ‘pci_write_legacy_io’:
-/tmp/kci/linux/drivers/pci/pci-sysfs.c:922:23: error: implicit declaration of function ‘get_unaligned_le16’; did you mean ‘get_unalign_ctl’? [-Werror=implicit-function-declaration]
-  922 |                 val = get_unaligned_le16(buf);
-      |                       ^~~~~~~~~~~~~~~~~~
-      |                       get_unalign_ctl
-/tmp/kci/linux/drivers/pci/pci-sysfs.c:925:23: error: implicit declaration of function ‘get_unaligned_le32’; did you mean ‘get_unalign_ctl’? [-Werror=implicit-function-declaration]
-  925 |                 val = get_unaligned_le32(buf);
-      |                       ^~~~~~~~~~~~~~~~~~
-      |                       get_unalign_ctl
-cc1: some warnings being treated as errors
+diff --git a/fs/ocfs2/cluster/tcp.c b/fs/ocfs2/cluster/tcp.c
+index 474fe1414..cef8cfa2a 100644
+--- a/fs/ocfs2/cluster/tcp.c
++++ b/fs/ocfs2/cluster/tcp.c
+@@ -733,7 +733,7 @@ static void o2net_shutdown_sc(struct work_struct *work)
+ 	if (o2net_unregister_callbacks(sc->sc_sock->sk, sc)) {
+ 		/* we shouldn't flush as we're in the thread, the
+ 		 * races with pending sc work structs are harmless */
+-		timer_delete_sync(&sc->sc_idle_timeout);
++		timer_shutdown_sync(&sc->sc_idle_timeout);
+ 		o2net_sc_cancel_delayed_work(sc, &sc->sc_keepalive_work);
+ 		sc_put(sc);
+ 		kernel_sock_shutdown(sc->sc_sock, SHUT_RDWR);
+@@ -1513,7 +1513,7 @@ static void o2net_sc_send_keep_req(struct work_struct *work)
+ 	sc_put(sc);
+ }
+ 
+-/* socket shutdown does a timer_delete_sync against this as it tears down.
++/* socket shutdown shuts down this timer as it tears down.
+  * we can't start this timer until we've got to the point in sc buildup
+  * where shutdown is going to be involved */
+ static void o2net_idle_timer(struct timer_list *t)
+-- 
+2.34.1
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:1ce528eff43e511bde656e686058bf44907b8d46
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  2b07654b68968d4dd0b6e68a6c8d7fdf199666ee
-
-# Builds where the incident occurred:
-
-## ppc64le_defconfig on (powerpc):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6a9a5d3ae41d7f97d6fd6ddc
-
-#kernelci issue maestro:1ce528eff43e511bde656e686058bf44907b8d46
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
