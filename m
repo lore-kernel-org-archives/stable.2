@@ -1,236 +1,325 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED3F451476C
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:57:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788541051; cv=none; b=tyU/n1Zw3KEiqNWx9xGW7E6hB9zbsSpvbnnFzzAvhrv2aA99yERhLk5XoIQtWipDRmYCiX+JACPVqT8foFJ8OJGikuPKhuGW7QouvQVqn0B/kdE+tUlodrbkJD+bxK3Movwf39mbBGY4upDsHyFSWHegOoX6pARH52KJyKACNPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788541051; c=relaxed/simple;
-	bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=q8+TU+KeYNQgRPmv/vBi9tYiyH/5AiNp7IuuJ6+tL3Kkghg7rSw7ylTFrdBlZZ6H/hpGNX1P6z/wShvvA3lGvn3mBvnwPbfMc7oKpeceLeXBUYoIAiqC7/TT4w64qum5UHikJmuOCzUvWEoRMrNpnlos1bzM9nIuXjbxgWLTR4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qxzpoHOT; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE30950EBFA
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 16:57:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788541070; cv=pass; b=BXMm/0kgMoH0t/FMRCoV66wu7RhWu0r1fF2sPJyPGWuHTa3rxJhwfl8T/zfDDLhpKgL7qKRolsn6ftEMJJRVE7vWN75OtWUoLpwNLi62FIOhytWz4WSiAIj+5Slrv/m4qEu3x5JlitwMNbNpZtY+lbju0dn7VHPoAd3K0ruUZxw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788541070; c=relaxed/simple;
+	bh=hV6kOg6zWKZP9yddTbXK3oMOzqjZ6tA2Hha56tL9piQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RpWgbsLGVg5xkbvrwrfChX5bMMrxUF2gi+IPUZBfzmMoj8/YyaaOHE6pY2ZUH8F4W1eKDrZSZexq6Z6Ki9fPFaAi4F3PCy5YLXLD9mzfZTdo2J/KSGHOFAbfUjW3hbXI7s6yJiq9u5NtWpppcw1AV0Tys4esIgI31BPP/aKi+CY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PRxEOg4D; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qxzpoHOT"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79E75153B;
-	Fri,  4 Sep 2026 09:57:24 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3576D3F673;
-	Fri,  4 Sep 2026 09:57:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788541048; bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qxzpoHOTgWEdAhhYXCTrpUWRPuJpE0oydIVXIBLlipwaPhlOCOmKKbqc0M+RGkmPZ
-	 nNFrwOptCCUypgLCxVkbijvBb02WOlMNTO2Boxi72bnAwyvnLZ682Vhxh3v9R/Qvxz
-	 yaBQHfla4Z7lixsPss2Ty25w0ItkpgcV6FVhVKGs=
-From: Mark Rutland <mark.rutland@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com,
-	ardb@kernel.org,
-	catalin.marinas@arm.com,
-	cl@gentwo.org,
-	david.laight.linux@gmail.com,
-	james.morse@arm.com,
-	mark.rutland@arm.com,
-	maz@kernel.org,
-	peterz@infradead.org,
-	ruanjinjie@huawei.com,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com,
-	vladimir.murzin@arm.com,
-	will@kernel.org,
-	yang@os.amperecomputing.com
-Subject: [PATCH v3 06/21] arm64: preempt: Simplify and optimize __preempt_count_dec_and_test()
-Date: Fri,  4 Sep 2026 17:57:09 +0100
-Message-Id: <20260904165709.376981-1-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260904161758.376504-1-mark.rutland@arm.com>
-References: <20260904161758.376504-1-mark.rutland@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PRxEOg4D"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6048732fcso131944a12.3
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 09:57:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788541067; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RYAEq0TF3zA4wzTB3lmkExKg1YKhpNau53f0p1+rALUY+8Xc5nMO/vlUayC//aYmes
+         HT3xb3AYoadpYYOb9u5umtl2Z+KNBomGzL+OpUHQRWWpvDrGoseNuL73T6MnjzJQjFUV
+         YPo0a8+20UBuFq7HILc36xmdFJwosL1MfCAeYRGXWZiV8JnNTMZyo91B+UTVKjUCRmYe
+         31HwOb82CLYhIcumAH6jImIWFEoO1iaHEnoswpsd4FlA/LkL2/3Lr49vKuyLt9asf9+R
+         IoUucKiFCZTxN/89hLkpMUfwJZPl5wvkv7Zu1w2Yn3+gylEoFB6jzncNN2WVLavqKOCO
+         7t1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TziySW7X/IS3c2RpZSl6rmPafqI127D5Vp05uezXcE8=;
+        fh=xWCjdQvLajuJbp9QCrYyf7Y9ao5klUISRSO8dVMapxE=;
+        b=MoSm6w05uOYt3kGsXFjaCZyNdrlRa/U7AIRt7vSw6MMEgIrcKskwtgHyMK6WiAzjBA
+         sSEU04yzKW6kYSZB0gxOKpKeA/rCZdn3ya3jYSOhLWTxNauLsuMfzchYS0Sexz0T1i9k
+         oz/KSgrEPFbT5/+2/LJsiG8V9OIW5p4dsJ8gVQk7YyDdkMsNfp2Vdd1c/K+cmbBujmv1
+         6cK6SmCDIrTkW4GkGh88oAppmueVBMJRmtZzGanNTFn2gQ0RiPxSG24eePJZbXzLYjrO
+         z7AeSA0jTGXufc9UD5N7pj8ma0B23tybYxbGd6DtMN+XFxToM9DwIMNdYRUo7g39Tqbn
+         F2uw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788541067; x=1789145867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TziySW7X/IS3c2RpZSl6rmPafqI127D5Vp05uezXcE8=;
+        b=PRxEOg4Dk2AEOabRFJTHcKSXiCZGNaV5o066hMCiiwnXEzhGpq+7sLoqwXTkEyWr3B
+         Nimb4AvbH8vqJD4mhabrp9zMEV684gV9Ii7VOCD6MCzLrlQE5PIigNag5LLqGFasEUoR
+         XQ9lArjmbkaKl5Smc7Oi7WQ+saNX5v9HVKO4MIwQLAvtZXabMLCfUmEnn3kNM6QRhg62
+         iULRaYP/W6YaCJyp2tNu+iCX+mPhWJI6xdbDhppUWKFzm7ts0eAHdfjFwfmdyx9lkK7O
+         ZPZssJvvmgiVSmdSMIduOQItuSNU2B+B2UIicm8mEnuvX7uoT/TQ1eUGaBXIRMnKmwKO
+         AY6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788541067; x=1789145867;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TziySW7X/IS3c2RpZSl6rmPafqI127D5Vp05uezXcE8=;
+        b=Ck1AlxLqCvzYDsBQJqzs4Kzw/cpnvzTATQKNKzXB7diNIMRNRN9dzAmnYEY/yl/YbP
+         tDUj0S9+gV7dlD8eWzQDK5tCMGV/0E4Sn/F3iB5wL1wT7aIRVGPnuVqsGdVgomZjRF0B
+         yih1NKCq2WoNxP6ztUVl8EwV+u0kFvTa7M2EaX2YC3kvVeDi4aBlSCvqFdS+YlRHtgaa
+         4Vz8xtpck7jnrS8hfjFuLkTjsQcApH2heioiH7V6oLClL7ntcygzQcLrKll9fzIytSDk
+         5jnZwfJ6zevSu+XACs6HTokEMfCTB7sEHgIaxvLR8t/f+JShMvEO42LC9eoAvaZehwaB
+         1lFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzoLl3S+jkSNi5sQtlnsYzBPzTM4b5nH0mRyDasOo2sTMbsHgrABRuk5glRQnUVZWHmGcXVL9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mu+Fa/HWpJXvLbG2LX2/C4E1iEUMJkkAM/QDIJuOxoIGDThVcy
+	HPKUWWACqEQKVHU0DbZdF2loZzy2bcj3kT/XoZqwZrOyo8m9UBoVMiEaivIYAJCj9ImGk3AqeVe
+	xPmpKW7CHv3c8FKFERSLUNOvJ0K/ZuL0=
+X-Gm-Gg: AYBFou0HdxQ4Gm9AuuhqmXlsfj5hq1Peg6+r5MHWCwhfDh+k+1BUhsnexyT2kGlU1Br
+	NnBA7N0Y7K+8ngaCQSy0HKAX8/PTIpONflLD/iVUxLnzgmauGc7vTKNGmJWUbVbGMky+5PmiLA6
+	5BNdKnPBy8uIB1TWG2cVa9I0FaLbHFucD2xsDVOyPIESSncmZ0gPMEt+i1rcF9uiQADkMDd7pMk
+	KFt3CIplRyVGcQxlrt58P6SZR7w+GIhPub3mVqVEO0EIN2UvkXUlBr3TY8li660Vi8ikKHEshL4
+	vGitcHJ6sYjDbxDuZUM3j/iNSPFXaamu3ntFctsQBoT3dQypEnR+csJ7weavL6nZTeVtysAxj2d
+	KAiVjzggWs3c=
+X-Received: by 2002:a05:6402:27cc:b0:6a6:3e9d:26c8 with SMTP id
+ 4fb4d7f45d1cf-6a7e90bb96fmr2542863a12.3.1788541066501; Fri, 04 Sep 2026
+ 09:57:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824111944.187200-1-nicoyip.dev@gmail.com> <20260825074142.GA1219299@shredder>
+In-Reply-To: <20260825074142.GA1219299@shredder>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Sat, 5 Sep 2026 00:57:34 +0800
+X-Gm-Features: AcwNN1VYA5hma0drT0n0q8WaxvJsAOmVpoAsm4u-Dfpg0eTyaeRN9kP4-mILk3I
+Message-ID: <CAAo+4rU89t_LMCHbdxk=BAfOoqUMC71SbudBMpHrnB8-ZrkYiQ@mail.gmail.com>
+Subject: Re: [PATCH net v3] ip_tunnel: reserve FOU/GUE headroom before encapsulation
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: David Ahern <dsahern@kernel.org>, netdev@vger.kernel.org, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Xin Long <lucien.xin@gmail.com>, William Tu <u9012063@gmail.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In arm64's __preempt_count_dec_and_test(), the final conditional load of
-'ti->preempt_count' is always executed in the common case. The
-conditional load leads to unfortunate code generation for
-preempt_enable[_notrace](), and it would be better to unconditionally
-load 'ti->preempt_count', as described below.
+On Tue, Aug 25, 2026 at 3:41=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wr=
+ote:
+>
+> On Mon, Aug 24, 2026 at 07:19:44PM +0800, Chengfeng Ye wrote:
+> > ip_tunnel_encap() expects its callers to reserve headroom based on
+> > ip_encap_hlen(). Unlike the IPv6 tunnel transmit paths, the IPv4
+> > ip_tunnel_xmit() and ip_md_tunnel_xmit() push FOU and GUE headers
+> > before they grow the skb headroom.
+> >
+> > That becomes visible when ipgre_changelink() publishes UDP
+> > encapsulation before it updates the device headroom. The transmit path
+> > does not serialize with RTNL, so it can interleave as follows:
+> >
+> >   CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
+> >   install GUE encapsulation
+> >                                   reserve the old needed_headroom
+> >   publish larger GRE flags
+> >   update tunnel->tun_hlen
+> >                                   push the larger GRE header
+> >                                   push the GUE and UDP headers
+> >   update dev->needed_headroom
+> >
+> > With REMCSUM, the new layout can push 16 bytes of GRE and 20 bytes of
+> > GUE/UDP headers into an skb with only 32 bytes of actual headroom. The
+> > final UDP push writes four bytes before skb->head.
+> >
+> > With the update window widened, the kernel reported:
+> >
+> >   skbuff: skb_under_panic: ... len:128 put:8 ... dev:gre0poc
+> >   kernel BUG at net/core/skbuff.c:214!
+> >   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+> >   Call Trace:
+> >    skb_push
+> >    fou_build_udp
+> >    gue_build_header
+> >    ip_tunnel_xmit
+> >    __gre_xmit
+> >    ipgre_xmit
+> >
+> > Use ip_encap_hlen() up front, route and perform PMTU handling first,
+> > then reserve the final headroom before ip_tunnel_encap() builds the
+> > UDP tunnel headers. This matches the existing IPv6 pattern and keeps
+> > ip_tunnel_encap() as a pure header builder.
+>
+> Mention in the commit message that the IPv6 fix [1] is still WIP.
+> Otherwise, I'm pretty sure that Sashiko will complain about it.
+>
+> [1] https://lore.kernel.org/netdev/b58876297f7d45de008f2e94b6ecab8b2ed84d=
+21.1786088695.git.petalzu987@gmail.com/
+>
+> >
+> > Fixes: dd9d598c6657 ("ip_gre: add the support for i/o_flags update via =
+netlink")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> > ---
+> > Changes in v3:
+> > - Move the headroom reservation into ip_tunnel_xmit() and
+> >   ip_md_tunnel_xmit() instead of growing the skb inside the FOU/GUE
+> >   builders.
+> > - Use ip_encap_hlen() to reserve the final caller-side headroom before
+> >   ip_tunnel_encap(), matching the existing IPv6 transmit pattern.
+> > - Drop the IPv4 raw-pointer refreshes that were only needed when
+> >   skb_cow_head() could run inside the encapsulation builders.
+> >
+> > Link: https://lore.kernel.org/netdev/20260808005956.3761487-1-nicoyip.d=
+ev@gmail.com/ [v2]
+> > Link: https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.d=
+ev@gmail.com/ [v1]
+> > ---
+> >  net/ipv4/ip_tunnel.c | 28 +++++++++++++++++++++-------
+> >  1 file changed, 21 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
+> > index 9d114bd575f9..5d5e7db11b3d 100644
+> > --- a/net/ipv4/ip_tunnel.c
+> > +++ b/net/ipv4/ip_tunnel.c
+> > @@ -578,6 +578,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct =
+net_device *dev,
+> >       const struct iphdr *inner_iph;
+> >       struct rtable *rt =3D NULL;
+> >       struct flowi4 fl4;
+> > +     int encap_hlen;
+> >       __be16 df =3D 0;
+> >       u8 tos, ttl;
+> >       bool use_cache;
+> > @@ -601,11 +602,11 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struc=
+t net_device *dev,
+> >                           tos & INET_DSCP_MASK, tunnel->net, 0, skb->ma=
+rk,
+> >                           skb_get_hash(skb), key->flow_flags);
+> >
+> > -     if (!tunnel_hlen)
+> > -             tunnel_hlen =3D ip_encap_hlen(&tun_info->encap);
+> > -
+> > -     if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
+> > +     encap_hlen =3D ip_encap_hlen(&tun_info->encap);
+> > +     if (encap_hlen < 0)
+> >               goto tx_error;
+> > +     if (!tunnel_hlen)
+> > +             tunnel_hlen =3D encap_hlen;
+> >
+> >       use_cache =3D ip_tunnel_dst_cache_usable(skb, tun_info);
+> >       if (use_cache)
+> > @@ -645,7 +646,8 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct =
+net_device *dev,
+> >                       ttl =3D ip4_dst_hoplimit(&rt->dst);
+> >       }
+> >
+> > -     headroom +=3D LL_RESERVED_SPACE(rt->dst.dev) + rt->dst.header_len=
+;
+> > +     headroom +=3D encap_hlen + LL_RESERVED_SPACE(rt->dst.dev) +
+> > +                 rt->dst.header_len;
+> >       if (skb_cow_head(skb, headroom)) {
+> >               ip_rt_put(rt);
+> >               goto tx_dropped;
+> > @@ -653,6 +655,11 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct=
+ net_device *dev,
+> >
+> >       ip_tunnel_adj_headroom(dev, headroom);
+> >
+> > +     if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0) {
+> > +             ip_rt_put(rt);
+> > +             goto tx_error;
+> > +     }
+> > +
+> >       iptunnel_xmit(NULL, rt, skb, fl4.saddr, fl4.daddr, proto, tos, tt=
+l,
+> >                     df, !net_eq(tunnel->net, dev_net(dev)), 0);
+> >       return;
+>
+> I don't think we need to change ip_md_tunnel_xmit(). It's not deriving
+> the FOU/GUE encapsulation info from the device's configuration, so it's
+> not exposed to the race described in the commit message. Instead, the
+> encapsulation information is set by the bpf_skb_set_fou_encap() kfunc on
+> the metadata dst attached to the skb.
+>
+> Mention this in the commit message, so that it's clear why only
+> ip_tunnel_xmit() is patched.
+>
+> > @@ -677,6 +684,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net=
+_device *dev,
+> >       __be16 payload_protocol;
+> >       bool use_cache =3D false;
+> >       struct flowi4 fl4;
+> > +     int encap_hlen;
+>
+> Move this further down to maintain reverse xmas tree [2].
+>
+> [2] https://docs.kernel.org/next/process/maintainer-netdev.html#local-var=
+iable-ordering-reverse-xmas-tree-rcs
+>
+> >       bool md =3D false;
+> >       bool connected;
+> >       int err_count;
+> > @@ -765,7 +773,8 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net=
+_device *dev,
+> >                           tunnel->net, READ_ONCE(tunnel->parms.link),
+> >                           tunnel->fwmark, skb_get_hash(skb), 0);
+> >
+> > -     if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
+> > +     encap_hlen =3D ip_encap_hlen(&tunnel->encap);
+>
+> This doesn't completely close the race. 'tunnel->encap' is still read
+> twice. Here and in the call to ip_tunnel_encap() below. That's why the
+> IPv6 fix takes a snapshot:
+>
+> ipencap =3D data_race(t->encap);
+>
+> And then continues to use 'ipencap' instead of 't->encap'.
+>
+> > +     if (encap_hlen < 0)
+> >               goto tx_error;
+> >
+> >       if (connected && md) {
+> > @@ -834,7 +843,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net=
+_device *dev,
+> >       }
+> >
+> >       max_headroom =3D LL_RESERVED_SPACE(rt->dst.dev) + sizeof(struct i=
+phdr)
+> > -                     + rt->dst.header_len + ip_encap_hlen(&tunnel->enc=
+ap);
+> > +                     + rt->dst.header_len + encap_hlen;
+> >
+> >       if (skb_cow_head(skb, max_headroom)) {
+> >               ip_rt_put(rt);
+> > @@ -845,6 +854,11 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct ne=
+t_device *dev,
+> >
+> >       ip_tunnel_adj_headroom(dev, max_headroom);
+> >
+> > +     if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0) {
+> > +             ip_rt_put(rt);
+> > +             goto tx_error;
+> > +     }
+>
+> tnl_update_pmtu() is calculating the size of the inner packet:
+>
+> pkt_size =3D skb->len - tunnel_hlen;
+>
+> And 'tunnel_hlen' includes the length of the encapsulation header which
+> is no longer reflected in 'skb->len'. You need to pass the length of the
+> encapsulation header as an argument to tnl_update_pmtu() and do:
+>
+> pkt_size =3D skb->len + encap_hlen - tunnel_hlen;
+>
+> Pass 0 from ip_md_tunnel_xmit() as there tnl_update_pmtu() is still
+> called after ip_tunnel_encap().
+>
+> > +
+> >       iptunnel_xmit(NULL, rt, skb, fl4.saddr, fl4.daddr, protocol, tos,=
+ ttl,
+> >                     df, !net_eq(tunnel->net, dev_net(dev)), 0);
+> >       return;
+> > --
+> > 2.43.0
+> >
 
-On arm64, struct thread_info contains the following union:
+Sorry for the late response and thanks for the detailed guide on how
+to fix, a v4 patch is just sent.
 
-| union {
-|         u64             preempt_count;
-|         struct {
-|                 u32     count;
-|                 u32     need_resched;
-|         } preempt;
-| };
-
-Note: 'need_resched' is encoded so that '0' means a reschedule is
-needed, and '1' means a reschedule is NOT needed.
-
-The core logic of __preempt_count_dec_and_test() is:
-
-| static inline bool __preempt_count_dec_and_test(void)
-| {
-|         struct thread_info *ti = current_thread_info();
-|         u64 pc = READ_ONCE(ti->preempt_count);
-|
-|         WRITE_ONCE(ti->preempt.count, --pc);
-|
-|         return !pc || !READ_ONCE(ti->preempt_count);
-| }
-
-The '!pc' condition can only be true when both:
-
-* The initial value of 'need_resched' was 0, meaning that a reschedule
-  is needed. This should be rare.
-
-* The initial value of 'count' was exactly 1. This cannot be true for a
-  nested preempt_disable() ... preempt_enable() sequence.
-
-Hence in common cases, '!pc' will be false, and it's necessary to
-execute the final READ_ONCE(ti->preempt_count).
-
-This results in a conditional branch in the common case, as can be seen
-when __preempt_count_dec_and_test() is outlined:
-
-| <outline___preempt_count_dec_and_test>:
-|        mrs     x2, sp_el0
-|        ldr     x1, [x2, #8]
-|        mov     w0, #0x1
-|        sub     x1, x1, #0x1
-|        str     w1, [x2, #8]
-|        cbz     x1, 1f
-|        ldr     x0, [x2, #8]
-|        cmp     x0, #0x0
-|        cset    w0, eq  // eq = none
-| 1:     ret
-
-It would be better to avoid the special case for 'pc == 0', and to
-always load 'ti->preempt_count' after decrementing 'ti->preempt.count'.
-For the common cases this will remove a conditional branch. For the rare
-cases where preemption is needed initially, this only adds a single
-load, whose cost should be dominated by other factors.
-
-Remove the special case for 'pc == 0', and always load the combined
-'ti->preempt_count' after decrementing 'ti->preempt.count'.
-
-The removal of the conditional branch helps with code generation, as the
-compiler can more easily move a dependent slow path out-of-line, as
-demonstrated with the following compiled with GCC 15.2.0:
-
-| void outline_preempt_enable_notrace(void)
-| {
-|        preempt_enable_notrace();
-| }
-
-Before this patch:
-
-| <outline_preempt_enable_notrace>:
-|        mrs     x1, sp_el0
-|        ldr     x0, [x1, #8]
-|        sub     x0, x0, #0x1
-|        str     w0, [x1, #8]
-|        cbz     x0, 1f
-|        ldr     x0, [x1, #8]
-|        cbnz    x0, 2f
-| 1:     paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mov     x29, sp
-|        bl      preempt_schedule_notrace
-|        ldp     x29, x30, [sp], #16
-|        autiasp
-|        ret
-| 2:     ret
-
-After this patch:
-
-| <outline_preempt_enable_notrace>:
-|        mrs     x0, sp_el0
-|        ldr     w1, [x0, #8]
-|        sub     w1, w1, #0x1
-|        str     w1, [x0, #8]
-|        ldr     x0, [x0, #8]
-|        cbz     x0, 1f
-|        ret
-| 1:     paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mov     x29, sp
-|        bl      preempt_schedule_notrace
-|        ldp     x29, x30, [sp], #16
-|        autiasp
-|        ret
-
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Yang Shi <yang@os.amperecomputing.com>
----
- arch/arm64/include/asm/preempt.h | 29 +++++++++++------------------
- 1 file changed, 11 insertions(+), 18 deletions(-)
-
-diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
-index 9ecc2766a9f21..92ae2eb95a738 100644
---- a/arch/arm64/include/asm/preempt.h
-+++ b/arch/arm64/include/asm/preempt.h
-@@ -75,30 +75,23 @@ static inline int __preempt_count_sub_return(int val)
- 	return pc;
- }
- 
--static inline bool __preempt_count_dec_and_test(void)
--{
--	struct thread_info *ti = current_thread_info();
--	u64 pc = READ_ONCE(ti->preempt_count);
--
--	/* Update only the count field, leaving need_resched unchanged */
--	WRITE_ONCE(ti->preempt.count, --pc);
--
--	/*
--	 * If we wrote back all zeroes, then we're preemptible and in
--	 * need of a reschedule. Otherwise, we need to reload the
--	 * preempt_count in case the need_resched flag was cleared by an
--	 * interrupt occurring between the non-atomic READ_ONCE/WRITE_ONCE
--	 * pair.
--	 */
--	return !pc || !READ_ONCE(ti->preempt_count);
--}
--
- static inline bool should_resched(int preempt_offset)
- {
- 	u64 pc = READ_ONCE(current_thread_info()->preempt_count);
- 	return pc == preempt_offset;
- }
- 
-+static inline bool __preempt_count_dec_and_test(void)
-+{
-+	/*
-+	 * We must load the combined 'prempt_count' after decrementing
-+	 * 'preempt.count' as an interrupt could modify 'need_resched' before
-+	 * __preempt_count_sub() writes back to 'preempt.count'.
-+	 */
-+	__preempt_count_sub(1);
-+	return should_resched(0);
-+}
-+
- #ifdef CONFIG_PREEMPTION
- 
- void preempt_schedule(void);
--- 
-2.30.2
-
+Best regards,
+Chengfeng
