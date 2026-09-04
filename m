@@ -1,195 +1,127 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm2-f9.google.com (mail-wm2-f9.google.com [74.125.225.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF5C337BAB
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 08:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6441C2324
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 08:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511069; cv=none; b=Zym6IRVggxjFmMjikVe+NkzkKeW2Nc4PpdSaKeN/YWsD77UpDkYaem8Yf8wyY/CQBvCSbE5jMDDCupbQ09Y44mHnDg1bsF7NGa+LQmhNalfXvsleAtRH9cGolvGrUbHmPE3mWElxEy8VSAOP+WxZ7yX09W82nP4WfFhj2r99mGw=
+	t=1788511183; cv=none; b=KOk55GgmsIR/CvW+rdDBVhDlqk/yDzopNrmQq460A0dT44Ua5NwTb2RSqrw8XI2zJIPWHUwBVU/rHl5/reljB0wTQeYFAvmEl6V36R6mL63NkEVzucut+LxfbWA9RsN+0lLPAF5EhBXaICxMtF5Lu3ElQcDh2fldOI4dJWzlkJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511069; c=relaxed/simple;
-	bh=JNVo3mCPeHl6ES3fr1l9fzdDZhXVPKNXb/7te67rFJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PrevOrPQY2yQrsXgnmZKCYl1AOXiF04Es6P0euf5k9nmZ9V65LlIWaBxTPA3WPkI2Zh2l/wNN3B3w5/vypBxLpQWeLxziXvDALMn/cAQp8mwC4aGSbw5P6yOsHiXK0icOXAUljxNjcxZnvOKFk4DsF+dynEKtHx9eg3WMrLZVpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=It9jDnEV; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788511183; c=relaxed/simple;
+	bh=Vs4NIwy9TDjaxeNM+EQOGaHSmlMuu8xZtXIs9CM8Pf0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SWx4qmfmaRVBl52ADhZj1TIm5rIVbbahumXWheVdT416nlWy2/MG4sua3xHw9TswtNQE2OIjj7xMUqXv9whtZeaatcw3otpkfnLSkGY5SUvj5RVmLL+DaX+Fu4bMP5HIcv0h6IT31yund/tjavGmj3wUnCbI09Kp3QgNhywexsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="It9jDnEV"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so9913325e9.3
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 01:37:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788511066; x=1789115866; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3s1LbH3i67Aex+XO8TqzHfYjkZ2LQ+Zdti2dOun8vp0=;
-        b=It9jDnEVCbZVR9s5JO3WJcHTmGDv4Qvre+NAB3GUZs1d8/27QCs3gM890sAJAfRu0X
-         QXW71DDQXO+Bm5q5BjpqOjxDgpRwnGLANq5vYPrpr5vu06y7qevH/bd+7zME9iSg2SyQ
-         O9XxjOIXzdz9zr0wVl1a4UG3RPYhyIurxSFVdnb/VYMOOPXHI2vbrFupWEyr4BOoTrWk
-         9yTZ5jvfCIzY002hPglb8hNKqvIW9iB+TZez5fD8kTaPwEF/k+pftgp6MvufxC546o12
-         RaXRMaiJSljwTsHyFmgEWatoGmCnDkVh+cjv7zxYkAG/xQL2srka43NFz0RhyAGDTxmv
-         ycYQ==
+Received: by mail-wm2-f9.google.com with SMTP id 5b1f17b1804b1-49554457f71so357745e9.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 01:39:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511066; x=1789115866;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3s1LbH3i67Aex+XO8TqzHfYjkZ2LQ+Zdti2dOun8vp0=;
-        b=K83iPVsKXE9LW5ut5gMOwmPTXW+QpNGihEQT0dpOvtfer+W+tRsIJaD87AsD0H5fbI
-         Npli/zcdtbONmAaxz+eS3pMroesZZ3ry0vHUNryg3JWre0sYP7g75KaVCXQEowuuqkAQ
-         g9r5OTIxUA5H50zd8+3dOvDkFXGLbvSUFgB1zIm2YsGSM0ahMDBeQk7voCrN/BfReaBh
-         igYNvtZAam5+/lDllbywfG5A7GtbQyMlnZ0D4fsIMycp7G4qmiAfKvltcpA/eN+ILgaB
-         xlx5SkJKVN7lNYYJeof7G/yvo821wA32DMcDrQe/rY5WIcvVvUtRdVYgRaCW/2VhCDK4
-         D6dw==
-X-Forwarded-Encrypted: i=1; AKwUvBzLC+mpRPLvz8qMrojoz7qAbez5iiaCviqgUzVYT3dnxJ/zWAStsn8R9FPyAQ2yWPKgSmlsUBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKZV6nOLETmS8CuyGfAgU4YyYa2oAFbI1kIatqk04gNP0AhoRx
-	H8Z9nx6i7Y1aSqMGhpnbNMYtDaHG/ssL2w6ioZt74EoxBrKDz7B5GBqC
-X-Gm-Gg: AYBFou0MFm5TG8SmPydH3OD0XqjjA1OemUOQnCqHC/v2qbx539xuBpgAQ284x/zD31g
-	IN8RxZbSRgZPmQD+lZTJOROK1zbmLGtYVfLjzSEeLc6NQkvEggYyRncGxUS9wYKojCfmjynuqMD
-	/Ak/IESZ4m+uMazN/KzIQl1i0OAD+AtYcvswuNy8u76aXay5W4xQh8qxgYOpe+7mX5mtFTKgMyW
-	4f7vBL7WFmLDutux3FIxQr2FVQMlDHvQ52ct3ILZcYGvPvv5RQuZBgwzaZ72NPYPqndj7EBRCDc
-	ugxTK+dvicrGFFf/21/LuZKFTPxePKmxq1iSU3UpqgkoYuo/dasKB9sD6ziPXZg7XSPys/W+ao4
-	KBWvdQX6jlJsnARhT8bHZVSTsLRp4yyS9VoMxCJtpJU5YvYMQG0kGgNtxIBD7d7SZk6U7YpJpsI
-	49Hb5xrbZz6J+Rs3oOHsL+lkwQ5ocRcoaXtKhlA/sNkgMyWi8CVBa1CQLAvTtXzOAg16QYgtnvu
-	Z5PaeK1vqzaHcbeGj7gDyfqzA==
-X-Received: by 2002:a05:600c:5303:b0:49c:fa21:1c85 with SMTP id 5b1f17b1804b1-49cfa211d81mr22763385e9.26.1788511065589;
-        Fri, 04 Sep 2026 01:37:45 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm137112065e9.2.2026.09.04.01.37.44
+        d=1e100.net; s=20251104; t=1788511180; x=1789115980;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BhGFRAVElnolj3stsHqURc/672S/iuF+zy9EldqClm4=;
+        b=ETsRpVO+Uvfl0JG6WMj0TrYHL1oUsFZreKpkMgiz8KVTCsoLEXGoSnl1FqcuGrWvAe
+         dueEXDtp1rSiFlPmqlQz98yBdm4RVkoq4Gaki7t4RYgSx6lb4driB1GXmmU+oVy7xoUE
+         848oYWekVTYiIHi816dvLSMKnQbv0luCwriGTW2+H+bjIlbjDrMetV458U2rzaOlzisy
+         9RlSCEasV4/4Q4eB2OP+EETdznwyGm9OTdVkWnFjCFdhy4hESs1QBaSzuDuR6RO0ABoB
+         APQ1ghyp4D06IPjNQBq2g+C1dop7Bn7P+YNN7XkuQrFloreEE1u4Qrw1ee3/LI9Mt8yK
+         OaAw==
+X-Gm-Message-State: AFuF++kzW/VciYhVzGZmwh3ZRmyx7K4TggUd9BnNT2XZCQC31NNxrBoS
+	vNqs2dCUoR/yZafAtkGTrLZmJHCCT3GNRVP/kZ3AxA2ESblNOZJstBUfmoo4uf5t
+X-Gm-Gg: AYBFou1wqqCT5Fxozkrnfzi/OpdeMFTp14xl9m7uDZYWLhEiJPvMiuiyrWxZkFUv7JU
+	QJdrLt8S1XBTTyFjWd1X0bhbIBe9ZNULlJEb8pUHq6t1SFor9PILEk2UG+lrH0aEH+bRnAyP5y2
+	W3lEpKb1c2RJ1iar3f3f1rIChsjGjzmZN07L2cL+gf2uscDySQTfhYctd4oVbAMmejlGQwr+tb7
+	jdw7xoeUQidJt4FeaRFunxXv+dE8hJjswebf9YH/m/Uc7xnoTIWAcU1LaisbWk3aua2m8pwopDw
+	ReURmmfatZSB6biqXuZjCiUyM1SlKH+WUV3E0sOcU3zWAdrBO24Irh0cUQUvviNn7WxvU/xEGmP
+	UyYYlH7SS1+CyPqmUDfaB6fyxXUtcRVw+drgHWJSE4zpKr4MqPZittQ3y4eZB5tQKFgUEH0KyT5
+	Wf++kiEvPD15Imu7W3IhSnrnZWnJKu6mfkf9XTVJiR+p2Jy/+n250YOY2BGnbjXIr5JsfMuKWC4
+	+/u7fjsimSJ0114xjyfhuzsvR3WwA==
+X-Received: by 2002:a05:600c:a05:b0:49c:f501:e428 with SMTP id 5b1f17b1804b1-49cf82e5b1amr30642355e9.8.1788511180059;
+        Fri, 04 Sep 2026 01:39:40 -0700 (PDT)
+Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce7ac52c3sm148339335e9.4.2026.09.04.01.39.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:37:45 -0700 (PDT)
-Date: Fri, 4 Sep 2026 09:37:43 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt
- <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, Muchun
- Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>, Qi Zheng
- <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>, Axel Rasmussen
- <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
- <weixugc@google.com>, David Hildenbrand <david@kernel.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Chris Down <chris@chrisdown.name>, Tejun Heo
- <tj@kernel.org>, Yu Zhao <yuzhao@google.com>, cgroups@vger.kernel.org (open
- list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
- linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER
- (MEMCG)), linux-kernel@vger.kernel.org, Ridong Chen
- <chenridong@xiaomi.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
- effective_protection()
-Message-ID: <20260904093743.23cde26b@pumpkin>
-In-Reply-To: <20260903031952.1120321-2-ridong.chen@linux.dev>
-References: <20260903031952.1120321-1-ridong.chen@linux.dev>
-	<20260903031952.1120321-2-ridong.chen@linux.dev>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Fri, 04 Sep 2026 01:39:39 -0700 (PDT)
+From: Ilya Maximets <i.maximets@ovn.org>
+To: stable@vger.kernel.org
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Jongmin Jang <payload.jang@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 5.15.y] net: skbuff: don't touch shared zerocopy state in skb_tx_error()
+Date: Fri,  4 Sep 2026 10:39:35 +0200
+Message-ID: <20260904083936.1801336-1-i.maximets@ovn.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026090309-stardom-headlamp-9e27@gregkh>
+References: <2026090309-stardom-headlamp-9e27@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu,  3 Sep 2026 11:19:51 +0800
-Ridong Chen <ridong.chen@linux.dev> wrote:
+From: Norbert Szetei <norbert@doyensec.com>
 
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> effective_protection() scales a parent's protection by a ratio of page
-> counts, e.g. for recursive protection:
-> 
-> 	(parent_effective - siblings_protected) * (usage - protected)
-> 		/ (parent_usage - siblings_protected)
-> 
-> The multiply is done at unsigned long width before dividing. On systems
-> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
-> protection value and silently breaking memory.min/low enforcement.
-> 
-> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
-> usage and parent_usage are not read atomically (a child is charged
-> before its parent), usage - protected can briefly exceed the divisor,
-> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
-> the ratio stays <= 1.
-> 
-> Reported by the sashiko review tool [1].
-> 
-> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
-> 
-> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
-> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Barry Song <baohua@kernel.org>
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/page_counter.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/page_counter.c b/mm/page_counter.c
-> index 661e0f2a5127..e8bd512069c5 100644
-> --- a/mm/page_counter.c
-> +++ b/mm/page_counter.c
-> @@ -8,6 +8,7 @@
->  #include <linux/page_counter.h>
->  #include <linux/atomic.h>
->  #include <linux/kernel.h>
-> +#include <linux/math64.h>
->  #include <linux/string.h>
->  #include <linux/sched.h>
->  #include <linux/bug.h>
-> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
->  	 * otherwise get a smaller chunk than what they claimed.
->  	 */
->  	if (siblings_protected > parent_effective)
-> -		return protected * parent_effective / siblings_protected;
-> +		return mul_u64_u64_div_u64(protected, parent_effective,
-> +					   siblings_protected);
+[ Upstream commit f66bdb1cc0fcd227a062378f8be0b5873aa5600a ]
 
-On 32bit it is only necessary to use a 64bit intermediary.
-mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
-divide (and then maybe to a 64 by 32 one).
-But there is a lot of extra code before that happens.
+skb_tx_error() completes the zerocopy uarg and clears
+SKBFL_ALL_ZEROCOPY, and skb_zcopy_downgrade_managed() clears
+SKBFL_MANAGED_FRAG_REFS. Both live in skb_shinfo(), which every clone
+shares, while the caller only owns the reference it is about to drop.
+Through a clone it tells the producer its pages are free and drops
+SKBFL_SHARED_FRAG for an skb that is still in flight.
 
->  
->  	/*
->  	 * Ok, utilized protection of all children is within what the
-> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
->  	if (parent_effective > siblings_protected &&
->  	    parent_usage > siblings_protected &&
->  	    usage > protected) {
-> -		unsigned long unclaimed;
-> +		unsigned long unclaimed = parent_effective - siblings_protected;
-> +		unsigned long unprotected = usage - protected;
-> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
->  
-> -		unclaimed = parent_effective - siblings_protected;
-> -		unclaimed *= usage - protected;
-> -		unclaimed /= parent_usage - siblings_protected;
-> +		/*
-> +		 * The usages aren't read atomically, so a child can transiently
-> +		 * appear to use more than its parent, making the ratio exceed 1
-> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
-> +		 */
-> +		unprotected = min(unprotected, parent_unprotected);
->  
-> -		ep += unclaimed;
-> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);
+Open vSwitch reaches this with a non-last OVS_ACTION_ATTR_RECIRC:
+clone_execute() sends a skb_clone() into ovs_dp_process_packet() while
+do_execute_actions() keeps forwarding the original, and skb_clone()
+does not privatise the frags here -- skb_orphan_frags() returns early
+on SKBFL_DONT_ORPHAN. A flow miss on the clone then strips the marker
+from the packet still being forwarded, and a later local ESP delivery
+decrypts in place over frags it does not own privately.
 
-If the ratio is forced to 1 there is no point doing the scaling.
-So maybe:
-		if (likely(parent_unprotected > unprotected))
-			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
-							parent_unprotected);
-		ep += unclaimed;
-OTOH if the min() generates a cmov rather than a conditional branch
-then you don't get a statically mispredicted branch in the normal case
-(which is very likely with the empty 'else' branch).
+Skip it for a cloned skb. Nothing is lost: skb_release_data() clears
+the zerocopy state once the last reference to the shared data goes.
 
-David
+Fixes: 25121173f7b1 ("skb: api to report errors for zero copy skbs")
+Cc: stable@vger.kernel.org
+Suggested-by: Ilya Maximets <i.maximets@ovn.org>
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Tested-by: Jongmin Jang <payload.jang@gmail.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/CFAB292A-674B-4C14-BB2C-BB8830AD5659@doyensec.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ There was no 'if' on 5.x as there is no skb_zcopy_downgrade_managed(). ]
+Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
+---
+ net/core/skbuff.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
->  	}
->  
->  	return ep;
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 6281cfed03bb2..83ad581b12fa9 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -889,10 +889,14 @@ EXPORT_SYMBOL(skb_dump);
+  *
+  *	Report xmit error if a device callback is tracking this skb.
+  *	skb must be freed afterwards.
++ *
++ *	Does nothing for a cloned skb: the zerocopy state lives in
++ *	skb_shinfo(), which the clones share.
+  */
+ void skb_tx_error(struct sk_buff *skb)
+ {
+-	skb_zcopy_clear(skb, true);
++	if (skb && !skb_cloned(skb))
++		skb_zcopy_clear(skb, true);
+ }
+ EXPORT_SYMBOL(skb_tx_error);
+ 
+-- 
+2.55.0
 
