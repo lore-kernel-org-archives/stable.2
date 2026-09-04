@@ -1,58 +1,62 @@
-Received: from mail-wm2-f10.google.com (mail-wm2-f10.google.com [74.125.225.138])
+Received: from mail-wm2-f7.google.com (mail-wm2-f7.google.com [74.125.225.135])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1296F399CFC
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F55B442FA0
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 09:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.135
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788515322; cv=none; b=s735PaNygUiHe7gle+QO+NyDvHASQ+BwGzxudW90Y4svM3IriMnDxvE30H5JPIs+MAYfs/F+XHce1Kpg6ZZwQmC3mzHfkzHRO2posozoAQ2ISlSLPudFc17dVBUXl2KMkWrfl2F3ywKPIOZ49VyzWI41pxbgRWG/jrvZgPV2ipY=
+	t=1788515324; cv=none; b=TjeYozphsna7v3kO6VvwP/T9Fv/fF85KtY4uL9dl2DGrVozEGQDf+tSvuy+poMnRQTyqIJ9iAN51fkHwQQBMhWv1ToNvxtqoubcGRJnTHp4N4I57KQyEg2oAs+zgUwfw/CoGy0Q4jC0G8NRjaWGNhct3d8TZ41G02bBAkzUb2Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788515322; c=relaxed/simple;
-	bh=HcugBEo3FppEaM0eLvdUWVjGaN1L+biPm8je5RZWfu4=;
+	s=arc-20240116; t=1788515324; c=relaxed/simple;
+	bh=oOS5TYr9KmkmF7VHhrxHpuu76uSree4LSZG/2KBEZfM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=huZ1Bg9ce9SCLDLu3vZfGHdjZHy2xd6htCywA1nx6T18NWL33ez6yUhIOr70Ue/xOn7Se4nkjfCVwwlr1RK6ImncuZwtEqWa5UfILfwvSm9tLgOKMPOwmrK6jM729a7BICZaVB9JcPwl9k6CXoYL55GkA3HomQzsPqwqxdiwEB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.138
+	 MIME-Version; b=jWr9C3iu4UECYsGFvJH88nhM6ee7xaaDBzgMuyDCIlJ7AQLPjkZbU9uDecsYBIWKQftgvPwTKKgvafDz59xHkZtkoQZvCBWSGy6MGTVzRGpA0nvKf1fZOLACoHYRPrV8mEKurFSZPkWcJ/oHVN05W4pgNWGPd9b9+cfd2PTL83g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.135
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f10.google.com with SMTP id 5b1f17b1804b1-495501e57beso3502935e9.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:48:39 -0700 (PDT)
+Received: by mail-wm2-f7.google.com with SMTP id 5b1f17b1804b1-49add2a23e5so3414655e9.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 02:48:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788515318; x=1789120118;
+        d=1e100.net; s=20251104; t=1788515320; x=1789120120;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KoXs7Q8L0fZywSBVWtqPProcsfCDAvHAS6HCcTCiAYs=;
-        b=jIA++158iCI3UdhehF7z2nXrg1w61jLbK0RPG7ZHGCUMAQ1UbWBlspoj4SwjwHkYpW
-         NO4MWiyj81XGlN9AClDNjDa3iKGeeVMxgOWm4bPhpVr6CH9SZkp8BKnU4xpUTT5V/YQd
-         89Ht7dmNh5iv5bVc+f5u8F2RpATNYrP7Lq/DUvLe/Xmss4+ZkDTiIiksA4C3k1LtOhce
-         ORfR6+mUpjok3kvyLh8IclVg5thWyssC3IOQcB2Y7UANZuDcc41A5D9CjARMqT5mHLpH
-         OZUF0pKuUUvtwqnIWjCBziu0wkuH/BESNgSv/8wQ5Lv54AsPh6uKmUtmom5V8tBt4mSB
-         wLhg==
-X-Gm-Message-State: AFuF++kJSBMebldiOcy+14x/lb3j3RK8H/qiEhejRnyWIuwGOD9x02aM
-	SFVMj2rWhhm0RQTmo+eU6RqRDBdHpuoIzifkoo+qjrXiV0swwpJjfccbOefmS2gi
-X-Gm-Gg: AYBFou2Yq655kPXyRSDnp5L4kkbWae57aS3WGDN+iMWcYMxPVOXy6pIhL8/q9uKHufp
-	hECjyQbD6tUnVPG2H6z5IsfX2w0/7TY29+nb+QU7MNxbfnTwQA4AS+qbW81CmPG7/E9nhM0XWy0
-	tGOR3WnuydCVWlBbLKOc2fED7GdKvxNYPZEf8kAkdNPb8tXVe9yRskkLWItbpsHGW2+C70bVrua
-	QhCWtKuHgTEczpm+0GsWCkC3gIO+HmaVWePsJ5wQycLxKPEpwaq3R8K+SZqKSFHR07yu4O6fUc5
-	Hl+zxC4KLkQ3ncG987PAoIXBfd05YXCYazB21Dr/8t8sJG/i0CERtxx20fz/vs6LIpDjAj0BAGU
-	g3ahEH/GMSrQutvzxirS3eMCpuIOTue+WQjT/2Wh70sdHs1Rzu2OgHOyKSyGnpiq/MLaC6MrHbi
-	wfwO+e4C4mr7rC6NYb91h46L8shX3+lTRBnOkIQUyozAIEStJYzaTbQZE1rzq7uXTA9qO9Ux+7v
-	1T/4eIAF4+q4z8bRsY=
-X-Received: by 2002:a05:600c:c173:b0:49c:cedc:3c36 with SMTP id 5b1f17b1804b1-49cf82a514cmr56255765e9.16.1788515318030;
-        Fri, 04 Sep 2026 02:48:38 -0700 (PDT)
+        bh=rAsj+YckDhYSNq2L55LWz/LqpnwaaAf9E1UvrKvqWu8=;
+        b=Tutfq9ttz/myadWdSoAd/uVca9NtlImrifwJYzD4S5tJy9Xo3ESowC3eYrkknWb9KL
+         yWofNgu90dO61Ze4fTw/NDUA/MHHzLKuioLSijsnUucNtyxE5IAdL2rfcoOOuir01qPE
+         HY+SXZoXHU/z78AVLSrjgrG4CpMIJavYpxw8L+n3O5kLqM5aQnuYhZys7F0z7IuD9tSL
+         kt9HhtnI7t+2uAuHn6cqfC8bOltrIcNT1KfPOpfaJmwxAHM1fjdBTDqp+Mjddpgx4jRB
+         5mZVYV3H9z5OiYva9BAvXkataaY9LSJMmQtzNQiHPsDKlCcJTMsi79pwMCI8sZtPvo6m
+         pX0w==
+X-Gm-Message-State: AFuF++nwVx0mIqmZBjr2QTgKgnhzJyAZwTH+1anoSEERX163t75QHfF8
+	s59nvLZCmmVtBSmiHxL7femLVm3exQxcIFRuHBleFQbHpQdVDM/rBozlDu+bnXD7
+X-Gm-Gg: AYBFou1IhyndPd6OGWRo9RCFoO0UEUV4VF7+Cwl3WYZDV8cZ/VjOEOQyatxMQ9rIdDm
+	JNM7WrksNKvBYnFKEJwrhqWzVQXkRymOCW2H+XuvGC1zusKB44mQYuBiWP+d0hj7mFN+m4kf86u
+	9x8dB+BotUIBPmt4q5lJPEn+Eyw4kp1VmPNJl+OfNonuFhfFMvYZxqLSVTie7O9jl79tg9esw1S
+	x2o0sHN8wARco3MLOMt2KvXiry2im8uBi/Zgvevk1A/0KSdqI9wxyH4wV9hMyH+MSJDFfWWZrfa
+	30R31kAUIzeFlaoDAvdswXDlHbaj7WV+EOhdSCR8tIjFBbpEtf7TeM/eWSPrZN1FQzpicZe+VDE
+	P8hJht5+Zd0CH6PvLj+TgXcTxl0jPmJqfS630Nx0a9//tZ3Ju2aItbHLL8Fwt2ZivyX+BDcdoVl
+	DkQCwkmqEUYwfIs5sU4eSWkYus5WrD9dzj3nZfCx09yyIJGrfNWD5EFqsqXJnpAmRzYNeoCwfwY
+	jipbLYZKwaFe8shYyw=
+X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr47071845e9.2.1788515320178;
+        Fri, 04 Sep 2026 02:48:40 -0700 (PDT)
 Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm145501045e9.6.2026.09.04.02.48.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm145501045e9.6.2026.09.04.02.48.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 02:48:37 -0700 (PDT)
+        Fri, 04 Sep 2026 02:48:39 -0700 (PDT)
 From: Ilya Maximets <i.maximets@ovn.org>
 To: stable@vger.kernel.org
 Cc: Eelco Chaudron <echaudro@redhat.com>,
 	Aaron Conole <aconole@redhat.com>,
+	Yuqi Xu <xuyuqiabc@gmail.com>,
+	Vega <vega@nebusec.ai>,
+	Nan Li <tonanli66@gmail.com>,
+	Ren Wei <enjou1224z@gmail.com>,
 	Ilya Maximets <i.maximets@ovn.org>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 5.10.y 1/2] net: openvswitch: fix kernel-doc warnings in internal headers
-Date: Fri,  4 Sep 2026 11:48:17 +0200
-Message-ID: <20260904094826.1817930-2-i.maximets@ovn.org>
+Subject: [PATCH 5.10.y 2/2] openvswitch: Fix CT limit teardown use-after-free
+Date: Fri,  4 Sep 2026 11:48:18 +0200
+Message-ID: <20260904094826.1817930-3-i.maximets@ovn.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260904094826.1817930-1-i.maximets@ovn.org>
 References: <2026090351-garnish-ferocious-2169@gregkh>
@@ -65,145 +69,461 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit 6bb0dcb3d321c14be7ca33b71a149034d6a2cde8 ]
+From: Yuqi Xu <xuyuqiabc@gmail.com>
 
-Some field descriptions were missing, some were not very accurate.
-Not touching the uAPI header or .c files for now.
+[ Upstream commit 403f96c32c9e24600093d7d0c61c17daeedca957 ]
 
-Formatting of those comments isn't great in general, but at least
-they are not missing anything now.
+Packet processing uses CT limit state under RCU, while netns teardown
+frees that state under ovs_mutex. The CT limit pointer was neither removed
+from readers nor protected by a grace period, allowing packet processing to
+dereference the freed state.
 
-Before:
-  $ ./scripts/kernel-doc -none -Wall net/openvswitch/*.h 2>&1 | wc -l
-  16
+An unprivileged user can trigger this bug from a user and network
+namespace, causing a slab-use-after-free in ovs_ct_execute() when the
+netns is torn down.
 
-After:
-  $ ./scripts/kernel-doc -none -Wall net/openvswitch/*.h 2>&1 | wc -l
-  0
+Publish the CT limit pointer through RCU, remove it before teardown, and
+wait for readers before freeing its contents. Keep ovs_mutex around
+individual CT limit updates, and use the RCU read-side lock while GET
+traverses the RCU-protected limit lists.
 
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
-Acked-by: Eelco Chaudron <echaudro@redhat.com>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Link: https://patch.msgid.link/20250320224431.252489-1-i.maximets@ovn.org
+Netns teardown detaches the RCU-protected CT limit state in the pernet
+.pre_exit callback while holding ovs_mutex.  The pernet core guarantees an
+RCU grace period between the .pre_exit and .exit callbacks, so the .exit
+callback completes the teardown without adding any extra synchronization.
+
+The netlink command handlers do not need NULL checks because the userspace
+netlink socket holds an active reference to its network namespace while a
+request is processed. The per-netns exit path therefore cannot run
+concurrently with SET, DEL, or GET for that socket's namespace.
+
+Fixes: 11efd5cb04a1 ("openvswitch: Support conntrack zone limit")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Link: https://lore.kernel.org/all/cover.1784711445.git.xuyuqiabc@gmail.com
+Co-developed-by: Nan Li <tonanli66@gmail.com>
+Signed-off-by: Nan Li <tonanli66@gmail.com>
+Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
+Reviewed-by: Ren Wei <enjou1224z@gmail.com>
+Reviewed-by: Ilya Maximets <i.maximets@ovn.org>
+Link: https://patch.msgid.link/288fbd5459d92b9dd0dcc6faf625f04819161ff3.1787280296.git.xuyuqiabc@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ struct vport_upcall_stats_percpu doesn't exist in 6.2 and earlier
-  struct datapath doesn't have @upcall_portids in 5.14 and earlier ]
+[ 7.0+ uses kmalloc_obj[s] while older versions use kmalloc[_array]
+  6.12+ doesn't have a 'family' argument in nf_conncount_init/destroy ]
 Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
- net/openvswitch/datapath.h | 20 ++++++++++++++------
- net/openvswitch/vport.h    |  8 ++++++++
- 2 files changed, 22 insertions(+), 6 deletions(-)
+ net/openvswitch/conntrack.c | 122 +++++++++++++++++++++++-------------
+ net/openvswitch/conntrack.h |   6 +-
+ net/openvswitch/datapath.c  |  10 ++-
+ net/openvswitch/datapath.h  |   8 ++-
+ 4 files changed, 98 insertions(+), 48 deletions(-)
 
+diff --git a/net/openvswitch/conntrack.c b/net/openvswitch/conntrack.c
+index 50a345ccd9430..054985727abc0 100644
+--- a/net/openvswitch/conntrack.c
++++ b/net/openvswitch/conntrack.c
+@@ -1156,10 +1156,14 @@ static int ovs_ct_check_limit(struct net *net,
+ 			      const struct ovs_conntrack_info *info)
+ {
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+-	const struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
++	const struct ovs_ct_limit_info *ct_limit_info;
+ 	u32 per_zone_limit, connections;
+ 	u32 conncount_key;
+ 
++	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
++	if (!ct_limit_info)
++		return 0;
++
+ 	conncount_key = info->zone.id;
+ 
+ 	per_zone_limit = ct_limit_get(ct_limit_info, info->zone.id);
+@@ -1860,43 +1864,56 @@ static void __ovs_ct_free_action(struct ovs_conntrack_info *ct_info)
+ #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
+ static int ovs_ct_limit_init(struct net *net, struct ovs_net *ovs_net)
+ {
++	struct ovs_ct_limit_info *info;
+ 	int i, err;
+ 
+-	ovs_net->ct_limit_info = kmalloc(sizeof(*ovs_net->ct_limit_info),
+-					 GFP_KERNEL);
+-	if (!ovs_net->ct_limit_info)
++	info = kmalloc(sizeof(*info), GFP_KERNEL);
++	if (!info)
+ 		return -ENOMEM;
+ 
+-	ovs_net->ct_limit_info->default_limit = OVS_CT_LIMIT_DEFAULT;
+-	ovs_net->ct_limit_info->limits =
++	info->default_limit = OVS_CT_LIMIT_DEFAULT;
++	info->limits =
+ 		kmalloc_array(CT_LIMIT_HASH_BUCKETS, sizeof(struct hlist_head),
+ 			      GFP_KERNEL);
+-	if (!ovs_net->ct_limit_info->limits) {
+-		kfree(ovs_net->ct_limit_info);
++	if (!info->limits) {
++		kfree(info);
+ 		return -ENOMEM;
+ 	}
+ 
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; i++)
+-		INIT_HLIST_HEAD(&ovs_net->ct_limit_info->limits[i]);
++		INIT_HLIST_HEAD(&info->limits[i]);
+ 
+-	ovs_net->ct_limit_info->data =
+-		nf_conncount_init(net, NFPROTO_INET, sizeof(u32));
++	info->data = nf_conncount_init(net, NFPROTO_INET, sizeof(u32));
+ 
+-	if (IS_ERR(ovs_net->ct_limit_info->data)) {
+-		err = PTR_ERR(ovs_net->ct_limit_info->data);
+-		kfree(ovs_net->ct_limit_info->limits);
+-		kfree(ovs_net->ct_limit_info);
++	if (IS_ERR(info->data)) {
++		err = PTR_ERR(info->data);
++		kfree(info->limits);
++		kfree(info);
+ 		pr_err("openvswitch: failed to init nf_conncount %d\n", err);
+ 		return err;
+ 	}
++	rcu_assign_pointer(ovs_net->ct_limit_info, info);
+ 	return 0;
+ }
+ 
+-static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
++static void *ovs_ct_limit_exit_start(struct ovs_net *ovs_net)
++{
++	return rcu_replace_pointer(ovs_net->ct_limit_info, NULL,
++				   lockdep_ovsl_is_held());
++}
++
++/* The CT limit state must be detached by ovs_ct_limit_exit_start() and an
++ * RCU grace period must elapse before this function runs.  The pernet core
++ * guarantees the grace period between the .pre_exit and .exit callbacks.
++ */
++static void ovs_ct_limit_exit_finish(struct net *net, void *data)
+ {
+-	const struct ovs_ct_limit_info *info = ovs_net->ct_limit_info;
++	const struct ovs_ct_limit_info *info = data;
+ 	int i;
+ 
++	if (!info)
++		return;
++
+ 	nf_conncount_destroy(net, NFPROTO_INET, info->data);
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
+ 		struct hlist_head *head = &info->limits[i];
+@@ -1904,7 +1921,7 @@ static void ovs_ct_limit_exit(struct net *net, struct ovs_net *ovs_net)
+ 		struct hlist_node *next;
+ 
+ 		hlist_for_each_entry_safe(ct_limit, next, head, hlist_node)
+-			kfree_rcu(ct_limit, rcu);
++			kfree(ct_limit);
+ 	}
+ 	kfree(info->limits);
+ 	kfree(info);
+@@ -1943,12 +1960,13 @@ static bool check_zone_id(int zone_id, u16 *pzone)
+ 	return false;
+ }
+ 
+-static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+-				       struct ovs_ct_limit_info *info)
++static int ovs_ct_limit_set_zone_limit(struct ovs_net *ovs_net,
++				       struct nlattr *nla_zone_limit)
+ {
+ 	struct ovs_zone_limit *zone_limit;
+-	int rem;
++	struct ovs_ct_limit_info *info;
+ 	u16 zone;
++	int rem;
+ 
+ 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
+ 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
+@@ -1957,6 +1975,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 		if (unlikely(zone_limit->zone_id ==
+ 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			info->default_limit = zone_limit->limit;
+ 			ovs_unlock();
+ 		} else if (unlikely(!check_zone_id(
+@@ -1973,6 +1992,7 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 			ct_limit->limit = zone_limit->limit;
+ 
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			ct_limit_set(info, ct_limit);
+ 			ovs_unlock();
+ 		}
+@@ -1987,12 +2007,13 @@ static int ovs_ct_limit_set_zone_limit(struct nlattr *nla_zone_limit,
+ 	return 0;
+ }
+ 
+-static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+-				       struct ovs_ct_limit_info *info)
++static int ovs_ct_limit_del_zone_limit(struct ovs_net *ovs_net,
++				       struct nlattr *nla_zone_limit)
+ {
+ 	struct ovs_zone_limit *zone_limit;
+-	int rem;
++	struct ovs_ct_limit_info *info;
+ 	u16 zone;
++	int rem;
+ 
+ 	rem = NLA_ALIGN(nla_len(nla_zone_limit));
+ 	zone_limit = (struct ovs_zone_limit *)nla_data(nla_zone_limit);
+@@ -2001,6 +2022,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+ 		if (unlikely(zone_limit->zone_id ==
+ 				OVS_ZONE_LIMIT_DEFAULT_ZONE)) {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			info->default_limit = OVS_CT_LIMIT_DEFAULT;
+ 			ovs_unlock();
+ 		} else if (unlikely(!check_zone_id(
+@@ -2008,6 +2030,7 @@ static int ovs_ct_limit_del_zone_limit(struct nlattr *nla_zone_limit,
+ 			OVS_NLERR(true, "zone id is out of range");
+ 		} else {
+ 			ovs_lock();
++			info = ovsl_dereference(ovs_net->ct_limit_info);
+ 			ct_limit_del(info, zone);
+ 			ovs_unlock();
+ 		}
+@@ -2051,6 +2074,7 @@ static int __ovs_ct_limit_get_zone_limit(struct net *net,
+ 	return nla_put_nohdr(reply, sizeof(zone_limit), &zone_limit);
+ }
+ 
++/* Called with RCU read lock held. */
+ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 				       struct nlattr *nla_zone_limit,
+ 				       struct ovs_ct_limit_info *info,
+@@ -2074,12 +2098,10 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 							&zone))) {
+ 			OVS_NLERR(true, "zone id is out of range");
+ 		} else {
+-			rcu_read_lock();
+ 			limit = ct_limit_get(info, zone);
+ 
+ 			err = __ovs_ct_limit_get_zone_limit(
+ 				net, info->data, zone, limit, reply);
+-			rcu_read_unlock();
+ 			if (err)
+ 				return err;
+ 		}
+@@ -2094,6 +2116,7 @@ static int ovs_ct_limit_get_zone_limit(struct net *net,
+ 	return 0;
+ }
+ 
++/* Called with RCU read lock held. */
+ static int ovs_ct_limit_get_all_zone_limit(struct net *net,
+ 					   struct ovs_ct_limit_info *info,
+ 					   struct sk_buff *reply)
+@@ -2106,19 +2129,16 @@ static int ovs_ct_limit_get_all_zone_limit(struct net *net,
+ 	if (err)
+ 		return err;
+ 
+-	rcu_read_lock();
+ 	for (i = 0; i < CT_LIMIT_HASH_BUCKETS; ++i) {
+ 		head = &info->limits[i];
+ 		hlist_for_each_entry_rcu(ct_limit, head, hlist_node) {
+ 			err = __ovs_ct_limit_get_zone_limit(net, info->data,
+ 				ct_limit->zone, ct_limit->limit, reply);
+ 			if (err)
+-				goto exit_err;
++				return err;
+ 		}
+ 	}
+ 
+-exit_err:
+-	rcu_read_unlock();
+ 	return err;
+ }
+ 
+@@ -2128,7 +2148,6 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
+ 	struct sk_buff *reply;
+ 	struct ovs_header *ovs_reply_header;
+ 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_SET,
+@@ -2141,8 +2160,8 @@ static int ovs_ct_limit_cmd_set(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
+-	err = ovs_ct_limit_set_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
+-					  ct_limit_info);
++	err = ovs_ct_limit_set_zone_limit(ovs_net,
++					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
+ 	if (err)
+ 		goto exit_err;
+ 
+@@ -2162,7 +2181,6 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
+ 	struct sk_buff *reply;
+ 	struct ovs_header *ovs_reply_header;
+ 	struct ovs_net *ovs_net = net_generic(sock_net(skb->sk), ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_DEL,
+@@ -2175,8 +2193,8 @@ static int ovs_ct_limit_cmd_del(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
+-	err = ovs_ct_limit_del_zone_limit(a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT],
+-					  ct_limit_info);
++	err = ovs_ct_limit_del_zone_limit(ovs_net,
++					  a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]);
+ 	if (err)
+ 		goto exit_err;
+ 
+@@ -2196,7 +2214,7 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
+ 	struct ovs_header *ovs_reply_header;
+ 	struct net *net = sock_net(skb->sk);
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+-	struct ovs_ct_limit_info *ct_limit_info = ovs_net->ct_limit_info;
++	struct ovs_ct_limit_info *ct_limit_info;
+ 	int err;
+ 
+ 	reply = ovs_ct_limit_cmd_reply_start(info, OVS_CT_LIMIT_CMD_GET,
+@@ -2210,18 +2228,19 @@ static int ovs_ct_limit_cmd_get(struct sk_buff *skb, struct genl_info *info)
+ 		goto exit_err;
+ 	}
+ 
++	rcu_read_lock();
++	ct_limit_info = rcu_dereference(ovs_net->ct_limit_info);
+ 	if (a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT]) {
+ 		err = ovs_ct_limit_get_zone_limit(
+ 			net, a[OVS_CT_LIMIT_ATTR_ZONE_LIMIT], ct_limit_info,
+ 			reply);
+-		if (err)
+-			goto exit_err;
+ 	} else {
+ 		err = ovs_ct_limit_get_all_zone_limit(net, ct_limit_info,
+ 						      reply);
+-		if (err)
+-			goto exit_err;
+ 	}
++	rcu_read_unlock();
++	if (err)
++		goto exit_err;
+ 
+ 	nla_nest_end(reply, nla_reply);
+ 	genlmsg_end(reply, ovs_reply_header);
+@@ -2291,12 +2310,29 @@ int ovs_ct_init(struct net *net)
+ #endif
+ }
+ 
+-void ovs_ct_exit(struct net *net)
++/* Must be called with ovs_mutex held.  Detaches the RCU-protected
++ * ct_limit_info and stores it in ovs_net->ct_limit_exit_data for
++ * ovs_ct_exit_finish() to complete the teardown after an RCU grace period.
++ */
++void ovs_ct_exit_start(struct net *net __maybe_unused)
++{
++#if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
++	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
++
++	ovs_net->ct_limit_exit_data = ovs_ct_limit_exit_start(ovs_net);
++#endif
++}
++
++/* Completes the CT limit teardown.  The pernet core guarantees an RCU
++ * grace period between detaching the state in ovs_ct_exit_start() and
++ * this call, so no RCU readers remain.
++ */
++void ovs_ct_exit_finish(struct net *net)
+ {
+ 	struct ovs_net *ovs_net = net_generic(net, ovs_net_id);
+ 
+ #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
+-	ovs_ct_limit_exit(net, ovs_net);
++	ovs_ct_limit_exit_finish(net, ovs_net->ct_limit_exit_data);
+ #endif
+ 
+ 	if (ovs_net->xt_label)
+diff --git a/net/openvswitch/conntrack.h b/net/openvswitch/conntrack.h
+index 59dc32761b91f..ad9081d7023d5 100644
+--- a/net/openvswitch/conntrack.h
++++ b/net/openvswitch/conntrack.h
+@@ -14,7 +14,8 @@ enum ovs_key_attr;
+ 
+ #if IS_ENABLED(CONFIG_NF_CONNTRACK)
+ int ovs_ct_init(struct net *);
+-void ovs_ct_exit(struct net *);
++void ovs_ct_exit_start(struct net *net);
++void ovs_ct_exit_finish(struct net *net);
+ bool ovs_ct_verify(struct net *, enum ovs_key_attr attr);
+ int ovs_ct_copy_action(struct net *, const struct nlattr *,
+ 		       const struct sw_flow_key *, struct sw_flow_actions **,
+@@ -39,7 +40,8 @@ void ovs_ct_free_action(const struct nlattr *a);
+ 
+ static inline int ovs_ct_init(struct net *net) { return 0; }
+ 
+-static inline void ovs_ct_exit(struct net *net) { }
++static inline void ovs_ct_exit_start(struct net *net) { }
++static inline void ovs_ct_exit_finish(struct net *net) { }
+ 
+ static inline bool ovs_ct_verify(struct net *net, int attr)
+ {
+diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
+index b5ab925d63a42..83b0b0bc486c4 100644
+--- a/net/openvswitch/datapath.c
++++ b/net/openvswitch/datapath.c
+@@ -2599,6 +2599,13 @@ static void __net_exit list_vports_from_net(struct net *net, struct net *dnet,
+ 	}
+ }
+ 
++static void __net_exit ovs_pre_exit_net(struct net *dnet)
++{
++	ovs_lock();
++	ovs_ct_exit_start(dnet);
++	ovs_unlock();
++}
++
+ static void __net_exit ovs_exit_net(struct net *dnet)
+ {
+ 	struct datapath *dp, *dp_next;
+@@ -2609,7 +2616,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
+ 
+ 	ovs_lock();
+ 
+-	ovs_ct_exit(dnet);
++	ovs_ct_exit_finish(dnet);
+ 
+ 	list_for_each_entry_safe(dp, dp_next, &ovs_net->dps, list_node)
+ 		__dp_destroy(dp);
+@@ -2633,6 +2640,7 @@ static void __net_exit ovs_exit_net(struct net *dnet)
+ 
+ static struct pernet_operations ovs_net_ops = {
+ 	.init = ovs_init_net,
++	.pre_exit = ovs_pre_exit_net,
+ 	.exit = ovs_exit_net,
+ 	.id   = &ovs_net_id,
+ 	.size = sizeof(struct ovs_net),
 diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index 62e7ad32f8376..26f310f807083 100644
+index 26f310f807083..9a330aaaa7585 100644
 --- a/net/openvswitch/datapath.h
 +++ b/net/openvswitch/datapath.h
-@@ -29,8 +29,8 @@
-  * datapath.
-  * @n_hit: Number of received packets for which a matching flow was found in
-  * the flow table.
-- * @n_miss: Number of received packets that had no matching flow in the flow
-- * table.  The sum of @n_hit and @n_miss is the number of packets that have
-+ * @n_missed: Number of received packets that had no matching flow in the flow
-+ * table.  The sum of @n_hit and @n_missed is the number of packets that have
-  * been received by the datapath.
-  * @n_lost: Number of received packets that had no matching flow in the flow
-  * table that could not be sent to userspace (normally due to an overflow in
-@@ -40,6 +40,7 @@
-  *   up per packet.
-  * @n_cache_hit: The number of received packets that had their mask found using
-  * the mask cache.
-+ * @syncp: Synchronization point for 64bit counters.
-  */
- struct dp_stats_percpu {
- 	u64 n_hit;
-@@ -59,8 +60,10 @@ struct dp_stats_percpu {
-  * ovs_mutex and RCU.
-  * @stats_percpu: Per-CPU datapath statistics.
-  * @net: Reference to net namespace.
-- * @max_headroom: the maximum headroom of all vports in this datapath; it will
-+ * @user_features: Bitmap of enabled %OVS_DP_F_* features.
-+ * @max_headroom: The maximum headroom of all vports in this datapath; it will
-  * be used by all the internal vports in this dp.
-+ * @meter_tbl: Meter table.
-  *
-  * Context: See the comment on locking at the top of datapath.c for additional
-  * locking information.
-@@ -107,10 +110,13 @@ struct ovs_skb_cb {
- #define OVS_CB(skb) ((struct ovs_skb_cb *)(skb)->cb)
- 
- /**
-- * struct dp_upcall - metadata to include with a packet to send to userspace
-+ * struct dp_upcall_info - metadata to include with a packet sent to userspace
-  * @cmd: One of %OVS_PACKET_CMD_*.
-  * @userdata: If nonnull, its variable-length value is passed to userspace as
-  * %OVS_PACKET_ATTR_USERDATA.
-+ * @actions: If nonnull, its variable-length value is passed to userspace as
-+ * %OVS_PACKET_ATTR_ACTIONS.
-+ * @actions_len: The length of the @actions.
-  * @portid: Netlink portid to which packet should be sent.  If @portid is 0
-  * then no packet is sent and the packet is accounted in the datapath's @n_lost
-  * counter.
-@@ -131,6 +137,10 @@ struct dp_upcall_info {
-  * struct ovs_net - Per net-namespace data for ovs.
-  * @dps: List of datapaths to enable dumping them all out.
+@@ -139,7 +139,10 @@ struct dp_upcall_info {
   * Protected by genl_mutex.
-+ * @dp_notify_work: A work notifier to handle port unregistering.
-+ * @masks_rebalance: A work to periodically optimize flow table caches.
-+ * @ct_limit_info: A hash table of conntrack zone connection limits.
-+ * @xt_label: Whether connlables are configured for the network or not.
+  * @dp_notify_work: A work notifier to handle port unregistering.
+  * @masks_rebalance: A work to periodically optimize flow table caches.
+- * @ct_limit_info: A hash table of conntrack zone connection limits.
++ * @ct_limit_info: Hash table of conntrack zone connection limits. Protected
++ * by RCU; updates and teardown are serialized by ovs_mutex. May be NULL during
++ * netns teardown.
++ * @ct_limit_exit_data: CT limit state detached at .pre_exit, freed at .exit.
+  * @xt_label: Whether connlables are configured for the network or not.
   */
  struct ovs_net {
- 	struct list_head dps;
-@@ -139,8 +149,6 @@ struct ovs_net {
+@@ -147,7 +150,8 @@ struct ovs_net {
+ 	struct work_struct dp_notify_work;
+ 	struct delayed_work masks_rebalance;
  #if	IS_ENABLED(CONFIG_NETFILTER_CONNCOUNT)
- 	struct ovs_ct_limit_info *ct_limit_info;
+-	struct ovs_ct_limit_info *ct_limit_info;
++	struct ovs_ct_limit_info __rcu *ct_limit_info;
++	struct ovs_ct_limit_info *ct_limit_exit_data;
  #endif
--
--	/* Module reference for configuring conntrack. */
  	bool xt_label;
  };
- 
-diff --git a/net/openvswitch/vport.h b/net/openvswitch/vport.h
-index 1eb7495ac5b45..6e5909ce049db 100644
---- a/net/openvswitch/vport.h
-+++ b/net/openvswitch/vport.h
-@@ -90,6 +90,8 @@ struct vport {
-  * none was supplied.
-  * @dp: New vport's datapath.
-  * @port_no: New vport's port number.
-+ * @upcall_portids: %OVS_VPORT_ATTR_UPCALL_PID attribute from Netlink message,
-+ * %NULL if none was supplied.
-  */
- struct vport_parms {
- 	const char *name;
-@@ -117,6 +119,8 @@ struct vport_parms {
-  * have any configuration.
-  * @send: Send a packet on the device.
-  * zero for dropped packets or negative for error.
-+ * @owner: Module that implements this vport type.
-+ * @list: List entry in the global list of vport types.
-  */
- struct vport_ops {
- 	enum ovs_vport_type type;
-@@ -144,6 +148,8 @@ void ovs_vport_free(struct vport *);
-  *
-  * @vport: vport to access
-  *
-+ * Returns: A void pointer to a private data allocated in the @vport.
-+ *
-  * If a nonzero size was passed in priv_size of vport_alloc() a private data
-  * area was allocated on creation.  This allows that area to be accessed and
-  * used for any purpose needed by the vport implementer.
-@@ -158,6 +164,8 @@ static inline void *vport_priv(const struct vport *vport)
-  *
-  * @priv: Start of private data area.
-  *
-+ * Returns: A reference to a vport structure that contains @priv.
-+ *
-  * It is sometimes useful to translate from a pointer to the private data
-  * area to the vport, such as in the case where the private data pointer is
-  * the result of a hash table lookup.  @priv must point to the start of the
 -- 
 2.55.0
 
