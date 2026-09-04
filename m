@@ -1,43 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9179A378838;
-	Fri,  4 Sep 2026 06:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05B03F23DB
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 06:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788501727; cv=none; b=QywuMvMZg2Vy2qo3ApNTXfN4L0lYrBNj0y24S5sH8glINyXeVDUJB6nmmSyxN5lV7I9au8JpK6wLOrUht6YVD5mNVhWbFlaXjtLc3xLTZYBGY0mSWKApFUa7ZLsreLW8/9U8WRjsW+CR3pQmsTbp+xdBxe07aBKvSVCI7Tk/7GE=
+	t=1788501729; cv=none; b=BttMuYK+5FAVAVbjQGoLj1XFrCe3LUkI4Jg0LxUOE9qEaFvzUaSadD1hdAstUuD6Ze2AcXrOupRH4/BpOzz10G3SInfZhYTKIP1PSneDwjK4qLQq24yjeWAPtDk9DteTtqoV3o3J2Q4zuvgl5krox1cRDkdwfIUsmIHr1UUn/8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788501727; c=relaxed/simple;
-	bh=TwnRmUXfJWdyejHRz9QtZ5EyuP/mfavGwc3e8bLxfWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h42rbEZOWQpS5G9aKmsru25h83Zw4kjJTxd0LTnjGbYgRxpD2oTcBaGVfF6lT9jRJsw3tuTZ2RSM2rThicaO0fg1D7zbLNO/ctrXcFcLM1N7Uc3ZZ/HIH9/azDKVcm+6fzKep+uga5mm30YBh8rXIHpjFlYhdRr6MTbh/aUTeuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nwWRrTfb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nwWRrTfb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E981F00A3E;
-	Fri,  4 Sep 2026 06:02:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788501726;
-	bh=WmK7OI8id9+XD8inVDf0DlWBlNH7RvoSDUNnKTKf9K4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nwWRrTfbWIT9ciG03OwSxjLm9JB/9YwqWtMBnsWCK9osFvxHIGtcfpdCg2aom/ENv
-	 Ufv0kH7Plf7drVyKW/+jghXG4h5OlpU4DPlGeY0SrUp8G4g2dlXVC7Xm6O85AB+a2b
-	 ox37vVtrgs5cUn0mZzFcgIJGH9s1JjN81/ep0QpA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Bryam Vargas <hexlabsecurity@proton.me>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Subject: [PATCH 6.18 511/552] dm-pcache: detect a cycle in the last-kset chain during replay
-Date: Fri,  4 Sep 2026 07:01:08 +0200
-Message-ID: <20260904045802.223446874@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904045747.813364717@linuxfoundation.org>
-References: <20260904045747.813364717@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1788501729; c=relaxed/simple;
+	bh=OfT3XxWYJYsLyekUE8AYRGRGg/tCiDb56aMjQq9HR74=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HelSPTp0pv6xVBFdECRM/YN5XJ6D4jHfizF5yX+233wJkvWd04Xx773wza5L3eI+YXj10JprFfqDJ8NKqhN4aCNGnY+rgG0Cl7aRr+podySr65I30lTMXiliSwoNTPdoLe3KI1jYVv7pR5Bwx60SK0LNCo2SF5BXy/zscM+gH8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 22221f44a82611f19a56ed5b684f684d-20260904
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_MISS
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_DIGIT_LEN, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_AS_FROM, HR_TO_COUNT
+	HR_TO_DOMAIN_COUNT, HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED
+	SA_EXISTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS
+	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_RG_INFO, GTI_C_BU
+	AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:ba970356-6172-438b-9449-4305abbb385b,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.19,REQID:ba970356-6172-438b-9449-4305abbb385b,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:9dc909840402c5bb467e616ca2bcf5a6,BulkI
+	D:260904140159BPD4Y87M,BulkQuantity:0,SF:17|19|66|78|81|82|102|127|136|850
+	|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:0,File:nil,RT:nil
+	,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,B
+	RR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 22221f44a82611f19a56ed5b684f684d-20260904
+X-User: liuzhe1@kylinos.cn
+Received: from localhost.localdomain [(223.70.159.239)] by mailgw.kylinos.cn
+	(envelope-from <liuzhe1@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1193967788; Fri, 04 Sep 2026 14:01:56 +0800
+From: Zhe Liu <liuzhe1@kylinos.cn>
+To: liuzhe1@kylinos.cn
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 1/3] sched/fair: Remove the write-order dependency between cpu.max and cpu.max.burst
+Date: Fri,  4 Sep 2026 14:00:02 +0800
+Message-Id: <20260904060004.478785-2-liuzhe1@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260904060004.478785-1-liuzhe1@kylinos.cn>
+References: <20260904060004.478785-1-liuzhe1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,52 +63,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Keep the configured burst independent of the current quota and cap it
+when CFS refills runtime. This allows quota and burst updates in either
+order.
 
-------------------
+Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
-
-commit 16c3b3a326e70f246a605b3dc27b7f83ba4743e3 upstream.
-
-cache_replay() follows the on-media last-kset chain by next_cache_seg_id
-with no cond_resched(). A forged chain that points back into a segment it
-has already visited makes the replay loop follow it forever.
-
-Cap the last-kset hops at cache->n_segs; a valid chain visits each segment
-at most once.
-
-Fixes: 1d57628ff95b ("dm-pcache: add persistent cache target in device-mapper")
 Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
 ---
- drivers/md/dm-pcache/cache_key.c |    7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ kernel/sched/core.c | 3 +--
+ kernel/sched/fair.c | 3 ++-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
---- a/drivers/md/dm-pcache/cache_key.c
-+++ b/drivers/md/dm-pcache/cache_key.c
-@@ -762,7 +762,7 @@ int cache_replay(struct pcache_cache *ca
- 	struct pcache_cache_pos pos_tail;
- 	struct pcache_cache_pos *pos;
- 	struct pcache_cache_kset_onmedia *kset_onmedia;
--	u32 to_copy, count = 0;
-+	u32 to_copy, count = 0, last_hops = 0;
- 	int ret = 0;
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..5269b8cfcf7f 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
+ 	if (quota_us != RUNTIME_INF && quota_us > max_bw_runtime_us)
+ 		return -EINVAL;
  
- 	kset_onmedia = kzalloc(PCACHE_KSET_ONMEDIA_SIZE_MAX, GFP_KERNEL);
-@@ -797,6 +797,11 @@ int cache_replay(struct pcache_cache *ca
+-	if (quota_us != RUNTIME_INF && (burst_us > quota_us ||
+-					burst_us + quota_us > max_bw_runtime_us))
++	if (burst_us > max_bw_runtime_us)
+ 		return -EINVAL;
  
- 			pcache_dev_debug(pcache, "last kset replay, next: %u\n", kset_onmedia->next_cache_seg_id);
+ #ifdef CONFIG_CFS_BANDWIDTH
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 6d881e530f89..488de18d477e 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6627,7 +6627,8 @@ void __refill_cfs_bandwidth_runtime(struct cfs_bandwidth *cfs_b)
+ 		cfs_b->nr_burst++;
+ 	}
  
-+			if (++last_hops > cache->n_segs) {
-+				ret = -EIO;
-+				goto out;
-+			}
-+
- 			next_seg = &cache->segments[kset_onmedia->next_cache_seg_id];
+-	cfs_b->runtime = min(cfs_b->runtime, cfs_b->quota + cfs_b->burst);
++	cfs_b->runtime = min(cfs_b->runtime,
++			     cfs_b->quota + min(cfs_b->burst, cfs_b->quota));
+ 	cfs_b->runtime_snap = cfs_b->runtime;
+ }
  
- 			pos->cache_seg = next_seg;
-
-
+-- 
+2.25.1
