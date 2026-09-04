@@ -1,43 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB94051C32B
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:31:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A6304A5C4A
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:32:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553927; cv=none; b=gphqh6oq2ybB/AMdhgVTy7tvj5RcWzoXwRF4NbvWL1oSYqW+U7oOHG/r174xdyGLR4a3giLCtBZz0iSFNHd9knz6OM50PMo17hWw2BBiZUd8UkR+3bxzUpm9hqaEDba9cy528APQFyNmRJ2M4GU+w4bygf/LwHanpI+v1c6cpFk=
+	t=1788553932; cv=none; b=ZtGhUDzlZrC0MBvOa5ek/akgqdW5LHsotEiZa7pWiBSyXLxhNLiA9xg2A5XjTl44GhimHm2bYwnG40eSIhKPUMiwHeiqPFbHnF8yXYb6K59T0l3+BT3P55poMFW7PdXLVKQFLxMNbSgoI8LpZZ0iT1gnYft88xpdge+tU1DucOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553927; c=relaxed/simple;
-	bh=AwSWzI+SmWtNI+RRezAqDa2VOE9A1x0Skj+m4PXmaTc=;
+	s=arc-20240116; t=1788553932; c=relaxed/simple;
+	bh=fiKBn/XLASKhW0bKJCUmDkFyPyClr+dWOvE0vj5uIGY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CWSE6ErR4jACM+YHx8JHsguoJycXqyLqc8U1e5u4+jpGyzyXBEdTSF5fXpAAVBTq18eBNwFKcsVc5is+FW22oxToDJqBOlRz9jmodBfURhF+DEJhzf/F9FV+a+8QxrlGbBI6Ltn5eYppSxesrp6gMBzwqABKhrgAl0eziw6I43c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jxCP1Uwk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bEnhGgL9f7ERmHm91hYRjCJ7uQoh9ouZ1oD2o0PL97huBWaxy11RU5cX617BplUGUxDsnSrtROK8Muv1sRwSuurk0F2FlL2jWKCh/T4nb+t2DH7w1pdvn+sX7cvigdmWWJhZylmmD5cPX9WLH5LYwQEV1DpI6iPlEj4n3qOsSx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FhI+89nw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jxCP1Uwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3741F00A3D;
-	Fri,  4 Sep 2026 20:31:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FhI+89nw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D1B1F00ACA;
+	Fri,  4 Sep 2026 20:32:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553914;
-	bh=sfMMRFAOyPzbIKOC6FvZ65lwsHgHAYUWDgKsIvdEBAE=;
+	s=k20260515; t=1788553926;
+	bh=JnIZgHzrEHITN9RNc5kqZtJHtYSSY+gdz6sIQ4v+Kd4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jxCP1Uwk1MQjFpcN8XoYLMHYhmBxm5zOCp/zn9H+zSDRsuRXDnH43VjZSavFe59yx
-	 S1YpBLC4kaVvJIeLfKm6YZhoboZF/coadEBsXow7I8UslMunw8EZ/uTikFLWh7BZtL
-	 zh6U5AQeXN6/PMBUatbNQFcM9avs3uYLVNudHYAfUNmCUGv+81kRYNVDDEXFb/mgHB
-	 vYNNiUouIf+srAxU/poow4t/u2fctW5CMC1sC2CB3UA+jrIPb97v8bKibFccICi5vg
-	 +gS0E4SWCP498JNqNdJjMJX2efjcevnOobiWyNRloEq5s2eDaabMEitRS8aWEln6b8
-	 yha2bBggx5XeA==
+	b=FhI+89nwMP1eip/c+1TTWHzw/in016imFEUKqP99RVNJrqyH0iyQ0bwgBciMB/pc9
+	 lmczSqjxW/V0aSj+GXnDbfOwW4CIwb1E08nTmqb9qf8bArpVcu5iHNFhUNZUXLrbFL
+	 Rmzuy7q2WK11XuL1ZW9t90u90fX97WRc/c6lXS1NRIJP1KRSAXbL6pYuvN/8869+HZ
+	 KDoel3c/iZ+0af4UtUjgkYjlzgzQ5B7TjJ6ecKsMZfQAmXk94/d8fu+z4IQtYYwRCU
+	 HZEb8DJjVmX7fQ8jLysrs/8zRaphgWEsWceJ7d0AbBnGrBeCw7ZK48ZW3YL9i4qhkl
+	 rKmptNC9nXwaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: NeilBrown <neilb@suse.de>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Dev Jain <dev.jain@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Alistair Popple <apopple@nvidia.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Gregory Price <gourry@gourry.net>,
+	Harry Yoo <harry@kernel.org>,
+	"Huang, Ying" <ying.huang@linux.alibaba.com>,
+	Jann Horn <jannh@google.com>,
+	Josh Poimboeuf <jpoimboe@kernel.org>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Mel Gorman <mel@csn.ul.ie>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Rakie Kim <rakie.kim@sk.com>,
+	Ralph Campbell <rcampbell@nvidia.com>,
+	Rik van Riel <riel@surriel.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] nfsd: Pass 'cred' instead of 'rqstp' to some functions.
-Date: Fri,  4 Sep 2026 16:31:51 -0400
-Message-ID: <20260904203152.1546362-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] mm/page_vma_mapped: use huge_ptep_get() for hugetlb
+Date: Fri,  4 Sep 2026 16:32:00 -0400
+Message-ID: <20260904203200.1546524-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090339-resolute-antennae-cd2d@gregkh>
-References: <2026090339-resolute-antennae-cd2d@gregkh>
+In-Reply-To: <20260904203200.1546524-1-sashal@kernel.org>
+References: <2026090327-numerous-array-4fc1@gregkh>
+ <20260904203200.1546524-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,255 +76,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neilb@suse.de>
+From: Dev Jain <dev.jain@arm.com>
 
-[ Upstream commit 9fd45c16f3e3b95b458e049c77f4d7dfef673a52 ]
+[ Upstream commit e87df0d5d6962bde50f55f6d02b779daa394f894 ]
 
-nfsd_permission(), exp_rdonly(), nfsd_setuser(), and nfsexp_flags()
-only ever need the cred out of rqstp, so pass it explicitly instead of
-the whole rqstp.
+check_pte() is the final validation step in page_vma_mapped_walk().  It
+reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
+range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
+entry.
 
-This makes the interfaces cleaner.
+On arches which provide their own huge_ptep_get() to dereference a huge
+pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+etc to misbehave.
 
-Signed-off-by: NeilBrown <neilb@suse.de>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: b778e0e0a167 ("NFSD: check truncate permission under inode lock")
+It is not clear whether this has a trivially visible effect to userspace.
+
+Use huge_ptep_get() to dereference a huge pte pointer.
+
+Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
+Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+Signed-off-by: Dev Jain <dev.jain@arm.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Muchun Song <muchun.song@linux.dev>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Dave Hansen <dave.hansen@intel.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mel Gorman <mel@csn.ul.ie>
+Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Pedro Falcato <pfalcato@suse.de>
+Cc: Rakie Kim <rakie.kim@sk.com>
+Cc: Ralph Campbell <rcampbell@nvidia.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Will Deacon <will@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/auth.c      | 14 +++++++-------
- fs/nfsd/auth.h      |  2 +-
- fs/nfsd/export.h    |  3 ++-
- fs/nfsd/nfs4state.c |  3 ++-
- fs/nfsd/nfsfh.c     |  6 +++---
- fs/nfsd/nfsproc.c   |  9 +++++----
- fs/nfsd/vfs.c       | 21 ++++++++++++---------
- fs/nfsd/vfs.h       |  4 ++--
- 8 files changed, 34 insertions(+), 28 deletions(-)
+ mm/page_vma_mapped.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/auth.c b/fs/nfsd/auth.c
-index e6beaaf4f1700..93e33d1ee8917 100644
---- a/fs/nfsd/auth.c
-+++ b/fs/nfsd/auth.c
-@@ -5,26 +5,26 @@
- #include "nfsd.h"
- #include "auth.h"
- 
--int nfsexp_flags(struct svc_rqst *rqstp, struct svc_export *exp)
-+int nfsexp_flags(struct svc_cred *cred, struct svc_export *exp)
+diff --git a/mm/page_vma_mapped.c b/mm/page_vma_mapped.c
+index d9ee1a33db344..6e4482bc06a95 100644
+--- a/mm/page_vma_mapped.c
++++ b/mm/page_vma_mapped.c
+@@ -85,7 +85,13 @@ static inline bool pfn_is_match(struct page *page, unsigned long pfn)
+ static bool check_pte(struct page_vma_mapped_walk *pvmw)
  {
- 	struct exp_flavor_info *f;
- 	struct exp_flavor_info *end = exp->ex_flavors + exp->ex_nflavors;
+ 	unsigned long pfn;
+-	pte_t ptent = ptep_get(pvmw->pte);
++	pte_t ptent;
++
++	if (is_vm_hugetlb_page(pvmw->vma))
++		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
++				      pvmw->pte);
++	else
++		ptent = ptep_get(pvmw->pte);
  
- 	for (f = exp->ex_flavors; f < end; f++) {
--		if (f->pseudoflavor == rqstp->rq_cred.cr_flavor)
-+		if (f->pseudoflavor == cred->cr_flavor)
- 			return f->flags;
- 	}
- 	return exp->ex_flags;
- 
- }
- 
--int nfsd_setuser(struct svc_rqst *rqstp, struct svc_export *exp)
-+int nfsd_setuser(struct svc_cred *cred, struct svc_export *exp)
- {
- 	struct group_info *rqgi;
- 	struct group_info *gi;
- 	struct cred *new;
- 	int i;
--	int flags = nfsexp_flags(rqstp, exp);
-+	int flags = nfsexp_flags(cred, exp);
- 
- 	/* discard any old override before preparing the new set */
- 	revert_creds(get_cred(current_real_cred()));
-@@ -32,10 +32,10 @@ int nfsd_setuser(struct svc_rqst *rqstp, struct svc_export *exp)
- 	if (!new)
- 		return -ENOMEM;
- 
--	new->fsuid = rqstp->rq_cred.cr_uid;
--	new->fsgid = rqstp->rq_cred.cr_gid;
-+	new->fsuid = cred->cr_uid;
-+	new->fsgid = cred->cr_gid;
- 
--	rqgi = rqstp->rq_cred.cr_group_info;
-+	rqgi = cred->cr_group_info;
- 
- 	if (flags & NFSEXP_ALLSQUASH) {
- 		new->fsuid = exp->ex_anon_uid;
-diff --git a/fs/nfsd/auth.h b/fs/nfsd/auth.h
-index dbd66424f600b..8c5031bbbcee2 100644
---- a/fs/nfsd/auth.h
-+++ b/fs/nfsd/auth.h
-@@ -12,6 +12,6 @@
-  * Set the current process's fsuid/fsgid etc to those of the NFS
-  * client user
-  */
--int nfsd_setuser(struct svc_rqst *, struct svc_export *);
-+int nfsd_setuser(struct svc_cred *cred, struct svc_export *exp);
- 
- #endif /* LINUX_NFSD_AUTH_H */
-diff --git a/fs/nfsd/export.h b/fs/nfsd/export.h
-index 4a48b2ad56067..3174fc05bf02a 100644
---- a/fs/nfsd/export.h
-+++ b/fs/nfsd/export.h
-@@ -99,7 +99,8 @@ struct svc_expkey {
- #define EX_NOHIDE(exp)		((exp)->ex_flags & NFSEXP_NOHIDE)
- #define EX_WGATHER(exp)		((exp)->ex_flags & NFSEXP_GATHERED_WRITES)
- 
--int nfsexp_flags(struct svc_rqst *rqstp, struct svc_export *exp);
-+struct svc_cred;
-+int nfsexp_flags(struct svc_cred *cred, struct svc_export *exp);
- __be32 check_xprtsec_policy(struct svc_export *exp, struct svc_rqst *rqstp);
- __be32 check_security_flavor(struct svc_export *exp, struct svc_rqst *rqstp);
- __be32 check_nfsd_access(struct svc_export *exp, struct svc_rqst *rqstp);
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index f21878a7f3939..586f2677c294c 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -6605,7 +6605,8 @@ nfs4_check_file(struct svc_rqst *rqstp, struct svc_fh *fhp, struct nfs4_stid *s,
- 
- 	nf = nfs4_find_file(s, flags);
- 	if (nf) {
--		status = nfsd_permission(rqstp, fhp->fh_export, fhp->fh_dentry,
-+		status = nfsd_permission(&rqstp->rq_cred,
-+					 fhp->fh_export, fhp->fh_dentry,
- 				acc | NFSD_MAY_OWNER_OVERRIDE);
- 		if (status) {
- 			nfsd_file_put(nf);
-diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
-index 283c1a60c8460..e41c1efc46997 100644
---- a/fs/nfsd/nfsfh.c
-+++ b/fs/nfsd/nfsfh.c
-@@ -102,7 +102,7 @@ static bool nfsd_originating_port_ok(struct svc_rqst *rqstp, int flags)
- static __be32 nfsd_setuser_and_check_port(struct svc_rqst *rqstp,
- 					  struct svc_export *exp)
- {
--	int flags = nfsexp_flags(rqstp, exp);
-+	int flags = nfsexp_flags(&rqstp->rq_cred, exp);
- 
- 	/* Check if the request originated from a secure port. */
- 	if (!nfsd_originating_port_ok(rqstp, flags)) {
-@@ -113,7 +113,7 @@ static __be32 nfsd_setuser_and_check_port(struct svc_rqst *rqstp,
- 	}
- 
- 	/* Set user creds for this exportpoint */
--	return nfserrno(nfsd_setuser(rqstp, exp));
-+	return nfserrno(nfsd_setuser(&rqstp->rq_cred, exp));
- }
- 
- static inline __be32 check_pseudo_root(struct svc_rqst *rqstp,
-@@ -402,7 +402,7 @@ fh_verify(struct svc_rqst *rqstp, struct svc_fh *fhp, umode_t type, int access)
- 
- skip_pseudoflavor_check:
- 	/* Finally, check access permissions. */
--	error = nfsd_permission(rqstp, exp, dentry, access);
-+	error = nfsd_permission(&rqstp->rq_cred, exp, dentry, access);
- out:
- 	trace_nfsd_fh_verify_err(rqstp, fhp, type, access, error);
- 	if (error == nfserr_stale)
-diff --git a/fs/nfsd/nfsproc.c b/fs/nfsd/nfsproc.c
-index 36370b957b633..97aab34593ef0 100644
---- a/fs/nfsd/nfsproc.c
-+++ b/fs/nfsd/nfsproc.c
-@@ -331,10 +331,11 @@ nfsd_proc_create(struct svc_rqst *rqstp)
- 					 *   echo thing > device-special-file-or-pipe
- 					 * by doing a CREATE with type==0
- 					 */
--					resp->status = nfsd_permission(rqstp,
--								 newfhp->fh_export,
--								 newfhp->fh_dentry,
--								 NFSD_MAY_WRITE|NFSD_MAY_LOCAL_ACCESS);
-+					resp->status = nfsd_permission(
-+						&rqstp->rq_cred,
-+						newfhp->fh_export,
-+						newfhp->fh_dentry,
-+						NFSD_MAY_WRITE|NFSD_MAY_LOCAL_ACCESS);
- 					if (resp->status && resp->status != nfserr_rofs)
- 						goto out_unlock;
- 				}
-diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
-index 5dc798e89e97b..200fe34a104c7 100644
---- a/fs/nfsd/vfs.c
-+++ b/fs/nfsd/vfs.c
-@@ -423,8 +423,9 @@ nfsd_get_write_access(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	if (iap->ia_size < inode->i_size) {
- 		__be32 err;
- 
--		err = nfsd_permission(rqstp, fhp->fh_export, fhp->fh_dentry,
--				NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
-+		err = nfsd_permission(&rqstp->rq_cred,
-+				      fhp->fh_export, fhp->fh_dentry,
-+				      NFSD_MAY_TRUNC | NFSD_MAY_OWNER_OVERRIDE);
- 		if (err)
- 			return err;
- 	}
-@@ -809,7 +810,8 @@ nfsd_access(struct svc_rqst *rqstp, struct svc_fh *fhp, u32 *access, u32 *suppor
- 
- 			sresult |= map->access;
- 
--			err2 = nfsd_permission(rqstp, export, dentry, map->how);
-+			err2 = nfsd_permission(&rqstp->rq_cred, export,
-+					       dentry, map->how);
- 			switch (err2) {
- 			case nfs_ok:
- 				result |= map->access;
-@@ -1453,7 +1455,8 @@ nfsd_create_locked(struct svc_rqst *rqstp, struct svc_fh *fhp,
- 	dirp = d_inode(dentry);
- 
- 	dchild = dget(resfhp->fh_dentry);
--	err = nfsd_permission(rqstp, fhp->fh_export, dentry, NFSD_MAY_CREATE);
-+	err = nfsd_permission(&rqstp->rq_cred, fhp->fh_export, dentry,
-+			      NFSD_MAY_CREATE);
- 	if (err)
- 		goto out;
- 
-@@ -2180,9 +2183,9 @@ nfsd_statfs(struct svc_rqst *rqstp, struct svc_fh *fhp, struct kstatfs *stat, in
- 	return err;
- }
- 
--static int exp_rdonly(struct svc_rqst *rqstp, struct svc_export *exp)
-+static int exp_rdonly(struct svc_cred *cred, struct svc_export *exp)
- {
--	return nfsexp_flags(rqstp, exp) & NFSEXP_READONLY;
-+	return nfsexp_flags(cred, exp) & NFSEXP_READONLY;
- }
- 
- #ifdef CONFIG_NFSD_V4
-@@ -2426,8 +2429,8 @@ nfsd_setxattr(struct svc_rqst *rqstp, struct svc_fh *fhp, char *name,
-  * Check for a user's access permissions to this inode.
-  */
- __be32
--nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
--					struct dentry *dentry, int acc)
-+nfsd_permission(struct svc_cred *cred, struct svc_export *exp,
-+		struct dentry *dentry, int acc)
- {
- 	struct inode	*inode = d_inode(dentry);
- 	int		err;
-@@ -2458,7 +2461,7 @@ nfsd_permission(struct svc_rqst *rqstp, struct svc_export *exp,
- 	 */
- 	if (!(acc & NFSD_MAY_LOCAL_ACCESS))
- 		if (acc & (NFSD_MAY_WRITE | NFSD_MAY_SATTR | NFSD_MAY_TRUNC)) {
--			if (exp_rdonly(rqstp, exp) ||
-+			if (exp_rdonly(cred, exp) ||
- 			    __mnt_is_readonly(exp->ex_path.mnt))
- 				return nfserr_rofs;
- 			if (/* (acc & NFSD_MAY_WRITE) && */ IS_IMMUTABLE(inode))
-diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
-index bf695d5cc04e4..6c41770efe33d 100644
---- a/fs/nfsd/vfs.h
-+++ b/fs/nfsd/vfs.h
-@@ -153,8 +153,8 @@ __be32		nfsd_readdir(struct svc_rqst *, struct svc_fh *,
- __be32		nfsd_statfs(struct svc_rqst *, struct svc_fh *,
- 				struct kstatfs *, int access);
- 
--__be32		nfsd_permission(struct svc_rqst *, struct svc_export *,
--				struct dentry *, int);
-+__be32		nfsd_permission(struct svc_cred *cred, struct svc_export *exp,
-+				struct dentry *dentry, int acc);
- 
- static inline int fh_want_write(struct svc_fh *fh)
- {
+ 	if (pvmw->flags & PVMW_MIGRATION) {
+ 		swp_entry_t entry;
 -- 
 2.53.0
 
