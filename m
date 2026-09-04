@@ -1,75 +1,44 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1DF3D6664
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 05:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98CD9410D36;
+	Fri,  4 Sep 2026 05:21:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788499283; cv=none; b=ZsKeawma+F4LDNTMy1CdUTIqD5pOxaWJr0bgwA05ysY2kkhjrBNtljn2sMCnqz7h0Zjk6/HrGvOEPXhpq688T7DzVS/DB1xcB79CKK8RQGdXbpABY7sLL6Xnu5rJMVyPx6UvK2TwCQqILm/L3Gbjljm0zzG4exzSIPR8QHzyObQ=
+	t=1788499285; cv=none; b=GizOgzxa6f1vdpau2ic7v+Q2mDbff8z07OH+u4apsPDSmYLyqphaUA4T9dXtG04EozIux9NEn6PCv+CCZrcuOA7z4SE3yuLZ/sVxWV3myQLyOg2zeMNrPIgEr7Qz7E1W8DI5r4b7M/Au4SKuBZgiECcBnwpuRwx7CUzW3Qhgz5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788499283; c=relaxed/simple;
-	bh=uxgnammUB7WAI7xn10qHknRdqAOK17Ws2n6LqT6TByk=;
+	s=arc-20240116; t=1788499285; c=relaxed/simple;
+	bh=tA9pHc13M+fZRZc3xQjeo2f+m/ArmX5A44MTLOAcWtI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZmhUfiPwkApBqRvP/PvMV071gVWIWxyT4f8ZH5SwaSqCJMmDGQTPNGkgq4zaWeVemQAlG0lpCw203PrpOzWvAUc57mtp5LVsMLUP14JV7Cp8kS7lHwef3wlKQZfPcO/HH+dgBf//E4+gR7A0KrCE8PULcpier3NMVB5RBgjv11Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qigZnFHy; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=C9h1R27ADMwDzGI9FvJO8/XdMGn/SSbHB4lzZLWkC+nlpsnNUdhkxbYJGDP3KVt6w4fh+yIx9r2iSYcPQGrPaEEFrwkXLcTrcF375Q5PkRVJtwWfoJ4b4iR5tETfbZlo4sc7qU9uikyCujbGb7y8vt6PPg/um3VXhzwyPTIoq0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Sn2veHBD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qigZnFHy"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3964e480f76so781685a91.1
-        for <stable@vger.kernel.org>; Thu, 03 Sep 2026 22:21:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788499282; x=1789104082; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qmj0W9o2Wdtg73j/k8mocyZjIfELT7Gf3Os/u4t6eHM=;
-        b=qigZnFHyvV72p2y9vqj1A/2/hFi2Y2Lfe2KnS4OGjCe89dL1znksnmZWo2oKHs879w
-         6TY5P+MxTCxtiW8CWUQpJFhPizRQ4ECx6fjWgFCAwtGcdhy4/odd3Q2HIT7Sk/jQMDhc
-         dyCzxWxUucIvIwLZFiXiO9sQSY6rDJUh14ODF9uSgZmvvbcfyVQWh9vjGV7hF4GuwCEK
-         qDa5crxFbteIvG3VX+g4WSUZthzWsRWD4CMfoectuZ/alnSy79e0+ufGgwN7XVLOesqL
-         0cPh1aGDtYiQLc9v//IRGkRpdz+YIbSkWvKiKSAMQF8xzNp12+MsfrRRcuejp20PVDtZ
-         +2Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788499282; x=1789104082;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qmj0W9o2Wdtg73j/k8mocyZjIfELT7Gf3Os/u4t6eHM=;
-        b=kjExTNlY7o1b6HoM69SBk73LIerAOV/Wazf5rIT7ViC1Os5FEnXBqiMrgj/6R+4+vl
-         WrqKLHcjrHVwxDDeIy1yXosGHLwIhHIG907fztoQPCjKg9IawOzYdtd37KKiWSL1wve0
-         SNnJvJrhmH6dJd2VG/4RUU56FANr2db49eY3Bj/Xn4lH6m5lyp1LOEvfBhn+b3jCxvj3
-         0l8nyLmX5EMiYHCcoCcgO5GiSAg6lgI3WoXunzc5qQ257U4/YegUqhKAeusLEgWDgmo2
-         jXErc+nb9kz7luSdwA2ERLNDRV/DmPFJzSJtUBcTkxFSnhlXo4V3dWMmMLRVtzdHaLcj
-         NB/w==
-X-Gm-Message-State: AFuF++mBlwHqFUQsUn5ZlgzDCfPJb4PL8K23Ce7E2zkHbrtoByE2rFkZ
-	B4vhxBGe3TVq3nDumvuMYxmUl8egJ8zdelJ+rae7Y9FybNTQWFMXPrvPyfmSRVHm
-X-Gm-Gg: AYBFou0RLUO9gsUB3I57rOE00cnpjyHAnSUSmlQK+xmygQlwEHVgYpmX9OOOgUEsJIG
-	+ESiBfcbzt+A0HniX/11NmizIczb1331MtGBXEa5/hV/usQDmjqRlBf3Pv4Bi9usX95JDPDD8Xm
-	BmckvLT85phFJ5E94jnQcs987cLkUnTlU0RCFtQ0kXOMo2aROcGd1WNtUfC31AYRI0wPFXLWmTs
-	ovzXEEKu0819JtrKAUu8zf8llDleqaHPsUGrAfotrTAuRYxDrk+Q0imyMk6g/b1RQXrPWA9PFZP
-	WPK46FMN3TotknSy2m1dRzXjQXga4tHs0+28qX0m29XxN4cjrBniK8j+rvyuKmvdQlJCwhVxNRv
-	cCZIYmVmRsaohQsE/sAPxWJvi2xKkOlK5ftzT4jsoDERsqp09cBZvHcZXt7O7QzHNp+jhEXn/0J
-	YQid8cKEA/ji5eVuAnLiutyWnmL1XuZVB+HkAJTlYva/FdOBILN4/bOvU7hUJdM2ZyyJt85MOq4
-	b6UbUqq55Qm7xCqIoQVIBtJDP+/FIRVbDrhBc9TRc2vcBo0MwpuGE4Qpv2o6jBR5jcofeDUZrx7
-	Ankzk/F3EEIvNOpxVeFz+8WlXDS/tipRRR9HamdWNn/yO3iIuVELc+5e2J252iqHnGGkcNIcvkH
-	ghnNCnV9WB6sr77QR4JD20PB3isb4+PV+OZupGKum/i6EO4R0efYY0nWrWNU=
-X-Received: by 2002:a17:90a:c106:b0:398:e1f4:bda1 with SMTP id 98e67ed59e1d1-39b2624cf3fmr6437179a91.21.1788499281924;
-        Thu, 03 Sep 2026 22:21:21 -0700 (PDT)
-Received: from localhost.localdomain ([101.251.7.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm10352550a91.14.2026.09.03.22.21.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 03 Sep 2026 22:21:21 -0700 (PDT)
-From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Sn2veHBD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F126C1F00ACF;
+	Fri,  4 Sep 2026 05:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788499284;
+	bh=bwNJU0nNVxCfizMjn95jzXsgeEUI/P9X/8dDUdTjWcU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Sn2veHBDPVZLDyDCkwBT/8Cr5/O7X3xsPaKNYGOfuDAfufb3kv4i45ySzqMhAce3+
+	 bwQsE1VUUjz8+sU2Y0vJCO159QQDdsF5bV6grUenfRlJSp1DzISI+Mdp9lYWXuRGmb
+	 8Gk5oabM2rbTKyXY6cJscP8u016iE8REZ8CaY7QM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
-	Felix Fietkau <nbd@nbd.name>
-Subject: [PATCH 6.12.y] wifi: mt76: mt7996: validate default EEPROM firmware size
-Date: Fri,  4 Sep 2026 11:06:14 +0545
-Message-ID: <20260904052114.15758-1-acharyalaxman8848@gmail.com>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <2026090431-charred-eggnog-c271@gregkh>
-References: <2026090431-charred-eggnog-c271@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Qing Ming <a0yami@mailbox.org>,
+	Simon Horman <horms@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: [PATCH 7.2 364/713] mpls: reload header after pskb_may_pull()
+Date: Fri,  4 Sep 2026 06:55:32 +0200
+Message-ID: <20260904045811.987996630@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+References: <20260904045803.810145556@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,41 +47,80 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The default EEPROM firmware is parsed and copied as a full EEPROM
-without checking its length. A truncated file can make the driver
-read beyond the firmware buffer during variant validation or the
-fallback copy.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Reject files shorter than MT7996_EEPROM_SIZE before parsing or
-copying the firmware.
+------------------
 
-Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+From: Qing Ming <a0yami@mailbox.org>
+
+commit 29e63b8d9fc150cc191b1c6eb7e16e1247e1b650 upstream.
+
+mpls_select_multipath() calls mpls_multipath_hash() to choose a nexthop
+when an MPLS route has multiple nexthops.  While walking the MPLS label
+stack, the hash routine caches hdr for the current label.  After finding
+the bottom-of-stack label, it calls pskb_may_pull() before reading the
+inner IP header.
+
+If an skb is constructed with the inner IP header in nonlinear data and
+insufficient tailroom in the linear head, pskb_may_pull() calls
+pskb_expand_head() to replace the skb head and free the old one.  This
+leaves hdr pointing to freed memory.  The IPv6 path can invalidate hdr
+again when it performs a second pull for the larger header.
+
+The issue was found through static analysis.  A reproducer sending a legal
+Geneve packet through a bareudp/MPLS multipath setup triggered the same
+KASAN report in 2 of 2 unpatched runs:
+
+  BUG: KASAN: slab-use-after-free in mpls_select_multipath
+  Read of size 1 at addr ffff88800ecc6e20 by task ksoftirqd/1/23
+
+  Call Trace:
+   mpls_select_multipath
+   mpls_forward
+   __netif_receive_skb_list_core
+   netif_receive_skb_list_internal
+   napi_complete_done
+   gro_cell_poll
+   __napi_poll
+   net_rx_action
+
+  Freed by task 23:
+   kfree
+   pskb_expand_head
+   __pskb_pull_tail
+   mpls_select_multipath
+
+Reload hdr from the current skb head after each successful pull before
+deriving the inner IPv4 or IPv6 header pointer.
+
+Fixes: 9f427a0e474a ("net: mpls: Fix multipath selection for LSR use case")
 Cc: stable@vger.kernel.org
-Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
-Link: https://patch.msgid.link/20260713115412.67095-1-acharyalaxman8848@gmail.com
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-(cherry picked from commit 653c6e289b13cc6942f3e8f8e3c568e70fa42d1f)
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260814095404.7205-1-a0yami@mailbox.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ net/mpls/af_mpls.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-index 4c4ab0d40..a14d1d284 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7996/eeprom.c
-@@ -51,6 +51,12 @@ mt7996_eeprom_load_default(struct mt7996_dev *dev)
- 		goto out;
- 	}
+--- a/net/mpls/af_mpls.c
++++ b/net/mpls/af_mpls.c
+@@ -221,6 +221,7 @@ static u32 mpls_multipath_hash(struct mp
+ 		if (pskb_may_pull(skb, mpls_hdr_len + sizeof(struct iphdr))) {
+ 			const struct iphdr *v4hdr;
  
-+	if (fw->size < MT7996_EEPROM_SIZE) {
-+		dev_err(dev->mt76.dev, "Invalid default bin size\n");
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
- 	memcpy(eeprom, fw->data, MT7996_EEPROM_SIZE);
- 	dev->flash_mode = true;
++			hdr = mpls_hdr(skb) + label_index;
+ 			v4hdr = (const struct iphdr *)(hdr + 1);
+ 			if (v4hdr->version == 4) {
+ 				hash = jhash_3words(ntohl(v4hdr->saddr),
+@@ -231,6 +232,7 @@ static u32 mpls_multipath_hash(struct mp
+ 						 sizeof(struct ipv6hdr))) {
+ 				const struct ipv6hdr *v6hdr;
  
--- 
-2.51.2
++				hdr = mpls_hdr(skb) + label_index;
+ 				v6hdr = (const struct ipv6hdr *)(hdr + 1);
+ 				hash = __ipv6_addr_jhash(&v6hdr->saddr, hash);
+ 				hash = __ipv6_addr_jhash(&v6hdr->daddr, hash);
+
 
