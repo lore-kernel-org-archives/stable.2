@@ -1,42 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F347D3A7D82
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 07:04:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15395388391;
+	Fri,  4 Sep 2026 07:19:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505462; cv=none; b=dF+TBpSzeDDphk8HqQEBU8d1HSwLY0fV9GSVehc9jzam1ddxmEPOvbUmbF7UqXZ4HPO4lWRP8SnXCDarmmoFObWaalj+B8SZiQkoawrmpeQEfVCDuMAMNmxZwy0Cja4YpWR2ATKU1CpK40XEc/IcYGQWUanqXBowJEbi2cvqVYY=
+	t=1788506362; cv=none; b=ZHk0FO2QRBdGVteMdC4onm8g+ZI/6fp6fQuUky7gQJ4YMsJOfkRR6JzQUOFtcn1O3ouhVF0feKwsL+umv/C1yHU+3xogPh6qOwdS/BOd+9VA05EXnemepw1vJF8R0lBTY77u7W2F0zrbbBm7Vt3XBYmm4FW3zTPKLYboc/GaGMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505462; c=relaxed/simple;
-	bh=3tUZi3lxjcz/XregwVnnMT850Yc0VvCh330sIoemU6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MApK+ZZtce1eTPXWsBti2KQ5zun13fX9T9fU7sDHRFFf58n4tkaC6LWveMRht+trBDxM0EpI1NOsQ3mwG6/OXDZqCiOVNfgDuS19QlApjZl34Fr2HGn3P3BqxkxBk8I8naB7PvDJQwzJTKEPh19Txn4aOD9uexzra96r1AoLi44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=by47bbpr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788506362; c=relaxed/simple;
+	bh=WjPgyhsJhdzJK/5eZTmlpOqsb5WAQS2B2xKFpuZ3xdU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Yfuep6casJTsUqmma/uYP+MAFKIYgNO81xtCaLgSWcNpDvhm1tycdkSDPLx0w4X5t6+YGWxLNEFIWN7ilaL78eXTvFJGkc/QuaoNveMzy0Hs3qnDxgvsn3oAstxUwAK4B4sWFanfcClviidaPnonhc4lKDXDXnLVUAoiusNkZns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=njBUSfnt; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="by47bbpr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728A81F00A3D;
-	Fri,  4 Sep 2026 07:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788505460;
-	bh=YawR6a3Oqrj+SrZGCK7xg+xT5B3C2EL27I20IxBfIhU=;
-	h=From:To:Cc:Subject:Date;
-	b=by47bbprErNXW9cHG8FaePD4+b3qDeK3qDk/sK4ZNundiQNRqXGbMuPaGfRYTR9/E
-	 JoMdavWDWJjedPuq3Oo3kjg8Xjou3XHJlUS5p830Bsed3FpzpupSbjpOEPMKUILfoj
-	 u55sWxDTkxpAHOCg69EAbrlwRNK5JmOZp48ATYDgcWaBpDGsAuu8zUeqxekUYVOaRM
-	 vpUjAUk4fWDg8hKOEyGS955OUtCi1+P6BfXHYTGWoB8pFsSgjPFuALj05O45lalddu
-	 S0QCM+SKDsMr/bptGN9hVBEfUgxzwK76/crBd/1Q/0FX8I0OyU7m8BMgmutSfWgovU
-	 7mpVcWgSDUyMw==
-From: Tzung-Bi Shih <tzungbi@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: tzungbi@kernel.org,
-	alsa-devel@alsa-project.org,
-	stable@vger.kernel.org
-Subject: [PATCH 5.15.y] ALSA: seq: Fix port lock leak in deliver_to_subscribers()
-Date: Fri,  4 Sep 2026 07:04:09 +0000
-Message-ID: <20260904070409.80648-1-tzungbi@kernel.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="njBUSfnt"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c87b05b0;
+	Fri, 4 Sep 2026 15:19:13 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Simon Horman <horms@verge.net.au>,
+	Julian Anastasov <ja@ssi.bg>,
+	Pablo Neira Ayuso <pablo@netfilter.org>
+Cc: netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH net] ipvs: shut down destination trash timer on netns cleanup
+Date: Fri,  4 Sep 2026 15:19:08 +0800
+Message-Id: <20260904071908.4052966-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,46 +40,43 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06b492fca03a1kunmc2bb1dbc2dfe3
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaT0xPVk5CGR5JSEoeGEhJT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=njBUSfntNTF6zelMXWxmvGK0pgBkoH3JDqSwLQtV8agBObwlw5WzhsDaAnXp9OI7r73OclR8pJha0sgxrxz0xLIa7yREr3k6LERxkPu8i/4H+1GQTWk2HhCmTUSJYl+T25jIJluDOXvY9T/3aZhzeoliaA3KRgkzR7olsI/6Pew=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=tnj/RY/ptp6lpQUCEDvXfPt6ryVtxdbMi4SqTFsPpmQ=;
+	h=date:mime-version:subject:message-id:from;
 
-Commit 46397622a3fa ("ALSA: seq: Add UMP support") mistakenly removed
-the `snd_seq_port_unlock(src_port)` call in deliver_to_subscribers().
-As a result, every time an event is delivered to a subscriber, the
-source port's `use_lock` atomic counter is increased but never
-decreased.
+ip_vs_dest_trash_expire() accesses the per-network-namespace IPVS state
+and rearms the destination trash timer while entries remain.  The
+cleanup path uses timer_delete_sync(), which waits for a running callback
+but still allows a racing callback to rearm the timer.
 
-The leak prevents ALSA sequencer ports from closing cleanly.  When the
-client process exits or destroys the port, port_delete() hangs forever
-at snd_use_lock_sync().  The process becomes stuck in an unkillable D
-state, triggering the following warning:
+Use timer_shutdown_sync() when the per-network-namespace destination
+trash is finally cleaned up.  This prevents the callback from being
+queued again before the IPVS state is released.
 
-    ALSA: seq_lock: waiting [1 left] in sound/core/seq/seq_ports.c:250
+Fixes: f2431e6e9255 ("IPVS: netns, trash handling")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
-Restore the missing `snd_seq_port_unlock(src_port)`.
-
-Note that commit 177ccf811df4 ("ALSA: seq: Support MIDI 2.0 UMP Endpoint
-port") incidentally resolved this issue upstream when it refactored the
-locking logic into a wrapper function.  However, since the commit
-introduces a new feature and might not be suitable for stable release
-branches, this targeted fix is necessary.
-
-Fixes: 6389f2c13531 ("ALSA: seq: Add UMP support")
-Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
----
- sound/core/seq/seq_clientmgr.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index f2feeb97765c..bd2d7a9fab5b 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -733,6 +733,7 @@ static int deliver_to_subscribers(struct snd_seq_client *client,
- 		read_unlock(&grp->list_lock);
- 	else
- 		up_read(&grp->list_mutex);
-+	snd_seq_port_unlock(src_port);
- 	memcpy(event, &event_saved, saved_size);
- 	return (result < 0) ? result : num_ev;
- }
+diff --git a/net/netfilter/ipvs/ip_vs_ctl.c b/net/netfilter/ipvs/ip_vs_ctl.c
+index 4c1c73944..0eb6cdb5f 100644
+--- a/net/netfilter/ipvs/ip_vs_ctl.c
++++ b/net/netfilter/ipvs/ip_vs_ctl.c
+@@ -1192,7 +1192,7 @@ static void ip_vs_trash_cleanup(struct netns_ipvs *ipvs)
+ {
+ 	struct ip_vs_dest *dest, *nxt;
+ 
+-	timer_delete_sync(&ipvs->dest_trash_timer);
++	timer_shutdown_sync(&ipvs->dest_trash_timer);
+ 	/* No need to use dest_trash_lock */
+ 	list_for_each_entry_safe(dest, nxt, &ipvs->dest_trash, t_list) {
+ 		list_del(&dest->t_list);
 -- 
-2.55.0.979.g7e5102b832-goog
-
+2.34.1
