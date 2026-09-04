@@ -1,73 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490513ADBA7
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 03:02:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D9430D402;
+	Fri,  4 Sep 2026 03:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490967; cv=none; b=nppmbqgI9ucEtu5lkNgrgdeCYqvZOhr8Y8JalyH4vJJpSKLpz/4/PnOTclWb+/d0Sk7eU8LRuqflrtF7CuoFNhLzynl63i+lWBUCa3xXv4c/pPy3QMwCadHC9nYrFx7xjogDW470x1GZfpkRxfJwtt4LGQXCAbq6T+tBtmZc1W8=
+	t=1788491100; cv=none; b=DeH2uqISU71r6evQdh8b8tVaqRcC9mlXg9E3RXi0hurB0oK35wMyzOWp2VlzScNRS6nBCn+bFJihRei7VlVgDd2V6IwDPVXJ7Qa9Tr0jaDtwl2v9ZHc5rzBYm5D+LjLRyfhIrxoFlWn7W6uIaS0WCd8BJSbqKU0cyBn5JRT/538=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490967; c=relaxed/simple;
-	bh=n6bHbFGymYJwfNSe8EF4onSglfCM22g+LVQOF3Zn95A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jy/BGwQ47rBnHu2v1Jgwyjp8sa+BDv0Q0igGs6/2gYEDkd5YiMH0MM5nUBafthMIJn/wyX6wXwQLuFXIhjTHmPzWxPDHPsPFqLlr22y2RNlcuGhb8tdY24zRLeCEwhJz0zSiKsMLDm1fIcnk8BVQ0vr0g5UESWCbWtNVuqwuoVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Soll3y9v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788491100; c=relaxed/simple;
+	bh=Aq69RAkA6FKjqCIzGzLfmtFZtVEuLApBuB2X99ZA0Cg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oIdY+1gruhO8umWRn7V/eUQG+MV+9jrYor49LGBIDgWXsqSOBBOl9SZKo87CBNbtwkK5nytY2Ok47yMBUApwp82l6wsDQu3NIHrEIv9Yvaox5ANyB3jRZ0ulHai7skjTHL/v+OUNqYTiR/sSYgWTma/W74TdB09aoB1I14f687Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=LwEWueuJ; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Soll3y9v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F11E71F00ACF;
-	Fri,  4 Sep 2026 03:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788490964;
-	bh=SqLhG5y0bvGalE/AfhZjX9bodL4o6mGyar8plcm8hEo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Soll3y9vbQNmWlSwv280Est2KzYMGJVzq2lGWTRrEihew3f9xlLbkIKcBKCeI1kQU
-	 +EEkVz25uG6GBnrMkaQdZzqDVI0cHcWey6/sQdPtcNpeFATimRoVhLNKi/58gjUZNt
-	 gwwCU3UkXDb5X7GKM0+gOnRe04DgM1YRe+wHH81FrfsZF9+gzqaUmiW1xcSqY5TJ4B
-	 3l/XLDOXmRQcgAXLvgDMAbxrCe/9BybDwyheootHEbKrDTcPB17YAIu6b36Ik9Puhj
-	 DbAZCfylXBg+K5GOiMmwm6tdByycPeMcQ1sMl7JKwmk+VtyhFIXQVvzMDFuKnhmOM/
-	 2J77G3coxtE3w==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Alistair Popple <apopple@nvidia.com>,
-	Andi Kleen <ak@linux.intel.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Gregory Price <gourry@gourry.net>,
-	Harry Yoo <harry@kernel.org>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Jann Horn <jannh@google.com>,
-	Josh Poimboeuf <jpoimboe@kernel.org>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Mel Gorman <mel@csn.ul.ie>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Oscar Salvador <osalvador@suse.de>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ralph Campbell <rcampbell@nvidia.com>,
-	Rik van Riel <riel@surriel.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] mm/rmap: use huge_ptep_get() in try_to_migrate_one()
-Date: Thu,  3 Sep 2026 23:02:33 -0400
-Message-ID: <20260904030233.2306854-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904030233.2306854-1-sashal@kernel.org>
-References: <2026090358-glandular-hardiness-9af2@gregkh>
- <20260904030233.2306854-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="LwEWueuJ"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c7f007bc;
+	Fri, 4 Sep 2026 11:04:45 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@microchip.com>
+Cc: Richard Cochran <richardcochran@gmail.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH net v2] net: macb: initialize PTP state before registering clock
+Date: Fri,  4 Sep 2026 11:04:39 +0800
+Message-Id: <20260904030439.3994047-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
+References: <20260830153520.2710520-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,105 +41,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa06a60347203a1kunmd3a8a79322e9a
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0JKVkIYTB9KSU1DT0hDGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=LwEWueuJAACMNaAuOMikf3ktS1QF5kerIEBzfET/wpAsQJuloQPmEm1PnQR2q+Kyq7KIHLyVUcH9tShqhRraWPWLMXd3TwnKSoO1sF//zhL9veypjkdAOySFZ/Vbcc4n3GYzrLMdWL+J3m874TWhHoH4uXemeHFcTQsyNSWFMbY=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=WfbpHR/gm8DXEUdNxy+PXw4d5T9/+OG1QRUdwnFdjJE=;
+	h=date:mime-version:subject:message-id:from;
 
-From: Dev Jain <dev.jain@arm.com>
+gem_ptp_init() registers the PTP clock before initializing
+bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
+publishes the PTP character device, userspace may invoke PTP callbacks
+before the lock and hardware are ready.
 
-[ Upstream commit 9be12ffa78cd087d41086f937a156435d4e588e9 ]
+In addition, gem_ptp_init() is called from both the interface open and
+resume paths. Reinitializing tsu_clk_lock there can reset the lock while
+timestamp processing is using it.
 
-try_to_migrate_one() is used by folio migration to replace a present
-mapping with a migration entry. For hugetlb folios, page_vma_mapped_walk()
-returns the pte pointer to the hugetlb folio in pvmw.pte, but the code
-reads the huge pte entry with ptep_get().
+Initialize tsu_clk_lock once during probe and initialize the TSU before
+registering the PTP clock.
 
-On arches which provide their own huge_ptep_get() to dereference a huge
-pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
-etc to misbehave.
-
-It is not clear whether this has a trivially visible effect to userspace.
-
-Use huge_ptep_get() to dereference a huge pte pointer.
-
-Commit a98a2f0c8ce1 copied the bug from try_to_unmap_one into
-try_to_migrate_one.
-
-[akpm@linux-foundation.org: coding-style cleanups]
-Link: https://lore.kernel.org/20260703114202.365553-4-dev.jain@arm.com
-Fixes: a98a2f0c8ce1 ("mm/rmap: split migration into its own function")
-Signed-off-by: Dev Jain <dev.jain@arm.com>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Andi Kleen <ak@linux.intel.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Dave Hansen <dave.hansen@intel.com>
-Cc: Gregory Price <gourry@gourry.net>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Mel Gorman <mel@csn.ul.ie>
-Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Ralph Campbell <rcampbell@nvidia.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Will Deacon <will@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260830153520.2710520-1-runyu.xiao@seu.edu.cn/
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- mm/rmap.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+v2:
+- Initialize tsu_clk_lock once during probe and initialize the TSU before
+  registering the PTP clock.
+---
+ drivers/net/ethernet/cadence/macb_main.c | 1 +
+ drivers/net/ethernet/cadence/macb_ptp.c  | 6 +-----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 36a2e0eb8be48..be105a7d2eaa3 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2070,14 +2070,18 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 		/* Unexpected PMD-mapped THP? */
- 		VM_BUG_ON_FOLIO(!pvmw.pte, folio);
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 76ee4f506..01b42b21a 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -5876,6 +5876,7 @@ static int macb_probe(struct platform_device *pdev)
+ 	}
+ 	spin_lock_init(&bp->lock);
+ 	spin_lock_init(&bp->stats_lock);
++	spin_lock_init(&bp->tsu_clk_lock);
  
--		/*
--		 * Handle PFN swap PTEs, such as device-exclusive ones, that
--		 * actually map pages.
--		 */
--		pteval = ptep_get(pvmw.pte);
-+		address = pvmw.address;
-+		if (folio_test_hugetlb(folio))
-+			pteval = huge_ptep_get(mm, address, pvmw.pte);
-+		else
-+			pteval = ptep_get(pvmw.pte);
- 		if (likely(pte_present(pteval))) {
- 			pfn = pte_pfn(pteval);
- 		} else {
-+			/*
-+			 * Handle PFN swap PTEs, such as device-exclusive ones,
-+			 * that actually map pages.
-+			 */
- 			const softleaf_t entry = softleaf_from_pte(pteval);
+ 	/* setup capabilities */
+ 	macb_configure_caps(bp, macb_config);
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index e5195d7da..e9c9c2692 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -334,6 +334,7 @@ void gem_ptp_init(struct net_device *netdev)
+ 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
+ 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
+ 	gem_ptp_init_timer(bp);
++	gem_ptp_init_tsu(bp);
+ 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
+ 	if (IS_ERR(bp->ptp_clock)) {
+ 		pr_err("ptp clock register failed: %ld\n",
+@@ -345,10 +346,6 @@ void gem_ptp_init(struct net_device *netdev)
+ 		return;
+ 	}
  
- 			pfn = softleaf_to_pfn(entry);
-@@ -2085,7 +2089,6 @@ static bool try_to_migrate_one(struct folio *folio, struct vm_area_struct *vma,
- 		}
+-	spin_lock_init(&bp->tsu_clk_lock);
+-
+-	gem_ptp_init_tsu(bp);
+-
+ 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
+ 		 GEM_PTP_TIMER_NAME);
+ }
+@@ -467,4 +464,3 @@ int gem_set_hwtst(struct net_device *netdev,
  
- 		subpage = folio_page(folio, pfn - folio_pfn(folio));
--		address = pvmw.address;
- 		anon_exclusive = folio_test_anon(folio) &&
- 				 PageAnonExclusive(subpage);
- 
+ 	return 0;
+ }
+-
 -- 
-2.53.0
-
+2.34.1
