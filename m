@@ -1,70 +1,103 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A41A736F434;
-	Fri,  4 Sep 2026 15:13:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E91084EBAEB;
+	Fri,  4 Sep 2026 15:14:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534787; cv=none; b=UpCT6/J/e1xbIZa9Iwk3FTXoKE9zSXj4lkN+qHW9oQfFLe3oZ7iwBoDO4GjjNvnD7ujg091KmlBol+xPNuSeXnGrRdjCxiOX6jsVcSjA4cdCKJaS6HEOam4VcFyry2vTu7zmxq03oWy3+Dltz58FjL04ggKRt0Ja9uredGVPfQ4=
+	t=1788534858; cv=none; b=H5+lqp9eClNuveRZ4+B4RnCgcsZa2bXCVNuVkbvc8iovigJ30/NVIBtdjVOvg1ccb2F2hDqCWm3RX+dRG+CHlViLTuZAng8KgS1yJfPgiklLrhUrnpUszgFacRae8eKxX/kwiLmbQdyYgabP7kX1HCSfsfVaiI87I8uhc+lJg4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534787; c=relaxed/simple;
-	bh=RXrBZhE/ukpzVTZYI9deZoWytyqusRSvDISlhwKvQ/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LB6eo13Yr3nSrvbj9XFfo28a0HM1ta3I20akhcSF8Xi1SwlDV2iIRScvSKAMGgfGQHUYNANzPXtP0P2RW4DLbeUfRzyj/K9n1EOFW0+trZI4eePteLgo5H60C3CBP4l2aZS9qOsVyAE6ssk5PJHHXwL/1AztIQsFTEQ9e8jTMlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rZydSQVj; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788534858; c=relaxed/simple;
+	bh=A93PyV8Ku4pRVQCF21zpJL0Wct1LHUTtdd2RKHStkhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WlnljrbMhaCnL2MKbdyBc7mo1GznwWEwuDhkWfoJpePJYOgh+tA5WDJs4Mp79Va3U3jKI5fbaYAys/GayLNJUNTlch0nT5DOdBGCBL5Q5qI1C6bcvMnzXvETEBvGDBf9Z2g+vFDldH/XLorLvcayNVhRuMgJ7+vGnbFLCNrVTcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G3BX6yu3; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rZydSQVj"
-Received: from localhost.localdomain (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6274A20B7167;
-	Fri,  4 Sep 2026 08:12:19 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6274A20B7167
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788534748;
-	bh=n7au8vxqsflc8mQdS/nOVCGhh6qmoyLCUlVGbYJqjJA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rZydSQVjmEqpCD+wZ9AR7DUKuMBbLgxUjcolSDRu4biE+pKh43hbiwXIlkdHGKl5u
-	 sLI0fUXqVuThhOM5UUx/K7onnFFXp6A878mAgosbv/GRTbZqnYXEzRbXIVzCWgatVF
-	 7vySEi/7uaaU94BiNhE/Wrxod+NshnL/oTCPI0Qc=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: gregkh@linuxfoundation.org
-Cc: AutonomousCodeSecurity@microsoft.com,
-	Dai.Ngo@oracle.com,
-	bfields@fieldses.org,
-	cel@kernel.org,
-	jlayton@kernel.org,
-	kys@microsoft.com,
-	linux-kernel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	neil@brown.name,
-	okorniev@redhat.com,
-	stable@vger.kernel.org,
-	tgopinath@linux.microsoft.com,
-	tom@talpey.com,
-	xmei5@asu.edu
-Subject: Re: [PATCH] nfsd: hold cl_lock in client_has_state()
-Date: Fri,  4 Sep 2026 11:12:13 -0400
-Message-ID: <20260904151213.44891-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026082828-palpable-dingo-241b@gregkh>
-References: <2026082828-palpable-dingo-241b@gregkh>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G3BX6yu3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Message-ID:MIME-Version:
+	Content-Type; bh=We4qH7+B5B5S9aGBqZjtepABNgouZfkXtz4+EaeaWds=;
+	b=G3BX6yu39sSD8Rv+Ji3//W1ngCocNacHXF6iZyko59Vjug1wKzNUtOhH9k1uQ0
+	pkPtrtkgIGhqIhNz4d2+RzeEo5z4PvZVRbXA+L7g2Q5mswjPaIeyBvSLjweA8VKA
+	YO3DQNdck4k0c/pDb4IF/xTBD+V0g9o6sq2K6QL/xQsbM=
+Received: from localhost (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgB3DPss4JpqOjmCOg--.59808S2;
+	Fri, 04 Sep 2026 23:13:50 +0800 (CST)
+Date: Fri, 4 Sep 2026 23:13:48 +0800
+From: Melon Liu <melon1335@163.com>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: Qu Wenruo <wqu@suse.com>, clm@fb.com, dsterba@suse.com, 
+	fdmanana@suse.com, linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix deadlocks with transaction commit when
+ cloning inline extents
+Message-ID: <dwbfev763nkhdhnrghozhutmloduv3mtyzeysrcyddhnpyynsu@mxofgp3xhzwf>
+References: <a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx@eeof6sjb3xdc>
+ <bbcc2791-442f-4bf5-aabf-40eb2edc0165@suse.com>
+ <byfdpkxktwidszfv3yss7nxajjioxq7nhcmnxrzrwkvvzqaejh@ovl6qwbe6du6>
+ <9a5f0b52-a363-4b7f-a207-677fa6938cac@gmx.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <9a5f0b52-a363-4b7f-a207-677fa6938cac@gmx.com>
+X-CM-TRANSID:PSgvCgB3DPss4JpqOjmCOg--.59808S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ArWrKF45ZF4rAFyUuFW7Arb_yoW8AryDpF
+	W7Ca1DJr4DJw1Uuw1v9w1DZFy09r1kJrW7XFn8Ww42vas0yr1kKFW2gryY93yFvr1kCFWU
+	AFWjq3savw45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U3wIgUUUUU=
+X-CM-SenderInfo: ppho00irttkqqrwthudrp/xtbC4w6EpWqa4C5-PQAA3w
 
-On Fri, Aug 28, 2026 at 07:29:11AM +0200, Greg KH wrote:
-> Please use your microsoft.com email address, and not a random gmail.com
-> address.  It's kind of odd that Microsoft would have to rely on Google
-> to send kernel patches :)
+On Mon, Aug 31, 2026 at 08:05:16AM +0930, Qu Wenruo wrote:
+> 
+> 
+> 在 2026/8/30 20:12, Melon Liu 写道:
+> > On Sat, Aug 29, 2026 at 06:25:11PM +0930, Qu Wenruo wrote:
+> > > 
+> > > 
+> > > 在 2026/8/29 17:09, Melon Liu 写道:
+> > > > Commits b48c980b6a7e ("btrfs: fix deadlock between reflink and transaction
+> > > > commit when using flushoncommit") and 532085d00eb5 ("btrfs: fix deadlock
+> > > > cloning inline extent when using flushoncommit") moved the destination
+> > > > i_size update before btrfs_start_transaction() to prevent
+> > > > extent_writepage() from invalidating a folio beyond EOF.  However, two
+> > > > deadlock windows remain.
+> > > > 
+> > > > First, after the folio is dirtied but before i_size is updated,
+> > > > extent_writepage() can still see the folio beyond EOF.  It calls
+> > > > folio_invalidate(), and btrfs_invalidate_folio() waits for the destination
+> > > > extent range lock held by the clone task.
+> > > > 
+> > > > Second, if extent_writepage() sees the folio within EOF, it proceeds to
+> > > > writepage_delalloc(), which also waits for the destination extent range
+> > > > lock.
+> > > 
+> > > What about letting the agent to create a reproducer, trigger it and paste
+> > > the lockdep/hang calltrace?
+> > > 
+> > > Also an ASCII chart showing the window between involved threads?
+> > > 
+> [...]
+> > > > Fixes: 05a5a7621ce6 ("Btrfs: implement full reflink support for inline extents")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Melon Liu <melon1335@163.com>
+> > > 
+> > > And AI disclosure.
+> > > 
+> > Thanks for the review. I'll address your comments and send a v2.
+> 
+> And also check the sashiko review:
+> 
+> https://sashiko.dev/#/patchset/a74ov5nvs5u4nkqhrs5lp2jaj664wewkqqsjxzhuemzazzmzvx%40eeof6sjb3xdc
 
-Thanks for pointing this out. I now have cenzhang@linux.microsoft.com
-set up and will use it for future kernel submissions.
+OK.
 
-Chuck, since the patch is already in nfsd-testing, please let me know if
-I should send a v2 from this address to update the author email.
+Thanks.
 
-Thanks,
-Cen
