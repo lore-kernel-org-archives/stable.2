@@ -1,44 +1,45 @@
-Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
+Received: from mta1.migadu.com (out-249.mta1.migadu.com [95.215.58.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28E0E348477
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:03:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.247
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549BE525A6F
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 20:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788552232; cv=none; b=kKuq6y+yWRt7MgGucJpd4NfKLpuZc0f5mdMfdrd1mMlzNwUktCnsT3/MTFVPAuCFjEfyl6iRRSzEv50gcByykqkT3yBqRRBVTIrf0UXECunCICvJjftr0re20g8B14H3jYJPpp8YvbovZMNTiYqytm8uAp7r7aZKcjR2h3LsOC8=
+	t=1788553746; cv=none; b=YAws45n4UVtO+g0BubAg4DEI6+Y3eCCKuXoctlaYIR7kkvBA6U08qf8SFA8IoV8V5V7rH9MbEb3r5NnsvMQeVXwv8GDnDUBVdeKNasuFTHgl6tf6xUJYq9jwIwW83tcAXAHtvPdcAlal09c+YyiVk028H3ckgApk4mCArZpmNGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788552232; c=relaxed/simple;
-	bh=qi6RHnGDCGkfNITqcvCFwcoWSmNWkH+un3Fby8LVM/w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=o7gemzfY/5aVyEMDQ0h4OnEIxkBkFEcraawwG0OA/TOzjPWQHMMpnsMc3qr8phhCVJpWPhEdwIqSanSf6sHHStL8xnTDe2jFzZjkVv1V2DFlyPesfrf0x+urNEZLZNr+Ey4yNbjQ/koV6VNtb7lNZJ+DdqewhBU0PODbdFy08tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=vUExvtqC; arc=none smtp.client-ip=91.218.175.247
+	s=arc-20240116; t=1788553746; c=relaxed/simple;
+	bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UcfByiuI+4DBF7V1S923gXKKuQ1xFNmfLm/tWwa7UgWVfCABdZrX107dTgmPFHM76bmxUfjthCxrI1AdKVi3kTrITC1MQ3L9DXUH2WXuBD4hxwzlygGOs/ZmvPIKHdigdz4zdqYm9ehunK45pcRKC4Tt4a4kU3uP237wm2QQNz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca; spf=pass smtp.mailfrom=justthetip.ca; dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b=B7HSMM7I; arc=none smtp.client-ip=95.215.58.249
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="vUExvtqC"
+	dkim=pass (2048-bit key) header.d=justthetip.ca header.i=@justthetip.ca header.b="B7HSMM7I"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=qi6RHnGDCGkfNITqcvCFwcoWSmNWkH+un3Fby8LVM/w=;
+DKIM-Signature: a=rsa-sha256; bh=PWJukDUqmQjG6nax1yH5sUt5blvqZCXFje4nnl7OmoM=;
  c=simple/simple; d=justthetip.ca;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788552224; v=1; x=1789157024;
- b=vUExvtqCXp6WVeHtr2Cv7ZnN+0/rVxZ19W69DBHRoX26sJQBGwHVtZMn9IR5C+iJqVnNNVNX
- bw06bCKEehUOcoiM9RU94+6k7n4VlT7kyz/kGGaCusHqsOIa9Hwy9MVuWJgaEhGC/mZ5AK7Endp
- yW2sNZGbzfDnaOU/Wec7oymE1JkugZTINTSMiqJf+F5c2SNW4G9DrHeRfe2dqdezjU+5aDieI/h
- cA9wIvnbLunKfvf8AAsLIySTwDZn5TKYdxRjpdtoN8fq2OBAFshwgLSgJcRnGrruAXeq3yrydTb
- mzXt5K6yKD1VZlybeKMhXFQWA3Gr1IrdhC91GAatmc6hA==
+ t=1788553713; v=1; x=1789158513;
+ b=B7HSMM7IwSo5NUxLvnaSWoS6kQJFXFUEcW+p9knhulztEaDupnbIBm0FMSwvICj5+7q534aZ
+ bdOkr4LwGHK7hkDX7Tgk8oW1Q4s6I2+2vVUasGqYFBrCxLlZTxqEwQ25jqDQj1aCzTffZMSTBhJ
+ KVNLdKQIHcLVE5pEDTBaeN4MXhsxwyAN3UO6WWty3xzOcGqBm+fez2kNEaLsTelho1Wp8stsqYK
+ K0Ot5tQEbyh+nT+8cz8MMSTB3nWPvzNSR+1eVRcKRjrqlgEY25CnkRyQ2mTsKDHSp5RyP3fsRuO
+ JDMEvIs5VaLb8vVh0OG4lz4DJExT1qz7hO1WRU00rUg5Q==
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f571189813e464c;
-	Fri, 04 Sep 2026 20:03:44 +0000
-X-Mizu-Trace-ID: 7f571189813e464c
+Received: by smtp.migadu.com with ESMTPS id 32954092dbf4826d;
+	Fri, 04 Sep 2026 20:28:23 +0000
+X-Mizu-Trace-ID: 32954092dbf4826d
 X-Migadu-Flow: FLOW_OUT
 From: Devin Wittmayer <lucid_duck@justthetip.ca>
 To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Felix Fietkau <nbd@nbd.name>,
+Cc: Alexander Wetzel <Alexander@wetzel-home.de>,
+	Felix Fietkau <nbd@nbd.name>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH wireless v2] wifi: mac80211: refuse to make a monitor active when it has no queue
-Date: Fri,  4 Sep 2026 13:03:38 -0700
-Message-ID: <20260904200338.10829-1-lucid_duck@justthetip.ca>
+Subject: [PATCH wireless v2] wifi: mac80211: drop the monitor filter counts on stop, not just sometimes
+Date: Fri,  4 Sep 2026 13:28:17 -0700
+Message-ID: <20260904202817.12564-1-lucid_duck@justthetip.ca>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -48,68 +49,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A monitor interface only gets a TXQ if it's created active, and one can't
-be added later. Setting the flag on a down interface is still allowed, so
-the driver is handed a monitor with no queue. ath9k dereferences it:
+Bringing a monitor up raises the receive filter counts for every monitor.
+Taking one down lowers them only inside the branch that retires the
+virtual monitor. So an active monitor leaves an increment behind on every
+cycle, and the hardware keeps delivering frames nobody asked for.
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000066
-  RIP: 0010:ath_tx_node_init+0x49/0x170 [ath9k]
-   ath9k_add_interface+0x10c/0x140 [ath9k]
-   drv_add_interface+0x54/0x250 [mac80211]
-   ieee80211_do_open+0x32f/0x800 [mac80211]
+Dropping cooked monitor support indented the decrement into that branch.
+It sat outside before.
 
-Reached with CAP_NET_ADMIN by "iw dev X set monitor active" followed by
-"ip link set X up". RTNL is held, so netlink operations block behind it.
+Counts after each up, down and delete cycle on a 7921 USB part:
 
-Refuse the flag when there is no queue to give.
+  without   cycle one ends at 1, cycle two starts at 2
+  with      every cycle starts and ends at 1, in any order
 
-Fixes: 79af1f866193 ("mac80211: avoid allocating TXQs that won't be used")
+Move the decrement back out so it mirrors the increment.
+
+Fixes: 286e69677065 ("wifi: mac80211: Drop cooked monitor support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
-Only drivers that advertise active monitor can reach this, since cfg80211
-refuses the flag otherwise.
+The counts are fcsfail, plcpfail, control, pspoll, other_bss and the one
+that keeps TX status reporting armed. Changing flags on a running monitor
+still balances, so only the open and stop pair drift.
 
-  crashes   ath9k, mt7603
-  checks    mt7615, mt7915, mt7921, mt7925, mt7996
+v2: changelog rewritten by hand, and the counts above are measured on
+    hardware.
 
-On the ones that check, the promotion works. A monitor promoted while down
-captures the same as one created active:
+v1: https://lore.kernel.org/linux-wireless/20260825043754.66918-1-lucid_duck@justthetip.ca/
 
-  promoted        89, 89, 89 beacons in ten seconds
-  created active  88, 89, 88
-  passive         176
+ net/mac80211/iface.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-So this refuses something that currently functions on five drivers.
-Reserving a queue for every monitor instead would keep it, at the cost of
-undoing the commit named above.
-
-Tested on a 7921 USB part: the promotion is refused, and both creating a
-monitor active and toggling one that already has a queue still work.
-
-v2: changelog and comment rewritten by hand. Dropped mt76x02 from the list
-    above, it does not use the interface queue at all.
-
-v1: https://lore.kernel.org/linux-wireless/20260824003656.27049-1-lucid_duck@justthetip.ca/
-
- net/mac80211/cfg.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 23f4f9ec86d0..8b47468dd5c0 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -115,6 +115,10 @@ static int ieee80211_set_mon_options(struct ieee80211_sub_if_data *sdata,
- 			return -EBUSY;
- 	}
+diff --git a/net/mac80211/iface.c b/net/mac80211/iface.c
+index 43460a705a6b..9b400caf2765 100644
+--- a/net/mac80211/iface.c
++++ b/net/mac80211/iface.c
+@@ -630,8 +630,9 @@ static void ieee80211_do_stop(struct ieee80211_sub_if_data *sdata, bool going_do
+ 				hw_reconf_flags |= IEEE80211_CONF_CHANGE_MONITOR;
+ 			}
  
-+	/* TXQs are reserved in ieee80211_if_add() and cannot be added later */
-+	if ((params->flags & MONITOR_FLAG_ACTIVE) && !sdata->vif.txq)
-+		return -EOPNOTSUPP;
+-			ieee80211_adjust_monitor_flags(sdata, -1);
+ 		}
 +
- 	/* validate whether MU-MIMO can be configured */
- 	if (!ieee80211_hw_check(&local->hw, WANT_MONITOR_VIF) &&
- 	    !ieee80211_hw_check(&local->hw, NO_VIRTUAL_MONITOR) &&
++		ieee80211_adjust_monitor_flags(sdata, -1);
+ 		break;
+ 	case NL80211_IFTYPE_NAN:
+ 		/* Check if any open NAN_DATA interfaces */
 -- 
 2.55.0
 
