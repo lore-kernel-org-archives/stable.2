@@ -1,44 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F876274FD1
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3313E274FD1
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 02:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489354; cv=none; b=h8XxtvOj2m0XhhLOlzHUTKAEe7KnunBHFVI8AXD4twv0Mpf/YTHe/kzLXGoM21uXJzpUYdfgrnDEyUpm5fimyj4v4SliKqq9x2Jf4pJ2wnxmc2aImazjHBndXEjIoONCeFJ79d7YyGAsU2c9isvL7Onw7fvQDLzOGtGjYamOKJg=
+	t=1788489387; cv=none; b=lSK730uRATCpmR9Mu7lt1ebKNyITCWeDf49K9VeY7+2FyKfGBp0lXkzk+ojvjr4pFF+IypiyDmycXOHGkRsjXiKz1p2nm0BwJNZxKZyEWBmyb1D2oCAQGKFQ33z/eIDUkDvzwsgnWfrL329OEKy7FqdkJMkmWY2tE9q6ichwvKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489354; c=relaxed/simple;
-	bh=HstIILldYFTwL0yErdwsiM4OyECUtNCUgmuzLuD2tJo=;
+	s=arc-20240116; t=1788489387; c=relaxed/simple;
+	bh=ZQ71UZchkm+5sNnd6iK+uYsAPtqvLcDpKgoMi4/wPDw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y4c3ENe7F190CUsdZ7nybqLKHxDsHIVNP6dpfd51qlSB1CLPsh02x+CiVgWcAaDC4hmyrO2c0UivcVzKjvpN+XBHJ9snkDZK3X48YXWBy6C15Il/mub8iGoU9dG4hYaZRYSgZVfoOK3AiFPZ55DJZ56iz/gSNKLIsY40gHqhFG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EvJxGkAR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JIArecp8E+x8vhJjPSYhHpwXx3/svHAT/cKoJr9voerx1XcHefLGuQhCK/ObRxtfpn5WCRuviQwDaWa2sjLd1tc6WkXX3h1h7B3c5jk9g0+4k+1wUUUO7xu1iAYCSYVwEiCmnnnW2BaUB47xvl+wFTMOlL34fYP5JfOQF7NIDK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pv9nOr+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EvJxGkAR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C72F1F00AC4;
-	Fri,  4 Sep 2026 02:35:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pv9nOr+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E94B1F000E9;
+	Fri,  4 Sep 2026 02:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788489353;
-	bh=j/sWJeIyyI8q6KYZXsDPNLkQPhxqWnBWWP09Q1Bsp34=;
+	s=k20260515; t=1788489385;
+	bh=48H+JzQhwLNZeSqTG3FjRi79DNXw2bGAYfRInPbUSJc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EvJxGkARQijnoLrToAy5/a4nrke54ECbzKjhVyTkgHUznGmUQU+VJZhtBI7LcMMaW
-	 /IPEVfCGkHe4JLu+lvpONZZOutQSm/IowUM6wVMsa51zZHDpb44WW130vvaV9ZYnLX
-	 edKLsycj7DoNntpMVNDbR074HGbGKzXfjUsLRw83nfen5O7g4rQZjEacJqJMJThfFN
-	 B2t9TFgTH0+k5NmJZ7/AjveSJx7IyWE1dqOJBKKe8yrs2jX98yKalWVankdTtMUh5n
-	 vDwrGTtWCtGJlvLhZcsM2RsHqedpKsFs9vAuqzC3Asi/YsDnmJYFl6OCswkJcUM8aj
-	 OzeoeJLLHo9Qw==
+	b=Pv9nOr+ExP2Plbo78BzVHV/ZFSEDeE32qdLgp7O7DNRcYkf5b61vNjANw3GaNTSOl
+	 49+2bt3S25a3Bh/hogXZ5wqdwnOgSTMxVG7BmrVp8MZ5NbRK1shvZENagLk7OyP1R1
+	 4vPucBH+ioTRE5qxHN30z7lI/Zcmy8qPSn1WgISCrv99BKmlgtp5CCOZlmX3iaZ9kL
+	 9KSTRQoNKOxAI3wgkn09v0ybFJMXnyHETl90kD+BPnmF/a5A//i9R63YMmg/sBciWM
+	 RlRAUtjM8FPbd2dvjyVaiFxt/H6hoIEl6YUhbyg8+y8Vt9rXS++V0FTjoCd/2jaWcZ
+	 jKzv8z9d/WVWg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Li Xiasong <lixiasong1@huawei.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Harry Yoo (Oracle)" <harry@kernel.org>,
+Cc: Zi Yan <ziy@nvidia.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/3] mm/slub: fix missing debugfs entries for caches created before sysfs init
-Date: Thu,  3 Sep 2026 22:35:48 -0400
-Message-ID: <20260904023549.2231387-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/huge_memory: use folio's memcg inside __folio_split()
+Date: Thu,  3 Sep 2026 22:36:22 -0400
+Message-ID: <20260904023622.2232975-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904023549.2231387-1-sashal@kernel.org>
-References: <2026090309-stool-flyaway-37a0@gregkh>
- <20260904023549.2231387-1-sashal@kernel.org>
+In-Reply-To: <2026090357-daybed-breach-27b2@gregkh>
+References: <2026090357-daybed-breach-27b2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,194 +56,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Li Xiasong <lixiasong1@huawei.com>
+From: Zi Yan <ziy@nvidia.com>
 
-[ Upstream commit 7e98f856395618011c517f767fb80ac3fe90de2b ]
+[ Upstream commit c299a2285d9d8bda4da024455de65e3d00de6f17 ]
 
-slab_debugfs_init() creates the slab debugfs root at device initcall
-time, while slab_sysfs_init() moves slab_state to FULL at late initcall
-time. SLAB_STORE_USER caches created in this window miss their debugfs
-entries because do_kmem_cache_create() skips debugfs_slab_add() when
-slab_state <= UP. This was observed with MPTCP's request_sock_subflow_v6
-cache, whose slab debugfs directory was missing.
+Patch series "Honor XA_FLAGS_ACCOUNT in xas_split_alloc() and charge to
+folio's memcg", v3.
 
-The affected window is:
+__GFP_ACCOUNT is needed for xarray node allocation accounting when
+XA_FLAGS_ACCOUNT is set. Commit 7b785645e8f13 ("mm: fix page cache
+convergence regression") fixed a workingset regression with it.
+xas_split_alloc() does not have it and needs to be fixed.
 
-  slab_debugfs_init()
-    slab_debugfs_root = debugfs_create_dir(...)
-    list_for_each_entry(s, &slab_caches, list)
-      debugfs_slab_add(s)
+In addition, based on Sashiko's review[1] and Johannes' confirmation[2], to
+charge the right memcg, folio's memcg needs to be active during folio
+split. Add that before adding __GFP_ACCOUNT.
 
-  kmem_cache_create(..., SLAB_STORE_USER, ...)
-    do_kmem_cache_create()
-      if (slab_state <= UP)
-        return without debugfs entries
+There is no workingset convergence regression related to missing
+__GFP_ACCOUNT in xas_split_alloc() and the impact to userspace should be
+minor.
 
-  slab_sysfs_init()
-    slab_state = FULL
+This patch (of 2):
 
-Initialize the debugfs root and add debugfs entries while holding
-slab_mutex, walking slab_caches exactly once and handling both sysfs
-and debugfs entries in the same pass. This gives the sysfs and debugfs
-initialization an explicit order and prevents caches from being
-created between the debugfs scan and slab_state reaching FULL.
+During a pagecache folio split, an xarray node allocation can happen and
+needs to charge at folio's memcg instead of folio split invoker's memcg,
+because for example folio split can happen during reclaim and reclaim's
+active memcg might not be folio's memcg.  Switch to folio's memcg at the
+beginning and switch back afterwards.
 
-Gate the new slab_late_init() on either sysfs or debugfs being enabled,
-with the slab_kset creation and alias_list processing factored into
-helpers that have empty no-sysfs variants, as suggested by Vlastimil
-Babka. On slab_kset_init() failure, slab_state stays below FULL so
-kmem_cache_create() keeps taking the early-boot path, matching prior
-behavior.
-
-Guard debugfs_slab_release() against an uninitialized debugfs root,
-since the root is now created later and a cache may be released before
-it exists.
-
-Fixes: 1a5ad30b89b4 ("mm: slub: make slab_sysfs_init() a late_initcall")
-Cc: stable@vger.kernel.org
-Suggested-by: Vlastimil Babka <vbabka@kernel.org>
-Signed-off-by: Li Xiasong <lixiasong1@huawei.com>
-Link: https://patch.msgid.link/20260729101849.3734287-1-lixiasong1@huawei.com
-Reviewed-by: Harry Yoo (Oracle) <harry@kernel.org>
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-0-38cb3ff325c5@nvidia.com
+Link: https://lore.kernel.org/20260804-add-gfp_account-to-xas_split_alloc-v3-1-38cb3ff325c5@nvidia.com
+Link: https://sashiko.dev/#/patchset/20260727-add-gfp_account-to-xas_split_alloc-v1-1-9fae6bf64838%40nvidia.com?part=1 [1]
+Link: https://lore.kernel.org/all/amtcBZ-_QVRgCd6b@cmpxchg.org/ [2]
+Fixes: 6b24ca4a1a8d ("mm: Use multi-index entries in the page cache")
+Signed-off-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Lance Yang <lance.yang@linux.dev>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: William Kucharski <william.kucharski@oracle.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+[ adapted get_mem_cgroup_from_folio() to the older folio_memcg()/css_tryget() sequence in split_huge_page_to_list() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/slub.c | 76 +++++++++++++++++++++++++++++++++++--------------------
- 1 file changed, 48 insertions(+), 28 deletions(-)
+ mm/huge_memory.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/mm/slub.c b/mm/slub.c
-index 01a768143efc7..3f2d95d476ce1 100644
---- a/mm/slub.c
-+++ b/mm/slub.c
-@@ -333,14 +333,20 @@ enum track_item { TRACK_ALLOC, TRACK_FREE };
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 7ab6779849243..8c626f7c1aedc 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2646,6 +2646,7 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	struct folio *folio = page_folio(page);
+ 	struct deferred_split *ds_queue = get_deferred_split_queue(folio);
+ 	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
++	struct mem_cgroup *memcg, *old_memcg;
+ 	struct anon_vma *anon_vma = NULL;
+ 	struct address_space *mapping = NULL;
+ 	int extra_pins, ret;
+@@ -2664,6 +2665,19 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	if (folio_test_writeback(folio))
+ 		return -EBUSY;
  
- #ifdef SLAB_SUPPORTS_SYSFS
- static int sysfs_slab_add(struct kmem_cache *);
-+static int __init slab_kset_init(void);
-+static void __init slab_sysfs_process_aliases(void);
- #else
- static inline int sysfs_slab_add(struct kmem_cache *s) { return 0; }
-+static inline int slab_kset_init(void) { return 0; }
-+static inline void slab_sysfs_process_aliases(void) { }
- #endif
- 
- #if defined(CONFIG_DEBUG_FS) && defined(CONFIG_SLUB_DEBUG)
- static void debugfs_slab_add(struct kmem_cache *);
-+static void __init slab_debugfs_root_init(void);
- #else
- static inline void debugfs_slab_add(struct kmem_cache *s) { }
-+static inline void slab_debugfs_root_init(void) { }
- #endif
- 
- enum stat_item {
-@@ -7226,28 +7232,20 @@ int sysfs_slab_alias(struct kmem_cache *s, const char *name)
- 	return 0;
- }
- 
--static int __init slab_sysfs_init(void)
-+static int __init slab_kset_init(void)
- {
--	struct kmem_cache *s;
--	int err;
--
--	mutex_lock(&slab_mutex);
--
- 	slab_kset = kset_create_and_add("slab", NULL, kernel_kobj);
- 	if (!slab_kset) {
--		mutex_unlock(&slab_mutex);
- 		pr_err("Cannot register slab subsystem.\n");
- 		return -ENOMEM;
- 	}
- 
--	slab_state = FULL;
-+	return 0;
-+}
- 
--	list_for_each_entry(s, &slab_caches, list) {
--		err = sysfs_slab_add(s);
--		if (err)
--			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
--			       s->name);
--	}
-+static void __init slab_sysfs_process_aliases(void)
-+{
-+	int err;
- 
- 	while (alias_list) {
- 		struct saved_alias *al = alias_list;
-@@ -7259,12 +7257,41 @@ static int __init slab_sysfs_init(void)
- 			       al->name);
- 		kfree(al);
- 	}
-+}
-+#endif /* SLAB_SUPPORTS_SYSFS */
-+
-+#if defined(SLAB_SUPPORTS_SYSFS) || \
-+	(defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS))
-+static int __init slab_late_init(void)
-+{
-+	struct kmem_cache *s;
-+	int err;
- 
-+	mutex_lock(&slab_mutex);
-+
-+	err = slab_kset_init();
-+	if (err)
-+		goto out;
-+
-+	slab_debugfs_root_init();
-+	slab_state = FULL;
-+
-+	list_for_each_entry(s, &slab_caches, list) {
-+		if (sysfs_slab_add(s))
-+			pr_err("SLUB: Unable to add boot slab %s to sysfs\n",
-+			       s->name);
-+
-+		if (s->flags & SLAB_STORE_USER)
-+			debugfs_slab_add(s);
-+	}
-+
-+	slab_sysfs_process_aliases();
-+out:
- 	mutex_unlock(&slab_mutex);
--	return 0;
-+	return err;
- }
--late_initcall(slab_sysfs_init);
--#endif /* SLAB_SUPPORTS_SYSFS */
-+late_initcall(slab_late_init);
++	/*
++	 * switch to folio's memcg as xarray node allocation can happen and
++	 * needs to charge to it.
++	 */
++#ifdef CONFIG_MEMCG
++	memcg = folio_memcg(folio);
++	if (!memcg || WARN_ON_ONCE(!css_tryget(&memcg->css)))
++		memcg = root_mem_cgroup;
++#else
++	memcg = NULL;
 +#endif
- 
- #if defined(CONFIG_SLUB_DEBUG) && defined(CONFIG_DEBUG_FS)
- static int slab_debugfs_show(struct seq_file *seq, void *v)
-@@ -7462,23 +7489,16 @@ static void debugfs_slab_add(struct kmem_cache *s)
- 
- void debugfs_slab_release(struct kmem_cache *s)
- {
-+	if (unlikely(!slab_debugfs_root))
-+		return;
++	old_memcg = set_active_memcg(memcg);
 +
- 	debugfs_lookup_and_remove(s->name, slab_debugfs_root);
- }
- 
--static int __init slab_debugfs_init(void)
-+static void __init slab_debugfs_root_init(void)
- {
--	struct kmem_cache *s;
--
- 	slab_debugfs_root = debugfs_create_dir("slab", NULL);
--
--	list_for_each_entry(s, &slab_caches, list)
--		if (s->flags & SLAB_STORE_USER)
--			debugfs_slab_add(s);
--
--	return 0;
--
- }
--__initcall(slab_debugfs_init);
- #endif
- /*
-  * The /proc/slabinfo ABI
+ 	if (folio_test_anon(folio)) {
+ 		/*
+ 		 * The caller does not necessarily hold an mmap_lock that would
+@@ -2792,6 +2806,9 @@ int split_huge_page_to_list(struct page *page, struct list_head *list)
+ 	if (mapping)
+ 		i_mmap_unlock_read(mapping);
+ out:
++	/* restore to caller's old_memcg */
++	set_active_memcg(old_memcg);
++	mem_cgroup_put(memcg);
+ 	xas_destroy(&xas);
+ 	count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
+ 	return ret;
 -- 
 2.53.0
 
