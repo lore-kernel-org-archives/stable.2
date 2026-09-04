@@ -1,37 +1,44 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84A741A54B;
-	Fri,  4 Sep 2026 06:11:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DADFD41A56F;
+	Fri,  4 Sep 2026 06:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502316; cv=none; b=Gxsw/D+a7JFP4apj5KfK9YBXcdeC+wL2b7ztfvZt6N9A2VY/ZXBe80xaZnKeOpowPi4iK1ZA+eNdrwu5l4KZqFqN6JTlVycsWF54odiXCC3GIJNcespm2tAgSFRBjjFo8Q9UPl4MRufjUgDkN54pmD/N+FbxNeucDgUQGgRlUq0=
+	t=1788502318; cv=none; b=DcVdD10aXxosVW7F73tglkl0W4JA7AG1qW856B4SilxdGY0wDcI6xjTo//0HNBkl9quFBJw7oH/pNt517/qrj6bBfawJYkfmnwxHaxwku4Cezgv106wTGJIgh5FaTY3quCBiQkWMJg9czlQrYRnzJ/uBRC9yzrqkNDzCSqf7knA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502316; c=relaxed/simple;
-	bh=VWcCSH0dCpuBnV6oiRYjSwzVUgnxtoHKJ+yXnETEx3A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aiRmKgRTVhFULrJf7n1pJ0koKr6HgsjovruUycZhqbs/2jFwMlfbiQpLTJBtmPnbuJnosL0fK4TUpdTvK+gqEXhOS1IZkTLSv7FECImjJZl1ppOpRoNbQBWhgSA1/sUUWeRoh7HEbs4N3Sz9UH9gLpz8MdZyYF9KIIq2M5chmD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=AXWOwarS; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788502318; c=relaxed/simple;
+	bh=9rNr5XIAw48IUs7lwxc7HIGo63vqIb8kvP+tzY0RRTg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uSShLi5g5Eb7gJThRdz5Bk5eOo8pnCvpCEzzz6h+UjdJwk++7dEr8lXMkRrDoatYfhCRG0u36YYPO7kZHrMRdHtoNAcDeJ+OhIDYUS+QaInsuGVq3dYXd7yPlyLczNISX68Z4PPKEJeCVtpVvCmRpgO+3BLdRt6DSDmt6ZlpaE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oh4Jku/Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="AXWOwarS"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c84a5972;
-	Fri, 4 Sep 2026 14:11:43 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Dipen Patel <dipenp@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	timestamp@lists.linux.dev,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] hte: tegra194-test: shut down timer before GPIO release
-Date: Fri,  4 Sep 2026 14:11:37 +0800
-Message-Id: <20260904061137.4037269-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oh4Jku/Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB341F00A3D;
+	Fri,  4 Sep 2026 06:11:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788502316;
+	bh=grjmor5K2EZSMKlrM1Dl4LV4JKNL7ncUvK9Q7L1LOhM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oh4Jku/Ysil/TOkGtekAZ6vT70hmf6FszQNT/y3FM/gwaVp/zKTSODvAkWdrsACBq
+	 PzuOEFpL2e3ERM8vVDiXwVW7rSMQEszZvC4RqXZHffuOv5Wc14xHrLbxXSBUTPbkto
+	 WKgaVmhq0YaAR62iA8gnAWB9sIXwg4Tn2KA4caXA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Simon Horman <horms@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 6.12 164/403] bnx2x: fix double free in bnx2x_init_firmware() error path
+Date: Fri,  4 Sep 2026 06:59:27 +0200
+Message-ID: <20260904045738.582582554@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260904045734.806166532@linuxfoundation.org>
+References: <20260904045734.806166532@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,50 +46,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa06b0b635603a1kunm17d27c262ab16
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHkkdVk1NSR8aTBpPGEtITVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=AXWOwarS7QhrIVl02efjy5LRtr8InSgy0R+P+DmPuXR41PqxGFR9WfKc+qv1B4jEXVHajHqaf7ed7UJG4lgAHOpk3c9NkxCVR/cyKHXktdF/AFgfQKO6wBTtZHmfMf+Ou6hHsTbAB8gBJqWU1lqNI+pm2/FePwjoZY3AVwfuDGM=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=zbYzMXzKyFZV0cyFot9tpNTeo7XFZPJwRoTE/bMycuU=;
-	h=date:mime-version:subject:message-id:from;
 
-tegra_hte_test_remove() releases GPIO descriptors before stopping
-hte.timer. gpio_timer_cb() accesses hte.gpio_out and rearms the timer, so
-a callback concurrent with remove can use a released descriptor and rearm
-after teardown.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Shut down the timer before releasing the GPIO descriptors.
-timer_shutdown_sync() waits for a running callback and prevents it from
-being rearmed.
+------------------
 
-Fixes: 9a75a7cd03c9 ("hte: Add Tegra HTE test driver")
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+
+commit d2796ffe38cb4155afe0eab23636295b096c27a5 upstream.
+
+bnx2x_init_firmware() frees bp->init_ops, bp->init_data and
+bp->init_ops_offsets in its error path without setting them to NULL.
+The cleanup function bnx2x_release_firmware() frees the same three
+pointers unconditionally, so if init_firmware fails and
+release_firmware is later called (e.g. from __bnx2x_remove or through
+the function state machine), all three are freed a second time.
+
+Set each pointer to NULL after kfree() in the error path so that the
+subsequent kfree(NULL) in bnx2x_release_firmware() is a safe no-op.
+
+Fixes: 94a78b79cb5f ("bnx2x: Separated FW from the source.")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260815122149.951215-1-yijiangshan@kylinos.cn
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/hte/hte-tegra194-test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/hte/hte-tegra194-test.c b/drivers/hte/hte-tegra194-test.c
-index 32907d951..cca33868f 100644
---- a/drivers/hte/hte-tegra194-test.c
-+++ b/drivers/hte/hte-tegra194-test.c
-@@ -217,10 +217,10 @@ static void tegra_hte_test_remove(struct platform_device *pdev)
- {
- 	(void)pdev;
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c
+@@ -13474,10 +13474,13 @@ static int bnx2x_init_firmware(struct bn
  
-+	timer_shutdown_sync(&hte.timer);
- 	free_irq(hte.gpio_in_irq, &hte);
- 	gpiod_put(hte.gpio_in);
- 	gpiod_put(hte.gpio_out);
--	timer_delete_sync(&hte.timer);
- }
- 
- static struct platform_driver tegra_hte_test_driver = {
--- 
-2.34.1
+ iro_alloc_err:
+ 	kfree(bp->init_ops_offsets);
++	bp->init_ops_offsets = NULL;
+ init_offsets_alloc_err:
+ 	kfree(bp->init_ops);
++	bp->init_ops = NULL;
+ init_ops_alloc_err:
+ 	kfree(bp->init_data);
++	bp->init_data = NULL;
+ request_firmware_exit:
+ 	release_firmware(bp->firmware);
+ 	bp->firmware = NULL;
+
 
