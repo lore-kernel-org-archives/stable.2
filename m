@@ -1,118 +1,136 @@
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E921741684D
-	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:13:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1C636C0C8
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 13:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527634; cv=none; b=Gvjs4H/KRMxD8+WPT8rGRJEAEPaU+HMIIOrKH3WO9E3J2/RWipHitHqaSshSjSbT2VzNeuJAw1vf75IiqwwleUx0/v/CE7PhOGjIwalC8CxOCB+EpOzzF45lP7eFbxdBPInWI1XlhwQXx92TMKmnL+OoXRpXl+BORHLoM8eqpAw=
+	t=1788527701; cv=none; b=aPIyeIRi4gYLwX8n3IT8KgPFGW+Fro/btns125DKtGkI9ZsLpOcqfyy35YLjshKKJEc/tMQgizt0wx4Hlh+x7CKNQS3k++19v2Vz5HfG4rpxWxFAZ8bpKGD1yCyUEdwBngiqWkcssRYfnynhdThYetN2uyjt4tbKD7Ol+6vRT1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527634; c=relaxed/simple;
-	bh=qeW9HjB/GlkaIQLm8ZbJVD+c0HOdwkjWG+Sfd7Hjcqk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n+KGaAt58Ek3WVsbgDfwDaxoDVdO/YriqtkIrQO0sZbyvN6BnXJdBDVUdPVas3ZIcDJrBoVpFuxlw1WZnKjJfNbDPiIs2F7jdxoMPAintVjo+5phKkWQywJNsWHiKIX2TBVdN5vdrPbIbqegQo2L34/7BMI6qycAOMZVutC14sA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=roep+fbF; arc=none smtp.client-ip=209.85.161.42
+	s=arc-20240116; t=1788527701; c=relaxed/simple;
+	bh=BTM01R03+fXARkuE+MN9f6y768ghwvtwa3LO9NQVFSg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uewfynHfheLuv1Q9Ite4ZaVj5up/l+h5AI32zTOpbV/AS8gfTAGOJsu3Q3dWaO15/N1pcy6MNeiDZiMXd7aJnCUhxESMUwKWLx7i2kb6DzEg6NGCXTlnHvm3Q9vHQkvfFqqFkDnvJTz9ABxqVLYcR3Bcj3oYei/zEeeKwVhtjY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oEyRcS5c; arc=none smtp.client-ip=209.85.161.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="roep+fbF"
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6b1c75f0049so763905eaf.3
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 06:13:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oEyRcS5c"
+Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6b1b9c3af5cso818541eaf.2
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 06:14:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788527630; x=1789132430; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/o90ljmvuQQUSHocuJOX1OqLfyNrCD/R11+CTsvEbww=;
-        b=roep+fbFqxg5iARC6e0T7klxq8PXaQgwZI06wgAhPNg53hsBhlxDq/LZoAaouTYjDd
-         1sFmkD/Zbpsx82iPLR2Jac9l2YLmsbnPctkS/PSHzLU37WGek5qqeyJ8fZm+nwnDx6Yz
-         Sg4NRJFAm8JyIYVI7Wl7Dr0eYRcBEuyfbkHvomWMwx4U+ZXTlFLESp71wEc8N+6eR8ef
-         vzX9WktyJendVdsoNHMSvkfUOjzdZbo91N7cZkOZMvgw4pJtugTolcQxLl8pfNsnjIjn
-         2OzIKZny+vvmI/NaN+kBVN61O06MCipInM9ApD2sHQBjrxm7gwL21myVjFwQFdHALgJG
-         5hrg==
+        d=gmail.com; s=20251104; t=1788527698; x=1789132498; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y5nfwy7OsRkgUCsCbNO0ez9BWs9ZFo3ZzcC9GWW49DI=;
+        b=oEyRcS5ckyjj+Iphx+b8P+jj+Zg3+k/gOF/a198BMqUW5VU1RyW7E/mZdkNeOqO9AA
+         qWthr15cc7jH/M6T8Ce2gRk2PsxenqI+mMwce/go5RmWgPYIZ1g8kIN9dYMl8ZJDd2g3
+         NCw3OoacS8oiJeS2VYMMiALyNIeomajRjN/oEe18CRrYa5jzoxGTxQext3l+pIMvgaOd
+         YQJ0LfVHDAl5dV69NJNPAStQOPGw08GKMOIc4dwEHBTG6W1s919AM+qRGS2p47PVPO0b
+         gL9epNb0E7ahhyIHxhNDxenoFJUIolAC4ONUXwfZqu8lIdjRg5kkOL37xf110Ee6wdXu
+         RcMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527630; x=1789132430;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/o90ljmvuQQUSHocuJOX1OqLfyNrCD/R11+CTsvEbww=;
-        b=Sx6tENwbOWasmTu0aHe11LceeBeL1aAlABioFGC84Oe0Cu+DiEZawnhiwJYGVsRVRW
-         EfV+vR2WIdXl7B2yEDOR31JIZIJlmyTliiuWcC2OWII1Mx/TeAnpjfrzwv8GmdErorCB
-         22NLjXNWLczjauNCrCnwHy+4OAf9vZWwCjCLRuLU/ihDkeAq1y6OBNepx/WPFQF5+oKk
-         u0w5hNAhU5mTltrMY3LmqjIuFrhtX3qFvYyL3NgCjM7eeeX6OxQOM5VnX23v6mjGtGoo
-         s6jFKeXpyjStSZh7ufoFzDypbKstKHBrbLusfUIqtBbMMx//4/dIvF4lbXCN3BKTusjo
-         v9GA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0PU9fiOqbepMhDJ0hW5ExibtwHSKOcaZL5mqwqQmXzLe2XKAjMO6250XrY+D7g5NnQ/JF3as=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVBTPquSYNxhUsuZ8XyvKCV7Rk/l8XF+61pRGi4CfxVNbQdw9F
-	9CmuNxd9PRPN+Ih8TsjMieoPhTd6W4ZnOe+h+yd3tE43B4pe2BE6YkbX
-X-Gm-Gg: AYBFou1JJCbYlKciXXQWD/Hk6q0zICYHD8XRljL9qbzYQxngoNjfyy9kEIedyjPDSls
-	ac/74oHmEgKGnEiUm0GNgme1Ke2hVkAVB8ROavwyR/hwAgtsg2zszf9Jfbr5k+gzYSX0AhgmmAT
-	DKhbt3rqtqMBuLkuQzCXtkA/D2BxrFcXS2ANkhdb1POGD4MV4ThMs56BmMXAZHZlfcdnFojzafp
-	M1Or2e0onBJInLpG3espac6j28DpF+mnPbhJuD3BzEe0CAvFFPVSO0ZlD9scZgcq4Y4kANr0PtV
-	zNfo2XTGrCJyQTNYEPJ5nj370jA50NHYmRf5TB2BhTV/ZNNMvIgXFbhl8mBOJEzzYT9xXjTRibZ
-	GMFThvPuy6UtDBpsXYCHcEbaQKMdKwJXhwWnvzK15yEzU4TyAFWTd+49LsOikpU5b19YBqm++Ev
-	ERlgPAIaMnV/QwbnhTGe8MCUN52G9O1jsJ0HwY8HngZYvST4Rt/h/Nl7CNKSQNiKakFjtjob3rA
-	5KxoT3HWYwqpowOfXyDH+4Xy/rMcg==
-X-Received: by 2002:a05:6820:162b:b0:6b7:46fc:1cf with SMTP id 006d021491bc7-6b746fc2ed1mr2604016eaf.46.1788527629952;
-        Fri, 04 Sep 2026 06:13:49 -0700 (PDT)
-Received: from localhost ([2409:40c4:180:9098:c5e4:83d7:dd06:4e15])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm10301543eec.15.2026.09.04.06.13.47
+        d=1e100.net; s=20251104; t=1788527698; x=1789132498;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y5nfwy7OsRkgUCsCbNO0ez9BWs9ZFo3ZzcC9GWW49DI=;
+        b=PyAuEfySNG41gih0D/+4bHKZd7/1viQ5z7UfZCtDUTpgzaL4o2hmkLrlu97usNaiMN
+         xBYMxB4SZ4tXXDVeym/EtDsbs/w0FtvJ8pmAt1T6p4wSTzztS85He0AEGsoQjd9izyl9
+         2M6JOUiyAiLUdOMpIMkIjO4TI7gBnJdOD9q4OTEhbs9Ty5o6NvjcKcPFHSpBZkLPFgJx
+         Sl6qGNQ40OR+OOZ+oBRD09dOYtDDF7GLA5d6jiQVkcWLeumkTFChkZMo077Uzeluabhy
+         mZYb6Mi35DU140dNefj7mdiItERUxI2XutIyoomyQHyjXHidak9fxHpBJMDHI3aFImvD
+         vvIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz7Nz8ZPh+JB3lz2VQZI5hRlBC4Ap5CIxBExWOxJETiWgE/FViWaLkxRTTdeUvAJwocWDFsRAU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXyA6HjoAY6XuwP3NXCoPlmMZR8fMIJABrHuW/vOlYNutpecYQ
+	mbxWL96kVeNj/D4pjupjc3FI6OZk0C/o5dU18eQcIMJ2Fc5yzWtPFGWA
+X-Gm-Gg: AYBFou3XoidTxrAd6Vni5PVREu1ZXQgSWxPBnSlpMiRWuUDeCfWHyouvMEe9FuoxndW
+	oJbPtg715WW6fO8L9D88nqQUusBnSlCpg0z3KypDPeqR/WK7ENWTndGsLx0KClWt1kOfi3lREPz
+	Yi2H+/w2QtO9PJKb4LvPnoMsLcJ7RSx/cPOxqtSMqedzRVHlPeiFzF92sRUQdBGIAI8f7UVUU1B
+	BrXWo2kpK8FNZxJMhlpoKZJVfgJOp1A9ezdr/AfNyKyH3fRst/PjnumVH8VMW/ORENFGuvUnMBQ
+	oseBNIhBCK0TrMmWgfdf1IJxf++secpcFw0tH5kZu0FUpj5W+DXdDGwjYRQT+aK1YTx+n4cOCWF
+	57Kv/FbvETlGnk+hB4uZP0Nt/wB4x0S8tmi0JoZSQ6q7pc9oq+dtBD2ENlTE/HM9HP7vy+aYMeD
+	pmtvC7RD4j2n7ldyRsA98S/sYqVMDVUksLJeWj2PlVqxk23DVKGvdtxX/dpfV3spn8qjFmASFyx
+	U0N
+X-Received: by 2002:a05:6820:2017:b0:6b7:46fc:1d7 with SMTP id 006d021491bc7-6b746fc0274mr2550031eaf.54.1788527698282;
+        Fri, 04 Sep 2026 06:14:58 -0700 (PDT)
+Received: from Default ([2409:40f4:101e:1ef2:2602:9f75:700f:bd27])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243e6ed1sm6553828c88.12.2026.09.04.06.14.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:13:49 -0700 (PDT)
-Date: Fri, 4 Sep 2026 18:43:43 +0530
-From: Lovekesh Solanki <lovekeshsolanki00@gmail.com>
-To: Mathias Nyman <mathias.nyman@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Michal Pecio <michal.pecio@gmail.com>, Mathieu Fluhr <mathieu.fluhr@gmail.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Thorsten Leemhuis <regressions@leemhuis.info>, 
-	regressions@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH 2/2] xhci: drop 120ms U3 LFPS wake retry wait from
- runtime resume
-Message-ID: <apq4FFSD2QKG-jUu@eggarch>
-References: <20260831190349.29590-1-lovekeshsolanki00@gmail.com>
- <20260831190349.29590-2-lovekeshsolanki00@gmail.com>
- <a6a8526f-4b6f-46f7-9d02-05bfe3efcd48@linux.intel.com>
- <apbrp8EaJoIfEg5X@eggarch>
- <1be8e57f-9abe-4b34-bc09-e7934a2fa1bc@linux.intel.com>
- <apg16LtZ-ru9MIBQ@eggarch>
- <082467bf-d045-45d7-b097-97a5790e79d6@linux.intel.com>
+        Fri, 04 Sep 2026 06:14:56 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: jgg@ziepe.ca,
+	leon@kernel.org
+Cc: kees@kernel.org,
+	pj.waskiewicz@solidfire.com,
+	larrystevenwise@gmail.com,
+	Tatyana.E.Nikolova@intel.com,
+	linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+bd317784d628820741b5@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v3] RDMA/core: fix refcount bug in iwpm_get_nlmsg_request()
+Date: Fri,  4 Sep 2026 18:44:37 +0530
+Message-ID: <20260904131437.12917-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <082467bf-d045-45d7-b097-97a5790e79d6@linux.intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 10:42:48AM +0300, Mathias Nyman wrote:
-> On 9/2/26 21:21, Lovekesh Solanki wrote:
-> > On Wed, Sep 02, 2026 at 03:10:41PM +0300, Mathias Nyman wrote:
-> > > It's possible PCI side or pm core already provides some easy way for xhci driver to check this.
-> > > This specific issue is currently not on my todo list, yet.
-> > Alright, would you like to me to work on this? I could look into
-> > that side and possibly come up with an approach.
-> 
-> Yes, please, that would be great.
-I took a look at the PCI / PM side, and it seems to me there isn't any
-reliable approach for xhci driver to use right now.
+iwpm_get_nlmsg_request() initializes refcount _after_ list_add_tail()
+making it accessible to global list where another CPU can kref_get()
+on nlmsg_request causing a refcount "addition on 0" bug. Fix this
+by initializing kref _before_ list_add_tail() so refcount for
+nlmsg_request can be incremented/decremented normally. In addition,
+also initialize every field before list_add_tail().
 
-The pci_check_pme_status() both checks and clears the pme status bit 
-and the pci core devours it inside pci_pme_wakeup(), and 
-pm_request_resume is async so xhci's runtime_resume may run much later
-after the bit is already gone. We can't simply export pci_check_pme_status()
-that wouldn't give any useful info.
+Reported-by: syzbot+bd317784d628820741b5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=bd317784d628820741b5
+Fixes: 30dc5e63d6a5 ("RDMA/core: Add support for iWARP Port Mapper user space service")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+---
+Changelog:
+   Changes in v3:
+      Sent patch in a new thread and made sure to apply properly.
+   Changes in v2:
+      Add list_add_tail() last after initializing every field as per Leon Romanovsky's
+   suggestion.
+---
+ drivers/infiniband/core/iwpm_util.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-One solution I can think of would be adding a pme_wake_detected bitfield
-on pci_dev struct, we set it in pci_pme_wakeup() when PME is confirmed
-and we clear it in pci_pm_runtime_resume() after the driver has
-returned.
-Then, we could directly read via pdev->pme_wake_detected in its own
-resume.
+diff --git a/drivers/infiniband/core/iwpm_util.c b/drivers/infiniband/core/iwpm_util.c
+index 990cf928b32a..51af8c1c49f9 100644
+--- a/drivers/infiniband/core/iwpm_util.c
++++ b/drivers/infiniband/core/iwpm_util.c
+@@ -314,10 +314,6 @@ struct iwpm_nlmsg_request *iwpm_get_nlmsg_request(__u32 nlmsg_seq,
+ 	if (!nlmsg_request)
+ 		return NULL;
+ 
+-	spin_lock_irqsave(&iwpm_nlmsg_req_lock, flags);
+-	list_add_tail(&nlmsg_request->inprocess_list, &iwpm_nlmsg_req_list);
+-	spin_unlock_irqrestore(&iwpm_nlmsg_req_lock, flags);
+-
+ 	kref_init(&nlmsg_request->kref);
+ 	kref_get(&nlmsg_request->kref);
+ 	nlmsg_request->nlmsg_seq = nlmsg_seq;
+@@ -326,6 +322,11 @@ struct iwpm_nlmsg_request *iwpm_get_nlmsg_request(__u32 nlmsg_seq,
+ 	nlmsg_request->err_code = 0;
+ 	sema_init(&nlmsg_request->sem, 1);
+ 	down(&nlmsg_request->sem);
++
++	spin_lock_irqsave(&iwpm_nlmsg_req_lock, flags);
++	list_add_tail(&nlmsg_request->inprocess_list, &iwpm_nlmsg_req_list);
++	spin_unlock_irqrestore(&iwpm_nlmsg_req_lock, flags);
++
+ 	return nlmsg_request;
+ }
+ 
+-- 
+2.55.0
 
-What are your thoughts on this?
-
-Regards,
-Lovekesh
