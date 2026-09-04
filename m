@@ -1,77 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8379F46A611;
-	Fri,  4 Sep 2026 11:03:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B05A199EAD
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 11:06:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519800; cv=none; b=FFBy2jb61La1HZi+V7QpClOTowGQfN5O9E7EA79t+OisZB1c4/g9KCCBujrRHvTv9fFeQNxeWSJLfxsOLN6b9EfwHcoduRDXVJsLCnklFgRm4siZ/dJslkaBn0vArqpwjsyk43dqdwdgr07Bf1atznBakNNf1hVXZQSsnClYXvs=
+	t=1788519964; cv=none; b=HaXgGCM5N58t3xYgM15sGcOBnj+i570jCYi9QXpkLPWJsFGNuqANMWpJGM4jX8MD8lir8OkOgltKn1VyITysxLQV/MPb67n6bxh0o33YSiNxGYcnk56eKDtg2BMqcirQ9nyIfhS5WLBVA/femmqpN0jDCN5Yx+kb0FX18cqo6VU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519800; c=relaxed/simple;
-	bh=18YVgvMB0DxfzK9LvsfMuvJ/rt2ebukRfBITnVymCoM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=tsoJBNTHGt4PNTb/fxfCWE+FNMOrwPFlnD2Xc+Hig4nsb2JGZnLjoCmHpN+PQorZk31U5hswljAZAjmFv0rxzY28frpu0sGIiN06dRYdhGz/UGXPIZ4rdeG8rdkkU6vauqiLOlirZS0cVu3XIX+gS5V+8wMrXDpeHX8JqOk7ZOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWC/7QvE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788519964; c=relaxed/simple;
+	bh=6JMzM0p05IV/3OLS+Wyo11qKjrgn4NmAw1sGEMIPu4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aKdCEym1nBbMs7DfS82tasSKAUiEymz48NGE/GJyVeRI2F0f0Ug+/WwDgnl/XvhBh4K7czzcX2CguKudMF7bnLg+Gw25+qc75J4NvBjGpcXRjkJo+VTmcmVQMr3b+aRF2T4QhAFDos0THeafCLrm9qbKrkysfoPuV9V0uykrDyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LG7ah1Va; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWC/7QvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AE11F00A3D;
-	Fri,  4 Sep 2026 11:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LG7ah1Va"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B2671F00A3D;
+	Fri,  4 Sep 2026 11:06:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519799;
-	bh=uByyCyO/7thPi8sX7zSsrc24iP4tYdZOGq5Jf523xR0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eWC/7QvEnpf7dgBL3lABZwTbo+2vbFDMbEcdbqdKD6O3wimagBJopxr93DzvAn7Ok
-	 A3f0dmJHDGYmXPVea9TUnFD2fC5JRZB400ymVKBN9lHrCJbQYPpIB8zIW0xrEwTDnQ
-	 7Eqfb8w2V3abc+UT2ysjWcmw9Y/xD4bmxUPYn/sotHc1n4TnxV6PKtnaAsj5pJidXO
-	 bGci5SSnGQmamWUVtUdWoZ0g7/8jY+qaRq5G0MMPDJhit37O2cDBzA1Kq24hl9Tp2v
-	 pa4W/X54s18UrHV6ULC4maTlfryoVNyLlVXzrXGG52clfQ/a/k8+PorZ2KfiI1qt5Z
-	 KfoArmgpWmEnw==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, YANXIN LI <fadouse@pm.me>
-Cc: Jan Kara <jack@suse.cz>, Andrew Morton <akpm@linux-foundation.org>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- security@kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260718190300.867109-1-fadouse@pm.me>
-References: <20260718190300.867109-1-fadouse@pm.me>
-Subject: Re: [PATCH] ufs: use u64 for directory size in ufs_last_byte
-Message-Id: <20260904-vergeben-macht-dienen-d958c8314f6f@brauner>
-Date: Fri, 04 Sep 2026 13:03:13 +0200
+	s=k20260515; t=1788519962;
+	bh=R45r/hMefZ9xLehOtyseiqZFMw0kaIo8VXlPhenQCIY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LG7ah1Va+kLLQe4pClEUmQEnu9IhHu6AJawUQlfpU8xup79V7VBE0aynJzYBtOYgw
+	 3BFH6kWCGV71BceMsUa2p4SeSkWP6L6+qhuiD5m201AiWrRRdWb2xIztnAe1bWQrG+
+	 4hw26RQecoVOS7BU4l8S5Z9aIm30U0N3Mii87PWUry9ERgRa/r37V2OmBMnwr3bsPc
+	 AcdcZQnoirqLBSu5wm4szE3brj2Zz8eaAMJoopS1ttQlbnW1CowQU3ZX1Tb0WxBl+U
+	 NNCvI4zDQ5oiG9aMe7zivorZKrzr4DCIAGx7I4o/ncGtE6X8yzMssgAYnXX60O2HU1
+	 LR6qiBcO7Up/A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yao Zi <me@ziyao.cc>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] x86/locking: Use sfence for wmb() if SSE is available
+Date: Fri,  4 Sep 2026 07:06:00 -0400
+Message-ID: <20260904110600.2983335-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090323-calculate-stoneware-3481@gregkh>
+References: <2026090323-calculate-stoneware-3481@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=878; i=brauner@kernel.org;
- h=from:subject:message-id; bh=18YVgvMB0DxfzK9LvsfMuvJ/rt2ebukRfBITnVymCoM=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNWlr8i21iZz/fmrurtHnfbZNX2pU+a8HkCJlZJv9Xr
- fbxfSp+taOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAi+mcZGW7ObNnZsf/E6/8O
- lx5JKqVUsBnsFc1eo9Ke5m3m8/ayvyIjw8Kkh1UbJt2+tdDfydW1opijavWxhBfzLASfHeXrZKm
- 5wwgA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
-On Sat, 18 Jul 2026 19:03:07 +0000, YANXIN LI wrote:
-> ufs: use u64 for directory size in ufs_last_byte
+From: Yao Zi <me@ziyao.cc>
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+[ Upstream commit d824ed1307680dd482f607b0e707c575f70668c4 ]
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+When adding cc clobber to wmb()'s definition, the alternative()
+condition to use sfence was incorrectly raised from X86_FEATURE_XMM to
+X86_FEATURE_XMM2.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Restore the correct constraint for potential better performance on
+machines without SSE2.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Fixes: bd922477d935 ("locking/x86: Add cc clobber for ADDL")
+Signed-off-by: Yao Zi <me@ziyao.cc>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260801182953.15069-1-me@ziyao.cc
+[ preserved the Linux 6.6 "lock; addl" syntax instead of upstream "lock addl" ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/x86/include/asm/barrier.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] ufs: use u64 for directory size in ufs_last_byte
-      https://git.kernel.org/vfs/vfs/c/1eff23433e73
+diff --git a/arch/x86/include/asm/barrier.h b/arch/x86/include/asm/barrier.h
+index dab2db15a8c47..298348fe7be48 100644
+--- a/arch/x86/include/asm/barrier.h
++++ b/arch/x86/include/asm/barrier.h
+@@ -17,7 +17,7 @@
+ #define rmb() asm volatile(ALTERNATIVE("lock; addl $0,-4(%%esp)", "lfence", \
+ 				       X86_FEATURE_XMM2) ::: "memory", "cc")
+ #define wmb() asm volatile(ALTERNATIVE("lock; addl $0,-4(%%esp)", "sfence", \
+-				       X86_FEATURE_XMM2) ::: "memory", "cc")
++				       X86_FEATURE_XMM) ::: "memory", "cc")
+ #else
+ #define mb() 	asm volatile("mfence":::"memory")
+ #define rmb()	asm volatile("lfence":::"memory")
+-- 
+2.53.0
 
