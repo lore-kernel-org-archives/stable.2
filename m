@@ -1,64 +1,44 @@
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73DE51C350;
-	Fri,  4 Sep 2026 18:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.19.144.207
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEC13BD653
+	for <stable@vger.kernel.org>; Fri,  4 Sep 2026 18:35:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788546931; cv=none; b=karQauUXIJsHBemAkUukYdzM1FBOCEfElNfWHaB822wIW4oNsg+rK1OUjZXac1H/Oe75aUilD8G8kxYsfdEBG5lGQBJhZlH/OUdZobZuSjj/NbePr1GSHsjW3AIAXfdrpWBusZnbtWL+yk+rEbahsI5Rn48Pikl4arHWnBff4fc=
+	t=1788546938; cv=none; b=DQvAgKTlTkXiOwPO9EIpXyUsPZp4cwufJtTBTCJUzRYYGNQW2eFm1RHdeFouy1mJkxGOpc4tpBK1k+EswxqSXkSKCtR2RJxzBqrD9kykvHZLy+gth3m9XFQxjSD/w4BZpBR6H3FsJjO4zsOoBKPiNGWXrONVkCl4FbPbHeOYQ60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788546931; c=relaxed/simple;
-	bh=EEQ/XRzpLNN8CeEbRz2UnUboXwCh3qCz++2yBbmvEzY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tdivM7bFFzNonEXt0d+NrD14U9evMuTngc7L3tYfCVW4J2UPO9VjkZ91jNSHlkuZxtpKo0nJIom3azHsAYzR1Q3vicfFPaKNvkMb3Er7els84951j8FOxr/5izE0qUOeA+NafN73JaugsaPZvx0Mg4n0YkjCQoAOQxdulmahagA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=uQ8DbnDj; arc=none smtp.client-ip=192.19.144.207
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788546938; c=relaxed/simple;
+	bh=7smqHqCEoxG1H0EqEjrOa2jKJJ5uUBl6/cgeBuHv37c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Dvkx7Fh3efZ0y59HQnjtkc1jDiL66uvG4QD+iIQFsuT9zxaoERa+7q721dN3tucD4OaqRZJdOvnobYgEBU4dNKNP2aKtLJnBf/lyChIcjiBg0QXAKF3oE3AOX9Kq18tBO56aSX7FOHwSUKM51a412eOOanPesxTespG+RTPb4Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ThC++LJF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="uQ8DbnDj"
-Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 02583C0003D4;
-	Fri,  4 Sep 2026 11:35:08 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 02583C0003D4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1788546908;
-	bh=EEQ/XRzpLNN8CeEbRz2UnUboXwCh3qCz++2yBbmvEzY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uQ8DbnDjIYJ3YaAYd3MnVCvVHu4UM24wvp399np96kY22JOKti6XLow/TjgPWGfB1
-	 TtpensXpTeh3t3yjtySV6cNCyibOwVVBjlCClPNDiPrYWMcixcNZqg9Po2C2oiJCjE
-	 n5VCb7sX8LyqBFTcrfIi9VsA7Ua5sX0h5c68TPO8=
-Received: from stbirv-lnx-1.igp.broadcom.net (stbirv-lnx-1.igp.broadcom.net [10.67.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id 8FF29A9F;
-	Fri,  4 Sep 2026 11:35:07 -0700 (PDT)
-From: Florian Fainelli <florian.fainelli@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ThC++LJF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBA381F00A3F;
+	Fri,  4 Sep 2026 18:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788546932;
+	bh=mh3jOgouqV+NP26cE/Ary02Ci21vvqsuf+GL3keClAw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ThC++LJFr7yTZpiK0/FAUCgqRtPGZQyeByJKIshLLxFNeFOqqUF9ARyZjIABoPonp
+	 455B2ryqSYkkZufev9VdnCP+QliyjQYdBxDoaTT8Tfv+cnDuEnvdQnxjNrs44TvShv
+	 G8huq3j9Z5oEPlhaB2lI1ryeILB3CA7zgenC5krAmoWUq3/TFcjh6mZ0eyfufQJKhx
+	 k6jt3ejwuL5BuiGGvr/V1A9fZy7BkIqF4synNWBQ4eB51eCu5JHh4S51HqaoImI2GX
+	 agANxhR69CETdg+aL6AwDax0d9n4zYLurAJJd4Ci2UK4Lpdg3UEkOmk17kkqQ1upgX
+	 3VyJklQYR5kGg==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	syzbot+937b5bbb6a815b3e5d0b@syzkaller.appspotmail.com,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Neal Cardwell <ncardwell@google.com>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	netdev@vger.kernel.org (open list:NETWORKING [GENERAL]),
-	linux-kernel@vger.kernel.org (open list),
-	mptcp@lists.linux.dev (open list:NETWORKING [MPTCP]),
-	bcm-kernel-feedback-list@broadcom.com,
-	atul.joshi@nokia.com,
-	joakim.tjernlund@nokia.com
-Subject: [PATCH stable 6.6 v2] tcp: fix potential race in tcp_v6_syn_recv_sock()
-Date: Fri,  4 Sep 2026 11:35:00 -0700
-Message-Id: <20260904183500.3841094-5-florian.fainelli@broadcom.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260904183500.3841094-1-florian.fainelli@broadcom.com>
-References: <20260904183500.3841094-1-florian.fainelli@broadcom.com>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] usb: typec: ucsi: split read operation
+Date: Fri,  4 Sep 2026 14:35:28 -0400
+Message-ID: <20260904183529.1325058-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260904183529.1325058-1-sashal@kernel.org>
+References: <2026090308-nutmeg-underpaid-017e@gregkh>
+ <20260904183529.1325058-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,396 +47,221 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-Code in tcp_v6_syn_recv_sock() after the call to tcp_v4_syn_recv_sock()
-is done too late.
+[ Upstream commit 467399d989d799433ec7dd8da2ebbfbc70207d03 ]
 
-After tcp_v4_syn_recv_sock(), the child socket is already visible
-from TCP ehash table and other cpus might use it.
+The read operation is only used to read fixed data at fixed offsets
+(UCSI_VERSION, UCSI_CCI, UCSI_MESSAGE_IN). In some cases drivers apply
+offset-specific overrides. Split the read() operation into three
+operations, read_version(), read_cci(), read_message_in().
 
-Since newinet->pinet6 is still pointing to the listener ipv6_pinfo
-bad things can happen as syzbot found.
+Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20240627-ucsi-rework-interface-v4-3-289ddc6874c7@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-Move the problematic code in tcp_v6_mapped_child_init()
-and call this new helper from tcp_v4_syn_recv_sock() before
-the ehash insertion.
+The read split depends on newer UCSI callbacks that are not present in this
+stable tree and is not needed by the dependent timeout fix. For the stable
+backport, instead move the existing ACPI synchronous command handling into
+the UCSI core while retaining the old callback interface. This places the
+hard-coded completion timeout where the dependent fix expects it without
+adding the unrelated read-operation wrappers.
 
-This allows the removal of one tcp_sync_mss(), since
-tcp_v4_syn_recv_sock() will call it with the correct
-context.
+[ sashal: Reduced backport -- upstream 467399d989d79 touches 7 file(s), this
+  backport carries 3. Not backported here:
+  drivers/usb/typec/ucsi/ucsi_ccg.c
+  drivers/usb/typec/ucsi/ucsi_glink.c
+  drivers/usb/typec/ucsi/ucsi_stm32g0.c
+  drivers/usb/typec/ucsi/ucsi_yoga_c630.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: syzbot+937b5bbb6a815b3e5d0b@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/69949275.050a0220.2eeac1.0145.GAE@google.com/
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20260217161205.2079883-1-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-(cherry picked from commit 858d2a4f67ff69e645a43487ef7ea7f28f06deae)
-[florian:
- - net/ipv6/tcp_ipv6.c:
-   - Set `newnp->ipv6_fl_list = NULL` instead of `newinet->ipv6_fl_list = NULL`,
-     as `ipv6_fl_list` is in `struct ipv6_pinfo`.
-   - Guarded `af_specific` assignment with `#ifdef CONFIG_TCP_MD5SIG` instead
-     of checking `CONFIG_TCP_AO`.
-   - Used `if (tcp_inet6_sk(sk)->repflow)` instead of `inet6_test_bit(REPFLOW, sk)`.
- - net/dccp/:
-   - Updated `syn_recv_sock` implementations and call sites for DCCP, which was
-     removed in upstream kernels prior to this commit.]
-Assisted-by: Cursor:gemini-3.7-flash
-Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Stable-dep-of: eb4573cf2fd8 ("usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Updated the DCCP subsystem (net/dccp/) to handle the additional
-  opt_child_init argument in syn_recv_sock callback, fixing build
-  failures when CONFIG_IP_DCCP is enabled.
+ drivers/usb/typec/ucsi/ucsi.c      | 29 +++++++++++++++++
+ drivers/usb/typec/ucsi/ucsi.h      |  3 ++
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 51 ++++++------------------------
+ 3 files changed, 42 insertions(+), 41 deletions(-)
 
- include/net/inet_connection_sock.h |  4 +-
- include/net/tcp.h                  |  4 +-
- net/dccp/dccp.h                    |  4 +-
- net/dccp/ipv4.c                    |  4 +-
- net/dccp/ipv6.c                    |  7 ++-
- net/dccp/minisocks.c               |  2 +-
- net/ipv4/syncookies.c              |  2 +-
- net/ipv4/tcp_fastopen.c            |  2 +-
- net/ipv4/tcp_ipv4.c                |  8 ++-
- net/ipv4/tcp_minisocks.c           |  2 +-
- net/ipv6/tcp_ipv6.c                | 97 +++++++++++++-----------------
- net/mptcp/subflow.c                |  6 +-
- net/smc/af_smc.c                   |  6 +-
- 13 files changed, 78 insertions(+), 70 deletions(-)
-
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 3eb715f66cbf..b7935e293757 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -42,7 +42,9 @@ struct inet_connection_sock_af_ops {
- 				      struct request_sock *req,
- 				      struct dst_entry *dst,
- 				      struct request_sock *req_unhash,
--				      bool *own_req);
-+				      bool *own_req,
-+				      void (*opt_child_init)(struct sock *newsk,
-+							     const struct sock *sk));
- 	u16	    net_header_len;
- 	u16	    net_frag_header_len;
- 	u16	    sockaddr_len;
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 23d830a7a6c8..7392f51a3479 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -461,7 +461,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 				  struct request_sock *req,
- 				  struct dst_entry *dst,
- 				  struct request_sock *req_unhash,
--				  bool *own_req);
-+				  bool *own_req,
-+				  void (*opt_child_init)(struct sock *newsk,
-+							 const struct sock *sk));
- int tcp_v4_do_rcv(struct sock *sk, struct sk_buff *skb);
- int tcp_v4_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len);
- int tcp_connect(struct sock *sk);
-diff --git a/net/dccp/dccp.h b/net/dccp/dccp.h
-index 1f748ed1279d..e4e055493203 100644
---- a/net/dccp/dccp.h
-+++ b/net/dccp/dccp.h
-@@ -267,7 +267,9 @@ struct sock *dccp_v4_request_recv_sock(const struct sock *sk, struct sk_buff *sk
- 				       struct request_sock *req,
- 				       struct dst_entry *dst,
- 				       struct request_sock *req_unhash,
--				       bool *own_req);
-+				       bool *own_req,
-+				       void (*opt_child_init)(struct sock *newsk,
-+							      const struct sock *sk));
- struct sock *dccp_check_req(struct sock *sk, struct sk_buff *skb,
- 			    struct request_sock *req);
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index fa0609cb7f6e6..dd4ce8723b225 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -36,6 +36,34 @@
+  */
+ #define UCSI_SWAP_TIMEOUT_MS	5000
  
-diff --git a/net/dccp/ipv4.c b/net/dccp/ipv4.c
-index ca31c3b096bb..41667dcb6602 100644
---- a/net/dccp/ipv4.c
-+++ b/net/dccp/ipv4.c
-@@ -409,7 +409,9 @@ struct sock *dccp_v4_request_recv_sock(const struct sock *sk,
- 				       struct request_sock *req,
- 				       struct dst_entry *dst,
- 				       struct request_sock *req_unhash,
--				       bool *own_req)
-+				       bool *own_req,
-+				       void (*opt_child_init)(struct sock *newsk,
-+							      const struct sock *sk))
++int ucsi_sync_control_common(struct ucsi *ucsi, unsigned int offset,
++			     const void *val, size_t val_len)
++{
++	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
++	int ret;
++
++	if (ack)
++		set_bit(ACK_PENDING, &ucsi->flags);
++	else
++		set_bit(COMMAND_PENDING, &ucsi->flags);
++
++	ret = ucsi->ops->async_write(ucsi, offset, val, val_len);
++	if (ret)
++		goto out_clear_bit;
++
++	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
++		ret = -ETIMEDOUT;
++
++out_clear_bit:
++	if (ack)
++		clear_bit(ACK_PENDING, &ucsi->flags);
++	else
++		clear_bit(COMMAND_PENDING, &ucsi->flags);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
++
+ static int ucsi_acknowledge(struct ucsi *ucsi, bool conn_ack)
  {
- 	struct inet_request_sock *ireq;
- 	struct inet_sock *newinet;
-diff --git a/net/dccp/ipv6.c b/net/dccp/ipv6.c
-index 2839ca8053ba..ae617bd8afab 100644
---- a/net/dccp/ipv6.c
-+++ b/net/dccp/ipv6.c
-@@ -417,7 +417,9 @@ static struct sock *dccp_v6_request_recv_sock(const struct sock *sk,
- 					      struct request_sock *req,
- 					      struct dst_entry *dst,
- 					      struct request_sock *req_unhash,
--					      bool *own_req)
-+					      bool *own_req,
-+					      void (*opt_child_init)(struct sock *newsk,
-+								     const struct sock *sk))
- {
- 	struct inet_request_sock *ireq = inet_rsk(req);
- 	struct ipv6_pinfo *newnp;
-@@ -432,7 +434,8 @@ static struct sock *dccp_v6_request_recv_sock(const struct sock *sk,
- 		 *	v6 mapped
- 		 */
- 		newsk = dccp_v4_request_recv_sock(sk, skb, req, dst,
--						  req_unhash, own_req);
-+						  req_unhash, own_req,
-+						  opt_child_init);
- 		if (newsk == NULL)
- 			return NULL;
+ 	u64 ctrl;
+@@ -1541,6 +1569,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
+ 	INIT_WORK(&ucsi->resume_work, ucsi_resume_work);
+ 	INIT_DELAYED_WORK(&ucsi->work, ucsi_init_work);
+ 	mutex_init(&ucsi->ppm_lock);
++	init_completion(&ucsi->complete);
+ 	ucsi->dev = dev;
+ 	ucsi->ops = ops;
  
-diff --git a/net/dccp/minisocks.c b/net/dccp/minisocks.c
-index 64d805b27add..0210d38442ec 100644
---- a/net/dccp/minisocks.c
-+++ b/net/dccp/minisocks.c
-@@ -193,7 +193,7 @@ struct sock *dccp_check_req(struct sock *sk, struct sk_buff *skb,
- 		 goto drop;
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index cee43f19adf5d..c78b29affeead 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -67,6 +67,8 @@ bool ucsi_con_mutex_lock(struct ucsi_connector *con);
+ void ucsi_con_mutex_unlock(struct ucsi_connector *con);
  
- 	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
--							 req, &own_req);
-+							 req, &own_req, NULL);
- 	if (child) {
- 		child = inet_csk_complete_hashdance(sk, child, req, own_req);
- 		goto out;
-diff --git a/net/ipv4/syncookies.c b/net/ipv4/syncookies.c
-index e14356207795..9deeb3f8215e 100644
---- a/net/ipv4/syncookies.c
-+++ b/net/ipv4/syncookies.c
-@@ -199,7 +199,7 @@ struct sock *tcp_get_cookie_sock(struct sock *sk, struct sk_buff *skb,
- 	bool own_req;
+ void ucsi_connector_change(struct ucsi *ucsi, u8 num);
++int ucsi_sync_control_common(struct ucsi *ucsi, unsigned int offset,
++			     const void *val, size_t val_len);
  
- 	child = icsk->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
--						 NULL, &own_req);
-+						 NULL, &own_req, NULL);
- 	if (child) {
- 		refcount_set(&req->rsk_refcnt, 1);
- 		tcp_sk(child)->tsoffset = tsoff;
-diff --git a/net/ipv4/tcp_fastopen.c b/net/ipv4/tcp_fastopen.c
-index 408985eb74ee..51bd11588d6d 100644
---- a/net/ipv4/tcp_fastopen.c
-+++ b/net/ipv4/tcp_fastopen.c
-@@ -247,7 +247,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
- 	bool own_req;
+ /* -------------------------------------------------------------------------- */
  
- 	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
--							 NULL, &own_req);
-+							 NULL, &own_req, NULL);
- 	if (!child)
- 		return NULL;
+@@ -308,6 +310,7 @@ struct ucsi {
+ #define EVENT_PENDING	0
+ #define COMMAND_PENDING	1
+ #define ACK_PENDING	2
++	struct completion complete;
+ };
  
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index 3f9e1cfde008..163c8726a17d 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -1566,7 +1566,9 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 				  struct request_sock *req,
- 				  struct dst_entry *dst,
- 				  struct request_sock *req_unhash,
--				  bool *own_req)
-+				  bool *own_req,
-+				  void (*opt_child_init)(struct sock *newsk,
-+							 const struct sock *sk))
- {
- 	struct inet_request_sock *ireq;
- 	bool found_dup_sk = false;
-@@ -1622,6 +1624,10 @@ struct sock *tcp_v4_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 	}
- 	sk_setup_caps(newsk, dst);
- 
-+#if IS_ENABLED(CONFIG_IPV6)
-+	if (opt_child_init)
-+		opt_child_init(newsk, sk);
-+#endif
- 	tcp_ca_openreq_child(newsk, dst);
- 
- 	tcp_sync_mss(newsk, dst_mtu(dst));
-diff --git a/net/ipv4/tcp_minisocks.c b/net/ipv4/tcp_minisocks.c
-index 86f0feb2497f..d6d64697ce89 100644
---- a/net/ipv4/tcp_minisocks.c
-+++ b/net/ipv4/tcp_minisocks.c
-@@ -817,7 +817,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
- 	 * socket is created, wait for troubles.
- 	 */
- 	child = inet_csk(sk)->icsk_af_ops->syn_recv_sock(sk, skb, req, NULL,
--							 req, &own_req);
-+							 req, &own_req, NULL);
- 	if (!child)
- 		goto listen_overflow;
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index 689c0b383ebf..f13fdd1214aa 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -1180,11 +1180,48 @@ static void tcp_v6_restore_cb(struct sk_buff *skb)
- 		sizeof(struct inet6_skb_parm));
+ #define UCSI_MAX_SVID		5
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 03c820fe5b0c4..7ed5eb9801b75 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -21,11 +21,8 @@ struct ucsi_acpi {
+ 	struct device *dev;
+ 	struct ucsi *ucsi;
+ 	void *base;
+-	struct completion complete;
+ 	unsigned long flags;
+ #define UCSI_ACPI_SUPPRESS_EVENT	0
+-#define UCSI_ACPI_COMMAND_PENDING	1
+-#define UCSI_ACPI_ACK_PENDING		2
+ 	guid_t guid;
+ 	u64 cmd;
+ };
+@@ -72,37 +69,9 @@ static int ucsi_acpi_async_write(struct ucsi *ucsi, unsigned int offset,
+ 	return ucsi_acpi_dsm(ua, UCSI_DSM_FUNC_WRITE);
  }
  
-+/* Called from tcp_v4_syn_recv_sock() for v6_mapped children. */
-+static void tcp_v6_mapped_child_init(struct sock *newsk, const struct sock *sk)
-+{
-+	struct inet_sock *newinet = inet_sk(newsk);
-+	struct ipv6_pinfo *newnp;
-+
-+	newinet->pinet6 = newnp = tcp_inet6_sk(newsk);
-+
-+	memcpy(newnp, tcp_inet6_sk(sk), sizeof(struct ipv6_pinfo));
-+
-+	newnp->saddr = newsk->sk_v6_rcv_saddr;
-+
-+	inet_csk(newsk)->icsk_af_ops = &ipv6_mapped;
-+	if (sk_is_mptcp(newsk))
-+		mptcpv6_handle_mapped(newsk, true);
-+	newsk->sk_backlog_rcv = tcp_v4_do_rcv;
-+#ifdef CONFIG_TCP_MD5SIG
-+	tcp_sk(newsk)->af_specific = &tcp_sock_ipv6_mapped_specific;
-+#endif
-+
-+	newnp->ipv6_mc_list = NULL;
-+	newnp->ipv6_ac_list = NULL;
-+	newnp->ipv6_fl_list = NULL;
-+	newnp->pktoptions  = NULL;
-+	newnp->opt	   = NULL;
-+
-+	/* tcp_v4_syn_recv_sock() has initialized newinet->mc_{index,ttl} */
-+	newnp->mcast_oif   = newinet->mc_index;
-+	newnp->mcast_hops  = newinet->mc_ttl;
-+
-+	newnp->rcv_flowinfo = 0;
-+	if (tcp_inet6_sk(sk)->repflow)
-+		newnp->flow_label = 0;
-+}
-+
- static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *skb,
- 					 struct request_sock *req,
- 					 struct dst_entry *dst,
- 					 struct request_sock *req_unhash,
--					 bool *own_req)
-+					 bool *own_req,
-+					 void (*opt_child_init)(struct sock *newsk,
-+								const struct sock *sk))
- {
- 	struct inet_request_sock *ireq;
- 	struct ipv6_pinfo *newnp;
-@@ -1200,60 +1237,10 @@ static struct sock *tcp_v6_syn_recv_sock(const struct sock *sk, struct sk_buff *
- #endif
- 	struct flowi6 fl6;
+-static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
+-				const void *val, size_t val_len)
+-{
+-	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+-	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
+-	int ret;
+-
+-	if (ack)
+-		set_bit(UCSI_ACPI_ACK_PENDING, &ua->flags);
+-	else
+-		set_bit(UCSI_ACPI_COMMAND_PENDING, &ua->flags);
+-
+-	ret = ucsi_acpi_async_write(ucsi, offset, val, val_len);
+-	if (ret)
+-		goto out_clear_bit;
+-
+-	if (!wait_for_completion_timeout(&ua->complete, 5 * HZ))
+-		ret = -ETIMEDOUT;
+-
+-out_clear_bit:
+-	if (ack)
+-		clear_bit(UCSI_ACPI_ACK_PENDING, &ua->flags);
+-	else
+-		clear_bit(UCSI_ACPI_COMMAND_PENDING, &ua->flags);
+-
+-	return ret;
+-}
+-
+ static const struct ucsi_operations ucsi_acpi_ops = {
+ 	.read = ucsi_acpi_read,
+-	.sync_write = ucsi_acpi_sync_write,
++	.sync_write = ucsi_sync_control_common,
+ 	.async_write = ucsi_acpi_async_write
+ };
  
--	if (skb->protocol == htons(ETH_P_IP)) {
--		/*
--		 *	v6 mapped
--		 */
--
--		newsk = tcp_v4_syn_recv_sock(sk, skb, req, dst,
--					     req_unhash, own_req);
--
--		if (!newsk)
--			return NULL;
--
--		inet_sk(newsk)->pinet6 = tcp_inet6_sk(newsk);
--
--		newnp = tcp_inet6_sk(newsk);
--		newtp = tcp_sk(newsk);
--
--		memcpy(newnp, np, sizeof(struct ipv6_pinfo));
--
--		newnp->saddr = newsk->sk_v6_rcv_saddr;
--
--		inet_csk(newsk)->icsk_af_ops = &ipv6_mapped;
--		if (sk_is_mptcp(newsk))
--			mptcpv6_handle_mapped(newsk, true);
--		newsk->sk_backlog_rcv = tcp_v4_do_rcv;
--#ifdef CONFIG_TCP_MD5SIG
--		newtp->af_specific = &tcp_sock_ipv6_mapped_specific;
--#endif
--
--		newnp->ipv6_mc_list = NULL;
--		newnp->ipv6_ac_list = NULL;
--		newnp->ipv6_fl_list = NULL;
--		newnp->pktoptions  = NULL;
--		newnp->opt	   = NULL;
--		newnp->mcast_oif   = inet_iif(skb);
--		newnp->mcast_hops  = ip_hdr(skb)->ttl;
--		newnp->rcv_flowinfo = 0;
--		if (np->repflow)
--			newnp->flow_label = 0;
--
--		/*
--		 * No need to charge this sock to the relevant IPv6 refcnt debug socks count
--		 * here, tcp_create_openreq_child now does this for us, see the comment in
--		 * that function for the gory details. -acme
--		 */
--
--		/* It is tricky place. Until this moment IPv4 tcp
--		   worked with IPv6 icsk.icsk_af_ops.
--		   Sync it now.
--		 */
--		tcp_sync_mss(newsk, inet_csk(newsk)->icsk_pmtu_cookie);
--
--		return newsk;
--	}
--
-+	if (skb->protocol == htons(ETH_P_IP))
-+		return tcp_v4_syn_recv_sock(sk, skb, req, dst,
-+					    req_unhash, own_req,
-+					    tcp_v6_mapped_child_init);
- 	ireq = inet_rsk(req);
+@@ -125,7 +94,7 @@ ucsi_zenbook_read(struct ucsi *ucsi, unsigned int offset, void *val, size_t val_
  
- 	if (sk_acceptq_is_full(sk))
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index d3b5c2d48b53..db2e3a1ebb6e 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -788,7 +788,9 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
- 					  struct request_sock *req,
- 					  struct dst_entry *dst,
- 					  struct request_sock *req_unhash,
--					  bool *own_req)
-+					  bool *own_req,
-+					  void (*opt_child_init)(struct sock *newsk,
-+								 const struct sock *sk))
- {
- 	struct mptcp_subflow_context *listener = mptcp_subflow_ctx(sk);
- 	struct mptcp_subflow_request_sock *subflow_req;
-@@ -834,7 +836,7 @@ static struct sock *subflow_syn_recv_sock(const struct sock *sk,
+ static const struct ucsi_operations ucsi_zenbook_ops = {
+ 	.read = ucsi_zenbook_read,
+-	.sync_write = ucsi_acpi_sync_write,
++	.sync_write = ucsi_sync_control_common,
+ 	.async_write = ucsi_acpi_async_write
+ };
  
- create_child:
- 	child = listener->icsk_af_ops->syn_recv_sock(sk, skb, req, dst,
--						     req_unhash, own_req);
-+						     req_unhash, own_req, opt_child_init);
+@@ -155,15 +124,15 @@ ucsi_dell_sync_write(struct ucsi *ucsi, unsigned int offset,
+ 		 * still report the very event that the core is trying to clear.
+ 		 */
+ 		set_bit(UCSI_ACPI_SUPPRESS_EVENT, &ua->flags);
+-		ret = ucsi_acpi_sync_write(ucsi, UCSI_CONTROL, &dummycmd,
+-					   sizeof(dummycmd));
++		ret = ucsi_sync_control_common(ucsi, UCSI_CONTROL, &dummycmd,
++					       sizeof(dummycmd));
+ 		clear_bit(UCSI_ACPI_SUPPRESS_EVENT, &ua->flags);
  
- 	if (child && *own_req) {
- 		struct mptcp_subflow_context *ctx = mptcp_subflow_ctx(child);
-diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-index 087102ff3c64..dba856528890 100644
---- a/net/smc/af_smc.c
-+++ b/net/smc/af_smc.c
-@@ -119,7 +119,9 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
- 					  struct request_sock *req,
- 					  struct dst_entry *dst,
- 					  struct request_sock *req_unhash,
--					  bool *own_req)
-+					  bool *own_req,
-+					  void (*opt_child_init)(struct sock *newsk,
-+								 const struct sock *sk))
- {
- 	struct smc_sock *smc;
- 	struct sock *child;
-@@ -144,7 +146,7 @@ static struct sock *smc_tcp_syn_recv_sock(const struct sock *sk,
+ 		if (ret < 0)
+ 			return ret;
+ 	}
  
- 	/* passthrough to original syn recv sock fct */
- 	child = smc->ori_af_ops->syn_recv_sock(sk, skb, req, dst, req_unhash,
--					       own_req);
-+					       own_req, opt_child_init);
- 	/* child must not inherit smc or its ops */
- 	if (child) {
- 		rcu_assign_sk_user_data(child, NULL);
+-	return ucsi_acpi_sync_write(ucsi, UCSI_CONTROL, &cmd, sizeof(cmd));
++	return ucsi_sync_control_common(ucsi, UCSI_CONTROL, &cmd, sizeof(cmd));
+ }
+ 
+ static const struct ucsi_operations ucsi_dell_ops = {
+@@ -203,11 +172,12 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+ 	    !test_bit(UCSI_ACPI_SUPPRESS_EVENT, &ua->flags))
+ 		ucsi_connector_change(ua->ucsi, UCSI_CCI_CONNECTOR(cci));
+ 
+-	if (cci & UCSI_CCI_ACK_COMPLETE && test_bit(ACK_PENDING, &ua->flags))
+-		complete(&ua->complete);
++	if (cci & UCSI_CCI_ACK_COMPLETE &&
++	    test_bit(ACK_PENDING, &ua->ucsi->flags))
++		complete(&ua->ucsi->complete);
+ 	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
+-	    test_bit(UCSI_ACPI_COMMAND_PENDING, &ua->flags))
+-		complete(&ua->complete);
++	    test_bit(COMMAND_PENDING, &ua->ucsi->flags))
++		complete(&ua->ucsi->complete);
+ }
+ 
+ static int ucsi_acpi_probe(struct platform_device *pdev)
+@@ -241,7 +211,6 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	init_completion(&ua->complete);
+ 	ua->dev = &pdev->dev;
+ 
+ 	id = dmi_first_match(ucsi_acpi_quirks);
 -- 
-2.34.1
+2.53.0
 
