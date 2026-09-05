@@ -1,97 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA19277C88;
-	Sat,  5 Sep 2026 18:31:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D27E4CB8C8
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 18:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788633089; cv=none; b=QYCMlRQQxCxxkoM3d/RXK+060NVZyYRhxBsy5j1/HsFg9Hs47BhIe9eXLrmU+UY8NCFRc8PmBynd/wUfWYvbFtcDaMmpMk3WjTJxA0NRfQdnNZKIxa/kwFCAN3tHM1kvAp1UruPE5G7h+M/mxiZzpdnS+bJJ0ty96t5vxESWtv0=
+	t=1788633195; cv=none; b=UzhttQabZ31e4dbH8vyqW2NLL/dMCgYbj9IhuZMHqXLVuYVxiTI8IlJyvxaJmSBMYvy4rHm/NYcfCkt0I4gseoCcguQbh0rgS4v58WyVYQhzTTKiAHXdOWZQAnSwZAGGosYYCJYrNu/Kbuj131wzkGmQxyCPqKAkOfnI7Hvg34Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788633089; c=relaxed/simple;
-	bh=IYNtE8DSuI83MVcNu77fmGwSAjCcjWAYiQyEU9w5Yqg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=T5Vuv0SFOyAF0JQxTyAnQoSOmrY1cDoADrMs+dglQRg/YD9HBAn8fo5cdFOyiLIFtooFHbo03iFK/vIWboK6NMdYaipybqiRazHBppQrprVQhh6Fd4LgTGUJdLDTnypXMEv4WPuf+LYNK6+QDxZ3w/ps1R0CHA6ujSjxuH7QTQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fg24wpUL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788633195; c=relaxed/simple;
+	bh=FKq1NryK1zRIAl5XiNjG29K9lMik2CrHrXoz1VuIAd4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=emaPpESaTkqLSDy3EGpCI1bq7rFx0Iabyc5ZmAz8ZkeijfZVB60PBx60f/shoSwCIusZxY+hgd8e8v4SS/OQ53c9BJ3BE1ocR9cSEVgKmHZ2F5oDZiq5Hsop4wuaBr1aJ4qVs8GNaRT6HHqCUbuPUDnS45DhaH1hjB+4hRaQnTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=Ij952aks; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fg24wpUL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26021F00A3D;
-	Sat,  5 Sep 2026 18:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788633085;
-	bh=ZgTZzsobBXFy3gqKMxbJ+2mygrq6b55JxDH+/SpJQas=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Fg24wpUL5obq0NbH/VNVdLz/Jn3YoXX1GiQ92Ss1trDWkXK3x7kpdDbgM1LD3rAeZ
-	 oSj2dTwFizG6gKWM7bro0IlPCH5WoCj0tYVgOIpN6M+m8t4dAEtW8Vex7lo8iOuFd8
-	 cMzZbRJwPDKgyrMEd7ntFKZXX8aKYtiG1qtL1lBQpQi+WbTofa2gl4kZtrl3zkvLKz
-	 fXk9woc0Dg9ljj29z2e9DnLW4G8aPATDv6dPLqBjSLrBO07MsNXl7J8JaWhsGjdFJJ
-	 er2/8q2TJjaWWJ5zcQGWtTvYRSR3V31uK1dLNXbWqouS4nUZCo4Sy56FYhDapIFoZZ
-	 PkjfHaQTGq4yg==
-Date: Sat, 5 Sep 2026 11:31:24 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Johnathan Browall via B4 Relay
- <devnull+johnathan.browall.topgolf.com@kernel.org>
-Cc: johnathan.browall@topgolf.com, Michael Chan <michael.chan@broadcom.com>,
- Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org, Andrew
- Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Pontus
- =?UTF-8?B?SMOlbGxzdGVkdA==?= <pontus.hallstedt@topgolf.com>
-Subject: Re: [PATCH net v3] bnxt_en: avoid redundant RX mask updates in UC
- overflow state
-Message-ID: <20260905113124.32280c67@kernel.org>
-In-Reply-To: <20260901-bnxt-uc-overflow-v3-1-2ea7c42c013c@topgolf.com>
-References: <20260901-bnxt-uc-overflow-v3-1-2ea7c42c013c@topgolf.com>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="Ij952aks"
+Received: from eig-obgw-6001b.ext.cloudfilter.net ([10.0.30.143])
+	by cmsmtp with ESMTPS
+	id 2nDgxkJtBc3Xs2vCOxukHt; Sat, 05 Sep 2026 18:33:08 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 2vCOxebIi9tXG2vCOxfL1L; Sat, 05 Sep 2026 18:33:08 +0000
+X-Authority-Analysis: v=2.4 cv=KK1aDEFo c=1 sm=1 tr=0 ts=6a9c6064
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=49j0FZ7RFL9ueZfULrUA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=gbyM5iepRbt2HiKDAY5QzxK794j5w0WSQTiLxK4/ce4=; b=Ij952aks8mVP0qWnn5Pd5yGF+5
+	QqmN/DMBmha3GdyFRbQBaMgaZAT9Wpxm6ZbNjVGFfWFE2zmzze9WVlXvz5q9eXaQpyoWi7gFJUR1v
+	NNeGNOKEY6wYSHbfTvpuQFH1a7tud/kx7rU6VVgT8afs0dX9TqhofOZZDVRn1A6RN1L8e1Lf61p9l
+	S/rtrVd9kF4dBMR/Rdkclkw387RL+t8ykkuhh99Lzi1eLaGN3VI26kl4da+7sEk1bTcMHOGUquril
+	8Y33bCVNwg4/zXSCdlRgqfqIeRag8oTVJ9n+JiLSsJ4wq/cLiSMOPIZPjP65jpMvVsFOYQTVfS1QH
+	swxpXk/A==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:38816 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x2vCN-000000000ym-1zUU;
+	Sat, 05 Sep 2026 12:33:07 -0600
+Message-ID: <135238ce-d960-4e91-93b8-942ffcbe366c@w6rz.net>
+Date: Sat, 5 Sep 2026 11:33:05 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260904045803.810145556@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x2vCN-000000000ym-1zUU
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:38816
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfL3qAsHXAWt4nowft8zcs/S/SS2H77Zhtk4P3qy7XxcUF4lJFUh/16X8qvSv84tapXxnVbkTE68YyPMNZsajmzv73ag2QidNUtNhFNDWYT9Lksvxt+rf
+ 8K0bBaHoxznb0N9S8IwHAQbyuGO9daO9iJQBIAR1hU3yc/8w3/glBc10BYJLsmQ+ifxDKCE1FkY+YA==
 
-On Tue, 01 Sep 2026 14:46:47 +0200 Johnathan Browall via B4 Relay wrote:
-> Tested with the equivalent patch on 6.12.y on BCM57416: the repeated
-> SET_RX_MASK invocations no longer occur and the receive disruption is
-> no longer reproducible.
+On 9/3/26 21:49, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.4 release.
+> There are 713 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-You must test this on the kernel tree you are targeting.
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-> Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
-> Cc: stable@vger.kernel.org # needs adjustment for <= 6.18
+Tested-by: Ron Economos <re@w6rz.net>
 
-Please delete these and resend this to net-next, this is an improvement
-not a bug fix.
-
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> @@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
->  	struct netdev_hw_addr *ha;
->  	int off = 0;
->  
-> +	/* In the overflow state no secondary L2 filters are programmed
-> +	 * and unicast RX relies on the promiscuous mask, so the list
-> +	 * only needs reprogramming once it fits the available filters
-> +	 * again.  Reporting an update here would resend an identical
-> +	 * SET_RX_MASK on every callback, which causes brief RX packet
-> +	 * loss on some chips.
-
-Please trim the slop comments significantly, or remove them.
-
-> +	 */
-> +	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
-> +		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
-
-> +	/* Commit the overflow state only once the mask is installed, so
-> +	 * that a failed attempt keeps the state marked as changed and the
-> +	 * next retry or rx-mode callback programs the mask again.
-> +	 */
-
-slop
-
-> +	netif_addr_lock_bh(dev);
-> +	if (uc_promisc)
-> +		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
-> +	else
-> +		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
-> +	netif_addr_unlock_bh(dev);
