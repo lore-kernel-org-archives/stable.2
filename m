@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC78A3C2D
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:04:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7121E26AE5
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:04:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566697; cv=none; b=kNH3ZEIdXqa+34JE7VmgiIgvbYEyLLcEyS5iPWBNe4tYJpzdqtLm/R+OPIkKXM2FQrsT04DHXC57athS/Ilagmz6ZpJ2HSpvfIQPBkq4bB1mAD5sLRNwDK0SFYxqCnzlGY8rmkaA/i+wO7Cy3edsQEGaAEzqf+Y5BVv2kkBXH/M=
+	t=1788566697; cv=none; b=IAmOKyihkjWY0JVr2/XL2erq4KwbRDgVCtXYeZRylKe/qhsqwWthvWckYlPCLz3J6ytlHYhoupWIlK9L2DPqfb/N7AqUMMyqidRMT47nVQBWeo6rFFn+x5bMm2b3WPt7Fr78RfqIusbmTG06uZIvnutqTTHKLFSI/IrBqvwyFp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788566697; c=relaxed/simple;
-	bh=Pq02RwUMpsN7ZAlw6QEXdm/RXewlgajGp+8BdvN7MW4=;
+	bh=NqU/BX0NRTWzepZFWsLXhXl13mbQIeWQST9u/QmZoQc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=njCeexfK6ObaAhb3gsTzlYgisI1RQGBQYqkeHUqRi8Z8EouXRRYk5rh6sMVmbJ8N49rLhR415IV1qHcznuLMBQzYkkOVXl44Nxcj8qDnV/kHnWYn/wadFA3ofXc5XAsAc8vkO6nvGP/6IybaL+yEHHdPzLYQ4NIup8YhrPo0uTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eP4AO5II; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WzEk+ucumNiw6KSHKkz72Uq2N3MnxHzrtiFpdg71BIh/R09BxeZr9OxKFhOntOTjJ6UmVBQ7X8NEaOWsQbLVSSi/boe+1gKnilmNJQd7k5RIzU7HBTJf2CgRr0dJ3jzwS0WmG66BqDny+mi54BQ/2RRNFpIksn9yVBRuYQMz3kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOHibaFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eP4AO5II"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676391F00A3D;
-	Sat,  5 Sep 2026 00:04:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOHibaFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80FE71F00A3E;
+	Sat,  5 Sep 2026 00:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788566695;
-	bh=VO14Bw0ZJ+gAroWae96tbhg4JmH7OzT2wO3S37Qtl8o=;
+	s=k20260515; t=1788566696;
+	bh=3VAHJb832JIKfIpTs0P4+UR6XI65YYnYBVVPF0uAUCc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eP4AO5IIVjAcaZhgEk4VzEfAOiPYvecX+KB/Nv4H4VR2DDkzLt7xYMkNhnwkn3fhJ
-	 NQo7QdVENAJftOvuitMDeutnVFny77OKwn9oeKj6QwXrIWvvBehR8hOBpPAynYGgUx
-	 GuFBX7N803cjuXDRgr33Ax1XrsqNiKpkj+VaF7daEYPyTi26iyWoUt3cku8kCwzGez
-	 +oSvVGf9viafYM9KrWX+IFRjJW/YHt+2BPvwrbeUY46qKYxK0DGxl+/gcOcusk/gJO
-	 BtJ/Ce7+9cRRACSBYXTNIanZoTTePY7p+B5rmvJ5hDClvjKY06bepeGDCuLIWVX7Y8
-	 WWS6rwI+hKODA==
+	b=JOHibaFaL5r1F9xq10Gh8CdmHOalXtHTXaeSRfH2+xwGX9MBkhiC3FrXAIayExE80
+	 uy0Gs8UjBX8rfKRMbFV9odIrOpfCKboQbh+ddrsYNakLzUM3asu4sGdALMUtzds25V
+	 ItSJnVWYHLRUY8R1RtmtBU/7RViTcc5U5UpK5xG+CeUaTE5RIoDxCtolepx/5Jm/h3
+	 hbL4K5czGJKCyA2sGdBW1fNk/0W/HwZr2gjZn50GBMCKABVVlV7Du2jIDtJT/34uwV
+	 0ajBSjOfq9u6MUnVfAKJWIpOdSZSoVke0zFYSBW3nEBTLumVzUs3zCNZXWr0bUCY2A
+	 eloDRBFgFuM6w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Brian Geffon <bgeffon@google.com>,
-	David Stevens <stevensd@google.com>,
-	Minchan Kim <minchan@google.com>,
-	Richard Chang <richardycc@google.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Haoqin Huang <haoqinhuang7@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] zram: switch to guard() for init_lock
-Date: Fri,  4 Sep 2026 20:04:51 -0400
-Message-ID: <20260905000452.1656571-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] zram: set default primary compressor in zram_destroy_comps()
+Date: Fri,  4 Sep 2026 20:04:52 -0400
+Message-ID: <20260905000452.1656571-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090323-reflux-devoutly-8bce@gregkh>
+In-Reply-To: <20260905000452.1656571-1-sashal@kernel.org>
 References: <2026090323-reflux-devoutly-8bce@gregkh>
+ <20260905000452.1656571-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,49 +50,53 @@ Content-Transfer-Encoding: 8bit
 
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit 0d38260c2a11de147f0c4701b344fdfa6bcdd04c ]
+[ Upstream commit dde75313eed0b014c437f48dd75c0308b592cbf9 ]
 
-Use init_lock guard() in sysfs store/show handlers, in order to simplify
-and, more importantly, to modernize the code.
+Patch series "zram: fix zram issues reported by sashiko".
 
-While at it, fix up more coding styles.
+Sashiko drove by and reported [1] a couple of zram issues:
+a possible BUG_ON() in zlib code due to missing winbits range
+validation and one possible NULL-ptr dereference in zcomp.
+Both are low risk yet still worth fixing.
 
-Link: https://lkml.kernel.org/r/20251201094754.4149975-7-senozhatsky@chromium.org
+This patch (of 2):
+
+zram_destroy_comps() resets all compressors and leaves them set to NULL,
+including the primary one, which is invalid device state, as now
+comp_algorithm_show()->strcmp() can be called on a NULL compressor.  Set
+default primary compressor in zram_destroy_comps().
+
+Link: https://lore.kernel.org/20260729045745.775973-2-senozhatsky@chromium.org
+Fixes: 486fd58af7ac ("zram: don't free statically defined names")
+Link: https://sashiko.dev/#/patchset/20260728092935.31139-1-haoqinhuang7@gmail.com [1]
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Brian Geffon <bgeffon@google.com>
-Cc: David Stevens <stevensd@google.com>
-Cc: Minchan Kim <minchan@google.com>
-Cc: Richard Chang <richardycc@google.com>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: Haoqin Huang <haoqinhuang7@gmail.com>
+Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-For the 6.12 stable backport, retain only the zram_reset_device()
-conversion needed by the follow-up fix. The remaining upstream hunks
-apply to zram paths that have significantly diverged in this tree.
-
-Stable-dep-of: dde75313eed0 ("zram: set default primary compressor in zram_destroy_comps()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  drivers/block/zram/zram_drv.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index cf3c789945b41..e11f0ff18012a 100644
+index e11f0ff18012a..c97e025b82b44 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -2173,7 +2173,7 @@ static void zram_destroy_comps(struct zram *zram)
+@@ -2169,6 +2169,7 @@ static void zram_destroy_comps(struct zram *zram)
+ 	}
+ 
+ 	zram_comp_params_reset(zram);
++	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+ }
  
  static void zram_reset_device(struct zram *zram)
- {
--	down_write(&zram->init_lock);
-+	guard(rwsem_write)(&zram->init_lock);
- 
- 	zram->limit_pages = 0;
- 
-@@ -2189,7 +2189,6 @@ static void zram_reset_device(struct zram *zram)
+@@ -2187,8 +2188,6 @@ static void zram_reset_device(struct zram *zram)
+ 	memset(&zram->stats, 0, sizeof(zram->stats));
+ 	atomic_set(&zram->pp_in_progress, 0);
  	reset_bdev(zram);
- 
- 	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
--	up_write(&zram->init_lock);
+-
+-	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
  }
  
  static ssize_t disksize_store(struct device *dev,
