@@ -1,224 +1,410 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A07738425D
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 14:38:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0D83321B1
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 14:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788619108; cv=none; b=M6q+/aK5oKWwgyGzrm56Ro+75ob+sn7m8PXNomqd5V7y1cwFmy4DxHOsT3wfi/PLzqWUQfOo0wPTqiwhX8UH2QkYdubw3ozjtcjoZ1iMfSiEd8RIYfo8TfoHDfl/9sqXlEzHMTfnMh9WkFPJxKa/BlEG4wxDz1KPrH+3hKDdRQc=
+	t=1788619303; cv=none; b=EJKZ67xAPWDNd+znSIbf6jg1W3Pqq7m+3tlfQrkUrKWAcly9dqhB1tKoMEuGl9NJJbcMfSdyhEz7ZPyual9Ong5HsMvu2xPRYYUw0sYjwlYq0iQzd6PeMKUoQOLA2F7AcX1np56s1EPrzkPsju17er1y+3uBBJJyEs3LztBS6Bg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788619108; c=relaxed/simple;
-	bh=oL+UpvR0Ws/4ztxx9Wj8ZW20LmfrIZGrNIZomqiGoRQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=eFbOCil3YTXN72GWvi7kJRKWFvtRQrY3TgOM2fvbI36iDJgNUZB7BUObAlbhDoacALrzyURppvnq81DsTglaKoYZSVI9mV1GSzNRXC1ScOtlR4JvT2jReAHwgiaOwXPx+WX3hgKq0/IalRQuq8Eomru4leOY9hLBjNMtKPWntpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rhr3im9k; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788619303; c=relaxed/simple;
+	bh=u1856Dc3AJWqWGXGnbNtB1LOGwij6ySM3UqX4uXbsk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jU0F7HvM7t7hQrcfxGRgmIFuE6OD+G3PVgnQXHMsSpqt4ek/TkkEeEVY+VCjmWdhenrq0AHnVeZJZEEpIB+T61yeprJCb96nQcV4D4QLoyBNRgrzZoOB1tM8QLp8nq4wUW04/jkHNub5x+prr+3xfeE0GH7guEkgYCzoQvgmeks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n4RSlFy8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rhr3im9k"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b55da8so183043f8f.0
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 07:38:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788619104; x=1789223904; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bgr3+khAnx0iVqd1Ke/nb0IvIRH5AlZC9ffEpGHjQjE=;
-        b=rhr3im9kJNVVcRG357PUndhIHoMG5vyiith7aWZ0HdEgx6wL3JhPyVUvexh3mRxoyB
-         Pzc14LOnwRWpLpqS8d0OFnKPRuqGHF8BS5iaXr7d5lva0n09xSEAFJdSZG24VNcHISow
-         k6gOncmgB0+rzi2DQvcjLyGbUqRBbVOoYrbUv3Ar/F2qgY6ELP7vNeYDUIoTmNy9c2kL
-         qYaZFA1V9cePLbdHes6LTxB5mColXjDKDHTjMoS/MUmbhMEDHFMNtASFyLYIEcXtYb+i
-         FWwJ+2v76Jw3wybvZC4NLaq4kSQR2RXJloLt1D+ilW67OoZu3azyL6VS1nPxRbnH3ifR
-         Wlkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788619104; x=1789223904;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bgr3+khAnx0iVqd1Ke/nb0IvIRH5AlZC9ffEpGHjQjE=;
-        b=ODMVNrOnOiPigZoAczmoqiZdlAf+mMJfSgrrxrVWzBHNDKfGIF+Uon+XMRqxNduwfv
-         yE2FfAefd00hOsC/OrNS2gRnXOeajVzLpy/BaLTYIJ39frshgetZALsi46ZT7NUXYSJt
-         Q0Whz+y/z8vJQLFRxA9oihfYv1/XLC/r7WzPEg9aLVAP57OGq7FZgx+cm2j9ChfBiiHq
-         lCwi7rRVCfLwuhYKWdTrogtOilU1v12HTmheddGYSr5aLvwAzdz/3/iKxLH3Vjs07yAQ
-         mQ55xoyuNVLOFWa2BWGnkCTU25LMPV/Dsoq58BZRqDy9w3Pb9ajliWJqLqldCDBgcO4s
-         b0sQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwPkD8u6AQUB9xqrn8MRlPYhJI9FlG5C2U+pJC1rKOJTrlQPVpwAhBrsezn9zOBt4s+cbbVdz0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcCnIZhvCAqIQ7VIQbhOfWSCQXwc7TNEvqX02mnNZPA92VPTuh
-	3bkLFup3MZxDaumUQoFFXBPNtfh+LXJPexwMkWgcBonBq+uy0JqzlamQLuTk4A==
-X-Gm-Gg: AYBFou34BTzv1Y2D5eoQHuFVAE8hZt49anEqgjCgedby0D16JCYlBOgh7nuuSSa5Sce
-	PnfqyrFZwa7C0Wec1B3IJINbGqfOrHbVPmr3RGhnNrWCWXwqGF1Gj+JY5ZPyCDfgdh19c3jBNPZ
-	1HvZWJPCyNHgWpqqJx/8aEAnlK5H50urAZx+M+HGy4a39Fr5bfdMuQmFCV0x/2EfK474t7OLHPT
-	iIfHjts7ifL/qcGtapjDijCNQvwYMb5NZFlefeDoTapyHEHxh+EyoG2tQS6+ZvlxfOtHr1BgpXj
-	nlo77exETt/DQINluNi3VENqeyVb3eYDa+Zm62qCbrYvUqPoPJNy82odP/T2EN60yZ8sxMAkIab
-	cPj51WgKyQSkSXkIdY3XoChUe9xEq8DKm/RYkj3Q+zUWuC+pqwxyb0Gjw+8meTKb1yxxmfJTxYQ
-	eU0YUrQVkwmS0S0IKKdpEZwMadug7URQ85Ma0Ygov2/BvGECaL+sGsfC9NflEirSY6NJeYW2y2j
-	HZloYBaddZKHOOqTN45tgHId4rAHDxs7K0Y14hW+J5xMB1KEMTgflS05MBsFI/U1QMZK581CUVl
-	25d+EhEUr5ZX9GvPtwe6HfUnOEF2M+uQTGV8AvzfX4BiVidQE6f8zYMc9TqrqNL1WtwNfpjDf7p
-	SaSY2Yz5BuZFSbgkuzyzEMPjPKdJ3/tqzaA8fW3kGiiGj1q7qNKiZjFmQOTcIDw==
-X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49cf823c012mr100916335e9.1.1788619103371;
-        Sat, 05 Sep 2026 07:38:23 -0700 (PDT)
-Received: from ?IPV6:2a02:1813:4880:5700:9afc:84ff:fee0:5961? (2a02-1813-4880-5700-9afc-84ff-fee0-5961.ip6.access.telenet.be. [2a02:1813:4880:5700:9afc:84ff:fee0:5961])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00a5b19dsm72767055e9.2.2026.09.05.07.38.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 07:38:22 -0700 (PDT)
-Message-ID: <e3626c4c-e717-4ce9-b7ba-b22f20ad80c8@gmail.com>
-Date: Sat, 5 Sep 2026 16:38:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n4RSlFy8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDF361F00A3E;
+	Sat,  5 Sep 2026 14:41:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788619288;
+	bh=U4lgDXpZaj2zGjRh/KK9v3MO8kPjt2m5swJTnl8ePlU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=n4RSlFy8unQO4Zs2pVI78CZ48ll0CbZKyu/zOqpB6Eqe2CDiNotvNLWr5R3UQdFTf
+	 ugGrcvPlIcWTWfbrjjSRTnyvhMoqRTV2CVPKzNL567yuabztDxDNTUHdoPqiI7h/Ku
+	 KWMN3R1fRvdH9h4tlluHKPFMsk+zsjJrI2SJpvxKDP2GEHZwI4+X4oJuiA/bpByQW9
+	 pT/DfXuxjwFWtc0/P/F66WX16ifdxaUjupc1a6kr46OyxsFLJPFatapKNBl8GtHoy9
+	 NznkgtQfC7Us8JZBgJqYapkpwVFYbPZDIEVniQbdieKDoxJjVLn+fTzq5DFVKYXYX/
+	 SuaXCKs+3FU0Q==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] nfsd: dedup nfs4_client_to_reclaim inserts
+Date: Sat,  5 Sep 2026 10:41:25 -0400
+Message-ID: <20260905144125.251876-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260905144125.251876-1-sashal@kernel.org>
+References: <2026090326-skeptic-ribbon-0a0b@gregkh>
+ <20260905144125.251876-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 038/552] mm/page_vma_mapped: use huge_ptep_get() for
- hugetlb
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-References: <20260904045747.813364717@linuxfoundation.org>
- <20260904045748.693901462@linuxfoundation.org>
- <d61b56b5-d874-4e50-a83f-8714da4641e9@gmail.com>
- <2026090537-postnasal-flip-f547@gregkh>
-Content-Language: fr-FR
-From: =?UTF-8?Q?Fran=C3=A7ois_Valenduc?= <francoisvalenduc@gmail.com>
-Autocrypt: addr=francoisvalenduc@gmail.com; keydata=
- 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
-In-Reply-To: <2026090537-postnasal-flip-f547@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Le 5/09/26 à 13:54, Greg Kroah-Hartman a écrit :
-> On Fri, Sep 04, 2026 at 11:19:06AM +0200, François Valenduc wrote:
->> Le 4/09/26 à 06:53, Greg Kroah-Hartman a écrit :
->>> 6.18-stable review patch.  If anyone has any objections, please let me know.
->>>
->>> ------------------
->>>
->>> From: Dev Jain <dev.jain@arm.com>
->>>
->>> commit e87df0d5d6962bde50f55f6d02b779daa394f894 upstream.
->>>
->>> check_pte() is the final validation step in page_vma_mapped_walk().  It
->>> reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
->>> range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
->>> entry.
->>>
->>> On arches which provide their own huge_ptep_get() to dereference a huge
->>> pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
->>> etc to misbehave.
->>>
->>> It is not clear whether this has a trivially visible effect to userspace.
->>>
->>> Use huge_ptep_get() to dereference a huge pte pointer.
->>>
->>> Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
->>> Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
->>> Signed-off-by: Dev Jain <dev.jain@arm.com>
->>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->>> Reviewed-by: Muchun Song <muchun.song@linux.dev>
->>> Cc: Alistair Popple <apopple@nvidia.com>
->>> Cc: Andi Kleen <ak@linux.intel.com>
->>> Cc: Anshuman Khandual <anshuman.khandual@arm.com>
->>> Cc: Byungchul Park <byungchul@sk.com>
->>> Cc: Catalin Marinas <catalin.marinas@arm.com>
->>> Cc: Dave Hansen <dave.hansen@intel.com>
->>> Cc: Gregory Price <gourry@gourry.net>
->>> Cc: Harry Yoo <harry@kernel.org>
->>> Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
->>> Cc: Jann Horn <jannh@google.com>
->>> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
->>> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
->>> Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
->>> Cc: Kiryl Shutsemau <kas@kernel.org>
->>> Cc: Lance Yang <lance.yang@linux.dev>
->>> Cc: Liam R. Howlett <liam@infradead.org>
->>> Cc: Lorenzo Stoakes <ljs@kernel.org>
->>> Cc: Matthew Brost <matthew.brost@intel.com>
->>> Cc: Mel Gorman <mel@csn.ul.ie>
->>> Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
->>> Cc: Oscar Salvador <osalvador@suse.de>
->>> Cc: Pedro Falcato <pfalcato@suse.de>
->>> Cc: Rakie Kim <rakie.kim@sk.com>
->>> Cc: Ralph Campbell <rcampbell@nvidia.com>
->>> Cc: Rik van Riel <riel@surriel.com>
->>> Cc: Ryan Roberts <ryan.roberts@arm.com>
->>> Cc: Vlastimil Babka <vbabka@kernel.org>
->>> Cc: Will Deacon <will@kernel.org>
->>> Cc: Zi Yan <ziy@nvidia.com>
->>> Cc: <stable@vger.kernel.org>
->>> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
->>> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
->>> ---
->>>    mm/page_vma_mapped.c |    8 +++++++-
->>>    1 file changed, 7 insertions(+), 1 deletion(-)
->>>
->>> --- a/mm/page_vma_mapped.c
->>> +++ b/mm/page_vma_mapped.c
->>> @@ -104,7 +104,13 @@ again:
->>>    static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
->>>    {
->>>    	unsigned long pfn;
->>> -	pte_t ptent = ptep_get(pvmw->pte);
->>> +	pte_t ptent;
->>> +
->>> +	if (is_vm_hugetlb_page(pvmw->vma))
->>> +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->>> +				      pvmw->pte);
->>> +	else
->>> +		ptent = ptep_get(pvmw->pte);
->>>    	if (pvmw->flags & PVMW_MIGRATION) {
->>>    		swp_entry_t entry;
->> This patch causes this build error:
->> mm/page_vma_mapped.o
->> mm/page_vma_mapped.c: In function 'check_pte':
->> mm/page_vma_mapped.c:110:25: error: implicit declaration of function
->> 'huge_ptep_get' [-Wimplicit-function-declaration]
->>    110 |                 ptent = huge_ptep_get(pvmw->vma->vm_mm,
->> pvmw->address,
->>        |                         ^~~~~~~~~~~~~
->> mm/page_vma_mapped.c:110:25: error: incompatible types when assigning to
->> type 'pte_t' from type 'int'
->> make[3]: *** [scripts/Makefile.build:287: mm/page_vma_mapped.o] Error 1
->> make[2]: *** [scripts/Makefile.build:544: mm] Error 2
->> make[1]: *** [/usr/src/linux-6.18/Makefile:2051: .] Error 2
->> make: *** [Makefile:248: __sub-make] Error 2
->>
->> commit 70010ab9a9eb7aee65f42ddc20835806759b4336 ("mm/migrate: use
->> huge_ptep_get() in remove_migration_pte()") gives the same kind error.
->>
->> If I revert those 2 commits, compilation work fine.
-> Thanks, I should have this fixed up now in the queue.
->
-> greg k-h
+From: Jeff Layton <jlayton@kernel.org>
 
-Indeed, it works correctly now.
+[ Upstream commit 9b57793863f69c608691c98e57c2f9be2db9dfed ]
 
-François Valenduc
+nfs4_client_to_reclaim() unconditionally allocates a new
+nfs4_client_reclaim, prepends it to reclaim_str_hashtbl[], and bumps
+reclaim_str_hashtbl_size with no check for an existing entry for the
+same client name.  After a reboot with a populated recovery directory
+that inflates the counter by one for every client that reclaims:
+
+    boot:    load_recdir()
+               nfs4_client_to_reclaim(name)   /* entry #1, size++ */
+
+    grace:   RECLAIM_COMPLETE
+               __nfsd4_create_reclaim_record_grace()
+                 nfs4_client_to_reclaim(name) /* entry #2, size++ */
+
+inc_reclaim_complete() ends the grace period early only when
+
+    atomic_inc_return(&nn->nr_reclaim_complete) ==
+        nn->reclaim_str_hashtbl_size
+
+With reclaim_str_hashtbl_size at 2N and nr_reclaim_complete capped at
+N, the equality never holds and the fast end-of-grace path is dead.
+The grace period always runs out the full 90-second laundromat timer,
+and the shadow entry left in the hash table carries a dangling cr_clp
+for any reader that walks it.
+
+Fix nfs4_client_to_reclaim() to look the name up with
+nfsd4_find_reclaim_client() first and, on a hit, fold the new
+princhash into the existing record (if it lacks one) and return that
+record without allocating or touching reclaim_str_hashtbl_size.  On
+kmemdup() failure during the fold-in, return NULL so
+__cld_pipe_inprogress_downcall() surfaces -EFAULT to nfsdcld, matching
+the miss-path contract.
+
+Add an rw_semaphore (reclaim_str_hashtbl_lock) to struct nfsd_net that
+serialises all access to reclaim_str_hashtbl[] and
+reclaim_str_hashtbl_size.  Writers (nfs4_client_to_reclaim,
+nfs4_remove_reclaim_record callers) hold the write side; readers
+(nfsd4_cld_check*, inc_reclaim_complete, clients_still_reclaiming,
+nfs4_has_reclaimed_state, nfsd4_check_legacy_client) hold the read
+side.  All call sites are in sleepable context, and none is a hot
+path, so the rwsem cost is negligible.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
+Cc: stable@vger.kernel.org
+Assisted-by: kres:claude-opus-4-7
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-4-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/netns.h       |  6 ++++-
+ fs/nfsd/nfs4recover.c | 36 ++++++++++++++++++++-----
+ fs/nfsd/nfs4state.c   | 61 ++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 89 insertions(+), 14 deletions(-)
+
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index a90e553ff7673..379408dcf980b 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -92,6 +92,7 @@ struct nfsd_net {
+ 	 */
+ 	struct list_head *reclaim_str_hashtbl;
+ 	int reclaim_str_hashtbl_size;
++	struct rw_semaphore reclaim_str_hashtbl_lock;
+ 	struct list_head *conf_id_hashtbl;
+ 	struct rb_root conf_name_tree;
+ 	struct list_head *unconf_id_hashtbl;
+@@ -104,7 +105,10 @@ struct nfsd_net {
+ 	 * close_lru holds (open) stateowner queue ordered by nfs4_stateowner.so_time
+ 	 * for last close replay.
+ 	 *
+-	 * All of the above fields are protected by the client_mutex.
++	 * reclaim_str_hashtbl[], reclaim_str_hashtbl_size are protected by
++	 * reclaim_str_hashtbl_lock.
++	 *
++	 * All of the remaining fields are protected by the client_lock.
+ 	 */
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 17fccddb6af3c..61952acbd3317 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -355,10 +355,12 @@ __nfsd4_remove_reclaim_record_grace(const char *dname, int len,
+ 		return;
+ 	}
+ 	name.len = len;
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp)
+ 		nfs4_remove_reclaim_record(crp, nn);
++	up_write(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
+ }
+ 
+ static void
+@@ -559,6 +561,7 @@ nfs4_legacy_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 
+ 	return 0;
+ }
+@@ -678,13 +681,16 @@ nfsd4_check_legacy_client(struct nfs4_client *clp)
+ 		goto out_enoent;
+ 	}
+ 	name.len = HEXDIR_LEN;
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp) {
+ 		set_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags);
+ 		crp->cr_clp = clp;
+-		return 0;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
++	if (crp)
++		return 0;
+ 
+ out_enoent:
+ 	return -ENOENT;
+@@ -1263,6 +1269,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1282,6 +1289,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data!\n",
+ 				__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1292,9 +1300,11 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1306,6 +1316,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 	struct cld_net *cn = nn->cld_net;
+ #endif
+ 	struct nfs4_client_reclaim *crp;
++	unsigned int princhashlen;
+ 	char *principal = NULL;
+ 
+ 	/* did we already find that this client is stable? */
+@@ -1313,6 +1324,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1331,6 +1343,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data\n",
+ 					__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1341,23 +1354,31 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+-	if (crp->cr_princhash.len) {
++	princhashlen = crp->cr_princhash.len;
++	if (princhashlen) {
+ 		u8 digest[SHA256_DIGEST_SIZE];
++		u8 *pdata;
+ 
+ 		if (clp->cl_cred.cr_raw_principal)
+ 			principal = clp->cl_cred.cr_raw_principal;
+ 		else if (clp->cl_cred.cr_principal)
+ 			principal = clp->cl_cred.cr_principal;
+-		if (principal == NULL)
++		if (principal == NULL) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 		sha256(principal, strlen(principal), digest);
+-		if (memcmp(crp->cr_princhash.data, digest,
+-				crp->cr_princhash.len))
++		pdata = crp->cr_princhash.data;
++		if (memcmp(pdata, digest, princhashlen)) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 	}
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1457,6 +1478,7 @@ nfs4_cld_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	atomic_set(&nn->nr_reclaim_complete, 0);
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 275deb330a315..9fdc61e5dd43c 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -2297,14 +2297,21 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
+ 
+ 	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 		return;
+-	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
++
++	down_read(&nn->reclaim_str_hashtbl_lock);
++	if (!nfsd4_find_reclaim_client(clp->cl_name, nn)) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		return;
++	}
+ 	if (atomic_inc_return(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		printk(KERN_INFO "NFSD: all clients done reclaiming, ending NFSv4 grace period (net %x)\n",
+ 				clp->net->ns.inum);
+ 		nfsd4_end_grace(nn);
++		return;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ static void expire_client(struct nfs4_client *clp)
+@@ -6003,10 +6010,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
+ 
+ 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 		return false;
+-	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+-			atomic_read(&nn->nr_reclaim_complete) ==
+-			nn->reclaim_str_hashtbl_size)
+-		return false;
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags)) {
++		int size;
++
++		down_read(&nn->reclaim_str_hashtbl_lock);
++		size = nn->reclaim_str_hashtbl_size;
++		up_read(&nn->reclaim_str_hashtbl_lock);
++		if (atomic_read(&nn->nr_reclaim_complete) == size)
++			return false;
++	}
+ 	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
+ 		return false;
+ 	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+@@ -8094,9 +8106,13 @@ bool
+ nfs4_has_reclaimed_state(struct xdr_netobj name, struct nfsd_net *nn)
+ {
+ 	struct nfs4_client_reclaim *crp;
++	bool found;
+ 
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	return (crp && crp->cr_clp);
++	found = (crp && crp->cr_clp);
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	return found;
+ }
+ 
+ /*
+@@ -8109,10 +8125,39 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 	unsigned int strhashval;
+ 	struct nfs4_client_reclaim *crp;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
++
++	/*
++	 * A reclaim record for this client name may already exist (for
++	 * example, populated at boot from the recovery directory before
++	 * an in-grace RECLAIM_COMPLETE or an nfsdcld downcall delivers
++	 * the same name). Dedup here so reclaim_str_hashtbl_size stays
++	 * equal to the number of distinct client names; inc_reclaim_complete
++	 * relies on that equality to end the grace period via the fast path.
++	 */
++	crp = nfsd4_find_reclaim_client(name, nn);
++	if (crp) {
++		if (princhash.len && crp->cr_princhash.len == 0) {
++			void *pdata = kmemdup(princhash.data, princhash.len,
++					      GFP_KERNEL);
++			if (pdata) {
++				crp->cr_princhash.data = pdata;
++				crp->cr_princhash.len = princhash.len;
++			} else {
++				dprintk("%s: failed to allocate memory for princhash.data!\n",
++					__func__);
++				crp = NULL;
++			}
++		}
++		up_write(&nn->reclaim_str_hashtbl_lock);
++		return crp;
++	}
++
+ 	name.data = kmemdup(name.data, name.len, GFP_KERNEL);
+ 	if (!name.data) {
+ 		dprintk("%s: failed to allocate memory for name.data!\n",
+ 			__func__);
++		up_write(&nn->reclaim_str_hashtbl_lock);
+ 		return NULL;
+ 	}
+ 	if (princhash.len) {
+@@ -8121,6 +8166,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 			dprintk("%s: failed to allocate memory for princhash.data!\n",
+ 				__func__);
+ 			kfree(name.data);
++			up_write(&nn->reclaim_str_hashtbl_lock);
+ 			return NULL;
+ 		}
+ 	} else
+@@ -8140,6 +8186,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 		kfree(name.data);
+ 		kfree(princhash.data);
+ 	}
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ 	return crp;
+ }
+ 
+@@ -8159,6 +8206,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 	struct nfs4_client_reclaim *crp = NULL;
+ 	int i;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++) {
+ 		while (!list_empty(&nn->reclaim_str_hashtbl[i])) {
+ 			crp = list_entry(nn->reclaim_str_hashtbl[i].next,
+@@ -8167,6 +8215,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 		}
+ 	}
+ 	WARN_ON_ONCE(nn->reclaim_str_hashtbl_size);
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ /*
+-- 
+2.53.0
 
