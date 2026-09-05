@@ -1,124 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F56F2E8897
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:40:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057E93264DA
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788626450; cv=none; b=PwZgAJvYLvudenSMy+HY84dTP/Fxx+Q7sE/LqaWBqU3RMldbuSanjoe6jU+cEWMS/iFdKCPVmIqfZSWx0tl/cgTPuWwp3hW8X119FvAUHPxPA2vnuMBUoDBuMKojuydPDCUqevKpYYjRB5bi1y8lrbklLKQe1eT3jG5ZDnXtP5w=
+	t=1788626544; cv=none; b=e8+AEkIFKpBjlLCMUlBNi2VTAq1mH41TmB/0uVYCI+Fo/snprffyjkq+eJH8WhH7QvFa2a83LqFJNZayi+/b3nufoNKmRqiINV8+TIofH72douxpR3WzZhbEu61oNC6M0RZmMBOehmVqsgCVBNLLWTjDmx2ZrAXNFzrJz5SUtqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788626450; c=relaxed/simple;
-	bh=Bi7uGM4Mau65oeParTbOUtt2bsD05UCg5o6VYJILrMc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uKNiWk0Rw5gKIhW2nE8Y8zVnf5jgHJdFkq6VkUi2tsjZ5yEv2CULOZK8m5D/6vsT91OLKjMtvNXKl80JrNww3Gg6LKjUlfQ8Lq5b/ykwv6C34qtzYPxwIEjOprpaPd6Igx/+GYYeDwtJR0ciKUh6NCX7+ie4zKqpUlRYwEoZoi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cm1YB+l+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788626544; c=relaxed/simple;
+	bh=j8dShMQR8r+IY/PCkmrM4piAZ0AnVGy+pTSFaWHKVs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HnUbw7Kh70M540M/WMa5qTnoafNus4oB1TlhPvCsTWoqU3KHMeJbPJkGTamQMZt5M+QJFJ7SCTEamnr+GqvZfXqUXj/SXSNNHr3aVsPyrb7dsDZfuETWqssPdnMEXTyPXUNz3SRo6Fp5Y6pkjzncDGIvcN3AeA0M44Ddk+s8C7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=OTq313dt; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cm1YB+l+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC43A1F00A3A;
-	Sat,  5 Sep 2026 16:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788626449;
-	bh=qsEXmR8tgPYw/vubk+K7oduLwLlET0/WSKuriEN8K2A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cm1YB+l+HRcxroqkPeBvPfgfWFprVFjr/9kOqUdFGN9rwO5aGqAxi4c7OnhaSTgOr
-	 9bX5LTsvddlN0OccsEdI15rvDVlm3WTHCzV6l1yn1sU0FxCa49TxmT6xgKBNHh0hlz
-	 jPazTTWUtr0DZu/OqMRsQ520quhKXI57p3Ubds0RW88C6BkToM/LZ2YNucMTrNgTtu
-	 VS/yd7QzwprDemnaLQ/74Zl10GGZH3gDeBUEjBIGK3UqvSxxWAD/Ft5kV+sma0Dt2Q
-	 zCB43m/bTcSDd+yg/GhycI2U/r6sTtp6myTdwoGA92HR1GJno1yB95/ItAhh2nbcy4
-	 ZZywPr3MfJBBQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chris Mason <clm@meta.com>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on racing delegation revoke
-Date: Sat,  5 Sep 2026 12:40:47 -0400
-Message-ID: <20260905164047.457754-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090305-musky-peculiar-c632@gregkh>
-References: <2026090305-musky-peculiar-c632@gregkh>
+	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="OTq313dt"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8706dfdcd4fso27600687b3.3
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 09:42:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=tenstorrent.com; s=google; t=1788626539; x=1789231339; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KLW1pUYTfPr1fy7y/Zlio4LKr099xCCPQ8MqnoWy0Aw=;
+        b=OTq313dtaSBSCLVxjkYe7vBHuDpKZKweGbg/eLusfpGhoKGSyrJA8YBu3wAuqAjdZw
+         rzbmwoQDfnvwHecwowPPnibhrTJ3fhq2odPJEPsK9ykg8Lag6b15qIB5HXb0a6WPQgZc
+         BdOHJ4ySqT0PQ5372ATeh/e0RB57lQjp+u6nwny5OwPDqjMGKCl4KCnjKIbnFA5JaAPA
+         joqigTrnjAHH1cBVkw52Q6Z/CfTSru5/dBm7AlDuL0R0f1+OVi/Fm6DaAx2lQPkrX0cS
+         zrlrnZwpvgxaaxnSCWlf/3fy7BMQXHdI3Iht1KvRNGyeMP8ZNh6ByemfGR6k+7oFKLqD
+         JVDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788626539; x=1789231339;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KLW1pUYTfPr1fy7y/Zlio4LKr099xCCPQ8MqnoWy0Aw=;
+        b=CsuhQh1DcRRLPNh6sGdDyTeZpMk/bJv9DrKUFxr+cqO9W7KAhIFRwGnUPVt/OpW8n/
+         hkSk8Lo7aWUy+cFuWSbp/l0PrhnnvA+Wgbex/Tv9lNrREoQQG7ehYa19fgMQRJtsOEXW
+         Olqt3PzTwcgxEW3NqDnbwbi9AA7Rs2PTHBmieEHsDTudvJhs8lejpXHHrOA2aeX9u5rI
+         7m/Y/khD09yfgEhXYnRy7050LeHkP28znB41z/b+NjtoEh68390+/6r6OZlqjF+B44GV
+         KlqboPoodKwVjoxylzogvLv0UE3fRGVRdVHDKvH94JRElI6WapQz5gYfaOdeyTVGIRkG
+         lzKw==
+X-Forwarded-Encrypted: i=1; AKwUvByzJK5vVuIrnNK46MG/9iWrfKDYaNI3ZhU+Vx/oZlOUMzCDg+riPbwhbuvWae0HFbiYrn4cmQg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7xsANmTJ+mfgXownHpvKHHn+Y0YusSw646UxslIweR0ruN3TR
+	FVAXN1eWIEFn6Gee/axtrKztfGPfle0hGgoUaJsXSkMJMQEG0w/OFWEk9mEIFNtGg7o=
+X-Gm-Gg: AYBFou25hKwt8LiflrVh/dPegvlhHAo5BkZZgh/PPTEmPwhPHHZQc+J/YNDt1TvTrpL
+	c/X8Y35BmbthFJVYqW8974FpuS1egwhNJqsf8ntT2HHlOHWcAX2WDo2w+VWgRvv8VwOSJIx3vn9
+	slSifR3GgBM8mJByy0cM3ibixyNvBww2eCOQLQ/lMMKh8ioWnTkIjORMaPu+V86o6TUNBlNHQe2
+	PphgC+19te3PeVvc0mtq7quUgcK6El4rF+VQmwoRDoYyCbjXwvZxWp/5AEYntw/w3Rd4C10xNrl
+	f+XqLmBL9hdPLER/Lo7vfvIdcHAvDa43zMwpYJDpxNfK4pZvN2Rh5SMmZ1oVbF0Wq9etnpQbdj2
+	jAVtX1qx2nmFqcOcrWITdWqaP909pB1EB5bJcBy0g13L8/cP1lpBHpk/rli9RZRCYHSb+tLwOpG
+	Wd4Zaq53nIqMGOGOz+oRT4cw66ElXNliHW18KTEMH1Lex80HCIyD/iU6qyhOLWfv2wz5KoH1esu
+	2ocaOENaNlsmOlNQUmJ5nIQgQfhh9rb3f35Xif0c4jb
+X-Received: by 2002:a05:690e:4504:10b0:66f:c1bc:c075 with SMTP id 956f58d0204a3-66fc1bcc7a6mr1655174d50.61.1788626538948;
+        Sat, 05 Sep 2026 09:42:18 -0700 (PDT)
+Received: from toolbox ([2600:1700:220:59e0:9cba:538b:87b9:7f0f])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714bb0efc1sm40923517b3.45.2026.09.05.09.42.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 09:42:18 -0700 (PDT)
+Date: Sat, 5 Sep 2026 11:41:59 -0500
+From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+	Yixun Lan <dlan@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>, 
+	Inochi Amaoto <inochiama@outlook.com>, Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>, 
+	Aurelien Jarno <aurelien@aurel32.net>, stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-clk@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
+Message-ID: <uyl23bmb7dtvkneu7wbpmq24gkmrpmr5n5xkanjrnjf27xsp6g@gcjezv6xwolx>
+References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
 
-From: Jeff Layton <jlayton@kernel.org>
+Hi Troy,
 
-[ Upstream commit ca94ba36172046be6a694a7986f6931e47ed4d51 ]
+On Thu, Sep 03, 2026 at 11:06:24AM +0800, Troy Mitchell wrote:
+> The K3 CPU PLL rate tables currently describe only one rate per PLL,
+> although the hardware supports a wider range.
+> 
+> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+> support rates from 1.05 to 2 GHz. Populate the tables with every
+> supported rate in 50 MHz steps.
+> 
+> Cc: stable@vger.kernel.org # 7.0+
+> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> ---
+> The corresponding U-Boot changes are available at:
+> 
+> - Add the CPU PLL rate tables:
+>   https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc99db886d5522c0c9cd5a96ffd6
+> - Correct the 1.10 GHz and 2.15 GHz table entries:
+>   https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb54ca55352215e76eb3f12e6cf0
+> ---
+> Changes in v4:
+> - Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
+> - Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
+>   patch scope has expanded.
+> - Add U-Boot references for the complete tables and corrected entries.
+> - Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com
+> 
+> Changes in v3:
+> - Mark the change for stable kernels starting with v7.0.
+> - Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+> - Rebase onto v7.3-rc1.
+> - Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
+> 
+> Changes in v2:
+> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+>   will be handled in a separate series.
+> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+>   patch.
+> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
+> 
+> To: Stephen Boyd <sboyd@kernel.org>
+> To: Brian Masney <bmasney+clk@redhat.com>
+> To: Jerome Brunet <jbrunet+clk@baylibre.com>
+> To: Yixun Lan <dlan@kernel.org>
+> To: Paul Walmsley <pjw@kernel.org>
+> To: Palmer Dabbelt <palmer@dabbelt.com>
+> To: Albert Ou <aou@eecs.berkeley.edu>
+> To: Alexandre Ghiti <alex@ghiti.fr>
+> Cc: linux-clk@vger.kernel.org
+> Cc: linux-riscv@lists.infradead.org
+> Cc: spacemit@lists.linux.dev
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 96 insertions(+)
+>
 
-nfsd4_alloc_layout_stateid reads fp->fi_deleg_file without holding
-fi_lock when the parent stateid is a delegation. A concurrent delegation
-revoke via the laundromat can clear fi_deleg_file under fi_lock, causing
-nfsd_file_get() to return NULL and triggering the BUG_ON.
+On a recently new K3 board (shipped with OpenSBI/U-boot dated
+end of July), I was seeing upstream kernel boot hang after IMSIC
+initialization. Some logging indicated that it was hanging around the
+clock controller initializations (k3_ccu_driver_init).
 
-This race is client-reachable: two NFS clients can trigger it by having
-one hold a delegation while another opens the same file to force a
-recall. When the first client doesn't respond to the recall, the
-laundromat revokes it. A concurrent LAYOUTGET from any client using the
-delegation stateid hits the race window.
+On a board running older U-boot/OpenSBI from May, I originally didn't
+observe this hang, but doing multiple repeated boots showed a rare
+instance of this hang happening. Some changes were added to OpenSBI in 
+this period (end of June) that trap clock controller registers to M 
+Mode and handle reads/writes there.
 
-Fix this by taking fi_lock around the fi_deleg_file read in the
-SC_TYPE_DELEG path, matching the locking discipline of the
-find_any_file() arm, and replacing the BUG_ON with a graceful error
-return that cleans up the partially-initialized layout stateid.
+Yixun pointed me to this patch, and it seems to fix the boot hang on 
+the board runner newer OpenSBI. I think this avoids some kind of a 
+race condition with disabling/re-enabling a PLL that the clock driver
+does. I'm finding it a bit hard to explain/understand what exactly it
+the reason though.
 
-Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
-Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-1-f27e8eb4d974@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4layouts.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+Yixun, could this patch get added in soon?
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index bcf16dd07d488..d0b76aee54f83 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -167,9 +167,12 @@ nfsd4_free_layout_stateid(struct nfs4_stid *stid)
- 	list_del_init(&ls->ls_perfile);
- 	spin_unlock(&fp->fi_lock);
- 
--	if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
--		vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL, (void **)&ls);
--	nfsd_file_put(ls->ls_file);
-+	if (ls->ls_file) {
-+		if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
-+			vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL,
-+				     (void **)&ls);
-+		nfsd_file_put(ls->ls_file);
-+	}
- 
- 	if (ls->ls_recalled)
- 		atomic_dec(&ls->ls_stid.sc_file->fi_lo_recalls);
-@@ -234,11 +237,17 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
- 	nfsd4_init_cb(&ls->ls_recall, clp, &nfsd4_cb_layout_ops,
- 			NFSPROC4_CLNT_CB_LAYOUT);
- 
--	if (parent->sc_type == NFS4_DELEG_STID)
-+	if (parent->sc_type == NFS4_DELEG_STID) {
-+		spin_lock(&fp->fi_lock);
- 		ls->ls_file = nfsd_file_get(fp->fi_deleg_file);
--	else
-+		spin_unlock(&fp->fi_lock);
-+	} else {
- 		ls->ls_file = find_any_file(fp);
--	BUG_ON(!ls->ls_file);
-+	}
-+	if (!ls->ls_file) {
-+		nfs4_put_stid(stp);
-+		return NULL;
-+	}
- 
- 	if (nfsd4_layout_setlease(ls)) {
- 		nfs4_put_stid(stp);
--- 
-2.53.0
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
 
+Regards
+Anirudh Srinivasan
