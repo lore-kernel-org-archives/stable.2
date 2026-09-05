@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC8A74A3F19
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169524A3F19
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788627049; cv=none; b=FjEGc+9wwg1aeh7Y7WOg+cw9rzAuPc2BC7GAB7I99kcDJAmEDR6vsBeidqYj409xD454qvlgqR9EgW+EBCZBtt4I/UwLKhzcvQi6tMAnRAEiaTQ8qVsVIxK39pGckg5OgbjSTymshuxxQpH74ofnoU25GZG4D9XJMtEM+g1B5h0=
+	t=1788627052; cv=none; b=D3yXIeAaHCTzCN4b/2sPdvGinK/bfxsDUyG8PEf1WE53f9K2JEdxTwX17yrYe63UFPW3VO6hhJvtnLujYeWAe8gL+i/BOBK8ox02fAHLGKBDRrUvTWuUrt4fBurcVhEuqKhl/KAWA3/LauFmcXs2y6oQqMkGcJckaXvx3iYkcEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788627049; c=relaxed/simple;
-	bh=ixwwkjv4NgoJj92TUzszagr7mWd2VeQY9wXJTea3FZU=;
+	s=arc-20240116; t=1788627052; c=relaxed/simple;
+	bh=Bi7uGM4Mau65oeParTbOUtt2bsD05UCg5o6VYJILrMc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hEQqrlk1NFUAIcP/NKc98yVlcO/6tQS4oxRfZVtzG2j0jPD68+vPbV9a4H3/EPySsi/r9Zq818spCQ/kmdULlmiCUrkFthxJNc83glZ59EnIhpJYNbWixL0NUXywfzzbL1c0FhpZJ5AKsbEan+UEWpADrz6lvOTnnwzT8UpWMmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TEdRpWOt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OZz3BvBJ6mTbLa6Qhz0RwCsCHneqiQhuvBJlDrl+nXCClF5U9VuRDEFAfe8n2ZRej6L/3Rrdixi/o0a/ly6KW/bpxenaHIUTnuwQyNce4/ZnZzVpuq+0lctqT+XYBslnxKmNgPbeGMGejo9+eeHwHl6LWlJn5LNgZAoPCdayX4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PT3Jp4xI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TEdRpWOt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A4B1F00A3D;
-	Sat,  5 Sep 2026 16:50:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PT3Jp4xI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FEC31F00A3A;
+	Sat,  5 Sep 2026 16:50:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788627048;
-	bh=jTy4cqgHaCGrIqgAYsmiThVlVgDwXIiOfa+hzOQBECM=;
+	s=k20260515; t=1788627051;
+	bh=qsEXmR8tgPYw/vubk+K7oduLwLlET0/WSKuriEN8K2A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TEdRpWOtvruc5VT8jJ6DUrtX/JaZadEBmNZV2pRGtlWKIguuSMVrSoTPVzyscZZfW
-	 OiGbkwCV9zejyEQtrP1f5HRMmm5H/UpsZhQvA4a5vFTdwIMvInYpkk5Pg9gBGa2Fgu
-	 oNEuu+KGyk8XMT1UxbIaalrOZlSiPhnZ1En+8OxxOBKDkKMB6ytUPUunAJg8jRF5Jn
-	 OEGVMF1IPXJkPDiTHhyJR15M3jlxmf/KHqoF/8X5hkQnRZVOjmFCJp8ShG5TtQw6wJ
-	 2Ew/VIqDpzJFr+lqUuUHbLNhpYxWDikDKBu1EGu11borhxFilRabDhMh2rnWAxvHId
-	 mi7Qq2TCjreUw==
+	b=PT3Jp4xIDJL7Jedn8V9CZYdWvV1OBl+qZ1UhAZorOmIIEjJ/414gWU8lSTldmd9Pk
+	 TBghLVf/rNQhpSlaWC6jBDfzAKvlfD4e0qU+V5h5bQtOjg5mAe8cPwoCt2Nt3QXtXJ
+	 092HzU72uFuEtkbojXEaNvu3AfItpBD4Dq/pphHReO5o1etzJMehhS/gsPUc+AAUwr
+	 D3fzPKwRyH186NPQt/uH/9vvyfttBp6PL4Aztp/BssQ0QisDMWdbt6lzj7LgtoK0MV
+	 S4O86ehTtW6XOtMXGbAM5H0LOkrLMcTpgdn6Kn67Hoze0dXjhPXQ4uYHh+mcCKq7wS
+	 FXa2HOQxocI+Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
+	Chris Mason <clm@meta.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nfsd: fix nfsd_file leak on inter-server COPY setup failure
-Date: Sat,  5 Sep 2026 12:50:46 -0400
-Message-ID: <20260905165047.471369-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on racing delegation revoke
+Date: Sat,  5 Sep 2026 12:50:48 -0400
+Message-ID: <20260905165048.471453-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090342-mute-statistic-4761@gregkh>
-References: <2026090342-mute-statistic-4761@gregkh>
+In-Reply-To: <2026090306-ducktail-chant-83eb@gregkh>
+References: <2026090306-ducktail-chant-83eb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,51 +48,77 @@ Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 88a76145451d703eedd867b5989bf73d17340399 ]
+[ Upstream commit ca94ba36172046be6a694a7986f6931e47ed4d51 ]
 
-When nfsd4_setup_inter_ssc() fails, nfsd4_copy() returns
-nfserr_offload_denied directly, bypassing the out: label where
-release_copy_files() would drop the nf_dst reference taken by
-nfs4_preprocess_stateid_op(). Each failed inter-server COPY
-leaks one nfsd_file, pinning file/inode/dentry/vfsmount.
+nfsd4_alloc_layout_stateid reads fp->fi_deleg_file without holding
+fi_lock when the parent stateid is a delegation. A concurrent delegation
+revoke via the laundromat can clear fi_deleg_file under fi_lock, causing
+nfsd_file_get() to return NULL and triggering the BUG_ON.
 
-Fix by setting status and jumping to out: instead of returning
-directly.
+This race is client-reachable: two NFS clients can trigger it by having
+one hold a delegation while another opens the same file to force a
+recall. When the first client doesn't respond to the recall, the
+laundromat revokes it. A concurrent LAYOUTGET from any client using the
+delegation stateid hits the race window.
 
-Fixes: ce0887ac96d3 ("NFSD add nfs4 inter ssc to nfsd4_copy")
+Fix this by taking fi_lock around the fi_deleg_file read in the
+SC_TYPE_DELEG path, matching the locking discipline of the
+find_any_file() arm, and replacing the BUG_ON with a graceful error
+return that cleans up the partially-initialized layout stateid.
+
+Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
 Cc: stable@vger.kernel.org
 Assisted-by: kres:claude-opus-4-7
+Reported-by: Chris Mason <clm@meta.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260531-nfsd-testing-v1-3-7bfa481b0540@kernel.org
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-1-f27e8eb4d974@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adjusted cleanup paths to omit unavailable trace_nfsd_copy_*() calls ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4proc.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/nfsd/nfs4layouts.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index a4c7cab1679bd..39954506fd157 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1776,12 +1776,14 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out;
- 		}
- 		status = nfsd4_setup_inter_ssc(rqstp, cstate, copy);
--		if (status)
--			return nfserr_offload_denied;
-+		if (status) {
-+			status = nfserr_offload_denied;
-+			goto out;
-+		}
- 	} else {
- 		status = nfsd4_setup_intra_ssc(rqstp, cstate, copy);
- 		if (status)
--			return status;
-+			goto out;
- 	}
+diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
+index bcf16dd07d488..d0b76aee54f83 100644
+--- a/fs/nfsd/nfs4layouts.c
++++ b/fs/nfsd/nfs4layouts.c
+@@ -167,9 +167,12 @@ nfsd4_free_layout_stateid(struct nfs4_stid *stid)
+ 	list_del_init(&ls->ls_perfile);
+ 	spin_unlock(&fp->fi_lock);
  
- 	memcpy(&copy->fh, &cstate->current_fh.fh_handle,
+-	if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
+-		vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL, (void **)&ls);
+-	nfsd_file_put(ls->ls_file);
++	if (ls->ls_file) {
++		if (!nfsd4_layout_ops[ls->ls_layout_type]->disable_recalls)
++			vfs_setlease(ls->ls_file->nf_file, F_UNLCK, NULL,
++				     (void **)&ls);
++		nfsd_file_put(ls->ls_file);
++	}
+ 
+ 	if (ls->ls_recalled)
+ 		atomic_dec(&ls->ls_stid.sc_file->fi_lo_recalls);
+@@ -234,11 +237,17 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
+ 	nfsd4_init_cb(&ls->ls_recall, clp, &nfsd4_cb_layout_ops,
+ 			NFSPROC4_CLNT_CB_LAYOUT);
+ 
+-	if (parent->sc_type == NFS4_DELEG_STID)
++	if (parent->sc_type == NFS4_DELEG_STID) {
++		spin_lock(&fp->fi_lock);
+ 		ls->ls_file = nfsd_file_get(fp->fi_deleg_file);
+-	else
++		spin_unlock(&fp->fi_lock);
++	} else {
+ 		ls->ls_file = find_any_file(fp);
+-	BUG_ON(!ls->ls_file);
++	}
++	if (!ls->ls_file) {
++		nfs4_put_stid(stp);
++		return NULL;
++	}
+ 
+ 	if (nfsd4_layout_setlease(ls)) {
+ 		nfs4_put_stid(stp);
 -- 
 2.53.0
 
