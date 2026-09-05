@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D35375F82
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:05:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8677039A04C
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:05:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788638734; cv=none; b=bquGJM4DkswMNeoQIq77j1AO3pizRlnY0zNLnNV1KKGYAWfZwmeJUJlSetBBnhrbyh0UIvsmihFxNhAAsuLhswJf4oud7MnbbnNe/xeuLOGtPw3Dy5FpPHK+nGSFqXI8VrByvA6tUJILRMsrJ8kp9abs2R/6RO7axV/PYK9fNkc=
+	t=1788638734; cv=none; b=F+LVpYiGR2FS4Zc5RkgZNYGUcgcGWO2dqv+IcIgoyhCWhKrXpdtl20xn0CI1qQeH9QisWcclCSs0/0MBXCpWCUNh/iqQQHqCQ2Wp0oP1NrCug9coge0T8YjWfR0ufK0lBIfiDYIk64H4rMkAWzDs3CTWyFO+dMhuQKf9g3lPnns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788638734; c=relaxed/simple;
-	bh=HL/hxH6OCWmXtfDCS1ZuAVbQqtrlCnt/NyE2fpauki0=;
+	bh=/CNd8WLi2PqHMH2V4/ExxEWvTgX070gPmlCxLaLx70s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X00y/9IhPWzQNYYEKhYabsDm4ESo8PsZ6Ry24/kdmhlMZAkcO6qyf4u+uzrEcbFABgLl2hDnne3SxYzPR7lhVn2uWR6zJrGT8yCGLeHfYRo3zL3aC9oZ5Q3u1EBfvx8+zGngEP2fx776wJ4bb8VEPYGmTgOPoBWnfpFNg1XflrY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7VNjwJR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cCVIy6t9KxcEMyuR2FGgtCziEqfdFx5aU9TlUv0Q/3O5hd1e8JyujHeyN0ElI4gDGlvxEUQC4/zbDBm/vr1k27HNbKMEVlwnf65gMQxxu9zckY2zjiKLjRfmcD2JsliUb604s3Jacrurg7YAM7s0LiwIr9heGdh5xI60uEJmQ4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Mf+TqPAK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7VNjwJR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E47F1F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Mf+TqPAK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1D41F00A3E;
 	Sat,  5 Sep 2026 20:05:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788638732;
-	bh=0N0V4AIhCoQVLXtF/RSf7BjU336gOWafumDCE2MWabk=;
+	s=k20260515; t=1788638733;
+	bh=ryHHyFE2uJyRZyk5dMLiBiKPpzh0zDWnqb/DVAjxh0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i7VNjwJR8CKsM3dWkEjkCbnU5bkgfkRARmF8eOd6k7LlxVDCsDx562xjiU0SWCGbJ
-	 sQalzEeYHQLPybEXDwv5ujJR8eI4c1hKh84XSS3jkLqKRtEE8STCvT5cllgBfRPQyz
-	 UCcKrxugL4l9Oifszqs+im68/MHF/EJImdbtlD+PrroAaaoLBtcdCufEUhXEfPt8DC
-	 7UTP7AkfCOdB4n6DIQA1M3hh7Yk/huyl9/CIxQ38Lb3bQz9WE4DwgwU5RObCJ2PUR9
-	 bbs7ny8VPtWckixRkWYbsTDeSr7tAjBBigDqMU+f3PkC6JWvG/ptp3m4FLhtISvKVM
-	 WtmUdWDozQCzA==
+	b=Mf+TqPAKXBM11XhCDGuQSlmoOpKUsjkve1uSE07Jv/v+eFTcBmt5vTunZxeWS7hS7
+	 Qeyw4D5DAzf0UYyupyYCFPXoZpW1aHEkN62uO49nNZBEgu5//E2Y0LnLTeWXD/nU7j
+	 rqqL3gsYcGPjtpZENVchj1Z7RZ1CCobhEihkQ8xt7ChH7huwYy/NRwHwT9K1i1RGyl
+	 ZBCKAYVPHn3vUilybceExBtQDyUoA48jPf8ems23AK/cM7K2p2ZHWpNPgnZvbgS9uK
+	 /z5BTcSqBAMZ9IaJ0/SdY8jqd6BYYMpl6GjrofUUvYpQENiFj3A9BCnQQvDSv9DE1L
+	 5ezPzdbqRkD3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/7] nfsd: prevent callback tasks running concurrently
-Date: Sat,  5 Sep 2026 16:05:25 -0400
-Message-ID: <20260905200527.607284-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 6/7] nfsd: move cb_need_restart flag into cb_flags
+Date: Sat,  5 Sep 2026 16:05:26 -0400
+Message-ID: <20260905200527.607284-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905200527.607284-1-sashal@kernel.org>
 References: <2026090302-liquefy-backrest-fcbf@gregkh>
@@ -48,219 +48,99 @@ Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 1054e8ffc5c492f341bdf1888b882f1d163dd3d8 ]
+[ Upstream commit 32ce62c0f09cdc5a6b06bb38daec9b9a47302437 ]
 
-The nfsd4_callback workqueue jobs exist to queue backchannel RPCs to
-rpciod. Because they run in different workqueue contexts, the rpc_task
-can run concurrently with the workqueue job itself, should it become
-requeued. This is problematic as there is no locking when accessing the
-fields in the nfsd4_callback.
-
-Add a new unsigned long to nfsd4_callback and declare a new
-NFSD4_CALLBACK_RUNNING flag to be set in it. When attempting to run a
-workqueue job, do a test_and_set_bit() on that flag first, and don't
-queue the workqueue job if it returns true. Clear NFSD4_CALLBACK_RUNNING
-in nfsd41_destroy_cb().
-
-This also gives us a more reliable mechanism for handling queueing
-failures in codepaths where we have to take references under spinlocks.
-We can now do the test_and_set_bit on NFSD4_CALLBACK_RUNNING first, and
-only take references to the objects if that returns false.
-
-Most of the nfsd4_run_cb() callers are converted to use this new flag or
-the nfsd4_try_run_cb() wrapper. The main exception is the callback
-channel probe, which has its own synchronization.
+Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE
+flag in that instead of a separate boolean.
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+
+Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE flag in that instead of a separate boolean.
+
+On this stable branch, callback requeue handling remains open-coded in both the NFSv4.1 sequence completion path and the NFSv4.0 completion path. Convert both sites to the flag and omit the callback lifetime tracepoint hunk, since that tracepoint is not present here.
+
+[ sashal: Reduced backport -- upstream 32ce62c0f09cd touches 3 file(s), this
+  backport carries 2. Not backported here:
+  fs/nfsd/trace.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
 Stable-dep-of: 01c5d5f58a5d ("nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4callback.c | 36 +++++++++++++-----------------------
- fs/nfsd/nfs4layouts.c  |  7 ++++---
- fs/nfsd/nfs4proc.c     |  3 ++-
- fs/nfsd/nfs4state.c    | 12 ++++++++++--
- fs/nfsd/state.h        |  2 ++
- 5 files changed, 31 insertions(+), 29 deletions(-)
+ fs/nfsd/nfs4callback.c | 11 ++++-------
+ fs/nfsd/state.h        |  2 +-
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
 diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
-index 8d63fc429f9ae..5242b944d7560 100644
+index 5242b944d7560..dcb4f8785ec01 100644
 --- a/fs/nfsd/nfs4callback.c
 +++ b/fs/nfsd/nfs4callback.c
-@@ -914,16 +914,6 @@ static bool nfsd4_queue_cb(struct nfsd4_callback *cb)
- 	return queue_work(callback_wq, &cb->cb_work);
- }
- 
--static void nfsd4_requeue_cb(struct rpc_task *task, struct nfsd4_callback *cb)
--{
--	struct nfs4_client *clp = cb->cb_clp;
--
--	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
--		task->tk_status = 0;
--		cb->cb_need_restart = true;
--	}
--}
--
- static void nfsd41_cb_inflight_begin(struct nfs4_client *clp)
- {
- 	atomic_inc(&clp->cl_cb_inflight);
-@@ -1141,6 +1131,7 @@ static void nfsd41_destroy_cb(struct nfsd4_callback *cb)
- 	struct nfs4_client *clp = cb->cb_clp;
- 
- 	nfsd41_cb_release_slot(cb);
-+	clear_bit(NFSD4_CALLBACK_RUNNING, &cb->cb_flags);
- 	if (cb->cb_ops && cb->cb_ops->release)
- 		cb->cb_ops->release(cb);
- 	nfsd41_cb_inflight_end(clp);
-@@ -1170,7 +1161,8 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
- /* Returns true if CB_COMPOUND processing should continue */
- static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback *cb)
- {
--	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
-+	struct nfs4_client *clp = cb->cb_clp;
-+	struct nfsd4_session *session = clp->cl_cb_session;
- 	bool ret = false;
- 
- 	if (!cb->cb_holds_slot)
-@@ -1202,13 +1194,6 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 		rpc_delay(task, 2 * HZ);
- 		return false;
- 	case -NFS4ERR_BADSLOT:
--		/*
--		 * BADSLOT means that the client and server are out of sync
--		 * as to the backchannel parameters. Mark the backchannel faulty
--		 * and restart the RPC, but leak the slot so no one uses it.
--		 */
--		nfsd4_mark_cb_fault(cb->cb_clp);
--		cb->cb_held_slot = -1;
- 		goto retry_nowait;
- 	case -NFS4ERR_SEQ_MISORDERED:
- 		if (session->se_cb_seq_nr != 1) {
-@@ -1223,8 +1208,6 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 	}
- 
- 	nfsd41_cb_release_slot(cb);
--	dprintk("%s: freed slot, new seqid=%d\n", __func__,
--		session->se_cb_seq_nr);
- 	return ret;
- retry_nowait:
- 	/*
-@@ -1236,7 +1219,10 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 			return false;
- 	}
+@@ -1221,7 +1221,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
  requeue:
--	nfsd4_requeue_cb(task, cb);
-+	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
-+		task->tk_status = 0;
-+		cb->cb_need_restart = true;
-+	}
+ 	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
+ 		task->tk_status = 0;
+-		cb->cb_need_restart = true;
++		set_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags);
+ 	}
  	return false;
  }
- 
-@@ -1255,8 +1241,11 @@ static void nfsd4_cb_done(struct rpc_task *task, void *calldata)
- 		 * the submission code will error out, so we don't need to
- 		 * handle that case here.
- 		 */
--		if (RPC_SIGNALLED(task))
--			nfsd4_requeue_cb(task, cb);
-+		if (RPC_SIGNALLED(task) &&
-+		    !test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
-+			task->tk_status = 0;
-+			cb->cb_need_restart = true;
-+		}
+@@ -1244,7 +1244,7 @@ static void nfsd4_cb_done(struct rpc_task *task, void *calldata)
+ 		if (RPC_SIGNALLED(task) &&
+ 		    !test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
+ 			task->tk_status = 0;
+-			cb->cb_need_restart = true;
++			set_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags);
+ 		}
  	} else if (!nfsd4_cb_sequence_done(task, cb)) {
  		return;
+@@ -1277,7 +1277,7 @@ static void nfsd4_cb_release(void *calldata)
+ {
+ 	struct nfsd4_callback *cb = calldata;
+ 
+-	if (cb->cb_need_restart)
++	if (test_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags))
+ 		nfsd4_queue_cb(cb);
+ 	else
+ 		nfsd41_destroy_cb(cb);
+@@ -1399,9 +1399,7 @@ nfsd4_run_cb_work(struct work_struct *work)
+ 	struct rpc_clnt *clnt;
+ 	int flags;
+ 
+-	if (cb->cb_need_restart) {
+-		cb->cb_need_restart = false;
+-	} else {
++	if (!test_and_clear_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags)) {
+ 		if (cb->cb_ops && cb->cb_ops->prepare)
+ 			cb->cb_ops->prepare(cb);
  	}
-@@ -1452,6 +1441,7 @@ void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
- 	cb->cb_msg.rpc_proc = &nfs4_cb_procedures[op];
- 	cb->cb_msg.rpc_argp = cb;
- 	cb->cb_msg.rpc_resp = cb;
-+	cb->cb_flags = 0;
- 	cb->cb_ops = ops;
+@@ -1446,7 +1444,6 @@ void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
  	INIT_WORK(&cb->cb_work, nfsd4_run_cb_work);
  	cb->cb_seq_status = 1;
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 84bb200e24ade..cd5b0dfc3e8e4 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -327,9 +327,10 @@ nfsd4_recall_file_layout(struct nfs4_layout_stateid *ls)
- 	atomic_inc(&ls->ls_stid.sc_file->fi_lo_recalls);
- 	trace_nfsd_layout_recall(&ls->ls_stid.sc_stateid);
- 
--	refcount_inc(&ls->ls_stid.sc_count);
--	nfsd4_run_cb(&ls->ls_recall);
--
-+	if (!test_and_set_bit(NFSD4_CALLBACK_RUNNING, &ls->ls_recall.cb_flags)) {
-+		refcount_inc(&ls->ls_stid.sc_count);
-+		nfsd4_run_cb(&ls->ls_recall);
-+	}
- out_unlock:
- 	spin_unlock(&ls->ls_lock);
- }
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 5767080362e85..782d8ef430142 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1743,7 +1743,8 @@ static void nfsd4_send_cb_offload(struct nfsd4_copy *copy, __be32 nfserr)
- 		      NFSPROC4_CLNT_CB_OFFLOAD);
- 	trace_nfsd_cb_offload(copy->cp_clp, &cbo->co_res.cb_stateid,
- 			      &cbo->co_fh, copy->cp_count, nfserr);
--	nfsd4_run_cb(&cbo->co_cb);
-+	if (!test_and_set_bit(NFSD4_CALLBACK_RUNNING, &cbo->co_cb.cb_flags))
-+		WARN_ON_ONCE(!nfsd4_run_cb(&cbo->co_cb));
- }
- 
- /**
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index f21878a7f3939..835035b7bbdb1 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -4942,6 +4942,10 @@ static const struct nfsd4_callback_ops nfsd4_cb_recall_ops = {
- static void nfsd_break_one_deleg(struct nfs4_delegation *dp)
- {
- 	bool queued;
-+
-+	if (test_and_set_bit(NFSD4_CALLBACK_RUNNING, &dp->dl_recall.cb_flags))
-+		return;
-+
- 	/*
- 	 * We're assuming the state code never drops its reference
- 	 * without first removing the lease.  Since we're in this lease
-@@ -6376,7 +6380,9 @@ deleg_reaper(struct nfsd_net *nn)
- 		clp->cl_ra->ra_keep = 0;
- 		clp->cl_ra->ra_bmval[0] = BIT(RCA4_TYPE_MASK_RDATA_DLG);
- 		trace_nfsd_cb_recall_any(clp->cl_ra);
--		nfsd4_run_cb(&clp->cl_ra->ra_cb);
-+		if (!test_and_set_bit(NFSD4_CALLBACK_RUNNING,
-+				      &clp->cl_ra->ra_cb.cb_flags))
-+			WARN_ON_ONCE(!nfsd4_run_cb(&clp->cl_ra->ra_cb));
- 	}
- }
- 
-@@ -7277,7 +7283,9 @@ nfsd4_lm_notify(struct file_lock *fl)
- 
- 	if (queue) {
- 		trace_nfsd_cb_notify_lock(lo, nbl);
--		nfsd4_run_cb(&nbl->nbl_cb);
-+		if (!test_and_set_bit(NFSD4_CALLBACK_RUNNING,
-+				      &nbl->nbl_cb.cb_flags))
-+			WARN_ON_ONCE(!nfsd4_run_cb(&nbl->nbl_cb));
- 	}
+ 	cb->cb_status = 0;
+-	cb->cb_need_restart = false;
+ 	cb->cb_holds_slot = false;
  }
  
 diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index d1450fe7e2b90..e8f68c84394df 100644
+index e8f68c84394df..848ef26c20705 100644
 --- a/fs/nfsd/state.h
 +++ b/fs/nfsd/state.h
-@@ -67,6 +67,8 @@ typedef struct {
- struct nfsd4_callback {
+@@ -68,12 +68,12 @@ struct nfsd4_callback {
  	struct nfs4_client *cb_clp;
  	struct rpc_message cb_msg;
-+#define NFSD4_CALLBACK_RUNNING		(0)
-+	unsigned long cb_flags;
+ #define NFSD4_CALLBACK_RUNNING		(0)
++#define NFSD4_CALLBACK_REQUEUE		(1)
+ 	unsigned long cb_flags;
  	const struct nfsd4_callback_ops *cb_ops;
  	struct work_struct cb_work;
  	int cb_seq_status;
+ 	int cb_status;
+-	bool cb_need_restart;
+ 	bool cb_holds_slot;
+ };
+ 
 -- 
 2.53.0
 
