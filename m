@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3D323E33D
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 03:28:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30AC123E33D
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 03:28:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788578900; cv=none; b=lGZyeLDDdZuoP443tZJ/p9EM1y6v0RafN8rSg5HEWUxsQfniwdDqP5mGefjM37qmUy/ImwxHrNHMLvr17lilET5zsIPriHRAFR4y2tiOJ/HT6lPcz43+W1kYhIphzSd/atpOW72TxY7+PGtGAKsQ4WeeMGesuU9/taKVEyjrgXI=
+	t=1788578905; cv=none; b=RAVph1SeRYDv+egA8ERgBcTM6gFBlC4IS1VpTUgbEIDZKw5HCiqvNAyaKLN6eO/ND1iBgwBcwuCNBIOgwD3FYl0Ac/G50V8htkiPZZqtL7zdX0Q5qBclZtWwfWdsNbgFdN+TRBkfqGiWFCLfCl5jrYP2K+cwJvL5fSrAUw3VbIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788578900; c=relaxed/simple;
-	bh=YSRnZNHLtcAknFoTmC56POlR/3I8V5V+LqrtVtcgeYw=;
+	s=arc-20240116; t=1788578905; c=relaxed/simple;
+	bh=bEvX+CWr68+s8ZCPcRcwHYWX8neiJnXk24tnsSQHfDY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ie2N+3z6OAX7D0mpEpkRDfLu2nuFxlqxDyHE9a8Bveo1zvjv82uY7c+48FllZdandPDlwIw4tAHxBZR03dvjPUyldRUONHXozACJvhKMsZnc2aGTYWIGSUWEGMfmDDQpJf5vtmbRaFSllzH+3/n+MqIAYLuHKq4FVuXV34ezlaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RncXtoAa; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=d0lclH6Vv/60ToQQ5ztx97vM2LcOLANt5UfDP6nYFgGW09JBpNs54MA9GCgD6GcwXOWv6EIaFTE4Lo7PfjeWCWI0tHaHCS1OT/7EKqZ7wucFUNtlB9YdLPBACUyroesjv0k0wdJuoTvZFKQDa6izRx4/wJ+rJAeDeP4p7rOuENk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DkcR08bX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RncXtoAa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 886EB1F00A3D;
-	Sat,  5 Sep 2026 03:28:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DkcR08bX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484711F00A3D;
+	Sat,  5 Sep 2026 03:28:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788578899;
-	bh=02N1x9QhlWmIChoYJYL+M/PJsn1Shs8b52p7xbVQVEc=;
+	s=k20260515; t=1788578903;
+	bh=Jr6bWO6qk3PoiygEDOqOoI4dVbzLBwLloTGlbBhQ6Lw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RncXtoAa6J4oy0wlP1/tWJ5rAqYaMtmbOkqpAktrwygXspFgiVIFuAikLyr1ASqIA
-	 XB40EgwPd6Dkkb7SSDmBgoP2iu0JoXEkCsVBDxpOEEbCC/DzPzzpL4so6FsQ7G9dpY
-	 YAoXXyyvFLr5JDAC8lHRA+3ix/IPdfKcfb1xaLe5gu0UdmYLWKlcW/+3IsYeZPqfOQ
-	 vT6xKefFVv/VcwEJcCly1rJVLjNsPezBnUsia9AvqUtR2aIvmqZKH3ESfKLjuovped
-	 gusshrtraAR+69a9L67QWeRdbk6o7Q2bMqdFX1z8nxdAZYhsoNyI9ZEdOwWPXoUjGv
-	 16jVEztgIoPJg==
+	b=DkcR08bXW/Xt21JA/CNBdpf018T1Q59oW5nsRa6ZMYeR0Qmh8bOrz12ZQaTSDtiyA
+	 0NVWynZQWBQSPX+xyR6BXrdk4YWvmqaKDuwRpu1nuhqh4dZRwqUy4/ltNGt3Psdm17
+	 sBGKhKOD4MEc8FD4SG40dmZ6Vi6UarSmZ/NiqRDj81EIdzRPaJnKeoPxAFxJRNqP2R
+	 oBO660YZJ/8Ski7tSUrzYKgdzfQDs6RorxokMBVphDt8ttGF/6iSMD5I0RnZc6W0+C
+	 9sHjCUL2hE4d9bErZ4yMeYXoB6H/MoqdBOyHke0kN3+8jCdvhPkb6OGNZ+tC48jNmJ
+	 bX4Vbe6u6xRNQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] nfsd: check nfsd4_acl_to_attr() return value in nfsd4_create()
-Date: Fri,  4 Sep 2026 23:28:16 -0400
-Message-ID: <20260905032816.1914179-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] NFSD: Rename a function parameter
+Date: Fri,  4 Sep 2026 23:28:17 -0400
+Message-ID: <20260905032820.1914550-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090351-halves-ungodly-d2fe@gregkh>
-References: <2026090351-halves-ungodly-d2fe@gregkh>
+In-Reply-To: <2026090358-starry-expulsion-6b91@gregkh>
+References: <2026090358-starry-expulsion-6b91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,67 +45,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 2c7912732184773dbd371a411da87af1cc080b86 ]
+[ Upstream commit 71bc2c6c413b78e5a47b4a62284f712d9f719007 ]
 
-nfsd4_create() stores the return value of nfsd4_acl_to_attr() in
-status, but the switch(create->cr_type) block unconditionally
-overwrites it in every branch. ACL translation errors are silently
-discarded, and the CREATE proceeds without the requested ACL.
+Clean up: A function parameter called "rqstp" typically refers to an
+object of type "struct svc_rqst", so it's confusing when such an
+parameter refers to a different struct type with field names that are
+very similar to svc_rqst.
 
-Add an early exit check after nfsd4_acl_to_attr(), matching the
-pattern already used in nfsd4_setattr().
-
-Fixes: c0cbe70742f4 ("NFSD: add posix ACLs to struct nfsd_attrs")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-[ cel: prefer NFS4ERR_BADTYPE over NFS4ERR_ATTRNOTSUPP ]
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-5-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ retained unconditional ACL conversion because the older helper already handles null ACLs ]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Stable-dep-of: a99d720ed2a5 ("nfsd: widen nfsd_genl_rqstp address fields to sockaddr_storage")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4proc.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ fs/nfsd/nfsctl.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 2c7a8943cad9c..6c4c121793088 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -796,7 +796,23 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 	if (status)
- 		return status;
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 7b0a6beee96ed..9a3c0011b6674 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1494,7 +1494,7 @@ unsigned int nfsd_net_id;
  
-+	/* Sanitize cr_type to avoid returning ATTRNOTSUPP. */
-+	switch (create->cr_type) {
-+	case NF4LNK:
-+	case NF4BLK:
-+	case NF4CHR:
-+	case NF4SOCK:
-+	case NF4FIFO:
-+	case NF4DIR:
-+		break;
-+	default:
-+		status = nfserr_badtype;
-+		goto out_aftermask;
-+	}
-+
- 	status = nfsd4_acl_to_attr(create->cr_type, create->cr_acl, &attrs);
-+	if (status != nfs_ok)
-+		goto out_aftermask;
- 	current->fs->umask = create->cr_umask;
- 	switch (create->cr_type) {
- 	case NF4LNK:
-@@ -863,6 +879,7 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 	fh_put(&resfh);
- out_umask:
- 	current->fs->umask = 0;
-+out_aftermask:
- 	nfsd_attrs_free(&attrs);
- 	return status;
- }
+ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 					    struct netlink_callback *cb,
+-					    struct nfsd_genl_rqstp *rqstp)
++					    struct nfsd_genl_rqstp *genl_rqstp)
+ {
+ 	void *hdr;
+ 	u32 i;
+@@ -1504,22 +1504,22 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	if (!hdr)
+ 		return -ENOBUFS;
+ 
+-	if (nla_put_be32(skb, NFSD_A_RPC_STATUS_XID, rqstp->rq_xid) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_FLAGS, rqstp->rq_flags) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROG, rqstp->rq_prog) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROC, rqstp->rq_proc) ||
+-	    nla_put_u8(skb, NFSD_A_RPC_STATUS_VERSION, rqstp->rq_vers) ||
++	if (nla_put_be32(skb, NFSD_A_RPC_STATUS_XID, genl_rqstp->rq_xid) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_FLAGS, genl_rqstp->rq_flags) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROG, genl_rqstp->rq_prog) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROC, genl_rqstp->rq_proc) ||
++	    nla_put_u8(skb, NFSD_A_RPC_STATUS_VERSION, genl_rqstp->rq_vers) ||
+ 	    nla_put_s64(skb, NFSD_A_RPC_STATUS_SERVICE_TIME,
+-			ktime_to_us(rqstp->rq_stime),
++			ktime_to_us(genl_rqstp->rq_stime),
+ 			NFSD_A_RPC_STATUS_PAD))
+ 		return -ENOBUFS;
+ 
+-	switch (rqstp->rq_saddr.sa_family) {
++	switch (genl_rqstp->rq_saddr.sa_family) {
+ 	case AF_INET: {
+ 		const struct sockaddr_in *s_in, *d_in;
+ 
+-		s_in = (const struct sockaddr_in *)&rqstp->rq_saddr;
+-		d_in = (const struct sockaddr_in *)&rqstp->rq_daddr;
++		s_in = (const struct sockaddr_in *)&genl_rqstp->rq_saddr;
++		d_in = (const struct sockaddr_in *)&genl_rqstp->rq_daddr;
+ 		if (nla_put_in_addr(skb, NFSD_A_RPC_STATUS_SADDR4,
+ 				    s_in->sin_addr.s_addr) ||
+ 		    nla_put_in_addr(skb, NFSD_A_RPC_STATUS_DADDR4,
+@@ -1534,8 +1534,8 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	case AF_INET6: {
+ 		const struct sockaddr_in6 *s_in, *d_in;
+ 
+-		s_in = (const struct sockaddr_in6 *)&rqstp->rq_saddr;
+-		d_in = (const struct sockaddr_in6 *)&rqstp->rq_daddr;
++		s_in = (const struct sockaddr_in6 *)&genl_rqstp->rq_saddr;
++		d_in = (const struct sockaddr_in6 *)&genl_rqstp->rq_daddr;
+ 		if (nla_put_in6_addr(skb, NFSD_A_RPC_STATUS_SADDR6,
+ 				     &s_in->sin6_addr) ||
+ 		    nla_put_in6_addr(skb, NFSD_A_RPC_STATUS_DADDR6,
+@@ -1549,9 +1549,9 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	}
+ 	}
+ 
+-	for (i = 0; i < rqstp->rq_opcnt; i++)
++	for (i = 0; i < genl_rqstp->rq_opcnt; i++)
+ 		if (nla_put_u32(skb, NFSD_A_RPC_STATUS_COMPOUND_OPS,
+-				rqstp->rq_opnum[i]))
++				genl_rqstp->rq_opnum[i]))
+ 			return -ENOBUFS;
+ 
+ 	genlmsg_end(skb, hdr);
 -- 
 2.53.0
 
