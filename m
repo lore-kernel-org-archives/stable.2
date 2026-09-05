@@ -1,330 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCDF221FB6
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 11:12:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AA639657A
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 11:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788606735; cv=none; b=WEH8xeKnYX/wNXaEY3rdV9BqM/IJVGKUxRCOoDdmbBS2mMznpPZmLqsmvd9f/nLoG7YfrJHs9UndB+jeUN5RmnLro0Z1x4DQQvHHSzMuWvQjcXY0R90/IFVqNcjJfDJPkSxpLZidLjXpXyWf+2fCkLLSzCWzl5wfSvpiAxLX1l8=
+	t=1788606738; cv=none; b=qu5frMb2QD6jBUg6YFJsNhc7uxv79bEgEzz+p+1vcv8LMLJOqcJYJ7uukRLw/nQ9TGqJHKT5jm267QDhPz6SplzZ7AQL90oWHz15Ti0xmdVMUXzs+iKPfoY2xdXKe11AHEJTg5Uyj/hqDhvI7fRQN1kRxgafYmbTILGlH1UdF1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788606735; c=relaxed/simple;
-	bh=zGBqoSRDsWKsbGYw8Cu/R5EE6UJVXX1Bk96QZIHd3jI=;
+	s=arc-20240116; t=1788606738; c=relaxed/simple;
+	bh=mA3DrnFusAaSSByxlODukNJhxrfVAGefp0lXjFlOmSk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DZSo3FCQSPihimEGWCH56+ruwP+t1qkWPVwl9FvQjlyU5tK8XFlY+MZdvmDLMjVTEGKcQV53BfM096oj4vDD9mzUuWAt23Wr5pnLxhL2ggq/LGpbNncn+x9JMR2GD6BbKLCjVkzzYAmuoSH1QTlCy+pQPqLxsk0ytkV5nRszi5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHhN/L/D; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=g/7WjsFaOoGvLggGsjxD40lR8f2TLL6ZoSpjezD149QmWTz10pwIYTXIv3BhslvabZYAqvfiwSwpTvA1Vgg6JmKwxQLie+qi5aVWolYkli4uvAxriG07/BMg60SX4bqnIt2yXWkftfOlD8JwzN4uAL/f79xHFTCnyw28qUBWgaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THv4K8/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHhN/L/D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC8381F00A3D;
-	Sat,  5 Sep 2026 11:12:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THv4K8/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A761F00A3D;
+	Sat,  5 Sep 2026 11:12:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788606733;
-	bh=our9DoAQLbMpy1DrQlKCVstcivuy6IByOgVcuczAPIo=;
+	s=k20260515; t=1788606736;
+	bh=RnDi7tyZ3sFLn60w+bnWLDTgN44sEl97AvimON1tH7w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fHhN/L/DDH4u15m9VmKDt5zEGeXa1rfe9T+iZrWv5a9m7sIUwyC9FYRCubeVvLHle
-	 /0X3wVV1mq4Chd6svLSEyC3b4CVmGhNWb+K5J5aiGuMBXfs7i8PTS7KIIxX/bxaBz4
-	 PZyfMrnYvw75MvLw1Mg3ANIhIKxHe5iHPh/vONkdh2Xs3xObOYqeXqE9VghAtMDvRF
-	 NCPyV6gKFUMQMlMcenfFSLEsHDD4IdI5ymc2yOAWaLNZ+yb810jrEV47OwBjKbO9/R
-	 5/qOB9TfF7uCpTk6/cBRFVRcsbeeolyuKpM8CQVZfgJSRHH57TMV3cybQ3GyqJkSe4
-	 FKsaK0QjmYQpw==
+	b=THv4K8/Dcaf8YeO8/pQzBU3WCYjyiOY9WKGDXN8u/pV4KsNlW1ObqCeIZnsgteDWn
+	 57uliaqv/UAFMGt9W7dLE204HJJhDZuuXFT0ajoCxI3yVxdrCvEiKkiuxsoFNwS/60
+	 FVUM+4SNWEvq2WsJgpPz1CfKek9IoEppt4K/zXwTlVHKc0KrnECOAPzbKZeWeNsjJJ
+	 m5cD9lgOC6IyR+nfDmA01KnY4Fd7H4v/BxHQAyf6lz3kubM4HeLv5YQulb6pr9aJ7y
+	 FjgGYrkUfikMGeVmp6XfZIZ7UC6lP4OeRTqvcD1ds/al1FJ+jzarIrc6XhsZPuZFFx
+	 JnAJm5yZGg8oQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] lockd, nfsd: RCU-protect nlmsvc_ops dispatch
-Date: Sat,  5 Sep 2026 07:12:11 -0400
-Message-ID: <20260905111211.3747597-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] nfsd: fix clock domain mismatch in clients_still_reclaiming()
+Date: Sat,  5 Sep 2026 07:12:14 -0400
+Message-ID: <20260905111214.3748490-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090305-accustom-epidermal-06f0@gregkh>
-References: <2026090305-accustom-epidermal-06f0@gregkh>
+In-Reply-To: <2026090314-portal-hardy-c77c@gregkh>
+References: <2026090314-portal-hardy-c77c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 641e5e20852359b8c31149be4598884e30652f60 ]
+[ Upstream commit 09ea3eb9a518565f5bca386e81b993ed8825f5e8 ]
 
-nlmsvc_ops is published by nfsd_lockd_init() and cleared by
-nfsd_lockd_shutdown() with plain stores, while lockd dereferences
-it unguarded from dispatch sites in fs/lockd/svcsubs.c. The pointer
-targets nfsd's .rodata and the fopen/fclose callbacks live in nfsd's
-.text, so a stale load after rmmod nfsd results in either a NULL
-deref or a module-text use-after-free.
+clients_still_reclaiming() computes a deadline from nn->boot_time
+(CLOCK_REALTIME, ~1.7 billion) but compares it against
+ktime_get_boottime_seconds() (CLOCK_BOOTTIME, seconds since boot).
+The comparison is always false — it would take ~54 years of uptime
+for BOOTTIME to exceed the REALTIME-derived deadline.
 
-Declare nlmsvc_ops as __rcu, publish via rcu_assign_pointer(), clear
-via RCU_INIT_POINTER() + synchronize_rcu(). Add a struct module
-*owner field to nlmsvc_binding and pin the module across indirect
-calls with try_module_get/module_put. When the binding is torn down,
-fall back to fput() to avoid leaking struct file references.
+This means any client can hold the server in grace indefinitely by
+sending CLAIM_PREVIOUS OPEN requests, blocking all non-reclaim
+operations for all other clients.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Add boot_time_bt (CLOCK_BOOTTIME) alongside the existing boot_time
+and use it for the deadline computation. boot_time (CLOCK_REALTIME)
+is preserved for its cl_boot clientid-nonce role.
+
+Fixes: 20b7d86f29d3 ("nfsd: use boottime for lease expiry calculation")
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-4-8
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-16-5b90e276f2d9@kernel.org
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-12-5b90e276f2d9@kernel.org
 Signed-off-by: Chuck Lever <cel@kernel.org>
-[ adapted lockd callback lifetime handling to the older __be32 interface and dual file-close paths. ]
+[ preserved the branch’s boolean fields instead of the upstream flags bitmap ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/lockd/svc.c             |  6 ++--
- fs/lockd/svc4proc.c        |  4 +--
- fs/lockd/svcproc.c         |  4 +--
- fs/lockd/svcsubs.c         | 59 ++++++++++++++++++++++++++++----------
- fs/nfsd/lockd.c            |  6 ++--
- include/linux/lockd/bind.h | 12 ++++++--
- 6 files changed, 64 insertions(+), 27 deletions(-)
+ fs/nfsd/netns.h     | 1 +
+ fs/nfsd/nfs4state.c | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
-index c33f78513f00f..1905e7a6b9162 100644
---- a/fs/lockd/svc.c
-+++ b/fs/lockd/svc.c
-@@ -49,7 +49,7 @@
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 09a06e46dab98..9cd7567d4f28a 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -69,6 +69,7 @@ struct nfsd_net {
+ 	bool grace_end_forced;
+ 	bool client_tracking_active;
+ 	time64_t boot_time;
++	time64_t boot_time_bt;	/* same instant in CLOCK_BOOTTIME */
  
- static struct svc_program	nlmsvc_program;
+ 	struct dentry *nfsd_client_dir;
  
--const struct nlmsvc_binding	*nlmsvc_ops;
-+const struct nlmsvc_binding __rcu *nlmsvc_ops;
- EXPORT_SYMBOL_GPL(nlmsvc_ops);
- 
- static DEFINE_MUTEX(nlmsvc_mutex);
-@@ -113,7 +113,7 @@ static void set_grace_period(struct net *net)
- 
- static void restart_grace(void)
- {
--	if (nlmsvc_ops) {
-+	if (rcu_access_pointer(nlmsvc_ops)) {
- 		struct net *net = &init_net;
- 		struct lockd_net *ln = net_generic(net, lockd_net_id);
- 
-@@ -175,7 +175,7 @@ lockd(void *vrqstp)
- 		svc_process(rqstp);
- 	}
- 	flush_signals(current);
--	if (nlmsvc_ops)
-+	if (rcu_access_pointer(nlmsvc_ops))
- 		nlmsvc_invalidate_all();
- 	nlm_shutdown_hosts();
- 	cancel_delayed_work_sync(&ln->grace_period_end);
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 277d665937ae4..a0dcd2bc51463 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -29,7 +29,7 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	if (lock->lock_start > OFFSET_MAX ||
-@@ -489,7 +489,7 @@ nlm4svc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--        if (!nlmsvc_ops)
-+        if (!rcu_access_pointer(nlmsvc_ops))
-                 return rpc_success;
- 
-         dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index fdbe93accb862..0192810e1fda1 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -59,7 +59,7 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	/* Obtain host handle */
-@@ -523,7 +523,7 @@ nlmsvc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return rpc_success;
- 
- 	dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index e64e0110f66b5..e007feeea059f 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -8,6 +8,7 @@
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 342de8d2c4aa8..94c5829be6966 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -6380,7 +6380,7 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
   */
- 
- #include <linux/types.h>
-+#include <linux/file.h>
- #include <linux/string.h>
- #include <linux/time.h>
- #include <linux/in.h>
-@@ -86,14 +87,26 @@ int lock_to_openmode(struct file_lock *lock)
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
+ static bool clients_still_reclaiming(struct nfsd_net *nn)
  {
-+	const struct nlmsvc_binding *ops;
- 	struct file **fp = &file->f_file[mode];
- 	__be32	nfserr;
+-	time64_t double_grace_period_end = nn->boot_time +
++	time64_t double_grace_period_end = nn->boot_time_bt +
+ 					   2 * nn->nfsd4_lease;
  
--	if (*fp)
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	if (!ops || !try_module_get(ops->owner)) {
-+		rcu_read_unlock();
-+		return nlm_lck_denied_nolocks;
-+	}
-+	rcu_read_unlock();
-+
-+	if (*fp) {
-+		module_put(ops->owner);
- 		return 0;
--	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
-+	}
-+	nfserr = ops->fopen(rqstp, &file->f_handle, fp, mode);
- 	if (nfserr)
- 		dprintk("lockd: open failed (error %d)\n", nfserr);
-+	module_put(ops->owner);
- 	return nfserr;
- }
- 
-@@ -159,6 +172,33 @@ nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
- 	goto out_unlock;
- }
- 
-+/*
-+ * Release the struct file references held by a nlm_file.
-+ */
-+static void nlm_release_files(struct nlm_file *file)
-+{
-+	const struct nlmsvc_binding *ops;
-+	bool have_ops;
-+
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	have_ops = ops && try_module_get(ops->owner);
-+	rcu_read_unlock();
-+
-+	if (have_ops) {
-+		if (file->f_file[O_RDONLY])
-+			ops->fclose(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			ops->fclose(file->f_file[O_WRONLY]);
-+		module_put(ops->owner);
-+	} else {
-+		if (file->f_file[O_RDONLY])
-+			fput(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			fput(file->f_file[O_WRONLY]);
-+	}
-+}
-+
- /*
-  * Delete a file after having released all locks, blocks and shares
-  */
-@@ -168,10 +208,7 @@ nlm_delete_file(struct nlm_file *file)
- 	nlm_debug_print_file("closing file", file);
- 	if (!hlist_unhashed(&file->f_list)) {
- 		hlist_del(&file->f_list);
--		if (file->f_file[O_RDONLY])
--			nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--		if (file->f_file[O_WRONLY])
--			nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
-+		nlm_release_files(file);
- 		kfree(file);
- 	} else {
- 		printk(KERN_WARNING "lockd: attempt to release unknown file!\n");
-@@ -286,14 +323,6 @@ nlm_file_inuse(struct nlm_file *file)
- 	return 0;
- }
- 
--static void nlm_close_files(struct nlm_file *file)
--{
--	if (file->f_file[O_RDONLY])
--		nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--	if (file->f_file[O_WRONLY])
--		nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
--}
--
- /*
-  * Loop over all files in the file table.
-  */
-@@ -324,7 +353,7 @@ nlm_traverse_files(void *data, nlm_host_match_fn_t match,
- 			if (list_empty(&file->f_blocks) && !file->f_locks
- 			 && !file->f_shares && !file->f_count) {
- 				hlist_del(&file->f_list);
--				nlm_close_files(file);
-+				nlm_release_files(file);
- 				kfree(file);
- 			}
- 		}
-diff --git a/fs/nfsd/lockd.c b/fs/nfsd/lockd.c
-index b02886f38925f..35b2a0541dc44 100644
---- a/fs/nfsd/lockd.c
-+++ b/fs/nfsd/lockd.c
-@@ -79,6 +79,7 @@ nlm_fclose(struct file *filp)
- }
- 
- static const struct nlmsvc_binding nfsd_nlm_ops = {
-+	.owner		= THIS_MODULE,
- 	.fopen		= nlm_fopen,		/* open file for locking */
- 	.fclose		= nlm_fclose,		/* close file */
- };
-@@ -87,11 +88,12 @@ void
- nfsd_lockd_init(void)
- {
- 	dprintk("nfsd: initializing lockd\n");
--	nlmsvc_ops = &nfsd_nlm_ops;
-+	rcu_assign_pointer(nlmsvc_ops, &nfsd_nlm_ops);
- }
- 
- void
- nfsd_lockd_shutdown(void)
- {
--	nlmsvc_ops = NULL;
-+	RCU_INIT_POINTER(nlmsvc_ops, NULL);
-+	synchronize_rcu();
- }
-diff --git a/include/linux/lockd/bind.h b/include/linux/lockd/bind.h
-index 3bc9f7410e213..2fef35577f019 100644
---- a/include/linux/lockd/bind.h
-+++ b/include/linux/lockd/bind.h
-@@ -20,11 +20,17 @@
- /* Dummy declarations */
- struct svc_rqst;
- struct rpc_task;
-+struct module;
- 
--/*
-- * This is the set of functions for lockd->nfsd communication
-+/**
-+ * struct nlmsvc_binding - lockd -> nfsd callback table
-+ * @owner:  module that provides this binding.
-+ * @fopen:  open a file by NFS file handle on behalf of an NLM request.
-+ * @fclose: close a file that was previously opened via @fopen.
-+ *          Implementations MUST be semantically equivalent to fput().
-  */
- struct nlmsvc_binding {
-+	struct module		*owner;
- 	__be32			(*fopen)(struct svc_rqst *,
- 						struct nfs_fh *,
- 						struct file **,
-@@ -32,7 +38,7 @@ struct nlmsvc_binding {
- 	void			(*fclose)(struct file *);
- };
- 
--extern const struct nlmsvc_binding *nlmsvc_ops;
-+extern const struct nlmsvc_binding __rcu *nlmsvc_ops;
- 
- /*
-  * Similar to nfs_client_initdata, but without the NFS-specific
+ 	if (READ_ONCE(nn->grace_end_forced))
+@@ -8719,6 +8719,7 @@ static int nfs4_state_create_net(struct net *net)
+ 	nn->conf_name_tree = RB_ROOT;
+ 	nn->unconf_name_tree = RB_ROOT;
+ 	nn->boot_time = ktime_get_real_seconds();
++	nn->boot_time_bt = ktime_get_boottime_seconds();
+ 	nn->grace_ended = false;
+ 	nn->grace_end_forced = false;
+ 	nn->client_tracking_active = false;
 -- 
 2.53.0
 
