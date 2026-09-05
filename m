@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2D03BB57
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:04:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC78A3C2D
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566689; cv=none; b=GCEQd9Emr9wr0HY872lrG9LEhvu+KJAT/Ru9TlkxYzZi1cDHoMjRh8c53jsixh5bFvjwXo62qnAAIxi8CkUL3fp9ml8lKrONTIS35e0zZVgMmVDgDCuP7mzTXCNbGiqsgelmQ07qQSOfqIgJbep5ks7f+AfJD4NcoVIvA9jccEU=
+	t=1788566697; cv=none; b=kNH3ZEIdXqa+34JE7VmgiIgvbYEyLLcEyS5iPWBNe4tYJpzdqtLm/R+OPIkKXM2FQrsT04DHXC57athS/Ilagmz6ZpJ2HSpvfIQPBkq4bB1mAD5sLRNwDK0SFYxqCnzlGY8rmkaA/i+wO7Cy3edsQEGaAEzqf+Y5BVv2kkBXH/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788566689; c=relaxed/simple;
-	bh=CTb+vKqWHPVT8hiWAlUrKuVN+0pRH0aKmHHTwwMt5dA=;
+	s=arc-20240116; t=1788566697; c=relaxed/simple;
+	bh=Pq02RwUMpsN7ZAlw6QEXdm/RXewlgajGp+8BdvN7MW4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PZS7ZhFAdKOr2v0fBkssNihnlnUcDSBeJFo7xKvNJAoEpCTcXdq/5hRzmZd7HE8ZfiFd5U6LCVd/k+/ulvZXuVTcv9yHAc9o2UGkuMFCT9SdKIXRPWmRGJbi6ah4UQQSoSorZs2LKoJIyoojBPH8fBg755RKM1rcdAXV/DcUL/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrIhVFck; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=njCeexfK6ObaAhb3gsTzlYgisI1RQGBQYqkeHUqRi8Z8EouXRRYk5rh6sMVmbJ8N49rLhR415IV1qHcznuLMBQzYkkOVXl44Nxcj8qDnV/kHnWYn/wadFA3ofXc5XAsAc8vkO6nvGP/6IybaL+yEHHdPzLYQ4NIup8YhrPo0uTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eP4AO5II; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrIhVFck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71E91F00A3D;
-	Sat,  5 Sep 2026 00:04:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eP4AO5II"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676391F00A3D;
+	Sat,  5 Sep 2026 00:04:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788566687;
-	bh=qc5xT4myPSrD+BBFTmDNzAy9AecGrZCP8Ek0qNC8KhQ=;
+	s=k20260515; t=1788566695;
+	bh=VO14Bw0ZJ+gAroWae96tbhg4JmH7OzT2wO3S37Qtl8o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OrIhVFcke/HN3Jz84+zJNoAm43/cOVOJsXBh5UWVqvnWrY/5eOnvu+2GqDGSHYhxF
-	 dxLRjG0GhWaZ62MsmiFrZH6BTi8FVVmNycIfwFDAgwlVqJ+HNhnAO4cyE0chnCJwos
-	 4hAQJWTvDguOO7n2QcJzopTLxgfkJbM4YGXm+N7NdtPCMdwdbXPxCX8XWbRBBZua6s
-	 6Whvb22otypPyDq8OIDuDJ/KM7N0ViIABZElQqbFKS+LqzIL9MrEk52hIm+FkdJuLP
-	 +Y2e5+QLs8KfKeNweJqdexgnB+WNzVLs7E67o087I2yplXsEfEHwzZ9BWcl4jGLF7X
-	 lQ/eeyrVT56Rw==
+	b=eP4AO5IIVjAcaZhgEk4VzEfAOiPYvecX+KB/Nv4H4VR2DDkzLt7xYMkNhnwkn3fhJ
+	 NQo7QdVENAJftOvuitMDeutnVFny77OKwn9oeKj6QwXrIWvvBehR8hOBpPAynYGgUx
+	 GuFBX7N803cjuXDRgr33Ax1XrsqNiKpkj+VaF7daEYPyTi26iyWoUt3cku8kCwzGez
+	 +oSvVGf9viafYM9KrWX+IFRjJW/YHt+2BPvwrbeUY46qKYxK0DGxl+/gcOcusk/gJO
+	 BtJ/Ce7+9cRRACSBYXTNIanZoTTePY7p+B5rmvJ5hDClvjKY06bepeGDCuLIWVX7Y8
+	 WWS6rwI+hKODA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Minchan Kim <minchan@kernel.org>,
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Brian Geffon <bgeffon@google.com>,
+	David Stevens <stevensd@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Richard Chang <richardycc@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] zram: fix out-of-bounds access in writeback_store()
-Date: Fri,  4 Sep 2026 20:04:45 -0400
-Message-ID: <20260905000445.1656128-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] zram: switch to guard() for init_lock
+Date: Fri,  4 Sep 2026 20:04:51 -0400
+Message-ID: <20260905000452.1656571-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090306-supremacy-tulip-9586@gregkh>
-References: <2026090306-supremacy-tulip-9586@gregkh>
+In-Reply-To: <2026090323-reflux-devoutly-8bce@gregkh>
+References: <2026090323-reflux-devoutly-8bce@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,92 +49,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit 894913e2d35c46ff19a77530907771ae57862b96 ]
+[ Upstream commit 0d38260c2a11de147f0c4701b344fdfa6bcdd04c ]
 
-Patch series "zram: fix stale scan bounds after reinitialization".
+Use init_lock guard() in sysfs store/show handlers, in order to simplify
+and, more importantly, to modernize the code.
 
-Both writeback_store() and read_block_state() derive their table scan
-bounds from zram->disksize before acquiring dev_lock.  If the device is
-reset and reinitialized with a smaller disksize between that read and lock
-acquisition, the bound can describe the old table while the scan operates
-on the new one.  This can lead to out-of-bounds slot accesses.
+While at it, fix up more coding styles.
 
-Move both bound calculations under dev_lock so each bound remains
-consistent with the table throughout its scan.  Keep the fixes separate
-because the affected interfaces originate from different commits and can
-be backported independently.
-
-This patch (of 2):
-
-writeback_store() calculates the table scan bounds before taking dev_lock.
-A reset followed by reconfiguration with a smaller disksize can therefore
-replace zram->table while writeback_store() is waiting for the lock.  Once
-it acquires the lock, it sees an initialized device but scans the new
-table using the old upper bound, resulting in an out-of-bounds access.
-
-Calculate the number of pages while holding dev_lock so the scan bound
-matches the table protected by the lock.
-
-Link: https://lore.kernel.org/20260804065919.3970386-1-xialonglong2025@163.com
-Link: https://lore.kernel.org/20260804065919.3970386-2-xialonglong2025@163.com
-Fixes: a939888ec38b ("zram: support idle/huge page writeback")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
+Link: https://lkml.kernel.org/r/20251201094754.4149975-7-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: David Stevens <stevensd@google.com>
+Cc: Minchan Kim <minchan@google.com>
+Cc: Richard Chang <richardycc@google.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted locked writeback bounds calculation to the legacy init_lock and page_index parsing flow. ]
+
+For the 6.12 stable backport, retain only the zram_reset_device()
+conversion needed by the follow-up fix. The remaining upstream hunks
+apply to zram paths that have significantly diverged in this tree.
+
+Stable-dep-of: dde75313eed0 ("zram: set default primary compressor in zram_destroy_comps()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/zram/zram_drv.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/block/zram/zram_drv.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index bef5388e4e28e..072f5f2675064 100644
+index cf3c789945b41..e11f0ff18012a 100644
 --- a/drivers/block/zram/zram_drv.c
 +++ b/drivers/block/zram/zram_drv.c
-@@ -644,7 +644,7 @@ static ssize_t writeback_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t len)
+@@ -2173,7 +2173,7 @@ static void zram_destroy_comps(struct zram *zram)
+ 
+ static void zram_reset_device(struct zram *zram)
  {
- 	struct zram *zram = dev_to_zram(dev);
--	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-+	unsigned long nr_pages;
- 	unsigned long index = 0;
- 	struct bio bio;
- 	struct bio_vec bio_vec;
-@@ -663,11 +663,9 @@ static ssize_t writeback_store(struct device *dev,
- 		if (strncmp(buf, PAGE_WB_SIG, sizeof(PAGE_WB_SIG) - 1))
- 			return -EINVAL;
+-	down_write(&zram->init_lock);
++	guard(rwsem_write)(&zram->init_lock);
  
--		if (kstrtol(buf + sizeof(PAGE_WB_SIG) - 1, 10, &index) ||
--				index >= nr_pages)
-+		if (kstrtol(buf + sizeof(PAGE_WB_SIG) - 1, 10, &index))
- 			return -EINVAL;
+ 	zram->limit_pages = 0;
  
--		nr_pages = 1;
- 		mode = PAGE_WRITEBACK;
- 	}
+@@ -2189,7 +2189,6 @@ static void zram_reset_device(struct zram *zram)
+ 	reset_bdev(zram);
  
-@@ -682,6 +680,15 @@ static ssize_t writeback_store(struct device *dev,
- 		goto release_init_lock;
- 	}
+ 	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
+-	up_write(&zram->init_lock);
+ }
  
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
-+	if (mode == PAGE_WRITEBACK) {
-+		if (index >= nr_pages) {
-+			ret = -EINVAL;
-+			goto release_init_lock;
-+		}
-+		nr_pages = 1;
-+	}
-+
- 	page = alloc_page(GFP_KERNEL);
- 	if (!page) {
- 		ret = -ENOMEM;
+ static ssize_t disksize_store(struct device *dev,
 -- 
 2.53.0
 
