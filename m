@@ -1,211 +1,110 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013082.outbound.protection.outlook.com [52.103.46.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358EB14A619;
-	Sat,  5 Sep 2026 20:48:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788641332; cv=fail; b=OBSz+OP6E58LeldAmBfhLY2MfvtL/vJ1w67R6ZRHNwxkekZb9F6iq7ncX+CH4eCYfOUoYv5tDSGcZb+oZVR6qf1RHmEFINsnsKX5SdWrd7pwGR2MOW3oM7rt7IOH71iZKed8P/JTGJdFaUX3++SJBYrYDyM6JRb3nKERmgR2xnk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788641332; c=relaxed/simple;
-	bh=FvAyqHkIs1Ip1ZyiBgkiYkt99CH11L7+DJSEFS0izxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fFUAIzh1yrkc3aDnSDX1d9NxoNxBeIPRXfMEAGYj+7LbjABStpku0a4eCT+0GQesSH8m3eDrS7xUz9rjFpOm+RlRz7lR0bqus5F1RpXwDyGpdMMWuhbaFeItzt/OCneU4C/2PynR2fC20GSw6Gosfg5XgvI6lCAKVczjfCaQCE0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Ek4POoIS; arc=fail smtp.client-ip=52.103.46.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE481A9F8C
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788641355; cv=none; b=qE/FCOEGUVLbciaKRk9CIXebxrXUZm16wHWppVB85SlEc83Oi4q2A+3LXrgdbgirTEgdXGP3x589cS3g/HnTA1Lx8Yc0CmjbBtjTHkgA07YH9PM4/+WKsqhtPrAQQfasxws1RcbRsiTWVDBI0xqGhP9OMqQiv+qoMmfEgyi40x0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788641355; c=relaxed/simple;
+	bh=r/z0/C5tMQT5HZYyEl4B0b4VC5XYi8OOIGchid41G5Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Xr7c6AJNEbcH9avHdR0bdyolB0G9xoGBFfKzhRHOPrXKGxS4pEj3yqj+olq4uhBqEv/PeufYCRqjsGHhEcw1AEjiqrpl//sjJKTuUsAvTbyXV/jUss40Szw8JILZJQ9Lt1DXgn9wdtdlJQ+zzJY8F8sS2r8RADHNrIfqjqnmWwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=eX0Mj5uQ; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Ek4POoIS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=avTVLb0h+Nis2iaNvbl+pPH5iSwlFPVUeIWWtybvgg6SPuyG+0CjNkPxQKaGONEZamWQ3z8IQ0SuBaKAg596QzkZKZ29PRQ4GlVexZiy8W5qYoKwPVKGbKmvum3+ckROsepYn85uLJ1DA0IitvhZhNUDNGype0Nl0OnXNTt+BCm1y2UUardqJ/1NaNQ4mppngGPGbLWegxOYxiUiKQw4RLnMcV2Y8n2z3dkXgRiZvdMqBg12xOqfa2lppW6TnkdHUKM+x4jNVWFYmGFdXOSgIVHjMPaXgO59IC1ybYddp9WxqsXQYV2BdDDI6bz4+WBThEvuYX0FclTCD3FBknldpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tegd1GECJ9D1sJrLs/B9DOHmTKY2wOxS7gCgv9dsjag=;
- b=iwAugbwkJtWepU08PiFp5j07X5QCNcv67y/MyiRvI7pzrOKLKUPn1RzXMFxkiSm20/hunGNBllSr+rXJv4xLGmzuc223ahiPwko8Uad2Ek5W9o0ycS53KHuZDlGOZQi446Ty9euN1H+8PA1R770U1bbYQzrT1v78NOE4olEN2FsHWzZ6Nsc6SMVh9lAPXoWGHkLLmQjVGbojIoLqYdydo0JB2Y4J+ItF4THQV8oZLUm6px+KVoxKB8MjalW2MKjGjLw8u49bmIhdHq9UKX/XTTyyubStCrrBHXPPw+BvfLRnvvjAfKRPoyJbE05iDnTLMgM9nvSQH2XQzqZ4EcfF9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tegd1GECJ9D1sJrLs/B9DOHmTKY2wOxS7gCgv9dsjag=;
- b=Ek4POoISXWT4xgpdaGp/Wiu9nB+R2C+B4pDBU5eXf3/w2B+Ksl8HCpX8q/QKvWPhSvHc6VjmlUyvbTtyLuYOZ3q5+zlM/HGpoodPmZCWxvVoLV5JD0G9ODQ11VAbwZp4VDIAelqfFREzH2d31+scNJbFtY0g0HLCNDhoS9Y/23PJthgEtGNLhtVCXQnliuPJ2WZTLUMByyIVcSTJVgKGgdzGuTzPTUIa2Tm+E9msJe0g/UGC118oe9eRU3PvPvMyOeAVyaTRG0opG4jRG0LxukxUpjmfmUsOlgt15nWW40XjLCI1FWyYTVAs74E0HPlK/fZ2p2njDBcbWVYyvrBmPg==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by PA1PPF75DB7739D.EURP251.PROD.OUTLOOK.COM (2603:10a6:108:1::21b) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
- 2026 20:48:48 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
- 20:48:48 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Georgi Djakov <djakov@kernel.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH] interconnect: mediatek: Assign .num_nodes before accessing .nodes
-Date: Sat,  5 Sep 2026 21:48:46 +0100
-Message-ID:
- <AS8P251MB00010F5EE7878E15AF0E49F3C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.55.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0218.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a6::7) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260905204846.31973-1-elb12345@hotmail.co.uk>
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="eX0Mj5uQ"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48586861639so1548617f8f.0
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 13:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1788641351; x=1789246151; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c1EfKIGU/Jrr5zV5deWFk7RgEC9wFJWZJq9htaal6jY=;
+        b=eX0Mj5uQVqD3VT/85ooqJ/R7nPJyEu+8dXwH7ChxSYeCBPsfPoO5iIZSNOSml3FJQn
+         Wna0kiMrbpfweM+BEMqS11VoAQSskMgsBE6G0+QDXzo0m23Uow6cLgluZwnPYPiER2V/
+         U3DTzm/42bqfAVpwZP7NlykXpwRILiLho49aBDKP5ktXnEb25WHXBJMdnJ4XgJouCIBM
+         sk4Xkrtk0O0ouOHFLET54kg2xLqfGM5ckFrWXGkFQoJ5d9l4e9I1jAnvg+7vnLGkvIv5
+         Kn911h62QllZpIEQZXUqknSHL2bDpj230fjC0VbZA1rD4jTrdZcuWN4AwOQYzYtRx3BR
+         RmVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788641351; x=1789246151;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c1EfKIGU/Jrr5zV5deWFk7RgEC9wFJWZJq9htaal6jY=;
+        b=IyASq1OvOXj8S8E/wEjxiwPYOVXg8RoGgPdZ2t/D9vLO6JGG1eGI9YoLbeCc4M8CEg
+         lJ00j7DBHJbI98guq1ABgohlnraevEu3PTng1hchsazAWObIX1qOj+su4ohHoQ6qXkD5
+         Cndk903/NVzV3DLA59476Z4n5kRMw4qtCkF3xIFrl+ZrTE7cUh6/XXgKepiK7hh4raSx
+         3NJnMNmoPbkC41V+Y3tePTYeC55xmBaHu73qfJfQZNOqIOGLabfUzjf3xSQ1Na2JYK+Q
+         BwAvhPMDaSLeNlwJ/8a5HOkPnPs//8BFQerQnfEM5d7yDereM9LFZCmbJvlWBzIgWHUe
+         NdMw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLYaE6iqo1DoH9W91lAhEmb0Aop4jqSrO8Y5TwPJg81LxlChrXuyxJ1vjrULm9swShjwdz6LE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGc09vp9YBfYOpfUNc7xYRvX0CP2VO2mK3WQ2M2jYUH0LVqu7U
+	jzHEdCFseIB525OXJt91YUpiYKK8ve4oUZcUB4mIKAYHrxkXuUlGd2k=
+X-Gm-Gg: AYBFou2vY/+Xa7/z92vRZRXI+B86eyUvZKu7hisDPnYwahAwXqGLqXRB5ip4ExMToO/
+	Q7mNwPCpgUmMFDTM8xbFSEKS6NeHkq9YHuHc36ugREON/u1euWXusXAOy8HsXjEuGlz8h+7JaIA
+	l43g0dhlFS7LCOaaEgyHC/Ay2guBdqc6nrLPSAV9p9oENjfxhgMtDVoMMbZ9eENCVt89aGmZXi/
+	qPaD7Q1rqc+RhcPU2DGS9VIsNZA8S5HsOsXq60Qx+RzFwMvuWgNrCrRsG7MYlaDgx3PfSPNla4p
+	LUp1FgNXpqmOFU759QsLfPTIMhwLrJFSyQPmLiavndzwi7+tgV5zUcprwgdKxfL3CFwAlM+0gtY
+	Ha5RB3iA64ZqNBK2/tiry74dmHNXtOyBaWcV4107e3hGhfj7hBlt2pcU4WboHDjIh3KyUp3TMJu
+	7BDYmWq+1V6KBL02wdWkt82M3jpsW/Ebeksj+M5DBaF9OwpVcy6+M6LP7a+Jm/OLV6bjsqTAtt/
+	PelR023Vn+9kxRFbBpGQeH9/iXuV/KIXwKKt4UW
+X-Received: by 2002:a05:6000:2487:b0:485:8639:d58e with SMTP id ffacd0b85a97d-485891e752amr13186722f8f.8.1788641351327;
+        Sat, 05 Sep 2026 13:49:11 -0700 (PDT)
+Received: from [192.168.1.3] (p5b2acda4.dip0.t-ipconnect.de. [91.42.205.164])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm17241259f8f.10.2026.09.05.13.49.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 13:49:10 -0700 (PDT)
+Message-ID: <840c2d45-400c-4540-8238-862aa54a87ce@googlemail.com>
+Date: Sat, 5 Sep 2026 22:49:10 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PA1PPF75DB7739D:EE_
-X-MS-Office365-Filtering-Correlation-Id: b178d9a2-bc90-494e-bdd1-08df0b8f15d8
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|5062599005|23021999003|5072599009|15080799012|25031999004|37011999003|41001999006|8060799015|19110799012|25010399006|4140399003|52005399003|40105399003|2607281247196008|3412199025|440099028|26104999009|19061999003|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?cRAdEVm7dvy6vtTfHRcjqDruyTrqHOCCEcFq1cs5q2dPpZc1c2JuZuQ+/FyC?=
- =?us-ascii?Q?N+maEEfC6GwD2GfZP5NMYIt3PKm0VSqT0swHvOi5sjdiM364Rk2iIT4p22ZH?=
- =?us-ascii?Q?pGbwQSaWLQSph9lFCKVxB3LXjPOnjJzrcV6FnoDZfQOIrAK7bDOq5XvPnrA8?=
- =?us-ascii?Q?vFwXDNKdt8IJftvvHNYCzMfSRWUh4U87EdR9hx24Iozad/zN7Ih/nEQJKmN0?=
- =?us-ascii?Q?QqluHBeca3bkWefJPLLWS/TMsTYl4YVjalv5wD1GaKqZVqrR6UJ1XCWE/AA+?=
- =?us-ascii?Q?oYuVsZMXRNN7051sVrK+L1S0HB7zMNM7uGkMsi6kyc/aQ4jg8TcFra6Fs263?=
- =?us-ascii?Q?+XiSiTsJeRC53Kd6jDBElmB/jigt5vyt6KbBk0rih93XWBdvUmUpiD3uEIAW?=
- =?us-ascii?Q?1K8BsP4wHxrb2DgzX2BjT4CrfgUqThD1w9G49WFAa6ZATwc83Dur1dzpjyGr?=
- =?us-ascii?Q?e1vFleYPbjl1yQTz3WTZBK+yUeGnKcMW/MPVi6H7SlhSLB0ISQy4TU1Wvsww?=
- =?us-ascii?Q?Ia3mvOOvLJyHUlb/MQYKIoFxncDdAbk/iUatR8f4s3/AJanX8C1r+Q0mfHr+?=
- =?us-ascii?Q?70aCbmUYD/N/RlaPh2Qf+2QwONFkvM2Q/9jUBSmp12ExmcJhP4mbeCeXyHL7?=
- =?us-ascii?Q?73OnVxkxChgWXS1kD/tvi8bWn+4XiIQOR9IJpnz8B99HgFNYZMltzZQIyPLJ?=
- =?us-ascii?Q?D4w85rzUzgQUEkfWs32ZJUxU091mi2/rvGZTWs6SLHJr5HhQtaqhB1Z5+vry?=
- =?us-ascii?Q?NFyZbLFK57R+SpQSHh1FQ8lrQA06RmKJ2iqj1lTx+tfpNjN2/6fiSzcJI7uM?=
- =?us-ascii?Q?rBl1aquRBFgDaSl2lYaJX4awfctKMk40KHEWco27Pxsc3SuTtTnpC8OLYx3a?=
- =?us-ascii?Q?YfxEzB1UlOBVfN7YqtNzUCPa4ffZCjYKQw8dDtJAjHrc1DwR09Xy+7WVtAdB?=
- =?us-ascii?Q?MF0i6BW8Yxg/KlY7TWP6MTBedVqu49d3Xddip1JqwJ5Yrc/zUD8Qjk7aNlRz?=
- =?us-ascii?Q?6D8mYpuYO0yjg1LifwEFYd0vCz8NZzfXNHO5Zb7Zdu2STr2go1sOJ6/XGeVw?=
- =?us-ascii?Q?1Keo0AcjXU+O1rLlFXEOCIzIYmyyrvOOh4DlTG+PjfCBs7gT8QZcYrZ7vZWd?=
- =?us-ascii?Q?SaEdW9aM/3c4?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?FOIXuVMssia3Ye0nemadkTpN0guVfP3row4pc4NYJ8zPAk42AfMbafforJEr?=
- =?us-ascii?Q?qw+q+8m0qqRELiKaQVh62hjsH5VCF9GAvfWPGK2CTmTxavFKrJGTOqgt3E0O?=
- =?us-ascii?Q?RWMZjVQ86x2heyVAuvOf9DmVVcDQ5Yal+cbuPbn6SjBJUiafIVSDdpkrYVfn?=
- =?us-ascii?Q?iWiM9euBHvDgPp0C9c3gAlgg0AqBafJuwpc2NVPqf0gOxrIzSV8SDxHK2XRa?=
- =?us-ascii?Q?i2wqrMQ/vo1r8+D6nyGGs9+a1vsnnAV4V3/nq2h9bkojJ2lFOLIU1Davu6Eq?=
- =?us-ascii?Q?P514hl2sKvsdDX5uPnBhb5dYA/1ktF/tM+Tqmdew341ss7pAJqY2430HuTXA?=
- =?us-ascii?Q?NDDz0wL6srpfkNhThwdtt+Re+8mj9ddiByAUJAlSeUwtdz9PvprNw7CZ/8/F?=
- =?us-ascii?Q?eyqDMXNA2EGIF7r/3xwf2GXZJ1i9jERnziaZ8qVyfwK/D53ByqJmllr089cg?=
- =?us-ascii?Q?i3yq9ihn9vctQphg8ARlvRG3X6wFL3bXj7mvX9GtAl9rRc8+5wG1LsWX7Dh/?=
- =?us-ascii?Q?VnWh/7a6qFy3wVCB4lt2mEQNzt/AFR90d/0L+VXdCPvcYVLf/+wFhbuLWsi1?=
- =?us-ascii?Q?EUv7IA5CjeE5iT87lj6bbJo50DLaCtMZC9S23NAEgNVmFFTSNcPLzwshEalo?=
- =?us-ascii?Q?RVOV8ZKImWnLfqBisX5XyjR9UnKGW/x2lmly54z/7LTBXgKhPqP0tC0aPh6C?=
- =?us-ascii?Q?MSexNS74Zv9h9ueWZN61QDGemRZwYNWSyo12y3AR3e3ZgbNFsyD15VF192pi?=
- =?us-ascii?Q?bweo2lprILqozVrQfxtAfpNAinRF3OvKkGbx2Al/motJr7nDy/rYWP8lmNbW?=
- =?us-ascii?Q?BOpN84Na6l7K5V36eTZXEKaD6/us8D9afM5eT9VPizJlqDD8XHNwjdiqMMIi?=
- =?us-ascii?Q?+IysTjzfuNXj9YL1YKv1v/rFaES9Xs126E3/OEx7OKVrtyfG/YisGRmkSE35?=
- =?us-ascii?Q?ur/0DZAq5ns9esmbPRT8ggnEbIOccfpcZknfKyibVmQthxmFg6KUwZzmi+C4?=
- =?us-ascii?Q?DQNqNwxAKhXocJCSZtM5BEJLGPgrh5c+wfPeyIQ6BNW3ud6A3Ln5WC2n92XU?=
- =?us-ascii?Q?lipUiS7inOCx/hyj+Jeiv/V6LNyEfzpdRnsLuVUJuaRf51T0/zE2rZeT1Vrz?=
- =?us-ascii?Q?njPUSS94rI4zQFAf1l1MsjwJpU2y/+J+sWKvMKjrbI6/lKWqZc/CI54rI9wg?=
- =?us-ascii?Q?sl6KLX0Vi7XB4lq5Al0j2unedDOxaVGymzdqRlsdPBvf6T/PrDvxJtNncYrm?=
- =?us-ascii?Q?SHS/nyklhre8pGQh1Olb58iqAMCzcJvBtMe53a/Yj95U/tZU2nrMpQ1/+nt8?=
- =?us-ascii?Q?jkWTZOclIpVrsD63soMCMOuBWpFTFr0bOlJ+wSVb+CdvzTEUVR1Je8Bo5Op+?=
- =?us-ascii?Q?Dk3Zj4zEchsQ3iIswR+DKQVjb96u/mWo0RHio5nMmDXiNh+KYJ3evmyiBNL+?=
- =?us-ascii?Q?rHn0C7062BRGDK1nWhA1UJYLfn3Gr8rA?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: b178d9a2-bc90-494e-bdd1-08df0b8f15d8
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 20:48:48.7656
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PPF75DB7739D
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 000/400] 6.12.109-rc2 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260905115627.670276262@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260905115627.670276262@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Commit dd4904f3b924 ("interconnect: qcom: Annotate struct
-icc_onecell_data with __counted_by") annotated the nodes member of
-'struct icc_onecell_data' with __counted_by, which informs the bounds
-sanitizer (UBSAN_BOUNDS) about the number of elements in .nodes[], so
-that it can warn when .nodes[] is accessed out of bounds. As noted in
-that change, the __counted_by member must be initialized with the number
-of elements before the first array access happens, otherwise there will
-be a warning from each access prior to the initialization because the
-number of elements is zero.
+Am 05.09.2026 um 13:58 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.109 release.
+> There are 400 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-This occurs in mtk_emi_icc_probe() due to .num_nodes being assigned only
-after every node has been stored in .nodes[]. With CONFIG_UBSAN_BOUNDS
-and a compiler that implements __counted_by (GCC 15.1+ or Clang 20.1+),
-this triggers an array-index-out-of-bounds report during probe, and with
-CONFIG_UBSAN_TRAP the first store traps so the interconnect provider is
-never registered.
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-Move the .num_nodes initialization to right after the allocation. The
-value assigned is unchanged, and the other users of struct
-icc_onecell_data already initialize it there.
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-Cc: stable@vger.kernel.org
-Fixes: b45293799f75 ("interconnect: mediatek: Add MediaTek MT8183/8195 EMI Interconnect driver")
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
-Found by a tree-wide audit of every __counted_by annotated flexible
-array whose counter is assigned after the array is first written. This
-was the only remaining user of struct icc_onecell_data with that
-ordering; the same class was fixed earlier in clk-s2mps11
-(3e14c7207a97), exynos-clkout (cf33f0b7df13) and clk-raspberrypi
-(6dc445c19050). The audit, the fix and this changelog were drafted with
-an LLM assistant and reviewed by hand.
 
-Compile-tested only (W=1, no warnings), on x86_64 with GCC 13.3, with
-CONFIG_INTERCONNECT_MTK_DVFSRC_EMI=m forced on the make command line
-because the driver depends on MTK_DVFSRC, which has no COMPILE_TEST
-option. GCC 13.3 does not implement __counted_by (CC_HAS_COUNTED_BY
-needs GCC 15.1+ or Clang 20.1+), so the build only confirms that the
-change compiles; the sanitizer path was not exercised. I do not have the
-hardware, so this is not runtime-tested and no UBSAN report was
-captured.
+Beste Grüße,
+Peter Schneider
 
-Based on v7.3-rc1.
-
- drivers/interconnect/mediatek/icc-emi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/interconnect/mediatek/icc-emi.c b/drivers/interconnect/mediatek/icc-emi.c
-index dfa3a9cd939..c4aa0ab566d 100644
---- a/drivers/interconnect/mediatek/icc-emi.c
-+++ b/drivers/interconnect/mediatek/icc-emi.c
-@@ -100,6 +100,8 @@ int mtk_emi_icc_probe(struct platform_device *pdev)
- 	if (!data)
- 		return -ENOMEM;
- 
-+	data->num_nodes = desc->num_nodes;
-+
- 	provider->dev = dev;
- 	provider->set = mtk_emi_icc_set;
- 	provider->aggregate = mtk_emi_icc_aggregate;
-@@ -126,7 +128,6 @@ int mtk_emi_icc_probe(struct platform_device *pdev)
- 
- 		data->nodes[i] = node;
- 	}
--	data->num_nodes = desc->num_nodes;
- 
- 	ret = icc_provider_register(provider);
- 	if (ret)
-
-base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
 -- 
-2.53.0.windows.1
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
