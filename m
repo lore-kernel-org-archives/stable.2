@@ -1,189 +1,330 @@
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE24F1D47AC
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 13:25:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F41A3859DA
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 13:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788614720; cv=none; b=GVu83tppJ5rU/pqn/oCmqOtozSVePyHztZ0cuVXtoRtIqtVc8RNkH9PwJNFUm2stcEOQyTfN1n/mLD4MJeMU16zN/0w7jdC2VmpxmJbtyl/VWcoXjiCbjSEWOjrO1TCWRG0h8S8TosM+zgTNbxQ9GpehLpB09MsvH46DPJJAnLo=
+	t=1788615355; cv=none; b=TNRw/yS97IA2hUgFtN0/ZIV1/h3kO6LPxuBXbKnjQOrZOZk6nWIwNBqG5KJj/BPnOmX1wH0m6GQDMKclbEnhBYvVLG73JCYAAYzY3+yxpUolplKOcKCAm6pZooQ19/EepvNhj4XRKyblB2lK0TZXOeblM/PZjCsVg5xgJGJI/rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788614720; c=relaxed/simple;
-	bh=zwVZk6yADPSWAfQ0owoqV2RSMh6J55ZPFqsn5iAD2Lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=msmZoJd9LQFEW9aG6DdXngFH3c3YftI1F4ddUq4+Zh5/50UQB+Dl7n8ZtkxEc6sgoZuhg5BVPsfXNyUQcCr8y6a+xQbmUkl0+V6DBCJEUnZXO7dfOOaYaQ5630JPrzdX9qdwqDZ8QQfhT0jICt8z7y5PREoW/+RTck+6H3qydw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai; spf=none smtp.mailfrom=furiosa.ai; dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b=jMybVybU; arc=none smtp.client-ip=209.85.210.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
+	s=arc-20240116; t=1788615355; c=relaxed/simple;
+	bh=VeNa2rWecu+wKeAZbe68Hc2zT5XiwNRQP0fHyGJjYKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KKReZE4D6oIGoj0e08nz9AzoxPPumIRdF8qTM476CqOORfmP4qcRyqH+Ny/9qY1SwMy7tXOAtIlyqP66a8KkW0U0O1aUAiatHBXnYnt2AA72gTXQjx2hNYucg+ckl0/EIgoiPHU8i8gNknbp2MTgSt37ZFikmsHYwMBxNHqWNa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBUe7O5Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=furiosa.ai header.i=@furiosa.ai header.b="jMybVybU"
-Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-853e2610bb4so2100454b3a.0
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 06:25:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=furiosa.ai; s=google; t=1788614718; x=1789219518; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UCPQY2s7Li9KbXRAy98AdJWgLwoyUR6+yD7sEQfOnDg=;
-        b=jMybVybULhqNeGPNgWLhZ4vNSTYIJKNUPn+15yLTtSvNYVrq49nXpbPiw8JZR5Js9K
-         v4MzhfODNktfAxYz4yaqHbZ9hG4UM9Btd7uqh9dmOVwIs2XVvFdZMbPJPobEmfw5kZMJ
-         NH8yeQgHJsbqltgksXYCrfs6cH/F5MVUuyu1c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788614718; x=1789219518;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UCPQY2s7Li9KbXRAy98AdJWgLwoyUR6+yD7sEQfOnDg=;
-        b=o/DuUZFFPhHjwIwF19TLKAt86qe8CsmIicnV0/3m9CMyXYsRqH7FzN8q5ZYzqMnDdo
-         jaExYqeTS4O2SWn7YN9vlmzOJkjmPGB05ZUKo4pADH8gRP2LYrhU90MWr6vS+ckk0TlW
-         R5mxZZhHwToVoAFKFSnTJe/HK5u0VyPtuRA8iIYQYmZ1n35EY1NSiBugvC1VLic6v7Wo
-         pIZ7xdXzuUHdDWagxM1EX5wLrOyCAukh5eGSD5uVaWr7EA8povHKVwau8bRfGFAww8Ul
-         bcusR/c5qiG8u4Xe0KENfrXjq+D5kSNAtOf6wfVjwzZPozVuFyR4HXjLr0M33GPU8J2A
-         cINA==
-X-Forwarded-Encrypted: i=1; AKwUvBwii7tS0phUXoZi3PzRdFR9QfabyYsUsA3TSZ6YftOJ807g5iDhy5eCAHQxPGJ6AD/GbZa/IrA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nuMreyYQXYmAolzBGZxSW0PGdtuqrmeJxk+V83OWBPH/1e+8YX
-	f3UgATlZRnp3HogEo4ILrx74K3tDSW+xIBu8GTFxcohU8r84F9Yyh2LQPEKt4nX/xnI=
-X-Gm-Gg: AYBFou1ck3aN0QdCQvspgZg/kwWlYfh1fDodpn9Rr+Lfp51GhtcZKKWWrwvhiSUk/qc
-	Tw1442EO3nqGjgRoFT23Di7QRE4ZqDq6bSKMqh94djuFMvCHsI4t26taf+nLUyrGB41Z6R1CU8b
-	Q6ebu1+HupE/P9fTR4mBwyEiPzoVfhVzR0LweQgC83it9akbM6mpK+RU4VN4nVn/r5i92XKh6Xe
-	G/E5hUnHLJvsE+HpvV2EAqiKkE+CgZmH8vE2O2NZTc8JqsZ+6tNYwN5c277ipis1Mi03QXbGWhs
-	pt3Hf6ji7pZ3o627KFzW+A6L/cI4DAvM2D99Mnn+RX0i3Goxw5b6hzVwjWR69t6F2kt+8Wi03MN
-	SjVxbYtgRFfsA9qgQWE4t4EYzfSEC7fbknhc7tvx+9DpaD75HKkkys6eKpYM2Bgn3dfkoq/tlu8
-	XgqlhKSi98BKHUeJ0cXSdpF17sEv1qIz3Jj/SxusGEHtz0quoS9J9A9mPXNJwWHhtV
-X-Received: by 2002:a05:6a21:a395:b0:3d3:aed2:6f28 with SMTP id adf61e73a8af0-3da2168b2c9mr18634503637.28.1788614718057;
-        Sat, 05 Sep 2026 06:25:18 -0700 (PDT)
-Received: from rock-5b-plus ([61.83.209.48])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc465376831sm903641a12.9.2026.09.05.06.25.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 06:25:17 -0700 (PDT)
-Date: Sat, 5 Sep 2026 22:25:02 +0900
-From: Sidong Yang <sidong.yang@furiosa.ai>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Jiaxing Hu <gahing@gahingwoo.com>, 
-	dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] accel/rocket: search every core slot when a core is
- removed
-Message-ID: <apwUewaRnoTNXHCt@rock-5b-plus>
-References: <20260904125936.26234-1-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBUe7O5Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A21A61F00A3D;
+	Sat,  5 Sep 2026 13:35:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788615341;
+	bh=qHwfc2OugyBIRnjvKRIZ6GXutaWyj61ekmq2D+VkHIc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mBUe7O5Y9RDWZ5gk48A4Kl6ZdYWTlWSwzZ7PTW+GLyXT6raw9ee8X29+eAR4Xkmuw
+	 EOi842Myw6/KObM7V++KUi//4+3DHxrjJTLiKH9Nqy+rODiv80yUl29EhrZf7hki3X
+	 oGyFVkfZEnT7zMPlX4you6N4ACW7nPFCe+hMr7YCtlxF6hbpOQcjX71GC+04aandOm
+	 i1WzxlxqiHWLXerGR1gQBPz7ReMZSahhOwkbI7bAr4aZwLExAKuk5UxxNCbzM54Mf8
+	 4eDVNbdimCbb3s/vFbhaL9TfQCzF8DiYk1oqk7kXUu/38VprScmQBNYK7d3dXjZxhB
+	 TJgxKl/VYJKRw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] lockd, nfsd: RCU-protect nlmsvc_ops dispatch
+Date: Sat,  5 Sep 2026 09:35:39 -0400
+Message-ID: <20260905133539.65623-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090305-dubiously-secluding-9957@gregkh>
+References: <2026090305-dubiously-secluding-9957@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904125936.26234-1-royalnet026@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 02:59:36PM +0200, Igor Paunovic wrote:
-> rocket_remove() decrements rdev->num_cores for each core it removes,
-> while find_core_for_dev() searches slots 0 to num_cores - 1. Unbinding
-> the cores in the order they were bound therefore loses the last one: by
-> the time it is removed the search range has already shrunk past its
-> slot, so find_core_for_dev() returns -1 and rocket_remove() gives up
-> without doing anything.
-> 
-> num_cores never reaches zero, rocket_device_fini() never runs, and the
-> file-scoped rdev keeps pointing at a device that is going away. Binding
-> the cores again starts from that stale count, because rocket_probe()
-> takes rdev->num_cores as the slot to fill. On an RK3588, which describes
-> three cores, the second round lands on slots 1, 2 and 3 while rdev->cores
-> was allocated with room for three:
-> 
->   rocket fdab0000.npu: Rockchip NPU core 1 version: 1179210309
->   rocket fdac0000.npu: Rockchip NPU core 2 version: 1179210309
->   rocket fdad0000.npu: Rockchip NPU core 3 version: 1179210309
-> 
-> The write to rdev->cores[3] is past the end of the array.
-> 
-> Nothing in tree reads the core array often enough to notice, so the
-> overrun is silent today. It turned up while testing a devfreq series on
-> top of this, where a worker walks every core a few times a second, and
-> UBSAN caught the first bool it read out of the overrun entry:
-> 
->   UBSAN: invalid-load in drivers/accel/rocket/rocket_devfreq.c:47:10
->   load of value 5 is not a valid value for type '_Bool'
->   Workqueue: devfreq_wq devfreq_monitor
-> 
-> Record how many slots were allocated and search all of them. Every core
-> is then found on removal, num_cores reaches zero, the device is torn down
-> and a later bind starts from a clean rdev.
-> 
-> This does not make unbinding a single core out of several work. probe
-> still takes num_cores as the slot to fill, so rebinding one core while
-> its siblings stay bound would write over a slot that is already in use,
-> and rocket_open() still reaches for cores[0] whether or not anything is
-> there. Both of those want more thought than a fix should carry.
-> 
-> Found by unbinding and rebinding all three cores on an Orange Pi 5 Plus.
-> With this applied, 25 unbind/rebind rounds and 5 module unload/reload
-> rounds run clean there: the cores land in slots 0, 1 and 2 every time,
-> whichever order they are bound in, and the shared supply goes back to a
-> single user after each round.
-> 
-> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> Assisted-by: LLM sparse checkpatch
-> ---
->  drivers/accel/rocket/rocket_device.c | 2 ++
->  drivers/accel/rocket/rocket_device.h | 1 +
->  drivers/accel/rocket/rocket_drv.c    | 2 +-
->  3 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-> index 46e6ee1e72c5f..efd004194c1af 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -31,6 +31,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
->  		if (of_device_is_available(core_node))
->  			num_cores++;
->  
-> +	rdev->max_cores = num_cores;
-> +
->  	rdev->cores = devm_kcalloc(dev, num_cores, sizeof(*rdev->cores), GFP_KERNEL);
->  	if (!rdev->cores)
->  		return ERR_PTR(-ENOMEM);
-> diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-> index ce662abc01d3d..c62d567010696 100644
-> --- a/drivers/accel/rocket/rocket_device.h
-> +++ b/drivers/accel/rocket/rocket_device.h
-> @@ -19,6 +19,7 @@ struct rocket_device {
->  
->  	struct rocket_core *cores;
->  	unsigned int num_cores;
-> +	unsigned int max_cores;
+From: Jeff Layton <jlayton@kernel.org>
 
-Hi Igor,
+[ Upstream commit 641e5e20852359b8c31149be4598884e30652f60 ]
 
-I've tested this patch in Radxa Rock 5 B+ and it works. The test is that unbinding all
-cores in sequence 0,1,2 and rebind all. It seems that there is other issue about num_core.
-For example, sched_to_core() finds core for sched with num_core and it could make same
-error like find_core_for_dev().
+nlmsvc_ops is published by nfsd_lockd_init() and cleared by
+nfsd_lockd_shutdown() with plain stores, while lockd dereferences
+it unguarded from dispatch sites in fs/lockd/svcsubs.c. The pointer
+targets nfsd's .rodata and the fopen/fclose callbacks live in nfsd's
+.text, so a stale load after rmmod nfsd results in either a NULL
+deref or a module-text use-after-free.
 
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai> # RK3588, 3 cores
+Declare nlmsvc_ops as __rcu, publish via rcu_assign_pointer(), clear
+via RCU_INIT_POINTER() + synchronize_rcu(). Add a struct module
+*owner field to nlmsvc_binding and pin the module across indirect
+calls with try_module_get/module_put. When the binding is torn down,
+fall back to fput() to avoid leaking struct file references.
 
-Thanks,
-Sidong
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-16-5b90e276f2d9@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ adapted lockd callback lifetime handling to the older __be32 interface and dual file-close paths. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/lockd/svc.c             |  6 ++--
+ fs/lockd/svc4proc.c        |  4 +--
+ fs/lockd/svcproc.c         |  4 +--
+ fs/lockd/svcsubs.c         | 59 ++++++++++++++++++++++++++++----------
+ fs/nfsd/lockd.c            |  6 ++--
+ include/linux/lockd/bind.h | 12 ++++++--
+ 6 files changed, 64 insertions(+), 27 deletions(-)
 
->  };
->  
->  struct rocket_device *rocket_device_init(struct platform_device *pdev,
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-> index 8bbbce594883e..2bcfe4ab3c68f 100644
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-> @@ -223,7 +223,7 @@ static int find_core_for_dev(struct device *dev)
->  {
->  	struct rocket_device *rdev = dev_get_drvdata(dev);
->  
-> -	for (unsigned int core = 0; core < rdev->num_cores; core++) {
-> +	for (unsigned int core = 0; core < rdev->max_cores; core++) {
->  		if (dev == rdev->cores[core].dev)
->  			return core;
->  	}
-> -- 
-> 2.43.0
-> 
+diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
+index c33f78513f00f..1905e7a6b9162 100644
+--- a/fs/lockd/svc.c
++++ b/fs/lockd/svc.c
+@@ -49,7 +49,7 @@
+ 
+ static struct svc_program	nlmsvc_program;
+ 
+-const struct nlmsvc_binding	*nlmsvc_ops;
++const struct nlmsvc_binding __rcu *nlmsvc_ops;
+ EXPORT_SYMBOL_GPL(nlmsvc_ops);
+ 
+ static DEFINE_MUTEX(nlmsvc_mutex);
+@@ -113,7 +113,7 @@ static void set_grace_period(struct net *net)
+ 
+ static void restart_grace(void)
+ {
+-	if (nlmsvc_ops) {
++	if (rcu_access_pointer(nlmsvc_ops)) {
+ 		struct net *net = &init_net;
+ 		struct lockd_net *ln = net_generic(net, lockd_net_id);
+ 
+@@ -175,7 +175,7 @@ lockd(void *vrqstp)
+ 		svc_process(rqstp);
+ 	}
+ 	flush_signals(current);
+-	if (nlmsvc_ops)
++	if (rcu_access_pointer(nlmsvc_ops))
+ 		nlmsvc_invalidate_all();
+ 	nlm_shutdown_hosts();
+ 	cancel_delayed_work_sync(&ln->grace_period_end);
+diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
+index 28ba7b1460aa4..bb5653f4bf2e3 100644
+--- a/fs/lockd/svc4proc.c
++++ b/fs/lockd/svc4proc.c
+@@ -29,7 +29,7 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
+ 	__be32			error = 0;
+ 
+ 	/* nfsd callbacks must have been installed for this procedure */
+-	if (!nlmsvc_ops)
++	if (!rcu_access_pointer(nlmsvc_ops))
+ 		return nlm_lck_denied_nolocks;
+ 
+ 	if (lock->lock_start > OFFSET_MAX ||
+@@ -487,7 +487,7 @@ nlm4svc_proc_granted_res(struct svc_rqst *rqstp)
+ {
+ 	struct nlm_res *argp = rqstp->rq_argp;
+ 
+-        if (!nlmsvc_ops)
++        if (!rcu_access_pointer(nlmsvc_ops))
+                 return rpc_success;
+ 
+         dprintk("lockd: GRANTED_RES   called\n");
+diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
+index 1a44597636441..bf1c22028cf04 100644
+--- a/fs/lockd/svcproc.c
++++ b/fs/lockd/svcproc.c
+@@ -59,7 +59,7 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
+ 	__be32			error = 0;
+ 
+ 	/* nfsd callbacks must have been installed for this procedure */
+-	if (!nlmsvc_ops)
++	if (!rcu_access_pointer(nlmsvc_ops))
+ 		return nlm_lck_denied_nolocks;
+ 
+ 	/* Obtain host handle */
+@@ -521,7 +521,7 @@ nlmsvc_proc_granted_res(struct svc_rqst *rqstp)
+ {
+ 	struct nlm_res *argp = rqstp->rq_argp;
+ 
+-	if (!nlmsvc_ops)
++	if (!rcu_access_pointer(nlmsvc_ops))
+ 		return rpc_success;
+ 
+ 	dprintk("lockd: GRANTED_RES   called\n");
+diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
+index e64e0110f66b5..e007feeea059f 100644
+--- a/fs/lockd/svcsubs.c
++++ b/fs/lockd/svcsubs.c
+@@ -8,6 +8,7 @@
+  */
+ 
+ #include <linux/types.h>
++#include <linux/file.h>
+ #include <linux/string.h>
+ #include <linux/time.h>
+ #include <linux/in.h>
+@@ -86,14 +87,26 @@ int lock_to_openmode(struct file_lock *lock)
+ static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
+ 			   struct nlm_file *file, int mode)
+ {
++	const struct nlmsvc_binding *ops;
+ 	struct file **fp = &file->f_file[mode];
+ 	__be32	nfserr;
+ 
+-	if (*fp)
++	rcu_read_lock();
++	ops = rcu_dereference(nlmsvc_ops);
++	if (!ops || !try_module_get(ops->owner)) {
++		rcu_read_unlock();
++		return nlm_lck_denied_nolocks;
++	}
++	rcu_read_unlock();
++
++	if (*fp) {
++		module_put(ops->owner);
+ 		return 0;
+-	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
++	}
++	nfserr = ops->fopen(rqstp, &file->f_handle, fp, mode);
+ 	if (nfserr)
+ 		dprintk("lockd: open failed (error %d)\n", nfserr);
++	module_put(ops->owner);
+ 	return nfserr;
+ }
+ 
+@@ -159,6 +172,33 @@ nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
+ 	goto out_unlock;
+ }
+ 
++/*
++ * Release the struct file references held by a nlm_file.
++ */
++static void nlm_release_files(struct nlm_file *file)
++{
++	const struct nlmsvc_binding *ops;
++	bool have_ops;
++
++	rcu_read_lock();
++	ops = rcu_dereference(nlmsvc_ops);
++	have_ops = ops && try_module_get(ops->owner);
++	rcu_read_unlock();
++
++	if (have_ops) {
++		if (file->f_file[O_RDONLY])
++			ops->fclose(file->f_file[O_RDONLY]);
++		if (file->f_file[O_WRONLY])
++			ops->fclose(file->f_file[O_WRONLY]);
++		module_put(ops->owner);
++	} else {
++		if (file->f_file[O_RDONLY])
++			fput(file->f_file[O_RDONLY]);
++		if (file->f_file[O_WRONLY])
++			fput(file->f_file[O_WRONLY]);
++	}
++}
++
+ /*
+  * Delete a file after having released all locks, blocks and shares
+  */
+@@ -168,10 +208,7 @@ nlm_delete_file(struct nlm_file *file)
+ 	nlm_debug_print_file("closing file", file);
+ 	if (!hlist_unhashed(&file->f_list)) {
+ 		hlist_del(&file->f_list);
+-		if (file->f_file[O_RDONLY])
+-			nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
+-		if (file->f_file[O_WRONLY])
+-			nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
++		nlm_release_files(file);
+ 		kfree(file);
+ 	} else {
+ 		printk(KERN_WARNING "lockd: attempt to release unknown file!\n");
+@@ -286,14 +323,6 @@ nlm_file_inuse(struct nlm_file *file)
+ 	return 0;
+ }
+ 
+-static void nlm_close_files(struct nlm_file *file)
+-{
+-	if (file->f_file[O_RDONLY])
+-		nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
+-	if (file->f_file[O_WRONLY])
+-		nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
+-}
+-
+ /*
+  * Loop over all files in the file table.
+  */
+@@ -324,7 +353,7 @@ nlm_traverse_files(void *data, nlm_host_match_fn_t match,
+ 			if (list_empty(&file->f_blocks) && !file->f_locks
+ 			 && !file->f_shares && !file->f_count) {
+ 				hlist_del(&file->f_list);
+-				nlm_close_files(file);
++				nlm_release_files(file);
+ 				kfree(file);
+ 			}
+ 		}
+diff --git a/fs/nfsd/lockd.c b/fs/nfsd/lockd.c
+index b02886f38925f..35b2a0541dc44 100644
+--- a/fs/nfsd/lockd.c
++++ b/fs/nfsd/lockd.c
+@@ -79,6 +79,7 @@ nlm_fclose(struct file *filp)
+ }
+ 
+ static const struct nlmsvc_binding nfsd_nlm_ops = {
++	.owner		= THIS_MODULE,
+ 	.fopen		= nlm_fopen,		/* open file for locking */
+ 	.fclose		= nlm_fclose,		/* close file */
+ };
+@@ -87,11 +88,12 @@ void
+ nfsd_lockd_init(void)
+ {
+ 	dprintk("nfsd: initializing lockd\n");
+-	nlmsvc_ops = &nfsd_nlm_ops;
++	rcu_assign_pointer(nlmsvc_ops, &nfsd_nlm_ops);
+ }
+ 
+ void
+ nfsd_lockd_shutdown(void)
+ {
+-	nlmsvc_ops = NULL;
++	RCU_INIT_POINTER(nlmsvc_ops, NULL);
++	synchronize_rcu();
+ }
+diff --git a/include/linux/lockd/bind.h b/include/linux/lockd/bind.h
+index 3bc9f7410e213..2fef35577f019 100644
+--- a/include/linux/lockd/bind.h
++++ b/include/linux/lockd/bind.h
+@@ -20,11 +20,17 @@
+ /* Dummy declarations */
+ struct svc_rqst;
+ struct rpc_task;
++struct module;
+ 
+-/*
+- * This is the set of functions for lockd->nfsd communication
++/**
++ * struct nlmsvc_binding - lockd -> nfsd callback table
++ * @owner:  module that provides this binding.
++ * @fopen:  open a file by NFS file handle on behalf of an NLM request.
++ * @fclose: close a file that was previously opened via @fopen.
++ *          Implementations MUST be semantically equivalent to fput().
+  */
+ struct nlmsvc_binding {
++	struct module		*owner;
+ 	__be32			(*fopen)(struct svc_rqst *,
+ 						struct nfs_fh *,
+ 						struct file **,
+@@ -32,7 +38,7 @@ struct nlmsvc_binding {
+ 	void			(*fclose)(struct file *);
+ };
+ 
+-extern const struct nlmsvc_binding *nlmsvc_ops;
++extern const struct nlmsvc_binding __rcu *nlmsvc_ops;
+ 
+ /*
+  * Similar to nfs_client_initdata, but without the NFS-specific
+-- 
+2.53.0
+
