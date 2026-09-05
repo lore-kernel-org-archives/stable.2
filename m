@@ -1,43 +1,42 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3AB30596F
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 02:26:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A2012CDBE;
+	Sat,  5 Sep 2026 02:32:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788575219; cv=none; b=Q4LcfC3uNSIQdLgwnFUiKVMsS1ea1lAhKeOEu8L7q9YU9yD3ej/FRTcb2dj6HYXlip63R7TYuNnEz9OfGigvC1ZZdFRb8rh0+4b/ofDquZubhg54XSRatyzqFk86mKNeEg4LZJJIxT/vkQGPZ1neAPheu8tGGohu1EQ9nAQd6Ts=
+	t=1788575544; cv=none; b=LzTftj7A2sXch51cXt1zVY/Qp44XwLoGXdV4ejcbRTftaIceXqd+u4Hd+3vwjvF0WdSiItGXNWEY1ClO+VwxmCCU6ym5Dv9VzcMaoOcmv1DcuMRvVCA2VIV76wNGrhDTpx3mb+/3brA4GuddOyCAGSCT3Raj1iwVPJBZsof8zak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788575219; c=relaxed/simple;
-	bh=3b+kJxQ4vmsekx4uApiQg+shmNteRTZNlSicSubMj/A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LtKoufKjMiRKwQENm0r6ZX/Ai0QmZMJDkUralcVGIuFZiKN1YQqIJRK71bT5hmCJPB+2MvoW+9qyrES6wBHYXNCC4qQI/zP5pnrCepsFMc2LG/osBlAX8YfgtkJxR8hus12BBdZ7vZy+4zybtw/RHDv3y7ObDlll19HCMBfwt/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkV8eHy+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788575544; c=relaxed/simple;
+	bh=VcbI1zdpgsAUB7yCSIZHS6yIjgEbJZvgBpxWQznmC3s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=X623S37j5851aTHv6hI8FCuCtoMqrMz0uW+Ss87MQlU8ElpCWl2QYPWDmYBnL5rrERNLqR+Pp2TUOBdfb5o28jH5Ha9Rfy8ZhmXDnmC+vtxrJ4FvjZGnZrJkzeMocUeUMc9vtKtDXje/p0pt081yuet/G2mZdkM+6C0Bg9Xhfbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=cucbROWx; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkV8eHy+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7A01F00AC4;
-	Sat,  5 Sep 2026 02:26:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788575217;
-	bh=yOzr8sWHQB9Vzbcvt55l1EhBwFXspgVmq06vxnHm9UA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BkV8eHy+6s9SVFOVkmKQmXbVkskvkmezT8ZSQI5hRvKcPmRHqo1sdxtauAoATHp2V
-	 RFAL9zSF3x9S1+9kzQ7GBZrRdEiQaZfHfbcUfR5SB2TcGH9ImhXiVFXtJPLcNDxDHY
-	 SsoI+vmTMpyS4vyKOfy1A8/OmqT+e7JekSG4erXb5LuGRbswVc4/U90f0T+leyv75q
-	 qMrtUptKZlKBeUuBEciewGjhbzZX389Vjh5RcyjC1zxzz7fEzfM3tZUC1t+XlyCChz
-	 L66mVLF0dqDhQ1EHvx8XPRlFa72ahWDt0p1oTShNXTscb6l3LogWgMQwocR4d2rnm5
-	 P55/UE6WJHgpg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] nfsd: validate sockaddr length per family in listener_set
-Date: Fri,  4 Sep 2026 22:26:54 -0400
-Message-ID: <20260905022654.1856817-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260905022654.1856817-1-sashal@kernel.org>
-References: <2026090327-bully-unsightly-dc1a@gregkh>
- <20260905022654.1856817-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="cucbROWx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=vE
+	zmrB5MeuSiRL/5kGaj4D0jLgiYVOzfWaAYz/uOVNM=; b=cucbROWx88pqC2EWHY
+	4hQZ5tBjzjM+lv1YjQLT3MPvv2Hy+XxLzMxod+rhZV3yrYgPoIwdel8sm//yMANg
+	t900v+9izRkLj6YOBlOX+MAYHHunJf/gUrsOeqYk0xz9UNV1usVvmsS3Hyq1fXbo
+	DGcnyjC0nDGq6PxSCUlA5t/8E=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3_1gbf5tq0ootAw--.50391S2;
+	Sat, 05 Sep 2026 10:32:04 +0800 (CST)
+From: oushinnyo <oushinnyo@163.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	Harish.Kasiviswanathan@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	oushinnyo <oushinnyo@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v1] drm/amdgpu: keep freed VM mappings on clear failure
+Date: Sat,  5 Sep 2026 10:31:51 +0800
+Message-Id: <20260905023151.90699-1-oushinnyo@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,165 +44,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_1gbf5tq0ootAw--.50391S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WryfJw15CF4DGF45Kw1DGFg_yoW8AFWrpF
+	WrGFs5K3yUXa4jqw1DCF1jva4Yyw4xXFW09r4UuwsF9w15AF93tFn8Aa18JryDGrWkuFW7
+	XrWkt3yUu3WqvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pEWSo9UUUUU=
+X-CM-SenderInfo: xrxvxxpqq10qqrwthudrp/xtbC4wRqt2qbfyT7wwAA3o
 
-From: Jeff Layton <jlayton@kernel.org>
+amdgpu_vm_clear_freed() removes a mapping from vm->freed before
+clearing its page table entries. If amdgpu_vm_update_range() fails,
+the mapping is currently freed even though the PTE update might not
+have completed.
 
-[ Upstream commit bdcc85c2b05a9378d8bd2d65f9fc41440a3cf464 ]
+This is particularly problematic with CPU VM updates. Waiting for an
+earlier submission is interruptible, so a signal can abort the wait
+before any PTE is cleared. The old mapping then exists neither in the
+VA tree nor on the freed list, allowing a later VM update to reuse the
+virtual address while an earlier submission still references it.
 
-nfsd_sock_nl_policy declares NFSD_A_SOCK_ADDR as a bare NLA_BINARY
-attribute with no minimum length. A CAP_NET_ADMIN caller can send a
-16-byte NFSD_A_SOCK_ADDR with sa_family=AF_INET6, causing a 12-byte
-OOB read across three consumers (rpc_cmp_addr_port, svc_find_listener,
-kernel_bind).
+Put the mapping back on vm->freed on every update error. This keeps the
+pending clear operation alive and makes later VM updates retry it before
+installing new PTEs. It also covers partial CPU or SDMA updates
+conservatively.
 
-nfsd_nl_listener_set_doit() also parsed and validated each listener
-entry inline in two separate loops, interleaved with mutating the
-running listener configuration. The validation was duplicated, used an
-open-coded "nla_len < sizeof(struct sockaddr)" check that was too short
-for AF_INET6, and handled a malformed entry inconsistently depending on
-which loop noticed it.
-
-Add an nfsd_nl_validate_listeners() helper that walks the entire list
-once and confirms each entry parses, carries both an address and a
-transport name, and is long enough for its address family
-(sizeof(struct sockaddr_in) for AF_INET, sizeof(struct sockaddr_in6)
-for AF_INET6, -EAFNOSUPPORT otherwise). Call it before taking
-nfsd_mutex or creating the serv, so a malformed request fails cleanly
-with no side effects.
-
-Since every entry is known valid by the time the two existing loops
-run, drop the redundant presence and per-family length checks from
-both, leaving only the nla_parse_nested() call needed to extract the
-data.
-
-Fixes: 16a471177496 ("NFSD: add listener-{set,get} netlink command")
+Fixes: b4d42511b7f2 ("drm/amdgpu: Support page table update via CPU")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260615-nfsd-testing-v5-1-188d75aedda0@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: Codex:gpt-5
+Signed-off-by: oushinnyo <oushinnyo@163.com>
 ---
- fs/nfsd/nfsctl.c | 77 ++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 65 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 7854573e90009..15c4397f09dfc 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -1955,6 +1955,60 @@ int nfsd_nl_version_get_doit(struct sk_buff *skb, struct genl_info *info)
- 	return err;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index 47cde5459469..e20905d2d90c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1606,11 +1606,12 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+ 		r = amdgpu_vm_update_range(adev, vm, false, false, true, false,
+ 					   &sync, mapping->start, mapping->last,
+ 					   0, 0, 0, NULL, NULL, &f);
+-		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+ 		if (r) {
++			list_add(&mapping->list, &vm->freed);
+ 			dma_fence_put(f);
+ 			goto error_free;
+ 		}
++		amdgpu_vm_free_mapping(adev, vm, mapping, f);
+ 	}
  
-+/**
-+ * nfsd_nl_validate_listeners - sanity-check the listener list from userland
-+ * @info: netlink metadata and command arguments
-+ *
-+ * Walk every NFSD_A_SERVER_SOCK_ADDR attribute and confirm that each entry
-+ * is well-formed: it parses against the policy, carries both an address and
-+ * a transport name, and the address is long enough for its family. Doing
-+ * this up front lets the callers below assume every entry is valid and
-+ * guarantees we make no changes when the request is malformed.
-+ *
-+ * Return: 0 if every entry is valid, or a negative errno otherwise.
-+ */
-+static int nfsd_nl_validate_listeners(struct genl_info *info)
-+{
-+	const struct nlattr *attr;
-+	int rem;
-+
-+	nlmsg_for_each_attr_type(attr, NFSD_A_SERVER_SOCK_ADDR, info->nlhdr,
-+				 GENL_HDRLEN, rem) {
-+		struct nlattr *tb[NFSD_A_SOCK_MAX + 1];
-+		struct sockaddr *sa;
-+		int err;
-+
-+		err = nla_parse_nested(tb, NFSD_A_SOCK_MAX, attr,
-+				       nfsd_sock_nl_policy, info->extack);
-+		if (err < 0)
-+			return err;
-+
-+		if (!tb[NFSD_A_SOCK_ADDR] || !tb[NFSD_A_SOCK_TRANSPORT_NAME])
-+			return -EINVAL;
-+
-+		sa = nla_data(tb[NFSD_A_SOCK_ADDR]);
-+		if (nla_len(tb[NFSD_A_SOCK_ADDR]) < sizeof(sa->sa_family))
-+			return -EINVAL;
-+
-+		switch (sa->sa_family) {
-+		case AF_INET:
-+			if (nla_len(tb[NFSD_A_SOCK_ADDR]) <
-+			    sizeof(struct sockaddr_in))
-+				return -EINVAL;
-+			break;
-+		case AF_INET6:
-+			if (nla_len(tb[NFSD_A_SOCK_ADDR]) <
-+			    sizeof(struct sockaddr_in6))
-+				return -EINVAL;
-+			break;
-+		default:
-+			return -EAFNOSUPPORT;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * nfsd_nl_listener_set_doit - set the nfs running sockets
-  * @skb: reply buffer
-@@ -1973,6 +2027,15 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- 	bool delete = false;
- 	int err, rem;
- 
-+	/*
-+	 * Validate the entire listener list before making any changes, so a
-+	 * malformed request fails cleanly without creating a serv or touching
-+	 * the existing listeners.
-+	 */
-+	err = nfsd_nl_validate_listeners(info);
-+	if (err)
-+		return err;
-+
- 	mutex_lock(&nfsd_mutex);
- 
- 	err = nfsd_create_serv(net);
-@@ -1999,16 +2062,11 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- 		const char *xcl_name;
- 		struct sockaddr *sa;
- 
-+		/* validated up front in nfsd_nl_validate_listeners() */
- 		if (nla_parse_nested(tb, NFSD_A_SOCK_MAX, attr,
- 				     nfsd_sock_nl_policy, info->extack) < 0)
- 			continue;
- 
--		if (!tb[NFSD_A_SOCK_ADDR] || !tb[NFSD_A_SOCK_TRANSPORT_NAME])
--			continue;
--
--		if (nla_len(tb[NFSD_A_SOCK_ADDR]) < sizeof(*sa))
--			continue;
--
- 		xcl_name = nla_data(tb[NFSD_A_SOCK_TRANSPORT_NAME]);
- 		sa = nla_data(tb[NFSD_A_SOCK_ADDR]);
- 
-@@ -2060,16 +2118,11 @@ int nfsd_nl_listener_set_doit(struct sk_buff *skb, struct genl_info *info)
- 		struct sockaddr *sa;
- 		int ret;
- 
-+		/* validated up front in nfsd_nl_validate_listeners() */
- 		if (nla_parse_nested(tb, NFSD_A_SOCK_MAX, attr,
- 				     nfsd_sock_nl_policy, info->extack) < 0)
- 			continue;
- 
--		if (!tb[NFSD_A_SOCK_ADDR] || !tb[NFSD_A_SOCK_TRANSPORT_NAME])
--			continue;
--
--		if (nla_len(tb[NFSD_A_SOCK_ADDR]) < sizeof(*sa))
--			continue;
--
- 		xcl_name = nla_data(tb[NFSD_A_SOCK_TRANSPORT_NAME]);
- 		sa = nla_data(tb[NFSD_A_SOCK_ADDR]);
- 
+ 	if (fence && f) {
 -- 
-2.53.0
+2.25.1
 
