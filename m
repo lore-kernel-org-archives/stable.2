@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC33C3033CB;
-	Sat,  5 Sep 2026 11:17:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB9930CD81;
+	Sat,  5 Sep 2026 11:22:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788607070; cv=none; b=a7xOHDqgxylc5BmN3m6abC+qq+5HjCBBC4pWY/BVXFaWcm2aVcxCpuFgkNo+j8pgPJxeQntBXRotRjlid+SeTiEuo0w/wFPccjpzmfI8qIooxUgvlveUBB29D397lIr4bdQDznnCnbmkk0kIvu7gDfOP1dtBrkev6Dtjk42ah5s=
+	t=1788607363; cv=none; b=GsGncWiD+z09bRBiciMSTiJ7skebBP7ynXuCJmvyDlv0Me8QzSTIRtCxIVOeiKmI/Sxpwc9+O0CR5+TKFHzCqKCy6c2zQ8U8aGhRexaCk//W5p51SRnfXyV0lrGgx4Ypgv8c8S/t47EahmRFDxsGAk2fUyC8uTXpSNmpRO+CyQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788607070; c=relaxed/simple;
-	bh=2L7y5IPt0MZIizYNAqUo5Z5y3MPc9o64xtzjVFo2LWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EUpuYX0c7thlRJvPvDyv3mu3D7o3e8fYagG3T2oSBeSEvQKscKMIDM2Ug6YSgwadRJbYjJgM7dzLwNGcG+5YtWFOJT6B48xFqLQU9o83EC1oSebnIQNbPeyQDggEgCB6ValRKCKuOzdG36agXKDyWooBcKFDUjUAmY61O8AlBBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OwECcIhH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788607363; c=relaxed/simple;
+	bh=U1FFhfIGgVmnFIAqFnO3ycODMkeXWNLKzbZrQTyeNkU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Xv/4MIeunAxcdS5jdrrze1uaDUejl8aPPUnrAwI9JQUFtNXzngcSJ2xvP6vw/KXw8KbukBcs6BSthySlMZsQg9Y0f+mAlirkPSTRblqirD1OnggTN7XHShJJ9KEntl0DLEav4CdIeqZrdqZNfA1adqMs385hnv2sJgNWsKk8hOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYQqhcgS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OwECcIhH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A05A41F00A3D;
-	Sat,  5 Sep 2026 11:17:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788607068;
-	bh=KptmeXg+7v8IpatA7BIrQGvikH9X+UtnlnOjLO9epqA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OwECcIhH/s9VjOs47n0yKYkzMt6YTuMJiwpUVpzwxaXgE6c2/f2KdSXetVzi2rPxl
-	 GiDhcWisaENfmTM+apIZcGpe1wJ19cNV+apfEMWWIoBDMfINskLbrfbH57EW/xOXAw
-	 pw0aRsoBgoevsmItlpWNxCAGE/oliBo9AnAGyiMo=
-Date: Sat, 5 Sep 2026 13:16:02 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: "D. Wythe" <alibuda@linux.alibaba.com>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	zdi-disclosures@trendmicro.com,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Breno Leitao <leitao@debian.org>,
-	Steffen Klassert <steffen.klassert@secunet.com>
-Subject: Re: [PATCH 5.10 28/43] xfrm: espintcp: fix UAF during close
-Message-ID: <2026090558-issue-factoid-6115@gregkh>
-References: <20260831133358.571886287@linuxfoundation.org>
- <20260831133359.883892832@linuxfoundation.org>
- <20260904095158.GA83164@j66a10360.sqa.eu95>
- <2026090409-hesitant-hug-bd90@gregkh>
- <20260905101704.GA47841@j66a10360.sqa.eu95>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYQqhcgS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6AB1F00A3D;
+	Sat,  5 Sep 2026 11:22:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788607362;
+	bh=9lciWz/KhZxXm3cVbO7PN0WBss1i3i2bh2I3OqpO8u0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=XYQqhcgSzxA9h7ectcMPu6F0xS97O8wWOUN3vmKE0b//vTGdxjnQTB1/Q2tUMY9k/
+	 UA27JejE3On5WFQ72l78jTJGAkuUAYXjzQTDbhMu/WD0g3U4iVOe9WAi9c21neewy/
+	 UoPNMTY64S2/dhMaYb/VLwZt+dMFWyzfyMPx4XTWUCnbpnygc6UFXCidxTVEjlkL1E
+	 u0UOTgFb1t4yQBTws7EPvCBgJY+DK/f967/1GLM9NJKyz/HFTXEPTEpAmBWSNTpDI4
+	 mdoycLQ69cPlHuLdljqFp4pT9ErCbnYIWt49YOy/eeD82szBdrE1uzf8Mnv9r4/fYA
+	 GLJT0TT0pY47Q==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
+ Hyunwoo Kim <imv4bel@gmail.com>, Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ "Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch 1/8] signal: Prevent exec() race
+In-Reply-To: <apvJ0PO7DJnh1JHS@pavilion.home>
+References: <20260904112100.683893401@kernel.org>
+ <20260904112202.074391651@kernel.org> <apqs6wgDtpdLI-k8@redhat.com>
+ <87zexw5exv.ffs@fw13> <apvJ0PO7DJnh1JHS@pavilion.home>
+Date: Sat, 05 Sep 2026 13:22:39 +0200
+Message-ID: <87o6ec54e8.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,127 +47,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905101704.GA47841@j66a10360.sqa.eu95>
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 05, 2026 at 06:17:04PM +0800, D. Wythe wrote:
-> On Fri, Sep 04, 2026 at 02:15:30PM +0200, Greg Kroah-Hartman wrote:
-> > On Fri, Sep 04, 2026 at 05:51:58PM +0800, D. Wythe wrote:
-> > > On Mon, Aug 31, 2026 at 03:35:36PM +0200, Greg Kroah-Hartman wrote:
-> > > > 5.10-stable review patch.  If anyone has any objections, please let me know.
-> > > > 
-> > > > ------------------
-> > > > 
-> > > > From: Sabrina Dubroca <sd@queasysnail.net>
-> > > > 
-> > > > commit deb232e884877bf10b4ce2580909eedec986c284 upstream.
-> > > > 
-> > > > ZDI reported and analyzed a race condition during close for espintcp
-> > > > sockets:
-> > > > 
-> > > >     espintcp_close() frees emsg->skb via kfree_skb() without holding
-> > > >     any socket lock. Concurrently, the xfrm_trans_reinject work queue
-> > > >     invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
-> > > >     espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
-> > > >     same skb as a data source.
-> > > > 
-> > > > Fix this by adding a synchronize_rcu() call after resetting sk_prot,
-> > > > since esp_output_tcp_finish() runs under RCU and won't use a socket
-> > > > with sk_prot == &tcp_prot.  Simply taking the socket lock in
-> > > > espintcp_close() could lead to leaks, if esp_output_tcp_finish()
-> > > > re-adds an skb in the slot we just freed. After this, the existing
-> > > > barrier() is no longer needed.
-> > > > 
-> > > > Cc: stable@vger.kernel.org
-> > > > Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-> > > > Reported-by: zdi-disclosures@trendmicro.com
-> > > > Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
-> > > > Reviewed-by: Breno Leitao <leitao@debian.org>
-> > > > Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-> > > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > > ---
-> > > >  net/xfrm/espintcp.c |    3 ++-
-> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > > 
-> > > > --- a/net/xfrm/espintcp.c
-> > > > +++ b/net/xfrm/espintcp.c
-> > > > @@ -506,7 +506,8 @@ static void espintcp_close(struct sock *
-> > > >  	strp_stop(&ctx->strp);
-> > > >  
-> > > >  	sk->sk_prot = &tcp_prot;
-> > > > -	barrier();
-> > > > +
-> > > > +	synchronize_rcu();
-> > > 
-> > > 
-> > > This backport depends on upstream
-> > > 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"),
-> > > which is not in 5.15.y. Without it, esp_find_tcp_sk() still
-> > > returns the cached x->encap_sk based only on sk_state == TCP_ESTABLISHED
-> > > (no tcp_is_ulp_esp() check), so new readers keep racing with
-> > > espintcp_close()'s kfree_skb on ctx->partial.emsg->skb — the UAF issue
-> > > this patch is supposed to fix.
-> > > 
-> > > Reproduced on 5.15.219+ (with this patch applied), KASAN trimmed:
-> > > 
-> > >   BUG: KASAN: use-after-free in __skb_send_sock+0x6cf/0x7b0
-> > >   Workqueue: events xfrm_trans_reinject
-> > > 
-> > >   Reader:
-> > >     __skb_send_sock <- espintcp_push_msgs <- espintcp_push_skb <-
-> > >     esp_output_tcp_encap_cb <- xfrm_trans_reinject
-> > > 
-> > >   Free:
-> > >     espintcp_close <- inet_release <- __sock_release <- sock_close <-
-> > >     __fput
-> > > 
-> > >   Object: skbuff_head_cache (size 224), i.e. struct sk_buff.
-> > > 
-> > > Provenance: the static analysis (missing-prerequisite chain, code-path
-> > > derivation) and the KASAN reproducer above were both produced by our
-> > > internal AI-assisted backport triage pipeline. I have personally
-> > > reviewed the reasoning line-by-line against the 5.15.y source, re-ran
-> > > the reproducer end-to-end, and confirm the finding — sending it upstream
-> > > on that basis.
-> > 
-> > That's LLM output, what do you mean to say here to fix this?  Please
-> > send a patch...
-> 
-> Hi Greg,
-> 
-> Sorry about the confusion. Just to clarify, this is not raw LLM output.
-> I only included that note to be transparent and avoid any controversy,
-> as the issue wasn't initially discovered by myself.
-> 
-> We actually already have a patch prepared for this, but the situation is
-> a bit more complicated.
-> 
-> The fix actually has two prerequisite dependencies:
-> 
-> Commit 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"), as mentioned earlier.
-> Commit e1512c1db9e8 ("espintcp: Fix race condition in espintcp_close()"), which relies on disable_work_sync() — an API that
-> does not exist in the 5.10 tree.
-> 
-> To avoid expanding the blast radius, we chose to use an alternative
-> approach in espintcp to replace the implementation of commit
-> e1512c1db9e8: introducing a stopped flag and protecting both the flag
-> check and schedule_work() under the existing out_queue.lock spinlock,
-> achieving the same atomic synchronization effect as
-> disable_work_sync().
-> 
-> However, doing this inevitably leads to code divergence between upstream
-> and this tree for xfrm. I'm not sure what the xfrm folks' stance is on
-> this. If the community feels this is overly complicated, I think it's
-> also totally fine to just leave the patch here.
+On Sat, Sep 05 2026 at 09:50, Frederic Weisbecker wrote:
+> Le Sat, Sep 05, 2026 at 09:34:52AM +0200, Thomas Gleixner a =C3=A9crit :
+>> On Fri, Sep 04 2026 at 13:35, Oleg Nesterov wrote:
+>> > Thomas, I can't read this series today, will try on Weekend.
+>> >
+>> > But you didn't reply to
+>> > https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
+>> > Let me quote that email here:
+>> >
+>> > 	OK... lets suppose the exiting task T passes exit_signals().
+>> >
+>> > 	Suppose we have an "ignored" timer tmr. Another sub-thread calls
+>> > 	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
+>> > 	in ->ignored_posix_timers list.
+>> >
+>> > 	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
+>> > 	it should check it too?
+>>=20
+>> From the patch:
+>>=20
+>> @@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
+>> 	if (!likely(lock_task_sighand(t, &flags)))
+>> 		return;
+>>=20
+>> +	if (unlikely(tmr->it_pid_type =3D=3D PIDTYPE_PID && (t->flags & PF_EXI=
+TING)))
+>> +		goto unlock;
+>> +
+>
+> But posixtimer_sig_unignore() calls directly posixtimer_queue_sigqueue(),=
+ not
+> posixtimer_send_sigqueue().
 
-Please always take the upstream commits when ever possible.  But the
-disable_work_sync() stuff is messier, so if you just wait a few more
-months, it's not going to be an issue as the 5.10.y tree will be
-end-of-life by then :)
+I obviously can't read.
 
-So, why not move to a newer kernel tree now?
+> However posixtimer_queue_sigqueue() -> complete_signal() -> wants_signal()
+> checks PF_EXITING and complete_signal() then just drops it.
+>
+> Ah but doesn't that leak a refcount drop? Looks like the PF_EXITING check=
+ should
+> indeed move to posixtimer_get_target().
 
-thanks,
+Again. get_target() is not protected by sighand lock when called in
+posxtimer_send_sigqueue().
 
-greg k-h
+Let me stare at it some more.
