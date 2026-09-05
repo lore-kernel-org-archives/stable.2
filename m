@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053514BC003
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE3A2E8897
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788625856; cv=none; b=fW+yR/GWRJ12KH95dom3HjosA0XZ/nEJTf7DChY5zsFfBRY26UzeA0yuTA8m003lBqM202D5RVdfOnYR6KAGL+vR6cD23wMBTzVk0nmO43SR/oVCATxIGqnGf3twfKl561MRWxPUImwJr/BJ9FEpncIwMQ2cq2+e6Q9mmdkA7FM=
+	t=1788626443; cv=none; b=mHb3FOQgPY5s2t5uFd1xYL00VXQe3Zbq7AfoX/I/wWgsU0COajrTEDiiCs+g8O/4AQpWzjnxp+gtosjuHS+kjOII1XrtsH0BJQA+j/U2Dfov/pwwtR0NqBN9DiHpbpMGjULgLc3g2BvutVjmFwLXIqvxjpkzVrpBBgGrLGDAviM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788625856; c=relaxed/simple;
-	bh=eMxE2T9wo3n9kUtfYwDzgHpzuuHJcY5qtHUAQGP7E2c=;
+	s=arc-20240116; t=1788626443; c=relaxed/simple;
+	bh=a0ZkyutvjdoHim2eNmcvzGgJpy8VVEjpcXGpFUPv2fY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WPJ20W70a8CJz6thHNxTWLFJoiD4GVuNUSjFkvVCIDDLCs8MQpLKy7x1+2KFzuLkr4H+CaMCCdJPGinSOnA58Of/2Qr+VSJLvUp8XzoiL+TfH1deK+DYWQeT2U9klrzjU727/2r0g4NfloNjvr1MIOyVbXDASsAC6Jm/RyKXaqM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoHrntKd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ug8Km6sDGle3MJyDSSKZNXPgvt61SdB7W5/2CNq++BcL8ERVjUqvDcPqyMkebKOd5BThT55mZG+YPzxXJarwcAiK+Ms4AW9cMW20L49aSVVggx89k8m7Qm+LKgUwvAoy03m00+AX50txs5ob+ME4/S81nGgTQJxyeLwB30H0ZWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbohbAGW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoHrntKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578BE1F00A3A;
-	Sat,  5 Sep 2026 16:30:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbohbAGW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758161F00A3A;
+	Sat,  5 Sep 2026 16:40:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788625842;
-	bh=nZAO+oTSuIn8fgaYUePdH2w5vpxh5hWPSInll/x+md8=;
+	s=k20260515; t=1788626442;
+	bh=xz+bHZoWN67SvyNDFTSkxMw4LW7Xbfap+4mO/czQehM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YoHrntKd1SGXMYCvN/PMvlznnDI9ARxu/Z95TvyyuGZ6k6q3oky8zcNaZ+yhvyvwU
-	 SsCVsP4mRT9nx9tMvfZFjtRUV9Trrw+ZUedi4r10xlWueF/8lJcZhoc0aysxLnHgsr
-	 yDMvi8qLFvbxRAzUsCqODDwXuGniTkDI3TvlJwhGPpsr8CMFzdcGuLLT9mFOtF/G8c
-	 zVvCGEq6cMJLMWws7zfolhI+gdI37o4CgBt1oEa7oa/PkviPh9+5yQhBZWd3EDDFdU
-	 nyK7vpkllqCyOas8WrTHAsn1xqlU9gC3/AuPzSm53xHahUwY9acllnGpmVQJl0FmKR
-	 YduauQRkIkJyQ==
+	b=cbohbAGWHc5z9XjDiSSSuhbNqge7wG7crl9C8iNQfjGXFeDNFdqbB3tpa28m4P5tb
+	 sgWwIvp3E/Ailfo5n8BPzAHitBXLZN6sTK7GGyqTJ3QRuBEYsN1LyPWRTT5bng77fw
+	 El4MgbY8tVw0DNHTmH1cfeSAfyXaZt/NlsAvOQwxjJ04F0uCOr3HEupyjJOJISZzkz
+	 L4q5gp68Une63PMW7OkLaH7QHIU/sjkryUu1AvbGP3esnL8VwgMZ/sMD/clLvu2YNy
+	 c39unijo8H2fXk23Jgr2IijWjnf9pWWr9ny9dRzpGRG+kUY5A2YaV0+0zI51nqhv4y
+	 NVq1izGNz9ulQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nfsd: fix fcache_disposal UAF by inlining dispose state into nfsd_net
-Date: Sat,  5 Sep 2026 12:30:40 -0400
-Message-ID: <20260905163040.442384-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] nfsd: fix fcache_disposal UAF by inlining dispose state into nfsd_net
+Date: Sat,  5 Sep 2026 12:40:39 -0400
+Message-ID: <20260905164039.457443-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090340-pesky-jaybird-39c7@gregkh>
-References: <2026090340-pesky-jaybird-39c7@gregkh>
+In-Reply-To: <2026090341-net-aspect-692b@gregkh>
+References: <2026090341-net-aspect-692b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,10 +83,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 21 insertions(+), 53 deletions(-)
 
 diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
-index 46eb06e32f0cd..6262c9b41cde0 100644
+index 460df12aa85bb..447d129b717e3 100644
 --- a/fs/nfsd/filecache.c
 +++ b/fs/nfsd/filecache.c
-@@ -60,12 +60,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
+@@ -59,12 +59,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
  static DEFINE_PER_CPU(unsigned long, nfsd_file_total_age);
  static DEFINE_PER_CPU(unsigned long, nfsd_file_evictions);
  
@@ -99,7 +99,7 @@ index 46eb06e32f0cd..6262c9b41cde0 100644
  static struct workqueue_struct *nfsd_filecache_wq __read_mostly;
  
  static struct kmem_cache		*nfsd_file_slab;
-@@ -413,16 +407,14 @@ nfsd_file_dispose_list(struct list_head *dispose)
+@@ -412,16 +406,14 @@ nfsd_file_dispose_list(struct list_head *dispose)
  static void
  nfsd_file_dispose_list_delayed(struct list_head *dispose)
  {
@@ -121,7 +121,7 @@ index 46eb06e32f0cd..6262c9b41cde0 100644
  	}
  }
  
-@@ -651,12 +643,12 @@ static void
+@@ -650,12 +642,12 @@ static void
  nfsd_file_delayed_close(struct work_struct *work)
  {
  	LIST_HEAD(head);
@@ -139,7 +139,7 @@ index 46eb06e32f0cd..6262c9b41cde0 100644
  
  	nfsd_file_dispose_list(&head);
  }
-@@ -825,44 +817,15 @@ __nfsd_file_cache_purge(struct net *net)
+@@ -824,44 +816,15 @@ __nfsd_file_cache_purge(struct net *net)
  	nfsd_file_dispose_list(&dispose);
  }
  
@@ -188,7 +188,7 @@ index 46eb06e32f0cd..6262c9b41cde0 100644
  }
  
  /**
-@@ -881,8 +844,11 @@ nfsd_file_cache_purge(struct net *net)
+@@ -880,8 +843,11 @@ nfsd_file_cache_purge(struct net *net)
  void
  nfsd_file_cache_shutdown_net(struct net *net)
  {
