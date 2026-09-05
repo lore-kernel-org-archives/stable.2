@@ -1,165 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C96D19CC14;
-	Sat,  5 Sep 2026 23:04:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C422472AF;
+	Sat,  5 Sep 2026 23:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788649470; cv=none; b=L2ucIraOucRunY5kVipS5L97tM20wFjNMPgjvhYz/BQPPK68feyHJtwp62nwaQkDuaGKLiRhO/yUNiIL8IctV9XoQ4YaQwcRJhUvathH34AVxweq7nDZuYWYdtzMThtDlws5OGeNGxAb/e9xYTZiNAS0gRgBC/I/gVlHiawtsm8=
+	t=1788649768; cv=none; b=jdDRLR5lLBeuboT5pEBHRx/PtsMPULUiRtSkfKKTIoN8Vm6v2LgiVKlPj4QiXUQhi1B9HBylOjW2X37aun7uGKVR0xlo3xiwgyi7V1eQqvZzkWIQMR3SC+fFb6txVV53y/PGLHRK+J2UtRdaGqPsm/a+C01dKbnX4Ipadb5Hq7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788649470; c=relaxed/simple;
-	bh=JWzwJClOXryOcVxg9MkKa4CvUX5Xzi+u8aahzcSLr7Q=;
-	h=Date:To:From:Subject:Message-Id; b=rinH3wCcu/sSp7IVLHXeN3a7N3RhrBDE5M/j0VwTT7IRzrZZ0kgS9CBuvyoM5+9w6fB9cdnKbp0nZfwbuK8NDA7UEnLSrC6ZuCDkNs9RWOV1B2+XRFTh0CDoDQkjKNmVnxZhiJBngQUcHitCs7OMlRTZoM4hBcOVnmZDRz8RS0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=BSPtwrtn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788649768; c=relaxed/simple;
+	bh=Y6XIaVAd8AIvpqRPODe43mHt0xLAedfYdq7+Pdhbi70=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=iP6k0c20d7nlRoQjwUA5UQ4O4ofN0vSYdIPtL3VnkU3XglOxXlSJwJmwmA0U3de4hlY2ln3U+7WJvRgjZ5qb+dOZdoA6kKnRrfTFALbVJr4q2PWEtOOjkxjduhmLqlsGBNrSq4a3RLrwCU8n3N8lzu47sU29KGFjWWwlld13tno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=C7dIJfzp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="BSPtwrtn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B03DD1F00A3A;
-	Sat,  5 Sep 2026 23:04:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="C7dIJfzp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533DC1F00A3A;
+	Sat,  5 Sep 2026 23:09:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788649468;
-	bh=y5uqwdLG5D+Wy2UbjR9NlwcPM6iprUyo9pAjwAWiZRs=;
-	h=Date:To:From:Subject;
-	b=BSPtwrtnVX0Y1DTbwFlkWYpvG+VpmvZbIC36XCKBCHwalGDCCH+SX0Ho3zO9cSZOM
-	 UL8wpS2hroHS906Iu6dzunwSeWdMaeLkT5GXVrFMtO9rxbDSLFXf4X1BvLPnaU0hKs
-	 P1xJAkbo3h+u3q0qUrFbuuflsR6fXibMku1Cg1Qk=
-Date: Sat, 05 Sep 2026 16:04:28 -0700
-To: mm-commits@vger.kernel.org,weir@nebusec.ai,vega@nebusec.ai,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,rppt@kernel.org,notasas@gmail.com,mhocko@suse.com,ljs@kernel.org,liam@infradead.org,david@kernel.org,rakukuip@gmail.com,akpm@linux-foundation.org
+	d=linux-foundation.org; s=korg; t=1788649767;
+	bh=7MvH/fL/MoL/0Xg/K8Z12nlCW6Dkm7qOIbbrTCfZHRA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=C7dIJfzpfJ+sDTZ1NygWVigYa2VcwgEfAjj9LTpyc1yQQ8opPo6leshC7FwEejVbZ
+	 7qqz3rLYlh/DRo55oG9x9cF3zOwXJ/+q7GTzBYovAJcEEHlPdUFC3vTKJeo2gw4gM4
+	 dOp4GufsgbaFSrNdmD7dnvrK9H6DLOXBS6ZyDufw=
+Date: Sat, 5 Sep 2026 16:09:26 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-memory-constrain-generic_access_phys-to-page-boundary.patch added to mm-new branch
-Message-Id: <20260905230428.B03DD1F00A3A@smtp.kernel.org>
+To: Longlong Xia <xialonglong2025@163.com>
+Cc: hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com,
+ chengming.zhou@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
+Subject: Re: [PATCH 1/1] mm/zswap: enable static key after runtime pool
+ recovery
+Message-Id: <20260905160926.9836f2ca0dc977b89f2f146e@linux-foundation.org>
+In-Reply-To: <20260905125101.2970456-1-xialonglong2025@163.com>
+References: <20260905125101.2970456-1-xialonglong2025@163.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sat,  5 Sep 2026 20:50:28 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
 
-The patch titled
-     Subject: mm/memory: constrain generic_access_phys() to page boundary
-has been added to the -mm mm-new branch.  Its filename is
-     mm-memory-constrain-generic_access_phys-to-page-boundary.patch
+> From: Longlong Xia <xialonglong@kylinos.cn>
+> 
+> When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
+> without a pool after a failed initial pool creation. A later compressor
+> parameter update can create and publish a pool, but does not enable
+> zswap_ever_enabled.
+> 
+> If users then enable zswap, zswap_store() intercepts swapout while
+> zswap_load() still returns -ENOENT without consulting the xarray. The
+> swapin path therefore reads a stale backing swap slot because the store
+> skipped writing it.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-memory-constrain-generic_access_phys-to-page-boundary.patch
+That sounds bad.  I'll leave it to reviewers to suggest whether this is
+a sufficient description of the runtime effects, and to decide whether
+a backport is appropriate.  Please.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> Enable the static key after a successful compressor and pool update. Do
+> this outside zswap_pools_lock because static key updates may sleep.
+> 
+> Verified with fault injection on a stock kernel (compressor builtin,
+> CONFIG_ZSWAP_DEFAULT_ON=n):
+> 
+>   1. Boot with zswap.enabled=1; pool creation fails, init completes
+>      pool-less (static key off).
+>   2. Echo an available compressor name to zswap.compressor; a pool is
+>      recovered but the key stays off.
+>   3. Enable zswap.
+>   4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
+>      fault it back in and verify.
+> 
+> Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
+> without this patch; all pages intact (zswpin=131072) with it.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Luxiao Xu <rakukuip@gmail.com>
-Subject: mm/memory: constrain generic_access_phys() to page boundary
-Date: Sat, 5 Sep 2026 22:12:17 +0800
-
-generic_access_phys() improperly validates the memory access range: it
-only validates the start address using follow_pfnmap_start() and passes
-PAGE_ALIGN(len + offset) to ioremap_prot().
-
-This poses two problems:
-1. In PFNMAP VMAs, consecutive virtual pages are not guaranteed to be
-   physically contiguous, and individual PTEs may have different access
-   permissions or writability.
-2. The mapping may cross VMA boundaries if len extends beyond vma->vm_end.
-
-Since __access_remote_vm() already loops over the requested length and
-accesses normal (struct page) memory page-by-page, constrain the
-->access() callback in __access_remote_vm() to at most the current page
-boundary.  Because VMA boundaries are always page-aligned, this also
-ensures the access never exceeds the current VMA.
-
-In generic_access_phys(), defensively clamp len to the page boundary as
-well, map only a single PAGE_SIZE via ioremap_prot(), and add a missing
-(resource_size_t) cast during PFN re-validation to avoid truncation on
-32-bit PAE systems.
-
-Link: https://lore.kernel.org/eaa4de66f9491888e0ffeb2d37ba7ae796ba535e.1788531737.git.rakukuip@gmail.com
-Fixes: 9cb12d7b4cca ("mm/memory.c: actually remap enough memory")
-Signed-off-by: Luxiao Xu <rakukuip@gmail.com>
-Signed-off-by: Ren Wei <weir@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Suggested-by: David Hildenbrand <david@kernel.org>
-Cc: Grazvydas Ignotas <notasas@gmail.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- mm/memory.c |   12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
---- a/mm/memory.c~mm-memory-constrain-generic_access_phys-to-page-boundary
-+++ a/mm/memory.c
-@@ -7131,6 +7131,11 @@ int generic_access_phys(struct vm_area_s
- 	bool writable;
- 	struct follow_pfnmap_args args = { .vma = vma, .address = addr };
- 
-+	if (len <= 0)
-+		return 0;
-+
-+	len = min_t(int, len, PAGE_SIZE - offset);
-+
- retry:
- 	if (follow_pfnmap_start(&args))
- 		return -EINVAL;
-@@ -7142,7 +7147,7 @@ retry:
- 	if ((write & FOLL_WRITE) && !writable)
- 		return -EINVAL;
- 
--	maddr = ioremap_prot(phys_addr, PAGE_ALIGN(len + offset), prot);
-+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
- 	if (!maddr)
- 		return -ENOMEM;
- 
-@@ -7150,7 +7155,7 @@ retry:
- 		goto out_unmap;
- 
- 	if ((pgprot_val(prot) != pgprot_val(args.pgprot)) ||
--	    (phys_addr != (args.pfn << PAGE_SHIFT)) ||
-+	    (phys_addr != ((resource_size_t)args.pfn << PAGE_SHIFT)) ||
- 	    (writable != args.writable)) {
- 		follow_pfnmap_end(&args);
- 		iounmap(maddr);
-@@ -7221,7 +7226,8 @@ static int __access_remote_vm(struct mm_
- #ifdef CONFIG_HAVE_IOREMAP_PROT
- 			if (vma->vm_ops && vma->vm_ops->access)
- 				bytes = vma->vm_ops->access(vma, addr, buf,
--							    len, write);
-+							    min_t(int, len, PAGE_SIZE - offset_in_page(addr)),
-+							    write);
- #endif
- 			if (bytes <= 0)
- 				break;
-_
-
-Patches currently in -mm which might be from rakukuip@gmail.com are
-
-mm-memory-constrain-generic_access_phys-to-page-boundary.patch
+And thanks.  Sashiko might have found another issue in this zswap code:
+	https://sashiko.dev/#/patchset/20260905125101.2970456-1-xialonglong2025@163.com
 
