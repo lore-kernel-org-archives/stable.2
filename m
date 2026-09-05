@@ -1,69 +1,68 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013079.outbound.protection.outlook.com [52.103.46.79])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013082.outbound.protection.outlook.com [52.103.46.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2825C399CE9;
-	Sat,  5 Sep 2026 20:48:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358EB14A619;
+	Sat,  5 Sep 2026 20:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.82
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788641321; cv=fail; b=qwWwaMLv6H0I6vS62fA2tcGteRX19G46BWs+xdj977P6lpDpcXqxYro+uWJq6He8TRYxVI0AlkdWMrp6Td9CRDndWTrOh8SEM0NhSIuH85s4us+wNWnGYI4Y5N07K2eRGnZPsOBSsTsY0AMHoKnHemLXn9Q0pcPiAVRYvkqHmhU=
+	t=1788641332; cv=fail; b=OBSz+OP6E58LeldAmBfhLY2MfvtL/vJ1w67R6ZRHNwxkekZb9F6iq7ncX+CH4eCYfOUoYv5tDSGcZb+oZVR6qf1RHmEFINsnsKX5SdWrd7pwGR2MOW3oM7rt7IOH71iZKed8P/JTGJdFaUX3++SJBYrYDyM6JRb3nKERmgR2xnk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788641321; c=relaxed/simple;
-	bh=PQwIpBJpb/AOVBnl7z52EafA3otH0suhwD2bjKRj68Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=kvoVBw+iHSjv8pGgjnuecaVqB7TOZtm9FGBZlUCQrdkR2p0DnLvoI6/quiOcOVjJ7fcHeQXon4pD2Mk1b5qQWtfTtcOCz079k/Gb2ozsHAKtPbg9m+yJ6LGh6PcEnIpGwng0JKcRKzeRbhPRAIoTVimW3ksquwllLcek7/m0aYM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=EU0SKtCa; arc=fail smtp.client-ip=52.103.46.79
+	s=arc-20240116; t=1788641332; c=relaxed/simple;
+	bh=FvAyqHkIs1Ip1ZyiBgkiYkt99CH11L7+DJSEFS0izxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=fFUAIzh1yrkc3aDnSDX1d9NxoNxBeIPRXfMEAGYj+7LbjABStpku0a4eCT+0GQesSH8m3eDrS7xUz9rjFpOm+RlRz7lR0bqus5F1RpXwDyGpdMMWuhbaFeItzt/OCneU4C/2PynR2fC20GSw6Gosfg5XgvI6lCAKVczjfCaQCE0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Ek4POoIS; arc=fail smtp.client-ip=52.103.46.82
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="EU0SKtCa"
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Ek4POoIS"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qhhCfnMMlnniPxGtlm5ifUWGEf8P2NPoP+gcwIfHDxB+fT4nax8FwpZHlWBAPHYyPk3r8HVCf7eebrQZ/wlx7wi+2UDB88qbrwFLVMVOCv9lR1G/YPmCeYh3xAor1OmTshYYE5CEZ7m+jE43BTVqN4rWqJbZKCcMrx1tfvoLmphCcG/5tiZWOImAVhoHuh0RR7bQpiUaH5Sk23FkJ3l1ZkMFDZh50S3zehzH9weZupGJDvJVWCDERveq205LyekIzSSO1/8MPf/YHN8aHwtaaCpvI/fjqDJHhETDJka0x+uq/n710RdFHtf+HrvP/9INMazSS8648OAUgbNrrGOYSQ==
+ b=avTVLb0h+Nis2iaNvbl+pPH5iSwlFPVUeIWWtybvgg6SPuyG+0CjNkPxQKaGONEZamWQ3z8IQ0SuBaKAg596QzkZKZ29PRQ4GlVexZiy8W5qYoKwPVKGbKmvum3+ckROsepYn85uLJ1DA0IitvhZhNUDNGype0Nl0OnXNTt+BCm1y2UUardqJ/1NaNQ4mppngGPGbLWegxOYxiUiKQw4RLnMcV2Y8n2z3dkXgRiZvdMqBg12xOqfa2lppW6TnkdHUKM+x4jNVWFYmGFdXOSgIVHjMPaXgO59IC1ybYddp9WxqsXQYV2BdDDI6bz4+WBThEvuYX0FclTCD3FBknldpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=o3w4Yk14nyFFh/brlO5Hr8U1Q7mxP/NsSMl2kOvQtjs=;
- b=ClYuDgRYj/BFBtp9Hn1k9w9hPm47EnMLZgmfCIoA12vbQqTdkpV0JrdXkFHMHlQJOQ7g8dzlawC7SmPIYJop3/TE/SjVnILx25xtzL81nS9vMFuabXKKCt2EiKgx8m8LG4RfxtvaGbBmbB7KcLqRBXXEuL1snYqsjmmW9rSL1kZ7iZIVCQZjLp0I4yHLWUGmpT+Ub7WrXRthX7Cpqm4HnmKMA5wUiWa27WipSkj2eCjWqJyJHQJKUxIqCvORrihIOpMqp2YX6a84/kU0FqFBQsJc1Jnj90QYfYcgDDr1VkhLJPXTIxvDFoI3J4BUvd7kfH0z03zxa6B2lsU1RLoAYA==
+ bh=Tegd1GECJ9D1sJrLs/B9DOHmTKY2wOxS7gCgv9dsjag=;
+ b=iwAugbwkJtWepU08PiFp5j07X5QCNcv67y/MyiRvI7pzrOKLKUPn1RzXMFxkiSm20/hunGNBllSr+rXJv4xLGmzuc223ahiPwko8Uad2Ek5W9o0ycS53KHuZDlGOZQi446Ty9euN1H+8PA1R770U1bbYQzrT1v78NOE4olEN2FsHWzZ6Nsc6SMVh9lAPXoWGHkLLmQjVGbojIoLqYdydo0JB2Y4J+ItF4THQV8oZLUm6px+KVoxKB8MjalW2MKjGjLw8u49bmIhdHq9UKX/XTTyyubStCrrBHXPPw+BvfLRnvvjAfKRPoyJbE05iDnTLMgM9nvSQH2XQzqZ4EcfF9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o3w4Yk14nyFFh/brlO5Hr8U1Q7mxP/NsSMl2kOvQtjs=;
- b=EU0SKtCa4/WRXlJwr8j4IKJOJnXONXJWh4Zm6wepdl6D+PyRcLYG/0hvxNlZ5oM+bKssD8oWoXOc+cvSXKboXFndlShyH96OHccG5Zgcv/JsaiS1LWD41wRG29Kz7G3FGC38uTi36gZMJm0quG3sZcBkIDeO2jPSee56syh+TtHk/CvXNVnP5ctDHB84AwQx+aYo2KlsQUTTbiqyPZrtmJbah16c/+NpyR/Ax3Cy5t3gOs8s0TSXl7tX5EYwpBag0TxQW43KI3jW3k+bYbMEzMrqFvjKhiVq5eJOA4UQMU23uf7aF1u/ZF2vcaiSZ0vREb3vNd3YfIf78RO03MEsqQ==
+ bh=Tegd1GECJ9D1sJrLs/B9DOHmTKY2wOxS7gCgv9dsjag=;
+ b=Ek4POoISXWT4xgpdaGp/Wiu9nB+R2C+B4pDBU5eXf3/w2B+Ksl8HCpX8q/QKvWPhSvHc6VjmlUyvbTtyLuYOZ3q5+zlM/HGpoodPmZCWxvVoLV5JD0G9ODQ11VAbwZp4VDIAelqfFREzH2d31+scNJbFtY0g0HLCNDhoS9Y/23PJthgEtGNLhtVCXQnliuPJ2WZTLUMByyIVcSTJVgKGgdzGuTzPTUIa2Tm+E9msJe0g/UGC118oe9eRU3PvPvMyOeAVyaTRG0opG4jRG0LxukxUpjmfmUsOlgt15nWW40XjLCI1FWyYTVAs74E0HPlK/fZ2p2njDBcbWVYyvrBmPg==
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
  by PA1PPF75DB7739D.EURP251.PROD.OUTLOOK.COM (2603:10a6:108:1::21b) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
- 2026 20:48:37 +0000
+ 2026 20:48:48 +0000
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
- 20:48:37 +0000
+ 20:48:48 +0000
 From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Drew Fustini <dfustini@oss.tenstorrent.com>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-riscv@lists.infradead.org,
-	linux-clk@vger.kernel.org,
+To: Georgi Djakov <djakov@kernel.org>
+Cc: linux-pm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
 	linux-hardening@vger.kernel.org,
 	Aamir Ahmed <elb12345@hotmail.co.uk>,
 	stable@vger.kernel.org
-Subject: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
-Date: Sat,  5 Sep 2026 21:48:35 +0100
+Subject: [PATCH] interconnect: mediatek: Assign .num_nodes before accessing .nodes
+Date: Sat,  5 Sep 2026 21:48:46 +0100
 Message-ID:
- <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+ <AS8P251MB00010F5EE7878E15AF0E49F3C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.55.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0508.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:272::10) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P123CA0218.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::7) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  (2603:10a6:20b:344::22)
 X-Microsoft-Original-Message-ID:
- <20260905204835.31915-1-elb12345@hotmail.co.uk>
+ <20260905204846.31973-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -73,61 +72,62 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PA1PPF75DB7739D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8778006b-db2d-4fad-90f4-08df0b8f0f4e
+X-MS-Office365-Filtering-Correlation-Id: b178d9a2-bc90-494e-bdd1-08df0b8f15d8
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|5062599005|23021999003|5072599009|15080799012|25031999004|37011999003|41001999006|8060799015|19110799012|25010399006|4140399003|40105399003|2607281247196008|3412199025|440099028|26104999009|19061999003|1710799026;
+	BCL:0;ARA:14566002|24021099003|5062599005|23021999003|5072599009|15080799012|25031999004|37011999003|41001999006|8060799015|19110799012|25010399006|4140399003|52005399003|40105399003|2607281247196008|3412199025|440099028|26104999009|19061999003|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?fBDMVDG38xWZQYWgKik6uq6DzGKDX0khX0awBwzty2C/L0xvd8EW/F5wPPNi?=
- =?us-ascii?Q?K+Fi4A8b3dBXRwigkKo/e8FNwqO3/yuAmPIvZs2m/xa98VYn3Drq0hlIvtm6?=
- =?us-ascii?Q?yEbC2GiZMfvU53OtUmB0mtmIE1A3yyI1ughK6VekA8SWxNYi4A3bJQ3/G8YB?=
- =?us-ascii?Q?oSu8vXPrc3ngO9+5/XLtyHzQks57WhSiy8FXhUg3oW3UGmiz/b3BAOhIQ7UW?=
- =?us-ascii?Q?Mk1XnYARDRoW34Xi3dv1K0MVTYP497lJvkyxQDpwkjFt9cJ7FPfyG1QlS5Ub?=
- =?us-ascii?Q?51+PzlO+hkatHk0byximq1tf81Ntjs5IQljULMTq+dNMjGfofr7Zc1a+ujzh?=
- =?us-ascii?Q?zqLE640TywYFh3nGvEhLaU2d3HfEb7R2W4cJsJkFsHU00SkR8KCshvkCav0/?=
- =?us-ascii?Q?EnmLOOS1vXG/YzEBGc7SdWaE2W007YViEyv+T6DDAu5NAbAGbLRWlVuY8Ixk?=
- =?us-ascii?Q?KYG9x6cO6Rj6jFpZtsLaPSHz8dC1f5CJPzIIoro9tEPw4xGlLZe4lGvWlhl4?=
- =?us-ascii?Q?bFrrcECBteO48MSPPBB2ZIBFIRL0j6iq5DaiTWFceM4S46xeyb4oA+iAiq1m?=
- =?us-ascii?Q?UbBCaUqX1EKDw/WcZUYaM66x8CE/y1JJPhT5JbYaFqWT9URweS/St2MkJIkc?=
- =?us-ascii?Q?GVpBqRzU0egRnNt6KJU/4oHN7Q7BUOQ5v870qd9h/dJM63DbbfzQjgnPFN8b?=
- =?us-ascii?Q?qq5M0Af1tiU38jUICGxiDh4OtljUStMLpt+f9iS/U115Lf7RrotREOwBmzDG?=
- =?us-ascii?Q?ac1tphAKDCZg+/s+jNZ+ZXVdkFAXkeTSo9XvBHV72SL40xVgFAc+XVtgvZZs?=
- =?us-ascii?Q?qOoPopIMqMWu6yJ4RjdUJci9UFMVqf59K92NK5FmEAiIk9wjL6uwfMOBvPbZ?=
- =?us-ascii?Q?UvMV4QwRHgV/oMMySBHCY6EJRMqe4hrhfvrpD9IhPn/TwgnzUxvjU5j6Bgyi?=
- =?us-ascii?Q?d1ursvYOmWN3QXRFHQ8vJE8dMpDFSde915vfnHyR1RCa6RKU805yC0z55vno?=
- =?us-ascii?Q?1saI5MPa/sEcz+c0VG3I//mB6AP+4LRQx5XPAz2JC5yS8buKt9aHtS98iRzj?=
- =?us-ascii?Q?tKogZpYEc7FDgSe9YzvE5Kg/LEyz7g=3D=3D?=
+	=?us-ascii?Q?cRAdEVm7dvy6vtTfHRcjqDruyTrqHOCCEcFq1cs5q2dPpZc1c2JuZuQ+/FyC?=
+ =?us-ascii?Q?N+maEEfC6GwD2GfZP5NMYIt3PKm0VSqT0swHvOi5sjdiM364Rk2iIT4p22ZH?=
+ =?us-ascii?Q?pGbwQSaWLQSph9lFCKVxB3LXjPOnjJzrcV6FnoDZfQOIrAK7bDOq5XvPnrA8?=
+ =?us-ascii?Q?vFwXDNKdt8IJftvvHNYCzMfSRWUh4U87EdR9hx24Iozad/zN7Ih/nEQJKmN0?=
+ =?us-ascii?Q?QqluHBeca3bkWefJPLLWS/TMsTYl4YVjalv5wD1GaKqZVqrR6UJ1XCWE/AA+?=
+ =?us-ascii?Q?oYuVsZMXRNN7051sVrK+L1S0HB7zMNM7uGkMsi6kyc/aQ4jg8TcFra6Fs263?=
+ =?us-ascii?Q?+XiSiTsJeRC53Kd6jDBElmB/jigt5vyt6KbBk0rih93XWBdvUmUpiD3uEIAW?=
+ =?us-ascii?Q?1K8BsP4wHxrb2DgzX2BjT4CrfgUqThD1w9G49WFAa6ZATwc83Dur1dzpjyGr?=
+ =?us-ascii?Q?e1vFleYPbjl1yQTz3WTZBK+yUeGnKcMW/MPVi6H7SlhSLB0ISQy4TU1Wvsww?=
+ =?us-ascii?Q?Ia3mvOOvLJyHUlb/MQYKIoFxncDdAbk/iUatR8f4s3/AJanX8C1r+Q0mfHr+?=
+ =?us-ascii?Q?70aCbmUYD/N/RlaPh2Qf+2QwONFkvM2Q/9jUBSmp12ExmcJhP4mbeCeXyHL7?=
+ =?us-ascii?Q?73OnVxkxChgWXS1kD/tvi8bWn+4XiIQOR9IJpnz8B99HgFNYZMltzZQIyPLJ?=
+ =?us-ascii?Q?D4w85rzUzgQUEkfWs32ZJUxU091mi2/rvGZTWs6SLHJr5HhQtaqhB1Z5+vry?=
+ =?us-ascii?Q?NFyZbLFK57R+SpQSHh1FQ8lrQA06RmKJ2iqj1lTx+tfpNjN2/6fiSzcJI7uM?=
+ =?us-ascii?Q?rBl1aquRBFgDaSl2lYaJX4awfctKMk40KHEWco27Pxsc3SuTtTnpC8OLYx3a?=
+ =?us-ascii?Q?YfxEzB1UlOBVfN7YqtNzUCPa4ffZCjYKQw8dDtJAjHrc1DwR09Xy+7WVtAdB?=
+ =?us-ascii?Q?MF0i6BW8Yxg/KlY7TWP6MTBedVqu49d3Xddip1JqwJ5Yrc/zUD8Qjk7aNlRz?=
+ =?us-ascii?Q?6D8mYpuYO0yjg1LifwEFYd0vCz8NZzfXNHO5Zb7Zdu2STr2go1sOJ6/XGeVw?=
+ =?us-ascii?Q?1Keo0AcjXU+O1rLlFXEOCIzIYmyyrvOOh4DlTG+PjfCBs7gT8QZcYrZ7vZWd?=
+ =?us-ascii?Q?SaEdW9aM/3c4?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Hw8pR8z4fKUM3wdCqFL/rIqSSwFx8DaK1EJRWfaIUEOBfEAkZ/+D7JVN9SQd?=
- =?us-ascii?Q?8TGOEGgzcEE1iuPzYfRhcg04MDSeiXdLuPsIClUOwu+RhhFe/YRQt0xTRqy9?=
- =?us-ascii?Q?CXoLODjwe/z4Yh55cHIM3unQBHG/9AxJZE7ZbC2JyTUaU4+GAvSKA29crCBL?=
- =?us-ascii?Q?zV2cX0KOBA7Eks8KyFF4R+VxJEsRX9+StChV91z0g/8DyYFqlBDs/xiuOaQv?=
- =?us-ascii?Q?mnWp97MVr3wcpoF7XH+cS/4Njv0TXhFK6VdY0tmKt6oGb2LyzGxSge7gafZW?=
- =?us-ascii?Q?tqOI2V79xvL9AymgPY4pSne0hcM1GY7qNpgIC9OA3UKI/9Q05RplQNs1/O27?=
- =?us-ascii?Q?puYE+dPVJmY/ei7vPB9MDkm8CTfxcMXjMWQRX3uB3oSh+/oje95RWq54UFJT?=
- =?us-ascii?Q?coTzKI7Ir5g9H9y8A7mogEsJLNMsMqH1NcAFktVhs4p4MkB0kdxIH+RmE+RJ?=
- =?us-ascii?Q?oRpkCJLL3/3cBdmJF1oJjjrkXsWyQx1GiNld/rw6U5LBgfooJDDWIwLYlITI?=
- =?us-ascii?Q?YFFA08nCCrphYuHZYXNeN/3J+EVaf/MjGQ9XTVY5pYoJLKLCcblDQcytfITF?=
- =?us-ascii?Q?d7OoYaMM3fQpbusunxR6GmHi8VhBtEH2ANzckeARcL4lorSdRiYu7sU03+rJ?=
- =?us-ascii?Q?XXrzrd86bxKpHy/ni8e1Gk1Z4RCscnzdqjpxEBD2kzUMm9Fogeu4V/Mn5hB2?=
- =?us-ascii?Q?6JE8fVWvz5oMzxnjzCvqOfJNpxpnIgClr2TIepjtB4VhzXUF7HSm0w4shsSG?=
- =?us-ascii?Q?WCCk979gfoveixX4J9pnfExTfF5B/zcyI3k4NXGxrAaRgBo8ru0TrWLVmZg9?=
- =?us-ascii?Q?PXLrFUEKXOEuyEB28DVkJLyHs4USByw1N9NEivT7zT28rvtu766/SgnqRU9M?=
- =?us-ascii?Q?nFcz30kgGKvUx6/JNTQ7ltEqLrrs86DJjoyz2bdklSpRA/ub8fsI4+ZELs29?=
- =?us-ascii?Q?7oeBXTZatTfZR5XCktnPE2L/UyOAeHCuls6JzSEzXdi/SfNbh6N/lBJH9pIJ?=
- =?us-ascii?Q?8hOuednyZxZhhDm2Tus/UR9Y8Vu9hWFV3b2o9QMcJYow5JCfPKBjCu0/6SxM?=
- =?us-ascii?Q?7f9Ue6qEMYbFH82Hl0tKugKNG4NARyfF6aOLmuuIIMZhJUmUsEN4hyLTa9TN?=
- =?us-ascii?Q?KZJL1l8TAtkyoN2e7h4+NI+Th8csQ/TlXTWks1o77QpU1r+ITUKqE0H2K9N3?=
- =?us-ascii?Q?0Rd+jyog3+t9BZ56MBAekBaBDhj3dKVf2ARF+wPl3WZuLq4Yk2CfmVl8fGNl?=
- =?us-ascii?Q?23mxHatpQOjbeWoHtetImSZDU8Ns1d20cgorFYCgeVmHyHLVUS88YCNFkwus?=
- =?us-ascii?Q?i23S8j2uhJLzLVBhWRVgQoNTJpk26M5dVib/43grbxlvj/ArVHc65zEI08EI?=
- =?us-ascii?Q?2N9jrgddg6QVjbKZLbq9bypvbafgjWT7iXBkWk30gUI8Sh+9qkOKfsyxs2ir?=
- =?us-ascii?Q?iDbXZklATIUxOuMG15D0PbNO51spc8gM?=
+	=?us-ascii?Q?FOIXuVMssia3Ye0nemadkTpN0guVfP3row4pc4NYJ8zPAk42AfMbafforJEr?=
+ =?us-ascii?Q?qw+q+8m0qqRELiKaQVh62hjsH5VCF9GAvfWPGK2CTmTxavFKrJGTOqgt3E0O?=
+ =?us-ascii?Q?RWMZjVQ86x2heyVAuvOf9DmVVcDQ5Yal+cbuPbn6SjBJUiafIVSDdpkrYVfn?=
+ =?us-ascii?Q?iWiM9euBHvDgPp0C9c3gAlgg0AqBafJuwpc2NVPqf0gOxrIzSV8SDxHK2XRa?=
+ =?us-ascii?Q?i2wqrMQ/vo1r8+D6nyGGs9+a1vsnnAV4V3/nq2h9bkojJ2lFOLIU1Davu6Eq?=
+ =?us-ascii?Q?P514hl2sKvsdDX5uPnBhb5dYA/1ktF/tM+Tqmdew341ss7pAJqY2430HuTXA?=
+ =?us-ascii?Q?NDDz0wL6srpfkNhThwdtt+Re+8mj9ddiByAUJAlSeUwtdz9PvprNw7CZ/8/F?=
+ =?us-ascii?Q?eyqDMXNA2EGIF7r/3xwf2GXZJ1i9jERnziaZ8qVyfwK/D53ByqJmllr089cg?=
+ =?us-ascii?Q?i3yq9ihn9vctQphg8ARlvRG3X6wFL3bXj7mvX9GtAl9rRc8+5wG1LsWX7Dh/?=
+ =?us-ascii?Q?VnWh/7a6qFy3wVCB4lt2mEQNzt/AFR90d/0L+VXdCPvcYVLf/+wFhbuLWsi1?=
+ =?us-ascii?Q?EUv7IA5CjeE5iT87lj6bbJo50DLaCtMZC9S23NAEgNVmFFTSNcPLzwshEalo?=
+ =?us-ascii?Q?RVOV8ZKImWnLfqBisX5XyjR9UnKGW/x2lmly54z/7LTBXgKhPqP0tC0aPh6C?=
+ =?us-ascii?Q?MSexNS74Zv9h9ueWZN61QDGemRZwYNWSyo12y3AR3e3ZgbNFsyD15VF192pi?=
+ =?us-ascii?Q?bweo2lprILqozVrQfxtAfpNAinRF3OvKkGbx2Al/motJr7nDy/rYWP8lmNbW?=
+ =?us-ascii?Q?BOpN84Na6l7K5V36eTZXEKaD6/us8D9afM5eT9VPizJlqDD8XHNwjdiqMMIi?=
+ =?us-ascii?Q?+IysTjzfuNXj9YL1YKv1v/rFaES9Xs126E3/OEx7OKVrtyfG/YisGRmkSE35?=
+ =?us-ascii?Q?ur/0DZAq5ns9esmbPRT8ggnEbIOccfpcZknfKyibVmQthxmFg6KUwZzmi+C4?=
+ =?us-ascii?Q?DQNqNwxAKhXocJCSZtM5BEJLGPgrh5c+wfPeyIQ6BNW3ud6A3Ln5WC2n92XU?=
+ =?us-ascii?Q?lipUiS7inOCx/hyj+Jeiv/V6LNyEfzpdRnsLuVUJuaRf51T0/zE2rZeT1Vrz?=
+ =?us-ascii?Q?njPUSS94rI4zQFAf1l1MsjwJpU2y/+J+sWKvMKjrbI6/lKWqZc/CI54rI9wg?=
+ =?us-ascii?Q?sl6KLX0Vi7XB4lq5Al0j2unedDOxaVGymzdqRlsdPBvf6T/PrDvxJtNncYrm?=
+ =?us-ascii?Q?SHS/nyklhre8pGQh1Olb58iqAMCzcJvBtMe53a/Yj95U/tZU2nrMpQ1/+nt8?=
+ =?us-ascii?Q?jkWTZOclIpVrsD63soMCMOuBWpFTFr0bOlJ+wSVb+CdvzTEUVR1Je8Bo5Op+?=
+ =?us-ascii?Q?Dk3Zj4zEchsQ3iIswR+DKQVjb96u/mWo0RHio5nMmDXiNh+KYJ3evmyiBNL+?=
+ =?us-ascii?Q?rHn0C7062BRGDK1nWhA1UJYLfn3Gr8rA?=
 X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8778006b-db2d-4fad-90f4-08df0b8f0f4e
+X-MS-Exchange-CrossTenant-Network-Message-Id: b178d9a2-bc90-494e-bdd1-08df0b8f15d8
 X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 20:48:37.7059
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 20:48:48.7656
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -135,68 +135,75 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PPF75DB7739D
 
-Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
-__counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
-with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
-about the number of elements in .hws[], so that it can warn when .hws[]
-is accessed out of bounds. As noted in that change, the __counted_by
-member must be initialized with the number of elements before the first
-array access happens, otherwise there will be a warning from each access
-prior to the initialization because the number of elements is zero.
-This occurs in atlantis_prcm_clocks_register() due to .num being
-assigned only after every clock has been stored in .hws[]. With
-CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
-15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
-during probe, and with CONFIG_UBSAN_TRAP the first store traps so the
-clock provider never registers.
+Commit dd4904f3b924 ("interconnect: qcom: Annotate struct
+icc_onecell_data with __counted_by") annotated the nodes member of
+'struct icc_onecell_data' with __counted_by, which informs the bounds
+sanitizer (UBSAN_BOUNDS) about the number of elements in .nodes[], so
+that it can warn when .nodes[] is accessed out of bounds. As noted in
+that change, the __counted_by member must be initialized with the number
+of elements before the first array access happens, otherwise there will
+be a warning from each access prior to the initialization because the
+number of elements is zero.
 
-Move the .num initialization to right after the allocation.
+This occurs in mtk_emi_icc_probe() due to .num_nodes being assigned only
+after every node has been stored in .nodes[]. With CONFIG_UBSAN_BOUNDS
+and a compiler that implements __counted_by (GCC 15.1+ or Clang 20.1+),
+this triggers an array-index-out-of-bounds report during probe, and with
+CONFIG_UBSAN_TRAP the first store traps so the interconnect provider is
+never registered.
+
+Move the .num_nodes initialization to right after the allocation. The
+value assigned is unchanged, and the other users of struct
+icc_onecell_data already initialize it there.
 
 Cc: stable@vger.kernel.org
-Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
+Fixes: b45293799f75 ("interconnect: mediatek: Add MediaTek MT8183/8195 EMI Interconnect driver")
 Assisted-by: LLM
 Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 ---
-Found while auditing the remaining clk_hw_onecell_data users that assign
-.num only after touching .hws[], following the fixes already merged for
-clk-s2mps11 (3e14c7207a97), exynos-clkout (cf33f0b7df13) and
-clk-raspberrypi (6dc445c19050). The audit, the fix and this changelog
-were drafted with an LLM assistant and reviewed by hand.
+Found by a tree-wide audit of every __counted_by annotated flexible
+array whose counter is assigned after the array is first written. This
+was the only remaining user of struct icc_onecell_data with that
+ordering; the same class was fixed earlier in clk-s2mps11
+(3e14c7207a97), exynos-clkout (cf33f0b7df13) and clk-raspberrypi
+(6dc445c19050). The audit, the fix and this changelog were drafted with
+an LLM assistant and reviewed by hand.
 
-Compile-tested only (W=1, no warnings) on x86_64 with GCC 13.3, via
-COMPILE_TEST with CONFIG_TENSTORRENT_ATLANTIS_PRCM=m. GCC 13.3 does not
-implement __counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang
-20.1+), so the build only confirms that the change compiles; the
-sanitizer path was not exercised. I do not have the hardware, so this is
-not runtime-tested and no UBSAN report was captured.
+Compile-tested only (W=1, no warnings), on x86_64 with GCC 13.3, with
+CONFIG_INTERCONNECT_MTK_DVFSRC_EMI=m forced on the make command line
+because the driver depends on MTK_DVFSRC, which has no COMPILE_TEST
+option. GCC 13.3 does not implement __counted_by (CC_HAS_COUNTED_BY
+needs GCC 15.1+ or Clang 20.1+), so the build only confirms that the
+change compiles; the sanitizer path was not exercised. I do not have the
+hardware, so this is not runtime-tested and no UBSAN report was
+captured.
 
 Based on v7.3-rc1.
 
- drivers/clk/tenstorrent/atlantis-prcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/interconnect/mediatek/icc-emi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
-index 6d4386eeb7d..a68534a295c 100644
---- a/drivers/clk/tenstorrent/atlantis-prcm.c
-+++ b/drivers/clk/tenstorrent/atlantis-prcm.c
-@@ -796,6 +796,8 @@ static int atlantis_prcm_clocks_register(struct device *dev,
- 	if (!clk_data)
+diff --git a/drivers/interconnect/mediatek/icc-emi.c b/drivers/interconnect/mediatek/icc-emi.c
+index dfa3a9cd939..c4aa0ab566d 100644
+--- a/drivers/interconnect/mediatek/icc-emi.c
++++ b/drivers/interconnect/mediatek/icc-emi.c
+@@ -100,6 +100,8 @@ int mtk_emi_icc_probe(struct platform_device *pdev)
+ 	if (!data)
  		return -ENOMEM;
  
-+	clk_data->num = num_clks;
++	data->num_nodes = desc->num_nodes;
 +
- 	for (i = 0; i < data->num; i++) {
- 		struct clk_hw *hw = data->hws[i];
- 		struct atlantis_clk_common *common =
-@@ -809,8 +811,6 @@ static int atlantis_prcm_clocks_register(struct device *dev,
- 		clk_data->hws[common->clkid] = hw;
+ 	provider->dev = dev;
+ 	provider->set = mtk_emi_icc_set;
+ 	provider->aggregate = mtk_emi_icc_aggregate;
+@@ -126,7 +128,6 @@ int mtk_emi_icc_probe(struct platform_device *pdev)
+ 
+ 		data->nodes[i] = node;
  	}
+-	data->num_nodes = desc->num_nodes;
  
--	clk_data->num = num_clks;
--
- 	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, clk_data);
- }
- 
+ 	ret = icc_provider_register(provider);
+ 	if (ret)
 
 base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
 -- 
