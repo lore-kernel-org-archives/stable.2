@@ -1,110 +1,98 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE481A9F8C
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C8C1A9F8C;
+	Sat,  5 Sep 2026 20:51:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788641355; cv=none; b=qE/FCOEGUVLbciaKRk9CIXebxrXUZm16wHWppVB85SlEc83Oi4q2A+3LXrgdbgirTEgdXGP3x589cS3g/HnTA1Lx8Yc0CmjbBtjTHkgA07YH9PM4/+WKsqhtPrAQQfasxws1RcbRsiTWVDBI0xqGhP9OMqQiv+qoMmfEgyi40x0=
+	t=1788641479; cv=none; b=MNCewIs4zRAQAEQwg2moPHooTKG2X6sw9uC3jgmVSrstMRiuRmh0+fkvVIQvH4AiaOTCDq5Es7l9ZM4IpQc9TplQnVaXtZhM7ZbcKkohockpqqG5pxGr7lgHp6R59/lRFwuVwzOVQPjDvHsRGnPSEikIDWnoQjHMb2G/P3qCA/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788641355; c=relaxed/simple;
-	bh=r/z0/C5tMQT5HZYyEl4B0b4VC5XYi8OOIGchid41G5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xr7c6AJNEbcH9avHdR0bdyolB0G9xoGBFfKzhRHOPrXKGxS4pEj3yqj+olq4uhBqEv/PeufYCRqjsGHhEcw1AEjiqrpl//sjJKTuUsAvTbyXV/jUss40Szw8JILZJQ9Lt1DXgn9wdtdlJQ+zzJY8F8sS2r8RADHNrIfqjqnmWwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=eX0Mj5uQ; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1788641479; c=relaxed/simple;
+	bh=eP6I4rdFH8zi9D0PcFC/JBxFgEdkQSnAujY0LoJUvho=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=m7A1+Gp2fnCk1TbDHVLQkmHrJJJhj2Lp1Uoo6GQPVpl9AEVKLSoZl/LYPDmJXCyc0FUkKvwux0spNrgr1KeImlLVIOudK+qUC/dd1NeTBWFTy4KEk17MqzxSVZLDWhKQTlnBd85+WIYnf4PbP3fTMEqrHsP8dR+eDjT7QjvB0H8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aXWNxR5D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="eX0Mj5uQ"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48586861639so1548617f8f.0
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 13:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1788641351; x=1789246151; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c1EfKIGU/Jrr5zV5deWFk7RgEC9wFJWZJq9htaal6jY=;
-        b=eX0Mj5uQVqD3VT/85ooqJ/R7nPJyEu+8dXwH7ChxSYeCBPsfPoO5iIZSNOSml3FJQn
-         Wna0kiMrbpfweM+BEMqS11VoAQSskMgsBE6G0+QDXzo0m23Uow6cLgluZwnPYPiER2V/
-         U3DTzm/42bqfAVpwZP7NlykXpwRILiLho49aBDKP5ktXnEb25WHXBJMdnJ4XgJouCIBM
-         sk4Xkrtk0O0ouOHFLET54kg2xLqfGM5ckFrWXGkFQoJ5d9l4e9I1jAnvg+7vnLGkvIv5
-         Kn911h62QllZpIEQZXUqknSHL2bDpj230fjC0VbZA1rD4jTrdZcuWN4AwOQYzYtRx3BR
-         RmVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788641351; x=1789246151;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c1EfKIGU/Jrr5zV5deWFk7RgEC9wFJWZJq9htaal6jY=;
-        b=IyASq1OvOXj8S8E/wEjxiwPYOVXg8RoGgPdZ2t/D9vLO6JGG1eGI9YoLbeCc4M8CEg
-         lJ00j7DBHJbI98guq1ABgohlnraevEu3PTng1hchsazAWObIX1qOj+su4ohHoQ6qXkD5
-         Cndk903/NVzV3DLA59476Z4n5kRMw4qtCkF3xIFrl+ZrTE7cUh6/XXgKepiK7hh4raSx
-         3NJnMNmoPbkC41V+Y3tePTYeC55xmBaHu73qfJfQZNOqIOGLabfUzjf3xSQ1Na2JYK+Q
-         BwAvhPMDaSLeNlwJ/8a5HOkPnPs//8BFQerQnfEM5d7yDereM9LFZCmbJvlWBzIgWHUe
-         NdMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzLYaE6iqo1DoH9W91lAhEmb0Aop4jqSrO8Y5TwPJg81LxlChrXuyxJ1vjrULm9swShjwdz6LE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGc09vp9YBfYOpfUNc7xYRvX0CP2VO2mK3WQ2M2jYUH0LVqu7U
-	jzHEdCFseIB525OXJt91YUpiYKK8ve4oUZcUB4mIKAYHrxkXuUlGd2k=
-X-Gm-Gg: AYBFou2vY/+Xa7/z92vRZRXI+B86eyUvZKu7hisDPnYwahAwXqGLqXRB5ip4ExMToO/
-	Q7mNwPCpgUmMFDTM8xbFSEKS6NeHkq9YHuHc36ugREON/u1euWXusXAOy8HsXjEuGlz8h+7JaIA
-	l43g0dhlFS7LCOaaEgyHC/Ay2guBdqc6nrLPSAV9p9oENjfxhgMtDVoMMbZ9eENCVt89aGmZXi/
-	qPaD7Q1rqc+RhcPU2DGS9VIsNZA8S5HsOsXq60Qx+RzFwMvuWgNrCrRsG7MYlaDgx3PfSPNla4p
-	LUp1FgNXpqmOFU759QsLfPTIMhwLrJFSyQPmLiavndzwi7+tgV5zUcprwgdKxfL3CFwAlM+0gtY
-	Ha5RB3iA64ZqNBK2/tiry74dmHNXtOyBaWcV4107e3hGhfj7hBlt2pcU4WboHDjIh3KyUp3TMJu
-	7BDYmWq+1V6KBL02wdWkt82M3jpsW/Ebeksj+M5DBaF9OwpVcy6+M6LP7a+Jm/OLV6bjsqTAtt/
-	PelR023Vn+9kxRFbBpGQeH9/iXuV/KIXwKKt4UW
-X-Received: by 2002:a05:6000:2487:b0:485:8639:d58e with SMTP id ffacd0b85a97d-485891e752amr13186722f8f.8.1788641351327;
-        Sat, 05 Sep 2026 13:49:11 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2acda4.dip0.t-ipconnect.de. [91.42.205.164])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm17241259f8f.10.2026.09.05.13.49.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 05 Sep 2026 13:49:10 -0700 (PDT)
-Message-ID: <840c2d45-400c-4540-8238-862aa54a87ce@googlemail.com>
-Date: Sat, 5 Sep 2026 22:49:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aXWNxR5D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7684C1F00A3A;
+	Sat,  5 Sep 2026 20:51:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788641478;
+	bh=VnIsu5itAlYzuL5X7MCY8u3HD0I3nPhqDgGGuXqAu7E=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=aXWNxR5DumPj4E2M+Ip9txZQTRfTqQYnEFNQgMfzXfnjqV8So99aOyZ3OYhtm003k
+	 c18JJrel6i4FMZbqJZNWnL56yE0ONPu/VuQ6CwN4fWHhAd1ErTFRZl2WULFgY+4irX
+	 pMAzU90NV8udVEu+9IB3b1A6rRgUmUzpceNOK4QXlGoGF2nj3Yaf2eQsGKb8zC2K0C
+	 igGTzn6L6bxFaMLJkOr8fjC44Bik2KLRQlOEVF6DVE6GNhuJG1fu4CPo42Lf93OnbO
+	 ctCV08XrufOOEvGWef5vT83sqvGjsoOZA5gg6zxZqR4eEoymankS/B09bEbiEG8xP5
+	 QkLPsadoVBisA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0B0D3924FED;
+	Sat,  5 Sep 2026 20:50:19 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 000/400] 6.12.109-rc2 review
-Content-Language: de-DE
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260905115627.670276262@linuxfoundation.org>
-From: Peter Schneider <pschneider1968@googlemail.com>
-In-Reply-To: <20260905115627.670276262@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net v3 0/9] net/sched: clamp quantum/psched_mtu in change
+ paths
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178864141844.1349963.2611834823551423169.git-patchwork-notify@kernel.org>
+Date: Sat, 05 Sep 2026 20:50:18 +0000
+References: <QDISC-0CFC.v3.20260901204856@mojatatu.com>
+In-Reply-To: <QDISC-0CFC.v3.20260901204856@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ victor@mojatatu.com, vega@nebusec.ai, stable@vger.kernel.org,
+ toke@redhat.com, chia-yu.chang@nokia-bell-labs.com,
+ subramanian.vijay@gmail.com, petrm@nvidia.com
 
-Am 05.09.2026 um 13:58 schrieb Greg Kroah-Hartman:
-> This is the start of the stable review cycle for the 6.12.109 release.
-> There are 400 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Hello:
 
-Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
+This series was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Tested-by: Peter Schneider <pschneider1968@googlemail.com>
+On Tue,  1 Sep 2026 17:39:21 -0400 you wrote:
+> This is a followup to commit 709f34f7c28d ("net/sched: fq: add overflow
+> bounds to quantum and initial quantum").
+> 
+> The quantum_backlog_overflow series and the five siblings that followed
+> clamped the init-path quantum in fq, fq_codel, fq_pie, hhf, sfq. The
+> change() paths were not clamped but it is the same pattern, same writer
+> of q->quantum, same privilege level (CAP_NET_ADMIN in a user namespace).
+> A user can override the init clamp via tc qdisc change, restoring the
+> small-quantum deficit spin that the init clamp was meant to prevent.
+> 
+> [...]
 
+Here is the summary with links:
+  - [net,v3,1/9] net/sched: fq: clamp quantum and initial_quantum in change path
+    https://git.kernel.org/netdev/net/c/094cc07f98df
+  - [net,v3,2/9] net/sched: fq_pie: clamp quantum in change path
+    https://git.kernel.org/netdev/net/c/4864f58c53eb
+  - [net,v3,3/9] net/sched: sfq: clamp quantum in change path
+    https://git.kernel.org/netdev/net/c/fb9f88a33c51
+  - [net,v3,4/9] net/sched: hhf: clamp quantum in change and init paths
+    https://git.kernel.org/netdev/net/c/eb56a495f59b
+  - [net,v3,5/9] net/sched: dualpi2: clamp psched_mtu at all call sites
+    https://git.kernel.org/netdev/net/c/3c01f1ca5dfc
+  - [net,v3,6/9] net/sched: pie: clamp psched_mtu in pie_drop_early
+    https://git.kernel.org/netdev/net/c/54370e44c002
+  - [net,v3,7/9] net/sched: drr: clamp quantum in change class
+    https://git.kernel.org/netdev/net/c/8382abec0f15
+  - [net,v3,8/9] net/sched: ets: clamp quantum in parse and fallback paths
+    https://git.kernel.org/netdev/net/c/1c38487f46b2
+  - [net,v3,9/9] selftests: tc-testing: update ETS test 41f5 for clamped quanta
+    https://git.kernel.org/netdev/net/c/8f0229bef3cb
 
-Beste Grüße,
-Peter Schneider
-
+You are awesome, thank you!
 -- 
-Climb the mountain not to plant your flag, but to embrace the challenge,
-enjoy the air and behold the view. Climb it so you can see the world,
-not so the world can see you.                    -- David McCullough Jr.
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
-Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
-https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
+
