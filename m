@@ -1,42 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-77.mail.aliyun.com (out28-77.mail.aliyun.com [115.124.28.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8433B2949E0
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 11:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7672434E21;
+	Sat,  5 Sep 2026 11:08:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788606194; cv=none; b=Ha5VjHButkJ9S1nW071JOVXVIuSiaVnp8EFRjxcB2ug/Qv3utGMW6DKLjema75llZAIosGZFpuG8WFuqRKd4/jDx/T5MQcK4rpzMWftv2/QtnNDOHsp/w3VkNNMVDdtLnhg/x+xUxg943hImTZBkdrqBpMUQlCR4kTzLKK4tFl0=
+	t=1788606508; cv=none; b=H7DvVR6hYf29xrRTIvbV9Fx26ICAP6XVLLioYTtMt/2NrqnmOz3o7qHcl6TVmtIkV9jUzs5AKT0YLw+puv+1jtfzme4FcWiQBxL05Su6x0HdI0/a5ch8Lop+/6/e4e4QxzyIonpNlVm349Quu47qdlAZ8lq2py0wL55yvxL5mJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788606194; c=relaxed/simple;
-	bh=VeNa2rWecu+wKeAZbe68Hc2zT5XiwNRQP0fHyGJjYKY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Z7KvdKhBVkmr5AHACPS11804iacYiBVP06Q6sBD4AreMGwM6g3OLrykS53xB4UpLY8wdWm7eeVAIJNA9NTqCgei6HjPPyGTApytjGO1HNpNlKha1wqKguoqPghCvt1Dmim2SBRCku7DJ7yt58+D8QA2uUwaJyY0oG2Kx0nBpU3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GoN1h4Oj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788606508; c=relaxed/simple;
+	bh=qVX/kHhQxbRS06bauUjWPo2+Y5pvhFS5SSCI9+p6kaY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TAuczZu2XyZYLEOWqHv72tc2/jzQ28ouR4P35UilX+FGH7oVs+8tmW8CVeOeJoitz3Lt2NOVzUSydk3No56g+U/v8vyW28K39BIlvGVCBnn3AEUCtf0FICvUkbLurvW1m1M1BAiwNEHrfw5utS+2WBMwUtVsgqal+GCdSEA/DQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=r6etbjbJ; arc=none smtp.client-ip=115.124.28.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GoN1h4Oj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B5DF1F00A3D;
-	Sat,  5 Sep 2026 11:03:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788606193;
-	bh=qHwfc2OugyBIRnjvKRIZ6GXutaWyj61ekmq2D+VkHIc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GoN1h4OjTwluIpXJu4S3HNcq+69KoY2ElBwzr4CQyGehK3ZhpnA1H9wgAWLX2fqsO
-	 +uhfDJGd40ehhUcCMSboj9kjkEoRUdqiXKt9HMBJ5CJfxQPsF9eUUXnVuIgRoy4GjB
-	 LMjUgV+ADV2cIt50a2ZrwMufJ0oMA1l98ZYdazegDXe2FdK1RFMv4Tsb0AUG92TGNY
-	 c281bAHYKDFi0aH3VQbGc6ie4tyOSAmmkMUJ2i5eqWUncOEOU30ebR8qwrsoKMwgw/
-	 Up2VX9eE0pGmBR+aFiWoNOivt1TtzoMF6+g01cm9G6w3VYtvLjGzn0K94FJWrelOuX
-	 4NVXuAorvqpaA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] lockd, nfsd: RCU-protect nlmsvc_ops dispatch
-Date: Sat,  5 Sep 2026 07:03:11 -0400
-Message-ID: <20260905110311.3664055-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090304-average-cocoa-05b9@gregkh>
-References: <2026090304-average-cocoa-05b9@gregkh>
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="r6etbjbJ"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1788606494; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=YilmYO5G+M7tedW7DLjoBBbCENZkZk8Z5GGZz+7RmVE=;
+	b=r6etbjbJ1SAGJU5K3jwMDLcCA0xh0mpZgfaMFUVBNHz/0fHzA8HZaaWcwFgGvKkZhCN5Mhrbbti92f6T3kJm25/dMZXqxYle+pOCSfl0dzgXINeKdyk0qSDmmSX5gJgplimOG5mmr64XL1nTtbRKBym3IKFBmjQm1r8PgTVCZXI=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436459|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00844834-0.00229274-0.989259;FP=7057237632770475591|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037031241;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j6IKN8r_1788606493;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j6IKN8r_1788606493 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Sat, 05 Sep 2026 19:08:14 +0800
+From: liuc63 <liuc63@xiaopeng.com>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: Aaron Tomlin <atomlin@atomlin.com>,
+	linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] module: validate sh_name for SHT_NULL sections
+Date: Sat,  5 Sep 2026 19:08:13 +0800
+Message-ID: <20260905110813.150411-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,286 +46,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Liu Chao <liuc63@xiaopeng.com>
 
-[ Upstream commit 641e5e20852359b8c31149be4598884e30652f60 ]
+elf_validity_cache_secstrings() checks that every section name offset is
+inside the section name table, but skips headers of type SHT_NULL, since
+ELF leaves their field values undefined.
 
-nlmsvc_ops is published by nfsd_lockd_init() and cleared by
-nfsd_lockd_shutdown() with plain stores, while lockd dereferences
-it unguarded from dispatch sites in fs/lockd/svcsubs.c. The pointer
-targets nfsd's .rodata and the fopen/fclose callbacks live in nfsd's
-.text, so a stale load after rmmod nfsd results in either a NULL
-deref or a module-text use-after-free.
+However, the section lookup helpers do not check sh_type. This is
+find_any_unique_sec(), which load_module() uses to locate ".modinfo":
 
-Declare nlmsvc_ops as __rcu, publish via rcu_assign_pointer(), clear
-via RCU_INIT_POINTER() + synchronize_rcu(). Add a struct module
-*owner field to nlmsvc_binding and pin the module across indirect
-calls with try_module_get/module_put. When the binding is torn down,
-fall back to fput() to avoid leaking struct file references.
+	for (i = 1; i < info->hdr->e_shnum; i++) {
+		if (strcmp(info->secstrings + info->sechdrs[i].sh_name,
+			   name) == 0) {
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+find_any_sec() and module_enforce_rwx_sections() read sh_name the same
+way, the latter from index 0. find_sec() is only shielded by its
+SHF_ALLOC test, which a crafted module can satisfy.
+
+ELF also permits SHT_NULL entries above index 0. A module that carries
+one with a large sh_name passes validation and then reads out of bounds:
+
+  BUG: unable to handle page fault for address: ffffc9004052f988
+  Oops: 0000 [#1] SMP KASAN PTI
+  CPU: 0 UID: 0 PID: 261 Comm: insmod Not tainted 6.18.0-rc7 #2
+  RIP: 0010:strcmp+0xc/0x40
+  Call Trace:
+   ? find_any_unique_sec+0x89/0xf0
+   load_module+0x516/0x3d30
+   init_module_from_file+0xf5/0x180
+   __x64_sys_finit_module+0x91/0x100
+
+The read happens in elf_validity_cache_copy(), before the blacklist check
+in early_mod_check().
+
+Bounds check sh_name for every section header. The name table is already
+known to be non-empty, so the sh_name of 0 that ELF requires at index 0
+still passes, and a name offset that points outside the name table is
+malformed regardless of section type. Neither an Ubuntu 20.04 x86_64
+build (GCC 9.4, 6025 modules) nor an aarch64 vendor build (GCC 13.2, 127
+modules) has a header with an out-of-bounds sh_name, or any SHT_NULL
+header above index 0.
+
+Link: https://lore.kernel.org/linux-modules/20260708013301.C4D4A1F000E9@smtp.kernel.org/
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-16-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ adapted lockd callback lifetime handling to the older __be32 interface and dual file-close paths. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- fs/lockd/svc.c             |  6 ++--
- fs/lockd/svc4proc.c        |  4 +--
- fs/lockd/svcproc.c         |  4 +--
- fs/lockd/svcsubs.c         | 59 ++++++++++++++++++++++++++++----------
- fs/nfsd/lockd.c            |  6 ++--
- include/linux/lockd/bind.h | 12 ++++++--
- 6 files changed, 64 insertions(+), 27 deletions(-)
+The same report lists two more SHT_NULL gaps, both from
+elf_validity_cache_sechdrs skipping offset and size validation:
+move_module will memcpy such a section, and elf_validity_cache_index_mod
+rejects SHT_NOBITS but not SHT_NULL. Sending this one on its own first,
+happy to respin all three as a series if you would rather have them
+together.
 
-diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
-index c33f78513f00f..1905e7a6b9162 100644
---- a/fs/lockd/svc.c
-+++ b/fs/lockd/svc.c
-@@ -49,7 +49,7 @@
- 
- static struct svc_program	nlmsvc_program;
- 
--const struct nlmsvc_binding	*nlmsvc_ops;
-+const struct nlmsvc_binding __rcu *nlmsvc_ops;
- EXPORT_SYMBOL_GPL(nlmsvc_ops);
- 
- static DEFINE_MUTEX(nlmsvc_mutex);
-@@ -113,7 +113,7 @@ static void set_grace_period(struct net *net)
- 
- static void restart_grace(void)
- {
--	if (nlmsvc_ops) {
-+	if (rcu_access_pointer(nlmsvc_ops)) {
- 		struct net *net = &init_net;
- 		struct lockd_net *ln = net_generic(net, lockd_net_id);
- 
-@@ -175,7 +175,7 @@ lockd(void *vrqstp)
- 		svc_process(rqstp);
- 	}
- 	flush_signals(current);
--	if (nlmsvc_ops)
-+	if (rcu_access_pointer(nlmsvc_ops))
- 		nlmsvc_invalidate_all();
- 	nlm_shutdown_hosts();
- 	cancel_delayed_work_sync(&ln->grace_period_end);
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 28ba7b1460aa4..bb5653f4bf2e3 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -29,7 +29,7 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	if (lock->lock_start > OFFSET_MAX ||
-@@ -487,7 +487,7 @@ nlm4svc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--        if (!nlmsvc_ops)
-+        if (!rcu_access_pointer(nlmsvc_ops))
-                 return rpc_success;
- 
-         dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index 1a44597636441..bf1c22028cf04 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -59,7 +59,7 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	/* Obtain host handle */
-@@ -521,7 +521,7 @@ nlmsvc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return rpc_success;
- 
- 	dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index e64e0110f66b5..e007feeea059f 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/types.h>
-+#include <linux/file.h>
- #include <linux/string.h>
- #include <linux/time.h>
- #include <linux/in.h>
-@@ -86,14 +87,26 @@ int lock_to_openmode(struct file_lock *lock)
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
- {
-+	const struct nlmsvc_binding *ops;
- 	struct file **fp = &file->f_file[mode];
- 	__be32	nfserr;
- 
--	if (*fp)
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	if (!ops || !try_module_get(ops->owner)) {
-+		rcu_read_unlock();
-+		return nlm_lck_denied_nolocks;
-+	}
-+	rcu_read_unlock();
-+
-+	if (*fp) {
-+		module_put(ops->owner);
- 		return 0;
--	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
-+	}
-+	nfserr = ops->fopen(rqstp, &file->f_handle, fp, mode);
- 	if (nfserr)
- 		dprintk("lockd: open failed (error %d)\n", nfserr);
-+	module_put(ops->owner);
- 	return nfserr;
- }
- 
-@@ -159,6 +172,33 @@ nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
- 	goto out_unlock;
- }
- 
-+/*
-+ * Release the struct file references held by a nlm_file.
-+ */
-+static void nlm_release_files(struct nlm_file *file)
-+{
-+	const struct nlmsvc_binding *ops;
-+	bool have_ops;
-+
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	have_ops = ops && try_module_get(ops->owner);
-+	rcu_read_unlock();
-+
-+	if (have_ops) {
-+		if (file->f_file[O_RDONLY])
-+			ops->fclose(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			ops->fclose(file->f_file[O_WRONLY]);
-+		module_put(ops->owner);
-+	} else {
-+		if (file->f_file[O_RDONLY])
-+			fput(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			fput(file->f_file[O_WRONLY]);
-+	}
-+}
-+
- /*
-  * Delete a file after having released all locks, blocks and shares
-  */
-@@ -168,10 +208,7 @@ nlm_delete_file(struct nlm_file *file)
- 	nlm_debug_print_file("closing file", file);
- 	if (!hlist_unhashed(&file->f_list)) {
- 		hlist_del(&file->f_list);
--		if (file->f_file[O_RDONLY])
--			nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--		if (file->f_file[O_WRONLY])
--			nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
-+		nlm_release_files(file);
- 		kfree(file);
- 	} else {
- 		printk(KERN_WARNING "lockd: attempt to release unknown file!\n");
-@@ -286,14 +323,6 @@ nlm_file_inuse(struct nlm_file *file)
- 	return 0;
- }
- 
--static void nlm_close_files(struct nlm_file *file)
--{
--	if (file->f_file[O_RDONLY])
--		nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--	if (file->f_file[O_WRONLY])
--		nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
--}
--
- /*
-  * Loop over all files in the file table.
-  */
-@@ -324,7 +353,7 @@ nlm_traverse_files(void *data, nlm_host_match_fn_t match,
- 			if (list_empty(&file->f_blocks) && !file->f_locks
- 			 && !file->f_shares && !file->f_count) {
- 				hlist_del(&file->f_list);
--				nlm_close_files(file);
-+				nlm_release_files(file);
- 				kfree(file);
- 			}
- 		}
-diff --git a/fs/nfsd/lockd.c b/fs/nfsd/lockd.c
-index b02886f38925f..35b2a0541dc44 100644
---- a/fs/nfsd/lockd.c
-+++ b/fs/nfsd/lockd.c
-@@ -79,6 +79,7 @@ nlm_fclose(struct file *filp)
- }
- 
- static const struct nlmsvc_binding nfsd_nlm_ops = {
-+	.owner		= THIS_MODULE,
- 	.fopen		= nlm_fopen,		/* open file for locking */
- 	.fclose		= nlm_fclose,		/* close file */
- };
-@@ -87,11 +88,12 @@ void
- nfsd_lockd_init(void)
- {
- 	dprintk("nfsd: initializing lockd\n");
--	nlmsvc_ops = &nfsd_nlm_ops;
-+	rcu_assign_pointer(nlmsvc_ops, &nfsd_nlm_ops);
- }
- 
- void
- nfsd_lockd_shutdown(void)
- {
--	nlmsvc_ops = NULL;
-+	RCU_INIT_POINTER(nlmsvc_ops, NULL);
-+	synchronize_rcu();
- }
-diff --git a/include/linux/lockd/bind.h b/include/linux/lockd/bind.h
-index 3bc9f7410e213..2fef35577f019 100644
---- a/include/linux/lockd/bind.h
-+++ b/include/linux/lockd/bind.h
-@@ -20,11 +20,17 @@
- /* Dummy declarations */
- struct svc_rqst;
- struct rpc_task;
-+struct module;
- 
--/*
-- * This is the set of functions for lockd->nfsd communication
-+/**
-+ * struct nlmsvc_binding - lockd -> nfsd callback table
-+ * @owner:  module that provides this binding.
-+ * @fopen:  open a file by NFS file handle on behalf of an NLM request.
-+ * @fclose: close a file that was previously opened via @fopen.
-+ *          Implementations MUST be semantically equivalent to fput().
-  */
- struct nlmsvc_binding {
-+	struct module		*owner;
- 	__be32			(*fopen)(struct svc_rqst *,
- 						struct nfs_fh *,
- 						struct file **,
-@@ -32,7 +38,7 @@ struct nlmsvc_binding {
- 	void			(*fclose)(struct file *);
- };
- 
--extern const struct nlmsvc_binding *nlmsvc_ops;
-+extern const struct nlmsvc_binding __rcu *nlmsvc_ops;
- 
- /*
-  * Similar to nfs_client_initdata, but without the NFS-specific
--- 
-2.53.0
+The Oops line says KASAN, but the access faults rather than producing a
+KASAN report, because lib/string.o is built with KASAN_SANITIZE disabled.
 
+No Fixes tag. 3c5700aeabd8 ("module: Factor out
+elf_validity_cache_secstrings") is where the exemption was added, but the
+problem predates it: before that commit sh_name was only checked for
+SHF_ALLOC sections and the ".modinfo" strcmp() ran ahead of the check, so
+find_any_sec() could already walk off the end. Same conclusion as
+9a5ff4568932 ("module: validate string table section types"), which went
+in with Cc: stable and no Fixes tag. checkpatch complains about that
+combination.
+
+The scan behind that last paragraph applies exactly the predicate this
+patch introduces, sh_name >= strhdr->sh_size, to every section header
+from index 0. On the x86_64 host it covered 17546 modules across three
+kernel trees (5.15.0-181, 5.15.0-190, 5.4.0-182), all built by GCC 9.4.0;
+those trees are the same toolchain recompiling much the same driver set,
+so the changelog quotes one tree rather than the total. The aarch64 side
+is a 5.10 vendor kernel built with Arm GNU Toolchain 13.2. Both are GNU
+toolchains - no clang-built module set was available to me.
+
+Reproducer, needs root and an unsigned module on a kernel without
+CONFIG_MODULE_SIG_FORCE. Build any minimal module, then append a
+SHT_NULL section header with an out-of-bounds sh_name:
+
+  python3 - <<'EOF'
+  import struct
+  SHDR = 0x40
+  data = bytearray(open('dummy.ko', 'rb').read())
+  shoff = struct.unpack_from('<Q', data, 0x28)[0]
+  shnum = struct.unpack_from('<H', data, 0x3c)[0]
+  old = bytes(data[shoff:shoff + shnum * SHDR])
+  evil = bytearray(SHDR)
+  struct.pack_into('<I', evil, 0, 0x40000000)
+  data += b'\0' * ((8 - len(data) % 8) % 8)
+  new_shoff = len(data)
+  data += old + bytes(evil)
+  struct.pack_into('<Q', data, 0x28, new_shoff)
+  struct.pack_into('<H', data, 0x3c, shnum + 1)
+  open('evil.ko', 'wb').write(data)
+  EOF
+
+  insmod evil.ko
+
+ kernel/module/main.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0bd2ad0..7d5943cd6543 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -2060,9 +2060,6 @@ static int elf_validity_cache_secstrings(struct load_info *info)
+ 
+ 	for (i = 0; i < info->hdr->e_shnum; i++) {
+ 		shdr = &info->sechdrs[i];
+-		/* SHT_NULL means sh_name has an undefined value */
+-		if (shdr->sh_type == SHT_NULL)
+-			continue;
+ 		if (shdr->sh_name >= strhdr->sh_size) {
+ 			pr_err("Invalid ELF section name in module (section %u type %u)\n",
+ 			       i, shdr->sh_type);
