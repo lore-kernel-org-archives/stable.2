@@ -1,42 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F024356766
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 13:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B8237C109
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 13:56:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788616537; cv=none; b=laVnB6k17hxkyFUACHg1ejqXG2B5uTuVRiQxSbqQwUkvDa/9ryBOzDxSmioqoSEj/lUV2Hrxww1tr6lRxTjZIOU4KnKKMmN55FQXP4HVV25iCefiMlWQ2NIcCy/qmna7nr6IU46cvh+ZhQ+1im4OLhulGcH8oaxjUBXoNHVIakk=
+	t=1788616604; cv=none; b=LuWS42wQSnvU60GpnBpjGrSchaIpPH46dgRmm9ehCjdqk6Q5v+cXbc3eZAId1HcgBIc2UT9xCPjclLyUzN9uneBz76J6hvIhx+AdLCv/W4W5TW81sxSJWnih0ge/oCPsjU0xdckNAq70X9W74rAUw9Bwe3GvSOBCuAmKebuArQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788616537; c=relaxed/simple;
-	bh=/kHtvMedBL3znvFKP/kqbJMsXf0ZS8H/i8sW0mWafSE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L/ZPmhHqJgjeLG6Z0MBVJ7vt+AEJIprLfiB/MtxAi3TUsOfVcMOxD9lClFJVRNIl8rpedcQCD6lcypX7/T5MLRnUKsUWZ4TnNGBLt9kvqdq7x1nPWJ/q1ixQZwNCY7hHxMk1qeUVfVxBnzMtUoDZ5JypMkVbBkfeoXCXBpGMi/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzAwuio8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788616604; c=relaxed/simple;
+	bh=NfVTV0gS6e3kYce6by0fc8cj+oTqVj2xUJAE3M/e0A4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nfge1MJxlVgBWj3t07MlV2ckq9zrBqw1riFajbdWcwZzdTqqaNv+o3mAfJeuHAzbVYHRolsjN3smdaXD00+38vShoNckujADxGa/kYGxb2ojgWMHqAw888TitPfUoCq9VCKB8F23nHh05VdZTe4PVw3KZpkxILfaB6zeU0ffpqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R25ineUg; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzAwuio8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1ABA1F00A3D;
-	Sat,  5 Sep 2026 13:55:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788616536;
-	bh=j+fxmbsvYN/LDQ8f0RBTY4TgTOPOfnZ9Hdw5RIwhP+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UzAwuio8xtnVecbtZrZJL4B29Zz3b/h935mBNSSpEosTf9IgGpkFc/A1n4wzEIopE
-	 Nq6c7+QqRQ/0XHeDwEgFLnbd7de4k/jWoxMwlEG9wlV8xMAg8WIhk63IB5kcrtGJH8
-	 COX+Fef5bcqa9WhOE6xbzw4l2epaSW/rpFUFBs2Pqb5Cxf+zm++d2qwzQJiOgpyY4F
-	 7RYd1QEgoPiTVf9x493DQzqjTTG5tYi+p9ihW4p8/2zAbYA2jJ05VD3Lll2dbgIgFW
-	 tFe41skTfRooP2N4IlkYs1UKeJrlOhVLBEKA66nFEbtXYOBQ+JZaELvQExp2oSjAdZ
-	 1hfc+tAm5Pu9Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nfsd: check nfsd4_acl_to_attr() return value in nfsd4_create()
-Date: Sat,  5 Sep 2026 09:55:33 -0400
-Message-ID: <20260905135533.113055-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R25ineUg"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485843116d2so93496f8f.1
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 06:56:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788616600; x=1789221400; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Qv5CI8QgjHSQGUAsYpHOyJ+UdzvD7BcP4G3r/lK7tFY=;
+        b=R25ineUg/SOq47m9dw+c0ntmGx1UM81WXt70HW0On4hF1UmCqQAYW9GMJYqOf+BvGq
+         CcePcZhUBfnBvvYznAigLuHy8TdgGxYkgxl65n9Y1eUyGRcjcqk6sZ2z7zXxUWKW2JOf
+         27X3gsHX7K5dvP3Q/iZllwB7YnNEOJ7BJDbVAl/kbeh/fSCbr2iV/xRR6QSiDIQBeB97
+         oiqT9th0a+lP57kCoY1bcc52QxVjs2CU4UlITWBr7P1OzFnuxjD2tHQhJhUJ9smEb0yY
+         gw+6WbW6Rf8aKYxQ35fY2NhCDOtf6PZmgD+EvfQ8Wc7ID86KdNOieRdRST4zzNVSwEJ5
+         +Vqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788616600; x=1789221400;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qv5CI8QgjHSQGUAsYpHOyJ+UdzvD7BcP4G3r/lK7tFY=;
+        b=HOC1AxyRCYbXVV53u6teT7WIWmZQSKDiBWKYSQbo0YdScMK1ubNqOmpkGfdK2Q70WR
+         xPshmZNdaCS11FueCrWmm7CYu3bHo/o9XZMevS5u4LBpke7Sf8Hs/PZvOShyIHrwY+p2
+         rXFW+TVS1rfLl8Co/pawucSUc/IujnZcq+qFxvSAHNbCaNN6g6rc/NoJZP6ZBk4l1JP2
+         v2NBFgIpu2zSIeX1bW3hVQE1toWsGcY1eCbOxj5iV6PhVnnMvHtjjQgcV2EqqUpZ5LNW
+         GIOskI9X53zc0p2X05RnQ/NWhVRzoTGN2KSvij7jzNi/mvrhSEMmAC2niieYfVM0F7k4
+         1OAA==
+X-Forwarded-Encrypted: i=1; AKwUvBzIlSi0xQFG8PxmhyPZM2edogCCp574/Ke4weiSsE12qcz607ivOXthsEv0IOGwgMVda/88UTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/tR9rtN3elPgYHudXZ65/ibIEKJ5NLmTEsWPjX0lefYi4k/AR
+	b94ll4ev3XLeDiT5j2jMhVG+y+7QqsYCEx3KRZ2hSHXS8Z0GxNaa0Fdq
+X-Gm-Gg: AYBFou0v9wCMlCh46bUFcIIUDYG1tbYXCbouxmrnx7Ue9Rje7mELg/NnyqIHQP1uO2Q
+	MiaG3sMtiKyN5ZxJutVENMj6M6JbfiiZWsvP6yu6S4ySLkG01Yanjn38WGpPoMH0ytNzHzjPokn
+	bqnKoyS9pHV+TEWzlljR3lkl15UTq0+/hwJEF8qfXjaPDcoZwyi75P5JM9yru3k1sfwmh3LKhIF
+	Xdzk4REbulAjLlwjuOwRu5R94ZhI/okW9OhHS5QiJLiKZL8sGTY0cnq2bXb/W16lU8V1nWbSdsw
+	1107LfL7awh/Xc2XXsnl7KSb+5EVmulBEShKYZb4xJ+QcOpq6JUyxAzlU7KhxDzGRyy1FKui6FL
+	Oi04JRoU6GpFtJBAKGaPto2RpArUtM+UA+brtSKbp2up7LeGjbonY9pMfKLlIvbu6fdoAcu3eoV
+	EYbkSGvtg+Rt5e4BBxfDFlCUCfYErE6rJ8C37CWSgE1QRWHJ9En6XQX3/2ajlPqYxXnzyYe6rwE
+	+foM8+5d5Tb0PkwEjznJy+bcs/d+AeW8hq247qotnpwIUToNbi0gUjvCjUsomA5jnvA
+X-Received: by 2002:a05:600c:c48f:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49d010c4f64mr47995125e9.0.1788616600147;
+        Sat, 05 Sep 2026 06:56:40 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B950E00B62CC1B9060BE3C4.dsl.pool.telekom.hu. [2001:4c4e:1b95:e00:b62c:c1b9:60b:e3c4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883927a3sm10523155f8f.11.2026.09.05.06.56.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 06:56:39 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] accel/rocket: number the cores by devicetree position, not bind order
+Date: Sat,  5 Sep 2026 15:56:12 +0200
+Message-ID: <20260905135612.7324-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090357-gathering-scavenger-1461@gregkh>
-References: <2026090357-gathering-scavenger-1461@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,67 +80,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+rocket_job_hw_submit() programs the S_POINTER registers of a core with an
+extra bit derived from core->index, the way the vendor driver derives it
+from the hardware number of the core. rocket_probe() sets core->index to
+the slot the core takes in rdev->cores[], which is the order the cores
+bind in.
 
-[ Upstream commit 2c7912732184773dbd371a411da87af1cc080b86 ]
+The two agree only while the cores that bind are a prefix of the core
+nodes in the devicetree, in devicetree order. Unbind them and bind them
+back with a different core first, have one core's probe deferred behind a
+sibling's, or disable a core other than the last one, and every task
+submitted to a core whose slot is not its hardware number times out after
+500 ms. The reset that follows does not help, and the inference finishes
+with wrong output.
 
-nfsd4_create() stores the return value of nfsd4_acl_to_attr() in
-status, but the switch(create->cr_type) block unconditionally
-overwrites it in every branch. ACL translation errors are silently
-discarded, and the CREATE proceeds without the requested ACL.
+Observed on an Orange Pi 5 Plus, over all six bind orders of the three
+cores: only the devicetree order ran clean. The other five produced 27 to
+140 "NPU job timed out" within a single six-second inference, with a
+bit-exact oracle rejecting the output, or throughput falling from 130 to
+1.95 inferences per second. The timeouts land on the cores whose slot is
+not their hardware number, in proportion to the tasks the scheduler hands
+them, and in both directions of the mismatch.
 
-Add an early exit check after nfsd4_acl_to_attr(), matching the
-pattern already used in nfsd4_setattr().
+Number the cores by their position among the core nodes in the devicetree
+instead, which is what the hardware number is.
 
-Fixes: c0cbe70742f4 ("NFSD: add posix ACLs to struct nfsd_attrs")
+The wrong value has been assigned since the driver was added, but it only
+reached the hardware once the extra bit was introduced, hence the Fixes
+tag below.
+
+Fixes: 0810d5ad88a1 ("accel/rocket: Add job submission IOCTL")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-[ cel: prefer NFS4ERR_BADTYPE over NFS4ERR_ATTRNOTSUPP ]
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-5-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ retained unconditional ACL conversion because the older helper already handles null ACLs ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Assisted-by: LLM sparse checkpatch
 ---
- fs/nfsd/nfs4proc.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/accel/rocket/rocket_core.h |  5 +++++
+ drivers/accel/rocket/rocket_drv.c  | 31 +++++++++++++++++++++++++++++-
+ 2 files changed, 35 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index a4c7cab1679bd..65e180d15ef67 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -762,7 +762,23 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 	if (status)
- 		return status;
+diff --git a/drivers/accel/rocket/rocket_core.h b/drivers/accel/rocket/rocket_core.h
+index f6d7382854ca9..46ed8352a79d2 100644
+--- a/drivers/accel/rocket/rocket_core.h
++++ b/drivers/accel/rocket/rocket_core.h
+@@ -30,6 +30,11 @@
+ struct rocket_core {
+ 	struct device *dev;
+ 	struct rocket_device *rdev;
++	/*
++	 * Hardware number of the core: its position among the core nodes in
++	 * the devicetree. Not an index into rdev->cores[] - that slot is what
++	 * find_core_for_dev() returns.
++	 */
+ 	unsigned int index;
  
-+	/* Sanitize cr_type to avoid returning ATTRNOTSUPP. */
-+	switch (create->cr_type) {
-+	case NF4LNK:
-+	case NF4BLK:
-+	case NF4CHR:
-+	case NF4SOCK:
-+	case NF4FIFO:
-+	case NF4DIR:
-+		break;
-+	default:
-+		status = nfserr_badtype;
-+		goto out_aftermask;
+ 	int irq;
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 8bbbce594883e..e2cde31443ffa 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -157,10 +157,39 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.desc			= "rocket DRM",
+ };
+ 
++/*
++ * The extra bit that rocket_job_hw_submit() sets in the S_POINTER registers
++ * is the hardware number of the core, which is its position among the core
++ * nodes in the devicetree: a disabled core keeps its number. The slot a core
++ * takes in rdev->cores[] is the order the cores happened to bind in, and the
++ * two only agree while the cores that bind are a prefix of those nodes, in
++ * devicetree order. Every task submitted to a core whose slot is not its
++ * hardware number then times out.
++ */
++static int rocket_core_hw_index(struct device *dev)
++{
++	struct device_node *np;
++	int index = 0;
++
++	for_each_matching_node(np, dev->driver->of_match_table) {
++		if (np == dev->of_node) {
++			of_node_put(np);
++			return index;
++		}
++		index++;
 +	}
 +
- 	status = nfsd4_acl_to_attr(create->cr_type, create->cr_acl, &attrs);
-+	if (status != nfs_ok)
-+		goto out_aftermask;
- 	current->fs->umask = create->cr_umask;
- 	switch (create->cr_type) {
- 	case NF4LNK:
-@@ -829,6 +845,7 @@ nfsd4_create(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 	fh_put(&resfh);
- out_umask:
- 	current->fs->umask = 0;
-+out_aftermask:
- 	nfsd_attrs_free(&attrs);
- 	return status;
- }
++	return -ENODEV;
++}
++
+ static int rocket_probe(struct platform_device *pdev)
+ {
++	int index = rocket_core_hw_index(&pdev->dev);
+ 	int ret;
+ 
++	if (index < 0)
++		return index;
++
+ 	if (rdev == NULL) {
+ 		/* First core probing, initialize DRM device. */
+ 		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
+@@ -176,7 +205,7 @@ static int rocket_probe(struct platform_device *pdev)
+ 
+ 	rdev->cores[core].rdev = rdev;
+ 	rdev->cores[core].dev = &pdev->dev;
+-	rdev->cores[core].index = core;
++	rdev->cores[core].index = index;
+ 
+ 	rdev->num_cores++;
+ 
+
+base-commit: a9f09b5ea0c3db1e2d4c0f8d3ebdd612d8aa0366
 -- 
-2.53.0
+2.43.0
 
