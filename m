@@ -1,303 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A15E3016E7
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:50:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788573030; cv=none; b=Uqkh1E2KJrZiIQtVhUnatE0MAyrdVs0T116fRTaXboZAXEDmwDyRtztnPEl7vwnmdQZ9c+X+ANllCrhnaAosrw86OFFYw+Mmabj37XvUlopxYOjDeSxuEgYiSO1DekWp+H9u1IciIDOHF8Ntvd9H3ANRiWSSaSxrvlwqWgykVR8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788573030; c=relaxed/simple;
-	bh=Y7QlnzYiiMll+yUXt/RNqa8nuY/WF3fEAVRo6s+IdSY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HyuBkKj7eot8dcz2KJJp+gBkI+fxlBgTYUfLiUKOUcxRxtJt3y849M5SrppbLzEhul7DGzby7LcsrfhLHYH7eAgFs8jVu0jTb7dfVko3r9lkv0LW49p9dbC6d8G+1UK1RDDDP1y6Ljt8NzyfgM7Z2Nq07Xuu9lzFMFbr8MozZQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=No/7CTEM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2190112F585
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788573137; cv=pass; b=Kmfm1vyFWTiJD6Y8GR2CU5V4vlad9PTMeO+tL0ko9026kVaP3qOoy4pkg+bahZUC2jCfdeB3Oy3aAc9Q/NkY//Gn8tPg4nwJSTxiS5nSfWZS+lesn2w/pa/Pn7kHq9Yw+fjq6PcV+hFA0uC0FeqNAqe0ols37WS8KgbI4FDIULU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788573137; c=relaxed/simple;
+	bh=QXe/qLEGPNp6rYVF9CAbWyTgXu3VADgmCm+boxz7WzU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CCOLDjD+kyg37Ywx3WkzKUXkoxo9s4MvUI1B89UVz45rL/tUEIf1X6sYrkMpd3EGbRMRImSCCFG1yydqsGwhq3+21vDsdC2T+mB2aiWsOAgGEJ8doVB9y+IEpymmKQXXD1mFyA4lvNrA0/njxArXa1CLswfYzy07Dz3Ss+yDAeY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=F1km+XtK; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="No/7CTEM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC4F1F00A3D;
-	Sat,  5 Sep 2026 01:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788573029;
-	bh=UFgP+essBHoD2sK5+cZv1OXN/AorQpfC9egBWto4RI4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=No/7CTEMVLWQq3qT3x8swNp1k+uw5rKwJqfTHjsuFyF7TjfSDQ8oN6fg6lo7k4nGr
-	 MKwNRLXAA4ZzQf9dql/rtkRwnick3RBSiHlT3qWS9t66zJphzt0xbqo9CmtVv7H1vP
-	 VViTxYuYVRzSSyIs5x6BlX9iS2F4hmyuayK8qztGa7uMc0HupaqrFIx1IXXl+QWq5a
-	 re28QGk7SeMn37AzWC4nuvy643VIdSQHKDS7/3vy7j+cCNDrQviA4qBzZM5dF5lOuI
-	 85MHh9vM8hc9jHZTAf4MEAG4eT+fEBe8GKQ1aFY1OK0+CjQd0LhbkPSDrBfMFQrEjW
-	 T6bXbsW7anMfg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] lockd, nfsd: RCU-protect nlmsvc_ops dispatch
-Date: Fri,  4 Sep 2026 21:50:27 -0400
-Message-ID: <20260905015027.1808554-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-limpness-basis-79a4@gregkh>
-References: <2026090303-limpness-basis-79a4@gregkh>
+	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="F1km+XtK"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c250f28f1cdso260271566b.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 18:52:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788573132; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ROr1Kfx/zUwP9ko07h3TJJ0269lwYM/DAMH4oCLpPwJzyhCdxo6R6zvZhVGhanOT0M
+         T0ygZNCljDG9Nd5Lo6q2VkohaU+OeP22+ZQXc8XKfQHzF1+1/LXegGu526yJHnxlpTlN
+         MjLQwORf/fXvIZbChx8o4w7zBneCo0EUASmD+9KvZ7zVGwNOFj8nzYibpI4MdbWbgcd3
+         j74nzKIngmBQJOzdWfccpoZCBvFkFmsfS5X+SVfCVYkEGkZj8FlESKohNLm4jEEXHfXj
+         IZ7KcOIg8KZnMUBDxioVE5oDNxfh/6wpsmw39yu+4fnU2vaCm0zGqtz9GViOn129yM2b
+         BVXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=zizaHlGLemHEp2ko9U/krNPoMS0xneIqW4TRSLAG3is=;
+        fh=GDK0pifEYj1d0uTlIQ8Nj2nn8Zb/y4GKKZDfES6dnEU=;
+        b=sQaOz+W2W0tbAEuma8oc+MOW64dvZ0ITXf6/84dz8yq9Mim5f5nOuokUlvwxG8KXyx
+         y7fIAfLQwbKnPwtJLfFolvinS7FuGLUfXPonVkloXfb9mR0M1KYJUzPsVuJK913zydDm
+         Z+HWW8kJs4JT3S+QxDssLU39QBUwfG/1aOfL9K37tWoJ2FRRTA6hEYXJIZJPaF+rdO50
+         QTOkUb+0Quq0CAyCmW3gjAsJA+hBItkZl0WEMHT1h7CHjCFAQPnptNJCjF8/QBjK+wlD
+         0XNXfNFake1TAde4kMz5p7w/TEyi5ZVnAj+6DsRxp7DW2rDQIGzJK1/JPif4Z33nnx0Q
+         TWjQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=clyso.com; s=google; t=1788573132; x=1789177932; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zizaHlGLemHEp2ko9U/krNPoMS0xneIqW4TRSLAG3is=;
+        b=F1km+XtKUusQ9t4acZzrpuwQ1pGBJ8aKZMR5Z+1rMpn9ihiW8FUBlaOpJWYAlwbGb8
+         chaDrHHHhAq2hLuf/mOScKVig2xmEuLLHmWiPwTpcRCclsklpfVismFVPd3pUWLehV3n
+         Am4AqMpTUu/vEKtqo8+jPaLzPjIMrQLamWDEJtSSBfEUNLs4u9VqkZz2a1ZupeVK2zke
+         LG2h3A+VnsnS6kpg3ds8d9hqhDvF4L3nfymSS5I3u0Si7kB6eFY+snNe1j6u0PeaestA
+         ltdTAirLn7bzoYy8j3w2Rvm33hHaRv89YaWM2cVzFyz9P9giFSM6KF1Ar0jf1Oent5ZB
+         R9xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788573132; x=1789177932;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zizaHlGLemHEp2ko9U/krNPoMS0xneIqW4TRSLAG3is=;
+        b=mEtX+waXFPfr527KwZqmXtCrDiXpsDS+f7k+UkAMijvBYxaSh2O9DtT2stRo4kLWC2
+         0rB1EG1bGk78IfrO8V9DfHrjq9jd1poZST4QQevOgS/2OwAGx8Vq4JheNsfkR9s11vO1
+         0rSIJvtsuzvqmHlFVAeeGSlab05KAFtZ5nkNb+OCYzbrqpz5IEQA32yGR4A838IJMYjt
+         hFMsZ4ElmoKoY/6DRacDpN5C6G51jM93TI/XF0gOSJQNtxqzx2u892kUMDErXdJ4C8bL
+         WV+xP18tUdodQ6B7+6EnE0jt6mw7sbsWOeKRDTI1LTg4jZhwySXmSeSL56sNK2cniJXo
+         LwWw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5gcyiqVB2Xv8INjdtX4wtKg+Gxq8aVV9s4bgxSEfow7ayXubozBIuLQ3SmCIL8ZgTF9NhpFo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ/QYpOhmBjSipJuTPWh7UOAntjQSafOVSlMces55MhGKVmtGt
+	D2Ly+9GchypRyvOIz5v31FkhxjA9ZOwX+6AdlFBfdmGN8zEwFZBIadqBaTBNy25W2rSi/7/XTwZ
+	vdbI0uuGZkg69sjC0DSHKkOXb/CG2hTHdH93wyFFXPg==
+X-Gm-Gg: AYBFou1ShTa7OzUTzSxiRb3IJT77ZlnkBNwxrY/dIkjLDsXk3uvaq6WMLIcsXAUBPg7
+	XpH/vC+s3S9XIKfQOvfnyJgPT70dk/eMp9RMTz80nK0gxke2WuPARdg+ogTck//ihWxECRYkpCQ
+	y8nxgQCSjWVsGthiNadG/5AXr8JDDVyDyPhK10iiUzZv/Crijafzo6kYAGzxx2j+NXdaS3jkSjY
+	RJmgdksi9NFI50rfXb/rOWTDMNTgmmJiyu+IWKDptsTC5BEglMqZKjtJejzjAPsz7el675HxXjd
+	8Q2iIDUBjePOHwb1b0hwNd+Wc9tIk4k3SvGXBkYcUe4LTg==
+X-Received: by 2002:a17:907:7b9e:b0:c26:19de:9ace with SMTP id
+ a640c23a62f3a-c2619dea6ffmr271428166b.38.1788573132401; Fri, 04 Sep 2026
+ 18:52:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260904150304.49104-1-max.kellermann@ionos.com> <20260904150304.49104-2-max.kellermann@ionos.com>
+In-Reply-To: <20260904150304.49104-2-max.kellermann@ionos.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Fri, 4 Sep 2026 18:52:00 -0700
+X-Gm-Features: AcwNN1WDZu_1s8_xnV9u-kbrEsmmesZJZNKdYDJ26EL6R83yaSu4quJJiSUFKlE
+Message-ID: <CAOJNxRJ-A8+PyVYB75ensD_i4r0MppFJ32_hXrD9HhzcQRCJ_Q@mail.gmail.com>
+Subject: Re: [PATCH v4 1/3] ceph: fix use-after-free in check_new_map() after
+ early session put
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Jeff Layton <jlayton@kernel.org>
+Good catch Max.
 
-[ Upstream commit 641e5e20852359b8c31149be4598884e30652f60 ]
+LGTM.
 
-nlmsvc_ops is published by nfsd_lockd_init() and cleared by
-nfsd_lockd_shutdown() with plain stores, while lockd dereferences
-it unguarded from dispatch sites in fs/lockd/svcsubs.c. The pointer
-targets nfsd's .rodata and the fopen/fclose callbacks live in nfsd's
-.text, so a stale load after rmmod nfsd results in either a NULL
-deref or a module-text use-after-free.
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 
-Declare nlmsvc_ops as __rcu, publish via rcu_assign_pointer(), clear
-via RCU_INIT_POINTER() + synchronize_rcu(). Add a struct module
-*owner field to nlmsvc_binding and pin the module across indirect
-calls with try_module_get/module_put. When the binding is torn down,
-fall back to fput() to avoid leaking struct file references.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-16-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ adapted nlmsvc_ops protection to 6.12’s __be32 fopen API and existing nlm_close_files() helper ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/lockd/svc.c             |  4 +--
- fs/lockd/svc4proc.c        |  4 +--
- fs/lockd/svcproc.c         |  4 +--
- fs/lockd/svcsubs.c         | 56 ++++++++++++++++++++++++++++----------
- fs/nfsd/lockd.c            |  6 ++--
- include/linux/lockd/bind.h | 12 ++++++--
- 6 files changed, 61 insertions(+), 25 deletions(-)
-
-diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
-index 4ec22c2f2ea3c..87f20d1edb2c2 100644
---- a/fs/lockd/svc.c
-+++ b/fs/lockd/svc.c
-@@ -47,7 +47,7 @@
- 
- static struct svc_program	nlmsvc_program;
- 
--const struct nlmsvc_binding	*nlmsvc_ops;
-+const struct nlmsvc_binding __rcu *nlmsvc_ops;
- EXPORT_SYMBOL_GPL(nlmsvc_ops);
- 
- static DEFINE_MUTEX(nlmsvc_mutex);
-@@ -142,7 +142,7 @@ lockd(void *vrqstp)
- 		nlmsvc_retry_blocked(rqstp);
- 		svc_recv(rqstp);
- 	}
--	if (nlmsvc_ops)
-+	if (rcu_access_pointer(nlmsvc_ops))
- 		nlmsvc_invalidate_all();
- 	nlm_shutdown_hosts();
- 	cancel_delayed_work_sync(&ln->grace_period_end);
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 3f633bb24623a..ea3b689f8b93a 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -29,7 +29,7 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	if (lock->lock_start > OFFSET_MAX ||
-@@ -487,7 +487,7 @@ nlm4svc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--        if (!nlmsvc_ops)
-+        if (!rcu_access_pointer(nlmsvc_ops))
-                 return rpc_success;
- 
-         dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index 8cda2aba82d25..44da63392a09d 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -59,7 +59,7 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	/* Obtain host handle */
-@@ -521,7 +521,7 @@ nlmsvc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return rpc_success;
- 
- 	dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index 1a97f69397c00..396436eac8e22 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -86,12 +86,24 @@ int lock_to_openmode(struct file_lock *lock)
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
- {
-+	const struct nlmsvc_binding *ops;
- 	struct file **fp = &file->f_file[mode];
- 	__be32	nfserr;
- 
--	if (*fp)
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	if (!ops || !try_module_get(ops->owner)) {
-+		rcu_read_unlock();
-+		return nlm_lck_denied_nolocks;
-+	}
-+	rcu_read_unlock();
-+
-+	if (*fp) {
-+		module_put(ops->owner);
- 		return 0;
--	nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, mode);
-+	}
-+	nfserr = ops->fopen(rqstp, &file->f_handle, fp, mode);
-+	module_put(ops->owner);
- 	if (nfserr)
- 		dprintk("lockd: open failed (error %d)\n", nfserr);
- 	return nfserr;
-@@ -159,6 +171,33 @@ nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
- 	goto out_unlock;
- }
- 
-+/*
-+ * Release the struct file references held by a nlm_file.
-+ */
-+static void nlm_close_files(struct nlm_file *file)
-+{
-+	const struct nlmsvc_binding *ops;
-+	bool have_ops;
-+
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	have_ops = ops && try_module_get(ops->owner);
-+	rcu_read_unlock();
-+
-+	if (have_ops) {
-+		if (file->f_file[O_RDONLY])
-+			ops->fclose(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			ops->fclose(file->f_file[O_WRONLY]);
-+		module_put(ops->owner);
-+	} else {
-+		if (file->f_file[O_RDONLY])
-+			fput(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			fput(file->f_file[O_WRONLY]);
-+	}
-+}
-+
- /*
-  * Delete a file after having released all locks, blocks and shares
-  */
-@@ -168,10 +207,7 @@ nlm_delete_file(struct nlm_file *file)
- 	nlm_debug_print_file("closing file", file);
- 	if (!hlist_unhashed(&file->f_list)) {
- 		hlist_del(&file->f_list);
--		if (file->f_file[O_RDONLY])
--			nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--		if (file->f_file[O_WRONLY])
--			nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
-+		nlm_close_files(file);
- 		kfree(file);
- 	} else {
- 		printk(KERN_WARNING "lockd: attempt to release unknown file!\n");
-@@ -286,14 +322,6 @@ nlm_file_inuse(struct nlm_file *file)
- 	return 0;
- }
- 
--static void nlm_close_files(struct nlm_file *file)
--{
--	if (file->f_file[O_RDONLY])
--		nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--	if (file->f_file[O_WRONLY])
--		nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
--}
--
- /*
-  * Loop over all files in the file table.
-  */
-diff --git a/fs/nfsd/lockd.c b/fs/nfsd/lockd.c
-index 6b042218668b8..e933788e7a350 100644
---- a/fs/nfsd/lockd.c
-+++ b/fs/nfsd/lockd.c
-@@ -88,6 +88,7 @@ nlm_fclose(struct file *filp)
- }
- 
- static const struct nlmsvc_binding nfsd_nlm_ops = {
-+	.owner		= THIS_MODULE,
- 	.fopen		= nlm_fopen,		/* open file for locking */
- 	.fclose		= nlm_fclose,		/* close file */
- };
-@@ -96,11 +97,12 @@ void
- nfsd_lockd_init(void)
- {
- 	dprintk("nfsd: initializing lockd\n");
--	nlmsvc_ops = &nfsd_nlm_ops;
-+	rcu_assign_pointer(nlmsvc_ops, &nfsd_nlm_ops);
- }
- 
- void
- nfsd_lockd_shutdown(void)
- {
--	nlmsvc_ops = NULL;
-+	RCU_INIT_POINTER(nlmsvc_ops, NULL);
-+	synchronize_rcu();
- }
-diff --git a/include/linux/lockd/bind.h b/include/linux/lockd/bind.h
-index c53c81242e727..e25943e485c5c 100644
---- a/include/linux/lockd/bind.h
-+++ b/include/linux/lockd/bind.h
-@@ -21,11 +21,17 @@
- struct svc_rqst;
- struct rpc_task;
- struct rpc_clnt;
-+struct module;
- 
--/*
-- * This is the set of functions for lockd->nfsd communication
-+/**
-+ * struct nlmsvc_binding - lockd -> nfsd callback table
-+ * @owner:  module that provides this binding.
-+ * @fopen:  open a file by NFS file handle on behalf of an NLM request.
-+ * @fclose: close a file that was previously opened via @fopen.
-+ *          Implementations MUST be semantically equivalent to fput().
-  */
- struct nlmsvc_binding {
-+	struct module		*owner;
- 	__be32			(*fopen)(struct svc_rqst *,
- 						struct nfs_fh *,
- 						struct file **,
-@@ -33,7 +39,7 @@ struct nlmsvc_binding {
- 	void			(*fclose)(struct file *);
- };
- 
--extern const struct nlmsvc_binding *nlmsvc_ops;
-+extern const struct nlmsvc_binding __rcu *nlmsvc_ops;
- 
- /*
-  * Similar to nfs_client_initdata, but without the NFS-specific
--- 
-2.53.0
-
+On Fri, 4 Sept 2026 at 08:03, Max Kellermann <max.kellermann@ionos.com> wrote:
+>
+> check_new_map() drops mdsc->mutex while it locks a session, prepares a
+> reconnect, or kicks flushing caps.  A concurrent teardown can call
+> __unregister_session() in that window and drop the sessions[]
+> reference. When check_new_map() reacquires mdsc->mutex, its temporary
+> reference may therefore be the only reference keeping the local
+> variable `s` alive.
+>
+> Commit ee611a750955 ("ceph: fix UAF in check_new_map() on session freed
+> during unlock") addressed this by taking a temporary reference around
+> each unlock window, but it drops that reference as soon as mdsc->mutex
+> is reacquired, while `s` is still in use:
+>
+>   ceph_get_mds_session(s);
+>   mutex_unlock(&mdsc->mutex);
+>   mutex_lock(&s->s_mutex);
+>   mutex_lock(&mdsc->mutex);
+>   ceph_put_mds_session(s);    /* may drop the last reference */
+>   ceph_con_close(&s->s_con);  /* use-after-free */
+>   mutex_unlock(&s->s_mutex);  /* use-after-free */
+>   s->s_state = CEPH_MDS_SESSION_RESTARTING;
+>
+> If the session was unregistered during the window, the sessions[]
+> reference is already gone, so this ceph_put_mds_session() frees it.
+>
+> Additionally, the session could be freed while its s_mutex is locked,
+> which trips the WARN_ON(mutex_is_locked(&s->s_mutex)) in
+> ceph_put_mds_session() and then unlocks freed memory.
+>
+> Fix this by holding a single reference for the whole loop iteration:
+> look the session up with __ceph_lookup_mds_session(), which returns it
+> with a reference held, and release that reference on every exit from
+> the loop body.  This subsumes the per-window get/put pairs, so remove
+> them.
+>
+> Fixes: ee611a750955 ("ceph: fix UAF in check_new_map() on session freed during unlock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+> Note the stable maintainers: this is a fixup for ee611a750955, but the
+> bug has existed before; see
+> https://lore.kernel.org/ceph-devel/20260828174504.1247038-2-max.kellermann@ionos.com/
+> for a patch that applies to pre-7.2 kernel versions.
+> ---
+>  fs/ceph/mds_client.c | 13 ++++---------
+>  1 file changed, 4 insertions(+), 9 deletions(-)
+>
+> diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+> index a091f77cedaf..d36a114747ae 100644
+> --- a/fs/ceph/mds_client.c
+> +++ b/fs/ceph/mds_client.c
+> @@ -5860,9 +5860,9 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>         }
+>
+>         for (i = 0; i < oldmap->possible_max_rank && i < mdsc->max_sessions; i++) {
+> -               if (!mdsc->sessions[i])
+> +               s = __ceph_lookup_mds_session(mdsc, i);
+> +               if (!s)
+>                         continue;
+> -               s = mdsc->sessions[i];
+>                 oldstate = ceph_mdsmap_get_state(oldmap, i);
+>                 newstate = ceph_mdsmap_get_state(newmap, i);
+>
+> @@ -5875,7 +5875,6 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>
+>                 if (i >= newmap->possible_max_rank) {
+>                         /* force close session for stopped mds */
+> -                       ceph_get_mds_session(s);
+>                         __unregister_session(mdsc, s);
+>                         __wake_requests(mdsc, &s->s_waiting);
+>                         mutex_unlock(&mdsc->mutex);
+> @@ -5896,15 +5895,14 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>                            ceph_mdsmap_get_addr(newmap, i),
+>                            sizeof(struct ceph_entity_addr))) {
+>                         /* just close it */
+> -                       ceph_get_mds_session(s);
+>                         mutex_unlock(&mdsc->mutex);
+>                         mutex_lock(&s->s_mutex);
+>                         mutex_lock(&mdsc->mutex);
+> -                       ceph_put_mds_session(s);
+>                         ceph_con_close(&s->s_con);
+>                         mutex_unlock(&s->s_mutex);
+>                         s->s_state = CEPH_MDS_SESSION_RESTARTING;
+>                 } else if (oldstate == newstate) {
+> +                       ceph_put_mds_session(s);
+>                         continue;  /* nothing new with this mds */
+>                 }
+>
+> @@ -5915,7 +5913,6 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>                     newstate >= CEPH_MDS_STATE_RECONNECT) {
+>                         int rc;
+>
+> -                       ceph_get_mds_session(s);
+>                         mutex_unlock(&mdsc->mutex);
+>                         clear_bit(i, targets);
+>                         rc = send_mds_reconnect(mdsc, s);
+> @@ -5924,7 +5921,6 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>                                                "mds%d reconnect failed: %d\n",
+>                                                i, rc);
+>                         mutex_lock(&mdsc->mutex);
+> -                       ceph_put_mds_session(s);
+>                 }
+>
+>                 /*
+> @@ -5937,15 +5933,14 @@ static void check_new_map(struct ceph_mds_client *mdsc,
+>                                 pr_info_client(cl, "mds%d recovery completed\n",
+>                                                s->s_mds);
+>                         kick_requests(mdsc, i);
+> -                       ceph_get_mds_session(s);
+>                         mutex_unlock(&mdsc->mutex);
+>                         mutex_lock(&s->s_mutex);
+>                         mutex_lock(&mdsc->mutex);
+> -                       ceph_put_mds_session(s);
+>                         ceph_kick_flushing_caps(mdsc, s);
+>                         mutex_unlock(&s->s_mutex);
+>                         wake_up_session_caps(s, RECONNECT);
+>                 }
+> +               ceph_put_mds_session(s);
+>         }
+>
+>         /*
+> --
+> 2.47.3
+>
