@@ -1,120 +1,123 @@
-Received: from mta0.migadu.com (out-111.mta0.migadu.com [91.218.175.111])
+Received: from mta1.migadu.com (out-210.mta1.migadu.com [95.215.58.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FFB32B133
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 06:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67DC2302146
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 06:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788588165; cv=none; b=iGBZt0IWyhQFSL6MHaLmYGLumovuRTHHnOOcN8HK8vwrP5yPWF4a8q/WkqHi3z+c9SY0eji4/Rhs93Zwg0U4nJn/H/wbw0ojGezpUalanLqAKmaYM5uhsmPc8tK/jtxRVcgQwc5laLl46MquS339gWu0MSXvCYjifsl3GQ3upnk=
+	t=1788588985; cv=none; b=tF4sud5BiO2fTt/3j4vefCRVyh4l6PAvsHAw/i1hAxl0KLBmIDe0h+DIrLJTF0djMxrzDNBzq68VJE7k9s7bztk3a12wRzu08DoDowBeMC3p/Og6tUEwHAi2hELiHzSw1/CJSKgDP4vXy2FLYcRKaVb8/wgm/5kULyvrlCIeM74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788588165; c=relaxed/simple;
-	bh=g00xPURkl0HXiJrLznFEGazxWq25zrYenZGCIwbXv6A=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=pE3NiCkxX7j9jKedtUmHPbihKrLzK5Ow5PLqS+lEXhZDM8rYHpINE89EqK+pTasx03c+YgYgv5EdR1Vebw7s+olUPuFPVBelMBQWAemEVqU5yxGUT+Vx2V8da5nZ45vMmwe8+LtFI1aT0GRLpSFBD4UUPAP8uyfunh+tKnIxC5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FF9XnLYt; arc=none smtp.client-ip=91.218.175.111
+	s=arc-20240116; t=1788588985; c=relaxed/simple;
+	bh=wVvQY6FcjQcbsN6NidnWh4uveTQRJ0Nlbs9VKkQ617g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GKB24DuKP/aK7Ua7qUm0goOuuJJVIvTPnPBo4ppeyRgKoBjZWsPj+vpX/sEAJXfNSC16XiabT2NRgBvAXzWW9U+oobYjmakM1pX18ubv1HxT/5zuEeHdC/3zY/gvyl9GQRiOhEdVd7WFmbbsB918lXo5E28l99zdgMVi55dOz9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BJ807yFd; arc=none smtp.client-ip=95.215.58.210
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FF9XnLYt"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BJ807yFd"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=g00xPURkl0HXiJrLznFEGazxWq25zrYenZGCIwbXv6A=;
+DKIM-Signature: a=rsa-sha256; bh=wVvQY6FcjQcbsN6NidnWh4uveTQRJ0Nlbs9VKkQ617g=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788588159; v=1; x=1789192959;
- b=FF9XnLYtnnKA3CbecClejPl6smZUyKMqoTdRM9OHiXgXuDrlU2KAMpPZwJLfirxhMEK8l6Yk
- 0yez7C2010Z5f3FThLU5nm94Lqnw430zMb3UwI8vGf/rG8hPSWwMCQ6vX/XWS8Y8urReUY5shEV
- NDa6Phdy424hhXIQPQmRzoyo=
+ t=1788588981; v=1; x=1789193781;
+ b=BJ807yFd+6B2mldC73pmhoOB1hBovbUNzjx7cyeY/FBRxOgVfD7gJICoGf+UPLOsgZd3NGFT
+ IYjhiYd/leVjO+dRQxdRIfPz60MWU9nmv8lY78yuY5ZPfYlFeFeNiu5L/lQ7fEssWMqrx/bu0Bz
+ GFdl9iq1i0rzX0cQiLsVr1Zg=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6927321ae16174ca;
-	Sat, 05 Sep 2026 06:02:39 +0000
-X-Mizu-Trace-ID: 6927321ae16174ca
+Received: by smtp.migadu.com with ESMTPS id a0fbfabdf52cb018;
+	Sat, 05 Sep 2026 06:16:21 +0000
+X-Mizu-Trace-ID: a0fbfabdf52cb018
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <0bda54a1-7cdc-42c9-89f3-408067b2f8a3@linux.dev>
-Date: Sat, 5 Sep 2026 14:02:30 +0800
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+To: linux-wpan@vger.kernel.org
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	david.girault@qorvo.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Subject: [PATCH net v1] mac802154: avoid extra skb references in RX queues
+Date: Sat,  5 Sep 2026 14:15:23 +0800
+Message-ID: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Subject: Re: [PATCH net v2 0/2] mac802154: fix queued RX descriptor lifetime
-To: linux-wpan@vger.kernel.org, miquel.raynal@bootlin.com
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- alex.aring@gmail.com, stefan@datenfreihafen.org, david.girault@qorvo.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, stable@vger.kernel.org,
- Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-In-Reply-To: <20260903123202.60152-1-xuanqiang.luo@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-在 2026/9/3 20:32, Xuanqiang Luo 写道:
-> From: Xuanqiang Luo<luoxuanqiang@kylinos.cn>
->
-> mac802154 queues one descriptor per received beacon or MAC command, but
-> each worker invocation dequeues only one. Since queue_work() coalesces
-> attempts to queue the same pending work item, a burst can add more
-> descriptors than scheduled invocations. A later frame may schedule another
-> invocation, but also adds a descriptor, so it does not necessarily reduce
-> the backlog. Descriptors can therefore remain queued indefinitely once
-> reception stops. The RX path, workers, and scan cleanup also access the
-> descriptor lists without common synchronization.
->
-> A queued descriptor carries its receiving interface beyond the RCU
-> read-side critical section without holding a netdev reference. If the
-> interface is removed first, the worker can dereference freed memory.
->
-> Protect the descriptor lists with a spinlock and keep the workers running
-> until the queues are empty. Then hold the netdev for the lifetime of each
-> queued descriptor to prevent it from being freed too early.
->
-> This ordering is required. Without the queue-draining fix, a descriptor
-> stranded by queue_work() coalescing would also strand its netdev reference,
-> as netdev_put() runs only when the descriptor is released, leaving the
-> netdev pinned indefinitely.
->
-> ---
-> Changes:
-> v2:
->    Patch 1 (new):
->    - Serialize descriptor list access and requeue each worker while another
->      descriptor remains.
->    - Detach queued beacons under the same lock before scan cleanup frees
->      them.
->
->    Patch 2:
->    - Replace the v1 drain_workqueue() approach, which does not cover work
->      queued after the drain or the DEL_INTERFACE path, with a netdev
->      reference held by each queued descriptor. (Sashiko.)
->
-> v1:https://lore.kernel.org/all/20260828101905.26865-1-xuanqiang.luo@linux.dev/
->
-> Xuanqiang Luo (2):
->    mac802154: serialize and drain queued RX descriptors
->    mac802154: pin netdevs for queued RX descriptors
->
->   include/net/cfg802154.h      |  2 ++
->   net/mac802154/ieee802154_i.h |  2 ++
->   net/mac802154/main.c         |  1 +
->   net/mac802154/rx.c           | 36 ++++++++++++++++++++++++++++++------
->   net/mac802154/scan.c         |  8 +++++++-
->   5 files changed, 42 insertions(+), 7 deletions(-)
->
->
-> base-commit: dc4b95b8fee95113587e93ca116356032d271371
+__ieee802154_rx_handle_packet() passes each cloned skb to
+ieee802154_subif_frame() and does not release it after the call. The
+callee consumes the skb on every path: it either frees it, hands it to
+the networking stack, or stores it in a queued RX descriptor.
 
-I realized that the issues addressed by this series appear to have
-already been fixed by:
+The beacon and MAC command paths nevertheless call skb_get() before
+storing the skb. The worker drops only that additional reference, leaving
+the original clone reference without an owner and leaking every queued
+skb.
 
-https://lore.kernel.org/all/20260725135154.99876-1-security@auditcode.ai/
+kmemleak report:
 
-I missed that, so please disregard this one.
+unreferenced object 0xffff0000c1fcd480 (size 232):
+  comm "softirq", pid 0, jiffies 4295683396
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 60 fd d4 00 00 ff ff 00 00 00 00 00 00 00 00  .`..............
+  backtrace (crc ee03f6a1):
+    kmemleak_alloc+0xcc/0xf8
+    kmem_cache_alloc_noprof+0x240/0x418
+    skb_clone+0x60/0xe0
+    ieee802154_rx+0x19c/0x280 [mac802154]
+    ieee802154_tasklet_handler+0xa8/0xb8 [mac802154]
+    tasklet_action_common+0x148/0x528
+    tasklet_action+0x38/0x50
+    handle_softirqs+0x10c/0x450
+    __do_softirq+0x1c/0x28
 
-Thanks,
+Transfer the existing skb reference to the descriptor instead of taking
+another one.
 
-pw-bot: rejected
+Fixes: 57588c71177f ("mac802154: Handle passive scanning")
+Fixes: d021d218f6d9 ("mac802154: Handle received BEACON_REQ")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+---
+ net/mac802154/rx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/mac802154/rx.c b/net/mac802154/rx.c
+index 19b5382e85a84..ad602d222e861 100644
+--- a/net/mac802154/rx.c
++++ b/net/mac802154/rx.c
+@@ -287,7 +287,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		mac_pkt->page = sdata->local->scan_page;
+ 		mac_pkt->channel = sdata->local->scan_channel;
+@@ -304,7 +304,7 @@ ieee802154_subif_frame(struct ieee802154_sub_if_data *sdata,
+ 		if (!mac_pkt)
+ 			goto fail;
+ 
+-		mac_pkt->skb = skb_get(skb);
++		mac_pkt->skb = skb;
+ 		mac_pkt->sdata = sdata;
+ 		netdev_hold(sdata->dev, &mac_pkt->dev_tracker, GFP_ATOMIC);
+ 		spin_lock(&sdata->local->rx_lock);
+-- 
+2.43.0
 
