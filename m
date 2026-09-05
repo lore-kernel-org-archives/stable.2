@@ -1,105 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E50326945
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:13:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF1837F338
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788570784; cv=none; b=jlIpYFCe42I38sAF2A/F+9Z0+x/onO9gwF8QDa4S6kU7cRXY+h6RE1wZWe+luYUwr0I8+XBbxP+qwMdrGXFwZGRgh7Hi7jsH32N02Hf0DV3aVihhnM+vsOfDidrmgqPNgLz3eN2CCLSP/FdP6p96x3WlRU6zKEVrcwWZG8FkxK8=
+	t=1788570952; cv=none; b=SGNquuw5feG5fgZPH7f95TzMKZket8ic4jgRKfgnUX1tLPr6SVl3O0m/7B/uFsmcYgyfHhrwcowIlcUwox2I43iAVvGZ6yEZqYbbjJatTVbBLr0NYwR27D2iIScGtm0ytuHlZNuZ42FU1QlL+iOvbdrs2g6j/XLkEwwblZmUTzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788570784; c=relaxed/simple;
-	bh=g7IJaQ7ovSLsl+0oQt9xl1KXWa3Gmha0h5Z9AaHQub8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ClduskY6/gpJaoJwKiifQxwVWfqBTDaJIIuv4BUlnL1kKDf+0LuWh5Po/aErXQJ8d50//9d8dKR7z/AqMHX5ZzUp2pbD+wpb1Mrp76wt4GNM7Ir7iorj3qLLFhn1m4coDDR8PjTcctDaDWxlx2z4vEFaN6dFbN8NIe9MjVC+76A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEMcGDnz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788570952; c=relaxed/simple;
+	bh=8vBOD3iAA3Gcnq0ytm70An3cQqaSF2NQ9pZmWAH730Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=H79QsgCd5Ti0xZwtVx/ldSsSteFK2yvyVbTM2hDuOOfu88vPW6HRHZKqUjJS7g7yoZ3hUnd4ulC52fmJuBU2qpc5wnIV1biHpjZEXS1QD4zDKJpiFbp8rOPDuY8ERQJgv85IO+QnR8yJsKCNQb7G33B5WMEnjAqaoLmXW8BuVpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH8zvEvR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEMcGDnz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C341F00AC4;
-	Sat,  5 Sep 2026 01:13:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH8zvEvR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711541F00ADB
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788570783;
-	bh=4OcGqq2Fx+/da77hpn3aqcVzTNKFlfUgXrKY762BkvA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kEMcGDnz3AkxrcA423YuNuIYLZ1i7LrMYhZDMqf0N5Xnk/ltzquZ8OM2Gyoe/SVDQ
-	 U0s+mp+3k33X2FMMCRpeP7iZcgtcddw1RYAY18LboQeSipY2x0VoOmYnCD/IoZzGiA
-	 OBkAwl8QvdZzYMc5s+ccprqId22rKUhg+L76zq48sXWv4mCzckzUVMfgnqciSO22gR
-	 GX2w25CAY9puvRytNQdYDf4/hx7nufWT56AEbQy43jhCU7eG9ddg5HpOggJ6qxuN+5
-	 MdnrVbj6+2dezpcDKrXMSbrCzCBJJOOvuu1Ux5hprbNNhk2X15FoZ9a+hb1lplvNVb
-	 ZJv9CG6/zHTww==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Minchan Kim <minchan@kernel.org>,
-	Haoqin Huang <haoqinhuang7@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] zram: set default primary compressor in zram_destroy_comps()
-Date: Fri,  4 Sep 2026 21:12:57 -0400
-Message-ID: <20260905011257.1770985-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260905011257.1770985-1-sashal@kernel.org>
-References: <2026090323-gumminess-earthy-c60d@gregkh>
- <20260905011257.1770985-1-sashal@kernel.org>
+	s=k20260515; t=1788570951;
+	bh=wnqQejRb8zTN61yNVlvFHsGj5tl1v37bsmIXzCAkc7s=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=OH8zvEvR++KBfxOgVyaH/HfI3yuPPtRvk2jQdDrUxoK0D1YVQE6QoOKYmraE8JGsw
+	 onB+TdVdONRNPac8c0RNj0XR8IyTBI46SpH1Tx8ipt8LoR3Wj9+SdEVvUQGEwihvzj
+	 OBF0iEFcfADsuZLse3eDqjmkheBpq4TfKJrKQDGGgkfjfGYpEiOWvwrY2CxyeXHO0i
+	 ccbXMCkV6lqhPjcoyrrNW56+9m5C/yhktd6cZe4ug802cs0cuAhdcA0nwLc6zjku8d
+	 anTSlD4lx1VNColDPDVxDrjDD2acZDxGAdO0DNL2clDLI3xi43yBZACcd7dPy9P31a
+	 Nr+G11DaWqhsQ==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c262f1186f0so2759966b.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 18:15:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw30i9WCayR1OgfsUCVk9uN1B79R4r1EO7ihX+uYHCVcNZZm5PjnjB+OoioXjlPmVKmOoD38eM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKtSUkrPLHsRoWCcvY8ytw+qIyjMaY8yfw7yALnfVgmqscX5d7
+	3rETvz8K4lpMsE4ABR9i6nE5jOJayOROc8qi8cxpvt9EMNsl4aOOeXgqGfFz9DS9KavgAqC5151
+	tDI6rcsyEKUMjgFu0YA1Jkdy3lnXSm3c=
+X-Received: by 2002:a17:907:7290:b0:c08:417e:3696 with SMTP id
+ a640c23a62f3a-c260ca459c9mr606304266b.20.1788570950084; Fri, 04 Sep 2026
+ 18:15:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260709155440.2132459-1-doebel@amazon.de> <20260904125844.1803343-1-doebel@amazon.de>
+In-Reply-To: <20260904125844.1803343-1-doebel@amazon.de>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 5 Sep 2026 10:15:37 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XLMLJc8HxJFK5Dl37fhlyCCd4jZbYJRtiT9fYiNdk5XrcPZmADDZ7vkb4
+Message-ID: <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
+Subject: Re: [PATCH] smb: client: fix heap overflow in DACL owner/group rewrite
+To: Bjoern Doebel <doebel@amazon.de>
+Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
+	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
+	samba-technical@lists.samba.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
+> @@ -1815,11 +1815,13 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
+>                                 cifs_put_tlink(tlink);
+>                                 return rc;
+>                         }
+> -                       if (mode_from_sid)
+> -                               nsecdesclen +=
+> -                                       le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
+> -                       else /* cifsacl */
+> -                               nsecdesclen += le16_to_cpu(dacl_ptr->size);
+> +                       /*
+> +                        * Worst case: every ACE is rewritten with a new SID of
+> +                        * SID_MAX_SUB_AUTHORITIES sub-auths -> sizeof(smb_ace) each,
+> +                        * plus the smb_acl header replace_sids_and_copy_aces() emits.
+Since you mentioned replace_sids_and_copy_aces(), please check whether
+replace_sids_and_copy_aces() also has a potential overflow issue.
 
-[ Upstream commit dde75313eed0b014c437f48dd75c0308b592cbf9 ]
+So for this patch,
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 
-Patch series "zram: fix zram issues reported by sashiko".
+Plus, there is a checkpatch warning from this patch.
+WARNING: Unknown commit id '5c3564852c58', maybe rebased or not pulled?
+#78:
+Fixes: 5c3564852c58 ("cifs: Minimize the number of cifs_acl memory allocations")
+total: 0 errors, 1 warnings, 18 lines checked
 
-Sashiko drove by and reported [1] a couple of zram issues:
-a possible BUG_ON() in zlib code due to missing winbits range
-validation and one possible NULL-ptr dereference in zcomp.
-Both are low risk yet still worth fixing.
-
-This patch (of 2):
-
-zram_destroy_comps() resets all compressors and leaves them set to NULL,
-including the primary one, which is invalid device state, as now
-comp_algorithm_show()->strcmp() can be called on a NULL compressor.  Set
-default primary compressor in zram_destroy_comps().
-
-Link: https://lore.kernel.org/20260729045745.775973-2-senozhatsky@chromium.org
-Fixes: 486fd58af7ac ("zram: don't free statically defined names")
-Link: https://sashiko.dev/#/patchset/20260728092935.31139-1-haoqinhuang7@gmail.com [1]
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: Haoqin Huang <haoqinhuang7@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/block/zram/zram_drv.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 6a4870cf6e590..d7d4e39530392 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -2031,6 +2031,7 @@ static void zram_destroy_comps(struct zram *zram)
- 	}
- 
- 	zram_comp_params_reset(zram);
-+	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
- }
- #undef zram_comp_params_reset
- 
-@@ -2049,8 +2050,6 @@ static void zram_reset_device(struct zram *zram)
- 	zram_destroy_comps(zram);
- 	memset(&zram->stats, 0, sizeof(zram->stats));
- 	reset_bdev(zram);
--
--	comp_algorithm_set(zram, ZRAM_PRIMARY_COMP, default_compressor);
- }
- 
- static ssize_t disksize_store(struct device *dev,
--- 
-2.53.0
-
+Thanks.
