@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EED4EA39D;
-	Sat,  5 Sep 2026 18:48:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F47E4F797E;
+	Sat,  5 Sep 2026 18:48:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788634096; cv=none; b=Q3shrY/EyMK3I7mU7dbJHqbTPEUTYt/PwI5LGZoh59TPXWqd09nHj97GLu/QFY4RCo+RsHDYOTztqAQw7OhbTss941Zl1EGaNsekgJn6ZIYmUbdDmaDENTQXibSvEe1GiLzF5kXqoFk4bLZVclBKzgUmglpojm74hZdA3GOhS14=
+	t=1788634098; cv=none; b=OahAhEkapkPdZKewsRQruPjQysIB0M7YnSba1CF6zH/oWVceMsr3BuI5dsf63j5vmaqVBQMAKhX4sYYnc4jz0KRxh2OYk5LEDMfBV/buT3mPQo08h/bQTXV7uB9B8J630fDK658FDCuvir0bOKv35Rt+UY77zgb3Rg5T3P15aUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788634096; c=relaxed/simple;
-	bh=DYZDiBzjQg+FcocRY0lSXg11RfDgqNA9goGM/vRS0Sw=;
-	h=Date:To:From:Subject:Message-Id; b=ueaaS1QNd1/63yL4F1h3ThfqZS7cNGht0b36Gxvp96r56Y+uKCUWA96UqSt756iuzj1jD3816AirJYoqN01VIC9uNdV2EqNhGR3TWcdFEmvzwnVLsjy0jA2obb9dLZrq0ncrMpLysRhuHLz29ECXORAr6qJpOGqvYEFa77Tw8Ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=pf+X462Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788634098; c=relaxed/simple;
+	bh=D4w3qePoNZYqHWaqI+xsHlyV+AjezfqXTsUdm9yZr9c=;
+	h=Date:To:From:Subject:Message-Id; b=pxHrdVg9x0J9EBcu9TTp5tH0xCSvd7zm+BhvFwHFBsA2J5FpMg1ZuCWYVQ7w5Hg1mMoKNDHOFpTYDW+rgoHMKDyxZarWoSiWmJv8WSxuQhZipJvmCiMpBpqaXGQRHimYL9NMi7j+W32okAU5y/fQn/gPCt+AbOpYv/E4kW4csOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=U2xjSmzq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="pf+X462Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A2E1F00A3D;
-	Sat,  5 Sep 2026 18:48:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="U2xjSmzq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 361BB1F00A3D;
+	Sat,  5 Sep 2026 18:48:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788634095;
-	bh=cra6d5OvWaQ1i5Lvgw7dNr2DxRB9763hmcXtoHdGqU8=;
+	d=linux-foundation.org; s=korg; t=1788634097;
+	bh=vVBtpfQ2hM1cFUHrPwG07kltDJyj1ypfgC4JgnHNuMg=;
 	h=Date:To:From:Subject;
-	b=pf+X462YG9QktK70s/vFzttMEtS3h8S6J8NZTz2AsiXal2X8U+yAhfGqnXhYZEs6i
-	 MO9inKvM4hInsmZNGTpMMClfakNkTfQQ9BByk/+tiQDLuHVwr/Zezopmz/jabZ/wZw
-	 +r8MAVvqCRLvKq0P5qtmDPzs/WXQirb8qy54fttg=
-Date: Sat, 05 Sep 2026 11:48:14 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,roman.gushchin@linux.dev,muchun.song@linux.dev,mhocko@suse.com,hannes@cmpxchg.org,farhad.alemi@berkeley.edu,shakeel.butt@linux.dev,akpm@linux-foundation.org
+	b=U2xjSmzqUVTnIJ0UCuR53Mg2AyGufUFvtMGmqi432+w4bsB1xNVEUy3L9aORmkGL2
+	 FKis5NfEoJ9yfScT7ej7EGBE9uUnwZ4HmahCsTivocdu+rw9SBwhBBm9XnYI77oteU
+	 Bdl8MISSwr0xFH8jkzjgaF8aYFXXP+Zi+KRqVXRo=
+Date: Sat, 05 Sep 2026 11:48:16 -0700
+To: mm-commits@vger.kernel.org,willy@infradead.org,tz2294@columbia.edu,trond.myklebust@hammerspace.com,stable@vger.kernel.org,jack@suse.cz,baohua@kernel.org,axboe@kernel.dk,qiwenjie@xiaomi.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] memcg-avoid-charging-the-root-memcg-from-obj_cgroup_charge_pages.patch removed from -mm tree
-Message-Id: <20260905184814.E0A2E1F00A3D@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-filemap-retain-mapped-dropbehind-folios.patch removed from -mm tree
+Message-Id: <20260905184817.361BB1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,104 +35,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
+     Subject: mm: filemap: retain mapped dropbehind folios
 has been removed from the -mm tree.  Its filename was
-     memcg-avoid-charging-the-root-memcg-from-obj_cgroup_charge_pages.patch
+     mm-filemap-retain-mapped-dropbehind-folios.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Shakeel Butt <shakeel.butt@linux.dev>
-Subject: memcg: avoid charging the root memcg from obj_cgroup_charge_pages()
-Date: Fri, 28 Aug 2026 19:32:51 -0700
+From: Wenjie Qi <qiwenjie@xiaomi.com>
+Subject: mm: filemap: retain mapped dropbehind folios
+Date: Sun, 30 Aug 2026 01:36:12 +0800
 
-obj_cgroup_charge_pages() resolves the objcg to its memcg and calls
-try_charge_memcg(), which does not short circuit the root memcg.  That
-memcg can be the root memcg: obj_cgroup_is_root() reflects the memcg the
-objcg was created for and is never updated, while memcg_reparent_objcgs()
-does redirect objcg->memcg to the parent on rmdir.  An objcg of a dying
-child of root therefore passes every obj_cgroup_is_root() filter but
-resolves to the root memcg.
+Fault-around can map ready dropbehind folios without going through the
+normal page-cache lookup that clears dropbehind.  A mapping represents a
+competing cached user, so retain the folio instead of forcibly unmapping
+it when writeback completes.
 
-Folios keep the objcg they were charged with, so this is easy to reach
-through zswap: allocate anon memory in a cgroup, move the task out, remove
-the cgroup, then write to the root cgroup's memory.reclaim.  The reclaimed
-folios are charged through the reparented objcg and end up in
-refill_stock() with the root memcg:
+For a mapped folio, folio_unmap_invalidate() can call
+unmap_mapping_folio(), which takes i_mmap_rwsem and may sleep.  Retaining
+mapped folios avoids this path when folio_end_dropbehind() runs in
+non-preemptible task context.
 
-  WARNING: mm/memcontrol.c:2198 at refill_stock+0x644/0x940
-   refill_stock+0x644/0x940
-   try_charge_memcg+0x12d6/0x1570
-   __obj_cgroup_charge+0x35/0xf0
-   obj_cgroup_charge+0x1de/0x210
-   obj_cgroup_charge_zswap+0x83/0x270
-   zswap_store+0x1620/0x2000
-   swap_writeout+0x94c/0x14c0
-   shrink_folio_list+0x3388/0x52b0
-   [...]
-   try_to_free_mem_cgroup_pages+0x30d/0x830
-   user_proactive_reclaim+0x504/0x840
-   memory_reclaim+0x1f/0x30
+Tal was able to trigger a sleeping-in-atomic warning due to this [1].
 
-Beyond the warning, the charge is asymmetric: obj_cgroup_uncharge_pages()
-skips refill_stock() for the root memcg, so the root's page counter grows
-and is never uncharged.  It is not user visible, since memory.current is
-not exposed on the root, but it is a leak.
+Unmapped dropbehind folios continue through the existing invalidation path.
 
-Use try_charge(), which returns early for the root memcg, restoring the
-symmetry with obj_cgroup_uncharge_pages().
-
-The above sequence was scripted into a standalone reproducer (zswap on,
-swap on a virtio disk, 512MB of anon memory faulted in inside a child of
-the root cgroup, the task then migrated to the root cgroup, the child
-removed, followed by "echo 600M swappiness=max > memory.reclaim" on the
-root) and run in a CONFIG_DEBUG_VM=y VM.  It reproduces the splat on the
-first zswap store of a reparented folio, with the same call chain as the
-report.  With this patch applied the splat is gone while the zswap store
-count over the run is unchanged, so the same path is still exercised. 
-cgroup selftests test_zswap, test_kmem and test_memcontrol show no new
-failures.
-
-Link: https://lore.kernel.org/20260829023251.474083-1-shakeel.butt@linux.dev
-Fixes: 20d6c1725228 ("memcg: avoid refill_stock for root memcg")
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Closes: https://lore.kernel.org/all/CA+0ovCgWzUMK+nNbbtH7eV65Ca=fDN4Ozu7iASgryjvv8Tk8zQ@mail.gmail.com/
-Reviewed-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Link: https://lore.kernel.org/4aba05e1a2c3b61cb337d373eb9b7a8db4ddd822.1788024049.git.qiwenjie@xiaomi.com
+Link: https://lore.kernel.org/076bb01b-6fcf-4691-be8c-0e8507c9fe64@columbia.edu [1]
+Fixes: fb7d3bc41493 ("mm/filemap: drop streaming/uncached pages when writeback completes")
+Signed-off-by: Wenjie Qi <qiwenjie@xiaomi.com>
+Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+Tested-by: Tal Zussman <tz2294@columbia.edu>
+Cc: Barry Song <baohua@kernel.org>
+Cc: Jan Kara <jack@suse.cz>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Trond Myklebust <trond.myklebust@hammerspace.com>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
 
- mm/memcontrol.c |    2 +-
+ mm/filemap.c |    2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/mm/memcontrol.c~memcg-avoid-charging-the-root-memcg-from-obj_cgroup_charge_pages
-+++ a/mm/memcontrol.c
-@@ -3158,7 +3158,7 @@ static int obj_cgroup_charge_pages(struc
- 
- 	memcg = get_mem_cgroup_from_objcg(objcg);
- 
--	ret = try_charge_memcg(memcg, gfp, nr_pages);
-+	ret = try_charge(memcg, gfp, nr_pages);
- 	if (ret)
- 		goto out;
+--- a/mm/filemap.c~mm-filemap-retain-mapped-dropbehind-folios
++++ a/mm/filemap.c
+@@ -1616,7 +1616,7 @@ static void filemap_end_dropbehind(struc
+ 		return;
+ 	if (!folio_test_clear_dropbehind(folio))
+ 		return;
+-	if (mapping)
++	if (mapping && !folio_mapped(folio))
+ 		folio_unmap_invalidate(mapping, folio, 0);
+ }
  
 _
 
-Patches currently in -mm which might be from shakeel.butt@linux.dev are
+Patches currently in -mm which might be from qiwenjie@xiaomi.com are
 
-memcg-clear-flushing_cached_charge-on-cpu-offline.patch
-memcg-trim-the-per-cpu-charge-stock-instead-of-draining-it.patch
-memcg-remove-v1-soft-limit-reclaim.patch
-memcg-remove-mem_cgroup_shrink_node.patch
-memcg-remove-the-soft-limit-reclaim-tracepoints.patch
-memcg-remove-the-soft-limit-rbtree.patch
-memcg-remove-lru_gen_soft_reclaim.patch
-memcg-remove-the-per-node-soft-limit-tree-fields.patch
-memcg-remove-mem_cgroup-soft_limit.patch
-memcg-simplify-v1-event-ratelimiting.patch
 
