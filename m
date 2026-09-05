@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0E13C2D
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:05:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EED1F938
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:05:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566703; cv=none; b=DaGU37mHQDN6QP9qzuHIasNROoqdjJpd4XVlu2YUFCYYWClZHCQOwLiRWo+gctrnZBMkkOU4ElZrR4L1t8tf82eAPJME2+NGTiUyVrQz4hsGvW79Suyth0tMonfSPx9p1EDBxG+LQx8AC9hLBDE4ytQCkii5QlzFWVGWNkIKb18=
+	t=1788566708; cv=none; b=Q2KnGQXqFjuJG9P/gdrSSt1J5ex3tNk+jhgzKNJhuWHLFS8IvrQZ1u1KLaztJRc0PhmvwGhE8sODCyQ1BFSrrZYgZrSuB3BBs6kTLEJJd9pCt0L813bMskHAL/iGYyXAzg6sHLPzVwrUx/vja3m3wIV6Ylbvy6Hee72oXknDXfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788566703; c=relaxed/simple;
-	bh=xjalmOr3rMeTwkzYPa7rdR6B/mPjFH1uu11iQFlgP+Y=;
+	s=arc-20240116; t=1788566708; c=relaxed/simple;
+	bh=itr3sYA517aSwacwMLFG3PcNgTjVGMaQzaq3oP64hjY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ROuq0EGbANYAijVht7DMDmMLgde/DGJFITPM8fn/yKRBjs3ZV0ZxUp+/ZE6jLlQmcUdQRFrGjmgNWY0I7rEu+KbxbWWhMP96+9k5/nxAzRdJOIlc3aHp3JfQnQOog84Q9oYXtGApxJp0DjEfQzPuLrHo36XYOlP6tqXYPjyMc1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVNW4AMb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G9cibepcAm+UJshZupq1CgvDSHrHyp0tSMuv6ZRYETh9hUkeyN0HTRb9nR4qxUJEZBe9dSpwyAs4XozagUUeJcHf8ZmDFQUqjsvlPfs6MItR0dSdwA9jr4Fjl5whiBgRZytXmO82gdhnaUEIa0k4NATf7C6fDWZCjABomFhkb/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EhQAYpWE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVNW4AMb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6FA1F00A3D;
-	Sat,  5 Sep 2026 00:05:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EhQAYpWE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E98271F00A3D;
+	Sat,  5 Sep 2026 00:05:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788566701;
-	bh=lvWhopryvtIbHiQn2Q2e7r18WAkihl4AZ4eGtY+vg1g=;
+	s=k20260515; t=1788566706;
+	bh=bcZKCDJA618zhT3dByKfhMqJtWFi60lDswrxC2PlubQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MVNW4AMb9wSbaimhNZqtxXrGKKt+lN5cS9jk7mQMetrwdW/eyBF7LgbXVyR7fRHTp
-	 h5ULgTzprqjSTk3wX7GDXbSPnECtnOns06dglxq76Z1/xUq+Nyf7NZQwfHzr2RS1wH
-	 nZ2/dnPVfVjZAwDecL3VHTANJDAB6vl4abgD/SgmR4PRLwPv4Rm5zdo8q5rv8gLIQY
-	 kI18XuaWfx3Chqg/4jfe/QcR0iNV59/Xu1o3xZZZXfZKzjf863enYETU9Kz7djdxHX
-	 X2o4qiRehPcPxAID5u+eQ/hI5svrVxa8XX6v1ViZfjN5Cb0eHhYhkh3SynhSLTj5FL
-	 ovMQcvdMcsPCw==
+	b=EhQAYpWEQja0/OIJk1TqBQMkrEVfBxsSZ0Z9AWHZJR/B3JQLAvP9bD+eNJa0x5B5S
+	 K+Vp+KjqRqBdWJCxaBqQ++tWZQd7GiVY7Hg9k1s8UpLOnbNmtL4jGwLm8l5YnZdYIC
+	 jdiBeqGx2fB/AMFs+i2s/iA1GN1NwUt7oBX8Uh0cH+VDUYr627nNMC1RkKynW35Fy/
+	 9zln0obVdYB0aBOt/FBUc++OUSnToMFPqZrizm1MqWncyDe/0NXzEwo2+nHkaussiY
+	 11Zq3K76T04TCkPYnvEM2k2ql8wfBWW4JxcczBz+6+Lx3W3HAypMxD8+hxu30NitS3
+	 TityZFqnXGm7g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] lockd, nfsd: RCU-protect nlmsvc_ops dispatch
-Date: Fri,  4 Sep 2026 20:04:59 -0400
-Message-ID: <20260905000459.1657593-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] usb: typec: ucsi: extract common code for command handling
+Date: Fri,  4 Sep 2026 20:05:03 -0400
+Message-ID: <20260905000504.1657915-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-kisser-married-4c63@gregkh>
-References: <2026090303-kisser-married-4c63@gregkh>
+In-Reply-To: <2026090309-kelp-viewer-b3c3@gregkh>
+References: <2026090309-kelp-viewer-b3c3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,273 +46,267 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
 
-[ Upstream commit 641e5e20852359b8c31149be4598884e30652f60 ]
+[ Upstream commit 584e8df58942338602c70686b451b5c3093543a1 ]
 
-nlmsvc_ops is published by nfsd_lockd_init() and cleared by
-nfsd_lockd_shutdown() with plain stores, while lockd dereferences
-it unguarded from dispatch sites in fs/lockd/svcsubs.c. The pointer
-targets nfsd's .rodata and the fopen/fclose callbacks live in nfsd's
-.text, so a stale load after rmmod nfsd results in either a NULL
-deref or a module-text use-after-free.
+Extract common functions to handle command sending and to handle events
+from UCSI. This ensures that all UCSI glue drivers handle the ACKs in
+the same way.
 
-Declare nlmsvc_ops as __rcu, publish via rcu_assign_pointer(), clear
-via RCU_INIT_POINTER() + synchronize_rcu(). Add a struct module
-*owner field to nlmsvc_binding and pin the module across indirect
-calls with try_module_get/module_put. When the binding is torn down,
-fall back to fput() to avoid leaking struct file references.
+The CCG driver used DEV_CMD_PENDING both for internal
+firmware-related commands and for UCSI control handling. Leave the
+former use case intact.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260611-nfsd-testing-v2-16-5b90e276f2d9@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ Adapted RCU and module-pinning changes to the older `__be32` callback interface and existing `nlm_close_files()` helper. ]
+Tested-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@linaro.org>
+Link: https://lore.kernel.org/r/20240627-ucsi-rework-interface-v4-6-289ddc6874c7@linaro.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+[ sashal: Reduced backport -- upstream 584e8df589423 touches 7 file(s), this
+  backport carries 4. Not backported here:
+  drivers/usb/typec/ucsi/ucsi_glink.c
+  drivers/usb/typec/ucsi/ucsi_stm32g0.c
+  drivers/usb/typec/ucsi/ucsi_yoga_c630.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: eb4573cf2fd8 ("usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/lockd/svc.c             |  4 +--
- fs/lockd/svc4proc.c        |  4 +--
- fs/lockd/svcproc.c         |  4 +--
- fs/lockd/svcsubs.c         | 60 ++++++++++++++++++++++++++++----------
- fs/nfsd/lockd.c            |  6 ++--
- include/linux/lockd/bind.h | 12 ++++++--
- 6 files changed, 64 insertions(+), 26 deletions(-)
+ drivers/usb/typec/ucsi/ucsi.c      | 44 ++++++++++++++++++++++++++++++
+ drivers/usb/typec/ucsi/ucsi.h      |  5 ++++
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 36 ++----------------------
+ drivers/usb/typec/ucsi/ucsi_ccg.c  | 24 +++-------------
+ 4 files changed, 55 insertions(+), 54 deletions(-)
 
-diff --git a/fs/lockd/svc.c b/fs/lockd/svc.c
-index d68afa196535a..28b9886394c8f 100644
---- a/fs/lockd/svc.c
-+++ b/fs/lockd/svc.c
-@@ -48,7 +48,7 @@
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index db5628526b8a2..5d601112fb0c5 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -36,6 +36,49 @@
+  */
+ #define UCSI_SWAP_TIMEOUT_MS	5000
  
- static struct svc_program	nlmsvc_program;
- 
--const struct nlmsvc_binding	*nlmsvc_ops;
-+const struct nlmsvc_binding __rcu *nlmsvc_ops;
- EXPORT_SYMBOL_GPL(nlmsvc_ops);
- 
- static DEFINE_MUTEX(nlmsvc_mutex);
-@@ -143,7 +143,7 @@ lockd(void *vrqstp)
- 		nlmsvc_retry_blocked(rqstp);
- 		svc_recv(rqstp);
- 	}
--	if (nlmsvc_ops)
-+	if (rcu_access_pointer(nlmsvc_ops))
- 		nlmsvc_invalidate_all();
- 	nlm_shutdown_hosts();
- 	cancel_delayed_work_sync(&ln->grace_period_end);
-diff --git a/fs/lockd/svc4proc.c b/fs/lockd/svc4proc.c
-index 75e020a8bfd07..a1adfd66dd230 100644
---- a/fs/lockd/svc4proc.c
-+++ b/fs/lockd/svc4proc.c
-@@ -31,7 +31,7 @@ nlm4svc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	if (lock->lock_start > OFFSET_MAX ||
-@@ -484,7 +484,7 @@ nlm4svc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--        if (!nlmsvc_ops)
-+        if (!rcu_access_pointer(nlmsvc_ops))
-                 return rpc_success;
- 
-         dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcproc.c b/fs/lockd/svcproc.c
-index d98e8d684376b..49d20df3b8ae3 100644
---- a/fs/lockd/svcproc.c
-+++ b/fs/lockd/svcproc.c
-@@ -61,7 +61,7 @@ nlmsvc_retrieve_args(struct svc_rqst *rqstp, struct nlm_args *argp,
- 	__be32			error = 0;
- 
- 	/* nfsd callbacks must have been installed for this procedure */
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return nlm_lck_denied_nolocks;
- 
- 	/* Obtain host handle */
-@@ -519,7 +519,7 @@ nlmsvc_proc_granted_res(struct svc_rqst *rqstp)
- {
- 	struct nlm_res *argp = rqstp->rq_argp;
- 
--	if (!nlmsvc_ops)
-+	if (!rcu_access_pointer(nlmsvc_ops))
- 		return rpc_success;
- 
- 	dprintk("lockd: GRANTED_RES   called\n");
-diff --git a/fs/lockd/svcsubs.c b/fs/lockd/svcsubs.c
-index d11beea76ddb5..58846c235c6e4 100644
---- a/fs/lockd/svcsubs.c
-+++ b/fs/lockd/svcsubs.c
-@@ -90,24 +90,38 @@ int lock_to_openmode(struct file_lock *lock)
- static __be32 nlm_do_fopen(struct svc_rqst *rqstp,
- 			   struct nlm_file *file, int mode)
- {
-+	const struct nlmsvc_binding *ops;
- 	__be32 nfserr = nlm_lck_denied_nolocks;
- 	__be32 deferred = 0;
- 	struct file **fp;
- 	int m;
- 
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	if (!ops || !try_module_get(ops->owner)) {
-+		rcu_read_unlock();
-+		return nlm_lck_denied_nolocks;
-+	}
-+	rcu_read_unlock();
-+
- 	for (m = O_RDONLY ; m <= O_WRONLY ; m++) {
- 		if (mode != O_RDWR && mode != m)
- 			continue;
- 
- 		fp = &file->f_file[m];
--		if (*fp)
-+		if (*fp) {
-+			module_put(ops->owner);
- 			return 0;
--		nfserr = nlmsvc_ops->fopen(rqstp, &file->f_handle, fp, m);
--		if (!nfserr)
-+		}
-+		nfserr = ops->fopen(rqstp, &file->f_handle, fp, m);
-+		if (!nfserr) {
-+			module_put(ops->owner);
- 			return 0;
-+		}
- 		if (nfserr == nlm_drop_reply)
- 			deferred = nfserr;
- 	}
-+	module_put(ops->owner);
- 	if (deferred)
- 		return deferred;
- 	dprintk("lockd: open failed (error %d)\n", ntohl(nfserr));
-@@ -174,6 +188,33 @@ nlm_lookup_file(struct svc_rqst *rqstp, struct nlm_file **result,
- 	goto out_unlock;
- }
- 
-+/*
-+ * Release the struct file references held by a nlm_file.
-+ */
-+static void nlm_close_files(struct nlm_file *file)
++void ucsi_notify_common(struct ucsi *ucsi, u32 cci)
 +{
-+	const struct nlmsvc_binding *ops;
-+	bool have_ops;
++	if (UCSI_CCI_CONNECTOR(cci))
++		ucsi_connector_change(ucsi, UCSI_CCI_CONNECTOR(cci));
 +
-+	rcu_read_lock();
-+	ops = rcu_dereference(nlmsvc_ops);
-+	have_ops = ops && try_module_get(ops->owner);
-+	rcu_read_unlock();
++	if (cci & UCSI_CCI_ACK_COMPLETE &&
++	    test_bit(ACK_PENDING, &ucsi->flags))
++		complete(&ucsi->complete);
 +
-+	if (have_ops) {
-+		if (file->f_file[O_RDONLY])
-+			ops->fclose(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			ops->fclose(file->f_file[O_WRONLY]);
-+		module_put(ops->owner);
-+	} else {
-+		if (file->f_file[O_RDONLY])
-+			fput(file->f_file[O_RDONLY]);
-+		if (file->f_file[O_WRONLY])
-+			fput(file->f_file[O_WRONLY]);
-+	}
++	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
++	    test_bit(COMMAND_PENDING, &ucsi->flags))
++		complete(&ucsi->complete);
 +}
++EXPORT_SYMBOL_GPL(ucsi_notify_common);
 +
- /*
-  * Delete a file after having released all locks, blocks and shares
-  */
-@@ -183,10 +224,7 @@ nlm_delete_file(struct nlm_file *file)
- 	nlm_debug_print_file("closing file", file);
- 	if (!hlist_unhashed(&file->f_list)) {
- 		hlist_del(&file->f_list);
--		if (file->f_file[O_RDONLY])
--			nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--		if (file->f_file[O_WRONLY])
--			nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
-+		nlm_close_files(file);
- 		kfree(file);
- 	} else {
- 		printk(KERN_WARNING "lockd: attempt to release unknown file!\n");
-@@ -301,14 +339,6 @@ nlm_file_inuse(struct nlm_file *file)
- 	return 0;
- }
++int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
++{
++	bool ack = UCSI_COMMAND(command) == UCSI_ACK_CC_CI;
++	int ret;
++
++	if (ack)
++		set_bit(ACK_PENDING, &ucsi->flags);
++	else
++		set_bit(COMMAND_PENDING, &ucsi->flags);
++
++	ret = ucsi->ops->async_write(ucsi, UCSI_CONTROL, &command,
++				     sizeof(command));
++	if (ret)
++		goto out_clear_bit;
++
++	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
++		ret = -ETIMEDOUT;
++
++out_clear_bit:
++	if (ack)
++		clear_bit(ACK_PENDING, &ucsi->flags);
++	else
++		clear_bit(COMMAND_PENDING, &ucsi->flags);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(ucsi_sync_control_common);
++
+ static int ucsi_acknowledge_command(struct ucsi *ucsi)
+ {
+ 	u64 ctrl;
+@@ -1335,6 +1378,7 @@ struct ucsi *ucsi_create(struct device *dev, const struct ucsi_operations *ops)
  
--static void nlm_close_files(struct nlm_file *file)
--{
--	if (file->f_file[O_RDONLY])
--		nlmsvc_ops->fclose(file->f_file[O_RDONLY]);
--	if (file->f_file[O_WRONLY])
--		nlmsvc_ops->fclose(file->f_file[O_WRONLY]);
--}
+ 	INIT_WORK(&ucsi->work, ucsi_init_work);
+ 	mutex_init(&ucsi->ppm_lock);
++	init_completion(&ucsi->complete);
+ 	ucsi->dev = dev;
+ 	ucsi->ops = ops;
+ 
+diff --git a/drivers/usb/typec/ucsi/ucsi.h b/drivers/usb/typec/ucsi/ucsi.h
+index ed8fcd7ecf218..5ee405baa2be0 100644
+--- a/drivers/usb/typec/ucsi/ucsi.h
++++ b/drivers/usb/typec/ucsi/ucsi.h
+@@ -4,6 +4,7 @@
+ #define __DRIVER_USB_TYPEC_UCSI_H
+ 
+ #include <linux/bitops.h>
++#include <linux/completion.h>
+ #include <linux/device.h>
+ #include <linux/power_supply.h>
+ #include <linux/types.h>
+@@ -299,6 +300,7 @@ struct ucsi {
+ #define EVENT_PENDING	0
+ #define COMMAND_PENDING	1
+ #define ACK_PENDING	2
++	struct completion complete;
+ #define EVENT_PROCESSING	3
+ };
+ 
+@@ -342,6 +344,9 @@ int ucsi_send_command(struct ucsi *ucsi, u64 command,
+ void ucsi_altmode_update_active(struct ucsi_connector *con);
+ int ucsi_resume(struct ucsi *ucsi);
+ 
++void ucsi_notify_common(struct ucsi *ucsi, u32 cci);
++int ucsi_sync_control_common(struct ucsi *ucsi, u64 command);
++
+ #if IS_ENABLED(CONFIG_POWER_SUPPLY)
+ int ucsi_register_port_psy(struct ucsi_connector *con);
+ void ucsi_unregister_port_psy(struct ucsi_connector *con);
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 0c88d5bf09cae..ea6a47e3c304a 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -20,8 +20,6 @@ struct ucsi_acpi {
+ 	struct device *dev;
+ 	struct ucsi *ucsi;
+ 	void __iomem *base;
+-	struct completion complete;
+-	unsigned long flags;
+ 	guid_t guid;
+ };
+ 
+@@ -69,29 +67,7 @@ static int ucsi_acpi_async_write(struct ucsi *ucsi, unsigned int offset,
+ static int ucsi_acpi_sync_write(struct ucsi *ucsi, unsigned int offset,
+ 				const void *val, size_t val_len)
+ {
+-	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
+-	bool ack = UCSI_COMMAND(*(u64 *)val) == UCSI_ACK_CC_CI;
+-	int ret;
 -
- /*
-  * Loop over all files in the file table.
-  */
-diff --git a/fs/nfsd/lockd.c b/fs/nfsd/lockd.c
-index c774ce9aa2965..6cd028c142fe3 100644
---- a/fs/nfsd/lockd.c
-+++ b/fs/nfsd/lockd.c
-@@ -86,6 +86,7 @@ nlm_fclose(struct file *filp)
+-	if (ack)
+-		set_bit(ACK_PENDING, &ua->flags);
+-	else
+-		set_bit(COMMAND_PENDING, &ua->flags);
+-
+-	ret = ucsi_acpi_async_write(ucsi, offset, val, val_len);
+-	if (ret)
+-		goto out_clear_bit;
+-
+-	if (!wait_for_completion_timeout(&ua->complete, 60 * HZ))
+-		ret = -ETIMEDOUT;
+-
+-out_clear_bit:
+-	if (ack)
+-		clear_bit(ACK_PENDING, &ua->flags);
+-	else
+-		clear_bit(COMMAND_PENDING, &ua->flags);
+-
+-	return ret;
++	return ucsi_sync_control_common(ucsi, *(u64 *)val);
  }
  
- static const struct nlmsvc_binding nfsd_nlm_ops = {
-+	.owner		= THIS_MODULE,
- 	.fopen		= nlm_fopen,		/* open file for locking */
- 	.fclose		= nlm_fclose,		/* close file */
- };
-@@ -94,11 +95,12 @@ void
- nfsd_lockd_init(void)
- {
- 	dprintk("nfsd: initializing lockd\n");
--	nlmsvc_ops = &nfsd_nlm_ops;
-+	rcu_assign_pointer(nlmsvc_ops, &nfsd_nlm_ops);
+ static const struct ucsi_operations ucsi_acpi_ops = {
+@@ -110,14 +86,7 @@ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+ 	if (ret)
+ 		return;
+ 
+-	if (UCSI_CCI_CONNECTOR(cci))
+-		ucsi_connector_change(ua->ucsi, UCSI_CCI_CONNECTOR(cci));
+-
+-	if (cci & UCSI_CCI_ACK_COMPLETE && test_bit(ACK_PENDING, &ua->flags))
+-		complete(&ua->complete);
+-	if (cci & UCSI_CCI_COMMAND_COMPLETE &&
+-	    test_bit(COMMAND_PENDING, &ua->flags))
+-		complete(&ua->complete);
++	ucsi_notify_common(ua->ucsi, cci);
  }
  
- void
- nfsd_lockd_shutdown(void)
- {
--	nlmsvc_ops = NULL;
-+	RCU_INIT_POINTER(nlmsvc_ops, NULL);
-+	synchronize_rcu();
+ static int ucsi_acpi_probe(struct platform_device *pdev)
+@@ -160,7 +129,6 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	init_completion(&ua->complete);
+ 	ua->dev = &pdev->dev;
+ 
+ 	ua->ucsi = ucsi_create(&pdev->dev, &ucsi_acpi_ops);
+diff --git a/drivers/usb/typec/ucsi/ucsi_ccg.c b/drivers/usb/typec/ucsi/ucsi_ccg.c
+index 8d69bc5bff20a..ba5c7fecaca22 100644
+--- a/drivers/usb/typec/ucsi/ucsi_ccg.c
++++ b/drivers/usb/typec/ucsi/ucsi_ccg.c
+@@ -211,8 +211,6 @@ struct ucsi_ccg {
+ 	u16 fw_build;
+ 	struct work_struct pm_work;
+ 
+-	struct completion complete;
+-
+ 	u64 last_cmd_sent;
+ 	bool has_multiple_dp;
+ 	struct ucsi_ccg_altmode orig[UCSI_MAX_ALTMODES];
+@@ -564,7 +562,6 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
+ 
+ 	mutex_lock(&uc->lock);
+ 	pm_runtime_get_sync(uc->dev);
+-	set_bit(DEV_CMD_PENDING, &uc->flags);
+ 
+ 	if (offset == UCSI_CONTROL && val_len == sizeof(uc->last_cmd_sent)) {
+ 		uc->last_cmd_sent = *(u64 *)val;
+@@ -582,15 +579,7 @@ static int ucsi_ccg_sync_write(struct ucsi *ucsi, unsigned int offset,
+ 		}
+ 	}
+ 
+-	ret = ucsi_ccg_async_write(ucsi, offset, val, val_len);
+-	if (ret)
+-		goto err_clear_bit;
+-
+-	if (!wait_for_completion_timeout(&uc->complete, msecs_to_jiffies(5000)))
+-		ret = -ETIMEDOUT;
+-
+-err_clear_bit:
+-	clear_bit(DEV_CMD_PENDING, &uc->flags);
++	ret = ucsi_sync_control_common(ucsi, *(u64 *)val);
+ err_put:
+ 	pm_runtime_put_sync(uc->dev);
+ 	mutex_unlock(&uc->lock);
+@@ -621,16 +610,12 @@ static irqreturn_t ccg_irq_handler(int irq, void *data)
+ 	if (ret)
+ 		goto err_clear_irq;
+ 
+-	if (UCSI_CCI_CONNECTOR(cci))
+-		ucsi_connector_change(uc->ucsi, UCSI_CCI_CONNECTOR(cci));
+-
+-	if (test_bit(DEV_CMD_PENDING, &uc->flags) &&
+-	    cci & (UCSI_CCI_ACK_COMPLETE | UCSI_CCI_COMMAND_COMPLETE))
+-		complete(&uc->complete);
+-
+ err_clear_irq:
+ 	ccg_write(uc, CCGX_RAB_INTR_REG, &intr_reg, sizeof(intr_reg));
+ 
++	if (!ret)
++		ucsi_notify_common(uc->ucsi, cci);
++
+ 	return IRQ_HANDLED;
  }
-diff --git a/include/linux/lockd/bind.h b/include/linux/lockd/bind.h
-index c53c81242e727..e25943e485c5c 100644
---- a/include/linux/lockd/bind.h
-+++ b/include/linux/lockd/bind.h
-@@ -21,11 +21,17 @@
- struct svc_rqst;
- struct rpc_task;
- struct rpc_clnt;
-+struct module;
  
--/*
-- * This is the set of functions for lockd->nfsd communication
-+/**
-+ * struct nlmsvc_binding - lockd -> nfsd callback table
-+ * @owner:  module that provides this binding.
-+ * @fopen:  open a file by NFS file handle on behalf of an NLM request.
-+ * @fclose: close a file that was previously opened via @fopen.
-+ *          Implementations MUST be semantically equivalent to fput().
-  */
- struct nlmsvc_binding {
-+	struct module		*owner;
- 	__be32			(*fopen)(struct svc_rqst *,
- 						struct nfs_fh *,
- 						struct file **,
-@@ -33,7 +39,7 @@ struct nlmsvc_binding {
- 	void			(*fclose)(struct file *);
- };
+@@ -1344,7 +1329,6 @@ static int ucsi_ccg_probe(struct i2c_client *client,
+ 	uc->dev = dev;
+ 	uc->client = client;
+ 	mutex_init(&uc->lock);
+-	init_completion(&uc->complete);
+ 	INIT_WORK(&uc->work, ccg_update_firmware);
+ 	INIT_WORK(&uc->pm_work, ccg_pm_workaround_work);
  
--extern const struct nlmsvc_binding *nlmsvc_ops;
-+extern const struct nlmsvc_binding __rcu *nlmsvc_ops;
- 
- /*
-  * Similar to nfs_client_initdata, but without the NFS-specific
 -- 
 2.53.0
 
