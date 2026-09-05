@@ -1,363 +1,375 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7A3314A83
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:05:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B32381B1A
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 20:05:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788638735; cv=none; b=c8BHMRyGowzfoWROB1zr8kAIt9vqMv4Ilpk8vzQXBFX8WcPQRIXsSI11k+FwWwRZy6WZsJ+XfN55R8QYbuKIRclsscy4OXn+d0JKxLIvuk/e+RFK6uxKoWNuRl02L1GNYBrlIAKXFmkX8rIrHIRUgm5baHlf8Kg2JY3TXkPV+U4=
+	t=1788638736; cv=none; b=L0GV1vxJG6jc1ruau4PVawq+8G/KzK5hevHKhKfbCGwwBcDL9kdi/nukJ7ZSZxtU0Z0zVCVWMBiz1Ku92BzOAI7emk37uLoTnetpBuvF5NFfSBcKWKvLGDrnRlxo4z8JMV3kwY7vnTHE2Ff+lyy+q/pXebwVjoj+XEM1m0qY9lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788638735; c=relaxed/simple;
-	bh=lwF/WVt1oYLrd7W4qGUgEFZie6BuZ4cqYdMPLs56ShY=;
+	s=arc-20240116; t=1788638736; c=relaxed/simple;
+	bh=VRrOpRSeTbp1i2AsOdO22PslhjwNxc6aQIi/EfiIFQE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VsZ3A9g57Y7Sn9bHYfKkR4uPTBYD8u2XaDJ9WYYOdUmXzUi2qCtJBHJFSc4IS7fPaeSxsRTUEdJlPQvksxph9wlYQZqPjWDM9veFToQtHyEIfbyloE1uOtOui4SfFTAs233FENiMCMjm/JbtXbzk39Q+LgVuaceRlMIdaBMQr94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gu91uhKY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=utl/X7HnfL9HYol4XhfNKVfulq05jC58Xctuh+a+JyfbxbpCzaJtCKbXcmAfcUBoixhpsZz7hpi7gDo1Z6x7uRxkOeT89agoz37jNbv519GKlZ8Q3fPFIBnFwOpSLgG4jWjWNFkOqgCV5BADVs84gmYBUQ7aatSG/966k39BFhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m7uRpQbw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gu91uhKY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028411F00ACA;
-	Sat,  5 Sep 2026 20:05:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m7uRpQbw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B172B1F00A3D;
+	Sat,  5 Sep 2026 20:05:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788638733;
-	bh=FSA3YJX3vdzU3D2lxp1eSjt1gLMaiTJZCJfk595amYs=;
+	s=k20260515; t=1788638734;
+	bh=MM+jb5OL0BMhsOaOmTHLEfthrmvwEd0VH3EM+qfdJUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gu91uhKYxGFGw18EqcN7r78a1ozFyTTs86Z3UCPTXM6Iflwc95vN69epcrCbcwsLz
-	 pDW6w61RBQ3fEMbY406vRpfKCv94wvZDL7lWiBPp1RHjMcRArmyXELkbfTnruFKnW8
-	 KmT+JvInZmXqrJT3klsv2/9C2BGVAfr+MQELHtLCOV58faagw6d56g//nXQ1/Z7bHM
-	 0Jn7emrlt25+IQm2oST7SWV1Oqxij8aZGGU2cCDonJFjSR8obuF6ykeyzs+EZ3l/NI
-	 xs629N3uQt712/SdNVOy0kWMMbnjtvdi7rCRzRjpekd8v+ljwF+rAHsKyecxILlBV/
-	 mxBYzzLurzqEA==
+	b=m7uRpQbwBjNkqGuqKBPV70pUQ7ZiO9sJGtMlJ48dpjBW/NpMf+XDnbjUu7lWMJUsB
+	 ESiKH1WUup6TRd2rEno5tTiM3ymEwz+gqUBzrmWqeK09Tqy9H2wZw0zAlY0WTv/0uB
+	 kfimLrXylfzjSaLqAQPmuyW3dGO21janSqiVDNQhdqPrC/7M7saMP6q37OfOawJmj5
+	 80jsuyR9DczUxvoQ9r4GlYYgCcTVd0nhe7/npGkkGFIdgbh6mlQ/w0gq+UaNgdWsJs
+	 4/eCIEW5Q0VPDd16VeL1bsnzuEWx/BY1eUtUMxCNrOjcIb1EGAFRxTweCB37BpJByO
+	 yBlyuRfjdQ7BA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <cel@kernel.org>,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] nfsd: fix UAF in async copy cancel and shutdown
-Date: Sat,  5 Sep 2026 16:05:31 -0400
-Message-ID: <20260905200531.607494-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 7/7] nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown
+Date: Sat,  5 Sep 2026 16:05:27 -0400
+Message-ID: <20260905200527.607284-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090332-exact-stature-60b9@gregkh>
-References: <2026090332-exact-stature-60b9@gregkh>
+In-Reply-To: <20260905200527.607284-1-sashal@kernel.org>
+References: <2026090302-liquefy-backrest-fcbf@gregkh>
+ <20260905200527.607284-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 62c0f6eaf050bb9284c1f9cac6ed1770092e6b95 ]
+[ Upstream commit 01c5d5f58a5db9b0ee5afba2e49d3157788687b2 ]
 
-An async copy could be freed or used after free while a teardown caller
-(OFFLOAD_CANCEL, nfsd4_shutdown_copy, nfsd4_cancel_copy_by_sb) raced the
-copy kthread:
+After a DESTROY_SESSION the per-session teardown path can free a
+session while rpciod still holds an inflight callback rpc_task that
+dereferences clp->cl_cb_session.  nfsd4_probe_callback_sync() flushes
+cl_callback_wq, but once nfsd4_run_cb_work() has called
+rpc_call_async() the rpc_task lives on rpciod; flushing the workqueue
+does not wait for it.  rpc_shutdown_client() does drain rpciod tasks,
+but uses a 1-second wait_event_timeout — tasks stuck in rpc_delay()
+(e.g. 2-second NFS4ERR_DELAY retries) can outlive the drain.
 
-  - find_async_copy() bumped copy->refcount but left the copy on
-    clp->async_copies, so the reaper's cleanup_async_copy() could run
-    release_copy_files() concurrently with a cancel/shutdown caller. Both
-    put and NULL nf_src/nf_dst without a common lock, double-putting the
-    nfsd_file and freeing it early.
+    destroy path                       rpciod
+    ------------                       ------
+    unhash_session(ses)
+    nfsd4_probe_callback_sync(clp)
+      flush_workqueue(cl_callback_wq)
+      /* returns; rpc_task still live */
+    nfsd4_put_session_locked(ses)
+    free_session(ses) -> kfree(ses)
+                                       nfsd4_cb_sequence_done()
+                                         reads cb_clp->cl_cb_session
+                                         /* freed slab */
 
-  - nfsd4_do_async_copy() set NFSD4_COPY_F_STOPPED before its final uses
-    of the copy (nfsd_update_cmtime_attr() on copy->nf_dst,
-    nfsd4_send_cb_offload()). nfsd4_stop_copy() treats a set STOPPED bit
-    as "kthread done, skip kthread_stop()", so a teardown caller ran
-    release_copy_files() -- which puts and NULLs nf_dst -- while the
-    kthread still dereferenced it (NULL/UAF).
+A second window exists in nfsd4_process_cb_update().  When
+__nfsd4_find_backchannel() returns NULL because unhash_session() has
+already removed the destroyed session from cl_sessions,
+setup_callback_client() takes the v4.1 early return so
+clp->cl_cb_session = ses never fires and the field retains a pointer
+to the about-to-be-freed session.
 
-  - copy->copy_task was never pinned. The one-shot kthread self-reaps on
-    return, so kthread_stop()'s get_task_struct() could touch a freed
-    task_struct.
+Fix both by converting cl_cb_session to an RCU-protected pointer:
 
-  - co_cb is embedded in the copy, but nfsd4_send_cb_offload() held a
-    reference only on the client, so a concurrent teardown could free
-    the copy while the CB_OFFLOAD callback was in flight.
+  - Move the cl_cb_session = ses assignment in setup_callback_client()
+    to after rpc_create() succeeds, so it is only published when a
+    working backchannel exists.  Clear cl_cb_session on the error
+    return in nfsd4_process_cb_update().  Both stores use
+    rcu_assign_pointer().
 
-Fix the teardown lifetime as a whole:
+  - Annotate cl_cb_session with __rcu.  All rpciod-side readers use
+    rcu_read_lock()/rcu_dereference() and check for NULL, bailing to
+    the appropriate error or requeue path:
+    encode_cb_sequence4args(), decode_cb_sequence4resok(),
+    nfsd41_cb_get_slot(), nfsd41_cb_release_slot(),
+    nfsd4_cb_prepare(), and nfsd4_cb_sequence_done().
 
-  - find_async_copy() unlinks the copy (clear cp_clp, list_del_init)
-    under async_lock; the cancel, shutdown, and sb-cancel paths drop the
-    list-membership reference via nfs4_put_copy() after nfsd4_stop_copy().
-    Drop the now-redundant list_del fixup from cleanup_async_copy().
+  - Switch __free_session() from kfree() to kfree_rcu() so the
+    session slab is not reclaimed until after an RCU grace period,
+    guaranteeing that rpciod readers inside rcu_read_lock() never
+    dereference freed memory.
 
-  - Because unlinking hides the copy from the reaper, its
-    cleanup_async_copy() can no longer remove the copy's s2s_cp_stateids
-    entry; the cancel/shutdown/sb-cancel paths now call
-    nfs4_free_copy_state() themselves (while cp_clp is still valid) so
-    the entry does not dangle at freed memory for the laundromat and
-    manage_cpntf_state() to dereference.
+  - Pass the session pointer to the nfsd_cb_seq_status and
+    nfsd_cb_free_slot tracepoints instead of having them re-read
+    cl_cb_session.
 
-  - Give the kthread its own reference, taken in nfsd4_copy() before
-    wake_up_process() and dropped at the end of nfsd4_do_async_copy();
-    call wake_up_process() before list_add().
+  - nfsd4_cb_prepare() calls rpc_exit() when the session is NULL,
+    routing through the done/release path to requeue the callback.
 
-  - Pin the task_struct with get_task_struct() in nfsd4_copy(), released
-    in nfs4_put_copy(), so kthread_stop() is safe whenever the kthread
-    exits. Set NFSD4_COPY_F_STOPPED only in nfsd4_stop_copy(), which now
-    always kthread_stop()s before release_copy_files(); completion is
-    still reported via NFSD4_COPY_F_COMPLETED, so
-    nfsd4_has_active_async_copies() is unaffected. Each teardown caller
-    removes the copy from clp->async_copies first, so kthread_stop() runs
-    exactly once.
-
-  - Take a copy reference in nfsd4_send_cb_offload(), dropped in
-    nfsd4_cb_offload_release(). The kthread still holds its own reference
-    there, so the refcount_inc() cannot race the final free.
-
-  - Read cp_clp with smp_load_acquire() to pair with the unordered
-    set_bit()/clear_bit() writers (Documentation/atomic_bitops.rst).
-
-Fixes: e0639dc5805a ("NFSD introduce async copy feature")
+Fixes: dcbeaa68dbbd ("nfsd4: allow backchannel recovery")
 Cc: stable@vger.kernel.org
-Fixes: ac0514f4d198 ("NFSD: Add a laundromat reaper for async copy state")
-Assisted-by: Claude:claude-opus-4-8
+Reported-by: Chris Mason <clm@meta.com>
+Signed-off-by: Chris Mason <clm@meta.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260710-nfsd-testing-v3-2-a0ff7db6aa3e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ omitted superblock-wide copy cancellation and related client/error helpers absent in v6.18. ]
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-2-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ adapted RCU session handling to the single-slot callback model and flexible-array session layout ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4proc.c | 122 +++++++++++++++++++++++++++++++++++----------
- 1 file changed, 97 insertions(+), 25 deletions(-)
+ fs/nfsd/nfs4callback.c | 72 +++++++++++++++++++++++++++++++++++-------
+ fs/nfsd/nfs4state.c    |  4 +--
+ fs/nfsd/state.h        |  3 +-
+ 3 files changed, 65 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 98086d217aa22..6dcecd9c7d951 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1428,18 +1428,30 @@ static void nfs4_put_copy(struct nfsd4_copy *copy)
+diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
+index dcb4f8785ec01..9cd9ed4b77eae 100644
+--- a/fs/nfsd/nfs4callback.c
++++ b/fs/nfsd/nfs4callback.c
+@@ -373,12 +373,19 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ 				    const struct nfsd4_callback *cb,
+ 				    struct nfs4_cb_compound_hdr *hdr)
  {
- 	if (!refcount_dec_and_test(&copy->refcount))
+-	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	__be32 *p;
+ 
+ 	if (hdr->minorversion == 0)
  		return;
-+	/* Drop the task_struct pinned in nfsd4_copy(); NULL on sync copies. */
-+	if (copy->copy_task)
-+		put_task_struct(copy->copy_task);
- 	kfree(copy->cp_src);
- 	kfree(copy);
- }
  
-+static void release_copy_files(struct nfsd4_copy *copy);
-+
- static void nfsd4_stop_copy(struct nfsd4_copy *copy)
- {
- 	trace_nfsd_copy_async_cancel(copy);
--	if (!test_and_set_bit(NFSD4_COPY_F_STOPPED, &copy->cp_flags)) {
--		kthread_stop(copy->copy_task);
--		copy->nfserr = nfs_ok;
--		set_bit(NFSD4_COPY_F_COMPLETED, &copy->cp_flags);
--	}
-+	/*
-+	 * Join the kthread before releasing its resources. The task_struct is
-+	 * pinned in nfsd4_copy(), so kthread_stop() is safe even after the
-+	 * one-shot kthread has exited. The caller already unlinked the copy,
-+	 * so this runs once per copy.
-+	 */
-+	set_bit(NFSD4_COPY_F_STOPPED, &copy->cp_flags);
-+	kthread_stop(copy->copy_task);
-+	copy->nfserr = nfs_ok;
-+	set_bit(NFSD4_COPY_F_COMPLETED, &copy->cp_flags);
-+
-+	release_copy_files(copy);
- 	nfs4_put_copy(copy);
- }
- 
-@@ -1452,7 +1464,13 @@ static struct nfsd4_copy *nfsd4_unhash_copy(struct nfs4_client *clp)
- 		copy = list_first_entry(&clp->async_copies, struct nfsd4_copy,
- 					copies);
- 		refcount_inc(&copy->refcount);
--		copy->cp_clp = NULL;
-+		/*
-+		 * Unlinking hides the copy from the reaper, so drop its
-+		 * s2s_cp_stateids entry here while cp_clp is still valid.
-+		 */
-+		nfs4_free_copy_state(copy);
-+		/* Pairs with smp_load_acquire() in nfsd4_send_cb_offload(). */
-+		smp_store_release(&copy->cp_clp, NULL);
- 		if (!list_empty(&copy->copies))
- 			list_del_init(&copy->copies);
- 	}
-@@ -1464,8 +1482,11 @@ void nfsd4_shutdown_copy(struct nfs4_client *clp)
- {
- 	struct nfsd4_copy *copy;
- 
--	while ((copy = nfsd4_unhash_copy(clp)) != NULL)
-+	while ((copy = nfsd4_unhash_copy(clp)) != NULL) {
- 		nfsd4_stop_copy(copy);
-+		/* Reaper can't reach the unhashed copy; drop its membership ref. */
-+		nfs4_put_copy(copy);
-+	}
- }
- #ifdef CONFIG_NFSD_V4_2_INTER_SSC
- 
-@@ -1756,6 +1777,8 @@ static void nfsd4_cb_offload_release(struct nfsd4_callback *cb)
- 		container_of(cbo, struct nfsd4_copy, cp_cb_offload);
- 
- 	set_bit(NFSD4_COPY_F_OFFLOAD_DONE, &copy->cp_flags);
-+	/* Drop the copy reference taken in nfsd4_send_cb_offload(). */
-+	nfs4_put_copy(copy);
- }
- 
- static int nfsd4_cb_offload_done(struct nfsd4_callback *cb,
-@@ -1881,34 +1904,52 @@ static void release_copy_files(struct nfsd4_copy *copy)
- 		nfsd_file_put(copy->nf_dst);
- }
- 
-+/*
-+ * Called from the reaper and from nfsd4_copy()'s error path; in both
-+ * cases the copy is already unreachable from clp->async_copies.
-+ */
- static void cleanup_async_copy(struct nfsd4_copy *copy)
- {
- 	nfs4_free_copy_state(copy);
- 	release_copy_files(copy);
--	if (copy->cp_clp) {
--		spin_lock(&copy->cp_clp->async_lock);
--		if (!list_empty(&copy->copies))
--			list_del_init(&copy->copies);
--		spin_unlock(&copy->cp_clp->async_lock);
--	}
- 	nfs4_put_copy(copy);
- }
- 
- static void nfsd4_send_cb_offload(struct nfsd4_copy *copy)
- {
- 	struct nfsd4_cb_offload *cbo = &copy->cp_cb_offload;
-+	struct nfs4_client *clp;
-+
-+	/*
-+	 * Pairs with smp_store_release(&cp_clp) in find_async_copy() and
-+	 * nfsd4_unhash_copy(); the set_bit/clear_bit writers are unordered.
-+	 * cp_clp is NULL once the copy was canceled; skip the callback, the
-+	 * canceling path owns the notification.
-+	 */
-+	clp = smp_load_acquire(&copy->cp_clp);
-+	if (!clp) {
-+		set_bit(NFSD4_COPY_F_OFFLOAD_DONE, &copy->cp_flags);
++	rcu_read_lock();
++	session = rcu_dereference(cb->cb_clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
 +		return;
 +	}
- 
- 	memcpy(&cbo->co_res, &copy->cp_res, sizeof(copy->cp_res));
- 	memcpy(&cbo->co_fh, &copy->fh, sizeof(copy->fh));
- 	cbo->co_nfserr = copy->nfserr;
- 	cbo->co_retries = 5;
- 
--	nfsd4_init_cb(&cbo->co_cb, copy->cp_clp, &nfsd4_cb_offload_ops,
-+	/*
-+	 * Hold the copy across the in-flight callback; co_cb is embedded in
-+	 * the copy, so it must outlive the callback. The reference is dropped
-+	 * in nfsd4_cb_offload_release().
-+	 */
-+	refcount_inc(&copy->refcount);
 +
-+	nfsd4_init_cb(&cbo->co_cb, clp, &nfsd4_cb_offload_ops,
- 		      NFSPROC4_CLNT_CB_OFFLOAD);
- 	nfsd41_cb_referring_call(&cbo->co_cb, &cbo->co_referring_sessionid,
- 				 cbo->co_referring_slotid,
- 				 cbo->co_referring_seqno);
--	trace_nfsd_cb_offload(copy->cp_clp, &cbo->co_res.cb_stateid,
-+	trace_nfsd_cb_offload(clp, &cbo->co_res.cb_stateid,
- 			      &cbo->co_fh, copy->cp_count, copy->nfserr);
- 	nfsd4_try_run_cb(&cbo->co_cb);
+ 	encode_nfs_cb_opnum4(xdr, OP_CB_SEQUENCE);
+ 	encode_sessionid4(xdr, session);
+ 
+@@ -390,6 +397,7 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ 	xdr_encode_empty_array(p);		/* csa_referring_call_lists */
+ 
+ 	hdr->nops++;
++	rcu_read_unlock();
  }
-@@ -1950,16 +1991,20 @@ static int nfsd4_do_async_copy(void *data)
+ 
+ /*
+@@ -416,21 +424,32 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ static int decode_cb_sequence4resok(struct xdr_stream *xdr,
+ 				    struct nfsd4_callback *cb)
+ {
+-	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	int status = -ESERVERFAULT;
+ 	__be32 *p;
+ 	u32 dummy;
+ 
++	rcu_read_lock();
++	session = rcu_dereference(cb->cb_clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
++		cb->cb_seq_status = -NFS4ERR_BADSESSION;
++		return -NFS4ERR_BADSESSION;
++	}
++
+ 	/*
+ 	 * If the server returns different values for sessionID, slotID or
+ 	 * sequence number, the server is looney tunes.
+ 	 */
+ 	p = xdr_inline_decode(xdr, NFS4_MAX_SESSIONID_LEN + 4 + 4 + 4 + 4);
+-	if (unlikely(p == NULL))
++	if (unlikely(p == NULL)) {
++		rcu_read_unlock();
+ 		goto out_overflow;
++	}
+ 
+ 	if (memcmp(p, session->se_sessionid.data, NFS4_MAX_SESSIONID_LEN)) {
+ 		dprintk("NFS: %s Invalid session id\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 	p += XDR_QUADLEN(NFS4_MAX_SESSIONID_LEN);
+@@ -438,18 +457,21 @@ static int decode_cb_sequence4resok(struct xdr_stream *xdr,
+ 	dummy = be32_to_cpup(p++);
+ 	if (dummy != session->se_cb_seq_nr) {
+ 		dprintk("NFS: %s Invalid sequence number\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
  	}
  
- do_callback:
--	/* The kthread exits forthwith. Ensure that a subsequent
--	 * OFFLOAD_CANCEL won't try to kill it again. */
--	set_bit(NFSD4_COPY_F_STOPPED, &copy->cp_flags);
--
-+	/*
-+	 * Don't set NFSD4_COPY_F_STOPPED here: it tells a teardown caller it
-+	 * may skip kthread_stop(), which would then release nf_dst and the
-+	 * client while still in use. Only nfsd4_stop_copy() sets it, after
-+	 * joining.
-+	 */
- 	set_bit(NFSD4_COPY_F_COMPLETED, &copy->cp_flags);
- 	trace_nfsd_copy_async_done(copy);
- 	atomic_dec(&copy->cp_nn->pending_async_copies);
- 	if (copy->cp_res.wr_bytes_written > 0 && copy->attr_update)
- 		nfsd_update_cmtime_attr(copy->nf_dst->nf_file, 0);
- 	nfsd4_send_cb_offload(copy);
-+	/* Drop the kthread's reference (taken in nfsd4_copy()); copy may be freed after this. */
-+	nfs4_put_copy(copy);
- 	return 0;
- }
+ 	dummy = be32_to_cpup(p++);
+ 	if (dummy != 0) {
+ 		dprintk("NFS: %s Invalid slotid\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
+ 	}
  
-@@ -2000,6 +2045,8 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 	memcpy(&copy->fh, &cstate->current_fh.fh_handle,
- 		sizeof(struct knfsd_fh));
- 	if (nfsd4_copy_is_async(copy)) {
-+		struct task_struct *task;
-+
- 		async_copy = kzalloc(sizeof(struct nfsd4_copy), GFP_KERNEL);
- 		if (!async_copy)
- 			goto out_err;
-@@ -2027,15 +2074,27 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		       NFS4_MAX_SESSIONID_LEN);
- 		async_copy->cp_cb_offload.co_referring_slotid = cstate->slot->sl_index;
- 		async_copy->cp_cb_offload.co_referring_seqno = cstate->slot->sl_seqid;
--		async_copy->copy_task = kthread_create(nfsd4_do_async_copy,
--				async_copy, "%s", "copy thread");
--		if (IS_ERR(async_copy->copy_task))
-+		task = kthread_create(nfsd4_do_async_copy, async_copy,
-+				      "%s", "copy thread");
-+		if (IS_ERR(task))
- 			goto out_dec_async_copy_err;
-+		/*
-+		 * Pin the task_struct so kthread_stop() is safe after this
-+		 * one-shot kthread exits. Released by nfs4_put_copy().
-+		 */
-+		get_task_struct(task);
-+		async_copy->copy_task = task;
-+		/*
-+		 * Take the kthread's ref and wake it before publishing, so the
-+		 * publisher touches async_copy no further and teardown can
-+		 * drain it.
-+		 */
-+		refcount_inc(&async_copy->refcount);
-+		wake_up_process(async_copy->copy_task);
- 		spin_lock(&async_copy->cp_clp->async_lock);
- 		list_add(&async_copy->copies,
- 				&async_copy->cp_clp->async_copies);
- 		spin_unlock(&async_copy->cp_clp->async_lock);
--		wake_up_process(async_copy->copy_task);
- 		status = nfs_ok;
+ 	/*
+ 	 * FIXME: process highest slotid and target highest slotid
+ 	 */
++	rcu_read_unlock();
+ 	status = 0;
+ out:
+ 	cb->cb_seq_status = status;
+@@ -988,9 +1010,8 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
  	} else {
- 		status = nfsd4_do_copy(copy, copy->nf_src->nf_file,
-@@ -2089,8 +2148,18 @@ find_async_copy(struct nfs4_client *clp, stateid_t *stateid)
+ 		if (!conn->cb_xprt || !ses)
+ 			return -EINVAL;
+-		clp->cl_cb_session = ses;
+ 		args.bc_xprt = conn->cb_xprt;
+-		args.prognumber = clp->cl_cb_session->se_cb_prog;
++		args.prognumber = ses->se_cb_prog;
+ 		args.protocol = conn->cb_xprt->xpt_class->xcl_ident |
+ 				XPRT_TRANSPORT_BC;
+ 		args.authflavor = ses->se_cb_sec.flavor;
+@@ -1008,8 +1029,10 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
+ 		return -ENOMEM;
+ 	}
  
- 	spin_lock(&clp->async_lock);
- 	copy = find_async_copy_locked(clp, stateid);
--	if (copy)
-+	if (copy) {
- 		refcount_inc(&copy->refcount);
-+		nfs4_free_copy_state(copy);
-+		/*
-+		 * Mirror nfsd4_unhash_copy(): unlink and clear cp_clp under
-+		 * async_lock so the reaper can't reach it. Caller drops the
-+		 * membership ref after nfsd4_stop_copy().
-+		 */
-+		smp_store_release(&copy->cp_clp, NULL);
-+		if (!list_empty(&copy->copies))
-+			list_del_init(&copy->copies);
+-	if (clp->cl_minorversion != 0)
++	if (clp->cl_minorversion != 0) {
+ 		clp->cl_cb_conn.cb_xprt = conn->cb_xprt;
++		rcu_assign_pointer(clp->cl_cb_session, ses);
 +	}
- 	spin_unlock(&clp->async_lock);
- 	return copy;
- }
-@@ -2109,8 +2178,11 @@ nfsd4_offload_cancel(struct svc_rqst *rqstp,
- 		struct nfsd_net *nn = net_generic(SVC_NET(rqstp), nfsd_net_id);
- 
- 		return manage_cpntf_state(nn, &os->stateid, clp, NULL);
--	} else
-+	} else {
- 		nfsd4_stop_copy(copy);
-+		/* find_async_copy() unlinked it from the reaper; drop the membership ref. */
-+		nfs4_put_copy(copy);
+ 	clp->cl_cb_client = client;
+ 	clp->cl_cb_cred = cred;
+ 	rcu_read_lock();
+@@ -1153,8 +1176,14 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
+ 	 */
+ 	cb->cb_seq_status = 1;
+ 	cb->cb_status = 0;
+-	if (minorversion && !nfsd41_cb_get_slot(cb, task))
+-		return;
++	if (minorversion) {
++		if (!rcu_access_pointer(clp->cl_cb_session)) {
++			rpc_exit(task, -EIO);
++			return;
++		}
++		if (!nfsd41_cb_get_slot(cb, task))
++			return;
 +	}
- 
- 	return nfs_ok;
+ 	rpc_call_start(task);
  }
+ 
+@@ -1162,12 +1191,19 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
+ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback *cb)
+ {
+ 	struct nfs4_client *clp = cb->cb_clp;
+-	struct nfsd4_session *session = clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	bool ret = false;
+ 
+ 	if (!cb->cb_holds_slot)
+ 		goto requeue;
+ 
++	rcu_read_lock();
++	session = rcu_dereference(clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
++		goto requeue;
++	}
++
+ 	switch (cb->cb_seq_status) {
+ 	case 0:
+ 		/*
+@@ -1189,15 +1225,20 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 		break;
+ 	case -NFS4ERR_DELAY:
+ 		cb->cb_seq_status = 1;
+-		if (RPC_SIGNALLED(task) || !rpc_restart_call(task))
++		if (RPC_SIGNALLED(task) || !rpc_restart_call(task)) {
++			rcu_read_unlock();
+ 			goto requeue;
++		}
+ 		rpc_delay(task, 2 * HZ);
++		rcu_read_unlock();
+ 		return false;
+ 	case -NFS4ERR_BADSLOT:
++		rcu_read_unlock();
+ 		goto retry_nowait;
+ 	case -NFS4ERR_SEQ_MISORDERED:
+ 		if (session->se_cb_seq_nr != 1) {
+ 			session->se_cb_seq_nr = 1;
++			rcu_read_unlock();
+ 			goto retry_nowait;
+ 		}
+ 		break;
+@@ -1207,6 +1248,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 			cb->cb_seq_status);
+ 	}
+ 
++	rcu_read_unlock();
+ 	nfsd41_cb_release_slot(cb);
+ 	return ret;
+ retry_nowait:
+@@ -1339,7 +1381,14 @@ static struct nfsd4_conn * __nfsd4_find_backchannel(struct nfs4_client *clp)
+  * Note there isn't a lot of locking in this code; instead we depend on
+  * the fact that it is run from the callback_wq, which won't run two
+  * work items at once.  So, for example, callback_wq handles all access
+- * of cl_cb_client and all calls to rpc_create or rpc_shutdown_client.
++ * of cl_cb_client, and all calls to rpc_create or rpc_shutdown_client.
++ *
++ * cl_cb_session is written only from callback_wq (via rcu_assign_pointer)
++ * and read from rpciod under rcu_read_lock (via rcu_dereference) by
++ * encode_cb_sequence4args(), decode_cb_sequence4resok(), and
++ * nfsd4_cb_sequence_done().  Sessions are freed with kfree_rcu() so that
++ * rpciod readers in an RCU read-side critical section never dereference a
++ * freed session.
+  */
+ static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
+ {
+@@ -1386,6 +1435,7 @@ static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
+ 		nfsd4_mark_cb_down(clp, err);
+ 		if (c)
+ 			svc_xprt_put(c->cn_xprt);
++		rcu_assign_pointer(clp->cl_cb_session, ses);
+ 		return;
+ 	}
+ }
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 835035b7bbdb1..22da02c7e5f00 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -1975,7 +1975,7 @@ static void nfsd4_del_conns(struct nfsd4_session *s)
+ static void __free_session(struct nfsd4_session *ses)
+ {
+ 	free_session_slots(ses);
+-	kfree(ses);
++	kfree_rcu(ses, rcu_head);
+ }
+ 
+ static void free_session(struct nfsd4_session *ses)
+@@ -2942,7 +2942,7 @@ static struct nfs4_client *create_client(struct xdr_netobj name,
+ 	clear_bit(0, &clp->cl_cb_slot_busy);
+ 	copy_verf(clp, verf);
+ 	memcpy(&clp->cl_addr, sa, sizeof(struct sockaddr_storage));
+-	clp->cl_cb_session = NULL;
++	RCU_INIT_POINTER(clp->cl_cb_session, NULL);
+ 	clp->net = net;
+ 	clp->cl_nfsd_dentry = nfsd_client_mkdir(
+ 		nn, &clp->cl_nfsdfs,
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index 848ef26c20705..e575627972d03 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -273,6 +273,7 @@ struct nfsd4_session {
+ 	struct list_head	se_conns;
+ 	u32			se_cb_prog;
+ 	u32			se_cb_seq_nr;
++	struct rcu_head		rcu_head;
+ 	struct nfsd4_slot	*se_slots[];	/* forward channel slots */
+ };
+ 
+@@ -381,7 +382,7 @@ struct nfs4_client {
+ #define NFSD4_CB_FAULT		3
+ 	int			cl_cb_state;
+ 	struct nfsd4_callback	cl_cb_null;
+-	struct nfsd4_session	*cl_cb_session;
++	struct nfsd4_session	__rcu *cl_cb_session;
+ 
+ 	/* for all client information that callback code might need: */
+ 	spinlock_t		cl_lock;
 -- 
 2.53.0
 
