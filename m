@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229DF37DAD7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC5436D4FC
 	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 21:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644622; cv=none; b=XOJBNy07+Y69ADNmBKK2g+YKLKHr+ksz6dcKHoWqWxc/uVIkgacIj72BATP1SHotDiZrx8HAR8faaAeaiSH0osG2H9YLjlQsgwbcDKnNHehbfza9E2RvwoHEAAqt+V9QJ3kJC60jKzPskfhLLLWstHwlXU1bR3K8xlNoOskVVfs=
+	t=1788644623; cv=none; b=F2sHCqiyanji3MafUvV/Ir9ROFtypnCremPzQumkyhrXMsK8TS0tNCurfFhkORbi1wHvRVMDCBnM7/0vYyQmXxjS06pzz+ejUxBkgZRRUavj84Dgb0lMO6dKlxrmGx97eXDthKqjFEVVTbcfad/cvmv7Bz6V2xZNlR1t9+KFLWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644622; c=relaxed/simple;
-	bh=ZbceTJKyzxVSFiX35Qwhzl49cQm4Jac9qRg5wOXJTeM=;
+	s=arc-20240116; t=1788644623; c=relaxed/simple;
+	bh=PSDZ+JuEUZeX6byaqtkIfca2R+eQYWYisBXJsYBhglk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uetarr8n2HkT33nBbKc0DDRnnqNhI7B/xIMJr6/vjaMtyPpAjF7A63rIXiD/YDPYwLrdc3YLIIe4WVfJpC0RdzZ//duasPmmJib25/ycqmDpaF4YZw1JHBf+YSu8LVpDcrADuIGaLAnTvQSoyHCQ2F8qmGJ14lEaoomxdpmPCME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4V48yDF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cS/YgFFsE+vaO6xEYu464nVflQ+MOp90A2WqcKfCC6sRcsDph97x4WSMdYpXmM90P124WUEg1QYfDh7vviA8RQNQS5yMu+EzxIuYfnWW+LekTVkC9Ml0C2VEHo5+uPg8jSlFC7HbSqUqkH7xK53iWhekQZ1GfuGjWqBRF8KV5qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I6UFm3oA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4V48yDF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0021F00A3F;
-	Sat,  5 Sep 2026 21:43:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I6UFm3oA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DCD41F00A3D;
+	Sat,  5 Sep 2026 21:43:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788644621;
-	bh=hUhZOtQfNbNLZxAe4FnFIUotFxDbs4WDSIOidN0+LXY=;
+	bh=0HoJLBYeivaLdNL4gplxFR7i/RCfCnHgwpZkn6Hd8Ec=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M4V48yDFu9BjYDBHRI9YGyI0or6K67SLrjLvD+GsFlKvg3XCggfbu4RerAY5gvydR
-	 rDOlpnZ0SqUrbkJUiWQ66R6yF7BlLybeVxObdGR288huTLOjN6vuKmPdTNC1ZATTFR
-	 SxP3mUPlvEXJTxcQbpm0gMnEiSmtgCvbwJUYiCER7rgfQT/gmpQLYRxG0vwOYmRa91
-	 CFBnr3ylXv7XpIBLEj2fVCH8W99lOGZ6B0c40zGmFf+lX6WTxTbhF9jz0RB+ln3jt3
-	 iR2WEf73IU6+4my0p00bPa1QzaqWLizRvk+RqhwOKCxcfbmbCZPUUWAVliYK+e0vv5
-	 eUx45ahQdiwvA==
+	b=I6UFm3oASWJXvMJKoJHLEXqcFSap8jiLKouq7p45Ju9rEpYeQePG9d8fXuHs4TVJc
+	 Qr2o41udOgb3v/H0/IlCoePerFbPKghwQqOlWdc7+kIJfSQ+S5acsQDO9q2MvsvyNh
+	 wXnaqWq6uH3ZeQptg9OnUpdwdBNGkAIPNRKhZCkCRcW2AZCWMZUPr5DhnlDnwUl401
+	 vHnRVjlJofmc4RyltJCPBaiLRAnCxRJ9EeaWhAQ6BATZbTk6RDVHFDujwKIUeBd80d
+	 yJilIEhlECR2nu6GlvljzUq2uUpKAbKi0I8UNTdrjXzAhq3OQgHFdnfDUtbQaUOuHn
+	 sWh1C6/6ViU1w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
+Cc: Robbie Ko <robbieko@synology.com>,
 	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] NFSD: Add a Call equivalent to the NFSD_TRACE_PROC_RES macros
-Date: Sat,  5 Sep 2026 17:43:36 -0400
-Message-ID: <20260905214337.701562-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] nfsd: reject out-of-range nseconds in NFSv3 SETATTR and create ops
+Date: Sat,  5 Sep 2026 17:43:37 -0400
+Message-ID: <20260905214337.701562-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905214337.701562-1-sashal@kernel.org>
 References: <2026090305-viewpoint-outshoot-49ba@gregkh>
@@ -46,51 +47,153 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Robbie Ko <robbieko@synology.com>
 
-[ Upstream commit 218927aa47647cc3bb58520cc630279844d8adde ]
+[ Upstream commit eb0eca7720662ba5847df1510e73801f7f473094 ]
 
-Introduce tracing helpers that can be used before the procedure
-status code is known. These macros are similar to the
-SVC_RQST_ENDPOINT helpers, but they can be modified to include
-NFS-specific fields if that is needed later.
+A client can send an NFSv3 SETATTR, CREATE, MKDIR, SYMLINK or MKNOD
+carrying an atime or mtime whose nseconds field is out of range. The
+value is well-formed on the wire and decodes cleanly into a valid
+uint32, but it is not a valid timespec64: tv_nsec must be less than
+NSEC_PER_SEC.
 
+Nothing in the setattr path clamps it. notify_change() runs the time
+through timestamp_truncate(), which does not reduce tv_nsec below
+NSEC_PER_SEC when the filesystem supports nanosecond granularity
+(s_time_gran == 1), and the inode atime/mtime setters store it verbatim
+(only ctime is normalized, via inode_set_ctime_to_ts()). The
+un-normalized value then corrupts on-disk metadata: ext4's
+ext4_encode_extra_time() shifts tv_nsec left by EXT4_EPOCH_BITS, which
+overflows the 32-bit extra field and clobbers the seconds-epoch bits, so
+the stored seconds (and thus the year) are wrong on read-back. XFS with
+bigtime mis-stores the timestamp for the same reason.
+
+Validate the client-supplied atime/mtime in the proc handlers and return
+NFS3ERR_INVAL before anything is changed. RFC 1813 lists NFS3ERR_INVAL
+for SETATTR and describes it as the error for a value the server 'can
+not store ... in its own representation'; the client maps it to EINVAL.
+
+Checking in the proc handlers, rather than in nfsd_setattr(), keeps the
+rejection in front of object creation. The create operations create the
+object before nfsd_create_setattr() runs, so a late failure would leave
+the new object behind and turn a non-idempotent request into a namespace
+change that reports failure. The check is therefore done up front, for
+the create operations before the object is created.
+
+tv_nsec is a long, so the comparison casts it to unsigned long (the same
+width) rather than to u32, matching timespec64_valid(). A u32 cast would
+truncate on 64-bit; the unsigned long cast also rejects a value that
+became negative when an out-of-range u32 wire nseconds was assigned to a
+32-bit long.
+
+Only client-supplied times are checked: SET_TO_SERVER_TIME requests
+carry no client value. The sattrguard3 ctime is deliberately left alone:
+an out-of-range guard simply never matches the object's ctime and yields
+NFS3ERR_NOT_SYNC via the existing guardtime comparison, which is the
+protocol-correct outcome rather than rejecting the request.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Robbie Ko <robbieko@synology.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: eb0eca772066 ("nfsd: reject out-of-range nseconds in NFSv3 SETATTR and create ops")
+Link: https://patch.msgid.link/20260616054027.2360930-2-robbieko@synology.com
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/trace.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ fs/nfsd/nfs3proc.c | 40 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 40 insertions(+)
 
-diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
-index 3ef94bcb27ed7..032a38b23260a 100644
---- a/fs/nfsd/trace.h
-+++ b/fs/nfsd/trace.h
-@@ -16,6 +16,23 @@
- #include "nfsfh.h"
- #include "xdr4.h"
+diff --git a/fs/nfsd/nfs3proc.c b/fs/nfsd/nfs3proc.c
+index f4d659e3ad596..ecfe2e12f2888 100644
+--- a/fs/nfsd/nfs3proc.c
++++ b/fs/nfsd/nfs3proc.c
+@@ -29,6 +29,25 @@ static int	nfs3_ftypes[] = {
+ 	S_IFIFO,		/* NF3FIFO */
+ };
  
-+#define NFSD_TRACE_PROC_CALL_FIELDS(r) \
-+		__field(unsigned int, netns_ino) \
-+		__field(u32, xid) \
-+		__sockaddr(server, (r)->rq_xprt->xpt_locallen) \
-+		__sockaddr(client, (r)->rq_xprt->xpt_remotelen)
++/*
++ * Reject a client-supplied atime or mtime whose nanoseconds field is out
++ * of range. Such a value is well-formed on the wire but is not a valid
++ * timespec64, and storing it verbatim can corrupt on-disk timestamps.
++ * tv_nsec is a long, so it is cast to unsigned long (the same width) to
++ * catch both an over-large value and one that became negative when an
++ * out-of-range u32 wire nseconds was assigned to a 32-bit long.
++ */
++static bool nfsd3_time_in_range(const struct iattr *iap)
++{
++	if ((iap->ia_valid & ATTR_ATIME_SET) &&
++	    (unsigned long)iap->ia_atime.tv_nsec >= NSEC_PER_SEC)
++		return false;
++	if ((iap->ia_valid & ATTR_MTIME_SET) &&
++	    (unsigned long)iap->ia_mtime.tv_nsec >= NSEC_PER_SEC)
++		return false;
++	return true;
++}
 +
-+#define NFSD_TRACE_PROC_CALL_ASSIGNMENTS(r) \
-+		do { \
-+			struct svc_xprt *xprt = (r)->rq_xprt; \
-+			__entry->netns_ino = SVC_NET(r)->ns.inum; \
-+			__entry->xid = be32_to_cpu((r)->rq_xid); \
-+			__assign_sockaddr(server, &xprt->xpt_local, \
-+					  xprt->xpt_locallen); \
-+			__assign_sockaddr(client, &xprt->xpt_remote, \
-+					  xprt->xpt_remotelen); \
-+		} while (0)
+ static __be32 nfsd3_map_status(__be32 status)
+ {
+ 	switch (status) {
+@@ -95,9 +114,14 @@ nfsd3_proc_setattr(struct svc_rqst *rqstp)
+ 				SVCFH_fmt(&argp->fh));
+ 
+ 	fh_copy(&resp->fh, &argp->fh);
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	if (argp->check_guard)
+ 		guardtime = &argp->guardtime;
+ 	resp->status = nfsd_setattr(rqstp, &resp->fh, &attrs, guardtime);
++out:
+ 	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+@@ -261,6 +285,8 @@ nfsd3_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 
+ 	trace_nfsd_vfs_create(rqstp, fhp, S_IFREG, argp->name, argp->len);
+ 
++	if (!nfsd3_time_in_range(iap))
++		return nfserr_inval;
+ 	if (isdotent(argp->name, argp->len))
+ 		return nfserr_exist;
+ 	if (!(iap->ia_valid & ATTR_MODE))
+@@ -408,8 +434,13 @@ nfsd3_proc_mkdir(struct svc_rqst *rqstp)
+ 	argp->attrs.ia_valid &= ~ATTR_SIZE;
+ 	fh_copy(&resp->dirfh, &argp->fh);
+ 	fh_init(&resp->fh, NFS3_FHSIZE);
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, S_IFDIR, 0, &resp->fh);
++out:
+ 	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+@@ -423,6 +454,10 @@ nfsd3_proc_symlink(struct svc_rqst *rqstp)
+ 		.na_iattr	= &argp->attrs,
+ 	};
+ 
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
+ 	if (argp->tlen == 0) {
+ 		resp->status = nfserr_inval;
+ 		goto out;
+@@ -489,6 +524,11 @@ nfsd3_proc_mknod(struct svc_rqst *rqstp)
+ 		goto out;
+ 	}
+ 
++	if (!nfsd3_time_in_range(&argp->attrs)) {
++		resp->status = nfserr_inval;
++		goto out;
++	}
 +
- #define NFSD_TRACE_PROC_RES_FIELDS(r) \
- 		__field(unsigned int, netns_ino) \
- 		__field(u32, xid) \
+ 	type = nfs3_ftypes[argp->ftype];
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, type, rdev, &resp->fh);
 -- 
 2.53.0
 
