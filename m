@@ -1,72 +1,72 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E887081E
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 02:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5E9EEC0
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 02:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788576471; cv=none; b=akavOSFIbPGx73pKj5H2vS7LreJ1Vd3HVoy7vXP43RSwGHF4qYgrqNJ2HC+NBK1B9ogJSHTKenDc/1QiKzFUc4bC93NpawZXk+krhJKgWLe3l8f4kPwZEOPxvR59QiBEikAJow6kPHR4QrgCdJpJEHNvt3d4Wd3gRxd/qlUc8bs=
+	t=1788576493; cv=none; b=nBhTdSj4ufNrNoVtO9cW0ccQaxf7e9K7nro03FY/40X+k0YVgiSw2mOGBmOmFKDsn1su0PMak1eLe7ddRWYX6KXow4CFmoCTuQ9eHzVJUGpictQ6m7rlKIdhOyKCqtP4AA9DFjxYpX+d6zuP6ay/Ki7WCbCp9RixM/f7B1ORcb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788576471; c=relaxed/simple;
-	bh=UR5nyWNx4/u+KVnS394BM1TY4kOP1DcWuU3r6ORRGAk=;
+	s=arc-20240116; t=1788576493; c=relaxed/simple;
+	bh=BmSwsU22/kjBiXKutOpQcuP0jzyzpovRlSwRpkpH/do=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVa9UHEy8xbnaEULNxRPKwCOG1JgZYz9Gv0MlzYBay5FNdXoH1frxQ8xEdQkw7rd9KxG9SpLCT96sfM1qzAjC4yxycITtLNnvILqEbiQaFtLkYjV2HWv5lNjwOyn1qToEv+lbcyOwlbqQjpp1M+kRWiDIb52DvO0piJ/2uM1QdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=AVVNAEmN; arc=none smtp.client-ip=209.85.214.179
+	 MIME-Version; b=O/sjMfzP+u3BSVSrxLnSSyzAGt05r5bTi9vB8ME1pcLTsxFpCV6kFlwe6xZhol4tMkQtv9w+iv1ZsnE9HYvHi+KEmSNK5QXJeZnanoo0AxVtQLLi0otSMqWDEVkU8Y4oqDIRj7etNZW178gHLxETJnUZDPKKkYe20aCGczClL0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr; spf=pass smtp.mailfrom=snu.ac.kr; dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b=GuqXWHH/; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=snu.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="AVVNAEmN"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso17547005ad.2
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 19:47:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="GuqXWHH/"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-853c07a76adso1541939b3a.0
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 19:48:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=snu.ac.kr; s=google; t=1788576467; x=1789181267; darn=vger.kernel.org;
+        d=snu.ac.kr; s=google; t=1788576491; x=1789181291; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jNzIKzBTYlJMNMoBuQvtVuLLYIxpaC1RgMxibk7J9fo=;
-        b=AVVNAEmNK+bOVzaPgWhuvHILtjh7FvmHYNTg5ILizGABfpbOIPxSKpeBs3VMgLIBwr
-         wCkDlbjZqBVIixprC3h11wtReGOGaQy0SP/X3YbBPW8UUevmfM3mWlADb1hX7M2DCPgm
-         mjdiWr7tTSxrh13JJpGoN6Bijt2c5ONOH49Tg=
+        bh=RfRWvHDmaNYtFFjotZ1A3nKWk2LABJIZWZfBVKyUIls=;
+        b=GuqXWHH/hpXGLzkAfSTXEtuQKnM7tZO+6fqSes5xsNykC43SsDhUIHkLztQk4TpwZ9
+         UHjoZWEzVy7kivhL857Xgm3e4FpD3D6zSiW0YgsDJaHe/5PgnikBe7m32XJHiOykAC+w
+         eSiTNo8SCSP8nOk51eDmcWL7MJFUpS/kTZcbI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788576467; x=1789181267;
+        d=1e100.net; s=20251104; t=1788576491; x=1789181291;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jNzIKzBTYlJMNMoBuQvtVuLLYIxpaC1RgMxibk7J9fo=;
-        b=UboyiTwm2jA7zUwUfq+NM84XTpi1xnNJ/fbEjN0Gg/Z5CbMnqZVCzMVrvOigAVGxAN
-         05u4Vp+vmRTgsHzuwQ4D4bSLS6C1jp0YxI6eglPgSBvgAdRC7zPR3C3LRQezKkGUmDvo
-         IF7SeR2h/649OfBxTHom9uUue51vWlu143nd744+aw+HmkFXH1cWWH8qdkvjFI9XbwqH
-         ytogMVpmcMK3FJ340JCUVENm5iSPLx9f+3LIDoU6u3kXVugqWfTFd7TzUKy/fWoKs0Y5
-         N35mHCVQWou7NuYxNBf2BXPvMH1tCbMxmnwmZSONUn866dfDNDduQ6LZv7P0QfCglLsK
-         LZGg==
-X-Gm-Message-State: AFuF++nM0/fEFOjSVlcaiEiTJlnC4HSBH9f+ubFLV8uqgDeiV0srJINc
-	aIVx2QnsnXZK2yyQZMwfBehrnqtpUagrjYmp4immb9EqqX21aKepJUc6yn9lB29CpVlIWDnDXV3
-	NySTMI34=
-X-Gm-Gg: AYBFou02BlfoM2ZQHz+nWTFweFN+LUQcR0z4962mhcNc+BvfOc0Or+FvU9csEmdnYw1
-	I8O1tsRRCUEJ2vefsqvWemHqQmbUX3Lg+bD6oMtJ2QSHcmPqrYY8NGp0cMfY3CsqSMwYIcpEKSJ
-	MDeYo7OsUwKyyHFyTntoXusDXpz1EeoJGXyjZaYoFzpDC6p3mYiVANY9TRkxX48HQAXOc6fyYT4
-	SU0uwaQXtiQQCbddpDJ3+eD+Goz5ulWkgWeahOrDihDBeh85d6A0od8B7q0SSG0U1tm58IrRN/+
-	IiEAm2OcBg6ZBjJadhXpR2v1Nxyk/F77VNKeY2o3ETkCDXFNsy7V+C5aotmotjNfKFlA5fzdXUk
-	XasSjssFnpLBtS2/IK+mMkNDocmdtoZud6s43YqSTCnZ0O7026Po6jqKzctjlzhfJBRpU8yXrOa
-	tky8NjbJWMROHtyo5vLHMS+IZwgSBKwWbu6lOpqGipGJwgd3VncoKqqLqKBD8ws77b0eWC9ET7i
-	O9ajJXjcFE=
-X-Received: by 2002:a17:90b:2781:b0:398:9c00:29ee with SMTP id 98e67ed59e1d1-39b26289136mr15778574a91.22.1788576467543;
-        Fri, 04 Sep 2026 19:47:47 -0700 (PDT)
+        bh=RfRWvHDmaNYtFFjotZ1A3nKWk2LABJIZWZfBVKyUIls=;
+        b=Ykg/OeQef1fL+XRNbCUVi/hbKeHX+/S9bVF+YCzrWtcq6C1xbI89E7gDZvRCtPKyPR
+         nPb1NksalIyqLvFPg854cqIS4Hkb2HrKuxEFaoiAIN1eZuLAPaEDnq5Nf/PqqZWYaEe0
+         W55C9daUkctyyM7tUfQ5NAfavd1WX9JnzUeJQIB9VARJ7TKtJto72BxsABWHoVVCP/nT
+         pvjTZYTB0L9osFUNnIdRe9wkGcEGMZ1xsW8oG3fh2IswZ3AKlHyY2d7EMCj1prs5NItN
+         EHCVeGRxXYwSsrqwqSVLHr0IN7ojCqP2Ha7jeUbX2FDWV5CaVJ0oI0UThJbZ+crEj7Tm
+         0VQg==
+X-Gm-Message-State: AFuF++npiqQyFe5XglxWiFKXLu+D6iUrO94lT23kMu5uj3hjEthaidxW
+	794o93vFkqkr5jMAcv+B8y45TyzM0LWGJHXdsi+YrV8m7dijHki1eFOhihfztPhya0kDlbcW+t6
+	rmnTVKY8=
+X-Gm-Gg: AYBFou1JFCSliU83R6CEkI3HNupfAFbAsC7fq+Ak3cE3fCIvD2lFgNAPGU/p8RnuARx
+	mHF4IMYoS7oiaUcxLcKAeprpF5KApAjPgAUrriATnFTMduhwujDZIo4FNBMgDgWYt4sokXHqAbM
+	uUJZtFiCSS8H04qnw3SPpmEga4FAGxj6hxm66c3sRHMCp+gNCWiWt++8+mMbYoUIRySIpEzr3GS
+	JO8YI3SO32l4OOx2T6tU0bsSyj3RfBg2xSIV2UZVL9iWjmzsbk7F3OP5+mPeDKcQoX7lSoGpZ3U
+	PtA7Zq9O9PAnfP/ZU9YPspmTqId2grWB9yuH8tZmXcjWO1rtXT429Eow3OG8mvLBsXvGnGgsHLi
+	LFzJxUuCbTms38egdsGXI3la83S5VXgaP1Yti9LIjpdqxnuf6nzMhX9yM91zBCDKSJrL32pt726
+	CHBoqHmQ/nnZuZ9mmUiD+tYF7p/oVIv8wkPLUHYg0o751DDJpTMmz/xqBSYU61+z2wq1d51Y/Q2
+	w8tZg2LQJ4=
+X-Received: by 2002:a05:6a00:4305:b0:845:cf73:c1d8 with SMTP id d2e1a72fcca58-861684928f1mr13559167b3a.14.1788576490822;
+        Fri, 04 Sep 2026 19:48:10 -0700 (PDT)
 Received: from ziggs ([147.46.121.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm13269606a91.8.2026.09.04.19.47.45
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614f872269sm1825058b3a.6.2026.09.04.19.48.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 19:47:46 -0700 (PDT)
+        Fri, 04 Sep 2026 19:48:10 -0700 (PDT)
 From: Youngjae Kwon <yjkwon0026@snu.ac.kr>
 To: stable@vger.kernel.org
 Cc: Youngjae Kwon <yjkwon0026@snu.ac.kr>,
 	Jan Kara <jack@suse.cz>,
 	Amir Goldstein <amir73il@gmail.com>
-Subject: [PATCH 6.12.y] fsnotify: Fix stale object mask after concurrent mark updates
-Date: Sat,  5 Sep 2026 11:47:33 +0900
-Message-ID: <20260905024734.3941984-1-yjkwon0026@snu.ac.kr>
+Subject: [PATCH 6.18.y] fsnotify: Fix stale object mask after concurrent mark updates
+Date: Sat,  5 Sep 2026 11:48:00 +0900
+Message-ID: <20260905024800.3944249-1-yjkwon0026@snu.ac.kr>
 X-Mailer: git-send-email 2.50.1
-In-Reply-To: <2026090335-magnetism-tipping-5204@gregkh>
-References: <2026090335-magnetism-tipping-5204@gregkh>
+In-Reply-To: <2026090335-leotard-duffel-dd93@gregkh>
+References: <2026090335-leotard-duffel-dd93@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -128,10 +128,10 @@ Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
  2 files changed, 8 insertions(+), 19 deletions(-)
 
 diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-index b89ad128bf09..93472a48ceb3 100644
+index 5c30f4d8c7c1..e0a0f67b1350 100644
 --- a/fs/notify/fanotify/fanotify_user.c
 +++ b/fs/notify/fanotify/fanotify_user.c
-@@ -1141,16 +1141,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
+@@ -1327,16 +1327,18 @@ static bool fanotify_mark_update_flags(struct fsnotify_mark *fsn_mark,
  static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
  				      __u32 mask, unsigned int fan_flags)
  {
@@ -156,7 +156,7 @@ index b89ad128bf09..93472a48ceb3 100644
  	recalc |= fanotify_mark_update_flags(fsn_mark, fan_flags);
  	spin_unlock(&fsn_mark->lock);
 diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-index 0ea4e99dc449..e5ccd5572beb 100644
+index 0d813c52ff9c..2a8a83d8f4a7 100644
 --- a/fs/notify/inotify/inotify_user.c
 +++ b/fs/notify/inotify/inotify_user.c
 @@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnotify_group *group,
