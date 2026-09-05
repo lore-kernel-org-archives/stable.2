@@ -1,167 +1,119 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 057E93264DA
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27A74CB8D0
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788626544; cv=none; b=e8+AEkIFKpBjlLCMUlBNi2VTAq1mH41TmB/0uVYCI+Fo/snprffyjkq+eJH8WhH7QvFa2a83LqFJNZayi+/b3nufoNKmRqiINV8+TIofH72douxpR3WzZhbEu61oNC6M0RZmMBOehmVqsgCVBNLLWTjDmx2ZrAXNFzrJz5SUtqw=
+	t=1788626713; cv=none; b=s3jNwSNFelY1CXqavFh5kjf9Fl7S30aXtZJfYHxMeqzsFPbtJdKWmW2gE4kPSaNE+I+01i9IszstFthwmUru/CYy/pcWUhhtvGHH7VapZ4pITkskSX/EGNOfVDdNFBeP0QS1aP85zMBBPPLN9XwomEkXsDs2ENF4ojuYyRm655s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788626544; c=relaxed/simple;
-	bh=j8dShMQR8r+IY/PCkmrM4piAZ0AnVGy+pTSFaWHKVs8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HnUbw7Kh70M540M/WMa5qTnoafNus4oB1TlhPvCsTWoqU3KHMeJbPJkGTamQMZt5M+QJFJ7SCTEamnr+GqvZfXqUXj/SXSNNHr3aVsPyrb7dsDZfuETWqssPdnMEXTyPXUNz3SRo6Fp5Y6pkjzncDGIvcN3AeA0M44Ddk+s8C7w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com; spf=pass smtp.mailfrom=tenstorrent.com; dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b=OTq313dt; arc=none smtp.client-ip=209.85.128.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	s=arc-20240116; t=1788626713; c=relaxed/simple;
+	bh=zXRC/RdlmsiuexVeqwFjarsu6yZ7PSNCPNwsKWzg6EI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XJoHmX9lU/MerPdhxmNbZRNnsRh0u7AZLs8nNUiFdbEo/49UgmGIPgczL17/qg0ATy/+lzmRtRm7hyn0V8kRWfmOVlPzkkHMAoPqO/iDHatrStL+jpZjUY7BMruijvnYRU/Ako8AyYv7EIQ1Nfd1zsS+yDjefEA9qauiR0lsaDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VV7CslGA; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tenstorrent.com header.i=@tenstorrent.com header.b="OTq313dt"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8706dfdcd4fso27600687b3.3
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 09:42:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VV7CslGA"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9103f5b813aso14728376d6.3
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 09:45:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1788626539; x=1789231339; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KLW1pUYTfPr1fy7y/Zlio4LKr099xCCPQ8MqnoWy0Aw=;
-        b=OTq313dtaSBSCLVxjkYe7vBHuDpKZKweGbg/eLusfpGhoKGSyrJA8YBu3wAuqAjdZw
-         rzbmwoQDfnvwHecwowPPnibhrTJ3fhq2odPJEPsK9ykg8Lag6b15qIB5HXb0a6WPQgZc
-         BdOHJ4ySqT0PQ5372ATeh/e0RB57lQjp+u6nwny5OwPDqjMGKCl4KCnjKIbnFA5JaAPA
-         joqigTrnjAHH1cBVkw52Q6Z/CfTSru5/dBm7AlDuL0R0f1+OVi/Fm6DaAx2lQPkrX0cS
-         zrlrnZwpvgxaaxnSCWlf/3fy7BMQXHdI3Iht1KvRNGyeMP8ZNh6ByemfGR6k+7oFKLqD
-         JVDQ==
+        d=gmail.com; s=20251104; t=1788626706; x=1789231506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Iebef4UkUnASKv8XcTx3vwRMvhVbFEWfZRLdXca6h64=;
+        b=VV7CslGAVnHj0gm8JK0n6CeO5ODOlecicnnkvks3hTB+JxVBe1fVZlpQaFnY6YnL5b
+         rBO0J4TR+BI8nfs9yAGodxNqmzezpUyKXHfFLDUyxLy6H5j2kFuBTa3vZDi9VQTLYTUm
+         dFbv/itBx/dpP6fWRtZ7GJM5yA7wKDAFqXHVz7UQOffB7X8VXv0QZD6bb0PS3jE4IPsi
+         2+pjaDDjAP8aX9jLBAMGSnp8qAtvnbRsK0xwpXvKs7RpXcwmp7n2uik0L1Vmk22kNjCI
+         ZV+PHKzxFxW8bmLE20cPmR1v3qdJbNj8Cx+xoCjJKnS4gF9XZKIetdjUOvnfy8a/vuHx
+         82MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788626539; x=1789231339;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KLW1pUYTfPr1fy7y/Zlio4LKr099xCCPQ8MqnoWy0Aw=;
-        b=CsuhQh1DcRRLPNh6sGdDyTeZpMk/bJv9DrKUFxr+cqO9W7KAhIFRwGnUPVt/OpW8n/
-         hkSk8Lo7aWUy+cFuWSbp/l0PrhnnvA+Wgbex/Tv9lNrREoQQG7ehYa19fgMQRJtsOEXW
-         Olqt3PzTwcgxEW3NqDnbwbi9AA7Rs2PTHBmieEHsDTudvJhs8lejpXHHrOA2aeX9u5rI
-         7m/Y/khD09yfgEhXYnRy7050LeHkP28znB41z/b+NjtoEh68390+/6r6OZlqjF+B44GV
-         KlqboPoodKwVjoxylzogvLv0UE3fRGVRdVHDKvH94JRElI6WapQz5gYfaOdeyTVGIRkG
-         lzKw==
-X-Forwarded-Encrypted: i=1; AKwUvByzJK5vVuIrnNK46MG/9iWrfKDYaNI3ZhU+Vx/oZlOUMzCDg+riPbwhbuvWae0HFbiYrn4cmQg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7xsANmTJ+mfgXownHpvKHHn+Y0YusSw646UxslIweR0ruN3TR
-	FVAXN1eWIEFn6Gee/axtrKztfGPfle0hGgoUaJsXSkMJMQEG0w/OFWEk9mEIFNtGg7o=
-X-Gm-Gg: AYBFou25hKwt8LiflrVh/dPegvlhHAo5BkZZgh/PPTEmPwhPHHZQc+J/YNDt1TvTrpL
-	c/X8Y35BmbthFJVYqW8974FpuS1egwhNJqsf8ntT2HHlOHWcAX2WDo2w+VWgRvv8VwOSJIx3vn9
-	slSifR3GgBM8mJByy0cM3ibixyNvBww2eCOQLQ/lMMKh8ioWnTkIjORMaPu+V86o6TUNBlNHQe2
-	PphgC+19te3PeVvc0mtq7quUgcK6El4rF+VQmwoRDoYyCbjXwvZxWp/5AEYntw/w3Rd4C10xNrl
-	f+XqLmBL9hdPLER/Lo7vfvIdcHAvDa43zMwpYJDpxNfK4pZvN2Rh5SMmZ1oVbF0Wq9etnpQbdj2
-	jAVtX1qx2nmFqcOcrWITdWqaP909pB1EB5bJcBy0g13L8/cP1lpBHpk/rli9RZRCYHSb+tLwOpG
-	Wd4Zaq53nIqMGOGOz+oRT4cw66ElXNliHW18KTEMH1Lex80HCIyD/iU6qyhOLWfv2wz5KoH1esu
-	2ocaOENaNlsmOlNQUmJ5nIQgQfhh9rb3f35Xif0c4jb
-X-Received: by 2002:a05:690e:4504:10b0:66f:c1bc:c075 with SMTP id 956f58d0204a3-66fc1bcc7a6mr1655174d50.61.1788626538948;
-        Sat, 05 Sep 2026 09:42:18 -0700 (PDT)
-Received: from toolbox ([2600:1700:220:59e0:9cba:538b:87b9:7f0f])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714bb0efc1sm40923517b3.45.2026.09.05.09.42.17
+        d=1e100.net; s=20251104; t=1788626706; x=1789231506;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Iebef4UkUnASKv8XcTx3vwRMvhVbFEWfZRLdXca6h64=;
+        b=tTl4L2hY2Nep6Ek1kA0d0R5BnoGKjvtET+wtZrjWYXJ4+5Ms4E+3rLOgKKlIz4aStP
+         J9L98eiwjxS9QMn0W76JT54z5qJLGyC/npTGMAzUnimrzU4wwTyK+3seyIWm0DHXq7G9
+         P4lzxiR9KS8xpSWeHHhjT/eQTLx1esC/my5fS24zNomqz3xdV8lFSv7qbDfCgMtl2ZsM
+         QTW/wjL1hqzbJTdUYa1MARF8w/xhnJTEmKtQ7eHDj2gcCFWZK/jAnKfp+iFWOjRFWy4/
+         QGcwbk/Rh6xkZPrXoVMj5pkTnDQDubOzxa2d/dyuFZHBmgHZmrG4SXLKayXMWXchvcfs
+         FOpg==
+X-Forwarded-Encrypted: i=1; AKwUvBzswhdyq7E5StOEs2cU1+3u3pQLnfGIDTQ5AM6L+uifGBYK5hiaGiIGGRDDJ4CwGsJS0UAnrjQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mKk5QfwaGrPr9cAsM2rnn9D+3jRf3Gkyq4MgBmIey5+wKs93vB
+	X2sjqd63PXRglzn3MApPFlkuYY5z7hJjqAqLnHcitwBddQwXza83H8Xn3j7eRneEXr4=
+X-Gm-Gg: AYBFou0tWFaYUwdDHKXXMLdkh6azL7IQ/vAGXp/MOsrudhbLoe0DhJxiNnAz/f6uw3j
+	V6B+jgM2YNR1OZpyDfLVEZPk5konpezxy+Pgd+0x2LeH1muid2h9lL9QRanRXk4eGfhYIeQzedi
+	FzM4wPBMNCCswQhHWZEpHah5uWoNsuJVvGwLDTJ1gc1YUIdOwDORkbiRj5LxDJtNs8hjQUVKBeA
+	HiG2T5DsjHUcnBUotxmLEff35Nog1svnEHZi8z6Lz6zdPwvwOUXGV2P91W6MO9O66/eTrmOKbHF
+	WeOgXranJQ6Ml7b2I1ZbcObC+PrOaURcrRoAPH598xjXFqqLeKatLlNjgGuVibRqxatQo5LteHg
+	s8Aqm3Swb5yduI2HJJz6TVQSqjHzs88azkZD3uBQxciU33ye3wHeykBdktdsV0XoWScrigULLSv
+	c2N8eRW2/ejzmwZZF/Dmr8Fw+w1Oz2QF2OGoMwfO5rnQFO9ZFW8N8apUdGH5salCFHNjGa7dvbY
+	c3qD7aoau0ThcngCYA3++hnEz6RWcudp1HnmQ==
+X-Received: by 2002:a05:6214:4904:b0:8ef:91c5:8edb with SMTP id 6a1803df08f44-9103ef23c37mr177612896d6.10.1788626706129;
+        Sat, 05 Sep 2026 09:45:06 -0700 (PDT)
+Received: from dave-desktop.lan (modemcable053.177-58-74.mc.videotron.ca. [74.58.177.53])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067ac52sm48984326d6.27.2026.09.05.09.45.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 09:42:18 -0700 (PDT)
-Date: Sat, 5 Sep 2026 11:41:59 -0500
-From: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Yixun Lan <dlan@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
-	Inochi Amaoto <inochiama@outlook.com>, Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>, 
-	Aurelien Jarno <aurelien@aurel32.net>, stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, linux-clk@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
-Message-ID: <uyl23bmb7dtvkneu7wbpmq24gkmrpmr5n5xkanjrnjf27xsp6g@gcjezv6xwolx>
-References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
+        Sat, 05 Sep 2026 09:45:05 -0700 (PDT)
+From: David Collin <davidcollin899@gmail.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Collin <davidcollin899@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] usb: dwc3: host: fix dangling xhci pointer on init failure
+Date: Sat,  5 Sep 2026 12:44:47 -0400
+Message-ID: <20260905164448.209348-1-davidcollin899@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <aptV-QHKGbMqw1uP@vbox>
+References: <aptV-QHKGbMqw1uP@vbox>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Troy,
+dwc3_host_init()'s error path frees xhci via platform_device_put()
+but never clears dwc->xhci, leaving a dangling pointer that
+dwc3_host_exit() dereferences unconditionally on removal/shutdown.
+Clear dwc->xhci on the error path and return early from
+dwc3_host_exit() if NULL.
 
-On Thu, Sep 03, 2026 at 11:06:24AM +0800, Troy Mitchell wrote:
-> The K3 CPU PLL rate tables currently describe only one rate per PLL,
-> although the hardware supports a wider range.
-> 
-> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
-> support rates from 1.05 to 2 GHz. Populate the tables with every
-> supported rate in 50 MHz steps.
-> 
-> Cc: stable@vger.kernel.org # 7.0+
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-> ---
-> The corresponding U-Boot changes are available at:
-> 
-> - Add the CPU PLL rate tables:
->   https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc99db886d5522c0c9cd5a96ffd6
-> - Correct the 1.10 GHz and 2.15 GHz table entries:
->   https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb54ca55352215e76eb3f12e6cf0
-> ---
-> Changes in v4:
-> - Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
-> - Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
->   patch scope has expanded.
-> - Add U-Boot references for the complete tables and corrected entries.
-> - Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com
-> 
-> Changes in v3:
-> - Mark the change for stable kernels starting with v7.0.
-> - Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
-> - Rebase onto v7.3-rc1.
-> - Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
-> 
-> Changes in v2:
-> - Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
->   will be handled in a separate series.
-> - Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
->   patch.
-> - Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
-> - Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
-> 
-> To: Stephen Boyd <sboyd@kernel.org>
-> To: Brian Masney <bmasney+clk@redhat.com>
-> To: Jerome Brunet <jbrunet+clk@baylibre.com>
-> To: Yixun Lan <dlan@kernel.org>
-> To: Paul Walmsley <pjw@kernel.org>
-> To: Palmer Dabbelt <palmer@dabbelt.com>
-> To: Albert Ou <aou@eecs.berkeley.edu>
-> To: Alexandre Ghiti <alex@ghiti.fr>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-riscv@lists.infradead.org
-> Cc: spacemit@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 96 insertions(+)
->
+Fixes: d07e8819a03d ("usb: dwc3: add xHCI Host support")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Collin <davidcollin899@gmail.com>
+---
+ drivers/usb/dwc3/host.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-On a recently new K3 board (shipped with OpenSBI/U-boot dated
-end of July), I was seeing upstream kernel boot hang after IMSIC
-initialization. Some logging indicated that it was hanging around the
-clock controller initializations (k3_ccu_driver_init).
+diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
+index c5674161b2b0..74117cbb2f42 100644
+--- a/drivers/usb/dwc3/host.c
++++ b/drivers/usb/dwc3/host.c
+@@ -219,12 +219,16 @@ int dwc3_host_init(struct dwc3 *dwc)
+ 	return 0;
+ err:
+ 	platform_device_put(xhci);
++	dwc->xhci = NULL;
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dwc3_host_init);
+ 
+ void dwc3_host_exit(struct dwc3 *dwc)
+ {
++	if (!dwc->xhci)
++		return;
++
+ 	if (dwc->sys_wakeup)
+ 		device_init_wakeup(&dwc->xhci->dev, false);
+ 
+-- 
+2.55.0
 
-On a board running older U-boot/OpenSBI from May, I originally didn't
-observe this hang, but doing multiple repeated boots showed a rare
-instance of this hang happening. Some changes were added to OpenSBI in 
-this period (end of June) that trap clock controller registers to M 
-Mode and handle reads/writes there.
-
-Yixun pointed me to this patch, and it seems to fix the boot hang on 
-the board runner newer OpenSBI. I think this avoids some kind of a 
-race condition with disabling/re-enabling a PLL that the clock driver
-does. I'm finding it a bit hard to explain/understand what exactly it
-the reason though.
-
-Yixun, could this patch get added in soon?
-
-Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-
-Regards
-Anirudh Srinivasan
