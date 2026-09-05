@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1E7471264
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 14:34:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF83E371053
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 14:36:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788618881; cv=none; b=ACHy/GgPXFDbvM4TVerQQoTiUrMk6DcZLFL2LdXUgd3Ginz8IaT7azmhtVBRi6HeVwQfDgM0ObVkcynCwgJ2hsOqgDbXhHvHlQo7oTRQSf89iyKYaJWWSK5Q1wXddj+WNjuwXz//tJiyd42bRZOSd9Ns1CVMI1lC/codtihKOs8=
+	t=1788618989; cv=none; b=FnBSNHs9/dJcJwsZph86c62NmC0XcFdVurGtlIIQK9oUg7RV5OylBAeCGaLk4GMwUjLGd/W/pGjyjA3sHoUHqw66PxdkXGB8ut8Td24xwdHrQwGz1tcxOX37WpT4hetMqadmo2MUnPW3e5dk6lIvTCtlJC4fC8zuwMg70bNW3FI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788618881; c=relaxed/simple;
-	bh=jpYdA7FCS9Kn8ch1vwXQAiPx4Utd/Kl+CXd/1291T/s=;
+	s=arc-20240116; t=1788618989; c=relaxed/simple;
+	bh=L6GMVPTV02f5InSXPegGGo0ZPdI8zI63e1aNzHYew2w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f62O6wSvoWW/uNWiMb+t+zfvMIUeFnK7NaXQd8SbPbpBTIpssDOq7l9b50U6YhgBBsb50jbvvKdcwv+MjAcA1DfAOI2x/hVk2ibQhis7J2a1Q/skauk4QmKUwug9nRe+4SI2rL159JNQaw4AXTsh4OXoy9EfGjwJWPKwYT+7iiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJNQdkm7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AKUFN2lD5VUCWDvG6dbpNO4kzRdXYaoHLgeUbqUWskHYmxL1nSP/FnEgXnmSRIDP3P1Zl/i/0v3zMXtRaHiIGPrOiTBOXhzAeWr7AnKqisCErQlzkFpx03i3I++tRyVWdtZxHRrOmuNxNfyrxhq12rHGxwU1qmQvu6tgJ1YnjLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENt5ED6J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJNQdkm7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EAED1F00A3D;
-	Sat,  5 Sep 2026 14:34:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENt5ED6J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71521F00A3D;
+	Sat,  5 Sep 2026 14:36:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788618879;
-	bh=eMCKZ8NQdVA1T8fLlxCZwm9cJxe5nT7oSG7ih+Ozf40=;
+	s=k20260515; t=1788618987;
+	bh=eMIT/xLKFuy1No1NcU3oE5xVYe1huYQGXQefCqNsqAo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eJNQdkm7Q4rocbQgLULQFA6BO0DzDf2WR1Hk1udAp2y8nb7Wm23KdGONSSGI4HPtS
-	 6slNaOwusYkBOc14KPHtRcZxttvy/CoT1d5dXmysqFzcuj4nmjekNSB70xHuup4I/B
-	 N3bCeGtb2fwkpttnttxtx4M4qljGwsFaUG6i/ttuKkei3PdL7Pk1TPU5TZY7IpehE5
-	 6Q/BYWAJsFBd1C+11NUXRiJ2FQWSTI0Y4rSlX07Lv4TIG3++q25fknWVY7I7kzZ2+Y
-	 Kfr9qxyYWaXbgACErB75SBwNavzvk31PVeJhbOCCMOmySYwpYs/KDKhYjxavnxVHCm
-	 2RuezK/+NCP3w==
+	b=ENt5ED6J0BvLJbm7yDT2s8M3G+/Gyapizxnu5ka93pJ4iIYrxn23bdjl1m3qfuzGn
+	 RsBMH2Yctf2ZYLyvJ6hX8RfQ+W5i7en7gopZCaRMiQVDb3mETtX60p/Ha1Fw/Mxjcw
+	 TLwZQ0/JSa9G4pwO3qgg6ZJ9rKBb2tEmFgemsKDqpcIkPCRPYb/54aFUvoMudVPcua
+	 OdxOftPPd+vRThfJNQ7JFZ2+4bPnk2ohn+zDUM3g9P1R5CN1gCK5J6Xb1JKLf3nISZ
+	 qZB3ajSbfL7wIbB584wtmQnrrBr7fRHngYR9oOw7kO/ZszTeTuMBJqX43tuA0X9tvO
+	 RgjNtyk5naVmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] nfsd: fix fcache_disposal UAF by inlining dispose state into nfsd_net
-Date: Sat,  5 Sep 2026 10:34:37 -0400
-Message-ID: <20260905143437.233567-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] NFSD: Rename a function parameter
+Date: Sat,  5 Sep 2026 10:36:24 -0400
+Message-ID: <20260905143625.237435-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090339-happiest-badass-03c3@gregkh>
-References: <2026090339-happiest-badass-03c3@gregkh>
+In-Reply-To: <2026090318-disbelief-saddling-d516@gregkh>
+References: <2026090318-disbelief-saddling-d516@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,203 +45,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4 ]
+[ Upstream commit 71bc2c6c413b78e5a47b4a62284f712d9f719007 ]
 
-nfsd_file_dispose_list_delayed() defers fput() to nfsd service threads
-via a per-net freeme queue, preventing the shrinker and GC worker from
-bearing the cost of closing files (see ffb402596147).  However, the
-queue lives in a separately-allocated struct nfsd_fcache_disposal that
-is freed by nfsd_free_fcache_disposal_net() during per-net teardown.
-The global shrinker, laundrette, and fsnotify callbacks can still be
-inside nfsd_file_dispose_list_delayed() dereferencing that pointer,
-causing a use-after-free.
+Clean up: A function parameter called "rqstp" typically refers to an
+object of type "struct svc_rqst", so it's confusing when such an
+parameter refers to a different struct type with field names that are
+very similar to svc_rqst.
 
-Inline the spinlock and freeme list directly into struct nfsd_net (as
-fcache_dispose_lock and fcache_dispose_list), eliminating the separately
-allocated struct nfsd_fcache_disposal entirely.  These fields now have
-the same lifetime as the net namespace itself, so there is no dangling
-pointer to chase.
-
-nfsd_file_cache_start_net() now just initializes the inline fields and
-cannot fail due to allocation.  nfsd_file_cache_shutdown_net() drains
-the inline list directly instead of freeing a separate struct.  The
-alloc/free helpers are removed.
-
-Fixes: 1463b38e7cf3 ("NFSD: simplify per-net file cache management")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-6
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260602-nfsd-testing-v2-7-e4ea62e3cd5c@kernel.org
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adapted disposal-list references while retaining the older unguarded service wake-up flow and removing the legacy kmalloc()-based helper ]
+Stable-dep-of: e13d505af73a ("nfsd: fix netlink dumpit error handling for rpc_status_get")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/filecache.c | 77 +++++++++++++--------------------------------
- fs/nfsd/netns.h     |  3 +-
- 2 files changed, 24 insertions(+), 56 deletions(-)
+ fs/nfsd/nfsctl.c | 28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
-index a238b6725008a..39c97a188d08f 100644
---- a/fs/nfsd/filecache.c
-+++ b/fs/nfsd/filecache.c
-@@ -62,11 +62,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
- static DEFINE_PER_CPU(unsigned long, nfsd_file_total_age);
- static DEFINE_PER_CPU(unsigned long, nfsd_file_evictions);
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 7b0a6beee96ed..9a3c0011b6674 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1494,7 +1494,7 @@ unsigned int nfsd_net_id;
  
--struct nfsd_fcache_disposal {
--	spinlock_t lock;
--	struct list_head freeme;
--};
--
- static struct kmem_cache		*nfsd_file_slab;
- static struct kmem_cache		*nfsd_file_mark_slab;
- static struct list_lru			nfsd_file_lru;
-@@ -419,25 +414,25 @@ nfsd_file_dispose_list(struct list_head *dispose)
- }
- 
- /**
-- * nfsd_file_dispose_list_delayed - move list of dead files to net's freeme list
-+ * nfsd_file_dispose_list_delayed - queue dead files for nfsd thread disposal
-  * @dispose: list of nfsd_files to be disposed
-  *
-- * Transfers each file to the "freeme" list for its nfsd_net, to eventually
-- * be disposed of by the per-net garbage collector.
-+ * Transfers each file to the dispose list in its nfsd_net and wakes an nfsd
-+ * thread to do the actual close.  This keeps the cost of fput() in the nfsd
-+ * threads rather than in the shrinker or GC worker.
-  */
- static void
- nfsd_file_dispose_list_delayed(struct list_head *dispose)
+ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 					    struct netlink_callback *cb,
+-					    struct nfsd_genl_rqstp *rqstp)
++					    struct nfsd_genl_rqstp *genl_rqstp)
  {
--	while(!list_empty(dispose)) {
-+	while (!list_empty(dispose)) {
- 		struct nfsd_file *nf = list_first_entry(dispose,
- 						struct nfsd_file, nf_gc);
- 		struct nfsd_net *nn = net_generic(nf->nf_net, nfsd_net_id);
--		struct nfsd_fcache_disposal *l = nn->fcache_disposal;
- 		struct svc_serv *serv;
+ 	void *hdr;
+ 	u32 i;
+@@ -1504,22 +1504,22 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	if (!hdr)
+ 		return -ENOBUFS;
  
--		spin_lock(&l->lock);
--		list_move_tail(&nf->nf_gc, &l->freeme);
--		spin_unlock(&l->lock);
-+		spin_lock(&nn->fcache_dispose_lock);
-+		list_move_tail(&nf->nf_gc, &nn->fcache_dispose_list);
-+		spin_unlock(&nn->fcache_dispose_lock);
+-	if (nla_put_be32(skb, NFSD_A_RPC_STATUS_XID, rqstp->rq_xid) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_FLAGS, rqstp->rq_flags) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROG, rqstp->rq_prog) ||
+-	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROC, rqstp->rq_proc) ||
+-	    nla_put_u8(skb, NFSD_A_RPC_STATUS_VERSION, rqstp->rq_vers) ||
++	if (nla_put_be32(skb, NFSD_A_RPC_STATUS_XID, genl_rqstp->rq_xid) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_FLAGS, genl_rqstp->rq_flags) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROG, genl_rqstp->rq_prog) ||
++	    nla_put_u32(skb, NFSD_A_RPC_STATUS_PROC, genl_rqstp->rq_proc) ||
++	    nla_put_u8(skb, NFSD_A_RPC_STATUS_VERSION, genl_rqstp->rq_vers) ||
+ 	    nla_put_s64(skb, NFSD_A_RPC_STATUS_SERVICE_TIME,
+-			ktime_to_us(rqstp->rq_stime),
++			ktime_to_us(genl_rqstp->rq_stime),
+ 			NFSD_A_RPC_STATUS_PAD))
+ 		return -ENOBUFS;
  
- 		/*
- 		 * The filecache laundrette is shut down after the
-@@ -461,17 +456,15 @@ nfsd_file_dispose_list_delayed(struct list_head *dispose)
-  */
- void nfsd_file_net_dispose(struct nfsd_net *nn)
- {
--	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
--
--	if (!list_empty(&l->freeme)) {
-+	if (!list_empty(&nn->fcache_dispose_list)) {
- 		LIST_HEAD(dispose);
- 		int i;
+-	switch (rqstp->rq_saddr.sa_family) {
++	switch (genl_rqstp->rq_saddr.sa_family) {
+ 	case AF_INET: {
+ 		const struct sockaddr_in *s_in, *d_in;
  
--		spin_lock(&l->lock);
--		for (i = 0; i < 8 && !list_empty(&l->freeme); i++)
--			list_move(l->freeme.next, &dispose);
--		spin_unlock(&l->lock);
--		if (!list_empty(&l->freeme))
-+		spin_lock(&nn->fcache_dispose_lock);
-+		for (i = 0; i < 8 && !list_empty(&nn->fcache_dispose_list); i++)
-+			list_move(nn->fcache_dispose_list.next, &dispose);
-+		spin_unlock(&nn->fcache_dispose_lock);
-+		if (!list_empty(&nn->fcache_dispose_list))
- 			/* Wake up another thread to share the work
- 			 * *before* doing any actual disposing.
- 			 */
-@@ -686,11 +679,11 @@ nfsd_file_queue_for_close(struct inode *inode, struct list_head *dispose)
- }
+-		s_in = (const struct sockaddr_in *)&rqstp->rq_saddr;
+-		d_in = (const struct sockaddr_in *)&rqstp->rq_daddr;
++		s_in = (const struct sockaddr_in *)&genl_rqstp->rq_saddr;
++		d_in = (const struct sockaddr_in *)&genl_rqstp->rq_daddr;
+ 		if (nla_put_in_addr(skb, NFSD_A_RPC_STATUS_SADDR4,
+ 				    s_in->sin_addr.s_addr) ||
+ 		    nla_put_in_addr(skb, NFSD_A_RPC_STATUS_DADDR4,
+@@ -1534,8 +1534,8 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	case AF_INET6: {
+ 		const struct sockaddr_in6 *s_in, *d_in;
  
- /**
-- * nfsd_file_close_inode - attempt a delayed close of a nfsd_file
-+ * nfsd_file_close_inode - attempt a deferred close of a nfsd_file
-  * @inode: inode of the file to attempt to remove
-  *
-  * Close out any open nfsd_files that can be reaped for @inode. The
-- * actual freeing is deferred to the dispose_list_delayed infrastructure.
-+ * actual freeing is deferred to the nfsd service threads.
-  *
-  * This is used by the fsnotify callbacks and setlease notifier.
-  */
-@@ -894,42 +887,14 @@ __nfsd_file_cache_purge(struct net *net)
- 	nfsd_file_dispose_list(&dispose);
- }
+-		s_in = (const struct sockaddr_in6 *)&rqstp->rq_saddr;
+-		d_in = (const struct sockaddr_in6 *)&rqstp->rq_daddr;
++		s_in = (const struct sockaddr_in6 *)&genl_rqstp->rq_saddr;
++		d_in = (const struct sockaddr_in6 *)&genl_rqstp->rq_daddr;
+ 		if (nla_put_in6_addr(skb, NFSD_A_RPC_STATUS_SADDR6,
+ 				     &s_in->sin6_addr) ||
+ 		    nla_put_in6_addr(skb, NFSD_A_RPC_STATUS_DADDR6,
+@@ -1549,9 +1549,9 @@ static int nfsd_genl_rpc_status_compose_msg(struct sk_buff *skb,
+ 	}
+ 	}
  
--static struct nfsd_fcache_disposal *
--nfsd_alloc_fcache_disposal(void)
--{
--	struct nfsd_fcache_disposal *l;
--
--	l = kmalloc(sizeof(*l), GFP_KERNEL);
--	if (!l)
--		return NULL;
--	spin_lock_init(&l->lock);
--	INIT_LIST_HEAD(&l->freeme);
--	return l;
--}
--
--static void
--nfsd_free_fcache_disposal(struct nfsd_fcache_disposal *l)
--{
--	nfsd_file_dispose_list(&l->freeme);
--	kfree(l);
--}
--
--static void
--nfsd_free_fcache_disposal_net(struct net *net)
--{
--	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
--	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
--
--	nfsd_free_fcache_disposal(l);
--}
--
- int
- nfsd_file_cache_start_net(struct net *net)
- {
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-	for (i = 0; i < rqstp->rq_opcnt; i++)
++	for (i = 0; i < genl_rqstp->rq_opcnt; i++)
+ 		if (nla_put_u32(skb, NFSD_A_RPC_STATUS_COMPOUND_OPS,
+-				rqstp->rq_opnum[i]))
++				genl_rqstp->rq_opnum[i]))
+ 			return -ENOBUFS;
  
--	nn->fcache_disposal = nfsd_alloc_fcache_disposal();
--	return nn->fcache_disposal ? 0 : -ENOMEM;
-+	spin_lock_init(&nn->fcache_dispose_lock);
-+	INIT_LIST_HEAD(&nn->fcache_dispose_list);
-+	return 0;
- }
- 
- /**
-@@ -948,8 +913,10 @@ nfsd_file_cache_purge(struct net *net)
- void
- nfsd_file_cache_shutdown_net(struct net *net)
- {
-+	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
-+
- 	nfsd_file_cache_purge(net);
--	nfsd_free_fcache_disposal_net(net);
-+	nfsd_file_dispose_list(&nn->fcache_dispose_list);
- }
- 
- void
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index fe8338735e7cc..2a2b65930e3a9 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -200,7 +200,8 @@ struct nfsd_net {
- 	/* utsname taken from the process that starts the server */
- 	char			nfsd_name[UNX_MAXNODENAME+1];
- 
--	struct nfsd_fcache_disposal *fcache_disposal;
-+	spinlock_t		fcache_dispose_lock;
-+	struct list_head	fcache_dispose_list;
- 
- 	siphash_key_t		siphash_key;
- 
+ 	genlmsg_end(skb, hdr);
 -- 
 2.53.0
 
