@@ -1,100 +1,96 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2CB34DCE0
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 07:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49FED345EC6;
+	Sat,  5 Sep 2026 07:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594416; cv=none; b=UWdEeKVmkEx0h6NO1G2PSfZzD1rmt2JSVeUc/0/f6/O5T6fJGuTPfmm/b+gEEA3kW0mQY9Qw7FsULiJPeXkT8pvxGxOv9mv38edzACl9zFic+xPhmQatjrqlzerPXFyCdzyidHxTJBzKaTl+nREh+RESLoczcNbZxA6jp7oQ4eQ=
+	t=1788594645; cv=none; b=aV81L9f2s0Rxh5BuDomaAB+p4P3Dec8uGuNCrnz91oAuOZmWH47A3NBi4zEDpOXLF/TTyn3D0DWEox/z3RcPbS3xbIXny7wOSE+Fg/+SQAeV1obhows1JsQ5a6myhyl6OslvggBfiHYUCUHWj/khcfmjqX6X1iTSKri7/RwRCmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594416; c=relaxed/simple;
-	bh=xff8GUk+CZ0GDybRtzZe3eSDdPuy4kMPI4af0+AeHfQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fLkcLV6NEPlUIdu366rO4v24ZMFizegp3JX6VDu5VxxWyWKzy5j1ubfj4v/4Zjmb4Q9wMd5+Afr4exELe2FPQz2iv0tBBVeW682uTRZB6BB317+swc4+MJpoxxm6Pey4VM8mgZkFJi2DpPWuBfnR/Ocnp44qjceDVOo810tqwoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmImc+Xc; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788594645; c=relaxed/simple;
+	bh=PfYFORsSj7vEBAJGUHn2afquRpLoQWdfQHuBeWZSAr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jknyswMz1aarrWoOX/npLkak7DoH8nFLvUCnjGgYTivEhpfe8ia8clVkckfw3/opL0FMgd9hsb6P/C4WMa2NEvI551m6iMwWzlEX5GJZCzxzIL4YsdlbKGSdsJAB3UGNYrqE/QoS89ybkhp0Vk1gqeOFbSaTEUIQmrilMTI3Kmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=isoWgHLZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmImc+Xc"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4859245e493so191986f8f.1
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 00:46:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788594414; x=1789199214; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xff8GUk+CZ0GDybRtzZe3eSDdPuy4kMPI4af0+AeHfQ=;
-        b=GmImc+XcF7BGv6Pcjjyl9VJUW7eWCbNNY+sd9+aOCT/4bLdCoK80DhAWdG4H+h9EQS
-         u+xpT6XUeudBYmHrti/lOWfTT77itipkUTYPZXUuPIuh9T3IukOmodRYljb+y9LI/VC9
-         xYhlw7A3J+MsuBwWSlr/NI2acrCjGQVw2eiHruIxem91JKkriNe7PRoJOvQyPRVDsYDH
-         8msaldOmvLMqqFVVtUSm5CGTYbnJSthgAn/Cvki2d3Fx6bxGNz7Y8GQJTEey/fTVMqR0
-         WEOvzdhJwoE8BEnZgmp72pbjsbNMffl7f+8O87HYEkuPxBuRmb27CHUb7vajtzyznJ2o
-         qNsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788594414; x=1789199214;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xff8GUk+CZ0GDybRtzZe3eSDdPuy4kMPI4af0+AeHfQ=;
-        b=X7QxIyeb4WKKGWWV9PxFWQKp1bmm8Ms8fguNYyY8ku41SpBGr7AYWpSUhGjLIcC/BD
-         kqa5YXQnTYNGx9MoIC+ORSrbI1xFJubsDVKyMNutXjurePV9CgI0odZrZt+sXI5DM74V
-         dPz9zcLZg79LKtiIOJduJ52FV7Kw4bz3YmeebtiMbbUPRKg5sJQoEA3FJMnfairTuGpQ
-         /LB06882yOGIrtv7Qr5P7axyk3caTItztOQtRCY/5qu8zZAHS4z1D26N7UV4cGrJKNAG
-         fRgLVvpBp3wCxLpkVhNUjeSVo13rzHm3g/3R7A8zFn8kWoR1fCXw3KHqTz2EeC0UUZqS
-         ++BQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWioJZ2pn3bszUyeWZh2RCaMnnzXK1RUL2WRaBK1ID2ksUCv4NxspNMEk2BXiO+JFNe58r9pE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kiPkg75H/a0crSzCximHrVVlEW+GEvjuF3WNH/zheaqgwyyUwk
-	QEm6lMasHT04vg2iTEosRWx4FAUCAhnOraCfE1p3x2EhDTM5L1ARhTA=
-X-Gm-Gg: AYBFou3weTaWWXdiNbTi/0+6HT7DPcyAeuUl0ZdnEaGN1r3+o98q4ZsIOQ3M38akfau
-	0c7qg3JLlTJuIVIR0/5bM2D5gNnky+StK/iA1E6Ziaa7i3PuQKUvly+gMV5Wlgv+24Ou7Eyw4Di
-	3ejZi+11wfLaJw/FyNyPC4Q0bLbk7IEpdDR90aCKSjMlwU3au9HPIwY1S/JAxcjJSEu5/4hlqVj
-	nTBTZ5FNOVA9sfW2dHS7kg/xtzo95UTZfCtw0bmWNiY9vzrqmf3a9JKekj9FnGudb9K4Mgt5m66
-	ro/B2cYTkkePjXZd5MTu0ykhgTKwJJYB7a+IyguU0ss57JYukH3/6Lzl7g3CrBq5CVJ8gKeO+kt
-	t5BrFQ5bR0vjyipCR304HLlAtLMe8TKdfhYsjFaJ4lF60qRPeoVGj5IQ0mHbuz8FGBxsLRwuynI
-	xiMqeaT6CSqLzWEERKmTPtmmbTAJZtRkRRaDHRUgB46xBy2l1IKLuyoI0Or1zQhoSkepA2vl0xO
-	ZU3UAoKiTgA3HcPtaWdr4ew3OvJ30PWGYIKLQxPFEpzsLvAuYQfI+8OoMWe8eZZdy2cpqavL/0M
-	paBw
-X-Received: by 2002:a05:6000:491d:b0:484:3785:210e with SMTP id ffacd0b85a97d-485872d4f0fmr12136802f8f.25.1788594413532;
-        Sat, 05 Sep 2026 00:46:53 -0700 (PDT)
-Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858bcefd59sm8629206f8f.19.2026.09.05.00.46.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 00:46:53 -0700 (PDT)
-Sender: N B <gen.benner@gmail.com>
-From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
-To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
-	linux-wireless@vger.kernel.org
-Cc: Kalle Valo <kvalo@kernel.org>,
-	Oleksij Rempel <linux@rempel-privat.de>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] wifi: ath9k_htc: fix the byte count of a full RMW buffer flush
-Date: Sat,  5 Sep 2026 10:46:49 +0300
-Message-ID: <20260905074649.341820-1-nerijus.bendziunas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260904180849.775404-1-nerijus.bendziunas@gmail.com>
-References: <20260904180849.775404-1-nerijus.bendziunas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="isoWgHLZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1C51F00A3D;
+	Sat,  5 Sep 2026 07:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788594643;
+	bh=12rDiarrJ5lBoqLH1Yft+FtP+5k9xoayCncZ/D8LH2I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=isoWgHLZrGZ5rM3NXSskfE55A5910JBj6Xhr9HK2c5uDBffajVxBfcElr6dzobrBi
+	 TJ/HvoB3JgCSzERd3ZWaH2+70uBA6x+Rkrx8/vn42N1zUOssN2sq5Qi5WyH96qLVi+
+	 vWJxgc1UJT1B35s56e5zdoKigH8GgtRrLO4DoHBBCKPOGbBDCuGVbuxEHBIQ2EBuG7
+	 jztfbbPOIlsti9pee2I30xQgd34Bcqwacrl6DMZG0Msw/kOjYpLMy2goIqciO6UkkN
+	 G/ozTPuOymwsfHHGZWyzg52Zt9xopqSoYyBHG2jCTSiyzXUyN501P2TNMUQLywfgz3
+	 Pq++50i9Zfqgw==
+Date: Sat, 5 Sep 2026 09:50:40 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: Oleg Nesterov <oleg@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
+	Hyunwoo Kim <imv4bel@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch 1/8] signal: Prevent exec() race
+Message-ID: <apvJ0PO7DJnh1JHS@pavilion.home>
+References: <20260904112100.683893401@kernel.org>
+ <20260904112202.074391651@kernel.org>
+ <apqs6wgDtpdLI-k8@redhat.com>
+ <87zexw5exv.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87zexw5exv.ffs@fw13>
 
-Please do not apply this patch, and do not send it to stable.
+Le Sat, Sep 05, 2026 at 09:34:52AM +0200, Thomas Gleixner a écrit :
+> On Fri, Sep 04 2026 at 13:35, Oleg Nesterov wrote:
+> > Thomas, I can't read this series today, will try on Weekend.
+> >
+> > But you didn't reply to
+> > https://lore.kernel.org/all/apgHJj0qH7HlAXKO@redhat.com/
+> > Let me quote that email here:
+> >
+> > 	OK... lets suppose the exiting task T passes exit_signals().
+> >
+> > 	Suppose we have an "ignored" timer tmr. Another sub-thread calls
+> > 	do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
+> > 	in ->ignored_posix_timers list.
+> >
+> > 	But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
+> > 	it should check it too?
+> 
+> From the patch:
+> 
+> @@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
+> 	if (!likely(lock_task_sighand(t, &flags)))
+> 		return;
+> 
+> +	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
+> +		goto unlock;
+> +
 
-The message is wrong: ar9271_hw_pa_cal() does fill the buffer, with
-exactly 15 entries, on every AR9271 reset.
+But posixtimer_sig_unignore() calls directly posixtimer_queue_sigqueue(), not
+posixtimer_send_sigqueue().
 
-With the size fixed the command is 8 (HTC) + 4 (WMI) + 180 = 192
-bytes, three full 64-byte USB packets. The firmware ends a command
-only on a short packet, so this one never ends. The next command is
-glued to it and the device is dead until power-cycled. An AR9271 hangs
-this way on the first interface open.
+However posixtimer_queue_sigqueue() -> complete_signal() -> wants_signal()
+checks PF_EXITING and complete_signal() then just drops it.
 
-A v3 follows in a new thread: the size fix plus a cap of 14 entries,
-so the buffer can never produce a 192-byte command.
+Ah but doesn't that leak a refcount drop? Looks like the PF_EXITING check should
+indeed move to posixtimer_get_target().
 
-Nerijus
+Thanks.
+
+-- 
+Frederic Weisbecker
+SUSE Labs
