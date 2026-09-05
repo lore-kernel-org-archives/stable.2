@@ -1,70 +1,76 @@
-Received: from forwardcorp1d.mail.yandex.net (forwardcorp1d.mail.yandex.net [178.154.239.200])
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E743335838A;
-	Sat,  5 Sep 2026 13:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E8B359A90;
+	Sat,  5 Sep 2026 13:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788613892; cv=none; b=bwe8CRPOROUKr0ZOcbIj+7blxa47XkEZ1DHFIuM5/GWTMlzmd0Oy3FGXxoV2h2xXTRREJjvc+TivPDGDzYbBRPKuN/juaBTclkWMFC/wHtjXF4nIqHLzSqwY4GtirqtOOnd+bRThmwjYQL7BJKnwc0wHk9df2wbenMGN9A2dmRI=
+	t=1788613945; cv=none; b=QUueOEeiP41uUXsDlxuxImSan0mwBJ2FFssDw4s58zksj3RrHbNm/ydE04MElldpgTlIcFZTDEr/EiTFoxvQ3qXH2Q03bF9e1yz4+sAuZ1qWWRucBcmNE3z/t/3WSfjTO6ZeJ4i3VKCG4XDlgM9PM7SBKzM2mDoyBzXUoCSabnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788613892; c=relaxed/simple;
-	bh=HvW7qdH8/2X3TXbyAoHR4OeyZ8dbsH74G+yO9hseOxo=;
-	h=References:From:To:Cc:Subject:Date:In-reply-to:Message-ID:
-	 MIME-Version:Content-Type; b=Lg8ypEbQfeRhiPFPXYVJiOmEEBhw+9r8zI9+9HXoGI3G4988gPU1h9gxmqFJnb54vH61ToLxBpPbc3wZ8gjUi0jouYWwgoDokoFw1EjzCkVt7lF2+zpcuSvf5+kPYL7xdcfXn4+yJQRY1W7Kj0l9CTZK3rMCTYAYdovEEHsqWeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=RgJxU+wL; arc=none smtp.client-ip=178.154.239.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
+	s=arc-20240116; t=1788613945; c=relaxed/simple;
+	bh=kwnn4sTn5Cldf97vXKcWVbajykhsC8F2JoDmZcdt/qQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KyDE6YgSZM240PYvTP+ydT4SFooJvsbzDXlgLvdHVjugZJZmVxKiL157lB8rh94qa6i9ILsKpi0qkHOXnBGR9gT6Cymy5TxDh/hdsyDj5d2jFeFCbCP4wcxlRYB7vmWEngePrcfb2/FVbLQAvUBz0HgyHtwYVNtqYEeBFx4fGJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=0H1Uw4kN; arc=none smtp.client-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="RgJxU+wL"
-Received: from mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:86a0:0:640:75de:0])
-	by forwardcorp1d.mail.yandex.net (postfix) with ESMTPS id 5DEC6805E4;
-	Sat, 05 Sep 2026 16:11:19 +0300 (MSK)
-Received: from i115078296 (unknown [2a02:6bf:8080:89c::1:1b])
-	by mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net (smtpcorp) with ESMTPSA id HBKB1P1jHCg0-wDVHjtHG;
-	Sat, 05 Sep 2026 16:11:18 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1788613878;
-	bh=HvW7qdH8/2X3TXbyAoHR4OeyZ8dbsH74G+yO9hseOxo=;
-	h=Message-ID:Date:Subject:In-reply-to:Cc:References:To:From;
-	b=RgJxU+wLrLNRyLtyyqz1/UFI7ai6tFmNvTkeKJ1K1aTcxrCLoJLnpRENii6pe1LS2
-	 2vwRf5FDrSfHjHk5LZKN+8wa3J7n5LuEa25u5T7lDlvKPFgVNGq7ETIDCGX5uZ1sOd
-	 MaJY9gZrz4V23G2VuCccsEfS7CfCHzELdH//Ykjc=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-68.klg.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-References: <20260903-throttl-truncation-fix-v1-1-c6a864c8bc17@yandex-team.ru>
-User-agent: mu4e 1.10.9; emacs 31.1
-From: Mikhail Rudenko <xyzzy@yandex-team.ru>
-To: Mikhail Rudenko <xyzzy@yandex-team.ru>
-Cc: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>, Jens
- Axboe <axboe@kernel.dk>, cgroups@vger.kernel.org,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] blk-throttle: reject IOPS limits above UINT_MAX for
- legacy interface
-Date: Sat, 05 Sep 2026 16:09:26 +0300
-In-reply-to: <20260903-throttl-truncation-fix-v1-1-c6a864c8bc17@yandex-team.ru>
-Message-ID: <86v78jrgga.fsf@yandex-team.ru>
+	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="0H1Uw4kN"
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id C93D014C2D6;
+	Sat,  5 Sep 2026 15:12:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1788613926;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XyRsdovRMHItf9aJpZnZs9bfEU5mmrwrvk6U3SiUwDo=;
+	b=0H1Uw4kNgxLw+P6exrsqFw2rqBbhHn8fLTtZ5i5g4WXUcVud5Vag2149nby6RowfBwyQ9i
+	802mjHJgv6XAdQSoHhAKxrmaeMrI2GgmNL7YPGHcscGgXksgNv9FQUYRn04FJPJS+GtSxD
+	BKTBklK/bcXVY/3SdCS/A/6evmvMBq/rLP1rohyLMYf09EHmLJyKx15J8VuTMurvzDZgI7
+	QXORZz35zlfRg+/TnDOWhHlv7kl4+O692g5KbUNhK9S/bBaB8Nrjch73f4dv0n8+K0yoxy
+	ipr+0T5cerweKwFW2peMdNJULZ7+SMuZ1Gs8v1dEAE0kSLOu62UCfa44J8o9nQ==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id 1b11e4f0;
+	Sat, 5 Sep 2026 13:11:59 +0000 (UTC)
+Date: Sat, 5 Sep 2026 22:11:44 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 000/400] 6.12.109-rc2 review
+Message-ID: <apwVEISVg7ZeWDld@codewreck.org>
+References: <20260905115627.670276262@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260905115627.670276262@linuxfoundation.org>
 
+Greg Kroah-Hartman wrote on Sat, Sep 05, 2026 at 01:58:50PM +0200:
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.109-rc2.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
 
-On 2026-09-03 at 14:54 +03, Mikhail Rudenko <xyzzy@yandex-team.ru> wrote:
+Thanks for the v2! Looks good to me.
 
-> tg_set_conf(), used for blkio.throttle.{read,write}_iops_device legacy
-> blkio cgroup sysfs knobs, parses limits as u64 but stores them in
-> unsigned int, silently truncating values above UINT_MAX. In addition
-> to being an obvios correctness issue, this may result in division by
-> zero in tg_within_iops_limit(), if the value is truncated to zero.
+Tested ffa41b797906 ("Linux 6.12.109-rc2") on:
+- arm i.MX6ULL (Armadillo 640)
+- arm64 i.MX8MP (Armadillo G4)
 
-Nevermind, there is a patch under review [1] which solves this.
-
-[1] https://lore.kernel.org/r/20260722102459.253189-1-cui.tao@linux.dev
-
---
-Best regards,
-Mikhail Rudenko
+No obvious regression in dmesg or basic tests:
+Tested-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+-- 
+Dominique Martinet
