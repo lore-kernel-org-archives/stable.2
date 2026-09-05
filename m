@@ -1,140 +1,169 @@
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com [203.205.221.209])
+Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9093218BA;
-	Sat,  5 Sep 2026 09:49:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.209
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21A71A6808
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 10:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788601754; cv=none; b=jcYK6mcF31hDU5QJ2+Hm/ZY/5X+wSyHRDxfKfkJg6fLa1tHuHZJ1YkH+JCEbvywNaIVVH+FRK9GZqBZlpA0bu6U8mn0Ezv6P/pJd5Yyi4aBr02qrJoIECGEvO9yrZjRDoyXFX+yVqKY2s3Q81AuiiHcAhH1ZAltg2LcIb0QT83M=
+	t=1788603438; cv=none; b=Uh5i7k7H7OsNBMNyU8ottWQ5vblIPQuiCuyyHdUBs90mvAPv6r54ocnMukXPIVEXJmgpqBy9UOPqR5vmO4Dr0805TpBciN4Byb1NpFLcROYWZRvBHWHFWX7dzVi1zVZ2xBjwCTHTG/eoBjftBLF3Zj37dfuX/l5sXI1C1yUafwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788601754; c=relaxed/simple;
-	bh=HEZSXxR7D5f2VMOnzy/aUBdLkPDDgHNsYGYaKtJ33b0=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=VwpzjMPhbLqKQ14F7wIOKmI2HcyAlXxfcM3XI8rCE2vVRFyk3uDPgUOgU6ExsM7+aOTeAxU9z+0NiYT4xmlHkSrNHv0gWukLpBaLK813zjgounpwA8Y9zMTM1yV/hoy6Fw5WvU2Q5rOgJQH28JRIZpVWIHrQzO5ayAYKzaHX19E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=qhu+AATp; arc=none smtp.client-ip=203.205.221.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1788603438; c=relaxed/simple;
+	bh=3KNj/R7KYC6Zziw5jEB1qygNDTJatM/loAz/jQBWuJA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKhjd7hCnhna8hlY9dDkUIr6GEho6hP2TTdSis9lLOo1LBNXrSWhLKf4N5OYhutmgZj/064Eth7OFqWWg4WYTZoTFPbEICtODO9Rg39m7fJckrgHs40ad+VczU8P+EiqQzwbniWgvbBr0GB+Si+JQGcc/kFEBuC6+qzG2CIqsCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tyMxS2Gr; arc=none smtp.client-ip=115.124.30.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="qhu+AATp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1788601747;
-	bh=iQTrKofK8B0o6sYUWXl1lgzawmN/VIW2Yu5ona/5X2s=;
-	h=From:To:Cc:Subject:Date;
-	b=qhu+AATpkMESfbRH4uRbkIK0glGg6sHk8i/ncqpknqK+EVMgo0c2JUAG85isybgP4
-	 mQ6ecMZ5zQazfTh1s9A900ZykznnLvp8i8ue33fmcOO9MtsSwZ2XW3bobuHa9fjQal
-	 Yai0UU68vMuxjNxBDP/eFeXbuavqhMixHX6VyG5o=
-Received: from KernelDevBox.byted.org ([115.190.40.10])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id C4494EDB; Sat, 05 Sep 2026 17:49:04 +0800
-X-QQ-mid: xmsmtpt1788601744tlnx0u73b
-Message-ID: <tencent_9F54D64A6DFD82697B7C2884A1E6496CDC0A@qq.com>
-X-QQ-XMAILINFO: OEUhVsHQax4M8tqdbgzIgJj5Pbh41zsBM/ilm9pQ3IRVBR91l5GqtQ5SwTEc1b
-	 Y5JumCvY0ddR3zIWtKrKSot+Jmtx5tJqJViWZReTCPr4DavbkShDuo0ErFtAAdp6WzXsTrFWCmnl
-	 eAp2CsKfUwYqepNGtsun0l8NkvBbV5YZDOLsS12MywAxZkSuZoQ2N9eTaloWK+x8NOyWaenDy20N
-	 4HJPF8zMvwc7Af2Wvkdd/eoRaDbUpEc8hg1ocip1Hc0V0aKCm+8somSI1q2KJnFCoMh9vz3T5OQw
-	 zb9eMi0ywYAY0Q2OwguIMcBmHFLLBNGPxZaWEJfUfeRKJmR+j1kQxdDyXU9N/nkovPo1yfr1PW95
-	 W8Wb5YVX/I3KrgJFoC909xu25lmIRcbg08b39rWUO9x3N6zr2QJ1wu2rWwZ8KflvPZ85UNuioIs+
-	 uU2t6nKcUuqDbQOzxnlEVCbrS+AluBcsFRKLDGDDtRJ1MOh8zqcCtiLbGXcBxRWKk8I0Tiqy4Iua
-	 rOKRmwbI2ZVZVqZZYZK8z1vlfQeNVBeXxAuAmZhd9gAIwY6EFnx4A5j2FGFtAViyfXSBFvJ48qXw
-	 31gu2aD1veMhzAbQlxF//+UciQDws0VZoGR9zBwWaAy1sOJpegi+wP8Nurkc8qQCgwbHTVWdTIz6
-	 Bk48oLpAEqjq/xxeqGAebeqS93v0Fjy9UFs1X9jXTXuBsYaBTi5HyXD5jLsRBmm1Pp6WIjFi19Vc
-	 CXRHPl79EbTgWAaGgSvNkFgI3XVOW/erUNxRavqeWQ0bJxJ98s4dNUXswohkl3IO2E9djlGgNhK2
-	 iy+MfX8Nk9L3RXCvV5MYM7b6bmHVaApH6cdfBblPfkwHFsI+70v4oyiL/9PffGYdsvSzHOChN+IH
-	 x4z2X3p7lUvQjOjRwWN2RcWxsW7MdTHqx6ICX/ihlMQmg152pw/LpIAT4eDp7NGWjASkvXIaDeFj
-	 QAhzz/qJNTpklRsqHQfOP8RzkYdTq72TiNzukL24KSIcS4e6o4NEeO6NBG9LCvgQuGbMxVFSwy+2
-	 4JqOAdQWfIM+w3G0oUJG/lOsFLFA2j78eghXnXf/Z3tkxeCTfHFeWXpCzL2eq8ghclEg49Fw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-From: Zhang Shurong <zhang_shurong@foxmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhang Shurong <zhang_shurong@foxmail.com>,
-	stable@vger.kernel.org,
-	syzbot+4ac6df95b7f516179c07d6b8fcd77d81ec45e7f3@syzkaller.appspotmail.com
-Subject: [PATCH] media: az6007: fix WARNING in az6007_i2c_xfer from mutex reinitialization
-Date: Sat,  5 Sep 2026 17:48:55 +0800
-X-OQ-MSGID: <20260905094856.632367-1-zhang_shurong@foxmail.com>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tyMxS2Gr"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788603426; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=2eP3KCWIc7gStt5fjI//Pxfe5oYZySF3OBJ8UfVxGIQ=;
+	b=tyMxS2GrgviTzbvNrVSrshjKoCxXRnKpZMRRGaSINen4q5kKfSvDLIoLMEq8mwHLu4DGTVLExQXXu3/B1yCZ0l5K5NYcaLDfIis+UBbT8ffDSFpOnG25NM+Ec0WSVXiQ0i59e4J8ArP12RgcpL0N2iiheT4e+kyzP1v6s+R0qLM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=alibuda@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XAKnuHb_1788603424;
+Received: from localhost(mailfrom:alibuda@linux.alibaba.com fp:SMTPD_---0XAKnuHb_1788603424 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 05 Sep 2026 18:17:05 +0800
+Date: Sat, 5 Sep 2026 18:17:04 +0800
+From: "D. Wythe" <alibuda@linux.alibaba.com    >
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "D. Wythe" <alibuda@linux.alibaba.com>, stable@vger.kernel.org,
+	patches@lists.linux.dev, zdi-disclosures@trendmicro.com,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Breno Leitao <leitao@debian.org>,
+	Steffen Klassert <steffen.klassert@secunet.com>
+Subject: Re: [PATCH 5.10 28/43] xfrm: espintcp: fix UAF during close
+Message-ID: <20260905101704.GA47841@j66a10360.sqa.eu95>
+References: <20260831133358.571886287@linuxfoundation.org>
+ <20260831133359.883892832@linuxfoundation.org>
+ <20260904095158.GA83164@j66a10360.sqa.eu95>
+ <2026090409-hesitant-hug-bd90@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026090409-hesitant-hug-bd90@gregkh>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 
-az6007_power_ctrl() calls mutex_init(&state->mutex) every time it takes
-the !state->warm branch. When a control transfer fails before the device
-is marked warm, the probe cleanup path invokes az6007_power_ctrl(d, 0),
-which re-enters that branch and initializes the same mutex a second time.
+On Fri, Sep 04, 2026 at 02:15:30PM +0200, Greg Kroah-Hartman wrote:
+> On Fri, Sep 04, 2026 at 05:51:58PM +0800, D. Wythe wrote:
+> > On Mon, Aug 31, 2026 at 03:35:36PM +0200, Greg Kroah-Hartman wrote:
+> > > 5.10-stable review patch.  If anyone has any objections, please let me know.
+> > > 
+> > > ------------------
+> > > 
+> > > From: Sabrina Dubroca <sd@queasysnail.net>
+> > > 
+> > > commit deb232e884877bf10b4ce2580909eedec986c284 upstream.
+> > > 
+> > > ZDI reported and analyzed a race condition during close for espintcp
+> > > sockets:
+> > > 
+> > >     espintcp_close() frees emsg->skb via kfree_skb() without holding
+> > >     any socket lock. Concurrently, the xfrm_trans_reinject work queue
+> > >     invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
+> > >     espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
+> > >     same skb as a data source.
+> > > 
+> > > Fix this by adding a synchronize_rcu() call after resetting sk_prot,
+> > > since esp_output_tcp_finish() runs under RCU and won't use a socket
+> > > with sk_prot == &tcp_prot.  Simply taking the socket lock in
+> > > espintcp_close() could lead to leaks, if esp_output_tcp_finish()
+> > > re-adds an skb in the slot we just freed. After this, the existing
+> > > barrier() is no longer needed.
+> > > 
+> > > Cc: stable@vger.kernel.org
+> > > Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
+> > > Reported-by: zdi-disclosures@trendmicro.com
+> > > Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
+> > > Reviewed-by: Breno Leitao <leitao@debian.org>
+> > > Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > > ---
+> > >  net/xfrm/espintcp.c |    3 ++-
+> > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > 
+> > > --- a/net/xfrm/espintcp.c
+> > > +++ b/net/xfrm/espintcp.c
+> > > @@ -506,7 +506,8 @@ static void espintcp_close(struct sock *
+> > >  	strp_stop(&ctx->strp);
+> > >  
+> > >  	sk->sk_prot = &tcp_prot;
+> > > -	barrier();
+> > > +
+> > > +	synchronize_rcu();
+> > 
+> > 
+> > This backport depends on upstream
+> > 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"),
+> > which is not in 5.15.y. Without it, esp_find_tcp_sk() still
+> > returns the cached x->encap_sk based only on sk_state == TCP_ESTABLISHED
+> > (no tcp_is_ulp_esp() check), so new readers keep racing with
+> > espintcp_close()'s kfree_skb on ctx->partial.emsg->skb — the UAF issue
+> > this patch is supposed to fix.
+> > 
+> > Reproduced on 5.15.219+ (with this patch applied), KASAN trimmed:
+> > 
+> >   BUG: KASAN: use-after-free in __skb_send_sock+0x6cf/0x7b0
+> >   Workqueue: events xfrm_trans_reinject
+> > 
+> >   Reader:
+> >     __skb_send_sock <- espintcp_push_msgs <- espintcp_push_skb <-
+> >     esp_output_tcp_encap_cb <- xfrm_trans_reinject
+> > 
+> >   Free:
+> >     espintcp_close <- inet_release <- __sock_release <- sock_close <-
+> >     __fput
+> > 
+> >   Object: skbuff_head_cache (size 224), i.e. struct sk_buff.
+> > 
+> > Provenance: the static analysis (missing-prerequisite chain, code-path
+> > derivation) and the KASAN reproducer above were both produced by our
+> > internal AI-assisted backport triage pipeline. I have personally
+> > reviewed the reasoning line-by-line against the 5.15.y source, re-ran
+> > the reproducer end-to-end, and confirm the finding — sending it upstream
+> > on that basis.
+> 
+> That's LLM output, what do you mean to say here to fix this?  Please
+> send a patch...
 
-That second mutex_init() can race with an I2C transfer. Once
-dvb_usbv2_i2c_init() has registered the i2c adapter, userspace may open
-/dev/i2c-N and hold state->mutex inside az6007_i2c_xfer() while blocked
-in usb_control_msg(). Initializing a locked mutex clears its owner, so
-the mutex_unlock() in az6007_i2c_xfer() then trips:
+Hi Greg,
 
-  DEBUG_LOCKS_WARN_ON(__owner_task(owner) != get_current())
-  WARNING: kernel/locking/mutex.c at __mutex_unlock_slowpath
+Sorry about the confusion. Just to clarify, this is not raw LLM output.
+I only included that note to be transparent and avoid any controversy,
+as the issue wasn't initially discovered by myself.
 
-Move the mutex_init() into the driver's probe callback. The callback runs
-once per probe, immediately after private data allocation and before
-identify_state() and i2c adapter registration, at which point no user of
-state->mutex can exist. This mirrors mxl111sf_probe(), which initializes
-its state lock in the same callback.
+We actually already have a patch prepared for this, but the situation is
+a bit more complicated.
 
-Fixes: a2c35d346d9e ("[media] az6007: Protect read/write calls with a mutex")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+4ac6df95b7f516179c07d6b8fcd77d81ec45e7f3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?id=4ac6df95b7f516179c07d6b8fcd77d81ec45e7f3
-Signed-off-by: Zhang Shurong <zhang_shurong@foxmail.com>
----
- drivers/media/usb/dvb-usb-v2/az6007.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+The fix actually has two prerequisite dependencies:
 
-diff --git a/drivers/media/usb/dvb-usb-v2/az6007.c b/drivers/media/usb/dvb-usb-v2/az6007.c
-index 65ef045b74ca..60af125ae6dd 100644
---- a/drivers/media/usb/dvb-usb-v2/az6007.c
-+++ b/drivers/media/usb/dvb-usb-v2/az6007.c
-@@ -694,8 +694,6 @@ static int az6007_power_ctrl(struct dvb_usb_device *d, int onoff)
- 	pr_debug("%s()\n", __func__);
- 
- 	if (!state->warm) {
--		mutex_init(&state->mutex);
--
- 		ret = az6007_write(d, AZ6007_POWER, 0, 2, NULL, 0);
- 		if (ret < 0)
- 			return ret;
-@@ -889,12 +887,22 @@ static int az6007_download_firmware(struct dvb_usb_device *d,
- 	return cypress_load_firmware(d->udev, fw, CYPRESS_FX2);
- }
- 
-+static int az6007_probe(struct dvb_usb_device *d)
-+{
-+	struct az6007_device_state *state = d_to_priv(d);
-+
-+	mutex_init(&state->mutex);
-+
-+	return 0;
-+}
-+
- /* DVB USB Driver stuff */
- static struct dvb_usb_device_properties az6007_props = {
- 	.driver_name         = KBUILD_MODNAME,
- 	.owner               = THIS_MODULE,
- 	.firmware            = AZ6007_FIRMWARE,
- 
-+	.probe               = az6007_probe,
- 	.adapter_nr          = adapter_nr,
- 	.size_of_priv        = sizeof(struct az6007_device_state),
- 	.i2c_algo            = &az6007_i2c_algo,
-@@ -917,6 +925,7 @@ static struct dvb_usb_device_properties az6007_cablestar_hdci_props = {
- 	.owner               = THIS_MODULE,
- 	.firmware            = AZ6007_FIRMWARE,
- 
-+	.probe               = az6007_probe,
- 	.adapter_nr          = adapter_nr,
- 	.size_of_priv        = sizeof(struct az6007_device_state),
- 	.i2c_algo            = &az6007_i2c_algo,
--- 
-2.39.5
+Commit 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"), as mentioned earlier.
+Commit e1512c1db9e8 ("espintcp: Fix race condition in espintcp_close()"), which relies on disable_work_sync() — an API that
+does not exist in the 5.10 tree.
 
+To avoid expanding the blast radius, we chose to use an alternative
+approach in espintcp to replace the implementation of commit
+e1512c1db9e8: introducing a stopped flag and protecting both the flag
+check and schedule_work() under the existing out_queue.lock spinlock,
+achieving the same atomic synchronization effect as
+disable_work_sync().
+
+However, doing this inevitably leads to code divergence between upstream
+and this tree for xfrm. I'm not sure what the xfrm folks' stance is on
+this. If the community feels this is overly complicated, I think it's
+also totally fine to just leave the patch here.
+
+Thanks,
+D. Wythe
+
+> 
+> thanks,
+> 
+> greg k-h
