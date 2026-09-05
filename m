@@ -1,58 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1BB353A7A
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:05:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F9038DC60
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:08:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788620742; cv=none; b=bFU4RTbQP7ppo3oMysrCqNgLrjl/5SVom8T0i76bbm6CSybao4HJ5WOL1pX+PhHRebKj+ux1YQ7JOeCpIWYs8/mWq5IG4eyLLqg+tKquIuWwCe4MGr2MNKJ1huFiGd8Ok9wPQXceQZaTecGKiShZjkRiyDhfsg4ynJPribEbC/Q=
+	t=1788620908; cv=none; b=kG5037eGKp//m8LivMO/M1BgiR0oBqM1qXfjxwMvQLjU6dylKyQHZg1sG7Zi2eOJ36dTiHWjkn/DgL06miwJa1QPk4P1O2sSp5t2anwCxduGO7z3Tb+7AYKSpyKK9AgTpxl4gTPSI+k5nSGhI1lvSgUrxTJXFpKEH8r/u/bfeW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788620742; c=relaxed/simple;
-	bh=yQX0pN/kRO1NwvgfUxNl+jugCOWG6zLB4VuV/c6J+bY=;
+	s=arc-20240116; t=1788620908; c=relaxed/simple;
+	bh=D9MLe2FWXK8l0yp8EOopvSy3WBRMUQxSHtOgPpBFNfI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RtZi+Fj035xjaXDS9FPShbKy8z19CTtvaBpjmyefCBSbKXOQBak3dNh7IkL8oY0IP+Y8Y9an4FZM2HYelUuX17R89iHNT5VrmV1LhI+OpYQVoe/14Hw5QAqOmtpVtG7jNm9Ko6qaNeaZPhkvNjRF/BEnDhOTiy3zcwkLMdkcVho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bn7qbPHl; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=d+7pw2YHsvgFAbJwuIgZxnWprPac++nGxBEln79ZJzKJwauJUoselXKtwVzCGWjlfMHvuWtNeOp5g3ngVR0M4m+YNab+2vrAarRADmHcoIypr6+OjyfIKqkXiV78CMqI/eTIMiCfItMFWR08YyKamvima60yEuVhfvMuVQ3zH5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsIFm+Fu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bn7qbPHl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3DCC1F00A3F
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:05:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsIFm+Fu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6212D1F00A3D
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:08:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788620740;
-	bh=/jZ9KGVQ5iKPjZkKaI8bnnI5o0Vm2Cvi//ZuID7cLv8=;
+	s=k20260515; t=1788620907;
+	bh=GHQttfGoEPmKo0nF5OG9d9wyjf9R2olHU8vn/gkHgUw=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Bn7qbPHl/LyTiyne76i581lMejAG7Em4Cmjt07J/egiYOI3ajCBzj5KN3rQMCGtju
-	 cH8oa7s6dEN4JRlVtARQzLjC1fT1k9UbcpgdsS3P3yqOHYe0fJ5l56AgcXHC3qIfgm
-	 ecsejymKVUB9C5/QbFIGaN8HCnEn8ObM+AsrHxPoS3QZ+VixD3kp9mDFVJzwifUCmb
-	 Utk8pKStemd/3Cd/vJCQxtFmjGkiAHcRb9t4qylzZFjVb0S05QA7yjxL/jm3PQhoQT
-	 Yq1QcsmY+yKX0uG9yTf5vokKK+Z0beOHWrZkC1eIkVwc3uua1755goO1WaeROhDiS6
-	 1j584kdGnpIyA==
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-69c600f76ccso2488458a12.0
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 08:05:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzMdKEjOZ1vvLiJS4rJC8LgakAcmHeRLXiVYQRGvy/CeGJARovlrCYKfeCn+s9Pgws+j/hE2VQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX/YRnkxkbEkqMtgyrPPWlHK6OTlRSg4k7OSgCLNhlOGY2lUNe
-	AxwCW1o4RMrpi3J/rlsvjLa87pAxDL21wHA8nEObVy/k/lRhWfjvQrNbCM8vUzu9JOM3yNrHRv6
-	GabKciOgglJ9fi7Spa5GhGy8wTC1dGJg=
-X-Received: by 2002:a05:6402:21cd:b0:6a3:87b7:b5a9 with SMTP id
- 4fb4d7f45d1cf-6a7e90aacd1mr4325493a12.12.1788620739425; Sat, 05 Sep 2026
- 08:05:39 -0700 (PDT)
+	b=HsIFm+FuRKgV+q5t2XjwxKz5+M9UFpJmFUPBjUuaxmSxZpgdo21UJSMv54sHBTHu+
+	 lKWIBC2zP81+0g29OQSwsMuDgoUZd0fNji3+DPpF09lqjC0RVPZkos5xKBdlas9bsG
+	 aZSqi5WMGK9wYFei3ntfZAynKLvHpS7xEwqvQ2EjWUCv7fyPTwvFF53o5roOWMcGF7
+	 fC3psp8K0af9ZFs6Q+wdWidIebkYW+KWOWq+szXHy5CnG6BzyXUR9kVjESvV6Z2syi
+	 HS+EObHttWwubXwEu9JpSGORjwrB9hXI5y9oMN/tGVv8nELE+w3CQ6l/9Kp4MHgIAq
+	 mWzXF56lgf8jA==
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a7f27637d6so2224425a12.3
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 08:08:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByNqn2ln9a4EEP6WT+GSKbhigsFtir4Rh4YmAGGhCR1AXHALNhLpyR7NMWm1tAktFioPdzMaq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7quE23WywKar9PMgA4QcsXAGPTTZaFr9zl+cB4gGHqOH/p7jA
+	MoSPZDjCSWf8GzzA8gBo0SC5/cvIFtBVuu6lgguvRORAcErelr3IFD4JJstcLkFaVspfoEG6u3w
+	VoV15RXpAEOKDQ8CtgoZknuKnffaVSRo=
+X-Received: by 2002:a05:6402:24c2:b0:6a6:8dd:c76b with SMTP id
+ 4fb4d7f45d1cf-6a7e8d37131mr7093669a12.1.1788620906040; Sat, 05 Sep 2026
+ 08:08:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825014806.3926864-1-guanwentao@uniontech.com>
-In-Reply-To: <20260825014806.3926864-1-guanwentao@uniontech.com>
+References: <20260828094825.357630-1-zeng_chi911@163.com>
+In-Reply-To: <20260828094825.357630-1-zeng_chi911@163.com>
 From: Huacai Chen <chenhuacai@kernel.org>
-Date: Sat, 5 Sep 2026 23:05:27 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4Bz3JWc=JkP99PVPe6iVNONMGEb557gyO-rKvJkjSksA@mail.gmail.com>
-X-Gm-Features: AcwNN1XPmEoTBWfKY8iGGv9aogL8vaUXzAChR0jViYazGj0pg3-Omt5_OV3fB00
-Message-ID: <CAAhV-H4Bz3JWc=JkP99PVPe6iVNONMGEb557gyO-rKvJkjSksA@mail.gmail.com>
-Subject: Re: [PATCH v3] LoongArch: rethook: Do not save/restore percpu base
- register in trampoline
-To: Wentao Guan <guanwentao@uniontech.com>
-Cc: kernel@xen0n.name, yangtiezhu@loongson.cn, loongarch@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sat, 5 Sep 2026 23:08:14 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H71dcn46t7_cmnCDhJf6T3oHTrpz3c==BB1WGJ3mtXSjQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VQ6eiUw0Xp7Wb5Tv7Wnaju8g9BBNESfujGrbWOW852vJ9OiobZMxdp2RM
+Message-ID: <CAAhV-H71dcn46t7_cmnCDhJf6T3oHTrpz3c==BB1WGJ3mtXSjQ@mail.gmail.com>
+Subject: Re: [PATCH] LoongArch: KVM: Preserve memslot arch flags on KVM_MR_FLAGS_ONLY
+To: Zeng Chi <zeng_chi911@163.com>
+Cc: zhaotianrui@loongson.cn, maobibo@loongson.cn, kvm@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, zengchi@kylinos.cn, 
+	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -61,82 +61,67 @@ Applied, thanks.
 
 Huacai
 
-On Tue, Aug 25, 2026 at 9:48=E2=80=AFAM Wentao Guan <guanwentao@uniontech.c=
-om> wrote:
+On Fri, Aug 28, 2026 at 5:48=E2=80=AFPM Zeng Chi <zeng_chi911@163.com> wrot=
+e:
 >
-> The rethook trampoline saves $r21 ($u0), the percpu base, into its
-> frame at entry and restores it at exit. In between,
-> rethook_trampoline_handler() may schedule via preempt_enable_notrace();
-> if the task migrates to another CPU, the frame's $r21 names the old
-> CPU's percpu base, and restoring it poisons $r21 on the new CPU. Until
-> the next user->kernel transition heals $r21, this_cpu_*() accesses
-> (runqueues, RCU per-CPU data, timer tick programming, FPU ownership)
-> hit the wrong CPU's percpu area.
+> From: Zeng Chi <zengchi@kylinos.cn>
 >
-> Under kretprobe-heavy preemptible load this corrupts scheduler and
-> timer state: scheduling-while-atomic splats, wrong-CPU RCU warnings,
-> WARN_ON_ONCE(rq !=3D this_rq()) in nohz_balance_exit_idle(), and CPUs
-> parking in the idle loop with the constant timer never re-armed (hard
-> lockup). Reproduces on a Loongson-3A6000 with kretprobes on VFS paths
-> plus heavy file churn (OS install / unsquashfs).
+> kvm_arch_prepare_memory_region() computes new->arch.flags, i.e. whether
+> a memslot is KVM_MEM_HUGEPAGE_CAPABLE or KVM_MEM_HUGEPAGE_INCAPABLE, only
+> for KVM_MR_CREATE and KVM_MR_MOVE, and returns early for every other
+> change.  But the generic code allocates a zeroed memslot for every
+> change and never copies old->arch, so after a KVM_MR_FLAGS_ONLY update,
+> e.g. toggling KVM_MEM_LOG_DIRTY_PAGES for live migration, the active
+> memslot has arch.flags =3D=3D 0.
 >
-> By convention $r21 always holds the current CPU's percpu base in kernel
-> mode: exception entries reload it only when coming from user mode, and
-> RESTORE_SOME() restores it only when returning to user mode; the
-> context-switch path never writes it. The live $r21 at trampoline exit
-> is therefore already correct, and nothing in between can legitimately
-> change it (kernel C code cannot write a global register variable). The
-> same flaw existed in the pre-rethook kretprobe trampoline since v6.3;
-> it was carried over when rethook replaced it. Drop both the save and
-> the restore. Drop the restore to solve the issue, and drop the save
-> to keep the code tidy and for a privileged reader, neither matters much,
-> so no need to clear it.
+> With both flags clear, fault_supports_huge_mapping() falls through to
+> the alignment check on the HVA range alone, which no longer verifies
+> that the GPA and HVA have the same offset within a PMD.  A memslot that
+> was marked KVM_MEM_HUGEPAGE_INCAPABLE because of a GPA/HVA offset
+> mismatch can then be mapped with PMD entries on read faults, and since
+> kvm_map_page() aligns the gfn and the pfn independently, the guest ends
+> up accessing the wrong host pages, exactly the "d -> f, e -> g" case
+> described in the comment above the check.
 >
-> Fixes: 3f5536860086d ("LoongArch: Add kretprobes support")
-> Cc: stable@vger.kernel.org # v6.5+
-> Assisted-by: Kimi:Kimi-K3 # debug and root-cause analysis
-> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+> Carry the arch flags over from the old memslot for KVM_MR_FLAGS_ONLY,
+> as the GPA, HVA and size are guaranteed to be unchanged for that case.
+>
+> Fixes: 7ab6fb505b2a ("LoongArch: KVM: Optimization for memslot hugepage c=
+hecking")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zeng Chi <zengchi@kylinos.cn>
 > ---
-> changelog v3:
-> return to v1 patch, remove the save/restore both.
-> Drop the restore to solve the issue, and drop the save
-> to keep the code tidy and for a privileged reader, neither matters much,
-> so no need to clear it.
+>  arch/loongarch/kvm/mmu.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
 >
-> changelog v2:
-> according sashiko report, keep cfi_st u0, PT_R21
-> Link: https://sashiko.dev/#/patchset/20260824082524.3801394-1-guanwentao%=
-40uniontech.com
+> diff --git a/arch/loongarch/kvm/mmu.c b/arch/loongarch/kvm/mmu.c
+> index e104897aa532..4ca7c6ea8f08 100644
+> --- a/arch/loongarch/kvm/mmu.c
+> +++ b/arch/loongarch/kvm/mmu.c
+> @@ -383,6 +383,16 @@ int kvm_arch_prepare_memory_region(struct kvm *kvm, =
+const struct kvm_memory_slot
+>         hva_t hva_start;
+>         size_t size, gpa_offset, hva_offset;
 >
-> v1 link:
-> https://lore.kernel.org/loongarch/20260824082524.3801394-1-guanwentao@uni=
-ontech.com/T/#u
-> ---
-> ---
->  arch/loongarch/kernel/rethook_trampoline.S | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/arch/loongarch/kernel/rethook_trampoline.S b/arch/loongarch/=
-kernel/rethook_trampoline.S
-> index 2e009fbea53f2..1601894446845 100644
-> --- a/arch/loongarch/kernel/rethook_trampoline.S
-> +++ b/arch/loongarch/kernel/rethook_trampoline.S
-> @@ -24,7 +24,6 @@
->         cfi_st  t6, PT_R18
->         cfi_st  t7, PT_R19
->         cfi_st  t8, PT_R20
-> -       cfi_st  u0, PT_R21
->         cfi_st  fp, PT_R22
->         cfi_st  s0, PT_R23
->         cfi_st  s1, PT_R24
-> @@ -59,7 +58,6 @@
->         cfi_ld  t6, PT_R18
->         cfi_ld  t7, PT_R19
->         cfi_ld  t8, PT_R20
-> -       cfi_ld  u0, PT_R21
->         cfi_ld  fp, PT_R22
->         cfi_ld  s0, PT_R23
->         cfi_ld  s1, PT_R24
+> +       /*
+> +        * The generic code allocates a fresh, zeroed memslot for every c=
+hange,
+> +        * so the arch flags computed below must be carried over when onl=
+y the
+> +        * userspace flags change, e.g. when dirty logging is toggled.
+> +        */
+> +       if (change =3D=3D KVM_MR_FLAGS_ONLY) {
+> +               new->arch =3D old->arch;
+> +               return 0;
+> +       }
+> +
+>         if ((change !=3D KVM_MR_MOVE) && (change !=3D KVM_MR_CREATE))
+>                 return 0;
+>         /*
 > --
-> 2.30.2
+> 2.25.1
+>
+>
+> No virus found
+>                 Checked by Hillstone Network AntiVirus
 >
