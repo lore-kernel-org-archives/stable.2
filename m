@@ -1,68 +1,69 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazolkn19011027.outbound.protection.outlook.com [52.103.33.27])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013079.outbound.protection.outlook.com [52.103.46.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB94165F1A;
-	Sat,  5 Sep 2026 20:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2825C399CE9;
+	Sat,  5 Sep 2026 20:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.79
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788641311; cv=fail; b=FieL0IVLIbKRJlfPlMlEyBlsdh/sbl9r1r9OKXlzg/kHfy0oz7wMnTqjgvasG80APJ88p65xCCwrMfUsvuBwD3Y3v0a9NDSfWXzOj/SrK8DhY+lhpjY92jsr0wg/q72V45S+WCToxKzCY7S45fweYcTdcjC37FTTIwr2pTf/Z3w=
+	t=1788641321; cv=fail; b=qwWwaMLv6H0I6vS62fA2tcGteRX19G46BWs+xdj977P6lpDpcXqxYro+uWJq6He8TRYxVI0AlkdWMrp6Td9CRDndWTrOh8SEM0NhSIuH85s4us+wNWnGYI4Y5N07K2eRGnZPsOBSsTsY0AMHoKnHemLXn9Q0pcPiAVRYvkqHmhU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788641311; c=relaxed/simple;
-	bh=dBLInmhGj+Iqn6kMsVQHFUqEzf5xMCR5ZnTI50DBn68=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=tIbdIhtWrKGWEMQHiXsKssUm3T9cdmCjJ8V91ARLu9CVz+H+cGMpQbz7ZLOGFwiMIyQO7wXUPdbvr705J7g4AqR+Y9P1AWbxYY143OX9I4miYO10WBhEaeuLViXecSwtzTBmHz13InrEd8GAWQqm62WkdnsfV4Ya22EGgB4+5y0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Q5r4ws2l; arc=fail smtp.client-ip=52.103.33.27
+	s=arc-20240116; t=1788641321; c=relaxed/simple;
+	bh=PQwIpBJpb/AOVBnl7z52EafA3otH0suhwD2bjKRj68Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=kvoVBw+iHSjv8pGgjnuecaVqB7TOZtm9FGBZlUCQrdkR2p0DnLvoI6/quiOcOVjJ7fcHeQXon4pD2Mk1b5qQWtfTtcOCz079k/Gb2ozsHAKtPbg9m+yJ6LGh6PcEnIpGwng0JKcRKzeRbhPRAIoTVimW3ksquwllLcek7/m0aYM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=EU0SKtCa; arc=fail smtp.client-ip=52.103.46.79
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Q5r4ws2l"
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="EU0SKtCa"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UR+JksQYs1zujJpKp37g+sm1/dNwcaiaIb51nyEdnqeeeStOIBMQLBcF9qvFq5NSNjbyCLLyoLY2qYYzD0CcMP9kCfPq+fI/bcvPoVMjt0BSFUtlHkQ+RKtgH4yEtZu8g2tWdUiHWqQeRYkNE4Fr8CSdPA43+eZrwFE81mZaxwqz5O3K3kdqOkYkivVPqRqZoJclO9xuBSVfZngRgGG4zgrHa0ZeE356Q2LlKIqa63SVIiVXc5nor1upzEQmbCyDLXlW8d+9QepJMjMoVcmcuOIVvfdIEYkwKaXSh/3kyg+xRDjhWTzNbbme4PSi+TscxAZESnJJHGNJN+jPGS7lOQ==
+ b=qhhCfnMMlnniPxGtlm5ifUWGEf8P2NPoP+gcwIfHDxB+fT4nax8FwpZHlWBAPHYyPk3r8HVCf7eebrQZ/wlx7wi+2UDB88qbrwFLVMVOCv9lR1G/YPmCeYh3xAor1OmTshYYE5CEZ7m+jE43BTVqN4rWqJbZKCcMrx1tfvoLmphCcG/5tiZWOImAVhoHuh0RR7bQpiUaH5Sk23FkJ3l1ZkMFDZh50S3zehzH9weZupGJDvJVWCDERveq205LyekIzSSO1/8MPf/YHN8aHwtaaCpvI/fjqDJHhETDJka0x+uq/n710RdFHtf+HrvP/9INMazSS8648OAUgbNrrGOYSQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iHlqTJzfmIFSg2SFBBv5hNnlEu6EjO6pelZabO9AH4g=;
- b=hXJVf5E5q+HtnMybfWb0gc6vDAMyJV3iaAdIQW4iIK7pgBjTn6GrEvAvuCfmBVUybpP2sF4vZvUaBkBDW5gFjbEvhQH0d2Pmd5IRResfrOqJQ8dLsf1ge5Cr8R2b0xlVR2H/ui5PqewuB4BNRqf+Uux3kIvSQJNMRd5q2/amwA4pPDEeBTp8ZCr8ugqkOoIAA4lih71dvknH1W4D8SJuve1LDUBozfYFBAsG7Ejyqh7PPUq6650dDnXy4GMLXjRTlpU4xysgJ/E+GeN2z1L8Spv8N6TJhXg63aWIsBkTTNYVfDkatJIx0nBgKYvmCY41DX0bXc81B1ODmmLzTAbacw==
+ bh=o3w4Yk14nyFFh/brlO5Hr8U1Q7mxP/NsSMl2kOvQtjs=;
+ b=ClYuDgRYj/BFBtp9Hn1k9w9hPm47EnMLZgmfCIoA12vbQqTdkpV0JrdXkFHMHlQJOQ7g8dzlawC7SmPIYJop3/TE/SjVnILx25xtzL81nS9vMFuabXKKCt2EiKgx8m8LG4RfxtvaGbBmbB7KcLqRBXXEuL1snYqsjmmW9rSL1kZ7iZIVCQZjLp0I4yHLWUGmpT+Ub7WrXRthX7Cpqm4HnmKMA5wUiWa27WipSkj2eCjWqJyJHQJKUxIqCvORrihIOpMqp2YX6a84/kU0FqFBQsJc1Jnj90QYfYcgDDr1VkhLJPXTIxvDFoI3J4BUvd7kfH0z03zxa6B2lsU1RLoAYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iHlqTJzfmIFSg2SFBBv5hNnlEu6EjO6pelZabO9AH4g=;
- b=Q5r4ws2lLK7C55PxNaA2Cokb6xnCj9rjhNjDzByko3heTTDcRNBVfpNhOIzb5Ju8bE8FV/4+yVVq1nW45OVKDrYjt1oFkovYUehFIrqySN3vH3zmTQt6FpDWXIArT9K6W6in3/rgAfi/gHkOZV0q8gcnuZF/IOIVel7QG1v7tQN2QqCU+FdzVEKT5GQLpJFX5b34MnrOQ3XorFCsSl1+uZCyuZiFYILSKDWOTGm1v60l+HuNwiuuSSI7HBT1Emee8wE5pyv46lFj1rI85RovdaDA98lZCQW3bL77kl1CzWqsQYIqNYh/D5G0EviXBimbX7C4hiCK8enMUWSlrMKFXg==
+ bh=o3w4Yk14nyFFh/brlO5Hr8U1Q7mxP/NsSMl2kOvQtjs=;
+ b=EU0SKtCa4/WRXlJwr8j4IKJOJnXONXJWh4Zm6wepdl6D+PyRcLYG/0hvxNlZ5oM+bKssD8oWoXOc+cvSXKboXFndlShyH96OHccG5Zgcv/JsaiS1LWD41wRG29Kz7G3FGC38uTi36gZMJm0quG3sZcBkIDeO2jPSee56syh+TtHk/CvXNVnP5ctDHB84AwQx+aYo2KlsQUTTbiqyPZrtmJbah16c/+NpyR/Ax3Cy5t3gOs8s0TSXl7tX5EYwpBag0TxQW43KI3jW3k+bYbMEzMrqFvjKhiVq5eJOA4UQMU23uf7aF1u/ZF2vcaiSZ0vREb3vNd3YfIf78RO03MEsqQ==
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
  by PA1PPF75DB7739D.EURP251.PROD.OUTLOOK.COM (2603:10a6:108:1::21b) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Sat, 5 Sep
- 2026 20:48:27 +0000
+ 2026 20:48:37 +0000
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
- 20:48:27 +0000
+ 20:48:37 +0000
 From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Bjorn Andersson <andersson@kernel.org>,
+To: Drew Fustini <dfustini@oss.tenstorrent.com>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
 	Stephen Boyd <sboyd@kernel.org>,
 	Brian Masney <bmasney+clk@redhat.com>,
 	Jerome Brunet <jbrunet+clk@baylibre.com>
-Cc: linux-arm-msm@vger.kernel.org,
+Cc: linux-riscv@lists.infradead.org,
 	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Luo Jie <jie.luo@oss.qualcomm.com>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
 	Kees Cook <kees@kernel.org>,
 	linux-hardening@vger.kernel.org,
 	Aamir Ahmed <elb12345@hotmail.co.uk>,
 	stable@vger.kernel.org
-Subject: [PATCH] clk: qcom: ipq-cmn-pll: Assign .num before accessing .hws
-Date: Sat,  5 Sep 2026 21:48:25 +0100
+Subject: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
+Date: Sat,  5 Sep 2026 21:48:35 +0100
 Message-ID:
- <AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+ <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.55.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0520.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:272::16) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P123CA0508.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:272::10) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  (2603:10a6:20b:344::22)
 X-Microsoft-Original-Message-ID:
- <20260905204825.31862-1-elb12345@hotmail.co.uk>
+ <20260905204835.31915-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,62 +73,61 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PA1PPF75DB7739D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c185ae4-f06a-4e75-70fd-08df0b8f0967
+X-MS-Office365-Filtering-Correlation-Id: 8778006b-db2d-4fad-90f4-08df0b8f0f4e
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|51005399006|5062599005|23021999003|5072599009|15080799012|25031999004|37011999003|41001999006|8060799015|19110799012|25010399006|4140399003|40105399003|2607281247196008|3412199025|440099028|26104999009|19061999003|1710799026;
+	BCL:0;ARA:14566002|24021099003|5062599005|23021999003|5072599009|15080799012|25031999004|37011999003|41001999006|8060799015|19110799012|25010399006|4140399003|40105399003|2607281247196008|3412199025|440099028|26104999009|19061999003|1710799026;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?9/DBau5t31doa8F2pZ2Wy6+zEGFU7/s8xD1CWB2Ll2JHvT9UuvsXJ5r/NsGh?=
- =?us-ascii?Q?fVhau/eSRRveZC61W0Ctc56vbu8/0T9ygCiCl4+2Fa9RC8EzOBY0V+lxS4gL?=
- =?us-ascii?Q?hfsqjCrHfBpjr9Irj74n2lekvN9snUBjoVHO8l0A8BL47yewnBBUNO5+KIMb?=
- =?us-ascii?Q?S3P6FP1Gb+LB5YVgO0MC2CihQY07AUtGkE5i4AzM8ZfUpcrY+BdsPeuGd6wc?=
- =?us-ascii?Q?akBnSTS+d3FhfMZdHwjzjTlCvubcdNdLUPta9wJLKOZAcCMysnk4UVMex41w?=
- =?us-ascii?Q?0rAA9K85rmo9mzbFGPCJO5AmMAje+HkAxlwttKag3GX3yLVzXM7V+Ncv+T2i?=
- =?us-ascii?Q?EWMURhzhfJu79Nz0sdU00bwD+y7AuBiG3ziPHRPfF0e540bwA3KLV5fq29IH?=
- =?us-ascii?Q?vbdlV5eptLDQO/2GxJEln4Zua1+OwGZDLX3zH1Hde1VNXiCvSn9TJ42JcUZr?=
- =?us-ascii?Q?80prtnmjXBYLvD48v18EbX2y1pEJKrhpdBqZ09YvDdtwY3WGyn0TtPEf3V08?=
- =?us-ascii?Q?e0Yvi0/BDklDr8PTF46yrN+YeRl9Kx96mfxojagYf5il5fqKr2cefvwG975d?=
- =?us-ascii?Q?pdj5J0QpNi7nuEBROm6AKQtfP5cSnkkOsEA4+Hj9S0y3nFi6xk3gkWYbFz3z?=
- =?us-ascii?Q?o/1GMgQ+hfUlp+BOEU+qMWpUgWM8+c7meo6WQTqWKFS+rv+f4m5dQ9BnD4Ay?=
- =?us-ascii?Q?JTf5B7VNcZCse3t31tyQ3Y6ptCiql/cJpCCb4sX5JIRepi7AnJnYPrvUs2RE?=
- =?us-ascii?Q?KIFoZzDb+97GPgmCzAqkbyswtDSpV8NQq4RzN79CcfkuYzuBGOgGFvNVpMbW?=
- =?us-ascii?Q?2LiY2SN+yFWzCs5u3n9JK4SY7IQUq4QWNp6qsk3ONY55hCHq5AL02pBCflbA?=
- =?us-ascii?Q?OBauj4r0gE39J3Blfa7u6cj+D5vf+iXgNEZGiGkz4sVdpxo2f09vkZC5HY/a?=
- =?us-ascii?Q?4dSFT7ihSEpGwG66avigKtOCF9GIMr9RsOf1CiHOA2Dvfn+HtihnFY8aMiDQ?=
- =?us-ascii?Q?cD8wLMc+IRHm6X4qdinTsuHovv4MQWiUSqGKCTzo5tlaSFAQqZElAUaD/3sU?=
- =?us-ascii?Q?jWUGu8GNb6+wKeF38yBCROH4nQ1Yt53kLAr5pXOJ4mvRWtflQ3k1/3OP4IK/?=
- =?us-ascii?Q?7KRoiBK8qZ1c?=
+	=?us-ascii?Q?fBDMVDG38xWZQYWgKik6uq6DzGKDX0khX0awBwzty2C/L0xvd8EW/F5wPPNi?=
+ =?us-ascii?Q?K+Fi4A8b3dBXRwigkKo/e8FNwqO3/yuAmPIvZs2m/xa98VYn3Drq0hlIvtm6?=
+ =?us-ascii?Q?yEbC2GiZMfvU53OtUmB0mtmIE1A3yyI1ughK6VekA8SWxNYi4A3bJQ3/G8YB?=
+ =?us-ascii?Q?oSu8vXPrc3ngO9+5/XLtyHzQks57WhSiy8FXhUg3oW3UGmiz/b3BAOhIQ7UW?=
+ =?us-ascii?Q?Mk1XnYARDRoW34Xi3dv1K0MVTYP497lJvkyxQDpwkjFt9cJ7FPfyG1QlS5Ub?=
+ =?us-ascii?Q?51+PzlO+hkatHk0byximq1tf81Ntjs5IQljULMTq+dNMjGfofr7Zc1a+ujzh?=
+ =?us-ascii?Q?zqLE640TywYFh3nGvEhLaU2d3HfEb7R2W4cJsJkFsHU00SkR8KCshvkCav0/?=
+ =?us-ascii?Q?EnmLOOS1vXG/YzEBGc7SdWaE2W007YViEyv+T6DDAu5NAbAGbLRWlVuY8Ixk?=
+ =?us-ascii?Q?KYG9x6cO6Rj6jFpZtsLaPSHz8dC1f5CJPzIIoro9tEPw4xGlLZe4lGvWlhl4?=
+ =?us-ascii?Q?bFrrcECBteO48MSPPBB2ZIBFIRL0j6iq5DaiTWFceM4S46xeyb4oA+iAiq1m?=
+ =?us-ascii?Q?UbBCaUqX1EKDw/WcZUYaM66x8CE/y1JJPhT5JbYaFqWT9URweS/St2MkJIkc?=
+ =?us-ascii?Q?GVpBqRzU0egRnNt6KJU/4oHN7Q7BUOQ5v870qd9h/dJM63DbbfzQjgnPFN8b?=
+ =?us-ascii?Q?qq5M0Af1tiU38jUICGxiDh4OtljUStMLpt+f9iS/U115Lf7RrotREOwBmzDG?=
+ =?us-ascii?Q?ac1tphAKDCZg+/s+jNZ+ZXVdkFAXkeTSo9XvBHV72SL40xVgFAc+XVtgvZZs?=
+ =?us-ascii?Q?qOoPopIMqMWu6yJ4RjdUJci9UFMVqf59K92NK5FmEAiIk9wjL6uwfMOBvPbZ?=
+ =?us-ascii?Q?UvMV4QwRHgV/oMMySBHCY6EJRMqe4hrhfvrpD9IhPn/TwgnzUxvjU5j6Bgyi?=
+ =?us-ascii?Q?d1ursvYOmWN3QXRFHQ8vJE8dMpDFSde915vfnHyR1RCa6RKU805yC0z55vno?=
+ =?us-ascii?Q?1saI5MPa/sEcz+c0VG3I//mB6AP+4LRQx5XPAz2JC5yS8buKt9aHtS98iRzj?=
+ =?us-ascii?Q?tKogZpYEc7FDgSe9YzvE5Kg/LEyz7g=3D=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?GHyXMMFtY9YETaQNh46B/XH6imWTyR/zMtndjIJSyBB0VGcjPZKwGg3nUi6Q?=
- =?us-ascii?Q?l1kcc3yhnWq170LOjcn8rKXRNqDhWhJDFCaoSnLD/mPRzqOWwZWUO1VBECXE?=
- =?us-ascii?Q?8sRBwnLHqSXMXfryqhdkFi/bOVbUn7IiE2VcMLEWwhcKNzUGIpFsP7ed0Gns?=
- =?us-ascii?Q?3jFrLckSz2BcdbrAHsgJ9pM3e9cM5etmnRNuCBY4t5ahadMN1UsfcTLL2Taq?=
- =?us-ascii?Q?QtGrHCg3HV4alnZvMo7JO20naozRUIYtqaHUSXCjIx78m+MU4+AG3hzsqoo1?=
- =?us-ascii?Q?IOJR6KBKSj5Ur2Bs7GSRUdX51XlAiC+ROM0BxVfrxe9wQn2uo5WrddKEgdXh?=
- =?us-ascii?Q?9Zx7KzKtUIgUs3BkCR9uRbaqJj0svXEz2VAWS+Opa3qgXb7lL/JhRB8f9WHt?=
- =?us-ascii?Q?MfzumfQTC9uJf5boGdbC+kE9xwnGOXKlel0cc1xrXijCSfAXp7d5U3fZE/w8?=
- =?us-ascii?Q?lnMDdvOjOeldsFfl/PSXBQVjVH0KuQBUJBCPZYy6EAcQNsDZTufKXsB2VpEu?=
- =?us-ascii?Q?VJqMBH4MvcJhKKJeisvp585aI/9NZ9Tp4U1stpwEs/T6BHIkr+LcLu+/zNbX?=
- =?us-ascii?Q?qz4mdl3L167swaxoUfV7TaL1AiSBit13Xd/ML4Nj8ODOzMwbHMmS20jqY+fD?=
- =?us-ascii?Q?35uYT6qiGFVW1F7GgwRylG8tKxrNQO+xIofX3BrYVNZkXnKCDp1/8bt+Nhii?=
- =?us-ascii?Q?KpnKARSTiLAEB8O9LVJEXi3QbS1HpD0AvgEeTNAj6XD+KqH5QygB6Eqzwr1+?=
- =?us-ascii?Q?0FUq2iiRfO9VkbBZ3QVegJXbsED92z9YrA6JUIjsBn3kmYSt/ZdSPqiTL//3?=
- =?us-ascii?Q?5sJLP3xUv8IUO7NxMWFVaDD3KxRPZR3LH3DV4rC2rqI0ihwQz5iooruTRB0o?=
- =?us-ascii?Q?vsNqoOFr/raqRiYmZU0bZ9PMZAUSSWoQZCcamXvJttfC2GG+mBWtGnCjQTxT?=
- =?us-ascii?Q?al3zYrnQJaVksYaGv9r9oP/9OvXngEajmw8F2uG/dPeg8+2WYlirodLVenzh?=
- =?us-ascii?Q?0TXAT1+2jUxPg1zYOAupTnsT32EJezOzfNuiQP4Gfp709zFsIr6odN5RUeus?=
- =?us-ascii?Q?BoM+OpYnksKtne9CAhsbmm1IP/c6Yz65CiuVnJtjceeY3X1BL4j3RAdzSgeG?=
- =?us-ascii?Q?wfEayJrdVzjNLx5SadAM/cZRmAxPuCuLUNde7qp62gkivtF9uAdOzOZQlAN3?=
- =?us-ascii?Q?KHtVysGA1cng4bcNbApVt7Zs1Lf5SCIYfkp2BUMHLe4RvCTurxpwoyBvFmzt?=
- =?us-ascii?Q?u76RnwqZQVOuJelTMK4Gn7iF4OKSswhLk9FajAwdT2yu/GJRZZQ0JV+PcIsZ?=
- =?us-ascii?Q?mgyUNbzn9W/DPbi+n2vzXoCmSiMm2m5IMZFB1XzvjFiJUHpcyeiFeP9g7K+N?=
- =?us-ascii?Q?yP22gGe2ZKbFTek3QWtHTqb90cwV8QnaHUdrAVLp92xwdqlip/E6n6TD8KOm?=
- =?us-ascii?Q?dZ8fUY/WpVAYIfsTvRvLkOeGdYhMFJza?=
+	=?us-ascii?Q?Hw8pR8z4fKUM3wdCqFL/rIqSSwFx8DaK1EJRWfaIUEOBfEAkZ/+D7JVN9SQd?=
+ =?us-ascii?Q?8TGOEGgzcEE1iuPzYfRhcg04MDSeiXdLuPsIClUOwu+RhhFe/YRQt0xTRqy9?=
+ =?us-ascii?Q?CXoLODjwe/z4Yh55cHIM3unQBHG/9AxJZE7ZbC2JyTUaU4+GAvSKA29crCBL?=
+ =?us-ascii?Q?zV2cX0KOBA7Eks8KyFF4R+VxJEsRX9+StChV91z0g/8DyYFqlBDs/xiuOaQv?=
+ =?us-ascii?Q?mnWp97MVr3wcpoF7XH+cS/4Njv0TXhFK6VdY0tmKt6oGb2LyzGxSge7gafZW?=
+ =?us-ascii?Q?tqOI2V79xvL9AymgPY4pSne0hcM1GY7qNpgIC9OA3UKI/9Q05RplQNs1/O27?=
+ =?us-ascii?Q?puYE+dPVJmY/ei7vPB9MDkm8CTfxcMXjMWQRX3uB3oSh+/oje95RWq54UFJT?=
+ =?us-ascii?Q?coTzKI7Ir5g9H9y8A7mogEsJLNMsMqH1NcAFktVhs4p4MkB0kdxIH+RmE+RJ?=
+ =?us-ascii?Q?oRpkCJLL3/3cBdmJF1oJjjrkXsWyQx1GiNld/rw6U5LBgfooJDDWIwLYlITI?=
+ =?us-ascii?Q?YFFA08nCCrphYuHZYXNeN/3J+EVaf/MjGQ9XTVY5pYoJLKLCcblDQcytfITF?=
+ =?us-ascii?Q?d7OoYaMM3fQpbusunxR6GmHi8VhBtEH2ANzckeARcL4lorSdRiYu7sU03+rJ?=
+ =?us-ascii?Q?XXrzrd86bxKpHy/ni8e1Gk1Z4RCscnzdqjpxEBD2kzUMm9Fogeu4V/Mn5hB2?=
+ =?us-ascii?Q?6JE8fVWvz5oMzxnjzCvqOfJNpxpnIgClr2TIepjtB4VhzXUF7HSm0w4shsSG?=
+ =?us-ascii?Q?WCCk979gfoveixX4J9pnfExTfF5B/zcyI3k4NXGxrAaRgBo8ru0TrWLVmZg9?=
+ =?us-ascii?Q?PXLrFUEKXOEuyEB28DVkJLyHs4USByw1N9NEivT7zT28rvtu766/SgnqRU9M?=
+ =?us-ascii?Q?nFcz30kgGKvUx6/JNTQ7ltEqLrrs86DJjoyz2bdklSpRA/ub8fsI4+ZELs29?=
+ =?us-ascii?Q?7oeBXTZatTfZR5XCktnPE2L/UyOAeHCuls6JzSEzXdi/SfNbh6N/lBJH9pIJ?=
+ =?us-ascii?Q?8hOuednyZxZhhDm2Tus/UR9Y8Vu9hWFV3b2o9QMcJYow5JCfPKBjCu0/6SxM?=
+ =?us-ascii?Q?7f9Ue6qEMYbFH82Hl0tKugKNG4NARyfF6aOLmuuIIMZhJUmUsEN4hyLTa9TN?=
+ =?us-ascii?Q?KZJL1l8TAtkyoN2e7h4+NI+Th8csQ/TlXTWks1o77QpU1r+ITUKqE0H2K9N3?=
+ =?us-ascii?Q?0Rd+jyog3+t9BZ56MBAekBaBDhj3dKVf2ARF+wPl3WZuLq4Yk2CfmVl8fGNl?=
+ =?us-ascii?Q?23mxHatpQOjbeWoHtetImSZDU8Ns1d20cgorFYCgeVmHyHLVUS88YCNFkwus?=
+ =?us-ascii?Q?i23S8j2uhJLzLVBhWRVgQoNTJpk26M5dVib/43grbxlvj/ArVHc65zEI08EI?=
+ =?us-ascii?Q?2N9jrgddg6QVjbKZLbq9bypvbafgjWT7iXBkWk30gUI8Sh+9qkOKfsyxs2ir?=
+ =?us-ascii?Q?iDbXZklATIUxOuMG15D0PbNO51spc8gM?=
 X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c185ae4-f06a-4e75-70fd-08df0b8f0967
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8778006b-db2d-4fad-90f4-08df0b8f0f4e
 X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 20:48:27.8159
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Sep 2026 20:48:37.7059
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -143,20 +143,17 @@ is accessed out of bounds. As noted in that change, the __counted_by
 member must be initialized with the number of elements before the first
 array access happens, otherwise there will be a warning from each access
 prior to the initialization because the number of elements is zero.
-This occurs in ipq_cmn_pll_register_clks() due to .num being assigned
-only after the fixed rate output clocks and the CMN PLL clock have been
-stored in .hws[]. If registering one of the fixed rate clocks fails, the
-unwind loop under unregister_fixed_clk reads .hws[] while .num is still
-zero as well. With CONFIG_UBSAN_BOUNDS and a compiler that implements
-__counted_by (GCC 15.1+ or Clang 20.1+), this triggers an
-array-index-out-of-bounds report during probe, and with
-CONFIG_UBSAN_TRAP the first store traps so the CMN PLL clocks are never
-provided.
+This occurs in atlantis_prcm_clocks_register() due to .num being
+assigned only after every clock has been stored in .hws[]. With
+CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
+15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
+during probe, and with CONFIG_UBSAN_TRAP the first store traps so the
+clock provider never registers.
 
 Move the .num initialization to right after the allocation.
 
 Cc: stable@vger.kernel.org
-Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
+Fixes: 23c8ebc95284 ("clk: tenstorrent: Add Atlantis clock controller driver")
 Assisted-by: LLM
 Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 ---
@@ -167,40 +164,39 @@ clk-raspberrypi (6dc445c19050). The audit, the fix and this changelog
 were drafted with an LLM assistant and reviewed by hand.
 
 Compile-tested only (W=1, no warnings) on x86_64 with GCC 13.3, via
-COMPILE_TEST with CONFIG_IPQ_CMN_PLL=m. GCC 13.3 does not implement
-__counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang 20.1+), so the
-build only confirms that the change compiles; the sanitizer path was not
-exercised. I do not have the hardware, so this is not runtime-tested and
-no UBSAN report was captured.
+COMPILE_TEST with CONFIG_TENSTORRENT_ATLANTIS_PRCM=m. GCC 13.3 does not
+implement __counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang
+20.1+), so the build only confirms that the change compiles; the
+sanitizer path was not exercised. I do not have the hardware, so this is
+not runtime-tested and no UBSAN report was captured.
 
-Based on v7.3-rc1. Checked against the pending IPQ5210 CMN PLL series
-(v3, 2026-08-14): no changed lines overlap, and the fix is still needed
-after its first patch removes the unwind path.
+Based on v7.3-rc1.
 
- drivers/clk/qcom/ipq-cmn-pll.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/clk/tenstorrent/atlantis-prcm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
-index dafe8c1738d..a9abad9ff4e 100644
---- a/drivers/clk/qcom/ipq-cmn-pll.c
-+++ b/drivers/clk/qcom/ipq-cmn-pll.c
-@@ -380,6 +380,8 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
- 	if (!hw_data)
+diff --git a/drivers/clk/tenstorrent/atlantis-prcm.c b/drivers/clk/tenstorrent/atlantis-prcm.c
+index 6d4386eeb7d..a68534a295c 100644
+--- a/drivers/clk/tenstorrent/atlantis-prcm.c
++++ b/drivers/clk/tenstorrent/atlantis-prcm.c
+@@ -796,6 +796,8 @@ static int atlantis_prcm_clocks_register(struct device *dev,
+ 	if (!clk_data)
  		return -ENOMEM;
  
-+	hw_data->num = num_clks + 1;
++	clk_data->num = num_clks;
 +
- 	/*
- 	 * Register the CMN PLL clock, which is the parent clock of
- 	 * the fixed rate output clocks.
-@@ -406,7 +408,6 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
- 	 * is configured to 12 GHZ by DT property assigned-clock-rates-u64.
- 	 */
- 	hw_data->hws[CMN_PLL_CLK] = cmn_pll_hw;
--	hw_data->num = num_clks + 1;
+ 	for (i = 0; i < data->num; i++) {
+ 		struct clk_hw *hw = data->hws[i];
+ 		struct atlantis_clk_common *common =
+@@ -809,8 +811,6 @@ static int atlantis_prcm_clocks_register(struct device *dev,
+ 		clk_data->hws[common->clkid] = hw;
+ 	}
  
- 	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, hw_data);
- 	if (ret)
+-	clk_data->num = num_clks;
+-
+ 	return devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, clk_data);
+ }
+ 
 
 base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
 -- 
