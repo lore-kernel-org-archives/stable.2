@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE14429B766
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:15:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB9E1E2834
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:16:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788567324; cv=none; b=dwPyF7BlDdRAbR3J+dhyk//UhhgZ5SsyfIBNRdLCabdGQw+8zR8r95kcRlthRIjZ0LtTPTDjY8s7+MrwNrTUnAZjMcaQnx0xqIIN2lA8brzS4mU5ErnItUgZJNrgWZ/pzYX4QVzJM7KTr8opxhdvUVAMRpW4EGpVQWh3rSDhqho=
+	t=1788567410; cv=none; b=XfjcDu3ks/thRLAjcrM33RrGiV2ksvlJMD63ohcUIOMee3yZdZew/It/Xp9mv7wU40vc/zzsxKHYZ8Dw42Er/BZ+I1oXbQwl/7yZuAq+67hf4DoxodytipurFjRAaZ25tBqk2Tvr2hnePkwZoTD22xhcsk7JnOPB39fwX5eDd2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788567324; c=relaxed/simple;
-	bh=bPfpMIEpVHwQYefMTwEvxX6mQdwXpjDH1BUihxdSPeY=;
+	s=arc-20240116; t=1788567410; c=relaxed/simple;
+	bh=yVhhlviApH4m80lQ0NJTdL/SmSzr1OhmHuRIAYNtz9A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PlkXnupGTdK4PV/3Vr7p6nipe6ND6tGlE5NVxOOwhirMg3p/VghI+oOxEYJq6DGXE+JiC6DpiOQrfAsGnoMBFMPd9Jpi80+nU3i/IRNYbvJ/3PqDdqzJONV2f0bnYaq/pQWXSacCRYDrbfjPNrP91hYRkpgLrA2fAUfsImoyGYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UhEZQl8d; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=I5UiaqBJ6cu0gYEc5fkkEy3DjiGVZ+iLgoJLQVdrh5Wiw833rlSfWpgIJcdErMI/bb2twnMSo47fKR9qwugauJk2Zk61HkJFNZEIangPIFsmz2dILNsYWw5ta4oFXFMOlX57KDKIrrtd/4dpuSqaOPioOUX5EocuwVZ7LAnkg94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jASVqqoU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UhEZQl8d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64981F00A3F;
-	Sat,  5 Sep 2026 00:15:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jASVqqoU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 308751F00A3D;
+	Sat,  5 Sep 2026 00:16:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788567322;
-	bh=cJWLktE9L2mU9xhy9tQwm/63dgEkWuJbuYIqGpXXiH0=;
+	s=k20260515; t=1788567408;
+	bh=3kzV56U/Pheikcfhn59DRP+KOuJ34w5J9dVqUSwrLXg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UhEZQl8dwQtX86POMtAvbn35twvNhsR8eN5jbHSIE8OTKpZ+S1PDHRgMKv6Qjjkcm
-	 7ixWKgIEVUGSVzMabR6KWKujYxpfCjIO4BQn6BabwbteTe98P/J+UbEPQ9HrDYd89s
-	 FH6WpMlGLZvFSeADqeildxJLvjGKugJ8ZBeJF+KMq9Mx7LzAaX1CM4toGvHKzViwZW
-	 O0+Klx+DhJH22ZZyV2I4lp9CfN0HnYZIoNN2F6UU8z2diIg2Ctx8IMswYZ5LcGrVUy
-	 rD56fy1xR/q6fvswGPiWCj9laKHGhadHPRdy5n9PWFGy8Yf8NQkBob2pKnxym3aP1/
-	 2wq6g8ZjSeP3w==
+	b=jASVqqoUdLep2nG9VBWkCqiCzuT5738kaKT/Jkco6CRuYSw1bD18yDIrwNpujj6qa
+	 0phbxjWVlDTzF3B/+i9KTIrJswoqPTumJ22Cz2hq80FXywF9DywlOU2QLqu4VDuz2s
+	 rRbjG3DsCR+tFUrp/ky4m/9iSLZduQLk25wV+lDyiAb4E6FpCxb9PceluUw4QNsQiv
+	 UjYeYLsA4gGpAIwZ+SWo3VhII1pArrziZtiVTQjQ4JBiPl9Ats5hn6pT8pNlpes3LU
+	 9ecGqgGUoWKZKnqzJuRkFcBlzsfYWBykpzoCep3mZgO7ddpyf90r9dBnCCYvgxfzeU
+	 EwgNzoMo6sm6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Longlong Xia <xialonglong@kylinos.cn>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Minchan Kim <minchan@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] zram: fix out-of-bounds access in writeback_store()
-Date: Fri,  4 Sep 2026 20:15:20 -0400
-Message-ID: <20260905001520.1674355-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] device property: Add cleanup.h based fwnode_handle_put() scope based cleanup.
+Date: Fri,  4 Sep 2026 20:16:45 -0400
+Message-ID: <20260905001646.1679840-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090306-quartered-glade-f172@gregkh>
-References: <2026090306-quartered-glade-f172@gregkh>
+In-Reply-To: <2026090347-net-vagrancy-5d59@gregkh>
+References: <2026090347-net-vagrancy-5d59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,92 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
-[ Upstream commit 894913e2d35c46ff19a77530907771ae57862b96 ]
+[ Upstream commit 59ed5e2d505bf5f9b4af64d0021cd0c96aec1f7c ]
 
-Patch series "zram: fix stale scan bounds after reinitialization".
+Useful where the fwnode_handle was obtained from a call such as
+fwnode_find_reference() as it will safely do nothing if IS_ERR() is true
+and will automatically release the reference on the variable leaving
+scope.
 
-Both writeback_store() and read_block_state() derive their table scan
-bounds from zram->disksize before acquiring dev_lock.  If the device is
-reset and reinitialized with a smaller disksize between that read and lock
-acquisition, the bound can describe the old table while the scan operates
-on the new one.  This can lead to out-of-bounds slot accesses.
-
-Move both bound calculations under dev_lock so each bound remains
-consistent with the table throughout its scan.  Keep the fixes separate
-because the affected interfaces originate from different commits and can
-be backported independently.
-
-This patch (of 2):
-
-writeback_store() calculates the table scan bounds before taking dev_lock.
-A reset followed by reconfiguration with a smaller disksize can therefore
-replace zram->table while writeback_store() is waiting for the lock.  Once
-it acquires the lock, it sees an initialized device but scans the new
-table using the old upper bound, resulting in an out-of-bounds access.
-
-Calculate the number of pages while holding dev_lock so the scan bound
-matches the table protected by the lock.
-
-Link: https://lore.kernel.org/20260804065919.3970386-1-xialonglong2025@163.com
-Link: https://lore.kernel.org/20260804065919.3970386-2-xialonglong2025@163.com
-Fixes: a939888ec38b ("zram: support idle/huge page writeback")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ adapted locked writeback bounds calculation to the legacy init_lock and page_index parsing flow. ]
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://lore.kernel.org/r/20240217164249.921878-3-jic23@kernel.org
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: 190069255582 ("device property: fix infinite loop in fwnode_for_each_child_node()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/zram/zram_drv.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ include/linux/property.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index a9f71b27d235a..464800ea61768 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -627,7 +627,7 @@ static ssize_t writeback_store(struct device *dev,
- 		struct device_attribute *attr, const char *buf, size_t len)
- {
- 	struct zram *zram = dev_to_zram(dev);
--	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
-+	unsigned long nr_pages;
- 	unsigned long index = 0;
- 	struct bio bio;
- 	struct bio_vec bio_vec;
-@@ -644,11 +644,9 @@ static ssize_t writeback_store(struct device *dev,
- 		if (strncmp(buf, PAGE_WB_SIG, sizeof(PAGE_WB_SIG) - 1))
- 			return -EINVAL;
+diff --git a/include/linux/property.h b/include/linux/property.h
+index 98227dbac9538..b6135176cfdc5 100644
+--- a/include/linux/property.h
++++ b/include/linux/property.h
+@@ -11,6 +11,7 @@
+ #define _LINUX_PROPERTY_H_
  
--		if (kstrtol(buf + sizeof(PAGE_WB_SIG) - 1, 10, &index) ||
--				index >= nr_pages)
-+		if (kstrtol(buf + sizeof(PAGE_WB_SIG) - 1, 10, &index))
- 			return -EINVAL;
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/fwnode.h>
+ #include <linux/types.h>
  
--		nr_pages = 1;
- 		mode = PAGE_WRITEBACK;
- 	}
+@@ -119,6 +120,8 @@ struct fwnode_handle *device_get_named_child_node(struct device *dev,
+ struct fwnode_handle *fwnode_handle_get(struct fwnode_handle *fwnode);
+ void fwnode_handle_put(struct fwnode_handle *fwnode);
  
-@@ -663,6 +661,15 @@ static ssize_t writeback_store(struct device *dev,
- 		goto release_init_lock;
- 	}
- 
-+	nr_pages = zram->disksize >> PAGE_SHIFT;
-+	if (mode == PAGE_WRITEBACK) {
-+		if (index >= nr_pages) {
-+			ret = -EINVAL;
-+			goto release_init_lock;
-+		}
-+		nr_pages = 1;
-+	}
++DEFINE_FREE(fwnode_handle, struct fwnode_handle *, fwnode_handle_put(_T))
 +
- 	page = alloc_page(GFP_KERNEL);
- 	if (!page) {
- 		ret = -ENOMEM;
+ int fwnode_irq_get(const struct fwnode_handle *fwnode, unsigned int index);
+ int fwnode_irq_get_byname(const struct fwnode_handle *fwnode, const char *name);
+ 
 -- 
 2.53.0
 
