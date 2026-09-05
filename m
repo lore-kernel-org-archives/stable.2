@@ -1,78 +1,42 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E84AD29B766
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5C03AA4F8
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 16:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788626721; cv=none; b=X2YAmwLyjrFraIcRhj81mgEqzTVHgaOVulO0SwUu/4xJMRMzO9kstSa+hD7n1hWIHi5JRPvbhyXt6EziSqdUkU6tvZ+gKi5dI/D1qs0Y9G9221xNVQ9BDCw47lWPAah2gbFhHnNG8jxBCxkwYXDdE4bqCmhbHTnMKl+pOwacLL0=
+	t=1788627048; cv=none; b=J+Kk6HQnHG6puKIh9kGqJKahD8Hv192EoxFx5XrpfKDnyKAWmhuAXLkll1PfQjrg1LliH5XMQME3nC8qk/A2FlVKksnXFHBmPZJnYFIZATsdoZ+/8qAGnbT/v/ULO/1VIbbAbO5VGEYoCAoiO+aCGOYrw4jKlRxVctmaKUE9l9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788626721; c=relaxed/simple;
-	bh=ifc7H3d8cophRdBVvhP/1sBwTZYA0mepFYMjpoBRgcY=;
+	s=arc-20240116; t=1788627048; c=relaxed/simple;
+	bh=a0ZkyutvjdoHim2eNmcvzGgJpy8VVEjpcXGpFUPv2fY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tGHsJfOc2+vMJBFCE3BYgyC//Orjw+nS0PY4+dhJfIxBUhdHlqSvTSgQFiZ8yjwlvpuNnT17MgYjrD1VjzDE1ML0UN9HtAJW1LgIHXfxstYD4onUEEj8YriPGXxdoKCKhzn5REfJityuo11oOaJFV3P4D9EgykoYEv3dy2okClQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q2veQxqu; arc=none smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=urGGQa/h5yom/8dwIvB/4Kuag87FjAtmSmmOu/WuL7RQaA0M/YhCEWhvffSWyqKY1Y4adazc22VNVkZQMM7EdFj0+TlLxu9URlXrQjRgP7ai8rAoals1BBJDg95LoxIR2UMIuXQK4wzQQTgJg+mK9VL7MRKK1YttDiScVHJSoOU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzxY/ZsL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q2veQxqu"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-5300bdf61d9so24274621cf.3
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 09:45:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788626713; x=1789231513; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MGsQP05BVP7HKqk9s+jX5IUhEyQb2OXorpPQmD8qdnw=;
-        b=Q2veQxquBr3zYbatYaVLvr4AA+RntALkXyYoZab0Cu48VI4Ru3iCBuS8vuCfN08/ic
-         EBftGeAMGl1yQuTg7FjPggwRRiNAtyzfHju75/NEFmAmlWrYtng5wpuv7YXbX5tYZeVy
-         rKyLYy9YZTWoFDHt+heUW1jOTeTovjQVRb7UQr7twfrmyL+blcSRb79LwzvbuepBfHUc
-         yiZlIhuR6p365i9aPzRsXY2BtIdvjEJseoZ8RPsadAxroqfkxtpH2lorgim8HDQJQiB5
-         TZBbD3dXWrGEevCqoYREh37fu+0yvM/hfB/EcbFymWZvTdtuZJQxrfAowIdfqK69Vjso
-         OB0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788626713; x=1789231513;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MGsQP05BVP7HKqk9s+jX5IUhEyQb2OXorpPQmD8qdnw=;
-        b=NR8fq/co5J5LaNmsHzBv7ZpElt2n3mOJA53rHS7F8hiW/nmphSh0vRA9KEYdoZyrak
-         s5FuLCg3DldplDzmZS4n/UvnVtQSK/NZyAHHPggug+T66EQi6drU4aFlWfBpjDqai+u4
-         5RbS6Y9MmzosgEO6GtQP5vZTzca41GK5X8a194/Of84Mp9y2c20yi2FOMZr8OXiyXd49
-         fdlgKevuBVLVQJD8rjvGlwQ7SxHl+0HSK6mjvsL45GEOulSQgg00empW7Abhj4ZRIn+3
-         rlnN8G5OQmrEtVcpGGRa8frGgW5H7SzRS71tiRjDnAPR3686rX9YqAoRpgeZ79IyYkGC
-         S/hA==
-X-Forwarded-Encrypted: i=1; AKwUvBx2L1SbQQuEBzXFyvnO+/htpA69YMBrORyjNGJ+7Qolcv30kAwMLiUs7kaBBYmHcqcxFqaqNBE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQK7iFRKNsl55R/YaoTalVeWFgZ+IcktcCc1hy/Ut4kpfAaq+1
-	+VEewUeAuf63NQFy0/Pyg319wWL6Q5J87Sy5/rK2FV2duKLs5Zttm5aj
-X-Gm-Gg: AYBFou0+SaAhTf5X9mySGFl9bmXUhsWaDrIISgP8J3rvTITkCYTB11IhTx63h5wZE2j
-	u3hy4pwiCLj1o2LvTZi5VMN9s9ELfhhxFU8wejpArjV9uUBQ+GdEwBxJzezqb+G/HW5l7SEUT6T
-	irF6YZpW+0IAbEIXH31mOEFZ9TuUqiqdJAHljy/VE7PyF6t3roCPSvcrMohluBgZMM177io1Xpw
-	x1dVhFufPXvsRmoHBJ8jTjqKLGqNEtkvarF/YJ4KCf98BqszE7w36ZxMU67Ng5qp8iBv7TAR0Ew
-	1mMnwoUCbsFaOpoXbi9PXIp4usTO8w6AuIqvwsmWVMgB5lEFDCvtG00TtTkxeAQaGnoOPRjSeDQ
-	XpvenKgeRVf5342P1XGzCjJ+6hamW/971gpRrqxfKRs6+HR9NpGt6lptIHwqUqzWVkNtgBCXw0h
-	vFXOONtOhUakIhbVtVrFh11gRvS6+g02Pbo/u4Xfykt/oTEUanuyxBUrj99t8j9mrohqUNsd9Pk
-	lmW9Ri+rNlG1ddvwbkn5pifuL0=
-X-Received: by 2002:a05:622a:1493:b0:52e:12e6:6d7b with SMTP id d75a77b69052e-530549f8c81mr144088371cf.39.1788626711978;
-        Sat, 05 Sep 2026 09:45:11 -0700 (PDT)
-Received: from dave-desktop.lan (modemcable053.177-58-74.mc.videotron.ca. [74.58.177.53])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104067ac52sm48984326d6.27.2026.09.05.09.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 09:45:11 -0700 (PDT)
-From: David Collin <davidcollin899@gmail.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Collin <davidcollin899@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] usb: dwc3: host: fix props[] overflow when all quirks are enabled
-Date: Sat,  5 Sep 2026 12:44:48 -0400
-Message-ID: <20260905164448.209348-2-davidcollin899@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905164448.209348-1-davidcollin899@gmail.com>
-References: <aptV-QHKGbMqw1uP@vbox>
- <20260905164448.209348-1-davidcollin899@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzxY/ZsL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCB81F00A3A;
+	Sat,  5 Sep 2026 16:50:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788627047;
+	bh=xz+bHZoWN67SvyNDFTSkxMw4LW7Xbfap+4mO/czQehM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XzxY/ZsLqvh5wCzEjv1hB8nowLpw79CbC3P6CQvH7zmmHLXyY2dDoEmNMZY6TkBTC
+	 5usw8b/GfYbpQT6b8LIrJBCN69phcT08zpP/Us8ELe/TWqa4gqyM2dnPGmhNsWy0NB
+	 HnXKC/KSGM+tk2iWe0RUqSnSvb8vZtjQYWZjalKip1Dup83iN+LYbGI4FiQkUVUHa7
+	 8meT6K+CWbgW9dqVeQe62qnu5cL0U+8saye/ECFhNZsRZuSVRZ/dJQvYiuCukNmO8a
+	 KiVM/mbCWI8GRDZOrbD5ggxFgZmcef0E4l6n2IpRbOtov6wODWxxAl1ycqz34DfTaR
+	 2IdG4M+IYtiCw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] nfsd: fix fcache_disposal UAF by inlining dispose state into nfsd_net
+Date: Sat,  5 Sep 2026 12:50:44 -0400
+Message-ID: <20260905165044.470757-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090341-emphatic-subject-8115@gregkh>
+References: <2026090341-emphatic-subject-8115@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,32 +45,177 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-props[] is sized for exactly the number of properties
-dwc3_host_init() can populate, leaving no slot for the NULL
-terminator property_entries_dup() requires when usb3_lpm_capable,
-usb2_lpm_disable, and the <=3.00a PED quirk are all true. Size
-props[] for one more slot.
+From: Jeff Layton <jlayton@kernel.org>
 
-Fixes: 8da7644493b4 ("usb: dwc3: Specify maximum number of XHCI interrupters")
+[ Upstream commit bbf13732f74351d21c5e0e8dd9bd8e1c48dc35d4 ]
+
+nfsd_file_dispose_list_delayed() defers fput() to nfsd service threads
+via a per-net freeme queue, preventing the shrinker and GC worker from
+bearing the cost of closing files (see ffb402596147).  However, the
+queue lives in a separately-allocated struct nfsd_fcache_disposal that
+is freed by nfsd_free_fcache_disposal_net() during per-net teardown.
+The global shrinker, laundrette, and fsnotify callbacks can still be
+inside nfsd_file_dispose_list_delayed() dereferencing that pointer,
+causing a use-after-free.
+
+Inline the spinlock and freeme list directly into struct nfsd_net (as
+fcache_dispose_lock and fcache_dispose_list), eliminating the separately
+allocated struct nfsd_fcache_disposal entirely.  These fields now have
+the same lifetime as the net namespace itself, so there is no dangling
+pointer to chase.
+
+nfsd_file_cache_start_net() now just initializes the inline fields and
+cannot fail due to allocation.  nfsd_file_cache_shutdown_net() drains
+the inline list directly instead of freeing a separate struct.  The
+alloc/free helpers are removed.
+
+Fixes: 1463b38e7cf3 ("NFSD: simplify per-net file cache management")
 Cc: stable@vger.kernel.org
-Signed-off-by: David Collin <davidcollin899@gmail.com>
+Assisted-by: Claude:claude-opus-4-6
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260602-nfsd-testing-v2-7-e4ea62e3cd5c@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ adapted service-thread disposal state to the existing workqueue implementation by embedding it in struct nfsd_net ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/dwc3/host.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/nfsd/filecache.c | 70 ++++++++++++---------------------------------
+ fs/nfsd/netns.h     |  4 ++-
+ 2 files changed, 21 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/usb/dwc3/host.c b/drivers/usb/dwc3/host.c
-index 74117cbb2f42..cd1e5204ac3a 100644
---- a/drivers/usb/dwc3/host.c
-+++ b/drivers/usb/dwc3/host.c
-@@ -130,7 +130,7 @@ static int dwc3_host_get_irq(struct dwc3 *dwc)
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index 460df12aa85bb..447d129b717e3 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -59,12 +59,6 @@ static DEFINE_PER_CPU(unsigned long, nfsd_file_releases);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_total_age);
+ static DEFINE_PER_CPU(unsigned long, nfsd_file_evictions);
  
- int dwc3_host_init(struct dwc3 *dwc)
+-struct nfsd_fcache_disposal {
+-	struct work_struct work;
+-	spinlock_t lock;
+-	struct list_head freeme;
+-};
+-
+ static struct workqueue_struct *nfsd_filecache_wq __read_mostly;
+ 
+ static struct kmem_cache		*nfsd_file_slab;
+@@ -412,16 +406,14 @@ nfsd_file_dispose_list(struct list_head *dispose)
+ static void
+ nfsd_file_dispose_list_delayed(struct list_head *dispose)
  {
--	struct property_entry	props[6];
-+	struct property_entry	props[7];
- 	struct platform_device	*xhci;
- 	int			ret, irq;
- 	int			prop_idx = 0;
+-	while(!list_empty(dispose)) {
++	while (!list_empty(dispose)) {
+ 		struct nfsd_file *nf = list_first_entry(dispose,
+ 						struct nfsd_file, nf_gc);
+ 		struct nfsd_net *nn = net_generic(nf->nf_net, nfsd_net_id);
+-		struct nfsd_fcache_disposal *l = nn->fcache_disposal;
+-
+-		spin_lock(&l->lock);
+-		list_move_tail(&nf->nf_gc, &l->freeme);
+-		spin_unlock(&l->lock);
+-		queue_work(nfsd_filecache_wq, &l->work);
++		spin_lock(&nn->fcache_dispose_lock);
++		list_move_tail(&nf->nf_gc, &nn->fcache_dispose_list);
++		spin_unlock(&nn->fcache_dispose_lock);
++		queue_work(nfsd_filecache_wq, &nn->fcache_dispose_work);
+ 	}
+ }
+ 
+@@ -650,12 +642,12 @@ static void
+ nfsd_file_delayed_close(struct work_struct *work)
+ {
+ 	LIST_HEAD(head);
+-	struct nfsd_fcache_disposal *l = container_of(work,
+-			struct nfsd_fcache_disposal, work);
++	struct nfsd_net *nn = container_of(work, struct nfsd_net,
++			fcache_dispose_work);
+ 
+-	spin_lock(&l->lock);
+-	list_splice_init(&l->freeme, &head);
+-	spin_unlock(&l->lock);
++	spin_lock(&nn->fcache_dispose_lock);
++	list_splice_init(&nn->fcache_dispose_list, &head);
++	spin_unlock(&nn->fcache_dispose_lock);
+ 
+ 	nfsd_file_dispose_list(&head);
+ }
+@@ -824,44 +816,15 @@ __nfsd_file_cache_purge(struct net *net)
+ 	nfsd_file_dispose_list(&dispose);
+ }
+ 
+-static struct nfsd_fcache_disposal *
+-nfsd_alloc_fcache_disposal(void)
+-{
+-	struct nfsd_fcache_disposal *l;
+-
+-	l = kmalloc(sizeof(*l), GFP_KERNEL);
+-	if (!l)
+-		return NULL;
+-	INIT_WORK(&l->work, nfsd_file_delayed_close);
+-	spin_lock_init(&l->lock);
+-	INIT_LIST_HEAD(&l->freeme);
+-	return l;
+-}
+-
+-static void
+-nfsd_free_fcache_disposal(struct nfsd_fcache_disposal *l)
+-{
+-	cancel_work_sync(&l->work);
+-	nfsd_file_dispose_list(&l->freeme);
+-	kfree(l);
+-}
+-
+-static void
+-nfsd_free_fcache_disposal_net(struct net *net)
+-{
+-	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+-	struct nfsd_fcache_disposal *l = nn->fcache_disposal;
+-
+-	nfsd_free_fcache_disposal(l);
+-}
+-
+ int
+ nfsd_file_cache_start_net(struct net *net)
+ {
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+-	nn->fcache_disposal = nfsd_alloc_fcache_disposal();
+-	return nn->fcache_disposal ? 0 : -ENOMEM;
++	INIT_WORK(&nn->fcache_dispose_work, nfsd_file_delayed_close);
++	spin_lock_init(&nn->fcache_dispose_lock);
++	INIT_LIST_HEAD(&nn->fcache_dispose_list);
++	return 0;
+ }
+ 
+ /**
+@@ -880,8 +843,11 @@ nfsd_file_cache_purge(struct net *net)
+ void
+ nfsd_file_cache_shutdown_net(struct net *net)
+ {
++	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
++
+ 	nfsd_file_cache_purge(net);
+-	nfsd_free_fcache_disposal_net(net);
++	cancel_work_sync(&nn->fcache_dispose_work);
++	nfsd_file_dispose_list(&nn->fcache_dispose_list);
+ }
+ 
+ void
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index be0c8f1ce4e3e..3b6c70b104d5c 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -206,7 +206,9 @@ struct nfsd_net {
+ 	/* utsname taken from the process that starts the server */
+ 	char			nfsd_name[UNX_MAXNODENAME+1];
+ 
+-	struct nfsd_fcache_disposal *fcache_disposal;
++	struct work_struct	fcache_dispose_work;
++	spinlock_t		fcache_dispose_lock;
++	struct list_head	fcache_dispose_list;
+ 
+ 	siphash_key_t		siphash_key;
+ 
 -- 
-2.55.0
+2.53.0
 
