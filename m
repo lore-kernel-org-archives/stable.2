@@ -1,133 +1,145 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65124312807
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788571108; cv=pass; b=EgUjSu5/DhmofWvK8wSv+OZ00pK4TnQDwu6U7wr+iZQvazJGBwj6Q+IHojImiNpBbPzqDEwD0laVq8qdH5Prv6+ib1uG5/JrMjdlrJiONlOdGQgA69wJy7ySdI57dFp8WDMQ6YfBa502chfN79N4JLFk/2ZHNzdMWX9nZiEkyis=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788571108; c=relaxed/simple;
-	bh=QRWFS+GgSuBuV0EOpOPKRYi+MPqomhFhRkXTuO72POc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HOzBoAd4bWmvON6d6dOK+kxjn+Z336ne+f5KpsMdY7byy22pw7uF3Q/wddNGZa5Y10HFo1Qh6soR6mDQstoUeTQdhAy2bom3dJNbqAqbGt7JVD77GdVxzF7ajucqy7y11xGl4jvNDG33Pqh6GXH8hDxJd6b7a+4wuRJaXf1eF2U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=eAWN2CTo; arc=pass smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="eAWN2CTo"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c20e70a0962so208301466b.2
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 18:18:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788571103; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pjMlNZPAK5e/qC4CwRNTFQqbdIUhEGrI8b2Wbl9r7T9P8wJObHMZCTr3uA0C+liUzR
-         cjEiLVZ1pbBGY3Trmvu4+f+rTpGbCgozd+b5bdAjWQ+ey/e/Is47pSR2WsKX4KaHKr0a
-         xBIaL0lqFKQK0Kg+WVzlr/8X1A5ZU9FXmumJ/cAO6L3U3aoFPFb7X9FBojED/Nzsqbwj
-         BWXRYpX8tkFzgm+6pCUg7/3xQZ/h83JaRX8DWllAHiQtSsdbxJhUTdpn7UPNljYD0opx
-         PIs4xraxO+5Le0kTCqOCjPwylfXoKZljv48Hbxd7Pdjhm9mxlGX1Q2F4H79WWctfMHjV
-         FFPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
-        fh=ldOCXCJQWblY96WWlqqI5pB9uvtpsXCsZgiZ2SmTCSY=;
-        b=AQwHsNfQwSjsPsmv3hFpa9padDglhle5mNggVe1w78pCWwBSVXA5YB+RJwhA39Jjxq
-         42gM9mpCVpGSy6DDaEHth6MB7nrtgm6dwgcNQ+/cWJrxJnCMXbBYuMgUaSRR4ErFAcVC
-         AYspBWI2N87NRqmFZiMQRc7E78Hgtit7ugHujEortNeN+pX21kHnGCbBuFvNT4NK/v0N
-         M+wQbyBpmul2aMnn55Ik0Sctw9pzLArYRX4kasNxTJAo+2vD+SywI0BbTW8gO0g4UAZ/
-         ekcvzwDZkPSNyyiWcI1MR38ctQjdAgIT53R+KzAh2MzYzzYMQNrybWvdtr1Em6Hf8OLx
-         A/dQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1788571103; x=1789175903; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
-        b=eAWN2CTow+E996I5x9d1j3DbWJx0UtN8ZH5WYW1MFMlMO/xKXywG29SOt/pOWkUxEn
-         fEaNTEKjWtEG0mo3mv5vf1M27dAHBmsVcCuyX3neY7Xb1TIhZ+H7PmpEfHPwjmPt0doy
-         sJHPRt+mSEmHUFs74+p5uoDv3ltOOKA9Ff3DJvgbgrxEAx8FvN/SJQgDj0sJYIvEMiBB
-         0LnTFqnbElc0MeyBBYW6+v+angPRza+IUinDJIiHs7cFHF+RAdKspnxopXZeIkeInQJr
-         v9o8pNJB+DtB0q/4g6aceivClTjOpGfOmZy6WWSt5StJH8+2cTH8b6O1EBM9PybUk/Dg
-         NPlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788571103; x=1789175903;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
-        b=PnVQspMqbJL2XpdJ8X3N9hHCxlGMJeE1UHn//LLY2+tPavEXF7aYI4y2rcOEhzEUKt
-         /T/BPAE32DJ9gE2pgWvb5NVRI4fqjCxeA0vskv0DtBItDmcJye6zClXay/uEp6XMh/ME
-         tRaPfMyko08j0ml8Jt3uJ0TVvDVbN/xyleBY0dLGRrJ1/rXAjjcOep63FhjKCvIoidXh
-         6NKasPoOi7x8jtQKMEwDc6Q9nR8GNWuT4P+bWJ0lx7l+pbNJiMQa7a/4aJWDCemIQ1EF
-         17ZPnPiBUTd6CE7xnib1Oyx1XLTdq9nlXd1Y3ZNxCWqun0yTeIXuUwHsElrdr5Mk+5An
-         1AqQ==
-X-Forwarded-Encrypted: i=1; AKwUvByb0EbyslsLzxEU3glJ5HtmwUedJ5579xUwK5HTP958p9YQu7/K2yqIqa0LifM9wcp8pXmh+yo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lI01MxtjMpXMIZIjTaDM2Pbf7nOntQPSqRl6uSWibk8maWWUjf
-	hblZway6ibi33WwEKVU8YZe3r7/+WMdkuXGri8HRJ7ttpnT0xEsFk2zEcJ+S8EOcG7VCakivMXZ
-	1pHrf4+1GelIxsm6zxhtw4vgsYEVM8XxfIrw4uUV+7w==
-X-Gm-Gg: AYBFou2dOtkwNgVfk/A2FnUYepVjtFUTjC5Zquyygta2cnJLmaNNWs7HbQKqq4ClA45
-	0nE9WKoY0OomKM6c00cCbJ9BFQzvSlqK7jVlBzglKFcr4NLO66ftM7h4akhiwWAgt4qkV6812iO
-	JHsdq7hDS3Oeu+b8rgrzg0EgJd562CYwMgFNYj0a39Vh9nFWWdC+/2yjpot91OO6SkYsBYHLuQa
-	DfQYG01sWGEVqt7+mYA0m63M2D3YNMF2+6CSBlScsYxslahlyAIWLLXEMRMeZX7mHh3lUxm5Vw5
-	UK5uOlYcVCI441G4e6kPL7IWn/x6oqygP+X5UHi5UHuXzQ==
-X-Received: by 2002:a17:907:9709:b0:c26:2a5:819 with SMTP id
- a640c23a62f3a-c260ca1f474mr642465966b.18.1788571103585; Fri, 04 Sep 2026
- 18:18:23 -0700 (PDT)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65D877DA66;
+	Sat,  5 Sep 2026 01:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788572798; cv=none; b=Tzqzvg1G+K6DQARo0dZ1xgOYR/aXjllkEMnLqvDtKKfdvyap+OOv6UM8h1IGonuGPZz9OTvPxa/t+NZT5tRonmrf9Np7U/DrFmYAgccC25w4WvoPC/kr7tFdh7UGAa89zJmpCD7CevJha/kuUjD4GJQ1J2pqYr3avtQ2Evu6ivQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788572798; c=relaxed/simple;
+	bh=KouDW1qDoJWD1jaiqezuVaYg+AKxnKoaxgcIv1NiC7o=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qV2jHH0vvstYp12HcF7SQ9HRLsnO43yl/lrr49UGOcZYUFIYwiUyeuXQ9Dx5abIDwQk9JyUyqWKJK2JJ6FbmD4fJAYIuQKwz/CynXQaIWW51izsJUc2UImq4dVSamqXVCMKNtR0uodnH3R7HtxkK4HU8aN9g2gsuT0bPOxRCUxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wAHwz1sdJtqp7LwAA--.5161S3;
+	Sat, 05 Sep 2026 09:46:21 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app3 (Coremail) with SMTP id zS_KCgAHIHJsdJtqqgTxBA--.23681S2;
+	Sat, 05 Sep 2026 09:46:20 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: linux-pci@vger.kernel.org
+Cc: mani@kernel.org,
+	kwilczynski@kernel.org,
+	kishon@kernel.org,
+	Frank.Li@kernel.org,
+	den@valinux.co.jp,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] PCI: endpoint: pci-epf-test: Free doorbell IRQ on unbind and deinit
+Date: Sat,  5 Sep 2026 01:45:25 +0000
+Message-Id: <20260905014525.420764-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904103351.15357-1-max.kellermann@ionos.com>
-In-Reply-To: <20260904103351.15357-1-max.kellermann@ionos.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Fri, 4 Sep 2026 18:18:12 -0700
-X-Gm-Features: AcwNN1VahgJIxFl-EEQrkp0gkp8R3dSoW-hNCnMZLa2sVOL76dxy0sOlZpB3OjE
-Message-ID: <CAOJNxRLfDHmW_+jtUQogRcHCGKAyQJKBkQKQRM1i0Bvj2vkLVw@mail.gmail.com>
-Subject: Re: [PATCH] ceph: avoid pending truncate during nonblocking cap acquire
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zS_KCgAHIHJsdJtqqgTxBA--.23681S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?VlmG0wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnZPoDCNGYdHSfuFmYJL54WNRmDW6Lulsi3SWS9iggSWYZtbcyxek/B+YnB4qJzEgLiEs
+	oAYSUiBQunrsF6X+03ap9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxCry5Cw45ArykWr13Cr1ktFc_yoW5tr47pF
+	ZxArykKF4kWa1DXw45Xa18CrWfAF4vq3y09r1UGw13Awn3Xr18tF4Iq3W8tF4kJrZ5Z3Wa
+	y3Z0qFnrXwnIy3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Cb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjx
+	CEc2xF0cIa020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAF
+	wI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0x
+	vY0x0EwIxGrwACjcxG0xvY0x0EwIxGrVCF72vEw4AK0wCF04k20xvY0x0EwIxGrwCFx2Iq
+	xVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r
+	106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AK
+	xVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7
+	xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_
+	Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07jUGYJUUUUU=
 
-LGTM.
+Neither pci_epf_test_unbind() nor pci_epf_test_epc_deinit() frees the
+doorbell IRQ. epc_deinit() clears the BARs, while unbind() can free the
+BAR backing store; if the doorbell is enabled, its IRQ action remains
+registered with epf_test as dev_id and epf->db_msg stays allocated. A
+doorbell interrupt may already have awakened the threaded handler when
+teardown starts, and since cancel_delayed_work_sync() drains only the
+command worker and clear_bar() does not wait for the IRQ thread,
+unbind() can free that backing while the handler still dereferences
+epf_test->reg[]. The leftover IRQ also makes the next doorbell
+allocation on the same function fail with -EBUSY.
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+Free the doorbell IRQ in both paths, guarded by a
+doorbell_irq_registered flag set once request_threaded_irq() has
+succeeded and cleared in pci_epf_test_doorbell_cleanup(), the
+chokepoint shared by the enable error path, disable_doorbell() and the
+teardown sites, so no disarm path can double-free. In unbind(), the
+drain depends on the driver's own flag, not on epc->init_complete.
 
-On Fri, 4 Sept 2026 at 03:33, Max Kellermann <max.kellermann@ionos.com> wrote:
->
-> Readahead acquires caps while the folios are locked.  This can
-> deadlock when processing a pending truncate; truncate_pagecache() can
-> then attempt to a folio that is already locked.
->
-> Return -EAGAIN instead when `NON_BLOCKING` is set, causing the
-> readahead to be abandoned.
->
-> Fixes: 49870056005c ("ceph: convert ceph_readpages to ceph_readahead")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  fs/ceph/caps.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
-> index bcb04c6cb92c..86e195c5fd32 100644
-> --- a/fs/ceph/caps.c
-> +++ b/fs/ceph/caps.c
-> @@ -2889,6 +2889,10 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
->         }
->
->         /* finish pending truncate */
-> +       if (ci->i_truncate_pending && (flags & NON_BLOCKING)) {
-> +               ret = -EAGAIN;
-> +               goto out_unlock;
-> +       }
->         while (ci->i_truncate_pending) {
->                 spin_unlock(&ci->i_ceph_lock);
->                 if (snap_rwsem_locked) {
-> --
-> 2.47.3
->
+This issue was found by an in-house static analysis tool.
+
+Fixes: eff0c286aa91 ("PCI: endpoint: pci-epf-test: Add doorbell test support")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+ drivers/pci/endpoint/functions/pci-epf-test.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/pci/endpoint/functions/pci-epf-test.c b/drivers/pci/endpoint/functions/pci-epf-test.c
+index d4905aa..ab8df91 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-test.c
++++ b/drivers/pci/endpoint/functions/pci-epf-test.c
+@@ -95,6 +95,7 @@ struct pci_epf_test {
+ 	const struct pci_epc_features *epc_features;
+ 	struct pci_epf_bar	db_bar;
+ 	bool			db_bar_programmed;
++	bool			doorbell_irq_registered;
+ 	size_t			bar_size[PCI_STD_NUM_BARS];
+ };
+ 
+@@ -721,6 +722,7 @@ static void pci_epf_test_doorbell_cleanup(struct pci_epf_test *epf_test)
+ 	struct pci_epf *epf = epf_test->epf;
+ 
+ 	reg->doorbell_bar = cpu_to_le32(NO_BAR);
++	epf_test->doorbell_irq_registered = false;
+ 
+ 	pci_epf_free_doorbell(epf);
+ }
+@@ -772,6 +774,7 @@ static void pci_epf_test_enable_doorbell(struct pci_epf_test *epf_test,
+ 		goto err_doorbell_cleanup;
+ 	}
+ 
++	epf_test->doorbell_irq_registered = true;
+ 	reg->doorbell_data = cpu_to_le32(msg->data);
+ 	reg->doorbell_bar = cpu_to_le32(bar);
+ 
+@@ -1238,6 +1241,10 @@ static void pci_epf_test_epc_deinit(struct pci_epf *epf)
+ 
+ 	cancel_delayed_work_sync(&epf_test->cmd_handler);
+ 	pci_epf_test_clean_dma_chan(epf_test);
++	if (epf_test->doorbell_irq_registered) {
++		free_irq(epf->db_msg[0].virq, epf_test);
++		pci_epf_test_doorbell_cleanup(epf_test);
++	}
+ 	pci_epf_test_clear_bar(epf);
+ }
+ 
+@@ -1374,6 +1381,10 @@ static void pci_epf_test_unbind(struct pci_epf *epf)
+ 	struct pci_epc *epc = epf->epc;
+ 
+ 	cancel_delayed_work_sync(&epf_test->cmd_handler);
++	if (epf_test->doorbell_irq_registered) {
++		free_irq(epf->db_msg[0].virq, epf_test);
++		pci_epf_test_doorbell_cleanup(epf_test);
++	}
+ 	if (epc->init_complete) {
+ 		pci_epf_test_clean_dma_chan(epf_test);
+ 		pci_epf_test_clear_bar(epf);
+
