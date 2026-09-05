@@ -1,169 +1,147 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21A71A6808
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 10:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD0B44CACB
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 10:39:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788603438; cv=none; b=Uh5i7k7H7OsNBMNyU8ottWQ5vblIPQuiCuyyHdUBs90mvAPv6r54ocnMukXPIVEXJmgpqBy9UOPqR5vmO4Dr0805TpBciN4Byb1NpFLcROYWZRvBHWHFWX7dzVi1zVZ2xBjwCTHTG/eoBjftBLF3Zj37dfuX/l5sXI1C1yUafwo=
+	t=1788604771; cv=none; b=BcQyK3KD+D20SbP4vG+3WVYR3Zvx1Toa03H86PjihtBuOFxIHbgPjNMBjtXhJiP2g/7YF50adTNvVIU7iU6gSP4BapWlDHYYyweF9yNz66/WivZvnqXCQnplGxQXDaNx7tnnP7QpInHludhz9kgVGW2TZtQBtgeIuetEsdQ8aOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788603438; c=relaxed/simple;
-	bh=3KNj/R7KYC6Zziw5jEB1qygNDTJatM/loAz/jQBWuJA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lKhjd7hCnhna8hlY9dDkUIr6GEho6hP2TTdSis9lLOo1LBNXrSWhLKf4N5OYhutmgZj/064Eth7OFqWWg4WYTZoTFPbEICtODO9Rg39m7fJckrgHs40ad+VczU8P+EiqQzwbniWgvbBr0GB+Si+JQGcc/kFEBuC6+qzG2CIqsCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tyMxS2Gr; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788604771; c=relaxed/simple;
+	bh=qKwArP0WigeNsSMiWM9fRKfNl+ixVag40Kpf76pLGks=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m8p6AkjLbMhsnx/1UNZC7i+XNVoCWob3yJMvgqtv1K4/pujDL5vT/2C5Iuws4s+uTp5rNi0+EmlJ9fvmWZmsAZ9MOhzPh2zQ+NqpBL07xlqLkRRj4z9haBM1vrYEjbfy4JYDkDrd1JPSso/p6EzWFpfRYQV8jBfI/9K6S1TOFN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFULPblh; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tyMxS2Gr"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788603426; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=2eP3KCWIc7gStt5fjI//Pxfe5oYZySF3OBJ8UfVxGIQ=;
-	b=tyMxS2GrgviTzbvNrVSrshjKoCxXRnKpZMRRGaSINen4q5kKfSvDLIoLMEq8mwHLu4DGTVLExQXXu3/B1yCZ0l5K5NYcaLDfIis+UBbT8ffDSFpOnG25NM+Ec0WSVXiQ0i59e4J8ArP12RgcpL0N2iiheT4e+kyzP1v6s+R0qLM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R371e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=alibuda@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XAKnuHb_1788603424;
-Received: from localhost(mailfrom:alibuda@linux.alibaba.com fp:SMTPD_---0XAKnuHb_1788603424 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Sat, 05 Sep 2026 18:17:05 +0800
-Date: Sat, 5 Sep 2026 18:17:04 +0800
-From: "D. Wythe" <alibuda@linux.alibaba.com    >
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: "D. Wythe" <alibuda@linux.alibaba.com>, stable@vger.kernel.org,
-	patches@lists.linux.dev, zdi-disclosures@trendmicro.com,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Breno Leitao <leitao@debian.org>,
-	Steffen Klassert <steffen.klassert@secunet.com>
-Subject: Re: [PATCH 5.10 28/43] xfrm: espintcp: fix UAF during close
-Message-ID: <20260905101704.GA47841@j66a10360.sqa.eu95>
-References: <20260831133358.571886287@linuxfoundation.org>
- <20260831133359.883892832@linuxfoundation.org>
- <20260904095158.GA83164@j66a10360.sqa.eu95>
- <2026090409-hesitant-hug-bd90@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFULPblh"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d560775ca2so13964555ad.1
+        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 03:39:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788604766; x=1789209566; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/WXSZYdhEXRp/byDgRnPhYVP+JoRijs47XywpK06FLE=;
+        b=DFULPblh00QzhGjhOtYWYGszXWRkwWab78QiwXLfM1kRqCEkM3tx/pMIGnUlLk83HW
+         iKhdG+QqugrnTwBz3pC2FU18hyRDjy9yJzCFcuA/GHu+lNlmb2bVW4v6hFk46afk+KuS
+         3ewZt1dhIN0Av8jqnEtgUozxtIvkcu1hsnb7eLukyUbw9wb/r1Muh9sWsbGIBvzxb6Oh
+         8f5wGk03q/mNyOanUsTsrhxRpijFf8ZHCksTpbeUJB72ykkwVrLvESRXJRb+AuG7UTma
+         G94BoQ0r6gMmQgZ82lMnEc3x4xJlhO1SmMVRXdRid42IeWYf8wAMO5uJ6bxiDO7mGho/
+         EYXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788604766; x=1789209566;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/WXSZYdhEXRp/byDgRnPhYVP+JoRijs47XywpK06FLE=;
+        b=JyV8od0p1g+UG3P1V6SHdcX92owSF87T07jOZNH7eBEihErgeSkgNtM5q42vHCRXCT
+         nJGb+dSH4I7YOl2d2ZO3uwFJvc1wRiVaZTHPutz2Bdui8SLXH38sxatM2DyykEhiOn17
+         OETjtZwBpo1qVsxdYUTS5IilpsjxIEDJ0fUVMT2qQ7Dw3lINibZMW75ob+vH1r944tlr
+         tP9ccyN+cbiTV39+IVqBXb19HJfF0sMSbeCZjIh5EOHe4E3ud+AAFDSicvJ2wEEpZN6h
+         IdrUDZldhdKO/XflJgf+DorKiezoCnyidSqKGH5e2KTumNriLykh8zkdPlm2jjBKg6QX
+         OHMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzRFv1jja+fN2oqCRADEASfT+1HaWu3PwojCXFbHRbyqpC6N1sDBmLQiWVmMDlNbkJpOoF4CgQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWa9QX+rmAiCozxZBCOnZQLMe+7Lmcg7cH/zycFWs9tjOSZgDe
+	1ggh0HGw5oUgbhV3F0IYecusjpO+HYGvkIqwADSDJtOV+/MOr6k2oyPvJzzOmQ==
+X-Gm-Gg: AYBFou3HBxjIJRA6qVna8Zxd24xv1N5IFTejC/y1p4kMEx31xBdLp6GSdswYprlGAjd
+	bCAJ2ymNVoT8/CAv/f0Rsh+x0z3KdI2BzOLdJPMyzFMaycE9Mx1t4xqOdctXMjp7hRSSdAa5FVV
+	OdxfVb4iOP9E8Q/oGHj7E1WmNW8b4nHXu12iRPb6LrQVc8yoyshsjk3l5cBZGbXpc6L9rZ5SlYx
+	E8QUvPIDE/PXSJ4Wt9orwhAtk2Oz+K41eFRzUXRDaO6rugKkdPsxFDBAn3FyoA3Fsi1t4P9nWM4
+	z+jQbKl2zumox2eYp5MiAkEeE2qk3t536vZMhFFEqI9e3oxZPEXbxkFmsn45Cq6UEbWrz1uRhf5
+	CjVziUiCALwz5qox5l4Eff9dcMiaG+iOfqRf9NbrxC2bwvf1eJMGqdcA1HWW8EDKaYK8ejTI5rc
+	k0XTTXwOfSf+Lhf5uehqERSnEgUSI8tZKMHSNvcRpyKikhZjX5YILsnKqaGBqz1FCzCC1BVBXbJ
+	Egx
+X-Received: by 2002:a17:903:198e:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2db125ca4b4mr188947935ad.13.1788604766401;
+        Sat, 05 Sep 2026 03:39:26 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([115.164.90.14])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149ccf2esm21288335ad.73.2026.09.05.03.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 03:39:25 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Sat,  5 Sep 2026 18:36:58 +0800
+Message-ID: <20260905103935.4871-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905002534.67885-1-sj@kernel.org>
+References: <20260905002534.67885-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026090409-hesitant-hug-bd90@gregkh>
-User-Agent: Mutt/1.5.21 (2010-09-15)
 
-On Fri, Sep 04, 2026 at 02:15:30PM +0200, Greg Kroah-Hartman wrote:
-> On Fri, Sep 04, 2026 at 05:51:58PM +0800, D. Wythe wrote:
-> > On Mon, Aug 31, 2026 at 03:35:36PM +0200, Greg Kroah-Hartman wrote:
-> > > 5.10-stable review patch.  If anyone has any objections, please let me know.
-> > > 
-> > > ------------------
-> > > 
-> > > From: Sabrina Dubroca <sd@queasysnail.net>
-> > > 
-> > > commit deb232e884877bf10b4ce2580909eedec986c284 upstream.
-> > > 
-> > > ZDI reported and analyzed a race condition during close for espintcp
-> > > sockets:
-> > > 
-> > >     espintcp_close() frees emsg->skb via kfree_skb() without holding
-> > >     any socket lock. Concurrently, the xfrm_trans_reinject work queue
-> > >     invokes esp_output_tcp_finish() -> espintcp_push_skb() ->
-> > >     espintcp_push_msgs() -> skb_send_sock_locked(), which reads the
-> > >     same skb as a data source.
-> > > 
-> > > Fix this by adding a synchronize_rcu() call after resetting sk_prot,
-> > > since esp_output_tcp_finish() runs under RCU and won't use a socket
-> > > with sk_prot == &tcp_prot.  Simply taking the socket lock in
-> > > espintcp_close() could lead to leaks, if esp_output_tcp_finish()
-> > > re-adds an skb in the slot we just freed. After this, the existing
-> > > barrier() is no longer needed.
-> > > 
-> > > Cc: stable@vger.kernel.org
-> > > Fixes: e27cca96cd68 ("xfrm: add espintcp (RFC 8229)")
-> > > Reported-by: zdi-disclosures@trendmicro.com
-> > > Signed-off-by: Sabrina Dubroca <sd@queasysnail.net>
-> > > Reviewed-by: Breno Leitao <leitao@debian.org>
-> > > Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-> > > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > > ---
-> > >  net/xfrm/espintcp.c |    3 ++-
-> > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > 
-> > > --- a/net/xfrm/espintcp.c
-> > > +++ b/net/xfrm/espintcp.c
-> > > @@ -506,7 +506,8 @@ static void espintcp_close(struct sock *
-> > >  	strp_stop(&ctx->strp);
-> > >  
-> > >  	sk->sk_prot = &tcp_prot;
-> > > -	barrier();
-> > > +
-> > > +	synchronize_rcu();
-> > 
-> > 
-> > This backport depends on upstream
-> > 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"),
-> > which is not in 5.15.y. Without it, esp_find_tcp_sk() still
-> > returns the cached x->encap_sk based only on sk_state == TCP_ESTABLISHED
-> > (no tcp_is_ulp_esp() check), so new readers keep racing with
-> > espintcp_close()'s kfree_skb on ctx->partial.emsg->skb — the UAF issue
-> > this patch is supposed to fix.
-> > 
-> > Reproduced on 5.15.219+ (with this patch applied), KASAN trimmed:
-> > 
-> >   BUG: KASAN: use-after-free in __skb_send_sock+0x6cf/0x7b0
-> >   Workqueue: events xfrm_trans_reinject
-> > 
-> >   Reader:
-> >     __skb_send_sock <- espintcp_push_msgs <- espintcp_push_skb <-
-> >     esp_output_tcp_encap_cb <- xfrm_trans_reinject
-> > 
-> >   Free:
-> >     espintcp_close <- inet_release <- __sock_release <- sock_close <-
-> >     __fput
-> > 
-> >   Object: skbuff_head_cache (size 224), i.e. struct sk_buff.
-> > 
-> > Provenance: the static analysis (missing-prerequisite chain, code-path
-> > derivation) and the KASAN reproducer above were both produced by our
-> > internal AI-assisted backport triage pipeline. I have personally
-> > reviewed the reasoning line-by-line against the 5.15.y source, re-ran
-> > the reproducer end-to-end, and confirm the finding — sending it upstream
-> > on that basis.
+On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
+
+> On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 > 
-> That's LLM output, what do you mean to say here to fix this?  Please
-> send a patch...
+> > That said, it's not important for me to add explanations to the
+> > document, but may I know why commit [2] changed the behavior which
+> > introduced by commit [1]?
+> > 
+> > Commit [1] Behavior:
+> > 
+> >     if (quota->esz && quota->changed_sz >= quota->esz)
+> >         s->stat.qt_exceeds++;
+> > 
+> > Commit [2] Behavior:
+> > 
+> >     if (damos_quota_is_full(quota, c->min_region_sz))
+> >         s->stat.qt_exceeds++;
+> > 
+> > Before commit [2], qt_exceeds will only increase when quota->esz is not
+> > zero, but after commit [2], qt_exceeds also increase even when
+> > quota->esz is zero.  I'd love to understand the rationale behind this
+> > change to better grasp the design evolution.
+> > 
+> > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
+> >     (Fri Jan 14 14:10:20 2022 -0800)
+> > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
+> >     (Mon Apr 27 18:33:50 2026 -0700)
+> 
+> Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
+> describing.
 
-Hi Greg,
-
-Sorry about the confusion. Just to clarify, this is not raw LLM output.
-I only included that note to be transparent and avoid any controversy,
-as the issue wasn't initially discovered by myself.
-
-We actually already have a patch prepared for this, but the situation is
-a bit more complicated.
-
-The fix actually has two prerequisite dependencies:
-
-Commit 028363685bd0 ("espintcp: remove encap socket caching to avoid reference leak"), as mentioned earlier.
-Commit e1512c1db9e8 ("espintcp: Fix race condition in espintcp_close()"), which relies on disable_work_sync() — an API that
-does not exist in the 5.10 tree.
-
-To avoid expanding the blast radius, we chose to use an alternative
-approach in espintcp to replace the implementation of commit
-e1512c1db9e8: introducing a stopped flag and protecting both the flag
-check and schedule_work() under the existing out_queue.lock spinlock,
-achieving the same atomic synchronization effect as
-disable_work_sync().
-
-However, doing this inevitably leads to code divergence between upstream
-and this tree for xfrm. I'm not sure what the xfrm folks' stance is on
-this. If the community feels this is overly complicated, I think it's
-also totally fine to just leave the patch here.
-
-Thanks,
-D. Wythe
+I actually wanted to point out the behavior difference between commit [1]
+and [2], but I've understood and agreed with your point.
 
 > 
-> thanks,
+> '''
+> $ git show c7ec7d5f6b3d1
+> [...]
+> @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+>         if (!time_in_range_open(jiffies, quota->charged_from,
+>                                 quota->charged_from +
+>                                 msecs_to_jiffies(quota->reset_interval))) {
+> -               if (damos_quota_is_set(quota) &&
+> -                               quota->charged_sz >= quota->esz)
+> +               if (damos_quota_is_full(quota, c->min_region_sz))
+>                         s->stat.qt_exceeds++;
+>                 quota->total_charged_sz += quota->charged_sz;
+>                 quota->charged_from = jiffies;
+> '''
 > 
-> greg k-h
+> And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
+> ("mm/damon/core: allow quota goals set zero effective size quota") will give
+> you some clues.
+
+Thank you very much for your clarifying :>
+
+Now I completely understand why there is different behavior between
+commit [1] and [2].  Because in commit [1], esz==0 only means quota is
+unlimited.  After commit 54419bbd0ee3, esz==0 also can means do not have
+quota at all.  But the qt_exceeds should just not increase when quota is
+unlimited, that's why the current implementation is completely correct.
+
+Best regards,
+Rui Yan
