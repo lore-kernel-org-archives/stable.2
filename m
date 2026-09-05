@@ -1,126 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4994CCDFD
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 02:13:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04EC2DB7BB;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788574425; cv=none; b=F4UIYvyo7pMXlTJZxq0KxBP69p1G3y9WkSxhwxEsdbomSa9okmxLUumIJYIAzmNZHipKkqS+I1jCSHg0l0sSIlKKUm0uEjEY0+foF0JZaAfXPzaWmnvdqmhJGQWF+fdVgox3EPaT0P1kzmeNsBDcS8TtEh5hkQAub50g+J3vPxY=
+	t=1788574678; cv=none; b=prbCfo131nYcPtRDq6YgZ1eQRbw8hYNk2242fazsnzYpLo0JOsx83QTlfV6o6OUrcBJpHJtAMsl7zsLO9T+PE1AOM8QvKL3nPV+T8OXdiXOrNSJDWXiFgxSpwkzqGZNCjjsuK2WiXRMHPWMAng5Ck3c+vWgV6/iWYq0sAl2MGl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788574425; c=relaxed/simple;
-	bh=zABklw45QzdGFuubtIaw4uqRRh20qY9DBfFxSTKhJpY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m6T0OGtUhxuHTacNGlPtF5T0fGsNP3ZqS8czuXUCFMWqNSeJKpmkjoec5ensLTR73mpWVFIU3mWAQDDqDLfwvLG120nYOrXAOSxjkWzBOcBxaFyd/oz0RSfeF/qv/KtG895Wa/35f+pZRbABv2B7v872gLOl42e4FcT1/VUt2og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOVYQfhV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788574678; c=relaxed/simple;
+	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VkmZmEl/foB6ovx+J+QMCl1unRTqJFkKzMHlbRtj/vpbzOwP9ZVFLsiG50XTL2KwmF21Abq7GSZjzXwjRxxRlKpua7nHW83ciOBGW3v27ZbHdQrnXk5kqJokjV9VLHh7Nm20XoPHuB2T66FXL6k6Byf1KLr2mDZQ8PNdShH4Uco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PL+sVWRb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOVYQfhV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493201F00A3E;
-	Sat,  5 Sep 2026 02:13:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788574423;
-	bh=k9G0add4aYc6uS69AU1uY+DzOT16E8QtFViO1KrSZ0I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IOVYQfhVdlNNIOzI/5dl6onTN53/rCrZIVs/t1iZB7FC1+vSq+WVo+HSRxYklBJ7N
-	 Yj7lRyV6mi3KfqkFTsy2ApBAAsaWoj1K1Xvejlew02gB10HWYUZv0GTzDQO2rBwGxO
-	 gDpRR/+drIyYNL2i8mS4uQeuNWp7ut1U320IAbMDRhrFMKcuMGIlk3LCXYqKeHM2dK
-	 5GPlPrj/fAxzbaKu4rsE9vpdbDjtcSEXRX7vOH6A4BKHfVFmuS8R00DbW37kd/HT06
-	 YSyg42o5LnZXc4sn8mYlHA6Sa0bB7Ma3y/O3AXQgINRbmjabS2WP+x8c5ByZMMuZ8P
-	 wEJpXhPDmyFgA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] nfsd: size fh_verify server sockaddr slot by xpt_locallen
-Date: Fri,  4 Sep 2026 22:13:42 -0400
-Message-ID: <20260905021342.1845867-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090325-sushi-playback-eb16@gregkh>
-References: <2026090325-sushi-playback-eb16@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PL+sVWRb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 560A8C2BCF5;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788574677;
+	bh=pBfjF5beceQC3GK8orgII7IC2LW//67f1nHLeXHsB20=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=PL+sVWRb9TnwuxBDmNsHlt9HbCDfoaji3iLduI4ymeh/PNZBwGRZyS1nagfnrP5px
+	 nY/gVDINhLLHvE5JtG6iPrK6HGl29/kmAjxIxzMusHjRkfxjTz5g2IyQqIPXCBEcX6
+	 nYjE/pzVYJJTG08G8ZByhvrzny8bZym6uiWMRIga51TScfCmAGrDwCbGbrt+gt4H1o
+	 9a4rzzSpkm3W4V//4/uHJE2A2JhanNCw4F14XvPCy7wjyoGP5V0SBTCmDQ7+b3Lxx/
+	 0GQPLMHnkqNni4f59H4fBDExGWsYM4NpKRDS8Lpic2vu2xNWGg/rBIidkH3EmMSIW0
+	 DQDiVirKbaIlw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DF84C79F89;
+	Sat,  5 Sep 2026 02:17:57 +0000 (UTC)
+From: Younes Akhouayri via B4 Relay <devnull+git.younes.io@kernel.org>
+Date: Sat, 05 Sep 2026 04:17:45 +0200
+Subject: [PATCH] rust: num: seal Integer
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260905-feature-rust-num-seal-integer-v1-1-83096115ad64@younes.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0Q7CIAyF4VdZuLYRcSGZr2K8ANaxGmWmBWOy7
+ N2F7fJver5VCTKhqFu3KsYvCS2pxuXUqTC7FBForK2MNlYP+goTulwYgYtkSOUNgu4FlDJGZHC
+ 9sWacejMEq6rxYZzot/v3x9FS/BNDbmj78E4QPLsU5nZamCKl864fy237A9lWeQilAAAA
+X-Change-ID: 20260903-feature-rust-num-seal-integer-a4262df429c6
+To: Alexandre Courbot <acourbot@nvidia.com>, 
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Younes Akhouayri <git@younes.io>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788574676; l=1759;
+ i=git@younes.io; s=20260712; h=from:subject:message-id;
+ bh=bVjKmsDC3xyhPHxsbELDrHtf25N1qLrwIDkcTJtI+Hw=;
+ b=tn6YSXWPvKIjGWNXFsc+QIj5PzBOLQzeokvmPUB666OHKjbnHLWLMM+YIRl87t9+YEYlqeFkH
+ UOZmavqYAaJCk/4Rs0Jf1qgDYBfLRIG6qyvjqPfVMPOiB4TA55gUurs
+X-Developer-Key: i=git@younes.io; a=ed25519;
+ pk=1DRfzPrQ04RQHHgGK28t+vjIAPv5oISPiAdLMU6J5dE=
+X-Endpoint-Received: by B4 Relay for git@younes.io/20260712 with
+ auth_id=866
+X-Original-From: Younes Akhouayri <git@younes.io>
+Reply-To: git@younes.io
 
-From: Chris Mason <clm@meta.com>
+From: Younes Akhouayri <git@younes.io>
 
-[ Upstream commit 71d068490098b1d23c63b2345e40675d3a1ca763 ]
+Bounded relies on Integer implementations to describe primitive integer
+semantics correctly. In particular, it uses Integer::BITS and Signedness
+to justify unchecked operations.
 
-The nfsd_fh_verify and nfsd_fh_verify_err tracepoints declare the
-server sockaddr slot sized by xpt_remotelen but fill it from
-xpt_local using xpt_locallen:
+Integer is currently safe and externally implementable, so an
+implementation can violate those assumptions and make safe Bounded
+operations reach undefined behavior.
 
-    TP_STRUCT__entry(
-            ...
-            __sockaddr(server, rqstp->rq_xprt->xpt_remotelen)
-            ...
-    )
-    TP_fast_assign(
-            ...
-            __assign_sockaddr(server, &rqstp->rq_xprt->xpt_local,
-                              rqstp->rq_xprt->xpt_locallen);
-            ...
-    )
+Seal Integer so only the primitive implementations provided by the
+kernel crate can satisfy it.
 
-When xpt_locallen exceeds xpt_remotelen, __assign_sockaddr's memcpy
-writes past the reserved ring-buffer slot. In the reverse direction
-(xpt_locallen < xpt_remotelen) the slot is oversized and the
-unwritten tail leaks prior ring-buffer contents to trace consumers.
-
-The write-past-end case is reachable on NFS/UDP. svc_xprt_set_remote()
-is only called from svc_tcp_accept() (net/sunrpc/svcsock.c) and from
-the RDMA connect path; svc_create_socket() for UDP calls only
-svc_xprt_set_local(), so xpt_remotelen stays 0 for the xprt's
-lifetime. Every fh_verify trace for an NFSv2/v3-over-UDP request
-then copies 16 or 28 bytes from xpt_local into a zero-byte slot.
-
-The other NFSD tracepoints that record the server address
-(NFSD_TRACE_PROC_CALL_FIELDS, NFSD_TRACE_PROC_RES_FIELDS,
-SVC_RQST_ENDPOINT_FIELDS) already size the server slot by
-xpt_locallen; nfsd_fh_verify and nfsd_fh_verify_err were the only
-exceptions.
-
-Fix by sizing the server slot with xpt_locallen so the declared slot
-matches the copy length. The client slot and its assignment already
-agree on xpt_remotelen and are left untouched.
-
-Fixes: 051382885552 ("NFSD: Instrument fh_verify()")
-Fixes: 948755efc951 ("NFSD: Replace dprintk() call site in fh_verify()")
+Fixes: 01e345e82ec3 ("rust: num: add Bounded integer wrapping type")
+Closes: https://lore.kernel.org/rust-for-linux/CANiq72mOfR33s4y+Ueivd5NrC5yre+Pcp57ZOBz0msw9A4AP1Q@mail.gmail.com/
 Cc: stable@vger.kernel.org
-Assisted-by: kres:claude-opus-4-7
-Signed-off-by: Chris Mason <clm@meta.com>
-Link: https://patch.msgid.link/20260531-nfsd-testing-v1-1-7bfa481b0540@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Miguel Ojeda <ojeda@kernel.org>
+Signed-off-by: Younes Akhouayri <git@younes.io>
 ---
- fs/nfsd/trace.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ rust/kernel/num.rs | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
-index 91e9921db725e..bc8abf74a4cd3 100644
---- a/fs/nfsd/trace.h
-+++ b/fs/nfsd/trace.h
-@@ -201,7 +201,7 @@ TRACE_EVENT(nfsd_fh_verify,
- 	TP_ARGS(rqstp, fhp, type, access),
- 	TP_STRUCT__entry(
- 		__field(unsigned int, netns_ino)
--		__sockaddr(server, rqstp->rq_xprt->xpt_remotelen)
-+		__sockaddr(server, rqstp->rq_xprt->xpt_locallen)
- 		__sockaddr(client, rqstp->rq_xprt->xpt_remotelen)
- 		__field(u32, xid)
- 		__field(u32, fh_hash)
-@@ -240,7 +240,7 @@ TRACE_EVENT_CONDITION(nfsd_fh_verify_err,
- 	TP_CONDITION(error),
- 	TP_STRUCT__entry(
- 		__field(unsigned int, netns_ino)
--		__sockaddr(server, rqstp->rq_xprt->xpt_remotelen)
-+		__sockaddr(server, rqstp->rq_xprt->xpt_locallen)
- 		__sockaddr(client, rqstp->rq_xprt->xpt_remotelen)
- 		__field(u32, xid)
- 		__field(u32, fh_hash)
--- 
-2.53.0
+diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
+index dbe848e30efe..de589792a77a 100644
+--- a/rust/kernel/num.rs
++++ b/rust/kernel/num.rs
+@@ -15,9 +15,14 @@ pub enum Unsigned {}
+ /// Designates signed primitive types.
+ pub enum Signed {}
+ 
++mod private {
++    pub trait Sealed {}
++}
++
+ /// Describes core properties of integer types.
+ pub trait Integer:
+-    Sized
++    private::Sealed
++    + Sized
+     + Copy
+     + Clone
+     + PartialEq
+@@ -56,6 +61,8 @@ pub trait Integer:
+ macro_rules! impl_integer {
+     ($($type:ty: $signedness:ty), *) => {
+         $(
++        impl private::Sealed for $type {}
++
+         impl Integer for $type {
+             type Signedness = $signedness;
+ 
+
+---
+base-commit: e510334fbaeaa016ac76d80b4c5f47611c5f7860
+change-id: 20260903-feature-rust-num-seal-integer-a4262df429c6
+
+Best regards,
+--  
+Younes Akhouayri <git@younes.io>
+
 
