@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB05231836
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:46:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219AE231836
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623186; cv=none; b=aBOo5RUMBULcUousXl+Fn1/5UCS8BK0VpG1e5UDG4qqgd//zlfhIy/cFs23WXBSJGVPMDkcgeJ9GH81pCekjls+tLMDaVTUJVQzkHMs76MiE7nRHEz1Q9DgtG4+x4LTrRfsIy8nytfylSFDj21jQ3tsJL2m5/HmaDAVa4HIzzVo=
+	t=1788623192; cv=none; b=XMKr7ObsIJq0JBy44s0ZdEIGX/WiCCwYTEHgZwqc/TZJKAVDgVz7SMSGk6rLHNOn6Ygrrs4jZZ94BNIAU46tXBldlSAhK2ptyC7ZDM2xob2rGUhjWxz1y+uaH5qlqztAcIjyzP2k7+BR1Ruck6pAWXWyJgzg2KcNrvuiX78EOZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623186; c=relaxed/simple;
-	bh=Rt6bO3i51HZgO7qJBWIwjy6Q9IaESJ4IGxKR5+z/SXQ=;
+	s=arc-20240116; t=1788623192; c=relaxed/simple;
+	bh=9HM2n0lv2We5NJrZeqFr0SZGq2QMN6h9YThtpDjcukg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gqcbOjjq9cRo3sJNYu4GPDEH486L41X5bo3mZO3Sij29Hh+ld6wlGeLfrAtIbox1FV8e2F4rjN1RdkHWJH7TU1D1/dxQ58AP35TmRrf6AAHXT1FNmup6U1pSpyCfYM2gZs8pH5rYbRAENPygdpRHMhYQpzPfaK/irP82RjIAPHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b7axcfTo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cG3NTYi0pbkByNN5gom60H+cWPDdb0ux4udgPSemCqpnC4GbklOKC+eBqhxBW4qA68yHRbjIugFD7EePJkpZxBYIYITKNe3z0xM6NoB+BlJgxy+fRdZK3pNyReb2fb0A5vuJEpIp8n9Zw9c8Y17zN5e3VQGEnIZ8VuHcQeuXCuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIN6hrLK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b7axcfTo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0971F1F00A3A;
-	Sat,  5 Sep 2026 15:46:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIN6hrLK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D0A71F00A3A;
+	Sat,  5 Sep 2026 15:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788623184;
-	bh=eP2JTMvw4mZFqg8cN/t7iNiAvT78LLV8CKYbbb/PVKY=;
+	s=k20260515; t=1788623190;
+	bh=tGKZChPeGa+y2sQRsxNFaILJuopLVPtLD0El3VnH5Ew=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b7axcfTo/WmXL3/7AeSICThCwBaC5fDJSmzzQLyKYZHJx1Bx60GVlqO1AUKXLI1yU
-	 SKdktrCAIrftO9Eae+0dFhCO/Ty43VzdkaazOe8nALTgH6DQYfA0QafqxN0qj2Sz8z
-	 4KhkanxU3SEzjx/bHFnCotAIjrbLp9CzExjuWKjRQCn0fiEMy01rObNxS7cC5SP/kj
-	 5tFFSnmSpe4qsc6YuXgIHeM4whOH42EcjVcSQymz357F9E/v+bLRfhtt5+Q6T8sd8n
-	 DHoz17xok50YffKEk6AdeF8OllVUL9/v6ZBG3N1V1KtxFXxUb9i1FuC19F7fx0U6R2
-	 WaxNKFhEaXTfA==
+	b=PIN6hrLKxQm32QPBdWBgVwKZVdF18n4sZUGQvIKGGijgx1iBB2BmDBJq/Gs0Tm2y+
+	 G1xeQ0yR8SC3ZOzBO+RvjiqukQ2xVyb+eIR+mdtsvm4/PRQxKzjq5tsgHFqnIDq0Gt
+	 VrtpmMyYE7yGsxXQ2WNmvrNRchFOpJp07nHde6/0Lnhr8lNgX5TU/GWVPc0mp4epZG
+	 Wvmq2lMUu+uaCPJwqYX/IaCsVgBgime29yRPpv1H27/a3NdOy9zDRt3FpjIRZLMB04
+	 LhmZvqe9hp760oixZ5WZSbPAl1mSKQafgS8VSGDeWTi4Vzx8xBzWQ6lv2Q0nmJ/MDX
+	 I7x/ZTyWcTDAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
+Cc: Chris Mason <clm@meta.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nfsd: fix nfsd_file leak on inter-server COPY setup failure
-Date: Sat,  5 Sep 2026 11:46:22 -0400
-Message-ID: <20260905154622.397093-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] nfsd: guard nfsd_serv deref in nfsd_file_net_dispose
+Date: Sat,  5 Sep 2026 11:46:27 -0400
+Message-ID: <20260905154628.397613-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090342-anytime-glorified-49ee@gregkh>
-References: <2026090342-anytime-glorified-49ee@gregkh>
+In-Reply-To: <2026090339-happiest-badass-03c3@gregkh>
+References: <2026090339-happiest-badass-03c3@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,53 +45,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit 88a76145451d703eedd867b5989bf73d17340399 ]
+[ Upstream commit 9f1ddfc8cb9076592401a611eb3a44d36186d014 ]
 
-When nfsd4_setup_inter_ssc() fails, nfsd4_copy() returns
-nfserr_offload_denied directly, bypassing the out: label where
-release_copy_files() would drop the nf_dst reference taken by
-nfs4_preprocess_stateid_op(). Each failed inter-server COPY
-leaks one nfsd_file, pinning file/inode/dentry/vfsmount.
+nfsd_file_net_dispose() is the consumer side of l->freeme: the nfsd
+service thread loop calls it to drain entries that the filecache
+garbage collector and shrinker append via
+nfsd_file_dispose_list_delayed().  During per-net teardown,
+nn->nfsd_serv is cleared before the filecache laundrette is shut
+down, so the service thread can still run a dispose pass that finds
+more than eight entries on l->freeme and dereferences a NULL
+svc_serv:
 
-Fix by setting status and jumping to out: instead of returning
-directly.
+    nfsd service thread loop
+      nfsd_file_net_dispose(nn)
+        if (!list_empty(&l->freeme)) {
+            ...
+            svc_wake_up(nn->nfsd_serv);   /* nn->nfsd_serv == NULL */
+        }
 
-Fixes: ce0887ac96d3 ("NFSD add nfs4 inter ssc to nfsd4_copy")
+The sibling helper nfsd_file_dispose_list_delayed() already documents
+this ordering and caches nn->nfsd_serv into a local before testing it
+for NULL.  nfsd_file_net_dispose() was introduced with the same raw
+svc_wake_up(nn->nfsd_serv) call and never picked up the guard.
+
+Fix by loading nn->nfsd_serv into a local svc_serv pointer and only
+calling svc_wake_up() when it is non-NULL, matching the pattern in
+nfsd_file_dispose_list_delayed().
+
+Fixes: ffb402596147 ("nfsd: Don't leave work of closing files to a work queue")
 Cc: stable@vger.kernel.org
 Assisted-by: kres:claude-opus-4-7
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260531-nfsd-testing-v1-3-7bfa481b0540@kernel.org
+Signed-off-by: Chris Mason <clm@meta.com>
+Link: https://patch.msgid.link/20260602-nfsd-testing-v2-4-e4ea62e3cd5c@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adjusted cleanup paths to omit unavailable trace_nfsd_copy_*() calls ]
+Stable-dep-of: bbf13732f743 ("nfsd: fix fcache_disposal UAF by inlining dispose state into nfsd_net")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4proc.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ fs/nfsd/filecache.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index d29a37f696a44..53fb2c503dad8 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1775,12 +1775,14 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out;
- 		}
- 		status = nfsd4_setup_inter_ssc(rqstp, cstate, copy);
--		if (status)
--			return nfserr_offload_denied;
-+		if (status) {
-+			status = nfserr_offload_denied;
-+			goto out;
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index a238b6725008a..2258e7a59a850 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -471,11 +471,20 @@ void nfsd_file_net_dispose(struct nfsd_net *nn)
+ 		for (i = 0; i < 8 && !list_empty(&l->freeme); i++)
+ 			list_move(l->freeme.next, &dispose);
+ 		spin_unlock(&l->lock);
+-		if (!list_empty(&l->freeme))
+-			/* Wake up another thread to share the work
++		if (!list_empty(&l->freeme)) {
++			/*
++			 * Wake up another thread to share the work
+ 			 * *before* doing any actual disposing.
++			 *
++			 * The filecache laundrette is shut down after
++			 * the nn->nfsd_serv pointer is cleared, but
++			 * before the svc_serv is freed.
+ 			 */
+-			svc_wake_up(nn->nfsd_serv);
++			struct svc_serv *serv = nn->nfsd_serv;
++
++			if (serv)
++				svc_wake_up(serv);
 +		}
- 	} else {
- 		status = nfsd4_setup_intra_ssc(rqstp, cstate, copy);
- 		if (status)
--			return status;
-+			goto out;
+ 		nfsd_file_dispose_list(&dispose);
  	}
- 
- 	memcpy(&copy->fh, &cstate->current_fh.fh_handle,
+ }
 -- 
 2.53.0
 
