@@ -1,267 +1,227 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazolkn19012048.outbound.protection.outlook.com [52.103.20.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1BC494820
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 15:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622043; cv=none; b=qXdViUUnrnIVxXUDI+EgKz+kZhmvwOkXngmKmZ/9l0ZsBTbt5Uon59TCWF7a6Dj0N711xE42ECv/YA5h4cRxs68S1CLG535ou+l0G1zggLV4VCT7okqV3SxqQJOVJJVzCG0FNPMm4ZqqzF48UtMXNffuUTNd2c6jltZe9MiRGvo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622043; c=relaxed/simple;
-	bh=tMQJVYJRQF3dBnJ/EJVxZ9yPBJ8gF4Va+0gud6j2SRs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J46/KbASHHwxjq3sxUfnSLw6IDDYIGuhQcHtiiScf6iNVzTC/qGW1GmfbeGpk6ZmUGuqr3nmTqzTf51w+BNt4KxnAxlt9Es3IXgkZwegBrOkfewJB8cZNlM3BqhNM1nNifO/61wTOh7K+7VrLF7IVC8xIN9jMVAvqGodaS0UGmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gn2kWUUX; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C445352021;
+	Sat,  5 Sep 2026 15:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788623145; cv=fail; b=YT2EkLRt1iXIVayxzyP8/6x2k87+qzlNaST/fHEpbchSKtu5bsFPo0shI+33dncxtXOCICe51/zYqRkGurVAcHlhG3niF+fkZ+mWPoj3QYaNPqAxSPPP5dsEnYgU+TfeFbyaXEjU1PDI7YJXzjiYc/m2MQBksuLT9gjuBQj6//o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788623145; c=relaxed/simple;
+	bh=OWZkuEr5u4ophfSVvWTl4BdzEjnAuUGSPyLaovXg8mY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=IW81i+RCw83emkirwSlClAiuQfNsNki/KiB3xmTnyWCN4I61PB3ThV1fA6WzM4RtYOef+5YGUDQqFZftyG1GJV0CoLao5l/TP28OFGDrCsXIvRsqjBWV1bL7uU5nnHuYm41FjooLVJLL29JD31UeEagY8lHusZy/IaqOGSj4ytA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=lVrkBawV; arc=fail smtp.client-ip=52.103.20.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gn2kWUUX"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a68ca482e2so2733602a12.0
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 08:27:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788622040; x=1789226840; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fMDzWqUveBSzd5QyaJkSDxL5FMTYjVkFKS0zQ+Fx1Uo=;
-        b=Gn2kWUUXukbwCwQUcU8FfxI96GvF/qA3yi+l/E4mkW5k0/0RS9Lxw2HAbZeJq4lJkS
-         6tZiyF3mx74vmZoHq4uDkPvdNKG2VEIoT3YC88GAMeXZCY6UdZWpL+HhxjlmYuRhdugG
-         HgHNQrPymz5GODDqKr4fF3nv9vPh6Nqi6VeD7lJ2h3AkJ2r3ASGXCW7clYvO0HJ0caeq
-         0JydRTT2tUJxnSxeKdKPwIkiV6k5YmuooAnOR7bM/FdZ2lx/Qb/7er56GZqiqhb/7Yqj
-         E+ugYHNFuMB++77CqtMT7Mke9UQ2VGlCtgFPRy7+mJCrQzMctg4FhzdGGaa7cKFjeozE
-         i8vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788622040; x=1789226840;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fMDzWqUveBSzd5QyaJkSDxL5FMTYjVkFKS0zQ+Fx1Uo=;
-        b=n3W6MSwi9iYHM98gAVTLu4PSJrK6vQXQmSLxgy8MqV8WybTz4vKKwlNNkxA7GLyp+G
-         PcjJUSsIltvf5dG66K0y311XI+fgefp4jn7o1kibVdU348+TaqwQ/A8n42ani6TAH7e7
-         2Iw4h+rsfePUggzKKIHp8Y2hRxxdS61JcLZ+znuu56R3MyL5bscw1NsjFgOygWdpWwhY
-         V47d2gqnhzBnZm8doqeN6Bz4pxuU7VGFVIEAEpsiIsp5Eu9KVMyE4DC+ECnTibqS9Ewi
-         07tm4nPU+gQayQX/rZcK80AyERCvf/waSGFCqhv6bykiYPSkTKb2mNeZkJGlW/rhIERN
-         pzVA==
-X-Forwarded-Encrypted: i=1; AKwUvBySS4VAI7I592hUviNJw8qECFq91sSYyqO5sg3OtXSkfM6OBvIWvRGlOT+Z0wgxDLNrYdvbGRo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltdZWMzVicBKCKCcmqcBZ+H15ECw9shejo/VuqWokDC+lLItIl
-	prK3PqCN5XZY3f+hO1zPZbaZmHuIMy2R7HlDekYHoCvcdzTpmy79r/lV
-X-Gm-Gg: AYBFou2yz6PjmagpyJaL1tkyRC3LHXwd+sLo9IjSnHi3anbNRuZfttFsUikoeVC0Oo2
-	M7a8AYKe3VGjycMfEAbFEkFI5g3ZfRIEDpummxEcHL+xUJImwbcHtbZ7d6kgV+ky1gUslTDOchO
-	35uemUv4n5+RjRiVEpUJ2Li6ixdehEpRSDEAIsxrvntAfUEQ3h7QaSNToL6T45EmB2qkLK/Nkzg
-	Ym1cYkQ88GmYgfKCoObGR011//vFPZpKztSreUMhW6iyOKnYcjWpHMlOoH+ATme/pKBUlTE/+dn
-	l+N2VUYnWMGdmj3RrIMr2nc0eTWTUK0D/xD59Vq4N56NKdQePqz1wwN+SfS1h3jzL8Qfa5eEV/E
-	725YaBThIAQev98FkFDSHtm1QJUKw1Sz76VKe2F9pK847aUNyab9K6fk0lA8Q15C5qrjrbcBqzG
-	Nb9HeTlP68JesmaeRQSplQsaueEcq2SU2EJNSFRwKS+IigGe85oeni
-X-Received: by 2002:a17:906:c107:b0:c25:ec7a:a488 with SMTP id a640c23a62f3a-c260c9780b9mr862792266b.1.1788622040355;
-        Sat, 05 Sep 2026 08:27:20 -0700 (PDT)
-Received: from localhost.localdomain ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5497cbsm236702166b.34.2026.09.05.08.27.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:27:19 -0700 (PDT)
-From: "Uladzislau Rezki (Sony)" <urezki@gmail.com>
-To: linux-mm@kvack.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <bhe@redhat.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	stable@vger.kernel.org,
-	Dev Jain <dev.jain@arm.com>,
-	Ye Liu <ye.liu@linux.dev>,
-	lirongqing <lirongqing@baidu.com>
-Subject: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for vmap drain
-Date: Sat,  5 Sep 2026 17:27:17 +0200
-Message-ID: <20260905152717.11711-1-urezki@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="lVrkBawV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZHEvw+9VfxzAqn/n/4Bpjrau7tyc7d+qtER9Q7gt9RPqXT9OBCY2ZEdh0Mt4kzdu6shSUyk74WZmKcTCfeXukaz/1GsOyOLMBbauBP0h3sFvv0mfQDDiJ5+Yx9mfbLBtcypS5B7dBpq2Zh0qWOYQvbHXyUihCDDOZ+IVh9296lCqGlmxYBZ5AaSBNq/7vRCofTwJowOeymk1PVz7lbI5KXe5YxjTMrQJhOXuQ4Pxvh0PespcRjo9uMK4R0wz8gR4d7/o0cBFWY8NdTm/+6RVnkbzu556PDZkLwWttOocOWleY0Re69NELdc/iBpjgPskaCe1M8VEzb13HHEhduYAHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JJz0pMuIppVSbdraWPsvrhGi2vwvVq/mbsX8XAv4akU=;
+ b=JGZoKjn14QmZmYvOVjraUJD0meFanjhNrbBqcyzAB7SFggs7/Ylis3O1ZyYgBnag2fUCVjoPz2AyLqzADMJBXo2WuWr04+z71wKc5FSn9V1gzgK2FN2bU+XTKiSP8glQ7TDJJzog3BYULZg8NymUirrcdtbovhWiRkl0Loe2W5WKZRqsp/mId/ieL4iDaya5JHAJgHwxdWQErx7srKUIwyA4yjNIykx8n6esvvHaWP+bWlWYNIYNZNECdzh800Zv2gaR2IkPv70mo9ji0hZ9tsxUEYraB3I5FuSFdjxMuPjDS5GAnp1tSDinGiZCfWWMQgT32B2arXFszyke7V6kmQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JJz0pMuIppVSbdraWPsvrhGi2vwvVq/mbsX8XAv4akU=;
+ b=lVrkBawVtMy3FXzSWgyTytZOKXUg+mvP27tSEaShCbRYzmGXY9y4ZSlCx36D2l9VfOemB1mMTBzBF1Sd+a+Sw1xNx+PBVImTw1X8albGxJ9tS3BmbWidDL3myfPE6Psd/Ex3r4PlHU1PwB/ru/RpQjOqootEK3mzH7iaR8+exROKsst7EhknxpPUI70lwwr8FGmLH8luNrCyAKo27Anrcc2nq3dWOvxagMwaI1FWrb/8057N9mLp//WebpkHtWZOXPY7wY56WaQsMOPHITTrEmj8qcCuA8wMTW/Fbsd34ANX/WUkNsLL7frK+d7aUgrq/UegHq51ibp6CtTlLWX4Ng==
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com (2603:10b6:805:33::23)
+ by DS4PR02MB11263.namprd02.prod.outlook.com (2603:10b6:8:327::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
+ 2026 15:45:42 +0000
+Received: from SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6]) by SN6PR02MB4157.namprd02.prod.outlook.com
+ ([fe80::900:1ccf:2b1e:52b6%3]) with mapi id 15.21.0382.012; Sat, 5 Sep 2026
+ 15:45:42 +0000
+From: Michael Kelley <mhklinux@outlook.com>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>, Marek Szyprowski
+	<m.szyprowski@samsung.com>
+CC: Robin Murphy <robin.murphy@arm.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Chanho Park <chanho61.park@samsung.com>, Bumyong
+ Lee <bumyong.lee@samsung.com>, "iommu@lists.linux.dev"
+	<iommu@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Topic: [PATCH] swiotlb: use the adjusted address for the highmem page
+ lookup
+Thread-Index: AQGeGvH8ZjIry23Y+a5bprIc/rGHIbc+YC5Q
+Date: Sat, 5 Sep 2026 15:45:41 +0000
+Message-ID:
+ <SN6PR02MB41579A137BC1D48AFE93E27FD4B42@SN6PR02MB4157.namprd02.prod.outlook.com>
+References: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260905084210.148255-1-donggeunyoo.kernel@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SN6PR02MB4157:EE_|DS4PR02MB11263:EE_
+x-ms-office365-filtering-correlation-id: 2b6f5b52-cde7-4eae-6dd5-08df0b64bdd8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|8062599012|37011999003|19110799012|8060799015|31061999003|13091999003|24021099003|55001999006|41001999006|15080799012|25010399006|8022599003|2607281247196008|3071699003|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?KdkkVUeQuWrKW5RCySn9wu8/WEwlzl5uw6ZeF7JjspCXhPDxzSNp63A5hbXH?=
+ =?us-ascii?Q?mfoqfp16TFqVByS3NqjnrT0311HrxfbNUFgqHueiXrkH96sw2sHkJW3AmFUJ?=
+ =?us-ascii?Q?/oTyF82qZ0TURdqiPTeIpQPDQhCHoqxeRqCfjJ15yMUFTxI8GvznRR9oOv0T?=
+ =?us-ascii?Q?ZOoPjPy5ujiagTPUvkFAaYto9wzSyq1D0k8rGSGHGdzXhpst2SPNgsei4e5Y?=
+ =?us-ascii?Q?z6T3jXgWztbRoqui9ao6S8tKBDLygVY3JsoxhOVnNbbuTid2trP2O2FoPvzH?=
+ =?us-ascii?Q?xFBjv2U4Oy2BWixdkoQP2HP84XeKEGJvUKwzBU5DZtoEGZCaXEYbMYytv8od?=
+ =?us-ascii?Q?uvlAOiEDXS/bFZ4rgjBrotdMPOP4DdEINRElYPF4ANkXxILO8caMPAVCuq75?=
+ =?us-ascii?Q?VsRNVtT9Ukz2KOhp3bBMitlVLUbtoGWOV9m/jGq0NVKcOWvqnDG/MjNvv1QM?=
+ =?us-ascii?Q?aSu12TbDOKR8B76sDNIwmq+SnLQd8uGtMj+H7VhV+S4+5/8KyCj/EL3TDlz/?=
+ =?us-ascii?Q?qFd8pDMT8VOx5GXjAiB8YJlAmk03PNb7Wii98e2xS3FNJ+exjeCFXX0JOLvm?=
+ =?us-ascii?Q?fHf3dawKvlgNcP/lDH4uOFFGxGFTIucB2mOgMIwgYQSES1yZiGgWi1aOa+5N?=
+ =?us-ascii?Q?0tAxHRs3GY8uZC1x1X64uYFPCZ09Jj6xw1d8iqgpgPo92lDzbEY0GcXx/5Ai?=
+ =?us-ascii?Q?DMBZJXXMYd2kyxU06TFIUXknKf0iSf4N9iym8Es2IiOmDrvzmENPp/aGxfyU?=
+ =?us-ascii?Q?TCskWse7JLzOSXtUuMH9USZgejrVeyW5oWBv4n4r1ivdFWpx60aEMh2CP0Ah?=
+ =?us-ascii?Q?QO+InsQYXMMi5kBJ0qX7205XddapoGcp1CiKU0Jm5rR1BebaEL5iY+QwxAnf?=
+ =?us-ascii?Q?oEsOC81XFR5VaDOxjoXQoMEoXcpQn0KeWis+gQdxy8Ae0OIZaTsVNUj4v7Pi?=
+ =?us-ascii?Q?oqzdLYVhAImN1i0bxacdJXmcBYDdyXTXyzG/k1rsL2F+V15C5bUmkIpd6kab?=
+ =?us-ascii?Q?Pt/kbq2+Oqq3IP+A5C73cpIvSQJ5W7ekmiJ2HuEpQiDMOhnMpQsHd91rhAfO?=
+ =?us-ascii?Q?6C1yClyT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?aLoVXK5Sc8zLZAiTI7V0tbCgtcJEgecsfZOpJCGxK7ke/yNfj5bfQmaZNpX2?=
+ =?us-ascii?Q?7Af0ZAvzvvSlEekjWJm7HF4+/nH3Zsgjsq2mAV2Xzo8mpSkoGUJKdVmf5cgd?=
+ =?us-ascii?Q?qzu0GzWDUoFZ63WYeDdvIfXOREaHeLtStjq96Z26ybMWtoo5CZhql8nJt107?=
+ =?us-ascii?Q?4Wpge0VnBO78ltIdNSWuJsDn3uoFTcjhFvB/a05BuqaKsOyzMDXY4ipU1taO?=
+ =?us-ascii?Q?XCRzyq3DL59HotWtEHYHSqZW4NnQJgB9iD3E3RU3hxTN71byM0KSVEylz+bZ?=
+ =?us-ascii?Q?J1W693OfnKTcwPqvrEQnMky0L3+gsItTsFLpTGrG5h+4LpF7UHUmmOi+4D0V?=
+ =?us-ascii?Q?PNIjaVusN4kX+p1DPUEaPaXlk+L9utNOnZdskP+UwZtQfLnQV6lUJakmTHfa?=
+ =?us-ascii?Q?s6epq4MGrCWAivpqNISSU1PAmGmBRwf3VniivKsxX+yoc82FmfDaGusOZ2m3?=
+ =?us-ascii?Q?ZEDvChTN+lz9jVRv4Q75TDacCmKwmwn7MIODRe9O3LRCtHU328T4VwqEWPcb?=
+ =?us-ascii?Q?JJYwyqslzNDb8A/PckcWe8KqzAWA2mMHn3wmFguGWPhxuwD+XZV4yAHmSGdZ?=
+ =?us-ascii?Q?CLxFPnUAujKzNRMf4kedEnIvS5z6ed8bqdaxZ3LmMrboaVthcugsuK4bC2Ck?=
+ =?us-ascii?Q?NLTljqxF8npBMKmQTyfhtR3jDcbtKj2Z8wxR42xkIyhIucCp2l2cDR/lOdrf?=
+ =?us-ascii?Q?cKWqTCmj19i6AJWJifr39SHUHkMRvcSdB/z7MBlyr/sG36Izce/9MTRTCN8x?=
+ =?us-ascii?Q?y1PU/WxuCXebgI2AvgmVt4d6IaE/aM7Y/7ZW6ek2tuQsodQuaMz3yJPVuvpQ?=
+ =?us-ascii?Q?X1Vvx+lQKgCW8nwxCk03AGLie0wtjMxNo+nz8qCqdULrcvR7SYbXdE+51aa3?=
+ =?us-ascii?Q?TEyvp3lzfyu6K6uX6i6n0eKSb+O8MOXNoHKQHAc/4jGs0pKNxTL/6GjN2vmL?=
+ =?us-ascii?Q?mnXits4+88g5mwFkTenPaeFpftKbnOX1xhpJ01PMRLmk/2rN3IQn2m/ISi8+?=
+ =?us-ascii?Q?mE15xPLv1GEqFwFNXaLrXp29BpZN4cfAtkipPTTxKyrsN2+s/n9VGFfL0FTX?=
+ =?us-ascii?Q?ZxNdHSWPZO/hM4laxKEpQy2wI37lVuag6JhGoWJt7J/z1W8STpL8Em+iuLRJ?=
+ =?us-ascii?Q?4lY+BTwj+9buFrEvord8MVgTwqDUhQEoOE2/+00tZR865t/h6aio54bs9Lyx?=
+ =?us-ascii?Q?gldDSDMtGFbRCCrnWj4BG5jHCjkU3IkWx3fUascw9Iuh/36kzwrenr/jpMm0?=
+ =?us-ascii?Q?JGGr0vTrI9WSzuAHBhY6WFCXiffl68sAo60+Yf74C4HCzMXmfoAp7DpHrAM7?=
+ =?us-ascii?Q?kU1ohpilmQXe67aRxsBRYXRT01NFSfySLUbV/MCQcmZH8OfBJLBH+6AyT/V1?=
+ =?us-ascii?Q?0NfMuZM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR02MB4157.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2b6f5b52-cde7-4eae-6dd5-08df0b64bdd8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2026 15:45:41.9287
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR02MB11263
 
-drain_vmap_area_work() function can take >10ms to complete
-when there are many accumulated vmap areas in a system with
-high CPU count, causing workqueue watchdog warnings when run
-via schedule_work():
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com> Sent: Saturday, September=
+ 5, 2026 1:42 AM
+>=20
+> swiotlb_bounce() reads the page frame number from the slot's recorded
+> orig_addr, then advances orig_addr by tlb_offset to reach the address
+> the caller asked about. The highmem branch mixes the two: the offset
+> within the page comes from the adjusted address, the page from the value
+> before it.
+>=20
+> Once the adjustment crosses a page boundary the pair no longer describes
+> one location, and the whole copy lands one page below the intended one
+> for a positive tlb_offset, one above for a negative one. DMA_FROM_DEVICE
+> writes the device data over the wrong page and leaves the intended one
+> stale, DMA_TO_DEVICE feeds the device from a page the mapping may not
+> cover. Partial syncs through dma_sync_single_range_for_*() are what make
+> tlb_offset non-zero.
 
-  workqueue: drain_vmap_area_work hogged CPU for >10000us
+Yes -- this all makes sense. Current code is clearly using the wrong starti=
+ng
+pfn in the highmem branch, and your fix looks good.
 
-Move the top-level drain work to a dedicated WQ_UNBOUND
-workqueue so the scheduler can run this background work
-on any available CPU, improving responsiveness. Use the
-WQ_MEM_RECLAIM to ensure forward progress under memory
-pressure.
+>=20
+> The branch test is picked the same way, so a slot recorded in lowmem can
+> be adjusted into highmem and the lowmem path then hands a highmem
+> address to phys_to_virt().
 
-Move purge helpers to separate WQ_UNBOUND | WQ_MEM_RECLAIM
-workqueue. This allows drain_vmap_work to wait for helpers
-completion without creating dependency on the same rescuer
-thread and avoid a potential parent/child deadlock.
+I don't understand this paragraph, but that may be because I'm not that
+familiar with highmem. Are all the slots making up a particular swiotlb
+mapping either highmem or lowmem? If a mixture is possible, then a
+partial sync could start somewhere in a lowmem page and cross over
+into a highmem page, which would break.
 
-Simplify purge helper scheduling by removing cpumask-based
-iteration to iterating directly over vmap nodes checking
-work_queued state.
+Michael
 
-Cc: stable@vger.kernel.org
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Ye Liu <ye.liu@linux.dev>
-Cc: lirongqing <lirongqing@baidu.com>
-Fixes: 72210662c5a2 ("mm: vmalloc: offload free_vmap_area_lock lock")
-Link: https://lore.kernel.org/all/20260319074307.2325-1-lirongqing@baidu.com/
-Reviewed-by: Baoquan He <bhe@redhat.com>
-Signed-off-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
----
- mm/vmalloc.c | 79 ++++++++++++++++++++++++++++++++++------------------
- 1 file changed, 52 insertions(+), 27 deletions(-)
-
-diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-index bea9f76ed7e7..89c327a6ce7d 100644
---- a/mm/vmalloc.c
-+++ b/mm/vmalloc.c
-@@ -972,6 +972,7 @@ static struct vmap_node {
- 	struct list_head purge_list;
- 	struct work_struct purge_work;
- 	unsigned long nr_purged;
-+	bool work_queued;
- } single;
- 
- /*
-@@ -1090,6 +1091,8 @@ static void reclaim_and_purge_vmap_areas(void);
- static BLOCKING_NOTIFIER_HEAD(vmap_notify_list);
- static void drain_vmap_area_work(struct work_struct *work);
- static DECLARE_WORK(drain_vmap_work, drain_vmap_area_work);
-+static struct workqueue_struct *drain_vmap_helpers_wq;
-+static struct workqueue_struct *drain_vmap_wq;
- 
- static __cacheline_aligned_in_smp atomic_long_t vmap_lazy_nr;
- 
-@@ -2351,6 +2354,16 @@ static void purge_vmap_node(struct work_struct *work)
- 	reclaim_list_global(&local_list);
- }
- 
-+static bool
-+schedule_drain_vmap_work(struct workqueue_struct *wq,
-+		struct work_struct *work)
-+{
-+	if (wq)
-+		return queue_work(wq, work);
-+
-+	return false;
-+}
-+
- /*
-  * Purges all lazily-freed vmap areas.
-  */
-@@ -2358,19 +2371,12 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
- 		bool full_pool_decay)
- {
- 	unsigned long nr_purged_areas = 0;
-+	unsigned int nr_purge_nodes = 0;
- 	unsigned int nr_purge_helpers;
--	static cpumask_t purge_nodes;
--	unsigned int nr_purge_nodes;
- 	struct vmap_node *vn;
--	int i;
- 
- 	lockdep_assert_held(&vmap_purge_lock);
- 
--	/*
--	 * Use cpumask to mark which node has to be processed.
--	 */
--	purge_nodes = CPU_MASK_NONE;
--
- 	for_each_vmap_node(vn) {
- 		INIT_LIST_HEAD(&vn->purge_list);
- 		vn->skip_populate = full_pool_decay;
-@@ -2390,10 +2396,9 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
- 		end = max(end, list_last_entry(&vn->purge_list,
- 			struct vmap_area, list)->va_end);
- 
--		cpumask_set_cpu(node_to_id(vn), &purge_nodes);
-+		nr_purge_nodes++;
- 	}
- 
--	nr_purge_nodes = cpumask_weight(&purge_nodes);
- 	if (nr_purge_nodes > 0) {
- 		flush_tlb_kernel_range(start, end);
- 
-@@ -2401,29 +2406,31 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
- 		nr_purge_helpers = atomic_long_read(&vmap_lazy_nr) / lazy_max_pages();
- 		nr_purge_helpers = clamp(nr_purge_helpers, 1U, nr_purge_nodes) - 1;
- 
--		for_each_cpu(i, &purge_nodes) {
--			vn = &vmap_nodes[i];
-+		for_each_vmap_node(vn) {
-+			vn->work_queued = false;
-+
-+			if (list_empty(&vn->purge_list))
-+				continue;
- 
- 			if (nr_purge_helpers > 0) {
- 				INIT_WORK(&vn->purge_work, purge_vmap_node);
-+				vn->work_queued = schedule_drain_vmap_work(
-+					READ_ONCE(drain_vmap_helpers_wq), &vn->purge_work);
- 
--				if (cpumask_test_cpu(i, cpu_online_mask))
--					schedule_work_on(i, &vn->purge_work);
--				else
--					schedule_work(&vn->purge_work);
--
--				nr_purge_helpers--;
--			} else {
--				vn->purge_work.func = NULL;
--				purge_vmap_node(&vn->purge_work);
--				nr_purged_areas += vn->nr_purged;
-+				if (vn->work_queued) {
-+					nr_purge_helpers--;
-+					continue;
-+				}
- 			}
--		}
- 
--		for_each_cpu(i, &purge_nodes) {
--			vn = &vmap_nodes[i];
-+			/* Sync path. Process locally. */
-+			purge_vmap_node(&vn->purge_work);
-+			nr_purged_areas += vn->nr_purged;
-+		}
- 
--			if (vn->purge_work.func) {
-+		/* Wait for completion if queued any. */
-+		for_each_vmap_node(vn) {
-+			if (vn->work_queued) {
- 				flush_work(&vn->purge_work);
- 				nr_purged_areas += vn->nr_purged;
- 			}
-@@ -2487,7 +2494,8 @@ static void free_vmap_area_noflush(struct vmap_area *va)
- 
- 	/* After this point, we may free va at any time */
- 	if (unlikely(nr_lazy > nr_lazy_max))
--		schedule_work(&drain_vmap_work);
-+		schedule_drain_vmap_work(READ_ONCE(drain_vmap_wq),
-+			&drain_vmap_work);
- }
- 
- /*
-@@ -5587,3 +5595,20 @@ void __init vmalloc_init(void)
- 	vmap_node_shrinker->scan_objects = vmap_node_shrink_scan;
- 	shrinker_register(vmap_node_shrinker);
- }
-+
-+static int __init vmalloc_init_workqueue(void)
-+{
-+	struct workqueue_struct *drain_wq, *helpers_wq;
-+	unsigned int flags = WQ_UNBOUND | WQ_MEM_RECLAIM;
-+
-+	drain_wq = alloc_workqueue("vmap_drain", flags, 0);
-+	WARN_ON_ONCE(drain_wq == NULL);
-+	WRITE_ONCE(drain_vmap_wq, drain_wq);
-+
-+	helpers_wq = alloc_workqueue("vmap_drain_helpers", flags, 0);
-+	WARN_ON_ONCE(helpers_wq == NULL);
-+	WRITE_ONCE(drain_vmap_helpers_wq, helpers_wq);
-+
-+	return 0;
-+}
-+early_initcall(vmalloc_init_workqueue);
--- 
-2.47.3
+>=20
+> Take both from orig_addr once it is final and keep pfn in the branch
+> that uses it. PhysHighMem() asks the question straight from the address,
+> as dma-debug already does.
+>=20
+> Fixes: 5f89468e2f06 ("swiotlb: manipulate orig_addr when tlb_addr has off=
+set")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> ---
+> Reproduced under QEMU (qemu-system-arm -M virt, 2G) with a 32-bit ARM
+> kernel built from multi_v7_defconfig plus CONFIG_ARM_LPAE=3Dy and
+> CONFIG_HIGHMEM=3Dy, which brings in CONFIG_SWIOTLB, booted with
+> swiotlb=3Dforce. A test module maps two highmem pages at page offset 3840=
+,
+> writes a pattern into the bounce buffer 500 bytes in and calls
+> dma_sync_single_range_for_cpu() over that range, so that 3840 + 500
+> crosses into the second page:
+>=20
+>   before: swbug: pages pfn=3D700d4 highmem=3D1
+>           swbug: orig phys=3D700d4f00 (page off 3840)
+>           swbug: RESULT page0_off=3D244 page1_off=3D-1
+>   after:  swbug: RESULT page0_off=3D-1 page1_off=3D244
+>=20
+> The pattern lands one page below its intended location without the
+> change and in the right place with it.
+>=20
+>  kernel/dma/swiotlb.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
+> index ded7016a46a7..aa2f1c4588b9 100644
+> --- a/kernel/dma/swiotlb.c
+> +++ b/kernel/dma/swiotlb.c
+> @@ -1019,7 +1019,6 @@ static void swiotlb_bounce(struct device *dev, phys=
+_addr_t tlb_addr, size_t size
+>  	int index =3D (tlb_addr - mem->start) >> IO_TLB_SHIFT;
+>  	phys_addr_t orig_addr =3D mem->slots[index].orig_addr;
+>  	size_t alloc_size =3D mem->slots[index].alloc_size;
+> -	unsigned long pfn =3D PFN_DOWN(orig_addr);
+>  	unsigned char *vaddr =3D mem->vaddr + tlb_addr - mem->start;
+>  	int tlb_offset;
+>=20
+> @@ -1052,7 +1051,8 @@ static void swiotlb_bounce(struct device *dev, phys=
+_addr_t tlb_addr, size_t size
+>  		size =3D alloc_size;
+>  	}
+>=20
+> -	if (PageHighMem(pfn_to_page(pfn))) {
+> +	if (PhysHighMem(orig_addr)) {
+> +		unsigned long pfn =3D PFN_DOWN(orig_addr);
+>  		unsigned int offset =3D orig_addr & ~PAGE_MASK;
+>  		struct page *page;
+>  		unsigned int sz =3D 0;
+> --
+> 2.53.0
+>=20
 
