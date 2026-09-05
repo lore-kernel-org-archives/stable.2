@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A60328472
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 21:43:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E735399CE9
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 21:43:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644628; cv=none; b=tiBIAziGOu7hqQx0Ft96XhgWMCdho31hE/6RMY27BIrhF3VfP2dothg0/RWvMS0pLlQjRKhg9QAR8xT592y9tBRFIgI+JBcg2JTd6WmJclGuuuqoDgYwJNdBfNMLRUQNOrDeoIhHTO3KjO8b6gFtNwL792SXtODKDVh2QkhAjlI=
+	t=1788644628; cv=none; b=n9KnaS/eNkPmU3WR41ER8ylSwoRsYPIp618CagJmT5JvcYcZKkNhv9baGqvwZtmW0SCV49KlTq4a5n1liqkIDQimS6EJzA36fBnTmTrMWJcuLLKgVF71NuTrYkLsdhxiEMLErta5maBnxxb+xjaOL2Txx+EyYattXY4sB4PC5II=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788644628; c=relaxed/simple;
-	bh=1ckRuiNKX0RJDFr8V8vYeGzimpMWiXPmiw3I7riqH58=;
+	bh=drXPhhYKGSouKUE6qBaIcoqOD92z612GRXrYW2h6VPg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JKvXVtFBK6e/gkNT/uaHq3vBN6O80OTKOBAzY4h32S4nXzkYjXARCGfww6oDXJfGBV6oDWwQmV8XK/e94RZQn5VorPml6Zwd9cUnwYteyBpmwEMquvsuSLpmrAGN2Z4MR4yZMjQaTDK/sG/J1rFknkbPCUbziTHDeLe+M8AHAUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZE07e3BJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Wr3lZVonK+6uAomSOD6TOo9lpP3MSISN9EMEvFa10ZX/ZyndfgG/hvmM/gKAyC9gohiD6tkdB63LWwk89O90bf8kCKzawUEJxxJ89SzhIV/DsOb2/2pryWq/Tkawj7dfGeVRkUXq3V4E3EZqMACTTi3ooju3WqU3QfkwY87PTko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MHXgXBzr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZE07e3BJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37601F00A3E;
-	Sat,  5 Sep 2026 21:43:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MHXgXBzr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6FE1F00A3F;
+	Sat,  5 Sep 2026 21:43:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788644626;
-	bh=f37YIoaTcP2H4xpT1PIL3P7HW2UIp8sMQo+dnMCR2Pg=;
+	s=k20260515; t=1788644627;
+	bh=Pr5LLfcoWM4YBBv10U6uZlgKV0XoI5Y/weaSa9cCxRM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZE07e3BJsUn0NWXLGtS+qL+a9c4lcbLGpc93V0q33Ch2NvoQn3roZ5RazAv9rS2bc
-	 zHhkb+vjdaW5R166QpxQU+B2IT4IvRcF0DIeVkmR2lnZHufO9AgzC3cR+RGkGW+76J
-	 k7ygWseBDcd6JRzFnrs2l1aR4c3VVTkXX54P+5oJQN8unAT6+9ApNym5E8QvSV8zcm
-	 hx+9Owq9enntneeAGfauWkOYAtBEKbXpqzn51sLYvJ0Dme5soN/BSj02n2KsKAsA8+
-	 NCVrnh7DxxYphbDCcG7cOKFSNHP+oFq3U9d4u/LxnxSbI9VR5ZY81SyUyzsurLNs6T
-	 loKTlq+kvn/lg==
+	b=MHXgXBzrAQ3mDwbFw8CtKHWxQCTar+zu1ygfyyArGNlmlfAEH2v16swT+anD+qO+z
+	 sAqcA13YgTfOUHQhHqoEi8SDQSwFAGnCWAPlWTDvCS8ujDgGHJFU8LhL8C+Fz2iy75
+	 CeTC8xrLDQaoCnUhmYU+lv4q5Cw5CjazKQsr2qGYMa2qm0nWIUkMojihIkNSfTL+aE
+	 1tm2xlSCt+WAg/Hf5ZDSbzq8J6OZf8XDXw/Kl6Vl6Lkm7WXR1w9Onqgj/MogYZ2x2p
+	 S+Y/I20R0ZzcNy9cOdqwQvC5kOUv0lj1I5YjLSlIZPlrPIAkRMjFcSvvAgEvmdsauj
+	 IwcJS4zP7l6YQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chris Mason <clm@meta.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] nfsd: convert nfsd_net boolean flags to unsigned long flags word
-Date: Sat,  5 Sep 2026 17:43:42 -0400
-Message-ID: <20260905214343.701915-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] nfsd: dedup nfs4_client_to_reclaim inserts
+Date: Sat,  5 Sep 2026 17:43:43 -0400
+Message-ID: <20260905214343.701915-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260905214343.701915-1-sashal@kernel.org>
 References: <2026090328-follicle-skinless-f045@gregkh>
@@ -46,608 +47,252 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 11a5fe42e1811f793e04ef885b639ea7668f439d ]
+[ Upstream commit 9b57793863f69c608691c98e57c2f9be2db9dfed ]
 
-nfsd_net contains several boolean fields that are accessed from
-concurrent contexts without serialization.  In particular,
-nfsd4_end_grace() guards its drain path with a plain bool:
+nfs4_client_to_reclaim() unconditionally allocates a new
+nfs4_client_reclaim, prepends it to reclaim_str_hashtbl[], and bumps
+reclaim_str_hashtbl_size with no check for an existing entry for the
+same client name.  After a reboot with a populated recovery directory
+that inflates the counter by one for every client that reclaims:
 
-    if (nn->grace_ended)
-            return;
-    nn->grace_ended = true;
+    boot:    load_recdir()
+               nfs4_client_to_reclaim(name)   /* entry #1, size++ */
 
-The read and the write are independent, and nothing in struct
-nfsd_net serializes them.  At least two contexts can reach this
-code with no lock held:
+    grace:   RECLAIM_COMPLETE
+               __nfsd4_create_reclaim_record_grace()
+                 nfs4_client_to_reclaim(name) /* entry #2, size++ */
 
-    laundromat path
-      laundry_wq kworker
-        nfs4_laundromat()
-          nfsd4_end_grace()
+inc_reclaim_complete() ends the grace period early only when
 
-    RECLAIM_COMPLETE path
-      nfsd compound kthread
-        nfsd4_reclaim_complete()
-          inc_reclaim_complete()
-            nfsd4_end_grace()
+    atomic_inc_return(&nn->nr_reclaim_complete) ==
+        nn->reclaim_str_hashtbl_size
 
-Both callers can observe grace_ended == false on different CPUs,
-both store true, and both proceed into nfsd4_record_grace_done(),
-which invokes the active client_tracking_ops->grace_done callback.
-For tracking ops that drain reclaim_str_hashtbl (legacy_tracking_ops
-via nfsd4_recdir_purge_old, and the cld v1+ ops via
-nfsd4_cld_grace_done), grace_done calls nfs4_release_reclaim(),
-which walks every bucket of reclaim_str_hashtbl with no lock and
-calls nfs4_remove_reclaim_record() (list_del + kfree) on each
-entry.  Two concurrent walkers corrupt the list and double-free
-every nfs4_client_reclaim.  A concurrent nfsd4_find_reclaim_client()
-iterating the same bucket reads through freed memory.
+With reclaim_str_hashtbl_size at 2N and nr_reclaim_complete capped at
+N, the equality never holds and the fast end-of-grace path is dead.
+The grace period always runs out the full 90-second laundromat timer,
+and the shadow entry left in the hash table carries a dangling cr_clp
+for any reader that walks it.
 
-A third call site exists in nfs4_state_start_net() on the
-skip_grace startup path, but it runs under nfsd_mutex before any
-client has connected and before the laundromat's first delayed
-work fires, so it cannot race with the two callers above.
+Fix nfs4_client_to_reclaim() to look the name up with
+nfsd4_find_reclaim_client() first and, on a hit, fold the new
+princhash into the existing record (if it lacks one) and return that
+record without allocating or touching reclaim_str_hashtbl_size.  On
+kmemdup() failure during the fold-in, return NULL so
+__cld_pipe_inprogress_downcall() surfaces -EFAULT to nfsdcld, matching
+the miss-path contract.
 
-Replace the scattered boolean fields in nfsd_net with a single
-unsigned long flags word and an enum nfsd_net_flag for the bit
-positions.  The grace_ended race is fixed by using
-test_and_set_bit(), which is atomic on all architectures.  The
-remaining flags (grace_end_forced, in_grace, somebody_reclaimed,
-track_reclaim_completes, nfsd_net_up, lockd_up) are converted to
-use test_bit/set_bit/clear_bit for consistency.  This avoids
-sub-word cmpxchg issues on architectures like Hexagon that only
-support word-sized atomic operations.
+Add an rw_semaphore (reclaim_str_hashtbl_lock) to struct nfsd_net that
+serialises all access to reclaim_str_hashtbl[] and
+reclaim_str_hashtbl_size.  Writers (nfs4_client_to_reclaim,
+nfs4_remove_reclaim_record callers) hold the write side; readers
+(nfsd4_cld_check*, inc_reclaim_complete, clients_still_reclaiming,
+nfs4_has_reclaimed_state, nfsd4_check_legacy_client) hold the read
+side.  All call sites are in sleepable context, and none is a hot
+path, so the rwsem cost is negligible.
 
+Reported-by: Chris Mason <clm@meta.com>
 Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
 Cc: stable@vger.kernel.org
 Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chris Mason <clm@meta.com>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-3-f27e8eb4d974@kernel.org
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-4-f27e8eb4d974@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 9b57793863f6 ("nfsd: dedup nfs4_client_to_reclaim inserts")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/netns.h       | 21 +++++++----
- fs/nfsd/nfs4proc.c    |  2 +-
- fs/nfsd/nfs4recover.c | 87 ++++++++++++++++++++++++++-----------------
- fs/nfsd/nfs4state.c   | 61 ++++++++++++++++++------------
- fs/nfsd/nfsctl.c      |  2 +-
- fs/nfsd/nfssvc.c      | 20 +++++-----
- 6 files changed, 115 insertions(+), 78 deletions(-)
+ fs/nfsd/netns.h       |  5 +++-
+ fs/nfsd/nfs4recover.c | 11 +++++---
+ fs/nfsd/nfs4state.c   | 61 ++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 67 insertions(+), 10 deletions(-)
 
 diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index 139d9370f27f2..d6630921b5539 100644
+index d6630921b5539..acb252c06ab79 100644
 --- a/fs/nfsd/netns.h
 +++ b/fs/nfsd/netns.h
-@@ -25,6 +25,16 @@
- struct cld_net;
- struct nfsd4_client_tracking_ops;
- 
-+enum nfsd_net_flag {
-+	NFSD_NET_GRACE_ENDED,
-+	NFSD_NET_GRACE_END_FORCED,
-+	NFSD_NET_IN_GRACE,
-+	NFSD_NET_SOMEBODY_RECLAIMED,
-+	NFSD_NET_TRACK_RECLAIM_COMPLETES,
-+	NFSD_NET_UP,
-+	NFSD_NET_LOCKD_UP,
-+};
-+
- enum {
- 	/* cache misses due only to checksum comparison failures */
- 	NFSD_STATS_PAYLOAD_MISSES,
-@@ -63,8 +73,8 @@ struct nfsd_net {
- 	struct cache_detail *nametoid_cache;
- 
- 	struct lock_manager nfsd4_manager;
--	bool grace_ended;
--	bool grace_end_forced;
-+	unsigned long flags;
-+	bool client_tracking_active;
- 	time64_t boot_time;
- 
- 	struct dentry *nfsd_client_dir;
-@@ -81,6 +91,7 @@ struct nfsd_net {
+@@ -104,7 +104,10 @@ struct nfsd_net {
+ 	 * close_lru holds (open) stateowner queue ordered by nfs4_stateowner.so_time
+ 	 * for last close replay.
+ 	 *
+-	 * All of the above fields are protected by the client_mutex.
++	 * reclaim_str_hashtbl[], reclaim_str_hashtbl_size are protected by
++	 * reclaim_str_hashtbl_lock.
++	 *
++	 * All of the remaining fields are protected by the client_lock.
  	 */
- 	struct list_head *reclaim_str_hashtbl;
- 	int reclaim_str_hashtbl_size;
-+	struct rw_semaphore reclaim_str_hashtbl_lock;
- 	struct list_head *conf_id_hashtbl;
- 	struct rb_root conf_name_tree;
- 	struct list_head *unconf_id_hashtbl;
-@@ -111,19 +122,13 @@ struct nfsd_net {
- 	spinlock_t blocked_locks_lock;
- 
- 	struct file *rec_file;
--	bool in_grace;
- 	const struct nfsd4_client_tracking_ops *client_tracking_ops;
- 
- 	time64_t nfsd4_lease;
- 	time64_t nfsd4_grace;
--	bool somebody_reclaimed;
- 
--	bool track_reclaim_completes;
- 	atomic_t nr_reclaim_complete;
- 
--	bool nfsd_net_up;
--	bool lockd_up;
--
- 	seqlock_t writeverf_lock;
- 	unsigned char writeverf[8];
- 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index a4c7cab1679bd..7db8c4065eb16 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -593,7 +593,7 @@ nfsd4_open(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		pr_warn("nfsd4_process_open2 failed to open newly-created file: status=%u\n",
- 			be32_to_cpu(status));
- 	if (reclaim && !status)
--		nn->somebody_reclaimed = true;
-+		set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- out:
- 	if (open->op_filp) {
- 		fput(open->op_filp);
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
 diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index 8ff61f6184e24..83d3f320e14dc 100644
+index 83d3f320e14dc..b2295cdfb3578 100644
 --- a/fs/nfsd/nfs4recover.c
 +++ b/fs/nfsd/nfs4recover.c
-@@ -33,6 +33,7 @@
- */
- 
- #include <crypto/hash.h>
-+#include <crypto/sha.h>
- #include <linux/file.h>
- #include <linux/slab.h>
- #include <linux/namei.h>
-@@ -228,7 +229,7 @@ nfsd4_create_clid_dir(struct nfs4_client *clp)
- out_unlock:
- 	inode_unlock(d_inode(dir));
- 	if (status == 0) {
--		if (nn->in_grace)
-+		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
- 			__nfsd4_create_reclaim_record_grace(clp, dname, nn);
- 		vfs_fsync(nn->rec_file, 0);
- 	} else {
-@@ -388,7 +389,7 @@ nfsd4_remove_clid_dir(struct nfs4_client *clp)
- 	nfs4_reset_creds(original_cred);
- 	if (status == 0) {
- 		vfs_fsync(nn->rec_file, 0);
--		if (nn->in_grace)
-+		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
- 			__nfsd4_remove_reclaim_record_grace(dname,
- 					HEXDIR_LEN, nn);
- 	}
-@@ -446,7 +447,7 @@ nfsd4_recdir_purge_old(struct nfsd_net *nn)
- {
- 	int status;
- 
--	nn->in_grace = false;
-+	clear_bit(NFSD_NET_IN_GRACE, &nn->flags);
- 	if (!nn->rec_file)
+@@ -355,10 +355,12 @@ __nfsd4_remove_reclaim_record_grace(const char *dname, int len,
  		return;
- 	status = mnt_want_write_file(nn->rec_file);
-@@ -528,7 +529,7 @@ nfsd4_init_recdir(struct net *net)
- 
- 	nfs4_reset_creds(original_cred);
- 	if (!status)
--		nn->in_grace = true;
-+		set_bit(NFSD_NET_IN_GRACE, &nn->flags);
- 	return status;
- }
- 
-@@ -558,6 +559,7 @@ nfs4_legacy_state_init(struct net *net)
- 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
- 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
- 	nn->reclaim_str_hashtbl_size = 0;
-+	init_rwsem(&nn->reclaim_str_hashtbl_lock);
- 
- 	return 0;
- }
-@@ -1272,29 +1274,35 @@ nfsd4_cld_check(struct nfs4_client *clp)
- {
- 	struct nfs4_client_reclaim *crp;
- 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
--	struct cld_net *cn = nn->cld_net;
--	int status;
--	char dname[HEXDIR_LEN];
--	struct xdr_netobj name;
- 
- 	/* did we already find that this client is stable? */
- 	if (test_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags))
- 		return 0;
- 
- 	/* look for it in the reclaim hashtable otherwise */
-+	down_read(&nn->reclaim_str_hashtbl_lock);
- 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	}
+ 	name.len = len;
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
  	if (crp)
- 		goto found;
- 
--	if (cn->cn_has_legacy) {
-+	/* Keep the legacy fallback enabled on kernels without its Kconfig knob. */
-+#ifdef CONFIG_NFSD_V4
-+	if (nn->cld_net->cn_has_legacy) {
-+		int status;
-+		char dname[HEXDIR_LEN];
-+		struct xdr_netobj name;
-+
- 		status = nfs4_make_rec_clidname(dname, &clp->cl_name);
--		if (status)
-+		if (status) {
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
-+		}
- 
- 		name.data = kmemdup(dname, HEXDIR_LEN, GFP_KERNEL);
- 		if (!name.data) {
- 			dprintk("%s: failed to allocate memory for name.data!\n",
- 				__func__);
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
- 		}
- 		name.len = HEXDIR_LEN;
-@@ -1304,23 +1312,24 @@ nfsd4_cld_check(struct nfs4_client *clp)
- 			goto found;
- 
- 	}
-+#endif
-+	up_read(&nn->reclaim_str_hashtbl_lock);
- 	return -ENOENT;
- found:
- 	crp->cr_clp = clp;
-+	up_read(&nn->reclaim_str_hashtbl_lock);
- 	return 0;
+ 		nfs4_remove_reclaim_record(crp, nn);
++	up_write(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
  }
  
- static int
- nfsd4_cld_check_v2(struct nfs4_client *clp)
- {
--	struct nfs4_client_reclaim *crp;
- 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
-+#ifdef CONFIG_NFSD_V4
- 	struct cld_net *cn = nn->cld_net;
--	int status;
--	char dname[HEXDIR_LEN];
--	struct xdr_netobj name;
--	struct crypto_shash *tfm = cn->cn_tfm;
--	struct xdr_netobj cksum;
-+#endif
-+	struct nfs4_client_reclaim *crp;
-+	unsigned int princhashlen;
- 	char *principal = NULL;
- 
- 	/* did we already find that this client is stable? */
-@@ -1328,19 +1337,29 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
- 		return 0;
- 
- 	/* look for it in the reclaim hashtable otherwise */
+ static void
+@@ -679,13 +681,16 @@ nfsd4_check_legacy_client(struct nfs4_client *clp)
+ 		goto out_enoent;
+ 	}
+ 	name.len = HEXDIR_LEN;
 +	down_read(&nn->reclaim_str_hashtbl_lock);
- 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
- 	if (crp)
- 		goto found;
- 
-+	/* Keep the legacy fallback enabled on kernels without its Kconfig knob. */
-+#ifdef CONFIG_NFSD_V4
- 	if (cn->cn_has_legacy) {
-+		struct xdr_netobj name;
-+		char dname[HEXDIR_LEN];
-+		int status;
-+
- 		status = nfs4_make_rec_clidname(dname, &clp->cl_name);
--		if (status)
-+		if (status) {
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
-+		}
- 
- 		name.data = kmemdup(dname, HEXDIR_LEN, GFP_KERNEL);
- 		if (!name.data) {
- 			dprintk("%s: failed to allocate memory for name.data\n",
- 					__func__);
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
- 		}
- 		name.len = HEXDIR_LEN;
-@@ -1350,33 +1369,32 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
- 			goto found;
- 
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp) {
+ 		set_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags);
+ 		crp->cr_clp = clp;
+-		return 0;
  	}
-+#endif
 +	up_read(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
++	if (crp)
++		return 0;
+ 
+ out_enoent:
  	return -ENOENT;
- found:
--	if (crp->cr_princhash.len) {
-+	princhashlen = crp->cr_princhash.len;
-+	if (princhashlen) {
-+		u8 digest[SHA256_DIGEST_SIZE];
-+		u8 *pdata;
-+
- 		if (clp->cl_cred.cr_raw_principal)
- 			principal = clp->cl_cred.cr_raw_principal;
- 		else if (clp->cl_cred.cr_principal)
- 			principal = clp->cl_cred.cr_principal;
--		if (principal == NULL)
--			return -ENOENT;
--		cksum.len = crypto_shash_digestsize(tfm);
--		cksum.data = kmalloc(cksum.len, GFP_KERNEL);
--		if (cksum.data == NULL)
--			return -ENOENT;
--		status = crypto_shash_tfm_digest(tfm, principal,
--						 strlen(principal), cksum.data);
--		if (status) {
--			kfree(cksum.data);
-+		if (principal == NULL) {
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
- 		}
--		if (memcmp(crp->cr_princhash.data, cksum.data,
--				crp->cr_princhash.len)) {
--			kfree(cksum.data);
-+		sha256(principal, strlen(principal), digest);
-+		pdata = crp->cr_princhash.data;
-+		if (memcmp(pdata, digest, princhashlen)) {
-+			up_read(&nn->reclaim_str_hashtbl_lock);
- 			return -ENOENT;
- 		}
--		kfree(cksum.data);
- 	}
- 	crp->cr_clp = clp;
-+	up_read(&nn->reclaim_str_hashtbl_lock);
- 	return 0;
- }
- 
-@@ -1476,7 +1494,8 @@ nfs4_cld_state_init(struct net *net)
- 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
- 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
- 	nn->reclaim_str_hashtbl_size = 0;
--	nn->track_reclaim_completes = true;
-+	init_rwsem(&nn->reclaim_str_hashtbl_lock);
-+	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
- 	atomic_set(&nn->nr_reclaim_complete, 0);
- 
- 	return 0;
-@@ -1487,7 +1506,7 @@ nfs4_cld_state_shutdown(struct net *net)
- {
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	nn->track_reclaim_completes = false;
-+	clear_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
- 	kfree(nn->reclaim_str_hashtbl);
- }
- 
 diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 7095fa43fcf36..0b6cebb85f6b8 100644
+index 0b6cebb85f6b8..aa2c044cc6ce5 100644
 --- a/fs/nfsd/nfs4state.c
 +++ b/fs/nfsd/nfs4state.c
-@@ -2296,7 +2296,7 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
- {
- 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
+@@ -2298,14 +2298,21 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
  
--	if (!nn->track_reclaim_completes)
-+	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
  		return;
- 	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
+-	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
++
++	down_read(&nn->reclaim_str_hashtbl_lock);
++	if (!nfsd4_find_reclaim_client(clp->cl_name, nn)) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
  		return;
-@@ -4452,8 +4452,6 @@ nfsd4_init_leases_net(struct nfsd_net *nn)
- 
- 	nn->nfsd4_lease = 90;	/* default lease time */
- 	nn->nfsd4_grace = 90;
--	nn->somebody_reclaimed = false;
--	nn->track_reclaim_completes = false;
- 	nn->clverifier_counter = prandom_u32();
- 	nn->clientid_base = prandom_u32();
- 	nn->clientid_counter = nn->clientid_base + 1;
-@@ -5882,12 +5880,21 @@ nfsd4_renew(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- static void
- nfsd4_end_grace(struct nfsd_net *nn)
- {
--	/* do nothing if grace period already ended */
--	if (nn->grace_ended)
-+	/*
-+	 * nfsd4_end_grace() can be entered concurrently from the
-+	 * laundromat workqueue and from an nfsd compound thread
-+	 * handling RECLAIM_COMPLETE.  Without serialization, both
-+	 * callers can observe NFSD_NET_GRACE_ENDED clear and proceed
-+	 * into nfsd4_record_grace_done().  For tracking ops whose
-+	 * grace_done drains reclaim_str_hashtbl, that results in
-+	 * list corruption and a double free of every
-+	 * nfs4_client_reclaim entry.  Use an atomic test-and-set so
-+	 * exactly one caller proceeds.
-+	 */
-+	if (test_and_set_bit(NFSD_NET_GRACE_ENDED, &nn->flags))
- 		return;
- 
- 	trace_nfsd_grace_complete(nn);
--	nn->grace_ended = true;
- 	/*
- 	 * If the server goes down again right now, an NFSv4
- 	 * client will still be allowed to reclaim after it comes back up,
-@@ -5928,14 +5935,15 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
- {
- 	if (!nn->client_tracking_ops)
- 		return false;
--	if (READ_ONCE(nn->grace_ended))
-+	spin_lock(&nn->client_lock);
-+	if (test_bit(NFSD_NET_GRACE_ENDED, &nn->flags) ||
-+	    !nn->client_tracking_active) {
-+		spin_unlock(&nn->client_lock);
- 		return false;
--	/* laundromat_work must be initialised now, though it might be disabled */
--	WRITE_ONCE(nn->grace_end_forced, true);
--	/* mod_delayed_work() doesn't queue work after
--	 * nfs4_state_shutdown_net() has called disable_delayed_work_sync()
--	 */
 +	}
-+	set_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
- 	mod_delayed_work(laundry_wq, &nn->laundromat_work, 0);
-+	spin_unlock(&nn->client_lock);
- 	return true;
+ 	if (atomic_inc_return(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		printk(KERN_INFO "NFSD: all clients done reclaiming, ending NFSv4 grace period (net %x)\n",
+ 				clp->net->ns.inum);
+ 		nfsd4_end_grace(nn);
++		return;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
  }
  
-@@ -5948,15 +5956,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
- 	time64_t double_grace_period_end = nn->boot_time +
- 					   2 * nn->nfsd4_lease;
+ static void expire_client(struct nfs4_client *clp)
+@@ -5958,10 +5965,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
  
--	if (READ_ONCE(nn->grace_end_forced))
-+	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
  		return false;
--	if (nn->track_reclaim_completes &&
-+	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
- 			atomic_read(&nn->nr_reclaim_complete) ==
- 			nn->reclaim_str_hashtbl_size)
+-	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+-			atomic_read(&nn->nr_reclaim_complete) ==
+-			nn->reclaim_str_hashtbl_size)
+-		return false;
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags)) {
++		int size;
++
++		down_read(&nn->reclaim_str_hashtbl_lock);
++		size = nn->reclaim_str_hashtbl_size;
++		up_read(&nn->reclaim_str_hashtbl_lock);
++		if (atomic_read(&nn->nr_reclaim_complete) == size)
++			return false;
++	}
+ 	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
  		return false;
--	if (!nn->somebody_reclaimed)
-+	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
- 		return false;
--	nn->somebody_reclaimed = false;
-+	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- 	/*
- 	 * If we've given them *two* lease times to reclaim, and they're
- 	 * still not done, give up:
-@@ -7675,7 +7683,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 		nfs4_inc_and_copy_stateid(&lock->lk_resp_stateid, &lock_stp->st_stid);
- 		status = 0;
- 		if (lock->lk_reclaim)
--			nn->somebody_reclaimed = true;
-+			set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
- 		break;
- 	case FILE_LOCK_DEFERRED:
- 		kref_put(&nbl->nbl_kref, free_nbl);
-@@ -8185,8 +8193,9 @@ static int nfs4_state_create_net(struct net *net)
- 	nn->conf_name_tree = RB_ROOT;
- 	nn->unconf_name_tree = RB_ROOT;
- 	nn->boot_time = ktime_get_real_seconds();
--	nn->grace_ended = false;
--	nn->grace_end_forced = false;
-+	clear_bit(NFSD_NET_GRACE_ENDED, &nn->flags);
-+	clear_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
-+	nn->client_tracking_active = false;
- 	nn->nfsd4_manager.block_opens = true;
- 	INIT_LIST_HEAD(&nn->nfsd4_manager.list);
- 	INIT_LIST_HEAD(&nn->client_lru);
-@@ -8201,8 +8210,6 @@ static int nfs4_state_create_net(struct net *net)
- 	INIT_LIST_HEAD(&nn->blocked_locks_lru);
+ 	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+@@ -8038,9 +8050,13 @@ bool
+ nfs4_has_reclaimed_state(struct xdr_netobj name, struct nfsd_net *nn)
+ {
+ 	struct nfs4_client_reclaim *crp;
++	bool found;
  
- 	INIT_DELAYED_WORK(&nn->laundromat_work, laundromat_main);
--	/* Make sure this cannot run until client tracking is initialised */
--	disable_delayed_work(&nn->laundromat_work);
- 	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
- 	get_net(net);
- 
-@@ -8266,8 +8273,11 @@ nfs4_state_start_net(struct net *net)
- 	locks_start_grace(net, &nn->nfsd4_manager);
- 	nfsd4_client_tracking_init(net);
- 	/* safe for laundromat to run now */
--	enable_delayed_work(&nn->laundromat_work);
--	if (nn->track_reclaim_completes && nn->reclaim_str_hashtbl_size == 0)
-+	spin_lock(&nn->client_lock);
-+	nn->client_tracking_active = true;
-+	spin_unlock(&nn->client_lock);
-+	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
-+	    nn->reclaim_str_hashtbl_size == 0)
- 		goto skip_grace;
- 	printk(KERN_INFO "NFSD: starting %lld-second grace period (net %x)\n",
- 	       nn->nfsd4_grace, net->ns.inum);
-@@ -8313,7 +8323,10 @@ nfs4_state_shutdown_net(struct net *net)
- 
- 	unregister_shrinker(&nn->nfsd_client_shrinker);
- 	cancel_work_sync(&nn->nfsd_shrinker_work);
--	disable_delayed_work_sync(&nn->laundromat_work);
-+	spin_lock(&nn->client_lock);
-+	nn->client_tracking_active = false;
-+	spin_unlock(&nn->client_lock);
-+	cancel_delayed_work_sync(&nn->laundromat_work);
- 	locks_end_grace(&nn->nfsd4_manager);
- 
- 	INIT_LIST_HEAD(&reaplist);
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 5cd264171daee..364f05a28a262 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -1124,7 +1124,7 @@ static ssize_t write_v4_end_grace(struct file *file, char *buf, size_t size)
- 	}
- 
- 	return scnprintf(buf, SIMPLE_TRANSACTION_LIMIT, "%c\n",
--			 nn->grace_ended ? 'Y' : 'N');
-+			 test_bit(NFSD_NET_GRACE_ENDED, &nn->flags) ? 'Y' : 'N');
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	return (crp && crp->cr_clp);
++	found = (crp && crp->cr_clp);
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	return found;
  }
  
- #endif
-diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
-index b71af165b577e..23670d70196cc 100644
---- a/fs/nfsd/nfssvc.c
-+++ b/fs/nfsd/nfssvc.c
-@@ -402,7 +402,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 	int ret;
+ /*
+@@ -8053,10 +8069,39 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 	unsigned int strhashval;
+ 	struct nfs4_client_reclaim *crp;
  
--	if (nn->nfsd_net_up)
-+	if (test_bit(NFSD_NET_UP, &nn->flags))
- 		return 0;
- 
- 	ret = nfsd_startup_generic();
-@@ -412,11 +412,11 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 	if (ret)
- 		goto out_socks;
- 
--	if (nfsd_needs_lockd(nn) && !nn->lockd_up) {
-+	if (nfsd_needs_lockd(nn) && !test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 		ret = lockd_up(net, cred);
- 		if (ret)
- 			goto out_socks;
--		nn->lockd_up = true;
-+		set_bit(NFSD_NET_LOCKD_UP, &nn->flags);
++	down_write(&nn->reclaim_str_hashtbl_lock);
++
++	/*
++	 * A reclaim record for this client name may already exist (for
++	 * example, populated at boot from the recovery directory before
++	 * an in-grace RECLAIM_COMPLETE or an nfsdcld downcall delivers
++	 * the same name). Dedup here so reclaim_str_hashtbl_size stays
++	 * equal to the number of distinct client names; inc_reclaim_complete
++	 * relies on that equality to end the grace period via the fast path.
++	 */
++	crp = nfsd4_find_reclaim_client(name, nn);
++	if (crp) {
++		if (princhash.len && crp->cr_princhash.len == 0) {
++			void *pdata = kmemdup(princhash.data, princhash.len,
++					      GFP_KERNEL);
++			if (pdata) {
++				crp->cr_princhash.data = pdata;
++				crp->cr_princhash.len = princhash.len;
++			} else {
++				dprintk("%s: failed to allocate memory for princhash.data!\n",
++					__func__);
++				crp = NULL;
++			}
++		}
++		up_write(&nn->reclaim_str_hashtbl_lock);
++		return crp;
++	}
++
+ 	name.data = kmemdup(name.data, name.len, GFP_KERNEL);
+ 	if (!name.data) {
+ 		dprintk("%s: failed to allocate memory for name.data!\n",
+ 			__func__);
++		up_write(&nn->reclaim_str_hashtbl_lock);
+ 		return NULL;
  	}
- 
- 	ret = nfsd_file_cache_start_net(net);
-@@ -434,7 +434,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- 	if (ret)
- 		goto out_reply_cache;
- 
--	nn->nfsd_net_up = true;
-+	set_bit(NFSD_NET_UP, &nn->flags);
- 	return 0;
- 
- out_reply_cache:
-@@ -442,9 +442,9 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
- out_filecache:
- 	nfsd_file_cache_shutdown_net(net);
- out_lockd:
--	if (nn->lockd_up) {
-+	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 		lockd_down(net);
--		nn->lockd_up = false;
-+		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
+ 	if (princhash.len) {
+@@ -8065,6 +8110,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 			dprintk("%s: failed to allocate memory for princhash.data!\n",
+ 				__func__);
+ 			kfree(name.data);
++			up_write(&nn->reclaim_str_hashtbl_lock);
+ 			return NULL;
+ 		}
+ 	} else
+@@ -8084,6 +8130,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 		kfree(name.data);
+ 		kfree(princhash.data);
  	}
- out_socks:
- 	nfsd_shutdown_generic();
-@@ -458,11 +458,11 @@ static void nfsd_shutdown_net(struct net *net)
- 	nfs4_state_shutdown_net(net);
- 	nfsd_reply_cache_shutdown(nn);
- 	nfsd_file_cache_shutdown_net(net);
--	if (nn->lockd_up) {
-+	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
- 		lockd_down(net);
--		nn->lockd_up = false;
-+		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
- 	}
--	nn->nfsd_net_up = false;
-+	clear_bit(NFSD_NET_UP, &nn->flags);
- 	nfsd_shutdown_generic();
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ 	return crp;
  }
  
-@@ -558,7 +558,7 @@ void nfsd_last_thread(struct net *net)
- 	 * other initialization has been done except the rpcb information.
- 	 */
- 	svc_rpcb_cleanup(serv, net);
--	if (!nn->nfsd_net_up)
-+	if (!test_bit(NFSD_NET_UP, &nn->flags))
- 		return;
+@@ -8103,6 +8150,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 	struct nfs4_client_reclaim *crp = NULL;
+ 	int i;
  
- 	nfsd_shutdown_net(net);
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++) {
+ 		while (!list_empty(&nn->reclaim_str_hashtbl[i])) {
+ 			crp = list_entry(nn->reclaim_str_hashtbl[i].next,
+@@ -8111,6 +8159,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 		}
+ 	}
+ 	WARN_ON_ONCE(nn->reclaim_str_hashtbl_size);
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ /*
 -- 
 2.53.0
 
