@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17EC175A84
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:05:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC173C2D
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788566709; cv=none; b=bxM7vV8TkKjnFWL7Bo3hIUyGVV5IgLzEC/E1pCctU5TXgrRhKGRrLHAQXCvDwqIwhYZ7DVPxuatjngsWlz1rf/KGfXSIB4GGHqdMVYORu5VKmYA74B8mpIq3e58MZFmfxUgWLOmFQubLcBtNdECm6h4xhjMIQ02bO/hzUogAW9E=
+	t=1788566713; cv=none; b=BVgc3ftCYAjHdoTnnJZevlMzeafXBrDW+k+VKIZBbU3WA+uWJ86TYyxSplgJOHf3Mc3niKufEv+5kpdO4dFMP+9zN6pNzo54vAdrawi8FH7KK2tk4jRUJp1MIMt9C3Su6kWKQU1gQOPnDUDwHbp36FFG33qn09KQnGxkcizD2qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788566709; c=relaxed/simple;
-	bh=iql7e91vygTXtijKqfYc0bTrgV3mIdwj0o/yny6LERc=;
+	s=arc-20240116; t=1788566713; c=relaxed/simple;
+	bh=yNaEkfaRMFwegfA8FZXpNkirxM7a7J/QMVy/e2bado4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jbkVuZgICpPiYmz15pA7dHFaD0VHxbQHKuJKBGdESN4mxl/xgpn/xxAXkmCyIMlp7BQHOi3g4XLPcQ10sABX0/1yo+iDTyC2a5vClSJQ/9+MkN7SBslyoP6TcgKc2URowpoUDIT17PgTXlIAYMU2+YzcoHnrh+6WBUCfpgfApAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WzydNyNL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fhb0+LL05RDUU+4FWQV5z9DF+YNYtCxU4Dkw31io1hMaRj/3QM8zqCsqFi/bYy9koQ5KtrAEueoEUCiw2illVBZM8GF1AKp7YwE29f10nvLMg4dEaPF6+nnsJHDmAuo5UBN1etUOS3NdGOLqID/RSoZZwdoR/WGwYRUlBLKuTZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dk4xXo3a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WzydNyNL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30861F00AC4;
-	Sat,  5 Sep 2026 00:05:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dk4xXo3a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 700041F00A3D;
+	Sat,  5 Sep 2026 00:05:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788566707;
-	bh=qGvnh+EbFY5iKMbRebGx1KlC7XqAkxncm6U5cnfTeg8=;
+	s=k20260515; t=1788566712;
+	bh=hy/1L0AjfJ/BuPibeqTJ/xpsy44JMHH9ZOSWYw8uk5g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WzydNyNLiBTzrZ0R944gAlYlEmfSx2aMC3mAQo5qjr5nwmZV/3baWRqOEWHu0YMu2
-	 U+deLvYdSbNhXg6KPMt06gS5r92vlt8qC+U7bJ/P/0TMiwzQw6hfHzE9sO4XIGUYVr
-	 UPKpVJV6j1d4xfT6eSi/7HzYKeTe9pSfg30qRKOFeZO4haqd6vQXRbkBh9mWAvbMjR
-	 c3P6laKhFuyXrgXfCtFQHHQepYSf4W5iwOd2u1B+rt5hd+uezUygd5mSKRo7YLJ22p
-	 kYW35jFvpIDCwhlVuulFGf29VLzM1llVsJ+LKiQmelkvR9NYmfv1Swfv38yA8mZ9S9
-	 L2KBeAqpYG53g==
+	b=Dk4xXo3aHmxkbic802tfN/e52Ba/H2xjy4DzMs2lUUVksq8jOzZ1J8JPXqQzDBmJG
+	 un0CwoaRhtYOkPlsBz6xtZID15x53fRqWSWVZrTyIrszDtEGTinK/U5H7fDbv6V1by
+	 YG4N/PMKppLCv56+ZSXCr6hYs32ZW1UDvbgyy42+8XabGUx10uWaRIyujtGTASZdrX
+	 sj52zv3cvukhb+CD2Jb7q/WobkKVTqqYrXrb7/YkubIe2nzq8RJZt/dg/Aw6rucT3u
+	 axBNckrkxZk5blgjaBhgdsFTh66R9KJf5o4h968h5V9u0FG6kRwKShaOZofKZxAYSN
+	 oZBqIE+GtUlQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Huang Wei <huangwei@kylinos.cn>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Fedor Pchelkin <boddah8794@gmail.com>,
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] usb: typec: ucsi: use UCSI_TIMEOUT_MS for sync command completion
-Date: Fri,  4 Sep 2026 20:05:04 -0400
-Message-ID: <20260905000504.1657915-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] device property: Add cleanup.h based fwnode_handle_put() scope based cleanup.
+Date: Fri,  4 Sep 2026 20:05:08 -0400
+Message-ID: <20260905000510.1659297-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260905000504.1657915-1-sashal@kernel.org>
-References: <2026090309-kelp-viewer-b3c3@gregkh>
- <20260905000504.1657915-1-sashal@kernel.org>
+In-Reply-To: <2026090348-triceps-paramount-f040@gregkh>
+References: <2026090348-triceps-paramount-f040@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,62 +47,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huang Wei <huangwei@kylinos.cn>
+From: Jonathan Cameron <Jonathan.Cameron@huawei.com>
 
-[ Upstream commit eb4573cf2fd860b20adfae050c3f6ec6ddc3abdb ]
+[ Upstream commit 59ed5e2d505bf5f9b4af64d0021cd0c96aec1f7c ]
 
-The synchronous command completion path in ucsi_sync_control_common()
-hardcodes a 5 second (5 * HZ) timeout when waiting for the PPM to signal
-command completion via ACPI notification. This value matched
-UCSI_TIMEOUT_MS when it was still 5000 ms, but it was not updated when
-that macro was later raised to 10000 ms to fix PPM reset timeouts.
+Useful where the fwnode_handle was obtained from a call such as
+fwnode_find_reference() as it will safely do nothing if IS_ERR() is true
+and will automatically release the reference on the variable leaving
+scope.
 
-As a result, the two PPM communication paths are now inconsistent: the
-polling path in ucsi_reset_ppm() respects the 10 second timeout, while
-the event-driven completion path still uses 5 seconds. On machines where
-the firmware is slow to respond during boot (e.g. some Lenovo ThinkPad
-models such as the E14 Gen 7), commands sent after the PPM reset, such
-as SET_NOTIFICATION_ENABLE and GET_CAPABILITY, can exceed 5 seconds and
-cause UCSI initialization to fail with:
-
-    ucsi_acpi USBC000:00: error -ETIMEDOUT: PPM init failed
-
-Once UCSI init aborts, USB-C PD negotiation never completes, which in
-turn blocks USB-C dock enumeration since the dock depends on a successful
-PD contract.
-
-Replace the hardcoded 5 * HZ with msecs_to_jiffies(UCSI_TIMEOUT_MS) so
-that both communication paths share a single, consistent timeout value,
-and future adjustments to UCSI_TIMEOUT_MS are picked up automatically.
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221740
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=2183790
-Fixes: bf4f9ae1cb08c ("usb: typec: ucsi: increase timeout for PPM reset operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Huang Wei <huangwei@kylinos.cn>
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Fedor Pchelkin <boddah8794@gmail.com>
-Link: https://patch.msgid.link/20260805085725.389761-1-huangwei@kylinos.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://lore.kernel.org/r/20240217164249.921878-3-jic23@kernel.org
+Signed-off-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Stable-dep-of: 190069255582 ("device property: fix infinite loop in fwnode_for_each_child_node()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/ucsi/ucsi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ include/linux/property.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
-index 5d601112fb0c5..a17cdeca6a9bb 100644
---- a/drivers/usb/typec/ucsi/ucsi.c
-+++ b/drivers/usb/typec/ucsi/ucsi.c
-@@ -66,7 +66,8 @@ int ucsi_sync_control_common(struct ucsi *ucsi, u64 command)
- 	if (ret)
- 		goto out_clear_bit;
+diff --git a/include/linux/property.h b/include/linux/property.h
+index 840f0545d4f9d..180d4a027ab38 100644
+--- a/include/linux/property.h
++++ b/include/linux/property.h
+@@ -11,6 +11,7 @@
+ #define _LINUX_PROPERTY_H_
  
--	if (!wait_for_completion_timeout(&ucsi->complete, 5 * HZ))
-+	if (!wait_for_completion_timeout(&ucsi->complete,
-+					 msecs_to_jiffies(UCSI_TIMEOUT_MS)))
- 		ret = -ETIMEDOUT;
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/fwnode.h>
+ #include <linux/types.h>
  
- out_clear_bit:
+@@ -124,6 +125,8 @@ struct fwnode_handle *device_get_named_child_node(struct device *dev,
+ struct fwnode_handle *fwnode_handle_get(struct fwnode_handle *fwnode);
+ void fwnode_handle_put(struct fwnode_handle *fwnode);
+ 
++DEFINE_FREE(fwnode_handle, struct fwnode_handle *, fwnode_handle_put(_T))
++
+ int fwnode_irq_get(const struct fwnode_handle *fwnode, unsigned int index);
+ int fwnode_irq_get_byname(const struct fwnode_handle *fwnode, const char *name);
+ 
 -- 
 2.53.0
 
