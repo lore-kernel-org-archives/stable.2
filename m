@@ -1,83 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF1837F338
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:15:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788570952; cv=none; b=SGNquuw5feG5fgZPH7f95TzMKZket8ic4jgRKfgnUX1tLPr6SVl3O0m/7B/uFsmcYgyfHhrwcowIlcUwox2I43iAVvGZ6yEZqYbbjJatTVbBLr0NYwR27D2iIScGtm0ytuHlZNuZ42FU1QlL+iOvbdrs2g6j/XLkEwwblZmUTzU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788570952; c=relaxed/simple;
-	bh=8vBOD3iAA3Gcnq0ytm70An3cQqaSF2NQ9pZmWAH730Y=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65124312807
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:18:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788571108; cv=pass; b=EgUjSu5/DhmofWvK8wSv+OZ00pK4TnQDwu6U7wr+iZQvazJGBwj6Q+IHojImiNpBbPzqDEwD0laVq8qdH5Prv6+ib1uG5/JrMjdlrJiONlOdGQgA69wJy7ySdI57dFp8WDMQ6YfBa502chfN79N4JLFk/2ZHNzdMWX9nZiEkyis=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788571108; c=relaxed/simple;
+	bh=QRWFS+GgSuBuV0EOpOPKRYi+MPqomhFhRkXTuO72POc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H79QsgCd5Ti0xZwtVx/ldSsSteFK2yvyVbTM2hDuOOfu88vPW6HRHZKqUjJS7g7yoZ3hUnd4ulC52fmJuBU2qpc5wnIV1biHpjZEXS1QD4zDKJpiFbp8rOPDuY8ERQJgv85IO+QnR8yJsKCNQb7G33B5WMEnjAqaoLmXW8BuVpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OH8zvEvR; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=HOzBoAd4bWmvON6d6dOK+kxjn+Z336ne+f5KpsMdY7byy22pw7uF3Q/wddNGZa5Y10HFo1Qh6soR6mDQstoUeTQdhAy2bom3dJNbqAqbGt7JVD77GdVxzF7ajucqy7y11xGl4jvNDG33Pqh6GXH8hDxJd6b7a+4wuRJaXf1eF2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=eAWN2CTo; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OH8zvEvR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711541F00ADB
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 01:15:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788570951;
-	bh=wnqQejRb8zTN61yNVlvFHsGj5tl1v37bsmIXzCAkc7s=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OH8zvEvR++KBfxOgVyaH/HfI3yuPPtRvk2jQdDrUxoK0D1YVQE6QoOKYmraE8JGsw
-	 onB+TdVdONRNPac8c0RNj0XR8IyTBI46SpH1Tx8ipt8LoR3Wj9+SdEVvUQGEwihvzj
-	 OBF0iEFcfADsuZLse3eDqjmkheBpq4TfKJrKQDGGgkfjfGYpEiOWvwrY2CxyeXHO0i
-	 ccbXMCkV6lqhPjcoyrrNW56+9m5C/yhktd6cZe4ug802cs0cuAhdcA0nwLc6zjku8d
-	 anTSlD4lx1VNColDPDVxDrjDD2acZDxGAdO0DNL2clDLI3xi43yBZACcd7dPy9P31a
-	 Nr+G11DaWqhsQ==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c262f1186f0so2759966b.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 18:15:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw30i9WCayR1OgfsUCVk9uN1B79R4r1EO7ihX+uYHCVcNZZm5PjnjB+OoioXjlPmVKmOoD38eM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKtSUkrPLHsRoWCcvY8ytw+qIyjMaY8yfw7yALnfVgmqscX5d7
-	3rETvz8K4lpMsE4ABR9i6nE5jOJayOROc8qi8cxpvt9EMNsl4aOOeXgqGfFz9DS9KavgAqC5151
-	tDI6rcsyEKUMjgFu0YA1Jkdy3lnXSm3c=
-X-Received: by 2002:a17:907:7290:b0:c08:417e:3696 with SMTP id
- a640c23a62f3a-c260ca459c9mr606304266b.20.1788570950084; Fri, 04 Sep 2026
- 18:15:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="eAWN2CTo"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c20e70a0962so208301466b.2
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 18:18:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788571103; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pjMlNZPAK5e/qC4CwRNTFQqbdIUhEGrI8b2Wbl9r7T9P8wJObHMZCTr3uA0C+liUzR
+         cjEiLVZ1pbBGY3Trmvu4+f+rTpGbCgozd+b5bdAjWQ+ey/e/Is47pSR2WsKX4KaHKr0a
+         xBIaL0lqFKQK0Kg+WVzlr/8X1A5ZU9FXmumJ/cAO6L3U3aoFPFb7X9FBojED/Nzsqbwj
+         BWXRYpX8tkFzgm+6pCUg7/3xQZ/h83JaRX8DWllAHiQtSsdbxJhUTdpn7UPNljYD0opx
+         PIs4xraxO+5Le0kTCqOCjPwylfXoKZljv48Hbxd7Pdjhm9mxlGX1Q2F4H79WWctfMHjV
+         FFPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
+        fh=ldOCXCJQWblY96WWlqqI5pB9uvtpsXCsZgiZ2SmTCSY=;
+        b=AQwHsNfQwSjsPsmv3hFpa9padDglhle5mNggVe1w78pCWwBSVXA5YB+RJwhA39Jjxq
+         42gM9mpCVpGSy6DDaEHth6MB7nrtgm6dwgcNQ+/cWJrxJnCMXbBYuMgUaSRR4ErFAcVC
+         AYspBWI2N87NRqmFZiMQRc7E78Hgtit7ugHujEortNeN+pX21kHnGCbBuFvNT4NK/v0N
+         M+wQbyBpmul2aMnn55Ik0Sctw9pzLArYRX4kasNxTJAo+2vD+SywI0BbTW8gO0g4UAZ/
+         ekcvzwDZkPSNyyiWcI1MR38ctQjdAgIT53R+KzAh2MzYzzYMQNrybWvdtr1Em6Hf8OLx
+         A/dQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=clyso.com; s=google; t=1788571103; x=1789175903; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
+        b=eAWN2CTow+E996I5x9d1j3DbWJx0UtN8ZH5WYW1MFMlMO/xKXywG29SOt/pOWkUxEn
+         fEaNTEKjWtEG0mo3mv5vf1M27dAHBmsVcCuyX3neY7Xb1TIhZ+H7PmpEfHPwjmPt0doy
+         sJHPRt+mSEmHUFs74+p5uoDv3ltOOKA9Ff3DJvgbgrxEAx8FvN/SJQgDj0sJYIvEMiBB
+         0LnTFqnbElc0MeyBBYW6+v+angPRza+IUinDJIiHs7cFHF+RAdKspnxopXZeIkeInQJr
+         v9o8pNJB+DtB0q/4g6aceivClTjOpGfOmZy6WWSt5StJH8+2cTH8b6O1EBM9PybUk/Dg
+         NPlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788571103; x=1789175903;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MC2O83yQA370xxba7M3dBk2YHStIU44lILC32r6Jnrk=;
+        b=PnVQspMqbJL2XpdJ8X3N9hHCxlGMJeE1UHn//LLY2+tPavEXF7aYI4y2rcOEhzEUKt
+         /T/BPAE32DJ9gE2pgWvb5NVRI4fqjCxeA0vskv0DtBItDmcJye6zClXay/uEp6XMh/ME
+         tRaPfMyko08j0ml8Jt3uJ0TVvDVbN/xyleBY0dLGRrJ1/rXAjjcOep63FhjKCvIoidXh
+         6NKasPoOi7x8jtQKMEwDc6Q9nR8GNWuT4P+bWJ0lx7l+pbNJiMQa7a/4aJWDCemIQ1EF
+         17ZPnPiBUTd6CE7xnib1Oyx1XLTdq9nlXd1Y3ZNxCWqun0yTeIXuUwHsElrdr5Mk+5An
+         1AqQ==
+X-Forwarded-Encrypted: i=1; AKwUvByb0EbyslsLzxEU3glJ5HtmwUedJ5579xUwK5HTP958p9YQu7/K2yqIqa0LifM9wcp8pXmh+yo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lI01MxtjMpXMIZIjTaDM2Pbf7nOntQPSqRl6uSWibk8maWWUjf
+	hblZway6ibi33WwEKVU8YZe3r7/+WMdkuXGri8HRJ7ttpnT0xEsFk2zEcJ+S8EOcG7VCakivMXZ
+	1pHrf4+1GelIxsm6zxhtw4vgsYEVM8XxfIrw4uUV+7w==
+X-Gm-Gg: AYBFou2dOtkwNgVfk/A2FnUYepVjtFUTjC5Zquyygta2cnJLmaNNWs7HbQKqq4ClA45
+	0nE9WKoY0OomKM6c00cCbJ9BFQzvSlqK7jVlBzglKFcr4NLO66ftM7h4akhiwWAgt4qkV6812iO
+	JHsdq7hDS3Oeu+b8rgrzg0EgJd562CYwMgFNYj0a39Vh9nFWWdC+/2yjpot91OO6SkYsBYHLuQa
+	DfQYG01sWGEVqt7+mYA0m63M2D3YNMF2+6CSBlScsYxslahlyAIWLLXEMRMeZX7mHh3lUxm5Vw5
+	UK5uOlYcVCI441G4e6kPL7IWn/x6oqygP+X5UHi5UHuXzQ==
+X-Received: by 2002:a17:907:9709:b0:c26:2a5:819 with SMTP id
+ a640c23a62f3a-c260ca1f474mr642465966b.18.1788571103585; Fri, 04 Sep 2026
+ 18:18:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260709155440.2132459-1-doebel@amazon.de> <20260904125844.1803343-1-doebel@amazon.de>
-In-Reply-To: <20260904125844.1803343-1-doebel@amazon.de>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 5 Sep 2026 10:15:37 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XLMLJc8HxJFK5Dl37fhlyCCd4jZbYJRtiT9fYiNdk5XrcPZmADDZ7vkb4
-Message-ID: <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
-Subject: Re: [PATCH] smb: client: fix heap overflow in DACL owner/group rewrite
-To: Bjoern Doebel <doebel@amazon.de>
-Cc: linux-cifs@vger.kernel.org, pc@manguebit.org, ronniesahlberg@gmail.com, 
-	sprasad@microsoft.com, tom@talpey.com, bharathsm@microsoft.com, 
-	samba-technical@lists.samba.org, stable@vger.kernel.org
+References: <20260904103351.15357-1-max.kellermann@ionos.com>
+In-Reply-To: <20260904103351.15357-1-max.kellermann@ionos.com>
+From: Xiubo Li <xiubo.li@clyso.com>
+Date: Fri, 4 Sep 2026 18:18:12 -0700
+X-Gm-Features: AcwNN1VahgJIxFl-EEQrkp0gkp8R3dSoW-hNCnMZLa2sVOL76dxy0sOlZpB3OjE
+Message-ID: <CAOJNxRLfDHmW_+jtUQogRcHCGKAyQJKBkQKQRM1i0Bvj2vkLVw@mail.gmail.com>
+Subject: Re: [PATCH] ceph: avoid pending truncate during nonblocking cap acquire
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-> @@ -1815,11 +1815,13 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
->                                 cifs_put_tlink(tlink);
->                                 return rc;
->                         }
-> -                       if (mode_from_sid)
-> -                               nsecdesclen +=
-> -                                       le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
-> -                       else /* cifsacl */
-> -                               nsecdesclen += le16_to_cpu(dacl_ptr->size);
-> +                       /*
-> +                        * Worst case: every ACE is rewritten with a new SID of
-> +                        * SID_MAX_SUB_AUTHORITIES sub-auths -> sizeof(smb_ace) each,
-> +                        * plus the smb_acl header replace_sids_and_copy_aces() emits.
-Since you mentioned replace_sids_and_copy_aces(), please check whether
-replace_sids_and_copy_aces() also has a potential overflow issue.
+LGTM.
 
-So for this patch,
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
 
-Plus, there is a checkpatch warning from this patch.
-WARNING: Unknown commit id '5c3564852c58', maybe rebased or not pulled?
-#78:
-Fixes: 5c3564852c58 ("cifs: Minimize the number of cifs_acl memory allocations")
-total: 0 errors, 1 warnings, 18 lines checked
-
-Thanks.
+On Fri, 4 Sept 2026 at 03:33, Max Kellermann <max.kellermann@ionos.com> wrote:
+>
+> Readahead acquires caps while the folios are locked.  This can
+> deadlock when processing a pending truncate; truncate_pagecache() can
+> then attempt to a folio that is already locked.
+>
+> Return -EAGAIN instead when `NON_BLOCKING` is set, causing the
+> readahead to be abandoned.
+>
+> Fixes: 49870056005c ("ceph: convert ceph_readpages to ceph_readahead")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+> ---
+>  fs/ceph/caps.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+> index bcb04c6cb92c..86e195c5fd32 100644
+> --- a/fs/ceph/caps.c
+> +++ b/fs/ceph/caps.c
+> @@ -2889,6 +2889,10 @@ static int try_get_cap_refs(struct inode *inode, int need, int want,
+>         }
+>
+>         /* finish pending truncate */
+> +       if (ci->i_truncate_pending && (flags & NON_BLOCKING)) {
+> +               ret = -EAGAIN;
+> +               goto out_unlock;
+> +       }
+>         while (ci->i_truncate_pending) {
+>                 spin_unlock(&ci->i_ceph_lock);
+>                 if (snap_rwsem_locked) {
+> --
+> 2.47.3
+>
