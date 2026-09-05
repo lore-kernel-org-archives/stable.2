@@ -1,84 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C422472AF;
-	Sat,  5 Sep 2026 23:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3779454788;
+	Sat,  5 Sep 2026 23:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788649768; cv=none; b=jdDRLR5lLBeuboT5pEBHRx/PtsMPULUiRtSkfKKTIoN8Vm6v2LgiVKlPj4QiXUQhi1B9HBylOjW2X37aun7uGKVR0xlo3xiwgyi7V1eQqvZzkWIQMR3SC+fFb6txVV53y/PGLHRK+J2UtRdaGqPsm/a+C01dKbnX4Ipadb5Hq7s=
+	t=1788650499; cv=none; b=SGKTmKBvAWZ3BwzIwsbWoscRNcBlyHDgRRsTKU9Wxnh4hADV66eMTF0kh1GH+UIG8BUZhOPvvW1VBvhNwq300+xMPr6PQT0uciQj7Ho/gb0UiHZbgHiZsa8VAF0g/8DDLvOZzsY2MLdDDLFKBI+qYeB15KIQRUkzB9I8vYJXfqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788649768; c=relaxed/simple;
-	bh=Y6XIaVAd8AIvpqRPODe43mHt0xLAedfYdq7+Pdhbi70=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=iP6k0c20d7nlRoQjwUA5UQ4O4ofN0vSYdIPtL3VnkU3XglOxXlSJwJmwmA0U3de4hlY2ln3U+7WJvRgjZ5qb+dOZdoA6kKnRrfTFALbVJr4q2PWEtOOjkxjduhmLqlsGBNrSq4a3RLrwCU8n3N8lzu47sU29KGFjWWwlld13tno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=C7dIJfzp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788650499; c=relaxed/simple;
+	bh=5T/aicP0TnclLPU5wnf84xNr+s/WFtsD1IJ6HkgnE28=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=P86bXYWXLrlLCc8hOhsbfH8wFwlqgXsNCp+WMSl6cSkf8TiU5LYu1Z5b+CioT8IhYhr29jD4bNcZc81y/ulO+rqpyY4BCYybnJFSDIhmASVJ9S3aeMxLy/vHFElzq+WugEpHZGJzQysb19vtEBb9KGKXeuyPAIcVFdnQjWuB5XM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=l3m/LLkC; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="C7dIJfzp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533DC1F00A3A;
-	Sat,  5 Sep 2026 23:09:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788649767;
-	bh=7MvH/fL/MoL/0Xg/K8Z12nlCW6Dkm7qOIbbrTCfZHRA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=C7dIJfzpfJ+sDTZ1NygWVigYa2VcwgEfAjj9LTpyc1yQQ8opPo6leshC7FwEejVbZ
-	 7qqz3rLYlh/DRo55oG9x9cF3zOwXJ/+q7GTzBYovAJcEEHlPdUFC3vTKJeo2gw4gM4
-	 dOp4GufsgbaFSrNdmD7dnvrK9H6DLOXBS6ZyDufw=
-Date: Sat, 5 Sep 2026 16:09:26 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Longlong Xia <xialonglong2025@163.com>
-Cc: hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com,
- chengming.zhou@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
-Subject: Re: [PATCH 1/1] mm/zswap: enable static key after runtime pool
- recovery
-Message-Id: <20260905160926.9836f2ca0dc977b89f2f146e@linux-foundation.org>
-In-Reply-To: <20260905125101.2970456-1-xialonglong2025@163.com>
-References: <20260905125101.2970456-1-xialonglong2025@163.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="l3m/LLkC"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=bKhkQNF7LlWqke6YHxjBoK7l4G+YBO31j9ZWaMZeeK8=; b=l3m/LLkC13uXj8e5NnkFzXZ8KF
+	IKmWh2PyZw3At1a2pTbw6K2W/1QmkYTcI7YMZQSor8JlczNGGTcp9//AiEidkexktWbhRkwbcps/z
+	Pagi6r/RChVYVv3Wwr3UGZyz9SxJkXMYvz8y0RbDIm1/Pl2WvMNHGJryNiru1NajS/lo8iy96W2rC
+	bZ/h/F+Dezb0d+P9t562I3VPE2VthBYC9w6QP6aYXwpJuugfFUd/k4zgZa2ovzXhXGSREqidEGzN4
+	fQ+uMu4trkbvxSU5pvVza4EHp2RxeEF3SXgneF34tPfF5Su3IKmCHA29OYBPsbibydwnJ42ure74X
+	A43Vg1zw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x2zhO-00000000lU5-0GUj;
+	Sat, 05 Sep 2026 20:21:26 -0300
+Message-ID: <b79a2d5372c3b983a57e33d2732fd45b@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Bjoern Doebel <doebel@amazon.de>, Namjae Jeon <linkinjeon@kernel.org>
+Cc: stable@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
+ Bharath
+ SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
+ samba-technical@lists.samba.org, linux-kernel@vger.kernel.org, Aurelien
+ Aptel <aaptel@suse.com>, doebel@amazon.de
+Subject: Re: [PATCH] smb: client: avoid leaking refcount in
+ cifs_queue_oplock_break()
+In-Reply-To: <20260903212858.728118-1-doebel@amazon.de>
+References: <20260903212858.728118-1-doebel@amazon.de>
+Date: Sat, 05 Sep 2026 20:21:25 -0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain
 
-On Sat,  5 Sep 2026 20:50:28 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
+Bjoern Doebel <doebel@amazon.de> writes:
 
-> From: Longlong Xia <xialonglong@kylinos.cn>
-> 
-> When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
-> without a pool after a failed initial pool creation. A later compressor
-> parameter update can create and publish a pool, but does not enable
-> zswap_ever_enabled.
-> 
-> If users then enable zswap, zswap_store() intercepts swapout while
-> zswap_load() still returns -ENOENT without consulting the xarray. The
-> swapin path therefore reads a stale backing swap slot because the store
-> skipped writing it.
+> cifs_queue_oplock_break() unconditionally takes a reference on the
+> target file before queueing cifs_oplock_break(). Only that work item
+> decreases the reference counter again.
+>
+> If another oplock break arrives while that work is still queued,
+> queue_work() will return false and not queue this second work item. As a
+> result, we will never reach the point to drop the file reference again
+> and are leaking this reference. This can be triggered when interacting
+> with a slow-responding server.
+>
+> As a result, later unmount operations for this file system will fail with
+>
+>   BUG: Dentry ... still in use (1) [unmount of cifs cifs]
+>   VFS: Busy inodes after unmount of cifs (cifs)
+>   kernel BUG at fs/super.c:777!
+>
+> Fix this by only incrementing the reference count if the work has been
+> queued successfully. Taking it after queue_work() is safe because all
+> three callers hold tcon->open_file_lock across the call and
+> _cifsFileInfo_put() decrements under that same lock, so a worker that
+> starts the handler in the window cannot drop the reference before it has
+> been taken.
+> ...
 
-That sounds bad.  I'll leave it to reviewers to suggest whether this is
-a sufficient description of the runtime effects, and to decide whether
-a backport is appropriate.  Please.
-
-> Enable the static key after a successful compressor and pool update. Do
-> this outside zswap_pools_lock because static key updates may sleep.
-> 
-> Verified with fault injection on a stock kernel (compressor builtin,
-> CONFIG_ZSWAP_DEFAULT_ON=n):
-> 
->   1. Boot with zswap.enabled=1; pool creation fails, init completes
->      pool-less (static key off).
->   2. Echo an available compressor name to zswap.compressor; a pool is
->      recovered but the key stays off.
->   3. Enable zswap.
->   4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
->      fault it back in and verify.
-> 
-> Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
-> without this patch; all pages intact (zswpin=131072) with it.
-
-And thanks.  Sashiko might have found another issue in this zswap code:
-	https://sashiko.dev/#/patchset/20260905125101.2970456-1-xialonglong2025@163.com
-
+Applied.
