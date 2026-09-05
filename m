@@ -1,114 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-227.mta0.migadu.com [91.218.175.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCE73B994A;
-	Sat,  5 Sep 2026 19:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFE1217C203
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 19:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788634943; cv=none; b=seROcBMFkBdMIYOsbxmt0AqL83NSHI+zmDznt/Hh+qTMmk1HiAFUDtt3znLhj3o07x++AlyoB8xc1CoOF833FqA6q+zXbx5vYhvwBX5D2+a6vusgtCAePJdMDkB0nA9dw7r+0ix8h9rjhjZGO8dQjfVxaBkrBsfnVRAh8g76bQU=
+	t=1788635798; cv=none; b=A0e0/FHdNyjs+q1O6rE55ZoBcwYebvApNobrGN1IhqMnwLB+YaZ1Y4L2DOTqiLtIemZf0jieYnSdXc+2wq8IJt5ezIfA50x5S1K0RJgskLAR7mzYX4wNsWEQbuJ4QlMeYB1msJIpu3H5/S6pboUgNeeI6X3lj9JgufMv1l4oSes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788634943; c=relaxed/simple;
-	bh=0Vt1CxIWa3xf7zF0GUYRtISlccsSkXlDxhyroxC/qZQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QpwGdP6D3NshLx3LfVjaDNXRUMFdFgioaG40Jj78q89MdsGXFt6S3u2gPmqy7N+mcjyv3T+rL/mA47D8XZRg/jULjQLduQsukfPAZNguqKTOzPumuCUHHRSKPyeC9Ce9Nmjv0o+e/MWxN6mgAaPkxEByEBhF4lRIB2EvXr0aryU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GP+AT1oq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788635798; c=relaxed/simple;
+	bh=cGmV+/3nJC8/nassXpZyq+BiguCr6AKUYC9cG846EPM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q5aASRIuv9pQqMhn2rpfd/CceMXoo37XNVf3NSMZ8hlj0ATc2NO7fXL8mqu2oGIFhKcmnM3aQT4Ee5PL5b7ohPdfjteIvkiz3Dic9cpFDAZofIZUnu8uvlD+NFfVw9t6Q7hyUDU7bLochfNTkQGasWC1srUEk85CxRpXjhHgsro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ayzvBrmn; arc=none smtp.client-ip=91.218.175.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GP+AT1oq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D2C1F00A3A;
-	Sat,  5 Sep 2026 19:02:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788634941;
-	bh=3IFWBkpwt0DglCJ3/MwQDW/O3Cn5kGPmagAF2kfRUj4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GP+AT1oq7qVonqXJI/yx6FqzXulAvrqUmCCAoz/El9ASH3nQxk8XfFbcSo9fB8maz
-	 p42HmiM6Mx8ZWHOoIKyeutET2LBSoMoQRoWL1oEkTktiwAQRWrE3LqKmFY0eCrSPR9
-	 eUNtAkeGmEFMSHkwR3dcetmyO1Ropwwxzkt4wOIrluc4RR6gTwzEfFIVGU/4xaNKqg
-	 wI0MzUTFxwuKiymuLdpkddcw0OkSPdCw1hVqGXyYwR2//KOc8Tel/E1/UY7tYEZvFa
-	 grAjPRDkQYa+ikmm4Gx3/eF0MNgEJDpaB3Qc/fdQGmbHAp6efSzQm5L3qix1cdlUSE
-	 c34XjApZFbg9w==
-Date: Sat, 5 Sep 2026 20:02:17 +0100
-From: Simon Horman <horms@kernel.org>
-To: zihan xi <zihanx@nebusec.ai>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, xemul@parallels.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	vega@nebusec.ai
-Subject: Re: [PATCH net 1/1] udp: diag: bound bucket lock hold time
-Message-ID: <20260905190217.GE40544@horms.kernel.org>
-References: <133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai>
- <20260905151227.75099-1-horms@kernel.org>
- <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ayzvBrmn"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cGmV+/3nJC8/nassXpZyq+BiguCr6AKUYC9cG846EPM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788635794; v=1; x=1789240594;
+ b=ayzvBrmn/I6m526ojzaJbb/XU5tGL5O1WFhMXy85B2DULTpEg9avLLHv3L7unmSFVeghSuYG
+ 5mIw97orW9PURoxfxZQxfLu6lqD5kEi3uOKsBj29Z6JKMCBaac68zecwUzaPlybYIC3uK4qeYbO
+ 3MkEUD45YCfca0pgNGIx5ysE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ed91021f9d781103;
+	Sat, 05 Sep 2026 19:16:34 +0000
+X-Mizu-Trace-ID: ed91021f9d781103
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <christian@brauner.io>
+Cc: Meta kernel team <kernel-team@meta.com>,
+	linux-kselftest@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 3/4] kernfs: don't lose IN_DELETE_SELF when decoding a file handle
+Date: Sat,  5 Sep 2026 12:16:12 -0700
+Message-ID: <20260905191613.3143937-4-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260905191613.3143937-1-shakeel.butt@linux.dev>
+References: <20260905191613.3143937-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAANe3eRpVGnYpygfiQTsXd2VmBO43P-P1RfREkdDypgXBZB9Uw@mail.gmail.com>
 
-On Sat, Sep 05, 2026 at 11:49:05PM +0800, zihan xi wrote:
-> On Sat, Sep 5, 2026 at 11:12 PM Simon Horman <horms@kernel.org> wrote:
-> >
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
-> > Full review at: https://sashiko.dev/#/patchset/133b6aee9e2c908c9da37d5585b3d2cd016906cd.1788187473.git.zihanx@nebusec.ai?part=1
-> > ---
-> > udp: diag: bound bucket lock hold time
-> >
-> > This patch limits the time the UDP hash bucket spinlock is held during
-> > netlink socket dumps by collecting a bounded batch of matching sockets.
-> > It takes a reference to each socket, releases the lock, processes the
-> > batch, and resumes from a preserved cursor.
-> >
-> > > diff --git a/net/ipv4/udp_diag.c b/net/ipv4/udp_diag.c
-> > > index f4b24e628cf8d..18cfe0df654dd 100644
-> > > --- a/net/ipv4/udp_diag.c
-> > > +++ b/net/ipv4/udp_diag.c
-> > [ ... ]
-> > > +static void udp_diag_dump_done(struct netlink_callback *cb)
-> > > +{
-> > > +     struct inet_diag_dump_data *cb_data = cb->data;
-> > > +     struct sock *sk = (struct sock *)cb->args[2];
-> > > +
-> > > +     if (sk) {
-> > > +             cb->args[2] = 0;
-> > > +             sock_put(sk);
-> > > +     }
-> > > +     cb_data->dump_done = NULL;
-> > > +     module_put(THIS_MODULE);
-> > > +}
-> >
-> > [Severity: High]
-> > Does this module_put() introduce a race condition with module unloading?
-> >
-> > When an active netlink dump for UDP sockets finishes, inet_diag_dump_done()
-> > invokes udp_diag_dump_done(). This function drops its module reference using
-> > module_put(THIS_MODULE) as its final step.
-> >
-> > If this was the last reference, a concurrent rmmod udp_diag operation can
-> > proceed and unmap the module's text segment before the thread executing
-> > udp_diag_dump_done() executes its return instruction to return to inet_diag.
-> >
-> > Could this result in a kernel panic due to the CPU attempting to execute
-> > unmapped memory?
-> 
-> Yes.  If that module_put() drops the last reference, rmmod can unmap
-> udp_diag while dump_done() is still returning to inet_diag.
-> 
-> I will keep the extra module_get() in udp_diag_dump(), and move the
-> matching module_put() into inet_diag_dump_done() so it runs after the
-> callback has returned.
+__kernfs_remove() clears i_nlink on a node's inodes and finds them with
+ilookup().  A decode that has pinned the node but not yet hashed its
+inode is invisible to that pass:
 
-I think that the fundamental problem here is that managing module lifecycle
-from within the module itself tends to be unsafe. I'm not sure your
-proposal addresses that problem.
+  CPU0                                    CPU1
+  open_by_handle_at()
+    kernfs_find_and_get_node_by_id()
+      pins the node, still active
+                                          rmdir()
+                                            marks the subtree removing
+                                            ilookup() finds no inode
+    kernfs_get_inode()
+      hashes an inode with i_nlink 1
 
-I think one possible solution is to move the module_put into delayed work.
-And another, is to move module lifecycle handling into the core.
+Nothing fixes it later: kernfs_refresh_inode() never touches i_nlink for
+a file and skips it for a directory being removed.  The inode keeps the
+1 it was born with, and dentry_unlink_inode() sends IN_DELETE_SELF only
+at 0, so a watcher never learns the node went away.
 
-Possibly the first option is cleaner as I think that only udp_diag
-has the need for this.
+The other callers of kernfs_get_inode() are safe: those in fs/kernfs
+hold kernfs_rwsem, and cgroup_may_write() is covered by cgroup_mutex,
+which cgroup_destroy_locked() holds across kernfs_remove().
+__kernfs_fh_to_dentry() has held nothing since exportfs support was
+added.
+
+Take kernfs_rwsem for reading, as ->get_parent already does, and cover
+the lookup as well as kernfs_get_inode().  __kernfs_remove() deactivates
+the whole subtree under the write lock, so under the read lock either
+the lookup refuses the node, or the inode is hashed before the ilookup()
+pass runs.  The same holds for ->fh_to_parent, since a node cannot be
+active while an ancestor is being removed.
+
+Reproduced with a 300ms delay between the lookup and kernfs_get_inode(),
+decoding a handle for a file in a cgroup directory while another task
+rmdir()s it: st_nlink is 1 without this patch and 0 with it.
+
+->get_parent still has a window of its own.  It takes the same lock but
+has no active check, so reconnect_path() can build an inode for an
+ancestor that is already gone.  That needs the active test rather than a
+lock, and changes what ->get_parent returns, so it is left to the series
+that reworks these paths.
+
+Fixes: eea5d2bb34ba ("kernfs: Send IN_DELETE_SELF and IN_IGNORED")
+Cc: stable@vger.kernel.org
+Acked-by: Tejun Heo <tj@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
+ fs/kernfs/mount.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/fs/kernfs/mount.c b/fs/kernfs/mount.c
+index f183a96778b9..c15ba6357162 100644
+--- a/fs/kernfs/mount.c
++++ b/fs/kernfs/mount.c
+@@ -124,22 +124,32 @@ static struct dentry *__kernfs_fh_to_dentry(struct super_block *sb,
+ 		return NULL;
+ 	}
+ 
+-	kn = kernfs_find_and_get_node_by_id(info->root, id);
+-	if (!kn)
+-		return ERR_PTR(-ESTALE);
++	/*
++	 * Hold kernfs_rwsem across the lookup as well as kernfs_get_inode().
++	 * __kernfs_remove() deactivates the subtree and clears i_nlink on its
++	 * inodes under the write lock, so under the read lock either
++	 * kernfs_find_and_get_node_by_id() refuses the node, or the inode is
++	 * in the inode hash before the ilookup() pass goes looking for it.
++	 */
++	scoped_guard(rwsem_read, &info->root->kernfs_rwsem) {
++		kn = kernfs_find_and_get_node_by_id(info->root, id);
++		if (!kn)
++			return ERR_PTR(-ESTALE);
+ 
+-	if (get_parent) {
+-		struct kernfs_node *parent;
++		if (get_parent) {
++			struct kernfs_node *parent;
+ 
+-		parent = kernfs_get_parent(kn);
++			parent = kernfs_get_parent(kn);
++			kernfs_put(kn);
++			kn = parent;
++			if (!kn)
++				return ERR_PTR(-ESTALE);
++		}
++
++		inode = kernfs_get_inode(sb, kn);
+ 		kernfs_put(kn);
+-		kn = parent;
+-		if (!kn)
+-			return ERR_PTR(-ESTALE);
+ 	}
+ 
+-	inode = kernfs_get_inode(sb, kn);
+-	kernfs_put(kn);
+ 	return d_obtain_alias(inode);
+ }
+ 
+-- 
+2.53.0-Meta
 
