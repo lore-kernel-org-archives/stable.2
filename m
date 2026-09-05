@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80BE37F010
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 03:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2974636C0C8
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 03:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788578920; cv=none; b=p0xLKdhZgkQl5Vp3OvH9VR9MB+4DnRrAtmLyYL0A4DC2uhAErfQ378OoAzUOYYwSeTzNnDExNvwnMdm6vMR2GcvzE2fzpWWfBo1bv+nFOBY6MYxBCEBlGhkUsBP2K2A/3iB434IqAIzMCdr0YgH6EAYl58CfXQhXTFqS8qjtB0M=
+	t=1788578920; cv=none; b=c2UiFvhpe6xijBoRrYzq63GsshkSIhXqskbMwr7lSMrlmclD7DR6uXpcAbSMHHeQvB/yr0OjQsOt/xraF0hsk3p5IJrHhbjzVmjCn1NM41MQgA1c3nXbNwL1rImPFCuRFXIHiTYbdZzXJHcGwSchL3KVKoGI4lzjKa6cWlMKgj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788578920; c=relaxed/simple;
-	bh=Rm7H3DjqGwnN55rDMqfP0hjkc0z6pTg4Q4K9PRmWR2I=;
+	bh=JgZszOJHDpPmJyDCXgLt3gVa04wok/ySVJtR2fYWnnY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BIDD4YMRY9aklY4USCuR0W+yAraWu5MbyWI8OvSMH8nlWefxy8FgvIn+woKalrIXCypMbgMBCnVhu8yJ92a0OZHZHikJ3FKujHm9vBXlcu6KctgLDlA5rlee0vZJchDKowee1+erQGHqhNgOeP0Z2ZS4WwogVLCHMeGDp6LsZis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMYyGa3+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cp/uEpPXpgrJqsbXg3ZhthMrYxEaZDM66p0KQ1UrD2P+DrdajuSpy5hVnpBiRdbvSFho3kYBToez0+V7PzsxC/QfzvX+SM7kVnX6u+qKZU74JL+D1Y2khNRXHRf8ARVgY5cQ1s9h27OF48j+Q4QWw/3uDsu5/jVTuXppTtqpT3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqfyqDdB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMYyGa3+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C35E1F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqfyqDdB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7713C1F00ACA;
 	Sat,  5 Sep 2026 03:28:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788578917;
-	bh=o2iJwsXEcEjAFeHUOHOSDarM8t3cfR6F3jVBQ+b1uRo=;
+	s=k20260515; t=1788578918;
+	bh=m7rMG8qdjuZgIpoZeYynYuhtlhO1jAFuB2KfRqu6W1g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PMYyGa3+VL5aiLuSmu5lhpyjzQlTJmJwauomzTOe01og/wwu5jN3pZ01IgHs9DHwa
-	 1UY9AKN15txPttqoVMJmTO6juRJB08E1Ug2YmUay0dbKi0OEia/jBj6kIfYui0SfX9
-	 K1qEdTucWqB0nHMhXha4A1AK89LjxgVQSYb0h3nLvUBxGb6YE9tlrNdB7uFOi/UEV1
-	 WaP4/kFGRt/ZJU+8wsw+N8npGmnltDdk0j24ZL6uZ6GvdHPJSWaEBceDNdpESBVlwd
-	 QWFuwOeoKeELh4it3BaEwbQ3ljj+ac002FRIvvFEbu2+sx5h4YYYB0z+Y1fhAal9Ld
-	 USUfMcZOEcrOQ==
+	b=nqfyqDdBUWayqb76yjfrWzzXas3mPUPHJMttv/V1cRg3uicgRKG2nRZ3UNwYm8FwO
+	 hdnKr6rairgMJu69dd+bsxMyb4Id+rj+eHPZ1zQtrMZMgopnIOOBYXR7v+kNaeeT8F
+	 xHhgFatEpR2QBobeAnNTaQIt9cDpSWkT4zesfIiHwDwd7ydDdn5ld4xo1UFd9jDZvv
+	 3Gjxgqsne9460cgPWjWcmEfgLdBKsusw4ynHfNps6//GZkUWTvZ1Qn5ujJ9BOep4Mc
+	 KMvQEDcPuY435tCRIL1EoRQhKYncDwDJHfBVEC+nvCjuZ/c/x/jYsv7De28LP5455z
+	 Afd8e8Zx2OpQw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
 	Chris Mason <clm@meta.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 7/7] nfsd: fix BUG_ON in nfsd4_alloc_layout_stateid on racing delegation revoke
-Date: Fri,  4 Sep 2026 23:28:30 -0400
-Message-ID: <20260905032830.1915148-7-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/3] nfsd: dedup nfs4_client_to_reclaim inserts
+Date: Fri,  4 Sep 2026 23:28:34 -0400
+Message-ID: <20260905032834.1915305-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260905032830.1915148-1-sashal@kernel.org>
-References: <2026090305-dowry-plaster-fff3@gregkh>
- <20260905032830.1915148-1-sashal@kernel.org>
+In-Reply-To: <20260905032834.1915305-1-sashal@kernel.org>
+References: <2026090325-overpass-emoticon-993a@gregkh>
+ <20260905032834.1915305-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,62 +49,362 @@ Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit ca94ba36172046be6a694a7986f6931e47ed4d51 ]
+[ Upstream commit 9b57793863f69c608691c98e57c2f9be2db9dfed ]
 
-nfsd4_alloc_layout_stateid reads fp->fi_deleg_file without holding
-fi_lock when the parent stateid is a delegation. A concurrent delegation
-revoke via the laundromat can clear fi_deleg_file under fi_lock, causing
-nfsd_file_get() to return NULL and triggering the BUG_ON.
+nfs4_client_to_reclaim() unconditionally allocates a new
+nfs4_client_reclaim, prepends it to reclaim_str_hashtbl[], and bumps
+reclaim_str_hashtbl_size with no check for an existing entry for the
+same client name.  After a reboot with a populated recovery directory
+that inflates the counter by one for every client that reclaims:
 
-This race is client-reachable: two NFS clients can trigger it by having
-one hold a delegation while another opens the same file to force a
-recall. When the first client doesn't respond to the recall, the
-laundromat revokes it. A concurrent LAYOUTGET from any client using the
-delegation stateid hits the race window.
+    boot:    load_recdir()
+               nfs4_client_to_reclaim(name)   /* entry #1, size++ */
 
-Fix this by taking fi_lock around the fi_deleg_file read in the
-SC_TYPE_DELEG path, matching the locking discipline of the
-find_any_file() arm, and replacing the BUG_ON with a graceful error
-return that cleans up the partially-initialized layout stateid.
+    grace:   RECLAIM_COMPLETE
+               __nfsd4_create_reclaim_record_grace()
+                 nfs4_client_to_reclaim(name) /* entry #2, size++ */
 
-Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
+inc_reclaim_complete() ends the grace period early only when
+
+    atomic_inc_return(&nn->nr_reclaim_complete) ==
+        nn->reclaim_str_hashtbl_size
+
+With reclaim_str_hashtbl_size at 2N and nr_reclaim_complete capped at
+N, the equality never holds and the fast end-of-grace path is dead.
+The grace period always runs out the full 90-second laundromat timer,
+and the shadow entry left in the hash table carries a dangling cr_clp
+for any reader that walks it.
+
+Fix nfs4_client_to_reclaim() to look the name up with
+nfsd4_find_reclaim_client() first and, on a hit, fold the new
+princhash into the existing record (if it lacks one) and return that
+record without allocating or touching reclaim_str_hashtbl_size.  On
+kmemdup() failure during the fold-in, return NULL so
+__cld_pipe_inprogress_downcall() surfaces -EFAULT to nfsdcld, matching
+the miss-path contract.
+
+Add an rw_semaphore (reclaim_str_hashtbl_lock) to struct nfsd_net that
+serialises all access to reclaim_str_hashtbl[] and
+reclaim_str_hashtbl_size.  Writers (nfs4_client_to_reclaim,
+nfs4_remove_reclaim_record callers) hold the write side; readers
+(nfsd4_cld_check*, inc_reclaim_complete, clients_still_reclaiming,
+nfs4_has_reclaimed_state, nfsd4_check_legacy_client) hold the read
+side.  All call sites are in sleepable context, and none is a hot
+path, so the rwsem cost is negligible.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
 Cc: stable@vger.kernel.org
 Assisted-by: kres:claude-opus-4-7
-Reported-by: Chris Mason <clm@meta.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-1-f27e8eb4d974@kernel.org
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-4-f27e8eb4d974@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adapted nfsd4_free_layout_stateid() to tolerate a NULL ls_file in the older cleanup path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4layouts.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ fs/nfsd/netns.h       |  6 ++++-
+ fs/nfsd/nfs4recover.c | 36 ++++++++++++++++++++-----
+ fs/nfsd/nfs4state.c   | 61 ++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 89 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 8520c9d00bda7..bea7513a0de90 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -235,11 +235,17 @@ nfsd4_alloc_layout_stateid(struct nfsd4_compound_state *cstate,
- 	nfsd4_init_cb(&ls->ls_recall, clp, &nfsd4_cb_layout_ops,
- 			NFSPROC4_CLNT_CB_LAYOUT);
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 734b21132a99f..42755ca098956 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -92,6 +92,7 @@ struct nfsd_net {
+ 	 */
+ 	struct list_head *reclaim_str_hashtbl;
+ 	int reclaim_str_hashtbl_size;
++	struct rw_semaphore reclaim_str_hashtbl_lock;
+ 	struct list_head *conf_id_hashtbl;
+ 	struct rb_root conf_name_tree;
+ 	struct list_head *unconf_id_hashtbl;
+@@ -104,7 +105,10 @@ struct nfsd_net {
+ 	 * close_lru holds (open) stateowner queue ordered by nfs4_stateowner.so_time
+ 	 * for last close replay.
+ 	 *
+-	 * All of the above fields are protected by the client_mutex.
++	 * reclaim_str_hashtbl[], reclaim_str_hashtbl_size are protected by
++	 * reclaim_str_hashtbl_lock.
++	 *
++	 * All of the remaining fields are protected by the client_lock.
+ 	 */
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 37006d0776ebd..b78b41fbbd4ff 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -337,10 +337,12 @@ __nfsd4_remove_reclaim_record_grace(const char *dname, int len,
+ 		return;
+ 	}
+ 	name.len = len;
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp)
+ 		nfs4_remove_reclaim_record(crp, nn);
++	up_write(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
+ }
  
--	if (parent->sc_type == SC_TYPE_DELEG)
-+	if (parent->sc_type == SC_TYPE_DELEG) {
-+		spin_lock(&fp->fi_lock);
- 		ls->ls_file = nfsd_file_get(fp->fi_deleg_file);
--	else
-+		spin_unlock(&fp->fi_lock);
-+	} else {
- 		ls->ls_file = find_any_file(fp);
--	BUG_ON(!ls->ls_file);
-+	}
-+	if (!ls->ls_file) {
-+		nfs4_put_stid(stp);
-+		return NULL;
-+	}
+ static void
+@@ -541,6 +543,7 @@ nfs4_legacy_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
  
- 	if (nfsd4_layout_setlease(ls)) {
- 		nfs4_put_stid(stp);
+ 	return 0;
+ }
+@@ -660,13 +663,16 @@ nfsd4_check_legacy_client(struct nfs4_client *clp)
+ 		goto out_enoent;
+ 	}
+ 	name.len = HEXDIR_LEN;
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp) {
+ 		set_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags);
+ 		crp->cr_clp = clp;
+-		return 0;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
++	if (crp)
++		return 0;
+ 
+ out_enoent:
+ 	return -ENOENT;
+@@ -1238,6 +1244,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1256,6 +1263,7 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data!\n",
+ 				__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1266,9 +1274,11 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1280,6 +1290,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 	struct cld_net *cn = nn->cld_net;
+ #endif
+ 	struct nfs4_client_reclaim *crp;
++	unsigned int princhashlen;
+ 	char *principal = NULL;
+ 
+ 	/* did we already find that this client is stable? */
+@@ -1287,6 +1298,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+@@ -1305,6 +1317,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data\n",
+ 					__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1315,23 +1328,31 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 
+ 	}
+ #endif
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+-	if (crp->cr_princhash.len) {
++	princhashlen = crp->cr_princhash.len;
++	if (princhashlen) {
+ 		u8 digest[SHA256_DIGEST_SIZE];
++		u8 *pdata;
+ 
+ 		if (clp->cl_cred.cr_raw_principal)
+ 			principal = clp->cl_cred.cr_raw_principal;
+ 		else if (clp->cl_cred.cr_principal)
+ 			principal = clp->cl_cred.cr_principal;
+-		if (principal == NULL)
++		if (principal == NULL) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 		sha256(principal, strlen(principal), digest);
+-		if (memcmp(crp->cr_princhash.data, digest,
+-				crp->cr_princhash.len))
++		pdata = crp->cr_princhash.data;
++		if (memcmp(pdata, digest, princhashlen)) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 	}
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1431,6 +1452,7 @@ nfs4_cld_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	atomic_set(&nn->nr_reclaim_complete, 0);
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 8d137516ae4b5..0a746d2245766 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -2555,14 +2555,21 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
+ 
+ 	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 		return;
+-	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
++
++	down_read(&nn->reclaim_str_hashtbl_lock);
++	if (!nfsd4_find_reclaim_client(clp->cl_name, nn)) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		return;
++	}
+ 	if (atomic_inc_return(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		printk(KERN_INFO "NFSD: all clients done reclaiming, ending NFSv4 grace period (net %x)\n",
+ 				clp->net->ns.inum);
+ 		nfsd4_end_grace(nn);
++		return;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ static void expire_client(struct nfs4_client *clp)
+@@ -6682,10 +6689,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
+ 
+ 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 		return false;
+-	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+-			atomic_read(&nn->nr_reclaim_complete) ==
+-			nn->reclaim_str_hashtbl_size)
+-		return false;
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags)) {
++		int size;
++
++		down_read(&nn->reclaim_str_hashtbl_lock);
++		size = nn->reclaim_str_hashtbl_size;
++		up_read(&nn->reclaim_str_hashtbl_lock);
++		if (atomic_read(&nn->nr_reclaim_complete) == size)
++			return false;
++	}
+ 	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
+ 		return false;
+ 	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+@@ -8845,9 +8857,13 @@ bool
+ nfs4_has_reclaimed_state(struct xdr_netobj name, struct nfsd_net *nn)
+ {
+ 	struct nfs4_client_reclaim *crp;
++	bool found;
+ 
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	return (crp && crp->cr_clp);
++	found = (crp && crp->cr_clp);
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	return found;
+ }
+ 
+ /*
+@@ -8860,10 +8876,39 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 	unsigned int strhashval;
+ 	struct nfs4_client_reclaim *crp;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
++
++	/*
++	 * A reclaim record for this client name may already exist (for
++	 * example, populated at boot from the recovery directory before
++	 * an in-grace RECLAIM_COMPLETE or an nfsdcld downcall delivers
++	 * the same name). Dedup here so reclaim_str_hashtbl_size stays
++	 * equal to the number of distinct client names; inc_reclaim_complete
++	 * relies on that equality to end the grace period via the fast path.
++	 */
++	crp = nfsd4_find_reclaim_client(name, nn);
++	if (crp) {
++		if (princhash.len && crp->cr_princhash.len == 0) {
++			void *pdata = kmemdup(princhash.data, princhash.len,
++					      GFP_KERNEL);
++			if (pdata) {
++				crp->cr_princhash.data = pdata;
++				crp->cr_princhash.len = princhash.len;
++			} else {
++				dprintk("%s: failed to allocate memory for princhash.data!\n",
++					__func__);
++				crp = NULL;
++			}
++		}
++		up_write(&nn->reclaim_str_hashtbl_lock);
++		return crp;
++	}
++
+ 	name.data = kmemdup(name.data, name.len, GFP_KERNEL);
+ 	if (!name.data) {
+ 		dprintk("%s: failed to allocate memory for name.data!\n",
+ 			__func__);
++		up_write(&nn->reclaim_str_hashtbl_lock);
+ 		return NULL;
+ 	}
+ 	if (princhash.len) {
+@@ -8872,6 +8917,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 			dprintk("%s: failed to allocate memory for princhash.data!\n",
+ 				__func__);
+ 			kfree(name.data);
++			up_write(&nn->reclaim_str_hashtbl_lock);
+ 			return NULL;
+ 		}
+ 	} else
+@@ -8891,6 +8937,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 		kfree(name.data);
+ 		kfree(princhash.data);
+ 	}
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ 	return crp;
+ }
+ 
+@@ -8910,6 +8957,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 	struct nfs4_client_reclaim *crp = NULL;
+ 	int i;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++) {
+ 		while (!list_empty(&nn->reclaim_str_hashtbl[i])) {
+ 			crp = list_entry(nn->reclaim_str_hashtbl[i].next,
+@@ -8918,6 +8966,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 		}
+ 	}
+ 	WARN_ON_ONCE(nn->reclaim_str_hashtbl_size);
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ /*
 -- 
 2.53.0
 
