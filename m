@@ -1,61 +1,61 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0C72C237C
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1982BF3F3
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 00:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788568565; cv=none; b=C4ZM1SxyamypnnQvUIXwtW8ks8B25pw5BRlPNKwCJVkr7RFmaaIzbij5Wjqw/aU5QUns15VgUYwENhZTqw5FBMxXG2Mlz2q3UBbkJptFNCcWETv1kYjyKyAbsEKKW8XNI8DNOq6Cg4edLPeBsRTvJh1eTN0IVoqjXuprgW632zE=
+	t=1788568575; cv=none; b=ODZA4b0bv/6ZPkWq/mnpZUlOHkS5pKFLUnrp6mrVQMutOPf9g26se4UHcR+0hK0sHEZZ7s41ufVrVW1Iv/TSD9shN+oJ3kK+Lycd3K86k5iDYo4dAu+ewJ+fApRerhSZ9iJAY1mfhB8RzMVKPWOVboL+UPobLXaccc3ykr9vvec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788568565; c=relaxed/simple;
-	bh=4ocR7EIzawTfTG7p/inFgc30YXw4KjBNKt9fYUmExSk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nzDjQrE98HUree8AY2X0DSTatZEf9tVIAPyqdPGLKeMedLV1gOKqpj7G+GMycbpGIywXUv6Va4tt7uImv/ZJMOLN56ON6e5hz3A0uie+HZrQUDPbgUbHYm5e3eZWVx0ASlB95VzbxPNUtnp/679+irjLJoZYoiSr6HbnUwh/kXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=svZS+au8; arc=none smtp.client-ip=209.85.216.53
+	s=arc-20240116; t=1788568575; c=relaxed/simple;
+	bh=8HzIcvm2I4PGEsFdux3m3Apu6yc5GgCA35XtCp1TzvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MOYvLSDgiW92lFm6hg11f+eExV6+YIDnbHkA+/9eF+dExNmLprHb2VjLf2fGcb5xFZ4JIYuAEqVkj/fvXdUX0GntEQBhnc7PsUZxD9h1NJJldWi6JxneNZ2nOznz+vhz4W5mZe6hVObx8bJFItHS6oS/GzlgfX+6JFhjSC9N4P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYV0a0Gy; arc=none smtp.client-ip=209.85.215.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svZS+au8"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso2019452a91.1
-        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 17:36:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYV0a0Gy"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1967483a12.1
+        for <stable@vger.kernel.org>; Fri, 04 Sep 2026 17:36:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788568561; x=1789173361; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788568573; x=1789173373; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LD3OLCMtVZNmVhZuxqAq1q8x8oye3KoraYKv1uY4dv4=;
-        b=svZS+au8HnLlsqOl0KVxOqPanEvmr5rMmdq72mQzFkomkr7dV/SlMEdiWViNW3s5Ex
-         KpkRhpBwnJqrOjVJ+i8GJKegqVgAyCwT7cdlhtHZBJz9fJC2zY00xsWb7vSCyuK5vsYP
-         Sfsm/RhUvOUKqSt+tSgdQfDwKLXn4YYHGpAGoNmhXJ8zAK441v7Fw4z2QdE6rlbqWaFH
-         pfKG8ylaIaIPa6536XQGstvuc0g15PK4u2hs2VI9AsDXRSQfmRTQPr5/JaZMdZI+b81o
-         GvHumgbXV9JVmRFd0vmMG2V28i1EqQU7w93UoYXvqnMy9LJPDj3Pxy9DcLBG7yTyDBBB
-         SKSQ==
+        bh=l2i3q/8SP6YXjJaU7ec/Y5TJPcKgIJqQrS0aacfBKX4=;
+        b=QYV0a0GyWciguOP+EZ3ZYvLeJQzt4kQ8ETzl3bU1C4JGe6/dtnhNNx5el60HikHdpd
+         sZhBxc2JHcLHWaVoyY5ltmgTSI1GR9adC+Lm0cmsCHcIxYBhgyD4eouCEk1aJgq1z1ZS
+         7FdT03EcPfJHVB6ssUqoxZ8M7Ej1hMppEW2q62t1yOwXthCj3u2yLxAS6ExzeNxQSbEI
+         TeE/dbmGOuYMlqbu8Rf6DNLgXMHmXJ0qWFgoxrilCC5ODAjO2tMZ7O3SJspM6UC1KZlc
+         rgedTtgB8oWGy+vtozR3eHCHUJgzfnpK/uE3h5QnZMJB94UNlUR1r+cuY4eIYoypHov1
+         EbdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788568561; x=1789173361;
+        d=1e100.net; s=20251104; t=1788568573; x=1789173373;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LD3OLCMtVZNmVhZuxqAq1q8x8oye3KoraYKv1uY4dv4=;
-        b=plTEZZcX/6Hh4OUiu9AzCF01OLwBBFesctDxesLVdJ47bmlHm8nkkxTBA4v2uC1LyM
-         hXTrVsbEk2gp9abS2jkgLrhNnm78p1oRS2AqB3NrLdKs9rlqCASUDfOgW+CUD4CuyCtP
-         Mk52HyIvZQZ00Z9kdZpXXJictdJduu0BOAXNzoL44H930ssVGA3oZtCfw9coJHPYr3dp
-         J4nyRTbIcMTeGHwPYjMc0HqVPWGnGtEx7hDZO3ONA8h5V5ehDGBiJCkneAIwHLIszGhq
-         2wJ+aEsh+3oxuWb6uTg9R3QEE2f9m5mugz/9Eg5c5s/DOaYBlnCyie4pVlmjNGc859mH
-         +RJA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1+/Gvp9QfEsI0YrJUP2Pu3dEHuL6I1NtgNibbyvu2rW8f+2XfPmO2idyq0Lk3sgnGUpzks7s=@vger.kernel.org
-X-Gm-Message-State: AFuF++kQ1IadH8kODcrifzTcoDH60R6Ehpcnar1cn+vmLPoEyInpRZnl
-	oG1gupTHPwiylsEunRJRsfgzk+VabBA0oK6cWyA7LXzc60xXEEQDsnqA
-X-Gm-Gg: AYBFou1i8nkhDVFZj5HYdLUfX6iLQVy3bEU9rFwTX//zpk67QZrmAuHNcGllMgQLUjV
-	2JSN45vwbxH9au6fu0m8hJjOlVaWLvInhdMLQr+DSzNWQ6f2DqtqbDWDcQ9btf9+cfyx0IXG7Uc
-	cCh3TaVaxlstVUUmfDK2tB8LmtCEcU2ya1EmGC9A2RLd+xLl8vhZKBevzy6d0BoNZPoyhQJgzGo
-	Lq/6ShlfKRAmOQarKF6LcO49i6O8vwBqMgXh0zSJm4cADj1ybIRySXWSPjGeH3t6BrJWyVYaUxp
-	82w3NRRUlb85scHwKSukBV6ccyV5xFIKezudr1wNaxK/yuy7js/PID44lFFNSAp44T8utvRuTwG
-	moWI6MU5RhSt9wntjNEn5qrnBcGBNKhNak1lLVgC7mhAnSFAcp+jFE08fu2PejJoZkIVCBA8VGE
-	d1u9xO7lof7Bj3ugEBfm3EMpQZhdFx6e9X7ADARVM9ZeYcSpweCTSHprMAuN3o
-X-Received: by 2002:a17:90b:50cc:b0:396:65dd:4093 with SMTP id 98e67ed59e1d1-39b26202ebamr14823913a91.14.1788568561231;
-        Fri, 04 Sep 2026 17:36:01 -0700 (PDT)
+        bh=l2i3q/8SP6YXjJaU7ec/Y5TJPcKgIJqQrS0aacfBKX4=;
+        b=SYwFVOAe8NeJIJkIVK4bQeRRjCAR7r9AUE1n8iHwTmLh025YhjivKz8vUGAvrdLepc
+         FdeEdd7l9Z4bi4l0ZstRt5nKzoE7G4I5gSUIbS42MhQMefzDhIHZxnDj70Iy5mhkIYcT
+         tveVStaRKpU8T1rLv4kEoGGSqSVSh5qe7ldU+PoWlkhUfCk6BQz1aubXSaQbwqPFsm7D
+         PoTKZEGqGYdeI+zj4+RFIGeMaWTvXYS9Osr0m1Y7rbmOnxOQyXWh0gKaAvm3BCzYwogG
+         /xW3JAMgPh2e8XmmNDjyt7pyYBMQDnZ0RxD3Wpw0Kfq2/98AoRm6k2D8E/Yfyl7z1qm5
+         DVjQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFQUl/Io9RaAR5SMdsZIRKHCevmvAYF44Q+QzYPU4ynW4H47Bvl9nlu5eM9Kmhs1ERA3HFEgw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVILGgshEHUs7E4EhLV6gUrYLi2JtaDmQLZ/YvqZWt1W5Zmy5R
+	31w3bZa7Soo8HQKubY86UItT3vAEu9MR3QJWCy9/1sDFM1+0P3DVBQXwteKVawfA
+X-Gm-Gg: AYBFou2hnVSGcV/XtlKQVv1TLrkpqQFgJlfC1lolsQM+M6Zkh0LEDrNjWqRVDDpjkkP
+	Z+fKCnIEltfBWeZFK75G/gCRS5F0I0TNeBubISbEKU6VtnlbHOr6Pe+yyeqh3MuuHWRUdOhMeIS
+	xLDU/npABzcvh9kZV1p5AMLUFyYpbWG35vMpojGuYhiG2ydo3tfyTXfHnYy9H1U7BC3JXTReyhA
+	xTHsrMijLi8XD5EZaeZKYxB2BJpfJTlwZya+LFCH38EZSOFPmoBYGJPQiEYyzB7Jef+7do6gguf
+	qxcG5/kM1EdQvhvVcgAGGWM1YOEBRxAhcYYPSdPyDIaGASQyq/rjorJ121sEjv4km1Gppo8PLCT
+	Qy9gv90+WrzLlVEi8/aF1hDJzUjvPv6WyfqYetG+fdf/fHD4Nw+bj5a4hx39zNDfVS1qgjD5QZX
+	HAO69aJQObzO+hwdOJN8qd/6fIziipANUNHWee3S52MNqH6wY1kQuKuBulRF8C
+X-Received: by 2002:a17:90b:584f:b0:38f:657:6823 with SMTP id 98e67ed59e1d1-39b27c8b9e4mr7191704a91.8.1788568572711;
+        Fri, 04 Sep 2026 17:36:12 -0700 (PDT)
 Received: from tradnomic.. ([2601:646:8300:7570:4132:9566:38a4:e435])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b2612ba2bsm6549744a91.14.2026.09.04.17.36.00
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f88475sm6760895a91.1.2026.09.04.17.36.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 17:36:00 -0700 (PDT)
+        Fri, 04 Sep 2026 17:36:12 -0700 (PDT)
 From: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
 To: gregkh@linuxfoundation.org
 Cc: linux-usb@vger.kernel.org,
@@ -64,9 +64,9 @@ Cc: linux-usb@vger.kernel.org,
 	Rafael Alejandro Diaz Cruz <rafad900@gmail.com>,
 	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com,
 	Alan Stern <stern@rowland.harvard.edu>
-Subject: [PATCH usb-next v2] USB: gadget: Fix UAF in gadgetfs_fill_super()
-Date: Fri,  4 Sep 2026 17:35:58 -0700
-Message-ID: <20260905003558.1686039-1-rafad900@gmail.com>
+Subject: [PATCH usb-next v2] USB: gadget: Fix UAF on refcount inside gadgetfs_bind()
+Date: Fri,  4 Sep 2026 17:36:07 -0700
+Message-ID: <20260905003607.1686172-1-rafad900@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,18 +76,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When gadgetfs_fill_super() fails, it's error path calls
-put_dev() which drops refcount inside the_device to 0
-and frees the objet. But the_device pointer is not
-cleared, leading to point at freed memory.
+When usb_ep_alloc_request() fails, gadgetfs_bind() takes
+the following error path:
 
-VFS will then call gadgetfs_kill_sb() after mount
-failure leading to put_dev() to be called on the
-already freed pointer.
+if (!dev->req)
+        goto enomem;
+// ...
 
-Fix by setting the_device = NULL during error path
-before calling put_dev() inside gadgetfs_fill_super()
-so that gadgetfs_kill_sb() skips put_dev().
+enomem:
+	gadgetfs_unbind (gadget);
+	return -ENOMEM;
+
+In normal case, get_dev() will be called to increment
+refcounter from gadget->dev->count but in error case,
+this increment is skipped and gadgetfs_unbind() will
+decrement it via put_dev().
+
+Going down the error path leads to a refcount imbalance
+which will cause UAF in close()/umount() operations
+due to refcount dropping below 0.
+
+Fix this by moving get_dev() above the error paths so
+that refcounter is incremented before the put_dev()
+call.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
@@ -95,29 +106,34 @@ Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
 Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
 Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
 ---
-
 Changes from v1:
-    
-    Removed unecessary reference to syzkaller in the description.
+    Removed syzkaller reference in description
 
-    Added Reviewed-by: tag.
+    Added Reviewed-by: tag. 
 
-
- drivers/usb/gadget/legacy/inode.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/gadget/legacy/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index d87a8ab51510..3e2bce7543d4 100644
+index 3e2bce7543d4..181b19e7fc2f 100644
 --- a/drivers/usb/gadget/legacy/inode.c
 +++ b/drivers/usb/gadget/legacy/inode.c
-@@ -2059,6 +2059,7 @@ gadgetfs_fill_super (struct super_block *sb, struct fs_context *fc)
- 	rc = gadgetfs_create_file(sb, CHIP, dev, &ep0_operations);
- 	if (rc) {
- 		put_dev(dev);
-+		the_device = NULL;
- 		goto Enomem;
+@@ -1679,6 +1679,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
  	}
  
+ 	set_gadget_data (gadget, dev);
++	get_dev(dev);
+ 	dev->gadget = gadget;
+ 	gadget->ep0->driver_data = dev;
+ 
+@@ -1696,7 +1697,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
+ 	spin_lock_irq(&dev->lock);
+ 	dev->state = STATE_DEV_UNCONNECTED;
+ 	spin_unlock_irq(&dev->lock);
+-	get_dev (dev);
+ 	return 0;
+ 
+ enomem:
 -- 
 2.43.0
 
