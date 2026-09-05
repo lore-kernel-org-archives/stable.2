@@ -1,120 +1,150 @@
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB5D4508F8;
-	Sat,  5 Sep 2026 11:49:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.210.214.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF354119FD
+	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 11:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788608988; cv=none; b=n8Vd3vEHx/lPQjMWsprUwEkYyd9M6ZyzNwiaK5Dc+ECfCDNNZN9BJ/ypHzo1CC1bxaSyWu9Bg9H7zjdrGFc1yafwuIAaxptOIN9klddlPRCE9iaOs7wwQIMgP4sA5hGxUm8gl7zLtykewbzwGcF0l62RWMhGOqCoAwFikEME3xE=
+	t=1788609397; cv=none; b=u7W9kB8wJr+CznyCoajU9drJXwRXkHUtLq5LJcDIBRoR1PXcfE0EUeul0HfINwWVJw0BJnJ8g0bWyYNOOEwsoT7XSNQQTYlHxoXJfMxM8LloqjS+Q8nGovIBji95gU9pKm6R1R4Q1e4pvihqzwxfpybAnDxImmwCZ0rK7H7jn9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788608988; c=relaxed/simple;
-	bh=75R0SyjY2VntmHcW+KcrtdNx25trMvyoyeBa7ykzQXc=;
+	s=arc-20240116; t=1788609397; c=relaxed/simple;
+	bh=8mcQRH9DpvEFV5xCmyoihcjIaLv+JuO7xQLwMuUD7xA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BcBlJyFC4nZjaq84D9+VxeIXjtIiBwm74G6fQIW96IpCSDDMTi1ucNBU+QVCQsgJXNz27StaPr0CVSKA5hPMId7a6fcGQKmj5B7WwyRBm05i17lb3UDedzGRUT81zEzI2ZBcUfwhd2eEBn9Dbcq1bDLQatCWdm1QHUk6DjWOh40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org; spf=pass smtp.mailfrom=codewreck.org; dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b=MRiP0p+A; arc=none smtp.client-ip=62.210.214.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=sxqNWQ0OOEBfye1ZD8fegfpulBFz0CPUWyyAsvRmOOgVMz1P7fEpyATR+Ud4fFtVbDImRcAlnO50wE11a0d/pztgaYeCpFJNKuo10vhYoyyyKRAg6pPjYoPpL0Vld285AGBgeRLin31XUjNfp7fRLDqHQtSglaW1WcyXwshnmqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UwLwaZ/X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codewreck.org header.i=@codewreck.org header.b="MRiP0p+A"
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id EB42014C2D6;
-	Sat,  5 Sep 2026 13:49:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1788608970;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6Bu7zhBODPx9OVIj9kI9Cw1nNDBcCS9dXlz9GgaYwCk=;
-	b=MRiP0p+APtwWGq7nqcMTUXcXnX1Rp4Ot3CBYsNBuCSxEDHzaM37F3IZw7rUw7zihCjh19l
-	IKEli+6W7tjafk9BZVuzO5RCsDb46aUQn0VOifmyYJXqj07Dh0YaBAgfvy4cMmotZxUc+6
-	gur34LYPLAa0pJP4OulRrjRHanfS9sYO8tikO2hODNpfZsJ2w6nX3QZre7n4zB4sJpxVO7
-	6p+3MJkGAILxtpSHRK3niKb+p+9zzn/DBBgPW0I7hvn1/aMaBuVcv6dj4bf/bQ8SDCM0Zj
-	kpPQhAdanri4iEvqS2vR2vXhMnytBJ4tTo0nfqBJwFLeE7it5Msx3a2Er5/zRQ==
-Received: from localhost (gaia.codewreck.org [local])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id e27ca948;
-	Sat, 5 Sep 2026 11:49:19 +0000 (UTC)
-Date: Sat, 5 Sep 2026 20:49:04 +0900
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: gregkh@linuxfoundation.org, achill@achill.org,
-	akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org,
-	f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org, linux@roeck-us.net,
-	lkft-triage@lists.linaro.org, patches@kernelci.org,
-	patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de,
-	shuah@kernel.org, sr@sladewatkins.com, stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com, torvalds@linux-foundation.org,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-	Jann Horn <jannh@google.com>, Lance Yang <lance.yang@linux.dev>,
-	linux-mm@kvack.org, Russell King <linux@armlinux.org.uk>,
-	linux-arm-kernel@lists.infradead.org,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org
-Subject: Re: [PATCH 6.18 000/552] 6.18.50-rc1 review
-Message-ID: <apwBsCGpUG69KdGc@codewreck.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UwLwaZ/X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9A11F00A3D;
+	Sat,  5 Sep 2026 11:56:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788609394;
+	bh=+uUqgQsCTUBbf133UX5YoePLL3cwIdD5w2LDC1D9Bzo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UwLwaZ/XpqfUIegQxH4g1WVtTN7WOoImfw/+OJcZASSONq4tbSdyfJ8csNs4Gu3Qu
+	 QqoQ1834ozlB5tom+sUlIbPhoXG8x9RNYcIB9v6wiTT5UzcM4E2DAWWh61YRfbDpFM
+	 irjFz0gNfVYXbc7lm0Q1k3C/5rbcwLSpnzCEpDfI=
+Date: Sat, 5 Sep 2026 13:54:49 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: =?iso-8859-1?Q?Fran=E7ois?= Valenduc <francoisvalenduc@gmail.com>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH 6.18 038/552] mm/page_vma_mapped: use huge_ptep_get() for
+ hugetlb
+Message-ID: <2026090537-postnasal-flip-f547@gregkh>
 References: <20260904045747.813364717@linuxfoundation.org>
- <20260905114111.124795-1-ojeda@kernel.org>
+ <20260904045748.693901462@linuxfoundation.org>
+ <d61b56b5-d874-4e50-a83f-8714da4641e9@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260905114111.124795-1-ojeda@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d61b56b5-d874-4e50-a83f-8714da4641e9@gmail.com>
 
-Miguel Ojeda wrote on Sat, Sep 05, 2026 at 01:41:11PM +0200:
-> I see the same arm32 build issue:
+On Fri, Sep 04, 2026 at 11:19:06AM +0200, François Valenduc wrote:
+> Le 4/09/26 à 06:53, Greg Kroah-Hartman a écrit :
+> > 6.18-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Dev Jain <dev.jain@arm.com>
+> > 
+> > commit e87df0d5d6962bde50f55f6d02b779daa394f894 upstream.
+> > 
+> > check_pte() is the final validation step in page_vma_mapped_walk().  It
+> > reads pvmw->pte with ptep_get() to decide whether the entry maps the PFN
+> > range being walked.  For hugetlb VMAs, that pointer refers to a hugetlb
+> > entry.
+> > 
+> > On arches which provide their own huge_ptep_get() to dereference a huge
+> > pte pointer, accessing via ptep_get() would cause pte_pfn(), pte_present()
+> > etc to misbehave.
+> > 
+> > It is not clear whether this has a trivially visible effect to userspace.
+> > 
+> > Use huge_ptep_get() to dereference a huge pte pointer.
+> > 
+> > Link: https://lore.kernel.org/20260703114202.365553-6-dev.jain@arm.com
+> > Fixes: ace71a19cec5 ("mm: introduce page_vma_mapped_walk()")
+> > Signed-off-by: Dev Jain <dev.jain@arm.com>
+> > Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Reviewed-by: Muchun Song <muchun.song@linux.dev>
+> > Cc: Alistair Popple <apopple@nvidia.com>
+> > Cc: Andi Kleen <ak@linux.intel.com>
+> > Cc: Anshuman Khandual <anshuman.khandual@arm.com>
+> > Cc: Byungchul Park <byungchul@sk.com>
+> > Cc: Catalin Marinas <catalin.marinas@arm.com>
+> > Cc: Dave Hansen <dave.hansen@intel.com>
+> > Cc: Gregory Price <gourry@gourry.net>
+> > Cc: Harry Yoo <harry@kernel.org>
+> > Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
+> > Cc: Jann Horn <jannh@google.com>
+> > Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+> > Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> > Cc: Jun'ichi "Nick" Nomura <j-nomura@ce.jp.nec.com>
+> > Cc: Kiryl Shutsemau <kas@kernel.org>
+> > Cc: Lance Yang <lance.yang@linux.dev>
+> > Cc: Liam R. Howlett <liam@infradead.org>
+> > Cc: Lorenzo Stoakes <ljs@kernel.org>
+> > Cc: Matthew Brost <matthew.brost@intel.com>
+> > Cc: Mel Gorman <mel@csn.ul.ie>
+> > Cc: Naoya Horiguchi <nao.horiguchi@gmail.com>
+> > Cc: Oscar Salvador <osalvador@suse.de>
+> > Cc: Pedro Falcato <pfalcato@suse.de>
+> > Cc: Rakie Kim <rakie.kim@sk.com>
+> > Cc: Ralph Campbell <rcampbell@nvidia.com>
+> > Cc: Rik van Riel <riel@surriel.com>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: Vlastimil Babka <vbabka@kernel.org>
+> > Cc: Will Deacon <will@kernel.org>
+> > Cc: Zi Yan <ziy@nvidia.com>
+> > Cc: <stable@vger.kernel.org>
+> > Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >   mm/page_vma_mapped.c |    8 +++++++-
+> >   1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > --- a/mm/page_vma_mapped.c
+> > +++ b/mm/page_vma_mapped.c
+> > @@ -104,7 +104,13 @@ again:
+> >   static bool check_pte(struct page_vma_mapped_walk *pvmw, unsigned long pte_nr)
+> >   {
+> >   	unsigned long pfn;
+> > -	pte_t ptent = ptep_get(pvmw->pte);
+> > +	pte_t ptent;
+> > +
+> > +	if (is_vm_hugetlb_page(pvmw->vma))
+> > +		ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
+> > +				      pvmw->pte);
+> > +	else
+> > +		ptent = ptep_get(pvmw->pte);
+> >   	if (pvmw->flags & PVMW_MIGRATION) {
+> >   		swp_entry_t entry;
 > 
->     mm/page_vma_mapped.c:110:11: error: call to undeclared function 'huge_ptep_get'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
->       110 |                 ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->           |                         ^
+> This patch causes this build error:
+> mm/page_vma_mapped.o
+> mm/page_vma_mapped.c: In function 'check_pte':
+> mm/page_vma_mapped.c:110:25: error: implicit declaration of function
+> 'huge_ptep_get' [-Wimplicit-function-declaration]
+>   110 |                 ptent = huge_ptep_get(pvmw->vma->vm_mm,
+> pvmw->address,
+>       |                         ^~~~~~~~~~~~~
+> mm/page_vma_mapped.c:110:25: error: incompatible types when assigning to
+> type 'pte_t' from type 'int'
+> make[3]: *** [scripts/Makefile.build:287: mm/page_vma_mapped.o] Error 1
+> make[2]: *** [scripts/Makefile.build:544: mm] Error 2
+> make[1]: *** [/usr/src/linux-6.18/Makefile:2051: .] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
 > 
-> In addition, in UML (x86_64) there is also nearby:
+> commit 70010ab9a9eb7aee65f42ddc20835806759b4336 ("mm/migrate: use
+> huge_ptep_get() in remove_migration_pte()") gives the same kind error.
 > 
->     mm/page_vma_mapped.c:110:9: error: assigning to 'pte_t' from incompatible type 'int'
->       110 |                 ptent = huge_ptep_get(pvmw->vma->vm_mm, pvmw->address,
->           |                       ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->       111 |                                       pvmw->pte);
->           |                                       ~~~~~~~~~~
+> If I revert those 2 commits, compilation work fine.
 
-See this 6.12 thread[1] for this build failure (I didn't check but
-assume it is the same, that missing commit only made it 7.3-rc1 but was
-also backported to the 7.2 tree, which also explains 7.2 didn't build
-fail)
----
-This builds on master because this commit:
-f5407e9b697c ("mm/rmap: use huge_ptep_get() in try_to_unmap_one()")
-added a function declaration in linux/hugetlb.h !CONFIG_HUGETLB_PAGE
-code:
-```
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 817b8b4223fa..95b1b6ee1f96 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -1270,6 +1270,8 @@ static inline void hugetlb_count_sub(long l, struct mm_struct *mm)
- {
- }
- 
-+pte_t huge_ptep_get(struct mm_struct *mm, unsigned long addr, pte_t *ptep);
-+
- static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
- 					 unsigned long addr, pte_t *ptep)
- {
-```
+Thanks, I should have this fixed up now in the queue.
 
-The rest of that commit isn't applicable, so we either need to roll that
-change in 'mm/migrate: use huge_ptep_get() in remove_migration_pte()' or
-add it separately (or drop that commit)
----
-
-[1] https://lore.kernel.org/r/apq_s8mFJJPzoIdo@codewreck.org
-
--- 
-Dominique
+greg k-h
