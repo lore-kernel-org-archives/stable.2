@@ -1,112 +1,111 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD98625A655
-	for <stable@vger.kernel.org>; Sat,  5 Sep 2026 21:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.175
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788645149; cv=pass; b=URaemNacFwvynFkw+01eX7rLL5SQzwUOq1ijLm/BMU/CkJTQAYmKK/YQKLrdwjViuqdpcLQgNbZK6dwVE/HhwjXXj0BCU2ay14iW+hl1U25nsCQatn4R74DyFq5n+0e+sxO0VPfrsDoqZa1MmLet1oGjA0mZWxs9lUcHEckDbbI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788645149; c=relaxed/simple;
-	bh=Cf09x2JHo4oLMV2RRVxxqg7PFh53GRYSH+2+NQzMm5w=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=nYOBem1xsgqukWyPoJ9MNSgPgomNcb70oydrZwvFCMUPm2t+XP37cEsQ12JroU1dWdzcq9CNxuwHhBUrYnRJvzGGYkU+Amq+CrOBaTOj7eQJsikGhwvFOKfVADp9CA3XzP2LTiaLXwGfvQntyFGL88co1HJ8nfPGFhNLWsqh9Pw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QwU5RYfc; arc=pass smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 401D6394EA7;
+	Sat,  5 Sep 2026 22:07:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788646070; cv=none; b=b1Wu5RxzFFXWYTcFbpButTCZ4V0qGOxKkmXzlmqf3ubvKCzRvSe0Ost/leR9YqcfrNuk+/hVGlrYCWzq4kEB8ws9AW4P9mFfNxnspOHa7uL3IBne9aiSC83la/U8nvpAE+39v0yFfAijAYWvs7TZll//2+LdPtgX8r0eA7z9v3A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788646070; c=relaxed/simple;
+	bh=WhVCqZzlBHqiAMgywa/BodhPvC018gUb7lRZg83jExs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kDZnymVosD7BL7WUDMpo7LIk0xBokS54HLKTPgSy2haAnphGDLSr1Wuh2cTbnAF3cE93TmAq3itwqt+Wc0KG9L2L6T0N5MAWAyQy+OI94sZGqq+9a+T1E3pcN5gjgK5eVe+ayueKLPUrLYKOQ0t1vLDmXURh0S3LClSiB5/VGRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLWS2Q3g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QwU5RYfc"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-85a50f6a7f7so30440437b3.2
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 14:52:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788645147; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mirbLdVpPPaQHv00ib+QMIN2MgIjqTLBLkQS2IFPltPx61J8t6l2KAkvo70WHSk/08
-         EH3X9KTbf2YDJla+GPIRdSY5LTExRMwqbQFvLK5Aw1BsfMP1IVekH/oZ8qBRbU0UrxcN
-         3dA1bSae89lvVoCSqdngApPtqWLErDSvar1bdGxDFLZ46ffpa+lG3gfMVFz9IrZWJttv
-         7lN97AjXPetcg5nBpYkXBH14m6N5GeMLUWk1L8J/j2K++7vODgcZkFT7jmUV0rbUjVIj
-         zTfhk68YCVUgUjxFaCDL2K9nN5h/1/+CwGMB4DizTrmaF5qp86dye9QUBvl9Jm+5Nhtd
-         +8VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=Cf09x2JHo4oLMV2RRVxxqg7PFh53GRYSH+2+NQzMm5w=;
-        fh=o/IkUFQYSMYiXrWsZzgSVM6Hnq9KMtypStl5M7swnEM=;
-        b=ogSOHIfEd5UBWtuyWugAeyomR8mtsdYGOLr/+K6kbVK66WfoAbMV5EY70cNmx3njxa
-         poFyHJE+bZp66h/Jbd5x4vT4OapUH5ktaTneMpXGg2cufTtm+R8Ts4y+KoPSeREBCvw0
-         wqcSuarGOwP11kdmISxQkZVfU1jDBg+ofaMa3QpDkivUP0v8eEjeAhMvz4uWPsxrF5fp
-         SuqLWUd2GnIYr5qdhxR9M7f9VjHhmApFuWO6RnGJeK9RkepThvUpnYL1nXNdoTAUIA4s
-         zndgwdcsTsA9kNb/pBMXqLWOO6qJDDheyU+AK59JfOGF3jRQyvLOON3tcqK+HoqZH9DK
-         TCSw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788645147; x=1789249947; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cf09x2JHo4oLMV2RRVxxqg7PFh53GRYSH+2+NQzMm5w=;
-        b=QwU5RYfcIli+ZEUubwZ3ZfGjrC54jDH1R7F55NZweIBcxGr2cjrYYTzSsXyXXiPH3t
-         B7JvNwkv2qQ4Zp15ZJnfQifnU1m8Gi9iV8Jnu6/ifuxYwEpT2FPACMRiMU6uI5PBcSHr
-         S3Ji/YsxHm21v+/CX2PG1nXLXAX9jaVENFDGbzjafu2w5CSI2t1vuTm/X9upzePNkBRB
-         UnvOAGFhoVux6cefDXr7B7jLhaMFYEXUQCK3w3XGq6QE2n4NPAjHEGyElyhh5gQBSfsB
-         QYlmorZYKAjJHBsUH14e8KdDdmd4uDXVIrniIhJ9wDUqH02LMPJYs3efwJQAWnMN3CuG
-         93yQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788645147; x=1789249947;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Cf09x2JHo4oLMV2RRVxxqg7PFh53GRYSH+2+NQzMm5w=;
-        b=kaNlRH8kp8IXi2stIVjvOeQ429D9bzb2duvI7XNygAT4NpyP92WFXR/PyJBjmTOFOq
-         cvhoUyMtJWcsn7qA4UNH7OKosjUJ3CISMU+8GKi4kxhvO/aYnzy7oyeJ/W/jKp13r1Mp
-         F4T+MVbrGsmkH4FrhbcpAtfeXcHUPW9wtSkQJ37BU4yjPeq7LfNwI+DpSCyx5XUdzH1g
-         rsvqZJNiERW9mgq3J6+TxZxuVRnIoqlLKui/7IMmjpNtttx3vrRT08kbXLNkLCJkpMpL
-         Yr+txy1ZLRdAdxpkDSM2g99LOn9ERGJQY5WTHsH6evpv5ngzQEIvCAVt9iqQI5spJxeI
-         w89A==
-X-Gm-Message-State: AFuF++kv/2Pfptk/z7kC81UqrJGszAMXsgE5l+pfMekrgRr6jkpGZxn4
-	1qULJFg8D9BUcTDub0p8RhTVhiVDcvsHJNwC1a0ChIajYfT937Ti+RVx/c7djv4q8kdpqZrd3fE
-	91tmgOFEQsyi14Sa6o3MsuxkE1yLDltJpPgBwuJwBuYD0
-X-Gm-Gg: AYBFou1RzCOU/qMg+L6t2SP8be45iyKUsU6slIg1MUioIRod2yKo7uiiYx/IXR5mvKB
-	BUPEdUuzhax0hmJAqjOs0vT7r6UA0qgSFooDwu8VZfO3aVVzsdk24/ta36mzMKgXk71x3ndPMz3
-	sdx0Zhf2ANtl6V4n7OQ16x1w6tmvCUUihOhkOkdhIw+Gwn/DLaLa71SkofqkdLu9JUamgeKI0We
-	8SaTnLKZWA66hhKk/ns2THd9hhp7mk4GbarH5MezdqZaD3Q0ofIZO4PO7yNs8dAF2PtvhE8Br+x
-	Laz7BHKqJfIF2sgtaGfFl4QHD2Ej7cUJ+4NXWNUEAPFh
-X-Received: by 2002:a05:690c:f15:b0:873:5c7b:c0ec with SMTP id
- 00721157ae682-8735c7bc475mr29141477b3.36.1788645146688; Sat, 05 Sep 2026
- 14:52:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLWS2Q3g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF281F00A3A;
+	Sat,  5 Sep 2026 22:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788646069;
+	bh=HV2wruqCLdbcGMXHglAtzJcwEp//cjsvhSFhrJ5SLX0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dLWS2Q3g4i1xXVcGfStwz9rx94D/Vc3cl2ApEK+GbqBOUCERGKqkZ/tBnp73acSov
+	 ettXpII6IsI+1fTdTrq71QhBmgamLEIS6WGb1G2yHCx3A1CAn7z2emkP7wbdMj64xj
+	 tX6gvatgB5NQJcs2GnIlkPuLYsjGFiL8ZterC9DuwphOm3CI5gXB+eq3B88Xvi76CM
+	 1R2ORP0RBu2t7yalThFddg3xW6VgUYvK3m9hNIhWL9mw7AEw3jrR5xoBG0MOX2znbp
+	 z194CnrxIGNHVItevI4hhiyN7sc6XVG1S0IjPyqhngr1vshq3ehwFzYBsjMs8uUOrK
+	 8ISuwpCLApBLA==
+Date: Sat, 5 Sep 2026 22:07:46 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: Aurelien Jarno <aurelien@aurel32.net>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Inochi Amaoto <inochiama@outlook.com>,
+	Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>,
+	stable@vger.kernel.org, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
+Message-ID: <20260905220746-GKC53903@kernel.org>
+References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com>
+ <apmuG46sBg2rGzCD@aurel32.net>
+ <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Hlib Wondertan <hlibwondertan@gmail.com>
-Date: Sat, 5 Sep 2026 22:52:16 +0100
-X-Gm-Features: AcwNN1VfJVYF9z5ZQ3FhBztGZrU4VAI0R3gyuNsfL59o6ZZiCqQ6xX3-aegQPwg
-Message-ID: <CAFdGzA7dHZxaW4Vdzp6HcwhJxpWB+vakM85gCCk-qgAY=cHukg@mail.gmail.com>
-Subject: Request stable backport of commit 4b6ec94fdae2 to Linux 6.18.y
-To: stable@vger.kernel.org
-Cc: mario.limonciello@amd.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com>
 
-Hello stable team,
+Hi Aurelien, Troy,
 
-Please backport upstream commit
-4b6ec94fdae2407d9b8e69e3ec5f879e72ad667e, "drm/amd: Drop calls to
-restore power limit and clock from smu_resume()", to Linux 6.18.y.
-Mainline commit:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4b6ec94fdae2407d9b8e69e3ec5f879e72ad667e
+On 11:24 Fri 04 Sep     , Troy Mitchell wrote:
+> Hi Aurelien,
+> 
+> On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
+> > Hi Troy,
+> >
+..
+> >>  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++++++++++++++
+> >>  1 file changed, 96 insertions(+)
+> >
+> > Thanks for the patch, it makes sense to add all the values, to support 
+> > future firmware changes. The values match the ones in the vendor kernel.
+> I forgot that you had a similar patch as well..
+> 
+> >
+> >> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+> >> index 92b930d5ff30..950bf531c734 100644
+> >> --- a/drivers/clk/spacemit/ccu-k3.c
+> >> +++ b/drivers/clk/spacemit/ccu-k3.c
+> >> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_tbl[] = {
+> >>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
+> >>  };
+> >>  
+> >> +/* Keep the firmware default as the first entry. */
+> >>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] = {
+> >> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+> >
+> > Is it really necessary to put this entry first? I guess it's the current 
+> > default frequency, but we have seen it can evolve. From my tests, the 
+> > driver seems to just keep the value configured by the firmware 
+> > independently from the table order, so I am not sure it's necessary.
 
-The duplicate restoration in smu_resume can replay a cached power
-limit after AC or battery conditions have changed. On a Framework
-Laptop 16 with a Radeon RX 7700S, this restored a stale 30 W limit
-after reconnecting AC, although the valid firmware range was 100 to
-120 W. SMU resume then failed with error 22 and left the discrete GPU
-unusable until reboot. I applied the equivalent change to Linux
-6.18.48 and tested repeated runtime suspend and resume cycles, AC and
-battery transitions, and hibernation restores. The power limit
-rejection, SMU resume failure, and GPU wedge have not recurred.
+I agree with Aurelien here, the default frequency isn't a solid stable settings,
+which it may changes in the future
 
-Bug report: https://gitlab.freedesktop.org/drm/amd/-/work_items/5634
+> I think keeping it first is necessary. If the current register settings do
+> not match any entry in the table, ccu_plla_init() falls back to the first
 
-Please apply this fix to Linux 6.18.y.
+Isn't it a bug if all frequencies added still couldn't cover all settings?
+I'd simply suggest to bail out and yell loudly if there is a mismatch
 
-Thanks,
-Hlib
+I just don't like putting specific frequency at first one as default,
+this logic is kind of fragile and tend to fail easily..
+
+> entry:
+> 
+> 
+> 	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
+> 
+
+-- 
+Yixun Lan (dlan)
