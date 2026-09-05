@@ -1,108 +1,122 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BC74A013E;
-	Sat,  5 Sep 2026 12:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E43348465;
+	Sat,  5 Sep 2026 13:00:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788612728; cv=none; b=VVm3TquuztpgeOxUEe5S+ySnGj1eJFvLyiFHT5hygDqzUH0S4/BNvGGMFFYK0zJcAu6+8pshQQVvQqVlvyVEAg7sYjrK0HgY6FjbJEEgB0ZF1rki9/vt5Ym5ELC+QRNjCcGyiWRkxRvHy5lLS4tG1KbNbplms1IvDp3BS/bOVTk=
+	t=1788613240; cv=none; b=fmgm8AR0XJOMfHyU+r8SKcUc9cTl+wKr67AlKADrsbojuJAnE9GqcSScWL6E0QxUIYkI/ncyP/tyG4UV2vSO8vTKEFX6RE/BoXlfS9KvKcuM4EiFZUCGm1lCBvBh7NZciSnzAJyGPLc9jc4hsbpmm+BjnRkmaznwI4iGB9wlrko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788612728; c=relaxed/simple;
-	bh=n0R2aJzqLcBbmTYizFvG2tOIH1Xcds1HOiks3LLGmDc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CqfN9nzhDdWoqDxe87RYulBfSEmOdQcCwKJMKXRXSUoViav+q/2lgVjbyL+U/+UpFdfmd+Vy1j1oLxZUTEPaxj6iVH2FV++jMPCgoyZSAo0toSXjUBT1aMbNvij74kO4l1TPCyZ5fZuhzXQ3WM4QwkDlXEAcD3sEnCk6kQoKAI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Cg9UTZdQ; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788613240; c=relaxed/simple;
+	bh=piNkA5IeEVpUEtbg2koH0Xbsrfj3+pV1PF7K4sR7Lao=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rUFtDlZeFp9T9hVaqdMTPI87wBjmu/Et8Eu7D3PpYeD/fQtjGpfdwSkQLhquLZjGfm7HW9DGnjmFRK8S4s5M1detKeMdNff5slss+tCXjXEb7iqKVgDEy7aWo04YBshBrgl/ZmhezRT26ZEztjv6sbfo9uKLbFfj8m/2Xu/+M44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=vsL36vkh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=XXoqmbGx; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Cg9UTZdQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=k2
-	Jon0zzAG3GmxIwfb1s6njp3H0RiBpGPLuVr+GERyo=; b=Cg9UTZdQQuAC6W8SSm
-	aL1wFXACcpWS++QiyLDXQeChhGYDedLPh+0GdMV9R3WQBg+x4zvZmm3ZiWkGgpbx
-	oS2iEABiWppIUKS4E4e51oIXPYtCMdwVebLK8UiHdQOt2lS3C4Xv7nIuFJQHynbI
-	pIeBAKx/gOms2J6yuH/pxEknE=
-Received: from XLL-9950X.localdomain (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgC3mfg2EJxqFP0ROw--.17076S2;
-	Sat, 05 Sep 2026 20:51:04 +0800 (CST)
-From: Longlong Xia <xialonglong2025@163.com>
-To: hannes@cmpxchg.org,
-	yosry@kernel.org,
-	nphamcs@gmail.com,
-	akpm@linux-foundation.org
-Cc: chengming.zhou@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Longlong Xia <xialonglong@kylinos.cn>
-Subject: [PATCH 1/1] mm/zswap: enable static key after runtime pool recovery
-Date: Sat,  5 Sep 2026 20:50:28 +0800
-Message-ID: <20260905125101.2970456-1-xialonglong2025@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="vsL36vkh";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="XXoqmbGx"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id F1AB2140010C;
+	Sat,  5 Sep 2026 09:00:31 -0400 (EDT)
+Received: from phl-frontend-02 ([10.202.2.161])
+  by phl-compute-02.internal (MEProxy); Sat, 05 Sep 2026 09:00:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788613231;
+	 x=1788699631; bh=5nou6lzSYfEkGKDSoJd1XsYeqOeCd86E8osWZ3kf48g=; b=
+	vsL36vkhywd225WRi8u9TNDip0UMD/pA2RGBDpk6xI6dMbnqBSYQGWefwCB4RxrW
+	d4Yytof6YsNMJxq1AgcXmN+cjUImLIgnTQPcBH4Rob9ePAmJMGIIng7FSYmmhOY6
+	W5RjHcOvVf0YX7/8/5f72q6Osc0SBiG56+N2FuZhAVnWoOuqNhYpgd2qNKVqUom0
+	lx2jiHkG5cET5Z1KhiKdHwMDP09Idk+Ms0RUlTvjL1/RAn1hzPplRP2hAHy1pd2a
+	x0HhraUc8fYEQYmKqSbblRsPOMtdQ1Ut1gxUjXdDf6kcite4nysBZdptMdA7q970
+	r6PePW1Y4BoSdrWPvxJzpw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788613231; x=
+	1788699631; bh=5nou6lzSYfEkGKDSoJd1XsYeqOeCd86E8osWZ3kf48g=; b=X
+	XoqmbGxk+OHJ8Ge/iBlVyg1WN/oHAr2nJWOxOybIX0grO32F3RDwgxG3xkr+Euw/
+	fWNJ7tIGSO8q7hlYZkJF/i8bKKcwlb+Uk+/GNwp1qANb6/0f6Rr1oe+H8ebsZQb1
+	bbJOEvWu+2KklYwPeycJnyBzKEiFAE5Keqw3cd5ZYScAdXUOPmWoPrrpIF3wayM7
+	bEf/5zQd8yva0jBedKO2Beq5s1AzDwdqxZ03ImFpPj0hf6xgtewn12V4GoKVU2vk
+	3+E+WE9RA4XplsyXHGkRp0ZwD3tT9nScEHuy3lcI4+VuCNAgBCJMf5wW9tS0WmBT
+	FjQXKLPeQOJJ7L0H+r54A==
+X-ME-Sender: <xms:bxKcajcBqKni6BUvbmWeiNnMUyboc3WHUpPcolLgsPJLVoGgyM3r7g>
+    <xme:bxKcalE9V9qSXSt2qAoloXKCtYifqmvZ7hsq5aOrP3T_SGWQ8jqN0ad5BDMtlDQhJ
+    ciqODj8Iv6GlJ3XKXg1B4Ubw6-G5sp3r52R2fiETRF59d5ozYr_fjyS>
+X-ME-Received: <xmr:bxKcaoDI-yV_XX0_EKoQY9FeZ-6XuhT4t8ufeKf3ZahFdWU1Sd0A4PO9fRptNuuSwPj9RT_MyPwZhCJMjXFAWOYspQ-ROWQM>
+X-ME-Proxy-Cause: dmFkZTFHBNUARyexREqX7yqYW+m6XfuQj9/6NwtNirZZ7RLcGr/8lR+FHQ13cjW8U+6tW/
+    XkQO7SMQPRFfucYYpAoW+LRwe8Q10OcVOaiGxJzanVYimUDj1awAU7WHl51ePOWxayiULE
+    M2uo/6NmYPCBPX03VZL52OYgw2HPJDFtvTbZdQLUO0dNXbCfH8Wy0HW2PykjMZX9THB6FT
+    eDm3p6tWLs2aegBySa+QKMKl4tyXv06z56loD41QBvRahNyUNsDo048KfTzgx9O+XudCiJ
+    E18UoWXId4fp4pj+7zQ/CgrT7kTLFwuIgLJmqjGCchlb6GKkzeeP4IaBZokdLOVLSS0oiS
+    HQhY0ohK3UbDiLkK4jHcdvheh6gD61RRFJY0RcsxthHSqBvYr0d7OyxGB2S9gfXmr+x6SL
+    ulYJNaxKqJAnXmlukbOUbGlbB+xvdcT+94kmQne436TMRCSbnoYYxioMSC03IwT2gShsvO
+    upPh+uPFkXHV87Eyf9SDn7HCqYT+UUrpye7jh7hPYTVlgHd9yuNgd2RxeSA/0MVtjoYYRn
+    RNoLGIWFSCf9uXdrkB09ABRa1JZCKtR0+LZvMuhktEJEnWjMz+d+IZPb9HIdq/zIiPOH5O
+    EuJgfHnE6+UzFHtv5cWDJtDCdK8+MhmMucZhwQOjl/ykhC3hdLnpmqz8X1wg
+X-ME-Proxy: <xmx:bxKcao5Iyov6i_zqSPXpWWHuxK3A0mkdid7bLGRnmvWD-CupOLD5Bg>
+    <xmx:bxKcankxpMTrDIFd8nxy11lNzkIFcpjMNPADcIJXvnj3k6jwM4vI7w>
+    <xmx:bxKcah5dQ4giiV7xfwGXAZ-AfNOxzdEal5K8MtOvE77h8wMl8CNOfg>
+    <xmx:bxKcalW7yW_3kTSwklvqBfNBjy6riTc7S15dVjVGz0H2tCt1pNJ97g>
+    <xmx:bxKcajSg2G8vygahumIe3-bnyrM2i67p9kOan6nLaaPHn7H1_ngM0NR_>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 5 Sep 2026 09:00:29 -0400 (EDT)
+Message-ID: <69e396ee-d2dd-4da0-b2fc-cad1a8e77ee9@pobox.com>
+Date: Sat, 5 Sep 2026 06:00:27 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgC3mfg2EJxqFP0ROw--.17076S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFyrAw45Cr1rXw4fCrWDCFg_yoW8Cry8pr
-	y0gasagr1UXF1Syw47AF48ZFyYkay3Kr4rKF1UKw4xZwn8Ar9YyFWIyFy5tayYvrZYya9x
-	ZFsrA34UJr1YkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j1PfQUUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC+BjTzGqcEDg-rQAA3z
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260904045803.810145556@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Longlong Xia <xialonglong@kylinos.cn>
+On 9/3/26 9:49 PM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.4 release.
+> There are 713 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sun, 06 Sep 2026 04:56:59 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.4-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
-without a pool after a failed initial pool creation. A later compressor
-parameter update can create and publish a pool, but does not enable
-zswap_ever_enabled.
+Tested on 3 amd64 systems (my DIY home NAS, my Lenovo ThinkPad T14 Gen
+1, and an Apple MacBook Air 13" 2017). Working well, no regressions
+observed.
 
-If users then enable zswap, zswap_store() intercepts swapout while
-zswap_load() still returns -ENOENT without consulting the xarray. The
-swapin path therefore reads a stale backing swap slot because the store
-skipped writing it.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Enable the static key after a successful compressor and pool update. Do
-this outside zswap_pools_lock because static key updates may sleep.
-
-Verified with fault injection on a stock kernel (compressor builtin,
-CONFIG_ZSWAP_DEFAULT_ON=n):
-
-  1. Boot with zswap.enabled=1; pool creation fails, init completes
-     pool-less (static key off).
-  2. Echo an available compressor name to zswap.compressor; a pool is
-     recovered but the key stays off.
-  3. Enable zswap.
-  4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
-     fault it back in and verify.
-
-Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
-without this patch; all pages intact (zswpin=131072) with it.
-
-Fixes: 2d4d2b1cfb85 ("mm: zswap: add zswap_never_enabled()")
-Cc: stable@vger.kernel.org
-Assisted-by: Zcode:GLM-5.3
-Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
----
- mm/zswap.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e3..c48c4df63f188 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -586,6 +586,9 @@ static int zswap_compressor_param_set(const char *val, const struct kernel_param
- 	else
- 		ret = -EINVAL;
- 
-+	if (!ret)
-+		static_branch_enable(&zswap_ever_enabled);
-+
- 	spin_lock_bh(&zswap_pools_lock);
- 
- 	if (!ret) {
 -- 
-2.43.0
-
+-Barry K. Nathan  <barryn@pobox.com>
