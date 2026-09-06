@@ -1,109 +1,185 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mta0.migadu.com (out-173.mta0.migadu.com [91.218.175.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8840230D40E
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 01:04:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788656689; cv=pass; b=pECBUQO7e5dd0G1QlZviAH5fHtLejkU9JGdl2qbaRvz0lHSfBtFiDEGm6kQqXqV1YDtKVp52KAl+zTAGShg4MU597d58YDSo1Hi19WuQPGB/NKeHJBr93Ds+Es3iJbabQLG0l1bL03+tukBr7qubRb3c8K7kEKC/M5L5YCvcr4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788656689; c=relaxed/simple;
-	bh=6v9JT4KWbHlAzSBmvHtzBswCMCsqSOF/aCWlorwgI/E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r1r+sXUqWD4E0wOAWaGQJ7sIiaEI9Ya/cShV6K732seThA+7/Wk3vVRMHLfaFHEtjmEIxTG1/OcsaJcers8nfORhG7Mt9rxOrcEA9dk/TyWQyDYMU0sDGCtoY6COew2u6YDg5oiXV2IIyC7f2odA/uCVugmqtjFgz75MFXc14r0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lw09Lr3j; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067111A6814
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 01:11:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788657108; cv=none; b=aTmqFROIXKx4oiUbqidwhkYSC0ITUb2uuI/sziyOREViUM0b+km9+9V2eU6y5+zE+gshbH0yNo32iA62NH/2r+p3sKj82wL9Ua2RxF/5ZkcWp9x4h+Xa2atCC6YsCsC69wLLTFA61N7B525TVXhOeJWFoAR8ZEmrNrkAqecolBg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788657108; c=relaxed/simple;
+	bh=zW7QNqiwYguh6Fh5GCujAnJ8mRwsK4X04rOZ+SnCXzU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vl9ctnCgcooYsHz7iddj/g+6xiG37l+q7EUCMkud0XoYgGaU63IFsbGwCvnuGuAPdtJvJDNafpHQSVLlOF2IUX/tdXmMp8SKQNRSeLINA7iHOFGwiorNC3HFiU1scG2+EyAmPLCNClhbaWibDRnPmeAK3ufl4vjotP9uhG7bdi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TIs/2n7U; arc=none smtp.client-ip=91.218.175.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lw09Lr3j"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396673bd281so306737a91.1
-        for <stable@vger.kernel.org>; Sat, 05 Sep 2026 18:04:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788656687; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LuCKJtAPAm/BkdKvIBNIak6QwwAV2030sg+MmxvWXlu1Iv7pnxaC+ZGD8nZhAH7a3h
-         k6jXP+oZ+Eq0ZhFVwDRyAu7KNohlroofVEH9ntRYv3u439/H8fdyPLozat4u1ha30yK5
-         JSUTGS0xzItbQUEK59Wegr302i67t11FX5J+sJUpsQZ9r5AnDzSj9U51n2ZipopttHDK
-         L80XiVLCje2Kb1EZDg+LcTlIp6l+28hx6wNbXxBzfftJ37KVB8UQWiPsWMBchm4x6KpA
-         HscH33nzn8ct2WMgV28ydMKksahHn0WdduPuizmNo6cN0n3ILRCK1ZcEgGW4IpX+DlKH
-         PNkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XfakRqp8F96veZF3ZNAhymxMT3EzOfSxeJXjQ9JrCuo=;
-        fh=Lzro6kELf1/GMa6dAY+tyFw0xsVm98IleVMvwyXxNzw=;
-        b=MVfpRYD2GH5n5sLj1Iry8kJ4kLiC7z5Q8d55bLKFFPgJwlfDcpREXRGewWQZCWlbXe
-         yTUZwpgqGVoQkkMIYl3SXgGhhZNCeqtDrfnamMFm5JEQMnWbZ/YngHsnmS9Lh/GXNWq/
-         65oe4nCpgKjJMPn6PhYr9PmHtOERng07r1wK/wno9afGBWkTXkqW9fLHeXKf2BD8kzKM
-         wa8gVao2gO0Gsg86V2o+0nLzVI/rwlQczECOH063bQC1IVBaipK0bbhJ07iBacl/IhfB
-         fZWtGQQuow50AUtGH3hkMzlAMystF0vNbitPNa2XLkKy3hd4IcQczgd+BvXa+TPHcwlV
-         ZRrQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788656687; x=1789261487; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XfakRqp8F96veZF3ZNAhymxMT3EzOfSxeJXjQ9JrCuo=;
-        b=Lw09Lr3jsG6pnj5YacHyTDvI0MddYnPZsal9ybEqU1rCNob1lXd/pPoQKqvfFhmDmF
-         1g0oaWUl9zqD+l4bZCMezHwFYpXq1P3tiWMVBpHSGgQFjQIAyIkGII9KuCWs4RmiAwKc
-         RMXPJ8DMciu7uIYS4oLyI6bl9zp6OnYALLKPdzy7rvQbcpjbMAtIrMjrG9Vx5rqH2hmp
-         Vn1uspj6zgkODLppL7Q/jefZvo68E2M10MFjF6ujtfOvqqZ7PALyPlnyjQbQuHkptlmg
-         MBZW9MVr5lg32sdmFC4hsdpiiCN9V0YivpLHMqDvfzcONZuixrveu/5DW2YrHeEcA+yc
-         3BhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788656687; x=1789261487;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XfakRqp8F96veZF3ZNAhymxMT3EzOfSxeJXjQ9JrCuo=;
-        b=Wf6V9ctCrBPU8G6QxOH9CWSAdfH0XzO2GEh+TpI4Mf9w3cHXt1izzdJ0ToSuVSMDBu
-         5RhIR4mlEa2Hd06T4WdIj9/5CZr9Cw8IWinDoSScRCIET7BN5pghgmuyjRHySG9dI+MF
-         7DSkil2JZ/zQQO9XbZSILGhjgJe56JxKLLQVMZX1putqA/fj9KGj/ATXmR3dLaOidnIc
-         PAQNUwdneu4I1kxedWcpj8ESpSsaLRWCxxX3jOOwer0+hdypQID4XQul7dgq1ex4Zq4X
-         nw5Pta12jfMMou0JCDhO231IOnJMzXA9HSeNhFO3V1oc5VXv4O3Az2Z0L4spPG361JXg
-         ZbLw==
-X-Gm-Message-State: AFuF++lA3dIcIpDvJUo+f4SReKurxP7nlH7n6EAeyw+bjpzcou5rA0sU
-	qmAg0g9r6KFRd/H6Tssbe4r5yWoQ99yzMCDuUUVhry8tp0LE5O2ohU2K6JMhbyoI/B5r0ugOtTH
-	0bwLj3WFMXD808md5LgG77tKWAtwZgXc=
-X-Gm-Gg: AYBFou1Ho7aAU9y6L6PnjMUYAEa1/PceAWrfz2uUHmSSLpI0eomwGDkCedNVX338xbk
-	xYM0/ah05W0pH4M7H1eBxQDY1C9hEZm5NLUsuDVt/1puRBCYo6pnpwpysncQVzYfALShIoxLliE
-	cQCxV1T5nKeiMl8ArYoBkc0nX9gN9edG5FgelcoR8Nie87NP9t7PBRlChilpkz+pPsfVNTTBwC0
-	KyUi+y6auFJh1J65fP9QNrbIQVKWz1p/pCyEh4E6QCWM67WcMkWznB6CEeA5zffqnwq/9AL+LaR
-	+3pNiiPt1bO1ne6ZZyQ1Wq/gAHJ+JWOZEAzkLr3nAHaZglYkYkPxneIbpUJHu56VxAbquLphkmr
-	ngo3QfSTGfFkPnXIEKtXtg7e61Ctkw/wYMnfvISeBa9zFvbFOjjIykUmXdbZfCn30pvbq2+Q=
-X-Received: by 2002:a17:90b:4b41:b0:398:bad2:c0f with SMTP id
- 98e67ed59e1d1-39b3d8310d0mr7481550a91.5.1788656686629; Sat, 05 Sep 2026
- 18:04:46 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TIs/2n7U"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zW7QNqiwYguh6Fh5GCujAnJ8mRwsK4X04rOZ+SnCXzU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788657102; v=1; x=1789261902;
+ b=TIs/2n7UPrFFtv67oCWx/Km/lwRhljfKn3fPIRoN9oGPoYy/DjooFk1oMYppJxjBtW8V8SX2
+ zfGxbVPfTtAQetOA+9sohO8ihXzBWoB5SLzHfyXRRpIiJ5ls64s9pv8CFxS3uDctIkPOqpH183S
+ iwoKZWvHi/K/BhI5S23Q/+D8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d50bff216045863e;
+	Sun, 06 Sep 2026 01:11:32 +0000
+X-Mizu-Trace-ID: d50bff216045863e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f65d4985-5e21-4e29-b5f4-dcff0fa479ab@linux.dev>
+Date: Sun, 6 Sep 2026 09:11:24 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904045747.813364717@linuxfoundation.org> <20260904045748.373148168@linuxfoundation.org>
-In-Reply-To: <20260904045748.373148168@linuxfoundation.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 6 Sep 2026 03:04:33 +0200
-X-Gm-Features: AcwNN1WEVmNLRk5OAmkHLSMfaNhjTk_FiTinpZME8xNMMBHr8yOLjbuFrkxEBxI
-Message-ID: <CANiq72=EounScE9CxhQVRYTMe6XxgZzfid_cJZ5dxmkz7MQ2kw@mail.gmail.com>
-Subject: Re: [PATCH 6.18 024/552] rust: bug: fix warn_on macro build error on UML
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	FUJITA Tomonori <fujita.tomonori@gmail.com>, Miguel Ojeda <ojeda@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/page_counter: avoid integer overflow in
+ effective_protection()
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Qi Zheng <qi.zheng@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Chris Down <chris@chrisdown.name>,
+ Tejun Heo <tj@kernel.org>, Yu Zhao <yuzhao@google.com>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <cgroups@vger.kernel.org>,
+ "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
+ <linux-mm@kvack.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>, stable@vger.kernel.org
+References: <20260903031952.1120321-1-ridong.chen@linux.dev>
+ <20260903031952.1120321-2-ridong.chen@linux.dev>
+ <20260904093743.23cde26b@pumpkin>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260904093743.23cde26b@pumpkin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 4, 2026 at 7:41=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> +                $crate::str::CStrExt::as_char_ptr($crate::c_str!(::core:=
-:file!())),
 
-In 6.18.y, this needs to be:
 
-  $crate::str::CStr::as_char_ptr($crate::c_str!(::core::file!())),
+On 9/4/2026 4:37 PM, David Laight wrote:
+> On Thu,  3 Sep 2026 11:19:51 +0800
+> Ridong Chen <ridong.chen@linux.dev> wrote:
+> 
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> effective_protection() scales a parent's protection by a ratio of page
+>> counts, e.g. for recursive protection:
+>>
+>> 	(parent_effective - siblings_protected) * (usage - protected)
+>> 		/ (parent_usage - siblings_protected)
+>>
+>> The multiply is done at unsigned long width before dividing. On systems
+>> with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+>> protection value and silently breaking memory.min/low enforcement.
+>>
+>> Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
+>> usage and parent_usage are not read atomically (a child is charged
+>> before its parent), usage - protected can briefly exceed the divisor,
+>> making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
+>> the ratio stays <= 1.
+>>
+>> Reported by the sashiko review tool [1].
+>>
+>> [1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+>>
+>> Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+>> Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Claude:claude-opus-4-8
+>> Reviewed-by: Barry Song <baohua@kernel.org>
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+>> ---
+>>   mm/page_counter.c | 19 +++++++++++++------
+>>   1 file changed, 13 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/mm/page_counter.c b/mm/page_counter.c
+>> index 661e0f2a5127..e8bd512069c5 100644
+>> --- a/mm/page_counter.c
+>> +++ b/mm/page_counter.c
+>> @@ -8,6 +8,7 @@
+>>   #include <linux/page_counter.h>
+>>   #include <linux/atomic.h>
+>>   #include <linux/kernel.h>
+>> +#include <linux/math64.h>
+>>   #include <linux/string.h>
+>>   #include <linux/sched.h>
+>>   #include <linux/bug.h>
+>> @@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+>>   	 * otherwise get a smaller chunk than what they claimed.
+>>   	 */
+>>   	if (siblings_protected > parent_effective)
+>> -		return protected * parent_effective / siblings_protected;
+>> +		return mul_u64_u64_div_u64(protected, parent_effective,
+>> +					   siblings_protected);
+> 
+> On 32bit it is only necessary to use a 64bit intermediary.
+> mul_u64_u64_div_u64() will drop back to the (probably faster) 64 by 64
+> divide (and then maybe to a 64 by 32 one).
+> But there is a lot of extra code before that happens.
+> 
 
-Cheers,
-Miguel
+Hi David,
+
+Thank you for your review.
+
+Do you want me to split this for 32-bit, or is keeping the single
+mul_u64_u64_div_u64() call for readability fine with you?
+
+>>   
+>>   	/*
+>>   	 * Ok, utilized protection of all children is within what the
+>> @@ -397,13 +399,18 @@ static unsigned long effective_protection(unsigned long usage,
+>>   	if (parent_effective > siblings_protected &&
+>>   	    parent_usage > siblings_protected &&
+>>   	    usage > protected) {
+>> -		unsigned long unclaimed;
+>> +		unsigned long unclaimed = parent_effective - siblings_protected;
+>> +		unsigned long unprotected = usage - protected;
+>> +		unsigned long parent_unprotected = parent_usage - siblings_protected;
+>>   
+>> -		unclaimed = parent_effective - siblings_protected;
+>> -		unclaimed *= usage - protected;
+>> -		unclaimed /= parent_usage - siblings_protected;
+>> +		/*
+>> +		 * The usages aren't read atomically, so a child can transiently
+>> +		 * appear to use more than its parent, making the ratio exceed 1
+>> +		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
+>> +		 */
+>> +		unprotected = min(unprotected, parent_unprotected);
+>>   
+>> -		ep += unclaimed;
+>> +		ep += mul_u64_u64_div_u64(unclaimed, unprotected, parent_unprotected);
+> 
+> If the ratio is forced to 1 there is no point doing the scaling.
+> So maybe:
+> 		if (likely(parent_unprotected > unprotected))
+> 			unclaimed = mul_u64_u64_div_u64(unclaimed, unprotected,
+> 							parent_unprotected);
+> 		ep += unclaimed;
+> OTOH if the min() generates a cmov rather than a conditional branch
+> then you don't get a statically mispredicted branch in the normal case
+> (which is very likely with the empty 'else' branch).
+> 
+
+I'd rather keep it as-is and avoid the extra branch. Does that work for you?
+
+> 
+>>   	}
+>>   
+>>   	return ep;
+> 
+
+-- 
+Best regards
+Ridong
+
