@@ -1,259 +1,168 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB543241CB7
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B272DF138
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:46:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709278; cv=none; b=ne/Qs2/+pjfVN6/lBM9qCIWPkDom/16bCeFuKClQGJtn0AlSE/KOg+Ujma+hrXJcM37UKINtRd6cDXBLqkZbmWbSaV0iWm9ZJSwWSvLHD6IzjhmJ5JHdcUooSBTdgI3efSZiv9g42fojzfy2sU7QA18X2vGSkaeCOJ5qL5DDa9A=
+	t=1788709568; cv=none; b=spUbqWrgqPOhpXjabCRwKd9PYP2VocKGf8edUmrFPCc2oXJNiCC8QFNh84Ni56yoznk8X0I09N4Pj/5pn5+bX4EPbryEleyZBLKrwKIk/D7vzdhHwkmnsaCC388Pm7kg9MlSwi3575ajdQ/qEtoZSKnC6PUB3px4JUpHK6P3JYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709278; c=relaxed/simple;
-	bh=PRFQVI5tqKlF+Gex1gCsVRi/a0ljoyE9V5gOsNUi7Ps=;
+	s=arc-20240116; t=1788709568; c=relaxed/simple;
+	bh=qy3fNLpE0d7LcwSdSmCiVzRrjW2ivGqmeuhAsp5Owmw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TyJRVe5YKVQQxjhOfJlbELT9rbY/QbCG8jf+gVBaI/WxRYAj9PfXNKAjBYQgexY65yQayXbLUx1+JLtXGPwOhx7v1qR/nXCSw9PwE4ZCSOIbAKhaBzrvMUxu56dvD/q85f2lKVsj7HTR59wVvbqhmz2xGqZZQ4p6He+XTHWCGXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ge7+lS3i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=dhl7pbCseWNT+oLaGmBQtNCon0PVCFJdNXkxo2z5rz5DCw3aQXK5lo/DdToJ1beoT99jjVC9U/+cqjFYB9eYYdtjnDvFs0nnD3adsK8SgdeSImjf5EL3TxmAKYCqHKqwWGdkd6RZ0LJJGEqSfJaOFWdvOK1GqroJE2pfmj0V8Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deUoX8rn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ge7+lS3i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8E701F00A3F;
-	Sun,  6 Sep 2026 15:41:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deUoX8rn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E681F00A3A;
+	Sun,  6 Sep 2026 15:46:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788709276;
-	bh=jzEPGoB1LigXmIdiZLEAyY+Dkh88UyxQOa/t1KOHXrA=;
+	s=k20260515; t=1788709566;
+	bh=XbX2+KiunDXpl9+ITvPNm8PhPXm9m7S6sg01VrNNrKY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ge7+lS3iPOoD0YnILOVc0G/sKe1idOiOLBXp2bO07voRv3+phy8tryMnq89C6CUx8
-	 odbdVCBLfZ0M2OuRdIkHgN23ROQzjmS5yPjQL2SmYkuyEjEfUTeKqKF5ZgkCcLPyaX
-	 Dvtayuqcm/z4ZFcMuLB7cAGg2Fen3CvdSyd+p8kZVOW2wm84qb3yMjcX+kmCHxwowZ
-	 E8HsLp4mLz+iMVBx7PgBFGPPWL7iiNxlNcuixmXH9ULuYrkD2Ns8kRD+4DXiLc0MCL
-	 iW4dyBj7eg9b80HPvAZs0sftfVTjtJcswwpqBXoxhW1zpcwpN1a/BEdLHftRsfi24u
-	 kr3NsJrsRv6sA==
+	b=deUoX8rnJqhm6VJURo4uxyezkCYm9B6CA2f2/X19LToSYSatrc7ZIT2WgbwJNF+8G
+	 97GqzJ08EFokQ8lAO3o6ciqyN36L727w6Gvr1g+xPcAFIN8TA68aoN7HarSuBDzj3J
+	 3OE9ILxriF3EfDRxlk/toxWRXTk8t7iga5Y4rkxloWFbuJkBvEesqu/ga2ydfEqudw
+	 Z8a5TjvLmh+Hn42HkCOk26/K+CU1/ELXaZ9MIJHt/W/T4hD+sSg/C/kvpTAu1dba1Z
+	 KyJTY4+nCuTScSzcLpOrAnUYH/L1sWzgjRyRiV61jhif4ReEOP+TyE4zmXNuKyKO/W
+	 eNIZ/sKRfzr3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+Cc: =?UTF-8?q?Lu=C3=ADs=20Henriques?= <lhenriques@suse.de>,
+	Dan Carpenter <dan.carpenter@linaro.org>,
+	Xiubo Li <xiubli@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] ceph: cap delegated inode count in ceph_parse_deleg_inos()
-Date: Sun,  6 Sep 2026 11:41:12 -0400
-Message-ID: <20260906154112.1496479-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] ceph: remove unnecessary check for NULL in parse_longname()
+Date: Sun,  6 Sep 2026 11:46:02 -0400
+Message-ID: <20260906154604.1504928-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906154112.1496479-1-sashal@kernel.org>
+In-Reply-To: <2026090355-tradition-although-cffd@gregkh>
 References: <2026090355-tradition-although-cffd@gregkh>
- <20260906154112.1496479-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Luís Henriques <lhenriques@suse.de>
 
-[ Upstream commit 4bd3158bd62466d57ed72a3f7bc5f205fedd6919 ]
+[ Upstream commit 2816a09678f50fc6a69e742e90cb1fd7a9f1f9ff ]
 
-ceph_parse_deleg_inos() decodes interval sets of delegated inode numbers
-from an MDS create-with-delegation reply. For each set it reads a 64-bit
-start and a 64-bit len with ceph_decode_64_safe(), which only validates
-that the eight bytes are present in the message, not the value, and then
-loops over len while inserting entries into s_delegated_inos.
+Function ceph_get_inode() never returns NULL; instead it returns an
+ERR_PTR() if something fails.  Thus, the check for NULL in parse_longname()
+is useless and can be dropped.  Instead, move there the debug code that
+does the error checking so that it's only executed if ceph_get_inode() is
+called.
 
-len is fully attacker controlled. A malicious or compromised MDS can send
-one huge interval, many intervals in one reply, duplicate intervals, or
-repeated replies that accumulate delegated inodes on the same session.
-The original code bounded none of these and could spin the insert loop or
-grow the xarray without limit.
-
-Bound both dimensions with a single enforcement point. Track the number
-of delegated inodes held by each MDS session in an atomic counter and
-grow it only in ceph_insert_deleg_ino(), which uses atomic_add_unless()
-to refuse to push the count past CEPH_MAX_DELEG_INOS. Because that helper
-is the only place the counter grows, the per-session population can never
-exceed the cap, so no separate per-session pre-check is needed. The
-counter is decremented when async create consumes a delegated inode or
-when an insert fails, incremented when a delegated inode is restored,
-initialized with the session xarray, and reset when reconnect destroys
-the xarray.
-
-A per-session cap alone still lets one reply spin the insert loop on
-duplicate ranges without growing the counter, so also cap the aggregate
-interval length accepted from a single reply. Together these bound both
-the loop trip count per reply and the xarray population across replies.
-
-The cap is a fixed, client-chosen constant rather than a value derived
-from the MDS. mds_client_prealloc_inos is a userspace MDS configuration
-option; it is never sent to the kernel client on the wire, and a
-server-supplied bound could not be trusted for a defensive limit in any
-case. The constant is set well above that option's documented default of
-1000 (a generous multiple), so legitimate refill behavior is unaffected
-while the CPU and xarray memory a malformed delegation stream can consume
-stays bounded.
-
-Impact: a malicious or compromised Ceph MDS can no longer make a client
-spin through an unbounded delegated-inode interval or grow one session's
-delegated-inode xarray without limit.
-
-Cc: stable@vger.kernel.org
-Fixes: d48464878708 ("ceph: decode interval_sets for delegated inos")
-Suggested-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
+Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
+Signed-off-by: Luís Henriques <lhenriques@suse.de>
+Reviewed-by: Xiubo Li <xiubli@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+
+Stable-dependency adaptation: fs/ceph/crypto.c is not present in 6.1, so
+drop the original hunk.  Instead, carry the minimal existing-code context
+needed by the follow-up: use client-aware logging in the delegated-inode
+parser, serialize the delegated-inode xarray teardown, and reject reconnects
+for terminal sessions.  This gives the follow-up's counter reset a clean and
+correct insertion point.
+
+[ sashal: Reduced backport -- upstream 2816a09678f50 touches 1 file(s), this
+  backport carries 1. Not backported here:
+  fs/ceph/crypto.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 4bd3158bd624 ("ceph: cap delegated inode count in ceph_parse_deleg_inos()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/mds_client.c | 59 +++++++++++++++++++++++++++++++++++++++-----
- fs/ceph/mds_client.h |  1 +
- fs/ceph/super.h      |  9 +++++++
- 3 files changed, 63 insertions(+), 6 deletions(-)
+ fs/ceph/mds_client.c | 31 +++++++++++++++++++++++++------
+ 1 file changed, 25 insertions(+), 6 deletions(-)
 
 diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 4516fa908d70c..8542328133a3b 100644
+index 939f9e870de0a..4893545b930c3 100644
 --- a/fs/ceph/mds_client.c
 +++ b/fs/ceph/mds_client.c
-@@ -430,10 +430,36 @@ static int parse_reply_info_filelock(void **p, void *end,
- 
- #define DELEGATED_INO_AVAILABLE		xa_mk_value(1)
- 
-+static int ceph_insert_deleg_ino(struct ceph_mds_session *s, u64 ino)
-+{
-+	struct ceph_client *cl = s->s_mdsc->fsc->client;
-+	int err;
-+
-+	/*
-+	 * Cap how many delegated inodes a single session may hold. This is
-+	 * the only place that grows the count, so atomic_add_unless() bounds
-+	 * it at exactly CEPH_MAX_DELEG_INOS; s_num_deleg_inos can never exceed
-+	 * that.
-+	 */
-+	if (!atomic_add_unless(&s->s_num_deleg_inos, 1, CEPH_MAX_DELEG_INOS)) {
-+		pr_warn_ratelimited_client(cl,
-+			"MDS session already holds %d delegated inodes\n",
-+			CEPH_MAX_DELEG_INOS);
-+		return -EOVERFLOW;
-+	}
-+
-+	err = xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
-+			GFP_KERNEL);
-+	if (err)
-+		atomic_dec(&s->s_num_deleg_inos);
-+	return err;
-+}
-+
+@@ -433,6 +433,7 @@ static int parse_reply_info_filelock(void **p, void *end,
  static int ceph_parse_deleg_inos(void **p, void *end,
  				 struct ceph_mds_session *s)
  {
- 	struct ceph_client *cl = s->s_mdsc->fsc->client;
-+	u64 msg_deleg_inos = 0;
++	struct ceph_client *cl = s->s_mdsc->fsc->client;
  	u32 sets;
  
  	ceph_decode_32_safe(p, end, sets, bad);
-@@ -451,16 +477,34 @@ static int ceph_parse_deleg_inos(void **p, void *end,
- 				start, len);
+@@ -445,8 +446,9 @@ static int ceph_parse_deleg_inos(void **p, void *end,
+ 
+ 		/* Don't accept a delegation of system inodes */
+ 		if (start < CEPH_INO_SYSTEM_BASE) {
+-			pr_warn_ratelimited("ceph: ignoring reserved inode range delegation (start=0x%llx len=0x%llx)\n",
+-					start, len);
++			pr_warn_ratelimited_client(cl,
++				"ignoring reserved inode range delegation (start=0x%llx len=0x%llx)\n",
++				start, len);
  			continue;
  		}
-+
-+		/*
-+		 * Bound the number of inodes one reply may delegate.
-+		 * ceph_insert_deleg_ino() separately caps the per-session
-+		 * population, so this only has to stop one reply from spinning
-+		 * the insert loop under an attacker-controlled len.
-+		 */
-+		if (len > (u64)CEPH_MAX_DELEG_INOS ||
-+		    msg_deleg_inos > (u64)CEPH_MAX_DELEG_INOS - len) {
-+			pr_warn_ratelimited_client(cl,
-+				"MDS reply delegates too many inodes (have %llu, +%llu, max %d)\n",
-+				msg_deleg_inos, len, CEPH_MAX_DELEG_INOS);
-+			return -EIO;
-+		}
-+		msg_deleg_inos += len;
-+
  		while (len--) {
--			int err = xa_insert(&s->s_delegated_inos, start++,
--					    DELEGATED_INO_AVAILABLE,
--					    GFP_KERNEL);
-+			int err = ceph_insert_deleg_ino(s, start++);
-+
+@@ -454,10 +456,10 @@ static int ceph_parse_deleg_inos(void **p, void *end,
+ 					    DELEGATED_INO_AVAILABLE,
+ 					    GFP_KERNEL);
  			if (!err) {
- 				doutc(cl, "added delegated inode 0x%llx\n", start - 1);
+-				dout("added delegated inode 0x%llx\n",
+-				     start - 1);
++				doutc(cl, "added delegated inode 0x%llx\n", start - 1);
  			} else if (err == -EBUSY) {
- 				pr_warn_client(cl,
- 					"MDS delegated inode 0x%llx more than once.\n",
+-				pr_warn("MDS delegated inode 0x%llx more than once.\n",
++				pr_warn_client(cl,
++					"MDS delegated inode 0x%llx more than once.\n",
  					start - 1);
-+			} else if (err == -EOVERFLOW) {
-+				/* ceph_insert_deleg_ino() already warned. */
-+				return -EIO;
  			} else {
  				return err;
- 			}
-@@ -478,16 +522,17 @@ u64 ceph_get_deleg_ino(struct ceph_mds_session *s)
- 
- 	xa_for_each(&s->s_delegated_inos, ino, val) {
- 		val = xa_erase(&s->s_delegated_inos, ino);
--		if (val == DELEGATED_INO_AVAILABLE)
-+		if (val == DELEGATED_INO_AVAILABLE) {
-+			atomic_dec(&s->s_num_deleg_inos);
- 			return ino;
-+		}
- 	}
- 	return 0;
- }
- 
- int ceph_restore_deleg_ino(struct ceph_mds_session *s, u64 ino)
+@@ -4200,6 +4202,7 @@ static int encode_snap_realms(struct ceph_mds_client *mdsc,
+ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
+ 			       struct ceph_mds_session *session)
  {
--	return xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
--			 GFP_KERNEL);
-+	return ceph_insert_deleg_ino(s, ino);
- }
- #else /* BITS_PER_LONG == 64 */
- /*
-@@ -854,6 +899,7 @@ static struct ceph_mds_session *register_session(struct ceph_mds_client *mdsc,
- 	INIT_LIST_HEAD(&s->s_waiting);
- 	INIT_LIST_HEAD(&s->s_unsafe);
- 	xa_init(&s->s_delegated_inos);
-+	atomic_set(&s->s_num_deleg_inos, 0);
- 	INIT_LIST_HEAD(&s->s_cap_releases);
- 	INIT_WORK(&s->s_cap_release_work, ceph_cap_release_work);
++	struct ceph_client *cl = mdsc->fsc->client;
+ 	struct ceph_msg *reply;
+ 	int mds = session->s_mds;
+ 	int err = -ENOMEM;
+@@ -4218,9 +4221,21 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
+ 	if (!reply)
+ 		goto fail_nomsg;
  
-@@ -4225,6 +4271,7 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
- 
- 	/* Serialized by s_mutex against concurrent ceph_get_deleg_ino(). */
- 	xa_destroy(&session->s_delegated_inos);
-+	atomic_set(&session->s_num_deleg_inos, 0);
- 	if (session->s_state == CEPH_MDS_SESSION_CLOSED ||
- 	    session->s_state == CEPH_MDS_SESSION_REJECTED) {
- 		pr_info_client(cl, "mds%d skipping reconnect, session %s\n",
-diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
-index e7b0194724d78..428f4fd6cec2a 100644
---- a/fs/ceph/mds_client.h
-+++ b/fs/ceph/mds_client.h
-@@ -219,6 +219,7 @@ struct ceph_mds_session {
- 	struct list_head  s_waiting;  /* waiting requests */
- 	struct list_head  s_unsafe;   /* unsafe requests */
- 	struct xarray	  s_delegated_inos;
-+	atomic_t	  s_num_deleg_inos;
- };
- 
- /*
-diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-index 62a691065292d..d2b49620f30c7 100644
---- a/fs/ceph/super.h
-+++ b/fs/ceph/super.h
-@@ -572,6 +572,15 @@ static inline int ceph_ino_compare(struct inode *inode, void *data)
- #define CEPH_MDS_INO_LOG_OFFSET		(2 * CEPH_MAX_MDS)
- #define CEPH_INO_SYSTEM_BASE		((6*CEPH_MAX_MDS) + (CEPH_MAX_MDS * CEPH_NUM_STRAY))
- 
-+/*
-+ * Upper bound on the number of delegated inodes a single MDS session may
-+ * hold. The MDS normally hands out a small preallocation window (the
-+ * userspace mds_client_prealloc_inos option defaults to 1000) and refills
-+ * it as the client consumes entries. This leaves generous headroom while
-+ * bounding the CPU and memory a malformed delegation interval can consume.
-+ */
-+#define CEPH_MAX_DELEG_INOS		8192
++	mutex_lock(&session->s_mutex);
 +
- static inline bool ceph_vino_is_reserved(const struct ceph_vino vino)
- {
- 	if (vino.ino >= CEPH_INO_SYSTEM_BASE ||
++	/* Serialized by s_mutex against concurrent ceph_get_deleg_ino(). */
+ 	xa_destroy(&session->s_delegated_inos);
++	if (session->s_state == CEPH_MDS_SESSION_CLOSED ||
++	    session->s_state == CEPH_MDS_SESSION_REJECTED) {
++		pr_info_client(cl, "mds%d skipping reconnect, session %s\n",
++			       mds,
++			       ceph_session_state_name(session->s_state));
++		mutex_unlock(&session->s_mutex);
++		ceph_msg_put(reply);
++		err = -ESTALE;
++		goto fail_return;
++	}
+ 
+-	mutex_lock(&session->s_mutex);
+ 	session->s_state = CEPH_MDS_SESSION_RECONNECTING;
+ 	session->s_seq = 0;
+ 
+@@ -4361,6 +4376,10 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
+ fail_nopagelist:
+ 	pr_err("error %d preparing reconnect for mds%d\n", err, mds);
+ 	return;
++
++fail_return:
++	ceph_pagelist_release(recon_state.pagelist);
++	return;
+ }
+ 
+ 
 -- 
 2.53.0
 
