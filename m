@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADFB2C0F8C
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8146C3932C6
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723060; cv=none; b=ODFTj/pwnZc1AVtxhAOvBtpjUfgXq2CAHqYh9pJUO87nRdUqYkhFVml0GxKWntpSN7waz4LFCU4p+S9p+WJ0iz5MDLGiXepGqr1PCsXU35fXKqKaDfUH24PicG52kP5sHPnWoDPHVhNuZLmxT1MZGSsnK/NutudzbcUDcjw/aj0=
+	t=1788723061; cv=none; b=lPgzOi6uIPpS/wHEcSAQCsVm9+C3iVe93kbPkkeUcaZ0NXYxxYMyhq/UIbPza+aUpZqiePqIAn5ZQ7Guf/tgg5Ks4SN/92NSpt4atk4q4lyVs1hnHyNrc3CqpMZWREnWce8a9jToiyc3dqf1fZiPjoP8eekPbJf58k4TWidkbsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723060; c=relaxed/simple;
-	bh=7mZa/VAq2hgCYzmV8cVldvj1FaMIa9ylcScLKpdxBWc=;
+	s=arc-20240116; t=1788723061; c=relaxed/simple;
+	bh=ggF4veuO+o9yTr7zBvBWcCr3bdmcNoh1aA/CvPrn+Z8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Vwmoh5GzoechTeHoLgDRccjtMUbt/FjvA651Aezry8JGkqo+MxM19KVP825Zc+WdADG9ZP1X42RIkrznBf/FfXplYg73Jlbj4ghDFw1TjOxPIQbsUZ4WNKS9ymW1lTsTHARsAULBHsOSOkg1NNYRUBJeta+M7AjgYfW2mIc9C1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FsEsD44s; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xbdie/dcimE0uNyjLANLmg8287L6pkzfqz53CTUByqysevL5INWOsCI56Ex/9bjO7s1MsOwnSxbm+RWUilbCr/ZyCyrTMDRrZOUWfKgvF36lLN+4LNwY27H3SjUaEBgv64xpiN5BEIdfINs+4tEjnXTzKQIWS/4hMGVJHt0++FE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iH+/q0gG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FsEsD44s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209791F00A3F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iH+/q0gG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B581F00ACA;
 	Sun,  6 Sep 2026 19:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723058;
-	bh=fwAUSJ9pyfjDmXR3vHMqKqVXaoUUi7Wxh9oGDK6frMg=;
+	s=k20260515; t=1788723059;
+	bh=zPB1SP2uJugmgHLQHu3dkiPtjAgvQ7BpBhupa9tewoI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FsEsD44s45seJR23lfhMaXspwT770p9aNJB9lr1K2VHekULV15DndoJ+f5QAkZwl6
-	 qXLclGvjl1B0FC2z1BsoCsutTpA7ODjNaF9ijhEeie5/o6llOrljgdFnmZK3CkrveR
-	 cNCXOOZo0yrB1ssR3GvXgTogoSXkLK+zU7f1fJ3VpEqQvofdvdydOn6UeBvRBwlme4
-	 5OfiZ3aCQDbVqT36r99j9HV84Ya56l+0yoOWFbfYTtJ8QrfdEJ0KNcBJ52ffm0jUfo
-	 0xqh86wzK6/SnWzOluLbs4T9R2+2NzRhqsPrr1RQYwTW3SjNUXfWgPSuHbly5V2Nqh
-	 VWadhXy5IJ5eA==
+	b=iH+/q0gGWUJfuI2GxsmXwpXqjiYcepfg665XkJUpmzQRHR+ohAXOoWouF/mpQyx/S
+	 9g9Wti98D6hrBE8scXnlnO/qo15ml5K+D9s+ktXjpqvQ+AYC6XYl1N6JxJByfSwgBs
+	 aV7msw3IF/gOtxD2efJFOx80V9rM9vNImNBNTPppJIArYWhfs5TOFYlajgpfsV5wwG
+	 agS6Yarc8VxT0wD6pEO/UloyFd9GO0TFRBYB7PZXscckTw9hmYWfN7S9jrWmrq8cMv
+	 BlGBoC20dQnHPeV+UXX+Wc40bkV8lUTU18hqeIyuUkbr7dEzkUcFImExmnT/9OJQp/
+	 fQ4aGytAjSqBw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: David Sterba <dsterba@suse.com>,
+	Daniel Vacek <neelx@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/5] btrfs: prepare btrfs_punch_hole_lock_range() for large data folios
-Date: Sun,  6 Sep 2026 15:30:52 -0400
-Message-ID: <20260906193056.1792186-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/5] btrfs: use BTRFS_PATH_AUTO_FREE in can_nocow_extent()
+Date: Sun,  6 Sep 2026 15:30:53 -0400
+Message-ID: <20260906193056.1792186-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090310-unwarlike-canister-1f00@gregkh>
+In-Reply-To: <20260906193056.1792186-1-sashal@kernel.org>
 References: <2026090310-unwarlike-canister-1f00@gregkh>
+ <20260906193056.1792186-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,157 +46,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qu Wenruo <wqu@suse.com>
+From: David Sterba <dsterba@suse.com>
 
-[ Upstream commit 1e5773e0bab761c853eaf7286394905a544ef02d ]
+[ Upstream commit 5e8632035a173a8c54c17301ecff69c79babb4bf ]
 
-The function btrfs_punch_hole_lock_range() needs to make sure there is
-no other folio in the range, thus it goes with filemap_range_has_page(),
-which works pretty fine.
+This is the trivial pattern for path auto free, initialize at the
+beginning and free at the end with simple goto -> return conversions.
 
-But if we have large folios, under the following case
-filemap_range_has_page() will always return true, forcing
-btrfs_punch_hole_lock_range() to do a very time consuming busy loop:
-
-        start                            end
-        |                                |
-  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
-   \         /                         \   /
-    Folio A                            Folio B
-
-In the above case, folio A and B contain our start/end indexes, and there
-are no other folios in the range.  Thus we do not need to retry inside
-btrfs_punch_hole_lock_range().
-
-To prepare for large data folios, introduce a helper,
-check_range_has_page(), which will:
-
-- Shrink the search range towards page boundaries
-  If the rounded down end (exclusive, otherwise it can underflow when @end
-  is inside the folio at file offset 0) is no larger than the rounded up
-  start, it means the range contains no other pages other than the ones
-  covering @start and @end.
-
-  Can return false directly in that case.
-
-- Grab all the folios inside the range
-
-- Skip any large folios that cover the start and end indexes
-
-- If any other folios are found return true
-
-- Otherwise return false
-
-This new helper is going to handle both large folios and regular ones.
-
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Daniel Vacek <neelx@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: 3f950867c307 ("btrfs: fix extent map leak in NOCOW direct I/O write")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/file.c | 67 +++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 56 insertions(+), 11 deletions(-)
+ fs/btrfs/inode.c | 37 +++++++++++++++----------------------
+ 1 file changed, 15 insertions(+), 22 deletions(-)
 
-diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-index fe60f2d7e8aec..4bf595b973d05 100644
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -2205,11 +2205,29 @@ static int find_first_non_hole(struct btrfs_inode *inode, u64 *start, u64 *len)
- 	return ret;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index ab7f19ca21457..ab30015e52a7c 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7043,7 +7043,7 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+ {
+ 	struct btrfs_fs_info *fs_info = inode_to_fs_info(inode);
+ 	struct can_nocow_file_extent_args nocow_args = { 0 };
+-	struct btrfs_path *path;
++	BTRFS_PATH_AUTO_FREE(path);
+ 	int ret;
+ 	struct extent_buffer *leaf;
+ 	struct btrfs_root *root = BTRFS_I(inode)->root;
+@@ -7060,13 +7060,12 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+ 	ret = btrfs_lookup_file_extent(NULL, root, path,
+ 			btrfs_ino(BTRFS_I(inode)), offset, 0);
+ 	if (ret < 0)
+-		goto out;
++		return ret;
+ 
+ 	if (ret == 1) {
+ 		if (path->slots[0] == 0) {
+-			/* can't find the item, must cow */
+-			ret = 0;
+-			goto out;
++			/* Can't find the item, must COW. */
++			return 0;
+ 		}
+ 		path->slots[0]--;
+ 	}
+@@ -7075,17 +7074,17 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+ 	btrfs_item_key_to_cpu(leaf, &key, path->slots[0]);
+ 	if (key.objectid != btrfs_ino(BTRFS_I(inode)) ||
+ 	    key.type != BTRFS_EXTENT_DATA_KEY) {
+-		/* not our file or wrong item type, must cow */
+-		goto out;
++		/* Not our file or wrong item type, must COW. */
++		return 0;
+ 	}
+ 
+ 	if (key.offset > offset) {
+-		/* Wrong offset, must cow */
+-		goto out;
++		/* Wrong offset, must COW. */
++		return 0;
+ 	}
+ 
+ 	if (btrfs_file_extent_end(path) <= offset)
+-		goto out;
++		return 0;
+ 
+ 	fi = btrfs_item_ptr(leaf, path->slots[0], struct btrfs_file_extent_item);
+ 	found_type = btrfs_file_extent_type(leaf, fi);
+@@ -7101,15 +7100,13 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+ 
+ 	if (ret != 1) {
+ 		/* Treat errors as not being able to NOCOW. */
+-		ret = 0;
+-		goto out;
++		return 0;
+ 	}
+ 
+-	ret = 0;
+ 	if (btrfs_extent_readonly(fs_info,
+ 				  nocow_args.file_extent.disk_bytenr +
+ 				  nocow_args.file_extent.offset))
+-		goto out;
++		return 0;
+ 
+ 	if (!(BTRFS_I(inode)->flags & BTRFS_INODE_NODATACOW) &&
+ 	    found_type == BTRFS_FILE_EXTENT_PREALLOC) {
+@@ -7118,20 +7115,16 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+ 		range_end = round_up(offset + nocow_args.file_extent.num_bytes,
+ 				     root->fs_info->sectorsize) - 1;
+ 		ret = test_range_bit_exists(io_tree, offset, range_end, EXTENT_DELALLOC);
+-		if (ret) {
+-			ret = -EAGAIN;
+-			goto out;
+-		}
++		if (ret)
++			return -EAGAIN;
+ 	}
+ 
+ 	if (file_extent)
+ 		memcpy(file_extent, &nocow_args.file_extent, sizeof(*file_extent));
+ 
+ 	*len = nocow_args.file_extent.num_bytes;
+-	ret = 1;
+-out:
+-	btrfs_free_path(path);
+-	return ret;
++
++	return 1;
  }
  
--static void btrfs_punch_hole_lock_range(struct inode *inode,
--					const u64 lockstart,
--					const u64 lockend,
--					struct extent_state **cached_state)
-+/*
-+ * Check if there is no folio in the range.
-+ *
-+ * We cannot utilize filemap_range_has_page() in a filemap with large folios
-+ * as we can hit the following false positive:
-+ *
-+ *        start                            end
-+ *        |                                |
-+ *  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
-+ *   \         /                         \   /
-+ *    Folio A                            Folio B
-+ *
-+ * That large folio A and B cover the start and end indexes.
-+ * In that case filemap_range_has_page() will always return true, but the above
-+ * case is fine for btrfs_punch_hole_lock_range() usage.
-+ *
-+ * So here we only ensure that no other folios is in the range, excluding the
-+ * head/tail large folio.
-+ */
-+static bool check_range_has_page(struct inode *inode, u64 start, u64 end)
- {
-+	struct folio_batch fbatch;
-+	bool ret = false;
- 	/*
- 	 * For subpage case, if the range is not at page boundary, we could
- 	 * have pages at the leading/tailing part of the range.
-@@ -2220,17 +2238,45 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
- 	 *
- 	 * And do not decrease page_lockend right now, as it can be 0.
- 	 */
--	const u64 page_lockstart = round_up(lockstart, PAGE_SIZE);
--	const u64 page_lockend = round_down(lockend + 1, PAGE_SIZE);
-+	const u64 page_lockstart = round_up(start, PAGE_SIZE);
-+	const u64 page_lockend = round_down(end + 1, PAGE_SIZE);
-+	const pgoff_t start_index = page_lockstart >> PAGE_SHIFT;
-+	const pgoff_t end_index = (page_lockend - 1) >> PAGE_SHIFT;
-+	pgoff_t tmp = start_index;
-+	int found_folios;
-+
-+	/* The same page or adjacent pages. */
-+	if (page_lockend <= page_lockstart)
-+		return false;
-+
-+	folio_batch_init(&fbatch);
-+	found_folios = filemap_get_folios(inode->i_mapping, &tmp, end_index, &fbatch);
-+	for (int i = 0; i < found_folios; i++) {
-+		struct folio *folio = fbatch.folios[i];
- 
-+		/* A large folio begins before the start. Not a target. */
-+		if (folio->index < start_index)
-+			continue;
-+		/* A large folio extends beyond the end. Not a target. */
-+		if (folio->index + folio_nr_pages(folio) > end_index)
-+			continue;
-+		/* A folio doesn't cover the head/tail index. Found a target. */
-+		ret = true;
-+		break;
-+	}
-+	folio_batch_release(&fbatch);
-+	return ret;
-+}
-+
-+static void btrfs_punch_hole_lock_range(struct inode *inode,
-+					const u64 lockstart, const u64 lockend,
-+					struct extent_state **cached_state)
-+{
- 	while (1) {
- 		truncate_pagecache_range(inode, lockstart, lockend);
- 
- 		lock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
- 			    cached_state);
--		/* The same page or adjacent pages. */
--		if (page_lockend <= page_lockstart)
--			break;
- 		/*
- 		 * We can't have ordered extents in the range, nor dirty/writeback
- 		 * pages, because we have locked the inode's VFS lock in exclusive
-@@ -2241,8 +2287,7 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
- 		 * locking the range check if we have pages in the range, and if
- 		 * we do, unlock the range and retry.
- 		 */
--		if (!filemap_range_has_page(inode->i_mapping, page_lockstart,
--					    page_lockend - 1))
-+		if (!check_range_has_page(inode, lockstart, lockend))
- 			break;
- 
- 		unlock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
+ /* The callers of this must take lock_extent() */
 -- 
 2.53.0
 
