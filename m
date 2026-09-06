@@ -1,210 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B17218C02E
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714381; cv=none; b=i+7nFuUVYhpU7BKgkAD26k3IIQQnN7iOzNVna7jnZ/etAkm8DL8J2ZKXZSC0N+7Ig0KtMYKHDndocOKYQjeYN+sDdquvT1G9NAh8MHXUGF7KikBAu4qM7yKGKM9nW0vizdtVNrSJPY53ijt/y1rvIDP+J5tF3/o0e4vOpFcBOcY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714381; c=relaxed/simple;
-	bh=ZRfh+IJG16KhNSU+urM9o49rxLFea5yx7tBNEYMZN40=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VNp4Zp3B+0LvWScu1VCPJCAkU9qsjohbDIDSO7DTZVTLtfvudhLDKzEypI5nTgeMjSoKrQotNVJu7J+TVB7ELHP0aFyS+WSfT+rv7DKsIqrJyQSczlUmXck+bycaEyW7Ng4PyfOIGX32PLX4Hm7lRtlWvXoUhGVifdnswIvipQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7gmkI9z; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1131B3AAF4D;
+	Sun,  6 Sep 2026 17:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788714807; cv=pass; b=ll4kNks3pecGcinHjxFd/fAVnvqKfxRn0161/ciYVuXRh1/wGVRMWZjiwj6lmRKaxuuPOxOLiY6ZYhyvF0pALK8/OpfO0KkZp7iutJ0+FUjSkD7YsFiaanJ9EIINYcz6TG50lcsucRsq7eMzDnoEMFN76z0S1/25yx6rLb6NsyI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788714807; c=relaxed/simple;
+	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=vD3xNvXPxJei2ZC0xrEo71QGe3K8lsYMnrscr8U7oOwJ/HB/QMOo+yD6S7UHiccIBOwUvlzqRw1YPRwdEyYNpzyevDnU0GRsml2bjsoZvbl0sLThw+oo5Ho5ouuT8gmEAeX0Tk1rXGjK47x8n2lbgVW1YF8y+MCrhutjKHF9+Vo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=i41ZjDYi; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7gmkI9z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592351F00A3A;
-	Sun,  6 Sep 2026 17:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788714380;
-	bh=A3iqxDTfmWi2RjmnjSlYWgUy7BC1a91n4q6cNnAaZ2w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L7gmkI9zonaEqVdWpzzvDA/JBYhVtUuWfMcMWypUGW5o7Vi0iDsmNNtjkwEmMMfOR
-	 uCM51R2nghDu5nqAUPBgznhWKd+wzMixMXEfiJHi2+9IzntFti5mP0ZvD0dqiFCk0r
-	 LDhUBvQ0z/l7RW4FqhMlf0dZBAi5wEXDWy1CW4p31eWVVlVp1Mkpc1V4IJymwGm3hz
-	 K2tG9BMqOF52IO1V4svCL09P5NeyHSo/n9HKPrNIrGAQ+hswk6gnBYRfzd47OjO/Zu
-	 /Y5K4OFYhR8+WCIwFXdzJIGKi2nRebBp9MQNaLcKEx+xZ3cF3y0qfa0A+fG4/6nhMg
-	 jXE9Fio+06LYA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Sam Edwards <cfsworks@gmail.com>,
-	Sam Edwards <CFSworks@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] ceph: properly decrypt filenames in vmalloc() buffers
-Date: Sun,  6 Sep 2026 13:06:18 -0400
-Message-ID: <20260906170618.1647518-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090327-treadmill-duller-f207@gregkh>
-References: <2026090327-treadmill-duller-f207@gregkh>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="i41ZjDYi"
+ARC-Seal: i=1; a=rsa-sha256; t=1788714762; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=e0E9Q5AQB4LMiCVr6rMZBQ7xhFEYisM+fS1+OfowPt90xDfPogzo+vp3763IQvLLP+Bl5Rk8DvSpWAw4oN7b50cXpVCLPJj17lLbMMJRxNE89CFEGUDTw91D42KbgR/jsuFRVrbnYDIlU+L8+ksK+Dj+mKanvWk85uE+bGxZeNM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788714762; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=; 
+	b=SdkdbWxz+Esa48fTVY/zyAQcJwsm770EkFw02kfy/58CvGPRKN9PhwvqdPdEwPmeAz/spbZDpwsB602oCem8/c8xlU7VioESsICngIN1Z/m8QhInN7zc9+Y10zS7bGCvjv8Cluw+J2iwI4S1Pve8xrjnXeQxWYs7qxftG6ybHI0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788714762;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=M0+2cKlBrvyN4r8LQbOKNSSRKwmEoldTCtgoUR4fRZk=;
+	b=i41ZjDYiSML73FvvOavEevNv+0YvVyOQBbTlcpkOTeSwGM2no7k3rB+Pko64ocQ4
+	YUIzOgEbZFp7XSY9BmBolV7Voe1uaEOqxXfqQJ0F3xnz4ADHUilW0JDwNtEaW8KaMLn
+	c4Pc/HOvx/1doIN146LUbTdyYfmpeN4GckQlMbqjI+zBgRpxLCp67ZaO4TzZfpgyoZb
+	bm8kO7z89QTKL1DacCtr69PQ1zJdSwT2P5l7AO7vAlNdShiT+fC6iFdGubgwZT2JHHM
+	97Vqp15n8YN8gZA9CUOpdQ4l1NDl4/V1qhBlcijGCsIzVGyXDNK36stwnM+mpermDxr
+	j7IsxGgkBA==
+Received: by mx.zohomail.com with SMTPS id 1788714758784682.0243427451376;
+	Sun, 6 Sep 2026 10:12:38 -0700 (PDT)
+Message-ID: <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+From: Rong Zhang <i@rong.moe>
+To: Marek Vasut <marek.vasut@mailbox.org>, Bjorn Helgaas
+ <helgaas@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org, 
+	stable@vger.kernel.org, Krzysztof =?gb2312?Q?Wilczy=A8=BDski?=	
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Koichiro Den <den@valinux.co.jp>,
+ Lorenzo Pieralisi	 <lpieralisi@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Yoshihiro Shimoda	
+ <yoshihiro.shimoda.uh@renesas.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Ziyao Li <liziyao@uniontech.com>, Huacai
+ Chen	 <chenhuacai@loongson.cn>, Richard Zhu <hongxing.zhu@nxp.com>
+In-Reply-To: <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
+References: <20260903202706.GA2234456@bhelgaas>
+	 <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
+	 <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 01:07:21 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-From: Sam Edwards <cfsworks@gmail.com>
+Hi Marek,
 
-[ Upstream commit e939fc6a7bd969a58a150b7f188c1047138403e3 ]
+On Fri, 2026-09-04 at 23:53 +0200, Marek Vasut wrote:
+> On 9/4/26 7:42 PM, Rong Zhang wrote:
+>=20
+> Hello everyone,
+>=20
+> > > > In light of the last paragraph above, that the MRRS has to be limit=
+ed also
+> > > > on all devices downstream of this particular controller, I would li=
+ke to ask
+> > > > -- does the Loongson controller have the same limitation or not ? I=
+f not,
+> > > > then I would argue this quirk should be isolated to this controller=
+ variant
+> > > > ; else, I am happy to start on the core patches.
+> >=20
+> > ACK. I agreed that it should make our life easier.
+> >=20
+> > >=20
+> > > I don't know if we'll get a real answer for Loongson (there's no
+> > > maintainer listed for it, hint hint :)),
+> > >=20
+> >=20
+> > (+CC Jiaxun)
+> >=20
+> > The driver was introduced by Jiaxun without updating MAINTAINERS. I gue=
+ss
+> > he'd be willing to be listed as a maintainer.
+> >=20
+> > I don't work for Loongson, but I do maintain several MIPS-based Loongso=
+n
+> > devices for the Golang community with my colleagues and personally own =
+a
+> > MIPS-based Loongson-LS3A4000-7A1000-NUC-SE mini PC. I do some PCIe
+> > experiments on it from time to time for fun. So I am OK if someone want=
+s
+> > to list me as a maintainer or reviewer :)
+> >=20
+> > > but my guess is that it does
+> > > apply to all devices downstream of the Loongson controller.
+> >=20
+> > I believe this is the case. Maybe Jiaxun can shed a light on it too.
+> >=20
+> > Just checked the kmsg log from April, the firmware seemed to only clamp
+> > MRRS for devices directly connected to the root ports. IOW, it seemed t=
+o
+> > only clamp MRRS for the upstream port of a PCIe switch, so
+> > loongson_set_min_mrrs_quirk() had to fix up downstream ports.
+> >=20
+> > If you need more information I can do some more experiments with the PC=
+Ie
+> > switch card.
+>=20
+> Please look at the commit message [1] , that lists the exact test and=20
+> the PCIe NVMe SSD which triggers the data corruption (let me know if=20
+> something is unclear). I think any PCIe NVMe SSD which is non-HMB with=
+=20
+> MRRS on the SSD size that is > MRRS on the controller side will trigger=
+=20
+> this issue too.=C2=A0
+>=20
 
-The fscrypt subsystem uses the scatterlist crypto API, inheriting its
-requirement that any buffers are in the linear mapping region. However,
-the messenger client uses kvmalloc() to create buffers for messages,
-which will occasionally place those buffers in the vmalloc() region when
-physical memory fragmentation doesn't permit a large enough kmalloc().
-The various callers of ceph_fname_to_usr() directly pass (slices of) raw
-messages from the MDS without considering that the messages may be in
-vmalloc() buffers, resulting in oopses especially on non-x86 platforms
-(see 'Closes:' for more details and a reproducer).
+Unfortunately I don't have any non-HMB NVMe SSD, and it's unlikely I'll
+get one anytime soon due to the crazy price. Before the AI supply chain
+crisis, I bought several NVMe SSDs, but I chose HMB ones as they generate
+less heat and consume less electricity.
 
-Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
-fname->ctext, fname->name, and/or oname->name buffers, using `tname`
-(which, when non-null, must be a linear address; when null, is briefly
-allocated as necessary) as a bounce buffer to avoid passing any
-inappropriate addresses to fscrypt_fname_disk_to_usr().
+> If you could reproduce it on the Loongson, then yes, it=20
+> is affected. You might have to disable the current MRRS workaround in=20
+> the Loongson PCIe driver though as it might hide the issue.
 
-Additionally change parse_reply_info_readdir() -- the only function to
-supply its own `tname` -- to follow the new "tname must never come from
-vmalloc()" rule by passing NULL when the message is not in the linear
-region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
-exists only when processing the minority of messages that spill into
-vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
-messages. Still, if the overhead proves unreasonable in the future, it
-is easy enough to mitigate: a future change could allocate a bounce
-buffer in parse_reply_info_readdir() and use that as `tname` instead.
+Due to the lack of non-HMB NVMe SSDs, I can't reproduce the exact same
+issue. Theoretically I may try to mess around with the AHCI controller
+(see the mentioned commit below) by manually overriding MRRS, as my
+device's firmware already clamps it. We will see...
 
-Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
-Cc: stable@vger.kernel.org
-Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
-Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
-Signed-off-by: Sam Edwards <CFSworks@gmail.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ adapted raw tname buffer access to the existing struct fscrypt_str interface ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/ceph/crypto.c     | 50 ++++++++++++++++++++++++++++++++++----------
- fs/ceph/mds_client.c |  8 +++++--
- 2 files changed, 45 insertions(+), 13 deletions(-)
+The firmware of many Loongson devices (except for some MIPS-based ones,
+see the commit message of commit ef61a0405742 ("PCI: loongson: Limit MRRS
+to 256")) already clamps MRRS for most PCIe devices, which has proven
+that the 7A1000/7A2000 chipset does need the MRRS quirk. Therefore, you
+can just go ahead with preparing the core patches without the need of
+waiting for my test result. It seems that your approach is not going to
+change the current fixup effects in a significant way, so it should be
+fine.
 
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index 64d2407592772..1cc11f77413c1 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -298,6 +298,11 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
-  * Otherwise, base64 decode the string, and then ask fscrypt to format it
-  * for userland presentation.
-  *
-+ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
-+ * linear-mapped region, this function slightly relaxes those requirements:
-+ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not
-+ * tname->name.
-+ *
-  * Returns 0 on success or negative error code on error.
-  */
- int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
-@@ -305,11 +310,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
- {
- 	struct inode *dir = fname->dir;
- 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
-+	struct fscrypt_str _oname;
- 	struct fscrypt_str iname;
- 	char *name = fname->name;
- 	int name_len = fname->name_len;
- 	int ret;
- 
-+	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
-+		return -EIO;
-+
- 	/* Sanity check that the resulting name will fit in the buffer */
- 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
- 		return -EIO;
-@@ -350,31 +359,50 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
- 		goto out_inode;
- 	}
- 
-+	if ((!tname || !tname->name) &&
-+	    (fname->ctext_len == 0 ||
-+	     unlikely(is_vmalloc_addr(fname->ctext)) ||
-+	     unlikely(is_vmalloc_addr(oname->name)))) {
-+		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
-+		if (ret)
-+			goto out_inode;
-+		tname = &_tname;
-+	}
-+
- 	if (fname->ctext_len == 0) {
- 		int declen;
- 
--		if (!tname) {
--			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
--			if (ret)
--				goto out_inode;
--			tname = &_tname;
--		}
--
--		declen = base64_decode(name, name_len,
--				       tname->name, false, BASE64_IMAP);
-+		declen = base64_decode(name, name_len, tname->name, false,
-+				       BASE64_IMAP);
- 		if (declen <= 0) {
- 			ret = -EIO;
- 			goto out;
- 		}
- 		iname.name = tname->name;
- 		iname.len = declen;
-+	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
-+		memcpy(tname->name, fname->ctext, fname->ctext_len);
-+
-+		iname.name = tname->name;
-+		iname.len = fname->ctext_len;
- 	} else {
- 		iname.name = fname->ctext;
- 		iname.len = fname->ctext_len;
- 	}
- 
--	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
--	if (!ret && (dir != fname->dir)) {
-+	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
-+		      tname->name : oname->name;
-+	_oname.len = oname->len;
-+
-+	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
-+	if (ret)
-+		goto out;
-+
-+	if (unlikely(is_vmalloc_addr(oname->name)))
-+		memcpy(oname->name, _oname.name, _oname.len);
-+	oname->len = _oname.len;
-+
-+	if (dir != fname->dir) {
- 		char tmp_buf[BASE64_CHARS(NAME_MAX)];
- 
- 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 3c692ad02c857..b1bb3a30c3bad 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -541,9 +541,13 @@ static int parse_reply_info_readdir(void **p, void *end,
- 			 * to do the base64_decode in-place. It's
- 			 * safe because the decoded string should
- 			 * always be shorter, which is 3/4 of origin
--			 * string.
-+			 * string. If this message was allocated with
-+			 * vmalloc() (happens, but rarely), leave it
-+			 * NULL and let ceph_fname_to_usr() allocate
-+			 * suitable temporary working space instead.
- 			 */
--			tname.name = _name;
-+			if (likely(!is_vmalloc_addr(_name)))
-+				tname.name = _name;
- 
- 			/*
- 			 * Set oname to _name too, and this will be
--- 
-2.53.0
+>=20
+> Thank you for your help !
+>=20
 
+Thanks,
+Rong
+
+> +CC NXP, because they have similar controller on MX95 (and others, but=
+=20
+> the MX95 is closest to this I think)
+>=20
+> [1]=20
+> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commi=
+t/?id=3D37ca1997d2eeec86ad065008d6387fd15d18934c
