@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3BC43B71B3
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:42:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C6BE3A875D
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:48:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788716539; cv=none; b=MW9eB9Ne+lX8pM4p0YAMy6vCVOeJl6/+ZMd9CuhkmcSVxview8dteCUYGP5D9tr5rXTpoazacaeG+vgfUyauEG5Vdk1sR2MqlkdSiE2+zZLbqqWTyuL69OmayDbRWHMblq8ESywT4hziKRXVJDEyLdmppJQgATW7/NXDiQXGiR4=
+	t=1788716885; cv=none; b=ZOZ9FOtEa5TywKiv4ZRU9WWxAHMOClVmKEVctinKj+UzAwCdQWaAQpyZoh2xfPZwE4j6v5fdNBfjDU1eXQUHoekGkGcwlJ7jB6LiqJgpuKGGDhb4ImFuFeYvexmF8yxB1Y8pOTPIEOg3kDS43qWj7Oy57XsfIfhjIApU6DlQl0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788716539; c=relaxed/simple;
-	bh=72DV/MSw/DEZbbpq30pJOQQVZ6hHYEaRa3vGzGYv44k=;
+	s=arc-20240116; t=1788716885; c=relaxed/simple;
+	bh=pS4KYgLGRoBQWp79v6UceUM7W3hueiGOf5QitAw/36g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aRXo6JgTfZQzH0yjBYttkKd8bBxvjni1//KJmFzE/hQGXcMtwq6XHw7n6cgoEBNXc7LPFM7cBzXXGZpwIIZWVtwt+u7DsiZAvEkdnWu2Sju00YmUszgf6cHcMNeGTzi5S9qOwk5y9xRcskFsQD1nE5UDUdzAk4lVO16xG4wPCqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ix5+JBFU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cEjCwIkruAg7vDBtNOhMoxr8bOGQn4g7j4OzzJ4Pk5fP8vxRDyN8LjBDEVp+5mm8mRtpe69VbaSunjD5IWUhdyY8so6Ja8B3MVc4iPXyIOqd2yTPtjQioJVEGKpWSGUnYiFQihU4PFwG4o5o/gmKzA+oWWYYNVl3GGjyZPTEFoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvGQGWoj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ix5+JBFU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8AB41F00A3A;
-	Sun,  6 Sep 2026 17:42:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvGQGWoj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1821F00A3A;
+	Sun,  6 Sep 2026 17:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788716536;
-	bh=3JuDUC50C36jQlugKvM9VvZJD6AImk5WPYU/lBBUehU=;
+	s=k20260515; t=1788716883;
+	bh=eS4N1INXIr2kICb4iKTEPndLNv+pm4a4khwNjIpQlKE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ix5+JBFU+VDKg9OkB2d8Z+NTFLChEt98Q4TU3SE486ZMKX5BcRQFjw4e6Zhzsqcpq
-	 0dcO+SXrZTygpESno7dHmdkr8UKDBA5d08ishK8mgdjmOgHPHvBvweTtsxCaKWoJfB
-	 eJ1dAiMUEtJmr14kbuKlrHwuWYlCWI8wZzYvl0UEJPR+ZJEElLB7Ke3nI3U/DZmt2N
-	 +DUYAzxv73qIKD8MGYvnQUUx/HOJSdouyAMZQ2tWBMtj/7meAAG/mY6227hsbjLd4S
-	 l3FgK76zLbzVQHuX8PmpkrID0uR3oARD8D/aF5AhYi0abRuqmdHeeNj1H1p0oHIKSH
-	 I+TfzGm08zq0w==
+	b=OvGQGWojmH4orEn5uLwXOGIVJzjdADD3x0ZpLI3bjK1WbN1BGEgXJzcqHiV3+Q9UT
+	 8wpduNpGKpzEZAC2MF1yFEDxLrKVPmKMSushXQw1WPT43ZeItK6U1Ki2Y1XuDDWYet
+	 PaGrrr1ycmLyOrFeQyZ9b8ZOrN3C+jvWpsSOCvpxUyoVi/C/CKVj4psLRl1TKHZldH
+	 gtITDckIUsaI6P1SXAnRX0IMCgWhrE2h8OGhDCHz+sJAq9RnJve7SQwjpOBoBhUmby
+	 jKGBKvcO/Hg7t3VzHvjjp7rhXuzDmdCMDq12Lwz88dDfguUWHS52UxCjTHYLtPRv+h
+	 aWuUY6nHtKnng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sam Edwards <cfsworks@gmail.com>,
@@ -33,12 +33,12 @@ Cc: Sam Edwards <cfsworks@gmail.com>,
 	Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] ceph: properly decrypt filenames in vmalloc() buffers
-Date: Sun,  6 Sep 2026 13:42:14 -0400
-Message-ID: <20260906174214.1727071-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ceph: properly decrypt filenames in vmalloc() buffers
+Date: Sun,  6 Sep 2026 13:47:59 -0400
+Message-ID: <20260906174759.1745216-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090328-gaffe-reacquire-4866@gregkh>
-References: <2026090328-gaffe-reacquire-4866@gregkh>
+In-Reply-To: <2026090328-bolt-atrium-edf4@gregkh>
+References: <2026090328-bolt-atrium-edf4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,10 +92,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 43 insertions(+), 11 deletions(-)
 
 diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index de823a50af9c5..a236035f3a7a4 100644
+index 3c382486c5e98..ed6b32f821a8d 100644
 --- a/fs/ceph/crypto.c
 +++ b/fs/ceph/crypto.c
-@@ -351,6 +351,11 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
+@@ -370,6 +370,11 @@ int ceph_encode_encrypted_fname(struct inode *parent, struct dentry *dentry,
   * Otherwise, base64 decode the string, and then ask fscrypt to format it
   * for userland presentation.
   *
@@ -107,7 +107,7 @@ index de823a50af9c5..a236035f3a7a4 100644
   * Returns 0 on success or negative error code on error.
   */
  int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
-@@ -358,11 +363,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -377,11 +382,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
  {
  	struct inode *dir = fname->dir;
  	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
@@ -123,7 +123,7 @@ index de823a50af9c5..a236035f3a7a4 100644
  	/* Sanity check that the resulting name will fit in the buffer */
  	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
  		return -EIO;
-@@ -403,16 +412,19 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -422,16 +431,19 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
  		goto out_inode;
  	}
  
@@ -150,7 +150,7 @@ index de823a50af9c5..a236035f3a7a4 100644
  		declen = ceph_base64_decode(name, name_len, tname->name);
  		if (declen <= 0) {
  			ret = -EIO;
-@@ -420,13 +432,29 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -439,13 +451,29 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
  		}
  		iname.name = tname->name;
  		iname.len = declen;
@@ -183,7 +183,7 @@ index de823a50af9c5..a236035f3a7a4 100644
  
  		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
 diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 049b2d414fe9b..a6201e9ed0d90 100644
+index 5f2b70b846e71..b3a7920297f4d 100644
 --- a/fs/ceph/mds_client.c
 +++ b/fs/ceph/mds_client.c
 @@ -496,9 +496,13 @@ static int parse_reply_info_readdir(void **p, void *end,
