@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53637309F08
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:25:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A6C23BAD81
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:25:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788711946; cv=none; b=bhwXwn2PTIn12S23PJCAXDmf9oCnQflX0K9udxNGeOBFcoDYGORE7DONgOWTEERptcsVgx5wr7U6Q45CyicB7IP/s9Xv+a5sslRgCP1iq6BbU9Rjo53eHlsasS0x4vI7Shj0Jvsb545BTEaXhzis/jIhUCzDKZXRwm2C6rRAoB8=
+	t=1788711952; cv=none; b=ZkSAVHf86WXhkuGBH6r+nFwCa1dCD8lKCm5NWYz4PWSoFAeo9oYsepfmvvAgY8kLgBNUm6B68QwTpuPtN07rL8eu7C7t5og8I5rXipy5cu2/KnNpkMAhvWWXO2sMy1EuV+1msflfujP1okef5LDdOlqu1r9fIpwRirykMIPP2MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788711946; c=relaxed/simple;
+	s=arc-20240116; t=1788711952; c=relaxed/simple;
 	bh=DVsABHaIjQ3XmIIVbGEot2JV3baI7UMEZMkit+N+yys=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f2mKDrReO5m+15DthKqYP71mq6u/KZLDnajLTVlHMmZBzZcLJ1X5VBSwuPriq0liJPD1n3EGKrUnl4dnBgYaH65ZwQ49HEkdrNy1GniE4cjuWi5BOdLbkVicDJDk/wMzaGGAPjdUkT8MaVAX+MBbJJdqHB8f4pHo1aTu009Gmtk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mcopn9p/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ESc0ubndLbS+iajw0XaOemI6JuuDx47MzEQ4RLuK2bSoZsJe7Wq1DrKrKWhEKAhTy6/aHXv9qXUjpXIhE+HNMQ2Qg2m1sPo8LpvoDv+W9389vXoo9YYWAfK9kMD86vqhwjunSF+5PWxgAU95Kg29AGtFnaHMnPmCfWJGGJEUVpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVnu6nGG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mcopn9p/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1EA21F00A3D;
-	Sun,  6 Sep 2026 16:25:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVnu6nGG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA331F00A3D;
+	Sun,  6 Sep 2026 16:25:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788711941;
+	s=k20260515; t=1788711948;
 	bh=6o1mHL1KvehDa6/7br0vUIZ/yZ/i4yFozVOPpM5uvZ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mcopn9p/agUCNaAbF4qhtFIdRFcLEjQSqo5xMWr9MfAxx6pwrbmpeXfKk88n94rcF
-	 PUozW4Jsu04hpM2yVm24jYuq2HvAJ3Je5I0as7xUnx/fdGfZPlxrffS3jeK/gmn9dF
-	 Xt3r9l3r/lnQiX9VgBGAcppu1rP6kRoZmzib0Bt2h+iDTbXqsKH88ElykzSb1pjaxd
-	 27L7z0SiIpStMn/QG7uAr9bOO5gIS8MnQR387ixAYBcKwNV+U2DZP5/NsZTl82KAIR
-	 zmxtvA+1q0uuFBV4Nk2KuMzDpI/mHYguL6tziRZR/Qu6LbI0WQpMGPatP6U+g1euCE
-	 3f3GFVLA9VEUw==
+	b=KVnu6nGG19SNjg74Il/ZOnZ3AjfaxkIa6fZhBhqsPBqe4YhsghWwdbT4AadQ/Mo7q
+	 ccfH2XH5rVRxpVRHjrFfXoFYh8Zplmuo2ddyxN57YdGe73J2bwGCN5FpKm7iRcUvbc
+	 WEKzkOvwGBXEpEM+Okq07UV7VcKymddfthJTGzoSX/Woj+sjPvbWF5tqFGhhW08fxz
+	 NxHwRNhQ8w/ij8hDG1pFLGthfjEzHQKGuF9i+sxgiFeHSQlGZPsxXHt0qLTQPK85Zu
+	 MidsuzQi1OQMwio/RdgbbSProqzCM1zLNojTswtGU0uLP9BukpmQA47ht59Qe7UyM4
+	 fL0KQNgetCKdg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Michael Bommarito <michael.bommarito@gmail.com>,
@@ -33,12 +33,12 @@ Cc: Michael Bommarito <michael.bommarito@gmail.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
 Subject: [PATCH 5.15.y 2/2] ceph: cap delegated inode count in ceph_parse_deleg_inos()
-Date: Sun,  6 Sep 2026 12:25:38 -0400
-Message-ID: <20260906162538.1573381-2-sashal@kernel.org>
+Date: Sun,  6 Sep 2026 12:25:45 -0400
+Message-ID: <20260906162545.1573853-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906162538.1573381-1-sashal@kernel.org>
+In-Reply-To: <20260906162545.1573853-1-sashal@kernel.org>
 References: <2026090356-atlantic-hangup-270a@gregkh>
- <20260906162538.1573381-1-sashal@kernel.org>
+ <20260906162545.1573853-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
