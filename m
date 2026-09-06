@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90453202C29
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4FA202C29
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723046; cv=none; b=MokzWw9JBFYjgbfO9JOykzguKmOIb8YiulDdQz56RMmSC9DK5aLP5kpTJo5TJ1zjJ/UEinfmUDxu5JsNs7tdt2bEaNMx9GXxuXI6srVk5SZXuC0Op5MzOOW7Nmzob4ED+kUrV6EVJHl6BeXE8wD8gHi7XsGe0pehvla30tKwkG4=
+	t=1788723052; cv=none; b=ItHNqITZ7jvzSJw7itIotKFbKwCYQT/FFG6YTSYw711+muBLE8HyDhYX/Qojbg4p16YFmfwiyweXLT5iKVJq0gUsk296/of0nalA+liBm7Gc9ChQgvgrHc5k+wbW9jKrpjRIadJ6tlANBbEwaS1KUbJ8F9wDTesQRZIUl4tH6ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723046; c=relaxed/simple;
-	bh=81fW8voMDRqkdzoDDTim94XYMPsK24BZkIk3zA+LYTQ=;
+	s=arc-20240116; t=1788723052; c=relaxed/simple;
+	bh=Grs5e7NpdrsrjVqGioEWuzBYxAIkGLvomQwBuUYCTa4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jTbJ8UDRyejlaw1PG3ctSit4A7ZIIc+91iTUO6VV2XGvm9fPhuwfLYD/sHlID+OP/N/KKyahie137wgyZujem4dRKGyDQbC0A2dTa9bkRvKmSO7Y4c9tfR4lF9ZvEM38y+bdPP6KwRfxiI64IJh/0ZPLvXkGmKoXMsZl5V5wgeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XmMRXf8t; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=A09eGGYcPciGKtbSujMKRTN6dneBxaQNpwU9lgTY/OUtGDcWxL/XcFJV9z7NvaqaFSh4YjneRYmzmOpCOEHkZPx+cy/5q/X3ru5PL548IYnH1v/a+rnXVM9P7FOPzO91mIbHwnPhWJ1orbl4BBtiGwftSsFUK42nvFxXl5Gjcec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5qQbDkn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XmMRXf8t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA27A1F00A3A;
-	Sun,  6 Sep 2026 19:30:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5qQbDkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D851F00A3A;
+	Sun,  6 Sep 2026 19:30:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723045;
-	bh=OgarsnZFkntx1QK3wsZ4AFGNcowL/gxaxLm7NX0Putk=;
+	s=k20260515; t=1788723050;
+	bh=8mr1DmIqmZFOyOupn1qhzWv5a0Bh+yFdoJ83T6AQKZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XmMRXf8tBJbGcgvPoWlTJfxy3mo1SJhtlrAmDF+qgFWzgvuPO2+kHAeZ+s7ZgiTvx
-	 TFU2M8ASj0I5xkMoVcl0WDUcZ3EQhKnDa4hnLkZg906XFfAbdX6CUYPV2BhpzKzo7E
-	 4m7DyePZ32lhTr2uFjTR3vl7M9GUZoB+Ruol+cZobC4kbJQLY3cV1CNDzIcJ37o1Ay
-	 W1tNO/kWBW6zHHOFNHm57w9dgjdKktXmlSaDci3lBkwk1sP3GRcAWkzziTUW8YkT5G
-	 NZwzpXYrzp9MO4K2KoR/HLRJoYmlHMrNBpZNrH7/UcxyBx0RDDj7osiloriqu9bsCB
-	 2OrDyBo3cVuIw==
+	b=B5qQbDknqPR9NrLfR9z9CmVrc3rj+O6gYX+tRxFDr9ozqSaT9pg2hAZ5Ah+gR4cGn
+	 LM/hrhC7Y2rwtrp+oJbB4ikEjuAZxhc6Ns73fy3Lve1JpRilMbRevQpaKBbBCqFZSv
+	 oeIYIKuIQVERofF7JxNAx7LEsy1VVSr8nMdRO8E5avqCHbCmoXmbLs9Fm7zzbz4FUQ
+	 n0zDREuQAzUlrVEZ7UkAL3fUU5b3RqoCcEqYYjeTMZnxnYJI8nUEZwIEHhO7mT0CAR
+	 2HLBX6rZx0zCor7tLfe3VxuY2F0MI4xi6utGwvetMFte167OZSoF5BKxVnGw/EZgAk
+	 8Qkx/bW7UUgmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Filipe Manana <fdmanana@suse.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] cifs: fix loff_t underflow in cifs_remap_file_range() when len == 0
-Date: Sun,  6 Sep 2026 15:30:43 -0400
-Message-ID: <20260906193043.1791564-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/8] btrfs: move btrfs_is_empty_uuid() from ioctl.c into fs.c
+Date: Sun,  6 Sep 2026 15:30:41 -0400
+Message-ID: <20260906193048.1791749-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090322-serotonin-marsupial-e485@gregkh>
-References: <2026090322-serotonin-marsupial-e485@gregkh>
+In-Reply-To: <2026090330-nappy-discharge-0af0@gregkh>
+References: <2026090330-nappy-discharge-0af0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,69 +47,286 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Frank Sorenson <sorenson@redhat.com>
+From: Filipe Manana <fdmanana@suse.com>
 
-[ Upstream commit 6c322f5cf7476ded7a9a20f7be72462065a03c68 ]
+[ Upstream commit a5b3f117daead61c3c9c88cd1159d38fa4ad1362 ]
 
-With len == 0 (clone to EOF), the effective length is computed as:
+It's a generic helper not specific to ioctls and used in several places,
+so move it out from ioctl.c and into fs.c. While at it change its return
+type from int to bool and declare the loop variable in the loop itself.
 
-    len = src_inode->i_size - off;
+This also slightly reduces the module's size.
 
-If off > i_size, this is a negative loff_t, corrupting the ByteCount
-in the FSCTL_DUPLICATE_EXTENTS_TO_FILE request and inverting the range
-in filemap_write_and_wait_range().  The existing off >= i_size check
-fires only after the ioctl has already been sent.
+Before this change:
 
-Snapshot i_size_read() once for both the bounds check and the length
-calculation, eliminating the TOCTOU and 32-bit torn-read risk.  Reject
-off > src_size with -EINVAL.  Treat off == src_size as a no-op,
-consistent with __generic_remap_file_range_prep().
+  $ size fs/btrfs/btrfs.ko
+     text	   data	    bss	    dec	    hex	filename
+  1781492	 161037	  16920	1959449	 1de619	fs/btrfs/btrfs.ko
 
-Fixes: 04b38d601239 ("vfs: pull btrfs clone API to vfs layer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ added the missing unlock label at the existing common unlock path ]
+After this change:
+
+  $ size fs/btrfs/btrfs.ko
+     text	   data	    bss	    dec	    hex	filename
+  1781340	 161037	  16920	1959297	 1de581	fs/btrfs/btrfs.ko
+
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifsfs.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ fs/btrfs/fs.c    |  9 +++++
+ fs/btrfs/fs.h    |  2 +
+ fs/btrfs/ioctl.c | 96 +++++++++++++++++++++---------------------------
+ fs/btrfs/ioctl.h |  1 -
+ 4 files changed, 53 insertions(+), 55 deletions(-)
 
-diff --git a/fs/cifs/cifsfs.c b/fs/cifs/cifsfs.c
-index 7bdeaecc6c508..e3572c30be4f9 100644
---- a/fs/cifs/cifsfs.c
-+++ b/fs/cifs/cifsfs.c
-@@ -1171,8 +1171,19 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	 */
- 	lock_two_nondirectories(target_inode, src_inode);
+diff --git a/fs/btrfs/fs.c b/fs/btrfs/fs.c
+index 31c1648bc0b46..e2b2b0f4c770f 100644
+--- a/fs/btrfs/fs.c
++++ b/fs/btrfs/fs.c
+@@ -5,6 +5,15 @@
+ #include "fs.h"
+ #include "accessors.h"
  
--	if (len == 0)
--		len = src_inode->i_size - off;
-+	if (len == 0) {
-+		loff_t src_size = i_size_read(src_inode);
-+
-+		if (off > src_size) {
-+			rc = -EINVAL;
-+			goto unlock;
-+		}
-+		len = src_size - off;
-+		if (!len) {
-+			rc = 0;
-+			goto unlock;
-+		}
++bool __pure btrfs_is_empty_uuid(const u8 *uuid)
++{
++	for (int i = 0; i < BTRFS_UUID_SIZE; i++) {
++		if (uuid[i] != 0)
++			return false;
 +	}
++	return true;
++}
++
+ void __btrfs_set_fs_incompat(struct btrfs_fs_info *fs_info, u64 flag,
+ 			     const char *name)
+ {
+diff --git a/fs/btrfs/fs.h b/fs/btrfs/fs.h
+index 219345ff17f58..63e1ffac5d9b5 100644
+--- a/fs/btrfs/fs.h
++++ b/fs/btrfs/fs.h
+@@ -994,6 +994,8 @@ void btrfs_exclop_balance(struct btrfs_fs_info *fs_info,
  
- 	cifs_dbg(FYI, "about to flush pages\n");
- 	/* should we flush first and last page first */
-@@ -1188,6 +1199,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
- 	/* force revalidate of size and timestamps of target file now
- 	   that target is updated on the server */
- 	CIFS_I(target_inode)->time = 0;
-+unlock:
- 	/* although unlocking in the reverse order from locking is not
- 	   strictly necessary here it is a little cleaner to be consistent */
- 	unlock_two_nondirectories(src_inode, target_inode);
+ int btrfs_check_ioctl_vol_args_path(const struct btrfs_ioctl_vol_args *vol_args);
+ 
++bool __pure btrfs_is_empty_uuid(const u8 *uuid);
++
+ /* Compatibility and incompatibility defines */
+ void __btrfs_set_fs_incompat(struct btrfs_fs_info *fs_info, u64 flag,
+ 			     const char *name);
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index b6152b36f81ec..df288213f91be 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -256,15 +256,14 @@ int btrfs_fileattr_get(struct dentry *dentry, struct fileattr *fa)
+ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 		       struct dentry *dentry, struct fileattr *fa)
+ {
+-	struct inode *inode = d_inode(dentry);
+-	struct btrfs_fs_info *fs_info = inode_to_fs_info(inode);
+-	struct btrfs_inode *binode = BTRFS_I(inode);
+-	struct btrfs_root *root = binode->root;
++	struct btrfs_inode *inode = BTRFS_I(d_inode(dentry));
++	struct btrfs_root *root = inode->root;
++	struct btrfs_fs_info *fs_info = root->fs_info;
+ 	struct btrfs_trans_handle *trans;
+ 	unsigned int fsflags, old_fsflags;
+ 	int ret;
+ 	const char *comp = NULL;
+-	u32 binode_flags;
++	u32 inode_flags;
+ 
+ 	if (btrfs_root_readonly(root))
+ 		return -EROFS;
+@@ -272,8 +271,8 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 	if (fileattr_has_fsx(fa))
+ 		return -EOPNOTSUPP;
+ 
+-	fsflags = btrfs_mask_fsflags_for_type(inode, fa->flags);
+-	old_fsflags = btrfs_inode_flags_to_fsflags(binode);
++	fsflags = btrfs_mask_fsflags_for_type(&inode->vfs_inode, fa->flags);
++	old_fsflags = btrfs_inode_flags_to_fsflags(inode);
+ 	ret = check_fsflags(old_fsflags, fsflags);
+ 	if (ret)
+ 		return ret;
+@@ -282,27 +281,27 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 	if (ret)
+ 		return ret;
+ 
+-	binode_flags = binode->flags;
++	inode_flags = inode->flags;
+ 	if (fsflags & FS_SYNC_FL)
+-		binode_flags |= BTRFS_INODE_SYNC;
++		inode_flags |= BTRFS_INODE_SYNC;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_SYNC;
++		inode_flags &= ~BTRFS_INODE_SYNC;
+ 	if (fsflags & FS_IMMUTABLE_FL)
+-		binode_flags |= BTRFS_INODE_IMMUTABLE;
++		inode_flags |= BTRFS_INODE_IMMUTABLE;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_IMMUTABLE;
++		inode_flags &= ~BTRFS_INODE_IMMUTABLE;
+ 	if (fsflags & FS_APPEND_FL)
+-		binode_flags |= BTRFS_INODE_APPEND;
++		inode_flags |= BTRFS_INODE_APPEND;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_APPEND;
++		inode_flags &= ~BTRFS_INODE_APPEND;
+ 	if (fsflags & FS_NODUMP_FL)
+-		binode_flags |= BTRFS_INODE_NODUMP;
++		inode_flags |= BTRFS_INODE_NODUMP;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_NODUMP;
++		inode_flags &= ~BTRFS_INODE_NODUMP;
+ 	if (fsflags & FS_NOATIME_FL)
+-		binode_flags |= BTRFS_INODE_NOATIME;
++		inode_flags |= BTRFS_INODE_NOATIME;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_NOATIME;
++		inode_flags &= ~BTRFS_INODE_NOATIME;
+ 
+ 	/* If coming from FS_IOC_FSSETXATTR then skip unconverted flags */
+ 	if (!fa->flags_valid) {
+@@ -314,32 +313,32 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 	}
+ 
+ 	if (fsflags & FS_DIRSYNC_FL)
+-		binode_flags |= BTRFS_INODE_DIRSYNC;
++		inode_flags |= BTRFS_INODE_DIRSYNC;
+ 	else
+-		binode_flags &= ~BTRFS_INODE_DIRSYNC;
++		inode_flags &= ~BTRFS_INODE_DIRSYNC;
+ 	if (fsflags & FS_NOCOW_FL) {
+-		if (S_ISREG(inode->i_mode)) {
++		if (S_ISREG(inode->vfs_inode.i_mode)) {
+ 			/*
+ 			 * It's safe to turn csums off here, no extents exist.
+ 			 * Otherwise we want the flag to reflect the real COW
+ 			 * status of the file and will not set it.
+ 			 */
+-			if (inode->i_size == 0)
+-				binode_flags |= BTRFS_INODE_NODATACOW |
+-						BTRFS_INODE_NODATASUM;
++			if (inode->vfs_inode.i_size == 0)
++				inode_flags |= BTRFS_INODE_NODATACOW |
++					       BTRFS_INODE_NODATASUM;
+ 		} else {
+-			binode_flags |= BTRFS_INODE_NODATACOW;
++			inode_flags |= BTRFS_INODE_NODATACOW;
+ 		}
+ 	} else {
+ 		/*
+ 		 * Revert back under same assumptions as above
+ 		 */
+-		if (S_ISREG(inode->i_mode)) {
+-			if (inode->i_size == 0)
+-				binode_flags &= ~(BTRFS_INODE_NODATACOW |
+-						  BTRFS_INODE_NODATASUM);
++		if (S_ISREG(inode->vfs_inode.i_mode)) {
++			if (inode->vfs_inode.i_size == 0)
++				inode_flags &= ~(BTRFS_INODE_NODATACOW |
++						 BTRFS_INODE_NODATASUM);
+ 		} else {
+-			binode_flags &= ~BTRFS_INODE_NODATACOW;
++			inode_flags &= ~BTRFS_INODE_NODATACOW;
+ 		}
+ 	}
+ 
+@@ -349,21 +348,21 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 	 * things smaller.
+ 	 */
+ 	if (fsflags & FS_NOCOMP_FL) {
+-		binode_flags &= ~BTRFS_INODE_COMPRESS;
+-		binode_flags |= BTRFS_INODE_NOCOMPRESS;
++		inode_flags &= ~BTRFS_INODE_COMPRESS;
++		inode_flags |= BTRFS_INODE_NOCOMPRESS;
+ 	} else if (fsflags & FS_COMPR_FL) {
+ 
+-		if (IS_SWAPFILE(inode))
++		if (IS_SWAPFILE(&inode->vfs_inode))
+ 			return -ETXTBSY;
+ 
+-		binode_flags |= BTRFS_INODE_COMPRESS;
+-		binode_flags &= ~BTRFS_INODE_NOCOMPRESS;
++		inode_flags |= BTRFS_INODE_COMPRESS;
++		inode_flags &= ~BTRFS_INODE_NOCOMPRESS;
+ 
+ 		comp = btrfs_compress_type2str(fs_info->compress_type);
+ 		if (!comp || comp[0] == 0)
+ 			comp = btrfs_compress_type2str(BTRFS_COMPRESS_ZLIB);
+ 	} else {
+-		binode_flags &= ~(BTRFS_INODE_COMPRESS | BTRFS_INODE_NOCOMPRESS);
++		inode_flags &= ~(BTRFS_INODE_COMPRESS | BTRFS_INODE_NOCOMPRESS);
+ 	}
+ 
+ 	/*
+@@ -375,14 +374,14 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 		return PTR_ERR(trans);
+ 
+ 	if (comp) {
+-		ret = btrfs_set_prop(trans, BTRFS_I(inode), "btrfs.compression",
++		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
+ 				     comp, strlen(comp), 0);
+ 		if (ret) {
+ 			btrfs_abort_transaction(trans, ret);
+ 			goto out_end_trans;
+ 		}
+ 	} else {
+-		ret = btrfs_set_prop(trans, BTRFS_I(inode), "btrfs.compression",
++		ret = btrfs_set_prop(trans, inode, "btrfs.compression",
+ 				     NULL, 0, 0);
+ 		if (ret && ret != -ENODATA) {
+ 			btrfs_abort_transaction(trans, ret);
+@@ -391,11 +390,11 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 	}
+ 
+ update_flags:
+-	binode->flags = binode_flags;
+-	btrfs_sync_inode_flags_to_i_flags(inode);
+-	inode_inc_iversion(inode);
+-	inode_set_ctime_current(inode);
+-	ret = btrfs_update_inode(trans, BTRFS_I(inode));
++	inode->flags = inode_flags;
++	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
++	inode_inc_iversion(&inode->vfs_inode);
++	inode_set_ctime_current(&inode->vfs_inode);
++	ret = btrfs_update_inode(trans, inode);
+ 
+  out_end_trans:
+ 	btrfs_end_transaction(trans);
+@@ -550,17 +549,6 @@ static noinline int btrfs_ioctl_fitrim(struct btrfs_fs_info *fs_info,
+ 	return ret;
+ }
+ 
+-int __pure btrfs_is_empty_uuid(const u8 *uuid)
+-{
+-	int i;
+-
+-	for (i = 0; i < BTRFS_UUID_SIZE; i++) {
+-		if (uuid[i])
+-			return 0;
+-	}
+-	return 1;
+-}
+-
+ /*
+  * Calculate the number of transaction items to reserve for creating a subvolume
+  * or snapshot, not including the inode, directory entries, or parent directory.
+diff --git a/fs/btrfs/ioctl.h b/fs/btrfs/ioctl.h
+index 19cd26b0244a1..0ea9f7beee336 100644
+--- a/fs/btrfs/ioctl.h
++++ b/fs/btrfs/ioctl.h
+@@ -19,7 +19,6 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 		       struct dentry *dentry, struct fileattr *fa);
+ int btrfs_ioctl_get_supported_features(void __user *arg);
+ void btrfs_sync_inode_flags_to_i_flags(struct inode *inode);
+-int __pure btrfs_is_empty_uuid(const u8 *uuid);
+ void btrfs_update_ioctl_balance_args(struct btrfs_fs_info *fs_info,
+ 				     struct btrfs_ioctl_balance_args *bargs);
+ 
 -- 
 2.53.0
 
