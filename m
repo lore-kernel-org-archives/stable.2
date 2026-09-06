@@ -1,188 +1,121 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out03.mta.xmission.com (out03.mta.xmission.com [166.70.13.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D1536B93D
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 22:26:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA2025A655;
+	Sun,  6 Sep 2026 22:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788733586; cv=none; b=dH7PswhVg4FdDfJiiJsDRitUeFNglklkep3LzBTjaEdRCMOpzb1eiucNwLFHedWCswOPgZX7LMisw3hu92hhb/WunJJWS8rPlNidO8tVmnoQTP0Hmy4sn6Xwlp43foFfUcA0N4UD7OvL0rHE41NIUt5G/JXRH/Sdk6NQDHzgkEM=
+	t=1788734397; cv=none; b=FINYifN1we5qBMpdHFaKBs4M3ecakqSIkQlF7paex/mSmUuD3p/OY2U9ShXMwJ+Gb3bJX9e3meby6um2BSp564D8n1ABMS/6nTa7BMs90ZQx9RDOMKWZrF+dFuln7chuUaE6F+VvXOpnAYyZx6wRw8GRYmHaayAvVFPzkw0gKfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788733586; c=relaxed/simple;
-	bh=ESGoqGmMu10/z0U2P8gBm5vkYhM+UfjKWUsR+Iji2b0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bctx0BXrCYa2Ghc0hA+eBW7r1Xa3rnPwUJr/Jnr95+gQ612m4NwVAK/h7ttSdcD8Qtw3B1kWpItmGHJXHwnW2CCGc6BsFPDTT/S4K7ixo2wxb4RvnSIxqYMQJKBrRGkdZ7hXK0keyvSAO8jAgGyy6KAjy9EIx4g1rCzDbXQIRZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mDsiYCL0; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788734397; c=relaxed/simple;
+	bh=xZAX/1sQQgxlqyQ4K2MRmOwSG2+ejTZ/10GaF0N3Gio=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=JQYeYawVFXbHBkCtGn3ItGAIYslRHEv1Hjgg4cAcm+BaVxwJAy+jW8O2ygR3gzarB3q+vGhA4QOrM1CQ32+PCo/DgvINFxydyefz3y49qoA9ONcocS2jPTLcBGKOcqwALj86JWrQRv7G7l3Jv7IVVVv8/OrFwvISaK5pnxzg3So=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=h9eLrw+g; arc=none smtp.client-ip=166.70.13.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mDsiYCL0"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1513359a12.0
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788733583; x=1789338383; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
-        b=mDsiYCL0mSqfhUFYiAnpdUjcpcMWQtYdJsZz3PundnILz9cu0IusKJUfAsEoC7zXS0
-         sPKn3G1cVVYXu/fPge4n61gjYgQR7dCWOh1h3yyJozc0Fiah/Mk5FYxw/hXWRS3tkYJ4
-         ugydrmrM6r9rLkVngWyEB2PY8QMiH6+jE1xYyp3wmtP1LqyPPtSW47JwM/j9XbdP1u5e
-         Ld3bmGhgkI16d4mwsIC1y4N8Osy4mAJe47Jp3vX8ApRbSQP+0ihxAxTuiJvGcGMILmdp
-         U4c+f11xmrthVTOCDC8htnmSYXkIk69Kc6j0lQ0CKe17ffa1xJjK53vPqX4YK790I4cZ
-         ukag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788733583; x=1789338383;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
-        b=YIzZQaEGhR+BK5rehSrqSdxXLicgOtBWeI6N57pAKYiH9Q23YKcxpSAE+twRHkAPuP
-         ABWbZ134nS7152McjAU/zoothbqyk/SoGr7/XLYW+xMrWhkqoYkzBJUIM5rAJ3rUSOq1
-         tI4krgm2ht3IpfQJ2ve3YLPbGB9qaCWDlk6fCoRU5COMuotYe8edLveEzKLmg+7MIWgc
-         YCZ1XIueC1A34444e4LKu/zjF22pYlEga7aRAy0Umnk7L4AuaeTo3RH5FI5bP8GtJSrX
-         LY+IvA1ZIrf8mwIfb3mCaHkGFGiN30yYxG+PDpMC6hyce5eDsoz0YcnexiCU/+7ekWg1
-         b07w==
-X-Forwarded-Encrypted: i=1; AKwUvBwns7THYok4rgsQrskZtk3cPaOmJSHvrV1F7EUXCm3Qa00Hpmp+trfwJ1jnw4JaHl4LII4Erq4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSib/nK2mEqIGlH2XTXd2XnQKOxQmd2zveMAesMXBsl474oqYO
-	wUAyvpEAR1Yi4iWViwBu+VYMfQvqveMQMaS9RANbK7sDhOSO3sOoshXi
-X-Gm-Gg: AYBFou3EhQRFsN7+PxJIcFGremEuvm6Bud6OBAueW2M6d+Cn55QWGELh+TO/cKD1f8W
-	S0lemr324JkJ611ucS7tkENKurcHeS328hKUXnr6KXjBEbp8KzJwwSmtIWQgYGzyoI5dsMp4jl4
-	4YmtI8J5A4P5Ou0GU4NNFkF3zwtSj+0sJXCIJVOXZj7/j4AmaNX0raSm/TMZKOcE4HHAZJX7eab
-	czz56+MACf9diEms3ANkryjUEaheiJDXTK/A4s7QzBWg7dIRUpiZy8wY4X7jfGFyrGhHapyv9Kz
-	LAMN8mCEUpMBR04Td6RRl8vH3Mx1a29Hw3LN/JGeZVJogZIKSR3Akv+I72d5bfEh8ORwJU0yxtM
-	wznm7GIbIlWyjpB3Hp1MaiybDRj+8EEai2YKh5qDwy3Xa2gYkHsU3DJMCPMfeuAuwt7SNSGBTwu
-	YA8uR6NA9GP6cPILEhEfd8mPp45RohRVyYR+eYrsVSc9nEsLaaryg+1DRxfqhidqqC7VaTDodDD
-	NA7jNpDO7fp8+zY
-X-Received: by 2002:a17:90b:3d92:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39b2614df9dmr30677023a91.2.1788733583339;
-        Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8e0b117sm8413777a91.3.2026.09.06.15.26.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 15:26:22 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: sj@kernel.org
-Cc: aethernet65535@gmail.com,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Mon,  7 Sep 2026 06:25:28 +0800
-Message-ID: <20260906222633.4227-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905161233.81892-1-sj@kernel.org>
-References: <20260905161233.81892-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="h9eLrw+g"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=xZAX/1sQQgxlqyQ4K2MRmOwSG2+ejTZ/10GaF0N3Gio=; b=h9eLrw+g+uQ2LjAQXuujd7FEa0
+	s+cugeAsSbptAMRyAQf3Sw7Q6Gq0oaRvlD03ATJov1pAydRnFBT6uTzvpLrEnyJQH/VRyG5CCd1zi
+	GPk/QxnS8RPJfMRD2r9k9Hvbsb837LynhJujefsHXT8KVgokqL8LmsyLWfP0OQriN8I0=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:37134)
+	by out03.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x3LWe-0084EO-Cr; Sun, 06 Sep 2026 16:39:48 -0600
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:60686 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x3LWd-007WZm-Mn; Sun, 06 Sep 2026 16:39:48 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,  "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>,  Oleg Nesterov <oleg@redhat.com>,  Frederic
+ Weisbecker <frederic@kernel.org>,  Christian Brauner <brauner@kernel.org>,
+  Peter Zijlstra <peterz@infradead.org>,  John Stultz <jstultz@google.com>,
+  Ingo Molnar <mingo@kernel.org>,  Alexander Viro
+ <viro@zeniv.linux.org.uk>,  stable@vger.kernel.org
+In-Reply-To: <20260905185839.667208455@kernel.org> (Thomas Gleixner's message
+	of "Sat, 05 Sep 2026 20:59:01 +0200")
+References: <20260905181551.738186850@kernel.org>
+	<20260905185839.667208455@kernel.org>
+Date: Sun, 06 Sep 2026 17:39:41 -0500
+Message-ID: <8733vmatsi.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-XM-SPF: eid=1x3LWd-007WZm-Mn;;;mid=<8733vmatsi.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX1/U2RtLE0h6yvQwwGvd0TsBg0iLh9lHKi4=
+X-Spam-Level: 
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.4989]
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;Thomas Gleixner <tglx@kernel.org>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 259 ms - load_scoreonly_sql: 0.05 (0.0%),
+	signal_user_changed: 11 (4.2%), b_tie_ro: 9 (3.7%), parse: 0.79 (0.3%),
+	 extract_message_metadata: 2.4 (0.9%), get_uri_detail_list: 0.66
+	(0.3%), tests_pri_-2000: 2.6 (1.0%), tests_pri_-1000: 2.4 (0.9%),
+	tests_pri_-950: 0.98 (0.4%), tests_pri_-900: 0.75 (0.3%),
+	tests_pri_-90: 65 (25.2%), check_bayes: 64 (24.7%), b_tokenize: 4.9
+	(1.9%), b_tok_get_all: 6 (2.2%), b_comp_prob: 1.46 (0.6%),
+	b_tok_touch_all: 48 (18.5%), b_finish: 1.10 (0.4%), tests_pri_0: 157
+	(60.7%), check_dkim_signature: 0.42 (0.2%), check_dkim_adsp: 2.1
+	(0.8%), poll_dns_idle: 0.46 (0.2%), tests_pri_10: 1.71 (0.7%),
+	tests_pri_500: 8 (3.0%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: stable@vger.kernel.org, viro@zeniv.linux.org.uk, mingo@kernel.org, jstultz@google.com, peterz@infradead.org, brauner@kernel.org, frederic@kernel.org, oleg@redhat.com, imv4bel@gmail.com, linux-kernel@vger.kernel.org, tglx@kernel.org
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out03.mta.xmission.com); SAEximRunCond expanded to false
 
-On Sat, 05 Sep 2026 09:12:33 -0700 SJ Park <sj@kernel.org> wrote:
+Thomas Gleixner <tglx@kernel.org> writes:
 
-> On Sat,  5 Sep 2026 18:36:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> 
-> > On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
-> > 
-> > > On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
-> > > 
-> > > > That said, it's not important for me to add explanations to the
-> > > > document, but may I know why commit [2] changed the behavior which
-> > > > introduced by commit [1]?
-> > > > 
-> > > > Commit [1] Behavior:
-> > > > 
-> > > >     if (quota->esz && quota->changed_sz >= quota->esz)
-> > > >         s->stat.qt_exceeds++;
-> > > > 
-> > > > Commit [2] Behavior:
-> > > > 
-> > > >     if (damos_quota_is_full(quota, c->min_region_sz))
-> > > >         s->stat.qt_exceeds++;
-> > > > 
-> > > > Before commit [2], qt_exceeds will only increase when quota->esz is not
-> > > > zero, but after commit [2], qt_exceeds also increase even when
-> > > > quota->esz is zero.  I'd love to understand the rationale behind this
-> > > > change to better grasp the design evolution.
-> > > > 
-> > > > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
-> > > >     (Fri Jan 14 14:10:20 2022 -0800)
-> > > > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-> > > >     (Mon Apr 27 18:33:50 2026 -0700)
-> > > 
-> > > Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
-> > > describing.
-> > 
-> > I actually wanted to point out the behavior difference between commit [1]
-> > and [2], but I've understood and agreed with your point.
-> > 
-> > > 
-> > > '''
-> > > $ git show c7ec7d5f6b3d1
-> > > [...]
-> > > @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
-> > >         if (!time_in_range_open(jiffies, quota->charged_from,
-> > >                                 quota->charged_from +
-> > >                                 msecs_to_jiffies(quota->reset_interval))) {
-> > > -               if (damos_quota_is_set(quota) &&
-> > > -                               quota->charged_sz >= quota->esz)
-> > > +               if (damos_quota_is_full(quota, c->min_region_sz))
-> > >                         s->stat.qt_exceeds++;
-> > >                 quota->total_charged_sz += quota->charged_sz;
-> > >                 quota->charged_from = jiffies;
-> > > '''
-> > > 
-> > > And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
-> > > ("mm/damon/core: allow quota goals set zero effective size quota") will give
-> > > you some clues.
-> > 
-> > Thank you very much for your clarifying :>
-> > 
-> > Now I completely understand why there is different behavior
-> 
-> I told you I don't think there was a behavior change.  I still think so.
-> 
-> > between
-> > commit [1] and [2].  Because in commit [1], esz==0 only means quota is
-> > unlimited.
-> 
-> No.  Commit 54419bbd0ee3 says "DAMON core assumes zero effective quota means
-> the user has set no quota."
-> 
-> 
-> > After commit 54419bbd0ee3, esz==0 also can means do not have
-> > quota at all.
-> 
-> That's what the commit is describing the before-commit status...
-> 
-> > But the qt_exceeds should just not increase when quota is
-> > unlimited, that's why the current implementation is completely correct.
-> 
-> There is no unlimited quota.  Hence I don't understand what you are saying
-> here.  Please carefully read the commit message again.
+> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
+>  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+>  }
+>  
+> +/*
+> + * When PF_EXITING is set the task is on the way out and has t::pending
+> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
+> + * be leaked.
+> + */
+> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
+> +{
+> +	lockdep_assert_held(&t->sighand->siglock);
+> +
+> +	if (!(t->flags & PF_EXITING))
+> +		return true;
+> +
 
-Thank you for the detailed explanation, and sorry for my confusing
-wording.  Let me confirm my corrected understanding:
+I don't know if we care but I just noticed that this disallows
+using tkill(..., SIGKILL) or tgkill(..., SIGKILL) to stop coredumps.
 
-Before commit 54419bbd0ee3, esz == 0 appeared only when the quota was
-unset, i.e., the user has set no quota.  DAMON core therefore assumed
-zero effective quota means the user has set no quota, and the code
-checked quota->esz to tell whether a quota is set.  Commit 54419bbd0ee3
-decoupled "quota is set" from "esz != 0" by introducing
-damos_quota_is_set().  After that, the temporal goal tuner
-(af738a6a00c1f) made it possible for a set quota to have esz == 0 as
-well, for example once its goal is over-achieved.  In that case the
-scheme is intentionally deactivated, and counting qt_exceeds is intended,
-not a bug.
+> +	return type != PIDTYPE_PID;
+> +}
+> +
+>  static int __send_signal_locked(int sig, struct kernel_siginfo *info,
+>  				struct task_struct *t, enum pid_type type, bool force)
+>  {
 
-Commit c7ec7d5f6b3d1 did not change the behavior I asked about; it only
-refactored the check into damos_quota_is_full().
-
-I will send a documentation patch in the near future.  Thank you again
-for your patience.
-
-Best regards,
-Rui Yan
+Eric
