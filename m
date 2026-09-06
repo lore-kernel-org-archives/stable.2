@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024E03C2795
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71A13C09E2
 	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723058; cv=none; b=d7KuUI/he275/9sTqFJLYMftR6bKuosx2qbf6fYDAC2Wvev/dL/49+3bn+cvEHLMlkEJ3hJwWU2E4MiCV+ZxHShHjjocm2//5W+T5JXhBLSPr6PtVAtBgCTHGWx5ME/B0Vt89/d6SRieNPfSCS24Z70O9jkzHGCIhr4DoIToy2o=
+	t=1788723058; cv=none; b=Ax/AMcxvicD5ne/hqk0n8g0RRsfYksQe7IfWkB9iPZPllpUHHTKOl0ta84Mtf9YLIFgAzrRKBbT5jhYKcNGES9PKzuGCZ0lpVhS14OSNlIaEMYUvuuLo3J1X4PU6w1pYrugyvPG/lTVEMCcqjkcpSKs9WGP7y8gGJJ1lhdIeNl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788723058; c=relaxed/simple;
-	bh=iux/2ctX1y+UsF2wDxrdM1pMA94PYiFK/Sk/zp34y7A=;
+	bh=DPIKoUdE3FhEXU1VGOkE/fvQMqcJyhkCJimb67/jXs0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BIIqlR9YvHXvC/qE4tONJEPaM2uwxyBqCrRxDeJGlrVs7GybxiOB3K7e4H6T4hNAqRdbP/4XI9C/ALit69H/BrbSuyAGmX1SUyOkfT7QB0Sle2xRDNG7aDRWY2/+ra3aGDWlzbLtoT/cFVbxvCP2s+chEwyALt4JdIVer3JErP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBgJ6GmH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PApWzmfIoDtv5desiPDmX+zuwPA3HgBZ6+ZNDv8xLG4hHPwcnO3m9LNrEwCXr4ZgldrdyY/i+sXPbwC38X0VXw4nOHoLrUV7VKmPckq6vcbU+fAhvj/x7Euex0rRhBkoQCyE4UqECx5qN/Sj6r30mb8vCpNqf5K/cwPlgjbNUBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dYKTkztu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBgJ6GmH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076A31F00ACA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dYKTkztu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216191F00A3D;
 	Sun,  6 Sep 2026 19:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723055;
-	bh=j0LEe4CEbUAMr2k6FBe+NgUsqbXfnkMcsdtrXuJ0uHg=;
+	s=k20260515; t=1788723054;
+	bh=Rw4zou+reRMPdabjdgZNmI8cixk8TEAgLJ1Kq7QULOs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DBgJ6GmH3VHtMTjB2Yu+oRdJvmWGaHsDtRlY5SxK37NJ1TocFyl85GVp5YDKKSzk5
-	 bKIWuRD8fbycqaPuaEA5Ey9hncalLedOl1LzHNoQUXp7OJEyGR2xzByvPjUA7lT8y+
-	 Iy74sicn+zL7E7HpsUUBe4HZUPMjRWRfJQgpr9atjOaEkKURDjbja122zq0MEhwV0L
-	 bLSZfeRKRJ4ajC1Cl0WYZnx43LNX9g+cwfRuMFbP3heFYp9i736DwLO0Jafl+isJRQ
-	 GSIXR2EA2kwhYNu5HeyM8rdT41YDQIOUllw++gKmCdM7qNLzxlTIQiYIzliXh9Az8L
-	 HdK9HWjIx9cAQ==
+	b=dYKTkztuhcFxmyeciGuHuQyJIQ7YLnBuWXLMvcCAy1VQAGUB87CA+4SDr3k9pRniX
+	 vaRadGDUz3zHzRoM1B6aXP1f+hJtDHGKciSQFhi/2ASeiuzw8WIFL0jHbxEuxke7tN
+	 rqoujJs9V7EyXcABpgazwEM+Wp7aSplAwHxoHymte/D5kN0ITiptuzehelYL+XN9NH
+	 dAlYtoVo7kW3ZxddMDoCDX8UOdYjdoNbrADoPln/830O/bRU0FJ/kNbmTYJ02ZnN0I
+	 ueOR3NqI9zNq69+iTkDdfxiuJGJbp90GDzKfSr1E3OmDQZuIzT3NCpEyM6bSKf1fr/
+	 oMn4xyrdKUCeA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Huiwen He <hehuiwen@kylinos.cn>,
+Cc: ZhangGuoDong <zhangguodong@kylinos.cn>,
 	ChenXiaoSong <chenxiaosong@kylinos.cn>,
 	Steve French <stfrench@microsoft.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] smb/client: reduce fallocate zero buffer allocation
-Date: Sun,  6 Sep 2026 15:30:50 -0400
-Message-ID: <20260906193052.1791917-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] smb: move some definitions from common/smb2pdu.h into common/fscc.h
+Date: Sun,  6 Sep 2026 15:30:49 -0400
+Message-ID: <20260906193052.1791917-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906193052.1791917-1-sashal@kernel.org>
+In-Reply-To: <2026090358-afar-boss-f2c3@gregkh>
 References: <2026090358-afar-boss-f2c3@gregkh>
- <20260906193052.1791917-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,65 +47,203 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Huiwen He <hehuiwen@kylinos.cn>
+From: ZhangGuoDong <zhangguodong@kylinos.cn>
 
-[ Upstream commit 9e4ec3be67af41ab859302d7109b34976efd9258 ]
+[ Upstream commit a5e581093b1d9321cbb627dd8c209d0d4e0a988a ]
 
-The fallocate emulation allocates a 1 MiB zero-filled buffer even
-though each SMB2_write request is limited to SMB2_MAX_BUFFER_SIZE,
-which is 64 KiB. A high-order 1 MiB allocation is more likely to
-fail on a fragmented system.
+These definitions are specified in MS-FSCC, so move them into fscc.h.
 
-Allocate only the smaller of the requested range and SMB2_MAX_BUFFER_SIZE,
-and reuse that zero-filled buffer for every write request. Also reject
-a successful write that makes no progress to avoid looping indefinitely.
+Only add some documentation references, no other changes.
 
-This reduces the contiguous allocation required by fallocate emulation
-without changing the written data or range semantics.
-
-Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+Signed-off-by: ZhangGuoDong <zhangguodong@kylinos.cn>
 Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Reviewed-by: Steve French <stfrench@microsoft.com>
+Acked-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Steve French <stfrench@microsoft.com>
+
+The original header relocation is not applicable to this stable tree: fscc.h is absent and the relevant definitions are already kept in smb2pdu.h.
+
+For this stable-only dependency adaptation, prepare the existing fallocate paths for EOF-extending ranges and allocation metadata refresh, and align the cifs declarations with the target patch context. This lets the fscache resize locking fix apply without adding its new helper in the dependency.
+
+[ sashal: Reduced backport -- upstream a5e581093b1d9 touches 2 file(s), this
+  backport carries 2. Not backported here:
+  fs/smb/common/fscc.h
+  fs/smb/common/smb2pdu.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
 Stable-dep-of: 32a7af68df73 ("cifs: add cifs_resize_file_locked() to guard fscache_resize_cookie() under i_rwsem")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/smb2ops.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/smb/client/cifsfs.h  |  5 ++-
+ fs/smb/client/smb2ops.c | 89 +++++++++++++++++++++++++++++++++++------
+ 2 files changed, 80 insertions(+), 14 deletions(-)
 
+diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+index e9534258d1efd..de32a0ae53ae7 100644
+--- a/fs/smb/client/cifsfs.h
++++ b/fs/smb/client/cifsfs.h
+@@ -133,9 +133,10 @@ extern ssize_t cifs_file_copychunk_range(unsigned int xid,
+ 					struct file *dst_file, loff_t destoff,
+ 					size_t len, unsigned int flags);
+ 
+-extern long cifs_ioctl(struct file *filep, unsigned int cmd, unsigned long arg);
+-extern void cifs_setsize(struct inode *inode, loff_t offset);
++long cifs_ioctl(struct file *filep, unsigned int command, unsigned long arg);
++void cifs_setsize(struct inode *inode, loff_t offset);
+ 
++struct fs_context;
+ struct smb3_fs_context;
+ extern struct dentry *cifs_smb3_do_mount(struct file_system_type *fs_type,
+ 					 int flags, struct smb3_fs_context *ctx);
 diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index 9d5272e7013d5..3a833a55491d3 100644
+index 5bbe98dc0529b..9d5272e7013d5 100644
 --- a/fs/smb/client/smb2ops.c
 +++ b/fs/smb/client/smb2ops.c
-@@ -3508,7 +3508,7 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
- 					     char *buf)
+@@ -3544,12 +3544,25 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 				       loff_t off, loff_t len)
  {
- 	struct cifs_io_parms io_parms = {0};
--	int nbytes;
-+	unsigned int nbytes;
- 	int rc = 0;
- 	struct kvec iov[2];
- 
-@@ -3529,9 +3529,10 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
- 		rc = SMB2_write(xid, &io_parms, &nbytes, iov, 1);
- 		if (rc)
- 			break;
-+		if (!nbytes)
-+			return -EIO;
- 		if (nbytes > len)
- 			return -EINVAL;
--		buf += nbytes;
- 		off += nbytes;
- 		len -= nbytes;
- 	}
-@@ -3551,7 +3552,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	struct file_allocated_range_buffer in_data, *out_data = NULL, *tmp_data;
++	struct inode *inode = d_inode(cfile->dentry);
+ 	u32 out_data_len;
+ 	char *buf = NULL;
+ 	u64 range_start, range_len, range_end;
  	loff_t l;
  	int rc;
  
--	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
-+	buf = kvzalloc(min_t(loff_t, len, SMB2_MAX_BUFFER_SIZE), GFP_KERNEL);
- 	if (buf == NULL) {
- 		rc = -ENOMEM;
++	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
++	if (buf == NULL) {
++		rc = -ENOMEM;
++		goto out;
++	}
++
++	if (off >= i_size_read(inode)) {
++		rc = smb3_simple_fallocate_write_range(xid, tcon, cfile,
++						       off, len, buf);
++		goto out;
++	}
++
+ 	in_data.file_offset = cpu_to_le64(off);
+ 	in_data.length = cpu_to_le64(len);
+ 	rc = SMB2_ioctl(xid, tcon, cfile->fid.persistent_fid,
+@@ -3561,12 +3574,6 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	if (rc)
  		goto out;
+ 
+-	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
+-	if (buf == NULL) {
+-		rc = -ENOMEM;
+-		goto out;
+-	}
+-
+ 	tmp_data = out_data;
+ 	while (len) {
+ 		/*
+@@ -3641,18 +3648,22 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 	struct cifsFileInfo *cfile = file->private_data;
+ 	long rc = -EOPNOTSUPP;
+ 	unsigned int xid;
+-	loff_t new_eof;
++	loff_t old_eof, new_eof;
++	struct smb2_file_all_info file_inf;
++	u64 asize;
++	int qrc;
+ 
+ 	xid = get_xid();
+ 
+ 	inode = d_inode(cfile->dentry);
+ 	cifsi = CIFS_I(inode);
++	old_eof = i_size_read(inode);
+ 
+ 	trace_smb3_falloc_enter(xid, cfile->fid.persistent_fid, tcon->tid,
+ 				tcon->ses->Suid, off, len);
+ 	/* if file not oplocked can't be sure whether asking to extend size */
+ 	if (!CIFS_CACHE_READ(cifsi))
+-		if (keep_size == false) {
++		if (!keep_size) {
+ 			trace_smb3_falloc_err(xid, cfile->fid.persistent_fid,
+ 				tcon->tid, tcon->ses->Suid, off, len, rc);
+ 			free_xid(xid);
+@@ -3662,21 +3673,75 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 	/*
+ 	 * Extending the file
+ 	 */
+-	if ((keep_size == false) && i_size_read(inode) < off + len) {
++	if (!keep_size && old_eof < off + len) {
+ 		rc = inode_newsize_ok(inode, off + len);
+ 		if (rc)
+ 			goto out;
+ 
++		/*
++		 * A small range at or beyond EOF can be allocated by writing
++		 * zeroes.  For off > old_eof, this preserves the intervening
++		 * hole instead of allocating from offset 0.
++		 */
++		if (off > old_eof ||
++		    (off == old_eof && old_eof != 0 &&
++		     (cifsi->cifsAttrs & FILE_ATTRIBUTE_SPARSE_FILE))) {
++			if (len > 1024 * 1024) {
++				rc = -EOPNOTSUPP;
++				goto out;
++			}
++
++			rc = smb3_simple_fallocate_range(xid, tcon, cfile,
++							 off, len);
++			if (rc) {
++				spin_lock(&inode->i_lock);
++				cifsi->time = 0;
++				spin_unlock(&inode->i_lock);
++				goto out;
++			}
++
++			new_eof = off + len;
++			netfs_resize_file(&cifsi->netfs, new_eof, true);
++			cifs_setsize(inode, new_eof);
++
++			qrc = SMB2_query_info(xid, tcon,
++					      cfile->fid.persistent_fid,
++					      cfile->fid.volatile_fid, &file_inf);
++			spin_lock(&inode->i_lock);
++			if (qrc == 0) {
++				asize = le64_to_cpu(file_inf.AllocationSize);
++				inode->i_blocks = CIFS_INO_BLOCKS(asize);
++			} else {
++				cifsi->time = 0;
++			}
++			spin_unlock(&inode->i_lock);
++			goto out;
++		}
++
+ 		if (cifsi->cifsAttrs & FILE_ATTRIBUTE_SPARSE_FILE)
+ 			smb2_set_sparse(xid, tcon, cfile, inode, false);
+ 
+ 		new_eof = off + len;
+ 		rc = SMB2_set_eof(xid, tcon, cfile->fid.persistent_fid,
+ 				  cfile->fid.volatile_fid, cfile->pid, new_eof);
+-		if (rc == 0) {
+-			netfs_resize_file(&cifsi->netfs, new_eof, true);
+-			cifs_setsize(inode, new_eof);
++		if (rc)
++			goto out;
++
++		netfs_resize_file(&cifsi->netfs, new_eof, true);
++		cifs_setsize(inode, new_eof);
++
++		qrc = SMB2_query_info(xid, tcon,
++				      cfile->fid.persistent_fid,
++				      cfile->fid.volatile_fid, &file_inf);
++		spin_lock(&inode->i_lock);
++		if (qrc == 0) {
++			asize = le64_to_cpu(file_inf.AllocationSize);
++			if (asize >= new_eof)
++				inode->i_blocks = CIFS_INO_BLOCKS(asize);
++		} else {
++			cifsi->time = 0;
+ 		}
++		spin_unlock(&inode->i_lock);
+ 		goto out;
+ 	}
+ 
 -- 
 2.53.0
 
