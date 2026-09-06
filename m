@@ -1,151 +1,199 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011010.outbound.protection.outlook.com [52.101.57.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715773C09E2
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 18:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718630; cv=none; b=iWfpL5iiWNnLtqgNlsGRSmAqqssLcYw/PLVi/4QALJLnwNjiuArGmpfyOD+G3vSH57z8y30Z+0d6xx+zopzsaseWbsTx2hHiPvhNoeaVwTeg3/zDj19eomt1PZ+JmBVbq6wTKmoXtTxGRjWvxRB6yB+j2nBGh0SA7echxlh7pT4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718630; c=relaxed/simple;
-	bh=zE/2hqn4I9P57cCKdIKN6nY4HEnzOsNL+Lxb4BdK5Vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=plEC5ZZ0yqBDhii1W6Ct6nTEp0D+6uMfwLCYiKKNxBQoyulEM5g7qpdQzdYl40133iS1T1GYVHqOb5o7CDmtEJxR8zd6PmMs7nt5YijgdECknzH1QQW7AYeQTyhZhdard/d7tBiYtDhWW+hCkSVPrr3QJ52PZYrR2K6FIBpTm00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+o5tDm+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8460C363C63;
+	Sun,  6 Sep 2026 18:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788718772; cv=fail; b=Fkts1BXnTY5IUTU1OR826CJY9QrSNisobYsfCDePWlx0wVXpgw/L+jPNLJuO+hQwqR2HmSafN1ancptUD9qdqheI/dp6X6Op8/EVpYWUv87u/PaR1tIWS+oO/xGD9K7PJLYojtjp0PCguLr+jxbFGgTcziJGxJ6Y4az3knA2JkU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788718772; c=relaxed/simple;
+	bh=FnXemtcSosMMsRobJ954dXcIegpOx0SIFs1vg5pUp5I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=QelwevBT7A2fCjPCnAP+tKraMBhe6i+B62DoPjhKGhS2nmLcDvGSks0fNqaeuuxhyWnKhDM+meEj4vjrGTD68lZ6kVWkAdeZn4WQR/vMJiYCIbqCF3PePOo6uzwA77R9yApYh8RlDYAsiGkKXADFqaqhjRRocvb3T2wRt8syTvk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=QWST2oug; arc=fail smtp.client-ip=52.101.57.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+o5tDm+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1a5b5eso375495e9.2
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 11:17:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788718625; x=1789323425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=K+o5tDm+s9drKsg+ic/JvPkVIPEltlhZlGhLNY3dXQumcoqVAeOn6hL4zwTjQivGro
-         Dcdk9YEf6K2yA2iF1kb615YITnEuzz43ghFR/x+dKWPRcaoGAhka+nE1M6ynpaCR1Tyg
-         E0O25V7Iklcg03P+D2VjvO0tHN9CBZSdVr8dVR+JwCCq/+b6szLM4FqizQkm2hhKZRxW
-         8SW3eh8Tvdo6xA72XqGhDzZfshvENnuUuJLncC+0MECM2fF5d+PL1JZA9Aly5WlN8QJ8
-         NcCZu/UEMET+PHJKtAgyMX3OPtKf96LvCJ2aiYCgFzMFZVWQDKtjQ9vlo/3/t1bujd/A
-         Oi4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788718625; x=1789323425;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=i38C6aum6OlMDVoNgexZIcRK8FGmlsfcL7PkHIkcE8uRTzxQtz/BEZ3ylAWlY/6JlE
-         PxQ4S13t9C/JzUMbXrSzhN4X/sMKn8lcJuQI75HZHGXALHeKHoWG7Cmes+K6qCUp9OiT
-         vRg50i0qOSVEVJKNjYObT8Xm6mNvOiIeK3sdw1TQzDqsIy5KcWR9YdDvlXRXWncYC7S+
-         PhLYUFA/2+mtO0XBWZ+y2HfUpsSGL6iSU290ckCm3S71TzSXalX7yjA3DA9oBeGk89al
-         y8I3dyuk2VsvSBmK7zbz5axgVLFmkgs/mSIBd0KMysE5dZMGW2tIUUTryM1KXHG28QTT
-         nA5A==
-X-Forwarded-Encrypted: i=1; AKwUvBxP2s1XK/lIv5vG/sqUsXyXTXYvddqqM664I7EemIHwfu/G0H1FVELRAAGCyuvT3b4ystPRfCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNTf5VoqtiKdnPK84+zMBR3o4H+MRm0zBDaQ+89/EsLXHECN85
-	IrEr2DNAc9QFMzLM3RMwCYOXILsGW8dIBLrBjQf6PfdNhe4zxNlCF31O
-X-Gm-Gg: AYBFou1WukwDO8vJuHlNlZM4+r2tGGdf0KCaXIE2WS4njTdBhRwBBcc4BSd8g1pcNt3
-	it2AU0HxIXyqvqd4WfWb4MEeTNQ04v/6ie2/NlW9iy6OJgl7RMkZE2OOUIAURm3KDPMIUz1VaVR
-	qaZ4x45cTn2tCbM15r6fCG2s4ChfdXOKOXlyVVs/fx+nBkfyBoBVOz7xEGy/6YGWon6EJkNjWtm
-	MxZll7eTIBe0XxP5e9ymHlxvDqitIcPKf8VVCWRXk/gaBY+5w24hXAzIl8EyHVUP0dj/rUwITsv
-	YB0k58oPyfwQ7Tpaky7uxGYDBQ7dSmplhhE4xkULKjcge54i3e/7fWOGg6rIFVmtNe8dYQWIX7n
-	RgRXiAdfEgz0JbMfmsfcJqtwL4DbNCS/+zDfAIfnjeN/MdLrlwK04O9fI1EOV/5DWkI8PDQehOi
-	gXuOFrD4uR7aLxXa7yLd6qoH2H1FA99nzDuzMiJ1sr83M+RBclc5z9eo+jQCO3XOj9gIx1+Rcis
-	nz3f0GVQQixEZb4RDpZvjSh95vQVq265pZIgV72IAzmy52+IPJT5b0OsSfVXLgGSvQ4s0jvq63m
-	J7c=
-X-Received: by 2002:a05:600c:c494:b0:49b:916a:e553 with SMTP id 5b1f17b1804b1-49d010c2a57mr100932445e9.0.1788718625331;
-        Sun, 06 Sep 2026 11:17:05 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B886400ACFAF9D8E9019935.dsl.pool.telekom.hu. [2001:4c4e:1b88:6400:acfa:f9d8:e901:9935])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm433916725e9.1.2026.09.06.11.17.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 11:17:04 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-Date: Sun,  6 Sep 2026 20:16:22 +0200
-Message-ID: <20260906181622.11991-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="QWST2oug"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sGq/9fchFmTfj8c5lBo3vQdrbH4L2PkdivLNGLalwnUI66HIQ8ZHz/iiuBNu+2M2Sw+7RNsmhD7eVImD0QNT8NpfRWw9oKGZvXPAY3louFS6H3vQ8U06sE1cpJKohaxIq9lOcA9kEKb0z9C4q+6DlhqmzehW87wBlwQ/tM7MJ4UN4qZdGkuw6PEZCSZivliRBw1+G2yWVof9Jcta7FXEfZ31tr/YTt7CW3b5klJCbuUR/3rEWVyg6IlMP4+XGYN2t60Kc833bSPGm0pGBjXVCKN4yzgMXGGktTPsspLMq266ilUKxTRWDuaRwxOPaxQwoS4aZqgFimyrlt4E8PRfow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QQJEXf01y1p9b5wsVfxDHXXTZrgUE9dZ1sS4bRUyW7k=;
+ b=VZrQRkhujrIjPmg4LLa++BL/lPpB3LByVnTvIrlud1ESS8vCtHAG1KFA66WlfvbokCA1GiJ3vWWKaW+2NwvsWJ4d8lhwW6LHHjNEIidTRt/cBAnRMZhAd3SPJ+pVwf0H25viMMKkQA/Zhq5SnYvbHDFozsw+xrgORLbWnFwOqNLB/70/dhKN6v2UdUfC+7QkzYRXc1Iyjdz1Th04gE5VBTTu9antZX5Fxcj0pMlgi6cUlhL9nkxJc5B81DcbjOgjTlwytCRFb15HwbJMGsuKPmG2kLbnQxhh4VIYcBcsZCKRow2YIvkLMjwjP6KtZ+j4MrLZdgZ/DkCyuQQu4VgPSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QQJEXf01y1p9b5wsVfxDHXXTZrgUE9dZ1sS4bRUyW7k=;
+ b=QWST2ougz7+LWBY5wheNoBIxb4i6DSr2Sg7cegOsrX0zpaV0gFlvJMGrsHKxPja94Z7EQ1jLOZhZST8MZMvzZpRqMsbg2dEWd013badH0Bfd5ncPPAP5IVD6KCas37RT+T4eB7iier07oWi51ubplrlJ8itVQFek+vzcP8emx0/KXVLuX5ocu+QAR32vT7MSN38ol2QpaJMff5hA7BK4WzSvSPQYbzeKM3HflAJ0nkAwAs0iUHJiaa6cSDay+jfl6RmcU6b2bm4KkVfZUh4iK9E6Rrjnu6VoBxOJlIp7h6UGC7ypvquSLMxR95pEJen1TR/YytXkHSxY8nw5wdYlow==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
+ by LV8PR12MB9405.namprd12.prod.outlook.com (2603:10b6:408:1fa::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Sun, 6 Sep
+ 2026 18:19:22 +0000
+Received: from PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
+ ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
+ 18:19:22 +0000
+Date: Sun, 6 Sep 2026 21:19:10 +0300
+From: Ido Schimmel <idosch@nvidia.com>
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Patrick McHardy <kaber@trash.net>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>
+Subject: Re: [PATCH net v2 1/1] ipv6: ip6mr: fix mr_table leak from MRT6_TABLE
+Message-ID: <20260906181910.GA455897@shredder>
+References: <cover.1788622674.git.zihanx@nebusec.ai>
+ <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
+X-ClientProxiedBy: FR4P281CA0229.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e9::7) To PH0PR12MB7957.namprd12.prod.outlook.com
+ (2603:10b6:510:281::22)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|LV8PR12MB9405:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17d14c14-756e-4213-1852-08df0c435fbb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|10067099003|22082099003|18002099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	dYZAcnKpq/jCvCOKfaWuaprrIg9f6Wi1RROMjx2ukb2Z5B7Gk3VHamKpe/Zg8Zl0cbbiOkRSxfxlL1IOPvdcWajFQx5gzX9bsb06NG8OrROHoh5Mn1/df3tXJ+qRjWbMHQuYl0sD9q6UV30+cs+TUjMPA2cCG2ZN8ontnokzoshBfIOneTEatvC6ywNc5ALl0l9yul2dekvfWdEKZU7zzr1B1qzrmfgxpUMUMVKMLDJyVmBipd/ZwBBn6m9kfMErCLTOtkbUzq0NKUF97jBVoxJPb7Z7NMcGT1hDocoETqLa4amPyje7QR2drnOftjPPV14abkaLTEj8xMIKT9p3oM6bZ/vHsgh+rYF0XZHaKM9bfYUrYzGMz5KmQGIg6JSu17KM5VCTRQxnmH3B1hiWMT276yRKhiIXiqe0eWwbIolDTFu+PAO3YD+zAmFHfLcZ6WxYNhpdWfXwxQzdCMEDopKyAJ51VFYGM2cDkdmHLz3eL3ZBwp5H+sTTt769l8wdIlrKXEDEoqTg/2AqYGoWd3tm+FEqJqGlBu3wdmgBDQ2yMS2it/Z4BKxvelmuecI2ZKGzY1ueiBEmdq4SwjyrzHsdf4edxM1JOFe/hT+wZJFgUe1LabnvJNpJhzEQnss+snS/pfL/36rsoRqtwpYXu5+1zbmPs7+BUR5RqPowIW8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?RNVajQ/casScwa1aN4n9J3053rGH+rz7f3yIN9cvguCWWQq9Lii+wLXJ7ZRh?=
+ =?us-ascii?Q?tufTuupn8Y7Sbecho+DsVXiJwRY5DfhvChW+Ec2EaB/3IHUoRfqw6IF6yLTE?=
+ =?us-ascii?Q?bhCLcO5wCuI61Y0+omHJX19KpzLZrZ2kr0ND/Xyex/UexWu6uRP3JLfEZa6f?=
+ =?us-ascii?Q?mnWQ6QlqVr8Rh0uzXaFqTDAfdOfy/EXgW4LJ27M9PatpwDxW65AdxlzZNY6f?=
+ =?us-ascii?Q?RQGOxPQoQqWA0Jz/GllbDC678lWJfr0vR1p0uK/Cq0tefSW/wSCD2JuCAGyO?=
+ =?us-ascii?Q?Bv5dcwdHPbZhopsz/bIAnTZQ3863yfhXyssraGoVwkMIigJyIo0CY6yxbzaZ?=
+ =?us-ascii?Q?07CQjmf9W7SkMvs419/ZBwpFaBZq+2OMiApYg9fU9tNWW9qsndrGBuIpgQqp?=
+ =?us-ascii?Q?ifTFe5qV1Ej1bIczad4ZFHt6pt6SdmqpxxvWNgyM08C4varTkCohU4kd5McD?=
+ =?us-ascii?Q?1+x69oYCazI8x5Naztjb13WTlcHOBWvBM0Peveam3KOcnJfSi3CLVz/C0yBg?=
+ =?us-ascii?Q?xu3Iy38+lt4a/ophvdyQRCPrmvSirKNMtxQgN0UenZw2SJ7ULrPU87G9UPLP?=
+ =?us-ascii?Q?ODwhSyFxRvwUijtatog2ZGTUB9wtXGPpZA0u5fyzMwOdWm0PFSvRmc46fKN9?=
+ =?us-ascii?Q?XnZ2E5COnKpID5XvrvHJziJUux+aMT54j4gUR3tu64M3/z5w8U8BcmEhGz1N?=
+ =?us-ascii?Q?I1KR3X9WXqBBaSXiElqhVTrq5qpH44WkIL+YYku6PUpbVRydzTQHVIRa0esj?=
+ =?us-ascii?Q?r7FfqG/h3WjrnBsVrHFIZTrwOuexl4akqDYxupyWfMV5CKdUgEYogh/grsiR?=
+ =?us-ascii?Q?xqkdW/DxmgLfjSptoOmNeJFlS1BOfFoslE5rA/NqpGpMyhfWN45iyITmGnMA?=
+ =?us-ascii?Q?ZVFoK38mzRZe3SN4kDop7qPcs0IYv+6i1/i+llqB+0PjlIwlGWvVpDOa1OzM?=
+ =?us-ascii?Q?7QnmXnB9XJGUK87PuSgoqGYfrqlyYESKGI5OZ3SRM/GYqLO3L9GTeqMkV4jd?=
+ =?us-ascii?Q?0YfUlWXqlACRk7nwfp7QAo2eU2Ojdr+pa/FhTZWWxywysJtP4Ee22HA7DmUj?=
+ =?us-ascii?Q?s5KZA7ssTt8Ge6cgTNQ5aDYkPq3oZZQcBcX2HoVMox9fqDG5NrE8MUsoNpVt?=
+ =?us-ascii?Q?85jSJ/yyEosPweQm4GZxF3H6EAjJnCKVbJbCJzLX3YzXXwcHogaC1z6kBjOO?=
+ =?us-ascii?Q?EG/zAauoUjt1i+cqk1dYjVJ3s4FQm7GlBK7eZwAXfy0Zu7B+ulFs2wfCMRMe?=
+ =?us-ascii?Q?c8Xg9X6mkLvhutwvjD4R3Wmxavp5xevwaskLgUW6/Ev/CgLy1difBtYWchn1?=
+ =?us-ascii?Q?aRoOkmz3Q1V+Jke23sw4roZgmi5guhAp+Vd1cvPYW5sQops9gs84S2qYUIsj?=
+ =?us-ascii?Q?GHkGpzzFBOBvQezpNNC1p2vIpeBobKcJMcpAQYs/Nv1XsOjS4skEM+S/BDnw?=
+ =?us-ascii?Q?mzz/Tp1FBcB0Br5L97susyexqEl6GA+OG3UgNtkRxXbGNoj+bGNJSBdF2kJk?=
+ =?us-ascii?Q?nz3Be3Jv92B5KowjNKQDrlHLy6CrgD/UM3iUh7glgAmB0VhUF+61Usg/2Qgc?=
+ =?us-ascii?Q?xCuY+x6Y3DUwosh185Vs98OIa3Nku9Y9HtFj0L4MGmZwJXDI3BnxfcVuRiUg?=
+ =?us-ascii?Q?QR9n8WLD/HE0XIp0pd3Zlre8CgssRPbY1J7v/aGvBsFTiHvyJmG9+Luo+NSv?=
+ =?us-ascii?Q?LQ+2uHdg/JazJc2Tjg2BsgOiUzAQd0HLum1BRIQPAj3NV0Z9?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17d14c14-756e-4213-1852-08df0c435fbb
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 18:19:21.9322
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: niVHm0KWcmabzy6m7O70R4AOACxdZqciHiYZ8mF5ntyGWwGuFiVF968NVXZSpuJRhPmnqq41LnZHjes9lKXKJg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9405
 
-The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 with a
-pull-up for this pin; the mainline board file uses RK_PB0, which is not
-connected to the RTC.
+On Sat, Sep 05, 2026 at 04:30:07PM +0000, Zihan Xi wrote:
+> MRT6_TABLE is supposed to select a multicast routing table id, but
+> ip6_mroute_setsockopt() currently calls ip6mr_new_table() for every
+> unseen id. The new mr_table is linked into mr6_tables and is only
+> destroyed when the net namespace goes away.
+> 
+> A raw ICMPv6 socket with CAP_NET_ADMIN can therefore loop
+> MRT6_TABLE(fresh id) without MRT6_INIT, close the socket, and still
+> leave the tables allocated. Repeating this grows unreclaimable slab
+> until the machine OOMs.
 
-As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-cannot wake the board: rtcwake enters s2idle and the board never
-returns, which looks like a hang.
+Isn't the established way to deal with this sort of issue to simply
+account for the memory and assume that the admin put some kind of a
+memory limit on the container?
 
-This was verified on the board by enabling the alarm interrupt (AIE with
-AF already set, so INT# is asserted) and sampling the EXT_PORT register
-of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
-(high with AIE=0, low with AIE=1, across repeated cycles), while GPIO0_B0
-stays high and its interrupt counter stays at zero.
+See for example commit 6126891c6d4f ("memcg: enable accounting for IP
+address and routing-related objects") and commit 5d26cff5bdbe ("net:
+account alternate interface name memory").
 
-Switch the interrupt and its pinctrl entry to GPIO0_C6 and use a pull-up,
-as the vendor tree does for this open-drain line.
+This diff [1] accounts for the memory of both the multicast tables
+and the multicast routes.
 
-With this change the alarm interrupt fires while the system is running
-and the RTC wakes the board from s2idle ('PM: Triggering wakeup from
-IRQ 52'); before it, rtcwake never returned.
+With your C reproducer and this diff I get:
 
-Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM checkpatch dtbs_check
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-Notes for reviewers (not part of the commit message):
+# echo +memory > /sys/fs/cgroup/cgroup.subtree_control
+# mkdir /sys/fs/cgroup/mrtest
+# echo 64M > /sys/fs/cgroup/mrtest/memory.max
+# echo $$ > /sys/fs/cgroup/mrtest/cgroup.procs
+# unshare -Urn ./mrt_poc
+allocated=1 current_table=1 maxrss_kb=1788
+allocated=10001 current_table=10001 maxrss_kb=1788
+Killed                     bash
+# dmesg | tail -1
+[   63.360047] Memory cgroup out of memory: Killed process 297 (mrt_poc) total-vm:2424kB, anon-rss:92kB, file-rss:1448kB, shmem-rss:0kB, UID:0 pgtables:44kB oom_score_adj:0
 
-Measured on an Orange Pi 5 Plus with the vendor-style method described above
-(GPIO0 EXT_PORT sampled while toggling the alarm interrupt enable); the vendor
-device tree for this board uses RK_PC6 with a pull-up. With the fix the alarm
-IRQ fires at runtime and the RTC wakes the SoC from s2idle. Note that on this
-board the resume itself can still stall later in the USB 2.0 host controllers
-(a separate, unrelated issue being looked at); it does not affect this fix.
-
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 145986695720..572b892e4066 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -189,7 +189,7 @@ &hdptxphy1 {
+[1]
+diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
+index e5f2b1c6150d..b9c544d48c45 100644
+--- a/net/ipv4/ipmr.c
++++ b/net/ipv4/ipmr.c
+@@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
+ {
+ 	int err;
  
- &hym8563 {
- 	interrupt-parent = <&gpio0>;
--	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-+	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&hym8563_int>;
- };
-@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
+-	mrt_cachep = KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
++	mrt_cachep = KMEM_CACHE(mfc_cache,
++				SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_ACCOUNT);
  
- 	hym8563 {
- 		hym8563_int: hym8563-int {
--			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 	};
+ 	err = register_pernet_subsys(&ipmr_net_ops);
+ 	if (err)
+diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
+index 867b24beded1..a0ec6d19a237 100644
+--- a/net/ipv4/ipmr_base.c
++++ b/net/ipv4/ipmr_base.c
+@@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
+ 	struct mr_table *mrt;
+ 	int err;
  
-
-base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
--- 
-2.43.0
-
+-	mrt = kzalloc_obj(*mrt);
++	mrt = kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
+ 	if (!mrt)
+ 		return ERR_PTR(-ENOMEM);
+ 	mrt->id = id;
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 3f2ed9b77deb..9d8116b5edb1 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
+ {
+ 	int err;
+ 
+-	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
++	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT);
+ 	if (!mrt_cachep)
+ 		return -ENOMEM;
