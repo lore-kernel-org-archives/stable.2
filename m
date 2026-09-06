@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8146C3932C6
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322032C0F8C
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723061; cv=none; b=lPgzOi6uIPpS/wHEcSAQCsVm9+C3iVe93kbPkkeUcaZ0NXYxxYMyhq/UIbPza+aUpZqiePqIAn5ZQ7Guf/tgg5Ks4SN/92NSpt4atk4q4lyVs1hnHyNrc3CqpMZWREnWce8a9jToiyc3dqf1fZiPjoP8eekPbJf58k4TWidkbsY=
+	t=1788723063; cv=none; b=Xtr9kaFeWB326Xy2in4XUMw75wmIvjIfyqUxNaBSyuf6aryHmu2A/au9KjjCqLhGsiD3uI3vfnghk8xvVNeweSKs/swwqxxr2ng1R3aljitLRcso3+mHA15uulpVputVg13g3vGBY+8gmKpJqu/cWlRmhJO96SrLQPBVQzeLzpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723061; c=relaxed/simple;
-	bh=ggF4veuO+o9yTr7zBvBWcCr3bdmcNoh1aA/CvPrn+Z8=;
+	s=arc-20240116; t=1788723063; c=relaxed/simple;
+	bh=21Jiz8NpeRAadDOwqmKspLNNCpYLT9u/tQ8Nng6lSCk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xbdie/dcimE0uNyjLANLmg8287L6pkzfqz53CTUByqysevL5INWOsCI56Ex/9bjO7s1MsOwnSxbm+RWUilbCr/ZyCyrTMDRrZOUWfKgvF36lLN+4LNwY27H3SjUaEBgv64xpiN5BEIdfINs+4tEjnXTzKQIWS/4hMGVJHt0++FE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iH+/q0gG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rtPdbnguekTWygKzFDsu6uHv94lle7S6GJlVux4GAUT0QynYREUz8WnHsY7Q33iod1xsl4hse3U8iEW9S4lCMds3nze+S5kTAh9xa1SVn3ZyJ5xlENmomyx//papMgQq52JMEeYGnTtbNhxRP5y+i/Qv1b7TxOp2txCvU6yUWeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=olNQULQ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iH+/q0gG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6B581F00ACA;
-	Sun,  6 Sep 2026 19:30:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="olNQULQ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A09B1F00A3D;
+	Sun,  6 Sep 2026 19:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723059;
-	bh=zPB1SP2uJugmgHLQHu3dkiPtjAgvQ7BpBhupa9tewoI=;
+	s=k20260515; t=1788723062;
+	bh=3LJr7R4JlU524qjP9UsYy6RFBxmF1OhibRSGQ1ELcuQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iH+/q0gGWUJfuI2GxsmXwpXqjiYcepfg665XkJUpmzQRHR+ohAXOoWouF/mpQyx/S
-	 9g9Wti98D6hrBE8scXnlnO/qo15ml5K+D9s+ktXjpqvQ+AYC6XYl1N6JxJByfSwgBs
-	 aV7msw3IF/gOtxD2efJFOx80V9rM9vNImNBNTPppJIArYWhfs5TOFYlajgpfsV5wwG
-	 agS6Yarc8VxT0wD6pEO/UloyFd9GO0TFRBYB7PZXscckTw9hmYWfN7S9jrWmrq8cMv
-	 BlGBoC20dQnHPeV+UXX+Wc40bkV8lUTU18hqeIyuUkbr7dEzkUcFImExmnT/9OJQp/
-	 fQ4aGytAjSqBw==
+	b=olNQULQ51A0qjB4KMq33H+C8gRu4AFjTIba7KO/hDphAgx1aLUTJ9juoZv2C8IUGi
+	 Cmdt8jqqqsMU4iLJ7VljypkHJSCGrPy/4iSEb5S4dMOXNW1FrgblTdfJ8AjdAuiGsj
+	 MomhknQAEv3oMpP7EZWU4cgtKKyX2RfOVm2SuXhVLzjSPzZcq89dxjHfZTK9aD5RpN
+	 hi5cN2QYOZaWTBsCPwm+JlP3h+fswj/WekMXzWbW3ifSXmmMkUS/EZVb9lfkEsrO35
+	 1XTBasgMljcYuDvqZM7+dgkHuAcJffXcIC1xaEntW4JPWndsA5Q6NGeos/5Tpj3cCo
+	 PmdcHaVKvouwA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Sterba <dsterba@suse.com>,
-	Daniel Vacek <neelx@suse.com>,
+Cc: Sam Edwards <cfsworks@gmail.com>,
+	Sam Edwards <CFSworks@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/5] btrfs: use BTRFS_PATH_AUTO_FREE in can_nocow_extent()
-Date: Sun,  6 Sep 2026 15:30:53 -0400
-Message-ID: <20260906193056.1792186-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ceph: properly decrypt filenames in vmalloc() buffers
+Date: Sun,  6 Sep 2026 15:30:59 -0400
+Message-ID: <20260906193059.1792337-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906193056.1792186-1-sashal@kernel.org>
-References: <2026090310-unwarlike-canister-1f00@gregkh>
- <20260906193056.1792186-1-sashal@kernel.org>
+In-Reply-To: <2026090329-swerve-curly-d43d@gregkh>
+References: <2026090329-swerve-curly-d43d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,117 +47,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Sterba <dsterba@suse.com>
+From: Sam Edwards <cfsworks@gmail.com>
 
-[ Upstream commit 5e8632035a173a8c54c17301ecff69c79babb4bf ]
+[ Upstream commit e939fc6a7bd969a58a150b7f188c1047138403e3 ]
 
-This is the trivial pattern for path auto free, initialize at the
-beginning and free at the end with simple goto -> return conversions.
+The fscrypt subsystem uses the scatterlist crypto API, inheriting its
+requirement that any buffers are in the linear mapping region. However,
+the messenger client uses kvmalloc() to create buffers for messages,
+which will occasionally place those buffers in the vmalloc() region when
+physical memory fragmentation doesn't permit a large enough kmalloc().
+The various callers of ceph_fname_to_usr() directly pass (slices of) raw
+messages from the MDS without considering that the messages may be in
+vmalloc() buffers, resulting in oopses especially on non-x86 platforms
+(see 'Closes:' for more details and a reproducer).
 
-Reviewed-by: Daniel Vacek <neelx@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Stable-dep-of: 3f950867c307 ("btrfs: fix extent map leak in NOCOW direct I/O write")
+Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
+fname->ctext, fname->name, and/or oname->name buffers, using `tname`
+(which, when non-null, must be a linear address; when null, is briefly
+allocated as necessary) as a bounce buffer to avoid passing any
+inappropriate addresses to fscrypt_fname_disk_to_usr().
+
+Additionally change parse_reply_info_readdir() -- the only function to
+supply its own `tname` -- to follow the new "tname must never come from
+vmalloc()" rule by passing NULL when the message is not in the linear
+region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
+exists only when processing the minority of messages that spill into
+vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
+messages. Still, if the overhead proves unreasonable in the future, it
+is easy enough to mitigate: a future change could allocate a bounce
+buffer in parse_reply_info_readdir() and use that as `tname` instead.
+
+Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
+Cc: stable@vger.kernel.org
+Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
+Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ adapted raw tname buffer accesses to the legacy tname->name interface ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/inode.c | 37 +++++++++++++++----------------------
- 1 file changed, 15 insertions(+), 22 deletions(-)
+ fs/ceph/crypto.c     | 46 +++++++++++++++++++++++++++++++++++---------
+ fs/ceph/mds_client.c |  8 ++++++--
+ 2 files changed, 43 insertions(+), 11 deletions(-)
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index ab7f19ca21457..ab30015e52a7c 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -7043,7 +7043,7 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index d692ebfddedbc..44dba67f60699 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -375,6 +375,11 @@ int ceph_encode_encrypted_fname(struct inode *parent, struct dentry *dentry,
+  * Otherwise, base64 decode the string, and then ask fscrypt to format it
+  * for userland presentation.
+  *
++ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
++ * linear-mapped region, this function slightly relaxes those requirements:
++ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not
++ * tname->name.
++ *
+  * Returns 0 on success or negative error code on error.
+  */
+ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -382,11 +387,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
  {
- 	struct btrfs_fs_info *fs_info = inode_to_fs_info(inode);
- 	struct can_nocow_file_extent_args nocow_args = { 0 };
--	struct btrfs_path *path;
-+	BTRFS_PATH_AUTO_FREE(path);
+ 	struct inode *dir = fname->dir;
+ 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
++	struct fscrypt_str _oname;
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
  	int ret;
- 	struct extent_buffer *leaf;
- 	struct btrfs_root *root = BTRFS_I(inode)->root;
-@@ -7060,13 +7060,12 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
- 	ret = btrfs_lookup_file_extent(NULL, root, path,
- 			btrfs_ino(BTRFS_I(inode)), offset, 0);
- 	if (ret < 0)
--		goto out;
-+		return ret;
  
- 	if (ret == 1) {
- 		if (path->slots[0] == 0) {
--			/* can't find the item, must cow */
--			ret = 0;
--			goto out;
-+			/* Can't find the item, must COW. */
-+			return 0;
- 		}
- 		path->slots[0]--;
- 	}
-@@ -7075,17 +7074,17 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
- 	btrfs_item_key_to_cpu(leaf, &key, path->slots[0]);
- 	if (key.objectid != btrfs_ino(BTRFS_I(inode)) ||
- 	    key.type != BTRFS_EXTENT_DATA_KEY) {
--		/* not our file or wrong item type, must cow */
--		goto out;
-+		/* Not our file or wrong item type, must COW. */
-+		return 0;
- 	}
- 
- 	if (key.offset > offset) {
--		/* Wrong offset, must cow */
--		goto out;
-+		/* Wrong offset, must COW. */
-+		return 0;
- 	}
- 
- 	if (btrfs_file_extent_end(path) <= offset)
--		goto out;
-+		return 0;
- 
- 	fi = btrfs_item_ptr(leaf, path->slots[0], struct btrfs_file_extent_item);
- 	found_type = btrfs_file_extent_type(leaf, fi);
-@@ -7101,15 +7100,13 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
- 
- 	if (ret != 1) {
- 		/* Treat errors as not being able to NOCOW. */
--		ret = 0;
--		goto out;
-+		return 0;
- 	}
- 
--	ret = 0;
- 	if (btrfs_extent_readonly(fs_info,
- 				  nocow_args.file_extent.disk_bytenr +
- 				  nocow_args.file_extent.offset))
--		goto out;
-+		return 0;
- 
- 	if (!(BTRFS_I(inode)->flags & BTRFS_INODE_NODATACOW) &&
- 	    found_type == BTRFS_FILE_EXTENT_PREALLOC) {
-@@ -7118,20 +7115,16 @@ noinline int can_nocow_extent(struct inode *inode, u64 offset, u64 *len,
- 		range_end = round_up(offset + nocow_args.file_extent.num_bytes,
- 				     root->fs_info->sectorsize) - 1;
- 		ret = test_range_bit_exists(io_tree, offset, range_end, EXTENT_DELALLOC);
--		if (ret) {
--			ret = -EAGAIN;
--			goto out;
--		}
-+		if (ret)
-+			return -EAGAIN;
- 	}
- 
- 	if (file_extent)
- 		memcpy(file_extent, &nocow_args.file_extent, sizeof(*file_extent));
- 
- 	*len = nocow_args.file_extent.num_bytes;
--	ret = 1;
--out:
--	btrfs_free_path(path);
--	return ret;
++	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
++		return -EIO;
 +
-+	return 1;
- }
+ 	/* Sanity check that the resulting name will fit in the buffer */
+ 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
+ 		return -EIO;
+@@ -427,16 +436,19 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 		goto out_inode;
+ 	}
  
- /* The callers of this must take lock_extent() */
++	if ((!tname || !tname->name) &&
++	    (fname->ctext_len == 0 ||
++	     unlikely(is_vmalloc_addr(fname->ctext)) ||
++	     unlikely(is_vmalloc_addr(oname->name)))) {
++		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
++		if (ret)
++			goto out_inode;
++		tname = &_tname;
++	}
++
+ 	if (fname->ctext_len == 0) {
+ 		int declen;
+ 
+-		if (!tname) {
+-			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
+-			if (ret)
+-				goto out_inode;
+-			tname = &_tname;
+-		}
+-
+ 		declen = ceph_base64_decode(name, name_len, tname->name);
+ 		if (declen <= 0) {
+ 			ret = -EIO;
+@@ -444,13 +456,29 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 		}
+ 		iname.name = tname->name;
+ 		iname.len = declen;
++	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
++		memcpy(tname->name, fname->ctext, fname->ctext_len);
++
++		iname.name = tname->name;
++		iname.len = fname->ctext_len;
+ 	} else {
+ 		iname.name = fname->ctext;
+ 		iname.len = fname->ctext_len;
+ 	}
+ 
+-	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
+-	if (!ret && (dir != fname->dir)) {
++	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
++			tname->name : oname->name;
++	_oname.len = oname->len;
++
++	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
++	if (ret)
++		goto out;
++
++	if (unlikely(is_vmalloc_addr(oname->name)))
++		memcpy(oname->name, _oname.name, _oname.len);
++	oname->len = _oname.len;
++
++	if (dir != fname->dir) {
+ 		char tmp_buf[CEPH_BASE64_CHARS(NAME_MAX)];
+ 
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index b49f304170479..4a1f2483192de 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -495,9 +495,13 @@ static int parse_reply_info_readdir(void **p, void *end,
+ 			 * to do the base64_decode in-place. It's
+ 			 * safe because the decoded string should
+ 			 * always be shorter, which is 3/4 of origin
+-			 * string.
++			 * string. If this message was allocated with
++			 * vmalloc() (happens, but rarely), leave it
++			 * NULL and let ceph_fname_to_usr() allocate
++			 * suitable temporary working space instead.
+ 			 */
+-			tname.name = _name;
++			if (likely(!is_vmalloc_addr(_name)))
++				tname.name = _name;
+ 
+ 			/*
+ 			 * Set oname to _name too, and this will be
 -- 
 2.53.0
 
