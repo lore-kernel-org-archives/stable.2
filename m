@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E0637DEA8
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B423B27FF
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:11:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788711120; cv=none; b=UxgH4vy15ZPNMmbEcWa2UnUZXdy7KXh2LXaygH/npCKYk4MnhLoNAD/4ynF+FFHg0q+Mp6YEHgLSoqkquRraxE/2RbQN+Pc6Y7sL0XlrzNsLqfbLXb1WZmU8b9RjPw9CEsQv6wzJ6ky5ujX/epXKT+Ix/7GCNxNab8gvKiO5xCk=
+	t=1788711121; cv=none; b=VO00xkxTxl3E59VCaU8fWPhp+owIOrZ4y434sINp3LkweCJCyS2WkTq9aGP/443K9aHEvwrrBHikFKKDiLcTjM+z7Shy2UbWmcKA3No1oS3Kof/YnaSKdlRx+Q7gSs2EX3s6DhX4hOv1dL025qJwDF08mKVM5zYVTqIp2PlKh9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788711120; c=relaxed/simple;
-	bh=jqneVVGVdSo8SnX0ZnT+ylumXDGHo3FW9PQxg5rfILM=;
+	s=arc-20240116; t=1788711121; c=relaxed/simple;
+	bh=tavJvEi9k7+AwPNEQqXLoUfAT3u1LtCeKtYTEohIn38=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=teKZmAgIEkJ0XBCiCkhdlzB8O5rCUioLg5sScLb/hxLCS1LjEBZdNb7WDcZV9iRLGOPcYciMDVYgGPzNrNOYMEbNt9DYEntI4L6KoWo61meqJfxNej3z3OFaTV4C1QDHuOv7AY9sxQKi/0xGPMdY0RhgTZQC8nzEbX7v/le8NCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wivd9kC8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=th4vh5QFdM9aiY8LfkoNmSVta2GKVx77TfuNKXzwU/dTV8c3b7dR7MGgiGXvdlqL1VQWRT1TQpi62fjpHymFlkvEHlkiNXmYhUVDL5JA+JNE9VyW39FgqdAlu72WbIkGeuXd0Sb+XxfukP+Juf0CKmmmBaPX/J6EUYaCzMEHmO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcGgacqT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wivd9kC8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 462221F00A3E;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcGgacqT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 039201F00AC4;
 	Sun,  6 Sep 2026 16:11:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788711118;
-	bh=TMGku8m/5wCvkCKGfvWGeDVaXLwg4rpxUAar3XrZo1M=;
+	s=k20260515; t=1788711119;
+	bh=vJ8xST2n8tybXqT4k3oCXlN2qz5oklPUHFhdGLFzMhY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wivd9kC8RGqDZLrDsOfa4ZUzijg8N7cCmUyl0vbU1eflSBpulAGeobWVkfA5GR+bX
-	 0TblzFVi/X/rFjxw+Ib+BleKzO6zEDShWq06gkV9oMPtFh9oGkGhUQcXRXwDfk0awd
-	 l0OSXYV7x5qJRgWVHBh6JX1Y6iXegnZPAQtMzQkcrDwXh14C9S/lXjiZQ8QbuN6FwW
-	 xTUI5UMoOwRve06LYuZzgnKo8qjKRn2LnwKSfUxLlpCUE1Pe9R2f16kAGxgNe4dcjo
-	 LKlIWpKHpMhNYFjx+dYTnjJLu8AOI2m6VQ5G5M78Dkpaj86U6Q/v5idx6xgfoS/wC6
-	 zGk1R1n7xtonQ==
+	b=YcGgacqTay806u35XhU+msyagcnORw3fX13bNGdBN6tfjk8rxgcE5iMbUY0nKkcym
+	 EOdeyi1fTXQYhsvcPRreE3IX+S0tihDLavaEQrk1BMmWKW2E1gJcBkInugfyze9EDU
+	 YIRCgNYxYheLGlNEHRalBHr+aCazdgt5BI+JvS29DSWptKnCkXYh56V2EPu60QurJF
+	 bwWu1rNdgw8IVdNa7q8qyoHT1PH0YBeZ6Vib+tYIW0v7aexHNWokCBF6OFxMN8SGAr
+	 NQggB+GOi8pnc+iU2za6REfac0tA1RlSQ3IbY03T6vyrepFy+s5joqWxDXZd7B0+mV
+	 YFWQXE/R+GJCQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Anand Jain <anand.jain@oracle.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/4] btrfs: rename ret to ret2 in btrfs_recover_relocation()
-Date: Sun,  6 Sep 2026 12:11:54 -0400
-Message-ID: <20260906161156.1545411-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/4] btrfs: rename err to ret in btrfs_recover_relocation()
+Date: Sun,  6 Sep 2026 12:11:55 -0400
+Message-ID: <20260906161156.1545411-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260906161156.1545411-1-sashal@kernel.org>
 References: <2026090359-float-gamma-d28d@gregkh>
@@ -48,10 +48,10 @@ Content-Transfer-Encoding: 8bit
 
 From: Anand Jain <anand.jain@oracle.com>
 
-[ Upstream commit bd0d9a619a870f8c6745d2b4f57508bc5106e282 ]
+[ Upstream commit ced1b1bd214fab463f35438c63d9bc6b1a743cae ]
 
-A preparatory patch to rename 'err' to 'ret', but ret is already used as an
-intermediary return value, so first rename 'ret' to 'ret2'.
+Fix coding style: rename the return variable to 'ret' in the function
+btrfs_recover_relocation instead of 'err'.
 
 Signed-off-by: Anand Jain <anand.jain@oracle.com>
 Reviewed-by: David Sterba <dsterba@suse.com>
@@ -59,35 +59,164 @@ Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: 6d8ba4572922 ("btrfs: drop recovered reloc root refs on recovery failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/relocation.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/btrfs/relocation.c | 56 +++++++++++++++++++++----------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
 
 diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index 7034bbd007106..d5bb29d316346 100644
+index d5bb29d316346..8ec3f03605e4b 100644
 --- a/fs/btrfs/relocation.c
 +++ b/fs/btrfs/relocation.c
-@@ -4221,7 +4221,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
- 	struct extent_buffer *leaf;
+@@ -4222,7 +4222,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
  	struct reloc_control *rc = NULL;
  	struct btrfs_trans_handle *trans;
--	int ret;
-+	int ret2;
- 	int err = 0;
+ 	int ret2;
+-	int err = 0;
++	int ret = 0;
  
  	path = btrfs_alloc_path();
-@@ -4356,9 +4356,9 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 	if (!path)
+@@ -4234,16 +4234,16 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 	key.offset = (u64)-1;
+ 
+ 	while (1) {
+-		err = btrfs_search_slot(NULL, fs_info->tree_root, &key,
++		ret = btrfs_search_slot(NULL, fs_info->tree_root, &key,
+ 					path, 0, 0);
+-		if (err < 0)
++		if (ret < 0)
+ 			goto out;
+-		if (err > 0) {
++		if (ret > 0) {
+ 			if (path->slots[0] == 0)
+ 				break;
+ 			path->slots[0]--;
+ 		}
+-		err = 0;
++		ret = 0;
+ 		leaf = path->nodes[0];
+ 		btrfs_item_key_to_cpu(leaf, &key, path->slots[0]);
+ 		btrfs_release_path(path);
+@@ -4254,7 +4254,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 
+ 		reloc_root = btrfs_read_tree_root(fs_info->tree_root, &key);
+ 		if (IS_ERR(reloc_root)) {
+-			err = PTR_ERR(reloc_root);
++			ret = PTR_ERR(reloc_root);
+ 			goto out;
+ 		}
+ 
+@@ -4265,13 +4265,13 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 			fs_root = btrfs_get_fs_root(fs_info,
+ 					reloc_root->root_key.offset, false);
+ 			if (IS_ERR(fs_root)) {
+-				err = PTR_ERR(fs_root);
+-				if (err != -ENOENT)
++				ret = PTR_ERR(fs_root);
++				if (ret != -ENOENT)
+ 					goto out;
+-				err = mark_garbage_root(reloc_root);
+-				if (err < 0)
++				ret = mark_garbage_root(reloc_root);
++				if (ret < 0)
+ 					goto out;
+-				err = 0;
++				ret = 0;
+ 			} else {
+ 				btrfs_put_root(fs_root);
+ 			}
+@@ -4289,12 +4289,12 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 
+ 	rc = alloc_reloc_control(fs_info);
+ 	if (!rc) {
+-		err = -ENOMEM;
++		ret = -ENOMEM;
+ 		goto out;
  	}
- 	err = btrfs_commit_transaction(trans);
+ 
+-	err = reloc_chunk_start(fs_info);
+-	if (err < 0)
++	ret = reloc_chunk_start(fs_info);
++	if (ret < 0)
+ 		goto out_end;
+ 
+ 	rc->extent_root = btrfs_extent_root(fs_info, 0);
+@@ -4303,7 +4303,7 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 
+ 	trans = btrfs_join_transaction(rc->extent_root);
+ 	if (IS_ERR(trans)) {
+-		err = PTR_ERR(trans);
++		ret = PTR_ERR(trans);
+ 		goto out_unset;
+ 	}
+ 
+@@ -4323,15 +4323,15 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 		fs_root = btrfs_get_fs_root(fs_info, reloc_root->root_key.offset,
+ 					    false);
+ 		if (IS_ERR(fs_root)) {
+-			err = PTR_ERR(fs_root);
++			ret = PTR_ERR(fs_root);
+ 			list_add_tail(&reloc_root->root_list, &reloc_roots);
+ 			btrfs_end_transaction(trans);
+ 			goto out_unset;
+ 		}
+ 
+-		err = __add_reloc_root(reloc_root);
+-		ASSERT(err != -EEXIST);
+-		if (err) {
++		ret = __add_reloc_root(reloc_root);
++		ASSERT(ret != -EEXIST);
++		if (ret) {
+ 			list_add_tail(&reloc_root->root_list, &reloc_roots);
+ 			btrfs_put_root(fs_root);
+ 			btrfs_end_transaction(trans);
+@@ -4341,8 +4341,8 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 		btrfs_put_root(fs_root);
+ 	}
+ 
+-	err = btrfs_commit_transaction(trans);
+-	if (err)
++	ret = btrfs_commit_transaction(trans);
++	if (ret)
+ 		goto out_unset;
+ 
+ 	merge_reloc_roots(rc);
+@@ -4351,14 +4351,14 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 
+ 	trans = btrfs_join_transaction(rc->extent_root);
+ 	if (IS_ERR(trans)) {
+-		err = PTR_ERR(trans);
++		ret = PTR_ERR(trans);
+ 		goto out_clean;
+ 	}
+-	err = btrfs_commit_transaction(trans);
++	ret = btrfs_commit_transaction(trans);
  out_clean:
--	ret = clean_dirty_subvols(rc);
--	if (ret < 0 && !err)
--		err = ret;
-+	ret2 = clean_dirty_subvols(rc);
-+	if (ret2 < 0 && !err)
-+		err = ret2;
+ 	ret2 = clean_dirty_subvols(rc);
+-	if (ret2 < 0 && !err)
+-		err = ret2;
++	if (ret2 < 0 && !ret)
++		ret = ret2;
  out_unset:
  	unset_reloc_control(rc);
  	reloc_chunk_end(fs_info);
+@@ -4369,14 +4369,14 @@ int btrfs_recover_relocation(struct btrfs_fs_info *fs_info)
+ 
+ 	btrfs_free_path(path);
+ 
+-	if (err == 0) {
++	if (ret == 0) {
+ 		/* cleanup orphan inode in data relocation tree */
+ 		fs_root = btrfs_grab_root(fs_info->data_reloc_root);
+ 		ASSERT(fs_root);
+-		err = btrfs_orphan_cleanup(fs_root);
++		ret = btrfs_orphan_cleanup(fs_root);
+ 		btrfs_put_root(fs_root);
+ 	}
+-	return err;
++	return ret;
+ }
+ 
+ /*
 -- 
 2.53.0
 
