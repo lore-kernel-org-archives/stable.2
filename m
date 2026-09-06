@@ -1,152 +1,143 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148D4382F0F
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788684265; cv=none; b=G/ZDfNqiHImylxrAVaJB2wDxNv1d+VxyTxzM40jk98xOwVUlDaT7yKeDMVODQ/V3duDSIGkYhMW4PWkYsP67WmALj4q4zDnQBdXJoWQWMoVo1wO3fTmXvld5Ofjtgdhp1/J3K/ZlxcwB9HAO2xq4LESq3TzMKgRRfha/b/gS0Sg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788684265; c=relaxed/simple;
-	bh=qNTDOlPILV3T04HAjwGIZq4By932gRZYYSompesDPNE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g7+alnV8dwkhAUoKuMhRibgiObA6fqO2NRi2LFY8alEDVSVgewMRGA0CEfxgf5IYjKb994/qieVoUIxifv2P4m57Btoqn/5vJ0bqGdnQSNX91082tnD9a9awssha5jhf2Ietbh8mjuj98nVrJ4CJRj+2GgRn2X3O0LWFN1yVYK4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s+N8muI9; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B311E5B63
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788684926; cv=pass; b=F0AoJzWZW6Wib59PMAOsJcRTZr06FuNygb+SUowoM/OsocJz/H7CvQPCJEU6C7I8bRYYPHko5MGjfKijSUXBbTLxKlMNvJOI+unVrgCfXdkPNqMHI4WQMvvHl4UoJ/ny7jEzhtCBI0aD4cdX3mr7F1p6ZXPMie8utvpYgzXsLN4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788684926; c=relaxed/simple;
+	bh=g5rp3cyruIK/dny6JiV8J3fPMfm3QBwFQNudepca/fk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=K++/zQb354UTrz8wyLabahKBJtvVxh7IT99czMA2xmn8MF70xsUMi+d+7kOLSBvKJBQsWkHKQ/Hu/EvN9X6MPDliDIE0uQzhP14tR6u4MH5HyaVF0lBMHhKD8/tEXsALQYw4INpr2B9SQXfshHsYKVVfqBoQAGb5tJm/3mzifD4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eMNl3lbc; arc=pass smtp.client-ip=209.85.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s+N8muI9"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d942c7cc2fso18941235ad.3
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 01:44:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eMNl3lbc"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so4230880a12.2
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 01:55:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788684923; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mTOZYds8Jp8kyJ5NtAdE636rgBhD1Mnbhce2s1WVUvhy/2uGtD2L9P31tibbgWoJre
+         TM4JuIScMq0vo+uZGbaIKj9BTjzjOfGgKPyq611foa1Su/pJO2cyZ5cSYGupQDTmzAZt
+         h9QFDxN0f6C1efMTp7LHlLjHKwoH/GQ1R43K71kDFCPwFEguVUMJeI83zSZ/E8yH/Q3l
+         vzTxbVpeyY1D4Gfvgpm/Lkqv0p8Eqm1dhY7LG8b0kzT5ix2vPie59/R1G49sZeaxXnna
+         jn9/P7q/wCnNVd4qvFFuvuRKpadWgBxTErXF+sJr7lerHPhouCWxyvia6c88HyuUYTd2
+         j40g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vlCiweKm6MaEMAHJoxQS9a5bn15JS8c/ShWtHG5O8FI=;
+        fh=80WVrEaQTcqnxAfNalcQPBB1Ip2OZPjrUfnX7yHrw68=;
+        b=OhouPOTGZE+VwXHcqAn5ySfw+w4elFIEN29MQc6sxAlTJnN4dJSGL1xglNt/iPJc0v
+         YIV9d7eOHXcBGILzggxBk/YKzE+ZaXFExyNXPvZNvf6daYEXejesVGdTAZ7HphjUtD5k
+         QOPWIhilHcQjHTUIdUucFGV5h7e8Fvgemq8YcUJMcFnAWmUsa8l24QGZiLVp9E7C/VBy
+         BmH9+Tp1scy3jvwlxXy+pljERs/cftO/n+r2joj1vt7ao4FSnqffCLF+QhtUBE00Vceg
+         A98Bf07QABbUnCiXcUrhgvKTmV0J4nSKDLBfOwJ0w08Acy6r6hD4m3t7qZtQMgyQsFLv
+         pW0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788684263; x=1789289063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
-        b=s+N8muI935x/XJrIVxbQJKnJDcod/ClhFST8qVlYz/Tv8bcLq3D8xXbsH0ZzhpJ8+u
-         n8xl9SprMXFaeOdI3asZhL9dBj52/sLIzfzha8OE2pFoVpQt6Z+pMKhZCwBrQjirft2P
-         GavT9ouD9Lp4hQtBL2MFngYmrseYDOzaDSj3neb/jLvyio/zR3gMphfTIXK++mZzVy8P
-         BTS9B0RmtARKFlF8LPJODcPM/ryAYPzDWU9XbyHbGnvI/2GicI1GUivw4lReC5DdpZ/s
-         yYSyhhzrw2ps75Xm4W2bVXLBEn4ofJP7gC95S4jPe4TX0VuReL7vl2mNNO6Hs9VVpCsA
-         4Y1Q==
+        d=gmail.com; s=20251104; t=1788684923; x=1789289723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vlCiweKm6MaEMAHJoxQS9a5bn15JS8c/ShWtHG5O8FI=;
+        b=eMNl3lbcs2/C2VgxceSyvJxhtRAVJu/iC+3f/V14SPreNpUDGvRllGwCqMZDN4kU7q
+         zJYmVAnHXdR82rM0YCwA5474ckpwzCYYmfsGxQr+/+D7ry/BEnPf1kK/t2fnt4pH8DYE
+         nZCpkdjvXpS0deMASqyBzkzQ8BTUrAxZwzfv7wUy+unyuK9pjZSUwF3bcEfZTOJKmLS5
+         dlwMxV+2iAB8HjWOrR3FSl0dsXBc1rQ6cNGNxHHR3ibFny7+fRe4CCLjolVpoyiSTiad
+         0UNjz2+7PeqJHATZC2N8tMXNQ+XzVXirDIErkp4byhvdjrompGP3tlr84dm/9lnz2v64
+         mjHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788684263; x=1789289063;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
-        b=Sk5XUlUeeEzHCH55n7K7+7imZ9EbA100RLhb9TRWDJMp4RMPZ7CX5HjX1KCPRlpFcM
-         0ZD0hYO6Z9jv5VgVm8zKngy7zJM51UMpzSqMi0a6BCSOIZD0U/89Eludu9plumX8uE2P
-         u8+9KX7mQerepDLxzDHQDQrgMfommCCViN3hf+2JLolO9e7nhm2nJNhQ2ls2L2OFHZ8J
-         MwGcX6vnnVBkmObZT0kYG3yiioraVViBJtS0AIYXW5Txmgb1DFmjIK6UlxvdBwf6RNwD
-         sN3A0li+tZQEc3sUlgxgP00xig++1cR7mRD8Wd5bhb5ouJOm8KGRvKR9WlZWgVM7mCOI
-         CFjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwPK5Tx8zn9gxoPzBMiAvFFsAH+Hnaj6TOAIsN+C1KGCRhkkBVXKRk3T4ujIs00qd9DguHLGS4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkOgFSlqSljfngL4tByt43zjCpOeEDfbj18E7Bs31rwq6aOJeN
-	k+RK4Eqf2FFCbUlLu9OewFqmeogw4y3IEWO3HbaHw+Zn29+tQPb9ROgX
-X-Gm-Gg: AYBFou1c10fQWQUkEdFFkqm6+KOjDYIUcaWdUO6Yh6wRT8Hogm8HlkfF2+hzTWKgkNK
-	YOz79JVrWngUoVOPIYs9j/4rM8uHOPs7NLR+LeiNQeZPDhO9y8aZfcl7Fj1UWyYG23xnXabnG5i
-	p5dG5Baz7unbCDYvBouLizfYQmRaU0TyUJGlqCvwPpLN08bjwus1t03yT50979tGl9r6OxEDj0l
-	DFzZ3hF2fkprREJbIZd+9/RuS1eFZLVUX4XxxFbMmhJQSby+VsN/KM+Rf5IjfC+f1FKw0BbicSW
-	6CdbNToybDw5fBbJSWA7RaJfEnLrDJpOspR2rNc7283qLFUvKdTfO3daGRQlpu6hBABpeMA1sHI
-	Bicr7Zy2lZeymutPsW2vyfkw2uaGH4EidyHPU2zSpEO7arLUwc5BOMxn9vHOjfGnivr6h1w/Y8W
-	LDCX0LSokIKwm67egQiZ9Snq9QtECQ6AJ8L7tTz4rwYCNR1FNSbrJCzIo2wlJpVUh6aiHO7xBvQ
-	0a3p3w+FcechmtNPDIR
-X-Received: by 2002:a17:903:b48:b0:2da:effd:f904 with SMTP id d9443c01a7336-2db1258c686mr229715195ad.8.1788684263408;
-        Sun, 06 Sep 2026 01:44:23 -0700 (PDT)
-Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db190f6fb0sm28470765ad.51.2026.09.06.01.44.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 01:44:22 -0700 (PDT)
-From: Weiming Shi <bestswngs@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+459f67f4d8af8ce6@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	stable@vger.kernel.org
-Subject: [PATCH nf v2] netfilter: ip6t_rpfilter: reject routes without inet6_dev
-Date: Sun,  6 Sep 2026 16:44:10 +0800
-Message-ID: <20260906084410.5601-1-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788684923; x=1789289723;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vlCiweKm6MaEMAHJoxQS9a5bn15JS8c/ShWtHG5O8FI=;
+        b=aCB5d2vwgnHwpOSgbAWWtg6PWg4DDXM/mUQnG8Rf4beS4RYjEJSkf8nmjGejZzZNwh
+         CP5w4S9QkPu8+WGIm0VIaCVjJNPrUy2shJDhrJh+rlhWzQ+Jy6M4rEs5wpBsWkDzC4ph
+         CndE8ltOczUNkkTHWw8yf2rivajRR5vQzSFnlxNbRP6Q2Vrm0XiqBrCQRaMNuGfxaKoB
+         iJMiJJK9P1LphazP2VwDa7LhS8aHf70Z8nPWXKRP0kBYrO44d/v3++1BMydd2bV9x+8q
+         l+BaaNoZL1prQPkTm+QoWrG4AO0OIIZgR3CtcoThg7IW/pSmah8mIm+ajjmGqsfW/jF8
+         rezw==
+X-Gm-Message-State: AFuF++lifMXEMzfEYLN7JdSQjhRq32wO+jEPw9LQSh71lc4YjyQFO4Cy
+	jhrceMR/AHQ4NER7zzkwUfwG6VrzeyGE3XBSGaFgJnT+4ukMBT7JS9BEwPxnloLkdg48G87EASQ
+	DbxdyvWGSfPWNlIGRYPrK/QlgCu6z4F4=
+X-Gm-Gg: AYBFou35Lm1im6cggw2cHXRT941spjEqKMx2utvIJrkreDehQwY/anPpu0txNRuhjXD
+	AH9NJRqUuIJVhAu7/HrewGEzkozJiwMa7yzHW15PBEgdETxKt6URmpKofZbq4hSloMOlav3coZy
+	24qTzMcG3ByJg6TzFlmzhjnvZ8KPw0guh2OqY5Q0yw7EtfVbJzkf2hf0mdTr0zxN5/SywOem9XE
+	NAp4hqbXHUfrhak8/JmhjDJxysmHMRDQMwhqs9rgaPpwFhEUmh+ak5cTU4UChTTSPoUr5QZqN/E
+	Oxl9topl5ld+e4v7N1tVKXd4v2ZyLb9NV9HiW8Ao5c6t9A==
+X-Received: by 2002:a05:6402:2709:b0:6a1:b515:d2b9 with SMTP id
+ 4fb4d7f45d1cf-6a7e8e95b74mr244573a12.14.1788684922519; Sun, 06 Sep 2026
+ 01:55:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAOQ4uxjNxYFJE2J3K=_Ur2LjvF2nnE2B626ef6YUWJwAoirB2w@mail.gmail.com>
+ <20260906030833.3356045-1-yjkwon0026@snu.ac.kr>
+In-Reply-To: <20260906030833.3356045-1-yjkwon0026@snu.ac.kr>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sun, 6 Sep 2026 10:55:11 +0200
+X-Gm-Features: AcwNN1VKhWo4H9qm55g2inVvYqN-J9UxuiQgCWUwti_PXb3Wu5tat1-h_fsrtPA
+Message-ID: <CAOQ4uxi9ivMeEq1oyFHDc7fdbFOq75uEokXrj8ib5vL34aWYCQ@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y v2 1/2] fsnotify: inotify: pass mark connector to fsnotify_recalc_mask()
+To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Cc: stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	Sun Jian <sun.jian.kdev@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-ip6_route_lookup() can return an error-free route whose rt6i_idev is
-NULL. Lowering an external nexthop device's MTU below IPV6_MIN_MTU tears
-down its inet6_dev while fib6_ifdown() leaves routes using nexthop objects
-in the FIB. An unprivileged user can construct this state with rtnetlink
-in a private user and network namespace, then trigger a NULL dereference
-through an IPv6 rpfilter lookup:
+On Sun, Sep 6, 2026 at 5:09=E2=80=AFAM Youngjae Kwon <yjkwon0026@snu.ac.kr>=
+ wrote:
+>
+> From: Sun Jian <sun.jian.kdev@gmail.com>
+>
+> [ Upstream commit 4520b96b8136ba2465a3f4dc5c3fb8bdf3d92e4e ]
+>
+> fsnotify_recalc_mask() expects a plain struct fsnotify_mark_connector *,
+> but inode->i_fsnotify_marks is an __rcu pointer.  Use fsn_mark->connector
+> instead to avoid sparse "different address spaces" warnings.
+>
+> Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+> Link: https://patch.msgid.link/20260214051217.1381363-1-sun.jian.kdev@gma=
+il.com
+> Signed-off-by: Jan Kara <jack@suse.cz>
+> (cherry picked from commit 4520b96b8136ba2465a3f4dc5c3fb8bdf3d92e4e)
 
-  Oops: general protection fault, probably for non-canonical address
-  0xdffffc0000000000
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: rpfilter_mt (net/ipv6/netfilter/ip6t_rpfilter.c:75)
-  Call Trace:
-  ip6t_do_table (net/ipv6/netfilter/ip6_tables.c:316)
-  nf_hook_slow (net/netfilter/core.c:619)
-  ipv6_rcv (net/ipv6/ip6_input.c:351)
-  __netif_receive_skb_one_core (net/core/dev.c:6216)
-  process_backlog (net/core/dev.c:6680)
-  __napi_poll (net/core/dev.c:7739)
-  net_rx_action (net/core/dev.c:7959)
-  handle_softirqs (kernel/softirq.c:622)
-  do_softirq.part.0 (kernel/softirq.c:523)
-  __local_bh_enable_ip (kernel/softirq.c:450)
-  __dev_queue_xmit (net/core/dev.c:4913)
-  packet_sendmsg (net/packet/af_packet.c:3139)
-  __sys_sendto (net/socket.c:2252)
-  __x64_sys_sendto (net/socket.c:2259)
-  do_syscall_64 (arch/x86/entry/syscall_64.c:94)
-  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-  Kernel panic - not syncing: Fatal exception in interrupt
+This line is redundant
 
-Reject routes without an inet6_dev immediately after lookup. Such routes
-are not eligible for reverse-path filtering, and the check protects all
-later rt6i_idev dereferences.
+otherwise
 
-Fixes: e26f9a480fb6 ("netfilter: add ipv6 reverse path filter match")
-Reported-by: co+459f67f4d8af8ce6@bugs.sh
-Closes: https://lore.kernel.org/all/VtWUkE8QzJt5CroTj2V2v3ZQ0gwbXZ7nq7I3@bugs.sh/
-Suggested-by: Florian Westphal <fw@strlen.de>
-Assisted-by: Claude:gpt-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
-v2:
-- Reject routes without inet6_dev in both loose and strict modes, as
-  suggested by Florian.
-v1: https://lore.kernel.org/all/20260906034939.3746540-1-bestswngs@gmail.com/
----
- net/ipv6/netfilter/ip6t_rpfilter.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Acked-by: Amir Goldstein <amir73il@gmail.com>
 
-diff --git a/net/ipv6/netfilter/ip6t_rpfilter.c b/net/ipv6/netfilter/ip6t_rpfilter.c
-index 67c87a88cde4f..b5def30c3127e 100644
---- a/net/ipv6/netfilter/ip6t_rpfilter.c
-+++ b/net/ipv6/netfilter/ip6t_rpfilter.c
-@@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
- 		fl6.flowi6_oif = dev->ifindex;
- 
- 	rt = (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
--	if (rt->dst.error)
-+	if (rt->dst.error || !rt->rt6i_idev)
- 		goto out;
- 
- 	if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
--- 
-2.55.0
+> Signed-off-by: Youngjae Kwon <yjkwon0026@snu.ac.kr>
+> ---
+>  fs/notify/inotify/inotify_user.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify=
+_user.c
+> index 0d813c52ff9c..905c27e9cd38 100644
+> --- a/fs/notify/inotify/inotify_user.c
+> +++ b/fs/notify/inotify/inotify_user.c
+> @@ -573,7 +573,7 @@ static int inotify_update_existing_watch(struct fsnot=
+ify_group *group,
+>
+>                 /* update the inode with this new fsn_mark */
+>                 if (dropped || do_inode)
+> -                       fsnotify_recalc_mask(inode->i_fsnotify_marks);
+> +                       fsnotify_recalc_mask(fsn_mark->connector);
+>
+>         }
+>
+> --
+> 2.50.1
+>
