@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E1A13CFF4C
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3880C3CF942
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:34:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701698; cv=none; b=lDmQiHDkLRU4UfKOHvpY7EfxD9TLzDwfseYw2RAsRhys0A0Jt1I41Y6GXOES6C0Y01tahT7o/jaR9TKw8GYf0B4oFbJBpmXDTBWQiM9hj3qz5d8I/BP9bNSH83UWQBXQPZFy23rBkY/qzQunJP1amnd9lG+WWDxKtrmC4Wqzq4E=
+	t=1788701698; cv=none; b=RSWu4KrH3pP401dbc8ODcV5AwjN9d7/1JcZOXhBw4vTnA6LdnhgHPr78PLozE090kmH3xTKrnS07jtF1AnVpO0ducAnHJTWtTPvf7TKAhm2LZjFMN41Q1Ei+owpzP4ngV6T6wxgGa+cOLApg0ZXnTwuW5JKNXWu0q58vU1uKPPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788701698; c=relaxed/simple;
-	bh=ZXVNZAoW/ogUzWMe8wbA0K+5x4Bh+9IPhquGTkqUZj4=;
+	bh=U+EgqV7lsWcOfI6ORZEM4hfPb6ESHwqo8z2/IcapdzE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AmBr/acXdT8HP5efpmlD0WkzBr1Yijn1NTqZ7q05d8doxhLz+PSoKNW9Y/fcM/aSrf16cIlLA7FDvr702YZw9MedqL5Fzuwj5DbcOJFs9HraCfTuUNljXY+ST7bvZp3M8hiFHUDBzkd4R5n5/8L5PygAzykh7sZd3Emjwr0oHls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHZ9vWHT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XBvUL/hbM64KBo17Pv421moN3bwsc0Hd9/Z2PzHNkjWNiNxaQVfsrzKNpq1IK/uuobfmnEgN/5p2YseLDW577Xf8LWQ5b8sM+NISzgrZmuCSkbNyiZhXZ//npDzLtSKAEqpEqLKF2TZFz493Yeto2PhgP1Zo1MyI9nXx8HoJKu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOjM8Lzf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHZ9vWHT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E224B1F00A3A;
-	Sun,  6 Sep 2026 13:34:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOjM8Lzf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D9B81F00A3D;
+	Sun,  6 Sep 2026 13:34:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701696;
-	bh=pL8L1260CKVljHNXNRLUrF7Lq7dWzynOLcPitKUkpTc=;
+	s=k20260515; t=1788701697;
+	bh=30nND69hmPNaD+qlUjTVj7FKwbGT6mDmRe7i1QgrRfI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WHZ9vWHT+c+SReRzcDqdR2wEp3/zSVz0IUQOxrVyDi6Q3A3D/J8TErRNZ/FfanNpO
-	 eFkDeRjDKua13+PeU70PP/WjiC8+T/61ljeHUlzgNOzmKmy9TTxqjd+Vpdg+F4v1HV
-	 LCvnxPfUVgJwP8nxcITbiIaPBXlKFELDWUn7D0GF8hB7t4IU4/26nYyX1RVIFgoYxZ
-	 1t4OYk0gnMEaaTFfoogZexZ5VgAXc74PQ5Tj45cicXx4pBho9PXoCpr28pTEbDNJy5
-	 2q08k2trCd5oro7XARbCmbdpHVMK0bnAnfIu5wFH1YrrEsI38800iSkdT88bpR9B9g
-	 7EawC3w1PJjuw==
+	b=TOjM8LzfZx1+zpL6BgUbFm94Sgxvq8z5iN5FcllR9Vu8IobUh2rOaSxiffwR3K1Gy
+	 iI27e275ZIFb/5DNF+4hZqUAThavh556ESQI4YOT3ywMdRxL6op3m+QK3PBWDY/G0o
+	 oQsApIXUvKMJflDxTw11vIElvBz7mIrlksJ3Iep6+UbKHyGWNSIBQe4AfsaKofS/P3
+	 w0akRqlW+YEsFx+Ve8X8ZSgPoz50V2PgedT4Q8bhNqO0KaJM0dkFV5QgzSLPyOpIVd
+	 8OkdMystkymJsU2e5epYFCPbrCCANvXxVo2X8+QSWGQCoSjGaA7y/Ra94YF2OnVFsV
+	 c9abJWyqRujHg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Olga Kornievskaia <okorniev@redhat.com>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] nfsd: update mtime/ctime on COPY in presence of delegated attributes
-Date: Sun,  6 Sep 2026 09:34:53 -0400
-Message-ID: <20260906133454.899083-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] nfsd: fix stale s2s_cp_stateids IDR entry for async COPY
+Date: Sun,  6 Sep 2026 09:34:54 -0400
+Message-ID: <20260906133454.899083-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090322-excavate-aside-0c00@gregkh>
+In-Reply-To: <20260906133454.899083-1-sashal@kernel.org>
 References: <2026090322-excavate-aside-0c00@gregkh>
+ <20260906133454.899083-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,76 +46,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Olga Kornievskaia <okorniev@redhat.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 4183cf383b6faec17a0882b84cd2d901dba62b16 ]
+[ Upstream commit d0beaee498e11880e72826026db0e9c9890fc114 ]
 
-When delegated attributes are given on open, the file is opened with
-NOCMTIME and modifying operations do not update mtime/ctime as to not get
-out-of-sync with the client's delegated view. However, for COPY operation,
-the server should update its view of mtime/ctime and reflect that in any
-GETATTR queries.
+For an async COPY, nfsd4_copy() called nfs4_init_copy_state() before
+dup_copy_fields(), so the s2s_cp_stateids IDR was pointed at
+&u->copy->cp_stateid -- memory in the per-rqstp COMPOUND buffer that is
+reused by the next request. dup_copy_fields() copies only the value into
+async_copy, so the IDR slot dangled at the transient buffer for the whole
+background copy. Any IDR walker then dereferences reused request memory:
+the laundromat reads cs_type from it and, if the bytes look like an
+expired NFS4_COPYNOTIFY_STID, follows into
+refcount_dec()/idr_remove()/kfree() on garbage; manage_cpntf_state() has
+the same exposure via idr_find().
 
-Fixes: e5e9b24ab8fa ("nfsd: freeze c/mtime updates with outstanding WRITE_ATTRS delegation")
+Duplicate the fields first, then register the stateid on the stable
+async_copy. result->cb_stateid is unchanged.
+
+Fixes: e0639dc5805a ("NFSD introduce async copy feature")
 Cc: stable@vger.kernel.org
-Signed-off-by: Olga Kornievskaia <okorniev@redhat.com>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-
-[ Stable adaptation: Linux 6.12 does not contain the Fixes commit or
-nfsd_update_cmtime_attr(), so omit the timestamp-update call sites. Keep the
-attr_update context needed by d0beaee498e1 ("nfsd: fix stale s2s_cp_stateids
-IDR entry for async COPY"), and alias its newer error label to the existing
-6.12 cleanup path. ]
-
-Stable-dep-of: d0beaee498e1 ("nfsd: fix stale s2s_cp_stateids IDR entry for async COPY")
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260710-nfsd-testing-v3-3-a0ff7db6aa3e@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4proc.c | 8 ++++++--
- fs/nfsd/xdr4.h     | 1 +
- 2 files changed, 7 insertions(+), 2 deletions(-)
+ fs/nfsd/nfs4proc.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index a4c7cab1679bd..63a4825dd15f3 100644
+index 63a4825dd15f3..2652e60f0f5a7 100644
 --- a/fs/nfsd/nfs4proc.c
 +++ b/fs/nfsd/nfs4proc.c
-@@ -1799,12 +1799,15 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- 			goto out_err;
+@@ -1800,11 +1800,12 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
  		async_copy->cp_src = kmalloc(sizeof(*async_copy->cp_src), GFP_KERNEL);
  		if (!async_copy->cp_src)
--			goto out_err;
-+			goto out_dec_async_copy_err;
- 		if (!nfs4_init_copy_state(nn, copy))
--			goto out_err;
-+			goto out_dec_async_copy_err;
- 		memcpy(&result->cb_stateid, &copy->cp_stateid.cs_stid,
+ 			goto out_dec_async_copy_err;
+-		if (!nfs4_init_copy_state(nn, copy))
++		dup_copy_fields(copy, async_copy);
++
++		if (!nfs4_init_copy_state(nn, async_copy))
+ 			goto out_dec_async_copy_err;
+-		memcpy(&result->cb_stateid, &copy->cp_stateid.cs_stid,
++		memcpy(&result->cb_stateid, &async_copy->cp_stateid.cs_stid,
  			sizeof(result->cb_stateid));
- 		dup_copy_fields(copy, async_copy);
-+		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
-+			       FMODE_NOCMTIME) != 0)
-+			async_copy->attr_update = true;
- 		async_copy->copy_task = kthread_create(nfsd4_do_async_copy,
- 				async_copy, "%s", "copy thread");
- 		if (IS_ERR(async_copy->copy_task))
-@@ -1822,6 +1825,7 @@ nfsd4_copy(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
- out:
- 	release_copy_files(copy);
- 	return status;
-+out_dec_async_copy_err:
- out_err:
- 	if (nfsd4_ssc_is_inter(copy)) {
- 		/*
-diff --git a/fs/nfsd/xdr4.h b/fs/nfsd/xdr4.h
-index c989398eb4d8c..ae14fa145d02e 100644
---- a/fs/nfsd/xdr4.h
-+++ b/fs/nfsd/xdr4.h
-@@ -598,6 +598,7 @@ struct nfsd4_copy {
- 
- 	struct nfsd_file        *nf_src;
- 	struct nfsd_file        *nf_dst;
-+	bool			attr_update;
- 
- 	copy_stateid_t		cp_stateid;
- 
+-		dup_copy_fields(copy, async_copy);
+ 		if ((READ_ONCE(copy->nf_dst->nf_file->f_mode) &
+ 			       FMODE_NOCMTIME) != 0)
+ 			async_copy->attr_update = true;
 -- 
 2.53.0
 
