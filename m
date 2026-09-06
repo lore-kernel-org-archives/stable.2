@@ -1,99 +1,223 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4411FD4;
-	Sun,  6 Sep 2026 00:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1672E2E8DEA;
+	Sun,  6 Sep 2026 00:35:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788654735; cv=none; b=NIu3422ftmmFHUS6AnUBb+qOiagzYlhmmVTdtfPoWrcPZeNshbMUMXW1e3m3CN64Bkzfw7Ybx30HCWMaZZTk7H0qqzaKtrkbEPKW8GfhSOeZ2sU4ecF5YzxUdMfy095faG2lVgwvnluJcoFMEpG93h8qTAQky+fR9TqVWZ+wPd4=
+	t=1788654922; cv=none; b=cAd1AYjfNneSWcmBzOhAInZVcVTGaXf0Uk/r45bfUrbguFF2AQo5jovxdBU29anP9943jkLbea0hAIhogMn/skJDQbRq5fgXfBNJHVEh3OQmb+0vSFUL7lgoeiWMShWKevGOZieG0c5PyS3m1aapfVrANX/mhnReB80EmukSKG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788654735; c=relaxed/simple;
-	bh=k1OFxiRBC1UnYpQy4EdqJFxB81tHqqUuMRCiIk37ECw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U4QDUV5iHCrOF2XzHui2/meLooVPbfB0i6WuJZxCSI2wffFm1Qv0weD4lUWsvHvqXTOETd5NXSeFoogLhz6APqihYK/5C/ThsXm9fqlF6lspyO5gCkq8o5SW7SiDRVRe+nKK5+lzSmJpdhrggqt6bUnPcKjDU9qspocAHQHF+fI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=AcJNDRPl; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788654922; c=relaxed/simple;
+	bh=JPlWoB4DXow6nbg9rJrJMG26hOHZCU/65RpKG60qAgk=;
+	h=Date:To:From:Subject:Message-Id; b=C1ovO8cLTWE1y/QBAyp8ullRjlWqJ9obNNHlJ/rRhArglB54YGUjdO9ReaDMXGXHFCsRmGFOwQni+Bg2BgFaxW2sOZcpxjgCqU20Rdk4zqyV+BPTnOab8RDMh/Et6Vg3O0tFYDhvSQm3/FMzJVeT3DS+XHp3/739E5pKO1tLyYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uRSKXqd9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="AcJNDRPl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=4CwkqFElh4pjGctDggceZpagl1zjwDqBMqU8Kvoo5mE=;
-	b=AcJNDRPlkkjmT2yL8nlyy1lbUxXLVrTekW/BqaM/I/Anz8A1nX0LafSztPkBxi
-	IhovyoGRLWYPcw91g8AZN5/iPybDG+eI01f17BdYwh+IKPx6eNEWLElCmdkDAbkf
-	a0aWk4EguaOt2XMLmdDg6bfN4K/mq6w/q0OIRjIwiOHoc=
-Message-ID: <b2a66985-ede1-433b-aff0-4d2acc5c027b@163.com>
-Date: Sun, 6 Sep 2026 08:31:32 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uRSKXqd9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8958A1F00A3A;
+	Sun,  6 Sep 2026 00:35:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788654920;
+	bh=IgY0KNzUHJ/fYTASL01kGfcHFX2ExSozWX8mnJ2vOE4=;
+	h=Date:To:From:Subject;
+	b=uRSKXqd9nlvCMU0q09KdAnE/IRcdC/roaDnVV2U3seKW3ukqu+A7G2Gr/93arujg+
+	 +bDORW2LSDSfCP4rsVikktL70DKfJwcG1ZrnPGgRk18cBUMmv6/2jygkjQ1rLaAz2a
+	 eb8HKgi6GCHFHgZe5oCUrg+FiM1YLM3ye3aDfZPk=
+Date: Sat, 05 Sep 2026 17:35:20 -0700
+To: mm-commits@vger.kernel.org,willy@infradead.org,stable@vger.kernel.org,rppt@kernel.org,krystianmkaniewski@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + xarray-fix-index-jumping-backwards-in-xas_find.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260906003520.8958A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/zswap: enable static key after runtime pool
- recovery
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: hannes@cmpxchg.org, yosry@kernel.org, nphamcs@gmail.com,
- chengming.zhou@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
-References: <20260905125101.2970456-1-xialonglong2025@163.com>
- <20260905160926.9836f2ca0dc977b89f2f146e@linux-foundation.org>
-From: Longlong Xia <xialonglong2025@163.com>
-In-Reply-To: <20260905160926.9836f2ca0dc977b89f2f146e@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn3xZitJxqXko6Aw--.557S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7KryDKryxtF1fGFW7Zw47Arb_yoW8Cry7pF
-	W0ga93Kr48tF1Iyr4xAF4IqF1Yy393Gry8tF1rG3yIywn8Crn5trWxKF40gay5CFn5A39I
-	vrZrA347Jr1Yk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UO2-5UUUUU=
-X-CM-SenderInfo: x0ldz0pqjo00rjsqjki6rwjhhfrp/xtbC9wUIAWqctGU0LAAA3E
-
-Thanks for taking a look.
-
-在 2026/9/6 7:09, Andrew Morton 写道:
-> On Sat,  5 Sep 2026 20:50:28 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
->
->> From: Longlong Xia <xialonglong@kylinos.cn>
->>
->> When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
->> without a pool after a failed initial pool creation. A later compressor
->> parameter update can create and publish a pool, but does not enable
->> zswap_ever_enabled.
->>
->> If users then enable zswap, zswap_store() intercepts swapout while
->> zswap_load() still returns -ENOENT without consulting the xarray. The
->> swapin path therefore reads a stale backing swap slot because the store
->> skipped writing it.
-> That sounds bad.  I'll leave it to reviewers to suggest whether this is
-> a sufficient description of the runtime effects, and to decide whether
-> a backport is appropriate.  Please.
->
->> Enable the static key after a successful compressor and pool update. Do
->> this outside zswap_pools_lock because static key updates may sleep.
->>
->> Verified with fault injection on a stock kernel (compressor builtin,
->> CONFIG_ZSWAP_DEFAULT_ON=n):
->>
->>    1. Boot with zswap.enabled=1; pool creation fails, init completes
->>       pool-less (static key off).
->>    2. Echo an available compressor name to zswap.compressor; a pool is
->>       recovered but the key stays off.
->>    3. Enable zswap.
->>    4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
->>       fault it back in and verify.
->>
->> Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
->> without this patch; all pages intact (zswpin=131072) with it.
-> And thanks.  Sashiko might have found another issue in this zswap code:
-> 	https://sashiko.dev/#/patchset/20260905125101.2970456-1-xialonglong2025@163.com
-
-I'll send a separate fix patch.
 
 
-Thanks,
+The patch titled
+     Subject: xarray: fix index jumping backwards in xas_find()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     xarray-fix-index-jumping-backwards-in-xas_find.patch
 
-Longlong
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/xarray-fix-index-jumping-backwards-in-xas_find.patch
 
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Subject: xarray: fix index jumping backwards in xas_find()
+Date: Fri, 4 Sep 2026 14:12:59 +0200
+
+A bug in the XArray iterator xas_find() causes the iterator's index
+(xas->xa_index) to jump backwards when iterating over a multi-index entry
+(like a THP) that resides in a non-leaf node and is concurrently split.
+
+When iterating over a multi-index entry in a non-leaf node, xas_load()
+sets xas->xa_offset to the base offset of the entry, but leaves
+xas->xa_index at the requested index.  When the caller subsequently wants
+to advance to the next entry, xas_find() is called.  xas_find() attempts
+to synchronize xas->xa_offset with xas->xa_index before advancing. 
+However, the fixup logic was incorrectly restricted to leaf nodes
+(!xas->xa_node->shift).  Because the THP resides in a non-leaf node, the
+fixup is skipped.
+
+As a result, xas_find() simply increments xas->xa_offset and recalculates
+xas->xa_index based on this new offset.  This causes xas->xa_index to jump
+backwards.  If the THP was concurrently split, the entry at the new offset
+is a node pointer, so xas_find() descends into it and returns the folio at
+the backwards index.  The caller (filemap_map_pages()) then calculates the
+PTE pointer based on this backwards index, resulting in an invalid memory
+access such as an out-of-bounds read or use-after-free on a page-table
+page freed via tlb_remove_table_rcu().
+
+A userspace access that faults in a file-backed mapping can trigger this
+path.  When the index moves backwards, filemap_map_pages() can calculate a
+PTE outside the page locked for fault-around and dereference a freed
+page-table page, resulting in a KASAN-detected use-after-free read.
+
+To fix this, check if xas->xa_offset matches get_offset(xas->xa_index,
+xas->xa_node).  If it does not and the node is a non-leaf node, set
+xas->xa_offset to get_offset(xas->xa_index, xas->xa_node) before
+advancing.  Also add test cases in test_xarray to verify xas_find()
+behavior when iterating over and splitting multi-index entries.
+
+Link: https://lore.kernel.org/20260904121301.200049-1-krystianmkaniewski@gmail.com
+Fixes: b803b42823d0 ("xarray: Add XArray iterators")
+Assisted-by: Gemini:gemini-3.7-flash syzbot
+Reported-by: syzbot+b72767277f29b6407083@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=b72767277f29b6407083
+Link: https://syzkaller.appspot.com/ai_job?id=a01c56bd-74d0-411c-afb4-ee6f0cb6cb61
+Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ lib/test_xarray.c |   70 ++++++++++++++++++++++++++++++++++++++++++++
+ lib/xarray.c      |    8 +++--
+ 2 files changed, 75 insertions(+), 3 deletions(-)
+
+--- a/lib/test_xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
++++ a/lib/test_xarray.c
+@@ -1247,6 +1247,75 @@ static noinline void check_multi_find_3(
+ 	}
+ }
+ 
++static noinline void check_multi_find_4(struct xarray *xa)
++{
++#ifdef CONFIG_XARRAY_MULTI
++	unsigned int order = XA_CHUNK_SHIFT + 1;
++	unsigned long next = 1UL << order;
++	unsigned long start = next - 1;
++	XA_STATE(xas, xa, start);
++	XA_STATE_ORDER(split, xa, 0, 0);
++	void *entry;
++	unsigned long i;
++
++	/* Multi-index entry in two slots of a non-leaf node. */
++	xa_store_order(xa, 0, order, xa_mk_index(0), GFP_KERNEL);
++	XA_BUG_ON(xa, xa_store_index(xa, next, GFP_KERNEL) != NULL);
++
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(0));
++	XA_BUG_ON(xa, xas.xa_index != start);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(next));
++	XA_BUG_ON(xa, xas.xa_index != next);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != NULL);
++	rcu_read_unlock();
++
++	xa_erase_index(xa, next);
++	xa_erase_index(xa, 0);
++	XA_BUG_ON(xa, !xa_empty(xa));
++
++	/* Split the multi-index entry after a lookup begins inside it. */
++	xa_store_order(xa, 0, order, xa_mk_index(0), GFP_KERNEL);
++	XA_BUG_ON(xa, xa_store_index(xa, next, GFP_KERNEL) != NULL);
++
++	xas_set(&xas, start);
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(0));
++	XA_BUG_ON(xa, xas.xa_index != start);
++	rcu_read_unlock();
++
++	xas_split_alloc(&split, xa_mk_index(0), order, GFP_KERNEL);
++	if (xas_error(&split)) {
++		XA_BUG_ON(xa, true);
++		goto out;
++	}
++	xas_lock(&split);
++	xas_split(&split, xa_mk_index(0), order);
++	for (i = 0; i < next; i++)
++		__xa_store(xa, i, xa_mk_index(i), 0);
++	xas_unlock(&split);
++
++	rcu_read_lock();
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != xa_mk_index(next));
++	XA_BUG_ON(xa, xas.xa_index != next);
++
++	entry = xas_find(&xas, ULONG_MAX);
++	XA_BUG_ON(xa, entry != NULL);
++	rcu_read_unlock();
++
++out:
++	xa_destroy(xa);
++	XA_BUG_ON(xa, !xa_empty(xa));
++#endif
++}
++
+ static noinline void check_find_1(struct xarray *xa)
+ {
+ 	unsigned long i, j, k;
+@@ -1370,6 +1439,7 @@ static noinline void check_find(struct x
+ 		check_multi_find_1(xa, i);
+ 	check_multi_find_2(xa);
+ 	check_multi_find_3(xa);
++	check_multi_find_4(xa);
+ }
+ 
+ /* See find_swap_entry() in mm/shmem.c */
+--- a/lib/xarray.c~xarray-fix-index-jumping-backwards-in-xas_find
++++ a/lib/xarray.c
+@@ -1409,9 +1409,11 @@ void *xas_find(struct xa_state *xas, uns
+ 		entry = xas_load(xas);
+ 		if (entry || xas_not_node(xas->xa_node))
+ 			return entry;
+-	} else if (!xas->xa_node->shift &&
+-		    xas->xa_offset != (xas->xa_index & XA_CHUNK_MASK)) {
+-		xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
++	} else if (xas->xa_offset != get_offset(xas->xa_index, xas->xa_node)) {
++		if (!xas->xa_node->shift)
++			xas->xa_offset = ((xas->xa_index - 1) & XA_CHUNK_MASK) + 1;
++		else
++			xas->xa_offset = get_offset(xas->xa_index, xas->xa_node);
+ 	}
+ 
+ 	xas_next_offset(xas);
+_
+
+Patches currently in -mm which might be from krystianmkaniewski@gmail.com are
+
+xarray-fix-index-jumping-backwards-in-xas_find.patch
 
