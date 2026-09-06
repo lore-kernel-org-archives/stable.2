@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3EA330662
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:03:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B17218C02E
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:06:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788714217; cv=none; b=Ne/p6lvhvXWJ4cVAcaDyYnyOcbyD+d3w7bsJNyjVbFzIzsKwLszzPde3fY2MjeMw8NPZOkSlhwSuVvHoMMmIqx2U42bKBAX4PQ6MpPCgs1VBpZRjZXKL4kEEGEiEQVuR0MxZ6Kcr7/1aPQ5zLOdm0/ARnfSVapENVKKJ7JUI3OE=
+	t=1788714381; cv=none; b=i+7nFuUVYhpU7BKgkAD26k3IIQQnN7iOzNVna7jnZ/etAkm8DL8J2ZKXZSC0N+7Ig0KtMYKHDndocOKYQjeYN+sDdquvT1G9NAh8MHXUGF7KikBAu4qM7yKGKM9nW0vizdtVNrSJPY53ijt/y1rvIDP+J5tF3/o0e4vOpFcBOcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788714217; c=relaxed/simple;
-	bh=7ZgtwPyS/z9l9uee5WkZ1iJurT4H1ZDcr3jySTwjll4=;
+	s=arc-20240116; t=1788714381; c=relaxed/simple;
+	bh=ZRfh+IJG16KhNSU+urM9o49rxLFea5yx7tBNEYMZN40=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=j1HDi2MEQV0qzafkfi6KCeWFKZNoEwGkfabMfpo66xtTyBVP1/N05h1sKw+IWEVBFOUOSI2wzZdgzVvWVFxGKJY3eFYtfKzsT58YCBNoQ0psOczN35mPvqyoRMYQn25YHmeWyuk9ks9IOqieZ/q+851oFf16dqubbqtNxs6dmAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d6dBoqGH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VNp4Zp3B+0LvWScu1VCPJCAkU9qsjohbDIDSO7DTZVTLtfvudhLDKzEypI5nTgeMjSoKrQotNVJu7J+TVB7ELHP0aFyS+WSfT+rv7DKsIqrJyQSczlUmXck+bycaEyW7Ng4PyfOIGX32PLX4Hm7lRtlWvXoUhGVifdnswIvipQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L7gmkI9z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d6dBoqGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2591F00A3E;
-	Sun,  6 Sep 2026 17:03:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L7gmkI9z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592351F00A3A;
+	Sun,  6 Sep 2026 17:06:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788714215;
-	bh=AXl5Y1OGEX7+n8xffPzDpYLgsiRsYDudXwAU1yx+MwI=;
+	s=k20260515; t=1788714380;
+	bh=A3iqxDTfmWi2RjmnjSlYWgUy7BC1a91n4q6cNnAaZ2w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d6dBoqGHzX/U26mkQ8Z+amAHL4uIIHDhZqHp3YppLf962UMpYJgKXlOwdrsx8P5xg
-	 kY4ZKkE/t669kyTlCIRyMnoWcSWRdjgAulEe0uap2TXIO3QSfkuzNardzdK6tWTTGz
-	 ZZXSWpl7yjgu6m0JXw0cCUf34Bu+eHgmWxN7NxZMuviLpo7cNvwWlgau+8mrz8W73Z
-	 Qh+iv2cdSv3cDC6xxLHvEI4Ce+3+DNr4lCs4j9lCl87cETJwvMO5XEdoKUEZwh1Hqn
-	 DjuYOGbgw02ks+hg+lWyDVikittIiO7yQv6iGE27FlvcyYOc359m89johD2fWfjuCh
-	 XaMrRltVZli5w==
+	b=L7gmkI9zonaEqVdWpzzvDA/JBYhVtUuWfMcMWypUGW5o7Vi0iDsmNNtjkwEmMMfOR
+	 uCM51R2nghDu5nqAUPBgznhWKd+wzMixMXEfiJHi2+9IzntFti5mP0ZvD0dqiFCk0r
+	 LDhUBvQ0z/l7RW4FqhMlf0dZBAi5wEXDWy1CW4p31eWVVlVp1Mkpc1V4IJymwGm3hz
+	 K2tG9BMqOF52IO1V4svCL09P5NeyHSo/n9HKPrNIrGAQ+hswk6gnBYRfzd47OjO/Zu
+	 /Y5K4OFYhR8+WCIwFXdzJIGKi2nRebBp9MQNaLcKEx+xZ3cF3y0qfa0A+fG4/6nhMg
+	 jXE9Fio+06LYA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+Cc: Sam Edwards <cfsworks@gmail.com>,
+	Sam Edwards <CFSworks@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] ceph: cap delegated inode count in ceph_parse_deleg_inos()
-Date: Sun,  6 Sep 2026 13:03:32 -0400
-Message-ID: <20260906170332.1640271-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y] ceph: properly decrypt filenames in vmalloc() buffers
+Date: Sun,  6 Sep 2026 13:06:18 -0400
+Message-ID: <20260906170618.1647518-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906170332.1640271-1-sashal@kernel.org>
-References: <2026090357-gangly-scapegoat-ae91@gregkh>
- <20260906170332.1640271-1-sashal@kernel.org>
+In-Reply-To: <2026090327-treadmill-duller-f207@gregkh>
+References: <2026090327-treadmill-duller-f207@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,184 +47,164 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Sam Edwards <cfsworks@gmail.com>
 
-[ Upstream commit 4bd3158bd62466d57ed72a3f7bc5f205fedd6919 ]
+[ Upstream commit e939fc6a7bd969a58a150b7f188c1047138403e3 ]
 
-ceph_parse_deleg_inos() decodes interval sets of delegated inode numbers
-from an MDS create-with-delegation reply. For each set it reads a 64-bit
-start and a 64-bit len with ceph_decode_64_safe(), which only validates
-that the eight bytes are present in the message, not the value, and then
-loops over len while inserting entries into s_delegated_inos.
+The fscrypt subsystem uses the scatterlist crypto API, inheriting its
+requirement that any buffers are in the linear mapping region. However,
+the messenger client uses kvmalloc() to create buffers for messages,
+which will occasionally place those buffers in the vmalloc() region when
+physical memory fragmentation doesn't permit a large enough kmalloc().
+The various callers of ceph_fname_to_usr() directly pass (slices of) raw
+messages from the MDS without considering that the messages may be in
+vmalloc() buffers, resulting in oopses especially on non-x86 platforms
+(see 'Closes:' for more details and a reproducer).
 
-len is fully attacker controlled. A malicious or compromised MDS can send
-one huge interval, many intervals in one reply, duplicate intervals, or
-repeated replies that accumulate delegated inodes on the same session.
-The original code bounded none of these and could spin the insert loop or
-grow the xarray without limit.
+Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
+fname->ctext, fname->name, and/or oname->name buffers, using `tname`
+(which, when non-null, must be a linear address; when null, is briefly
+allocated as necessary) as a bounce buffer to avoid passing any
+inappropriate addresses to fscrypt_fname_disk_to_usr().
 
-Bound both dimensions with a single enforcement point. Track the number
-of delegated inodes held by each MDS session in an atomic counter and
-grow it only in ceph_insert_deleg_ino(), which uses atomic_add_unless()
-to refuse to push the count past CEPH_MAX_DELEG_INOS. Because that helper
-is the only place the counter grows, the per-session population can never
-exceed the cap, so no separate per-session pre-check is needed. The
-counter is decremented when async create consumes a delegated inode or
-when an insert fails, incremented when a delegated inode is restored,
-initialized with the session xarray, and reset when reconnect destroys
-the xarray.
+Additionally change parse_reply_info_readdir() -- the only function to
+supply its own `tname` -- to follow the new "tname must never come from
+vmalloc()" rule by passing NULL when the message is not in the linear
+region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
+exists only when processing the minority of messages that spill into
+vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
+messages. Still, if the overhead proves unreasonable in the future, it
+is easy enough to mitigate: a future change could allocate a bounce
+buffer in parse_reply_info_readdir() and use that as `tname` instead.
 
-A per-session cap alone still lets one reply spin the insert loop on
-duplicate ranges without growing the counter, so also cap the aggregate
-interval length accepted from a single reply. Together these bound both
-the loop trip count per reply and the xarray population across replies.
-
-The cap is a fixed, client-chosen constant rather than a value derived
-from the MDS. mds_client_prealloc_inos is a userspace MDS configuration
-option; it is never sent to the kernel client on the wire, and a
-server-supplied bound could not be trusted for a defensive limit in any
-case. The constant is set well above that option's documented default of
-1000 (a generous multiple), so legitimate refill behavior is unaffected
-while the CPU and xarray memory a malformed delegation stream can consume
-stays bounded.
-
-Impact: a malicious or compromised Ceph MDS can no longer make a client
-spin through an unbounded delegated-inode interval or grow one session's
-delegated-inode xarray without limit.
-
+Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
 Cc: stable@vger.kernel.org
-Fixes: d48464878708 ("ceph: decode interval_sets for delegated inos")
-Suggested-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
+Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ adapted raw tname buffer access to the existing struct fscrypt_str interface ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/mds_client.c | 57 +++++++++++++++++++++++++++++++++++++++-----
- fs/ceph/super.h      |  9 +++++++
- 2 files changed, 60 insertions(+), 6 deletions(-)
+ fs/ceph/crypto.c     | 50 ++++++++++++++++++++++++++++++++++----------
+ fs/ceph/mds_client.c |  8 +++++--
+ 2 files changed, 45 insertions(+), 13 deletions(-)
 
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 997f6ff621a0c..e5d919b333d70 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -422,10 +422,36 @@ static int parse_reply_info_filelock(void **p, void *end,
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index 64d2407592772..1cc11f77413c1 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -298,6 +298,11 @@ int ceph_encode_encrypted_dname(struct inode *parent, char *buf, int elen)
+  * Otherwise, base64 decode the string, and then ask fscrypt to format it
+  * for userland presentation.
+  *
++ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
++ * linear-mapped region, this function slightly relaxes those requirements:
++ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not
++ * tname->name.
++ *
+  * Returns 0 on success or negative error code on error.
+  */
+ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+@@ -305,11 +310,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ {
+ 	struct inode *dir = fname->dir;
+ 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
++	struct fscrypt_str _oname;
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
+ 	int ret;
  
- #define DELEGATED_INO_AVAILABLE		xa_mk_value(1)
- 
-+static int ceph_insert_deleg_ino(struct ceph_mds_session *s, u64 ino)
-+{
-+	struct ceph_client *cl = s->s_mdsc->fsc->client;
-+	int err;
++	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
++		return -EIO;
 +
-+	/*
-+	 * Cap how many delegated inodes a single session may hold. This is
-+	 * the only place that grows the count, so atomic_add_unless() bounds
-+	 * it at exactly CEPH_MAX_DELEG_INOS; s_num_deleg_inos can never exceed
-+	 * that.
-+	 */
-+	if (!atomic_add_unless(&s->s_num_deleg_inos, 1, CEPH_MAX_DELEG_INOS)) {
-+		pr_warn_ratelimited_client(cl,
-+			"MDS session already holds %d delegated inodes\n",
-+			CEPH_MAX_DELEG_INOS);
-+		return -EOVERFLOW;
+ 	/* Sanity check that the resulting name will fit in the buffer */
+ 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
+ 		return -EIO;
+@@ -350,31 +359,50 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 		goto out_inode;
+ 	}
+ 
++	if ((!tname || !tname->name) &&
++	    (fname->ctext_len == 0 ||
++	     unlikely(is_vmalloc_addr(fname->ctext)) ||
++	     unlikely(is_vmalloc_addr(oname->name)))) {
++		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
++		if (ret)
++			goto out_inode;
++		tname = &_tname;
 +	}
 +
-+	err = xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
-+			GFP_KERNEL);
-+	if (err)
-+		atomic_dec(&s->s_num_deleg_inos);
-+	return err;
-+}
-+
- static int ceph_parse_deleg_inos(void **p, void *end,
- 				 struct ceph_mds_session *s)
- {
- 	struct ceph_client *cl = s->s_mdsc->fsc->client;
-+	u64 msg_deleg_inos = 0;
- 	u32 sets;
+ 	if (fname->ctext_len == 0) {
+ 		int declen;
  
- 	ceph_decode_32_safe(p, end, sets, bad);
-@@ -443,16 +469,34 @@ static int ceph_parse_deleg_inos(void **p, void *end,
- 				start, len);
- 			continue;
+-		if (!tname) {
+-			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
+-			if (ret)
+-				goto out_inode;
+-			tname = &_tname;
+-		}
+-
+-		declen = base64_decode(name, name_len,
+-				       tname->name, false, BASE64_IMAP);
++		declen = base64_decode(name, name_len, tname->name, false,
++				       BASE64_IMAP);
+ 		if (declen <= 0) {
+ 			ret = -EIO;
+ 			goto out;
  		}
+ 		iname.name = tname->name;
+ 		iname.len = declen;
++	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
++		memcpy(tname->name, fname->ctext, fname->ctext_len);
 +
-+		/*
-+		 * Bound the number of inodes one reply may delegate.
-+		 * ceph_insert_deleg_ino() separately caps the per-session
-+		 * population, so this only has to stop one reply from spinning
-+		 * the insert loop under an attacker-controlled len.
-+		 */
-+		if (len > (u64)CEPH_MAX_DELEG_INOS ||
-+		    msg_deleg_inos > (u64)CEPH_MAX_DELEG_INOS - len) {
-+			pr_warn_ratelimited_client(cl,
-+				"MDS reply delegates too many inodes (have %llu, +%llu, max %d)\n",
-+				msg_deleg_inos, len, CEPH_MAX_DELEG_INOS);
-+			return -EIO;
-+		}
-+		msg_deleg_inos += len;
-+
- 		while (len--) {
--			int err = xa_insert(&s->s_delegated_inos, start++,
--					    DELEGATED_INO_AVAILABLE,
--					    GFP_KERNEL);
-+			int err = ceph_insert_deleg_ino(s, start++);
-+
- 			if (!err) {
- 				doutc(cl, "added delegated inode 0x%llx\n", start - 1);
- 			} else if (err == -EBUSY) {
- 				pr_warn_client(cl,
- 					"MDS delegated inode 0x%llx more than once.\n",
- 					start - 1);
-+			} else if (err == -EOVERFLOW) {
-+				/* ceph_insert_deleg_ino() already warned. */
-+				return -EIO;
- 			} else {
- 				return err;
- 			}
-@@ -470,16 +514,17 @@ u64 ceph_get_deleg_ino(struct ceph_mds_session *s)
- 
- 	xa_for_each(&s->s_delegated_inos, ino, val) {
- 		val = xa_erase(&s->s_delegated_inos, ino);
--		if (val == DELEGATED_INO_AVAILABLE)
-+		if (val == DELEGATED_INO_AVAILABLE) {
-+			atomic_dec(&s->s_num_deleg_inos);
- 			return ino;
-+		}
++		iname.name = tname->name;
++		iname.len = fname->ctext_len;
+ 	} else {
+ 		iname.name = fname->ctext;
+ 		iname.len = fname->ctext_len;
  	}
- 	return 0;
- }
  
- int ceph_restore_deleg_ino(struct ceph_mds_session *s, u64 ino)
- {
--	return xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
--			 GFP_KERNEL);
-+	return ceph_insert_deleg_ino(s, ino);
- }
- #else /* BITS_PER_LONG == 64 */
- /*
-diff --git a/fs/ceph/super.h b/fs/ceph/super.h
-index ef1f253292b2b..2c3f112c5b81a 100644
---- a/fs/ceph/super.h
-+++ b/fs/ceph/super.h
-@@ -540,6 +540,15 @@ static inline int ceph_ino_compare(struct inode *inode, void *data)
- #define CEPH_MDS_INO_MDSDIR_OFFSET	(1 * CEPH_MAX_MDS)
- #define CEPH_INO_SYSTEM_BASE		((6*CEPH_MAX_MDS) + (CEPH_MAX_MDS * CEPH_NUM_STRAY))
- 
-+/*
-+ * Upper bound on the number of delegated inodes a single MDS session may
-+ * hold. The MDS normally hands out a small preallocation window (the
-+ * userspace mds_client_prealloc_inos option defaults to 1000) and refills
-+ * it as the client consumes entries. This leaves generous headroom while
-+ * bounding the CPU and memory a malformed delegation interval can consume.
-+ */
-+#define CEPH_MAX_DELEG_INOS		8192
+-	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
+-	if (!ret && (dir != fname->dir)) {
++	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
++		      tname->name : oname->name;
++	_oname.len = oname->len;
 +
- static inline bool ceph_vino_is_reserved(const struct ceph_vino vino)
- {
- 	if (vino.ino < CEPH_INO_SYSTEM_BASE &&
++	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
++	if (ret)
++		goto out;
++
++	if (unlikely(is_vmalloc_addr(oname->name)))
++		memcpy(oname->name, _oname.name, _oname.len);
++	oname->len = _oname.len;
++
++	if (dir != fname->dir) {
+ 		char tmp_buf[BASE64_CHARS(NAME_MAX)];
+ 
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 3c692ad02c857..b1bb3a30c3bad 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -541,9 +541,13 @@ static int parse_reply_info_readdir(void **p, void *end,
+ 			 * to do the base64_decode in-place. It's
+ 			 * safe because the decoded string should
+ 			 * always be shorter, which is 3/4 of origin
+-			 * string.
++			 * string. If this message was allocated with
++			 * vmalloc() (happens, but rarely), leave it
++			 * NULL and let ceph_fname_to_usr() allocate
++			 * suitable temporary working space instead.
+ 			 */
+-			tname.name = _name;
++			if (likely(!is_vmalloc_addr(_name)))
++				tname.name = _name;
+ 
+ 			/*
+ 			 * Set oname to _name too, and this will be
 -- 
 2.53.0
 
