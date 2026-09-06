@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3253CFF4C
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3D43909A6;
+	Sun,  6 Sep 2026 13:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701629; cv=none; b=Hrama89Yx5YcGlT1oSQkwhIecf7JRu3375vHyKZCjDrYm1mSp76vupOSvCa+zHUeOUbtY9eynHUn2eetTfGY8EHdPBMwa522tfwy1UD7mbJzHR/FoFOtC6/FIYlxt4m6yVvts5M0S9UfER+93AXdym7pBpAsjvb0aNyvzoRLC6c=
+	t=1788701629; cv=none; b=DWWdLiDNjYKJP2cQLQtA3b8Xs5Cb2xzwKUtN4NBLDTMQ/RV7TyYYF3NE7PqlTxp4oTTcPSnXKq6dhMS9ohPh8bG92ll2eZjsxFI2XHAN5PRyPy8jSt6MsApZdLKOAvzJb5anAKaArHXPbHYqZ6+4W958lBBlKRFrrFWCsHZ237Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788701629; c=relaxed/simple;
-	bh=qUi+54K6k7c5aupaRPmdgoDYw4Z6reS3AgEZEYrubN0=;
+	bh=2WZhZB57d1K2m9gVWJn0KEO59icTlgE+t2afXV1VAAc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NWoqW3g7XkesMEys3pVSov1lcXCGktLCmazg/LOQR/fMELZGYhbeKKfJCQmKMCB2VXciDPXMkqQxq+IAeCNvCFecFzTgXNuvJ+u3MENtxNksOj45pr/tKmpTKP3DCEEhqD3oyJcqnxgwqf9HTsycMiD0vfh8LFsU4ICeCjAa8yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hO02+zJl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Mp2F4QDc4LcJrAmWk0ppx+WI15+gC3Up3QGrYIOCfQHF9CEu2xMwZr9R9n2WcsHSoFfmRgI8DZFv4h9MwYJAZmzhpmdaoq+UWOIisxbNDFlWr+R5/NpwQhwUm3N3u5ylB3/SDe8ZuoOrvlZYzxr5W5PJEZLGd+Ne9nleHeVyER0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTHi0ooh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hO02+zJl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AED1F00A3D;
-	Sun,  6 Sep 2026 13:33:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTHi0ooh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47FD71F00A3E;
+	Sun,  6 Sep 2026 13:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701625;
-	bh=AlonPHcmALa9V+fkHw3NNoVZDm2PX6da4/TcDeP2K7o=;
+	s=k20260515; t=1788701626;
+	bh=Tj7Jl3ZxLT0+qioAQIpvJRIzuFJ8fgK+JWb5INk1ybY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hO02+zJlKFHcGxU1elLLRggG9UA2DFuSUUslsmil4nqT0H5IDIaYtFUfQPnRFn2gS
-	 GY98KDIfWgV4WdcbJA1R2jhGVqvmqC9hI4+wjwqYQDVSokYGwyv6BGOHqOk7HVVqEb
-	 sxPYdqoQ8ZhqSp/PJllwp2VB23Wn+zkxstb8/QBGTSXt6zSp/CfnkgSlhgYBopBA4Y
-	 Hks3Xn17sq8+JWe6LGDi0Mb64T9I6V2E9ElmdcC55WB0x0wC/GUMixFi4mt1Cqkin4
-	 k8s9WK+Fvodvs9o8fYO0U8n21sqCaAvp/7lPxKzq74OKhxyKVns/mIp8GXfue1SZD8
-	 1/vhx38Fvokgw==
+	b=QTHi0oohBLuCRTc7pgUrMrp0QdPn9JTtjqeuA7z9mwa137MlcpWmTn1sIAZRJx7Sb
+	 oh7nEId/Uj40Cv8hIvTZ2roYVyI4KHguytP1uERptjtxtoFK8aloqANhNQ8dDzXfkt
+	 asnHSzjAxESZt62esuM8ShsCkw2tbxVwbttgFFLUrkBVA5EYQpU44OlCf87js6+7pS
+	 PNXxHGYNJ6dEdvJW/kI6MnamYI3ZTJcrKUQZRQNMFgbJGOu+AUZqS8ad/XbuafNCU4
+	 nDm2a05aTN581urqGPyLvAji17oZTTFwKYHiucOv5T7Wysl0MORNHwrqveQ0dypkf4
+	 9jtB+WN2wJIRg==
 From: Sasha Levin <sashal@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Paolo Bonzini <pbonzini@redhat.com>
-Subject: Re: [PATCH 6.12.y 2/3] KVM: SEV: Add an anonymous "psc" struct to track current PSC metadata
-Date: Sun,  6 Sep 2026 09:32:51 -0400
-Message-ID: <2026-09-05-daily-reply-0021-kvm-sev-psc-chain-6-12@kernel.org>
+	gregkh@linuxfoundation.org,
+	linux-rdma@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Zhu Yanjun <yanjun.zhu@linux.dev>,
+	doebel@amazon.de
+Subject: Re: [PATCH 5.15.y] RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe
+Date: Sun,  6 Sep 2026 09:32:52 -0400
+Message-ID: <2026-09-05-daily-reply-0022-rdma-rxe-srq-toctou-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apoPcpTa7Qy2isaR@google.com>
-References: <apoPcpTa7Qy2isaR@google.com>
+In-Reply-To: <20260903200645.561393-1-doebel@amazon.de>
+References: <20260903200645.561393-1-doebel@amazon.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,21 +49,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Ya, backport the whole thing up through d1a3c2162334.  It's a lot of
-> patches, but IMO the risk of breaking something by trying to trim down
-> the backport is significantly higher than
+> get_srq_wqe() reads wqe->dma.num_sge from the shared receive queue
+> buffer, which is mapped into userspace. It validates num_sge against
+> max_sge, but then re-reads the same field to calculate the memcpy
+> size. A concurrent userspace thread can modify num_sge between
+> validation and use, causing a heap buffer overflow when copying the
 
-Tried exactly that on 6.12.y. 9 of the 10 commits (through 42a39ad5d592
-onward) landed clean, plus one extra prerequisite you didn't list,
-d6c840adfebc ("KVM: x86/mmu: Rename .private_max_mapping_level() to
-.gmem_max_mapping_level()") built clean on x86_64 and aarch64.
-
-The actual fix, d1a3c2162334 ("KVM: SEV: Forcefully invalidate SNP VMSA
-if its backing gmem page is zapped"), doesn't land on top of that
-though: even with the rename in place it conflicts in kvm-x86-ops.h,
-kvm_host.h, sev.c and svm.h, and resolving it means introducing the new
-CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE plumbing rather than a minor
-context fixup.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
