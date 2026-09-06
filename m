@@ -1,113 +1,140 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33998271A94
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 14:47:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788706031; cv=pass; b=WS8/jaU0/MyESX0EcZyf0zczrkw1NREwLKPX/N4d11GGgkGbFWvG6Bi+jpUKK+6kfM2QvjfBGA4QZsDz1Zr+gUQDwi5+SUX7p+jQpNN9zMIGByxfYUAXlbHWZXqy+0hlzmIf/5L67m3F2yHLwi9aXdD3xa0qAqjfpJti4DaSAKA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788706031; c=relaxed/simple;
-	bh=DBqqHAGSczpthp7loMH7wLmtYZ/JVKvH0RGvHHoN8+w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ayOTSTyLbdFZdu9ba6xs65CTFmhNUEkC0sdbwGp6uCxpx9c9fvCHut0Mj4270Eyy1UQpsEvs69lcCm5TgJgujSrvUGNpBuI0qzE9Ux1aNPNmBM00FaQ+uYdmZWsNGfXxXc2pmvDzsnWZFQXBuN9zGKQE01/9ccI/tOJ5ihG9wQg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in; spf=none smtp.mailfrom=rajagiritech.edu.in; dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b=iIYTmwId; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rajagiritech.edu.in
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=rajagiritech.edu.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF8E19D8AC;
+	Sun,  6 Sep 2026 14:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788706230; cv=none; b=KGflPFuSiiz66GUjbip/JDH2HWp+4zHzxWNGo0Ycuc+m8CKpiSGFhECD/EFIl/2sN6w3nw/VeYFx8QBobl+SZQDPz9Jr67WDlK1Al1btOW5X3iVanUZotwnl88pxPyU2VO7xZXuUZ5X4tr/Q6kD8g7gW8oyRMrA1MGHC4jGLr74=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788706230; c=relaxed/simple;
+	bh=IjyLkpzvKZGf0TMp0S+uPobIvO5j3K0smZKFqNHnLLU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PxfCcLmcesZAmgcSrz5wmWSn2+e/YK3+58Zbf7pMPngmMHIIZpt+nL6aXwsoaYHV8AaQGTV99gj2HTVouh71XrKEV5PR53A+SS0XV79Un00MmbvN3oG5V/cQOG87vllgmuwX+M95CMjSwxzI+TwW9XCW09naLM2DahYhnXOXDIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b5q9SUWZ; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rajagiritech-edu-in.20251104.gappssmtp.com header.i=@rajagiritech-edu-in.20251104.gappssmtp.com header.b="iIYTmwId"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c207cb16cf5so398006866b.1
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 07:47:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788706028; cv=none;
-        d=google.com; s=arc-20260327;
-        b=eh1J44VkLRiOi8AEmh0zH9PXZ6DK/rBuf7LWr3p/nBisldmGEQjl1o6YltaC9mDOrc
-         6gADL4a3pKOEwIINLPO3XKyrAraLosIzuClaFip1xE2pCDP85GmRxXxDUzQX9Pk8l6zd
-         qhMq+9jpHrvrEfkJvBVO6VP4nnC74O0JzJUtTV9m/KGstdL+VmhVfZJK71E3jI1tSa00
-         h0VByTfOnwi9XCZtHdqaVW/isA9vA9z1Lk0O0pWpEUr3poVtT+EkHzDa9CdLDoH2vCCu
-         F/ZKEpOg5eTNeIG9abBg21CrAiKkeN/QomhnmL0H2oVAO7PENYrv+boTOU8OpIUHAEWC
-         La/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
-        fh=Wz8J5UEBOCqQDV8EGy7SaS7auVxYFAJQ5oaobiGaD9E=;
-        b=i4/0e02ZiTMOX1D2l2sqpnvBSQ1jow42iGHX7G7I01nFc809DoM3mMwuXrD9kkiDzv
-         FAEwIxZYztVjvMCwMzUuLhvynCoCG9stvZuBDHwtDOcO4H1gvRNWcciGyZPU+rd8hHRO
-         aOYuXvpL2vgW9TavOBGOh/GRRMcBn79gCrvXpgnJA3ta/v6CpgWih3A/qKvGTPPs47Tz
-         g2ObG6enKZb48E0+WxxPHvz770cWubXYIIGFgjIwnPYBWlv0s89Ad1xwXXYYSwxaQT49
-         7WPJSBVBAJYZaTC5IcS/5FGpbimjHed0IbA0MMQ/1S+YQrOF4pNfhV0alRtNc0oqa1ih
-         Rhiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rajagiritech-edu-in.20251104.gappssmtp.com; s=20251104; t=1788706028; x=1789310828; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
-        b=iIYTmwIde1cba2Q//LXtNwLXZxx8YaZm68U3uba1OZGxN2H049jvAvTsUgHqU0sTbt
-         oip36PBpzYwaIUTCHZmszroi1Iz1mgmixG55qM7ohXt51prO69INMyTb2nQNXhYD1K52
-         SF3n5sy/UElYPhs7w1etiluG2Av1geQWrkniqNSQvqAMPAQabm3M13RYnuLx1NkKbnG8
-         QWi8GNmGQANCFVcVmYzTpWaHA6OTCP7UI0fTr3PN8mNfDu0caZ455Dn1jAHIbY9jx57m
-         Bb36zpXCBq8kzXlhaYxFfyRZj1Tv0fnYz+BIq+/XsKMsZocAeQvtfU06cZ8ortLrXeHM
-         LLvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788706028; x=1789310828;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fMw2a7h4FJa1ynMxKC2OZdTyNmHlbWlyFXY/M2wRjrI=;
-        b=PqeScGif5UX74VtZ2oS8ANyxAw4uTDwFXbRtP6v9oUSmyE2DDQuRjoqXuojrTbspBk
-         J27uGcl/RiJJS+ynBEfQj1eTLbmEjKvPc74hMObiqcFW7JUYgsOgTFAeBc0NI1TBgHQ/
-         X+r+wueReFqc5HDjssai8CuamALCYe/EOhnT9e3PLoBA0PZnTvwHhFPKQvOnBDsmkmPx
-         orZON+GU3KEOsUIrd5Mz6sngXJ1nVwfkNEY1eYXSn16uTBOfxCVH4cQ7KEz0NIwrZDGa
-         wdJhSI6hrjTn65ML8wQTX+fXmSaPVLWG7p9p0mZ+Lv0O4BvrO7Gm2zTes5NZ8S7KA3cR
-         NPOQ==
-X-Gm-Message-State: AFuF++n4XkJj0Nf2o1y/yRDas7Qi7twbewpocIiPYXMIIrTkGHQlcGNP
-	rJheYt2YcK+ZXhxDqX33s1xHsEv25/Ew7ts3miZYXziTbbtom3/4tAad80LE/pINZYfvD2zlcS9
-	7fQH2pyEalWwarzFOqgPBg5fbPmqQX0NJePjglbYIZA==
-X-Gm-Gg: AYBFou06h2Ck39shIwIo7dYavfzXwL5ddt8vSZdHPVvO26ihzzJN/qVjZ0wOfMt/MZ7
-	ZSZH40z4JDbCTLVxV6jkP2kciUKBCLGLtWllMrg7Md9WiCY5AtJWo2NNSkQP/pfIvATM9V0YXvt
-	9HnHApWJRdgfUFglpbCqU2UOzgTpsSkScWx3S02S1fKuuwnKnH3SvrYPbggfk2pw0++iXxU1An6
-	sdXVSPqgNrNd1aBbkKJpsCXdpVXVQkHYy8HXAZC2AL6wIBjvOdK+brnCiEj9Hd5pKzQ8vUVZmIs
-	wSTVTHLUvrLdvWyVBE6XUBYrENfKqleYuAlZDV6lIw9bWFKT9qXsAiDDQVMXssFIkMvdAw51+n/
-	AcZ4PC30IXhwZsNLwRycYma05vVT/i28IAWqz5lvWXgp6Pb9SMx1j2f9CGvPR0ccSLlLtpcLIXg
-	YSaXxbYrqbBnKB
-X-Received: by 2002:a17:907:94c7:b0:c21:4393:c41a with SMTP id
- a640c23a62f3a-c260c9b556dmr671749166b.11.1788706028458; Sun, 06 Sep 2026
- 07:47:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b5q9SUWZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788706228; x=1820242228;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=IjyLkpzvKZGf0TMp0S+uPobIvO5j3K0smZKFqNHnLLU=;
+  b=b5q9SUWZpyiiqjjbuYimiuSanGiPytmLWJT+E1fsD3eBaMN3H6oNlTPu
+   MiJHHm3RzfTWDOZimWhvwC49me6JQkDrNRITKukbt88eJcyDjEAmIbEaE
+   CUBXllarvDJUJqj0xt8crepWGc7rk72Q9NSN0vqKM1IPnMH096gQUdVy/
+   O01tq423GW7lLic2Crd+6b1A9IiztRMSFjTVwg+Lt3VyBKk6er2w9Vdyt
+   nqQtYQu19jMH95S7cV0Jd7ghHRNydAEmloi0b5Pd606YmTJvOL3M0vdSr
+   lsIHsbYIxLThpqGgNm5/Xis5zuQ6+b8pMkDUcPQ/D8/V61aXiBSuqknDr
+   Q==;
+X-CSE-ConnectionGUID: pt8nlaI7T2WmPtojvkVRiA==
+X-CSE-MsgGUID: ZBBpmq8sSieg9SBJENY+Uw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="88891830"
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="88891830"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 07:50:28 -0700
+X-CSE-ConnectionGUID: qzTpkR+uSOOld4RlPlwU3Q==
+X-CSE-MsgGUID: VGXaLa6PRCqQLA4qvGXNfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="266808993"
+Received: from smithj1-mobl2.amr.corp.intel.com (HELO [10.125.111.58]) ([10.125.111.58])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 07:50:26 -0700
+Message-ID: <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
+Date: Sun, 6 Sep 2026 07:50:26 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904045803.810145556@linuxfoundation.org>
-In-Reply-To: <20260904045803.810145556@linuxfoundation.org>
-From: Jeffrin Thalakkottoor <jeffrin@rajagiritech.edu.in>
-Date: Sun, 6 Sep 2026 20:16:29 +0530
-X-Gm-Features: AcwNN1V3DdZWjKZZI59W-lXeZk-QDF9YMp4RrSPhW5D9Euh9iW7L-2IdybpMmLo
-Message-ID: <CAG=yYw=4c2nQXppcKfCv01om-zohPbZoafSfhFSCgOu4cxZuVA@mail.gmail.com>
-Subject: Re: [PATCH 7.2 000/713] 7.2.4-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, 
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, 
-	patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, 
-	jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, 
-	rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, 
-	achill@achill.org, sr@sladewatkins.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
+ lookup_address_in_pgd_attr()
+To: Nathan Chancellor <nathan@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, syzbot@syzkaller.appspotmail.com,
+ Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>
+References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
+ <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
+ <20260905044253.GA3816371@ax162>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ xsFNBE6HMP0BEADIMA3XYkQfF3dwHlj58Yjsc4E5y5G67cfbt8dvaUq2fx1lR0K9h1bOI6fC
+ oAiUXvGAOxPDsB/P6UEOISPpLl5IuYsSwAeZGkdQ5g6m1xq7AlDJQZddhr/1DC/nMVa/2BoY
+ 2UnKuZuSBu7lgOE193+7Uks3416N2hTkyKUSNkduyoZ9F5twiBhxPJwPtn/wnch6n5RsoXsb
+ ygOEDxLEsSk/7eyFycjE+btUtAWZtx+HseyaGfqkZK0Z9bT1lsaHecmB203xShwCPT49Blxz
+ VOab8668QpaEOdLGhtvrVYVK7x4skyT3nGWcgDCl5/Vp3TWA4K+IofwvXzX2ON/Mj7aQwf5W
+ iC+3nWC7q0uxKwwsddJ0Nu+dpA/UORQWa1NiAftEoSpk5+nUUi0WE+5DRm0H+TXKBWMGNCFn
+ c6+EKg5zQaa8KqymHcOrSXNPmzJuXvDQ8uj2J8XuzCZfK4uy1+YdIr0yyEMI7mdh4KX50LO1
+ pmowEqDh7dLShTOif/7UtQYrzYq9cPnjU2ZW4qd5Qz2joSGTG9eCXLz5PRe5SqHxv6ljk8mb
+ ApNuY7bOXO/A7T2j5RwXIlcmssqIjBcxsRRoIbpCwWWGjkYjzYCjgsNFL6rt4OL11OUF37wL
+ QcTl7fbCGv53KfKPdYD5hcbguLKi/aCccJK18ZwNjFhqr4MliQARAQABzUVEYXZpZCBDaHJp
+ c3RvcGhlciBIYW5zZW4gKEludGVsIFdvcmsgQWRkcmVzcykgPGRhdmUuaGFuc2VuQGludGVs
+ LmNvbT7CwXgEEwECACIFAlQ+9J0CGwMGCwkIBwMCBhUIAgkKCwQWAgMBAh4BAheAAAoJEGg1
+ lTBwyZKwLZUP/0dnbhDc229u2u6WtK1s1cSd9WsflGXGagkR6liJ4um3XCfYWDHvIdkHYC1t
+ MNcVHFBwmQkawxsYvgO8kXT3SaFZe4ISfB4K4CL2qp4JO+nJdlFUbZI7cz/Td9z8nHjMcWYF
+ IQuTsWOLs/LBMTs+ANumibtw6UkiGVD3dfHJAOPNApjVr+M0P/lVmTeP8w0uVcd2syiaU5jB
+ aht9CYATn+ytFGWZnBEEQFnqcibIaOrmoBLu2b3fKJEd8Jp7NHDSIdrvrMjYynmc6sZKUqH2
+ I1qOevaa8jUg7wlLJAWGfIqnu85kkqrVOkbNbk4TPub7VOqA6qG5GCNEIv6ZY7HLYd/vAkVY
+ E8Plzq/NwLAuOWxvGrOl7OPuwVeR4hBDfcrNb990MFPpjGgACzAZyjdmYoMu8j3/MAEW4P0z
+ F5+EYJAOZ+z212y1pchNNauehORXgjrNKsZwxwKpPY9qb84E3O9KYpwfATsqOoQ6tTgr+1BR
+ CCwP712H+E9U5HJ0iibN/CDZFVPL1bRerHziuwuQuvE0qWg0+0SChFe9oq0KAwEkVs6ZDMB2
+ P16MieEEQ6StQRlvy2YBv80L1TMl3T90Bo1UUn6ARXEpcbFE0/aORH/jEXcRteb+vuik5UGY
+ 5TsyLYdPur3TXm7XDBdmmyQVJjnJKYK9AQxj95KlXLVO38lczsFNBFRjzmoBEACyAxbvUEhd
+ GDGNg0JhDdezyTdN8C9BFsdxyTLnSH31NRiyp1QtuxvcqGZjb2trDVuCbIzRrgMZLVgo3upr
+ MIOx1CXEgmn23Zhh0EpdVHM8IKx9Z7V0r+rrpRWFE8/wQZngKYVi49PGoZj50ZEifEJ5qn/H
+ Nsp2+Y+bTUjDdgWMATg9DiFMyv8fvoqgNsNyrrZTnSgoLzdxr89FGHZCoSoAK8gfgFHuO54B
+ lI8QOfPDG9WDPJ66HCodjTlBEr/Cwq6GruxS5i2Y33YVqxvFvDa1tUtl+iJ2SWKS9kCai2DR
+ 3BwVONJEYSDQaven/EHMlY1q8Vln3lGPsS11vSUK3QcNJjmrgYxH5KsVsf6PNRj9mp8Z1kIG
+ qjRx08+nnyStWC0gZH6NrYyS9rpqH3j+hA2WcI7De51L4Rv9pFwzp161mvtc6eC/GxaiUGuH
+ BNAVP0PY0fqvIC68p3rLIAW3f97uv4ce2RSQ7LbsPsimOeCo/5vgS6YQsj83E+AipPr09Caj
+ 0hloj+hFoqiticNpmsxdWKoOsV0PftcQvBCCYuhKbZV9s5hjt9qn8CE86A5g5KqDf83Fxqm/
+ vXKgHNFHE5zgXGZnrmaf6resQzbvJHO0Fb0CcIohzrpPaL3YepcLDoCCgElGMGQjdCcSQ+Ci
+ FCRl0Bvyj1YZUql+ZkptgGjikQARAQABwsFfBBgBAgAJBQJUY85qAhsMAAoJEGg1lTBwyZKw
+ l4IQAIKHs/9po4spZDFyfDjunimEhVHqlUt7ggR1Hsl/tkvTSze8pI1P6dGp2XW6AnH1iayn
+ yRcoyT0ZJ+Zmm4xAH1zqKjWplzqdb/dO28qk0bPso8+1oPO8oDhLm1+tY+cOvufXkBTm+whm
+ +AyNTjaCRt6aSMnA/QHVGSJ8grrTJCoACVNhnXg/R0g90g8iV8Q+IBZyDkG0tBThaDdw1B2l
+ asInUTeb9EiVfL/Zjdg5VWiF9LL7iS+9hTeVdR09vThQ/DhVbCNxVk+DtyBHsjOKifrVsYep
+ WpRGBIAu3bK8eXtyvrw1igWTNs2wazJ71+0z2jMzbclKAyRHKU9JdN6Hkkgr2nPb561yjcB8
+ sIq1pFXKyO+nKy6SZYxOvHxCcjk2fkw6UmPU6/j/nQlj2lfOAgNVKuDLothIxzi8pndB8Jju
+ KktE5HJqUUMXePkAYIxEQ0mMc8Po7tuXdejgPMwgP7x65xtfEqI0RuzbUioFltsp1jUaRwQZ
+ MTsCeQDdjpgHsj+P2ZDeEKCbma4m6Ez/YWs4+zDm1X8uZDkZcfQlD9NldbKDJEXLIjYWo1PH
+ hYepSffIWPyvBMBTW2W5FRjJ4vLRrJSUoEfJuPQ3vW9Y73foyo/qFoURHO48AinGPZ7PC7TF
+ vUaNOTjKedrqHkaOcqB185ahG2had0xnFsDPlx5y
+In-Reply-To: <20260905044253.GA3816371@ax162>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-  hello,
+On 9/4/26 21:42, Nathan Chancellor wrote:
+> I just bisected the following warning on a couple of my test machines to
+> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
+> lookup_address_in_pgd_attr()") in next-20260904.
+...
+> If there is any information I can provide to help debug this, I am happy
+> to provide it.
 
- Compiled and booted  7.2.4-rc1 (using qemu-system-x86_64)
+Well, the thing you bisected to is the patch that fixes the warning. The
+actual issue comes from:
 
-No new typical dmesg regressions .
+        if (pages == &its_pages)
+                set_memory_x((unsigned long)page, 1);
 
-Tested-by: Jeffrin Jose T <jeffrin@rajagiritech.edu.in>
+which its_alloc() does on an execmem allocation. Any chance you could
+get the output of:
 
+	/sys/kernel/debug/page_tables/current_kernel
 
---
-software engineer
-rajagiri school of engineering and technology
+for the page that page that it's complaining about? I'm curious if this
+is temporary or permanent. its_pages_protect() should be fixing this up
+at the end of things, so there would be no permanent harm just a
+temporary violation of CONFIG_STRICT_MODULE_RWX.
+
+Peter, shouldn't we be using the text poking mm for things like this?
