@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6674B2C15BB
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3253CFF4C
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701627; cv=none; b=nixiM4bfEY9tDt4f7cVRaL4xpTGSt8jAPobhheco/DJZPdcOZ46C1OQ3QH/R5rlaXKNtITg1C5jM1zff+O/beE6of0+SiDYAoXGYCX3tUy/Y1b3XTJPqehuiCBrswi49KeVpnIuBrLjtX4TpqM8m51Vfr1DrtRTOwHovTsmrJMI=
+	t=1788701629; cv=none; b=Hrama89Yx5YcGlT1oSQkwhIecf7JRu3375vHyKZCjDrYm1mSp76vupOSvCa+zHUeOUbtY9eynHUn2eetTfGY8EHdPBMwa522tfwy1UD7mbJzHR/FoFOtC6/FIYlxt4m6yVvts5M0S9UfER+93AXdym7pBpAsjvb0aNyvzoRLC6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701627; c=relaxed/simple;
-	bh=U90uT9ragr/1w+3jTdqEJb6v5bzcNXkieIz6yIUSyTQ=;
+	s=arc-20240116; t=1788701629; c=relaxed/simple;
+	bh=qUi+54K6k7c5aupaRPmdgoDYw4Z6reS3AgEZEYrubN0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AUwDIQ3PMt8LZOlmk6WaUxPhDmSxY8ayd5mgFc+WHxQ6nJhttS8HJMbRAn8D5HVnQIvVldRhSNyl2OQIBH8pDZsq5cQVGgQJqM+urjsqUNQhGNgXPkcolGzzmhPIL7H9YpBH14rcIRzCwb5zEje/pIJbn8ffISgUdOirqND2vAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHMNtY1Q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NWoqW3g7XkesMEys3pVSov1lcXCGktLCmazg/LOQR/fMELZGYhbeKKfJCQmKMCB2VXciDPXMkqQxq+IAeCNvCFecFzTgXNuvJ+u3MENtxNksOj45pr/tKmpTKP3DCEEhqD3oyJcqnxgwqf9HTsycMiD0vfh8LFsU4ICeCjAa8yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hO02+zJl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHMNtY1Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7248B1F00A3A;
-	Sun,  6 Sep 2026 13:33:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hO02+zJl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66AED1F00A3D;
+	Sun,  6 Sep 2026 13:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701624;
-	bh=xkB1qVAy/snp7la0WeChX6tAAvBu1MDreHil0QgEng0=;
+	s=k20260515; t=1788701625;
+	bh=AlonPHcmALa9V+fkHw3NNoVZDm2PX6da4/TcDeP2K7o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EHMNtY1QhoV/e/z0BBZL7hzh0ONRzQ55GOzDXVRRb+jhPSl/RyOZ7pOAnBM8ICwtg
-	 VS1sVZ89y3hqGU/pIo9Bk+AoCZNha6Hun52fio0MNgFifqnw3SEpGzBoOIBI2R9EHV
-	 duSSVtt1MdT45G8oPy2di+PGJbPsdqekJuzH11+0T7+Yehk3gB/hAa4COzndsJxqOm
-	 D10gSBSlVErlbguxzI5utNSU4MrKrSyVoHxuF9ZPxP7pMYm7gLj9Ph7DP7fHXXTOZ7
-	 CXywiayVgPZhIc6fqA7cQraj6vhp9PTgUtmuryc5TS8pcgGhNLv19fRrOIzLOTDjum
-	 tq9+3bUKsZh1g==
+	b=hO02+zJlKFHcGxU1elLLRggG9UA2DFuSUUslsmil4nqT0H5IDIaYtFUfQPnRFn2gS
+	 GY98KDIfWgV4WdcbJA1R2jhGVqvmqC9hI4+wjwqYQDVSokYGwyv6BGOHqOk7HVVqEb
+	 sxPYdqoQ8ZhqSp/PJllwp2VB23Wn+zkxstb8/QBGTSXt6zSp/CfnkgSlhgYBopBA4Y
+	 Hks3Xn17sq8+JWe6LGDi0Mb64T9I6V2E9ElmdcC55WB0x0wC/GUMixFi4mt1Cqkin4
+	 k8s9WK+Fvodvs9o8fYO0U8n21sqCaAvp/7lPxKzq74OKhxyKVns/mIp8GXfue1SZD8
+	 1/vhx38Fvokgw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Sean Christopherson <seanjc@google.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
-Subject: Re: [PATCH 6.1.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout creation
-Date: Sun,  6 Sep 2026 09:32:50 -0400
-Message-ID: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
+	stable@vger.kernel.org,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	Paolo Bonzini <pbonzini@redhat.com>
+Subject: Re: [PATCH 6.12.y 2/3] KVM: SEV: Add an anonymous "psc" struct to track current PSC metadata
+Date: Sun,  6 Sep 2026 09:32:51 -0400
+Message-ID: <2026-09-05-daily-reply-0021-kvm-sev-psc-chain-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904185816.343078-2-gnoack3000@gmail.com>
-References: <20260904185816.343078-2-gnoack3000@gmail.com>
+In-Reply-To: <apoPcpTa7Qy2isaR@google.com>
+References: <apoPcpTa7Qy2isaR@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,19 +46,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Whiteout objects are used in the upper layer of an OverlayFS to
-> indicate that the file with this name does not exist in the unified
-> view, even if it is present in one of the lower layer file systems.
->
-> For the userspace implementations of OverlayFS (fuse-overlayfs),
-> whiteout objects can be created from userspace as well:
+> Ya, backport the whole thing up through d1a3c2162334.  It's a lot of
+> patches, but IMO the risk of breaking something by trying to trim down
+> the backport is significantly higher than
 
-Queued for 6.1, thanks. Note: 6.1 is missing 49c9e09d9610 ("landlock: Fix
-handling of disconnected directories"), one of the two prerequisites this
-commit's own message names -- 6.12 and 6.6 already carry it. The whiteout
-check itself is still correct and worth having, but if a disconnected/
-bind-mounted directory is involved on 6.1 specifically the enforcement may
-not be reliable yet. Could you send 49c9e09d9610 as a follow-up for 6.1.y?
+Tried exactly that on 6.12.y. 9 of the 10 commits (through 42a39ad5d592
+onward) landed clean, plus one extra prerequisite you didn't list,
+d6c840adfebc ("KVM: x86/mmu: Rename .private_max_mapping_level() to
+.gmem_max_mapping_level()") built clean on x86_64 and aarch64.
+
+The actual fix, d1a3c2162334 ("KVM: SEV: Forcefully invalidate SNP VMSA
+if its backing gmem page is zapped"), doesn't land on top of that
+though: even with the rename in place it conflicts in kvm-x86-ops.h,
+kvm_host.h, sev.c and svm.h, and resolving it means introducing the new
+CONFIG_HAVE_KVM_ARCH_GMEM_INVALIDATE plumbing rather than a minor
+context fixup.
 
 -- 
 Thanks,
