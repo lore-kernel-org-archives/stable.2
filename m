@@ -1,164 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB95337DAAE
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A44223515D0;
+	Sun,  6 Sep 2026 02:21:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660839; cv=none; b=NEvqupagdSNmWi5fHOpqF6rAjikyzIAY6b2IN5JBIvwki9xRxLhrzWlJEsF3Q8uOXxDEtJ7tAqeEcLL9vxub4jojGWCl8grFpqabnVEICAua1Gc+94InAanHkxl/3hODqmvDgGG7Zg2664Me4zodsmD/CeLYNd4dz0g+fqjbqqk=
+	t=1788661269; cv=none; b=qpP3hqfBZ3V6VpId4LhMfryCm2JYvalyQFMgPlAYCJ4H7Kitef13NoLyj4NhgUMVgFd9E+SRj2HcJgSXs10O40rPgicPNFR0tJ1ohJG/7NEU+HdZ8vWZ/p1Gx1CAvaG7XdAvnD2jQp3pt1d314AcP/5XMMC6b9MR5WQZpmAP9Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660839; c=relaxed/simple;
-	bh=86rr/weh5BZkYR5jySk3laJ/VHDgcDhekzzLx+cVnf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HbEpGqXVpioxtxGcrVZhY6LBolyqimcUVT2tZNt5k2D8aMRVtY+tit2ou3NsPujc79E1UsfLwHum5zYVfcaKziNkie0IUC2TWqaCKNOew1kUVljp8+MjZ70EX3VkHf2JO0DA0CC7dYDjl1MoySFWcpkPi/bZjLOE/Y6yuAJ1MyQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X51Ffs7v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788661269; c=relaxed/simple;
+	bh=VwC/moHV3gO6v1K0dYD8s5ePunbjQ2UbAuY6/SxRDGM=;
+	h=Date:To:From:Subject:Message-Id; b=HtUiuXgdNB1MtPmMbtfGzwseZJ6AVJLbNBJDiZhWpBR7mTOOoeO4DklnsUROw98gqom+LxQPlbwzMwHC8tEItaUpgo9+acaQnfmKwMLnB98BoV80VRQnGmkSeJ9RnEygdHq8q+mS0W3ohEJ2e9G3hXLE9qJ4rab2TKtUJG1rayc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=wMai3k2n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X51Ffs7v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A0C1F01559;
-	Sun,  6 Sep 2026 02:13:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788660816;
-	bh=aAMCuwjt/y97otn7jweOG7kbpSmQZ+9ULXAcacIYZeo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X51Ffs7v/As5E1Sodux/+GAOd2ErvKA3hHtIiS6XM7OSU3IHP4HnczRf787oj1umL
-	 3w+oNGz261b7/7A/1fGOgY1MO9TcrOFFMRJv6Ky6YlNABLo82S2nmFTojBmXZz2xMj
-	 J9/iqlGwieSkhbbFW9aNTD/jkf6wyC5U4jgbGgbySRnfzc6YfjBc1CKEvzfHiqXluS
-	 Ka7N9gQygA6s9P/2lEM+EgDBsgp8eRoz5KgIikojmz6XF5NPmGUVd056zRE0h2VpcA
-	 9JzuEhOcjA4kNOpQGOSXYJNybGVzKQYiWUGgyAl2e81/MzSJbso/gc+pa4pTbF3oeZ
-	 1aXmNWRw8PXaw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] NFSD: Prevent client use-after-free during delegation revoke
-Date: Sat,  5 Sep 2026 22:13:33 -0400
-Message-ID: <20260906021333.761242-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906021333.761242-1-sashal@kernel.org>
-References: <2026090334-islamic-borrowing-13a1@gregkh>
- <20260906021333.761242-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="wMai3k2n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7981F00A3A;
+	Sun,  6 Sep 2026 02:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788661267;
+	bh=6AjcLBECKuqmISJ7Inwb1of+H4FR5as5IUxEHdYAj7Q=;
+	h=Date:To:From:Subject;
+	b=wMai3k2nteVKXdZVbWTzNk7C3dX1Nyn3QJ0vzhAAwKMloh8Zw20tuuw5IiGmKkIK8
+	 7ZitJMp95Po/qEsXkT2rRStqyhjjZWfKFuqHbJcfTXd19zPTcZQZiJHhO7rHP6byOj
+	 YTC33OuuF23aDE7SKe6PJnQ01vwxsC+Z18Nf4xj0=
+Date: Sat, 05 Sep 2026 19:21:06 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,ryan.roberts@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,zcgao@amazon.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260906022107.3C7981F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit 4683ca76b3b7e5808338491c6eb3c20e6b4894d5 ]
+The patch titled
+     Subject: mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch
 
-A delegation stateid holds only a bare pointer to its owning
-nfs4_client and does not keep it alive.  The client survives its
-stateids only because __destroy_client() drains cl_delegations and
-cl_revoked before free_client() runs.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch
 
-nfs4_laundromat() breaks that invariant: it unhashes an
-expired delegation from cl_delegations, drops deleg_lock, then
-revoke_delegation() relinks it onto cl_revoked under cl_lock.  In that
-window the delegation is on neither list, so client_has_state() can
-report no remaining state.
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Every teardown path first requires cl_rpc_users to be zero, but
-the laundromat holds no such reference.  A client whose recalled
-delegation has just timed out can therefore reach free_client()
-while revoke_delegation() is still about to dereference cl_lock,
-a use-after-free.
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Pin the client with cl_rpc_users across the revoke so teardown blocks
-until it completes, then reap the delegation from cl_revoked.  A client
-already expiring reaps its own, so skip it and leave the delegation on
-del_recall_lru.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Fixes: 3bd64a5ba171 ("nfsd4: implement SEQ4_STATUS_RECALLABLE_STATE_REVOKED")
-Cc: stable@vger.kernel.org
-Reviewed-by: NeilBrown <neil@brown.name>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260709-cel-v4-2-1d519d9be0cb@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Nathan Gao <zcgao@amazon.com>
+Subject: mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+Date: Thu, 3 Sep 2026 17:28:27 -0700
+
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr.  damon_va_mkold() passes it into
+a page table walk, which hands it to damon_ptep_mkold() as the address of
+the page to sample:
+
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch clearing
+of the young flag for large folios"), the contpte helper walked exactly
+CONT_PTES entries from the aligned-down page table pointer and used @addr
+only to pass down to each entry, so an unaligned value was harmless:
+
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+Now the range to walk is derived from @addr instead: end = addr + nr *
+PAGE_SIZE, rounded up to CONT_PTE_SIZE.  For a sample in the last page of
+a contpte block, the sub-page offset puts end just past the block
+boundary, so the round-up lands a whole block further and the walk clears
+PTE_AF in CONT_PTES entries beyond the sampled block.  For the last block
+in a page table page, those entries are past the end of that page, so the
+walk writes into the page that follows.
+
+Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+c/m6g.4xlarge).  The kernel sometimes crashes at or shortly after the
+DAMON test.
+
+What the overrun does depends on the page that happens to follow the page
+table, so there is no single signature.  If that page is read-only, the
+write faults in the sampling path itself:
+
+  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+    FSC = 0x0f: level 3 permission fault
+    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+  lr : damon_ptep_mkold+0x1e8/0x1f8
+  Call trace:
+   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+   damon_mkold_pmd_entry+0x150/0x170
+   walk_pmd_range+0x110/0x2b0
+   walk_pud_range+0x10c/0x208
+   walk_pgd_range+0x134/0x258
+   __walk_page_range+0x98/0x1b0
+   walk_page_range_vma_unsafe+0x90/0x148
+   walk_page_range_vma+0x28/0x40
+   damon_va_walk_page_range+0x114/0x2b8
+   damon_va_prepare_access_checks+0xec/0x1a8
+   kdamond_fn+0x534/0x770
+   kthread+0x128/0x138
+   ret_from_fork+0x10/0x20
+
+Otherwise the page is writable, the PTE_AF clearing succeeds silently and
+the damage only surfaces later, in whatever happened to own the page, so
+the backtrace is unrelated to DAMON and differs between runs.
+
+Pass a page-aligned address to the ptep_test_and_clear_young() call in
+damon_ptep_mkold(), which is the only place DAMON can reach
+contpte_test_and_clear_young_ptes() from.  Nothing else sees the aligned
+address, and r->sampling_addr itself is left as is, so the sampling and
+region bookkeeping semantics are unchanged.
+
+Link: https://lore.kernel.org/20260904002829.116381-1-sj@kernel.org
+Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
- fs/nfsd/netns.h     |  6 ++++--
- fs/nfsd/nfs4state.c | 23 +++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index db1b0c8f9c7ba..0e07b54104a93 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -101,7 +101,8 @@ struct nfsd_net {
- 	struct list_head client_lru;
- 	struct list_head close_lru;
- 
--	/* protects del_recall_lru and delegation hash/unhash */
-+	/* protects del_recall_lru and delegation hash/unhash;
-+	 * nests outside client_lock */
- 	spinlock_t deleg_lock ____cacheline_aligned;
- 	struct list_head del_recall_lru;
- 
-@@ -110,7 +111,8 @@ struct nfsd_net {
- 
- 	struct delayed_work laundromat_work;
- 
--	/* client_lock protects the client lru list and session hash table */
-+	/* client_lock protects the client lru list and session hash
-+	 * table; nests inside deleg_lock */
- 	spinlock_t client_lock;
- 
- 	/* protects blocked_locks_lru */
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 6561460f27f9c..15bfb5a91340f 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -6941,6 +6941,7 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		.new_timeo = nn->nfsd4_lease
- 	};
- 	struct nfs4_cpntf_state *cps;
-+	struct nfs4_client *clp;
- 	copy_stateid_t *cps_t;
- 	int i;
- 
-@@ -6969,6 +6970,18 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
- 		if (!state_expired(&lt, dp->dl_time))
- 			break;
-+		clp = dp->dl_stid.sc_client;
-+		spin_lock(&nn->client_lock);
-+		if (is_client_expired(clp)) {
-+			spin_unlock(&nn->client_lock);
-+			continue;
-+		}
+ mm/damon/ops-common.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+--- a/mm/damon/ops-common.c~mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold
++++ a/mm/damon/ops-common.c
+@@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct
+ 	 * device aspects.
+ 	 */
+ 	if (likely(pte_present(pteval)))
+-		young |= ptep_test_and_clear_young(vma, addr, pte);
 +		/*
-+		 * Pin without reviving: get_client_locked() would
-+		 * flip a courtesy client back to NFSD4_ACTIVE.
++		 * Arch implementation of ptep_test_and_clear_young() may
++		 * require aligned @addr
 +		 */
-+		atomic_inc(&clp->cl_rpc_users);
-+		spin_unlock(&nn->client_lock);
- 		refcount_inc(&dp->dl_stid.sc_count);
- 		unhash_delegation_locked(dp, SC_STATUS_REVOKED);
- 		list_add(&dp->dl_recall_lru, &reaplist);
-@@ -6977,8 +6990,18 @@ nfs4_laundromat(struct nfsd_net *nn)
- 	while (!list_empty(&reaplist)) {
- 		dp = list_first_entry(&reaplist, struct nfs4_delegation,
- 					dl_recall_lru);
-+		clp = dp->dl_stid.sc_client;
- 		list_del_init(&dp->dl_recall_lru);
- 		revoke_delegation(dp);
-+		/*
-+		 * Unpin without renewing: put_client_renew() would
-+		 * renew the reaped client's lease.
-+		 */
-+		if (atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock)) {
-+			if (is_client_expired(clp))
-+				wake_up_all(&expiry_wq);
-+			spin_unlock(&nn->client_lock);
-+		}
- 	}
- 
- 	spin_lock(&nn->client_lock);
--- 
-2.53.0
++		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
++				pte);
+ 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
+ 	if (young)
+ 		folio_set_young(folio);
+_
+
+Patches currently in -mm which might be from zcgao@amazon.com are
+
+mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch
 
