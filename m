@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7015F3C3792
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6674B2C15BB
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701628; cv=none; b=GNWLsMDOeW3xEpHqf1/CUWvBas1BzmFdvU40CHj30/zVtj9ZYFJ4HYCH+wxEL8fsMT7uCkg0j6aVB37qqQfK+dHZK33Pk2bN1hZRYJvCR8OfytgXZ2btBaHVGwbbFwfdojS4kHfWderk7AC4lPxmbvwykwQO1yDN+TWGRHw3j7I=
+	t=1788701627; cv=none; b=nixiM4bfEY9tDt4f7cVRaL4xpTGSt8jAPobhheco/DJZPdcOZ46C1OQ3QH/R5rlaXKNtITg1C5jM1zff+O/beE6of0+SiDYAoXGYCX3tUy/Y1b3XTJPqehuiCBrswi49KeVpnIuBrLjtX4TpqM8m51Vfr1DrtRTOwHovTsmrJMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701628; c=relaxed/simple;
-	bh=6DYx5+nlK4w6shP2MsjYqXU0V4sZmY2j51/LZIMa1T8=;
+	s=arc-20240116; t=1788701627; c=relaxed/simple;
+	bh=U90uT9ragr/1w+3jTdqEJb6v5bzcNXkieIz6yIUSyTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JsMxzCeA0Th1/e/OneZGx3FkH+MmZWknD4SMWERwkqFvLmhLixjlvyxlClrFPnOzm6XRoyQNtEs/GCvKruNnXAr+mMZRgeFyoABjPexk3MGzc6BSet6xX/rKsGG9EKFh6DSBxU1gPBje0ysz1bMTJAqi4RnNR42+2kaBYOVs5KM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f6hX40nn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AUwDIQ3PMt8LZOlmk6WaUxPhDmSxY8ayd5mgFc+WHxQ6nJhttS8HJMbRAn8D5HVnQIvVldRhSNyl2OQIBH8pDZsq5cQVGgQJqM+urjsqUNQhGNgXPkcolGzzmhPIL7H9YpBH14rcIRzCwb5zEje/pIJbn8ffISgUdOirqND2vAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHMNtY1Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f6hX40nn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8765F1F00AC4;
-	Sun,  6 Sep 2026 13:33:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHMNtY1Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7248B1F00A3A;
+	Sun,  6 Sep 2026 13:33:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701622;
-	bh=NP/51iDKqO7aDphCjUTmJUz8Ia1T98x/TbDsczsddQg=;
+	s=k20260515; t=1788701624;
+	bh=xkB1qVAy/snp7la0WeChX6tAAvBu1MDreHil0QgEng0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f6hX40nnc2bkL7ptxlgLrgu1rINsoAt/VfJIGLfpRBnxv8hjRshn5pRF+vhWEDbhz
-	 XXvSKyE9tBFYSeTUUaN5zgTebVkiKHxoD19+iW/D//u0UF88d++8ls9zCOIRDnMoXl
-	 qttN34TiGFVvBTIC/zTGZ2IWn8HnAS3n1X59k2eUWNxdAkjH89oJSSaQTjh08Pvaa4
-	 McxMPbDzu3iFlQKysg4RqPifNwMcHtHZ7tGfmUZyE3+f5wPUUP5ifGQwa6/6aN5NvI
-	 EKhagdf3DVQpaxa+rgoijJtLFWgb94yd0VoIeLrFr8y8tj0GgCqfKADsUrCGARq75G
-	 EvqLbmeIvByCw==
+	b=EHMNtY1QhoV/e/z0BBZL7hzh0ONRzQ55GOzDXVRRb+jhPSl/RyOZ7pOAnBM8ICwtg
+	 VS1sVZ89y3hqGU/pIo9Bk+AoCZNha6Hun52fio0MNgFifqnw3SEpGzBoOIBI2R9EHV
+	 duSSVtt1MdT45G8oPy2di+PGJbPsdqekJuzH11+0T7+Yehk3gB/hAa4COzndsJxqOm
+	 D10gSBSlVErlbguxzI5utNSU4MrKrSyVoHxuF9ZPxP7pMYm7gLj9Ph7DP7fHXXTOZ7
+	 CXywiayVgPZhIc6fqA7cQraj6vhp9PTgUtmuryc5TS8pcgGhNLv19fRrOIzLOTDjum
+	 tq9+3bUKsZh1g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	brauner@kernel.org,
 	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
-Subject: Re: [PATCH 6.12.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout creation
-Date: Sun,  6 Sep 2026 09:32:48 -0400
-Message-ID: <2026-09-05-daily-reply-0018-landlock-whiteout-6-12@kernel.org>
+Subject: Re: [PATCH 6.1.y] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout creation
+Date: Sun,  6 Sep 2026 09:32:50 -0400
+Message-ID: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904181327.193032-1-gnoack3000@gmail.com>
-References: <20260904181327.193032-1-gnoack3000@gmail.com>
+In-Reply-To: <20260904185816.343078-2-gnoack3000@gmail.com>
+References: <20260904185816.343078-2-gnoack3000@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,7 +54,12 @@ Content-Transfer-Encoding: 8bit
 > For the userspace implementations of OverlayFS (fuse-overlayfs),
 > whiteout objects can be created from userspace as well:
 
-Queued for 6.12, thanks.
+Queued for 6.1, thanks. Note: 6.1 is missing 49c9e09d9610 ("landlock: Fix
+handling of disconnected directories"), one of the two prerequisites this
+commit's own message names -- 6.12 and 6.6 already carry it. The whiteout
+check itself is still correct and worth having, but if a disconnected/
+bind-mounted directory is involved on 6.1 specifically the enforcement may
+not be reliable yet. Could you send 49c9e09d9610 as a follow-up for 6.1.y?
 
 -- 
 Thanks,
