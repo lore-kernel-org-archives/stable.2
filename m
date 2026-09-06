@@ -1,45 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFD738DC56
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D571FD4;
+	Sun,  6 Sep 2026 13:33:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701638; cv=none; b=NuWtu4FgmRYJdXdK+BCnSsvFfnNCApMBectFslWiYWjkyGbjxfWo8G1eLdU+4bWIdOQnaRIFl1E0TWWN4Tbk+x5ck6DSb7ACJ6cw1AVzvSy69MpBnpC5tRDq4HVgnA3yezTFZV5qTFpd2Duzbqs830roODgqBIvjr8/4y4MEvJ8=
+	t=1788701637; cv=none; b=shl7ayTb7josRunqYJSj5VuKGJBErwPO+lDxmI2fcKV0XRquiuimfxPJ0ByiGYv4xBXbLO8RBsOwLPdLeIhLRkdCqArx4gFi4PGZiumbzaenuXvq+L2ufyfGbKlyqob/3htEOobKCsh+HpZ+awjElQvrTGbSVrz/w6ITXtj9I1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701638; c=relaxed/simple;
-	bh=H83rx5hytpJI2Da2J9AevV3ZZBneVMo6bHeDJNStW6c=;
+	s=arc-20240116; t=1788701637; c=relaxed/simple;
+	bh=9WwnX6Oy8SwjYT4mkd3WfDEispkJUVrvdc0/nwSwflY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dzVezfuEIdy8aK8X4QAUlU69FqIgup1CEJIRfi8L0mkM0Dh8h7cP9O3D30jN/YRxirNx/A64FsNpYDeGQ5KuCYLxegc9H4PLHsNz+ACZJX61PLNk+gytxOaVFeDZnAruMdGNj5of5yqujP5fFaDfOeDGg7my1O5xrBYnrA3sedo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+yUrOlv; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mpITaReHglMXUKliIa7rlb1Ba6qlTgEVphVAWGfjwkUKmNW/roYm3jdlQbIJg9ke3aMS0q5X8rWJrEcxF1SMyzwYVG7tiXL9hNaXIItEvBoaat34f5HunV7gAmlQNYS8NLwH2a/n6aIRNFUqw2UNnSseoy7Hf9cBdSYMo/F/5Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mDfCcx3u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+yUrOlv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5A41F00A3E;
-	Sun,  6 Sep 2026 13:33:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mDfCcx3u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67C371F00A3D;
+	Sun,  6 Sep 2026 13:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701633;
-	bh=/BNOQEleZQJDe3O6/g/RTocg+dUgQcOI7vorARbnV6o=;
+	s=k20260515; t=1788701631;
+	bh=O+T+CEl3nX4kKk1DcMbOHHCsf5QZslg9EhYziHwEqP4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S+yUrOlvd1k4HLEMtGygfnC1z6Vm9q59K5lJSQzqM/a97aoylNHkN21CHtiyCIE3j
-	 gyP0SNqfMvceobJwJ2kSKuAZjYOWWMC4AxAag430yAxokMefk7aNAmKLqP3KRW4lit
-	 lx8fir63XJiQiEPUlBANzSbtHM5g5ntca7YI5Tg5MGxHbS6u7VEUj7WrI/EV1oScfV
-	 QePdZRGd+n0bdmsdQYGySFz4IVcIb+fJY2Xc7ANxV+ZYYnN+lfjHcH57S7IXD+h9Ua
-	 RqAFYThslfUvv8XILXiskuiDe1mSPuqnF/jU8suYnS0UmYJWkvdq17gzwDA7QXQ9xF
-	 6k21MPPe/wDNw==
+	b=mDfCcx3urStXVfz2B4nEUy0ELt7erimu+XlKQzi2pswO3mT23Ui/OoteS/9TFFp/3
+	 pNcD/wSH9zodFD5jtjBgazaEOB1+7NTzY/gL23DKu5W/qNRoZJe0+jPMgrDtrkYdBt
+	 sUSturo0Uu6UOJx7kuqo1qLMGytb6pMCjZV71Ry0ga91znL0FLFMRK86OtUqDYF0qM
+	 jA27ngbfbvfBL841Gcdpad/ROEmpz8H+LeuFWrnGK7tGb+rZcdHN1rLLvAj5pE7qSI
+	 HM669usB1d/hm4czgJUV4yyU6Vg6nZsgDzh9ZGi2CDktLwrHr8iLlcQQCGQSvn+yye
+	 /2DChgD+CvREg==
 From: Sasha Levin <sashal@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	tzungbi@kernel.org,
-	alsa-devel@alsa-project.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 6.1.y] ALSA: seq: Fix port lock leak in deliver_to_subscribers()
-Date: Sun,  6 Sep 2026 09:32:58 -0400
-Message-ID: <2026-09-05-daily-reply-0028-alsa-seq-port-lock-leak-6-1-ack@kernel.org>
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Jozsef Kadlecsik <kadlec@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	netfilter-devel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Suraj Jitindar Singh <surajjs@amazon.com>
+Subject: Re: [PATCH 6.1.y] netfilter: nf_tables: make nft_object rhltable per table
+Date: Sun,  6 Sep 2026 09:32:56 -0400
+Message-ID: <2026-09-05-daily-reply-0026-nf-tables-rhltable-6-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904070349.80497-1-tzungbi@kernel.org>
-References: <20260904070349.80497-1-tzungbi@kernel.org>
+In-Reply-To: <20260904013102.22326-1-surajjs@amazon.com>
+References: <20260904013102.22326-1-surajjs@amazon.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,18 +49,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Commit 46397622a3fa ("ALSA: seq: Add UMP support") mistakenly removed
-> the `snd_seq_port_unlock(src_port)` call in deliver_to_subscribers().
-> As a result, every time an event is delivered to a subscriber, the
-> source port's `use_lock` atomic counter is increased but never
+> The nft_object rhltable is global, this allows for accessing objects
+> that are being dismangled from lookup path by other existing netns.
+> Given the nft_obj_destroy() releases the object inmediately, this might
+> lead to use-after-free of these objects that are being released.
+> Make the existing rhltable per table to address this issue to deal with
 
-The fix itself looks right - restores exactly the unlock that
-46397622a3fa dropped, nothing else touched. But there's no mainline
-commit backing it (the actual upstream fix would be 177ccf811df4, which
-is a MIDI 2.0 feature commit and not stable material on its own), so
-this is a stable-only fix and needs a subsystem Ack before it can go in.
-
-Jaroslav, Takashi - can either of you Ack this for 6.1.y?
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
