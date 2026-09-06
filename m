@@ -1,375 +1,688 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5855A36B909
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA2338F935
 	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660828; cv=none; b=bS8zsuzOgPY87vlb4Vdr52bdqV8rKXHJUZzNA6YzBVLnvue6fVknkBvebTUuQdZcwpYGU8TRbuvH+K6UTYpFZFS7DeUkZuXvrwZwRSJOe6Ep3xiyUP42MzE15iLwx0QJltxORvmKYSE2ahui1tQiwLkSaInXkxbjDLS3MhzM5BQ=
+	t=1788660827; cv=none; b=I9yR0BDqIPsybdbL7wsznAPV+tQvfrlXNjw0tGCfC3ZkG3+wmRSWgGAp+NbMcdRMgzO3b+QtF92JIfH+4bdwJjXc/q2vIuSvYerFq2Jh7BxjlasZBAiLSGTWC7OM5sgjIjiMGmlDNoARYMReOSgHpVjqSrKyT44ZQgJGXNSNhvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660828; c=relaxed/simple;
-	bh=L6+e094/H+266SBAbGwxxbi7Zq29OUL40JBQ/4cAh+Q=;
+	s=arc-20240116; t=1788660827; c=relaxed/simple;
+	bh=BeDLSBMh5A5ujc4wqVvFG7eniD4MItZHNwMifc3OFk4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EtqZMxsM7S8W6abBz+IIBJkttwiDDjQNTzEWinA/5yVtcU7zgioU6flNQ7Rir1O7alF9Z/BrTwf/xaCJu5Eu+EoSi5/wONn4BvW0w3GJqX3oTxzmhFYg1yvwoGhRDINE51LiDaqcjYerHqyiXoekbOey9tiUFTY2EN2Qc+50e/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BL4NmeyJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QhvqdE2sTLNy/oEoCXU6+Hq2xPN23hfumXXR1G62Dgj/CRLomrn0oQ3lKTWS4Zl/m0+f01Es1z8PZBsJSHYnuhQ5uiPoMWvOw3+pWPQZGmTix2oH+VQlrm6pgQQunu9KWVesrvWHVH/CTIMqJGhZ3C+wGhN4DWnhcSaJK3hRig8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dPseS3da; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BL4NmeyJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A43C1F00ADF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dPseS3da"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5949B1F00ACF;
 	Sun,  6 Sep 2026 02:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788660808;
-	bh=RBVUi1nR3mK6o1FeteyVpBKfU1luKO3LRpuZmduQaUg=;
+	bh=Cmq00OahKS28X6gUbXZTnVGEgoatIsahmER83bQqSj0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BL4NmeyJhcUdOV3Nsm1JhhqBmn4wPbv23yb1RPr5nLPK5o3nRZDJNWLMxYkjatUQN
-	 4HVmxsyIHDrelOCFau31mbyztXImbH4WOGC0JheBcQrEo9xtHwv9SAtQeathaVlVop
-	 Xa42tp4iZNVzYsUb9VUHud+XM+2Lz9sGRrTDvuEyMkJIoOodF+TiEAF98SgoXFBOxJ
-	 NMotX9OTZU1qVSFqO57K1P8fcy1yiVbINngufK+oU5xn6j4Dso19rk1081REE3tqZC
-	 ZDPPR4SEB3qyNcuuYyXwji7ETlyIc2Xjl5MWjac18tCu885vCfEeiPmujdLIes1Fwr
-	 t6PN2u/l+9gHw==
+	b=dPseS3daHly9v6rh7YFxhf/fKglcL5G17U67CZ/Yf3yiFvDcrKKg7pJoiwAHs+o9t
+	 pB9k1bxhoDiWn6WzcMLeJRHwTDHM8UWwjnvZfxuKi9TN+DCBNk92Ul9brF0iv0R+OM
+	 05SuG7iyNrrUDQJFpi/IfEzC17Dj26TUQrHo04q/B3B6TEuyhVNK29bedECagEhAFs
+	 xMm1qa9u/huGOsYOMJ4ogDjdfngdNe8kUfRJaq5ZQWJYg4OB2mdh/YyIfv69xBlvHI
+	 WJYyno6C/Z3IDHh6ibpmwggrVdNwyEm++BVieBPU/A/dAdcv5CCqxeAXY/zS/2zw4t
+	 KcXqIPzHWRxMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chris Mason <clm@meta.com>,
+Cc: NeilBrown <neilb@suse.de>,
+	Jeff Layton <jlayton@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 7/7] nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown
-Date: Sat,  5 Sep 2026 22:13:21 -0400
-Message-ID: <20260906021321.760525-7-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] nfsd: Move error code mapping to per-version proc code.
+Date: Sat,  5 Sep 2026 22:13:22 -0400
+Message-ID: <20260906021325.760715-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906021321.760525-1-sashal@kernel.org>
-References: <2026090303-scrap-parkway-2bf7@gregkh>
- <20260906021321.760525-1-sashal@kernel.org>
+In-Reply-To: <2026090306-sarcastic-gristle-d434@gregkh>
+References: <2026090306-sarcastic-gristle-d434@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: NeilBrown <neilb@suse.de>
 
-[ Upstream commit 01c5d5f58a5db9b0ee5afba2e49d3157788687b2 ]
+[ Upstream commit 1459ad57673b8019fbfcfddc345c99630d29e716 ]
 
-After a DESTROY_SESSION the per-session teardown path can free a
-session while rpciod still holds an inflight callback rpc_task that
-dereferences clp->cl_cb_session.  nfsd4_probe_callback_sync() flushes
-cl_callback_wq, but once nfsd4_run_cb_work() has called
-rpc_call_async() the rpc_task lives on rpciod; flushing the workqueue
-does not wait for it.  rpc_shutdown_client() does drain rpciod tasks,
-but uses a 1-second wait_event_timeout — tasks stuck in rpc_delay()
-(e.g. 2-second NFS4ERR_DELAY retries) can outlive the drain.
+There is code scattered around nfsd which chooses an error status based
+on the particular version of nfs being used.  It is cleaner to have the
+version specific choices in version specific code.
 
-    destroy path                       rpciod
-    ------------                       ------
-    unhash_session(ses)
-    nfsd4_probe_callback_sync(clp)
-      flush_workqueue(cl_callback_wq)
-      /* returns; rpc_task still live */
-    nfsd4_put_session_locked(ses)
-    free_session(ses) -> kfree(ses)
-                                       nfsd4_cb_sequence_done()
-                                         reads cb_clp->cl_cb_session
-                                         /* freed slab */
+With this patch common code returns the most specific error code
+possible and the version specific code maps that if necessary.
 
-A second window exists in nfsd4_process_cb_update().  When
-__nfsd4_find_backchannel() returns NULL because unhash_session() has
-already removed the destroyed session from cl_sessions,
-setup_callback_client() takes the v4.1 early return so
-clp->cl_cb_session = ses never fires and the field retains a pointer
-to the about-to-be-freed session.
+Both v2 (nfsproc.c) and v3 (nfs3proc.c) now have a "map_status()"
+function which is called to map the resp->status before each non-trivial
+nfsd_proc_* or nfsd3_proc_* function returns.
 
-Fix both by converting cl_cb_session to an RCU-protected pointer:
+NFS4ERR_SYMLINK and NFS4ERR_WRONG_TYPE introduce extra complications and
+are left for a later patch.
 
-  - Move the cl_cb_session = ses assignment in setup_callback_client()
-    to after rpc_create() succeeds, so it is only published when a
-    working backchannel exists.  Clear cl_cb_session on the error
-    return in nfsd4_process_cb_update().  Both stores use
-    rcu_assign_pointer().
-
-  - Annotate cl_cb_session with __rcu.  All rpciod-side readers use
-    rcu_read_lock()/rcu_dereference() and check for NULL, bailing to
-    the appropriate error or requeue path:
-    encode_cb_sequence4args(), decode_cb_sequence4resok(),
-    nfsd41_cb_get_slot(), nfsd41_cb_release_slot(),
-    nfsd4_cb_prepare(), and nfsd4_cb_sequence_done().
-
-  - Switch __free_session() from kfree() to kfree_rcu() so the
-    session slab is not reclaimed until after an RCU grace period,
-    guaranteeing that rpciod readers inside rcu_read_lock() never
-    dereference freed memory.
-
-  - Pass the session pointer to the nfsd_cb_seq_status and
-    nfsd_cb_free_slot tracepoints instead of having them re-read
-    cl_cb_session.
-
-  - nfsd4_cb_prepare() calls rpc_exit() when the session is NULL,
-    routing through the done/release path to requeue the callback.
-
-Fixes: dcbeaa68dbbd ("nfsd4: allow backchannel recovery")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <clm@meta.com>
-Signed-off-by: Chris Mason <clm@meta.com>
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-2-f27e8eb4d974@kernel.org
+Signed-off-by: NeilBrown <neilb@suse.de>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adapted RCU session handling to the single-slot callback model and flexible-array session layout ]
+Stable-dep-of: eb0eca772066 ("nfsd: reject out-of-range nseconds in NFSv3 SETATTR and create ops")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4callback.c | 72 +++++++++++++++++++++++++++++++++++-------
- fs/nfsd/nfs4state.c    |  4 +--
- fs/nfsd/state.h        |  3 +-
- 3 files changed, 65 insertions(+), 14 deletions(-)
+ fs/nfsd/export.c    |  2 +-
+ fs/nfsd/nfs3proc.c  | 45 +++++++++++++++++++++++++++++++++++++++++++--
+ fs/nfsd/nfs3xdr.c   |  5 +----
+ fs/nfsd/nfs4proc.c  |  3 +--
+ fs/nfsd/nfs4state.c |  2 +-
+ fs/nfsd/nfsfh.c     | 10 +++-------
+ fs/nfsd/nfsproc.c   | 39 ++++++++++++++++++++++++++++++++++++---
+ fs/nfsd/vfs.c       | 33 +++++++++++++++++----------------
+ fs/nfsd/vfs.h       |  2 +-
+ fs/nfsd/xdr3.h      |  2 +-
+ 10 files changed, 105 insertions(+), 38 deletions(-)
 
-diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
-index 964d7f56dfc79..6baff3d026434 100644
---- a/fs/nfsd/nfs4callback.c
-+++ b/fs/nfsd/nfs4callback.c
-@@ -373,12 +373,19 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
- 				    const struct nfsd4_callback *cb,
- 				    struct nfs4_cb_compound_hdr *hdr)
- {
--	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
-+	struct nfsd4_session *session;
- 	__be32 *p;
+diff --git a/fs/nfsd/export.c b/fs/nfsd/export.c
+index a9d794cfd10e0..7472c66712354 100644
+--- a/fs/nfsd/export.c
++++ b/fs/nfsd/export.c
+@@ -1076,7 +1076,7 @@ __be32 check_nfsd_access(struct svc_export *exp, struct svc_rqst *rqstp)
+ 	if (nfsd4_spo_must_allow(rqstp))
+ 		return 0;
  
- 	if (hdr->minorversion == 0)
- 		return;
- 
-+	rcu_read_lock();
-+	session = rcu_dereference(cb->cb_clp->cl_cb_session);
-+	if (!session) {
-+		rcu_read_unlock();
-+		return;
-+	}
-+
- 	encode_nfs_cb_opnum4(xdr, OP_CB_SEQUENCE);
- 	encode_sessionid4(xdr, session);
- 
-@@ -390,6 +397,7 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
- 	xdr_encode_empty_array(p);		/* csa_referring_call_lists */
- 
- 	hdr->nops++;
-+	rcu_read_unlock();
+-	return rqstp->rq_vers < 4 ? nfserr_acces : nfserr_wrongsec;
++	return nfserr_wrongsec;
  }
  
  /*
-@@ -416,21 +424,32 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
- static int decode_cb_sequence4resok(struct xdr_stream *xdr,
- 				    struct nfsd4_callback *cb)
- {
--	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
-+	struct nfsd4_session *session;
- 	int status = -ESERVERFAULT;
- 	__be32 *p;
- 	u32 dummy;
- 
-+	rcu_read_lock();
-+	session = rcu_dereference(cb->cb_clp->cl_cb_session);
-+	if (!session) {
-+		rcu_read_unlock();
-+		cb->cb_seq_status = -NFS4ERR_BADSESSION;
-+		return -NFS4ERR_BADSESSION;
-+	}
-+
- 	/*
- 	 * If the server returns different values for sessionID, slotID or
- 	 * sequence number, the server is looney tunes.
- 	 */
- 	p = xdr_inline_decode(xdr, NFS4_MAX_SESSIONID_LEN + 4 + 4 + 4 + 4);
--	if (unlikely(p == NULL))
-+	if (unlikely(p == NULL)) {
-+		rcu_read_unlock();
- 		goto out_overflow;
-+	}
- 
- 	if (memcmp(p, session->se_sessionid.data, NFS4_MAX_SESSIONID_LEN)) {
- 		dprintk("NFS: %s Invalid session id\n", __func__);
-+		rcu_read_unlock();
- 		goto out;
- 	}
- 	p += XDR_QUADLEN(NFS4_MAX_SESSIONID_LEN);
-@@ -438,18 +457,21 @@ static int decode_cb_sequence4resok(struct xdr_stream *xdr,
- 	dummy = be32_to_cpup(p++);
- 	if (dummy != session->se_cb_seq_nr) {
- 		dprintk("NFS: %s Invalid sequence number\n", __func__);
-+		rcu_read_unlock();
- 		goto out;
- 	}
- 
- 	dummy = be32_to_cpup(p++);
- 	if (dummy != 0) {
- 		dprintk("NFS: %s Invalid slotid\n", __func__);
-+		rcu_read_unlock();
- 		goto out;
- 	}
- 
- 	/*
- 	 * FIXME: process highest slotid and target highest slotid
- 	 */
-+	rcu_read_unlock();
- 	status = 0;
- out:
- 	cb->cb_seq_status = status;
-@@ -988,9 +1010,8 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
- 	} else {
- 		if (!conn->cb_xprt || !ses)
- 			return -EINVAL;
--		clp->cl_cb_session = ses;
- 		args.bc_xprt = conn->cb_xprt;
--		args.prognumber = clp->cl_cb_session->se_cb_prog;
-+		args.prognumber = ses->se_cb_prog;
- 		args.protocol = conn->cb_xprt->xpt_class->xcl_ident |
- 				XPRT_TRANSPORT_BC;
- 		args.authflavor = ses->se_cb_sec.flavor;
-@@ -1008,8 +1029,10 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
- 		return -ENOMEM;
- 	}
- 
--	if (clp->cl_minorversion != 0)
-+	if (clp->cl_minorversion != 0) {
- 		clp->cl_cb_conn.cb_xprt = conn->cb_xprt;
-+		rcu_assign_pointer(clp->cl_cb_session, ses);
-+	}
- 	clp->cl_cb_client = client;
- 	clp->cl_cb_cred = cred;
- 	rcu_read_lock();
-@@ -1153,8 +1176,14 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
- 	 */
- 	cb->cb_seq_status = 1;
- 	cb->cb_status = 0;
--	if (minorversion && !nfsd41_cb_get_slot(cb, task))
--		return;
-+	if (minorversion) {
-+		if (!rcu_access_pointer(clp->cl_cb_session)) {
-+			rpc_exit(task, -EIO);
-+			return;
-+		}
-+		if (!nfsd41_cb_get_slot(cb, task))
-+			return;
-+	}
- 	rpc_call_start(task);
- }
- 
-@@ -1162,12 +1191,19 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
- static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback *cb)
- {
- 	struct nfs4_client *clp = cb->cb_clp;
--	struct nfsd4_session *session = clp->cl_cb_session;
-+	struct nfsd4_session *session;
- 	bool ret = false;
- 
- 	if (!cb->cb_holds_slot)
- 		goto requeue;
- 
-+	rcu_read_lock();
-+	session = rcu_dereference(clp->cl_cb_session);
-+	if (!session) {
-+		rcu_read_unlock();
-+		goto requeue;
-+	}
-+
- 	switch (cb->cb_seq_status) {
- 	case 0:
- 		/*
-@@ -1189,15 +1225,20 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 		break;
- 	case -NFS4ERR_DELAY:
- 		cb->cb_seq_status = 1;
--		if (RPC_SIGNALLED(task) || !rpc_restart_call(task))
-+		if (RPC_SIGNALLED(task) || !rpc_restart_call(task)) {
-+			rcu_read_unlock();
- 			goto requeue;
-+		}
- 		rpc_delay(task, 2 * HZ);
-+		rcu_read_unlock();
- 		return false;
- 	case -NFS4ERR_BADSLOT:
-+		rcu_read_unlock();
- 		goto retry_nowait;
- 	case -NFS4ERR_SEQ_MISORDERED:
- 		if (session->se_cb_seq_nr != 1) {
- 			session->se_cb_seq_nr = 1;
-+			rcu_read_unlock();
- 			goto retry_nowait;
- 		}
- 		break;
-@@ -1207,6 +1248,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 			cb->cb_seq_status);
- 	}
- 
-+	rcu_read_unlock();
- 	nfsd41_cb_release_slot(cb);
- 	return ret;
- retry_nowait:
-@@ -1339,7 +1381,14 @@ static struct nfsd4_conn * __nfsd4_find_backchannel(struct nfs4_client *clp)
-  * Note there isn't a lot of locking in this code; instead we depend on
-  * the fact that it is run from the callback_wq, which won't run two
-  * work items at once.  So, for example, callback_wq handles all access
-- * of cl_cb_client and all calls to rpc_create or rpc_shutdown_client.
-+ * of cl_cb_client, and all calls to rpc_create or rpc_shutdown_client.
-+ *
-+ * cl_cb_session is written only from callback_wq (via rcu_assign_pointer)
-+ * and read from rpciod under rcu_read_lock (via rcu_dereference) by
-+ * encode_cb_sequence4args(), decode_cb_sequence4resok(), and
-+ * nfsd4_cb_sequence_done().  Sessions are freed with kfree_rcu() so that
-+ * rpciod readers in an RCU read-side critical section never dereference a
-+ * freed session.
-  */
- static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
- {
-@@ -1386,6 +1435,7 @@ static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
- 		nfsd4_mark_cb_down(clp, err);
- 		if (c)
- 			svc_xprt_put(c->cn_xprt);
-+		rcu_assign_pointer(clp->cl_cb_session, ses);
- 		return;
- 	}
- }
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index e1350dcc1b64a..a619afc79d02b 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1976,7 +1976,7 @@ static void nfsd4_del_conns(struct nfsd4_session *s)
- static void __free_session(struct nfsd4_session *ses)
- {
- 	free_session_slots(ses);
--	kfree(ses);
-+	kfree_rcu(ses, rcu_head);
- }
- 
- static void free_session(struct nfsd4_session *ses)
-@@ -2943,7 +2943,7 @@ static struct nfs4_client *create_client(struct xdr_netobj name,
- 	clear_bit(0, &clp->cl_cb_slot_busy);
- 	copy_verf(clp, verf);
- 	memcpy(&clp->cl_addr, sa, sizeof(struct sockaddr_storage));
--	clp->cl_cb_session = NULL;
-+	RCU_INIT_POINTER(clp->cl_cb_session, NULL);
- 	clp->net = net;
- 	clp->cl_nfsd_dentry = nfsd_client_mkdir(
- 		nn, &clp->cl_nfsdfs,
-diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index 10d1b418e0c7c..649ca2c0844b0 100644
---- a/fs/nfsd/state.h
-+++ b/fs/nfsd/state.h
-@@ -273,6 +273,7 @@ struct nfsd4_session {
- 	struct list_head	se_conns;
- 	u32			se_cb_prog;
- 	u32			se_cb_seq_nr;
-+	struct rcu_head		rcu_head;
- 	struct nfsd4_slot	*se_slots[];	/* forward channel slots */
+diff --git a/fs/nfsd/nfs3proc.c b/fs/nfsd/nfs3proc.c
+index d01b29aba6623..3abb2923192ad 100644
+--- a/fs/nfsd/nfs3proc.c
++++ b/fs/nfsd/nfs3proc.c
+@@ -28,6 +28,22 @@ static int	nfs3_ftypes[] = {
+ 	S_IFIFO,		/* NF3FIFO */
  };
  
-@@ -381,7 +382,7 @@ struct nfs4_client {
- #define NFSD4_CB_FAULT		3
- 	int			cl_cb_state;
- 	struct nfsd4_callback	cl_cb_null;
--	struct nfsd4_session	*cl_cb_session;
-+	struct nfsd4_session	__rcu *cl_cb_session;
++static __be32 nfsd3_map_status(__be32 status)
++{
++	switch (status) {
++	case nfs_ok:
++		break;
++	case nfserr_nofilehandle:
++		status = nfserr_badhandle;
++		break;
++	case nfserr_wrongsec:
++	case nfserr_file_open:
++		status = nfserr_acces;
++		break;
++	}
++	return status;
++}
++
+ /*
+  * NULL call.
+  */
+@@ -57,6 +73,7 @@ nfsd3_proc_getattr(struct svc_rqst *rqstp)
  
- 	/* for all client information that callback code might need: */
- 	spinlock_t		cl_lock;
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -71,13 +88,16 @@ nfsd3_proc_setattr(struct svc_rqst *rqstp)
+ 	struct nfsd_attrs attrs = {
+ 		.na_iattr	= &argp->attrs,
+ 	};
++	const struct timespec64 *guardtime = NULL;
+ 
+ 	dprintk("nfsd: SETATTR(3)  %s\n",
+ 				SVCFH_fmt(&argp->fh));
+ 
+ 	fh_copy(&resp->fh, &argp->fh);
+-	resp->status = nfsd_setattr(rqstp, &resp->fh, &attrs,
+-				    argp->check_guard, argp->guardtime);
++	if (argp->check_guard)
++		guardtime = &argp->guardtime;
++	resp->status = nfsd_setattr(rqstp, &resp->fh, &attrs, guardtime);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -101,6 +121,7 @@ nfsd3_proc_lookup(struct svc_rqst *rqstp)
+ 	resp->status = nfsd_lookup(rqstp, &resp->dirfh,
+ 				   argp->name, argp->len,
+ 				   &resp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -120,6 +141,7 @@ nfsd3_proc_access(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->fh, &argp->fh);
+ 	resp->access = argp->access;
+ 	resp->status = nfsd_access(rqstp, &resp->fh, &resp->access, NULL);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -140,6 +162,7 @@ nfsd3_proc_readlink(struct svc_rqst *rqstp)
+ 	resp->pages = rqstp->rq_next_page++;
+ 	resp->status = nfsd_readlink(rqstp, &resp->fh,
+ 				     page_address(*resp->pages), &resp->len);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -188,6 +211,7 @@ nfsd3_proc_read(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->fh, &argp->fh);
+ 	resp->status = nfsd_read(rqstp, &resp->fh, argp->offset,
+ 				 rqstp->rq_vec, v, &resp->count, &resp->eof);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -221,6 +245,7 @@ nfsd3_proc_write(struct svc_rqst *rqstp)
+ 				  rqstp->rq_vec, nvecs, &cnt,
+ 				  resp->committed, resp->verf);
+ 	resp->count = cnt;
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -245,6 +270,8 @@ nfsd3_create_file(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	__be32 status;
+ 	int host_err;
+ 
++	/* Validation hooks belong here, before name checks and object creation. */
++
+ 	if (isdotent(argp->name, argp->len))
+ 		return nfserr_exist;
+ 	if (!(iap->ia_valid & ATTR_MODE))
+@@ -366,6 +393,7 @@ nfsd3_proc_create(struct svc_rqst *rqstp)
+ 	newfhp = fh_init(&resp->fh, NFS3_FHSIZE);
+ 
+ 	resp->status = nfsd3_create_file(rqstp, dirfhp, newfhp, argp);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -391,6 +419,7 @@ nfsd3_proc_mkdir(struct svc_rqst *rqstp)
+ 	fh_init(&resp->fh, NFS3_FHSIZE);
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, S_IFDIR, 0, &resp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -431,6 +460,7 @@ nfsd3_proc_symlink(struct svc_rqst *rqstp)
+ 				    argp->flen, argp->tname, &attrs, &resp->fh);
+ 	kfree(argp->tname);
+ out:
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -472,6 +502,7 @@ nfsd3_proc_mknod(struct svc_rqst *rqstp)
+ 	resp->status = nfsd_create(rqstp, &resp->dirfh, argp->name, argp->len,
+ 				   &attrs, type, rdev, &resp->fh);
+ out:
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -493,6 +524,7 @@ nfsd3_proc_remove(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->fh, &argp->fh);
+ 	resp->status = nfsd_unlink(rqstp, &resp->fh, -S_IFDIR,
+ 				   argp->name, argp->len);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -513,6 +545,7 @@ nfsd3_proc_rmdir(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->fh, &argp->fh);
+ 	resp->status = nfsd_unlink(rqstp, &resp->fh, S_IFDIR,
+ 				   argp->name, argp->len);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -535,6 +568,7 @@ nfsd3_proc_rename(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->tfh, &argp->tfh);
+ 	resp->status = nfsd_rename(rqstp, &resp->ffh, argp->fname, argp->flen,
+ 				   &resp->tfh, argp->tname, argp->tlen);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -555,6 +589,7 @@ nfsd3_proc_link(struct svc_rqst *rqstp)
+ 	fh_copy(&resp->tfh, &argp->tfh);
+ 	resp->status = nfsd_link(rqstp, &resp->tfh, argp->tname, argp->tlen,
+ 				 &resp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -607,6 +642,7 @@ nfsd3_proc_readdir(struct svc_rqst *rqstp)
+ 	/* Recycle only pages that were part of the reply */
+ 	rqstp->rq_next_page = resp->xdr.page_ptr + 1;
+ 
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -651,6 +687,7 @@ nfsd3_proc_readdirplus(struct svc_rqst *rqstp)
+ 	rqstp->rq_next_page = resp->xdr.page_ptr + 1;
+ 
+ out:
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -668,6 +705,7 @@ nfsd3_proc_fsstat(struct svc_rqst *rqstp)
+ 
+ 	resp->status = nfsd_statfs(rqstp, &argp->fh, &resp->stats, 0);
+ 	fh_put(&argp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -711,6 +749,7 @@ nfsd3_proc_fsinfo(struct svc_rqst *rqstp)
+ 	}
+ 
+ 	fh_put(&argp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -753,6 +792,7 @@ nfsd3_proc_pathconf(struct svc_rqst *rqstp)
+ 	}
+ 
+ 	fh_put(&argp->fh);
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -780,6 +820,7 @@ nfsd3_proc_commit(struct svc_rqst *rqstp)
+ 				   argp->count, resp->verf);
+ 	nfsd_file_put(nf);
+ out:
++	resp->status = nfsd3_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+diff --git a/fs/nfsd/nfs3xdr.c b/fs/nfsd/nfs3xdr.c
+index 3308dd671ef0b..81a64d7349bef 100644
+--- a/fs/nfsd/nfs3xdr.c
++++ b/fs/nfsd/nfs3xdr.c
+@@ -295,17 +295,14 @@ svcxdr_decode_sattr3(struct svc_rqst *rqstp, struct xdr_stream *xdr,
+ static bool
+ svcxdr_decode_sattrguard3(struct xdr_stream *xdr, struct nfsd3_sattrargs *args)
+ {
+-	__be32 *p;
+ 	u32 check;
+ 
+ 	if (xdr_stream_decode_bool(xdr, &check) < 0)
+ 		return false;
+ 	if (check) {
+-		p = xdr_inline_decode(xdr, XDR_UNIT * 2);
+-		if (!p)
++		if (!svcxdr_decode_nfstime3(xdr, &args->guardtime))
+ 			return false;
+ 		args->check_guard = 1;
+-		args->guardtime = be32_to_cpup(p);
+ 	} else
+ 		args->check_guard = 0;
+ 
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index d29a37f696a44..52f779152e5c7 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -1126,8 +1126,7 @@ nfsd4_setattr(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 		goto out;
+ 	save_no_wcc = cstate->current_fh.fh_no_wcc;
+ 	cstate->current_fh.fh_no_wcc = true;
+-	status = nfsd_setattr(rqstp, &cstate->current_fh, &attrs,
+-				0, (time64_t)0);
++	status = nfsd_setattr(rqstp, &cstate->current_fh, &attrs, NULL);
+ 	cstate->current_fh.fh_no_wcc = save_no_wcc;
+ 	if (!status)
+ 		status = nfserrno(attrs.na_labelerr);
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index f390716ce3ffe..fa1dbe62a34c9 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -5228,7 +5228,7 @@ nfsd4_truncate(struct svc_rqst *rqstp, struct svc_fh *fh,
+ 		return 0;
+ 	if (!(open->op_share_access & NFS4_SHARE_ACCESS_WRITE))
+ 		return nfserr_inval;
+-	return nfsd_setattr(rqstp, fh, &attrs, 0, (time64_t)0);
++	return nfsd_setattr(rqstp, fh, &attrs, NULL);
+ }
+ 
+ static __be32 nfs4_get_vfs_file(struct svc_rqst *rqstp, struct nfs4_file *fp,
+diff --git a/fs/nfsd/nfsfh.c b/fs/nfsd/nfsfh.c
+index e73e9d44f1b0c..29541424f01bc 100644
+--- a/fs/nfsd/nfsfh.c
++++ b/fs/nfsd/nfsfh.c
+@@ -162,10 +162,8 @@ static __be32 nfsd_set_fh_dentry(struct svc_rqst *rqstp, struct svc_fh *fhp)
+ 	int len;
+ 	__be32 error;
+ 
+-	error = nfserr_stale;
+-	if (rqstp->rq_vers > 2)
+-		error = nfserr_badhandle;
+-	if (rqstp->rq_vers == 4 && fh->fh_size == 0)
++	error = nfserr_badhandle;
++	if (fh->fh_size == 0)
+ 		return nfserr_nofilehandle;
+ 
+ 	if (fh->fh_version != 1)
+@@ -237,9 +235,7 @@ static __be32 nfsd_set_fh_dentry(struct svc_rqst *rqstp, struct svc_fh *fhp)
+ 	/*
+ 	 * Look up the dentry using the NFS file handle.
+ 	 */
+-	error = nfserr_stale;
+-	if (rqstp->rq_vers > 2)
+-		error = nfserr_badhandle;
++	error = nfserr_badhandle;
+ 
+ 	fileid_type = fh->fh_fileid_type;
+ 
+diff --git a/fs/nfsd/nfsproc.c b/fs/nfsd/nfsproc.c
+index 9744443c39652..5a6cfcb65de69 100644
+--- a/fs/nfsd/nfsproc.c
++++ b/fs/nfsd/nfsproc.c
+@@ -13,6 +13,24 @@
+ 
+ #define NFSDDBG_FACILITY		NFSDDBG_PROC
+ 
++static __be32 nfsd_map_status(__be32 status)
++{
++	switch (status) {
++	case nfs_ok:
++		break;
++	case nfserr_nofilehandle:
++	case nfserr_badhandle:
++		status = nfserr_stale;
++		break;
++	case nfserr_wrongsec:
++	case nfserr_xdev:
++	case nfserr_file_open:
++		status = nfserr_acces;
++		break;
++	}
++	return status;
++}
++
+ static __be32
+ nfsd_proc_null(struct svc_rqst *rqstp)
+ {
+@@ -38,6 +56,7 @@ nfsd_proc_getattr(struct svc_rqst *rqstp)
+ 		goto out;
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -103,12 +122,13 @@ nfsd_proc_setattr(struct svc_rqst *rqstp)
+ 		}
+ 	}
+ 
+-	resp->status = nfsd_setattr(rqstp, fhp, &attrs, 0, (time64_t)0);
++	resp->status = nfsd_setattr(rqstp, fhp, &attrs, NULL);
+ 	if (resp->status != nfs_ok)
+ 		goto out;
+ 
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -143,6 +163,7 @@ nfsd_proc_lookup(struct svc_rqst *rqstp)
+ 
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -164,6 +185,7 @@ nfsd_proc_readlink(struct svc_rqst *rqstp)
+ 				     page_address(resp->page), &resp->len);
+ 
+ 	fh_put(&argp->fh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -212,6 +234,7 @@ nfsd_proc_read(struct svc_rqst *rqstp)
+ 		resp->status = fh_getattr(&resp->fh, &resp->stat);
+ 	else if (resp->status == nfserr_jukebox)
+ 		set_bit(RQ_DROPME, &rqstp->rq_flags);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -247,6 +270,7 @@ nfsd_proc_write(struct svc_rqst *rqstp)
+ 		resp->status = fh_getattr(&resp->fh, &resp->stat);
+ 	else if (resp->status == nfserr_jukebox)
+ 		set_bit(RQ_DROPME, &rqstp->rq_flags);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -402,8 +426,8 @@ nfsd_proc_create(struct svc_rqst *rqstp)
+ 		 */
+ 		attr->ia_valid &= ATTR_SIZE;
+ 		if (attr->ia_valid)
+-			resp->status = nfsd_setattr(rqstp, newfhp, &attrs, 0,
+-						    (time64_t)0);
++			resp->status = nfsd_setattr(rqstp, newfhp, &attrs,
++						    NULL);
+ 	}
+ 
+ out_unlock:
+@@ -415,6 +439,7 @@ nfsd_proc_create(struct svc_rqst *rqstp)
+ 		goto out;
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -431,6 +456,7 @@ nfsd_proc_remove(struct svc_rqst *rqstp)
+ 	resp->status = nfsd_unlink(rqstp, &argp->fh, -S_IFDIR,
+ 				   argp->name, argp->len);
+ 	fh_put(&argp->fh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -449,6 +475,7 @@ nfsd_proc_rename(struct svc_rqst *rqstp)
+ 				   &argp->tfh, argp->tname, argp->tlen);
+ 	fh_put(&argp->ffh);
+ 	fh_put(&argp->tfh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -469,6 +496,7 @@ nfsd_proc_link(struct svc_rqst *rqstp)
+ 				 &argp->ffh);
+ 	fh_put(&argp->ffh);
+ 	fh_put(&argp->tfh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -507,6 +535,7 @@ nfsd_proc_symlink(struct svc_rqst *rqstp)
+ 	fh_put(&argp->ffh);
+ 	fh_put(&newfh);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -540,6 +569,7 @@ nfsd_proc_mkdir(struct svc_rqst *rqstp)
+ 
+ 	resp->status = fh_getattr(&resp->fh, &resp->stat);
+ out:
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -557,6 +587,7 @@ nfsd_proc_rmdir(struct svc_rqst *rqstp)
+ 	resp->status = nfsd_unlink(rqstp, &argp->fh, S_IFDIR,
+ 				   argp->name, argp->len);
+ 	fh_put(&argp->fh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -602,6 +633,7 @@ nfsd_proc_readdir(struct svc_rqst *rqstp)
+ 	nfssvc_encode_nfscookie(resp, offset);
+ 
+ 	fh_put(&argp->fh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+@@ -619,6 +651,7 @@ nfsd_proc_statfs(struct svc_rqst *rqstp)
+ 	resp->status = nfsd_statfs(rqstp, &argp->fh, &resp->stats,
+ 				   NFSD_MAY_BYPASS_GSS_ON_ROOT);
+ 	fh_put(&argp->fh);
++	resp->status = nfsd_map_status(resp->status);
+ 	return rpc_success;
+ }
+ 
+diff --git a/fs/nfsd/vfs.c b/fs/nfsd/vfs.c
+index a69287613479b..de0edf5051a08 100644
+--- a/fs/nfsd/vfs.c
++++ b/fs/nfsd/vfs.c
+@@ -473,7 +473,6 @@ static int __nfsd_setattr(struct dentry *dentry, struct iattr *iap)
+  * @rqstp: controlling RPC transaction
+  * @fhp: filehandle of target
+  * @attr: attributes to set
+- * @check_guard: set to 1 if guardtime is a valid timestamp
+  * @guardtime: do not act if ctime.tv_sec does not match this timestamp
+  *
+  * This call may adjust the contents of @attr (in particular, this
+@@ -485,8 +484,7 @@ static int __nfsd_setattr(struct dentry *dentry, struct iattr *iap)
+  */
+ __be32
+ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+-	     struct nfsd_attrs *attr,
+-	     int check_guard, time64_t guardtime)
++	     struct nfsd_attrs *attr, const struct timespec64 *guardtime)
+ {
+ 	struct dentry	*dentry;
+ 	struct inode	*inode;
+@@ -535,9 +533,6 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 
+ 	nfsd_sanitize_attrs(inode, iap);
+ 
+-	if (check_guard && guardtime != inode->i_ctime.tv_sec)
+-		return nfserr_notsync;
+-
+ 	/*
+ 	 * The size case is special, it changes the file in addition to the
+ 	 * attributes, and file systems don't expect it to be mixed with
+@@ -553,6 +548,17 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 
+ 	inode_lock(inode);
+ 	fh_fill_pre_attrs(fhp);
++
++	if (guardtime) {
++		struct timespec64 ctime = inode_get_ctime(inode);
++
++		if ((u32)guardtime->tv_sec != (u32)ctime.tv_sec ||
++		    guardtime->tv_nsec != ctime.tv_nsec) {
++			err = nfserr_notsync;
++			goto out_fill_attrs;
++		}
++	}
++
+ 	for (retries = 1;;) {
+ 		struct iattr attrs;
+ 
+@@ -580,6 +586,7 @@ nfsd_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 		attr->na_aclerr = set_posix_acl(&init_user_ns,
+ 						inode, ACL_TYPE_DEFAULT,
+ 						attr->na_dpacl);
++out_fill_attrs:
+ 	fh_fill_post_attrs(fhp);
+ 	inode_unlock(inode);
+ 	if (size_change)
+@@ -1341,7 +1348,7 @@ nfsd_create_setattr(struct svc_rqst *rqstp, struct svc_fh *fhp,
+ 	 * if the attributes have not changed.
+ 	 */
+ 	if (iap->ia_valid || attrs->na_pacl || attrs->na_dpacl)
+-		status = nfsd_setattr(rqstp, resfhp, attrs, 0, (time64_t)0);
++		status = nfsd_setattr(rqstp, resfhp, attrs, NULL);
+ 	else
+ 		status = nfserrno(commit_metadata(resfhp));
+ 
+@@ -1677,10 +1684,7 @@ nfsd_link(struct svc_rqst *rqstp, struct svc_fh *ffhp,
+ 		if (!err)
+ 			err = nfserrno(commit_metadata(tfhp));
+ 	} else {
+-		if (host_err == -EXDEV && rqstp->rq_vers == 2)
+-			err = nfserr_acces;
+-		else
+-			err = nfserrno(host_err);
++		err = nfserrno(host_err);
+ 	}
+ 	dput(dnew);
+ out_drop_write:
+@@ -1746,7 +1750,7 @@ nfsd_rename(struct svc_rqst *rqstp, struct svc_fh *ffhp, char *fname, int flen,
+ 	if (!flen || isdotent(fname, flen) || !tlen || isdotent(tname, tlen))
+ 		goto out;
+ 
+-	err = (rqstp->rq_vers == 2) ? nfserr_acces : nfserr_xdev;
++	err = nfserr_xdev;
+ 	if (ffhp->fh_export->ex_path.mnt != tfhp->fh_export->ex_path.mnt)
+ 		goto out;
+ 	if (ffhp->fh_export->ex_path.dentry != tfhp->fh_export->ex_path.dentry)
+@@ -1918,10 +1922,7 @@ nfsd_unlink(struct svc_rqst *rqstp, struct svc_fh *fhp, int type,
+ 		/* name is mounted-on. There is no perfect
+ 		 * error status.
+ 		 */
+-		if (nfsd_v4client(rqstp))
+-			err = nfserr_file_open;
+-		else
+-			err = nfserr_acces;
++		err = nfserr_file_open;
+ 	} else {
+ 		err = nfserrno(host_err);
+ 	}
+diff --git a/fs/nfsd/vfs.h b/fs/nfsd/vfs.h
+index dbdfef7ae85bb..eea997d81961c 100644
+--- a/fs/nfsd/vfs.h
++++ b/fs/nfsd/vfs.h
+@@ -69,7 +69,7 @@ __be32		 nfsd_lookup_dentry(struct svc_rqst *, struct svc_fh *,
+ 				const char *, unsigned int,
+ 				struct svc_export **, struct dentry **);
+ __be32		nfsd_setattr(struct svc_rqst *, struct svc_fh *,
+-				struct nfsd_attrs *, int, time64_t);
++			     struct nfsd_attrs *, const struct timespec64 *);
+ int nfsd_mountpoint(struct dentry *, struct svc_export *);
+ #ifdef CONFIG_NFSD_V4
+ __be32		nfsd4_vfs_fallocate(struct svc_rqst *, struct svc_fh *,
+diff --git a/fs/nfsd/xdr3.h b/fs/nfsd/xdr3.h
+index 03fe4e21306cb..522067b7fd755 100644
+--- a/fs/nfsd/xdr3.h
++++ b/fs/nfsd/xdr3.h
+@@ -14,7 +14,7 @@ struct nfsd3_sattrargs {
+ 	struct svc_fh		fh;
+ 	struct iattr		attrs;
+ 	int			check_guard;
+-	time64_t		guardtime;
++	struct timespec64	guardtime;
+ };
+ 
+ struct nfsd3_diropargs {
 -- 
 2.53.0
 
