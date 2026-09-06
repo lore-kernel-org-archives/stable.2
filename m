@@ -1,167 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B272DF138
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:46:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2C1735E1AA
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:46:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709568; cv=none; b=spUbqWrgqPOhpXjabCRwKd9PYP2VocKGf8edUmrFPCc2oXJNiCC8QFNh84Ni56yoznk8X0I09N4Pj/5pn5+bX4EPbryEleyZBLKrwKIk/D7vzdhHwkmnsaCC388Pm7kg9MlSwi3575ajdQ/qEtoZSKnC6PUB3px4JUpHK6P3JYI=
+	t=1788709569; cv=none; b=NoerkoAL+B3pNXbRyGm6EeGhKXuG4ymO2bLVatOd4Oe8ZTcn6AQZKmdp6o402Cf4cFIV/JvzwCSxgl5Ybs8y6jVNM0oycgrTPz83dEwVrwUyMMKyiSly0rUKBVmeXNFByiaz5BGBhCEbCAbt5c/WI0+8Kcbf2gUdPyU4792bhMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709568; c=relaxed/simple;
-	bh=qy3fNLpE0d7LcwSdSmCiVzRrjW2ivGqmeuhAsp5Owmw=;
+	s=arc-20240116; t=1788709569; c=relaxed/simple;
+	bh=GGD3doikBc6PSikqErkHYK7Gf4jBgLUX8SPs+F9Dvlk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dhl7pbCseWNT+oLaGmBQtNCon0PVCFJdNXkxo2z5rz5DCw3aQXK5lo/DdToJ1beoT99jjVC9U/+cqjFYB9eYYdtjnDvFs0nnD3adsK8SgdeSImjf5EL3TxmAKYCqHKqwWGdkd6RZ0LJJGEqSfJaOFWdvOK1GqroJE2pfmj0V8Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deUoX8rn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uzERIMDeU4C2N/tfamUbz889w0b/REF4vg/5W8TTrzqkIbGxDdmXv9sGg/yu7V+NxLZTQn0OCVjxPg3L+VC7oBcIrTCavgeq3vUId2icZ8R3h4pb6Jej1ZeDxKQuKNW3BB9NuCEzIiV3IMExEBjwisZMLR+IT6I3C1C2JhG9vk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dR1p4uYs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deUoX8rn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E681F00A3A;
-	Sun,  6 Sep 2026 15:46:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dR1p4uYs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BC91F00A3D;
+	Sun,  6 Sep 2026 15:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788709566;
-	bh=XbX2+KiunDXpl9+ITvPNm8PhPXm9m7S6sg01VrNNrKY=;
+	s=k20260515; t=1788709567;
+	bh=8H8dg2aei0gTjI0D/RDJHGrXajccjkD55r61MPn/QMY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=deUoX8rnJqhm6VJURo4uxyezkCYm9B6CA2f2/X19LToSYSatrc7ZIT2WgbwJNF+8G
-	 97GqzJ08EFokQ8lAO3o6ciqyN36L727w6Gvr1g+xPcAFIN8TA68aoN7HarSuBDzj3J
-	 3OE9ILxriF3EfDRxlk/toxWRXTk8t7iga5Y4rkxloWFbuJkBvEesqu/ga2ydfEqudw
-	 Z8a5TjvLmh+Hn42HkCOk26/K+CU1/ELXaZ9MIJHt/W/T4hD+sSg/C/kvpTAu1dba1Z
-	 KyJTY4+nCuTScSzcLpOrAnUYH/L1sWzgjRyRiV61jhif4ReEOP+TyE4zmXNuKyKO/W
-	 eNIZ/sKRfzr3A==
+	b=dR1p4uYsoZSy8KHFZtGwqurDjgR2LYUb1L27Zux3VQO702sKolsGhGcVZpD5vhvEW
+	 PZW4vwav/J56ITFrgs8KETSlvFV0UoKOHkJjocmP54SYaUHnhD9ORRPXI6selQcj4M
+	 GNZzcunBGvVtw8UqQD1wyjhq2pYNBfMW9FqAtrjYBo3ePz6bFEIY4JcqIoUuRhTwrf
+	 1BVEKSt1/E1I9YwLVwMH1pmVhGYxW225SzyN2bJh29HXePaOExSWDFLLsY0Y98Y95W
+	 Q1UCH57FN8H0enZhTmeZgnVGbNzzF+7zTDO0cO5sBn1ipEt97q1E5XSXs/t2mFDLnp
+	 XLrdFGIR31QSw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Lu=C3=ADs=20Henriques?= <lhenriques@suse.de>,
-	Dan Carpenter <dan.carpenter@linaro.org>,
-	Xiubo Li <xiubli@redhat.com>,
+Cc: Xiubo Li <xiubli@redhat.com>,
+	Patrick Donnelly <pdonnell@redhat.com>,
+	Milind Changire <mchangir@redhat.com>,
 	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 1/3] ceph: remove unnecessary check for NULL in parse_longname()
-Date: Sun,  6 Sep 2026 11:46:02 -0400
-Message-ID: <20260906154604.1504928-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 2/3] ceph: print cluster fsid and client global_id in all debug logs
+Date: Sun,  6 Sep 2026 11:46:03 -0400
+Message-ID: <20260906154604.1504928-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090355-tradition-although-cffd@gregkh>
+In-Reply-To: <20260906154604.1504928-1-sashal@kernel.org>
 References: <2026090355-tradition-although-cffd@gregkh>
+ <20260906154604.1504928-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Luís Henriques <lhenriques@suse.de>
+From: Xiubo Li <xiubli@redhat.com>
 
-[ Upstream commit 2816a09678f50fc6a69e742e90cb1fd7a9f1f9ff ]
+[ Upstream commit 38d46409c4639a1d659ebfa70e27a8bed6b8ee1d ]
 
-Function ceph_get_inode() never returns NULL; instead it returns an
-ERR_PTR() if something fails.  Thus, the check for NULL in parse_longname()
-is useless and can be dropped.  Instead, move there the debug code that
-does the error checking so that it's only executed if ceph_get_inode() is
-called.
+Multiple CephFS mounts on a host is increasingly common so
+disambiguating messages like this is necessary and will make it easier
+to debug issues.
 
-Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
-Reported-by: Dan Carpenter <dan.carpenter@linaro.org>
-Signed-off-by: Luís Henriques <lhenriques@suse.de>
-Reviewed-by: Xiubo Li <xiubli@redhat.com>
+At the same this will improve the debug logs to make them easier to
+troubleshooting issues, such as print the ino# instead only printing
+the memory addresses of the corresponding inodes and print the dentry
+names instead of the corresponding memory addresses for the dentry,etc.
+
+Link: https://tracker.ceph.com/issues/61590
+Signed-off-by: Xiubo Li <xiubli@redhat.com>
+Reviewed-by: Patrick Donnelly <pdonnell@redhat.com>
+Reviewed-by: Milind Changire <mchangir@redhat.com>
 Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
 
-Stable-dependency adaptation: fs/ceph/crypto.c is not present in 6.1, so
-drop the original hunk.  Instead, carry the minimal existing-code context
-needed by the follow-up: use client-aware logging in the delegated-inode
-parser, serialize the delegated-inode xarray teardown, and reject reconnects
-for terminal sessions.  This gives the follow-up's counter reset a clean and
-correct insertion point.
+[ stable: retain only the delegated-inode parser conversion needed as
+  context for the dependent fix; the remaining debug-log churn is not
+  required on this tree ]
 
-[ sashal: Reduced backport -- upstream 2816a09678f50 touches 1 file(s), this
+[ sashal: Reduced backport -- upstream 38d46409c4639 touches 19 file(s), this
   backport carries 1. Not backported here:
+  fs/ceph/acl.c
+  fs/ceph/addr.c
+  fs/ceph/caps.c
   fs/ceph/crypto.c
+  fs/ceph/debugfs.c
+  fs/ceph/dir.c
+  fs/ceph/export.c
+  fs/ceph/file.c
+  ... and 10 more
   This note is generated from the file lists only; see the resolution record
   for the reasoning. ]
 
 Stable-dep-of: 4bd3158bd624 ("ceph: cap delegated inode count in ceph_parse_deleg_inos()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/mds_client.c | 31 +++++++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ fs/ceph/mds_client.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index 939f9e870de0a..4893545b930c3 100644
+index 4893545b930c3..4516fa908d70c 100644
 --- a/fs/ceph/mds_client.c
 +++ b/fs/ceph/mds_client.c
-@@ -433,6 +433,7 @@ static int parse_reply_info_filelock(void **p, void *end,
- static int ceph_parse_deleg_inos(void **p, void *end,
- 				 struct ceph_mds_session *s)
- {
-+	struct ceph_client *cl = s->s_mdsc->fsc->client;
+@@ -437,7 +437,7 @@ static int ceph_parse_deleg_inos(void **p, void *end,
  	u32 sets;
  
  	ceph_decode_32_safe(p, end, sets, bad);
-@@ -445,8 +446,9 @@ static int ceph_parse_deleg_inos(void **p, void *end,
- 
- 		/* Don't accept a delegation of system inodes */
- 		if (start < CEPH_INO_SYSTEM_BASE) {
--			pr_warn_ratelimited("ceph: ignoring reserved inode range delegation (start=0x%llx len=0x%llx)\n",
--					start, len);
-+			pr_warn_ratelimited_client(cl,
-+				"ignoring reserved inode range delegation (start=0x%llx len=0x%llx)\n",
-+				start, len);
- 			continue;
- 		}
- 		while (len--) {
-@@ -454,10 +456,10 @@ static int ceph_parse_deleg_inos(void **p, void *end,
- 					    DELEGATED_INO_AVAILABLE,
- 					    GFP_KERNEL);
- 			if (!err) {
--				dout("added delegated inode 0x%llx\n",
--				     start - 1);
-+				doutc(cl, "added delegated inode 0x%llx\n", start - 1);
- 			} else if (err == -EBUSY) {
--				pr_warn("MDS delegated inode 0x%llx more than once.\n",
-+				pr_warn_client(cl,
-+					"MDS delegated inode 0x%llx more than once.\n",
- 					start - 1);
- 			} else {
- 				return err;
-@@ -4200,6 +4202,7 @@ static int encode_snap_realms(struct ceph_mds_client *mdsc,
- static void send_mds_reconnect(struct ceph_mds_client *mdsc,
- 			       struct ceph_mds_session *session)
- {
-+	struct ceph_client *cl = mdsc->fsc->client;
- 	struct ceph_msg *reply;
- 	int mds = session->s_mds;
- 	int err = -ENOMEM;
-@@ -4218,9 +4221,21 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
- 	if (!reply)
- 		goto fail_nomsg;
- 
-+	mutex_lock(&session->s_mutex);
-+
-+	/* Serialized by s_mutex against concurrent ceph_get_deleg_ino(). */
- 	xa_destroy(&session->s_delegated_inos);
-+	if (session->s_state == CEPH_MDS_SESSION_CLOSED ||
-+	    session->s_state == CEPH_MDS_SESSION_REJECTED) {
-+		pr_info_client(cl, "mds%d skipping reconnect, session %s\n",
-+			       mds,
-+			       ceph_session_state_name(session->s_state));
-+		mutex_unlock(&session->s_mutex);
-+		ceph_msg_put(reply);
-+		err = -ESTALE;
-+		goto fail_return;
-+	}
- 
--	mutex_lock(&session->s_mutex);
- 	session->s_state = CEPH_MDS_SESSION_RECONNECTING;
- 	session->s_seq = 0;
- 
-@@ -4361,6 +4376,10 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
- fail_nopagelist:
- 	pr_err("error %d preparing reconnect for mds%d\n", err, mds);
- 	return;
-+
-+fail_return:
-+	ceph_pagelist_release(recon_state.pagelist);
-+	return;
- }
- 
+-	dout("got %u sets of delegated inodes\n", sets);
++	doutc(cl, "got %u sets of delegated inodes\n", sets);
+ 	while (sets--) {
+ 		u64 start, len;
  
 -- 
 2.53.0
