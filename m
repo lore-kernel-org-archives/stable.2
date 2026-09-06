@@ -1,34 +1,35 @@
 Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazolkn19013081.outbound.protection.outlook.com [52.103.51.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAAB3CC32D;
-	Sun,  6 Sep 2026 23:37:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820EA3CFF4C;
+	Sun,  6 Sep 2026 23:38:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.51.81
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788737881; cv=fail; b=I1jqeufuWnlIibloAGg+NSgnAg+JMAAzM+YSQ1/rLViIHoYfIbqxSP2XVfC7X5gHyq0F5sb8wzd3ee9iC+I1hhwfALTNQKKKhZJIrvj4Ks5mGx7yN/xa5Hev0Xfd3vagicpwt5IrdiAQjLQSg1PQV4mqOhh6johi2sR1vrQBLxM=
+	t=1788737883; cv=fail; b=q7NPOby9JZMpL7X6dREVy9MmWu3qvnnkbd5O6l++aEhMG2X+8j1QiFVf/jeV7MMfLoEejkJHFJfXNf0BT27Hk6+DNZNSjnuotQBAUPYF/ZqNjouyYMryUtIO/3bFZwdYQqaxN6I2Idq7tRhGgGcgJQfzeBiiPEIzJCLyCsJRZGo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788737881; c=relaxed/simple;
-	bh=g05mMN+t0Bq5u0UFdeQQ1dTeXzReIIs5pK9+LVP3MEA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=gWkFEjf2PI2YVaxV94XkDowFzdS6RVaV5t5IyzzqsH/looiwBrZgBwLsQ6/H8YHGfUWYAAkLeyDSvfTW3BaIMiy0QMSdZdgS7AKhPCvJKjexf2OnPTrRYeCtgrfgkVsByPz74C1kf7AEgbLOchZ41p79LfMpX86gAIOfjNyI2f4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Lisn1CV9; arc=fail smtp.client-ip=52.103.51.81
+	s=arc-20240116; t=1788737883; c=relaxed/simple;
+	bh=R0dndap8i4snmZ0KjezGEnqHAtRpvxUbCA7TYkzaqjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nJ8Rz1VPa0VqOo9TF1X4sWaeuD4e0hQtfUr69isDXVAAOqLbnKaI9PBLwomHNOwzsjlcDjRU0MpG0bNRdj7rJhxorKzlTCXOi1dsNmDHFkHN1pB9BYFquGwsjW+q21EXXZowC6vnWm3V7wDcoGCtF+xMomWpHVKS5C+H/AbrQDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=ju/UvPgN; arc=fail smtp.client-ip=52.103.51.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Lisn1CV9"
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="ju/UvPgN"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hUhv9Ehrw0whh7qGBQbjFKgF4cStSLUmAwg40nkI6lacthj9VID/foXX1MMHMJdDTZOMiTcTdGWII5J3EK0decZ5Zds65JvZCMiIYMFCIfiozhDYegoJNcKoc2JXyvU3nF02uBrtBBDe3ZARadJ6rAOcljpPTXemz7JfXK1AEyhyqgRj+wyMaXcW6o9V3vB1PwIiOSP7KzxQ/CSZPsWAofukRV6+KKocI2bc/zAPTqoVavaEOwia5bxSI65UlYAqj8bdfBGEYD0MWscKPHcHysohz+cbJ8/Qf0FSVTp4TmveJgZgFi2SkDl2R/0hxhUltJXkICbcWxOyV6FSXqgTdA==
+ b=d6G21zR4ub610/m21wFoh8/y/JRbpkCqFukqbMq7H37wsUa2b8Z+C0xCtD0isGhCjgTEJWqWCW/gaNkgCs4AnFa3HYvhqeYxGxanMgpV24LWjGyd6ZDsRUBWrpDALOgpquhH6MESD0m5JAh55jbUyno1X/AiHaAJH6QNeQbuYdp6Fqgg/KexeRXH9UUhu2c0tBJKzhGDErGuxg6B0ipkS7f4AiBtcGFBzZsXH9JvOL/+6CgOjocthKI56OQAGwi+tW0P3+1pIGhwFYOeBkkr76AYKBgRdl4srMAuo0TW9BYposTh1R7uUhJG8BMInygo+SVyW2sBa9I2hTzS1Ci1tQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ewHmUYQpE6+SgA1K6o3F+qHNtBMqyZvLov2O1o27BoQ=;
- b=fnOpnopTkHmSm8aLM+FBs7LiFbSE7Fe8vSXn4dXXc7HfdIxKWlX1FObWyfUSmYQQvRdK/t//HbfQMSP+nh7wNh7XJqXpiPCkpz4VXdybbwpy6n1JZzPubhzZ1+0RnI10tQ4Ds0oeGVxasu5BuQRhsHiho7l282/M2R4Put/jYPAdANHwUxe8v90qhN67yFh8sy+JVNZyrj/JIRCTqlK5MIivDXhsyizacax1hTS58EwDGOBV6EIT/ox59olOtxaiyNTGNoVKvDBNtZiSg9tCJGooMnLyd9S+LRrqT7AHuGv5nQT0abGBgwydjqw68f8WfBbdtnM+YWFZ37k/TEYB8w==
+ bh=RLxstcRiIN+2mRiXwunWWdUCqlucPtZ4zAQLv/BFGYM=;
+ b=gTzv9e1ykBVeiHxlQQxRbbdUYBDIKGVulYf3wSBGyY1P4GBy6G/ZQTfZEC/6mlcA+UbGHTV8yEQrVYGTUWe5nGbKfaiJQy4wJkPT9XwtQ649yKZaXHmjZ4UwxJ7SRz6Bp7yHl4C+0u+HpbwPXDB+2/onBcxXpfbzwnSAN5P4cjPWgL7M0ETC5JrANMsluB5HrfOMQbxQuWjZ17E3LB3jyXDODQPXl7vMuNyrxGJnbtVPSFux2GnwwoEd1iUyCPwj6Oss/oh5TDDcqL1Esmb6D803PJ05mbATfTTUj5w6s6vaBRkzuFVyV89tfVVq+MzWk/YYql/aSCCAJbflM+CoOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ewHmUYQpE6+SgA1K6o3F+qHNtBMqyZvLov2O1o27BoQ=;
- b=Lisn1CV9KQJlKEr+Q2KXewB3fbNJuu/h7jcep0KQs1xMM5v0FIBxT8K2YhRoV1yBO6a8LKhlgZzivEXt+QdFiusbJiWm/VcpZ9KK5kyJ3gCLuGC3/gSdUGrS3lCJYg0CLdrCmuR+BurFkYIuN+r7a8d5HOHeTO2Ows8Q6LEq9RqmpgJkAVR+uSHBsX1NrFVoID2aWPqnCRhymtTiM8QCCkCYqfYsbyai2M7bs5LHDysWZEBL7Y2FqKCY0GUjB0bbBFbxc+8L6v+Pmwmh7jcIAt6cezaAwriqrlfq/x2tTXNqMNaeF2EfASMLApIEPCvAD+yz/STBaX39YxEnuS805w==
+ bh=RLxstcRiIN+2mRiXwunWWdUCqlucPtZ4zAQLv/BFGYM=;
+ b=ju/UvPgN8v9pOr/2Hkqhy2+pn9PvnZUjsEfLnT4lXO73tFR1RCgfN26F3vyfnLznzVjTxqHsKjzFtcrzxL82bqHpSxLU9u8k1e2WuCKAUGeqvGA0YWxE/toCeS+g+ss7t5oeOqJQCcfC4EK4N/P7bRTHsBfPL3l00+4xXZcc8IQUK2x8Au+RCi3+TGMQwMMMh1pcMLit0ljVkZpB7rF84wfeq5tqKl2C2wSR7vJdlwtDZ7CZf8ZhFsVSHrGs+dfP/yqJ+HWBMwGt6gU42k0krvnqItktJYvZRiJWF1B/rN/WM+3CrcgQC6dA94hDuC/kMZFckNu9DMzRGucw3seDXg==
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
  by PAXP251MB0113.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:200::19) with
  Microsoft SMTP Server (version=TLS1_2,
@@ -44,18 +45,20 @@ To: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
 Cc: netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] net: ncsi: validate response packet length before accessing fields
-Date: Mon,  7 Sep 2026 00:37:51 +0100
+Subject: [PATCH 2/2] net: ncsi: validate MAC and VLAN counts in Get Parameters response
+Date: Mon,  7 Sep 2026 00:37:52 +0100
 Message-ID:
- <AS8P251MB0001E6ABBE0B6809D3E21B9DC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+ <AS8P251MB0001E99A1865DFEC3C3A16E7C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <20260906233752.87773-1-elb12345@hotmail.co.uk>
+References: <20260906233752.87773-1-elb12345@hotmail.co.uk>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-ClientProxiedBy: LO6P123CA0015.GBRP123.PROD.OUTLOOK.COM
  (2603:10a6:600:338::20) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  (2603:10a6:20b:344::22)
 X-Microsoft-Original-Message-ID:
- <20260906233752.87773-1-elb12345@hotmail.co.uk>
+ <20260906233752.87773-2-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,62 +68,62 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PAXP251MB0113:EE_
-X-MS-Office365-Filtering-Correlation-Id: 460d5770-6438-410e-d312-08df0c6fe0a8
+X-MS-Office365-Filtering-Correlation-Id: 8a26c869-9fdd-47e5-2401-08df0c6fe0ef
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|55001999006|5062599005|5072599009|4140399003|15080799012|25010399006|23021999003|25031999004|37011999003|19110799012|8060799015|41001999006|12121999013|440099028|3412199025|26104999009|52005399003|40105399003|2607281247196008;
+	BCL:0;ARA:14566002|24021099003|55001999006|5072599009|4140399003|15080799012|25010399006|23021999003|25031999004|37011999003|19110799012|8060799015|41001999006|12121999013|13031999006|440099028|3412199025|26104999009|52005399003|40105399003|2607281247196008;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?DfMBznCdzMm++IKv/8zbs0acqzP1oFfrNe7AeJevR3x5lqRdZoJHNs7CyQ0A?=
- =?us-ascii?Q?FqohuZ18IP2vbtpsYRjf/Bg83vVF2ymbMnGffr13G/JdL/W/qDSkkSo4PUUc?=
- =?us-ascii?Q?TtdrPrrBc9nNcV3+SY9gdSt9lUJ1pRnG5ahkaSZbE3KgI7J+avkfa6PPduKF?=
- =?us-ascii?Q?pr9aYwlOym57DMu85G8DUxmhh67kptnnBbvvcRfHQFAjlkF4Z3XD9M/jGI5u?=
- =?us-ascii?Q?RU5vFIynI54e2z34Nc+9amINh7PbWvs2htffiX6cIZ7ktEuBphXlenSoeK8j?=
- =?us-ascii?Q?kPSw6izCjpVSKg7tYnmNmHbODT8nqu5IIoAc1LdYBEWl9xMSGH9zdMMFuBgj?=
- =?us-ascii?Q?f1l2cnRHPCVWaWutTkOqmyJ2yP6o7i0toWAEa8n1UNftBNO9uUYTUE1QdgLm?=
- =?us-ascii?Q?fhM6PbWXVbMEh+LeC/eOcyXBGDho8wGYuPFKamDC5GSx3MFRzFxu2OYtuEcG?=
- =?us-ascii?Q?OasuTB0FH8pSyJ831ofzWtQw3eiG7DjjxedUluhHqxH/nm+u3KkPwTLV2VpK?=
- =?us-ascii?Q?CLdHpGUIY9xZio9jWyLVbl83IG/MqBUHK/yJO4b0FB+36szVGMRg0vqmWS/9?=
- =?us-ascii?Q?GWgCxnmH5qPa1GSOTZIMw3HD6f7ObhUxcaXYNffINy1ql1ElrsvbRY110xDg?=
- =?us-ascii?Q?xIpfOU5BUMd24XOsobr9W8oZ09NozZHGqter+qoqSe+j+3/VQ5pM+89o/DsR?=
- =?us-ascii?Q?+Ylg1g+BpScPHIiaLoXFTPahoL3W1s28Ly9QtC766/EF7ZV4es5BJ264UpA1?=
- =?us-ascii?Q?29daEsEDI6PIYg+PyZhKfUlD6XgKGNeu7koW25IyMZ2MqsFqR5pG7K5on+Bx?=
- =?us-ascii?Q?S8icfrfoQkxbi74wKmShzxe8VcwtNy0PIG6RkTymJpyWaiUy0/B62t//1o1A?=
- =?us-ascii?Q?EaW1NTs9iK91cPIHMSFYWo5cAbCAi7ifv0dlerzx7fzADu//0mMW7KZISmQP?=
- =?us-ascii?Q?E/Ts076DwI/pZQZRgT3+jr4HmCRrV+Y7NtfeUDFk2XE9VNSHKGzZRlciuj9/?=
- =?us-ascii?Q?3O0xeGtjdcEUqvwIV5fCcisVUQhPStGyfiZ4IrrPcMDrzTBQB6mz8w6jnVq2?=
- =?us-ascii?Q?DbBM5E8cFSOpzj/V21jUnpXZm25/vrtyikhGyGWH9ivXRbRgDY3aADH2chrS?=
- =?us-ascii?Q?8QLMeDgyfM85?=
+	=?us-ascii?Q?JH/LVHWDYSPbIEhFrD+rVT5gstWgy23bTwqZJmhmqY3Q/O0YQ/gawElLzMBn?=
+ =?us-ascii?Q?uL0GeZVLQ1+Oj48RSwIMdfGBnxpW73ztHBhKy7x/gq3Lq9kqhnh0iPmcHoJ+?=
+ =?us-ascii?Q?PjbOpssH6RcDc6qjvkks7bXJ41Gyr4M4jdSkyRG5iMgJSkN+VPbirxhEv1kJ?=
+ =?us-ascii?Q?Bhuh9iwWfw1RYXCYP/p0eO1Yv92DOfQpcvwR2l500sfjjnGJEEBrBeGJxdZa?=
+ =?us-ascii?Q?2/BrTY2fB6Ax8NmJ3b68MJtIMljlZdh5Qqx4PzplnNVLPzBI7/+jDpCRdOQL?=
+ =?us-ascii?Q?mmcO1BHifNVu8OxGgVjJ1v7SCCPpBAjk8PgtReviPU5RSfakQ7Dlex8Umvkz?=
+ =?us-ascii?Q?mqib+YiJ4sPzdT0btyge8Jfw0k2XpEw33pT7fO83sqFEVhU8Yj3OoXkHPLxP?=
+ =?us-ascii?Q?Mql53AWS+wdN3Ucfa5v/UVS2k1Kiasnu9S2GsMK/LMSH+o44o8QmYAEme+ba?=
+ =?us-ascii?Q?fliomDRN6BDj/cEkAknQNwvNEA2JLOdNLZ4/sz/v1XAQVw5yxnpeA9RChr6L?=
+ =?us-ascii?Q?R7SzjNqREfRLvACVB2gNxvY1pKdlCVAyNlDKEqTcy4NWBIcbfn+s+OwTY8Py?=
+ =?us-ascii?Q?YBIVo7UIXxLmRBP7cc2cJ2L8MgGRUVV2Rsd/UVBUGpTM6v/eSwzOgX3VBsa5?=
+ =?us-ascii?Q?q8veIq81s5duMA/Mj4hjF+/4lq1GOiTcdoIYdbYal7SP/C++L2Yp0UaY7JKN?=
+ =?us-ascii?Q?FtYtXIixHF+xPWqLMHoqz6hyAXeKeWsyE0u6KBjlbHmq9qnk4/n57KmdEBGj?=
+ =?us-ascii?Q?2pRV3o5qd0LDHbHvkTml1IEg6bEZlC2HEc0hEP79xCaS1LzJA8sVdnyszgyM?=
+ =?us-ascii?Q?VfgkZV7m7YE4CqD+RM8nMj3frcwflQ99T2cpI5NN4t9DZJdTb855oBXF3LB5?=
+ =?us-ascii?Q?qVmYSa0r9oXMTDwCSJVZfWoEVzsMMMIeyGETm113KaDP0+2aZxT4pPN4YFPU?=
+ =?us-ascii?Q?fag/uintYm8eyQiFehb2W5I8Q/aAEpJ3Hg5PRIjKZWz8fEYUFs7YjBMyTHBD?=
+ =?us-ascii?Q?N7DkupP2D+R5TK1XNv8C/sw4QtFI23OBQYbkn1aPn6xzouaTQuaetTujB4iR?=
+ =?us-ascii?Q?ajIgeGCLTlLvQSpA5cIMmJ9u2WJ38N2K9Puo8rWTizvLheovud5IIllymKCk?=
+ =?us-ascii?Q?PevH7RDukjU8?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?qO15ZNpg/vYHbr22VkFwTkutU3twU8r5BvyHIlbsatnOrDIKa3wVeBHzGShJ?=
- =?us-ascii?Q?ytYUE3ot8UjjFlOCS7+5caGl49FzJNCx84gAb1aAcJ5ND113iG0BK4uBYoXy?=
- =?us-ascii?Q?xOv7VNcAkPhXfZAQgSpTcUQwyiev9PALEwBNWmQXbM8Ch9l0dqcf6cI3XCA+?=
- =?us-ascii?Q?HQ42NkrYmO3Nj6aUJm/ZJwJ4zWNQC95EikdS6p1ilChFjE0S2PFXa9yI69bD?=
- =?us-ascii?Q?0SjDec1Nt3bvd5NGsMTyddHWIkLpAGUydkYJrGHjaWixvPOWM5h4ay9xHCVR?=
- =?us-ascii?Q?a2LrUWk3pjwwVMOE2DlbaNJ8Dtiu1OvfZHd/Y9iugCDjbDRCZJZUyYqLXs31?=
- =?us-ascii?Q?obBnFH7+ZcvcPR1P2tLQ2rxHtxveHKRDLbO0NBUuvkl1VNAggbykT5ntOk8I?=
- =?us-ascii?Q?yyg6IDogGBoJjFDm0tIqYABLHmy2CMmp+qqRbGP6KHVCKfvwFTNppPaouLmY?=
- =?us-ascii?Q?oZiTUPUrWasrIGrj/PB3AjzMWrxPC+AE/uFd//1qphVk5FtnTOVuYRw13DdG?=
- =?us-ascii?Q?gvM+4MqYqocGift3twpRGZdQ9Tn907AQHmMzv/Q8wOGT8+txAX4OmFLWlZTO?=
- =?us-ascii?Q?+iXZlpARx7ffiLcZINbaaDmtvMQSkhcaqB50na/7kagOCaMg9CRhbjUh0Sfn?=
- =?us-ascii?Q?y/l7uO/A4Z5J6VBYXyvgO1XsRm5oiIZClAEmqofl3eWOYmSxioaP1oO6VJqE?=
- =?us-ascii?Q?5OvVmmqF3aB4bALdFn+TYrsHWoyVVwAOcCetKHLT4wxzxBLLzTb0/B1nsoDn?=
- =?us-ascii?Q?Eag+NE36syo4IR8HLboKSk8qyrA7k1/DosziIzV4n16CbfRY4IymjLNasEPs?=
- =?us-ascii?Q?Db+IY++gouMYagiGguLStB0mlu1mZCoLGAFal/ykuMjWSYsTieL8bSXY9czk?=
- =?us-ascii?Q?f0l05vKxHl+rB423Yn5Z3rPGyRtsZRSgGjE0HA8PX6wlHYoTcal6L2vGTC1Z?=
- =?us-ascii?Q?v7ojDoAM+C8jc0kKTXIDyLP8/mFGuVH/0egAeyDGq2EUe89ToZtIMA9Oo7sB?=
- =?us-ascii?Q?dclELPIhTdukomsNhZrdQtQRJWp9FKqTfBmog9Qa2RtkMV/fPWRDEX8k1qL0?=
- =?us-ascii?Q?31bTUQPXTPFa3IOJH3vM3EJfe5OhXIAi6Eu3ex1dz/q1V6TVKiuq2rbRdQJn?=
- =?us-ascii?Q?8Cvqazrq34ymK0grlyrTUvabpOCvLoECFzv9xI36XviBf7ecVddrZ4MVW9xv?=
- =?us-ascii?Q?aY0AuzXlbUlyJhR0sGLjbnxcK8bTyrLBLpyU5AXepCJOrtBTmTWX41iOff3j?=
- =?us-ascii?Q?ET6Jdgw00EbqBw3DWOaEp7brko60j+4iX/RA6WNS6nc5Dy1HjscKOSPXAuJM?=
- =?us-ascii?Q?MaSq4x2/74DSBIGBUwjE5NEVZod1YGt154v7O6iRECbVxs/UMmht1eOFaIK2?=
- =?us-ascii?Q?UciaKx3FMUoC8LwLFH7cmXqoYbXfuLvjg8lKGWg/l04/2dV3CVMOgjqKKD25?=
- =?us-ascii?Q?F+NhxOsh/A3diBWpPh+ECwaTCEiZ8Ivi?=
+	=?us-ascii?Q?NHE6JmZ033aSGomzBgaC9J+MGgW6Jl7TyWZ8zOC1yynokejGUe97mhHc+oN5?=
+ =?us-ascii?Q?rel3Quy6xduNufV6GQxxp8u4sGUMjQphW1iDwR08KoeiCT11ynEcxxK58vQl?=
+ =?us-ascii?Q?v/gZkrgVTZjgxT0myL0LYqPoYm05awK9J4QW1v/MS8jqohPI0RxmsYWC13AL?=
+ =?us-ascii?Q?b7nbG9el3xLWneUHkPWEjXOtBqB7lItKPPuYbIS+hPXFAR+J/MYSsyJg5Smj?=
+ =?us-ascii?Q?Dzhywnf/4NJjSNnKgYlpu/k51Y+52YPTbzFPCEh2eNmsg6GA0FSE0R6o8Y5L?=
+ =?us-ascii?Q?tHYRyLYwHcEEY5i05Ji87FZKxLe1RB/FZvxNqeCxKGdCDMIpgpTZPACHu8ZQ?=
+ =?us-ascii?Q?rBAhtN63Ymohc1inZYucYYfjbFbZh6i3WFRe5qd2qWNO/qVAFNZXjmqSI84m?=
+ =?us-ascii?Q?5Nj0mW6nfjz1WnaEiz5WNSN6mNgx5/ywC2BYiFLTZTnU81oHcm/Yt53fq7OL?=
+ =?us-ascii?Q?8HugVb3j6mhx0C+nN12yY7PpMlw0ef1ak9zCT8oFsZKTG8c31ncEyngTt71H?=
+ =?us-ascii?Q?eyZ9EpQrk7qbYbc0ugzoMliNPgwnuS6QGsje1ieszBNMuBso0uW/WG3Du21Y?=
+ =?us-ascii?Q?aSzAPq33oZaLZ4/3tn6n9rayTrPGBG3LqQB8PA6Eo4jsJRJsSN+imqujoiR+?=
+ =?us-ascii?Q?w1d9cv594qbgk+3spu7dDQdgIJBYkmU+alu76BeIHVSEJ2wIOfpVnPtLFKSX?=
+ =?us-ascii?Q?5IGiN4Wf6xfoLfbTSxqnN4XSK6XjIta2QdFtfbtuLgfu+fY0lvA55UM3ztud?=
+ =?us-ascii?Q?tKUOPTCZ89s/f4SMI9qrKRhjqy6V3Of0A3qWO+o0qaJ3oAudug0haLqUVE7C?=
+ =?us-ascii?Q?N9Fv03/EicQ93wc7QabUiRTeuFl9VD/4AO1cSsNgGKPtoYMxjYvaOAyN2QB4?=
+ =?us-ascii?Q?uMLy52LrjfbhpJCWMc+TqGfwcNk4yfNLtFC2GviEiKpZ79FZ3rDa/ybwHpPm?=
+ =?us-ascii?Q?C/e0yckUM06yXnTwYnuk0i5TIIOOadlsB9wJysZ2jv5GF/GjvBtfy1LsA6b8?=
+ =?us-ascii?Q?yRq24lXIZyQwee0NkZDmVsmuOVSUUVvOmqouqrtHv/uAoyS5O8Rx+nflyPPE?=
+ =?us-ascii?Q?p0UaxuAnYD7Z7dXYDV9Defy4York38/+oIz4dEnJcD/7v2BYC/1nNaezdFq6?=
+ =?us-ascii?Q?X8YdAye8LvUagng8UFpqZzgGP9N6hAIA9UlyD5+a2RzDCdFemalcqUlgNtln?=
+ =?us-ascii?Q?QK8DrKseB/5VI+YiknEq6+X6mboFGuHCLPJIaqW2nLTEpaP0v6uCcLZdmRhy?=
+ =?us-ascii?Q?IgHqomMpeYEpHSpMhTv8ToHwL2ETnltFYlQq5cKCHA5pPBWlJ5S0pGsccE/l?=
+ =?us-ascii?Q?6ag6LgdQqUV7quS9gD834LppJuolPLorlxFTClbUdA0HZle/eve5SxCKSJWZ?=
+ =?us-ascii?Q?3/zoqIXs3QKmMr/VYZYTuC5Vvce+FPT64l8Gqpv6jzmrReZjCfFFL9Ab4+z+?=
+ =?us-ascii?Q?dXQyFsLsOA0qnvvzF/YFBic1wqag9+U0?=
 X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 460d5770-6438-410e-d312-08df0c6fe0a8
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a26c869-9fdd-47e5-2401-08df0c6fe0ef
 X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 23:37:56.2224
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 23:37:56.8804
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -128,65 +131,86 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP251MB0113
 
-ncsi_validate_rsp_pkt() computes a pointer to the checksum field based
-on the payload length without first verifying that the skb actually
-contains enough data.  For response types whose expected payload is
-fixed (e.g., GCPS with 204 bytes), a short frame whose header falsely
-claims the expected length passes the "ntohs(h->common.length) !=
-payload" check, but the skb may be much smaller, leading to an
-out-of-bounds read when dereferencing the checksum pointer.
+The Get Parameters (GP) response handler iterates over MAC address
+and VLAN filter tables using counts (mac_cnt, vlan_cnt) taken directly
+from the response packet.  These counts are not validated against either
+the actual packet length or the filter arrays allocated by the earlier
+Get Capabilities response handler.
 
-For response types with variable-length payloads (GP, OEM, PLDM,
-GMCMA), the payload value comes directly from ntohs(h->common.length),
-so the header check is tautological and provides no protection at all.
+A malformed GP response can cause:
+ - out-of-bounds read past the packet data when iterating pdata
+ - out-of-bounds write to mac_filter.addrs[] when mac_cnt exceeds
+   the allocated filter size (n_uc + n_mc + n_mixed)
+ - out-of-bounds write to vlan_filter.vids[] when vlan_cnt exceeds
+   n_vids
+ - bitmap corruption via set_bit()/clear_bit() beyond u64 width
 
-Add an skb length check in ncsi_validate_rsp_pkt() to ensure the
-packet has at least sizeof(ncsi_rsp_pkt_hdr) + payload bytes before
-any field access.
+Add three validation checks before the filter table loops:
+ 1. Packet is large enough for the claimed MAC and VLAN entries
+ 2. mac_cnt does not exceed the allocated MAC filter capacity
+ 3. vlan_cnt does not exceed the allocated VLAN filter capacity
 
-Additionally, validate address_count bounds in the GMCMA response
-handler.  The handler iterates over rsp->address_count entries from
-the flexible array member without verifying that the packet is large
-enough to contain them, leading to a heap out-of-bounds read if
-address_count exceeds what the packet actually carries.
+Also check for NULL filter arrays in case Get Capabilities was not
+processed first.
 
 Fixes: 0b49507fc090 ("net/ncsi: Resource management")
 Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 ---
- net/ncsi/ncsi-rsp.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ net/ncsi/ncsi-rsp.c | 31 +++++++++++++++++++++++++++++--
+ 1 file changed, 29 insertions(+), 2 deletions(-)
 
 diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index fbd84bc8026a..1401528dbd6c 100644
+index 1401528dbd6c..88f3b8db0289 100644
 --- a/net/ncsi/ncsi-rsp.c
 +++ b/net/ncsi/ncsi-rsp.c
-@@ -45,6 +45,13 @@ static int ncsi_validate_rsp_pkt(struct ncsi_request *nr,
- 	 */
- 	h = (struct ncsi_rsp_pkt_hdr *)skb_network_header(nr->rsp);
+@@ -884,10 +884,38 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ 	nc->modes[NCSI_MODE_AEN].enable = 1;
+ 	nc->modes[NCSI_MODE_AEN].data[0] = ntohl(rsp->aen_mode);
  
-+	/* Ensure the packet is large enough for header + payload */
-+	if (nr->rsp->len < sizeof(*h) + payload) {
-+		netdev_dbg(nr->ndp->ndev.dev,
-+			   "NCSI: packet too short\n");
++	/* Validate the response carries enough data for the MAC and VLAN
++	 * tables it claims to contain.  The variable-length area begins
++	 * at offset 48 (right after the fixed Get Parameters fields).
++	 */
++	if (nr->rsp->len < 48 + (unsigned int)rsp->mac_cnt * ETH_ALEN +
++			    (unsigned int)rsp->vlan_cnt * sizeof(__be16)) {
++		netdev_warn(ndp->ndev.dev,
++			    "NCSI: GP response too short for %u MACs + %u VLANs\n",
++			    rsp->mac_cnt, rsp->vlan_cnt);
 +		return -EINVAL;
 +	}
 +
- 	if (h->common.revision != NCSI_PKT_REVISION) {
- 		netdev_dbg(nr->ndp->ndev.dev,
- 			   "NCSI: unsupported header revision\n");
-@@ -1097,6 +1104,12 @@ static int ncsi_rsp_handler_gmcma(struct ncsi_request *nr)
- 	rsp = (struct ncsi_rsp_gmcma_pkt *)skb_network_header(nr->rsp);
- 	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
- 
-+	if (nr->rsp->len < sizeof(*rsp) +
-+			    rsp->address_count * ETH_ALEN) {
-+		netdev_warn(ndev, "NCSI: GMCMA response too short\n");
++	ncmf = &nc->mac_filter;
++	ncvf = &nc->vlan_filter;
++
++	if (!ncmf->addrs ||
++	    rsp->mac_cnt > ncmf->n_uc + ncmf->n_mc + ncmf->n_mixed) {
++		netdev_warn(ndp->ndev.dev,
++			    "NCSI: GP MAC count %u exceeds filter capacity\n",
++			    rsp->mac_cnt);
++		return -EINVAL;
++	}
++	if (!ncvf->vids || rsp->vlan_cnt > ncvf->n_vids) {
++		netdev_warn(ndp->ndev.dev,
++			    "NCSI: GP VLAN count %u exceeds filter capacity\n",
++			    rsp->vlan_cnt);
 +		return -EINVAL;
 +	}
 +
- 	netdev_info(ndev, "NCSI: Received %d provisioned MAC addresses\n",
- 		    rsp->address_count);
- 	for (i = 0; i < rsp->address_count; i++) {
+ 	/* MAC addresses filter table */
+ 	pdata = (unsigned char *)rsp + 48;
+ 	enable = rsp->mac_enable;
+-	ncmf = &nc->mac_filter;
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 	bitmap = &ncmf->bitmap;
+ 	for (i = 0; i < rsp->mac_cnt; i++, pdata += 6) {
+@@ -902,7 +930,6 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+ 
+ 	/* VLAN filter table */
+ 	enable = ntohs(rsp->vlan_enable);
+-	ncvf = &nc->vlan_filter;
+ 	bitmap = &ncvf->bitmap;
+ 	spin_lock_irqsave(&nc->lock, flags);
+ 	for (i = 0; i < rsp->vlan_cnt; i++, pdata += 2) {
 -- 
 2.43.0
 
