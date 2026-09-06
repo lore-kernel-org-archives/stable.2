@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322032C0F8C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07316277C88
 	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:31:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723063; cv=none; b=Xtr9kaFeWB326Xy2in4XUMw75wmIvjIfyqUxNaBSyuf6aryHmu2A/au9KjjCqLhGsiD3uI3vfnghk8xvVNeweSKs/swwqxxr2ng1R3aljitLRcso3+mHA15uulpVputVg13g3vGBY+8gmKpJqu/cWlRmhJO96SrLQPBVQzeLzpg=
+	t=1788723064; cv=none; b=q12uUjuQ9tCw6gS2sRDAb55AX67ffDApDOq1uWmbDiYHLS4CxXI+4muIwnM0ZHnSNsRF31MrqnzSLfTmRQP7pUJn0Gt20VaDtrhZE1m3UcoH+kJHauJO+Uyx+OxW2Sh+fvQHAasoAKn4V9YIrO9JzRtl7aoNOCaaR6EOpm1H3Kc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723063; c=relaxed/simple;
-	bh=21Jiz8NpeRAadDOwqmKspLNNCpYLT9u/tQ8Nng6lSCk=;
+	s=arc-20240116; t=1788723064; c=relaxed/simple;
+	bh=tAZjKO5adKhWsc1uBo5uoEUnSIR7V1LFBTkMoJ/XndM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rtPdbnguekTWygKzFDsu6uHv94lle7S6GJlVux4GAUT0QynYREUz8WnHsY7Q33iod1xsl4hse3U8iEW9S4lCMds3nze+S5kTAh9xa1SVn3ZyJ5xlENmomyx//papMgQq52JMEeYGnTtbNhxRP5y+i/Qv1b7TxOp2txCvU6yUWeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=olNQULQ5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MQFMy0jXp0Va03OpSRMqaa722ml/LDYCfEDwEtfsZaFhwXjq7WaTajaycpw0Ab7WU4WfQ0lszYcUKoA68DTvuFGvFSF1hXLRZguIr2YGmtIGKSGYVhxCl2UPuwNlAu0gMoVXHt5+2cSPBhbHNQ4EsE2G6XNwrF+F1yXDMcWzG20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NNHa2C1J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="olNQULQ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A09B1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NNHa2C1J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA011F00AC4;
 	Sun,  6 Sep 2026 19:31:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788723062;
-	bh=3LJr7R4JlU524qjP9UsYy6RFBxmF1OhibRSGQ1ELcuQ=;
+	bh=pOVib1VZpS8pTNVzvf3EenkcXbALRVx0PXUeTXDVvRs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=olNQULQ51A0qjB4KMq33H+C8gRu4AFjTIba7KO/hDphAgx1aLUTJ9juoZv2C8IUGi
-	 Cmdt8jqqqsMU4iLJ7VljypkHJSCGrPy/4iSEb5S4dMOXNW1FrgblTdfJ8AjdAuiGsj
-	 MomhknQAEv3oMpP7EZWU4cgtKKyX2RfOVm2SuXhVLzjSPzZcq89dxjHfZTK9aD5RpN
-	 hi5cN2QYOZaWTBsCPwm+JlP3h+fswj/WekMXzWbW3ifSXmmMkUS/EZVb9lfkEsrO35
-	 1XTBasgMljcYuDvqZM7+dgkHuAcJffXcIC1xaEntW4JPWndsA5Q6NGeos/5Tpj3cCo
-	 PmdcHaVKvouwA==
+	b=NNHa2C1JW/jRL6uotIGIcUKld5L6j4hO1yhMr01DElDInZRWZhBMVQVGIGolqVxFK
+	 B7nemG2NTQOOdK20awtC3VhMcBSCTlRLqVpxjm3t3NcNU19cEaqL08x8O4YuiDQ3Ia
+	 FH3TSg7h1iXY6YVRUU9dlTXLMIGnkxUEvz2MMG/Lwyqto65QFrnj+yVn3WcAWcqJAQ
+	 LaYVvUV8agt0aIBwBCuD1m76U4YYZ0zm0DX4bXEUL8qvr6LQv17kQfwsJMLpRWKqP8
+	 KC6mPBdRk1veR8xoDsWGwpOjoA6zy6ZOqOqwp+k0lCSbFsHdJPJETsxZfABgdTI32/
+	 tXSVmdH/wNXkA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Sam Edwards <cfsworks@gmail.com>,
-	Sam Edwards <CFSworks@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ceph: properly decrypt filenames in vmalloc() buffers
-Date: Sun,  6 Sep 2026 15:30:59 -0400
-Message-ID: <20260906193059.1792337-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 5/5] btrfs: fix extent map leak in NOCOW direct I/O write
+Date: Sun,  6 Sep 2026 15:30:56 -0400
+Message-ID: <20260906193056.1792186-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090329-swerve-curly-d43d@gregkh>
-References: <2026090329-swerve-curly-d43d@gregkh>
+In-Reply-To: <20260906193056.1792186-1-sashal@kernel.org>
+References: <2026090310-unwarlike-canister-1f00@gregkh>
+ <20260906193056.1792186-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,161 +48,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Sam Edwards <cfsworks@gmail.com>
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-[ Upstream commit e939fc6a7bd969a58a150b7f188c1047138403e3 ]
+[ Upstream commit 3f950867c307c5413d628a153ac44915bd117ffd ]
 
-The fscrypt subsystem uses the scatterlist crypto API, inheriting its
-requirement that any buffers are in the linear mapping region. However,
-the messenger client uses kvmalloc() to create buffers for messages,
-which will occasionally place those buffers in the vmalloc() region when
-physical memory fragmentation doesn't permit a large enough kmalloc().
-The various callers of ceph_fname_to_usr() directly pass (slices of) raw
-messages from the MDS without considering that the messages may be in
-vmalloc() buffers, resulting in oopses especially on non-x86 platforms
-(see 'Closes:' for more details and a reproducer).
+btrfs_dio_iomap_begin() calls btrfs_get_extent(), which returns an
+extent map reference that must be dropped on all exit paths.
 
-Make ceph_fname_to_usr() explicitly tolerant of vmalloc()-allocated
-fname->ctext, fname->name, and/or oname->name buffers, using `tname`
-(which, when non-null, must be a linear address; when null, is briefly
-allocated as necessary) as a bounce buffer to avoid passing any
-inappropriate addresses to fscrypt_fname_disk_to_usr().
+For direct writes into a NOCOW range, btrfs_get_blocks_direct_write()
+keeps using that extent map and asks btrfs_create_dio_extent() to
+allocate the ordered extent. If that fails, for example because
+btrfs_alloc_ordered_extent() fails, the function returns the error
+without dropping the input extent map. The PREALLOC path avoided this by
+dropping the input extent map before replacing it with the newly created
+one.
 
-Additionally change parse_reply_info_readdir() -- the only function to
-supply its own `tname` -- to follow the new "tname must never come from
-vmalloc()" rule by passing NULL when the message is not in the linear
-region. Though this causes a per-dentry kmalloc()+kfree(), this overhead
-exists only when processing the minority of messages that spill into
-vmalloc(). My (crude) testing puts this at only about 1 in 8,000 readdir
-messages. Still, if the overhead proves unreasonable in the future, it
-is easy enough to mitigate: a future change could allocate a bounce
-buffer in parse_reply_info_readdir() and use that as `tname` instead.
+Check the error from btrfs_create_dio_extent() before replacing the
+map and drop the input extent map on failure.
 
-Cc: stable@vger.kernel.org # 888d33b208bd: ceph: pass fscrypt `tname` buffers directly
-Cc: stable@vger.kernel.org
-Fixes: 457117f077c6 ("ceph: add helpers for converting names for userland presentation")
-Closes: https://lore.kernel.org/ceph-devel/20260415034020.11530-1-CFSworks@gmail.com/
-Signed-off-by: Sam Edwards <CFSworks@gmail.com>
-Reviewed-by: Alex Markuze <amarkuze@redhat.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ adapted raw tname buffer accesses to the legacy tname->name interface ]
+Fixes: 5f9a8a51d8b9 ("Btrfs: add semaphore to synchronize direct IO writes with fsync")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/crypto.c     | 46 +++++++++++++++++++++++++++++++++++---------
- fs/ceph/mds_client.c |  8 ++++++--
- 2 files changed, 43 insertions(+), 11 deletions(-)
+ fs/btrfs/direct-io.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
-index d692ebfddedbc..44dba67f60699 100644
---- a/fs/ceph/crypto.c
-+++ b/fs/ceph/crypto.c
-@@ -375,6 +375,11 @@ int ceph_encode_encrypted_fname(struct inode *parent, struct dentry *dentry,
-  * Otherwise, base64 decode the string, and then ask fscrypt to format it
-  * for userland presentation.
-  *
-+ * Though the fscrypt/crypto subsystems broadly expect all buffers to be in the
-+ * linear-mapped region, this function slightly relaxes those requirements:
-+ * fname->ctext, fname->name, and oname->name may be vmalloc(), but not
-+ * tname->name.
-+ *
-  * Returns 0 on success or negative error code on error.
-  */
- int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
-@@ -382,11 +387,15 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
- {
- 	struct inode *dir = fname->dir;
- 	struct fscrypt_str _tname = FSTR_INIT(NULL, 0);
-+	struct fscrypt_str _oname;
- 	struct fscrypt_str iname;
- 	char *name = fname->name;
- 	int name_len = fname->name_len;
- 	int ret;
- 
-+	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname->name)))
-+		return -EIO;
-+
- 	/* Sanity check that the resulting name will fit in the buffer */
- 	if (fname->name_len > NAME_MAX || fname->ctext_len > NAME_MAX)
- 		return -EIO;
-@@ -427,16 +436,19 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
- 		goto out_inode;
- 	}
- 
-+	if ((!tname || !tname->name) &&
-+	    (fname->ctext_len == 0 ||
-+	     unlikely(is_vmalloc_addr(fname->ctext)) ||
-+	     unlikely(is_vmalloc_addr(oname->name)))) {
-+		ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
-+		if (ret)
-+			goto out_inode;
-+		tname = &_tname;
-+	}
-+
- 	if (fname->ctext_len == 0) {
- 		int declen;
- 
--		if (!tname) {
--			ret = fscrypt_fname_alloc_buffer(NAME_MAX, &_tname);
--			if (ret)
--				goto out_inode;
--			tname = &_tname;
+diff --git a/fs/btrfs/direct-io.c b/fs/btrfs/direct-io.c
+index dd450ac19cab4..3d6fabd67960c 100644
+--- a/fs/btrfs/direct-io.c
++++ b/fs/btrfs/direct-io.c
+@@ -280,17 +280,24 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 		em2 = btrfs_create_dio_extent(BTRFS_I(inode), dio_data, start,
+ 					      &file_extent, type);
+ 		btrfs_dec_nocow_writers(bg);
+-		if (type == BTRFS_ORDERED_PREALLOC) {
+-			btrfs_free_extent_map(em);
+-			*map = em2;
+-			em = em2;
 -		}
 -
- 		declen = ceph_base64_decode(name, name_len, tname->name);
- 		if (declen <= 0) {
- 			ret = -EIO;
-@@ -444,13 +456,29 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, struct fscrypt_str *tname,
+ 		if (IS_ERR(em2)) {
+ 			ret = PTR_ERR(em2);
++			btrfs_free_extent_map(em);
++			*map = NULL;
+ 			goto out;
  		}
- 		iname.name = tname->name;
- 		iname.len = declen;
-+	} else if (unlikely(is_vmalloc_addr(fname->ctext))) {
-+		memcpy(tname->name, fname->ctext, fname->ctext_len);
+ 
++		/*
++		 * True NOCOW writes don't need to create a new extent map,
++		 * while PREALLOC writes must replace the existing one.
++		 */
++		if (em2) {
++			ASSERT(type == BTRFS_ORDERED_PREALLOC);
++			btrfs_free_extent_map(em);
++			*map = em2;
++			em = em2;
++		}
 +
-+		iname.name = tname->name;
-+		iname.len = fname->ctext_len;
+ 		dio_data->nocow_done = true;
  	} else {
- 		iname.name = fname->ctext;
- 		iname.len = fname->ctext_len;
- 	}
- 
--	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, oname);
--	if (!ret && (dir != fname->dir)) {
-+	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ?
-+			tname->name : oname->name;
-+	_oname.len = oname->len;
-+
-+	ret = fscrypt_fname_disk_to_usr(dir, 0, 0, &iname, &_oname);
-+	if (ret)
-+		goto out;
-+
-+	if (unlikely(is_vmalloc_addr(oname->name)))
-+		memcpy(oname->name, _oname.name, _oname.len);
-+	oname->len = _oname.len;
-+
-+	if (dir != fname->dir) {
- 		char tmp_buf[CEPH_BASE64_CHARS(NAME_MAX)];
- 
- 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%ld",
-diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
-index b49f304170479..4a1f2483192de 100644
---- a/fs/ceph/mds_client.c
-+++ b/fs/ceph/mds_client.c
-@@ -495,9 +495,13 @@ static int parse_reply_info_readdir(void **p, void *end,
- 			 * to do the base64_decode in-place. It's
- 			 * safe because the decoded string should
- 			 * always be shorter, which is 3/4 of origin
--			 * string.
-+			 * string. If this message was allocated with
-+			 * vmalloc() (happens, but rarely), leave it
-+			 * NULL and let ceph_fname_to_usr() allocate
-+			 * suitable temporary working space instead.
- 			 */
--			tname.name = _name;
-+			if (likely(!is_vmalloc_addr(_name)))
-+				tname.name = _name;
- 
- 			/*
- 			 * Set oname to _name too, and this will be
+ 		/* Our caller expects us to free the input extent map. */
 -- 
 2.53.0
 
