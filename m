@@ -1,144 +1,152 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C0D38330E
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148D4382F0F
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:44:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788682293; cv=none; b=mOnsWc7gmsklm8cjfUDfrnrYswl8cZ1l60ugrIkxpbCKwk7iwMDAD7yYkmdmB9BIhJ/D+XiJYrmVXKjIz2zGgtJReLvKAxcxVDNj8ORIdv+l2m8p3yXNNnEOrv4yOTUIMfb1PJwelMhbbX1Z4pPMeA0jPNanEh5MajOkIe5myvA=
+	t=1788684265; cv=none; b=G/ZDfNqiHImylxrAVaJB2wDxNv1d+VxyTxzM40jk98xOwVUlDaT7yKeDMVODQ/V3duDSIGkYhMW4PWkYsP67WmALj4q4zDnQBdXJoWQWMoVo1wO3fTmXvld5Ofjtgdhp1/J3K/ZlxcwB9HAO2xq4LESq3TzMKgRRfha/b/gS0Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788682293; c=relaxed/simple;
-	bh=yRK5JS3HHPRXGfSaecDps9odtxD870Aau+IWBYAmICs=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qp/itOWBIs7BNYuBqO9EPwE1bKCo0Bcxjl8LKX7MENPaSuwM3s/f7CmOjxtLPdJgvU8XH8PPb7IZ7xPEQxnxkPTh1iiiNYGlefApaPb/gjMLzSvuFcUplQzy4rjwl9ju053rH5ks075qQVE+uB+7bI0dRJWSeSUxwRvqxbEHDQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jKk31+zz; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=FsN1d4jb; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=wvrzC4N4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=9MfLXOr3; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788684265; c=relaxed/simple;
+	bh=qNTDOlPILV3T04HAjwGIZq4By932gRZYYSompesDPNE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g7+alnV8dwkhAUoKuMhRibgiObA6fqO2NRi2LFY8alEDVSVgewMRGA0CEfxgf5IYjKb994/qieVoUIxifv2P4m57Btoqn/5vJ0bqGdnQSNX91082tnD9a9awssha5jhf2Ietbh8mjuj98nVrJ4CJRj+2GgRn2X3O0LWFN1yVYK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s+N8muI9; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jKk31+zz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="FsN1d4jb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wvrzC4N4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="9MfLXOr3"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id E835922722;
-	Sun,  6 Sep 2026 08:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788682278; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1zqgj8HLHFesvx8Fl0smcNw7EATmAUNk6nPCqMBwROM=;
-	b=jKk31+zzpoHHAAefzvsJ8vopnPSrSQhhkVBfFhfxsd3s8ZtRjN89tBy3fFGYSD5CdLX+ID
-	+vg0LVn9NJwgELsQrQL3cIMswKzNjTOV+Z2pGaXEChOkx9KS8Y767uSsyspgoD2Z0eSXK3
-	r81rxGIh316l80a0mILu89JZTrEEPM8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788682278;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1zqgj8HLHFesvx8Fl0smcNw7EATmAUNk6nPCqMBwROM=;
-	b=FsN1d4jb142KtEWtArlGszpB1aBrDcrmaa8K9sSWMjtci9Hi71PwEjfRQU8dBN7qeQarmU
-	cCYFjhu6RW+OCfAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788682273; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1zqgj8HLHFesvx8Fl0smcNw7EATmAUNk6nPCqMBwROM=;
-	b=wvrzC4N4g8U3Iwec4NzhTEdfLnUHZPXtHZuI2gJqjNkgWevMbcKt2ngGPEF7BITngdQ0hX
-	5EHkpNuBAKgz8TnnN4EHlhcCuYycK0J1tebwdr/Dp+ERCoIPNeJFlT44K4iXQKK13v8qz/
-	4KlNYvpGhcu0KtNpqOXwPHXhOG/xpZM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788682273;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1zqgj8HLHFesvx8Fl0smcNw7EATmAUNk6nPCqMBwROM=;
-	b=9MfLXOr3eJ+D4sDhAeSByMWdQ69hhdlmuS5AxdNShv5uBZ4V7rH9f2sF0KMcXVhbUe7bgg
-	JeWPsl4bWLzlRTBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 913E513432;
-	Sun,  6 Sep 2026 08:11:13 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id bR8yIiEgnWrDcQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sun, 06 Sep 2026 08:11:13 +0000
-Date: Sun, 06 Sep 2026 10:11:13 +0200
-Message-ID: <87ik4i4x5q.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s+N8muI9"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d942c7cc2fso18941235ad.3
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 01:44:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788684263; x=1789289063; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
+        b=s+N8muI935x/XJrIVxbQJKnJDcod/ClhFST8qVlYz/Tv8bcLq3D8xXbsH0ZzhpJ8+u
+         n8xl9SprMXFaeOdI3asZhL9dBj52/sLIzfzha8OE2pFoVpQt6Z+pMKhZCwBrQjirft2P
+         GavT9ouD9Lp4hQtBL2MFngYmrseYDOzaDSj3neb/jLvyio/zR3gMphfTIXK++mZzVy8P
+         BTS9B0RmtARKFlF8LPJODcPM/ryAYPzDWU9XbyHbGnvI/2GicI1GUivw4lReC5DdpZ/s
+         yYSyhhzrw2ps75Xm4W2bVXLBEn4ofJP7gC95S4jPe4TX0VuReL7vl2mNNO6Hs9VVpCsA
+         4Y1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788684263; x=1789289063;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/l1qLwJSS6D6HFID29WNOWsYoWwOmZTzkLIw+IBHN20=;
+        b=Sk5XUlUeeEzHCH55n7K7+7imZ9EbA100RLhb9TRWDJMp4RMPZ7CX5HjX1KCPRlpFcM
+         0ZD0hYO6Z9jv5VgVm8zKngy7zJM51UMpzSqMi0a6BCSOIZD0U/89Eludu9plumX8uE2P
+         u8+9KX7mQerepDLxzDHQDQrgMfommCCViN3hf+2JLolO9e7nhm2nJNhQ2ls2L2OFHZ8J
+         MwGcX6vnnVBkmObZT0kYG3yiioraVViBJtS0AIYXW5Txmgb1DFmjIK6UlxvdBwf6RNwD
+         sN3A0li+tZQEc3sUlgxgP00xig++1cR7mRD8Wd5bhb5ouJOm8KGRvKR9WlZWgVM7mCOI
+         CFjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPK5Tx8zn9gxoPzBMiAvFFsAH+Hnaj6TOAIsN+C1KGCRhkkBVXKRk3T4ujIs00qd9DguHLGS4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkOgFSlqSljfngL4tByt43zjCpOeEDfbj18E7Bs31rwq6aOJeN
+	k+RK4Eqf2FFCbUlLu9OewFqmeogw4y3IEWO3HbaHw+Zn29+tQPb9ROgX
+X-Gm-Gg: AYBFou1c10fQWQUkEdFFkqm6+KOjDYIUcaWdUO6Yh6wRT8Hogm8HlkfF2+hzTWKgkNK
+	YOz79JVrWngUoVOPIYs9j/4rM8uHOPs7NLR+LeiNQeZPDhO9y8aZfcl7Fj1UWyYG23xnXabnG5i
+	p5dG5Baz7unbCDYvBouLizfYQmRaU0TyUJGlqCvwPpLN08bjwus1t03yT50979tGl9r6OxEDj0l
+	DFzZ3hF2fkprREJbIZd+9/RuS1eFZLVUX4XxxFbMmhJQSby+VsN/KM+Rf5IjfC+f1FKw0BbicSW
+	6CdbNToybDw5fBbJSWA7RaJfEnLrDJpOspR2rNc7283qLFUvKdTfO3daGRQlpu6hBABpeMA1sHI
+	Bicr7Zy2lZeymutPsW2vyfkw2uaGH4EidyHPU2zSpEO7arLUwc5BOMxn9vHOjfGnivr6h1w/Y8W
+	LDCX0LSokIKwm67egQiZ9Snq9QtECQ6AJ8L7tTz4rwYCNR1FNSbrJCzIo2wlJpVUh6aiHO7xBvQ
+	0a3p3w+FcechmtNPDIR
+X-Received: by 2002:a17:903:b48:b0:2da:effd:f904 with SMTP id d9443c01a7336-2db1258c686mr229715195ad.8.1788684263408;
+        Sun, 06 Sep 2026 01:44:23 -0700 (PDT)
+Received: from 192.168.50.3 ([183.193.115.0])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db190f6fb0sm28470765ad.51.2026.09.06.01.44.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 01:44:22 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v2 1/2] ALSA: usbusx2y: fix in04_last array size mismatch with in04_buf
-In-Reply-To: <20260904205826.4071119-1-tristmd@gmail.com>
-References: <20260904205826.4071119-1-tristmd@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	co+459f67f4d8af8ce6@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH nf v2] netfilter: ip6t_rpfilter: reject routes without inet6_dev
+Date: Sun,  6 Sep 2026 16:44:10 +0800
+Message-ID: <20260906084410.5601-1-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.30 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCVD_TLS_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,talencesecurity.com:email,suse.de:mid]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 04 Sep 2026 22:58:25 +0200,
-Tristan Madani wrote:
-> 
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> The in04_last array in struct usx2ydev is declared as char[24], but
-> in04_buf is allocated as sizeof(struct us428_ctls) which is 21 bytes.
-> In i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization
-> path):
-> 
->     memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
-> 
-> This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
-> past the end of the source object.
-> 
-> Introduce a USX2Y_IN04_SIZE constant defined as sizeof(struct
-> us428_ctls) and use it consistently for the in04_last array, the
-> in04_buf allocation, the URB transfer length, and the comparison loop,
-> replacing the bare 24 and 21 literals throughout.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+ip6_route_lookup() can return an error-free route whose rt6i_idev is
+NULL. Lowering an external nexthop device's MTU below IPV6_MIN_MTU tears
+down its inet6_dev while fib6_ifdown() leaves routes using nexthop objects
+in the FIB. An unprivileged user can construct this state with rtnetlink
+in a private user and network namespace, then trigger a NULL dereference
+through an IPv6 rpfilter lookup:
 
-Applied both patches now.  Thanks.
+  Oops: general protection fault, probably for non-canonical address
+  0xdffffc0000000000
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  RIP: rpfilter_mt (net/ipv6/netfilter/ip6t_rpfilter.c:75)
+  Call Trace:
+  ip6t_do_table (net/ipv6/netfilter/ip6_tables.c:316)
+  nf_hook_slow (net/netfilter/core.c:619)
+  ipv6_rcv (net/ipv6/ip6_input.c:351)
+  __netif_receive_skb_one_core (net/core/dev.c:6216)
+  process_backlog (net/core/dev.c:6680)
+  __napi_poll (net/core/dev.c:7739)
+  net_rx_action (net/core/dev.c:7959)
+  handle_softirqs (kernel/softirq.c:622)
+  do_softirq.part.0 (kernel/softirq.c:523)
+  __local_bh_enable_ip (kernel/softirq.c:450)
+  __dev_queue_xmit (net/core/dev.c:4913)
+  packet_sendmsg (net/packet/af_packet.c:3139)
+  __sys_sendto (net/socket.c:2252)
+  __x64_sys_sendto (net/socket.c:2259)
+  do_syscall_64 (arch/x86/entry/syscall_64.c:94)
+  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+  Kernel panic - not syncing: Fatal exception in interrupt
 
+Reject routes without an inet6_dev immediately after lookup. Such routes
+are not eligible for reverse-path filtering, and the check protects all
+later rt6i_idev dereferences.
 
-Takashi
+Fixes: e26f9a480fb6 ("netfilter: add ipv6 reverse path filter match")
+Reported-by: co+459f67f4d8af8ce6@bugs.sh
+Closes: https://lore.kernel.org/all/VtWUkE8QzJt5CroTj2V2v3ZQ0gwbXZ7nq7I3@bugs.sh/
+Suggested-by: Florian Westphal <fw@strlen.de>
+Assisted-by: Claude:gpt-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+v2:
+- Reject routes without inet6_dev in both loose and strict modes, as
+  suggested by Florian.
+v1: https://lore.kernel.org/all/20260906034939.3746540-1-bestswngs@gmail.com/
+---
+ net/ipv6/netfilter/ip6t_rpfilter.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/ipv6/netfilter/ip6t_rpfilter.c b/net/ipv6/netfilter/ip6t_rpfilter.c
+index 67c87a88cde4f..b5def30c3127e 100644
+--- a/net/ipv6/netfilter/ip6t_rpfilter.c
++++ b/net/ipv6/netfilter/ip6t_rpfilter.c
+@@ -61,7 +61,7 @@ static bool rpfilter_lookup_reverse6(struct net *net, const struct sk_buff *skb,
+ 		fl6.flowi6_oif = dev->ifindex;
+ 
+ 	rt = (void *)ip6_route_lookup(net, &fl6, skb, lookup_flags);
+-	if (rt->dst.error)
++	if (rt->dst.error || !rt->rt6i_idev)
+ 		goto out;
+ 
+ 	if (rt->rt6i_flags & (RTF_REJECT|RTF_ANYCAST))
+-- 
+2.55.0
