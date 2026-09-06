@@ -1,94 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB77839EF20;
-	Sun,  6 Sep 2026 10:12:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14A637C926
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 10:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788689523; cv=none; b=romCFKak6ZcJwlLPXVOZY18UByw7RJmyebL8AhoBOYTkCggW7F/b1j6A/1/519wcoGkOeKfcL3RNTSwza08lJuEGMcxX2F8Sg7fRyKTKfpngKjdboue1yuGcHc2PI76jXpm9i3IsqAoibTM/3Val9XUHlTosdfwhkk5OcUvz0ic=
+	t=1788689717; cv=none; b=cbvzZC0YQja9BYWcMKU9fiAqaufwWylqDMY9iG6CVFnH6fRuN9ufSdeHAcK/mCSkw/kXn4ZQVATQm753/cQQglY0haG6TSXdbrVm4XIln1x1vmIhQ8E9PeaRb06bcb0vQz93qLO9Tdtzy7ORuElPFAuWPECcmKB6gwBN3PR5d+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788689523; c=relaxed/simple;
-	bh=5ZK4uAzPbQUwFP7ga/rgJh8iVCPSP1IOvwoBU5Z0T7M=;
+	s=arc-20240116; t=1788689717; c=relaxed/simple;
+	bh=D+Su0BmxKqAYa5jqfBEvykM54HnQ7Wf/C2f5tsHgqGc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jUVo9HYnH2xrwr/lPkEmcKm4j6FAQhxCxKAdg9YAfl2RPLVohDPK63GNNFBaj+4lkyxib13WUhehjfuwgAWLPEy+O/otNXFvZpvAHn5kHAMGTJUGTIv8ea4v0s8rL4AnBzv3AvAcAMAqL4d/DQkWXWY+VH88Dy06wE2DIH0vZ/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqIaYQxF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=d08o1pTGEvXWXW97NzdIQYDX+3AztwOej3jWfU2w0mieFK5jP5/ZJrhcm4/PvgKYfAflafU+qB17ogOk9De8Hc7MPxdMoNfh3K32+Vdq4pyp5Fo2Gvg+ELhat211+dp5OBT+fObPGGZbuAqoSJEWJKKKvAeghiUJUqPwnKPgyFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=OTOU857s; arc=none smtp.client-ip=178.21.23.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqIaYQxF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BC0F1F00A3A;
-	Sun,  6 Sep 2026 10:11:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788689521;
-	bh=tJEaiXned6r11arNPZpz/fZrQApr9XNv+fEd4IKwKCE=;
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="OTOU857s"
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 45BED80AAF;
+	Sun, 06 Sep 2026 12:15:10 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id X33bw0n3PB6m; Sun,  6 Sep 2026 12:15:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1788689709; bh=D+Su0BmxKqAYa5jqfBEvykM54HnQ7Wf/C2f5tsHgqGc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cqIaYQxFw/IsOGE1exv1cF46tjX0TrQKEGu2xQu/gcmPYT17YRoQ1aCY3G35FaWLY
-	 2oS2L2ZVV2VKH83Lx74gwcheiREoowXQFvnVxnRzFJ+wts4CT5zYLqXxnNYMYYsaD0
-	 cqMtu3bPl/001kt5FRrA8hSDf4DNgmAT2bQiLqz2AGU963msbZIlwiZOWLyyrVVrG0
-	 EQPTmhKnpFLq9UGhwfvb+nk4+LegqAgeI0TVBdLeJOr/QJnaxUpeJLovadXC2guf70
-	 XIGyt2MkEHh7i8Akey96HZEHsj7nF/d5ddI2YoQXPhwqtvXF7ouElhfx80XJKGO5Wd
-	 PMhjYLA52GBCg==
-From: Simon Horman <horms@kernel.org>
-To: zihanx@nebusec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kees@kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	vega@nebusec.ai
-Subject: Re: [PATCH net v7 1/1] llc: fix listener child socket leaks before passive open completes
-Date: Sun,  6 Sep 2026 11:11:49 +0100
-Message-ID: <20260906101149.215761-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <0b8964c9cd294898c9657fd34c9d04cec77782eb.1788414881.git.zihanx@nebusec.ai>
-References: <0b8964c9cd294898c9657fd34c9d04cec77782eb.1788414881.git.zihanx@nebusec.ai>
+	b=OTOU857s0ehWFGAqsxyFVvmr5QdM98OQ3Mqs5vRSq402r8cI22UHW4Eh9s0gAhu7h
+	 PZXLAtAA6jz+mCFuIs+bkIF3/j95aAnHLL/UPCOfRr+pGFbFsBOhBv9kCPniI8W6Sb
+	 LJR9FAykFc5hupqwWvmjS7DEoxk8smGdKrYdaOL4csk+4lA1r9xo6i9i8SvVz2B3r1
+	 MTI7hx7/zuQFDW2g1JNQgGmtFTKmdWu2S1m5Fl44YWPpFPXXwDALF1J67mq/RPX4yu
+	 eN1Wz0PdN92/ksE6UJSfY9LHyJkwiB/OoHZACHCY6YtlrDJMmp36Z4Hre5oV6zQDvO
+	 g/dfNTQT94wUQ==
+From: =?UTF-8?q?Ali=20Ahmet=20Memi=C5=9F?= <aliamemis@disroot.org>
+To: stable@vger.kernel.org
+Cc: lee@kernel.org,
+	Ali Ahmet Memis <ali@iusegentoo.com>
+Subject: [PATCH 6.18.y] mfd: qnap-mcu: keep the reply buffer alive past a command timeout
+Date: Sun,  6 Sep 2026 13:14:57 +0300
+Message-ID: <20260906101457.671435-1-aliamemis@disroot.org>
+In-Reply-To: <2026090340-fidgety-these-5499@gregkh>
+References: <2026090340-fidgety-these-5499@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://sashiko.dev/#/patchset/0b8964c9cd294898c9657fd34c9d04cec77782eb.1788414881.git.zihanx@nebusec.ai?part=1
+From: Ali Ahmet Memis <ali@iusegentoo.com>
+
+commit 47504742cea7878ebd1bf1491bbed923df6b90b1 upstream.
+
+qnap_mcu_exec() publishes an on-stack buffer to the receive path:
+
+	unsigned char rx[QNAP_MCU_RX_BUFFER_SIZE];
+	...
+	reply->data = rx;
+	reply->length = length;
+
+and qnap_mcu_receive_buf() writes into it from the serdev receive path,
+which runs out of flush_to_ldisc() and is not serialized against
+qnap_mcu_exec() at all. bus_lock cannot cover it, because qnap_mcu_exec()
+holds that mutex across wait_for_completion_timeout().
+
+On a timeout qnap_mcu_exec() returns with reply->data still pointing at
+its own frame. A reply that arrives late, or an unsolicited message from
+the MCU, is then written into a stack frame that has been left, corrupting
+whatever runs next on that stack. The same applies when qnap_mcu_write()
+fails, since that path returns without touching the reply state either.
+
+Move the receive buffer into struct qnap_mcu. It is 37 bytes and the
+structure is devm_kzalloc()ed, so it lives as long as the driver, and a
+late write lands in memory that is still valid and is reinitialized by the
+next command. bus_lock keeps commands from sharing it.
+
+This deliberately does not clear reply->data or reply->length on the
+timeout path. Doing so races with qnap_mcu_receive_buf(), which reads both
+after its
+
+	if (!reply->length)
+		return size;
+
+check: clearing reply->data gives a NULL dereference, and clearing
+reply->length alone removes the reply->received == reply->length exit
+condition, so the copy loop runs until the uart chunk is consumed and
+overruns the buffer. Leaving both set keeps the write bounded by
+reply->length, which qnap_mcu_exec() has already checked against
+sizeof(mcu->rx).
+
+Fixes: 998f70d1806b ("mfd: Add base driver for qnap-mcu devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
+Link: https://lore.kernel.org/all/20260802132012.537B81F000E9@smtp.kernel.org/
+Link: https://patch.msgid.link/20260802135307.31380-1-ali@iusegentoo.com
+Signed-off-by: Lee Jones <lee@kernel.org>
+(cherry picked from commit 47504742cea7878ebd1bf1491bbed923df6b90b1)
+[ 6.18 lacks qnap_mcu_verify_checksum() and
+  qnap_mcu_reply_is_any_error(), so the checksum check there still
+  open-codes qnap_mcu_csum(); only its rx references were moved to
+  mcu->rx.  The fix itself is unchanged. ]
+Signed-off-by: Ali Ahmet Memiş <aliamemis@disroot.org>
 ---
-llc: fix listener child socket leaks before passive open completes
+ drivers/mfd/qnap-mcu.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-This patch addresses a child socket leak in the LLC subsystem during passive
-opens. It ensures that children are only created for SABME commands, avoiding
-leaks caused by non-SABME frames that never complete the connection. It also
-improves teardown and lifecycle management for incoming child sockets.
+diff --git a/drivers/mfd/qnap-mcu.c b/drivers/mfd/qnap-mcu.c
+index 4ec1f4cf902f..22a7a77fdeaf 100644
+--- a/drivers/mfd/qnap-mcu.c
++++ b/drivers/mfd/qnap-mcu.c
+@@ -55,6 +55,7 @@ struct qnap_mcu_reply {
+  * @reply:	Reply data structure
+  * @variant:	Device variant specific information
+  * @version:	MCU firmware version
++ * @rx:		Receive buffer the reply is assembled in
+  */
+ struct qnap_mcu {
+ 	struct serdev_device *serdev;
+@@ -62,6 +63,7 @@ struct qnap_mcu {
+ 	struct qnap_mcu_reply reply;
+ 	const struct qnap_mcu_variant *variant;
+ 	u8 version[QNAP_MCU_VERSION_LEN];
++	u8 rx[QNAP_MCU_RX_BUFFER_SIZE];
+ };
+ 
+ /*
+@@ -146,20 +148,19 @@ int qnap_mcu_exec(struct qnap_mcu *mcu,
+ 		  const u8 *cmd_data, size_t cmd_data_size,
+ 		  u8 *reply_data, size_t reply_data_size)
+ {
+-	unsigned char rx[QNAP_MCU_RX_BUFFER_SIZE];
+ 	size_t length = reply_data_size + QNAP_MCU_CHECKSUM_SIZE;
+ 	struct qnap_mcu_reply *reply = &mcu->reply;
+ 	int ret = 0;
+ 	u8 crc;
+ 
+-	if (length > sizeof(rx)) {
++	if (length > sizeof(mcu->rx)) {
+ 		dev_err(&mcu->serdev->dev, "expected data too big for receive buffer");
+ 		return -EINVAL;
+ 	}
+ 
+ 	guard(mutex)(&mcu->bus_lock);
+ 
+-	reply->data = rx;
++	reply->data = mcu->rx;
+ 	reply->length = length;
+ 	reply->received = 0;
+ 	reinit_completion(&reply->done);
+@@ -175,13 +176,13 @@ int qnap_mcu_exec(struct qnap_mcu *mcu,
+ 		return -ETIMEDOUT;
+ 	}
+ 
+-	crc = qnap_mcu_csum(rx, reply_data_size);
+-	if (crc != rx[reply_data_size]) {
++	crc = qnap_mcu_csum(mcu->rx, reply_data_size);
++	if (crc != mcu->rx[reply_data_size]) {
+ 		dev_err(&mcu->serdev->dev, "Invalid Checksum received\n");
+ 		return -EIO;
+ 	}
+ 
+-	memcpy(reply_data, rx, reply_data_size);
++	memcpy(reply_data, mcu->rx, reply_data_size);
+ 
+ 	return 0;
+ }
+-- 
+2.55.0
 
-> diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-> index 260460d50f54c..092625e28b3bb 100644
-> --- a/net/llc/llc_conn.c
-> +++ b/net/llc/llc_conn.c
-> @@ -88,6 +89,13 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
->  		 * skb->sk pointing to the newly created struct sock in
->  		 * llc_conn_handler. -acme
->  		 */
-> +		if (sk != skb->sk &&
-> +		    atomic_read(&llc_sk(skb->sk)->incoming_state) ==
-> +		    LLC_INCOMING_PENDING) {
-> +			sock_hold(skb->sk);
-> +			atomic_set(&llc_sk(skb->sk)->incoming_state,
-> +				   LLC_INCOMING_QUEUED);
-> +		}
->  		skb_get(skb);
->  		skb_queue_tail(&sk->sk_receive_queue, skb);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it possible for an attacker
-to exhaust kernel memory (OOM) via unbounded SABME flooding?
-
-Looking at llc_conn_state_process(), the new connection skb is queued directly
-to the listener's sk_receive_queue without checking if the accept queue is
-full (for example, by checking sk_acceptq_is_full(sk)).
-
-Because llc_conn_handler() allocates a new child socket for each SABME packet,
-could a flood of spoofed SABME frames from the local subnet cause this queue
-to grow without bound?
