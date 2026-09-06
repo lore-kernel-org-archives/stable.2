@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585082253EB
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5E84503B
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:28:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701330; cv=none; b=i3UIP4VpYgrbJKBvH4843dX8UcRk6vippRMT+3w6c4KCVxpS7dkRr1a2bczMYJkeD1tARbCaXp9yCeXLcW2GnOCT1LumoOlLojrebLVfuYeowl6pUGyoWeNXK7lfW23izOJB9/rFJA3Td/aYohINXqe2vvpx+dEL9WyDEyJAai0=
+	t=1788701331; cv=none; b=Lz6q5qWRdPcat5GisY+K/oizpcyF9VXdNJs+pLI2dKLzELGa3hdv0tFJPz1iFvkCoX+/KIn3eSH35LbXH8YV+HmtqgAUS/SI7P6NsG+Imq8B9uECwTHpndUU0/Z8/in6RMdqoq2Y+uwJVxBnAtkLME+B3E5QnCxXdKQNYQIy29w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701330; c=relaxed/simple;
-	bh=KTAAna8uf6aoN1d4+/jJDoY9JcPwqRw6W8rTEHinCh8=;
+	s=arc-20240116; t=1788701331; c=relaxed/simple;
+	bh=wJrTT7WMA8AjMRrqxpvOQPcD6nVsRQNYLJHpEr1n3fA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y3VmPRR+ByIx3ZbkVPeKJpOo75ZMZt7VHEjjVF7pAo/X3jBgZJIaV5sk0eZYm4R/nxxMJ+jlprE7Wzjq1mFPtPOkQsmAwqJkvVyxeGabLv3gD2clfDJGIF7OPnlY1e7y4Gzina6+sDRGOwPqOy/PRF19Yu0sYiolFm0w0q2gAuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5OzmoTf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=rPd4S61ev8PRccyCQpBJ8C0WZwBXMUNLNK3hg6GXmx2wkUFpofxOHJxBlqlUKf18qMXUUX0PaaPwDYbojlKPdIuXqA9aiKhrrDGTbawqMmHqxpC9PCGtN12NRNOOa4T5l/FQTQVrvHrtMdCW10gvbzalucGhlLMghwBb7yxyhvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFS1CCcF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5OzmoTf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC3AF1F00A3E;
-	Sun,  6 Sep 2026 13:28:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFS1CCcF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7451F00A3D;
+	Sun,  6 Sep 2026 13:28:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701329;
-	bh=wBeDtm3FDlEDM9QD+CpdrWYlH5p6E5armagfpEhMF5I=;
+	s=k20260515; t=1788701330;
+	bh=NdXx+QcSJoxWws904wveAFDOCYAl/7BLtFgCjHiuXYc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=H5OzmoTfIkjXGZElPavSR5LurS1ZoDzhiG5/iRjrHxbRGVEPN83n//AnR1P5iMpjL
-	 9+77P9EqptUDQ1IX0/JacVT5TD3nJEWzFIa4lliQja2OKNqzslolXbwFLuBfbOHcf4
-	 HfvXBARyJdxs6Vuvd6u+rH9Rj89aa0AqFUNfSQ+JD3z7q5WKTvsvuwdYMHpmfEIOEd
-	 oxmAGuzy+n4v2mgnA4PhZQTHdZV/DHd1NkAhksfDDWvCVyuy7owGRyhKparUnHHb5S
-	 XP0sTs1Fwo71QlL2kbAy/Jw0YX72AE/QaDkmckCXulgQRcYVkeYt90Uggut0WDFv0Y
-	 8iDGIovSbfBGw==
+	b=lFS1CCcFVp/Jensh4wbCV2zYh9cVYucl+p/lTAS0FhxLE+s5YOpz5P+0quu7x6M6+
+	 THmAqMByQ1geBkb/XoNaNNwbvqDZHZeW0DzH5WdJKS/8o6vf/2QzyQhXiGkWrp7Ryo
+	 izuoAUA6uTJu5RD51PjZoHxtcTj9EsSb7hIlLeTB818WNP2SdFUUIdSsRLDC+WVht3
+	 Agxh6rnasv5KwNIm3V4r3qe90fqUpGTPbvfzLHMCvmVUCzuQ+AS0SixFoco+LvXY85
+	 RJyMCs6j1E0n9DJ54kLqHCPHNqtWtkyEyHt+7SqdJ+7c0/ujmd8T8IGtyEuDpEdLG4
+	 NNuM60zrElbmg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <cel@kernel.org>,
-	Musaab Khan <musaab.khan@protonmail.com>,
 	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/4] NFSD: Prevent post-shutdown use-after-free in unlock_filesystem
-Date: Sun,  6 Sep 2026 09:28:44 -0400
-Message-ID: <20260906132846.875246-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/4] NFSD: Annotate caller preconditions for the state-table walkers
+Date: Sun,  6 Sep 2026 09:28:45 -0400
+Message-ID: <20260906132846.875246-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260906132846.875246-1-sashal@kernel.org>
 References: <2026090352-fading-liquefy-e98c@gregkh>
@@ -49,61 +48,94 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit 292d915d3ba6fd15eeb88351fa10581683073109 ]
+[ Upstream commit 5f367f05481d56be90f8c13eee4cb421cd7af2d8 ]
 
-Writing a filesystem path to /proc/fs/nfsd/unlock_filesystem runs
-nfsd4_cancel_copy_by_sb() before nfsd_mutex is held and before the
-handler confirms that nn->nfsd_serv is set. Once nfsd has shut down,
-nfs4_state_destroy_net() has freed nn->conf_id_hashtbl but left the
-pointer intact, so the cancel helper iterates freed slab memory as an
-array of struct list_head and then dereferences a bogus nfs4_client
-when it takes clp->async_lock. A local administrator holding
-CAP_SYS_ADMIN can reach this use-after-free by stopping the server and
-then writing to unlock_filesystem; KASAN reports a slab-use-after-free
-read in nfsd4_cancel_copy_by_sb().
+The state-table walkers now assert nfsd_mutex with
+lockdep_assert_held() and document the nfsd_mutex / nn->nfsd_serv
+precondition in a Context: kdoc section, so the next caller added to
+this path cannot silently reintroduce the same use-after-free.
 
-nfsd4_revoke_states() walks the same state tables and for that reason
-already runs only under nfsd_mutex with nn->nfsd_serv confirmed
-present. Move the async COPY cancel into that protected section so
-every NFSv4 state-table walker on this path observes a running server.
-Async copies exist only while the server runs, so gating the cancel on
-nn->nfsd_serv loses nothing.
-
-Reported-by: Musaab Khan <musaab.khan@protonmail.com>
-Fixes: 3daab3112f03 ("nfsd: cancel async COPY operations when admin revokes filesystem state")
-Cc: stable@vger.kernel.org
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260613-unlock-filesystem-uaf-v1-1-462b9bec8c84@kernel.org
+Link: https://patch.msgid.link/20260613-unlock-filesystem-uaf-v1-3-462b9bec8c84@kernel.org
 Signed-off-by: Chuck Lever <cel@kernel.org>
 Stable-dep-of: 2f3e6638aebc ("NFSD: Guard admin state-revocation walks with NFSD_NET_UP")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfsctl.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/nfsd/nfs4proc.c  |  6 ++++++
+ fs/nfsd/nfs4state.c | 16 +++++++++++++++-
+ 2 files changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 5e3e60110ee64..32106d223a23c 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -296,14 +296,15 @@ static ssize_t write_unlock_fs(struct file *file, char *buf, size_t size)
- 	 * 2.  Is that directory a mount point, or
- 	 * 3.  Is that directory the root of an exported file system?
- 	 */
--	nfsd4_cancel_copy_by_sb(netns(file), path.dentry->d_sb);
- 	error = nlmsvc_unlock_all_by_sb(path.dentry->d_sb);
- 	mutex_lock(&nfsd_mutex);
- 	nn = net_generic(netns(file), nfsd_net_id);
--	if (nn->nfsd_serv)
-+	if (nn->nfsd_serv) {
-+		nfsd4_cancel_copy_by_sb(netns(file), path.dentry->d_sb);
- 		nfsd4_revoke_states(nn, path.dentry->d_sb);
--	else
-+	} else {
- 		error = -EINVAL;
-+	}
- 	mutex_unlock(&nfsd_mutex);
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 1391e08ee3bf4..10e76bafabf29 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -1562,6 +1562,11 @@ static bool nfsd4_copy_on_sb(const struct nfsd4_copy *copy,
+  * nfsd4_cancel_copy_by_sb - cancel async copy operations on @sb
+  * @net: net namespace containing the copy operations
+  * @sb: targeted superblock
++ *
++ * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
++ *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
++ *          at server shutdown without clearing the pointer, so a
++ *          walk without these guarantees iterates freed slab memory.
+  */
+ void nfsd4_cancel_copy_by_sb(struct net *net, struct super_block *sb)
+ {
+@@ -1571,6 +1576,7 @@ void nfsd4_cancel_copy_by_sb(struct net *net, struct super_block *sb)
+ 	unsigned int idhashval;
+ 	LIST_HEAD(to_cancel);
  
- 	path_put(&path);
++	lockdep_assert_held(&nfsd_mutex);
+ 	spin_lock(&nn->client_lock);
+ 	for (idhashval = 0; idhashval < CLIENT_HASH_SIZE; idhashval++) {
+ 		struct list_head *head = &nn->conf_id_hashtbl[idhashval];
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 900fa219ff1ad..efa234eb6a605 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -1873,14 +1873,21 @@ static void revoke_one_stid(struct nfsd_net *nn, struct nfs4_client *clp,
+  * being released.  Thus nfsd will no longer prevent the filesystem from being
+  * unmounted.
+  *
+- * The clients which own the states will subsequently being notified that the
++ * The clients which own the states will subsequently be notified that the
+  * states have been "admin-revoked".
++ *
++ * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
++ *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
++ *          at server shutdown without clearing the pointer, so a
++ *          walk without these guarantees iterates freed slab memory.
+  */
+ void nfsd4_revoke_states(struct nfsd_net *nn, struct super_block *sb)
+ {
+ 	unsigned int idhashval;
+ 	unsigned int sc_types;
+ 
++	lockdep_assert_held(&nfsd_mutex);
++
+ 	sc_types = SC_TYPE_OPEN | SC_TYPE_LOCK | SC_TYPE_DELEG | SC_TYPE_LAYOUT;
+ 
+ 	spin_lock(&nn->client_lock);
+@@ -1946,12 +1953,19 @@ static struct nfs4_stid *find_one_export_stid(struct nfs4_client *clp,
+  *
+  * Userspace (exportfs -u) sends this after removing the last client
+  * for a path, enabling the underlying filesystem to be unmounted.
++ *
++ * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
++ *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
++ *          at server shutdown without clearing the pointer, so a
++ *          walk without these guarantees iterates freed slab memory.
+  */
+ void nfsd4_revoke_export_states(struct nfsd_net *nn, const struct path *path)
+ {
+ 	unsigned int idhashval;
+ 	unsigned int sc_types;
+ 
++	lockdep_assert_held(&nfsd_mutex);
++
+ 	sc_types = SC_TYPE_OPEN | SC_TYPE_LOCK | SC_TYPE_DELEG | SC_TYPE_LAYOUT;
+ 
+ 	spin_lock(&nn->client_lock);
 -- 
 2.53.0
 
