@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B807339362
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 024E03C2795
 	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723058; cv=none; b=UdH1/6szcYEd+XyX2wpXh2X1QHww7r4v5e5fLuCqm5fwZ8qe41oHyKeqYF0GnzZzrXPxTFnKAFJoUbJ3ZgZnaSyp28d1hYHipam2CrWNDQRgnt7Oe2oyy4bDxdpDPk6MPF25Il7FzQhpkRL0+U5s8p13iKDAeDnUSmPCiMm02CI=
+	t=1788723058; cv=none; b=d7KuUI/he275/9sTqFJLYMftR6bKuosx2qbf6fYDAC2Wvev/dL/49+3bn+cvEHLMlkEJ3hJwWU2E4MiCV+ZxHShHjjocm2//5W+T5JXhBLSPr6PtVAtBgCTHGWx5ME/B0Vt89/d6SRieNPfSCS24Z70O9jkzHGCIhr4DoIToy2o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788723058; c=relaxed/simple;
-	bh=8rzHu9XeXcdICdj/vec04OD/ONQAG9xSEiMBm+BP0bE=;
+	bh=iux/2ctX1y+UsF2wDxrdM1pMA94PYiFK/Sk/zp34y7A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d/XfPcwvR27trLb+H+SiQHO+HfDwSgewn1liKkHHO1eCHm6tdqvMzZT3bp8NN8UXs10pTdkcEGCFUx9BDc+qM8DS70Pi9EnoxC+N5GVJpqf5ZJCMnfhQuZECvlwQDA2uvm2GHNcl0m2kU42CJGZUVDlmQ0pQXK8zmV1371GzveA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2mPHb2M; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BIIqlR9YvHXvC/qE4tONJEPaM2uwxyBqCrRxDeJGlrVs7GybxiOB3K7e4H6T4hNAqRdbP/4XI9C/ALit69H/BrbSuyAGmX1SUyOkfT7QB0Sle2xRDNG7aDRWY2/+ra3aGDWlzbLtoT/cFVbxvCP2s+chEwyALt4JdIVer3JErP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DBgJ6GmH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2mPHb2M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991CF1F00AC4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DBgJ6GmH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076A31F00ACA;
 	Sun,  6 Sep 2026 19:30:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788723055;
-	bh=cfKY1foLWsexb3/c7nsS32epphiMZXjmMwxsZYohW1U=;
+	bh=j0LEe4CEbUAMr2k6FBe+NgUsqbXfnkMcsdtrXuJ0uHg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j2mPHb2Mn/+tCmGyhpRJUJSTK5DdbySWcANhep87CDY1bBHEGNd9vjMm6LA2P+Scu
-	 dPgIczAlP7viRqZloZ2BHaqQdves7NJ9RmYNJJsRj1Ehc7+cVo0VQJRk/iTTyWaLm+
-	 LzaZ7pHTGc7FGhaY3NORXcDb/psBCZEy4ly9Wp4dTKwwvbR4gJIRqe/I7NIXxSdihS
-	 4AXMFA94Eg+4+kCn+4ux0zhAjMp3b4PsqSJKIGJlJvfMdAQM7TTXKy5L27OTg1gc7t
-	 t7EcaDEkrcUXpjjuCZqwWdWj7AMTVdwJLzteubhtgO1jZT8RVvYm1o/ZO0kkKGPuHl
-	 SvMv9osLSsydQ==
+	b=DBgJ6GmH3VHtMTjB2Yu+oRdJvmWGaHsDtRlY5SxK37NJ1TocFyl85GVp5YDKKSzk5
+	 bKIWuRD8fbycqaPuaEA5Ey9hncalLedOl1LzHNoQUXp7OJEyGR2xzByvPjUA7lT8y+
+	 Iy74sicn+zL7E7HpsUUBe4HZUPMjRWRfJQgpr9atjOaEkKURDjbja122zq0MEhwV0L
+	 bLSZfeRKRJ4ajC1Cl0WYZnx43LNX9g+cwfRuMFbP3heFYp9i736DwLO0Jafl+isJRQ
+	 GSIXR2EA2kwhYNu5HeyM8rdT41YDQIOUllw++gKmCdM7qNLzxlTIQiYIzliXh9Az8L
+	 HdK9HWjIx9cAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Sterba <dsterba@suse.com>,
+Cc: Huiwen He <hehuiwen@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 7/8] btrfs: pass struct btrfs_inode to btrfs_sync_inode_flags_to_i_flags()
-Date: Sun,  6 Sep 2026 15:30:47 -0400
-Message-ID: <20260906193048.1791749-7-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/4] smb/client: reduce fallocate zero buffer allocation
+Date: Sun,  6 Sep 2026 15:30:50 -0400
+Message-ID: <20260906193052.1791917-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906193048.1791749-1-sashal@kernel.org>
-References: <2026090330-nappy-discharge-0af0@gregkh>
- <20260906193048.1791749-1-sashal@kernel.org>
+In-Reply-To: <20260906193052.1791917-1-sashal@kernel.org>
+References: <2026090358-afar-boss-f2c3@gregkh>
+ <20260906193052.1791917-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,137 +47,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Sterba <dsterba@suse.com>
+From: Huiwen He <hehuiwen@kylinos.cn>
 
-[ Upstream commit 4f27a693940bcf313d17792ac4ec13a83f71cf25 ]
+[ Upstream commit 9e4ec3be67af41ab859302d7109b34976efd9258 ]
 
-Pass a struct btrfs_inode to btrfs_sync_inode_flags_to_i_flags() as it's
-an internal interface.
+The fallocate emulation allocates a 1 MiB zero-filled buffer even
+though each SMB2_write request is limited to SMB2_MAX_BUFFER_SIZE,
+which is 64 KiB. A high-order 1 MiB allocation is more likely to
+fail on a fragmented system.
 
-Signed-off-by: David Sterba <dsterba@suse.com>
-Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
+Allocate only the smaller of the requested range and SMB2_MAX_BUFFER_SIZE,
+and reuse that zero-filled buffer for every write request. Also reject
+a successful write that makes no progress to avoid looping indefinitely.
+
+This reduces the contiguous allocation required by fallocate emulation
+without changing the written data or range semantics.
+
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 32a7af68df73 ("cifs: add cifs_resize_file_locked() to guard fscache_resize_cookie() under i_rwsem")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/inode.c  |  4 ++--
- fs/btrfs/ioctl.c  | 19 +++++++++----------
- fs/btrfs/ioctl.h  |  4 ++--
- fs/btrfs/verity.c |  4 ++--
- 4 files changed, 15 insertions(+), 16 deletions(-)
+ fs/smb/client/smb2ops.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 9f8b6a8a36928..3d0dd228c6dbd 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -3972,7 +3972,7 @@ static int btrfs_read_locked_inode(struct inode *inode,
- 		break;
- 	}
- 
--	btrfs_sync_inode_flags_to_i_flags(inode);
-+	btrfs_sync_inode_flags_to_i_flags(BTRFS_I(inode));
- 	return 0;
- }
- 
-@@ -6209,7 +6209,7 @@ static void btrfs_inherit_iflags(struct btrfs_inode *inode, struct btrfs_inode *
- 			inode->flags |= BTRFS_INODE_NODATASUM;
- 	}
- 
--	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
-+	btrfs_sync_inode_flags_to_i_flags(inode);
- }
- 
- int btrfs_create_new_inode(struct btrfs_trans_handle *trans,
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index bbd7f0db6ae53..8f87f13cf2500 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -166,25 +166,24 @@ static unsigned int btrfs_inode_flags_to_fsflags(const struct btrfs_inode *binod
- /*
-  * Update inode->i_flags based on the btrfs internal flags.
-  */
--void btrfs_sync_inode_flags_to_i_flags(struct inode *inode)
-+void btrfs_sync_inode_flags_to_i_flags(struct btrfs_inode *inode)
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 9d5272e7013d5..3a833a55491d3 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -3508,7 +3508,7 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
+ 					     char *buf)
  {
--	struct btrfs_inode *binode = BTRFS_I(inode);
- 	unsigned int new_fl = 0;
+ 	struct cifs_io_parms io_parms = {0};
+-	int nbytes;
++	unsigned int nbytes;
+ 	int rc = 0;
+ 	struct kvec iov[2];
  
--	if (binode->flags & BTRFS_INODE_SYNC)
-+	if (inode->flags & BTRFS_INODE_SYNC)
- 		new_fl |= S_SYNC;
--	if (binode->flags & BTRFS_INODE_IMMUTABLE)
-+	if (inode->flags & BTRFS_INODE_IMMUTABLE)
- 		new_fl |= S_IMMUTABLE;
--	if (binode->flags & BTRFS_INODE_APPEND)
-+	if (inode->flags & BTRFS_INODE_APPEND)
- 		new_fl |= S_APPEND;
--	if (binode->flags & BTRFS_INODE_NOATIME)
-+	if (inode->flags & BTRFS_INODE_NOATIME)
- 		new_fl |= S_NOATIME;
--	if (binode->flags & BTRFS_INODE_DIRSYNC)
-+	if (inode->flags & BTRFS_INODE_DIRSYNC)
- 		new_fl |= S_DIRSYNC;
--	if (binode->ro_flags & BTRFS_INODE_RO_VERITY)
-+	if (inode->ro_flags & BTRFS_INODE_RO_VERITY)
- 		new_fl |= S_VERITY;
- 
--	set_mask_bits(&inode->i_flags,
-+	set_mask_bits(&inode->vfs_inode.i_flags,
- 		      S_SYNC | S_APPEND | S_IMMUTABLE | S_NOATIME | S_DIRSYNC |
- 		      S_VERITY, new_fl);
- }
-@@ -395,7 +394,7 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 		mapping_clear_stable_writes(inode->vfs_inode.i_mapping);
- 	else
- 		mapping_set_stable_writes(inode->vfs_inode.i_mapping);
--	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
-+	btrfs_sync_inode_flags_to_i_flags(inode);
- 	inode_inc_iversion(&inode->vfs_inode);
- 	inode_set_ctime_current(&inode->vfs_inode);
- 	ret = btrfs_update_inode(trans, inode);
-diff --git a/fs/btrfs/ioctl.h b/fs/btrfs/ioctl.h
-index 389a9bf6fc1ed..d4e35fae1a25d 100644
---- a/fs/btrfs/ioctl.h
-+++ b/fs/btrfs/ioctl.h
-@@ -9,8 +9,8 @@ struct file;
- struct dentry;
- struct mnt_idmap;
- struct fileattr;
--struct inode;
- struct io_uring_cmd;
-+struct btrfs_inode;
- struct btrfs_fs_info;
- struct btrfs_ioctl_balance_args;
- 
-@@ -20,7 +20,7 @@ int btrfs_fileattr_get(struct dentry *dentry, struct fileattr *fa);
- int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 		       struct dentry *dentry, struct fileattr *fa);
- int btrfs_ioctl_get_supported_features(void __user *arg);
--void btrfs_sync_inode_flags_to_i_flags(struct inode *inode);
-+void btrfs_sync_inode_flags_to_i_flags(struct btrfs_inode *inode);
- void btrfs_update_ioctl_balance_args(struct btrfs_fs_info *fs_info,
- 				     struct btrfs_ioctl_balance_args *bargs);
- 
-diff --git a/fs/btrfs/verity.c b/fs/btrfs/verity.c
-index e97ad824ae16d..b7a96a005487e 100644
---- a/fs/btrfs/verity.c
-+++ b/fs/btrfs/verity.c
-@@ -485,7 +485,7 @@ static int rollback_verity(struct btrfs_inode *inode)
- 		goto out;
+@@ -3529,9 +3529,10 @@ static int smb3_simple_fallocate_write_range(unsigned int xid,
+ 		rc = SMB2_write(xid, &io_parms, &nbytes, iov, 1);
+ 		if (rc)
+ 			break;
++		if (!nbytes)
++			return -EIO;
+ 		if (nbytes > len)
+ 			return -EINVAL;
+-		buf += nbytes;
+ 		off += nbytes;
+ 		len -= nbytes;
  	}
- 	inode->ro_flags &= ~BTRFS_INODE_RO_VERITY;
--	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
-+	btrfs_sync_inode_flags_to_i_flags(inode);
- 	ret = btrfs_update_inode(trans, inode);
- 	if (ret) {
- 		btrfs_abort_transaction(trans, ret);
-@@ -552,7 +552,7 @@ static int finish_verity(struct btrfs_inode *inode, const void *desc,
+@@ -3551,7 +3552,7 @@ static int smb3_simple_fallocate_range(unsigned int xid,
+ 	loff_t l;
+ 	int rc;
+ 
+-	buf = kvzalloc(1024 * 1024, GFP_KERNEL);
++	buf = kvzalloc(min_t(loff_t, len, SMB2_MAX_BUFFER_SIZE), GFP_KERNEL);
+ 	if (buf == NULL) {
+ 		rc = -ENOMEM;
  		goto out;
- 	}
- 	inode->ro_flags |= BTRFS_INODE_RO_VERITY;
--	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
-+	btrfs_sync_inode_flags_to_i_flags(inode);
- 	ret = btrfs_update_inode(trans, inode);
- 	if (ret)
- 		goto end_trans;
 -- 
 2.53.0
 
