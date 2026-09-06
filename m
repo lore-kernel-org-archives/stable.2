@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBB038B7AA
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F41363C63
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660823; cv=none; b=OI1hdTWyYft1p1r1AEWUse92HzgKkI0ZR4euQHnBqGdOwvDw337W0afi3EdR2ZQch9jEPtDRk0TIZVmYngql4jGlsAXfLIPOq3NwrjM/ldqM3k51rc67DFY+OqestD31OJkBkp8JTQSpEZVUYrEPSLU4NygjJUt+zJYjqPBiQiw=
+	t=1788660825; cv=none; b=mDvEcQmzq4DtrSwX5eI/m0yiT4hK+chl9JMaMyhJ9i39I6PD68KWYUe8yXYF5Rr43UcRQT0NVpY60zuT5nx2hh8MjdeDa/xx4GP6N/45K9aXV+Lbl4CBNCdAnfl+wWjWWqMIv29iRVfOCUGRdvVx313zqP0YwyXtgeHkZ/aOXEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660823; c=relaxed/simple;
-	bh=/Vv2C2+b5AQsJ6K9TkBqQs0Scut+w2yR11OQSXsY7G0=;
+	s=arc-20240116; t=1788660825; c=relaxed/simple;
+	bh=0033GFncsVxXt4VxfVFB43GmPTXO0tqLWCU9k0qwadc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OJ8BkFRV+05+ekGJeAO4GoGEDhJ5BLLn3Sa440JyWfrzPf4olEeok8sjgUE8H/NYG7Vy6TmjItZBOvo60dio3noucMJhdNck0EphRMnDGbd/o0BV/orEnJAnzOlXa4FCM7wJnvfHakKTYwVahccoG+0kq4d47SEODkpLucHRaNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLTBakgw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BnHnpqdt4o19NcmGxo6HyonV3tEPsCDcd7Ny0neP+B3R0WDIdzckbUl2iq8tvxo2iisNdHIe0IL9DiXw13+eDNORfgoSbMJgIMoFbHomAjGl+ZsBKPNRI56yYXorX0nM4eZnx4+VM2UUlhQMAb6vCLrOIdmr4NUJncdaM5Nu5do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kP9bBdbl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLTBakgw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E3DA1F01558;
-	Sun,  6 Sep 2026 02:13:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kP9bBdbl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0C71F00A3F;
+	Sun,  6 Sep 2026 02:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788660809;
-	bh=xTjTcW75MGHngKvinm2t+i4aEkb7odFQHDc2XM9+l/Q=;
+	s=k20260515; t=1788660820;
+	bh=J0kmZI3xf3MyH3EERidynh9S+EVixKtAfH4czxJNWEY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mLTBakgww17+gukPAUWHdPTe7j7t/y/3vfy93lzJwCWneCnlSTF7ENeYNwMNo+JSC
-	 C8dtngxuJ0mOuHcHNxo9R8b1jd2oYYhBLHMMS63Oou1kZv0rKpH+I3oWNDRIWhJ75X
-	 dS9XyyUHpX0oe34zEfbncrVbhRVV4+M7AO+RsU6wVTAdZbPBePixUqoLnOqyX0hL1f
-	 QfK4K+7b8R1WROS5i4MqraLy2lG5XdtUf90CZU6O1XZBDT3f1INXvqg5i38tOb/pqu
-	 PfnHGT7AYXCEn6iq8hmQY1wceXaouUemMlAv3bBzY7JCiqzzx5+DAYIvfiFEK8vHUA
-	 Vh7SfJgQ7BQsg==
+	b=kP9bBdbl9M2Cze/2i0zyXfb+zsMVmrsbxLh2KlJEjLHwpwVajeseHXRx3FEV7be+B
+	 jLLO/SNY0ywlE1Y6WY0g5liP97x1f9ls0+37ZAeBLgkRF3MSKoF5iSkOrOqjfJ4Q4C
+	 wtU7f+diAUFvBV7cNN9VMa03VTK+/YtT1rsah4phQhuDRwuI3P8UpDSVTefWEMMr8c
+	 SwnyPu47L914WH0EUq1g2Z106LXz6v+B662aq7AiGLluneZoy1BABuVW/uSzsl/0ix
+	 KcW1IP6A8j/Wm6kjhR6mwYXt1bjm2ieIdk3xZ1qJ3dXoe4uUn9ACNN7pNaRzA7Wt2s
+	 jxFUfN6BI6aag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] NFSD: Add a Call equivalent to the NFSD_TRACE_PROC_RES macros
-Date: Sat,  5 Sep 2026 22:13:24 -0400
-Message-ID: <20260906021325.760715-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y] nfsd: gate nfs2 setacl by argp->mask
+Date: Sat,  5 Sep 2026 22:13:38 -0400
+Message-ID: <20260906021338.761875-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906021325.760715-1-sashal@kernel.org>
-References: <2026090306-sarcastic-gristle-d434@gregkh>
- <20260906021325.760715-1-sashal@kernel.org>
+In-Reply-To: <2026090350-subheader-pretender-b710@gregkh>
+References: <2026090350-subheader-pretender-b710@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,49 +46,65 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 218927aa47647cc3bb58520cc630279844d8adde ]
+[ Upstream commit a3a7e20ed66d3f04d37883c398da8a113b430769 ]
 
-Introduce tracing helpers that can be used before the procedure
-status code is known. These macros are similar to the
-SVC_RQST_ENDPOINT helpers, but they can be modified to include
-NFS-specific fields if that is needed later.
+The NFSACL v2 SETACL path shares the decoder convention used by its
+v3 sibling: nfsaclsvc_decode_setaclargs() fills in argp->acl_access
+only when NFS_ACL is set in the request mask and argp->acl_default
+only when NFS_DFACL is set, leaving the other pointer NULL because
+the argument buffer is zeroed up to pc_argzero before decode.
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+nfsacld_proc_setacl() then hands both pointers to set_posix_acl()
+unconditionally. set_posix_acl(idmap, dentry, type, NULL) is the VFS
+"remove this ACL type" operation, so an omitted arm is
+indistinguishable from an explicit request to delete that ACL. A
+SETACL carrying only NFS_ACL silently strips the directory's default
+ACL; mask=0 strips both.
+
+This is the same defect just fixed in nfsd3_proc_setacl(); apply the
+same remedy. Gate each set_posix_acl() call on its mask bit and
+initialize error to 0 so that a request with neither bit set leaves
+the on-disk ACLs untouched and returns success. The out_drop_lock
+path and the unconditional posix_acl_release() in
+nfsaclsvc_release_setacl() already tolerate the skipped arms.
+
+Fixes: a257cdd0e217 ("[PATCH] NFSD: Add server support for NFSv3 ACLs.")
+Cc: stable@vger.kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: eb0eca772066 ("nfsd: reject out-of-range nseconds in NFSv3 SETATTR and create ops")
+[ adapted four-argument set_posix_acl() calls to the older three-argument inode-based API. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/trace.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ fs/nfsd/nfs2acl.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
-index b951f7ffc0216..242f40b4e8102 100644
---- a/fs/nfsd/trace.h
-+++ b/fs/nfsd/trace.h
-@@ -16,6 +16,23 @@
- #include "nfsfh.h"
- #include "xdr4.h"
+diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
+index b3fddd772599e..3276f1a6ab799 100644
+--- a/fs/nfsd/nfs2acl.c
++++ b/fs/nfsd/nfs2acl.c
+@@ -115,12 +115,17 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
  
-+#define NFSD_TRACE_PROC_CALL_FIELDS(r) \
-+		__field(unsigned int, netns_ino) \
-+		__field(u32, xid) \
-+		__sockaddr(server, (r)->rq_xprt->xpt_locallen) \
-+		__sockaddr(client, (r)->rq_xprt->xpt_remotelen)
-+
-+#define NFSD_TRACE_PROC_CALL_ASSIGNMENTS(r) \
-+		do { \
-+			struct svc_xprt *xprt = (r)->rq_xprt; \
-+			__entry->netns_ino = SVC_NET(r)->ns.inum; \
-+			__entry->xid = be32_to_cpu((r)->rq_xid); \
-+			__assign_sockaddr(server, &xprt->xpt_local, \
-+					  xprt->xpt_locallen); \
-+			__assign_sockaddr(client, &xprt->xpt_remote, \
-+					  xprt->xpt_remotelen); \
-+		} while (0)
-+
- #define NFSD_TRACE_PROC_RES_FIELDS(r) \
- 		__field(unsigned int, netns_ino) \
- 		__field(u32, xid) \
+ 	inode_lock(inode);
+ 
+-	error = set_posix_acl(inode, ACL_TYPE_ACCESS, argp->acl_access);
+-	if (error)
+-		goto out_drop_lock;
+-	error = set_posix_acl(inode, ACL_TYPE_DEFAULT, argp->acl_default);
+-	if (error)
+-		goto out_drop_lock;
++	error = 0;
++	if (argp->mask & NFS_ACL) {
++		error = set_posix_acl(inode, ACL_TYPE_ACCESS, argp->acl_access);
++		if (error)
++			goto out_drop_lock;
++	}
++	if (argp->mask & NFS_DFACL) {
++		error = set_posix_acl(inode, ACL_TYPE_DEFAULT, argp->acl_default);
++		if (error)
++			goto out_drop_lock;
++	}
+ 
+ 	inode_unlock(inode);
+ 
 -- 
 2.53.0
 
