@@ -1,48 +1,80 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173F63A9D8B;
-	Sun,  6 Sep 2026 18:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 715773C09E2
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 18:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718546; cv=none; b=TfDFrl4M9xtP0Rwz4NyrhhlXQKBRUjpCq82+7pYPuPEc4xd8K7lawsLa+GUeeBuE9aGm6Gfzo3qZxGJJgE3w7mbe9Qs+BUk4vSbEg72liabiz3RtVMmWr+tMByGz7WEHZQc/foE+5mKluhDqiG7Z5ebqFXcRJFgzua1fixlQS4Q=
+	t=1788718630; cv=none; b=iWfpL5iiWNnLtqgNlsGRSmAqqssLcYw/PLVi/4QALJLnwNjiuArGmpfyOD+G3vSH57z8y30Z+0d6xx+zopzsaseWbsTx2hHiPvhNoeaVwTeg3/zDj19eomt1PZ+JmBVbq6wTKmoXtTxGRjWvxRB6yB+j2nBGh0SA7echxlh7pT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718546; c=relaxed/simple;
-	bh=DwKl/Ybx8U39TXvM8UpOVW0Qi7LK2eu9evJzyiioO8s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lR3cKt74SsoMorLAEyDRoHvsqUhzx8DQWhIr3DcXool9aey+HWXfOS/zmKltdKQatE0d1hf9ybnZnkbTyp+kqN6cFrxwObbiBuQoXZFrsZj4Zk6/F0JgAJ4rm3+DKd/Y9HvzUdcuEBYWERgm+YEVv6uzje42WbEvUOf3GOjnSZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=vk9djoA9; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788718630; c=relaxed/simple;
+	bh=zE/2hqn4I9P57cCKdIKN6nY4HEnzOsNL+Lxb4BdK5Vk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=plEC5ZZ0yqBDhii1W6Ct6nTEp0D+6uMfwLCYiKKNxBQoyulEM5g7qpdQzdYl40133iS1T1GYVHqOb5o7CDmtEJxR8zd6PmMs7nt5YijgdECknzH1QQW7AYeQTyhZhdard/d7tBiYtDhWW+hCkSVPrr3QJ52PZYrR2K6FIBpTm00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+o5tDm+; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="vk9djoA9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=0gmucofUWueKp4eRQoBCRPC6i/o47qfE7AH8TKwPyXk=; b=vk9djoA9VV8SF2kp9W8RePYVOz
-	SXYNxDV/k0iFQNbnHv3rCE0I8RkJLevQkwIL8+jIJ9VQko3GWLSNt3PbUSP1M7bwVEOOVHuSkqv1u
-	AC52R9YRYl4YHbvab40NpribqlvajojCeVrC/dHVJGolikastAbxJ2ntn/sVTGgUoF9FyhLRxffg0
-	evs5Me+F+Xf9vJOZ7dlIXm8gIFVQlN7MelhkS63/2hfjiE9tiQaEvReR+4Nr1ct5fs4Ctn5sQX7dw
-	zuL45VqJsB2d+dPiX9f52zY84YVg+SNL5iHgAnzgxHYtlhwgCZ62tZA9ED5uJ0xQuL/cnysu/q4h2
-	NLV+qo1w==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x3HP4-00000000nxg-1E2d;
-	Sun, 06 Sep 2026 15:15:42 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 5/5] smb: client: fix reparse point file type corruption
-Date: Sun,  6 Sep 2026 15:15:40 -0300
-Message-ID: <20260906181540.647469-5-pc@manguebit.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906181540.647469-1-pc@manguebit.org>
-References: <20260906181540.647469-1-pc@manguebit.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+o5tDm+"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1a5b5eso375495e9.2
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 11:17:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788718625; x=1789323425; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
+        b=K+o5tDm+s9drKsg+ic/JvPkVIPEltlhZlGhLNY3dXQumcoqVAeOn6hL4zwTjQivGro
+         Dcdk9YEf6K2yA2iF1kb615YITnEuzz43ghFR/x+dKWPRcaoGAhka+nE1M6ynpaCR1Tyg
+         E0O25V7Iklcg03P+D2VjvO0tHN9CBZSdVr8dVR+JwCCq/+b6szLM4FqizQkm2hhKZRxW
+         8SW3eh8Tvdo6xA72XqGhDzZfshvENnuUuJLncC+0MECM2fF5d+PL1JZA9Aly5WlN8QJ8
+         NcCZu/UEMET+PHJKtAgyMX3OPtKf96LvCJ2aiYCgFzMFZVWQDKtjQ9vlo/3/t1bujd/A
+         Oi4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788718625; x=1789323425;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
+        b=i38C6aum6OlMDVoNgexZIcRK8FGmlsfcL7PkHIkcE8uRTzxQtz/BEZ3ylAWlY/6JlE
+         PxQ4S13t9C/JzUMbXrSzhN4X/sMKn8lcJuQI75HZHGXALHeKHoWG7Cmes+K6qCUp9OiT
+         vRg50i0qOSVEVJKNjYObT8Xm6mNvOiIeK3sdw1TQzDqsIy5KcWR9YdDvlXRXWncYC7S+
+         PhLYUFA/2+mtO0XBWZ+y2HfUpsSGL6iSU290ckCm3S71TzSXalX7yjA3DA9oBeGk89al
+         y8I3dyuk2VsvSBmK7zbz5axgVLFmkgs/mSIBd0KMysE5dZMGW2tIUUTryM1KXHG28QTT
+         nA5A==
+X-Forwarded-Encrypted: i=1; AKwUvBxP2s1XK/lIv5vG/sqUsXyXTXYvddqqM664I7EemIHwfu/G0H1FVELRAAGCyuvT3b4ystPRfCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNTf5VoqtiKdnPK84+zMBR3o4H+MRm0zBDaQ+89/EsLXHECN85
+	IrEr2DNAc9QFMzLM3RMwCYOXILsGW8dIBLrBjQf6PfdNhe4zxNlCF31O
+X-Gm-Gg: AYBFou1WukwDO8vJuHlNlZM4+r2tGGdf0KCaXIE2WS4njTdBhRwBBcc4BSd8g1pcNt3
+	it2AU0HxIXyqvqd4WfWb4MEeTNQ04v/6ie2/NlW9iy6OJgl7RMkZE2OOUIAURm3KDPMIUz1VaVR
+	qaZ4x45cTn2tCbM15r6fCG2s4ChfdXOKOXlyVVs/fx+nBkfyBoBVOz7xEGy/6YGWon6EJkNjWtm
+	MxZll7eTIBe0XxP5e9ymHlxvDqitIcPKf8VVCWRXk/gaBY+5w24hXAzIl8EyHVUP0dj/rUwITsv
+	YB0k58oPyfwQ7Tpaky7uxGYDBQ7dSmplhhE4xkULKjcge54i3e/7fWOGg6rIFVmtNe8dYQWIX7n
+	RgRXiAdfEgz0JbMfmsfcJqtwL4DbNCS/+zDfAIfnjeN/MdLrlwK04O9fI1EOV/5DWkI8PDQehOi
+	gXuOFrD4uR7aLxXa7yLd6qoH2H1FA99nzDuzMiJ1sr83M+RBclc5z9eo+jQCO3XOj9gIx1+Rcis
+	nz3f0GVQQixEZb4RDpZvjSh95vQVq265pZIgV72IAzmy52+IPJT5b0OsSfVXLgGSvQ4s0jvq63m
+	J7c=
+X-Received: by 2002:a05:600c:c494:b0:49b:916a:e553 with SMTP id 5b1f17b1804b1-49d010c2a57mr100932445e9.0.1788718625331;
+        Sun, 06 Sep 2026 11:17:05 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B886400ACFAF9D8E9019935.dsl.pool.telekom.hu. [2001:4c4e:1b88:6400:acfa:f9d8:e901:9935])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm433916725e9.1.2026.09.06.11.17.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 11:17:04 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Sun,  6 Sep 2026 20:16:22 +0200
+Message-ID: <20260906181622.11991-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,53 +83,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-wsl_to_fattr() and posix_reparse_to_fattr() set the file type from
-reparse point tags (e.g. fattr->cf_mode |= S_IFCHR).  When cf_mode
-already has S_IFMT bits set by the caller, this corrupts the file
-type.
+The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 with a
+pull-up for this pin; the mainline board file uses RK_PB0, which is not
+connected to the RTC.
 
-For example, smb311_posix_info_to_fattr() sets cf_mode via
-wire_mode_to_posix() which includes S_IFREG, then calls
-cifs_reparse_point_to_fattr().  If the reparse tag indicates a
-character device, the result is S_IFREG | S_IFCHR = S_IFLNK,
-incorrectly turning the inode into a symlink.
+As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+cannot wake the board: rtcwake enters s2idle and the board never
+returns, which looks like a hang.
 
-Fix both functions by clearing the S_IFMT bits before the switch
-statement, so the reparse point tag can set the correct file type
-without interference from previously set bits.
+This was verified on the board by enabling the alarm interrupt (AIE with
+AF already set, so INT# is asserted) and sampling the EXT_PORT register
+of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
+(high with AIE=0, low with AIE=1, across repeated cycles), while GPIO0_B0
+stays high and its interrupt counter stays at zero.
 
-Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Switch the interrupt and its pinctrl entry to GPIO0_C6 and use a pull-up,
+as the vendor tree does for this open-drain line.
+
+With this change the alarm interrupt fires while the system is running
+and the RTC wakes the board from s2idle ('PM: Triggering wakeup from
+IRQ 52'); before it, rtcwake never returned.
+
+Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
 Cc: stable@vger.kernel.org
+Assisted-by: LLM checkpatch dtbs_check
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 ---
- fs/smb/client/reparse.c | 2 ++
- 1 file changed, 2 insertions(+)
+Notes for reviewers (not part of the commit message):
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 10ef82d46d86..773ad2e21b47 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1146,6 +1146,7 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 	fattr->cf_uid = cifs_sb->ctx->linux_uid;
- 	fattr->cf_gid = cifs_sb->ctx->linux_gid;
+Measured on an Orange Pi 5 Plus with the vendor-style method described above
+(GPIO0 EXT_PORT sampled while toggling the alarm interrupt enable); the vendor
+device tree for this board uses RK_PC6 with a pull-up. With the fix the alarm
+IRQ fires at runtime and the RTC wakes the SoC from s2idle. Note that on this
+board the resume itself can still stall later in the USB 2.0 host controllers
+(a separate, unrelated issue being looked at); it does not affect this fix.
+
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 145986695720..572b892e4066 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -189,7 +189,7 @@ &hdptxphy1 {
  
-+	fattr->cf_mode &= ~S_IFMT;
- 	switch (tag) {
- 	case IO_REPARSE_TAG_LX_SYMLINK:
- 		fattr->cf_mode |= S_IFLNK;
-@@ -1234,6 +1235,7 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
- 		return false;
- 	}
+ &hym8563 {
+ 	interrupt-parent = <&gpio0>;
+-	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&hym8563_int>;
+ };
+@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
  
-+	fattr->cf_mode &= ~S_IFMT;
- 	switch (le64_to_cpu(buf->InodeType)) {
- 	case NFS_SPECFILE_CHR:
- 		if (le16_to_cpu(buf->ReparseDataLength) != sizeof(buf->InodeType) + 8) {
+ 	hym8563 {
+ 		hym8563_int: hym8563-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
+ 		};
+ 	};
+ 
+
+base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
 -- 
-2.55.0
+2.43.0
 
