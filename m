@@ -1,61 +1,62 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011029.outbound.protection.outlook.com [52.103.32.29])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazolkn19011077.outbound.protection.outlook.com [52.103.32.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40300366546;
-	Sun,  6 Sep 2026 23:37:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777423BED38;
+	Sun,  6 Sep 2026 23:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.77
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788737821; cv=fail; b=JuxqWb7hMqEaGa1HqZEYhiWBkSHtzWG/S0MRRLnqBhLiraYz+3/Z9xBg3VbkQl6qA0uLQSrd7WWblBx8/O35NNYI1pv1b+IJ52iQ8pBWDOLcJNBlISuU/2bJZVLsoHJO+QtDU5Iff5DlUSTDGe37+jbTb9feT4wb730mb5Ah5HM=
+	t=1788737831; cv=fail; b=bxnEH9N5pnoQsxl0jevMCwCG8gkl5ox5dEVjcn+kQ7v/htTxsUIA3bUsPqxILOgeoBhtfhFnWwr1CxnfZvWpO1LwHKyoRBCoDn3PmOA3mMOzQq2DffAvIDAI2NHx/gmmuZEAlUbU9qBkNvfW0ENMrX+O4yjW13PaP2G8xM43psk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788737821; c=relaxed/simple;
-	bh=4AJcHqt3VonKZqH+4RUEuNc/EDWcMcJy2iPljTXz6rI=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=DgQPnCZvwxA+1xQXBGeYHAX2NfZZnRe3ggM57pttHsb2TJ2/bEdjxLnfxAEhC8rwQ9WKQx5+d3rHEZMd2v7xz9jeTaMevZ9u92Y/ILeypUK2hFbwnITJV2lWiPYgdzcPd5W3j/7lK7HOjhBcrB4TFR17Ht+ei6sdCTxqLXqTLO0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=DQbqzYQf; arc=fail smtp.client-ip=52.103.32.29
+	s=arc-20240116; t=1788737831; c=relaxed/simple;
+	bh=lnMsMGRtYKVBdbXE8Mjg0FTfezZl/KnLsttGc/0Hw0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Gs0GdQEy4Sr54KAvfrfv9UaDKo2vixrTzh0l5dWpuXu+WL/Ir0mHgihV8xODBwLal0B48wAaz8TR/dz356k7ZcOOo+8ijCTk4LA4DcalfFOUQm27nG1YjnidaA4X7P0xybVv/LrUY1nrhLtsi9hTetA8AoPKgLKlxG9uKLLTPQo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=uTivi8MZ; arc=fail smtp.client-ip=52.103.32.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="DQbqzYQf"
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="uTivi8MZ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B4gbr+au75RPfPxS205Wn2ZrZ3aLZsDGbtGwtDz1cMAUHoLw/4xaMBp2XeLlv7c5nHiHd3pOmwEVuLkP7DhoLI14BRPR+yMglSsHCpDup0S5TL1SmfClOnHtyJKjggno5UBf7a03kWIONePFoXF7hIo0kvaKJavkOlCK8rlkgj2tf0ipwAJm2j3TUr0GJ7IT8S42ZsUQUcnthigWVhW67WnacVQITT8E8ONhDu5VBLK///d9MAXv0VRcaFPl66mfZeJa7WpP+RiU0fITNvK/VJVi2xPsmEwE2XPNPuho+v0/M868+TPUMf89ad7W3DKqOY8/T9zW1i6dcQXxxqdqWw==
+ b=Am8tQ1IPXk6D+nbfPC4GclkgHocEBNjkJFF3Kpo8c2ivcRYDPBNOYmO977EnXQr6O8UdCD/8R+XJ9Tk2bQEy5ZOyzKSqugfY9GR+nzPSeTt+YHrrgEuDSq6gPaHydmL8wirj34iDkyhPEkX6YYOkZksPJ+RhsX+Zn/Mx/VpJZxe/JUdhIk/QT+5oA91hOsgBvRJH1mfJvnyHeyO3A78erbMxpZUFsiC8THsW3E2811Rq1aoVIkPhg88ISt5fPP3k20AGchFJp66vsjFtpfJ247O0vfprUI9GR6lqiwFrmKxXH4fYqVOZddWEBKbTP0tg6MqGo2hqC7WBZNXP7ZoFLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ev8gbeuZKsEJ/gis2er2YJHgMzFWJ5Nno+Cq+rD/oBc=;
- b=PhPVAS3PzfRUxatzCFpF1pIIw53GtX0/FDaftbz5N1NxgJcoHzAGm48iBRvIPyPxuRVHspcfK4jMjGiQBzh8mt0T/otORjXyMTS1etxdUIMPZ6FoMhAyOh3g3iEj2aqUn3tkwElJHOn8CwP+d+HIDAajwCpRBzngPDbGe7sZ8+cTReJuQDpYi0am/2HQMs0ECxj0cqu7LQl2h0boMxAi0oTkoNeWnt1HyT3g7o7pMk35QtZaK5BASJmvapkFl55aOyTq9tBbaan1P+s1ENxpVDjz3YPoloiaITGizjtJojIYMOtRODpiLrAb3aOsCtPeH4aCguAc9VzVz/T7mxvAQg==
+ bh=QoLpxzJXBBhezON1aJ0acIdpRsL5fIciqN4C7oojW4I=;
+ b=TuTHPFgpXRiMN0S+UO/useB/riL2mmbufSCpH78yBc6xYlZRsP7jw+n3eA0hiGsIFnVf0tuz6pLvg4rHpoN6BaaRWWJuczuNsjiDIFXTnU8nFKRT2QBHTPcxPpHVaQjeSa0316zwYDVrfO5de4V9/XiGsRO6ya38QkidMkmNVUcpFcoRAw2iE93cV7aeedPGOdErjvhgfucR09eFqrOmIeSfMgfn2NuAtdnd4qF4RfCLs+Z4cwX9afpBNoCxhP8uFiGNl85RrWhq5D8pEoJ8wlylIjwOmOnQSkrfgCnGIiVFQWKriVNMT1coPZFQMnkmIcyydQ7QeDv0MjvOT4Rznw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ev8gbeuZKsEJ/gis2er2YJHgMzFWJ5Nno+Cq+rD/oBc=;
- b=DQbqzYQf5tMGXFipG8m99suNhJfioEK+eSLoPIWq/GgL5JfLMV64lRhTCJeSdGXjfGuJdU2XPL7WI4XJIDGgXxcIBbjnbVcjcCHqiXmZfyry/mt1zis7oj8hMY4HAFzNWjYYXC+mWMUJFftSy78Oyd2ukSyaA7GZL43CsBI4jMy5ytYNcZ0vWyeYtwBkYw64bgBK1M/MF5ZJhT6gKBSEvZ4J+2TiukJho0fKsw/yLV2pef4zXtvrZv59U23r+6fnGRtkQTD7eJjAFIZ3K9m+tnOzRzSdBkmS7SADHGWzhrfFYUk4fu93jVof7V1WBnoLHHKbso/hK9VoOFR3QqEKWg==
+ bh=QoLpxzJXBBhezON1aJ0acIdpRsL5fIciqN4C7oojW4I=;
+ b=uTivi8MZaRm6wdplH7li2nUWLjfRa45PfNxajH+fRSNL9pRWohtoRYghy0Gtl3h8r9s6yFru6FvPSFY3+Cq1W2CdRCT/4eM5JoNRAeRmu/nvJpx6mDAEPhdXkodgglPgm53aHfqacLUeg3ryFpdlKTiA4h2sznBOrmyddX4r/bnJ1qW8pjIcIaDuDDr8OQX8MU82vWIJMmqHaGaK4x/jIzMDlVawr4t6vmt48EODxPyluNjEgoDSfK5cfanU4+jMkiSEA9vWcnWET9tWKi10TSMa7mxHF87S6I9Fmkk7YdpRx3V79HpIKvSejDZ3iWbb8mxuXKTTfnxVjwWRTaOdgQ==
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
  by PAXP251MB0113.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:200::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Sun, 6 Sep
- 2026 23:36:58 +0000
+ 2026 23:37:07 +0000
 Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 23:36:58 +0000
+ 23:37:07 +0000
 From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: David Heidelberg <david@ixit.cz>
-Cc: linux-nfc@lists.linux.dev,
+To: Brian Norris <briannorris@chromium.org>,
+	Kalle Valo <kvalo@kernel.org>
+Cc: linux-wireless@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] nfc: digital: check DEP_REQ length before reading DID byte
-Date: Mon,  7 Sep 2026 00:36:54 +0100
+Subject: [PATCH] wifi: mwifiex: validate scan response TLV lengths
+Date: Mon,  7 Sep 2026 00:37:03 +0100
 Message-ID:
- <AS8P251MB000196084524EB27D62162B8C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+ <AS8P251MB0001DD15CC44F76B4BBD2853C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
 X-Mailer: git-send-email 2.53.0.windows.1
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0129.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::8) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-ClientProxiedBy: LO4P123CA0188.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a4::13) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
  (2603:10a6:20b:344::22)
 X-Microsoft-Original-Message-ID:
- <20260906233654.87695-1-elb12345@hotmail.co.uk>
+ <20260906233703.87706-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,62 +66,61 @@ MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|PAXP251MB0113:EE_
-X-MS-Office365-Filtering-Correlation-Id: aef30c1c-c16c-4a72-3c31-08df0c6fbe12
+X-MS-Office365-Filtering-Correlation-Id: d1e7bdcd-cdb1-4f4a-2948-08df0c6fc39e
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|55001999006|5062599005|5072599009|15080799012|25010399006|51005399006|23021999003|25031999004|37011999003|19110799012|8060799015|41001999006|12121999013|440099028|3412199025|26104999009|40105399003|2607281247196008;
+	BCL:0;ARA:14566002|24021099003|55001999006|5062599005|5072599009|4140399003|15080799012|25010399006|23021999003|25031999004|37011999003|19110799012|8060799015|12121999013|440099028|3412199025|26104999009|52005399003|40105399003|2607281247196008;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?+Ag+Ybh644lErJAgf9Al1oHFk5dpDF2kZQ6AW+CJQcNpcevdXFc0FyVV72Km?=
- =?us-ascii?Q?2JmY9yCpVP2pS9AFhqxZIgCqfAcG2Mf2uk/NuoRveLH5dN3IZZjjdrqtR/Vw?=
- =?us-ascii?Q?RR9gl4zmOHObOMzLmdQ1NF2FJDwAYmCtq7PSAQuQa0chL6TnzuIqDDbcAnzQ?=
- =?us-ascii?Q?uUQmf2qhpcJYAvPdx5SF/DP9R3SYbfOe2JN7P0+cJbV5zNmwY0xFICkXvM/N?=
- =?us-ascii?Q?tP1OgHbTSu5qXLSxPKmGHTzjli+w0n15FLgvqcqXm7F6xn6C0SDuMbWaq5pk?=
- =?us-ascii?Q?2CyhoQAte7EdvuDkpd/OemVVGVzjOnVU16MlFuAgcd864Fj57ZFaeWqf2QBP?=
- =?us-ascii?Q?fjpa8msZ7xfqwuEaw66Wba/yTC+8tNMtzQY786mz1iThhulfZrGLczsNQ2Fc?=
- =?us-ascii?Q?4nEpS79Fs9AS6UhDHwn5KjJYckcXBqTShqvPYmVAohMfZDa2PjUgTkNNJkc0?=
- =?us-ascii?Q?lPI1TJJbZFTAx/3zbnqotSKWZwRNYWCrUb7bIUanTB2fs4Ie19PuFpXC50O5?=
- =?us-ascii?Q?ZiYy8DNlTTNtXk9cGbOxmxYEBCyLMWP+TBsHQuyT4iLKg8+VosvYwFU0p1Ev?=
- =?us-ascii?Q?tG4gxsgpOrQ2LeCDMroswVUHHBJ+QSbNtF8Zj8sYltn9Xd/qcI7gTGpE+oBs?=
- =?us-ascii?Q?oNByiXKlVwVxxh5mMhbRxc6Uc3AG4O9g/wZneUUA5WbwinNz5fESFwY+7Li0?=
- =?us-ascii?Q?5+HwkhKRSiYwVHeb7qVR82r79QFt0kn3FIsO0SKHFubD/TxaBrepeC2XScCz?=
- =?us-ascii?Q?V57ZKmVzHEc1JUeghPJfewXE4YF7aqt1SpyfyqGiWslRy66ECfo17SfoZrRg?=
- =?us-ascii?Q?9HPL83MPx5Oc+haeyw9qpX5rbfhEuS846WVZ5yJfJ4sXAOh5WltjBiATnd1U?=
- =?us-ascii?Q?fWIC73Z7IiA6XN/teBcycSEfz9soh98c+gKGgJbsdKo0SFgdDUO3YfGpHxKM?=
- =?us-ascii?Q?VW3JxUiSJQGqAdCCNkRUvOUhkDXz8/avIcjaNksHZhhzFkuwN6s529beRxNf?=
- =?us-ascii?Q?7hidoZC4PP9lDBJqdMmMVhMtLurmJqWfGbjJIwAO32Oi/vOdFTZsBL6bM2Dk?=
- =?us-ascii?Q?7Hfa40Ijh7/eYg2Ik7+wKwkPLsfgdEmanx02ZsY5KDheLd57bh5suvDIAxO9?=
- =?us-ascii?Q?dtod5TTyrjNZ?=
+	=?us-ascii?Q?d3W7XkMyygFTrferilSzR3SZYZ75AMFYsxAFl46+mAuAAmboQp/eDtA9yxhw?=
+ =?us-ascii?Q?dowth8w4MxJP2BiLL4TAFcxuUrup3vz1o/igcyWW0qPZriRYUf+KxcLY/5sY?=
+ =?us-ascii?Q?RilFwprGs6yuBCUMZARFCeauATc8Vc66LywMCGuXFNsEOhyqz3Gbuzr97jzd?=
+ =?us-ascii?Q?/0v3ykoNQn/htEaEEM82Xeadwq1N6KUzTViHr3nqTX9xYJS3UA9thvGBW2cJ?=
+ =?us-ascii?Q?JgtZq9xiXlTr/ZZBrWOWOF3QbCnj49/29xTRAnuBRi5zup1yvOMR/wDixvZR?=
+ =?us-ascii?Q?5FDdsnB/hFh6PJohhd9dBbfi03Va0C3wEEPyfHR3MzHp6dxmvXak4IgsurS3?=
+ =?us-ascii?Q?75vKgZataIGoWg6dcEysSNTe24+m7BDyUPQulXCrfcsB1Ln5OWO5JV9FLXgP?=
+ =?us-ascii?Q?LLI0vzf0HCrREUZDj+K/8x6VCV96d6b3P7K/L8kHdnQEEJUu7mV6vuyJ3eVw?=
+ =?us-ascii?Q?mOWwbqFGPe7b0r009LmGNZXHG2k+/fe8PzP+Mc3H3jT5n0N1irQ/eZH98dyV?=
+ =?us-ascii?Q?AW690IZSC3roL3ZhfA/f1FmncUWijZs1JLzHUHplt4FDgRHALKri2n61reoi?=
+ =?us-ascii?Q?Nv7aMxLbQq1y3jqBM/0yMiW5Du/GtjC9UsJaixPPzfLaFBZL+12c1HkluFv8?=
+ =?us-ascii?Q?XuIGEKe4rrFF/GboDlKYuNsWfU/2vSJjvDRJrkhpU8ICfQYezEB/NSlh66dr?=
+ =?us-ascii?Q?J8l5vd/ehd7VHGHUWd2fenv1slxHzoRi5whyTXhVaIDPFfUfQOxoTWfN7cJP?=
+ =?us-ascii?Q?1LIEwRtM/T8NkYAfk6FwIoxmUbx4iRqogI/CihVEfnwGnpYV6yzpm5fv/spu?=
+ =?us-ascii?Q?94YVuO375mQyUv8ept9TUVHJkX143Sr8pe1gRL+rE1twURHSEggt2RppzCBv?=
+ =?us-ascii?Q?eY3YUeVI48XEeLC31unrwIDutfMKIbjG4iBkHBe+R3Je2Qmq+weOMimRRLat?=
+ =?us-ascii?Q?2GUTybpcPnOWO1rsGlky5zZcSKUmTzEJncIZ3Vwj9KnjZ5KQta+g/ZvIZsi9?=
+ =?us-ascii?Q?W5UgJzgCzkiyNQ9GbW1sXoKu8hTp1iO4c5p+tlePDpHKtWpWQObtYvSZfsYi?=
+ =?us-ascii?Q?OK81IOPs6fdylpR8XZkOrRbj/kK6eoYqMtkqlCnEJ6Rt/GUYSxo=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bS0sII7hWph0ka761Z6MdbmiQpWrnS2E1FdooaqAxCQeHxvbJ1rvbr8yJtKI?=
- =?us-ascii?Q?gcOf0nPTp38IM4KYOwvk+l4GvM+6rFhuLffvpubUR3aa7+8ez99opHCnVU9E?=
- =?us-ascii?Q?DdTNG+iLLx1TPJcAO7R4U/03Ur5QX7VWhemw1wjAOkZ2EkiInLPqyppXAMya?=
- =?us-ascii?Q?jHrUgKZx283WgRds4lRBDMJefsURiT8/o4yLSxDNWV0yrixvwrjL8lIAgd2z?=
- =?us-ascii?Q?PH9ICRwLzn+LlM/HjIjReu0ROhELy+bisPu0qcPs3PPojbivcFEAFYw7XSl6?=
- =?us-ascii?Q?C8C7myhRb9Bi1iuQdtH/jHs9dCenEUoO8/hJZli7vcAuCvh5EjzCmxzBaUX/?=
- =?us-ascii?Q?lk16kz9xNfmBN1RGcE0o5p4Z/sIMddC37b7Nkv6ASWqDmZ4G3ggVvQLdj9Ji?=
- =?us-ascii?Q?z3X1skNmnwiNcyYXS/T7cJOHkIWYAZhvYqLD7O7we+ruO7KHZ8o6qFgRTZu2?=
- =?us-ascii?Q?H/xAzkw9pn42GywAHhbI4G1JrhkSsRIw45xK3fndUumfc45iAHTiM8LyfFgT?=
- =?us-ascii?Q?JEojtFJLTcXEXFH6eb8TUYmAG2994KllZ51xf1I4RcGMtOMcVqNHqj7ktgQc?=
- =?us-ascii?Q?9vr8yIN6IAaBk2tba9OdTf8yXduNeq3JkSlWKIOMpCsb+mW8Dc49c/L98vuz?=
- =?us-ascii?Q?BvF9gkHHczvgdX+tyaFMMX+oH2Hi/92H8KLKehWA7QElBCGvttEkFgzTfFXC?=
- =?us-ascii?Q?gS87hczclzlv17O90+utEePkszJtNQ5F6TuL5a4rmGOn1k4kCkMVYj9/rUov?=
- =?us-ascii?Q?i4WLEaLnI/+EBmcyZfp13M0CtDCDi9t71CZR67k1Yo2HWTcpB43x3Gori/S3?=
- =?us-ascii?Q?arPe+K5mL8/af44XE77Oz7CpojtLVpfPlg0vfaul1g5McJhJwsMdUQ/NKRmJ?=
- =?us-ascii?Q?NRwObx3h8HhMSZB2CRULQN0Wr6Y23f+uZLbgPlQr1FVHBgq7SAMOWIRvs+Sw?=
- =?us-ascii?Q?eqUuzUZ00jEuRW+E2tCq7r5ZS/TD3RHNh6NINZcGV/bCSIyuckVgZ++8rKEA?=
- =?us-ascii?Q?yAlhD+h/wwL/jPP4U631S06DusYs5j7S9rFjJyBLY4tN/UQbqfitDmW1TNC5?=
- =?us-ascii?Q?xlC4w5cPRKR5lcpdQ9479yOMdFT5I1PmXT/ohZviU1ZyVlVYEpTynwde9SDG?=
- =?us-ascii?Q?vOupJy0DDEcm/3fC7TJFC0TW0FT4aOCg0gf1q3kgvVm74N3xLObfh9vb/Tup?=
- =?us-ascii?Q?O+b7YRoHIG7cik8UBX6IBIJC4V/th5aYtLtDXK7mPZTSq6wm1f0nNT+PeOTD?=
- =?us-ascii?Q?czkQLYhqgau2eaw+AMVfuqGS+Lhk/7qNbaj8uSOOXNL51PMZJyNbEMoSg14o?=
- =?us-ascii?Q?3GdzlpTeEJAec2wDmSBw72LO0Wi4p66nShGU4aWyQZTLwF54On11uyX9+Eap?=
- =?us-ascii?Q?NTyhNxH4ZJFXMgoREGkem2kYNxLpmSJxY+QBPvGvincEimLwbSLicf81Bwkr?=
- =?us-ascii?Q?NM0DAzWeF7o6DLgyhC+EbmoEdsjMPaf/?=
+	=?us-ascii?Q?WHtpqP52I+ekIz3pCUo0ALqi2fkvtzvxaCLGaHNeoYTuhEi7Mq/xdPUBI4FW?=
+ =?us-ascii?Q?inSoZY9x3Czt0GHpfCnA89NVykbKMQzoNPBEogTDf+hYVmDDxFjXnXlvKKu+?=
+ =?us-ascii?Q?hvn9wXuyl7rE7Mh6YaVGUkFvVONeLexuFNqfPSkZRKKsTRb3sA07J27pl4qr?=
+ =?us-ascii?Q?lmpr6b7WtPr8D3Iq8b3jkaBDW4QQ7regycupaovHZmPuW55qOvBvZT85J+lq?=
+ =?us-ascii?Q?pacYdcHLldHTM+u9vv4Ntcnt6DZ9X+UGHeZVhcWkzVm+Fp8gpe79GzABjYFv?=
+ =?us-ascii?Q?0kVdf3bl5FY7+fJCxWQ8Wn7iQDE7LaunUAlIrKeZKlwcp80NpVQHjKo/iXFT?=
+ =?us-ascii?Q?WPjh8qD0/gvPky6bNrOAcdcAgvIzJgqZnqlU5tdVT2qlvQLVGXrkEiOZR4a6?=
+ =?us-ascii?Q?K4VTgSloLqyNA4T/3B8XyW3gJf2QP8xieBuFuR3JXQV2oBnL3lFq9zrEZXWJ?=
+ =?us-ascii?Q?G+yBwNPKcBK84Af/iOilJpbkVJb5PYXj7HRCMRFsdWX85ZbJuvreJQlxxZpw?=
+ =?us-ascii?Q?GL8FbNqBK2NMj1ZXaxk+kUc+SjhHcPIcBpu/tcOIJiFSZ/sWZ4mI2RDAGKqZ?=
+ =?us-ascii?Q?UEYh1RCL4VJM6s1/IuKTdHMv1l/cpnG1Fv55Vw/ro+pP7qKGXJqMlPQrRoc2?=
+ =?us-ascii?Q?+o3GtPb/RLo63Ys/l/6RnC+rd6v9imd8trwd1MjfdwATBGy9tYep9myMFaG9?=
+ =?us-ascii?Q?Nc6ScotlTJbyrCDYZoDFW7tIpWY0cWMqeP/KErQMsqYpEYZ8jr6pcyDonSfn?=
+ =?us-ascii?Q?h3WYCKI8WVFrNE4zsH1FVHL+1E7DRQ/3H0dwTTnS6eyDskQRKVrAW8MeMzbo?=
+ =?us-ascii?Q?65R8FHpJkEK1FtmdmrMvJiSmwBjui2HMG5X7Npb4AKBQfx8PBqxFEoX95iBz?=
+ =?us-ascii?Q?D7FHn5UwC3o3A/s52uyx/QNxbnHy76I7JL0fiWZaI5hqYtc9I7XgsYUlKY5p?=
+ =?us-ascii?Q?jBmgn5+Td8x0rrnvmM01pUYiHYz9GiZX7/SFqWS+EFgOQiWTD/LNveOPpxf+?=
+ =?us-ascii?Q?grSGCeoZ54aCkRkMcnaDaY+IBV/RuuAajK7pDMsKpLR7Jr2mkruchpUeTemG?=
+ =?us-ascii?Q?AvnduPaMFNhtay1LccVJPf0VlaD7RfMnGUQi0QBt4jvWhILalC6QE62TX1cy?=
+ =?us-ascii?Q?1gQDOvkZM/FcKOP5rzmm9syEPJOAXrJEdJRlPJEWMpFAGq8R76fHv/4b2GFi?=
+ =?us-ascii?Q?4uMpP36f4SvXDyKlOvpvw+khSI4PU7fuXILpn4i+xTWoW9XNSjFmfkZoPi8C?=
+ =?us-ascii?Q?F18cIBlFckRgv3xGbMt+o+s6j4TfchGhJJMcS6ghqu6WCrZbdE4LGYidTJtz?=
+ =?us-ascii?Q?BS4pXDl4bExP9WN4B9zAN8+HXvWh7PIg6pr/R8yrHdJTM3mETNMLCpGJtKn5?=
+ =?us-ascii?Q?C9ZoOyX8oRXOrIC7x7wfX2Ba+vNIux1I0yDQf/v544xpCtHfXiNfbJUKnE17?=
+ =?us-ascii?Q?mrjltm9ujWX4eMLSzWjHfPwjIX76VBuv?=
 X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: aef30c1c-c16c-4a72-3c31-08df0c6fbe12
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1e7bdcd-cdb1-4f4a-2948-08df0c6fc39e
 X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 23:36:58.2091
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 23:37:07.5193
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
@@ -128,50 +128,88 @@ X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	00000000-0000-0000-0000-000000000000
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP251MB0113
 
-digital_tg_recv_dep_req() reads resp->data[3] when the DID bit is set
-in the PFB, but only sizeof(struct digital_dep_req_res) bytes (3) are
-guaranteed by the preceding length check.  A crafted DEP_REQ that is
-exactly 3 bytes long with the DID bit set causes an out-of-bounds read
-past the valid skb data.
+The scan response handler mwifiex_ret_802_11_scan() has three issues
+when processing firmware responses:
 
-This read can happen on every DEP_REQ from a malicious NFC initiator
-when the target device has a non-zero DID.  The stale byte is compared
-against ddev->did, so in practice the mismatch causes an -EIO return,
-but the read itself is undefined behavior and accesses data past the
-buffer.
+1) bss_descript_size is not validated against resp->size before being
+   used to compute tlv_buf_size.  If the firmware sends a
+   bss_descript_size larger than the response, the subtraction wraps
+   to a huge u32 value, causing the TLV search to read past the
+   response buffer.
 
-Reorder the condition so that the length check (resp->len < size + 1)
-comes first and short-circuits before resp->data[size] is accessed.
-The existing fallthrough to the later "size > resp->len" check is
-preserved for the NAD case.
+2) The TSF timestamp TLV data is indexed by number_of_sets * TSF_DATA_SIZE
+   without checking that the TLV header.len is large enough.  A firmware
+   response with number_of_sets=64 but a TSF TLV with only a few bytes
+   causes an out-of-bounds heap read.
 
-Fixes: 1c7a4c24fbfd ("NFC Digital: Add target NFC-DEP support")
+3) The channel-band TLV is indexed by number_of_sets without checking
+   that the TLV has enough chan_band_param entries.  Same OOB read as
+   above.
+
+Add validation for all three: reject responses where bss_descript_size
+exceeds the response, and invalidate TSF/chan-band TLVs whose reported
+lengths are too short for the number of BSS entries.
+
+Fixes: 5e6e3a92b9a4 ("wireless: mwifiex: initial commit for Marvell mwifiex driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 ---
- net/nfc/digital_dep.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/wireless/marvell/mwifiex/scan.c | 27 ++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-index 3982fa084737..ae5407fca12d 100644
---- a/net/nfc/digital_dep.c
-+++ b/net/nfc/digital_dep.c
-@@ -1117,12 +1117,12 @@ static void digital_tg_recv_dep_req(struct nfc_digital_dev *ddev, void *arg,
- 	pfb = dep_req->pfb;
+diff --git a/drivers/net/wireless/marvell/mwifiex/scan.c b/drivers/net/wireless/marvell/mwifiex/scan.c
+index 97c0ec3b822e..4d0f3c412a90 100644
+--- a/drivers/net/wireless/marvell/mwifiex/scan.c
++++ b/drivers/net/wireless/marvell/mwifiex/scan.c
+@@ -2137,11 +2137,18 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 	bss_info = scan_rsp->bss_desc_and_tlv_buffer;
  
- 	if (DIGITAL_NFC_DEP_DID_BIT_SET(pfb)) {
--		if (ddev->did && (ddev->did == resp->data[3])) {
--			size++;
--		} else {
-+		if (resp->len < size + 1 || !ddev->did ||
-+		    ddev->did != resp->data[size]) {
- 			rc = -EIO;
- 			goto exit;
- 		}
-+		size++;
- 	} else if (ddev->did) {
- 		rc = -EIO;
- 		goto exit;
+ 	/*
+-	 * The size of the TLV buffer is equal to the entire command response
+-	 *   size (scan_resp_size) minus the fixed fields (sizeof()'s), the
+-	 *   BSS Descriptions (bss_descript_size as bytesLef) and the command
+-	 *   response header (S_DS_GEN)
++	 * Validate that bss_descript_size fits within the response to
++	 * prevent an underflow in the TLV buffer size computation below.
+ 	 */
++	if (bytes_left + sizeof(scan_rsp->bss_descript_size) +
++	    sizeof(scan_rsp->number_of_sets) + S_DS_GEN > scan_resp_size) {
++		mwifiex_dbg(adapter, ERROR,
++			    "SCAN_RESP: bss_descript_size %u exceeds resp size %u\n",
++			    bytes_left, scan_resp_size);
++		ret = -1;
++		goto check_next_scan;
++	}
++
+ 	tlv_buf_size = scan_resp_size - (bytes_left
+ 					 + sizeof(scan_rsp->bss_descript_size)
+ 					 + sizeof(scan_rsp->number_of_sets)
+@@ -2158,6 +2165,12 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 					     (struct mwifiex_ie_types_data **)
+ 					     &tsf_tlv);
+ 
++	/* Validate TSF TLV has enough data for all reported BSS entries */
++	if (tsf_tlv &&
++	    le16_to_cpu(tsf_tlv->header.len) <
++	    scan_rsp->number_of_sets * TSF_DATA_SIZE)
++		tsf_tlv = NULL;
++
+ 	/* Search the TLV buffer space in the scan response for any valid
+ 	   TLVs */
+ 	mwifiex_ret_802_11_scan_get_tlv_ptrs(adapter, tlv_data, tlv_buf_size,
+@@ -2165,6 +2178,12 @@ int mwifiex_ret_802_11_scan(struct mwifiex_private *priv,
+ 					     (struct mwifiex_ie_types_data **)
+ 					     &chan_band_tlv);
+ 
++	/* Validate chan-band TLV has enough entries for all reported BSS */
++	if (chan_band_tlv &&
++	    le16_to_cpu(chan_band_tlv->header.len) <
++	    scan_rsp->number_of_sets * sizeof(struct chan_band_param_set))
++		chan_band_tlv = NULL;
++
+ #ifdef CONFIG_PM
+ 	if (priv->wdev.wiphy->wowlan_config)
+ 		nd_config = priv->wdev.wiphy->wowlan_config->nd_config;
 -- 
 2.43.0
 
