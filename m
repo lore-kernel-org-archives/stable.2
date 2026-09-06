@@ -1,293 +1,375 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AF235A397
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5855A36B909
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660828; cv=none; b=IWX6m238kpP5YmVdOSWp1EtdIHBUO8s0fv2/7ku3VVrLIpFIb8mkKbsfn4dkgaxqyoQ/i8runUeSgeg1cw+oxtq3WevxXqVmXmWPYFp5V112rvaznjsktgSwIWyp3tQFiqvAu+m6nuw889v4PMSac8yIVMJ82jM0sQ1zEpTI3Wg=
+	t=1788660828; cv=none; b=bS8zsuzOgPY87vlb4Vdr52bdqV8rKXHJUZzNA6YzBVLnvue6fVknkBvebTUuQdZcwpYGU8TRbuvH+K6UTYpFZFS7DeUkZuXvrwZwRSJOe6Ep3xiyUP42MzE15iLwx0QJltxORvmKYSE2ahui1tQiwLkSaInXkxbjDLS3MhzM5BQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788660828; c=relaxed/simple;
-	bh=xT5gu7uWxIO9952uTt/8OODAPewAdlFLGfb4DQs0zTQ=;
+	bh=L6+e094/H+266SBAbGwxxbi7Zq29OUL40JBQ/4cAh+Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=E9rvmNjngFkI2ABOIptOUgt7yTsPHvIG4jmiVIq+lo8kVlOEkZV5OOW/xnaWnC92JukBt99No/gvOvw2q1zCR6P6XUjezJtmr/hIS1yHAHmg2IW370AdvcnBae3dFoaH6leRs0UI/JFlRxxiFKztdhy9wKPZ+a87YFkPAGnJ7Sw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gnHVMSPE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=EtqZMxsM7S8W6abBz+IIBJkttwiDDjQNTzEWinA/5yVtcU7zgioU6flNQ7Rir1O7alF9Z/BrTwf/xaCJu5Eu+EoSi5/wONn4BvW0w3GJqX3oTxzmhFYg1yvwoGhRDINE51LiDaqcjYerHqyiXoekbOey9tiUFTY2EN2Qc+50e/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BL4NmeyJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gnHVMSPE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD201F00A3A;
-	Sun,  6 Sep 2026 02:13:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BL4NmeyJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A43C1F00ADF;
+	Sun,  6 Sep 2026 02:13:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788660815;
-	bh=kWv7JRJjMUDQ0J+WqnNbAoqrVhArz5+Q7NBSoNh4UFc=;
+	s=k20260515; t=1788660808;
+	bh=RBVUi1nR3mK6o1FeteyVpBKfU1luKO3LRpuZmduQaUg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gnHVMSPE72YHQZZ6QNfK8KFZrYD0hIXMy+L/8nKqn2drN3w0W1Xy8Kx9jaUXAT7Fu
-	 QQe75ArEc7FOIkVQXbTikpkbgC6ce8yKm2oco/YWJK/LtV2hW/zEX+GqIEaTFFF5yA
-	 RtrcaXhQQgo5psxR/CG7rOF7DFlVn0ol9Sa95XbKBYcbqGOJyaXhqDcy0+P449DlUN
-	 bHn53IYlsnuGTKbg6SMZ0fK04G8G5MtS4aiKovQ7Ncs5W0GoBPcsLqWvPOoDdeG+9y
-	 VHucLSQoBTE6qX26JHTtFuiUq691bnfulBrOL1RANB8Y9cuGlFvszozP4YGid5Ai0C
-	 IIS9cAkZkOliQ==
+	b=BL4NmeyJhcUdOV3Nsm1JhhqBmn4wPbv23yb1RPr5nLPK5o3nRZDJNWLMxYkjatUQN
+	 4HVmxsyIHDrelOCFau31mbyztXImbH4WOGC0JheBcQrEo9xtHwv9SAtQeathaVlVop
+	 Xa42tp4iZNVzYsUb9VUHud+XM+2Lz9sGRrTDvuEyMkJIoOodF+TiEAF98SgoXFBOxJ
+	 NMotX9OTZU1qVSFqO57K1P8fcy1yiVbINngufK+oU5xn6j4Dso19rk1081REE3tqZC
+	 ZDPPR4SEB3qyNcuuYyXwji7ETlyIc2Xjl5MWjac18tCu885vCfEeiPmujdLIes1Fwr
+	 t6PN2u/l+9gHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
+	Chris Mason <clm@meta.com>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] nfsd: convert global state_lock to per-net deleg_lock
-Date: Sat,  5 Sep 2026 22:13:32 -0400
-Message-ID: <20260906021333.761242-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 7/7] nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown
+Date: Sat,  5 Sep 2026 22:13:21 -0400
+Message-ID: <20260906021321.760525-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090334-islamic-borrowing-13a1@gregkh>
-References: <2026090334-islamic-borrowing-13a1@gregkh>
+In-Reply-To: <20260906021321.760525-1-sashal@kernel.org>
+References: <2026090303-scrap-parkway-2bf7@gregkh>
+ <20260906021321.760525-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit 8be12e0cf21110f1e0b7fd21711ff13fb75bee72 ]
+[ Upstream commit 01c5d5f58a5db9b0ee5afba2e49d3157788687b2 ]
 
-Replace the global state_lock spinlock with a per-nfsd_net deleg_lock.
-The state_lock was only used to protect delegation lifecycle operations
-(the del_recall_lru list and delegation hash/unhash), all of which are
-scoped to a single network namespace. Making the lock per-net removes
-a source of unnecessary contention between containers.
+After a DESTROY_SESSION the per-session teardown path can free a
+session while rpciod still holds an inflight callback rpc_task that
+dereferences clp->cl_cb_session.  nfsd4_probe_callback_sync() flushes
+cl_callback_wq, but once nfsd4_run_cb_work() has called
+rpc_call_async() the rpc_task lives on rpciod; flushing the workqueue
+does not wait for it.  rpc_shutdown_client() does drain rpciod tasks,
+but uses a 1-second wait_event_timeout — tasks stuck in rpc_delay()
+(e.g. 2-second NFS4ERR_DELAY retries) can outlive the drain.
 
+    destroy path                       rpciod
+    ------------                       ------
+    unhash_session(ses)
+    nfsd4_probe_callback_sync(clp)
+      flush_workqueue(cl_callback_wq)
+      /* returns; rpc_task still live */
+    nfsd4_put_session_locked(ses)
+    free_session(ses) -> kfree(ses)
+                                       nfsd4_cb_sequence_done()
+                                         reads cb_clp->cl_cb_session
+                                         /* freed slab */
+
+A second window exists in nfsd4_process_cb_update().  When
+__nfsd4_find_backchannel() returns NULL because unhash_session() has
+already removed the destroyed session from cl_sessions,
+setup_callback_client() takes the v4.1 early return so
+clp->cl_cb_session = ses never fires and the field retains a pointer
+to the about-to-be-freed session.
+
+Fix both by converting cl_cb_session to an RCU-protected pointer:
+
+  - Move the cl_cb_session = ses assignment in setup_callback_client()
+    to after rpc_create() succeeds, so it is only published when a
+    working backchannel exists.  Clear cl_cb_session on the error
+    return in nfsd4_process_cb_update().  Both stores use
+    rcu_assign_pointer().
+
+  - Annotate cl_cb_session with __rcu.  All rpciod-side readers use
+    rcu_read_lock()/rcu_dereference() and check for NULL, bailing to
+    the appropriate error or requeue path:
+    encode_cb_sequence4args(), decode_cb_sequence4resok(),
+    nfsd41_cb_get_slot(), nfsd41_cb_release_slot(),
+    nfsd4_cb_prepare(), and nfsd4_cb_sequence_done().
+
+  - Switch __free_session() from kfree() to kfree_rcu() so the
+    session slab is not reclaimed until after an RCU grace period,
+    guaranteeing that rpciod readers inside rcu_read_lock() never
+    dereference freed memory.
+
+  - Pass the session pointer to the nfsd_cb_seq_status and
+    nfsd_cb_free_slot tracepoints instead of having them re-read
+    cl_cb_session.
+
+  - nfsd4_cb_prepare() calls rpc_exit() when the session is NULL,
+    routing through the done/release path to requeue the callback.
+
+Fixes: dcbeaa68dbbd ("nfsd4: allow backchannel recovery")
+Cc: stable@vger.kernel.org
+Reported-by: Chris Mason <clm@meta.com>
+Signed-off-by: Chris Mason <clm@meta.com>
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-2-f27e8eb4d974@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 4683ca76b3b7 ("NFSD: Prevent client use-after-free during delegation revoke")
+[ adapted RCU session handling to the single-slot callback model and flexible-array session layout ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/netns.h     |  3 +++
- fs/nfsd/nfs4state.c | 53 +++++++++++++++++++++++----------------------
- fs/nfsd/state.h     |  2 +-
- 3 files changed, 31 insertions(+), 27 deletions(-)
+ fs/nfsd/nfs4callback.c | 72 +++++++++++++++++++++++++++++++++++-------
+ fs/nfsd/nfs4state.c    |  4 +--
+ fs/nfsd/state.h        |  3 +-
+ 3 files changed, 65 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index fe8338735e7cc..db1b0c8f9c7ba 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -100,6 +100,9 @@ struct nfsd_net {
- 	 */
- 	struct list_head client_lru;
- 	struct list_head close_lru;
-+
-+	/* protects del_recall_lru and delegation hash/unhash */
-+	spinlock_t deleg_lock ____cacheline_aligned;
- 	struct list_head del_recall_lru;
+diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
+index 964d7f56dfc79..6baff3d026434 100644
+--- a/fs/nfsd/nfs4callback.c
++++ b/fs/nfsd/nfs4callback.c
+@@ -373,12 +373,19 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ 				    const struct nfsd4_callback *cb,
+ 				    struct nfs4_cb_compound_hdr *hdr)
+ {
+-	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	__be32 *p;
  
- 	/* protected by blocked_locks_lock */
+ 	if (hdr->minorversion == 0)
+ 		return;
+ 
++	rcu_read_lock();
++	session = rcu_dereference(cb->cb_clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
++		return;
++	}
++
+ 	encode_nfs_cb_opnum4(xdr, OP_CB_SEQUENCE);
+ 	encode_sessionid4(xdr, session);
+ 
+@@ -390,6 +397,7 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ 	xdr_encode_empty_array(p);		/* csa_referring_call_lists */
+ 
+ 	hdr->nops++;
++	rcu_read_unlock();
+ }
+ 
+ /*
+@@ -416,21 +424,32 @@ static void encode_cb_sequence4args(struct xdr_stream *xdr,
+ static int decode_cb_sequence4resok(struct xdr_stream *xdr,
+ 				    struct nfsd4_callback *cb)
+ {
+-	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	int status = -ESERVERFAULT;
+ 	__be32 *p;
+ 	u32 dummy;
+ 
++	rcu_read_lock();
++	session = rcu_dereference(cb->cb_clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
++		cb->cb_seq_status = -NFS4ERR_BADSESSION;
++		return -NFS4ERR_BADSESSION;
++	}
++
+ 	/*
+ 	 * If the server returns different values for sessionID, slotID or
+ 	 * sequence number, the server is looney tunes.
+ 	 */
+ 	p = xdr_inline_decode(xdr, NFS4_MAX_SESSIONID_LEN + 4 + 4 + 4 + 4);
+-	if (unlikely(p == NULL))
++	if (unlikely(p == NULL)) {
++		rcu_read_unlock();
+ 		goto out_overflow;
++	}
+ 
+ 	if (memcmp(p, session->se_sessionid.data, NFS4_MAX_SESSIONID_LEN)) {
+ 		dprintk("NFS: %s Invalid session id\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 	p += XDR_QUADLEN(NFS4_MAX_SESSIONID_LEN);
+@@ -438,18 +457,21 @@ static int decode_cb_sequence4resok(struct xdr_stream *xdr,
+ 	dummy = be32_to_cpup(p++);
+ 	if (dummy != session->se_cb_seq_nr) {
+ 		dprintk("NFS: %s Invalid sequence number\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 
+ 	dummy = be32_to_cpup(p++);
+ 	if (dummy != 0) {
+ 		dprintk("NFS: %s Invalid slotid\n", __func__);
++		rcu_read_unlock();
+ 		goto out;
+ 	}
+ 
+ 	/*
+ 	 * FIXME: process highest slotid and target highest slotid
+ 	 */
++	rcu_read_unlock();
+ 	status = 0;
+ out:
+ 	cb->cb_seq_status = status;
+@@ -988,9 +1010,8 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
+ 	} else {
+ 		if (!conn->cb_xprt || !ses)
+ 			return -EINVAL;
+-		clp->cl_cb_session = ses;
+ 		args.bc_xprt = conn->cb_xprt;
+-		args.prognumber = clp->cl_cb_session->se_cb_prog;
++		args.prognumber = ses->se_cb_prog;
+ 		args.protocol = conn->cb_xprt->xpt_class->xcl_ident |
+ 				XPRT_TRANSPORT_BC;
+ 		args.authflavor = ses->se_cb_sec.flavor;
+@@ -1008,8 +1029,10 @@ static int setup_callback_client(struct nfs4_client *clp, struct nfs4_cb_conn *c
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (clp->cl_minorversion != 0)
++	if (clp->cl_minorversion != 0) {
+ 		clp->cl_cb_conn.cb_xprt = conn->cb_xprt;
++		rcu_assign_pointer(clp->cl_cb_session, ses);
++	}
+ 	clp->cl_cb_client = client;
+ 	clp->cl_cb_cred = cred;
+ 	rcu_read_lock();
+@@ -1153,8 +1176,14 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
+ 	 */
+ 	cb->cb_seq_status = 1;
+ 	cb->cb_status = 0;
+-	if (minorversion && !nfsd41_cb_get_slot(cb, task))
+-		return;
++	if (minorversion) {
++		if (!rcu_access_pointer(clp->cl_cb_session)) {
++			rpc_exit(task, -EIO);
++			return;
++		}
++		if (!nfsd41_cb_get_slot(cb, task))
++			return;
++	}
+ 	rpc_call_start(task);
+ }
+ 
+@@ -1162,12 +1191,19 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
+ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback *cb)
+ {
+ 	struct nfs4_client *clp = cb->cb_clp;
+-	struct nfsd4_session *session = clp->cl_cb_session;
++	struct nfsd4_session *session;
+ 	bool ret = false;
+ 
+ 	if (!cb->cb_holds_slot)
+ 		goto requeue;
+ 
++	rcu_read_lock();
++	session = rcu_dereference(clp->cl_cb_session);
++	if (!session) {
++		rcu_read_unlock();
++		goto requeue;
++	}
++
+ 	switch (cb->cb_seq_status) {
+ 	case 0:
+ 		/*
+@@ -1189,15 +1225,20 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 		break;
+ 	case -NFS4ERR_DELAY:
+ 		cb->cb_seq_status = 1;
+-		if (RPC_SIGNALLED(task) || !rpc_restart_call(task))
++		if (RPC_SIGNALLED(task) || !rpc_restart_call(task)) {
++			rcu_read_unlock();
+ 			goto requeue;
++		}
+ 		rpc_delay(task, 2 * HZ);
++		rcu_read_unlock();
+ 		return false;
+ 	case -NFS4ERR_BADSLOT:
++		rcu_read_unlock();
+ 		goto retry_nowait;
+ 	case -NFS4ERR_SEQ_MISORDERED:
+ 		if (session->se_cb_seq_nr != 1) {
+ 			session->se_cb_seq_nr = 1;
++			rcu_read_unlock();
+ 			goto retry_nowait;
+ 		}
+ 		break;
+@@ -1207,6 +1248,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 			cb->cb_seq_status);
+ 	}
+ 
++	rcu_read_unlock();
+ 	nfsd41_cb_release_slot(cb);
+ 	return ret;
+ retry_nowait:
+@@ -1339,7 +1381,14 @@ static struct nfsd4_conn * __nfsd4_find_backchannel(struct nfs4_client *clp)
+  * Note there isn't a lot of locking in this code; instead we depend on
+  * the fact that it is run from the callback_wq, which won't run two
+  * work items at once.  So, for example, callback_wq handles all access
+- * of cl_cb_client and all calls to rpc_create or rpc_shutdown_client.
++ * of cl_cb_client, and all calls to rpc_create or rpc_shutdown_client.
++ *
++ * cl_cb_session is written only from callback_wq (via rcu_assign_pointer)
++ * and read from rpciod under rcu_read_lock (via rcu_dereference) by
++ * encode_cb_sequence4args(), decode_cb_sequence4resok(), and
++ * nfsd4_cb_sequence_done().  Sessions are freed with kfree_rcu() so that
++ * rpciod readers in an RCU read-side critical section never dereference a
++ * freed session.
+  */
+ static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
+ {
+@@ -1386,6 +1435,7 @@ static void nfsd4_process_cb_update(struct nfsd4_callback *cb)
+ 		nfsd4_mark_cb_down(clp, err);
+ 		if (c)
+ 			svc_xprt_put(c->cn_xprt);
++		rcu_assign_pointer(clp->cl_cb_session, ses);
+ 		return;
+ 	}
+ }
 diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index c9d9a7d46e7b2..6561460f27f9c 100644
+index e1350dcc1b64a..a619afc79d02b 100644
 --- a/fs/nfsd/nfs4state.c
 +++ b/fs/nfsd/nfs4state.c
-@@ -91,13 +91,6 @@ static void deleg_reaper(struct nfsd_net *nn);
- 
- /* Locking: */
- 
--/*
-- * Currently used for the del_recall_lru and file hash table.  In an
-- * effort to decrease the scope of the client_mutex, this spinlock may
-- * eventually cover more:
-- */
--static DEFINE_SPINLOCK(state_lock);
--
- enum nfsd4_st_mutex_lock_subclass {
- 	OPEN_STATEID_MUTEX = 0,
- 	LOCK_STATEID_MUTEX = 1,
-@@ -1279,8 +1272,9 @@ nfs4_delegation_exists(struct nfs4_client *clp, struct nfs4_file *fp)
+@@ -1976,7 +1976,7 @@ static void nfsd4_del_conns(struct nfsd4_session *s)
+ static void __free_session(struct nfsd4_session *ses)
  {
- 	struct nfs4_delegation *searchdp = NULL;
- 	struct nfs4_client *searchclp = NULL;
-+	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
- 
--	lockdep_assert_held(&state_lock);
-+	lockdep_assert_held(&nn->deleg_lock);
- 	lockdep_assert_held(&fp->fi_lock);
- 
- 	list_for_each_entry(searchdp, &fp->fi_delegations, dl_perfile) {
-@@ -1309,8 +1303,9 @@ static int
- hash_delegation_locked(struct nfs4_delegation *dp, struct nfs4_file *fp)
- {
- 	struct nfs4_client *clp = dp->dl_stid.sc_client;
-+	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
- 
--	lockdep_assert_held(&state_lock);
-+	lockdep_assert_held(&nn->deleg_lock);
- 	lockdep_assert_held(&fp->fi_lock);
- 	lockdep_assert_held(&clp->cl_lock);
- 
-@@ -1332,8 +1327,10 @@ static bool
- unhash_delegation_locked(struct nfs4_delegation *dp, unsigned short statusmask)
- {
- 	struct nfs4_file *fp = dp->dl_stid.sc_file;
-+	struct nfsd_net *nn = net_generic(dp->dl_stid.sc_client->net,
-+					  nfsd_net_id);
- 
--	lockdep_assert_held(&state_lock);
-+	lockdep_assert_held(&nn->deleg_lock);
- 
- 	if (!delegation_hashed(dp))
- 		return false;
-@@ -1358,10 +1355,12 @@ unhash_delegation_locked(struct nfs4_delegation *dp, unsigned short statusmask)
- static void destroy_delegation(struct nfs4_delegation *dp)
- {
- 	bool unhashed;
-+	struct nfsd_net *nn = net_generic(dp->dl_stid.sc_client->net,
-+					  nfsd_net_id);
- 
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	unhashed = unhash_delegation_locked(dp, SC_STATUS_CLOSED);
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 	if (unhashed)
- 		destroy_unhashed_deleg(dp);
- }
-@@ -1829,11 +1828,11 @@ void nfsd4_revoke_states(struct nfsd_net *nn, struct super_block *sb)
- 					 */
- 					refcount_inc(&stid->sc_count);
- 					dp = delegstateid(stid);
--					spin_lock(&state_lock);
-+					spin_lock(&nn->deleg_lock);
- 					if (!unhash_delegation_locked(
- 						    dp, SC_STATUS_ADMIN_REVOKED))
- 						dp = NULL;
--					spin_unlock(&state_lock);
-+					spin_unlock(&nn->deleg_lock);
- 					if (dp)
- 						revoke_delegation(dp);
- 					else
-@@ -2499,13 +2498,13 @@ __destroy_client(struct nfs4_client *clp)
- 	struct nfs4_delegation *dp;
- 	LIST_HEAD(reaplist);
- 
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	while (!list_empty(&clp->cl_delegations)) {
- 		dp = list_entry(clp->cl_delegations.next, struct nfs4_delegation, dl_perclnt);
- 		unhash_delegation_locked(dp, SC_STATUS_CLOSED);
- 		list_add(&dp->dl_recall_lru, &reaplist);
- 	}
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 	while (!list_empty(&reaplist)) {
- 		dp = list_entry(reaplist.next, struct nfs4_delegation, dl_recall_lru);
- 		list_del_init(&dp->dl_recall_lru);
-@@ -5443,12 +5442,12 @@ static void nfsd4_cb_recall_prepare(struct nfsd4_callback *cb)
- 	 * If the dl_time != 0, then we know that it has already been
- 	 * queued for a lease break. Don't queue it again.
- 	 */
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	if (delegation_hashed(dp) && dp->dl_time == 0) {
- 		dp->dl_time = ktime_get_boottime_seconds();
- 		list_add_tail(&dp->dl_recall_lru, &nn->del_recall_lru);
- 	}
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
+ 	free_session_slots(ses);
+-	kfree(ses);
++	kfree_rcu(ses, rcu_head);
  }
  
- static int nfsd4_cb_recall_done(struct nfsd4_callback *cb,
-@@ -6060,6 +6059,7 @@ nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
- {
- 	bool deleg_ts = nfsd4_want_deleg_timestamps(open);
- 	struct nfs4_client *clp = stp->st_stid.sc_client;
-+	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
- 	struct nfs4_file *fp = stp->st_stid.sc_file;
- 	struct nfs4_clnt_odstate *odstate = stp->st_clnt_odstate;
- 	struct nfs4_delegation *dp;
-@@ -6119,7 +6119,7 @@ nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
- 		return ERR_PTR(-EOPNOTSUPP);
- 	}
- 
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	spin_lock(&fp->fi_lock);
- 	if (nfs4_delegation_exists(clp, fp))
- 		status = -EAGAIN;
-@@ -6134,7 +6134,7 @@ nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
- 	} else
- 		fp->fi_delegees++;
- 	spin_unlock(&fp->fi_lock);
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 	if (nf)
- 		nfsd_file_put(nf);
- 	if (status)
-@@ -6178,13 +6178,13 @@ nfs4_set_delegation(struct nfsd4_open *open, struct nfs4_ol_stateid *stp,
- 	if (fp->fi_had_conflict)
- 		goto out_unlock;
- 
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	spin_lock(&clp->cl_lock);
- 	spin_lock(&fp->fi_lock);
- 	status = hash_delegation_locked(dp, fp);
- 	spin_unlock(&fp->fi_lock);
- 	spin_unlock(&clp->cl_lock);
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 
- 	if (status)
- 		goto out_unlock;
-@@ -6964,7 +6964,7 @@ nfs4_laundromat(struct nfsd_net *nn)
- 
- 	nfs40_clean_admin_revoked(nn, &lt);
- 
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	list_for_each_safe(pos, next, &nn->del_recall_lru) {
- 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
- 		if (!state_expired(&lt, dp->dl_time))
-@@ -6973,7 +6973,7 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		unhash_delegation_locked(dp, SC_STATUS_REVOKED);
- 		list_add(&dp->dl_recall_lru, &reaplist);
- 	}
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 	while (!list_empty(&reaplist)) {
- 		dp = list_first_entry(&reaplist, struct nfs4_delegation,
- 					dl_recall_lru);
-@@ -9001,6 +9001,7 @@ static int nfs4_state_create_net(struct net *net)
- 	INIT_LIST_HEAD(&nn->client_lru);
- 	INIT_LIST_HEAD(&nn->close_lru);
- 	INIT_LIST_HEAD(&nn->del_recall_lru);
-+	spin_lock_init(&nn->deleg_lock);
- 	spin_lock_init(&nn->client_lock);
- 	spin_lock_init(&nn->s2s_cp_lock);
- 	idr_init(&nn->s2s_cp_stateids);
-@@ -9135,13 +9136,13 @@ nfs4_state_shutdown_net(struct net *net)
- 	locks_end_grace(&nn->nfsd4_manager);
- 
- 	INIT_LIST_HEAD(&reaplist);
--	spin_lock(&state_lock);
-+	spin_lock(&nn->deleg_lock);
- 	list_for_each_safe(pos, next, &nn->del_recall_lru) {
- 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
- 		unhash_delegation_locked(dp, SC_STATUS_CLOSED);
- 		list_add(&dp->dl_recall_lru, &reaplist);
- 	}
--	spin_unlock(&state_lock);
-+	spin_unlock(&nn->deleg_lock);
- 	list_for_each_safe(pos, next, &reaplist) {
- 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
- 		list_del_init(&dp->dl_recall_lru);
+ static void free_session(struct nfsd4_session *ses)
+@@ -2943,7 +2943,7 @@ static struct nfs4_client *create_client(struct xdr_netobj name,
+ 	clear_bit(0, &clp->cl_cb_slot_busy);
+ 	copy_verf(clp, verf);
+ 	memcpy(&clp->cl_addr, sa, sizeof(struct sockaddr_storage));
+-	clp->cl_cb_session = NULL;
++	RCU_INIT_POINTER(clp->cl_cb_session, NULL);
+ 	clp->net = net;
+ 	clp->cl_nfsd_dentry = nfsd_client_mkdir(
+ 		nn, &clp->cl_nfsdfs,
 diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index 2eed2c5b3cd0c..6e926b2a9b6a9 100644
+index 10d1b418e0c7c..649ca2c0844b0 100644
 --- a/fs/nfsd/state.h
 +++ b/fs/nfsd/state.h
-@@ -123,7 +123,7 @@ struct nfs4_stid {
- #define SC_TYPE_LAYOUT		BIT(3)
- 	unsigned short		sc_type;
+@@ -273,6 +273,7 @@ struct nfsd4_session {
+ 	struct list_head	se_conns;
+ 	u32			se_cb_prog;
+ 	u32			se_cb_seq_nr;
++	struct rcu_head		rcu_head;
+ 	struct nfsd4_slot	*se_slots[];	/* forward channel slots */
+ };
  
--/* state_lock protects sc_status for delegation stateids.
-+/* nn->deleg_lock protects sc_status for delegation stateids.
-  * ->cl_lock protects sc_status for open and lock stateids.
-  * ->st_mutex also protect sc_status for open stateids.
-  * ->ls_lock protects sc_status for layout stateids.
+@@ -381,7 +382,7 @@ struct nfs4_client {
+ #define NFSD4_CB_FAULT		3
+ 	int			cl_cb_state;
+ 	struct nfsd4_callback	cl_cb_null;
+-	struct nfsd4_session	*cl_cb_session;
++	struct nfsd4_session	__rcu *cl_cb_session;
+ 
+ 	/* for all client information that callback code might need: */
+ 	spinlock_t		cl_lock;
 -- 
 2.53.0
 
