@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A429738DC49
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BABA3845B0
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660814; cv=none; b=nlclz+BXO2HzwDQ0kxlDFXI7P7fQ5gKx1yuWiMtvCA2oiRO5RaQ4JrBJRwMgDvD5Q/ld2bwBLzvWFdN+J/ikRwPprWl5a2PqdFs5DkfRlxr4gmcHKl/wsopAKmSxAp5xpUzJmP7Ol47+kbSEumoDueWmnc+ymflC0u5tgZ6k9jw=
+	t=1788660814; cv=none; b=rHKma5yVkx+A5AU2Kuvy4BRJsRUAVKWm2NvfkZYQ0JJlxnBYOjhNFsndwFTgeoD6dU/DLOJo4iqvN89IjTBaoV7vfEt0HhWMl1/wZ7pNb5Fobb9s1wmLMBY2poEIrHjIGKfebXDHzbl5GZSsYCl2AAufOMtFOpFGpzVh5Ljr1dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788660814; c=relaxed/simple;
-	bh=m7RpMKD+kDt4+70eKKUk+67txWg4ffheTVhNCMcnriI=;
+	bh=dOlqVYQrLGyIg7AO3ngS2hN6q5KpFPdX6NH82MpyhL0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZfbOQLwx7i2HAwV5aLfCq3PqItXbxV8qH94Ra4ddyDj9FV5tkOFIULH6TMtFnDYI6itGf7jXEnGzEvQvAqZw5gDpNgd3KTQU1idYSJ8KyX8WGj2LduxKqVsGFWzhONPkWECvm8otDMVsa4XbZ4k6ZsY6i6iG0qVwz7SXdXy+0OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y5A2sbP9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bi0TfoNe3MREz3wXKNUUJSpELPOeERDC/TLjHAybAq+q3SZoQvkiY2KJJEVbYiSJlJfh9ghHnpOW9tJioFU55f1qRmLpVMSOHodhFhUeI++vkJANdoo37jU4iQOmoaEdqXbb4gYNh+CvCmj+V0Y6zsnVqR3YbgUCYPpbLg9/0cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDYi+Hw1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y5A2sbP9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659B81F00AC4;
-	Sun,  6 Sep 2026 02:13:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDYi+Hw1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C70D1F00A3F;
+	Sun,  6 Sep 2026 02:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788660804;
-	bh=+VuQOc9/jZnm3Rca6LIsi0NLQ5fMHgKenLr/4B3h0Ss=;
+	bh=mL4soKRg+7pGGuS9mSUkoTSXklSxwIkDjCkZfN4HIP8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Y5A2sbP9D/Qe2mK1I1MjHXINOP5R3YgIiwFWsg/lhhACUES7qkrJe9RCL9BEAmHCa
-	 3mANTnQhP9peK6bR1A+u6f5aJUMkhIXtaZyvq6OCMicKGKss9k0rtqR02skHpnNeYG
-	 LWkzaY9kd1o7qaHFqWmbBNXIKGQEbtugMmVDkJSjZW+8roqBc5vkCu6CtKt9Wo8tRp
-	 4BMHjUcqAYV5FkL3Z3zNgatqWh0KpfHwFawIwsJ5WxlYv/84HAxWDBB5Lxygiszxf8
-	 hnzeX3AFQe+0RkoY13av2AZXp7RaBvWBc8RHb3n51go0AzWBr02BPX1/8l45azWZdS
-	 Svj7ifrqu7/CQ==
+	b=FDYi+Hw1N/Js739Q9ixrjNm4OmHZGJzH7Yxh/j78iFB+wxNuipB35mL/s5XItq0Lr
+	 Yecosr2ngWt4nM1JVLsVoSmlDYlZ+jS5ctAmJK8I8jNnqlnA+rEpnGdOID5JiJoNPW
+	 Mqeyx2p1brjsfhgB48Qx2zzCtYqNukmpAeuS9glfOQhAQhfExfqhnStmkznbkHVldo
+	 3dsBhpfsmLrI9wYMwAiXN4V4YRE4AaTWnDWDtLEO8d0UpA/g5pVowN0roBazIdCgas
+	 u9Dlmo1ZDYK3hCoBp5BaTOKCq08iwY8GA7OYWiuDAXFqU9PKjOY82IPXRw6Fk49UJE
+	 VMkvqIKag2Z2Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/7] nfsd: only check RPC_SIGNALLED() when restarting rpc_task
-Date: Sat,  5 Sep 2026 22:13:17 -0400
-Message-ID: <20260906021321.760525-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/7] nfsd: lift NFSv4.0 handling out of nfsd4_cb_sequence_done()
+Date: Sat,  5 Sep 2026 22:13:16 -0400
+Message-ID: <20260906021321.760525-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260906021321.760525-1-sashal@kernel.org>
 References: <2026090303-scrap-parkway-2bf7@gregkh>
@@ -48,65 +48,113 @@ Content-Transfer-Encoding: 8bit
 
 From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit f049911b5b98feceb949430f33fb5d2c9c55833c ]
+[ Upstream commit 6c1cefb84b3dee08e94b6908617f23f3fcc045e9 ]
 
-nfsd4_cb_sequence_done() currently checks RPC_SIGNALLED() when
-processing the compound and releasing the slot. If RPC_SIGNALLED()
-returns true, then that means that the client is going to be torn down.
-
-Don't check RPC_SIGNALLED() after processing a successful reply. Check
-it only before restarting the rpc_task. If it returns true, then requeue
-the callback instead of restarting the task.
-
-Also, handle rpc_restart_call() and rpc_restart_call_prepare() failures
-correctly, by requeueing the callback.
+It's a bit strange to call nfsd4_cb_sequence_done() on a callback with no
+CB_SEQUENCE. Lift the handling of restarting a call into a new helper,
+and move the handling of NFSv4.0 into nfsd4_cb_done().
 
 Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: 01c5d5f58a5d ("nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4callback.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ fs/nfsd/nfs4callback.c | 51 ++++++++++++++++++++++--------------------
+ 1 file changed, 27 insertions(+), 24 deletions(-)
 
 diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
-index 7333068371c14..d0e5f46f0f7cd 100644
+index f9c28ba1d986b..7333068371c14 100644
 --- a/fs/nfsd/nfs4callback.c
 +++ b/fs/nfsd/nfs4callback.c
-@@ -1197,8 +1197,8 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
- 		break;
- 	case -NFS4ERR_DELAY:
- 		cb->cb_seq_status = 1;
--		if (!rpc_restart_call(task))
--			goto out;
-+		if (RPC_SIGNALLED(task) || !rpc_restart_call(task))
-+			goto requeue;
- 		rpc_delay(task, 2 * HZ);
- 		return false;
- 	case -NFS4ERR_BADSLOT:
-@@ -1218,14 +1218,16 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+@@ -914,6 +914,16 @@ static bool nfsd4_queue_cb(struct nfsd4_callback *cb)
+ 	return queue_work(callback_wq, &cb->cb_work);
+ }
+ 
++static void nfsd4_requeue_cb(struct rpc_task *task, struct nfsd4_callback *cb)
++{
++	struct nfs4_client *clp = cb->cb_clp;
++
++	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
++		task->tk_status = 0;
++		cb->cb_need_restart = true;
++	}
++}
++
+ static void nfsd41_cb_inflight_begin(struct nfs4_client *clp)
+ {
+ 	atomic_inc(&clp->cl_cb_inflight);
+@@ -1160,26 +1170,9 @@ static void nfsd4_cb_prepare(struct rpc_task *task, void *calldata)
+ /* Returns true if CB_COMPOUND processing should continue */
+ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback *cb)
+ {
+-	struct nfs4_client *clp = cb->cb_clp;
+-	struct nfsd4_session *session = clp->cl_cb_session;
++	struct nfsd4_session *session = cb->cb_clp->cl_cb_session;
+ 	bool ret = false;
+ 
+-	if (!clp->cl_minorversion) {
+-		/*
+-		 * If the backchannel connection was shut down while this
+-		 * task was queued, we need to resubmit it after setting up
+-		 * a new backchannel connection.
+-		 *
+-		 * Note that if we lost our callback connection permanently
+-		 * the submission code will error out, so we don't need to
+-		 * handle that case here.
+-		 */
+-		if (RPC_SIGNALLED(task))
+-			goto requeue;
+-
+-		return true;
+-	}
+-
+ 	if (!cb->cb_holds_slot)
+ 		goto requeue;
+ 
+@@ -1224,7 +1217,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 
  	nfsd41_cb_release_slot(cb);
  	dprintk("%s: freed slot, new seqid=%d\n", __func__,
- 		session->se_cb_seq_nr);
--
--	if (RPC_SIGNALLED(task))
--		goto requeue;
--out:
- 	return ret;
- retry_nowait:
--	rpc_restart_call_prepare(task);
--	goto out;
-+	/*
-+	 * RPC_SIGNALLED() means that the rpc_client is being torn down and
-+	 * (possibly) recreated. Requeue the call in that case.
-+	 */
-+	if (!RPC_SIGNALLED(task)) {
-+		if (rpc_restart_call_prepare(task))
-+			return false;
-+	}
+-		clp->cl_cb_session->se_cb_seq_nr);
++		session->se_cb_seq_nr);
+ 
+ 	if (RPC_SIGNALLED(task))
+ 		goto requeue;
+@@ -1234,10 +1227,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ 	rpc_restart_call_prepare(task);
+ 	goto out;
  requeue:
- 	nfsd4_requeue_cb(task, cb);
+-	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
+-		task->tk_status = 0;
+-		cb->cb_need_restart = true;
+-	}
++	nfsd4_requeue_cb(task, cb);
  	return false;
+ }
+ 
+@@ -1246,8 +1236,21 @@ static void nfsd4_cb_done(struct rpc_task *task, void *calldata)
+ 	struct nfsd4_callback *cb = calldata;
+ 	struct nfs4_client *clp = cb->cb_clp;
+ 
+-	if (!nfsd4_cb_sequence_done(task, cb))
++	if (!clp->cl_minorversion) {
++		/*
++		 * If the backchannel connection was shut down while this
++		 * task was queued, we need to resubmit it after setting up
++		 * a new backchannel connection.
++		 *
++		 * Note that if we lost our callback connection permanently
++		 * the submission code will error out, so we don't need to
++		 * handle that case here.
++		 */
++		if (RPC_SIGNALLED(task))
++			nfsd4_requeue_cb(task, cb);
++	} else if (!nfsd4_cb_sequence_done(task, cb)) {
+ 		return;
++	}
+ 
+ 	if (cb->cb_status) {
+ 		WARN_ON_ONCE(task->tk_status);
 -- 
 2.53.0
 
