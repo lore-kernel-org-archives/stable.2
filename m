@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DB03CFF4C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AE53CEBA6
 	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701320; cv=none; b=OF82sQcEKnMqxbeEk1uNQA3UN3i8ETx0GaGGcVqqU/aQP22GJ3DlSaM1ZOEpZA0geP4s/0PmZ/zY/FZkkwIkKCACA9ZFYkHyhrrBnwJimkz5AoFfNDsu4w9okdWGDdKy3TunwGvK1Aorhve9oGnUALAk2Y4Dk4TXhcr6FqCW0mc=
+	t=1788701321; cv=none; b=etxuJmJz8iXlbF/eK3i9kYPMi1h3BbiXlXeuw4xha655VV1nrgkKsYG4NnjiQ3ncgxfpFv7/6JzXGzNexCS/NqFnLJh5sACBi+AaiYjIrboem548lTiERDK9fPolk9E3Ma+VxRwCaH5PnaNivjBZvsuoTIii+1yuDmKVfPMgYxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701320; c=relaxed/simple;
-	bh=EjYYHdZ6H3Udm3U6An/+TrW8kcQquhmV41giqqIv/K8=;
+	s=arc-20240116; t=1788701321; c=relaxed/simple;
+	bh=+lHFFa/mzcS3g24Gu2HFwRk0DFCDv8MuhWZixaU3h3g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W4hCGL0IYWqwOFeimGgCzvoKBs7Si8T+6M8IineXqHWOt5GhXTHXrpTDupeE43J8Cuu7kgVs0JfGlvhHBY0zQi7woal0ieHUktE9VjSlsMhWGp2E8TPdP6bX+yQ8Lc7023iq8KgOqlxnGnV0o27gx6u0Y8bM3OMmKyTDqnMotrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OG4N1DkE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LXSg7zdjL8be4cgeq2A+UES4jVn1GhctWr7dxRWDfd6yH61EAhEFGtl+4tPGdu4ma0kfSwnN0bm84mPs1co29DwfkaZRhcAD7ZJrbQRtSFYPr53j6RKke+x5U7CK4keNNaZo0WrIm+/3hKcGe4akKS4YhB+m0jQBaA1f9Wlm3G0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=budXFhkk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OG4N1DkE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 741141F00ACF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="budXFhkk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08AC91F00AC4;
 	Sun,  6 Sep 2026 13:28:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701317;
-	bh=o0OPeK3ILgZVSxyiEGqenBwKyzpu2fpZ/OB3h3I4wPY=;
+	s=k20260515; t=1788701318;
+	bh=lLa8yZW9GzOr2yiQxUXKHKaCxSS8JrWN4pf8BJ5J63Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OG4N1DkEv6JuCNioLs0FifoULTY6G7+cvctCv/TtzDhB0eJLZy1LAP1XAp5Yz0Q+d
-	 dUnqSkvDUzo8L40gTqN5ijIkebYMNkDXB+CNeUGU6v/Vu8Y57Fl9OOLXgll7lFXQ4U
-	 /AkhqQnKQt0xKXAcqLglZVaWK36KqctBM1NPUlhXEylJpFInFbxtRvqncAblfbzhkj
-	 /bKrFr+9q6nhZ3V9Z2xOAiZmgg7utqg1jcEyi7E0pXW7zUl5tGm1THtgKrP5NnKEjS
-	 toJfWHXJj00l/F8PGv8ZQ13+Ca8ENJbSqqz/BKnT/QcpPpJX5nwyEQUAL4K9XuQvjU
-	 FBT+tkUviBSdQ==
+	b=budXFhkkLPs5EP72NMRCpOYGLdpZefz/hdX37yTEERBzPEQy10Gw0tOZJwWtTsLgS
+	 EX3MexcyvzC97PLfeW5aGnkXSDhCQfslvC4has1e9UoaOS8XkJOiTsaQMwRNU6qC/I
+	 dZDmTDuebvU12heXK5nxpTPafSce0TgGwd95gVW0HUpL1d5EP8g4pS9bGpchuc1jvi
+	 Y09F3fWVquh6F8neKP8PFOA1noerZF0wGY+/ygPxKEteI1zBcoZdJFtzG8cSFAK2Ms
+	 FK9RCpSlt3vVlU1heqx3kfYpsAbw5dfXJ+X93X49b5lvfTm3XlRzxzhfp3JoYFm7C6
+	 fSZ44wh8Pflyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 6/7] nfsd: move cb_need_restart flag into cb_flags
-Date: Sun,  6 Sep 2026 09:28:30 -0400
-Message-ID: <20260906132831.874344-6-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/4] NFSD: Use sockaddr instead of a generic array
+Date: Sun,  6 Sep 2026 09:28:33 -0400
+Message-ID: <20260906132835.874565-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906132831.874344-1-sashal@kernel.org>
-References: <2026090304-heroism-outclass-581e@gregkh>
- <20260906132831.874344-1-sashal@kernel.org>
+In-Reply-To: <20260906132835.874565-1-sashal@kernel.org>
+References: <2026090307-suave-unlucky-a08a@gregkh>
+ <20260906132835.874565-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,92 +46,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 32ce62c0f09cdc5a6b06bb38daec9b9a47302437 ]
+[ Upstream commit 45e3eda46db467b8b934188ff2109ee29b5b0b00 ]
 
-Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE
-flag in that instead of a separate boolean.
+Record and emit presentation addresses using tracing helpers
+designed for the task.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-
-Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE flag in that instead of a separate boolean.
-
-On this stable branch, callback requeue handling is consolidated in the nfsd4_requeue_cb macro. Convert that macro and its release/workqueue consumers to the flag, retain the older cb_holds_slot representation, and omit the callback lifetime tracepoint hunk because that tracepoint is not present here.
-
-[ sashal: Reduced backport -- upstream 32ce62c0f09cd touches 3 file(s), this
-  backport carries 2. Not backported here:
-  fs/nfsd/trace.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 01c5d5f58a5d ("nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown")
+Stable-dep-of: eb0eca772066 ("nfsd: reject out-of-range nseconds in NFSv3 SETATTR and create ops")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4callback.c | 9 +++------
- fs/nfsd/state.h        | 2 +-
- 2 files changed, 4 insertions(+), 7 deletions(-)
+ fs/nfsd/trace.h | 29 +++++++++++++++--------------
+ 1 file changed, 15 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
-index 755e2ea069491..00e3664727fd9 100644
---- a/fs/nfsd/nfs4callback.c
-+++ b/fs/nfsd/nfs4callback.c
-@@ -921,7 +921,7 @@ static bool nfsd4_queue_cb(struct nfsd4_callback *cb)
- 		struct nfs4_client *__clp = __cb->cb_clp; \
- 		if (!test_bit(NFSD4_CLIENT_CB_KILL, &__clp->cl_flags)) { \
- 			__task->tk_status = 0; \
--			__cb->cb_need_restart = true; \
-+			set_bit(NFSD4_CALLBACK_REQUEUE, &__cb->cb_flags); \
- 		} \
- 	} while (0)
+diff --git a/fs/nfsd/trace.h b/fs/nfsd/trace.h
+index 91e9921db725e..8556de1a3bbba 100644
+--- a/fs/nfsd/trace.h
++++ b/fs/nfsd/trace.h
+@@ -16,22 +16,23 @@
+ #include "nfsfh.h"
+ #include "xdr4.h"
  
-@@ -1285,7 +1285,7 @@ static void nfsd4_cb_release(void *calldata)
- {
- 	struct nfsd4_callback *cb = calldata;
+-#define NFSD_TRACE_PROC_RES_FIELDS \
++#define NFSD_TRACE_PROC_RES_FIELDS(r) \
+ 		__field(unsigned int, netns_ino) \
+ 		__field(u32, xid) \
+ 		__field(unsigned long, status) \
+-		__array(unsigned char, server, sizeof(struct sockaddr_in6)) \
+-		__array(unsigned char, client, sizeof(struct sockaddr_in6))
++		__sockaddr(server, (r)->rq_xprt->xpt_locallen) \
++		__sockaddr(client, (r)->rq_xprt->xpt_remotelen)
  
--	if (cb->cb_need_restart)
-+	if (test_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags))
- 		nfsd4_queue_cb(cb);
- 	else
- 		nfsd41_destroy_cb(cb);
-@@ -1407,9 +1407,7 @@ nfsd4_run_cb_work(struct work_struct *work)
- 	struct rpc_clnt *clnt;
- 	int flags;
+-#define NFSD_TRACE_PROC_RES_ASSIGNMENTS(error) \
++#define NFSD_TRACE_PROC_RES_ASSIGNMENTS(r, error) \
+ 		do { \
+-			__entry->netns_ino = SVC_NET(rqstp)->ns.inum; \
+-			__entry->xid = be32_to_cpu(rqstp->rq_xid); \
++			struct svc_xprt *xprt = (r)->rq_xprt; \
++			__entry->netns_ino = SVC_NET(r)->ns.inum; \
++			__entry->xid = be32_to_cpu((r)->rq_xid); \
+ 			__entry->status = be32_to_cpu(error); \
+-			memcpy(__entry->server, &rqstp->rq_xprt->xpt_local, \
+-			       rqstp->rq_xprt->xpt_locallen); \
+-			memcpy(__entry->client, &rqstp->rq_xprt->xpt_remote, \
+-			       rqstp->rq_xprt->xpt_remotelen); \
++			__assign_sockaddr(server, &xprt->xpt_local, \
++					  xprt->xpt_locallen); \
++			__assign_sockaddr(client, &xprt->xpt_remote, \
++					  xprt->xpt_remotelen); \
+ 		} while (0);
  
--	if (cb->cb_need_restart) {
--		cb->cb_need_restart = false;
--	} else {
-+	if (!test_and_clear_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags)) {
- 		if (cb->cb_ops && cb->cb_ops->prepare)
- 			cb->cb_ops->prepare(cb);
- 	}
-@@ -1454,7 +1452,6 @@ void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
- 	INIT_WORK(&cb->cb_work, nfsd4_run_cb_work);
- 	cb->cb_seq_status = 1;
- 	cb->cb_status = 0;
--	cb->cb_need_restart = false;
- 	cb->cb_holds_slot = false;
- }
+ DECLARE_EVENT_CLASS(nfsd_xdr_err_class,
+@@ -142,14 +143,14 @@ TRACE_EVENT(nfsd_compound_decode_err,
+ 	),
+ 	TP_ARGS(rqstp, args_opcnt, resp_opcnt, opnum, status),
+ 	TP_STRUCT__entry(
+-		NFSD_TRACE_PROC_RES_FIELDS
++		NFSD_TRACE_PROC_RES_FIELDS(rqstp)
  
-diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index d2134782b4021..10d1b418e0c7c 100644
---- a/fs/nfsd/state.h
-+++ b/fs/nfsd/state.h
-@@ -68,12 +68,12 @@ struct nfsd4_callback {
- 	struct nfs4_client *cb_clp;
- 	struct rpc_message cb_msg;
- #define NFSD4_CALLBACK_RUNNING		(0)
-+#define NFSD4_CALLBACK_REQUEUE		(1)
- 	unsigned long cb_flags;
- 	const struct nfsd4_callback_ops *cb_ops;
- 	struct work_struct cb_work;
- 	int cb_seq_status;
- 	int cb_status;
--	bool cb_need_restart;
- 	bool cb_holds_slot;
- };
+ 		__field(u32, args_opcnt)
+ 		__field(u32, resp_opcnt)
+ 		__field(u32, opnum)
+ 	),
+ 	TP_fast_assign(
+-		NFSD_TRACE_PROC_RES_ASSIGNMENTS(status)
++		NFSD_TRACE_PROC_RES_ASSIGNMENTS(rqstp, status)
  
+ 		__entry->args_opcnt = args_opcnt;
+ 		__entry->resp_opcnt = resp_opcnt;
+@@ -168,12 +169,12 @@ TRACE_EVENT(nfsd_compound_encode_err,
+ 	),
+ 	TP_ARGS(rqstp, opnum, status),
+ 	TP_STRUCT__entry(
+-		NFSD_TRACE_PROC_RES_FIELDS
++		NFSD_TRACE_PROC_RES_FIELDS(rqstp)
+ 
+ 		__field(u32, opnum)
+ 	),
+ 	TP_fast_assign(
+-		NFSD_TRACE_PROC_RES_ASSIGNMENTS(status)
++		NFSD_TRACE_PROC_RES_ASSIGNMENTS(rqstp, status)
+ 
+ 		__entry->opnum = opnum;
+ 	),
 -- 
 2.53.0
 
