@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC46265621
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:48:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7952A18DB2A
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:55:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788713282; cv=none; b=T3X+X983VdgrKAanunXStU0HEtWuDlS2I4AQfGfUJQLLGYRo5Ohzzxk00SZP2q9Q+Qc7QzL7ASGk4jYoePpKpL+qylRSA9xtHZoZvUf0+J+JvDBKgA7ADBik8mKZBQwMLQyznac6GXvRUPoprrhgCIV0h/hjO08G/KexR397pxQ=
+	t=1788713736; cv=none; b=D3z6YVdreo+OOxPaUHQ3N9U+Xmj/oflwUg8RNz9x9hvrP0rRUxcp8D8gO7tXfGUJ7NIxyVnqNzaWsnDZ29VXhxG23/5ztHTV6YEsH/pm+2rtQOI/s3WnB0UAuCbsHNc84EtEd22f3/o0rykmBhypbFDxdOdNJZ4JKSlMQA6t4GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788713282; c=relaxed/simple;
-	bh=68LIWo6duEVskPGdXzxa2A7dooyOmcPg0fViPsKT0Ms=;
+	s=arc-20240116; t=1788713736; c=relaxed/simple;
+	bh=720/CNZlckrA8JrAlZBAX79+7KxZbxx+MCKg82A7C/Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AvAKlghakabyMuRhVgHzi14ofO2ngClsSKPHqZpuV1PGzhHHRzQ5ZBSaZqMZq89CncX9CFOh0uYFA9YxLJC0EDXvXjIj0KOeJEuVibmYCSk6VcxRF3c5x9K1FOA5IqE7BkGSz5DFE1U6rewEHQYJUA5XRxMiONY/DTynpH6+mgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3B5z37O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XaxOi1lffdCmZILBtAQa8aebPqhuj/EgDBD4AoP+HIr0hXmmjkE/wK5cNcYJ9fL8kyGUo49gnfqfhyNWdo++UgDOZEPNiAVWL1kx2e9lFo6ThR/5OLp2END6sUScFpfNw7soCGRok2gLNtyMGEDZx+vhIcBU4Rz5fSob04UirOc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mmSU4pyO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3B5z37O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146381F00A3D;
-	Sun,  6 Sep 2026 16:47:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mmSU4pyO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62B601F00A3A;
+	Sun,  6 Sep 2026 16:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788713280;
-	bh=Ict4mDnLucsGrROoyvOaSMzjHDkXLIhyqH1OX2AhBQY=;
+	s=k20260515; t=1788713735;
+	bh=U08++gp/GwjvW+YoKpm3b+Eb4E44bTR/5r4AB0Ep96M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W3B5z37OvAvU/8G2WKHbr52W2JWHazCsb5GEq9WH5RRz0UBVuenhp8rIkfq8q9f7k
-	 soHirabymUCmmAXVVE2Ocj1A5iUHK3TNrjWz0AQ+gXJ2b68DSoWb1h5Mb/qZ7KfsRC
-	 YbJL9tr5/G8lg1dvXdprMTB1Tvi9RypHweZukMG37x50OY7eDZnXdmCQcLPGMw9ajW
-	 ZX6SMclJ2INwXZ9jud34nMHD+Gx6TKUcw5+zZKsevkufadw8+9v38sjDa8IWQz8Dvf
-	 EUyROn/XyiFm5+ohpRNVzdgp2Mcs90417NoysoDqdyKgYbPGQLe4SqBV8pehMl0Fuw
-	 XehNTW85QKXtQ==
+	b=mmSU4pyOWkM7jZyL5x/SOvsu9VYo2gPJDxa1xnGJr9ad5Z+Q/tsU4b2nvMN78cVW8
+	 mJRvkoE7iKYpMe1G6G5ZgVTJFCNLxRsP4EJAfSuuMywmnTZwfHb+2NUKQj8Z/fMnA+
+	 0hCU/OJpNFL5+6oUY1iMfm3oX4g+qmGu0kilqLTzawkINbHuJNiAjR3KuTWi5BZuEa
+	 sOXKxakJ9Mdr5FoJYB18BY1i3xcB4d20/f9y1Zqiq8y9063FNDo99hY7w+xwCNqK1k
+	 PeZ0XNOenVySMA2sagLWDkecplKgUCjT/dJyxXkdaJ4ENXirGPihTf+qfJ8lCOuiUt
+	 A36ZpG7TRvfSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	NeilBrown <neil@brown.name>,
-	Jeff Layton <jlayton@kernel.org>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] NFSD: Prevent client use-after-free during delegation revoke
-Date: Sun,  6 Sep 2026 12:47:57 -0400
-Message-ID: <20260906164757.1617855-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ceph: do not repeat ceph_trim_dentries() if no progress possible
+Date: Sun,  6 Sep 2026 12:55:32 -0400
+Message-ID: <20260906165532.1629246-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906164757.1617855-1-sashal@kernel.org>
-References: <2026090337-handwork-power-a1b4@gregkh>
- <20260906164757.1617855-1-sashal@kernel.org>
+In-Reply-To: <2026090312-grinning-resurrect-3acf@gregkh>
+References: <2026090312-grinning-resurrect-3acf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,118 +46,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit 4683ca76b3b7e5808338491c6eb3c20e6b4894d5 ]
+[ Upstream commit e7d7aa7b730178278109c41fa1b17b06873065d5 ]
 
-A delegation stateid holds only a bare pointer to its owning
-nfs4_client and does not keep it alive.  The client survives its
-stateids only because __destroy_client() drains cl_delegations and
-cl_revoked before free_client() runs.
+ceph_cap_reclaim_work() re-queues itself for as long as
+ceph_trim_dentries() returns -EAGAIN, which happens whenever a lease
+walk exhausts its `nr_to_scan` budget.  This creates a busy loop that
+consumes CPU without making any progress when there is nothing to
+reclaim: with no cap pressure (`count==0`) and every scanned lease
+still valid, each pass runs the full scan budget down to zero and
+returns `-EAGAIN`, only to be queued again immediately.
 
-nfs4_laundromat() breaks that invariant: it unhashes an
-expired delegation from cl_delegations, drops deleg_lock, then
-revoke_delegation() relinks it onto cl_revoked under cl_lock.  In that
-window the delegation is on neither list, so client_has_state() can
-report no remaining state.
+The dir-lease walk made this worse.  When `expire_dir_lease` is
+`false` (i.e. we have no intention of reclaiming dir leases),
+__dir_lease_check() returned `TOUCH` for every valid lease.  `TOUCH`
+moves the dentry to the tail of the list and resets `di->time` via
+__dentry_dir_lease_touch(), so a walk over N valid leases pointlessly
+rewrote the list, refreshed the timestamps (preventing them from ever
+aging out) and always drained `nr_to_scan`, guaranteeing the `-EAGAIN`
+requeue.
 
-Every teardown path first requires cl_rpc_users to be zero, but
-the laundromat holds no such reference.  A client whose recalled
-delegation has just timed out can therefore reach free_client()
-while revoke_delegation() is still about to dereference cl_lock,
-a use-after-free.
+Fix this in three steps:
 
-Pin the client with cl_rpc_users across the revoke so teardown blocks
-until it completes, then reap the delegation from cl_revoked.  A client
-already expiring reaps its own, so skip it and leave the delegation on
-del_recall_lru.
+ - Return `KEEP` instead of `TOUCH` when `expire_dir_lease` is
+   `false`.  If we are not going to reclaim the lease, leave it in
+   place instead of churning the list and resetting its timestamp; the
+   walk then terminates naturally (or via `STOP` at the first fresh
+   lease).
 
-Fixes: 3bd64a5ba171 ("nfsd4: implement SEQ4_STATUS_RECALLABLE_STATE_REVOKED")
+ - Only return `-EAGAIN` from the first (dentry-lease) walk when something
+   was actually freed.  A full batch that frees nothing means retrying
+   the same list immediately is futile; fall through to the dir-lease
+   walk instead.
+
+ - After both walks, bail out with success (0) when nothing was freed
+   and there is no cap pressure (`count==0`).  There is no reason to
+   keep retrying when we are not over the cap limit and made no
+   progress.
+
+Under real cap pressure (`count>0`) the reclaim path is unchanged and
+still retries via `-EAGAIN`.
+
+Without this patch, I saw 500 ceph_trim_dentries() calls per second on
+our web servers.  This is very visible in `/proc/lock_stat` (5 minute
+capture):
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:        126180         128218           0.04        8063.44    15986965.20         124.69        1573354        5296812           0.04        8291.28    74164526.48          14.00
+ -----------------------
+ &mdsc->dentry_list_lock         111736          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2631          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           3878          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock           9973          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ -----------------------
+ &mdsc->dentry_list_lock         123621          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           1822          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2720          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             55          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+With this patch:
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:          1203           1215           0.16         408.88       33082.88          27.23        4320501        7357389           0.04         500.64     1961578.00           0.27
+ -----------------------
+ &mdsc->dentry_list_lock           1029          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            169          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             16          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock              1          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ -----------------------
+ &mdsc->dentry_list_lock            158          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock            858          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            182          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock             17          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+__dentry_leases_walk() is almost gone.  The total wait time is reduced
+by a factor of 483.  That will give some latency gains to
+ceph_readdir().
+
 Cc: stable@vger.kernel.org
-Reviewed-by: NeilBrown <neil@brown.name>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260709-cel-v4-2-1d519d9be0cb@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
+Fixes: 37c4efc1ddf9 ("ceph: periodically trim stale dentries")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ retained callback arguments for __dentry_leases_walk() required by Linux 6.6 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/netns.h     |  6 ++++--
- fs/nfsd/nfs4state.c | 23 +++++++++++++++++++++++
- 2 files changed, 27 insertions(+), 2 deletions(-)
+ fs/ceph/dir.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index 4ef41e18a7871..d4aff2b4eb7ad 100644
---- a/fs/nfsd/netns.h
-+++ b/fs/nfsd/netns.h
-@@ -99,7 +99,8 @@ struct nfsd_net {
- 	struct list_head client_lru;
- 	struct list_head close_lru;
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index 52a441f86ee39..f37dc2d28946a 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -1483,11 +1483,11 @@ static int __dir_lease_check(struct dentry *dentry, void *arg)
+ 	if (ret > 0) {
+ 		if (time_before(jiffies, di->time + lwc->dir_lease_ttl))
+ 			return STOP;
++		if (!lwc->expire_dir_lease)
++			return KEEP;
+ 		/* Move dentry to tail of dir lease list if we don't want
+ 		 * to delete it. So dentries in the list are checked in a
+ 		 * round robin manner */
+-		if (!lwc->expire_dir_lease)
+-			return TOUCH;
+ 		if (dentry->d_lockref.count > 0 ||
+ 		    (di->flags & CEPH_DENTRY_REFERENCED))
+ 			return TOUCH;
+@@ -1514,7 +1514,7 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.dir_lease = false;
+ 	lwc.nr_to_scan  = CEPH_CAPS_PER_RELEASE * 2;
+ 	freed = __dentry_leases_walk(mdsc, &lwc, __dentry_lease_check);
+-	if (!lwc.nr_to_scan) /* more invalid leases */
++	if (freed > 0 && !lwc.nr_to_scan) /* more invalid leases */
+ 		return -EAGAIN;
  
--	/* protects del_recall_lru and delegation hash/unhash */
-+	/* protects del_recall_lru and delegation hash/unhash;
-+	 * nests outside client_lock */
- 	spinlock_t deleg_lock ____cacheline_aligned;
- 	struct list_head del_recall_lru;
+ 	if (lwc.nr_to_scan < CEPH_CAPS_PER_RELEASE)
+@@ -1524,6 +1524,10 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.expire_dir_lease = freed < count;
+ 	lwc.dir_lease_ttl = mdsc->fsc->mount_options->caps_wanted_delay_max * HZ;
+ 	freed +=__dentry_leases_walk(mdsc, &lwc, __dir_lease_check);
++	if (freed == 0 && count == 0)
++		/* no progress possible currently, retry futile */
++		return 0;
++
+ 	if (!lwc.nr_to_scan) /* more to check */
+ 		return -EAGAIN;
  
-@@ -108,7 +109,8 @@ struct nfsd_net {
- 
- 	struct delayed_work laundromat_work;
- 
--	/* client_lock protects the client lru list and session hash table */
-+	/* client_lock protects the client lru list and session hash
-+	 * table; nests inside deleg_lock */
- 	spinlock_t client_lock;
- 
- 	/* protects blocked_locks_lru */
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index a167e7861d2ea..16ceaa541d8d8 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -6189,6 +6189,7 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		.new_timeo = nn->nfsd4_lease
- 	};
- 	struct nfs4_cpntf_state *cps;
-+	struct nfs4_client *clp;
- 	copy_stateid_t *cps_t;
- 	int i;
- 
-@@ -6214,6 +6215,18 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
- 		if (!state_expired(&lt, dp->dl_time))
- 			break;
-+		clp = dp->dl_stid.sc_client;
-+		spin_lock(&nn->client_lock);
-+		if (is_client_expired(clp)) {
-+			spin_unlock(&nn->client_lock);
-+			continue;
-+		}
-+		/*
-+		 * Pin without reviving: get_client_locked() would
-+		 * flip a courtesy client back to NFSD4_ACTIVE.
-+		 */
-+		atomic_inc(&clp->cl_rpc_users);
-+		spin_unlock(&nn->client_lock);
- 		refcount_inc(&dp->dl_stid.sc_count);
- 		unhash_delegation_locked(dp, SC_STATUS_REVOKED);
- 		list_add(&dp->dl_recall_lru, &reaplist);
-@@ -6222,8 +6235,18 @@ nfs4_laundromat(struct nfsd_net *nn)
- 	while (!list_empty(&reaplist)) {
- 		dp = list_first_entry(&reaplist, struct nfs4_delegation,
- 					dl_recall_lru);
-+		clp = dp->dl_stid.sc_client;
- 		list_del_init(&dp->dl_recall_lru);
- 		revoke_delegation(dp);
-+		/*
-+		 * Unpin without renewing: put_client_renew() would
-+		 * renew the reaped client's lease.
-+		 */
-+		if (atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock)) {
-+			if (is_client_expired(clp))
-+				wake_up_all(&expiry_wq);
-+			spin_unlock(&nn->client_lock);
-+		}
- 	}
- 
- 	spin_lock(&nn->client_lock);
 -- 
 2.53.0
 
