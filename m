@@ -1,44 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF513CCA19
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:28:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2136D2C15BB
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701332; cv=none; b=iFa/5iBkORlFMYR/DUGUPwZ/Mb2o7QUQvysGD1FrukVKhCz3NrsQnZvs7F24fkRJ9+OX5V7QluODbOE2MgECfmd36SwRipSa1H21UcyiJPNQagcnpVlvfvOvNAWSWTB1UZ8pfYRr4AnqiuLVCTGDQ3cXUQmqz1Ut0vzDd3zlRYc=
+	t=1788701483; cv=none; b=cuWncvDsj7oKfbfUkWNkgqwOw5ungHvuhF1BjH5VOquZqL1vGyeD4I+pK1S1KA1devCBAVwphljKm/h6JW2tZ3bVWWQuBj22qow6HHF6Ow/b7YcuOtiLVNr26R6lTH42mc/c5BMEicp1huHqOl5JnKocSSyk0xq8Hnfxv3kh7cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701332; c=relaxed/simple;
-	bh=LoGuMQOqxtd01aHm1vb6X10F3TqQyGikkMQEBrAjh+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KQlIQtnG3F5CoU7kGl5wnYMmvDyZHKEGPYANXiJFImUi+VfxW42wdauRxNIjN3m/KxUpmsK+M4nsCZJMIY2ZyZt4TVF4dOTr4xGhl9fFDwNvBhknmZhtJrzseRgCCdGIoWnPLgOfSPHUdhEUDyCS+fui+HYiDHEAPIOAmuYYgfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mxdjAilj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788701483; c=relaxed/simple;
+	bh=w9uXm4NeZlNVLPlUVdwRM9srfwyMgHqMULfg8Dra+mw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jeSDORXpJ1y+bSYORMp46K3F33+7jxF5v89mcFM0nMv4o7JykRT+Hmb5MKaJXhYyPiqaZl28BJsN4m31Ac41AdRrFPM9tQF51gHxH6bs0jqcvZ5d4FF6/ElwvFn8Mdi1FfhfBGSdDmlRDJF+zyKN9okc32xFeWX3IIK9AoIYkh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiQiz3Ph; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mxdjAilj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BDE21F00ACF;
-	Sun,  6 Sep 2026 13:28:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701330;
-	bh=IZQ1/AwxGdn34wWCU8S9sePnhO2ofIgLfyM8xWjUYQA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mxdjAilj1K8aFXC7nepzdhLvXY/XCEpU438WnbZIWqc23+vvER7T6W+E5MyNncbrT
-	 T1Y3+tqaKJWjJrR7ZZicdXZD9pFsdRuK/Z+2sEoMz9bdi6U8gMqAAfF3mMXQ3omDWD
-	 DHiH8UDYkTgyw8CrYUw5gg5+ocdplAyqdv7lqQZe0uLZko1EsFLRNY/doGWeDfWZOB
-	 cW0nMGLhuM6qpjpA+u6E26HnV5jFLcdG5uDO+FmaIO80jbwO0Sgmk+zmiGUv4tK0Y9
-	 ENHC7HZqDl8MRQ/ADqdGu6DDmUz+AzmiIj9d9mF6PFuz7u9CDSTNLT5KOUMzFyxrMi
-	 LPRf2h1DDtk1g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	XIAO WU <xiaowu.417@qq.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 4/4] NFSD: Guard admin state-revocation walks with NFSD_NET_UP
-Date: Sun,  6 Sep 2026 09:28:46 -0400
-Message-ID: <20260906132846.875246-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906132846.875246-1-sashal@kernel.org>
-References: <2026090352-fading-liquefy-e98c@gregkh>
- <20260906132846.875246-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiQiz3Ph"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso23154785ad.3
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788701481; x=1789306281; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
+        b=oiQiz3PhPwldC4bnwr4BRrOIcxwAPQl0IbKZWW2PA9mbdoh1kCGAObMVlqA1hk/5qx
+         +ofkgCBxiZsiAwohvSzO8AoQsL0eLeNiIy2w9gmps3ZKW99o3BGw6kXAQX/KsRsiU5hj
+         CFUkSJ7+unTOaqqeTGYWXf2zwjNDdKG/6+tMAyBCTEy8FPAD/NzhzyH7PLaoYpOsFc2p
+         Hf4yQnBxf0O0N2s9SEhB3o/k5NNgpj5kOLCNqT1lRCom6BxP2eWXrXqySJfaR6XFOcfA
+         rtToG6/9YApMg3D3llzuoG36c6kUxRsFTQXWWeAP3KGJ3MPmuL7kfRDQBoIxsizvg6cy
+         wJZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788701481; x=1789306281;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Tj4ItgvvBxbS1G7naSWp8Nbn7WWa6B30ZGxjseZ9BkI=;
+        b=GWTP47pTlMCPd5jFwrWCzzixq7VDmlHCGqZCYmhVissKV4CJT/5fxH2t9HQadKK14w
+         MiqxuQ/tONQVEwQnnwQ1xmQXihZoTAIW+REtoIDii4G7tFsoxKVGsGfByZwUTEYegsIv
+         9P6WTyklsZXuPCy85j+NS2jDWmgidGWqxmoUFPyBAs4juMEj3uyz9LuJvtbOhXAdjCWo
+         LFZ5L04FLgzXzuesdX9zXqGwd0BfBLtogBmzSGe+G2DXV5COflxQ+jffuBfjXRGCVuYV
+         wCmazuTXPSVXJ9QicA85rdCa/G9KYm0TOkRDB0uR3fWnu6Een+02XIIWf3ePRw56oarZ
+         MRRA==
+X-Forwarded-Encrypted: i=1; AKwUvBxD1MMRc2JcdnYyXW1h9lOrPTBC7Hi5cehOh/0OpRUpFxA8HmBDuT+l4UolNokMV02XeKsl8IA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/xdJbbnBTKI4C12bYDeRrHqA5h/T4Crf7bm6099pquYCGMcGx
+	g9bUwswyVSI0NUjFiASSaChDvLKfcL6zx/Vnpb9Cr04/TAzEb1mSWlNF
+X-Gm-Gg: AYBFou0n0xQmOA6wtq2CAwfXoo4dE/dUmLAvlwPswSNDfBDJ60d5s5Q8geyki1bZGlH
+	QJAStOzkYmrGaPMvdyA1yvagKfa2QvZXDityc99rDFX1Z0F+QSnhtJJ3gqJ9IY4rqOnw+JpUuca
+	8uE8n3PE215bosLwGo36LlDhIvX6xL3+fdofw1IC+fMUSfYuz+V+T3anAbtakGZ9UApcbGczznv
+	eVgtlzR5mc4xpLDWjOQZJwEoAlCjp9zz0V4Fe7hm/fUTaK0CRiicRX33s1af08yIBMsKLUR8umC
+	o4SO48hF5FaTmbj2LJ6eHc4zSxeviVVyGFXsBuaqtgzBWj9ielkxmLgoMRBmZ+ok8YJdU0n0Hcu
+	rYzhoYaOnPdKJsEtKjvXoqYGteyP6emx73Rl0gGTIZPeUocd/BfV+Noc9f/vPd1OPBC20lCfnaA
+	gfIM+ewl3ka/53fTdIgI8ZspubZiTY0U/CdCs0Olbif/YsOcYOD5YBfiP0H+PWKQCeQd28xQnfU
+	xzsxo5u
+X-Received: by 2002:a17:903:3848:b0:2d9:56dd:f804 with SMTP id d9443c01a7336-2db125f00c7mr262152175ad.13.1788701481084;
+        Sun, 06 Sep 2026 06:31:21 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:7bb9:b8bf:8aa8:fb0d])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499d92dsm32422945ad.52.2026.09.06.06.31.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 06:31:19 -0700 (PDT)
+From: ThangNN99 <ngocthang2710.1999@gmail.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Heming Zhao <heming.zhao@suse.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Su Yue <glass.su@suse.com>,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	ThangNN99 <ngocthang2710.1999@gmail.com>,
+	syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] ocfs2: fix ABBA deadlock in suballocator reclaim
+Date: Sun,  6 Sep 2026 20:31:12 +0700
+Message-ID: <20260906133112.73343-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,123 +81,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <cel@kernel.org>
+_ocfs2_reclaim_suballoc_to_main() runs inside an already-started
+transaction (j_trans_barrier held) and locks the global bitmap inode
+to return clusters to it. Every other allocation path takes that
+inode lock *before* starting a transaction, so this reverses the
+order and can deadlock:
 
-[ Upstream commit 2f3e6638aebc0ab8afb8b4e9816ea9a1cad85378 ]
+  CPU0                          CPU1
+  rlock(j_trans_barrier)
+                                lock(sb_internal)
+                                lock(j_trans_barrier)
+  lock(GLOBAL_BITMAP inode)
 
-Writing to /proc/fs/nfsd/unlock_filesystem, or sending the
-NFSD_CMD_UNLOCK_FILESYSTEM or NFSD_CMD_UNLOCK_EXPORT netlink command,
-walks the NFSv4 client hash tables to revoke open state and cancel
-async COPY operations.  All three handlers gate that walk on
-nn->nfsd_serv, but a listener added via portlist or netlink
-listener_set sets nn->nfsd_serv before any nfsd thread starts.
-nfsd_startup_net() has not yet allocated nn->conf_id_hashtbl, so the
-walkers dereference a NULL table.  A local administrator with
-CAP_SYS_ADMIN can crash the kernel this way without ever starting the
-server.
+Since reclaim is best-effort (its caller already ignores the return
+value), fix it by acquiring the global bitmap inode with trylock,
+before mutating anything, and bailing out to skip reclaim on a busy
+lock instead of blocking in the wrong order.
 
-nn->nfsd_serv is set when the service is created, which precedes
-table allocation.  NFSD_NET_UP instead brackets the window where the
-tables are live: set at the end of nfsd_startup_net() and cleared in
-nfsd_shutdown_net() after they are freed, both under nfsd_mutex.
-Gating the three unlock paths on NFSD_NET_UP fixes the startup-time
-NULL dereference while preserving the earlier post-shutdown
-use-after-free fix.
+Reproduced with the syzbot C repro under QEMU: the unpatched kernel
+hits the lockdep splat on the very first mount+mkdir+rmdir cycle
+(~10s in); the patched kernel ran the same cycle 169 times with zero
+splats, and instrumentation confirmed reclaim keeps running (trylock
+succeeds) rather than being silently skipped.
 
-Reported-by: XIAO WU <xiaowu.417@qq.com>
-Fixes: 1ac3629bf012 ("nfsd: prepare for supporting admin-revocation of state")
+Reported-by: syzbot+73d1166b94ed9875af54@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=73d1166b94ed9875af54
+Fixes: 4a54331616b3 ("ocfs2: give ocfs2 the ability to reclaim suballocator free bg")
 Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260621162551.2469460-1-cel@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
 ---
- fs/nfsd/nfs4proc.c  |  7 +++----
- fs/nfsd/nfs4state.c | 14 ++++++--------
- fs/nfsd/nfsctl.c    |  6 +++---
- 3 files changed, 12 insertions(+), 15 deletions(-)
+ fs/ocfs2/suballoc.c | 37 +++++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
-index 10e76bafabf29..290d0a5305c13 100644
---- a/fs/nfsd/nfs4proc.c
-+++ b/fs/nfsd/nfs4proc.c
-@@ -1563,10 +1563,9 @@ static bool nfsd4_copy_on_sb(const struct nfsd4_copy *copy,
-  * @net: net namespace containing the copy operations
-  * @sb: targeted superblock
-  *
-- * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
-- *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
-- *          at server shutdown without clearing the pointer, so a
-- *          walk without these guarantees iterates freed slab memory.
-+ * Context: Caller must hold nfsd_mutex with NFSD_NET_UP set.  Outside
-+ *          that window nn->conf_id_hashtbl is unallocated or freed,
-+ *          so the walk would dereference a NULL or dangling pointer.
-  */
- void nfsd4_cancel_copy_by_sb(struct net *net, struct super_block *sb)
- {
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index efa234eb6a605..0ca816553a62b 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -1876,10 +1876,9 @@ static void revoke_one_stid(struct nfsd_net *nn, struct nfs4_client *clp,
-  * The clients which own the states will subsequently be notified that the
-  * states have been "admin-revoked".
-  *
-- * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
-- *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
-- *          at server shutdown without clearing the pointer, so a
-- *          walk without these guarantees iterates freed slab memory.
-+ * Context: Caller must hold nfsd_mutex with NFSD_NET_UP set.  Outside
-+ *          that window nn->conf_id_hashtbl is unallocated or freed,
-+ *          so the walk would dereference a NULL or dangling pointer.
-  */
- void nfsd4_revoke_states(struct nfsd_net *nn, struct super_block *sb)
- {
-@@ -1954,10 +1953,9 @@ static struct nfs4_stid *find_one_export_stid(struct nfs4_client *clp,
-  * Userspace (exportfs -u) sends this after removing the last client
-  * for a path, enabling the underlying filesystem to be unmounted.
-  *
-- * Context: Caller must hold nfsd_mutex with nn->nfsd_serv confirmed
-- *          non-NULL.  nfs4_state_destroy_net() frees conf_id_hashtbl
-- *          at server shutdown without clearing the pointer, so a
-- *          walk without these guarantees iterates freed slab memory.
-+ * Context: Caller must hold nfsd_mutex with NFSD_NET_UP set.  Outside
-+ *          that window nn->conf_id_hashtbl is unallocated or freed,
-+ *          so the walk would dereference a NULL or dangling pointer.
-  */
- void nfsd4_revoke_export_states(struct nfsd_net *nn, const struct path *path)
- {
-diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
-index 32106d223a23c..02abd499a4e9f 100644
---- a/fs/nfsd/nfsctl.c
-+++ b/fs/nfsd/nfsctl.c
-@@ -299,7 +299,7 @@ static ssize_t write_unlock_fs(struct file *file, char *buf, size_t size)
- 	error = nlmsvc_unlock_all_by_sb(path.dentry->d_sb);
- 	mutex_lock(&nfsd_mutex);
- 	nn = net_generic(netns(file), nfsd_net_id);
--	if (nn->nfsd_serv) {
-+	if (test_bit(NFSD_NET_UP, &nn->flags)) {
- 		nfsd4_cancel_copy_by_sb(netns(file), path.dentry->d_sb);
- 		nfsd4_revoke_states(nn, path.dentry->d_sb);
- 	} else {
-@@ -2344,7 +2344,7 @@ int nfsd_nl_unlock_filesystem_doit(struct sk_buff *skb,
- 	error = nlmsvc_unlock_all_by_sb(path.dentry->d_sb);
+diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
+index 20c3aec6b987..085af9ba38ab 100644
+--- a/fs/ocfs2/suballoc.c
++++ b/fs/ocfs2/suballoc.c
+@@ -2716,18 +2716,39 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
+ 	idx = le16_to_cpu(group->bg_chain);
+ 	rec = &(cl->cl_recs[idx]);
  
- 	mutex_lock(&nfsd_mutex);
--	if (nn->nfsd_serv) {
-+	if (test_bit(NFSD_NET_UP, &nn->flags)) {
- 		nfsd4_cancel_copy_by_sb(net, path.dentry->d_sb);
- 		nfsd4_revoke_states(nn, path.dentry->d_sb);
- 	} else {
-@@ -2391,7 +2391,7 @@ int nfsd_nl_unlock_export_doit(struct sk_buff *skb, struct genl_info *info)
- 		return error;
++	/*
++	 * We already hold j_trans_barrier, while everywhere else locks the
++	 * allocator inode before starting a transaction. Trylock here, before
++	 * mutating anything, so a busy lock skips this best-effort reclaim
++	 * instead of inverting that order into an ABBA deadlock.
++	 */
++	main_bm_inode = ocfs2_get_system_file_inode(osb,
++						    GLOBAL_BITMAP_SYSTEM_INODE,
++						    OCFS2_INVALID_SLOT);
++	if (!main_bm_inode)
++		goto bail; /* ignore the error in reclaim path */
++
++	if (!inode_trylock(main_bm_inode)) {
++		iput(main_bm_inode);
++		goto bail; /* ignore the error in reclaim path */
++	}
++
++	status = ocfs2_try_inode_lock(main_bm_inode, &main_bm_bh, 1);
++	if (status < 0)
++		goto free_bm_inode; /* ignore the error in reclaim path */
++
+ 	status = ocfs2_extend_trans(handle,
+ 				ocfs2_calc_group_alloc_credits(osb->sb,
+ 						 le16_to_cpu(cl->cl_cpg)));
+ 	if (status) {
+ 		mlog_errno(status);
+-		goto bail;
++		goto free_bm_bh;
+ 	}
+ 	status = ocfs2_journal_access_di(handle, INODE_CACHE(alloc_inode),
+ 					 alloc_bh, OCFS2_JOURNAL_ACCESS_WRITE);
+ 	if (status < 0) {
+ 		mlog_errno(status);
+-		goto bail;
++		goto free_bm_bh;
+ 	}
  
- 	mutex_lock(&nfsd_mutex);
--	if (nn->nfsd_serv) {
-+	if (test_bit(NFSD_NET_UP, &nn->flags)) {
- 		nfsd_file_close_export(net, &path);
- 		nfsd4_revoke_export_states(nn, &path);
- 	} else
+ 	/*
+@@ -2795,18 +2816,6 @@ static int _ocfs2_reclaim_suballoc_to_main(handle_t *handle,
+ 	memset(group, 0, sizeof(struct ocfs2_group_desc));
+ 
+ 	/* prepare job for reclaim clusters */
+-	main_bm_inode = ocfs2_get_system_file_inode(osb,
+-						    GLOBAL_BITMAP_SYSTEM_INODE,
+-						    OCFS2_INVALID_SLOT);
+-	if (!main_bm_inode)
+-		goto bail; /* ignore the error in reclaim path */
+-
+-	inode_lock(main_bm_inode);
+-
+-	status = ocfs2_inode_lock(main_bm_inode, &main_bm_bh, 1);
+-	if (status < 0)
+-		goto free_bm_inode; /* ignore the error in reclaim path */
+-
+ 	ocfs2_block_to_cluster_group(main_bm_inode, start_blk, &bg_blkno,
+ 				     &start_bit);
+ 	fe = (struct ocfs2_dinode *) main_bm_bh->b_data;
 -- 
-2.53.0
+2.43.0
 
