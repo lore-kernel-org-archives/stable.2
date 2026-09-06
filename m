@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D636E3BB69A
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:19:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467F33BBFCA
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 17:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715146; cv=none; b=PwjQxMdy1cHA7/viTqjurGUP/T5u3DAIk/SS6TnGgBHiSaW6bcaMTv4ThvQjjWlouJLQipI1jpeTPprTrl526Acjp5HqBe9V16/9g1zXG5j+UZDy4YxiFNN6vRgRvDsrSwzPECnW7w7q6od5rjzK5mClMvJtICJsSwIMs3ESxFw=
+	t=1788715147; cv=none; b=rGsRwZq8wUAh0pVSdDLUWW9yUMCug6puxhPGyu0EvlVcvXqsLa6Q0ZhaZ6Iu6Lk3ebHRD3qMsY1mwhkSePiAdADeBe6/nEGFUkcl9vw/18hUOV1FzZj1TREQeK9WOG57+qgunr/cqmc1YRQ8kNNOkEGeLlwlNtJ+TBOvqAcOGHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715146; c=relaxed/simple;
-	bh=YwYH5tfsgj4Yl3t5CcGdPq9DJN6xh5+uKWNAUWiAL2E=;
+	s=arc-20240116; t=1788715147; c=relaxed/simple;
+	bh=GGGxfO0Qo0dxpzVrm9yXcA4os1ySTtqqs7LY4j9g1Ew=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BvIIjHeMa1K5jfCkLFggA5vtsUG+kYMuvV+mbs5qGac6uNSSDqSnFuvhsSYNTacWt7bLwQPtIhnhIJDaWJr5YnVTEovr1qyENwidOq1dPwtBSTCUTd81+P4enhpCoDmRp+ru7tNyUA2cGljpjzhYTngpK9JhFn3dCuiJWGLKHhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cV0K8hyl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QOAyQTmnQJaibiyqtlbu78tGYXwoEzv/Z1o2I9nKYngxE+HNBcPvzOv1dbNeoI8CvHyFTQg17+vRrrQnSlRhc7uFXFUi58wcBQ7c7ebOPsZ106PfnzvndFMlI4hqfz1zgTSYWEyCRKZjVbmk9/FZXlfL0TrP2Vm/kNPTWWdK3DY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yo5PNRXP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cV0K8hyl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACAC1F00A3A;
-	Sun,  6 Sep 2026 17:19:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yo5PNRXP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CF891F00A3D;
+	Sun,  6 Sep 2026 17:19:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788715144;
-	bh=aioskovU9PaUQTcVt3a+vNjsfEMIThpUrqUhgz5f8Xg=;
+	s=k20260515; t=1788715145;
+	bh=oUIbDkUxV00Uws60O91MqzG5jA/3swIXZGRdMumzm1I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cV0K8hyl35oASIaJu0jvJyKBgxIXNwWRFooKC4SCasZjd7hPMfdqRQ0JiK4Dll+/5
-	 ZMGhXn8yVm0moF6iyr9OAElIXlUuaym3xY9zr6Hka95gHOuAxyMd6IZVoSyp+9VX0r
-	 l9zyOspM1ZG+Ej0VCCkV9rBQEYY9SgDc+RmgiA9/9LC/v+I2/uc/hT0ZGBo333vZDZ
-	 gDC01MzwvOLgh9hqdZf+J3FsvmBlQltWEk3HWaAzj+V+U0lKwB54N7t2L2ZjDjXdLq
-	 lZlxq8vZ9+HctUI9mrSRe1dTiX5hNkz5qdvlf86UYM5rebHZ3MaOzAFaQobAtIUUXY
-	 4RxHn17r/+4aQ==
+	b=Yo5PNRXPsUpL6dSF6D1lvhYll6+7wCC07PASLnQ2iTo6GfupXLQGmlW1v6XOYNhuj
+	 /jH/jctoUDvIrGzYXgtPtnHq4jC766VTVYOeBvBAyETAU5sWkgmJV7zqStUEzvT1mu
+	 kybZb2V9syMVAEwf6+24jkcgiisCqlgl7SX7rGjac1XS6dY5OiNok+DDvQsEcfXj7w
+	 bl1BruhXF8JoDQN3VwcMVTov2ML1N1lELBsfduEkDed5HXfGhgl2M1agJKPJZpe2QE
+	 8pya/2DZW2yFxyqobl78V8Tr31FWz+5Vw4tdLQpVFjqSKh7mkoC4fIXobnL9h+ye/B
+	 lQC0vMlA8vOyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Josef Bacik <josef@toxicpanda.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/5] btrfs: have proper error handling in btrfs_init_reloc_root
-Date: Sun,  6 Sep 2026 13:18:58 -0400
-Message-ID: <20260906171902.1684623-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/5] btrfs: do not panic in __add_reloc_root
+Date: Sun,  6 Sep 2026 13:19:00 -0400
+Message-ID: <20260906171902.1684623-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090300-visible-upwind-24ae@gregkh>
+In-Reply-To: <20260906171902.1684623-1-sashal@kernel.org>
 References: <2026090300-visible-upwind-24ae@gregkh>
+ <20260906171902.1684623-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,42 +48,64 @@ Content-Transfer-Encoding: 8bit
 
 From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit 00bb36a0e76ab7e94bdd70d561baf25f9bc1415d ]
+[ Upstream commit 57a304cfd43b2b4a5b44b8f5dc026abb34183068 ]
 
-create_reloc_root will return errors in the future, and __add_reloc_root
-can return ENOMEM or EEXIST, so handle these errors properly.
+If we have a duplicate entry for a reloc root then we could have fs
+corruption that resulted in a double allocation.  Since this shouldn't
+happen unless there is corruption, add an ASSERT(ret != -EEXIST) to all
+of the callers of __add_reloc_root() to catch any logic mistakes for
+developers, otherwise normal error handling will happen for normal
+users.
 
 Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 Reviewed-by: David Sterba <dsterba@suse.com>
-[ add comment ]
 Signed-off-by: David Sterba <dsterba@suse.com>
 Stable-dep-of: 6d8ba4572922 ("btrfs: drop recovered reloc root refs on recovery failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/relocation.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ fs/btrfs/relocation.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index 5b921e6ed94e2..b0d34879e267f 100644
+index 8ac37034c6561..0442cfe70b323 100644
 --- a/fs/btrfs/relocation.c
 +++ b/fs/btrfs/relocation.c
-@@ -878,9 +878,15 @@ int btrfs_init_reloc_root(struct btrfs_trans_handle *trans,
- 	reloc_root = create_reloc_root(trans, root, root->root_key.objectid);
- 	if (clear_rsv)
- 		trans->block_rsv = rsv;
-+	if (IS_ERR(reloc_root))
-+		return PTR_ERR(reloc_root);
+@@ -638,9 +638,10 @@ static int __must_check __add_reloc_root(struct btrfs_root *root)
+ 				   node->bytenr, &node->rb_node);
+ 	spin_unlock(&rc->reloc_root_tree.lock);
+ 	if (rb_node) {
+-		btrfs_panic(fs_info, -EEXIST,
++		btrfs_err(fs_info,
+ 			    "Duplicate root found for start=%llu while inserting into relocation tree",
+ 			    node->bytenr);
++		return -EEXIST;
+ 	}
+ 
+ 	list_add_tail(&root->root_list, &rc->reloc_roots);
+@@ -882,6 +883,7 @@ int btrfs_init_reloc_root(struct btrfs_trans_handle *trans,
+ 		return PTR_ERR(reloc_root);
  
  	ret = __add_reloc_root(reloc_root);
--	BUG_ON(ret < 0);
-+	if (ret) {
-+		/* Pairs with create_reloc_root */
-+		btrfs_put_root(reloc_root);
-+		return ret;
-+	}
- 	root->reloc_root = btrfs_grab_root(reloc_root);
- 	return 0;
- }
++	ASSERT(ret != -EEXIST);
+ 	if (ret) {
+ 		/* Pairs with create_reloc_root */
+ 		btrfs_put_root(reloc_root);
+@@ -3862,6 +3864,7 @@ int btrfs_recover_relocation(struct btrfs_root *root)
+ 		}
+ 
+ 		err = __add_reloc_root(reloc_root);
++		ASSERT(err != -EEXIST);
+ 		if (err) {
+ 			list_add_tail(&reloc_root->root_list, &reloc_roots);
+ 			btrfs_put_root(fs_root);
+@@ -4092,6 +4095,7 @@ int btrfs_reloc_post_snapshot(struct btrfs_trans_handle *trans,
+ 		return PTR_ERR(reloc_root);
+ 
+ 	ret = __add_reloc_root(reloc_root);
++	ASSERT(ret != -EEXIST);
+ 	if (ret) {
+ 		/* Pairs with create_reloc_root */
+ 		btrfs_put_root(reloc_root);
 -- 
 2.53.0
 
