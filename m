@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 720133859DC
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 904383C0A12
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723053; cv=none; b=WsZpWy81zF31Y0mxcp0qwBvxqEhbXHE6JhHVtL2rA/JoRT8vlYzuDT0tB+jr3msSfTgO6RnKUIxSN6Z7ZUyh9pW+w/typq9SQJS7D+HsVRGKWWIhp0ZGojErO8TL07UAPICfU72Q3Szan7ShNJ+UrnnI4175KXlM1ZGKXQI75vM=
+	t=1788723055; cv=none; b=QmCi2fHJ4jsJnWCAdCmBzgH/XVk7FdgNqLi8W1in2Lv56dE7kmcmJbE89Uc1fzToAUiwfkkgPViMyppfVwdw8n+9IxP0fXtwU/Ls/ZBiUj8EPxBLtjXpAtGrHrqGaJz+gx2zcK6NHP7KZUS0y6yNnb1bALzZuekMSvto+mcPxs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723053; c=relaxed/simple;
-	bh=RONv+c4PHawhhk4xfC26/E657vWK0IgZAHM/3qWnRZE=;
+	s=arc-20240116; t=1788723055; c=relaxed/simple;
+	bh=b5+yAdH0/B+7kFAJtIuKuhyfsc8GJAm7OlAp1+m2lic=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jWpQeTLTN++I+IOAwQTDbSIWlynDlsg1coxZ0fOZNYAEOfvhxmMgj64ByK6f5X4mprAoqEdPg01CZ1+cKD2QWULnsqAjR1SjDlwKDvdTMqGdywGmNfo1AYBvbEhTU3wq4Oj1pUqCofvy0mzff37jJ456ihhZlxY8F73cCdePFFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXVeeqyA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=fjYKsRt7iYFegCffSwqoU1XKh8sg4Nd+ZTn1yEUYK+nnLeytPnpG0Kf4Mu9ClomEZTQjp7wPewtJc+CmaQS0UXkiKNeKoAqumQcE8fJjI6FhdVCEjg4ltsQzy58yyZST7erH2FAGaslUTVMNijdQtgKbd4JJqlYTsM3/bdpklEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjuB0v+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXVeeqyA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABE491F00A3F;
-	Sun,  6 Sep 2026 19:30:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjuB0v+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94CB81F00A3E;
+	Sun,  6 Sep 2026 19:30:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723052;
-	bh=LQUH3ohwHqhbI4ZvpGgrQ7AVLWua8G3CJiH6hoqNEzU=;
+	s=k20260515; t=1788723053;
+	bh=sUGbDwc/MiA/CrKWAGxAGiAaSN8maUZrlWaeKOQP7qo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bXVeeqyAm3rHM8BnFqAGqVE1BNc3twUI3i0DADaVJi4IqqSXvUOchKmHUqJBwVjLs
-	 +sroD9tjIDch5hW1+rt6uSiuTKDWw8gKz5zAB2XhqW/P9ZwGzQNtDiAcOjhSADUlR9
-	 I9iE7YnlZt40bK5RKPtIF+0ADLNcAX3KuwWnjFfIu5IRZ/KzP7YMUuPJ1TVJbDqMiu
-	 H6HkgZfUp7wdqkhcQ8NIxKit9G24lxXSoY2vhUdIDQM5/M6tpszvCai1WOw+AV4JEY
-	 G6lKqswl0umxBwN00m+NGhxPVJBVdd3LGYBwhbUK+ZvDsU3KqFP65CwlgL5tUo4bh6
-	 fK5jB3vA1/Y+w==
+	b=MjuB0v+DQYbd/1WqWQPGb5zunoMPZ+n1Tl/nYJLCM4MdOIpRePas7VFL+D4cXRRZr
+	 V3H/1HnFXGmdhtC3FwseTSaAF+OFDXrlyzPtB86lc501QfKBdRrbcFrwl6nBxnMP/e
+	 Pi+NVlnU6RAp5fCB7e0qXPXI+DorUWKW0fu4h2NwWeh9rkR/byoo0aRzeeUF4aZyWn
+	 l5btg9IDyvMeDwoxbW1RKmF+nio64NycxHfrMfbWhTBthbtoZlvlqqTxqfV2z4N+WQ
+	 fWXRuTQ289HQIpw7rIF9Bo+Q838f5G/bRkmqgtlridoIy8+OlIsVgeAvbOtNwcyC3P
+	 dRfxwJJhOourw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Filipe Manana <fdmanana@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+Cc: Qu Wenruo <wqu@suse.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 3/8] btrfs: move btrfs_alloc_write_mask() into fs.h
-Date: Sun,  6 Sep 2026 15:30:43 -0400
-Message-ID: <20260906193048.1791749-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/8] btrfs: expose per-inode stable writes flag
+Date: Sun,  6 Sep 2026 15:30:44 -0400
+Message-ID: <20260906193048.1791749-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260906193048.1791749-1-sashal@kernel.org>
 References: <2026090330-nappy-discharge-0af0@gregkh>
@@ -48,73 +46,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Filipe Manana <fdmanana@suse.com>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 378f25d3fc429ad001fa686f615df5c0f9cd47e1 ]
+[ Upstream commit ecde48a1a6b3256bd49db8780bf37556b157783c ]
 
-Currently btrfs_alloc_write_mask() is defined in ctree.h but it's not
-related at all to the btree data structure, so move it into fs.h.
+The address space flag AS_STABLE_WRITES determine if FGP_STABLE for will
+wait for the folio to finish its writeback.
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
+For btrfs, due to the default data checksum behavior, if we modify the
+folio while it's still under writeback, it will cause data checksum
+mismatch.  Thus for quite some call sites we manually call
+folio_wait_writeback() to prevent such problem from happening.
+
+Currently there is only one call site inside btrfs really utilizing
+FGP_STABLE, and in that case we also manually call folio_wait_writeback()
+to do the waiting.
+
+But it's better to properly expose the stable writes flag to a per-inode
+basis, to allow call sites to fully benefit from FGP_STABLE flag.
+E.g. for inodes with NODATASUM allowing beginning dirtying the page
+without waiting for writeback.
+
+This involves:
+
+- Update the mapping's stable write flag when setting/clearing NODATASUM
+  inode flag using ioctl
+  This only works for empty files, so it should be fine.
+
+- Update the mapping's stable write flag when reading an inode from disk
+
+- Remove the explicit folio_wait_writeback() for FGP_BEGINWRITE call
+  site
+
+Signed-off-by: Qu Wenruo <wqu@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
+
+[ sashal: Reduced backport -- upstream ecde48a1a6b32 touches 4 file(s), this
+  backport carries 3. Not backported here:
+  fs/btrfs/btrfs_inode.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
 Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/ctree.h | 6 ------
- fs/btrfs/fs.h    | 6 ++++++
- 2 files changed, 6 insertions(+), 6 deletions(-)
+ fs/btrfs/file.c  | 3 +--
+ fs/btrfs/inode.c | 8 ++++++++
+ fs/btrfs/ioctl.c | 4 ++++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/ctree.h b/fs/btrfs/ctree.h
-index 6906b4dd82a81..ced5ac090293b 100644
---- a/fs/btrfs/ctree.h
-+++ b/fs/btrfs/ctree.h
-@@ -7,7 +7,6 @@
- #define BTRFS_CTREE_H
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index fe60f2d7e8aec..8701f94002571 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -884,7 +884,7 @@ static int prepare_uptodate_page(struct inode *inode,
  
- #include "linux/cleanup.h"
--#include <linux/pagemap.h>
- #include <linux/spinlock.h>
- #include <linux/rbtree.h>
- #include <linux/mutex.h>
-@@ -506,11 +505,6 @@ static inline u32 BTRFS_MAX_XATTR_SIZE(const struct btrfs_fs_info *info)
- 	return BTRFS_MAX_ITEM_SIZE(info) - sizeof(struct btrfs_dir_item);
- }
- 
--static inline gfp_t btrfs_alloc_write_mask(struct address_space *mapping)
--{
--	return mapping_gfp_constraint(mapping, ~__GFP_FS);
--}
--
- void btrfs_error_unpin_extent_range(struct btrfs_fs_info *fs_info, u64 start, u64 end);
- int btrfs_discard_extent(struct btrfs_fs_info *fs_info, u64 bytenr,
- 			 u64 num_bytes, u64 *actual_bytes);
-diff --git a/fs/btrfs/fs.h b/fs/btrfs/fs.h
-index 3174b45a80b1d..90b104dd38c23 100644
---- a/fs/btrfs/fs.h
-+++ b/fs/btrfs/fs.h
-@@ -18,6 +18,7 @@
- #include <linux/rwsem.h>
- #include <linux/semaphore.h>
- #include <linux/list.h>
-+#include <linux/pagemap.h>
- #include <linux/radix-tree.h>
- #include <linux/workqueue.h>
- #include <linux/wait.h>
-@@ -893,6 +894,11 @@ struct btrfs_fs_info {
- #define inode_to_fs_info(_inode) (BTRFS_I(_Generic((_inode),			\
- 					   struct inode *: (_inode)))->root->fs_info)
- 
-+static inline gfp_t btrfs_alloc_write_mask(struct address_space *mapping)
-+{
-+	return mapping_gfp_constraint(mapping, ~__GFP_FS);
-+}
-+
- static inline u64 btrfs_get_fs_generation(const struct btrfs_fs_info *fs_info)
+ static fgf_t get_prepare_fgp_flags(bool nowait)
  {
- 	return READ_ONCE(fs_info->generation);
+-	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT;
++	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT | FGP_STABLE;
+ 
+ 	if (nowait)
+ 		fgp_flags |= FGP_NOWAIT;
+@@ -954,7 +954,6 @@ static noinline int prepare_pages(struct inode *inode, struct page **pages,
+ 			faili = i - 1;
+ 			goto fail;
+ 		}
+-		wait_on_page_writeback(pages[i]);
+ 	}
+ 
+ 	return 0;
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index ab7f19ca21457..9f8b6a8a36928 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -3851,6 +3851,10 @@ static int btrfs_read_locked_inode(struct inode *inode,
+ 
+ 	btrfs_inode_split_flags(btrfs_inode_flags(leaf, inode_item),
+ 				&BTRFS_I(inode)->flags, &BTRFS_I(inode)->ro_flags);
++	if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
++		mapping_clear_stable_writes(inode->i_mapping);
++	else
++		mapping_set_stable_writes(inode->i_mapping);
+ 
+ cache_index:
+ 	/*
+@@ -6310,6 +6314,10 @@ int btrfs_create_new_inode(struct btrfs_trans_handle *trans,
+ 		if (btrfs_test_opt(fs_info, NODATACOW))
+ 			BTRFS_I(inode)->flags |= BTRFS_INODE_NODATACOW |
+ 				BTRFS_INODE_NODATASUM;
++		if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
++			mapping_clear_stable_writes(inode->i_mapping);
++		else
++			mapping_set_stable_writes(inode->i_mapping);
+ 	}
+ 
+ 	ret = btrfs_insert_inode_locked(inode);
+diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
+index df288213f91be..8997e65d32863 100644
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -391,6 +391,10 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
+ 
+ update_flags:
+ 	inode->flags = inode_flags;
++	if (inode->flags & BTRFS_INODE_NODATASUM)
++		mapping_clear_stable_writes(inode->vfs_inode.i_mapping);
++	else
++		mapping_set_stable_writes(inode->vfs_inode.i_mapping);
+ 	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
+ 	inode_inc_iversion(&inode->vfs_inode);
+ 	inode_set_ctime_current(&inode->vfs_inode);
 -- 
 2.53.0
 
