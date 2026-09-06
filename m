@@ -1,168 +1,259 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB96534E744;
-	Sun,  6 Sep 2026 19:12:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5AEC202C29
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788721978; cv=none; b=cjJmy55aTU4rQmi+na7SDfgmWic5gbMjhBLda7Vw2GK+eOOEVkkkV3DfJkcVXph4DdfXgQUZZXKjj8lhEa3naMTnmQWv9qCoqCKcfdlhCn0hOirT0YH6f1L11vyZ89z4A0EfbbHx3IVqJPNpdUHsHXgqh9JfHrooiMdrgP/g7xs=
+	t=1788723043; cv=none; b=KOn6CMtu3iPWGQq8z8gmC3m6Zs1Sy7t54zMsY2yXcF2+QRm4BZY89kd6qFEUfQLtjou//ZYWoWbRfPO1j+kE24wgpd6H1VE/jZZwZyg2bXVYP6k8EuKKjWSEoHga9nY59i3Sw6oGTPzmkRcTpFEnZcRV8w2UB4+YyeJGfB2kGEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788721978; c=relaxed/simple;
-	bh=ARZSddmj0XeCLuMzroyiL4lLcJIWgmzqmeDwixSxUgw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DoZOQTJWg4bBaGfOI50uHoEBIg5vapbTXqVGZxJmhc2cXMRCSRhoUfK0/cA10NjCvxX7DI7Ez6km8IbeXnZP+EJidstSUR2RieK8gEzECVy4yH8gdTVt6cjxQeicaJJ0G8eQqq6xkW/EfArmDDo9f/hViMpfOLf0r4EUUkCo41M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mbscmGdn; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788723043; c=relaxed/simple;
+	bh=2oQolZmYyJNp+vtr1gsrfbsQzLthe9WdI7VUNvATE9A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GyFZYDsLWGVijtKK38Qj4gfnHyT4qtbK4aSgzKTBmcWVjhIxX4dplfEWoItk6t2TN9NmaGGN1D+ylM3VryLoC5GPb+iE/9C4w8B2GZ4fmpBNoR3E4pXLAYG3tplMpVpvHFrA/wz/fTtDSBJSeuLeM3eU7Wm3o8jw8PP6/dvA3fc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UHZGO9h2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mbscmGdn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788721976; x=1820257976;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ARZSddmj0XeCLuMzroyiL4lLcJIWgmzqmeDwixSxUgw=;
-  b=mbscmGdn4JvdLG+41HIZgCUuHQXsEoRnVsYZ3HX9IeTLmD5AXexFewfS
-   8U8MY4i9QzGCKAyLiE+/iwZ2LzOKgTnoPcqONxdCIj2196XaXqKQIGfby
-   CK+s6BYiXOvN+Gsv4nuCQZnEOG3RyI9mrUCLFHPVnEqM18WeL5v1Q3thY
-   G8HemxOyeVSH59TNvQautQMO4nVnYzVKKtx6nFKGYKrW4EN5ArIWg0b1k
-   TrYYOYobNlS8ffCNN5/wIK1rOOUmAeYMnvoYz1JK3CtyCwevJ0IcnAgrd
-   MLFiWM9uuuw4/vI9XJdWxEhiIdjuCaFBhIVnev4+CXoWH/6OSHFyQAWdm
-   g==;
-X-CSE-ConnectionGUID: gbtx83M1SdOc2DICiu4OAg==
-X-CSE-MsgGUID: E9qcZpMWSZm9zqLEMOBWUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="111912884"
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="111912884"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 12:12:56 -0700
-X-CSE-ConnectionGUID: cQyrjwFrTQGOkpYRj2GVaQ==
-X-CSE-MsgGUID: oMRqnj9XTdmrG3bhpI3Y2A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="270012387"
-Received: from smithj1-mobl2.amr.corp.intel.com (HELO [10.125.111.58]) ([10.125.111.58])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 12:12:55 -0700
-Message-ID: <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
-Date: Sun, 6 Sep 2026 12:12:54 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UHZGO9h2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0271F00A3A;
+	Sun,  6 Sep 2026 19:30:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788723041;
+	bh=8M+GNfdCdoFCAdLnWkHP/aDnJE/Sm24zAQ2NbSORxss=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UHZGO9h2PXmceOdW9xhZDoNNg65moXE1nErrRuWNr4GovpDCH0UV3rFPICqy2Sifl
+	 yRHlIaheEcL542S2gRgM3foCe/aYKcAMaamXQPjEh319tD5sntawJ+gnRzcBMYevfq
+	 EiwPmL1gvUj114VnSj06vb/PRfZsCtn77lBY97wDOn64rfTUid2QXXQuwubLSyUvuA
+	 btOlkX0CAVxOgn/LL8XeX9lh3z72muqREhJaYzpH1MPiWcexn9eu7j0dipIyhUHuS5
+	 V5GCfaPYMV9xxzy4q8Y0cuYWQphDlUU93Nd5f/BXNXc/sfv4W7M/IpPA61DAUseuT7
+	 UExdsM1SRVUWQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ceph: cap delegated inode count in ceph_parse_deleg_inos()
+Date: Sun,  6 Sep 2026 15:30:39 -0400
+Message-ID: <20260906193039.1791491-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090357-gangly-scapegoat-ae91@gregkh>
+References: <2026090357-gangly-scapegoat-ae91@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Dave Hansen
- <dave.hansen@linux.intel.com>, linux-tip-commits@vger.kernel.org,
- Juergen Gross <jgross@suse.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
- <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
- <20260906181247.GA1148584@ax162>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260906181247.GA1148584@ax162>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/6/26 11:12, Nathan Chancellor wrote:
-> On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
->> On 9/4/26 21:42, Nathan Chancellor wrote:
->>> I just bisected the following warning on a couple of my test machines to
->>> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
->>> lookup_address_in_pgd_attr()") in next-20260904.
->> ...
->>> If there is any information I can provide to help debug this, I am happy
->>> to provide it.
->>
->> Well, the thing you bisected to is the patch that fixes the warning. The
-> 
-> Hmmm, I don't see a warning prior to this patch though. Do you mean that
-> this patch is just revealing the bad behavior that you mention below?
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-Yeah, "fixes" was a bad word to use.
+[ Upstream commit 4bd3158bd62466d57ed72a3f7bc5f205fedd6919 ]
 
-The W^X detection has been broken for a while. The patch you bisected to
-fixes the W^X detection. It doesn't actually cause the issue.
+ceph_parse_deleg_inos() decodes interval sets of delegated inode numbers
+from an MDS create-with-delegation reply. For each set it reads a 64-bit
+start and a 64-bit len with ceph_decode_64_safe(), which only validates
+that the eight bytes are present in the message, not the value, and then
+loops over len while inserting entries into s_delegated_inos.
 
->> actual issue comes from:
->>
->>         if (pages == &its_pages)
->>                 set_memory_x((unsigned long)page, 1);
->>
->> which its_alloc() does on an execmem allocation. Any chance you could
->> get the output of:
->>
->> 	/sys/kernel/debug/page_tables/current_kernel
->>
->> for the page that page that it's complaining about? I'm curious if this
->> is temporary or permanent.
-> 
-> Sure. For
-> 
->    CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
-> 
-> I think it is this line if I understand correctly?
-> 
->   0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
+len is fully attacker controlled. A malicious or compromised MDS can send
+one huge interval, many intervals in one reply, duplicate intervals, or
+repeated replies that accumulate delegated inodes on the same session.
+The original code bounded none of these and could spin the insert loop or
+grow the xarray without limit.
 
-Yeah, that does seems to show it getting fixed up. Thanks! That means
-that the warning (at least in early boot) is essentially a false
-positive. The problem is that there's module-load-time patching too and
-that is much later and is arguably an actual problem.
+Bound both dimensions with a single enforcement point. Track the number
+of delegated inodes held by each MDS session in an atomic counter and
+grow it only in ceph_insert_deleg_ino(), which uses atomic_add_unless()
+to refuse to push the count past CEPH_MAX_DELEG_INOS. Because that helper
+is the only place the counter grows, the per-session population can never
+exceed the cap, so no separate per-session pre-check is needed. The
+counter is decremented when async create consumes a delegated inode or
+when an insert fails, incremented when a delegated inode is restored,
+initialized with the session xarray, and reset when reconnect destroys
+the xarray.
 
-Oh, and thinking about it a bit more... This warning came from
-alternatives patching which is too early for normal text_poke(), thus
-the existence of text_poke_early().
+A per-session cap alone still lets one reply spin the insert loop on
+duplicate ranges without growing the counter, so also cap the aggregate
+interval length accepted from a single reply. Together these bound both
+the loop trip count per reply and the xarray population across replies.
 
-Anyway, I'm curious what Peter wants to do with this.
+The cap is a fixed, client-chosen constant rather than a value derived
+from the MDS. mds_client_prealloc_inos is a userspace MDS configuration
+option; it is never sent to the kernel client on the wire, and a
+server-supplied bound could not be trusted for a defensive limit in any
+case. The constant is set well above that option's documented default of
+1000 (a generous multiple), so legitimate refill behavior is unaffected
+while the CPU and xarray memory a malformed delegation stream can consume
+stays bounded.
+
+Impact: a malicious or compromised Ceph MDS can no longer make a client
+spin through an unbounded delegated-inode interval or grow one session's
+delegated-inode xarray without limit.
+
+Cc: stable@vger.kernel.org
+Fixes: d48464878708 ("ceph: decode interval_sets for delegated inos")
+Suggested-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <Slava.Dubeyko@ibm.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ preserved the 5.10-specific delegated-inode loop and reconnect control flow while integrating the new counter and insertion helper ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ceph/mds_client.c | 60 +++++++++++++++++++++++++++++++++++++++-----
+ fs/ceph/mds_client.h |  1 +
+ fs/ceph/super.h      |  9 +++++++
+ 3 files changed, 64 insertions(+), 6 deletions(-)
+
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index 165a0ec892acc..b398b8e2a7374 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -422,9 +422,36 @@ static int parse_reply_info_filelock(void **p, void *end,
+ 
+ #define DELEGATED_INO_AVAILABLE		xa_mk_value(1)
+ 
++static int ceph_insert_deleg_ino(struct ceph_mds_session *s, u64 ino)
++{
++	struct ceph_client *cl = s->s_mdsc->fsc->client;
++	int err;
++
++	/*
++	 * Cap how many delegated inodes a single session may hold. This is
++	 * the only place that grows the count, so atomic_add_unless() bounds
++	 * it at exactly CEPH_MAX_DELEG_INOS; s_num_deleg_inos can never exceed
++	 * that.
++	 */
++	if (!atomic_add_unless(&s->s_num_deleg_inos, 1, CEPH_MAX_DELEG_INOS)) {
++		pr_warn_ratelimited_client(cl,
++			"MDS session already holds %d delegated inodes\n",
++			CEPH_MAX_DELEG_INOS);
++		return -EOVERFLOW;
++	}
++
++	err = xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
++			GFP_KERNEL);
++	if (err)
++		atomic_dec(&s->s_num_deleg_inos);
++	return err;
++}
++
+ static int ceph_parse_deleg_inos(void **p, void *end,
+ 				 struct ceph_mds_session *s)
+ {
++	struct ceph_client *cl = s->s_mdsc->fsc->client;
++	u64 msg_deleg_inos = 0;
+ 	u32 sets;
+ 
+ 	ceph_decode_32_safe(p, end, sets, bad);
+@@ -441,16 +468,34 @@ static int ceph_parse_deleg_inos(void **p, void *end,
+ 					start, len);
+ 			continue;
+ 		}
++
++		/*
++		 * Bound the number of inodes one reply may delegate.
++		 * ceph_insert_deleg_ino() separately caps the per-session
++		 * population, so this only has to stop one reply from spinning
++		 * the insert loop under an attacker-controlled len.
++		 */
++		if (len > (u64)CEPH_MAX_DELEG_INOS ||
++		    msg_deleg_inos > (u64)CEPH_MAX_DELEG_INOS - len) {
++			pr_warn_ratelimited_client(cl,
++				"MDS reply delegates too many inodes (have %llu, +%llu, max %d)\n",
++				msg_deleg_inos, len, CEPH_MAX_DELEG_INOS);
++			return -EIO;
++		}
++		msg_deleg_inos += len;
++
+ 		while (len--) {
+-			int err = xa_insert(&s->s_delegated_inos, ino = start++,
+-					    DELEGATED_INO_AVAILABLE,
+-					    GFP_KERNEL);
++			int err = ceph_insert_deleg_ino(s, ino = start++);
++
+ 			if (!err) {
+ 				dout("added delegated inode 0x%llx\n",
+ 				     start - 1);
+ 			} else if (err == -EBUSY) {
+ 				pr_warn("ceph: MDS delegated inode 0x%llx more than once.\n",
+ 					start - 1);
++			} else if (err == -EOVERFLOW) {
++				/* ceph_insert_deleg_ino() already warned. */
++				return -EIO;
+ 			} else {
+ 				return err;
+ 			}
+@@ -468,16 +513,17 @@ u64 ceph_get_deleg_ino(struct ceph_mds_session *s)
+ 
+ 	xa_for_each(&s->s_delegated_inos, ino, val) {
+ 		val = xa_erase(&s->s_delegated_inos, ino);
+-		if (val == DELEGATED_INO_AVAILABLE)
++		if (val == DELEGATED_INO_AVAILABLE) {
++			atomic_dec(&s->s_num_deleg_inos);
+ 			return ino;
++		}
+ 	}
+ 	return 0;
+ }
+ 
+ int ceph_restore_deleg_ino(struct ceph_mds_session *s, u64 ino)
+ {
+-	return xa_insert(&s->s_delegated_inos, ino, DELEGATED_INO_AVAILABLE,
+-			 GFP_KERNEL);
++	return ceph_insert_deleg_ino(s, ino);
+ }
+ #else /* BITS_PER_LONG == 64 */
+ /*
+@@ -760,6 +806,7 @@ static struct ceph_mds_session *register_session(struct ceph_mds_client *mdsc,
+ 	INIT_LIST_HEAD(&s->s_waiting);
+ 	INIT_LIST_HEAD(&s->s_unsafe);
+ 	xa_init(&s->s_delegated_inos);
++	atomic_set(&s->s_num_deleg_inos, 0);
+ 	s->s_num_cap_releases = 0;
+ 	s->s_cap_reconnect = 0;
+ 	s->s_cap_iterator = NULL;
+@@ -4003,6 +4050,7 @@ static void send_mds_reconnect(struct ceph_mds_client *mdsc,
+ 		goto fail_nomsg;
+ 
+ 	xa_destroy(&session->s_delegated_inos);
++	atomic_set(&session->s_num_deleg_inos, 0);
+ 
+ 	mutex_lock(&session->s_mutex);
+ 	session->s_state = CEPH_MDS_SESSION_RECONNECTING;
+diff --git a/fs/ceph/mds_client.h b/fs/ceph/mds_client.h
+index b1939f9162284..847f04424be3c 100644
+--- a/fs/ceph/mds_client.h
++++ b/fs/ceph/mds_client.h
+@@ -210,6 +210,7 @@ struct ceph_mds_session {
+ 	struct list_head  s_waiting;  /* waiting requests */
+ 	struct list_head  s_unsafe;   /* unsafe requests */
+ 	struct xarray	  s_delegated_inos;
++	atomic_t	  s_num_deleg_inos;
+ };
+ 
+ /*
+diff --git a/fs/ceph/super.h b/fs/ceph/super.h
+index ef1f253292b2b..2c3f112c5b81a 100644
+--- a/fs/ceph/super.h
++++ b/fs/ceph/super.h
+@@ -540,6 +540,15 @@ static inline int ceph_ino_compare(struct inode *inode, void *data)
+ #define CEPH_MDS_INO_MDSDIR_OFFSET	(1 * CEPH_MAX_MDS)
+ #define CEPH_INO_SYSTEM_BASE		((6*CEPH_MAX_MDS) + (CEPH_MAX_MDS * CEPH_NUM_STRAY))
+ 
++/*
++ * Upper bound on the number of delegated inodes a single MDS session may
++ * hold. The MDS normally hands out a small preallocation window (the
++ * userspace mds_client_prealloc_inos option defaults to 1000) and refills
++ * it as the client consumes entries. This leaves generous headroom while
++ * bounding the CPU and memory a malformed delegation interval can consume.
++ */
++#define CEPH_MAX_DELEG_INOS		8192
++
+ static inline bool ceph_vino_is_reserved(const struct ceph_vino vino)
+ {
+ 	if (vino.ino < CEPH_INO_SYSTEM_BASE &&
+-- 
+2.53.0
+
