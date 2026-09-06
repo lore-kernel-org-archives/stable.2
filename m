@@ -1,141 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833531EB1AA;
-	Sun,  6 Sep 2026 19:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FEDB1EB1AA;
+	Sun,  6 Sep 2026 19:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788724362; cv=none; b=IadCwuLUt1UMh+s1ixspFl0bULc+p3+66hWy6g5xQVzuDvnOOymMvOPQ4CW23t1vwKtzNS1oLenn7dqEOUZa9oVwEnQL92vMxdOG52kndvnjP6ec0trye6sDOPE0cs9zMrk7Yu9j9puj6cB3ONBYBYsUJXDFxTwkiLNlV48Fqao=
+	t=1788724466; cv=none; b=neVj1V3UB6nsK+VQR8ZTt9G1jovnwvYLu9UT5hJcaydjovuhSGosXnXaAWb7JQVkHRWb3CGE/kD8E8T1VZVL971p3RkOVfeAW5QJcwrtkXza3qvKgsht0bwAXke7aeX/aH2WfM3G4zvtjvUEFKgqlCNtsgGITIpbTSc75Il55B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788724362; c=relaxed/simple;
-	bh=OA6vPk1cj13Z7r23IRYKry6s5N4X9utwCg7tuvNfRBs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZOA7hbazxEmEf1tT/IdAgdrMMaCafLYuamvsdVl26eiPkdfxjWjkC7fZowxLuBUl3PHSFqk1gx0+v92HU4Q1pgj2oEsUgTRd70av7cwGb6Xw8RexL3KyJYexdgPUXBlvhc/mIeo1JQ90vBwqOeM1zDku6HkgSDi6EVWXFDFVArs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBErOy9C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788724466; c=relaxed/simple;
+	bh=7Vo19Jv/D0P0O/AGIhUJ2l5OLLSo/hTAPXZjtSEKi4w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vh9nffe23ABejojSiggLc6LE6S1ZOg0bCLlIsI+A60AHK4cym/w2rjh9CRAK5cCjeVy8ZSXO25p44TMPfjpGtmi+o7o/PrW8yeTZC9t2ehIedpGEWc0lnQ+SGhCcdUWxtkmBGD8WtNwmj+bZlM+2JVF4uiK60wwoJKcFJ/OJp38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iI6qZzFS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBErOy9C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 535B31F00A3A;
-	Sun,  6 Sep 2026 19:52:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iI6qZzFS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8A41F00A3A;
+	Sun,  6 Sep 2026 19:54:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788724361;
-	bh=fgI5axET70L7iQ52jUKyjZguO+vam3RREyyEnjLL8/M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EBErOy9CMwEEXmlSmRkILsDJPsrX5A7AV0ucsCEYAr9VyPfsGBk1ESaXmzJYWgXr2
-	 JrW3TXND0QNocYZPVgyxPTvmF2R+07lq0GY3TP+9F7bBM7zTyizXGx4p8iN9ZIvDxc
-	 p+PaJcPEjDb4LXzH4ksPQo6yYKTMWs4GhYMPZ6856NhRmvOT8lYtq5fgpf+dTsw0Pu
-	 G9gDbdjOHbq4E6EbFUvD/NXmS3tCgac0/UEXhAyi6i4mFR2ql6sxL663JrZJjywSaa
-	 Wqp59RHk733pxXvVtL2cK6bOIs07GaYC6eSgSRUNIMn6q1GzXlKFl0UEAU5Jf97wQO
-	 eN39WXK/kkpww==
-Date: Sun, 6 Sep 2026 22:52:34 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Message-ID: <ap3EgrZJILehwIQK@kernel.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
- <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
- <20260906181247.GA1148584@ax162>
- <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
+	s=k20260515; t=1788724464;
+	bh=9yZmy0/7ZEMQpd5WklGz4F0Ta/1vxLOno5MJ0SaNnXU=;
+	h=From:To:Cc:Subject:Date;
+	b=iI6qZzFSi9KxMAntjrQEPk/Gb895LQ8iS6PGcc4F5PZR5fQyWizFUbP03kVEKo+7Y
+	 T8ypxTxz/g6NjigLIcpAn88r05G8NR5A/Fh27G/zMPYY9UxbCX0vH8KDTeB4tE6rHW
+	 wy1INhYckOTm8oEL2OROZqsCDhQ5CU+uPw3VewpLwvIj6PhVRjLEVVy5jk7tn4PTnV
+	 BND0ABP+OCdbuyT0HSnQtO9m8vG+lU4Xe43SAuHOEnrVSDcduQ8m3LKitrIwsBZaXf
+	 z9YgHyiF0Qlc8mUWZWudc7epnxJZaOxl9OxzY4OTHmXoZCVrHaol2MsZ36q+GlW1no
+	 SwpASLEHHwxRA==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Sun,  6 Sep 2026 12:54:15 -0700
+Message-ID: <20260906195417.103263-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 06, 2026 at 12:12:54PM -0700, Dave Hansen wrote:
-> On 9/6/26 11:12, Nathan Chancellor wrote:
-> > On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
-> >> On 9/4/26 21:42, Nathan Chancellor wrote:
-> >>> I just bisected the following warning on a couple of my test machines to
-> >>> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
-> >>> lookup_address_in_pgd_attr()") in next-20260904.
-> >> ...
-> >>> If there is any information I can provide to help debug this, I am happy
-> >>> to provide it.
-> >>
-> >> Well, the thing you bisected to is the patch that fixes the warning. The
-> > 
-> > Hmmm, I don't see a warning prior to this patch though. Do you mean that
-> > this patch is just revealing the bad behavior that you mention below?
-> 
-> Yeah, "fixes" was a bad word to use.
-> 
-> The W^X detection has been broken for a while. The patch you bisected to
-> fixes the W^X detection. It doesn't actually cause the issue.
-> 
-> >> actual issue comes from:
-> >>
-> >>         if (pages == &its_pages)
-> >>                 set_memory_x((unsigned long)page, 1);
-> >>
-> >> which its_alloc() does on an execmem allocation. Any chance you could
-> >> get the output of:
-> >>
-> >> 	/sys/kernel/debug/page_tables/current_kernel
-> >>
-> >> for the page that page that it's complaining about? I'm curious if this
-> >> is temporary or permanent.
-> > 
-> > Sure. For
-> > 
-> >    CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
-> > 
-> > I think it is this line if I understand correctly?
-> > 
-> >   0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
-> 
-> Yeah, that does seems to show it getting fixed up. Thanks! That means
-> that the warning (at least in early boot) is essentially a false
-> positive. The problem is that there's module-load-time patching too and
-> that is much later and is arguably an actual problem.
-> 
-> Oh, and thinking about it a bit more... This warning came from
-> alternatives patching which is too early for normal text_poke(), thus
-> the existence of text_poke_early().
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table
+entry with the updated variable value.  If hardware updates the same
+page table entry in parallel, the hw updates could be lost.  For
+example, hardware-updated dirty bits might be lost.
 
-But text_poke_early is a memcpy :)
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to
+the memory is made after the clearing, the hw will see the page table
+entry is cleared, trigger page fault and wait until it is handled.  The
+page fault handling will wait for damon_hugetlb_mkold() due to the page
+table lock.
 
-The warning at core text patching is completely spurious because anyway the
-entire kernel text is mapped as RWX at that point.
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot
+be reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-This one should be fixed as with the patch below. As for the modules,
-text_poke()ing sounds like the way to move forward and ...
+The issue was discovered [1] by Sashiko.
 
-> Anyway, I'm curious what Peter wants to do with this.
+[1] https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org
 
-... I'm also curious what Peter will suggest :)
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
+Cc: <stable@vger.kernel.org> # 5.17.x
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/vaddr.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index c38faf39ce152..42ea8b4234b82 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -686,6 +686,10 @@ static inline pgprot_t verify_rwx(pgprot_t old, pgprot_t new, unsigned long star
- 	if (!(__supported_pte_mask & _PAGE_NX))
- 		return new;
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index f884d3f78f30a..91a0d441c1f94 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -283,22 +283,29 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
+ }
  
-+	/* skip verification until kernel text is set to read only */
-+	if (!kernel_set_to_readonly)
-+		return new;
+ #ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
++{
++	unsigned long psize = huge_page_size(hstate_vma(vma));
 +
- 	if (!((pgprot_val(old) ^ pgprot_val(new)) & (_PAGE_RW | _PAGE_NX)))
- 		return new;
++	if (!pte_young(*entry))
++		return false;
++	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
++	*entry = pte_mkold(*entry);
++	set_huge_pte_at(mm, addr, pte, *entry, psize);
++	return true;
++}
++
+ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+ 				struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	bool referenced = false;
+ 	pte_t entry = huge_ptep_get(mm, addr, pte);
+ 	struct folio *folio = pfn_folio(pte_pfn(entry));
+-	unsigned long psize = huge_page_size(hstate_vma(vma));
  
+ 	folio_get(folio);
  
+-	if (pte_young(entry)) {
+-		referenced = true;
+-		entry = pte_mkold(entry);
+-		set_huge_pte_at(mm, addr, pte, entry, psize);
+-	}
+-
++	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+ 	if (mmu_notifier_clear_young(mm, addr,
+ 				     addr + huge_page_size(hstate_vma(vma))))
+ 		referenced = true;
 
+base-commit: 99151e55d0d7c8c2b2cfdef93e2504bf2461106a
 -- 
-Sincerely yours,
-Mike.
+2.47.3
