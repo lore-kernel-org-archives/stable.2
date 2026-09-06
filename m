@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E662C3757
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D163932E6
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701619; cv=none; b=OZg4O6j8C9tVV2Z8Vm5RPYDydzmninLkh1IW59XQ+iU1a7h1Y8JkqfCQrXp1jUcKRFHsx0WZbpO/8BhZACKFZIsuWzAnLmHjYAOJV6Hj+7SNAjm1KQ6KI0sAfLjXER9wILdXP5SgaYLWW+Oc2CSPuWremFY/kLrBs8Db4LEom4k=
+	t=1788701619; cv=none; b=nglgI4Xcc4zvGW3nQdmLlL0zFRakQMjwtXzaB6SiVFDHPrIWjo0S/wBG+CuLstRy5haJgYMlV/t8O2REJvaT/3HaEcAUAsPwO1Ynn95Rv4OZ6qcuLm5CNC1vdZNt/3yR6trULzgupXI7BT/85eXPPZUeve6QvlX68LWDBVA/SpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788701619; c=relaxed/simple;
-	bh=2/C1E53ltzCLJrXSEdsa1PEhbVFs4HWFUi2+/nGnOkU=;
+	bh=wOqs1rQlZi8DZ25m9tWV7HHHocg0HOiKwI71qIMFtnw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f/16uBtsMxeOQfM5FKthiDrhiQ4QJk0VFVRmC6amR61r02Hnj5Ke3s/HGpDNUcLAzk1vP/ec9hHqhGZ8reFIAbQhvl0VYe4Lx39ud0MopY46ub4exUNzYceZ6YUFuePhRBFq1UJd4lD5zMAERQcKx6XqblK1a7IF9I43M09vJ/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYc/bGEq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eFT1usYzuC6oz00+lDN+YEAkgwW5gePBOn4f1tWQWE5rFSOcAVpr10lV387ZKMc29YREvsG+xjoTCu303eBpeIC27qlrB7++etAvd0VS/Qc3ydOBVvq5NGThswXQIAW6X9gSqBtoFA+u8nPD/jhorvum04encspFR0PTkEUMg4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SpSS99Um; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYc/bGEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92321F00AC4;
-	Sun,  6 Sep 2026 13:33:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SpSS99Um"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41C11F00A3D;
+	Sun,  6 Sep 2026 13:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701615;
-	bh=oyM8VmxjfzTZIqfXZb3MACladf4ClyiY+CJzbpU67wE=;
+	s=k20260515; t=1788701617;
+	bh=3zvu88CItkHVA9nI3P3mOr5H6oyn/AnTyoW4qrerZOI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kYc/bGEqtLHvP4JyZ0dCr+22chjlYlNnKhxIxf1exEzvmiyPWsncbJL/pKXlEtU+p
-	 R6nBX7EWzVW6vkQkSxvlwW4fl2oatKays9TYCf4a8SA8I1CjjWCw/Xnyp1V9h2ux3W
-	 K5AyYEz8r1hs2RdyLelAoFhndKt9v/zMejZMoizaBCugvmp1Kw4n0ZVO51Qp5bLa4V
-	 xBYzSuS8wA7YkFKJVinoHvMLPB0oz40SAdvc27vaJ8aaghvgS5G24Ih/z6dj8L8wEr
-	 LvumRckps9me0lMNeG11NJR32CFrhiMLNCOwveyVZTPqFqjPmdmnT9OSdPl0GkIcDC
-	 gmqVj+9gSgOhw==
+	b=SpSS99UmIR8K2Hk3zSF2eMWl26r7qucwE5kkXJhc3AQnCMcHVIt8MbNbp6qdqywpU
+	 adPeK1OL2C0Tljyki4JvyDVq5itaJW3hdKfjhVgsBMdM0itn1CWEDHfNU10+EyrJA5
+	 A/au582m2N2EEpVEf8FuS2b42in8PxBHmVteLdsoyWFeGDGjovjgoo2PrQJY/mX5bJ
+	 YXej13aMGaSeKz7Bj0MhrMppgpFY9hbmNpVHIsE1jIN8Xo7/pB4o11oS+CRBnEFlZd
+	 ++cKXn97ZWEdQNsbfrfidFpZaCKIBhawMne8wy7+rMi6qr6aZuKMitR1RqQSIpwW4z
+	 tL0FeeZMYXeMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Yuqi Xu <xuyuqiabc@gmail.com>,
-	Vega <vega@nebusec.ai>,
-	Nan Li <tonanli66@gmail.com>,
-	Ren Wei <enjou1224z@gmail.com>,
-	Ilya Maximets <i.maximets@ovn.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH 6.18.y] openvswitch: Fix CT limit teardown use-after-free
-Date: Sun,  6 Sep 2026 09:32:41 -0400
-Message-ID: <2026-09-05-daily-reply-0011-ovs-ct-limit-uaf-6-18@kernel.org>
+	Eelco Chaudron <echaudro@redhat.com>,
+	Aaron Conole <aconole@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>
+Subject: Re: [PATCH 6.6.y 0/2] Backport 'openvswitch: Fix CT limit teardown use-after-free'
+Date: Sun,  6 Sep 2026 09:32:43 -0400
+Message-ID: <2026-09-05-daily-reply-0013-ovs-ct-limit-uaf-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904091838.1811303-1-i.maximets@ovn.org>
-References: <20260904091838.1811303-1-i.maximets@ovn.org>
+In-Reply-To: <20260904093840.1815273-1-i.maximets@ovn.org>
+References: <20260904093840.1815273-1-i.maximets@ovn.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,14 +46,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Packet processing uses CT limit state under RCU, while netns teardown
-> frees that state under ovs_mutex. The CT limit pointer was neither removed
-> from readers nor protected by a grace period, allowing packet processing to
-> dereference the freed state.
+> The patch doesn't apply well without the previous kernel-doc fix.
+> It seems cleaner to backport both instead of modifying the main patch.
 >
-> An unprivileged user can trigger this bug from a user and network
+> Ilya Maximets (1):
+>   net: openvswitch: fix kernel-doc warnings in internal headers
+>
+> Yuqi Xu (1):
 
-Queued for 6.18, thanks.
+Queued the series for 6.6, thanks.
 
 -- 
 Thanks,
