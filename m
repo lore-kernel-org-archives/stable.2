@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F41363C63
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3DA38945A
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 02:13:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788660825; cv=none; b=mDvEcQmzq4DtrSwX5eI/m0yiT4hK+chl9JMaMyhJ9i39I6PD68KWYUe8yXYF5Rr43UcRQT0NVpY60zuT5nx2hh8MjdeDa/xx4GP6N/45K9aXV+Lbl4CBNCdAnfl+wWjWWqMIv29iRVfOCUGRdvVx313zqP0YwyXtgeHkZ/aOXEM=
+	t=1788660826; cv=none; b=PFFTuTK28/RdFVeRg6Ol0yVMrNBpJjY1ivRnkWXfgo8wqjRRUUx1ez1K42HyKYcT1VfL7cMOVAWN1JTsWvIvkEHQmZzOJn67WfZG+R+xR+UGtAShZm6AvEt8kuBlxBzW8QBvigPH9hPodVfLlN085o5o4dT8MagcgsjkWuctAo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788660825; c=relaxed/simple;
-	bh=0033GFncsVxXt4VxfVFB43GmPTXO0tqLWCU9k0qwadc=;
+	s=arc-20240116; t=1788660826; c=relaxed/simple;
+	bh=W6W+IikPJUQRVy/8P3o0sFnavFKGteFQlzaX1u6pA3Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BnHnpqdt4o19NcmGxo6HyonV3tEPsCDcd7Ny0neP+B3R0WDIdzckbUl2iq8tvxo2iisNdHIe0IL9DiXw13+eDNORfgoSbMJgIMoFbHomAjGl+ZsBKPNRI56yYXorX0nM4eZnx4+VM2UUlhQMAb6vCLrOIdmr4NUJncdaM5Nu5do=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kP9bBdbl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=EinslhfyZPSeCyqwASCgVDhobh+XMnGmHZSwT2zUtNv8Qcj6hW0+Ny8ik+lENA7OhXtXH/J6il8LgI6Mq/3ivyGLZ12UspxWK6OkdLT4WtxTU3UyQ52WzMUvuyHmjRsUlJvN+lHCUZUhOfuzl+7dgYEVPXa2ayTA2RFY8sMSNY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpOfrzUD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kP9bBdbl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA0C71F00A3F;
-	Sun,  6 Sep 2026 02:13:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpOfrzUD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD5E1F00ACA;
+	Sun,  6 Sep 2026 02:13:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788660820;
-	bh=J0kmZI3xf3MyH3EERidynh9S+EVixKtAfH4czxJNWEY=;
+	s=k20260515; t=1788660807;
+	bh=ssHWot5a5Eu5LY6R+4k3bfgn4ouEe//IOsdv6Dnvoh0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kP9bBdbl9M2Cze/2i0zyXfb+zsMVmrsbxLh2KlJEjLHwpwVajeseHXRx3FEV7be+B
-	 jLLO/SNY0ywlE1Y6WY0g5liP97x1f9ls0+37ZAeBLgkRF3MSKoF5iSkOrOqjfJ4Q4C
-	 wtU7f+diAUFvBV7cNN9VMa03VTK+/YtT1rsah4phQhuDRwuI3P8UpDSVTefWEMMr8c
-	 SwnyPu47L914WH0EUq1g2Z106LXz6v+B662aq7AiGLluneZoy1BABuVW/uSzsl/0ix
-	 KcW1IP6A8j/Wm6kjhR6mwYXt1bjm2ieIdk3xZ1qJ3dXoe4uUn9ACNN7pNaRzA7Wt2s
-	 jxFUfN6BI6aag==
+	b=DpOfrzUD6lkAHgUfkAaCa+19gMllCCKenbKQtGg50b0DzjRcXKwSSs3OhZEMwLdSF
+	 g9xPCatACQ0sRzJZPmlBKEQSqof9fh5W/XCKQ4S/wsfeqoT+g3xvons9ER6sd8UY+0
+	 taTdGVFJ0mDjR1h6yRiJp1wvPmHy7dgEBFHLPsxBYnb8GYhNu8258FyrmS4Dh0/9ob
+	 f6CVAMXz4MaXCGfg2RjYI8ZoOpIoVgCb8V89MyzVxekfQmsJKuaxRk396c1BxiGYuz
+	 LCoA7K2kN6wYD8uOO5ijqs52eMCFyonIGW7o0EZLeqOYUxCzh27ptU/XKyI3xJxeiF
+	 kVgUcw3yZoRtQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] nfsd: gate nfs2 setacl by argp->mask
-Date: Sat,  5 Sep 2026 22:13:38 -0400
-Message-ID: <20260906021338.761875-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 6/7] nfsd: move cb_need_restart flag into cb_flags
+Date: Sat,  5 Sep 2026 22:13:20 -0400
+Message-ID: <20260906021321.760525-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090350-subheader-pretender-b710@gregkh>
-References: <2026090350-subheader-pretender-b710@gregkh>
+In-Reply-To: <20260906021321.760525-1-sashal@kernel.org>
+References: <2026090303-scrap-parkway-2bf7@gregkh>
+ <20260906021321.760525-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,66 +46,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit a3a7e20ed66d3f04d37883c398da8a113b430769 ]
+[ Upstream commit 32ce62c0f09cdc5a6b06bb38daec9b9a47302437 ]
 
-The NFSACL v2 SETACL path shares the decoder convention used by its
-v3 sibling: nfsaclsvc_decode_setaclargs() fills in argp->acl_access
-only when NFS_ACL is set in the request mask and argp->acl_default
-only when NFS_DFACL is set, leaving the other pointer NULL because
-the argument buffer is zeroed up to pc_argzero before decode.
+Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE
+flag in that instead of a separate boolean.
 
-nfsacld_proc_setacl() then hands both pointers to set_posix_acl()
-unconditionally. set_posix_acl(idmap, dentry, type, NULL) is the VFS
-"remove this ACL type" operation, so an omitted arm is
-indistinguishable from an explicit request to delete that ACL. A
-SETACL carrying only NFS_ACL silently strips the directory's default
-ACL; mask=0 strips both.
-
-This is the same defect just fixed in nfsd3_proc_setacl(); apply the
-same remedy. Gate each set_posix_acl() call on its mask bit and
-initialize error to 0 so that a request with neither bit set leaves
-the on-disk ACLs untouched and returns success. The out_drop_lock
-path and the unconditional posix_acl_release() in
-nfsaclsvc_release_setacl() already tolerate the skipped arms.
-
-Fixes: a257cdd0e217 ("[PATCH] NFSD: Add server support for NFSv3 ACLs.")
-Cc: stable@vger.kernel.org
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-[ adapted four-argument set_posix_acl() calls to the older three-argument inode-based API. ]
+
+Since there is now a cb_flags word, use a new NFSD4_CALLBACK_REQUEUE flag in that instead of a separate boolean.
+
+On this stable branch, callback requeue handling remains open-coded in both the NFSv4.1 sequence completion path and the NFSv4.0 completion path. Convert both sites to the flag and omit the callback lifetime tracepoint hunk, since that tracepoint is not present here.
+
+[ sashal: Reduced backport -- upstream 32ce62c0f09cd touches 3 file(s), this
+  backport carries 2. Not backported here:
+  fs/nfsd/trace.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 01c5d5f58a5d ("nfsd: RCU-protect cl_cb_session to fix use-after-free on session teardown")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs2acl.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ fs/nfsd/nfs4callback.c | 11 ++++-------
+ fs/nfsd/state.h        |  2 +-
+ 2 files changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/fs/nfsd/nfs2acl.c b/fs/nfsd/nfs2acl.c
-index b3fddd772599e..3276f1a6ab799 100644
---- a/fs/nfsd/nfs2acl.c
-+++ b/fs/nfsd/nfs2acl.c
-@@ -115,12 +115,17 @@ static __be32 nfsacld_proc_setacl(struct svc_rqst *rqstp)
+diff --git a/fs/nfsd/nfs4callback.c b/fs/nfsd/nfs4callback.c
+index 138fa901837eb..964d7f56dfc79 100644
+--- a/fs/nfsd/nfs4callback.c
++++ b/fs/nfsd/nfs4callback.c
+@@ -1221,7 +1221,7 @@ static bool nfsd4_cb_sequence_done(struct rpc_task *task, struct nfsd4_callback
+ requeue:
+ 	if (!test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
+ 		task->tk_status = 0;
+-		cb->cb_need_restart = true;
++		set_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags);
+ 	}
+ 	return false;
+ }
+@@ -1244,7 +1244,7 @@ static void nfsd4_cb_done(struct rpc_task *task, void *calldata)
+ 		if (RPC_SIGNALLED(task) &&
+ 		    !test_bit(NFSD4_CLIENT_CB_KILL, &clp->cl_flags)) {
+ 			task->tk_status = 0;
+-			cb->cb_need_restart = true;
++			set_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags);
+ 		}
+ 	} else if (!nfsd4_cb_sequence_done(task, cb)) {
+ 		return;
+@@ -1277,7 +1277,7 @@ static void nfsd4_cb_release(void *calldata)
+ {
+ 	struct nfsd4_callback *cb = calldata;
  
- 	inode_lock(inode);
+-	if (cb->cb_need_restart)
++	if (test_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags))
+ 		nfsd4_queue_cb(cb);
+ 	else
+ 		nfsd41_destroy_cb(cb);
+@@ -1399,9 +1399,7 @@ nfsd4_run_cb_work(struct work_struct *work)
+ 	struct rpc_clnt *clnt;
+ 	int flags;
  
--	error = set_posix_acl(inode, ACL_TYPE_ACCESS, argp->acl_access);
--	if (error)
--		goto out_drop_lock;
--	error = set_posix_acl(inode, ACL_TYPE_DEFAULT, argp->acl_default);
--	if (error)
--		goto out_drop_lock;
-+	error = 0;
-+	if (argp->mask & NFS_ACL) {
-+		error = set_posix_acl(inode, ACL_TYPE_ACCESS, argp->acl_access);
-+		if (error)
-+			goto out_drop_lock;
-+	}
-+	if (argp->mask & NFS_DFACL) {
-+		error = set_posix_acl(inode, ACL_TYPE_DEFAULT, argp->acl_default);
-+		if (error)
-+			goto out_drop_lock;
-+	}
+-	if (cb->cb_need_restart) {
+-		cb->cb_need_restart = false;
+-	} else {
++	if (!test_and_clear_bit(NFSD4_CALLBACK_REQUEUE, &cb->cb_flags)) {
+ 		if (cb->cb_ops && cb->cb_ops->prepare)
+ 			cb->cb_ops->prepare(cb);
+ 	}
+@@ -1446,7 +1444,6 @@ void nfsd4_init_cb(struct nfsd4_callback *cb, struct nfs4_client *clp,
+ 	INIT_WORK(&cb->cb_work, nfsd4_run_cb_work);
+ 	cb->cb_seq_status = 1;
+ 	cb->cb_status = 0;
+-	cb->cb_need_restart = false;
+ 	cb->cb_holds_slot = false;
+ }
  
- 	inode_unlock(inode);
+diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
+index d2134782b4021..10d1b418e0c7c 100644
+--- a/fs/nfsd/state.h
++++ b/fs/nfsd/state.h
+@@ -68,12 +68,12 @@ struct nfsd4_callback {
+ 	struct nfs4_client *cb_clp;
+ 	struct rpc_message cb_msg;
+ #define NFSD4_CALLBACK_RUNNING		(0)
++#define NFSD4_CALLBACK_REQUEUE		(1)
+ 	unsigned long cb_flags;
+ 	const struct nfsd4_callback_ops *cb_ops;
+ 	struct work_struct cb_work;
+ 	int cb_seq_status;
+ 	int cb_status;
+-	bool cb_need_restart;
+ 	bool cb_holds_slot;
+ };
  
 -- 
 2.53.0
