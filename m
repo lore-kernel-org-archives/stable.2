@@ -1,215 +1,135 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011060.outbound.protection.outlook.com [52.101.57.60])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1093C2D;
-	Sun,  6 Sep 2026 15:34:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788708851; cv=fail; b=VSseMzQI42xGzGS4UB1aTqrpuVs6jiRT/LDeBvyeRJDvLdg7nrmUAdARy6QESkZdhq4R6AapdY07vLmFTeshKpN5K9/Uk7aY6waZk1ohMRH/0gBe3OR0Oly8kN6+ksWXBcJxG1n982uhJ5syPyGxl9VjKATW5+x9hRXrvoh05pI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788708851; c=relaxed/simple;
-	bh=boWuphgAwuQjO5285QN5oUMdfv+G80fHvWqTJHjFYeI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=ZmkI7M2ElUY4LgQMEmVtuqohbZ6dLnNEXIjw1IbBWnWbXG8iGrXRjeyBrOZ8DU3NqQHQ4NuNGlxpalp8Y4msTfYGhKov+rs/ikPGnDDj4GUpxgg110OimwqQCP7CI1LqNhLu468duHOgpooorgL7wbWPI59rweo6yPihcUpH6ic=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ox4XR967; arc=fail smtp.client-ip=52.101.57.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF6434EF1F
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788708922; cv=none; b=kJynGY8Dt0nNe6aMkqG1dw4ytme39OfcAAYLCXERq0liCJUO+kgl4p9YW2NMMxBC/+yX5FVqml+Kf3JXX2ZqcIcCW1Yu2TCGEod77FrnBF6n9U6FM2T8MqkzGXrIUc6c7I3Co+2JRX+mpv3SbtsJxZaMODpmtk6L52bwTqmv9f8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788708922; c=relaxed/simple;
+	bh=mHkg3OOBY3ed2aStFwj3DHFBqnzRUWTxscXnNKi2jYg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R5mea6HMDGaiYXid8tlNzQLI4k3CzSOzTxMmmKwW+IbtoF/hQRAr1KVsopkUjebZEqCWXQQIAGCiauhE/wI+CNsImlhrzDoyvz2rTOn4cggmcTotPH4YcZDMf5hH00QLgZb/DIcDzi6grPx+dGEjE7OwWeqGe2rpRGTfbhb1wI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4XI4fnp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ox4XR967"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eotdHg5Ngibqg4Bx6MEhxnOa30lXCMzXl+ybUD71tJqMILVrhrJ0k5meh4izVTFKaMoUa4hGTezlEsYRA4U0v8wdfGdv8fzBi+oDqjTNMHEIvlfgHKNwW6bQ/SacmUisp7oHgfMUo1qZ+FqYHipkJwJqZHOb/JubEEFbbF34gVB+TpeqJGZbhAqaxCBH5/dsOgMkGELXgg15KeIcEPu6h9INPtlhUI3M4JGXJUotXcYXjnILB39Xmh3Y1VySGE3qbafYZtOj92+PdmML+TKVmixDUAv+wjNtT+eMsenb31HUAoXuDWOgFSvrZ8LSzk+VfDpISDgQRKODWZB8YWJ+eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r51klYyAF6Y0Dn2BoUkZOjprt16HmEtV87812zPwEkA=;
- b=TKVT9V9KKCfD1zHtEtxIJSXT7lge7L9VWFNFUSXKy28MM1v0axYqqGeB87oXuq/Bz/uIZZ2Y2PkSvdckxC/PdxHTbL6+XiV9DL8GWNLTae7r0HmCkW5uwJ1KjlGE+T+5+zac8yKhT5QcyslV/J/AdEI2e9frRTsopNpRfZwi247AIheImR0Ai8kvdwBGeGbkcAvXnNvcXKElDp42TdfDjHyx0MABEzXwtB/QeQAv0JaR4Re0408wy64/ocIzGAJFvkeGlMIaGHTk06Cw2cykIEMsNE+annyvtdSK0XhtmXhii5ARDzup62NJEVASdRjGIIg17UewIzAmxuR/ux4j6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r51klYyAF6Y0Dn2BoUkZOjprt16HmEtV87812zPwEkA=;
- b=Ox4XR9679kPA0x3o/ToPA0/WSYZ9mmBI8QgbnVE88N8Sz3YQK+m1ypqut2lqPfv5ufUKc9bBeUTx4OWIY9OraA1KFUzUtg6bOiREuI/jziP7MN9QyYA9PON4ujYxMa6LXeTBt2PebwMF46eieefNYn1VcopOQddlc2tFIqCooKwFlF4XQ4gExyIa5ATujhtJrvjpf9hJclelAhHqmY8OQxIS01C1Vxi3PyaIycvhoLvwmji0ONYPAopYg7moA/jOsT5dcTLXfQmWjKswPWpLZKInymuj62LVtbU40O28zHJanyuLGsHSK+rotDCBD8PFBAy1JxLY1oB4YWOGWKM/Jg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by DS7PR12MB9043.namprd12.prod.outlook.com (2603:10b6:8:db::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Sun, 6 Sep 2026 15:34:05 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0382.014; Sun, 6 Sep 2026
- 15:34:05 +0000
-Date: Sun, 6 Sep 2026 18:33:54 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>
-Cc: David Ahern <dsahern@kernel.org>, netdev@vger.kernel.org,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Xin Long <lucien.xin@gmail.com>,
-	William Tu <u9012063@gmail.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v4] ip_tunnel: reserve FOU/GUE headroom before
- encapsulation
-Message-ID: <20260906153354.GB323313@shredder>
-References: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904165544.1362052-1-nicoyip.dev@gmail.com>
-X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::13) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4XI4fnp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4C91F00A3A;
+	Sun,  6 Sep 2026 15:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788708918;
+	bh=poA8LqxahR+1K10b6C2vIluhGwGnT/RrcpnY55UIr5M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=R4XI4fnpo5RSzO+z6qgQV0qkpWUWz6ioLNr3qForxlHxRNzVj5YNgzppNsF1XU9J5
+	 YLC4U5CQ+JcolkP93YNshAG+Y0oxLoT1baqnuxv7ptX7tgh61TjHsAwXQ6HyncWO6u
+	 AsvIdmGAqx5nktPiyE/sbKR3uuzNLzjg3b4Gbi1lem6XvS57DQOcTx/8+b3nBbGsXS
+	 Jo3ABdWNE02C6KkddBuf6Yjet3yPI6C23lW65ynLgs/5q4fVAARdvXFkK+I+BPyss1
+	 3K3Ts3boUFwo9REpUFZ+16XxECt3qnPXLRBNhe/NytSqmMcYv5BH8ar1dln+I23D32
+	 vK+FOktQwkqmw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] ceph: bound num_export_targets array for mds info v2/v3
+Date: Sun,  6 Sep 2026 11:35:15 -0400
+Message-ID: <20260906153515.1477827-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090336-mashing-extended-23ed@gregkh>
+References: <2026090336-mashing-extended-23ed@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|DS7PR12MB9043:EE_
-X-MS-Office365-Filtering-Correlation-Id: c18230a5-db46-4020-ee66-08df0c2c48e3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	7FbHHB26rVAZvtjXRifNObMvj3E7MlUCJnfGrb3zc0wj7+WO2cce3yqcZJ466hXY/m0uv5rLsiindfEixcC5AxGlW1Zq8/Cb29/jEuNekfRWAxMxFL6mq3YlB+mZEP5sVXb+WadaMofR/h1CdRvr0VQ5eCJKCpT8zGn1WQMZM3WDpapQEx7L+KBRv+bPYGQ1O+scr3/weGTNHvQAP7h4TNc6l9gUKbyAUhwQkPGSLCd63HsIGY3uqjtIXrRThlMWWH5+52aCXJjCEfdu2fNf1VLeK0vzDhvMlfr+XN/rvN3Vdva9u3dRH+Sk3H7qYG07rfy4DnH58Y5ZHAbd5eMW13VgRZPB31YVYTZ2pN264X2YGoUtpgk0jHasBU+2H11bMpe4aMoEME4GM0fNgVBoyr+6wuO70Rai8FB6wZ4ryjh2DYK0yTwV9ClaFbN/36Qe8T2SzXUSuBN9rXpCksxj7zw33Va2pWP8PQv3VstjYZjeaCJ5TyXhwTMqto64QdDUms3Qt+qOx/CvkDytDyXh5Vq9kjaEVCA/y9FlEkVZ/ErNF2KQj/BgCtno9VA0/N1N9U0wqnArc/A6SSNGC5nKG8YfXPpnZCtfyXihVjHcQ60xk3mEK2F4K2Amjed/mLOH547qtq6UcEIrUz16oYgh7bhSZVyd9Px53ucA/Clr7Jc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3fgn4kwDfq0VmvsrBFLmM+8r4BOJDfucJWdhBY/cpF9eQh67ZtnYdBb1pbND?=
- =?us-ascii?Q?1g8KbGEZPPcALPQnnnDdO6rDtaK3qbWJu3HysclYbiCoRRXVl91jXvIqq2a4?=
- =?us-ascii?Q?L4b0A8q7lJfUUnPwqEX6xx87a5q5uDjh392ZbZ319KfnJLJsP0iwLILtzomE?=
- =?us-ascii?Q?5naHryfYEmVSIcmbPJriUIQp0/SOy2cMYnj8gjN/Ij2eav8U+nTgTsjjg8h5?=
- =?us-ascii?Q?7MDfohPFng6y3tPH/VDHgW3imG5DH2ZPTtMwNBnZTx1/NAb4lHM8Oo5u0Nc2?=
- =?us-ascii?Q?iU5oCIehnfgdG2kWv6UByaC2pKFKQ6UAq58ic5mzeubvBn2oCco6Kghp00Hj?=
- =?us-ascii?Q?OJq2CrCkq7QipOL9+N7BrUzghhZjo3uY2u+SaNYqub3Ib2KVsX0deeCrU11T?=
- =?us-ascii?Q?nTnTn8GCJkaK7qkFkwyf4QOGHXvMkunSsrBDF/WKinvi4cQ3bcboJgYBONrH?=
- =?us-ascii?Q?AIvDyC2bXFD2rqkDh1xkx/PP+tWrgKJmLdLAzh5BPUFdJnWpJQ0cSfl85Ij2?=
- =?us-ascii?Q?tnicDaBTlpVowbQmMv3GcBsd57P7ln/nTT9dkQql95+UoHoE63mN97E4QuDU?=
- =?us-ascii?Q?VmHHeNGQGlgt8tks5fV9pbaIHhlVPqi4rdcgRj9MtyyjKTjuIeg6k4zq2ytB?=
- =?us-ascii?Q?zDVYZZkfgttE7vzipqt1LvaI0rbDKQ0mPLbe0gXuM/eygPNfYnBeT1uGhVGr?=
- =?us-ascii?Q?oQB6xgCAqNRlpA4hvj4aWJeq5jP6lRAJFiNcX4PCAqfmksh+TK/51MzRV2Y2?=
- =?us-ascii?Q?DLljWo0+QCCijd+D9OfIwkbE0IOU1PrHbQkknLGyhRP6Ic2pLK64W9lybHu5?=
- =?us-ascii?Q?K9XtczogpYgsTn8vy48NTVwOac4DAnk2nr3Z0yKjnnEpzpo1gzKVg3ki7DWu?=
- =?us-ascii?Q?A1nHwgKbh4HCgSLWdD5ptUv7wanArxJyQfiB0oPyEroI9dwc9UyG9pUGWA8F?=
- =?us-ascii?Q?jvDgs+KAy8EeHdPOsbJYrNh4lwkIARsgAu14jKlKjxfryZ0wY3gJacHw85OQ?=
- =?us-ascii?Q?hemLEkkVQoS5IcKZZY9Bec6hn44qoi6e5dk0YzCKstaqDDcieNGHoYBi2/++?=
- =?us-ascii?Q?8dQikvI6XvjkxFnITD9rflbFdG9+Jgx5UG1YegtZ2Fkcnwr1M+FBwRqsK4m1?=
- =?us-ascii?Q?tuhsRvDo9E8CigBFo+V+mY+BTw1YvDmgrwUAcWcVoLKPhMS0DSr1yNYeLKLi?=
- =?us-ascii?Q?8OEmsVR4xOLpmBCO5UIPJJskv8CjrzGAMGXlrUZccNkwVhtDmnrZ3oRQqmPx?=
- =?us-ascii?Q?EGVtV/Gg6MRY0aPTtW7mFYz9p0H+A7M6cdrwp+5infjFQTSZdy4bUCKZ23aD?=
- =?us-ascii?Q?OX6obG7p876PmDw/4xN8F8dD7mDzDYe7a9Gu4+q4s+ep+9oTIpD0yClnmJq3?=
- =?us-ascii?Q?2SZukmUEXh+4Tm1tTTnYmfqh1NNxsHSUVeWQS6vhoXtz6pbnWL+lAFtH0Zj9?=
- =?us-ascii?Q?9kZNy4m2potehLrhvfWdX/npLjIh4mMxhyaedpECXS/F/AHMem3UGbstkF52?=
- =?us-ascii?Q?o/7FjY7Y8hK6aPew5Y4B9ACMLCO3U27RKDl8VaT3ivNJZHtS/e/bg9CIXCup?=
- =?us-ascii?Q?3afPntfCB8r+mWtoOTusUejRlM1RT42PSm2Oo29gF25itd051CLKqP6gVJ04?=
- =?us-ascii?Q?O82BIIqFDJfWyNrWLFrzf7Tv/eUdThlvl7SYgcPIbfc+xIoiQ53ymmSw9veH?=
- =?us-ascii?Q?eiZ4uitX08ubqgMOIfpTJgGdumz6cw1fblEh4DdIwkf++EuW?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c18230a5-db46-4020-ee66-08df0c2c48e3
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Sep 2026 15:34:05.3757
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SPi5Tq37ls9AclVo14ZauSX4kakQOwxd61Xqr5lUsY8adduZopSjzg3XUTFVTu3qYw9I2t9LGJKjUcPKpR4AcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9043
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05, 2026 at 12:55:44AM +0800, Chengfeng Ye wrote:
-> ip_tunnel_encap() expects its callers to reserve headroom based on
-> ip_encap_hlen(). ip_tunnel_xmit() currently pushes FOU and GUE headers
-> before it grows the skb headroom.
-> 
-> That becomes visible when ipgre_changelink() publishes UDP
-> encapsulation before it updates the device headroom. The transmit path
-> does not serialize with RTNL, so it can interleave as follows:
-> 
->   CPU 0 (ipgre_changelink)        CPU 1 (ipgre_xmit)
->   install GUE encapsulation
->                                   reserve the old needed_headroom
->   publish larger GRE flags
->   update tunnel->tun_hlen
->                                   push the larger GRE header
->                                   push the GUE and UDP headers
->   update dev->needed_headroom
-> 
-> With REMCSUM, the new layout can push 16 bytes of GRE and 20 bytes of
-> GUE/UDP headers into an skb with only 32 bytes of actual headroom. The
-> final UDP push writes four bytes before skb->head.
-> 
-> With the update window widened, the kernel reported:
-> 
->   skbuff: skb_under_panic: ... len:128 put:8 ... dev:gre0poc
->   kernel BUG at net/core/skbuff.c:214!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   Call Trace:
->    skb_push
->    fou_build_udp
->    gue_build_header
->    ip_tunnel_xmit
->    __gre_xmit
->    ipgre_xmit
-> 
-> Snapshot tunnel->encap, route and perform PMTU handling first, then
-> reserve the final headroom before ip_tunnel_encap() builds the UDP
-> tunnel headers. Because encapsulation is now delayed, pass the
-> snapshotted encap length into tnl_update_pmtu() so the inner packet
-> size stays skb->len + encap_hlen - tunnel_hlen.
-> 
-> ip_md_tunnel_xmit() is left unchanged. It takes FOU/GUE parameters
-> from the skb metadata dst, not from the device configuration, so it
-> is not exposed to this race. tnl_update_pmtu() still runs after
-> encapsulation there, so that path passes 0 for the extra length.
-> 
-> The IPv6 analogue of this headroom reservation is still work in
-> progress.
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-Please wait for the IPv6 part to be accepted (some changes are needed
-there and here as well) and then mention its sha1 in the commit message:
+[ Upstream commit a3eb169ee297aa99670ba927c659990bd1e453f3 ]
 
-https://lore.kernel.org/netdev/2ce8f3e4bbed6060afb0aee33dc4e1d9ae021280.1788262122.git.petalzu987@gmail.com/
+ceph_mdsmap_decode() in fs/ceph/mdsmap.c reads num_export_targets from
+each per-mds info record and advances the decode cursor by
+num_export_targets * sizeof(u32) without first checking that many bytes
+remain. The only upper-bound check that catches a runaway cursor
+(*p > info_end) is gated on info_v >= 4, because info_end is left NULL
+for info_v 2 and 3. When the monitor sends an MDS map whose per-mds
+info version is 2 or 3 with an oversized num_export_targets, the cursor
+moves past the message front buffer and the later export-targets loop
+calls the unchecked ceph_decode_32() on out-of-bounds memory.
 
-> 
-> Link: https://lore.kernel.org/netdev/b58876297f7d45de008f2e94b6ecab8b2ed84d21.1786088695.git.petalzu987@gmail.com/
-> Fixes: dd9d598c6657 ("ip_gre: add the support for i/o_flags update via netlink")
+A kernel client processes CEPH_MSG_MDS_MAP from its monitor session
+(net/ceph/mon_client.c dispatches it; fs/ceph/super.c routes it to
+ceph_mdsc_handle_mdsmap(), which sets end to the front buffer bound and
+calls ceph_mdsmap_decode()). A malicious or compromised monitor, or an
+on-path attacker on an unsigned/unencrypted messenger session, can
+therefore drive an out-of-bounds read in the client kernel; on x86_64
+with KASAN it is reported as a slab-out-of-bounds read in
+ceph_mdsmap_decode(). The decoded values land in the internal
+info->export_targets[] array, so the consequence is a kernel
+out-of-bounds read, not an information leak to the attacker.
 
-Looks like a more suitable Fixes tag:
+Impact: a malicious or compromised Ceph monitor sending an MDS map with
+a per-mds info version of 2 or 3 and an oversized num_export_targets
+field triggers an out-of-bounds read in the CephFS client kernel.
 
-Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp encapsulation")
+Add a ceph_decode_need() for the export-targets array before advancing
+the cursor, so the bound is enforced for every info_v >= 2, not only
+info_v >= 4. This mirrors the count-then-need idiom already used for
+m_data_pg_pools later in the same function.
 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> ---
-> Changes in v4:
-> - Not restructure ip_md_tunnel_xmit(); only pass 0 into the new
->   tnl_update_pmtu() argument.
-> - Snapshot tunnel->encap with data_race() and reuse the copy for both
->   ip_encap_hlen() and ip_tunnel_encap().
-> - Fix tnl_update_pmtu() inner packet size after delaying the encap
->   push: pkt_size = skb->len + encap_hlen - tunnel_hlen.
-> - Keep reverse xmas tree for the new locals.
-> - Note that the IPv6 FOU/GUE headroom fix is still WIP.
-> 
-> Changes in v3:
-> - Move the headroom reservation into ip_tunnel_xmit() instead of
->   growing the skb inside the FOU/GUE builders.
-> - Use ip_encap_hlen() to reserve the final caller-side headroom before
->   ip_tunnel_encap().
-> - Drop the IPv4 raw-pointer refreshes that were only needed when
->   skb_cow_head() could run inside the encapsulation builders.
-> 
-> Link: https://lore.kernel.org/netdev/20260824111944.187200-1-nicoyip.dev@gmail.com/ [v3]
-> Link: https://lore.kernel.org/netdev/20260808005956.3761487-1-nicoyip.dev@gmail.com/ [v2]
-> Link: https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.dev@gmail.com/ [v1]
-> ---
->  net/ipv4/ip_tunnel.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
+Compute the export-targets byte count with size_mul() and reuse that
+checked length when advancing the cursor, so the attacker-controlled
+num_export_targets multiplication fails closed on overflow rather than
+relying on the later kcalloc() guard.
 
-ipip6_tunnel_xmit() also calls ip_tunnel_encap() and seems to have the
-same problem as ip6_tnl_xmit().
+Cc: stable@vger.kernel.org
+Fixes: d463a43d69f4 ("ceph: CEPH_FEATURE_MDSENC support")
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ omitted the newer-kernel-only adjacent `u32 target` local absent from Linux 5.10. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/ceph/mdsmap.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+index 9699de85a15e2..4f05ac84b867a 100644
+--- a/fs/ceph/mdsmap.c
++++ b/fs/ceph/mdsmap.c
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/bug.h>
+ #include <linux/err.h>
++#include <linux/overflow.h>
+ #include <linux/random.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+@@ -122,6 +123,7 @@ struct ceph_mdsmap *ceph_mdsmap_decode(void **p, void *end)
+ 	int err;
+ 	u8 mdsmap_v;
+ 	u16 mdsmap_ev;
++	size_t export_targets_len;
+ 
+ 	m = kzalloc(sizeof(*m), GFP_NOFS);
+ 	if (!m)
+@@ -219,8 +221,11 @@ struct ceph_mdsmap *ceph_mdsmap_decode(void **p, void *end)
+ 		*p += namelen;
+ 		if (info_v >= 2) {
+ 			ceph_decode_32_safe(p, end, num_export_targets, bad);
++			export_targets_len = size_mul(num_export_targets,
++						      sizeof(u32));
++			ceph_decode_need(p, end, export_targets_len, bad);
+ 			pexport_targets = *p;
+-			*p += num_export_targets * sizeof(u32);
++			*p += export_targets_len;
+ 		} else {
+ 			num_export_targets = 0;
+ 		}
+-- 
+2.53.0
+
