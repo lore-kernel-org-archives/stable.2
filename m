@@ -1,77 +1,73 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8970424D64
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 12:14:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04742199920
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 12:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788696868; cv=none; b=W1o3DjbpYMkzYH/hYneQZTgKRq6YZFm9PN3czJKTpmF8nxSQEH10OoPK4n7XumKz/w1SdH6BuHE/yClrXEkbg6Z52gj3y3wUMl7shS8NPIG0dsRzGSvNlhFx0+Y42q1WqTMEUs6/lFkL9hS2+lQo7ISG/WToK1Z2N5ee/U+80Zc=
+	t=1788697956; cv=none; b=iN+jJxVNxT8pzD2TXGOAyDecz4Y40ty3p2NE0O2rq7s0lE8zj6LW+dQdWRqmkggAgALlB3jv60wC/pyR82B5FF+BEUaKksmKe7TbNVktanhrsEoQBEOCBl8LnZl+myBsSqXlWPczJA78zg9j5NJpUXfhGMFo/ay2kWtP32dUcBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788696868; c=relaxed/simple;
-	bh=xiM5pdelIr3CgyoWOb5sGWF8noprLxF9pgrehbKU2oU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fy6mn7lx3rjaj+0/DUyQRaPI+ig1B/vgaWF11Ptjjb5R5v06Q8+h6gVxpFK5KEzgN3vyFlJf3zX/ivAjRRE+S9v/NiVuGFX0xSKCARMGTCrIlMq0ECugLeT95iVA99CXcDOqFf2pQ+Zml9wuR+ToXnznS58se433w7IehiMuW/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kzHJAqrL; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1788697956; c=relaxed/simple;
+	bh=Sgcn14L0g02bItZ04E+YkjO9u5qGmAuMZdZAS26Crys=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=asQq1ltUtHCQ+SpYaPvdIDgaXIW0cXBHuPeNkyLpjYPEb78SRM5qMEZktR55GrX3i/z+vYYlryzcSMN3NpKlvLHfwNmobwMnGJG30yZLpufr3vlzXWwj0ZjHi9FDPR0HPdNK/dxDE2L+vTLBn8QiYxtUI0HV4NxsJTLOB0VejIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YGLJaZ1K; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kzHJAqrL"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so4318705e9.0
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 05:14:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YGLJaZ1K"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso32799685e9.0
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 05:32:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788696864; x=1789301664; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788697953; x=1789302753; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p90yRqRNkEpbXqQjLiETs/gtDf1cDQsPml2IReoU9ZE=;
-        b=kzHJAqrLY1uA8QHBl5LWb3fGpZ9SllS8aEYgHCBm7g0V8tQqKZ9L3KWexnMqTTpq3L
-         kfrkN3VEbOSsF1be9RmEifbytnE3EKoesxydBCaM8WRjdoCjYtvu/UL9GPZxDFn5Zbqj
-         Zj4w5VobopYu3F/goh2tMgeNbhvzrIszgTRw0PYY18PDb8SU5TmtcCFSvbgpvp0r9jzE
-         ZBKBkthURe0/10DsogNdkz99VbeHVTINqzb+WbncJJCRLNUAJ3+GbH67py6v31nxFhjN
-         EAQ9H0wMG18gDlluYPsNhoedZ8MhHn+B19136zOjWnzKBmVG1F0orr8nlH/1xU+mUw1x
-         b9dQ==
+        bh=7bRw+3griMmmm9uOADm1tBgo3gIoZKRYcTHKvyuLxuU=;
+        b=YGLJaZ1KysSaNP7GwB5C2qbCFuItqtBZxoquO1FvJwmB81AsgomrPHuORDh8DnqkSH
+         CWP/XY8bf6svNrFM4zW9y+/RvmSmpZYtCIMLVD0ImcJrzYURtCVNVkf5fzXkSMco1pKR
+         p4EMhJ8VL9F1ibBkob9lH4P0hNTWavO2gitA6C2lhL+rVHlUW12JErHJdiJQiPGc54jh
+         7MH62BIs2iKCorX6koKWvTNj4Pw+LRD3TcotNqm2i/YJPtRL1s7omC20ApEXCWGyadQ9
+         D2t6pdSHvbpujXuUZRLwkKha5hChF2wvDGX4hvQ46nnE/k5O7xhDhQJf5Mcw+k+f1E9e
+         jzJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788696864; x=1789301664;
+        d=1e100.net; s=20251104; t=1788697953; x=1789302753;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p90yRqRNkEpbXqQjLiETs/gtDf1cDQsPml2IReoU9ZE=;
-        b=E/Uo9zn5+B/dgFeMucr8VeCNCVjAqpAmUKHJUDCnDlzpj/DLeApjdaxzkHdfQpZBo/
-         O7d0bnu7QRfa5t7FmzWWEGPLFLDsEck3WqFnetLgx5MRN2uqA/4/aXQmMv6KmUtO5tP9
-         heKkrXpGGG3lP2Nh73FdQ8XYsjjCDD9uWZp0MJKAVEfaEB5kmrQkAJo/dCryetKTWcNc
-         P7IehWN7N9ypd++V8Erks4syn83ZjNVlpq4ebhCrHthyFmCTRjgQHruCom4A4eDtlriU
-         60CDCrK6tY1W3F1n/mPsSpdjxy918dNyBA0A31t2sc7kbhNPZz/T1UcCvcMjwC218kau
-         Zc9g==
-X-Forwarded-Encrypted: i=1; AKwUvBzc+I/yIqnNxeuvTWdaKeXkuZXA0+odWcu57C5knoDkoK+ZLEGTEhC/W1fbhqFI8Ij1hVOMpzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYXBfm7vElnF74W/vMuJ6w0oBCZvOCN0JqC792pyPbrIBSrMX2
-	AxtDoQr11fgbG8YWWcTpVXM+6PgPefJhXm47D2qKwkE6u1DHcl19a2re
-X-Gm-Gg: AYBFou35dZGepP+Ivs+RBcBbAjqWmDJR9rumEolSmbq0gBORA47geXi+to4FVf7j3wn
-	Cx5x4bpIqBDvMGLWAs2BUi6PxoGBZ/ZnBgZQ+Y3tc5VtMFH5BDndZIzMzdjPfu2OIGYRpTQQmwu
-	5agta+3sq3TiUmTvtqU4pC4At/OyF/z3uGqtAf0b2zqE8aHrOnGC/KPZfPKBQaFTkwxSNdYFrOf
-	OAsxnh5Mksb2+9vFj+Tm/sNY43U0nttrdDg7qveGHo7gbfr6nCAbdc3qyez/uQ7E6LfD7JPVXxd
-	e9mCP3ij1n4y3W34xUj/T2yfIv8ms+3n5aLTTwhnIpqtuksAVQVfm5dhoSCYR2S7hE6GKNDc74R
-	cw/7uBRGlk9owzfZJV8hU6UGz5WpnxERtJPAcbzz2XAIiEsNdIaNCTqrYUoGLMmJh5C+xdbPvQL
-	sEJO2ie7Z3Oog6pQEjMa6GIGm/48hQINPCcskEbUnG4gYIBY49yoPbHfNoL2SeFMSh/Ymq8Aj45
-	pCicI6EwUZF9n6CkKnuOSmmk29KLA2JQTVH4w3mV37RLz15S7s0o9gKYzU=
-X-Received: by 2002:a05:600c:474c:b0:493:c47f:3c55 with SMTP id 5b1f17b1804b1-49cf8227619mr155692535e9.5.1788696864253;
-        Sun, 06 Sep 2026 05:14:24 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm137917565e9.13.2026.09.06.05.14.23
+        bh=7bRw+3griMmmm9uOADm1tBgo3gIoZKRYcTHKvyuLxuU=;
+        b=IRFWs5OAYqV/Kmdkja3MUYOAgA8q2x+P0btJd5on6xdtzEKRD49zBrJUIiUsfoGJBG
+         kwU6B+HBD5GMbFoUf7o4Q1PNsv3SUmlQcbtcbHz8r+1RS7Pg/F/9LAmm0nFsiwzbrUiR
+         QGhSSkdQzTU9Stk/9l8bYxi1DEdwBnImakUWfUW6aIrvSaiRerce2CfhtZSL2Ho2yFRD
+         SQKDpx8jQ5OzB7JlYnwCI6zGvIJrqldAfmEL6zZozqENew60gfaPiK0h1FGKlM8FaFd5
+         fL/ks7RuUAqkTI29yFD58OjW6aatbYtHotPC8tFurG3mT45/V0l5Y5uyDZeBxj6eH10c
+         sUVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1S3dPu/Gz4+LCxW4Y38B5Ztn8+UFYIVLM9x04wlUgrd8ZbZTb0SYJiGq5gWvPq/Grww0chwU=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0Yb8F8N7XzqW2n/Q2LWo5YynfLaPd3HmONvUoPXGvBdNPdxFZ
+	AuM1oj1BSwNlit74sGdCjv5Okj6lA9LLt/bwg9G+w9PKaoyTKtPYxQvl
+X-Gm-Gg: AYBFou2ezP+ILhNGP8ZrzXrG0wm5I41w27y8s5kY7pwktI1qy1+cfxzbsFYZMyKkgFj
+	+cJF+p1004AUQ83OrDohx/BDzgXhYWKbUonSfV9e0pnaax4ajhknVc2zR4EgQY64IwjGO0gxTe3
+	mX1KcJE5e/UuK89YFN3viZrKI+AVFf8suhNSeidywZYweSOLbu9pheSWjaqj5WPwq+T1m/+9Wx2
+	iDTqp5hjE4ea6ETs+p3/L/CTCtx+9GvZbCi9EHFTLMiaeIrZZspGGKeWfI8lVBaWH/0QEbHQVUh
+	KwCyTb7z/WCQjE18lEQ3h6ys6ux49NOAIPRp5jgzXGUJsE+0Ph+u7wrCZNcwxVnZMleOLVKkp+i
+	YZpXK6/JDkz7FEjvt7bJmFCXsUWAqaXJXEgwomc1AGVfRfPeQ49ZaaKPDg1ay96QBZbGJQ74KHz
+	/Uw/Np7tRoHImq/GM6znkO4+ITQgn9nogIf4X74yjcUtf5qtpq/ht0eMMWedzcIPdbxTwW
+X-Received: by 2002:a05:600d:8481:20b0:49c:fde6:8b39 with SMTP id 5b1f17b1804b1-49cfde68bacmr97434185e9.29.1788697952905;
+        Sun, 06 Sep 2026 05:32:32 -0700 (PDT)
+Received: from SurHub.localdomain ([102.218.51.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm65779485e9.8.2026.09.06.05.32.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 05:14:23 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Khushit Shah <khushit.shah@nutanix.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] arm64: errata: match the target implementation CPU's own MIDR
-Date: Sun,  6 Sep 2026 13:14:16 +0100
-Message-ID: <20260906121421.60575-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Sun, 06 Sep 2026 05:32:32 -0700 (PDT)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: subash.a.kasiviswanathan@oss.qualcomm.com,
+	sean.tranchetti@oss.qualcomm.com,
+	horms@kernel.org,
+	stable@vger.kernel.org,
+	Abdifatah Suruur <suruurism@gmail.com>
+Subject: [PATCH net v5] net: qualcomm: rmnet: require CAP_NET_ADMIN in the real device netns for config ops
+Date: Sun,  6 Sep 2026 15:32:11 +0300
+Message-ID: <20260906123212.10829-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,69 +76,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__is_affected_midr_range() is handed the MIDR and REVIDR of one target
-implementation CPU, but tests the erratum's range with is_midr_in_range(),
-which re-scans all of target_impl_cpus[] and ignores the @midr argument.
-The range test is thus constant across the per-CPU loop in
-is_affected_midr_range() and only answers "is any target CPU in range".
+An rmnet device may be created with its real device in a different
+netns than the rmnet device itself (rmnet_newlink() resolves it in
+link_net), and the config paths below only check CAP_NET_ADMIN against
+dev_net(dev), while mutating rmnet port state attached to the real
+device:
 
-Since just the fixed_revs REVIDR check uses the iteration's own registers,
-an out-of-range target CPU can decide whether a MIDR_FIXED() exemption
-applies. A VM then enables a workaround whose only in-range CPU is fixed
-silicon, e.g. erratum 2658417 on a Cortex-A510 r1p1 with REVIDR_EL1[25]
-set.
+- rmnet_changelink() rewrites the endpoint mux table and
+  port->data_format and, via rmnet_vnd_update_dev_mtu(), can shrink the
+  MTU of the rmnet endpoint netdevs.
+- rmnet_add_bridge() and rmnet_del_bridge(), reachable via
+  ndo_add_slave/ndo_del_slave through RTM_SETLINK IFLA_MASTER, flip
+  port->rmnet_mode and port->bridge_ep on the real device's port; with
+  bridge_ep pointing at a caller-owned device, rmnet_rx_handler() then
+  forwards real-device ingress frames to it.
+- rmnet_set_coalesce() rewrites the port aggregation parameters via
+  ETHTOOL_SCOALESCE (ioctl) or ETHTOOL_MSG_COALESCE_SET (netlink),
+  whose capability checks likewise only cover dev's netns.
 
-Factor the range test into __is_midr_in_range(), which takes an explicit
-MIDR, and use it in __is_affected_midr_range().
+A caller privileged only in the rmnet device's netns can therefore
+rewrite the shared cellular data-path state owned by another netns, and
+steer its ingress traffic.
 
-Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on implementation CPUs")
+Gate the rtnl paths with rtnl_dev_link_net_capable(), matching the
+"require CAP_NET_ADMIN in the device netns for changelink" series
+(vxlan/geneve, CVE-2026-68432), and gate the ethtool setter with
+ns_capable() in the real device netns, mirroring the check dev_ethtool()
+already applies to dev's netns.  Report the new rejections through
+extack where one is available.
+
+Fixes: 2abb5792387e ("net: qualcomm: rmnet: Allow configuration updates to existing devices")
+Fixes: 60d58f971c1077 ("net: qualcomm: rmnet: Implement bridge mode")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: David Carlier <devnexen@gmail.com>
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 ---
- arch/arm64/kernel/cpu_errata.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+v5:
+- also gate rmnet_set_coalesce(), the ethtool setter that rewrites the
+  port aggregation parameters of the real device's port, per the
+  Sashiko review
+- report the new capability rejections through extack where available
+v4:
+- use the netdev comment style, per Subash Abhinov Kasiviswanathan
+v3:
+- cover rmnet_add_bridge() and rmnet_del_bridge() with the same gate;
+  they mutate the same real-device port state via ndo_add_slave/
+  ndo_del_slave and have no capability check of their own
+- correct the impact wording: rmnet_vnd_update_dev_mtu() only reads
+  real_dev->mtu; the MTU store lands on the rmnet endpoint netdevs via
+  rmnet_vnd_change_mtu(), not on the real device
+v2:
+- drop Reported-by: (implied for the author), per Jakub Kicinski
+---
+ .../ethernet/qualcomm/rmnet/rmnet_config.c    | 33 ++++++++++++++++++-
+ .../net/ethernet/qualcomm/rmnet/rmnet_vnd.c   | 18 +++++++++-
+ 2 files changed, 49 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/kernel/cpu_errata.c b/arch/arm64/kernel/cpu_errata.c
-index b33dccfafaf8..8ec47d89b45b 100644
---- a/arch/arm64/kernel/cpu_errata.c
-+++ b/arch/arm64/kernel/cpu_errata.c
-@@ -28,18 +28,21 @@ bool cpu_errata_set_target_impl(u64 num, void *impl_cpus)
- 	return true;
- }
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+index bed6f63facf25..7757fcb2fcc9f 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
+@@ -312,6 +312,16 @@ static int rmnet_changelink(struct net_device *dev, struct nlattr *tb[],
+ 	if (!rmnet_is_real_dev_registered(real_dev))
+ 		return -ENODEV;
  
-+static inline bool __is_midr_in_range(u32 midr, struct midr_range const *range)
-+{
-+	return midr_is_cpu_model_range(midr, range->model,
-+				       range->rv_min, range->rv_max);
-+}
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(dev, dev_net(real_dev))) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Changing the port settings requires CAP_NET_ADMIN in the real device network namespace");
++		return -EPERM;
++	}
 +
- static inline bool is_midr_in_range(struct midr_range const *range)
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	if (data[IFLA_RMNET_MUX_ID]) {
+@@ -441,6 +451,16 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ 	struct rmnet_port *port, *slave_port;
+ 	int err;
+ 
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but the port state mutated below is attached to real_dev, which
++	 * may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev))) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Attaching a bridge device requires CAP_NET_ADMIN in the real device network namespace");
++		return -EPERM;
++	}
++
+ 	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	/* If there is more than one rmnet dev attached, its probably being
+@@ -489,7 +509,18 @@ int rmnet_add_bridge(struct net_device *rmnet_dev,
+ int rmnet_del_bridge(struct net_device *rmnet_dev,
+ 		     struct net_device *slave_dev)
  {
- 	int i;
+-	struct rmnet_port *port = rmnet_get_port_rtnl(slave_dev);
++	struct rmnet_priv *priv = netdev_priv(rmnet_dev);
++	struct net_device *real_dev = priv->real_dev;
++	struct rmnet_port *port;
++
++	/* The rtnl path only checks CAP_NET_ADMIN against dev_net(dev),
++	 * but rmnet_unregister_bridge() below clears the bridge state of
++	 * the real device's port, which may live in a different netns.
++	 */
++	if (!rtnl_dev_link_net_capable(rmnet_dev, dev_net(real_dev)))
++		return -EPERM;
++
++	port = rmnet_get_port_rtnl(slave_dev);
  
- 	if (!target_impl_cpu_num)
--		return midr_is_cpu_model_range(read_cpuid_id(), range->model,
--					       range->rv_min, range->rv_max);
-+		return __is_midr_in_range(read_cpuid_id(), range);
+ 	rmnet_unregister_bridge(port);
  
- 	for (i = 0; i < target_impl_cpu_num; i++) {
--		if (midr_is_cpu_model_range(target_impl_cpus[i].midr,
--					    range->model,
--					    range->rv_min, range->rv_max))
-+		if (__is_midr_in_range(target_impl_cpus[i].midr, range))
- 			return true;
- 	}
- 	return false;
-@@ -59,7 +62,7 @@ __is_affected_midr_range(const struct arm64_cpu_capabilities *entry,
- 			 u32 midr, u32 revidr)
+diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
+index 4f0ddcedfa979..1f4a3246f254a 100644
+--- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
++++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_vnd.c
+@@ -4,9 +4,11 @@
+  * RMNET Data virtual network driver
+  */
+ 
++#include <linux/capability.h>
+ #include <linux/etherdevice.h>
+ #include <linux/ethtool.h>
+ #include <linux/if_arp.h>
++#include <linux/netlink.h>
+ #include <net/pkt_sched.h>
+ #include "rmnet_config.h"
+ #include "rmnet_handlers.h"
+@@ -240,9 +242,23 @@ static int rmnet_set_coalesce(struct net_device *dev,
+ 			      struct netlink_ext_ack *extack)
  {
- 	const struct arm64_midr_revidr *fix;
--	if (!is_midr_in_range(&entry->midr_range))
-+	if (!__is_midr_in_range(midr, &entry->midr_range))
- 		return false;
+ 	struct rmnet_priv *priv = netdev_priv(dev);
++	struct net_device *real_dev = priv->real_dev;
+ 	struct rmnet_port *port;
  
- 	midr &= MIDR_REVISION_MASK | MIDR_VARIANT_MASK;
+-	port = rmnet_get_port_rtnl(priv->real_dev);
++	/*
++	 * The aggregation parameters live in the port attached to
++	 * real_dev, which may reside in a different netns.  The ethtool
++	 * paths only require CAP_NET_ADMIN in dev's netns, so require it
++	 * in real_dev's netns as well before mutating the shared port
++	 * state.
++	 */
++	if (!ns_capable(dev_net(real_dev)->user_ns, CAP_NET_ADMIN)) {
++		NL_SET_ERR_MSG_MOD(extack,
++				   "Changing aggregation parameters requires CAP_NET_ADMIN in the real device network namespace");
++		return -EPERM;
++	}
++
++	port = rmnet_get_port_rtnl(real_dev);
+ 
+ 	if (kernel_coal->tx_aggr_max_frames < 1 || kernel_coal->tx_aggr_max_frames > 64)
+ 		return -EINVAL;
 -- 
-2.55.0
+2.53.0
 
