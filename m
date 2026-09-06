@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F043347505
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7754D3C0A12
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723059; cv=none; b=p7Kh1Itpz0hR3aldpedOB/NG/tmYFztRkGSjceC6xfF4yrmSioknaGORJPYWpSzb78Kzc6Qv+oJln2to42uFPv0aLns8w2tPcslfRqIRh+rianbDbh7Lj8b2sTgEunNLVtS8tGSW4MsA/yODpPvZK9mQBTs0f6FTQnc1DwYiI+w=
+	t=1788723059; cv=none; b=bsph0giyizHdpbGxERUvUyHCJ27UG421RBvW4V7SlQYXaJNK/PRc8YQES9rNiVqGSRMJWPHgeEHq70GCIDoihMYaKwWvFXjQ6qTW6DjOwBxOEnEzPe1Ivvh7PujTtKAzQ0MzfHQPqZ9EesiFXzJn5rpD5+8byJBfDl//tMzCN9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788723059; c=relaxed/simple;
-	bh=GtUacWaZ3GoqXq58BSBVjZV2vAbLEf6zkwzi9IhWwS4=;
+	bh=Adwa74+UqPhchl2S5VWWfMLXL4IdDqdZVh94QeeM2T0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iMd1R646m/2IV+sIjKr/7eHzRGMTMPwBZoS5IHM6tNi7iGczKyc70HXLRb1V9oZeHoFZ70qtCGPMfrp5yrBDKvWyxhlPuGRbquDdza2bv2IMBW9X2oWjLZYDmoKDZge5U5aWxfzNFBsWu0OVhZ8MObWn3BUXY7W7g1WP0U7mqjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXdFs9vN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NNVj2qKINyv1x3tuJj13k5hbvtaTz+/BsF+rHY3ldOFRYJ/gsC0vdoUxcJQO9qlKDVq/TrlieKByxdQrZjARks96QQzVpQmdbLgmpGhtjTsZy9RXFaT1ujIl2a2Jka0umtS2oyO7bt8cF8biGv+QiFrdSywIwq1Z7Wby8usqnEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xf8tk1sq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXdFs9vN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428C21F00ACF;
-	Sun,  6 Sep 2026 19:30:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xf8tk1sq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19F41F00A3A;
+	Sun,  6 Sep 2026 19:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723055;
-	bh=TNfwNJ3uGqtAmTC1SFuS/EjX9myX/PISfowuVLZR7FY=;
+	s=k20260515; t=1788723057;
+	bh=Lny+VAJe4aO2Zo/nLoBaDK0huQUBJ7xTc4jppBizjaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kXdFs9vN4LoqqjjVGARZJhKPYEfSpmguU80EgiL5+ks0RpZkzQawTkW9YAaOADzD9
-	 tBRY/oyQpba5v+PQ4hzJTj82v5Itmy4UHQMCDfUbWJ3jcxeBc1V+O1rhYM9QSacjx9
-	 LAYOZWQvwc+3OqCl3Bl8LlshjyuNpYblZbs7gUlb3eQkmznHhTh9uiKvyRTf08ZpcD
-	 6RCcAAiotQpmrrYD8Xgi/HAp24jVRxqVLwddRcb86vvIpOE2aB4cAN6Xts9fiA0kRp
-	 W7yoJQ4ExDdYxr1w62dXu1PMaesSYyRLl8LJyhNZdnqNCmPQdxyWB1L7TtWORV/1gj
-	 KavVsprKkqvFQ==
+	b=Xf8tk1sqAbwh2tYGVaBOw+wLToZiMc1roDKGZIMv/AC4TVxs9kWSH4LwvRUycqiUz
+	 DUleVugKRk4a0w2atwezaXl1HbB5V63ngpTL24qiK8D3Qxa3u4qJoIfRPBZBu5Cz3g
+	 5C3vflu2SRwBqqYbJY5RBFIEBdK8bTTSMJhvPsAdfxk7GgpauHLF3acmIdX+pMFiSq
+	 rIAuhlyEKZNdZ/n6dC2t1IQd6kAP9izYab3LwfZxm0MES6QQl69nu9LQEHCJMPDFfc
+	 xdC1VaZJX9QqJwg+oq87AvgbqHAjUPAYGMWK2sv12MmzBpQrP8dKneljGE6854fol5
+	 ghdnVJWcJ8UzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 8/8] btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag
-Date: Sun,  6 Sep 2026 15:30:48 -0400
-Message-ID: <20260906193048.1791749-8-sashal@kernel.org>
+Subject: [PATCH 6.18.y 4/4] cifs: add cifs_resize_file_locked() to guard fscache_resize_cookie() under i_rwsem
+Date: Sun,  6 Sep 2026 15:30:52 -0400
+Message-ID: <20260906193052.1791917-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906193048.1791749-1-sashal@kernel.org>
-References: <2026090330-nappy-discharge-0af0@gregkh>
- <20260906193048.1791749-1-sashal@kernel.org>
+In-Reply-To: <20260906193052.1791917-1-sashal@kernel.org>
+References: <2026090358-afar-boss-f2c3@gregkh>
+ <20260906193052.1791917-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,134 +49,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qu Wenruo <wqu@suse.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 15f7c86215e8d5f14b24127fa88af6c79363d50e ]
+[ Upstream commit 32a7af68df7361fe7cf153cf36124d04b94aec00 ]
 
-[TEST FAILURE]
-The test case generic/628 will fail if MOUNT_OPTIONS is set to
-"-o nodatasum":
+cifs_setsize() calls fscache_resize_cookie() without holding i_rwsem.
+When the fscache cookie is active (FSCACHE_COOKIE_IS_CACHING is set),
+fscache_resize_cookie() performs a real resize that requires i_rwsem
+held exclusively.  If another file descriptor has the same inode open,
+fscache_use_cookie() was already called from that cifs_open(), making
+the cookie active.  In that case, calling cifs_setsize() from
+cifs_do_truncate() (invoked from cifs_open() without i_rwsem) races
+against concurrent fscache I/O.
 
-  FSTYP         -- btrfs
-  PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
-  MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
-  MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+Strip fscache_resize_cookie() from cifs_setsize(), making it a pure
+size/page-cache helper.  Add cifs_resize_file_locked() for callers
+that already hold i_rwsem: it calls netfs_resize_file() and
+cifs_setsize(), then temporarily activates the cookie with
+fscache_use_cookie() to perform the resize under the lock, then
+deactivates it with cifs_fscache_unuse_inode_cookie().  Using
+fscache_use_cookie() before the resize ensures correctness whether or
+not another fd already holds the cookie active.
 
-  generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
-     --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
-     +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
-     @@ -8,8 +8,9 @@
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
-      test reflink flag not set iflag
-     +XFS_IOC_CLONE: Invalid argument
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-     -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
-     +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
-     ...
+Switch cifs_file_set_size(), smb2_duplicate_extents(), and both size-
+extension branches of smb3_simple_falloc() to the new wrapper; those
+paths already hold i_rwsem via VFS setattr, lock_two_nondirectories(),
+or cifs_fallocate() respectively.  cifs_do_truncate() continues to
+call cifs_setsize() followed by cifs_invalidate_cache(), since it runs
+without i_rwsem.
 
-[CAUSE]
-The direct cause is that after "chattr +S", the btrfs inode will lose its
-NODATASUM flag inherited from the mount option. E.g.:
-
-  # mkfs.btrfs -f $dev
-  # mount $dev $mnt -o nodatasum
-  # touch $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 9 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 1 flags 0x1(NODATASUM)
-         	                     ^^^^^^^^^ Proper NODATASUM flag
-
-  # chattr +S $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-  	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 10 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 2 flags 0x20(SYNC)
-         	                      ^^^^ Only the new SYNC flag
-
-This makes the inode drop the old NODATASUM flag, while the new reflink
-destination will still inherit the NODATASUM flag.  The mismatching
-NODATASUM flags will cause the reflink to fail.
-
-The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
-set, we remove both NODATASUM and NODATACOW flag.
-
-However we should not touch NODATASUM flag, as data COW doesn't require
-checksum.  Only NODATACOW implies NODATASUM, but DATACOW doesn't imply
-DATASUM.
-
-The deeper problems are:
-
-- Fileattr API is too binary
-  It either clears or sets a flag, there is no "do not change" option.
-  So that why "chattr +S" implies "chattr -C", and is forcing us to
-  change NODATACOW along with NODATASUM flag.
-
-- No way to change NODATASUM through fileattr API
-  In fact NODATASUM can only be modified through mount option.
-
-The deeper problems are much harder to attack.
-
-[FIX]
-Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
-NODATASUM if "nodatasum" mount option is not set.
-
-This allows the existing "chattr +C" then "chattr -C" to remove
-both NODATACOW and NODATASUM flags on a default mount.
-
-But for a mount with "nodatasum" option, the NODATASUM inode flag will
-persist through either "chattr +C" and "chattr -C".
-
-Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
+Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()")
 Cc: stable@vger.kernel.org
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+Cc: David Howells <dhowells@redhat.com>
+Cc: Paulo Alcantara <pc@manguebit.com>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/ioctl.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ fs/smb/client/cifsfs.h  |  1 +
+ fs/smb/client/inode.c   | 24 +++++++++++++++++++-----
+ fs/smb/client/smb2ops.c |  9 +++------
+ 3 files changed, 23 insertions(+), 11 deletions(-)
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 8f87f13cf2500..bff52a6e475a6 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -329,14 +329,21 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 			inode_flags |= BTRFS_INODE_NODATACOW;
- 		}
- 	} else {
--		/*
--		 * Revert back under same assumptions as above
--		 */
--		if (S_ISREG(inode->vfs_inode.i_mode)) {
--			if (inode->vfs_inode.i_size == 0)
--				inode_flags &= ~(BTRFS_INODE_NODATACOW |
--						 BTRFS_INODE_NODATASUM);
--		} else {
-+		/* We can only change NODATACOW for zero-sized regular file. */
-+		if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode.i_size == 0)) {
-+			inode_flags &= ~BTRFS_INODE_NODATACOW;
-+			/*
-+			 * There is currently no way to change NODATASUM flag
-+			 * through fileattr API.  If we unconditionally keep the
-+			 * current NODATASUM flag, chattr +C then chattr -C will
-+			 * keep the NODATASUM flag, and no way to remove that
-+			 * flag.
-+			 *
-+			 * So respect the current mount option for NODATASUM flag.
-+			 */
-+			if (!btrfs_test_opt(fs_info, NODATASUM))
-+				inode_flags &= ~BTRFS_INODE_NODATASUM;
-+		} else if (!S_ISREG(inode->vfs_inode.i_mode)) {
- 			inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		}
+diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
+index de32a0ae53ae7..3d632d22da6fc 100644
+--- a/fs/smb/client/cifsfs.h
++++ b/fs/smb/client/cifsfs.h
+@@ -135,6 +135,7 @@ extern ssize_t cifs_file_copychunk_range(unsigned int xid,
+ 
+ long cifs_ioctl(struct file *filep, unsigned int command, unsigned long arg);
+ void cifs_setsize(struct inode *inode, loff_t offset);
++void cifs_resize_file_locked(struct inode *inode, loff_t offset);
+ 
+ struct fs_context;
+ struct smb3_fs_context;
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index c9e955d0d799e..15b9f44553d5f 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3039,7 +3039,23 @@ void cifs_setsize(struct inode *inode, loff_t offset)
+ 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
+ 	truncate_pagecache(inode, offset);
+ 	netfs_wait_for_outstanding_io(inode);
+-	fscache_resize_cookie(cifs_inode_cookie(inode), offset);
++}
++
++void cifs_resize_file_locked(struct inode *inode, loff_t offset)
++{
++	struct fscache_cookie *cookie = cifs_inode_cookie(inode);
++
++	lockdep_assert_held_write(&inode->i_rwsem);
++
++	netfs_resize_file(netfs_inode(inode), offset, true);
++	cifs_setsize(inode, offset);
++
++	if (!cookie)
++		return;
++
++	fscache_use_cookie(cookie, true);
++	fscache_resize_cookie(cookie, offset);
++	cifs_fscache_unuse_inode_cookie(inode, true);
+ }
+ 
+ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
+@@ -3105,10 +3121,8 @@ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
+ 	cifs_put_tlink(tlink);
+ 
+ set_size_out:
+-	if (rc == 0) {
+-		netfs_resize_file(&cifsInode->netfs, size, true);
+-		cifs_setsize(inode, size);
+-	}
++	if (rc == 0)
++		cifs_resize_file_locked(inode, size);
+ 
+ 	return rc;
+ }
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index c25914888beae..7ca606868596d 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -2197,8 +2197,7 @@ smb2_duplicate_extents(const unsigned int xid,
+ 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
+ 		if (rc)
+ 			goto duplicate_extents_out;
+-		netfs_resize_file(netfs_inode(inode), dest_off + len, true);
+-		cifs_setsize(inode, dest_off + len);
++		cifs_resize_file_locked(inode, dest_off + len);
  	}
+ 	rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
+ 			trgtfile->fid.volatile_fid,
+@@ -3702,8 +3701,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 			}
+ 
+ 			new_eof = off + len;
+-			netfs_resize_file(&cifsi->netfs, new_eof, true);
+-			cifs_setsize(inode, new_eof);
++			cifs_resize_file_locked(inode, new_eof);
+ 
+ 			qrc = SMB2_query_info(xid, tcon,
+ 					      cfile->fid.persistent_fid,
+@@ -3728,8 +3726,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
+ 		if (rc)
+ 			goto out;
+ 
+-		netfs_resize_file(&cifsi->netfs, new_eof, true);
+-		cifs_setsize(inode, new_eof);
++		cifs_resize_file_locked(inode, new_eof);
+ 
+ 		qrc = SMB2_query_info(xid, tcon,
+ 				      cfile->fid.persistent_fid,
 -- 
 2.53.0
 
