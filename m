@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7754D3C0A12
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADFB2C0F8C
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 19:30:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788723059; cv=none; b=bsph0giyizHdpbGxERUvUyHCJ27UG421RBvW4V7SlQYXaJNK/PRc8YQES9rNiVqGSRMJWPHgeEHq70GCIDoihMYaKwWvFXjQ6qTW6DjOwBxOEnEzPe1Ivvh7PujTtKAzQ0MzfHQPqZ9EesiFXzJn5rpD5+8byJBfDl//tMzCN9I=
+	t=1788723060; cv=none; b=ODFTj/pwnZc1AVtxhAOvBtpjUfgXq2CAHqYh9pJUO87nRdUqYkhFVml0GxKWntpSN7waz4LFCU4p+S9p+WJ0iz5MDLGiXepGqr1PCsXU35fXKqKaDfUH24PicG52kP5sHPnWoDPHVhNuZLmxT1MZGSsnK/NutudzbcUDcjw/aj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788723059; c=relaxed/simple;
-	bh=Adwa74+UqPhchl2S5VWWfMLXL4IdDqdZVh94QeeM2T0=;
+	s=arc-20240116; t=1788723060; c=relaxed/simple;
+	bh=7mZa/VAq2hgCYzmV8cVldvj1FaMIa9ylcScLKpdxBWc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NNVj2qKINyv1x3tuJj13k5hbvtaTz+/BsF+rHY3ldOFRYJ/gsC0vdoUxcJQO9qlKDVq/TrlieKByxdQrZjARks96QQzVpQmdbLgmpGhtjTsZy9RXFaT1ujIl2a2Jka0umtS2oyO7bt8cF8biGv+QiFrdSywIwq1Z7Wby8usqnEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xf8tk1sq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vwmoh5GzoechTeHoLgDRccjtMUbt/FjvA651Aezry8JGkqo+MxM19KVP825Zc+WdADG9ZP1X42RIkrznBf/FfXplYg73Jlbj4ghDFw1TjOxPIQbsUZ4WNKS9ymW1lTsTHARsAULBHsOSOkg1NNYRUBJeta+M7AjgYfW2mIc9C1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FsEsD44s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xf8tk1sq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A19F41F00A3A;
-	Sun,  6 Sep 2026 19:30:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FsEsD44s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209791F00A3F;
+	Sun,  6 Sep 2026 19:30:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788723057;
-	bh=Lny+VAJe4aO2Zo/nLoBaDK0huQUBJ7xTc4jppBizjaQ=;
+	s=k20260515; t=1788723058;
+	bh=fwAUSJ9pyfjDmXR3vHMqKqVXaoUUi7Wxh9oGDK6frMg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xf8tk1sqAbwh2tYGVaBOw+wLToZiMc1roDKGZIMv/AC4TVxs9kWSH4LwvRUycqiUz
-	 DUleVugKRk4a0w2atwezaXl1HbB5V63ngpTL24qiK8D3Qxa3u4qJoIfRPBZBu5Cz3g
-	 5C3vflu2SRwBqqYbJY5RBFIEBdK8bTTSMJhvPsAdfxk7GgpauHLF3acmIdX+pMFiSq
-	 rIAuhlyEKZNdZ/n6dC2t1IQd6kAP9izYab3LwfZxm0MES6QQl69nu9LQEHCJMPDFfc
-	 xdC1VaZJX9QqJwg+oq87AvgbqHAjUPAYGMWK2sv12MmzBpQrP8dKneljGE6854fol5
-	 ghdnVJWcJ8UzQ==
+	b=FsEsD44s45seJR23lfhMaXspwT770p9aNJB9lr1K2VHekULV15DndoJ+f5QAkZwl6
+	 qXLclGvjl1B0FC2z1BsoCsutTpA7ODjNaF9ijhEeie5/o6llOrljgdFnmZK3CkrveR
+	 cNCXOOZo0yrB1ssR3GvXgTogoSXkLK+zU7f1fJ3VpEqQvofdvdydOn6UeBvRBwlme4
+	 5OfiZ3aCQDbVqT36r99j9HV84Ya56l+0yoOWFbfYTtJ8QrfdEJ0KNcBJ52ffm0jUfo
+	 0xqh86wzK6/SnWzOluLbs4T9R2+2NzRhqsPrr1RQYwTW3SjNUXfWgPSuHbly5V2Nqh
+	 VWadhXy5IJ5eA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] cifs: add cifs_resize_file_locked() to guard fscache_resize_cookie() under i_rwsem
+Subject: [PATCH 6.12.y 1/5] btrfs: prepare btrfs_punch_hole_lock_range() for large data folios
 Date: Sun,  6 Sep 2026 15:30:52 -0400
-Message-ID: <20260906193052.1791917-4-sashal@kernel.org>
+Message-ID: <20260906193056.1792186-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906193052.1791917-1-sashal@kernel.org>
-References: <2026090358-afar-boss-f2c3@gregkh>
- <20260906193052.1791917-1-sashal@kernel.org>
+In-Reply-To: <2026090310-unwarlike-canister-1f00@gregkh>
+References: <2026090310-unwarlike-canister-1f00@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,137 +46,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Frank Sorenson <sorenson@redhat.com>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit 32a7af68df7361fe7cf153cf36124d04b94aec00 ]
+[ Upstream commit 1e5773e0bab761c853eaf7286394905a544ef02d ]
 
-cifs_setsize() calls fscache_resize_cookie() without holding i_rwsem.
-When the fscache cookie is active (FSCACHE_COOKIE_IS_CACHING is set),
-fscache_resize_cookie() performs a real resize that requires i_rwsem
-held exclusively.  If another file descriptor has the same inode open,
-fscache_use_cookie() was already called from that cifs_open(), making
-the cookie active.  In that case, calling cifs_setsize() from
-cifs_do_truncate() (invoked from cifs_open() without i_rwsem) races
-against concurrent fscache I/O.
+The function btrfs_punch_hole_lock_range() needs to make sure there is
+no other folio in the range, thus it goes with filemap_range_has_page(),
+which works pretty fine.
 
-Strip fscache_resize_cookie() from cifs_setsize(), making it a pure
-size/page-cache helper.  Add cifs_resize_file_locked() for callers
-that already hold i_rwsem: it calls netfs_resize_file() and
-cifs_setsize(), then temporarily activates the cookie with
-fscache_use_cookie() to perform the resize under the lock, then
-deactivates it with cifs_fscache_unuse_inode_cookie().  Using
-fscache_use_cookie() before the resize ensures correctness whether or
-not another fd already holds the cookie active.
+But if we have large folios, under the following case
+filemap_range_has_page() will always return true, forcing
+btrfs_punch_hole_lock_range() to do a very time consuming busy loop:
 
-Switch cifs_file_set_size(), smb2_duplicate_extents(), and both size-
-extension branches of smb3_simple_falloc() to the new wrapper; those
-paths already hold i_rwsem via VFS setattr, lock_two_nondirectories(),
-or cifs_fallocate() respectively.  cifs_do_truncate() continues to
-call cifs_setsize() followed by cifs_invalidate_cache(), since it runs
-without i_rwsem.
+        start                            end
+        |                                |
+  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
+   \         /                         \   /
+    Folio A                            Folio B
 
-Fixes: fa724e235cfd ("cifs: add fscache_resize_cookie() to cifs_setsize()")
-Cc: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>
-Cc: Paulo Alcantara <pc@manguebit.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+In the above case, folio A and B contain our start/end indexes, and there
+are no other folios in the range.  Thus we do not need to retry inside
+btrfs_punch_hole_lock_range().
+
+To prepare for large data folios, introduce a helper,
+check_range_has_page(), which will:
+
+- Shrink the search range towards page boundaries
+  If the rounded down end (exclusive, otherwise it can underflow when @end
+  is inside the folio at file offset 0) is no larger than the rounded up
+  start, it means the range contains no other pages other than the ones
+  covering @start and @end.
+
+  Can return false directly in that case.
+
+- Grab all the folios inside the range
+
+- Skip any large folios that cover the start and end indexes
+
+- If any other folios are found return true
+
+- Otherwise return false
+
+This new helper is going to handle both large folios and regular ones.
+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 3f950867c307 ("btrfs: fix extent map leak in NOCOW direct I/O write")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsfs.h  |  1 +
- fs/smb/client/inode.c   | 24 +++++++++++++++++++-----
- fs/smb/client/smb2ops.c |  9 +++------
- 3 files changed, 23 insertions(+), 11 deletions(-)
+ fs/btrfs/file.c | 67 +++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 56 insertions(+), 11 deletions(-)
 
-diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
-index de32a0ae53ae7..3d632d22da6fc 100644
---- a/fs/smb/client/cifsfs.h
-+++ b/fs/smb/client/cifsfs.h
-@@ -135,6 +135,7 @@ extern ssize_t cifs_file_copychunk_range(unsigned int xid,
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index fe60f2d7e8aec..4bf595b973d05 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -2205,11 +2205,29 @@ static int find_first_non_hole(struct btrfs_inode *inode, u64 *start, u64 *len)
+ 	return ret;
+ }
  
- long cifs_ioctl(struct file *filep, unsigned int command, unsigned long arg);
- void cifs_setsize(struct inode *inode, loff_t offset);
-+void cifs_resize_file_locked(struct inode *inode, loff_t offset);
+-static void btrfs_punch_hole_lock_range(struct inode *inode,
+-					const u64 lockstart,
+-					const u64 lockend,
+-					struct extent_state **cached_state)
++/*
++ * Check if there is no folio in the range.
++ *
++ * We cannot utilize filemap_range_has_page() in a filemap with large folios
++ * as we can hit the following false positive:
++ *
++ *        start                            end
++ *        |                                |
++ *  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
++ *   \         /                         \   /
++ *    Folio A                            Folio B
++ *
++ * That large folio A and B cover the start and end indexes.
++ * In that case filemap_range_has_page() will always return true, but the above
++ * case is fine for btrfs_punch_hole_lock_range() usage.
++ *
++ * So here we only ensure that no other folios is in the range, excluding the
++ * head/tail large folio.
++ */
++static bool check_range_has_page(struct inode *inode, u64 start, u64 end)
+ {
++	struct folio_batch fbatch;
++	bool ret = false;
+ 	/*
+ 	 * For subpage case, if the range is not at page boundary, we could
+ 	 * have pages at the leading/tailing part of the range.
+@@ -2220,17 +2238,45 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
+ 	 *
+ 	 * And do not decrease page_lockend right now, as it can be 0.
+ 	 */
+-	const u64 page_lockstart = round_up(lockstart, PAGE_SIZE);
+-	const u64 page_lockend = round_down(lockend + 1, PAGE_SIZE);
++	const u64 page_lockstart = round_up(start, PAGE_SIZE);
++	const u64 page_lockend = round_down(end + 1, PAGE_SIZE);
++	const pgoff_t start_index = page_lockstart >> PAGE_SHIFT;
++	const pgoff_t end_index = (page_lockend - 1) >> PAGE_SHIFT;
++	pgoff_t tmp = start_index;
++	int found_folios;
++
++	/* The same page or adjacent pages. */
++	if (page_lockend <= page_lockstart)
++		return false;
++
++	folio_batch_init(&fbatch);
++	found_folios = filemap_get_folios(inode->i_mapping, &tmp, end_index, &fbatch);
++	for (int i = 0; i < found_folios; i++) {
++		struct folio *folio = fbatch.folios[i];
  
- struct fs_context;
- struct smb3_fs_context;
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index c9e955d0d799e..15b9f44553d5f 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3039,7 +3039,23 @@ void cifs_setsize(struct inode *inode, loff_t offset)
- 	inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
- 	truncate_pagecache(inode, offset);
- 	netfs_wait_for_outstanding_io(inode);
--	fscache_resize_cookie(cifs_inode_cookie(inode), offset);
++		/* A large folio begins before the start. Not a target. */
++		if (folio->index < start_index)
++			continue;
++		/* A large folio extends beyond the end. Not a target. */
++		if (folio->index + folio_nr_pages(folio) > end_index)
++			continue;
++		/* A folio doesn't cover the head/tail index. Found a target. */
++		ret = true;
++		break;
++	}
++	folio_batch_release(&fbatch);
++	return ret;
 +}
 +
-+void cifs_resize_file_locked(struct inode *inode, loff_t offset)
++static void btrfs_punch_hole_lock_range(struct inode *inode,
++					const u64 lockstart, const u64 lockend,
++					struct extent_state **cached_state)
 +{
-+	struct fscache_cookie *cookie = cifs_inode_cookie(inode);
-+
-+	lockdep_assert_held_write(&inode->i_rwsem);
-+
-+	netfs_resize_file(netfs_inode(inode), offset, true);
-+	cifs_setsize(inode, offset);
-+
-+	if (!cookie)
-+		return;
-+
-+	fscache_use_cookie(cookie, true);
-+	fscache_resize_cookie(cookie, offset);
-+	cifs_fscache_unuse_inode_cookie(inode, true);
- }
+ 	while (1) {
+ 		truncate_pagecache_range(inode, lockstart, lockend);
  
- int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
-@@ -3105,10 +3121,8 @@ int cifs_file_set_size(const unsigned int xid, struct dentry *dentry,
- 	cifs_put_tlink(tlink);
+ 		lock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
+ 			    cached_state);
+-		/* The same page or adjacent pages. */
+-		if (page_lockend <= page_lockstart)
+-			break;
+ 		/*
+ 		 * We can't have ordered extents in the range, nor dirty/writeback
+ 		 * pages, because we have locked the inode's VFS lock in exclusive
+@@ -2241,8 +2287,7 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
+ 		 * locking the range check if we have pages in the range, and if
+ 		 * we do, unlock the range and retry.
+ 		 */
+-		if (!filemap_range_has_page(inode->i_mapping, page_lockstart,
+-					    page_lockend - 1))
++		if (!check_range_has_page(inode, lockstart, lockend))
+ 			break;
  
- set_size_out:
--	if (rc == 0) {
--		netfs_resize_file(&cifsInode->netfs, size, true);
--		cifs_setsize(inode, size);
--	}
-+	if (rc == 0)
-+		cifs_resize_file_locked(inode, size);
- 
- 	return rc;
- }
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index c25914888beae..7ca606868596d 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -2197,8 +2197,7 @@ smb2_duplicate_extents(const unsigned int xid,
- 		rc = smb2_set_file_size(xid, tcon, trgtfile, dest_off + len, false);
- 		if (rc)
- 			goto duplicate_extents_out;
--		netfs_resize_file(netfs_inode(inode), dest_off + len, true);
--		cifs_setsize(inode, dest_off + len);
-+		cifs_resize_file_locked(inode, dest_off + len);
- 	}
- 	rc = SMB2_ioctl(xid, tcon, trgtfile->fid.persistent_fid,
- 			trgtfile->fid.volatile_fid,
-@@ -3702,8 +3701,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 			}
- 
- 			new_eof = off + len;
--			netfs_resize_file(&cifsi->netfs, new_eof, true);
--			cifs_setsize(inode, new_eof);
-+			cifs_resize_file_locked(inode, new_eof);
- 
- 			qrc = SMB2_query_info(xid, tcon,
- 					      cfile->fid.persistent_fid,
-@@ -3728,8 +3726,7 @@ static long smb3_simple_falloc(struct file *file, struct cifs_tcon *tcon,
- 		if (rc)
- 			goto out;
- 
--		netfs_resize_file(&cifsi->netfs, new_eof, true);
--		cifs_setsize(inode, new_eof);
-+		cifs_resize_file_locked(inode, new_eof);
- 
- 		qrc = SMB2_query_info(xid, tcon,
- 				      cfile->fid.persistent_fid,
+ 		unlock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
 -- 
 2.53.0
 
