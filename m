@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FC830D3FE
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:18:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32A43B3C1A
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 16:25:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788711507; cv=none; b=Aetyb5rQ2mpdxsegXqBLRj4a2tBEZ9ZEzkAcHJCq161Q6iPt2SRBtN+BNywB0V2d8/smV31y6dOb2EDxtVmqg5cBpbM2+qbASJ5gpjuR75XzJbVoCH0nB5GO6Y8LRrNZzIjXQaFl9bI1CakzbaDYHbCxzuzZcqdOdUAZDCM/MDk=
+	t=1788711939; cv=none; b=pn9nx6Fshkknq7wGcLVYwKBFhIWe9fs05t3Re6gQoT3aBqDoEc2+zRVV2OyFK5KAyuG2+5cj7CnZSs8aWjuxuGhjBJ5fnDaO/f23JSAzRrOtbndf4JVgqGFkMb2tdh4BDG7qyoNOWr99RBvthpQh7UIaBR2aSjKeTx8GBhu2Xp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788711507; c=relaxed/simple;
-	bh=D9nXj36rr+uJxnPfbK9/bWnMUzf05wuBPrLdC79a2y8=;
+	s=arc-20240116; t=1788711939; c=relaxed/simple;
+	bh=0PMn5FPApr/estCgB8Cb2XOelm+s99Qy3ldrZZGtbI4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i1QWOCGoTQEVI/R0ORemK9juKA0fI3N0FGDWzAaWeMX3rfIea62LyreDP7LlxoDwE2l5HUeVUNqDcikTFZZGENNWow6w2xMBJd3ER2k6H/CWOaPaAaCcxZORl6XjFyJxtF1RhZigwdkQLNIhzQRDMO40RvFxZCpEN94kt8BKm+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrtMfPkU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AakA03JgJoHgDanYjdwOZjYdfWfemXSDo7G9LfePnh4BIz3NWXdRCelmKWFQJvUttOs5DhWJQASySYhhWTvlTFqLvdVfJBQ14GlcQ/9/yS1AsLXkRmOVGZkyW1WADcALyvMPXafprpLiNxrPY/jFMdwsLerdNSG+M0HgryE5Qyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NghxmaqF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrtMfPkU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C9E91F00A3A;
-	Sun,  6 Sep 2026 16:18:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NghxmaqF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD61C1F00A3A;
+	Sun,  6 Sep 2026 16:25:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788711506;
-	bh=2lfNyuOU3rshsyRM2PEmHE4noCI6MyvHchzpaylAR+0=;
+	s=k20260515; t=1788711936;
+	bh=KE3LTf4sVSOz2zwrbNrw2LiPj4bRnQjLWkNXZqnECzk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GrtMfPkUkkZKe09Xdv1LJigG7yWd3bbRuikoAehDgpwIV/ez9wX+DW5V6vLZXL4G1
-	 skWOXqQ36cZVTkBhwtEBg3dOIUH2h3571ESO4IBPPgRmr12PV1vzfQLf9KdvaFCFLI
-	 4OjnqevWlqLeP9+FEMmpFQ17nzdSVjRqT50J5775r/zzn6DIZW0Q+dqk4zgw6Q4gUF
-	 XSIF+mL8GNuK4LShZKXGG2qtOgu/4miVJAGa4otzQA8Gd4IRRUlY8fNqNhkqwb0eRN
-	 RGfXxg7lDmgXS7w6ggt0kHpigSFBbEitDzFn53M5te9lO6uQ23fN4APK5KTsRZIAWX
-	 79R1GC53dfCIg==
+	b=NghxmaqFR7RbyQASra5MAFYQBdTaxNeuayuI5uZg5KcWJfHQ02Yet8o8JOv7wTkJ8
+	 hmykDorAz5OI1UUbhnJh31rMeD0/AYaNmemwEvtYY+FpGnyJImjHAqG8i/8fbLDJD1
+	 PuCbMNvAhnR6cQLRZ7oJqEPFKYPtLjigHACXSSCqup2TbiI7jxiUibpd+oh7IaTa16
+	 8r7Ha+CKlzUCngGg6vDR3ZhEvZhShyjXmW+8gNbe0aim6e/FpgPAyS3/qz2MzLRa/L
+	 9AWMXH+1KM+BCB1mUL5/hXODzX6nwTL1pglosm2lMjgGnu+jQ5At9tJujD4SdMMI6R
+	 mJ8W8bUW1yrKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guanghui Yang <3497809730@qq.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Max Kellermann <max.kellermann@ionos.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] btrfs: drop recovered reloc root refs on recovery failure
-Date: Sun,  6 Sep 2026 12:18:21 -0400
-Message-ID: <20260906161821.1555270-4-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ceph: do not repeat ceph_trim_dentries() if no progress possible
+Date: Sun,  6 Sep 2026 12:25:34 -0400
+Message-ID: <20260906162534.1573139-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260906161821.1555270-1-sashal@kernel.org>
-References: <2026090359-pebble-underpaid-4ffa@gregkh>
- <20260906161821.1555270-1-sashal@kernel.org>
+In-Reply-To: <2026090310-spearmint-yield-f8bb@gregkh>
+References: <2026090310-spearmint-yield-f8bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,118 +46,135 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guanghui Yang <3497809730@qq.com>
+From: Max Kellermann <max.kellermann@ionos.com>
 
-[ Upstream commit 6d8ba4572922e336f0b59a80751b018e1e135164 ]
+[ Upstream commit e7d7aa7b730178278109c41fa1b17b06873065d5 ]
 
-During relocation recovery, each fs root gets a reference to its relocation
-root. If loading or adding a later root fails, or if the first transaction
-commit fails, btrfs_recover_relocation() jumps to out_unset before
-merge_reloc_roots() and clean_dirty_subvols().
+ceph_cap_reclaim_work() re-queues itself for as long as
+ceph_trim_dentries() returns -EAGAIN, which happens whenever a lease
+walk exhausts its `nr_to_scan` budget.  This creates a busy loop that
+consumes CPU without making any progress when there is nothing to
+reclaim: with no cap pressure (`count==0`) and every scanned lease
+still valid, each pass runs the full scan budget down to zero and
+returns `-EAGAIN`, only to be queued again immediately.
 
-put_reloc_control() drops the list-owned relocation root references, but it
-does not clear fs_root->reloc_root or drop the references owned by those
-pointers. Mount cleanup only drops them when BTRFS_FS_ERROR is set, so an
-error such as -ENOMEM while processing a later root can leave references
-behind.
+The dir-lease walk made this worse.  When `expire_dir_lease` is
+`false` (i.e. we have no intention of reclaiming dir leases),
+__dir_lease_check() returned `TOUCH` for every valid lease.  `TOUCH`
+moves the dentry to the tail of the list and resets `di->time` via
+__dentry_dir_lease_touch(), so a walk over N valid leases pointlessly
+rewrote the list, refreshed the timestamps (preventing them from ever
+aging out) and always drained `nr_to_scan`, guaranteeing the `-EAGAIN`
+requeue.
 
-Keep temporary references to the fs roots associated during recovery. On
-failure, clear their reloc_root pointers and drop the corresponding
-references. Once the first transaction commit succeeds, drop only the
-temporary fs root references and let the normal merge and cleanup paths
-handle the relocation roots.
+Fix this in three steps:
 
-Fault injection on a pending-relocation image confirmed the cleanup gap.
-With an injected first-commit failure, 25 fs roots had reloc_root set with
-fs_error=0. With this fix, the same failure path drops that count to 0
-before mount fails.
+ - Return `KEEP` instead of `TOUCH` when `expire_dir_lease` is
+   `false`.  If we are not going to reclaim the lease, leave it in
+   place instead of churning the list and resetting its timestamp; the
+   walk then terminates naturally (or via `STOP` at the first fresh
+   lease).
 
-Fixes: f44deb7442ed ("btrfs: hold a ref on the root->reloc_root")
-CC: stable@vger.kernel.org
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+ - Only return `-EAGAIN` from the first (dentry-lease) walk when something
+   was actually freed.  A full batch that frees nothing means retrying
+   the same list immediately is futile; fall through to the dir-lease
+   walk instead.
+
+ - After both walks, bail out with success (0) when nothing was freed
+   and there is no cap pressure (`count==0`).  There is no reason to
+   keep retrying when we are not over the cap limit and made no
+   progress.
+
+Under real cap pressure (`count>0`) the reclaim path is unchanged and
+still retries via `-EAGAIN`.
+
+Without this patch, I saw 500 ceph_trim_dentries() calls per second on
+our web servers.  This is very visible in `/proc/lock_stat` (5 minute
+capture):
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:        126180         128218           0.04        8063.44    15986965.20         124.69        1573354        5296812           0.04        8291.28    74164526.48          14.00
+ -----------------------
+ &mdsc->dentry_list_lock         111736          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2631          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           3878          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock           9973          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ -----------------------
+ &mdsc->dentry_list_lock         123621          [<0000000050597999>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock           1822          [<000000007b11e319>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock           2720          [<000000002f27cb6f>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             55          [<00000000c0022f62>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+With this patch:
+
+              class name    con-bounces    contentions   waittime-min   waittime-max waittime-total   waittime-avg    acq-bounces   acquisitions   holdtime-min   holdtime-max holdtime-total   holdtime-avg
+
+ &mdsc->dentry_list_lock:          1203           1215           0.16         408.88       33082.88          27.23        4320501        7357389           0.04         500.64     1961578.00           0.27
+ -----------------------
+ &mdsc->dentry_list_lock           1029          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            169          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock             16          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+ &mdsc->dentry_list_lock              1          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ -----------------------
+ &mdsc->dentry_list_lock            158          [<000000002038c577>] __dentry_lease_unlist+0x50/0xa0
+ &mdsc->dentry_list_lock            858          [<000000003c9aea8a>] __ceph_dentry_dir_lease_touch+0x7c/0xa8
+ &mdsc->dentry_list_lock            182          [<00000000612fe15f>] __dentry_leases_walk+0x64/0x2c8
+ &mdsc->dentry_list_lock             17          [<00000000c991106d>] __ceph_dentry_lease_touch+0x5c/0xa8
+
+__dentry_leases_walk() is almost gone.  The total wait time is reduced
+by a factor of 483.  That will give some latency gains to
+ceph_readdir().
+
+Cc: stable@vger.kernel.org
+Fixes: 37c4efc1ddf9 ("ceph: periodically trim stale dentries")
+Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+[ retained callback arguments for __dentry_leases_walk() required by Linux 6.6 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/relocation.c | 31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+ fs/ceph/dir.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
-index d2efa2c26b1ab..9fe7da626ea9d 100644
---- a/fs/btrfs/relocation.c
-+++ b/fs/btrfs/relocation.c
-@@ -4190,6 +4190,24 @@ static noinline_for_stack int mark_garbage_root(struct btrfs_root *root)
- 	return ret;
- }
+diff --git a/fs/ceph/dir.c b/fs/ceph/dir.c
+index 0b764dcbc7bf6..ad06df387db34 100644
+--- a/fs/ceph/dir.c
++++ b/fs/ceph/dir.c
+@@ -1722,11 +1722,11 @@ static int __dir_lease_check(struct dentry *dentry, void *arg)
+ 	if (ret > 0) {
+ 		if (time_before(jiffies, di->time + lwc->dir_lease_ttl))
+ 			return STOP;
++		if (!lwc->expire_dir_lease)
++			return KEEP;
+ 		/* Move dentry to tail of dir lease list if we don't want
+ 		 * to delete it. So dentries in the list are checked in a
+ 		 * round robin manner */
+-		if (!lwc->expire_dir_lease)
+-			return TOUCH;
+ 		if (dentry->d_lockref.count > 0 ||
+ 		    (di->flags & CEPH_DENTRY_REFERENCED))
+ 			return TOUCH;
+@@ -1753,7 +1753,7 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.dir_lease = false;
+ 	lwc.nr_to_scan  = CEPH_CAPS_PER_RELEASE * 2;
+ 	freed = __dentry_leases_walk(mdsc, &lwc, __dentry_lease_check);
+-	if (!lwc.nr_to_scan) /* more invalid leases */
++	if (freed > 0 && !lwc.nr_to_scan) /* more invalid leases */
+ 		return -EAGAIN;
  
-+static void release_recovered_fs_roots(struct list_head *roots, bool drop_reloc_refs)
-+{
-+	struct btrfs_root *root;
-+	struct btrfs_root *next;
+ 	if (lwc.nr_to_scan < CEPH_CAPS_PER_RELEASE)
+@@ -1763,6 +1763,10 @@ int ceph_trim_dentries(struct ceph_mds_client *mdsc)
+ 	lwc.expire_dir_lease = freed < count;
+ 	lwc.dir_lease_ttl = mdsc->fsc->mount_options->caps_wanted_delay_max * HZ;
+ 	freed +=__dentry_leases_walk(mdsc, &lwc, __dir_lease_check);
++	if (freed == 0 && count == 0)
++		/* no progress possible currently, retry futile */
++		return 0;
 +
-+	list_for_each_entry_safe(root, next, roots, reloc_dirty_list) {
-+		list_del_init(&root->reloc_dirty_list);
-+		if (drop_reloc_refs) {
-+			struct btrfs_root *reloc_root = root->reloc_root;
-+
-+			ASSERT(reloc_root);
-+			root->reloc_root = NULL;
-+			btrfs_put_root(reloc_root);
-+		}
-+		btrfs_put_root(root);
-+	}
-+}
-+
- /*
-  * recover relocation interrupted by system crash.
-  *
-@@ -4200,6 +4218,7 @@ int btrfs_recover_relocation(struct btrfs_root *root)
- {
- 	struct btrfs_fs_info *fs_info = root->fs_info;
- 	LIST_HEAD(reloc_roots);
-+	LIST_HEAD(recovered_roots);
- 	struct btrfs_key key;
- 	struct btrfs_root *fs_root;
- 	struct btrfs_root *reloc_root;
-@@ -4312,7 +4331,7 @@ int btrfs_recover_relocation(struct btrfs_root *root)
- 			ret = PTR_ERR(fs_root);
- 			list_add_tail(&reloc_root->root_list, &reloc_roots);
- 			btrfs_end_transaction(trans);
--			goto out_unset;
-+			goto out_drop_reloc_refs;
- 		}
+ 	if (!lwc.nr_to_scan) /* more to check */
+ 		return -EAGAIN;
  
- 		ret = __add_reloc_root(reloc_root);
-@@ -4321,15 +4340,17 @@ int btrfs_recover_relocation(struct btrfs_root *root)
- 			list_add_tail(&reloc_root->root_list, &reloc_roots);
- 			btrfs_put_root(fs_root);
- 			btrfs_end_transaction(trans);
--			goto out_unset;
-+			goto out_drop_reloc_refs;
- 		}
-+		ASSERT(list_empty(&fs_root->reloc_dirty_list));
- 		fs_root->reloc_root = btrfs_grab_root(reloc_root);
--		btrfs_put_root(fs_root);
-+		list_add_tail(&fs_root->reloc_dirty_list, &recovered_roots);
- 	}
- 
- 	ret = btrfs_commit_transaction(trans);
- 	if (ret)
--		goto out_unset;
-+		goto out_drop_reloc_refs;
-+	release_recovered_fs_roots(&recovered_roots, false);
- 
- 	merge_reloc_roots(rc);
- 
-@@ -4345,6 +4366,8 @@ int btrfs_recover_relocation(struct btrfs_root *root)
- 	ret2 = clean_dirty_subvols(rc);
- 	if (ret2 < 0 && !ret)
- 		ret = ret2;
-+out_drop_reloc_refs:
-+	release_recovered_fs_roots(&recovered_roots, true);
- out_unset:
- 	unset_reloc_control(rc);
- 	reloc_chunk_end(fs_info);
 -- 
 2.53.0
 
