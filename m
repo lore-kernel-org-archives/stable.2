@@ -1,94 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9CE382F2F;
-	Sun,  6 Sep 2026 18:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18E6E35200A;
+	Sun,  6 Sep 2026 18:15:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718374; cv=none; b=tCtF1EJMSKdmSrAcwdxTdclyj5OhkSc5YrOAnjnYodLup0ALx1DnQTMtNh7fhndGxDVk+EXRqz1PNXSx9QqeBuXbP9kYkGR4MLx+U6II8pGxTrkeKtzYvySW1fM/2sYuzvriIHRjeTUIEgMUEXsP4gUUzjEFT8Zdke3Ej+LFX0s=
+	t=1788718544; cv=none; b=HZ6jMdqOmi8jlntbzhNL+Hm0DoraxTaAnTWWfBseFyzJWQPHBxtHPMjh4GJi9d47siledPQXlktCwwiEGRWCI7fZU0aSX+GdY/nYqrdN+gu6OwkJTRQWwaORy7DN5IwqXzQVYpmSsRXG1+jdGmnv7vjzyj9mkshD6ScwVvJvxCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718374; c=relaxed/simple;
-	bh=zRGTPvX5kJiSubiY55rrWNV2xl5Y77Rfc3wQHRNVRgg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qJn+F5AbELRm11uGb1eBd3ChwQwm/O/NSa3wT4wpuD4Ltm5wfXyvEbNwNNmnkAa5pX8K9r7rgDUi5ewOraVWd9VzyJ5w6+XZoiL5o5RsLEbHS16q7cU6pzW2A3rBUKR3DICavuziV/3DzHYaT3eYukL47Kav48ClOmzordgRIQU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jsELhNFQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788718544; c=relaxed/simple;
+	bh=kx+0KBll47xBja+71MX4roOix4F8l3SWEEhnNuYvHws=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f/WdthGPmWFefMRELzqb7dARGhL4h62mmOj0kgWRuo7jGJV+J6rRoAOrxv6G7toCBwM1JAsX4uT035Ek4P8NQ4Nvs5YRry1VpZOYm0fo2Yxds6P5zVqBiB5sP6ZTHpWE5GVn/1FvE3qsDBrVjEnOyDMXACix2Y+r5GFqsb22WPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=6Ry/2Ac1; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jsELhNFQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68FA11F00A3A;
-	Sun,  6 Sep 2026 18:12:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788718373;
-	bh=0UKbj6KtD1AbJpXqfcrRDmxZiWxq+JT8NwXXeqVCxlw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jsELhNFQUdpiI6ljiNDCByAj0a2uc2qEJz4YOwrpLYssH1qreJPwV3XOZCVHLxb1Y
-	 omSwTBCNzuTETNBxaL3nvQngjyX8o5lkXZBozmwQwHPqY3JWWNjtDdtFCrodjiNA6K
-	 E8wbFxkkZz+ZzPxHaKDODWaebmO3YJil3IDcSAqGnrNREe3JOsYct+u7Vhh1PGq3WO
-	 0D2uQnxWMHkrDNyDV1K3t18VmmI6ScSY4nbypN8VnEZfifXPP+OQXifrJJsaFhnj/P
-	 2RjeBqssjhnAgRSTOujABdUiqeIaLPyz+UR/zz/0qqHoPYUyjABPl76RcMZXmW+u44
-	 FPECu5yTYvuCw==
-Date: Sun, 6 Sep 2026 11:12:47 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Mike Rapoport <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Message-ID: <20260906181247.GA1148584@ax162>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
- <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="6Ry/2Ac1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
+	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
+	Content-ID:Content-Description;
+	bh=pnLE2nhzymF2E0YsAlz9oGUQqqbWaAtGELWeH4uXgSk=; b=6Ry/2Ac1eFGZpFXiKw43m8/eah
+	ukFAetYH/ZiHkioQF/Pjjj53SJFlfxWeKaVMg4ZmGnMSw9AzEGX3Iz0vlM3L6aqYy+jmdCcUjjtBj
+	cQd6AhMlkAxsT1z+rDaGHIH6yWE81bi7JKKVgbAHI/RfwlO1GalSiFzbON3PhDXEmvVPlqfmK7P+X
+	3v8LgPhct3E9YhjomgucMATSpUn4BnsstbFGEQ9zUrmUA9uVcWYeTJJDgm3FtiaRxW9VTHbvs3GGi
+	wUVFOp3bJJOaZGy4eSs5Tci9a0+K6aTXhG+HaL/u2AsZpqPr4W7BwbU8JfvEFdiLuv4uCUyN+PWlo
+	33Xk5HpA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x3HP3-00000000nx6-179I;
+	Sun, 06 Sep 2026 15:15:41 -0300
+From: Paulo Alcantara <pc@manguebit.org>
+To: linux-cifs@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/5] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
+Date: Sun,  6 Sep 2026 15:15:37 -0300
+Message-ID: <20260906181540.647469-2-pc@manguebit.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260906181540.647469-1-pc@manguebit.org>
+References: <20260906181540.647469-1-pc@manguebit.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
-> On 9/4/26 21:42, Nathan Chancellor wrote:
-> > I just bisected the following warning on a couple of my test machines to
-> > commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
-> > lookup_address_in_pgd_attr()") in next-20260904.
-> ...
-> > If there is any information I can provide to help debug this, I am happy
-> > to provide it.
-> 
-> Well, the thing you bisected to is the patch that fixes the warning. The
+When the administrator mounts with forceuid or forcegid (uid=/gid=
+mount options), they expect all files to appear owned by the specified
+user/group.  However, several code paths unconditionally called
+sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
+ignoring the administrator's explicit override:
 
-Hmmm, I don't see a warning prior to this patch though. Do you mean that
-this patch is just revealing the bad behavior that you mention below?
+  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
+  - cifs_posix_to_fattr() (readdir via POSIX extensions)
+  - parse_sec_desc() (CIFS ACL ownership mapping)
 
-> actual issue comes from:
-> 
->         if (pages == &its_pages)
->                 set_memory_x((unsigned long)page, 1);
-> 
-> which its_alloc() does on an execmem allocation. Any chance you could
-> get the output of:
-> 
-> 	/sys/kernel/debug/page_tables/current_kernel
-> 
-> for the page that page that it's complaining about? I'm curious if this
-> is temporary or permanent.
+This allowed an untrusted server to dictate local file ownership even
+when the mount was configured to force specific uid/gid values.
 
-Sure. For
+Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
+CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
+same pattern already used by cifs_unix_basic_to_fattr() for unix
+extensions.
 
-   CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
+Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
+---
+ fs/smb/client/cifsacl.c | 29 ++++++++++++++++++-----------
+ fs/smb/client/inode.c   |  9 +++++++--
+ fs/smb/client/readdir.c |  9 +++++++--
+ 3 files changed, 32 insertions(+), 15 deletions(-)
 
-I think it is this line if I understand correctly?
-
-  0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
-
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index 213a421bf8e9..def8908dd7e9 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1346,6 +1346,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ {
+ 	int rc = 0;
+ 	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
+ 	char *end_of_acl;
+ 	__u32 dacloffset, osidoffset, gsidoffset;
+@@ -1364,17 +1365,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
+ 		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
+ 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
+-/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++
+ 	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
+ 	if (rc) {
+ 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
++		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
+@@ -1383,11 +1388,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 			 __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
++		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	if (dacloffset) {
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index 49f9993ad567..1fe0ef0a95db 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -851,6 +851,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 	struct smb311_posix_qinfo *info = &data->posix_fi;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
+ 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 
+ 	memset(fattr, 0, sizeof(*fattr));
+ 
+@@ -895,8 +896,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 		fattr->cf_symlink_target = data->symlink_target;
+ 		data->symlink_target = NULL;
+ 	}
+-	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
+ 
+ 	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
+ 		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 32a75afca8f5..1ea84f4ada39 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -242,6 +242,7 @@ static void
+ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		    struct cifs_sb_info *cifs_sb)
+ {
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb2_posix_info_parsed parsed;
+ 
+ 	posix_info_parse(info, NULL, &parsed);
+@@ -281,8 +282,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		 le32_to_cpu(info->ReparseTag),
+ 		 le32_to_cpu(info->Mode));
+ 
+-	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
+ }
+ 
+ static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
 -- 
-Cheers,
-Nathan
+2.55.0
+
