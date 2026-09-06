@@ -1,48 +1,78 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408EB37EFF1;
-	Sun,  6 Sep 2026 20:05:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D1536B93D
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 22:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725122; cv=none; b=BTBVXBibH+LB8l6cS72CzVrYz8o/ERN4FNWFdxp3BGJz06scA+V0Tx3PktuqSL4Kj9nad5TwxcfMvp3ug5j6lvZ1YbflSTxtz/edFjguZDGawTn388+tWHdrqcBGZ8epAMzZX/hhz2IR3VdPoEygN6YQC5zfjtv2U/3bjQNFS10=
+	t=1788733586; cv=none; b=dH7PswhVg4FdDfJiiJsDRitUeFNglklkep3LzBTjaEdRCMOpzb1eiucNwLFHedWCswOPgZX7LMisw3hu92hhb/WunJJWS8rPlNidO8tVmnoQTP0Hmy4sn6Xwlp43foFfUcA0N4UD7OvL0rHE41NIUt5G/JXRH/Sdk6NQDHzgkEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725122; c=relaxed/simple;
-	bh=CuOfq29GHSL7J1rMSDxUvXdVhTfxsIfUgIIyHcbPabU=;
+	s=arc-20240116; t=1788733586; c=relaxed/simple;
+	bh=ESGoqGmMu10/z0U2P8gBm5vkYhM+UfjKWUsR+Iji2b0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WA5YQP9nXeXJ4HnzTOHCWqwWwJLqm+5jnjSoQhqX9Z1vyR/wUij46wpVwP3Nr4C6cOEP3LfZOVJOF9Eho+zJkQbwWkbqViNzjyz+t4EeCE0VCrIDk3X0Z6h+BD9cI1tinpFSeDygLnfW6aP64E5wCmcPO7BCOL1C9kw1iciHxJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=1ibHsuCd; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	 MIME-Version; b=Bctx0BXrCYa2Ghc0hA+eBW7r1Xa3rnPwUJr/Jnr95+gQ612m4NwVAK/h7ttSdcD8Qtw3B1kWpItmGHJXHwnW2CCGc6BsFPDTT/S4K7ixo2wxb4RvnSIxqYMQJKBrRGkdZ7hXK0keyvSAO8jAgGyy6KAjy9EIx4g1rCzDbXQIRZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mDsiYCL0; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="1ibHsuCd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Transfer-Encoding:MIME-Version:References:
-	In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Content-Type:Reply-To:
-	Content-ID:Content-Description;
-	bh=I7NZrM35UZux0818kfvOJ2WKMxMF7t8Ua1jgHeqc1jQ=; b=1ibHsuCdI9t9+svW4Dv1/u/AcP
-	sZQo+FKgDV3VjbQcEfCmmvHzCJc9AgoWiLm3nrj6MHK6s2Y7BbnAIN08gaS8Kzm5i1ZiPab/yxk5k
-	sod4BDv0oTcv/L8X/iLDS5oAQeI/vVzyjnA9xQ+QL8clXJJO04CBDcTELKSAGmleOA6DozBovcstA
-	Oo6V3cjGyWKJTFax24BYG1CRP0zTuwsFPnoVeB918CfMhJjSzpko6PH+gbaxxayDLfKD1d77uoFf6
-	h/eR2cCER29QAs6k9RV0BjEyCB5quj7w9GgNOlV8reqHqqbYm/qYGaV/BmFxLkD6CZy7ilhUbdg7z
-	wIyN9WSA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x3J79-00000000oEm-270F;
-	Sun, 06 Sep 2026 17:05:19 -0300
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mDsiYCL0"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c9aea40d799so1513359a12.0
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788733583; x=1789338383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
+        b=mDsiYCL0mSqfhUFYiAnpdUjcpcMWQtYdJsZz3PundnILz9cu0IusKJUfAsEoC7zXS0
+         sPKn3G1cVVYXu/fPge4n61gjYgQR7dCWOh1h3yyJozc0Fiah/Mk5FYxw/hXWRS3tkYJ4
+         ugydrmrM6r9rLkVngWyEB2PY8QMiH6+jE1xYyp3wmtP1LqyPPtSW47JwM/j9XbdP1u5e
+         Ld3bmGhgkI16d4mwsIC1y4N8Osy4mAJe47Jp3vX8ApRbSQP+0ihxAxTuiJvGcGMILmdp
+         U4c+f11xmrthVTOCDC8htnmSYXkIk69Kc6j0lQ0CKe17ffa1xJjK53vPqX4YK790I4cZ
+         ukag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788733583; x=1789338383;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7BQEMgxoBllO/xAi8qxIuWvSKZOLcvy0DblUANoSGaY=;
+        b=YIzZQaEGhR+BK5rehSrqSdxXLicgOtBWeI6N57pAKYiH9Q23YKcxpSAE+twRHkAPuP
+         ABWbZ134nS7152McjAU/zoothbqyk/SoGr7/XLYW+xMrWhkqoYkzBJUIM5rAJ3rUSOq1
+         tI4krgm2ht3IpfQJ2ve3YLPbGB9qaCWDlk6fCoRU5COMuotYe8edLveEzKLmg+7MIWgc
+         YCZ1XIueC1A34444e4LKu/zjF22pYlEga7aRAy0Umnk7L4AuaeTo3RH5FI5bP8GtJSrX
+         LY+IvA1ZIrf8mwIfb3mCaHkGFGiN30yYxG+PDpMC6hyce5eDsoz0YcnexiCU/+7ekWg1
+         b07w==
+X-Forwarded-Encrypted: i=1; AKwUvBwns7THYok4rgsQrskZtk3cPaOmJSHvrV1F7EUXCm3Qa00Hpmp+trfwJ1jnw4JaHl4LII4Erq4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSib/nK2mEqIGlH2XTXd2XnQKOxQmd2zveMAesMXBsl474oqYO
+	wUAyvpEAR1Yi4iWViwBu+VYMfQvqveMQMaS9RANbK7sDhOSO3sOoshXi
+X-Gm-Gg: AYBFou3EhQRFsN7+PxJIcFGremEuvm6Bud6OBAueW2M6d+Cn55QWGELh+TO/cKD1f8W
+	S0lemr324JkJ611ucS7tkENKurcHeS328hKUXnr6KXjBEbp8KzJwwSmtIWQgYGzyoI5dsMp4jl4
+	4YmtI8J5A4P5Ou0GU4NNFkF3zwtSj+0sJXCIJVOXZj7/j4AmaNX0raSm/TMZKOcE4HHAZJX7eab
+	czz56+MACf9diEms3ANkryjUEaheiJDXTK/A4s7QzBWg7dIRUpiZy8wY4X7jfGFyrGhHapyv9Kz
+	LAMN8mCEUpMBR04Td6RRl8vH3Mx1a29Hw3LN/JGeZVJogZIKSR3Akv+I72d5bfEh8ORwJU0yxtM
+	wznm7GIbIlWyjpB3Hp1MaiybDRj+8EEai2YKh5qDwy3Xa2gYkHsU3DJMCPMfeuAuwt7SNSGBTwu
+	YA8uR6NA9GP6cPILEhEfd8mPp45RohRVyYR+eYrsVSc9nEsLaaryg+1DRxfqhidqqC7VaTDodDD
+	NA7jNpDO7fp8+zY
+X-Received: by 2002:a17:90b:3d92:b0:398:bf7e:b267 with SMTP id 98e67ed59e1d1-39b2614df9dmr30677023a91.2.1788733583339;
+        Sun, 06 Sep 2026 15:26:23 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8e0b117sm8413777a91.3.2026.09.06.15.26.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:26:22 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
 	stable@vger.kernel.org
-Subject: [PATCH v4 7/7] smb: client: fix file type corruption in cifs_reparse_point_to_fattr()
-Date: Sun,  6 Sep 2026 17:05:17 -0300
-Message-ID: <20260906200517.725015-7-pc@manguebit.org>
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Mon,  7 Sep 2026 06:25:28 +0800
+Message-ID: <20260906222633.4227-1-aethernet65535@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906200517.725015-1-pc@manguebit.org>
-References: <20260906200517.725015-1-pc@manguebit.org>
+In-Reply-To: <20260905161233.81892-1-sj@kernel.org>
+References: <20260905161233.81892-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,36 +81,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Setting the file type in cf_mode without clearing the existing S_IFMT
-bits first is wrong as it corrupts the file type when cf_mode already
-has type bits set (e.g. S_IFREG | S_IFLNK == S_IFDIR | S_IFREG).
+On Sat, 05 Sep 2026 09:12:33 -0700 SJ Park <sj@kernel.org> wrote:
 
-Clear S_IFMT before setting S_IFLNK for native and SMB1 symlinks.
+> On Sat,  5 Sep 2026 18:36:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
+> > 
+> > > On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > 
+> > > > That said, it's not important for me to add explanations to the
+> > > > document, but may I know why commit [2] changed the behavior which
+> > > > introduced by commit [1]?
+> > > > 
+> > > > Commit [1] Behavior:
+> > > > 
+> > > >     if (quota->esz && quota->changed_sz >= quota->esz)
+> > > >         s->stat.qt_exceeds++;
+> > > > 
+> > > > Commit [2] Behavior:
+> > > > 
+> > > >     if (damos_quota_is_full(quota, c->min_region_sz))
+> > > >         s->stat.qt_exceeds++;
+> > > > 
+> > > > Before commit [2], qt_exceeds will only increase when quota->esz is not
+> > > > zero, but after commit [2], qt_exceeds also increase even when
+> > > > quota->esz is zero.  I'd love to understand the rationale behind this
+> > > > change to better grasp the design evolution.
+> > > > 
+> > > > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
+> > > >     (Fri Jan 14 14:10:20 2022 -0800)
+> > > > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
+> > > >     (Mon Apr 27 18:33:50 2026 -0700)
+> > > 
+> > > Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
+> > > describing.
+> > 
+> > I actually wanted to point out the behavior difference between commit [1]
+> > and [2], but I've understood and agreed with your point.
+> > 
+> > > 
+> > > '''
+> > > $ git show c7ec7d5f6b3d1
+> > > [...]
+> > > @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+> > >         if (!time_in_range_open(jiffies, quota->charged_from,
+> > >                                 quota->charged_from +
+> > >                                 msecs_to_jiffies(quota->reset_interval))) {
+> > > -               if (damos_quota_is_set(quota) &&
+> > > -                               quota->charged_sz >= quota->esz)
+> > > +               if (damos_quota_is_full(quota, c->min_region_sz))
+> > >                         s->stat.qt_exceeds++;
+> > >                 quota->total_charged_sz += quota->charged_sz;
+> > >                 quota->charged_from = jiffies;
+> > > '''
+> > > 
+> > > And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
+> > > ("mm/damon/core: allow quota goals set zero effective size quota") will give
+> > > you some clues.
+> > 
+> > Thank you very much for your clarifying :>
+> > 
+> > Now I completely understand why there is different behavior
+> 
+> I told you I don't think there was a behavior change.  I still think so.
+> 
+> > between
+> > commit [1] and [2].  Because in commit [1], esz==0 only means quota is
+> > unlimited.
+> 
+> No.  Commit 54419bbd0ee3 says "DAMON core assumes zero effective quota means
+> the user has set no quota."
+> 
+> 
+> > After commit 54419bbd0ee3, esz==0 also can means do not have
+> > quota at all.
+> 
+> That's what the commit is describing the before-commit status...
+> 
+> > But the qt_exceeds should just not increase when quota is
+> > unlimited, that's why the current implementation is completely correct.
+> 
+> There is no unlimited quota.  Hence I don't understand what you are saying
+> here.  Please carefully read the commit message again.
 
-Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
----
- fs/smb/client/reparse.c | 1 +
- 1 file changed, 1 insertion(+)
+Thank you for the detailed explanation, and sorry for my confusing
+wording.  Let me confirm my corrected understanding:
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 616ca2dbfac4..b6bded042e78 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1280,6 +1280,7 @@ bool cifs_reparse_point_to_fattr(struct cifs_sb_info *cifs_sb,
- 		break;
- 	case 0: /* SMB1 symlink */
- 	case IO_REPARSE_TAG_SYMLINK:
-+		fattr->cf_mode &= ~S_IFMT;
- 		fattr->cf_mode |= S_IFLNK;
- 		break;
- 	default:
--- 
-2.55.0
+Before commit 54419bbd0ee3, esz == 0 appeared only when the quota was
+unset, i.e., the user has set no quota.  DAMON core therefore assumed
+zero effective quota means the user has set no quota, and the code
+checked quota->esz to tell whether a quota is set.  Commit 54419bbd0ee3
+decoupled "quota is set" from "esz != 0" by introducing
+damos_quota_is_set().  After that, the temporal goal tuner
+(af738a6a00c1f) made it possible for a set quota to have esz == 0 as
+well, for example once its goal is over-achieved.  In that case the
+scheme is intentionally deactivated, and counting qt_exceeds is intended,
+not a bug.
 
+Commit c7ec7d5f6b3d1 did not change the behavior I asked about; it only
+refactored the check into damos_quota_is_full().
+
+I will send a documentation patch in the near future.  Thank you again
+for your patience.
+
+Best regards,
+Rui Yan
