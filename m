@@ -1,101 +1,101 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E636B314B63
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD5941F5F5
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 08:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788684997; cv=pass; b=Wi0EJjAZHgfhH01FP+tpXlija9/GUFwKAxGDBmFZ5SRJd2IIDRdMS89DP2/P8mW7NWlR0s9MDQjTkRNfTR2JzrZ9Bire4y982MU6liGJvKQq+f8NXciCNOQwn8klyl2R0VkE3765eru3gHHd71OrUncaTHyRC+lLaiin7tzn/nk=
+	t=1788685037; cv=pass; b=e1zYJ0N9dz3eiMmI9opOFKwMj1Zcsiq6RjE4fAGf3cRnAMlxTnmzsS36v/0ektBqfK4sHbBgNCkzJmUK6m0SHqT9yXHDUXEijRhjZUQvocYZmluIPcCCt7085SLNC3D/QFfGN6ZCnFy57tNMg5tI7bwvymfm6KlKvJEZxBIyKXw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788684997; c=relaxed/simple;
-	bh=sDs5CQr6pwzT5GT7SjCGuwlyCtB/1j1bLpwJ/JFiQbU=;
+	s=arc-20240116; t=1788685037; c=relaxed/simple;
+	bh=kOTdZ78C64PNmCHcn7/UzaKLudLK2k2BmWhiyDe7F7o=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m99ge+tbTlxTVrBBHFF1VZNRrRu/QBHpNp2djvjFuIeULeZGBsgBwwbG0EV1r/E0yLy9FGeDkttz18UuQp59uKa0L1oDZLaoSan1ONAcJssP1/3Ogd2R6iVySS8yQKZMwvVh50RqrKo3B0PLAWhzue5xzjDKd4hpIozhzWgwiH4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxUcPSgN; arc=pass smtp.client-ip=209.85.208.47
+	 To:Cc:Content-Type; b=RPyhqFs3KcPab05u8QiifttIam13O5amw5Re2YxUjmTVK8aE7FfvzOS/mZEL0BiXrcbnpILr+kIzZiAczEAp8EBiCyaPYLMie3gXP6UUrb6kdToCVzDa3MQfMkMv7fPDG9sovfRK1xBLP3gYZmoJ0ac0QY4CBjfwai1cRywRoro=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WuFIT/J6; arc=pass smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxUcPSgN"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a68279dd86so3146228a12.3
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 01:56:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788684994; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WuFIT/J6"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c262bc686d9so156480266b.2
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 01:57:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788685033; cv=none;
         d=google.com; s=arc-20260327;
-        b=WpBrK3EUR99QJiIHXG5kdKAXJf6SPyMeXeStQ31fsGywO1udDX84MSPyQiLTmzRujh
-         PAE8rBuDawIDpztVmzcyUGXhTljy2fD1tzgSckdqWSKyk5OGk8ClLSa1Bl6Y1pMwgXcb
-         FM8H0t1K5zkVcdZB+2tQwcaz2ZOJAwsfOm07xngXYDwIF0O/7XNmSIbjVWWm7a9Eic4J
-         8U4TVPGQEMl6/YH/+GkOa9Dy/Q8lIUmSZPICWGkdFY8CZYTw5bZZxJSqAEaQ4oERzu4J
-         FoNybU8ychUD7GvtU5Ey0q6YDmCao0ynKJIA90+qv+C3hSxtZzmPIHAhg/b+jzJTtsuw
-         bBGw==
+        b=Djf852T0fwn/9Jnaj82xtPJshiE1gszmu3dNXMc3Xpr15S+NLDQ9mDrGK2Zx0bNo2F
+         t0TW/WJsL3eZtlh3QvQ9+PUmEkxe6I6D4WajyCCJJhNmWdAL2Ceh4dqzMlo0FW3oKclg
+         F6VhwVRY+92hlcKiFp2YyZPq+LmZ7rYu6H0eXn/Y78lGbIJ7oXsfQRJeZJG42qJXALAx
+         e60cwKswbR4YcstszH3p0s7frfz8qI2fmcmrTOe3s9Sihq/Gk1zD+gVEaDYgx0TxtWPf
+         qZ1rofInxoPVEbVYKiNNZ4xTWRqq3nncSN9vQeqEoQm9f7qOaR9U7eI8KqblzKATnKaM
+         +VnA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=KAvtxf9cCLStf1TmW00YPBVNLMXDCX8VCf/l5UIH9+w=;
+        bh=egANJyolG/8Lvtld5DPV43DLJv/nO71KGBPgjlmY1ps=;
         fh=Uhq13EloY8o77dVrLIKP+1ibTaVoRIMtP+RJ46t6+rY=;
-        b=IhR+zdB/B1C07wyE5/4pkouUE1btTMmeoVLbBfIeQiSvIe/9b/rPXyNFujamwyed6w
-         XiqpCpR7rUEZaz9Kju0Zzp+S0u0LoXJUPMot5lClQD4ZsM8usLITC1adfxGQTjjvt19L
-         8CqNRqPi08T8OEo9KsMjuPOvAIECWA4xzbRx/kLN9TJbAGduSTVIfUZ4Oqfu1AO7x2kI
-         3KasA08/TdRTT/oVrA4PIL6hC0VBIDGHvr0NB72sOUe5N5cpsaCqqQ2h+N285Jw4Ow+R
-         zlBe8IMKv5quE86+DsrTTrphEY+Jo9zfSKwsZd8tdQaSlW8jaT8o1Ovgh+cr6c45vKO/
-         RIUw==;
+        b=eOEqNHYjO1ZWWHYT1WSdKe5Qt9as1egQkrlt62BkHQtp36JTxLAUXlsFTeRrqkjb38
+         ZNcttgLQIH9WsMOO9pRh/B3l3LYPqlyLd/AJCaPj8LTj5yDUuUrQHdmzI8j/+m0inPFR
+         nRcbOPHaBfO4Txk4Cbu7hDKc4o0AgA3+qr6Hmi5XKLwAhFBuuN0wn/GU71MUB0+9eWGT
+         1SbddAsd2Xd2sNrIOq3R4gB5v/+KuOzwoMzoF4bjH9BOfqXxRJIhxhzv1USA+KySqmAZ
+         7VwSvwr6wz/6TnBbSrBDt/IiBLA6tFBRAGXewEnNy3NzLqxqJXpsaOo/Y0PCPG040b0i
+         Dusg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788684994; x=1789289794; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788685033; x=1789289833; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=KAvtxf9cCLStf1TmW00YPBVNLMXDCX8VCf/l5UIH9+w=;
-        b=cxUcPSgNblsNyi6Dtwllu1a5UH+dClJyGA0Rh2WuYp5HDGzBTkYwsSqzes9O9mwKaV
-         lLdnYuGTax0GstzdeBBs0oEd9GAUFbIQkvjDizd38P+Vx7WWWfyvdZjRd4YjDMkAwddC
-         Y750ldrIUG7jE5e/yUJkks2uRin409j4JQjSC7jbPt5spIMKQSBrRYrj3Da5Y5qbuTdw
-         s9nBUO/amQOFH2ApOpPz2hZ09Q4wNp97uNov2t0rJhqMIRDCnNZYWUb8luh+d4HRsLt6
-         tAx3IvrY5nF6GizdYX0KFqbuCW4HPa2kb8iCCiUisX3mZuDrYCWUlkty/KDpeAb2jSvl
-         vjRQ==
+        bh=egANJyolG/8Lvtld5DPV43DLJv/nO71KGBPgjlmY1ps=;
+        b=WuFIT/J6M8wjSSQIEh5U/GLqgadig/j+JUr981CXJhZpT7lt0g/m1QXjdsbKN4iVML
+         1crt0Jpy98qGKTszsBpph3MwLRGRdFzNFf5hei3p0lbb5N6x9UpIjZhBgDukahfnPLdn
+         Hnl8UbVN6QfsscgETpEEJLJnN2j5ByOnT0ZMWBnacXRcfXHEgLLgvI3aDgGotn/yrqZD
+         WrQIfv4PgNkTNS9BPHgqy1BSTWzwHWYl0/Y478ATUEoV3V/6SdgfuqQ2fpq4jvVco/u+
+         Mq1EQifR8ygF63s/nzRRyV27t0b87DVbJHmzMC/sHSbtgVoTb/+szZ6ctkustO9JZ8gZ
+         aAcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788684994; x=1789289794;
+        d=1e100.net; s=20251104; t=1788685033; x=1789289833;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=KAvtxf9cCLStf1TmW00YPBVNLMXDCX8VCf/l5UIH9+w=;
-        b=sVYjQhvF4mwljoQ65DU2lW6H/PLZ0vSHRrMPRherfaJDXvJXTHlIh/JMOvw7BNZBCl
-         881mzlDfazNbeJREf5UepjTu1tW/BfVGe6qHc9dB9pFonkJBfhWcIQvi9ScKyo2P83aF
-         6pH7wgtOlZf/u799Z09wFXJ79HgsfXcdrUtmkkBAPhHA4VcMmmEqd6FofuGvS1rNTwmG
-         a75++t/HDQ5KVaUwFPM0oigXL5bdJPsfaG3DRSsILwMxzXxlBZJH+g6Ij5zMZ122BsOy
-         B9F8+FOvK1yi7ckYfCqEvRXd6yDyTJhBtD/vB533rv8CjeH0OS7uuPlIbmodSAaLxpqK
-         +JYA==
-X-Gm-Message-State: AFuF++lCiZcYcj9jajKQ2lRhZpfXa7AYlglzk2FrO0i+Akpw1Uvjyv/B
-	VXb07kGy9r6ALxb2xSuMlwegC14XKg5lHCb8TUeldQdismPePKTnrA450k3CsYU/B5Gp34gj/Vw
-	BKMMzB2gILpURZTfZS8vEo3SExuuUzM0rnV3UjBQ=
-X-Gm-Gg: AYBFou1boPWVKJWda0LCZ0CllS/IZ3VrM/Wesxworg5U0+uVeALFoff8rXdZ1qldiQu
-	yn0W+5wFfAMqw3Ojv7FMWzjMTnU77thrT0Q6Oa1QlkfLBbR40PGCXJXUvf+XXWVEYnWsHcDbwLT
-	N5KtYiVHy1DwyGuItWNnzY1OzqdmEwUhejEl1+gpnQcgAzS1r8Kb7NtY7FL5GcxPcM1hhdjZJeR
-	HFJH38LzfgJjQux3hJYMsuWiGFfH2VyDxMApun2r901qSKBp+9AfcGmIbRhTRiiCZRKSEEhlQ82
-	dEBEeMoT7SYgBb7ixUv45pVTdcxkzvCmaeCqdLcdwO/QdmPYU552P+zz
-X-Received: by 2002:a05:6402:44cf:b0:6a7:ee56:6157 with SMTP id
- 4fb4d7f45d1cf-6a7ee5662c0mr3426417a12.25.1788684993803; Sun, 06 Sep 2026
- 01:56:33 -0700 (PDT)
+        bh=egANJyolG/8Lvtld5DPV43DLJv/nO71KGBPgjlmY1ps=;
+        b=JttcSq4HT/N1NHckIyvOEQgqDHEq5hAfdEFJJdH2yYELgAyt7nvrN+3/YfL6EN1Sci
+         gL3iOtcXXUYi1L+LeZAaFAyoTyHhYxUuZQJqd4hXF6wVbMacrSNM4/1Uqn2NGanmP+Z9
+         BZmeqQpqW0UXkisaKrKvtNtuOIXzR3diSq431GAVe/flkR5oVnvFB/QkISaCcc/So7yb
+         W7UmJTx43HXP+msRkV18nfweFupoQ0t6cdozX3JL0DdEyeyc8+5LKs/vxb4HLoSlQZLt
+         F9qzdYKQ+yj8GFbyYHXAXR2oWOO0q9eJkYAfIZuD3XTQRlLIji8aGv/eyP+1ca3cujEi
+         h2hw==
+X-Gm-Message-State: AFuF++lS7UNHlmUWuKekPyJgO0w2lgaMma7sPm42bq2H43iwBV3MTSyg
+	UF6/i8n3Vdo0CowZpcQkclw2KdCaxmnPtFNUi1cW++K6Ry2cubS4gFz8WCtDZ9DQVPMRFCgehOp
+	okxWKLtxFYtq+SdHoBAqYi0elElIfE0U=
+X-Gm-Gg: AYBFou1Nqb0pWZobpxiTyPC8TdYQsmqIzzEu3PjMqMNOcZnT6zr+0bpRwogQcUS/3af
+	aQhcsnwylqZCbx60OBmhzc6VkbNBkqeSkqM6gSDWmk66akTHl5JOyYbbA1Zg9vrVKLBOlrFIwd0
+	2pjVDcO+dJpR4p7wNONDnSbKe9fsONBW3fKB1INEeAYo+ZnDGDSPzRC51m6m6gKe6cwGDRdtS5k
+	uGgeuUuz6ihN27RKD3IJeQj0sHfjS22NyL/Z5nKO+kzAjq+fDrYwTepz4JnArBlm2THWRnRnOfz
+	buTccPaLVTeDvU6QCinQmNQDqD6uGSo/Ago6T6m7HsmQew==
+X-Received: by 2002:a05:6402:4150:b0:6a7:ee56:8150 with SMTP id
+ 4fb4d7f45d1cf-6a7ee568298mr4671503a12.30.1788685032991; Sun, 06 Sep 2026
+ 01:57:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAOQ4uxj0rAj+8S+E=fxiTxym5dRdEJgk9NHE=wJcancfnxLBLA@mail.gmail.com>
- <20260906030345.3332040-1-yjkwon0026@snu.ac.kr> <20260906030345.3332040-2-yjkwon0026@snu.ac.kr>
-In-Reply-To: <20260906030345.3332040-2-yjkwon0026@snu.ac.kr>
+References: <CAOQ4uxjNxYFJE2J3K=_Ur2LjvF2nnE2B626ef6YUWJwAoirB2w@mail.gmail.com>
+ <20260906030833.3356045-1-yjkwon0026@snu.ac.kr> <20260906030833.3356045-2-yjkwon0026@snu.ac.kr>
+In-Reply-To: <20260906030833.3356045-2-yjkwon0026@snu.ac.kr>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 6 Sep 2026 10:56:22 +0200
-X-Gm-Features: AcwNN1W5ozZw1nU5KN48YzdeYcPTsndtCT8wclh4pPTWNe9Li-qXK2i3X42wSOE
-Message-ID: <CAOQ4uxi-aeLdHf8-8PjjetaNvxDBjLO_X8cENyJNRZHVge1Q5g@mail.gmail.com>
-Subject: Re: [PATCH 6.12.y v2 2/2] fsnotify: Fix stale object mask after
+Date: Sun, 6 Sep 2026 10:57:00 +0200
+X-Gm-Features: AcwNN1WXfl8LMtmQ6HGsokmVkhNpvVMmg4gvgWuHmDhOswCzUl70NMOxvdspFO0
+Message-ID: <CAOQ4uxga6piy=9isevO9TTrYEgQEbv4mcm_1W9FCTm5vsVkZ1w@mail.gmail.com>
+Subject: Re: [PATCH 6.18.y v2 2/2] fsnotify: Fix stale object mask after
  concurrent mark updates
 To: Youngjae Kwon <yjkwon0026@snu.ac.kr>
 Cc: stable@vger.kernel.org, Jan Kara <jack@suse.cz>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 6, 2026 at 5:06=E2=80=AFAM Youngjae Kwon <yjkwon0026@snu.ac.kr>=
+On Sun, Sep 6, 2026 at 5:09=E2=80=AFAM Youngjae Kwon <yjkwon0026@snu.ac.kr>=
  wrote:
 >
 > [ Upstream commit e422777fdd4746de1109575c51e65038d4c5c1be ]
@@ -167,10 +167,10 @@ Acked-by: Amir Goldstein <amir73il@gmail.com>
 >
 > diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fano=
 tify_user.c
-> index b89ad128bf09..93472a48ceb3 100644
+> index 5c30f4d8c7c1..e0a0f67b1350 100644
 > --- a/fs/notify/fanotify/fanotify_user.c
 > +++ b/fs/notify/fanotify/fanotify_user.c
-> @@ -1141,16 +1141,18 @@ static bool fanotify_mark_update_flags(struct fsn=
+> @@ -1327,16 +1327,18 @@ static bool fanotify_mark_update_flags(struct fsn=
 otify_mark *fsn_mark,
 >  static bool fanotify_mark_add_to_mask(struct fsnotify_mark *fsn_mark,
 >                                       __u32 mask, unsigned int fan_flags)
@@ -197,7 +197,7 @@ otify_mark *fsn_mark,
 >         spin_unlock(&fsn_mark->lock);
 > diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify=
 _user.c
-> index 657fc36df7ce..024be6cee849 100644
+> index 905c27e9cd38..6eaf0d382eec 100644
 > --- a/fs/notify/inotify/inotify_user.c
 > +++ b/fs/notify/inotify/inotify_user.c
 > @@ -539,7 +539,6 @@ static int inotify_update_existing_watch(struct fsnot=
