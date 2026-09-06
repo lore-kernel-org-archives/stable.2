@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C93B33A6E2
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:03:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD5D360EE2
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 15:04:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788707023; cv=none; b=aXY5WTaeI3Qv7R9yMuEHG5cwQeKnJ3+KlCDdbvZzJ1sy4wvWe94idSkovfm2/27zyBtt4usl14k7w/FoW2w+OthrFQZUFGH/OqugQGZoEIRQ/syQMdB44yUShGzBB3bUI7Q1VL2JvdAX1LJiPShgXFwKYKDfeV7PPaF+NWS8HpQ=
+	t=1788707085; cv=none; b=ndXS9HEdaS5QvA2bm1Ita32WbC8vbBqIvWk01RYPa9kMq6lshH2HnaaL+7lsW3RsaurhzBS9ECHCPAHhsHwxXrSYqZ92oG82a1fEkpCWxCf9hMKaqKp5E7mrPMe9wAh1CbWh3I4ozXb1UJcWLYDyGamfP2VZ4g4xAMN9ZPyzvHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788707023; c=relaxed/simple;
-	bh=2sv5M7kgCHLo/qMwgeYzKFA5IjGeEmQQOuDiHP7xCgQ=;
+	s=arc-20240116; t=1788707085; c=relaxed/simple;
+	bh=Q72hJAMFCt9BuaNG7EXAc7zxdpwBxhERXy8i4CISySw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UagApBEBe+GW5z9hv8Wss7UEutreNKguqbF+QITWU51aXM34zSD97XZFy2B3V2HTbEGkkCylKSVdywqL4IsfzYWA0/wqGUlTVDSn6yHztsjhwT+EcC438a2uLeYiTeXcFD6JYsQd5uEHDNXLbWg/NWsaPdYMGFI8XWErB5Dpdis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VixLFNFI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qfx0G2S+bk41gdZhpNOzrJv/pCWYyWcKdGtxjfmXSV/DmxiIvnBhcN9NQgs02tlZoxeztJUudUKOhi9a+CCvz+sv4gWGCXsnmjkHePDTKPxYjQqjccQhmWwJtSSSH5uNIeV7iG1TFABlU0USJpcpyHp+S5HEQ+s4H8bquxwYWrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ft0b/dU/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VixLFNFI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E8B1F00A3A;
-	Sun,  6 Sep 2026 15:03:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ft0b/dU/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 001C91F00A3A;
+	Sun,  6 Sep 2026 15:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788707021;
-	bh=lNxlHm9NrVjiM3hIdPwj2HFh/cg5XuXbatu1vcw4RxA=;
+	s=k20260515; t=1788707082;
+	bh=3GKJgaoJAnDrVC9UVjKnYasDhu8tmlDjva8YD8BBU8s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VixLFNFIvWkNkk6nqQsYbyNkadxzyY+4fphGRou2tMY2a7+gvk0c6N+TEzNnXagPs
-	 W77d4MYuYUdz4gzparYuydgftiXNFHrt3pS7rwY1WFLi4dDfLHP+/8Po+9j8WUPpK5
-	 r3b/00SudjVGgo+hW2sn7j83uLufHKn96UAS12v43pf5LCpeUlylt5fBOy8db8I+4L
-	 jIF/6IDRsxKG21E9XNPF0UXQV9daj9tugrUpXlL3flFC1G54S3TArAkuzzTz5v9KE2
-	 +Tm70pTOAhVjynn60kfBr3Ww+acB/bEg7LkcmE33D6ffmWFrb02k7B5c9eRnjzkxhc
-	 TphXsfEeaUqug==
+	b=ft0b/dU/h1UoSCBfkUGMTSf8c12zFJAePHkbuCISW5SA6LFExWH2jSbjzoifn+X0m
+	 f2rLI6+eSO0GOcywUrC2wgPkzA3S14V0ZqxRdjmwWtPF91ujROPsj9c+tZ51L0tml+
+	 6WbXuQlZUt/YNYneOYyPsGyGCsd0XRvlWxiDiE5IG6BJYWFkl3dcFvbinkK3sSxLiF
+	 o4acbFQnHgqrfYvgrSsdFz+xogZc3VXbv9GM4mXh7Td/y2KavgJ/K4LElDzzDWB2ND
+	 Vpvo0qT0b74wJtudGQ7nrMIxvEvZWMMtlTnVx3scqQ364+bV3HvxCFOn0cZRX0MmHR
+	 eNWHyLjxyWuhw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Michael Bommarito <michael.bommarito@gmail.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
+Cc: Chuck Lever <cel@kernel.org>,
+	XIAO WU <xiaowu.417@qq.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ceph: bound copied dentry name length in NFS export get_name
-Date: Sun,  6 Sep 2026 11:03:39 -0400
-Message-ID: <20260906150339.1333795-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] NFSD: Guard admin state-revocation walks with NFSD_NET_UP
+Date: Sun,  6 Sep 2026 11:04:40 -0400
+Message-ID: <20260906150440.1365883-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090318-commotion-aged-5be7@gregkh>
-References: <2026090318-commotion-aged-5be7@gregkh>
+In-Reply-To: <2026090352-parting-overeater-9374@gregkh>
+References: <2026090352-parting-overeater-9374@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,85 +46,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Michael Bommarito <michael.bommarito@gmail.com>
+From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit eff8013c5a8916613c742ae5a2cc341cb605c0ae ]
+[ Upstream commit 2f3e6638aebc0ab8afb8b4e9816ea9a1cad85378 ]
 
-ceph_get_name() copies the MDS-supplied name into the caller's
-NAME_MAX-sized buffer with memcpy(name, rinfo->dname, rinfo->dname_len)
-and then writes name[rinfo->dname_len] = 0, without checking dname_len
-against NAME_MAX. A malicious or buggy MDS that returns a LOOKUPNAME reply
-with dname_len > NAME_MAX overflows the buffer. __get_snap_name() copies
-rde->name / rde->name_len the same unchecked way.
+Writing to /proc/fs/nfsd/unlock_filesystem, or sending the
+NFSD_CMD_UNLOCK_FILESYSTEM or NFSD_CMD_UNLOCK_EXPORT netlink command,
+walks the NFSv4 client hash tables to revoke open state and cancel
+async COPY operations.  All three handlers gate that walk on
+nn->nfsd_serv, but a listener added via portlist or netlink
+listener_set sets nn->nfsd_serv before any nfsd thread starts.
+nfsd_startup_net() has not yet allocated nn->conf_id_hashtbl, so the
+walkers dereference a NULL table.  A local administrator with
+CAP_SYS_ADMIN can crash the kernel this way without ever starting the
+server.
 
-Impact: a malicious or compromised Ceph MDS overflows the NAME_MAX name
-buffer in a client's NFS-export get_name path, a slab out-of-bounds write
-reported by KASAN. Reachable when a CephFS mount is re-exported over NFS.
+nn->nfsd_serv is set when the service is created, which precedes
+table allocation.  NFSD_NET_UP instead brackets the window where the
+tables are live: set at the end of nfsd_startup_net() and cleared in
+nfsd_shutdown_net() after they are freed, both under nfsd_mutex.
+Gating the three unlock paths on NFSD_NET_UP fixes the startup-time
+NULL dereference while preserving the earlier post-shutdown
+use-after-free fix.
 
-Add ceph_export_copy_name(), which rejects lengths above NAME_MAX with
--ENAMETOOLONG before the copy, and use it in both ceph_get_name() and
-__get_snap_name().
-
+Reported-by: XIAO WU <xiaowu.417@qq.com>
+Fixes: 1ac3629bf012 ("nfsd: prepare for supporting admin-revocation of state")
 Cc: stable@vger.kernel.org
-Fixes: 19913b4eac4a ("ceph: add get_name() NFS export callback")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
-[ adapted the bounds check to the older ceph_get_name() flow without encrypted-name handling. ]
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260621162551.2469460-1-cel@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+[ adapted NFSD_NET_UP flag check to the older nfsd_net_up boolean ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ceph/export.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ fs/nfsd/nfsctl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ceph/export.c b/fs/ceph/export.c
-index 66d8afdd417d1..f68fbc152441f 100644
---- a/fs/ceph/export.c
-+++ b/fs/ceph/export.c
-@@ -421,6 +421,16 @@ static struct dentry *ceph_fh_to_parent(struct super_block *sb,
- 	return dentry;
- }
- 
-+static int ceph_export_copy_name(char *name, const char *src, u32 len)
-+{
-+	if (len > NAME_MAX)
-+		return -ENAMETOOLONG;
-+
-+	memcpy(name, src, len);
-+	name[len] = '\0';
-+	return 0;
-+}
-+
- static int __get_snap_name(struct dentry *parent, char *name,
- 			   struct dentry *child)
- {
-@@ -486,9 +496,8 @@ static int __get_snap_name(struct dentry *parent, char *name,
- 			BUG_ON(!rde->inode.in);
- 			if (ceph_snap(inode) ==
- 			    le64_to_cpu(rde->inode.in->snapid)) {
--				memcpy(name, rde->name, rde->name_len);
--				name[rde->name_len] = '\0';
--				err = 0;
-+				err = ceph_export_copy_name(name, rde->name,
-+							    rde->name_len);
- 				goto out;
- 			}
- 		}
-@@ -549,8 +558,12 @@ static int ceph_get_name(struct dentry *parent, char *name,
- 
- 	if (!err) {
- 		struct ceph_mds_reply_info_parsed *rinfo = &req->r_reply_info;
--		memcpy(name, rinfo->dname, rinfo->dname_len);
--		name[rinfo->dname_len] = 0;
-+
-+		err = ceph_export_copy_name(name, rinfo->dname,
-+					    rinfo->dname_len);
-+	}
-+
-+	if (!err) {
- 		dout("get_name %p ino %llx.%llx name %s\n",
- 		     child, ceph_vinop(inode), name);
- 	} else {
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 1da5c40d6722a..eb90e31440d68 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -298,7 +298,7 @@ static ssize_t write_unlock_fs(struct file *file, char *buf, size_t size)
+ 	error = nlmsvc_unlock_all_by_sb(path.dentry->d_sb);
+ 	mutex_lock(&nfsd_mutex);
+ 	nn = net_generic(netns(file), nfsd_net_id);
+-	if (nn->nfsd_serv)
++	if (nn->nfsd_net_up)
+ 		nfsd4_revoke_states(nn, path.dentry->d_sb);
+ 	else
+ 		error = -EINVAL;
 -- 
 2.53.0
 
