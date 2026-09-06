@@ -1,183 +1,105 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30462576E;
-	Sun,  6 Sep 2026 11:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C09382F0F
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 11:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788693714; cv=none; b=qytibUgNDK4esDwbGT2seaJCzYYtoTIiJCwvq7bZnw9jjaMCEUZkKd/MwfKt3wKvC8Rj2NGVFt5TSU5m0yJjrifGerij9BP1pk7D80MT68F4IEcWVMAasO1ELO5LEWFxXs+hA1Durvod8QWfIqEn0E8UqnbAMPE08+a8nJHH3SM=
+	t=1788695014; cv=none; b=UYeEQovFEYZF64GrS2Rh2k9u2wQJixWFUaEgc8+3vmlC2ns5M8RXcBUvi7hMmJg+vXg3dmCNyfjHDS6dVoiobsh7ss63XYUNlKomh+JJ+FKXSP9TtckiBjFfry2rWvWUXo7CStTYbn+ulSWSs5IW3Xwq5GVAjdGVtNLZejWTl1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788693714; c=relaxed/simple;
-	bh=64JzUqT0jBXtjS2UM/g4PJirm8Yphht5T0U3TxzkjWU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=Gqe6f/nHRyOQRdFkp7VDpqxPLICa8bXTORCz+1wC2OKHOX9PsOrPMGNNCNUcwMjWjr6m1XDFoDHwr6cGLjO8EEXs4r1oMIj0/tRxL2o5+QbxOKmDFTyw4vGFtqmhugWivSUFR3DaGl9B+Owx2WY/qbFD+RlVepAiDuJXXKFydC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jGTIPV8W; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788695014; c=relaxed/simple;
+	bh=4K1s1AQ/FgjCmH7yjjU/gqsqx+7f1Mdt5UNkaHrqoP0=;
+	h=To:From:Message-Id:Mime-Version:Content-Type:Cc:Date:
+	 Content-Disposition:References:Subject:In-Reply-To; b=Sa1090X9Xcvtqt3/4wzyGVq5+Ct1XwAKF+yaGEk3iLyEoLhxgBdB4SfOP2ZpVkinLxqZF7nYXvO3na0bbeXCR/ToVZrhE9zcbkyRwEjo/FsM78OCsDCo70dlEuLiGHVSc8JQtFLCsWK+T4aWVkVo7mvSLKgu5fWrJzDo665xe08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Si4/uHmN; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jGTIPV8W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788693647;
-	bh=hU5drRsukxKTZr6Wttsq4VqOiCpjnWKHL3L2R4CN/6o=;
-	h=Mime-Version:Date:Message-Id:From:To:Subject;
-	b=jGTIPV8WnA7IDUuELWPdtVK2O0eDDJojlQ13jKbgAuAI1eru93zjxltQE1QYq+btf
-	 ABVL9nZ1NJr8FSGRCTp9iA+/BxwUqFhMr4QSAeneZp/Aiw5IPLK/RwdqS1xmWcRWsZ
-	 +FXnEuxFtgiqmDIvkZBo1eCuqx04FktT+7dwzeas=
-X-QQ-mid: zesmtpsz9t1788693645td04f833d
-X-QQ-Originating-IP: DTpauE77uDk1X7buhFaDFSwHJ4/UV6jAd8hGgoHJ2L4=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Sun, 06 Sep 2026 19:20:43 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6232298470301250172
-EX-QQ-RecipientCnt: 19
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Si4/uHmN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788694999; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=kF4XOpxl2FOCXm+aoX2z5PQbLq1Swi8wrCG8/hWWD30=;
+ b=Si4/uHmN6Mh4m9OlewWy/Rzsm0ZOlXSVeXWhsEdZVRzUb8k0xy61i6MbCVMpbRIIPn/Bne
+ rxAZBicc6H9p/Yp+/wvI8VSnAuMRUpCofcUp3nnqWsmrvIS0u1+2u6+qbMrK4QNWpxd8/Y
+ RLP28H0eDLH5xe3kge17+qSoRyftXn+k4JtHTPNQPxfn0xS5CNDNjbVSFqt9kdKm5i29+4
+ 6LhBFyqZxvqYJngNwnwH2Ht9YEPyPnftNOffPvO0kbw6ur5asLfyXzOwV6C3GUczX7NY7V
+ 7ha93/Mpu4PbUHMPhYcZDc5p2Rrq61dTjet/DSaGrWURMxeoN/BCxerF3sPIJg==
+To: "Christian Lamparter" <chunkeey@gmail.com>
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <ap1R0jU3UMVGI3ml@pve>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Sun, 06 Sep 2026 19:20:40 +0800
-Message-Id: <DL86Z6P8P2YI.160YXDVBSSC6I@linux.spacemit.com>
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Yixun Lan" <dlan@kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Cc: "Aurelien Jarno" <aurelien@aurel32.net>, "Michael Turquette"
- <mturquette@baylibre.com>, "Inochi Amaoto" <inochiama@outlook.com>, "Alex
- Elder" <elder@riscstar.com>, "Haylen Chu" <heylenay@4d2.org>,
- <stable@vger.kernel.org>, "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- <linux-clk@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4] clk: spacemit: k3: add CPU PLL rate tables
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com> <apmuG46sBg2rGzCD@aurel32.net> <DL67LEVCXFA5.39M5FO7JGKWZS@linux.spacemit.com> <20260905220746-GKC53903@kernel.org>
-In-Reply-To: <20260905220746-GKC53903@kernel.org>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NGf6Juddf2av1Bk8NfLKPcxvsFIALwEmDxNU0SXF7DhV2BjuVFczEfwY
-	htGBs9UrUW2g01HBaf3PYHQEPBbEAFKJMkgPqfklaw14hJa146zEVYgNoVAu5pi1+y/vm0+
-	sknWUEKuL7RRn9vBURBozE/F8Ix80dIx73+UskZL6KdM9L/TlmXtpGNGVAr++cRKTi6DZxd
-	KYsfletsNI0co3Tr1Gsm7CDG6vZQlDr5Mib3V2io14GwwOHywbrg4Yv3Ajq2NxnQApc7cin
-	7frk8Zvem3GJ+tZ8vXTcw1W/AESr7tkxMys4mAhWl3NhsXjLMigz+ewR5wBPFqpuxRFT3bg
-	Wy1H08tbESosANSaIpplzCEsHQJiL9zugfvwimN1JuHPLg/VPiB8A5E1KmyRGwv4oL5gydy
-	+YyAqTBzB5fu4CaOAOGtcx5IQ983rxUHkUU+T7Cs4HYhpVCbFlDHNxmZB6kCuUfJNO/fp+i
-	NV6hnRxQ+nZqrOUOcc8ANvoKjFXCKnvaTKdP1CNc2WjfxttRC20WBjnVYBaSf/DGp3Zfw+F
-	M13LTFGeymqG+/Z/OfW3jP1V5VntKUK/uIY0xLZGvJ3gD8Enagj1RHVDUHBjsipfJVmKNee
-	ABv3lC/vlgW25+PDX2iZYbUqPw/2z2DsL8MGgWmgDyUBYCI0fN0e/JGxLAXQGKdwDD1/PYk
-	J2a6/WBgbjjIyIUBKmo0XUsR7E5mgnNebKiLjIDFlTSMzmTlcsr62UCZXzub3Cr76xb0vfb
-	aDDrZjhWd0bmjeouQscdj6img/k9w0+N9/hS8aNNNlSbo8GABhIjM3vQrblXolEnON+VXtJ
-	g4kdifuEVS9pYHuuwgHD0+q6BMU93Lj7uo4p16delEx4w0IHw5yWp1wVqayi26t1aP5sHXJ
-	BZa09ftphjJtRC882MTF3WVYlakJW6ONMaZNeqB5f8eiDfh2dis9w9cXfc/P7guY41IgmHO
-	B1uel3MGhme/iyz3Pjpbw4miiNktGwmFv8Lk3nfClmxI0QA8PsWrRmaUkXYZf9HJjwPRie9
-	L4ljc/liPlIbUPxxH93QDtULvq9p+2r1ctQI7/XIEFs/2BBOmeoXiQ9kEyWVKhpkBaUpIU9
-	Bt+hahoSmjCcEEMTEg+37UFzSRBjrz9mw8KSophvK7m2Moop6xGYrOmRoKYCEDvKg==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
-
---536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550
-Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+Cc: "Shengzhuo Wei" <me@cherr.cc>, "David S. Miller" <davem@davemloft.net>, 
+	"John W. Linville" <linville@tuxdriver.com>, 
+	<linux-wireless@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>
+Date: Sun, 6 Sep 2026 19:43:14 +0800
+Content-Disposition: inline
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Received: from pve ([111.40.58.231]) by smtp.feishu.cn with ESMTPS; Sun, 06 Sep 2026 19:43:16 +0800
+References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc> <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc> <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
+Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the calibration curve converters
+In-Reply-To: <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com>
+X-Lms-Return-Path: <lba+26a9d51d5+de2f2f+vger.kernel.org+me@cherr.cc>
 
-Hi Yixun, Aurelien
+On 2026-09-06 11:31, Christian Lamparter wrote:
+> > diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
+> > index 95580921d933..0dc848d77c5e 100644
+> > --- a/drivers/net/wireless/intersil/p54/eeprom.c
+> > +++ b/drivers/net/wireless/intersil/p54/eeprom.c
+> > @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
+> >   }
+> >   static int p54_convert_rev0(struct ieee80211_hw *dev,
+> > -			    struct pda_pa_curve_data *curve_data)
+> > +			    struct pda_pa_curve_data *curve_data, size_t len)
+> >   {
+> >   	struct p54_common *priv = dev->priv;
+> >   	struct p54_pa_curve_data_sample *dst;
+> >   	struct pda_pa_curve_data_sample_rev0 *src;
+> > +	size_t needed = curve_data->channels *
+> > +		(sizeof(*src) * curve_data->points_per_channel + 2);
+> >   	size_t cd_len = sizeof(*curve_data) +
+> >   		(curve_data->points_per_channel*sizeof(*dst) + 2) *
+> >   		 curve_data->channels;
+> >   	unsigned int i, j;
+> >   	void *source, *target;
+> > +	if (len < sizeof(*curve_data) + needed)
+> > +		return -EINVAL;
+> > +
+> 
+> Hmm, Puh. Interessting. Several things. But yeah, this should work.
+> 
+> Acked-by: Christian Lamparter <chunkeey@gmail.com>
 
-On Sun Sep 6, 2026 at 6:07 AM +08, Yixun Lan wrote:
-> Hi Aurelien, Troy,
->
-> On 11:24 Fri 04 Sep     , Troy Mitchell wrote:
->> Hi Aurelien,
->>=20
->> On Fri Sep 4, 2026 at 1:27 AM +08, Aurelien Jarno wrote:
->> > Hi Troy,
->> >
-> ..
->> >>  drivers/clk/spacemit/ccu-k3.c | 96 +++++++++++++++++++++++++++++++++=
-++++++++++
->> >>  1 file changed, 96 insertions(+)
->> >
->> > Thanks for the patch, it makes sense to add all the values, to support=
-=20
->> > future firmware changes. The values match the ones in the vendor kerne=
-l.
->> I forgot that you had a similar patch as well..
->>=20
->> >
->> >> diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu=
--k3.c
->> >> index 92b930d5ff30..950bf531c734 100644
->> >> --- a/drivers/clk/spacemit/ccu-k3.c
->> >> +++ b/drivers/clk/spacemit/ccu-k3.c
->> >> @@ -29,15 +29,91 @@ static const struct ccu_pll_rate_tbl pll2_rate_tb=
-l[] =3D {
->> >>  	CCU_PLLA_RATE(3000000000UL, 0x0b3e2000, 0x00000000, 0xa0558c8c),
->> >>  };
->> >> =20
->> >> +/* Keep the firmware default as the first entry. */
->> >>  static const struct ccu_pll_rate_tbl pll3_rate_tbl[] =3D {
->> >> +	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
->> >
->> > Is it really necessary to put this entry first? I guess it's the curre=
-nt=20
->> > default frequency, but we have seen it can evolve. From my tests, the=
-=20
->> > driver seems to just keep the value configured by the firmware=20
->> > independently from the table order, so I am not sure it's necessary.
->
-> I agree with Aurelien here, the default frequency isn't a solid stable se=
-ttings,
-> which it may changes in the future
->
->> I think keeping it first is necessary. If the current register settings =
-do
->> not match any entry in the table, ccu_plla_init() falls back to the firs=
-t
->
-> Isn't it a bug if all frequencies added still couldn't cover all settings=
-?
-> I'd simply suggest to bail out and yell loudly if there is a mismatch
->
-> I just don't like putting specific frequency at first one as default,
-> this logic is kind of fragile and tend to fail easily..
-I checked the Rockchip PLL driver. The RK3036, RK3066 and RK3399
-implementations calculate the current rate directly from the hardware
-register parameters. If that rate is absent from the rate table, their PLL
-init callbacks return without reprogramming the PLL. With
-ROCKCHIP_PLL_SYNC_RATE enabled, they only synchronize the parameters when
-the current rate matches a table entry but the register parameters differ
-from those in that entry.
+Hi Christian,
 
-This approach seems preferable to me. Would it make sense to sort the rate
-tables by frequency in the next revision, and follow up with a separate
-series to calculate the current rate from the registers and preserve
-configurations whose rates are absent from the table, as Rockchip does?
->
->> entry:
->>=20
->>=20
->> 	ccu_plla_update_param(pll, &pll->config.rate_tbl[0]);
->>=20
+Thanks for the review and the Ack.
 
+> Still I have some questions: Did you write/touch any of this yourself?
+> Or is this patch straight from the model?
 
---=20
-Troy Mitchell
+AI found the bug. I wrote the fix myself and used AI to review it
+afterwards.
+ 
+> It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
+> But why was the sizeof(*curve_data) not included there too? It's only used once in the
+> if check so and this sounds like the "needed" needed some extra? Maybe because it was
+> already checked?
 
+I kept sizeof(*curve_data) separate because I was thinking of needed
+as the input data size without the header. But since it is only used
+in that check, adding the header there too would be simpler.
 
---536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550
-Content-Type: application/pgp-signature; name="signature.asc"
+Would you like me to send a v3 that makes just this change in both
+converters?
 
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap1MiA0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQv+TcBAKuYgm3NzSdu2AewDdZD9GRhXTKU8Kg7xc4yVrlo
-nVfcAQC2ZNkxsjsFJBZyiwSwQYWdYZq+bsxMX1yf4dEkWAOCAg==
-=J7rf
------END PGP SIGNATURE-----
-
---536c7c79d9464b992ad1d7b5be05ae3641e4b875bba8fe2b43dc9e787550--
+Thanks,
+Shengzhuo
