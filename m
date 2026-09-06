@@ -1,151 +1,150 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E64E31715F
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 14:03:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E63552750F2
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 14:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788703383; cv=none; b=hs/z7fBruwBWdqJYidIM3IpMt9WdOYD1WB4WZiNruE4kdq8CbhV1rWTcmwQwpZjAvKlZlPZ6Vgk4NA1Iih6OVp85bw5N6aQOEhCXoyNo/s+WbMtNC4WprjrNbCkJtFHCSXcgYo7gAM2xZLjjVHt50ZfniihdHjb1jwsr5t4y9+I=
+	t=1788704128; cv=none; b=ciHzd0qZdUBJ2fJqzlp0bsmXnL+C2Wqy//y7DzoEuskRw5iANY6TW4W73idETP+dmebhTdWNP+rEmMxE+x+tjr+lnBYuT14lLfMJTdbjQPrsnuNj+6XSvpeMqFjuktspd9lOyFeKU5FRtCAJR4IZU4sRyqXvTerOIV8wfEtln3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788703383; c=relaxed/simple;
-	bh=aBL2Q+ay9Sl1XHHZAUW1SLris8znZOlctUEWmfLEiGs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tom2jeaDBp88xVKAkufnbaB4R3LBktXeQCULzqHWxLLO1Tt8l4m2aFeMmPOr6/+Pmu6b77duSolCj3i+TcMDYxiyENvzY44PjQQw64yUi5rtqyKo4SZNoZIUZvQzlFbT3ePxVgAdN1FOx2T/ubyArkWGHM/NseDdaoxkUa0c3Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCFcKbjh; arc=none smtp.client-ip=209.85.128.51
+	s=arc-20240116; t=1788704128; c=relaxed/simple;
+	bh=JV9rR6PbCXCY0nVK5UFr8KLbHnkplhTSCpGJoiucHIM=;
+	h=From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References; b=mjakwpnW6acxa+d+0umP1K9WfDzD//p0Zfqd/IRLC3eMHluF82utrBgfmm82FqadHMxd6tnUuoP7U2p7KFRwTKfD/GmqeHhKOE+hgFfQ5+GTzkgTIO7VmVWvowWt8oidoov/hPVafIQCR7/IcJn26Xz9uDLYNlMXsEePFUztA6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oJQkpzhk; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCFcKbjh"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b9320423cso28641905e9.0
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 07:03:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oJQkpzhk"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2291091a91.2
+        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 07:15:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788703379; x=1789308179; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=14jJVZF46y58TMyS39OsdlGX+U+N7xxuWdF3HxtoPb4=;
-        b=QCFcKbjhD2vue5f7VklaFEihv1dXKUUaubJ3ggN7JwdPCT3yzjB3CJsLH4fKe54GXn
-         Ax+QG9SGsIH048tYbKyDxPgHcfo8Zb+U5NE0OVx1bEl22CzQ79O4ovvu5AMkL6GbnI6A
-         6MfcE9wVvQfmo8tWCiOZMDteKJv/mZtCE0/reXnT5PD7sm4Sv0YgcRSxRqN5AvUDAHhF
-         iCGa78h6gwSuoRBOqN34+0F+/SUj5g7gSPcKuMw0IzFB6AGTcYuK7KLVfS8mQgEDQlGt
-         73BK7axhgBEyoI7q1XxreiTH+2euXcqXdIh7BABA9j/qxme6Zs53LR6irY5sdHOpUitU
-         F+Ww==
+        d=gmail.com; s=20251104; t=1788704125; x=1789308925; darn=vger.kernel.org;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=NIjbz58RkaN9CyXskmjKtWIhRZijYN8x8rvjeIyidGw=;
+        b=oJQkpzhkr0rxWlwVLCwKtfjoNpmzDwdYu+W19sTSY/Y1MXJnAaqJ4syx6vd+EI+Mri
+         TrF3ndl2y5b+n968LWaiYdXhjCFRobt5MqT7fpIKz5PgecT9E2M4kZ85YyZ3n+SDz9Y7
+         3DP1Ng8lZ3hYPc+Wb04hw0SxWaKVDeqnkM1IlJfRq42oEQx+nsFhvKHQWgt0dhG5N4CT
+         OYLwVTVnbIRw/SwVC4i8OZwIWvjnDR8gQFec6+uAywkVU1R0sOIzjxoeeQXbdFpr2MgT
+         XMZI+itnjJlgSd1FbD4xfhTUMZgM/kDgejrVUmd2MJQc3eD6cD8jIUqljGWNXu0/iRsr
+         BiPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788703379; x=1789308179;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=14jJVZF46y58TMyS39OsdlGX+U+N7xxuWdF3HxtoPb4=;
-        b=iDnYs4y1DICaKoEUdJgWYgMNec4xTejq5hMbImVXrICGHMYRTW5YthFWmZBuQjuzNd
-         5WDLioK3ZYVf5SJbcF0rBZAxSxUKbKzM+sbN7i4FR9OZ2EjeIdv2fZVoyZpRub7/oUx3
-         dnfqW6Hec+7g8B5qUBfu1eKXmdjbmBbIdyhi6IrIuhxSG3K3vnQ444I2H7L117zoAXzt
-         3geCTdmk54PmKLabjgEABM0+O/QfjjEgXaRuOEMnR/jtUVXrIcKSxF9NHbxep1jgaGQ1
-         yCBAKMlHDJguyn0Vho9p5le2vhsmhIIOqau+DdcI+EVuHCV4QWbQ/NqiKAbH+9OmCvNh
-         l6jA==
-X-Forwarded-Encrypted: i=1; AKwUvBw/o2Cb/ecRa0cOAG1VrUxnFw/MjLCDdSFjqXlXpXwXyhROjaIGPPtp9Is3zsQShLxQ8KqV7n8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lc9LueLDhvCFQ38hoOUhMqAsb4i30Dt1zwFxSOaYMQAD1ZlaF4
-	ntC6gy/eOzQMZGLY3skVyLlXKtC1ehAaCgyDYSMTF5f7Aimj7SJrV1KY
-X-Gm-Gg: AYBFou24QZGlEy7/67fVXVWtsj763raZb5PDw99Bo9CiiQNZF30R2pGm9U3zuFP6Pjg
-	CeeEPohOgOvuB4SX1sqNVzheWg7NF/NLkTMMzix9br5Ipk/8HJaXkNxfrxQ1T3fwi7+YPA90igX
-	QqoxTNGRfrochBwruit20Vfkm6MbY7mulf9Ym6G5TWiNUVPwJY7vUVU3sSp/pLAMjSh/iIFyHe4
-	o8yB0AhArsSUUUtmjOHco+qXEMgUWJRON84oEEhZ8BPe6UqG4vUp/a7wnYcsU8z3cJZRx/ZmJem
-	OzTxY8+S5ZBz/1rwBHQ0327MDdezMKZ6BID2phiiKai5oS9FMW6hE25s/k6wWHI9JeGfZhxzYkE
-	RpYGWmLzl9yC4rlV9WqvF9FrbAT83mmXi/5D5lex65pJ3J8fktyTr2VMDJEIlBW+Lee4jUXj8t1
-	KKayyU18ym5ghu9WJKqqzYoG32VX/2TiQ9qg/r8TXe5UDTKDEMzCpeDzB+j8yph53WxvkuTiYhT
-	L8KgjXVd5slh8q6RyjU1HLQNN3M2FRGjYRf1qhHKRqLXad2CBUHds8bSjJIH1rv67YzGi3iBYLQ
-	eg==
-X-Received: by 2002:a05:600c:6383:b0:49c:e88b:b7ce with SMTP id 5b1f17b1804b1-49cf823f147mr339885125e9.11.1788703379146;
-        Sun, 06 Sep 2026 07:02:59 -0700 (PDT)
-Received: from shift.daheim (p200300d5ff3cee0050f496fffe46beef.dip0.t-ipconnect.de. [2003:d5:ff3c:ee00:50f4:96ff:fe46:beef])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d057f4778sm131583525e9.8.2026.09.06.07.02.58
+        d=1e100.net; s=20251104; t=1788704125; x=1789308925;
+        h=references:message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NIjbz58RkaN9CyXskmjKtWIhRZijYN8x8rvjeIyidGw=;
+        b=OC682RE2jCniRWyrx+7r5E/f11+P2hWqNyiwNgmtt8i4o2kQ1/18vfy8/jaadBw1jD
+         uPEl4VQq6kRA8t17UgObkhNLh2XdrDscpc2DhgyrKVXCeyMku2MBEGYMAyUWYABAxqW1
+         U+vbv4Ok9U6aoT02XZtD7FrMdKXvZusvE1j1AWMxa+V/y+sbOafONnBKD0ejg/iKU5Xt
+         MzjMdZMAfzpmudUaYf2RuS3rkfvwIp4DNArXA4uUURjbXW7bInNMPex4h8aX5h9dtnc5
+         pK7+ALpRV/joli4a2TbXnT2SGMCsvdjAJAzca8XBynh/ZPv7PRuvL942cBZl0ZDwnsH1
+         /8Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBwLfs77qjhTtOrwjzbGev5Clf2jB2gANH/Y7mMcy+yEz3xMRyDATD9x41b8yGNTX4MNzzUYd+A=@vger.kernel.org
+X-Gm-Message-State: AFuF++ligw23Bj08OsdLkzqay21rdDR/WktWA2f1KLdv1mIA/kcNudrq
+	f+tWdKbCt5GXwO3oQWJPqwBthJ2YcIbPr065BFFhtccWX33baHQunreI
+X-Gm-Gg: AYBFou2sBcjSRW6kJoHVClsFJ86ZUQJZm3Cmlh7Y59t2UOFjpPOOVzIChzA2KiufzC8
+	vhHtludl0gH9iBvG5WmwcjKnN+kgBSRXNRDwlNiL/YXcAZKFdu/5la+dP+fR7wkODe98N617Ywd
+	3iAbdLy9Dztwv4xjacgYZ5D/icirTxxQyX978LDbtVtGCyJy3c0ff0Gd/DZY3qLIvYar2KUPxrI
+	7LinkeHqxISinTQiHNBNSHiaxGniI3+fNFM3tYqhDaHCU/DgODhsP05Fh5Hy0OxccHf7nfBUz38
+	f9N8gnVqzAzOQgbcg2c2syPQKRlBNH5GFqQcEJvv9pCs2GxJ5lmofVkIv/n4R0HROxGt69+yQFo
+	xq1pFM5x8ThMhys64sWznMzxgfr57E6voEgKpFbTBklJ4Qd1DTPD6MC8Js0DHMXy3qGZ0zrtVFz
+	LfUQxqaxEBb9+qUFjuVr+VXDP0VTbB/NDHqBWM4wz7cwavCJhajpMh9JMLwU/Kc3x4Fie/yuPDF
+	zgd59aM8qAHOLeOjm6f4AdUOs/lZlVR4ZJ3iM2eiYOo
+X-Received: by 2002:a17:90b:17d0:b0:398:9bd4:d18 with SMTP id 98e67ed59e1d1-39b26298ba1mr25491217a91.23.1788704125253;
+        Sun, 06 Sep 2026 07:15:25 -0700 (PDT)
+Received: from pve-server ([49.205.216.49])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1433f4e845dsm2309013c88.10.2026.09.06.07.15.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:02:58 -0700 (PDT)
-Received: from localhost ([127.0.0.1])
-	by shift with esmtp (Exim 4.100)
-	(envelope-from <chunkeey@gmail.com>)
-	id 1x3DST-00000000Dzs-36fv;
-	Sun, 06 Sep 2026 16:02:57 +0200
-Message-ID: <fc0a0908-aff5-47b0-8575-0016a3cc7b6f@gmail.com>
-Date: Sun, 6 Sep 2026 16:02:57 +0200
+        Sun, 06 Sep 2026 07:15:24 -0700 (PDT)
+From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>, Theodore Ts'o <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>
+Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, Runyu Xiao <runyu.xiao@seu.edu.cn>, Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] ext4: shut down error report timer on failed mount
+In-Reply-To: <20260904065648.4048108-1-runyu.xiao@seu.edu.cn>
+Date: Sun, 06 Sep 2026 17:55:36 +0530
+Message-ID: <o6eay3b3.ritesh.list@gmail.com>
+References: <20260904065648.4048108-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] wifi: p54: validate curve data length in the
- calibration curve converters
-To: Shengzhuo Wei <me@cherr.cc>, Johannes Berg <johannes@sipsolutions.net>
-Cc: "David S. Miller" <davem@davemloft.net>, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260831-p54-pda-validation-v2-0-dae566b388c8@cherr.cc>
- <20260831-p54-pda-validation-v2-1-dae566b388c8@cherr.cc>
- <f3eb0dfe-3b9c-483b-b802-2207fe8b747b@gmail.com> <ap1R0jU3UMVGI3ml@pve>
-Content-Language: de-DE
-From: Christian Lamparter <chunkeey@gmail.com>
-In-Reply-To: <ap1R0jU3UMVGI3ml@pve>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 9/6/26 1:43 PM, Shengzhuo Wei wrote:
-> On 2026-09-06 11:31, Christian Lamparter wrote:
->>> diff --git a/drivers/net/wireless/intersil/p54/eeprom.c b/drivers/net/wireless/intersil/p54/eeprom.c
->>> index 95580921d933..0dc848d77c5e 100644
->>> --- a/drivers/net/wireless/intersil/p54/eeprom.c
->>> +++ b/drivers/net/wireless/intersil/p54/eeprom.c
->>> @@ -414,17 +414,22 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
->>>    }
->>>    static int p54_convert_rev0(struct ieee80211_hw *dev,
->>> -			    struct pda_pa_curve_data *curve_data)
->>> +			    struct pda_pa_curve_data *curve_data, size_t len)
->>>    {
->>>    	struct p54_common *priv = dev->priv;
->>>    	struct p54_pa_curve_data_sample *dst;
->>>    	struct pda_pa_curve_data_sample_rev0 *src;
->>> +	size_t needed = curve_data->channels *
->>> +		(sizeof(*src) * curve_data->points_per_channel + 2);
->>>    	size_t cd_len = sizeof(*curve_data) +
->>>    		(curve_data->points_per_channel*sizeof(*dst) + 2) *
->>>    		 curve_data->channels;
->>>    	unsigned int i, j;
->>>    	void *source, *target;
->>> +	if (len < sizeof(*curve_data) + needed)
->>> +		return -EINVAL;
->>> +
->>
->> Hmm, Puh. Interessting. Several things. But yeah, this should work.
->>
->> Acked-by: Christian Lamparter <chunkeey@gmail.com>
-> 
-> Hi Christian,
-> 
-> Thanks for the review and the Ack.
-> 
->> Still I have some questions: Did you write/touch any of this yourself?
->> Or is this patch straight from the model?
-> 
-> AI found the bug. I wrote the fix myself and used AI to review it
-> afterwards.
->   
->> It's because I can grok (heh) why "needed" ended up as a separate variable next to cd_len.
->> But why was the sizeof(*curve_data) not included there too? It's only used once in the
->> if check so and this sounds like the "needed" needed some extra? Maybe because it was
->> already checked?
-> 
-> I kept sizeof(*curve_data) separate because I was thinking of needed
-> as the input data size without the header. But since it is only used
-> in that check, adding the header there too would be simpler.
-> 
-> Would you like me to send a v3 that makes just this change in both
-> converters?
+Runyu Xiao <runyu.xiao@seu.edu.cn> writes:
 
-Well... I think Johannes already added v2 two days ago to wireless + wireless-next.
-<https://git.kernel.org/pub/scm/linux/kernel/git/wireless/wireless.git/commit/?id=ce858fa6b8a214dee5adb82358885fa024cdd887>
+> __ext4_fill_super() arms s_err_report when the on-disk error count is
+> nonzero. If a later mount step fails, the failed-mount cleanup path uses
+> timer_delete_sync() before freeing sbi.
+>
+> print_daily_error_info() rearms the timer when s_err_report_sec is nonzero,
+> so timer_delete_sync() does not prevent the timer from being queued again.
+> The rearmed callback can then access sbi after the failed mount has freed
+> it.
+>
+> Use timer_shutdown_sync() for failed-mount cleanup. This matches the normal
+> unmount path and prevents the timer from being rearmed before sbi is freed.
+>
 
-So: 🤷. I don't think you need to bother with making/sending a v3.
+Did you hit any issue here? Sure timer_shutdown_sync() is safer variant
+against a mod_timer() call by someone later, but I don't see what is the
+issue here (maybe I am missing something).
+I don't see why timer_delete_sync() on a failed unmount is not safe? The
+mount itself has failed so there are not a lot of things which can cause
+anything to trigger mod_timer() later? Do you have any example call
+stack where we can hit this issue?
 
-Cheers,
-Christian
+
+OTOH, I think we might have a problem in function err_report_sec_store()
+though. It seems disabling the timer has a bug, since we are only
+calling timer_delete_sync() there but we never make
+sbi->s_err_report_sec = 0.
+The comment says, 0 should disable the timer but seems it is not really
+disabling it. Reading s_err_report_sec back is returning non-zero and if
+we try to set the same value again - the timer is not re-started either.
+
+	/* timeout in seconds for s_err_report; 0 disables the timer. */
+	unsigned long s_err_report_sec;
+
+Also, looking into ext4_update_super(), I think even the first error
+doesn't re-arm the timer because of the wrong check.
+
+		/*
+		 * Start the daily error reporting function if it hasn't been
+		 * started already and sbi->s_err_report_sec is not zero
+		 */
+		if (!es->s_error_count && !sbi->s_err_report_sec)
+			mod_timer(&sbi->s_err_report,
+					  jiffies + secs_to_jiffies(sbi->s_err_report_sec));
+		le32_add_cpu(&es->s_error_count, sbi->s_add_error_count);
+
+I guess that problem could be due to commit [1]
+[1]:  d518215c2719 ("ext4: add sysfs attribute err_report_sec to control s_err_report timer")
+
+Seems like multiple issues in there. Care to look at that path too?
+
+-ritesh
+
+> Fixes: 66e61a9e9504 ("ext4: Once a day, printk file system error information to dmesg")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+> ---
+>  fs/ext4/super.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+> index bca0dc87d..154e00901 100644
+> --- a/fs/ext4/super.c
+> +++ b/fs/ext4/super.c
+> @@ -5809,7 +5809,7 @@ failed_mount8: __maybe_unused
+>  	/* flush s_sb_upd_work before sbi destroy */
+>  	flush_work(&sbi->s_sb_upd_work);
+>  	ext4_stop_mmpd(sbi);
+> -	timer_delete_sync(&sbi->s_err_report);
+> +	timer_shutdown_sync(&sbi->s_err_report);
+>  	ext4_group_desc_free(sbi);
+>  failed_mount:
+>  #if IS_ENABLED(CONFIG_UNICODE)
+> -- 
+> 2.34.1
