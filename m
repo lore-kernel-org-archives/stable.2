@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C93339360;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5261833B6DA;
 	Sun,  6 Sep 2026 01:45:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788659150; cv=none; b=o4nmcS+ZtfOzChEKTl4ED4CNRAhW5bhAhwLgUgaPBMPuvqm/6fnUMjXqrwzuS+FwOSsuYIaMFUOsesmSBnlHpqrUtXX1i9jFp8kcVCc6ggenqSj5pVM8CVhHzc6UObu4KpUD/iXuyLT67zRGwLwKleAsShBwk+p5GIYSiUp6EKE=
+	t=1788659151; cv=none; b=MLB97btc5KQwaHGuJFIyBz2RH82ilrwFYlKRAY3u1KtEPyeIcwSH9F2U6Vu8BSNs2BU9sF5MGGfYfQH0VzAgqfKhHnvU7N0nsBbi/X7B0Kug4QRRnia1+OVPpGSSW7QAngEZ2OwJu4TJal7lOymB8R63LDwpxMu4jpA4HDuCqrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788659150; c=relaxed/simple;
-	bh=C/nmJqIpj9Qo37/aXuKCkckjdqnuKl5TtqMJGfAZ+xQ=;
+	s=arc-20240116; t=1788659151; c=relaxed/simple;
+	bh=Qhe8iKJL1KONTtWn+bZJUW9hzqDn7ddhvHht6YcFZAQ=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type; b=qR5irosOVj/Tk60jXOqbcvM6g4gdFkQn3XXBdTNy6A2DMfvvyzvD7iO3jzFDWO3GmP0MSiwU+JENWO2NWL5ySQswlTcS8amqR2BGTo8Hf41smeFR6KTEGnwTTaTfKPu4cZaw2cDg1hFAzyt5BvPaaXlGuvzhjoJ8lMENQYFdqhY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RLM3gb75; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type; b=fWxPp0vF97HidktO/B8Ri1dnrfwACC4NNyPTmJiEGp1k28001iEbAMc39NHW+drgky7/RsI/FbjaQpzxc+etlgOxE33hExVCQ/8XPfaNclXiaBOIr1OVKW4axL2oQYrohnchC1u426CjxjownNNHuqrHO+O7P8WZTxMsxCp/KAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K8OfkdAu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RLM3gb75"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB24E1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K8OfkdAu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE95C1F00AC4;
 	Sun,  6 Sep 2026 01:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788659146;
-	bh=1YUfvz1vxFFyEzl/5JjQa4kmCbP460iPGSkmlkg4LKw=;
+	s=k20260515; t=1788659147;
+	bh=VE72MNcUzceeZKE8KO67OwSgR318FFvhmYWi2dpqdhY=;
 	h=Date:From:To:Cc:Subject:References;
-	b=RLM3gb75wzxVOTSCnMP+qtU5rsiimXs8pYQr1Whjn4irfmDhddu2ECi0I803xPY5b
-	 ZTNMWJE5C/Ml+FZkJK5kNE/6v/aQo+lWhJaeYAfrg4mmodaDAj0NR96rCmNqujiFz6
-	 B+SOoJfHakTD2u8In3mBd/I8noWyTzDlFOlYU7kmsETMXbm6Kx8iLFYONaqbBoXukj
-	 iXXxKVaCo/WdOgWZta7VaaGFnAdufrO5s6J0YAejqcT5aR1ViwRohRVYCljQhtJGW/
-	 DyhH8rNhhpWJ5QymaXiPsJuaeBxlc7J0LhP6nwnKXuzf7w6Y5SZnuWWZo2q162pzcY
-	 2JOKQ6eltmvpw==
+	b=K8OfkdAu+fqwXPGbMkaApPLQU9Cc1a5cWRQESrw6W6GceJgrYgKV+nL2GHyZJcawL
+	 VReKoPVUeVcThhI4swVYqn6SGi9C1+hIUUag3O/bHv5kzJ+W+hsV81ZC4iZ8DiGmiD
+	 m/s+4xuK6LLAHjVjib8KCGHByOxG+aMcPhNODyxWU0Oa6Ddf9SyGvSglp4dXMwiHLE
+	 TGRZuHBq8DzdieKRjwEEvQPr71ZGuS7bjL6t5gA6yc82Nqkbr4V9r025ijEZEd/vU/
+	 +LxViO3FZt42oPAHXIEtKzPWkixnbDzOGmAmKk67imsXFcBY5bzf9EXIgXI/+Aqzpl
+	 tQFU3CPnOt9Vw==
 Received: from rostedt by gandalf with local (Exim 4.99.4)
 	(envelope-from <rostedt@kernel.org>)
-	id 1x31yB-00000006POB-2K8D;
+	id 1x31yB-00000006PP9-3eja;
 	Sat, 05 Sep 2026 21:46:55 -0400
-Message-ID: <20260906014655.400756978@kernel.org>
+Message-ID: <20260906014655.737656886@kernel.org>
 User-Agent: quilt/0.69
-Date: Sat, 05 Sep 2026 21:45:33 -0400
+Date: Sat, 05 Sep 2026 21:45:35 -0400
 From: Steven Rostedt <rostedt@kernel.org>
 To: linux-kernel@vger.kernel.org
 Cc: Masami Hiramatsu <mhiramat@kernel.org>,
@@ -41,8 +41,8 @@ Cc: Masami Hiramatsu <mhiramat@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Vincent Donnefort <vdonnefort@google.com>,
  stable@vger.kernel.org,
- Breno Leitao <leitao@debian.org>
-Subject: [for-linus][PATCH 02/12] ftrace: Take trace_array reference before accessing its ftrace_ops
+ sashiko-bot@kernel.org
+Subject: [for-linus][PATCH 04/12] tracing: Take trace_array reference when opening options file
 References: <20260906014531.720267751@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -54,248 +54,119 @@ Content-Type: text/plain; charset=UTF-8
 
 From: Steven Rostedt <rostedt@goodmis.org>
 
-The trace instance files set_ftrace_filter and set_ftrace_notrace was
-updated to work with specific trace instances (trace_arrays). The issue is
-that when these files are opened, there is a small race window where it
-will use the ftrace_ops from the inode->private pointer to get a reference
-to the trace_array and then take its reference. The problem is that the
-ftrace_ops itself could be freed. If the rmdir on the instance happens at
-the same time the set_ftrace_filter file is opened, the rmdir could have
-also freed the ftrace_ops and referencing it will cause a use-after-free
-bug and crash the kernel.
+The options files do not take the trace_array reference for the options
+they represent. This could cause a use-after-free kernel crash if one of
+these files is opened by one task and another task removes the instance
+that the option is for. Because it doesn't take a reference upon opening,
+it will not stop the removal which will free the options descriptor that
+is being used.
 
-Instead, pass in the trace_array as the file private data (NULL for the
-top level instance), and then pass both the trace_array and the ftrace_ops
-to the ftrace_regex_open() function. If the trace_array is NULL, then it
-just uses the ftrace_ops without the need to take its reference (like
-normal). If the ftrace_ops is NULL, that is only the case for the top
-level instance and the global_ops can be used.
+As the options are somewhat dynamic in their creation at boot up, each
+file represents a flag in the trace_array. The trace_array has an array of
+indexes to represent each of these flags that is stored in the
+trace_flags_index array. The address of the index array element is used to
+pass to the inode->i_private pointer. Then that element is read which
+holds the index (which represents the flag) and then the index is used to
+calculate the trace_array descriptor from its trace_flags_index array.
 
-This allows the trace_array to have its reference incremented before
-touching the ftrace_ops that could also be freed when the instance is.
+One issue is that the index element can not be referenced until the
+trace_array's reference is taken. To handle this, create a new helper
+function called: trace_array_options_get() that will iterate all the
+existing trace_arrays in the ftrace_trace_arrays list (under the
+trace_types_lock), and compare the passed in address of the index element
+with the entire array of the trace_array's trace_flags_index array.
+If it matches, then up the corresponding trace_array's reference and
+return.
 
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260828223901.29e26edb@robin
-Fixes: 591dffdade9f0 ("ftrace: Allow for function tracing instance to filter functions")
-Reported-by: Breno Leitao <leitao@debian.org>
-Tested-by: Breno Leitao <leitao@debian.org>
-Closes: https://lore.kernel.org/all/apGORjltZgAiAYHT@gmail.com/
+Link: https://patch.msgid.link/20260902121918.5a9e9d1b@gandalf.local.home
+Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 ---
- include/linux/ftrace.h         |  5 +--
- kernel/trace/ftrace.c          | 57 ++++++++++++++++++++++------------
- kernel/trace/trace.h           |  5 +--
- kernel/trace/trace_functions.c |  2 +-
- kernel/trace/trace_stack.c     |  2 +-
- 5 files changed, 45 insertions(+), 26 deletions(-)
+ kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 63 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/ftrace.h b/include/linux/ftrace.h
-index 02bc5027523a..bd76a16a63af 100644
---- a/include/linux/ftrace.h
-+++ b/include/linux/ftrace.h
-@@ -866,8 +866,9 @@ unsigned long ftrace_get_addr_new(struct dyn_ftrace *rec);
- unsigned long ftrace_get_addr_curr(struct dyn_ftrace *rec);
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index a946e0183fd1..722d0ba2d233 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
  
- extern ftrace_func_t ftrace_trace_function;
-+struct trace_array;
- 
--int ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+int ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file);
- ssize_t ftrace_filter_write(struct file *file, const char __user *ubuf,
- 			    size_t cnt, loff_t *ppos);
-@@ -1077,7 +1078,7 @@ static inline unsigned long ftrace_location(unsigned long ip)
-  * have them defined when ftrace is not enabled, but these
-  * functions may still be called. Use a macro instead of inline.
-  */
--#define ftrace_regex_open(ops, flag, inod, file) ({ -ENODEV; })
-+#define ftrace_regex_open(tr, ops, flag, inode, file) ({ -ENODEV; })
- #define ftrace_set_early_filter(ops, buf, enable) do { } while (0)
- #define ftrace_set_filter_ip(ops, ip, remove, reset) ({ -ENODEV; })
- #define ftrace_set_filter_ips(ops, ips, cnt, remove, reset) ({ -ENODEV; })
-diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index f9d80c7bd9f1..c7cf36f2dd7b 100644
---- a/kernel/trace/ftrace.c
-+++ b/kernel/trace/ftrace.c
-@@ -4677,7 +4677,8 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
- 
- /**
-  * ftrace_regex_open - initialize function tracer filter files
-- * @ops: The ftrace_ops that hold the hash filters
-+ * @tr: The trace_array that holds the ftrace_ops [optional]
-+ * @ops: The ftrace_ops that hold the hash filters [optional]
-  * @flag: The type of filter to process
-  * @inode: The inode, usually passed in to your open routine
-  * @file: The file, usually passed in to your open routine
-@@ -4691,26 +4692,45 @@ ftrace_avail_addrs_open(struct inode *inode, struct file *file)
-  * tracing_lseek() should be used as the lseek routine, and
-  * release must call ftrace_regex_release().
-  *
-+ * Note, If @tr is not NULL, its reference has to be taken before
-+ *       @ops may be referenced.
-+ *       If @ops is NULL and @tr is not, then @tr->ops is used.
-+ *       If @tr is NULL and @ops is not then @ops->private is uesd for @tr.
-+ *       If both @tr and @ops are NULL, then the &global_ops is
-+ *         to be used, and @tr will be the global_ops.private pointer.
++/*
++ * The tr_index is the address of a trace_array->trace_flags_index[]
++ * element that holds the index of the trace flag. But since the
++ * trace_array reference has not been taken yet, it cannot be referenced
++ * as it could have been freed by a rmdir of the instance the trace_array
++ * represents.
 + *
-  * Returns: 0 on success or a negative errno value on failure
-  */
- int
--ftrace_regex_open(struct ftrace_ops *ops, int flag,
-+ftrace_regex_open(struct trace_array *tr, struct ftrace_ops *ops, int flag,
- 		  struct inode *inode, struct file *file)
- {
--	struct ftrace_iterator *iter;
-+	struct ftrace_iterator *iter = NULL;
- 	struct ftrace_hash *hash;
- 	struct list_head *mod_head;
--	struct trace_array *tr = ops->private;
--	int ret = -ENOMEM;
--
--	ftrace_ops_init(ops);
-+	int ret = -ENODEV;
- 
- 	if (unlikely(ftrace_disabled))
- 		return -ENODEV;
- 
-+	if (!tr) {
-+		if (!ops)
-+			ops = &global_ops;
-+		tr = ops->private;
++ * Search the list of trace_arrays and compare the tr_index to the
++ * address of the entire trace_array trace_flags_index array for each
++ * trace_array in the list. If one is matched, then take the reference
++ * and return it. If not, the trace_array no longer exits.
++ */
++static int trace_array_options_get(void *tr_index)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_index >= (void *)&tr->trace_flags_index[0] &&
++		    tr_index < (void *)&tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
++			return __trace_array_get(tr);
 +	}
++	return -ENODEV;
++}
 +
- 	if (tracing_check_open_get_tr(tr))
- 		return -ENODEV;
- 
-+	if (!ops)
-+		ops = tr->ops;
++static int trace_options_open(struct inode *inode, struct file *filp)
++{
++	void *tr_index = inode->i_private;
 +
-+	if (WARN_ON_ONCE(!ops))
-+		goto out;
++	if (trace_array_options_get(tr_index) < 0)
++		return -ENODEV;
 +
-+	ftrace_ops_init(ops);
++	filp->private_data = tr_index;
 +
-+	ret = -ENOMEM;
- 	iter = kzalloc_obj(*iter);
- 	if (!iter)
- 		goto out;
-@@ -4788,21 +4808,19 @@ ftrace_regex_open(struct ftrace_ops *ops, int flag,
- static int
- ftrace_filter_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
- 
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops,
--			FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
--			inode, file);
-+	return ftrace_regex_open(tr, NULL,
-+				 FTRACE_ITER_FILTER | FTRACE_ITER_DO_PROBES,
-+				 inode, file);
- }
- 
- static int
- ftrace_notrace_open(struct inode *inode, struct file *file)
- {
--	struct ftrace_ops *ops = inode->i_private;
-+	struct trace_array *tr = inode->i_private;
- 
--	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_NOTRACE,
-+	return ftrace_regex_open(tr, NULL, FTRACE_ITER_NOTRACE,
- 				 inode, file);
- }
- 
-@@ -7492,15 +7510,15 @@ static const struct file_operations ftrace_graph_notrace_fops = {
++	return 0;
++}
++
++static int trace_options_release(struct inode *inode, struct file *filp)
++{
++	void *tr_index = filp->private_data;
++	struct trace_array *tr;
++	unsigned int index;
++
++	get_tr_index(tr_index, &tr, &index);
++
++	trace_array_put(tr);
++
++	return 0;
++}
++
+ static const struct file_operations trace_options_core_fops = {
+-	.open = tracing_open_generic,
+-	.read = trace_options_core_read,
+-	.write = trace_options_core_write,
+-	.llseek = generic_file_llseek,
++	.open		= trace_options_open,
++	.read		= trace_options_core_read,
++	.write		= trace_options_core_write,
++	.llseek		= generic_file_llseek,
++	.release	= trace_options_release,
  };
- #endif /* CONFIG_FUNCTION_GRAPH_TRACER */
  
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent)
- {
- 
- 	trace_create_file("set_ftrace_filter", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_filter_fops);
-+			  tr, &ftrace_filter_fops);
- 
- 	trace_create_file("set_ftrace_notrace", TRACE_MODE_WRITE, parent,
--			  ops, &ftrace_notrace_fops);
-+			  tr, &ftrace_notrace_fops);
- }
- 
- /*
-@@ -7525,7 +7543,6 @@ void ftrace_destroy_filter_files(struct ftrace_ops *ops)
- 
- static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- {
--
- 	trace_create_file("available_filter_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_avail_fops);
- 
-@@ -7538,7 +7555,7 @@ static __init int ftrace_init_dyn_tracefs(struct dentry *d_tracer)
- 	trace_create_file("touched_functions", TRACE_MODE_READ,
- 			d_tracer, NULL, &ftrace_touched_fops);
- 
--	ftrace_create_filter_files(&global_ops, d_tracer);
-+	ftrace_create_filter_files(NULL, d_tracer);
- 
- #ifdef CONFIG_FUNCTION_GRAPH_TRACER
- 	trace_create_file("set_graph_function", TRACE_MODE_WRITE, d_tracer,
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 74a7a50d1e78..3c111ca88e32 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1340,7 +1340,7 @@ extern void clear_ftrace_function_probes(struct trace_array *tr);
- int register_ftrace_command(struct ftrace_func_command *cmd);
- int unregister_ftrace_command(struct ftrace_func_command *cmd);
- 
--void ftrace_create_filter_files(struct ftrace_ops *ops,
-+void ftrace_create_filter_files(struct trace_array *tr,
- 				struct dentry *parent);
- void ftrace_destroy_filter_files(struct ftrace_ops *ops);
- 
-@@ -1363,11 +1363,12 @@ static inline void clear_ftrace_function_probes(struct trace_array *tr)
- {
- }
- 
-+static inline void ftrace_create_filter_files(struct trace_array *tr,
-+					      struct dentry *parent) { }
- /*
-  * The ops parameter passed in is usually undefined.
-  * This must be a macro.
-  */
--#define ftrace_create_filter_files(ops, parent) do { } while (0)
- #define ftrace_destroy_filter_files(ops) do { } while (0)
- #endif /* CONFIG_FUNCTION_TRACER && CONFIG_DYNAMIC_FTRACE */
- 
-diff --git a/kernel/trace/trace_functions.c b/kernel/trace/trace_functions.c
-index cd37f2013758..c879d43a5fbb 100644
---- a/kernel/trace/trace_functions.c
-+++ b/kernel/trace/trace_functions.c
-@@ -101,7 +101,7 @@ int ftrace_create_function_files(struct trace_array *tr,
- 		return ret;
- 	}
- 
--	ftrace_create_filter_files(tr->ops, parent);
-+	ftrace_create_filter_files(tr, parent);
- 
- 	return 0;
- }
-diff --git a/kernel/trace/trace_stack.c b/kernel/trace/trace_stack.c
-index 0aa2514a6593..e7f4e523587d 100644
---- a/kernel/trace/trace_stack.c
-+++ b/kernel/trace/trace_stack.c
-@@ -499,7 +499,7 @@ stack_trace_filter_open(struct inode *inode, struct file *file)
- 	struct ftrace_ops *ops = inode->i_private;
- 
- 	/* Checks for tracefs lockdown */
--	return ftrace_regex_open(ops, FTRACE_ITER_FILTER,
-+	return ftrace_regex_open(NULL, ops, FTRACE_ITER_FILTER,
- 				 inode, file);
- }
- 
+ struct dentry *trace_create_file(const char *name,
 -- 
 2.53.0
 
