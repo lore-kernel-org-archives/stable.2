@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CCA3603D3
-	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B21D3C3792
+	for <stable@vger.kernel.org>; Sun,  6 Sep 2026 13:33:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788701607; cv=none; b=uIOhmCuRERBX45yWUwBMeONCvFUZht5eoQl8mbpE1iJM+L7IGYrMkX7t9hXLmQaLYEJK5UJLwqGaQJeULNI8qYdHDl7zdI6T3JoxdYjnfEYCsndPXdXi0FoDN8XMn5L06WQavQJKrqh9kPlGOorbH7eEEYTYbm5P+ywsghj2Ao4=
+	t=1788701608; cv=none; b=FFFaejfjy2+eN4XOPzW22QCirDxY2t4q4mjXsQmiozN6nU6CVcKF8DXNBvq0g7nihMQEZHv9JLMCpHkaoH674388zfpxSK9zJnhvGd8tK3md0esBQ1NtEG83ME03ydpvufuyOccc9g4+/BBSIrvjXzNgSc4yNnodxF+gw21SCJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788701607; c=relaxed/simple;
-	bh=cOs8/NOoRvXbIxS78c3xYjfHsEYBCmhw3FG1x55cmew=;
+	s=arc-20240116; t=1788701608; c=relaxed/simple;
+	bh=moZlJPRdbPRqgwwbm5qOOsxNbEHNA8s5FHMl9UUT5LE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SXttP1rZX9YFRHvy/xIttOXatwxZewrSHeVKofxh1v4rEiz5wTIta1Jb3RuhI9FZ3Mg2Q5QeUBjkzDH3zz3rFIu8HqpGiUUAJX1r56FqhpZK8FwBi9cM1HME4AQuG8/VYfxCOBhkGi/oZLxIrG+Ezxu4qEZGCwsCD9OnZo++Dyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WfamMpCN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Qqvp2M1D38RmrfDOlihupna1jVMyuQYx1sSxaKIhpVCChk7wM8GwLDsKGC25a/NLFv9N0fP9mXfZeDI23YxebdQyFfHpAeY4pyfa6haO71nt1wKUAhNkNQZW20Nhks85EqivBCXeDQUl96M3Bto84ElqSDn22k09UXLj7ikptdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OA6IIMtT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WfamMpCN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7319C1F00A3A;
-	Sun,  6 Sep 2026 13:33:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OA6IIMtT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ED9B1F00A3E;
+	Sun,  6 Sep 2026 13:33:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788701606;
-	bh=+HnOf04lAg34+y2nbEAaUwVSTqN24QXw4EKTvbN+wCM=;
+	s=k20260515; t=1788701607;
+	bh=EZ7GDXh1xOKs8ZMB0FM/TmB3Q4lr/NfGiO7IRpH3cok=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WfamMpCNnM7T9JvVx7cuXhna7YK54cDyO/kzQovDNfFhKeibOD7PxAg3D9/boGyK7
-	 45bEHtb6u/UNwrz1z2HHad+sNKIey+soegFRVbaViaCGNB3JJ91OtAsYo8Xj9e7RJD
-	 QxMqrLOiYAuofiybJItFPGJHckkimv6L1dTqFF9dY2+VwkmFO6GmSAjWmAVWmydK+n
-	 +FUVSm8k7hpeivwfkFKQVRrsAU05LHpm7Y0MyfPd4rRKFXqCxRxUNYoMkgDWz/a7Wl
-	 9QF9njRwUyZRJ00puoH1eQ/LriU4ZdFqEkRjL6sH/tgCmtRjvIW712ryqzSEV8eJTr
-	 ZFTcmv2TFGf8Q==
+	b=OA6IIMtT39Fn9SaPduprJbpO7ilkhJ5YJlNn8CfwKBhuJsKUJJ1vtMQ1TPO+AoEuJ
+	 tD8IyuLQ5EZrfwZ38ZqJh5TG9KVsdBwsxtfM/308dMPGd5XgZ1XDOw09y77UKOP9V5
+	 Oz+DJ5K0mlwANIdgATnuiHK8wpUaFw8+EOvye8kBuMYENhQNmeusMwATRzuiKC+nOt
+	 kJbr5vgRD201bJ3OzZwqtR6s39jahfwJ9rol+jVsC4wYDGip5LL4Uf3K8HVA2c9qKY
+	 4wuMXWCuAp2YXB2xkm0GkjgJ+7sVXSkJnOfPa4GBQRrcgXSJw0O+WRld3ABivHYtRJ
+	 BPISXuAfHNOZw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sonali Pradhan <sonalipradhan@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 5.10.y] usb: gadget: u_audio: Fix use-after-free on sound card disconnect
-Date: Sun,  6 Sep 2026 09:32:31 -0400
-Message-ID: <2026-09-05-daily-reply-0001-usb-gadget-uaudio-uaf-5-10@kernel.org>
+	Norbert Szetei <norbert@doyensec.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Jongmin Jang <payload.jang@gmail.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>
+Subject: Re: [PATCH 5.15.y] net: skbuff: don't touch shared zerocopy state in skb_tx_error()
+Date: Sun,  6 Sep 2026 09:32:32 -0400
+Message-ID: <2026-09-05-daily-reply-0002-skbuff-tx-error-shared-zerocopy-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904094052.592539-1-sonalipradhan@google.com>
-References: <20260904094052.592539-1-sonalipradhan@google.com>
+In-Reply-To: <20260904083936.1801336-1-i.maximets@ovn.org>
+References: <20260904083936.1801336-1-i.maximets@ovn.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,14 +48,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> g_audio_cleanup() invokes snd_card_free_when_closed() to initiate sound
-> card teardown and immediately frees the underlying struct snd_uac_chip
-> context. However, snd_card_free_when_closed() returns asynchronously
-> while ALSA control elements (kctls) remain open in userspace.
->
-> When userspace control applications access or close these open file
+> skb_tx_error() completes the zerocopy uarg and clears
+> SKBFL_ALL_ZEROCOPY, and skb_zcopy_downgrade_managed() clears
+> SKBFL_MANAGED_FRAG_REFS. Both live in skb_shinfo(), which every clone
+> shares, while the caller only owns the reference it is about to drop.
+> Through a clone it tells the producer its pages are free and drops
 
-Queued for 5.10, thanks.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
