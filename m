@@ -1,379 +1,316 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4912745FFAC
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:00:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199C9424D48
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778843; cv=none; b=oT8ONTSMOPESdHyfKn4Pxxtzoyd837CsmOaEIxpj4GVd3dNupEVAbH6iwTJFIH6xFgQcFE44lamRx4ZcSfQ3J4OJO0O6UzjjUmu19FJlMUyaWG5q+5xBrcRDI0w9pRZukWwyqgwmotv+aLQVqNNaZbB13sZpLKjzH6JErKwUMiY=
+	t=1788778857; cv=none; b=fRWKQL6HhmecHlEpAGdgWdUL4SrOqAc2cZM/4D6Ny4enPDiG20Vz44QUJ5IFD4FppsTILKdQqiu0Viszgms4GontmGKRAMAUYp6GuQHVbvCn5iBzfdjXz0/dYZZu9NFnzaZnnVuhYCUCsoFKpPTyg6jxH1zvwffaYH0MZepzRHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778843; c=relaxed/simple;
-	bh=hSbWcPg05KVdFqFuBKVec1C2BhxVnKddy8QAZg8aOrI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lGS1twsiqJ0u1q1IDEBpYjgtTAI9aaCgo8r69zYtQPccBKYuHIOxc4B6TU1adDJbjZLOnsZRfuX1cCwyQCn11CGoCpbFWfW7YJs7Y7EflO3tUmXa//R5xKxOUnjE82ownodFmyAjy2XUgfQUYHtBABinR9Lhc4c/rKVpgTFAIkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=evsmJfSH; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788778857; c=relaxed/simple;
+	bh=yoobYKjOGtZnon27SCY91TYOpxeE4mzqFD6r85CKcU4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rKM9+3LbPSp15pGIB6LE5LgWFB8DTPWEYI0bQG2TEaEIR+RF7qKnU5G004nhUqI5qmpW4DZcm0Fsxiu6pu173jQPfEx+FMEQQOuby2j0Ey6v1esLenU/IjE4HsfyK5XEQet9fdaf/lx3kgUQ+RWQS9LYy7P4rB0PNESDbDWuHGs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=VWTEWPYr; arc=none smtp.client-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="evsmJfSH"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d8fd3b729dso27536595ad.1
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 04:00:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788778840; x=1789383640; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ttp/KYYLgftsnk1qhEW1Mdud2MrrLLmZu152prkmqBo=;
-        b=evsmJfSHYFDl6KRTE+Aei04GvMLkjz9GDUgp/KAl+JaeEfq+aV5btcGdy06gPubdAY
-         3kBBgKOJdLbxZFfC2OPxn+CIjjuekKrlagGjjrg9VVy08bhKuGv6d0WLivUAis4r75xI
-         FVA12ymDIh+L9VEL8MBlm63/O4tEI6d/Eijzs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788778840; x=1789383640;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ttp/KYYLgftsnk1qhEW1Mdud2MrrLLmZu152prkmqBo=;
-        b=Vw7LtU+N2Ienbo5xMeBj+UmEvuQ2jYkprcwzdE2uIXd0my4FGX3Kev+6jJUCEA8/Wv
-         Jc/vY9O7rZYIsiq7CpfX4tyBEi5V/WFCyC6oEOL5tyb/yZy9lOvaTFa37vcE7/AqEEn9
-         WV9wV724zhyxc8TaP8HfR1UuHjXPdTDgvR+vR8w1X1pZuxcMzSD08qcOmKDn9FrhN99t
-         JA29AGsqeMH6WSiR3ZjLa8QUYm+V8g0UVOUtT+CBI6EKA+f2jGYe4tLvDKPlMEs58Vem
-         nW8/vW+AgbDMZ661sEU56g+nPuGAMQwlBsjAdThPqUquwYxVIth+Vzslix1z3xxG/xV9
-         v1tw==
-X-Forwarded-Encrypted: i=1; AKwUvBzSmwLl5wBr2V/n+OJO6bc/M9yHzsUYPzEsVcZZ96yAsSEQ00frCt8JfuWuUUAKK+W4QKlxDuI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZadJ7fhe3oGGkBZABwZQZPuWuyMjfYFmA6riA8chaJ484uwaX
-	Tf0QABzYmd/KzHHmsK5Q8zvplhHoHMZr5SGKsv8pgiZVv/c0pFooBUbIFT4rGgLETM5V2AgcvXL
-	e/dGhnQ==
-X-Gm-Gg: AYBFou2BOVQV11dnExvmH5tqfI9mzXtV7dNrggKoCUMTsIHR+y320rZAoPCdwP9HxiJ
-	m70o5twbY7AWLFrREc7x80D5FksnHN263IjTRkDiBizo0JH1JzuqqngtBIq3FHjOchvvsb0GwNe
-	RabhqK1XgUClyCWz6OEw4doc6IMOeeyNCmJYEeJDPP43UhsaOunW2jPF0XyUwtXh0iAnpfifkXN
-	69iBwWFZGDCfXOgXYDJEHxQlcAGsjHWT7fyw+jq7CwAOYkXvZUJ74MujJa3rSa8dCqWZOhsp91s
-	g9Lu+hgNbsv2bJyAMuO+vGwmwfRNSJRKyJ8ezWSAmjhv6znOtZ27RiJ0rP/gedYbn0xcWa+eKHx
-	kINBzNQGI82VYrHpdgBdq+H/KHYVVI8F1S2hIoOTfRkjiS3LrCVD6GRM36lSoA9LwrANO+r/HBh
-	Ai9uelfltIWHgiAu9V4jWgC6Xz7RDqBxlqg+UHdPTZfdEgoZOfMMLpyecIcg9NpXTjsr5xR+4Ii
-	MWS1AZOw6QBM7WRaYo1C70Blw==
-X-Received: by 2002:a17:903:3810:b0:2d6:3c22:99bf with SMTP id d9443c01a7336-2db124afcefmr343214825ad.9.1788778840214;
-        Mon, 07 Sep 2026 04:00:40 -0700 (PDT)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com. [209.85.216.42])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm44033155ad.63.2026.09.07.04.00.39
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 04:00:39 -0700 (PDT)
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39266382df6so2585889a91.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 04:00:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBziQJs/nksok9K8e1HMjJWv5z67obB6zyGMaApYXK81n/gvlH+4fSCc2BBgbhGxeVyYLYPgI7U=@vger.kernel.org
-X-Received: by 2002:a17:90b:4d85:b0:37d:f206:a2ac with SMTP id
- 98e67ed59e1d1-39b2617abf0mr33879466a91.7.1788778837689; Mon, 07 Sep 2026
- 04:00:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="VWTEWPYr"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yoobYKjOGtZnon27SCY91TYOpxeE4mzqFD6r85CKcU4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788778852; v=1; x=1789383652;
+ b=VWTEWPYriHE8ZCMELZtcIwNifpbJUQeMeG9YsAfOY6b2w0BieQTwDMlJAQcucP0K7CxyErd+
+ WCoHuvX7Ct7a+8I8tussIDCq0u5m/YEIO9i7Es+riYvqXXUHfXHGIjcDEXAe4deHNt+tRQfO6gG
+ 7boziFjtdGvQw4F55toVQFGA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id eccf057a93439051;
+	Mon, 07 Sep 2026 11:00:41 +0000
+X-Mizu-Trace-ID: eccf057a93439051
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b00822a4-87ce-47d7-ba63-21a7b99980af@linux.dev>
+Date: Mon, 7 Sep 2026 12:00:37 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903131141.6368-1-huhb1@xiaopeng.com> <20260903141532.6693-1-huhb1@xiaopeng.com>
- <CANiDSCuxtH1wbXAwoWrbV6Y97dN3Ym-A2zSbkEpLVEGFToXLfg@mail.gmail.com> <CAEN5SX-wJO0b+uMufCpQCDXCaiHGaucAE+t7ahLTtbtNFyop7Q@mail.gmail.com>
-In-Reply-To: <CAEN5SX-wJO0b+uMufCpQCDXCaiHGaucAE+t7ahLTtbtNFyop7Q@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 7 Sep 2026 13:00:23 +0200
-X-Gmail-Original-Message-ID: <CANiDSCup31OTP-5WEDn8AMrFiidJfWFCNEp+FhpHQjN57-16_w@mail.gmail.com>
-X-Gm-Features: AcwNN1W9-U8mY4AEQJHpdqp1e0wOFY5D0ghBJlMwS6FiBhL70-ervQyzAw3j7wY
-Message-ID: <CANiDSCup31OTP-5WEDn8AMrFiidJfWFCNEp+FhpHQjN57-16_w@mail.gmail.com>
-Subject: Re: [PATCH v2] media: uvcvideo: defer cancelled buffer completion
- until copies finish
-To: =?UTF-8?B?6IOh5rSq5YW1?= <huhb04@gmail.com>
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-On Mon, 7 Sept 2026 at 05:23, =E8=83=A1=E6=B4=AA=E5=85=B5 <huhb04@gmail.com=
-> wrote:
->
-> Hi Ricardo,
-> Sorry for the late reply and thanks for your review.
-> The issue is exactly as you described.
->
-> Ricardo Ribalda <ribalda@chromium.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=884=
-=E6=97=A5=E5=91=A8=E4=BA=94 21:00=E5=86=99=E9=81=93=EF=BC=9A
->>
->> Hi Hongbing
->>
->> Let me rewrite the commit message for me, because it took me a while
->> to understand what was going on. (totally on me). Please correct me if
->> I miss-understood the issue.
->>
->> The UVC driver processes frames in urbs. A frame usually is divided in
->> multiple urbs. The urb handler parses the header and the metadata, but
->> leaves the expensive memcpy to a workqueue.
->>
->> At any given moment, during streamon we will have:
->> - the current frame with (0-N) async memcpys waiting to happen. The
->> current frame is in queue->irqqueue. It has a refcnt of 1 + N memcpy
->> - Previous frames with (N) async memcpys waiting to happen. They are
->> not in queue->irqqueue. They have a refcnt of N memcpy
->>
->> With the current behaviour, when there is urb with an error we flush
->> the queue->irqque() irrespetively if they have any pending memcpys.
->>
->> There can be situations where the memcpy occurs after we have flushed
->> the frames and they are returned to the user. Instead, we should
->> exploit the refcnt mechanism to return the frames only after the
->> memcpys have been completed.
->>
->> This patch does so
->>
->> On Thu, 3 Sept 2026 at 16:33, Hongbing Hu <huhb04@gmail.com> wrote:
->> >
->> > From: Hongbing Hu <huhb04@gmail.com>
->> >
->> > uvc_queue_cancel() returns queued buffers to videobuf2 directly via
->> > vb2_buffer_done(). This is unsafe because asynchronous memcpy workers =
-may
->> > still hold a reference on the same uvc_buffer. Once vb2_buffer_done() =
-has
->> > run, userspace can dequeue and requeue the buffer while the old worker=
- is
->> > still running, leading to the same list_head being inserted into irqqu=
-eue
->> > twice and corrupting the list.
->> >
->> > The crash manifests in two ways depending on the drop-corrupted-frames
->> > module parameter:
->> >
->> > 1. With the drop corrupted frames enabled, the old worker's
->> >    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error=
- set,
->> >    and calls uvc_queue_buffer_requeue(). This performs list_add_tail()=
- on
->> >    buf->queue even though userspace has already QBUF'd the same buffer=
- and
->> >    added it to irqqueue.
->> >
->> > 2. With nodrop=3D1, uvc_queue_buffer_complete() calls vb2_buffer_done(=
-) a
->> >    second time. If userspace has already dequeued and requeued the buf=
-fer,
->> >    the second completion exposes it to userspace again, and the next
->> >    DQBUF/QBUF inserts the still-linked list_head into irqqueue a secon=
-d
->> >    time.
->> >
->> > Both cases produce the kind of list_del corruption seen here:
->> >
->> >     list_del corruption. next->prev should be ..., but was ...
->> >     kernel BUG at lib/list_debug.c:64!
->> >
->> > Fix the cancel path to remove buffers from irqqueue and drop the queue=
-'s
->> > reference through uvc_queue_buffer_release() (i.e. kref_put()). The fi=
-nal
->> > VB2 completion then only happens from uvc_queue_buffer_complete() once=
- the
->> > last async reference is released, so userspace cannot reuse the buffer
->> > while an old worker still accesses it.
->> >
->> > A buffer whose state is already UVC_BUF_STATE_ERROR is forced to compl=
-ete
->> > as an error and must not be requeued by the corrupted-frame policy. No=
-rmal
->> > malformed frames are still requeued/dropped as before.
->> >
->> > Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buf=
-fer handling")
->> > Cc: stable@vger.kernel.org
->> > Signed-off-by: Hongbing Hu <huhb04@gmail.com>
->> > ---
->> > v2: corrected author real name in From/SOB per maintainer feedback
->> >
->> >  drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
->> >  1 file changed, 28 insertions(+), 2 deletions(-)
->> >
->> > diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc=
-/uvc_queue.c
->> > index 3c002c8f44..9206e0a355 100644
->> > --- a/drivers/media/usb/uvc/uvc_queue.c
->> > +++ b/drivers/media/usb/uvc/uvc_queue.c
->> > @@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream,=
- struct uvc_video_queue *queue,
->> >   */
->> >  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->> >  {
->> > +       struct uvc_buffer *buf, *next;
->> > +       struct list_head local_list;
->> >         unsigned long flags;
->> >
->> > +       INIT_LIST_HEAD(&local_list);
->> > +
->> >         spin_lock_irqsave(&queue->irqlock, flags);
->> > -       __uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
->> > +       while (!list_empty(&queue->irqqueue)) {
->> > +               buf =3D list_first_entry(&queue->irqqueue, struct uvc_=
-buffer, queue);
->> > +               list_del(&buf->queue);
->> > +               buf->state =3D UVC_BUF_STATE_ERROR;
->> > +               list_add_tail(&buf->queue, &local_list);
->> > +       }
->> >         /*
->> >          * This must be protected by the irqlock spinlock to avoid rac=
-e
->> >          * conditions between uvc_buffer_queue and the disconnection e=
-vent that
->> > @@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *que=
-ue, int disconnect)
->> >         if (disconnect)
->> >                 queue->flags |=3D UVC_QUEUE_DISCONNECTED;
->> >         spin_unlock_irqrestore(&queue->irqlock, flags);
->>
->>
->> I *think* that you do not need to call uvc_queue_buffer_release
->> outisde spin_unlock_irqrestore(). You could do it
->> inside the previous while() and simplify the code.
->>
->> The only way to deadlock is  if uvc_queue_buffer_requeue() is called
->> and you are actively blocking that in your next snippet.
->>
->> I would recommend to add a comment in uvc_queue_buffer_complete if you
->> go that way.
->
-> OK=EF=BC=8C good idea=E3=80=82
-> I checked the code again.
-> Reusing `buf->state` might make the code look a little confusing. Would i=
-t be better to add a new member "buf->cancelled"? For example, modify it li=
-ke this:
-> vc_queue_cancel()=EF=BC=9Abuf->cancelled =3D true; buf->error =3D 1;uvc_q=
-ueue_buffer_release(buf);
-> uvc_buffer_prepare()=EF=BC=9Abuf->cancelled =3D false;
-> uvc_queue_buffer_complete: !buf->cancelled && buf->error && !nodrop
->
-> What do you think of this change? Thanks!
-
-
-Both approaches work for me. I have no strong preference for one or
-the other. Lets wait for Laurent or Hans. They might think otherwise.
-
->
-> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uv=
-c_queue.c
-> index 3c002c8f44..1026d7def3 100644
-> --- a/drivers/media/usb/uvc/uvc_queue.c
-> +++ b/drivers/media/usb/uvc/uvc_queue.c
-> @@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
->
->   buf->state =3D UVC_BUF_STATE_QUEUED;
->   buf->error =3D 0;
-> + buf->cancelled =3D false;
->   buf->mem =3D vb2_plane_vaddr(vb, 0);
->   buf->length =3D vb2_plane_size(vb, 0);
->   if (vb->type !=3D V4L2_BUF_TYPE_VIDEO_OUTPUT)
-> @@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, st=
-ruct uvc_video_queue *queue,
->   */
->  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
->  {
-> + struct uvc_buffer *buf;
->   unsigned long flags;
->
->   spin_lock_irqsave(&queue->irqlock, flags);
-> - __uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-> + while (!list_empty(&queue->irqqueue)) {
-> + buf =3D list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-> + list_del(&buf->queue);
-> + buf->error =3D 1;
-> + buf->cancelled =3D true;
-> + uvc_queue_buffer_release(buf);
-> + }
->   /*
->   * This must be protected by the irqlock spinlock to avoid race
->   * conditions between uvc_buffer_queue and the disconnection event that
-> @@ -356,7 +364,12 @@ static void uvc_queue_buffer_complete(struct kref *r=
-ef)
->   struct vb2_buffer *vb =3D &buf->buf.vb2_buf;
->   struct uvc_video_queue *queue =3D vb2_get_drv_priv(vb->vb2_queue);
->
-> - if (buf->error && !uvc_no_drop_param) {
-> + /*
-> + * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-> + * errors. They must not be requeued by the corrupted-frame policy even
-> + * when buf->error is set.
-> + */
-> + if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
->   uvc_queue_buffer_requeue(queue, buf);
->   return;
->   }
-> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvc=
-video.h
-> index b6bcee4a22..1b611715fa 100644
-> --- a/drivers/media/usb/uvc/uvcvideo.h
-> +++ b/drivers/media/usb/uvc/uvcvideo.h
-> @@ -317,6 +317,7 @@ struct uvc_buffer {
->
->   enum uvc_buffer_state state;
->   unsigned int error;
-> + bool cancelled;
->
->   void *mem;
->   unsigned int length;
-> --
-> 2.34.1
->
->> > +
->> > +       /*
->> > +        * Release the queue-owned kref outside the irqlock. The final=
- VB2
->> > +        * completion only happens from uvc_queue_buffer_complete() on=
-ce all
->> > +        * asynchronous copy references have been released, preventing=
- userspace
->> > +        * from reusing the buffer while an old worker still accesses =
-it.
->> > +        */
->> > +       list_for_each_entry_safe(buf, next, &local_list, queue) {
->> > +               list_del(&buf->queue);
->> > +               uvc_queue_buffer_release(buf);
->> > +       }
->> >  }
->> >
->> >  /*
->> > @@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref=
- *ref)
->> >         struct vb2_buffer *vb =3D &buf->buf.vb2_buf;
->> >         struct uvc_video_queue *queue =3D vb2_get_drv_priv(vb->vb2_que=
-ue);
->>
->> If we called uvc_queue_cancel() buf->error is not 1, but the frame is
->> not complete.
->>
->> You cannot return VB2_BUF_STATE_DONE in that situation. I think you
->> should set buf->error =3D1 inside uvc_queue_cancel
->>
->> >
->> > -       if (buf->error && !uvc_no_drop_param) {
->> > +       /*
->> > +        * Buffers cancelled from uvc_queue_cancel() are forced to com=
-plete as
->> > +        * errors. They must not be requeued by the corrupted-frame po=
-licy even
->> > +        * when buf->error is set.
->> > +        */
->> > +       if (buf->state !=3D UVC_BUF_STATE_ERROR &&
->> > +           buf->error && !uvc_no_drop_param) {
->> >                 uvc_queue_buffer_requeue(queue, buf);
->> >                 return;
->> >         }
->> > --
->> > 2.34.1
->> >
->> >
->>
->>
->> --
->> Ricardo Ribalda
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] mm/zswap: enable static key after runtime pool
+ recovery
+To: Yosry Ahmed <yosry@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Longlong Xia <xialonglong2025@163.com>, hannes@cmpxchg.org,
+ nphamcs@gmail.com, chengming.zhou@linux.dev, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Longlong Xia <xialonglong@kylinos.cn>, Alexandre Ghiti <alexghiti@fb.com>
+References: <20260905125101.2970456-1-xialonglong2025@163.com>
+ <20260905160926.9836f2ca0dc977b89f2f146e@linux-foundation.org>
+ <CAO9r8zPhMw=2+wyRYwbBS4As-zNbVnkcT3Y2ppqLo1AxPzaTAQ@mail.gmail.com>
+Content-Language: en-US
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <CAO9r8zPhMw=2+wyRYwbBS4As-zNbVnkcT3Y2ppqLo1AxPzaTAQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
 
---=20
-Ricardo Ribalda
+On 06/09/2026 10:19, Yosry Ahmed wrote:
+> On Sat, Sep 5, 2026 at 4:09 PM Andrew Morton <akpm@linux-foundation.org> wrote:
+>>
+>> On Sat,  5 Sep 2026 20:50:28 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
+>>
+>>> From: Longlong Xia <xialonglong@kylinos.cn>
+>>>
+>>> When CONFIG_ZSWAP_DEFAULT_ON is disabled, zswap_setup() can complete
+>>> without a pool after a failed initial pool creation. A later compressor
+>>> parameter update can create and publish a pool, but does not enable
+>>> zswap_ever_enabled.
+>>>
+>>> If users then enable zswap, zswap_store() intercepts swapout while
+>>> zswap_load() still returns -ENOENT without consulting the xarray. The
+>>> swapin path therefore reads a stale backing swap slot because the store
+>>> skipped writing it.
+>>
+>> That sounds bad.  I'll leave it to reviewers to suggest whether this is
+>> a sufficient description of the runtime effects, and to decide whether
+>> a backport is appropriate.  Please.
+> 
+> Yes this needs a stable backport AFAICT.
+> 
+> A more high-level description would be:
+> 
+> If zswap is enabled by default at boot and pool creation fails, then a
+> pool is later created by updating the compressor, data written to
+> zswap is corrupted on swapin.
+> 
+>>
+>>> Enable the static key after a successful compressor and pool update. Do
+>>> this outside zswap_pools_lock because static key updates may sleep.
+>>>
+>>> Verified with fault injection on a stock kernel (compressor builtin,
+>>> CONFIG_ZSWAP_DEFAULT_ON=n):
+>>>
+>>>   1. Boot with zswap.enabled=1; pool creation fails, init completes
+>>>      pool-less (static key off).
+>>>   2. Echo an available compressor name to zswap.compressor; a pool is
+>>>      recovered but the key stays off.
+>>>   3. Enable zswap.
+>>>   4. madvise(MADV_PAGEOUT) a pattern-verified 512 MiB region, then
+>>>      fault it back in and verify.
+>>>
+>>> Step 4 reads back 131072/131072 zeroed pages (zswpin=0, zswpout=131072)
+>>> without this patch; all pages intact (zswpin=131072) with it.
+>>
+>> And thanks.  Sashiko might have found another issue in this zswap code:
+>>         https://sashiko.dev/#/patchset/20260905125101.2970456-1-xialonglong2025@163.com
+> 
+> Hmm I think this might be fixed by Alexandre's patch (in Usama's
+> series): https://lore.kernel.org/linux-mm/20260818131202.494754-6-usama.arif@linux.dev/.
+> 
+> Instead of always returning -EINVAL for large folios we only do so if
+> they are actually in zswap. Usama/Alexandre, assuming I got this
+> right, can I interest you in sending the zswap bits of that patch as a
+> standalone fix? :)
+
+
+
+Hello!
+
+Below is what the patch looks like in my tree now. It can be sent independently of
+the PMD swap series. Yosry if you are happy with it, will send it on the list
+
+From a5b70b6d72eda15bd7a16b8fc51db1d271b08520 Mon Sep 17 00:00:00 2001
+From: Alexandre Ghiti <alexghiti@fb.com>
+Date: Wed, 22 Jul 2026 08:19:35 -0700
+Subject: [PATCH 01/19] mm: zswap: add range lookup for large-folio swapin
+
+A large folio reaches zswap_load() only when the caller expects
+the whole range to be on disk. Zswap still stores large folios as
+independent order-0 entries, so reconstructing a large folio from
+zswap entries would risk returning partially initialized data.
+
+Teach zswap_load() to scan the covered range. If no slot is in zswap,
+return -ENOENT so swap_read_folio() reads the backing device. If any
+slot is still in zswap, fail the large-folio read so the caller can
+fall back to per-page swapin.
+
+Return -EIO rather than -EINVAL for that conflict. Large-folio loads
+are now valid requests; the error means zswap cannot safely satisfy
+the request from partial per-page compressed state, not that the
+request is unsupported. Existing callers only distinguish -ENOENT,
+so this is a semantic clarification rather than a behavioral change.
+
+Add zswap_is_present() so PMD swap-entry consumers can make the same
+range decision before attempting PMD-order swapin. For high-order swap
+cache allocations, check the zswap range after inserting the folio into
+swap cache. The insertion stabilizes the range against zswap store and
+writeback; if pre-existing per-page zswap entries are found, remove the
+folio through the existing allocation rollback path and return -EBUSY.
+
+Signed-off-by: Alexandre Ghiti <alexghiti@fb.com>
+Signed-off-by: Usama Arif <usama.arif@linux.dev>
+---
+ include/linux/zswap.h |  6 ++++++
+ mm/swap_state.c       | 29 ++++++++++++++++++++-------
+ mm/zswap.c            | 46 +++++++++++++++++++++++++++++++------------
+ 3 files changed, 61 insertions(+), 20 deletions(-)
+
+diff --git a/include/linux/zswap.h b/include/linux/zswap.h
+index 30c193a1207e1..cd9efcf9dec94 100644
+--- a/include/linux/zswap.h
++++ b/include/linux/zswap.h
+@@ -35,6 +35,7 @@ void zswap_lruvec_state_init(struct lruvec *lruvec);
+ void zswap_folio_swapin(struct folio *folio);
+ bool zswap_is_enabled(void);
+ bool zswap_never_enabled(void);
++bool zswap_is_present(swp_entry_t entry, unsigned int nr);
+ #else
+ 
+ struct zswap_lruvec_state {};
+@@ -69,6 +70,11 @@ static inline bool zswap_never_enabled(void)
+ 	return true;
+ }
+ 
++static inline bool zswap_is_present(swp_entry_t entry, unsigned int nr)
++{
++	return false;
++}
++
+ #endif
+ 
+ #endif /* _LINUX_ZSWAP_H */
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index b76eb3d876fd7..103ae7ae8a4a6 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -12,6 +12,7 @@
+ #include <linux/kernel_stat.h>
+ #include <linux/mempolicy.h>
+ #include <linux/swap.h>
++#include <linux/zswap.h>
+ #include <linux/leafops.h>
+ #include <linux/init.h>
+ #include <linux/pagemap.h>
+@@ -459,16 +460,21 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+ 	__swap_cache_do_add_folio(ci, folio, entry);
+ 	spin_unlock(&ci->lock);
+ 
++	/*
++	 * Once the folio is in swap cache, zswap cannot start storing or
++	 * writing back any slot in the range. Reject high-order allocations
++	 * that raced with pre-existing per-page zswap entries.
++	 */
++	if (order && zswap_is_present(entry, nr_pages)) {
++		err = -EBUSY;
++		goto delete_folio;
++	}
++
+ 	if (mem_cgroup_swapin_charge_folio(folio, memcg_id,
+ 					   vmf ? vmf->vma->vm_mm : NULL, gfp)) {
+-		spin_lock(&ci->lock);
+-		__swap_cache_do_del_folio(ci, folio, entry, shadow);
+-		spin_unlock(&ci->lock);
+-		folio_unlock(folio);
+-		/* nr_pages refs from swap cache, 1 from allocation */
+-		folio_put_refs(folio, nr_pages + 1);
++		err = -ENOMEM;
+ 		count_mthp_stat(order, MTHP_STAT_SWPIN_FALLBACK_CHARGE);
+-		return ERR_PTR(-ENOMEM);
++		goto delete_folio;
+ 	}
+ 
+ 	if (order > 1 && folio_memcg_alloc_deferred(folio)) {
+@@ -492,6 +498,15 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+ 	/* Caller will initiate read into locked new_folio */
+ 	folio_add_lru(folio);
+ 	return folio;
++
++delete_folio:
++	spin_lock(&ci->lock);
++	__swap_cache_do_del_folio(ci, folio, entry, shadow);
++	spin_unlock(&ci->lock);
++	folio_unlock(folio);
++	/* nr_pages refs from swap cache, 1 from allocation */
++	folio_put_refs(folio, nr_pages + 1);
++	return ERR_PTR(err);
+ }
+ 
+ /**
+diff --git a/mm/zswap.c b/mm/zswap.c
+index 37f34e406c8e3..32671dc2bf84d 100644
+--- a/mm/zswap.c
++++ b/mm/zswap.c
+@@ -1571,6 +1571,23 @@ bool zswap_store(struct folio *folio)
+ 	return ret;
+ }
+ 
++/**
++ * zswap_is_present() - is any slot in [entry, entry + nr) in zswap?
++ * @entry: base swap entry of the range
++ * @nr: number of contiguous slots to check (pass 1 for a single-slot query)
++ */
++bool zswap_is_present(swp_entry_t entry, unsigned int nr)
++{
++	pgoff_t offset = swp_offset(entry);
++	struct xarray *tree = swap_zswap_tree(entry);
++	unsigned long index = offset;
++
++	if (!nr || zswap_never_enabled())
++		return false;
++
++	return xa_find(tree, &index, offset + nr - 1, XA_PRESENT);
++}
++
+ /**
+  * zswap_load() - load a folio from zswap
+  * @folio: folio to load
+@@ -1578,13 +1595,9 @@ bool zswap_store(struct folio *folio)
+  * Return: 0 on success, with the folio unlocked and marked up-to-date, or one
+  * of the following error codes:
+  *
+- *  -EIO: if the swapped out content was in zswap, but could not be loaded
+- *  into the page due to a decompression failure. The folio is unlocked, but
+- *  NOT marked up-to-date, so that an IO error is emitted (e.g. do_swap_page()
+- *  will SIGBUS).
+- *
+- *  -EINVAL: if the swapped out content was in zswap, but the page belongs
+- *  to a large folio, which is not supported by zswap. The folio is unlocked,
++ *  -EIO: if the swapped out content was in zswap but could not be handed
++ *  back, either because decompression failed or because a slot in a
++ *  large-folio range is unexpectedly still in zswap. The folio is unlocked,
+  *  but NOT marked up-to-date, so that an IO error is emitted (e.g.
+  *  do_swap_page() will SIGBUS).
+  *
+@@ -1605,13 +1618,20 @@ int zswap_load(struct folio *folio)
+ 		return -ENOENT;
+ 
+ 	/*
+-	 * Large folios should not be swapped in while zswap is being used, as
+-	 * they are not properly handled. Zswap does not properly load large
+-	 * folios, and a large folio may only be partially in zswap.
++	 * A large folio reaches zswap_load() only when its whole range is
++	 * expected to be on disk: PMD swap-entry consumers split before
++	 * calling into PMD-order swapin whenever any slot is still in zswap.
++	 * Confirm the range is entirely absent from zswap and return -ENOENT
++	 * so the caller reads it from disk; if a slot is unexpectedly still in
++	 * zswap, fail the read rather than return partially-initialized data.
+ 	 */
+-	if (WARN_ON_ONCE(folio_test_large(folio))) {
+-		folio_unlock(folio);
+-		return -EINVAL;
++	if (folio_test_large(folio)) {
++		if (WARN_ON_ONCE(zswap_is_present(swp,
++						  folio_nr_pages(folio)))) {
++			folio_unlock(folio);
++			return -EIO;
++		}
++		return -ENOENT;
+ 	}
+ 
+ 	entry = xa_load(tree, offset);
+-- 
+2.53.0-Meta
+
+
