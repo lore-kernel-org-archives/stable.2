@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194FC509EF4
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:30:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FB246EF87
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795036; cv=none; b=geiIl7oiGxHyJ5V6RPb8TBX4sVoxyFUactdoGjehtQ1QtkC3gIyvAoeGXGcv47mlPC/Ff1rl4XMd09G5zRJS+R80/maW4M/QyWz6f5AifcY5xHyreL1uc+cXEKq899yxm6A4MMZaAWFcAKWg7MiOtfDtQ5oojNASwArzz+czFhM=
+	t=1788795148; cv=none; b=kd/XnQo36ykAlwfmCpp0fWugT9dXYeDG1wf7eg0TIqU61c+vgF4b5A82RPgc0GkMTzNDM+PURP/LcLd/V6+mscX2eBR5lhk3PypDh4kIi/s/woPh7+OgZQifgf1XcaR9Ydo2O1pYvHxlihgw9mi/Y4j9dGzy6f8YuNhV/imfVPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795036; c=relaxed/simple;
-	bh=GYh7GwFu/VnM9NQszWsH0EbynCCu0xAJ2OklhgCVgkc=;
+	s=arc-20240116; t=1788795148; c=relaxed/simple;
+	bh=QhaRa2mY+IymO4Rv6Poy8sXy7mIdcYO32IEPU6Q4FUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iPGt5/62syZ/zr596RIMr0IUer+k6Z2X8uKwG4FDjuVMFVojvAiiuaLjGtIt3R2kgKOJL47cPpVXVGiYalACpXeNCwsSW4+KLHcAw92TgCR1Ov/d3RBXRf2kkKFj9D1DH08UpZzo6v3OweVlrLeGGVxrqwtCeqt6Ff5WuUcoug0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkRartRS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=n1NFzpmJSXHpvTRpGNODl199GuVQ1QhJIXMvcib06Mk36GDGCTvdLn9dHFcg4FGhISDTaeamTdqra+C25fQxeoFwxTTwthiTAIU4EOmEXBiwLhr1IJGs8AjPBTid5slCRzFEkWo3CECQMSrokFBPUaxxfQaIcCS9WIR+HouCejk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KDyn26op; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkRartRS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843041F00A3A;
-	Mon,  7 Sep 2026 15:30:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KDyn26op"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3A61F00A3E;
+	Mon,  7 Sep 2026 15:32:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788795035;
-	bh=umIIQyMaKiKWD6GTCmyvLgMyMrHMr4cCLrajxzBdR6M=;
+	s=k20260515; t=1788795145;
+	bh=q+f2boTJUOBK7sMRZATIHEVgW+Qn2HeN0VP5HAzcfaY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lkRartRSn2p23ahNH0CYoV5dmDxmyz5OLsIAkI59w5O+7AGl68BMoMWHxvY2IQ7st
-	 8H7w7P//2Rs5WnxwH0N30NVXHXPKILL5Xs1O9qu4kJLHSpJpT95/Rb1Aar3TUWRRjX
-	 pX5MhGAAQdJWjdaeRa7jcIallQYo03QKVnMB4JMjKl8sO8CkTdopn+szE9M0dDS0pa
-	 nGBvcS0Oe0mVRNWswL92qVPjOa9eZ7+XnSGSonl06ZQ/hJM5Gsd3UlVqYxoYOHbGzH
-	 FWmKsKx0v/gF9TpWCqD5sF+4TRSPmJfbN7CPGSdXmFUNEuOH0qEavRFh1XtaVct3kq
-	 nNExdAx3oDDvg==
+	b=KDyn26op7TcYWFT2fhBBnn3topmfz2A1t1u+HZZH06ecHIbSWuHu9iey7SYBwqF7u
+	 OY2bJht8Liu364znosEgTG7CfYDchz+YqgSKMS1TBG5i1/KpEuw+tXDeduO/DcDhYI
+	 y50sz9pCUSXz+pIFkS7jK5hK8zRwuRsAfS123lFnYwcgTs9dyVN8HkeI8X5N9mXHgG
+	 HxqEThX+kowsEnvOdXcvG9vi+kd3qGIpogvlM4pLmGMcTsQkrjb95NSGpHQlZd1yoF
+	 WWSejbPrnl7yp83pI+z8td2V5LrWe9iu0/PVrP/5K8g+2AAXbrQeUAOwWY3ShIfGDW
+	 cxWa6XMMi3hYg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] HID: sony: fix UAF of ghl_poke_timer / ghl_urb at driver unbind
-Date: Mon,  7 Sep 2026 11:30:33 -0400
-Message-ID: <20260907153033.3838712-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] btrfs: fix extent map leak in NOCOW direct I/O write
+Date: Mon,  7 Sep 2026 11:32:22 -0400
+Message-ID: <20260907153222.3844162-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090332-creative-scrunch-f86b@gregkh>
-References: <2026090332-creative-scrunch-f86b@gregkh>
+In-Reply-To: <20260907153222.3844162-1-sashal@kernel.org>
+References: <2026090311-oblivion-chunk-24d7@gregkh>
+ <20260907153222.3844162-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,82 +48,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 
-[ Upstream commit a26705bd2e2728833e7a538ce91e58a5eeff496a ]
+[ Upstream commit 3f950867c307c5413d628a153ac44915bd117ffd ]
 
-For GHL (Guitar Hero Live) dongles, sony_probe() arms a periodic timer:
-ghl_magic_poke() (the timer callback) submits sc->ghl_urb, and the URB
-completion ghl_magic_poke_cb() re-arms the timer with mod_timer().
+btrfs_dio_iomap_begin() calls btrfs_get_extent(), which returns an
+extent map reference that must be dropped on all exit paths.
 
-sony_remove() drained the timer with timer_delete_sync() and then freed
-the URB with usb_free_urb():
+For direct writes into a NOCOW range, btrfs_get_blocks_direct_write()
+keeps using that extent map and asks btrfs_create_dio_extent() to
+allocate the ordered extent. If that fails, for example because
+btrfs_alloc_ordered_extent() fails, the function returns the error
+without dropping the input extent map. The PREALLOC path avoided this by
+dropping the input extent map before replacing it with the newly created
+one.
 
-	timer_delete_sync(&sc->ghl_poke_timer);
-	usb_free_urb(sc->ghl_urb);
+Check the error from btrfs_create_dio_extent() before replacing the
+map and drop the input extent map on failure.
 
-timer_delete_sync() does not block re-arming, and while the URB is in
-flight the timer is not pending, so the sync delete is a no-op. A URB
-completion that runs after the delete re-arms the timer, and usb_free_urb()
-only drops a reference -- it does not kill an in-flight URB. sc is
-allocated with devm_kzalloc() and freed once sony_remove() returns, so the
-re-armed ghl_poke_timer (embedded in sc) then fires on freed memory, a
-use-after-free from timer softirq. This is a disconnect/rmmod race.
-
-Poison the URB first, then shut the timer down, before freeing the URB.
-usb_poison_urb() kills any in-flight URB and permanently rejects further
-submissions, so a poke timer that is still pending cannot re-submit the
-URB from ghl_magic_poke() in the window before timer_shutdown_sync() runs.
-usb_kill_urb() would not suffice: it only cancels the in-flight URB and
-leaves it submittable once it returns, so the pending timer could
-re-submit it and put a fresh URB in flight over the freed sc.
-timer_shutdown_sync() then drains any last callback and blocks re-arming.
-The probe error path is unaffected: it is only reached before the timer
-is armed.
-
-Reproduced under KASAN on next-20260710 via dummy_hcd + raw-gadget
-emulation of the GHL PS4 dongle (VID 0x1430 / PID 0x07bb): hid-sony binds
-and arms the poke timer, the poke URB is held in flight, the driver is
-unbound (freeing sc), then the URB is released. The completion re-arms the
-timer on the freed sc, and the re-armed timer fires ~8 s later:
-
-  BUG: KASAN: slab-use-after-free in ghl_magic_poke+0x98/0xb0
-  Read of size 8 at addr ffff88810b02fd50 by task swapper/0/0
-   ghl_magic_poke+0x98/0xb0
-   call_timer_fn+0x35/0x2b0
-   __run_timers+0x69c/0x9a0
-   run_timer_softirq+0x173/0x2a0
-  Allocated by task 169:  sony_probe
-  Freed by task 338:      devres_release_group <- hid_device_remove (sony_remove)
-
-Found by 0sec (https://0sec.ai) using automated source analysis.
-
-Fixes: cc894ac55360 ("HID: sony: support for ghlive ps3/wii u dongles")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ changed the old del_timer_sync() call to timer_shutdown_sync() ]
+Fixes: 5f9a8a51d8b9 ("Btrfs: add semaphore to synchronize direct IO writes with fsync")
+CC: stable@vger.kernel.org
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+[ relocated the ownership fix from fs/btrfs/direct-io.c to the equivalent code in fs/btrfs/inode.c ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-sony.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ fs/btrfs/inode.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index ebc0aa4e4345f..e4b5d202c6637 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -2166,7 +2166,9 @@ static void sony_remove(struct hid_device *hdev)
- 	struct sony_sc *sc = hid_get_drvdata(hdev);
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 7f2aab8eb8705..98d46638a0572 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -7339,15 +7339,24 @@ static int btrfs_get_blocks_direct_write(struct extent_map **map,
+ 						      len, orig_block_len,
+ 						      ram_bytes, type);
+ 			btrfs_dec_nocow_writers(fs_info, block_start);
+-			if (type == BTRFS_ORDERED_PREALLOC) {
++			if (IS_ERR(em2)) {
++				ret = PTR_ERR(em2);
+ 				btrfs_free_extent_map(em);
+-				*map = em = em2;
++				*map = NULL;
++				goto out;
+ 			}
  
- 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
--		del_timer_sync(&sc->ghl_poke_timer);
-+		/* poison, not kill: a pending timer must not re-submit during teardown */
-+		usb_poison_urb(sc->ghl_urb);
-+		timer_shutdown_sync(&sc->ghl_poke_timer);
- 		usb_free_urb(sc->ghl_urb);
- 	}
- 
+-			if (em2 && IS_ERR(em2)) {
+-				ret = PTR_ERR(em2);
+-				goto out;
++			/*
++			 * True NOCOW writes don't need to create a new extent map,
++			 * while PREALLOC writes must replace the existing one.
++			 */
++			if (em2) {
++				ASSERT(type == BTRFS_ORDERED_PREALLOC);
++				btrfs_free_extent_map(em);
++				*map = em2;
++				em = em2;
+ 			}
++
+ 			/*
+ 			 * For inode marked NODATACOW or extent marked PREALLOC,
+ 			 * use the existing or preallocated extent, so does not
 -- 
 2.53.0
 
