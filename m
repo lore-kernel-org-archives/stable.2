@@ -1,68 +1,67 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABD0A43E083
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 10:28:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C100B42CAF6
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 10:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776931; cv=none; b=mti20MmMBEyleODbCqE8uyEBNfN14e4mQ+UbtmReWz08x3re1mc4zVS6+tC3A+qPMDU5SRV4E4OHUDpOCmjVPphX1KZOZiGOWVzi8BgkK7zlS4hZTrxSNuC47Qa6KPy3EH0smxkz80RTuAWAhwmX9OMJHwA28EPhW1oo8Yr8IBY=
+	t=1788777280; cv=none; b=d3HZS0iT7+CwDXgVgW5fj3Ui+TsEOMBfWsRNzf+R5HPZVe0Vy+C6dTMY2wte4WmCPFcLVij/Fcf+cLkw+HTmkQPyRMaI70RwmNHMLIiBblOUQTy/hCBgEt++btDeANlPxCaCfIDtpqboklgu8AEojnTnZU0SZleFgyrXJfkDHG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776931; c=relaxed/simple;
-	bh=4Ada3OHpXiLG5T0AAsYcOgRew4MZYqz94GyBaLtLsxA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p0QA1/NTnPJBQPpuq3gqAeTQ0/2kvemXs7c4Tk5Sb6HDiwFpnD4nZE+96Tx7e/Cv3xDqcI25hf47ZvJyDDdoch8Kxy+8WdEg6XP3X/mhJyA/5v4822odcT7Z5BfSHjJ0+KA7TRCcElach/G/kn1s0uRGjOfkUdiCn2As+S0KOtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DhzAcSlD; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788777280; c=relaxed/simple;
+	bh=jFpAo7i529GMRvwEedXFKqgtoTVh//GOmUce7AX7C+s=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=h0z721OKkZdujE11igi3Tm1X3MxRjYQyfagVt4fz5EFvOVilBmnz0qPPLOY0gx/3MiobJ/cHb673u/szqQv6ulxrGYqLr6uttBU72iqZS5F7VY0DuQ5m39TOKddLLMT6MTBK2ZN0g78Ua5NpGVEn3Ldm0xG3D339GTHwdT++Qzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=OlzG46hW; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DhzAcSlD"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4858303de5dso4185010f8f.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 03:28:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="OlzG46hW"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso4038228a12.3
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 03:34:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788776928; x=1789381728; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0ZhjTAmwyW+i7ADmwUXpM1rxtxgoKnriyct2cm5k19E=;
-        b=DhzAcSlD89HQ2VWd66DWzvfHNSMFsVzvjntO7u1QhhCh1mLqurIJFrBdA5iv+PMlMA
-         tlK7oVHeeRGYU44W4u1gf+dH/tJeGvYe9ruP1a+4bcroliSBznuJwNNFiwm0vK2n7Kps
-         1zBnN87/Qb3dENUTixohUs/0CUeEFD98ZLB7ttWT1kp8ceprqarsf7z8JzFxDArMFH1l
-         0McLH5/jBgP22sP496rmkT0l4e4v3EpnOEUx/JZahz9GdG7KMpgzqmVOAkG6zvYu07O9
-         ZK1eG6U/2BqpDtdItJz3BIqSzMWAlezYluhaxPuGd2SuBfloRwMiCgqqEa1Dp1WSSuAV
-         HpYA==
+        d=ursulin.net; s=google; t=1788777277; x=1789382077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
+        b=OlzG46hWqGVlMt8HOlGeLzFt2jBUEcLbINmYcHyb1c/Rmgc54i75rNDBNaskIiBLsD
+         Rptup58sd4m+i5r2pv80uck92X2ax6U+0I3kDUKXjAkb4KfCfaes4nQVpy3ZuGnOKNPP
+         txEJTqTyqurjONcGbYhqtZ61qEFQBG+sy6uZi+oDBrlAKGR/P92xvKcRUsNURMeyI4hZ
+         5sVzeoy+wEN5aXlLkqvyRwk4WyaeoJFUvXwQq/ABUTSAJp9zPhDMJvC0RGw3ZQdTSMy3
+         uv5FbtO/+bOhKuSmfJ3c5hA3FUcaEj4o9FbEcAb4oeeF0devXK2EI5+xUav9GlFR0J+6
+         D0TA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788776928; x=1789381728;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788777277; x=1789382077;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0ZhjTAmwyW+i7ADmwUXpM1rxtxgoKnriyct2cm5k19E=;
-        b=MmBc/6uFvD85efPzL0/QumbvPDPpsETC4zWzLdOlnPxmo2sLvHoWpLimKi+KAi0ID6
-         AE04dAsowA6Yosfl2b9RKAgtGJeAAYPiQrDTKgfMzQ+DRTEKkW/moJq5QJ8tqIcG7g3S
-         pa/AYY50vQQCFs3KGKiTc2mFyRyt7wAYMS4/FpiEu4q8BnECp+rtRbanfSh3QOy3QsAe
-         omMxvdEsc5Sj9+uoJLJdfqGdir8BxzMn4RRteqnzf8W5VgyJtodr3B5Vr6sWtuVZZInv
-         BowZsNFsTNu/tPwMQ+ITOW6gHn4CTdcx5MTF1cwV0MKaLi4SGLbwgBg+hyMn+VazLMXy
-         MNfg==
-X-Forwarded-Encrypted: i=1; AKwUvBxTwqmIj9t6iPdZ7dI5Kkjukv6nGpQXjIhMWYzcxl2ob4PsWV7p1M3Pb6a4s+8p8qXqtPsYSZo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mgZ50Nh1SZLPIMM0YoyzHvc6ZeM4aIYPR8FW3E0jElGPd3gpP2
-	FrgUFJ39U4lvQT1KlaAbylcu9a2+qYyxYajtTJ5op6cwzaMxPTJxjX/S5cUooGpgeJo=
-X-Gm-Gg: AYBFou21ifGUP1kNH+WZeqERiFISR+0goqBHKE+ggbmtqrwoH1Xl2jAlPG9yqye6oe6
-	LAnXhsDL/ZlUgtVtpoVd2/WaF62e1YJCRotFsEdBdoezKp3wtQNro/m3aS6T1gTLuZNXrIpqHdo
-	v+OBJJbtY3StqdHdj1h6UdbFWbiiwv7WxZIKYD+wFG/JJ11C29ZAmoeSdKZ3sDSb+vqpuqnm0v6
-	OEXG8ddfrXCRE8g4Jd4qJlyA53CP1V9zQ4HhdWmYgSgC0jt+XjgNS1w/cOSXOvfh4w7C/BC32bY
-	Zj7kDxTvvPfuZZyZ+AAZNUAsBuIDxK/CTNByaOTquO+9atg8VERJlLMscQLTYrs4qOVMJgy59Bk
-	eTQQ6onoo6yhcn9zVtdHQ/98XgtG2bMAXvCyEYouCCQwmmc94oxBF7c/LIFtiM+QlExDQfc5jbS
-	T+pIyeuF57FeFigfqYmphkBxIaeKOMB/inQN6HhoX2rogFYr/JllGMAeebyqHCY6Gwt8Agmmrv5
-	PJfthrLhBFcEG5Nt5L2B8T+HzYl98JlqZwnsA==
-X-Received: by 2002:a05:6000:985:b0:485:8b95:706f with SMTP id ffacd0b85a97d-4858b9570c4mr18007364f8f.13.1788776927892;
-        Mon, 07 Sep 2026 03:28:47 -0700 (PDT)
-Received: from ?IPV6:2001:a61:1340:dc01:654b:3cf0:59cd:498? ([2001:a61:1340:dc01:654b:3cf0:59cd:498])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm27384160f8f.4.2026.09.07.03.28.47
+        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
+        b=rcLCgDmU3vRL7VS2l3MZ6ZNPofnN3L7wSSrTwFfndx5a7+f8C6F1skxQ2HPqQjdo7i
+         tfHSshYfQH7lV89fa39sterV+33Uz/KPGG3JtwZHvp4JEJV8mcOJ4M8nXSdmXNm4Ivgc
+         W2syn+dKL8nln8zFGvZ4ICQUWcTt4OIpSqvy8aQImMxv4uNV3igxAv3sJOZDVvXatjRZ
+         SPdW4xWmLhdAYAuYNIzOHMoA/yNeZ69vc3Ha09cKV/hLl1pb7qref95L0vGhDJ8g1pdg
+         P0t2o81XvQEEwrjUvopNPa4bqEA/hKNzarbxi/drIaeR/LZHvKgVqGAusGgPm7/J52/u
+         GniA==
+X-Forwarded-Encrypted: i=1; AKwUvBza8iSpXUE4qvZe1CaRUuJb6WU4DNyN3sBSkpyt2NOr1644Lf7hJVUPfutab0cIvz5b7jZ0XPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIWa0X6lgkSIzKzIFl3vebK2U3MnO/LB4+Ctv+Ao15ts18cdP6
+	fFL77J1liLMyeZX15+yjsIi92KhMnIvFlQgWItDaSix0N0gt4AwpPlPjg+cFVtaBZlw=
+X-Gm-Gg: AYBFou0T56lh2ZeBO4aHYzZJE+XyIkMKQiJgBatoyrG1Ug/5WdDAGxuGlitU7qMP+vO
+	vf/e9QAGPZ38VafZ3icn7vB0eAEYG2NqBTICc0dYfCZGuLoCTeT6NY4sbam5WlKACO7Wg5jWsLN
+	xT/zyTmouNwiOiR8caDhTw1x+ffz6pmTUs9ZUmLIHdfO9YcJg7nourmJeqDfe3+62xEcPpDhVfg
+	JDh0oUHgg3KrYbNeBNsrcC+CilbrKmreQ/DcRMB5ZOW0VfeS/zhMyUY2qpnLM/jY0j7nFgokILM
+	VAVE+ayhGz0qRY3Fh8FhqgVZx+/DZeZge5kiKg5GvzmAB+L104+CuM6+P1RinEXNBJRhyaZ6Vf6
+	TQYTw32sbv+M0gVAIQr0SqNMC4yJdd+gDzDVcLuFHMdHYbO65L9p2714YBzmCPPRwWH/wh36gaD
+	SjuxeDadpepZXIq8VXodKON1LfyEK/hg1kkM69q6uNusXdc+9otv8EPID3HtToCK+A9M/HW71lS
+	qBq
+X-Received: by 2002:a17:907:72c2:b0:c25:2e93:289e with SMTP id a640c23a62f3a-c260ca19c04mr1482747566b.16.1788777276733;
+        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5cfaa2sm450462066b.59.2026.09.07.03.34.35
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 03:28:47 -0700 (PDT)
-Message-ID: <bc055887-3029-4740-bec5-7e2fe4205992@suse.com>
-Date: Mon, 7 Sep 2026 12:28:46 +0200
+        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
+Message-ID: <7e98c872-6eff-4eb5-b53b-aedaf0fcc7ff@ursulin.net>
+Date: Mon, 7 Sep 2026 11:34:35 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,47 +69,133 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-To: Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
  stable@vger.kernel.org
-References: <20260907065501.101013-1-johan@kernel.org>
- <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
- <ap56NTVMq8GlbjmR@hovoldconsulting.com>
- <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
- <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+ <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+Content-Language: en-GB
+In-Reply-To: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 
-
-On 07.09.26 12:01, Johan Hovold wrote:
-> On Mon, Sep 07, 2026 at 11:50:41AM +0200, Oliver Neukum wrote:
->> On 07.09.26 10:47, Johan Hovold wrote:
->>> On Mon, Sep 07, 2026 at 10:17:38AM +0200, Oliver Neukum wrote:
->>>> On 07.09.26 08:55, Johan Hovold wrote:
-
-[..]
->>> Looking at the implementation again now, it seems further changes are
->>> needed to fix the implementation, though. The completion handler should
->>> not be updating old_count. That's for each TIOCMIWAIT to do.
->>
->> I am sorry to be obnoxious about that, but I am afraid that would
->> break TIOCGICOUNT
+On 07/09/2026 11:28, Tvrtko Ursulin wrote:
 > 
-> Why do you think so? TIOCGICOUNT just returns the current counters.
+> On 07/09/2026 10:42, Philipp Stanner wrote:
+>> On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
+>>>
+>>>
+>>> On 04/09/2026 20:06, Philipp Stanner wrote:
+>>>
+>>> 8><
+>>>
+>>>> If you can think of a stupid and simple solution, shoot. The only thing
+>>>> I can think of is moving the string into the dma_fence, as a hard copy
+>>>> :)
+>>>>
+>>>>
+>>>> In the mean time, my proposal is to keep aiming for removing
+>>>> sched_fence->ops->release and fixing pvr and amdgpu.
+>>>
+>>> Fixing the drivers sounds like an obvious thing to try indeed. Along the
+>>> same lines as it was done for xe and panthor. It is an already
+>>> established and well understood approach so shouldn't be controversial.
+>>> After that we can discuss in leisurely pace if something better is
+>>> possible in the scheduler core.
+>>>
+>>> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is
+>>> it significantly more complicated than it was for panthor and xe?
+>>
+>> How did the others fix that?
+> 
+> Combination of kfree_rcu, synchronize_rcu and storing the name in an 
+> object protected by those:
+> 
+> 6bd90e700b42 ("drm/xe: Make dma-fences compliant with the safe access 
+> rules")
+> 299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
+> efe24898485c ("drm/panthor: fix for dma-fence safe access rules")
+> 
+> Not too complicated on the overall. Simply ensure RCU grace period 
+> between signaling the hw fence and freeing the ops, scheduler, name, all 
+> that it is in the externally accessible dereference chain.
+> 
+>> If we look at nouveau:
+>>
+>> static void
+>> nouveau_sched_fini(struct nouveau_sched *sched)
+>> {
+>>   struct drm_gpu_scheduler *drm_sched = &sched->base;
+>>   struct drm_sched_entity *entity = &sched->entity;
+>>
+>>   wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
+>>
+>>   drm_sched_entity_fini(entity);
+>>   drm_sched_fini(drm_sched);
+>>
+>>   /* Destroy workqueue after scheduler tear down, otherwise it might 
+>> still
+>>   * be in use.
+>>   */
+>>   if (sched->wq)
+>>   destroy_workqueue(sched->wq);
+>> }
+>>
+>>
+>> We see that it
+>>     1. stops accepting jobs from userspace (not visible here)
+>>     2. waits until all hardware fences in this ring are signaled
+>>     3. only then tears down drm_sched
+> 
+> I cannot do a very deep dive into nouveau at the moment. I see fence 
+> itself is already freed with kfree_rcu so that's good. What is reachable 
+> via the timeline name callback:
+> 
+>      struct nouveau_fence *fence = to_nouveau_fence(f);
+>      struct nouveau_fence_chan *fctx = nouveau_fctx(fence);
+> 
+>      return !fctx->dead ? fctx->name : "dead channel";
+> 
+> Fence is presumably the fence so channel. Chagning to kfree_rcu in 
+> nouveau_fence_context_put() there might be enough for that one.
+> 
+> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
+> 
+> That makes scheduler timeline name vfunc safe:
+> 
+> static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+> {
+>      struct drm_sched_fence *fence = to_drm_sched_fence(f);
+>      return (const char *)fence->sched->name;
+> 
+> sched is then RCU protected. sched->name is already static so not a 
+> concern.
+> 
+> As you say nouveau_sched_fini() only tears down the scheduler after 
+> fences have been signaled it seems adding two new kfree_rcu make is safe.
 
-Yes, but user space can call TIOCGICOUNT multiple times in sequence
-_without_ calling TIOCMIWAIT in between.
-In that case the counters have to increase if a line changes, don't they?
-For that to happen you need to handle a status change in the completion
-handler.
+P.S. Idea on how to test it from userspace:
 
-	Regards
-		Oliver
+https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
 
+But as nouveau does not export via sync_file you would need to adapt to 
+export sync_file from syncobj.
+
+Regards,
+
+Tvrtko
 
