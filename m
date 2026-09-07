@@ -1,45 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB6E526AB8;
-	Mon,  7 Sep 2026 20:00:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16651526A84
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:00:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811227; cv=none; b=hooKnzbkB76wnhorvQq437HEH5x+6ZIq9vmKKjTKymtQV2zihK+11GkFSAE6KTKUcciQlYcoLNMHIWMtW5z5CCbd6mqsfYuTfYRHgcXHvPrOHLN5jzFONA/xFUqhRGPd6gSHUJBzxi82CXWb2AaGtkfJjM8Rk5+RWu63+b+0e8w=
+	t=1788811228; cv=none; b=qupigUwBJYNkScLceOGRnxC/PBWtxUK7KFrsijjzLklnRPLrvBF1vb/YcwleTTed6mJXR/Fd2t5Yb+gHKLmmnGD4VnTFVoWPHBHggm2tePXajupTUEMoo0p8t7pE0qJofzwV8TfuguyE06IxiwzMiqR2aoLGFqoCZ5j8ZpA+8co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811227; c=relaxed/simple;
-	bh=Nk7ADkLaz7Y6NlvhW34HKZY/vtZI6LdUUJr6W4g/s9A=;
+	s=arc-20240116; t=1788811228; c=relaxed/simple;
+	bh=SvDZnuayCHqxUJt6NA1wNjOKLGHw/t/n4f+6f4lLWQ0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CG5uRzg6xnTW6b5SBWTe/eTj/LvESbCVrkgEHQHOqJx0zVgMXuHDNEBp1cvOorWwG3RIwHiXLwjfJbwOCZvUyeH22CjrBoHVoaVHE0dg18EuHPNctanIAqOb5fdkOzKTOOza5OvzZnmCzizR9i+2hDuSwKz/fC42UAg205ZGVvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lmsWZmuo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q0GYYyATeQbr7Y6HajgGepU+s4FJ7r76PMP8+lPMzZaTZNhGtzBmZGg5VzAdt85jgozw6bvKRTGVyMUglM2FLOnwssiMFfWqsMN5ttD+VqUe3X0ujD+6H6ehFrVBJqvBX/UAb4KcSiOE4Vh/+8fQJnRpsxStPucvH5JvQNt28HU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFAVzG3v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lmsWZmuo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CB41F00A3A;
-	Mon,  7 Sep 2026 20:00:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFAVzG3v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690EB1F00A3E;
+	Mon,  7 Sep 2026 20:00:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788811226;
-	bh=WJl/L59oE7qKwx54Pfp3l5Qf9mfZTxtVJ+YO8gmp35A=;
+	s=k20260515; t=1788811227;
+	bh=5hdzriozcfGMkLEpWKCdqY9vaNAm53DmoH4lrGG7bvo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lmsWZmuoRxU+h3cHBFF2WffNzzJRbjpC+lctt1nvXcAekN3U8HkWcJsQ+Fcu9MIJa
-	 pSiIG+axvTMbSDV+q4BCuMIZ7mfVHoJsgIZWZeKmbDFvGTSL/i1pgQs29qgQ7y+QfR
-	 /UZOo1+nr5MusBUWAM1dIjTyMNqI5wbw1fBRwdPVpZXmb3qg8Ncn7Ov42uGQyYZnMW
-	 og+EBPC8sxjhvTBjEArqKAesZoHcRHIA444re5xMSUM9/EddvPlTUzL1Om/CAoUex6
-	 C6fbSVeCvuc2rikaaYTK5sKW4iKOY3rWW9puniSmX8ibuc72XMiGz0kDtA9yK/QbiK
-	 UPBF/5Z0hhOhg==
+	b=QFAVzG3vguYwHAlsh1DhplNxXZEDu6iaL1i0S0lpi7/LXjzEaXKaFfZVH0teU8Edy
+	 tfrZI/KbUr5mo4oZk9gkod+WD6Uwj1tLVwO5n8ubfH/SXO4CXvrCFfTsLcDY1QeLOk
+	 dJ3iKvYiSs22LOIFZyqAX/1MVchMjkSgW9jXH8EwuIm/cBbMoWCgeBjRIsrgXlQmMV
+	 T3/IvDeisq8LQjvz9/7+hQL6H38QC5MZrzZDuVmrP1no+PDHe7jQNZhO9Sjd/3UAU+
+	 pJXERJWkNcIDk4h57ACZlvXmE2TjMd+MPkYexCign6cZUkjne6TQ89ye6gt47D/VMT
+	 c39Adx2ybQ8sA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
+Cc: Bryam Vargas <hexlabsecurity@proton.me>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/3] cifs: SMB1 split: connect.c
-Date: Mon,  7 Sep 2026 16:00:21 -0400
-Message-ID: <20260907200022.327035-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] smb: client: reject a tree connect response whose byte count is too small
+Date: Mon,  7 Sep 2026 16:00:22 -0400
+Message-ID: <20260907200022.327035-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907200022.327035-1-sashal@kernel.org>
 References: <2026090336-rising-foyer-5fb8@gregkh>
@@ -52,392 +47,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Bryam Vargas <hexlabsecurity@proton.me>
 
-[ Upstream commit 88f7d7e32d9e086ba87c6b04a9ba57f3f41268bd ]
+[ Upstream commit 65deb18359341141d37dc86fc7853511be3c87a7 ]
 
-Split SMB1-specific connection management stuff to smb1ops.c and move
-CIFSTCon() to cifssmb.c.
+CIFSTCon() bounds its strnlen() over the byte area with the server's
+ByteCount minus two, which for ByteCount 0 or 1 goes negative as an int
+and converts to a huge size_t.  The later subtraction wraps the __u16
+bytes_left, and that is what bounds cifs_strndup_from_utf16(): a bound of
+up to 65535 against a ~16 KB cifs_req_poolp object runs off the end of the
+slab object, and the bytes reach userspace through tcon->nativeFileSystem
+in /proc/fs/cifs/DebugData.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+Reject a byte area too small for what the parser consumes.  Two bytes is
+the least it can consume, and no conformant response carries fewer.  The
+new trace point is the 129th smb_eio_trace entry, which __mode(byte)
+cannot represent, so the attribute goes with it.
 
-[ sashal: Reduced backport -- upstream 88f7d7e32d9e0 touches 5 file(s), this
-  backport carries 4. Not backported here:
-  fs/smb/client/smb1ops.c
-  fs/smb/client/smb1proto.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
+Fixes: cc20c031bb06 ("cifs: convert CIFSTCon to use new unicode helper functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsproto.h |   3 +
- fs/smb/client/cifssmb.c   | 140 +++++++++++++++++++++++++++++++++++++
- fs/smb/client/connect.c   | 142 --------------------------------------
- fs/smb/client/trace.h     |  11 +++
- 4 files changed, 154 insertions(+), 142 deletions(-)
+ fs/smb/client/cifssmb.c | 6 ++++++
+ fs/smb/client/trace.h   | 3 ++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index d2d004764a708..37af29544dade 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -18,6 +18,9 @@ struct statfs;
- struct smb_rqst;
- struct smb3_fs_context;
- 
-+/* This stable branch does not carry the SMB EIO tracing infrastructure. */
-+#define smb_EIO2(trace, info, info2) (-EIO)
-+
- /*
-  *****************************************************************
-  * All Prototypes
 diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index 01c78d9e7ec0e..696b2a800d7e3 100644
+index 696b2a800d7e3..fa643f0d3de49 100644
 --- a/fs/smb/client/cifssmb.c
 +++ b/fs/smb/client/cifssmb.c
-@@ -509,6 +509,146 @@ CIFSSMBNegotiate(const unsigned int xid,
+@@ -590,6 +590,11 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
+ 		tcon->tid = smb_buffer_response->Tid;
+ 		bcc_ptr = pByteArea(smb_buffer_response);
+ 		bytes_left = get_bcc(smb_buffer_response);
++		if (bytes_left < 2) {
++			rc = smb_EIO2(smb_eio_trace_tcon_bcc_too_small,
++				      bytes_left, 2);
++			goto out;
++		}
+ 		length = strnlen(bcc_ptr, bytes_left - 2);
+ 		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
+ 			is_unicode = true;
+@@ -645,6 +650,7 @@ CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
+ 			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
+ 		}
+ 	}
++out:
+ 	cifs_buf_release(smb_buffer);
  	return rc;
  }
- 
-+/*
-+ * Issue a TREE_CONNECT request.
-+ */
-+int
-+CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
-+	 const char *tree, struct cifs_tcon *tcon,
-+	 const struct nls_table *nls_codepage)
-+{
-+	struct smb_hdr *smb_buffer;
-+	struct smb_hdr *smb_buffer_response;
-+	TCONX_REQ *pSMB;
-+	TCONX_RSP *pSMBr;
-+	unsigned char *bcc_ptr;
-+	int rc = 0;
-+	int length;
-+	__u16 bytes_left, count;
-+
-+	if (ses == NULL)
-+		return -EIO;
-+
-+	smb_buffer = cifs_buf_get();
-+	if (smb_buffer == NULL)
-+		return -ENOMEM;
-+
-+	smb_buffer_response = smb_buffer;
-+
-+	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
-+			NULL /*no tid */, 4 /*wct */);
-+
-+	smb_buffer->Mid = get_next_mid(ses->server);
-+	smb_buffer->Uid = ses->Suid;
-+	pSMB = (TCONX_REQ *) smb_buffer;
-+	pSMBr = (TCONX_RSP *) smb_buffer_response;
-+
-+	pSMB->AndXCommand = 0xFF;
-+	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
-+	bcc_ptr = &pSMB->Password[0];
-+
-+	pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
-+	*bcc_ptr = 0; /* password is null byte */
-+	bcc_ptr++;              /* skip password */
-+	/* already aligned so no need to do it below */
-+
-+	if (ses->server->sign)
-+		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
-+
-+	if (ses->capabilities & CAP_STATUS32)
-+		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
-+
-+	if (ses->capabilities & CAP_DFS)
-+		smb_buffer->Flags2 |= SMBFLG2_DFS;
-+
-+	if (ses->capabilities & CAP_UNICODE) {
-+		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
-+		length =
-+		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
-+			6 /* max utf8 char length in bytes */ *
-+			(/* server len*/ + 256 /* share len */), nls_codepage);
-+		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
-+		bcc_ptr += 2;	/* skip trailing null */
-+	} else {		/* ASCII */
-+		strcpy(bcc_ptr, tree);
-+		bcc_ptr += strlen(tree) + 1;
-+	}
-+	strcpy(bcc_ptr, "?????");
-+	bcc_ptr += strlen("?????");
-+	bcc_ptr += 1;
-+	count = bcc_ptr - &pSMB->Password[0];
-+	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
-+	pSMB->ByteCount = cpu_to_le16(count);
-+
-+	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
-+			 0);
-+
-+	/* above now done in SendReceive */
-+	if (rc == 0) {
-+		bool is_unicode;
-+
-+		tcon->tid = smb_buffer_response->Tid;
-+		bcc_ptr = pByteArea(smb_buffer_response);
-+		bytes_left = get_bcc(smb_buffer_response);
-+		length = strnlen(bcc_ptr, bytes_left - 2);
-+		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
-+			is_unicode = true;
-+		else
-+			is_unicode = false;
-+
-+
-+		/* skip service field (NB: this field is always ASCII) */
-+		if (length == 3) {
-+			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
-+			    (bcc_ptr[2] == 'C')) {
-+				cifs_dbg(FYI, "IPC connection\n");
-+				tcon->ipc = true;
-+				tcon->pipe = true;
-+			}
-+		} else if (length == 2) {
-+			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
-+				/* the most common case */
-+				cifs_dbg(FYI, "disk share connection\n");
-+			}
-+		}
-+		bcc_ptr += length + 1;
-+		bytes_left -= (length + 1);
-+		strscpy(tcon->tree_name, tree, sizeof(tcon->tree_name));
-+
-+		/* mostly informational -- no need to fail on error here */
-+		kfree(tcon->nativeFileSystem);
-+		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
-+						      bytes_left, is_unicode,
-+						      nls_codepage);
-+
-+		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
-+
-+		if ((smb_buffer_response->WordCount == 3) ||
-+			 (smb_buffer_response->WordCount == 7))
-+			/* field is in same location */
-+			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
-+		else
-+			tcon->Flags = 0;
-+		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
-+
-+		/*
-+		 * reset_cifs_unix_caps calls QFSInfo which requires
-+		 * need_reconnect to be false, but we would not need to call
-+		 * reset_caps if this were not a reconnect case so must check
-+		 * need_reconnect flag here.  The caller will also clear
-+		 * need_reconnect when tcon was successful but needed to be
-+		 * cleared earlier in the case of unix extensions reconnect
-+		 */
-+		if (tcon->need_reconnect && tcon->unix_ext) {
-+			cifs_dbg(FYI, "resetting caps for %s\n", tcon->tree_name);
-+			tcon->need_reconnect = false;
-+			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
-+		}
-+	}
-+	cifs_buf_release(smb_buffer);
-+	return rc;
-+}
-+
- int
- CIFSSMBTDis(const unsigned int xid, struct cifs_tcon *tcon)
- {
-diff --git a/fs/smb/client/connect.c b/fs/smb/client/connect.c
-index 52ac9b096a402..b98177a27808f 100644
---- a/fs/smb/client/connect.c
-+++ b/fs/smb/client/connect.c
-@@ -3798,148 +3798,6 @@ int cifs_mount(struct cifs_sb_info *cifs_sb, struct smb3_fs_context *ctx)
- }
- #endif
- 
--#ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
--/*
-- * Issue a TREE_CONNECT request.
-- */
--int
--CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
--	 const char *tree, struct cifs_tcon *tcon,
--	 const struct nls_table *nls_codepage)
--{
--	struct smb_hdr *smb_buffer;
--	struct smb_hdr *smb_buffer_response;
--	TCONX_REQ *pSMB;
--	TCONX_RSP *pSMBr;
--	unsigned char *bcc_ptr;
--	int rc = 0;
--	int length;
--	__u16 bytes_left, count;
--
--	if (ses == NULL)
--		return -EIO;
--
--	smb_buffer = cifs_buf_get();
--	if (smb_buffer == NULL)
--		return -ENOMEM;
--
--	smb_buffer_response = smb_buffer;
--
--	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
--			NULL /*no tid */, 4 /*wct */);
--
--	smb_buffer->Mid = get_next_mid(ses->server);
--	smb_buffer->Uid = ses->Suid;
--	pSMB = (TCONX_REQ *) smb_buffer;
--	pSMBr = (TCONX_RSP *) smb_buffer_response;
--
--	pSMB->AndXCommand = 0xFF;
--	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
--	bcc_ptr = &pSMB->Password[0];
--
--	pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
--	*bcc_ptr = 0; /* password is null byte */
--	bcc_ptr++;              /* skip password */
--	/* already aligned so no need to do it below */
--
--	if (ses->server->sign)
--		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
--
--	if (ses->capabilities & CAP_STATUS32)
--		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
--
--	if (ses->capabilities & CAP_DFS)
--		smb_buffer->Flags2 |= SMBFLG2_DFS;
--
--	if (ses->capabilities & CAP_UNICODE) {
--		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
--		length =
--		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
--			6 /* max utf8 char length in bytes */ *
--			(/* server len*/ + 256 /* share len */), nls_codepage);
--		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
--		bcc_ptr += 2;	/* skip trailing null */
--	} else {		/* ASCII */
--		strcpy(bcc_ptr, tree);
--		bcc_ptr += strlen(tree) + 1;
--	}
--	strcpy(bcc_ptr, "?????");
--	bcc_ptr += strlen("?????");
--	bcc_ptr += 1;
--	count = bcc_ptr - &pSMB->Password[0];
--	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
--	pSMB->ByteCount = cpu_to_le16(count);
--
--	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
--			 0);
--
--	/* above now done in SendReceive */
--	if (rc == 0) {
--		bool is_unicode;
--
--		tcon->tid = smb_buffer_response->Tid;
--		bcc_ptr = pByteArea(smb_buffer_response);
--		bytes_left = get_bcc(smb_buffer_response);
--		length = strnlen(bcc_ptr, bytes_left - 2);
--		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
--			is_unicode = true;
--		else
--			is_unicode = false;
--
--
--		/* skip service field (NB: this field is always ASCII) */
--		if (length == 3) {
--			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
--			    (bcc_ptr[2] == 'C')) {
--				cifs_dbg(FYI, "IPC connection\n");
--				tcon->ipc = true;
--				tcon->pipe = true;
--			}
--		} else if (length == 2) {
--			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
--				/* the most common case */
--				cifs_dbg(FYI, "disk share connection\n");
--			}
--		}
--		bcc_ptr += length + 1;
--		bytes_left -= (length + 1);
--		strscpy(tcon->tree_name, tree, sizeof(tcon->tree_name));
--
--		/* mostly informational -- no need to fail on error here */
--		kfree(tcon->nativeFileSystem);
--		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
--						      bytes_left, is_unicode,
--						      nls_codepage);
--
--		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
--
--		if ((smb_buffer_response->WordCount == 3) ||
--			 (smb_buffer_response->WordCount == 7))
--			/* field is in same location */
--			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
--		else
--			tcon->Flags = 0;
--		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
--
--		/*
--		 * reset_cifs_unix_caps calls QFSInfo which requires
--		 * need_reconnect to be false, but we would not need to call
--		 * reset_caps if this were not a reconnect case so must check
--		 * need_reconnect flag here.  The caller will also clear
--		 * need_reconnect when tcon was successful but needed to be
--		 * cleared earlier in the case of unix extensions reconnect
--		 */
--		if (tcon->need_reconnect && tcon->unix_ext) {
--			cifs_dbg(FYI, "resetting caps for %s\n", tcon->tree_name);
--			tcon->need_reconnect = false;
--			reset_cifs_unix_caps(xid, tcon, NULL, NULL);
--		}
--	}
--	cifs_buf_release(smb_buffer);
--	return rc;
--}
--#endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
--
- static void delayed_free(struct rcu_head *p)
- {
- 	struct cifs_sb_info *cifs_sb = container_of(p, struct cifs_sb_info, rcu);
 diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index 7b3675cfa7717..d619e407f6409 100644
+index d619e407f6409..8896ec7299cdf 100644
 --- a/fs/smb/client/trace.h
 +++ b/fs/smb/client/trace.h
-@@ -20,6 +20,15 @@
- /*
-  * Specify enums for tracing information.
-  */
-+#define smb_eio_traces \
-+	EM(smb_eio_trace_sym_slash,			"sym_slash") \
-+	EM(smb_eio_trace_sym_target_len,		"sym_target_len") \
-+	EM(smb_eio_trace_symlink_file_size,		"symlink_file_size") \
-+	EM(smb_eio_trace_tdis_in_reconnect,		"tdis_in_reconnect") \
-+	EM(smb_eio_trace_tx_chained_async,		"tx_chained_async") \
-+	EM(smb_eio_trace_tx_compress_failed,		"tx_compress_failed") \
-+	E_(smb_eio_trace_tx_copy_iter_to_buf,		"tx_copy_iter_to_buf")
-+
- #define smb3_rw_credits_traces \
- 	EM(cifs_trace_rw_credits_call_readv_adjust,	"rd-call-adj") \
- 	EM(cifs_trace_rw_credits_call_writev_adjust,	"wr-call-adj") \
-@@ -84,6 +93,7 @@
+@@ -24,6 +24,7 @@
+ 	EM(smb_eio_trace_sym_slash,			"sym_slash") \
+ 	EM(smb_eio_trace_sym_target_len,		"sym_target_len") \
+ 	EM(smb_eio_trace_symlink_file_size,		"symlink_file_size") \
++	EM(smb_eio_trace_tcon_bcc_too_small,		"tcon_bcc_too_small") \
+ 	EM(smb_eio_trace_tdis_in_reconnect,		"tdis_in_reconnect") \
+ 	EM(smb_eio_trace_tx_chained_async,		"tx_chained_async") \
+ 	EM(smb_eio_trace_tx_compress_failed,		"tx_compress_failed") \
+@@ -93,7 +94,7 @@
  #define EM(a, b) a,
  #define E_(a, b) a
  
-+enum smb_eio_trace		{ smb_eio_traces } __mode(byte);
+-enum smb_eio_trace		{ smb_eio_traces } __mode(byte);
++enum smb_eio_trace		{ smb_eio_traces };
  enum smb3_rw_credits_trace	{ smb3_rw_credits_traces } __mode(byte);
  enum smb3_tcon_ref_trace	{ smb3_tcon_ref_traces } __mode(byte);
- 
-@@ -97,6 +107,7 @@ enum smb3_tcon_ref_trace	{ smb3_tcon_ref_traces } __mode(byte);
- #define EM(a, b) TRACE_DEFINE_ENUM(a);
- #define E_(a, b) TRACE_DEFINE_ENUM(a);
- 
-+smb_eio_traces;
- smb3_rw_credits_traces;
- smb3_tcon_ref_traces;
  
 -- 
 2.53.0
