@@ -1,227 +1,212 @@
-Received: from mta0.migadu.com (out-105.mta0.migadu.com [91.218.175.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021136.outbound.protection.outlook.com [52.101.125.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1B23E7179
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 02:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.105
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749732; cv=none; b=lWpH8BmsHQYhtLgytnWWQ28Fx0x6ECRtyheKTFjGyzUgBMKr3iyCyhgXL1AovdgjTl60xwnCpVh/gOTvPplwv1YEVFuUcG+kW/YJec6faeCMU+fBpjUgfnFddRDieaFSVtU9hVITy1QVjlJi099P5j2jCjBHElPpFqBkJ5LDb/s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749732; c=relaxed/simple;
-	bh=rHLKkqj9+AnMNB8Bzjtied3AhPjbeZr0topGLVp+bxQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TBGoH10xURX23xaoXENsMI+Fxp4M4rb+yLpPU/s2Gt415uxUGMKtYM2h1gOeewId7vtKrYBKsyhxIkQzsD6m6X0K3eUqahaLKbu5aVLt+GFDEkVdVuB3mCTqt4bHsbLE0nQHoGEepy6BpMA218OSvUS74h4tUUEaegTCSgv3ZcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cyPkrCpm; arc=none smtp.client-ip=91.218.175.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66F373E5EFD
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 02:57:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.136
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788749847; cv=fail; b=lZzgZStmMlDtxqQhf6uFw1EOOEKuEpzWA1OwqPGrNapxISlZOdkopZrpN+0zpPYPgpJ4PbqH/NY3QObVuL2LMjaxc7O0ULVGZwCuYpG1pwGC34G9tlV6yozIfBbW8eFb50gZXTZg/MxYvdObNAB83Ck96M5IB14cfqvmrZZ4mjY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788749847; c=relaxed/simple;
+	bh=UlslWTZz6MW+zz9jwUSp6Yq7TA9A2KnOBBYRkIqB964=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=r8CvS5bi7UcI1OUUpt/P41PeUGOSDERShwEvqnobQdB2C4gjFOpYM/X0IlyGKi2xZQVbR2qb3+oHOOQil9IOHFUt1UHnPVr+MwisLlkP6RG2tUmoYk59DC9Zoh/8mAwbYs1VNepwV1Dceb6e20WZYWtq3dlS073L2qXSiov1jAQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=BnY3mCgb; arc=fail smtp.client-ip=52.101.125.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cyPkrCpm"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rHLKkqj9+AnMNB8Bzjtied3AhPjbeZr0topGLVp+bxQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788749728; v=1; x=1789354528;
- b=cyPkrCpm7owhg9wR2jRknZq/f5GpZrFhZ3ZVBPufOmQ+vUR4n8TEkaXxc9dYwR5G3OjCGDWc
- dfozPmmNAY+cQ5NgPjbvD+Szv2/z58zs6eTzHe9j4r8xHQDYARfAZxNYJc1nHRcRMYSSGSBeSD9
- cnTw3Bmt1I7YmqW091W1Rux8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 12f2adc598a284d7;
-	Mon, 07 Sep 2026 02:55:28 +0000
-X-Mizu-Trace-ID: 12f2adc598a284d7
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Muchun Song <muchun.song@linux.dev>,
-	David Hildenbrand <david@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Chris Down <chris@chrisdown.name>,
-	Tejun Heo <tj@kernel.org>,
-	Yu Zhao <yuzhao@google.com>,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v4 2/2] mm/mglru: fix ineffective memory protection for non-kswapd reclaim
-Date: Mon,  7 Sep 2026 10:54:45 +0800
-Message-Id: <20260907025445.1836238-3-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907025445.1836238-1-ridong.chen@linux.dev>
-References: <20260907025445.1836238-1-ridong.chen@linux.dev>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="BnY3mCgb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ja1ikHCazhH4uu0PixVu2x4cBGJNwSlfG+wHmYKVWhHk7WqRaleO2uPMX+8wpj0+KiFOlWaBhlt7k0Fhod8mccQqem3SR5BtFVKxNkeDRHyozip/qwyeClsAcIeMxYfyG3Ep/Wr1ETqFtR78iCWMEVqj3SKY5k4zCNx1eTYqxSQKxVY1Tl3vL/owp4qJQxg3g47h0jzHNAP3SnK4oYBICV1d10BkAZl85gqPMxbU4IbfKGk6LCrdsBNgtPvyHoDHv3RIApG2xpPy8Cx6UJGGimxat69I5t7OxloqOb0ohyJUT/g67eu8sXVU9N04e4zjjk4oVAPvoSLVhyAYgDOGQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nbld7NAxvI8OyNSz+v4q5txpaPPzgCr2LLMK/sRjOow=;
+ b=FcoEjGkCl5hkvrKPkKoESXVPjB1t7ydGRoHv3qvSxluy5E/K4qyo1Hvvl3Z2CQBBJtP5xx3QFyx/bF9cysK5n+E50/c1VSWN2PRJBQuyuDEWL3asaHmJyN9bR3N3yfk4WcTbUwIbNxdQUDHpBrsRyGnTa8kf636a3eBulXp2xLWCsh5x0hCPTa7hcIxlSuqB+98DaE17BlF/bhOFXFXEkIuMfbK934nsKt1MMpDs6jZqa+fOICwn6Ye8Ed+OLKck7ZrRK8jOVrtOEhimIU29urzKJAFQaxn9ZWAWrIq4mVEdGKlAM93CiYCC5htpD9UvETBdSfy9Rz55RV63rEqSlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nbld7NAxvI8OyNSz+v4q5txpaPPzgCr2LLMK/sRjOow=;
+ b=BnY3mCgbNMg71j1ZNcCGZ68Vsyrq3AdirAa3aEBMc/2fxZibOyeSBffnE0X32IHneyL3wqHC6LHNphppHDFfF0/lm+AtEdrbj5q1P0Lz0CCQd0akPwWjaZqVga6z4IALP+yZB+cGUUNMKDj4B6Td/5eGFFmCDuzx4SfMr/4sdcg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TYYP286MB4137.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:155::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 02:57:17 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 02:57:17 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: stable@vger.kernel.org
+Cc: Koichiro Den <den@valinux.co.jp>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: [PATCH 5.10.y] net: ntb_netdev: Fix TX busy and drop handling
+Date: Mon,  7 Sep 2026 11:57:12 +0900
+Message-ID: <20260907025712.468641-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <2026090340-monogamy-pancake-e076@gregkh>
+References: <2026090340-monogamy-pancake-e076@gregkh>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TY4P286CA0094.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:369::13) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB4137:EE_
+X-MS-Office365-Filtering-Correlation-Id: 039dc422-ba94-4fb3-0c9c-08df0c8bb9de
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10070799003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ybcudCIjwj+StaDT8ZvUm4c98yUMPQFynP4SPiaNMvteJDOC5bxC0lQfZF3R/mhUWkEmtXCXhP5iDtctkOB0GbDtIwewjIc2tKVC+rEXxNvUOfct+gpaqhV1J4gZD1uO4uXDBjksyzOa5Qw3SI1qzYLUjgUneWByglPPTAN9cTptdBsUDFgx7erdqcO2mpuKFZEuU1QMzx2B0iP+tAqDEPZP8muT+FKaLBlAmKiwiMb8UzbhBqSosjp7VcReVtCdIyvEIXoBZ09+HJhDjCvda/oIDmliWfxRFakHrsGYoLJEOJbJ/lkb+m8jpMke0HPMh61uudvNg8VbnfaLSkbMRLSYcl/Tz4NtQwpWdykq5hCwILndfkFS4YdjGsOBWajBwBIexwihCljIbe6vaTK8cDUyPrIxa1KJWbQiJTfsx5xx+iKy/zNoV10CUWyNP8I4zKOqGfBrgHljJigilL/+4whivltj36pNMLK8PJe7q86xTmdA0XA5t/oCW02HjLy7EuNilmuRAoYQ1iEKCnSsSE+UB+BGYIb0zQS/fJSmsbhQnbHJ6InxrDEtw8Co+L02rv7feIekqJ8+U671ZvG0OCI8+4FGkE94XR1BNsctbRP0er+9snvHJTik4rX2RABk
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10070799003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?uY3XmHMckSr4lr4LY54hBLWb1sBAN9iJ0yhR6KU8w1EFG05of0B0zUDLYt8P?=
+ =?us-ascii?Q?Qm3kDOYMTCvmm83ZH+X4yYYywSJMBocl52/PJqPpYnxDYc59v5wUOka+iscR?=
+ =?us-ascii?Q?uLO8wBEwR3rieSmdPo+jD65b5mDnRv+o5HQpH3s4Zwai0v7Yv/5O7qR5ggLq?=
+ =?us-ascii?Q?XOy9R5BLIm0fysN5CwhvQEPUSVkMF9MI98w+LcwPfNV+viN1Pc2aUyOQGaep?=
+ =?us-ascii?Q?vIueoKn4hxWSZZgKIkhJ3IRyT+9Who4GJZbhlS86VzolWz0/tICmPnMFoyMC?=
+ =?us-ascii?Q?KOWqEhiCf5pllipK/LR4QoNSYRQ8/CYzdHjSVztS0aQRfptFszYZlwG3FILu?=
+ =?us-ascii?Q?JPkR3VmmYle7ZCC0NdsyIxr+iSZ4pxOmutVPIDqmEZVEK/nS+n2BUT/WOkns?=
+ =?us-ascii?Q?eW3kb5HXBAia0USG5sOGFiG27txLvzHtOw1jWUmSUmQuSU50tGsH3/d6cyxz?=
+ =?us-ascii?Q?8Yp+G78gDL9vPH4mOFq6OcA1bbjKt40XT05UaKS3C+E/kILDvtPXgC/DOGyn?=
+ =?us-ascii?Q?LuR0xdRyIUF/g7m4wIlV9RY7CPbjd2ZLPq3lZyQZmu9jka5xN3DkW6xE6U8a?=
+ =?us-ascii?Q?ZAV3v49F8OTd1uTHMTrzn/Mplqsop/45wXRq8cy4lo23E3SpbFNn12bWWC2n?=
+ =?us-ascii?Q?mfXDs5f79qlF8iABBZtTNeZuOPhAmPOwMp5La9mE/uM8Efr5g4JUbiWzJW5Y?=
+ =?us-ascii?Q?yzRqRSC0Ojyv2insgad5Li6y1htNUpoWQGRm2I7mm0t4nYSNNTxhjVrMNglj?=
+ =?us-ascii?Q?rJQumHCREpEeUk/mdhjfMJexq414njY54ZVGy2TYKf3QHsAd6MrthzG+LdMC?=
+ =?us-ascii?Q?gUIcITeq8oAEHy9JKC+43aSA0myWzk/8oTQAR8XXeKqFLAYeH3/W4Kc5Hudg?=
+ =?us-ascii?Q?IUbT8iU/tDXVQxmKKCuE7edoZUmcx1GEtmZXQyTaiMKXh5fZVtmZnyBlcNb2?=
+ =?us-ascii?Q?n1Hkc9K6b4MBHkm2O2Tk3TBN/kJDlMj5Lvbl7NkDWYFIomjgKmpMfrjdev3t?=
+ =?us-ascii?Q?++J+ohKR/7GRsorY72CnWLp/ohE8oRSGUsuGhI16aA0bN5y06heT1vf1b0Fj?=
+ =?us-ascii?Q?XCnqYPo3jaO0CtQPdgNVpowQ6HjafOYe6sVhmeI3D0a8f4CS67q/YeKe+rk+?=
+ =?us-ascii?Q?NUHoCE6Co7Nw9V6qIH5gYDJpZV1r3e6qj2NtymTLrvSl2T5viDfxVeLrPWE/?=
+ =?us-ascii?Q?5uQDFU2nQAfX3ioGZ+UdHKcSQIvR3lIwGcU6NIclPNfkiEFvCup6vO6wHXBN?=
+ =?us-ascii?Q?ApzOaxlTJGmgaBwImRgklTZWz2uh5v+ZjSxmDQPEDUhyyvsywXD0Emy7Eial?=
+ =?us-ascii?Q?f9NL19EN7adp4XAMN+oS1ftcuUq494UbSLUOW4nfo+FR9Dk7oRUZp0BM+iBs?=
+ =?us-ascii?Q?2/yhaP30noAQDtA4uBti0KeJxFeLvOXRVGKRuzDlIjxRPx2CzolKTri93DxO?=
+ =?us-ascii?Q?TaRD+MmrmEP8vUQqB4OGpJjYsoraznOx+yHMVPY0PEWFNLPY3AdfOZNBYA0+?=
+ =?us-ascii?Q?mWF/vD36xcPlnhEKYWVf7OtHbWIrQDk6N746CJoY8VyGg0ptGm6vaER4/mM0?=
+ =?us-ascii?Q?hTgzYa3lVnQzNETBbv41xvahjieds+QAvo1quVSFgKlUb4fJjJo2N8i6gMr3?=
+ =?us-ascii?Q?F6Fb1OYFXvgFanbY1o5/++o0aS45xNnISjEI65bt5NNESZyYN3kQuiI0H+Fu?=
+ =?us-ascii?Q?fgCD4oPkEhV7RgsxImYsa4nOBW+ObDK6YgssxpPA00aY6e4DaGFoGsPlPwXs?=
+ =?us-ascii?Q?dIR0raR8w0rkJb2sodJ9W0iVnh5/VqTHrbXPazWOnpQMmHv8sZ2g?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 039dc422-ba94-4fb3-0c9c-08df0c8bb9de
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 02:57:17.0609
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4rYVUB6DcEOD3q/d+mfgidlFasvx0arCUyrFcisekq+W3FoPxMqqX/AkoE/CdT/Q1Z0FH0BYgzpDFHK4o1tJlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB4137
 
-From: Ridong Chen <chenridong@xiaomi.com>
+commit 8aaa47351db0f93a5c5297fbafdfa8bc75e8ae49 upstream.
 
-For MGLRU, memory.min/low is not honored during global proactive reclaim
-(writing to the root memory.reclaim) and global direct reclaim, because
-these paths shrink memcgs using stale protection (emin/elow).
-It can be reproduced as follows:
+Currently, ntb_netdev returns NETDEV_TX_BUSY for every enqueue error. It
+also increments the drop and error counters while leaving the skb owned
+by the qdisc, and may return BUSY with the subqueue still awake.
+Retrying a permanent error cannot succeed either.
 
-  # echo 7 > /sys/kernel/mm/lru_gen/enabled
-  # cd /sys/fs/cgroup
-  # mkdir -p a/b
-  # echo 100M > a/memory.min
-  # echo +memory > a/cgroup.subtree_control
-  # echo 100M > a/b/memory.min
-  # echo $$ > a/b/cgroup.procs
-  # dd if=/dev/zero of=/tmp/testfile bs=1M count=200
-  # cat a/b/memory.current
-  222650368
-  # echo 500M > memory.reclaim
-  -bash: echo: write error: Resource temporarily unavailable
-  # cat a/b/memory.current
-  6070272
+The unconditional BUSY return and premature accounting date back to the
+initial driver. The error-path queue stop was later removed without
+changing that return value. The current flow-control code includes a
+resource check, but ntb_netdev does not honor its result before enqueue.
 
-memory.min is 100M, yet reclaim drops a/b down to 6M, breaking the
-protection. The traditional LRU path is not affected because
-shrink_node() calls mem_cgroup_calculate_protection() for each memcg it
-visits during a top-down tree walk.
+Honor the resource check before enqueue. For -EAGAIN and -EBUSY, stop
+the subqueue, arm the existing reaper timer, and return BUSY without
+touching the skb. For other errors, free the skb, increment tx_dropped,
+and return NETDEV_TX_OK.
 
-Commit 30d77b7eef01 ("mm/mglru: fix ineffective protection calculation")
-moved the protection computation into lru_gen_age_node(), which only
-runs for kswapd. Non-kswapd global reclaim reaches shrink_one() through
-lru_gen_shrink_node() -> shrink_many() without any protection
-computation, so emin/elow are whatever a previous kswapd run left behind
-- or zero if kswapd never ran on this node. Relying on a prior kswapd
-pass is not correct either: a memcg's emin/elow are derived from its
-ancestors' memory.min/low settings and from children_min_usage, both of
-which change over time, so emin/elow go stale even after kswapd has run
-and must be recomputed at the point of reclaim.
-
-Introduce mem_cgroup_calculate_protection_path() which computes emin/elow
-along the root-to-target path only, by iterating through the cgroup
-ancestors array top-down. This avoids the full tree traversal that would
-be needed with mem_cgroup_calculate_protection(), limiting the cost to
-O(depth) per memcg - typically 3-5 levels.
-
-Call it from shrink_one() for the non-kswapd path so that each memcg
-about to be shrunk has correct protection values.
-
-Fixes: e4dde56cd208 ("mm: multi-gen LRU: per-node lru_gen_folio lists")
+Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
+Fixes: d723485cb4ca ("ntb_netdev: remove tx timeout")
+Fixes: e74bfeedad08 ("NTB: Add flow control to the ntb_netdev")
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4-8
-Reviewed-by: Barry Song <baohua@kernel.org>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/20260817053519.4135287-3-den@valinux.co.jp
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[den: adapt to the single-queue implementation, as 5.10.y lacks commit:
+ ee970634c777 ("net: ntb_netdev: Introduce per-queue context")]
+Stable-dep-of: 873ce713fef5 ("NTB: ntb_transport: Fail TX enqueue when the QP link is down")
+Stable-dep-of: a4f2387db6f1 ("NTB: ntb_transport: Reject oversized TX buffers")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- include/linux/memcontrol.h | 10 +++++++++
- mm/memcontrol.c            | 45 ++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c                |  8 ++++++-
- 3 files changed, 62 insertions(+), 1 deletion(-)
+ drivers/net/ntb_netdev.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index f227348a3f24a..a65a516adc665 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -1885,6 +1885,16 @@ static inline bool memcg_is_dying(struct mem_cgroup *memcg)
- }
- #endif /* CONFIG_MEMCG */
- 
-+#if defined(CONFIG_MEMCG) && defined(CONFIG_LRU_GEN)
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg);
-+#else
-+static inline void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+							struct mem_cgroup *memcg)
-+{
-+}
-+#endif
-+
- #if defined(CONFIG_MEMCG) && defined(CONFIG_ZSWAP)
- bool obj_cgroup_may_zswap(struct obj_cgroup *objcg);
- void obj_cgroup_charge_zswap(struct obj_cgroup *objcg, size_t size);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 256b68ffca70e..ae568fc688130 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -5214,6 +5214,51 @@ void mem_cgroup_calculate_protection(struct mem_cgroup *root,
- 	page_counter_calculate_protection(&root->memory, &memcg->memory, recursive_protection);
- }
- 
-+#ifdef CONFIG_LRU_GEN
-+/**
-+ * mem_cgroup_calculate_protection_path - compute protection along a path
-+ * @root: the top ancestor of the sub-tree being checked (NULL for root_mem_cgroup)
-+ * @memcg: the target memory cgroup
-+ *
-+ * Walk the ancestor path from @root down to @memcg and compute the effective
-+ * protection at each level.  This is safe for isolated queries because it
-+ * ensures parents are computed before children.
-+ */
-+void mem_cgroup_calculate_protection_path(struct mem_cgroup *root,
-+					  struct mem_cgroup *memcg)
-+{
-+	bool recursive_protection =
-+		cgrp_dfl_root.flags & CGRP_ROOT_MEMORY_RECURSIVE_PROT;
-+	struct cgroup *cg;
-+	int root_level, i;
-+
-+	if (mem_cgroup_disabled())
-+		return;
-+
-+	if (!root)
-+		root = root_mem_cgroup;
-+
-+	if (memcg == root)
-+		return;
-+
-+	root_level = root->css.cgroup->level;
-+	cg = memcg->css.cgroup;
-+
-+	rcu_read_lock();
-+	for (i = root_level + 1; i <= cg->level; i++) {
-+		struct mem_cgroup *cur;
-+
-+		cur = mem_cgroup_from_css(cgroup_css(cg->ancestors[i],
-+						     &memory_cgrp_subsys));
-+		if (cur)
-+			page_counter_calculate_protection(&root->memory,
-+							  &cur->memory,
-+							  recursive_protection);
-+	}
-+	rcu_read_unlock();
-+}
-+#endif /* CONFIG_LRU_GEN */
-+
- static int charge_memcg(struct folio *folio, struct mem_cgroup *memcg,
- 			gfp_t gfp)
+diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
+index 7e562751d6dd..0ac87b69699b 100644
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -167,8 +167,10 @@ static int __ntb_netdev_maybe_stop_tx(struct net_device *netdev,
+ static int ntb_netdev_maybe_stop_tx(struct net_device *ndev,
+ 				    struct ntb_transport_qp *qp, int size)
  {
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index b4c9b8f3dfe99..8409ea4bbf379 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -5111,7 +5111,13 @@ static int shrink_one(struct lruvec *lruvec, struct scan_control *sc)
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
- 
--	/* lru_gen_age_node() called mem_cgroup_calculate_protection() */
-+	/*
-+	 * For kswapd, mem_cgroup_calculate_protection() has already
-+	 * been called during the top-down cgroup traversal.
-+	 */
-+	if (!current_is_kswapd())
-+		mem_cgroup_calculate_protection_path(NULL, memcg);
+-	if (netif_queue_stopped(ndev) ||
+-	    (ntb_transport_tx_free_entry(qp) >= size))
++	if (netif_queue_stopped(ndev))
++		return -EBUSY;
 +
- 	if (mem_cgroup_below_min(NULL, memcg))
- 		return MEMCG_LRU_YOUNG;
++	if (ntb_transport_tx_free_entry(qp) >= size)
+ 		return 0;
  
+ 	return __ntb_netdev_maybe_stop_tx(ndev, qp, size);
+@@ -211,21 +213,30 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
+ 	struct ntb_netdev *dev = netdev_priv(ndev);
+ 	int rc;
+ 
+-	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
++	if (unlikely(ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop)))
++		return NETDEV_TX_BUSY;
+ 
+ 	rc = ntb_transport_tx_enqueue(dev->qp, skb, skb->data, skb->len);
+-	if (rc)
+-		goto err;
++	if (rc) {
++		if (rc == -EAGAIN || rc == -EBUSY) {
++			netif_stop_queue(ndev);
++			mod_timer(&dev->tx_timer,
++				  jiffies + usecs_to_jiffies(tx_time));
++			return NETDEV_TX_BUSY;
++		}
++
++		goto drop;
++	}
+ 
+ 	/* check for next submit */
+ 	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
+ 
+ 	return NETDEV_TX_OK;
+ 
+-err:
++drop:
++	dev_kfree_skb_any(skb);
+ 	ndev->stats.tx_dropped++;
+-	ndev->stats.tx_errors++;
+-	return NETDEV_TX_BUSY;
++	return NETDEV_TX_OK;
+ }
+ 
+ static void ntb_netdev_tx_timer(struct timer_list *t)
 -- 
-2.34.1
+2.51.0
 
