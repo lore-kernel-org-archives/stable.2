@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D895372B5A
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34FD372B5A
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788822019; cv=none; b=a/WIcrDvmSEFOFLl7MHKQ3Mw4xsqsy+rHvNKdrQc8hBvACnP/KUnhqrSmsIzxRee1V69uuiQHaw+cGRCRAEwajdPOwMJ/ZGzd6BQTmDtLq9O7tjbdhrmjg+U0/sK5NnLO7S+pYKXLfTjdmd8HeIV0uTe0aN9fmW3nydaP3UBXyU=
+	t=1788822045; cv=none; b=HvtF4uO4qFf2zCjY8sF62VL/c2/4cMPin/ot9H84eUD18Uopj0zGK468fL12gog7uhthKjSXS4D7AZLTVsT/LxfgWFBpq4U6vzeId1N94VHhMzEAIH/opqyBRjyE2yQdWZ3RDmUfEbH+aYguEW0N1bGSXrgvsotZ1getaqNhCOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788822019; c=relaxed/simple;
-	bh=LAl4kP0EIKlfl5zzSSLqvsqH7L5V5krRf2vXXXOvupk=;
+	s=arc-20240116; t=1788822045; c=relaxed/simple;
+	bh=aYpYVmSqSOXjVdn3TjpCgs6bBpze3xWd5H+X//z66Po=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mIvxRx++nxKA/h1g0NHlBTojwooHfQXAts3N7MZpkjo8cklXFOu4GXCkMEOyS/1v/4NOdjC3V2jAaz6b+zFKtlzaHZ8wg5V6w1NKhlcVKBt94lNWzCGsLewtOuSdMAqj7ps7w9V3PXEoIgkxTEOgsScitlAzDiFSueTxxaIVm/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T5GWmLZ4; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=aeVSHJtPdnOazwEAqUZPtZ+gv2S0CdUzO7VDD2u//jWFy4ByBSyqTxLJodk+2c7CKJd1DFLSk+/AeJnrBQwovLS47V/z2kkHkbizeLEbNxsJ6GQHHDBxdfRPdG3iJynzf23k7xWdvTOPe9h/nDd8k916hE9w0KJjXwKnsXzbUV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCSpIpr6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T5GWmLZ4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E64FC1F00A3A
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCSpIpr6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7661F00A3D
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788822017;
-	bh=xWL6hggeuM5eeHa9vvklWW/Gt5aWnBuf5JmY/Tusxyo=;
+	s=k20260515; t=1788822043;
+	bh=aYpYVmSqSOXjVdn3TjpCgs6bBpze3xWd5H+X//z66Po=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=T5GWmLZ4oHi/Kg/BPltLAoP1yFSJMtvtAQMyt6fR5iOcD9ErKrfqYDBFA28psDETq
-	 /roUOdPs6pSOIfJB1MgWQuofjOv4+HJ4F+o3uu+KRZ9hfBvQlVqBm0hBCOHDCsBNgj
-	 N4AbNG7LwPyNqE30IX/UYApZihSH3od3mzeo/VCtpz2aI9hE0229D3HQIlcZ+0M3LI
-	 Fo0at7USs/jxx/xqVL1Rchf2LVdEuG4SN51AH1YBxlzg0mDVlLkCuKL6j938MQmGik
-	 1m1ZLUnLUZ/7omdeJv/oqD5i0WqEIlqfpvx3Anqso/DtN/Y4kk41ofaaFKJO9xNipn
-	 49mNx67hjGvBw==
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb13so367026a12.0
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 16:00:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByi+Z6nzlKQbnUpQHYUlWMVtGL7MOQhLKOetr6sN8ZgOaaIhjkGrTfBF1E6BjdtrkqcYOj3Bec=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8i25dDPfRoE38V7wzErbL+rCYyWOu1csZBFnBB7mZM3Hv2l5R
-	j9UrXkZUKIvtxdkfFLMe1qX9pbDwYzlyNeDDWqKX+uvTsk5oJFSiQUmhK9TyrDHsFTi6CJceYwN
-	R1tEzl5Mho9LRxN+tEpofCOQ346aJtuI=
-X-Received: by 2002:a17:906:f597:b0:c26:3377:752b with SMTP id
- a640c23a62f3a-c29042b7343mr148355566b.3.1788822016616; Mon, 07 Sep 2026
- 16:00:16 -0700 (PDT)
+	b=DCSpIpr6WRXUctrVvdKBFbKkcCPfLN50pCmFxZvsHeKQi5z+TxtTzJxlBQ+KJDnQm
+	 B3X7oNDxaDxgp3pxTMUDoDOuF4fhOdRQp2F0E9NRh62gbQm5cr5a0Yt1DutNVBI40c
+	 9q+EgOo/NgOkYNaLpydGs9TiS7L3j8aL6u4S1c9MTuM2iwPsQgTsqAUwYXUBJOfj1g
+	 7TOfzpTVS8HD65+VkX2UeZQIc3nQbZpU9i6CrJ4KG7pZH/9ViUhAF5m2LzVnYANCdE
+	 n8zXMeUwPu2SrtkRDcABKbcZ24nbfAmlZdtQfsie8n2skxXf5cXQEY8w3YIDPDLMfY
+	 CaP39fIB3IXJg==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso647209866b.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 16:00:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx5RC3VUQsBFl+wdYBxDDKtCkiqu+mm6qE5gFO1+E7N6aLK6SXY1/ThNZGGZRBUfs1G1ZwsNu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+GE8I6ZO51IqS4T82Sv4X+QlyogqAM1oWKhtjapXE76vkYoAR
+	IEbiCJDXwai6PPESv4WpoOH3+qOu7wjEBzTXaqJ7GESdWD+m+6nshhrxxyQq3lIOz+lh41IlL9a
+	IEJFlzS1BFbSiWNxH1MMWtj4oGTMr4vI=
+X-Received: by 2002:a17:907:9724:b0:c12:b2db:873d with SMTP id
+ a640c23a62f3a-c260c9715d3mr1634679566b.5.1788822042222; Mon, 07 Sep 2026
+ 16:00:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906200517.725015-1-pc@manguebit.org> <20260906200517.725015-4-pc@manguebit.org>
-In-Reply-To: <20260906200517.725015-4-pc@manguebit.org>
+References: <20260906200517.725015-1-pc@manguebit.org> <20260906200517.725015-5-pc@manguebit.org>
+In-Reply-To: <20260906200517.725015-5-pc@manguebit.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 8 Sep 2026 08:00:02 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd8VZxLKDt8r-tg7DWEXWV=kOqKot=PSafoYcWpOv-cR=g@mail.gmail.com>
-X-Gm-Features: AcwNN1U545zolvnjOPnYuXOAZy_ZzNwywL3O497r_OFSvmYawzMuk1ocV4hvfcI
-Message-ID: <CAKYAXd8VZxLKDt8r-tg7DWEXWV=kOqKot=PSafoYcWpOv-cR=g@mail.gmail.com>
-Subject: Re: [PATCH v4 4/7] smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()
+Date: Tue, 8 Sep 2026 08:00:29 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd_0fcfEcJbPiYvFWG1F7iSffsCx1Oxg+55vc=drmgO_5g@mail.gmail.com>
+X-Gm-Features: AcwNN1U2kSONxG1l8mhUnSXZr5xC0fN0z0RgrkWxXOPiUDZIuoDlyPBR540tfWo
+Message-ID: <CAKYAXd_0fcfEcJbPiYvFWG1F7iSffsCx1Oxg+55vc=drmgO_5g@mail.gmail.com>
+Subject: Re: [PATCH v4 5/7] smb: client: fix file type corruption in wsl_to_fattr()
 To: Paulo Alcantara <pc@manguebit.org>
 Cc: linux-cifs@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
 	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
@@ -59,23 +59,13 @@ Content-Transfer-Encoding: quoted-printable
 On Mon, Sep 7, 2026 at 5:05=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> w=
 rote:
 >
-> cifs_posix_to_fattr() ignores the return value of posix_info_parse().
-> When a malformed POSIX directory entry is encountered (e.g. invalid
-> SID lengths from an untrusted server), posix_info_parse() returns -1
-> without populating the 'parsed' struct.  The uninitialized stack
-> memory in parsed.owner and parsed.group is then passed to
-> sid_to_id(), which processes the garbage bytes and passes them to
-> request_key() to construct a SID string, potentially leaking kernel
-> stack contents to the userspace idmap daemon.
+> Setting the file type in cf_mode without clearing the existing S_IFMT
+> bits first is wrong as it corrupts the file type when cf_mode already
+> has type bits set (e.g. S_IFREG | S_IFCHR =3D=3D S_IFLNK).
 >
-> Fix this by checking the return value and skipping the SID-to-id
-> mapping when parsing fails.  The remaining fattr fields (timestamps,
-> mode, etc.) are populated directly from the 'info' pointer so they
-> are unaffected.
+> Clear S_IFMT before the switch statement.
 >
 > Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40mangu=
-ebit.org
-> Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40mangu=
 ebit.org
 > Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 > Cc: Namjae Jeon <linkinjeon@kernel.org>
