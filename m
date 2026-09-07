@@ -1,158 +1,129 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B894411F80
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 07:30:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788766246; cv=pass; b=bHjCUMDwnXovIWrijQkbITpX1yPePrITlbD5WiAyy3pozp3UtbDVHQ+bF0SIiayv93gN9NJ6dV7bdsX6WsmE4TNHKx3fykJAmlbeeJVmOBM3+CyBFlaWuTO7MKYmGudm2fxfKB5XS+N+zi4Qp69P8EoiHLmlall0QLKAAtIBpTM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788766246; c=relaxed/simple;
-	bh=ws1lt2A9wuTY0mZ//UjpSJvqUAKan2kCqa9w0DLo52c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K81fd7YQbNYgb5ec+6LjJ/XV/yx4uYJR4YJ7QPEJqMGSH0rCd+XipCx0BO27lj43fu6sAENvh44QMNrziw6gTmG5BlCkylkqUmXcpx7UJoMfePkAkJicU9HM2YMTG9Jvy5cDkvRgI1Xbizkrl7XUzI1P3dOo9PYn20crAflnPMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=r2xJc220; arc=pass smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="r2xJc220"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a1f628b0afso23110651fa.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 00:30:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788766242; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T99v8Ktlqukm139BA6MjZvEULVUqwXsgPaC/aR1nhUL29x0R9l8uXWc0zF6aeQ7uxe
-         VYM3l5ZVV6lG9+fQ1T/wnBVQaqs8T0DypgHJ3Oc/eFP34csWO7h7swmMomkU0V/sTdoq
-         xxmUsYgH/2anqZv01Jmykpr/1/x9fu2JoMSm2GhaljT/FcQLPOqpMf3f5eYYFLPumdkB
-         TJ2cF+TDE5bmcMsxQzEX0tdyOuyQbp3B04XofiKEwrKr2lTs5MXg9Sv+Lzn3lIAMT8r9
-         OxCvYuXj8x1PZtGveuF5HfXbzLF7PrWZ+XnkV8UP6YVo1LaAbJZdbo2Usr3FlWqgSGAt
-         J7xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
-        fh=fXq3cXaGkzQ9jzwVrUZ8eLY+YupAYQJ0Ry62Hfjnky0=;
-        b=IG3QZMDdZ621CkkhUJzooi8Gs4hZQc0Vk+COKkh2S5hbq62vHWr9OvfTm3sG2iBcgu
-         /ztPME1wD8G3mJfFipp2CP6gE0EmaNE0dXDYPytcxMVkGc++kD5TUTsMELcBqtLoaNjP
-         HAn1ckBlADaaP1D1ghxnK/PArR2h4XGH1q4761oqV8DjJoIIhHDmcsqGAbUYMmRuEYDe
-         Q7xfWVVIZ86l9TKx3k0LhExp0m3n2tKZ1sIS8UZ9Io3Rvf6bM6k1cxYfI0uVtpdcTTRw
-         LIRaukj71n4OPXU5Y593mPekFqWbO1+Ed0G8tYPifA2slfv4fEfNN3A8LUv/XIq0h6VS
-         2ERQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788766242; x=1789371042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
-        b=r2xJc220Zc65Y7W2MaMaq3YAsTrjViOVCgIePlgRrEVuKOUCWhaobo2ZN7lFvrwJmH
-         jwhgA2Ey/xrqrDsX0hTrSZArRxWNUbTJ1BBoXFDAuqPVGWS3uzGaKwJtrj/Q46uRMssS
-         o1MQx7lWWvmkB+Y5OpNmQAepBU7XbVWnx3dk+9NRACPts7fAe4ufO3sOWgfakB6qSATi
-         BRw1VEHwqp+x4iOmusvYYb8A47gpu6ssJcKBZyybXPBYZQ2Kj63vfBr+ZkF2Or4l2THO
-         Q/7Q/eobjosfi0XLUIJxdEXDoTfrjgRLmSfIZn8te4/DI2fK1mfOnuavwXgBtxjZX36d
-         suxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788766242; x=1789371042;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K8pzZlzdqRIT/RWxSl/nFSJH5gf6fu3+T1v+V4JsYz8=;
-        b=JV5LmNfQuHdqaWS+aBda1MQzqYHV6JKI5RSgUCbc4IMBC+QC4t3Z7laZf4zOuQIt/T
-         IIdJfJlcjBBSVX4gpswA18x6YZFY2qzhYp1SKAtziIxAulVnNhUDdOLQYkmZKHcAf3ph
-         cztRcHtgNJqc5TjFURvuqpjr2R7uGwt1d76lB3zf8c877iA2kIZYyktx86Fla6RPw4gc
-         23ZSNdDb9SeaeqHKXaqD2dJdtLq4N7M3NY67cat7hbwzwZlEzE1CnzSolsi26WA2RvCK
-         XSz3JAnsGc/JupjBno+Gt6q3oH57tB0/j3PHqeah/RDEKtpPwjlX6ahSWw1nyoZ4/WeC
-         nn5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwUn9kde9YDrtEeZb7/IvE349wwvUI5FvRRw4DXTnyTqP11S5Y7DN17CWCjdZOs066DicUZY9o=@vger.kernel.org
-X-Gm-Message-State: AFuF++ndh5Y0vXHYNTCGEqA2mpSgsxk0xzOaq5FaIS1BNdZXljKeROz2
-	2wWKIFZYkqcWRxcVUkMnE5+IKFlrkkKeRMbihNmoyIH+mRHENfCBDrB+Xk6kHmAzyl1aVlqqOJw
-	Hk4Jh0ZDfIKdokdbqysKiLGawEr3X/Sb8TDyW1dU+aTg=
-X-Gm-Gg: AYBFou0yJriVdyBAyuXAqZ8ayuXMFKCHsPoU3tvEuYU5oSDO9VW8vMKO2ZtaqWMEOMf
-	oPqOLkK/2FHWAnQW4N9W6z1qS0oEB5NmoDSVZta/0ycOHVnAu6b3ayzeyo1D5+Cwbqp60hbblYP
-	2kCvUOuD0ocy79gy/DHRBvPnD06cYWnPXJjk8dXo8WLMV/glfDimlFBXk+wIU5xpkrt8MrcgF7s
-	THf/aHOtbmzUKBHiY2EB1j1EWflqxrwNzFWsH11r/AsGftIwzvevLXJ7tnLpUzyy1dAtqEOIeHq
-	Tzm026WVwLI9olCmQ++gFAUvIfIbZoYG44ODNSqKxn8QmtDBp4U/pWBEWe3WszV7H/1qO/Py3Qs
-	=
-X-Received: by 2002:a2e:be1e:0:b0:3a3:314d:1169 with SMTP id
- 38308e7fff4ca-3a371b39b13mr25408981fa.1.1788766242436; Mon, 07 Sep 2026
- 00:30:42 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9959D41754;
+	Mon,  7 Sep 2026 07:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788766280; cv=none; b=tfyfeVChkT3U0TrYdjsRbGDB8YyHhBHFHpOwxIaVaXWtCRRJcQxftnhp7aD6yShFBpU3Gl8zKDUjlsMNjPp7dNyFUkKBgCjoZbx99rZxaUeJIpBrR4s/ePgcZjOjZS1VZCj4+4QEXmOmh0FMhPEA1pmCmxdRGuV8iJZMddNFp8k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788766280; c=relaxed/simple;
+	bh=+kSRN1FQPOt4QIhJo16lizhPz7nrDoHjL5HpjoLU4GI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AoKCtvXIyj9VWK/waBwR9M+E3OvKq5Lf35iJT3IgRSeRP9Tb0qKhMBwNSjPfscQJ35Hq46ihe+R26cqZxJeiaHxIvUhdAtvU2kMGWK+xCYS2GBoZYYx3inkdUEW4k3D7WKKkZB3kUv21Ea4gfCacZhqww9Pq2k5Otrlz117OobI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 18b17c1aaa8e11f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:89b840f9-024d-4148-b878-1f86844f3a3f,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:1ca462b37043b423338bde794a61413d,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 18b17c1aaa8e11f19a56ed5b684f684d-20260907
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1921757649; Mon, 07 Sep 2026 15:31:10 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: cem@kernel.org,
+	darrick.wong@oracle.com,
+	chandanrlinux@gmail.com
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xfs: fix array bounds checking in log recovery
+Date: Mon,  7 Sep 2026 15:31:06 +0800
+Message-Id: <20260907073106.300362-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788668475.git.zihanx@nebusec.ai> <e8782427d0b3cd1854ab8d141eea224b53db55b9.1788668475.git.zihanx@nebusec.ai>
- <CANn89iKdX2-a+VhWa4CyDODSZByk=r5VRq38yQhLYBFRQ1Wy3A@mail.gmail.com>
-In-Reply-To: <CANn89iKdX2-a+VhWa4CyDODSZByk=r5VRq38yQhLYBFRQ1Wy3A@mail.gmail.com>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 15:30:30 +0800
-X-Gm-Features: AcwNN1VDHzbFiSzp25pLBVGEmL8dzveakPy4WZ3YZpO1QfoeCh76H4bfuzwlclo
-Message-ID: <CAANe3eQpztNQF_e0qHXxAr+GM39tUdU0FS=1kO0h5LY+v-iVGw@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] udp: diag: bound bucket lock hold time
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
-	Pavel Emelyanov <xemul@parallels.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 3:07=E2=80=AFPM Eric Dumazet <edumazet@google.com> w=
-rote:
->
-> On Sun, Sep 6, 2026 at 12:35=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrot=
-e:
-> >
-> > udp_diag_dump() currently keeps the UDP hash bucket spinlock held while
-> > running the request's bytecode filter and filling a netlink response fo=
-r
-> > every socket in the bucket.  A large filter and a heavily populated buc=
-ket
-> > can therefore keep bottom halves disabled for an attacker-scaled amount=
- of
-> > time.
-> >
-> > Collect at most SKARR_SZ matching sockets under the bucket lock, taking=
- a
-> > reference for each socket, then run the filter and fill the response af=
-ter
-> > releasing the lock.  Resume with the existing (slot, s_num) dump state =
-so
-> > the next batch can skip already-walked sockets.  Leave bytecode filteri=
-ng
-> > until after unlock; unlike tcp_diag, a rejecting inet_diag bytecode pro=
-gram
-> > is the expensive part of this walk.
-> >
-> > Fixes: b6d640c2286d ("udp_diag: Implement the dump-all functionality")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> > ---
-> > changes in v2:
-> >   - Drop the hash-list cursor, dump_done callback, extra module
-> >     reference, and inet_diag core changes.  Dump state is only
-> >     (slot, s_num), so the existing handler get/put around dump() is
-> >     enough and udp_diag no longer manages its own module lifetime.
-> >   - Batch at most SKARR_SZ matching sockets under the bucket lock
-> >     like tcp_diag, and run bytecode filtering plus netlink fill after
-> >     unlock.
-> >   - v1 Link: https://lore.kernel.org/all/133b6aee9e2c908c9da37d5585b3d2=
-cd016906cd.1788187473.git.zihanx@nebusec.ai
->
-> pw-bot: rejected
->
-> Please limit the complexity of filters.
->
-> Anywone needing complex filters will implement them in user space.
+The log recovery code increments array indices based on bits set in
+blf_data_map without verifying that the indices stay within the bounds
+of the item->ri_buf array.
 
-Agreed.  v2 tried to make the dump walk tolerate large bytecode;
-that was the wrong approach.
+Since blf_data_map is from untrusted log data, a malicious log could set
+many bits while ri_total is small, causing array index overflow.
 
-I will drop this patch and send a new series that rejects oversized
-programs in inet_diag_bc_audit().  Richer matching can stay in
-userspace.
+This can result in an out-of-bounds access during log recovery, causing
+a kernel crash or memory corruption.
+
+This patch adds array bounds checking for ri_buf access in
+xlog_recover_do_reg_buffer() and xlog_recover_do_inode_buffer().
+
+The check in xlog_recover_do_inode_buffer() is placed right before the
+actual array access, not after incrementing the index, to avoid false
+positives when processing the last valid region.
+
+Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v2:
+ -Rebase top of for-next and re-send.
+---
+ fs/xfs/xfs_buf_item_recover.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 57929f115055..7148716366ba 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -485,6 +485,19 @@ xlog_recover_do_reg_buffer(
+ 			break;
+ 		nbits = xfs_contig_bits(buf_f->blf_data_map,
+ 					buf_f->blf_map_size, bit);
++
++		/*
++		 * The bitmap can have more bits set than there are regions
++		 * in ri_buf, so we must check array bounds before using the
++		 * index to access ri_buf[i].
++		 */
++		if (XFS_IS_CORRUPT(mp, i >= item->ri_total)) {
++			xfs_alert(mp,
++		"Buffer log item index (%d) exceeds allocated regions (%d).",
++					i, item->ri_total);
++			return -EFSCORRUPTED;
++		}
++
+ 		ASSERT(nbits > 0);
+ 		ASSERT(item->ri_buf[i].iov_base != NULL);
+ 		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+@@ -688,6 +701,19 @@ xlog_recover_do_inode_buffer(
+ 		if (next_unlinked_offset < reg_buf_offset)
+ 			continue;
+ 
++		/*
++		 * Check array bounds here (right before accessing ri_buf)
++		 * rather than after incrementing item_index. This avoids
++		 * incorrectly rejecting logs when item_index reaches
++		 * ri_total after processing the final valid region.
++		 */
++		if (XFS_IS_CORRUPT(mp, item_index >= item->ri_total)) {
++			xfs_alert(mp,
++		"Inode buffer log item index (%d) exceeds allocated regions (%d).",
++				item_index, item->ri_total);
++			return -EFSCORRUPTED;
++		}
++
+ 		ASSERT(item->ri_buf[item_index].iov_base != NULL);
+ 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+ 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+-- 
+2.25.1
+
