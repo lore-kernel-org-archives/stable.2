@@ -1,33 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD67D48C403;
-	Mon,  7 Sep 2026 12:27:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48F5474E
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:28:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784036; cv=none; b=tzu7SGMTn/qyy7fQ4WTwmeMDeqKHZozoYzrnQbgnze1CuDAEWLfsNczypxeHMusMqLgHbMrcPJJTM6wP5gUMVcYq81cYnBm3JMXe+Qlgsz6oD+lwExAqqt6/y6RbPvTbV7SJ67TUXQNxfN0BE+hc/QSav3pyauqY4U2bNlzvVM0=
+	t=1788784140; cv=none; b=tdwvharY7DAUoAPVu/bBA1YXwbZHVXJfdPXCZqZ6kLW1GGyb36Yx5c4kFuq8TDX6N2Cg6X7n7dFqHgEUQTQACtEOP4mOsMZ7wIW1ew3XevEc7vj4ilek2mW/Lf34VTLXk/xHcQ3qm4oDWn6lYGHp/ilFe2fiMiqhKnE9M6+pt2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784036; c=relaxed/simple;
-	bh=h55cCP661Wt3a9Rl4tZ+qbQ8emLcPSkoqhH5pWsvS8k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pNdlakMCc+HE32xMGxf8sJCIcd4eesXBjKrkbcOtcbDzsnAieAiYb1MjnmZywP2TcuAoTb3TTfi+dqrVXVtDlXDtFzC3O5wgccpwAFNTHyZfWimrCGlwfX3DSyB50n8U7m9leDnVN34E1HbdfhcA63HQG/O4hrG+iVYq5Pj0W+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jlc/MYhg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788784140; c=relaxed/simple;
+	bh=AAZwLzfr8jr8YZzC3uwVFUEWgXqesfwXs8POQkuBsbo=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Wr0c7TldIHp2R/7hFs0TxVWDrM8yfR1q+YeD/E5BsOayLBJ4CY6MllXTC8KYnb4+ZHAwdfpsO2zO+fAirRwchZY4UDofxpBnwHxMKomBr/4DWGdvtf3VYXnKC0msJdhiZ2jtYTOPJrb9VPCq8KhZYPmlE7jP/notvon+Oq5ezqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=s55hlTWj; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jlc/MYhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F5F1F00A3D;
-	Mon,  7 Sep 2026 12:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784034;
-	bh=eL3zBt3IpxmFGDw65BOSrW32Mf5l1FD3fhg2/Op0+5g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jlc/MYhgqv0aG6eZrLeWjZ0tGnGPoPIdODsxFIivW0bYt6AYdK2bLex3vnm6AV4g/
-	 2bbJrWeAAzG5la1V1pyrR5riJvL22ar2RA9dZ7q8HIhyujANPyWInu0x8J0ATpgGYb
-	 DaYBFTiK6CfRzIcqzo6d+5R3vCVcjJ1uXToY6GmAl4ccpTm4TPgA4JxveSHjjbP13b
-	 45TMbSN9MeTPpZU4v2rZOXRPnCxAugYbjSEXckjdn3xjkvev94gQ+CTHuXpvIqYYc/
-	 QFM/5ESkhGpbBJI/Uw8twuLfZ5nv6wNa6KPLAysDEhaQftWLTH5VbcptbAeuiTBvTn
-	 FdUlhV3yJ4ceQ==
-Message-ID: <674ddd6c-7854-4864-ac7c-df6823d3a37f@kernel.org>
-Date: Mon, 7 Sep 2026 14:27:09 +0200
+	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="s55hlTWj"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso5159795a12.2
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:28:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ursulin.net; s=google; t=1788784137; x=1789388937; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aJm8oYa2XMgACvK1LNx+Nj4anO8CYxc+Hsnqz6K6hAA=;
+        b=s55hlTWjRIy/MDCaR0egHL9ltglEOE2im7UrWD3yTr/JrKyJwZTpX/Md+HSWYFWYML
+         srPMcIGkRsd1K687NBA8/jXrnjCoZdYDMnPky+v37ZX2s73W2ojUt2f9Udpc51tteo5c
+         XUK9GSM8fTcmU+OSn2hR+KkCXgX5QKpu+nzcnlwj1CBponDT7UyITLdofFY+F/cLGz+7
+         QpqpGB4uMdCYV/pOvVOl4TWaeiEjJiy524aQrG2JYTn6wfwbYsB3MdYsq8zRb3yvxiTQ
+         0JV1rBZlNwQZYbuJYudE7iIOxYlboaJ1ycrig6nmjKdSyt+5rM5cf1xyq5R2RaDXxvsH
+         /gJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788784137; x=1789388937;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aJm8oYa2XMgACvK1LNx+Nj4anO8CYxc+Hsnqz6K6hAA=;
+        b=WwnTIf5UduuC5ktjWGrzJ/tq5DopCO24UZe1cLYEf+UytyuFSqspjWJgM32K9XrLQP
+         UK7sDLL4lh2CspIxJRWmX1ko/oWTZilIYY/S53AW9+UmJyW0J2wb/cRdGMITbYqEicK+
+         TShRyndP7jwyIO/W/FH5e0UYsnL1c5cQ/l30lUux4gnjS1ZshI85dEOolLgf/Iraf4Nr
+         mUv9Pts5c05d9SDXGdQHKFFog8m8XtRmz/yvxA0ODHb6HoyCUdeMK1mzVJDI1M21zRQJ
+         bkBoaMsOvZy8PSUDGhbDXMczMqootcU7sU6g/per5zhibhWEYqIF5TfZytW/19UlHDdU
+         vnCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzx+KuIZi2N5oe7U7Zzgg9khxPViytzrarvKTAgo0IqG9hPjCghSw3oH5rmGIK2r9Pu/z/sQMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAht6jMwIt3B0tYJAzoouUKQiQUeo6r4Ifo6vTN14z4xVrbLHC
+	u2Ia837I4Gw8CBZanf94/T40KrMPpZJ7GlnI2apr3CdQ3RjzeQ9x3accz3WTgxj0x2o=
+X-Gm-Gg: AYBFou1UjxWzF7MtqCKnjPsrEvO6i4KWFY/dXPIRCdW5jQlTi9AzO55Vl2yvnjE1b5M
+	6JyuBllNa5WEUQTgGnTTRqmFgj+cf4dj/axXwJLobVGC0F0hHmSOQn9bIcd1kQt3zY7fPoUk17I
+	F97vK9xcrOmlMhX4HN5AnySlqI6T9ck14lLWsG/XJKS3fzNYeb9MfSu3UQaj6kiRWD1QIhIK8Xi
+	Wv93JHT/iHBojd+G29AU6KzEVg5SpEyGowSqDPBHo2dqPLp7gefd6w8azIRVp8UCOFXCIw2fAKF
+	GigwkXckgan9+rpi1TEztAt/dozT1ydRaYYecjLgsA8yPiY+nT7fvA4Qce1fKQzx85x8RIiaks5
+	AgP+9+1wB1u1lvlhGUvQA8nb1xt36utUTAI+pYuRlZ98esqkKfxpEyF4MncFhGWG3baFIyEDkqo
+	YcIwgWpBvWq6N/qtrzZyKoO9SMBLMeUprsdE3QmSnqcD5pvw6YVxvpnkrHIt6d3SQCnPEJKiCnG
+	Aks
+X-Received: by 2002:a05:6402:270a:b0:6a6:32f5:90b4 with SMTP id 4fb4d7f45d1cf-6a7e90a5f76mr13059715a12.22.1788784136511;
+        Mon, 07 Sep 2026 05:28:56 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e66eb84dsm4416331a12.2.2026.09.07.05.28.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 05:28:56 -0700 (PDT)
+Message-ID: <96eb6288-5c85-47c0-8f72-57d6f138851e@ursulin.net>
+Date: Mon, 7 Sep 2026 13:28:55 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,86 +69,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] mm: khugepaged: fix folio is used after
- folio_put/unlock()
-To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
- ljs@kernel.org
-Cc: nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- zokeefe@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
-References: <20260828055926.346744-1-vernon2gm@gmail.com>
- <20260828055926.346744-4-vernon2gm@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <20260828055926.346744-4-vernon2gm@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+ <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+ <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
+ <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
+Content-Language: en-GB
+In-Reply-To: <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 8/28/26 07:59, Vernon Yang wrote:
-> From: Vernon Yang <yanglincheng@kylinos.cn>
+
+On 07/09/2026 12:06, Tvrtko Ursulin wrote:
 > 
-> On the rollback path, folio_put() has already dropped the last reference
-> of new_folio. On the success path, new_folio is already unlocked and can
-> be freed concurrently. The trace_mm_khugepaged_collapse_file() is left
-> with a dangling folio pointer.
+> On 07/09/2026 11:47, Philipp Stanner wrote:
+>> On Mon, 2026-09-07 at 11:28 +0100, Tvrtko Ursulin wrote:
+>>>>
+>>
+>> […]
+>>
+>>>> How did the others fix that?
+>>>
+>>> Combination of kfree_rcu, synchronize_rcu and storing the name in an
+>>> object protected by those:
+>>
+>> […]
+>>
+>>> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
+>>>
+>>> That makes scheduler timeline name vfunc safe:
+>>>
+>>> static const char *drm_sched_fence_get_timeline_name(struct dma_fence 
+>>> *f)
+>>> {
+>>>     struct drm_sched_fence *fence = to_drm_sched_fence(f);
+>>>     return (const char *)fence->sched->name;
+>>>
+>>> sched is then RCU protected. sched->name is already static so not a 
+>>> concern.
+>>>
+>>> As you say nouveau_sched_fini() only tears down the scheduler after
+>>> fences have been signaled it seems adding two new kfree_rcu make is 
+>>> safe.
+>>
+>>
+>> I don't see how any RCU mechanism would make anything here safe.
+>>
+>> As long as ops->release is implemented, ops will never be set to NULL,
+>> (with or without RCU) – so everyone who holds a reference to finished-
+>> fence can still run into drm_sched_fence_get_timeline_name() and cause
+>> UAF on the sched pointer *and* the name pointer.
+>>
+>> Moreover, all of this falls apart should the driver unload.
+>>
+>> So I maintain the position that we only get it right by having the
+>> signaled-bit be the decoupling point.
+>>
+>> Or am I missing something?
 > 
-> So using the folio_pfn() before dropping the reference, closing
-> use-after-free window.
+> The driver fixes you asked about and I listed work(ed) in the context of 
+> 506aa8b02a8d ("dma-fence: Add safe access helpers and document the 
+> rules"). In that "world" it would have been safe. Did 035219a760ed 
+> ("dma-buf: dma-fence: Fix potential NULL pointer dereference") break 
+> those fixes a bit?
 > 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Fixes: 4c9473e87e75 ("mm/khugepaged: add tracepoint to collapse_file()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
-> ---
+> I can try my IGT and see..
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+With RCU frees in xe it is harder to hit it reliably for KASAN to 
+notice. Guess I would need to have a way to flush the RCU callbacks from 
+IGT but I did not bother with that, it seemed easier to check the 
+returned name. Since it is not returning "detached-driver" / 
+"detached-timeline" post signalling that proves things are indeed broken:
 
--- 
-Cheers,
+$ sudo tests/xe_sync_file
+IGT-Version: 2.5-ge37a85b91 (x86_64) (Linux: 7.3.0-rc1+ x86_64)
+Using IGT_SRANDOM=1788784104 for randomisation
+Opened device: /dev/dri/card0
+Starting subtest: sync_file_race
+[2178.517756] (xe_sync_file:10970) CRITICAL: Test assertion failure 
+function test_race, file ../tests/intel/xe_sync_file.c:130:
+[2178.517790] (xe_sync_file:10970) CRITICAL: Failed assertion: 
+!strcmp(driver_name, "detached-driver")
+Stack trace:
+   #0 ../lib/igt_core.c:2089 __igt_fail_assert()
+   #1 ../tests/intel/xe_sync_file.c:155 __igt_unique____real_main136()
+   #2 ../tests/intel/xe_sync_file.c:136 main()
+   #3 ../sysdeps/nptl/libc_start_call_main.h:83 __libc_start_call_main()
+   #4 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
+   #5 [_start+0x25]
+Subtest sync_file_race failed.
+**** DEBUG ****
+[2177.516393] (xe_sync_file:10970) DEBUG: 'drm_sched'/'rcs16' = 1
+[2178.517745] (xe_sync_file:10970) DEBUG: 'drm_sched'/'rcs16' = 1
+[2178.517756] (xe_sync_file:10970) CRITICAL: Test assertion failure 
+function test_race, file ../tests/intel/xe_sync_file.c:130:
+[2178.517790] (xe_sync_file:10970) CRITICAL: Failed assertion: 
+!strcmp(driver_name, "detached-driver")
+[2178.518762] (xe_sync_file:10970) igt_core-INFO: Stack trace:
+[2178.523313] (xe_sync_file:10970) igt_core-INFO:   #0 
+../lib/igt_core.c:2089 __igt_fail_assert()
+[2178.523428] (xe_sync_file:10970) igt_core-INFO:   #1 
+../tests/intel/xe_sync_file.c:155 __igt_unique____real_main136()
+[2178.523436] (xe_sync_file:10970) igt_core-INFO:   #2 
+../tests/intel/xe_sync_file.c:136 main()
+[2178.564635] (xe_sync_file:10970) igt_core-INFO:   #3 
+../sysdeps/nptl/libc_start_call_main.h:83 __libc_start_call_main()
+[2178.564690] (xe_sync_file:10970) igt_core-INFO:   #4 
+../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
+[2178.564892] (xe_sync_file:10970) igt_core-INFO:   #5 [_start+0x25]
+****  END  ****
+Subtest sync_file_race: FAIL (1.054s)
 
-David
+I'll copy you on the updated IGT for reference.
+
+Regards,
+
+Tvrtko
+
