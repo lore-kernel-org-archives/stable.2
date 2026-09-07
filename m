@@ -1,135 +1,293 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62701509F18
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:32:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795166; cv=none; b=NrMLc5XFl0Jydgx+i8kDxfzgB6yJzuGmpXTs+rjEaQGEZpuF71wGttTJ6wMQl9OwNPngxZpYLYxlzDuDzni4vlcgD6ADqCmZV1oQivffv77x/y304fcrulu8f3RJt6wgHhlBOFQIHp50V+Rb+Mxn1LrX5p1IkKY0ulAeNAs5m0c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795166; c=relaxed/simple;
-	bh=lNdE5hQwxbC8zNqyjDPCQ1ygIeNWiWlq0JUn43dlXO4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=XtocEq5k7CDJANnrWxdcSgjBjf9n9C6CmrjrHvBqLSAJ7yip80Q47REm5w1GFNrE3+N68J1fGDP0zF7TRp+9CjtSQj8Z6uGajCBvSz7RxZVpOJ7QqZOJIEFxkEwp2fqbiskHFRQIjUZLdjgpW8S+xSiSTL7RaJyXfFgvjEqqa1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hVWjyu/s; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8763943E488;
+	Mon,  7 Sep 2026 15:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788795289; cv=fail; b=nxfa+4Tg6bKigiLp9WGuGLOkTEhocYBSBD00zKoJXvdVCHaha6qAQm5H7Cio4MV7/nDsl/KGAEKpIt/nxJ2yPSxrL3Et9Xcgmwp3X6/KVa2uohS1XPxmlAayon21XcsxXMV+HfmBT/ntNwshzp53JLJIXgVskKVN/HKLNZDyjoY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788795289; c=relaxed/simple;
+	bh=SoWMgChI5QA/y9axYBODiiAQdaRb2saRnlhVcApBCfE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=m5QpKqkDhZRegwvxMBg6PtncP7hKCVel7RkMAKsbF2glEhaaqZAesXj35eCDNe0KXIbpAFQV+sUzwRurEErt94m3pyUkJqC+8ioEauclZexyP5aTvI+NRwV6ZOOah7Ecfe1nlRa7W1w3vElYyMOrq30RNqZFj7ovchU3nl1YanM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=U5EObEmd; arc=fail smtp.client-ip=52.101.56.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hVWjyu/s"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 726044E41575;
-	Mon,  7 Sep 2026 15:32:39 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E78960383;
-	Mon,  7 Sep 2026 15:32:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6008C11C7AF32;
-	Mon,  7 Sep 2026 17:32:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788795154; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=BXlHvKIz0fjUJbOXiKgTHnFk1X4b670PHeIObA3iq8g=;
-	b=hVWjyu/sz/rPY9Z/nzdhawhlnZMM8F+SJT1QAM9ZD4Z5OvetniZVfRf0WpJXhlBYOxleV9
-	7JxHi55JuGpjyh9cfIWhef2dPZ+cAr3/ysuWdp4yU4Tdmfh+gyoYQSzY+RLpuNStZAYSYt
-	DOlxFifN5CTQ4ns/yvbAiGwcwEfcQy+jVXts71ihUWOHHCC8sk3F0n1LT+4D3tSsAprmIZ
-	vOyYPHKnSGe+Kwvdkr5QZZ4sTQVJSge81y3UiZmqlWxLwKXfzaEgA5CCxDg3qJIKrBUrdn
-	ZUYzD0XnzJZ8O0YWBYFj8/yUVZKpWRGSFTr922Zxe5FIqvqLW+InLmf2DV8Lnw==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 07 Sep 2026 17:32:22 +0200
-Subject: [PATCH 6.1.y] vxlan: use pskb_network_may_pull() for transmit path
- header pulls
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="U5EObEmd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Vf3crgisImaa7co2rngKAp/ubVBQUhB9Ezn4s91dKkseUk9eNgjG8qPGwLVIpo7TqsL2JDCs1NodPetQHVXaPRCcySfqfLTwWuhSl4+wJmRz32HHjYdUJBldMT/qBnVQtgR98Qp6hhuhz1drWNFp7qdBumOAeQNBWJc3O9r/cSoFtRDkRdbPvxk5B/pGy4Iz8vfrWbl6OmX6G/KehCgHTHUf89rgk3iJrKl5bx2PKGKwAgh/ut/9IKrdHRk4TCn+2f05l4ictE9vhxGfNzBRd4KyU2BkakeKVHSasibGQWkpRqkeeDpe9cyG96bQtSJ5oAyboG2MdzFWWfo2357Zeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XqWXRpRi/Ejp14Z9GiU1Aecj0wkvkpZIwKL5GOg6ahs=;
+ b=r1kdEDUOH6lZq+9OpVNJbPd8XoiTSKo6CbcU2aK+mxF9HO7jvAtrEo8/VQN/+uFbQoDnwmw2njjdF5JtbLIo4HCA02hxKFWJxzMolOM7Xe1fTAKhaAE3kP56oOuUR2s88JE8d7WZ3PM0t9bv6szi8Qp9NNbsk+GOLuvX74h+08Tn38sGO3zH7Y6xMnyDJKymn4vH3vd3qkvEsiDDPklH0MYRfuaVhEZD1ogvCY8jZLDtmSwLa9RqIl5XhFNLc9MbkaZTrUG88vBP77MeJeF/x6vGKwYiGxd0KZ8gBvmU0lY6igebPL3hZejGlAw5ZbdKLVLbIAAhcpD01GRST7MYLA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XqWXRpRi/Ejp14Z9GiU1Aecj0wkvkpZIwKL5GOg6ahs=;
+ b=U5EObEmdVP5xfO+hg0//3fNpa3ORm8X4Jjf5z16xnIM4cHZyQY12Isq0XFZik+cBpR/m3vV02VIjIYAyjNkCWfYrpdmgNRJAHwzAh9XUF7Lrhz3H1XyT3Zh0652JfVWuDZasKl4OHVTs+dseQp9hQ0hycdGy2fQYb6g1bPACyIHlx7H0fyQ74+1qgt8pub5/2NLsc2XMw3WbrgDB7hTL8SE6y+qXT74Z1I13K4I68ZDtzEDmpU8bwP/7mb+erP1CDV675a78MsaC3RNTXbDqoZGcaJCYY07nQxO07OyL+wTDZhug5Bjq+FqOjV9IjC5Y30KgBHSsNh5c8xYgz6zwQQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by CH2PR12MB4103.namprd12.prod.outlook.com (2603:10b6:610:7e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 7 Sep
+ 2026 15:34:31 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 15:34:30 +0000
+Date: Mon, 7 Sep 2026 12:34:29 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
+	Pranjal Shrivastava <praan@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org,
+	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Subject: Re: [PATCH v5 8/9] iommu/arm-smmu-v3: Change how the tlbi describes
+ the invalidation
+Message-ID: <20260907153429.GB4157646@nvidia.com>
+References: <0-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+ <8-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+ <ap7NcebXzWC38VVo@google.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap7NcebXzWC38VVo@google.com>
+X-ClientProxiedBy: YT3PR01CA0138.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:83::25) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-cve-2026-74474-v1-1-58df9a9a245b@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMBCE4Vcpc3bLJsQs+iriwcStrocqiRal9
- N1N9fgNzD+jajGt2Hczik5W7T42uE2HfD2NFyU7N8Ozj7xjoTwprSAJQQLxIC6JjyltGe30KDr
- Y+xc8IPau/+D4n+sr3TQ/1xiW5Qte/EgeeQAAAA==
-X-Change-ID: 20260907-cve-2026-74474-0f71b726bb50
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, David Stevens <dlstevens@us.ibm.com>, 
- Cong Wang <amwang@redhat.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
- Ido Schimmel <idosch@nvidia.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
- Sasha Levin <sashal@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788795149; l=2651;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=x/q2y/HZZWyP2kOBq/jhuWIWKRT40N3cmfcN10dlvfs=;
- b=8R1uYMMkDUDyJ55vqMIpKXuRNNXtGjtc4p7cmKSBpIA6TkXzJBWf3AdBlVufi/ZOCRrnj/9u+
- DB65kJiXsz9CgHPPcq7gTV15kDSZ9Q9bWf7MFbFkRM56qeqKBEgvlEP
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|CH2PR12MB4103:EE_
+X-MS-Office365-Filtering-Correlation-Id: f727e61c-e1e5-45e8-e46a-08df0cf5827f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|6133799003|3023799007|4143699003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	F8pKmLbvzwQWYslfjr3ZDVtv+TAoNg4FN7HwrDDJP3sUdva0tesBt0v+6HqTPPHsOtMCDinuMMPMJomzPsGh8nyJsbbIkATQE6gHKUzlDZlKsSvNqgNftr6fFy3WbMbRYE0TQWqwC35g6AyUWl+wa+HjXDsdEK9usOvmV94xkIBn30NDsKjflFoPbVZqSQSg53nOPMPrgHZhur4A0rNTmNShrcHAZ2qwakUDtAffR+PB+JGsKhPrHh+8aqbUvD9mgs5DsemDeHA5A8tDTkqUweThtWfmrTo3f+ubRPbv5PWLIFNOsADAtbc97xyDSdydfrZjOEHwsrtp30BGn5fcbiZr3HM/3QExUrvelGDM99eNt8AhO/8WpjPjfiNT1/5NJ007QYNjfLKaf+gPM22uNspMIjKA7ZEiGWzM/OdrA5bhiNDAeT8kH5zZvZ2RmOeoBmXkjllnYsoJkk25zcMmCuQpya/lYGaCzK6pTpXkkjSfgo/OsgVOW5BxrY6+OPxatQw3MTWLNhkPs35CH4vHhRzRFA68Cy3N5L/vspGHf/l/8HV2LcYzHE7ugtrrwll8PhUmsZoVvFjj1d4y3LLW50Tabp9DuTknaSDocYubST9J2vub6xvr+p64nYA14fJ61p3HbysCwX0uBY9Hl8tHBQ2Cf08DGFT5v30AMtSQhHQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(6133799003)(3023799007)(4143699003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?2XAFQVigC9xc1Qlc2qdFvFVdOZITHscW+8HWlnTloQyWfNHkFcMRq7PLTEss?=
+ =?us-ascii?Q?ZYncekVXkyZ8GIirT+1AjO6AQbYkJhLb9zxjR/aHl5WdvnNc+eBaRYyPEa+U?=
+ =?us-ascii?Q?viguJEmWu1jqQWqplZ4GDXchJkzmGcBi+E0o8tKs6pExLzbrQy9ehGhseFb5?=
+ =?us-ascii?Q?WjUAHOis+TBR0VyUkCDaQ08o47AA3vSfUWfdoAYCkGO22iTpAfeCOPh5kCGL?=
+ =?us-ascii?Q?l9wQVGGFEndDKvdpAhL13UReY3zCmlr29uelFEKUwpDkxKNozRwO7DNIj9gS?=
+ =?us-ascii?Q?VwErc9KltW88eIEvDBvBMwSkwLz6owjWnbTHRPeAYBCwYMY9Y7Oye9WiEGYI?=
+ =?us-ascii?Q?+oJGCynOxcPiGYXEF0BRQEIcBrquxJp9AunQ/F0cMPhMw5K1JwAte6n2p3oe?=
+ =?us-ascii?Q?uHIHfHRt/XuEFXrwYdCkHCnSnKw3NX0rswkk3k1IKqMatYPT+4vhK6Uk9L2A?=
+ =?us-ascii?Q?Fx4YQ4SnBGSOENPLvd5Yo1X6GofPDTuCnDUDKzZSKlZYM2HXVtKz/Lk1tc8H?=
+ =?us-ascii?Q?+q/hASTpuV/r2OKh8qQt2qhQPesNk6HcvgW2r9QiCbF1FUSG+hvRWNZanyDL?=
+ =?us-ascii?Q?/jnaNIYdK8lAPMrixiQLmCLJS1uT+TKIgrMByd/a0upqSyCuxtQQ5Y1JakDx?=
+ =?us-ascii?Q?F46NN3UdDIxaSUIaOqbMfyYOlNp/PEPIVdr2ZWMwKQ2aZmkS84lfYtjdjjnI?=
+ =?us-ascii?Q?S1PmIRe5bC8StEpmyV8DbVOWHpLrpYvsTKydaZDqGc7EP5bwF0iBFvFPrpRk?=
+ =?us-ascii?Q?u7mLAY2CmPZhF3dEHVSVQLbKeF4Ek+hOxfsEXjAxMG7oGwfA0euGUbbsgCmF?=
+ =?us-ascii?Q?SHSaeHjskm9Qi2l7idgpfzZaHz0mQzepWab1Dqiz1y+K5nG1qX+83SiMMrMy?=
+ =?us-ascii?Q?Igf/Kv4hS7YQ90Jcbw6kOlEEwDJM5KwR1k7sjFtJ61Bc3/e2Jcyk0jX14S7Y?=
+ =?us-ascii?Q?WB6j+Di1wmd0XujfufV6yIYJtqNR6Gy3A3b/0/ScYAfhiWj+KrcEf3sXc1pa?=
+ =?us-ascii?Q?0PKA/qB1EGD91mVcfwiikOZec+uCznaR/HIIAoZ473Gow3Ju0abNFyQfS4nn?=
+ =?us-ascii?Q?5k6i2B3SL4wRPVjEOzIJ9o6T6s8CWs+nJVM/hAFxIru7VaoEmIJlT+Tgyqks?=
+ =?us-ascii?Q?SNbfASkxAkNplozQTAd7xVVCkrTBSPMvftQxFNXxiuuyHZInvIy+McUf81q8?=
+ =?us-ascii?Q?Egj5YVozN8HYoFUG/UPBvgDm4Rn8mtcbqPsjun+kTz07W9F62nwzmm6onwcx?=
+ =?us-ascii?Q?RfbrVDAioHYfgOXJ3WS+OE329zks+Ciltzk7R4NAB+UElGrZR7fQKnGilUK0?=
+ =?us-ascii?Q?7ztckKYSKX+s1KTlYOtapxDVQgpGTBME3P08X0DjUM20CndiNiBJEKC7AdtM?=
+ =?us-ascii?Q?ds2oehSEiGqehmo3vLhV0Je/3ExBJ3qKHgoU5uv3lb4u7o2dlmyFZBEEgxXG?=
+ =?us-ascii?Q?8pIytBMurXeU4WlbLgw7kd6zGtD8vktKaDf6pKhvyt7T5yxzAObbJ6PmNH5d?=
+ =?us-ascii?Q?nDtHo2JGOBSD3CWRIGLW36cdUfnjckUok9e0/SLFMwL3g5X/Z46ZIIknhxLi?=
+ =?us-ascii?Q?MqhlFVV9hSe9n3aZGjFDzvWWNh6sOYwhap5d0S24/ma3e/YKEloN1jxo6lG+?=
+ =?us-ascii?Q?xcONF7dgaZ/rcE4CU2eqiMBqTEybCHIaK3Gsc5zbT2QJwR9ETDX5TwKBOP+/?=
+ =?us-ascii?Q?T4ASHeeVGy7sLxz6WoOv2xHc/GraPZaVB4t4spv6u5qpXZdD?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f727e61c-e1e5-45e8-e46a-08df0cf5827f
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 15:34:30.6781
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /oPWxkrvNgPhxsvVedzuh8Y1jF90Wl0QYM6ap4uZDkD6FtQ5+nKYRXJHxoiiCuac
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4103
 
-From: Eric Dumazet <edumazet@google.com>
+On Mon, Sep 07, 2026 at 02:42:57PM +0000, Mostafa Saleh wrote:
+> On Tue, Sep 01, 2026 at 02:49:57PM -0300, Jason Gunthorpe wrote:
+> > The RIL logic has long had a FIXME that there is not enough
+> > information to properly compute the RIL. There is also subtly not
+> > enough information to properly compute the single stride either.
+> > 
+> > Change tlbi to use the information format that iommupt is going to
+> > use for ARM. This prepares the invalidation code to support iommupt
+> > and fixes two small limitations with the current code.
+> > 
+> > iommupt is designed to accumulate all invalidation into a single
+> > gather, then the iommu driver should issue a small number of commands
+> > to execute the gather to control invalidation latency. This is in
+> > contrast to io-pgtable-arm.c which generates many gather flushes and
+> > direct walk cache flushes as it progresses.
+> > 
+> > To accommodate this the gather will accumulate "damage" in bitmaps,
+> > one for leaf changes and one for table changes. This is enough
+> > information for SMMUv3 to compute the proper stride for single
+> > invalidation and to generate ideal hints for range invalidation.
+> 
+> I am not sure I understand that, in what situation the leaf_bitmap
+> would be used instead of a single page size?=
+> Would iommupt combine different page sizes in a single invalidation?
 
-[ Upstream commit b9553558b48db54ac9273e6b98d7263ef5c1a329 ]
+Yes
 
-In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
-being called to verify the availability of network layer headers (ARP, IPv6/ND,
-IP/IPv6 MDB keys).
+> And then I see in this patch it has:
+> if (!is_power_of_2(leaf_bitmap))
+> 	return 0;
 
-However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
-is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
-rather than skb_network_offset(skb) + len, which can leave part of the network header
-in non-linear frags.
+Right, ARM doesn't support mixed leaves in a RIL so we can't use TTL
+if iommupt has constructed something like that.
 
-Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
-account for the MAC header offset.
+> Would that actually be better for performance than using 2 sets of
+> RILs, one for each page size?
+> As I'd imagine the HW will spend more effort on the TTL=0 case
+> otherwise it wouldn't require it.
 
-Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
-Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
-Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
----
- drivers/net/vxlan/vxlan_core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I have no idea, it is a hint. Since SW has no knowledge I think it
+should just issue as few commands as possible. There is no way to know
+what will work better on any particular HW.
 
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index 245c4c705045..9684a3ab081b 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -1904,7 +1904,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
- 	if (dev->flags & IFF_NOARP)
- 		goto out;
- 
--	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
-+	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
- 		dev->stats.tx_dropped++;
- 		goto out;
- 	}
-@@ -2865,8 +2865,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
- 			return arp_reduce(dev, skb, vni);
- #if IS_ENABLED(CONFIG_IPV6)
- 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
--			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
--					    sizeof(struct nd_msg)) &&
-+			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
-+						    sizeof(struct nd_msg)) &&
- 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
- 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
- 
+> > @@ -140,17 +140,34 @@ static void arm_smmu_mm_arch_invalidate_secondary_tlbs(struct mmu_notifier *mn,
+> >  {
+> >  	struct arm_smmu_domain *smmu_domain =
+> >  		container_of(mn, struct arm_smmu_domain, mmu_notifier);
+> > +	u8 tgsz_lg2 = smmu_domain->tgsz_lg2;
+> >  	struct arm_smmu_tlbi tlbi = {
+> >  		.tgsz_lg2 = smmu_domain->tgsz_lg2,
+> > -		.iova = start,
+> > +		.start = start,
+> > +		.last = end - 1,
+> >  		/*
+> > -		 * The mm_types defines vm_end as the first byte after the end
+> > -		 * address, different from IOMMU subsystem using the last
+> > -		 * address of an address range.
+> > +		 * No information comes from the mm, assume the worst case that
+> > +		 * it changed every table level. The way this is hooked into the
+> > +		 * mm is tricky, the range won't be expanded to include an
+> > +		 * entire table level if one was removed like the iommu gather
+> > +		 * does. Thus even if this is a 4k invalidation it may be
+> > +		 * including any table level too.
+> >  		 */
+> > -		.size = end - start,
+> > -		.iopte_size = PAGE_SIZE,
+> > +		.table_levels_bitmap = 0xfe,
+> 
+> What does that mean, won't arm have a max of 4 levels?
 
----
-base-commit: cf82dcca96346600c7068cf3f841335f9fa08f54
-change-id: 20260907-cve-2026-74474-0f71b726bb50
+It is really ~1, the extra leading 1s don't matter. Just can't have
+the leaf bit set.
 
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+> > +	/*
+> > +	 * If the size is small then we can infer the invalidation is PTE only
+> > +	 * and set the PTE level only. Otherwise it could be some other
+> > +	 * combination so just set them all. This allows RIL to use TTL=3 in
+> > +	 * cases of PTE only changes. The mm must not try to partially
+> > +	 * invalidate pmd/etc.
+> > +	 */
+> 
+> How does that work with splitting blocks?  I imagine that might be
+> ossible with userspace.
 
+If mm splits anything then the invalidation will not be PAGE_SIZE
+big. A split requires invalidating the original larger size.
+
+> > +static u8 arm_smmu_tlbi_calc_stride(struct arm_smmu_tlbi *tlbi)
+> > +{
+> > +	u8 combined = tlbi->table_levels_bitmap | tlbi->leaf_levels_bitmap;
+> > +	u8 tg_szlg2 = tlbi->tgsz_lg2;
+> > +
+> > +	if (WARN_ON(!combined))
+> > +		return U8_MAX;
+> 
+> When can that happen?
+
+It can't, thats why it is a WARN_ON :)
+
+> > @@ -4152,21 +4237,28 @@ static void arm_smmu_flush_iotlb_all(struct iommu_domain *domain)
+> >  		arm_smmu_tlb_inv_context(smmu_domain);
+> >  }
+> >  
+> > +/*
+> > + * Called by io-pgtable-arm.c for each run of same pgsize leaf only
+> 
+> I believe that it is called from dma-iommu.c, io-pgtable-arm.c will
+> call the tlb_add_page which builds the gather though.
+
+Sort of, for the purposes of this comment the important flush is
+initiated by io-pgtable-arm.c under tlb_add_page() when it calls
+arm_smmu_tlb_inv_page_nosync(), which calls
+iommu_iotlb_gather_add_page(), which calls iommu_iotlb_sync()
+
+That's done in a way that guarentees the same-pgsize property:
+
+	if ((gather->pgsize && gather->pgsize != size) ||
+
+Yes it is also called from dma-iommu.c, but only for the "trailing"
+gather and that doesn't do anything to change what is in the gather..
+
+I'll add a few more words here
+
+> > + * invalidation. If it has to change to a different leaf level then it flushes
+> > + * the gather and starts a fresh one. Thus this always targets only a single
+> > + * leaf level.
+> > + */
+> >  static void arm_smmu_iotlb_sync(struct iommu_domain *domain,
+> >  				struct iommu_iotlb_gather *gather)
+> >  {
+> >  	struct arm_smmu_domain *smmu_domain = to_smmu_domain(domain);
+> > +	unsigned int tg = smmu_domain->tgsz_lg2;
+> >  	struct arm_smmu_tlbi tlbi = {
+> >  		.tgsz_lg2 = smmu_domain->tgsz_lg2,
+> > -		.iova = gather->start,
+> > -		.size = gather->end - gather->start + 1,
+> > -		.iopte_size = gather->pgsize,
+> > -		.leaf_only = true,
+> > +		.start = gather->start,
+> > +		.last = gather->end,
+> >  	};
+> >  
+> > -	if (!gather->pgsize)
+> > +	if (WARN_ON(gather->pgsize < BIT(tg)))
+> >  		return;
+> >  
+> > +	tlbi.leaf_levels_bitmap = BIT((ilog2(gather->pgsize) - tg) / (tg - 3));
+> 
+> Having some page table macros would be helpful (and in other places in
+> this patch)
+
+At least this one gets deleted in the next series, so I left it like
+this deliberately. Was there something else you saw that had
+duplication?
+
+Thanks,
+Jason
