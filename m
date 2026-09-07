@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF335111BE
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 16:04:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9A9330D23
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 16:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797089; cv=none; b=Exi8uFuH0FwZzFIT3gi/M80ilJOxphmTpxvUBIoEuKPMglaEmBc85IoA5V2b1Ijxq1JD6o/uq1HRVNPyTlAahfMgmpAF39z2KDZtBMMs/HvL9FPi21cQg6nzDvYjfNyIxyYJ+5o1C/zfRdoYqZuny5P3EKTdV24L5YMa5ErK6U8=
+	t=1788797091; cv=none; b=EIClOrPZf6LeBZZP/RKGkzegBYYJqth5Al7Ahqh19EoY+gfZ3rArUjHwpKd991C8VOY+D8pMAU45+i5eF4I3FQm+qAWOr0iLFYlAmGqXqmsWiIfB198gFFzKBjXbQVTAKD6tI+lF763YQybCYBLYWFMxkCWFc1qa7JZ1w6A7row=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797089; c=relaxed/simple;
-	bh=6WuMJP/Hu3H3UD62Pyk+v1Y4sh/vErGWhmasbszmy28=;
+	s=arc-20240116; t=1788797091; c=relaxed/simple;
+	bh=CdA4KTstdpCAdsvSAogpldZ4/0WBUH/jnoBU7+oA3hc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YCD0PkaAxvt7uWPQ8H9nQKOJBfNRs+OsSTegVagrltsHj0k7hhxKcYPOLPI+wvdOBgv3aOFdcbd72eVuOJgNrV/0rC2GlSk743x8/IrNUuw6D04bFf/Q0Q1KAsinvVxQJO+792Eab+0QykqXLGVx4a7o2I7gl0Oh1EIkMN7Vdj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IYh2yTFU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i0mPxvuJElmzHjyJ864KBy9uTf4kzeA/PB8yJrSmpYbFWR+VTddkvyaJFpZ2I0ogBxc4LE2s0syWgMtn8eS9E2wwTDLpcCQ9H7n9bnn5tM4MM3bDKYxWhooumz4jR6sv44frMz9Sm4QnX04TxZ4LkGFFM2wMFhQlnS6wS8gkwDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c96/yjmd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IYh2yTFU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F8B1F00A3A;
-	Mon,  7 Sep 2026 16:04:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c96/yjmd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327AA1F00A3D;
+	Mon,  7 Sep 2026 16:04:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788797084;
-	bh=/hi0BhaKOQ6FGJY7z0SErenCB+aq0IJThV60L+5UA6c=;
+	s=k20260515; t=1788797086;
+	bh=ZOlDaOP5Rjc5OiCPo2cDCdTtgFNchb32C+GVgIG2qrQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IYh2yTFUUfR8KotDx44mTAV8uPcgmt8ebiyrLK85A+1FrrLSqOwNC4xeiCAWpBleq
-	 JBWbbKP0jnoxvZGFqgxo6h43uQJhVuHz2E0Xi6wrn8b1T4Hv2A9Njofi3QB3uFh6VC
-	 B/Ri1gEoMWXINlt+CHPQc775Dx36fb7AfCCwVHl5/h8ceZNIt4QDXv+QmRXnE/YJWp
-	 ZA36FwVVv9i9IG/A0VesLLA3NxAcMBbXmMKD70DNF8dUn3QWfEIX/waY2oQHzJgA/N
-	 Zk0/e+h3jHofW2FX2ep/B/NZNNdBaKWDKQedb7VtRctB4hP6C3Y5Qe/FnanmRybktY
-	 S6m9mEhwzr/pA==
+	b=c96/yjmdL1rSNfboqwCWFS1XvYjlnZW86KvDNa0kxgOxvkkcehOmhJ9gQ8tMgCUd9
+	 yfMPu37iUSIXFmFrVH+pdxF/CDS2YEvFtNOB/bBsnMD+soG0/tKKRmNQKNZLl8cfGs
+	 Zl6DasuY3KyhVpGIS2FqZu8sIdmq1S/G3mE6LzHHZUDf5Uh2E2jvCh7TSYXv5rndDP
+	 wp1NolQoCFiXt/TfIjDewTs+96AM4F4oTEpfijJP9EPOxvtqSyI3Az8UaKcz+8K++f
+	 xxojFFGwaP9su/Udv4Ola8PkjKk2+3HgOTigk0COtp3cU94Ag+4i8iy/meBCiFm24H
+	 qeBRoW9BY0VTQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Filipe Manana <fdmanana@suse.com>,
-	Qu Wenruo <wqu@suse.com>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] btrfs: move btrfs_is_empty_uuid() from ioctl.c into fs.c
-Date: Mon,  7 Sep 2026 12:04:40 -0400
-Message-ID: <20260907160442.4160058-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
+Date: Mon,  7 Sep 2026 12:04:44 -0400
+Message-ID: <20260907160444.4160097-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090331-audibly-scallop-6a11@gregkh>
-References: <2026090331-audibly-scallop-6a11@gregkh>
+In-Reply-To: <2026090353-avatar-margin-9ba2@gregkh>
+References: <2026090353-avatar-margin-9ba2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,253 +46,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Filipe Manana <fdmanana@suse.com>
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit a5b3f117daead61c3c9c88cd1159d38fa4ad1362 ]
+[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
 
-It's a generic helper not specific to ioctls and used in several places,
-so move it out from ioctl.c and into fs.c. While at it change its return
-type from int to bool and declare the loop variable in the loop itself.
+When a file has the setuid or setgid bit set and is written to, the VFS
+strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
+together with an ATTR_MODE carrying the already-cleared mode.
 
-This also slightly reduces the module's size.
+Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
+ATTR_MODE in that case:
 
-Before this change:
+	/* skip mode change if it's just for clearing setuid/setgid */
+	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+		attrs->ia_valid &= ~ATTR_MODE;
 
-  $ size fs/btrfs/btrfs.ko
-     text	   data	    bss	    dec	    hex	filename
-  1781492	 161037	  16920	1959449	 1de619	fs/btrfs/btrfs.ko
+This is fine for the default mount, where the mode is only emulated via
+the DOS read-only attribute and cannot represent the setuid/setgid bits
+anyway.  However, with the "cifsacl" or "modefromsid" mount options the
+mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
+the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
+and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
+via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
+the cleared mode is never pushed to the server, so the setuid/setgid bit
+survives the write.
 
-After this change:
+This is a security issue: on local filesystems the setuid bit is stripped
+when a file is written, but over these cifs.ko mounts the bit persists on
+the server, potentially allowing an unexpected privilege escalation on
+subsequent execution.
 
-  $ size fs/btrfs/btrfs.ko
-     text	   data	    bss	    dec	    hex	filename
-  1781340	 161037	  16920	1959297	 1de581	fs/btrfs/btrfs.ko
+Fix this in two places:
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
+  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
+     when the mode is emulated via the DOS read-only attribute (i.e.
+     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
+     in effect), so that the cleared mode is propagated to the server
+     in the ACL / POSIX cases.
 
-     text          data     bss     dec     hex filename
-  1781492        161037   16920 1959449  1de619 fs/btrfs/btrfs.ko
+  2. cifs_setattr_unix(): this function is only called when Unix
+     extensions are in effect, so the mode is always stored on the
+     server.  Remove the shortcut entirely so that the cleared mode is
+     always pushed.
 
-After this change:
-
-  $ size fs/btrfs/btrfs.ko
-     text          data     bss     dec     hex filename
-  1781340        161037   16920 1959297  1de581 fs/btrfs/btrfs.ko
-
-[ stable: The fs.c split does not exist in 5.10, so keep the helper in
-  ioctl.c and instead align btrfs_ioctl_setflags() variable naming with
-  the target commit's context. This is a behavior-neutral refactor. ]
-
-[ sashal: Reduced backport -- upstream a5b3f117daead touches 4 file(s), this
-  backport carries 1. Not backported here:
-  fs/btrfs/fs.c
-  fs/btrfs/fs.h
-  fs/btrfs/ioctl.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
+Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ adapted sbflags access to cifs_sb->mnt_cifs_flags for Linux 6.1 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/ioctl.c | 94 ++++++++++++++++++++++++------------------------
- 1 file changed, 47 insertions(+), 47 deletions(-)
+ fs/cifs/inode.c | 30 +++++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 16c397062809f..f0a9fb928b39e 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -195,17 +195,17 @@ static int check_fsflags(unsigned int old_flags, unsigned int flags)
- 
- static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- {
--	struct inode *inode = file_inode(file);
--	struct btrfs_fs_info *fs_info = btrfs_sb(inode->i_sb);
--	struct btrfs_inode *binode = BTRFS_I(inode);
--	struct btrfs_root *root = binode->root;
-+	struct btrfs_inode *inode = BTRFS_I(file_inode(file));
-+	struct inode *vfs_inode = &inode->vfs_inode;
-+	struct btrfs_fs_info *fs_info = btrfs_sb(vfs_inode->i_sb);
-+	struct btrfs_root *root = inode->root;
- 	struct btrfs_trans_handle *trans;
- 	unsigned int fsflags, old_fsflags;
- 	int ret;
- 	const char *comp = NULL;
--	u32 binode_flags;
-+	u32 inode_flags;
- 
--	if (!inode_owner_or_capable(inode))
-+	if (!inode_owner_or_capable(vfs_inode))
- 		return -EPERM;
- 
- 	if (btrfs_root_readonly(root))
-@@ -218,11 +218,11 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- 	if (ret)
- 		return ret;
- 
--	inode_lock(inode);
--	fsflags = btrfs_mask_fsflags_for_type(inode, fsflags);
--	old_fsflags = btrfs_inode_flags_to_fsflags(binode->flags);
-+	inode_lock(vfs_inode);
-+	fsflags = btrfs_mask_fsflags_for_type(vfs_inode, fsflags);
-+	old_fsflags = btrfs_inode_flags_to_fsflags(inode->flags);
- 
--	ret = vfs_ioc_setflags_prepare(inode, old_fsflags, fsflags);
-+	ret = vfs_ioc_setflags_prepare(vfs_inode, old_fsflags, fsflags);
- 	if (ret)
- 		goto out_unlock;
- 
-@@ -230,54 +230,54 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- 	if (ret)
- 		goto out_unlock;
- 
--	binode_flags = binode->flags;
-+	inode_flags = inode->flags;
- 	if (fsflags & FS_SYNC_FL)
--		binode_flags |= BTRFS_INODE_SYNC;
-+		inode_flags |= BTRFS_INODE_SYNC;
- 	else
--		binode_flags &= ~BTRFS_INODE_SYNC;
-+		inode_flags &= ~BTRFS_INODE_SYNC;
- 	if (fsflags & FS_IMMUTABLE_FL)
--		binode_flags |= BTRFS_INODE_IMMUTABLE;
-+		inode_flags |= BTRFS_INODE_IMMUTABLE;
- 	else
--		binode_flags &= ~BTRFS_INODE_IMMUTABLE;
-+		inode_flags &= ~BTRFS_INODE_IMMUTABLE;
- 	if (fsflags & FS_APPEND_FL)
--		binode_flags |= BTRFS_INODE_APPEND;
-+		inode_flags |= BTRFS_INODE_APPEND;
- 	else
--		binode_flags &= ~BTRFS_INODE_APPEND;
-+		inode_flags &= ~BTRFS_INODE_APPEND;
- 	if (fsflags & FS_NODUMP_FL)
--		binode_flags |= BTRFS_INODE_NODUMP;
-+		inode_flags |= BTRFS_INODE_NODUMP;
- 	else
--		binode_flags &= ~BTRFS_INODE_NODUMP;
-+		inode_flags &= ~BTRFS_INODE_NODUMP;
- 	if (fsflags & FS_NOATIME_FL)
--		binode_flags |= BTRFS_INODE_NOATIME;
-+		inode_flags |= BTRFS_INODE_NOATIME;
- 	else
--		binode_flags &= ~BTRFS_INODE_NOATIME;
-+		inode_flags &= ~BTRFS_INODE_NOATIME;
- 	if (fsflags & FS_DIRSYNC_FL)
--		binode_flags |= BTRFS_INODE_DIRSYNC;
-+		inode_flags |= BTRFS_INODE_DIRSYNC;
- 	else
--		binode_flags &= ~BTRFS_INODE_DIRSYNC;
-+		inode_flags &= ~BTRFS_INODE_DIRSYNC;
- 	if (fsflags & FS_NOCOW_FL) {
--		if (S_ISREG(inode->i_mode)) {
-+		if (S_ISREG(inode->vfs_inode.i_mode)) {
- 			/*
- 			 * It's safe to turn csums off here, no extents exist.
- 			 * Otherwise we want the flag to reflect the real COW
- 			 * status of the file and will not set it.
- 			 */
--			if (inode->i_size == 0)
--				binode_flags |= BTRFS_INODE_NODATACOW |
--						BTRFS_INODE_NODATASUM;
-+			if (inode->vfs_inode.i_size == 0)
-+				inode_flags |= BTRFS_INODE_NODATACOW |
-+					       BTRFS_INODE_NODATASUM;
- 		} else {
--			binode_flags |= BTRFS_INODE_NODATACOW;
-+			inode_flags |= BTRFS_INODE_NODATACOW;
- 		}
- 	} else {
- 		/*
- 		 * Revert back under same assumptions as above
- 		 */
--		if (S_ISREG(inode->i_mode)) {
--			if (inode->i_size == 0)
--				binode_flags &= ~(BTRFS_INODE_NODATACOW |
--						  BTRFS_INODE_NODATASUM);
-+		if (S_ISREG(inode->vfs_inode.i_mode)) {
-+			if (inode->vfs_inode.i_size == 0)
-+				inode_flags &= ~(BTRFS_INODE_NODATACOW |
-+						 BTRFS_INODE_NODATASUM);
- 		} else {
--			binode_flags &= ~BTRFS_INODE_NODATACOW;
-+			inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		}
+diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
+index bb0b172c5a74d..5fd3db7abfb1f 100644
+--- a/fs/cifs/inode.c
++++ b/fs/cifs/inode.c
+@@ -2713,9 +2713,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 			goto out;
  	}
  
-@@ -287,23 +287,23 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- 	 * things smaller.
- 	 */
- 	if (fsflags & FS_NOCOMP_FL) {
--		binode_flags &= ~BTRFS_INODE_COMPRESS;
--		binode_flags |= BTRFS_INODE_NOCOMPRESS;
-+		inode_flags &= ~BTRFS_INODE_COMPRESS;
-+		inode_flags |= BTRFS_INODE_NOCOMPRESS;
- 	} else if (fsflags & FS_COMPR_FL) {
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+-		attrs->ia_valid &= ~ATTR_MODE;
++	/*
++	 * This function is only called when Unix extensions are in effect,
++	 * so the mode is always sent to and stored on the server.  Do not
++	 * skip the mode change when clearing setuid/setgid bits: dropping
++	 * ATTR_MODE here would leave those bits set on the server after a
++	 * write, which is a security issue.
++	 */
  
--		if (IS_SWAPFILE(inode)) {
-+		if (IS_SWAPFILE(vfs_inode)) {
- 			ret = -ETXTBSY;
- 			goto out_unlock;
- 		}
+ 	args = kmalloc(sizeof(*args), GFP_KERNEL);
+ 	if (args == NULL) {
+@@ -2898,8 +2902,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
+ 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
  
--		binode_flags |= BTRFS_INODE_COMPRESS;
--		binode_flags &= ~BTRFS_INODE_NOCOMPRESS;
-+		inode_flags |= BTRFS_INODE_COMPRESS;
-+		inode_flags &= ~BTRFS_INODE_NOCOMPRESS;
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
++	/*
++	 * Skip the mode change if it is only being done to clear the
++	 * setuid/setgid bits *and* the mode is emulated via the DOS
++	 * read-only attribute (the default, non-ACL case), which cannot
++	 * represent the setuid/setgid bits anyway.
++	 *
++	 * When the mode is instead stored on the server - i.e. with the
++	 * cifsacl or modefromsid mount options (via an ACL) or with the
++	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
++	 * the server.  Dropping ATTR_MODE here would leave the setuid/
++	 * setgid bit set on the server after a write, which is a security
++	 * issue (the bits are not stripped as they are on local
++	 * filesystems).
++	 */
++	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
++	    !((cifs_sb->mnt_cifs_flags &
++	       (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
++	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
+ 		attrs->ia_valid &= ~ATTR_MODE;
  
- 		comp = btrfs_compress_type2str(fs_info->compress_type);
- 		if (!comp || comp[0] == 0)
- 			comp = btrfs_compress_type2str(BTRFS_COMPRESS_ZLIB);
- 	} else {
--		binode_flags &= ~(BTRFS_INODE_COMPRESS | BTRFS_INODE_NOCOMPRESS);
-+		inode_flags &= ~(BTRFS_INODE_COMPRESS | BTRFS_INODE_NOCOMPRESS);
- 	}
- 
- 	/*
-@@ -317,14 +317,14 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- 	}
- 
- 	if (comp) {
--		ret = btrfs_set_prop(trans, inode, "btrfs.compression", comp,
-+		ret = btrfs_set_prop(trans, vfs_inode, "btrfs.compression", comp,
- 				     strlen(comp), 0);
- 		if (ret) {
- 			btrfs_abort_transaction(trans, ret);
- 			goto out_end_trans;
- 		}
- 	} else {
--		ret = btrfs_set_prop(trans, inode, "btrfs.compression", NULL,
-+		ret = btrfs_set_prop(trans, vfs_inode, "btrfs.compression", NULL,
- 				     0, 0);
- 		if (ret && ret != -ENODATA) {
- 			btrfs_abort_transaction(trans, ret);
-@@ -332,16 +332,16 @@ static int btrfs_ioctl_setflags(struct file *file, void __user *arg)
- 		}
- 	}
- 
--	binode->flags = binode_flags;
--	btrfs_sync_inode_flags_to_i_flags(inode);
--	inode_inc_iversion(inode);
--	inode->i_ctime = current_time(inode);
--	ret = btrfs_update_inode(trans, root, inode);
-+	inode->flags = inode_flags;
-+	btrfs_sync_inode_flags_to_i_flags(vfs_inode);
-+	inode_inc_iversion(vfs_inode);
-+	vfs_inode->i_ctime = current_time(vfs_inode);
-+	ret = btrfs_update_inode(trans, root, vfs_inode);
- 
-  out_end_trans:
- 	btrfs_end_transaction(trans);
-  out_unlock:
--	inode_unlock(inode);
-+	inode_unlock(vfs_inode);
- 	mnt_drop_write_file(file);
- 	return ret;
- }
+ 	if (attrs->ia_valid & ATTR_MODE) {
 -- 
 2.53.0
 
