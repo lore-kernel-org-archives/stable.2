@@ -1,201 +1,152 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C100B42CAF6
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 10:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181333CAE8D;
+	Mon,  7 Sep 2026 10:39:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777280; cv=none; b=d3HZS0iT7+CwDXgVgW5fj3Ui+TsEOMBfWsRNzf+R5HPZVe0Vy+C6dTMY2wte4WmCPFcLVij/Fcf+cLkw+HTmkQPyRMaI70RwmNHMLIiBblOUQTy/hCBgEt++btDeANlPxCaCfIDtpqboklgu8AEojnTnZU0SZleFgyrXJfkDHG0=
+	t=1788777586; cv=none; b=KtrH/c/8Dvf/pyJauzqMNtfYpviCuC+ep3kpyeHq4HLxEMnJopQvK6A/9Seqm1k7ZVL6uWGvajCtug+eKOs0jSoSRR3CbA7OcbvVRTFNrN3U36ZI22s+jJHdxJWk5lGVB075fNdYt5LLdYamBNjrxa3ojdIeNanHC1ijJjYD1QA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777280; c=relaxed/simple;
-	bh=jFpAo7i529GMRvwEedXFKqgtoTVh//GOmUce7AX7C+s=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=h0z721OKkZdujE11igi3Tm1X3MxRjYQyfagVt4fz5EFvOVilBmnz0qPPLOY0gx/3MiobJ/cHb673u/szqQv6ulxrGYqLr6uttBU72iqZS5F7VY0DuQ5m39TOKddLLMT6MTBK2ZN0g78Ua5NpGVEn3Ldm0xG3D339GTHwdT++Qzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=OlzG46hW; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	s=arc-20240116; t=1788777586; c=relaxed/simple;
+	bh=0ZrT/K/Cb9gaNHINuULmzP5NtRYCGITb/99LD3gIsdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pFkrqNYNaQ4zE1b38AlWjJ8txQZURkjxJA8Xd9H3jC31bxDB5UNbQNwu6wdu1EAJwfiR9O5WQxjaAZr4BJwFLAmpgk5yvgRS38sAf+MlCrQ00fxVyFI6CHZ7Atmsg7kEWzXc8ByhSY4ct3mhnpg6URcv37zfCAon6t4Dqb+lCXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U6BReP0u; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="OlzG46hW"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso4038228a12.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 03:34:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1788777277; x=1789382077; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
-        b=OlzG46hWqGVlMt8HOlGeLzFt2jBUEcLbINmYcHyb1c/Rmgc54i75rNDBNaskIiBLsD
-         Rptup58sd4m+i5r2pv80uck92X2ax6U+0I3kDUKXjAkb4KfCfaes4nQVpy3ZuGnOKNPP
-         txEJTqTyqurjONcGbYhqtZ61qEFQBG+sy6uZi+oDBrlAKGR/P92xvKcRUsNURMeyI4hZ
-         5sVzeoy+wEN5aXlLkqvyRwk4WyaeoJFUvXwQq/ABUTSAJp9zPhDMJvC0RGw3ZQdTSMy3
-         uv5FbtO/+bOhKuSmfJ3c5hA3FUcaEj4o9FbEcAb4oeeF0devXK2EI5+xUav9GlFR0J+6
-         D0TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788777277; x=1789382077;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B+Aa6ObNtsWuLVnK07xngOY/Mvint7kr6yr+j3fGmn0=;
-        b=rcLCgDmU3vRL7VS2l3MZ6ZNPofnN3L7wSSrTwFfndx5a7+f8C6F1skxQ2HPqQjdo7i
-         tfHSshYfQH7lV89fa39sterV+33Uz/KPGG3JtwZHvp4JEJV8mcOJ4M8nXSdmXNm4Ivgc
-         W2syn+dKL8nln8zFGvZ4ICQUWcTt4OIpSqvy8aQImMxv4uNV3igxAv3sJOZDVvXatjRZ
-         SPdW4xWmLhdAYAuYNIzOHMoA/yNeZ69vc3Ha09cKV/hLl1pb7qref95L0vGhDJ8g1pdg
-         P0t2o81XvQEEwrjUvopNPa4bqEA/hKNzarbxi/drIaeR/LZHvKgVqGAusGgPm7/J52/u
-         GniA==
-X-Forwarded-Encrypted: i=1; AKwUvBza8iSpXUE4qvZe1CaRUuJb6WU4DNyN3sBSkpyt2NOr1644Lf7hJVUPfutab0cIvz5b7jZ0XPo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIWa0X6lgkSIzKzIFl3vebK2U3MnO/LB4+Ctv+Ao15ts18cdP6
-	fFL77J1liLMyeZX15+yjsIi92KhMnIvFlQgWItDaSix0N0gt4AwpPlPjg+cFVtaBZlw=
-X-Gm-Gg: AYBFou0T56lh2ZeBO4aHYzZJE+XyIkMKQiJgBatoyrG1Ug/5WdDAGxuGlitU7qMP+vO
-	vf/e9QAGPZ38VafZ3icn7vB0eAEYG2NqBTICc0dYfCZGuLoCTeT6NY4sbam5WlKACO7Wg5jWsLN
-	xT/zyTmouNwiOiR8caDhTw1x+ffz6pmTUs9ZUmLIHdfO9YcJg7nourmJeqDfe3+62xEcPpDhVfg
-	JDh0oUHgg3KrYbNeBNsrcC+CilbrKmreQ/DcRMB5ZOW0VfeS/zhMyUY2qpnLM/jY0j7nFgokILM
-	VAVE+ayhGz0qRY3Fh8FhqgVZx+/DZeZge5kiKg5GvzmAB+L104+CuM6+P1RinEXNBJRhyaZ6Vf6
-	TQYTw32sbv+M0gVAIQr0SqNMC4yJdd+gDzDVcLuFHMdHYbO65L9p2714YBzmCPPRwWH/wh36gaD
-	SjuxeDadpepZXIq8VXodKON1LfyEK/hg1kkM69q6uNusXdc+9otv8EPID3HtToCK+A9M/HW71lS
-	qBq
-X-Received: by 2002:a17:907:72c2:b0:c25:2e93:289e with SMTP id a640c23a62f3a-c260ca19c04mr1482747566b.16.1788777276733;
-        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5cfaa2sm450462066b.59.2026.09.07.03.34.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 03:34:36 -0700 (PDT)
-Message-ID: <7e98c872-6eff-4eb5-b53b-aedaf0fcc7ff@ursulin.net>
-Date: Mon, 7 Sep 2026 11:34:35 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U6BReP0u"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788777584; x=1820313584;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=0ZrT/K/Cb9gaNHINuULmzP5NtRYCGITb/99LD3gIsdE=;
+  b=U6BReP0ux+GEbqqNGk5MDouWYaXflBjOeeWZwCRCQUnirDTOJHt5Jair
+   uojMJn1/5hSTcX8QQBSkRFTKn79a/alc34Ce/P+pn5thcBXFjOOBxodQs
+   AnusQwSctclKY2SAB/3Zy07MO4RrwUGPdaHybh48PQSrI6fARv3CcXXpH
+   Ih03RPYBQ/nEaQdRCZIqPvfzMuVAUVU4eajjwvxFYT7pK6G9Ul++OJLew
+   BXoaP+MJassevLy9UgWHCDGoc8w9UNUBaJznvJvnHSIapNtXjI2mgbZWO
+   ysU377fYl1+l8RKQi6iyU5jNFQBAosCOokknluHImdtXMefuGuyeKSKtL
+   A==;
+X-CSE-ConnectionGUID: r6BSXqWIT7mkeD+wpwx7Vg==
+X-CSE-MsgGUID: TlqgB8HpTPKuSRNqYjjhFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="106695810"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="106695810"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 03:39:43 -0700
+X-CSE-ConnectionGUID: Y53h1MfVQyyro4KAca8dBA==
+X-CSE-MsgGUID: BZuHkW03SgS6qYNkaoUSlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="274483667"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa004.jf.intel.com with ESMTP; 07 Sep 2026 03:39:42 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 773E099; Mon, 07 Sep 2026 12:39:40 +0200 (CEST)
+Date: Mon, 7 Sep 2026 12:39:40 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: amitsd@google.com
+Cc: Badhri Jagan Sridharan <badhri@google.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Kyle Tso <kyletso@google.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: tcpm: recover after failure to start the frs
+ ams
+Message-ID: <ap6UbOSYDh6GDDhB@black.igk.intel.com>
+References: <20260903-frs-error-handling-v1-1-ad0fee541847@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
- <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-Content-Language: en-GB
-In-Reply-To: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903-frs-error-handling-v1-1-ad0fee541847@google.com>
 
+On Thu, Sep 03, 2026 at 12:22:21AM +0000, Amit Sunil Dhamne via B4 Relay wrote:
+> From: Amit Sunil Dhamne <amitsd@google.com>
+> 
+> Reset the port if the tcpm fails to start the FAST_ROLE_SWAP AMS by
+> initiating error recovery on it.
+> 
+> This helps in cases where some cables (incorrectly) signal an FRS to
+> an FRS capable port during disconnection. The TCPC autonomously starts
+> sourcing VBUS on detecting the FRS signal. However, the VBUS sourcing is
+> left on when the FAST_ROLE_SWAP AMS fails to start (as tcpm_sink_tx_ok
+> is 0 as CC is open due to the cable disconnect). This is because the
+> code sets the state to INVALID_STATE without resetting the port state.
+> 
+> Log snippet before changes:
+> [  101.401960] AMS FAST_ROLE_SWAP start
+> [  101.401971] Sink TX No Go
+> [  101.401982] sourcing vbus
+> [  101.401987] VBUS on
+> [  101.402159] VBUS on
+> [  109.257809] CC1: 0 -> 0, CC2: 5 -> 0 [state SNK_READY, polarity 1, disconnected]
+> [  111.267442] VBUS on
+> 
+> After changes:
+> [   70.541211] AMS FAST_ROLE_SWAP start
+> [   70.541220] Sink TX No Go
+> [   70.541228] state change SNK_READY -> ERROR_RECOVERY [rev3 NONE_AMS]
+> [   70.541362] VBUS on
+> [   70.541365] sourcing vbus
+> [   70.541367] VBUS on
+> [   70.541374] state change ERROR_RECOVERY -> PORT_RESET [rev3 NONE_AMS]
+> [   70.541410] disable vbus discharge ret:0
+> [   70.543028] Setting usb_comm capable false
+> [   70.544009] Setting voltage/current limit 0 mV 0 mA
+> [   70.544034] polarity 0
+> [   70.544239] Requesting mux state 0, usb-role 0, orientation 0
+> [   70.555550] cc:=0
+> [   70.555595] pending state change PORT_RESET -> PORT_RESET_WAIT_OFF @ 100 ms [rev3 NONE_AMS]
+> [   70.555697] VBUS off
+> [   70.555702] VBUS VSAFE0V
+> [   70.555762] CC1: 5 -> 0, CC2: 0 -> 0 [state PORT_RESET, polarity 0, disconnected]
+> [   70.587794] VBUS off
+> [   70.587799] VBUS VSAFE0V
+> [   70.655672] state change PORT_RESET -> PORT_RESET_WAIT_OFF [delayed 100 ms]
+> [   70.655682] state change PORT_RESET_WAIT_OFF -> SNK_UNATTACHED [rev3 NONE_AMS]
+> [   70.655686] Start toggling
+> [   70.656274] CC1: 0 -> 0, CC2: 0 -> 0 [state TOGGLING, polarity 0, disconnected]
+> 
+> Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
 
-On 07/09/2026 11:28, Tvrtko Ursulin wrote:
-> 
-> On 07/09/2026 10:42, Philipp Stanner wrote:
->> On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
->>>
->>>
->>> On 04/09/2026 20:06, Philipp Stanner wrote:
->>>
->>> 8><
->>>
->>>> If you can think of a stupid and simple solution, shoot. The only thing
->>>> I can think of is moving the string into the dma_fence, as a hard copy
->>>> :)
->>>>
->>>>
->>>> In the mean time, my proposal is to keep aiming for removing
->>>> sched_fence->ops->release and fixing pvr and amdgpu.
->>>
->>> Fixing the drivers sounds like an obvious thing to try indeed. Along the
->>> same lines as it was done for xe and panthor. It is an already
->>> established and well understood approach so shouldn't be controversial.
->>> After that we can discuss in leisurely pace if something better is
->>> possible in the scheduler core.
->>>
->>> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is
->>> it significantly more complicated than it was for panthor and xe?
->>
->> How did the others fix that?
-> 
-> Combination of kfree_rcu, synchronize_rcu and storing the name in an 
-> object protected by those:
-> 
-> 6bd90e700b42 ("drm/xe: Make dma-fences compliant with the safe access 
-> rules")
-> 299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
-> efe24898485c ("drm/panthor: fix for dma-fence safe access rules")
-> 
-> Not too complicated on the overall. Simply ensure RCU grace period 
-> between signaling the hw fence and freeing the ops, scheduler, name, all 
-> that it is in the externally accessible dereference chain.
-> 
->> If we look at nouveau:
->>
->> static void
->> nouveau_sched_fini(struct nouveau_sched *sched)
->> {
->>   struct drm_gpu_scheduler *drm_sched = &sched->base;
->>   struct drm_sched_entity *entity = &sched->entity;
->>
->>   wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
->>
->>   drm_sched_entity_fini(entity);
->>   drm_sched_fini(drm_sched);
->>
->>   /* Destroy workqueue after scheduler tear down, otherwise it might 
->> still
->>   * be in use.
->>   */
->>   if (sched->wq)
->>   destroy_workqueue(sched->wq);
->> }
->>
->>
->> We see that it
->>     1. stops accepting jobs from userspace (not visible here)
->>     2. waits until all hardware fences in this ring are signaled
->>     3. only then tears down drm_sched
-> 
-> I cannot do a very deep dive into nouveau at the moment. I see fence 
-> itself is already freed with kfree_rcu so that's good. What is reachable 
-> via the timeline name callback:
-> 
->      struct nouveau_fence *fence = to_nouveau_fence(f);
->      struct nouveau_fence_chan *fctx = nouveau_fctx(fence);
-> 
->      return !fctx->dead ? fctx->name : "dead channel";
-> 
-> Fence is presumably the fence so channel. Chagning to kfree_rcu in 
-> nouveau_fence_context_put() there might be enough for that one.
-> 
-> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
-> 
-> That makes scheduler timeline name vfunc safe:
-> 
-> static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
-> {
->      struct drm_sched_fence *fence = to_drm_sched_fence(f);
->      return (const char *)fence->sched->name;
-> 
-> sched is then RCU protected. sched->name is already static so not a 
-> concern.
-> 
-> As you say nouveau_sched_fini() only tears down the scheduler after 
-> fences have been signaled it seems adding two new kfree_rcu make is safe.
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-P.S. Idea on how to test it from userspace:
+> ---
+>  drivers/usb/typec/tcpm/tcpm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+> index a8cd1959c426..c1045d850897 100644
+> --- a/drivers/usb/typec/tcpm/tcpm.c
+> +++ b/drivers/usb/typec/tcpm/tcpm.c
+> @@ -7113,7 +7113,7 @@ static void tcpm_pd_event_handler(struct kthread_work *work)
+>  				port->upcoming_state = FR_SWAP_SEND;
+>  				ret = tcpm_ams_start(port, FAST_ROLE_SWAP);
+>  				if (ret == -EAGAIN)
+> -					port->upcoming_state = INVALID_STATE;
+> +					tcpm_set_state(port, ERROR_RECOVERY, 0);
+>  			} else {
+>  				tcpm_log(port, "Discarding FRS_SIGNAL! Not in sink ready");
+>  			}
+> 
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260903-frs-error-handling-253b87a09fa2
+> 
+> Best regards,
+> -- 
+> Amit Sunil Dhamne <amitsd@google.com>
+> 
 
-https://patchwork.freedesktop.org/patch/642709/?series=146211&rev=2
-
-But as nouveau does not export via sync_file you would need to adapt to 
-export sync_file from syncobj.
-
-Regards,
-
-Tvrtko
-
+-- 
+heikki
