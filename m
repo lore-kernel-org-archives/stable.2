@@ -1,47 +1,47 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50669478E5E
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:39:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8DF4ADD8E
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:39:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781147; cv=none; b=ouKbKC5fPryFUxznC7bqU1dwN4Hcj4yI61ZXjk9q3eW93q9igtLvY094fe9jzNOFOJe4A7NBmmlgs6AISt/qlbrr65BvcHsuD0noAS8aGPmV2dY5yTvF5wb+wXusz42KJ6FHsPCoZ7NNQ1qcf+SiRleJFv3Bw3ceqH3cyWTEv1Q=
+	t=1788781150; cv=none; b=DB1SRivOr3/+mLHGlBr/oyRL4zkInbH7/TWjQg/VWJXs1/mAykhR3U2efjxnyizXSLFJJv55rYzrQKengEFn8ox1XZzFxYgC2po8N6RHPLfOzJZ8zQ7CHC8iwncyPwpM8houQoL5xqJjRx1p7xho+EDjoAq+boLkLfWJvNkwrgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781147; c=relaxed/simple;
-	bh=hNd6bIyFAvlFxc6hjuFcDqVwVqg86Zvx1YHzqvt4tLo=;
+	s=arc-20240116; t=1788781150; c=relaxed/simple;
+	bh=dq6JvsI/jNN+xx3oqp5h32L/PtDtEz2jrI6gO+wTr7w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AN0+UjDqswpfLTwonUfVQaAUnGRJnyX3hB9mPfosjNFBe3EY//li67WVMQqxExjHY8ecNYCusaEYlusaCtMofRwUxlXl5byiwZuww3UChtrNF7t/ObXHXFJmxmhZctEl/2XW3hVWuc8whlbZhyjFJReULEJHvtWKOZ+UZiOSVJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nch8TyND; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=NSzPjdHs72KSkNZZlrjISVv6iq8jkeixTjxbWb03bWPPmTJH0NrKVRuGXZqxkK3a5YjnehkFqZYlA6Pn/Rn4LIv8mUQPBYIXSdm0iYbmjgh+YdigzmkGZqEC9bg5NDICyaRMDZyif36W0lxw4VGU7TNoAwDsf+VyrExnxgC7G1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MaTtEw/J; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nch8TyND"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MaTtEw/J"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788781143;
+	s=mimecast20190719; t=1788781147;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=HHCKmh+GTex17viqHU7+p3b1kZPrhM46bDIsKbGkEho=;
-	b=Nch8TyNDlnwLos5cevYWHtv6Dk8AHrv6EQM1q10NAs8gzZC+VPgYEV7tyqGPk6Z/CvUrlE
-	tyDs7uG8Y2PSOMymOWqdeWGi6B52Ms5ceX/J/dkQrJTIzPLMIPUIuhHcHeMqqAoplw+iiB
-	6cE7g5p9iRolU8Ddc5CSGvt+FSENxgI=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	bh=7bnZX78xLpA1SrjplgD6zRqvHIJMbFWF4J8SNmE5f/c=;
+	b=MaTtEw/JH2jNVErzqMPLkSZopbGSBC+o6HrVxl+dp6ztQ15u5OQTaD57HrDmkt15WwzZfS
+	jq3QyuRSsC45PouJ4rPnYrr1E5gU0aGka5K5Iz6F2FHx6zplCc3QE8TwhHW4AE+TB9116x
+	+EPDOUpVUAfVhIvmijX9zlZAnmFNLOk=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-264-3OA5z2N7Niam5fyVXGe7bA-1; Mon,
- 07 Sep 2026 07:38:59 -0400
-X-MC-Unique: 3OA5z2N7Niam5fyVXGe7bA-1
-X-Mimecast-MFC-AGG-ID: 3OA5z2N7Niam5fyVXGe7bA_1788781138
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-436-7O9EPnsDOuaN2S2plpZ7wA-1; Mon,
+ 07 Sep 2026 07:39:04 -0400
+X-MC-Unique: 7O9EPnsDOuaN2S2plpZ7wA-1
+X-Mimecast-MFC-AGG-ID: 7O9EPnsDOuaN2S2plpZ7wA_1788781142
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id CC0BD19540DE;
-	Mon,  7 Sep 2026 11:38:57 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A70201828AD4;
+	Mon,  7 Sep 2026 11:39:02 +0000 (UTC)
 Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 89F2530001A2;
-	Mon,  7 Sep 2026 11:38:53 +0000 (UTC)
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6234D1956042;
+	Mon,  7 Sep 2026 11:38:59 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -53,11 +53,11 @@ Cc: David Howells <dhowells@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Seungwon Bae <qotmddnjs@ajou.ac.kr>,
+	Chengfeng Ye <nicoyip.dev@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v9 13/14] rxrpc: fix use-after-free in rxrpc_poke_conn()
-Date: Mon,  7 Sep 2026 12:37:40 +0100
-Message-ID: <20260907113743.1453210-14-dhowells@redhat.com>
+Subject: [PATCH net v9 14/14] rxrpc: Take write lock when publishing the initial RxGK key
+Date: Mon,  7 Sep 2026 12:37:41 +0100
+Message-ID: <20260907113743.1453210-15-dhowells@redhat.com>
 In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
 References: <20260907113743.1453210-1-dhowells@redhat.com>
 Precedence: bulk
@@ -67,37 +67,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-rxrpc_poke_conn() takes a reference on the connection with no liveness
-check, unlike its sibling rxrpc_queue_conn() which gates on
-atomic_read(&conn->active) >= 0.  The per-connection timer is armed with
-no reference held for it, and rxrpc_put_connection() cancels it with a
-non-synchronous timer_delete() only after the refcount reaches 0.
-refcount_t saturates rather than resurrecting, so the connection can be
-kfree()d while still linked in local->conn_attend_q (nothing in teardown
-unlinks attend_link).  The rxrpc I/O thread then performs a UAF write
-(list_del_init) plus UAF reads and indirect calls through conn->security.
+rxgk_rekey() updates the transport-key ring under security_use_lock,
+and rxgk_get_key() takes a reference under the corresponding read
+lock.  The initial publication in rxgk_init_connection_security()
+writes conn->rxgk.enctype and conn->rxgk.keys[] without the write
+lock.
 
-Reproduced on a KASAN + PREEMPT kernel: 56 "refcount_t: addition on 0"
-saturations at load, escalating to
+On a client connection, a second sendmsg can observe
+RXRPC_CONN_CLIENT through a lockless load of conn->state, skip
+rxrpc_init_client_conn_security(), and call rxgk_get_key() without
+ever acquiring security_lock.  Because the initializer never took
+the write lock, the reader's read lock provides neither exclusion
+nor a matching acquire-release pair.
 
-  BUG: KASAN: slab-use-after-free in rxrpc_io_thread   Write of size 8
+Concurrent RxGK key consumers were observed in a two-sender
+workload.  KCSAN reported:
 
-AF_RXRPC socket creation (rxrpc_create) has no capability check, so this
-is reachable by an unprivileged user.
+  BUG: KCSAN: data-race in rxgk_get_key / rxgk_secure_packet
 
-Guard rxrpc_poke_conn() with the same liveness/refcount check the sibling
-rxrpc_queue_conn() uses before taking the poke reference, so a connection
-past its last-active point is not poked/requeued after teardown began.
+  write to 0xffff8aef4023c318 of 8 bytes by task 1968 on cpu 0:
+   rxgk_secure_packet+0x46c/0x820
+   rxrpc_send_data+0x562/0x1a20
+   rxrpc_do_sendmsg+0x976/0xa80
+   rxrpc_sendmsg+0x20f/0x2a0
 
-Verified before/after on KASAN+PREEMPT at equal timer volume: 56
-saturations + 15 KASAN reports unpatched vs 0 and 0 patched.
+  read to 0xffff8aef4023c318 of 8 bytes by task 1969 on cpu 1:
+   rxgk_get_key+0x209/0x5e0
+   rxgk_alloc_txbuf+0xa4/0x2a0
+   rxrpc_send_data+0x8e2/0x1a20
+   rxrpc_do_sendmsg+0x976/0xa80
+   rxrpc_sendmsg+0x20f/0x2a0
 
-Fixes: f2cce89a074e ("rxrpc: Implement a mechanism to send an event notification to a connection")
-Signed-off-by: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+  value changed: 0x7fffffffffffffff -> 0x7fffffffffffffee
+
+That report is on the key context's byte counter rather than the
+initial publication, but it shows that lookup and secured transmit
+already overlap on the same connection.
+
+Take security_use_lock for writing while publishing the initial
+enctype and transport key, matching the locking used when rekeying.
+
+Fixes: 9d1d2b59341f ("rxrpc: rxgk: Implement the yfs-rxgk security class (GSSAPI)")
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
 cc: Eric Dumazet <edumazet@google.com>
@@ -108,23 +123,22 @@ cc: Simon Horman <horms@kernel.org>
 cc: linux-afs@lists.infradead.org
 cc: stable@vger.kernel.org
 ---
- net/rxrpc/conn_object.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/rxrpc/rxgk.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/rxrpc/conn_object.c b/net/rxrpc/conn_object.c
-index 0ece717db0f8..1be50e0c9cee 100644
---- a/net/rxrpc/conn_object.c
-+++ b/net/rxrpc/conn_object.c
-@@ -34,7 +34,10 @@ void rxrpc_poke_conn(struct rxrpc_connection *conn, enum rxrpc_conn_trace why)
- 	spin_lock_irq(&local->lock);
- 	busy = !list_empty(&conn->attend_link);
- 	if (!busy) {
--		rxrpc_get_connection(conn, why);
-+		if (!rxrpc_get_connection_maybe(conn, why)) {
-+			spin_unlock_irq(&local->lock);
-+			return;
-+		}
- 		list_add_tail(&conn->attend_link, &local->conn_attend_q);
- 	}
- 	spin_unlock_irq(&local->lock);
+diff --git a/net/rxrpc/rxgk.c b/net/rxrpc/rxgk.c
+index 77a67ace1d24..b49221f57f67 100644
+--- a/net/rxrpc/rxgk.c
++++ b/net/rxrpc/rxgk.c
+@@ -251,8 +251,10 @@ static int rxgk_init_connection_security(struct rxrpc_connection *conn,
+ 					 GFP_NOFS);
+ 	if (IS_ERR(gk))
+ 		return PTR_ERR(gk);
++	write_lock(&conn->security_use_lock);
+ 	conn->rxgk.enctype = gk->krb5->etype;
+ 	conn->rxgk.keys[gk->key_number & 3] = gk;
++	write_unlock(&conn->security_use_lock);
+ 
+ 	switch (conn->security_level) {
+ 	case RXRPC_SECURITY_PLAIN:
 
