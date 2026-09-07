@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170245474E;
-	Mon,  7 Sep 2026 12:26:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF3E3E1CFD;
+	Mon,  7 Sep 2026 12:26:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783964; cv=none; b=Eq2QtnZQu57Uo/XjXwulWqAR1PJsP9cQySU4QU/Vzhm95k6A8wqr/E+3sDfpptliQoJKh3vFw2ihzLMeybaTFc/ySykxAeVjC3TiWxpvZdlpL+jeWvu85wkajI7IGvaNhg9l95GUkL1+PW0FSvsXWJ8MeL3/F39XO+wbjI3y+Ko=
+	t=1788783988; cv=none; b=eGkfYg2yNJNeeJTM4iXMPhtcX5g5f8poJMC7hlzG8mKwDbb2N3l2YPcvWOXo+k/B009+rYVQj4pBZ6QOb7lqUrfHG3aV9aVenElnw8082vKcmf38i5AqX4GBrECO3QmhAnYhT2ZcWFATIJdHNjL4CrkDrZJFgn9/2B39bEEKFME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783964; c=relaxed/simple;
-	bh=9MTkvOJsI5K4fCtJU8CACmtvC3FZa+nl2Zqmy55d2Z0=;
+	s=arc-20240116; t=1788783988; c=relaxed/simple;
+	bh=xhS8bRq+Gz/qBFuFj0xBi2GFn+dnOM/hxkCw2Qhn3+c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W0CvTRt96T9ufYlH5EwQZPuMCkJKHFs+Cw5IjkcV8iEhmT4db5tswMWwKAhK8JCffWD2PiiCY/tUuptg8oqhvMH7WOm5QSAHpmMzZgV8MbbBE3aKMHh++WGDi9THO/H1ERAVeXyvUGQe9hylDGKlTnVib45jOvT53Mcv8ncLLWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3/tt1xb; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=oa6Vrs4olxBcSJd9kbgE7PP5xDYolPpLaH8bhyT8wLveEYGntaCizXdkM7QRVGDm4RmhRqHQBreUKGcSL7v55JYvGOPTN2hqzUZzWTMEEezDHnq/ahpbXyEPKsAbKiPA1KTy40gccHvXqjtx61yUlK4h2FNKwIEemaJMvbq3gas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NbOi7s5I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3/tt1xb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104CB1F00A3D;
-	Mon,  7 Sep 2026 12:25:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NbOi7s5I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3ECF1F00A3A;
+	Mon,  7 Sep 2026 12:26:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783962;
-	bh=khFAlLB3IE9nHz5wgfKxVmeFcDHKyAwXXbXcSPy92d4=;
+	s=k20260515; t=1788783986;
+	bh=NmJWK+cr7rKoVtR7nNls8ZjI59fsyuTGnN7RsLAmRR4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M3/tt1xbUroc0tnLm8UfmiJG4vFvuRkj3HlzlzSU6Z2rP/ZRKVr0VO/am67MU/DOm
-	 0infuQjOeYcSJ5oDpXmCCveGVc7y90pgw3mAAXAlZ/8PuR71GDXiLnfSVBDwGZEXEK
-	 37VuLhqPawUKwsMgtTI5Tgt3R/Efv7hdyQe70H4x7VOGTwkO/wrtd2pm+7lxWGyqgm
-	 tJ2UcP7hiBJala6NQL7RVG6THLmKiGZAsYrf0Gkj0XkoVsKtu/DqS1QSa9C/vILm9r
-	 IAs3UC0pgDD+8cHta70g9anwqodk0QnKpCJvjtEvqs3wmcqIiapTSLLBbBBcdKq6Pk
-	 FiBqy5ji2Me6w==
-Message-ID: <53f3afde-b5a7-4c2e-b6b5-8c844d1b6c8e@kernel.org>
-Date: Mon, 7 Sep 2026 14:25:57 +0200
+	b=NbOi7s5IHW6xh2Ss0fhtBjh+tknCeJlWcd+tDb47dOS1YBw8HZxw9Rdbw42Kk33lQ
+	 m7RcqFgb5OBG4vY3PS3Z8zy+Zq9t7UFnbHpyczfnIcUWACwKaxTfSe4ixmvgFg7Tgn
+	 ewdBlK8cl5k5gD75k4kEYt/EDgYaraYT3At+5HyprlYiCNtaWbttdV93dH+IYSklKr
+	 0LQxIQDhWx+7Xzd5bnVDAF0e/H+Fo6ZvkXBhvfAz9FiEtHzabFP+LE4G+n0e/jKLb7
+	 p6FlAW5qCCOH+x2/mFc9olTsEqIrkdhzME7jUIL5vV8hIMfYmkBno2+9jixCsKmKUq
+	 MZ3HCVJGwqd0g==
+Message-ID: <087d76fd-0e1c-485e-bccb-e3ce074439cb@kernel.org>
+Date: Mon, 7 Sep 2026 14:26:21 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] mm: khugepaged: fix swap entry value to
- folio_pfn()
+Subject: Re: [PATCH v4 2/3] mm: khugepaged: fix folio is used after
+ pte_unmap_unlock()
 To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
  ljs@kernel.org
 Cc: nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
@@ -44,7 +44,7 @@ Cc: nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
  zokeefe@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
  stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
 References: <20260828055926.346744-1-vernon2gm@gmail.com>
- <20260828055926.346744-2-vernon2gm@gmail.com>
+ <20260828055926.346744-3-vernon2gm@gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -91,133 +91,148 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260828055926.346744-2-vernon2gm@gmail.com>
+In-Reply-To: <20260828055926.346744-3-vernon2gm@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 8/28/26 07:59, Vernon Yang wrote:
 > From: Vernon Yang <yanglincheng@kylinos.cn>
 > 
-> When the swap entries found exceed max_ptes_swap, the loop is left via
-> break with folio still holding the xarray value that encodes the swap
-> entry, not valid folio pointer.
+> After the page table lock has dropped, the folio can be freed
+> concurrently. The trace_mm_khugepaged_scan_pmd() is left with
+> a dangling folio pointer.
 > 
-> That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
-> to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
-> plain pointer arithmetic, so the trace event merely prints bogus
-> scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
-> dereferencing the tiny encoded integer and oopsing khugepaged whenever
-> the trace event is enabled.
-> 
-> So when folio is the swap entry value, simply set pfn to -1, just like
-> exhausted scan naturally.
-> 
-> And the folio_put() has maybe dropped the last reference of folio. The
-> trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.
-> so using the folio_pfn() before dropping the reference, closing
+> So using the folio_pfn() before dropping the page table lock, closing
 > use-after-free window.
+> 
+> And other pre-existing bug, When the `for (i = 0; i < HPAGE_PMD_NR; i++)`
+> iteration to terminate and the folio operation preceding is normal, but
+> pfn will be incorrect. so we really only trace the PFN if it really was
+> problematic.
 > 
 > About calling the respective trace_xxx() functions separately on success
 > and failure, refer to [1].
 > 
 > [1] https://lore.kernel.org/linux-mm/ao6jVbVHLUmuY2UA@gremlin/
 > 
-> Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: 7d2eba0557c1 ("mm: add tracepoint for scanning pages")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 > ---
 >  include/trace/events/huge_memory.h |  6 +++---
->  mm/khugepaged.c                    | 11 ++++++++++-
->  2 files changed, 13 insertions(+), 4 deletions(-)
+>  mm/khugepaged.c                    | 17 ++++++++++++++---
+>  2 files changed, 17 insertions(+), 6 deletions(-)
 > 
 > diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
-> index 5a48c5406cce..7b526528f85b 100644
+> index 7b526528f85b..fa828967e1fb 100644
 > --- a/include/trace/events/huge_memory.h
 > +++ b/include/trace/events/huge_memory.h
-> @@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+> @@ -55,10 +55,10 @@ SCAN_STATUS
 >  
->  TRACE_EVENT(mm_khugepaged_scan_file,
+>  TRACE_EVENT(mm_khugepaged_scan_pmd,
 >  
-> -	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
-> +	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
->  		 int present, int swap, int result),
+> -	TP_PROTO(struct mm_struct *mm, struct folio *folio,
+> +	TP_PROTO(struct mm_struct *mm, unsigned long pfn,
+>  		 int referenced, int none_or_zero, int status, int unmapped),
 >  
-> -	TP_ARGS(mm, folio, file, present, swap, result),
-> +	TP_ARGS(mm, pfn, file, present, swap, result),
+> -	TP_ARGS(mm, folio, referenced, none_or_zero, status, unmapped),
+> +	TP_ARGS(mm, pfn, referenced, none_or_zero, status, unmapped),
 >  
 >  	TP_STRUCT__entry(
 >  		__field(struct mm_struct *, mm)
-> @@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+> @@ -71,7 +71,7 @@ TRACE_EVENT(mm_khugepaged_scan_pmd,
 >  
 >  	TP_fast_assign(
 >  		__entry->mm = mm;
 > -		__entry->pfn = folio ? folio_pfn(folio) : -1;
 > +		__entry->pfn = pfn;
->  		__assign_str(filename);
->  		__entry->present = present;
->  		__entry->swap = swap;
+>  		__entry->referenced = referenced;
+>  		__entry->none_or_zero = none_or_zero;
+>  		__entry->status = status;
 > diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-> index 75639298efc2..b597a3e68606 100644
+> index b597a3e68606..4d360ae87769 100644
 > --- a/mm/khugepaged.c
 > +++ b/mm/khugepaged.c
-> @@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
->  	int present, swap;
->  	int node = NUMA_NO_NODE;
->  	enum scan_result result = SCAN_SUCCEED;
+> @@ -1612,6 +1612,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>  	enum scan_result result = SCAN_FAIL;
+>  	struct page *page = NULL;
+>  	struct folio *folio = NULL;
 > +	unsigned long failed_pfn = -1;
->  
->  	present = 0;
->  	swap = 0;
-> @@ -2715,6 +2716,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
->  
->  		if (is_pmd_order(folio_order(folio))) {
->  			result = SCAN_PTE_MAPPED_HUGEPAGE;
+>  	unsigned long addr;
+>  	unsigned long enabled_orders;
+>  	spinlock_t *ptl;
+> @@ -1706,11 +1707,13 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>  		if (cc->is_khugepaged && !(vma->vm_flags & VM_DROPPABLE) &&
+>  		    folio_test_lazyfree(folio) && !pte_dirty(pteval)) {
+>  			result = SCAN_PAGE_LAZYFREE;
 > +			failed_pfn = folio_pfn(folio);
->  			/*
->  			 * PMD-sized THP implies that we can only try
->  			 * retracting the PTE table.
-> @@ -2726,6 +2728,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  			goto out_unmap;
+>  		}
+>  
+>  		if (!folio_test_anon(folio)) {
+>  			result = SCAN_PAGE_ANON;
+> +			failed_pfn = folio_pfn(folio);
+>  			goto out_unmap;
+>  		}
+>  
+> @@ -1721,6 +1724,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>  		if (folio_maybe_mapped_shared(folio)) {
+>  			if (++shared > max_ptes_shared) {
+>  				result = SCAN_EXCEED_SHARED_PTE;
+> +				failed_pfn = folio_pfn(folio);
+>  				count_collapse_event(HPAGE_PMD_ORDER, THP_SCAN_EXCEED_SHARED_PTE,
+>  						     MTHP_STAT_COLLAPSE_EXCEED_SHARED);
+>  				goto out_unmap;
+> @@ -1738,15 +1742,18 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
 >  		node = folio_nid(folio);
 >  		if (collapse_scan_abort(node, cc)) {
 >  			result = SCAN_SCAN_ABORT;
 > +			failed_pfn = folio_pfn(folio);
->  			folio_put(folio);
->  			break;
+>  			goto out_unmap;
 >  		}
-> @@ -2733,12 +2736,14 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
->  
+>  		cc->node_load[node]++;
 >  		if (!folio_test_lru(folio)) {
 >  			result = SCAN_PAGE_LRU;
 > +			failed_pfn = folio_pfn(folio);
->  			folio_put(folio);
->  			break;
+>  			goto out_unmap;
+>  		}
+>  		if (folio_test_locked(folio)) {
+>  			result = SCAN_PAGE_LOCK;
+> +			failed_pfn = folio_pfn(folio);
+>  			goto out_unmap;
 >  		}
 >  
->  		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
+> @@ -1759,6 +1766,7 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>  		 */
+>  		if (folio_expected_ref_count(folio) != folio_ref_count(folio)) {
 >  			result = SCAN_PAGE_COUNT;
 > +			failed_pfn = folio_pfn(folio);
->  			folio_put(folio);
->  			break;
+>  			goto out_unmap;
 >  		}
-> @@ -2771,9 +2776,13 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
->  		} else {
->  			result = collapse_file(mm, addr, file, start, cc);
->  		}
-> +		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
-> +					      SCAN_SUCCEED);
+>  
+> @@ -1782,10 +1790,13 @@ static enum scan_result collapse_scan_pmd(struct mm_struct *mm,
+>  				       unmapped, cc, enabled_orders);
+>  		/* mmap_lock was released above, set lock_dropped */
+>  		*lock_dropped = true;
+> -	}
+> +		trace_mm_khugepaged_scan_pmd(mm, -1, referenced, none_or_zero,
+> +					     SCAN_SUCCEED, unmapped);
 > +	} else {
-> +		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
-> +					      swap, result);
->  	}
+>  out:
+> -	trace_mm_khugepaged_scan_pmd(mm, folio, referenced,
+> -				     none_or_zero, result, unmapped);
+> +		trace_mm_khugepaged_scan_pmd(mm, failed_pfn, referenced,
+> +					     none_or_zero, result, unmapped);
+> +	}
+>  	return result;
+>  }
+>  
 
-Just curious (maybe Lorenzo suggested that?), why separate out the SCAN_SUCCEED
-stuff?
-
-When result == SCAN_SUCCEED, failed_pfn == -1 no?
-
-We set failed_pfn now only when setting result ...
+Same thought
 
 Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
 
 -- 
 Cheers,
