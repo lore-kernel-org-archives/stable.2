@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F9C48BD5B;
-	Mon,  7 Sep 2026 12:23:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170245474E;
+	Mon,  7 Sep 2026 12:26:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783820; cv=none; b=enjflhg1TVGRBk8Fj58gLEsCdu/Ps+yDJU6u3W/t6Gdt3/1FWnWmvNooYzdekiGOXJo83+MiXDpInbDI/F2NdbwStXxt6Q+WOY5e9/kVPzR/7U/gIFhni3E+rRaZz89Mq5MH8XXRm8sJ6zAW0EQBRDZZrHcQHdEq1NNRovchiDc=
+	t=1788783964; cv=none; b=Eq2QtnZQu57Uo/XjXwulWqAR1PJsP9cQySU4QU/Vzhm95k6A8wqr/E+3sDfpptliQoJKh3vFw2ihzLMeybaTFc/ySykxAeVjC3TiWxpvZdlpL+jeWvu85wkajI7IGvaNhg9l95GUkL1+PW0FSvsXWJ8MeL3/F39XO+wbjI3y+Ko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783820; c=relaxed/simple;
-	bh=CN85r1Si1c2if0aRtnE6q+6I4jm+i11TMr6tC0E4jRY=;
+	s=arc-20240116; t=1788783964; c=relaxed/simple;
+	bh=9MTkvOJsI5K4fCtJU8CACmtvC3FZa+nl2Zqmy55d2Z0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rSSHtkwKL1XI4tyZbw9tERpttAN8ItvcPfZ7rbxSBA1nZVH0+5rz6BBg+POITmkEJxFBrfj1UJ2hEtkAQsnnfEgk18FGLayNsH+0Qh3jLPfkomwc5wM+THQ7Xyij10XMDfMvYyKkQBRGD1gX2rk0vxol0sPkfa8gnn14k0bfOAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTWtYKU2; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=W0CvTRt96T9ufYlH5EwQZPuMCkJKHFs+Cw5IjkcV8iEhmT4db5tswMWwKAhK8JCffWD2PiiCY/tUuptg8oqhvMH7WOm5QSAHpmMzZgV8MbbBE3aKMHh++WGDi9THO/H1ERAVeXyvUGQe9hylDGKlTnVib45jOvT53Mcv8ncLLWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M3/tt1xb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTWtYKU2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D611F00A3A;
-	Mon,  7 Sep 2026 12:23:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M3/tt1xb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 104CB1F00A3D;
+	Mon,  7 Sep 2026 12:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783819;
-	bh=DKWwKFC4qZfk9FuvRkvf9yrxae6yPLmuMCybVojYj7w=;
+	s=k20260515; t=1788783962;
+	bh=khFAlLB3IE9nHz5wgfKxVmeFcDHKyAwXXbXcSPy92d4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=QTWtYKU2TyoxPXjcHz+SiSddeSqqdvSFOswAYcm578/7B/fTaz0fQyG5Icg3+VHLm
-	 v6Dq4OMR7o5VtmB4eXuQDSNPvgtsNPC++8zGFQlNPs1rWtlwyJuFbPXYmdfDhq8DGt
-	 8tU65ngkv7fDdyLxAha7PE8Okts73aKvC88MxdbnLJ/l1E1xohN6E3i8Dsy18loMEx
-	 hNojwg8rtowHlQGSIrFMObNhvk7T7n43KE+4tcMLPRXKdv3iemHiUrwcUczRjQippe
-	 L77nQ0Oovfubn2l3n1a2/Fb7FOwPkIV+0umIYUTyLvsVJjCqeF0MZIQiRuy7uCOY9l
-	 0P4eTZM0rGbjg==
-Message-ID: <5ae7a11c-1db4-44cd-bf67-a98cfd5ca08b@kernel.org>
-Date: Mon, 7 Sep 2026 14:23:33 +0200
+	b=M3/tt1xbUroc0tnLm8UfmiJG4vFvuRkj3HlzlzSU6Z2rP/ZRKVr0VO/am67MU/DOm
+	 0infuQjOeYcSJ5oDpXmCCveGVc7y90pgw3mAAXAlZ/8PuR71GDXiLnfSVBDwGZEXEK
+	 37VuLhqPawUKwsMgtTI5Tgt3R/Efv7hdyQe70H4x7VOGTwkO/wrtd2pm+7lxWGyqgm
+	 tJ2UcP7hiBJala6NQL7RVG6THLmKiGZAsYrf0Gkj0XkoVsKtu/DqS1QSa9C/vILm9r
+	 IAs3UC0pgDD+8cHta70g9anwqodk0QnKpCJvjtEvqs3wmcqIiapTSLLBbBBcdKq6Pk
+	 FiBqy5ji2Me6w==
+Message-ID: <53f3afde-b5a7-4c2e-b6b5-8c844d1b6c8e@kernel.org>
+Date: Mon, 7 Sep 2026 14:25:57 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,16 +35,16 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/migrate_device: avoid out-of-bounds writes for
- compound folios
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Hui Su <sh_def@163.com>, akpm@linux-foundation.org, balbirs@nvidia.com,
- ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com,
- gourry@gourry.net, ying.huang@linux.alibaba.com, apopple@nvidia.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260817120758.669807-3-sh_def@163.com>
- <4ead5df7-f000-4087-83e4-13aae036e0b7@kernel.org>
- <apESOAPVzggWmbcJ@gsse-cloud1.jf.intel.com>
+Subject: Re: [PATCH v4 1/3] mm: khugepaged: fix swap entry value to
+ folio_pfn()
+To: Vernon Yang <vernon2gm@gmail.com>, akpm@linux-foundation.org,
+ ljs@kernel.org
+Cc: nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
+ zokeefe@google.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ stable@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>
+References: <20260828055926.346744-1-vernon2gm@gmail.com>
+ <20260828055926.346744-2-vernon2gm@gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -91,140 +91,133 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <apESOAPVzggWmbcJ@gsse-cloud1.jf.intel.com>
+In-Reply-To: <20260828055926.346744-2-vernon2gm@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/28/26 06:44, Matthew Brost wrote:
-> On Thu, Aug 27, 2026 at 05:14:40PM +0200, David Hildenbrand (Arm) wrote:
->> On 8/17/26 14:08, Hui Su wrote:
->>> migrate_device_range() and migrate_device_pfns() clear the entries
->>> following a compound folio so that the PFN arrays retain their
->>> page-granular representation.
->>>
->>> If a compound folio extends beyond the end of the caller-provided range,
->>> the loops clear all following folio entries without limiting them to the
->>> number of slots remaining in the npages-sized array, causing an
->>> out-of-bounds write.
->>>
->>> Do not proceed with a compound folio if its page-granular representation
->>> does not fit entirely in the remaining PFN array. If this happens, drop
->>> any reference and lock acquired for the folio, clear the remaining
->>> entries, and stop collecting.
->>>
->>> Observed with a KASAN x86 QEMU kernel using the HMM
->>> migrate_anon_huge_zero selftest. Closing /dev/hmm_dmirror0 after
->>> migrating an anonymous huge page to device memory exercises:
->>>
->>>   dmirror_fops_release()
->>>     -> dmirror_device_evict_chunk()
->>>       -> migrate_device_range()
->>>
->>> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Hui Su <sh_def@163.com>
->>> ---
->>> Changes in v2:
->>> - Do not partially represent a compound folio when it does not fit in
->>>   the remaining PFN array.
->>> - Drop any reference and lock acquired for that folio, clear the
->>>   remaining entries, and stop collecting, as suggested by Balbir Singh.
->>>
->>> v1: https://lore.kernel.org/lkml/20260817074350.442493-2-sh_def@163.com/
->>>
->>>  mm/migrate_device.c | 18 ++++++++++++++++++
->>>  1 file changed, 18 insertions(+)
->>>
->>> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
->>> index 908d2d4ec43a..69b8d0660bab 100644
->>> --- a/mm/migrate_device.c
->>> +++ b/mm/migrate_device.c
->>> @@ -1400,6 +1400,15 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
->>>  
->>>  		src_pfns[i] = migrate_device_pfn_lock(pfn);
->>>  		nr = folio_nr_pages(folio);
->>> +		if (nr > npages - i) {
->>> +			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
->>> +				folio_unlock(folio);
->>> +				folio_put(folio);
->>> +			}
->>> +			memset(&src_pfns[i], 0,
->>> +			       (npages - i) * sizeof(*src_pfns));
->>> +			break;
->>> +		}
->>>  		if (nr > 1) {
->>>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
->>>  			for (j = 1; j < nr; j++)
->>> @@ -1434,6 +1443,15 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
->>>  
->>>  		src_pfns[i] = migrate_device_pfn_lock(src_pfns[i]);
->>>  		nr = folio_nr_pages(folio);
->>> +		if (nr > npages - i) {
->>> +			if (src_pfns[i] & MIGRATE_PFN_MIGRATE) {
->>> +				folio_unlock(folio);
->>> +				folio_put(folio);
->>> +			}
->>> +			memset(&src_pfns[i], 0,
->>> +			       (npages - i) * sizeof(*src_pfns));
->>> +			break;
->>> +		}
->>>  		if (nr > 1) {
->>>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
->>>  			for (j = 1; j < nr; j++)
->>
->> The code duplication here makes me angry. :) And using a memset on one branch but
->> not on the other is weird.
->>
->> But is this the right fix or rather what
->>
->> 	https://lore.kernel.org/r/20260805231041.3791771-3-matthew.brost@intel.com 
->>
+On 8/28/26 07:59, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
 > 
-> I'm not sure my patch is right now that I think about, or if this patch
-> is right, or your suggestion either :).
+> When the swap entries found exceed max_ptes_swap, the loop is left via
+> break with folio still holding the xarray value that encodes the swap
+> entry, not valid folio pointer.
 > 
->> tried? That fix would also need a cleanup but seems code-wise simpler. A cleanup could look like:
->>
->> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
->> index 762c5cee8fecc..480bf59bc2425 100644
->> --- a/mm/migrate_device.c
->> +++ b/mm/migrate_device.c
->> @@ -1419,10 +1419,9 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
->>         for (pfn = start, i = 0; i < npages; pfn++, i++) {
->>                 struct page *page = pfn_to_page(pfn);
->>                 struct folio *folio = page_folio(page);
->> -               unsigned int nr = 1;
->> +               unsigned int nr = min(folio_nr_pages(folio), npages - i);
->>  
->>                 src_pfns[i] = migrate_device_pfn_lock(pfn);
->> -               nr = folio_nr_pages(folio);
->>                 if (nr > 1) {
->>                         src_pfns[i] |= MIGRATE_PFN_COMPOUND;
->>                         for (j = 1; j < nr; j++)
->> @@ -1453,10 +1452,9 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
->>         for (i = 0; i < npages; i++) {
->>                 struct page *page = pfn_to_page(src_pfns[i]);
->>                 struct folio *folio = page_folio(page);
->> -               unsigned int nr = 1;
->> +               unsigned int nr = min(folio_nr_pages(folio), npages - i);
+> That value is passed to trace_mm_khugepaged_scan_file(), which feeds it
+> to folio_pfn(). On FLATMEM and SPARSEMEM_VMEMMAP, the page_to_pfn() is
+> plain pointer arithmetic, so the trace event merely prints bogus
+> scan_pfn. On classic SPARSEMEM, the page_to_pfn() reads page->flags,
+> dereferencing the tiny encoded integer and oopsing khugepaged whenever
+> the trace event is enabled.
 > 
-> I think the semantics of both these function should be that if a user
-> passes in a PFN array and one of the PFNs exceeds the `npages` limit,
-> that is a misuse of this function and we should unwind and return an
-> error. The caller is providing the PFNs and should therefore know the
-> backing page alignment, so `npages` should always end exactly on a page
-> boundary. The sole caller of migrate_device_pfns function is
-> `drm_gpusvm/pagemap`, which certainly adheres to this requirement.
+> So when folio is the swap entry value, simply set pfn to -1, just like
+> exhausted scan naturally.
 > 
-> The two callers of migrate_device_range, also seemly adheres to this
-> requirement.
+> And the folio_put() has maybe dropped the last reference of folio. The
+> trace_mm_khugepaged_scan_file() is left with a dangling folio pointer.
+> so using the folio_pfn() before dropping the reference, closing
+> use-after-free window.
+> 
+> About calling the respective trace_xxx() functions separately on success
+> and failure, refer to [1].
+> 
+> [1] https://lore.kernel.org/linux-mm/ao6jVbVHLUmuY2UA@gremlin/
+> 
+> Fixes: d41fd2016ed0 ("mm/khugepaged: add tracepoint to hpage_collapse_scan_file()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+> ---
+>  include/trace/events/huge_memory.h |  6 +++---
+>  mm/khugepaged.c                    | 11 ++++++++++-
+>  2 files changed, 13 insertions(+), 4 deletions(-)
+> 
+> diff --git a/include/trace/events/huge_memory.h b/include/trace/events/huge_memory.h
+> index 5a48c5406cce..7b526528f85b 100644
+> --- a/include/trace/events/huge_memory.h
+> +++ b/include/trace/events/huge_memory.h
+> @@ -178,10 +178,10 @@ TRACE_EVENT(mm_collapse_huge_page_swapin,
+>  
+>  TRACE_EVENT(mm_khugepaged_scan_file,
+>  
+> -	TP_PROTO(struct mm_struct *mm, struct folio *folio, struct file *file,
+> +	TP_PROTO(struct mm_struct *mm, unsigned long pfn, struct file *file,
+>  		 int present, int swap, int result),
+>  
+> -	TP_ARGS(mm, folio, file, present, swap, result),
+> +	TP_ARGS(mm, pfn, file, present, swap, result),
+>  
+>  	TP_STRUCT__entry(
+>  		__field(struct mm_struct *, mm)
+> @@ -194,7 +194,7 @@ TRACE_EVENT(mm_khugepaged_scan_file,
+>  
+>  	TP_fast_assign(
+>  		__entry->mm = mm;
+> -		__entry->pfn = folio ? folio_pfn(folio) : -1;
+> +		__entry->pfn = pfn;
+>  		__assign_str(filename);
+>  		__entry->present = present;
+>  		__entry->swap = swap;
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index 75639298efc2..b597a3e68606 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -2683,6 +2683,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  	int present, swap;
+>  	int node = NUMA_NO_NODE;
+>  	enum scan_result result = SCAN_SUCCEED;
+> +	unsigned long failed_pfn = -1;
+>  
+>  	present = 0;
+>  	swap = 0;
+> @@ -2715,6 +2716,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  
+>  		if (is_pmd_order(folio_order(folio))) {
+>  			result = SCAN_PTE_MAPPED_HUGEPAGE;
+> +			failed_pfn = folio_pfn(folio);
+>  			/*
+>  			 * PMD-sized THP implies that we can only try
+>  			 * retracting the PTE table.
+> @@ -2726,6 +2728,7 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  		node = folio_nid(folio);
+>  		if (collapse_scan_abort(node, cc)) {
+>  			result = SCAN_SCAN_ABORT;
+> +			failed_pfn = folio_pfn(folio);
+>  			folio_put(folio);
+>  			break;
+>  		}
+> @@ -2733,12 +2736,14 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  
+>  		if (!folio_test_lru(folio)) {
+>  			result = SCAN_PAGE_LRU;
+> +			failed_pfn = folio_pfn(folio);
+>  			folio_put(folio);
+>  			break;
+>  		}
+>  
+>  		if (folio_expected_ref_count(folio) + 1 != folio_ref_count(folio)) {
+>  			result = SCAN_PAGE_COUNT;
+> +			failed_pfn = folio_pfn(folio);
+>  			folio_put(folio);
+>  			break;
+>  		}
+> @@ -2771,9 +2776,13 @@ static enum scan_result collapse_scan_file(struct mm_struct *mm,
+>  		} else {
+>  			result = collapse_file(mm, addr, file, start, cc);
+>  		}
+> +		trace_mm_khugepaged_scan_file(mm, -1, file, present, swap,
+> +					      SCAN_SUCCEED);
+> +	} else {
+> +		trace_mm_khugepaged_scan_file(mm, failed_pfn, file, present,
+> +					      swap, result);
+>  	}
 
-That's what I was thinking: because how should we partially migrate folios?
-Doesn't make sense :)
+Just curious (maybe Lorenzo suggested that?), why separate out the SCAN_SUCCEED
+stuff?
 
-If this cannot be triggered today, neither Fixes: nor CC: stable is appropriate.
+When result == SCAN_SUCCEED, failed_pfn == -1 no?
 
-Agreed that we should just warn.
+We set failed_pfn now only when setting result ...
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
