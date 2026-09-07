@@ -1,214 +1,125 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24A451E443
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 17:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F94F51D506;
+	Mon,  7 Sep 2026 17:04:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800639; cv=none; b=TDvQddRZlz7/GH2Gzr+2tsyf3TLVRB3aB3mxHW4JxysIquWP5xP1eHq5nGVXlCm5GiaaIbMyJYKBwpU4eD/dLqxNuXaiRyPT6sDXaKYleHbuPLiamXjuYeloS3hJqdA2AWAoPgNxcw1nn1eGjB9RI7tlOe5/qxs2FVdd6AEpUPk=
+	t=1788800647; cv=none; b=cpEKmaqOxQlqKteuwVfWBb09RpZvcv2hg9MtJReMoEhBYdPhgK7n1zUfZo2GWtwoB9KHs/OtJyA3Df4Y063Y5ZGYHXLmY2y3toLubOVF81jWfBWimqo1HX2QGLnJVEVe3ImUxxCOBieL+YxtGTfSu+phjxSJWf7zxOESmmN+gJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800639; c=relaxed/simple;
-	bh=vrODrEGyPy2HxTFLumbTrn2pJSVr3wlu7+a/6nMWEHY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SZwHIyW4G+/16EKJv4fJDBK9u8PuvO0CclV+QMvMpYiM3IAPj1HTxQQ4TE2N9kf1ETb8X+oz0yE2QP/m3bsFZe22Zf94nqYYyEKDD15S5B7G6tmVfxNpbvkGhTa7jdZ7jTiqE30tSYlCAA9Y0ZvzeeUrhAK5MWmdWARf0IFjrsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VO63anKm; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788800647; c=relaxed/simple;
+	bh=1nb2Lrl4FkREdUYUC2wFNA9dEf2CCOJ0Ise5FV4ANp0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iHYR4eU5Sfk/AwV+QdgapXUamanaalbBEtNgJBd9UIgHVwwZR+2GnyeAX8dDBrEAjna4pJ7RMBnZKueUJD6cPg5RAA8EnZbL8Xv5qSS7fpuS9OES5wr0cXZj4qlnNZn5IvKM6FywqWb9YWIbusrVXGJzMFg52GceHmifzVucS6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqLQYXbK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VO63anKm"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so44819265e9.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 10:03:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788800636; x=1789405436; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tvooa+L5cAyohFCcPjkllyWRWyPheMiofgVbNkk02cs=;
-        b=VO63anKmFXgLw3wqgiX8PYk0S3PntfdCjYFCSIQhA9uFPwIoEyIGbpSiLH4ndgnEK9
-         U7HNPFm6/kebnk7nIhR52g/Du26niutvt0MpNXdrZA3g0wwg5bN7M1vBo2K5GCdDZ/zI
-         BSU9Z9grYHOkMspfHdT2HGq0y7q7Kv4t84SO5FZd5D1YWqZvMedThEa7eq3HzmMP7n6W
-         gGmN2MLkZthBFFdQlnBpvzypgWCsYglY7aMx1xj5Sxvbqt47zl1MlBFVZXC4tC1aabPs
-         CaCCfa4gudRRdxpzFYxW+lq28N0z8a1iuImcdSZLthBjK9djdMWBzh1SVUd83E1AlAG8
-         vBcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788800636; x=1789405436;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tvooa+L5cAyohFCcPjkllyWRWyPheMiofgVbNkk02cs=;
-        b=IVMzf9sV5T20vLOCpV2euXk0CtmHGIQNL7+Uj3+HPFVJRrPgRZWd1+mMW1b1N8ErCc
-         1II0449/rUg69c3GgRXDUF1mQF8e7XXh+t5t7aVwOS4X0ZEpi+i4nfpTH6PZrhFqBnmg
-         ePGUtrFoggQdkzeS5S2HZa6Ow9H+tJGjkQpyUBzYpRORlktuMWkftveVqn1AkxWfG0g3
-         OOtamFRmuBHozcZ9pJ3e8KlV2tyP2m+P6N9LVL++Cb1EmTbHDua63sEVSJYlasO6QKbd
-         Atym7/8GXnx4hWcgeM9XCaroSMbwaAjQxVQihu6qU7cBLBQuEQhkuf91T2PdxBoscKot
-         MCOg==
-X-Forwarded-Encrypted: i=1; AKwUvBwO2XUUeicaIQDBKmE7s+pL5W3Hs/6trQAzE8TGJKXg/ML1/qooR2xiGYtGX9aqV26wDi4If3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5w1dTpD6A6eMZVAIuwMY1UQJTpy3+h/QKfL4MJ8PXtwjB//PA
-	eUdW7l6UEqis96SLG3Gk6Y/4MT4eOFTc2n+Rm467ZHcOBu3tIELQdek8yBjKrjVVfDw=
-X-Gm-Gg: AYBFou08buJfL2ZTGAAu2RZIlXeUjld1CA6Fw0dJaurvUvCUK72miUsnC+gCmcTdSD6
-	d5/X4JUBEebGWXXCFEcue/O9HMpCyA8upLhFbnFVJKQpS20CFet5cev8eOsLdiJRX85VicKiOpQ
-	ajA1O5YpXJSP1WW7JQ/gOHYXx+abYGGdbkoUaiRUN+IrkulzqaQr0rOdnHHke6Ej83+5/BM0/K/
-	8deEE/dXGsCwE1pqIepOv+tN1jimrRIRzhrYUFRrVpoeU4UEIME2fPqkfvcHe3EM6VFy1hBk5OA
-	vGvvLg1fBoaQCg10dWU7b9VXviLsXUVW/spVQRMbVOZuJZxSOd5buOGoZuNaZDyJ+89p5j9JbMU
-	Jyhv0J2MTrA8N2QdVFZuxi0LqK/UmYj++rQw03GWPfT/UTWJOsBZeYcjFALoyY1xengJ6RYYDHk
-	wXHfgoW33gTmPO3GTaK/uQSNj0ItvCjJl1MCya5GwzEGuo8AT2i7w=
-X-Received: by 2002:a05:600c:e555:20b0:49d:1756:8c4a with SMTP id 5b1f17b1804b1-49d17568c5fmr17878935e9.17.1788800635690;
-        Mon, 07 Sep 2026 10:03:55 -0700 (PDT)
-Received: from localhost.cz ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm233462305e9.4.2026.09.07.10.03.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 10:03:54 -0700 (PDT)
-From: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
-To: Tejun Heo <tj@kernel.org>,
-	cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Dan Schatzberg <dschatzberg@meta.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqLQYXbK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C5E1F00A3A;
+	Mon,  7 Sep 2026 17:04:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788800645;
+	bh=EvrEEOMq5Q8SO0XgN8y2BpwwzJurxJLVntxkjNABWa4=;
+	h=From:To:Cc:Subject:Date;
+	b=AqLQYXbKd70NwZm4KHuilLL0jYtbDLHWAXuIWodIdBdO+1DQQF0PSpDYJcm7udxm9
+	 ouQxzYVgqWsk+Epp+RWOmgnbIDgWeXueoWSlgx+b2svEghbgTrrFZSkZnF1r2DsfkN
+	 qnkmgUTVwdmgKKE7TnX7amoPNWUmnZMOloJLmO3mzg7J/Y3kL6KghALj9CfGG5t6BJ
+	 CzMF+62xCEMOKVKzRHcNFp+6tzsj+qx5wOf5/JUXy8x9P6SuAlmRUnAmUfjjnqHOkX
+	 DODaRnJSfCiIKkeo1/+TsOX7rV3mhyRILi33ySH1mMF7KA4j3n9dQB3tyRpIjHYq82
+	 G8unYZCFa+0zw==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Noah Elias Feldt <N.Feldt@mittwald.de>,
-	Salvatore Bonaccorso <carnil@debian.org>,
-	Johannes Weiner <hannes@cmpxchg.org>
-Subject: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero refcount
-Date: Mon,  7 Sep 2026 19:03:44 +0200
-Message-ID: <20260907170345.45316-1-mkoutny@suse.com>
-X-Mailer: git-send-email 2.55.0
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Mon,  7 Sep 2026 10:03:56 -0700
+Message-ID: <20260907170358.100168-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
-cgroup_task_release() to cgroup_task_free()") extended the lifetime of
-tasks on the dying_tasks list.
-The iterators have provision to go through dying_tasks because of
-dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
-it was expected that such tasks can obtain a new reference (that is
-possible before cgroup_task_release()/put_task_struct_rcu_user()).
-The tasks after cgroup_task_release() and before cgroup_task_free()
-are subject to race when they may or may not have usage count > 0.
-The iterator should not attempt to resurrect tasks whose usage count
-dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
-already imminent and the returned task_struct would could be used
-after free.)
+damon_hugetlb_mkold() reads the page table entry into a local variable,
+unsets the accessed bit in the variable, and updates the page table
+entry with the updated variable value.  If hardware updates the same
+page table entry in parallel, the hw updates could be lost.  For
+example, hardware-updated dirty bits might be lost.
 
-To avoid dispatching such tasks through the iterator, recheck the
-threadgroup's size (follows same logic we have at other places) and skip
-such tasks on the dying_tasks list.
+Avoid the parallel updates by clearing the page table entry when reading
+it together, using huge_ptep_get_and_clear().  If a parallel write to
+the memory is made after the clearing, the hw will see the page table
+entry is cleared, trigger page fault and wait until it is handled.  The
+page fault handling will wait for damon_hugetlb_mkold() due to the page
+table lock.
 
-Rough illustration of the possible race
+Because hugetlbfs is an in-memory file system and hugetlb pages cannot
+be reclaimed, no critical issue is expected to my best knowledge.  But
+definitely this is a nasty bug that should be fixed sooner rather than
+later.
 
-  R (reader of cgroup.procs)         T (thread)                       L (group leader)
-  ---------------------------------  -------------------------------- --------------------------------
-                                                                      L exits, signal->live > 0
-                                                                      cgroup_task_dead(L)
-                                                                        css_set_skip_task_iters() // skips only cset->tasks
-                                                                        list_add_tail(&L->cg_list, &cset->dying_tasks)
-  css_task_iter_next()
-    take css_set_lock
-    css_task_iter_advance()
-      leader && signal->live != 0
-      => it->task_pos = &L->cg_list
-    release css_set_lock
-                                     T exits 					[A]
-                                     --signal->live == 0  // we can check this
-				     cgroup_task_dead(T) // css_set_lock	[C]
-                                     release_task(T)
-                                       cgroup_task_release(T)
-                                       release_task(L) // zap_leader
-                                         cgroup_task_release(L)
-                                         put_task_struct_rcu_user(L)
-                                         ...RCU...
-                                         put_task_struct(L)
-                                           L->usage = 0
-                                           /* L still on dying_tasks */
-                                           ...RCU...
-                                           __put_task_struct(L)
-  css_task_iter_next() // another iteration					[B]
-    take css_set_lock
-    it->task_pos = &L->cg_list
-    get_task_struct(L)
-      => addition on 0
-    drop css_set_lock
-                                           cgroup_task_free(L)
-                                             css_set_skip_task_iters() // dying skip comes too late
-                                           free_task(L)
-  cgroup_procs_show()
-    task_pid_vnr(L)
+The issue was discovered [1] by Sashiko.
 
-cgroup_task_release() is not synced via css_set_lock hence the race
-possibility. (I'm not 100% convinced about this LLM-assisted
-interleaving, multiple css_task_iter_next() calls may be involved with
-css_set_lock released.)
+[1] https://lore.kernel.org/20260830160545.98969-1-sj@kernel.org
 
-Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
-Cc: stable@vger.kernel.org # v6.19+
-Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
-Suggested-by: Tejun Heo <tj@kernel.org>
-Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
-Reported-by: Salvatore Bonaccorso <carnil@debian.org>
-Tested-by: Noah Elias Feldt <N.Feldt@mittwald.de> # if-variant
-Signed-off-by: Michal Koutný <mkoutny@suse.com>
+Changes from RFC
+- RFC: https://lore.kernel.org/20260906195417.103263-1-sj@kernel.org
+- Drop RFC tag.
+
+Fixes: 49f4203aae06 ("mm/damon: add access checking for hugetlb pages")
+Cc: <stable@vger.kernel.org> # 5.17.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- kernel/cgroup/cgroup.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ mm/damon/vaddr.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-Changes from v1 (https://lore.kernel.org/r/20260902161653.1051794-1-mkoutny@suse.com)
-- check task->signal->live instead of t->usage
-- add css_set_lock release to sequence diagram
-
-My comments to the signal-live variant.
-
-First, I replaced the if() with a while() loop because when one such
-dying leader could remain on dying_tasks, there can be more of them
-(matter of effort) and single css_task_iter_advance() won't be enough
-(we need to skip all such tasks before get_task_struct()).
-
-<del>Second, if [B] races at moment of [A] (signal->live still positive)
-and before [C], usage can still drop to zero.</del> Nothing, given the
-ordering, positive signal->live implies positive L->usage so the
-proposed check should be OK.
-
-Thanks,
-Michal
-
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index c3a12fee7528f..d3069a5e9185d 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -5290,6 +5290,7 @@ void css_task_iter_start(struct cgroup_subsys_state *css, unsigned int flags,
-  */
- struct task_struct *css_task_iter_next(struct css_task_iter *it)
- {
-+	struct task_struct *task;
- 	unsigned long irqflags;
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index f884d3f78f30a..91a0d441c1f94 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -283,22 +283,29 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
+ }
  
- 	if (it->cur_task) {
-@@ -5303,6 +5304,21 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
- 	if (it->flags & CSS_TASK_ITER_SKIPPED)
- 		css_task_iter_advance(it);
- 
-+	/*
-+	 * @it->task_pos was picked on an earlier call. A dying leader stays on
-+	 * dying_tasks until cgroup_task_free(), past its last usage ref drop,
-+	 * so it may have been reaped since and get_task_struct() on it would
-+	 * resurrect a task about to be freed. That last ref is dropped by an
-+	 * RCU callback queued from release_task(), after signal->live hit zero,
-+	 * so a leader still showing live threads in this irq-disabled section
-+	 * can't lose its ref before the section ends.
-+	 */
-+	while (it->task_pos && it->cur_tasks_head == &it->cur_cset->dying_tasks) {
-+		task = list_entry(it->task_pos, struct task_struct, cg_list);
-+		if (!atomic_read(&task->signal->live))
-+			css_task_iter_advance(it);
-+	}
+ #ifdef CONFIG_HUGETLB_PAGE
++static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
++		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
++{
++	unsigned long psize = huge_page_size(hstate_vma(vma));
 +
- 	if (it->task_pos) {
- 		it->cur_task = list_entry(it->task_pos, struct task_struct,
- 					  cg_list);
--- 
-2.55.0
++	if (!pte_young(*entry))
++		return false;
++	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
++	*entry = pte_mkold(*entry);
++	set_huge_pte_at(mm, addr, pte, *entry, psize);
++	return true;
++}
++
+ static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
+ 				struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	bool referenced = false;
+ 	pte_t entry = huge_ptep_get(mm, addr, pte);
+ 	struct folio *folio = pfn_folio(pte_pfn(entry));
+-	unsigned long psize = huge_page_size(hstate_vma(vma));
+ 
+ 	folio_get(folio);
+ 
+-	if (pte_young(entry)) {
+-		referenced = true;
+-		entry = pte_mkold(entry);
+-		set_huge_pte_at(mm, addr, pte, entry, psize);
+-	}
+-
++	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
+ 	if (mmu_notifier_clear_young(mm, addr,
+ 				     addr + huge_page_size(hstate_vma(vma))))
+ 		referenced = true;
 
+base-commit: 13eba1898080a8a54c60710322909fb0a4d35e84
+-- 
+2.47.3
