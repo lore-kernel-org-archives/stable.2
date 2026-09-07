@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93F12222AC
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:03:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43CF6191F94
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742991; cv=none; b=YlhAK6k3wiDKO0T+sYWDoofPPUJKvhxRaUuXNj4ff4iOJVR2doRPFfzgTh5LAii7EcTUDQy9ZIoUOMvlmrnDQXIawdehjT6KjaJi/2VG5j3Kuy6Oa3Kjj4UGBCQlC7j8DatK3WAUb/g/U+dQtXb+C6S1gTBvd9c/b2Q+SVo83PY=
+	t=1788742993; cv=none; b=eVSnlmFmtmmKxF5pTQnb2ofzj4vKi2zapPhpsUTo7u/vg6Tyc8+lLH0K9g8w0fWBVtDMiHhq0baIYQZ45R+Pqoi4teoc12wZjh5CPdwXGEihROCEi7udWnispqZy6wcdU9kGJhOvPKT0fcc5pd9+eW4lurGdbGexogMRGPx3aI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742991; c=relaxed/simple;
-	bh=wA9Wa40L6xL7404d1POyFPkRDqXe6CHK+fF0RI1dgxs=;
+	s=arc-20240116; t=1788742993; c=relaxed/simple;
+	bh=i8O0xoPM/A0XfoJcFM/ervLBXjuWRr212/UlzRruA0g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dnQrekxfYFed0k2bfclgYlVDsBu9s8cZw0ZrPlzESoMHhAcKG5sEl6pyEgTr691czkNRq4rbSdSyqnMnByQubdhEJLphAnOGS6bc676Kx56VcoWjueSXUcK4K6Gjj1VAs4BMrr5iBKRiBiHnndHgL9Te/MNHkA/Wr/IxM8tuoBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bge1r5m5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=uJ4iVTSMdQ2dwy4Tr7x+uB2BImAFCy/MEPflbdNVa7+kozFIeWkfT6v3rKml7rUju1Dxl3cKbJ6oRzl+ZgClywNmCqw9x6RICFelksOkHlh7gVIZw150RWX5bcXqhH53DkYQ2OR4CdFgPlTAJ+3fe61YMyqDkfsrVsIw4u/KG5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EYZ6tsLa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bge1r5m5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F4031F00AC4;
-	Mon,  7 Sep 2026 01:03:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EYZ6tsLa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 428271F00A3A;
+	Mon,  7 Sep 2026 01:03:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788742989;
-	bh=14er2aZM7EsQFoc45xohuRx854PccTLcRg4WJKP2M78=;
+	s=k20260515; t=1788742991;
+	bh=9fc9POE7Di3iXSQuy/w3Z0y1XcSfMC00UWdn/gtZFms=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bge1r5m5jS0e0M++GagWLEI0Jn/i44JjOwLzpsY/DrYaB7y8CFdom1tj32KHlVqnq
-	 DzdyP0b1XEEvGjlI4Ex6Q0Sz6oU01gKXebayQ/454FxnoWa7q31EAOIg667yhv+CpI
-	 Wfp4il0FNuIT081WV+nto3yvt2PDy9A7KLIxuVzdEJ3OTgav4mKvPCAVwlSgeDkt5L
-	 AFoXPTE8vMTT2xLCDuubsIpKgGjt1+xt5TqmcNzkkr0xmWIsz1SHlwkRQPKXQP8bvj
-	 PhgWh7siMj30+Brzd2+Pdm9RrILUEQfr0OAAZBLrRKSX9Vb+4FRedDMs1hyBSfqyRp
-	 a1SCDsku/jqxg==
+	b=EYZ6tsLa1IQrkGBXhuCEZFUi48xVTTXGuAm4OTImQ2it4ZHQh9xmGbQnrNYtZm/4l
+	 eRJuNvP3yYxhwLxP9VU1oS+vyzs2sooUxe9pr/aYTM914tFsQovDTfORXqFUN6O26Q
+	 wNjQAM2BIIN+J511qNvtNH+r9VhmP+eKsW+lQeaMnbrAdxVQT5iMSWm3Ni5DWbnELW
+	 tUkYRrHXteVcVZJSkZjUK69/2VeVC+AHWergHcoxp3IkfInW35xRI+PsaHbujYKmSs
+	 gffPH0+xpGbFL60BkFqKhV0bvfAY+QsKyWovXwSGmBHhg1s4ZAmFNQCrk/71yBeyYC
+	 hmFGgXqYZtMiQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 5/5] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Sun,  6 Sep 2026 21:03:02 -0400
-Message-ID: <20260907010302.1949559-5-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/3] btrfs: prepare btrfs_punch_hole_lock_range() for large data folios
+Date: Sun,  6 Sep 2026 21:03:07 -0400
+Message-ID: <20260907010309.1949749-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907010302.1949559-1-sashal@kernel.org>
-References: <2026090324-defraud-tremble-b3d8@gregkh>
- <20260907010302.1949559-1-sashal@kernel.org>
+In-Reply-To: <2026090310-yeah-payday-4448@gregkh>
+References: <2026090310-yeah-payday-4448@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,106 +46,157 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
+[ Upstream commit 1e5773e0bab761c853eaf7286394905a544ef02d ]
 
-When a file has the setuid or setgid bit set and is written to, the VFS
-strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
-together with an ATTR_MODE carrying the already-cleared mode.
+The function btrfs_punch_hole_lock_range() needs to make sure there is
+no other folio in the range, thus it goes with filemap_range_has_page(),
+which works pretty fine.
 
-Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
-ATTR_MODE in that case:
+But if we have large folios, under the following case
+filemap_range_has_page() will always return true, forcing
+btrfs_punch_hole_lock_range() to do a very time consuming busy loop:
 
-	/* skip mode change if it's just for clearing setuid/setgid */
-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-		attrs->ia_valid &= ~ATTR_MODE;
+        start                            end
+        |                                |
+  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
+   \         /                         \   /
+    Folio A                            Folio B
 
-This is fine for the default mount, where the mode is only emulated via
-the DOS read-only attribute and cannot represent the setuid/setgid bits
-anyway.  However, with the "cifsacl" or "modefromsid" mount options the
-mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
-the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
-and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
-via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
-the cleared mode is never pushed to the server, so the setuid/setgid bit
-survives the write.
+In the above case, folio A and B contain our start/end indexes, and there
+are no other folios in the range.  Thus we do not need to retry inside
+btrfs_punch_hole_lock_range().
 
-This is a security issue: on local filesystems the setuid bit is stripped
-when a file is written, but over these cifs.ko mounts the bit persists on
-the server, potentially allowing an unexpected privilege escalation on
-subsequent execution.
+To prepare for large data folios, introduce a helper,
+check_range_has_page(), which will:
 
-Fix this in two places:
+- Shrink the search range towards page boundaries
+  If the rounded down end (exclusive, otherwise it can underflow when @end
+  is inside the folio at file offset 0) is no larger than the rounded up
+  start, it means the range contains no other pages other than the ones
+  covering @start and @end.
 
-  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
-     when the mode is emulated via the DOS read-only attribute (i.e.
-     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
-     in effect), so that the cleared mode is propagated to the server
-     in the ACL / POSIX cases.
+  Can return false directly in that case.
 
-  2. cifs_setattr_unix(): this function is only called when Unix
-     extensions are in effect, so the mode is always stored on the
-     server.  Remove the shortcut entirely so that the cleared mode is
-     always pushed.
+- Grab all the folios inside the range
 
-Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+- Skip any large folios that cover the start and end indexes
+
+- If any other folios are found return true
+
+- Otherwise return false
+
+This new helper is going to handle both large folios and regular ones.
+
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 3f950867c307 ("btrfs: fix extent map leak in NOCOW direct I/O write")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/inode.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
+ fs/btrfs/file.c | 67 +++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 56 insertions(+), 11 deletions(-)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index f5b0596442bac..6179878fa6ed0 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3183,9 +3183,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
- 		attrs->ia_valid &= ~(ATTR_CTIME | ATTR_MTIME);
- 	}
+diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
+index a188467a9fb3d..bd389a1ae29dc 100644
+--- a/fs/btrfs/file.c
++++ b/fs/btrfs/file.c
+@@ -2221,11 +2221,29 @@ static int find_first_non_hole(struct btrfs_inode *inode, u64 *start, u64 *len)
+ 	return ret;
+ }
  
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
--		attrs->ia_valid &= ~ATTR_MODE;
-+	/*
-+	 * This function is only called when Unix extensions are in effect,
-+	 * so the mode is always sent to and stored on the server.  Do not
-+	 * skip the mode change when clearing setuid/setgid bits: dropping
-+	 * ATTR_MODE here would leave those bits set on the server after a
-+	 * write, which is a security issue.
-+	 */
+-static void btrfs_punch_hole_lock_range(struct inode *inode,
+-					const u64 lockstart,
+-					const u64 lockend,
+-					struct extent_state **cached_state)
++/*
++ * Check if there is no folio in the range.
++ *
++ * We cannot utilize filemap_range_has_page() in a filemap with large folios
++ * as we can hit the following false positive:
++ *
++ *        start                            end
++ *        |                                |
++ *  |//|//|//|//|  |  |  |  |  |  |  |  |//|//|
++ *   \         /                         \   /
++ *    Folio A                            Folio B
++ *
++ * That large folio A and B cover the start and end indexes.
++ * In that case filemap_range_has_page() will always return true, but the above
++ * case is fine for btrfs_punch_hole_lock_range() usage.
++ *
++ * So here we only ensure that no other folios is in the range, excluding the
++ * head/tail large folio.
++ */
++static bool check_range_has_page(struct inode *inode, u64 start, u64 end)
+ {
++	struct folio_batch fbatch;
++	bool ret = false;
+ 	/*
+ 	 * For subpage case, if the range is not at page boundary, we could
+ 	 * have pages at the leading/tailing part of the range.
+@@ -2236,17 +2254,45 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
+ 	 *
+ 	 * And do not decrease page_lockend right now, as it can be 0.
+ 	 */
+-	const u64 page_lockstart = round_up(lockstart, PAGE_SIZE);
+-	const u64 page_lockend = round_down(lockend + 1, PAGE_SIZE);
++	const u64 page_lockstart = round_up(start, PAGE_SIZE);
++	const u64 page_lockend = round_down(end + 1, PAGE_SIZE);
++	const pgoff_t start_index = page_lockstart >> PAGE_SHIFT;
++	const pgoff_t end_index = (page_lockend - 1) >> PAGE_SHIFT;
++	pgoff_t tmp = start_index;
++	int found_folios;
++
++	/* The same page or adjacent pages. */
++	if (page_lockend <= page_lockstart)
++		return false;
++
++	folio_batch_init(&fbatch);
++	found_folios = filemap_get_folios(inode->i_mapping, &tmp, end_index, &fbatch);
++	for (int i = 0; i < found_folios; i++) {
++		struct folio *folio = fbatch.folios[i];
  
- 	args = kmalloc_obj(*args);
- 	if (args == NULL) {
-@@ -3384,8 +3388,23 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
- 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
- 	}
++		/* A large folio begins before the start. Not a target. */
++		if (folio->index < start_index)
++			continue;
++		/* A large folio extends beyond the end. Not a target. */
++		if (folio->index + folio_nr_pages(folio) > end_index)
++			continue;
++		/* A folio doesn't cover the head/tail index. Found a target. */
++		ret = true;
++		break;
++	}
++	folio_batch_release(&fbatch);
++	return ret;
++}
++
++static void btrfs_punch_hole_lock_range(struct inode *inode,
++					const u64 lockstart, const u64 lockend,
++					struct extent_state **cached_state)
++{
+ 	while (1) {
+ 		truncate_pagecache_range(inode, lockstart, lockend);
  
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-+	/*
-+	 * Skip the mode change if it is only being done to clear the
-+	 * setuid/setgid bits *and* the mode is emulated via the DOS
-+	 * read-only attribute (the default, non-ACL case), which cannot
-+	 * represent the setuid/setgid bits anyway.
-+	 *
-+	 * When the mode is instead stored on the server - i.e. with the
-+	 * cifsacl or modefromsid mount options (via an ACL) or with the
-+	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
-+	 * the server.  Dropping ATTR_MODE here would leave the setuid/
-+	 * setgid bit set on the server after a write, which is a security
-+	 * issue (the bits are not stripped as they are on local
-+	 * filesystems).
-+	 */
-+	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
-+	    !((sbflags & (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
-+	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
- 		attrs->ia_valid &= ~ATTR_MODE;
+ 		lock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
+ 			    cached_state);
+-		/* The same page or adjacent pages. */
+-		if (page_lockend <= page_lockstart)
+-			break;
+ 		/*
+ 		 * We can't have ordered extents in the range, nor dirty/writeback
+ 		 * pages, because we have locked the inode's VFS lock in exclusive
+@@ -2257,8 +2303,7 @@ static void btrfs_punch_hole_lock_range(struct inode *inode,
+ 		 * locking the range check if we have pages in the range, and if
+ 		 * we do, unlock the range and retry.
+ 		 */
+-		if (!filemap_range_has_page(inode->i_mapping, page_lockstart,
+-					    page_lockend - 1))
++		if (!check_range_has_page(inode, lockstart, lockend))
+ 			break;
  
- 	if (attrs->ia_valid & ATTR_MODE) {
+ 		unlock_extent(&BTRFS_I(inode)->io_tree, lockstart, lockend,
 -- 
 2.53.0
 
