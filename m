@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991AD1E98EF
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:03:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CD7286A4
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:03:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788743002; cv=none; b=SGtXQNVqU8SqoY8ZtqWHTWbgeN8alXk8AvpYo9FAD4n7ev74T/Bx2z7Vbp2TFZmOE3neyBd+s1BK83S9No0OsbTyCwTLNoNoABbtw2IY2LKB/FhSLGiU0DZ9LADtS/RRNsqNzdfuVpt8UoHtoi7909+0+eDezQAxcYA7In8eLEs=
+	t=1788743003; cv=none; b=M2PPYeKWHAJD20jJmJ49X5xUgOjyXbp4RVFUXuuJ/BOSO2cWBGIMJGZnX/zGY49nhCanzjR5tz8C1RS/nLWJ0rUQYZRB0gs3nMliuMq0mjV/SMTFb6pnCzjbuuXrTF+++EvU5I6LIPpXhaay+7cOLV+iXtCmW0XpLqT0+rnZkZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788743002; c=relaxed/simple;
-	bh=/txnJEYRBq8Fhn1NT6nzjkbLvsvM0WNBLWMQBJh9+1g=;
+	s=arc-20240116; t=1788743003; c=relaxed/simple;
+	bh=OVak9tL2byUvu8cSSyvrwsL3yhG+KmC3husRegqMfEo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ts04fwND+dy9ciesOn2MEbI3UxqSG1nDZiWjGmCZOjhtB1ZxFV5WoX7v2eJkpg5dq+sK/IoTb5tarwokYRM0tdv2G1SlrmjiuxbH4yuvuWRFzcHgSEih4rB4l7p6iYzkovh0qURboMEJlBvdfzgIG5S+0SXoRmRlxwqRybhPHSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=naceWPjP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OdySQzCB3Sc6cvl07QuGD0t4kkdZJA0VEPAYZNf/ejpyw5acZOCDg+DP82OxLkA2McBYLb4FrebgBVaXO34DGDPj2ii2IxYyO7PPLYYkoWFZE7QB4n8QnKaH9aj7oGw4mEeNdr16LDEtsvS9IVdCkvzGazujOobG/QgJ1BXKtlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LP6bC+DI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="naceWPjP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB1051F00A3D;
-	Mon,  7 Sep 2026 01:03:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LP6bC+DI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC171F00AC4;
+	Mon,  7 Sep 2026 01:03:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788743001;
-	bh=GXSvgjIQd/+IFzzbi1D9r8WqZjFVNIf7jxGi9jITiwI=;
+	s=k20260515; t=1788743002;
+	bh=WaUeF5JCeZgK1wUNbhoMVmx0N4TVvOWfH9o/f4lv8vg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=naceWPjP2BXN33bwFFl1IudndkeTtyw1ZlCvVqQEU730yA6m36YRrZqSKvOgXtdsB
-	 6Zdp7W+QBb0oQnVnHcZHQtjf6Mt8zJl98N2gT0na5A2cM8dJXFsBx1VZg9nVHSgSSB
-	 O4r6qOn5Hu3nkMtTlpvPhuxQ0bX9m8cM4kQomChXy61r2e9Gk1wpVp5Pb3c6CFF7/F
-	 fIs6Kn/BuzdF+0qg+Id0ZBjRtXZcGNdk+pTEXqetSdMeGlMq21FpnzT4mprVeAWgZq
-	 ckBlFsY4U+Q0uu9AFFJFn5kGJ9QEmlN3hNe4oFVBamnPBNbHy+1ruvUBeMYdMtG9e1
-	 tofmlRdhEa4dQ==
+	b=LP6bC+DIEeho4JfNJXYmxZHGWwTMv4+WjaDCZokfMOt+x+v5UBOY68efNy+kgTgh9
+	 zQ+Wi5yRP8vcCfEGBhIkVTX44Iwxi7Y/AHa4MmtjngdC0zC42bY+sQjgzlobVh5kVH
+	 ICSC2DVe117eyTLIrKWOxDxuiL8WrR3Mu9y999Z0FbFGv8P+Z9QpradFtBP5ILL+p7
+	 Zh5oMsGIgBFM07qFHpqERgXcL0ux/zUImmY3GCwqD82vU/VrGJiogIudd5I2SZq8QY
+	 VmSCA0Zjx2w6dBDX/HnZBfRBJZ53NhRw2BwW8GvsM8K4zD6Ktb8GpGmfNRuQX4nb0u
+	 tvv/KD+bjq7fg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	David Sterba <dsterba@suse.com>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] btrfs: expose per-inode stable writes flag
-Date: Sun,  6 Sep 2026 21:03:16 -0400
-Message-ID: <20260907010317.1950131-3-sashal@kernel.org>
+Subject: [PATCH 5.10.y] cifs: fix loff_t underflow in cifs_remap_file_range() when len == 0
+Date: Sun,  6 Sep 2026 21:03:19 -0400
+Message-ID: <20260907010319.1950366-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907010317.1950131-1-sashal@kernel.org>
-References: <2026090330-ferocity-flavorful-f5e4@gregkh>
- <20260907010317.1950131-1-sashal@kernel.org>
+In-Reply-To: <2026090322-dweeb-catchy-bac2@gregkh>
+References: <2026090322-dweeb-catchy-bac2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,117 +46,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qu Wenruo <wqu@suse.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit ecde48a1a6b3256bd49db8780bf37556b157783c ]
+[ Upstream commit 6c322f5cf7476ded7a9a20f7be72462065a03c68 ]
 
-The address space flag AS_STABLE_WRITES determine if FGP_STABLE for will
-wait for the folio to finish its writeback.
+With len == 0 (clone to EOF), the effective length is computed as:
 
-For btrfs, due to the default data checksum behavior, if we modify the
-folio while it's still under writeback, it will cause data checksum
-mismatch.  Thus for quite some call sites we manually call
-folio_wait_writeback() to prevent such problem from happening.
+    len = src_inode->i_size - off;
 
-Currently there is only one call site inside btrfs really utilizing
-FGP_STABLE, and in that case we also manually call folio_wait_writeback()
-to do the waiting.
+If off > i_size, this is a negative loff_t, corrupting the ByteCount
+in the FSCTL_DUPLICATE_EXTENTS_TO_FILE request and inverting the range
+in filemap_write_and_wait_range().  The existing off >= i_size check
+fires only after the ioctl has already been sent.
 
-But it's better to properly expose the stable writes flag to a per-inode
-basis, to allow call sites to fully benefit from FGP_STABLE flag.
-E.g. for inodes with NODATASUM allowing beginning dirtying the page
-without waiting for writeback.
+Snapshot i_size_read() once for both the bounds check and the length
+calculation, eliminating the TOCTOU and 32-bit torn-read risk.  Reject
+off > src_size with -EINVAL.  Treat off == src_size as a no-op,
+consistent with __generic_remap_file_range_prep().
 
-This involves:
-
-- Update the mapping's stable write flag when setting/clearing NODATASUM
-  inode flag using ioctl
-  This only works for empty files, so it should be fine.
-
-- Update the mapping's stable write flag when reading an inode from disk
-
-- Remove the explicit folio_wait_writeback() for FGP_BEGINWRITE call
-  site
-
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-[ sashal: Reduced backport -- upstream ecde48a1a6b32 touches 4 file(s), this
-  backport carries 3. Not backported here:
-  fs/btrfs/btrfs_inode.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
+Fixes: 04b38d601239 ("vfs: pull btrfs clone API to vfs layer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ added the missing unlock label at the existing common unlock path ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/file.c  | 3 +--
- fs/btrfs/inode.c | 8 ++++++++
- fs/btrfs/ioctl.c | 4 ++++
- 3 files changed, 13 insertions(+), 2 deletions(-)
+ fs/cifs/cifsfs.c | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/file.c b/fs/btrfs/file.c
-index a188467a9fb3d..b2865f6987e7f 100644
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -870,7 +870,7 @@ static int prepare_uptodate_page(struct inode *inode,
+diff --git a/fs/cifs/cifsfs.c b/fs/cifs/cifsfs.c
+index 900ac4d04d901..228087c90de25 100644
+--- a/fs/cifs/cifsfs.c
++++ b/fs/cifs/cifsfs.c
+@@ -1117,8 +1117,19 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
+ 	 */
+ 	lock_two_nondirectories(target_inode, src_inode);
  
- static fgf_t get_prepare_fgp_flags(bool nowait)
- {
--	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT;
-+	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT | FGP_STABLE;
+-	if (len == 0)
+-		len = src_inode->i_size - off;
++	if (len == 0) {
++		loff_t src_size = i_size_read(src_inode);
++
++		if (off > src_size) {
++			rc = -EINVAL;
++			goto unlock;
++		}
++		len = src_size - off;
++		if (!len) {
++			rc = 0;
++			goto unlock;
++		}
++	}
  
- 	if (nowait)
- 		fgp_flags |= FGP_NOWAIT;
-@@ -940,7 +940,6 @@ static noinline int prepare_pages(struct inode *inode, struct page **pages,
- 			faili = i - 1;
- 			goto fail;
- 		}
--		wait_on_page_writeback(pages[i]);
- 	}
- 
- 	return 0;
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index e843531201bef..6ce7df69aa650 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -3867,6 +3867,10 @@ static int btrfs_read_locked_inode(struct inode *inode,
- 	BTRFS_I(inode)->index_cnt = (u64)-1;
- 	btrfs_inode_split_flags(btrfs_inode_flags(leaf, inode_item),
- 				&BTRFS_I(inode)->flags, &BTRFS_I(inode)->ro_flags);
-+	if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
-+		mapping_clear_stable_writes(inode->i_mapping);
-+	else
-+		mapping_set_stable_writes(inode->i_mapping);
- 
- cache_index:
- 	/*
-@@ -6342,6 +6346,10 @@ int btrfs_create_new_inode(struct btrfs_trans_handle *trans,
- 		if (btrfs_test_opt(fs_info, NODATACOW))
- 			BTRFS_I(inode)->flags |= BTRFS_INODE_NODATACOW |
- 				BTRFS_INODE_NODATASUM;
-+		if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
-+			mapping_clear_stable_writes(inode->i_mapping);
-+		else
-+			mapping_set_stable_writes(inode->i_mapping);
- 	}
- 
- 	location = &BTRFS_I(inode)->location;
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index 46eb80580d3bd..c38d7cd0f34e5 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -381,6 +381,10 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 
- update_flags:
- 	inode->flags = inode_flags;
-+	if (inode->flags & BTRFS_INODE_NODATASUM)
-+		mapping_clear_stable_writes(inode->vfs_inode.i_mapping);
-+	else
-+		mapping_set_stable_writes(inode->vfs_inode.i_mapping);
- 	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
- 	inode_inc_iversion(&inode->vfs_inode);
- 	inode_set_ctime_current(&inode->vfs_inode);
+ 	cifs_dbg(FYI, "about to flush pages\n");
+ 	/* should we flush first and last page first */
+@@ -1134,6 +1145,7 @@ static loff_t cifs_remap_file_range(struct file *src_file, loff_t off,
+ 	/* force revalidate of size and timestamps of target file now
+ 	   that target is updated on the server */
+ 	CIFS_I(target_inode)->time = 0;
++unlock:
+ 	/* although unlocking in the reverse order from locking is not
+ 	   strictly necessary here it is a little cleaner to be consistent */
+ 	unlock_two_nondirectories(src_inode, target_inode);
 -- 
 2.53.0
 
