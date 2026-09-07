@@ -1,49 +1,59 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A12233941;
-	Mon,  7 Sep 2026 03:57:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FB23F107F
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 04:02:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753457; cv=none; b=Llk2J8KOHOk/ckuvUVEf4LzT7KlL+Z59yNV1m6KW5RjIOTFXU9ZsA2cZ0qfua9Nsgq4A/Oil0UYOiSIoOrwBO3T7nAeQeplOg6/HO+qQuSAm+2OeVRG29wsPIv0LBOl64AEQfVS5BMABcGOpMPXBh8rPQvpVzIlrLO67hG6vTcQ=
+	t=1788753753; cv=none; b=bdEW8umLb3gm/T/mUk1/IkMdCHky4j5QvYxkvhqsCmFjfqb/5l9ALzz9aea5uyzy9xylPRXQ6ms5uWyvKmDXdyUSyIwChfzrPYhZoOL8hIVJVTJAzn+ThmF3auJjXSAwzcpZBj/Al4u14rZbus1zUtEvlpDbtl4J/lxuyce1C5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753457; c=relaxed/simple;
-	bh=kma4mUAUDJmF+5dZ2LHY4giyuPzc4s8G1E3+nVIDEEQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sF7X4e97xCJV7SeP6iHurgxaGZh6AAq1vN8fH8BjM+FlbHDYwR2f8Jw0jyqjgBOs1x2zhPF01bWDzBKHalnyyJfRmV+LM0NE6svteLJSAL0WQiI0LwvARWiGwBs6nVZS4Lz7IDkpOvHz5lEXBIG7PXwoIia2Eel87gNecPSrPvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 3fb16b22aa7011f19a56ed5b684f684d-20260907
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:028ed24d-e7ae-4af2-bbec-f663971b1293,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:ffde442494582dbbf79986379ca5ccd3,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 3fb16b22aa7011f19a56ed5b684f684d-20260907
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 326362453; Mon, 07 Sep 2026 11:57:30 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
+	s=arc-20240116; t=1788753753; c=relaxed/simple;
+	bh=FwQfEMYNPRIrcwaFprMgtujfRrZMCC7ioLNPaqd6GGs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HwazL6lvxll4mU91xjbHoQXAkulWgd94wToiI/XdhPIxjLOya5sy567w5SFdnU1H3HD6qPHQR7rWw8T5lITnuDmWGfmiqdKyArbeLUyPJQfFN81O+YcM0C9C++j9chrWwCfjrMOFkqVLL217/sPnUpi+F39sQ6olF4sOedwxhnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jMTV1TfX; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jMTV1TfX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788753751; x=1820289751;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=FwQfEMYNPRIrcwaFprMgtujfRrZMCC7ioLNPaqd6GGs=;
+  b=jMTV1TfXjP2BC15/zwApGflEq9GqY2neEKM0/Gwg/4jVLEPQuuwVgkSU
+   QDupOgY6XgJ7CA7VNkLARIwMJkHjaEzEas9yFvPxEYIi5K09F6GPpjG7e
+   igs+P/FuqUwXZQenC484nj7gxido37DgjRJBzgJe+dyiMxCar6S6SiKD9
+   tRvO4wX6uR4zMI0QUVIhMFEVspFGvLIu6/SEzUG/MsFUqTpYzjovEPJUl
+   RVNrPDz+QedApcsfYqmd8owwIsi+EMyEBLDJhbD5CdEaFDtcwtFOcjnoj
+   sjL3XrhYfBFH4VHbI20mtf8uPrhjVqe8MVujAN3vCDGzsz0HCSDy2j9dd
+   w==;
+X-CSE-ConnectionGUID: F4pG4RNZROemhbg1ux9D+Q==
+X-CSE-MsgGUID: OhrULDyTRI2WLpfyUVUe0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="88912605"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="88912605"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:02:30 -0700
+X-CSE-ConnectionGUID: qfvQWliNQQicJyEIThJ8tg==
+X-CSE-MsgGUID: hESR8OqHQFuQilmnrl/Y6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="268857555"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:02:28 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: jani.nikula@linux.intel.com,
+	ville.syrjala@linux.intel.com,
+	annoycc@gmail.com,
+	Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] ntfs: use fatal_signal_pending() for fallocate interruption checks
-Date: Mon,  7 Sep 2026 11:57:26 +0800
-Message-Id: <20260907035726.37123-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus 14-ew1
+Date: Mon,  7 Sep 2026 09:15:55 +0530
+Message-ID: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,52 +62,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The fallocate implementation uses signal checks to let a long allocation
-loop abort early.  However, signal_pending() also returns true for
-TIF_NOTIFY_SIGNAL, which io_uring uses to deliver task_work completions
-to the submitting task.
+The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
+while leaving the TPS4 support bit clear. The output however flickers, once
+link is trained with HBR3.
 
-generic/616 is an io_uring fsx soak test that issues fsx-style
-read/write requests through io_uring and calls fallocate() directly in
-between.  A pending io_uring task_work notification can therefore make
-signal_pending() true inside ntfs_attr_fallocate() even though no real
-signal was delivered.
+Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
+doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
+which incidentally kept this panel stable. That check was reverted because
+other panels legitimately need HBR3 without advertising TPS4, and the
+per-machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the affected
+machines instead.
 
-That caused the previous signal-interruption patch to return -EINTR for
-an io_uring notification, which fsx treats as a fatal failure.  Switch
-both checks to fatal_signal_pending() so only fatal signals interrupt
-the allocation loop.  A real fatal signal still returns -EINTR, and any
-other error still takes precedence.
+Add the machine to the list of devices that need the
+QUIRK_EDP_LIMIT_RATE_HBR2.
 
-Fixes: 4dc8f4ee2d46 ("ntfs: handle signal interruption in fallocate")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't support TPS4"")
+Reported-by: Annoy Cc <annoycc@gmail.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
+Cc: <stable@vger.kernel.org> # v6.18+
+Tested-by: Annoy Cc <annoycc@gmail.com>
+Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- fs/ntfs/attrib.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
-index 848a0d338b89..5f761a3b29f4 100644
---- a/fs/ntfs/attrib.c
-+++ b/fs/ntfs/attrib.c
-@@ -5708,7 +5708,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
- 						goto out;
- 				}
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 33245f44c0d5..7d7db774d8c7 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
+ 	/* Dell XPS 13 7390 2-in-1 */
+ 	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
  
--				if (signal_pending(current))
-+				if (fatal_signal_pending(current))
- 					goto signal_out;
- 
- 				vcn += alloc_cnt;
-@@ -5729,7 +5729,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
- 					    try_alloc_cnt, &balloc, false, false);
- 		up_write(&ni->runlist.lock);
- 		mutex_unlock(&ni->mrec_lock);
--		if (err || signal_pending(current))
-+		if (err || fatal_signal_pending(current))
- 			goto signal_out;
- 
- 		vcn += alloc_cnt;
++	/* HP Pavilion Plus Laptop 14-ew1xxx */
++	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
++
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
+ };
 -- 
-2.25.1
+2.50.1
 
