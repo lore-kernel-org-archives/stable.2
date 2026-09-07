@@ -1,76 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A05353A98;
-	Mon,  7 Sep 2026 06:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC1B3AC0C9;
+	Mon,  7 Sep 2026 06:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762624; cv=none; b=hNtkCdTLX+Ii8R35yRCPmuLfadF8wouCq8hsg1BvIxB8Ri8kOXJRmEevrT/l+xDfc1abdk+qpAfgQFX92SwO8gxJKDBxnO9+E9JSbGO1sOX26T++UijXgBmFacJM71ls2kW8MHB0bM4+bHO5JMocK2r4bUWDckTUu8KzKj/Vrmk=
+	t=1788762684; cv=none; b=VyCOcONOkSxULmY1CPnkQyof3xsGjkySzXXPo4lyxDQVuf4O3JIIl+FFy+PCk3F5G+fNQT04Z4BEIoho8LaQGEWU6r/kvS0Bn9Nc4vvDSMzJVDaRVR2zkx6qrGOjKq1zCQO2pfr0bK5TSPhqLdKST+XZbGRzKnx1Q4WsQFZanAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762624; c=relaxed/simple;
-	bh=5Uu0PkU5kORhI54uU1+CWEd53uDS8YlCHr0bVejYxds=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=Ft37V70j+c0aKm04zZ+qoatIP3Bv7PTsG6sTTv6IuDCW0wYZMxrGrz2gEPH1oRN9EsH+qKnoWwIartgkir5iKte6oyMUhoeLqX6mjvRVUrmfRHjreodzThpHLAk55Gw4sGQszwlmzACwalBjCphteGPv+MAyZ4ibPL0W+zpqq6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o0IMBx35; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788762684; c=relaxed/simple;
+	bh=yp8MmPjH3R9x5sDWZdHZKG8Cf/MP3TdFmmuG7mG56/I=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rK/jwaNWbYYJ4n8FysCb/3UEOIkEBAIAXaYcLb9JnPTS8r558+4Y03lgSj0Ax4qUrv2xiXgxgJ3RyC3uGV5+xfRFjZo1haMcPGocG6nf7NCvhcf5hJJsbZ7b36oevSY5+KAgODxErLyYXZ576J1KFHgHNnXEsyktpxM8dQMc5Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZUwwBt68; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0IMBx35"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03B31F00A3A;
-	Mon,  7 Sep 2026 06:30:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788762620;
-	bh=75bRVupXM9z31/O5lSjqt5mAvB0xPwrehRbFIvRTE/w=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=o0IMBx35YLk2B8kR1lqDv9cfntOtKvnjv+ZQ2569vFbZmAMOi3elCSbT4B6ChC2Qz
-	 HxXgiCAuXfwexGP0XCY6X/23BOQPJYDLPCcvWYnkPj+I2FWGh8ybFDLEuqtPpyhIOS
-	 XPnqcji+f/09c4asIm3DKAuTt8KscWp2eU8H8IHjUoxP9EjrSnc8LAM/ZTfxII+42F
-	 /FHZQ5oqxK4GTddgh/M2uZ3BUxlxiPIpzx2ym2s260K0AiHjepjvJO0XVjmGPzCpqr
-	 urdNg6vFYA7OikHtAGAe2n2mE4ts1kwRCMOMeXzdvoWdq2IreLNaytlYh1BIpt23yw
-	 pX9OuqwyvYs0A==
-From: Carlos Maiolino <cem@kernel.org>
-To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-In-Reply-To: <178832749387.3507209.8650516312948237987.stgit@frogsfrogsfrogs>
-References: <178832749387.3507209.8650516312948237987.stgit@frogsfrogsfrogs>
-Subject: Re: [PATCHSET v2 2/5] xfs: LLM-inspired bug fixes, part 6
-Message-Id: <178876261936.15110.5700286241535016670.b4-ty@kernel.org>
-Date: Mon, 07 Sep 2026 08:30:19 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZUwwBt68"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 63C154E4149C;
+	Mon,  7 Sep 2026 06:31:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 284AE60383;
+	Mon,  7 Sep 2026 06:31:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A59611C79D5B;
+	Mon,  7 Sep 2026 08:30:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788762671; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=yp8MmPjH3R9x5sDWZdHZKG8Cf/MP3TdFmmuG7mG56/I=;
+	b=ZUwwBt68t/0d0NmookVUEIMgZYNO/0xrHsighyyC25OMHU7ijj8FHZFgBgNbfweY8VGuwO
+	w4oshTFAwXHggBZUxqnu4UV2aLqpHgQrgb9jSXjZccjyJRp5ey3U6ei0uP1nLiCSqhXA3t
+	1THFdVbE1ZQ426VJdKULNyve1u2BgOu7ewjs3ssRVr5xQDIbKQDQRwO3ZjtIVJ3OwEbEiD
+	Cn9L0Hq/JKT1ZZwMoR/Eqg2Ao3pVlaacX58/Jn0n6qa8Ej4RyAa18S+TEM9TmmAyraxbEo
+	SFRS+yxpeZIoJ1+oOeGXZIOOKXLOoRCEtb4B/2MPTILT2/E28LLDxvoCFRM8QQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  alex.aring@gmail.com,
+  stefan@datenfreihafen.org,  david.girault@qorvo.com,
+  davem@davemloft.net,  edumazet@google.com,  kuba@kernel.org,
+  pabeni@redhat.com,  horms@kernel.org,  stable@vger.kernel.org,  Xuanqiang
+ Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v1] mac802154: avoid extra skb references in RX queues
+In-Reply-To: <20260905061524.91223-1-xuanqiang.luo@linux.dev> (Xuanqiang Luo's
+	message of "Sat, 5 Sep 2026 14:15:23 +0800")
+References: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 07 Sep 2026 08:30:58 +0200
+Message-ID: <87mrtty3ml.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 01 Sep 2026 22:41:37 -0700, Darrick J. Wong wrote:
-> Here's a sixth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
-> mwa...
-> 
-> v2: add RVBs, address some review comments
-> 
-> If you're going to start using this code, I strongly recommend pulling
-> from my git trees, which are linked below.
-> 
-> [...]
+On 05/09/2026 at 14:15:23 +08, Xuanqiang Luo <xuanqiang.luo@linux.dev> wrote:
 
-Applied to for-next, thanks!
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>
+> __ieee802154_rx_handle_packet() passes each cloned skb to
+> ieee802154_subif_frame() and does not release it after the call. The
+> callee consumes the skb on every path: it either frees it, hands it to
+> the networking stack, or stores it in a queued RX descriptor.
+>
+> The beacon and MAC command paths nevertheless call skb_get() before
+> storing the skb. The worker drops only that additional reference, leaving
+> the original clone reference without an owner and leaking every queued
+> skb.
 
-[1/6] xfs: fix xfs_rtrmapbt_mem_cursor for non-rmap filesystems
-      commit: 022d5f5fce7f0b6125d404eb74044e6238aef369
-[2/6] xfs: preserve owner on in-memory btree creation
-      commit: 5287e56cba3be4a64bff9f73bce5964fda2590dc
-[3/6] xfs: don't leak new_bp if xfs_btree_bload_drop_buf fails
-      commit: f1930bc578095409c2dcfca6e4e898b24f0f0de6
-[4/6] xfs: actually recover intended file sizes in xfs_xmi_item_recover_intent
-      commit: b71ae66863e4320a3b7313b53bb4d65f1718d58b
-[5/6] xfs: don't modify file attributes or poke fsnotify for dry runs
-      commit: 365fe37e10ea75840165f13322aa8481ea11dfef
-[6/6] xfs: fix bnobt repair space reservation disposal failure
-      commit: c83d1ef97ee3b0b92797d4b4932a3a813ba05b86
-
-Best regards,
--- 
-Carlos Maiolino <cem@kernel.org>
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
