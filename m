@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9193DC4B6
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:18:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23423F2101
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812324; cv=none; b=HLjKR0GrCvYv4PvECLVAIiuhw2c64fENYMY0zg4a8hMWKCSB8ma82DqtL+a1Lyb5d7ZmW2kI/8o047YeoKu/Mil6crAC0Phjh8N9iFMBaunh5dl1n5jT8iz0NZvXsvKqwcNMNprf5m6M2RHk3zcQ3pDgghwOcJ5mC7Z4/AKbMXk=
+	t=1788812328; cv=none; b=T2S20WI10qUIRATpE8nNTayHq1WwcdtAYk6JNXfepyDPltYpFwBEtrs1qpODDCb7bMAblVKOx1qEjzFNN5RCD4SPFSycW5H8x8w2dqdCRLSH2f4Zh3Ey0pu0Qvz+slUsLXFTbouGX3vOOr1V/0tagsmicGlAfsdJxiYsXuqCSnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812324; c=relaxed/simple;
-	bh=4cGlLpUt2l8MXtS6D+y7V0YpseAfoQTDjlxfUuuMchU=;
+	s=arc-20240116; t=1788812328; c=relaxed/simple;
+	bh=JhM80te94rjx3QQsydYGj1coP1KktZ7HOV3VnbZkaiY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rqiVbIyxBFIijAVpm7lO17jKJgWGOD9uvvHyFUFGmrLTy5SBvyYmEK0mn2ft/XMNkxUwEjwQiIWcYmsIBPnR6KfkrCeBZcuDE/7lhJNrT8mqVUNjtp4tYPIvs0X300d1v8sZIPn00Aoifq7H+SDCv6eOz0lrau2aEZUAT2TbpJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MosW9WSL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ZSVjsqzVTEqoadQT39eqIdfI02JLJJ/OK5pmXBWnZ6IDUWgH4zmW4/TOKcm5/T8mvqCFQzZ8/cGHLYac0SQonENKwd4XwpjvIsKHz7r5pYFx44y1sX4Jz7Bu6Pu3/Ardd/1UHOAK/4Lx0EImy175ZzZMCt7bmi3QJQDRu186g0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fNPLcxFx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MosW9WSL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF4C1F00A3E;
-	Mon,  7 Sep 2026 20:18:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fNPLcxFx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FBE1F00A3A;
+	Mon,  7 Sep 2026 20:18:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788812322;
-	bh=88Jrv5DllPEel9xUdchELT9ik6htQea9Wvw/ENHXl3E=;
+	s=k20260515; t=1788812326;
+	bh=Ti8wG2KOfl8/eJFpO2QOycZh5QNQHfdWym/XODq1X28=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MosW9WSL2ZzdaIAe2WmTbu7Apmu3+RUOIK80M8g500Mag8aMEjSZtleF1mhpw919/
-	 JgMW/msAiLa2FFSEg3YFXPiwwMEBK6fwapX6R1p0fDOO18+VcM5q2j/jWqshN1ZPA4
-	 Lr2ytpvN91ht8WEgaZNF7g4BEeXQ72rVlgopDuQNQii545CIdKyaRZgONGg+1imWq9
-	 DnDF3Xi1AoyJKyscdJXZKpmohWAkJfmf+MtIGMWef/fANCEVKGxzTpcDHs4w8JdGvw
-	 Z8l//U1SAZQH9aGkTDN056y/hA3r0ZPKlaGogdY29ObcUwwgJcCalCVw/QES6T7DMp
-	 aYf60CAeSjqKQ==
+	b=fNPLcxFxa7royGjyd4AS62roX0+Od9hI96Y4pdACk5pR74Z1rdmxl0aqLQFgVX7X6
+	 f+VdanLoU7DxewMBuQISYYycjVFv1ulzs9j+D9RKtDcwVGKnajC1cnk9dX9ZV7YEJo
+	 jn6W3+vjg3YBHSGntAOCyFGlykSTPz2tM25fBXQtl4GcgefZFMEf4mcPsZGI2wlXhE
+	 E7aJZWzzOD7m278qUbf5J6s6GGCHJYRA/VW7eEJbUUeo5pOwoaSysahxAvi64jjNFt
+	 TJIRJNk0+mjDzVzK0agNUrJRkzpt1rU6g84LiWm5sjpQhdqW7gRSgI2KSYpJDTHstO
+	 KdNh4ZZHtn5ng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Chuck Lever <cel@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] HID: sony: clean up device list on probe failure
+Subject: [PATCH 7.2.y 1/6] NFSD: Prevent client use-after-free during delegation revoke
 Date: Mon,  7 Sep 2026 16:18:39 -0400
-Message-ID: <20260907201840.380287-2-sashal@kernel.org>
+Message-ID: <20260907201844.381343-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907201840.380287-1-sashal@kernel.org>
-References: <2026090344-gorged-agreeably-3d32@gregkh>
- <20260907201840.380287-1-sashal@kernel.org>
+In-Reply-To: <2026090304-open-erasable-9a07@gregkh>
+References: <2026090304-open-erasable-9a07@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,124 +46,119 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Chuck Lever <cel@kernel.org>
 
-[ Upstream commit 7c65699a3a311198a07659a614fe64d45924839e ]
+[ Upstream commit 4683ca76b3b7e5808338491c6eb3c20e6b4894d5 ]
 
-sony_input_configured() adds some controllers to sony_device_list before
-HID core registers their input devices. input_register_device() can fail
-after the callback returns successfully. sony_probe() then observes that
-HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
-The devres-managed sony_sc is freed while its list node remains linked, so
-the next matching controller traverses freed memory.
+A delegation stateid holds only a bare pointer to its owning
+nfs4_client and does not keep it alive.  The client survives its
+stateids only because __destroy_client() drains cl_delegations and
+cl_revoked before free_client() runs.
 
-Initialize the list node and device ID to inactive states. Make list
-removal idempotent and run the driver-private cleanup on every probe
-failure path. This also makes a second cleanup safe when
-sony_input_configured() already unwound a partial initialization before
-sony_probe() handles the missing input claim.
+nfs4_laundromat() breaks that invariant: it unhashes an
+expired delegation from cl_delegations, drops deleg_lock, then
+revoke_delegation() relinks it onto cl_revoked under cl_lock.  In that
+window the delegation is on neither list, so client_has_state() can
+report no remaining state.
 
-Found by 0sec (https://0sec.ai) using automated source analysis;
-verified against the HID input registration and probe unwind paths.
+Every teardown path first requires cl_rpc_users to be zero, but
+the laundromat holds no such reference.  A client whose recalled
+delegation has just timed out can therefore reach free_client()
+while revoke_delegation() is still about to dereference cl_lock,
+a use-after-free.
 
-Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+Pin the client with cl_rpc_users across the revoke so teardown blocks
+until it completes, then reap the delegation from cl_revoked.  A client
+already expiring reaps its own, so skip it and leave the delegation on
+del_recall_lru.
+
+Fixes: 3bd64a5ba171 ("nfsd4: implement SEQ4_STATUS_RECALLABLE_STATE_REVOKED")
 Cc: stable@vger.kernel.org
-Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Reviewed-by: NeilBrown <neil@brown.name>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260709-cel-v4-2-1d519d9be0cb@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Stable-dep-of: 2330b788d732 ("NFSD: Prevent client use-after-free during close_lru reaping")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-sony.c | 33 +++++++++++++++++----------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+ fs/nfsd/netns.h     |  6 ++++--
+ fs/nfsd/nfs4state.c | 23 +++++++++++++++++++++++
+ 2 files changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index 883da8583bae8..5e0b133fb284b 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -1740,11 +1740,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 27da1a3edacbf..21ed2f1ec48d4 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -101,7 +101,8 @@ struct nfsd_net {
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
  
- static void sony_remove_dev_list(struct sony_sc *sc)
- {
--	if (sc->list_node.next) {
--		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
--			list_del(&(sc->list_node));
--		}
--	}
-+	guard(spinlock_irqsave)(&sony_dev_list_lock);
-+
-+	if (!list_empty(&sc->list_node))
-+		list_del_init(&sc->list_node);
- }
+-	/* protects del_recall_lru and delegation hash/unhash */
++	/* protects del_recall_lru and delegation hash/unhash;
++	 * nests outside client_lock */
+ 	spinlock_t deleg_lock ____cacheline_aligned;
+ 	struct list_head del_recall_lru;
  
- static int sony_get_bt_devaddr(struct sony_sc *sc)
-@@ -1880,6 +1879,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
+@@ -110,7 +111,8 @@ struct nfsd_net {
+ 
+ 	struct delayed_work laundromat_work;
+ 
+-	/* client_lock protects the client lru list and session hash table */
++	/* client_lock protects the client lru list and session hash
++	 * table; nests inside deleg_lock */
+ 	spinlock_t client_lock;
+ 
+ 	/* protects blocked_locks_lru */
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index a42f34842d776..e1a8d300636b9 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -7062,6 +7062,7 @@ nfs4_laundromat(struct nfsd_net *nn)
+ 		.new_timeo = nn->nfsd4_lease
+ 	};
+ 	struct nfs4_cpntf_state *cps;
++	struct nfs4_client *clp;
+ 	copy_stateid_t *cps_t;
+ 	int i;
+ 
+@@ -7090,6 +7091,18 @@ nfs4_laundromat(struct nfsd_net *nn)
+ 		dp = list_entry (pos, struct nfs4_delegation, dl_recall_lru);
+ 		if (!state_expired(&lt, dp->dl_time))
+ 			break;
++		clp = dp->dl_stid.sc_client;
++		spin_lock(&nn->client_lock);
++		if (is_client_expired(clp)) {
++			spin_unlock(&nn->client_lock);
++			continue;
++		}
++		/*
++		 * Pin without reviving: get_client_locked() would
++		 * flip a courtesy client back to NFSD4_ACTIVE.
++		 */
++		atomic_inc(&clp->cl_rpc_users);
++		spin_unlock(&nn->client_lock);
+ 		refcount_inc(&dp->dl_stid.sc_count);
+ 		unhash_delegation_locked(dp, SC_STATUS_REVOKED);
+ 		list_add(&dp->dl_recall_lru, &reaplist);
+@@ -7098,8 +7111,18 @@ nfs4_laundromat(struct nfsd_net *nn)
+ 	while (!list_empty(&reaplist)) {
+ 		dp = list_first_entry(&reaplist, struct nfs4_delegation,
+ 					dl_recall_lru);
++		clp = dp->dl_stid.sc_client;
+ 		list_del_init(&dp->dl_recall_lru);
+ 		revoke_delegation(dp);
++		/*
++		 * Unpin without renewing: put_client_renew() would
++		 * renew the reaped client's lease.
++		 */
++		if (atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock)) {
++			if (is_client_expired(clp))
++				wake_up_all(&expiry_wq);
++			spin_unlock(&nn->client_lock);
++		}
  	}
- }
  
-+static void sony_cleanup(struct sony_sc *sc)
-+{
-+	sony_cancel_work_sync(sc);
-+	sony_remove_dev_list(sc);
-+	sony_release_device_id(sc);
-+}
-+
- static int sony_input_configured(struct hid_device *hdev,
- 					struct hid_input *hidinput)
- {
-@@ -2040,9 +2046,7 @@ static int sony_input_configured(struct hid_device *hdev,
- err_close:
- 	hid_hw_close(hdev);
- err_stop:
--	sony_cancel_work_sync(sc);
--	sony_remove_dev_list(sc);
--	sony_release_device_id(sc);
-+	sony_cleanup(sc);
- 	return ret;
- }
- 
-@@ -2068,6 +2072,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	}
- 
- 	spin_lock_init(&sc->lock);
-+	INIT_LIST_HEAD(&sc->list_node);
-+	sc->device_id = -1;
- 
- 	sc->quirks = quirks;
- 	hid_set_drvdata(hdev, sc);
-@@ -2096,6 +2102,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	ret = hid_hw_start(hdev, connect_mask);
- 	if (ret) {
- 		hid_err(hdev, "hw start failed\n");
-+		sony_cleanup(sc);
- 		return ret;
- 	}
- 
-@@ -2147,7 +2154,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- err:
- 	usb_free_urb(sc->ghl_urb);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
- 	return ret;
- }
-@@ -2162,13 +2169,7 @@ static void sony_remove(struct hid_device *hdev)
- 	}
- 
- 	hid_hw_close(hdev);
--
--	sony_cancel_work_sync(sc);
--
--	sony_remove_dev_list(sc);
--
--	sony_release_device_id(sc);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
- }
- 
+ 	spin_lock(&nn->client_lock);
 -- 
 2.53.0
 
