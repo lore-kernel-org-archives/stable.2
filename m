@@ -1,54 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34FD372B5A
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D63F37C0F5
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:01:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788822045; cv=none; b=HvtF4uO4qFf2zCjY8sF62VL/c2/4cMPin/ot9H84eUD18Uopj0zGK468fL12gog7uhthKjSXS4D7AZLTVsT/LxfgWFBpq4U6vzeId1N94VHhMzEAIH/opqyBRjyE2yQdWZ3RDmUfEbH+aYguEW0N1bGSXrgvsotZ1getaqNhCOU=
+	t=1788822062; cv=none; b=QMrXrNwOYjwogKeiIAhTszdX3dgDyqbAvUP4V6pj/m+qH1fPRr5tRPUIMLNYjnvLurZjLyzDudazMdngNpTZPkScCMsJmu9ODBA/QqaoQMxCYl6Q+999zdFTXo2Z1wja5HLIceJhHbA6HyN8+f969usEv3yTgIkOYt/1KM/FRwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788822045; c=relaxed/simple;
-	bh=aYpYVmSqSOXjVdn3TjpCgs6bBpze3xWd5H+X//z66Po=;
+	s=arc-20240116; t=1788822062; c=relaxed/simple;
+	bh=FhDGlsmibDDb4ftfTcaZFCfOIdXAGfv6KGdOuxn4Ww4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aeVSHJtPdnOazwEAqUZPtZ+gv2S0CdUzO7VDD2u//jWFy4ByBSyqTxLJodk+2c7CKJd1DFLSk+/AeJnrBQwovLS47V/z2kkHkbizeLEbNxsJ6GQHHDBxdfRPdG3iJynzf23k7xWdvTOPe9h/nDd8k916hE9w0KJjXwKnsXzbUV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCSpIpr6; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=cumVKC/lExs0vDLpzw7j5n8GGgg3mQdgLEENlL52cMQYY3C79NB+3jXMLNXqW1/FrrRQHk0zifOPv7aKQBXMSftOd9IeVZVwn1oS+AsORLLKIjGmCjtEOClWqHQ2qR6BDb1vpAYyRyPXNyZ7dN+Jwa3c4G/swe/LZgms+LIDzDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YnpoRCp8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCSpIpr6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B7661F00A3D
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:00:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YnpoRCp8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 234C71F00AC4
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 23:01:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788822043;
-	bh=aYpYVmSqSOXjVdn3TjpCgs6bBpze3xWd5H+X//z66Po=;
+	s=k20260515; t=1788822061;
+	bh=PX+PF6Pn17SWhjBweuUcg+2Nwy0ktQaf/Kz1R4n5GAE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=DCSpIpr6WRXUctrVvdKBFbKkcCPfLN50pCmFxZvsHeKQi5z+TxtTzJxlBQ+KJDnQm
-	 B3X7oNDxaDxgp3pxTMUDoDOuF4fhOdRQp2F0E9NRh62gbQm5cr5a0Yt1DutNVBI40c
-	 9q+EgOo/NgOkYNaLpydGs9TiS7L3j8aL6u4S1c9MTuM2iwPsQgTsqAUwYXUBJOfj1g
-	 7TOfzpTVS8HD65+VkX2UeZQIc3nQbZpU9i6CrJ4KG7pZH/9ViUhAF5m2LzVnYANCdE
-	 n8zXMeUwPu2SrtkRDcABKbcZ24nbfAmlZdtQfsie8n2skxXf5cXQEY8w3YIDPDLMfY
-	 CaP39fIB3IXJg==
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso647209866b.1
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 16:00:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5RC3VUQsBFl+wdYBxDDKtCkiqu+mm6qE5gFO1+E7N6aLK6SXY1/ThNZGGZRBUfs1G1ZwsNu4=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+GE8I6ZO51IqS4T82Sv4X+QlyogqAM1oWKhtjapXE76vkYoAR
-	IEbiCJDXwai6PPESv4WpoOH3+qOu7wjEBzTXaqJ7GESdWD+m+6nshhrxxyQq3lIOz+lh41IlL9a
-	IEJFlzS1BFbSiWNxH1MMWtj4oGTMr4vI=
-X-Received: by 2002:a17:907:9724:b0:c12:b2db:873d with SMTP id
- a640c23a62f3a-c260c9715d3mr1634679566b.5.1788822042222; Mon, 07 Sep 2026
- 16:00:42 -0700 (PDT)
+	b=YnpoRCp88N40Bx+abjk+P9aymmwIZJoRjadwIMlMnIPOuy3J3WAL1GezE3BZB7841
+	 URBidqQV2AcRhrKRWBXmcCii0vNCqnWoMsjU+PA66VOyavDTk+dlAeslBkup4wWfpl
+	 mO+A0EZcC0dJYjfCpJ/EZfkG5yZC72T8DjFcu83xLdc9bBNme8biDfTK4YqW9pLKlI
+	 3UuL4yBOjIgRI4QjmTLBNfIP/pGc/Ajz91dHWZch+NXi89GkAQpPUtpCbiYaf5Z/ZM
+	 +47yrtd8BIy0g4lNSMFV/ssmAbk7u8CmiJ4X2lWo34ND+H+QAODWFuBNMeUsYYJfxy
+	 ThT1wfbX90XVg==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c20e70a0962so496296666b.2
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 16:01:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx4vmYfR9Qd+Vx2Xr+XcRWaPbVN0Nn3AtCEyu3svXqbpWv++xHSc9a2AiDvK7Lw1EmvhGzW2YM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVvNalirrWWxIEKHkxG5vIroIYAPynHv+fCCoOg2X6K9pkwlZt
+	suBuCeDJTNmAdg1Z1uFKmr93i8G/rIi6Vpj84mwMwGQjrVfNyeCcJdh40NXHnrXbpOJbZvJVVpP
+	Lq/5bb9xqHSKRCktcHNhf8YMPIVFfGJI=
+X-Received: by 2002:a17:907:c16:b0:c25:2d27:5652 with SMTP id
+ a640c23a62f3a-c260c9d1affmr1740826466b.11.1788822059805; Mon, 07 Sep 2026
+ 16:00:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906200517.725015-1-pc@manguebit.org> <20260906200517.725015-5-pc@manguebit.org>
-In-Reply-To: <20260906200517.725015-5-pc@manguebit.org>
+References: <20260906200517.725015-1-pc@manguebit.org> <20260906200517.725015-6-pc@manguebit.org>
+In-Reply-To: <20260906200517.725015-6-pc@manguebit.org>
 From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 8 Sep 2026 08:00:29 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_0fcfEcJbPiYvFWG1F7iSffsCx1Oxg+55vc=drmgO_5g@mail.gmail.com>
-X-Gm-Features: AcwNN1U2kSONxG1l8mhUnSXZr5xC0fN0z0RgrkWxXOPiUDZIuoDlyPBR540tfWo
-Message-ID: <CAKYAXd_0fcfEcJbPiYvFWG1F7iSffsCx1Oxg+55vc=drmgO_5g@mail.gmail.com>
-Subject: Re: [PATCH v4 5/7] smb: client: fix file type corruption in wsl_to_fattr()
+Date: Tue, 8 Sep 2026 08:00:46 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-5rqr0osjZx3Vu-076oB4X3uB11=Y4fue_s3Si0iSxmQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Vnn_qMlVY3OP4Y951aknIl1vqM1jADHiDUO2zZMo8IbwZtrFLf6NlnG7w
+Message-ID: <CAKYAXd-5rqr0osjZx3Vu-076oB4X3uB11=Y4fue_s3Si0iSxmQ@mail.gmail.com>
+Subject: Re: [PATCH v4 6/7] smb: client: fix file type corruption in posix_reparse_to_fattr()
 To: Paulo Alcantara <pc@manguebit.org>
 Cc: linux-cifs@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
 	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
@@ -63,7 +63,10 @@ rote:
 > bits first is wrong as it corrupts the file type when cf_mode already
 > has type bits set (e.g. S_IFREG | S_IFCHR =3D=3D S_IFLNK).
 >
-> Clear S_IFMT before the switch statement.
+> Use a local ftype variable to collect the new file type and apply it
+> after validation succeeds, clearing S_IFMT and setting the new type in
+> a single assignment.  This avoids stripping cf_mode on malformed
+> reparse points where the function returns false early.
 >
 > Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40mangu=
 ebit.org
