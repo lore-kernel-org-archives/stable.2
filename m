@@ -1,41 +1,48 @@
-Received: from mail.scd31.com (mail.scd31.com [205.209.125.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A694F1ACEDE;
-	Mon,  7 Sep 2026 23:17:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.209.125.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDBC3542CF;
+	Mon,  7 Sep 2026 23:20:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788823077; cv=none; b=itvdEwhoMPJZaKh3xW9uSsFCxnmnmDm4JmbQPazyDBDWBxSbxidBpj/7Bo5JP0RMlxVVw38A3MM2Zgjsr3c8lAycB2PyAzv8qId+QgaWY/BdqfT99iM/JQGFDXQH3KBJcQSUF/F61+3Mj9CkPtNPvlSWYsouTBNYacKWERB7PsA=
+	t=1788823220; cv=none; b=uzPTpq1KVSrJUsAvkm1/PkWwO4ZDyPwMKXMh0bFyvL1KUNwYDrDhovDXxpNx8+c3YoOZVktu19U8ea87qgjaTk9HJPohLyaHCp0y1A+6aYmCArE25MhriD0q1S6dnnbtwKTdo8/pEUxFdF60Ah09If5/q9BhnzG83X2DRVdN0GA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788823077; c=relaxed/simple;
-	bh=lV9kR7Jsg6perTbU8lLHGoXar0ayjsO2lhp5NE1n5WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NiOl/LSDMngVFm0nCl7MPYbAvinePlHnN6iz5QkihTGkypOpJirt2AkNzMUB2n8suH0ouCN+rFj3hGxKvZe1o+VuKc+QEiFnfLgrXvHInswqSV9I6KzOIStG6XgG9irHOJaEWElqp2NypQ2EbOO4zferyxVGzy/orksxXVFzm+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=scd31.com; spf=pass smtp.mailfrom=scd31.com; dkim=pass (2048-bit key) header.d=scd31.com header.i=@scd31.com header.b=geiiv1CT; arc=none smtp.client-ip=205.209.125.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=scd31.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=scd31.com
+	s=arc-20240116; t=1788823220; c=relaxed/simple;
+	bh=s1rm128vhtUTI/agKCVeujEStb80mQkqntxKg+Caizg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=aD99S4KI9dg58PvRG9HyMt7tbawzQqXx20WpDbHPWTsRw09aGKsvpWXy00lTgJ0j/CzbkMgv0TCL4xG7uu0YwZFfpwrxOS/AUv5MJhLdHetYgkyJfU0XnJHmexCgAEw0bUII2EHsddTerQMxLqPuoAz0vQyQez+nVsppti9tEA8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiI3zn2C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=scd31.com header.i=@scd31.com header.b="geiiv1CT"
-From: Sophie D <patches@scd31.com>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=scd31.com; s=mail;
-	t=1788822555;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=T06vifKHL7yEbLNrVUuV8RvhfyCc7zgQ6Avu87PwioM=;
-	b=geiiv1CT1hbFVfMh4FolpsJKS87PssPspxI7VECeE38dFAMkhznAt5Vg9UnG0EdmokvLN0
-	BTF/a6ySFp2nvlYw2lK3KJZHqoQEU2ABdci2cMbOhkQYpjjuOuqeibaDSYw3RWSUksNOjC
-	9IOGHLDb5jiQOKArfdHpgVX+mK/U0+NJ+dAxOLejuakZNWVLut0UsjHEFKGj8WHDR/8m9o
-	lnqb+vxyx6wZaePWwm5lCy7LBpMSEjZE7Q2q50S3yzDBZPxM/FVv7t5X33V8VlWJBn2chP
-	wOjmeZ6GMhchhQUezzz9ouD7CiANPXl1fhHT9GVq5fEFMYMOXRS0k3+p+h7bcw==
-To: rubenru09@aol.com
-Cc: tzimmermann@suse.de,
-	dri-devel@lists.freedesktop.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiI3zn2C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC52D1F00A3A;
+	Mon,  7 Sep 2026 23:20:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788823218;
+	bh=i8nSAyVxVRCbez6CF7JtknGWhoFuyigEybPbHugp+T0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hiI3zn2CUg75JLqGPGVh/UyZc+xoi5A6n3zMXSt54VhQQ7yas5KpRLKaS5kWHFGzJ
+	 lNK6s2JD14bzYm2Oy1AZ4uKY9842f0n9Ww6F8bg7trS1jgAryorzgzYVsBYZO0i7RE
+	 wTVyhQKihwDtsxqDg1qBEhBIbrXOsfeo4NcjgdkTFYUmdty2RrWYjqvFq90QyJk/cP
+	 +U3grlICDkWuTm/1YiicTdnSHSUrgD/CMu+VmPUBvxRT+v9H8zj9H5D+dTYGpC7uvJ
+	 2Hl83mTZgKOmttjumNSyWC7v5f1NeymG9vM85IoUYIyPikq+I49vvh252YUcca73Ot
+	 b701KeKnStJzQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Sophie D <patches@scd31.com>
-Subject: [PATCH] drm/gud: Merge damage clips in full update mode
-Date: Mon,  7 Sep 2026 19:08:49 -0400
-Message-ID: <20260907230849.31032-1-patches@scd31.com>
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] cifs: Scripted clean up fs/smb/client/fscache.h
+Date: Mon,  7 Sep 2026 19:20:14 -0400
+Message-ID: <20260907232016.765564-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090336-expend-runaround-0e93@gregkh>
+References: <2026090336-expend-runaround-0e93@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,42 +51,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When running in full update mode, previously small updates (such as
-moving the mouse across the screen) would cause many full frames to be
-generated. This would bog down the bus and lower the effective framerate
-significantly - I was seeing a drop from 60 FPS to 2 FPS.
+From: David Howells <dhowells@redhat.com>
 
-This patch fixes the bug by merging damage clips together.
+[ Upstream commit bc3de356aae666de5d8b5131545be87cf7754431 ]
 
-Fixes: 73cfd166e045 ("drm/gud: Replace simple display pipe with DRM atomic helpers")
-Cc: <stable@vger.kernel.org> # 6.18.x
-Signed-off-by: Sophie D <patches@scd31.com>
+Remove externs, correct argument names and reformat declarations.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/gud/gud_pipe.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ fs/smb/client/fscache.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
-index 5ef887d84..20418bf81 100644
---- a/drivers/gpu/drm/gud/gud_pipe.c
-+++ b/drivers/gpu/drm/gud/gud_pipe.c
-@@ -647,9 +647,14 @@ void gud_plane_atomic_update(struct drm_plane *plane,
- 	if (ret)
- 		goto out;
+diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
+index c691b98b442a6..e89d26c6e0862 100644
+--- a/fs/smb/client/fscache.h
++++ b/fs/smb/client/fscache.h
+@@ -38,12 +38,12 @@ struct cifs_fscache_inode_coherency_data {
+ /*
+  * fscache.c
+  */
+-extern int cifs_fscache_get_super_cookie(struct cifs_tcon *);
+-extern void cifs_fscache_release_super_cookie(struct cifs_tcon *);
++int cifs_fscache_get_super_cookie(struct cifs_tcon *tcon);
++void cifs_fscache_release_super_cookie(struct cifs_tcon *tcon);
  
--	drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
--	drm_atomic_for_each_plane_damage(&iter, &damage)
--		gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-+	if (gdrm->flags & GUD_DISPLAY_FLAG_FULL_UPDATE) {
-+		if (drm_atomic_helper_damage_merged(old_state, new_state, &damage))
-+			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-+	} else {
-+		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
-+		drm_atomic_for_each_plane_damage(&iter, &damage)
-+			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
-+	}
+-extern void cifs_fscache_get_inode_cookie(struct inode *inode);
+-extern void cifs_fscache_release_inode_cookie(struct inode *);
+-extern void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
++void cifs_fscache_get_inode_cookie(struct inode *inode);
++void cifs_fscache_release_inode_cookie(struct inode *inode);
++void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
  
- 	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
- 
+ static inline
+ void cifs_fscache_fill_coherency(struct inode *inode,
 -- 
-2.55.0
+2.53.0
 
