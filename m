@@ -1,86 +1,77 @@
-Received: from mta1.migadu.com (out-67.mta1.migadu.com [95.215.58.67])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13357395AE4
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 06:23:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.67
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6820C3AD531;
+	Mon,  7 Sep 2026 06:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762231; cv=none; b=A3pGC4pd7Rj2ekDlpA5qXtg5TSNeeHnb6mPNSbwCim7TQj0g+ccC4keALYnZwk6d9vDFWYzDKlmSjlTMfq0q5AbcQKPDQi5mvOOuLONEIc0yBwMuOEoJLYfyYhEGjy8y3ypZu3pnq5Xi0ow2gHc/rb/kIh7I5H5Ts4aFWnBFvoU=
+	t=1788762508; cv=none; b=O15Ys7Rmyl11lScGbDoWszixUWrRD2n7/o+LqYe9EeFa6glUQZLIBmiHyd+o/1/Lf7gwMhXVq6Sz/w+eB+/Pt/OcJKNfjKwey/bjOuaXiBxUgX/QoEPXbSt3iu0H40Bd2nRtATVmvo4e0OcStSroyRv5UkNlBpUkBSVxj18egvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762231; c=relaxed/simple;
-	bh=dWk9y7b0drDaUlfFd/9bCLMEQv7pdwsvhjNQU3mPn70=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=RDNsQLX52oOPeU6tPR9EQHutI9eUd6tZrJREAUTypwGncEcK5dnfQd5WTP9lWON36IclXqvXVgu2tAspZbhu6sSL+vtMSyA4j1q4fimaUnQ5mbQmZHYgxbYe+VX3gFPR/vYrIhpalPmX6i9ef/+yY3rP1tqtxiAoviVqYk9aB84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gPv2xR5W; arc=none smtp.client-ip=95.215.58.67
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788762508; c=relaxed/simple;
+	bh=K7I3ZrDTvKqy3FJxYrllvNKPkgegr37bXi7teC48IJ0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=sApvggH0Wb2RY4h4zLw590r83Fjen2nzII/bv2++JvJ03wg+sVACXrOVfHA3jILMivZdrikuLdfy0gWwvtWMQH6UGeo8Fqkbs4lhp5e5HgbDIW17qRAH546DJp4mzlVMhzNiFNh+PkcWZP6YDP5xOkevpHm7/r9fh15rqCUHa9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMLLDW4h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gPv2xR5W"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dWk9y7b0drDaUlfFd/9bCLMEQv7pdwsvhjNQU3mPn70=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788762224; v=1; x=1789367024;
- b=gPv2xR5WCmei2BlE4GtflZefmNDXluoiWnU5rajvt4Vt+b8SjL04YH5GEufPNfr4AQ3x4XUL
- GnC/KWy2lHyfNi1h705t1T+61VQl+3W26EPM2Bcvi2mpt42cFoVjiLMjqyOp3xVze1u5RszBVo8
- maAzF46K7inKvMUK+Yy8psUs=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bbad7cc037fa0143;
-	Mon, 07 Sep 2026 06:23:44 +0000
-X-Mizu-Trace-ID: bbad7cc037fa0143
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Hao Ge <hao.ge@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v8 4/4] alloc_tag: release the reservation when populate fails
-Date: Mon,  7 Sep 2026 14:24:13 +0800
-Message-Id: <20260907062414.106873-5-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260907062414.106873-1-hao.ge@linux.dev>
-References: <20260907062414.106873-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMLLDW4h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E781F00A3A;
+	Mon,  7 Sep 2026 06:28:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788762505;
+	bh=iy9wUOfM54cEO8X/CFuG8nbS1g3ikvJ/10COS/7Fwyw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=DMLLDW4hLiAHZpI68fTGTFEZuJHoY7y5yMXVnMouFXFjnUrM9i+Bzv8Nr4SSGaa1X
+	 UCHKJby2QpeSLKu87kYVIrzU3L9DG2deGkfFsrSL8/A8Li8Y3BKBwxB1tVbK/iSNf9
+	 vz/pPmdGyZxWaDyOBLynMuwlwOPeHfQ2VaF12ubcr9s862fR4LiNge38TjY/na/ElR
+	 kjIRiim75A2Ru+WoBcY3hyt0Z29v5OrwcT6dj2xTEXf+h/ecSMn0eN8iwhLnoLh+Ot
+	 FOTh+abEcvpZIkftmiAZI0oND+1Th81JOpN4WKTCTnxcAqf0h8glkM9sk+KYnpYJHg
+	 z/3yJH60EZv+g==
+From: Carlos Maiolino <cem@kernel.org>
+To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
+Cc: cmaiolino@redhat.com, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+In-Reply-To: <178832748977.3506928.16933046913052359243.stgit@frogsfrogsfrogs>
+References: <178832748977.3506928.16933046913052359243.stgit@frogsfrogsfrogs>
+Subject: Re: [PATCHSET v3 1/5] xfs: LLM-inspired bug fixes, part 5
+Message-Id: <178876250419.13884.755470661457092767.b4-ty@kernel.org>
+Date: Mon, 07 Sep 2026 08:28:24 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-vm_module_tags_populate() can fail after the reservation was stored
-in the maple tree, and the error return leaks the entry, since a
-failed load never unloads the module. Release it.
+On Tue, 01 Sep 2026 22:41:32 -0700, Darrick J. Wong wrote:
+> Here's a fifth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+> mwa...
+> 
+> v2: add RVBs
+> v3: add even more RVBs, finish review
+> 
+> If you're going to start using this code, I strongly recommend pulling
+> from my git trees, which are linked below.
+> 
+> [...]
 
-Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
----
- mm/alloc_tag.c | 1 +
- 1 file changed, 1 insertion(+)
+Applied to for-next, thanks!
 
-diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-index 248496470904..3c25475becbc 100644
---- a/mm/alloc_tag.c
-+++ b/mm/alloc_tag.c
-@@ -971,6 +971,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
- 			shutdown_mem_profiling(true);
- 			pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
- 			       mod->name);
-+			release_module_tags(mod, false);
- 			return ERR_PTR(grow_res);
- 		}
- 	}
+[1/6] xfs: fix unit conversions in per_binval computation
+      commit: 05cff7c2b79f76c7cfe90613a60e16aaaa051ef7
+[2/6] xfs: fix short ifork reaping computation in xreap_bmapi_binval
+      commit: eacb8479507756c3305994e87fb2fb1183827e98
+[3/6] xfs: fix name string recording in slowpath pptr tracepoints
+      commit: 72d0a3e4405c1353869bfbbc67c7b8a29df7afd0
+[4/6] xfs: don't leak dqacct if rhashtable insertion fails
+      commit: 2eac8d01d2c776fc26b0ac74aebdf91bc4490891
+[5/6] xfs: fix the rtrmap and rtrefcount _maxlevels_ondisk functions
+      commit: aa301322f72f82f26e4ba0826018d41388ab9896
+[6/6] xfs: fix media verification ioctl for internal rt volumes
+      commit: f789d291bbdac6bc02d9d77e0141e138626c17a8
+
+Best regards,
 -- 
-2.25.1
+Carlos Maiolino <cem@kernel.org>
 
