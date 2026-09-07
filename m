@@ -1,191 +1,214 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDD9233941;
-	Mon,  7 Sep 2026 17:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24A451E443
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 17:03:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800564; cv=none; b=QhiIx0I2n3U4R0nEXkMiR6HXPLBk77HdMzbHfc4tdeEFIpQm8WOUoV3DZNnzdRy+A82xVyxeGHs2fOvpsy5CCNqqKu8RmnGQEKT3wMlUJxo/+5CRRwTSSgLyYLYuliFw3Yp2VPLCHlr4jxA8s2bMlL/k+sgWvyMBDemp8JNYID4=
+	t=1788800639; cv=none; b=TDvQddRZlz7/GH2Gzr+2tsyf3TLVRB3aB3mxHW4JxysIquWP5xP1eHq5nGVXlCm5GiaaIbMyJYKBwpU4eD/dLqxNuXaiRyPT6sDXaKYleHbuPLiamXjuYeloS3hJqdA2AWAoPgNxcw1nn1eGjB9RI7tlOe5/qxs2FVdd6AEpUPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800564; c=relaxed/simple;
-	bh=X/s1XNaINmiUqzvzDx/P4+fqGZPIdSlPLAWBJ/UyuMw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=TsRABKXJxwwVSNCkxPbE8iMITGFxhaIgAgGjmVolbWQ4T8hewDfgrUZL7CpdcooookXUaWjExyp0Cl5p6sCPoGgxa4I9JEi/qenwzHeMvzzZ5bmCBXPqn6g154butBlCZoIH/MAk0LJQtT/ItIc66W+gLHfOpFt+aKJPyQnlkGE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KN1T63TQ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788800639; c=relaxed/simple;
+	bh=vrODrEGyPy2HxTFLumbTrn2pJSVr3wlu7+a/6nMWEHY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SZwHIyW4G+/16EKJv4fJDBK9u8PuvO0CclV+QMvMpYiM3IAPj1HTxQQ4TE2N9kf1ETb8X+oz0yE2QP/m3bsFZe22Zf94nqYYyEKDD15S5B7G6tmVfxNpbvkGhTa7jdZ7jTiqE30tSYlCAA9Y0ZvzeeUrhAK5MWmdWARf0IFjrsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=VO63anKm; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KN1T63TQ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 3E81F1A1A40;
-	Mon,  7 Sep 2026 17:02:40 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1059C60383;
-	Mon,  7 Sep 2026 17:02:40 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5B3DD11C7A34F;
-	Mon,  7 Sep 2026 19:02:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788800559; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=TPBFaRQq2cT8jbiEmrzWCCDROYRAcXs2NN30XcIR25k=;
-	b=KN1T63TQ3ZnSJ4mevdIUUZ4InvDmcu++2eCJ4+otbuUH2Ets5xoyZ+9kJhZ5a8xGv5PcGA
-	ie0THgIg+PNDIiIFC+MWtWqHxEP93hEmg2z8WhWwgULEKaFLJdWJIkFYJBQ1q71OslYolt
-	XGfIfhY/rdkh5o6hEnU1+xlwZxlhJlUkl8LVBRjdbDHL/SuqsUAHGrOwGMfdI/EhnBsvn3
-	v0t5llm2Ijc4tC+YO0AjP70IQTvhfrtGuLltTx7jduCMZVSo5aQ9KLjy6tAp/lpOCmPati
-	PrIMAjv9Mc1LXFZdQqfQ9dNuPReepM0H1TfedlhHr/Mo3q3+TZv613FsNO0SrQ==
-From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-Date: Mon, 07 Sep 2026 19:02:30 +0200
-Subject: [PATCH 6.12.y] tcp: clear sock_ops cb flags before force-closing a
- child socket
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="VO63anKm"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so44819265e9.2
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 10:03:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788800636; x=1789405436; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tvooa+L5cAyohFCcPjkllyWRWyPheMiofgVbNkk02cs=;
+        b=VO63anKmFXgLw3wqgiX8PYk0S3PntfdCjYFCSIQhA9uFPwIoEyIGbpSiLH4ndgnEK9
+         U7HNPFm6/kebnk7nIhR52g/Du26niutvt0MpNXdrZA3g0wwg5bN7M1vBo2K5GCdDZ/zI
+         BSU9Z9grYHOkMspfHdT2HGq0y7q7Kv4t84SO5FZd5D1YWqZvMedThEa7eq3HzmMP7n6W
+         gGmN2MLkZthBFFdQlnBpvzypgWCsYglY7aMx1xj5Sxvbqt47zl1MlBFVZXC4tC1aabPs
+         CaCCfa4gudRRdxpzFYxW+lq28N0z8a1iuImcdSZLthBjK9djdMWBzh1SVUd83E1AlAG8
+         vBcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788800636; x=1789405436;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tvooa+L5cAyohFCcPjkllyWRWyPheMiofgVbNkk02cs=;
+        b=IVMzf9sV5T20vLOCpV2euXk0CtmHGIQNL7+Uj3+HPFVJRrPgRZWd1+mMW1b1N8ErCc
+         1II0449/rUg69c3GgRXDUF1mQF8e7XXh+t5t7aVwOS4X0ZEpi+i4nfpTH6PZrhFqBnmg
+         ePGUtrFoggQdkzeS5S2HZa6Ow9H+tJGjkQpyUBzYpRORlktuMWkftveVqn1AkxWfG0g3
+         OOtamFRmuBHozcZ9pJ3e8KlV2tyP2m+P6N9LVL++Cb1EmTbHDua63sEVSJYlasO6QKbd
+         Atym7/8GXnx4hWcgeM9XCaroSMbwaAjQxVQihu6qU7cBLBQuEQhkuf91T2PdxBoscKot
+         MCOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwO2XUUeicaIQDBKmE7s+pL5W3Hs/6trQAzE8TGJKXg/ML1/qooR2xiGYtGX9aqV26wDi4If3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5w1dTpD6A6eMZVAIuwMY1UQJTpy3+h/QKfL4MJ8PXtwjB//PA
+	eUdW7l6UEqis96SLG3Gk6Y/4MT4eOFTc2n+Rm467ZHcOBu3tIELQdek8yBjKrjVVfDw=
+X-Gm-Gg: AYBFou08buJfL2ZTGAAu2RZIlXeUjld1CA6Fw0dJaurvUvCUK72miUsnC+gCmcTdSD6
+	d5/X4JUBEebGWXXCFEcue/O9HMpCyA8upLhFbnFVJKQpS20CFet5cev8eOsLdiJRX85VicKiOpQ
+	ajA1O5YpXJSP1WW7JQ/gOHYXx+abYGGdbkoUaiRUN+IrkulzqaQr0rOdnHHke6Ej83+5/BM0/K/
+	8deEE/dXGsCwE1pqIepOv+tN1jimrRIRzhrYUFRrVpoeU4UEIME2fPqkfvcHe3EM6VFy1hBk5OA
+	vGvvLg1fBoaQCg10dWU7b9VXviLsXUVW/spVQRMbVOZuJZxSOd5buOGoZuNaZDyJ+89p5j9JbMU
+	Jyhv0J2MTrA8N2QdVFZuxi0LqK/UmYj++rQw03GWPfT/UTWJOsBZeYcjFALoyY1xengJ6RYYDHk
+	wXHfgoW33gTmPO3GTaK/uQSNj0ItvCjJl1MCya5GwzEGuo8AT2i7w=
+X-Received: by 2002:a05:600c:e555:20b0:49d:1756:8c4a with SMTP id 5b1f17b1804b1-49d17568c5fmr17878935e9.17.1788800635690;
+        Mon, 07 Sep 2026 10:03:55 -0700 (PDT)
+Received: from localhost.cz ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm233462305e9.4.2026.09.07.10.03.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 10:03:54 -0700 (PDT)
+From: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+To: Tejun Heo <tj@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	stable@vger.kernel.org,
+	Noah Elias Feldt <N.Feldt@mittwald.de>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Subject: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero refcount
+Date: Mon,  7 Sep 2026 19:03:44 +0200
+Message-ID: <20260907170345.45316-1-mkoutny@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-cve-2026-74268-v1-1-cacea38d7fb3@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CMBBD0atUXjNVEiCBXgWxgMHAsCgogQpU9
- e6ksHyW/EcUZmNB14zIHKzYva/wiwZ6PfQXip2qEVyIbuuS6ECZIWkV4kY8U/Jr1SWVqKdH5tn
- ev+AOsfWh/WD/38vreKM+5xqm6QtZUEhfegAAAA==
-X-Change-ID: 20260907-cve-2026-74268-1e7715cc3ece
-To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- David Ahern <dsahern@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
- Lawrence Brakmo <brakmo@fb.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
- Sechang Lim <rhkrqnwk98@gmail.com>, Jiayuan Chen <jiayuan.chen@linux.dev>, 
- Kuniyuki Iwashima <kuniyu@google.com>, Sasha Levin <sashal@kernel.org>, 
- "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788800553; l=4566;
- i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
- bh=eQtDX2FDK17S6DsoeWyEMqBzN907bygcNtweixVS7tM=;
- b=3rkpEAzzhblkFI6ongGK7I6+IHHAbACofPIdRX27pJXf5AMvX04hoEk7+5iin0lSw7SWL1+Aw
- tx/1VEXb78tDMiLQTFvpy9mE8M15LURzfTA6MsyxqYPpnmFTgQfO3U2
-X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
- pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Sechang Lim <rhkrqnwk98@gmail.com>
+The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+cgroup_task_release() to cgroup_task_free()") extended the lifetime of
+tasks on the dying_tasks list.
+The iterators have provision to go through dying_tasks because of
+dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
+it was expected that such tasks can obtain a new reference (that is
+possible before cgroup_task_release()/put_task_struct_rcu_user()).
+The tasks after cgroup_task_release() and before cgroup_task_free()
+are subject to race when they may or may not have usage count > 0.
+The iterator should not attempt to resurrect tasks whose usage count
+dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
+already imminent and the returned task_struct would could be used
+after free.)
 
-[ Upstream commit 990348e5bb457697c2f1f7f7b65154a3334d9d2b ]
+To avoid dispatching such tasks through the iterator, recheck the
+threadgroup's size (follows same logic we have at other places) and skip
+such tasks on the dying_tasks list.
 
-A child socket inherits the listener's bpf_sock_ops_cb_flags via
-sk_clone_lock(). If its setup fails in tcp_v4_syn_recv_sock() /
-tcp_v6_syn_recv_sock(), the child is freed through put_and_exit, where
-inet_csk_prepare_forced_close() drops the socket lock and tcp_done() runs
-without it.
+Rough illustration of the possible race
 
-If BPF_SOCK_OPS_STATE_CB_FLAG was inherited, tcp_done() -> tcp_set_state()
-calls tcp_call_bpf(), which expects the lock and trips sock_owned_by_me():
+  R (reader of cgroup.procs)         T (thread)                       L (group leader)
+  ---------------------------------  -------------------------------- --------------------------------
+                                                                      L exits, signal->live > 0
+                                                                      cgroup_task_dead(L)
+                                                                        css_set_skip_task_iters() // skips only cset->tasks
+                                                                        list_add_tail(&L->cg_list, &cset->dying_tasks)
+  css_task_iter_next()
+    take css_set_lock
+    css_task_iter_advance()
+      leader && signal->live != 0
+      => it->task_pos = &L->cg_list
+    release css_set_lock
+                                     T exits 					[A]
+                                     --signal->live == 0  // we can check this
+				     cgroup_task_dead(T) // css_set_lock	[C]
+                                     release_task(T)
+                                       cgroup_task_release(T)
+                                       release_task(L) // zap_leader
+                                         cgroup_task_release(L)
+                                         put_task_struct_rcu_user(L)
+                                         ...RCU...
+                                         put_task_struct(L)
+                                           L->usage = 0
+                                           /* L still on dying_tasks */
+                                           ...RCU...
+                                           __put_task_struct(L)
+  css_task_iter_next() // another iteration					[B]
+    take css_set_lock
+    it->task_pos = &L->cg_list
+    get_task_struct(L)
+      => addition on 0
+    drop css_set_lock
+                                           cgroup_task_free(L)
+                                             css_set_skip_task_iters() // dying skip comes too late
+                                           free_task(L)
+  cgroup_procs_show()
+    task_pid_vnr(L)
 
-  WARNING: include/net/sock.h:1799 at tcp_set_state+0x433/0x550
-  RIP: 0010:tcp_set_state+0x433/0x550 include/net/sock.h:1799
-  Call Trace:
-   <IRQ>
-   tcp_done+0xba/0x250 net/ipv4/tcp.c:5095
-   tcp_v4_syn_recv_sock+0x850/0xa50 net/ipv4/tcp_ipv4.c:1787
-   tcp_check_req+0xf30/0x1360 net/ipv4/tcp_minisocks.c:926
-   tcp_v4_rcv+0x1047/0x1b50 net/ipv4/tcp_ipv4.c:2164
-   </IRQ>
+cgroup_task_release() is not synced via css_set_lock hence the race
+possibility. (I'm not 100% convinced about this LLM-assisted
+interleaving, multiple css_task_iter_next() calls may be involved with
+css_set_lock released.)
 
-The child is freed before it is ever established, so it should run no
-sock_ops callback. Clear its cb flags in inet_csk_prepare_for_destroy_sock(),
-the common point for the IPv4, IPv6 and chtls forced-close paths and for the
-MPTCP ->syn_recv_sock() failure path (dispose_child), which reaches tcp_done()
-on a child that was never established too.
-
-Suggested-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Fixes: d44874910a26 ("bpf: Add BPF_SOCK_OPS_STATE_CB")
-Signed-off-by: Sechang Lim <rhkrqnwk98@gmail.com>
-Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260611092923.1895982-1-rhkrqnwk98@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Moved inet_csk_prepare_for_destroy_sock() to inet_connection_sock.c due to header dependency ]
-Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
+Cc: stable@vger.kernel.org # v6.19+
+Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
+Suggested-by: Tejun Heo <tj@kernel.org>
+Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
+Reported-by: Salvatore Bonaccorso <carnil@debian.org>
+Tested-by: Noah Elias Feldt <N.Feldt@mittwald.de> # if-variant
+Signed-off-by: Michal Koutný <mkoutny@suse.com>
 ---
- include/net/inet_connection_sock.h | 8 +-------
- include/net/tcp.h                  | 9 +++++++++
- net/ipv4/inet_connection_sock.c    | 8 ++++++++
- 3 files changed, 18 insertions(+), 7 deletions(-)
+ kernel/cgroup/cgroup.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index bcc138ff087b..534f4fafad42 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -296,14 +296,8 @@ reqsk_timeout(struct request_sock *req, unsigned long max_timeout)
- 	return (unsigned long)min_t(u64, timeout, max_timeout);
- }
- 
--static inline void inet_csk_prepare_for_destroy_sock(struct sock *sk)
--{
--	/* The below has to be done to allow calling inet_csk_destroy_sock */
--	sock_set_flag(sk, SOCK_DEAD);
--	this_cpu_inc(*sk->sk_prot->orphan_count);
--}
--
- void inet_csk_destroy_sock(struct sock *sk);
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk);
- void inet_csk_prepare_forced_close(struct sock *sk);
- 
- /*
-diff --git a/include/net/tcp.h b/include/net/tcp.h
-index 1cc25e0b3bde..c472c1cdd3b8 100644
---- a/include/net/tcp.h
-+++ b/include/net/tcp.h
-@@ -2702,6 +2702,11 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return tcp_call_bpf(sk, op, 3, args);
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+	tcp_sk(sk)->bpf_sock_ops_cb_flags = 0;
-+}
-+
- #else
- static inline int tcp_call_bpf(struct sock *sk, int op, u32 nargs, u32 *args)
- {
-@@ -2719,6 +2724,10 @@ static inline int tcp_call_bpf_3arg(struct sock *sk, int op, u32 arg1, u32 arg2,
- 	return -EPERM;
- }
- 
-+static inline void tcp_clear_sock_ops_cb_flags(struct sock *sk)
-+{
-+}
-+
- #endif
- 
- static inline u32 tcp_timeout_init(struct sock *sk)
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 91dcdb7567ac..e0bd8e76fa78 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -1315,6 +1315,14 @@ void inet_csk_destroy_sock(struct sock *sk)
- }
- EXPORT_SYMBOL(inet_csk_destroy_sock);
- 
-+void inet_csk_prepare_for_destroy_sock(struct sock *sk)
-+{
-+	/* The below has to be done to allow calling inet_csk_destroy_sock */
-+	tcp_clear_sock_ops_cb_flags(sk);
-+	sock_set_flag(sk, SOCK_DEAD);
-+	this_cpu_inc(*sk->sk_prot->orphan_count);
-+}
-+
- /* This function allows to force a closure of a socket after the call to
-  * tcp/dccp_create_openreq_child().
+Changes from v1 (https://lore.kernel.org/r/20260902161653.1051794-1-mkoutny@suse.com)
+- check task->signal->live instead of t->usage
+- add css_set_lock release to sequence diagram
+
+My comments to the signal-live variant.
+
+First, I replaced the if() with a while() loop because when one such
+dying leader could remain on dying_tasks, there can be more of them
+(matter of effort) and single css_task_iter_advance() won't be enough
+(we need to skip all such tasks before get_task_struct()).
+
+<del>Second, if [B] races at moment of [A] (signal->live still positive)
+and before [C], usage can still drop to zero.</del> Nothing, given the
+ordering, positive signal->live implies positive L->usage so the
+proposed check should be OK.
+
+Thanks,
+Michal
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index c3a12fee7528f..d3069a5e9185d 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -5290,6 +5290,7 @@ void css_task_iter_start(struct cgroup_subsys_state *css, unsigned int flags,
   */
-
----
-base-commit: 064531c7e30cd67b79c0c694ac97f00c7796f4d6
-change-id: 20260907-cve-2026-74268-1e7715cc3ece
-
-Best regards,
---  
-Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
+ struct task_struct *css_task_iter_next(struct css_task_iter *it)
+ {
++	struct task_struct *task;
+ 	unsigned long irqflags;
+ 
+ 	if (it->cur_task) {
+@@ -5303,6 +5304,21 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
+ 	if (it->flags & CSS_TASK_ITER_SKIPPED)
+ 		css_task_iter_advance(it);
+ 
++	/*
++	 * @it->task_pos was picked on an earlier call. A dying leader stays on
++	 * dying_tasks until cgroup_task_free(), past its last usage ref drop,
++	 * so it may have been reaped since and get_task_struct() on it would
++	 * resurrect a task about to be freed. That last ref is dropped by an
++	 * RCU callback queued from release_task(), after signal->live hit zero,
++	 * so a leader still showing live threads in this irq-disabled section
++	 * can't lose its ref before the section ends.
++	 */
++	while (it->task_pos && it->cur_tasks_head == &it->cur_cset->dying_tasks) {
++		task = list_entry(it->task_pos, struct task_struct, cg_list);
++		if (!atomic_read(&task->signal->live))
++			css_task_iter_advance(it);
++	}
++
+ 	if (it->task_pos) {
+ 		it->cur_task = list_entry(it->task_pos, struct task_struct,
+ 					  cg_list);
+-- 
+2.55.0
 
