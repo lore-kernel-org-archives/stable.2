@@ -1,110 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A386F3546C1
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 22:07:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 030B03BB113
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 22:12:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818845; cv=none; b=o4Mk/gnd8kwpKUC5hrYXvqLwrOvDjZ4ULdya3bv5fWw9WFuRgQ1xnEpKcGog3X8zJ98tEJPOLhYoSxNWv+03/HoL1UyJgc7MSWZq3QFnkrq+fhl5N1bH5CP2lKo7lhbRwAI0WYuH4ScaUgjfGOohkKc0NPzivPxr5vWMHnV6vpc=
+	t=1788819165; cv=none; b=gesmsKTAiieq4SIzhPgRBGBrHCRsoTkkaDEzx2deQUu0EJZIf+LSCFZIv0C9C2MMTm7E94jKktzoj/Ed643wV07gECINA7ReEqIwyKEUxa65wktP0ioS8v3v8j6xv42qZLoRmuuYQDBzWoahV6V7aFKJuOWh/pG1sFNO/I0yIMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788818845; c=relaxed/simple;
-	bh=y8R91NqxziWrSYcBTpRJQsjckvg81+i3yriWO78DF6w=;
+	s=arc-20240116; t=1788819165; c=relaxed/simple;
+	bh=tugY/PAXEYwGPWERXaK/QV/fN5HAPMBg+EUlT+9EDhc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f9d/hBmi4eMaIDzNRZ00LWPBE3BHhWk9M0kFBhm5vsag5F8x1FfP8drDcSv4ofKYo2l9P/zlg1GZdUjCm6II6aslFjEr3Rdc1C4g0G/h3oS0s+FcI3Tpw0J8RJDa+K/Jw6bRoRFm8oizbMBR0bPmDmVW+/Wt/YP8iTplyXSNCTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nE5XU4xJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=kqnY3sZnSt5WcusDe4pvvYJ4K5gORRB2zrUGxP6WfxbSP6VuxpKikbMcX/YUMREm8zvfmiLB0V4fbplsUkAeV3C8LtKzwLxUPJEqwpo3fPrR0ZH6YaV7RPailwm9kxIOXcwCgEM5pUELtABd/Tou6L4L6usFDOcWKbAtzcQPwME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWGIHS7G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nE5XU4xJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D001F00A3D;
-	Mon,  7 Sep 2026 22:07:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWGIHS7G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07B601F00A3A;
+	Mon,  7 Sep 2026 22:12:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788818844;
-	bh=JtXREQJdWDy6KnOyMuznLFHne316ueGPWeFi2TEi0sw=;
+	s=k20260515; t=1788819163;
+	bh=Qkt2UfqpD1xhjC7Ina8fvjdMSKUjW+nDfFd6840eah0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nE5XU4xJoC9pflk9ecNWPkF7my6WKXC24ZzQJWZomSbBb2PyP9+hxnckcdvgzsqtI
-	 bkfwm2/n76hUmSyNBAI7GSekuze56L19QkusUO1FBHyktSzaktQBDm4ohirw/a27cR
-	 u13r8ZTEulSaobrVaHFl3UMA5fhbCY62XTd9GWl2oUr7RQBKJSq8T8zezOEbqhD1yY
-	 OhKcOmwF5j+Ruihs6u+5lLzKWEnDlj8eNGCudrIvkqNQQ447tW4+AtBh/2tfM5ZI7U
-	 kI4SJNF2fAAv/9I7pka2v1x0z4z8HVvbgd6mJWjx4vrc9Of7rF5SntyKluw4jSOoYe
-	 ZRX/VPe7ks/xQ==
+	b=LWGIHS7GzWW5iGWjD0MsvxNAlW9q0zabtyTRCHJw5Z4kkN92rYj1uHe0dQ/njP5Zu
+	 82BMWA1v8TMroHSIqX3rvV/25lZmCiL4S51xSpIHx7kgoZhy2QIOKncAIBtfPysJAo
+	 JJNxfsL1WaE6LqHA6wt71RoYJdEsAWHVBJXBAPArlbmhfUCdEwSwegiD9RaIopu1pD
+	 fSBAfNAhFZViTjHVdTiLGWObWSafKgvILjwAllBcekcZSKcKC4stmKtqmyeRHI1VAn
+	 P+Qsnheb3ebtmk7L3sqNeuc10NRjk/hxsvhvlZARYMTXm8NlkY74yT1/izdEN2BPIy
+	 Wbem4lF+Ye3Tw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+Cc: Florian Pradines <florian.pradines@gmail.com>,
+	=?UTF-8?q?Beno=C3=AEt=20Sevens?= <bsevens@google.com>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] HID: mcp2221: clear rxbuf after I2C/SMBus transfer completes
-Date: Mon,  7 Sep 2026 18:07:21 -0400
-Message-ID: <20260907220721.641617-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] HID: mcp2221: fix OOB write in mcp2221_raw_event()
+Date: Mon,  7 Sep 2026 18:12:40 -0400
+Message-ID: <20260907221241.650068-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907220721.641617-1-sashal@kernel.org>
-References: <2026090357-reference-varied-a710@gregkh>
- <20260907220721.641617-1-sashal@kernel.org>
+In-Reply-To: <2026090357-unleash-dimple-e652@gregkh>
+References: <2026090357-unleash-dimple-e652@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+From: Florian Pradines <florian.pradines@gmail.com>
 
-[ Upstream commit db2333f88729c8aae062cb171ed058725ff5c901 ]
+[ Upstream commit f097d246677b03db814c5862f368cea341b76a00 ]
 
-mcp_i2c_smbus_read() stores the caller-supplied buffer pointer in
-mcp->rxbuf for the duration of a transfer but never clears it when the
-transfer finishes or times out. Once the caller frees or reuses the
-buffer, mcp->rxbuf becomes a dangling pointer. A delayed or spurious
-MCP2221_I2C_GET_DATA report can then drive mcp2221_raw_event() to
-memcpy device data into the freed memory, causing a write
-use-after-free.
+mcp2221_raw_event() copies device-supplied data into mcp->rxbuf at
+offset rxbuf_idx without checking that the copy fits within the
+destination buffer. A device responding with up to 60 bytes to a
+small I2C/SMBus read can overflow the buffer.
 
-Route all return paths through a single exit point that clears
-mcp->rxbuf and mcp->rxbuf_size, so that the existing !mcp->rxbuf guard
-in the raw_event handler can reject any report arriving after the
-transfer has ended.
+Add a rxbuf_size field to struct mcp2221, set it alongside rxbuf in
+mcp_i2c_smbus_read(), and check rxbuf_idx + data[3] <= rxbuf_size
+before the memcpy.
 
-Fixes: 67a95c21463d ("HID: mcp2221: add usb to i2c-smbus host bridge")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Reported-by: Benoît Sevens <bsevens@google.com>
+Signed-off-by: Florian Pradines <florian.pradines@gmail.com>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: db2333f88729 ("HID: mcp2221: clear rxbuf after I2C/SMBus transfer completes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-mcp2221.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/hid/hid-mcp2221.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
-index f041e47ffba1e..2332ce6cf5cc5 100644
+index 9fb98c8e1ffb7..239efb89490f9 100644
 --- a/drivers/hid/hid-mcp2221.c
 +++ b/drivers/hid/hid-mcp2221.c
-@@ -302,7 +302,7 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
+@@ -93,6 +93,7 @@ struct mcp2221 {
+ 	u8 *rxbuf;
+ 	u8 txbuf[64];
+ 	int rxbuf_idx;
++	int rxbuf_size;
+ 	int status;
+ 	u8 cur_i2c_clk_div;
+ 	struct gpio_chip *gc;
+@@ -289,12 +290,14 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
+ 		mcp->txbuf[3] = (u8)(msg->addr << 1);
+ 		total_len = msg->len;
+ 		mcp->rxbuf = msg->buf;
++		mcp->rxbuf_size = msg->len;
+ 	} else {
+ 		mcp->txbuf[1] = smbus_len;
+ 		mcp->txbuf[2] = 0;
+ 		mcp->txbuf[3] = (u8)(smbus_addr << 1);
+ 		total_len = smbus_len;
+ 		mcp->rxbuf = smbus_buf;
++		mcp->rxbuf_size = smbus_len;
+ 	}
  
  	ret = mcp_send_data_req_status(mcp, mcp->txbuf, 4);
- 	if (ret)
--		return ret;
-+		goto out;
- 
- 	mcp->rxbuf_idx = 0;
- 
-@@ -324,7 +324,7 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
- 			} else {
- 				usleep_range(980, 1000);
- 				mcp_cancel_last_cmd(mcp);
--				return ret;
-+				goto out;
- 			}
- 		} else {
- 			retries = 0;
-@@ -334,6 +334,10 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
- 	usleep_range(980, 1000);
- 	ret = mcp_chk_last_cmd_status_free_bus(mcp);
- 
-+out:
-+	mcp->rxbuf = NULL;
-+	mcp->rxbuf_size = 0;
-+
- 	return ret;
- }
- 
+@@ -797,6 +800,10 @@ static int mcp2221_raw_event(struct hid_device *hdev,
+ 					mcp->status = -EINVAL;
+ 					break;
+ 				}
++				if (mcp->rxbuf_idx + data[3] > mcp->rxbuf_size) {
++					mcp->status = -EINVAL;
++					break;
++				}
+ 				buf = mcp->rxbuf;
+ 				memcpy(&buf[mcp->rxbuf_idx], &data[4], data[3]);
+ 				mcp->rxbuf_idx = mcp->rxbuf_idx + data[3];
 -- 
 2.53.0
 
