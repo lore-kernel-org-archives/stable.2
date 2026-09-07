@@ -1,100 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75D643DA38
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 22:59:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48AF73815F3
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 22:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788821973; cv=none; b=sKpZh+8IpuDS+b5X8MFxFfCoJ+ycuTFc9iLqXPmjByaIcxMZhbAVm1sbLOfTxgVhpLJE9DE2zVoWrtl/LX5M0WFYLyQjN1+ndHx1Io+V2nH4DxVYL1OVvzqnSWP+rbKR2Lws8vkMhuBWYkpt20FYyznqgwW4T5f+QZ7+N2TL/ic=
+	t=1788821984; cv=none; b=rQIRRnYi7pchkAT2UEuExyD/j3vBnDrqipgiem0xiqXzopynar5gBiIC3VPCV09qAF5uPlbN+EVacUgiY3Q0BFHVtx4HDaYSctGqTsXXHNp+MCW4kqDb9lZrpxYnod1TGWlkbC3P2Yb5U04E+RQiYBW6j1NIAS6m96yMrTp9Mdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788821973; c=relaxed/simple;
-	bh=vHEEnrnZj24hlT9PJ/d72YqWgZ+j0fWPy7HybQ+3MiU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JDsxbQY8eLs5zwK/HSQuo1n6pOPzWy+cIEvbi70DsGHOyOpzoWPcNvtGqFIfYXQfOPY1kb0oygsX97BhM4Lxhj3hhfdYnUPibVltCyrNhK9NosLAI04URobNcO14ZaWmq+zu+uD8ogUIa7lKzul5HKoscl/+fZ0oaA3rCEeSp+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cF7jT0ji; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788821984; c=relaxed/simple;
+	bh=O5TUJ1SPfk9l3n1tUztikFuB7w6B+QFSstUdv0hxknE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=egT6RT5gUAT6WYe8/IVgj7pqDqnAlw1aYjO/GqZKDb8K/nDCy4/9LQQUeM/SpKJ8vt2rqEqj0Na1sq3tZuoNL5Na0qFy856aSDLcEb/IdTHPf3CbPj3i4QebTHXqY2eguemvizoSECj2pTMQvQk9v73tl/nNfiB5hY5krB5Dwc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n+0a6K7g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cF7jT0ji"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A21D1F00A3F;
-	Mon,  7 Sep 2026 22:59:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n+0a6K7g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F20B81F00ACF
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 22:59:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788821971;
-	bh=HoRvicOoZHwrArEaqntn3hNnMbMFYcRF9eeR3KVp1HM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cF7jT0jim8NE5q4UiatBzq6fjcAFZOv5ZG1VKgTqDcNPzpYLH4u8PQgXaO0Apcg5Q
-	 YvZA8LczPsjphNDP8R2yjeUnLnlBbyFRKNzLnL6HGOhbPv3r+Rw7KRjMLDk+3IE1Mm
-	 YoQgbhcKQVzozHWw/+QfE+5LDaLD8+kWnXlU3+3gTldJYlm5h/CSwRTAFJVU1sFg4a
-	 6L1buoyLtQHfxUxr52JzXhSquP5AslRzCOeYBJ+3cCB1tsKAHFn+UI2xicWhjbLxts
-	 xEvJSmkMCrwG4bmvHuu40sXDFSdSVr4b4f3WAqqb1xbnjSeP0yii5osWrhjJ/uoDmk
-	 DUXpiWQAqmm/Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <cel@kernel.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] NFSD: Prevent client use-after-free during close_lru reaping
-Date: Mon,  7 Sep 2026 18:59:27 -0400
-Message-ID: <20260907225927.712336-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907225927.712336-1-sashal@kernel.org>
-References: <2026090304-waking-garnish-23bc@gregkh>
- <20260907225927.712336-1-sashal@kernel.org>
+	s=k20260515; t=1788821983;
+	bh=O5TUJ1SPfk9l3n1tUztikFuB7w6B+QFSstUdv0hxknE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=n+0a6K7gaS/OszLOAMmYvayG9LDssPFSFQ38CQejo65dW6GA3Wz2KaBCJLh8EDYRT
+	 EJ1BqsbhVkYKD2gMY+CN0MtQsAMgFmooeLXAkRpZH9phOGtX25NwdyzP/qHE0gSkBT
+	 lZj2MQKdq7uD+rXW8a7hEj2TM7C2o0Iu/yJ1jElFUM/vQsRQ4V2gsb2bfZCQKkhyXg
+	 xhxgvEoja17wCvcrKox4nhMquKR6kfWU7qC2u63b3f4MrSjn1i5qOZMgodrakgwQk7
+	 SoLbAfyH2BUkAdy4qWvDJrOXyecbEqu7ONjkY+7BN+hfp2weQm6Zw7BQZU4RNEj2q7
+	 mb+d/7XCX7D6g==
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so377009866b.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 15:59:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxiMOSdvRchp1ESQQ4ly9rzYH/YWxvJmGlCFAqILXW3IXDIZLI+SGawp/j7jJj+xBcb0wiVXAQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzd5RfJKT60V9yo5YA1Gmt0qokjhTeVzpdw/yIiionho3XuPiQ
+	EVTsheOJKKpUkQ38lNywMdjq52uNvi0ll0DI9xnBWVhFKZQ8mX9XmhKFtMuIcF3B6rprQIABtsN
+	sSPRZiOTJD9GaaymVNSJ4196LebOl1jo=
+X-Received: by 2002:a17:907:3f98:b0:c26:19e3:e988 with SMTP id
+ a640c23a62f3a-c2619e3ef32mr845471166b.40.1788821981576; Mon, 07 Sep 2026
+ 15:59:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260906200517.725015-1-pc@manguebit.org> <20260906200517.725015-3-pc@manguebit.org>
+In-Reply-To: <20260906200517.725015-3-pc@manguebit.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 8 Sep 2026 07:59:27 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-XhacE=52vRVjwTi14t6Kr+27Uiw=uqEMJLF8169R2Tg@mail.gmail.com>
+X-Gm-Features: AcwNN1Va2XxklPjg8CKZDjMvfjmDXDsc-ZkpJB43-p7Z54eMz-5EE3IBUjRRV8U
+Message-ID: <CAKYAXd-XhacE=52vRVjwTi14t6Kr+27Uiw=uqEMJLF8169R2Tg@mail.gmail.com>
+Subject: Re: [PATCH v4 3/7] smb: client: fix WSL reparse point uid/gid override
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: linux-cifs@vger.kernel.org, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
+	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>, 
+	Bharath SM <bharathsm@microsoft.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Chuck Lever <cel@kernel.org>
-
-[ Upstream commit 2330b788d732f43668b965b3105b37ceb276dfea ]
-
-An nfs4_openowner left on nn->close_lru after its final CLOSE keeps
-its last closed stateid in oo_last_closed_stid, holding only a raw
-pointer to its nfs4_client. The laundromat reaps timed-out entries,
-drops nn->client_lock, and calls nfs4_put_stid(), which dereferences
-the client through cl_lock. Nothing pins the client across that
-window, so a concurrent force_expire_client() can free it and
-nfs4_put_stid() reads freed memory. __destroy_client() hits the same
-race, walking clp->cl_openowners without cl_lock.
-
-Pin the client with cl_rpc_users before dropping client_lock, and
-skip clients already expiring. __destroy_client() then cleans up its
-own close_lru entries through release_last_closed_stateid(), so
-teardown no longer races the laundromat.
-
-Fixes: 217526e7ecc9 ("nfsd: protect the close_lru list and oo_last_closed_stid with client_lock")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260709-cel-v4-8-1d519d9be0cb@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/nfsd/nfs4state.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 07da5353644e1..d8c44eddf38ed 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -7155,11 +7155,16 @@ nfs4_laundromat(struct nfsd_net *nn)
- 		if (!state_expired(&lt, oo->oo_time))
- 			break;
- 		list_del_init(&oo->oo_close_lru);
-+		clp = oo->oo_owner.so_client;
-+		if (is_client_expired(clp))
-+			continue;
- 		stp = oo->oo_last_closed_stid;
- 		oo->oo_last_closed_stid = NULL;
-+		atomic_inc(&clp->cl_rpc_users);
- 		spin_unlock(&nn->client_lock);
- 		nfs4_put_stid(&stp->st_stid);
- 		spin_lock(&nn->client_lock);
-+		put_client_no_renew_locked(clp);
- 	}
- 	spin_unlock(&nn->client_lock);
- 
--- 
-2.53.0
-
+On Mon, Sep 7, 2026 at 5:05=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> w=
+rote:
+>
+> wsl_to_fattr() unconditionally overwrites cf_uid/cf_gid with values
+> from WSL extended attributes ($LXUID/$LXGID), ignoring the forceuid
+> and forcegid mount options.
+>
+> Fix this by initializing cf_uid/cf_gid to the mount defaults and
+> gating the $LXUID/$LXGID EA parsing on forceuid/forcegid.
+>
+> Closes: https://sashiko.dev/#/patchset/20260906190803.667489-1-pc%40mangu=
+ebit.org
+> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+> Cc: Namjae Jeon <linkinjeon@kernel.org>
+> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+> Cc: Shyam Prasad N <sprasad@microsoft.com>
+> Cc: Tom Talpey <tom@talpey.com>
+> Cc: Bharath SM <bharathsm@microsoft.com>
+> Cc: stable@vger.kernel.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Thanks!
