@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1FA735C6BF
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 21:36:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FAE43E9FB
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 21:36:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788817004; cv=none; b=KqaWA3kH0YhbKIXFVnxQ9f++dkX1EItvqK2Ti8Xwz+2W9pddtZoka4RFgsIMEDfJVuow1ERsPtta0gfzAZ/Wmf8ndaA7EMFfVwGLkaVIlBs986bZNQp+Xv51xWM4Rs3CwcVQuvy6v1hWqPhIVuXjAAZZ2GzxaLTikuIK6ZMC+K8=
+	t=1788817005; cv=none; b=EvpI8KRsH0X9XcOWlqBkGPlucsyltf3y44Wn3wkSgYTKIYk7Si5yxO7Rwf7QdO8RFWDcwSkew4kcrDzehSfUUh7r6D98ioFNwkIqNr+GSoE+LexNbluRFDi1+tJDKcJqg2KJMvFfBDHQdl87uSq99xiGBxVFt+m5zQqxE8Q+PEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788817004; c=relaxed/simple;
-	bh=KCwIBH5vEmGdx+AZOB+cCqrXbiX4rEIUKsgtUtwySlY=;
+	s=arc-20240116; t=1788817005; c=relaxed/simple;
+	bh=SfAyjTdAuEzlOANm8YlGPhf43HZzRwnpi0SyN48lIOc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pkt1QivzZHsBTbRLthaG+qfcQLGzB/OZCPtFH5qM+ZapFz+cb4KOQJjIuKxCOQYIPuto+fsoKNwbl21OvzI6/KmOfmJ28fBaqw56Pzp4RbWcpbvhAkUYTsL7J8grEW7pYg27t18mAHt+RjCPk74XsB+LBXJcMfRTmLnFseoUm2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=np8BpKsI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M4LpQRN185QOLy705XtndaMaEis/IILtZeV+sd1g/ulLNbG50JqHvRaAjpiRX5g7Zj2AoUnTZS9AVmbkKn0jyHgKHMP6nHc1yXXFNcr/Zg+omz38ByMeYFlDqBgX93IeD8Ecn+01WYPllzd9BHg4H3gqY1ARAdneSgZBd2JanSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R4llj3Eo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="np8BpKsI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30AC21F00ADB;
-	Mon,  7 Sep 2026 21:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R4llj3Eo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FA3B1F00AC4;
+	Mon,  7 Sep 2026 21:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788817002;
-	bh=dvGcEgHx7nwCOsjKIZ2UDzm2bU5zH+i9YTDA8HfwoAo=;
+	s=k20260515; t=1788816996;
+	bh=rlKzvR4db12+Qukmx6qkTUm7jO7jV/RT++SyiXHeTyE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=np8BpKsIue23axuRM6k7iST9KrGDVbFctczbDpiWAoZ3MS6thL8FyXbT9arNFvYyC
-	 F05YBGD7imqir818KhFbaLdInAvMwdL/1g5z8RRPr+D4dPRwlMuB11Jjz6IdcIeA6G
-	 DwSifrFarS/Jid1NNZLqz2K9ZatQSVeZNfFHPW8ZwLBmrWJsCAsiPQj7oyLftXhDxI
-	 P2QcgIxJXVNtDTP5lon9+1Bvsd5K+wRBwukoGgfl02mC5zs9C8651eSVMTOiOJNa+o
-	 t8VsyIpc83D4cAPErqmr3gfZgs2w/RyTtI3CLZc7yD1PH6wlItn/1QEKH03mS5sH1x
-	 MH4c2flWxwCnQ==
+	b=R4llj3EoCLmoQSs9zdZHDSsQQRnXuHPwh5PfpZPUACXdFkfMGaRQi0y0Dwn7lLy1C
+	 RX4BYFd1wMu4czgIaaaLWH/Qv2rQy9HrXOhrJlINb0r4wH7/dPXpirgzTfYTYy3L2W
+	 /PqNReHKTULiJKAL4jARcR1jmdPAyfRGk55prrs40BmwULIOba197bDz/s2NJLLlTt
+	 j9frgefnv3b+UJ5Qs8+oxqdZqcaq/B18462TvjKB/K1pKLSSo+m4smomT+3e4n3x5q
+	 PM6WVDrQy205Dc2CUmAeq8hFSzU/W/tRCtMVfm8XVnz2cX4iI11rcx0jeFqdZBTA8O
+	 Vd2iVpfOqdR3A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 5/5] HID: sony: clean up device list on probe failure
-Date: Mon,  7 Sep 2026 17:36:37 -0400
-Message-ID: <20260907213637.574137-5-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] HID: mcp2221: clear rxbuf after I2C/SMBus transfer completes
+Date: Mon,  7 Sep 2026 17:36:33 -0400
+Message-ID: <20260907213633.573900-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907213637.574137-1-sashal@kernel.org>
-References: <2026090344-dislocate-egging-04af@gregkh>
- <20260907213637.574137-1-sashal@kernel.org>
+In-Reply-To: <20260907213633.573900-1-sashal@kernel.org>
+References: <2026090356-tusk-brunt-33b1@gregkh>
+ <20260907213633.573900-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,122 +46,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit 7c65699a3a311198a07659a614fe64d45924839e ]
+[ Upstream commit db2333f88729c8aae062cb171ed058725ff5c901 ]
 
-sony_input_configured() adds some controllers to sony_device_list before
-HID core registers their input devices. input_register_device() can fail
-after the callback returns successfully. sony_probe() then observes that
-HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
-The devres-managed sony_sc is freed while its list node remains linked, so
-the next matching controller traverses freed memory.
+mcp_i2c_smbus_read() stores the caller-supplied buffer pointer in
+mcp->rxbuf for the duration of a transfer but never clears it when the
+transfer finishes or times out. Once the caller frees or reuses the
+buffer, mcp->rxbuf becomes a dangling pointer. A delayed or spurious
+MCP2221_I2C_GET_DATA report can then drive mcp2221_raw_event() to
+memcpy device data into the freed memory, causing a write
+use-after-free.
 
-Initialize the list node and device ID to inactive states. Make list
-removal idempotent and run the driver-private cleanup on every probe
-failure path. This also makes a second cleanup safe when
-sony_input_configured() already unwound a partial initialization before
-sony_probe() handles the missing input claim.
+Route all return paths through a single exit point that clears
+mcp->rxbuf and mcp->rxbuf_size, so that the existing !mcp->rxbuf guard
+in the raw_event handler can reject any report arriving after the
+transfer has ended.
 
-Found by 0sec (https://0sec.ai) using automated source analysis;
-verified against the HID input registration and probe unwind paths.
-
-Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+Fixes: 67a95c21463d ("HID: mcp2221: add usb to i2c-smbus host bridge")
 Cc: stable@vger.kernel.org
-Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-sony.c | 33 +++++++++++++++++----------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+ drivers/hid/hid-mcp2221.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index 7a961a2b14432..105c56de0df95 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -1738,11 +1738,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index a33f33c33d768..f10dea1045d15 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -336,7 +336,7 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
  
- static void sony_remove_dev_list(struct sony_sc *sc)
- {
--	if (sc->list_node.next) {
--		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
--			list_del(&(sc->list_node));
--		}
--	}
-+	guard(spinlock_irqsave)(&sony_dev_list_lock);
+ 	ret = mcp_send_data_req_status(mcp, mcp->txbuf, 4);
+ 	if (ret)
+-		return ret;
++		goto out;
+ 
+ 	mcp->rxbuf_idx = 0;
+ 
+@@ -358,7 +358,7 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
+ 			} else {
+ 				usleep_range(980, 1000);
+ 				mcp_cancel_last_cmd(mcp);
+-				return ret;
++				goto out;
+ 			}
+ 		} else {
+ 			retries = 0;
+@@ -368,6 +368,10 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
+ 	usleep_range(980, 1000);
+ 	ret = mcp_chk_last_cmd_status_free_bus(mcp);
+ 
++out:
++	mcp->rxbuf = NULL;
++	mcp->rxbuf_size = 0;
 +
-+	if (!list_empty(&sc->list_node))
-+		list_del_init(&sc->list_node);
- }
- 
- static int sony_get_bt_devaddr(struct sony_sc *sc)
-@@ -1878,6 +1877,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
- 	}
- }
- 
-+static void sony_cleanup(struct sony_sc *sc)
-+{
-+	sony_cancel_work_sync(sc);
-+	sony_remove_dev_list(sc);
-+	sony_release_device_id(sc);
-+}
-+
- static int sony_input_configured(struct hid_device *hdev,
- 					struct hid_input *hidinput)
- {
-@@ -2036,9 +2042,7 @@ static int sony_input_configured(struct hid_device *hdev,
- err_close:
- 	hid_hw_close(hdev);
- err_stop:
--	sony_cancel_work_sync(sc);
--	sony_remove_dev_list(sc);
--	sony_release_device_id(sc);
-+	sony_cleanup(sc);
  	return ret;
- }
- 
-@@ -2064,6 +2068,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	}
- 
- 	spin_lock_init(&sc->lock);
-+	INIT_LIST_HEAD(&sc->list_node);
-+	sc->device_id = -1;
- 
- 	sc->quirks = quirks;
- 	hid_set_drvdata(hdev, sc);
-@@ -2092,6 +2098,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	ret = hid_hw_start(hdev, connect_mask);
- 	if (ret) {
- 		hid_err(hdev, "hw start failed\n");
-+		sony_cleanup(sc);
- 		return ret;
- 	}
- 
-@@ -2143,7 +2150,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 
- err:
- 	usb_free_urb(sc->ghl_urb);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
- 	return ret;
- }
-@@ -2158,13 +2165,7 @@ static void sony_remove(struct hid_device *hdev)
- 	}
- 
- 	hid_hw_close(hdev);
--
--	sony_cancel_work_sync(sc);
--
--	sony_remove_dev_list(sc);
--
--	sony_release_device_id(sc);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
  }
  
 -- 
