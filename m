@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57616525A91
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:00:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82633525A8B
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811240; cv=none; b=L5k6M6eJjnghp1dLcHoCbWCm4tK/tuH3ydVo+SenDeySt58IuxCUn5B+hlV1oudhIxhMuOi2wz9etjpnN6AQovglYoTvWFPR2Wb5bRMqaXNJz5pC4q2xab2dfdLlK6FueGiFk/QpkpNiaOr+msFPXYYeJzpDekIGnxVmL25W1ec=
+	t=1788811241; cv=none; b=MJOZNkXmo1hYuKZvHInRuNE2nSx+Z/VbKXhaA4uNUvmnxgfmHdKn6FvqhanhskmD9nyxKTcVHwVqBM+iVqJNEWyw5xU4Si9PE6C2TiS4SKkLXl1zFNfW0pvdPg1L3NXG/H1pWI90DM4GxkTJ1zqeUj94zorMyPF0iDTA325zh34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811240; c=relaxed/simple;
-	bh=ITb0k1tshp7fvKOp20Zkuda5jTuUXJ66+QbA35hjMXQ=;
+	s=arc-20240116; t=1788811241; c=relaxed/simple;
+	bh=ywFDbm3dQOgcLqeurRzo7MhB0JOZ79levDI231w37kc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T0yMtzUdxX9QRJ0EUYaoK89BIhl1hqLe95brvdHdDHeaanQjiRqgl2wIpxNijV/oYPumonzMAZb1WpYGOe70slOgfMqmWhwzi0WxSMz6kTi7WygSYfOSYA4EC7T3kkQahvKZOfmH/l7yc2DnaAA0DFL3YQDkeEs0jHhMwufQcvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOqcqesP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=U6/vKJg+5phLlRr7pMByaC8h0jfuhrAr+tqxFfP9MJUooXaGUQ0YBox1gflw4Pn2MbptkR+GWL2T8rd4lhplRYr1CL4o2XlG4zxAJXuzmlAF75630TO3IZDLEVlJrtFqkQ5sVpAbNJCYEc8aUg7DcxjIOi10PXw5aTFd1cYsNv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXqh+oYp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOqcqesP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A96A1F00A3D;
-	Mon,  7 Sep 2026 20:00:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXqh+oYp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A6AB1F00A3E;
+	Mon,  7 Sep 2026 20:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788811239;
-	bh=quGLXxYtT2zMHJcOhXTJtF+0kdKbUM3Jd3iS0P1tScc=;
+	s=k20260515; t=1788811240;
+	bh=jwbjVUBxJ7YKHCuD3bpYYprsD88/RaZPpyTOH9AQZ3c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JOqcqesPdeYsUQCpKx5PP6qVKFw/MsqP/kND1+71uGYB5972bRSBURbaBrft8Dj9M
-	 xhRCQhhpUTUbN6bCO5E4aSinZGuguwOBSQRLGjf8v0i6G1Yx4YRmtu1i/lSMidgoX1
-	 zeg671QMA65evxqFoVY+3xo31Ep4HCZV28ubvnaage+5M1g4xMFgDVVsGsAp62CpMd
-	 jDrVSot4ZzG8ArSuQB4k0huOcllWwcqrQoPM2TEVZyr5DZhLZtdy4w3bDl2yZD4D8S
-	 W4DluXa2FMIONYiSDa1aY+hoj4mDhW52Av1hRhFHP7dJwY//cMbww8kQ76qXaSHGY7
-	 JpuwxU5fWK73w==
+	b=eXqh+oYpdGiLRZW2kA+Ns3CXemWMj4psvfSDLlmArWva5bU4EQGo35wjgqidQMC/U
+	 tiDD2S45ASq9VhB3AjYqvt88y4/IKFDVf7PD7ksw7e32hvnl58itIkTFgjvWh8ZkD3
+	 RApvo4+RI9Bwycgz838J6V+H8NaCKgJgF9YE4KZB+7QRwW6WDFtoY67udkI/gciVuf
+	 Zqi06D/3KvfLJFO2GIuA0wx3iYSfjrh0TbgF7zpS+u8GjlyaPrtdqsNw4Gxi5eeCpk
+	 2tEs0r+ILoW6UpKy/zcfjtTZ28tQchX752ypdCNrLzSJTbClquo7zWx+49FHNviqOU
+	 mB/iGc4nt93CA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Jiri Kosina <jkosina@suse.com>,
+Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] HID: sony: clean up device list on probe failure
-Date: Mon,  7 Sep 2026 16:00:36 -0400
-Message-ID: <20260907200036.328038-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
+Date: Mon,  7 Sep 2026 16:00:38 -0400
+Message-ID: <20260907200038.328541-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907200036.328038-1-sashal@kernel.org>
-References: <2026090343-eligible-knickers-2dfe@gregkh>
- <20260907200036.328038-1-sashal@kernel.org>
+In-Reply-To: <2026090354-consonant-fondue-4dfb@gregkh>
+References: <2026090354-consonant-fondue-4dfb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,124 +46,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit 7c65699a3a311198a07659a614fe64d45924839e ]
+[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
 
-sony_input_configured() adds some controllers to sony_device_list before
-HID core registers their input devices. input_register_device() can fail
-after the callback returns successfully. sony_probe() then observes that
-HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
-The devres-managed sony_sc is freed while its list node remains linked, so
-the next matching controller traverses freed memory.
+When a file has the setuid or setgid bit set and is written to, the VFS
+strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
+together with an ATTR_MODE carrying the already-cleared mode.
 
-Initialize the list node and device ID to inactive states. Make list
-removal idempotent and run the driver-private cleanup on every probe
-failure path. This also makes a second cleanup safe when
-sony_input_configured() already unwound a partial initialization before
-sony_probe() handles the missing input claim.
+Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
+ATTR_MODE in that case:
 
-Found by 0sec (https://0sec.ai) using automated source analysis;
-verified against the HID input registration and probe unwind paths.
+	/* skip mode change if it's just for clearing setuid/setgid */
+	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+		attrs->ia_valid &= ~ATTR_MODE;
 
-Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+This is fine for the default mount, where the mode is only emulated via
+the DOS read-only attribute and cannot represent the setuid/setgid bits
+anyway.  However, with the "cifsacl" or "modefromsid" mount options the
+mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
+the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
+and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
+via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
+the cleared mode is never pushed to the server, so the setuid/setgid bit
+survives the write.
+
+This is a security issue: on local filesystems the setuid bit is stripped
+when a file is written, but over these cifs.ko mounts the bit persists on
+the server, potentially allowing an unexpected privilege escalation on
+subsequent execution.
+
+Fix this in two places:
+
+  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
+     when the mode is emulated via the DOS read-only attribute (i.e.
+     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
+     in effect), so that the cleared mode is propagated to the server
+     in the ACL / POSIX cases.
+
+  2. cifs_setattr_unix(): this function is only called when Unix
+     extensions are in effect, so the mode is always stored on the
+     server.  Remove the shortcut entirely so that the cleared mode is
+     always pushed.
+
+Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
 Cc: stable@vger.kernel.org
-Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ adapted sbflags access to cifs_sb->mnt_cifs_flags for Linux 6.1 ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-sony.c | 33 +++++++++++++++++----------------
- 1 file changed, 17 insertions(+), 16 deletions(-)
+ fs/cifs/inode.c | 30 +++++++++++++++++++++++++-----
+ 1 file changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index 41d79b317735e..16b16dd9a3e9d 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -1741,11 +1741,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
- 
- static void sony_remove_dev_list(struct sony_sc *sc)
- {
--	if (sc->list_node.next) {
--		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
--			list_del(&(sc->list_node));
--		}
--	}
-+	guard(spinlock_irqsave)(&sony_dev_list_lock);
-+
-+	if (!list_empty(&sc->list_node))
-+		list_del_init(&sc->list_node);
- }
- 
- static int sony_get_bt_devaddr(struct sony_sc *sc)
-@@ -1880,6 +1879,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
- 	}
- }
- 
-+static void sony_cleanup(struct sony_sc *sc)
-+{
-+	sony_cancel_work_sync(sc);
-+	sony_remove_dev_list(sc);
-+	sony_release_device_id(sc);
-+}
-+
- static int sony_input_configured(struct hid_device *hdev,
- 					struct hid_input *hidinput)
- {
-@@ -2038,9 +2044,7 @@ static int sony_input_configured(struct hid_device *hdev,
- err_close:
- 	hid_hw_close(hdev);
- err_stop:
--	sony_cancel_work_sync(sc);
--	sony_remove_dev_list(sc);
--	sony_release_device_id(sc);
-+	sony_cleanup(sc);
- 	return ret;
- }
- 
-@@ -2066,6 +2070,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
+index b11a919b9cab0..716284c82d220 100644
+--- a/fs/cifs/inode.c
++++ b/fs/cifs/inode.c
+@@ -2645,9 +2645,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
+ 			goto out;
  	}
  
- 	spin_lock_init(&sc->lock);
-+	INIT_LIST_HEAD(&sc->list_node);
-+	sc->device_id = -1;
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
+-		attrs->ia_valid &= ~ATTR_MODE;
++	/*
++	 * This function is only called when Unix extensions are in effect,
++	 * so the mode is always sent to and stored on the server.  Do not
++	 * skip the mode change when clearing setuid/setgid bits: dropping
++	 * ATTR_MODE here would leave those bits set on the server after a
++	 * write, which is a security issue.
++	 */
  
- 	sc->quirks = quirks;
- 	hid_set_drvdata(hdev, sc);
-@@ -2094,6 +2100,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	ret = hid_hw_start(hdev, connect_mask);
- 	if (ret) {
- 		hid_err(hdev, "hw start failed\n");
-+		sony_cleanup(sc);
- 		return ret;
- 	}
+ 	args = kmalloc(sizeof(*args), GFP_KERNEL);
+ 	if (args == NULL) {
+@@ -2831,8 +2835,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
+ 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
  
-@@ -2145,7 +2152,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+-	/* skip mode change if it's just for clearing setuid/setgid */
+-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
++	/*
++	 * Skip the mode change if it is only being done to clear the
++	 * setuid/setgid bits *and* the mode is emulated via the DOS
++	 * read-only attribute (the default, non-ACL case), which cannot
++	 * represent the setuid/setgid bits anyway.
++	 *
++	 * When the mode is instead stored on the server - i.e. with the
++	 * cifsacl or modefromsid mount options (via an ACL) or with the
++	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
++	 * the server.  Dropping ATTR_MODE here would leave the setuid/
++	 * setgid bit set on the server after a write, which is a security
++	 * issue (the bits are not stripped as they are on local
++	 * filesystems).
++	 */
++	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
++	    !((cifs_sb->mnt_cifs_flags &
++	       (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
++	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
+ 		attrs->ia_valid &= ~ATTR_MODE;
  
- err:
- 	usb_free_urb(sc->ghl_urb);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
- 	return ret;
- }
-@@ -2160,13 +2167,7 @@ static void sony_remove(struct hid_device *hdev)
- 	}
- 
- 	hid_hw_close(hdev);
--
--	sony_cancel_work_sync(sc);
--
--	sony_remove_dev_list(sc);
--
--	sony_release_device_id(sc);
--
-+	sony_cleanup(sc);
- 	hid_hw_stop(hdev);
- }
- 
+ 	if (attrs->ia_valid & ATTR_MODE) {
 -- 
 2.53.0
 
