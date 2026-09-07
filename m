@@ -1,182 +1,167 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7CEB35B136
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 09:24:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4471B449B12
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 09:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788773097; cv=none; b=Bi6yg8ea2+sBqLFwDTD4vYwKud2nYKUQwq2fYjbglqcydi78zd/SVgcghmdgxTJussH0zzGLp8bifPTIyywv8RuRaVUy5W/6z4S5/bAIQu9cefQNHK8LJyl9asWD2TsUjkOpbJ6VLgoMBNWwfBxGl316VcM4ktGaZOa1/pxFr3o=
+	t=1788773266; cv=none; b=XUNjYFbjLVd1K+LPMUCyCU5CJIv7Q/0PgbpXo98Sdv6iaMCUAJk7d0xEXbXwSRCfQmi5K28ktvl70Vckf6sl+UkXc4f8Hxva9c65xlBfQ/AVT2gdkvJXkMwb8fsEf2lku4AehbqF3RllYflKQqrjPscjFd1IGlmrtIylgW9af3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788773097; c=relaxed/simple;
-	bh=Ak6+WF+xM5AzUpu65uHVCUnS9cF4+BBsspRx6zvJuac=;
-	h=Message-ID:Date:MIME-Version:Subject:From:Cc:References:
-	 In-Reply-To:Content-Type; b=Om7RbPYnOKuzlNAOICYf/rOreJABQsMsyBLBboMroMQ0HEB3zMupAWv3VqqDwLvYMjjsFnyKxg0c091gSiYtnVNs8yAXQ1uw3M9GnXtMyspe1QlY0ybXGHBoYVrovhG27/6CqwTNTyPwN2UOSKlV8/3J5wGRJKib0Op9le0LysQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=UjMp0OQh; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788773266; c=relaxed/simple;
+	bh=OQGHhOimMWJiT+56v9fDBHZ7O7Z5PCry/WZoftnzeTc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zl2E0SUjL5ZJ+HCb6kX4VOwlAXkjLLqnNK/JxIHWPGLma2yqcUY7zD0+loNiwKkERyGJIrswDJ8J8LX6VSvyZHfIWfZXE3C1l59kX0r4Vo5KEGL4I9nVeGlZ/V5HyouRjL2zVqSs9U7VctTGM7DD0O/VgiYTLuqHymFRzk4WUOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaBWb9qt; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="UjMp0OQh"
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 0275E3F1BB
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 09:24:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788773093;
-	bh=EHK8c6loXVSNcFJOEvIqa5EpxPe99bTmfyj0U+8A3Ow=;
-	h=Message-ID:Date:MIME-Version:Subject:From:Cc:References:
-	 In-Reply-To:Content-Type;
-	b=UjMp0OQh1TZCHYprwkGy9/bkazMr4RmFhLdUYawnHsbq7GVYGtFO/9XUnpjWqoXAo
-	 76qwG8X+xprA+8T7U67OhacPrJC3k+TyNqgDXpoa8BQVT2JmaLpIr2K5utFs6A34Ry
-	 z1YXMpdPyuX5j2bppPGdQK8MNnsKMKU7ls5+3+OrqdmKYU0nB6gj6My2E3XD/XOmtV
-	 Fv6YxMIeMzMZYjqXYeuvkIaHFARRFUlv+y+aypGqt6+2NctsA9pShPYRRBpW5ILj9a
-	 rGF+dHv0InnZyI4XQhMYIoOIP2WWPafhGC8u7ZoVwyqo0nzmjmrEL362HoAZJaTOVz
-	 97h3M+A9dqLazEi5qMwnGOMC+r8HTOw/OBT25lpyMLreT+nbs9+qs7yu5bQ2eOi697
-	 Wa1wL9xu4E7JAcHvgqFxBO0W5KEJTGh5nTN9OmQoKLeYI0TMPApYr1CZg1v0vymBfy
-	 cYka7knXn1IcFMSW9lM95jscg0r8iG6GAAKBNACyY2Gndqzngx5xS1V63OMIi+ye9W
-	 UyVqkyGZnWbCGGIzp+zOZUX1t85h6r2KGXdloBNTBoSkv00STgngjIBUIu41jyP6X/
-	 iz0RsXMwHg34bB52cBLEg4t7OOVcdUrMSKHURZZKXhdzymvdr1tazZZkNO3sMbXO12
-	 O2EipoBO1Mwed0gTkFJxbUlM=
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so3824457a12.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 02:24:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaBWb9qt"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b6188a2c0eso2472351e87.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 02:27:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788773261; x=1789378061; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aLmXdIvC7otFcdSv6+vMZu4fSoyu9UDgG1ucZ5dWmZ4=;
+        b=qaBWb9qtCZs2/DMPthBp75TCI0UJ1mlTuburAxLjLj8P7Q0AhGDrNMqLuT294jsjr+
+         EIKKA/Hy1fd18V6IYnLyfGoNQ13c7GBcFLnp/0IyZCmhi6B8B5/4lkWLzotrx0Fmbm6q
+         EdKjPoVjOD99fS1E+d42ZnxYKBj7A4WvwK4IVEKCy4dzZqxnqqjJhZCxM7FDL9KPsekb
+         HiQ+joXzb4orDKXP7iWDtzRtUkB5gAGWtx8Xul3hkNVAms0LqYGVbzpPSYzZrMP2BHOx
+         wh903Wx7yV3zaLLfgfClqgWBlpnGcLMGllIDQpYY61PKLXI7HeYnhR9eT2KAetVn/V0c
+         RTHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788773091; x=1789377891;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EHK8c6loXVSNcFJOEvIqa5EpxPe99bTmfyj0U+8A3Ow=;
-        b=f8dYwSCH/1s5tLI1l5tJNqqV+/EQMk/i2Ujj7ebLyYvX5YKhmWTgs4e8Fk/yp/yOmu
-         XA8EnzKHkwp4IgWopHUhugTmXwde1wXgCWfpKhAJw5aJxRra9pJikzweaxKNPJ8W5FGy
-         5of06uyjuiZ6OOsViMi2OVJC6tpdl9j3tXkRJDpjyEEWUxMX8qHjg1MdjcB0ekAlrBaK
-         sUl5aHEn/Ajo/1oSUko6OzONne5qkjjJKcv7vRLYvZmvNPwGEorPSPYKyvtlgXQ6rrPQ
-         E7WytYKz9nubqpiKr9+oBGJ5ElxYHUP5MA8Zmx/nyL/oszJ3HFm9ILi5nnA739z9YvNH
-         YLGQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxXLJDmUi0f96YqboMBh17XvJUBUNEdLe+TrlaTwRSEA4gsnU+7cnLx4q0yJdzGlgO7wi5Iwc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ni0mz0jmusS5bHH9BATdgGjCckfDfSramzVKLCQ/5ESHdckD/v
-	mdzxllQD36bYP7qNNKBDVi/K3mTwhjbml3DN8ChL8f89F+dF5DJxaEoRhNT0r6YoOxu1kPvN3Vb
-	7xuXmtyU1PZmUaz+pWbIyZb+KsKngSBCbiEh8pKzLCQBDqMGZh2TuQ41d221+PA9EJYE/MXuL+w
-	==
-X-Gm-Gg: AYBFou19YvAMx/4sXhFmTUujRnoXWpwvrfEiFZi65pZ0WkpyC/M5K9p3nIbLTvhB+mX
-	PW0tW346lfRjhJmp9+6H82/PjARs5OakV5x0OBSi13mLMX/3PYqFMdqsYddSJYbKPr6gdcMkmXY
-	WU9k5WhCzjCpBQpMN5M4x5t+Tt6JbaXeBTAwjVQUDsmO7tIfatpy4uA26Hpg5FJr39mzLZyhVdz
-	uUnYO+1uZV+b7kzz0TwDepFlI/ILDoqiA3Kmfbtr2ospry3vftqdb+xck5rY4UMJ7tUCXAUMBw4
-	SwjuvR1EyfDyG11FCvnv3qZo3aA5L88hFxFeA53rjeTG1EOd19aqaeVhkObq9m60Z3o4O/4Qdqg
-	lZZ5eM+5nGuQSEpgwb4rooHXiwascDY4M+g==
-X-Received: by 2002:a05:6a20:db91:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3da3a0b9eecmr33840776637.21.1788773091289;
-        Mon, 07 Sep 2026 02:24:51 -0700 (PDT)
-X-Received: by 2002:a05:6a20:db91:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3da3a0b9eecmr33840707637.21.1788773090788;
-        Mon, 07 Sep 2026 02:24:50 -0700 (PDT)
-Received: from [192.168.2.166] (104.194.78.75.16clouds.com. [104.194.78.75])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm26111314eec.12.2026.09.07.02.24.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 02:24:50 -0700 (PDT)
-Message-ID: <9209cfea-729a-47d7-b144-f01ec91b7e1b@canonical.com>
-Date: Mon, 7 Sep 2026 17:24:44 +0800
+        d=1e100.net; s=20251104; t=1788773261; x=1789378061;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aLmXdIvC7otFcdSv6+vMZu4fSoyu9UDgG1ucZ5dWmZ4=;
+        b=MmZNtrctndPN7aQQfFw+/6UIatsCyKSdidz/iJZDrufC441R5w1k3E/6GBWbhDeX7S
+         BDVTJsAcNYKYY0JbP3EWhzy2enl3IJI/eJlSrwOFea8JEMQDPqSDDEbM4Rj1IDj9HNEy
+         B2DwocS9D8C92fJQFRZNGGna5jLoEEC/FCxGMN17/t2FUEYPzgiTR2mgtC5DfE5rWlJx
+         drM0btp7B2hlcr7T+uqwHi6NadAdLFYSF8vpYlY8jAUJiYz/oNjTdPERvDSuV4oftCij
+         +MR7nlvtAgpgbmbYRaumq/XokiJ9twC3zj3iVU6jelE/2znQ7alO0fCP0MJw2IJ7NQHb
+         kIQg==
+X-Gm-Message-State: AFuF++mTiBDmgT6jgzDjqvNr4CMTSr75jeoheo/0IElydKeuYPkDJr8F
+	NXmgJ3jsclhBwPTZXbvg7zZnjqe5yRw1M2uvKQqGCgfyHk7h+rHAzCHzJXAqkUN+iug=
+X-Gm-Gg: AYBFou0y1SuK/7t4XRCWrCOqVv0gzomLUKYtPOTk906gjkJq8jE2rFob6vHf2on17VP
+	UmC3UyDLw6TRNbhs33TpkIEhhX6JZJrv67VkCW7pm3/w5vknkNhH3kowdxPA7iTzyQ9eCCVfpHW
+	zQIj25HxYl3xLZpjCvsN7062i1bHd8TV5FX6tLTWlz/3m01eeL49PIiX9MTeNl4l3IrIDx+YENB
+	DrZ87YY3EGlnSq2kh1W4acn663bK/aiMg0zPUWhpio/H0GlxGjfm+x7DnyUCSZ518DZjRiXjB6P
+	MUieP81hVJqOwy7hjU4dALNEIsELJZnNH9eCo5ISYzcJX2jgQVuLLjTTdEV2sMSsO/JkK9TqDg9
+	bTj1FEvghOOoEiEfkbu7cKDYbkgQV2DDNAz8hr4ayD0S30lM0wxOu9yaAX2iyQZ7YH4g+qqwYvA
+	281c4tnt9pg47zdlS4bet/7iVnP4JYmJY42JvDK3b2MkDJmUpn+0Uh3Hc1hkoJvD8=
+X-Received: by 2002:a05:6512:3b0f:b0:5b6:1a7c:fd7e with SMTP id 2adb3069b0e04-5b61a7cfe44mr3612949e87.36.1788773260768;
+        Mon, 07 Sep 2026 02:27:40 -0700 (PDT)
+Received: from fedora ([5.131.7.59])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61670a6afsm2196077e87.77.2026.09.07.02.27.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:27:40 -0700 (PDT)
+From: Petr Vaganov <petrvaganoff@gmail.com>
+To: stable@vger.kernel.org
+Cc: Petr Vaganov <p.vaganov@ideco.ru>,
+	Bart Van Assche <bvanassche@acm.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Petr Vaganov <petrvaganoff@gmail.com>
+Subject: [PATCH 5.10.y] scsi: core: Fill in DMA padding bytes in scsi_alloc_sgtables()
+Date: Mon,  7 Sep 2026 16:27:07 +0700
+Message-ID: <20260907092707.274040-1-petrvaganoff@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026090347-slacks-jogger-bca8@gregkh>
+References: <2026090347-slacks-jogger-bca8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [SRU][R][PATCH 1/1] scsi: megaraid_sas: Limit NVMe request size
- to the PRP chain frame
-From: Alex Shi <alex.shi@canonical.com>
-Cc: Thomas Lamprecht <t.lamprecht@proxmox.com>, stable@vger.kernel.org,
- Lukasz Magiera <me@magik.net>, Mira Limbeck <m.limbeck@proxmox.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-References: <20260907085355.861433-1-alex.shi@canonical.com>
- <20260907085355.861433-2-alex.shi@canonical.com>
-Content-Language: en-US
-In-Reply-To: <20260907085355.861433-2-alex.shi@canonical.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Please ignore this and last some subject emails!
-Sorry for cc you guys because of a wrong git sendemail setting.
+From: Petr Vaganov <p.vaganov@ideco.ru>
 
-On 2026/9/7 16:53, Alex Shi wrote:
-> From: Thomas Lamprecht <t.lamprecht@proxmox.com>
->
-> BugLink: https://bugs.launchpad.net/bugs/2148534
->
-> megasas_make_prp_nvme() builds a command's PRP list in cmd->sg_frame, a
-> DMA pool buffer of instance->max_chain_frame_sz bytes, spending one
-> entry per NVMe page of the transfer plus one per page of the buffer for
-> the chain pointer. The loop runs until the transfer is described and
-> never checks the buffer bound.
->
-> max_hw_sectors comes straight from the MDTS the firmware reports for the
-> drive. On drives with a large MDTS the only thing keeping the list
-> inside the buffer was the block layer default of 1280 KiB, which needs
-> 320 entries, which fit into a 4 KiB frame as that holds 512. But since
-> commit 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP") that
-> default is 4 MiB, and such a transfer needs 1025 entries, so the list
-> runs a full page past the end of the frame:
->
->    sd 1:0:1:0: [sdb] tag#630 page boundary ptr_sgl: 0x00000000ba62d13f
->    BUG: unable to handle page fault for address: ff663bcb81e7c000
->    #PF: supervisor write access in kernel mode
->    #PF: error_code(0x0002) - not-present page
->    RIP: 0010:megasas_build_and_issue_cmd_fusion+0xeaa/0x1870 [megaraid_sas]
->
-> If the page after the frame happens to be mapped, the overrun does not
-> fault but silently corrupts the neighbouring pool entry, which is
-> another in-flight command's PRP list.
->
-> Cap max_hw_sectors at what the chain frame can describe, less one page
-> for transfers that do not start on a page boundary and so need one entry
-> more. This is the megaraid_sas counterpart of commit 04631f55afc5
-> ("scsi: mpt3sas: Limit NVMe request size to 2 MiB"), but derives the
-> limit from max_chain_frame_sz rather than hardcoding it.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP")
-> Reported-by: Lukasz Magiera <me@magik.net>
-> Closes: https://lore.kernel.org/all/GPhsSM0vkgyIrs0DIZ62qeUZX7X4RxwQXVKiuvMx-lHQVSPDxpztUyQOGS0xikqvJ-Z94hMV-dW_5KN_0CX2hsfV7kTf_t0MTf6vdAAaSEc=@magik.net/
-> Reported-by: Mira Limbeck <m.limbeck@proxmox.com>
-> Closes: https://lore.kernel.org/all/d171cc76-bf25-48ce-b482-d344669dfc24@proxmox.com/
-> Suggested-by: Martin K. Petersen <martin.petersen@oracle.com>
-> Link: https://lore.kernel.org/all/yq17bmzd5jr.fsf@ca-mkp.ca.oracle.com/
-> Signed-off-by: Thomas Lamprecht <t.lamprecht@proxmox.com>
-> Closes: https://lore.kernel.org/linux-scsi/20260827182106.535D61F000E9@smtp.kernel.org
-> Link: https://patch.msgid.link/20260827175743.734593-1-t.lamprecht@proxmox.com
-> Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-> (cherry picked from commit af8c27375733fb6a6df9fa484cda77cc3dd0cb80)
-> Signed-off-by: Alex Shi <alex.shi@canonical.com>
-> ---
->   drivers/scsi/megaraid/megaraid_sas_base.c | 13 ++++++++++++-
->   1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/scsi/megaraid/megaraid_sas_base.c b/drivers/scsi/megaraid/megaraid_sas_base.c
-> index ac71ea4898b2..436d4e0a15c4 100644
-> --- a/drivers/scsi/megaraid/megaraid_sas_base.c
-> +++ b/drivers/scsi/megaraid/megaraid_sas_base.c
-> @@ -1973,12 +1973,23 @@ megasas_set_nvme_device_properties(struct scsi_device *sdev,
->   {
->   	struct megasas_instance *instance;
->   	u32 mr_nvme_pg_size;
-> +	u64 max_prp_io;
->   
->   	instance = (struct megasas_instance *)sdev->host->hostdata;
->   	mr_nvme_pg_size = max_t(u32, instance->nvme_page_size,
->   				MR_DEFAULT_NVME_PAGE_SIZE);
->   
-> -	lim->max_hw_sectors = max_io_size / 512;
-> +	/*
-> +	 * megasas_make_prp_nvme() builds the PRP list in cmd->sg_frame without
-> +	 * bounding it against that buffer, and spends one entry per page of
-> +	 * it on the chain pointer. Cap the transfer at what the buffer holds,
-> +	 * less one page for lists that start off a page boundary.
-> +	 */
-> +	max_prp_io = (u64)((instance->max_chain_frame_sz / sizeof(u64)) -
-> +			   (instance->max_chain_frame_sz / mr_nvme_pg_size) - 1) *
-> +		     mr_nvme_pg_size;
-> +
-> +	lim->max_hw_sectors = min_t(u64, max_io_size, max_prp_io) >> SECTOR_SHIFT;
->   	lim->virt_boundary_mask = mr_nvme_pg_size - 1;
->   }
->   
+During fuzz testing, the following issue was discovered:
+
+BUG: KMSAN: uninit-value in __dma_map_sg_attrs+0x217/0x310
+ __dma_map_sg_attrs+0x217/0x310
+ dma_map_sg_attrs+0x4a/0x70
+ ata_qc_issue+0x9f8/0x1420
+ __ata_scsi_queuecmd+0x1657/0x1740
+ ata_scsi_queuecmd+0x79a/0x920
+ scsi_queue_rq+0x4472/0x4f40
+ blk_mq_dispatch_rq_list+0x1cca/0x3ee0
+ __blk_mq_sched_dispatch_requests+0x458/0x630
+ blk_mq_sched_dispatch_requests+0x15b/0x340
+ __blk_mq_run_hw_queue+0xe5/0x250
+ __blk_mq_delay_run_hw_queue+0x138/0x780
+ blk_mq_run_hw_queue+0x4bb/0x7e0
+ blk_mq_sched_insert_request+0x2a7/0x4c0
+ blk_execute_rq+0x497/0x8a0
+ sg_io+0xbe0/0xe20
+ scsi_ioctl+0x2b36/0x3c60
+ sr_block_ioctl+0x319/0x440
+ blkdev_ioctl+0x80f/0xd70
+ __se_sys_ioctl+0x219/0x420
+ __x64_sys_ioctl+0x93/0xe0
+ x64_sys_call+0x1d6c/0x3ad0
+ do_syscall_64+0x4c/0xa0
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+
+Uninit was created at:
+ __alloc_pages+0x5c0/0xc80
+ alloc_pages+0xe0e/0x1050
+ blk_rq_map_user_iov+0x2b77/0x6100
+ blk_rq_map_user_io+0x2fa/0x4d0
+ sg_io+0xad6/0xe20
+ scsi_ioctl+0x2b36/0x3c60
+ sr_block_ioctl+0x319/0x440
+ blkdev_ioctl+0x80f/0xd70
+ __se_sys_ioctl+0x219/0x420
+ __x64_sys_ioctl+0x93/0xe0
+ x64_sys_call+0x1d6c/0x3ad0
+ do_syscall_64+0x4c/0xa0
+ entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+
+Bytes 14-15 of 16 are uninitialized
+Memory access of size 16 starts at ffff88800cbdb000
+
+When processing the last unaligned element of the scatterlist, it is
+supplemented with missing bytes in the amount of pad_len.  These bytes
+remain uninitialized, which leads to a problem.
+
+Extend last_sg->length by pad_len first, then use sg_zero_buffer() to
+zero those pad_len bytes.  sg_zero_buffer() uses sg_miter internally,
+which correctly handles sg entries spanning multiple pages and padding
+that crosses a page boundary.
+
+Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+
+Fixes: 40b01b9bbdf5 ("block: update bio according to DMA alignment padding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Petr Vaganov <p.vaganov@ideco.ru>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://patch.msgid.link/20260628185229.37957-1-p.vaganov@ideco.ru
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+(cherry picked from commit 626147717bea776b61ed3631d2c26283760c4cc4)
+Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
+---
+ drivers/scsi/scsi_lib.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
+index e69d1c0ea450..aafb3ae0e860 100644
+--- a/drivers/scsi/scsi_lib.c
++++ b/drivers/scsi/scsi_lib.c
+@@ -1050,8 +1050,10 @@ blk_status_t scsi_alloc_sgtables(struct scsi_cmnd *cmd)
+ 	if (blk_rq_bytes(rq) & rq->q->dma_pad_mask) {
+ 		unsigned int pad_len =
+ 			(rq->q->dma_pad_mask & ~blk_rq_bytes(rq)) + 1;
++		unsigned int data_len = last_sg->length;
+ 
+ 		last_sg->length += pad_len;
++		sg_zero_buffer(last_sg, 1, pad_len, data_len);
+ 		cmd->extra_len += pad_len;
+ 	}
+ 
+-- 
+2.55.0
 
