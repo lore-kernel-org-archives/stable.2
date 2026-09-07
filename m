@@ -1,164 +1,155 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2A33EB102;
-	Mon,  7 Sep 2026 09:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774164; cv=none; b=iFyW2D7wjdAYI77wVsyXdL6wU39iPVdQuOigb98AOu+ATlkZJwQ+zceAh4n6SMiR+MaE82puQd5tqnbZTbepmIRqyyhGTvJ9AVrLhV1x0sGmR6Ex5Bm7lBxmaWnNF1NscIqhKtQZhlFZONZzXYaHNkxw5BYvFT71mPc2rfWHVHg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774164; c=relaxed/simple;
-	bh=0x7Vh0Nm95GXeLYiNWyTgZGfMfq6ePV52YHNzaf6jBo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Tx3Mm963znZWQwhz2tU70plnR3cgXgVPZ5umjAmAxsReYsZ3bwa10DCueAODQKBMr/BVctHmJbtOsj7W0MPDDCc8WwGS1cDwNm8CI/ZBdraZ+eqqKeC55b3K7o+4n8npAMoOaqJHf/JPKldb8W2+VDUxrrwZpQra7Yvz68we+ic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=nV41wau/; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E4326296
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 09:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788774263; cv=pass; b=s1j91viwd7X/XcRVE8kaapBG8trynljI8GdScQ33v8O8y1z2JQJCFWobNwXWyc0B44MWQmWGxWUyOxjPdDmfMiQ3plp3TD1HweR4gyECeNQSpdhIt69j26OjK0zTk/CcYY+1CtY3S/wOI35hPm6nSbU0UeEjrE/8UDfcklyd+K4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788774263; c=relaxed/simple;
+	bh=MI41XlQsowXvuVw3HoU1qvNe19RJs6EkCkyiQjsEXzU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F9wuPBvl8/z7n9OgF7z4KVgFzC9EtCimrGZ9JbYGKGAlUwIh14qIC7GCMufsZCAP+DPvMUkvV4SY99xPSHSOhsMaEiOmECSMcQn0g3TKJuPso9tCAjxjJvs3MWUd8zCk+s60U++xbNMfn6Gm32nOtPiYC8wwW1IDoj0lF/gJl8Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JSgew2yL; arc=pass smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="nV41wau/"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hdhtx2ZGMzKmTV;
-	Mon, 07 Sep 2026 11:42:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788774153; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LNnph2fUPi7dxoCoaqnz1jcXuoTMMkQ5gHDdEQktIDo=;
-	b=nV41wau/oBQZfHbzaNMbzbcu7r3stEQrxi3RAGWvTZRNZhHI6f3peB2RdQzA0avlIz0b6r
-	hcT8WOPYxb/HDp85vQSiV3qlcejUGjCMjHdbfac9gyYHTxyDpDQLOEKMqMeVu/QrfwtTXf
-	vAu/nl5X4NLPbo++yMtDLYLSjlJDkT1s/QeQsMPp7nxQtIFKKL5rya5+FymuEDOULzjuEA
-	xrgjjaY6QYhzUy8r8+WMeXMGjO9CSVnovtTH7Djg2dZrftCKQpv5dDMGYGZ4zMPaetfjuE
-	BG8yU7rvxnkg2cf0AH8ImF39R4PYNbkep6Ipwi07coE+C783Ar1B1/njCz2xbg==
-Message-ID: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 11:42:28 +0200
-In-Reply-To: <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JSgew2yL"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so3409750a91.3
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 02:44:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788774261; cv=none;
+        d=google.com; s=arc-20260327;
+        b=om3Cp/Pvoc95XZfVJkdwo1f7+WuxMZwuqRvu/TXbwTTuVyUKOpNqLUxSVSVsAh2CBv
+         0QtfUD0PE3rsLYrMLpJjXVVNqw5bmPT+MgouBfPMsaBejjoEoNxn99T6hG31Y8PWBx9K
+         l1ivHeODgNRgwm1fxENoKn8YIDaM5EH9kcz6LxKtAP5ioqlZ/YeJpkD45acdlC6F/r4F
+         MLBRcc/l2JyLrO8llmvlkZLilkvjUqSVF72X3lvNaTMdCtceVfHVuCkQ9GzZcgatRuFr
+         69SMAPB9yOZqFIMymIbEPjoqTRCC4gW75xW8jRbybeu8pSxSEYOYZGE0by7lszmOxivt
+         879w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
+        fh=kVt/f99Ihjy+ZhB/0psabB6+TSKXT0jJcTafw03fTbg=;
+        b=m5W81buoq1/lgkuMGjEq4WVKMhmLsOC4EYb5Fun73t+JTZOmim0q4fdQG7xcmNM0Hz
+         8kVhojJVP/N2Nvt4vM+ulMoxgPVcgINgQGuA+xO1z8mNcZ5Ba8RBOiiFwKTs97MrFD93
+         GJc7gZurWZvLt5qY2tMSIhLR40jJk1Sc3P88/NRhxLl2qni7AwQ4jJGGwSNXTgGhfhMz
+         aDVBgI0iYrWFn9Zy3S+ySJeENJ7v9K5RCVWY4xCEM5EoVnb38v0hsvKfk6goQXgRSzfk
+         NmBYtsUp/UJfmXbplkFW+ZDA4U/lPFFrX4sIo8OOM057MQiLUJnddR7/nKB69k1jErv7
+         Kpxg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788774261; x=1789379061; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
+        b=JSgew2yLj7u0lUxFwIByIy/i5ID1FC62+yxMZCCC5f1MUYVbFWrp2HMyrsCmQD8TeG
+         VNUECPVeNGPbmBqO+/zMM7N4KgSYBLlx+r72WTK42uttdOK57CSYGOwDOYFvapQt9x10
+         JjdjZGW/cp5yAjovVfa66XdG/pf4+Y2F7Bp6I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774261; x=1789379061;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
+        b=Y25w6WjL/CBwB40nbBnZiSbDSj6dKf1yejlgVZ2PmDqkU1ugRUUDj40Rv9xCeoa4ib
+         IIvID0uzObVSs4wwmDITzV8XnmFwjlbt8eHeATJ4HVE3iws6vfhz7AVc7DGGD1QpSgCz
+         OvBSIzjNdCpus6PmfD7932pn2pfRi024uB1gfyL9eiUhY0VqFPiHRVCkDOKKIY6s4/yd
+         M2jwQCeYSvoBNhppxpLpto2IfsESZRL+njidWMzVkaC9qkXNMH8b8R0ZX+v05SMBg7NL
+         Z3TMV/Upu3nLl0EHziEQXxDmFCrUeYozbOc1FkosVGNy2pTD607zmsoIZ2us17ctEExR
+         YERg==
+X-Forwarded-Encrypted: i=1; AKwUvBzP3TWJviDAEIZ9B2XrCxu4BI6TWQ+V/wKGRJx0992/LBeERymrVq1njWNYiSHMItsQ793nB8E=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9ZZZue42W4RI/Vh56ilmdDQSp0M7bzaRRFjypBizP00on/oBv
+	1PIe5Ei+EwPK5LHtPCyMGq+end0KUavsju7Iw08kG2r+WDHi1fSlsYczCCML6+DpeFa+//raQvh
+	sMrkPRV5Tgjh4HzKjwpXE5cHuEdzP/tHh4DQl9/iW
+X-Gm-Gg: AYBFou09Qs9Ai6/QhYXM/5kvwiCCNKaMTXNeLB+KvcRQiJWvdt4ZXfyAxbVpiJpbvar
+	n7U4N+AUPxEc+kxD25N0ofIXJE34qltjVU8qoStOMSYOv6e3i3k3j0NL0kFbV9t5yVTYWWFARuo
+	1uSLW+OjyGvrGTNukJPL2eD/z+nV5njBSXBSXE38yDe/NUifnrIKYR0D3Mf9Uf6zgDPLg2VyJr+
+	30pM5JRuMzZvVuubzrIWNv3GYS+OtMdBI9+p95s9pIThcOPhWWd3ETA2w60KAXlnYesBE6y+Haa
+	t56a9bulSZQxwcbeoERrAaW5aakMIZv0hpzTO2WvhEG1JitEtfGyUecC2kLGkA5QwojLJewKCg=
+	=
+X-Received: by 2002:a17:90b:5106:b0:37f:c22a:c188 with SMTP id
+ 98e67ed59e1d1-39b260feb03mr32280186a91.4.1788774261208; Mon, 07 Sep 2026
+ 02:44:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: i45czrcqg73okz4cgu8abyoebbqn6ayc
-X-MBO-RS-ID: cf6f129b25ec7581d08
+References: <20260904234401.2339633-1-jthies@google.com>
+In-Reply-To: <20260904234401.2339633-1-jthies@google.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Mon, 7 Sep 2026 11:44:10 +0200
+X-Gm-Features: AcwNN1WMY3fqhnicN71CEKCWOY9vaZG4m4eQH1V9NiV1awWwS6rAM01YuF7ygVM
+Message-ID: <CAMMMRMd-7=hzAiMASAkgUxxG50+sNQQUQN2=dNOS_THVjDmxxw@mail.gmail.com>
+Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
+To: Jameson Thies <jthies@google.com>
+Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bleung@chromium.org, gregkh@linuxfoundation.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
->=20
->=20
-> On 04/09/2026 20:06, Philipp Stanner wrote:
->=20
-> 8><
->=20
-> > If you can think of a stupid and simple solution, shoot. The only thing
-> > I can think of is moving the string into the dma_fence, as a hard copy
-> > :)
-> >=20
-> >=20
-> > In the mean time, my proposal is to keep aiming for removing
-> > sched_fence->ops->release and fixing pvr and amdgpu.
->=20
-> Fixing the drivers sounds like an obvious thing to try indeed. Along the=
-=20
-> same lines as it was done for xe and panthor. It is an already=20
-> established and well understood approach so shouldn't be controversial.=
-=20
-> After that we can discuss in leisurely pace if something better is=20
-> possible in the scheduler core.
->=20
-> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is=
-=20
-> it significantly more complicated than it was for panthor and xe?
+On Sat, Sep 5, 2026 at 1:44=E2=80=AFAM Jameson Thies <jthies@google.com> wr=
+ote:
+>
+> The UCSI displayport driver indexes the connector's port altmode array
+> with the GET_CURRENT_CAM response after checking it is not 0xff. The
+> port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
+> returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
+> not equal to 0xff, the kernel may crash with an array index OOB error.
+>
+> Update the UCSI displayport driver to verify the current cam is less
+> than UCSI_MAX_ALTMODES before accessing the port altmode array.
+>
+> Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mode"=
+)
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jameson Thies <jthies@google.com>
 
-How did the others fix that?
+Reviewed-by: Andrei Kuchynski <akuchynski@chromium.org>
 
-If we look at nouveau:
-
-static void
-nouveau_sched_fini(struct nouveau_sched *sched)
-{
- struct drm_gpu_scheduler *drm_sched =3D &sched->base;
- struct drm_sched_entity *entity =3D &sched->entity;
-
- wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
-
- drm_sched_entity_fini(entity);
- drm_sched_fini(drm_sched);
-
- /* Destroy workqueue after scheduler tear down, otherwise it might still
- * be in use.
- */
- if (sched->wq)
- destroy_workqueue(sched->wq);
-}
-
-
-We see that it
-   1. stops accepting jobs from userspace (not visible here)
-   2. waits until all hardware fences in this ring are signaled
-   3. only then tears down drm_sched
-
-Then nouveau might unload or free up resources.
-
-The nasty thing is that I don't see how nouveau misbehaves here and how
-the stuff might be fixed.
-
-The problem is that the sched_fence implements ops->release, so the
-check doesn't take effect.
-
-Moreover, even if we did remove ops->release in drm_sched, it would
-still be a race: a driver's contract is the hardware_fence, the rule
-being that you have to signal those. So after signaling the last
-hardware_fence, you could actually start releasing resources, but it
-might be that finished_fences are still in-flight and are unsignaled.
-
-So we have some sort of fence -> fence race here, too.
-
->=20
-> As for regarding the 035219a760ed ("dma-buf: dma-fence: Fix potential
-> NULL pointer dereference") sub-thread - I did not manage to penetrate
-> the consensus there - whether it was established that it needs adding
-> the is signaled check back (with additional memory barriers, like v1 of=
-=20
-> that patch) or not? Regardless of fixing the drivers or what?
-
-
-As far as my understanding goes this is the only way to get this right
-for everyone, i.e. also users who implement ops->release(). Then at
-least the driver could unload after signalling all its fences (with the
-exception of those who have a shared spinlock maybe).
-
-
-However, I suppose then we would then have two mechanisms, one dancing
-with RCU around the ops pointer, the other checking whether the fence
-is signaled, presumably with manual ordering through barriers.
-
-My first guess would be that maybe we should only rely on the signaled-
-state and leave the ops-pointer untouched? This should also work for
-pvr, notably.
-
-
-P.
+> ---
+> Changes in v2:
+>  - removed 0xff alt mode assignement when GET_CURRENT_CAM returns an erro=
+r.
+>  - return -EINVAL when alt mode index above UCSI_MAX_ALTMODES is returned=
+.
+>
+>  drivers/usb/typec/ucsi/displayport.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucs=
+i/displayport.c
+> index 7067f2561b84..572da7bbd29c 100644
+> --- a/drivers/usb/typec/ucsi/displayport.c
+> +++ b/drivers/usb/typec/ucsi/displayport.c
+> @@ -71,11 +71,14 @@ static int ucsi_displayport_enter(struct typec_altmod=
+e *alt, u32 *vdo)
+>         if (ret < 0) {
+>                 if (ucsi->version > 0x0100)
+>                         goto err_unlock;
+> -               cur =3D 0xff;
+>         }
+>
+>         if (cur !=3D 0xff) {
+> -               ret =3D dp->con->port_altmode[cur] =3D=3D alt ? 0 : -EBUS=
+Y;
+> +               if (cur < UCSI_MAX_ALTMODES)
+> +                       ret =3D dp->con->port_altmode[cur] =3D=3D alt ? 0=
+ : -EBUSY;
+> +               else
+> +                       ret =3D -EINVAL;
+> +
+>                 goto err_unlock;
+>         }
+>
+>
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> --
+> 2.55.0.979.g7e5102b832-goog
+>
