@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF222AD37
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:22:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963E92C234E
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788744161; cv=none; b=ONKDowcTCK/BSt9eSHLWtoYHpWo+fxGMFKTB64pAnoaGias5HaLrI9nUx0Ob1ZOR/8JkOLCxFIQWXgtHTKrckMRlhRNF1QAxwOQv7xGI6rDagfRCmnSXJCZGbDgIZrdyE6LcqcmsfK+qeOJp/jjQx9rPK3FdBOl7ojg7alxsBW8=
+	t=1788744162; cv=none; b=umzvkiMukFZAqT8wl8+wLlFpYaTj1/HVE6PVCStA+gD4y2IEfTKmJN5u+89oVLYni6nTjvJEuwCIWAzoCloZAxMGnFjohx0p8Ig/z7/bChMunl976DPNkwEUCb2fb9N4FxM8ykY+EBfXQY6Uh7vSrDFbd/RjFeNceHQ3RXC8ZPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788744161; c=relaxed/simple;
-	bh=5I0FvUMWFtZc5xM1MIxqdxbTFsYXKwcRB6hAOA1uSa4=;
+	s=arc-20240116; t=1788744162; c=relaxed/simple;
+	bh=8MWUzovI8xZFjnNfae2qnxWFdmqxgIuCqSI2SoE+INI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jo2HGKlkNgu2diSWiTegEc2fr37R7RkYJOSHkwwrOWKKAcFSTkK6CPbyfCxh7WrSdX9VmvRR7tEKeBPU6WmR5NV9gSKsHG3RhsP7ChfM5+4IQanV7UpuvRf78qZltyD6WiPY28wpHFiSgoVf53SPfMBWTidiA53uDVOgOLHTpKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BmwQMZ54; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ui7xoH92LUsFGkZN4jAJeCM2atfYJjk93f4zrop5cKujtLoGTuS+TF0onWoCJsEyBxtb7jikQ9hsiuRG5VHenfE2j9I945ljDCGnCMcyGEGOdvnclVAx7bJ6gQwPAEL4Q18JuNuEDRkpEmkCoNiHckd0fgk5lC3zAk2qzOfDbWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mwOWTmAM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BmwQMZ54"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B936F1F00A3A;
-	Mon,  7 Sep 2026 01:22:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mwOWTmAM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84A111F00A3D;
+	Mon,  7 Sep 2026 01:22:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788744160;
-	bh=z0fElBwCFfiXTXhVZRhqpS0bT5CoSpVugvXPmFfWAeQ=;
+	s=k20260515; t=1788744161;
+	bh=S2v+LcfDgheGT2RlOCSwA+K1kZ8eakvDFRWEbjdSAtY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BmwQMZ54hnscay+qs2NshLkedxrMsIBxRs/Q8RSMLvX51ZlwUZOg5T61m9+nA5GZe
-	 2b0MaFrouLZRy4uWAQPDUgzJEnivgeXyAWOMpGW1oc8n2+9wF7rgRlUIycR/hnmrpn
-	 8bta8DYra6mm9MzGGgUMsWRI7WJFS8vPGPHf7TyknUfKkXZKXNFOR/TTUBFADdpYuq
-	 2w6wWp+x2Z7WgNH+ZFVtr6lcrZfC47sCqnTy0KcctC5+lJ+uoqFNJOtjMZFhr1eRU9
-	 lDxBXq/91Ft8f280CrlypwJDr/NXLKiTqb0GLndltTv4ogiRgy+sHRZJ02K2nOWmwr
-	 zepVjaKhPzqEQ==
+	b=mwOWTmAMkP0K06pxkPPyac6qmG1gyNk6T2vKC9jpHZb2PbIGhEY8/1ie/ehj8cMxX
+	 UAiil3AZxhuLNSq2w9RNMzd34Q5iAPDPaeemegO0bDFuOs5XnzfPB7DQZS2cMp1drC
+	 +jKcC61wCuTYIlfcaUr6GHnCdHrvPqYhjYcnX5D/26Jd9VrSh+MIruaprbwZf6s4kf
+	 If4yGfV5N7cu8Teyy2qMXYZ4fjq5q8nhXT7jMcXuittPstjeduE2oaIz8ygCPKR5Gz
+	 5ZXZnLTvGHf1sn35S5Aduz7COCOlYE5jyNJsKrmdm8of4m/nmjd4LhP+Q1ksnQL0oQ
+	 PIkneEWksyrFA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	mario.limonciello@amd.com,
-	Hlib Wondertan <hlibwondertan@gmail.com>
-Subject: Re: Request stable backport of commit 4b6ec94fdae2 to Linux 6.18.y
-Date: Sun,  6 Sep 2026 21:22:33 -0400
-Message-ID: <2026-09-06-daily-reply-0003-smu-resume@kernel.org>
+	Amir Goldstein <amir73il@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	Sun Jian <sun.jian.kdev@gmail.com>,
+	Youngjae Kwon <yjkwon0026@snu.ac.kr>
+Subject: Re: [PATCH 6.12.y v2 1/2] fsnotify: inotify: pass mark connector to fsnotify_recalc_mask()
+Date: Sun,  6 Sep 2026 21:22:34 -0400
+Message-ID: <2026-09-06-daily-reply-0004-fsnotify-mask-6-12@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAFdGzA7dHZxaW4Vdzp6HcwhJxpWB+vakM85gCCk-qgAY=cHukg@mail.gmail.com>
-References: <CAFdGzA7dHZxaW4Vdzp6HcwhJxpWB+vakM85gCCk-qgAY=cHukg@mail.gmail.com>
+In-Reply-To: <20260906030345.3332040-1-yjkwon0026@snu.ac.kr>
+References: <20260906030345.3332040-1-yjkwon0026@snu.ac.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,11 +47,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please backport upstream commit
-> 4b6ec94fdae2407d9b8e69e3ec5f879e72ad667e, "drm/amd: Drop calls to
-> restore power limit and clock from smu_resume()", to Linux 6.18.y.
+> [ Upstream commit 4520b96b8136ba2465a3f4dc5c3fb8bdf3d92e4e ]
+>
+> fsnotify_recalc_mask() expects a plain struct fsnotify_mark_connector *,
+> but inode->i_fsnotify_marks is an __rcu pointer.  Use fsn_mark->connector
+> instead to avoid sparse "different address spaces" warnings.
 
-Queued for 6.18, thanks.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
