@@ -1,97 +1,77 @@
-Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C923403EF;
-	Mon,  7 Sep 2026 17:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.245.243.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD443537E5;
+	Mon,  7 Sep 2026 18:08:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803988; cv=none; b=mrSSO6+or34k/nv007CZXBt3jNtWzKaJLUI68kbQLyc+G1WYcsZPgSidXAa+RyOMB1jfZYtjZycKHAbW4PTJJwG6FgTHWOueW7f3HA1J8pdVCxC6mZ2Nwd0LBLp1kErCV7fEbF1pFY+BQQ4wHSvNZ5nmBLKfJobpV6wuGVhuo/Y=
+	t=1788804510; cv=none; b=AahCrKrpzy05NkR79u1jMLbwSgJ5x1NPJoNdXoTkMn5lyqypVqUzPClDZbCxEGucs4ynQZ6ARlOox7xyQWLi/txFJriWJZdzAj6IgTJ/AJK2LT83DZxaAtQxgx4Hf6HOBFQBqbUb8oHnekD1MS3P07qEaz+Y5Vbc5sCfRCEqoGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803988; c=relaxed/simple;
-	bh=IMHU+H5IfHFb3lkocPMvQu1REuBAuXAi57pRFXui07Y=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=az+1+z9SBvMom2ImPv4c17RbCevkXxqua0CC+LEoBzRUf6jFWO7ZoHoNs4lrF2Q1r25zv/yP90ssMHkfyvsp4MPUnncT/dyVuCkqrUijwXne8KGdXAUOWXjRuvamS1dlDpzfSJVbS9UZ+YGbNTaSTVlzVnww6RwVMQDwpFO/D3c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de; spf=pass smtp.mailfrom=amazon.de; dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b=eNQi31c2; arc=none smtp.client-ip=44.245.243.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
+	s=arc-20240116; t=1788804510; c=relaxed/simple;
+	bh=nsTn+f5p/oeOk9s4FDodU0ZT+xHIuz5uH+mNqdXYbuw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AwD4X18kldSWcWiDya71eReuCyNATlryGY/T6js25fJnyfFwdOe/qe+7RdztVcBJhad9s4IqQC1c6F2+I7j+V2nloKCz+RslyE4C9DkT6fmTeblWUgBkA3PwEesU9Lf4WX18cDP3Ncb082cWzvLuY9UtXneyH3wUPs0CLvU2vqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ox99Oq+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.de header.i=@amazon.de header.b="eNQi31c2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
-  t=1788803987; x=1820339987;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=XvTUmXvoh3a7PVjRYBNX6k3gA2v6vhjklyK/IlRTA04=;
-  b=eNQi31c2HxDXHKFFVZrpO3G035+pBZCnFws9izvWiKAoAYNgxTMGizaW
-   CFDe4dQXptl9L2XCKrAX3PJP5bhYBcr92mzr6ftjm2xNVxqA+04UGJKFi
-   3Odjcs/N7OVDCqcajyFSVo5r8gjWqlEbwXyxv345CVEJcrlEpd40f1dvx
-   qwvr0+oHl1RtCOynSDXMAY68X5Tyo5+TlR6n2Z2fcCmbdMWI06XpSZIrv
-   RWjBkmgC7OAU18VkEyk1szU/xF3R4XDy6MhqMzfUxxnoXbWzb3akWy1t9
-   TpkBQVCcEXWk/okTRaHKx02zbczGAFGyZQEYugxQ9Dlh5RHYMgeyzHuMc
-   Q==;
-X-CSE-ConnectionGUID: R6RwG5VaTzOOg+RciZqnyw==
-X-CSE-MsgGUID: EmefM6qNRKuIXsI3+N+w+w==
-X-IronPort-AV: E=Sophos;i="6.25,267,1779148800"; 
-   d="scan'208";a="27553766"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 17:59:44 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:4674]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.124:2525] with esmtp (Farcaster)
- id 0247be03-975d-4825-9943-6503bfd3dd67; Mon, 7 Sep 2026 17:59:44 +0000 (UTC)
-X-Farcaster-Flow-ID: 0247be03-975d-4825-9943-6503bfd3dd67
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Mon, 7 Sep 2026 17:59:44 +0000
-Received: from dev-dsk-doebel-1a-7b355d76.us-east-1.amazon.com (10.169.119.5)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Mon, 7 Sep 2026 17:59:43 +0000
-From: Bjoern Doebel <doebel@amazon.de>
-To: Namjae Jeon <linkinjeon@kernel.org>
-CC: Bjoern Doebel <doebel@amazon.de>, <linux-cifs@vger.kernel.org>,
-	<pc@manguebit.org>, <ronniesahlberg@gmail.com>, <sprasad@microsoft.com>,
-	<tom@talpey.com>, <bharathsm@microsoft.com>,
-	<samba-technical@lists.samba.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH] smb: client: fix heap overflow in DACL owner/group rewrite
-Date: Mon, 7 Sep 2026 17:59:23 +0000
-Message-ID: <ap77V8bEpMjSvdOj@amazon.de>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
-References: <20260709155440.2132459-1-doebel@amazon.de> <20260904125844.1803343-1-doebel@amazon.de> <CAKYAXd8r-zvLH6Ecxu33jDAjM_6Uv2KFS4Naa-tYFHAwntgreQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ox99Oq+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AEAE1F00A3A;
+	Mon,  7 Sep 2026 18:08:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788804508;
+	bh=MuZcYPh1omkK8HEZAXjbGNcKNlLfSUT4dmGoKmWIVI4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ox99Oq+E1x0aCR9QfZaBIpMRK10/Kaz+mG8KeuckNkgLWjCTRzhtUq9JVB0EC7Kk4
+	 GyF6+w9CgAafQfKNTcgK+OP8NtRg9l+qZXkBt2D6yc2VcjVIY2v2tPr3FvBO7hZ+u9
+	 HOw9PmMgwLbMYu2z5RcvdsT/8Q/SeNDZA8eNY9EC3VrtEtjnrn+VC1Yd6iGZlxDZW0
+	 dkcwA/ZsTTylD0Mw6FVLZYdzk5AdR37rXI8Ztz/474zp65yfHdeSBoT7iPhimRqcL+
+	 KpFijJmccHuhawmLpX4haPNle7le9+KNYH8p/p3WO10Ba3uBmEmtMOHTHyJYRb4YcB
+	 QBSh6NQgvMcvQ==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH] mm/damon/vaddr: avoid hw-driven pte updates during damon_hugetlb_mkold()
+Date: Mon,  7 Sep 2026 11:08:20 -0700
+Message-ID: <20260907180821.102875-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907170358.100168-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: EX19D038UWC004.ant.amazon.com (10.13.139.229) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Namjae,
+On Mon,  7 Sep 2026 10:03:56 -0700 SJ Park <sj@kernel.org> wrote:
 
-On Sat, Sep 05, 2026 at 10:15:37AM +0900, Namjae Jeon wrote:
-> > @@ -1815,11 +1815,13 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
-> >                                 cifs_put_tlink(tlink);
-> >                                 return rc;
-> >                         }
-> > -                       if (mode_from_sid)
-> > -                               nsecdesclen +=
-> > -                                       le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
-> > -                       else /* cifsacl */
-> > -                               nsecdesclen += le16_to_cpu(dacl_ptr->size);
-> > +                       /*
-> > +                        * Worst case: every ACE is rewritten with a new SID of
-> > +                        * SID_MAX_SUB_AUTHORITIES sub-auths -> sizeof(smb_ace) each,
-> > +                        * plus the smb_acl header replace_sids_and_copy_aces() emits.
-> Since you mentioned replace_sids_and_copy_aces(), please check whether
-> replace_sids_and_copy_aces() also has a potential overflow issue.
+[...]
+> +static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
+> +		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
+> +{
+> +	unsigned long psize = huge_page_size(hstate_vma(vma));
+> +
+> +	if (!pte_young(*entry))
+> +		return false;
+> +	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
+> +	*entry = pte_mkold(*entry);
+> +	set_huge_pte_at(mm, addr, pte, *entry, psize);
+> +	return true;
 
-That looks sensible. I'll send a followup v3 (the original patch also
-needs an update to the Fixes: tag, as you point out.)
+Sashiko says [1] this might violate BBM.  But this is only for accessed bit
+change.  So I don't think BBM is required here.  Also, we intentionally do not
+flush TLB because this is just a best-effort monitoring.  Please correct me if
+I'm wrong.
 
-Bjoern
+[1] https://lore.kernel.org/20260907171613.A09B11F00A3A@smtp.kernel.org
 
+
+Thanks,
+SJ
+
+[...]
