@@ -1,180 +1,319 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020095.outbound.protection.outlook.com [52.101.228.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BE11F09AD
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788743003; cv=none; b=jD7nFQ+1lzzTp/LXHJ7kIEUqgpnNNFLa+7B4I3sxklQn6QVN8a3c0VdsYoAeaq2Vl0bQ+w3aYp8B0TwJLp0hUpu5sFYpH6BlkRo4fLLddyDkpbCMCyLO0mvyTJpBn3mdhLYj3bx8Gkl8o8AjjcG7QAap6DIH3R1P/2wyJmutiOM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788743003; c=relaxed/simple;
-	bh=QG3fQAlBnOjRMvH6Zn6TUW57kQMllgZEpCfHyGP5HLM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XOhCug25vbkxJJ6aij7+XROxDuh6IqPavURW64sKZJm37JBka7LNCJsVCj6F1stEB6syITgPIrzHFkNaCcTBIozUS/tWeVR0RVW7Rq+l4nCJhghZPsJ3H4XCmo/P/KvVyP1YxSkqek/MpAMQ5aYGd1eWWxM3/sAV9pi7KafAUxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oWaCZmFv; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B08952BEC2B
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 01:21:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788744120; cv=fail; b=pXU4R3ZiGuCqMuc1Wi8m3okQBIzF7GRud3LbkOBqprP+sSnS+uXNOGNjsuFTWELMt2yKwQcoo4ks8wvDeJx1W5/p1lhr/arK6hEZ3U5g53dv5/srAEYlavqiF99UyVR4g0xrzox5R49MmEBqF66+UitKb9c2b0OQSJ7aA9N/JQ8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788744120; c=relaxed/simple;
+	bh=3XRy8yDEdcu2hcvwJTDz8Wx7ZjogZkoiidS/RNVexyg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=NkjgWsfOgFNhvBadP6fUFH7xnaJHwExB4hwtnRIrzrSgtfHe4UQSghOJg9jFVxYcL/pc9A8lIH2H1L8Xo2P+Icc5Wj8jP97uC79dioM7144Qi8hP5i9pPzVDGTbW88uKrHsEojxzUYRrpx6fr1Vk5OjwtKdtv9nsDfbH9d6RYDU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=KKOPgSrs; arc=fail smtp.client-ip=52.101.228.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oWaCZmFv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 996841F00A3F;
-	Mon,  7 Sep 2026 01:03:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788743002;
-	bh=1oh6b74kyqlGbCse1x35doqEpeCITfrFttPSnWID+Zw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oWaCZmFvQMgbOCM/YyPuWqUKGoI1UeNrgd/hzX2BQ9g06r3amhZKJ02p0wFa1qOn2
-	 deGYYwyasb6GoJ38bozqun0sSuorb66c6d2RP7eRZj/gHeZJczRIiW9pGUNrqINEyP
-	 bXD5Jr01lz57zizyQX4hnvIFNfR7ipEQ7v5oPX1pk8yEPr0XUCW1qdigzzPNv4n8M/
-	 otfnu2s5PYRf0Jzy0ChPmGfupT3PncCHh31epkfxIepDvr7D6TJFZjgMoErjdmbtpB
-	 SMxnholroVEyf4kbx88Sqa5SDwU3X+Tm2qEaD6LHm/OxlSr50gR+hBS6BkYhurpsA6
-	 Z/VKVQxKlz7sw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag
-Date: Sun,  6 Sep 2026 21:03:17 -0400
-Message-ID: <20260907010317.1950131-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907010317.1950131-1-sashal@kernel.org>
-References: <2026090330-ferocity-flavorful-f5e4@gregkh>
- <20260907010317.1950131-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="KKOPgSrs"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c2E8pYS8v5czqR2JLSg5mubuE5wRBXxi6CL1+m+XavvZq+QBHCMj43bQ9EjzVyYNX8pIacJDjFRPmUnL6JLUAIKHJVkT8SawAcFmlpzQKzj74iovHQbzIft9dOcc1GRqbk+tX7rw7e6ElNpuGmh5+ucs+9YmHO3UcF4k7yGVFvmJ0idrEBAMpnPWO8bLIEHvQd7tndE5bunabIYuvinjh2YjfMiTzHZxBbqd0YUHUdfdIUf8fLtSzBhwYx1OecAM47eg02vl+sOADNnjVmdnNMREHcH9F7SKx2VCsdztmb4aHHLxAS9av0Aqe9QtCYaoCZsKIG160AQoRFs7eQqrYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N0tYvcBYtZt6ZX+och4989DlO+23OF8KBT1dN86S7DQ=;
+ b=m6e+FRqieH28d3U3/80YysqjeVyHCPjWkfj6R+ILQSOsT3PJmiUGjgvG7iVufjYURbPvIuQkicpJzq3EJ2/13vn6+/ZFpFZ9xCRKl7/cEbJkGjFQXJocQpvy7ZAxdJ4+hD97uPJ8ZskFjkNYlTPKHlMOebeozIo4k3V3isHh5LfdRX2ng68ywD0Oto5A1XTT9wPUmuQkQHem64sG4iO0Ly6Z+82Cx8lwnbLEtPH1O6x217xBZFJs7r9LNZALF767KfZtUaJ+gJn85z2CLGVk6sDjT/Xs19woX0GZckePu1cg7p9oA8+WfBaALN6CbLKuh0UtjO4tySFtmoTx+o7v6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N0tYvcBYtZt6ZX+och4989DlO+23OF8KBT1dN86S7DQ=;
+ b=KKOPgSrs598pnl7qUQgeJzpPjhSRhuuBboWzZveaQ3dYZsk93GPHSS1jejNGKWTMPnhye9KX+8TV4KyBnMSvyronoXhifDJeHLn4/NSivmWv5tWChD4pDhvmU2y1+zLRrWtJnNYOIHrT2ugM7EPuIF1zbVfPnIP8XFAZoN7nk68=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TYWP286MB3126.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:2a0::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 7 Sep
+ 2026 01:21:52 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 01:21:52 +0000
+Date: Mon, 7 Sep 2026 10:21:50 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Sasha Levin <sashal@kernel.org>, 
+	Dave Jiang <dave.jiang@intel.com>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev, 
+	Jakub Kicinski <kuba@kernel.org>, Vegard Nossum <vegard.nossum@oracle.com>
+Subject: Re: [PATCH 6.12 348/403] NTB: ntb_transport: Fail TX enqueue when
+ the QP link is down
+Message-ID: <hsqmssqtwdnsxx2m2wdeo5rby4c5j7safbtbhelzlvkitpt3nn@w5n72xrl46nr>
+References: <20260904045734.806166532@linuxfoundation.org>
+ <20260904045742.729378177@linuxfoundation.org>
+ <7da02d81-ebfe-4448-b6d1-9209cb9282fc@oracle.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7da02d81-ebfe-4448-b6d1-9209cb9282fc@oracle.com>
+X-ClientProxiedBy: TY4PR01CA0023.jpnprd01.prod.outlook.com
+ (2603:1096:405:2bf::16) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYWP286MB3126:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5271c24-3cb0-42b0-adae-08df0c7e65be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|376014|23010399003|366016|4143699003|10067099003|5023799004|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	7nLAYPt9cvYFbEtNyUk233PgO8wiHCGhqnN6GZR7UlG+jwliHTIPPQxp4BDha8EMj0Lr/EKGg0RlMJJf7atoWceAMsOmkrb/s9cjC0o2Fk7B9iyGkP9VmJy7dwPqN/T0q++JvEGz/433IvCZRBNaaXFYKZxPmadSq0sX5Dh0h1jThG7vIQSEhMeZ5ji42tQXYAvLiE6fagZx4HvI2FbR1qOpIr+XTLwi3i87Zost7JHKW3l0kMGYvGhvTeVPNVAqvmykmSEZ/gs88A+yMUtxYYtF85HYUY2p+TtjLQIVKSFcKYxb1SdW6nSPUj7Q7pRizetTLBhpmRZcAdcszZnAOwoazMMG+hfSMiCAdH75eOyB0F8BcEe1z9NIUIpFUCMJOoPbdU53D+su6c9FEPHg60JvIVapUxQIqcPAsuHrICvqG/CPzPcASybMk3sPNRXKlWiMv7neo2yqPWkZmYeQQ01WFTCPvlW7HucMjwngps4swL/JTC0re67UYyJLagJW/aNrwtZ/88NNXNNzbqBV6YI6MojLxV2IrIJz0nRnLOk+mIImIKVPjxTHu/6SEcdT0HDPcAgsP02mlveXKk2irXE+TkiX48IIWjCOV9Lni06xzQEt8WWj26/9sOszTq1I
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(376014)(23010399003)(366016)(4143699003)(10067099003)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?LZ8iNtGwPuvq7f1aKZQAJmaon+ZDZGISF5uOQYncykln7pRtWdR4s3GRaIId?=
+ =?us-ascii?Q?F/UoMg2yv0qh/+XZutqgf++ow6h57mPaSEAdNIm8IVNaKW1RcbExiBMiTVDJ?=
+ =?us-ascii?Q?e8nlxxj1EHvsL//n++OSX+B1K1qe45ExogSt9+LS7NCJCUIFvKTY5w6bveGw?=
+ =?us-ascii?Q?w1lXNs5n4FELWJpSCExTdkiFuv1QG8tuLbxQa++bwX1SH8QOzxAxqAwZLMxB?=
+ =?us-ascii?Q?D9k0e4z7jYKAzClmrbHKN3+0FLseXLlLOlqc6dnPmjaAskrVdPp/zjfuophe?=
+ =?us-ascii?Q?WgsUn2JSx3XY5T1A4otOZnwCwOZ1rNGCJiWIXgKF5Qez92PnIfm2r4jh6w4i?=
+ =?us-ascii?Q?VbUaILpiUlj3YzDRLFbWwl0u+WNpQj1RJkB4OEPrY5X9ngEYl79LIMTYcL0b?=
+ =?us-ascii?Q?gduB5FBVIm1dN9Lab9mSnAkP9QifKGSV5ixlQ4JyQkqfLAJ+yiqjvc3CLtX7?=
+ =?us-ascii?Q?VPtigukpSnpjpNf7J8UqXV+yHnmOVNhB4AvPNdSykzBAKRi871glnBS96zcn?=
+ =?us-ascii?Q?Pb0j9mz8ZsoW3PjT+7fmKOypcUS5PpyPz6AN9ar3A2CduGUkP0CQinv85wdO?=
+ =?us-ascii?Q?A46EoySqWkjn8hfeJsL+RxwMbECBdJV8r+x5HQycxvN39jgRHZ5z0CygMpob?=
+ =?us-ascii?Q?zSkAVggOMoqQUDIMS45FcM4jscfp5iiZzQ7T02kJ2BJtM13NDsA16u08mpeU?=
+ =?us-ascii?Q?maXgVyrOepGl5z622MBgjTtSKno11yci1JxjmxGNJOGiIR7V4ceDtqBLOVAm?=
+ =?us-ascii?Q?bV9nNFPPIujTivhSbaF0Ygj4iNT+JowuMuqQsz0MOJnnvE3dgVmSfpqe1GwV?=
+ =?us-ascii?Q?mQUtUNYPECkYmZOKO2BhNzBsG2x1xNIlVkNKEH1+zcxiy/2R2FazhT2TJZaG?=
+ =?us-ascii?Q?jMaeFC+pzhcNcjUXn2nt0Hf50pLGzADNs+M3y0P5rXZV4I69jZoHwtiQEaTc?=
+ =?us-ascii?Q?nydjZqXy8iDnk0PIeLFerL/jG0QiVX7r5C0cYvB5IkHnxQzrcmzCNEHndIGC?=
+ =?us-ascii?Q?G43m1X/Zt7Tk16eiFQMVYDxyrf7lPZc0VJpW8y0LGxKv5Q5H/SU4VAerzQgq?=
+ =?us-ascii?Q?hURX3kFpi11DPx5PBYzd5OWroIngxq2rTKak7yrMVp+dz7b8RgHYJKNiVopr?=
+ =?us-ascii?Q?ar2r2jgLX+knJInvEWP97XOXyWifOjv3D9YKa6E5KcT1CCTkckDAomRo+kY4?=
+ =?us-ascii?Q?v17yyxbouhShcr7CrUz4wyYpMlP1HUXTpOqC3QC81ghRCHbeEM9XDGPT8b8r?=
+ =?us-ascii?Q?ZRflvqzfKAKzXyH+lmjS9D86Ke9aZg6p7FdC4cjO+B2hbYDFV78Mxqne+Y13?=
+ =?us-ascii?Q?5H8BbVSmqSMC/MqMMqTJMW5VaNQQxX89B3C59drJFuRV4f3Ft/3dbdxuG3Rg?=
+ =?us-ascii?Q?Z2jzswF2xUlYfmNha041jJwY7WTVXWH3ZOiJdS7IzioAfOQ54zV0WdekTEbX?=
+ =?us-ascii?Q?xmQbOyH8jCOMm2cV9rPL3GX0WRWZ7tZtvB1IwNk/32jEak9ARVPonTA5gWa7?=
+ =?us-ascii?Q?AISNbc5+6lBSbeP0x9y1+K1SQKmZyldlsiEZsM+5f2UEVr1wRmxWMWzJgmX2?=
+ =?us-ascii?Q?ZyyMudCYfnOf3Wlb9WHyON4AENcwsOvhOi0JP2YOYE+vG1LjA81xzGCdF0z6?=
+ =?us-ascii?Q?lOdXYhaHE/r811+AUopn8MftoUWNe8g6U0Jya99UYKtMfrpCuyR2WG28pivf?=
+ =?us-ascii?Q?63Pi+rhKrwqXRHX+CPm6BLeZ9tp03Tl8hRccQ57u2V0h0CdPBm4FSD9alZHS?=
+ =?us-ascii?Q?w2TZAkk+8ndKja6VDhWSH/VZ89oHY/1QlHv7SgN6K3cHtQ+vPiud?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5271c24-3cb0-42b0-adae-08df0c7e65be
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 01:21:52.4883
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4AjqbIyM3P4rsY+Cu4T/XM2wt9PZHbwD/SlpVXsKfUpHihz6INmURdUI0wVINvnG0KpXvTKy1+qjqILvm4nKzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB3126
 
-From: Qu Wenruo <wqu@suse.com>
+On Sun, Sep 06, 2026 at 12:00:42AM +0530, Harshit Mogalapalli wrote:
+> HI Greg/Sasha,
+> 
+> On 04/09/26 10:32 am, Greg Kroah-Hartman wrote:
+> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Koichiro Den <den@valinux.co.jp>
+> > 
+> > commit 873ce713fef5dde0939220f04f3484ec86a16fba upstream.
+> > 
+> > Commit f195a1a6fe41 ("ntb: Drop packets when qp link is down") meant to
+> > make ntb_transport_tx_enqueue() drop packets submitted while the QP link
+> > is down, but it only returns 0 without consuming the packet. Zero means
+> > success by this function's contract, so ntb_netdev reports NETDEV_TX_OK
+> > and forgets the skb: nothing queued it, nothing frees it, and it leaks,
+> > one skb for every transmit racing a link-down.
+> > 
+> > Return -ENOLINK instead, restoring the contract that a non-zero return
+> > leaves the buffer owned by the caller. With the preceding patch,
+> > ntb_netdev frees the skb on non-retryable enqueue failures and returns
+> > NETDEV_TX_OK, so a packet racing with link-down is dropped without leaking
+> > or entering a busy retry loop.
+> > 
+> > Fixes: f195a1a6fe41 ("ntb: Drop packets when qp link is down")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+> > Link: https://patch.msgid.link/20260817053519.4135287-4-den@valinux.co.jp
+> > Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > ---
+> >   drivers/ntb/ntb_transport.c |    3 +--
+> >   1 file changed, 1 insertion(+), 2 deletions(-)
+> > 
+> > --- a/drivers/ntb/ntb_transport.c
+> > +++ b/drivers/ntb/ntb_transport.c
+> > @@ -2307,9 +2307,8 @@ int ntb_transport_tx_enqueue(struct ntb_
+> >   	if (!qp || !len)
+> >   		return -EINVAL;
+> > -	/* If the qp link is down already, just ignore. */
+> >   	if (!qp->link_is_up)
+> > -		return 0;
+> > +		return -ENOLINK;
+> 
+> I have run an AI-assisted backport review and it spotted an issue.
+> 
+> Upstream commit: 873ce713fef5 ("NTB: ntb_transport: Fail TX enqueue
+> when the QP link is down") returns -ENOLINK when the QP link is down.
+> commit: 8aaa47351db0 ("net: ntb_netdev: Fix TX busy and drop handling"),
+> makes ntb_netdev treat only -EAGAIN and -EBUSY as retryable.  Permanent
+> errors use:
+> 
+>     dev_kfree_skb_any(skb);
+>     ndev->stats.tx_dropped++;
+>     return NETDEV_TX_OK;
+> 
+> The 6.12.y caller instead sends every nonzero return to:
+> 
+>     ndev->stats.tx_dropped++;
+>     ndev->stats.tx_errors++;
+>     return NETDEV_TX_BUSY;
+> 
+> It neither frees the skb nor stops the queue. After commit: 6c34659c7712
+> ("NTB: ntb_transport: Fail TX enqueue when the QP link is down"), -ENOLINK
+> therefore becomes a permanent busy/retry path instead of the intended
+> one-time drop.
+> 
+> I think 6.12.y misses commit: 8aaa47351db0 ("net: ntb_netdev: Fix TX
+> busy and drop handling"). So we should either pull in the prerequisite or
+> drop this.
 
-[ Upstream commit 15f7c86215e8d5f14b24127fa88af6c79363d50e ]
+Hi Harshit, Greg, Sasha, Dave,
 
-[TEST FAILURE]
-The test case generic/628 will fail if MOUNT_OPTIONS is set to
-"-o nodatasum":
+Thanks for catching this. You're right, patch #2 of the original series:
+https://lore.kernel.org/r/20260817053519.4135287-1-den@valinux.co.jp/
+is missing here.
 
-  FSTYP         -- btrfs
-  PLATFORM      -- Linux/x86_64 btrfs-vm 7.1.0-rc4-custom+ #383 SMP PREEMPT_DYNAMIC Sat May 30 07:35:42 ACST 2026
-  MKFS_OPTIONS  -- -O bgt -K /dev/mapper/test-scratch1
-  MOUNT_OPTIONS -- -o nodatasum /dev/mapper/test-scratch1 /mnt/scratch
+I've adapted patch #2 ("net: ntb_netdev: Fix TX busy and drop handling")
+for linux-6.12.y. (Note: only build-tested.)
 
-  generic/628  1s ... - output mismatch (see /home/adam/xfstests/results//generic/628.out.bad)
-     --- tests/generic/628.out	2022-05-11 11:25:30.816666664 +0930
-     +++ /home/adam/xfstests/results//generic/628.out.bad	2026-06-08 18:56:49.878542927 +0930
-     @@ -8,8 +8,9 @@
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/d
-      test reflink flag not set iflag
-     +XFS_IOC_CLONE: Invalid argument
-      310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/a
-     -310f146ce52077fcd3308dcbe7632bb2  SCRATCH_MNT/b
-     +d41d8cd98f00b204e9800998ecf8427e  SCRATCH_MNT/b
-     ...
+Would you prefer me to send the full four-patch series for 6.12.y?
 
-[CAUSE]
-The direct cause is that after "chattr +S", the btrfs inode will lose its
-NODATASUM flag inherited from the mount option. E.g.:
+Best regards,
+Koichiro
 
-  # mkfs.btrfs -f $dev
-  # mount $dev $mnt -o nodatasum
-  # touch $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-         item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 9 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 1 flags 0x1(NODATASUM)
-         	                     ^^^^^^^^^ Proper NODATASUM flag
+--------8<--------
+From b64974a682c800ebbac4d1935541b933fcca593f Mon Sep 17 00:00:00 2001
+From: Koichiro Den <den@valinux.co.jp>
+Date: Mon, 7 Sep 2026 09:58:58 +0900
+Subject: [PATCH] net: ntb_netdev: Fix TX busy and drop handling
 
-  # chattr +S $mnt/foobar
-  # sync
-  # btrfs ins dump-tree -t 5 $dev | grep "(257 INODE_ITEM 0) itemoff" -A 3
-  	item 4 key (257 INODE_ITEM 0) itemoff 15879 itemsize 160
-         	generation 9 transid 10 size 0 nbytes 0
-         	block group 0 mode 100644 links 1 uid 0 gid 0 rdev 0
-         	sequence 2 flags 0x20(SYNC)
-         	                      ^^^^ Only the new SYNC flag
+commit 8aaa47351db0f93a5c5297fbafdfa8bc75e8ae49 upstream.
 
-This makes the inode drop the old NODATASUM flag, while the new reflink
-destination will still inherit the NODATASUM flag.  The mismatching
-NODATASUM flags will cause the reflink to fail.
+Currently, ntb_netdev returns NETDEV_TX_BUSY for every enqueue error. It
+also increments the drop and error counters while leaving the skb owned
+by the qdisc, and may return BUSY with the subqueue still awake.
+Retrying a permanent error cannot succeed either.
 
-The root cause is that, inside btrfs_fileattr_set() if no FS_NOCOW_FL is
-set, we remove both NODATASUM and NODATACOW flag.
+The unconditional BUSY return and premature accounting date back to the
+initial driver. The error-path queue stop was later removed without
+changing that return value. The current flow-control code includes a
+resource check, but ntb_netdev does not honor its result before enqueue.
 
-However we should not touch NODATASUM flag, as data COW doesn't require
-checksum.  Only NODATACOW implies NODATASUM, but DATACOW doesn't imply
-DATASUM.
+Honor the resource check before enqueue. For -EAGAIN and -EBUSY, stop
+the subqueue, arm the existing reaper timer, and return BUSY without
+touching the skb. For other errors, free the skb, increment tx_dropped,
+and return NETDEV_TX_OK.
 
-The deeper problems are:
-
-- Fileattr API is too binary
-  It either clears or sets a flag, there is no "do not change" option.
-  So that why "chattr +S" implies "chattr -C", and is forcing us to
-  change NODATACOW along with NODATASUM flag.
-
-- No way to change NODATASUM through fileattr API
-  In fact NODATASUM can only be modified through mount option.
-
-The deeper problems are much harder to attack.
-
-[FIX]
-Remove NODATACOW flag when FS_NOCOW_FL is not set, but only remove
-NODATASUM if "nodatasum" mount option is not set.
-
-This allows the existing "chattr +C" then "chattr -C" to remove
-both NODATACOW and NODATASUM flags on a default mount.
-
-But for a mount with "nodatasum" option, the NODATASUM inode flag will
-persist through either "chattr +C" and "chattr -C".
-
-Fixes: 7e97b8daf634 ("btrfs: allow setting NOCOW for a zero sized file via ioctl")
+Fixes: 548c237c0a99 ("net: Add support for NTB virtual ethernet device")
+Fixes: d723485cb4ca ("ntb_netdev: remove tx timeout")
+Fixes: e74bfeedad08 ("NTB: Add flow control to the ntb_netdev")
 Cc: stable@vger.kernel.org
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/20260817053519.4135287-3-den@valinux.co.jp
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[den: adapt to the single-queue implementation, as 6.12.y lacks commit:
+ ee970634c777 ("net: ntb_netdev: Introduce per-queue context")]
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
- fs/btrfs/ioctl.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/net/ntb_netdev.c | 27 +++++++++++++++++++--------
+ 1 file changed, 19 insertions(+), 8 deletions(-)
 
-diff --git a/fs/btrfs/ioctl.c b/fs/btrfs/ioctl.c
-index c38d7cd0f34e5..27089a49cfd22 100644
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -320,14 +320,21 @@ int btrfs_fileattr_set(struct mnt_idmap *idmap,
- 			inode_flags |= BTRFS_INODE_NODATACOW;
- 		}
- 	} else {
--		/*
--		 * Revert back under same assumptions as above
--		 */
--		if (S_ISREG(inode->vfs_inode.i_mode)) {
--			if (inode->vfs_inode.i_size == 0)
--				inode_flags &= ~(BTRFS_INODE_NODATACOW |
--						 BTRFS_INODE_NODATASUM);
--		} else {
-+		/* We can only change NODATACOW for zero-sized regular file. */
-+		if (S_ISREG(inode->vfs_inode.i_mode) && (inode->vfs_inode.i_size == 0)) {
-+			inode_flags &= ~BTRFS_INODE_NODATACOW;
-+			/*
-+			 * There is currently no way to change NODATASUM flag
-+			 * through fileattr API.  If we unconditionally keep the
-+			 * current NODATASUM flag, chattr +C then chattr -C will
-+			 * keep the NODATASUM flag, and no way to remove that
-+			 * flag.
-+			 *
-+			 * So respect the current mount option for NODATASUM flag.
-+			 */
-+			if (!btrfs_test_opt(fs_info, NODATASUM))
-+				inode_flags &= ~BTRFS_INODE_NODATASUM;
-+		} else if (!S_ISREG(inode->vfs_inode.i_mode)) {
- 			inode_flags &= ~BTRFS_INODE_NODATACOW;
- 		}
- 	}
+diff --git a/drivers/net/ntb_netdev.c b/drivers/net/ntb_netdev.c
+index 05bd6ad9c88f..86f6c17f911e 100644
+--- a/drivers/net/ntb_netdev.c
++++ b/drivers/net/ntb_netdev.c
+@@ -167,8 +167,10 @@ static int __ntb_netdev_maybe_stop_tx(struct net_device *netdev,
+ static int ntb_netdev_maybe_stop_tx(struct net_device *ndev,
+ 				    struct ntb_transport_qp *qp, int size)
+ {
+-	if (netif_queue_stopped(ndev) ||
+-	    (ntb_transport_tx_free_entry(qp) >= size))
++	if (netif_queue_stopped(ndev))
++		return -EBUSY;
++
++	if (ntb_transport_tx_free_entry(qp) >= size)
+ 		return 0;
+ 
+ 	return __ntb_netdev_maybe_stop_tx(ndev, qp, size);
+@@ -211,21 +213,30 @@ static netdev_tx_t ntb_netdev_start_xmit(struct sk_buff *skb,
+ 	struct ntb_netdev *dev = netdev_priv(ndev);
+ 	int rc;
+ 
+-	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
++	if (unlikely(ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop)))
++		return NETDEV_TX_BUSY;
+ 
+ 	rc = ntb_transport_tx_enqueue(dev->qp, skb, skb->data, skb->len);
+-	if (rc)
+-		goto err;
++	if (rc) {
++		if (rc == -EAGAIN || rc == -EBUSY) {
++			netif_stop_queue(ndev);
++			mod_timer(&dev->tx_timer,
++				  jiffies + usecs_to_jiffies(tx_time));
++			return NETDEV_TX_BUSY;
++		}
++
++		goto drop;
++	}
+ 
+ 	/* check for next submit */
+ 	ntb_netdev_maybe_stop_tx(ndev, dev->qp, tx_stop);
+ 
+ 	return NETDEV_TX_OK;
+ 
+-err:
++drop:
++	dev_kfree_skb_any(skb);
+ 	ndev->stats.tx_dropped++;
+-	ndev->stats.tx_errors++;
+-	return NETDEV_TX_BUSY;
++	return NETDEV_TX_OK;
+ }
+ 
+ static void ntb_netdev_tx_timer(struct timer_list *t)
 -- 
-2.53.0
+2.51.0
 
+--------8<--------
+
+> 
+> Thoughts?
+> 
+> thanks,
+> Harshit
+> >   	entry = ntb_list_rm(&qp->ntb_tx_free_q_lock, &qp->tx_free_q);
+> >   	if (!entry) {
+> > 
+> > 
+> > 
+> 
