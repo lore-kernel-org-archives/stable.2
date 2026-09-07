@@ -1,436 +1,189 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazolkn19013074.outbound.protection.outlook.com [52.103.51.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADCB385529
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 07:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765424; cv=none; b=tPi9ov/oKEIK5ZogBp9dGK+NoFBkG3L9AigSXNk9pL4cAGRrKZz5kd2pgK32pPvqqdjPxHzhH8uPJTcwNsUDPo/XDqSeH1I0fb2hiFRWcmdfO9fBKZQL3UaHMrWZC/YtP67TToYxjImu+isTSSYyaCy16XBzgNrNFFj6lVIbjfg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765424; c=relaxed/simple;
-	bh=ILCMREtj57LPynBMbdtRmiEp7NmrdNb9ELciwPbEyoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uv6M65ZM+VOTT5sn3GTF4ov5kzm6l3rwhPfemASit/qnEJtRHghGeeh/DgtdtygrpIb+6x6z6iJ9M78PBrIEeZxtzTobRfkkhPoz5k7aTNcjz7wpUYGn81t/J+lhnMuMqCV2cojO8cy8oJn2HjVyllvXGJXN5Tdl1saw47XY+CE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QDqE1nEy; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A3C418A5E;
+	Mon,  7 Sep 2026 07:25:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.51.74
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788765942; cv=fail; b=T/bhJeO2BDRS7nFApQBFHjM4XPq5+dRAjKkh03I2bo+GhIOyVGUf2A6mVnjra9Uz9soAti4oaVsXqmlXgBU+Uu9WU6dVjRvpHky2aYVVRWcLBiReSrxu5WPzEnTMPUs6lHDamnfAybnYgfBwbCOGYgfW6M23PGRg6tdm+iNUXcs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788765942; c=relaxed/simple;
+	bh=HYiGodGkK9xP7NFZCHsI/ZUD987RuwPEwWbhwu1WIDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=mwcl7E+bPwZ8FWkOgDfOnY46VA+BinwIzh9rOEDsuPxKu9jwQP9rtpu11WluWdf3ipSAXi2mP/sc9MxJmfqECS9j5tjXOFiJjt7woVn1nYUlGXEphN1CP5SzfagXvLQUpPSpdC044RHG2auKzqrSiDiQ4gvASbQFP+ncVuD8Ssk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=Vf7cuEl1; arc=fail smtp.client-ip=52.103.51.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QDqE1nEy"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2ce98cb8165so31730245ad.1
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 00:17:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788765422; x=1789370222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y5Qyp8zC9uhbEdx1N2lLTLLlHAp7bWAGto641WLhC1Y=;
-        b=QDqE1nEyP25YTNVSDLPT/YNgYmGP3BOiOvmhVbtmL6AI0uh5ViZEmh4vwuU/TWiGRn
-         fpHq9PS9Pe84gzXCxZUq9IOHKyricgmOQ6Jn03bRFoeh0u+AhR/DN/bKYpIz3OXH0POF
-         QYvZacFsXTEHwCmC8P15k7Qn0jr8tRdjHrcg8/ZVinnp7O7kli2AkvJsJDiHoJat7Wep
-         FubPCAHe4e2SwPtzBVDuwdlK2rwBMAd4ux1qu03ke9a3ew2PfBjykG8wIyBvfqsUSmNU
-         VDFsGzWekdq60oIyVLhOaRChO30qcvTts4LK8uamonKZWWKwZu8PrYzQTJavF16dCdEQ
-         j6zA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788765422; x=1789370222;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y5Qyp8zC9uhbEdx1N2lLTLLlHAp7bWAGto641WLhC1Y=;
-        b=JNyeq6fGcLfaZ7hrPvNnX4ynBPMm0gW0IT1wD45IPljVXjz4wprDnR5mCPCBuy2nBr
-         VQgdKeO0FICdDoWXDYqYVg3mKGLO1sQt35Tgm5VdlyqR92JpJ9qna8eIFRzsQGp2E8fO
-         eB3CPVnKoOjKmHgpHank1y+AhBGSU5oUiTeuMma25Zn7Tzv262BX7zK5tAFeXVbQxCak
-         R8EubuQJA/27To7WGvSdDI9rdbx/IlEGAbX+JuDHZ6qufXoYXGhH6eC7odQIZ9fW8ZHg
-         FJs7qaUi/2SjEbV9HMRiOf0aCW70inGHzeg03eFvFFWXa8dCFP+G6Nssm2gu9AV97x1u
-         inDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzABQFd4ndN0JpxmZEgk+cSQYyxMiujImsCGzVNu8ExAtibPudO54dstoulTYgkvK0rHKlQet0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqQoOayDA5W0cFxIMH9l/55PYHimnTb+L8CC+1nEbkd3G38Eqr
-	mAqqymOu1Opk3PIqFSpym7ASTqvTOisQ5LXaJh9Pvize5/bXiS/h/1tD
-X-Gm-Gg: AYBFou23cOG5jBpxzryy+phyTYZ5F68k/AfJyJRDSbI+fLUMU0dPqP37noBrFcHYVI7
-	FABtwq4/WSlAx89SAvo2DIBl+qdIlHA2I7qXw7rCDU/THkRl4WA93rELWUvKT9YYQYAV/yaBtCe
-	R5m0CCYJKkc0FsSdnHCHWOodFe6e9WvjeTgKZzZqOXeO319GrC76me5GvbdRM2X/k02ntGSK8uz
-	0QHzuBIk8hIbA/uGfExhO1wJQzxqwGLvgkuaJnJ+S/LbGD9pSir573MntqgJksAtzhTRxJr86ec
-	h2J1ezwfB9A07IoUn77dcq8yKCG5JbOOQNshwbofoZ4bquuMrpT9dXuifCME75Fid5RumZ+7C6U
-	EVTY7hYzaVJRn8NN+wJBzzSpm16U2S4YqrUx0GMAhJQd2Y0C6pjSUX3TGpnIyta2P5X89PvYOo0
-	7tvpkFrF517S/EtMAE6HrGgnvOC5DEswKR+4rLlvM840RWmSNxTiOEw/oplyoyO6Z5tJmpSWN63
-	LODRhx98xQAfvnvUX0jjecmoFOKLqGZK2ztcmgqlBIxj0O1zDN9/hh2PgyYw64ZTBwXMsm9kPi9
-	hoFYkDid
-X-Received: by 2002:a17:902:ec8f:b0:2d7:4bc8:41a4 with SMTP id d9443c01a7336-2db15a39b74mr179735715ad.10.1788765421790;
-        Mon, 07 Sep 2026 00:17:01 -0700 (PDT)
-Received: from 7cf34ddc0813.ant.amazon.com ([54.222.46.32])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b419sm40417615ad.13.2026.09.07.00.16.57
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 07 Sep 2026 00:17:01 -0700 (PDT)
-From: Jiazi Liu <jiazi.liu1984@gmail.com>
-To: Thinh.Nguyen@synopsys.com,
-	gregkh@linuxfoundation.org
-Cc: frode@meta.com,
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="Vf7cuEl1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V1aDLnEUc5PJQdeOaj4RBTeardKtwVqcUYggbvYTQlu+TvuTOXtv6+++ZwUgFdfV77/OAio9TwFUtzP5nsAAFc5pEl8WSbjIkbN/fufM4NJAyffSKkU3uugKeaOKIPRND4qEH0enxwbwEaaiprfOcCXM8aq8hpyjAHEWVBJtHyFmSOhqY5ID1W9FsvY7H9ghpYpX+SZYDsJcAvDyujb1y/TJAkJ1UUHYglRKf9S/MNVH+niNF5v/C9fWUI66e33Z/yr+s1NWDwm4gBZ7IiZQLwmBbsun/UmG5qn9Y3FI2/2a4psr3QvXPLOOEH0qg+bWbV4Joz14lEfQp5AQYCZF5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gGihvwGAIEuPP9LOZ/gNTyybVnfLzBjX8DWzkmKCHXE=;
+ b=DCDP/JdfGwADjFou3bdoFYoAYqaECgB8L/bwnr9JymaJlwMa6dMkugQi1Mh4jWCxREN2M6MPRgbkv+LQYK4vfcKM6+rRkZkzUcAfwEdHv5UJ5QPVGkHocSBFoWqB9TgcDjk/5FXmFdElu4w39ff8bb0pSR6bnLyv3BMMJNXQxsVdeskm6k38AC4IRaOxH288EVnBJqTFyPhxxIibJbATTcHZfTT4RyEmxJQH5mVbWg8Lc+xITlqCAj3Ql/ggrBFaI7sP7OMiPP5pltpLqRowslk+OMx9Wm/UHbt/P8TT3BVnaAxKW8W/rN5Fijk2MfaxQVyZ7nCcMqNla1gAN83Ngw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gGihvwGAIEuPP9LOZ/gNTyybVnfLzBjX8DWzkmKCHXE=;
+ b=Vf7cuEl1xV7jaAwjc2ECvaMQHqztwmok45hncEUeKdX0zRmDKc/MA98A7VumChL0rbXc36vrpGrzwbn9GAHAAS3Poop6uG+uhBUCyxmQ0hSXxkEO7snVkkBMR1/1L0++jqsKFWXhgIn11egT/+xa4SQEwY6p0fn3Ss87ZQwatmDZp3Do2Nvp3yqyoK0VCG52ZFitBKny6016iwT7Rle9t6+iPgAJVzMq8SVqQl4B6gQU8skWJueoBqOASbGSI2DVxZaXAKdIu1Ii8wizB3sig6EQXPINXOFYGeX6ZnTBlsUXaJNuqr/JKfJMsC4CwEI/Rj4VPS2zbD5fzOaNcQSBKg==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by AS8P251MB0136.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:403::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Mon, 7 Sep
+ 2026 07:25:38 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 07:25:38 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Peter Korsgaard <peter@korsgaard.com>,
 	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jiazi Liu <jiazi.liu1984@gmail.com>
-Subject: [PATCH v3] usb: dwc3: gadget: fix IRQ storm on invalid event buffer count
-Date: Mon,  7 Sep 2026 15:16:34 +0800
-Message-ID: <20260907071634.18605-1-jiazi.liu1984@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260727092258.1121-1-liujiazi@amazon.com>
-References: <20260727092258.1121-1-liujiazi@amazon.com>
+	netdev@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: usb: catc: fix out-of-bounds read in catc_rx_done()
+Date: Mon,  7 Sep 2026 07:25:34 +0000
+Message-ID:
+ <AS8P251MB00013A0DCA600A79DC58B0FEC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO6P123CA0039.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:2fe::19) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260907072534.588817-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS8P251MB0136:EE_
+X-MS-Office365-Filtering-Correlation-Id: c92f4e82-5cf0-4b63-0aae-08df0cb136e9
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|55001999006|51005399006|2604032031799003|23021999003|5062599005|5072599009|15080799012|37011999003|25031999004|12121999013|8060799015|19110799012|25010399006|4140399003|40105399003|2607281247196008|3412199025|440099028|26104999009|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?Oin4iOXLASh4sMWJtmvUpPC0gUsZvvjUXcPPJIeo34FSFJdBd4kAgSMYsyou?=
+ =?us-ascii?Q?lj+KLDjoqssHWCk+ynLlVEyzEAqk3fIywB4Cg2nwtfdxUoIKN0Oxes4TWpFY?=
+ =?us-ascii?Q?00T4GjbGJJ7XAV0DjSrK8clrUL1lfCowcDneHUsZBbLPJzAklvzgtZfyh74e?=
+ =?us-ascii?Q?3z9MVwbOJaDVzXhe7f06oAjvtiWQ3uKs9MY1RbpYhV54xQA2GPf1/KL+KBJM?=
+ =?us-ascii?Q?XJm5ocCWupYtKjp/eTSH3nebxKBit/1Sac35m5nHN0Lnopv0NlZB7c7Xxw5C?=
+ =?us-ascii?Q?eEQ6E0DkuS64VBbtbx+hxtOljsn2s7ikmaa8ve67vJPNgAHb811+VlhgGQQP?=
+ =?us-ascii?Q?TK+j5a4V1HCCqh7/uYBQhAoU+EAqdnuhUoPksmiyMZWj9z+69cyqmqS5Ijem?=
+ =?us-ascii?Q?Sz8oFMy2BComc3fYzMHOPEj2IhGJllhRHSN7GQOtciTok1YLVncrfJ0Eua3d?=
+ =?us-ascii?Q?81Pwr2fqAPJxLOsfdylFFhCvWAuo4dQw6pOWtmCecnT8ABc5rgMuh8sLzZAR?=
+ =?us-ascii?Q?5mldhTTbdkYxUWyI9jry8yuS4FZ0AuF1/IIsRI/Jn+kq2eju6VTljhiMzxUS?=
+ =?us-ascii?Q?Tu1nDaVyABrjME3MS2xB0FoeZSkt9gr0OHWf1Mdvam8RQKhIZj4TifFnUo0k?=
+ =?us-ascii?Q?5MXJNb3KoQCIZxmezWVnSSEEUup5GYvtIYVLsRnxeCxa3t+YXL6aQgx/m68e?=
+ =?us-ascii?Q?NCZtNOPj7noYGqFcvMlQBgFRo+i42Zz8VCLUxijjfPRCefvqlWQQn9mORqQM?=
+ =?us-ascii?Q?Pzv67egy/pCd4Q9+/jRYdz67Wzb4fWrJYJY+Vczb0Tm1xoqcA1hYpdCN72Rt?=
+ =?us-ascii?Q?wtIvoSBnDV/s3rPthvWaJ5xQHjafalGEmzbAGxL6DQUWTO0XOBpjj1+y0F15?=
+ =?us-ascii?Q?AKrRiq/iiTvA1qK6clKJN+4yS6dFCxebmj+xsYEz5Uk/kzPScGgvDI9kn1/n?=
+ =?us-ascii?Q?DOC+k1mNZWVuFVh5G4hEV9LgBP5CUvDrtP0B5z+X7czpmk8eABqIiFC21xa0?=
+ =?us-ascii?Q?kkB33mPiVoys+Ley3IYkSBDvSytomgGgjVLChoj0vzrClDkUpBKBaoz68O2z?=
+ =?us-ascii?Q?nXESI5lGuOSyNUOoh+6X+BOPkpfWCZ8wwCQI1jwJqR48tdnkPE38x1zeiyPg?=
+ =?us-ascii?Q?pHxIysmrn59hET7OjmDbnJd93giOOTqwtcfEndWVMCPDHlqxNE1e2SY=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cmaXM4g+t1XAOFgYCZA/pkPPaRK4SZC6B+AH59y2nzE3hJbPfOyimgx20kKN?=
+ =?us-ascii?Q?eVXAa5EJvA8kYJn6WNaCDUhSMTC1j7FuKUusGrnNy83ZIUeeanv+iHsetUx1?=
+ =?us-ascii?Q?eXIVLeRro2VSrKzzCDaBwwdJTOehhEZyc4Ospr8tXNB3FvzDADsDRaJOiSjv?=
+ =?us-ascii?Q?JMrkvUw7w+g8Ux7awErO6V8JxMYXAPRo9hKNcdHitXVMDiqNvRlCR0D4oPGQ?=
+ =?us-ascii?Q?gBGUbf6tvLgnYegA7fg0xBGcmALaalvHWvpaQqrzUsXn55U3wkh+kg4dFTTP?=
+ =?us-ascii?Q?h39m7VhP2f0OK09Ql/GJ96kiAghITWTYu1wadMYxdVJjlWiGkAAQj8mV9qdT?=
+ =?us-ascii?Q?bXMhmpLOLV0ZdZSoCjTktz0DyX/1j8TBS0BvoQuBPOxzSL/HlTmXnDwlozP6?=
+ =?us-ascii?Q?iXIJ6oDmwVu83IvePRt82yUCFoqZV2dmJgfYPU+/yFPMrLjKjjFPEQiPZXLj?=
+ =?us-ascii?Q?a1ZRAJfH7cMwgplI2EbaIBOKyiWT+9W+IL7N32Cw06ub+Ibf8FUnf/7cFa5t?=
+ =?us-ascii?Q?UBZgK+5Rvw1iAF7RHptwiG1i1BXI66CrJT7xFOm0+tvufBCIS5XTYrvvVzZE?=
+ =?us-ascii?Q?fOrzipAZc/XFJwb2W3EXLfreq8uClJJZ1bvAGhZpoPjDuuEGAoqtwFDS56AF?=
+ =?us-ascii?Q?RLJBURmIwsLVpX2x3Vq7kSgHr6LZUuxb02oHgmXo60+HOkpxzlW9hlx838Rc?=
+ =?us-ascii?Q?wojq0CzHPy9f0F4+UYILcbRNY5DkNewPwz8CESF60L+U82j+Vkwm3LcP/8Mn?=
+ =?us-ascii?Q?q7aySh8o2oRPjf8C3WA9KUxCcfl16HGZVzq82q8c4ukt5BKu9W00OUsHkqcG?=
+ =?us-ascii?Q?IdDQtLL7keKauIUtuY3cj3jF9g/Pb/bsdVZN3tRxgA3It70l2jnNLP6TIdbn?=
+ =?us-ascii?Q?aPlwPqKQbd29OPOhkY5+KVTJSPRc77F7mUR57+qoNOtV92TEzN9ZbyYDMRs9?=
+ =?us-ascii?Q?NTZyAaxr+Hcl+/kKHtpoaNPRdWLC7IVLu9cwJt6lOw+d0rzZ7AfUBRFHzkxb?=
+ =?us-ascii?Q?zavTqK+KP3m2ktwo3fQiAM9eeQISSP/Ah0zverg5fmqzVg2QiKQyHLf0XU/5?=
+ =?us-ascii?Q?xkDgXmPpi9kKZZQ8gZaqk5j1yKkNp6/k+REyuMgjnZ+c5Fje4g8VExo7u/hQ?=
+ =?us-ascii?Q?1ehfodC0UdQUdDc2YLioxyno92srse7V3uwJDH5Sf5+vge0GdLmrueoz9//E?=
+ =?us-ascii?Q?RGzSQc2xEGm4uiOScc+Cled78EJIqAvzOz3yei7V4CBaggyf2W6XAomCJX7h?=
+ =?us-ascii?Q?9DODzve0ys4nqHd6HNqUhLW8x1mLfWLhDwRCdpcgWfhdUfVqOSQ9GkIyYPdE?=
+ =?us-ascii?Q?PE7+vHI9VKdT/UNONETFftMoeS6y5I/li/16A2/7Jx0bvv7GrJxRIo1cVUil?=
+ =?us-ascii?Q?JE1b/HuxCLjBauVKaFPx2eMeC+7qWxpMa03i+w8edV8zdWkF9VkjDWjnlMzR?=
+ =?us-ascii?Q?DuknxLmLFxF6ku5h2sfcNXtvQ4F0pM0/?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: c92f4e82-5cf0-4b63-0aae-08df0cb136e9
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 07:25:38.2509
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8P251MB0136
 
-When dwc3_check_event_buf() reads a GEVNTCOUNT value exceeding the
-event buffer length, commit 63ccd26cd1f6 ("usb: dwc3: gadget: check
-that event count does not exceed event buffer length") returns IRQ_NONE
-without writing back GEVNTCOUNT. Since the DWC3 interrupt is
-level-triggered, the uncleared IRQ source keeps the line asserted,
-causing a tight IRQ storm that accumulates 99,900 unhandled interrupts
-and triggers spurious.c:184 BUG -> kernel panic.
+catc_rx_done() parses multi-packet USB transfers by iterating over the
+received data. For each packet, it reads a 2-byte little-endian length
+from the buffer, then copies that many bytes as the packet payload.
 
-The resulting call stack:
-  __report_bad_irq+0xac/0xc8
-  note_interrupt+0x340/0x468
-  handle_irq_event+0xac/0xc0
-  handle_fasteoi_irq+0x120/0x228
-  gic_handle_irq+0x68/0x108
-  ...
-  kernel BUG at kernel/irq/spurious.c:184
+The bounds check "pkt_len > urb->actual_length" is insufficient:
 
-To reproduce, write a bogus value exceeding the event buffer length
-directly to the GEVNTCOUNT register:
+1. It does not account for the 2-byte header offset, so the memcpy can
+   read 2 bytes beyond the received data.
 
-  devmem <DWC3_BASE + 0xc40c> 4 0x1004
+2. For subsequent packets in the same URB, pkt_start advances through
+   the buffer but the check still compares against the total
+   urb->actual_length rather than the remaining bytes, allowing reads
+   well past the end.
 
-Write the bogus count back to GEVNTCOUNT to clear the IRQ source,
-consistent with the stale event clearing pattern in
-dwc3_event_buffers_setup(), and schedule error recovery to
-reinitialize the controller.
+Fix this by calculating the remaining bytes from the current pkt_start
+position and checking both that enough bytes exist to read the header
+and that the packet length plus header fits within the remaining data.
 
-Fixes: 63ccd26cd1f6 ("usb: dwc3: gadget: check that event count does not exceed event buffer length")
+A malicious USB device can craft transfers that trigger the out-of-bounds
+heap read.
+
+Fixes: 1da177e4c3f41 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Co-developed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Tested-by: Jiazi Liu <jiazi.liu1984@gmail.com>
-Signed-off-by: Jiazi Liu <jiazi.liu1984@gmail.com>
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Assisted-by: Claude (Anthropic)
 ---
- drivers/usb/dwc3/core.h   |  19 +++++++
- drivers/usb/dwc3/ep0.c    |   9 ++++
- drivers/usb/dwc3/gadget.c | 104 +++++++++++++++++++++++++++++++++++++-
- 3 files changed, 130 insertions(+), 2 deletions(-)
+ drivers/net/usb/catc.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index 608daeb7ef10..f3dabb37f806 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -49,6 +49,7 @@
- #define DWC3_ENDPOINTS_NUM	32
- #define DWC3_XHCI_RESOURCES_NUM	2
- #define DWC3_ISOC_MAX_RETRIES	5
-+#define DWC3_ERR_RECOVERY_MAX	3
+diff --git a/drivers/net/usb/catc.c b/drivers/net/usb/catc.c
+index 96e82f94edcf8..e4f8b9a0caf19 100644
+--- a/drivers/net/usb/catc.c
++++ b/drivers/net/usb/catc.c
+@@ -234,8 +234,16 @@ static void catc_rx_done(struct urb *urb)
  
- #define DWC3_SCRATCHBUF_SIZE	4096	/* each buffer is assumed to be 4KiB */
- #define DWC3_EVENT_BUFFERS_SIZE	4096
-@@ -841,6 +842,12 @@ enum dwc3_link_state {
- 	DWC3_LINK_STATE_MASK		= 0x0f,
- };
- 
-+enum dwc3_err_state {
-+	DWC3_ERR_NONE = 0,
-+	DWC3_ERR_RECOVERY,
-+	DWC3_ERR_UNRECOVERABLE,
-+};
+ 	do {
+ 		if(!catc->is_f5u011) {
++			int remaining = urb->actual_length -
++					(pkt_start - (u8 *)urb->transfer_buffer);
 +
- /* TRB Length, PCM and Status */
- #define DWC3_TRB_SIZE_MASK	(0x00ffffff)
- #define DWC3_TRB_SIZE_LENGTH(n)	((n) & DWC3_TRB_SIZE_MASK)
-@@ -1004,6 +1011,7 @@ struct dwc3_glue_ops {
- /**
-  * struct dwc3 - representation of our controller
-  * @drd_work: workqueue used for role swapping
-+ * @err_recovery_work: workqueue used for controller error recovery
-  * @ep0_trb: trb which is used for the ctrl_req
-  * @bounce: address of bounce buffer
-  * @setup_buf: used while precessing STD USB requests
-@@ -1013,6 +1021,7 @@ struct dwc3_glue_ops {
-  * @ep0_in_setup: one control transfer is completed and enter setup phase
-  * @lock: for synchronizing
-  * @mutex: for mode switching
-+ * @connect_mutex: for the pull-up and err_recovery_work
-  * @dev: pointer to our struct device
-  * @sysdev: pointer to the DMA-capable device
-  * @xhci: pointer to our xHCI child
-@@ -1079,6 +1088,9 @@ struct dwc3_glue_ops {
-  * @ep0_next_event: hold the next expected event
-  * @ep0state: state of endpoint zero
-  * @link_state: link state
-+ * @err_state: current error recovery state.
-+ * @err_recovery_count: number of consecutive error recovery attempts until
-+ *		confirmed healthy and reset to 0 on reset event.
-  * @speed: device speed (super, high, full, low)
-  * @hwparams: copy of hwparams registers
-  * @regset: debugfs pointer to regdump file
-@@ -1189,6 +1201,7 @@ struct dwc3_glue_ops {
-  */
- struct dwc3 {
- 	struct work_struct	drd_work;
-+	struct work_struct	err_recovery_work;
- 	struct dwc3_trb		*ep0_trb;
- 	void			*bounce;
- 	u8			*setup_buf;
-@@ -1203,6 +1216,9 @@ struct dwc3 {
- 	/* mode switching lock */
- 	struct mutex		mutex;
- 
-+	/* serializes pull-up run/stop vs error recovery */
-+	struct mutex		connect_mutex;
-+
- 	struct device		*dev;
- 	struct device		*sysdev;
- 
-@@ -1332,6 +1348,9 @@ struct dwc3 {
- 	enum dwc3_ep0_next	ep0_next_event;
- 	enum dwc3_ep0_state	ep0state;
- 	enum dwc3_link_state	link_state;
-+	enum dwc3_err_state	err_state;
-+
-+	u32			err_recovery_count;
- 
- 	u16			u2sel;
- 	u16			u2pel;
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index bfe616194dfa..fa3d8b9f6f8e 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -200,6 +200,11 @@ int dwc3_gadget_ep0_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		ret = -ESHUTDOWN;
-+		goto out;
-+	}
-+
- 	if (!dep->endpoint.desc || !dwc->pullups_connected || !dwc->connected) {
- 		dev_err(dwc->dev, "%s: can't queue to disabled endpoint\n",
- 				dep->name);
-@@ -271,6 +276,10 @@ int dwc3_gadget_ep0_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep0_set_halt(ep, value);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index fa0f16ffafef..dbfff5e691e6 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1149,6 +1149,10 @@ static int dwc3_gadget_ep_enable(struct usb_ep *ep,
- 		return 0;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_enable(dep, DWC3_DEPCFG_ACTION_INIT);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2055,6 +2059,10 @@ static int dwc3_gadget_ep_queue(struct usb_ep *ep, struct usb_request *request,
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_queue(dep, req);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2287,6 +2295,10 @@ static int dwc3_gadget_ep_set_halt(struct usb_ep *ep, int value)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	ret = __dwc3_gadget_ep_set_halt(dep, value, false);
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -2301,6 +2313,10 @@ static int dwc3_gadget_ep_set_wedge(struct usb_ep *ep)
- 	int				ret;
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	dep->flags |= DWC3_EP_WEDGE;
- 
- 	if (dep->number == 0 || dep->number == 1)
-@@ -2432,6 +2448,10 @@ static int dwc3_gadget_wakeup(struct usb_gadget *g)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	if (!dwc->gadget->wakeup_armed) {
- 		dev_err(dwc->dev, "not armed for remote wakeup\n");
- 		spin_unlock_irqrestore(&dwc->lock, flags);
-@@ -2459,6 +2479,10 @@ static int dwc3_gadget_func_wakeup(struct usb_gadget *g, int intf_id)
- 	}
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
-+	if (dwc->err_state != DWC3_ERR_NONE) {
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		return -ESHUTDOWN;
-+	}
- 	/*
- 	 * If the link is in U3, signal for remote wakeup and wait for the
- 	 * link to transition to U0 before sending device notification.
-@@ -2828,10 +2852,13 @@ static int dwc3_gadget_pullup(struct usb_gadget *g, int is_on)
- 
- 	synchronize_irq(dwc->irq_gadget);
- 
-+	/* Serialize against dwc3_err_recovery_work() */
-+	mutex_lock(&dwc->connect_mutex);
- 	if (!is_on)
- 		ret = dwc3_gadget_soft_disconnect(dwc);
- 	else
- 		ret = dwc3_gadget_soft_connect(dwc);
-+	mutex_unlock(&dwc->connect_mutex);
- 
- 	pm_runtime_put(dwc->dev);
- 
-@@ -4147,6 +4174,10 @@ static void dwc3_gadget_reset_interrupt(struct dwc3 *dwc)
- 
- 	dwc->suspended = false;
- 
-+	/* The controller is recovered. */
-+	if (dwc->err_state == DWC3_ERR_NONE)
-+		dwc->err_recovery_count = 0;
-+
- 	/*
- 	 * Ideally, dwc3_reset_gadget() would trigger the function
- 	 * drivers to stop any active transfers through ep disable.
-@@ -4634,6 +4665,12 @@ static irqreturn_t dwc3_thread_interrupt(int irq, void *_evt)
- 	return ret;
- }
- 
-+static void dwc3_schedule_err_recovery(struct dwc3 *dwc)
-+{
-+	dwc->err_state = DWC3_ERR_RECOVERY;
-+	schedule_work(&dwc->err_recovery_work);
-+}
-+
- static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- {
- 	struct dwc3 *dwc = evt->dwc;
-@@ -4667,9 +4704,21 @@ static irqreturn_t dwc3_check_event_buf(struct dwc3_event_buffer *evt)
- 		return IRQ_NONE;
- 
- 	if (count > evt->length) {
--		dev_err_ratelimited(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
-+		dev_err(dwc->dev, "invalid count(%u) > evt->length(%u)\n",
- 			count, evt->length);
--		return IRQ_NONE;
-+		/*
-+		 * This is a fatal error - the driver and controller are out of
-+		 * sync on which event has been consumed. Reinitializing the
-+		 * controller is required to recover. Write the bogus count back
-+		 * to GEVNTCOUNT to clear the IRQ source, consistent with the
-+		 * stale event clearing in dwc3_event_buffers_setup(), then
-+		 * schedule error recovery.
-+		 */
-+		spin_lock(&dwc->lock);
-+		dwc3_schedule_err_recovery(dwc);
-+		spin_unlock(&dwc->lock);
-+		dwc3_writel(dwc, DWC3_GEVNTCOUNT(0), count);
-+		return IRQ_HANDLED;
- 	}
- 
- 	evt->count = count;
-@@ -4729,6 +4778,53 @@ static void dwc_gadget_release(struct device *dev)
- 	kfree(gadget);
- }
- 
-+static void dwc3_err_recovery_work(struct work_struct *work)
-+{
-+	struct dwc3 *dwc = container_of(work, struct dwc3, err_recovery_work);
-+	unsigned long flags;
-+	int ret;
-+
-+	dwc->err_recovery_count++;
-+
-+	/* serializes against dwc3_gadget_pullup() */
-+	mutex_lock(&dwc->connect_mutex);
-+
-+	ret = dwc3_gadget_soft_disconnect(dwc);
-+	if (ret)
-+		goto err_unrecoverable;
-+
-+	dwc3_disconnect_gadget_sleepable(dwc);
-+
-+	if (dwc->err_recovery_count > DWC3_ERR_RECOVERY_MAX)
-+		goto err_unrecoverable;
-+
-+	if (dwc->softconnect) {
-+		/*
-+		 * Wait irq to finish before soft_connect resets evt->lpos and
-+		 * the event buffer registers to avoid racing with
-+		 * dwc3_process_event_buf().
-+		 */
-+		synchronize_irq(dwc->irq_gadget);
-+
-+		ret = dwc3_gadget_soft_connect(dwc);
-+		if (ret)
-+			goto err_unrecoverable;
-+	}
-+	mutex_unlock(&dwc->connect_mutex);
-+
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_NONE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+	return;
-+
-+err_unrecoverable:
-+	dev_err(dwc->dev, "Unable to recover the controller\n");
-+	mutex_unlock(&dwc->connect_mutex);
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	dwc->err_state = DWC3_ERR_UNRECOVERABLE;
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+}
-+
- /**
-  * dwc3_gadget_init - initializes gadget related registers
-  * @dwc: pointer to our controller context structure
-@@ -4772,6 +4868,8 @@ int dwc3_gadget_init(struct dwc3 *dwc)
- 	}
- 
- 	init_completion(&dwc->ep0_in_setup);
-+	INIT_WORK(&dwc->err_recovery_work, dwc3_err_recovery_work);
-+	mutex_init(&dwc->connect_mutex);
- 	dwc->gadget = kzalloc_obj(struct usb_gadget);
- 	if (!dwc->gadget) {
- 		ret = -ENOMEM;
-@@ -4868,6 +4966,8 @@ void dwc3_gadget_exit(struct dwc3 *dwc)
- 	if (!dwc->gadget)
- 		return;
- 
-+	cancel_work_sync(&dwc->err_recovery_work);
-+	mutex_destroy(&dwc->connect_mutex);
- 	dwc3_enable_susphy(dwc, true);
- 	usb_del_gadget(dwc->gadget);
- 	dwc3_gadget_free_endpoints(dwc);
++			if (remaining < pkt_offset) {
++				catc->netdev->stats.rx_length_errors++;
++				catc->netdev->stats.rx_errors++;
++				break;
++			}
+ 			pkt_len = le16_to_cpup((__le16*)pkt_start);
+-			if (pkt_len > urb->actual_length) {
++			if (pkt_len + pkt_offset > remaining) {
+ 				catc->netdev->stats.rx_length_errors++;
+ 				catc->netdev->stats.rx_errors++;
+ 				break;
 -- 
-2.50.1 (Apple Git-155)
+2.43.0
 
