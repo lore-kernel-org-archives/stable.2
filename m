@@ -1,165 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6655930D411;
-	Mon,  7 Sep 2026 21:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E995143C05B
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 21:36:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788816995; cv=none; b=Aa3izsGhpCDPNNB8n1JnOobXu6J5RdJ8VrNzHcpR6GlQcst5OYom2tcfPbPy9VfmMIUeEalQA5lQ8i81mn1ZKLNAjvVQKUfanYuGwcVT6kjbRP9iLVUXNXqlEJ+Wv6uvkeeuIgkizJI7U08kwzAMx9C3x9mVXiDU1EXqExgtQzo=
+	t=1788816997; cv=none; b=uBqXQ3WnSPFfRRjfElL9VYmfhfcqkw7TibfPjZ8A9Uirggp4lcBBCguCkuGm5Zv1skYf95B3+eHPbiE3CSIEIienj2lMOIFwf0jL7aqgFh4mCLfM29K+Ly0CmTiNyrS/TmYcuNyfHDKV4p0pPTX27+kAd091Ds49frGmg4ze1Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788816995; c=relaxed/simple;
-	bh=5+vC74QR1Av6hjACDiihQTh3/3UlkBbRUh4zn8TsRe4=;
+	s=arc-20240116; t=1788816997; c=relaxed/simple;
+	bh=0R0TVuFBg91URqgEUWMh0tR+UL1GaNk8ZXMTWNcXv2s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lM5CfPlN9o3vuI/ePry1JmfU72O67dw14/aq5ZafP5ODMudokswg6sDirNqoZMZbhu4RW3pELwR+J9rzZd7UWEZ58VPi61qHB8OEi03oYMepT3D8X5X2LtuJ/YG4WaLe6lQwEbv+1/zFNPFBASzvpbMrAd5f1C1n0VA1Nbnf3iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jE1Hbffu; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WQQXHmjKAy8h7I0BfYMvpplkaMMLRezJepvYRryyewNpWHICTa5tZcJ1zBv6LczmN181J95/nYKQKVyvUZ+w4VYgPhuBPiXaS/e/RkvcocEK+PWXXdLT/6vtDaOYjhyj9987bAVPwyLkhwoLse8/hAWO31jG8GRf/GcQKsQlJSI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+t/SLDa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jE1Hbffu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2611F00A3D;
-	Mon,  7 Sep 2026 21:36:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+t/SLDa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BFD61F00A3A;
+	Mon,  7 Sep 2026 21:36:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788816994;
-	bh=V5kciItnnCi0FVjT65TtqIBFxLWaVrZ8Hq2CrAbcWtY=;
+	s=k20260515; t=1788816995;
+	bh=CcR4AGmL45PyAOUSUUykifd2WG1Tt1sxxuacvvHKoZA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jE1HbffupZi0jxC2mSy17R0qqqEKjJibz2czYD0qH1x6Dusm27fuW80uNViuBPyGd
-	 3u2Py3qxFEgI/KbQzLGSkGqY6QCTxxgexaoZjZJ3EPboYPI7wkcS/caGCymnnCvlFS
-	 2lVwaTZ4thFbz4XjxrIKMm5PaS+3f3hTsVyRUynRAeplW0sK4YRiavxKX1PhpiaUjI
-	 53nCl7HSe3C6HYYOuNsLsyjwrM6jTIRXqGhhmImY9hOzbGi6Sfy5kIM6mSXcsoxWGv
-	 WnxkqIhrAmlPo73ZcXM19t2Vqm/i7+3iaa+Y9Lx6K9/KzmqItWz6mLm5g78hChOsHT
-	 rFnKWMKUhM2PQ==
+	b=O+t/SLDauYJKUb/h8FWOOwHj8JRyjGr4jLKxO4sADBduR4q/zU1lePAqNU5N9ZWJT
+	 JgbPQNobBvgk9PIuRoE7od1tz2UkyJiZz02CQ1aSVnvC//y6KNCaOCuYA9JqYIByaD
+	 9z9dmRVG2s1kzAGZhDHLZDf6WLIgxqStYfZN6l8lnp6wQ7ChVteGyaX5AaoxvJ2yvP
+	 eFf21x4bdCQda/D9GfopBHjZKrsbTdpqp24q5aqSzd/NYQa2B7zGNeYKxYZgIsMn17
+	 DJa2BjieNEC6gPUMZgzELl8Q0MnRuyD8zAA7537VOsBHJVpSOtDBSkOtqia4r9HuuE
+	 zftgE2VzV83/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+Cc: Florian Pradines <florian.pradines@gmail.com>,
+	=?UTF-8?q?Beno=C3=AEt=20Sevens?= <bsevens@google.com>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] cifs: SMB1 split: Create smb1proto.h for SMB1 declarations
-Date: Mon,  7 Sep 2026 17:36:28 -0400
-Message-ID: <20260907213630.573772-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] HID: mcp2221: fix OOB write in mcp2221_raw_event()
+Date: Mon,  7 Sep 2026 17:36:32 -0400
+Message-ID: <20260907213633.573900-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907213630.573772-1-sashal@kernel.org>
-References: <2026090336-riverboat-makeover-fe69@gregkh>
- <20260907213630.573772-1-sashal@kernel.org>
+In-Reply-To: <2026090356-tusk-brunt-33b1@gregkh>
+References: <2026090356-tusk-brunt-33b1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Florian Pradines <florian.pradines@gmail.com>
 
-[ Upstream commit 86c666506ea2c42649879eeac7f29e7bedef2f23 ]
+[ Upstream commit f097d246677b03db814c5862f368cea341b76a00 ]
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
+mcp2221_raw_event() copies device-supplied data into mcp->rxbuf at
+offset rxbuf_idx without checking that the copy fits within the
+destination buffer. A device responding with up to 60 bytes to a
+small I2C/SMBus read can overflow the buffer.
+
+Add a rxbuf_size field to struct mcp2221, set it alongside rxbuf in
+mcp_i2c_smbus_read(), and check rxbuf_idx + data[3] <= rxbuf_size
+before the memcpy.
+
+Reported-by: Benoît Sevens <bsevens@google.com>
+Signed-off-by: Florian Pradines <florian.pradines@gmail.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: db2333f88729 ("HID: mcp2221: clear rxbuf after I2C/SMBus transfer completes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h  |  2 --
- fs/smb/client/cifsproto.h | 11 +----------
- fs/smb/client/smb1proto.h | 38 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 39 insertions(+), 12 deletions(-)
- create mode 100644 fs/smb/client/smb1proto.h
+ drivers/hid/hid-mcp2221.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index a4e0618c58efc..6c4f31fec2141 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -2098,8 +2098,6 @@ extern mempool_t *cifs_mid_poolp;
+diff --git a/drivers/hid/hid-mcp2221.c b/drivers/hid/hid-mcp2221.c
+index faebe95b4eb04..a33f33c33d768 100644
+--- a/drivers/hid/hid-mcp2221.c
++++ b/drivers/hid/hid-mcp2221.c
+@@ -121,6 +121,7 @@ struct mcp2221 {
+ 	u8 *rxbuf;
+ 	u8 txbuf[64];
+ 	int rxbuf_idx;
++	int rxbuf_size;
+ 	int status;
+ 	u8 cur_i2c_clk_div;
+ 	struct gpio_chip *gc;
+@@ -323,12 +324,14 @@ static int mcp_i2c_smbus_read(struct mcp2221 *mcp,
+ 		mcp->txbuf[3] = (u8)(msg->addr << 1);
+ 		total_len = msg->len;
+ 		mcp->rxbuf = msg->buf;
++		mcp->rxbuf_size = msg->len;
+ 	} else {
+ 		mcp->txbuf[1] = smbus_len;
+ 		mcp->txbuf[2] = 0;
+ 		mcp->txbuf[3] = (u8)(smbus_addr << 1);
+ 		total_len = smbus_len;
+ 		mcp->rxbuf = smbus_buf;
++		mcp->rxbuf_size = smbus_len;
+ 	}
  
- /* Operations for different SMB versions */
- #ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
--extern struct smb_version_operations smb1_operations;
--extern struct smb_version_values smb1_values;
- extern struct smb_version_operations smb20_operations;
- extern struct smb_version_values smb20_values;
- #endif /* CIFS_ALLOW_INSECURE_LEGACY */
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index 1f37bc2923fb8..c7f8650cf2498 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -13,6 +13,7 @@
- #ifdef CONFIG_CIFS_DFS_UPCALL
- #include "dfs_cache.h"
- #endif
-+#include "smb1proto.h"
- 
- struct statfs;
- struct smb_rqst;
-@@ -423,16 +424,6 @@ extern int CIFSSMBSetFileSize(const unsigned int xid, struct cifs_tcon *tcon,
- 			      struct cifsFileInfo *cfile, __u64 size,
- 			      bool set_allocation);
- 
--struct cifs_unix_set_info_args {
--	__u64	ctime;
--	__u64	atime;
--	__u64	mtime;
--	__u64	mode;
--	kuid_t	uid;
--	kgid_t	gid;
--	dev_t	device;
--};
--
- extern int CIFSSMBUnixSetFileInfo(const unsigned int xid,
- 				  struct cifs_tcon *tcon,
- 				  const struct cifs_unix_set_info_args *args,
-diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
-new file mode 100644
-index 0000000000000..a73213f6a2aa1
---- /dev/null
-+++ b/fs/smb/client/smb1proto.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: LGPL-2.1 */
-+/*
-+ *
-+ *   Copyright (c) International Business Machines  Corp., 2002,2008
-+ *   Author(s): Steve French (sfrench@us.ibm.com)
-+ *
-+ */
-+#ifndef _SMB1PROTO_H
-+#define _SMB1PROTO_H
-+
-+struct cifs_unix_set_info_args {
-+	__u64	ctime;
-+	__u64	atime;
-+	__u64	mtime;
-+	__u64	mode;
-+	kuid_t	uid;
-+	kgid_t	gid;
-+	dev_t	device;
-+};
-+
-+#ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
-+
-+/*
-+ * cifssmb.c
-+ */
-+
-+/*
-+ * smb1ops.c
-+ */
-+extern struct smb_version_operations smb1_operations;
-+extern struct smb_version_values smb1_values;
-+
-+/*
-+ * smb1transport.c
-+ */
-+
-+#endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
-+#endif /* _SMB1PROTO_H */
+ 	ret = mcp_send_data_req_status(mcp, mcp->txbuf, 4);
+@@ -915,6 +918,10 @@ static int mcp2221_raw_event(struct hid_device *hdev,
+ 					mcp->status = -EINVAL;
+ 					break;
+ 				}
++				if (mcp->rxbuf_idx + data[3] > mcp->rxbuf_size) {
++					mcp->status = -EINVAL;
++					break;
++				}
+ 				if (4 + data[3] > size) {
+ 					mcp->status = -EINVAL;
+ 					break;
 -- 
 2.53.0
 
