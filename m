@@ -1,289 +1,129 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3290E388E58
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 14:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534CB3955C6
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 14:23:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790940; cv=none; b=EVIr+Ue4tSxqPywnNxB1jF/ri4NSTqvfmqsdB3qi8RccOzBUDsX7iHMDKsq0Vgkubd4BPmmnVOl01JWwtUjswivWzLNwhvUwZHMa9yjkv7VM5MdPPNmaqa91Wi8lg3rVDPhy7qeeOKWlZa+L82BOtNKmYsfC6oMbrEmQvL0KK4w=
+	t=1788790998; cv=none; b=SlI204ltRlUZUu5K9E/5RH0R7OnY3kS4ftocO1FK+mHwdrgnrlh35h3TNVKvDwLvPvNhsjha57nrvmOj8c5qLexn1VLxzc1ia04aDwrCJB6P2yZsBeVT1WELfz/fTGjR4WGTxelwG5papUKiYsXR5eMCUeyfioDQCiWzFzAfXzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790940; c=relaxed/simple;
-	bh=L5giwHFItNxyBQ4HYY6/uL44rLGUGPvpnizGzE2uDCM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NCvm1ZnsNUvu/8vkwSJBR76mHQ//YDOtMau7MaU05SUSkLrXKmSwnnn2IlV55BFSvPR02n0gqyi+n/d1IqAOMUl1941XO2J4K7qnITKpMm9DbDbIFhC2zX/K8K/3EHWmOaacNYCo/eY6iHpEP2nrl/AvWAOqtTbZ8xmZmwpJcgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nl6Y7oHr; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788790998; c=relaxed/simple;
+	bh=D51GsCm1yEakUUqr0hgTR440DSJlnCRbHDk32hGudb4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U27RBsDxdUduJRQcJiQFQfjZyuy68x88qMLzShOViSV3MLsC7Tj3cH70U+B/eBZKeu0BkWBKjqbOjwP4XRKxx7yu+B6VceYlJz7i6gPCUsvedzmJU81WC5DzGKL7uGiWF+w0FX2yuSziSA82nE5XrBDr8LAp34UTwoUHL0pBFuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KzATL4q8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nl6Y7oHr"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d8dso9959a12.1
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 07:22:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788790936; x=1789395736; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+65O/Mn9btfawvfMn+qubKzpEX/dBj5nAHgdBd6jOu0=;
-        b=nl6Y7oHrE/ZeGnCwaVoFlTJkaP3YSs6xl8pTlz21uHKndLU6rS6WAPVI+jL5FrVY2k
-         Lv470btVtwKYYrx4KuHGw4qEs8RS+KkP+Q0p4RhfMsANaxI6QMqFAQYD+hn5PSvDsqkM
-         6QNGAmXa40z3ezGNTP8cGy0C3IPYvqMNno/63SobkNmpijNrrubIret49k3FinlGIqze
-         meVXl6M80sjRsU3T5A1G4Rvu5gzmmmsl+HjGIH+Ru8nKyMFhdgPJxjZgOIe4uKuMR+q+
-         75Cp/3XUogkWAUZoHnsqvKpmqUy4BD/QGNRarSK42Fco3VaBFHduEiyl+XYtbVpCcO+6
-         QNEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788790936; x=1789395736;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+65O/Mn9btfawvfMn+qubKzpEX/dBj5nAHgdBd6jOu0=;
-        b=mP9paRkpXh74nZOmvvKzPUM7+HbXWyc+MHe5cafLP1T1JKEd/eQMy+vbpdtsAwtzUO
-         3a2uTsRXI6DhEZtDLoe/1iO1/i2gu//7w9Q45yo7guvWhFFtutzmEz0uC+w/7t2+Jyda
-         RkdW66c1Bj8f7gpeuQmBi2D87O8XJlFTFNakXMJZBEqydoAVTTwAfyuCrxkY+WpsfbVo
-         weeQfFtg4pKrbcWuK2PCKqvF1scglKF7jIUnN+pfurYwOzjyyChz5l6xmLpsbqISNSff
-         EMcooGm023FVwG9xEfu/Zxcq3BTW696E7523gDcp71NCWAprwiz0am5auEsij6MA8Kt/
-         gdZA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrrXub3zMaqXseQzRbw3a8MKidbYp9Crc/npFndElWIx1gxbIhjZQNcaClCXglrQdk9gCiYfg=@vger.kernel.org
-X-Gm-Message-State: AFuF++llP7JJDrksf13ghunPpRceO6fXj3VQ3IVcxVDf7ftBgVnfT8fI
-	DKWnPbXBBq1G2ni5fSqjL7oBH5C759IsquPhLykGN9zNOU0p/lgkdJAKocQ35EAWRA==
-X-Gm-Gg: AYBFou15rT4YvNqsU3vJCR3MBscnyiZPnS8TTbelLA1Uw2jTG3jmqygZLpc7aYAwl9O
-	/KzLWwjnkArlW5u/i0QOyx/RpezflxB+ZL/c5f8waABgEhFSHaJYh9nTj6p9c3PePXSHOszg/L7
-	OQ9aWKMJLc5l/QpvB1ooCJ/2OEPN67Ot0RaVrHSnXf4lU5cEb5z1NHz8tNl2SAaLOauVugdd+Yi
-	RXruB99O7LO5kcqP0yh9pPegG2uCtg957Jmi+OjbAZH0dTo4+BOerWCnYotxJJ0AEJWveq6TreT
-	kVBIjqWzxRj9eBD7Ibkty2ls8DBcSGnNRdR/ZIh3l2igBUX4I0ZV8vzyAv3XuD5JUy5QjoOmtfi
-	1gBbQKy/5Vahwfh9qTm9FvdUYF8eIstoP2scMrta5KfJ51+LwXuOtEvxABCMQ4lxjy+L8Umb1Pf
-	Eb6OlzDpr1rDmv7Pp2H6rR9Pyj+uBK/ChWx3RcHfZ9ly91Ra0xF6UFSZq11FIvGcK7GrJm7h9WX
-	O2E44hZ5oVkyHQPkNOJc3P/42XZXg==
-X-Received: by 2002:aa7:d8d6:0:b0:6a6:6ded:b4b6 with SMTP id 4fb4d7f45d1cf-6a7f689d0femr62664a12.13.1788790935870;
-        Mon, 07 Sep 2026 07:22:15 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26263cb042sm348714166b.47.2026.09.07.07.22.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 07:22:14 -0700 (PDT)
-Date: Mon, 7 Sep 2026 14:22:11 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	Mark Rutland <mark.rutland@arm.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
-	Pranjal Shrivastava <praan@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org,
-	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Subject: Re: [PATCH v5 3/9] iommu/arm-smmu-v3: Move pgsize out of arm_smmu_inv
-Message-ID: <ap7Ik0c5xQi647xy@google.com>
-References: <0-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
- <3-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KzATL4q8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50E6D1F00A3A;
+	Mon,  7 Sep 2026 14:23:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788790997;
+	bh=0eVLP9A0ctD+KTzMbk+HCzHMcSaylenUUMZjF4IMikY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KzATL4q8lEfcl49j2EKPuKRPHd/t1W3MotPJeIG3aA/4StSxcKqaNeDlzBQDjO5qp
+	 9e+fVbJ18/34Ygw6WkqTC4iDkoXG1QtvnKRLD8ZHkxGR7fhfE7DJNm9iGZvN7FJ0/V
+	 mFvb2d8zBWWdCKO6/XHHL+Z4vcXtzsRfray1PXuxPZzmCq8zkUAC82VXnfaVEhFTi0
+	 Gx1BwFglyWL/AHepTzt82P0HjsRqdc1Ks2XADuYu/pvav3fZIvQkz0f66sG9uhaCC+
+	 lA30ArfM/pBAnhtOYIAzxMgB4EF3io1Ab6mLVTqkdNOxwGBB0twJfm34N2wEPGHdPc
+	 3IY4hjR7ef20g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Shen Yongchao <grayhat@foxmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
+Date: Mon,  7 Sep 2026 10:23:14 -0400
+Message-ID: <20260907142314.3231866-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090304-transform-headgear-e784@gregkh>
+References: <2026090304-transform-headgear-e784@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 02:49:52PM -0300, Jason Gunthorpe wrote:
-> pgsize is a constant property of the domain, it is the base translation
-> granule of the page table (4k, 16k, 64k) in log2.
-> 
-> Store it to the struct arm_smmu_domain based on how the page table was
-> created.
-> 
-> Pass it around in the tlbi.
-> 
-> Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
-> Tested-by: Nicolin Chen <nicolinc@nvidia.com>
-> Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-Reviewed-by: Mostafa Saleh <smostafa@google.com>
+[ Upstream commit 6343c1da561962688f203362d80d6a3bfa39fa1b ]
 
-Thanks,
-Mostafa
+coalesce_t2() computes data pointers directly from server-supplied
+DataOffset fields with no validation against buffer bounds:
 
-> ---
->  .../iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c   |  1 +
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 29 ++++++++-----------
->  drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   | 10 ++++---
->  3 files changed, 19 insertions(+), 21 deletions(-)
-> 
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> index a0c9078646fb55..7acb70d060ec4e 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-sva.c
-> @@ -345,6 +345,7 @@ struct iommu_domain *arm_smmu_sva_domain_alloc(struct device *dev,
->  	 * ARM_SMMU_FEAT_RANGE_INV is present
->  	 */
->  	smmu_domain->domain.pgsize_bitmap = PAGE_SIZE;
-> +	smmu_domain->tgsz_lg2 = PAGE_SHIFT;
->  	smmu_domain->stage = ARM_SMMU_DOMAIN_SVA;
->  	smmu_domain->smmu = smmu;
->  
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> index 03723bb00de412..6413eb4021ce22 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-> @@ -2463,14 +2463,13 @@ static void arm_smmu_tlb_inv_context(void *cookie)
->  static void arm_smmu_cmdq_batch_add_range(struct arm_smmu_device *smmu,
->  					  struct arm_smmu_cmdq_batch *cmds,
->  					  struct arm_smmu_cmd *cmd,
-> -					  struct arm_smmu_tlbi *tlbi,
-> -					  size_t pgsize)
-> +					  struct arm_smmu_tlbi *tlbi)
->  {
->  	size_t inv_range = tlbi->iopte_size;
->  	unsigned long iova = tlbi->iova;
->  	unsigned long end = iova + tlbi->size;
->  	unsigned long num_pages = 0;
-> -	unsigned int tg = pgsize;
-> +	u8 tg = tlbi->tgsz_lg2;
->  	u64 orig_data0 = cmd->data[0];
->  	u8 ttl = 0, tg_enc = 0;
->  
-> @@ -2609,12 +2608,12 @@ static void arm_smmu_inv_to_cmdq_batch(struct arm_smmu_inv *inv,
->  	    (inv->smmu->options & ARM_SMMU_OPT_FULL_CONT_RIL)) {
->  		if (!arm_smmu_cmdq_batch_add_ril(inv->smmu, cmds, cmd,
->  						 tlbi->iova, tlbi->size,
-> -						 inv->pgsize))
-> +						 tlbi->tgsz_lg2))
->  			goto full_inv;
->  		return;
->  	}
->  
-> -	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, tlbi, inv->pgsize);
-> +	arm_smmu_cmdq_batch_add_range(inv->smmu, cmds, cmd, tlbi);
->  	return;
->  
->  full_inv:
-> @@ -2722,6 +2721,7 @@ void arm_smmu_domain_inv_range(struct arm_smmu_domain *smmu_domain,
->  			       unsigned int granule, bool leaf)
->  {
->  	struct arm_smmu_tlbi tlbi = {
-> +		.tgsz_lg2 = smmu_domain->tgsz_lg2,
->  		.iova = iova,
->  		.size = size,
->  		.iopte_size = granule,
-> @@ -2978,6 +2978,7 @@ static int arm_smmu_domain_finalise(struct arm_smmu_domain *smmu_domain,
->  		return -ENOMEM;
->  
->  	smmu_domain->domain.pgsize_bitmap = pgtbl_cfg.pgsize_bitmap;
-> +	smmu_domain->tgsz_lg2 = __ffs(pgtbl_cfg.pgsize_bitmap);
->  	smmu_domain->domain.geometry.aperture_end = (1UL << pgtbl_cfg.ias) - 1;
->  	smmu_domain->domain.geometry.force_aperture = true;
->  	if (enable_dirty && smmu_domain->stage == ARM_SMMU_DOMAIN_S1)
-> @@ -3217,15 +3218,13 @@ static void arm_smmu_disable_iopf(struct arm_smmu_master *master,
->  
->  static struct arm_smmu_inv *
->  arm_smmu_master_build_inv(struct arm_smmu_master *master,
-> -			  enum arm_smmu_inv_type type, u32 id, ioasid_t ssid,
-> -			  size_t pgsize)
-> +			  enum arm_smmu_inv_type type, u32 id, ioasid_t ssid)
->  {
->  	struct arm_smmu_invs *build_invs = master->build_invs;
->  	struct arm_smmu_inv *cur, inv = {
->  		.smmu = master->smmu,
->  		.type = type,
->  		.id = id,
-> -		.pgsize = pgsize,
->  	};
->  
->  	if (WARN_ON(build_invs->num_invs >= build_invs->max_invs))
-> @@ -3277,28 +3276,24 @@ arm_smmu_master_build_invs(struct arm_smmu_master *master, bool ats_enabled,
->  			   ioasid_t ssid, struct arm_smmu_domain *smmu_domain)
->  {
->  	const bool nesting = smmu_domain->nest_parent;
-> -	size_t pgsize = 0, i;
-> +	size_t i;
->  
->  	iommu_group_mutex_assert(master->dev);
->  
->  	master->build_invs->num_invs = 0;
->  
-> -	/* Range-based invalidation requires the leaf pgsize for calculation */
-> -	if (master->smmu->features & ARM_SMMU_FEAT_RANGE_INV)
-> -		pgsize = __ffs(smmu_domain->domain.pgsize_bitmap);
-> -
->  	switch (smmu_domain->stage) {
->  	case ARM_SMMU_DOMAIN_SVA:
->  	case ARM_SMMU_DOMAIN_S1:
->  		if (!arm_smmu_master_build_inv(master, INV_TYPE_S1_ASID,
->  					       smmu_domain->cd.asid,
-> -					       IOMMU_NO_PASID, pgsize))
-> +					       IOMMU_NO_PASID))
->  			return NULL;
->  		break;
->  	case ARM_SMMU_DOMAIN_S2:
->  		if (!arm_smmu_master_build_inv(master, INV_TYPE_S2_VMID,
->  					       smmu_domain->s2_cfg.vmid,
-> -					       IOMMU_NO_PASID, pgsize))
-> +					       IOMMU_NO_PASID))
->  			return NULL;
->  		break;
->  	default:
-> @@ -3310,7 +3305,7 @@ arm_smmu_master_build_invs(struct arm_smmu_master *master, bool ats_enabled,
->  	if (nesting) {
->  		if (!arm_smmu_master_build_inv(
->  			    master, INV_TYPE_S2_VMID_S1_CLEAR,
-> -			    smmu_domain->s2_cfg.vmid, IOMMU_NO_PASID, 0))
-> +			    smmu_domain->s2_cfg.vmid, IOMMU_NO_PASID))
->  			return NULL;
->  	}
->  
-> @@ -3321,7 +3316,7 @@ arm_smmu_master_build_invs(struct arm_smmu_master *master, bool ats_enabled,
->  		 */
->  		if (!arm_smmu_master_build_inv(
->  			    master, nesting ? INV_TYPE_ATS_FULL : INV_TYPE_ATS,
-> -			    master->streams[i].id, ssid, 0))
-> +			    master->streams[i].id, ssid))
->  			return NULL;
->  	}
->  
-> diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> index d3e81056f24afc..3e7f94339ab60e 100644
-> --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-> @@ -736,10 +736,9 @@ struct arm_smmu_inv {
->  	u8 size_opcode;
->  	u8 nsize_opcode;
->  	u32 id; /* ASID or VMID or SID */
-> -	union {
-> -		size_t pgsize; /* ARM_SMMU_FEAT_RANGE_INV */
-> -		u32 ssid; /* INV_TYPE_ATS */
-> -	};
-> +
-> +	/* Only used by INV_TYPE_ATS */
-> +	u32 ssid;
->  
->  	int users; /* users=0 to mark as a trash to be purged */
->  };
-> @@ -810,6 +809,8 @@ struct arm_smmu_tlbi {
->  	size_t size;
->  	/* page or block size of the leaf iopte */
->  	unsigned int iopte_size;
-> +	/* Base Translation Granule of the page table */
-> +	u8 tgsz_lg2;
->  	bool has_cont;
->  	bool leaf_only;
->  };
-> @@ -1060,6 +1061,7 @@ struct arm_smmu_domain {
->  	spinlock_t			devices_lock;
->  	bool				enforce_cache_coherency : 1;
->  	bool				nest_parent : 1;
-> +	u8				tgsz_lg2;
->  
->  	struct mmu_notifier		mmu_notifier;
->  };
-> -- 
-> 2.43.0
-> 
+  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+  data_area_of_tgt += total_in_tgt;
+  ...
+  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
+
+A small DataOffset can push a pointer below the actual byte area,
+overwriting header fields; a large one can push it past the buffer
+end, causing out-of-bounds heap reads (source) or writes (target).
+The BCC overflow guard does not prevent this: BCC reflects how much
+data is present, while DataOffset controls where in the buffer it
+starts.
+
+The "validate target area" comment present since the function was
+first written in 2005 was a placeholder that was never implemented.
+
+Add lower- and upper-bound checks for both data pointers before the
+memcpy, and before any target header fields are modified.
+
+Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
+Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ transplanted the bounds validation to coalesce_t2() in smb1ops.c due to code relocation ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/cifs/smb1ops.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/fs/cifs/smb1ops.c b/fs/cifs/smb1ops.c
+index 41e468d06b5b0..55aa58460dff8 100644
+--- a/fs/cifs/smb1ops.c
++++ b/fs/cifs/smb1ops.c
+@@ -319,12 +319,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
+ 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+ 
+-	/* validate target area */
+ 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+ 
+ 	data_area_of_tgt += total_in_tgt;
+ 
++	/*
++	 * DataOffset fields are server-supplied and not validated against
++	 * buffer bounds; check both data pointers before mutating the
++	 * target header.
++	 */
++	if (data_area_of_tgt < (char *)target_hdr +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_tgt + total_in_src >
++	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
++		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++	if (data_area_of_src < second_buf +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_src + total_in_src >
++	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
++		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++
+ 	total_in_tgt += total_in_src;
+ 	/* is the result too big for the field? */
+ 	if (total_in_tgt > USHRT_MAX) {
+-- 
+2.53.0
+
