@@ -1,86 +1,117 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A12630149F;
-	Mon,  7 Sep 2026 09:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76694503E3
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 09:50:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774617; cv=none; b=UgfKTPv1oXkNHGBf+GY7cNzFk8ddUVUbuubo7Q2oMz5AfOJgxs3Kl4nbqhkeud8hLjoNS6cu0x1W6neAekltchyJQzHCHsml+SJdYFIFsgT+dJ2VWi6HpNcpC1u28P0UusykTRxXEnQ1BR0Z8l8p6F8HqHlXJPxUmyK4dkVMO/8=
+	t=1788774650; cv=none; b=tdndWdz96AnRqqValVJ/1203WQpxywG6vlCxGeCB4knc7lv+yll8pJIylbI4tO686YdImV+pDQLmUc1JSn8XTzcpqZrVePSze+tA4uj/fDABZy7U3oywYkiP85xD1ncMaRnIMpraeuzMvwY2A7NJXM2zFF13Bg/yobQQhpQNHBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774617; c=relaxed/simple;
-	bh=mN5wtl5wK1pD+jSdgzCx9eyQ3AaSJqVlV4B1zGffWK8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bqMvMI4jzk5TFQzWtNDgfq/mzy2i9HK4wQDLjH/rnKieuGK1iqmrgEc8tfsxdac9KWC3/fRvjELBmaGSdFBy7ole5qj0Dng0hlelvPyXjNh111/Wz/QBV+sO4XRNwLdg4D5cspWvogwOo2xMfQqm/qRVshVeBFycSNdxEOIJ+hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AWrOaH0N; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788774650; c=relaxed/simple;
+	bh=q1vbWVYZfrrPPpMgx2AV24vWcv0xH2e65F7GQzJtG90=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MKHPzFzo3RZWTsYkRr3p/q1CzyXlNWJeWLOeRSy6aTzGc/PTyx4qy0P+sjCy7tG2vCVOZPQolEMjG7HGekbQy9yt2+91uG3Zky+vWbBBJv1RRry4/aTOjubu2rBjISBDt6IpvrzO9d8PK2EcxakE0rmtDTPnJ/F2OGgexPGkx88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=M5ZCkBe0; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AWrOaH0N"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hdj3c6FnFzMlG6;
-	Mon, 07 Sep 2026 11:50:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788774604; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mN5wtl5wK1pD+jSdgzCx9eyQ3AaSJqVlV4B1zGffWK8=;
-	b=AWrOaH0N4MENJC3X3K7wXV/Q/nLJgHXZU80S67C/QaANI1QxLNe005cPGSfB0ALKwe2FCg
-	F1cfhG1EkZIboyEnIPMuyJrVO2UJ/14EDZXqonopmsZax6YsCmtH1Hl92Z9a4rl9ipcw1Q
-	P/W/NTrWh3cdjSH26ooKZRXU8xXJq3VMNWnaGkwn808EYvKSmXwK993QgRFPKSN2g7KA5B
-	jXd75AAjmFeN5iB93XL3KKTeZCxLXAYfevXdZmUWsRHldT7ReeK3gAzalfAbJAzDz3t24s
-	vCEfbayZdpV+V2Ye8e9lo8NScwal57W2WmmzMT5dnCMEOk3qoxl6+edznXJpHA==
-Message-ID: <b36f5adfd5f6243d79e321e99b29b932a270f551.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 11:49:56 +0200
-In-Reply-To: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-		 <20260904080618.2098450-2-malhyuk97@gmail.com>
-		 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-		 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-		 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-		 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-		 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="M5ZCkBe0"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47f96c5b722so2280128f8f.0
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 02:50:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788774643; x=1789379443; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lb18HKgR/gRWdLmmzTs+5hKvWsiCHq7F1zLseYYFjf8=;
+        b=M5ZCkBe0qY4Z0O/QQzvNMUKVIXcH6wv0+nvIeiAKOFKc/QGURoG9U1KFDc8NXZkbgG
+         iqwN6IG+U8C54EMszpWtvZLkCiukA1HJ60+EwKslM5Lo3F/wZokyDpAqy9AFLdombz0l
+         dRYIVfVf+hygi1SUnck4u50HlCx2xrhmgQcBnYu40ZkF8ZTBx5qB0b3mv+nqmqOZ5UlR
+         nLFTdezqgzh/heqYTsekxmw7Zuh7YpU3dXYrgoXEPKvSeMOxE7dRWopWdTjYF8cTID16
+         9W+KDPPNdEdSrUg8aqX/Qav733VUyd5Om2Ts7kAM0vWX2kRggesZWvSzhXYwyU6OpzMM
+         wjtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774643; x=1789379443;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lb18HKgR/gRWdLmmzTs+5hKvWsiCHq7F1zLseYYFjf8=;
+        b=MewfgJvWs7njZWrRzBMg3PJFgQrfAyZP+MiXsNMUQUojQ96FoD/L9RGxgKg9PsGJxr
+         fklVa+gPMiyaVq9DYU1bv7Frp4J1G9C/21+64UlspFj0hZsyNsxy/NOy6C+m5y39iCDn
+         nOclubaMMbBzhZw1WjbZmqNjFU5ttKAj/69Zm7MWyFlbe4aXnbhQ9/MW4I12aFbH/ByB
+         ibT9z9r3UjhtHBVX+AYRWL9mJNs+YqkJZQLqpiTOqJBbraRSDY3Egs/pGTtXIZdHL+L1
+         jAucIK3cVT3CJqhxuyrVJYBcEpDjwh930y6HZUXcX5dyvR2KJaiitHW62M0fDQ6AQP1z
+         LZaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ0jxBReiM3DB1rYVz4qL5BbWjTatBNVLwdaD1FNsf2nteBMtT+N2ATKw7VZ6yZkz3mz35rkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9kysyzVPXG/2UPlzu5cO/RtygBW2p3SREPEwYVmgR+AJbHk9L
+	TktHCiWt7WTHMNxZjnY0HOXvv4snHbmZa8/IZOa1E41USlgdsRB4ZAeSZHKbHq/M000=
+X-Gm-Gg: AYBFou0lvcLDMYbFU+nn8OsIOukJLOOTJZg+Tgj9It9T7k64+UGPcOackcY0HJZG8tE
+	O7TekJY3XwSpHWwGkWZzeOCm/lWKagbVCOazTUFaJqxo/5yuSI6qIF6t0axsQfaDgrYCWjKwJ4i
+	OEaUz7d9oXCniN/czW4lXbF12rABkDOEcqzu+mF30nxvt8u0VmaPMKFHCKHwC3LuYtLVrgQtUym
+	C3L0f1EyDpq9s4b3f7xSPbXLp7QlqCDbvE9a/ctwSz4HvQtZk6BqW0SqlIhhH/97IVQqZK5PY55
+	1dX4WAGdbun9TY6lT254dlcbSDbVRrucBVa35Knz4svGOaU8QUaYvPC5/L9W75uClnuCFUjBp1S
+	16CD8kWAm/QD8IEfMVBiAAHw0MHS4Se0+R7o5FnNBpKMrMRzWLnNsq5XiCIjD3AsHlDeIjWKUA4
+	aQkk0ieuA6SqiX3ufxuZR0qbD3WPrhA0R8owiDpXRDccUPfMXQOMy5goliQ8wyqOtxceVoZyBxo
+	G5di5OlvuY6RyRsg8W6CNA+A70=
+X-Received: by 2002:a05:6000:470a:b0:47f:4919:d5b2 with SMTP id ffacd0b85a97d-4858707f262mr23189860f8f.1.1788774642756;
+        Mon, 07 Sep 2026 02:50:42 -0700 (PDT)
+Received: from ?IPV6:2001:a61:1340:dc01:654b:3cf0:59cd:498? ([2001:a61:1340:dc01:654b:3cf0:59cd:498])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm20770188f8f.5.2026.09.07.02.50.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 02:50:42 -0700 (PDT)
+Message-ID: <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
+Date: Mon, 7 Sep 2026 11:50:41 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 6938f1eef1a9cc0b4cf
-X-MBO-RS-META: nayt3edutsba5jya4n7cejqtwjwa8ywu
-
-On Mon, 2026-09-07 at 11:42 +0200, Philipp Stanner wrote:
-> Moreover, even if we did remove ops->release in drm_sched, it would
-> still be a race: a driver's contract is the hardware_fence, the rule
-> being that you have to signal those. So after signaling the last
-> hardware_fence, you could actually start releasing resources, but it
-> might be that finished_fences are still in-flight and are unsignaled.
->=20
-> So we have some sort of fence -> fence race here, too.
-
-Forget about that, signaling the hw_fence should always result in
-undelayed signaling of the finished-fence.
-
-So it would seem that making the signaled-state instead of ops =3D=3D NULL
-the decoupling point in dma_fence is the solution to go for?
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+To: Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907065501.101013-1-johan@kernel.org>
+ <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
+ <ap56NTVMq8GlbjmR@hovoldconsulting.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <ap56NTVMq8GlbjmR@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-P.
+
+On 07.09.26 10:47, Johan Hovold wrote:
+> On Mon, Sep 07, 2026 at 10:17:38AM +0200, Oliver Neukum wrote:
+>> On 07.09.26 08:55, Johan Hovold wrote:
+>>> The wakeup condition needs to be checked after adding the task to the
+>>> waitqueue and updating the task state to avoid missing a racing modem
+>>> status update or disconnect.
+>>
+>> I am sorry, but in this case I have to ask:
+>> Isn't TIOCMIWAIT inherently racy against the hardware?
+> 
+> What do you mean?
+
+The interface does not state from or to which state it changed.
+Now you could say that it is implicitly the last time TIOCMGET
+was called, but that is
+
+1. not clearly stated
+2. not enforceable
+  
+> Looking at the implementation again now, it seems further changes are
+> needed to fix the implementation, though. The completion handler should
+> not be updating old_count. That's for each TIOCMIWAIT to do.
+
+I am sorry to be obnoxious about that, but I am afraid that would
+break TIOCGICOUNT
+
+	Regards
+		Oliver
+
