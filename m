@@ -1,73 +1,46 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93C25013CA
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F326B4F6478;
+	Mon,  7 Sep 2026 15:14:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794082; cv=none; b=TJHUXWZzovfFiieNUoE70psgMULDtRBQlKj/bxHh5q0V/pr6NwVDQC1OAZEy5qcL70gbKEe10bPNzEFTQ4qV+IxtWVPNJ7hjW4YbVt+6Wh+67CQZQIt4YUxwL8jYP8c5VYrA3xYU7bm9s+qTh4+bqjJ6/wlUxTaZbW/QXXG6XYo=
+	t=1788794094; cv=none; b=ZfUTXvz9/c7QtcUFQO6Qa+jZOPBHahXGGGJNkj+w/eKGknoafSVwx3eurmW8nUpbghSFsR9zncAvNj3W2xRKVGTYgIEelpXwiV6uwWIcuBlHlNe6xFZ6sR1wQA61mR073QIsHIqvl9Kb5G72udNn2QRgzqaFaQBUyR3IpbMvF34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794082; c=relaxed/simple;
-	bh=mNjpd1tQwWKdzKUEeAZaOMlQ8clRHjCrzGoa5fQ5e0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GZ11SiSh0lBlXdhZJU/6kVWIXH3Xkl1Sq/JBix9D6Zah1VTayYc6RCMPW4LwmvPtNEXifBDMLOzQBUrHlAErAEzDkXbPHxkqXqMkgxbh5eN+NRVLYwvrlcz3S9+zxl0ReGWhUoWJqpRTu0UaBYzEwxbzvKIA2mdtYt+3yH0uC0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YV+b6MbT; arc=none smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788794094; c=relaxed/simple;
+	bh=yAR4EiyEnlq4TjPm+At6gis4564Lc76r4UCISJGBzZ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=s11ecwY3BpybLpr5GIVxDwQ0OXJw+CPbijAdL+66iu4snMJ8Ja2th2DjO3VpxgV8m2QGHscLPtA+Z28VJ63ShaO4gsDcBgROFX+tltoiyutCNRL8TCHslBoqrRbYK+DkFEfvwXDs1Bvl+IX1ZTAH3aTHUrFCHgc6v/FTFFWTQXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzM4df+y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YV+b6MbT"
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-74ab99038afso2468661137.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 08:14:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788794079; x=1789398879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W9HwXQlNGS9bLvO1Kv0B3vOGIHhTJMb9BOvcgiHRmOU=;
-        b=YV+b6MbTdU9we3rDFifWyokV2UArQSoXeTUTrP/4pcbgkrBxwpkzTLrRsF9e9wIg0h
-         T7pffIMDm1TEv2IzMTbzbzlORyx1OURjcLi9S/8gJ30XJ5uXDYBq6XzrU+9l+dVHPEfs
-         LxwYnjxrUQ3WwLVu4T/lbYMnCfgST6DNXDLjNaYrLEhJZKET0tmOb1GtLJFHKmTGpPyA
-         mO2JZPz29+ToEroXDaA95Y8MDcLoOYWgnIb01HVgG6MZeYVP30XVPnRa2HFzZTkFK5H4
-         WheiyG8uhDXcifr2pcbv9blNGtwqVUXAT8nenpbF1V7TJPF27lfcmlZcGCIdAvM8eF6o
-         KnMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794079; x=1789398879;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W9HwXQlNGS9bLvO1Kv0B3vOGIHhTJMb9BOvcgiHRmOU=;
-        b=TqCfrLotT3n/CSmmd6ExEPTb1tqkc1/y6qGFB7CePS/2G/8FXIVc2NoS2XB90Ez9AW
-         Rp/ewl+3n0SImmkOC0MX66Eb9m9nBdf73QJ5q1detc9ryHVYVYxvaIOFDxox9MDYl3/u
-         Mv7QCmB4P9y235Bfsz3cVpUEqRK7aAc3pAayUC78kFnK714CYyLl820HgB11XqwISs8+
-         TXNr8LHeZ/w7d8R4WW9oHGbpGVgTVRPCfNEVQtaPVnK4BO2JzqT0RuCu+6+BPU9rtwWU
-         pe7r5UZ914Ow2kUTWrOB+MmAbJvAn3/cfT7Eihw2WjvBoOVua9xm4AOCv6d2aH708zs7
-         7KPQ==
-X-Forwarded-Encrypted: i=1; AKwUvByAPcgr0uGPtp30hnrAI/PeCDrA4l65xln0YSc2KRzmuDMWQ9B7u7+y08IR4mHPa4/PfDpD0mY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYtugGDFT4j9EUAqHssIeUy1W66wP/VDjZsN8itBbQgY/6oYUd
-	QvQ3HqZ3dIaG58i9+xRZMQlxvo5Uu7kYJfSEe5d8i048OQd5ncONYf3l
-X-Gm-Gg: AYBFou1sGis7tkd6LQYZAxE35IgTFJfEtvYZbYC7q2KykwvT9keZGoA6tHkQEIZLLVD
-	8OL+rmrFsqOHtDV8qy3G5z3/W08YkNVtJ0xd1etZ8siD7Ohv9BwuiAveeaP4xe/zA79IpZUvyYI
-	wqV9TgQGhc/z54rkj3VMxTI7FddgH4pQcd/FIzOUdppzFm/SgWs0UYFsAP3XM8vYnLL7BUajczd
-	mfT6HTN2jTy/J8DmcYAILtD/k00Ei66zBproc9SKvLKjiGk7Q4MtQ3VnSL8n8ZTNzLOM693WAab
-	JtfnyXqv8iOFB+dQQxpr7vuIpCuQbqSanYaeGQHqnG89ILJhyDXl/OucqF6mHZghCGXkZ3UzTTp
-	lF+Cwg+42mhy11ZUqudffvy2Dqq9hDWj+AUWZBvLGR7BKnxjbiFxHV6TCc276sdQfSXhYvJFr5i
-	xGHWzwAygt1vKhH0Vs8yXicVQnJlBfHr0OpSX7HYF9MTqLxw4rjnJgKLaIcDotXRM=
-X-Received: by 2002:a05:6102:80a9:b0:786:4822:308f with SMTP id ada2fe7eead31-78a4a9aea5fmr9223898137.13.1788794079271;
-        Mon, 07 Sep 2026 08:14:39 -0700 (PDT)
-Received: from adriano ([190.215.95.120])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-980d774ad5dsm607088241.9.2026.09.07.08.14.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:14:38 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Johan Hovold <johan@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
-Date: Mon,  7 Sep 2026 12:14:28 -0300
-Message-ID: <20260907151428.643841-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzM4df+y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2681A1F00A3D;
+	Mon,  7 Sep 2026 15:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788794092;
+	bh=LWueyqD3z82l70XP3IVFv9ghU743LBJcsfzQZI3xqII=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mzM4df+yaEqG1PtbRTMOCylvcmEYEKSpYowQBPdEdDp6lBJJln2QgwBqqgde0icti
+	 S5kEWzIaMFWcklVCbiufsO/5nYgYooRJIpSairDJJ0ipOEmKi7I9TCa54+xuEgeZJj
+	 cPFxTtttk/FObiBHjo3VSCm9X+ZlnxP6kwjkh74tI3NFwaJqwQm4JJ6J4bu3mLnDq7
+	 Rd3M1Ll71PDPQvVPVyMD3BPF3wCz2/H4BHQI60etaSgpEFcO8fBKcxypPfJngCRYDZ
+	 PSd1AijdnEWaSOcbK9s3AgCoLypqZJL04iOus7J+nAvBUyfJcXk5XhxRPQ1iWTCKNj
+	 tYJBkEXfQQ53w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	"Paulo Alcantara (Red Hat)" <pc@manguebit.org>,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/4] cifs: Remove dead function prototypes
+Date: Mon,  7 Sep 2026 11:14:47 -0400
+Message-ID: <20260907151449.3749114-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907151449.3749114-1-sashal@kernel.org>
+References: <2026090335-figure-bright-e488@gregkh>
+ <20260907151449.3749114-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,58 +49,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Do not dereference mmc/vub300/udev after the final kref_put, because
-it can release them via mmc_free_host()/usb_put_dev().
+From: David Howells <dhowells@redhat.com>
 
-Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
-Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+[ Upstream commit 9146c7e53fa8e5024e0f61d67129afd45a179a3b ]
+
+Remove a bunch of dead function prototypes.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+Reviewed-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mmc/host/vub300.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/smb/client/cifsproto.h |  6 ------
+ fs/smb/client/smb2proto.h | 12 ------------
+ 2 files changed, 18 deletions(-)
 
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 2dae474dcd06..a1a6aa1aafdb 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
- {				/* kref callback - softirq */
- 	struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
- 	struct mmc_host *mmc = vub300->mmc;
-+	struct usb_device *udev = vub300->udev;
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index ab4cda81dfb7a..15c6630340255 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -82,7 +82,6 @@ extern char *cifs_build_path_to_root(struct smb3_fs_context *ctx,
+ 				     struct cifs_sb_info *cifs_sb,
+ 				     struct cifs_tcon *tcon,
+ 				     int add_treename);
+-extern char *build_wildcard_path_from_dentry(struct dentry *direntry);
+ char *cifs_build_devname(char *nodename, const char *prepath);
+ extern void delete_mid(struct mid_q_entry *mid);
+ void __release_mid(struct kref *refcount);
+@@ -166,8 +165,6 @@ extern bool is_valid_oplock_break(char *, struct TCP_Server_Info *);
+ extern bool backup_cred(struct cifs_sb_info *);
+ extern bool is_size_safe_to_change(struct cifsInodeInfo *cifsInode, __u64 eof,
+ 				   bool from_readdir);
+-extern void cifs_update_eof(struct cifsInodeInfo *cifsi, loff_t offset,
+-			    unsigned int bytes_written);
+ void cifs_write_subrequest_terminated(struct cifs_io_subrequest *wdata, ssize_t result);
+ extern struct cifsFileInfo *find_writable_file(struct cifsInodeInfo *, int);
+ extern int cifs_get_writable_file(struct cifsInodeInfo *cifs_inode,
+@@ -194,8 +191,6 @@ extern void header_assemble(struct smb_hdr *, char /* command */ ,
+ extern int small_smb_init_no_tc(const int smb_cmd, const int wct,
+ 				struct cifs_ses *ses,
+ 				void **request_buf);
+-extern enum securityEnum select_sectype(struct TCP_Server_Info *server,
+-				enum securityEnum requested);
+ extern int CIFS_SessSetup(const unsigned int xid, struct cifs_ses *ses,
+ 			  struct TCP_Server_Info *server,
+ 			  const struct nls_table *nls_cp);
+@@ -646,7 +641,6 @@ void cifs_free_hash(struct shash_desc **sdesc);
  
- 	usb_free_urb(vub300->command_out_urb);
- 	vub300->command_out_urb = NULL;
- 	usb_free_urb(vub300->command_res_urb);
- 	vub300->command_res_urb = NULL;
--	usb_put_dev(vub300->udev);
- 	mmc_free_host(mmc);
-+	usb_put_dev(udev);
- 	/*
- 	 * and hence also frees vub300
- 	 * which is contained at the end of struct mmc
-@@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
- 			construct_request_response(vub300, cmd);
- 			vub300->resp_len = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(vub300->mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		}
- 	}
-@@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
- 		    satisfy_request_from_offloaded_data(vub300, cmd)) {
- 			cmd->error = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		} else {
- 			vub300->cmd = cmd;
+ int cifs_try_adding_channels(struct cifs_ses *ses);
+ bool is_ses_using_iface(struct cifs_ses *ses, struct cifs_server_iface *iface);
+-void cifs_ses_mark_for_reconnect(struct cifs_ses *ses);
+ 
+ int
+ cifs_ses_get_chan_index(struct cifs_ses *ses,
+diff --git a/fs/smb/client/smb2proto.h b/fs/smb/client/smb2proto.h
+index 9ee80157b550b..92e6b93d72c49 100644
+--- a/fs/smb/client/smb2proto.h
++++ b/fs/smb/client/smb2proto.h
+@@ -41,15 +41,11 @@ extern struct mid_q_entry *smb2_setup_async_request(
+ 			struct TCP_Server_Info *server, struct smb_rqst *rqst);
+ extern struct cifs_tcon *smb2_find_smb_tcon(struct TCP_Server_Info *server,
+ 						__u64 ses_id, __u32  tid);
+-extern void smb2_echo_request(struct work_struct *work);
+ extern __le32 smb2_get_lease_state(struct cifsInodeInfo *cinode);
+ extern bool smb2_is_valid_oplock_break(char *buffer,
+ 				       struct TCP_Server_Info *srv);
+ extern int smb3_handle_read_data(struct TCP_Server_Info *server,
+ 				 struct mid_q_entry *mid);
+-extern int smb2_query_reparse_tag(const unsigned int xid, struct cifs_tcon *tcon,
+-				struct cifs_sb_info *cifs_sb, const char *path,
+-				__u32 *reparse_tag);
+ struct inode *smb2_create_reparse_inode(struct cifs_open_info_data *data,
+ 				     struct super_block *sb,
+ 				     const unsigned int xid,
+@@ -302,17 +298,9 @@ extern int smb2_query_info_compound(const unsigned int xid,
+ 				    struct kvec *rsp, int *buftype,
+ 				    struct cifs_sb_info *cifs_sb);
+ /* query path info from the server using SMB311 POSIX extensions*/
+-int smb311_posix_query_path_info(const unsigned int xid,
+-				 struct cifs_tcon *tcon,
+-				 struct cifs_sb_info *cifs_sb,
+-				 const char *full_path,
+-				 struct cifs_open_info_data *data);
+ int posix_info_parse(const void *beg, const void *end,
+ 		     struct smb2_posix_info_parsed *out);
+ int posix_info_sid_size(const void *beg, const void *end);
+-int smb2_make_nfs_node(unsigned int xid, struct inode *inode,
+-		       struct dentry *dentry, struct cifs_tcon *tcon,
+-		       const char *full_path, umode_t mode, dev_t dev);
+ int smb2_rename_pending_delete(const char *full_path,
+ 			       struct dentry *dentry,
+ 			       const unsigned int xid);
 -- 
-2.51.0
+2.53.0
 
