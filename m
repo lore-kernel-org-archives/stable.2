@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA19D406834;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A701400963;
 	Mon,  7 Sep 2026 06:45:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763502; cv=none; b=Kb9GZvgJtlNANUKReUnRZrlc2lR0E3r8drURMiB3Kthw2xmkEhrXpzL/hsHIUhSObfx1IahKCw9absf8pueDxynDHfe63OMcS4VoOwwCX8nyy/D2BT7NsWt9motD4URdBeq/SJrEYt7wJRiuCEBbYb6pr7vIf1aSWo+Glo0+Ctc=
+	t=1788763502; cv=none; b=YGJBuQe8eQzmMxVh0vpzb0Y4Bs1dydkuE9opAJJbr2U6UDjO8h92orn7t/atBx4aSNkMMsAi0ahAxb6/7bVUsC49NfUrzf3B80r3I/I4DcAnxQCMISS2wCnRYkpimHP4AY17J7PhM8UUoLWTFFrmJ7ctKMaqRZ+ebUGzUOQvyws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788763502; c=relaxed/simple;
-	bh=x66OTmE+2GoMrDOkCx9Gp+1mdgvBmhCVWJZ3x+2aW8g=;
+	bh=5/7mkBg3SXUZmwpNQZbqvDU68kScFEqQw2PSKoYk/7g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q5CyAGfrCUKbIrZZsS0DaVVx4hy1pFuhdN5f860Rr8wfDzz11hYlPOSOkMqrx9AmoEJZDCd0ivlZb94UJEzk0fQM++Oey5sDsNZJ006dVv68QZE6Ehbfjggos2W4RFFzAwFlDK6E0qKGrWVzfIKN+3smwYV6wf5SadSSX44YoLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZchNzdW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e4z2ga8kXHxBxQAhgOPu8AXw9x6M8iqdAnXs6PXfKEb/j/JV/W0hQ1cnjofuExklSxImEJTqOWEYA7C5lyVrIHS7k1QF0jn8+mvK0EFqCXcSDPf6ipve6vZtatvzd8b9tBN7M5NSr7s5CcfV4ENr6LImTmZd5bTMTSmFuDx6tVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eqjv40GE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZchNzdW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94ED81F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eqjv40GE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A584E1F00ACA;
 	Mon,  7 Sep 2026 06:45:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788763500;
-	bh=uKkl+WCnZ3v7/vev4Fux3tOv4sXrORFW6CikZ1muEWY=;
+	bh=p8adRS1Y381PQYv/N8H4PYRUQsR+b+pWo6Uubccta/M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DZchNzdWPSIUMz5EDTVju2UauvqwvKBgOZwgWylIvokg8chfX4imLvTbQ0D0sswBM
-	 VjzM4gd9j61kqcJZ3b1vf2nHuuAGHAqb7VtcjcUdO4Hrfjs7ukXQja01HF0CoJcd8t
-	 YVJHQbvz2w68cbA4+clbvgfjilxAP7PFpEeMhE6NneuzvogNZBzHZJ3DPh3gqX+9hx
-	 GP0EzGyDbywa/tRRHz14Nggtc5/ZtqJ0y7EBUn1N4jDoGV4nq6Cf1Ss/tNW93ovJmF
-	 kgjFnDro1RNiVALjzNMMLRYjpuJsuDd3EK4Z2QM9rqmMI2KL/UxYxbNw2RUS17GQGc
-	 WCaT5NK6PqNyw==
+	b=Eqjv40GEKnuI3korcu4hHzfNtWD3jJCS8h4Czmdlex7Jn2IP5hp3KPQf71UAMPoCt
+	 o54NDFobn0R73EFVXSecyEc8Uc5yNNA2ADmfSd2vSpqDTMDd0gzLFXM2XXql+UReSL
+	 AJ2KMa+gBcBgifTvz87ZT0DZgujb4okQJwYSkoUF4huur6b/+NqFj9pwfoXS6q+v6u
+	 3fM2Qp9ruvZNq5JbJCPPaHUkWH0Xv2E3ICF+vExr5566SaeCnmijPwWYROf2uK8OQt
+	 9RTucqncaZOGevbvhoj4oMdl+3bnfSALX3mszgHZYdA399Wc/GWB8XI6xud6rIOc6K
+	 ZiKG+gtZiSTHQ==
 Received: from johan by xi.lan with local (Exim 4.99.4)
 	(envelope-from <johan@kernel.org>)
-	id 1x3T69-00000000OC8-3nyj;
+	id 1x3T69-00000000OC4-3hbG;
 	Mon, 07 Sep 2026 08:44:57 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -36,11 +36,10 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Johan Hovold <johan@kernel.org>,
-	sashiko-bot@kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v3 3/4] serial: fix TIOCMIWAIT race
-Date: Mon,  7 Sep 2026 08:44:17 +0200
-Message-ID: <20260907064418.92953-4-johan@kernel.org>
+Subject: [PATCH v3 1/4] serial: revert guards in uart_wait_modem_status()
+Date: Mon,  7 Sep 2026 08:44:15 +0200
+Message-ID: <20260907064418.92953-2-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907064418.92953-1-johan@kernel.org>
 References: <20260907064418.92953-1-johan@kernel.org>
@@ -52,37 +51,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The task state must be updated before checking the wakeup condition to
-avoid missing a racing modem status update.
+Mixing scope-based and regular cleanup is discouraged and
+uart_port_deref() used by uart_wait_modem_status() falls in the latter
+category.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/r/20260904115542.E20D11F00A3D@smtp.kernel.org
-Cc: stable@vger.kernel.org
+Revert the premature guard conversion in preparation for fixing a hangup
+race.
+
+Fixes: 56609c050051 ("serial: serial_core: use guard()s")
+Cc: stable@vger.kernel.org	# 6.18
+Cc: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/tty/serial/serial_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/tty/serial/serial_core.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 4213fa3dc988..c2c2c8fe1a4c 100644
+index 95774b0f1484..1553bc6cbe7b 100644
 --- a/drivers/tty/serial/serial_core.c
 +++ b/drivers/tty/serial/serial_core.c
-@@ -1230,12 +1230,12 @@ static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *sta
+@@ -1213,15 +1213,16 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
+ 	uport = uart_port_ref(state);
+ 	if (!uport)
+ 		return -EIO;
+-	scoped_guard(uart_port_lock_irq, uport) {
+-		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
+-		uart_enable_ms(uport);
+-	}
++	uart_port_lock_irq(uport);
++	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
++	uart_enable_ms(uport);
++	uart_port_unlock_irq(uport);
  
  	add_wait_queue(&port->delta_msr_wait, &wait);
  	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		uart_port_lock_irq(uport);
- 		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
- 		uart_port_unlock_irq(uport);
+-		scoped_guard(uart_port_lock_irq, uport)
+-			memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
++		uart_port_lock_irq(uport);
++		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
++		uart_port_unlock_irq(uport);
  
--		set_current_state(TASK_INTERRUPTIBLE);
--
- 		if (((arg & TIOCM_RNG) && (cnow.rng != cprev.rng)) ||
- 		    ((arg & TIOCM_DSR) && (cnow.dsr != cprev.dsr)) ||
- 		    ((arg & TIOCM_CD)  && (cnow.dcd != cprev.dcd)) ||
+ 		set_current_state(TASK_INTERRUPTIBLE);
+ 
 -- 
 2.55.0
 
