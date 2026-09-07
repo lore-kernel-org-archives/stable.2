@@ -1,138 +1,153 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A1E883F;
-	Mon,  7 Sep 2026 02:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956232E7367
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 02:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788748829; cv=none; b=sCaN1hEuyWrSskXtnmF7W0FWgXTynNvowtuk3t3e5vPQ687xDeHqirqu2rSTHVnHpaExaudihGL8BSQe/OsqF5eiSErymDXSQUIGJeBD/BHn0Hs41fYMh6Xdk15ZKj3UG4zeKTZQaVstCqDSr52BoKK+wLIGhS7fifqpXqzaYW8=
+	t=1788749726; cv=none; b=jtOss1MTOMCAyqebnP2LOjb1E50Y1FTVTYbKHEIDS/gF45hpbkHh3fc9tbu7n4mBBOYQso9ja071jA+Uk5QPL5D+0VTXcDN2Pr4pOz+kHTdXSMt0QXjxETt07FkS5gm0z7IpBr2B+l7hu5lpLZ/bRE2CpMtc4DB23KrxGoWGvhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788748829; c=relaxed/simple;
-	bh=ThpeK2ik4ReGazR65sPK1I0GylKFv3ulbdOB3NmhqG4=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=j0T770d6OPApSr+ZodgIoPCr6d5fbHBnHyhN8ZFYkYYOQY3CfT474hFY3oAY9X9TwNcXtXITWdlDG0nSfRjJnD8Fp7ViQFz6oc+a+zDidnPfW82c4o6DzpBhVUaitip03SMjAuShHE5NoMBn6nNeDE4KI2LlbsnoMlOwppA9qyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=U6K8NsjK; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788749726; c=relaxed/simple;
+	bh=MCtc53OvC78dPVDjleIyZtuN4ZTyv8ZI6/y02lp/l+A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LKaa6lY4FKTXVpdHahZ2UWTBGBAPKYxtGWIi4d+xohjzcBvsRiUabi8NMa5J+8Cvh7A/TD/C3CldqzQRzuq3d3AG0cZ3uuujuU1X1TWg5V8rFjVrXUoXUeI6mE0SmQxpK9L4lAXyXutkOi+nRqscIjgUqAG/0dQiFuNlOV+YbJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=uZZiQlT+; arc=none smtp.client-ip=91.218.175.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="U6K8NsjK"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6872e87j92413737, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788748809; bh=Pulgy9ZZOouR6PMWUYjfrXuSoB0jKzCcVXvOK2FlC7Y=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=U6K8NsjKh8eLZVkt0HDDRmeO+/VIkJxtAIKKp1flIMtotjXH+FznJh169ZP8rfrwq
-	 +qov6V4oXCY1SnGM7F+K9In2GmjHxepI7J45KDtG7qlJ467uqkQ34Wvbx5/UEJNjrG
-	 KDjOUxiauHwVbAXRgbeaHSpxlLG0++Sl5fHazti2ndspBbyjdnGgprUHaZRPGsOdwd
-	 rehJanEnvAAO6flIbTFG0wYTI9sDU6jr/uDAHwUMoS9OVDsYtVMDLrvKld4kRM5N1P
-	 jqjKPzaokhigYNmh7xVIBkr61I50VrYcXLlefQadQmdL0HeeFEd1Rk/Ykzz6zDNMeo
-	 hd4P1tXC21bDw==
-Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6872e87j92413737
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 10:40:08 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 7 Sep 2026 10:40:09 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 7 Sep 2026 10:40:08 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Mon, 7 Sep 2026 10:40:08 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Tristan Madani <tristmd@gmail.com>
-CC: Kalle Valo <kvalo@kernel.org>, Bernie Huang <phhuang@realtek.com>, Timlee
-	<timlee@realtek.com>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, Tristan Madani <tristan@talencesecurity.com>
-Subject: RE: [PATCH wireless 2/2] wifi: rtw89: fix OOB read in
- __rtw89_wow_parse_akm()
-Thread-Topic: [PATCH wireless 2/2] wifi: rtw89: fix OOB read in
- __rtw89_wow_parse_akm()
-Thread-Index: AQHdOIxRRhVJWcdn70CpojTFkESnvrbCcm3w
-Date: Mon, 7 Sep 2026 02:40:08 +0000
-Message-ID: <b997de89af864c3d9ed7d5d2ef233169@realtek.com>
-References: <20260830143154.1751910-1-tristmd@gmail.com>
- <20260830143154.1751910-2-tristmd@gmail.com>
-In-Reply-To: <20260830143154.1751910-2-tristmd@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="uZZiQlT+"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=MCtc53OvC78dPVDjleIyZtuN4ZTyv8ZI6/y02lp/l+A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788749722; v=1; x=1789354522;
+ b=uZZiQlT+PEkOYqWyEgxkbAAO/FhvqxqZ9kFMc8T0hqET5nCFArsI8gB8mnijRKcz3HbQIVPe
+ mRRyFUZnI6N3R6IGcjfjOC2Zl0vNyVD3SnjbgGkRLFAugmNJp/6SWbQmR7/49IxIPX9WrqyxxIE
+ JFyU4T5qBohGutVP6IV2hx6w=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cb267324da5e0b08;
+	Mon, 07 Sep 2026 02:55:08 +0000
+X-Mizu-Trace-ID: cb267324da5e0b08
+X-Migadu-Flow: FLOW_OUT
+From: Ridong Chen <ridong.chen@linux.dev>
+To: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	David Hildenbrand <david@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Chris Down <chris@chrisdown.name>,
+	Tejun Heo <tj@kernel.org>,
+	Yu Zhao <yuzhao@google.com>,
+	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-mm@kvack.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
+	linux-kernel@vger.kernel.org,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Ridong Chen <chenridong@xiaomi.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v4 1/2] mm/page_counter: avoid integer overflow in effective_protection()
+Date: Mon,  7 Sep 2026 10:54:44 +0800
+Message-Id: <20260907025445.1836238-2-ridong.chen@linux.dev>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907025445.1836238-1-ridong.chen@linux.dev>
+References: <20260907025445.1836238-1-ridong.chen@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Tristan Madani <tristmd@gmail.com> wrote:
-> From: Tristan Madani <tristan@talencesecurity.com>
->=20
-> __rtw89_wow_parse_akm() computes a pointer to the IE area with
->=20
->     ies =3D mgmt->u.assoc_req.variable;
->=20
-> and then passes skb->len as the IE data length to cfg80211_find_ie():
->=20
->     rsn =3D cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len);
->=20
-> skb->len is the total frame length, not the length of the IE portion.
-> The IEs in an association request start at offset 28 (24-byte header +
-> 4-byte fixed fields), so the correct IE length is skb->len minus that
-> offset.  Passing the full frame length causes cfg80211_find_ie() to walk
-> up to 28 bytes past the end of the skb data buffer, triggering a
-> slab-out-of-bounds read.
->=20
-> Fix by validating the minimum frame length and passing the correct IE
-> data length to cfg80211_find_ie().
->=20
-> Fixes: 480dd4dddfc5 ("wifi: rtw89: enter power save mode aggressively")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/net/wireless/realtek/rtw89/wow.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw89/wow.c b/drivers/net/wirel=
-ess/realtek/rtw89/wow.c
-> index 8dadd8df4fc65..82b74ded68631 100644
-> --- a/drivers/net/wireless/realtek/rtw89/wow.c
-> +++ b/drivers/net/wireless/realtek/rtw89/wow.c
-> @@ -16,10 +16,16 @@ void __rtw89_wow_parse_akm(struct rtw89_dev *rtwdev, =
-struct sk_buff *skb)
->  {
->         struct ieee80211_mgmt *mgmt =3D (struct ieee80211_mgmt *)skb->dat=
-a;
->         struct rtw89_wow_param *rtw_wow =3D &rtwdev->wow;
-> +       size_t hdr_len =3D offsetof(struct ieee80211_mgmt, u.assoc_req.va=
-riable);
->         const u8 *rsn, *ies =3D mgmt->u.assoc_req.variable;
->         struct rtw89_rsn_ie *rsn_ie;
->=20
-> -       rsn =3D cfg80211_find_ie(WLAN_EID_RSN, ies, skb->len);
-> +       if (skb->len < hdr_len)
+From: Ridong Chen <chenridong@xiaomi.com>
 
-Since the skb is generated by local to do association, I wonder that
-does it possibly happen?
+effective_protection() scales a parent's protection by a ratio of page
+counts, e.g. for recursive protection:
 
-> +               return;
-> +
-> +       rsn =3D cfg80211_find_ie(WLAN_EID_RSN, ies,
-> +                              skb->len - hdr_len);
+	(parent_effective - siblings_protected) * (usage - protected)
+		/ (parent_usage - siblings_protected)
 
-Straighten the line.=20
+The multiply is done at unsigned long width before dividing. On systems
+with >= 16TB RAM the product can exceed 2^64 and wrap, giving a bogus
+protection value and silently breaking memory.min/low enforcement.
 
-> +
+Use mul_u64_u64_div_u64() to multiply in a 128-bit intermediate. Because
+usage and parent_usage are not read atomically (a child is charged
+before its parent), usage - protected can briefly exceed the divisor,
+making the quotient overflow 64 bits and trap (#DE on x86). Cap it so
+the ratio stays <= 1.
 
-no need this blank line.
+Reported by the sashiko review tool [1].
 
->         if (!rsn)
->                 return;
->=20
-> --
-> 2.47.3
+[1] https://sashiko.dev/#/patchset/20260826133054.88529-1-ridong.chen@linux.dev?part=1
+
+Fixes: bc50bcc6e00b ("mm: memcontrol: clean up and document effective low/min calculations")
+Fixes: 8a931f801340 ("mm: memcontrol: recursive memory.low protection")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+---
+ mm/page_counter.c | 21 +++++++++++++++------
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+diff --git a/mm/page_counter.c b/mm/page_counter.c
+index 661e0f2a5127a..ea0d1646cff85 100644
+--- a/mm/page_counter.c
++++ b/mm/page_counter.c
+@@ -8,6 +8,7 @@
+ #include <linux/page_counter.h>
+ #include <linux/atomic.h>
+ #include <linux/kernel.h>
++#include <linux/math64.h>
+ #include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/bug.h>
+@@ -356,7 +357,8 @@ static unsigned long effective_protection(unsigned long usage,
+ 	 * otherwise get a smaller chunk than what they claimed.
+ 	 */
+ 	if (siblings_protected > parent_effective)
+-		return protected * parent_effective / siblings_protected;
++		return mul_u64_u64_div_u64(protected, parent_effective,
++					   siblings_protected);
+ 
+ 	/*
+ 	 * Ok, utilized protection of all children is within what the
+@@ -397,13 +399,20 @@ static unsigned long effective_protection(unsigned long usage,
+ 	if (parent_effective > siblings_protected &&
+ 	    parent_usage > siblings_protected &&
+ 	    usage > protected) {
+-		unsigned long unclaimed;
++		unsigned long parent_unclaimed, parent_unprotected, unprotected;
+ 
+-		unclaimed = parent_effective - siblings_protected;
+-		unclaimed *= usage - protected;
+-		unclaimed /= parent_usage - siblings_protected;
++		parent_unclaimed = parent_effective - siblings_protected;
++		parent_unprotected = parent_usage - siblings_protected;
+ 
+-		ep += unclaimed;
++		/*
++		 * The usages aren't read atomically, so a child can transiently
++		 * appear to use more than its parent, making the ratio exceed 1
++		 * and the quotient overflow 64 bits (#DE on x86).  Cap it.
++		 */
++		unprotected = min(usage - protected, parent_unprotected);
++
++		ep += mul_u64_u64_div_u64(parent_unclaimed, unprotected,
++					  parent_unprotected);
+ 	}
+ 
+ 	return ep;
+-- 
+2.34.1
 
