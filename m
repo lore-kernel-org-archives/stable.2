@@ -1,84 +1,81 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA4B356766
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 08:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403B843B6DE
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 08:12:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768671; cv=none; b=cfJYbINliWbzZln1zKqB/wM2iFimRcod67IXgdD72CDBH7+8hP/pKyFqCNceycpw1fhjwRvNjciRwPamb+/x5AqLKum9oFMMgf5Ex/hu7MhnPky1xI/2FTP0vFIm1hQoOaG6oOigUmo5v9jzJptTqDwhluP/7vmyusyUnLU1ugw=
+	t=1788768754; cv=none; b=r6a0Rr8i1/aiscjQNxEWFa5DzdxLuFPQszaBv2crPLnhS/VFVZl+ebSi0BpQwWlKHv7g7lub63doHD+xoRSOeriCGCPEmUetLDs3acPIFrOZclhu0D6wcdmOZvQV1KTmw41leurYSa0KjLF3bZnKCConG62Z/McS8F5ev+v/md0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768671; c=relaxed/simple;
-	bh=/6U0ejnKVCnY/voDTSFxOlc5gsLZn/m+oRxuVla0hs4=;
+	s=arc-20240116; t=1788768754; c=relaxed/simple;
+	bh=3DpXbIfal60znQihoTzW2Tp3q9D9M0PZ3qy0geTQM0w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZIsBQtQEGJWk4ov82uoGaBlxdNfXcgb1snk2NyBWqxPATHxSNF/rW4HtRtGk/j4XH9MyrVf/v+bW4LHx8avWDgLfQlDinl2ekjE3dOXafQtuJFFC5soKPOPUw212Ho6uz3QA1zqV2KZil6bt3XWFcw5pv7LybkunNOY54kDA2X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=DcqulXjo; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 MIME-Version; b=ltdsM/uxuaBr3J/4vKso97jAZ6GRJii4XflOpWkdsb2x0ahwyGViEyfAptzEnSeOjlU+emDdL1cJmaA8SX1ImnSA2s+GdkCQuL/WMOASFEdK7IQm3MpS1pwW4q+SJuiC7Nr72sZTd3f0tRRPDHeqh0QrMETchk1GdeKGHnZU0Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DnQZUClD; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="DcqulXjo"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8535a9be75eso2436194b3a.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 01:11:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DnQZUClD"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso2322374a12.3
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 01:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788768669; x=1789373469; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788768751; x=1789373551; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NyY9lPD75y9BR+0yRH+j2QBcA33x9lrav1rJc4EJ4Ow=;
-        b=DcqulXjoOcFAe+42LjPy3ULDXiPtRAPOGRyIvricudwkMBmRgTMAKY2yeAhBNAnaaA
-         7FLCSmRnC2JSPBcgdFwh+8enDbwQIwEBlZTHX8aRAh4VgzYM7pSp7iCyAU48t/qfdrp0
-         WU50JcVz4uHTyXCEirwdUtJsNe+U0CYabkUMgNZi7dSJ842otYX8YQuQsDTERy3+Ktzf
-         4fhAGTqBWaW4soqfHPr0vP6NW5h68Ltm8bkkWsf8pyk8XJKDz0umiYhI1LnzcwHJ3owq
-         6Yodsomko2Grt6ConWTbIFwApeDpP+95Zb4YNKHugzbZZc8LtdSu13MItyeuB+B50OVr
-         n6OA==
+        bh=971x3L1jLFO50aCCes3jvxmvwdkEiKwHi793ZZpvAwA=;
+        b=DnQZUClDG+STAKi2HTSLrDEXSMtoZjFRetEAcCyXgKgIgAJQP0J/xE0re155nXd9XV
+         7CFpmyqtOBHHtSIB+zCTPxzrgqPLQV+4ziGrlje+73VfQarvb1m2KJMeaeEx4+KSrJJs
+         o0yhQOR0tiW8gVef+uCwa0VrdzZHAnzQgChMbF9cAc/sDQlKpg0K4e/qZrpqFn8hG/5A
+         2rf6RI0szykyjTw0iWW1S6WOvKbszG1OmXQERezXuf5dFlFt/SHv/pZLvOyp7jdOpPuh
+         BraBWPqceHYoOqQDhuZZ3p1J6a2e/HAjCFhOW+zR679uVZxBTxNq24d/1357kOUBua83
+         a53g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788768669; x=1789373469;
+        d=1e100.net; s=20251104; t=1788768751; x=1789373551;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NyY9lPD75y9BR+0yRH+j2QBcA33x9lrav1rJc4EJ4Ow=;
-        b=LS6N49OuLUw1KzPKKhvrLpC7hObyeg1IE5lyXMEdOqbjKBrdTH4UH3YwWyxwdqVs4v
-         rnB0av8ESZSUuvZADyJtE0CatJ6G4p9ZkeBjQGFL5gu5OzXNl5acbe55DNB8h/qnSeAj
-         uPhpP4XSxJZNRgxa/zhlm70yIssCcB4bEmuvR0XyFrNcOii3mfyVaeYrOqD9PNEU/fZb
-         PnymP1U6fvjIfMVD1PHf0F05woxQ/sP5P/ifYLKmdAXw7bvP3M1g2GlR/n2sWv1KDcW2
-         AtgP5+SOoQVSUQi3P+1l9NYmzIE8gl7kM0vnWQ8oBEU2HRogNCxW8pfdgsHgzOROf9Tb
-         UR9g==
-X-Forwarded-Encrypted: i=1; AKwUvBx7ONRTb5hNMevA+FpYqjFALjQ5EPAIffyvzK1hprooWgDILWckNJeoLe7gibzZRHJVBOEapbs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwOJ5nWx1vq7B+/EF8qrtqXSUefv1aH9jTUH7q8p3n/NhJi1a2
-	oeE5NmcM5+c71BuCbkxYTTQD5oCiGB239CPwf2hdQGQP0rnOe9IIjNVcXP1KUutERASt
-X-Gm-Gg: AYBFou2oW031j2/UMXcgkCagn0yiUasphn5OryIw7/213Sk8elTg3aOCyYJo17yUvwg
-	kyjGndmCm3kSprFWwLwbHK9zbtFhQRLAp54O/DmzP/jUS9NcdRPaxHfr+3d+3RNH5rMMs1A4rZQ
-	jhO003kX6JdCU0E36Ls5BxUHMkHBXZnXLtoGeHWAgXnAkr5dPfdQzIWxhUjEQZdGCVQqsCwiDUc
-	8KUma/1lhk8Xv/Gj+J9hjh95x1okThZJZInY9IgZY8QT9BTaMqxUXgp97hpLHIi8IzyLuSzQ7VN
-	mrRj0dVb0Cbjy+wqD4+cbllNdIcgk5REttW+EiYTu4+CW0XJkwrl3fKGZ0ibyop/WJ+qnQj7sx3
-	fwMnDcZU7ApCOHS4/WOK/xYDTF0w78eWZCM4SEFjhcz8ijRGkmFMqtU39NE/0xyiN4N4CYNRu2y
-	56BlXnbD7NU+w1txR7/w9iHlh42RMPL4xPAxcDpAsKlweNQQXWo62HynhIWUdJpf38s1bFYLiQJ
-	sq72vT0QEITe68yero=
-X-Received: by 2002:a05:6a21:8cc4:b0:3d3:ae40:51e2 with SMTP id adf61e73a8af0-3da3a081704mr30312011637.22.1788768668686;
-        Mon, 07 Sep 2026 01:11:08 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45e15604fsm3494883a12.0.2026.09.07.01.11.04
+        bh=971x3L1jLFO50aCCes3jvxmvwdkEiKwHi793ZZpvAwA=;
+        b=WnhV6xtV94o5YnN/vYYahFGqZj9YafOedBz0dQz1wB9Brati5ZoVCGcFkVX4ohE6v2
+         Fuku36TKX9LxNIgWlipK6z0Psncvd24G7bYJbDB7Krly1nv+BMwWlrrUYioTQ45qS200
+         Im+fEMBXlFp7xybq54F08WPLFyXScc5BTgOFEvqFtSPxOsnRcvhnf1faNhtWR64G1Zg4
+         l52dxFww6cRpWWx+tb+rpYzBtsYighlmL08WKrw5JT4tnDF4DxgMMGm89H7icH13cZw4
+         /ZYjkQ2viESWD4rxwtmBUjg/Kd23cvxOgC65iGhx0pRmeqhGpKwgAMdQkoOy0wwfKumN
+         19Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLF3lYfbYqrzY1IB71NeOcOJENRGOvFBEi0Bjtsd81z4njzri/G/gADiEKcrfjknrsZ2t9qu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfT5HI7sSKfHPUcoS57S5pfShWJEvDkLYszO1VyIUwH6KxDnet
+	ugY58u8Qv66Hz2Bs3K38oJ9MzhMGQ89MV9rq8brt7eBNuKSu9YSjygPd
+X-Gm-Gg: AYBFou2xyCrRdd78jg5SZDCVcf7rTUXjpiRX6InB8/GomvKSRfgYnyI4qYS2GVjHbZg
+	ax5WlWJpaWt64X1IH+XYL1OIYTpUaUyMrsSyVJcj/aUGqAmIavGNN5MMPtbwwy1FvBetelvR0C2
+	np2axEHoIco90tEPe8nSwCQ4xIlNreCYdOBFSaVU44/g4u4iidgYArKVu6sG+t7HAVG9VWGnjcy
+	ljYR6tJqVkddB9CP3PXW4aPaHiH6SumM7PC1T5eGCdTnleJoIp7XTdQL7A5QylWYX9eWzNfBAiz
+	xDL81++NXWHmGjPVJTFYWrMnLiwUTEKDGG045JkYADm9QTH7XgS1WmrPRFMjE1WACMARYdbV2Wa
+	RKFO4H02+UOT1lXK5/zQ7GfCX0ZCtzD9YvA6rSM4R0Ns1B/NDAa06z1J6PF+SINbKDG1zBEWkFO
+	AOpPC7X1wn7DN4FJ3YTxxouzTdFqcx87/ed0jcgNc3Klp9FMclwksIRIz3q6bZh7mQ/FQvH6ddo
+	bFRIfFeMuKq1rP5EAJJ51h4hjyc7QrFDVxs5PaL8LcRZuzOz+dOlayHQWrgkILwLMLgfIfowb0/
+	ygJcaEE=
+X-Received: by 2002:a05:6a20:e607:b0:3d3:adbf:777f with SMTP id adf61e73a8af0-3da3a16a54cmr35721717637.20.1788768750876;
+        Mon, 07 Sep 2026 01:12:30 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45a6abb12sm3535544a12.16.2026.09.07.01.12.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:11:08 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org
-Cc: David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Benjamin Thery <benjamin.thery@bull.net>,
+        Mon, 07 Sep 2026 01:12:30 -0700 (PDT)
+From: Wei Jie LAW <98lawweijie@gmail.com>
+To: ribalda@chromium.org
+Cc: 98lawweijie@gmail.com,
+	guennadi.liakhovetski@linux.intel.com,
+	hansg@kernel.org,
+	laurent.pinchart@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Zihan Xi <zihanx@nebusec.ai>
-Subject: [PATCH net v3 1/1] ipmr: account multicast table and route memory
-Date: Mon,  7 Sep 2026 08:10:56 +0000
-Message-ID: <ef4076c94466ea4b147653e2b7f933778f245437.1788765185.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788765185.git.zihanx@nebusec.ai>
-References: <cover.1788765185.git.zihanx@nebusec.ai>
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: uvcvideo: Fix NULL deref on events for uninitialized controls
+Date: Mon,  7 Sep 2026 16:12:22 +0800
+Message-ID: <20260907081222.2541314-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
+References: <CANiDSCtypCfEoZbRvdT7EoJdd2G8yOVcvxBoS5LcE60UjFQx2g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,98 +84,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A netadmin in a user+net namespace can create many IPv6 multicast
-routing tables with MRT6_TABLE. Each unseen id allocates an mr_table,
-links it into mr6_tables, and leaves it until netns teardown. Those
-objects were not charged to memcg, so the host unreclaimable slab
-grows with the table count.
+On Mon, 7 Sept 2026 at 09:00:35, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> 
+> Could you provide more info on how you reproduced the error?
 
-Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-handling of IP addresses, routes and alternate interface names.
+The device I used is a Facedancer UVC gadget in a QEMU VM running
+v6.12.105 + KASAN. It has:
 
-The first unaccounted IPv6 heap table appeared in commit 4e16880cb422
-("netns: ip6mr: dynamically allocates vif6_table"), which replaced a
-static vif6_table[] with kcalloc(..., GFP_KERNEL). Commit
-6bd521433942 ("ipv6: ip6mr: move mroute data into seperate structure")
-only wrapped that already-heap state into mr6_table. Commit
-d1db275dd3f6 ("ipv6: ip6mr: support multiple tables") only expanded
-the table count from 1 to N. IPv6 MFC entries were already unaccounted
-from commit 7bc570c8b4f7 ("[IPV6] MROUTE: Support multicast
-forwarding."); IPv4 ip_mrt_cache is older still.
+  - a Video Control interface with an Extension Unit: id 3, one control
+    declared in bmControls, GUID not matching any known mapping,
+  - a status interrupt IN endpoint.
 
-Fixes: 4e16880cb422 ("netns: ip6mr: dynamically allocates vif6_table")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v3:
-  - Drop the table lifetime / unpublished-alloc / empty-reclaim
-    approach from v2.
-  - Charge mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-    IPv4/IPv6 MFC caches SLAB_ACCOUNT, as suggested by Ido Schimmel.
-  - Point Fixes: at 4e16880cb422, the first GFP_KERNEL IPv6 heap
-    vif6_table. 6bd521433942 only wrapped that already-heap state;
-    d1db275dd3f6 only expanded the table count from 1 to N.
-  - Cover: unfixed evidence is Slab/SUnreclaim growth with RET:0, not
-    a host OOM. The memcg OOM log is from the patched kernel under
-    64M memory.max using poc.static.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1788622674.git.zihanx@nebusec.ai/
-changes in v2:
-  - Drop the shared mr_table refcount / list_del_rcu path that broke
-    the ipmr forwarding selftest.
-  - Limit the v2 approach to net/ipv6/ip6mr.c.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1784795838.git.zihanx@nebusec.ai/
+The crash is fully device-driven; from the host side the only
+thing needed is a process that keeps the video device open -- any
+camera application will do (no ioctl, and no privileges beyond normal
+camera access: the opener can be any active desktop user).
 
- net/ipv4/ipmr.c      | 3 ++-
- net/ipv4/ipmr_base.c | 2 +-
- net/ipv6/ip6mr.c     | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+Userspace never sends UVCIOC_CTRL_MAP / UVCIOC_CTRL_QUERY for that GUID,
+so the XU control stays exactly as uvc_ctrl_init_chain() kzalloc'ed it
+(XUs are initialized lazily by uvc_ctrl_init_ctrl(), which skips them).
+Something then opens /dev/videoN, which arms the status URB, and the
+device sends this 16-byte control change event:
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e5f2b1c6150d2..b9c544d48c452 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
-+	mrt_cachep = KMEM_CACHE(mfc_cache,
-+				SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_ACCOUNT);
- 
- 	err = register_pernet_subsys(&ipmr_net_ops);
- 	if (err)
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 867b24beded11..a0ec6d19a237f 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
- 
--	mrt = kzalloc_obj(*mrt);
-+	mrt = kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 3f2ed9b77deb5..9d8116b5edb17 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-+	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
- 
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
--- 
-2.43.0
+  bStatusType  = 1 (control)
+  bOriginator  = 3 (the XU)
+  bEvent       = 0
+  bSelector    = 0
+  bAttribute   = 0 (VALUE_CHANGE)
+  bValue[11]
 
+The worker dies before it can resubmit the status URB, so one open()
+gives one oops and the endpoint goes quiet; closing and reopening the
+node repeats it. The oops does not depend on KASAN -- it is a plain NULL
+walk on any kernel.
+
+> nit: I would not add the comment.
+
+Sure! Will remove the comments in a V2 patch, which I will submit later
+along with the [2/2] patch request since it's a duplicate of yours.
+
+Regards,
+Wei Jie
