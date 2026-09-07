@@ -1,148 +1,140 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D29540BCBB
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 21:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE663EC83D
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 21:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814867; cv=none; b=i1ehZn1bU6REN+hv5AKooUtfAi0qGju3HpEXwA+dGvM/I4Yj+rQU4mcXqKBhEp2KSwp6IoJzrOhbeDmwekphbmn4BouTiK3n/rjnRCkrgzHUBe2bT9Vr2CL7aRZgdte2jle8cyQBazF2dKgDPY1fjROHvXfvTh2dVxQhEkWOk3M=
+	t=1788815548; cv=none; b=M3WYxgbu9hWOEraQf7NUvIJ2jykpfbW937oTEQnmzk0Ri0ZClO/AkvIEdkeQDeoeqqNTxGqeuaGgNKr1o/7MIyPdwMBpwQz++wMihw/bAm9cob4c3uDGsBr8D7b46crKTCTXboHr1qS45iPSb+4EMuAZQC8xfuqiff0CQL7RddM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814867; c=relaxed/simple;
-	bh=Pfp4fHaGp3DYNoQNsq++Hih2POFfdEHNA9k/g4/DYlk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cY8b05PHAUANfUQADwetj5NY9ZCoZiVcLyRscPiL9KW0eVrqRw1j18TBHhPsSDGBe8KVlS2FCUx6nJJJQ2KqwC49Uw8yuEd77pUi2UCUnn6eW0fQRvcsWM3L264rkywTUFsU+uELehDHfn8BpU19TRjl5iLT8kQI5MTuxxq3qTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=E4srLzoR; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=eFb3gEgc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788815548; c=relaxed/simple;
+	bh=xiXIyUF728pdEMxBYCKoeOijmNpBaYqOiK2jGy8n+Bg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r2ilXJIY48fuyEvRcrxPM9VjfwnrhnVzl7idzqlyL9cLjzFDnrMk4s0HbdK8ezNL40YE32BQ5giuw7atNrBC/ieFSocNFv8286WRp3/Z7ZVlYbYi8kACcHuJ/yKrklcx0y+aHIf9ic3zPTHqLDrA2iOD7QzHJrGtO5bQDCM7mJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EhAnUDfD; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="E4srLzoR";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="eFb3gEgc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788814864;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=km54XNA3pesnlH9MUSOEbKUzj91GMmwN/4bvXZLN1Qw=;
-	b=E4srLzoRT2lSFcaQysiCLk/7gYWQXXHBWble0pc3yRK0BKbcUWXlkkenZdQBdblXltv429
-	aq23hN2ImYmLgJhVNpUkK9ErT/FV8Sa0bc3WYo3Bf/cgSD4jChuPK5MW4huzJs8Xh8G3m2
-	v2U/A6AYyGRGC393cggcW25+9qGapb4=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-446-0L_Q23CBM1epNkDaou_gPg-1; Mon, 07 Sep 2026 17:01:02 -0400
-X-MC-Unique: 0L_Q23CBM1epNkDaou_gPg-1
-X-Mimecast-MFC-AGG-ID: 0L_Q23CBM1epNkDaou_gPg_1788814862
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-485866e0066so2130386f8f.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 14:01:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhAnUDfD"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so37832705e9.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 14:12:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788814862; x=1789419662; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=km54XNA3pesnlH9MUSOEbKUzj91GMmwN/4bvXZLN1Qw=;
-        b=eFb3gEgcK3PB9MrfTHHThNcTr92004RvKuJ7uQwqQ3zoZ7OpJ1R7BPd8FvfmFxrl1h
-         nExdIw/Pf64APOUElzXVszf8Z/bLMrjDYGro+gxFk3eIKe+kvhj2IB8lSL2BlD+ZIQW/
-         sdkg+IjrmSSiahvTjLw32xG2CzD+GoXUxS2jj41mqgvtOOhUOA3AezChvYwsAcck82zI
-         R8Qp2eVUoycJOT4nbsMOPyqRJSzwZjPX62S4veWmMlcAj5GMvzgVfhx2lUPn+2YQB2jd
-         tEc6d0iHztEydGJgr9YF0mER6V2Nt6x2AB18PD42SQieJO4kg5XA+eKCw5FGTPbEsnwu
-         1FIw==
+        d=gmail.com; s=20251104; t=1788815543; x=1789420343; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UJGLSFX8zrT7Q+dYaopHAkGvQp+bTwZKSJV0d+iSPkY=;
+        b=EhAnUDfDOZJ/X6HCxheW7bA2v03tKBBxA6oeVTBj4TYbDrVuTUTTWocm+cNIGKLpfX
+         rL8ijF/QapWvIMSBrhYsWrgQ7daxljq8CaCeNcjsyxds+mLsq0UIUlRhMTOx7aB6BieM
+         8Yqb1IrneKyDMvibYt73k7pl+V4R7wKko/UOMUYlzBka8kIZqhNm+htGW1ACChiPNpE7
+         F8r/by3u77t00tRsA4W1T1JsVGkPFjPtcJmHZSdAsccc7Pk44GJLJcErUtLeHYvnnwcQ
+         ttpC3kNUye+5tqdQKigpQZb+MyFUrynYdNsJvCiKPuDoG5eh3GRHwPrYnEpTUVuNWLO3
+         E1jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788814862; x=1789419662;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788815543; x=1789420343;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=km54XNA3pesnlH9MUSOEbKUzj91GMmwN/4bvXZLN1Qw=;
-        b=cZeDt6YMMmdIrAQOZjBKFirhjjKV/hZZBKv0Af0kIRRikhufso1jT58xZPNpRxVnde
-         q46uLjEeU7Qg9IBZBGQgDHJ+q6fzn4pzXhAef1ZPAbcrER7P8rc5hs+iVHRTRIloZJsz
-         7xPsvmRRq8AhQ/BMmOWUagsQqnKnQFwtT6HA9iGPV2aIZE0f+/fJKg4yPXIBl136phlz
-         n8ZLZJ4dCasRaJEYYXkMINQT/qFrbQ2HbtojxiqYjl3aeTvnW0OA65fyW+JkeAaILqF3
-         FT26SNYJEaOMML+3++f7OPpsKM1cVzzz6+raJBuRjVZKCUtQnvF5TwhMHMKFAjwnMp4O
-         I4ag==
-X-Forwarded-Encrypted: i=1; AKwUvBx7z/hr6tD4p92l8F2j4uAs+QxV21tKIf3g+NEl5dhfGmKrl/d1LaA5VsBuZELh31owytSmpEI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOy80Wkw9HUrNCiiM4h3cotaYNLUYfhGaxrnZAJKM6TxYHztZ3
-	+m6GKnm8XpGgkvruP9+4OMsaROictGQYi7tqcVUZa0GkwLaIm3wXYshSi9hpZsMqPVWD7HjUvcK
-	hWen6NwPtDY4+0mgi6UloY8SfE5/cI+d2VGs8W+nWWRfHTVn7UR5EdXNjHA==
-X-Gm-Gg: AYBFou0QisQ+MWso1XBwss30g0LY1LaYQ/CPgWwbzPY8zqa/kYZc7yN6O6KXFSt2ac7
-	E9U3MzU4mLAvSAj6SiHg6ayB0G7KX0KvEDTqE3EnI2njGt2orPQQ6/eZVTxb91xGtRIvk4Maz9Q
-	hIBWJwGY3XCUuz2ObfQaldn1fzXr2h/lQjeotrbe86yo11dlOXhFSdoc9HFH6bxthLg/D/hda0g
-	Gn0DqEnY1K1inDpQo+KhDOoPpPa35lNA3Z1S8Cr+YblrQKZmb5UZH9LgoVVzMwyM575pVVRknes
-	rdj4maamLfiPee+7sQWp6nFUTSxY4TXv91GMkyv9ew99E3Z9aewAqGE9E9NhGAUDCPYTxRnpF9J
-	NDcaLKikAY31o9FHfjrjLHFgWKNjoq4375soUE8Z8Y4hJcfVW
-X-Received: by 2002:a05:600d:8649:10b0:49c:fa20:cc0a with SMTP id 5b1f17b1804b1-49cfa20cd58mr167275235e9.33.1788814861734;
-        Mon, 07 Sep 2026 14:01:01 -0700 (PDT)
-X-Received: by 2002:a05:600d:8649:10b0:49c:fa20:cc0a with SMTP id 5b1f17b1804b1-49cfa20cd58mr167274945e9.33.1788814861409;
-        Mon, 07 Sep 2026 14:01:01 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9? ([2a01:e0a:11aa:87f0:ea69:b2b0:2dae:5ef9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm458086515e9.5.2026.09.07.14.00.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 14:01:00 -0700 (PDT)
-Message-ID: <b34807ad-6390-4804-ba29-43a407b3d9fb@redhat.com>
-Date: Mon, 7 Sep 2026 23:00:54 +0200
+        bh=UJGLSFX8zrT7Q+dYaopHAkGvQp+bTwZKSJV0d+iSPkY=;
+        b=sT7x80JK3KC4JbZSa97RfJXLwQCetqQwGI1bhbZw5U7CdA6QNzq5sZjcvpxjsu3PrM
+         ASF7ltzc0Tk/g/c9v0HlGk8kc8wbKkgL/ugVoWQp3h8zGtW7i39HEiffdHzJqzu5l69i
+         gX0VzS0YQ1EE+Zsa0h6qrPm4kP2PAXUfT77GdreRxxlWkQfdwBFAXGN2+KB8yoMwoQfy
+         gfpsC7SgeKIH9JblUFHLEgCv7N5HvRsGakQ8BX1F47HgRnQp8PBdZ1JLDxsgRATShGgg
+         FYc4QEkI/1j5Ou8vh6SuEkfItXpKobtGkCtFbt3T72NvbRhzbPmDV5e+Wn87QspQXoWe
+         Aagw==
+X-Forwarded-Encrypted: i=1; AKwUvBzjPo+CiaRVi+93t92Oho9iXs4tH02UbZXNcjSTxyp6jLTdBgxSEJfQ9bAuBrsga+UI45h1Zsg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvOXDuhB3sTU5aN86VFCRY0JCl7GglP285Kj7PC59qHi82tubt
+	RHab6AG7Aa+K1WZd5ET68KzOFc+YDVMzXl1p1KNcrf1JM0/8AQBqD9pf
+X-Gm-Gg: AYBFou1dn2rcW4HSlFyz+X6yCmAbHhHgVqpxNSOml6tZ7fgPXwc9RAt3PLs5FBLQPUR
+	K0+hGcjAoL/svuJSO+6pYdQUgoyeSDEJkm5Wa1rn1hH1FY/MaiZkItsS2EGTLCqFZy0CptWbmxN
+	CWHlFCLRdO8oJNO5pjOsPIILqTNk8Wv3fRYmkPMnrhAwBQfnrZ9iLPx43hdothB3rhDj58KkkyF
+	c1s0MkR7cVsXzhp7gowRAJ6nTW20PcM1cz9Hez02oXkpWIwuamaI1NsZTOg94BYf4+itbHcf9F/
+	MBi5NXUiKzvfl12oHNAlgEKLy3H2Jk5EAJrm53ogxgOTC4AJr1oJCrWT5xWui9OcX1c17N8BCzw
+	McIiXuGaFUJJIBR8CRHxgeOaUqiyBpIpzh9+TVXLQ8cA6KgBvI0+asQul/uJj5H7kSV3Mp+U8DS
+	wLh0UJ7+UcAVsrOL754hOff/tC367X5PFhp8QuXboshbdXtH9PNM41ZVAkuvLdgNjhBSOA0Upp
+X-Received: by 2002:a05:600c:1990:b0:49d:1012:893a with SMTP id 5b1f17b1804b1-49d101289e2mr141469225e9.7.1788815543142;
+        Mon, 07 Sep 2026 14:12:23 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([31.189.32.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm492052235e9.13.2026.09.07.14.12.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 14:12:22 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>
+Cc: linux-kernel@vger.kernel.org,
+	Andrea Parri <parri.andrea@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] hrtimer: Use hard expiry when updating timers on the same base
+Date: Mon,  7 Sep 2026 23:11:33 +0200
+Message-ID: <20260907211134.3854-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/14] drm/panic: Do not use un-escaped URL as format
- string
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, stable@vger.kernel.org
-References: <20260902121930.597222-1-tzimmermann@suse.de>
- <20260902121930.597222-2-tzimmermann@suse.de>
-Content-Language: en-US, fr
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260902121930.597222-2-tzimmermann@suse.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 14:13, Thomas Zimmermann wrote:
-> Replace the direct use of DRM_PANIC_SCREEN_QR_CODE_URL in snprintf()
-> with a %s conversion specifier. Avoids a possible vulnerabilty from
-> a crafted URL string.
-> 
-> As the attacker needs to control the kernel at the Kconfig level, the
-> potential for an exploit is likely low.
+Rearming a queued timer with nonzero slack can leave the timerqueue out
+of order. remove_and_enqueue_same_base() checks the new soft expiry
+against its neighbours' hard expiries, then stores the new hard expiry
+in the node without requeueing it.
 
-Thanks, it looks good to me.
+For example, with A at 10 and B at 20, rearming A at 11 with slack 30
+passes the neighbour check but leaves A's hard expiry of 41 before B's
+20. The same function also caches the soft expiry in base->expires_next
+when updating or inserting the first timer, giving next-event selection
+an earlier deadline than the queue head's hard expiry.
 
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+Compute the hard expiry with the same saturating addition used by
+hrtimer_set_expires_range_ns(). Use it for the in-place ordering check
+and both updates to base->expires_next.
 
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Fixes: cb5164ac43d0 ("drm/panic: Add a QR code panic screen")
-> Cc: Javier Martinez Canillas <javierm@redhat.com>
-> Cc: Jocelyn Falempe <jfalempe@redhat.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.12+
-> ---
->   drivers/gpu/drm/drm_panic.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-> index e576c4791861..ba21df4be338 100644
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -658,7 +658,8 @@ static int drm_panic_get_qr_code_url(u8 **qr_image)
->   	char *kmsg;
->   	int max_qr_data_size, url_len;
->   
-> -	url_len = snprintf(url, sizeof(url), CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL "?a=%s&v=%s&z=",
-> +	url_len = snprintf(url, sizeof(url), "%s?a=%s&v=%s&z=",
-> +			   CONFIG_DRM_PANIC_SCREEN_QR_CODE_URL,
->   			   utsname()->machine, utsname()->release);
->   
->   	max_qr_data_size = drm_panic_qr_max_data_size(panic_qr_version, url_len);
+Fixes: eddffab8282e3 ("hrtimer: Keep track of first expiring timer per clock base")
+Fixes: 343f2f4dc5425 ("hrtimer: Try to modify timers in place")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
+---
+ kernel/time/hrtimer.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+index 530d61257b9a0..c5940323746db 100644
+--- a/kernel/time/hrtimer.c
++++ b/kernel/time/hrtimer.c
+@@ -1261,6 +1261,7 @@ static inline bool
+ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *base,
+ 			     const enum hrtimer_mode mode, ktime_t expires, u64 delta_ns)
+ {
++	ktime_t hard_expires = ktime_add_safe(expires, ns_to_ktime(delta_ns));
+ 	bool was_first = false;
+ 
+ 	/* Remove it from the timer queue if active */
+@@ -1268,11 +1269,11 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+ 		was_first = !timerqueue_linked_prev(&timer->node);
+ 
+ 		/* Try to update in place to avoid the de/enqueue dance */
+-		if (hrtimer_can_update_in_place(timer, base, expires)) {
++		if (hrtimer_can_update_in_place(timer, base, hard_expires)) {
+ 			hrtimer_set_expires_range_ns(timer, expires, delta_ns);
+ 			trace_hrtimer_start(timer, mode, true);
+ 			if (was_first)
+-				base->expires_next = expires;
++				base->expires_next = hard_expires;
+ 			return was_first;
+ 		}
+ 
+@@ -1291,7 +1292,7 @@ remove_and_enqueue_same_base(struct hrtimer *timer, struct hrtimer_clock_base *b
+ 
+ 	/* If it's the first expiring timer now or again, update base */
+ 	if (timerqueue_linked_add(&base->active, &timer->node)) {
+-		base->expires_next = expires;
++		base->expires_next = hard_expires;
+ 		return true;
+ 	}
+ 
+-- 
+2.53.0
 
