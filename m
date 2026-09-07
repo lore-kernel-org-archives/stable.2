@@ -1,169 +1,200 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3E84DBD95
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785627; cv=pass; b=Gtlur25nBZjPhCRj7xZRPiLXNuJoPxMiy0rzGDPOneMhCkXBsHe8UysaHka8wdu/DyH+CvPLTG7Khd6mR8bZH6NRi89pZyttOapAG1/+otffFY+NWYFD3pCsZvKBOR1Kb4IFXmNqiuA0niMCsgFIeu4szWUKD3Jv3i/buSbsg6I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785627; c=relaxed/simple;
-	bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TUnkM44XlGZBo2UUjhVJxz4eYnqg/lRPf1KN6h9cjtBtoRzle4vyA+uz8ASJ7ldkL3gLYnkhIjHv8zNEnWYyTrc54kjSkBB9dV7jOMnzm3g+HxOxob+zmPWGeuc3Z0NU8eGmwTPwLRDaTDQU0Sc6tLMXpfrc2SzcIKey6mpT6Ys=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=NqoItOLI; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E4764B0494;
+	Mon,  7 Sep 2026 12:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785735; cv=none; b=bJI8gVkClD6aYofrIXyQkMSD5ZNmx5Ixhgu8w2UnK8rmyqfYSh42GsAC9PcTAvI74fCh6reU8ZAVJdcBBJjCysN6+zAre1r0JkXXUoNmSfET1dYco7jrt7ikiqv5i6jxdnabbiHVR5gMICb0z0zPY8DMGWbQH4MqLRGoE2ZRNkw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785735; c=relaxed/simple;
+	bh=1dDfNap5rRQ1W2ITxZNyZ4dYag8d6/uBDIlvAyexnYQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ToHg8/5wiC4NTgrOaS8XXjH8JpCX/W9lsbFugaMhGAmmK7Qhn0cFai6a2ZuBhYseE8A1FRKsNnGOpUe45KkzYVk5hZq7rViIkmOkyaNELjSRPKJHIy3/iSIt8wo9xzVkA51kkcCfjLTSCZQWc6Lxa/2xGTtKib+qe/sMlYoIu8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=f/QecW3Q; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="NqoItOLI"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a20f56876eso33304671fa.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:53:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788785622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cNsDIb/Gs0kJjP7a2ffBCMIBo++kY9t9b9xwPRjShL5d43FhPl/H/FTgI4Q1N63bZd
-         AIA7vJp03OKfTy4u3B1T7OKnhpmyP48gvdv1/u97c4cvQy4bHbio0LaHhBJePSHprDZR
-         GsQcA4jSA4O9Qx1n8gUmTtntLCNv6P6Bg+FsXr9xQwj2jUzHMpAtrABX0JciGKwxS2e9
-         qqY25+Pet0HcZgDGMUgSgPui0nt6nBt/0ASJnw9PeTNVDEVyOsayCFwSmveetSB9nS6x
-         9jLjiUNqIKfSiPyGu0WoINdylqUGAzLHkt8+szhiK0fIPr9yLn39q672Zna4Kd0hxuze
-         uaLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        fh=BxLimT7AiKPXzvrFQo5fEc0pah3EO5GzEZ7svWVXzDQ=;
-        b=KXjtdXPd8fKJNBAfzePgQyTAkOPM8lGeZ/RwxvhMOmSGCZIUbUyzkYZiiVHg6BvMOQ
-         QVj2yeePG4f8QPbPvAA5BbeM9lPFQxuVUFyNioJppowUvUAYCWSXK7w8wSqthyZAvVRz
-         n90VUyCOU46x5kaADp4FAy84S84CtSt3HPcTMm7BDqEWmtsalB3VALPlQ8L6/sYWysiL
-         4K1hxmKTR5kW4+S/2DDgjT9T3KjCqvzVHaoenoDzOgCVqlxUonDVgumLi3hNzrADGb7a
-         yJ2zpu9af4fITfw40YAx0xLoPxiIUxWfro4HTJr6qXq+pxj/p8nVt1eZxLbMXGbJv3qr
-         gyNQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788785622; x=1789390422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        b=NqoItOLI8buUm+bCoGln8l5ILJ/2SDZCzo1+5vgty37NfsLiT4e2OyJy4T8Egp969w
-         gSvsNbm3y2i14vuIBI16yT5VA0oIYZ3qhkUI2o4+XaXWrtgp1tGDXy3fa8cOmrWPOEDU
-         T6KIInPhioD28NMk8rupt6ymDxP/0p6A8cDXlkVAv79k63cjy/KlNfoJeuLNVexr+G/E
-         nEBVbMvRuM8efxEJ2/LI8FQFdVdF7U4JXqSe/ueGbq8lPXXnDeTjTErFAHpcIw/vYk3J
-         ZVBmCxNbkL8wSTTGmFBYc6phmTWFqh3cIHBwFf1gMN8kwoYZihA1Koqzm6KFWmyRlLZW
-         s/qA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788785622; x=1789390422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
-        b=QP2kjnKGcD+H4DAMlW6flHZRUCm0dixZWub1N7NfrV2vnSb7ah/x5kyxefFfOXrcpu
-         5ERLPGZa8J4IDdTknY4V98afB0+v1lXs3hzaeSoTi7WYccxy6iOZwik3PApX6tQ7r1jo
-         PF39KJTT0MM0qbD6oRGX06Y4qmDBjjXUf8OQikNKdWUeyVH65PznJT1VEThDO65ddw96
-         DimJuI9K4zTbShAErQo8eJ1uDtXBmvk7dSDnV73z2ELS/8qm0RdTEsHvyxLl/+eSVOZ6
-         4Au2grYqZmxq76AZnUodtr6FeRaPqfeBnCpR9DpEqpFgo5CjzyQv/exxM+4mXmp1CC1I
-         l+mw==
-X-Forwarded-Encrypted: i=1; AKwUvBz5vRKfbNAiIOMuOU3wcrPSiaS8CFwDHJ1rkdolnyS6Ve3qIsG2dMIHAUIT8jgt6rhK6LB0UzI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfZr3cc4Su9nnAF0RW7LVXnsG081AHqmreja6nq3azOYSSWruw
-	9I3Q8GIgDShYKEwBEqKEbV9KowQ4S3R7/FdI/8bhaEQdW6ba4+TuXnFAJGqkIeGnc1OxTTg20CQ
-	3Eov7HAxq3H0ruWiQBRu4Nl31SO6RMRh2LfFSvNKzTsY=
-X-Gm-Gg: AYBFou11QhiNhA3KpW6wOLKgz87ZZc5uGzpjEuiW0ZRsyPnU1tFwVe4uKsaqFx9Jm3f
-	d9JpUO1tFjJgShgFEz3A0y+06+9vDgoGbns5XLbFrxRoKsZILFznEPuDEG3Zqk5iaGeZC0/DgC2
-	JXY/mrxPp8B0LBXagnUgX/weqI3wJjMGy7cwakpr7Z5hOXGRpxASWr6+RiVHv3YAThlFQCtQ3iD
-	+LMwhaA2Ez3Nj0bY1x67Dllvs4gc3oSpyIRSXIJLnR/bQ1YdTDHOf2Iuzd03+ExMpuA07h8KPkt
-	sgNLiZq15HxnpfFbAKeZhUtrNqr78d66HElgGfZlqCUGpEuElDZ+k/VvH/A2OApTtNovt12HXtV
-	K
-X-Received: by 2002:a05:651c:43cc:20b0:39c:8124:93b3 with SMTP id
- 38308e7fff4ca-3a371ba9af3mr18512751fa.9.1788785622569; Mon, 07 Sep 2026
- 05:53:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="f/QecW3Q"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687B1SCq1778468;
+	Mon, 7 Sep 2026 12:55:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=Csi7Hw
+	QhP036lAM+Ru/v+fSgjw9hVgEibUCVAWp81BY=; b=f/QecW3Qmd9EIzGLR+rVbS
+	sAWBOTVybWaucGO+evU7loPXKP4hyqUyeuRMxjFx7vmDFMaPdK9hvmJb/sZNGTGu
+	c9bf0oyLnW5j5Q8y4OOy8tzONaTAxuKyFIfLc9unqBC19ZAhfygDGmp3yldeCb+7
+	V5xV7B0FEa7TP7NLOXsZTwFL9U7sv9hb4cz47EJlrcVjrLAXJvFEA+Ei2yJOCeQd
+	EDJ5U2GUmThSmt8swF1fZ3hq5PhO17fpQZDCxQwcWQauFwNwEyjjwpA6dHVyo5ln
+	EKAvOK90e+xAn9bwjW8n0Uj52hBUqafE9/Pcf2zI9vcmX87jkRmBrNjGN209OdGA
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkgtpd-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 12:55:22 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 687CfJB2029768;
+	Mon, 7 Sep 2026 12:55:21 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdq6508-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 12:55:21 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 687CtHFT46924082
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Sep 2026 12:55:17 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F0F6B20049;
+	Mon,  7 Sep 2026 12:55:16 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A1FC920040;
+	Mon,  7 Sep 2026 12:55:08 +0000 (GMT)
+Received: from [9.61.245.29] (unknown [9.61.245.29])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon,  7 Sep 2026 12:55:08 +0000 (GMT)
+Message-ID: <7a192ab6-d8c7-4823-b569-658c1c0f76af@linux.ibm.com>
+Date: Mon, 7 Sep 2026 18:25:06 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788765185.git.zihanx@nebusec.ai> <ef4076c94466ea4b147653e2b7f933778f245437.1788765185.git.zihanx@nebusec.ai>
- <20260907121830.GA647811@shredder>
-In-Reply-To: <20260907121830.GA647811@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 20:53:30 +0800
-X-Gm-Features: AcwNN1Uk3i8a39rPmzWaebzH5pBKLNcdaTlZf_kVKmdapl2vlm677TXmYyaCLb4
-Message-ID: <CAANe3eSV3JYqzjnEE+vVmTJdC4oUZh8v=9vy==1xE9H9+YkLEg@mail.gmail.com>
-Subject: Re: [PATCH net v3 1/1] ipmr: account multicast table and route memory
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Benjamin Thery <benjamin.thery@bull.net>, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] s390/qeth: allow bridgeport queries despite
+ OS_MISMATCH
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+        kuba@kernel.org, pabeni@redhat.com, wintera@linux.ibm.com,
+        pasic@linux.ibm.com, aswin@linux.ibm.com, hca@linux.ibm.com,
+        gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
+        svens@linux.ibm.com, Eugene.Crosser@ru.ibm.com,
+        ubraun@linux.vnet.ibm.com, netdev@vger.kernel.org,
+        linux-s390@vger.kernel.org, stable@vger.kernel.org
+References: <20260901155344.3561483-1-nagamani@linux.ibm.com>
+ <178863834632.219967.10151398782993596479@kernel.org>
+Content-Language: en-US
+From: Nagamani PV <nagamani@linux.ibm.com>
+In-Reply-To: <178863834632.219967.10151398782993596479@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzOSBTYWx0ZWRfX+WFIqCNPfeu2
+ 4AmIDsCl5BnyV9w5siGsuWrN4quaYnKn16RU4SGrwl7k30SzdqYEUKMMS+t3M810e76Dg4B/3V/
+ FhijUOlOEradsriho7G8DFPJ9/E6PHE=
+X-Proofpoint-ORIG-GUID: g2M_iozXlb-lYL_FT3_AdPjobl3knIS1
+X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6a9eb43b cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=8Fpi8FWupL010RkRYMUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzOSBTYWx0ZWRfX45uDBMjFz3e0
+ V5Eg8wdkORqhvDd4SPrQ6xrcxHI3DE4EStunEueZ6H/jGw6AV4No6haFQDk2stMDYmkpyWoMFZJ
+ yupz45wJ9bqLLM1mrzp/JWYI/THaBxrp3WY3eI067rT4vQhUMEnEjewO1pa1pDbnjLYa+et1RR9
+ F0YNSuxjZJrpdI7zwCcO39FDoL4nPQpRRdSdqFYxrDxt4ezdGwVKLJTXve83KsuJB0MxgxKrPN/
+ OmmvKubqg+0AByBKeQ/JraP1x+McSBfVKqvLRuS3Ttv9N3IuJIjZFW0nmRJTc8b2huLgSCQ/HK7
+ +iExhB3TasFBbtNubr2nS0Izwo3JYPDb8bsIbzCwX6EceUKM3Qtg7lmmmH/8J6a2xhIu9hlfpqr
+ F8diLsYWwx/UizkvKlp5zbMWSp3OQZ+9CVDxQs//CNZMKlRl5wapNvONZJwgQQy+4JFI0Cj18+4
+ XpfZ3V+l/DE8ZVZ/AIQ==
+X-Proofpoint-GUID: I_aazv1YbmSP99TmsYZD6SH0nghi1PpF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070139
 
-On Mon, Sep 7, 2026 at 8:18=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
-te:
->
-> On Mon, Sep 07, 2026 at 08:10:56AM +0000, Zihan Xi wrote:
-> > A netadmin in a user+net namespace can create many IPv6 multicast
-> > routing tables with MRT6_TABLE. Each unseen id allocates an mr_table,
-> > links it into mr6_tables, and leaves it until netns teardown. Those
-> > objects were not charged to memcg, so the host unreclaimable slab
-> > grows with the table count.
->
-> This reads like an IPv6-only fix, but it also applies to IPv4.
-> mr_table_alloc() is used by both families. Please reword this paragraph
-> to reflect that.
 
-Will do. v4 rewords this for both IPv4 and IPv6, since mr_table_alloc()
-is shared.
->
-> >
-> > Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-> > IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-> > handling of IP addresses, routes and alternate interface names.
->
-> The bots might complain that this doesn't cover unresolved cache entries
-> that are allocated from softIRQ context. This is correct, but: 1. They
-> expire after 10 seconds. 2. Bound by the socket's receive queue. See
-> commit 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len
-> limit"). Worth mentioning in the commit message.
 
-Agreed, will mention that in the commit message.
->
-> >
-> > The first unaccounted IPv6 heap table appeared in commit 4e16880cb422
-> > ("netns: ip6mr: dynamically allocates vif6_table"), which replaced a
-> > static vif6_table[] with kcalloc(..., GFP_KERNEL). Commit
-> > 6bd521433942 ("ipv6: ip6mr: move mroute data into seperate structure")
-> > only wrapped that already-heap state into mr6_table. Commit
-> > d1db275dd3f6 ("ipv6: ip6mr: support multiple tables") only expanded
-> > the table count from 1 to N. IPv6 MFC entries were already unaccounted
-> > from commit 7bc570c8b4f7 ("[IPV6] MROUTE: Support multicast
-> > forwarding."); IPv4 ip_mrt_cache is older still.
-> >
-> > Fixes: 4e16880cb422 ("netns: ip6mr: dynamically allocates vif6_table")
->
-> I think it makes more sense to blame the commits that allowed user space
-> to create these tables:
->
-> Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-> Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
->
-> Your reproducer depends on it. And dropping / rewording the last
-> paragraph.
+On 06/09/26 1:29 AM, netdev-bot+sashiko@kernel.org wrote:
 
-Will switch Fixes: to these two commits and drop that paragraph.
->
-> Please wait 24h before posting another version:
->
-> https://docs.kernel.org/next/process/maintainer-netdev.html
+Thank you for the careful review. Addressing each point below.
 
-Will wait 24h before sending v4.
-
-Thanks,
-Zihan Xi
+> 
+> [Severity: Medium]
+> Should this test also be qualified with IS_IQD(card)?
 >
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+>     IPA_RC_SBP_IQD_OS_MISMATCH = 0x0010,
+>     IPA_RC_SBP_OSA_OS_MISMATCH = 0x2B10,
+>
+> On an OSA (non-IQD) card, a reply carrying ipa_rc == 0 and sbp_rc ==
+> 0x0010 is not an OS mismatch in the OSA numbering, yet the new shortcut
+> turns it into success...
+
+OSA devices cannot reach qeth_bridgeport_query_ports_cb(). Commit
+cdf8df5b42e7 ("s390/qeth: don't offer .ndo_bridge_* ops for OSA
+devices") removed ndo_bridge_getlink and ndo_bridge_setlink from the
+OSA netdev ops entirely. Its commit message states:
+"qeth_l2_bridge_getlink() and qeth_l2_bridge_setlink() will always
+return -EOPNOTSUPP on OSA devices."
+
+qeth_l2_detect_dev2br_support() also confirms this: it returns
+immediately for non-IQD cards (if (!IS_IQD(card)) return;) and never
+sets brport_hw_features on OSA.
+
+There is therefore no call path by which an OSA card can invoke
+qeth_bridgeport_query_ports() or reach its callback. The IS_IQD(card)
+guard is not needed.
+> [Severity: High]
+> Can this discard the user's configured bridge port role?
+>
+> ...qeth_bridgeport_setrole() still fails with -EPERM under mismatch,
+> and the following qeth_bridgeport_query_ports(card,
+> &card->options.sbp.role, NULL, NULL) now succeeds and overwrites the
+> field with "none"...so once the field has been zeroed, no later
+> set-online or recovery retries qeth_bridgeport_setrole(), even after
+> the other OS family releases the port.
+
+IPA_RC_SBP_IQD_OS_MISMATCH reflects a deliberate configuration:
+bridge port ownership on the VCHID is assigned to a different OS
+family via z/VM Virtual Switch configuration. This is not a transient
+error — it is a permanent topology decision. If the other OS family
+releases the bridge port, that is equally a deliberate administrative
+action, after which bridge_role would be explicitly reconfigured.
+
+In the deployment this patch fixes, the Linux device observes bridge
+port status for visibility but does not own the bridge port.
+card->options.sbp.role is NONE before the query. Firmware returns
+role=NONE under OS_MISMATCH, so the query writes NONE into NONE: no
+user-configured value is clobbered. Confirmed on hardware: cat
+bridge_role returns "none (OS family mismatch)" with no impact on
+device functionality.
+
+The scenario of a device that previously held an active bridge role
+losing it to another OS family, then expecting automatic role
+re-application, requires the driver to act as a persistent intent
+store across an administrative topology change. That is not the
+contract qeth bridge port configuration provides.
+
+> 
+> [Severity: Medium]
+> Can the value emitted here be written back to the same attribute?
+>
+> ...a read-modify-write or a save-and-restore of bridge_role by the
+> zdev tooling named in the commit message (chzdev save/restore) would
+> get -EINVAL...
+> 
+
+"none (OS family mismatch)" is only emitted when the card is online
+and hardware-reachable. A write-back attempt fails immediately at the
+parse step in qeth_bridge_port_role_store() before reaching setrole().
+Confirmed on hardware:
+
+  # echo "none (OS family mismatch)" > bridge_role
+  -bash: echo: write error: Invalid argument
+
+No configuration is corrupted or discarded.
+
+The patch is correct as submitted. No code changes are needed in
+response to these review points. Tested on a HiperSockets IQD device
+under OS_MISMATCH: bridge_role reads "none (OS family mismatch)" and
+bridge_state is readable, while write attempts to bridge_role are
+correctly rejected. The change carries Reviewed-by from Alexandra Winter.
+
+Regards,
+Nagamani
+
