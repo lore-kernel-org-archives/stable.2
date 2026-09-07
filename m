@@ -1,405 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CBA274650;
-	Mon,  7 Sep 2026 12:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43EF14B7160
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784308; cv=none; b=EyGKOIXTHkSoakDEaW445NNQE7qh8PAe+J7HwINongl9GdZc26GFlIvGZd/mlIjOa6EWIphKruKrvq0IBAnDIe/ppBEVQ1Tcy5twTdUk5ukJqo2uc50zl2xRGE3NYpieX9QWZB/sYNEy/xqwk6zOHt5MIhho/zlFMnE28/I/XDo=
+	t=1788785182; cv=none; b=pUlKF4Le10ZwxQuYxBTaiH7E1E3OVt08poBCl9CMd3zV40ZRT4gltvgH914vVsq+fRaZUDx458nDtQFLH3mDkbgI83nWTV4EIVMO09r638GVSBJskaJr1DdupIQ0J4qwe5OWcYQlLxTrUhK6bYCI3SMsNqkhVWguPrtLdXjzPiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784308; c=relaxed/simple;
-	bh=V5h8KPL5sH6DxlxNxrEUYyfocPvPDNHiPw+YVYzAecg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d4CYcVpmC1SDZfsre6PrtFI/a8B60GbAhCn9FAobcxUBox3TfyQ6BYp7qSucc1XluXyoZiuIXCFNmnmNw96gC1uf0AflSj4QypD+6Tk+rjqCw7AaXtb7R7cvrRc6Qs8thTy6eVRzKjT7JBh30m5T0y6L9ADg4VohZeb88I30lyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n88AZOun; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788785182; c=relaxed/simple;
+	bh=ESaHfGeBqmjtrWwElJS3HH8vZOhI45PP1/GZBR7s6WA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WLLkwY50HNukOmp9Lckw9hZuVwcgPd7g1q3pPBWqVqKjiKDjosZ8yUSRoStHHD//EVnPWYo9D/r15S7VPjYgxMG6LKca+4OOWE80XC0DKz/qTKR+4du16D9ru9OcmcB2RZ6b/emgW1+zCz5eL3oW5oq5IL6uZy5dgBo4CcTEYlE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BNwwR5qx; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n88AZOun"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC581F00A3A;
-	Mon,  7 Sep 2026 12:31:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784306;
-	bh=BoEs4UuN40glWkHqF5kwYVIVYApUizyluQkte9bvxI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=n88AZOunevj5tnUo1WI9ZfAK9vOYfnGoDFsuXUFOSrOBA6csCogxRwVUrJfROkq86
-	 WARBHiAHnXi0Rkt63Ax01lAa1VMKwiRaYJHiMUPA4ys2H9uJ9829pEOiJKQYA06IPl
-	 8Rl3n/tfR0IT7IEVXnxheZc5G85pM9aRyiobkZ/5ZzuHpib5vrIR9v3zizjzgL3H7A
-	 VbPUCAHNZ7lJmJsaxadQTWNyx9Q70LxiyEKO4VBO0k6uVF2wucoix720COcW3dHrU9
-	 Bk5JgUw+gG2rhhtItnBVfdPK/0Dbo2p770N0v1iim4Ri9ViPcek+0p/crhO7/VZdh/
-	 5FRN3o0AXHugw==
-Date: Mon, 7 Sep 2026 14:31:43 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
-Subject: Re: [patch V2 1/8] signal: Prevent exec() race
-Message-ID: <ap6urw5aAxrKO3Ck@localhost.localdomain>
-References: <20260905181551.738186850@kernel.org>
- <20260905185839.667208455@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BNwwR5qx"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so33794425e9.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:46:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788785178; x=1789389978; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Sh4lMwtpk7NaSaE+W0IfcVg67gcAoopfexp/sEpTXq8=;
+        b=BNwwR5qx4I/oybh7bVy3gaQHEr23aawl2fIhbO33D6kTg5JiN3fvhiYVpJ+m3b1Y1u
+         ctWkVYsupgqKb0Zi17RYRAh8DQLpOLoKMgP83KL+cAiHhAk6zLYlnsNkCj0DiJL7g3vX
+         an4WPx546v9IPw83d+fdSG88K6OSp9B9divqyP7aBRMB2oAb9Lj+vglNP+9hiRAmS/CH
+         rq9tTvLUzRjk9MFs1xcubdoECImyqxwewnaT9B/PikWmCzdc+Qx+mPs5uopp8wnEGHWP
+         wHxYj/AobwvWJGD2C+vGghgz09oNLCXz4u92v27ZfixDhe98kZISUZ3yIVgxK5mMRSt9
+         Uugw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788785178; x=1789389978;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sh4lMwtpk7NaSaE+W0IfcVg67gcAoopfexp/sEpTXq8=;
+        b=PKBhjbSvOJPJA1VT6Mn8ooUtVZylyypAzSjrbtf53VTxRUivRUI21fdoJlLeHx+nMR
+         ViQBScC7oLj4KRHFChAlIT5GjKHgyYVFLvRcgigJPMP8VdhXKG0Q/U1pAXlQLLzN6IWR
+         duaFn9KW0VxbAyvPAIhiAwmFts+raA/LY9NaKXzQVRTajETSAC3hLvm74ajCRlU8GOQq
+         yRhG2FBE3+fguOr11qxuRmn4X0k21Pc1bGllGoh+U/LttUHBvEYLe521lJ4Rju0E/djj
+         0UnI+VbLslcDmtx4Jp/yvGEyaskZHRvRP9n6uc7+cCaDQ/gx7aYgRsZCkaCeF7mFg3TG
+         ZRnw==
+X-Forwarded-Encrypted: i=1; AKwUvBxWfJkuBHPI+wo55xOuMqEXE3mQyflL86zJvQc8petf5ifxZ/hLze8+E+izoKy9KoqZ7KBO4dI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kd22FB+I4UpVg8+sxJJBfyKfaNTskal7QtLOnx+IcrunqSs2uJ
+	Jdf5ZT0yvSw77TGa/aCxzxfLuYN4nKxV7p9r0JJclqfWJav6E7iYDc6aBlFk0JBaIlI=
+X-Gm-Gg: AYBFou2qQ7VhfiaRcBXNt5OeKYJ4sUCeyGhpvf+3e+6TCeUAU3GUIvI4qlXJjfktmTo
+	/Sy3z6VqulxRTQhwB61c/yYis1AytAYWH13QJqAaOVQbqQLiSv5sQDZzIJt1W6V8boXljaezhJf
+	amz3rSfvrsM4DTM9mpBMH7QQarnneeXKJWwOrTHR0PTIjR3EFRBxP3mkUNpmOyjh6+l6iD9Inpx
+	FID9Dtv796/VNUvmi6psOjWsayfL8Js9lTNbHN2QaiH2l1NsEe3SVRetHWGGebjp2Aj4L2lggva
+	DD6gCL8iftp73TS/ClVUMvotsYl6Ywj4NXV175jp0nZ72MHkXSCC17GP1mcj6tR8qUCclJQs2ls
+	8Nf3ainCXS1WYQYJJejUCw8yWSF9ESr1qGpKsmRyAQsEj3fFh/zpWdb5WsrTF9oAylkqcrqJVo6
+	4M/vkwckqJAMTA7LmrJspIIAgvSJh311B2pakOhYqXZsIOjqQ28TJoGASw5CgZsAmg1m/CoXwnt
+	XmaDhncjGCzPEDRKn87L15CC+4=
+X-Received: by 2002:a05:600c:6214:b0:49c:dca4:94c with SMTP id 5b1f17b1804b1-49cf825115bmr459195565e9.13.1788785178420;
+        Mon, 07 Sep 2026 05:46:18 -0700 (PDT)
+Received: from ?IPV6:2001:a61:1340:dc01:654b:3cf0:59cd:498? ([2001:a61:1340:dc01:654b:3cf0:59cd:498])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm282573745e9.3.2026.09.07.05.46.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 05:46:18 -0700 (PDT)
+Message-ID: <f642f815-df4f-473b-aaa2-89153c08bc05@suse.com>
+Date: Mon, 7 Sep 2026 14:46:16 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905185839.667208455@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+To: Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907065501.101013-1-johan@kernel.org>
+ <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
+ <ap56NTVMq8GlbjmR@hovoldconsulting.com>
+ <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
+ <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
+ <bc055887-3029-4740-bec5-7e2fe4205992@suse.com>
+ <ap6iJ6vkVIaxXFwn@hovoldconsulting.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <ap6iJ6vkVIaxXFwn@hovoldconsulting.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Le Sat, Sep 05, 2026 at 08:59:01PM +0200, Thomas Gleixner a écrit :
-> Hyunwoo debugged the following KASAN UAF splat:
-> 
->   BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
->   Write of size 8 at addr ffff888007ed80c8 by task poc/79
->   ...
->   Call Trace:
->    __send_signal_locked+0xb27/0xba0
->    do_send_sig_info+0xa7/0x160
->    do_send_specific+0x76/0xa0
->    __x64_sys_tgkill+0x193/0x270
->   ...
->   Allocated by task 80:
->    do_timer_create+0x1a4/0x1030
->    __x64_sys_timer_create+0x145/0x190
->   ...
->   Freed by task 12:
->    kmem_cache_free_bulk+0x1f8/0x4a0
->    kvfree_rcu_bulk+0x14f/0x1c0
->    kfree_rcu_work+0x128/0x1a0
->   ...
->   Last potentially related work creation:
->    kvfree_call_rcu+0x39/0x390
->    __flush_itimer_signals+0x211/0x320
->    flush_itimer_signals+0x47/0x90
->    begin_new_exec+0xa6b/0x28c0
-> 
-> It turned out that this happens with a non-leader exec() as Hyunwoo
-> explained:
-> 
-> de_thread() calls exchange_tids() before release_task(leader), so the
-> struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
-> now points to the thread which called execve(). pid_task() returns that
-> thread and lock_task_sighand() on it succeeds.
-> 
-> If the timer signal is blocked, its sigqueue stays queued on the leader's
-> task::pending. The next expiry of that timer can then run while
-> release_task() flushes the queue.
-> 
-> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-> with a plain list_empty(), which only reads list_head::next.
-> list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
-> before list_head::prev, so the check can pass in between. list_add_tail()
-> queues the entry on the task::pending of the live thread, and the
-> list_head::prev store from the flush then overwrites the list_head::prev
-> link that list_add_tail() has just set.
-> 
-> __flush_itimer_signals() does not undo that either. With list_head::prev
-> pointing at the entry itself, its list_del_init() only stores the same
-> values again, so the entry is not removed from the list. It is still there
-> after the last reference is dropped and the timer is freed by RCU, and the
-> list_add_tail() of a later tgkill() follows that list_head::prev into the
-> freed timer.
-> 
-> This problem surfaced with the recent commit which moved the sigqueue flush
-> out of the sighand lock held region.
-> 
-> Hyonwoo proposed to fix this by using list_del_init_careful(), but that
-> just papers over the problem. After some disucssions and various attempts
-> to solve it, Eric pointed out that there is no reason to flush
-> task::pending late in release_task() and it should be done in
-> exit_signals() already.
-> 
-> As nothing can collect and deliver signals which are queued in a dying
-> task's pending queue, there is no reason to delay it further.
-> 
-> But it has to be ensured that no signals can be queued into it after that
-> point. exit_signals() sets PF_EXITING in task::flags, which can be used as
-> an indicator for this.
-> 
-> Cure it by:
-> 
->   - Preventing signal queueing for task private signals (PIDTYPE_PID) when
->     the task has PF_EXITING set in __send_signal_locked() and in
->     posixtimer_send_sigqueue().
-> 
->   - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
->     task group empty and the group exit case with sighand lock
-> 
->   - Flushing task::pending signals right there.
-> 
->     Optimize that by moving the whole pending list to an on-stack list head
->     under sighand lock and free the signals without the lock held.
-> 
-> Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
-> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-> Cc: stable@vger.kernel.org
-> Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
-> ---
-> V4: Prevent requeuing of signals which are unignored - Oleg, Eric
-> 
->     Split out the decision into an inline which can be reused by the posix
->     CPU timer follow up changes.
-> 
-> V3: Restructure code and fix the missing unlock - Oleg
-> 
-> V2: Don't flush w/o sighand lock held - Oleg
->     Move the while pending list under the lock and free it lockless
-> ---
->  kernel/exit.c   |   11 +++--
->  kernel/signal.c |  103 +++++++++++++++++++++++++++++++++++++++-----------------
->  2 files changed, 78 insertions(+), 36 deletions(-)
-> 
-> --- a/kernel/exit.c
-> +++ b/kernel/exit.c
-> @@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
->  	free_pids(post.pids);
->  	release_thread(p);
->  	/*
-> -	 * This task was already removed from the process/thread/pid lists
-> -	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
-> -	 * ->pending or, if group dead, signal->shared_pending. We can call
-> -	 * flush_sigqueue() lockless.
-> +	 * This task was already removed from the process/thread/pid lists and
-> +	 * lock_task_sighand(p) can't succeed. If it's the group leader then
-> +	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
-> +	 * already in exit_signals(). Nothing else can touch
-> +	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
-> +	 * lockless.
->  	 */
-> -	flush_sigqueue(&p->pending);
->  	if (thread_group_leader(p))
->  		flush_sigqueue(&p->signal->shared_pending);
->  
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -457,18 +457,28 @@ static void __sigqueue_free(struct sigqu
->  	kmem_cache_free(sigqueue_cachep, q);
->  }
->  
-> -void flush_sigqueue(struct sigpending *queue)
-> +static void flush_sigqueue_list(struct list_head *head)
->  {
-> -	struct sigqueue *q;
-> +	struct sigqueue *q, *tmp;
->  
-> -	sigemptyset(&queue->signal);
-> -	while (!list_empty(&queue->list)) {
-> -		q = list_entry(queue->list.next, struct sigqueue , list);
-> +	list_for_each_entry_safe(q, tmp, head, list) {
->  		list_del_init(&q->list);
->  		__sigqueue_free(q);
->  	}
->  }
->  
-> +void flush_sigqueue(struct sigpending *queue)
-> +{
-> +	sigemptyset(&queue->signal);
-> +	flush_sigqueue_list(&queue->list);
-> +}
-> +
-> +static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
-> +{
-> +	sigemptyset(&queue->signal);
-> +	list_splice_init(&queue->list, head);
-> +}
-> +
->  /*
->   * Flush all pending signals for this kthread.
->   */
-> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
->  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
->  }
->  
-> +/*
-> + * When PF_EXITING is set the task is on the way out and has t::pending
-> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
-> + * be leaked.
-> + */
-> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
-> +{
-> +	lockdep_assert_held(&t->sighand->siglock);
-> +
-> +	if (!(t->flags & PF_EXITING))
-> +		return true;
-> +
-> +	return type != PIDTYPE_PID;
-> +}
-> +
->  static int __send_signal_locked(int sig, struct kernel_siginfo *info,
->  				struct task_struct *t, enum pid_type type, bool force)
->  {
-> @@ -1030,6 +1055,10 @@ static int __send_signal_locked(int sig,
->  	lockdep_assert_held(&t->sighand->siglock);
->  
->  	result = TRACE_SIGNAL_IGNORED;
-> +
-> +	if (!task_can_queue_signal(t, type))
-> +		goto ret;
-> +
->  	if (!prepare_signal(sig, t, force))
->  		goto ret;
->  
-> @@ -1968,11 +1997,25 @@ static inline struct task_struct *posixt
->  	struct task_struct *t = pid_task(tmr->it_pid, tmr->it_pid_type);
->  
->  	if (t && tmr->it_pid_type != PIDTYPE_PID &&
-> -	    same_thread_group(t, current) && !current->exit_state)
-> +	    same_thread_group(t, current) && !(current->flags & PF_EXITING))
->  		t = current;
->  	return t;
->  }
->  
-> +/*
-> + * Find the target task for the POSIX timer signal and prevent that a
-> + * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
-> + */
-> +static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
-> +{
-> +	struct task_struct *t = posixtimer_get_target(tmr);
-> +
-> +	if (t && task_can_queue_signal(t, tmr->it_pid_type))
-> +		return t;
-> +
-> +	return NULL;
-> +}
-> +
->  void posixtimer_send_sigqueue(struct k_itimer *tmr)
->  {
->  	struct sigqueue *q = &tmr->sigq;
-> @@ -1990,6 +2033,9 @@ void posixtimer_send_sigqueue(struct k_i
->  	if (!likely(lock_task_sighand(t, &flags)))
->  		return;
->  
-> +	if (!task_can_queue_signal(t, tmr->it_pid_type))
-> +		goto unlock;
-> +
->  	/*
->  	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
->  	 * locked to prevent a race against dequeue_signal().
-> @@ -2081,6 +2127,7 @@ void posixtimer_send_sigqueue(struct k_i
->  	result = TRACE_SIGNAL_DELIVERED;
->  out:
->  	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
-> +unlock:
->  	unlock_task_sighand(t, &flags);
->  }
->  
-> @@ -2136,7 +2183,7 @@ static void posixtimer_sig_unignore(stru
->  		 * has exited by now, drop the reference count.
->  		 */
->  		guard(rcu)();
-> -		target = posixtimer_get_target(tmr);
-> +		target = posixtimer_get_unignore_target(tmr);
->  		if (target)
->  			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
->  		else
-> @@ -3120,42 +3167,36 @@ static void retarget_shared_pending(stru
->  
->  void exit_signals(struct task_struct *tsk)
->  {
-> +	LIST_HEAD(sigq_list);
->  	int group_stop = 0;
-> -	sigset_t unblocked;
->  
->  	/*
->  	 * @tsk is about to have PF_EXITING set - lock out users which
-> -	 * expect stable threadgroup.
-> +	 * expect a stable threadgroup.
->  	 */
->  	cgroup_threadgroup_change_begin(tsk);
->  
-> -	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-> +	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
->  		tsk->flags |= PF_EXITING;
-> -		cgroup_threadgroup_change_end(tsk);
-> -		return;
-> -	}
->  
-> -	spin_lock_irq(&tsk->sighand->siglock);
-> -	/*
-> -	 * From now this task is not visible for group-wide signals,
-> -	 * see wants_signal(), do_signal_stop().
-> -	 */
-> -	tsk->flags |= PF_EXITING;
-> +		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
->  
-> -	cgroup_threadgroup_change_end(tsk);
-> +		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
-> +		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-> +			sigset_t unblocked = tsk->blocked;
-> +
-> +			signotset(&unblocked);
-> +			retarget_shared_pending(tsk, &unblocked);
-> +
-> +			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
-> +			    task_participate_group_stop(tsk))
-> +				group_stop = CLD_STOPPED;
-> +		}
-> +	}
->  
-> -	if (!task_sigpending(tsk))
-> -		goto out;
-> +	cgroup_threadgroup_change_end(tsk);
->  
-> -	unblocked = tsk->blocked;
-> -	signotset(&unblocked);
-> -	retarget_shared_pending(tsk, &unblocked);
-> -
-> -	if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
-> -	    task_participate_group_stop(tsk))
-> -		group_stop = CLD_STOPPED;
-> -out:
-> -	spin_unlock_irq(&tsk->sighand->siglock);
-> +	flush_sigqueue_list(&sigq_list);
 
-It probably doesn't matter in practice, I don't know feel free to ignore,
-but FWIW it looks like it's still vulnerable to the theoretical far fetched
-race I described. The head is moved under the lock but individual nodes are
-deleted without the lock.
 
-CPU 0                                CPU 1                   CPU 2
------                                -----                   -----
+On 07.09.26 13:38, Johan Hovold wrote:
+> On Mon, Sep 07, 2026 at 12:28:46PM +0200, Oliver Neukum wrote:
+>>
+>>
+>> On 07.09.26 12:01, Johan Hovold wrote:
+>>> On Mon, Sep 07, 2026 at 11:50:41AM +0200, Oliver Neukum wrote:
 
-exit_signals()
-   spin_lock(sighand)
-   tsk->flags |= PF_EXITING;
-   list_splice_init(&queue->list, head);
-   spin_unlock(sighand)
+>> Yes, but user space can call TIOCGICOUNT multiple times in sequence
+>> _without_ calling TIOCMIWAIT in between.
+>> In that case the counters have to increase if a line changes, don't they?
+>> For that to happen you need to handle a status change in the completion
+>> handler.
+> 
+> Yes, the completion handler needs to handle the status change (i.e.
+> compare new and previous status and increment the counters), but it
+> shouldn't update any old *icount* structure.
 
-   list_for_each_safe(head, node)
-      list_del_init(node)
-         node->next = node // A
-         node->prev = node // B
-...
-                                     de_thread()
-                                        // acquired tsk->flags
-                                        // and signal flushed
-                                        // through tasklist_lock
-                                        transfer_pid() // C
-                                                           
-                                                           posix_timer_fn()
-                                                              posixtimer_send_sigqueue()
-                                                                 // OBSERVES C
-                                                                 t = posixtimer_get_target(tmr)
-                                                                 lock_task_sighand()
-                                                                    // OBSERVES A
-                                                                    if (!list_empty(q))
-                                                                       // BUT NOT B
-                                                                       list_add_tail(q) // D
+We could do that and it would indeed be simpler.
 
-Then who knows which write wins, B or D?
+But it would change the semantics so that past status changes
+no longer show up in TIOCMIWAIT. Is that really a good idea?
 
-Thanks.
+	Regards
+		Oliver
 
--- 
-Frederic Weisbecker
-SUSE Labs
