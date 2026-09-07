@@ -1,62 +1,62 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7265F3B813C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A5537FF41
 	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 18:50:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788807018; cv=none; b=VbUSMA/UkOaROhJvOBPw4xXknqtMyb0J/RnR3OCKjuQRr5sQuwI3V8nthrIxvsPPuGpf7eZykrALYS7r5ShWKq7dqZmHTY1QL21UMJOrMS3GS//D5SMGfbP5YIW0zXlqNHGOd7rgeDFsFcfuE+XeaLEelw9mJJj72HEOsokVX9k=
+	t=1788807018; cv=none; b=h1oV8Q6yCyVulMyu+D2/T8Alqpp9gme+BPactyZcCjuclK+JSC7tmdwTK3NyyiPcndxLypUYw1ODafuVYgoKre1CTuvfiivjAP6NaA4vGIKzcS5fj2Pl/M90E8nMzx9cUEeZkL0pRVmjR+/RMLn9LDCsVZPS0TKOkLTycE9iSjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788807018; c=relaxed/simple;
 	bh=J9BZRX6oP1MPxPyLTPWVaWjRNa4HUnYcg26VY3Rb6Zo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Nwd2KZfT8hXlpki7H1t9f4EEz0PLLLx9kaCs+8SDU2W+EgAte5erNHRLLzhhniYXusXtTrLElSB4EGFYT/5QKt7R5qj+6nvsVIZM/m6cGWSJVQCSG4dmL7cBZWdKmMBb3s4Jz7xiecrQSI31jahyannWsGFzSrBEgm9cxiuIAv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JEJve51b; arc=none smtp.client-ip=74.125.225.140
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Jnxuf8deZ+l2LoUASv7ZhTpAWkeGkUYo0fgGI5MtvcUPaZww+wwxN1DeAXwItFBHDrjefJjHzdi9xyCKz9A2pgK66oSTjEMUteTdm9rB0QkpTwcDJyaN3OsN+Ft97PVgcb2K1nd++XY0HEXgepjHM7B0LiVHyaqYJS6N6Yf3J00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o6vsse4p; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JEJve51b"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1740e4so1740755e9.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6vsse4p"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4838dbf1bbeso297798f8f.0
         for <stable@vger.kernel.org>; Mon, 07 Sep 2026 11:50:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788807004; x=1789411804; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788807001; x=1789411801; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
         bh=rOfBbKNvf4wumPkciSn2R6wvTiBsYFrhYc9rrrbfPSA=;
-        b=JEJve51ba4qmTYywtPrxmTgZDV+nx4L6v/EyhZZ1UBWMZDVUXMZVzNWpfZlfGkOm8B
-         htGgT+WhPbUI3EVRc9DhocNSUlJKktQPMiY/VWiGX9f3m93iMuTX5kwEaqr9Au1FfwGn
-         RoBHwY74HEhpMSUv8EdKs2wl62WkQ5TR/Ba4wwoSJxKes4avtnRDhky7RBRN6775U7ZE
-         pvRBoJKxtUYO6yCgep9dzxgjjQzAYh3bNV+VTQwLJ7mQPc87KPSJjJpG+Ifk+Ijk57kc
-         imjfcc/cw3VzI6iw0ZWzHJr4M/Z8RNDdAGh1NNfa2gvMIGpDgizfHFQt37sw5GobY+4X
-         Gr+A==
+        b=o6vsse4ptwttyaOx3yFIBq98r7AH+n7Q03IFMxtKwcXabToVonh/SYsAOTpIXdE6ay
+         lhfCdpRtMMBpVqVQt9NxJTS2f/tsL3lKLbGWxv6elm2Q6O2/EGbM6IGQAv4VsJEIFvlt
+         ku07KTIr/rTcPQweNKAY4cTyWMaL57scHWzvuUHVTbQHAgfRjLsskoPUGBfo1bHoQBbJ
+         ZzPZOJz3bM1/fFeXBMaikV/vE5m/gTGG5ecDSOl7u0danEJQPMY1vEwMlZ7xHX8/9qQp
+         W1qnaAp0Bz0jUGRSbBYqkCe1AL+eLtLFw9cR7BLdjcdQMlCorDkJYBrxMbXNlmhSSZiL
+         YBRg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788807004; x=1789411804;
+        d=1e100.net; s=20251104; t=1788807001; x=1789411801;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
         bh=rOfBbKNvf4wumPkciSn2R6wvTiBsYFrhYc9rrrbfPSA=;
-        b=Wj2PqGUcJoG0Zih8NFt0AdYewhJZLZdRw7bNUquZ/+j9+XpC8YD88thfDw7jYoa5JP
-         P8kRXHBE9nrmqn7LhZvuPebnLQwwC9XUDmdWOSSoAf5CXPxvW8sx7esDy+mlrEpQXIJy
-         dNSehV0Mlxq16d/Sg+NnnAu2sGixlyQXGFeTYU43NOQ/sst9dEJJmMcQBqzI20TDXOq/
-         ALv9qWr72/c0CAUGQEMgSyL2W3TKqPb9r+4Vattju7KJt8TUJJ/T2YoonhEg89mONHu1
-         ptUlHkg4W6XU37tumfNh48eLwrMT5wyDiTKqTJXLH7sOXJ9uagRhVk4CnfyXci20+pFl
-         t8UQ==
-X-Gm-Message-State: AFuF++npZ7N4ogu5HcKlv5I/PJ+fCjtZttdLVhVw8gT1zHupXK2+yeda
-	3T+AeyFSG/HjkwBvWKUUA/5jqVTSaH5Ho0KguqpMyN6J6abEkj+c1c3qwRisY8xiisXoAw==
-X-Gm-Gg: AYBFou1RB9HXpXsdcghaPjWab8Ydz3qYNVlnh3r0/ps6xFM7rEzgQLxOd3w6W4BDZ+2
-	kOnREMH+FPuMa+kMcfD+g1Hut4KOwPic/C0aTr5N0F0A5wiGmy7RVsI7L/KJACQl0WWyLHbFRmr
-	wsSiikf4lovDj7a3lDIjKVZ4T/RKWQfsjimE4XEeLxV7WN6Na0tTswum2HM8nKL/PgqYMYAq2eQ
-	KFH0hs3hV01qQ+Wt9No+DE5cDIgxYLwdN72f0THwYP49cdCMyowyqJINMiR2xKF62jlmMWuyDZx
-	YBzGPq1Dl0gsiZVSDFKzakkX+WpoQ4g7a/t8vlY90wEA/P/P/6UhaF1xtiWzjT2iDW1AvIu2mEj
-	z2Ober+FEUI573Q1+Zu7afuyLQp+AXspayLswEWqsttLeNgs/jbY2zYlGOST9YyH7JfkHZlrjc7
-	1KKEZQqJMBDvV3D07vYChEPaStbZqlkmQM2b020jscnM5NbQ24p/qsRkDyKEX67G2foGjWylCd4
-	pFeA7uXss3NOkKxN4TBDwmFSbg/YisDAwu+0pM6oUoES6X+wTj+6WR0D5iduefkip/9+PIgzDlF
-	Wtbsm0owLe8RWA==
-X-Received: by 2002:a05:600c:a305:b0:49c:ff81:e062 with SMTP id 5b1f17b1804b1-49cff81e076mr147773075e9.2.1788807003690;
-        Mon, 07 Sep 2026 11:50:03 -0700 (PDT)
+        b=p3Gn93mqIJujaYa8vTioXCzaJ4nZ8/nPgc+aY5NYdJEddQ8OBczLtlAPCsIMuyqPTK
+         RtEeLkSE9/T5+N8QeKX0GGl5edpAJzDIv7ZJ4240zcF8KI+mx1jrV2+/byBu4fqVcSEC
+         y5wBhDnwAOW/5HLKBAjOQWJG+D+V9AVKThRBjIi08mHv0VeBfQjIvTzJrk64PjBsv+vg
+         sbX/0egsdC1FOIvgEXLjHGV3DjH1zb+Uu5zF4Zr5z6oE9epqwkPTy432tz+V36rHA10/
+         H1yDBHhbyFdHyZIP1ChaI3ej1FShuDKexYDvx54nFyx6Us8riF7VRbzwf5DxzVZXQ9VE
+         bGTg==
+X-Gm-Message-State: AFuF++lT4v8t8YU7Eo7Vc8uRYRwxMsC/SPBBrFCwpqnx22HIvNaFMjKE
+	2bIO3T100hWcFcPxYrUPrYyNu8d8TZuo+57+cuIU+5yAxjkRErLI8Dfd2s9tLVpFhfJ3fA==
+X-Gm-Gg: AYBFou0zo2iPxQ0iKrBlkcZCsuRksF1MmQGKDu6ewTA44qnM8V6L/2Cqjp7cVJwUp6H
+	HTlmsM9evaJDm6l2w6/FJvh21K7X9jwIxP/fY3yEOpvL8eKrtZ6FEgoYEDevs3jTrP9GQXLpy2+
+	GWc7xj1r4S8M68MvtcPMChZja1GHhy3TPObw+c4TSBRe+Nk6c0fmdanelsNVSj0LJxRe77WLjeW
+	VimKu4kFtKBWGxsnEVeJCY5K804fFC6qHyA9VKw23ps+8hmDPC5K9WsAWdwDjbYnrCsKeYvtrdl
+	Tn8joW01/VLOgcOX0f0Iv96btyYv+1tLTWwV0jJnW+qYE1i2hjeS8NTN0YMvHfMP6WgyA+gj0ZK
+	MYgXutafhXwx4vwF9JZxzxeYtgqnj+qwy0ksfNqC70h8Zud4PajMnvFWYanxn36g+SwV14wC3iG
+	0ZOAcScXHmO7GsUJMHQwlm0s9cXx/xtyACnHebC98hO/3YM5aGQ89NIusAyPxCo6ga01YapuaAu
+	T9Cc60crDNYMf974Q25Bmky3VUmMibalastP6SrglRkxHYF95jUn8GlAdQ2C2jPqZlog2u2a7al
+	8+5mSVg+18rG9iY=
+X-Received: by 2002:a5d:5d02:0:b0:484:398f:2c7e with SMTP id ffacd0b85a97d-4859796277fmr10518031f8f.0.1788807000882;
+        Mon, 07 Sep 2026 11:50:00 -0700 (PDT)
 Received: from pop-os.. (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce591f846sm203600315e9.1.2026.09.07.11.50.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588135600sm26480510f8f.2.2026.09.07.11.50.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:50:03 -0700 (PDT)
+        Mon, 07 Sep 2026 11:50:00 -0700 (PDT)
 From: Miguel Garcia <miguelgarciaroman8@gmail.com>
 To: stable@vger.kernel.org
 Cc: dmitry.torokhov@gmail.com,
@@ -64,9 +64,9 @@ Cc: dmitry.torokhov@gmail.com,
 	pengpeng@iscas.ac.cn,
 	linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.6.y] Input: aiptek - validate raw macro indices before updating state
-Date: Mon,  7 Sep 2026 20:50:01 +0200
-Message-ID: <20260907185001.1567957-1-miguelgarciaroman8@gmail.com>
+Subject: [PATCH 6.1.y] Input: aiptek - validate raw macro indices before updating state
+Date: Mon,  7 Sep 2026 20:49:59 +0200
+Message-ID: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
