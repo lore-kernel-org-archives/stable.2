@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02244FB9D9
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:30:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 194FC509EF4
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:30:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795034; cv=none; b=npspPJC+9yFp0UKhOwRFjl5FKrtWvUZsENbpZWinipScooCf2uZcF8tO+n+DMEY4jhoYJoiem29d8RE5NW72SFxvrZGTC8IL4A2qVqtGHeFf4t3jw6ZE+G0scfr3Yo4+ZTZIy6kB37qwnzo2quIMawwtj0oCK915GKiGL9V3ny0=
+	t=1788795036; cv=none; b=geiIl7oiGxHyJ5V6RPb8TBX4sVoxyFUactdoGjehtQ1QtkC3gIyvAoeGXGcv47mlPC/Ff1rl4XMd09G5zRJS+R80/maW4M/QyWz6f5AifcY5xHyreL1uc+cXEKq899yxm6A4MMZaAWFcAKWg7MiOtfDtQ5oojNASwArzz+czFhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795034; c=relaxed/simple;
-	bh=ojCilrjjHON3mkSlSkmaAk6xgs6lE3nrK9GWyy0Kpek=;
+	s=arc-20240116; t=1788795036; c=relaxed/simple;
+	bh=GYh7GwFu/VnM9NQszWsH0EbynCCu0xAJ2OklhgCVgkc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RLm1e7g18CuSfyPLHlNgSj/9uGjJKoxGZ9c4Ron5Ef8xyaxRGPDUNuSYOzT1e3YO138IbJp684dLe/CLH7Q4MtdaMSXvf3iBj/l1cjoXaVC2ddMHREkDbOXnXYcANT4WzJH0K7gCxnTTAFTVNacdSDDVV57dK7jEB05AfYqLZ/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4u+4aFQ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iPGt5/62syZ/zr596RIMr0IUer+k6Z2X8uKwG4FDjuVMFVojvAiiuaLjGtIt3R2kgKOJL47cPpVXVGiYalACpXeNCwsSW4+KLHcAw92TgCR1Ov/d3RBXRf2kkKFj9D1DH08UpZzo6v3OweVlrLeGGVxrqwtCeqt6Ff5WuUcoug0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lkRartRS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4u+4aFQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B65E71F00A3A;
-	Mon,  7 Sep 2026 15:30:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lkRartRS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843041F00A3A;
+	Mon,  7 Sep 2026 15:30:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788795032;
-	bh=AvMY1EbDVlvUwXjuAxJqs43caJk7oFObcrFnVcQwCkg=;
+	s=k20260515; t=1788795035;
+	bh=umIIQyMaKiKWD6GTCmyvLgMyMrHMr4cCLrajxzBdR6M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K4u+4aFQ1XDlARR1zcN51pVgu7xGCHZcInMgJIcSRe3gK4WrN6EDPPFNq7DCNDxj/
-	 suMsSShj7vNQzy7u7I80qxOX4uAsM/4eveepwLAf19r6GrSryj/cKunf+k4ahipGpg
-	 SNSL9f8NMc0sG6CGWGtdnG1S0Yh8jFhX1gc8UmujqLi6gfpB2ZlzJE881EkWdqSOHy
-	 yySLbfsz/5LqzQwPc/bpC09OuZWzlNvGB6Ph5aBNbHmHaprXgXtSX3FM9bFx0arbvC
-	 81xWbM9gtv09W/VwhUEW5jKlNNhFE93Hx5A/IjAzojA3jyYBQoxTQst2eOZ1c4xpC5
-	 UkGij9V/0H+0g==
+	b=lkRartRSn2p23ahNH0CYoV5dmDxmyz5OLsIAkI59w5O+7AGl68BMoMWHxvY2IQ7st
+	 8H7w7P//2Rs5WnxwH0N30NVXHXPKILL5Xs1O9qu4kJLHSpJpT95/Rb1Aar3TUWRRjX
+	 pX5MhGAAQdJWjdaeRa7jcIallQYo03QKVnMB4JMjKl8sO8CkTdopn+szE9M0dDS0pa
+	 nGBvcS0Oe0mVRNWswL92qVPjOa9eZ7+XnSGSonl06ZQ/hJM5Gsd3UlVqYxoYOHbGzH
+	 FWmKsKx0v/gF9TpWCqD5sF+4TRSPmJfbN7CPGSdXmFUNEuOH0qEavRFh1XtaVct3kq
+	 nNExdAx3oDDvg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Mon,  7 Sep 2026 11:30:30 -0400
-Message-ID: <20260907153030.3838648-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] HID: sony: fix UAF of ghl_poke_timer / ghl_urb at driver unbind
+Date: Mon,  7 Sep 2026 11:30:33 -0400
+Message-ID: <20260907153033.3838712-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090352-devoutly-coke-eb9e@gregkh>
-References: <2026090352-devoutly-coke-eb9e@gregkh>
+In-Reply-To: <2026090332-creative-scrunch-f86b@gregkh>
+References: <2026090332-creative-scrunch-f86b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,108 +45,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
+From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
+[ Upstream commit a26705bd2e2728833e7a538ce91e58a5eeff496a ]
 
-When a file has the setuid or setgid bit set and is written to, the VFS
-strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
-together with an ATTR_MODE carrying the already-cleared mode.
+For GHL (Guitar Hero Live) dongles, sony_probe() arms a periodic timer:
+ghl_magic_poke() (the timer callback) submits sc->ghl_urb, and the URB
+completion ghl_magic_poke_cb() re-arms the timer with mod_timer().
 
-Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
-ATTR_MODE in that case:
+sony_remove() drained the timer with timer_delete_sync() and then freed
+the URB with usb_free_urb():
 
-	/* skip mode change if it's just for clearing setuid/setgid */
-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-		attrs->ia_valid &= ~ATTR_MODE;
+	timer_delete_sync(&sc->ghl_poke_timer);
+	usb_free_urb(sc->ghl_urb);
 
-This is fine for the default mount, where the mode is only emulated via
-the DOS read-only attribute and cannot represent the setuid/setgid bits
-anyway.  However, with the "cifsacl" or "modefromsid" mount options the
-mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
-the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
-and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
-via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
-the cleared mode is never pushed to the server, so the setuid/setgid bit
-survives the write.
+timer_delete_sync() does not block re-arming, and while the URB is in
+flight the timer is not pending, so the sync delete is a no-op. A URB
+completion that runs after the delete re-arms the timer, and usb_free_urb()
+only drops a reference -- it does not kill an in-flight URB. sc is
+allocated with devm_kzalloc() and freed once sony_remove() returns, so the
+re-armed ghl_poke_timer (embedded in sc) then fires on freed memory, a
+use-after-free from timer softirq. This is a disconnect/rmmod race.
 
-This is a security issue: on local filesystems the setuid bit is stripped
-when a file is written, but over these cifs.ko mounts the bit persists on
-the server, potentially allowing an unexpected privilege escalation on
-subsequent execution.
+Poison the URB first, then shut the timer down, before freeing the URB.
+usb_poison_urb() kills any in-flight URB and permanently rejects further
+submissions, so a poke timer that is still pending cannot re-submit the
+URB from ghl_magic_poke() in the window before timer_shutdown_sync() runs.
+usb_kill_urb() would not suffice: it only cancels the in-flight URB and
+leaves it submittable once it returns, so the pending timer could
+re-submit it and put a fresh URB in flight over the freed sc.
+timer_shutdown_sync() then drains any last callback and blocks re-arming.
+The probe error path is unaffected: it is only reached before the timer
+is armed.
 
-Fix this in two places:
+Reproduced under KASAN on next-20260710 via dummy_hcd + raw-gadget
+emulation of the GHL PS4 dongle (VID 0x1430 / PID 0x07bb): hid-sony binds
+and arms the poke timer, the poke URB is held in flight, the driver is
+unbound (freeing sc), then the URB is released. The completion re-arms the
+timer on the freed sc, and the re-armed timer fires ~8 s later:
 
-  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
-     when the mode is emulated via the DOS read-only attribute (i.e.
-     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
-     in effect), so that the cleared mode is propagated to the server
-     in the ACL / POSIX cases.
+  BUG: KASAN: slab-use-after-free in ghl_magic_poke+0x98/0xb0
+  Read of size 8 at addr ffff88810b02fd50 by task swapper/0/0
+   ghl_magic_poke+0x98/0xb0
+   call_timer_fn+0x35/0x2b0
+   __run_timers+0x69c/0x9a0
+   run_timer_softirq+0x173/0x2a0
+  Allocated by task 169:  sony_probe
+  Freed by task 338:      devres_release_group <- hid_device_remove (sony_remove)
 
-  2. cifs_setattr_unix(): this function is only called when Unix
-     extensions are in effect, so the mode is always stored on the
-     server.  Remove the shortcut entirely so that the cleared mode is
-     always pushed.
+Found by 0sec (https://0sec.ai) using automated source analysis.
 
-Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
+Fixes: cc894ac55360 ("HID: sony: support for ghlive ps3/wii u dongles")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ adapted sbflags access to cifs_sb->mnt_cifs_flags for Linux 6.1 ]
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+[ changed the old del_timer_sync() call to timer_shutdown_sync() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/inode.c | 30 +++++++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+ drivers/hid/hid-sony.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 51d38449ca855..60827a8fe8322 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -2826,9 +2826,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
- 			goto out;
+diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
+index ebc0aa4e4345f..e4b5d202c6637 100644
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -2166,7 +2166,9 @@ static void sony_remove(struct hid_device *hdev)
+ 	struct sony_sc *sc = hid_get_drvdata(hdev);
+ 
+ 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
+-		del_timer_sync(&sc->ghl_poke_timer);
++		/* poison, not kill: a pending timer must not re-submit during teardown */
++		usb_poison_urb(sc->ghl_urb);
++		timer_shutdown_sync(&sc->ghl_poke_timer);
+ 		usb_free_urb(sc->ghl_urb);
  	}
  
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
--		attrs->ia_valid &= ~ATTR_MODE;
-+	/*
-+	 * This function is only called when Unix extensions are in effect,
-+	 * so the mode is always sent to and stored on the server.  Do not
-+	 * skip the mode change when clearing setuid/setgid bits: dropping
-+	 * ATTR_MODE here would leave those bits set on the server after a
-+	 * write, which is a security issue.
-+	 */
- 
- 	args = kmalloc(sizeof(*args), GFP_KERNEL);
- 	if (args == NULL) {
-@@ -3014,8 +3018,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
- 	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
- 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
- 
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-+	/*
-+	 * Skip the mode change if it is only being done to clear the
-+	 * setuid/setgid bits *and* the mode is emulated via the DOS
-+	 * read-only attribute (the default, non-ACL case), which cannot
-+	 * represent the setuid/setgid bits anyway.
-+	 *
-+	 * When the mode is instead stored on the server - i.e. with the
-+	 * cifsacl or modefromsid mount options (via an ACL) or with the
-+	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
-+	 * the server.  Dropping ATTR_MODE here would leave the setuid/
-+	 * setgid bit set on the server after a write, which is a security
-+	 * issue (the bits are not stripped as they are on local
-+	 * filesystems).
-+	 */
-+	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
-+	    !((cifs_sb->mnt_cifs_flags &
-+	       (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
-+	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
- 		attrs->ia_valid &= ~ATTR_MODE;
- 
- 	if (attrs->ia_valid & ATTR_MODE) {
 -- 
 2.53.0
 
