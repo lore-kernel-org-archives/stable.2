@@ -1,203 +1,405 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48F5474E
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CBA274650;
+	Mon,  7 Sep 2026 12:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784140; cv=none; b=tdwvharY7DAUoAPVu/bBA1YXwbZHVXJfdPXCZqZ6kLW1GGyb36Yx5c4kFuq8TDX6N2Cg6X7n7dFqHgEUQTQACtEOP4mOsMZ7wIW1ew3XevEc7vj4ilek2mW/Lf34VTLXk/xHcQ3qm4oDWn6lYGHp/ilFe2fiMiqhKnE9M6+pt2Q=
+	t=1788784308; cv=none; b=EyGKOIXTHkSoakDEaW445NNQE7qh8PAe+J7HwINongl9GdZc26GFlIvGZd/mlIjOa6EWIphKruKrvq0IBAnDIe/ppBEVQ1Tcy5twTdUk5ukJqo2uc50zl2xRGE3NYpieX9QWZB/sYNEy/xqwk6zOHt5MIhho/zlFMnE28/I/XDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784140; c=relaxed/simple;
-	bh=AAZwLzfr8jr8YZzC3uwVFUEWgXqesfwXs8POQkuBsbo=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Wr0c7TldIHp2R/7hFs0TxVWDrM8yfR1q+YeD/E5BsOayLBJ4CY6MllXTC8KYnb4+ZHAwdfpsO2zO+fAirRwchZY4UDofxpBnwHxMKomBr/4DWGdvtf3VYXnKC0msJdhiZ2jtYTOPJrb9VPCq8KhZYPmlE7jP/notvon+Oq5ezqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=s55hlTWj; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
+	s=arc-20240116; t=1788784308; c=relaxed/simple;
+	bh=V5h8KPL5sH6DxlxNxrEUYyfocPvPDNHiPw+YVYzAecg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=d4CYcVpmC1SDZfsre6PrtFI/a8B60GbAhCn9FAobcxUBox3TfyQ6BYp7qSucc1XluXyoZiuIXCFNmnmNw96gC1uf0AflSj4QypD+6Tk+rjqCw7AaXtb7R7cvrRc6Qs8thTy6eVRzKjT7JBh30m5T0y6L9ADg4VohZeb88I30lyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n88AZOun; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="s55hlTWj"
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a668ce86abso5159795a12.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ursulin.net; s=google; t=1788784137; x=1789388937; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aJm8oYa2XMgACvK1LNx+Nj4anO8CYxc+Hsnqz6K6hAA=;
-        b=s55hlTWjRIy/MDCaR0egHL9ltglEOE2im7UrWD3yTr/JrKyJwZTpX/Md+HSWYFWYML
-         srPMcIGkRsd1K687NBA8/jXrnjCoZdYDMnPky+v37ZX2s73W2ojUt2f9Udpc51tteo5c
-         XUK9GSM8fTcmU+OSn2hR+KkCXgX5QKpu+nzcnlwj1CBponDT7UyITLdofFY+F/cLGz+7
-         QpqpGB4uMdCYV/pOvVOl4TWaeiEjJiy524aQrG2JYTn6wfwbYsB3MdYsq8zRb3yvxiTQ
-         0JV1rBZlNwQZYbuJYudE7iIOxYlboaJ1ycrig6nmjKdSyt+5rM5cf1xyq5R2RaDXxvsH
-         /gJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788784137; x=1789388937;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aJm8oYa2XMgACvK1LNx+Nj4anO8CYxc+Hsnqz6K6hAA=;
-        b=WwnTIf5UduuC5ktjWGrzJ/tq5DopCO24UZe1cLYEf+UytyuFSqspjWJgM32K9XrLQP
-         UK7sDLL4lh2CspIxJRWmX1ko/oWTZilIYY/S53AW9+UmJyW0J2wb/cRdGMITbYqEicK+
-         TShRyndP7jwyIO/W/FH5e0UYsnL1c5cQ/l30lUux4gnjS1ZshI85dEOolLgf/Iraf4Nr
-         mUv9Pts5c05d9SDXGdQHKFFog8m8XtRmz/yvxA0ODHb6HoyCUdeMK1mzVJDI1M21zRQJ
-         bkBoaMsOvZy8PSUDGhbDXMczMqootcU7sU6g/per5zhibhWEYqIF5TfZytW/19UlHDdU
-         vnCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzx+KuIZi2N5oe7U7Zzgg9khxPViytzrarvKTAgo0IqG9hPjCghSw3oH5rmGIK2r9Pu/z/sQMQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAht6jMwIt3B0tYJAzoouUKQiQUeo6r4Ifo6vTN14z4xVrbLHC
-	u2Ia837I4Gw8CBZanf94/T40KrMPpZJ7GlnI2apr3CdQ3RjzeQ9x3accz3WTgxj0x2o=
-X-Gm-Gg: AYBFou1UjxWzF7MtqCKnjPsrEvO6i4KWFY/dXPIRCdW5jQlTi9AzO55Vl2yvnjE1b5M
-	6JyuBllNa5WEUQTgGnTTRqmFgj+cf4dj/axXwJLobVGC0F0hHmSOQn9bIcd1kQt3zY7fPoUk17I
-	F97vK9xcrOmlMhX4HN5AnySlqI6T9ck14lLWsG/XJKS3fzNYeb9MfSu3UQaj6kiRWD1QIhIK8Xi
-	Wv93JHT/iHBojd+G29AU6KzEVg5SpEyGowSqDPBHo2dqPLp7gefd6w8azIRVp8UCOFXCIw2fAKF
-	GigwkXckgan9+rpi1TEztAt/dozT1ydRaYYecjLgsA8yPiY+nT7fvA4Qce1fKQzx85x8RIiaks5
-	AgP+9+1wB1u1lvlhGUvQA8nb1xt36utUTAI+pYuRlZ98esqkKfxpEyF4MncFhGWG3baFIyEDkqo
-	YcIwgWpBvWq6N/qtrzZyKoO9SMBLMeUprsdE3QmSnqcD5pvw6YVxvpnkrHIt6d3SQCnPEJKiCnG
-	Aks
-X-Received: by 2002:a05:6402:270a:b0:6a6:32f5:90b4 with SMTP id 4fb4d7f45d1cf-6a7e90a5f76mr13059715a12.22.1788784136511;
-        Mon, 07 Sep 2026 05:28:56 -0700 (PDT)
-Received: from [192.168.0.116] ([81.79.79.1])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e66eb84dsm4416331a12.2.2026.09.07.05.28.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 05:28:56 -0700 (PDT)
-Message-ID: <96eb6288-5c85-47c0-8f72-57d6f138851e@ursulin.net>
-Date: Mon, 7 Sep 2026 13:28:55 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n88AZOun"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEC581F00A3A;
+	Mon,  7 Sep 2026 12:31:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788784306;
+	bh=BoEs4UuN40glWkHqF5kwYVIVYApUizyluQkte9bvxI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=n88AZOunevj5tnUo1WI9ZfAK9vOYfnGoDFsuXUFOSrOBA6csCogxRwVUrJfROkq86
+	 WARBHiAHnXi0Rkt63Ax01lAa1VMKwiRaYJHiMUPA4ys2H9uJ9829pEOiJKQYA06IPl
+	 8Rl3n/tfR0IT7IEVXnxheZc5G85pM9aRyiobkZ/5ZzuHpib5vrIR9v3zizjzgL3H7A
+	 VbPUCAHNZ7lJmJsaxadQTWNyx9Q70LxiyEKO4VBO0k6uVF2wucoix720COcW3dHrU9
+	 Bk5JgUw+gG2rhhtItnBVfdPK/0Dbo2p770N0v1iim4Ri9ViPcek+0p/crhO7/VZdh/
+	 5FRN3o0AXHugw==
+Date: Mon, 7 Sep 2026 14:31:43 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <ap6urw5aAxrKO3Ck@localhost.localdomain>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
- matthew.brost@intel.com, dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- stable@vger.kernel.org
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
- <20260904080618.2098450-2-malhyuk97@gmail.com>
- <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
- <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
- <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
- <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
- <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
- <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
- <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
- <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
- <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-Content-Language: en-GB
-In-Reply-To: <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260905185839.667208455@kernel.org>
 
-
-On 07/09/2026 12:06, Tvrtko Ursulin wrote:
+Le Sat, Sep 05, 2026 at 08:59:01PM +0200, Thomas Gleixner a �crit :
+> Hyunwoo debugged the following KASAN UAF splat:
 > 
-> On 07/09/2026 11:47, Philipp Stanner wrote:
->> On Mon, 2026-09-07 at 11:28 +0100, Tvrtko Ursulin wrote:
->>>>
->>
->> […]
->>
->>>> How did the others fix that?
->>>
->>> Combination of kfree_rcu, synchronize_rcu and storing the name in an
->>> object protected by those:
->>
->> […]
->>
->>> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
->>>
->>> That makes scheduler timeline name vfunc safe:
->>>
->>> static const char *drm_sched_fence_get_timeline_name(struct dma_fence 
->>> *f)
->>> {
->>>     struct drm_sched_fence *fence = to_drm_sched_fence(f);
->>>     return (const char *)fence->sched->name;
->>>
->>> sched is then RCU protected. sched->name is already static so not a 
->>> concern.
->>>
->>> As you say nouveau_sched_fini() only tears down the scheduler after
->>> fences have been signaled it seems adding two new kfree_rcu make is 
->>> safe.
->>
->>
->> I don't see how any RCU mechanism would make anything here safe.
->>
->> As long as ops->release is implemented, ops will never be set to NULL,
->> (with or without RCU) – so everyone who holds a reference to finished-
->> fence can still run into drm_sched_fence_get_timeline_name() and cause
->> UAF on the sched pointer *and* the name pointer.
->>
->> Moreover, all of this falls apart should the driver unload.
->>
->> So I maintain the position that we only get it right by having the
->> signaled-bit be the decoupling point.
->>
->> Or am I missing something?
+>   BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
+>   Write of size 8 at addr ffff888007ed80c8 by task poc/79
+>   ...
+>   Call Trace:
+>    __send_signal_locked+0xb27/0xba0
+>    do_send_sig_info+0xa7/0x160
+>    do_send_specific+0x76/0xa0
+>    __x64_sys_tgkill+0x193/0x270
+>   ...
+>   Allocated by task 80:
+>    do_timer_create+0x1a4/0x1030
+>    __x64_sys_timer_create+0x145/0x190
+>   ...
+>   Freed by task 12:
+>    kmem_cache_free_bulk+0x1f8/0x4a0
+>    kvfree_rcu_bulk+0x14f/0x1c0
+>    kfree_rcu_work+0x128/0x1a0
+>   ...
+>   Last potentially related work creation:
+>    kvfree_call_rcu+0x39/0x390
+>    __flush_itimer_signals+0x211/0x320
+>    flush_itimer_signals+0x47/0x90
+>    begin_new_exec+0xa6b/0x28c0
 > 
-> The driver fixes you asked about and I listed work(ed) in the context of 
-> 506aa8b02a8d ("dma-fence: Add safe access helpers and document the 
-> rules"). In that "world" it would have been safe. Did 035219a760ed 
-> ("dma-buf: dma-fence: Fix potential NULL pointer dereference") break 
-> those fixes a bit?
+> It turned out that this happens with a non-leader exec() as Hyunwoo
+> explained:
 > 
-> I can try my IGT and see..
+> de_thread() calls exchange_tids() before release_task(leader), so the
+> struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
+> now points to the thread which called execve(). pid_task() returns that
+> thread and lock_task_sighand() on it succeeds.
+> 
+> If the timer signal is blocked, its sigqueue stays queued on the leader's
+> task::pending. The next expiry of that timer can then run while
+> release_task() flushes the queue.
+> 
+> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
+> with a plain list_empty(), which only reads list_head::next.
+> list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
+> before list_head::prev, so the check can pass in between. list_add_tail()
+> queues the entry on the task::pending of the live thread, and the
+> list_head::prev store from the flush then overwrites the list_head::prev
+> link that list_add_tail() has just set.
+> 
+> __flush_itimer_signals() does not undo that either. With list_head::prev
+> pointing at the entry itself, its list_del_init() only stores the same
+> values again, so the entry is not removed from the list. It is still there
+> after the last reference is dropped and the timer is freed by RCU, and the
+> list_add_tail() of a later tgkill() follows that list_head::prev into the
+> freed timer.
+> 
+> This problem surfaced with the recent commit which moved the sigqueue flush
+> out of the sighand lock held region.
+> 
+> Hyonwoo proposed to fix this by using list_del_init_careful(), but that
+> just papers over the problem. After some disucssions and various attempts
+> to solve it, Eric pointed out that there is no reason to flush
+> task::pending late in release_task() and it should be done in
+> exit_signals() already.
+> 
+> As nothing can collect and deliver signals which are queued in a dying
+> task's pending queue, there is no reason to delay it further.
+> 
+> But it has to be ensured that no signals can be queued into it after that
+> point. exit_signals() sets PF_EXITING in task::flags, which can be used as
+> an indicator for this.
+> 
+> Cure it by:
+> 
+>   - Preventing signal queueing for task private signals (PIDTYPE_PID) when
+>     the task has PF_EXITING set in __send_signal_locked() and in
+>     posixtimer_send_sigqueue().
+> 
+>   - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
+>     task group empty and the group exit case with sighand lock
+> 
+>   - Flushing task::pending signals right there.
+> 
+>     Optimize that by moving the whole pending list to an on-stack list head
+>     under sighand lock and free the signals without the lock held.
+> 
+> Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
+> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
+> Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+> Cc: stable@vger.kernel.org
+> Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+> ---
+> V4: Prevent requeuing of signals which are unignored - Oleg, Eric
+> 
+>     Split out the decision into an inline which can be reused by the posix
+>     CPU timer follow up changes.
+> 
+> V3: Restructure code and fix the missing unlock - Oleg
+> 
+> V2: Don't flush w/o sighand lock held - Oleg
+>     Move the while pending list under the lock and free it lockless
+> ---
+>  kernel/exit.c   |   11 +++--
+>  kernel/signal.c |  103 +++++++++++++++++++++++++++++++++++++++-----------------
+>  2 files changed, 78 insertions(+), 36 deletions(-)
+> 
+> --- a/kernel/exit.c
+> +++ b/kernel/exit.c
+> @@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
+>  	free_pids(post.pids);
+>  	release_thread(p);
+>  	/*
+> -	 * This task was already removed from the process/thread/pid lists
+> -	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
+> -	 * ->pending or, if group dead, signal->shared_pending. We can call
+> -	 * flush_sigqueue() lockless.
+> +	 * This task was already removed from the process/thread/pid lists and
+> +	 * lock_task_sighand(p) can't succeed. If it's the group leader then
+> +	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
+> +	 * already in exit_signals(). Nothing else can touch
+> +	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
+> +	 * lockless.
+>  	 */
+> -	flush_sigqueue(&p->pending);
+>  	if (thread_group_leader(p))
+>  		flush_sigqueue(&p->signal->shared_pending);
+>  
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -457,18 +457,28 @@ static void __sigqueue_free(struct sigqu
+>  	kmem_cache_free(sigqueue_cachep, q);
+>  }
+>  
+> -void flush_sigqueue(struct sigpending *queue)
+> +static void flush_sigqueue_list(struct list_head *head)
+>  {
+> -	struct sigqueue *q;
+> +	struct sigqueue *q, *tmp;
+>  
+> -	sigemptyset(&queue->signal);
+> -	while (!list_empty(&queue->list)) {
+> -		q = list_entry(queue->list.next, struct sigqueue , list);
+> +	list_for_each_entry_safe(q, tmp, head, list) {
+>  		list_del_init(&q->list);
+>  		__sigqueue_free(q);
+>  	}
+>  }
+>  
+> +void flush_sigqueue(struct sigpending *queue)
+> +{
+> +	sigemptyset(&queue->signal);
+> +	flush_sigqueue_list(&queue->list);
+> +}
+> +
+> +static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
+> +{
+> +	sigemptyset(&queue->signal);
+> +	list_splice_init(&queue->list, head);
+> +}
+> +
+>  /*
+>   * Flush all pending signals for this kthread.
+>   */
+> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
+>  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+>  }
+>  
+> +/*
+> + * When PF_EXITING is set the task is on the way out and has t::pending
+> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
+> + * be leaked.
+> + */
+> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
+> +{
+> +	lockdep_assert_held(&t->sighand->siglock);
+> +
+> +	if (!(t->flags & PF_EXITING))
+> +		return true;
+> +
+> +	return type != PIDTYPE_PID;
+> +}
+> +
+>  static int __send_signal_locked(int sig, struct kernel_siginfo *info,
+>  				struct task_struct *t, enum pid_type type, bool force)
+>  {
+> @@ -1030,6 +1055,10 @@ static int __send_signal_locked(int sig,
+>  	lockdep_assert_held(&t->sighand->siglock);
+>  
+>  	result = TRACE_SIGNAL_IGNORED;
+> +
+> +	if (!task_can_queue_signal(t, type))
+> +		goto ret;
+> +
+>  	if (!prepare_signal(sig, t, force))
+>  		goto ret;
+>  
+> @@ -1968,11 +1997,25 @@ static inline struct task_struct *posixt
+>  	struct task_struct *t = pid_task(tmr->it_pid, tmr->it_pid_type);
+>  
+>  	if (t && tmr->it_pid_type != PIDTYPE_PID &&
+> -	    same_thread_group(t, current) && !current->exit_state)
+> +	    same_thread_group(t, current) && !(current->flags & PF_EXITING))
+>  		t = current;
+>  	return t;
+>  }
+>  
+> +/*
+> + * Find the target task for the POSIX timer signal and prevent that a
+> + * PIDTYPE_PID signal is queued on a task which has PF_EXITING set.
+> + */
+> +static inline struct task_struct *posixtimer_get_unignore_target(struct k_itimer *tmr)
+> +{
+> +	struct task_struct *t = posixtimer_get_target(tmr);
+> +
+> +	if (t && task_can_queue_signal(t, tmr->it_pid_type))
+> +		return t;
+> +
+> +	return NULL;
+> +}
+> +
+>  void posixtimer_send_sigqueue(struct k_itimer *tmr)
+>  {
+>  	struct sigqueue *q = &tmr->sigq;
+> @@ -1990,6 +2033,9 @@ void posixtimer_send_sigqueue(struct k_i
+>  	if (!likely(lock_task_sighand(t, &flags)))
+>  		return;
+>  
+> +	if (!task_can_queue_signal(t, tmr->it_pid_type))
+> +		goto unlock;
+> +
+>  	/*
+>  	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
+>  	 * locked to prevent a race against dequeue_signal().
+> @@ -2081,6 +2127,7 @@ void posixtimer_send_sigqueue(struct k_i
+>  	result = TRACE_SIGNAL_DELIVERED;
+>  out:
+>  	trace_signal_generate(sig, &q->info, t, tmr->it_pid_type != PIDTYPE_PID, result);
+> +unlock:
+>  	unlock_task_sighand(t, &flags);
+>  }
+>  
+> @@ -2136,7 +2183,7 @@ static void posixtimer_sig_unignore(stru
+>  		 * has exited by now, drop the reference count.
+>  		 */
+>  		guard(rcu)();
+> -		target = posixtimer_get_target(tmr);
+> +		target = posixtimer_get_unignore_target(tmr);
+>  		if (target)
+>  			posixtimer_queue_sigqueue(&tmr->sigq, target, tmr->it_pid_type);
+>  		else
+> @@ -3120,42 +3167,36 @@ static void retarget_shared_pending(stru
+>  
+>  void exit_signals(struct task_struct *tsk)
+>  {
+> +	LIST_HEAD(sigq_list);
+>  	int group_stop = 0;
+> -	sigset_t unblocked;
+>  
+>  	/*
+>  	 * @tsk is about to have PF_EXITING set - lock out users which
+> -	 * expect stable threadgroup.
+> +	 * expect a stable threadgroup.
+>  	 */
+>  	cgroup_threadgroup_change_begin(tsk);
+>  
+> -	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+> +	scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
+>  		tsk->flags |= PF_EXITING;
+> -		cgroup_threadgroup_change_end(tsk);
+> -		return;
+> -	}
+>  
+> -	spin_lock_irq(&tsk->sighand->siglock);
+> -	/*
+> -	 * From now this task is not visible for group-wide signals,
+> -	 * see wants_signal(), do_signal_stop().
+> -	 */
+> -	tsk->flags |= PF_EXITING;
+> +		sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+>  
+> -	cgroup_threadgroup_change_end(tsk);
+> +		if (task_sigpending(tsk) && !thread_group_empty(tsk) &&
+> +		    !(tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+> +			sigset_t unblocked = tsk->blocked;
+> +
+> +			signotset(&unblocked);
+> +			retarget_shared_pending(tsk, &unblocked);
+> +
+> +			if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
+> +			    task_participate_group_stop(tsk))
+> +				group_stop = CLD_STOPPED;
+> +		}
+> +	}
+>  
+> -	if (!task_sigpending(tsk))
+> -		goto out;
+> +	cgroup_threadgroup_change_end(tsk);
+>  
+> -	unblocked = tsk->blocked;
+> -	signotset(&unblocked);
+> -	retarget_shared_pending(tsk, &unblocked);
+> -
+> -	if (unlikely(tsk->jobctl & JOBCTL_STOP_PENDING) &&
+> -	    task_participate_group_stop(tsk))
+> -		group_stop = CLD_STOPPED;
+> -out:
+> -	spin_unlock_irq(&tsk->sighand->siglock);
+> +	flush_sigqueue_list(&sigq_list);
 
-With RCU frees in xe it is harder to hit it reliably for KASAN to 
-notice. Guess I would need to have a way to flush the RCU callbacks from 
-IGT but I did not bother with that, it seemed easier to check the 
-returned name. Since it is not returning "detached-driver" / 
-"detached-timeline" post signalling that proves things are indeed broken:
+It probably doesn't matter in practice, I don't know feel free to ignore,
+but FWIW it looks like it's still vulnerable to the theoretical far fetched
+race I described. The head is moved under the lock but individual nodes are
+deleted without the lock.
 
-$ sudo tests/xe_sync_file
-IGT-Version: 2.5-ge37a85b91 (x86_64) (Linux: 7.3.0-rc1+ x86_64)
-Using IGT_SRANDOM=1788784104 for randomisation
-Opened device: /dev/dri/card0
-Starting subtest: sync_file_race
-[2178.517756] (xe_sync_file:10970) CRITICAL: Test assertion failure 
-function test_race, file ../tests/intel/xe_sync_file.c:130:
-[2178.517790] (xe_sync_file:10970) CRITICAL: Failed assertion: 
-!strcmp(driver_name, "detached-driver")
-Stack trace:
-   #0 ../lib/igt_core.c:2089 __igt_fail_assert()
-   #1 ../tests/intel/xe_sync_file.c:155 __igt_unique____real_main136()
-   #2 ../tests/intel/xe_sync_file.c:136 main()
-   #3 ../sysdeps/nptl/libc_start_call_main.h:83 __libc_start_call_main()
-   #4 ../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
-   #5 [_start+0x25]
-Subtest sync_file_race failed.
-**** DEBUG ****
-[2177.516393] (xe_sync_file:10970) DEBUG: 'drm_sched'/'rcs16' = 1
-[2178.517745] (xe_sync_file:10970) DEBUG: 'drm_sched'/'rcs16' = 1
-[2178.517756] (xe_sync_file:10970) CRITICAL: Test assertion failure 
-function test_race, file ../tests/intel/xe_sync_file.c:130:
-[2178.517790] (xe_sync_file:10970) CRITICAL: Failed assertion: 
-!strcmp(driver_name, "detached-driver")
-[2178.518762] (xe_sync_file:10970) igt_core-INFO: Stack trace:
-[2178.523313] (xe_sync_file:10970) igt_core-INFO:   #0 
-../lib/igt_core.c:2089 __igt_fail_assert()
-[2178.523428] (xe_sync_file:10970) igt_core-INFO:   #1 
-../tests/intel/xe_sync_file.c:155 __igt_unique____real_main136()
-[2178.523436] (xe_sync_file:10970) igt_core-INFO:   #2 
-../tests/intel/xe_sync_file.c:136 main()
-[2178.564635] (xe_sync_file:10970) igt_core-INFO:   #3 
-../sysdeps/nptl/libc_start_call_main.h:83 __libc_start_call_main()
-[2178.564690] (xe_sync_file:10970) igt_core-INFO:   #4 
-../csu/libc-start.c:128 __libc_start_main@@GLIBC_2.34()
-[2178.564892] (xe_sync_file:10970) igt_core-INFO:   #5 [_start+0x25]
-****  END  ****
-Subtest sync_file_race: FAIL (1.054s)
+CPU 0                                CPU 1                   CPU 2
+-----                                -----                   -----
 
-I'll copy you on the updated IGT for reference.
+exit_signals()
+   spin_lock(sighand)
+   tsk->flags |= PF_EXITING;
+   list_splice_init(&queue->list, head);
+   spin_unlock(sighand)
 
-Regards,
+   list_for_each_safe(head, node)
+      list_del_init(node)
+         node->next = node // A
+         node->prev = node // B
+...
+                                     de_thread()
+                                        // acquired tsk->flags
+                                        // and signal flushed
+                                        // through tasklist_lock
+                                        transfer_pid() // C
+                                                           
+                                                           posix_timer_fn()
+                                                              posixtimer_send_sigqueue()
+                                                                 // OBSERVES C
+                                                                 t = posixtimer_get_target(tmr)
+                                                                 lock_task_sighand()
+                                                                    // OBSERVES A
+                                                                    if (!list_empty(q))
+                                                                       // BUT NOT B
+                                                                       list_add_tail(q) // D
 
-Tvrtko
+Then who knows which write wins, B or D?
 
+Thanks.
+
+-- 
+Frederic Weisbecker
+SUSE Labs
