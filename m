@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86962525A8B
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:00:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57616525A91
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:00:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811239; cv=none; b=hn+c173x4Na2GjLyhqhgvevSmlMBnwoxr0s3EFp3sryM260svCeR4E2t0Fcj+6PhzDqPAWowyrhs5YfckWhEOlLruaU3n2nQ7d42q7sYYeDU3dz0MyynsQ/mqeZ6dGdQitk39Dzq4vuol4NHm3YQ/i0lS707g1JOpU7vqEksiek=
+	t=1788811240; cv=none; b=L5k6M6eJjnghp1dLcHoCbWCm4tK/tuH3ydVo+SenDeySt58IuxCUn5B+hlV1oudhIxhMuOi2wz9etjpnN6AQovglYoTvWFPR2Wb5bRMqaXNJz5pC4q2xab2dfdLlK6FueGiFk/QpkpNiaOr+msFPXYYeJzpDekIGnxVmL25W1ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811239; c=relaxed/simple;
-	bh=3+LPF30UP0DeBeBIXPVyDZn2VGOpFdc2mdckLtc6hVQ=;
+	s=arc-20240116; t=1788811240; c=relaxed/simple;
+	bh=ITb0k1tshp7fvKOp20Zkuda5jTuUXJ66+QbA35hjMXQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G2QOlEv6Ss6qBgxGN3MWKGoPX9rcNFnry2rr29MYEvg6wUfDFkI0SqNL53kr0nipF14c4V8E6chWgurfAoWigE7VRh3G2oHmO+uYkIaW/zWcb3m4qetQVKK3lq/n1dYnyzPy8F/B084SxJ+t7W/mwLmAIuS5Z84aW+t0hy5oFMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kwwd6N5C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=T0yMtzUdxX9QRJ0EUYaoK89BIhl1hqLe95brvdHdDHeaanQjiRqgl2wIpxNijV/oYPumonzMAZb1WpYGOe70slOgfMqmWhwzi0WxSMz6kTi7WygSYfOSYA4EC7T3kkQahvKZOfmH/l7yc2DnaAA0DFL3YQDkeEs0jHhMwufQcvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOqcqesP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kwwd6N5C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6E731F00A3A;
-	Mon,  7 Sep 2026 20:00:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOqcqesP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A96A1F00A3D;
+	Mon,  7 Sep 2026 20:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788811238;
-	bh=qwMoPwK//+U4C4bDpwD7zGa0KFykHcJPdzBKJuvO1Rw=;
+	s=k20260515; t=1788811239;
+	bh=quGLXxYtT2zMHJcOhXTJtF+0kdKbUM3Jd3iS0P1tScc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kwwd6N5C/8owrrRXwL3Yv25xnZp2yR+Y+lC+KQK/1Tpkh8QpX/+hJcWBWCVWc1axE
-	 RKDGha5/xXPIvGrW6BW3w03aqZGRUNCxS2/U23VI7wOOZHHXrZFBKRzCrBmbGTp84E
-	 tcwPJTv4Hrda9R2y5D8IPFmg99mBoG/AZ6eJ1FJysUG53h07lG4VCdIq1PP7VTKnuY
-	 g7dJE/jFsCWp9NB+PHPX8oh4LOFQC2BFWK4vOzYKg6pdp7b5ywezrU69+Y+H9e/oc7
-	 UjZlw4PyYLkisH5wrthgsjen2NjQ8MyA/u4UgVboncCXHqpXuuSL1RUrXou+YZWYe7
-	 RBLfBhSqswIYw==
+	b=JOqcqesPdeYsUQCpKx5PP6qVKFw/MsqP/kND1+71uGYB5972bRSBURbaBrft8Dj9M
+	 xhRCQhhpUTUbN6bCO5E4aSinZGuguwOBSQRLGjf8v0i6G1Yx4YRmtu1i/lSMidgoX1
+	 zeg671QMA65evxqFoVY+3xo31Ep4HCZV28ubvnaage+5M1g4xMFgDVVsGsAp62CpMd
+	 jDrVSot4ZzG8ArSuQB4k0huOcllWwcqrQoPM2TEVZyr5DZhLZtdy4w3bDl2yZD4D8S
+	 W4DluXa2FMIONYiSDa1aY+hoj4mDhW52Av1hRhFHP7dJwY//cMbww8kQ76qXaSHGY7
+	 JpuwxU5fWK73w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Rosalie Wanders <rosalie@mailbox.org>,
+Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
 	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] HID: sony: use guard() and scoped_guard()
-Date: Mon,  7 Sep 2026 16:00:35 -0400
-Message-ID: <20260907200036.328038-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] HID: sony: clean up device list on probe failure
+Date: Mon,  7 Sep 2026 16:00:36 -0400
+Message-ID: <20260907200036.328038-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090343-eligible-knickers-2dfe@gregkh>
+In-Reply-To: <20260907200036.328038-1-sashal@kernel.org>
 References: <2026090343-eligible-knickers-2dfe@gregkh>
+ <20260907200036.328038-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,155 +46,124 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Rosalie Wanders <rosalie@mailbox.org>
+From: Doruk Tan Ozturk <doruk@0sec.ai>
 
-[ Upstream commit da4f817ad273bca9aefd8636d347a8c101069111 ]
+[ Upstream commit 7c65699a3a311198a07659a614fe64d45924839e ]
 
-This replaces the spin_lock_irqsave() and spin_unlock_irqrestore() calls
-with the RAII guard() and scoped_guard().
+sony_input_configured() adds some controllers to sony_device_list before
+HID core registers their input devices. input_register_device() can fail
+after the callback returns successfully. sony_probe() then observes that
+HID_CLAIMED_INPUT is clear and unwinds, but only stops the HID hardware.
+The devres-managed sony_sc is freed while its list node remains linked, so
+the next matching controller traverses freed memory.
 
-Signed-off-by: Rosalie Wanders <rosalie@mailbox.org>
+Initialize the list node and device ID to inactive states. Make list
+removal idempotent and run the driver-private cleanup on every probe
+failure path. This also makes a second cleanup safe when
+sony_input_configured() already unwound a partial initialization before
+sony_probe() handles the missing input claim.
+
+Found by 0sec (https://0sec.ai) using automated source analysis;
+verified against the HID input registration and probe unwind paths.
+
+Fixes: 4f967f6d7374 ("HID: sony: Fix memory issue when connecting device using both Bluetooth and USB")
+Cc: stable@vger.kernel.org
+Reported-by: Doruk Tan Ozturk <doruk@0sec.ai>
+Link: https://lore.kernel.org/linux-input/20260724143925.007D61F00A3A@smtp.kernel.org/
+Assisted-by: 0sec:multi-model
+Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
 Signed-off-by: Jiri Kosina <jkosina@suse.com>
-Stable-dep-of: 7c65699a3a31 ("HID: sony: clean up device list on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-sony.c | 53 ++++++++++++++++++------------------------
- 1 file changed, 22 insertions(+), 31 deletions(-)
+ drivers/hid/hid-sony.c | 33 +++++++++++++++++----------------
+ 1 file changed, 17 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index b966e4044238c..41d79b317735e 100644
+index 41d79b317735e..16b16dd9a3e9d 100644
 --- a/drivers/hid/hid-sony.c
 +++ b/drivers/hid/hid-sony.c
-@@ -27,6 +27,7 @@
-  * There will be no PIN request from the device.
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/device.h>
- #include <linux/hid.h>
- #include <linux/module.h>
-@@ -520,14 +521,12 @@ static void sony_set_leds(struct sony_sc *sc);
- static inline void sony_schedule_work(struct sony_sc *sc,
- 				      enum sony_worker which)
- {
--	unsigned long flags;
--
- 	switch (which) {
- 	case SONY_WORKER_STATE:
--		spin_lock_irqsave(&sc->lock, flags);
--		if (!sc->defer_initialization && sc->state_worker_initialized)
--			schedule_work(&sc->state_worker);
--		spin_unlock_irqrestore(&sc->lock, flags);
-+		scoped_guard(spinlock_irqsave, &sc->lock) {
-+			if (!sc->defer_initialization && sc->state_worker_initialized)
-+				schedule_work(&sc->state_worker);
-+		}
- 		break;
- 	}
- }
-@@ -796,7 +795,6 @@ static const u8 *sony_report_fixup(struct hid_device *hdev, u8 *rdesc,
- static void sixaxis_parse_report(struct sony_sc *sc, u8 *rd, int size)
- {
- 	static const u8 sixaxis_battery_capacity[] = { 0, 1, 25, 50, 75, 100 };
--	unsigned long flags;
- 	int offset;
- 	u8 battery_capacity;
- 	int battery_status;
-@@ -818,10 +816,10 @@ static void sixaxis_parse_report(struct sony_sc *sc, u8 *rd, int size)
- 		battery_status = POWER_SUPPLY_STATUS_DISCHARGING;
- 	}
- 
--	spin_lock_irqsave(&sc->lock, flags);
--	sc->battery_capacity = battery_capacity;
--	sc->battery_status = battery_status;
--	spin_unlock_irqrestore(&sc->lock, flags);
-+	scoped_guard(spinlock_irqsave, &sc->lock) {
-+		sc->battery_capacity = battery_capacity;
-+		sc->battery_status = battery_status;
-+	}
- 
- 	if (sc->quirks & SIXAXIS_CONTROLLER) {
- 		int val;
-@@ -1625,15 +1623,14 @@ static int sony_battery_get_property(struct power_supply *psy,
- 				     union power_supply_propval *val)
- {
- 	struct sony_sc *sc = power_supply_get_drvdata(psy);
--	unsigned long flags;
- 	int ret = 0;
- 	u8 battery_capacity;
- 	int battery_status;
- 
--	spin_lock_irqsave(&sc->lock, flags);
--	battery_capacity = sc->battery_capacity;
--	battery_status = sc->battery_status;
--	spin_unlock_irqrestore(&sc->lock, flags);
-+	scoped_guard(spinlock_irqsave, &sc->lock) {
-+		battery_capacity = sc->battery_capacity;
-+		battery_status = sc->battery_status;
-+	}
- 
- 	switch (psp) {
- 	case POWER_SUPPLY_PROP_PRESENT:
-@@ -1715,10 +1712,9 @@ static inline int sony_compare_connection_type(struct sony_sc *sc0,
- static int sony_check_add_dev_list(struct sony_sc *sc)
- {
- 	struct sony_sc *entry;
--	unsigned long flags;
- 	int ret;
- 
--	spin_lock_irqsave(&sony_dev_list_lock, flags);
-+	guard(spinlock_irqsave)(&sony_dev_list_lock);
- 
- 	list_for_each_entry(entry, &sony_device_list, list_node) {
- 		ret = memcmp(sc->mac_address, entry->mac_address,
-@@ -1732,26 +1728,23 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
- 				"controller with MAC address %pMR already connected\n",
- 				sc->mac_address);
- 			}
--			goto unlock;
-+			goto out;
- 		}
- 	}
- 
- 	ret = 0;
- 	list_add(&(sc->list_node), &sony_device_list);
- 
--unlock:
--	spin_unlock_irqrestore(&sony_dev_list_lock, flags);
-+out:
- 	return ret;
- }
+@@ -1741,11 +1741,10 @@ static int sony_check_add_dev_list(struct sony_sc *sc)
  
  static void sony_remove_dev_list(struct sony_sc *sc)
  {
--	unsigned long flags;
--
- 	if (sc->list_node.next) {
--		spin_lock_irqsave(&sony_dev_list_lock, flags);
--		list_del(&(sc->list_node));
--		spin_unlock_irqrestore(&sony_dev_list_lock, flags);
-+		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
-+			list_del(&(sc->list_node));
-+		}
+-	if (sc->list_node.next) {
+-		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
+-			list_del(&(sc->list_node));
+-		}
+-	}
++	guard(spinlock_irqsave)(&sony_dev_list_lock);
++
++	if (!list_empty(&sc->list_node))
++		list_del_init(&sc->list_node);
+ }
+ 
+ static int sony_get_bt_devaddr(struct sony_sc *sc)
+@@ -1880,6 +1879,13 @@ static inline void sony_cancel_work_sync(struct sony_sc *sc)
  	}
  }
  
-@@ -1879,12 +1872,10 @@ static inline void sony_init_output_report(struct sony_sc *sc,
- 
- static inline void sony_cancel_work_sync(struct sony_sc *sc)
++static void sony_cleanup(struct sony_sc *sc)
++{
++	sony_cancel_work_sync(sc);
++	sony_remove_dev_list(sc);
++	sony_release_device_id(sc);
++}
++
+ static int sony_input_configured(struct hid_device *hdev,
+ 					struct hid_input *hidinput)
  {
--	unsigned long flags;
--
- 	if (sc->state_worker_initialized) {
--		spin_lock_irqsave(&sc->lock, flags);
--		sc->state_worker_initialized = 0;
--		spin_unlock_irqrestore(&sc->lock, flags);
-+		scoped_guard(spinlock_irqsave, &sc->lock) {
-+			sc->state_worker_initialized = 0;
-+		}
- 		cancel_work_sync(&sc->state_worker);
- 	}
+@@ -2038,9 +2044,7 @@ static int sony_input_configured(struct hid_device *hdev,
+ err_close:
+ 	hid_hw_close(hdev);
+ err_stop:
+-	sony_cancel_work_sync(sc);
+-	sony_remove_dev_list(sc);
+-	sony_release_device_id(sc);
++	sony_cleanup(sc);
+ 	return ret;
  }
+ 
+@@ -2066,6 +2070,8 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	}
+ 
+ 	spin_lock_init(&sc->lock);
++	INIT_LIST_HEAD(&sc->list_node);
++	sc->device_id = -1;
+ 
+ 	sc->quirks = quirks;
+ 	hid_set_drvdata(hdev, sc);
+@@ -2094,6 +2100,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 	ret = hid_hw_start(hdev, connect_mask);
+ 	if (ret) {
+ 		hid_err(hdev, "hw start failed\n");
++		sony_cleanup(sc);
+ 		return ret;
+ 	}
+ 
+@@ -2145,7 +2152,7 @@ static int sony_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ err:
+ 	usb_free_urb(sc->ghl_urb);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ 	return ret;
+ }
+@@ -2160,13 +2167,7 @@ static void sony_remove(struct hid_device *hdev)
+ 	}
+ 
+ 	hid_hw_close(hdev);
+-
+-	sony_cancel_work_sync(sc);
+-
+-	sony_remove_dev_list(sc);
+-
+-	sony_release_device_id(sc);
+-
++	sony_cleanup(sc);
+ 	hid_hw_stop(hdev);
+ }
+ 
 -- 
 2.53.0
 
