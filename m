@@ -1,122 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE92479879
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 13:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BECF472535
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 13:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787115; cv=none; b=i0uIVyjq6qGlgBZ8ELERmICQm98+NcZm4vRTKeN4rQUGHIQEVoX2Q9PhszwBdStmXu8bIo2X0lOmTOL4WVyZWgFUq0AttLVvl/e13wAi1l+0vhJQoupeqKkfITUFz9E8auPe6+w4qGAqGIXQ1TJd1gZrEUYtG9uhAdwB19VdLhM=
+	t=1788787305; cv=none; b=OkEGwJGPk69Lez8uHxTNdKDom0pUPBI/3QJ73URTgb6VuR4ark7PPFH9gwpzcaTADBkWkvqp52UAEd+JGi1FcwpBMzSqIAkK3OyxJxeswFCDaolSJW5xDzreMPrUicJ/gagxTTPJrldR/LA/JatzuU1snk8tfvAsPuYA2HCweAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787115; c=relaxed/simple;
-	bh=ZHT1nwRV+EF2Mm8bVfNXYmPeTXEgGItvBUgZF4Bfnrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LkuwqziXIyuOUnn2V9FPvQiwL3n3x3d3y/vLE/qRRdxWNmUvyoGmIe1XHVmGj2iq8vV72HYmpAMo0+DooAYo0NBTvGL4QYi+WEoCp2DzMN81GpfySjqCiAH6MOvZawAjRCPqY0FBAYQJ8EwEBcgEzDWiNfSPw74jJ/rPpyJ1n1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7CNazp9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788787305; c=relaxed/simple;
+	bh=T1GH6hItrh3S2bTGYxMz3vhBOz0FujXzWdtsg4c5ifg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lNPkNlpW1jDnnsjq/3s0S0bUYQOer0+KD1aFTXpmOL42C9xAbQOxF49lmlpFr4bmGMkzmryBJtKDtM8q29DxjsprNUMCzTRHAoB5sjOg3gdfwYZE5bHxByMbGBi/7GkuQ01cjvHRvJMMnYWkGZ8uUPgX9euo+ENKmuig8eo+z2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtK5B++0; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7CNazp9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34F471F00AC4
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 13:18:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788787112;
-	bh=hEWmuW7cufMWV2/b01w8XaTQOw/m9I21NgDQfNHpcUA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Y7CNazp9aYy+PdY0qNLl0B7UHZGVyc8NYIl94q4rS75a7fb8BfHqZHqCpHGBY7ozT
-	 bpCYs8vIAFiWTPcNj/lChvaKSivlCaFedS6Ze+NtCFryS34HzgcrXFVtO2tOcXATXj
-	 aknvYJ11xVYV4y8yNd8VziMCP2T0lBncq/esm+x6+QSPmgy5nksNQSNEfaMp7IoRP9
-	 vYRpAABEdC4+WP2xtBFi4jX9ngfv44GbSba9HP9kVPFnxDWZslemR+Fl1L1buFOYDw
-	 tuhIDnqUDLUhOdvW78rdgfXZPJD3XBxfgdDBeEEUMsAOf4bwV2JQol8t2DBGFTlthI
-	 YPyUwMljIZjdg==
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a7ea0046deso4404406a12.3
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 06:18:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwJtVyMaROqgN2Fj/N2H4VAL7I7nXQu2kL3YvfdV1tPOBN5XYDxk3Bc70gw9dpaNXXj2HuyFvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5hHl381grk15YEi8JeQgwFNRA2aJTfsOgf88PzgXfbLgSOB3d
-	j2Tp7JK2z0FmH1kjPc9jncGSD5DieCf8HqXOyvR1Pdpht4mXbG79pNI1jDp3P/NHjlsa6/k1KfY
-	KPidv4YzO9C/16LF7SxeYv1KfoKfYc8M=
-X-Received: by 2002:a17:907:7294:b0:c26:19de:9139 with SMTP id
- a640c23a62f3a-c2619dea0f1mr784114966b.44.1788787111068; Mon, 07 Sep 2026
- 06:18:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtK5B++0"
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4667f43a4ccso1566111fac.0
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 06:21:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788787298; x=1789392098; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
+        b=RtK5B++0oE1HuOhYXf4gzgj8BsCro4V6Xj/h3QKp4ZORZsksRt+6lqMFIHqpSjtvo/
+         YD8OHYwhUppB/qp+gAbFcdaqJNDSXdUDfsHgQj1zz5fOndzoHPKdUCefaS3n8SHVB9aH
+         /Ea3c+pyCXFhKaqui4sLTNZdAC1x7r9h5VOb+ctqGY82CLpbewpcX4IGb1Nm8ArKN9tT
+         pRYTR0wfc5qoerDQu7kGnazuugDc6GfLi3k2LRxloQdsZwzh0USFdoCT3iEU5meUDQkl
+         uPSvaw9PyBe01tFy4P974Tg5SdCl/BqVwS9oORg0NKhTxffL5ypzRnnDT0aueZz1lyku
+         Dswg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788787298; x=1789392098;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
+        b=XqCl+wSSS2Pusw7Nys/KRHKS9MgZSfVJLMfhLF/XMOURh211lrUKkAL9ylek1lWYVN
+         lwIRshyn56FtmbrJ/QjAmIvZfxxxareokB5SHgET8tWETqXSVYImcwsnvKu+F+mJvRxs
+         a9ponz0nzuVjiUQ9CJk3YF9OWRK5oR3PNamxR6gRCDgbhh1MbdY0Q9ZxBp/yPndmwNNq
+         RfKPKLV/d0XEO4GD8ZxRDaQ0YezscldrFhJ76UrxFlVysR8Bg3L9Jf7hYeg2lWqzAlaR
+         UXRAyMcVewAGZ6WKHy3svLHRFvdDu2EtXoO8mwjUg8L/W3lB9fO37hRipHtTkFM3Qimu
+         LNjw==
+X-Forwarded-Encrypted: i=1; AKwUvByLcOm26ic1Ym3kY2a5jnnmo69xKC8NdpdFx4FYn/5iXEH6dXn3X1AV04CZ2CDauob7dr06Zv4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnM58ol9yqeAvKmVqdvVI//UawBEeQfwM7M0Tx+VmvPtVgv8tY
+	wZ9RbS+Epm1fMOzhYw7qF5ORvUg2kGWYwO5wA6+8VC/XG/SyYGOifGra
+X-Gm-Gg: AYBFou1mLYqu7O/S9JKLKr4i6vOyL37IkZ3sQ+Igv689/VjTO5BzjLR/8W41LNbo+ZC
+	UE9TQursdVFDWOQ4rbOr6nDyynerJpW2K7j0F6XVO6gzp+2qWaXTRG9t92aLaF8VojiqAIY+kct
+	BsY0rgHxQK+2QAgcpqy7erGser1EN1x9IT3HJP9OBJp66KDl4lMrJvA1l7x2P0H2ke5areBy2iE
+	CFMic+zja6ikrym8BIg5mOCxcUwNlOcwDb88rSyA0YzontLtQAgtuOEQG5bSm4jSIuQpfgoo/Y4
+	I0Slnc+tyNAB9J0XIZnwsJvniog+w7ARMgyPLpJE+WfqZb0xfUWzJbT9rDuPEwZioq+yvAwbaIo
+	7NiMYAfKFlLwON3905AjKlCWqqUE9qnjwQm4CmGXN8lg9AJEVR3kOV+HI5cOKL66qNJR0dq8AMa
+	HubVRMkfsOBDl15teGPxts+ifAonwHg1/MvD2LE2j4uAtiNZ7OoPIMeuL7XFwyLgVqtAGWq6Mys
+	1RCt/A+OUn5Q59rwKlTvhD7dt8gkUEWXtEnXwvG
+X-Received: by 2002:a05:6820:2004:b0:6b9:2d62:960c with SMTP id 006d021491bc7-6b92d629902mr6339050eaf.68.1788787298260;
+        Mon, 07 Sep 2026 06:21:38 -0700 (PDT)
+Received: from HXDQXTDYHN.bytedance.net ([139.177.225.231])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm28284062eec.26.2026.09.07.06.21.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 07 Sep 2026 06:21:37 -0700 (PDT)
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+X-Google-Original-From: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+To: Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Wupeng Ma <mawupeng1@huawei.com>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/hugetlb: fix subpool minimum reservation rollback
+Date: Mon,  7 Sep 2026 21:20:55 +0800
+Message-Id: <20260907132055.26696-1-zhoujinmeng@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907130821.1726595-1-xialonglong2025@163.com>
-In-Reply-To: <20260907130821.1726595-1-xialonglong2025@163.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 7 Sep 2026 06:18:19 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
-X-Gm-Features: AcwNN1VW7ax0yb2yZAzS8soWDZl4_rah1ysY0avA1R2-TIGVjOCZmj9VVC6GuJ4
-Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] mm/zswap: publish the initial pool with list_add_rcu()
-To: Longlong Xia <xialonglong2025@163.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Longlong Xia <xialonglong@kylinos.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 6:09=E2=80=AFAM Longlong Xia <xialonglong2025@163.co=
-m> wrote:
->
-> From: Longlong Xia <xialonglong@kylinos.cn>
->
-> zswap_setup() publishes the pool on the zswap_pools list with a
-> plain list_add(), but the list is walked by concurrent RCU readers
-> holding nothing but rcu_read_lock() through zswap_total_pages(), e.g.
-> /proc/meminfo and the shrinker count path.
->
->     CPU 0 (writer)                          CPU 1 (reader)
->     --------------                          --------------
->     zswap_pool_create():
->       pool->zs_pool =3D zs_create_pool(); (1)
->     list_add() -> __list_add():
->       WRITE_ONCE(zswap_pools.next,
->           &pool->list);                (2)   zswap_total_pages():
->                                                 pool =3D READ_ONCE(     (=
-a)
->                                                     zswap_pools.next);
->                                                 zs_get_total_pages(   (b)
->                                                     pool->zs_pool);
->
-> If (2) becomes visible to CPU 1 before (1), CPU 1 finds the pool at
-> (a) but dereferences a wild pointer at (b). Publish the node with
-> list_add_rcu().
->
-> Fixes: 91cdcd8d624bf ("mm: zswap: optimize zswap pool size tracking")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Zcode:GLM-5.3
-> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+When a reservation request is partially covered by a subpool minimum and
+the remaining global reservation fails, the error path first calls
+hugepage_subpool_put_pages() for the subpool-backed portion. It removes the
+failed global portion from used_hpages only afterwards.
 
-Acked-by: Yosry Ahmed <yosry@kernel.org>
+hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
+should be restored. Since used_hpages still includes the global portion, it
+can remain at or above min_hpages and prevent that restoration. It then
+reports the subpool reservation as releasable, causing
+hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
 
-> ---
-> Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong=
-2025%40163.com
+This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
+size=10M,min_size=8M. After a successful three-page reservation, a two-page
+reservation which needed one subpool page and one global page failed with
+-ENOMEM. HugePages_Rsvd incorrectly dropped from four to three even though
+the subpool minimum was still four pages.
 
-This should probably be:
+Roll back the failed global portion from used_hpages first, so that
+hugepage_subpool_put_pages() evaluates the minimum reservation against the
+current usage and returns the correct global adjustment.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong20=
-25%40163.com
+Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+---
+ mm/hugetlb.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
->
->  mm/zswap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 37f34e406c8e..cb5a0855fd2a 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1803,7 +1803,7 @@ static int zswap_setup(void)
->         pool =3D __zswap_pool_create_fallback();
->         if (pool) {
->                 pr_info("loaded using pool %s\n", pool->tfm_name);
-> -               list_add(&pool->list, &zswap_pools);
-> +               list_add_rcu(&pool->list, &zswap_pools);
->                 zswap_has_pool =3D true;
->                 static_branch_enable(&zswap_ever_enabled);
->         } else {
-> --
-> 2.43.0
->
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 785772845795..3e3cda181e72 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -6808,15 +6808,6 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 
+ out_put_pages:
+ 	spool_resv = chg - gbl_reserve;
+-	if (spool_resv) {
+-		/* put sub pool's reservation back, chg - gbl_reserve */
+-		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
+-		/*
+-		 * subpool's reserved pages can not be put back due to race,
+-		 * return to hstate.
+-		 */
+-		hugetlb_acct_memory(h, -gbl_resv);
+-	}
+ 	/* Restore used_hpages for pages that failed global reservation */
+ 	if (gbl_reserve && spool) {
+ 		unsigned long flags;
+@@ -6826,6 +6817,15 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 			spool->used_hpages -= gbl_reserve;
+ 		unlock_or_release_subpool(spool, flags);
+ 	}
++	if (spool_resv) {
++		/* put sub pool's reservation back, chg - gbl_reserve */
++		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
++		/*
++		 * subpool's reserved pages can not be put back due to race,
++		 * return to hstate.
++		 */
++		hugetlb_acct_memory(h, -gbl_resv);
++	}
+ out_uncharge_cgroup:
+ 	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+ 					    chg * pages_per_huge_page(h), h_cg);
+-- 
+2.39.5
+
