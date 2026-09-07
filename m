@@ -1,44 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77B22E4257;
-	Mon,  7 Sep 2026 09:45:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 281F2442393;
+	Mon,  7 Sep 2026 09:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774318; cv=none; b=UTQ6tdwVA16rjUyxbquWWJP1Ew0XJ8ac4OoyLHkLqwykxlCXAvevzm0ru9fDBmFE7+7C9TB3VN30Jzh6LPqz+GNYXIZnwAzI+gFvUuTTN/gmoZxEox929OytMEYXxMWycJmNy0ojT6hO8aGWvCxeOXSX4XIAiw4k+N3UdHj2K6A=
+	t=1788774331; cv=none; b=ojGUA+cd/5ObmrZWztVXYG1Ddf0GxzFUD092zH0Jnp9gvzzSbp6P907UBwh4BgjyFgUj7YFqA9fsK0Fukn1EhmS+zLPJ5mUTghHu03mMtpm7fDMLloIK43XujpVqBMHCbvXEY72Gho7nxPfkgD9o151MwQIf8oa6kUKyx/hjrW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774318; c=relaxed/simple;
-	bh=QulMtI4ceP4x8mHEkb9qFFuaT4z3oTepjm9z8xEWagA=;
+	s=arc-20240116; t=1788774331; c=relaxed/simple;
+	bh=aFMxlYIEr10mLBc7x0/wwlHNnkqEkXrtV230o1PAo5U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ezaiTiII8K43hSl+7pHIwNxQx/Up78D52gNK8H/tJd0spufWrw1GXO7aScQ97XCuJH6ysg1TJ174z4mywcZhO7NJ/o+U6dBOikzMPC7uK5HSuL5YFrcaTyS2SKJ6wJ2xdGkFlw0utFnhl/MM/8ucJi0UU496h1/gigSd1GSFa4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjdblaSn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=gXMWbD4oDT3O9+RErIzzYkvEbwGOMCn/nAA/1i19FUDgIDtStfNaNDsJlZ3f4EvnNi3en62eUHKQRDKUgYLGhiZJGkBSD8aBA59vtQM3V6x4+GJIdq95Kr2c386tu5FyiSFJ/yXT4gZl3GutvQzR2nxwJ3px4iKPCs8JV9+9GQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=wBQtCOO8; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=o4lmmul7; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=nI5wW2TB; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=QhPIsXQU; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjdblaSn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6FC11F00A3A;
-	Mon,  7 Sep 2026 09:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788774317;
-	bh=Ng0muayWWjw6g2DxYAEFys5pXOUfKx7shtKSJ8X6pxU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NjdblaSnKikkiedYP09hXyxIwVPShiPhId1lAdrI/ae7x+vuyqX3/d95/p5Z8HVI5
-	 yIao6+F9Wz++8CHrAjIkh5yaobpSGuLauhaxPxhm860iszNHfvgW/t01tnOnO1iyXE
-	 ZksPoI9MdCjx1vnvl/NKN4wFnt3GiYgNCrSO7NQs5qSHT1cPlcMLa6syH5ooKVPU9v
-	 7X2PrSgvu7orrWwFBGNfiwbdtzIkgVxm5g1a8w7znResfoFvrZMeM7XBFCktL7jz+u
-	 hu7OnXCSvBW6uv9AWRhsGLbqjFW3aGkqENK3837Xy+eAeXzSNKrrlb7/1ZkJ87Xy71
-	 oDY710N2Suk7Q==
-Date: Mon, 7 Sep 2026 11:45:12 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Hajo Noerenberg <hajo-linux-ide@noerenberg.de>
-Cc: Damien Le Moal <dlemoal@kernel.org>, linux-ide@vger.kernel.org,
-	Pali Rohar <pali@kernel.org>, stable@vger.kernel.org,
-	risc4all@yahoo.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ata: ahci: work around lost interrupts on Marvell
- 88SE61xx
-Message-ID: <ap6HqG5ZwCxfb8OJ@ryzen>
-References: <20260831124303.920391-1-hajo-linux-ide@noerenberg.de>
- <178818641418.216562.3155723702033731494.b4-ty@kernel.org>
- <aprZi3G9Yks1Gq9-@ryzen>
- <1fed10ef-4a5d-4c49-bf23-34c4c30c5884@noerenberg.de>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="wBQtCOO8";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="o4lmmul7";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="nI5wW2TB";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="QhPIsXQU"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DD55D1F387;
+	Mon,  7 Sep 2026 09:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788774324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TK18g6cC4GqXBbeIEtDDxGQ3nIY8al02NrXM6/w1y30=;
+	b=wBQtCOO8jv8Sup2KrEujrraHWxWIeH8yNfYNnnOvGS6o4yDUYc3qWX+8+0WC2rdraoevyt
+	E/1+/DdkM1RQk3nYxX6SCiEr7FJlY7DckMVr76SKCQSfvxdxLqWqSyifj3L43AaY6hdVU9
+	PfDIVM1Te0HNhblztCriN6U0drZt6iI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788774324;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TK18g6cC4GqXBbeIEtDDxGQ3nIY8al02NrXM6/w1y30=;
+	b=o4lmmul7lMOPbPvq4TA4XZjEpxtxN8/V0TgY14kY57Ogxd2vak4LRaQhL9iRlbxA2SNh7w
+	RNG/U4ahJ/ZfG1DQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788774319; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TK18g6cC4GqXBbeIEtDDxGQ3nIY8al02NrXM6/w1y30=;
+	b=nI5wW2TBXKEDbCy48a44C3k37yi6Ese8kG/pJC3073WmzGkU8tkxu5wdKUebb6PRJrpQIg
+	qsr1//KSTjSDF5pxWUABOai0ajQTHIB/OwpezF4qDsFTRAoG6c3jTse5PkWIY7yKizxMdJ
+	XeJd52reJ6nUHQGeCoLYf0xfWKAmeWc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788774319;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TK18g6cC4GqXBbeIEtDDxGQ3nIY8al02NrXM6/w1y30=;
+	b=QhPIsXQU28dWqTbr1U2rjs5DSZUYwXQyjN2F4PmMmMydex7UH0YLD9I3X7/OdLlz8qpjeq
+	oR+hqy8OnyMIskDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BD37313432;
+	Mon,  7 Sep 2026 09:45:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id kSUsLq+HnmpZDQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 07 Sep 2026 09:45:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 57EDBA13B2; Mon, 07 Sep 2026 11:45:19 +0200 (CEST)
+Date: Mon, 7 Sep 2026 11:45:19 +0200
+From: Jan Kara <jack@suse.cz>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, jack@suse.cz, andrii.nakryiko@gmail.com, 
+	linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] fs: reject U64_MAX as last_mnt_id in listmount()
+Message-ID: <vwmaviizpdpjwi5rf4gj65wmge5xj4rivhsissnxf7qytztzxr@qsphr7wj4h76>
+References: <20260907065724.1355551-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +88,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <1fed10ef-4a5d-4c49-bf23-34c4c30c5884@noerenberg.de>
+In-Reply-To: <20260907065724.1355551-1-cui.tao@linux.dev>
+X-Spam-Level: 
+X-Spam-Score: -2.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-2.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TAGGED_RCPT(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,kernel.org,suse.cz,gmail.com,kylinos.cn];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:email,kylinos.cn:email]
 
-Hello Hajo,
-
-On Sat, Sep 05, 2026 at 02:30:14PM +0200, Hajo Noerenberg wrote:
-> On 04.09.2026 at 16:45 Niklas Cassel wrote:
-> > On Mon, Aug 31, 2026 at 04:27:24PM +0200, Niklas Cassel wrote:
-> >> On Mon, 31 Aug 2026 14:43:03 +0200, Hajo Noerenberg wrote:
-> >>> ahci_single_level_irq_intr() services the ports first and clears the
-> >>> global HOST_IRQ_STAT afterwards, as recommended by AHCI 1.1 section
-> >>> 10.6.2.  The Marvell 88SE6111/6121/6145 family stops reporting interrupts
-> >>> for a port when HOST_IRQ_STAT is cleared while PxIS still holds bits:
-> >>> PxIS keeps its content, HOST_IRQ_STAT reads back as 0, the port is never
-> >>> looked at again, and the command in flight only ends in a timeout.
-> >>>
-> >>> [...]
-> >>
-> >> Applied to libata/linux.git (for-7.4), thanks!
-> >>
-> >> [1/1] ata: ahci: work around lost interrupts on Marvell 88SE61xx
-> >>       https://git.kernel.org/libata/linux/c/22f2ba34
-> > 
-> > Decided to send this for 7.3-rc2 instead:
-> > https://lore.kernel.org/linux-ide/20260904144228.1473602-1-cassel@kernel.org/T/#u
-> > 
-> Niklas,
+On Mon 07-09-26 14:57:23, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
 > 
-> thanks for moving it to 7.3-rc2.
+> listmount() uses mnt_id_req::param as a pagination cursor: on forward
+> iteration do_listmount() starts from the first mount with an id strictly
+> greater than last_mnt_id.  The sanity check in prepare_klistmount() only
+> rejects ids in the range [1, MNT_UNIQUE_ID_OFFSET]; U64_MAX passes the
+> check, and incrementing it wraps back to 0, so mnt_find_id_at() restarts
+> from the leftmost mount in the namespace every time.
 > 
-> I spent a lot of time on this bug, mostly because I did not know what I was
-> looking for.  Now that it has a name, searching for it actually works - and
-> out of idle curiosity I went looking a moment ago, only to find that FreeBSD
-> has been carrying the same workaround for years.
+> A caller paging with last_mnt_id set to U64_MAX therefore always gets
+> the same first batch of ids returned and can never advance to the end of
+> the list:
 > 
-> In FreeBSD's sys/dev/ahci/ahci_pci.c all four chips of the family are tagged
-> AHCI_Q_EDGEIS:
+>   # base: every call returns the same first batch
+>   listmount(param=U64_MAX) = 8 ids: 2147483886 2147483888 ...
+>   # patched:
+>   listmount(param=U64_MAX) = -1 EINVAL
 > 
->   {0x611111ab, ... "Marvell 88SE6111", ... AHCI_Q_1CH | AHCI_Q_EDGEIS},
->   {0x612111ab, ... "Marvell 88SE6121", ... AHCI_Q_2CH | AHCI_Q_EDGEIS | ...},
->   {0x614111ab, ... "Marvell 88SE6141", ... AHCI_Q_4CH | AHCI_Q_EDGEIS | ...},
->   {0x614511ab, ... "Marvell 88SE6145", ... AHCI_Q_4CH | AHCI_Q_EDGEIS | ...},
+> Reject U64_MAX up front together with the other invalid ids.
+> 
+> Fixes: b4c2bea8ceaa ("add listmount(2) syscall")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-Thank you for the information.
+This looks OK, but I think we should reject U64_MAX only if
+LISTMOUNT_REVERSE flag is not set? With this flag specifying U64_MAX
+actually makes sense and it is likely used by people?
 
-If Marvell (or anyone in the community) cares about these controllers,
-patches are more than welcome.
+								Honza
 
-
-Kind regards,
-Niklas
+> ---
+>  fs/namespace.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 8d4009cfbf5b..cb95b855f78b 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -6108,6 +6108,9 @@ static inline int prepare_klistmount(struct klistmount *kls, struct mnt_id_req *
+>  	/* The first valid unique mount id is MNT_UNIQUE_ID_OFFSET + 1. */
+>  	if (last_mnt_id != 0 && last_mnt_id <= MNT_UNIQUE_ID_OFFSET)
+>  		return -EINVAL;
+> +	/* U64_MAX would wrap to 0 and restart the iteration. */
+> +	if (last_mnt_id == U64_MAX)
+> +		return -EINVAL;
+>  
+>  	kls->last_mnt_id = last_mnt_id;
+>  
+> -- 
+> 2.43.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
