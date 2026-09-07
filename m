@@ -1,179 +1,263 @@
-Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B86E51D523
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 20:02:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A7D2D592D;
+	Mon,  7 Sep 2026 20:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811331; cv=none; b=nq4rtH0bV2OxGflvBo/wPzyYS2w0N4I7Zy8GQoTTGJWnGY11kROc6XMH3mferRJsRqedyPLdp0MfjMINYnOp6Vg5Shkn3zfEoDZsLPC/C5niprryc7UKHmBwaw6BeoFNoEwGZYwsPf8Y6S6xkqrpx5G3JHL9dO4F2Szin6nOI6k=
+	t=1788811355; cv=none; b=JKN1ENPP5I0kfReNHWPXGY9oQycYJB8xOcclL9v/ss6DbZLLX1iaVTYGitDlGTSSNLAuMe6+8IYfJ7M3Ir15brMr3TUM6W76bokN538SH3f1VK9SLbVBbMvNVRtLM9QuthEty+QBD3+Fybv6RMXdoLtDoFSmNTCWCQVUweEwMYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811331; c=relaxed/simple;
-	bh=32e5Hq42eMbENhVQyuKVR9aB0aAxBUGCy1TPX6J6la8=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
-	 References:In-Reply-To; b=cifnan2Z1aPuzAPg5/ycoH7HEvUXZqlHqYySVNr+Tc3inI+mmRNiUn/XWbBCsM8EiPTvM/BBQ53QjyJV2KwjJxGOQjfUsGp4rI9l1qEkyCicKAGeqTNx4kSNVdpuUhiQ2R5HDGS6InWWrl0p7ESffhC5jvbSI/xvw3kYChCvHFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ipkxgOAr; arc=none smtp.client-ip=209.85.160.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788811355; c=relaxed/simple;
+	bh=P89AvUDHHiPuptr/iKn0Q3iRnug2zzEL/fIzUG/GwDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iBU22ycEs2SPmnt0g23srN7OjFF/0kyVS+HH4kOPhVi4xYrRIAC6fn/PjDjLXCh6z7Wqy3FAqJeP96WihvaLFUx2iKFKrMne6OqZhcjULyclviu8X14XlA1hDODx8q/eMTtrxuu6D4awTkdU1l3TWvVZISQV4Od/MA4R7pbp+TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xaxn5Zyq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ipkxgOAr"
-Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-46aef784ddcso1389878fac.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 13:02:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788811328; x=1789416128; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ngem6m2yG08mHgsLH9JWCZ0vrxKdp0QjFmiqcsYBtQw=;
-        b=ipkxgOAr9TbDmqsS8Fc4B6E5afu20lBK6c+fnOnm1l2JUdgsKjLHTY31mA7j6sw3Dc
-         9FhTFwfoZFwtqveB6OaamYtAeXx59vw5PGXezaqfxc+iwDmxP2IEY7mCBl+q/lqP8njf
-         mDV3NbNcA2I3tC01Sq5cLKRmZnbOCdlytBVhf9SrOKRSbqZXxo74hH2pGl7sbeCAuaSS
-         tDpcfbXd3C6xRtq+K6svHQ/9GK5b2qYshJ7e4y+e4Xa4dtz32Qq2GKOvJURMloytJnjc
-         LaNwbf0uCnem/HLWQukQeYzUPF5zcs6l/Zupgu7XWQ88/G9K6Ddiw/Lofs49H4Y0Atx3
-         ksIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788811328; x=1789416128;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ngem6m2yG08mHgsLH9JWCZ0vrxKdp0QjFmiqcsYBtQw=;
-        b=fvcmTNG0OMih5B4jIhhxBKL5qTTn5LNHprwe4g2g00sqLZsTScMTM/zdg+2Tpqzwby
-         IjwjFM42jFa21eZoAeVhGihJpnHDz6QHnl6LsjVz6Y9bDVAMdJj6ZpD2lmARLRD4peEV
-         MIJWoU6AMA2KYrY5+C2uWq/2rQWe8or+s93yRqgYSBYBZrTrzPM9q0myx0q7QvcRmR8T
-         wcTNWg8+woFE5KH98CUyflCl8x/TzxSoD2qcoYw+Ubj9z77jAcuk81p+UZnpOv9LqVt4
-         Vb60Ai6C0SkCHiVXsk86rMZebu8BB4eiUSDVAo1uXk14Rsm/lrCdK5iPcjNPCmnuIUlB
-         Zb5w==
-X-Forwarded-Encrypted: i=1; AKwUvBx/bDh/8yuThsY2Bhu/vhJ3JxN4Mtz+IFhHt17zTqtA2nB0G40cKJZLERsLe+FGR8keqHS9jvw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJncQr9QxcdZOB/4T+eQbwJpG1mj4IZTghbGOcWYfyzKaD+auO
-	8GUvLhj82meOtqjrMUhvgC5Xfh/S1XWM2JHXGN+LwU9xMqePkdBNU6cC
-X-Gm-Gg: AYBFou0aIVhEllFei1tU+v4R7WVFzYO5pkC+m9wk+PcKQRuLC5TcT5vEmgWF4Fg+Vsu
-	159aCDIEEhgz1wrzDBF1vr8XqOGiV/o905H5tWAibIiewLxyjR2OihG+FeX50iEtOPskQfELeu6
-	xrVFjC0SG2V6YAsz/lPrMto0awgVQLqCEfL0Uph53ijhLqFlIRY6rRd7byMXYp4HVjWWIxEksSS
-	5BkJ844l+L8sRpOGvxecf2oEsOC1pnqM88eAzEsmBT3WE/bdUFXhAggFco15sXh6VaUO9lMlo+8
-	Vu0SlggEnvF0Vvt+syBmLc06EXQ8fesHP1fKS2iLIzC1ent8/zTt+cMQgFX8/5r/u+wdjNOLLX5
-	w5QmGYeOlMCBkyiBpcWTmFcdKjl4bIw3/KWSZDSlk0S0+XgVSOk9hR74EqWtV3z66GK1nUWN0n8
-	A0w+tvRQtejO+sb6JMlp2Zousno/arO86o7pqqMijDadzgIrwGXGFPA9gM2ELlgbQnCc6YlyCXs
-	1a3YzbaQoNoeVC/xHIbL5HzQ3nUnEJW30VIJKrSRV8gHO4WHllOj+A=
-X-Received: by 2002:a05:6871:6315:b0:447:4fc:1da1 with SMTP id 586e51a60fabf-475526ec139mr16680060fac.12.1788811327749;
-        Mon, 07 Sep 2026 13:02:07 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:1e::])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-476ed51dd64sm7220292fac.18.2026.09.07.13.02.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 13:02:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xaxn5Zyq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5421F00A3A;
+	Mon,  7 Sep 2026 20:02:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788811354;
+	bh=CZp9MQtMHz2+2kWpWNvVGa8Czo7fd2YuqFVjvJBqt9g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Xaxn5Zyq3Zh6YNGRvLtQuVm+NQpM9BWmnk8jbS1EnCD4VRfgdsJhdBY/JvwPyEIPE
+	 +bS1tIxSogjKgQ6BVPC861F1q6TFD2wipwg1FCIVbKUTWlvjm+phpvamQ1UaIG4oWk
+	 bzP7XzNTWz/YINQBS7OfE2wNxyEBv9R4dxEE9FnHT8y3PXpvYltWTHG1zHEqVx1qpo
+	 +iED8u69XsQYm0tDokPFgBeIgRiH+NpkaGxfsTEN8gNof2JTrrMmWm1BVp8nbVNq8h
+	 YsqgHFlHloBt7tFWZatNPngFIvD4vwRHJbidT+GGhL3HBEaocpqllshRKI9Of5129G
+	 clX5XGU/JwtcA==
+Message-ID: <6d6a876a-74a1-4317-9972-cde1d5ba844b@kernel.org>
+Date: Mon, 7 Sep 2026 22:02:25 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/huge_memory: bypass THP tuneables for huge pfnmap
+ mappings
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
+ stable@vger.kernel.org, SJ Park <sj@kernel.org>
+References: <20260907-hugepfn-allowable-orders-v2-1-b89728339148@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260907-hugepfn-allowable-orders-v2-1-b89728339148@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 13:02:04 -0700
-Message-Id: <DL9COXZQXX4V.1FN45QO2Q77ZH@gmail.com>
-To: "Weiming Shi" <bestswngs@gmail.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
- "Stanislav Fomichev" <sdf@fomichev.me>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Alexei Starovoitov" <ast@kernel.org>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "David S . Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>
-Cc: <bpf@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <co+adfca3e91be95776@bugs.sh>, "Xiang Mei"
- <xmei5@asu.edu>, <stable@vger.kernel.org>
-Subject: Re: [PATCH bpf] bpf: refresh seg6local SRH pointer after skb pull
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc
-References: <20260907192129.557377-2-bestswngs@gmail.com>
-In-Reply-To: <20260907192129.557377-2-bestswngs@gmail.com>
+Content-Transfer-Encoding: 7bit
 
-On Mon Sep 7, 2026 at 12:21 PM PDT, Weiming Shi wrote:
-> An LWT_SEG6LOCAL program can invalidate its cached SRH with
-> bpf_lwt_seg6_adjust_srh() and then call bpf_skb_pull_data(). The latter
-> may reallocate skb->head, leaving the per-CPU SRH pointer dangling.
-> Post-program SRH validation then writes through that pointer.
->
-> BUG: KASAN: slab-use-after-free in seg6_bpf_has_valid_srh (net/ipv6/seg6_=
-local.c:1411)
-> Write of size 1
->  seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
->  input_action_end_bpf (net/ipv6/seg6_local.c:1463)
->  seg6_local_input_core (net/ipv6/seg6_local.c:1630)
->  seg6_local_input (net/ipv6/seg6_local.c:1639)
->  lwtunnel_input (net/core/lwtunnel.c:466)
->  ipv6_rcv (net/ipv6/ip6_input.c:351)
->
-> Give LWT_SEG6LOCAL its own bpf_skb_pull_data() implementation. Save
-> the cached SRH offset before the skb operation and rebuild the pointer
-> from the current skb->data afterwards. Since pulling data can replace
-> storage but does not change packet layout, this preserves the identity
-> of the cached SRH even when multiple Routing Headers are present.
->
-> Refresh the pointer even on error because __pskb_pull_tail() can replace
-> the head before a later step fails. Preserve the pending hdrlen and valid
-> state so SRH validation semantics remain unchanged.
->
-> Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
-> Reported-by: co+adfca3e91be95776@bugs.sh
-> Closes: https://lore.kernel.org/all/GCy0KRM2IcQGoJQTjJEU9D0maBxXzEDHuQpq@=
-bugs.sh/
+On 9/7/26 19:33, Lorenzo Stoakes (ARM) wrote:
+> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
+> confusingly only control the behaviour of THP in some instances.
+> 
+> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
+> 
+> Long-term, THP is predicated upon compaction being able to obtain large
+> folios to populate THP ranges.
+> 
+> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
+> reference count is maintained by the driver, not core mm.
+> 
+> As a consequence, the folios are not subject to reclaim nor compaction, so
+> are not truly part of the THP mechanism at all.
+> 
+> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
+> introduced the ability to establish huge PFN maps, they have been subject
+> to THP tuneables.
+> 
+> This is incorrect - if a huge PFN map is available (defined by
+> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
+> should be mapped huge upon fault-in.
+> 
+> Correct this by explicitly checking for this while ensuring that smaps
+> continues to accurately report THPeligible statistics.
+> 
+> While here, abstract the entire file-backed THP check in
+> vma_can_map_huge_file(), with sensible separation of logic into helper
+> functions.
+> 
+> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
+> maps of shmem folios, however they are marked unevictable in
+> drm_gem_get_pages(), and in any case would fail the reference check in
+> __remove_mapping() even if they weren't.
+> 
+> Failing to map huge PFN maps has resulted in significant real-world
+> performance degradation, see links for details.
+> 
+> Reported-by: Cedric Le Goater <clg@redhat.com>
+> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
+> Reported-by: Saravanan D <saravanand@crusoe.ai>
+> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
+> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude:gpt-5
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Reviewed-by: SJ Park <sj@kernel.org>
+> Tested-by: Saravanan D <saravanand@crusoe.ai>
+> Tested-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
->  net/core/filter.c | 28 ++++++++++++++++++++++++++++
->  1 file changed, 28 insertions(+)
->
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> index 61940e7535523..e61f9e9226b10 100644
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
-> @@ -7162,6 +7162,32 @@ static const struct bpf_func_proto bpf_lwt_seg6_ad=
-just_srh_proto =3D {
->  	.arg2_type	=3D ARG_ANYTHING,
->  	.arg3_type	=3D ARG_ANYTHING,
->  };
-> +
-> +BPF_CALL_2(bpf_lwt_seg6_pull_data, struct sk_buff *, skb, u32, len)
+> v2:
+> - Added tags thanks everybody!
+> - Updated to use vma_file_*() naming as per Zi.
+> - Also updated vma_can_map_huge_file() to vma_file_can_map_huge() as per
+>   David.
+> 
+> v1:
+> https://lore.kernel.org/r/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
+> ---
+>  mm/huge_memory.c | 86 +++++++++++++++++++++++++++++++++++++++++---------------
+>  1 file changed, 64 insertions(+), 22 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index afbb5974bd22..75c204af40cb 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
+>  unsigned long huge_anon_orders_inherit __read_mostly;
+>  static bool anon_orders_configured __initdata;
+>  
+> -static inline bool file_thp_enabled(struct vm_area_struct *vma)
+> +static inline bool file_thp_enabled(const struct vm_area_struct *vma)
+>  {
+>  	struct inode *inode;
+>  
+> @@ -118,6 +118,67 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
+>  	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
+>  }
+>  
+> +static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
+> +		enum tva_type type)
 > +{
-> +	struct seg6_bpf_srh_state *srh_state =3D
-> +		this_cpu_ptr(&seg6_bpf_srh_states);
-> +	unsigned int srhoff;
-> +	int ret;
+> +	const bool has_huge_fault = vma->vm_ops->huge_fault;
 > +
-> +	lockdep_assert_held(&srh_state->bh_lock);
-> +	if (!srh_state->srh)
-> +		return ____bpf_skb_pull_data(skb, len);
-> +
-> +	srhoff =3D (unsigned char *)srh_state->srh - skb->data;
-> +	ret =3D ____bpf_skb_pull_data(skb, len);
-> +	srh_state->srh =3D (struct ipv6_sr_hdr *)(skb->data + srhoff);
-> +
-> +	return ret;
+> +	/* MADV_COLLAPSE ignores tuneables. */
+> +	if (type == TVA_FORCED_COLLAPSE)
+> +		return true;
+> +	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
+> +	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
+> +		return true;
+> +	return false;
+
+/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
+return vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault;
+
 > +}
 > +
-> +static const struct bpf_func_proto bpf_lwt_seg6_pull_data_proto =3D {
-> +	.func		=3D bpf_lwt_seg6_pull_data,
-> +	.gpl_only	=3D false,
-> +	.ret_type	=3D RET_INTEGER,
-> +	.arg1_type	=3D ARG_PTR_TO_CTX,
-> +	.arg2_type	=3D ARG_ANYTHING,
-> +};
->  #endif /* CONFIG_IPV6_SEG6_BPF */
-> =20
->  #ifdef CONFIG_INET
-> @@ -9052,6 +9078,8 @@ lwt_seg6local_func_proto(enum bpf_func_id func_id, =
-const struct bpf_prog *prog)
->  		return &bpf_lwt_seg6_action_proto;
->  	case BPF_FUNC_lwt_seg6_adjust_srh:
->  		return &bpf_lwt_seg6_adjust_srh_proto;
-> +	case BPF_FUNC_skb_pull_data:
-> +		return &bpf_lwt_seg6_pull_data_proto;
+> +static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
+> +{
+> +	/* THP=always? */
+> +	if (hugepage_global_always())
+> +		return true;
+> +	/* THP=madvise and marked MADV_HUGEPAGE? */
+> +	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
+> +		return true;
+> +	return false;
 
-Instead of adding new support that no one will use, just disallow this help=
-er from lwt_seg6.
+/* THP=madvise and marked MADV_HUGEPAGE? */
+return hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE);
 
-pw-bot: cr
+> +}
+> +
+> +static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
+> +		vm_flags_t vm_flags, enum tva_type type)
+> +{
+> +	return vma_file_bypass_thp_tuneables(vma, type) ||
+> +		vma_file_allow_thp_tuneables(vm_flags);
+> +}
+> +
+> +static bool vma_file_can_map_huge(const struct vm_area_struct *vma,
+> +		vm_flags_t vm_flags, enum tva_type type)
+> +{
+> +	const bool has_huge_fault = vma->vm_ops->huge_fault;
+> +
+> +	/*
+> +	 * Enforce THP collapse requirements as necessary. Anonymous vmas
+> +	 * were already handled in thp_vma_allowable_orders().
+> +	 */
+
+The reference to an anon vmas is not really suitable in the vma_file_* helper
+(would be better kept in the caller). I'd just drop the reference to anonymous
+vmas entirely.
+
+> +	if (!vma_file_check_thp_tuneables(vma, vm_flags, type))
+> +		return false;
+> +
+> +	switch (type) {
+> +	case TVA_PAGEFAULT:
+> +		/*
+> +		 * Trust that ->huge_fault() handlers know what they are doing
+> +		 * in fault path.
+> +		 */
+> +		return has_huge_fault;
+> +	case TVA_SMAPS:
+> +		if (has_huge_fault)
+> +			return true;
+> +		fallthrough;
+> +	default:
+> +		/* Only regular file is valid in collapse path. */
+> +		return file_thp_enabled(vma);
+> +	}
+> +}
+
+Much nicer to read, thanks
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
