@@ -1,194 +1,196 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013076.outbound.protection.outlook.com [52.103.35.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591613EC689
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 03:29:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449F732E141;
+	Mon,  7 Sep 2026 03:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751756; cv=pass; b=fAVdEh5+XQqgX7PKzZll0iuf3jVXmwPOEgMOyNeGH2sv2F1dOSFVNer3W3eXaSGkJ9sGvL6GgeIYkw8snOF4Lci9Yle/Y0qye51ZNaxsuyY5PQG06DKfjieKUdamE+Tw+2qqR44LAuPfDVafDFycglYNWZux7QZX9w9fvYO9rxA=
+	t=1788752782; cv=fail; b=X0Z5eD+S2JWS2/GJPsGWvpdre7AkOYSvICmSZyqmYDxDyLob0+HKbLrWcDC3HBUXQ5Jyton/32k3A8YoozAyG54xSYw4pvfDQDN4mOhGSz0Ts68YSUYWYNhZ7ziFygShmJnXuKdsQshDc3pUT6LWT6Myr1uVEVbLBX2mXG12qmI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751756; c=relaxed/simple;
-	bh=GSAAlThqfE8mUuSgAVPRXZIyOsidSPdBFMqj2RYB3UA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O0t52I17a0b4ue4f6cNGPkqG0uYwIZHeSgBp/qmv2nbnEL4A5xHl6BSs5ChAw+l0G4e7GdUNx1Eo+PDJoWnT4jmsG823Niub2d8CCIpdx8wlhOKJLNi58v62dix/cjpiSNjlEzhzlI9x1/tp7gx+ryUEB+3PXf3hRSTq81jfWBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=k1Jq6bFz; arc=pass smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1788752782; c=relaxed/simple;
+	bh=ObXD/8Br2kdzNunTf+JOsFxTm05s/IK5uOGVFCX7ocQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Ehgl1RK9ky0fS1uYmT0huCLKFDvspZr+JvanGXJcxoCgfg+V6GTPt6YrOxtlywi5Jqonjar3UcLEfbF/h5nxKTBJN4ZKUVT7iaY4ARcCJKHXJW7sMHazIxCMfI8Npzsc8lQGnl1ejU/zY8umkbp+Xj6S9lYsZJIb1yqGdEvA8WM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=cb/gEIri; arc=fail smtp.client-ip=52.103.35.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="k1Jq6bFz"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b5e1340faeso2609405e87.3
-        for <stable@vger.kernel.org>; Sun, 06 Sep 2026 20:29:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788751750; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T1Xq5idwrcFvGKwCaW4WxsQl5w7G7sS6/lTA4tHmP0hb3Rm7rTK72vZ2CIcPuBCTId
-         yGqQDkMFbymBN+qr5na9sMswbnutI4x/oBn4lVBQxQPHdZW/qp+imXaqX7h5NL6gW6jP
-         6BcL2dXQ6+Y67jLbeNdwnRC9ZbOMZ+GbC9bCYi6JdtPOPkVhMNcAN+cA0dTLeUUlpKF4
-         T+Vo0wQ/CGPK/L1q0ZVNXVSNs3gpwv5WNl5QghGhAeMOUVEc0waz3lsU7mijsAR/zNjN
-         NHiMEEVGLHt5Fl9IlqHRWiDBdhM4uqitlgA2XbPCYzztdt8JGuhcPmlmT7csuOJJtCBK
-         iAUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        fh=NremQ+83Aio+wd3VM93So51TEJ7NDc7veyfLD23QqEQ=;
-        b=PRtto3w8Sy91Mq37jg7Om/rPMJq7zoGvwxhRsMC75dIVvl3mwOklqtjkj7tVRaJCBD
-         HwkfnI7bepVS03bxtXGrdXhUZrfaztK1jqgOZIML6eU3KpRu5JMRmGtgYhaK9Twqoifn
-         VSUQ3shX/ZRq/gXv2zKF2jyiuNJLP2iPIk0GOf1H+Q7yTAyJzwaavRiJ4Q70HVZ0hKwi
-         Fg41+Ft7LhL++8r8gLEU6B8dAxWj8yhqmiPOf4Uq6h+bCmcLHiMi1iJ+kPcNFx87Qglg
-         Is8AeYptd796k4DftsSKOd+igP2f7unmVS1HFH1xlfX89SKBHMsQVPmJAaPSmNRywA46
-         eTtQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788751750; x=1789356550; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        b=k1Jq6bFzpt6yZigC9BWXTCg/ragq0H7SEQBUp/NcUNobqw1NFp0af6lWR8ThZ4lM1R
-         m5PZZvsnVyps/pOuezHF3EUc0waTGgJs6JNDG1vefH3qP61zQahKXXrnc+fgDVvry4Lm
-         hdmxDOKqjxnp91bvz4aR04Kki3VOe3oDo/+CC2FxnGhBquc9pXi2umy8H25jIN+FNcRP
-         XuYFX1OKdpmRH8+g0M2BXoTwNGEOB8Fh/D071eemYgclyUOEXsKWSSbG6zgGyAobNkTZ
-         AlKom8pbQnwn8sAvv7x2sQFN3bSH+1F1peCfWsL1V3R4C2Fv1mPPEHZMiPOY9gTf+Nxa
-         e/RQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788751750; x=1789356550;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uw7bun+2UCN5MoW38axYgFXx6bpXxJj3jRNtGXiPoTo=;
-        b=P4jI9fFfTngo5z48inw2ITZQsSntMc/XsQaRQlBHiAccelcuWfaVAO+08z+Tt8kxnY
-         5udDJXRMV/+ZO7amoraPOm+tdMh96VRGsJGJrK0dnx98A9R81B3u8mb3eesH0dXqn9zD
-         pprKHJFoXXOFvD7jFxc2BKD3HeRBgS8w4FQkmHIloNnkNcw2Joc311OTYfyqA9krFie/
-         NIE5JCXASYQnUtcGpKcl+Equ+DLALcDJIcAVZv41TJkC3QY0hBYMgTuRtiI8kYc0Z4vu
-         hgqBQXatGLQmRzggQfDZJseHyEZJ/ljA3yDp1QIowt8sK+E3o8uZGit4zXRmv+qz9Epy
-         ej/A==
-X-Forwarded-Encrypted: i=1; AKwUvBy3v1oTcznoaDSunwqjcNXiWoqCk74MFQ8eNZMw0Ohbb9pxSOEl8OJIvx+Bxf3gB0aQIQi0CtM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfzwZJt/r90sPRRk3WeoLf6H6asP8b6n7CwUQxkrvzwMG6o6vr
-	sPuAvByDUKmK4za1TLEoPIpg2TAvsekW0OVf0bKnXifrQaTyDaD0wyX6CIlrVBA6Vpvf5M/6RYX
-	eBOnQf/QLAT00tOJtn/BojqVE9LOuHYU8FSB7T5gN0eM=
-X-Gm-Gg: AYBFou2DfISy24qYTvrl1gubEGdY+JVo+meERYFuDWS7iG7IdN32OJlG1j4N8qaoHjj
-	Ck7Ehiye8dCzQds54x0SAGKmBP9hXaD0B/s5v9z6UJiimp9/vbkjdFQ2nz7QCCk+Z1rQnZ5LkTV
-	Yc12LdW5JAedsFi5oaL2jtVO4HEO+FLQHJvlsKxiG22vBPebUxNG5ixwyLHhGC5/slYq8UFnUa9
-	5873H7LZzFme+oMZGdpPdjAOqgddFz9GIa7NI+E/kguxxL+D7/G/HzLHhN92lp126z+unfhJ0nF
-	CjXRWe/XmWTCeif5m7ube5SSr+/StWqdPSNGSLcX9WzEyFKHl6lplhP/+tKmXD5LG5wH8dsuyyI
-	=
-X-Received: by 2002:a05:6512:1325:b0:5b1:4caa:4b43 with SMTP id
- 2adb3069b0e04-5b616e53bfemr3832223e87.0.1788751750243; Sun, 06 Sep 2026
- 20:29:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="cb/gEIri"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ku3WCSzMHUivm1NS7l0U57BXOk0N+FzDCSRYqJT6ALM36LCEMZ5poRh/UrhVqSYXmq7NUmktcDyuQLFjSDkLc04ydc4xUZ49WBE6l1udH1nlM2osRol/np4TcOR3v9F5Vqsfvb/ihOOoGqARk5TBSMb+tdb8yQQltHHMxgKk5BNmNrF567gpQJyRV0fQz/qJWjQek8jYka9WKkYOs+1qBBPmpsAgLsrNVa6X8quNpw6tgIIJHSDtWxpMISa7LzufW3q+g1KG6suPpK1OsyIS+a/vQ4m+cRV5OxEKuvdvJxOuE5ALRI0fA8ent2bdV7ej4h9AD8CurNyFR0Xo30gECw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=34a2/qTrYYIlorcZIcMR/N4crlVwDt3d1CGSV92Ec3c=;
+ b=IyTIV4W7ZcQGmzF9C8kdvxXBVBHRtBCzzUeUt2PMpU6bhRyfy0ML7yPtVPrfK+gd8JuTG0qnP0J6hAxYwAiDBgdniuFAyOfKrJ+mfKGY2lTcDm3zG5KVC9dYPD+USOs+gmIcV1/uR3Jmo+fK/55kiFm9Syt419VgZ37+TL1OVGOcujmZvG2aCjwAitoi/tkW5TS5piWqbCicoS/KVheKtk112RFQfrmRE6CigoYt4ijpqAR9YNZ172rr4GWZbbY1iA0GQGI/fO0hdvmd4FFU0bT6AiKilFbLbmpX8Z+jJpgWHoUBLksOXZ8SvaZI7qnftpzDJ3lN0+7BLSYDAqsR2w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=34a2/qTrYYIlorcZIcMR/N4crlVwDt3d1CGSV92Ec3c=;
+ b=cb/gEIri4FlBB/uKtndqNMGyWypJe0Xcb7bbFHs+btzCi1eNRMwOXqLFbZAzOdn9gtT+i86Yn1DqtW8IzWSVIapKLIOgFm99ISEZy153ys806rWAl2XqRTOK0dTUdx0YcBQ04j1np3FdjMuCVKCbH5up0ZsVgfsc+gqBSOqtnp+GcW1fwX2USOZpv4wd8jzb4a6Ea19jxu4Ua6rRF7zLNhRMBtmZo54AQC6sgI6q2PiHJplEsp/CEznaImGzsVUmn9IbSth3QUdLxKjSxpGkXIDJP5bKq4StVZS5UKWFSSlXzLC1A6y5/LqW1D/jY4r1KxX7OvBAjIq0hRDZd1atVQ==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by AS4P251MB0846.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:515::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 03:46:18 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 03:46:18 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: loic.poulain@oss.qualcomm.com,
+	wcn36xx@lists.infradead.org,
+	linux-wireless@vger.kernel.org
+Cc: kvalo@kernel.org,
+	jeff.johnson@oss.qualcomm.com,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: wcn36xx: fix heap overread in PTT message response processing
+Date: Mon,  7 Sep 2026 03:46:13 +0000
+Message-ID:
+ <AS8P251MB0001F9300CEC70A883F313DAC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P123CA0686.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:37b::18) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260907034613.523101-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788622674.git.zihanx@nebusec.ai> <5fc14a8ba754126b6897939e11154167281d4c5f.1788622674.git.zihanx@nebusec.ai>
- <20260906181910.GA455897@shredder>
-In-Reply-To: <20260906181910.GA455897@shredder>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 11:28:57 +0800
-X-Gm-Features: AcwNN1Vs7jM1fB-2aADxommDInJ89MOY2aFrDlu6fxu3INigQ3uPZpKfJT-CguI
-Message-ID: <CAANe3eTObpyHno0X+aAgRBeWVSNgdQm4y4E5GAAUVevDf0sKGw@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/1] ipv6: ip6mr: fix mr_table leak from MRT6_TABLE
-To: Ido Schimmel <idosch@nvidia.com>
-Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Patrick McHardy <kaber@trash.net>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Vega <vega@nebusec.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS4P251MB0846:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6698dcc-b0a8-4b57-a2ae-08df0c9292ab
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|41001999006|55001999006|24021099003|5062599005|5072599009|4140399003|25010399006|19110799012|51005399006|15080799012|12121999013|8060799015|2604032031799003|23021999003|25031999004|37011999003|26104999009|3412199025|440099028|40105399003|2607281247196008|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?NCo8sYSfzqka6fdM9tKhuwbI+DHlSHscY3Fx1TAGA6t9ijFLT6S381j/Jev2?=
+ =?us-ascii?Q?VycZK7bMh/fbcaYpwxM8WeS4tHrRHNmK/brZ+jb2SIFq2gJ9s0B0IFpNW5Mn?=
+ =?us-ascii?Q?pgqRpba7fKCtVpxo6zFn1bdNGc43tFi4OnPe34jZ7FnIYZRZ9ZiABUHEBJUB?=
+ =?us-ascii?Q?Z2yJZZrLcDyPgEs7A3N6ms5nTRE+O0v4vlfTgB+2wfu8MZ6pO1nhMUY+ktzV?=
+ =?us-ascii?Q?MUDGQ5OGUJ3hXLlsbExl6h8m99+pSc+1CJ8WaF0TdxgoYUv+PnAE0C2hO17x?=
+ =?us-ascii?Q?zJ9mj+c7kTLAbUKF4lxYQbDPL8+6ebR7bTpwCRrWyC/7qAJ+wQWe3I44Gl1Q?=
+ =?us-ascii?Q?RxZ0h0TfHJCQ3TVjZqhicpkIMKpJHfynDod2/5Z2vXutc9U48ozPo+AD1wkL?=
+ =?us-ascii?Q?HHrHtFWt2XjRujXIy5fx9AzjiGWlvofoiIIVwpGy2HlSVEjArZeTfDMfMBDF?=
+ =?us-ascii?Q?9Z1H1lMe2GUSsrrvGvjiQFZvXLl9EPh9hzl/921lg9S6bp4Ut/Vs8ShaGwm+?=
+ =?us-ascii?Q?Uun4i280TspmhCTUZJZIXkx9IlLaZCVF/bBvWZ6hqWJ0S+XW9h3iOZu2yzdD?=
+ =?us-ascii?Q?pH4LmwV9pXVExwOrPJAUej2j5C59+ugvLdlq20QAw+I8FwwMOIM6EmiW/2fe?=
+ =?us-ascii?Q?e5NJCqe1EoXyGhnoxf/K7yXTgRVlVLbOYN+SRq2ypLH36tETjxOxP2phGpoY?=
+ =?us-ascii?Q?7ngpKqEiPK/2inRkQAREu++Quy5jNOf1dUJOyjgn1QVy4MjcYJ+FbS/aaVwM?=
+ =?us-ascii?Q?SM9ttnK2taKvpEMMwjiFJKhaNdcVlkRy3hYsCT+zfIB52toV3lnO7kiHvt/I?=
+ =?us-ascii?Q?bbUoN0TdAApbiQogTUV6w0wqIoQ+UfUvWSUci6XgaeTMsomD+mkbBGNKAV4A?=
+ =?us-ascii?Q?MUSRZsQzTZ2uleTV/6p8sBfKyMoyfCp1JNLomv/mmx9giAt1FkLEn0ZpJoAI?=
+ =?us-ascii?Q?YLxkEuJ8gUJlSf/7nxnEgc7slF7PPF5Cu94zyRhrHxvetMN559irN+6WUDce?=
+ =?us-ascii?Q?CmEpaCO1fQzXIRetNj+Zcup32S/ABoKzARMR1gCbVbEcb7yuuE3PUYZETw2l?=
+ =?us-ascii?Q?a23cVW1M3cECX2w7vECw6eUxRpAU+mflJrx7z16qDHDfChjm3NYChgR4cGdp?=
+ =?us-ascii?Q?/vDpIuwC5gSi/ep4wFRzl/V/rVV4OEqs81u8IGQsDjmVoAt7Ydq8GkzNtJvt?=
+ =?us-ascii?Q?PR/dWgP1ArZEvyPZAonN7HJI+G/P1j9GNeTCaw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HezosgKv0LDbz/9IHP18Zb4BF30MD3vn+Mo8kIaNLh0rRMjXzb982ItuSpKq?=
+ =?us-ascii?Q?QkhJzTM2vvMaMlELsAM2mWhwkvaGaQkjhVHmw7rVXWnDYtbbbjzdy2E4ri/e?=
+ =?us-ascii?Q?+5blBe+ysmzfhttI1bjvVxjsumUOGfWsozG8XnleEpZVko8/6SDYLybkwI3K?=
+ =?us-ascii?Q?YmDqWMCUUJ0jkcR5t5P+6KpRGz+UnPVaUnjcNAHI3iz+C4BAya/bj6R13Srg?=
+ =?us-ascii?Q?vSRNj5XMV0VIAR4zvvGlNypLceTsQ9T7hpELh7uXyn7KYwU4tBeXdszNJxMv?=
+ =?us-ascii?Q?sd6VgJsYGIzsIUgLRSl8lhVQsPxiJQ5nG6BPq/RtTMamH9MXQxEzAb5QYFBb?=
+ =?us-ascii?Q?pvQGIs2c1hf4OEUzajqz3R86kXAK1ag9HzxfPJGnGYPbYqnwoZtOxR0d6ZQJ?=
+ =?us-ascii?Q?JIMCVbnT8Z1CUdFL4EXmZS8YugaJh3U6l5kDyKtwSx5OV5kKQbuT5GRfwG4i?=
+ =?us-ascii?Q?8qXxNvQWgn9dCzduJJuQl95G8dtOu17KnAc6/sIkDge6PL6+gsUzSQri16cr?=
+ =?us-ascii?Q?2yQQ3wk1MNiMZCAX6BUIzqxPgBIJOerN66pUgA+bxPyXFZCyD+BHTucqd5X9?=
+ =?us-ascii?Q?w9Ao/KybHKr5d+8zij9JFdZqtc0leGGJ/uMxEVUBZoiEBZGx/6jScssO8whI?=
+ =?us-ascii?Q?akM8vDj9Q3LmSD+pjJJhYdvpUh7fvwSrbowvzA5EfsnsBpHdE2wn/uJd8fZr?=
+ =?us-ascii?Q?01S3CTSiC8PqrllvqWNoC+I7+EnbfZAjSFnxZE06eS60hRNCSZholPTkpJgU?=
+ =?us-ascii?Q?tZMIfbhBvQ5GiF/HhfD8ldXQPACnIzckN4IU8mVXk6eLFsjhj2Hb/UtdWT59?=
+ =?us-ascii?Q?FLScJAKpvbOZbVhK9csguZpI5L4Gx0WUcltRUhphusW0tvxDBGWwpYG74NFV?=
+ =?us-ascii?Q?EtaIRyR8GasMgnK0aBX39ONohvHqjSB5yuKrbd1oextvDxofRVk1vKGe14F/?=
+ =?us-ascii?Q?5LcsQC9jrb40vUtuECfsMsNyQ0enFkrBz62uVK9+zwaFZeVSMXUvbfj5xTff?=
+ =?us-ascii?Q?BfChoimGZLDWgaU3sygCyQZ0BGiPzkoK9jBqN+DIvl1SBgANLyv8lhZlPVnt?=
+ =?us-ascii?Q?1gQPL6Nr2yxyUK0Z4aSwWygPbK4suqAhPLHl/3OC42KbcgIHnihCAIaNq0UE?=
+ =?us-ascii?Q?8e4ReSlNV4PgZ6IfBaMhSvRAT53WK3UYXhGxNUA1yJruFq1z+5PeMEiRROwQ?=
+ =?us-ascii?Q?zymkMvINJVZfj1m+SDqT0rWuOp6mTRV9HjT1Pmoc2yJ6sFFhh/VF02pPzWWe?=
+ =?us-ascii?Q?TqCTeHwLb+N6M/15244AApW8NDHmG3F3X96ZYiKGQXPhk0Rgz2JyUgYIhSG9?=
+ =?us-ascii?Q?HXIBkJlXTuqF2XZVkBbFnDUAuACnpMmxOoerNfgyjlBIIqdmKfZiJU+CoLTY?=
+ =?us-ascii?Q?90oJd1jNdTw9OwOogoqwPI48e5aS2fgDImWP9M3SYwA8Ni1BI2tC+fCkL62p?=
+ =?us-ascii?Q?gQcMxTYLv1RK978cyPRzbFgs7q9YGNZZ?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6698dcc-b0a8-4b57-a2ae-08df0c9292ab
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:46:18.0372
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P251MB0846
 
-On Mon, Sep 7, 2026 at 2:19=E2=80=AFAM Ido Schimmel <idosch@nvidia.com> wro=
-te:
->
-> On Sat, Sep 05, 2026 at 04:30:07PM +0000, Zihan Xi wrote:
-> > MRT6_TABLE is supposed to select a multicast routing table id, but
-> > ip6_mroute_setsockopt() currently calls ip6mr_new_table() for every
-> > unseen id. The new mr_table is linked into mr6_tables and is only
-> > destroyed when the net namespace goes away.
-> >
-> > A raw ICMPv6 socket with CAP_NET_ADMIN can therefore loop
-> > MRT6_TABLE(fresh id) without MRT6_INIT, close the socket, and still
-> > leave the tables allocated. Repeating this grows unreclaimable slab
-> > until the machine OOMs.
->
-> Isn't the established way to deal with this sort of issue to simply
-> account for the memory and assume that the admin put some kind of a
-> memory limit on the container?
+wcn36xx_smd_process_ptt_msg_rsp() uses rsp->header.len (firmware-reported
+total message length including the header) as the kmemdup size when
+copying the PTT message payload.  Since the copy starts at rsp->ptt_msg,
+which is at offset sizeof(*rsp) (12 bytes) within the response buffer,
+this reads 12 bytes beyond the actual message data.
 
-Yes, that is the right approach. v2 tried to reclaim empty tables and
-that was the wrong direction.
+The debug dump has a similar issue: it uses rsp->header.len minus only
+sizeof(ptt_msg_resp_status) (4 bytes), reading 8 bytes past the data.
 
-I will send v3 based on your diff: GFP_KERNEL_ACCOUNT for mr_table and
-SLAB_ACCOUNT for the IPv4/IPv6 MFC caches.
+Both cases read stale data from the hal_buf (a 4096-byte heap buffer),
+and kmemdup returns it to the testmode caller which passes it to
+userspace via netlink, constituting an information leak.
 
-Thanks,
-Zihan
->
-> See for example commit 6126891c6d4f ("memcg: enable accounting for IP
-> address and routing-related objects") and commit 5d26cff5bdbe ("net:
-> account alternate interface name memory").
->
-> This diff [1] accounts for the memory of both the multicast tables
-> and the multicast routes.
->
-> With your C reproducer and this diff I get:
->
-> # echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-> # mkdir /sys/fs/cgroup/mrtest
-> # echo 64M > /sys/fs/cgroup/mrtest/memory.max
-> # echo $$ > /sys/fs/cgroup/mrtest/cgroup.procs
-> # unshare -Urn ./mrt_poc
-> allocated=3D1 current_table=3D1 maxrss_kb=3D1788
-> allocated=3D10001 current_table=3D10001 maxrss_kb=3D1788
-> Killed                     bash
-> # dmesg | tail -1
-> [   63.360047] Memory cgroup out of memory: Killed process 297 (mrt_poc) =
-total-vm:2424kB, anon-rss:92kB, file-rss:1448kB, shmem-rss:0kB, UID:0 pgtab=
-les:44kB oom_score_adj:0
->
-> [1]
-> diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-> index e5f2b1c6150d..b9c544d48c45 100644
-> --- a/net/ipv4/ipmr.c
-> +++ b/net/ipv4/ipmr.c
-> @@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
->  {
->         int err;
->
-> -       mrt_cachep =3D KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PA=
-NIC);
-> +       mrt_cachep =3D KMEM_CACHE(mfc_cache,
-> +                               SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_AC=
-COUNT);
->
->         err =3D register_pernet_subsys(&ipmr_net_ops);
->         if (err)
-> diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-> index 867b24beded1..a0ec6d19a237 100644
-> --- a/net/ipv4/ipmr_base.c
-> +++ b/net/ipv4/ipmr_base.c
-> @@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
->         struct mr_table *mrt;
->         int err;
->
-> -       mrt =3D kzalloc_obj(*mrt);
-> +       mrt =3D kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
->         if (!mrt)
->                 return ERR_PTR(-ENOMEM);
->         mrt->id =3D id;
-> diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-> index 3f2ed9b77deb..9d8116b5edb1 100644
-> --- a/net/ipv6/ip6mr.c
-> +++ b/net/ipv6/ip6mr.c
-> @@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
->  {
->         int err;
->
-> -       mrt_cachep =3D KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-> +       mrt_cachep =3D KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_A=
-CCOUNT);
->         if (!mrt_cachep)
->                 return -ENOMEM;
+Fix by computing the PTT payload length from the verified buffer length
+rather than trusting the firmware-reported header.len field, and add an
+explicit check that the buffer is large enough for the response header.
+
+Fixes: 87f825e6e246 ("wcn36xx: Add support for Factory Test Mode (FTM)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
+ drivers/net/wireless/ath/wcn36xx/smd.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/wcn36xx/smd.c b/drivers/net/wireless/ath/wcn36xx/smd.c
+index c0b477345832..d8597bc112f0 100644
+--- a/drivers/net/wireless/ath/wcn36xx/smd.c
++++ b/drivers/net/wireless/ath/wcn36xx/smd.c
+@@ -1066,21 +1066,26 @@ static int wcn36xx_smd_process_ptt_msg_rsp(void *buf, size_t len,
+ 					   void **p_ptt_rsp_msg)
+ {
+ 	struct wcn36xx_hal_process_ptt_msg_rsp_msg *rsp;
++	size_t ptt_msg_len;
+ 	int ret;
+ 
+ 	ret = wcn36xx_smd_rsp_status_check(buf, len);
+ 	if (ret)
+ 		return ret;
+ 
++	if (len < sizeof(*rsp))
++		return -EIO;
++
+ 	rsp = buf;
++	ptt_msg_len = len - sizeof(*rsp);
+ 
+-	wcn36xx_dbg(WCN36XX_DBG_HAL, "process ptt msg responded with length %d\n",
+-		    rsp->header.len);
++	wcn36xx_dbg(WCN36XX_DBG_HAL, "process ptt msg responded with length %zu\n",
++		    ptt_msg_len);
+ 	wcn36xx_dbg_dump(WCN36XX_DBG_HAL_DUMP, "HAL_PTT_MSG_RSP:", rsp->ptt_msg,
+-			 rsp->header.len - sizeof(rsp->ptt_msg_resp_status));
++			 ptt_msg_len);
+ 
+-	if (rsp->header.len > 0) {
+-		*p_ptt_rsp_msg = kmemdup(rsp->ptt_msg, rsp->header.len,
++	if (ptt_msg_len > 0) {
++		*p_ptt_rsp_msg = kmemdup(rsp->ptt_msg, ptt_msg_len,
+ 					 GFP_ATOMIC);
+ 		if (!*p_ptt_rsp_msg)
+ 			return -ENOMEM;
+-- 
+2.43.0
+
