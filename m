@@ -1,137 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B6D3C5DD4;
-	Mon,  7 Sep 2026 09:53:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD71455173;
+	Mon,  7 Sep 2026 10:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774828; cv=none; b=ZVRLglpaaJ63iLp4guZloNxvxW9uRw2wp0orsTcafim3amu7B8SMU2KOx+YLfbXSiyAJ54TveWWTmM3QAsy7h5Ihy3z8JKyudJeAOuV4llDkDEOA5OANCbTXKeyGgmpudBIAWpxz+xU6flQrxWEw7Ag/hTxgevDKAg8DZTwcEtE=
+	t=1788775283; cv=none; b=QawtqK97fAn3fVnwkHLCGKRYL1cicbUw7ekz/LA3vLBQFPh59q/GyGBs/CqoYl6gccd53JRslDK18vDTaNClivm8wacGg6qtyYfDjekA/Op3QrBpc+H/clx8wrP70peQ6uSA4Xy5njgTtZ25OUDh3mps08yeMq8gBXJHt9ApTpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774828; c=relaxed/simple;
-	bh=UxNHWxv1lAarQTLq2idNJ5bq3LxFHRqO1kuxGq1Hocs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NDh7bB9BavU5C0WMesgVrzDHEkxHi0gat8LaZabAEw9OkucDHdfg5tG4Er/TZhxF0TuQEric2tMSydMVDfjQIW61TWC/wPjXjAbc/xBo7Iq5Xz4OKtU4rqkuzTnfmgCnVJDNsr4ZTtHBr5lp5xyeSkZ47FCy7By7KmhaR/cDL9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z56s0K8Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788775283; c=relaxed/simple;
+	bh=/fSsiqKj3k/kIzDtr2yip2SiXGA8j/AI3EvzsklzrZU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tvFfZEd/BBiA0qqAdE/G3H1i/NYkSwtwDmAxQmDFPoJNXUJ7xEtBzdpaXp3YTfdnxNx8EWS+EYeLzpxQVGR8vcdg9xGcobAxgDDfibfYt1M/N8M9pMalwo53hPuu0Wcrx3zTKR7cew3zf5f9iZH8qsbSz9qPUXrNIlpO+bC0GOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dcKAP4ba; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z56s0K8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCAB1F00A3A;
-	Mon,  7 Sep 2026 09:53:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dcKAP4ba"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601921F00A3A;
+	Mon,  7 Sep 2026 10:01:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788774826;
-	bh=q/COAdYlU0pd0l5RbIN0tn1G/83IKZjnvQXUajavTxg=;
-	h=From:To:Cc:Subject:Date;
-	b=Z56s0K8ZoMBUmqgpQEmLfzcwD26KsOTmwWjY45aBofAofQxKmNszGVWBfOH4vn2Mc
-	 H6tGIDCy43fIGxbWYEnz8Gg4g1uNr0YA8DcbU+95/jmsLnY4OW/2zYOypDG9KS6GqL
-	 GajdYL8TYmP+KF3U4R7i6+qLT7Cf5kFpqPWSfo9KwfKov80gkR+MDS/gB2kt4QZJM3
-	 ikeZTWaQKmPdliryOyeOJvHPIaDw5YzTe8/lhRWiCbCm9mJUSN6QO14NT3AA3J/LRr
-	 ASNHBL6W1T6dIOgj4gsR4DmLukRlXV+ftLCq/oo4H/yvMejG3SwLXJA0ugDPlMwMjW
-	 pev+xpoSeYkJQ==
+	s=k20260515; t=1788775282;
+	bh=MrzkdFyLsg8VSci/26jo62CvSvmhxQiUSnpAWUUjNQc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dcKAP4bahn6xer7l9tZ2cgYBBM8vYOIbXeoi9FSczUIsQXp5igKDV+tapAr+rKLjT
+	 dkQOn14JthQ0afts9hejvMrdnZ16KpUWESG3A6Q/ObvzvLdpnf8rZT1ka28dxb7Gdz
+	 onl0TOpullaZ9HOizg5TleHotFjXziQYGOHzKJ2benAIeLHV4cUTUc6YvlENSuXrN3
+	 nA0k1gdH7IwZ7JK8F8cmlkPhllDvSBnKA4hpMWjU5xu3GeLNm0cxIRWq9XBi2+0mY+
+	 Ct0RudmeFzNYvdxpAqOT3IfWwS85V7XR+SQ53kouAHy7IwEpkQBp70VqNYtOW1CtrV
+	 bxEUgaDiHz0sA==
 Received: from johan by xi.lan with local (Exim 4.99.4)
 	(envelope-from <johan@kernel.org>)
-	id 1x3W2q-00000000Y1s-2sh6;
-	Mon, 07 Sep 2026 11:53:44 +0200
+	id 1x3WAC-00000000Y9p-0tfh;
+	Mon, 07 Sep 2026 12:01:20 +0200
+Date: Mon, 7 Sep 2026 12:01:20 +0200
 From: Johan Hovold <johan@kernel.org>
-To: David Lin <dtwlin@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2] staging: greybus: uart: fix racy TIOCMIWAIT implementation
-Date: Mon,  7 Sep 2026 11:53:05 +0200
-Message-ID: <20260907095305.130762-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+Message-ID: <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
+References: <20260907065501.101013-1-johan@kernel.org>
+ <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
+ <ap56NTVMq8GlbjmR@hovoldconsulting.com>
+ <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
 
-Check the wakeup condition after adding the task to the waitqueue and
-updating the task state to avoid missing a racing modem status update or
-disconnect.
+On Mon, Sep 07, 2026 at 11:50:41AM +0200, Oliver Neukum wrote:
+> On 07.09.26 10:47, Johan Hovold wrote:
+> > On Mon, Sep 07, 2026 at 10:17:38AM +0200, Oliver Neukum wrote:
+> >> On 07.09.26 08:55, Johan Hovold wrote:
+> >>> The wakeup condition needs to be checked after adding the task to the
+> >>> waitqueue and updating the task state to avoid missing a racing modem
+> >>> status update or disconnect.
+> >>
+> >> I am sorry, but in this case I have to ask:
+> >> Isn't TIOCMIWAIT inherently racy against the hardware?
+> > 
+> > What do you mean?
+> 
+> The interface does not state from or to which state it changed.
+> Now you could say that it is implicitly the last time TIOCMGET
+> was called, but that is
+> 
+> 1. not clearly stated
+> 2. not enforceable
 
-Store the old icount on entry and do not update it in the completion
-handler to avoid missing events or reporting spurious ones (due to modem
-status changes before TIOCMIWAIT was called).
+Right. The original implementation (and serial core) have always stored
+the counters on entry and compared to that. So that is the defacto
+semantics.
 
-Fixes: e68453ed28c5 ("greybus: uart-gb: now builds, more framework added")
-Cc: stable@vger.kernel.org	# 4.9
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
+> > Looking at the implementation again now, it seems further changes are
+> > needed to fix the implementation, though. The completion handler should
+> > not be updating old_count. That's for each TIOCMIWAIT to do.
+> 
+> I am sorry to be obnoxious about that, but I am afraid that would
+> break TIOCGICOUNT
 
-Changes in v2
- - store old icount on entry only
+Why do you think so? TIOCGICOUNT just returns the current counters.
 
-
- drivers/staging/greybus/uart.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 24b4dab069c3..d47f00751e7a 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -53,7 +53,6 @@ struct gb_tty {
- 	spinlock_t read_lock;
- 	spinlock_t write_lock;
- 	struct async_icount iocount;
--	struct async_icount oldcount;
- 	wait_queue_head_t wioctl;
- 	struct mutex mutex;
- 	u8 ctrlin;	/* input control lines */
-@@ -643,11 +642,16 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
- 	if (!(arg & (TIOCM_DSR | TIOCM_RI | TIOCM_CD)))
- 		return -EINVAL;
- 
--	do {
-+	spin_lock_irq(&gb_tty->read_lock);
-+	old = gb_tty->iocount;
-+	spin_unlock_irq(&gb_tty->read_lock);
-+
-+	add_wait_queue(&gb_tty->wioctl, &wait);
-+	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&gb_tty->read_lock);
--		old = gb_tty->oldcount;
- 		new = gb_tty->iocount;
--		gb_tty->oldcount = new;
- 		spin_unlock_irq(&gb_tty->read_lock);
- 
- 		if ((arg & TIOCM_DSR) && (old.dsr != new.dsr))
-@@ -657,18 +661,20 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
- 		if ((arg & TIOCM_RI) && (old.rng != new.rng))
- 			break;
- 
--		add_wait_queue(&gb_tty->wioctl, &wait);
--		set_current_state(TASK_INTERRUPTIBLE);
--		schedule();
--		remove_wait_queue(&gb_tty->wioctl, &wait);
- 		if (gb_tty->disconnected) {
--			if (arg & TIOCM_CD)
--				break;
- 			retval = -ENODEV;
--		} else if (signal_pending(current)) {
-+			break;
-+		}
-+
-+		schedule();
-+
-+		if (signal_pending(current)) {
- 			retval = -ERESTARTSYS;
-+			break;
- 		}
--	} while (!retval);
-+	}
-+	__set_current_state(TASK_RUNNING);
-+	remove_wait_queue(&gb_tty->wioctl, &wait);
- 
- 	return retval;
- }
--- 
-2.55.0
-
+Johan
