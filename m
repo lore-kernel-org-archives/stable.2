@@ -1,115 +1,223 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E6C213790B;
-	Mon,  7 Sep 2026 10:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A537379ECD;
+	Mon,  7 Sep 2026 10:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778062; cv=none; b=gNkvYwxUhGYIHMZ7LqLWPQ4k4RjCJhzKE/kVVqdblE7xK5EfNTTRYnh+Iyp/khL2dpuNEcc8b6+fwtof3PXipc0UqWbXaIiwp1IEU3Mf9woWnukUnA+7X7Hu+HDTQxlguRusOejjO7bF0Mn6raGAQ3CuaVKg3m1eeD2BT8pAJUk=
+	t=1788778227; cv=none; b=NlISkTSGaBh15HvOZ5oIRFjX9aTerbsmIh2sbg1F9Fqvt8thqVGJYgLrr49uPdGwAu19LCHhggunjgjKYda7Qg9AaiDp33R6UBudLgqAmAaNsJi1q/G0ZC4HuLB4qbVY2Tm87EjfJyvxJDdUJfYmETZnYxQG5If3kpHKCznjlLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778062; c=relaxed/simple;
-	bh=O50/4wOiX4Tz3Ft2F0F/MLhfy2bPPALRvvE4EMszb7w=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fsudhCQ5ih0unEE/E+SY/xg/EBepdhoQrSLySzoCkdMaUcQAjj7qKLWzCYB4x12EHV4gWBt6US4p+waFcVmCoMSO9F+lqw2Yk/qhrPObunsJiMVuEOE6Fjcb6Y9FgFWu3QjUsC2zB3pCd5NXAN4RBBFo/n5WsSt9TD2wtRWQg/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZFtCqAmp; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788778227; c=relaxed/simple;
+	bh=hnblNZZZX74vCIQPbR7bbLsLlKR4prM6ow0xJLomnY4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Vde/O2l+G18X1amHJfkCXZH5j1+lyLgXzmyk6h0CCJSspLEVIWQPa+xOMZNvupI8Yrp4okMTULsjh9V2b2Oamg8GOat9WoLq6LK3pa6z6JePuhDauY8mV/K7b07VfCWC80HeHR5YZkRsZReDjjOLlg302KTZhbH/iVFFlGVTZuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZYf9AMVL; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZFtCqAmp"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hdkKz6B2WzKmV7;
-	Mon, 07 Sep 2026 12:47:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788778055; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x15LdgpTFc5zE5Z+SeSohYa28vznrjxqruda6OdaY/c=;
-	b=ZFtCqAmpMIbXbhAKJ8eDocrnVCqylv0svszCU0MvYjM/8atZDH4smqwZfhm5N9BER7vfqu
-	YT44QdF3F9Z51XElWw70wZv+hGFOyXI8RmLqwOnUHsseEJU1a2Y2Bjd/meGhhuM4sQ2p1d
-	lJ/c993As5atJ2Ui26q3XfveSe1sav+khZBK0TdRkuVIoeGHALksTePP9BoYuiihyFSYtD
-	biWvidKSHIGmJtwpZC8WMXGc42ZeJke9aV997MxiiU+Lo06fCIooVDfNRkubltUn3QtBRB
-	41jykraIB2luq4oWBoDYzzzxyT+n3Ut8ByQH++gjtDGGRcBp13ARJ25LyasDXA==
-Message-ID: <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 12:47:29 +0200
-In-Reply-To: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-	 <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZYf9AMVL"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0721CC2BCF5;
+	Mon,  7 Sep 2026 10:50:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788778227;
+	bh=hnblNZZZX74vCIQPbR7bbLsLlKR4prM6ow0xJLomnY4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ZYf9AMVLCqqdHc2h1f1r+ZR52jmzwl7OhxC1m9g3Vz2FLBd9kjpS3Z95tQFEWHZ4s
+	 3l0S99jfJhZCcnChuwoDtSDCRVsPbiCir9pifT/G4XeByi8zJa1oMZ0Q1+WMuToVnC
+	 P2+7WLJ2n5c0gRx/OIOb7S4gptPyX5Mm16XRW8dZTzWe1noXw5E5xjUb5paX7DiYcj
+	 CEdNxG6kcFqWR3PT69y+ljRobEbsJPAPNIxgkqO6/Ad9p8hysgrDcTjnDVqvwyxFcP
+	 pRssoOApUaMVPOcZTlmAlUavzpeNNdH44cCMizFTiOjxKfgN37YJGt2T6kwtDx/CSr
+	 uYf37dz/EZJFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9793C79F99;
+	Mon,  7 Sep 2026 10:50:26 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 07 Sep 2026 12:50:19 +0200
+Subject: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
+ reset
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: xj9eaef5uoqgm8zxtoqw3zj73zhf6run
-X-MBO-RS-ID: a2d0d3af454ae34fb4a
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
+References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+In-Reply-To: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4142; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=YmMrxv3+joaFyhDdky+ZUqbM/9lF/0oWq3x6guxAV2s=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnpbwAwkKuZp8iMC+4TNWLuqzbOQ67FVsHERWr
+ RQJfGwiAHeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap6W8AAKCRBgAj/E00kg
+ cs9AD/9mAd9wZH7ZvgdJcGEic/BXuAnUNEa+Gzd7l1ycSC/I+JEXEOMyi3KY8UVnRfcvFMqK9qp
+ 6YZWzG2xGkIPJ7aoQNZQpLMS6BVs7lqGKuzpNmjcGM3P6inTAuj74yv/wVDPSUQfwzbETv6vtSP
+ FUdlB3uXtHZ52nAzm/OiWnoNZPFI7d4IAYZdr7BWhl+IW6+lEgcowYYTZusMCOA2sBdLhxG1jvi
+ 05/bDV02N8yxOsKy3UQTxKts9FmukAE8b4MCOVTgJihHOl6ysq4Drw5NH4SPZSkt66OY9WUvTEP
+ gcpE2Tr7IsN0aTbN6iuN3500VnaKGVUjHSFMB2RYGwPlfy8BlaFzEsaZXCYkF6iJ6pd5GwnaKZz
+ ez7k584X5VxNSZwMAmB8HYQ1+pph7+voLWEmRYuC8YzqTtNwWamHo+I2b+rg/m59Z0pQfN8L3B+
+ FwI2DGs0AgEpFnlgZwHAS5hU6Cji7tN5KG5UQoXuZFLAI3y02ErzRKgr1p4jrEIkWqhZyuTzPJA
+ TnQgG8PEigcQkwAFyrESeY8W4zrHFaKNbo8QUkSDaQvkXTs0Z6jvEB/MAGxtUFvM8wgoJLXQPOe
+ ymczNk9faRPZvJWGT4nNVSrAqPNTB6wP1FFEHhmXX2Xcpwb2FNjQXDulW2uzO3YSxSwI5HDz2S1
+ rkViDVpSK76Z/sQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Mon, 2026-09-07 at 11:28 +0100, Tvrtko Ursulin wrote:
-> >=20
+From: David Heidelberg <david@ixit.cz>
 
-[=E2=80=A6]
+After releasing the reset line stmfts_reset() sleeps a fixed 50 ms and
+stmfts_power_on() another 50 ms before the first I2C access.  That is
+enough for a warm reset, but when both supplies were really cut during
+system suspend the controller boots from cold and can need longer.  If
+it does, the first read fails, stmfts_resume() returns an error and the
+touchscreen is left powered off with its interrupt disabled.
 
-> > How did the others fix that?
->=20
-> Combination of kfree_rcu, synchronize_rcu and storing the name in an=20
-> object protected by those:
+The controller posts a controller ready event once it has booted, and
+the event parser already completes cmd_done on it.  Enable the interrupt
+right after releasing reset and wait for that event instead of sleeping,
+giving the controller 300 ms, the total budget the vendor driver allows.
+Boards without a reset line keep the old timing.
 
-[=E2=80=A6]
+Usually phones such as Pixel 4a and Xiaomi Mi 8 needs longer delay, so
+without this change touchscreen stops working.
 
-> For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
->=20
-> That makes scheduler timeline name vfunc safe:
->=20
-> static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
-> {
-> 	struct drm_sched_fence *fence =3D to_drm_sched_fence(f);
-> 	return (const char *)fence->sched->name;
->=20
-> sched is then RCU protected. sched->name is already static so not a conce=
-rn.
->=20
-> As you say nouveau_sched_fini() only tears down the scheduler after=20
-> fences have been signaled it seems adding two new kfree_rcu make is safe.
+Fixes: 8a1f9de80e45 ("Input: stmfts - add optional reset GPIO support")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/input/touchscreen/stmfts.c | 34 ++++++++++++++++++++++++----------
+ 1 file changed, 24 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 972687797f826..711e3ad8587a0 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -59,16 +59,18 @@
+ #define STMFTS_MASK_X_MSB			0x0f
+ #define STMFTS_MASK_Y_LSB			0xf0
+ 
+ /* key related event masks */
+ #define STMFTS_MASK_KEY_NO_TOUCH		0x00
+ #define STMFTS_MASK_KEY_MENU			0x01
+ #define STMFTS_MASK_KEY_BACK			0x02
+ 
++#define STMFTS_RESET_TIMEOUT_MS	300
++
+ #define STMFTS_EVENT_SIZE	8
+ #define STMFTS_STACK_DEPTH	32
+ #define STMFTS_DATA_MAX_SIZE	(STMFTS_EVENT_SIZE * STMFTS_STACK_DEPTH)
+ #define STMFTS_MAX_FINGERS	10
+ #define STMFTS_DEV_NAME		"stmfts"
+ 
+ static const struct regulator_bulk_data stmfts_supplies[] = {
+ 	{ .supply = "vdd" },
+@@ -538,23 +540,30 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+ 	sdata->chip_ver = reg[0];
+ 	sdata->fw_ver = be16_to_cpup((__be16 *)&reg[2]);
+ 	sdata->config_id = reg[4];
+ 	sdata->config_ver = reg[5];
+ 
+ 	return 0;
+ }
+ 
+-static void stmfts_reset(struct stmfts_data *sdata)
++static int stmfts_reset(struct stmfts_data *sdata)
+ {
+ 	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
+ 	msleep(20);
+ 
++	reinit_completion(&sdata->cmd_done);
+ 	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
+-	msleep(50);
++	enable_irq(sdata->client->irq);
++
++	if (!wait_for_completion_timeout(&sdata->cmd_done,
++					 msecs_to_jiffies(STMFTS_RESET_TIMEOUT_MS)))
++		return -ETIMEDOUT;
++
++	return 0;
+ }
+ 
+ static int stmfts_configure(struct stmfts_data *sdata)
+ {
+ 	int err;
+ 
+ 	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+ 	if (err)
+@@ -593,42 +602,47 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 		return err;
+ 
+ 	/*
+ 	 * The datasheet does not specify the power on time, but considering
+ 	 * that the reset time is < 10ms, I sleep 20ms to be sure
+ 	 */
+ 	msleep(20);
+ 
+-	if (sdata->reset_gpio)
+-		stmfts_reset(sdata);
++	if (sdata->reset_gpio) {
++		err = stmfts_reset(sdata);
++		if (err) {
++			dev_err(&sdata->client->dev,
++				"controller not ready after reset: %d\n", err);
++			goto err_disable_irq;
++		}
++	} else {
++		enable_irq(sdata->client->irq);
++		msleep(50);
++	}
+ 
+ 	err = stmfts_read_system_info(sdata);
+ 	if (err)
+-		goto err_disable_regulators;
+-
+-	enable_irq(sdata->client->irq);
+-
+-	msleep(50);
++		goto err_disable_irq;
+ 
+ 	err = stmfts_configure(sdata);
+ 	if (err)
+ 		goto err_disable_irq;
+ 
+ 	/*
+ 	 * At this point no one is using the touchscreen
+ 	 * and I don't really care about the return value
+ 	 */
+ 	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+ 
+ 	return 0;
+ 
+ err_disable_irq:
+ 	disable_irq(sdata->client->irq);
+-err_disable_regulators:
++
+ 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies), sdata->supplies);
+ 	return err;
+ }
+ 
+ static void stmfts_power_off(void *data)
+ {
+ 	struct stmfts_data *sdata = data;
+ 
+
+-- 
+2.55.0
 
 
-I don't see how any RCU mechanism would make anything here safe.
-
-As long as ops->release is implemented, ops will never be set to NULL,
-(with or without RCU) =E2=80=93 so everyone who holds a reference to finish=
-ed-
-fence can still run into drm_sched_fence_get_timeline_name() and cause
-UAF on the sched pointer *and* the name pointer.
-
-Moreover, all of this falls apart should the driver unload.
-
-So I maintain the position that we only get it right by having the
-signaled-bit be the decoupling point.
-
-Or am I missing something?
-
-
-P.
