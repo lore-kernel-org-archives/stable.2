@@ -1,126 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBEC501F4E
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:14:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F064F7983
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 15:17:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794099; cv=none; b=WkkutWnomogRed5oJNK0t3QlmGM75LFZYoaJZQV9ajtg/6t4qQ2zqnSXB4w3fCW9Vwxs2EtBLl5qOygIliVVUFRA6SooIHdgsL4MaV2EDkUACeUNAcj8f2sLSrbtuubCk3xjzVCGTYS8khIkloWUmmlMDzXlmGk7fPpXva+qc4k=
+	t=1788794233; cv=none; b=b64MmxZku/bgVE20PKfje02Mr9O5gqftH+FlLfaNKzU6rl3bHXtAjho1wzRQEt/HJiuGSVYy513ij5DAJCLjfP16D+L7nM8SXPZC/xZX/PHwT4pK8IYphGFwWFrwV5R++HU4jaL3VAkAm0JYJ1kHTu6MmVnbwtboNJgU+y/JTkI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794099; c=relaxed/simple;
-	bh=oPi//ZvRbBuHBTxNZqrQAxC7J9y2WTuPH/pmY48qiY8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CSE5aT7rhqDVu0rTjBGFxBjMPdKrFU0FhmJGMQp225Ieqvpb7tWNpOAYPllKglqdnWTvOXfX3bXLllXKfLeWb4CgoXb9aIFSJ49yUENMiCRYIQ7BsvoS1cVtso/pGkLHMFpWR2wHv7z7uIucNjRru3j/FKGU7bAkT0zZM+vwUEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U/VvHjD9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788794233; c=relaxed/simple;
+	bh=W9soBYUrQs9hrQ3vYMI015rHKFkkfuGC4CrmjKyM3uU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=S1oLQsjedo/g1toOOq4jHEMdyC6t4CfnrUb248AO2hrunhrpK0eoZYyR1HtOHKvOeajiw5yO4pm8AHE9fuPJtZPQ+eOAA7mCNi4nE7+XTXir7WHhwdOYB8gaQunDbK9JVHLE4bb6rnyAEZr5Dx20yyLmwYKZAaNOmCMXIWbilAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Ob0DaEMb; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U/VvHjD9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9731F00A3A;
-	Mon,  7 Sep 2026 15:14:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788794096;
-	bh=lTMR729FK1SaHUtFX4XyGnK8uk+wKtVP3Y/QwnVfP/w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U/VvHjD94HSSYEXuFQdjcZMyjWeuk7/O1EPJzx1laL8x2SQG551mBZDeixcusdNEe
-	 wajwEIdX8Mxxxj8pUbjuMHs3PAuxq/vAfH1X2b2Bndz+Sb1zxRcfwEGzPpzuAcGCUy
-	 CsA8Loey29VkLka4nV9nY/YqUF+CQBned28MdzNaTmtX1B/DLeVdrTTt49aYRrS5nH
-	 jFMbXajBKdRW08f6gdGAMaRp5PExktSdzdtNGP4fn94RI9bZE7BiHK8sS0QfeOqTQi
-	 yXKJoyb9FCyulN/kRdvFIJbHDRldlTrjJrQd7zLqjuZv5U2E6XskgmRfbaPGCeaYny
-	 +HE1rgUTa5bjQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Doruk Tan Ozturk <doruk@0sec.ai>,
-	Jiri Kosina <jkosina@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] HID: sony: fix UAF of ghl_poke_timer / ghl_urb at driver unbind
-Date: Mon,  7 Sep 2026 11:14:54 -0400
-Message-ID: <20260907151454.3749479-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090331-parakeet-crate-4239@gregkh>
-References: <2026090331-parakeet-crate-4239@gregkh>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Ob0DaEMb"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a613a6bcd8so13643a12.0
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 08:17:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788794230; x=1789399030; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rpQaMoBy+ANddHal2PnUV9pNK1krtVdl6eHRQ/UORPQ=;
+        b=Ob0DaEMbaI+5TL/C1ybc1GNES9mTYM83xnN8bht3K1+zKDLuIgdEr7bk5nvLH24JSR
+         TGqQOfUbmcboeDcNKZ/LTNGyouxrjnWr6OB+3tZfHjkA4KAhu+x1s1A0HUl3e6RKwKth
+         8JqwvYfr/FUD9eoaksaSuRVXKYvPv0EEASW26HCvPL1s4Yo17Km52rowWewgfEzi2qI6
+         w3ow+dl8bli8zteBPq1BsmEvwqX78Tg43Eh+BMEy2cFZRvwRDViURisxIzwrFRgMkT5s
+         /RLvKBIbw1UrrOaWU1gJDuyVpVWmYrVSiMVeuX3LX42hvJ/G277oClT0NkwBIUfClERu
+         OSqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788794230; x=1789399030;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rpQaMoBy+ANddHal2PnUV9pNK1krtVdl6eHRQ/UORPQ=;
+        b=ZnbUrEuJlJ0Jci8LdzVljNBZ0+G+ayTw1pnayjB3Z5OuyH6NKtynXzoGo/QDPtrgvp
+         tCMXk8iFPCEsu0mwxHJnQTAfgnmnBHJU5gu09/Ke69ZWyUtDlQbNXs7bBIgSWr8DSvoS
+         Ejyrk737ITeHH+RlgL/Q+1H0ZKvRwP1+9ZF7njKUgtPwQvStWsNwLf9gjwliW+Ud9ipp
+         tPswHM4hRU/Uyl2Hfc2XXu2VB0yZIppE9XsRYv5VygeVBwZBYHH12+WfvtW8LYwuNYXX
+         xQOn13MkaH4H5/uM7uRcqKmw75cAXQLsZhgkAf7dCgb4dewrb2t3TAxK7SkboIIAC4jt
+         vCLA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTuHjC2/M0eZelhZ+7YvUO69eWBX2t4nOO0zJygEzeISUwJExjeLDIwW+52S8a7RGHmGzIMEg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcmJfulcXjOZaGZD0lHWX/YmQ5VaGjWCoycnzdcXW3mMEPbe9M
+	C5B4kHb0GeSuSs+JwPY415EGRxGYzH7sP27qdw+c6ITFAfhKFUOLClyHOXjJUqrcLw==
+X-Gm-Gg: AYBFou2bmMgL+RoBL7SOnQnlHvDjWv65Us55YAXhYYpLRgKXE01uxE+pskBIcHHYCft
+	nR+Dwz2EMQDI/9vgLUaa0WLXIrU1L0RfttaEQxbvGyM5PsfBX2k6Vn+yWd3dX0GFRe2rHLePeQF
+	pp/OlAHNLQ0apdkDs0fDSVjgZPJ5WX7lnsQu4QZXkUaIWfGUn4Cv2sOMDW3AXn92Of3WPl2+9+l
+	uWW/W73ZRwK4kudCRQfbbotVrDTuktRkuD5MOhe9TlyyOrtRqaSPV+aQ/JAEaOzQQNPAtj0tIG/
+	u8AlshLVib4MtX4UPYHwGqmcEiQ6pVni5o0AkS3u0GUCBuCY7KoEoeyeSy3X8XsZbXKPKns6E6U
+	K//sHkv3Q+LEtxDpDxmaZez/uqlVzPUxeMlMUHcKS5StGZSX0iK6FzXBN+CBOLydoN64Tl89wIA
+	FjE1ppI6DX9QviwDl3+OUAh/tjNAtrjc0gjow2RxPdLtxqCBPDVreqf8EHjajba4aHlYtOcmtaw
+	sqDpJkrsBFh0IYso73G/DmKQW6pgQ==
+X-Received: by 2002:a05:6402:a288:20b0:6a0:a317:9c47 with SMTP id 4fb4d7f45d1cf-6a7f6887515mr62121a12.3.1788794229526;
+        Mon, 07 Sep 2026 08:17:09 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5b29f3sm482498766b.52.2026.09.07.08.17.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:17:08 -0700 (PDT)
+Date: Mon, 7 Sep 2026 15:17:04 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Jean-Philippe Brucker <jpb@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	Mark Rutland <mark.rutland@arm.com>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>, David Matlack <dmatlack@google.com>,
+	Jean-Philippe Brucker <jean-philippe@linaro.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
+	Pranjal Shrivastava <praan@google.com>,
+	Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org,
+	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/9] iommu/arm-smmu-v3: Handle ARM erratum for CONT
+ under invalidation with SVA
+Message-ID: <ap7VcBXG0NyX6acW@google.com>
+References: <0-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+ <1-v5-b810cf379bfc+13d738-smmu_tlbi_jgg@nvidia.com>
+ <ap7IeAfVPZL3Hqt_@google.com>
+ <20260907151145.GY4157646@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907151145.GY4157646@nvidia.com>
 
-From: Doruk Tan Ozturk <doruk@0sec.ai>
+On Mon, Sep 07, 2026 at 12:11:45PM -0300, Jason Gunthorpe wrote:
+> On Mon, Sep 07, 2026 at 02:21:44PM +0000, Mostafa Saleh wrote:
+> > > +static bool arm_smmu_cmdq_batch_add_ril(struct arm_smmu_device *smmu,
+> > > +					struct arm_smmu_cmdq_batch *cmds,
+> > > +					struct arm_smmu_cmd *cmd,
+> > > +					unsigned long iova, size_t size,
+> > > +					u8 tgsz_lg2)
+> > > +{
+> > > +	u64 cur_tg = iova >> tgsz_lg2;
+> > 
+> > Nit: tg suffix is a bit confusing, I guess pfn is more accurate, but
+> > no strong opinion.
+> 
+> I don't want to use pfn in any of this code because convention has PFN
+> as PAGE_SIZE, while this is a "translation granule", ie the base
+> granule size of the iommu domain. Which are not always the same thing..
 
-[ Upstream commit a26705bd2e2728833e7a538ce91e58a5eeff496a ]
+But this is an address not a granule size, not sure what that could
+be called then :)
 
-For GHL (Guitar Hero Live) dongles, sony_probe() arms a periodic timer:
-ghl_magic_poke() (the timer callback) submits sc->ghl_urb, and the URB
-completion ghl_magic_poke_cb() re-arms the timer with mod_timer().
+Thanks,
+Mostafa
 
-sony_remove() drained the timer with timer_delete_sync() and then freed
-the URB with usb_free_urb():
 
-	timer_delete_sync(&sc->ghl_poke_timer);
-	usb_free_urb(sc->ghl_urb);
-
-timer_delete_sync() does not block re-arming, and while the URB is in
-flight the timer is not pending, so the sync delete is a no-op. A URB
-completion that runs after the delete re-arms the timer, and usb_free_urb()
-only drops a reference -- it does not kill an in-flight URB. sc is
-allocated with devm_kzalloc() and freed once sony_remove() returns, so the
-re-armed ghl_poke_timer (embedded in sc) then fires on freed memory, a
-use-after-free from timer softirq. This is a disconnect/rmmod race.
-
-Poison the URB first, then shut the timer down, before freeing the URB.
-usb_poison_urb() kills any in-flight URB and permanently rejects further
-submissions, so a poke timer that is still pending cannot re-submit the
-URB from ghl_magic_poke() in the window before timer_shutdown_sync() runs.
-usb_kill_urb() would not suffice: it only cancels the in-flight URB and
-leaves it submittable once it returns, so the pending timer could
-re-submit it and put a fresh URB in flight over the freed sc.
-timer_shutdown_sync() then drains any last callback and blocks re-arming.
-The probe error path is unaffected: it is only reached before the timer
-is armed.
-
-Reproduced under KASAN on next-20260710 via dummy_hcd + raw-gadget
-emulation of the GHL PS4 dongle (VID 0x1430 / PID 0x07bb): hid-sony binds
-and arms the poke timer, the poke URB is held in flight, the driver is
-unbound (freeing sc), then the URB is released. The completion re-arms the
-timer on the freed sc, and the re-armed timer fires ~8 s later:
-
-  BUG: KASAN: slab-use-after-free in ghl_magic_poke+0x98/0xb0
-  Read of size 8 at addr ffff88810b02fd50 by task swapper/0/0
-   ghl_magic_poke+0x98/0xb0
-   call_timer_fn+0x35/0x2b0
-   __run_timers+0x69c/0x9a0
-   run_timer_softirq+0x173/0x2a0
-  Allocated by task 169:  sony_probe
-  Freed by task 338:      devres_release_group <- hid_device_remove (sony_remove)
-
-Found by 0sec (https://0sec.ai) using automated source analysis.
-
-Fixes: cc894ac55360 ("HID: sony: support for ghlive ps3/wii u dongles")
-Cc: stable@vger.kernel.org
-Assisted-by: 0sec:multi-model
-Signed-off-by: Doruk Tan Ozturk <doruk@0sec.ai>
-Signed-off-by: Jiri Kosina <jkosina@suse.com>
-[ changed the old del_timer_sync() call to timer_shutdown_sync() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/hid/hid-sony.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/hid/hid-sony.c b/drivers/hid/hid-sony.c
-index d2486f3734f00..d6992ead6201e 100644
---- a/drivers/hid/hid-sony.c
-+++ b/drivers/hid/hid-sony.c
-@@ -2163,7 +2163,9 @@ static void sony_remove(struct hid_device *hdev)
- 	struct sony_sc *sc = hid_get_drvdata(hdev);
- 
- 	if (sc->quirks & (GHL_GUITAR_PS3WIIU | GHL_GUITAR_PS4)) {
--		del_timer_sync(&sc->ghl_poke_timer);
-+		/* poison, not kill: a pending timer must not re-submit during teardown */
-+		usb_poison_urb(sc->ghl_urb);
-+		timer_shutdown_sync(&sc->ghl_poke_timer);
- 		usb_free_urb(sc->ghl_urb);
- 	}
- 
--- 
-2.53.0
-
+> 
+> Jason
