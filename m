@@ -1,108 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BCF468C0D;
-	Mon,  7 Sep 2026 16:30:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 816203AE191;
+	Mon,  7 Sep 2026 16:33:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798623; cv=none; b=bIRsAGYtzFuuWqr3td1Qai+6LYV9CmszEwbl/BIZK3qQvaX+hA+EFwyARmWE0txyBUZIHZghCotG/f9axrf31s+IY4U/eE+LTPfHapy8A3MYVPD2hV66MFPiEzw9WKQ3iGxi1RdmXsWFq4XAAR2+uBgLInxJuu4ihXoXHfMof50=
+	t=1788798833; cv=none; b=sdt5PIlo/tM39oyP3G0AtIDyZ7eO/UXVd6NEKtmU/br6BfTXjYxkiwUh0tk6UHbaikuqdLlw3mRpdvVVvGUCK9miJqBjeZBa0C0cNjdZrqPTQyvAP86W/h6gHCu/eNWCyq05tjGS3cQtwlF8Dj4pTpR9x0MyYJH3aISjTHk+gr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798623; c=relaxed/simple;
-	bh=TYQA4jeD0DIJnAW0P78qjwDpNlErq0X6ckTCGSBrwCE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fq8vSrhwMU6B4GXoS1t6AfO50Oknpch0l6A08cFCwmbEullBuAReAcPwm+yistwMjLOE/mdHnRUicxkGChlaZosO9p+DdQW8TKga41PeiCUFM9pCdHPcuGbG6ykx6laGI8Vhj8HZWwFbvE4TpgD9uv8M9Jd4je0R2E3Hpakz9hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KI62XHM/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788798833; c=relaxed/simple;
+	bh=SXQS3GLuO0AH4tyO9ImfLK+DZ0Ip6pIdRyKdrgzqYyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pGNS0YhIPK6t0RBFbQJg5b3wCdPjSjB5X1NIAhoEifdiMwuEnwihkqCYd6ycEcdSt+bwXOmVrExG7ciqjJExarWMAf79zciHAcfxXVBfk7VSkj0tBZXn/3kaIcE2a0CyNTIc8sIG7DFlM81+tdzEMoveH9uT4HWtqfWDvmA0Li8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i5wYc8By; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KI62XHM/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AF721F00A3A;
-	Mon,  7 Sep 2026 16:30:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i5wYc8By"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCF51F00A3A;
+	Mon,  7 Sep 2026 16:33:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788798621;
-	bh=TYQA4jeD0DIJnAW0P78qjwDpNlErq0X6ckTCGSBrwCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KI62XHM/GgSlqq9owo7p9GRljeRJwENVHuSPu6fS8Kl04az1Sb242UsyNOKb+j4yN
-	 ZZi0zcm8jQiNsGTjz2F6fRaAzU+TKsNUNm+PzC62GE/aHpaq6UwPqGqxc2Y6lfWGzw
-	 8fOAhd9L3XYcD7ps5jP2GxzgfafQb5GNI1pLYcEFGNwa4yOuT4q41/5/NIV6bAf9Fa
-	 dzsMQwOxbasMZ1trntTM+bbjwTqRFjeDxTzw85ts4FwCqtPSEh7RY7ypcCboomKVmw
-	 Bm/hdu1W2T2NmbCIMF7QHMQsh208+sNp16Rr0HXynJ2r1S/ce+oZdiAjjQnk4wFxz/
-	 hviFuc2R5p80w==
-Date: Mon, 7 Sep 2026 17:30:14 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Cedric Le Goater <clg@redhat.com>, 
-	Saravanan D <saravanand@crusoe.ai>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-Message-ID: <ap7mZ1Ktd_rRRrdX@gremlin>
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
- <DL08J4JGJ4UK.2G92WO0NK8XU3@nvidia.com>
- <apEzvfGgsvbc3vBI@gremlin>
- <dc52dd1d-f62d-4278-ab4d-95746383fd50@kernel.org>
- <ap7i1vLkfZj4rbNM@gremlin>
- <4743f22a-c24f-4f93-80f5-3260f29bd410@kernel.org>
+	s=k20260515; t=1788798832;
+	bh=cAuFkVwr+DWI2V4wrox0xZCJB/0hu3m74aTo0dee8I0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=i5wYc8BysTLjWIl1VZMisAs6qq70fofF+8/cz4NAB0r9TF8ieAzpbP2DsOXRCdYPs
+	 h/OAHgy169+b1CuJ8FoTJPYCFcuobmAA83xbEl5HsAtmh2DgNO1LaFmCflDfzD30hv
+	 ZBKpii018dEnIpP6ts7o8tlPIs8xXjKxmZhUfRujTGOO3v7A6fIZb7xR/H1eU5wzhj
+	 54x6CLqyDPNStPOVx9pj7VdSDCz5FeIJZA7TRfvq/M4GnVeN0mCsVuk4BehIK+nDPQ
+	 v7aYdvHltnPnINFV6eQ9PkxGIW95GK6TA5BTBB+9fxbWdMc/r5ZQuG1CKQhZI1Qn2Y
+	 /cpt8yAFkCgUA==
+From: SJ Park <sj@kernel.org>
+To: Liew Rui Yan <aethernet65535@gmail.com>
+Cc: SJ Park <sj@kernel.org>,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
+Date: Mon,  7 Sep 2026 09:33:44 -0700
+Message-ID: <20260907163344.87006-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260906222633.4227-1-aethernet65535@gmail.com>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4743f22a-c24f-4f93-80f5-3260f29bd410@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 06:19:30PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/7/26 18:15, Lorenzo Stoakes (ARM) wrote:
-> > On Mon, Sep 07, 2026 at 06:08:31PM +0200, David Hildenbrand (Arm) wrote:
-> >>
-> >>>
-> >>> That's a good idea! Much better thanks.
-> >>>
-> >>>
-> >>> Yeah, it's an annoying one as kinda want to say 'file-backed VMA' but I think
-> >>> you're right vma_xxx_file() -> vma_file_xxx() is better.
-> >>>
-> >>> Andrew - could you fix that up in place?
-> >>>
-> >>> Obviously if there's further feedback I can respin as well.
-> >>
-> >> Just as a general note I really hate these in-place updates.
-> >>
-> >> For a reviewer perspective (like me stumbling over this) this is just a mess.
-> >>
-> >> Resending with b4 is as easy as it gets.
-> >
-> > Ack, you are right to be honest, and I do empathise obviously.
-> >
-> > I will respin these in future!
-> >
-> > Let me know if you want me to respin this to make life a bit easier?
->
-> Sorry for being grumpy. With 1500 unread mails, playing Hensel and searching for
-> breadcrumbs in my inbox is hard :D
+On Mon,  7 Sep 2026 06:25:28 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
 
-Tsk, that's not grumpy, you're speaking to the king of grumpiness :P
+> On Sat, 05 Sep 2026 09:12:33 -0700 SJ Park <sj@kernel.org> wrote:
+> 
+> > On Sat,  5 Sep 2026 18:36:58 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > 
+> > > On Fri, 04 Sep 2026 17:25:34 -0700 SJ Park <sj@kernel.org> wrote:
+> > > 
+> > > > On Fri,  4 Sep 2026 23:35:38 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> > > > 
+> > > > > That said, it's not important for me to add explanations to the
+> > > > > document, but may I know why commit [2] changed the behavior which
+> > > > > introduced by commit [1]?
+> > > > > 
+> > > > > Commit [1] Behavior:
+> > > > > 
+> > > > >     if (quota->esz && quota->changed_sz >= quota->esz)
+> > > > >         s->stat.qt_exceeds++;
+> > > > > 
+> > > > > Commit [2] Behavior:
+> > > > > 
+> > > > >     if (damos_quota_is_full(quota, c->min_region_sz))
+> > > > >         s->stat.qt_exceeds++;
+> > > > > 
+> > > > > Before commit [2], qt_exceeds will only increase when quota->esz is not
+> > > > > zero, but after commit [2], qt_exceeds also increase even when
+> > > > > quota->esz is zero.  I'd love to understand the rationale behind this
+> > > > > change to better grasp the design evolution.
+> > > > > 
+> > > > > [1] 6268eac34ca30 ("mm/damon/schemes: account how many times quota limit has exceeded")
+> > > > >     (Fri Jan 14 14:10:20 2022 -0800)
+> > > > > [2] c7ec7d5f6b3d1 ("mm/damon/core: handle <min_region_sz remaining quota as empty")
+> > > > >     (Mon Apr 27 18:33:50 2026 -0700)
+> > > > 
+> > > > Seems commit c7ec7d5f6b3d1 didn't make a behavior change that you are
+> > > > describing.
+> > > 
+> > > I actually wanted to point out the behavior difference between commit [1]
+> > > and [2], but I've understood and agreed with your point.
+> > > 
+> > > > 
+> > > > '''
+> > > > $ git show c7ec7d5f6b3d1
+> > > > [...]
+> > > > @@ -2601,8 +2613,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+> > > >         if (!time_in_range_open(jiffies, quota->charged_from,
+> > > >                                 quota->charged_from +
+> > > >                                 msecs_to_jiffies(quota->reset_interval))) {
+> > > > -               if (damos_quota_is_set(quota) &&
+> > > > -                               quota->charged_sz >= quota->esz)
+> > > > +               if (damos_quota_is_full(quota, c->min_region_sz))
+> > > >                         s->stat.qt_exceeds++;
+> > > >                 quota->total_charged_sz += quota->charged_sz;
+> > > >                 quota->charged_from = jiffies;
+> > > > '''
+> > > > 
+> > > > And I don't think there was a behavior change.  Hopefully commit 54419bbd0ee3
+> > > > ("mm/damon/core: allow quota goals set zero effective size quota") will give
+> > > > you some clues.
+> > > 
+> > > Thank you very much for your clarifying :>
+> > > 
+> > > Now I completely understand why there is different behavior
+> > 
+> > I told you I don't think there was a behavior change.  I still think so.
+> > 
+> > > between
+> > > commit [1] and [2].  Because in commit [1], esz==0 only means quota is
+> > > unlimited.
+> > 
+> > No.  Commit 54419bbd0ee3 says "DAMON core assumes zero effective quota means
+> > the user has set no quota."
+> > 
+> > 
+> > > After commit 54419bbd0ee3, esz==0 also can means do not have
+> > > quota at all.
+> > 
+> > That's what the commit is describing the before-commit status...
+> > 
+> > > But the qt_exceeds should just not increase when quota is
+> > > unlimited, that's why the current implementation is completely correct.
+> > 
+> > There is no unlimited quota.  Hence I don't understand what you are saying
+> > here.  Please carefully read the commit message again.
+> 
+> Thank you for the detailed explanation, and sorry for my confusing
+> wording.  Let me confirm my corrected understanding:
+> 
+> Before commit 54419bbd0ee3, esz == 0 appeared only when the quota was
+> unset, i.e., the user has set no quota.  DAMON core therefore assumed
+> zero effective quota means the user has set no quota, and the code
+> checked quota->esz to tell whether a quota is set.  Commit 54419bbd0ee3
+> decoupled "quota is set" from "esz != 0" by introducing
+> damos_quota_is_set().  After that, the temporal goal tuner
+> (af738a6a00c1f) made it possible for a set quota to have esz == 0 as
+> well, for example once its goal is over-achieved.  In that case the
+> scheme is intentionally deactivated,
 
->
-> (I did see some reply from Zi to an mm-unstable patch, but not sure if that was
-> applied in the end -- or whether Andrew fixed up any of that)
->
-> I just saw my reply to my other mail, maybe a v2 would be best :)
+From user's perspective, it may look like it is deactivated.  Technically
+speaking, however, it is not deactivated.  Everything keeps working in the
+normal way.  Just one difference is that now it has very small (zero) quota.
 
-Sure no problem will respin.
+> and counting qt_exceeds is intended,
+> not a bug.
+> 
+> Commit c7ec7d5f6b3d1 did not change the behavior I asked about; it only
+> refactored the check into damos_quota_is_full().
 
-I will probably respin the RCU page table series too to wrap Kiryl's changes
-into it just to make life easier there too!
+Seems you fully understand that now :)
 
->
-> --
-> Cheers,
->
-> David
+> 
+> I will send a documentation patch in the near future.  Thank you again
+> for your patience.
 
---
-Cheers, Lorenzo
+Thank you for your patience, too.  Looking forward to the patch!
+
+
+Thanks,
+SJ
+
+[...]
