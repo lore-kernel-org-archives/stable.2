@@ -1,167 +1,168 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B303C109E
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 08:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A7C364EB2
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 08:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770883; cv=none; b=JJdPBg40J8KuBGQvkPEEVLCuxScZb8FcFJsJuSb2yCsggL4zTW6I+AO/NyeqqSbIYBT/7lV3HhZjD1dVEYQzD92d34tFwo1tS1BJRNMYD+TxxE3IIQyPnl2KkOXruXB6jbQF7TVNQGUnTcPdDM69U2+QVg338j157WYPlYK964E=
+	t=1788770949; cv=none; b=m3WPposmuenmk0hiCYmcgMFr8s37YhzqdSnI+jnmofuoDVIBZphKc3C4+NNh/tbkEiyTUOW8s8WuVWb/nuO24304wbmeUTIBI6jNiRiwfEbwNeS0OuWL/voiLSxQXpXQi0BbAaEBZvqhPyC/6uZg1LlI7q6PhCfDQv7XFcoSsok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770883; c=relaxed/simple;
-	bh=iYllAYpYLjNYVzLXFFNLX/0LIc+g4q/kxBDArGrOOz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Wh7/tVYqddmzTW4pWwGnd5iXFczyepbo4eaAr86SWOFafiE74KuWsF0pHrsH6FwY/B9i3pd3ht4zRlERZIsigAixxRfm3BzfbAz0oQ3WW/ThuKYqyVtGDw1csnh8G2JTrLKV8nqTtppMrPkne0zusDPhR1ROejeOanYK9QHt454=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bw4vbcLd; arc=none smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788770949; c=relaxed/simple;
+	bh=eqn0OOWrIRbfELyDLFRqsaHtVt1EJFfMxVspuXMRUT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=i47mdvKfPTYsJuMGUwaRyUoBegZR/Tp0KDbTZGeJnWoEaNnE6YBpLKbmOLw6RtrxykWZJ+fVx2+paMjp8N03csb8OusxWpU3CD+zgORVBvEwfTHXGvJwp+N+yDTZ72b6BhIryfpYRsInBSXzr3iksOYHU7J++OrQEoo0K/H3+nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Tmr3qKK2; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bw4vbcLd"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39f20d19895so22949391fa.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 01:48:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788770880; x=1789375680; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eCysfBdSaswXCoCnyfT/qF6SoSQk8nC4YJJgNomp5wA=;
-        b=bw4vbcLdQP4Jn2kXmmOqiCyYtV9UDlTQNJNwxjpsmmP7b6RiccaSs9KK6k/AaQZKim
-         3azk63/ucVe0vNvsxBbMOqntHYqCFXJt/+DS/cTFGizxWxWYjhhydyy0yRBt7h0oFsyz
-         7CWq9YHa9ozuvvdbjetoKQJStkk8einEYRAIBEtYVbYR4As4igCW3C1DGG61uL/vOuTD
-         g+IK6phq1alymf8Gk2kvyNl/afRh7eV0eI1si62a4ZKAMtKkMDVqwqYhcymRgyQ9JJs9
-         fpCOJzTJV1pbUSk6bEkzv8jqQIIqAxyaDflUag8LTgELf1BiZsuxIUxFRwH4J/N7iclR
-         7/hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770880; x=1789375680;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eCysfBdSaswXCoCnyfT/qF6SoSQk8nC4YJJgNomp5wA=;
-        b=tMq+1swQ1E52pjX9PNA5s9RlV0t7yRbVMJov11TWzJMoHNaxS2hP780MQgJNRrEX80
-         QUQPLQvFcDbCwAenDkwjCooa+KliOozTN6cjlQ2ZceyurpFcLps5tcqvhsmY3dwr8I4Z
-         RnXzLGg+6FrZMEW3+pYvEwCjFEivN7GAoCru1s5OREzri69HSQoENJSIsZCve9/+J44P
-         3UdEKsCriS64Z2QtSLk6nfxH2ULy2ZcDHtrhF6DZWpJl3ECAl4wnFWUCwk1MksTRRm/w
-         roSIep4dbhcL+qg9iQ1SUR9rNBA54zzS9v7ctd5o8XXMzM1rKmzH6nsKqeW7CuEMGN2z
-         XJeQ==
-X-Gm-Message-State: AFuF++n+1e2NITKuiUoqeR9PVAgcqInW3IW/uvuMJ5+Y0a39+wwSwtAW
-	qk+VG/lm3/4em8j3VEw5ak1lHI1ootxBkUgqEP/h+NP34urixbCpBsBdQwpQIMcFKWkS8Q==
-X-Gm-Gg: AYBFou2vgmynoo+j7IG3Uvni8MZPDN+96jK3GKfpq5j46uFBgTHt1vDwYPGzSEUNT2q
-	Y9a1OTYl+Zc4WdC8BfgZiMd+a/nSAKIjBK1APq+q+uJX+Q4QTHF1s5RwbOiHHRHicIPxQ9F93kw
-	N9KLbBntgJaW2JQxzRmncGSeI9pFWGkJH05XUquEgLiqLViKpnFrnNGaeHsUfwgYH1CH4NWnh97
-	ig77N+fjw7kHCSoLcj4ibySd7RZHPlvWhzKct4cmyAcW90BQbyCcGIhaJLvjnLRe6BEnyGajXOn
-	JGDziJOCEl9tMjYpXAp8ioQoKNmzYOYYb8cf+f5GHz7tT4qm0rCimYh3wWdlN2VVy8MdHCRXcpQ
-	j2/AFLt38ByJzmwpB5Ti0lGiVkMhSyCLnwtQBsVxHjruffgLdxsmDpXB4AQgFjXwGuGoWLh2MYi
-	22Z+A7q7/QCWKR0vWbM45q/6KUa/BVO06wf5MV1V0/mBoT+mLJKD6Q
-X-Received: by 2002:a2e:a7cf:0:b0:3a1:a1f6:3af9 with SMTP id 38308e7fff4ca-3a371ae82a2mr23211451fa.5.1788770879804;
-        Mon, 07 Sep 2026 01:47:59 -0700 (PDT)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a3c2925448sm21293701fa.7.2026.09.07.01.47.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:47:59 -0700 (PDT)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org
-Cc: Petr Vaganov <p.vaganov@ideco.ru>,
-	Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Petr Vaganov <petrvaganoff@gmail.com>
-Subject: [PATCH 6.6.y] scsi: core: Fill in DMA padding bytes in scsi_alloc_sgtables()
-Date: Mon,  7 Sep 2026 15:47:47 +0700
-Message-ID: <20260907084747.100011-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026090345-morale-uncharted-466e@gregkh>
-References: <2026090345-morale-uncharted-466e@gregkh>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Tmr3qKK2"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=c4GIZGT4TyXoHHB1gMPoDnQG3lKJ5Fhq9LS0nG+kawY=;
+	b=Tmr3qKK2UZTVAKGyV1HXzzOlhYSd+2g/gxsOMAmf1W7o+6V/djRr41cLbVpbg/cziClc4SjkX
+	UFLphzUI0iCCGIX2Ns3ouTKOljyqNN94EVQSHXVwvsL+NzGHUTju+9lJIVsTVldBhzCWcGPkIer
+	51myB+T37h202XyHNs8eUyA=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hdgRq3dwyz1T4Mc;
+	Mon,  7 Sep 2026 16:37:27 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2235E40579;
+	Mon,  7 Sep 2026 16:48:56 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 7 Sep 2026 16:48:55 +0800
+Message-ID: <b5194b06-ec4b-42f7-b879-9d3082aa58d7@huawei.com>
+Date: Mon, 7 Sep 2026 16:48:54 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/21] arm64: percpu: Fix LSE operations on {8,16}-bit
+ types
+To: Mark Rutland <mark.rutland@arm.com>,
+	<linux-arm-kernel@lists.infradead.org>
+CC: <ada.coupriediaz@arm.com>, <ardb@kernel.org>, <catalin.marinas@arm.com>,
+	<cl@gentwo.org>, <david.laight.linux@gmail.com>, <james.morse@arm.com>,
+	<maz@kernel.org>, <peterz@infradead.org>, <stable@vger.kernel.org>,
+	<usama.anjum@arm.com>, <vladimir.murzin@arm.com>, <will@kernel.org>,
+	<yang@os.amperecomputing.com>
+References: <20260904161758.376504-1-mark.rutland@arm.com>
+ <20260904161758.376504-4-mark.rutland@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260904161758.376504-4-mark.rutland@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Petr Vaganov <p.vaganov@ideco.ru>
 
-During fuzz testing, the following issue was discovered:
 
-BUG: KMSAN: uninit-value in __dma_map_sg_attrs+0x217/0x310
- __dma_map_sg_attrs+0x217/0x310
- dma_map_sg_attrs+0x4a/0x70
- ata_qc_issue+0x9f8/0x1420
- __ata_scsi_queuecmd+0x1657/0x1740
- ata_scsi_queuecmd+0x79a/0x920
- scsi_queue_rq+0x4472/0x4f40
- blk_mq_dispatch_rq_list+0x1cca/0x3ee0
- __blk_mq_sched_dispatch_requests+0x458/0x630
- blk_mq_sched_dispatch_requests+0x15b/0x340
- __blk_mq_run_hw_queue+0xe5/0x250
- __blk_mq_delay_run_hw_queue+0x138/0x780
- blk_mq_run_hw_queue+0x4bb/0x7e0
- blk_mq_sched_insert_request+0x2a7/0x4c0
- blk_execute_rq+0x497/0x8a0
- sg_io+0xbe0/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+在 2026/9/5 0:17, Mark Rutland 写道:
+> The assembly for __percpu_##name##_case_##sz() and
+> __percpu_##name##_return_case_##sz() doesn't use the 'sfx' macro
+> argument to form the LSE instruction. Without 'sfx', a W register
+> argument will imply a 32-bit memory location, and consequently
+> {8,16}-bit ops will erroneously read and write 32 bits of memory when
+> the LSE instruction is used.
+> 
+> Fix this by appending 'sfx' to 'op_lse' to LSE instruction. It is not
+> necessary (and not valid) to append 'sfx' to 'op_llsc', as 'op_llsc' is
+> a register-register operation which does not access memory (and does not
+> take a size suffix).
+> 
+> Test case:
+> 
+> | void outline_this_cpu_add_u8(u8 __percpu *p, u8 v)
+> | {
+> | 	this_cpu_add(*p, v);
+> | }
+> 
+> Generated inline code (same before and after this patch):
+> 
+> | <outline_this_cpu_add_u8>:
+> |        paciasp
+> |        stp     x29, x30, [sp, #-16]!
+> |        mrs     x2, sp_el0
+> |        mov     x29, sp
+> |        ldr     w3, [x2, #8]
+> |        add     w3, w3, #0x1
+> |        str     w3, [x2, #8]
+> |        mrs     x3, tpidr_el1
+> |        add     x0, x0, x3
+> | 1:     ldxrb   w5, [x0]        // <----------------
+> |        add     w5, w5, w1      // LL/SC alternative
+> |        stxrb   w4, w5, [x0]    // instructions here
+> |        cbnz    w4, 1b          // <----------------
+> |        ldr     x0, [x2, #8]
+> |        sub     x0, x0, #0x1
+> |        str     w0, [x2, #8]
+> |        cbz     x0, 2f
+> |        ldr     x0, [x2, #8]
+> |        cbnz    x0, 3f
+> | 2:     bl      preempt_schedule_notrace
+> | 3:     ldp     x29, x30, [sp], #16
+> |        autiasp
+> |        ret
+> 
+> Generated LSE alternative before this patch:
+> 
+> |        ldadd   w1, w5, [x0]    // 32-bit LDADD
+> |        nop
+> |        nop
+> |        nop
+> 
+> Generated LSE alternative after this patch:
+> 
+> |        ldaddb  w1, w5, [x0]    // 8-bit LDADDB
+> |        nop
+> |        nop
+> |        nop
+> 
+> Fixes: 959bf2fd03b5 ("arm64: percpu: Rewrite per-cpu ops to allow use of LSE atomics")
+> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
+> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> Cc: Ard Biesheuvel <ardb@kernel.org>
+> Cc: Catalin Marinas <catalin.marinas@arm.com>
+> Cc: James Morse <james.morse@arm.com>
+> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
+> Cc: Marc Zyngier <maz@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
+> Cc: Will Deacon <will@kernel.org>
+> Cc: Yang Shi <yang@os.amperecomputing.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/include/asm/percpu.h | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+> index 31193bcf89a2b..8cf4068ce1b56 100644
+> --- a/arch/arm64/include/asm/percpu.h
+> +++ b/arch/arm64/include/asm/percpu.h
+> @@ -77,7 +77,7 @@ __percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
+>  	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
+>  	"	cbnz	%w[loop], 1b",					\
+>  	/* LSE atomics */						\
+> -		#op_lse "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
+> +		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
+>  		__nops(3))						\
+>  	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
+>  	  [ptr] "+Q"(*(u##sz *)ptr)					\
+> @@ -98,7 +98,7 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
+>  	"	stxr" #sfx "\t%w[loop], %" #w "[ret], %[ptr]\n"		\
+>  	"	cbnz	%w[loop], 1b",					\
+>  	/* LSE atomics */						\
+> -		#op_lse "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
+> +		#op_lse #sfx "\t%" #w "[val], %" #w "[ret], %[ptr]\n"	\
+>  		#op_llsc "\t%" #w "[ret], %" #w "[ret], %" #w "[val]\n"	\
 
-Uninit was created at:
- __alloc_pages+0x5c0/0xc80
- alloc_pages+0xe0e/0x1050
- blk_rq_map_user_iov+0x2b77/0x6100
- blk_rq_map_user_io+0x2fa/0x4d0
- sg_io+0xad6/0xe20
- scsi_ioctl+0x2b36/0x3c60
- sr_block_ioctl+0x319/0x440
- blkdev_ioctl+0x80f/0xd70
- __se_sys_ioctl+0x219/0x420
- __x64_sys_ioctl+0x93/0xe0
- x64_sys_call+0x1d6c/0x3ad0
- do_syscall_64+0x4c/0xa0
- entry_SYSCALL_64_after_hwframe+0x6e/0xd8
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Bytes 14-15 of 16 are uninitialized
-Memory access of size 16 starts at ffff88800cbdb000
-
-When processing the last unaligned element of the scatterlist, it is
-supplemented with missing bytes in the amount of pad_len.  These bytes
-remain uninitialized, which leads to a problem.
-
-Extend last_sg->length by pad_len first, then use sg_zero_buffer() to
-zero those pad_len bytes.  sg_zero_buffer() uses sg_miter internally,
-which correctly handles sg entries spanning multiple pages and padding
-that crosses a page boundary.
-
-Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
-
-Fixes: 40b01b9bbdf5 ("block: update bio according to DMA alignment padding")
-Cc: stable@vger.kernel.org
-Signed-off-by: Petr Vaganov <p.vaganov@ideco.ru>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Link: https://patch.msgid.link/20260628185229.37957-1-p.vaganov@ideco.ru
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-(cherry picked from commit 626147717bea776b61ed3631d2c26283760c4cc4)
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
----
- drivers/scsi/scsi_lib.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
-index 2268e540f28a..f3514b45ef30 100644
---- a/drivers/scsi/scsi_lib.c
-+++ b/drivers/scsi/scsi_lib.c
-@@ -1087,8 +1087,10 @@ blk_status_t scsi_alloc_sgtables(struct scsi_cmnd *cmd)
- 	if (blk_rq_bytes(rq) & rq->q->dma_pad_mask) {
- 		unsigned int pad_len =
- 			(rq->q->dma_pad_mask & ~blk_rq_bytes(rq)) + 1;
-+		unsigned int data_len = last_sg->length;
- 
- 		last_sg->length += pad_len;
-+		sg_zero_buffer(last_sg, 1, pad_len, data_len);
- 		cmd->extra_len += pad_len;
- 	}
- 
--- 
-2.55.0
+>  		__nops(2))						\
+>  	: [loop] "=&r" (loop), [ret] "=&r" (ret),			\
 
