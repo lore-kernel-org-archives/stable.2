@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4688B41379E;
-	Mon,  7 Sep 2026 06:47:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB13E3B27DC;
+	Mon,  7 Sep 2026 06:51:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763671; cv=none; b=E3zL86X0RV4hR+jTVR8kn0FoOBcT2BLQJjBjOMrkxxnY/nFCVNi0yADZ7fWclVzg9ku0ymNXiCWnN4zw68Eisv8omrQvaytwKsOFYS1JvFv8ZEcOeQi24thhMPed4PUu0r3/BQz+6grOzKuqVKwLJ503yIk9q1ZiNizsK093E48=
+	t=1788763891; cv=none; b=BSKwscVATI2eJql+hreeRPSCNFEKOzA2rIDy0ekgiPiTaX9s+mKDL6X+IDeStmSyFnL5nMYwwqCVDYbEy3R4vSMcHgBBg87yg92lPj9dLlIjhZv9bWm6rQCsk3qEyvgbgeliOc6vNE2uY2Z6SvdvBmF4UDU2I661cfsUz2lN4R8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763671; c=relaxed/simple;
-	bh=BNie282xU5eu890Ms/upZMZQO49kpQrhLK8FlGZdHrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nhOqnJVIBzRyEuVJYdM1u7SpTfgbFTdet4233OO1uri8Zh18JzpZy3dKWuNQLS4uVJ2HIUeU6XR3QnaD4LHAmN0zX/Hkzy/Y8VopanaEhgaD9H7KCSHn7jooJXnxPqg4dSFEUPdVhiqrLF3etc6+heXhTt8AegJshelvxftZA+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uu1cQqUn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788763891; c=relaxed/simple;
+	bh=duM4FHxoU+m46Q2auZ4YTTmQ7c08blxA1CbJkARAYFM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=kGg8g39Vvh7ne6Nzu5zbaZMFcKztn3Yk9lqBzp0i09q8TJL1JlxXkMSI+Ja1anrnE7fe50Z/e0Lq+vQMbVTL4J8nZtTfXtV0PAJflAVvbmEAE9zOd91ZROsvEv/mssPaqpU75RouBOZwjlcX5+Vgs0PUPFEbQ8UylcQZUWFQBDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EozCEiYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uu1cQqUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852DC1F00A3D;
-	Mon,  7 Sep 2026 06:47:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EozCEiYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47E091F00A3A;
+	Mon,  7 Sep 2026 06:51:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788763668;
-	bh=TKhJNQZ3kTdGLSdNxwitpgDe39MWhrreC+MxyA1vdgs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Uu1cQqUnIInzGmTWcEycZJ78Lzuli/xVHHI4VLpzTVIO2QTYr7HmVDnc8kQxYX1uE
-	 UCpJNNtPJhvfM8V1Y541K8MD0m89J87Z8sDeMSm0O6g1uI7zRcUDz98gwh0XiEcZHn
-	 Go3I0qRE82rJpIE3EPoJtoYGLIZ3heXp0r/J7BWUwofIq4IoltaEQcgkI9tWBJW6C5
-	 /rZxq+YlSOPXZwC/mwv7APpGwbg64m/BUtepuhZVqK3vjh9ZKWWr/wHx5/c16bKQuq
-	 Tymy7EK1Gzdd3MlaAl/9rwP0O7pg9ZHgaXfuiQoMvEpNvtpuUIzf7asQvMXCkEtRDA
-	 T4w9GnA3JOWbQ==
-Message-ID: <3f33d9f0-65c2-49b7-bb6d-2fe33f0d8fbe@kernel.org>
-Date: Mon, 7 Sep 2026 08:47:45 +0200
+	s=k20260515; t=1788763889;
+	bh=XlC9wA0KQFZjjU8YQpMqcfscNkbTh8ePy/dmG6UosIU=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=EozCEiYK1JRczd4YT+fMyA0nDSwEY0+TnROFvAKR1myZTT2vicsfcPJJp33ziD7Qw
+	 7wYkeJNcYtuRWO7f+c2cczpEl9F5xxeoI1Y5DLp5s+NSFFQkuTP2YekWkmrxjDC9IN
+	 mXEmqSFRpDeTN1MCNJYBl1ytX3Px8pTYWPMB5wLn2Xrew2kt8b3B4dlJ6fl8kflE+3
+	 Q0CH1XdDbJGf9bX5sfoX3uk6XreffsqHdMC1CWc6HCfD1wLPokyLA6PNo1GTs3rs2V
+	 8VXr1WAxR8sUjWq1gDdm7aaHrCHrdMLR/VYr+cRZc3efAo47xU6X00hpnwY6x1vwkV
+	 xYLo2jX1aCzhg==
+Message-ID: <b504b8a5-8bc3-49f2-a01d-4f24f46f84a0@kernel.org>
+Date: Mon, 7 Sep 2026 08:51:26 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,14 +36,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v3 1/4] serial: revert guards in uart_wait_modem_status()
+From: Jiri Slaby <jirislaby@kernel.org>
 To: Johan Hovold <johan@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
 References: <20260907064418.92953-1-johan@kernel.org>
  <20260907064418.92953-2-johan@kernel.org>
+ <3f33d9f0-65c2-49b7-bb6d-2fe33f0d8fbe@kernel.org>
 Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
 Autocrypt: addr=jirislaby@kernel.org; keydata=
  xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
  rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
@@ -86,57 +87,24 @@ Autocrypt: addr=jirislaby@kernel.org; keydata=
  f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
  DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
  S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
-In-Reply-To: <20260907064418.92953-2-johan@kernel.org>
+In-Reply-To: <3f33d9f0-65c2-49b7-bb6d-2fe33f0d8fbe@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 07. 09. 26, 8:44, Johan Hovold wrote:
-> Mixing scope-based and regular cleanup is discouraged and
-> uart_port_deref() used by uart_wait_modem_status() falls in the latter
-> category.
+On 07. 09. 26, 8:47, Jiri Slaby wrote:
+> On 07. 09. 26, 8:44, Johan Hovold wrote:
+>> Mixing scope-based and regular cleanup is discouraged and
+>> uart_port_deref() used by uart_wait_modem_status() falls in the latter
+>> category.
+>>
+>> Revert the premature guard conversion in preparation for fixing a hangup
+>> race.
 > 
-> Revert the premature guard conversion in preparation for fixing a hangup
-> race.
+> It's not premature. Just convert uart_port_ref() to guards too. Gotos suck.
 
-It's not premature. Just convert uart_port_ref() to guards too. Gotos suck.
-
-> Fixes: 56609c050051 ("serial: serial_core: use guard()s")
-> Cc: stable@vger.kernel.org	# 6.18
-> Cc: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->   drivers/tty/serial/serial_core.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 95774b0f1484..1553bc6cbe7b 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -1213,15 +1213,16 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
->   	uport = uart_port_ref(state);
->   	if (!uport)
->   		return -EIO;
-> -	scoped_guard(uart_port_lock_irq, uport) {
-> -		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-> -		uart_enable_ms(uport);
-> -	}
-> +	uart_port_lock_irq(uport);
-> +	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-> +	uart_enable_ms(uport);
-> +	uart_port_unlock_irq(uport);
->   
->   	add_wait_queue(&port->delta_msr_wait, &wait);
->   	for (;;) {
-> -		scoped_guard(uart_port_lock_irq, uport)
-> -			memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
-> +		uart_port_lock_irq(uport);
-> +		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
-> +		uart_port_unlock_irq(uport);
->   
->   		set_current_state(TASK_INTERRUPTIBLE);
->   
-
+(Or don't use gotos and I will.)
 
 -- 
 js
 suse labs
+
