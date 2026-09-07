@@ -1,156 +1,218 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013009.outbound.protection.outlook.com [40.107.201.9])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D95372058;
-	Mon,  7 Sep 2026 06:12:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761556; cv=fail; b=iJE6FEk0fy2iO7oMvNyZbxpyQ9mJS7GHxulWNXN4mptw+e86FBU1hvYmyNt4vBw24Jj80mftcYuBQTjVC6JbO8ciSgRAruiL0GB57WU2BBUfKdPssmsi2NiYqFQqmgUVEIPuXJ3HDAlHnE63OZod/bxe1ghU4DkCeypilXy55EM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761556; c=relaxed/simple;
-	bh=/V65iypWjIuZjHhqstiTJ1OV7y7VWCalB/ryW6bpIsk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ADwfh2Yc/NYAQCJqaJBM6aJei9jhbBn6FDGd0CBiTnVISf5j2EVlgmOUKvBpj4RvyvJ5p7V6ddpkZp7HDaUr4WTJfZLWVO5K5knLXZuLvFydXQVACFhP446bFXroE9UaY6vMu5OToBRSPpirXZULNXgL/8Pt4wHCm76PM3TsNOM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=o+WQ7u3w; arc=fail smtp.client-ip=40.107.201.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="o+WQ7u3w"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=T6B/SSxkTOGjgYxaOCNMwwu514WFp8HkcZ8OxI3t9WZ3G7H40hWqvRvZulswqXiEXHlioSdUZuuBHF5b2xUEHu7OlCzaNxJKTJ+Dma6/kMyqA76R/xNNiHi32lSK9hk5Et8c2rrX239hLXqfQ7pwGI+pNyFdBaidNXGh424jcBemHY4QA22fISOpTa73auDms1msajqz1TjyHJFyXgJKwPHs9EvzI60pFbfFVFu4zyF0c3/fE4J/BNME4NA5FrcJZc0i/BRYcSnGCD0GxRs4zL1AautlNRFJ6o26YB013Vf2tOoWCS7/anJexFrrEZT7ak8tNyIKlvv5tIOhAw0N8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IXH2I7+krE08KiMbXfRUjihTpMemJdPGaU80zjEBbf8=;
- b=jS+SsfVpI/XmnSf57EbYhgfuqzASsD9ZmiDmEwXbH6tqAjugJq1wH23HmYqDIBhtgYGbdX0qWMAPrfmGgsb4/HzdojeWhJ1lXyN+KXugiBdQ2RTDcM+LcTMsMXpdwEv42oil6SZZUtFmC9ih6W6uy7djGaqAYKIlyG2IQ4lgEwE+j1dZgkMUxGhspyPh/qcBc19YFb5NcKMGY+J71GKuVzhE/3HcMEk5xydCOvrbUnMvPRk6ZCJF4Yefrzncf/8irE3GEf57w4GIhKcan6R5yt+58rICzWXAkHgE/g5i/H55Sy9gpAx5Thkuxiu8P/2FWHJ4b8ePDX88cc8bVpJ6fQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IXH2I7+krE08KiMbXfRUjihTpMemJdPGaU80zjEBbf8=;
- b=o+WQ7u3wtZff+8H8jShPV8eo5/STA+YJyf+O2hI/WdWl0txOc9pabzHy2f0275CNHq3/qXqsVUs8k79UfsZWRN0k18Z2fpNC7fuR9iS50yBqMQDn0RqN6qAClAyOtpgX/TP79YvzgGW+CHZZu5UyVEmD6jSm8Gj+st0piWmxvtk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from LV0PR12MB999069.namprd12.prod.outlook.com
- (2603:10b6:408:32a::19) by IA1PR12MB6484.namprd12.prod.outlook.com
- (2603:10b6:208:3a7::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 06:12:30 +0000
-Received: from LV0PR12MB999069.namprd12.prod.outlook.com
- ([fe80::6d95:9938:bff0:cd99]) by LV0PR12MB999069.namprd12.prod.outlook.com
- ([fe80::6d95:9938:bff0:cd99%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 06:12:30 +0000
-Message-ID: <6afcaa49-75d6-4f80-be3b-16b81d354adf@amd.com>
-Date: Mon, 7 Sep 2026 11:42:24 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] lib/group_cpus: Snapshot cluster masks to keep
- grouping hotplug invariant
-To: "Guo, Wangyang" <wangyang.guo@intel.com>,
- "tglx@kernel.org" <tglx@kernel.org>,
- "akpm@linux-foundation.org" <akpm@linux-foundation.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "bp@alien8.de" <bp@alien8.de>, "Li, Tianyou" <tianyou.li@intel.com>,
- "tim.c.chen@linux.intel.com" <tim.c.chen@linux.intel.com>,
- "Liang, Dan" <dan.liang@intel.com>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260826171537.4167367-1-Vishal.Badole@amd.com>
- <DS0PR11MB80182E1B2DE32122C96B607192A82@DS0PR11MB8018.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Badole, Vishal" <vishal.badole@amd.com>
-In-Reply-To: <DS0PR11MB80182E1B2DE32122C96B607192A82@DS0PR11MB8018.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0107.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1b5::9) To LV0PR12MB999069.namprd12.prod.outlook.com
- (2603:10b6:408:32a::19)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5736F2F5495;
+	Mon,  7 Sep 2026 06:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788762139; cv=none; b=OLm5bb9qZ2qQlw55NF/Bu48vXupRErN/N8hEe3RPmURunl6xZZtJNCwV3A0QSysZDWs5Y2WSNr/IDj5uauCrwB2l985mNGVARzZAZyn6gJW85/MrM3nfq6ukVyh4xNqLKcwJ+7d9R5KiFOAdgXQZ02UuaRPXOs0sMwFRScc67BQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788762139; c=relaxed/simple;
+	bh=hxhngAuDx8GSokc6rP4LurdJaNYN0GNhcknj23j6Gkw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=abk98eSvmGJ+FL7/iDCdz6qxA0P6Hh+Q25j7L2j6Gr3hfBrPnAk3f5/ChRSaFpylhj9cDx3QQVh/XCVjkfho3i93ZbBGR0anhKm/IYVe7INymEs+ojcjPl+3KR30zhZxqCLpNiMTSuoHEste1B+OX2Np8WWAl5M4PmNZfjy3Ytc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 75fcdfaeaa8411f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:9208381d-7050-421c-a029-c9369ab18b08,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:4d8ee15b5ae54cd0fe68286f147db783,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 75fcdfaeaa8411f19a56ed5b684f684d-20260907
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 236213538; Mon, 07 Sep 2026 14:22:11 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/3] ntfs: fix volume flag update races
+Date: Mon,  7 Sep 2026 14:22:04 +0800
+Message-Id: <20260907062206.260638-2-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260907062206.260638-1-zenghongling@kylinos.cn>
+References: <20260907062206.260638-1-zenghongling@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV0PR12MB999069:EE_|IA1PR12MB6484:EE_
-X-MS-Office365-Filtering-Correlation-Id: b966457e-207d-49da-cb68-08df0ca6ffa2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	fAP8QQVn3yQnCXXX2h6NNVUO3yG6DD5yytwm6Nog6CCaS2aAUGfNKvX9iNuOAlR8DaJSg4Z4Wp6Y6Cr2+ZZuOtmKSlODdOQSCajLK2DwyNI2z6tJQMaSJ9a45SpazuKLiN2bSW+5nSbEd9UprsB82RVpZsb0noF0uVvSqUlr2Oi3mqoa+maXt94CLIw1fZ3yi6tdNXLEvrzT4MAlxCT7FqiXYdZj2KEYe0LN4+invVmL8iuLs+CC0n0G3vZhrvQPPJFDjlFFZZBabFDzfn7rJjyzbrfSL9jXhsRUDNkrEijn/2yRklwaeQ4ugzEwXJ0r1HHjSRNXxUo1fhJ38C1v23FdX8iHoDSIuXjYdEiueX3+1OvTvo6xD9hv7tWxjGPfeJCULyfzIQpc7btZunadyHBXm5Ul9VGZdDRJiug5T7++NMXSPx+apeMCP6ZKHE1edXK+algfsSQOG7A9l6eLc/m4f1bK/DbajZF/6DEvISVrAmexMA4JF9xzYjAyTfBLNWajHH59t+R3uIh34G2mTWX7X8jCNMCYFdf8KpowJIWfkjbS2huYDV/2WLKsjOH3tF28MP2IStP0HhjjqaumLwqwuUKqHQ/ePWcZJr8LGfgTvVu/NaYtHiAwgjDVcTF+aZKHAB5wNQjFRT5sx7/sfZFgfhvoHknkwVhmVfwJJ4w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV0PR12MB999069.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R2prd015dlRnTVhtRHEwU3Vsd0hNdDg1bGxhcTJqWmNwQzBQekg1UlZKUEpw?=
- =?utf-8?B?TWhXQncwbUs1b256N3dWbE95UXhFTjVNemk3THVhQjM4NnNIY29xdFROMjgr?=
- =?utf-8?B?Y1U0R2h6cTVnMGlPbmVteHNYQnVJVjZ2b1d1YnhJRjgveklRZU9SY0IrQ0VN?=
- =?utf-8?B?WDFjYldMamZHaC9PbG1GTGZQQ1N3REpCL3NWWTJIY0t2T1EvckZ0eEV4ZUJD?=
- =?utf-8?B?R0VlMTMwSXd4eDlSK2sxeXArb0tMRWRLRm9GQ1hvSk5KNnRkT2Q3TjFaOGpK?=
- =?utf-8?B?YzY4eVVMZU9TRTFVVCt3MVRVR1JidmttRndwTjVvSENaQkFJUVdCQUhBVmxD?=
- =?utf-8?B?Zzh2NnUvcE9ZdTFwWk82NG5NaHhpNHp3SVFiZnpWLy9JZlZXOFFyUjFrY1dq?=
- =?utf-8?B?VmUzWllZVXZPR3dTVEV5V0p5SEs2cVdSclpyQmVMd2FpaUh5L1RhNE9PNVJB?=
- =?utf-8?B?S1hHTUMxRnI5d0pXYTZSaWRMQjV1OFYyWjBOb1pKZVRNWlNRQTIvdHR5OXBW?=
- =?utf-8?B?RnVFc3h2N2Q3Sjk4RzVUMnNXVERRVWViZjVFd3QwMVBQcXgxdVVvekdxNVNQ?=
- =?utf-8?B?Z2JnRytFaHJOMjVvVVhrYXNKWlJkWFlTMEthMlNadDF2VTEyQmhQeUpnbldo?=
- =?utf-8?B?anVFR2EvN3RsKy9BY1FHSDVJRzE3cVdtTzA4alVJV2VsTDQzb2pKYTRmRUp2?=
- =?utf-8?B?ZzdIVjJ4OTZNMUQ5T1ptcnlobHZRVnAxeldiaXRld3Y4RFd1MllmTmNSTU5O?=
- =?utf-8?B?NnZJWUlSL0h3N2d2YXZ4Nkd5Zmdsdit4NFFMK2dIRUxES1dIcXZ6VzRhZHJp?=
- =?utf-8?B?a2hHc2ExNkx1UThIcTNyTHkzd2NWUUd5NVFYUkgwdFpsMXNWcUEzYWR0UHNF?=
- =?utf-8?B?bHVGNEFFQ2ttR0RSSHIwZk85QnRuZ3dmbHFPRmZETllhTitCK1R6eDV6UnM5?=
- =?utf-8?B?aVQycWt3RUpoTVBFTzBMSVpzNUN6OWJsQzZoYkQ5eUVCa1pQYVJodnBuMkNl?=
- =?utf-8?B?TzFxM3NkTTQ5Mk9FSy9CcndTY3hLV1ZMVVJwclpiY0hSOHVyS0VIY09rZE5x?=
- =?utf-8?B?MTB0WnR6UjZsUnFNTjA4Qy8yRU1MOFQ5RDdpcnNuSzBsT3FPdGZDRGlYRFBB?=
- =?utf-8?B?ZzNGN3BQM2RyOHpadTBZSDlhQWgrY0trMHJldGNYSTlQK1ZwTHFzd3c5RVdE?=
- =?utf-8?B?RGVqMDlOYldkTmwxMGZGSW9HRTRrTFhsV1h1U1BvMU9GYXdLOG1MMHV2K2Ra?=
- =?utf-8?B?bVR3SGtOODhtc3BzUnpqNU1CVmI2Ukl1UmJ2cXJqNkNLMHFvQ1p1Vi9PdUNT?=
- =?utf-8?B?VTZVN0JhN3hTYW56QmhrYkY0R1dnRGJhMlFEY3RpNnVRamFWcjFtbk1uR2hL?=
- =?utf-8?B?c0dFZmtYYkMxTUNadkROTUhDc2t0WWZLMEI0Z25kcXVYOVRBUTYxNVc3NHF2?=
- =?utf-8?B?U1NIZUlRM3hoeFVZRHFwQzkyVExxaEZrQVNJQnA5Tk1QMGFiNGdSSG5VYWwz?=
- =?utf-8?B?T0pDNnBiRWF4UUNZWHNRWERiMGJiTGZrbzRZMHRoaFc3aThEQi9KRk02SklQ?=
- =?utf-8?B?MGJGeDlBR05mY1puQ1d4WlQ4NCt1QVNaT2JMUGV0MVVhcE1SYUZmNWtzeUxR?=
- =?utf-8?B?aWZqaW5TZXN0Uk4xTUpUaWs4UkN5YThxdjRPT24ySSs4VkZjOWhsbFlNMm1O?=
- =?utf-8?B?anliZWlCYlpLdWp0djU3TlB2Wjk1SysrRExzbEVON3E0UzNuNEFUQ015dDlv?=
- =?utf-8?B?RnFheXZiN0dYT29hNGUvbG80d3MwYktlcURBNG9WNkY5cWRicjE2QjlON0t2?=
- =?utf-8?B?QmxXTXJaemZFR0xaekRJMVB3bSszTmllMWlzbWVMWGNZQ0IyZWduQ21rb284?=
- =?utf-8?B?cnVKUlUwUzJVM3BQUGx3UVZrMG5uTlQ3SktiMDZ5UUZZK2dFb09EbVpUb2hq?=
- =?utf-8?B?N05MWnpFeVhmeGNhdmViU2JXNndVRURpYmhiOEtqNUd3NmNkV3hCV2Y4U2Ny?=
- =?utf-8?B?RzRsdEp4cCswQ1AxVHpWUjlWbXFkbmorTTZjZUJ0R1lrWVpVanhPWTZwakRp?=
- =?utf-8?B?UXJIcjRHZHA4enJSTWFKZGlScDBJR1ZPSExNS2hVeUF6a20vVkNqMkxIUTRL?=
- =?utf-8?B?UzNycFEvUU5IdWVxSDVrY25CUWdDaVZBWm9VQ0YwNzBGak5aUzVaMXJIOUFh?=
- =?utf-8?B?ZTJ1THJPMnQyY2MySlBjNGY3QVlSYktCOXdNZUp2SnRvbTBHU0pIQzZrbmZy?=
- =?utf-8?B?bjIxeWovZDd6K1k4cHNZb29waDQ5eVd3Qm5zYy9LMnhEdXZ6SXA0NlUySm1V?=
- =?utf-8?B?NnZTUldGL1pLVm9DQm1yRlFnajJYbnhiRzVINXJnNGtVelZsSmI0UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b966457e-207d-49da-cb68-08df0ca6ffa2
-X-MS-Exchange-CrossTenant-AuthSource: LV0PR12MB999069.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 06:12:30.3653
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B30yCtR5rX26kKH/VaExZApA2IuBr1clOBWfLybnk+XALwXP3cxzpglJvl+uWHYzflmTMPutOAUt9EMKXoYi7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6484
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
+vol->vol_flags outside any lock to compute the new value before handing
+it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
+the actual write. The read-modify-write is therefore not atomic, and two
+concurrent callers can lose an update: ntfs_sync_fs() may derive a
+"clean" value from vol->vol_flags while a writer concurrently records an
+error and sets VOLUME_IS_DIRTY; the locked write then silently
+overwrites the freshly-set dirty bit. The on-disk volume looks clean
+despite the recorded errors, so chkdsk will not run on the next mount
+and corrupted metadata can persist.
 
-On 9/1/2026 7:18 AM, Guo, Wangyang wrote:
->> Signed-off-by: Vishal Badole <Vishal.Badole@amd.com>
->> ---
->> Changes in v4:
->> - Drop the index-based unwind; reuse the mask-based cleanup path.
-> 
-> Reproduced under QEMU via offline-cluster + reset_controller: I/O from the
-> online CPUs stalls (QID-timeout/completion-polled). This patch fixes it.
-> 
-> Reviewed-by: Wangyang Guo <wangyang.guo@intel.com>
-> Tested-by: Wangyang Guo <wangyang.guo@intel.com>
+Fix by moving the read-modify-write inside the mrec_lock: pass the bits
+to set and to clear separately, and combine them with the current flag
+state under the lock inside ntfs_write_volume_flags(). The set/clear
+helpers pass only the bits to modify, not the complete flag state. The
+bit manipulation is done on CPU-endian values, and the result is
+converted back to little-endian before storing it. The wrappers keep
+their signatures so callers are unchanged.
 
-This patch has been reviewed and tested by Intel, with corresponding 
-Reviewed-by and Tested-by acknowledgments received. Could you please 
-consider merging it into the appropriate branch or upcoming release?
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+- Also fix the ntfs_sync_fs() race by checking NVolErrors() and clearing
+  VOLUME_IS_DIRTY under ni->mrec_lock.
+- Keep ntfs_set_volume_flags() and ntfs_clear_volume_flags() semantics
+  unchanged.
+- Do not tie setting VOLUME_IS_DIRTY to NVolSetErrors() in the generic
+  set helper.
+---
+ fs/ntfs/super.c | 62 +++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 45 insertions(+), 17 deletions(-)
 
-Thanks,
-Vishal
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index a1813093222b..a7977b95b967 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
+ }
+ 
+ /*
+- * ntfs_write_volume_flags - write new flags to the volume information flags
++ * ntfs_write_volume_flags - apply flag changes to the volume information flags
+  * @vol:	ntfs volume on which to modify the flags
+- * @flags:	new flags value for the volume information flags
++ * @set_bits:	bits to set in the volume information flags
++ * @clear_bits:	bits to clear in the volume information flags
+  *
+  * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
+  * instead (see below).
+  *
+- * Replace the volume information flags on the volume @vol with the value
+- * supplied in @flags.  Note, this overwrites the volume information flags, so
+- * make sure to combine the flags you want to modify with the old flags and use
+- * the result when calling ntfs_write_volume_flags().
++ * Combine @set_bits and @clear_bits with the current in-memory flag state and
++ * write the result back.  The set/clear helpers pass only the bits to modify,
++ * not the complete flag state.  The read-modify-write happens under
++ * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
++ * All bit manipulation is done on CPU-endian values, and the result is
++ * converted back to little-endian before storing it.
+  *
+  * Return 0 on success and -errno on error.
+  */
+-static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
++static int ntfs_write_volume_flags(struct ntfs_volume *vol,
++		const __le16 set_bits, const __le16 clear_bits,
++		const bool skip_if_errors)
+ {
+ 	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
+ 	struct volume_information *vi;
+ 	struct ntfs_attr_search_ctx *ctx;
++	u16 flags;
+ 	int err;
+ 
+-	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
+-			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
+ 	mutex_lock(&ni->mrec_lock);
+-	if (vol->vol_flags == flags)
++
++	if (skip_if_errors && NVolErrors(vol))
++		goto done;
++
++	flags = le16_to_cpu(vol->vol_flags);
++	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
++	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
++	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
++			le16_to_cpu(vol->vol_flags), flags);
++
++	if (le16_to_cpu(vol->vol_flags) == flags)
+ 		goto done;
+ 
+ 	ctx = ntfs_attr_get_search_ctx(ni, NULL);
+@@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+ 
+ 	vi = (struct volume_information *)((u8 *)ctx->attr +
+ 			le16_to_cpu(ctx->attr->data.resident.value_offset));
+-	vol->vol_flags = vi->flags = flags;
++	vol->vol_flags = vi->flags = cpu_to_le16(flags);
+ 	mark_mft_record_dirty(ctx->ntfs_ino);
+ 	ntfs_attr_put_search_ctx(ctx);
+ done:
+@@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
+  * @flags:	flags to set on the volume
+  *
+  * Set the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
++	return ntfs_write_volume_flags(vol, flags, 0, false);
+ }
+ 
+ /*
+@@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
+  * @flags:	flags to clear on the volume
+  *
+  * Clear the bits in @flags in the volume information flags on the volume @vol.
++ * The bits are combined with the current flag state under the lock in
++ * ntfs_write_volume_flags(), so concurrent updates are not lost.
+  *
+  * Return 0 on success and -errno on error.
+  */
+ int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
+ {
+-	flags &= VOLUME_FLAGS_MASK;
+-	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
+-	return ntfs_write_volume_flags(vol, flags);
++	return ntfs_write_volume_flags(vol, 0, flags, false);
++}
++
++/*
++ * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
++ * @vol:	ntfs volume whose dirty bit should be cleared
++ *
++ * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
++ * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
++ * recorded.
++ */
++static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
++{
++	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
+ }
+ 
+ int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
+@@ -1862,7 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
+ 		return 0;
+ 
+ 	/* If there are some dirty buffers in the bdev inode */
+-	if (ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
++	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
+ 		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
+ 		err = -EIO;
+ 	}
+-- 
+2.25.1
+
