@@ -1,152 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181333CAE8D;
-	Mon,  7 Sep 2026 10:39:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBF7412264;
+	Mon,  7 Sep 2026 10:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777586; cv=none; b=KtrH/c/8Dvf/pyJauzqMNtfYpviCuC+ep3kpyeHq4HLxEMnJopQvK6A/9Seqm1k7ZVL6uWGvajCtug+eKOs0jSoSRR3CbA7OcbvVRTFNrN3U36ZI22s+jJHdxJWk5lGVB075fNdYt5LLdYamBNjrxa3ojdIeNanHC1ijJjYD1QA=
+	t=1788777911; cv=none; b=AH68RysJkuf0hnFBnWPBxkF5rtmqqdDRbmyvwKJ5+AHoq58n+RBecc297yrdvXYKAPHU0JmIRjD8PKJY0jDAuAzk7ZBw7xdjT7Ej1Laq9dPMYtCp1ibsukHFMy6StuAhzpHIiGbNo8bnJLVVcG2GjE/EL0dEGqiirbK5lqi83pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777586; c=relaxed/simple;
-	bh=0ZrT/K/Cb9gaNHINuULmzP5NtRYCGITb/99LD3gIsdE=;
+	s=arc-20240116; t=1788777911; c=relaxed/simple;
+	bh=GgOqK2ftxVGqo5F5dGaYAFOyQu2ErjRl67FkwxVrs0M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pFkrqNYNaQ4zE1b38AlWjJ8txQZURkjxJA8Xd9H3jC31bxDB5UNbQNwu6wdu1EAJwfiR9O5WQxjaAZr4BJwFLAmpgk5yvgRS38sAf+MlCrQ00fxVyFI6CHZ7Atmsg7kEWzXc8ByhSY4ct3mhnpg6URcv37zfCAon6t4Dqb+lCXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U6BReP0u; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=RCD2MMxgH8YpctuKrxQ8wBz3xhWsxpYh5mBKOZPq+rc1tl8+XYPmybJy+TzZJgecVRmIUG6jWWijiaUFwAyKMfyblek0kIK9rL3eVwUYzKu3fNPbn2grsps/e3pVb5qwJl2x43BgE3lvmf/M1f8uMdF6glgypiOCBrLvPzJp89s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=RI6Izzk8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gV42Ai7+; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U6BReP0u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788777584; x=1820313584;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0ZrT/K/Cb9gaNHINuULmzP5NtRYCGITb/99LD3gIsdE=;
-  b=U6BReP0ux+GEbqqNGk5MDouWYaXflBjOeeWZwCRCQUnirDTOJHt5Jair
-   uojMJn1/5hSTcX8QQBSkRFTKn79a/alc34Ce/P+pn5thcBXFjOOBxodQs
-   AnusQwSctclKY2SAB/3Zy07MO4RrwUGPdaHybh48PQSrI6fARv3CcXXpH
-   Ih03RPYBQ/nEaQdRCZIqPvfzMuVAUVU4eajjwvxFYT7pK6G9Ul++OJLew
-   BXoaP+MJassevLy9UgWHCDGoc8w9UNUBaJznvJvnHSIapNtXjI2mgbZWO
-   ysU377fYl1+l8RKQi6iyU5jNFQBAosCOokknluHImdtXMefuGuyeKSKtL
-   A==;
-X-CSE-ConnectionGUID: r6BSXqWIT7mkeD+wpwx7Vg==
-X-CSE-MsgGUID: TlqgB8HpTPKuSRNqYjjhFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="106695810"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="106695810"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 03:39:43 -0700
-X-CSE-ConnectionGUID: Y53h1MfVQyyro4KAca8dBA==
-X-CSE-MsgGUID: BZuHkW03SgS6qYNkaoUSlw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="274483667"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa004.jf.intel.com with ESMTP; 07 Sep 2026 03:39:42 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 773E099; Mon, 07 Sep 2026 12:39:40 +0200 (CEST)
-Date: Mon, 7 Sep 2026 12:39:40 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: amitsd@google.com
-Cc: Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kyle Tso <kyletso@google.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, RD Babiera <rdbabiera@google.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: typec: tcpm: recover after failure to start the frs
- ams
-Message-ID: <ap6UbOSYDh6GDDhB@black.igk.intel.com>
-References: <20260903-frs-error-handling-v1-1-ad0fee541847@google.com>
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="RI6Izzk8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gV42Ai7+"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0DEB17A0125;
+	Mon,  7 Sep 2026 06:45:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Mon, 07 Sep 2026 06:45:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1788777908; x=1788864308; bh=+RrwGJfL3J
+	uxaUg5J53rktsg4suPz5veslg2CafSxYM=; b=RI6Izzk8a8VYevx/T7wNgrK0Gv
+	Mqm4P6KqDhbC+PamIdAnw8DbwJIfzUOj3trxOvgnzFLJk981dnPN+0+kwiUoQtGl
+	igfMZZ/o3vYnnKRlEBGje/wBKb2MfJJIhzrGdtQralJ5J5SKQxsiTqr6sdV7QLb7
+	QBrptEzumJpx5LZB6ABoJHKZYLiht72mwTk53x33QxWsx58uzA3iU2wHUMEZCGD1
+	Ger+VqEIOyMSqI3hJTCu6QmjcpdKZAeqvh+06tKz+WwwtICNz2pYWzDJfpMRII8e
+	0p0EjdUncqC2sqjXcGvi9D+TCzr8TxFu8DQXrvZE4heAGY9PBC6s6m5cE9bw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788777908; x=1788864308; bh=+RrwGJfL3JuxaUg5J53rktsg4suPz5veslg
+	2CafSxYM=; b=gV42Ai7+rTLZJ5Ae08Ut6m4kCu5iwp6ay7muN9b4Jtk2AHd2k/B
+	OsacfRUG6H7aRwWTtrkRbbS15oZ5ddLWALDZcFF+nIRYeYFk9huZJxuvSCcU5tzn
+	fCSqFsjeZcFt4pQlX1Wsuk+UdZo9/ESLYSvUq3V/S7ggpJYm0ZQ62vxHUd+S1mVn
+	dFy88RdvdosyVfuZrfp2RWN1HsebtIL9z9S55zQ4YVMVEryClXfAIPWsrJaamBI6
+	NSqMqeK1dsXmZ+FOvP6YFBN54N209cyK5j4PSJFKibythKWzT/sdVF8RHeFzyF5M
+	Fl4aflVBobLNLN/eiqRoJNKGaiGikXXCqyw==
+X-ME-Sender: <xms:tJWeakDlcaPHZcZdvYyo3YjSVNdNngmH6lN2Q9tpQ9jvleSgBOknaw>
+    <xme:tJWeakyi7iQuia03Lnz0LZgxw76e4i4ulnMj8XAsxgvDfzSG_V8aUk_c3pq25RAMu
+    sJENICowxc6Q7j5fuPU8fcmBd7i0qAR5AkBLGcEbojv3pJj9Q8cO_8>
+X-ME-Received: <xmr:tJWeag6myZxgU6Ly4-lKvv36Ybkh6_Px38GNx_g9VaJEYpXfhPEx2qYTin9120TCVGhf6LkDY5cg6ClsnaxtoA5qvihWa9kxbCQ>
+X-ME-Proxy-Cause: dmFkZTEpZ37bV4WAbkr9w4Sjl1i+LGHCK0Z5tw4Ea6D9Stl38OBgl43DDxBEw2rl4fcZbG
+    HXqcdNArxZlhomcadAqdQKJfIjkOBSn1fPIRagr4/tpbZtNDxT6tEobXOqmKW1S+MX43Hv
+    vmud5whkkkEPpT807XSIPSoyN/NlVUzVXepHgf4EyV5Gjo3CzoYVNrL0j9jxJtUIfju3IO
+    6M3qtEB8S1Zz0OVDLyBrV/Wi+Q1YXS1czzm5+1JL5BH+faLFNWI4vPqjzAWZCh9eaj1O7P
+    yQViG8ITIkMV+ytiviEt1DOuJ0nOnYiUxttDTFqqRozLuu3eCCLc/mBpQJP+bCuz4hGTa1
+    27WAdTFhSItm4Mp9cmiQV3iRfbzlUxSqOP1C3Sk1t4v2sVE7Jzq76N4qXee3rc6RoYeXAH
+    MBH6DiiOsG3tpGfbF1bPmNo5WUQOStVo02gnbnTK+LWCh1dD16hio1F6r8WUvuCtNh2Su5
+    CYGpXxgxYpl/D/gwC5WhQz7xIsGCj76BHCUd/ydW25+V65CF5o7ldqjieWz4NhVk6c+vCH
+    5cB615ht3Byb1mbUxvn4dZPrE1dDl+fgLvgIaHpEJAOoI2QTu4eP+ixQ/S9l5NK0Sxotlm
+    9h7KPBVimfM9Rwk0SzuNo0Ut4plwgzXYBY+8vpYrMFGqr8v82aQAIH8D0mXw
+X-ME-Proxy: <xmx:tJWeatwa2RybXBWUDvxZrCDiZNmJIbZzpx16Bcns5GDk210ezQbzmQ>
+    <xmx:tJWeascyLbFdZ45Ay2VpeuhcHdibjaLg8fMhnWqq8crlIcgRZZAg6A>
+    <xmx:tJWeaqDTgirLdwnxQ3s4zbukNzuYtP2UjRgLiIbl7FH7OBwy9Vzugg>
+    <xmx:tJWeao4Up0PkgeqZv-YkQVuZRiG9_NheT807ib665Sa2c3Vg_F6sQA>
+    <xmx:tJWearN8eNZ6BsTjmBS9CCeAOuPQcCkXu4ZXuhKT5JBW-BhfEq0gpiQo>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 06:45:07 -0400 (EDT)
+Date: Mon, 7 Sep 2026 12:45:05 +0200
+From: Janne Grunau <j@jannau.net>
+To: Sven Peter <sven@kernel.org>
+Cc: Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul Cristian <p4ulcristian@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] phy: apple: atc: Prepare USB3-via-4 tunneling
+Message-ID: <20260907104505.GB2760037@robin.jannau.net>
+References: <20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260903-frs-error-handling-v1-1-ad0fee541847@google.com>
+In-Reply-To: <20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@kernel.org>
 
-On Thu, Sep 03, 2026 at 12:22:21AM +0000, Amit Sunil Dhamne via B4 Relay wrote:
-> From: Amit Sunil Dhamne <amitsd@google.com>
+On Fri, Aug 21, 2026 at 03:50:26PM +0200, Sven Peter wrote:
+> Hi,
 > 
-> Reset the port if the tcpm fails to start the FAST_ROLE_SWAP AMS by
-> initiating error recovery on it.
+> This short series first fixes an oversight that prevents USB2 from
+> working when DP AltMode with 4 lanes is used. Then it adds the required
+> sequence to point dwc3's PIPE interface to the USB4 Native Host
+> Interface which I plan to submit soon to support USB3-via-USB4 tunnels.
 > 
-> This helps in cases where some cables (incorrectly) signal an FRS to
-> an FRS capable port during disconnection. The TCPC autonomously starts
-> sourcing VBUS on detecting the FRS signal. However, the VBUS sourcing is
-> left on when the FAST_ROLE_SWAP AMS fails to start (as tcpm_sink_tx_ok
-> is 0 as CC is open due to the cable disconnect). This is because the
-> code sets the state to INVALID_STATE without resetting the port state.
+> Best,
 > 
-> Log snippet before changes:
-> [  101.401960] AMS FAST_ROLE_SWAP start
-> [  101.401971] Sink TX No Go
-> [  101.401982] sourcing vbus
-> [  101.401987] VBUS on
-> [  101.402159] VBUS on
-> [  109.257809] CC1: 0 -> 0, CC2: 5 -> 0 [state SNK_READY, polarity 1, disconnected]
-> [  111.267442] VBUS on
+> Sven
 > 
-> After changes:
-> [   70.541211] AMS FAST_ROLE_SWAP start
-> [   70.541220] Sink TX No Go
-> [   70.541228] state change SNK_READY -> ERROR_RECOVERY [rev3 NONE_AMS]
-> [   70.541362] VBUS on
-> [   70.541365] sourcing vbus
-> [   70.541367] VBUS on
-> [   70.541374] state change ERROR_RECOVERY -> PORT_RESET [rev3 NONE_AMS]
-> [   70.541410] disable vbus discharge ret:0
-> [   70.543028] Setting usb_comm capable false
-> [   70.544009] Setting voltage/current limit 0 mV 0 mA
-> [   70.544034] polarity 0
-> [   70.544239] Requesting mux state 0, usb-role 0, orientation 0
-> [   70.555550] cc:=0
-> [   70.555595] pending state change PORT_RESET -> PORT_RESET_WAIT_OFF @ 100 ms [rev3 NONE_AMS]
-> [   70.555697] VBUS off
-> [   70.555702] VBUS VSAFE0V
-> [   70.555762] CC1: 5 -> 0, CC2: 0 -> 0 [state PORT_RESET, polarity 0, disconnected]
-> [   70.587794] VBUS off
-> [   70.587799] VBUS VSAFE0V
-> [   70.655672] state change PORT_RESET -> PORT_RESET_WAIT_OFF [delayed 100 ms]
-> [   70.655682] state change PORT_RESET_WAIT_OFF -> SNK_UNATTACHED [rev3 NONE_AMS]
-> [   70.655686] Start toggling
-> [   70.656274] CC1: 0 -> 0, CC2: 0 -> 0 [state TOGGLING, polarity 0, disconnected]
-> 
-> Fixes: 0908c5aca31e ("usb: typec: tcpm: AMS and Collision Avoidance")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
-> Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
-
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
+> Signed-off-by: Sven Peter <sven@kernel.org>
 > ---
->  drivers/usb/typec/tcpm/tcpm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Sven Peter (3):
+>       phy: apple: atc: Support DUMMY PIPEHANDLER state in configure_pipehandler
+>       phy: apple: atc: Factor out the PIPE mux sequence
+>       phy: apple: atc: Implement the USB4 pipehandler state
 > 
-> diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-> index a8cd1959c426..c1045d850897 100644
-> --- a/drivers/usb/typec/tcpm/tcpm.c
-> +++ b/drivers/usb/typec/tcpm/tcpm.c
-> @@ -7113,7 +7113,7 @@ static void tcpm_pd_event_handler(struct kthread_work *work)
->  				port->upcoming_state = FR_SWAP_SEND;
->  				ret = tcpm_ams_start(port, FAST_ROLE_SWAP);
->  				if (ret == -EAGAIN)
-> -					port->upcoming_state = INVALID_STATE;
-> +					tcpm_set_state(port, ERROR_RECOVERY, 0);
->  			} else {
->  				tcpm_log(port, "Discarding FRS_SIGNAL! Not in sink ready");
->  			}
-> 
-> ---
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> change-id: 20260903-frs-error-handling-253b87a09fa2
-> 
-> Best regards,
-> -- 
-> Amit Sunil Dhamne <amitsd@google.com>
-> 
+>  drivers/phy/apple/atc.c | 91 ++++++++++++++++++++++++++++++++-----------------
+>  1 file changed, 59 insertions(+), 32 deletions(-)
 
--- 
-heikki
+Whole series
+
+Reviewed-by: Janne Grunau <j@jannau.net>
+
+Janne
