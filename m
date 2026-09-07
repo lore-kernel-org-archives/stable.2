@@ -1,30 +1,28 @@
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE11238C2D0;
-	Mon,  7 Sep 2026 05:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA24D211A09;
+	Mon,  7 Sep 2026 06:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760742; cv=none; b=cZi2Og4fTY4DRdazgbk/zvBG5WasotHbLW7qGAb1qjIv2yp4PaOvLcw9pHmLipxWhH09aU7fUFP5lbrZlzn+Tq1b/vQ2bnQt16TXVnIzRWYPAaMO0pCQWA80jtOlAzT7F2uAAIKFOlwASVHTDDnm/FM0VT6l/mnGpjY5xBPvImE=
+	t=1788760877; cv=none; b=ZdSjQYE23/0bLCxarMUbjpXdG1q3kHCCCaej2h9ghO/45LFVFVifPtE6TSXAHarsbUQmGFFmClWoPIZW89ZnCwRowR5EyYTeUfS6DYyzaLUnn/Fb2kt5BohDDK+x65FX+ou+x/+TIDThL014dA/mCR3W2GGKXuI9oL8xRe8vLZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760742; c=relaxed/simple;
-	bh=ZmRbsWaLsO5T7oV/p/IdM0xwjUnbT/EIQQSJfrO6bTU=;
+	s=arc-20240116; t=1788760877; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lUgDowO0RFJi+x6XFCAqPKgDLI/2BpqIcMAM/U47cKuUd0j09pN9XhAUSC/q8mXw7o+u6mPyXPKcGczimjvmX5+9GNkHKV29a8+kO+7mB7AhYaYLA7BSdaSvGAz/Aa+YOfbT2HXwPpUsgRbPm8FJl3Afl1ifURRELW7A3apASCo=
+	 Content-Type:Content-Disposition:In-Reply-To; b=grdAtGHK4W4RqPKZQKFaYp6cJRXnBvVMJRHSAIpIRb+lyg1l8MEycvlMr5urfA4fv/lWWubqPAn4IC8sbdaPQCgUhdoYnugzdF0M6hS3gAh/ytpKQRiPRh5Nb+dB8WlMm3QFTisEkcrcPryf5/7tDlPb0X7PG7XkGh0SkXgU6xM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
 Received: by verein.lst.de (Postfix, from userid 2407)
-	id 5789C68D07; Mon,  7 Sep 2026 07:58:57 +0200 (CEST)
-Date: Mon, 7 Sep 2026 07:58:57 +0200
+	id 40EDF68D16; Mon,  7 Sep 2026 08:01:12 +0200 (CEST)
+Date: Mon, 7 Sep 2026 08:01:10 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: cem@kernel.org, hch@lst.de, stable@vger.kernel.org,
-	linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 2/6] xfs: report healthy filesystem events in scrub
- stats
-Message-ID: <20260907055857.GB31753@lst.de>
-References: <178850312462.1198660.3332635535003842521.stgit@frogsfrogsfrogs> <178850312540.1198660.5374727427398156944.stgit@frogsfrogsfrogs>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 5/6] xfs: snapshot old AGFL before rewriting it
+Message-ID: <20260907060110.GE31753@lst.de>
+References: <178850312462.1198660.3332635535003842521.stgit@frogsfrogsfrogs> <178850312604.1198660.10155894539984458686.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -33,14 +31,8 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178850312540.1198660.5374727427398156944.stgit@frogsfrogsfrogs>
+In-Reply-To: <178850312604.1198660.10155894539984458686.stgit@frogsfrogsfrogs>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-
-On Thu, Sep 03, 2026 at 11:26:17PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
-> 
-> LOLLM also notices that I forgot to expose the "clean bill of health"
-> scrub stats.  Fix that.
 
 Looks good:
 
