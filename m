@@ -1,98 +1,68 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF39244998E;
-	Mon,  7 Sep 2026 08:43:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A063AA1A7;
+	Mon,  7 Sep 2026 08:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770603; cv=none; b=IgpeGD9AGKTkEZwh1gYxuLN4S/FWMOV6juJOREx5dd+xqjZoRtnKZYBl4OU1s7/pubVCcgo2R9UBKvnA+d0RWUM7vYk/X7b6AsYuYUyRTrFxNQOPvdQYDPvpoE2WlGnjtiNGvcsJta1vHkaiQ2eq0ufdv+a2tHgZQ8ocr8Jiycs=
+	t=1788770873; cv=none; b=K4chEHHPCf/whVUFTIji41PBHOZDcBL8yQ++FEDxVaLEpmKe1Vbgfu0hH3IoXPHpu2gEzWzs7UXHTEVfN9LFYbkGwmb2H4IRKkT27w9NtHwOtf6WZvctNvG6QGQn/lOrnPLp5Za8TNRY7QaHtvkGDuGFdnZXfkzR9YIf9zsa+r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770603; c=relaxed/simple;
-	bh=jDZRY+Lx5bEFpVHpCIz1x9CSgZ17ilNf6ybGRTwCLp4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=luESk6wuPVWR3+fhA6qJEwY3+e60p6I40kCYAfSC4b8Q1KArdFM9YSqM1zXARozpm+uXANlG94L+6EKRjxZh17WvlSnNW2htxDry+p5Sa2Nv8+BVxV/Erp39mYArKu1GJxzuBR2oASCMWeVKdSHiAcK0adL7zvtWc+Mvqtn+LCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UMoYdUxs; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788770873; c=relaxed/simple;
+	bh=Gb9Auh5ZNXWHXHOOwQE32rxToV+hQ0pGd9M/BCS1nJw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cgXOv/mPXWs1FvY98inVbGwC7kVq23/C7ABsdiX14gEmESOSogJyk5SNHVbrVfoV30iIo+f7ZU6IgPrCrxD8VXsQBDluqKvAQIY4M/m2wnc1uBNB/+MPtXzLaPcptlB0BrDlae/4nBfIpGW/LM+fya/8QIZA44dqeZJLwNjiwFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXZfYcPG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UMoYdUxs"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FCFC1477;
-	Mon,  7 Sep 2026 01:43:17 -0700 (PDT)
-Received: from [10.57.7.146] (unknown [10.57.7.146])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F5CB3F7D8;
-	Mon,  7 Sep 2026 01:43:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788770601; bh=jDZRY+Lx5bEFpVHpCIz1x9CSgZ17ilNf6ybGRTwCLp4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=UMoYdUxsWdugSNSpYCTIWpIWDXM2xQXWaGjgMikS3nTyyylqDtfV7Np8zfLyAeobj
-	 U9OzJZITthZTTIDifX5GjyPibwFKxuzAPHdKURQXto7G07aWEpjGb6BVl0UKgQqVaa
-	 hM5eMBd9y35CVWUJxzipqNLa9QtAPHpcJ9l2wpa0=
-Message-ID: <b7b1b199-08a6-4685-9def-d4d6eb396cdc@arm.com>
-Date: Mon, 7 Sep 2026 09:43:35 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXZfYcPG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 173D31F00A3A;
+	Mon,  7 Sep 2026 08:47:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788770872;
+	bh=Bf6fIph90GFv45/3lNjQ8b5NbyisSGZ3v2BSDp0jkbA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GXZfYcPGffP3RD77IEVgWgvCRjTgLEnnaiZhU1EyJMr/jqZY43VjtzYh05kwvRKzm
+	 JTERkAApMJ3DpIFZlUEYhClts9WLzFZxVM5nJ+rQSa7Rj89WAv0WLW25Rh89NCmFb8
+	 IQ4gJA/KO/jPqlhoXBe1+COex29Nc+Y7Tut60P6dwZneyNwOCXj8pG5kFztfUAxuQH
+	 lci+xAiNwvDJa34AI5vwuRZ745bYHxetI34isufCRjpCN+HsDUyn/AaH3hnZbr3Der
+	 av45lPbsG/Cwn0h5E2aKFeCe8MtMyOZNdlV8sK5kF6OAS/NRnUD8rtPVSdzLwXKOW0
+	 OQ6p/WnL3piew==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3V13-00000000UOX-36CK;
+	Mon, 07 Sep 2026 10:47:49 +0200
+Date: Mon, 7 Sep 2026 10:47:49 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
+Message-ID: <ap56NTVMq8GlbjmR@hovoldconsulting.com>
+References: <20260907065501.101013-1-johan@kernel.org>
+ <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] memory: exynos5422-dmc: handle clock enable failures
-To: Jiawen Liu <1298662399@qq.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>, linux-pm@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, stable@vger.kernel.org
-References: <tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
 
-
-
-On 9/4/26 11:01, Jiawen Liu wrote:
-> Check the return values of clk_prepare_enable() for fout_bpll and
-> mout_bpll.
+On Mon, Sep 07, 2026 at 10:17:38AM +0200, Oliver Neukum wrote:
+> On 07.09.26 08:55, Johan Hovold wrote:
+> > The wakeup condition needs to be checked after adding the task to the
+> > waitqueue and updating the task state to avoid missing a racing modem
+> > status update or disconnect.
 > 
-> If enabling fout_bpll fails, propagate the error. If enabling mout_bpll
-> fails, disable fout_bpll before returning. This keeps the clock enable
-> count balanced on probe error paths.
-> 
-> Fixes: 6e7674c3c6df ("memory: Add DMC driver for Exynos5422")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiawen Liu <1298662399@qq.com>
-> ---
-> Changes in v2:
-> - Use the full author name in From and Signed-off-by.
-> - Add Fixes and Cc stable tags.
-> - Generate the submission with git format-patch.
-> 
->   drivers/memory/samsung/exynos5422-dmc.c | 11 +++++++++--
->   1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
-> index 788d49c688b1..98c319552583 100644
-> --- a/drivers/memory/samsung/exynos5422-dmc.c
-> +++ b/drivers/memory/samsung/exynos5422-dmc.c
-> @@ -1297,8 +1297,15 @@ static int exynos5_dmc_init_clks(struct exynos5_dmc *dmc)
->   	if (ret)
->   		return ret;
->   
-> -	clk_prepare_enable(dmc->fout_bpll);
-> -	clk_prepare_enable(dmc->mout_bpll);
-> +	ret = clk_prepare_enable(dmc->fout_bpll);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = clk_prepare_enable(dmc->mout_bpll);
-> +	if (ret) {
-> +		clk_disable_unprepare(dmc->fout_bpll);
-> +		return ret;
-> +	}
->   
->   	/*
->   	 * Some bootloaders do not set clock routes correctly.
+> I am sorry, but in this case I have to ask:
+> Isn't TIOCMIWAIT inherently racy against the hardware?
 
-This one looks good.
+What do you mean?
 
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+Looking at the implementation again now, it seems further changes are
+needed to fix the implementation, though. The completion handler should
+not be updating old_count. That's for each TIOCMIWAIT to do.
+
+Johan
