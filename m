@@ -1,97 +1,102 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B133C4AD4AB;
-	Mon,  7 Sep 2026 13:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669F647885C
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 13:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788788343; cv=none; b=jD7HsxZ7GUO7LZjRANOdzSESICQ2JiTcZ1b+DwtFiUN+ijTM+ovKfrbQOezdXx75+AQ0DVXnDS6sIOrc3RkBuHm1AIFLSRehm7sAmDsTV+Wcf+jlVrqSZvV75fjOmWlOXGCQ3dEElJqEaGj/1oaHsHsjkiVjN/psY59kHXcboTU=
+	t=1788789071; cv=none; b=On2SBoEsMYvpnHREbzRzCKQXf4jkFEvU+AL3laEDyTqC7aChWDasUcAbzATKU0BHdYdDhPObvIXy46SC7s7uCit9UeKcMEqChitluoixEFh5rgiwOkVxrBWUqG5WOc6wHe9lMxoKY6vbvv24Zzpctu+ASCU1HmoPNK6Tg/GMx5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788788343; c=relaxed/simple;
-	bh=LEke2EPs1nd9N9Nxynh/mJMqpAdvs9NuQ3mp5kWf9VE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e2Vv50JFZeg/+ojXFUuZKFIh/BOnfc2mpvdqmIDgTQlaCxENx7A2ICUQeFxB+blb6hpXgDTca+SMpLD/d+QTFXBmGdIxEO8L95WecD4dsfyTi/Tn2o4ZHKR/+XbHjp6R6dtG50hmTCd8XUGYo3KRdYSyQlDSsDeQgaJ8ezziORw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=awq3sdmG; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788789071; c=relaxed/simple;
+	bh=H3IjaBVbPgQc4DacTLepcVxwgLjZbKjJ4XgwW67M2V4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SaHKYcC2pB2rLtld40S5tyl7t0ejR/HOd+CEtD9zZY2vj6Yy8I/bnBkN+jnE9zwp/OdGIx5oodmh04NRi4FX5vp6NQa8LBqGElmuxtSMS8KYgmC2sOI4JPeh/OL0tvpfOhnGG4D4o6h8384kzUF49ZNHpaeqzUfSjdeSGJ84mrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KZIDyGRa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="awq3sdmG"
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hdp7b1WKhz8spW;
-	Mon, 07 Sep 2026 15:38:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788788331; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LEke2EPs1nd9N9Nxynh/mJMqpAdvs9NuQ3mp5kWf9VE=;
-	b=awq3sdmGdjFFqitT1UNk0BqAkA+qyYbZbf+Z8qOSG+02uqNin7wCy1iX7rIox2uPTiDHBW
-	z9Kd87A6zfshdOdlfvQSIYQehqxImBRY4BYmtiGvfNpPe0n75i2kROIYNYUNSpbUulBLku
-	z49T8v1G/phTGJWX1WFSTYBfxPrgyDKlOMBlCqUQi7CvwW9JbYqV49dspnd5c3LxDWVi+f
-	g1Po48j9W4F+PssuMZIQIsSd8+NNLEOBKPQ+sWyNXItU8BOsgEPwMALYdSZSFr3pK6huI/
-	MBDtNxHEVIebcAsn6hW2TKC0uyGxdW6v/iM1kmdgoA9mzgUTGrhSzosCSrDiFA==
-Message-ID: <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 15:38:46 +0200
-In-Reply-To: <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-	 <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-	 <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
-	 <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-	 <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
-	 <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KZIDyGRa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2CD1F00A3D;
+	Mon,  7 Sep 2026 13:51:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788789070;
+	bh=za7jL6algkUylfMS/L7ovCw1j4s35KOhPLwti6Ct1PQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KZIDyGRa4ICy78I178C+m9RRiHiMtRNpRKd7144DTdHx2F85RzvxaYqJeHlZH7qbz
+	 tM/DmUH2GiWZ1DiAHV8JqelXULzWzZwhIduQwjzx0RLk/ZingakQMC4/0UtWPEFABE
+	 Y+Qm93yJV+nBlh6rIBh6PhDeGRHkmm07iCaLQpg8xer1P9AQ4gV5eLpArBzQND3SSe
+	 OHQdEUaGWnQQCT/M+MqEX4K9wMlVJRvHvrhIf3xKn1rsdtf6XY91VpOk15DYMHblwp
+	 3JI/hDNALVlJV3co8KSkeT/3ioVVkwFPlzOyPs+9lSi7ZKhrjGJod1PY003nllN8hM
+	 7tWQJdQGzRsZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] smb: client: fix use-before-check of ReparseDataLength in reparse_buf_ptr()
+Date: Mon,  7 Sep 2026 09:51:07 -0400
+Message-ID: <20260907135107.3103249-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907135107.3103249-1-sashal@kernel.org>
+References: <2026090314-shower-guileless-2d4c@gregkh>
+ <20260907135107.3103249-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: ipg9bp9sjkftrx9pyqqjiyefy5qzrbq1
-X-MBO-RS-ID: fc4c7d91b475e08ac8a
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-09-07 at 14:59 +0200, Christian K=C3=B6nig wrote:
-> I think the memory ordering isn't really a problem.
->=20
-> See if the ops pointer or the signaled bit is loaded first doesn't
-> matter if you check both.
->=20
-> You only need to make sure that the ops pointer is loaded once cause
-> that one is used multiple times, but that is already the case by
-> using rcu_dereference().
+From: Frank Sorenson <sorenson@redhat.com>
 
-That.. sounds correct.
+[ Upstream commit 05f78e6cf34ea3a285053bd5999e08e8ac298bd5 ]
 
-Although I still don't get why we then can't use the signaled state
-everywhere instead of the ops pointer. That would be simpler.
+reparse_buf_ptr() reads buf->ReparseDataLength before checking that
+count covers the full fixed header:
 
+    buf = (struct reparse_data_buffer *)((u8 *)io + off);
+    len = sizeof(*buf);                          /* 8 bytes */
+    rdlen = le16_to_cpu(buf->ReparseDataLength); /* offset 4, 2 bytes */
 
-Anyways.
-Maybe Jonghyuk can give your patch a test run and then we could use it
-as a hot-fix to backport and discuss the wider future of dma-fence
-separately?
+    if (count < len || count < rdlen + len)      /* check comes after */
 
+struct reparse_data_buffer has ReparseDataLength at offset 4.  If a
+server returns OutputCount < 6, the read at offset 4-5 reaches past
+the end of the received data.  The off+count bounds against iov_len
+were already validated, but that does not protect against count being
+smaller than sizeof(*buf).
 
-P.
+Split the check: verify count >= sizeof(*buf) before reading
+ReparseDataLength, then verify count covers the data region.
+
+Fixes: a158bb66b137 ("smb: client: optimise reparse point querying")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/smb2inode.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/fs/smb/client/smb2inode.c b/fs/smb/client/smb2inode.c
+index 927c9c800604f..37ad67c417f2f 100644
+--- a/fs/smb/client/smb2inode.c
++++ b/fs/smb/client/smb2inode.c
+@@ -55,9 +55,11 @@ static struct reparse_data_buffer *reparse_buf_ptr(struct kvec *iov)
+ 
+ 	buf = (struct reparse_data_buffer *)((u8 *)io + off);
+ 	len = sizeof(*buf);
+-	rdlen = le16_to_cpu(buf->ReparseDataLength);
++	if (count < len)
++		return ERR_PTR(smb_EIO2(smb_eio_trace_reparse_rdlen, count, 0));
+ 
+-	if (count < len || count < rdlen + len)
++	rdlen = le16_to_cpu(buf->ReparseDataLength);
++	if (count < rdlen + len)
+ 		return ERR_PTR(smb_EIO2(smb_eio_trace_reparse_rdlen, count, rdlen));
+ 	return buf;
+ }
+-- 
+2.53.0
+
