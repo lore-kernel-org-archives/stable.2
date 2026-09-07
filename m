@@ -1,101 +1,170 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013081.outbound.protection.outlook.com [52.103.35.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2857478;
-	Mon,  7 Sep 2026 01:48:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788745690; cv=none; b=kY9Mlkp1tWLA7BXE0X3eCyc5TTyDrnmDnhGQ5mhs9lmno8YQHfLKe61GTeiuM8QMKpX5ED4vWz/wN8JgsWLEswMtWZDuiUKGlyyfJxe5Rpvkqv4+HEBeMfVduGmthCZw0kw/nuwmkRSDo2Tsim1A3Z+tG5Qy4sgPCh1BRIt7LhQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788745690; c=relaxed/simple;
-	bh=vFytQWE+rHf1XGkyGbMkc8jhW5fkRcdbQbyaN4bBrAo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P0f5NuE7/aoGtNMoqJsGLl8vzhkmjFwNSQaMP12aE8t4dodsL1vhoNnfotgu1W5p51a//M4CcA2dXD5uSDjdqvAGn7b+QNVmKqyOCwETeqOEUa5PKoh7JDOz7792pStHjucLtJb0FJ9+HHWsRmO9Y5qQXS+1Bu6A4jfW3zLxlus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=jTqYfjtQ; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5B142A96;
+	Mon,  7 Sep 2026 01:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.81
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788745798; cv=fail; b=ng0tTMsTyEOqnk0Zix/1Ysx8i0+m8pClq85ZFjoSB/s7mW9I/X5YR2G6RdTRlYzEwLVEEj89JQm1DLYH4xvmR5wSfnJCcS6+uQ/yMbKwPaxriSgHP8rx/nXW21znF0kMXPEuS6PIhBb8qL7UnoXek/V4PAV3Cn57wEUn+G1zdSA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788745798; c=relaxed/simple;
+	bh=aKMC+m4QJP1wcqPiHYuZ2SwYjQNgzkAbNXkpA+BQqJ8=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=hukvEKsNSs+RPmA/7rh06KRT/3eps09LwaGQK292bIFJMf+S0nFeEZ4JD2PVM2Vxss/86XTpyus7NQ4GNVhfJhyBlVSNeyo75jX6tucj4Ve8FZduC5N5IDiwpxnGuo3YKPagDW1piU5rLhWdFVWpmj9zF7uZ1PwdkjUhvSDq3AI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=TF5k1xzO; arc=fail smtp.client-ip=52.103.35.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="jTqYfjtQ"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788745677; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=jvjzUwP+xcVDuql+kCr25t00Fk3uorZPRuXdtwHQxwg=;
-	b=jTqYfjtQNidgpi4DDfe9KecasLzkf3DCS/x2VTmqAVmcMHph58Clvc3azUC6/1RcHXd8NflAiJcG8cosXdDQFPeC6BvRfqUiq9cM+3vQCDO3s3u+LRjaSdJ8TsRHGh4tXhxUmNQVNU3NpfO0K0ELwrlCSER2rymJZduSicmKTN8=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R691e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XAO40Tn_1788745676;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XAO40Tn_1788745676 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 07 Sep 2026 09:47:57 +0800
-Date: Mon, 7 Sep 2026 09:47:56 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Denis Arefev <arefev@swemel.ru>, stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Karsten Graul <kgraul@linux.ibm.com>,
-	"David S. Miller" <davem@davemloft.net>,
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="TF5k1xzO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fDxdREPegIHH5rjY7N5cpuF791e1fKRKE4yMdbjivSGTwt6EKJalLjlOBeRnlihG99m1is84HDz1OsDGUE8Bau1J86eyDaiLtk9TYp3jBKvaJzi9st8azmIxNjN1YukkFHWv0nAWPfFhv83y+Ea2bqklTeZiGTj0kmukVgyzdj8auc55OyowHZJjg63w6IIpBtE7AW2+LORx16kKP1BTLznliNV1oh79OcTiStc0Bu9fsfM2l7M2DKT5OWdkk+imazhFzZMPJ1aqDTVFuDhBasXWA2G/u59+UQ05LmeeFCUkXn/hNYaCUAgcrovLnoSTQ3HNSknpOwTghnTySYnzcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2kVMv6zka964XdvgAp/S7MUHopbEjE3bPrb16Y6ZHs0=;
+ b=DyGWvVCRbArNNgEcamEUlxpVuPdOF8z6IoEDEGkqm1X+8M9vKTxHi/svhZYaznJer55ftouI4+enpK4bXjQSNqvJrvQ5bn/oSkT8riC6KkydOjgVHPXUMNN837CyMMJ9XFGrYHLTHZu1cz9w4xjzEx+fCYK9i1eccEWHkWD1HqPoc7pJsZ+8AaK2AbHpx7jIciUvMIeLO06oCBeH5EUOOLDTOQLpQcdhu2Ccc0ARCw6adgqV/dfIxZC+/c933+3ZyvIO7c+sxo12mas+/AsRPsyWVuqBWP+HE95EXJinr3hJJ2k2uq9vmPFgZHBR6Y3+DXHkBwVZ3d4RobtPsFkTqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2kVMv6zka964XdvgAp/S7MUHopbEjE3bPrb16Y6ZHs0=;
+ b=TF5k1xzOUikuXsJDqTQEs/XNruiBiuoNnoh3t/snKJedkeADnBYnILZJ0gpBInJsFoPQlPBMXRq0RO/M1owkzTzGx+GDPktrrKHigQYmm1Q+jJNos+uZiO43Sv4iPE1TkFMYeY0KpnSPIq5Cy7m0mDNKFWpb11EX4Rt5bYfl+z06g8irmTmkmfamIJMd7GnW2fKc00f8PLr9nL6mfoV22mE/Vkp/zC/xPgindyOzMzplJP3EN400nSfLAR2XgNlQb9dfU3kLle/ZGC4M7+onjuvNyPEIIBYfe/FgBWaKdUmQdoSHsatjSVAbaC9ucPwwin9vt7DoavguY/q5yyUYBA==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by GV1P251MB0978.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:9a::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 01:49:54 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 01:49:54 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Ursula Braun <ubraun@linux.ibm.com>, linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"D . Wythe" <alibuda@linux.alibaba.com>,
-	Larysa Zaremba <larysa.zaremba@intel.com>,
-	Wenjia Zhang <wenjia@linux.ibm.com>
-Subject: Re: [PATCH 5.10] net/smc: fix potential panic dues to unprotected
- smc_llc_srv_add_link()
-Message-ID: <ap4XzBSJrJMoPJiZ@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20260901090545.10419-1-arefev@swemel.ru>
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>
+Subject: [PATCH] net: wwan: mhi_wwan_mbim: validate datagram bounds before copy
+Date: Mon,  7 Sep 2026 01:49:50 +0000
+Message-ID:
+ <AS8P251MB0001E25A247262552A62241BC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0126.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c6::17) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260907014950.490030-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901090545.10419-1-arefev@swemel.ru>
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV1P251MB0978:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78a74c1f-6b44-4a2c-7d1b-08df0c825000
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|5062599005|55001999006|24021099003|15080799012|4140399003|25010399006|51005399006|37011999003|12121999013|2604032031799003|25031999004|19110799012|8060799015|23021999003|440099028|3412199025|26104999009|40105399003|2607281247196008|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?qvemKZ+5acEs2ja0BHs829KizpOf6DXRt3ZpTMlkNJbOziBvsx+C2HPMTl/6?=
+ =?us-ascii?Q?fTVaUfvTCIxL/Bw7XjZtUx0Y3Wfo4ayVDZX0Ku95ittnyPg4t/paLR4BtCcs?=
+ =?us-ascii?Q?UhxrjC9F2QyonR3vwkC68jMRHLO6cyXKAgjhkDewMoiQ12Ejdf61gxGad713?=
+ =?us-ascii?Q?oHJZMyIpgmUWVyyBxWdgodCisnQV4Cqhh0N/ptWD//H3Q8Sf5zQHKQQ/wH+M?=
+ =?us-ascii?Q?ESQRF/H43Hh7GdbzIm/gf3TsRH8zcj6Ear8LIcqHfjfFkkhd/cZRgOklE8d0?=
+ =?us-ascii?Q?29EIF3ILUKB5sfJBixNf4KRHzW7NPaJ2zf0hkYk8ZbZav87WIknW33HrETj1?=
+ =?us-ascii?Q?j+PMPPuXUY1fZJ7PH6wIeaREOTWt1YTVhl1sxXPuroD+6aFXtAs0Am3GNqwn?=
+ =?us-ascii?Q?LjHf3/R+BLkMBkesISMemjHs1rgmoOVth9DxSbb+PxEDmC+x134/Yw4u1pHB?=
+ =?us-ascii?Q?AfUuwnl/jHZZ2M4DnoEeFYi2ONU4QvWSBoJpDPxXxTwXL1DDGGCa394fEbpA?=
+ =?us-ascii?Q?DLo/g7lT300x7EOWcfE1v10BFCkGaB8jQ6TZQmRcE2fsReILZhfeYEkjTRCx?=
+ =?us-ascii?Q?2mVNoj/pYKqjiQji3ClWjQBRJlNHq3NjySIrGkWEwNAT0dDQHR6gQpIiUfXK?=
+ =?us-ascii?Q?4Mo9wvNSCbGFmhkXisxoKTMFQzKtEfSkLmAorGfjQaAOfKyFBOeyBhD68rkp?=
+ =?us-ascii?Q?ERj5swifvAZrfSHq56HhnVoow5xwEWIhSfMg1szW9HTh5rdSYKMS3dOCmHmm?=
+ =?us-ascii?Q?tZM4dFoWIRBU1uX73kcl/yg82lIflqcejjOYdB6ocJctPp2c2HAsTGhMknTk?=
+ =?us-ascii?Q?mnYv4zvLzvhWTlELKsV98QDJoaMTCv0vQVuRKRLERdnsP9uDRJkxWYvdBZhj?=
+ =?us-ascii?Q?42PfDaUC6cXqyMDjp0QK0aHJjd/GJ9CeGHXMZuUwLVBO5BiJXzS+aFVppcgG?=
+ =?us-ascii?Q?XqvJ9mgIbNQRlWaT4rxe+0vRe0tnKSxlQdcajRvzw6hTirIxq0MQ12i+054U?=
+ =?us-ascii?Q?teDOYaxPG5FtxDTYrq7IKnub8904Ugm5H8Z5O2t3jx+Er58TlB30VlnsBsqL?=
+ =?us-ascii?Q?ksLC21MgMUcP9J+KTJw+7cMT1q/730RPPXez38O3LhX/6XxLwXbVvrPY+1h3?=
+ =?us-ascii?Q?saQd9aS5+VykJyX5bGxMijxq2ZQ6Sf5Lq/NoXZRfNqP7+G7xUyNTJNs=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CdKhglJyzxFDzHXcBvgNgEXU9fIZv8ZDfcGyaf8rqZKea3bZ7/iTo3zPD+/7?=
+ =?us-ascii?Q?tr7Bv9E55LBr7n8xK67JbWF8NBNs3Mv7YrfdGbOscC0CnnlJLreuaD7oNq3M?=
+ =?us-ascii?Q?86LvS0CNd9rm392MvCjR8fUqQpr9XAe7uanDB6cmO46Zspm3IHBpVYoWT2J9?=
+ =?us-ascii?Q?rYKEqBwOF8eOGAFoVQHXJSh63DWzz8FAOB+A4OLLdDeIQD5BO8eZojTcnxJr?=
+ =?us-ascii?Q?8ao4zDK1V5UtmbwYQnVLtdSU+xWjXjWpj9A1pr1T6xrR04wEzV+Hxcsb9TZ4?=
+ =?us-ascii?Q?S4A0+lz4e5ZqWAMh6TM9VwiwP22RcI//Y33AdH55J2OndZ6cHgXChL2wVKbr?=
+ =?us-ascii?Q?gBlj5vAAx90SLFhNl41Uie6RZi5RSL77zPqjL8YHc3pngWP5H4ft6e6v25ZD?=
+ =?us-ascii?Q?dTBVOrWxXcdHaeOvnbr8rRTEunLkCWGU9rvO9rsyEYnuvlA3eom8reSMBlsc?=
+ =?us-ascii?Q?SMc4HC719wreK+qzis/1Fu47AWuZUOCR1CtVg58Xq3TyFU5mVpKZVu1Y0jNc?=
+ =?us-ascii?Q?zo8CoFWzFHIbtsFmR/rGQmlujpYH2WD/ZfFLpFVBmvgueK856jmNWSK07WrQ?=
+ =?us-ascii?Q?Z+f9f05YxnFXztkps/9fSMWNe5mUj1nVPnJtPVRuLH7dMxwMon8qHP2AoRE1?=
+ =?us-ascii?Q?rspkGfNcNMaPqhbbT66J6ryZ+GyypFpMgoARi8q0LMJnLdKOGHpnsmC9ZLZl?=
+ =?us-ascii?Q?JmHsI29PpStA+Kmp4rzJjkRWzBRUFx8qTWYmKP/t93leJzTLHWFEcbBpMjMs?=
+ =?us-ascii?Q?V+IGfb+CHhRvcilkqpkni+uXf2RkjnQQEZS2lJeL2HFz5mc/ZGWih08acxRw?=
+ =?us-ascii?Q?xtIgiLXvSObsalJYs9g6xiH2n9dl8GGY0s3ysy2Ff9X87x6660+j2hOtUM9B?=
+ =?us-ascii?Q?wy8GNlZnYKDBk8RTiYQwSMyVQOAlz4vaGr00Lz7UeKmsH1rrQZr8r3p5UHCb?=
+ =?us-ascii?Q?2eZZoS9aSrzKh6AVI/9TdDvnQ0xvpapkmKvx1mL7l43trT4a/XjcFkxm1HMV?=
+ =?us-ascii?Q?5TTX1eNimpiSLrevswuT8Wu5GxIqBkX6q18ASeSA8+bw4XaQmeZDPz+mU03i?=
+ =?us-ascii?Q?AowqlP9nNSdVkQI28pDhAYSSfy1tf/GMtF1CGbZYlN5cdt97ofE9EcWDr0gv?=
+ =?us-ascii?Q?nC8iHJ+o7sAP9ZKAll/7D3oZGs3VU8GUNhT/0WHEZI47b5GydDmrgyaQ/pZO?=
+ =?us-ascii?Q?u0Epb2eUabNGAthUddLnovgkmwG5Ql/+3uKyFoV+faOxULBMnGLnyrjmK6bO?=
+ =?us-ascii?Q?gvtDns/HyJXsH42uvuyLEnoQLV+rS4ZcApJIltdJwZmLU2JhUoilLVqNH2k9?=
+ =?us-ascii?Q?Nx8B7Uzc1S7aQpvLchGr02gLCa6T948ZNOb+/wo03nIf/9KfzQRFNzXO1Bhd?=
+ =?us-ascii?Q?ipBcIsr8DWCu88xUZ5tNPQwpIh0dtcAKTfcFVFxOJyVsbxZ4pcZF7LTWiJ4L?=
+ =?us-ascii?Q?rPErk1jrp5KJEj3PCtlvgwJ9ECC6ZsPx?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78a74c1f-6b44-4a2c-7d1b-08df0c825000
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 01:49:54.0059
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P251MB0978
 
-On 2026-09-01 12:05:43, Denis Arefev wrote:
->From: "D. Wythe" <alibuda@linux.alibaba.com>
->
->commit e40b801b3603a8f90b46acbacdea3505c27f01c0 upstream.
->
->There is a certain chance to trigger the following panic:
->
->PID: 5900   TASK: ffff88c1c8af4100  CPU: 1   COMMAND: "kworker/1:48"
-> #0 [ffff9456c1cc79a0] machine_kexec at ffffffff870665b7
-> #1 [ffff9456c1cc79f0] __crash_kexec at ffffffff871b4c7a
-> #2 [ffff9456c1cc7ab0] crash_kexec at ffffffff871b5b60
-> #3 [ffff9456c1cc7ac0] oops_end at ffffffff87026ce7
-> #4 [ffff9456c1cc7ae0] page_fault_oops at ffffffff87075715
-> #5 [ffff9456c1cc7b58] exc_page_fault at ffffffff87ad0654
-> #6 [ffff9456c1cc7b80] asm_exc_page_fault at ffffffff87c00b62
->    [exception RIP: ib_alloc_mr+19]
->    RIP: ffffffffc0c9cce3  RSP: ffff9456c1cc7c38  RFLAGS: 00010202
->    RAX: 0000000000000000  RBX: 0000000000000002  RCX: 0000000000000004
->    RDX: 0000000000000010  RSI: 0000000000000000  RDI: 0000000000000000
->    RBP: ffff88c1ea281d00   R8: 000000020a34ffff   R9: ffff88c1350bbb20
->    R10: 0000000000000000  R11: 0000000000000001  R12: 0000000000000000
->    R13: 0000000000000010  R14: ffff88c1ab040a50  R15: ffff88c1ea281d00
->    ORIG_RAX: ffffffffffffffff  CS: 0010  SS: 0018
-> #7 [ffff9456c1cc7c60] smc_ib_get_memory_region at ffffffffc0aff6df [smc]
-> #8 [ffff9456c1cc7c88] smcr_buf_map_link at ffffffffc0b0278c [smc]
-> #9 [ffff9456c1cc7ce0] __smc_buf_create at ffffffffc0b03586 [smc]
->
->The reason here is that when the server tries to create a second link,
->smc_llc_srv_add_link() has no protection and may add a new link to
->link group. This breaks the security environment protected by
->llc_conf_mutex.
->
->Fixes: 2d2209f20189 ("net/smc: first part of add link processing as SMC server")
->Signed-off-by: D. Wythe <alibuda@linux.alibaba.com>
->Reviewed-by: Larysa Zaremba <larysa.zaremba@intel.com>
->Reviewed-by: Wenjia Zhang <wenjia@linux.ibm.com>
->Signed-off-by: David S. Miller <davem@davemloft.net>
->[Denis Arefev: adapted for 5.10: smc_llc_srv_add_link() has no 
->req_qentry argument here, as SMC-Rv2 REQ_ADD_LINK support is
->not present in 5.10]
->Signed-off-by: Denis Arefev <arefev@swemel.ru>
+mhi_mbim_rx() copies datagrams from the NTB using skb_copy_bits() but
+never validates that the datagram offset and length from the NDP entry
+actually lie within the source skb. If a malicious or buggy modem sends
+an NDP entry with dgram_offset + dgram_len > skb->len, skb_copy_bits()
+returns -EFAULT and the destination skb is delivered with partially
+uninitialized data.
 
-Reviewed-by: Dust Li <dust.li@linux.alibaba.com>
+Add a bounds check matching the one in cdc_mbim.c to skip datagrams
+that would read past the end of the transfer block.
 
-Best regards,
-Dust
+Fixes: aab8d56c11be ("net: Add Qualcomm MHI MBIM network driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
+ drivers/net/wwan/mhi_wwan_mbim.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
+index a94998712597..acdcaceebc48 100644
+--- a/drivers/net/wwan/mhi_wwan_mbim.c
++++ b/drivers/net/wwan/mhi_wwan_mbim.c
+@@ -315,6 +315,9 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
+ 			if (!dgram_offset || !dgram_len)
+ 				break; /* null terminator */
+ 
++			if (dgram_offset + dgram_len > skb->len)
++				continue;
++
+ 			skbn = netdev_alloc_skb(link->ndev, dgram_len);
+ 			if (!skbn)
+ 				continue;
+-- 
+2.43.0
 
