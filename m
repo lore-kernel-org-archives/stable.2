@@ -1,170 +1,288 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013081.outbound.protection.outlook.com [52.103.35.81])
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5B142A96;
-	Mon,  7 Sep 2026 01:49:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.81
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788745798; cv=fail; b=ng0tTMsTyEOqnk0Zix/1Ysx8i0+m8pClq85ZFjoSB/s7mW9I/X5YR2G6RdTRlYzEwLVEEj89JQm1DLYH4xvmR5wSfnJCcS6+uQ/yMbKwPaxriSgHP8rx/nXW21znF0kMXPEuS6PIhBb8qL7UnoXek/V4PAV3Cn57wEUn+G1zdSA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788745798; c=relaxed/simple;
-	bh=aKMC+m4QJP1wcqPiHYuZ2SwYjQNgzkAbNXkpA+BQqJ8=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=hukvEKsNSs+RPmA/7rh06KRT/3eps09LwaGQK292bIFJMf+S0nFeEZ4JD2PVM2Vxss/86XTpyus7NQ4GNVhfJhyBlVSNeyo75jX6tucj4Ve8FZduC5N5IDiwpxnGuo3YKPagDW1piU5rLhWdFVWpmj9zF7uZ1PwdkjUhvSDq3AI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=TF5k1xzO; arc=fail smtp.client-ip=52.103.35.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF82192F4;
+	Mon,  7 Sep 2026 01:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788746173; cv=none; b=OCPsknmG94l9EnV8j7Q+Un4XgH/mmyhsoDXy/6lgQ0YKRmYCybWRmALj7CK2tPybIWJbTc8gNkSt1DvO9QmQb1XmpvjfVsRqyGfSC6Q2ATrJCnf5SNoto/lg7PwqOMfeEFQg/QhRe2D4S/J6M3hZ3DNlEKEU7aTh8nW5I/GM23Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788746173; c=relaxed/simple;
+	bh=Qc6lK3RIhSKzuQqq+9rWy6XPcwNZph92qOZUJh8z6SI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lfPXotDr2XQeZq/1eSg4sMLTK4zZrIoU8fOnpobh14gqDEDu3zKVPPD9TysLzJeDh5ylLreOzYikkeNg7gXWye8YOp2BWwAn6/ymmc2seTnlWNlmKuFEB2q0IkJ26tq7YeZQZJ+zco6qMGvNbA5f9iuq8tBmnYWB/GYGMhFznFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=WkFFGP5+; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="TF5k1xzO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fDxdREPegIHH5rjY7N5cpuF791e1fKRKE4yMdbjivSGTwt6EKJalLjlOBeRnlihG99m1is84HDz1OsDGUE8Bau1J86eyDaiLtk9TYp3jBKvaJzi9st8azmIxNjN1YukkFHWv0nAWPfFhv83y+Ea2bqklTeZiGTj0kmukVgyzdj8auc55OyowHZJjg63w6IIpBtE7AW2+LORx16kKP1BTLznliNV1oh79OcTiStc0Bu9fsfM2l7M2DKT5OWdkk+imazhFzZMPJ1aqDTVFuDhBasXWA2G/u59+UQ05LmeeFCUkXn/hNYaCUAgcrovLnoSTQ3HNSknpOwTghnTySYnzcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2kVMv6zka964XdvgAp/S7MUHopbEjE3bPrb16Y6ZHs0=;
- b=DyGWvVCRbArNNgEcamEUlxpVuPdOF8z6IoEDEGkqm1X+8M9vKTxHi/svhZYaznJer55ftouI4+enpK4bXjQSNqvJrvQ5bn/oSkT8riC6KkydOjgVHPXUMNN837CyMMJ9XFGrYHLTHZu1cz9w4xjzEx+fCYK9i1eccEWHkWD1HqPoc7pJsZ+8AaK2AbHpx7jIciUvMIeLO06oCBeH5EUOOLDTOQLpQcdhu2Ccc0ARCw6adgqV/dfIxZC+/c933+3ZyvIO7c+sxo12mas+/AsRPsyWVuqBWP+HE95EXJinr3hJJ2k2uq9vmPFgZHBR6Y3+DXHkBwVZ3d4RobtPsFkTqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2kVMv6zka964XdvgAp/S7MUHopbEjE3bPrb16Y6ZHs0=;
- b=TF5k1xzOUikuXsJDqTQEs/XNruiBiuoNnoh3t/snKJedkeADnBYnILZJ0gpBInJsFoPQlPBMXRq0RO/M1owkzTzGx+GDPktrrKHigQYmm1Q+jJNos+uZiO43Sv4iPE1TkFMYeY0KpnSPIq5Cy7m0mDNKFWpb11EX4Rt5bYfl+z06g8irmTmkmfamIJMd7GnW2fKc00f8PLr9nL6mfoV22mE/Vkp/zC/xPgindyOzMzplJP3EN400nSfLAR2XgNlQb9dfU3kLle/ZGC4M7+onjuvNyPEIIBYfe/FgBWaKdUmQdoSHsatjSVAbaC9ucPwwin9vt7DoavguY/q5yyUYBA==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by GV1P251MB0978.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:9a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 01:49:54 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 01:49:54 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Sergey Ryazanov <ryazanov.s.a@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>
-Subject: [PATCH] net: wwan: mhi_wwan_mbim: validate datagram bounds before copy
-Date: Mon,  7 Sep 2026 01:49:50 +0000
-Message-ID:
- <AS8P251MB0001E25A247262552A62241BC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P265CA0126.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c6::17) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260907014950.490030-1-elb12345@hotmail.co.uk>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="WkFFGP5+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788746090;
+	bh=IPtN5otttm8uil3Pm83fRkoi35EfLqOcxkeTULa2NrM=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=WkFFGP5+5Ka3L/6+SE+K/I6gzenTIjKtagSTZBnL9cc6SiV46FlF+oweemLsizRtx
+	 k5vegornIsCf4JjL472rTwaeDlPFxhAGLxhQnl3kYWmjLoNJ38+sN1Oyl6FOqf/aEB
+	 VKg9cnJj142BqCbmejqSfSc2pD73hVJbmKbo2qgA=
+X-QQ-mid: zesmtpgz8t1788746083t1fd75327
+X-QQ-Originating-IP: aHLWYYlqyO/Fe+lGWgrck0bWLMNe6dlveIicawt9dWA=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 09:54:38 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5020581304440402209
+EX-QQ-RecipientCnt: 20
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Mon, 07 Sep 2026 09:54:36 +0800
+Subject: [PATCH v5] clk: spacemit: k3: add CPU PLL rate tables
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV1P251MB0978:EE_
-X-MS-Office365-Filtering-Correlation-Id: 78a74c1f-6b44-4a2c-7d1b-08df0c825000
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|5072599009|5062599005|55001999006|24021099003|15080799012|4140399003|25010399006|51005399006|37011999003|12121999013|2604032031799003|25031999004|19110799012|8060799015|23021999003|440099028|3412199025|26104999009|40105399003|2607281247196008|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?qvemKZ+5acEs2ja0BHs829KizpOf6DXRt3ZpTMlkNJbOziBvsx+C2HPMTl/6?=
- =?us-ascii?Q?fTVaUfvTCIxL/Bw7XjZtUx0Y3Wfo4ayVDZX0Ku95ittnyPg4t/paLR4BtCcs?=
- =?us-ascii?Q?UhxrjC9F2QyonR3vwkC68jMRHLO6cyXKAgjhkDewMoiQ12Ejdf61gxGad713?=
- =?us-ascii?Q?oHJZMyIpgmUWVyyBxWdgodCisnQV4Cqhh0N/ptWD//H3Q8Sf5zQHKQQ/wH+M?=
- =?us-ascii?Q?ESQRF/H43Hh7GdbzIm/gf3TsRH8zcj6Ear8LIcqHfjfFkkhd/cZRgOklE8d0?=
- =?us-ascii?Q?29EIF3ILUKB5sfJBixNf4KRHzW7NPaJ2zf0hkYk8ZbZav87WIknW33HrETj1?=
- =?us-ascii?Q?j+PMPPuXUY1fZJ7PH6wIeaREOTWt1YTVhl1sxXPuroD+6aFXtAs0Am3GNqwn?=
- =?us-ascii?Q?LjHf3/R+BLkMBkesISMemjHs1rgmoOVth9DxSbb+PxEDmC+x134/Yw4u1pHB?=
- =?us-ascii?Q?AfUuwnl/jHZZ2M4DnoEeFYi2ONU4QvWSBoJpDPxXxTwXL1DDGGCa394fEbpA?=
- =?us-ascii?Q?DLo/g7lT300x7EOWcfE1v10BFCkGaB8jQ6TZQmRcE2fsReILZhfeYEkjTRCx?=
- =?us-ascii?Q?2mVNoj/pYKqjiQji3ClWjQBRJlNHq3NjySIrGkWEwNAT0dDQHR6gQpIiUfXK?=
- =?us-ascii?Q?4Mo9wvNSCbGFmhkXisxoKTMFQzKtEfSkLmAorGfjQaAOfKyFBOeyBhD68rkp?=
- =?us-ascii?Q?ERj5swifvAZrfSHq56HhnVoow5xwEWIhSfMg1szW9HTh5rdSYKMS3dOCmHmm?=
- =?us-ascii?Q?tZM4dFoWIRBU1uX73kcl/yg82lIflqcejjOYdB6ocJctPp2c2HAsTGhMknTk?=
- =?us-ascii?Q?mnYv4zvLzvhWTlELKsV98QDJoaMTCv0vQVuRKRLERdnsP9uDRJkxWYvdBZhj?=
- =?us-ascii?Q?42PfDaUC6cXqyMDjp0QK0aHJjd/GJ9CeGHXMZuUwLVBO5BiJXzS+aFVppcgG?=
- =?us-ascii?Q?XqvJ9mgIbNQRlWaT4rxe+0vRe0tnKSxlQdcajRvzw6hTirIxq0MQ12i+054U?=
- =?us-ascii?Q?teDOYaxPG5FtxDTYrq7IKnub8904Ugm5H8Z5O2t3jx+Er58TlB30VlnsBsqL?=
- =?us-ascii?Q?ksLC21MgMUcP9J+KTJw+7cMT1q/730RPPXez38O3LhX/6XxLwXbVvrPY+1h3?=
- =?us-ascii?Q?saQd9aS5+VykJyX5bGxMijxq2ZQ6Sf5Lq/NoXZRfNqP7+G7xUyNTJNs=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CdKhglJyzxFDzHXcBvgNgEXU9fIZv8ZDfcGyaf8rqZKea3bZ7/iTo3zPD+/7?=
- =?us-ascii?Q?tr7Bv9E55LBr7n8xK67JbWF8NBNs3Mv7YrfdGbOscC0CnnlJLreuaD7oNq3M?=
- =?us-ascii?Q?86LvS0CNd9rm392MvCjR8fUqQpr9XAe7uanDB6cmO46Zspm3IHBpVYoWT2J9?=
- =?us-ascii?Q?rYKEqBwOF8eOGAFoVQHXJSh63DWzz8FAOB+A4OLLdDeIQD5BO8eZojTcnxJr?=
- =?us-ascii?Q?8ao4zDK1V5UtmbwYQnVLtdSU+xWjXjWpj9A1pr1T6xrR04wEzV+Hxcsb9TZ4?=
- =?us-ascii?Q?S4A0+lz4e5ZqWAMh6TM9VwiwP22RcI//Y33AdH55J2OndZ6cHgXChL2wVKbr?=
- =?us-ascii?Q?gBlj5vAAx90SLFhNl41Uie6RZi5RSL77zPqjL8YHc3pngWP5H4ft6e6v25ZD?=
- =?us-ascii?Q?dTBVOrWxXcdHaeOvnbr8rRTEunLkCWGU9rvO9rsyEYnuvlA3eom8reSMBlsc?=
- =?us-ascii?Q?SMc4HC719wreK+qzis/1Fu47AWuZUOCR1CtVg58Xq3TyFU5mVpKZVu1Y0jNc?=
- =?us-ascii?Q?zo8CoFWzFHIbtsFmR/rGQmlujpYH2WD/ZfFLpFVBmvgueK856jmNWSK07WrQ?=
- =?us-ascii?Q?Z+f9f05YxnFXztkps/9fSMWNe5mUj1nVPnJtPVRuLH7dMxwMon8qHP2AoRE1?=
- =?us-ascii?Q?rspkGfNcNMaPqhbbT66J6ryZ+GyypFpMgoARi8q0LMJnLdKOGHpnsmC9ZLZl?=
- =?us-ascii?Q?JmHsI29PpStA+Kmp4rzJjkRWzBRUFx8qTWYmKP/t93leJzTLHWFEcbBpMjMs?=
- =?us-ascii?Q?V+IGfb+CHhRvcilkqpkni+uXf2RkjnQQEZS2lJeL2HFz5mc/ZGWih08acxRw?=
- =?us-ascii?Q?xtIgiLXvSObsalJYs9g6xiH2n9dl8GGY0s3ysy2Ff9X87x6660+j2hOtUM9B?=
- =?us-ascii?Q?wy8GNlZnYKDBk8RTiYQwSMyVQOAlz4vaGr00Lz7UeKmsH1rrQZr8r3p5UHCb?=
- =?us-ascii?Q?2eZZoS9aSrzKh6AVI/9TdDvnQ0xvpapkmKvx1mL7l43trT4a/XjcFkxm1HMV?=
- =?us-ascii?Q?5TTX1eNimpiSLrevswuT8Wu5GxIqBkX6q18ASeSA8+bw4XaQmeZDPz+mU03i?=
- =?us-ascii?Q?AowqlP9nNSdVkQI28pDhAYSSfy1tf/GMtF1CGbZYlN5cdt97ofE9EcWDr0gv?=
- =?us-ascii?Q?nC8iHJ+o7sAP9ZKAll/7D3oZGs3VU8GUNhT/0WHEZI47b5GydDmrgyaQ/pZO?=
- =?us-ascii?Q?u0Epb2eUabNGAthUddLnovgkmwG5Ql/+3uKyFoV+faOxULBMnGLnyrjmK6bO?=
- =?us-ascii?Q?gvtDns/HyJXsH42uvuyLEnoQLV+rS4ZcApJIltdJwZmLU2JhUoilLVqNH2k9?=
- =?us-ascii?Q?Nx8B7Uzc1S7aQpvLchGr02gLCa6T948ZNOb+/wo03nIf/9KfzQRFNzXO1Bhd?=
- =?us-ascii?Q?ipBcIsr8DWCu88xUZ5tNPQwpIh0dtcAKTfcFVFxOJyVsbxZ4pcZF7LTWiJ4L?=
- =?us-ascii?Q?rPErk1jrp5KJEj3PCtlvgwJ9ECC6ZsPx?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78a74c1f-6b44-4a2c-7d1b-08df0c825000
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 01:49:54.0059
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P251MB0978
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOy27DIBAF0F+JWJdoeBnoqv9RdTHGUNP6JeNYe
+ cj/XpOqahZhM9KVZs6dG0l+jj6R18ONzH6NKY7DHtTLgbgWh09PY7NnwoFXYIDTb0GnrlN5GMo
+ MQN9eqTPMaIWAVkqyn06zD/F8Z98/fnM61V/eLdnKG21Myzhf7r0ry3t/FfJ5xcooUBSolakq5
+ wV/6+JwOh/ThM73cTm6sSe5a+UPGoOCximjiHUIigFqq4uaeNAEK2hi15QA34DVpmKqqMl/zYI
+ oaDL/FjA01tVSN/aptm3bD7zes1e9AQAA
+X-Change-ID: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Inochi Amaoto <inochiama@outlook.com>, Alex Elder <elder@riscstar.com>, 
+ Haylen Chu <heylenay@4d2.org>
+Cc: Aurelien Jarno <aurelien@aurel32.net>, stable@vger.kernel.org, 
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10338;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=Qc6lK3RIhSKzuQqq+9rWy6XPcwNZph92qOZUJh8z6SI=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnzJGO3bv0z8X6Tbn7R3BuehY8Z5bQl/sosEQsuUL55k
+ c9L5rxWRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwEQS9zL89+ustpdS75k52XqR
+ Y5D/5nkXZGQVfe++nnTlVFDH/KXeMgz/9P8fv2q1R0lEyXGXXNbf7Is3F7iZ8nTnPa1+FSmTfXs
+ fCwA=
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Mutteg8H72qDmgHgr61YGLIXtlHBgGRtp6GYyRqKRS+Q1MI2eGWtCICp
+	MMBTHjLjvXYj8xGNStI2z76/ZcVyftbhdD2KSbKbnDrdClpa2BGCK6I/3mBvmiu35rBv4wS
+	dcbFhc71akMhWDlgV4zcnGX3h7VvtD17au0AzrTgCVpEdUt/xhORbI5XLqpKSXPOmHjWMjc
+	dHJtqsXev19VLOOuFjMNzwcaaMlrRLnYU1JDPpo1ydhnPKSFlGhgGGoW7dCB3b/9SGuOhO5
+	M1NrwD5Ul7d7dSQ6t5HdsZb56ocMp6qUsUXO/KCuH7M14kbJGlt/qYsuwZqiLY9nqXwvVnO
+	OBca06q+zL7/7NwjyfI4+rEExVT1GYYQiNv0ExILcaNplh4v+ChtMjFSJxkGL0E+/P3aCNd
+	iU3aSuLXoALnr7MtgS0HXz7MD6tleurbAf0rcIFS/k8038jcbPfEyzJwAVcxIrcDgX/jbLe
+	3LV2Ccm7oUmsq9FQNlVQ1x2CVPVQqNj8lyNiMBv5CBiJUt2ZGIxLGqF5rohPGuBbMIEREht
+	bKwh33tqCcKVoGsX5P5fhS5GR8ckeZtgj7Op6bHJJCzYh9GPfcZBQwbyRl7DEIWCnmEC/p9
+	/adIGJrWzzdCG8MAJV/+aewgUMSZGF0LH9skdz0y4J/9JEGCTKr8mWYP3xLuLIUtzQA+int
+	Msics16oGU18zR6FfFYJHbWLdP6JoS9yx497ZlLcz6YTW8MJjLa9owJin5Xno77RhJtFz/1
+	jzWkGnAZP94oQnXPERT/B+HztiTvN2+Znts5qKj5Vs5mpp8vw6oPk+nUQvWtDKPMnGzltDh
+	g/n6X9jL29C7m0Y5PBtdOQbWbJuINLzWVNhRTXUCHC1G5UfiP1wxttJh79+21uulZz19ZnJ
+	q1H90Iy6Ix5gEqsJ49NZZDctNTHfo7p0+5/89LLhxSMmWL9wEy0s2TlRn7lqMmL+0T0kuVB
+	OulMv1Da90A8FHuVk0kFzt08gRZKxLthVNB42PzhzfrUo8uG9nI2mkjQhrRhL7N7NUvMpPY
+	GBv5efhdbDhON4qnPAoeB3JtjPf2HYkp7MW2pM/bLt+cgltVsSGz6yvuV9Jqxm0/+EZyH1e
+	WBnx+Tv+yKX
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-mhi_mbim_rx() copies datagrams from the NTB using skb_copy_bits() but
-never validates that the datagram offset and length from the NDP entry
-actually lie within the source skb. If a malicious or buggy modem sends
-an NDP entry with dgram_offset + dgram_len > skb->len, skb_copy_bits()
-returns -EFAULT and the destination skb is delivered with partially
-uninitialized data.
+The K3 CPU PLL rate tables currently describe only one rate per PLL,
+although the hardware supports a wider range.
 
-Add a bounds check matching the one in cdc_mbim.c to skip datagrams
-that would read past the end of the transfer block.
+PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+support rates from 1.05 to 2 GHz. Populate the tables with every
+supported rate in 50 MHz steps.
 
-Fixes: aab8d56c11be ("net: Add Qualcomm MHI MBIM network driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
+Cc: stable@vger.kernel.org # 7.0+
+Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 ---
- drivers/net/wwan/mhi_wwan_mbim.c | 3 +++
- 1 file changed, 3 insertions(+)
+The corresponding U-Boot changes are available at:
 
-diff --git a/drivers/net/wwan/mhi_wwan_mbim.c b/drivers/net/wwan/mhi_wwan_mbim.c
-index a94998712597..acdcaceebc48 100644
---- a/drivers/net/wwan/mhi_wwan_mbim.c
-+++ b/drivers/net/wwan/mhi_wwan_mbim.c
-@@ -315,6 +315,9 @@ static void mhi_mbim_rx(struct mhi_mbim_context *mbim, struct sk_buff *skb)
- 			if (!dgram_offset || !dgram_len)
- 				break; /* null terminator */
+- Add the CPU PLL rate tables:
+  https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc99db886d5522c0c9cd5a96ffd6
+- Correct the 1.10 GHz and 2.15 GHz table entries:
+  https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb54ca55352215e76eb3f12e6cf0
+---
+Changes in v5:
+- Add a Fixes tag for the commit introducing the K3 clock tree.
+- Sort the PLL3, PLL4, PLL5 and PLL8 rate tables in ascending order.
+- Remove the comments requiring the firmware default to be first.
+- Add Aurelien Jarno's Reviewed-by and Tested-by trailers and
+  Anirudh Srinivasan's Tested-by trailer.
+- Link to v4: https://patch.msgid.link/20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com
+
+Changes in v4:
+- Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
+- Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
+  patch scope has expanded.
+- Add U-Boot references for the complete tables and corrected entries.
+- Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com
+
+Changes in v3:
+- Mark the change for stable kernels starting with v7.0.
+- Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+- Rebase onto v7.3-rc1.
+- Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
+
+Changes in v2:
+- Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+  will be handled in a separate series.
+- Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+  patch.
+- Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+- Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
+
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Yixun Lan <dlan@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-clk@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+Cc: spacemit@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/clk/spacemit/ccu-k3.c | 92 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
+
+diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+index 92b930d5ff30..39df15c8a3e6 100644
+--- a/drivers/clk/spacemit/ccu-k3.c
++++ b/drivers/clk/spacemit/ccu-k3.c
+@@ -30,14 +30,87 @@ static const struct ccu_pll_rate_tbl pll2_rate_tbl[] = {
+ };
  
-+			if (dgram_offset + dgram_len > skb->len)
-+				continue;
-+
- 			skbn = netdev_alloc_skb(link->ndev, dgram_len);
- 			if (!skbn)
- 				continue;
--- 
-2.43.0
+ static const struct ccu_pll_rate_tbl pll3_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
++	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
++	CCU_PLLA_RATE(2050000000UL, 0x0b2a2d55, 0x00005500, 0xa0558686),
++	CCU_PLLA_RATE(2100000000UL, 0x0b2b3000, 0x00000000, 0xa0558787),
++	CCU_PLLA_RATE(2150000000UL, 0x0b2c32aa, 0x0000ab00, 0xa0558787),
+ 	CCU_PLLA_RATE(2200000000UL, 0x0b2d3555, 0x00005500, 0xa0558787),
++	CCU_PLLA_RATE(2250000000UL, 0x0b2e3800, 0x00000000, 0xa0558888),
++	CCU_PLLA_RATE(2300000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0558888),
++	CCU_PLLA_RATE(2350000000UL, 0x0b303d55, 0x00005500, 0xa0558888),
++	CCU_PLLA_RATE(2400000000UL, 0x0b320000, 0x00000000, 0xa0558989),
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll4_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
++	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
++	CCU_PLLA_RATE(2050000000UL, 0x0b2a2d55, 0x00005500, 0xa0558686),
++	CCU_PLLA_RATE(2100000000UL, 0x0b2b3000, 0x00000000, 0xa0558787),
++	CCU_PLLA_RATE(2150000000UL, 0x0b2c32aa, 0x0000ab00, 0xa0558787),
+ 	CCU_PLLA_RATE(2200000000UL, 0x0b2d3555, 0x00005500, 0xa0558787),
++	CCU_PLLA_RATE(2250000000UL, 0x0b2e3800, 0x00000000, 0xa0558888),
++	CCU_PLLA_RATE(2300000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0558888),
++	CCU_PLLA_RATE(2350000000UL, 0x0b303d55, 0x00005500, 0xa0558888),
++	CCU_PLLA_RATE(2400000000UL, 0x0b320000, 0x00000000, 0xa0558989),
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll5_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
+@@ -50,6 +123,25 @@ static const struct ccu_pll_rate_tbl pll7_rate_tbl[] = {
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
