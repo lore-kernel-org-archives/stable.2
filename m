@@ -1,102 +1,148 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7416D466AE5;
-	Mon,  7 Sep 2026 11:16:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA12478E5E;
+	Mon,  7 Sep 2026 11:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779766; cv=none; b=r6NkHfYpCHy0hyzBIOxIyU6lTjIgEG+UrJUCeLTcffCzbVMv5VuimeSbKt9XlRFejzadBlwcBEy55nqY2V55AswQW2rDhxk9HxA3tzcVMV5UHK4n8L1ihHEd1EWATLFm49p2SS51AcqPqvzq+RYetzP4RXmRbK3B3DOj9/xLG5c=
+	t=1788780416; cv=none; b=YYuAUXP0sjmW/D9pqP24IssYvbFytT2xkGcxQMYb4dS8X5lyRj4kA6Yz5histIWPc3OFwXVqhfqm8kuCz7q/mYmcxXN1/xAEb0/cF349FiWpT1nRwR+lgJUgM+YenpV3lD+o3WuZMn2xn+mL5zXBKBy7e+gct9byzDA62tQhDpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779766; c=relaxed/simple;
-	bh=v7azLyqL3jklC+75mnaQajaLf93DbF4PozAo0D5yAUI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gJfezL2NnGIBqm0imYRLw7Vp1X1NAmctoNiuOilSN+5YYyb6OHKwSPyGR/gff5fY1ip0cCUZ65t7u/cZioa079nPj5liSccRTxxdYZzYlCrxc4e3KJNAliYRIYTN/sVvVhXHq2qIBR+tvWEORpdusPib+iE0rLD1y8U+dM7xGT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=rKDlexZ7; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788780416; c=relaxed/simple;
+	bh=b1/7jF3rM6chow1Mf0/Vho4WgWNjKULtTHiZPFcjS1Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=t/q7IjMYck/9XLHmvp2xYQ4qLjObJqYUwGqoK83uIZKiuCGrcxkqKXO+XG+65Lw6kIho/XtZKc3n08+iZAxl/yeNAiP+w61wSr9CimaEKhoq3Ai2xoOsNL1QP3A8ypKCiHJmvqhNdbG/Vi0NCWe34X+kfjpKazf9joX04Wvl1bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMPrakXa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="rKDlexZ7"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hdkyl6WFCzMl19;
-	Mon, 07 Sep 2026 13:15:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788779760; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=v7azLyqL3jklC+75mnaQajaLf93DbF4PozAo0D5yAUI=;
-	b=rKDlexZ7ldFeXZoW8qouJ3PRP78lkQfBlUplmVJ4zlqX71eUItQ7Jtz6ibU6f44spuHPTG
-	suuZGF1KVEE+7Bh8v73dAzPNVvH6LK8SiLXngfz6XsK1RNyZHTIe8v7fY3J0HAPbQ0+hKN
-	9dSFkRzNJSbaznj01WikxTYoEKjXFp2slicG0FnFB9vD3LFb1lHkeY3baidyMlxxm+EdFM
-	8I5tEutQov1vSUlIE5PbDtzTMaqPFWeQ8fhNWmPrvbBwirY3JRARJamimBAsS/wjG7HBCG
-	WTDu6hKG73+38MDidTPSejzm1OYi5B1Qd9pQD1VQ95hkyq9uPhv0Z4HQgyP2kw==
-Message-ID: <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
-Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
- use-after-free
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Tvrtko Ursulin <tursulin@ursulin.net>, phasta@kernel.org, Christian
- =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, "Jonghyuk
- Kim(MalHyuk)" <malhyuk97@gmail.com>, 	matthew.brost@intel.com,
- dakr@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
- 	stable@vger.kernel.org
-Date: Mon, 07 Sep 2026 13:15:56 +0200
-In-Reply-To: <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-References: <20260904080618.2098450-1-malhyuk97@gmail.com>
-	 <20260904080618.2098450-2-malhyuk97@gmail.com>
-	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
-	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
-	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
-	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
-	 <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
-	 <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
-	 <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
-	 <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
-	 <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMPrakXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8161F01558;
+	Mon,  7 Sep 2026 11:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788780414;
+	bh=tXd8LGopt741aXLt2J4qsw6qnF0oEX86K+sORJnTN9Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=oMPrakXa7lFBtJPd8E6U6u+WkG2T8Rjv+t1YdPBXrhvAHqm9AESM8/3sLqosXgFM2
+	 2vktZpKBT7fqybEdH9lOgQTti8+A1tdlfBtsnozKvP37MWpj7UffJmFjWh3a7u0kna
+	 WoaBvkD57o11RnOw/soSwsapEdSRchDy0PyiOYN5ewO4uj78dcuzPRPOrYOQYSEEMV
+	 t7nnHFeuBw/r6JH64OQed7+NOoVxzT/MnBifmWYrvwCrRvmLfAgBxtlUR2OEsZk1AN
+	 SUwzrIvLQFMOrlY1xtNQTf7YbEBYkmqh9Aojz2sHA45ly5x64Zb+TsL+/5gz/sWXHN
+	 IZOfluBBvxHaQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Frederic
+ Weisbecker <frederic@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <8733vmatsi.fsf@email.froward.int.ebiederm.org>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <8733vmatsi.fsf@email.froward.int.ebiederm.org>
+Date: Mon, 07 Sep 2026 13:26:50 +0200
+Message-ID: <87zext2tfp.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-META: gp5wy1j99rx7dpxhyoeik9wr4ndkjrnz
-X-MBO-RS-ID: a340f645c8da17d0052
+Content-Type: text/plain
 
-On Mon, 2026-09-07 at 12:06 +0100, Tvrtko Ursulin wrote:
-> On 07/09/2026 11:47, Philipp Stanner wrote:
+On Sun, Sep 06 2026 at 17:39, Eric W. Biederman wrote:
+> Thomas Gleixner <tglx@kernel.org> writes:
+>> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
+>>  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+>>  }
+>>  
+>> +/*
+>> + * When PF_EXITING is set the task is on the way out and has t::pending
+>> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
+>> + * be leaked.
+>> + */
+>> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
+>> +{
+>> +	lockdep_assert_held(&t->sighand->siglock);
+>> +
+>> +	if (!(t->flags & PF_EXITING))
+>> +		return true;
+>> +
+>
+> I don't know if we care but I just noticed that this disallows
+> using tkill(..., SIGKILL) or tgkill(..., SIGKILL) to stop coredumps.
 
-[=E2=80=A6]
+The thread running the coredump does not have PF_EXITING set:
 
-> >=20
-> > So I maintain the position that we only get it right by having the
-> > signaled-bit be the decoupling point.
-> >=20
-> > Or am I missing something?
->=20
-> The driver fixes you asked about and I listed work(ed) in the context of=
-=20
-> 506aa8b02a8d ("dma-fence: Add safe access helpers and document the=20
-> rules"). In that "world" it would have been safe. Did 035219a760ed=20
-> ("dma-buf: dma-fence: Fix potential NULL pointer dereference") break=20
-> those fixes a bit?
+get_signal()
+        ....
+        vfs_coredump()
+        ...
+        do_group_exit()
 
-I think we all agree that 035219a760ed should not have been implemented
-in that way because it does not work for drivers that provide a ops-
->release / ops->wait.
+The only interaction with coredumps of a task which reached do_exit() is
+via:
 
-So I think the only thing we can do right now is add the signaled-check
-back (like Christian suggested) and ensure correct memory ordering =E2=80=
-=93
-since we also cannot use the spinlock consistently, as that can still
-be extern=E2=80=A6
+        synchronize_group_exit()
+           coredump_task_exit()
+        ...
+        exit_signals() ; // sets PF_EXITING.
 
+coredump_task_exit() waits until the dumper thread finished, so even if
+tkill() is directed at a non-dumper thread which is stuck there in
+coredump_task_exit() the signal will be queued and complete_signal()
+will set signal->flags = SIGNAL_GROUP_EXIT and wake everyone up
+including the dumper thread.
 
-P.
+So the only case where this matters is when a task sets PF_EXITING
+_before_ the dumper starts:
+
+T1			T2
+                        do_exit()
+vfs_coredump()
+                          synchronize_group_exit()
+                            lock(sighand)
+                            tsk->flags |= PF_POSTCOREDUMP;
+                            core_state = signal->core_state;
+                            unlock(sighand);
+                            // core_state == NULL
+
+		          exit_signals() // Sets PF_EXITING
+  zap_threads()
+    lock(sighand)
+    // Observes T2->flags PF_POSTCOREDUMP
+    // and skips T2
+
+Now in current mainline a tkill(T2, SIGKILL) will queue the SIGKILL in
+T2->pending, but complete_signal() will not turn it into a group exit
+either because it is a PIDTYPE_PID signal when PF_EXITING is set:
+
+complete_signal()
+  // wants_signal() returns false because PF_EXITING is set
+  if (wants_signal(sig, p)) 
+      t = p;
+  else if ((type == PIDTYPE_PID) || thread_group_empty(p))
+      return;  // path taken because type == PIDTYPE_PID
+
+So it is queued for nothing and just sitting in T2->pending until
+flush_sigqueue() mops it up.
+
+That has been so since:
+
+  5fcd835bf8c2 ("signals: use __group_complete_signal() for the specific signals too")
+
+which was merged 18 years ago in the 2.6.26 merge window.
+
+Which means not queueing it in the first place has exactly the same
+outcome vs. SIGKILL.
+
+The only difference is that current mainline still reaches
+signalfd_notify() further down in __send_signal_locked(), while with the
+early exit it will not. Does it actually matter?
+
+If it matters we could simply force PIDTYPE_TGID for SIGKILL if type ==
+PIDTYPE_PID because complete_signal() converts SIGKILL into a group exit
+anyway.
+
+Thanks,
+
+        tglx
