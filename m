@@ -1,86 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AE4374E5B;
-	Mon,  7 Sep 2026 14:35:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E72242C508;
+	Mon,  7 Sep 2026 14:39:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788791717; cv=none; b=ebbBxqkMTZg3RISb5Yd67VjHO+FCmHeD/FxX6+SYGR9ZRhYoo3K4ogScZXhQX0qKTKIExB/L/R6KZbBqVWoWOMWL8q1kbw1noj0V0rp66cS4uD6rFtyr4MeQcWQww/bzjXpub4MbZ8POqQgeWdMNihntcf1JB2lMacWdRHaE1BY=
+	t=1788791975; cv=none; b=X5uoI6ifgxvpnrO8FeNfUxUJChJQiuyqKoWFmugi1Jqda1zJvwo8QUjMVa6cneR2I2B1dmNwgwS565ihJ8HgvcE9KeWaK4FyS46YRh7wFfT2qSMSY4uFfWnxb8QM72iqsLEHxJOrwU1nrs0XF/LjE6cbRdCh6hveXtwyhB76+dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788791717; c=relaxed/simple;
-	bh=HEcP379TWIjIK3CWF6bXSzB4m9SXPB7FSWN8GCkHyaY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNBOSAXmiQn61xDj3GPmVHLLtG255+Oi6gU6PpbqLi+Xeozdi6MnSNlfzr8rY5crcVeaTwvWk29VfiOCUbfN3gu0Jj65lR0JfqOD3GzoFlJ6nl/8++RKCy8I46IBZXrHhkaSjACV5XZf0/bVX9B+tQoJ1AKybbzttOFL0TjAnEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VVuJQDqt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788791975; c=relaxed/simple;
+	bh=6NHJ7mxXbJigOyVF3N/fh0vOvJXlZBLSq+wvwzcu7xc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q98MI1QiPvbbSz6i7cjy81QZk3z+1n9cVsF8wM1zhkM9NzpFbfz0xWaSEVUmhumUNJ2sFS4IJX4cINF1euLJGKPZdaD486YkUODHf/xG3LYir+rlbRx++st5JxeT+8y05DplosPM4CDPe61/4bnB1HV9OGiLN45lvSldvmXxHsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oKjCcXRU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VVuJQDqt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53571F00A3A;
-	Mon,  7 Sep 2026 14:35:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788791714;
-	bh=r5InLeLGh2uPUdFgZJbG56cDWSx7pTWcpP5tGOiVnRQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VVuJQDqtAiwXBrESc9ksllVuhIUxekh3pvUF6P38IWmd4rqvvnxv6qWeqECBrxU+w
-	 X5AGYUlf5udSHhILA4MVA92aHIE13D6JjtgtlAjlsDs5e5Si2tpFqE9USmZmtNDUjm
-	 QSZQeZFQlw/2CV1Zs00LPVMXN3o6BQjjOm1vy1UM=
-Date: Mon, 7 Sep 2026 16:33:06 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: David Heidelberg <david@ixit.cz>, linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] nfc: llcp: validate PDU size in nfc_llcp_recv_dm() and
- nfc_llcp_recv_hdlc()
-Message-ID: <2026090735-overhead-epidermal-9d2d@gregkh>
-References: <AS8P251MB0001E8602F36054CDD8979A2C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oKjCcXRU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04A11F00A3E;
+	Mon,  7 Sep 2026 14:39:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788791967;
+	bh=FF/4LY9T8Md+KHYRgYaW8tObKolXGJt+bxdKVLRNMK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oKjCcXRUx3KIE7PDg4I0iKm39bJwJcc5JLpmGukpJCvgpbPtp+5V+NgRDJH9jcYoR
+	 GCUtlBCSiPof+NQIBWp0fHxtxs+EeDzAwBGCVdtL5nAJi4oR3qrLzORnKffpm3W81h
+	 bKk41I6aohTMffS91N7ZlJupW8HNbY1r8CN7zplLBvX+uWv2L0YVz1Y+SzsLHxjAA3
+	 H41lI5HG3N+LyKjg1cEw3JS9a+vK4LXYLdN3NTyVole7QVGzpXTZZ+o7om57ZFJT58
+	 9tV5PGneesnx8ADowDEQWeI7QNR7w8a/pfcKHgePcRTO92JWn391z7T8dpIQJ9Tdf1
+	 9DBXvAcQ9qheA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] cifs: Scripted clean up fs/smb/client/fs_context.h
+Date: Mon,  7 Sep 2026 10:39:21 -0400
+Message-ID: <20260907143923.3586545-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907143923.3586545-1-sashal@kernel.org>
+References: <2026090352-renegade-sneeze-d3c6@gregkh>
+ <20260907143923.3586545-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <AS8P251MB0001E8602F36054CDD8979A2C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 12:36:45AM +0100, Aamir Ahmed wrote:
-> nfc_llcp_recv_dm() reads the reason byte at skb->data[2], and
-> nfc_llcp_recv_hdlc() reads the sequence byte at the same offset
-> through nfc_llcp_ns() and nfc_llcp_nr().  Both run after
-> __nfc_llcp_recv(), which only guarantees LLCP_HEADER_SIZE (2) bytes
-> via pskb_may_pull().
-> 
-> A malformed PDU that is exactly two bytes long -- delivered directly by
-> the NFC controller, or as an aggregated PDU inside an AGF frame whose
-> inner length field is 2 -- causes both handlers to read one byte past
-> the guaranteed data.  In the direct case the byte is whatever follows
-> the valid payload in the skb buffer.  In the AGF case the inner skb is
-> allocated by nfc_alloc_recv_skb() with exactly two bytes of payload, so
-> the read is past the meaningful data and into whatever the slab
-> allocator left there.
-> 
-> For DM, the stale reason byte selects between NOBOUND/REJ and the
-> default socket-lookup path, potentially closing the wrong socket.  For
-> HDLC, the stale sequence byte corrupts N(S)/N(R) tracking: a bogus
-> N(R) drains the tx_pending_queue unconditionally, dropping in-flight I
-> frames and breaking the connection.
-> 
-> Add a minimum-length check to each handler: DM requires
-> LLCP_HEADER_SIZE + 1 (the reason byte) and HDLC requires
-> LLCP_HEADER_SIZE + LLCP_SEQUENCE_SIZE.
-> 
-> Fixes: d646960f7986 ("NFC: Initial LLCP support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-> ---
->  net/nfc/llcp_core.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
+From: David Howells <dhowells@redhat.com>
 
-For all of these different patches, did you forget to add the required
-"Assisted-by:" tag?
+[ Upstream commit 047e504766a357ab751f76ccdec7a2e824e75e6d ]
 
-Please resubmit them all with that included.
+Remove externs, correct argument names and reformat declarations.
 
-thanks,
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: b8e5dc4f95e5 ("smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/fs_context.h | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-greg k-h
+diff --git a/fs/smb/client/fs_context.h b/fs/smb/client/fs_context.h
+index 90ebff5d0199d..bcffc15322604 100644
+--- a/fs/smb/client/fs_context.h
++++ b/fs/smb/client/fs_context.h
+@@ -292,18 +292,20 @@ struct smb3_fs_context {
+ 
+ extern const struct fs_parameter_spec smb3_fs_parameters[];
+ 
+-extern int smb3_init_fs_context(struct fs_context *fc);
+-extern void smb3_cleanup_fs_context_contents(struct smb3_fs_context *ctx);
+-extern void smb3_cleanup_fs_context(struct smb3_fs_context *ctx);
++int smb3_init_fs_context(struct fs_context *fc);
++void smb3_cleanup_fs_context_contents(struct smb3_fs_context *ctx);
++void smb3_cleanup_fs_context(struct smb3_fs_context *ctx);
+ 
+ static inline struct smb3_fs_context *smb3_fc2context(const struct fs_context *fc)
+ {
+ 	return fc->fs_private;
+ }
+ 
+-extern int smb3_fs_context_dup(struct smb3_fs_context *new_ctx, struct smb3_fs_context *ctx);
+-extern int smb3_sync_session_ctx_passwords(struct cifs_sb_info *cifs_sb, struct cifs_ses *ses);
+-extern void smb3_update_mnt_flags(struct cifs_sb_info *cifs_sb);
++int smb3_fs_context_dup(struct smb3_fs_context *new_ctx,
++			struct smb3_fs_context *ctx);
++int smb3_sync_session_ctx_passwords(struct cifs_sb_info *cifs_sb,
++				    struct cifs_ses *ses);
++void smb3_update_mnt_flags(struct cifs_sb_info *cifs_sb);
+ 
+ /*
+  * max deferred close timeout (jiffies) - 2^30
+@@ -311,7 +313,7 @@ extern void smb3_update_mnt_flags(struct cifs_sb_info *cifs_sb);
+ #define SMB3_MAX_DCLOSETIMEO (1 << 30)
+ #define SMB3_DEF_DCLOSETIMEO (1 * HZ) /* even 1 sec enough to help eg open/write/close/open/read */
+ #define MAX_CACHED_FIDS 16
+-extern char *cifs_sanitize_prepath(char *prepath, gfp_t gfp);
++char *cifs_sanitize_prepath(char *prepath, gfp_t gfp);
+ 
+ extern struct mutex cifs_mount_mutex;
+ 
+-- 
+2.53.0
+
