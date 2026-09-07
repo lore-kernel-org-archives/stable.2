@@ -1,33 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD91130BB8A;
-	Mon,  7 Sep 2026 04:22:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B26831B130;
+	Mon,  7 Sep 2026 04:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788754957; cv=none; b=YbmJsfB/P58Q2uKR9nFubTqPoR3w4NeR+tr0DpBOivuop85KzQJrbPoblff7KBq5B00slHtnWBCFi6KJPVPPp5NlgBjO94sNP/94o/5r9nh6RP9NiYpBt7FhDA1T++FbyomWtmnGm62ZBdjsMaodBLR3IDbhptfVs2Qkmt2mkco=
+	t=1788754959; cv=none; b=j3Iuql3i9saMqNUYQomnNut/gXXmo6wFzhkbXGdnLllkZYCl+yivMTQiCRBKnbL43EnYa96P1W1hXNJkIE+uRPeCbFoUQYlURf9DeIu1d4uQH5AvxPse9w6GL13WY5uH4Cw8Bqd6E+x/NxGWkhAnHt25uY6j30NMVHExKbG+q48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788754957; c=relaxed/simple;
-	bh=CwWi8liQaWwljjLCPomMdTzXZZWGU/sFhbewDH88CWE=;
+	s=arc-20240116; t=1788754959; c=relaxed/simple;
+	bh=sJLJj9CDwIEk6rzRFvDvLLlO3kWwH141Q6dk7gvUE7E=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=s9a8/AfXjlQCePGT8vMrPhZhVear4bJM79oTgyHeeFtGsMfyQujMC7pZnA7hhKJpwItLVnHyx0CZvQI150D1AFurs4yY4NWLS2buN7nvOhgXs5fkm/zz2aMikIw6d8LVbYkA5WmbN036g2aNBtJ90AcBc7s1RK0582vqO84/0bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eDnZbNwe; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=kGBKb1FzlI9XOubceSaY0Jy+e0O9JkuhDLqjES8mqQYg7WBlZbED4NSE6NNrICNKoDHn3gI29xXRvh5yniW05gOZu9dcVjuvQktP2dmU7GRwYaDsqBlh8WTOls+KtZYRfJ3rqnM96s7aoBlcJ24QlNBvKLrf6XnbKJRaYaeHQik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y4X0EHj/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eDnZbNwe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D51B1F00A3A;
-	Mon,  7 Sep 2026 04:22:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y4X0EHj/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18BB31F00A3F;
+	Mon,  7 Sep 2026 04:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788754955;
-	bh=6wJRkOL0ldfiOUfQJIThs3qaiWc8EOmFNkFFYLr9YXE=;
+	s=k20260515; t=1788754957;
+	bh=F94B4Jhd5gxh36HpPdbEWCLz/XKv9H/Kg8yWGQaHx20=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=eDnZbNweAPnhQOuh0hrCDj18qcXg+gvkrP/sQlqu+J6DPDMSLWvr4Zmzu5VoQCAUk
-	 +VLY5Ap3v0Xvg3Ry1Yn8SfMMuUVDum5xWA8IHBP1C4PJvEM/X4JYaSSWKzK7RTA8oT
-	 d7/Y8ieva6ZoRoA3txog2BZiqH41qMj1W6WwRN8OhABe7LNzCxpWsaeLxSUNAXa1nN
-	 f4cRNUOHaDYNA1DjsOnRMtXarlON10CniWDTCMhrCxUgG7Jvvvj3aJ5WDRTsI9Sscc
-	 5BMsbJUn5A5p7aID7YcYrB7h62iZlsOQ83RnnzSxbfVWC9DoOtKM71L7uV5sW6GPSK
-	 PaJW3koAi3AwA==
-Subject:
- Re: [PATCH net v2 1/2] tcp: diag: bound bucket lock hold in tcp_diag_dump()
+	b=Y4X0EHj/4zTEBUeWbGE98Qfxbkner3q3YbGDwSFTt2K9IJNnwX+9easSYRW1yWZ5W
+	 oS2NgakrsF7xX3bvh179M7Az1YZSkAP+wCX/rljz4T1cNI0uT9xJykjLBCCi8eA7fv
+	 1tdgo0KmAAvqupenaqS4xAs2+Snfo9B6jZ6nas5n1rGFBb1L5LFKQIowu0wkxrB/K2
+	 jMdmf41CIe6GCFfqmlYMoIafugu77ncug0pQf+NUf+P1tMcb8VSvXObOH38+fYvdpf
+	 +UFibHsodpqP0HGk0KK2u7pBnVR+V7xTxA3U2Rjj7xmJ7imeWygB5KX41kgGmyO9hY
+	 duHYgJpypE8Iw==
+Subject: Re: [PATCH net v2 2/2] mptcp: diag: bound listener bucket lock hold
 From: netdev-bot+sashiko@kernel.org
 To: zihanx@nebusec.ai
 Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -36,13 +35,13 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  kuniyu@google.com, matttbe@kernel.org, martineau@kernel.org,
  geliang@kernel.org, gnault@redhat.com, fw@strlen.de, stable@vger.kernel.org,
  vega@nebusec.ai
-Date: Mon, 07 Sep 2026 04:22:34 +0000
-Message-ID: <178875495405.219967.5594821749566554418@kernel.org>
+Date: Mon, 07 Sep 2026 04:22:35 +0000
+Message-ID: <178875495568.219967.11621753663025675535@kernel.org>
 In-Reply-To:
- <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
+ <db1f34ca8461c7b0dc5ec504ea1b99c24b909e34.1788248601.git.zihanx@nebusec.ai>
 References:
- <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
-X-sashiko-severity: Critical
+ <db1f34ca8461c7b0dc5ec504ea1b99c24b909e34.1788248601.git.zihanx@nebusec.ai>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -55,500 +54,397 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 6 potential
 issue(s) to consider:
 
-Critical: 2 · High: 1 · Medium: 2 · Low: 1
+Critical: 0 · High: 1 · Medium: 3 · Low: 2
 
-- [Critical] Use-after-free / wild-pointer traversal: the new bind-hash
-  dump cursor revalidation in tcp_diag_dump() cannot detect that the…
-- [Critical] Refcount initialization race: tcp_diag_bind_collect_sock()
-  calls sock_hold() unconditionally on every node of tb2->owners,…
-- [High] Loss of dump forward progress and duplicate output: the patch
-  deletes every positional (`s_num`) resume path in tcp_diag_dump()…
-- [Medium] Lockless, unordered reads of cursor state: the listen and
-  ehash cursor validations establish "this socket is in the bucket I…
-- [Medium] The commit message mischaracterizes the pre-existing defect.
-- [Low] Concern that the sibling MPTCP listener dump
-  (mptcp_diag_dump_listeners()) keeps evaluating request-supplied…
+- [High] Use-after-free introduced by the new deferred processing loop in
+  mptcp_diag_dump_listeners().
+- [Medium] The patch silently changes which MPTCP listeners the dump
+  reports, and the commit message does not mention it.
+- [Medium] mptcp_diag_dump_listeners() mixes two incompatible counting
+  bases for the resume index diag_ctx->l_num.
+- [Medium] mptcp_diag_dump_listeners() performs all
+  identity/authorization checks on the parent MPTCP socket…
+- [Low] Commit message of "mptcp: diag: bound listener bucket lock hold"
+  carries Fixes: 4fa39b701ce9 + Cc: stable + Reported-by:, but never…
+- [Low] In the new post-lock loop of mptcp_diag_dump_listeners()
+  (net/mptcp/mptcp_diag.c), `tmp = ctx ?
 
 --
 
-tcp: diag: bound bucket lock hold in tcp_diag_dump()
+mptcp: diag: bound listener bucket lock hold
 
-This reworks the three tcp_diag_dump() hash walks so that only referenced
-sockets are collected under each bucket lock, and moves the family/port
-filters, inet_diag_bc_sk() bytecode evaluation and the fill work outside the
-critical section.  A referenced dump cursor is added to
-struct inet_diag_dump_data so a following batch resumes after the previously
-reported socket, with per-table validation of the cursor.
+This reworks mptcp_diag_dump_listeners() so that the listener bucket lock is
+only held while collecting up to MPTCP_DIAG_BULK_SZ referenced listener
+sockets, with the ULP/property re-checks, the parent msk reference and
+sk_diag_dump() moved outside the lock.  A referenced dump cursor is kept in
+cb->data so later batches resume after the previous listener instead of
+rescanning the bucket prefix.
 
 v1 Link: https://lore.kernel.org/all/cover.1785307984.git.zihanx@nebusec.ai/
 
->     inet_diag dumps run request-supplied bytecode through inet_diag_bc_sk().
->     tcp_diag_dump() currently evaluates socket filters and fills replies while
->     holding the listener, bind, and ehash bucket locks.
-
-[Severity: Medium]
-Is this description accurate for all three tables?
-
-At the baseline (544d85de4dc2) only the listener walk fills replies under
-ilb->lock.  The bind walk already collected at most SKARR_SZ = 16 referenced
-sockets under spin_lock_bh(&ibb->lock) and only called inet_sk_diag_fill()
-after the lock was dropped:
-
-	pause_bind_walk:
-			spin_unlock_bh(&ibb->lock);
-
-			res = 0;
-			for (idx = 0; idx < accum; idx++) {
-				if (res >= 0) {
-					res = inet_sk_diag_fill(sk_arr[idx],
-								NULL, skb, cb,
-								r, NLM_F_MULTI,
-								net_admin);
-
-The ehash walk did the same with sk_diag_fill() after spin_unlock_bh(lock).
-What remained under the bind and ehash locks was inet_diag_bc_sk() plus the
-cheap family/port comparisons, bounded to 16 sockets per lock hold.
-
-Could the changelog be narrowed to the listener walk, or state explicitly
-what part of the bind/ehash work it is moving out?
-
 > diff --git a/include/linux/inet_diag.h b/include/linux/inet_diag.h
-> index 704fd415c2b49..6ccd32bc48f91 100644
+> index 6ccd32bc48f91..4859e77a28c7a 100644
 > --- a/include/linux/inet_diag.h
 > +++ b/include/linux/inet_diag.h
-
-[ ... ]
-
-> @@ -32,12 +33,23 @@ struct inet_diag_handler {
+> @@ -39,6 +39,7 @@ enum inet_diag_dump_cursor_type {
+>  	INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
+>  	INET_DIAG_DUMP_CURSOR_TCP_BIND,
+>  	INET_DIAG_DUMP_CURSOR_TCP_EHASH,
+> +	INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN,
 >  };
->  
->  struct bpf_sk_storage_diag;
-> +
-> +enum inet_diag_dump_cursor_type {
-> +	INET_DIAG_DUMP_CURSOR_NONE,
-> +	INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
-> +	INET_DIAG_DUMP_CURSOR_TCP_BIND,
-> +	INET_DIAG_DUMP_CURSOR_TCP_EHASH,
-> +};
-> +
 
 [Severity: Low]
-This isn't a bug, but a note for backporters.  The sibling MPTCP listener
-dump mptcp_diag_dump_listeners() is converted by the follow-up patch in this
-series (INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN, which is why the enum slot and
-the exported inet_diag_dump_clear_cursor() appear here), so at the tip of the
-series the MPTCP listener walk also drops ilb->lock before calling
-sk_diag_dump()/inet_diag_bc_sk().
+Two questions about the changelog for this one.
 
-This patch is Cc: stable, and the commit message body does not mention that
-the MPTCP listener walk keeps running request-supplied bytecode under the
-same hashinfo->lhash2 bucket lock until the follow-up patch is applied.  Only
-the v2 changelog, which is stripped on apply, mentions "Left
-INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN to the MPTCP patch".  Could that
-dependency be stated in the commit message?
+First, the message says the lock hold time "can therefore grow with the
+number of sockets visited", but it never states the observed symptom.  Was
+this a soft lockup, an RCU stall, or measured contention on ilb->lock?  Given
+the Fixes: 4fa39b701ce9 and Cc: stable tags plus the Reported-by:, could the
+symptom be spelled out?
 
-[ ... ]
+Second, could the backport dependency be mentioned?  enum
+inet_diag_dump_cursor_type does not exist in the tree this applies on top of:
 
-> diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtables.h
-> index 6e2fe186d0dcb..d95639ac70c67 100644
-> --- a/include/net/inet_hashtables.h
-> +++ b/include/net/inet_hashtables.h
-> @@ -188,6 +188,24 @@ inet_lhash2_bucket(struct inet_hashinfo *h, u32 hash)
->  	return &h->lhash2[hash & h->lhash2_mask];
->  }
+  git grep inet_diag_dump_cursor_type <base>   -> no match
+
+The whole enum, cb_data->dump_cursor, dump_cursor_slot, dump_cursor_type and
+inet_diag_dump_clear_cursor() come from the immediately preceding patch of
+this series, "tcp: diag: bound bucket lock hold in tcp_diag_dump()".  Stable
+trees carrying 4fa39b701ce9 cannot take this patch on its own, and nothing in
+the message says so.
+
+> diff --git a/net/mptcp/mptcp_diag.c b/net/mptcp/mptcp_diag.c
+> index 136c2d05c0eeb..37b33ea5d79de 100644
+> --- a/net/mptcp/mptcp_diag.c
+> +++ b/net/mptcp/mptcp_diag.c
+> @@ -12,6 +12,19 @@
+>  #include <net/netlink.h>
+>  #include "protocol.h"
 >  
-> +static inline struct inet_listen_hashbucket *
-> +inet_lhash2_bucket_sk(struct inet_hashinfo *h, struct sock *sk)
-> +{
-> +	u32 hash;
+> +/* Process a bounded number of listeners per bucket lock hold. */
+> +#define MPTCP_DIAG_BULK_SZ 16
 > +
-> +#if IS_ENABLED(CONFIG_IPV6)
-> +	if (sk->sk_family == AF_INET6)
-> +		hash = ipv6_portaddr_hash(sock_net(sk),
-> +					  &sk->sk_v6_rcv_saddr,
-> +					  inet_sk(sk)->inet_num);
-> +	else
-> +#endif
-> +		hash = ipv4_portaddr_hash(sock_net(sk),
-> +					  inet_sk(sk)->inet_rcv_saddr,
-> +					  inet_sk(sk)->inet_num);
-> +	return inet_lhash2_bucket(h, hash);
-> +}
-> +
-
-[ ... ]
-
-> diff --git a/net/ipv4/tcp_diag.c b/net/ipv4/tcp_diag.c
-> index ba1fdbe9807fd..842e13ee79e5b 100644
-> --- a/net/ipv4/tcp_diag.c
-> +++ b/net/ipv4/tcp_diag.c
-> @@ -285,6 +285,73 @@ static int sk_diag_fill(struct sock *sk, struct sk_buff *skb,
->  				 net_admin);
->  }
->  
-
-[ ... ]
-
-> +static struct inet_bind2_bucket *tcp_diag_sk_bind2(const struct sock *sk)
-> +{
-> +	if (sk->sk_state == TCP_TIME_WAIT)
-> +		return inet_twsk(sk)->tw_tb2;
-> +
-> +	return inet_csk(sk)->icsk_bind2_hash;
-> +}
-> +
-> +static bool tcp_diag_bind_collect_sock(struct sock *sk, struct sock **sk_arr,
-> +				       int *num_arr, int *accum, int num)
+> +static void mptcp_diag_save_cursor(struct inet_diag_dump_data *cb_data,
+> +				   unsigned int slot, struct sock *sk)
 > +{
 > +	sock_hold(sk);
-> +	num_arr[*accum] = num;
-> +	sk_arr[*accum] = sk;
-> +
-> +	return ++*accum == SKARR_SZ;
+> +	inet_diag_dump_clear_cursor(cb_data);
+> +	cb_data->dump_cursor = sk;
+> +	cb_data->dump_cursor_slot = slot;
+> +	cb_data->dump_cursor_type = INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN;
 > +}
 > +
-> +static bool tcp_diag_bind_collect_owners(struct hlist_head *owners,
-> +					 struct sock **sk_arr, int *num_arr,
-> +					 int *accum, int *num, int s_num)
-> +{
-> +	struct sock *sk;
-> +
-> +	sk_for_each_bound(sk, owners) {
-> +		if (*num < s_num) {
-> +			(*num)++;
-> +			continue;
-> +		}
-> +
-> +		if (tcp_diag_bind_collect_sock(sk, sk_arr, num_arr, accum, *num))
-> +			return true;
-> +		(*num)++;
-> +	}
-> +
-> +	return false;
-> +}
-
-[Severity: Critical]
-Can the unconditional sock_hold() in tcp_diag_bind_collect_sock() hit a
-TIME_WAIT socket whose tw_refcnt is still 0?
-
-The changelog says "Bind collection counts TIME_WAIT nodes toward the batch
-limit", and tcp_diag_bind_collect_owners() no longer filters on
-sk->sk_state != TCP_CLOSE before taking the reference, so every node of
-tb2->owners now gets a refcount_inc().
-
-inet_twsk_alloc() starts the object at zero on purpose:
-
-	/*
-	 * Because we use RCU lookups, we should not set tw_refcnt
-	 * to a non null value before everything is setup for this
-	 * timewait socket.
-	 */
-	refcount_set(&tw->tw_refcnt, 0);
-
-and inet_twsk_hashdance_schedule() publishes it into the bind owners list and
-drops both bind locks before initializing the count:
-
-	sk_add_bind_node((struct sock *)tw, &tw->tw_tb2->owners);
-
-	spin_unlock(&bhead2->lock);
-	spin_unlock(&bhead->lock);
-
-	spin_lock(lock);
-
-	refcount_set(&tw->tw_refcnt, 3);
-
-A dumper blocked on bhead2->lock acquires it right after that unlock and
-immediately walks tb2->owners, so it can observe the published tw with
-tw_refcnt == 0.  sock_hold() then calls refcount_inc() on zero, which trips
-refcount_warn_saturate() and leaves the counter saturated, after which
-refcount_set(&tw->tw_refcnt, 3) discards the dump's reference.  The later
-sock_gen_put() from the fill loop then consumes one of the three structural
-references (bhash, ehash, timer).
-
-Would using refcount_inc_not_zero() here, or keeping the TCP_CLOSE check
-under the lock, be safer?
-
-> @@ -335,8 +402,15 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
->  		for (i = s_i; i <= hashinfo->lhash2_mask; i++) {
->  			struct inet_listen_hashbucket *ilb;
->  			struct hlist_nulls_node *node;
-> +			struct sock *sk_arr[SKARR_SZ];
-> +			int num_arr[SKARR_SZ];
-> +			struct sock *cursor;
-> +			int idx, accum, res;
-> +			bool use_cursor;
->  
-> +resume_listen_walk:
->  			num = 0;
-> +			accum = 0;
->  			ilb = &hashinfo->lhash2[i];
->  
->  			if (hlist_nulls_empty(&ilb->nulls_head)) {
-> @@ -344,52 +418,81 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
->  				continue;
->  			}
->  			spin_lock(&ilb->lock);
-> -			sk_nulls_for_each(sk, node, &ilb->nulls_head) {
-> -				struct inet_sock *inet = inet_sk(sk);
-> +			cursor = cb_data->dump_cursor;
-> +			use_cursor = cursor &&
-> +				     cb_data->dump_cursor_type ==
-> +				     INET_DIAG_DUMP_CURSOR_TCP_LISTEN &&
-> +				     cb_data->dump_cursor_slot == i &&
-> +				     inet_sk_state_load(cursor) == TCP_LISTEN &&
-> +				     !hlist_nulls_unhashed(&cursor->sk_nulls_node) &&
-> +				     cursor->sk_nulls_node.pprev != LIST_POISON2 &&
-> +				     inet_lhash2_bucket_sk(hashinfo, cursor) == ilb;
-> +			node = use_cursor ? cursor->sk_nulls_node.next :
-> +					    ilb->nulls_head.first;
-
-[Severity: Medium]
-Is the "cursor is still in this bucket" conclusion sound when every input to
-it is read without the lock that publishes it?
-
-In the listener path the recomputation uses sock_net(cursor),
-sk_v6_rcv_saddr (a 16-byte non-atomic read) and inet_sk(cursor)->inet_num via
-the newly exported inet_lhash2_bucket_sk(), none of which is protected by
-ilb->lock, and the pprev test and the bucket computation are separate plain
-loads with no barrier between them.
-
-The ehash variant later in this function has the same shape with
-cursor->sk_nulls_node.pprev followed by cursor->sk_hash.  The insertion side
-sets sk->sk_hash before taking the target bucket lock and linking with
-__sk_nulls_add_node_rcu(), and inet_csk_listen_start() stores TCP_LISTEN
-before hashing into lhash2, so a reader that observes the new linkage is not
-guaranteed to observe the matching sk_hash/sk_state store.  A socket that
-left ehash bucket i and called listen() keeps its old sk_hash, so
-inet_sk_state_load(cursor) != TCP_LISTEN can still be true while the lhash2
-linkage is already visible.
-
-If validation passes on a stale snapshot, the walk then follows
-cursor->sk_nulls_node.next into a chain whose spinlock is not held and
-sock_hold()s the entries it finds.  On x86 the store order makes the
-inconsistent snapshot hard to observe, but is bucket membership something
-that can be established from lockless per-socket fields at all?
-
-> +			if (!use_cursor)
-> +				s_num = 0;
-> +			hlist_nulls_for_each_entry_from(sk, node, sk_nulls_node) {
->  
-> -				if (!net_eq(sock_net(sk), net))
-> -					continue;
-> +				sock_hold(sk);
-> +				num_arr[accum] = num;
-> +				sk_arr[accum] = sk;
-> +				if (++accum == SKARR_SZ)
-> +					break;
->  
-> -				if (num < s_num) {
-> -					num++;
-> -					continue;
-> -				}
-> +				++num;
-> +			}
-> +			spin_unlock(&ilb->lock);
-
-[Severity: High]
-With the num < s_num skip removed from this loop and s_num forced to 0 when
-the cursor is rejected, what stops the bucket from being re-dumped from its
-head?
-
-All three walks now do:
-
-	if (!use_cursor)
-		s_num = 0;
-
-and the batch continuations replace s_num = num + 1 with s_num = 0:
-
-	if (accum == SKARR_SZ) {
-		s_num = 0;
-		goto resume_listen_walk;
-	}
-
-The bind walk and the ehash walk have the same two changes, and the s_num
-parameter of tcp_diag_bind_collect_owners() is dead because its only caller
-sits in the !use_cursor branch where s_num has just been zeroed.
-
-So whenever cursor validation fails, which the changelog describes as the
-"safe restart on mismatch", the walk restarts at ilb->nulls_head.first, at
-the head of ibb->chain, or at head->chain.first, and re-emits sockets from
-that bucket that were already sent to user space earlier in the same dump.
-Before this change s_num = num + 1 guaranteed the restart advanced.
-
-There is a second effect: if all of the re-collected leading SKARR_SZ sockets
-are discarded after the lock is dropped (foreign netns, since lhash2 and
-ehash are shared across netns, or sdiag_family/port mismatch, or bytecode
-rejection), nothing is emitted, res stays 0 and the goto resume_*_walk loop
-repeats over the same head with only cond_resched() yielding.
-
-tcp_diag_dump() still loads s_num = num = cb->args[2] on entry and still
-stores cb->args[2] = num at the done: label, but num is now a chunk-relative
-counter that no resume path consumes.  Should that state be dropped, or
-should a positional fallback be kept for the mismatch case?  Also, since the
-walk can now repeat objects within a dump, should NLM_F_DUMP_INTR be set via
-a generation counter in netlink_callback.seq?
 
 [ ... ]
 
-> @@ -412,34 +517,46 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
->  				continue;
->  			}
->  			spin_lock_bh(&ibb->lock);
-> -			inet_bind_bucket_for_each(tb2, &ibb->chain) {
-> -				if (!net_eq(ib2_net(tb2), net))
-> -					continue;
+> @@ -84,64 +98,102 @@ static void mptcp_diag_dump_listeners(struct sk_buff *skb, struct netlink_callba
+>  	hinfo = net->ipv4.tcp_death_row.hashinfo;
+>  
+>  	for (i = diag_ctx->l_slot; i <= hinfo->lhash2_mask; i++) {
+> +		struct sock *tmp, *sk, *sk_arr[MPTCP_DIAG_BULK_SZ];
+>  		struct inet_listen_hashbucket *ilb;
+> +		int num_arr[MPTCP_DIAG_BULK_SZ];
+>  		struct hlist_nulls_node *node;
+> -		struct sock *sk;
+> -		int num = 0;
+> +		int accum, idx, num, ret;
+> +		struct sock *cursor;
+> +		bool use_cursor;
+>  
+> +resume_listen_walk:
+> +		num = 0;
+> +		accum = 0;
+>  		ilb = &hinfo->lhash2[i];
+> +		ret = 0;
+>  
+>  		rcu_read_lock();
+>  		spin_lock(&ilb->lock);
+> -		sk_nulls_for_each(sk, node, &ilb->nulls_head) {
+> -			const struct mptcp_subflow_context *ctx = mptcp_subflow_ctx(sk);
+> -			struct inet_sock *inet = inet_sk(sk);
+> -			int ret;
 > -
-> -				sk_for_each_bound(sk, &tb2->owners) {
-> -					struct inet_sock *inet = inet_sk(sk);
+> -			if (num < diag_ctx->l_num)
+> -				goto next_listen;
 > -
-> -					if (num < s_num)
-> -						goto next_bind;
+> -			if (!ctx || strcmp(inet_csk(sk)->icsk_ulp_ops->name, "mptcp"))
+> -				goto next_listen;
 > -
-> -					if (sk->sk_state != TCP_CLOSE ||
-> -					    !inet->inet_num)
-> -						goto next_bind;
+> -			sk = ctx->conn;
+> -			if (!sk || !net_eq(sock_net(sk), net))
+> -				goto next_listen;
 > -
-> -					if (r->sdiag_family != AF_UNSPEC &&
-> -					    r->sdiag_family != sk->sk_family)
-> -						goto next_bind;
+> -			if (r->sdiag_family != AF_UNSPEC &&
+> -			    sk->sk_family != r->sdiag_family)
+> -				goto next_listen;
 > -
-> -					if (!inet_diag_bc_sk(cb_data, sk))
-> -						goto next_bind;
-> -
-> -					sock_hold(sk);
-> -					num_arr[accum] = num;
-> -					sk_arr[accum] = sk;
-> -					if (++accum == SKARR_SZ)
-> +			cursor = cb_data->dump_cursor;
-> +			use_cursor = cursor &&
-> +				     cb_data->dump_cursor_type ==
-> +				     INET_DIAG_DUMP_CURSOR_TCP_BIND &&
-> +				     cb_data->dump_cursor_slot == i &&
-> +				     !hlist_unhashed(&cursor->sk_bind_node) &&
-> +				     cursor->sk_bind_node.pprev != LIST_POISON2;
-> +			if (use_cursor) {
-> +				tb2 = tcp_diag_sk_bind2(cursor);
-> +				use_cursor = tb2 &&
-> +					     inet_bhashfn_portaddr(hashinfo, cursor,
-> +								   sock_net(cursor),
-> +								   inet_sk(cursor)->inet_num) ==
-> +					     ibb;
-> +			}
-> +			if (!use_cursor)
-> +				s_num = 0;
-> +			if (use_cursor) {
-> +				sk = cursor;
-> +				if (tcp_diag_bind_collect_owners_continue(sk, sk_arr,
-> +									  num_arr,
-> +									  &accum,
-> +									  &num))
-> +					goto pause_bind_walk;
-> +				hlist_for_each_entry_continue(tb2, node) {
-> +					if (tcp_diag_bind_collect_owners(&tb2->owners,
-> +									 sk_arr,
-> +									 num_arr,
-> +									 &accum,
-> +									 &num, 0))
-> +						goto pause_bind_walk;
-> +				}
+> -			if (r->id.idiag_sport != inet->inet_sport &&
+> -			    r->id.idiag_sport)
+> +		cursor = cb_data->dump_cursor;
+> +		use_cursor = cursor &&
+> +			     cb_data->dump_cursor_type ==
+> +			     INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN &&
+> +			     cb_data->dump_cursor_slot == i &&
+> +			     inet_sk_state_load(cursor) == TCP_LISTEN &&
+> +			     !hlist_nulls_unhashed(&cursor->sk_nulls_node) &&
+> +			     cursor->sk_nulls_node.pprev != LIST_POISON2 &&
+> +			     inet_lhash2_bucket_sk(hinfo, cursor) == ilb;
+> +		node = use_cursor ? cursor->sk_nulls_node.next :
+> +				    ilb->nulls_head.first;
+> +		hlist_nulls_for_each_entry_from(sk, node, sk_nulls_node) {
+> +			if (!use_cursor && num < diag_ctx->l_num)
+>  				goto next_listen;
 
-[Severity: Critical]
-Can these two liveness checks ever detect that the cursor left
-tb2->owners, and can tb2 here already be freed?
+[Severity: Medium]
+Are the two resume mechanisms here using the same counting base for
+diag_ctx->l_num?
 
-Removal from a bind chain goes through __sk_del_bind_node():
+This test counts entries from the bucket head, but at resume_listen_walk num
+is reset to 0 and, when use_cursor is true, the walk starts at
+cursor->sk_nulls_node.next, i.e. mid-bucket.  The values stashed in num_arr[]
+and later stored are therefore cursor-relative and bounded by 0..15:
 
-include/net/sock.h:
-static inline void __sk_del_bind_node(struct sock *sk)
-{
-	__hlist_del(&sk->sk_bind_node);
-}
-
-__hlist_del() only writes *pprev and next->pprev; it leaves the removed
-node's own pprev and next untouched.  So for a socket that was unlinked,
-hlist_unhashed(&cursor->sk_bind_node) is false and
-cursor->sk_bind_node.pprev != LIST_POISON2 holds, and both tests pass.
-
-The freed-bucket part comes from __inet_bhash2_update_saddr():
-
-net/ipv4/inet_hashtables.c:
-	spin_lock(&head2->lock);
-	__sk_del_bind_node(sk);
-	inet_bind2_bucket_destroy(hinfo->bind2_bucket_cachep, inet_csk(sk)->icsk_bind2_hash);
-	spin_unlock(&head2->lock);
-
-	if (reset)
-		inet_reset_saddr(sk);
-	else
-		inet_update_saddr(sk, saddr, family);
-
-icsk_bind2_hash is never cleared, and inet_bind2_bucket_destroy() frees the
-bucket immediately with no grace period when it was the sole owner:
-
-	if (hlist_empty(&tb->owners)) {
-		__hlist_del(&tb->node);
-		__hlist_del(&tb->bhash_node);
-		kmem_cache_free(cachep, tb);
+	if (ret >= 0) {
+		ret = sk_diag_dump(tmp, skb, cb, r, net_admin);
+		if (ret < 0)
+			num = num_arr[idx];
+	}
+	...
+	if (ret < 0) {
+		diag_ctx->l_slot = i;
+		diag_ctx->l_num = num;
 		return;
 	}
 
-In the window between that spin_unlock() and the address update, the address
-is unchanged, so inet_bhashfn_portaddr() still resolves to ibb, and
-tcp_diag_sk_bind2(cursor) returns the dangling icsk_bind2_hash.  use_cursor
-therefore becomes true.
+Walking a bucket with more than 16 matching listeners:
 
-tcp_diag_bind_collect_owners_continue() then iterates the cursor's stale
-sk_bind_node.next, and hlist_for_each_entry_continue(tb2, node) reads
-tb2->node.next out of the freed slab object, producing an arbitrary
-struct inet_bind2_bucket * whose owners list is walked with sock_hold()
-applied to each apparent entry.
+  batch 1: 16 listeners dumped, cursor saved on e15
+  goto resume_listen_walk with diag_ctx->l_num = 0, use_cursor true, so num
+    now counts from e16
+  skb fills at idx 5, so diag_ctx->l_num = 5 while the real bucket offset
+    is 21
+  the cursor socket is closed before the next recvmsg(), use_cursor becomes
+    false, and the walk resumes at bucket position 5
 
-Note the dumper holds only hashinfo->bhash2[i].lock and never the primary
-bhash head lock, and a cursor is saved for every collected owner including
-the ones filtered out afterwards, so a process that dumps with
-TCPF_BOUND_INACTIVE while calling connect() on a bound socket in that bucket
-can reach this.  Could the cursor instead record a validated tb2 identity
-that is re-looked-up under ibb->lock, rather than being derived from
-icsk_bind2_hash?
+Does that re-emit e5..e19, and, if entries were removed in the meantime and
+positions shifted, silently drop listeners that were never reported?
 
-> +			} else {
-> +				inet_bind_bucket_for_each(tb2, &ibb->chain) {
-> +					if (tcp_diag_bind_collect_owners(&tb2->owners,
-> +									 sk_arr,
-> +									 num_arr,
-> +									 &accum,
-> +									 &num, s_num))
->  						goto pause_bind_walk;
-> -next_bind:
-> -					num++;
->  				}
->  			}
->  pause_bind_walk:
+The peer implementation of the same cursor protocol from the preceding patch,
+tcp_diag_dump(), zeroes the positional counter when the cursor is unusable:
 
-[ ... ]
+	node = use_cursor ? cursor->sk_nulls_node.next : ilb->nulls_head.first;
+	if (!use_cursor)
+		s_num = 0;
 
-> @@ -463,13 +598,15 @@ static void tcp_diag_dump(struct sk_buff *skb, struct netlink_callback *cb,
->  			cond_resched();
+Should mptcp_diag_dump_listeners() do the same so the two bases are never
+mixed?  The intra-call restart also forces diag_ctx->l_num = 0 before goto
+resume_listen_walk, so a cursor invalidated between lock drops restarts the
+bucket at the head within a single dump call.
+
+>  			if (!refcount_inc_not_zero(&sk->sk_refcnt))
+>  				goto next_listen;
 >  
->  			if (accum == SKARR_SZ) {
-> -				s_num = num + 1;
-> +				s_num = 0;
->  				goto resume_bind_walk;
->  			}
+> -			ret = sk_diag_dump(sk, skb, cb, r, net_admin);
+> -
+> -			sock_put(sk);
+> -
+> -			if (ret < 0) {
+> -				spin_unlock(&ilb->lock);
+> -				rcu_read_unlock();
+> -				diag_ctx->l_slot = i;
+> -				diag_ctx->l_num = num;
+> -				return;
+> -			}
+> -			diag_ctx->l_num = num + 1;
+> -			num = 0;
+
+[Severity: Medium]
+Removing this "l_num = num + 1; num = 0;" pair changes which listeners the
+dump reports, and the changelog does not mention it.
+
+In the pre-patch loop the skip test was "if (num < diag_ctx->l_num)" while
+num was reset to 0 after every successful dump and l_num kept growing, so for
+a bucket e0..e6 the emitted set was e0, e1, e3, e6:
+
+  e0 dumped -> l_num = 1, num = 0 then ++num = 1
+  e1 dumped -> l_num = 2, num = 1
+  e2 hits 1 < 2 and is skipped
+  e3 dumped -> l_num = 3
+  e4, e5 skipped
+
+The new code keeps num monotonic and applies the skip test only in the
+non-cursor fallback, so every collected listener is processed.  Is that the
+actual user-visible defect being fixed here?  ss -Ml output changes (more
+listeners reported) on any host with three or more MPTCP listeners hashing
+into the same lhash2 bucket, and this seems worth stating in the message,
+along with whether it belongs in the same patch as the lock-hold change.
+
+> +			num_arr[accum] = num;
+> +			sk_arr[accum] = sk;
+> +			if (++accum == MPTCP_DIAG_BULK_SZ)
+> +				break;
+>  next_listen:
+>  			++num;
+>  		}
+>  		spin_unlock(&ilb->lock);
+>  		rcu_read_unlock();
 >  
-> +			inet_diag_dump_clear_cursor(cb_data);
->  			s_num = 0;
->  		}
+> +		for (idx = 0; idx < accum; idx++) {
+> +			const struct mptcp_subflow_context *ctx;
+> +			const struct tcp_ulp_ops *ulp_ops;
+> +			struct inet_sock *inet;
+> +
+> +			sk = sk_arr[idx];
+> +			rcu_read_lock();
+> +			ctx = rcu_dereference(inet_csk(sk)->icsk_ulp_data);
+> +			ulp_ops = READ_ONCE(inet_csk(sk)->icsk_ulp_ops);
+> +			inet = inet_sk(sk);
+> +			tmp = ctx ? ctx->conn : NULL;
 
-[ ... ]
+[Severity: High]
+Can this read freed memory?  The rcu_read_lock() here is entered after
+spin_unlock(&ilb->lock) and rcu_read_unlock() above, so it cannot extend a
+grace period that already started.
 
->  		if (accum == SKARR_SZ) {
-> -			s_num = num + 1;
-> +			s_num = 0;
->  			goto next_chunk;
->  		}
+The collection loop only took sk_refcnt on the listener subflow, which does
+not keep the ULP context alive:
 
-[ ... ]
+  __tcp_close()
+    tcp_set_state(sk, TCP_CLOSE)
+    inet_unhash(sk)               /* takes ilb->lock, free once diag drops it */
+    inet_csk_destroy_sock()
+      sk->sk_prot->destroy(sk)
+        tcp_v4_destroy_sock()
+          tcp_cleanup_ulp()
+            subflow_ulp_release()
+
+and net/mptcp/subflow.c:subflow_ulp_release() drops the msk reference and
+frees the context:
+
+	sk = ctx->conn;
+	if (sk) {
+		...
+		sock_put(sk);
+	}
+	mptcp_subflow_ops_undo_override(ssk);
+	if (release)
+		kfree_rcu(ctx, rcu);
+
+net/ipv4/tcp_ulp.c:tcp_cleanup_ulp() clears only icsk_ulp_ops:
+
+	if (icsk->icsk_ulp_ops->release)
+		icsk->icsk_ulp_ops->release(sk);
+	module_put(icsk->icsk_ulp_ops->owner);
+
+	icsk->icsk_ulp_ops = NULL;
+
+icsk_ulp_data is never unpublished on this path (subflow_ulp_fallback() does
+rcu_assign_pointer(icsk->icsk_ulp_data, NULL), this path does not).  If
+kfree_rcu(ctx) was queued before this loop iteration re-entered
+rcu_read_lock(), the grace period does not cover this reader, so
+rcu_dereference(inet_csk(sk)->icsk_ulp_data) can return a freed and reused
+slab object, and ctx->conn is dereferenced before the !ulp_ops guard is even
+evaluated.
+
+The loop is also preemptible for up to 15 preceding sk_diag_dump() /
+inet_diag_bc_sk() invocations with request-supplied bytecode, which widens the
+window.  Does the commit message claim ("After dropping the lock, read
+icsk_ulp_data with rcu_dereference()") hold here, or do ctx and the parent msk
+reference have to be acquired while ilb->lock is still held, as the pre-patch
+code did?
+
+[Severity: Low]
+Separately, is it intentional that ctx->conn is loaded before the check that
+the ULP is actually "mptcp"?  The collection loop under ilb->lock no longer
+filters by ULP at all, so listeners with a foreign ULP context now reach this
+loop, and the read happens at offsetof(struct mptcp_subflow_context, conn)
+inside an object of an unrelated type.
+
+net/xfrm/espintcp.c:espintcp_init_sk() publishes its own object with
+rcu_assign_pointer(icsk->icsk_ulp_data, ctx) and, unlike tls_init(), has no
+TCP-state restriction, so an unprivileged setsockopt(TCP_ULP, "espintcp")
+followed by listen() puts such a socket into lhash2.
+
+struct espintcp_ctx is larger than that offset today, so the read stays inside
+the allocation and the loaded value is discarded by the failing strcmp().
+Still, the pre-patch code did the strcmp() first and never touched a foreign
+context.  Could the ctx->conn load be moved after the ULP name check?
+
+> +			if (!ctx || !ulp_ops || strcmp(ulp_ops->name, "mptcp") ||
+> +			    !tmp || !net_eq(sock_net(tmp), net) ||
+> +			    (r->sdiag_family != AF_UNSPEC &&
+> +			     tmp->sk_family != r->sdiag_family) ||
+> +			    (r->id.idiag_sport != inet->inet_sport &&
+> +			     r->id.idiag_sport) ||
+> +			    !refcount_inc_not_zero(&tmp->sk_refcnt)) {
+> +				rcu_read_unlock();
+> +				goto processed_listener_sk;
+> +			}
+> +			rcu_read_unlock();
+> +			if (ret >= 0) {
+> +				ret = sk_diag_dump(tmp, skb, cb, r, net_admin);
+> +				if (ret < 0)
+> +					num = num_arr[idx];
+> +			}
+> +			sock_put(tmp);
+
+[Severity: Medium]
+Does this need a re-validation after refcount_inc_not_zero(&tmp->sk_refcnt)?
+
+All the identity and scoping checks on the parent msk (net_eq(sock_net(tmp),
+net), sdiag_family, idiag_sport) run before the reference is taken, and
+nothing is re-checked afterwards.  mptcp_prot uses SLAB_TYPESAFE_BY_RCU:
+
+net/mptcp/protocol.c:
+	.slab_flags	= SLAB_TYPESAFE_BY_RCU,
+
+so rcu_read_lock() only guarantees type stability, not identity.  If
+subflow_ulp_release() already dropped the last reference via
+sock_put(ctx->conn), the object can be recycled as a different MPTCP socket
+inside this reader's RCU section, refcount_inc_not_zero() then succeeds, and
+sk_diag_dump(tmp, ...) serializes that socket's addresses, ports, uid, cookie
+and state into the reply, possibly from another namespace.
+
+The in-tree pattern for this slab, net/mptcp/token.c:mptcp_token_get_sock(),
+re-checks after the acquisition:
+
+	if (!refcount_inc_not_zero(&sk->sk_refcnt))
+		goto not_found;
+
+	if (READ_ONCE(msk->token) != token ||
+	    !net_eq(sock_net(sk), net)) {
+
+Should the same re-check be done here?  Pre-patch the conn read and the msk
+refcount acquisition both happened under ilb->lock with the subflow still
+hashed, so the reference held by ctx was still alive.
+
+> +processed_listener_sk:
+> +			if (ret >= 0)
+> +				mptcp_diag_save_cursor(cb_data, i, sk);
+> +			sock_put(sk);
+> +		}
+> +
+> +		if (ret < 0) {
+> +			diag_ctx->l_slot = i;
+> +			diag_ctx->l_num = num;
+> +			return;
+> +		}
+> +
+>  		cond_resched();
+> +
+> +		if (accum == MPTCP_DIAG_BULK_SZ) {
+> +			diag_ctx->l_num = 0;
+> +			goto resume_listen_walk;
+> +		}
+> +
+> +		inet_diag_dump_clear_cursor(cb_data);
+>  		diag_ctx->l_num = 0;
+>  	}
+>  
+> +	inet_diag_dump_clear_cursor(cb_data);
+>  	diag_ctx->l_num = 0;
+>  	diag_ctx->l_slot = i;
+>  }
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/cover.1788248601.git.zihanx%40nebusec.ai
