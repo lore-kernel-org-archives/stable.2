@@ -1,49 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60945336884;
-	Mon,  7 Sep 2026 11:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A177481674
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:47:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781640; cv=none; b=lstGOS+kji50ZcZs+gvZ29XlIQ1Hhd3wFbbwvmjxlVIZkbKu89gLGtI3nw0Pzb70wd24Ame/Djsvj5m9+Dx3xvbPz+KK6wS66+BkxqaP9bvYAGUYrbmnmM01w2uWfnw1fot/FisQrBq0Es0WzsKzENymv1Xi2sk8lbwVyGpbIds=
+	t=1788781641; cv=none; b=kHEUPFOtozqeHuyjfN4F95t9FMguxcTYk/Iv9NOr8QGzssb4rsXXmeWJ74y2/F5jNp+Kvf6LibX/G43gaPVrQnSlU5MPas1sEz0MWx6mCuYomumzF4JBjl1q6RCMdEsnJyV7gGUspj/DVkodNUfbUPIRa1aZLZWbj+321CMN47k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781640; c=relaxed/simple;
-	bh=9FIWGwMJkZ/9DvqJbtl3Fuu2cQQXTPiOcgSLmXLVNjw=;
+	s=arc-20240116; t=1788781641; c=relaxed/simple;
+	bh=GwqV2agzajyLvsW6Wnm8T8zP0G5DZsu81KAqDFXqJSw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IHDTWkIisgh1ZOjt+XKLeUqnE4Nw+X3aTcZJ0r7e3jn3AGENXWCo7420iufqMk3fNdvxdytRDSCjA9+N8cMkORwIR7BGwWYwpKMx/bT2Wq+rWdfNRd5t4JNHGChCH2Pavdn5CYyNukWSREoGYcVR9Vt0zwd7VjEpLzvnf+1Zr0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V00p2QJn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ayadm5Koc0ourhT3+RWgTkvksrdCxSxZcJ8XqubSNJh/AWhBXYq9z7qbxNiH8UnOFCRavzc6Dru+ljGWwCJak5E7jtnWX4GTC9Rrz07OpPManS1B7Y5JTQs/BhwqO9TFF2PrQ+RmcUuMrZU0IcqaJgfh78vTBiPu4j4xsq3JOX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8bl18d5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V00p2QJn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0062C1F00AC4;
-	Mon,  7 Sep 2026 11:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8bl18d5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F5381F00A3A;
+	Mon,  7 Sep 2026 11:47:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781639;
-	bh=gwhPhcKtPCCeAsMUccSwVUZHKPYlpVmAopTKyEWCjgU=;
+	s=k20260515; t=1788781640;
+	bh=1hMg8NDQx8ylSQp4C6xJYADeCqCCEDx3LVhU9PuGLS8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V00p2QJnEUFxCmrL8GHrqjz8yR0C6hkf8TvcKFXYHsO0a20lL8C5F7FRQclSay5qt
-	 EhgL/OFnJDPnDV1A8B6q1wKP6qLQn7T0R5LminiLi4oBvhENxS2JYjMseCgN0EwWd5
-	 qs/zs6RHlsRInZ3uYnliyDMYqQ04C8UcFQ+h4x9FErZmCKb5q1xOPJbPLXeOkwrVPV
-	 VhXc969JtmSeQzUzQAFOZxnKRSFu85eLGwA8PWv1abSguVdimv8ulcVZjOXnDG8qHo
-	 MsQko1cKQmmA4YIKrW07tqHZ5tw3yX4+5jkZByoItHJODgddbAQCp9G0MF35XlLVVj
-	 nQMLXr/Tpz/kA==
+	b=Q8bl18d58kEqr1RqmlyiIrCRzlqwCWAlEGKJlnL95vpZS9qL2Xn5p33qULl8DTldJ
+	 8Vvmx3Od1Eg/UivJq9uyEAxg3y32GV1Mv5xHZ0PoeHj6Z9yyGgWkRRkEQsW9BdcowS
+	 YlgTNvIP9Rk+FeXSTvs/XvhYK2F4gANvkCXrwHSpSaqFVDBgaHwsSidf0TQftBnVjg
+	 y8nbl5aJF4BTrFlCRQ4ETEVgXYC/sBJa+QkU0/A+A3aICh8cnM3xot7B9m6NqvpKkw
+	 r30UOoAKUam/q2sqhk5EvjOvq4prUV3Z9R2+z1Z3ikRHdxes98nb93rP5Gk2Lee+Iw
+	 PLzPbyNGXJhTw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
+Cc: Fredric Cover <fredric.cover.lkernel@gmail.com>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/5] cifs: Scripted clean up fs/smb/client/fscache.h
-Date: Mon,  7 Sep 2026 07:47:11 -0400
-Message-ID: <20260907114714.2870258-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: clear ce->tgthint in free_tgts()
+Date: Mon,  7 Sep 2026 07:47:17 -0400
+Message-ID: <20260907114717.2870299-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907114714.2870258-1-sashal@kernel.org>
-References: <2026090302-harddisk-sinless-6dc1@gregkh>
- <20260907114714.2870258-1-sashal@kernel.org>
+In-Reply-To: <2026090318-driven-showgirl-ba4f@gregkh>
+References: <2026090318-driven-showgirl-ba4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,49 +47,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Fredric Cover <fredric.cover.lkernel@gmail.com>
 
-[ Upstream commit bc3de356aae666de5d8b5131545be87cf7754431 ]
+[ Upstream commit b1b741cf8e7ce1b91d937e23decd3d3358748700 ]
 
-Remove externs, correct argument names and reformat declarations.
+When free_tgts() frees all structures in ce->tlist, ce->tgthint
+is left pointing to one of the freed cache_dfs_tgt structures.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: 730d0bb19507 ("smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2")
+If ce->tgthint is not reset before it is used later, it results
+in a use-after-free.
+
+Set ce->tgthint to NULL in free_tgts() after the elements are
+freed to reflect that no elements remain.
+
+Fixes: 54be1f6c1c37 ("cifs: Add DFS cache routines")
+Cc: stable@vger.kernel.org # depends on: smb: client: harden DFS cache against invalid target hints
+Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/fscache.h | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ fs/cifs/dfs_cache.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
-index f06cb24f5f3cf..b6c94db5edb94 100644
---- a/fs/smb/client/fscache.h
-+++ b/fs/smb/client/fscache.h
-@@ -38,12 +38,12 @@ struct cifs_fscache_inode_coherency_data {
- /*
-  * fscache.c
-  */
--extern int cifs_fscache_get_super_cookie(struct cifs_tcon *);
--extern void cifs_fscache_release_super_cookie(struct cifs_tcon *);
-+int cifs_fscache_get_super_cookie(struct cifs_tcon *tcon);
-+void cifs_fscache_release_super_cookie(struct cifs_tcon *tcon);
+diff --git a/fs/cifs/dfs_cache.c b/fs/cifs/dfs_cache.c
+index 7b6db272fd0b8..115d7e276ed58 100644
+--- a/fs/cifs/dfs_cache.c
++++ b/fs/cifs/dfs_cache.c
+@@ -118,6 +118,8 @@ static inline void free_tgts(struct cache_entry *ce)
+ 		kfree(t->name);
+ 		kfree(t);
+ 	}
++
++	WRITE_ONCE(ce->tgthint, NULL);
+ }
  
--extern void cifs_fscache_get_inode_cookie(struct inode *inode);
--extern void cifs_fscache_release_inode_cookie(struct inode *);
--extern void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
-+void cifs_fscache_get_inode_cookie(struct inode *inode);
-+void cifs_fscache_release_inode_cookie(struct inode *inode);
-+void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
- 
- static inline
- void cifs_fscache_fill_coherency(struct inode *inode,
+ static inline void flush_cache_ent(struct cache_entry *ce)
 -- 
 2.53.0
 
