@@ -1,145 +1,180 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9839231842
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 19:15:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808530; cv=pass; b=UxWLGE8c4USHIdl1I6oEvJxfuYANNbQsk+JXNvaJ2dr4mYpnHGXCT6OSdCAMdCGGb6nBmiFZAspFlC+NT7/o/hdGakZYPvTC69wkgWPo+/Ktg2uqIwbbVL0BR+6Y+o7BYzRBbD8SsHYzTyDguQN4QAnn8Ux8Cotc7LuhMX94bTc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808530; c=relaxed/simple;
-	bh=x5vPF2zdApbc1bQDHCY5MbAFgU4op6PaAJerhpeqC0Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XsfnK1R3rcWoyvGC/lUFPSdIg7iAsgi0Xcchxcrm8CoyTQxKhKXs06k+43vY0hvFI6wGN9Y62rEthP3oQvvnO737EPv3WQD1JTdUWg/r/fBu+kY0I3U4wrb7GfijFmjPzKUMW3d1UdjK+KCotBVS3ei+aPZAbccJfbfESaqp4hk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=cutZm4vn; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D56940B6E2
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 19:22:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788808939; cv=none; b=UJNVVsuWftZrNOEvy/NoWvvsAZ/UD5jWw73Ph4PJaFnyXo/MTBKN92FCOvSwG4zkSoMYg+lwXYjpsArZR39diAn7sJiuf8nS6tnas5TF47u4LC7zi7tuSOkhYFYSw563Matm11+uIWYhU4IJAiHZzjuVWTIEbWQoU4BZzilPHEs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788808939; c=relaxed/simple;
+	bh=n/cGK7wH4GoYZ0duxKFHKYC6m0+42FSlU01hnzjtDIY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cd3V9j9vWj3NeABimYT2hL08dXLTE1QOiGmxdKmklKd8gCzzCO+ptfjpSoshp38uqhkf2AlXUrhqhGcglXDKlzUU3/AGchj2v+5DtuDezA4rioyPcJFc9TyaC71RgdcVLI8ln3NFpeidDH5VILDdWZb3hMFiF++hLWreXZNEIm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbLhcRp7; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="cutZm4vn"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c247f6687dcso606866166b.2
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 12:15:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788808527; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MpJrSgqyswjU1B12ELqqvSaYGeTJckrPLE+S5jaMmPR9jMmWmvtYj7hgFkwLZggQTK
-         wjyxSu1tPY3aJF8qofjxVLtI39dou8C+OCt5PMn64W5wrk7yndRtyMxdEVVZKbse59RA
-         GJQTmwfo3BUT//6CHntIgCc6rp5IfZA34ppZtAv0Qg13loXLLAVxeakwK8EGrCIZQCJb
-         bmwNetz8UoPOHo3nE7pWjfzr/o+wzE5yeg6njOFET+eqULpalWK3xcnsFWGuBS+/j04R
-         80qDDuFO3uwEANG3Nuz+uSZyJPnoW8mMTb/xODZMgsnFc5DAD4HSwrBXO/2nB9yC3XYC
-         gwWw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
-        fh=NAtPF3Lsvql+eWvrsrOzD6uufmL18OAjWijTkKyz7MI=;
-        b=seM5DSOfoBb45AnK7Sen0xoiUAHV9r1MjWUshImfBugwCo5oJBoOeU3wna0QEIKCXw
-         d/YpsjWdWICBv6MKUuJXPWYWLuK90pAYEOM28WfL9+tlJ06d6KWtEedLHbjxUohTkTyA
-         rmYlbRUCF81HLq4ebM0Wr3/GLHidGfOr1apmMrG4xvAHLTpO4Jna0AkOzzqpp5zFOdZV
-         Cx9roPOcUkyfTKOiIes4TFJI6k10t6wuchSc3JZtUlTcT4EL0QKlqkHe4XaQMm3NopOZ
-         nphy3EUm7kimS0aCs5Lifnosu70qaTH+/trf790Fs2hLbpTL42GRoXbx0ELNB+FTmFhK
-         OpBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbLhcRp7"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3964e480f76so4455549a91.1
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 12:22:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1788808527; x=1789413327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
-        b=cutZm4vn5t2JZOR9OMgI6pnmqYqQFfvcFwC63fGWUTWiVKer5VjKXFZo8dC1DLyJgA
-         JeaS+sEUqPRQeejiN6VA+HRNH5InkI62g5gY6mmT4CmtIqHG3xgxoXiVxzJrA8AfN0/X
-         /abBW0tO2dEig72VExEuxJTYAu5kRqLLxm8i6HRQ+0VTirB8F8uoubAZj67hfsLNw96O
-         BBkaCVu3HHgzHYwxIfgyb4hT1cNZpUfVBzhzLcCIKbkSzu9yi6m3fqa158hrCnkcD+6d
-         LxrtoCmbP+P21eFmt622XvDz5NLoRzP5zQTG0Ie8ErhkuFy5FGiCglCwIO/NXF6EPF8Q
-         AhDg==
+        d=gmail.com; s=20251104; t=1788808937; x=1789413737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/5a+7siNK0CHoxNAlmH1/vhMalrfMjpCZxPi0r21nxw=;
+        b=cbLhcRp7Mi6/5M2Mfa7q1qiVtPTepa66i9py4PDuu2KNNjFi/ooJcspxVB3+UfCUT1
+         fj5D8IImmsFbd8BTTR37MOqm3vN/DAwW5XW7C9QRZ2FRlMDnHzw57hk6Ui6Gx3O9ihL5
+         e1R0P6t10un1DQOSl7zAeOhIaJgmPOUB3RSYznQ4aDdrJsiCX5pBJmkZ38a8oR9x2Jwv
+         25Jpa1Dvp7gdPqpA6eQrjBo14hb6BxAeNLOsivgevSEXE2OFuMYk6KJxAgq6tlhTSYuA
+         OmN6fFD86M7rY7Wg/5LLWcDbMQBOUPSts84jgIMYkXgyYOSUtlhFu1w5j0hhkPUEiDJb
+         zkMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788808527; x=1789413327;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YLZ2agjLMgvlPAn6cdRVBCiOCyjFQG2uOoEUzkcYPBU=;
-        b=E3IyMV6WGxdiOUa2MtXw0QXwwt7im+JyjOqsb5M2o/vn0CLQZIzALVUPdGahwswN0b
-         0bh4D7uQgjnQuFGcdNkSUtKFS3dnbQuZ2HS2xuoA55W/WGVLLIEo92KNcO0SfdVMP+lP
-         MsDgtRFv2Un9Ax8dfEA8svFzujlvoNsgXdfotGLG9X2NaKq2OMtiBJ80YSbRg816Dert
-         LNvFDMZGkyhcvkbtH1gYfD8RaKpeeuTpaV7U3i4/DikKyDDKi7g+vfCa90mlHDWgN67y
-         uH8jkTwsRFuld/OUzO6nP8QzvcVElKDQzf4Y2sQ3lGEtlR6ecI72nB5w5ZGxBAzYR9ul
-         a96w==
-X-Forwarded-Encrypted: i=1; AKwUvBy6KpVTks+s6//XQ065/FSaSsJR615MaSVkZzeko792lZygdegyPLaWTgObgynDKzUjl2t5Vg4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcN6v6BTcRLgTFUBcGZHo56zlCt/4lb9XZuzfIUpLb30goa9eO
-	OBJ5gT7RnvDJ8uPQ0R4HyzqxEOmsZtSkXLsyBJ84AOr2FVGebWLwxxOWrZPzQReEZ4/MU7uA/b5
-	9ZDxT3Ge8IgbcgKsIwlEF+w3AjT+/fxZkR4/MI7rXYg==
-X-Gm-Gg: AYBFou2CSvuYz/pzU4offbgjZS4fWk3qlGOoHE4T/gu127Sp/AM3AB9P1EPig55xyeA
-	UaCaszyCPvztWa9gqHItx3Gpg2U8LSDiBvRwEAJMPUprcCcb4CCwgM1AEAC3VOAwEoDU71H8ss/
-	Xgnrp3cGRuXcnB+6iIO+I48zOsE+uuWeEQCcIZlvUCAZWKLD8Ta/QlTzEP9GUCub/igXrcSSvkP
-	+K+Odfrlh5IqK0OZyR1zLTjDLlrNH+W3K6SE+ZrDWqFgVixE6ygQle4dSTn/THATIzca90T2rKu
-	FEmabmVgs/jK6QpRXbG9dWz0Ke4gtyvJCLhJUmBGs+GR0jm0LvRkZR7gUukel6fjI2qgpw3Lxbj
-	LScLpdMLQ
-X-Received: by 2002:a17:907:c20d:b0:c25:23d:5295 with SMTP id
- a640c23a62f3a-c260c9f8920mr994472866b.17.1788808527122; Mon, 07 Sep 2026
- 12:15:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788808937; x=1789413737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/5a+7siNK0CHoxNAlmH1/vhMalrfMjpCZxPi0r21nxw=;
+        b=jqeX0BXz3WSZuLFtyZr3zkrD1JglhG9tn+IBFIXiLzuIxRQFvre1ZmMA/vV/FgeRtH
+         FmFSR8FtYDf4KMSq3zSLwv9vBWQNVZFJ8YQDUSpXcvc+a/KRTWC2Q75NLAolvBn812RW
+         RzGSMaBqKEMb5O3KkDNHZeDeNUC2r7VqIw5RbirGPs/LshSzhuV+BFlTAu9RcLcbZtAJ
+         RTnLYq97potPcrmGHMhryPBAd/36ekag1ezAlLyYEFCXVjix2ymaGxFXXLN2vlQxGjdx
+         Gjjc75Wmjj0Sn/pxuPbEpIdsZj07AbLgjy8+5qihfBA4QZAfQ27pN86g1z+q01htQi9+
+         vgag==
+X-Forwarded-Encrypted: i=1; AKwUvBxO/mK74+a9k90oBXsVehoJvjJJ2JHO3N0+dr3g/Km5nMV93huxXLCirEGzNKoS1m7HyWZMLH0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lEMmbLaDq2amSB+WjWomoMjv8tShENpcXVFcj8OepLkZd76/RJ
+	OagZeL7nl+p7VhPPDjTT7NS016fWZnq9MLRYHPmX2MBRIUfmFFGmi81r
+X-Gm-Gg: AYBFou3Qxu+zkGMJHHk167w2jW6x2osRChHr8Jj+MDSmo/Ng56JZN8ji8GMyQmNbFZ0
+	iycs4RBEWQVVOZ6bCXlYHVLIWEkToAqWRir9h2j/hkDPJtWvKTDh5VhncRpS4WGYNU2ohRDWpS1
+	78jYB+EgV6j/2Y2+GVZlDScMO5baAmBUljSGY5MFBvuds5xZtdqr5SnsLKU9xKuj2bAPPdu0GWE
+	ApehoLQPa7E01TXcFMKo3QzZRIR1WNwb5J/wll1/kI8di5b/m/MSTqyMOr65kabteJqRvFw1tVC
+	1rJMbiYJnFobgLirAxvczo46HdidIvWDxH3AkbL5LmfP4ShRnDMJ0NzfwyGPxL+JfcSiyPJ0dek
+	H/xveogeKdhak4dyrsM49DmgpT+SMEaCET7oh+yn1kwAFNLxwtI4Osq+Ng3JsQ5KF6zfyrnHkck
+	zad6PCYlmIrT3aOW5nqP7x/NGge+/i22VE9f1SIxCBRq8Dk0TerTO8ewzq5lP9CWpfMw114qIKp
+	9l7TxRWcXiC8CHuPmgtBU6iCigTlXI=
+X-Received: by 2002:a17:90a:d647:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-39b261074camr36014666a91.6.1788808937535;
+        Mon, 07 Sep 2026 12:22:17 -0700 (PDT)
+Received: from 192.168.50.3 ([183.193.115.0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae60a8e61sm9991637a91.0.2026.09.07.12.22.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 12:22:16 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	co+adfca3e91be95776@bugs.sh,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH bpf] bpf: refresh seg6local SRH pointer after skb pull
+Date: Tue,  8 Sep 2026 03:21:30 +0800
+Message-ID: <20260907192129.557377-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904150304.49104-1-max.kellermann@ionos.com>
- <20260904150304.49104-4-max.kellermann@ionos.com> <CAOJNxRKxO3z3H0xXG0J0W9_hp2qwBfFEUeKFGFnk_MRQtu--tA@mail.gmail.com>
-In-Reply-To: <CAOJNxRKxO3z3H0xXG0J0W9_hp2qwBfFEUeKFGFnk_MRQtu--tA@mail.gmail.com>
-From: Max Kellermann <max.kellermann@ionos.com>
-Date: Mon, 7 Sep 2026 21:15:15 +0200
-X-Gm-Features: AcwNN1VSJfSMfCn3vuBaXzqEcc2QZfWjSUijicTPAmQje5KrNhk1pl3uBSLDJng
-Message-ID: <CAKPOu+-zixbekaeE3+96hV+abQxnEAnTQnFJwhgPeNa7__6irw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] ceph: don't unregister an MDS session before
- removing its caps
-To: Xiubo Li <xiubo.li@clyso.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 5, 2026 at 3:56=E2=80=AFAM Xiubo Li <xiubo.li@clyso.com> wrote:
-> Just one remaining teardown path still unregisters the session before
-> removing its caps: the fallback loop in ceph_mdsc_close_sessions():
->
-> mutex_lock(&mdsc->mutex);
-> for (i =3D 0; i < mdsc->max_sessions; i++) {
->         if (mdsc->sessions[i]) {
->                 session =3D ceph_get_mds_session(mdsc->sessions[i]);
->                 __unregister_session(mdsc, session);
->                 mutex_unlock(&mdsc->mutex);
->                 mutex_lock(&session->s_mutex);
->                 remove_session_caps(session);
->                 mutex_unlock(&session->s_mutex);
->                 ...
->
-> The rest of this series consistently changes the ordering to keep the
-> rank occupied until remove_session_caps() has completed. Is the
-> ordering in ceph_mdsc_close_sessions() intentionally excluded?
->
-> This path is not limited to shutdown: it is also reached from the
-> corrupt snap-trace handling in ceph_handle_caps(), ceph_handle_reply()
-> and handle_snap(). In those cases mdsc->stopping may be false and the
-> mount need not be in CEPH_MOUNT_FENCE_IO, so a concurrent
-> __do_request() can register a new session for the rank in the window
-> between __unregister_session() and remove_session_caps().
+An LWT_SEG6LOCAL program can invalidate its cached SRH with
+bpf_lwt_seg6_adjust_srh() and then call bpf_skb_pull_data(). The latter
+may reallocate skb->head, leaving the per-CPU SRH pointer dangling.
+Post-program SRH validation then writes through that pointer.
 
-I don't think that's true for the call paths you mentioned. They call
-ceph_mdsc_close_sessions() only after ceph_update_snap_trace() has
-failed, and on failure, that function always sets CEPH_MOUNT_FENCE_IO,
-which prevents creating a new session.
+BUG: KASAN: slab-use-after-free in seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
+Write of size 1
+ seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
+ input_action_end_bpf (net/ipv6/seg6_local.c:1463)
+ seg6_local_input_core (net/ipv6/seg6_local.c:1630)
+ seg6_local_input (net/ipv6/seg6_local.c:1639)
+ lwtunnel_input (net/core/lwtunnel.c:466)
+ ipv6_rcv (net/ipv6/ip6_input.c:351)
 
-The only other callers are ceph_put_super() and the mount-failure path
-in ceph_get_tree(), where this is not relevant (no requests exist).
+Give LWT_SEG6LOCAL its own bpf_skb_pull_data() implementation. Save
+the cached SRH offset before the skb operation and rebuild the pointer
+from the current skb->data afterwards. Since pulling data can replace
+storage but does not change packet layout, this preserves the identity
+of the cached SRH even when multiple Routing Headers are present.
 
-Am I missing something?
+Refresh the pointer even on error because __pskb_pull_tail() can replace
+the head before a later step fails. Preserve the pending hdrlen and valid
+state so SRH validation semantics remain unchanged.
 
---=20
-Max Kellermann
-Principal Architect
-Hosting Technology
+Fixes: 004d4b274e2a ("ipv6: sr: Add seg6local action End.BPF")
+Reported-by: co+adfca3e91be95776@bugs.sh
+Closes: https://lore.kernel.org/all/GCy0KRM2IcQGoJQTjJEU9D0maBxXzEDHuQpq@bugs.sh/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:gpt-5
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ net/core/filter.c | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
-General information about the company can be found here:
-https://www.cm4all.com/impressum
-A member of the IONOS Group
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 61940e7535523..e61f9e9226b10 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -7162,6 +7162,32 @@ static const struct bpf_func_proto bpf_lwt_seg6_adjust_srh_proto = {
+ 	.arg2_type	= ARG_ANYTHING,
+ 	.arg3_type	= ARG_ANYTHING,
+ };
++
++BPF_CALL_2(bpf_lwt_seg6_pull_data, struct sk_buff *, skb, u32, len)
++{
++	struct seg6_bpf_srh_state *srh_state =
++		this_cpu_ptr(&seg6_bpf_srh_states);
++	unsigned int srhoff;
++	int ret;
++
++	lockdep_assert_held(&srh_state->bh_lock);
++	if (!srh_state->srh)
++		return ____bpf_skb_pull_data(skb, len);
++
++	srhoff = (unsigned char *)srh_state->srh - skb->data;
++	ret = ____bpf_skb_pull_data(skb, len);
++	srh_state->srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
++
++	return ret;
++}
++
++static const struct bpf_func_proto bpf_lwt_seg6_pull_data_proto = {
++	.func		= bpf_lwt_seg6_pull_data,
++	.gpl_only	= false,
++	.ret_type	= RET_INTEGER,
++	.arg1_type	= ARG_PTR_TO_CTX,
++	.arg2_type	= ARG_ANYTHING,
++};
+ #endif /* CONFIG_IPV6_SEG6_BPF */
+ 
+ #ifdef CONFIG_INET
+@@ -9052,6 +9078,8 @@ lwt_seg6local_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)
+ 		return &bpf_lwt_seg6_action_proto;
+ 	case BPF_FUNC_lwt_seg6_adjust_srh:
+ 		return &bpf_lwt_seg6_adjust_srh_proto;
++	case BPF_FUNC_skb_pull_data:
++		return &bpf_lwt_seg6_pull_data_proto;
+ #endif
+ 	default:
+ 		return lwt_out_func_proto(func_id, prog);
+-- 
+2.55.0
+
