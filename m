@@ -1,177 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA10B40682A;
-	Mon,  7 Sep 2026 06:45:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B711418A6DB;
+	Mon,  7 Sep 2026 06:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763502; cv=none; b=D6ImQ4Lxp8wh7UEIJKsxvV0xW/ClfNg8370aD5iF+dqTc3Q0L+aobJYppnPCzQFWPj1U7ElcrzYjaF0RKE8mK6C649q47bVnShm4r2GMOhTkS35bkyCP7XPEzeEw/x9oREXjy/6yilRSzEAOgIo0JdsgVAduFoOqF40CESsmlkI=
+	t=1788763627; cv=none; b=A0yxYyNrj2FMN1n2ByciasKG4d+uAJAi8QJ8cYDobYk7l4ME44RaKC3nOnZpfSsp7R8/m7H9OjyTYcIo30CnYbKtrpdA021xjlWALkDGyC77a7Q2l7FtS9wKljwcyBKdWuusdalTLq6DkzMKPHr+ga3FrBcSMCqlu7Z85VrvFtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763502; c=relaxed/simple;
-	bh=auKLqhMwg3dsI5arYX0V0bGcmqAU8FBqmqwUCuVOO58=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XuH7Z/80+R+yifNPYQ3PEGcYRxAmblsvCTFmIXc15HzPyUSpI4UReDGCDU2G+ppuEenr/FhRIPPtyjEeZHFW1SJW8C+H53ACHQa8s4p1aeyUraGC26M48DY3W1sXL1zLCEHO4eE4aB/yJmJ4FsaqIy2oQTwYL9EkUiotIlaW6XY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=THLXCQUd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788763627; c=relaxed/simple;
+	bh=tca7PimGU09et+8+jXclurn63CWS7YzQd6TXIaQcIxU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+u8Kr7D7GOYouBPwRm7AT6sj0c4R9g/X9t8r6LzHPUrFM7Jrp/Jguua9bKrJgiSFvjlxw8tJjYB62sYC0GHakg62QwntONsBlWdZctF3Qz8H4+PK0vvFhuzjyMLIxoW5U8N6Q2A+vzk/rwPxLVnoBtRE4ZlrrzrgmBDn+y1q3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwGAS30i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="THLXCQUd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98F921F00A3F;
-	Mon,  7 Sep 2026 06:45:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwGAS30i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FB91F00A3A;
+	Mon,  7 Sep 2026 06:47:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788763500;
-	bh=5ciWv+qybpfCuW2uA3wmFySIxPMaj+n/n0VME7/q3TE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=THLXCQUds5p9tyRs1jwotE2H1MR3KO7qpL2cQQUO4LAxbIMAggiOlsgChOJoTurjU
-	 bKTlfJ/NTzcopQTixOKX+FyZrASh5mr8DNaWvmZh3mtr7AjoqwwO7EQJgEMwW3svpm
-	 3h2TZEMi6Ew8E+pDpwWehyUflPWE2bwoluvWF8uUx4la5c4PZ0ZcGLWc6ppx4HA144
-	 3Zwxd5fFbq5YSGvjrme3DrxraZD0EOeBB42Xp9NPObcnhtzPtFh3BXUV0VU++fqqoM
-	 SKylec4q0UEzbXMTPNUsurO4A6gDxqJZjC8czjO9AZ428NUeJUkJ4um6farRxixt7x
-	 s769XqNv62S3Q==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3T69-00000000OC6-3kke;
-	Mon, 07 Sep 2026 08:44:57 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 2/4] serial: fix ioctl hangup race
-Date: Mon,  7 Sep 2026 08:44:16 +0200
-Message-ID: <20260907064418.92953-3-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907064418.92953-1-johan@kernel.org>
-References: <20260907064418.92953-1-johan@kernel.org>
+	s=k20260515; t=1788763626;
+	bh=7Q8SgKaQsoBb0PUNIYstKJgTZKAX/kgSRpOfyb6gKNI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cwGAS30i87YTb7mbKD73RynW5ZpmCpbArvIX+3K4KCdmIgqNjLsLRnY+h35gRz+ci
+	 oxbuz7G8jerfdbP92HQAslqFFEeJxZTRmXUCCJ8gYF/J8lZFESvuJNUxZJB3lGPtox
+	 y+ap7SBqGlZ764UyGLnNFgpTOjrrjAkvFFG80wV2LTCzlFrLeqALk+Eu8Pg03X7bpz
+	 LJWzTo/C/OYiSuZcCdJ9xzWO+8woXoO/v6PeckuZQUxMZs+e0yQhl6B7kqXEtkNpT8
+	 qOpbYp8kT+kR15XDvleIPnFRDByd/WHrYQpngwBk57p0idj+6rBx9ztlayPrgXSR4m
+	 FXH5bk+NmcxgA==
+Date: Mon, 7 Sep 2026 09:46:59 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
+	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
+	x86@kernel.org, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
+ lookup_address_in_pgd_attr()
+Message-ID: <ap5d422O7U0q6rAn@kernel.org>
+References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
+ <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
+ <20260905044253.GA3816371@ax162>
+ <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
+ <20260906181247.GA1148584@ax162>
+ <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
+ <ap3EgrZJILehwIQK@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap3EgrZJILehwIQK@kernel.org>
 
-The tty ioctls can race with hangup and end up calling into a tty
-driver for a device that is already gone or powered down.
+On Sun, Sep 06, 2026 at 10:52:41PM +0300, Mike Rapoport wrote:
+> On Sun, Sep 06, 2026 at 12:12:54PM -0700, Dave Hansen wrote:
+> > On 9/6/26 11:12, Nathan Chancellor wrote:
+> > > On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
+> > >> On 9/4/26 21:42, Nathan Chancellor wrote:
+> > >>> I just bisected the following warning on a couple of my test machines to
+> > >>> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
+> > >>> lookup_address_in_pgd_attr()") in next-20260904.
+> > >> ...
+> > >>> If there is any information I can provide to help debug this, I am happy
+> > >>> to provide it.
+> > >>
+> > >> Well, the thing you bisected to is the patch that fixes the warning. The
+> > > 
+> > > Hmmm, I don't see a warning prior to this patch though. Do you mean that
+> > > this patch is just revealing the bad behavior that you mention below?
+> > 
+> > Yeah, "fixes" was a bad word to use.
+> > 
+> > The W^X detection has been broken for a while. The patch you bisected to
+> > fixes the W^X detection. It doesn't actually cause the issue.
+> > 
+> > >> actual issue comes from:
+> > >>
+> > >>         if (pages == &its_pages)
+> > >>                 set_memory_x((unsigned long)page, 1);
+> > >>
+> > >> which its_alloc() does on an execmem allocation. Any chance you could
+> > >> get the output of:
+> > >>
+> > >> 	/sys/kernel/debug/page_tables/current_kernel
+> > >>
+> > >> for the page that page that it's complaining about? I'm curious if this
+> > >> is temporary or permanent.
+> > > 
+> > > Sure. For
+> > > 
+> > >    CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
+> > > 
+> > > I think it is this line if I understand correctly?
+> > > 
+> > >   0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
+> > 
+> > Yeah, that does seems to show it getting fixed up. Thanks! That means
+> > that the warning (at least in early boot) is essentially a false
+> > positive. The problem is that there's module-load-time patching too and
+> > that is much later and is arguably an actual problem.
+> > 
+> > Oh, and thinking about it a bit more... This warning came from
+> > alternatives patching which is too early for normal text_poke(), thus
+> > the existence of text_poke_early().
+> 
+> But text_poke_early is a memcpy :)
+> 
+> The warning at core text patching is completely spurious because anyway the
+> entire kernel text is mapped as RWX at that point.
+> 
+> This one should be fixed as with the patch below. As for the modules,
+> text_poke()ing sounds like the way to move forward and ...
 
-Add the missing checks to make sure the port has not been hung up before
-accessing the hardware to avoid issues like kernel panic due to
-unclocked accesses.
+For modules everything should just work, the memory is RW until
+its_fini_mod() that resets to to ROX, so there are no RWX violations.
 
-Note that TIOCGSERIAL, TIOCGICOUNT do not access hardware and are
-therefore not affected by the race.
+Looking at the code after morning coffee rather than near midnight helps :)
 
-Fixes: 04f378b198da ("tty: BKL pushdown")
-Cc: stable@vger.kernel.org	# 2.6.26
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/tty/serial/serial_core.c | 32 +++++++++++++++++++++++++-------
- 1 file changed, 25 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index 1553bc6cbe7b..4213fa3dc988 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -896,7 +896,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
- 	upf_t old_flags, new_flags;
- 	int retval;
- 
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	new_port = new_info->port;
-@@ -1119,7 +1119,7 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
- 	guard(mutex)(&port->mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return -EIO;
- 
- 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
-@@ -1144,7 +1144,7 @@ static int uart_do_autoconfig(struct tty_struct *tty, struct uart_state *state)
- 	 */
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &port->mutex) {
- 		uport = uart_port_check(state);
--		if (!uport)
-+		if (!uport || tty_io_error(tty))
- 			return -EIO;
- 
- 		if (tty_port_users(port) != 1)
-@@ -1199,7 +1199,7 @@ static void uart_enable_ms(struct uart_port *uport)
-  * FIXME: This wants extracting into a common all driver implementation
-  * of TIOCMWAIT using tty_port.
-  */
--static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
-+static int uart_wait_modem_status(struct tty_struct *tty, struct uart_state *state, unsigned long arg)
- {
- 	struct uart_port *uport;
- 	struct tty_port *port = &state->port;
-@@ -1213,11 +1213,21 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	uport = uart_port_ref(state);
- 	if (!uport)
- 		return -EIO;
-+
-+	mutex_lock(&port->mutex);
-+	if (tty_io_error(tty)) {
-+		mutex_unlock(&port->mutex);
-+		ret = -EIO;
-+		goto out_deref;
-+	}
-+
- 	uart_port_lock_irq(uport);
- 	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
- 	uart_enable_ms(uport);
- 	uart_port_unlock_irq(uport);
- 
-+	mutex_unlock(&port->mutex);
-+
- 	add_wait_queue(&port->delta_msr_wait, &wait);
- 	for (;;) {
- 		uart_port_lock_irq(uport);
-@@ -1246,6 +1256,7 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
- 	}
- 	__set_current_state(TASK_RUNNING);
- 	remove_wait_queue(&port->delta_msr_wait, &wait);
-+out_deref:
- 	uart_port_deref(uport);
- 
- 	return ret;
-@@ -1568,7 +1579,7 @@ uart_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
- 
- 	/* This should only be used when the hardware is present. */
- 	if (cmd == TIOCMIWAIT)
--		return uart_wait_modem_status(state, arg);
-+		return uart_wait_modem_status(tty, state, arg);
- 
- 	/* rs485_config requires more locking than others */
- 	if (cmd == TIOCSRS485)
-@@ -1647,7 +1658,7 @@ static void uart_set_termios(struct tty_struct *tty,
- 	guard(mutex)(&state->port.mutex);
- 
- 	uport = uart_port_check(state);
--	if (!uport)
-+	if (!uport || tty_io_error(tty))
- 		return;
- 
- 	/*
-@@ -1799,7 +1810,14 @@ static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
- 	 * 'timeout' / 'expire' give us the maximum amount of time
- 	 * we wait.
- 	 */
--	while (!port->ops->tx_empty(port)) {
-+	for (;;) {
-+		mutex_lock(&state->port.mutex);
-+		if (tty_io_error(tty) || port->ops->tx_empty(port)) {
-+			mutex_unlock(&state->port.mutex);
-+			break;
-+		}
-+		mutex_unlock(&state->port.mutex);
-+
- 		msleep_interruptible(jiffies_to_msecs(char_time));
- 		if (signal_pending(current))
- 			break;
 -- 
-2.55.0
-
+Sincerely yours,
+Mike.
