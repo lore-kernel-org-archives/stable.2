@@ -1,153 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9A9330D23
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 16:04:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6A9638F226;
+	Mon,  7 Sep 2026 16:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797091; cv=none; b=EIClOrPZf6LeBZZP/RKGkzegBYYJqth5Al7Ahqh19EoY+gfZ3rArUjHwpKd991C8VOY+D8pMAU45+i5eF4I3FQm+qAWOr0iLFYlAmGqXqmsWiIfB198gFFzKBjXbQVTAKD6tI+lF763YQybCYBLYWFMxkCWFc1qa7JZ1w6A7row=
+	t=1788797319; cv=none; b=IPvc9i7aV0vQL0ZLGbNCC5RdH2y5ByXThjGP8xGXxgynbnnHGNCpaLGPsmgf6GtvYZNVCEOXRvQKMk09QAjE24rlJMdQiN3wYH56FN+wyOE2wL436O7MX9KY14Umazv4ZEEIs5sh8GJf7pg9FdcE9Zgc9Q1uQeJim6I6eyO7HN8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797091; c=relaxed/simple;
-	bh=CdA4KTstdpCAdsvSAogpldZ4/0WBUH/jnoBU7+oA3hc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i0mPxvuJElmzHjyJ864KBy9uTf4kzeA/PB8yJrSmpYbFWR+VTddkvyaJFpZ2I0ogBxc4LE2s0syWgMtn8eS9E2wwTDLpcCQ9H7n9bnn5tM4MM3bDKYxWhooumz4jR6sv44frMz9Sm4QnX04TxZ4LkGFFM2wMFhQlnS6wS8gkwDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c96/yjmd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788797319; c=relaxed/simple;
+	bh=87guOLSHkmx8Dz65fKqNtBNcXrg8wPlgDobSRvAluMw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GA1DENaEgpMsHn6ubCYx/V5kpwDmjs5O54t0JG97vgeup8WfMSadioHNup0LAKJlVsgWzQ9LxTm05OoSE6p4f+TXLIfxE7hWLtqnvH0W9FtO8rSyVBHU/BxB/6Vq+JLgWuRCs4lCRRLH4o44c9ydUbBMyBskyHS7GNccSX7/Nrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=caUN+MPf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c96/yjmd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 327AA1F00A3D;
-	Mon,  7 Sep 2026 16:04:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="caUN+MPf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491661F00A3A;
+	Mon,  7 Sep 2026 16:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788797086;
-	bh=ZOlDaOP5Rjc5OiCPo2cDCdTtgFNchb32C+GVgIG2qrQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=c96/yjmdL1rSNfboqwCWFS1XvYjlnZW86KvDNa0kxgOxvkkcehOmhJ9gQ8tMgCUd9
-	 yfMPu37iUSIXFmFrVH+pdxF/CDS2YEvFtNOB/bBsnMD+soG0/tKKRmNQKNZLl8cfGs
-	 Zl6DasuY3KyhVpGIS2FqZu8sIdmq1S/G3mE6LzHHZUDf5Uh2E2jvCh7TSYXv5rndDP
-	 wp1NolQoCFiXt/TfIjDewTs+96AM4F4oTEpfijJP9EPOxvtqSyI3Az8UaKcz+8K++f
-	 xxojFFGwaP9su/Udv4Ola8PkjKk2+3HgOTigk0COtp3cU94Ag+4i8iy/meBCiFm24H
-	 qeBRoW9BY0VTQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiangshan Yi <yijiangshan@kylinos.cn>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions
-Date: Mon,  7 Sep 2026 12:04:44 -0400
-Message-ID: <20260907160444.4160097-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090353-avatar-margin-9ba2@gregkh>
-References: <2026090353-avatar-margin-9ba2@gregkh>
+	s=k20260515; t=1788797318;
+	bh=eGMn5/9sC/zi2FVSWOrMUOQZ1VDAtU/WgF3coPeOhVo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=caUN+MPf9YppXvY6U6VEpgeTZf1MApSyRTpTPy8E055kTD4sujUzlB67rvbVzJWRV
+	 LtfR7wK/dXx1p/1PP7LH9P4gEfGMpYGuv6o5U/EpvN/Da0CtFXjYJEeryZT1a/GcSB
+	 oksP2ET4KnoZmbOh8Ssqm0x5FmbG67puut+4aMiFbRCyOk5dHj/Ho6FH3RSoXkbohd
+	 HWaQ0D2SPhVcUc3eFBS6nITKnbURRqf6WrIgt3OsQvLkkuzr0Lbj3OXeEmILOHR3U1
+	 uYZBp6Sm4DJysLDCQkSLWNsT12Iq53AwtmKibTHZ+r4HlPeG+JKKD5jMZSL5F5ClMe
+	 dvSbEsa0bYaVw==
+Message-ID: <dc52dd1d-f62d-4278-ab4d-95746383fd50@kernel.org>
+Date: Mon, 7 Sep 2026 18:08:31 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
+ mappings
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Cedric Le Goater <clg@redhat.com>,
+ Saravanan D <saravanand@crusoe.ai>, stable@vger.kernel.org
+References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
+ <DL08J4JGJ4UK.2G92WO0NK8XU3@nvidia.com> <apEzvfGgsvbc3vBI@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <apEzvfGgsvbc3vBI@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
 
-[ Upstream commit b8e5dc4f95e5484159b343903f302eb6d783f2e6 ]
+>> 1. is vma_allow_thp_tuneables_file() better? Then all three helpers are
+>> vma + a verb + thp_tuneables_file().
+> 
+> That's a good idea! Much better thanks.
+> 
+>>
+>> 2. is vma_file_ a better prefix than putting file at the end?
+> 
+> Yeah, it's an annoying one as kinda want to say 'file-backed VMA' but I think
+> you're right vma_xxx_file() -> vma_file_xxx() is better.
+> 
+> Andrew - could you fix that up in place?
+> 
+> Obviously if there's further feedback I can respin as well.
 
-When a file has the setuid or setgid bit set and is written to, the VFS
-strips those bits and issues a setattr with ATTR_KILL_SUID/ATTR_KILL_SGID
-together with an ATTR_MODE carrying the already-cleared mode.
+Just as a general note I really hate these in-place updates.
 
-Both cifs_setattr_unix() and cifs_setattr_nounix() unconditionally dropped
-ATTR_MODE in that case:
+For a reviewer perspective (like me stumbling over this) this is just a mess.
 
-	/* skip mode change if it's just for clearing setuid/setgid */
-	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-		attrs->ia_valid &= ~ATTR_MODE;
+Resending with b4 is as easy as it gets.
 
-This is fine for the default mount, where the mode is only emulated via
-the DOS read-only attribute and cannot represent the setuid/setgid bits
-anyway.  However, with the "cifsacl" or "modefromsid" mount options the
-mode is stored on the server through an ACL (id_mode_to_cifs_acl()), with
-the SMB3.1.1 POSIX extensions the mode is sent to the server directly,
-and with the SMB1 Unix extensions (cifs_setattr_unix) the mode is sent
-via CIFSSMBUnixSetPathInfo().  In all those cases dropping ATTR_MODE means
-the cleared mode is never pushed to the server, so the setuid/setgid bit
-survives the write.
-
-This is a security issue: on local filesystems the setuid bit is stripped
-when a file is written, but over these cifs.ko mounts the bit persists on
-the server, potentially allowing an unexpected privilege escalation on
-subsequent execution.
-
-Fix this in two places:
-
-  1. cifs_setattr_nounix(): only take the "skip mode change" shortcut
-     when the mode is emulated via the DOS read-only attribute (i.e.
-     neither cifsacl/modefromsid nor the SMB3.1.1 POSIX extensions are
-     in effect), so that the cleared mode is propagated to the server
-     in the ACL / POSIX cases.
-
-  2. cifs_setattr_unix(): this function is only called when Unix
-     extensions are in effect, so the mode is always stored on the
-     server.  Remove the shortcut entirely so that the cleared mode is
-     always pushed.
-
-Fixes: d32c4f2626ac ("CIFS: ignore mode change if it's just for clearing setuid/setgid bits")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ adapted sbflags access to cifs_sb->mnt_cifs_flags for Linux 6.1 ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/inode.c | 30 +++++++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
-
-diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
-index bb0b172c5a74d..5fd3db7abfb1f 100644
---- a/fs/cifs/inode.c
-+++ b/fs/cifs/inode.c
-@@ -2713,9 +2713,13 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
- 			goto out;
- 	}
- 
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
--		attrs->ia_valid &= ~ATTR_MODE;
-+	/*
-+	 * This function is only called when Unix extensions are in effect,
-+	 * so the mode is always sent to and stored on the server.  Do not
-+	 * skip the mode change when clearing setuid/setgid bits: dropping
-+	 * ATTR_MODE here would leave those bits set on the server after a
-+	 * write, which is a security issue.
-+	 */
- 
- 	args = kmalloc(sizeof(*args), GFP_KERNEL);
- 	if (args == NULL) {
-@@ -2898,8 +2902,24 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
- 	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
- 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
- 
--	/* skip mode change if it's just for clearing setuid/setgid */
--	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
-+	/*
-+	 * Skip the mode change if it is only being done to clear the
-+	 * setuid/setgid bits *and* the mode is emulated via the DOS
-+	 * read-only attribute (the default, non-ACL case), which cannot
-+	 * represent the setuid/setgid bits anyway.
-+	 *
-+	 * When the mode is instead stored on the server - i.e. with the
-+	 * cifsacl or modefromsid mount options (via an ACL) or with the
-+	 * SMB3.1.1 POSIX extensions - the cleared mode must be pushed to
-+	 * the server.  Dropping ATTR_MODE here would leave the setuid/
-+	 * setgid bit set on the server after a write, which is a security
-+	 * issue (the bits are not stripped as they are on local
-+	 * filesystems).
-+	 */
-+	if ((attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID)) &&
-+	    !((cifs_sb->mnt_cifs_flags &
-+	       (CIFS_MOUNT_CIFS_ACL | CIFS_MOUNT_MODE_FROM_SID)) ||
-+	      cifs_sb_master_tcon(cifs_sb)->posix_extensions))
- 		attrs->ia_valid &= ~ATTR_MODE;
- 
- 	if (attrs->ia_valid & ATTR_MODE) {
 -- 
-2.53.0
+Cheers,
 
+David
