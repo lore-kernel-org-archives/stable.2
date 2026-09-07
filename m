@@ -1,45 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9C748BD5B;
-	Mon,  7 Sep 2026 11:47:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921514908B4
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 11:47:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781654; cv=none; b=Gi+pCusVNGHE1dpofPShtFz+npPcBrGDtHxhZeDcvL24vxgSUbn/rsxcM9nxf6hHZ/y4CLQbnVJC4GVrQXRxjetZyZ9KxT50ca1P/SttLQuCTC8d9QbSmBGep+vlKhVI4/A9tJz+KFHdWWapBid2Il40U0htC9XRwOTxhzgWjHw=
+	t=1788781656; cv=none; b=O+IKjKev0KWvwFEUSZP86v0vgDPaCW/ppYRgy1TcxK2aXWqSNXKHnU8Jap5Ox2qZKydwei52n0b+omwVQqXYGaefO0XFdpzGb70PHbOCVxnew62vogVuKEWAk3dg+fi8oMu2rAxaO24CvS9rkd9hYFMxiX0Op+dhrxouDrcQo6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781654; c=relaxed/simple;
-	bh=UUff/xA4eU7KQrelA4EjBKSqhHbedHfBVekTwnMXHvA=;
+	s=arc-20240116; t=1788781656; c=relaxed/simple;
+	bh=89FbpDDSnrnWlrqtIScPgYWrt3b0XEQj1ucdfj2tfFU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kBNdz6FIvTHA13ZuZgqAisA22izrD48bVRIWdCc5lV/e7gB1FR7U3gjJQmCXLyg3Ot8UEzFtt1O546Sz+Ba/hvo5OrWU1Mt8w7n5PxOfhg/shJo9DR/vKxjcE8e7nNC73SNBfTT/pZCNnW7DUeVhQ7SQCNHSAeFVCzaNdOHbe6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUikZs7E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nqwD3csA2CX0N1sTVfm7h6BWIqa5IK8DXXt96JSZ2X87oTvP6TH/akOWcpAM+xSSzwZoogir6st283UuloSnKXXEU5Q4Amq1jpyJwTeBJPOmuyicPl195qS4YMltT99ffgmIkYI6QVg0L+iIiaCYkXezhDb1XQR4fDJIhKbe3bY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAxLpBYS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUikZs7E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF301F00ACA;
-	Mon,  7 Sep 2026 11:47:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAxLpBYS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77F71F00AC4;
+	Mon,  7 Sep 2026 11:47:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781652;
-	bh=uIiz1ATeWoRVkHjqQ6HXI7SmHJMgwmcJypw6if+o3I8=;
+	s=k20260515; t=1788781654;
+	bh=Dgx0Ds8bE8GcasxKPUIl9olK5mTOYciWHFQ8I+oTfSw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kUikZs7EWHs0Jez/6Xj/AbHjMZwbIOX9jwU6tYbURourFITewgyjbUc62KmwxJAG4
-	 vl9d92w5cNfqBdmdUDixs2tC4N6oRSqtDH8/IDtdl4jhA3/QRbZQMvaEBn8sYIgty+
-	 NM+voayBLh0wjt4Xnp+9VtS3GC5pXVDhdB91I768tnQHxzvf9dQVQgnDy5h512NKQG
-	 ApHYZ4caGoQ3NDY+Z9/qUdOHtz1wDz/YBQwGyqfTchYuMdVfAcQDcb9IzdJILs8MMc
-	 XvJ3gt0ENgdWOKyK+1FJtnRQYrvRGN1rj9S3JvBOkkcXFLhFWy6pWXrTWeGcoe/Cg6
-	 UF9WmcjaECwuQ==
+	b=QAxLpBYSDxaT1wXnQWlNJfa2P2Mmn8BG70edSZ9Y4UfWXJ/NAlukxFtOss3lRlTy1
+	 AKHhrh5Gjr9bISCZRpMUPtUdBLGT660gnnYsZIaMVY32c+axzkzXoxGJhviYOa6m2p
+	 1Vn6QJSguU+poEnzE8CjY+aXPuLM7My7PC6hbyM7eh2obrOgUzWmZjQsnzn7zj9pUV
+	 ZrfM/ZV6AauIQPsSHF8IXpfnC6MRkBIKPCTB/etSxn5T90gKR6ytK2slmG6KWT+oH2
+	 rCGo0By8Y0imxB0raFn4duSXfW1CJ8Jn7Y3nV5RSIUrurp3ZcropA0W/5zj3c8EAa9
+	 UXtlRO11M4prg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Shen Yongchao <grayhat@foxmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/5] cifs: SMB1 split: Create smb1proto.h for SMB1 declarations
-Date: Mon,  7 Sep 2026 07:47:25 -0400
-Message-ID: <20260907114727.2870618-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 5/5] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
+Date: Mon,  7 Sep 2026 07:47:27 -0400
+Message-ID: <20260907114727.2870618-5-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907114727.2870618-1-sashal@kernel.org>
 References: <2026090302-bronco-shame-0d3f@gregkh>
@@ -52,114 +48,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 86c666506ea2c42649879eeac7f29e7bedef2f23 ]
+[ Upstream commit 6343c1da561962688f203362d80d6a3bfa39fa1b ]
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
-Stable-dep-of: 6343c1da5619 ("smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()")
+coalesce_t2() computes data pointers directly from server-supplied
+DataOffset fields with no validation against buffer bounds:
+
+  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
+  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
+  data_area_of_tgt += total_in_tgt;
+  ...
+  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
+
+A small DataOffset can push a pointer below the actual byte area,
+overwriting header fields; a large one can push it past the buffer
+end, causing out-of-bounds heap reads (source) or writes (target).
+The BCC overflow guard does not prevent this: BCC reflects how much
+data is present, while DataOffset controls where in the buffer it
+starts.
+
+The "validate target area" comment present since the function was
+first written in 2005 was a placeholder that was never implemented.
+
+Add lower- and upper-bound checks for both data pointers before the
+memcpy, and before any target header fields are modified.
+
+Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
+Cc: stable@vger.kernel.org
+Reported-by: Shen Yongchao <grayhat@foxmail.com>
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h  |  2 --
- fs/smb/client/cifsproto.h | 11 +----------
- fs/smb/client/smb1proto.h | 38 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 39 insertions(+), 12 deletions(-)
- create mode 100644 fs/smb/client/smb1proto.h
+ fs/smb/client/smb1transport.c | 21 ++++++++++++++++++++-
+ 1 file changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index 38b4053d97919..f9819b80a3f2b 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -2110,8 +2110,6 @@ extern mempool_t cifs_io_subrequest_pool;
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index f7b00bcb9df1a..cd98e48fbd11e 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -655,12 +655,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
+ 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
  
- /* Operations for different SMB versions */
- #ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
--extern struct smb_version_operations smb1_operations;
--extern struct smb_version_values smb1_values;
- extern struct smb_version_operations smb20_operations;
- extern struct smb_version_values smb20_values;
- #endif /* CIFS_ALLOW_INSECURE_LEGACY */
-diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
-index 4d6283ebd7393..c810371f229a4 100644
---- a/fs/smb/client/cifsproto.h
-+++ b/fs/smb/client/cifsproto.h
-@@ -14,6 +14,7 @@
- #ifdef CONFIG_CIFS_DFS_UPCALL
- #include "dfs_cache.h"
- #endif
-+#include "smb1proto.h"
+-	/* validate target area */
+ 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
+ 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
  
- struct statfs;
- struct smb_rqst;
-@@ -430,16 +431,6 @@ extern int CIFSSMBSetFileSize(const unsigned int xid, struct cifs_tcon *tcon,
- 			      struct cifsFileInfo *cfile, __u64 size,
- 			      bool set_allocation);
+ 	data_area_of_tgt += total_in_tgt;
  
--struct cifs_unix_set_info_args {
--	__u64	ctime;
--	__u64	atime;
--	__u64	mtime;
--	__u64	mode;
--	kuid_t	uid;
--	kgid_t	gid;
--	dev_t	device;
--};
--
- extern int CIFSSMBUnixSetFileInfo(const unsigned int xid,
- 				  struct cifs_tcon *tcon,
- 				  const struct cifs_unix_set_info_args *args,
-diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
-new file mode 100644
-index 0000000000000..a73213f6a2aa1
---- /dev/null
-+++ b/fs/smb/client/smb1proto.h
-@@ -0,0 +1,38 @@
-+/* SPDX-License-Identifier: LGPL-2.1 */
-+/*
-+ *
-+ *   Copyright (c) International Business Machines  Corp., 2002,2008
-+ *   Author(s): Steve French (sfrench@us.ibm.com)
-+ *
-+ */
-+#ifndef _SMB1PROTO_H
-+#define _SMB1PROTO_H
++	/*
++	 * DataOffset fields are server-supplied and not validated against
++	 * buffer bounds; check both data pointers before mutating the
++	 * target header.
++	 */
++	if (data_area_of_tgt < (char *)target_hdr +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_tgt + total_in_src >
++	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
++		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
++	if (data_area_of_src < second_buf +
++				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
++	    data_area_of_src + total_in_src >
++	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
++		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
++		return -EPROTO;
++	}
 +
-+struct cifs_unix_set_info_args {
-+	__u64	ctime;
-+	__u64	atime;
-+	__u64	mtime;
-+	__u64	mode;
-+	kuid_t	uid;
-+	kgid_t	gid;
-+	dev_t	device;
-+};
-+
-+#ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
-+
-+/*
-+ * cifssmb.c
-+ */
-+
-+/*
-+ * smb1ops.c
-+ */
-+extern struct smb_version_operations smb1_operations;
-+extern struct smb_version_values smb1_values;
-+
-+/*
-+ * smb1transport.c
-+ */
-+
-+#endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
-+#endif /* _SMB1PROTO_H */
+ 	total_in_tgt += total_in_src;
+ 	/* is the result too big for the field? */
+ 	if (total_in_tgt > USHRT_MAX) {
 -- 
 2.53.0
 
