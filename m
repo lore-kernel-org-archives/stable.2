@@ -1,129 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C599477293
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 13:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DA5F4EC646
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 14:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789459; cv=none; b=d9vHuMSql9cCXP4+cYMVJQ2pawLHL+vtz9o/1TheJ/UwmFDy9S4z9BDzkbiuLlRdwbmUksyvkts37SMkP5o0h0fm9azz3TDhjQQrT1Lr9U2ncbkL5WMvxT+2ndZScZfd808HvFnyAJ1M+5jE/JqDkcjRhwP7vFnUSOHgZP7enpo=
+	t=1788789999; cv=none; b=V4aYcMbecK9N2DXxHaSQ9pHDlyIvMnNHe7kKzmnHecaiQj5+kXkKY9oZOSRgL7hk1Z1tkjDG2Bk61CPABiAI12Yo6NWyvOM6Nwg1pB738tDx/3hDA0GwNbYfsfOnBsltiSV1WRe2OJLQbAHuW4e+6HtwmvGSco0p6EN6yUfrKkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789459; c=relaxed/simple;
-	bh=SnKpeE7SOuMu9Jw7LDp3xW/f40ikLEmeORwGIuvor+U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oM4dYiu+RPNQl2AVn/bPTqH65s7iQs9XbGjtnWL15VW4Out+BS5E/TPXsLvbcuuIgIgtoYwqn6DVYYJL/iU1yw7Q1qlRRbCy6PAzrukMhWy8NxwcLVCPKfMpEI5PktbXafpxJLmMzOSgSXnK8V7VgvVFOSnGcWl7ODRBmB8CH8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvPW7YyP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789999; c=relaxed/simple;
+	bh=kAiALmTWnf8x9SsADiUwVb4eDhzSyPp2/E69JaKJyug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E8iD4RIi0IKjaY0+lVdDSI03tkvBsvom7VxHi+grXp2/U8heXwpQNXjcjl1re3Q4n96vgDVQBvSNDJLxVkYv1W0JW187o6doC2Awcz9Jq6nxkcT7Lz6SGGt6OhKzsZRQM6oeNVweWJW8/kyU5l5Uaiu4rRt5l6PwvDy+lIsXTiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Fowv+iyf; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvPW7YyP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790EC1F00A3A;
-	Mon,  7 Sep 2026 13:57:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789457;
-	bh=TW0j8V3MvbaJ/Ze2cjUeP4VU/l3XPGj1xviH9ej0Fms=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nvPW7YyPxReariOUuNNvOLsiB5bsOlZeX6v1LsiykOgsS+GuDDYpdbeGPgW619goM
-	 6xNPqHqH/We0lKlQk7r7qpNGekRpM0cgaH7qBt8TQO5XIcEpLBbg+bTsw6lrt4Pg3V
-	 rY4dU85CI63mmSfsJc/WnmiIyESbLmuLQeD+YJvma4TxLNzrRtr0slaa1wcfvhQC5j
-	 a7TWTkXbRplMJwEYp66B8Ggw7+9HLpO5KWk7xBp0QHTL18l6w9odst+TL21YUIkHM0
-	 XEILFF1iS8/j876zltVFWaC090pNt1QzCPEPiPzn7b9pu3yNATgROrPiMJf+kRik/4
-	 jbqmn/2izYWBQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Frank Sorenson <sorenson@redhat.com>,
-	Shen Yongchao <grayhat@foxmail.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()
-Date: Mon,  7 Sep 2026 09:57:35 -0400
-Message-ID: <20260907135735.3129050-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-reprocess-unexpired-2698@gregkh>
-References: <2026090303-reprocess-unexpired-2698@gregkh>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Fowv+iyf"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482e257a23aso2529234f8f.0
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 07:06:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788789994; x=1789394794; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hnVIlm2nSumk0PrCQmB9sy4lQ8aJwTihVNma9sBp9rQ=;
+        b=Fowv+iyfr+KORHEl5atNl+7aAwsXvqtBTsM6zUgXJucKvDkMEVGUkhGuNvV6A0GKrq
+         2TOLgDaQOOYq8Pa9yvJW9ela5KfpxlYYVdQ0iZSVr0+NFOSPzoMhyueP2IVRuHQAaC1L
+         L71LrPhPKXdowjiGoPy8mVD08JcmohltxtUprlvQ+XuQNIPkK4IggtPxtjpCS1bEJkS+
+         lyjAkHNM74Li+F/ScdA1u2GvyL/hPxMqyr4WDjLeHgK6nIRJOwuhavu+zxS7tC3aNDBh
+         dnKffwS0AVynB5j/qhgiWaDINiq6K1munQ+tuO9cP+oUimRz37xhuVBbhyH31ufm7+bl
+         zOtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788789994; x=1789394794;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hnVIlm2nSumk0PrCQmB9sy4lQ8aJwTihVNma9sBp9rQ=;
+        b=G6IIR1FtDhbOQmlryMHtjFKmA//Sq/Q2bboLr/9v5it9obMqVu1YnEepoQ9XnXEjZq
+         VYtKasp2DKn26UFfa0neRnTZqGXMVcRoWCfaCd1MQhHv5WmGiM1FjB5JFqn0+EslsIhX
+         H4FIjWV9qhgdPwnGSoGEpe/ocPuMEtCzvQ3R1Sw1LBfjly1AHBeOfvOwQkh/7WPDIgiE
+         Bs3s+uCCfoo5gNeyZvqdu5Kdbvi9zsqCQeePEJXrbbnjM1CK2cALrsTS4g4rNArQIKyo
+         kqE7IBTdDkYu6J0rIY5Fcl6NefOzTCK4abCXCZuvgyZ8J4RrPQonF7mmZPPBpM2JgDFs
+         fpQw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5eIA9AfsZuMVuNAql2mLfZa0NkbdfAHHRUaAdxHbo0QsU8JvUeX72YgNj1XzeRCQ7Ie7EJFM=@vger.kernel.org
+X-Gm-Message-State: AFuF++khofb2Vlse0yxwUq5bXgdB/iLoPRXt9QgGwDbvL3ZPTGP6G+Mr
+	n9sbDUcBxTjgCeGdRuvkniGFWZZrROE5hWfHlwd4jfOSlmMW9gcMRR/rcchWpiIQao0=
+X-Gm-Gg: AYBFou3VWjvyX/9bBAjM9jKHoXn93Hfz0HH+0DVEmhVqc9NorwOsVV/cEqqGJuaqaeK
+	K78Rj94B7exEmbZ74jDrbXj/6rKDgfZFY1XO/R2Xv2bSIG6zDNuB+/sJkr6v8lrYo2L0R2iPENu
+	H5oDA9OpdFYPprlbut7BMhxVP0HtKSO9GnXZBE6/GeDpXOfdw/657Q6/5u4Emc59gOIiAdrGsaw
+	OMGrqblzYvrPVxEE6E1enKbyycj9xHxOq/RtECKhmE2nWGtaxTfonHRwc60feViHYsTuQujoqbf
+	/OL/RYxpwU6gLuAyLNcABPKjzVp40EQsbOouLQAlncQ6Ny1eO0nd8ESxz/YiyKNVMWnaWc2XyoY
+	SVELglF8+5rct9EfuPYA29x/ow3VEoKosK4DfWPet+64Bw5lOgcmpc/Qz9Am3AoO8ffh7SYJYiZ
+	ieiVo8UM46kbkiSSLKxRQmYzLVndqtZmq44QwyCeqBDeAqDyWfNFRbX+tYEPDyFn4=
+X-Received: by 2002:a05:6000:4014:b0:485:8a46:b3cf with SMTP id ffacd0b85a97d-4858a46b5fcmr20890181f8f.55.1788789994173;
+        Mon, 07 Sep 2026 07:06:34 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48591eb3d3bsm16866649f8f.0.2026.09.07.07.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 07:06:33 -0700 (PDT)
+Date: Mon, 7 Sep 2026 16:06:31 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Zhe Liu <liuzhe1@kylinos.cn>
+Cc: bsegall@google.com, cgroups@vger.kernel.org, corbet@lwn.net, 
+	dietmar.eggemann@arm.com, hannes@cmpxchg.org, juri.lelli@redhat.com, 
+	kprateek.nayak@amd.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, 
+	rostedt@goodmis.org, skhan@linuxfoundation.org, tj@kernel.org, 
+	vincent.guittot@linaro.org, vschneid@redhat.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] sched/fair: Remove the write-order dependency
+ between cpu.max and cpu.max.burst
+Message-ID: <ap69-MoOmAJifgjG@localhost.localdomain>
+References: <aobnZEh1hfIBhswD@localhost.localdomain>
+ <20260904062013.504236-1-liuzhe1@kylinos.cn>
+ <20260904062013.504236-2-liuzhe1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5sahav5mzexczfrn"
+Content-Disposition: inline
+In-Reply-To: <20260904062013.504236-2-liuzhe1@kylinos.cn>
 
-From: Frank Sorenson <sorenson@redhat.com>
 
-[ Upstream commit 6343c1da561962688f203362d80d6a3bfa39fa1b ]
+--5sahav5mzexczfrn
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/3] sched/fair: Remove the write-order dependency
+ between cpu.max and cpu.max.burst
+MIME-Version: 1.0
 
-coalesce_t2() computes data pointers directly from server-supplied
-DataOffset fields with no validation against buffer bounds:
+On Fri, Sep 04, 2026 at 02:20:11PM +0800, Zhe Liu <liuzhe1@kylinos.cn> wrot=
+e:
+> Keep the configured burst independent of the current quota and cap it
+> when CFS refills runtime. This allows quota and burst updates in either
+> order.
+>=20
+> Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
+>=20
+> Cc: stable@vger.kernel.org
 
-  data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
-                     get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
-  data_area_of_src = (char *)&pSMBs->hdr.Protocol +
-                     get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
-  data_area_of_tgt += total_in_tgt;
-  ...
-  memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
+The change makes sense to me and it should've been like that from the
+beginning. OTOH, it may break someone's setup, so I'd take it but revert
+it should regressions be reported. Hence, I wouldn't mark it for stable.=20
 
-A small DataOffset can push a pointer below the actual byte area,
-overwriting header fields; a large one can push it past the buffer
-end, causing out-of-bounds heap reads (source) or writes (target).
-The BCC overflow guard does not prevent this: BCC reflects how much
-data is present, while DataOffset controls where in the buffer it
-starts.
 
-The "validate target area" comment present since the function was
-first written in 2005 was a placeholder that was never implemented.
+> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
+> ---
+>  kernel/sched/core.c | 3 +--
+>  kernel/sched/fair.c | 3 ++-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index f78275192036..5269b8cfcf7f 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
+>  	if (quota_us !=3D RUNTIME_INF && quota_us > max_bw_runtime_us)
+>  		return -EINVAL;
+> =20
+> -	if (quota_us !=3D RUNTIME_INF && (burst_us > quota_us ||
+> -					burst_us + quota_us > max_bw_runtime_us))
+> +	if (burst_us > max_bw_runtime_us)
+>  		return -EINVAL;
 
-Add lower- and upper-bound checks for both data pointers before the
-memcpy, and before any target header fields are modified.
+I notice this'd be relaxed rather like:
 
-Fixes: e4eb295d38b5 ("[PATCH] cifs: Handle multiple response transact2 part 1 of 2")
-Cc: stable@vger.kernel.org
-Reported-by: Shen Yongchao <grayhat@foxmail.com>
-Signed-off-by: Frank Sorenson <sorenson@redhat.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ transplanted the bounds validation to coalesce_t2() in smb1ops.c due to code relocation ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/smb1ops.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+	if (burst_us > max_bw_runtime_us / 2)
+		return -EINVAL;
 
-diff --git a/fs/smb/client/smb1ops.c b/fs/smb/client/smb1ops.c
-index c80b291a14a57..9c25fe15da911 100644
---- a/fs/smb/client/smb1ops.c
-+++ b/fs/smb/client/smb1ops.c
-@@ -325,12 +325,31 @@ coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
- 	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
- 				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
- 
--	/* validate target area */
- 	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
- 				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
- 
- 	data_area_of_tgt += total_in_tgt;
- 
-+	/*
-+	 * DataOffset fields are server-supplied and not validated against
-+	 * buffer bounds; check both data pointers before mutating the
-+	 * target header.
-+	 */
-+	if (data_area_of_tgt < (char *)target_hdr +
-+				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
-+	    data_area_of_tgt + total_in_src >
-+	    (char *)target_hdr + CIFSMaxBufSize + MAX_CIFS_HDR_SIZE) {
-+		cifs_dbg(VFS, "%s: target data area out of bounds\n", __func__);
-+		return -EPROTO;
-+	}
-+	if (data_area_of_src < second_buf +
-+				sizeof(struct smb_t2_rsp) + sizeof(__le16) ||
-+	    data_area_of_src + total_in_src >
-+	    second_buf + smbCalcSize((struct smb_hdr *)second_buf)) {
-+		cifs_dbg(VFS, "%s: secondary data area out of bounds\n", __func__);
-+		return -EPROTO;
-+	}
-+
- 	total_in_tgt += total_in_src;
- 	/* is the result too big for the field? */
- 	if (total_in_tgt > USHRT_MAX) {
--- 
-2.53.0
+I don't see in the current code that these BW_SHIFT'd calculations were
+relevant for burst.
+(Sashiko mentions overflows of the addition but I think it's confused
+MAX_BW and UULONG_MAX or more precisely (UULONG_MAX / NSEC_PER_USEC),)
+so even your version should still be safe.
 
+(Without that stable annotation above.)
+
+Reviewed-by: Michal Koutn=FD <mkoutny@suse.com>
+
+--5sahav5mzexczfrn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCap7E4hsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgafAEA/lDIyfoaL+fSg3OpnbzT
+kKX5pkBVfO+FBzeCudKKlY0A/jVSRzj8PL3weJy/l9NmUY9jh/ilifk5nRv6Z0tK
+K/cK
+=kYvk
+-----END PGP SIGNATURE-----
+
+--5sahav5mzexczfrn--
