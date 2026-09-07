@@ -1,211 +1,169 @@
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com [209.85.167.180])
+Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1FA4A484F
-	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:51:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785490; cv=none; b=Ld81nLkCNj5jtYnGuzexD3Zln3lKCgo9JtYoqZmb4/toCTTAUvy+hy8VML4zGUG5rZdVfttBcGa2vbQBAwQEU2ZawA8m3xt4lpjIHOozVlwjIITPE1Mvr+w4nnPCJ1Pol0oJOOnNVnXuPatUF0drXm9zcdnKKDF2DWFCJPf8988=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785490; c=relaxed/simple;
-	bh=aW7hatZn2PpeeX0Omd59RaxwaKSASjvjLcGck38fRFQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ftbFN6W69DjDw6d5sQjUcFzj9p8LB1VXI1p3T/Hr9UvYx97sDpERGrcuw42NeNaNQiKjAA2iA6Q7zyD7Nkr76GeRCG+/PE9+xDk9ai3DKwMOTMZxn1PoHJs7mGTw7dw2dtPqQS3WM/ozlHdNvTS+E1Lfk5aa4Xi33hi/ltPOJys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T43XwUo9; arc=none smtp.client-ip=209.85.167.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3E84DBD95
+	for <stable@vger.kernel.org>; Mon,  7 Sep 2026 12:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785627; cv=pass; b=Gtlur25nBZjPhCRj7xZRPiLXNuJoPxMiy0rzGDPOneMhCkXBsHe8UysaHka8wdu/DyH+CvPLTG7Khd6mR8bZH6NRi89pZyttOapAG1/+otffFY+NWYFD3pCsZvKBOR1Kb4IFXmNqiuA0niMCsgFIeu4szWUKD3Jv3i/buSbsg6I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785627; c=relaxed/simple;
+	bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TUnkM44XlGZBo2UUjhVJxz4eYnqg/lRPf1KN6h9cjtBtoRzle4vyA+uz8ASJ7ldkL3gLYnkhIjHv8zNEnWYyTrc54kjSkBB9dV7jOMnzm3g+HxOxob+zmPWGeuc3Z0NU8eGmwTPwLRDaTDQU0Sc6tLMXpfrc2SzcIKey6mpT6Ys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=NqoItOLI; arc=pass smtp.client-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T43XwUo9"
-Received: by mail-oi1-f180.google.com with SMTP id 5614622812f47-4b381337e1fso3241504b6e.1
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:51:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="NqoItOLI"
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a20f56876eso33304671fa.2
+        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 05:53:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788785622; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cNsDIb/Gs0kJjP7a2ffBCMIBo++kY9t9b9xwPRjShL5d43FhPl/H/FTgI4Q1N63bZd
+         AIA7vJp03OKfTy4u3B1T7OKnhpmyP48gvdv1/u97c4cvQy4bHbio0LaHhBJePSHprDZR
+         GsQcA4jSA4O9Qx1n8gUmTtntLCNv6P6Bg+FsXr9xQwj2jUzHMpAtrABX0JciGKwxS2e9
+         qqY25+Pet0HcZgDGMUgSgPui0nt6nBt/0ASJnw9PeTNVDEVyOsayCFwSmveetSB9nS6x
+         9jLjiUNqIKfSiPyGu0WoINdylqUGAzLHkt8+szhiK0fIPr9yLn39q672Zna4Kd0hxuze
+         uaLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        fh=BxLimT7AiKPXzvrFQo5fEc0pah3EO5GzEZ7svWVXzDQ=;
+        b=KXjtdXPd8fKJNBAfzePgQyTAkOPM8lGeZ/RwxvhMOmSGCZIUbUyzkYZiiVHg6BvMOQ
+         QVj2yeePG4f8QPbPvAA5BbeM9lPFQxuVUFyNioJppowUvUAYCWSXK7w8wSqthyZAvVRz
+         n90VUyCOU46x5kaADp4FAy84S84CtSt3HPcTMm7BDqEWmtsalB3VALPlQ8L6/sYWysiL
+         4K1hxmKTR5kW4+S/2DDgjT9T3KjCqvzVHaoenoDzOgCVqlxUonDVgumLi3hNzrADGb7a
+         yJ2zpu9af4fITfw40YAx0xLoPxiIUxWfro4HTJr6qXq+pxj/p8nVt1eZxLbMXGbJv3qr
+         gyNQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788785488; x=1789390288; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3dYzFdAjB0JuhffEuOLEkAByLAlefLT6/4p7ylBlrTw=;
-        b=T43XwUo9SMgAMCk3se3Zl+wazaWtd3TwE1bO6Y5udLxq1Uid7p2zii6larAEXVJ342
-         JU6sUUatbNWx18RNA182IMysOHuXYol6Rq2eSh4418bg/1jXCKSWvD+Dbh0iwkpDe6J7
-         UfBGbJdMLizW/dZXrUtBDl5fhscG9j+sRHm+APSCqPEH9yNhYOXoce66Y0lbc42Kbky9
-         d/WxEXGn786Xy1voXTBJdX6K+qCfYsl1rqXaYh0y3BLtFuSoT00yt9CPS34BhInYZgUr
-         xCOFHFUjpV6AjlLNSHfgEghBSx4TLFl7oN91oo8U2pFcvqPvKIBKhHrmIqNqKfKObZXV
-         UjWA==
+        d=nebusec.ai; s=google; t=1788785622; x=1789390422; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        b=NqoItOLI8buUm+bCoGln8l5ILJ/2SDZCzo1+5vgty37NfsLiT4e2OyJy4T8Egp969w
+         gSvsNbm3y2i14vuIBI16yT5VA0oIYZ3qhkUI2o4+XaXWrtgp1tGDXy3fa8cOmrWPOEDU
+         T6KIInPhioD28NMk8rupt6ymDxP/0p6A8cDXlkVAv79k63cjy/KlNfoJeuLNVexr+G/E
+         nEBVbMvRuM8efxEJ2/LI8FQFdVdF7U4JXqSe/ueGbq8lPXXnDeTjTErFAHpcIw/vYk3J
+         ZVBmCxNbkL8wSTTGmFBYc6phmTWFqh3cIHBwFf1gMN8kwoYZihA1Koqzm6KFWmyRlLZW
+         s/qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788785488; x=1789390288;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3dYzFdAjB0JuhffEuOLEkAByLAlefLT6/4p7ylBlrTw=;
-        b=ThOjfedNw9/+eylREdx9xCC/Ke/zoXmi6xyN8g6kRu/azYfCJhNgGOfr93Yz4oJDgM
-         IsAQEPXu2PVuoegJQtjRhexFKnPGHrzufiYRteAdikodIROKjujy5BLBnEHSYGTCW/qy
-         P1cJWIxVj3LyaDTkWylGz5qPYaIMUx5ufQdbn5hN3GDnhyGPqJPBXLePPaG5+ohwLfXE
-         4svKim3yUrSadYpyQm57GgJbp7DEBaM7w0FmLOdq/53L/1J3x+4/ET9YKn/EzmRJ60Ce
-         RxiPYjJpKOYTDraOJaFZMN4VC50NXwlkOkE1ReI2wBJgojiUpgzk8U8j5i+u9Zgv/kay
-         L0hw==
-X-Forwarded-Encrypted: i=1; AKwUvBwfboYRYtiTNw2w6RAdUYTf1Allm6Lf5r94Fw7F/yEDlrlAn4MsTeXjDKUUxo5Fl+ZUIpotmhg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7+HM4/TaGmsVCgyFAX/+7AvBUma/CBxHVAjvosXLRecyNWQE8
-	73pXV4TN0eaMR5x6va+XrTMoEQM8yyqmrOWY0b217TE3YkEmIh0Onqg2
-X-Gm-Gg: AYBFou2zN0NvPwYwFztCpSk21X0w0byNLeTe7eU8Nz8GETBYqCG/Izso6EMi3pNaFeF
-	WVcFzEracPC4dZgWgeLUjfnPdK1l6Rdbk0mEEqpcyXJT95tvZGPZoHPhVLRnxH0P8zKysGczVIP
-	b98wHHuAh0e/s8Az6i+/bF5sF3KbJLTgS0nhX/t2DFngZte6QbUXov6UnmB2/lp8fVQH+/Q8uxh
-	kkAyn2y1aQVK2fJLk3HB1uFY8eBUT0pKXTtDc95va5S1oKtr8dyPTd9G0OC5ZVf17Awo6rM09rb
-	5/QztEWeUpC1eSHtygr/qoVAfFp6ZapNh/NFa3ei5smLMbvK8oN0At7Cj8fb5A2PIKHjRdMsQJV
-	pttHyvWOe4uFZkg/mmGY2O565ge1688YIsd8jC83RLY1tSK8pSfW9flcUQZkW2R2M0lUVcno+cx
-	uMZUzDPZAxF1qafWaTy6NJK03TXUjAAsn0g9SjYjs5r4qUuJwZVARXfteec/k=
-X-Received: by 2002:a05:6808:d4c:b0:4ab:230c:5faa with SMTP id 5614622812f47-4b9645205bdmr14048174b6e.18.1788785487692;
-        Mon, 07 Sep 2026 05:51:27 -0700 (PDT)
-Received: from localhost.localdomain ([107.173.101.132])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4bb838f7c50sm6110477b6e.10.2026.09.07.05.51.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:51:26 -0700 (PDT)
-From: "Ziyou Wang (Lenovo)" <ziyou.dev@gmail.com>
-To: bottlecodes@gmail.com
-Cc: "Ziyou Wang (Lenovo)" <ziyou.dev@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] dmaengine: idxd: Fix use-after-free in idxd_remove
-Date: Mon,  7 Sep 2026 20:51:21 +0800
-Message-ID: <20260907125121.5928-1-ziyou.dev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788785622; x=1789390422;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        b=QP2kjnKGcD+H4DAMlW6flHZRUCm0dixZWub1N7NfrV2vnSb7ah/x5kyxefFfOXrcpu
+         5ERLPGZa8J4IDdTknY4V98afB0+v1lXs3hzaeSoTi7WYccxy6iOZwik3PApX6tQ7r1jo
+         PF39KJTT0MM0qbD6oRGX06Y4qmDBjjXUf8OQikNKdWUeyVH65PznJT1VEThDO65ddw96
+         DimJuI9K4zTbShAErQo8eJ1uDtXBmvk7dSDnV73z2ELS/8qm0RdTEsHvyxLl/+eSVOZ6
+         4Au2grYqZmxq76AZnUodtr6FeRaPqfeBnCpR9DpEqpFgo5CjzyQv/exxM+4mXmp1CC1I
+         l+mw==
+X-Forwarded-Encrypted: i=1; AKwUvBz5vRKfbNAiIOMuOU3wcrPSiaS8CFwDHJ1rkdolnyS6Ve3qIsG2dMIHAUIT8jgt6rhK6LB0UzI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfZr3cc4Su9nnAF0RW7LVXnsG081AHqmreja6nq3azOYSSWruw
+	9I3Q8GIgDShYKEwBEqKEbV9KowQ4S3R7/FdI/8bhaEQdW6ba4+TuXnFAJGqkIeGnc1OxTTg20CQ
+	3Eov7HAxq3H0ruWiQBRu4Nl31SO6RMRh2LfFSvNKzTsY=
+X-Gm-Gg: AYBFou11QhiNhA3KpW6wOLKgz87ZZc5uGzpjEuiW0ZRsyPnU1tFwVe4uKsaqFx9Jm3f
+	d9JpUO1tFjJgShgFEz3A0y+06+9vDgoGbns5XLbFrxRoKsZILFznEPuDEG3Zqk5iaGeZC0/DgC2
+	JXY/mrxPp8B0LBXagnUgX/weqI3wJjMGy7cwakpr7Z5hOXGRpxASWr6+RiVHv3YAThlFQCtQ3iD
+	+LMwhaA2Ez3Nj0bY1x67Dllvs4gc3oSpyIRSXIJLnR/bQ1YdTDHOf2Iuzd03+ExMpuA07h8KPkt
+	sgNLiZq15HxnpfFbAKeZhUtrNqr78d66HElgGfZlqCUGpEuElDZ+k/VvH/A2OApTtNovt12HXtV
+	K
+X-Received: by 2002:a05:651c:43cc:20b0:39c:8124:93b3 with SMTP id
+ 38308e7fff4ca-3a371ba9af3mr18512751fa.9.1788785622569; Mon, 07 Sep 2026
+ 05:53:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1788765185.git.zihanx@nebusec.ai> <ef4076c94466ea4b147653e2b7f933778f245437.1788765185.git.zihanx@nebusec.ai>
+ <20260907121830.GA647811@shredder>
+In-Reply-To: <20260907121830.GA647811@shredder>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 20:53:30 +0800
+X-Gm-Features: AcwNN1Uk3i8a39rPmzWaebzH5pBKLNcdaTlZf_kVKmdapl2vlm677TXmYyaCLb4
+Message-ID: <CAANe3eSV3JYqzjnEE+vVmTJdC4oUZh8v=9vy==1xE9H9+YkLEg@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/1] ipmr: account multicast table and route memory
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Benjamin Thery <benjamin.thery@bull.net>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When unbinding the idxd driver, a use-after-free bug occurs:
+On Mon, Sep 7, 2026 at 8:18=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
+te:
+>
+> On Mon, Sep 07, 2026 at 08:10:56AM +0000, Zihan Xi wrote:
+> > A netadmin in a user+net namespace can create many IPv6 multicast
+> > routing tables with MRT6_TABLE. Each unseen id allocates an mr_table,
+> > links it into mr6_tables, and leaves it until netns teardown. Those
+> > objects were not charged to memcg, so the host unreclaimable slab
+> > grows with the table count.
+>
+> This reads like an IPv6-only fix, but it also applies to IPv4.
+> mr_table_alloc() is used by both families. Please reword this paragraph
+> to reflect that.
 
-idxd_unregister_devices() calls device_unregister(wq), which triggers
-the wq release callback and frees wq memory via kfree(). However,
-idxd->wqs[] array still holds the freed pointer. Later, when
-device_unregister(idxd) calls idxd_device_drv_remove(), it accesses
-wq->state through idxd->wqs[], resulting in use-after-free.
+Will do. v4 rewords this for both IPv4 and IPv6, since mr_table_alloc()
+is shared.
+>
+> >
+> > Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
+> > IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
+> > handling of IP addresses, routes and alternate interface names.
+>
+> The bots might complain that this doesn't cover unresolved cache entries
+> that are allocated from softIRQ context. This is correct, but: 1. They
+> expire after 10 seconds. 2. Bound by the socket's receive queue. See
+> commit 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len
+> limit"). Worth mentioning in the commit message.
 
-KASAN report:
+Agreed, will mention that in the commit message.
+>
+> >
+> > The first unaccounted IPv6 heap table appeared in commit 4e16880cb422
+> > ("netns: ip6mr: dynamically allocates vif6_table"), which replaced a
+> > static vif6_table[] with kcalloc(..., GFP_KERNEL). Commit
+> > 6bd521433942 ("ipv6: ip6mr: move mroute data into seperate structure")
+> > only wrapped that already-heap state into mr6_table. Commit
+> > d1db275dd3f6 ("ipv6: ip6mr: support multiple tables") only expanded
+> > the table count from 1 to N. IPv6 MFC entries were already unaccounted
+> > from commit 7bc570c8b4f7 ("[IPV6] MROUTE: Support multicast
+> > forwarding."); IPv4 ip_mrt_cache is older still.
+> >
+> > Fixes: 4e16880cb422 ("netns: ip6mr: dynamically allocates vif6_table")
+>
+> I think it makes more sense to blame the commits that allowed user space
+> to create these tables:
+>
+> Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
+> Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
+>
+> Your reproducer depends on it. And dropping / rewording the last
+> paragraph.
 
-  BUG: KASAN: slab-use-after-free in idxd_device_drv_remove+0xc1/0x100 [idxd]
-  Read of size 4 at addr ff1100038d296414 by task python3/3354
+Will switch Fixes: to these two commits and drop that paragraph.
+>
+> Please wait 24h before posting another version:
+>
+> https://docs.kernel.org/next/process/maintainer-netdev.html
 
-  CPU: 20 UID: 0 PID: 3354 Comm: python3 Tainted: G E 7.2.0-rc5-debug+
-  Hardware name: Lenovo WenTian WR5220 G5, BIOS speb50m-2.54
+Will wait 24h before sending v4.
 
-  Call Trace:
-    <TASK>
-    dump_stack_lvl+0x5b/0x80
-    print_report+0x153/0x4b5
-    kasan_report+0xbc/0xf0
-    idxd_device_drv_remove+0xc1/0x100 [idxd]
-    device_release_driver_internal+0x244/0x2e0
-    bus_remove_device+0x195/0x2b0
-    device_del+0x24b/0x540
-    device_unregister+0x17/0x80
-    idxd_remove+0x3f/0x120 [idxd]
-    pci_device_remove+0x6d/0xf0
-    device_release_driver_internal+0x244/0x2e0
-    unbind_store+0xae/0xb0
-    kernfs_fop_write_iter+0x205/0x2d0
-    vfs_write+0x3a9/0x6b0
-    ksys_write+0xc7/0x160
-    do_syscall_64+0x9c/0x620
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-    </TASK>
-
-  Allocated by task 1219:
-    kasan_save_stack+0x20/0x40
-    kasan_save_track+0x14/0x30
-    __kasan_kmalloc+0x9a/0xb0
-    __kmalloc_cache_node_noprof+0x1c6/0x470
-    idxd_pci_probe_alloc+0x103f/0x2430 [idxd]
-    local_pci_probe+0x71/0xd0
-    local_pci_probe_callback+0x20/0x40
-    process_one_work+0x389/0x6a0
-    worker_thread+0x321/0x590
-    kthread+0x1b4/0x200
-    ret_from_fork+0x3bd/0x4d0
-    ret_from_fork_asm+0x1a/0x30
-
-  Freed by task 3354:
-    kasan_save_stack+0x20/0x40
-    kasan_save_track+0x14/0x30
-    kasan_save_free_info+0x3b/0x70
-    __kasan_slab_free+0x6b/0x90
-    kfree+0x1d4/0x520
-    device_release+0x77/0x120
-    kobject_put+0xdb/0x2a0
-    idxd_unregister_devices+0x5b/0x130 [idxd]
-    idxd_remove+0x2f/0x120 [idxd]
-    pci_device_remove+0x6d/0xf0
-    device_release_driver_internal+0x244/0x2e0
-    unbind_store+0xae/0xb0
-    kernfs_fop_write_iter+0x205/0x2d0
-    vfs_write+0x3a9/0x6b0
-    ksys_write+0xc7/0x160
-    do_syscall_64+0x9c/0x620
-    entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-Fix by changing idxd_unregister_devices() to use device_del() instead
-of device_unregister(). This removes sysfs entries but keeps memory
-valid. Then explicitly call put_device(wq) after drv_remove completes
-to properly free wq memory.
-
-Fixes: bfe1d56091c1 ("dmaengine: idxd: Init and probe for Intel data accelerators")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziyou Wang (Lenovo) <ziyou.dev@gmail.com>
----
- drivers/dma/idxd/init.c  | 7 +++++++
- drivers/dma/idxd/sysfs.c | 6 +++---
- 2 files changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma/idxd/init.c b/drivers/dma/idxd/init.c
-index 4b827a329756..1d47918f7ca9 100644
---- a/drivers/dma/idxd/init.c
-+++ b/drivers/dma/idxd/init.c
-@@ -1266,6 +1266,7 @@ static void idxd_shutdown(struct pci_dev *pdev)
- static void idxd_remove(struct pci_dev *pdev)
- {
- 	struct idxd_device *idxd = pci_get_drvdata(pdev);
-+	int i;
- 
- 	idxd_unregister_devices(idxd);
- 	/*
-@@ -1284,6 +1285,12 @@ static void idxd_remove(struct pci_dev *pdev)
- 	if (device_pasid_enabled(idxd))
- 		idxd_disable_system_pasid(idxd);
- 	pci_iounmap(pdev, idxd->reg_base);
-+	for (i = 0; i < idxd->max_wqs; i++)
-+		put_device(wq_confdev(idxd->wqs[i]));
-+	for (i = 0; i < idxd->max_engines; i++)
-+		put_device(engine_confdev(idxd->engines[i]));
-+	for (i = 0; i < idxd->max_groups; i++)
-+		put_device(group_confdev(idxd->groups[i]));
- 	put_device(idxd_confdev(idxd));
- 	pci_disable_device(pdev);
- }
-diff --git a/drivers/dma/idxd/sysfs.c b/drivers/dma/idxd/sysfs.c
-index 6d251095c350..da0699b64db4 100644
---- a/drivers/dma/idxd/sysfs.c
-+++ b/drivers/dma/idxd/sysfs.c
-@@ -1991,18 +1991,18 @@ void idxd_unregister_devices(struct idxd_device *idxd)
- 	for (i = 0; i < idxd->max_wqs; i++) {
- 		struct idxd_wq *wq = idxd->wqs[i];
- 
--		device_unregister(wq_confdev(wq));
-+		device_del(wq_confdev(wq));
- 	}
- 
- 	for (i = 0; i < idxd->max_engines; i++) {
- 		struct idxd_engine *engine = idxd->engines[i];
- 
--		device_unregister(engine_confdev(engine));
-+		device_del(engine_confdev(engine));
- 	}
- 
- 	for (i = 0; i < idxd->max_groups; i++) {
- 		struct idxd_group *group = idxd->groups[i];
- 
--		device_unregister(group_confdev(group));
-+		device_del(group_confdev(group));
- 	}
- }
--- 
-2.53.0
-
+Thanks,
+Zihan Xi
+>
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
