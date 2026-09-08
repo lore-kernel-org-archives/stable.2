@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C6D5921EF
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497524A0157
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890150; cv=none; b=dVgoLCISpb2CgJywu7dTp/y9PFj/sJHB4MXT+CGoiBvbz/adA7JTh6O9koiaeC8vb8CRan3D4PVCj0bf/Q7P/W196ziifXBSGVQksUe37Wc8Y7ig+TcqkT1uVo0Zy0faxyInieoIQcGFEdiE9EZWqgQdiRCDxgL6rclXARKhCgc=
+	t=1788890151; cv=none; b=brwqoDemNLyMoDqDQHVFn7bnhrVhX1pSYXl51mQ77WH33VCBQbXv4R9QaYL/zqnd065upZ0z5e0dAPIRbojFbl+roidY48vfTe1ZbXe9or0C/Vi9k6ivF7c7dfIHtUlvlGSFdDYFJY1HEhfvNlkdka8QNO/Sz0dcRsODuxcjFcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890150; c=relaxed/simple;
-	bh=IgM+x0TV7Pn9gGvFH9a+Cr+vrH7sZ68tB1uVWJYng4Q=;
+	s=arc-20240116; t=1788890151; c=relaxed/simple;
+	bh=HGfwBkxP4n+2PLVf5k4QgXmPyCHAbXQX5AupK1DU0a4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OJ+pl+CL8z4HS0o2QtId8T10AsxnQYd18T/Sp5hSYI7q33IBuv6DyhqzdsGNG6taTgAsAhGwL51YldehalPeDth5NjYdhtX1JlTX+NlVPqxx+75tH2EeD8OYRPUSZ8QMBFW3TyIo/KuDsHSsLiHl/BM+CQuJtu8IO0KOq2GyPxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ld3jS8v6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Xkc1YRz40N5QjXe6rQ4GCYKzy487D3KCQcOHozDuK0Z+WNfhN7/YhEM7xYVcTprKXg+aH/hoPr6b5tqze4wFL20J2ziisvZHXZFZvhOtUEsxno7RtT3aJ0CWswHn05GO7cQD+88/mp0cyp8vOFUfnfw7U4s6FhenK9Uqqqiq2zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jo+ND/nm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ld3jS8v6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D851F00A3D;
-	Tue,  8 Sep 2026 17:55:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jo+ND/nm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3EC1F00A3E;
+	Tue,  8 Sep 2026 17:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890149;
-	bh=SgiGRDfr0wmEbzv8ETUCHVuLaCniDcadMn6wmraYtOM=;
+	s=k20260515; t=1788890150;
+	bh=hGcR4GswoFaVKnQRUoWVg3mtuMzrAi7O7z32u1gmVGA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ld3jS8v6obMFQiqvQnsBpQ4lqRRuU3+g0X80i3WUpQe2YyzNTOMfpyGBHL5NIvCAC
-	 NJ07irjxI3ixRoEcfAIBnnStAy58QsjSGcAx+C7/6rGFS8E8wE4xKvxB4vT89N7sGE
-	 WJmcPbDLrewBndRPag13ZENFIZP+l2284vL9uZ5Cuyv2QDDO3ynfbbCwR/QfCguiYG
-	 DGr+yM7IitoZ/Nl9NaCDkoEsSFuPRilg/+OXzDrFpik7CzMBqJNfCIjda4uc5dwWcP
-	 RiUA3x93x/R1aaUUWuFDbA+PvxQ9TMDTXyAFx3ISJQs2SHzyqHvP8BkZlpi+6nEGaf
-	 OyVXEWNEDACBg==
+	b=Jo+ND/nmIPR6msdAKn3f/oOEjQFWuKHrTFfI2ADgTexjBqiXxasNsMBxE0EgJDgVZ
+	 1qvTQ73KJTHLr9IoHX/Pj0m7tFQTipFrP8nJx2GbImoTEqViWzA1geIqvDASUAV7vM
+	 +ENzkXK6/LfC06mFhrGKUdNnhyolF3zd4rIIglnMf0GZ1hjK3gM+J1fFpcbUG+4CWG
+	 XJoe/QUALN6PqGG7Syl6x/B0sD0B1ZWaXSmsLhrGxk6LawAJxlzXybFoIIfAPDtBpR
+	 zbyWHGNwHkECYMiDtDZZYtCvV0ewfV3aE9L+moj8DUp5rnTpUVn00vOpGp1fc2P/e0
+	 4Ahrwsed2zNZw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
+Cc: Chris Mason <clm@meta.com>,
 	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/4] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
-Date: Tue,  8 Sep 2026 13:55:44 -0400
-Message-ID: <20260908175545.152676-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/4] SUNRPC: svcauth_gss: enforce krb5 token minimum length
+Date: Tue,  8 Sep 2026 13:55:45 -0400
+Message-ID: <20260908175545.152676-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908175545.152676-1-sashal@kernel.org>
 References: <2026090352-custard-sports-0e17@gregkh>
@@ -46,154 +47,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chuck Lever <chuck.lever@oracle.com>
+From: Chris Mason <clm@meta.com>
 
-[ Upstream commit 42140718ea26c47fb06c679451a6aa6703545136 ]
+[ Upstream commit a919c5c88769cf8fb3ec071e6078d830bf512489 ]
 
-Done as part of hardening the server-side RPC header decoding path.
+svcauth_gss_unwrap_priv() validates only an upper bound on the
+wire-supplied opaque length before handing the buffer to
+gss_unwrap():
 
+    if (len > xdr_stream_remaining(xdr))
+            goto unwrap_failed;
+    offset = xdr_stream_pos(xdr);
+    ...
+    maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
+
+The wire value `len` flows unchanged as the upper bound into the
+krb5 unwrap path, so a len in [0, 16] passes this check and is
+handed to gss_unwrap(). For a krb5 v2 context that lands in
+gss_krb5_unwrap_v2(), which reads the 16-byte RFC 4121 token
+header fields at ptr+4 and ptr+6 and then calls rotate_left()
+before any integrity check. With a sub-header length the header
+reads run past the token, and _rotate_left()'s `shift %= buf->len`
+path can divide by zero when buf->len has been driven to zero by
+the truncated token. A header-only token (len == 16) is equally
+invalid: with a non-zero RRC field and the opaque blob ending at
+the XDR buffer boundary, rotate_left() builds a zero-length
+subbuffer, reaching the same division.
+
+Reject the token at the server entry point before it reaches the
+krb5 unwrap core. A valid sealed RFC 4121 token must contain
+the 16-byte header plus at least some encrypted payload.
+
+Fix by adding a minimum-length check immediately after the
+existing upper-bound check:
+
+    if (len <= GSS_KRB5_TOK_HDR_LEN)
+            goto unwrap_failed;
+
+Fixes: 7c9fdcfb1b64 ("[PATCH] knfsd: svcrpc: gss: server-side implementation of rpcsec_gss privacy")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260524010213.557424-2-cel@kernel.org
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: a919c5c88769 ("SUNRPC: svcauth_gss: enforce krb5 token minimum length")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/xdr.h        |  1 -
- net/sunrpc/auth_gss/svcauth_gss.c | 64 ++++++++++---------------------
- net/sunrpc/xdr.c                  |  7 ----
- 3 files changed, 21 insertions(+), 51 deletions(-)
+ net/sunrpc/auth_gss/svcauth_gss.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
-index f84e2a1358e17..f7e2850c8638f 100644
---- a/include/linux/sunrpc/xdr.h
-+++ b/include/linux/sunrpc/xdr.h
-@@ -188,7 +188,6 @@ xdr_adjust_iovec(struct kvec *iov, __be32 *p)
- /*
-  * XDR buffer helper functions
-  */
--extern void xdr_shift_buf(struct xdr_buf *, size_t);
- extern void xdr_buf_from_iov(const struct kvec *, struct xdr_buf *);
- extern int xdr_buf_subsegment(const struct xdr_buf *, struct xdr_buf *, unsigned int, unsigned int);
- extern void xdr_buf_trim(struct xdr_buf *, unsigned int);
 diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 13ca9621588fe..74c1c17c7984f 100644
+index 74c1c17c7984f..c8c33f02a7ede 100644
 --- a/net/sunrpc/auth_gss/svcauth_gss.c
 +++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -972,17 +972,6 @@ total_buf_len(struct xdr_buf *buf)
- 	return buf->head[0].iov_len + buf->page_len + buf->tail[0].iov_len;
- }
- 
--static void
--fix_priv_head(struct xdr_buf *buf, int pad)
--{
--	if (buf->page_len == 0) {
--		/* We need to adjust head and buf->len in tandem in this
--		 * case to make svc_defer() work--it finds the original
--		 * buffer start using buf->len - buf->head[0].iov_len. */
--		buf->head[0].iov_len -= pad;
--	}
--}
--
- /*
-  * RFC 2203, Section 5.3.2.3
-  *
-@@ -995,49 +984,37 @@ fix_priv_head(struct xdr_buf *buf, int pad)
-  *		proc_req_arg_t arg;
-  *	};
-  */
--static int
--svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq,
--			struct gss_ctx *ctx)
-+static noinline_for_stack int
-+svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
- {
--	u32 len, seq_num, maj_stat;
--	int pad, remaining_len, offset;
-+	struct xdr_stream *xdr = &rqstp->rq_arg_stream;
-+	u32 len, maj_stat, seq_num, offset;
-+	struct xdr_buf *buf = xdr->buf;
-+	unsigned int saved_len;
- 
- 	clear_bit(RQ_SPLICE_OK, &rqstp->rq_flags);
- 
--	len = svc_getnl(&buf->head[0]);
-+	if (xdr_stream_decode_u32(xdr, &len) < 0)
-+		goto unwrap_failed;
- 	if (rqstp->rq_deferred) {
- 		/* Already decrypted last time through! The sequence number
- 		 * check at out_seq is unnecessary but harmless: */
- 		goto out_seq;
+@@ -1003,6 +1003,8 @@ svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
  	}
--	/* buf->len is the number of bytes from the original start of the
--	 * request to the end, where head[0].iov_len is just the bytes
--	 * not yet read from the head, so these two values are different: */
--	remaining_len = total_buf_len(buf);
--	if (len > remaining_len)
-+	if (len > xdr_stream_remaining(xdr))
+ 	if (len > xdr_stream_remaining(xdr))
  		goto unwrap_failed;
--	pad = remaining_len - len;
--	buf->len -= pad;
--	fix_priv_head(buf, pad);
--
--	maj_stat = gss_unwrap(ctx, 0, len, buf);
--	pad = len - buf->len;
--	/* The upper layers assume the buffer is aligned on 4-byte boundaries.
--	 * In the krb5p case, at least, the data ends up offset, so we need to
--	 * move it around. */
--	/* XXX: This is very inefficient.  It would be better to either do
--	 * this while we encrypt, or maybe in the receive code, if we can peak
--	 * ahead and work out the service and mechanism there. */
--	offset = xdr_pad_size(buf->head[0].iov_len);
--	if (offset) {
--		buf->buflen = RPCSVC_MAXPAYLOAD;
--		xdr_shift_buf(buf, offset);
--		fix_priv_head(buf, pad);
--	}
-+	offset = xdr_stream_pos(xdr);
-+
-+	saved_len = buf->len;
-+	maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
- 	if (maj_stat != GSS_S_COMPLETE)
- 		goto bad_unwrap;
-+	xdr->nwords -= XDR_QUADLEN(saved_len - buf->len);
-+
- out_seq:
--	seq_num = svc_getnl(&buf->head[0]);
-+	/* gss_unwrap() decrypted the sequence number. */
-+	if (xdr_stream_decode_u32(xdr, &seq_num) < 0)
++	if (len <= GSS_KRB5_TOK_HDR_LEN)
 +		goto unwrap_failed;
- 	if (seq_num != seq)
- 		goto bad_seqno;
- 	return 0;
-@@ -1665,8 +1642,9 @@ svcauth_gss_accept(struct svc_rqst *rqstp)
- 			/* placeholders for length and seq. number: */
- 			svc_putnl(resv, 0);
- 			svc_putnl(resv, 0);
--			if (svcauth_gss_unwrap_priv(rqstp, &rqstp->rq_arg,
--						    gc->gc_seq, rsci->mechctx))
-+			svcxdr_init_decode(rqstp);
-+			if (svcauth_gss_unwrap_priv(rqstp, gc->gc_seq,
-+						    rsci->mechctx))
- 				goto garbage_args;
- 			rqstp->rq_auth_slack = RPC_MAX_AUTH_SIZE * 2;
- 			break;
-diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
-index 336a7c7833e49..4b21a519fa9bb 100644
---- a/net/sunrpc/xdr.c
-+++ b/net/sunrpc/xdr.c
-@@ -863,13 +863,6 @@ static unsigned int xdr_shrink_pagelen(struct xdr_buf *buf, unsigned int len)
- 	return shift;
- }
+ 	offset = xdr_stream_pos(xdr);
  
--void
--xdr_shift_buf(struct xdr_buf *buf, size_t len)
--{
--	xdr_shrink_bufhead(buf, buf->head->iov_len - len);
--}
--EXPORT_SYMBOL_GPL(xdr_shift_buf);
--
- /**
-  * xdr_stream_pos - Return the current offset from the start of the xdr_stream
-  * @xdr: pointer to struct xdr_stream
+ 	saved_len = buf->len;
 -- 
 2.53.0
 
