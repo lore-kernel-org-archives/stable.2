@@ -1,101 +1,153 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE56F577E34
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B44B3264DA
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882951; cv=none; b=m5O6eD7Bm5btu+uzNyk8CpF9e7/goCzUZybpocHDMvilV7caFDRH4p37RIrTa3ejeElntdpAiqUjljkAZjTfG4wwgbtqPqyvOzscIG9CMU4vEzOuzbleG3Y1HXnRkwqCCnQ0OrrnNdIksXtb4yvNDzkixdYqMOBA9LRVUnAg1rg=
+	t=1788883278; cv=none; b=KYzBXZqCp0kzSLX8Q4W20yCsXiIT4qctoOgqR2gDgqfxHZaFzL8ydl2fNzxagUARlObT/QKefl7qb31tD6wJtNRHGOBD8v9z53RYqd/r+9PafuQxiYFj3NBUQQDkrzOYwvsO8FHZUnvCFydFCu4nLAWszhKKK3EP7fuMdnIXMYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882951; c=relaxed/simple;
-	bh=TckXPuonbCjW3ll7vU9025NMYhL42FTH72OM8FtKwpE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Ahc8nFjDLL7o2iLbwtfdbWo00UjDDAj89Llx+8B8uCY1VnDQJHuGh9XEL6hJFDebL1IF4MjrGg6ADe+RQeBr+cds1+gHVvBgudUD43nSClVRcw9OO2gh1Y5a0ZojMcL9bhH/st7W7wvBf15iQvE/RJ/XUii/nURvFtx07x1qH5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BiiqCaip; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788883278; c=relaxed/simple;
+	bh=eonQwjnfTylx5nf+Z0eLclQat7oseADBCMWg0WIsjEg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lmmTvZptE0nHng2HSBuMDrWZ/8DQy+3AkEsH5g4Ip1tiWoUkHqYIVWUg+99pEDPSXdyLYSlqr94fqddiLFaQdg8wWzsujkAbh7AsCXsRAU5O97e0X0hi8UohPLRKh/7FS/6NmBlvqXdvQNLlzRSGjMZnfW49ZNQlaLhX+QkWvLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ieisQqqV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BiiqCaip"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 37F1E1A1A5A;
-	Tue,  8 Sep 2026 15:55:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0B41A6031F;
-	Tue,  8 Sep 2026 15:55:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 18B6111C7AF29;
-	Tue,  8 Sep 2026 17:55:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788882947; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=TckXPuonbCjW3ll7vU9025NMYhL42FTH72OM8FtKwpE=;
-	b=BiiqCaipRCamk0P+DqN11XxWdSy4g9gVvsyt5FfiOOlp5yNf2KIHo7imzk0DFw1h+2+CZW
-	/GhhUBzehC7Cx+qialfYsmDwJ9K2+qigt8EvXg+hj3OMtYyVWollUUprBYOv8WPpr3ZOKH
-	ilr/fRiu+9Hkqqgn1uMg3epX/WfaxgSWLcRJgbSH7YfTCLxIwrAaSjVzv7Xo4BCvR9fRH9
-	n7VPPfYD6lorWP/tTMdFLEck+0FVHA7JdBqaqEYH7Yum626QcbzsPvezTblfTvLzEcE5TB
-	R3E99OJFt0I0gK5v44auBg0T+kpbEGc3ww77arkQtiurLSnx3KlOFSiU6d633g==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Chen-Yu Tsai <wens@kernel.org>,  Jernej Skrabec
- <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,  Boris
- Brezillon <bbrezillon@kernel.org>,  linux-mtd@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v2] mtd: rawnand: sunxi: fit maximized ECC step to page
- size
-In-Reply-To: <CADvTj4rFxwgYZgKzcHZG738UV0_94gxG1Dhy--ET9jC=E1dgoA@mail.gmail.com>
-	(James Hilliard's message of "Tue, 8 Sep 2026 09:27:08 -0600")
-References: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
-	<87zexst5ze.fsf@bootlin.com>
-	<CADvTj4rFxwgYZgKzcHZG738UV0_94gxG1Dhy--ET9jC=E1dgoA@mail.gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 08 Sep 2026 17:55:44 +0200
-Message-ID: <87y0dbspof.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ieisQqqV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F651F00A3A;
+	Tue,  8 Sep 2026 16:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788883276;
+	bh=b/zczYjUm1o9A90ER1GkMq1ItUs03Oz9WOj/KNR/B5U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ieisQqqVXVt5AgDF/2B62hTvvnIU2RAYsg8b0ByBQTM7sg9ZDMDQtetrAmEJz5rPK
+	 +Dr4TxjqBglhyyo1ortm7SBat9MwU0/LlWFKSdfrzxLMtxOnBXDl3Js8BQLC5ifHCy
+	 UPML5wSxQPWlH5u47WxH8+0xbsOQgsg9UZ9bv1w9QgMxJAefB2BSVxih5G2lzkYrFh
+	 CZnaUCmx8xYoukbzDdxKjZbmHFDwSNbQ7svk5jjdq0tyG94OYWcu9Ntx7PGagibk9c
+	 pUelNfECaJzPB0bs9RUIo29GaaxvGlpNxuQOW36TfPu+S+UAuEiEjuPhuqK/ymBHR6
+	 BdVfRa2R420ZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ye Bin <yebin10@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/3] jbd2: use shrink_type type instead of bool type for __jbd2_journal_clean_checkpoint_list()
+Date: Tue,  8 Sep 2026 12:01:12 -0400
+Message-ID: <20260908160114.2547081-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090337-idiocy-unfocused-cf1f@gregkh>
+References: <2026090337-idiocy-unfocused-cf1f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-On 08/09/2026 at 09:27:08 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
+From: Ye Bin <yebin10@huawei.com>
 
-> On Tue, Sep 8, 2026 at 4:03=E2=80=AFAM Miquel Raynal <miquel.raynal@bootl=
-in.com> wrote:
->>
->> Hello James,
->>
->> On 04/09/2026 at 16:39:27 -06, James Hilliard <james.hilliard1@gmail.com=
-> wrote:
->>
->> > When nand-ecc-maximize is set, the driver unconditionally selects a
->> > 1024-byte ECC step. A NAND with a 512-byte page consequently produces
->> > zero ECC steps before the available OOB bytes are divided by the step
->> > count.
->> >
->> > The older sunxi NAND controllers support 512-byte ECC blocks. Select t=
-he
->> > smaller of the page size and the preferred 1024-byte step, using a
->> > 512-byte step for a 512-byte page while retaining 1024-byte steps for
->> > larger pages. Unsupported smaller steps and controllers without
->> > 512-byte support continue to be rejected by the existing checks.
->> >
->> > Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
->> > Cc: stable@vger.kernel.org
->> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
->>
->> As reported by Sashiko, there is another use of 1024 down the road which
->> must be modified accordingly. Although, in practice, 512-byte page NANDs
->> have disappeared for quite some time, so this is a theoretical fix more
->> than a real problem.
->
-> Does the v3 I sent look like it should work?:
-> https://lore.kernel.org/all/20260904-submit-sunxi-nand-ecc-step-validatio=
-n-v3-1-931cec317c10@gmail.com/
+[ Upstream commit 078760d950016f5982751f5512e69f26ad8feb31 ]
 
-Yes I think so.
+"enum shrink_type" can clearly express the meaning of the parameter of
+__jbd2_journal_clean_checkpoint_list(), and there is no need to use the
+bool type.
+
+Signed-off-by: Ye Bin <yebin10@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://lore.kernel.org/r/20240407065355.1528580-2-yebin10@huawei.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Stable-dep-of: f213e12ff5c9 ("jbd2: check need_resched() when skipping busy checkpoint buffers")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/jbd2/checkpoint.c | 16 +++++++++-------
+ fs/jbd2/commit.c     |  2 +-
+ include/linux/jbd2.h |  4 +++-
+ 3 files changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+index 10ce0b6b4ffa2..9fcc68884e262 100644
+--- a/fs/jbd2/checkpoint.c
++++ b/fs/jbd2/checkpoint.c
+@@ -367,8 +367,6 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ 
+ /* Checkpoint list management */
+ 
+-enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
+-
+ /*
+  * journal_shrink_one_cp_list
+  *
+@@ -505,21 +503,25 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+  * journal_clean_checkpoint_list
+  *
+  * Find all the written-back checkpoint buffers in the journal and release them.
+- * If 'destroy' is set, release all buffers unconditionally.
++ * If 'type' is SHRINK_DESTROY, release all buffers unconditionally. If 'type'
++ * is SHRINK_BUSY_STOP, will stop release buffers if encounters a busy buffer.
++ * To avoid wasting CPU cycles scanning the buffer list in some cases, don't
++ * pass SHRINK_BUSY_SKIP 'type' for this function.
+  *
+  * Called with j_list_lock held.
+  */
+-void __jbd2_journal_clean_checkpoint_list(journal_t *journal, bool destroy)
++void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
++					  enum shrink_type type)
+ {
+ 	transaction_t *transaction, *last_transaction, *next_transaction;
+-	enum shrink_type type;
+ 	bool released;
+ 
++	WARN_ON_ONCE(type == SHRINK_BUSY_SKIP);
++
+ 	transaction = journal->j_checkpoint_transactions;
+ 	if (!transaction)
+ 		return;
+ 
+-	type = destroy ? SHRINK_DESTROY : SHRINK_BUSY_STOP;
+ 	last_transaction = transaction->t_cpprev;
+ 	next_transaction = transaction;
+ 	do {
+@@ -560,7 +562,7 @@ void jbd2_journal_destroy_checkpoint(journal_t *journal)
+ 			spin_unlock(&journal->j_list_lock);
+ 			break;
+ 		}
+-		__jbd2_journal_clean_checkpoint_list(journal, true);
++		__jbd2_journal_clean_checkpoint_list(journal, SHRINK_DESTROY);
+ 		spin_unlock(&journal->j_list_lock);
+ 		cond_resched();
+ 	}
+diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
+index 6d02dcad8ffd7..33113c01f6fc6 100644
+--- a/fs/jbd2/commit.c
++++ b/fs/jbd2/commit.c
+@@ -535,7 +535,7 @@ void jbd2_journal_commit_transaction(journal_t *journal)
+ 	 * frees some memory
+ 	 */
+ 	spin_lock(&journal->j_list_lock);
+-	__jbd2_journal_clean_checkpoint_list(journal, false);
++	__jbd2_journal_clean_checkpoint_list(journal, SHRINK_BUSY_STOP);
+ 	spin_unlock(&journal->j_list_lock);
+ 
+ 	jbd2_debug(3, "JBD2: commit phase 1\n");
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index 5bf7ada754d79..e3d371565da85 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -1443,7 +1443,9 @@ void jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block);
+ extern void jbd2_journal_commit_transaction(journal_t *);
+ 
+ /* Checkpoint list management */
+-void __jbd2_journal_clean_checkpoint_list(journal_t *journal, bool destroy);
++enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
++
++void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum shrink_type type);
+ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal, unsigned long *nr_to_scan);
+ int __jbd2_journal_remove_checkpoint(struct journal_head *);
+ int jbd2_journal_try_remove_checkpoint(struct journal_head *jh);
+-- 
+2.53.0
 
