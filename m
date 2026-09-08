@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A8F58B6D4
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E195540AA
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907036; cv=none; b=d3lcQUoH6+4d8a9EbUnNuZAJnFPygDEvPInvQgpOAmASKT6zXCZ5o740K1MTfR7K/WGQjh0HY7VKyXJvw3YKsxIsptAjOl0BIbqP5iXAWet96ZvIOYvShiXwrtqGHDQ/zsam/l7ZDLcwZrKEccBqfHwSMwqb+NB6YghsTBZBVrg=
+	t=1788907039; cv=none; b=a6ESbfrhf/E9v/71VG3OApYvJxQb2TcUiYZSiZ5DPnlmlB0y8tODgJGK+QLUwF84/KxSNFQtm8tlrVf0zd7/mTms3EayxBjHJHcdvxd649ak299Q3x0DdUEQXPiGEZ7r1dn9LFuXQ5GeVvWzg6z1QTWNrejzMqqgVKby1oBz5JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907036; c=relaxed/simple;
-	bh=0c9jl79FowH1eiwLrDXpgp6lY/YWlYCZ5NnuCFC2ghE=;
+	s=arc-20240116; t=1788907039; c=relaxed/simple;
+	bh=X0Kbsx5lC0QnyfJgy8S9qiAaVBaA25rx7KdR9OQuL+w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PIEpOFjjOXLVnjcKGNST1ewIoyl6fVlT4lz5krq3sIKTvIG9T//xL9n2MIpaOfxYI3ZKCkkUD2KV3yY/HguGJsW1C3ioegsl3SiQ39v7cTRjmmIFYCasouYcirl0E1qKNyHMiCvmhXA73IU9TO5u/jiodfDoU44W7Qpr6F2pjsw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ae2fPcat; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qS3eowwLYaFv2f7qsKFi7HlzwCX0qjvZY1USzJV+K0nmCv0H6CVHzMBxiZg9aIh79sopFn7a6fiKiTj1PYSYvg+WGwDDOwnnHsBth502tQ5DHuF/ZanoNo4CUBbVM9YNzwE0+lNyDFhL5K38ZXetfOsIKCW06Zy1mthgBSzqF3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZH5EOQs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ae2fPcat"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D651F00A3A;
-	Tue,  8 Sep 2026 22:37:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZH5EOQs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F0C1F00A3F;
+	Tue,  8 Sep 2026 22:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907032;
-	bh=BEsQjlA6ctJNh3+quMoPC/q4qfTP2SZZpm0GwPCCIP0=;
+	s=k20260515; t=1788907034;
+	bh=mo7qQEQSaq0y8mLdW9CpJeD2U0NR1JcQJX5kstZCtrQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ae2fPcatVRRzJe4ir9RCpYFI0ykkQBqaxa0JrbphsW7Alff5cfN4n5lP6NpVChF46
-	 fSsW8iToGWEvcqKM4DnCemth3ysPux17iIU9Z3fa/WwwvDlMEq+qVStKuqRV/R3EQh
-	 JoIoTRTMyFySePBqUQMzxn4mIN2+lSK1Qspj2kn9D+ORXFGhWoXdjdp2mVF2ROHCpb
-	 scpVtXgRcPvBBc1P8DBPPTzkmCfrKFvi5lqELkHK/lMm/a+F14JRpQqBW6mhSVqfIn
-	 QZvP4uOAHoAQS9PoIFyFkNc4gv/UrYbsWDr4MsC6RRlnCopoMdpNJDdkkIyJbaNRuW
-	 DQRGRiJGFyPsA==
+	b=TZH5EOQs2PNed99lPfm7Aidd7ldg7t1l83Cip3fD3Q2mnQ6brUoA5Df10Kn/8BOGu
+	 u57yong1Ey6BsGWcTsP95u/L3Qgc7OnXr8VUP5UuJaKj67MzrR5bepAVai2dJV8bRa
+	 00DPUUhoM0BJ820LllERVKBbnVk+C/ExfhGYrrX3QD9GYFAHxtzqcmnnmCNDmeSjWJ
+	 cQSX+f39US/zknMaBYNgx5/YXX+ZgDc4TAfDmy17dFG7ZO0awWWKxsZpYFPWPimCD+
+	 9kiqxQ3+TnEGmBPj31HWGoRbvVYXGszadIvMs69VoNdZIgut74cbSJUMmk88XtFaa8
+	 wuxPMnPS+d5xw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: NeilBrown <neilb@suse.de>,
+Cc: Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/4] SUNRPC: move all of xprt handling into svc_xprt_handle()
-Date: Tue,  8 Sep 2026 18:37:07 -0400
-Message-ID: <20260908223710.506600-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] sunrpc: refactor pool_mode setting code
+Date: Tue,  8 Sep 2026 18:37:09 -0400
+Message-ID: <20260908223710.506600-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090350-breeze-repugnant-70de@gregkh>
+In-Reply-To: <20260908223710.506600-1-sashal@kernel.org>
 References: <2026090350-breeze-repugnant-70de@gregkh>
+ <20260908223710.506600-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,140 +46,163 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: NeilBrown <neilb@suse.de>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit e3274026e2ec69eec6ab51bc499e14bb548548d0 ]
+[ Upstream commit 5f71f3c325534da55dfda487a67208e2e0f0cd1b ]
 
-svc_xprt_handle() does lots of things itself, but leaves some to the
-caller - svc_recv().  This isn't elegant.
+Allow the pool_mode setting code to be called from internal callers
+so we can call it from a new netlink op. Add a new svc_pool_map_get
+function to return the current setting. Change the existing module
+parameter handling to use the new interfaces under the hood.
 
-Move that code out of svc_recv() into svc_xprt_handle()
-
-Move the calls to svc_xprt_release() from svc_send() and svc_drop()
-(the two possible final steps in svc_process()) and from svc_recv() (in
-the case where svc_process() wasn't called) into svc_xprt_handle().
-
-Signed-off-by: NeilBrown <neilb@suse.de>
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/svc_xprt.c | 53 ++++++++++++++++---------------------------
- 1 file changed, 20 insertions(+), 33 deletions(-)
+ include/linux/sunrpc/svc.h |  2 +
+ net/sunrpc/svc.c           | 85 ++++++++++++++++++++++++++++----------
+ 2 files changed, 66 insertions(+), 21 deletions(-)
 
-diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
-index 5cfe5c7408b74..5440d6b50efa5 100644
---- a/net/sunrpc/svc_xprt.c
-+++ b/net/sunrpc/svc_xprt.c
-@@ -784,7 +784,7 @@ static void svc_add_new_temp_xprt(struct svc_serv *serv, struct svc_xprt *newxpt
- 	svc_xprt_received(newxpt);
- }
+diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
+index 3d8b215f32d5b..d4558fefd9b4e 100644
+--- a/include/linux/sunrpc/svc.h
++++ b/include/linux/sunrpc/svc.h
+@@ -395,6 +395,8 @@ struct svc_procedure {
+ /*
+  * Function prototypes.
+  */
++int sunrpc_set_pool_mode(const char *val);
++int sunrpc_get_pool_mode(char *val, size_t size);
+ int svc_rpcb_setup(struct svc_serv *serv, struct net *net);
+ void svc_rpcb_cleanup(struct svc_serv *serv, struct net *net);
+ int svc_bind(struct svc_serv *serv, struct net *net);
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index 4d8d460747164..bf88a955920f2 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -72,57 +72,100 @@ static struct svc_pool_map svc_pool_map = {
+ static DEFINE_MUTEX(svc_pool_map_mutex);/* protects svc_pool_map.count only */
  
--static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
-+static void svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
+ static int
+-param_set_pool_mode(const char *val, const struct kernel_param *kp)
++__param_set_pool_mode(const char *val, struct svc_pool_map *m)
  {
- 	struct svc_serv *serv = rqstp->rq_server;
- 	int len = 0;
-@@ -825,11 +825,26 @@ static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
- 			len = xprt->xpt_ops->xpo_recvfrom(rqstp);
- 		rqstp->rq_reserved = serv->sv_max_mesg;
- 		atomic_add(rqstp->rq_reserved, &xprt->xpt_reserved);
-+		if (len <= 0)
-+			goto out;
-+
-+		trace_svc_xdr_recvfrom(&rqstp->rq_arg);
-+
-+		clear_bit(XPT_OLD, &xprt->xpt_flags);
-+
-+		rqstp->rq_chandle.defer = svc_defer;
-+
-+		if (serv->sv_stats)
-+			serv->sv_stats->netcnt++;
-+		percpu_counter_inc(&rqstp->rq_pool->sp_messages_arrived);
-+		rqstp->rq_stime = ktime_get();
-+		svc_process(rqstp);
- 	} else
- 		svc_xprt_received(xprt);
+-	int *ip = (int *)kp->arg;
+-	struct svc_pool_map *m = &svc_pool_map;
+-	int err;
++	int err, mode;
  
- out:
--	return len;
-+	rqstp->rq_res.len = 0;
-+	svc_xprt_release(rqstp);
- }
+ 	mutex_lock(&svc_pool_map_mutex);
  
- /**
-@@ -843,11 +858,9 @@ static int svc_handle_xprt(struct svc_rqst *rqstp, struct svc_xprt *xprt)
- void svc_recv(struct svc_rqst *rqstp)
- {
- 	struct svc_xprt		*xprt = NULL;
--	struct svc_serv		*serv = rqstp->rq_server;
--	int			len;
- 
- 	if (!svc_alloc_arg(rqstp))
--		goto out;
-+		return;
- 
- 	try_to_freeze();
- 	cond_resched();
-@@ -855,31 +868,9 @@ void svc_recv(struct svc_rqst *rqstp)
- 		goto out;
- 
- 	xprt = svc_get_next_xprt(rqstp);
--	if (!xprt)
+-	err = -EBUSY;
+-	if (m->count)
 -		goto out;
 -
--	len = svc_handle_xprt(rqstp, xprt);
--
--	/* No data, incomplete (TCP) read, or accept() */
--	if (len <= 0)
--		goto out_release;
--
--	trace_svc_xdr_recvfrom(&rqstp->rq_arg);
--
--	clear_bit(XPT_OLD, &xprt->xpt_flags);
--
--	rqstp->rq_chandle.defer = svc_defer;
--
--	if (serv->sv_stats)
--		serv->sv_stats->netcnt++;
--	percpu_counter_inc(&rqstp->rq_pool->sp_messages_arrived);
--	rqstp->rq_stime = ktime_get();
--	svc_process(rqstp);
-+	if (xprt)
-+		svc_handle_xprt(rqstp, xprt);
+ 	err = 0;
+ 	if (!strncmp(val, "auto", 4))
+-		*ip = SVC_POOL_AUTO;
++		mode = SVC_POOL_AUTO;
+ 	else if (!strncmp(val, "global", 6))
+-		*ip = SVC_POOL_GLOBAL;
++		mode = SVC_POOL_GLOBAL;
+ 	else if (!strncmp(val, "percpu", 6))
+-		*ip = SVC_POOL_PERCPU;
++		mode = SVC_POOL_PERCPU;
+ 	else if (!strncmp(val, "pernode", 7))
+-		*ip = SVC_POOL_PERNODE;
++		mode = SVC_POOL_PERNODE;
+ 	else
+ 		err = -EINVAL;
+ 
++	if (err)
++		goto out;
++
++	if (m->count == 0)
++		m->mode = mode;
++	else if (mode != m->mode)
++		err = -EBUSY;
  out:
--	return;
--out_release:
--	rqstp->rq_res.len = 0;
--	svc_xprt_release(rqstp);
+ 	mutex_unlock(&svc_pool_map_mutex);
+ 	return err;
  }
- EXPORT_SYMBOL_GPL(svc_recv);
  
-@@ -889,7 +880,6 @@ EXPORT_SYMBOL_GPL(svc_recv);
- void svc_drop(struct svc_rqst *rqstp)
+ static int
+-param_get_pool_mode(char *buf, const struct kernel_param *kp)
++param_set_pool_mode(const char *val, const struct kernel_param *kp)
++{
++	struct svc_pool_map *m = kp->arg;
++
++	return __param_set_pool_mode(val, m);
++}
++
++int sunrpc_set_pool_mode(const char *val)
++{
++	return __param_set_pool_mode(val, &svc_pool_map);
++}
++EXPORT_SYMBOL(sunrpc_set_pool_mode);
++
++/**
++ * sunrpc_get_pool_mode - get the current pool_mode for the host
++ * @buf: where to write the current pool_mode
++ * @size: size of @buf
++ *
++ * Grab the current pool_mode from the svc_pool_map and write
++ * the resulting string to @buf. Returns the number of characters
++ * written to @buf (a'la snprintf()).
++ */
++int
++sunrpc_get_pool_mode(char *buf, size_t size)
  {
- 	trace_svc_drop(rqstp);
--	svc_xprt_release(rqstp);
+-	int *ip = (int *)kp->arg;
++	struct svc_pool_map *m = &svc_pool_map;
+ 
+-	switch (*ip)
++	switch (m->mode)
+ 	{
+ 	case SVC_POOL_AUTO:
+-		return sysfs_emit(buf, "auto\n");
++		return snprintf(buf, size, "auto");
+ 	case SVC_POOL_GLOBAL:
+-		return sysfs_emit(buf, "global\n");
++		return snprintf(buf, size, "global");
+ 	case SVC_POOL_PERCPU:
+-		return sysfs_emit(buf, "percpu\n");
++		return snprintf(buf, size, "percpu");
+ 	case SVC_POOL_PERNODE:
+-		return sysfs_emit(buf, "pernode\n");
++		return snprintf(buf, size, "pernode");
+ 	default:
+-		return sysfs_emit(buf, "%d\n", *ip);
++		return snprintf(buf, size, "%d", m->mode);
+ 	}
  }
- EXPORT_SYMBOL_GPL(svc_drop);
++EXPORT_SYMBOL(sunrpc_get_pool_mode);
++
++static int
++param_get_pool_mode(char *buf, const struct kernel_param *kp)
++{
++	char str[16];
++	int len;
++
++	len = sunrpc_get_pool_mode(str, ARRAY_SIZE(str));
++
++	/* Ensure we have room for newline and NUL */
++	len = min_t(int, len, ARRAY_SIZE(str) - 2);
++
++	/* tack on the newline */
++	str[len] = '\n';
++	str[len + 1] = '\0';
++
++	return sysfs_emit(buf, str);
++}
  
-@@ -905,8 +895,6 @@ void svc_send(struct svc_rqst *rqstp)
- 	int status;
- 
- 	xprt = rqstp->rq_xprt;
--	if (!xprt)
--		return;
- 
- 	/* calculate over-all length */
- 	xb = &rqstp->rq_res;
-@@ -919,7 +907,6 @@ void svc_send(struct svc_rqst *rqstp)
- 	status = xprt->xpt_ops->xpo_sendto(rqstp);
- 
- 	trace_svc_send(rqstp, status);
--	svc_xprt_release(rqstp);
- }
+ module_param_call(pool_mode, param_set_pool_mode, param_get_pool_mode,
+-		 &svc_pool_map.mode, 0644);
++		  &svc_pool_map, 0644);
  
  /*
+  * Detect best pool mapping mode heuristically,
 -- 
 2.53.0
 
