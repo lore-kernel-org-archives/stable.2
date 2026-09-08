@@ -1,60 +1,60 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB812D0617;
-	Tue,  8 Sep 2026 08:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA7373FC5AE;
+	Tue,  8 Sep 2026 08:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857209; cv=none; b=iSWAV7lcV5w6OojZTmPbvUUafF0huG66isV90Iv9sK1N5ZXk+6SWWMwp9NZbSOB4j/IAhK/mRNyT04jni4YTvnBdqNEsAoOmNOBEqdvF2pfZVqWwr5uievCl9rxhTN0/78vs9k5E0Z+IuufP5ilbyfXwBEcqb089ObaYu7NPHw4=
+	t=1788857330; cv=none; b=a9Ozc8QmZsCKir8/7bpdwKgxX+evVDd8aoVxKaL3Zke998yhxkduobdTb1NlEXDOV+jGZqyK2BKUudkvN+w1+0BBdozClTDxGyYWMzcltcTXfxa0JisHt4LRA2TpKEqPGAkMgO0ToY9Tb3mj/2mZ7JfeKogRIN8XovEF2RlZUd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857209; c=relaxed/simple;
-	bh=vWWQ7RNVgHESkQKlSvBvHQLf/wBJQL3FVcJnYDu9KlE=;
+	s=arc-20240116; t=1788857330; c=relaxed/simple;
+	bh=MHaRWLvyO7rmj7G/UGWgwaeGtSRsZ2YdzenLG/NsuqI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=f5fCiulJtg0+puwRnQnUvJtamXVpTZ6/aOXJrrsLahUZyMdiMphm/aeiH6JO5Te1RHZ4U3itkraFsVbB5ym/Xvfb2DZcUjL8ACvgFpDYnSu4HfaKm1fjzoRmXL/nWnpi3Sv66VDIY06XY16xPcMAF1P9v3qKakBbjOiPMmvoxHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=rwrg/sOw; arc=none smtp.client-ip=148.163.158.5
+	 In-Reply-To:Content-Type; b=KyIHRsSQUsIHj9YJ/8lOdkTjIIFXM8extthIz1sS+WNCKeQp0/AsO3ZpZkG3Mh05NaxcETckwl7w+vArQ+opSI5kiRGys7YfJj4veiv8x7RxlGZhritPx2l8ce8/aDpoy7jVR+31pArG0D+ZwX4ynYmNuhMFCwkdLI8yvVtI134=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=iXK48SN/; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="rwrg/sOw"
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886Vea64125532;
-	Tue, 8 Sep 2026 08:46:25 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="iXK48SN/"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886VZM6065726;
+	Tue, 8 Sep 2026 08:48:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=OukIKj
-	JheiHb1Mp71qSgoz6oGaQ4KoVicLb4Eqf+VW4=; b=rwrg/sOwDJBsvs4xyWC2ot
-	zDMfdftYitxpxmM7a4REBQM+VpGhEJwUbxt5Ef4j/nDj5gFtylgH4svOLeIvXEbn
-	Ko+4jYvVtI7QYi/9RycD4kkKVMIG5hQLbg5hU86SG6BJvxljN1oRphNPkvGcoyBW
-	5bGA3Rp2QixS9dY0rKr0s8UTF33rhqbomw0vwN6VRQbdBNQjeXIvK4cuW5NdG6Wf
-	phF5KffJyqIY5AdMBxTVptHQnJ8S36ZHZ+qiCIft65MqLNpme0gHuypkrc8Szeeo
-	c7FCzETfWTt5U7Rg+SnN5dc7q5bz7Xp+D1f9skVQEzNGEXiFBkgbGpeKLtg+qYuA
+	:message-id:mime-version:references:subject:to; s=pp1; bh=7E/U+5
+	20FTb3oWHxFnA+5aRswaRPtZDdLqblUrfvZD8=; b=iXK48SN/EHC9r9p83PnEWR
+	5578ywmS9dUIKkIhxjTbcBPrYRG0L46V/9378b1zdrmIxi+U4TGUk6i26IYDJv5n
+	jAbDrm+yMpjxaWiWojrOV6p4G/wXMglq1KPXfjnbZiDbVgIKxu0UG+7VYL1bobHx
+	UcAWrj7WmByXCVMntHI6EPCJClmGYLGONP5rQJX83c8ESw4/hMGDNPVhf02MXHH2
+	gc2mZTql1PwPRtEKZ+jll4tJkIK985P8J5WvArvQP0LtNphP5N7DmmneqR/ukv+A
+	2cRClCU1laQ3W6FVSHDE2AlqGxQrOZiP980O3RoRTq4NV8H67hu0gyDTydk1vmiw
 	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj85f7k-1
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3wq12-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 08:46:25 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6888fEAp024624;
-	Tue, 8 Sep 2026 08:46:24 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03yag1e-1
+	Tue, 08 Sep 2026 08:48:35 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6888fD4m001864;
+	Tue, 8 Sep 2026 08:48:34 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgahtd-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 08:46:24 +0000 (GMT)
+	Tue, 08 Sep 2026 08:48:34 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6888kKhK29688270
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6888mVvC50725166
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 08:46:20 GMT
+	Tue, 8 Sep 2026 08:48:31 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9A2A020043;
-	Tue,  8 Sep 2026 08:46:20 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id E5CC620043;
+	Tue,  8 Sep 2026 08:48:30 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7B04720040;
-	Tue,  8 Sep 2026 08:46:18 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id EFC8420040;
+	Tue,  8 Sep 2026 08:48:27 +0000 (GMT)
 Received: from [9.123.3.64] (unknown [9.123.3.64])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  8 Sep 2026 08:46:18 +0000 (GMT)
-Message-ID: <7f072a9a-c656-4f79-a805-f90dee35bfde@linux.ibm.com>
-Date: Tue, 8 Sep 2026 14:16:17 +0530
+	Tue,  8 Sep 2026 08:48:27 +0000 (GMT)
+Message-ID: <95915e1b-8c4a-443b-a182-d3b6d1aee2b4@linux.ibm.com>
+Date: Tue, 8 Sep 2026 14:18:27 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,215 +62,178 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 5/8] powerpc/bpf: Move out dummy_tramp_addr after Long
- branch stub
-To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
+Subject: Re: [PATCH v13 3/8] powerpc/bpf: fix buffer overflow in JIT for large
+ BPF programs
+To: bot+bpf-ci@kernel.org, skb99@linux.ibm.com, bpf@vger.kernel.org,
         linuxppc-dev@lists.ozlabs.org
 Cc: maddy@linux.ibm.com, ast@kernel.org, andrii@kernel.org,
         daniel@iogearbox.net, shuah@kernel.org,
         linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
-        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
-References: <cover.1788154635.git.skb99@linux.ibm.com>
- <647e37d4e0049cc9c9a6977ac112a445f6ced6c8.1788154635.git.skb99@linux.ibm.com>
+        venkat88@linux.ibm.com, yeswanth@linux.ibm.com, martin.lau@kernel.org,
+        eddyz87@gmail.com, yonghong.song@linux.dev, mason@kernel.org,
+        ihor.solodrai@linux.dev
+References: <e5fc39c4f3340791bec5e7a92e1d146d3ed6296e.1788154635.git.skb99@linux.ibm.com>
+ <f073ec2085f90747a8909276f42726a0a0e12f99f8f81b0297dad05c4eec3667@mail.kernel.org>
 Content-Language: en-US
 From: Hari Bathini <hbathini@linux.ibm.com>
-In-Reply-To: <647e37d4e0049cc9c9a6977ac112a445f6ced6c8.1788154635.git.skb99@linux.ibm.com>
+In-Reply-To: <f073ec2085f90747a8909276f42726a0a0e12f99f8f81b0297dad05c4eec3667@mail.kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: dP32rPSy3aJnuhswsXMcLELoNvg8XxT5
-X-Proofpoint-ORIG-GUID: dP32rPSy3aJnuhswsXMcLELoNvg8XxT5
-X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6a9fcb61 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+X-Proofpoint-ORIG-GUID: rhqZ7V2K86tN8QD6rchidYx0-u6YPPOS
+X-Proofpoint-GUID: rhqZ7V2K86tN8QD6rchidYx0-u6YPPOS
+X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9fcbe3 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
- a=JCM8ehL5gn53L53ZUGAA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4OSBTYWx0ZWRfXzzAp6e9SzPZ6
- n0txbtOan/YbJCz/RI16FRpi7zxkWmpB5VBAsyx+1DnzbKmxloINldUHw3UGH6ylUBe4FmmWE2H
- nfewlhpBdJA0UawLz3NIFTCGboKBbno=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4OSBTYWx0ZWRfX6T3CTUyy971Q
- ouO8orilB3Grfxm/ZRuBGI6mPZ4GB0hixjfYPOZu3Atak6y/F7Dd9hb6ezoMB/Qx8CiUBb84mRn
- DC/dpJOuLjXMy+oXjZHsKg42AA+7bkDpb9Kq5Q1ojGmG6yQ31a3RZkiLIwF6RCqNwGM13fo2ayf
- hrqSY1vtDVXNcHIzLOKZ6Qo8DDICqqnjyaVIFko2MBrINyX8Vr1/NKOqtNP+GYwUJ2EnASoquWi
- t3iM5jR5mV8GrWqyUOlKAyiCzw8pjfnWGQ95UFhdimumjkg9RDFKaro8NpL9dkaE3gIjHjLR3oU
- OX0botNenMT5Og0/QkW+CMLXdsR9OF/llA9dOO1L6HsgF/UHf8jpVXkUDdjjQXOHZHCHs6H1eQy
- 3vp+QnRmljkPBkjsE1auB4MkStrPuYdO2z2jJhbni8uTAIIks6JJl7IgYRdxBgKiV4Sric8fWUC
- k8Cdq1E2azcMSECR4yA==
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=iFABrAoMAAAA:20 a=NEAV23lmAAAA:8 a=ncrf8N5XN8wjm0ew9NgA:9
+ a=QEXdDO2ut3YA:10 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4OSBTYWx0ZWRfX7B941Awaraky
+ LFOm8/bGC6iNHfhM1R2QHaXcIT15giNNcVoWcksuE9FmAo4XLENtjn6zcjqbyiqK+AITsnwOt39
+ 4dQYZ+CnmIbYMMoQIG6dhyl7GbksULORAhFdDQ8aie0yiJSk5VuHviafGrGEezUw4vA3T2MjT+n
+ EmSRDjwBYnuU0aSc+riqjh7lmtpw6H68V7jEW21zu5YZo5jJvJIgIsundaszqjN7le8+K3Z8VXG
+ RL2HvPSltnj69nRfJaZvwu4TPVPpNhg6A34bqE5l4RifU8Yr4rhLRwsxPMqa46ceKOokjlCP13Y
+ D06DNMQuceQ1TIO+4HOIoUcrBf/3eqllSBz7OA8o8Kyr9oD1YRwBlUHvksCP5CFQwu/JHW65szB
+ Tttr68BD+CZm352u7TvFg++2JnfMbrGShAXRkPXqmz84LBuLbg5yixFAKXi4/7GhBohfhbBlCLm
+ uKFijQOxo+8Ti0h7jGA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4OSBTYWx0ZWRfXxX1dSvhf54km
+ 7+ramZ9qQ03c+FjntJDIowz5+AlooHLg49qptPB/XwtfzZ5yuThAIJQT0FQTj5UzKlv0MK1Y+5C
+ bgDVIp+j/CE+PDskqGsqMnTkT5zopUM=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080089
 
 
 
-On 31/08/26 12:46 pm, Saket Kumar Bhaskar wrote:
-> From: Abhishek Dubey <adubey@linux.ibm.com>
+On 31/08/26 1:54 pm, bot+bpf-ci@kernel.org wrote:
+>>      Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
 > 
-> Move the long branch address field to the bottom of the long
-> branch stub. This allows uninterrupted disassembly until the
-> last 4/8 bytes. The last bytes exclusion is logically necessary to
-> prevent disassembly failure, otherwise the actual program layout
-> is never altered. Hence no effect on overall program size.
-> Also, align dummy_tramp_addr field with 8-byte boundary.
+> Does the Fixes: tag name the correct commit?
 > 
-> Following is disassembler output for test program with moved down
-> dummy_tramp_addr field:
-> .....
-> .....
-> pc:68    left:44     a6 03 08 7c  :  mtlr 0
-> pc:72    left:40     bc ff ff 4b  :  b .-68
-> pc:76    left:36     a6 02 68 7d  :  mflr 11
-> pc:80    left:32     05 00 9f 42  :  bcl 20, 31, .+4
-> pc:84    left:28     a6 02 88 7d  :  mflr 12
-> pc:88    left:24     14 00 8c e9  :  ld 12, 20(12)
-> pc:92    left:20     a6 03 89 7d  :  mtctr 12
-> pc:96    left:16     a6 03 68 7d  :  mtlr 11
-> pc:100   left:12     20 04 80 4e  :  bctr
-> pc:104   left:8      c0 34 1d 00  :
+> With Cc: stable@vger.kernel.org this fix will only reach v6.13+ and will
+> leave every stable tree from v5.18 to v6.12 carrying the same JIT buffer
+> overflow.
 > 
-> Failure log:
-> Can't disasm instruction at offset 104: c0 34 1d 00 00 00 00 c0
-> Disassembly logic can truncate at 104, ignoring last 8 bytes.
+> The faulty logic predates d243b62b7bd3. Looking at the parent of that commit:
 > 
-> Update the dummy_tramp_addr field offset calculation from the end
-> of the program to reflect its new location, for bpf_arch_text_poke()
-> to update the actual trampoline's address in this field.
+> git show d243b62b7bd3^:arch/powerpc/net/bpf_jit_comp.c
 > 
-> All BPF trampoline selftests continue to pass with this patch applied.
+> already contains the exact code being fixed:
+> 
+>      if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
+>              PPC_JMP(exit_addr);
+>      } else if (ctx->alt_exit_addr) {
+>              if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
+>                      return -1;
+>              PPC_JMP(ctx->alt_exit_addr);
+>      } else {
+>              ctx->alt_exit_addr = ctx->idx * 4;
+>              bpf_jit_build_epilogue(image, ctx);
+>      }
+> 
+> The real introducing commit is 0ffdbce6f4a89bb7c0002904d6438ec83cf05ce7
+> ("powerpc/bpf: Handle large branch ranges with BPF_EXIT"), merged in v5.18-rc1
+> (git describe --contains: v5.18-rc1~124^2~42). It created
+> bpf_jit_emit_exit_insn() with the '!exit_addr' early-out and replaced the
+> previous unconditional one-instruction emission:
+> 
+>      -               if (i != flen - 1)
+>      -                       PPC_JMP(exit_addr);
+>      +               if (i != flen - 1) {
+>      +                       ret = bpf_jit_emit_exit_insn(image, ctx, b2p[TMP_REG_1], exit_addr);
+> 
+> Before 0ffdbce6f4a8 a non-final BPF_EXIT always cost exactly one instruction in
+> every pass, so the sizing pass could not under-count and no overflow was
+> possible. After it, the sizing pass emits PPC_JMP(0) (1 instruction) while
+> later passes may emit a full inline epilogue, which is precisely the
+> under-count described in this commit message.
+> 
+> The commit d243b62b7bd3 only enlarged the epilogue (it added
+> bpf_jit_build_fentry_stubs()), making an already-existing overflow bigger.
+> 
+> Citing the ppc64-trampoline commit also wrongly implies PPC32 is unaffected.
+> The commit 0ffdbce6f4a8 made the identical change to
+> arch/powerpc/net/bpf_jit_comp32.c, so 32-bit powerpc has the same bug over the
+> same range.
+> 
+> A tag survey confirms the range: 'alt_exit_addr' has 0 occurrences in
+> arch/powerpc/net/ at v5.16 and v5.17, and 5 occurrences at v5.18, v5.19, v6.0,
+> v6.1 and v6.6.
 > 
 
-This makes it easy to disassemble the bpf programs. Looks good.
+> Should the tag be:
+> 
+>    Fixes: 0ffdbce6f4a8 ("powerpc/bpf: Handle large branch ranges with BPF_EXIT")
+> 
 
-Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
+True. The current fixes tag is not correct.
 
-> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+>> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+>> index 8f7501954d9f0..11981d2270a9d 100644
+>> --- a/arch/powerpc/net/bpf_jit_comp.c
+>> +++ b/arch/powerpc/net/bpf_jit_comp.c
+>> @@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>>
+>>   int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+>>   {
+>> -	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
+>> +	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+>>   		PPC_JMP(exit_addr);
+>> -	} else if (ctx->alt_exit_addr) {
+>> -		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
+>> -			return -1;
+>> +	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
+>> +			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+>                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>>   		PPC_JMP(ctx->alt_exit_addr);
+> 
+> With alt_exit_addr defined as unsigned int, does the expression
+> (long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4) produce a different result
+> than (long)ctx->alt_exit_addr - (ctx->idx * 4) due to how integer promotion
+> works?
+> 
+> In v7 review, Hari Bathini pointed out that the cast placement may affect
+> integer promotion semantics and requested restoring the earlier syntax with the
+> cast only on alt_exit_addr:
+> 
+> https://lore.kernel.org/bpf/038a115b-e2a5-4ecf-82b1-3689535e986b@linux.ibm.com
+> 
+> While the current code has passed testing, the concern about integer promotion
+> semantics was never explicitly addressed.
+> 
+> [ ... ]
+> 
+>> @@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
+>>   	u32 *fixup;
+>>
+>>   	/* Populate extable entries only in the last pass */
+>> -	if (pass != 2)
+>> +	if (pass < CODEGEN_MIN_PASSES)
+>>   		return 0;
+> 
+> Does the comment still match the code?
+> 
+> With the old 'if (pass != 2)' and a fixed two-pass loop, pass 2 was the last
+> pass, so the comment was accurate. With the new loop and 'pass <
+> CODEGEN_MIN_PASSES', both pass 2 and pass 3 can write extable entries, so
+> entries are populated in every pass from 2 onwards, not only in the last one.
+> 
+> Also, CODEGEN_MIN_PASSES is being reused here with a different meaning. In
+> arch/powerpc/net/bpf_jit.h it documents the minimum number of code-generation
+> passes, but here it is used as 'the first pass in which extable entries are
+> valid'. The two are logically independent - bumping CODEGEN_MIN_PASSES to 3 to
+> force more settling iterations would silently stop extable entries being
+> written in pass 2.
+> 
+> 
 > ---
->   arch/powerpc/net/bpf_jit_comp.c | 44 ++++++++++++++++++---------------
->   1 file changed, 24 insertions(+), 20 deletions(-)
+> AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+> See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 > 
-> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-> index 8ca36a933c7a..c2717f0d9cdd 100644
-> --- a/arch/powerpc/net/bpf_jit_comp.c
-> +++ b/arch/powerpc/net/bpf_jit_comp.c
-> @@ -52,19 +52,19 @@ asm (
->   void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
->   {
->   	int ool_stub_idx, long_branch_stub_idx;
-> -	int ool_stub_sz;
-> +	int stub_sz;
->   
->   	/*
-> +	 * The dummy_tramp_addr field is placed at bottom of Long branch stub.
->   	 * Align the mis-aligned dummy_tramp_addr field in the fimage.
->   	 * The alignment NOP must appear before OOL stub, to make
->   	 * ool_stub_idx & long_branch_stub_idx constant from end.
->   	 *
->   	 * The fimage can be non 8-byte aligned, so final alignment depends
-> -	 * on start of fimage and the stub's instruction count offset. The
-> -	 * OOL stub size is 4 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
-> -	 * or 3 instructions (without) before dummy_tramp_addr.
-> -	 *
-> -	 * Emit a NOP here if address is not SZL aligned.
-> +	 * on start of fimage and the stub's instruction count. The
-> +	 * stubs block has 11 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
-> +	 * or 10 instructions (without) before dummy_tramp_addr field. Emit a
-> +	 * NOP if the address of dummy_tramp_addr is non aligned.
->   	 *
->   	 * In pass=0 when image==NULL, conservatively account for space
->   	 * required to accommodate alignment NOP. In case final pass skips
-> @@ -72,8 +72,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
->   	 * jited_len signifies correct program size.
->   	 */
->   
-> -	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
-> -	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
-> +	stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 44 : 40;
-> +	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + stub_sz, SZL))
->   		EMIT(PPC_RAW_NOP());
->   
->   	/*
-> @@ -94,28 +94,29 @@ void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context
->   
->   	/*
->   	 * Long branch stub:
-> -	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
->   	 *	mflr	r11
->   	 *	bcl	20,31,$+4
-> -	 *	mflr	r12
-> -	 *	ld	r12, -8-SZL(r12)
-> +	 *	mflr	r12	// lr/r12 stores pc of current(this) inst.
-> +	 *	ld	r12, 20(r12) // offset(dummy_tramp_addr) from prev inst. is 20
->   	 *	mtctr	r12
-> -	 *	mtlr	r11 // needed to retain ftrace ABI
-> +	 *	mtlr	r11	// needed to retain ftrace ABI
->   	 *	bctr
-> +	 *	.long	<dummy_tramp_addr>  // SZL bytes aligned
->   	 */
-> -	if (image)
-> -		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
-> -
-> -	ctx->idx += SZL / 4;
->   	long_branch_stub_idx = ctx->idx;
->   	EMIT(PPC_RAW_MFLR(_R11));
->   	EMIT(PPC_RAW_BCL4());
->   	EMIT(PPC_RAW_MFLR(_R12));
-> -	EMIT(PPC_RAW_LL(_R12, _R12, -8-SZL));
-> +	EMIT(PPC_RAW_LL(_R12, _R12, 20));
->   	EMIT(PPC_RAW_MTCTR(_R12));
->   	EMIT(PPC_RAW_MTLR(_R11));
->   	EMIT(PPC_RAW_BCTR());
->   
-> +	if (image)
-> +		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
-> +
-> +	ctx->idx += SZL / 4;
-> +
->   	if (!bpf_jit_ool_stub) {
->   		bpf_jit_ool_stub = (ctx->idx - ool_stub_idx) * 4;
->   		bpf_jit_long_branch_stub = (ctx->idx - long_branch_stub_idx) * 4;
-> @@ -1309,6 +1310,7 @@ static void do_isync(void *info __maybe_unused)
->    * bpf_func:
->    *	[nop|b]	ool_stub
->    * 2. Out-of-line stub:
-> + *	nop	// optional nop for alignment
->    * ool_stub:
->    *	mflr	r0
->    *	[b|bl]	<bpf_prog>/<long_branch_stub>
-> @@ -1316,14 +1318,14 @@ static void do_isync(void *info __maybe_unused)
->    *	b	bpf_func + 4
->    * 3. Long branch stub:
->    * long_branch_stub:
-> - *	.long	<branch_addr>/<dummy_tramp>
->    *	mflr	r11
->    *	bcl	20,31,$+4
->    *	mflr	r12
-> - *	ld	r12, -16(r12)
-> + *	ld	r12, 20(r12)
->    *	mtctr	r12
->    *	mtlr	r11 // needed to retain ftrace ABI
->    *	bctr
-> + *	.long	<branch_addr>/<dummy_tramp>
->    *
->    * dummy_tramp is used to reduce synchronization requirements.
->    *
-> @@ -1425,10 +1427,12 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
->   	 * 1. Update the address in the long branch stub:
->   	 * If new_addr is out of range, we will have to use the long branch stub, so patch new_addr
->   	 * here. Otherwise, revert to dummy_tramp, but only if we had patched old_addr here.
-> +	 *
-> +	 * dummy_tramp_addr moved to bottom of long branch stub.
->   	 */
->   	if ((new_addr && !is_offset_in_branch_range(new_addr - ip)) ||
->   	    (old_addr && !is_offset_in_branch_range(old_addr - ip)))
-> -		ret = patch_ulong((void *)(bpf_func_end - bpf_jit_long_branch_stub - SZL),
-> +		ret = patch_ulong((void *)(bpf_func_end - SZL), /* SZL: dummy_tramp_addr offset */
->   				  (new_addr && !is_offset_in_branch_range(new_addr - ip)) ?
->   				  (unsigned long)new_addr : (unsigned long)dummy_tramp);
->   	if (ret)
+> CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33368376983
 
