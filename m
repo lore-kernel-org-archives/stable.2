@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA01534460
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21DD3CC7DB
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872123; cv=none; b=shVdmsdH8iB/dNUFEzxxECDwYDJ27giGoCBCczB6wXKvxDWFMvJulLKtg7Q0AdUJGvZP3fomB+WQk/8x1S2OnxvoOoyAgIoeRtRZGtVuVw3QS6f1bRAHVE3GU93DdWM09zrobs/e6P/ofQEBAPYj+vIUXtlr56hYWCPaJ8vgvBs=
+	t=1788872127; cv=none; b=CykCwDdgVbl1J3eCFFVOeBXwq+4HSEXUwDx2FdXKwJzaHGAfA2RhMsW86qnW2L4jStE5GfUPMH+rkHkAMWrSw4MmnNHHct8eF3W4JwkBJDVgjPeTmoY1bWJ3XW7rq9mAnxKM3/c5hJTwRJqR9iZdrtNdTyDkjbgQEvSZdzg6gdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872123; c=relaxed/simple;
-	bh=AJ30bO6Pk3QEtFomHlxznCvfy2V095sj1NpRtW0H0dc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QPYQJ3hmq0xkA+1lr7NQ/nOk9DHZUMWXx6bJDaRHm/dJ7SgzHQvbBumJ+qwpZdUpA3stvCFIpczIBnUvbRGco9SjXHVyvWn/3mqSXRWbqvEFJzkstXq+PMXTTDRXVdfoXTgqS0GbP5BTb1LBMWizk9cmClQUqNI9yZECVxYkb5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XePcjfmI; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XePcjfmI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9146C1F00A3A;
-	Tue,  8 Sep 2026 12:55:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872122;
-	bh=bjtDwPJb+Zxbw54DEiBvR6lVZavjaaXwCwyTmRTGP8s=;
-	h=Subject:To:Cc:From:Date;
-	b=XePcjfmIyy3SpVMhmEqjhjhCpyuzm/Xi90+Kgbt3bDNX126liJvRm22zbyyIHAVAw
-	 f0yTPkW3WNQRfL8S1ZcEB0IDGgwdtFI+oD1O/szN2iC+CiR9IAy6oHImi8UuyFxNEj
-	 vgzjCH2kPdTvllf0IDUdAPk0KXZdV4Yiw9QH5s54=
-Subject: FAILED: patch "[PATCH] spi: bcm63xx: disable clock on resume failure" failed to apply to 5.15-stable tree
+	s=arc-20240116; t=1788872127; c=relaxed/simple;
+	bh=GsxiatRSpuhw+raPU+81ENbEMxgcOzEi62yS/d2IX3M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hTyraRTYrx5/pLTfziIN0yyG28UOdD8foVUhwWp+Uhk8Jnwme81r9itGj3We/mnPJ7IBq7TlhFlB9opHKu+NuHFvVyeK8kTeZhKAtohh1SKwyyMpANPqhd2loShpKoBZ2jP/GQyUyWtEHF2s5vyVHn+vgh4EWYZhy5Akiqh1tEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDA7B1F00A3A;
+	Tue,  8 Sep 2026 12:55:24 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] spi: bcm63xx: disable clock on resume failure" failed to apply to 5.10-stable tree
 To: pengcan@kylinos.cn,broonie@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:46:43 +0200
-Message-ID: <2026090843-affiliate-underfed-18c3@gregkh>
+Message-ID: <2026090843-quintet-dyslexic-a9ee@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2b62c2c134fa32d9d3a9e7323c8ac74518eeb4ac
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090843-affiliate-underfed-18c3@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090843-quintet-dyslexic-a9ee@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
