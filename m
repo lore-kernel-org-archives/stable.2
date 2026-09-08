@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C2A4B2CD7;
-	Tue,  8 Sep 2026 14:14:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC6FC5592F2;
+	Tue,  8 Sep 2026 14:14:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876892; cv=none; b=OTvFrwIv2OCX3DSSBH157v0OkOWTcWc+raAM8BzIx3XNRrmFLkGP9ILptEc5HHlUT1Dne7/YDqXGrIE/ulYfvwBJmnKv3PErOO088C8SGJxw69Xgl9QEJkpiyJLvO5D8KnWKlNNrh3vtvSTjRgJ3AalXRX71q8wSMnXbb5P8I3g=
+	t=1788876899; cv=none; b=d1AdCDwadygazcQ+wF4DGgDp8N8JLUqsJwJp88c4TmXeDepZugKmS4jC4fuvC9SJ/izcBvs37bA5Ii35LI6+gdf9lhEpCHTxApV96I/o+P/vN48kLB6EJPexOpdifCTId6zvP5604nVT/gSkYI/5AgHiRZNgTnPLe1jru3HLdOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876892; c=relaxed/simple;
-	bh=rDbSGSAmVFbg0E1fLJuj2J9IXWeWyHNTwxjz99I+YJg=;
+	s=arc-20240116; t=1788876899; c=relaxed/simple;
+	bh=OmxkKtnPfRqO9xltx7TfPbE3UpbCFtxyGe+KZ4x0R0o=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gHrgVF0Bax6M7y7cIfgquNZX6vsfI77nj+x4D06X7bgzbSIXFtfipE7i+S3EfBc1d8FknpnbJbXvKLzXL6STrzzYlbB9n6hjVANgTMPDI96veFsA3Vokn3fHsUenei6cdtzP+XioFgqNsEGaLX7WRigYsyPPuv38O+oEc5GQySk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MU0ApHEW; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Zl0N5cqpTtLu1oa6Glh0cjcHOthibuBbcK/l2BZ3PoD72CqRI6QlR+d4fEhANuOvJJsIXPP8Oo4bFlBBNAK7G0yADRKa3GePeJhIHCGM/NWP7pHWOZ5XqmHuymQ1cgsqPcM7kZQCjNc3c4gIzHyh0wfHW7QHhBRgBl7PJSAAJS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bBVvjnQC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MU0ApHEW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B921F00A3E;
-	Tue,  8 Sep 2026 14:14:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bBVvjnQC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9497F1F00ACA;
+	Tue,  8 Sep 2026 14:14:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788876877;
-	bh=zr04WX9th+houH+FrgG3Exh8ghBTSa1pugxeGkEkLuQ=;
+	s=k20260515; t=1788876888;
+	bh=J5n7TEwTvtd6j21kll5N09DmPU5cpF80L1q4Ks6P+2g=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MU0ApHEWWaK64ETlIc2Aw3tiSFKFaoJt16hfHpBZuCyDGV7dgXJFOprXtYFynTb8M
-	 TDC6sOyN6E9zItE5n9a0/MywJJHNaaEa4KUWFpb8A3A34Df8/gytelGmmob+xyjxT3
-	 Rf6Tll7DSJn3y1Mc5uBRT9+15eJPbxUm2HiWFxtvLLOI+JfCZWLcuSOUDnITytZAAC
-	 is6EAmeY24mywRhrQp/CZ7Qdl2T+78wSzz1nAWYshv6oKKTqZ/21t1Hup6uji7r2Ah
-	 fyqTQrgzh704aowWaYViVGNv2oDbR44DWKkLY8+3IThyfdyOh69ak1ztmSyRmT8LQi
-	 fTmH+flhdFv2w==
+	b=bBVvjnQCpYpxu+anQue11xodoKMgxZUYRkCq3tQF8AzoKI8sEUcwlwuALwdUCzNHB
+	 /KqlGBUcgscFq0cVGPTz3XpD/MUQQi3ZLJcuz5jC6UIO6dhvLsydTD5nee4dIf3ZtN
+	 MeykLkUQ8hlLJJR+szlzd+R6WB5ghyhA39Z+b7UtARmYsJd+mLJ06vdbZwE1VJ3dOV
+	 Pypvl69xYoh7b4Sq49nALBRxaMdiQ9LwRm3izxLC/6kKWSPEaHyCzbByAfPaHqOWx6
+	 EoambclvHlMh2A+9x+PWXZpgO1FVddnE+fUI1/M70TzsfnLnC7pY4ldlONETH8q/S7
+	 ktpR//sF3o8Ng==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 08 Sep 2026 16:07:14 +0200
-Subject: [PATCH net v2 09/15] mptcp: pm: reset retrans_time when ADD_ADDR
- entry is reused
+Date: Tue, 08 Sep 2026 16:07:18 +0200
+Subject: [PATCH net v2 13/15] mptcp: options: fix uninit-value in
+ mptcp_write_data_fin
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-9-df1de70348b6@kernel.org>
+Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-13-df1de70348b6@kernel.org>
 References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,52 +47,58 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- stable@vger.kernel.org, Kishen Maloor <kishen.maloor@intel.com>
+ stable@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Keita Morisaki <kmta1236@gmail.com>, Jakub Sitnicki <jakub@cloudflare.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1373; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=rDbSGSAmVFbg0E1fLJuj2J9IXWeWyHNTwxjz99I+YJg=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSOgKerSa9qp1LGBZ33pZMchO61vyKoYdgmrvCpS3L
- Ff1X8rSUcrCIMbFICumyCLdFpk/83kVb4mXnwXMHFYmkCEMXJwCMBG25YwM17ff3tvZIvf+lznD
- wYJFLKsvXXs+13JfweVHxyOvT1rzlonhf7GywLH3OXPqfDzOLBZi8FNJqApNvVkg1GT4yGx+cdc
- GZgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1873; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=OmxkKtnPfRqO9xltx7TfPbE3UpbCFtxyGe+KZ4x0R0o=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSBhuEKuasmeT3z4dh/f66YK3P9wJXdMmuNGgJVfur
+ Qq3dqBCRykLgxgXg6yYIot0W2T+zOdVvCVefhYwc1iZQIYwcHEKwETK7zP8z11+s+HHhi0dPPOf
+ TZjkK8o/Y66e55uoPxG7ix4Zqt5a28DIcPtib8jejWqsQdqHD/+9kuLN+Zz3xcc6u2lVYXMM8pX
+ eswIA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-When an ADD_ADDR entry is reused, the timer is re-armed, because the
-goal is to re-announce an ADD_ADDR, and eventually retransmit it if
-needed.
+When sending a DATA_FIN without data, and because the DATA_FIN occupies
+1 octet of the connection-level sequence space [1], it is then required
+to add a DSS mapping with specific values.
 
-In this case, the retransmission counter should be reset as well, so the
-re-announced address gets its retransmissions back instead of relying on
-what was left before, and possibly not being able to retransmit it.
+If the checksum has been negotiated, it also needs to be computed, and
+included in the outgoing packet, and thus the initial csum data needs to
+be reset to 0 as well. This is no longer the case since commit
+cfcceb7a39fc ("tcp: shrink per-packet memset in __tcp_transmit_skb()"),
+because the whole ext_copy structure is no longer zeroed by default.
 
-Fixes: 304ab97f4c7c ("mptcp: allow ADD_ADDR reissuance by userspace PMs")
+This seems to be the only case where use_map is changed and set
+afterwards, so initialising the csum field only in this case, along with
+other fields for this specific case.
+
+Fixes: cfcceb7a39fc ("tcp: shrink per-packet memset in __tcp_transmit_skb()")
 Cc: stable@vger.kernel.org
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664%40kernel.org?part=4
-Reviewed-by: Mat Martineau <martineau@kernel.org>
+Link: https://datatracker.ietf.org/doc/html/rfc8684#section-3.3.3 [1]
+Link: https://sashiko.dev/#/patchset/20260812-net-next-mptcp-misc-feat-7-3-v1-0-1905a818f6cb%40kernel.org?part=2
+Reviewed-by: Geliang Tang <geliang@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Cc: Kishen Maloor <kishen.maloor@intel.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Keita Morisaki <kmta1236@gmail.com>
+Cc: Jakub Sitnicki <jakub@cloudflare.com>
 ---
- net/mptcp/pm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ net/mptcp/options.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/mptcp/pm.c b/net/mptcp/pm.c
-index 8b68868255c5..b0b71adefb8f 100644
---- a/net/mptcp/pm.c
-+++ b/net/mptcp/pm.c
-@@ -462,10 +462,10 @@ bool mptcp_pm_announced_alloc(struct mptcp_sock *msk,
- 
- 	add_entry->addr = *addr;
- 	add_entry->sock = msk;
--	add_entry->retrans_times = 0;
- 
- 	timer_setup(&add_entry->timer, mptcp_pm_add_addr_timer, 0);
- reset_timer:
-+	add_entry->retrans_times = 0;
- 	add_entry->timer_done = false;
- 	timeout = mptcp_adjust_add_addr_timeout(msk);
- 	if (timeout)
+diff --git a/net/mptcp/options.c b/net/mptcp/options.c
+index 196a46e7467d..ce0de02f5a3a 100644
+--- a/net/mptcp/options.c
++++ b/net/mptcp/options.c
+@@ -612,6 +612,7 @@ static void mptcp_write_data_fin(struct mptcp_subflow_context *subflow,
+ 		ext->data_seq = data_fin_tx_seq;
+ 		ext->subflow_seq = 0;
+ 		ext->data_len = 1;
++		ext->csum = 0;
+ 	} else if (ext->data_seq + ext->data_len == data_fin_tx_seq) {
+ 		/* If there's an existing DSS mapping and it is the
+ 		 * final mapping, DATA_FIN consumes 1 additional byte of
 
 -- 
 2.55.0
