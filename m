@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A43434984
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 878CF491595
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895725; cv=none; b=l6MgjB4JscsQ3FCU4dOWbPNS9iRcWeEqNAMfEwQQ4W6L11xu+Cwh8JFZfBnSkwtWKEfQ3IM/9xXpWdd3Esyxe4UJpquXqbUi8fWKnh9z1yWA6yahbtdUqFlQX8jAUCoerTZhK9tkpkRYQGmq5yBQI2OWmHLNEk7q2Nd7p4WIJoA=
+	t=1788895724; cv=none; b=hpBeg1wiCYr7Pkfy4TfqZ9XsIzMDIfD2nO3LtGgBUuPKXuUpyhavCayyCX2US+ltFW0vQ6dI6haRVSR9QZX44RFfrD9lHMPutAU/y/bAdfXBsuyHkmYPV3br2ZStnM/zm+SwBrS9RBG4sAJXrCarBQ4se9QyYeaVv8RK3y7z+5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895725; c=relaxed/simple;
-	bh=3tMcT998QZrFv09yR5cjwZBhrc8pAzhOjhzcbVAKz0U=;
+	s=arc-20240116; t=1788895724; c=relaxed/simple;
+	bh=q2ekKS0yTrIqcyKxn7zrvmnWYa0VbPEiMqNAoeJehZw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bUFKXFGwZyPZALzZ6TkCBm3yhalIjFSAyuNB3qoGbAEm+AvKRxj2TZolM+yQZ6n/xJzGoyvQ+Me3jeICJZwB0vtxN8QWFHugU2M7JNhWlAkDwpfLULsMOD/uNY36taFEtmZ/Qb0FMI5mp1B3Ipa9ttewvabzlP7Yq8VRNr5PcXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBWYPjBq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jCQRtvH81rv9nI31AQdHHBFVdZ/ymXevU32IcOxZjGQru+iBTAy04A4MuuagBZ+Po+39c15pRERTu8EzU+0W1vSitWQOrPCa9FmensiqEq95JGMWvW+CQiULZQ2uHmh2aFy/gMxJ6VfMZSLtD3XLcCOWSaARAwhJExKfndYUfdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IOkatqQp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBWYPjBq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465FC1F00A3D;
-	Tue,  8 Sep 2026 19:28:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IOkatqQp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703A01F01558;
+	Tue,  8 Sep 2026 19:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788895716;
-	bh=crpqPHN0+cMmMHjaOWOffv20skx3aBPUFY/pGlNem8s=;
+	bh=gXkdZmaBF2xA3E7upL6htvr/B6IuiTxGGjxNOmvc51Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mBWYPjBqhBdoEmtzWd23IAW6rvCPguD01QJrrp+Zbf2GeBSfrLrYNjP0iicnRLb7W
-	 Pk6S1aumQ/Y5uUMNJaCAmJOoMpgwo9bWMs847Xt9cTAwRC2//F0Ii1/bYQJ0vlm+ju
-	 0VI8BqxAuF08Gw2l60zwO8nB1PYdUYqQFAPF5b5F95lDU+fERMQH37huthXMlX+Vhc
-	 vpAaaEbW4TQwIFhWhFRmP5dN6QNtjKzPX0rVqURqFa8oWd1xAP6m6iJzc3i1n6rwlv
-	 B/ChswH9SuHUD8u8nvlsIJOW3NE197fC8YYewYC90jJkrsGt0NS1tGsW7XE7/FHzfl
-	 ao/nAdUYAe3Hg==
+	b=IOkatqQpz+DXDHo961IIClOT96GoCq+Rh31mnIFDkvTtosWuuV8KFBO0HfXDC4+Kt
+	 x0Lf0cg0roVg7gCEOtMa1hapiQEsKiqy1RDYV3NCln9U6bQgJY7SncIVzYpMX6XgIR
+	 4fOJReH2bWcKUqlUlW1g1DohdHOw9Kh5tGKbT5Ycs3GXGDNcagZMUSsK+N1D6cNhs1
+	 rij2yEtK0tjK4OJ6ELl9l77DDziIb86nqjtSCxiVe17vEHGfIUCKK/8n5LWhWxQaKB
+	 1vZzJTwBoOz1n+nIKJJokFHC7JHH4aExcoUVjukLqIvHRGOiiibxb1MGm1jGzk9nm4
+	 gNWbW0Ig43vEA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhiling Zou <zhilinz@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] ip: orphan prefetched skbs before multicast forwarding
-Date: Tue,  8 Sep 2026 15:28:32 -0400
-Message-ID: <20260908192832.296634-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] ipv6: ip6_mc_input() and ip6_mr_input() cleanups
+Date: Tue,  8 Sep 2026 15:28:31 -0400
+Message-ID: <20260908192832.296634-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908192832.296634-1-sashal@kernel.org>
 References: <2026090318-pusher-lucid-87ba@gregkh>
@@ -48,70 +47,127 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhiling Zou <zhilinz@nebusec.ai>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit e36ce6e78fe3fc3c071a26750783b7ba081ce10d ]
+[ Upstream commit 46a94e44b9ec4d8d20108a1748c410d71a8dc759 ]
 
-IPv4 and IPv6 input preserve an skb->sk association installed by
-bpf_sk_assign() so that local delivery can use the selected socket under
-RCU. Both address families can also prefetch a socket in UDP early demux.
-In both paths (BPF and UDP early demux) a reference is not guaranteed to
-be held on the socket.
+Both functions are always called under RCU.
 
-When a multicast packet is not locally deliverable, IPv6 hands the
-original skb to ip6_mr_input(). IPv4's ip_mr_input() similarly keeps the
-original skb when local delivery is not needed. Either path can put the
-skb on an unresolved multicast route queue or forward it after the
-receive-side RCU section ends.
+We remove the extra rcu_read_lock()/rcu_read_unlock().
 
-After the prefetched socket is destroyed, a later skb free invokes
-sock_pfree() and dereferences the stale skb->sk. Orphan the skb before
-each non-local multicast forwarding path. Local delivery retains the
-original skb; the existing skb_clone() calls provide multicast forwarding
-with a socket-free clone.
+We use skb_dst_dev_net_rcu() instead of skb_dst_dev_net().
 
-Fixes: cf7fbe660f2d ("bpf: Add socket assign support")
-Fixes: 08842c43d016 ("udp: no longer touch sk->sk_refcnt in early demux")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/0c52eb3d7532aaf8bccf37e0f7c922143c639735.1786552223.git.zhilinz@nebusec.ai
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+We use dev_net_rcu() instead of dev_net().
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20250630121934.3399505-11-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: e36ce6e78fe3 ("ip: orphan prefetched skbs before multicast forwarding")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c      | 3 +++
- net/ipv6/ip6_input.c | 1 +
- 2 files changed, 4 insertions(+)
+ net/ipv6/ip6_input.c | 25 +++++++++----------------
+ net/ipv6/ip6mr.c     |  9 ++++-----
+ 2 files changed, 13 insertions(+), 21 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index af9412a507cf3..93d08e343a256 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -2139,6 +2139,9 @@ int ip_mr_input(struct sk_buff *skb)
- 	if (IPCB(skb)->flags & IPSKB_FORWARDED)
- 		goto dont_forward;
- 
-+	if (!local)
-+		skb_orphan(skb);
-+
- 	mrt = ipmr_rt_fib_lookup(net, skb);
- 	if (IS_ERR(mrt)) {
- 		kfree_skb(skb);
 diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
-index e775a5a766692..9b6eaae0c6c80 100644
+index 54146e280c2b7..e775a5a766692 100644
 --- a/net/ipv6/ip6_input.c
 +++ b/net/ipv6/ip6_input.c
-@@ -566,6 +566,7 @@ int ip6_mc_input(struct sk_buff *skb)
- 		if (deliver) {
- 			skb2 = skb_clone(skb, GFP_ATOMIC);
- 		} else {
-+			skb_orphan(skb);
- 			skb2 = skb;
+@@ -497,38 +497,32 @@ EXPORT_SYMBOL_GPL(ip6_input);
+ 
+ int ip6_mc_input(struct sk_buff *skb)
+ {
++	struct net_device *dev = skb->dev;
+ 	int sdif = inet6_sdif(skb);
+ 	const struct ipv6hdr *hdr;
+-	struct net_device *dev;
+ 	bool deliver;
+ 
+-	__IP6_UPD_PO_STATS(dev_net(skb_dst(skb)->dev),
+-			 __in6_dev_get_safely(skb->dev), IPSTATS_MIB_INMCAST,
+-			 skb->len);
++	__IP6_UPD_PO_STATS(skb_dst_dev_net_rcu(skb),
++			   __in6_dev_get_safely(dev), IPSTATS_MIB_INMCAST,
++			   skb->len);
+ 
+ 	/* skb->dev passed may be master dev for vrfs. */
+ 	if (sdif) {
+-		rcu_read_lock();
+-		dev = dev_get_by_index_rcu(dev_net(skb->dev), sdif);
++		dev = dev_get_by_index_rcu(dev_net_rcu(dev), sdif);
+ 		if (!dev) {
+-			rcu_read_unlock();
+ 			kfree_skb(skb);
+ 			return -ENODEV;
+ 		}
+-	} else {
+-		dev = skb->dev;
+ 	}
+ 
+ 	hdr = ipv6_hdr(skb);
+ 	deliver = ipv6_chk_mcast_addr(dev, &hdr->daddr, NULL);
+-	if (sdif)
+-		rcu_read_unlock();
+ 
+ #ifdef CONFIG_IPV6_MROUTE
+ 	/*
+ 	 *      IPv6 multicast router mode is now supported ;)
+ 	 */
+-	if (atomic_read(&dev_net(skb->dev)->ipv6.devconf_all->mc_forwarding) &&
++	if (atomic_read(&dev_net_rcu(skb->dev)->ipv6.devconf_all->mc_forwarding) &&
+ 	    !(ipv6_addr_type(&hdr->daddr) &
+ 	      (IPV6_ADDR_LOOPBACK|IPV6_ADDR_LINKLOCAL)) &&
+ 	    likely(!(IP6CB(skb)->flags & IP6SKB_FORWARDED))) {
+@@ -576,15 +570,14 @@ int ip6_mc_input(struct sk_buff *skb)
  			skb = NULL;
  		}
+ 
+-		if (skb2) {
++		if (skb2)
+ 			ip6_mr_input(skb2);
+-		}
+ 	}
+ out:
+ #endif
+-	if (likely(deliver))
++	if (likely(deliver)) {
+ 		ip6_input(skb);
+-	else {
++	} else {
+ 		/* discard */
+ 		kfree_skb(skb);
+ 	}
+diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
+index 18451dfeae682..cd2116862a4b4 100644
+--- a/net/ipv6/ip6mr.c
++++ b/net/ipv6/ip6mr.c
+@@ -2225,21 +2225,20 @@ static void ip6_mr_forward(struct net *net, struct mr_table *mrt,
+ 
+ int ip6_mr_input(struct sk_buff *skb)
+ {
++	struct net_device *dev = skb->dev;
++	struct net *net = dev_net_rcu(dev);
+ 	struct mfc6_cache *cache;
+-	struct net *net = dev_net(skb->dev);
+ 	struct mr_table *mrt;
+ 	struct flowi6 fl6 = {
+-		.flowi6_iif	= skb->dev->ifindex,
++		.flowi6_iif	= dev->ifindex,
+ 		.flowi6_mark	= skb->mark,
+ 	};
+ 	int err;
+-	struct net_device *dev;
+ 
+ 	/* skb->dev passed in is the master dev for vrfs.
+ 	 * Get the proper interface that does have a vif associated with it.
+ 	 */
+-	dev = skb->dev;
+-	if (netif_is_l3_master(skb->dev)) {
++	if (netif_is_l3_master(dev)) {
+ 		dev = dev_get_by_index_rcu(net, IPCB(skb)->iif);
+ 		if (!dev) {
+ 			kfree_skb(skb);
 -- 
 2.53.0
 
