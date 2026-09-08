@@ -1,157 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A93E41C72;
-	Tue,  8 Sep 2026 00:46:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C77481DD
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 00:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828366; cv=none; b=L9bDj6zEYDialk9iFC3Z7rz6YrE3gv1zd5ObMTR5uQ+ZdxNborWeJ0UfK7BXQiQjQtlghcmRpcDddjRvpj430c6UHHTNA7HT3IZFCDQp8HuRAgg8TeWCaQD6Gl0+KxoykOlNelb0NaR1SS8mYRW7Pc9uOrR/G847xWstL3atGRg=
+	t=1788828366; cv=none; b=VC1dRHq2zXPCA2d8VVlZndtndnyXq+otMphmxEerchMDMaS6l3d67WkJetT8HOp396CIY06+NOXJaXKaNyq0I/ssoHc5aCC8ZB0QkNe4Fdtr+1qIjYB6WIzfMv0QcNK44/pcxQNWEmMCZF15wgGdy7gbiJ+3bHQBaOgpo6BTMzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788828366; c=relaxed/simple;
-	bh=Zhz1uluj3kL2dWsch/Lcu1uzAQ8IJhfHWPjA3Krj2RI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gkYFcNOuhZK0FkugJMvNCHySg2Nzr227yfaFqKJxb7xKnNyxAH3LevmcaBNy5gfwsGDwwkzsbu2otAsPlBNLDx7HABPUk9fi1/iFtZxGA2CQwYFgwC6d/VCTPy88YSlESe+bdq57o5ZTjKku5ujn7IyNdHz3IGfNGpFPjryxqWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpbTR1Rp; arc=none smtp.client-ip=100.103.45.18
+	bh=6+XO2DzItv5RtVHJ1X5rZC3dhddyZCvTKgiu+Rq7WUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rYSoc3rr6jTUDOaVKvJbVfYbPIrWG8kL8w7gvXZWrYjUHk17uE75PRUdCcNKovGcJwGuJaz3IU0Iv3boaUFsArltzYTmROWpBGm86kzEXl8/Heg9zg+zDb+kgNwnIFT/MDMScQL+6vwP/2oK97fD8V878H4RZJ6uoWOn6FZraFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgKnObhw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpbTR1Rp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BCA01F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgKnObhw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042941F00A3E;
 	Tue,  8 Sep 2026 00:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788828365;
-	bh=4tLeinopXKtLTRJuVWmN24NUeUqBJ3S9IqLO/+/AtgU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=KpbTR1RpZb0739kfd+lRyUAwDN5UChREbDOEdXYw1pDdnugCTk2nCvm2F7RVx0XHO
-	 0/OnOyv5IUEda0If4nzxWQ/SgoRjZqRNatcCOlJYrBm/mgVLPtUUNTG67HKDuCMBdS
-	 3s4VHwS1ONfCYvnawhgUhjm5erQ9NX6Ll1IaRd8I9B6Iqyye6bsjgy2LF/1jBvmUvG
-	 zlM8nmLs4jWgYoC5lS9oxivZVQougZaKDuRBA5YzeGrkCnUjBubHU7uwWDmUYRlo0i
-	 mVUdk1aylr7hBpjn8+gC5RVSuevkIirgvIvEAivBCFgNA7fK9wyhQcnFyEvMAQ03ry
-	 dVpJ+Mi14B2cQ==
-Subject: Re: [PATCH net] ptp: ocp: prevent watchdog rearming during detach
-From: netdev-bot+sashiko@kernel.org
-To: runyu.xiao@seu.edu.cn
-Cc: richardcochran@gmail.com, jonathan.lemon@gmail.com,
- vadim.fedorenko@linux.dev, andrew+netdev@lunn.ch, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, jianhao.xu@seu.edu.cn,
- kuba@kernel.org
-Date: Tue, 08 Sep 2026 00:46:04 +0000
-Message-ID: <178882836407.219967.5220210793908867090@kernel.org>
-In-Reply-To: <20260904064308.4044677-1-runyu.xiao@seu.edu.cn>
-References: <20260904064308.4044677-1-runyu.xiao@seu.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	bh=flZNz04Rk7neqp98eF+63wYnP/KFVm2Qj7uUeVx22Kw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=FgKnObhwwSuv7GQcgV1UUDhHP8DCPT0VkDdetlONLIQYnrIuf7lEK54/IEyLs5Is+
+	 WCZ0iAcDM7VudAJ/unBte8K37RPm6MAYmzpL6YFl0yPGFlbI6D3n4APJIqZWvfE9uC
+	 DIO7YHT7XKU6t+KXDeV6YFo0aERWHPcHVAtIoBztBjz0UpbCHyP2hWLvH/Ebgfqb1I
+	 r9O+jAhkRpYqYjoo84xLAtA8TlNPW5/X5JDHrfj3Vyd8182ihNasTUu7wSzFlNb5b4
+	 XDLHfV+aeUYDN1tEcMSqT4Skuxzc6ZzCCI43OXD799wDi2sO0HN2cvVcQZ8vblOk2F
+	 lEcol7pM+oUUQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chuck Lever <cel@kernel.org>,
+	NeilBrown <neil@brown.name>,
+	Jeff Layton <jlayton@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] NFSD: Consolidate the revocation-path client unpin
+Date: Mon,  7 Sep 2026 20:46:01 -0400
+Message-ID: <20260908004602.1629619-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908004602.1629619-1-sashal@kernel.org>
+References: <2026090332-cardinal-sphere-4700@gregkh>
+ <20260908004602.1629619-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+From: Chuck Lever <cel@kernel.org>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+[ Upstream commit 3308cf3f11ed23c79f9f3f90b34bbbad3e3a6ea9 ]
 
-- [Medium] Incorrect bug premise in the commit message and unwarranted
-  Fixes:/Cc: stable tags.
+The client use-after-free fixes in the state-revocation paths left
+four open-coded copies of one idiom: drop a cl_rpc_users pin without
+renewing the client's lease, waking force_expire_client() when the
+last pin drops on a client it is tearing down.  The accompanying "do
+not renew" rationale was documented at only one of the four sites.
 
---
+put_client_renew_locked() and put_client_renew() already carry the
+same pin-drop logic, but they renew a non-expired client's lease and
+so would resurrect the client whose state is being revoked.  Factor
+the common pin-drop into __put_client_locked(), parameterized by
+whether to renew.  The renew helpers pass true; the new
+put_client_no_renew_locked() and put_client_no_renew() pass false and
+carry the revocation paths, which must not revive the client they are
+tearing down.  No change in behavior.
 
-ptp: ocp: prevent watchdog rearming during detach
+Reviewed-by: NeilBrown <neil@brown.name>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260709-cel-v4-6-1d519d9be0cb@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
+Stable-dep-of: 9026932ac8be ("NFSD: Prevent client use-after-free during blocked-lock reaping")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/nfsd/nfs4state.c | 47 +++++++++++++++++++++++++++------------------
+ 1 file changed, 28 insertions(+), 19 deletions(-)
 
-The patch replaces timer_delete_sync() with timer_shutdown_sync() for the
-bp->watchdog teardown in ptp_ocp_detach(), and is tagged as a fix for
-773bda964921 with Cc: stable, on the grounds that the watchdog callback can
-rearm itself past the sync delete and later touch freed ptp_ocp state.
-
-> ptp_ocp_detach() uses timer_delete_sync() to stop the watchdog before
-> freeing the ptp_ocp state. timer_delete_sync() waits for a callback that is
-> already running but does not prevent the callback from rearming the timer.
->
-> Since ptp_ocp_watchdog() unconditionally calls mod_timer(), detach can
-> return with the watchdog pending. A later callback can access freed state.
-
-[Severity: Medium]
-Is this description of timer_delete_sync() accurate for a timer whose only
-rearm source is its own callback?
-
-In this driver the only two places that arm bp->watchdog are the self-rearm
-at the end of ptp_ocp_watchdog():
-
-	mod_timer(&bp->watchdog, jiffies + HZ);
-
-and the one-time arm in ptp_ocp_init_clock() next to the timer_setup():
-
-	if (bp->pps_to_clk) {
-		timer_setup(&bp->watchdog, ptp_ocp_watchdog, 0);
-		mod_timer(&bp->watchdog, jiffies + HZ);
-	}
-
-There is no other thread or interrupt path that arms the watchdog.
-
-For that case, doesn't __timer_delete_sync() already absorb the self-rearm
-by retrying until the handler is no longer running?
-
-kernel/time/timer.c:__timer_delete_sync() {
-	...
-	do {
-		ret = __try_to_del_timer_sync(timer, shutdown);
-
-		if (unlikely(ret < 0)) {
-			del_timer_wait_running(timer);
-			cpu_relax();
-		}
-	} while (ret < 0);
-	...
-}
-
-and __try_to_del_timer_sync() only returns -1 while the handler is running,
-otherwise it detaches whatever the handler re-queued:
-
-kernel/time/timer.c:__try_to_del_timer_sync() {
-	...
-	if (base->running_timer != timer) {
-		ret = detach_if_pending(timer, base, true);
-		if (shutdown)
-			timer->function = NULL;
-	}
-	...
-}
-
-__mod_timer() also refuses to migrate a timer to another base while
-base->running_timer == timer, so the callback's rearm stays on the base the
-deleter inspects.  The kernel-doc for timer_delete_sync() states that upon
-exit the timer is not queued and the handler is not running on any CPU, and
-its rearm caveat is about other code arming the timer concurrently, which
-does not exist for bp->watchdog.
-
-> diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-> index 3d26ec1f7b9ec..6b5f615a279d9 100644
-> --- a/drivers/ptp/ptp_ocp.c
-> +++ b/drivers/ptp/ptp_ocp.c
-> @@ -4870,7 +4870,7 @@ ptp_ocp_detach(struct ptp_ocp *bp)
->  	ptp_ocp_debugfs_remove_device(bp);
->  	ptp_ocp_detach_sysfs(bp);
->  	ptp_ocp_attr_group_del(bp);
-> -	timer_delete_sync(&bp->watchdog);
-> +	timer_shutdown_sync(&bp->watchdog);
-
-[Severity: Medium]
-The change itself looks harmless and matches the documented preference for
-timer_shutdown_sync() on teardown paths, since bp is freshly allocated per
-probe and the timer is never armed again after detach.
-
-Given that, is there an actual use-after-free being closed here, or is this
-a robustness cleanup?  If it is the latter, would it make sense to reword
-the changelog without the use-after-free claim and drop the
-
-	Fixes: 773bda964921 ("ptp: ocp: Expose various resources on the timecard.")
-	Cc: stable@vger.kernel.org
-
-tags, so the change is not backported into every stable tree as a memory
-safety fix?
-
-[ ... ]
-
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 0db50536a8765..02b2c3352d060 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -205,18 +205,28 @@ renew_client_locked(struct nfs4_client *clp)
+ 	clp->cl_state = NFSD4_ACTIVE;
+ }
+ 
++/*
++ * Finish a cl_rpc_users unpin with the client_lock held. A
++ * revocation walk clears @renew so the client whose state it is
++ * revoking is not revived; every other caller renews the lease of
++ * a still-active client.
++ */
++static void __put_client_locked(struct nfs4_client *clp, bool renew)
++{
++	if (is_client_expired(clp))
++		wake_up_all(&expiry_wq);
++	else if (renew)
++		renew_client_locked(clp);
++}
++
+ static void put_client_renew_locked(struct nfs4_client *clp)
+ {
+ 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
+ 
+ 	lockdep_assert_held(&nn->client_lock);
+ 
+-	if (!atomic_dec_and_test(&clp->cl_rpc_users))
+-		return;
+-	if (!is_client_expired(clp))
+-		renew_client_locked(clp);
+-	else
+-		wake_up_all(&expiry_wq);
++	if (atomic_dec_and_test(&clp->cl_rpc_users))
++		__put_client_locked(clp, true);
+ }
+ 
+ static void put_client_renew(struct nfs4_client *clp)
+@@ -225,10 +235,17 @@ static void put_client_renew(struct nfs4_client *clp)
+ 
+ 	if (!atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock))
+ 		return;
+-	if (!is_client_expired(clp))
+-		renew_client_locked(clp);
+-	else
+-		wake_up_all(&expiry_wq);
++	__put_client_locked(clp, true);
++	spin_unlock(&nn->client_lock);
++}
++
++static void put_client_no_renew(struct nfs4_client *clp)
++{
++	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
++
++	if (!atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock))
++		return;
++	__put_client_locked(clp, false);
+ 	spin_unlock(&nn->client_lock);
+ }
+ 
+@@ -6273,15 +6290,7 @@ nfs4_laundromat(struct nfsd_net *nn)
+ 		clp = dp->dl_stid.sc_client;
+ 		list_del_init(&dp->dl_recall_lru);
+ 		revoke_delegation(dp);
+-		/*
+-		 * Unpin without renewing: put_client_renew() would
+-		 * renew the reaped client's lease.
+-		 */
+-		if (atomic_dec_and_lock(&clp->cl_rpc_users, &nn->client_lock)) {
+-			if (is_client_expired(clp))
+-				wake_up_all(&expiry_wq);
+-			spin_unlock(&nn->client_lock);
+-		}
++		put_client_no_renew(clp);
+ 	}
+ 
+ 	spin_lock(&nn->client_lock);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904064308.4044677-1-runyu.xiao%40seu.edu.cn
+2.53.0
+
