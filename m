@@ -1,118 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF68360EFC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E97023E330;
+	Tue,  8 Sep 2026 23:31:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.190.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788909913; cv=none; b=Umlj3crG7Ylxc2dNsh0Yz0phqeRXbebc0XnbLaJkJh/M2dt0XA50KsHP54dSsm5YoMcoUb66bPPBNyCGhx4FqhgghdAZTwj5L8QsE1IfA8X01aoskJiV1bOlAHRVPNAysK/PoRhA1PHcFh+Si/8pPEpyUdVWutfYO4NQH4d+jW0=
+	t=1788910282; cv=none; b=Nk+/wr686VXjUPvJnW2TOEneCRPA3Cka31jMVoECMVkAuDqqg2VCyoU7Npg7BpbkWdJDxfIv0k0/XOZR/MxJVXWLKFNVWQx/lgQsHrkgXQ3eAtW19xJhmKbw6qediFJj9c4hd1UYBu4Kfql3XwtsoEfRgNZNynWb+uFNn5FRohM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788909913; c=relaxed/simple;
-	bh=zyI5VgI3JwGYnIZmdR1wEw/eH8ZgtA1qMvSeGAZFazs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Dv2tvnMyDYn/W9UXjooifedc8aQyFZb7La7ocDO+TELEFLzcE3iri2hIyIn5JN9uVz0ay8tdweOV2tjeoiQD6t0B3gwC4vVSL2X0K6ojCzwRbTFbgGSSdklH/jZCMpH4ccUU/H6rcdod4ji74e6dyisBkGABF9X3+9nSTFvHw9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoCeZtA7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788910282; c=relaxed/simple;
+	bh=Gzzp1+tOAMedx/WT7EyKmZ/QJAXMGM/0He57Va5jaeo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tUd3O9d0L2M5sOwuhW6Gwh4aT9IRrCcfANsYJJw6FvpN4fpILYqP4TGIjW4qC59gWx0Zwya++/Ti2Y7bPZH9Mk990TTqmMdq+VaizMV+cllWXPfdLMMUeXN1DZJKkz64Ohq7DZ+tlSE3jt54xlSRAi9Jn9naO8fOK37SO1yH5s0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org; spf=pass smtp.mailfrom=netfilter.org; dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b=TPshBnJh; arc=none smtp.client-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoCeZtA7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DD1D1F00A3E;
-	Tue,  8 Sep 2026 23:25:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788909911;
-	bh=sWi/bTSVB84dIKF9OwaD/fNaqFIj93RspxPcgRRsL6k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XoCeZtA7gu3QCTK1twH0CNDe3+W+fbdMnDUMIuEFP84Sz0gLULqkpyVv9+CyNdi97
-	 MwuhyplGla6vsUUIVMVGaP/X+XAafuqPdUmqNZPL41rxy6WiM34nPP1MLYzAgM7XKF
-	 6BbzHF53TtUQQi8sF7OKhxUMz1grqqYnK47u36oC2PQuunz3kGC5IUwHwvR8Y/Sjbq
-	 8Ng9JGSdAnD3UKkHPUYvJTr8gu9kX4HnvrZOiYiWB/Tg4Pt2xTT6TnDkhe9to01WIS
-	 st+aq0pwOPQQOz9IfAhdWdwdO5qx9G86wRjMEXqxzUy7yKzzYGgIRKcrnjn12mvhQo
-	 ffJKrdOlgl1+Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id
-Date: Tue,  8 Sep 2026 19:25:08 -0400
-Message-ID: <20260908232508.645100-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908232508.645100-1-sashal@kernel.org>
-References: <2026090308-mutual-wrangle-377a@gregkh>
- <20260908232508.645100-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=netfilter.org header.i=@netfilter.org header.b="TPshBnJh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1788910278;
+	bh=ycnqXGekolSpCntoRVtRaY9Q+hJFbopbDliK1QMDK50=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=TPshBnJhdFHy6Mt5a9kVL5WptIkTS/LghmyDy5xWgZEEjNd7Qvq/wTyYT87wqfazI
+	 LQfOHK6HPGO6mu9vF1PMk+fpzb7s4eaaS/H8potYeDBzKHC/BctmQsML7XgR/nfmUU
+	 NN8OWQOIyASsRVfx91Q7mwxlYDv42jx9S8h7JAK4qqVGC2S6CB96qL3u0u9kDmYdB/
+	 g/N9duATdqmx3jC8k3CeJHXygT71ZIjYr5uaZRxkYiOh3TMTtsKUCE5ZQ9ILpFHE/3
+	 ZPcF4CvKLTuzZpRzNLOj8k2CzxLq2MyMD8yodudY51WmG9PTASrWKQ+p6Er+aPiyy9
+	 Qx9sCIH8UdOQg==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 3D048607C9;
+	Wed,  9 Sep 2026 01:31:18 +0200 (CEST)
+Date: Wed, 9 Sep 2026 01:31:15 +0200
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Aohan Mei <ljp1205831794@gmail.com>
+Cc: netfilter-devel@vger.kernel.org, fw@strlen.de, phil@nwl.cc,
+	coreteam@netfilter.org, Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>, stable@vger.kernel.org
+Subject: Re: [PATCH nf] netfilter: nf_tables: skip expired catchall elements
+ in dedup walk
+Message-ID: <aqCaw5aXx4B4E2Sm@chamomile>
+References: <20260908123252.1162896-1-ljp1205831794@gmail.com>
+ <aqCYmZ6_Kc0OqRcR@chamomile>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqCYmZ6_Kc0OqRcR@chamomile>
 
-From: Chuck Lever <chuck.lever@oracle.com>
+On Wed, Sep 09, 2026 at 01:22:04AM +0200, Pablo Neira Ayuso wrote:
+> On Tue, Sep 08, 2026 at 08:32:47PM +0800, Aohan Mei wrote:
+> > From: Aohan Mei <henrymei@tencent.com>
+> > 
+> > nft_setelem_catchall_insert() looks up duplicates with
+> > nft_set_elem_active() only, while nft_set_catchall_lookup() and the
+> > dump path additionally skip expired and dead elements.
+> > 
+> > Once a catchall element with a timeout expires, this predicate drift
+> > makes it invisible to userspace dumps, yet it still blocks
+> > re-insertion: with NLM_F_EXCL the request fails with -EEXIST, and
+> > without it the request reports success but silently inserts nothing.
+> > The stale entry only goes away when the (user-tunable) gc interval
+> > elapses, so the catchall rule may silently stop matching for an
+> > arbitrarily long time after its first expiration.
+> > 
+> > Align the dedup walk with the lookup and dump predicates: only an
+> > element that is active, not expired and not dead counts as a
+> > duplicate.
+> > 
+> > Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+> > Cc: stable@vger.kernel.org
+> > Fixes: aaa31047a6d2 ("netfilter: nftables: add catch-all set element support")
+> > Assisted-by: CodeBuddy:Kimi-K3
+> > Signed-off-by: Aohan Mei <henrymei@tencent.com>
+> > ---
+> >  net/netfilter/nf_tables_api.c | 4 +++-
+> >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/net/netfilter/nf_tables_api.c b/net/netfilter/nf_tables_api.c
+> > index 765a92fa90d6..6458ee26dcd9 100644
+> > --- a/net/netfilter/nf_tables_api.c
+> > +++ b/net/netfilter/nf_tables_api.c
+> > @@ -6995,7 +6995,9 @@ static int nft_setelem_catchall_insert(const struct net *net,
+> >  
+> >  	list_for_each_entry(catchall, &set->catchall_list, list) {
+> >  		ext = nft_set_elem_ext(set, catchall->elem);
+> > -		if (nft_set_elem_active(ext, genmask)) {
+> > +		if (nft_set_elem_active(ext, genmask) &&
+> > +		    !nft_set_elem_expired(ext) &&
+> 
+> This should be:
+>                     __nft_set_elem_expired(ext, tstamp) 
 
-[ Upstream commit 4488e912973773d64368828acf3b8e39d93650ae ]
+Delete also need this this expired check.
 
-svc_rdma_free() caches rdma->sc_cm_id->device before teardown,
-then calls rdma_destroy_id(sc_cm_id) which frees the cm_id.
-rpcrdma_rn_unregister() follows, but between those two calls
-the transport's sc_rn entry is still installed in the device's
-rd_xa. A concurrent ib_unregister_device walk can dispatch
-svc_rdma_xprt_done() against the now-freed sc_cm_id.
+> > +		    !nft_set_elem_is_dead(ext)) {
+> 
+> I don't think dead flag is set on for catchall elements?
 
-Move rpcrdma_rn_unregister() before rdma_destroy_id() so the
-transport's notification entry is removed from the xarray before
-the cm_id it references is destroyed.
+It does indeed use it, but I think this check does not belong here and
+the check for expired is sufficient.
 
-Also guard the sc_cm_id dereference with a NULL check: the
-following patches introduce paths that reach svc_rdma_free()
-with sc_cm_id == NULL (listener create failure, ADDR_CHANGE
-replacement failure).
-
-Fixes: c4de97f7c454 ("svcrdma: Handle device removal outside of the CM event handler")
-Cc: stable@vger.kernel.org
-Acked-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-2-1b09bd87b6cd@oracle.com
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index 72b653d38bc78..55f810a22c6aa 100644
---- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
-+++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -621,10 +621,15 @@ static void svc_rdma_free(struct svc_xprt *xprt)
- {
- 	struct svcxprt_rdma *rdma =
- 		container_of(xprt, struct svcxprt_rdma, sc_xprt);
--	struct ib_device *device = rdma->sc_cm_id->device;
-+	struct ib_device *device;
- 
- 	might_sleep();
- 
-+	if (!rdma->sc_cm_id)
-+		goto out_free;
-+
-+	device = rdma->sc_cm_id->device;
-+
- 	/* This blocks until the Completion Queues are empty */
- 	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
- 		ib_drain_qp(rdma->sc_qp);
-@@ -649,11 +654,13 @@ static void svc_rdma_free(struct svc_xprt *xprt)
- 	if (rdma->sc_pd && !IS_ERR(rdma->sc_pd))
- 		ib_dealloc_pd(rdma->sc_pd);
- 
-+	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
-+		rpcrdma_rn_unregister(device, &rdma->sc_rn);
-+
- 	/* Destroy the CM ID */
- 	rdma_destroy_id(rdma->sc_cm_id);
- 
--	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
--		rpcrdma_rn_unregister(device, &rdma->sc_rn);
-+out_free:
- 	kfree(rdma);
- }
- 
--- 
-2.53.0
-
+> >  			*priv = catchall->elem;
+> >  			return -EEXIST;
+> >  		}
+> > -- 
+> > 2.43.7
+> > 
+> > 
