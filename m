@@ -1,88 +1,118 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F51C5013CA;
-	Tue,  8 Sep 2026 10:03:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC45392C4B;
+	Tue,  8 Sep 2026 10:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861825; cv=none; b=itPDdYfI8H6TaUTZ34LTdkSBXkOHNLjm7Vjt+FFFDeHyc5i8nGrTBtp/fmwfONMw5sa7/RBmSiN7i7CTS2e/bQe9gQ+5z9aXXa1zfJ7VnTsmOuGAv9WC/5/H9BUFeAMYXvtN+NPOVYMv3OGiG1RfCmfOe3x1eASIzZW2o49yT5Y=
+	t=1788862328; cv=none; b=CFzKxhzgvfDaFBsEFJL1oqxFVzlBq8ZkCWCUsz5IMt9Y0jPjN7aOOYjVtbYhqgEESTKBm1pcIMWj7YqDuBcr+w3UAYHkCZkn1hEuHnq2BkJiube/7TlCe8dimirKoSAk4DYq/8HiJqsVm965n79L3IqE7XLxqP6t364Q2rChMxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861825; c=relaxed/simple;
-	bh=5vAQX4mLQwg3bgyjWIDegZmml35dIae71Cu53YVyKVc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=STEeYWUuvwkFjsoQOckesNgxy4f2tCq3tGT8fOxgNnXNr+fx59mAd1uZUrHD+QkuQcvFMCNz8yzeL1CpMpxTM3PgfuPdoEDANKawo9r5NhNB2/A74cCTQFa5yommHGszcTMc7W4wRbJC1G4J5C8+MqQcJYJr7EPf42y4+G84HT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HJxw7a5n; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788862328; c=relaxed/simple;
+	bh=2dvmuQE1lrmfcEaPMxFCDlNU+EOHjJ2mW30kGX9NQu8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RVDI4PAckwPkfjWpznvUFwa1bT2Ij8tU0DPwFhF8h8+US52OgSbObT9H0TMOVt+cjgjvCF9Omja4u2BANGbSngW+oj0pcF0SC24vOf07l6sT0EINhhvrzmezcJcjDdnSwdhUkMREPuK6n1QFmeFrNvx+AYLEueh1X2WaHq3sKhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX3LGGwl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HJxw7a5n"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A1D9A1A1A56;
-	Tue,  8 Sep 2026 10:03:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 73C25603C4;
-	Tue,  8 Sep 2026 10:03:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C87711C7AF5C;
-	Tue,  8 Sep 2026 12:03:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788861816; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5vAQX4mLQwg3bgyjWIDegZmml35dIae71Cu53YVyKVc=;
-	b=HJxw7a5n7JiOtutr1aQa1jZOAcwYz7vUl4NtBmXInV72w47M2bbpX/gqsgpboIQx2ttkkD
-	uJhck1Odhe6MP98SkTQKScFMRfE+5rZvf2rZimWdm5MoC+P3Vt1g8SUjbHeVIGdvRCwoO3
-	ZbuzkTmBrjV6OMhxCdmzmvHQ/A6D8ohLa4PtjAqD7VLGrwY+PRcX7UZ2YBzXC3FGJ0HrxZ
-	wLeFInhRpblg7OiYJyNlVTfsWzs8Qv1eFkR+N9jQ8iDBUhTHmI+JplH6lx4pGdlSV5BA60
-	hhUYLGMmQCeKzYfHZ5VZTkgd4in2hMlAyW681J1LPsot4e024AN+k71R7E96Ew==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Chen-Yu Tsai <wens@kernel.org>,  Jernej Skrabec
- <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,  Boris
- Brezillon <bbrezillon@kernel.org>,  linux-mtd@lists.infradead.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v2] mtd: rawnand: sunxi: fit maximized ECC step to page
- size
-In-Reply-To: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
-	(James Hilliard's message of "Fri, 04 Sep 2026 16:39:27 -0600")
-References: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 08 Sep 2026 12:03:33 +0200
-Message-ID: <87zexst5ze.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX3LGGwl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 410A91F00A3A;
+	Tue,  8 Sep 2026 10:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788862326;
+	bh=h4+NbS/bxE87beuPTf+FpRA7Xpg3PIxenn0XWkscecE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VX3LGGwlGLTIPMgqXpOTf1dExUEurscHoeOb9Ed9Wjdbp6KYOwUDiekWAaAlZ20Vb
+	 Kq7ikvhZy1FE0KDryzxaPo2KWwHgU1pXD0IgfsYSOvLL3P7MdOyHHmfybfLvPSkBgw
+	 Z/2RG3OhhGZiY9o3dNza89vPuMBivBmnRhj1t69fVMmuSbn4fYHPiUUWSSimf6WvB7
+	 fIkiJif0KUwIUBOvxUtdBB/Z7tXUqWRR28gPNQwkEwasf853uv8HVHzZyh/MFSsv7s
+	 rF8BvpWIlhjB0hGy2jytoesNrllw6l+GbGjHd8Sbvcprkf4ZTVmm+1JX4tzz4fub2u
+	 NcjnTOKwHfNpw==
+Date: Tue, 8 Sep 2026 11:12:00 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Dave Hansen <dave.hansen@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, 
+	Jiri Slaby <jirislaby@kernel.org>, "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>, 
+	David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>, 
+	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org, 
+	Ingo Molnar <mingo@kernel.org>
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
+ collapse to avoid UAF
+Message-ID: <ap_XuF3ubLQAJ330@gremlin>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+ <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
+ <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org>
+ <apZ52DKlJIrpX6qq@gremlin>
+ <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+ <ap_WIZwCPKB07nAf@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_WIZwCPKB07nAf@kernel.org>
 
-Hello James,
-
-On 04/09/2026 at 16:39:27 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
-
-> When nand-ecc-maximize is set, the driver unconditionally selects a
-> 1024-byte ECC step. A NAND with a 512-byte page consequently produces
-> zero ECC steps before the available OOB bytes are divided by the step
-> count.
+On Tue, Sep 08, 2026 at 12:32:17PM +0300, Mike Rapoport wrote:
+> On Tue, Sep 01, 2026 at 04:36:38PM -0700, Dave Hansen wrote:
+> > On 9/1/26 00:10, Lorenzo Stoakes (ARM) wrote:
+> > > Dave - you've somehow applied this patch completely incorrectly to x86/urgent,
+> > > I'm not happy with this going to Linus in this form :/
+> >
+> > Me neither, btw.
+> >
+> > So, here it is applied:
+> >
+> > > https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=cpa1
+> >
+> > The diffstat exactly matches the mbox that I sucked in. I'm going to
+> > launch some tests overnight.
+> >
+> > The only things I really munged were a little merge issue with patch 1,
+> > a SoB ordering issue in patch 3, and a few scattered rewordings in the
+> > commit messages.
+> >
+> > Not pushed to x86/urgent, yet.
 >
-> The older sunxi NAND controllers support 512-byte ECC blocks. Select the
-> smaller of the page size and the preferred 1024-byte step, using a
-> 512-byte step for a 512-byte page while retaining 1024-byte steps for
-> larger pages. Unsupported smaller steps and controllers without
-> 512-byte support continue to be rejected by the existing checks.
+> I have to say I'm confused with today's batch of tip-bot emails saying Ingo
+> applied these to x86/mm :/
+
+Since I don't seem to get replies to mails on this topic, I can only
+_guess_ :), but:
+
+* I see patches in x86/urgent that aren't in x86/mm, so that rules out
+  x86/mm being a stepping stone in the process.
+
+* x86/urgent has had more patches added to it, for series sent after this
+  one, which fix bugs from 2024, 2025 etc. So that's all working as
+  expected.
+
+* We've already highlighted that this series fixes bugs users are seeing in
+  production, so I don't see why it'd be deprioritised.
+
+* It's coming form a private dev repo/branch so I can't imagine it's a
+  wayward script (but maybe?)
+
+* The patches have been in linux-next for a while (maybe Dave/Ingo wanted
+  them there longer? They were there for weeks before the ->x86 stuff
+  though).
+
+Perhaps the reported bug that you've now fixed was the hold up? I guess who
+knows :)
+
+So yeah, I'm also rather confused :)
+
+Ah well.
+
+I guess taking them through the mm tree wouldn't really be sensible/the
+right thing to do at this stage, so I guess let's hope they land for 7.4.
+
 >
-> Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> --
+> Sincerely yours,
+> Mike.
 
-As reported by Sashiko, there is another use of 1024 down the road which
-must be modified accordingly. Although, in practice, 512-byte page NANDs
-have disappeared for quite some time, so this is a theoretical fix more
-than a real problem.
-
-Thanks,
-Miqu=C3=A8l
+--
+Cheers, Lorenzo
