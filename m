@@ -1,168 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788CD563FDD
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8AD556E047
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884154; cv=none; b=oSKYtNkTnf9jlqrTFz1YVH6db+6NW1EpTUcULPQSTU8gIde7IYXedUTZDjfimpqqdHRp3byOQeUtspqu8MRhc8mRyXBGD4PsXznPpUjATiV1vP32TcX5zpsiSunTbQCfe6yAIDtqCFZuiorFXdQJmNYAj7t+dYhn8wAGX2sofOE=
+	t=1788884338; cv=none; b=K5yU8MphKgv9erkcfb1mkToowEyNuccp1NE4ru2YSH2oOtTakfVM2UZ8zeCpBdeLkq9BVnLG9kJN0TtrUzONUKIiwsRIrN+nKw4alwk0rcPoq4van8wBBkE71RlA8dQv/HchywNWOixaON8JL1zxglGBYBUJ76BtdiRYAF8P3ao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884154; c=relaxed/simple;
-	bh=JSujCaC06RA1yHRYtqKF1wiV2QG6XRQ+4bdg7FzS/sY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hTIryA9fUWRAkhbcKfmTaJR5f3stVYcFyqbKL67c5mBO+dqav0q57Pxxw99FvIM6AhF5EHwFpBNbKUs3n2+xhZO+P+MKgJ+Dwb4mo2aLvoIzV0jyM0SsJdWp6k+2xw4ViZcukqDjMZ4nXid4HPe2vCutDgi2jy2+IpkFhARG/7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bX2ddps4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788884338; c=relaxed/simple;
+	bh=ifCyZAyFto6dLGDgB6EevI8Do76Nk1nDkdhhmAqwOfA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V4wqDDoE+CZN1r9kGGIGUb54RRfYXzQj2DTpAHgCF3N4QIkTSRKjV3QMxYHJcSOd7CG4FgTOw4soWgQCOO6pGP82X+jXD7TtVWae13o9O2BhFpbMwflVeLNflOYJqdDMt+30UgY7YY7qedbGSAmfhZ+wWod5ScM3SFTLr7xwoxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mbufqICL; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bX2ddps4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922C21F00A3F;
-	Tue,  8 Sep 2026 16:15:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884152;
-	bh=DkyTmT/aHRN0NyezK4B8JxLyqO/bkd8K6uetKDkMyeI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bX2ddps4CDiV3gmQ8lYTa7KwIhCyWi9fXQlps/Jja7c9bhPBaJjkerVgKTqfrzwoH
-	 sddeFTMnm11B3ld3b0V1z27UAitJIbMBzEX4Yx7mQ1K2SyDKmy6ts8UPrFGbikjsOH
-	 0GQr2Iw/g2URoZ9ZXcR8+k4J0NqmPgLgUBid6J4Hcmes+rz9URWdplc96niEJEKjtx
-	 ea3Sg2p35nA8YbQAgQnPrnNLm39aWXzhLYYIJM5c6C+hVMkb6qt/rtTiyydXKbPJ6M
-	 9E/frEBxbDpzgVxblREXVk397Mge66pb3LQUAsuXkmqdpBPnh+6HBiHQ8Wnt2tcvgT
-	 687QTIqA566fA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	Jan Kara <jack@suse.cz>,
-	Theodore Ts'o <tytso@mit.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 3/3] jbd2: bound shrinker scans by examined checkpoint buffers
-Date: Tue,  8 Sep 2026 12:15:48 -0400
-Message-ID: <20260908161548.2612016-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908161548.2612016-1-sashal@kernel.org>
-References: <2026090325-massive-fabulous-a27d@gregkh>
- <20260908161548.2612016-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mbufqICL"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38759bcd877so5046137a91.2
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 09:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788884336; x=1789489136; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+Pq7zJZq76gvOX7Rgxjpwg/vc2noCS33nr+Em8sLDCA=;
+        b=mbufqICLSNmFS20OQRdrZNmaN+LZ20bQcP//QvJr2S8EJJ8iJ6zedZ/J6+XlbVg708
+         WG9CtoerxQSKfrzucvc7mz39HvjfvpWtAgE4RM5M3AOyKR7QFroK3Fhmoqr12oF85ne6
+         mfl5HU8TtKSRLEkWVtBP8zWMsE91IeC4/DWiGdvQDqdHCznYHgvHT02AhH6xjQsaEHf6
+         hsxxzhZ6SpucvZ+MTKwkjG0E3cJIN8TKby8iu+zViVWRieeHT9QS42xrWn7Ny6do4d46
+         fU6XXKlW3433jsTEaDEqLCcBbZdAiQO1WaKD6WTGXIusSI0NGxbelBSlIQUOo5+2BlSV
+         17uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788884336; x=1789489136;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Pq7zJZq76gvOX7Rgxjpwg/vc2noCS33nr+Em8sLDCA=;
+        b=Fj9hXkESV8JoCATBknGZO7GG3XlOALWBBy5LrI42BN3SyxmLbL7i8//SVRnZRMpBAO
+         hqR9lh5vuSZxZdkQSrUHRYfraLPLgQWRdI1s8xze9pW0+wuDyOIzzVWdkhSS5MPRpLaI
+         VKRbuMNBUvDMPcmsUtbUwHE0jut0ob6zLNlQHCA0WRSGfwOBIlT5/ZOTuNfqIkT4/M8R
+         DvXRwtzNi8UJMQvdwrpQSlUaxzl0giEkgOJ982BUOKDKlOkgDaIBxzyjhEdPTpt5t0IW
+         bIJjkV5bE4dMYbeDSXzVabR63gmx3nT7zK9MBICYAbnfiFHaEMIMuuEE/mNvg3yuC+nF
+         zU/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzm01fHBD6lmQpNNx5xxGHFpx/EqEMaMxWsA79tljaQ9PR7m1WdPhTfLpLNJNrwcUFiCkM3fYg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kI8pXaoiTVRVED7ZA97BXTyJlKEq4lGecgUEuwQBkGwu7N/6ua
+	V7YDA8mqWGCUVL87Xud1qZCz6Kgc7ZhX/KwYrlG29YLMxlzwsf2Or2TA
+X-Gm-Gg: AYBFou2990SNT2u2xvztuZIw0a10+NSCfaqkmHkVCXwC4hgdphAHXO/yQRjY8VESCgc
+	aulxBL6ghmaJGftPmIct/Jc6BxN73z6OzMOPnYvNMhuhEKT9mfdDxSakiEbA80bHfxKSK0kz6mK
+	yJxXXVb2gn3cwhvvfxIJvURDwD7H6SkYTN/Maiy1UNPrwQjXpuMFfwPmfNju1fQgaLPM8E31aF4
+	xv3A6JgDycsLYMSy8wU/U2S7N4ygIf5qogKIZQR4pha0Cky8AF9ISaf46qVaJ5I9ZdSEBcRPCy8
+	ncuHXkmxh2bE+nUg3R7lwzqBX3iciwZsU+3uj7SUpe2lB1tdzNqmNdDaQeZCVw63l+KiLZE5N8d
+	WDD7hv1ys6UiSeY5+ATfv62nAbE/mbd86olPMgRtEvfjwgN8dEf/6EuPsWnllDxb/pv+wUqcctg
+	LBBjk9abt8tIK9jfCR/xneBA2u5aFIKn2YYoHCjG+P3ClxahS6q6sQS+ATVXNBF4/kaiWhi1MUv
+	w==
+X-Received: by 2002:a17:90b:4c44:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-39b261cdb38mr42745655a91.13.1788884335483;
+        Tue, 08 Sep 2026 09:18:55 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260f64ecsm27316717a91.8.2026.09.08.09.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:18:54 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 8 Sep 2026 09:18:53 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Arie Miller <renari@arimil.com>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] hwmon: (asus_rog_ryujin) Validate HID report lengths
+Message-ID: <20350cd2-a3cc-4647-b3c9-c1ea498dc26d@roeck-us.net>
+References: <20260904022129.97896-1-renari@arimil.com>
+ <20260904022129.97896-2-renari@arimil.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904022129.97896-2-renari@arimil.com>
 
-From: Max Kellermann <max.kellermann@ionos.com>
+On Thu, Sep 03, 2026 at 10:21:28PM -0400, Arie Miller wrote:
+> rog_ryujin_raw_event() parses response headers and payload fields without
+> first checking that they are present in the received report. A short report
+> can therefore make the driver consume uninitialized bytes from the HID
+> transport buffer and expose them as sensor values through sysfs.
+> 
+> Validate the response header and the fields used by each response type
+> before parsing them.
+> 
+> Fixes: ed3e03790c5c ("hwmon: Add driver for ASUS ROG RYUJIN II 360 AIO cooler")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-hwmon/20260812104617.858D01F000E9@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol sparse
+> Signed-off-by: Arie Miller <renari@arimil.com>
 
-[ Upstream commit 15cb16496446b94e67f7abcb049b8e2c75cd3d02 ]
+Applied.
 
-The jbd2 shrinker currently accounts only checkpoint buffers that it
-successfully releases against nr_to_scan.  Busy buffers therefore do not
-consume the scan budget.
-
-If a checkpoint transaction contains mostly busy buffers, the shrinker
-can scan its entire checkpoint list while holding journal->j_list_lock.
-Large checkpoint lists can result in excessive lock hold times and leave
-other CPUs spinning on j_list_lock, causing soft lockups or RCU stalls.
-
-Pass nr_to_scan into journal_shrink_one_cp_list() and decrement it for
-every buffer examined, including busy buffers.  Pass NULL from checkpoint
-cleanup paths so their existing full-list behavior is preserved.
-
-This restores the scan-budget semantics that existed before
-journal_shrink_one_cp_list() was changed to always scan a complete
-checkpoint list.
-
-Fixes: b98dba273a0e ("jbd2: remove journal_clean_one_cp_list()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Link: https://patch.msgid.link/20260713102229.1598812-3-max.kellermann@ionos.com
-Signed-off-by: Theodore Ts'o <tytso@mit.edu>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/jbd2/checkpoint.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
-
-diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
-index 36c64cf44e005..724a6ff505089 100644
---- a/fs/jbd2/checkpoint.c
-+++ b/fs/jbd2/checkpoint.c
-@@ -370,15 +370,16 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
- /*
-  * journal_shrink_one_cp_list
-  *
-- * Find all the written-back checkpoint buffers in the given list
-- * and try to release them. If the whole transaction is released, set
-- * the 'released' parameter. Return the number of released checkpointed
-- * buffers.
-+ * Find written-back checkpoint buffers in the given list and try to release
-+ * them. If 'nr_to_scan' is set, scan at most that many buffers. If the whole
-+ * transaction is released, set the 'released' parameter. Return the number of
-+ * released checkpointed buffers.
-  *
-  * Called with j_list_lock held.
-  */
- static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 						enum jbd2_shrink_type type,
-+						unsigned long *nr_to_scan,
- 						bool *released)
- {
- 	struct journal_head *last_jh;
-@@ -387,13 +388,15 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 	int ret;
- 
- 	*released = false;
--	if (!jh)
-+	if (!jh || (nr_to_scan && !*nr_to_scan))
- 		return 0;
- 
- 	last_jh = jh->b_cpprev;
- 	do {
- 		jh = next_jh;
- 		next_jh = jh->b_cpnext;
-+		if (nr_to_scan)
-+			(*nr_to_scan)--;
- 
- 		if (type == JBD2_SHRINK_DESTROY) {
- 			ret = __jbd2_journal_remove_checkpoint(jh);
-@@ -414,7 +417,7 @@ static unsigned long journal_shrink_one_cp_list(struct journal_head *jh,
- 
- 		if (need_resched())
- 			break;
--	} while (jh != last_jh);
-+	} while (jh != last_jh && (!nr_to_scan || *nr_to_scan));
- 
- 	return nr_freed;
- }
-@@ -436,7 +439,6 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 	tid_t first_tid = 0, last_tid = 0, next_tid = 0;
- 	tid_t tid = 0;
- 	unsigned long nr_freed = 0;
--	unsigned long freed;
- 	bool first_set = false;
- 
- again:
-@@ -469,10 +471,9 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
- 		next_transaction = transaction->t_cpnext;
- 		tid = transaction->t_tid;
- 
--		freed = journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--						   JBD2_SHRINK_BUSY_SKIP, &released);
--		nr_freed += freed;
--		(*nr_to_scan) -= min(*nr_to_scan, freed);
-+		nr_freed += journal_shrink_one_cp_list(transaction->t_checkpoint_list,
-+						       JBD2_SHRINK_BUSY_SKIP,
-+						       nr_to_scan, &released);
- 		if (*nr_to_scan == 0)
- 			break;
- 		if (need_resched() || spin_needbreak(&journal->j_list_lock))
-@@ -528,7 +529,7 @@ void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
- 		transaction = next_transaction;
- 		next_transaction = transaction->t_cpnext;
- 		journal_shrink_one_cp_list(transaction->t_checkpoint_list,
--					   type, &released);
-+					   type, NULL, &released);
- 		/*
- 		 * This function only frees up some memory if possible so we
- 		 * dont have an obligation to finish processing. Bail out if
--- 
-2.53.0
-
+Thanks,
+Guenter
