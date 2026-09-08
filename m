@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C22534465
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:22:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD0A387599
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870163; cv=none; b=Ez2IKx1/hocRXoEBVK9XVsc9u3Co8rr7KdCEv9dLX8wcn/txJnnJOzo0RKNo/o5OWksOqC78OJD4r1WbFMpjnMn9d/aNyTZqLFEAEmNM+RchS3dyXwAVqJU93ep3WMZCEcWulTRlyCHsiYh1PRCHfYLEyF/axAs8grBbxRNTmqE=
+	t=1788870164; cv=none; b=SJjFH31abD4xOQJpKjG5e9UIofJ49wsLkLvQbXxuNHYF03E4i/Ahg28bsKE+a6HNXUbknEPZAlExZ2Zldk94k+3YcJ75/SQJQm3TakWV4DeV9M1Uv7tsfr5JrSydhMVyI6KMHJwHoxTc2Fcrpo+TLwmOGTtuVw/67z+u7vYA6fk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870163; c=relaxed/simple;
-	bh=gXPa31x8sA5mQygzMkHpkvOegWZe+BDDWL+5QrfoNa8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FQ2LWZ8j46O/hTWr7/lR7+KLgPkhdN/HtekNtL4vojvd+4C/+S98NweLa1m6SuhEollHmCse/4y36nT89Yj+3TL+a7mKnulxs/5KqluR9Zgg72m6HCaXoE97vlOMu0CGJhogZYq3FecBdAvFsYup92fI8hld6emFJzefHpZKlbo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ax/WIY8H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788870164; c=relaxed/simple;
+	bh=FDZIzAH8tY4BGlIHD4UQ+wSBEjsHsXRo2hyVpTyF4ko=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OKw03vQavPmADx64f835Y1iT4vfeHbUNem/PmHwzaEkjRCRIeo5c5ZiZhwaTl71jt9clPlfdxNWAqm3xYTyRIrSUXUDuhPr3Rz3kgIdYPzLGsGDFZ3ipquV66ae+b3Ulc74/YCzbH6xz5kA4cvTOymt8FsKcMwX4owtcr8kUETk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gIh0uzpz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ax/WIY8H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64E321F00A3A;
-	Tue,  8 Sep 2026 12:22:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gIh0uzpz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1F71F00A3D;
+	Tue,  8 Sep 2026 12:22:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788870159;
-	bh=CbnO7VAO+BngJgYcDNFRNp5/HXGm2g5IbKl1CjfbWPQ=;
+	s=korg; t=1788870163;
+	bh=hbOQJd112Deua7N8P67UQL1vIqQ4fkOQpZHdG4NrGQM=;
 	h=Subject:To:Cc:From:Date;
-	b=ax/WIY8HNkv7LckRf62YKFFVBV/sboca6W7NdLLnz5qTKTA0iRrdghmMmaHuF0ZDV
-	 pXgSsTjmOyMLN40Ku+TCq5a+upWV1nwmf5LqTFbuEIvPI93sklKbghNklsiXKpOdxF
-	 i1Tq0/wQgacPoIvwzIxx1TR/Mo9BN1KzU7fb5MLE=
-Subject: FAILED: patch "[PATCH] usb: dwc3: clear forceRM when issuing EndTransfer" failed to apply to 6.6-stable tree
-To: elson.serrao@oss.qualcomm.com,Thinh.Nguyen@synopsys.com,gregkh@linuxfoundation.org,stable@kernel.org
+	b=gIh0uzpz+vSUnumVqTX1QhnXPsL3DhSGSBNtOOjTSvREO2d/0hejlj2GJhf2i9zV8
+	 +1bTWbF7173z0rf0PPne4uxegg4CAH/yqQPmEU2CLyK3O0pptcjJP/K79zqdppjNP1
+	 MxKzaOfBHHyajFmBbwdAPAM33wEh7ijmE59roo5s=
+Subject: FAILED: patch "[PATCH] usb: storage: realtek_cr: fix use-after-free on disconnect" failed to apply to 6.12-stable tree
+To: mhun512@gmail.com,ae878000@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:22:19 +0200
-Message-ID: <2026090819-scribing-superman-d087@gregkh>
+Date: Tue, 08 Sep 2026 14:22:31 +0200
+Message-ID: <2026090831-splotchy-crystal-8959@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b58e6200450d350314db0ecda7d6d1bde3281e80
+git cherry-pick -x 4ffee1aebb0c0ffcda9faffd17834ea9b00d42cc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090819-scribing-superman-d087@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090831-splotchy-crystal-8959@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,136 +62,64 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b58e6200450d350314db0ecda7d6d1bde3281e80 Mon Sep 17 00:00:00 2001
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Date: Thu, 13 Aug 2026 08:14:56 -0700
-Subject: [PATCH] usb: dwc3: clear forceRM when issuing EndTransfer
+From 4ffee1aebb0c0ffcda9faffd17834ea9b00d42cc Mon Sep 17 00:00:00 2001
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 27 Jul 2026 21:34:14 +0900
+Subject: [PATCH] usb: storage: realtek_cr: fix use-after-free on disconnect
 
-The forceRM bit of the DEPCMD register controls the behavior of the
-EndTransfer command used to stop an active transfer. Older DWC3
-programming guide revisions recommended setting forceRM=1 when
-issuing EndTransfer. Newer programming guide revisions recommend
-issuing EndTransfer with forceRM cleared.
+realtek_cr_destructor() calls timer_delete() before the chip containing
+the timer is freed. The timer callback may still be running and can
+rearm itself, resulting in a use-after-free.
 
-With forceRM=1 on DWC_usb31 v2.00a and v2.10a controllers, a transfer
-aborted through the ep_dequeue path was observed to remain active
-after EndTransfer completion. A subsequent StartTransfer issued on the
-same endpoint triggered writes associated with the aborted transfer.
-This resulted in an SMMU fault because the transfer buffer had already
-been unmapped during EndTransfer command-completion cleanup.
+Use timer_shutdown_sync() to wait for the callback and prevent further
+rearming. Do this unconditionally because ss_en may be changed after
+the timer is armed.
 
-Using forceRM=0 eliminates the issue. Although older DWC3 programming
-guide revisions recommended setting forceRM=1, no issues are known
-from using forceRM=0. Clear forceRM when issuing EndTransfer to provide
-consistent EndTransfer behavior and align with newer programming guide
-recommendations.
+Move timer_setup() into init_realtek_cr() so the timer is initialized
+before any failure path can invoke the destructor.
 
-Fixes: 1e43c86d84fb ("usb: dwc3: core: Add DWC31 version 2.00a controller")
+Found by static analysis.
+
+Fixes: e931830bb877 ("Realtek cr: Add autosuspend function.")
 Cc: stable <stable@kernel.org>
-Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Link: https://patch.msgid.link/20260813151456.867008-1-elson.serrao@oss.qualcomm.com
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+Link: https://patch.msgid.link/20260727123414.44700-1-mhun512@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/usb/dwc3/ep0.c b/drivers/usb/dwc3/ep0.c
-index bfe616194dfa..310b5ffb236a 100644
---- a/drivers/usb/dwc3/ep0.c
-+++ b/drivers/usb/dwc3/ep0.c
-@@ -304,7 +304,7 @@ void dwc3_ep0_out_start(struct dwc3 *dwc)
+diff --git a/drivers/usb/storage/realtek_cr.c b/drivers/usb/storage/realtek_cr.c
+index af038b897c6b..c4b28744693b 100644
+--- a/drivers/usb/storage/realtek_cr.c
++++ b/drivers/usb/storage/realtek_cr.c
+@@ -916,7 +916,6 @@ static int realtek_cr_autosuspend_setup(struct us_data *us)
+ 	us->proto_handler = rts51x_invoke_transport;
  
- 		dwc3_ep->flags &= ~DWC3_EP_DELAY_STOP;
- 		if (dwc->connected)
--			dwc3_stop_active_transfer(dwc3_ep, true, true);
-+			dwc3_stop_active_transfer(dwc3_ep, false, true);
- 		else
- 			dwc3_remove_requests(dwc, dwc3_ep, -ESHUTDOWN);
- 	}
-diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index fa944856f956..f245e66cd13d 100644
---- a/drivers/usb/dwc3/gadget.c
-+++ b/drivers/usb/dwc3/gadget.c
-@@ -1004,7 +1004,7 @@ static int __dwc3_gadget_ep_enable(struct dwc3_ep *dep, unsigned int action)
- 			 * controller to generate an ERDY to initiate the
- 			 * stream.
- 			 */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
+ 	chip->timer_expires = 0;
+-	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
+ 	fw5895_init(us);
  
- 			/*
- 			 * All stream eps will reinitiate stream on NoStream
-@@ -1032,7 +1032,7 @@ void dwc3_remove_requests(struct dwc3 *dwc, struct dwc3_ep *dep, int status)
- {
- 	struct dwc3_request		*req;
- 
--	dwc3_stop_active_transfer(dep, true, false);
-+	dwc3_stop_active_transfer(dep, false, false);
- 
- 	/* If endxfer is delayed, avoid unmapping requests */
- 	if (dep->flags & DWC3_EP_DELAY_STOP)
-@@ -1720,7 +1720,7 @@ static int __dwc3_gadget_kick_transfer(struct dwc3_ep *dep)
- 		if (ret == -EAGAIN)
- 			return ret;
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_DEQUEUED);
-@@ -1757,6 +1757,11 @@ static int __dwc3_gadget_get_frame(struct dwc3 *dwc)
-  * the controller won't update the TRB progress on command
-  * completion. It also won't clear the HWO bit in the TRB.
-  * The command will also not complete immediately in that case.
-+ *
-+ * Older programming guide revisions recommended setting ForceRM to 1
-+ * when ending a transfer. Newer programming guide revisions now
-+ * recommend keeping ForceRM cleared, and TRBs are properly updated
-+ * on command completion.
-  */
- static int __dwc3_stop_active_transfer(struct dwc3_ep *dep, bool force, bool interrupt)
- {
-@@ -1882,7 +1887,7 @@ static int dwc3_gadget_start_isoc_quirk(struct dwc3_ep *dep)
- 		 * to wait for the next XferNotReady to test the command again
- 		 */
- 		if (cmd_status == 0) {
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 			return 0;
- 		}
- 	}
-@@ -2165,7 +2170,7 @@ static int dwc3_gadget_ep_dequeue(struct usb_ep *ep,
- 			struct dwc3_request *t;
- 
- 			/* wait until it is processed */
--			dwc3_stop_active_transfer(dep, true, true);
-+			dwc3_stop_active_transfer(dep, false, true);
- 
- 			/*
- 			 * Remove any started request if the transfer is
-@@ -2242,7 +2247,7 @@ int __dwc3_gadget_ep_set_halt(struct dwc3_ep *dep, int value, int protocol)
- 			return 0;
- 		}
- 
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 
- 		list_for_each_entry_safe(req, tmp, &dep->started_list, list)
- 			dwc3_gadget_move_cancelled_request(req, DWC3_REQUEST_STATUS_STALLED);
-@@ -3368,7 +3373,7 @@ static void dwc3_nostream_work(struct work_struct *work)
- 		dwc3_send_gadget_generic_command(dwc, cmd, dep->number);
- 	} else {
- 		dep->flags |= DWC3_EP_DELAY_START;
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 		spin_unlock_irqrestore(&dwc->lock, flags);
+ 	/* enable autosuspend function of the usb device */
+@@ -934,10 +933,7 @@ static void realtek_cr_destructor(void *extra)
  		return;
- 	}
-@@ -3726,7 +3731,7 @@ static bool dwc3_gadget_endpoint_trbs_complete(struct dwc3_ep *dep,
- 	if (usb_endpoint_xfer_isoc(dep->endpoint.desc) &&
- 		list_empty(&dep->started_list) &&
- 		(list_empty(&dep->pending_list) || status == -EXDEV))
--		dwc3_stop_active_transfer(dep, true, true);
-+		dwc3_stop_active_transfer(dep, false, true);
- 	else if (dwc3_gadget_ep_should_continue(dep))
- 		if (__dwc3_gadget_kick_transfer(dep) == 0)
- 			no_started_trb = false;
+ 
+ #ifdef CONFIG_REALTEK_AUTOPM
+-	if (ss_en) {
+-		timer_delete(&chip->rts51x_suspend_timer);
+-		chip->timer_expires = 0;
+-	}
++	timer_shutdown_sync(&chip->rts51x_suspend_timer);
+ #endif
+ 	kfree(chip->status);
+ }
+@@ -982,6 +978,9 @@ static int init_realtek_cr(struct us_data *us)
+ 
+ 	us->extra = chip;
+ 	us->extra_destructor = realtek_cr_destructor;
++#ifdef CONFIG_REALTEK_AUTOPM
++	timer_setup(&chip->rts51x_suspend_timer, rts51x_suspend_timer_fn, 0);
++#endif
+ 	us->max_lun = chip->max_lun = rts51x_get_max_lun(us);
+ 	chip->us = us;
+ 
 
