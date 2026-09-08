@@ -1,111 +1,153 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC6842255C
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:41:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7395052BE39
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867697; cv=none; b=vBsq+K6DaPGQsrUszDzKpU1dV3bXF+sAgDmqd4rYowJJev6RGzv5TDMQWHHsJUYoNriwNz18VoDb2LNbvGBsLHlQoLdEi0fT491XLvlyIv57DjRrZdXQ3K0zbvPenj+IqwRnFCY1uQ1mhERTi5B/EqVsIyHzTz8Dl7txzwcNzUA=
+	t=1788867729; cv=none; b=kvsmka/PuHDQ1WyuSLx++5hJhnHXbP8YrydXq/35eGnY4eVSbRe+AtMQ+U8QEnywYlZos4n94mk6k7OhxqVB2/Mj7A28odng//sCdn8WTx49uM8bp+avs7JGAUcp/DhjuzgnN/5e51cHByjAjRZ/atTsXf9Z2IfiFeawMIX7cHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867697; c=relaxed/simple;
-	bh=JEriB6GDjlcrCUa78TKwGOGGWVkUgVsCS1pUbwbx7n8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qkKZxOvmAeMeeLslyV1dauQQce/5CRhAoNhmH8iVEfHjhSl//uB2Z5CZs8IFMs/79Ba7aFM7wTBFq5khrexWAEXEw6nCascPUUd/tWr0WBi2ig3TYmg85jn4+EYv7S1OHgxLWugATGTjrSxV7PZkT3Y985QO9Xd8h9Lq/eP71Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lR3I+aF3; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788867729; c=relaxed/simple;
+	bh=zcxlvAI1Ae/q1EaKnTsv186NHrqAGAv0T8fIeszsq5A=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WivQoULVJip34XL6/zDVAIMhMlwEU4IOcFtRqX5vrkY1mHcUcwNdFGy73iZWmVJd/3G75/pyXRLg60/B3Fz5EWhWLx0HZaSy66zrCLtuW8AEOKR9RZuy+QzGjmVBpf8TITf/DrmAp0vXVmx7EFjC5tG6rYJX0PCVi8GKtcJ3wvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=M/S5KLcF; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=NkPT29NY; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lR3I+aF3"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so8435018a12.0
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 04:41:35 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="M/S5KLcF";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="NkPT29NY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788867723;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
+	b=M/S5KLcFgMhfhZhOsB3t9TILoJn+aaiTXr4VfHD2g8ekOf+lR+vjcJLkWh0RLfc8Ei/XeW
+	zshYvJociPAL6utr0iNoXQ8JkDYoTnpZiUZnfTZPyiAw/BbhvN7D3wAYSOiXf+wjS7rLjn
+	9VdemQpmZBX093Jk8EIgk1lSQkA/0/E=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-58-F0AFgAhIM66MTX2dzAsLzQ-1; Tue, 08 Sep 2026 07:42:02 -0400
+X-MC-Unique: F0AFgAhIM66MTX2dzAsLzQ-1
+X-Mimecast-MFC-AGG-ID: F0AFgAhIM66MTX2dzAsLzQ_1788867721
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49ccb223bceso26533125e9.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 04:42:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788867692; x=1789472492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=geWMNX1K6rx9sqL3rAvPz4Otwn4ZznXQlhtRu8yNQXQ=;
-        b=lR3I+aF3JKqFWmZq7/dZzhbQmd1vFF/b02TxJz5tfP4Tvm8OokaTHNqKVom4tnGf33
-         21XxReeSPgCvtuIwaXSBzXddEWexpY26rH0+o08xcg7trZpb0ZNmXg9C0W520QTNdDFI
-         IUxTYyppQX6f5KWLqnspucJy5rFe1Kro52kI4aStsfnVh5PZvacINOMO7MPUyRRC5sNE
-         mMdB+o3g/ftfUInN2FahS12Sp3NY70sJqRqMmzbbS+lc9uVEzjCDeamWyq+rcEpqVDUr
-         9Yxf+cOGtx5e85c16ucFPAfQD7Bv7uqbbHBqqcuPsaKEpUGGzghZvEsiD4PZbebqZpk6
-         I7Fw==
+        d=redhat.com; s=google; t=1788867721; x=1789472521; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
+        b=NkPT29NYx3lUXdkGCPgrrR3RQC/Sw+FUwL5H0Fsfz/LwVRDCSbnHhlV9SgJjkDgiOv
+         VHQ2OInaDTPgRDhk16K2hrsb5FFyr01zK3UtAqpZ5Xyk9w6BrgjsFXUNvX1naS5wbAp0
+         cZ1a4qnd5xhigaY4sQRu+EOxAYOH0n+inQQCrXHRyOb32324f06OeSm+IJawluME9OGn
+         xNTu+Ik518xA9XzZQHiEwEGqNpTYK2LqHfflbLwXQhiNKYCjg3ovCd72cbqqKIpNowvu
+         eWGOZJZThXuIewEJXwhikXHxTmwugpXoUQoFHhs92YbQuKNxWm4SNzaw+WIVcPNpZH3y
+         NMVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788867692; x=1789472492;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=geWMNX1K6rx9sqL3rAvPz4Otwn4ZznXQlhtRu8yNQXQ=;
-        b=NYrbmyQ4Gp3+P8PMQnhfWwBBB8OC0DgAEPuVWmgrDZELIB6Xiy3DpBw1YeXfIFXLd0
-         RrXro02V8p1ybTZbjW28YCSjnlcJoPLuEo9iK2bosLinOJz1aC6uuEj999BW/0PRwOpG
-         26R/Fe0Updv0MSEf12Fv0/ur4f2BUeiOFLP7r1zc62UUT+ACKDjj14PIIBmoOdOHLCQL
-         6NU3JB/HzoNLXzZqwrbn4WrOuwV3Y/JYdNtiqImeTumP4816KTCwKobHdpd0Mf3pnXNf
-         OAXMcqxHuhpCQRo8mSWdhLbtw8aUjxXHIPvqDKCP0qVJBzCOIT91BMDtaiwJYl4jJJ1R
-         5rFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByWbsr3xC8Q6kzXcb7VK5eJdBZ5BOZdSh64t1TcMp0ul8OLAkwXa+ljj1eat7EPk7VgEE6R9YI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4LY18z/lztRFerCovtT7lbssr3vRJbeYntihoqwg8kiVFYQlI
-	gfozFDx7+0tQaXIJo3pZMz8W4noGx5GbjRstQeVPOuFaeQEfYd4Fhu7i
-X-Gm-Gg: AYBFou1kYpx1jBL01BaNIX1h7bqvRbnEbeB9iNblxXuP2Kvkpx+VP8545Pq7lXQk6xY
-	Dkzh5s7zUXqsv2UiQng4jvheM8AoiTg+fhubpUBwbKxsurEW3GI3owGSMjPn5qzG5XE3PtBT1uA
-	6pSlkQUKApuYy3DfxPKJFLaLWOJaKWWC5+fyzYzDOUO3AAwE5z8eKWGbSFziUsL3wPHj/Rx3zf3
-	mANrVnIJE/YeiLoPe8iGtOmmw5+Gtrb5XRM73VZRJf905VpEl8AkTWXIXt9rDeZ3jmbIQOklIcg
-	ZRE0pawES1ub3r3ko/5XjALTtWCG/oGd295aIembj3HGft3l/QH3iIMHyAXg6CRgrkmD/yb2Gap
-	mpF+xU5SgoU0MLdJy5X+6Y0JmNeYxr+881uHiBSfW0whq4Ra6nJ+iOp62GDkvl9+1znsEsdX50L
-	1cwyEIhRKR1Vfmecn8F6wW0m/Y0nuob8O15PPKGgR10cHNlxHd+NLmDUR+0O/8d6o7PBC3CI0aS
-	4pU0Djq7NR8ardlYj2UFhQa7baPpRYaATiqV8DTBAG6/PbpSGW2FZjwrXyWR53b0aUVJRBAjV6o
-	Qm41uJBX5EX8+s+HfG86X5W9KF/o8ZRGPP+JTyAZzPjScfrdppFN2mGxUnEqSQ8D2Mixf7kvrvi
-	JvWuqhrhhK9puGBzyB8F5758G2XvOpI4TixfsEMdHq5YajtHblyP1Pfm1MuuKSIWWHYMKo7ggii
-	9o9snHd83mEDxswj0fGatUTb008UV9aBWaiBDgiQ/1K215HY8MLvXB7dj7FetZks6vsY2LEkmZ
-X-Received: by 2002:a05:6402:4050:10b0:6a6:92d6:daad with SMTP id 4fb4d7f45d1cf-6a696a98b4emr9152785a12.10.1788867692285;
-        Tue, 08 Sep 2026 04:41:32 -0700 (PDT)
-Received: from cs-280612103108-default.europe-west4-b.c.oa7bb030819b2a894-tp.internal (209.47.7.34.bc.googleusercontent.com. [34.7.47.209])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68a6beesm5530489a12.8.2026.09.08.04.41.31
+        d=1e100.net; s=20251104; t=1788867721; x=1789472521;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RrNJtw6g290ODPNBtFlQPVdYDxDOj1rXvh8h+/vQvhk=;
+        b=ZuJ/Jg8R4TUW8v3QNMXQBeIiHMMUbTupiVstT5OmoNcQB/Yj8t0geic5nK7vAPkqnx
+         u8LAiULBiI6vTsxxLmhhrh/kVS2CmN+HIVpOgBT+Vxvlx4LScaxr7efz7UDNWJYLaIT4
+         HjJfA4kDSTChXmOz4ZZCfXcqXiNiNdlVAYlINEHG38/nfuGJRXO5QyWDw3tKDCfl40Qy
+         FHGrJdFewmcNcWNdvWwPOEjXcnN8KbyG9d96nB7ADPe+fcPVsmYInZDYr5Nb9owRz4B/
+         dfIrXgVUFtGB8VJ7k8qFjH4vAgw2OnD4OED9scTDwdalRsBOxxPUhjUgJf6zJwNo5M2P
+         tPtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzr4XQ2uzJVfjlBFXZOjZ9T8g49bZLG8/B1I30obPyajcXG4c691fwvR0jmqabirloV50VJuNU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfwVtKE+SPhf3Yqk6s1XPBV4jT/RsTmw7hTBl73QwVvdrzL9dT
+	56emR15mqgYSUF+oCVPY5RAP+JAvdWaHc22EBNDupVtNTz9rH8lEqsYBlQM14+jb1K+W9LCq20w
+	nhzX0C8wF6rjfqqYgMNAoiCnc2/6BTZ3CyKKu6v+T2E4rrmufYuwgdh9Www==
+X-Gm-Gg: AYBFou2MfO0GaWvVYlt5oegmvlCJhv8MqrtjgN8duDwhWbmyeVvzqCJjEPrkGXDglyv
+	J+Q/lwpmOgIyqycqmmXmsAj2aZzmJ4FRw7yT/tSqgyr1crY2yXGyTGdXel9gt2yYclSAF686wA2
+	bI7Qm6hMBUY+yhK6pdldp7gR5LwbPpIJg3r2Xu1/yai7A9vbWYy91+9EYm1gavAtylV94kMKZUR
+	LXTTQNDFBNoAQkUQe6IzO738vLxv0nX1eKqhyIGSjjVINmp5R3C22FGBsNA/X+XX+aEoQUnjkF+
+	9nvfoSVcR9k1pI/PQD+sUemuelBvkA4bRKO3Sux69ym5ESURGgtsL5WQHt3Jge7R2rBWI6BboAX
+	Z5SAkZc4ia3XT8dEu8/YbdMjfLwk+a5XSXhLq6htXmd8LzDgsSHtBvQmtew==
+X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d175439dbmr67723895e9.1.1788867720847;
+        Tue, 08 Sep 2026 04:42:00 -0700 (PDT)
+X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d175439dbmr67723525e9.1.1788867720384;
+        Tue, 08 Sep 2026 04:42:00 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm296441395e9.13.2026.09.08.04.41.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:41:31 -0700 (PDT)
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Kim Seer Paller <kimseer.paller@analog.com>,
-	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE macro
-Date: Tue,  8 Sep 2026 11:40:47 +0000
-Message-ID: <20260908114047.1360-1-joshua.crofts1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 08 Sep 2026 04:41:59 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Fabio Piparo <holofermes@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Amit Barzilai
+ <amit.barzilai22@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Fabio Piparo <holofermes@gmail.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] drm/ssd130x: Set the address window in
+ ssd132x_clear_screen()
+In-Reply-To: <20260817152500.703770-1-holofermes@gmail.com>
+References: <20260817152500.703770-1-holofermes@gmail.com>
+Date: Tue, 08 Sep 2026 13:41:58 +0200
+Message-ID: <87h5k0dl6h.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TABLE()
-macro.
+Fabio Piparo <holofermes@gmail.com> writes:
 
-Add the missing macro.
+Hello Fabio,
 
-Fixes: 59795109fa67 ("iio: adc: max14001: New driver")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
----
- drivers/iio/adc/max14001.c | 1 +
- 1 file changed, 1 insertion(+)
+Sorry for the delay. I was on vacation for a few weeks and I'm just
+catching up on email.
 
-diff --git a/drivers/iio/adc/max14001.c b/drivers/iio/adc/max14001.c
-index 58adeac62dde..7694fbb6a9fd 100644
---- a/drivers/iio/adc/max14001.c
-+++ b/drivers/iio/adc/max14001.c
-@@ -366,6 +366,7 @@ static const struct spi_device_id max14001_id_table[] = {
- 	{ .name = "max14002", .driver_data = (kernel_ulong_t)&max14002_chip_info },
- 	{ }
- };
-+MODULE_DEVICE_TABLE(spi, max14001_id_table);
- 
- static const struct of_device_id max14001_of_match[] = {
- 	{ .compatible = "adi,max14001", .data = &max14001_chip_info },
+> ssd132x_clear_screen() sends its zeroes without setting the column and
+> row ranges first, so they land in whatever window the last
+> ssd132x_update_rect() left programmed. A partial final update then
+> leaves the rest of the screen uncleared, with fbcon the last damage is
+> typically the cursor cell, so blanking keeps the console content on
+> the panel.
+>
+> Set the full-screen window first, as ssd130x_clear_screen() already
+> does.
+>
+
+All this makes a lot of sense to me.
+
+> Fixes: fdd591e00a9c ("drm/ssd130x: Add support for the SSD132x OLED controller family")
+> Assisted-by: LLM
+
+I was going to mention that this isn't the convention documented in
+https://docs.kernel.org/process/coding-assistants.html#attribution,
+but I just noticed that there is a recent commit 816d9992d9ed
+("coding-assistants: simplify attribution").
+
+So your tag is correct and I learned today that "AGENT_NAME:MODEL_VERSION"
+got deprecated.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fabio Piparo <holofermes@gmail.com>
+> ---
+> Exercised on an SPI SSD1322 under local enablement patches for that
+> chip; compile-tested only on the SSD1325/1327. ssd133x_clear_screen()
+> has the same problem, left alone here for lack of hardware.
+>
+>  drivers/gpu/drm/solomon/ssd130x.c | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+>
+
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+
+I'll push to drm-misc (drm-misc-fixes). Thanks for fixing this issue!
+
 -- 
-2.47.3
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
