@@ -1,277 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9C43A5449;
-	Tue,  8 Sep 2026 22:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC40492E21;
+	Tue,  8 Sep 2026 22:58:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908265; cv=none; b=CNlsAeLXtGbSdQCKFblweDalDXaeSKdOZcxy92vr+qeRQWJbHR0blnjmU1CYq04naStBZXHI3JtHf0T+BfHsJcu/1fs73b6YQNBE+/aegLqmfbYUmyg2xwWU/PzEYzLcS2boGGlpQmaSyPOh2gHD1/uJX4W+JVncDnimbY5SHmI=
+	t=1788908337; cv=none; b=Y9eTV/KOEHoBW2GMbxBlyARXIC5qTpsRPCwqfpBDkMrV17HUcseiBfTHi6fQVnv79IBLlFKwriZ2wtLASOwB7MbIQUjX2SgBElrhVyyml0rZEjaDN7YaY16iLIat+eOILptYC6AtIiIl69VZ1ve4mT35fxlKs4iGHD9HXTcLOqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908265; c=relaxed/simple;
-	bh=NQ/8z6WQwtaNm4Y+2hkcL6a2MAJWrjTVR42bWSF+AKI=;
-	h=Date:To:From:Subject:Message-Id; b=j2dQ95VlshmB3DO0fth+uAwClEfat0GivPjyDoOczy9k5KMWhFawbpigSS1WakUr2ImtTND+15keV7UrI4mI/6pqFhuqUvCcwYAT3vS2TkZQeh7S8JHvzER9lp5I4sGboyFFf8Bog8LFqz75z4/nsVJdVuKixSEM/HvMla127mY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=QwKkF/Q7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788908337; c=relaxed/simple;
+	bh=YQgM1KJ70BAmWSmNp9i9Gj4DimzaAi65Ceq90tR6OKY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MUUhJpACl9P7G6GH9kMu3o4BDBUaN0hcYn4b3b+0dvZljPU/C3vUQFzUaGjxA9JfJ/T1Su+CIIaCW9UofbD0KrQVYSikYguH29VxgueIeHUozhTiLHPSMH4uoQ3EiJnv1AEGlY3p/Pd6zFi0X2YsSE5tZp6iOmzOtNci+M8FfUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DyvJ635N; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QwKkF/Q7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEF6E1F00A3F;
-	Tue,  8 Sep 2026 22:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788908261;
-	bh=HCFdgIxcmrVDlnFdwyokw3hSpj5uPTqDbqObuuZHvoE=;
-	h=Date:To:From:Subject;
-	b=QwKkF/Q7yTcmvSA/Hkfrgp4uoAAY0r/GC+/z9FSKADLaBZKhC1Rq/LC2bW14RLW0j
-	 tEzPzRrw91rnmn5mJOtDuV69DlI0chYF7SmWHl1/TplUPWFkKWiJtUcd8kuYpUVtd2
-	 zPAjGcM9CaKgGmLdNWwydQV/nM1jwwiA9fgJXHuE=
-Date: Tue, 08 Sep 2026 15:57:41 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,samitolvanen@google.com,petr.pavlu@suse.com,peterz@infradead.org,ojeda@kernel.org,mhiramat@kernel.org,mcgrof@kernel.org,gregkh@linuxfoundation.org,arnd@arndb.de,atomlin@atomlin.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + module-treat-dashes-and-underscores-interchangeably-in-module_blacklist.patch added to mm-nonmm-unstable branch
-Message-Id: <20260908225741.BEF6E1F00A3F@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DyvJ635N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788908334; x=1820444334;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=YQgM1KJ70BAmWSmNp9i9Gj4DimzaAi65Ceq90tR6OKY=;
+  b=DyvJ635NuZm7l+M6LvY7h3H4sKOdXgFvNIoBpSyhd2i3LsoFIgk1vzmN
+   riRzywsgSRnQUehnv+BMKRKEk1RWbRMpVi5+qXEF/Hwqc1X8w+XOXkoEy
+   ElBwKC8Fe+tk7844TVGi3qbe7vhS59uslezgjc7s+F2JA4n/fAPhbYpna
+   Pl2yv9tK5OTLrUIlKZRMA4VVIZUtVW3uB4U6S1MG0RlAhU6nx8IoCL+80
+   nsiW3Dseee8SMnb0fL4LewMXOhVHSBGCHheGc06nnVagHGT9kWo3BNZ7B
+   C/raZiIkLteHK7ogGeIngAoEtN/7mxn0k8biAOXRqGkHutIamtaFLTXZh
+   w==;
+X-CSE-ConnectionGUID: fryVAAxxSfeXg9QZimE6JA==
+X-CSE-MsgGUID: WiAhZAwmQPGPtMheOAKnrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99916601"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="99916601"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:58:53 -0700
+X-CSE-ConnectionGUID: kYMS1yqSTw6qabhyCLD6vg==
+X-CSE-MsgGUID: 4KCPMKVKRsKBzpcT61PU6w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="309400545"
+Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
+  by orviesa001.jf.intel.com with ESMTP; 08 Sep 2026 15:58:53 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	andrew.cooper3@citrix.com,
+	arjan.van.de.ven@intel.com,
+	sohil.mehta@intel.com,
+	chang.seok.bae@intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] x86/microcode/intel: Reject problematic loading on Granite Rapids systems
+Date: Tue,  8 Sep 2026 22:32:09 +0000
+Message-ID: <20260908223209.916758-1-chang.seok.bae@intel.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901231634.714144-2-chang.seok.bae@intel.com>
+References: <20260901231634.714144-2-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Microcode updates can usually jump revisions. However, there is an
+erratum on Granite Rapids systems. If they "jump over" to revision
+0x1000405 or later, they result in #MC.
 
-The patch titled
-     Subject: module: treat dashes and underscores interchangeably in module_blacklist
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     module-treat-dashes-and-underscores-interchangeably-in-module_blacklist.patch
+Prevent loading 0x1000405 or later unless the running revision is already
+at least 0x1000405. Apply this blocking to both early- and late-loading
+paths.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/module-treat-dashes-and-underscores-interchangeably-in-module_blacklist.patch
-
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Aaron Tomlin <atomlin@atomlin.com>
-Subject: module: treat dashes and underscores interchangeably in module_blacklist
-Date: Tue, 8 Sep 2026 16:32:28 -0400
-
-Patch series "module: Extend module_blacklist parameter to built-in
-modules", v11.
-
-This patch series extends the module_blacklist= command-line parameter
-(and its modern alias module_denylist=) to intercept built-in modules
-during early boot.  Currently, when a driver is compiled statically into
-the kernel (=y), the parameter is silently ignored, precluding
-administrators from suppressing problematic drivers during boot-time
-disaster recovery.  This series resolves that discrepancy by mapping
-built-in modules to their initialisation routines via transient metadata
-that is freed post-boot, providing a predictable and consistent
-administrative interface regardless of whether a driver is built as a
-loadable module or compiled into the kernel image.  Below is a detailed
-breakdown of the motivation, operational rationale, and concrete use cases
-addressed by this work.
-
-1.  The Core Problem and User Experience Gap
-============================================
-
-Today, module_blacklist= works strictly on loadable modules.  When a user
-or system administrator encounters a driver bug, hang during device probe,
-or hardware fault during boot, the natural and widely documented remedy is
-to pass module_blacklist=[driver] via the bootloader (GRUB, systemd-boot,
-etc.).  However, if that driver is built into the kernel, the parameter is
-silently ignored.  The kernel proceeds to run the driver's initialisation
-routine anyway, leading to the same panic, hang, or hardware misbehaviour.
->From the user's standpoint, whether a driver was packaged by their
-distribution or built by their provider as =m or =y is an internal
-implementation detail.  Having module_blacklist= silently fail solely
-based on compilation configuration violates the principle of least
-surprise and complicates system recovery.
-
-2.  Why initcall_blacklist= is not an adequate substitute
-=========================================================
-
-The kernel does provide initcall_blacklist=, but it is impractical for
-general users, sysadmins, and automated fleet management tools for several
-reasons:
-
-    Obscure symbol names
-
-        - initcall_blacklist= requires the exact function name of the
-          initcall (e.g., snb_pci_uarch_init and e1000_init_module). Users
-          typically know the module name, not the internal function name.
-
-    Internal instability
-
-        - Initcall function names are internal kernel implementation
-          details. They change across kernel releases, refactors, or macro
-          rewrites, making it impossible to write stable bootloader
-          configurations or recovery documentation across multiple kernel
-          versions.
-
-    Mangled names (Rust)
-
-        - For modern drivers written in Rust, the initcall symbol names are
-          compiler-mangled symbols (e.g. "_RNvX"), making
-          initcall_blacklist= practically impossible for a human user to
-          specify manually at a boot prompt.
-
-module_blacklist= (or module_denylist=) resolves this by allowing users to
-specify the canonical, user-facing module name (KBUILD_MODNAME) that they
-already know.
-
-3.  Concrete use cases
-======================
-
-    A.  Disaster recovery and triage on production systems
-
-        When a kernel update introduces a regression in a built-in driver
-        (e.g., a storage controller), administrators need a way to bypass
-        that driver at boot time to get the system into a usable emergency
-        shell or collect diagnostic logs, without having to rebuild the
-        kernel on another machine.
-
-    B.  Monolithic/Hardened environments (CONFIG_MODULES=n)
-
-        In security-sensitive environments, kernels are frequently compiled
-        without loadable module support (CONFIG_MODULES=n) to eliminate
-        module loading attack vectors. On these systems, all drivers are
-        built-in. If a hardware erratum or firmware bug triggers a hang in
-        a built-in driver, administrators previously had no
-        module-name-based mechanism to disable the offending driver.
-
-    C. Hardware Errata and Conflicting Devices
-
-       On systems with buggy firmware or conflicting device IDs where two
-       drivers attempt to bind to the same hardware, users can prevent the
-       conflicting built-in driver from initializing without patching and
-       recompiling the entire kernel image.
-
-4. Implementation and Overhead Considerations
-=============================================
-
-We took great care to ensure this change introduces virtually zero runtime
-overhead:
-
-    Scoped to module_init()
-
-        - Only built-in drivers that explicitly use module_init() are
-          tracked. Core kernel subsystems using core_initcall(),
-          subsys_initcall(), etc. are unaffected.
-
-    Zero Resident Memory
-
-        - The metadata table (.initcall.modnames) and the module name
-          strings (.init.rodata) are placed entirely in init sections and
-          are completely freed from memory after boot via free_initmem().
-
-    Fast Path
-
-        - During boot, if neither module_blacklist= nor module_denylist=
-          was supplied on the kernel command line, the lookup is bypassed
-          entirely.
-
-In summary, this patch brings parity between modular and built-in drivers,
-removes a pain point in boot-time disaster recovery, and provides users
-with a predictable, consistent interface.
-
-Following review feedback, the implementation is structured as three
-separate changes to isolate a pre-existing bugfix, decouple the
-introduction of the new feature, and handle the terminology renaming:
-
-    1.  The first patch is a standalone prerequisite bugfix addressing a
-        pre-existing flaw in the module blacklisting logic where hyphens
-        and underscores are not treated interchangeably. Because the kernel
-        build system normalises module names to use underscores (e.g.
-        "my_module"), specifying a module with hyphens on the command line
-        (such as "module_blacklist=my-module") failed to match due to a
-        strict byte-for-byte memcmp(). It replaces memcmp() with
-        parameqn(), carries a Fixes: tag, and is CC'd to stable.
-
-    2.  The second patch extends the "module_blacklist=" parameter to
-        built-in modules using the original blacklist terminology. It
-        introduces the ".initcall.modnames" section to map initcall
-        function pointers to their associated KBUILD_MODNAME strings
-        (restricted only to module_init() invocations to save memory and
-        avoid matching core kernel subsystems). It also restricts the check
-        to a boot-time __init wrapper to eliminate Use-After-Free (UAF) and
-        Spectre v1 vulnerability risks when loading dynamic modules at
-        runtime, and adds a fast-path check to eliminate lookup overhead
-        when the parameter is not in use.
-
-    3   The third patch renames the variables and helper functions to adopt
-        the preferred "module_denylist=" and module_is_denylisted()
-        terminology in the codebase. To preserve the existing user-space
-        ABI, "module_blacklist=" is kept as a legacy alias pointing to the
-        same module_denylist variable.
-
-
-This patch (of 3):
-
-The "module_blacklist=" command-line parameter allows administrators to
-prevent specific modules from loading by specifying a comma-separated list
-of module names.  The blacklisted() helper checks candidate modules
-against this list using a strict byte-for-byte comparison via memcmp().
-
-However, the kernel build system normalises module names to use
-underscores (e.g., "my_module"), whereas administrators and user-space
-utilities may use hyphens (e.g., "my-module") interchangeably.
-
-Because of the strict memcmp(), specifying a module name with a hyphen on
-the kernel command line (e.g., "module_blacklist=my-module") fails to
-match the internal module name ("my_module").  Consequently, the module is
-loaded despite having been explicitly blacklisted, defeating the intended
-administrative mitigation.
-
-Replace memcmp() with parameqn(), which treats dashes and underscores as
-equivalent.  This ensures that module names match correctly regardless of
-whether hyphens or underscores are supplied, matching standard kernel
-parameter and modprobe behaviour.
-
-Link: https://lore.kernel.org/20260908203230.401020-1-atomlin@atomlin.com
-Link: https://lore.kernel.org/20260908203230.401020-2-atomlin@atomlin.com
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-Fixes: be7de5f91fdc ("modules: Add kernel parameter to blacklist modules")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Luis Chamberalin <mcgrof@kernel.org>
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Petr Pavlu <petr.pavlu@suse.com>
-Cc: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 ---
+V1 -> V2:
+* Cut the code comments and print messages (Boris)
+* Rename the new function and keep the old function as it-is (Boris)
+* Rewrote the changelog (Dave)
+* Add `revision` in the error messages (Sohil)
+---
+ arch/x86/kernel/cpu/microcode/intel.c | 32 +++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
- kernel/module/main.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/kernel/module/main.c~module-treat-dashes-and-underscores-interchangeably-in-module_blacklist
-+++ a/kernel/module/main.c
-@@ -2942,7 +2942,7 @@ static bool blacklisted(const char *modu
+diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
+index 1142183c950c..61ad280497e9 100644
+--- a/arch/x86/kernel/cpu/microcode/intel.c
++++ b/arch/x86/kernel/cpu/microcode/intel.c
+@@ -309,6 +309,32 @@ static void save_microcode_patch(struct microcode_intel *patch)
+ 		pr_err("Unable to allocate microcode memory size: %u\n", size);
+ }
  
- 	for (p = module_blacklist; *p; p += len) {
- 		len = strcspn(p, ",");
--		if (strlen(module_name) == len && !memcmp(module_name, p, len))
-+		if (strlen(module_name) == len && parameqn(module_name, p, len))
- 			return true;
- 		if (p[len] == ',')
- 			len++;
-_
-
-Patches currently in -mm which might be from atomlin@atomlin.com are
-
-hung_task-reset-warning-budget-when-problem-gets-resolved.patch
-hung_task-log-summary-line-when-warning-budget-is-exhausted.patch
-module-treat-dashes-and-underscores-interchangeably-in-module_blacklist.patch
-module-extend-module_blacklist-parameter-to-built-in-modules.patch
-module-rename-module_blacklist-to-module_denylist.patch
++static bool revision_banned(struct cpu_signature *sig, u32 rev)
++{
++	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
++
++	/*
++	 * Revision 0x1000405 contains prerequisite changes for subsequent
++	 * microcode updates on Granite Rapids systems. Updates directly from
++	 * an older revision to this or a newer one can result in #MC. This is
++	 * documented item GNR98, #835486 (Intel Xeon 6900/6700/6500-Series
++	 * Processors with P-Cores).
++	 */
++	if (vfm == INTEL_GRANITERAPIDS_X &&
++	    x86_stepping(sig->sig) == 1 &&
++	    sig->pf & 0x95 &&
++	    sig->rev < 0x1000405 &&
++	    rev >= 0x1000405) {
++		if (rev == 0x1000405)
++			pr_err_once("Erratum GNR98: revision 0x1000405 is not loadable.\n");
++		else
++			pr_err_once("Erratum GNR98: revision 0x1000405 is required before 0x%x.\n", rev);
++		return true;
++	}
++
++	return false;
++}
++
+ /* Scan blob for microcode matching the boot CPUs family, model, stepping */
+ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 						     struct ucode_cpu_info *uci,
+@@ -330,6 +356,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+ 		if (!intel_find_matching_signature(data, &uci->cpu_sig))
+ 			continue;
+ 
++		if (revision_banned(&uci->cpu_sig, mc_header->rev))
++			continue;
++
+ 		/*
+ 		 * For saving the early microcode, find the matching revision which
+ 		 * was loaded on the BSP.
+@@ -878,6 +907,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+ 		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
+ 			continue;
+ 
++		if (revision_banned(&uci->cpu_sig, mc_header.rev))
++			continue;
++
+ 		is_safe = ucode_validate_minrev(&mc_header);
+ 		if (force_minrev && !is_safe)
+ 			continue;
+-- 
+2.53.0
 
