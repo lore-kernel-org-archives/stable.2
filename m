@@ -1,123 +1,271 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12E63C81B5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 20:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E757F381B05;
+	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900740; cv=none; b=gCK7d1q8jHrqNu6Y0bA+9CGT42c3hsuiiu0Uo0DYa3Tey8Vhl3Fwl9UTIcb+kPeGAKSf0yceBFdQb9JXLRHaIpAjnYaDZE3OCF2cI/DBCBtFEgrORWQCeLcKsDVzIIzNpMR77y3c1F8D4Oac1oe7YEJ72q/rsazhnCa2Sq4LmwA=
+	t=1788900833; cv=none; b=oUKdsTqECECYHB7aQZc264n46r1Hjwfa3lRtGGUGIGlzFWcc7BcAihBMj+zLPsmsxgEvW6gmEWSAwz5/sbbAf3FRpdgFaMS4agt6pUuM4MlWFYDxCcnSym/NL+5tRy17XGUm51Nrh5MIs8NC1lLcH5NMFGv+Ec/sC+XxKb+Z1Pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900740; c=relaxed/simple;
-	bh=/T8Ge+0H/oozUNaNPsKgNdMMXhldvR/6NLwBw+hfiYA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fVjWwFRw8xgr+YuyGXmgf18Ddh3KLA+3eCbm+5dw6kOqzklLSJn2mW15WrIaOEJ9j2Fb29EuBdnDUx4DqwfpHfL7Hu14MnH/x8eGILUvV5hwj7rRrYinEJ5VKDIvyt4dfHz/RtQdv631C0VmyMG4Ec6jlksaPKrt2O9x6RKeqBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NrpaBloj; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788900833; c=relaxed/simple;
+	bh=9ydGklz8bZHOpqIknHpNgAna7Etxuu7JUtYpdMotKqE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rGlkFcgXNn5KzYcK5vmyWVr9pvug7OJ3n3hVS35UJEcKQ52v6vncojSCKKqkhem3yGC5LYAu0haWuII9UyVHWHK/zmIIZT34hUMJ1iNfqALHOA5RMWJ53inbt1/haGnSXlHabMNFabP5QjmVXdH6TS/CTe7RykXaDIRXmythiZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUBUX+Od; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NrpaBloj"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso42963065e9.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 13:52:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788900737; x=1789505537; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A0mtaTtQYz4wQ5P5X6eMd5pS4o/Mqyck5LWsd7xeYwc=;
-        b=NrpaBlojtxSz8WyvmuugbJphxc01wu5ceybzwykacopowV9s4C4q+obdyPU3nIzPTm
-         bEXisvfAFNHM8zUYgOGUyhyXRkRqyyANz+ReyZJf2sirJ8tDB7vCKg4zw4VUyzGdId2N
-         0kY1s5I8IoQUXcK0kkoQ//QpeVnNE/u7O4qus+ggQo75AJjhvJaUiCkol8I2VtKVYf3p
-         qRU+/+OG54GP8MkmJODHAQePl1YSxVsMEsL+Tkq1+qttf4jjJBSU1mzT6/5VfU7e4SDo
-         EtI3n3tJodmcn90Ki/zinDSmKUhw4bI7FL9uvB2vesOsVYeEryHU7AJxQ5c/d+i9cUir
-         HF9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788900737; x=1789505537;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A0mtaTtQYz4wQ5P5X6eMd5pS4o/Mqyck5LWsd7xeYwc=;
-        b=R+JRK/y7DALV+/gBBURNvOYGITQFCu87FDv9ito49NlCSESKMj07bsX72aSLVxfjTD
-         zTIAI+e0uFpgjep8NqwnPmACDE3g2CZJxEB6GE6HOUvzlYiljUH+I/HpbaTd2+aVX8zk
-         hpEDVFxUOtsnxbSSmHXlkc2+Ig5c85IWCHb+01VovRWd/idbVIFm553frxtBr88ilMyf
-         9x8u5rWVNjWWv6v0A1brfNZEmObBDjWQXCm2Lp1KM3uxNDdh7ixmoOCZu6jesMBFZIJY
-         POoatqjqO4gFvtjDRS4ZQ6e86lYJ6fS2FYdRtdZuXPsG5ak4hilvirXsLL3ALWXByBaT
-         o7mw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQ8lXVhtLzHISprCRRMDcaa96PogaPVA08O4Bl669QBLG28An2IUNdWfb77ghKDsNaNTQOEsA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mMfIqC0GRslptcAAZX3zz1rQd8yonSkIJsKMxlX6i5FiBMBHfq
-	/cL/Fp7VNbAATOYK7H/RwLw0XF7+ii7tv1P2u6kg1RzN9TXc8hzuHTZA
-X-Gm-Gg: AYBFou3AmdXyE8XIIiyDfFpFWcO6zWektFr3gQX3oDvv6HoV2WSvj9nyT9pdmeEthMP
-	Bi8PhH3aLmFBaugpt+n32eaY0EVdu7m93Rzn6/BwDgct0zheYylW0UOUOnVngQeNGT+1v465JRn
-	qKO2z/GEcIJrM6Awyk8EIJdDlqsWnTs3nFL6ZV7z1M4luy1k6nZxOPLbQLEiekNqUCfQUhydSJQ
-	J+LE2CVrWpCuyINp4G3yqMAtfnByDetgP50mQ1vbE2sw9ujY3j/nUSu4SWjTeyAK8AxfswETK/5
-	2Nk5PsHSQo6yF6TY2j/Bu4m6gF13oQq7zMQ2NHlq0p2XBjp9cTRBdMiJejKnmuHzRoPbSaRavqE
-	E5GSM2FCZ+qAlFQ48FNDs5KA+Be+QJ54LqkjncoyirY5FwxXrmFETnMiRUe5q27pfEjifkqg/6R
-	vZ79w4wusO1TYRP4RTt4vAdjf4F97gjFmoBW9F/JTTA+p2lMPnKDwCc0MDLQzBU/Xl0G/KxtNbK
-	CtnkJIve492+6XlCUxYgmDFlw==
-X-Received: by 2002:a05:600c:3e0a:b0:495:6e68:5df2 with SMTP id 5b1f17b1804b1-49cf8267a36mr411374975e9.12.1788900736223;
-        Tue, 08 Sep 2026 13:52:16 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm368295445e9.14.2026.09.08.13.52.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:52:14 -0700 (PDT)
-Date: Tue, 8 Sep 2026 21:52:09 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, ada.coupriediaz@arm.com,
- ardb@kernel.org, catalin.marinas@arm.com, cl@gentwo.org,
- james.morse@arm.com, maz@kernel.org, peterz@infradead.org,
- ruanjinjie@huawei.com, stable@vger.kernel.org, usama.anjum@arm.com,
- vladimir.murzin@arm.com, will@kernel.org, yang@os.amperecomputing.com
-Subject: Re: [PATCH v3 16/21] arm64: percpu: Implement preemptible void RMW
- ops
-Message-ID: <20260908215209.01f64b82@pumpkin>
-In-Reply-To: <aqAkvK6zylxwq5J2@J2N7QTR9R3>
-References: <20260904161758.376504-1-mark.rutland@arm.com>
-	<20260904161758.376504-17-mark.rutland@arm.com>
-	<20260905100319.0a50c17f@pumpkin>
-	<aqAkvK6zylxwq5J2@J2N7QTR9R3>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUBUX+Od"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 502E8C2BCB8;
+	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788900832;
+	bh=9ydGklz8bZHOpqIknHpNgAna7Etxuu7JUtYpdMotKqE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=MUBUX+OdC6MdOoyat4SfIhsk/mYkz4s59QX5MjXRe2hVpWVeJ381rg3owK6oNbOCo
+	 lUgR2Qs/oUYIm01oYYv3pUM+/u9SXoV8CMBvQrIr2qHTXie/VUP27aKbQv/wtCqHnf
+	 BRk5aqt8t2RJ2WWR3NVFtBx0lxDkTWQmHGmUAYdr50BtU5K4g3P92UIav2P6/Tu6iQ
+	 uvcezXgqwcb5r1UdX3UlPVUt++cyYYegCEZAYiRf2MPNfr2lsjrEMGv0CDMtTIpnkB
+	 iS137AuY68j1uaP/Ll00PU2sSut/z2yLy4jfQe0YF3NgB9qG5BgC1B4nO3DTtatBqh
+	 gUqU0HZytNieg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE48C79FAA;
+	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Tue, 08 Sep 2026 22:53:47 +0200
+Subject: [PATCH] backlight: qcom-wled: Fix unbalanced OVP IRQ enable at
+ probe
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSQ6DMAxA0asgr2spDVPpVRALSAyYUoaESULcn
+ QDLt/h/B0uGycLX28HQwpb7zuH98kDVeVcRsnYGKWQkEvHBUfV/XFvSWOTq13JVT1jqJIwDIWM
+ /9MGVg6GSt/uaZo/tXDSkpmsFx3ECFD8JCncAAAA=
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, stable@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6457; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=yBiYmO8d6SvubGxXelZ3t3PQpKGgRFigdJU1itdaGJI=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoHXe926RXgnO3S+glWPVaG88ro/W9WLSTAOOa
+ RVPKlHctlSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqB13gAKCRBgAj/E00kg
+ cpJiD/98Rs8zIQxocR0idSCh6Ogmgd/J9rMxS2zgWMK/zQLttQS/ry88pN69AVygf/93I4oNLXT
+ HOB/m1kb0y4/vP04Ienuwm5+EbyozXYR6U1IKI475fEIlf+W/Jx3ajQN+wNw/h34kM6syjK0ceq
+ ZWSxCkvl4y6seLqWv0lKPk/wJNudf0fbnUgXQ6wyooL9i7KE8SkFLKpcx/U7+VSmJbm5wAloaam
+ cBR3qw/Eos3TXqHer9+V9BYwpRhnG/MKWFx3k5GpNAc3kYdZxEoSGVFH+CZAC1mT6+soAIZXRLd
+ Kt1lAgvuVps7P8XY/dtqDFRAXe4HZb9OO/dElfUmuBbUDveVZpo5w3QiPMufOhCGgvXQZV5f4pN
+ rKrQBqoriJrTSefr34riwr8EKBVmXUDIM2vCPJUGpkp6RJThGtK5+qyGSJ2HGg8Ol6kHdzi3M/N
+ FJ8pCz6dV09pOGUASI5AmctCOb/wX17gf5rDiy6I2HYqe3j0NcxGYxl5NbNMwTT16KqzA6ZG6Ap
+ NqzBPVcmY2zIJ5MbjnITAvToNfbkGQIL8jK0DpJw7ePlzdoBcrUHP9IZDXI80kpa0RV1VINV3M+
+ IOiJmgxpKkR0z38200Q80msIDnmBFhfnd/6aP7d9a9HJG44syQg15ObqUKjU7aSFwWL3ZQkH/jT
+ adohQTBb5LbvUuQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Tue, 8 Sep 2026 16:07:40 +0100
-Mark Rutland <mark.rutland@arm.com> wrote:
+From: David Heidelberg <david@ixit.cz>
 
-> On Sat, Sep 05, 2026 at 10:03:19AM +0100, David Laight wrote:
-> > On Fri,  4 Sep 2026 17:17:53 +0100
-> > Mark Rutland <mark.rutland@arm.com> wrote:
-> >   
-> > > Use the PCPU GPR infrastructure to implement all of the RMW ops which do
-> > > not return a value.  
-> > ...  
-> > >  #define __PERCPU_OP_CASE(w, sfx, name, sz, op_llsc, op_lse)		\  
-> > 
-> > Isn't this definition exactly the same as __PERCPU_RET_OP_CASE() except
-> > for s/tmp/ret/ and the 'return ret'?  
-> 
-> Not exactly the same; the __PERCPU_RET_OP_CASE() assembly also performs
-> an additional instruction at the end in order to generate the RETURN
-> value.
+wled_configure_ovp_irq() derives the initial state of the OVP interrupt
+from the hardware:
 
-I had missed that - it is only in the LSE atomics alternative.
-However it also replaces a nop so wouldn't affect code size or
-execution speed.
+        /* Keep OVP irq disabled until module is enabled */
+        if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
+                disable_irq(wled->ovp_irq);
 
-David
+but wled->brightness, which is what the rest of the driver uses to tell
+whether the module is on, is left at zero.
 
-> 
-> > Since the compiler will just ignore the unwanted return value
-> > there is not point replicating the definition.  
-> 
-> We could consider sharing the assembly, but it's not quite that simple,
-> so I'm going to leave this as-is for now.
-> 
-> Mark.
-> 
+On boards where the bootloader hands the kernel a lit backlight the two
+disagree. MOD_EN is already set, so the interrupt is left enabled, while
+wled_update_status() still believes the backlight is off and takes
+
+        if (!!brightness != !!wled->brightness)
+                rc = wled_module_enable(wled, !!brightness);
+
+on the first backlight update. wled_module_enable() then schedules
+wled_ovp_work(), which calls enable_irq() on the already enabled
+interrupt:
+
+  Unbalanced enable for IRQ 176
+  WARNING: CPU: 0 PID: 160 at kernel/irq/manage.c:774 __enable_irq+0x50/0x80
+  Hardware name: Xiaomi Pocophone F1 (DT)
+  Workqueue: events wled_ovp_work
+  Call trace:
+   __enable_irq+0x50/0x80
+   enable_irq+0x48/0xa0
+   wled_ovp_work+0x18/0x24
+   process_one_work+0x1d0/0x350
+   worker_thread+0x13c/0x460
+   kthread+0x110/0x114
+   ret_from_fork+0x10/0x20
+
+The bootloader is not the only way to get there. The readback runs after
+wledN_setup(), and wled4_setup() sets MOD_EN itself on the path where the
+sink configuration does not already match, as does the tail of
+wled_auto_string_detection(), which all three setup paths can reach
+through wled_auto_detection_at_init(). A cold-booted board with a dark
+panel can therefore reach the same disagreement.
+
+Move the MOD_EN readback into wled_probe() and use it to seed
+wled->brightness, so the driver starts out agreeing with the hardware,
+and key the OVP interrupt off wled->brightness instead. The first
+backlight update then only reprograms the brightness registers and
+leaves both the module and the interrupt alone. The OVP interrupt also
+stays armed from probe whenever the module is already enabled, rather
+than being disabled at probe and only enabled once something writes
+brightness.
+
+Note that a backlight update requesting brightness 0 before any non-zero
+one now really does turn the module off wherever MOD_EN was already set,
+where before it was silently ignored.
+
+wled->brightness is seeded with default-brightness rather than the level
+the bootloader actually programmed, so the first update can still step
+the brightness. Reading that level back needs a per-version accessor and
+is left for later.
+
+Assisted-by: LLM
+Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+this is slightly annoying bug sdm845-mainline had patched for a years,
+but not very well. This should be the proper patch, got ack from people
+with Xiaomi Poco F1 (ebbg variant) which does use this so it works.
+
+Adding MSM8953 folks into Cc too, which use the early fix.
+---
+ drivers/video/backlight/qcom-wled.c | 32 +++++++++++++++++++++-----------
+ 1 file changed, 21 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
+index 650dd95f06ef5..344b8cad90105 100644
+--- a/drivers/video/backlight/qcom-wled.c
++++ b/drivers/video/backlight/qcom-wled.c
+@@ -1622,54 +1622,49 @@ static int wled_configure_short_irq(struct wled *wled,
+ 
+ 	return rc;
+ }
+ 
+ static int wled_configure_ovp_irq(struct wled *wled,
+ 				  struct platform_device *pdev)
+ {
+ 	int rc;
+-	u32 val;
+ 
+ 	wled->ovp_irq = platform_get_irq_byname(pdev, "ovp");
+ 	if (wled->ovp_irq < 0) {
+ 		dev_dbg(&pdev->dev, "OVP IRQ not found - disabling automatic string detection\n");
+ 		return 0;
+ 	}
+ 
+ 	rc = devm_request_threaded_irq(wled->dev, wled->ovp_irq, NULL,
+ 				       wled_ovp_irq_handler, IRQF_ONESHOT,
+ 				       "wled_ovp_irq", wled);
+ 	if (rc < 0) {
+ 		wled->ovp_irq = 0;
+ 		return 0;
+ 	}
+ 
+-	rc = regmap_read(wled->regmap, wled->ctrl_addr +
+-			 WLED3_CTRL_REG_MOD_EN, &val);
+-	if (rc < 0)
+-		return rc;
+-
+-	/* Keep OVP irq disabled until module is enabled */
+-	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
++	/* Keep the OVP irq disabled until the module is enabled */
++	if (!wled->brightness)
+ 		disable_irq(wled->ovp_irq);
+ 
+ 	return 0;
+ }
+ 
+ static const struct backlight_ops wled_ops = {
+ 	.update_status = wled_update_status,
+ };
+ 
+ static int wled_probe(struct platform_device *pdev)
+ {
+ 	struct backlight_properties props;
+ 	struct backlight_device *bl;
+ 	struct wled *wled;
+ 	struct regmap *regmap;
++	u32 mod_en;
+ 	u32 val;
+ 	int rc;
+ 
+ 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
+ 	if (!regmap) {
+ 		dev_err(&pdev->dev, "Unable to get regmap\n");
+ 		return -EINVAL;
+ 	}
+@@ -1729,27 +1724,42 @@ static int wled_probe(struct platform_device *pdev)
+ 
+ 	default:
+ 		dev_err(wled->dev, "Invalid WLED version\n");
+ 		break;
+ 	}
+ 
+ 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
+ 
++	val = WLED_DEFAULT_BRIGHTNESS;
++	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
++
++	/*
++	 * The module may already be enabled, either by a bootloader that left
++	 * the backlight lit or by the setup above. Record that, so that the
++	 * first brightness update does not enable an already enabled module,
++	 * and so that the OVP irq is armed from probe rather than from that
++	 * first update.
++	 */
++	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
++			 &mod_en);
++	if (rc < 0)
++		return rc;
++
++	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
++		wled->brightness = val;
++
+ 	rc = wled_configure_short_irq(wled, pdev);
+ 	if (rc < 0)
+ 		return rc;
+ 
+ 	rc = wled_configure_ovp_irq(wled, pdev);
+ 	if (rc < 0)
+ 		return rc;
+ 
+-	val = WLED_DEFAULT_BRIGHTNESS;
+-	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
+-
+ 	memset(&props, 0, sizeof(struct backlight_properties));
+ 	props.type = BACKLIGHT_RAW;
+ 	props.brightness = val;
+ 	props.max_brightness = wled->max_brightness;
+ 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
+ 					    &pdev->dev, wled,
+ 					    &wled_ops, &props);
+ 	return PTR_ERR_OR_ZERO(bl);
+
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
