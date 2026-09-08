@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B20DA55C1D4
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E513E6DE8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874640; cv=none; b=qCFebeYpZJ97pKLmdCC7iFnmzfW4sT2c6ZquBbxJ89UWGJgRhxVf6xvzSbYnkLnuBZuo55rlXdrwy93oGc/4cv3ZsVQmBKIWm2JgrMJ5o1mfEZHEdLD2k7jUSE2uZiA2KYsJYbUXPUrKmsz8TDGNtP1mZqFJy+m7x1KvqsZHrnk=
+	t=1788874642; cv=none; b=bgKaFgjznrXOHv+oK7quZCRbh7As3SNF1dngkYhpEZUyZG2DtbyjxrC1w+91lnZNZRtiHU+guytSkE6S6wFqc5F88cOHODDf9eUNDLQ51feLwmtoYYHg8s8DXDRcbomCRhotra09M+820PV2+Yo9DOeC8Wo//WCWQJuXgdRj9Qc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874640; c=relaxed/simple;
-	bh=Wj2ql/fK1o1LSzhzZysgS8GGykk7dlgKMi2IWyPEfIg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=RlXe+xcNRQjt0f7eGaPWCLmoTOt1c7Dl3CqhHxUZ1FxIuIgss0wyCQB8GoJpMct85Bbgt3P3CHhP+lzQaMgRUPyTrDa2FbR0O1vydkhF4zHkq7ckdSrQIc+f0SWEpurLUB76WDblYVq/u14RgKNNx9Exx4q6sGQVsuChHjxfFYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=xVc5s+HQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xVc5s+HQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FDAC1F00A3D;
-	Tue,  8 Sep 2026 13:37:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874629;
-	bh=NOrCKoZe7XibdBWcUVc7MoOWQwb5GbdtXzIvlFjhXiU=;
-	h=Subject:To:Cc:From:Date;
-	b=xVc5s+HQ3YF9WhtWR13h907OMhP4HIyWZOQtXDat5rxTOugUTzF8KO507wOm5sXDM
-	 7R27wnxH6s4iNia5W9ucdcGRGoQukRkR8f1VsdAW+bcfPF931123tKyRB3ACJ98gOo
-	 EEB3/rqQoKHJQ8VS2fIrXYmXsgXXkLDW63wAyvGg=
-Subject: FAILED: patch "[PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout" failed to apply to 6.1-stable tree
+	s=arc-20240116; t=1788874642; c=relaxed/simple;
+	bh=6iLJ/ImcIc+z5wmpdI+9MwGz1+RXZj3MxlZA0B+9KPE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FP5AaKcoG84tTq0i/N/2PR7yxnvw9l5Crx6lShh7aQuJzgbjWmBoFlJ68sQo9Amc5BXybqQpUl2E19EspF+fFHMlqyLQsaM5T940GUtTaKsT2ALst+phjjHQpeSYMuO2MLPxYBUyZCdAgU0Y3+btXnY7MQbb6kDYE16ImPsccck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 895AA1F00A3F;
+	Tue,  8 Sep 2026 13:37:11 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout" failed to apply to 5.10-stable tree
 To: junan76@163.com,antonio.borneo@foss.st.com,radu@rendec.net,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:31:13 +0200
-Message-ID: <2026090813-staff-splicing-7337@gregkh>
+Date: Tue, 08 Sep 2026 15:31:14 +0200
+Message-ID: <2026090814-trapper-singer-17bb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x d31fbbade43f880b7e59e2b3a72722fe2725d93f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-staff-splicing-7337@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090814-trapper-singer-17bb@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
