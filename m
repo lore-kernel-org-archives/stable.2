@@ -1,194 +1,166 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFBF95328BF
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:58:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D42B5328DF
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868734; cv=none; b=Mk8uVK8oKuVMD3T11fG7OP6EDwL4EBqgOaGeCW0pj4y6v67NeG9sxN6TtP6OjDIFxPhQAlDehj2IJQtwEtXWYpTtBkP3cQBdULQYz2tHRUDbRkdbFdsZnvrahkPRT0mtklnI1G23MUC3riGojbcdIqrb59C7KUHGFWRrG04VBDY=
+	t=1788868993; cv=none; b=p7JW2sIUSW2U/87vC/+A4pwBlQ/T3+FHwQ1UDoddYXqxRiT2Zl1Rnj9z0A6uFaBKEE+cOt0PckGGPGG9yhz2iBLnWOFrNDSuWctDcyo2Hqzu8k+HUM7lgEbCCnHPv1Z2cEEHW+DECBKDQkumqyu6K4R95X7Q/kkqTRLo7qkNBpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868734; c=relaxed/simple;
-	bh=2qPyWET3trPzTgVqWB2JmqQ9sSYlsEXWGFMqfTOJbLg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hT9obh0Qm/SVLvNdIaFVA/HQj+Z+Et+c2nFbWNAs43N5e5f1uwqJpPjEXOxprtQem+vX7YwPKbwYU9sgmFdgdNTbf5N2I+F9nyXdl4i1/4JQP1df/wzTZg2CQWTuDiIivEoOJCeXWXDcTiHSLTTW8Kab4K0d1caU13XmIIKBnQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Y12V9EFr; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1788868993; c=relaxed/simple;
+	bh=1sd+0mDaPiDEg6aYpJLTjM3Gkd5+jpv0L8nVKSfw9gA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Nst0GcCBAAhDEXfzM5Pi6/h/F93LjOAfkV+x54QvNLfDcxb3EqHjnvyHhOfGRNBRPCdejYE2VS9UJ/5HmtST/Tye2mttxF4kx+knhIB4mk2fMC1kEgsGZTLXAlnvVb+gtf84SvI5O612PyuQcAvBkbq93DO+nI9nRXTW5CqaCCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FA8tqAUW; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UwVEZWM9; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Y12V9EFr"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8535a9be75eso3291406b3a.2
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 04:58:51 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FA8tqAUW";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UwVEZWM9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788868986;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Lje7LxotFN8OQu8fgaVYYDvIYFBd+T6ZwNc+aWkYRdg=;
+	b=FA8tqAUW8nn/lkVv9xJvt91QWURgGmGLZFx8sfBtbgWJrMCGmJ0/o8VlfROri23K2msMQD
+	UKvvxELmjcaMPi7rY0KCcKZsS+amCFJ7g+Xb+e4QdGyXmtEUB1cZ0cKlfZte3fDLTPvpiS
+	jYDGdHocQC6FT0UKX0LQxUg4EGJe1Mo=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-214-RSMQgsJHPn6DNf9aQdMwoQ-1; Tue, 08 Sep 2026 08:03:05 -0400
+X-MC-Unique: RSMQgsJHPn6DNf9aQdMwoQ-1
+X-Mimecast-MFC-AGG-ID: RSMQgsJHPn6DNf9aQdMwoQ_1788868984
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4957287363bso36580475e9.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 05:03:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788868731; x=1789473531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eFIwOj0sP1GTzIynCtDi+0y4dNanYu++LBe/7IloGpU=;
-        b=Y12V9EFrTt8W2D8L4UAC8FTUsrgEHncE2c+qTojFIiDe6XESmjofpzawzQsdRr50CX
-         5/n/NB7Ed633mXoY4XFjd6j2UNBVHK2AK2mtQ4YJ930S7XoXwFqdav3zIVzPD1MbCJXD
-         5HWBJ8VX1UU9c2ysshSWVViFctb9bxcTOEZHMJWtdl6sDfJ5osp+zmbTBH31IQ+ADAZa
-         Y1JIHG6F6Y4Yx5gMt5wG3vph94k+SMVl6FjI/SYrspkT2lmRvIlDUFfZ08cMCMdGnPwZ
-         v6Ict+HCEyLVpqXv+g6OkqZ+vjL0c7Z+PF9bssmAM1HWk9j5NTb3p1xtC+A9Mfn58fC2
-         0MsQ==
+        d=redhat.com; s=google; t=1788868984; x=1789473784; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Lje7LxotFN8OQu8fgaVYYDvIYFBd+T6ZwNc+aWkYRdg=;
+        b=UwVEZWM9FbjcLRGmFhBo1XtlatPFGfp+L6jptaNukmCn9AHxl6mAH9YIgxvN5g+fDF
+         zWl0khCCGqf3ymbCGjv1q/UjK4nlv0dE256Ph5dC7bbtr/RA0qUC/QvOyno5v0ndCcdr
+         4Vb/u4CPtS4hBJThMR5fH3iODyeRGcWj5NtDJCpyd/5NV3Q7msBD3IofNN+2N4iU/KeM
+         6mjTcUoePHx0f4H5mN1DDGRWRnJBGXzCNlNbD6/DSdEcCLOXwhiFrv3/n97zRFxJPkE2
+         PZc0nD27N4CKktViTPUfNYBGen7svtDXLxogHcJDQpwdfQv4dsxOhggjYsgCf7ADqXXV
+         h/Rg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788868731; x=1789473531;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eFIwOj0sP1GTzIynCtDi+0y4dNanYu++LBe/7IloGpU=;
-        b=UuX+Gou66L5pCTZDAF1K51c8VX4KUjrZ/4HM631wE7rWat3KKHn1fGH4JZD5iCtpfF
-         s2nt0Hc9cZhWo6FrVunLWTQyWHfreiEoPR0oonBoAOanDDE9hSB+go5cQPDl+Ad9Tudg
-         t5+tKvN3ybVgjS2zdS6VKN+sJN2IRLtS2G5SHI0IGxb53yEufTAVGWpiZQtFywllpZBQ
-         mdIThoFQS2vw2i0x6Ym5x/GOzAlw0aqGFExGE8Cch7QsetRCoOHhPwqV/03F5LaoxaIN
-         +dGX3ydc6z6Tb8b/1Y0+DWEeokq92KClIN5yIHj9r51E1kZ6JT4/nsZIXuM0DTITHOyc
-         sOWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2eekbTvyHBTS0s5lqWHM/VEIngoF/WoLG9bQ66OdXrlbjeRGoaTQsf774ZxoyaewHDgi04SY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8sz/PymnIRBYaqCp0Y2tTwqnKGe2RGtIkvSzbbIaa3ADvTjKE
-	lT3sr3dVg2btTmFCBmAco/tEOxhfey1a9zorChIl+gXYtzDwJzXRkbOr0eM2tlchZezG
-X-Gm-Gg: AYBFou3lMhqpYB8ajMNyaHnwc8IS6AOeQ3OHFEiOtL1BXEEgc04yEKFIEFifzYb8OP0
-	sCkk7fi0SioFsf2o0b3jgoW5opCgXyTiBiTHfr43PlCDPoh5/Qqq1Q0r1annXFBaDl2QW0bMLqd
-	w7vURNuNlkOVFNVtGW189aECRhEo3RvVoa6wJsuATXgTjNqW3nzcT2ByXmZu+uRIFYDF1Q7HdwM
-	YRpb5CvxwTAe+8HQjOkxWu295B8inq98mIGUIaRojthzDM9cx7ZYaO2v9uKrDeZDtCG2U+L1Lpp
-	Krqeg2FNTAhybD0sQjEiFzsQsv20LRtvr7iSFZ4lLiFbM0iGeer4/486jHmDeJWtuhlTJlChfcc
-	vZNNr8gAEPfd0QOPhGx+hK0ToVxuLjo2XkrCOrBwHavOrn3WUSnH39Uuf6+hn86JhQLmRlYV3Ny
-	9u2HoTeFuMeaHeGVkYJgKR+muJ1COuzn2zBCL9jvFQeqq17P1Z0nu1hoxCNjJ0bnLHOIPDvau2g
-	gUnWEasyNhXmcS4pxI=
-X-Received: by 2002:a05:6a00:3020:b0:85f:d76c:e23e with SMTP id d2e1a72fcca58-86169676529mr38474570b3a.23.1788868731079;
-        Tue, 08 Sep 2026 04:58:51 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-863884ff3c9sm3512837b3a.42.2026.09.08.04.58.46
+        d=1e100.net; s=20251104; t=1788868984; x=1789473784;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Lje7LxotFN8OQu8fgaVYYDvIYFBd+T6ZwNc+aWkYRdg=;
+        b=qLkL2LtNA80g6IGpGSP2VLkXm5WZ6bha8PppQDclam0NlHDX6Re2hA1Hy7buGyE0aN
+         fHaF5L+VE7Jq05HLmzXz0QwrVQtfEUGN5B6XtRmY8+NKqvMTXL5C3sxvr4Fe/r/9fILD
+         3oniC/2b3/JSaJbfX2KAa8cDCbDN/n7hVikZ1lPdHqhGi8J3ASP63Sa1RbhWOC//PNe9
+         u54a795gUXvIdVxPcj+hgcqQqzNmmFFGlrKozXpbrksUkocHr+AMM10RIhh74lqCTjIH
+         n+MQefcT5t+VK1WC7tiL9LHG5Pw1qe25IScXba/iHPLeIuf1YjOt5Z+hU06AFv70CD4W
+         yRbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxH8mfNHc0tBX5LKJOwNEOsKoMfw+2rQjN416MmzxLgI4ameSpBHx4S0ysqo9093nVw8dbD5xc=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+GeUzd3gdHHTQjbTDMfT7DiQxQPcgspmdqdtdDNBDKNPpq5f2
+	HfPecE0X6jANyq7NJAPvVp80t041j5hodFLubgRXiT+dq+1XlLXI2uM7In44haJHR5sLaZxyf/v
+	D3LNc9SO8p5TdoM0nwzsUvk1qnBgSAne2VPqyQrYreRYXh/BfKi+zxl/msw==
+X-Gm-Gg: AYBFou10Q8RkZO4Eo7L06Wux1qpns5/cxYcxL+ZjZwLnZL/jb+Mvd3QwwGMCXZCsbtP
+	h5yP6SI4Abwb3p2tnqKD3S6m6dAD3iIKJm6tu6mS1lOFICp+ZouK53VQ/7vWJPBXoeKmrsMtCoe
+	RDtceYNrYEYFy97wkvBgxvMbtWceQWEccauciDlNldPLek9i2WV5dICkZaXr493xJPAFyKoHUCz
+	x3xDFLhuWo0DGufMEd3DnwQ/iqjPmgr8p77YZhABTyix5PruSKovqN35nZdiJ40dgDObyczsfO8
+	L353RLYsjJRS9kiQcWkdwn/PxpBZ3isp4536GeT/q4UCmkNOobiKwcO7zxMLduq6dEWhc5+bepC
+	ATFPCyOzUfzN92BQuws3gqaJ8OcGf/q7OjfwObKK3bOcom3IqbMPHHYusyw==
+X-Received: by 2002:a05:600c:620b:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49cff19cbf4mr224225175e9.30.1788868984191;
+        Tue, 08 Sep 2026 05:03:04 -0700 (PDT)
+X-Received: by 2002:a05:600c:620b:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49cff19cbf4mr224224635e9.30.1788868983804;
+        Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07a23e85sm273590305e9.5.2026.09.08.05.03.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:58:50 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: netdev@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Patrick McHardy <kaber@trash.net>,
-	linux-kernel@vger.kernel.org,
-	Zihan Xi <zihanx@nebusec.ai>,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>
-Subject: [PATCH net v4 1/1] ipmr: account multicast table and route memory
-Date: Tue,  8 Sep 2026 11:58:39 +0000
-Message-ID: <050b58f7fc6b45da0fb12768ebb62d18fa46133d.1788784801.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788784801.git.zihanx@nebusec.ai>
-References: <cover.1788784801.git.zihanx@nebusec.ai>
+        Tue, 08 Sep 2026 05:03:02 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, Fabio Piparo
+ <holofermes@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/ssd130x: Set the address window in
+ ssd132x_clear_screen()
+In-Reply-To: <20260818083143.37939-1-amit.barzilai22@gmail.com>
+References: <20260818083143.37939-1-amit.barzilai22@gmail.com>
+Date: Tue, 08 Sep 2026 14:03:01 +0200
+Message-ID: <87v78glzm2.fsf@ocarina.mail-host-address-is-not-set>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-A netadmin in a user+net namespace can create many IPv4 and IPv6
-multicast routing tables with MRT_TABLE and MRT6_TABLE. Each unseen
-id allocates an mr_table via the shared mr_table_alloc(), links it
-into the per-net list, and leaves it until netns teardown. Those
-objects were not charged to memcg, so the host unreclaimable slab
-grows with the table count.
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-handling of IP addresses, routes and alternate interface names.
+Hello Amit,
 
-Unresolved MFC entries are still allocated from softIRQ with
-GFP_ATOMIC and are not charged. They expire after 10 seconds and are
-bounded by the socket receive queue; see commit 0079ad8e8dc3
-("ipmr: remove hard code cache_resolve_queue_len limit").
+> Hi Fabio,
+>
+>> ssd132x_clear_screen() sends its zeroes without setting the column and
+>> row ranges first, so they land in whatever window the last
+>> ssd132x_update_rect() left programmed.
+>
+> Good catch, I noticed the same asymmetry. But as Sashiko pointed out and
+> you confirmed, ssd132x_clear_screen() is not reachable today, so there is
+> no user-visible bug being fixed here. I don't think this should go to
+> stable, and I would drop both the Cc: stable and the Fixes: tag in a v2.
+>
+> There is a second reason the clear cannot work in its current form. The
+> driver does not override .atomic_commit_tail, so
+> drm_atomic_helper_commit_tail() runs
+> drm_atomic_helper_commit_modeset_disables() before
+> drm_atomic_helper_commit_planes(). By the time the plane's atomic_disable
+> runs, ssd130x_encoder_atomic_disable() has already sent DISPLAY_OFF and
+> called ssd130x_power_off(). So even with the !plane_state->crtc guard
+> fixed, the clear would be writing pixels into a controller that is
+> already powered down.
+>
+> None of this makes the patch wrong - I do believe in making functions do
+> what they are supposed to do. It does mean this is a cleanup rather than
+> a fix, though, and that it cannot be verified on hardware until the
+> disable path itself is sorted out.
+>
 
-Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
-changes in v4:
-  - Reword the opening paragraph for IPv4 and IPv6, since
-    mr_table_alloc() is shared by both families, as suggested by
-    Ido Schimmel.
-  - Note that unresolved MFC entries stay GFP_ATOMIC / unaccounted;
-    they expire after 10 seconds and are bounded by the socket
-    receive queue (commit 0079ad8e8dc3).
-  - Point Fixes: at f0ad0860d01e and d1db275dd3f6, the commits that
-    let user space create these tables.
-  - Drop the 4e16880cb422 archaeology paragraph from the commit
-    message and cover letter.
-  - v3 Link:
-    https://lore.kernel.org/all/cover.1788765185.git.zihanx@nebusec.ai/
-changes in v3:
-  - Drop the table lifetime / unpublished-alloc / empty-reclaim
-    approach from v2.
-  - Charge mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-    IPv4/IPv6 MFC caches SLAB_ACCOUNT, as suggested by Ido Schimmel.
-  - Point Fixes: at 4e16880cb422, the first GFP_KERNEL IPv6 heap
-    vif6_table. 6bd521433942 only wrapped that already-heap state;
-    d1db275dd3f6 only expanded the table count from 1 to N.
-  - Cover: unfixed evidence is Slab/SUnreclaim growth with RET:0, not
-    a host OOM. The memcg OOM log is from the patched kernel under
-    64M memory.max using poc.static.
-  - v2 Link:
-    https://lore.kernel.org/all/cover.1788622674.git.zihanx@nebusec.ai/
-changes in v2:
-  - Drop the shared mr_table refcount / list_del_rcu path that broke
-    the ipmr forwarding selftest.
-  - Limit the v2 approach to net/ipv6/ip6mr.c.
-  - v1 Link:
-    https://lore.kernel.org/all/cover.1784795838.git.zihanx@nebusec.ai/
+Agreed with your points.
 
- net/ipv4/ipmr.c      | 3 ++-
- net/ipv4/ipmr_base.c | 2 +-
- net/ipv6/ip6mr.c     | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+>> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_COL_RANGE, 0, columns - 1);
+>> +	if (ret < 0)
+>> +		return;
+>> +
+>> +	ret = ssd130x_write_cmd(ssd130x, 3, SSD132X_SET_ROW_RANGE, 0, height - 1);
+>> +	if (ret < 0)
+>> +		return;
+>
+> This duplicates the window setup that ssd132x_update_rect() already does.
+> I would rather see those two commands factored out into a small helper
+> (e.g. ssd132x_set_window()) and called from both places.
+>
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index e5f2b1c6150d2..b9c544d48c452 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3376,7 +3376,8 @@ int __init ip_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
-+	mrt_cachep = KMEM_CACHE(mfc_cache,
-+				SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_ACCOUNT);
- 
- 	err = register_pernet_subsys(&ipmr_net_ops);
- 	if (err)
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 867b24beded11..a0ec6d19a237f 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -52,7 +52,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
- 
--	mrt = kzalloc_obj(*mrt);
-+	mrt = kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 3f2ed9b77deb5..9d8116b5edb17 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1427,7 +1427,7 @@ int __init ip6_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-+	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
- 
-base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
+Indeed. For ssd130x we have ssd130x_set_col_range() and ssd130x_set_page_range()
+which do some sanity check before sending the commands to the display controller.
+
+Maybe instead of a ssd132x_set_window(), we could add ssd132x_set_col_range()
+and ssd132x_set_row_range() ?
+
+> Note that ssd132x_update_rect() cannot just be called from
+> ssd132x_clear_screen() the way ssd133x_update_rect() could be from
+> ssd133x_clear_screen(): it takes the R8 shadow buffer and packs pairs of
+> pixels into data_array, and clear_screen() only has the data_array from
+> the CRTC state. In the SSD135x series I have in flight,
+> ssd135x_clear_screen() does call ssd135x_update_rect() with a full-screen
+> rect, but only because no pixel conversion is involved there.
+>
+
+Correct.
+
 -- 
-2.43.0
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
