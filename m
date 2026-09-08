@@ -1,105 +1,153 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2A0238C16
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:04:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6AB5650E4
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:06:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883479; cv=none; b=IZsxa2Q1i7QeSjRlkAeZL0FgY9k+fbyiqGMsffxb5Ywh0qcNyfQZU48BVVZw1HmfjWtayFpSuXVUMccDpVW6yiY1nmOvr7kuXP1CFVN6glGOY2LoulLhiKSplrkExtT2J3JwM41tnPMDfhcB1k8+1df7bF4HdwteHqpUYVxIrvw=
+	t=1788883600; cv=none; b=sZeABcgauZi9adgIrf1HrbakkNn0+Oux1jzz7GCrx5svfEWl+UPr6L3N860c+8CTVlRvyj8f8uT/nH2dpYPaIb4Ax7/r2QkAGnB2QBmToJl9uyEdZeqrv5GIn6cfhe5TvX5Jmjor3b0hUc65IAgqRTgfwSc4Iera8Iq3KaHQD00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883479; c=relaxed/simple;
-	bh=gVHwDpb6HBHtyoUlDRtjlp7YtX5g9j3oG6AFmVF0QMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gyng2TSjZq+8x6VRPtOORvQFG4uABQAMMHH/uVRAma7DdQE23MHDu4m4cgbsty4I1fdS2fU1GnsbVS5HGOq4eCszIx2KRmpu1WL4tRWHU9EH8xu2ZKwMjaKfZyJ0yjsFSoWvllsJntvUpwQvHW8vvo+cnk5TGOHoahaD5zKnbYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJ8Bws0G; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788883600; c=relaxed/simple;
+	bh=fdRgsLojLicdsgJE81db3AVAp3wiIh5tDVvI5A174ok=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J1uuSLOvJxWpOHXssQFfvwMqAze/Z0nzf0ZBBHqJw36PwpZcEe5rZNaO44SWt/Gb/X94LX7S7X/6i7b8Sp9fJeX8qU7nsXa55B62iSx2F9wvTi5m1tNFL22+x4ztvZguw9sWa63mjGFjsLEQIYoXRT2oMV0SkAUCh6CuC0W+YVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fy0ulFDO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJ8Bws0G"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso5866728a91.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 09:04:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788883477; x=1789488277; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0Tzx5UI34JujonmDJzMPjBkhAE6c2rwa6ggnBzBUQec=;
-        b=LJ8Bws0GBV/ub3Kj5tG7v8iCXHMUT86wS+IPOEVoj30052ESJFIUHpiXmkA7sOT3hO
-         NZvSOf3l5SoOeGWv/shV4FdvXYACJNfUhpGN6jDk4xEBwmDOqU0gnfF4b17IsS/boewd
-         4asf7mZ4iQ0MNFmDBuncx4lR3MAR9VQyxM56/LaqOCYFoarZw/8o/+jG61zIEn1jmklu
-         f5MlfQUfpKS92+vAet2OinbuiCgYwNs10Fe/1pMydBr7fMCvb7d/WGJJMKP6C59eKSw7
-         gxsZpbFrlaPopZqX5qOTOVA0UEvrRJWVGiSMfUXGt6oCcLUX703lUrbahSlDObSG57GR
-         lnVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883477; x=1789488277;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0Tzx5UI34JujonmDJzMPjBkhAE6c2rwa6ggnBzBUQec=;
-        b=iv5BtuV3OexNe87B2Ncv7ajRkqcY9WYA48XsIkJcv95Ow+KOQgop1NJsIyZFqKfy8M
-         k3f+jYyDDc5EK37vWd4a9lns4//w6ykZ0iRHU+6dx4izGVB455EMtepA1cvgH9Q4ztTE
-         2FmGr53aCrufM3J88reLuEDiPiO6vyAB2cDf+7Yqn8Jp/d85t+tvkWaiNWWindhgoi8Z
-         uIhI/amxS+PKaa07NUpkK9URq6Tkw0n/D7N8GDyQMAZSZngd+0lrNPsZEeEIR8EcjldW
-         1erJrMGzEF4LHAKCd7s5n2mSw5Q7L7f8b97aUcgvQ72z2KhWZW9B+wfegN/+tZXwdmBv
-         UW6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxiWamsCg/FPE9R5VIvmSDd8xeX72W74xpvGkVA3RkRazDnofyKql/LelU/vhOnFrYn0ZYWKXE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nT6C2SzZ0djY9li7GK7OfG2/+WeuuBRAATeVICNhEKeObt5dxT
-	jNiC88vzN7YwznLkMjZxtD3n20gaY5T8AAt0GkZapi76Bg01+UnKrSyd
-X-Gm-Gg: AYBFou3aKrzJ3YfcFWbtGitdKj4Xf9OvmN1bK6SYBMxieHPZ1wl669g4sKC38NLiLYq
-	73GLh62SSjO4F2O14VkSbO3LRUKDeeUeqY7Or7X9gZHJJBcsfQViltg3g7I6wK3YumkTG+3eMKd
-	3/tyxUGW90YWgDJDkQgGvulSAzGn2kNiehFnwCA9L0N6lFMmrWcHQro2pUUc0xyFSzwfuSONlyj
-	MAzBBmUltMMZtU1JZO4gZlbYTDUqppLsTMtI+B6CtlqOzM8v6V5lvOQ/eC+utYa9c9tIJdWmUk2
-	YCLxAfBAmZkoqm5GlAh4JopSB92/jcelU2wwT8FrhcLedrxBI2Yhz2vN2ZmrEdRCdBqI9Ed746c
-	Geba/7TBsixSzKhcBfDH/U5tyB8Q/CKCC99Uon/zVhEQdfeEapSAWSz7fWj5uU2P2D3Vpx6b7N2
-	DqjN5f2E6u/VIpsNrNMTtMK+ly53xsGNG0W1kIyzxPiPho6aBC8ax1kUM3dkt8ZDT9hRXMx9Akl
-	vKLrOE=
-X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr46112186a91.19.1788883476937;
-        Tue, 08 Sep 2026 09:04:36 -0700 (PDT)
-Received: from kernel ([45.251.35.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm37459495eec.26.2026.09.08.09.04.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:04:36 -0700 (PDT)
-Date: Tue, 8 Sep 2026 21:34:28 +0530
-From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: clabbe@baylibre.com, davem@davemloft.net, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, jkoolstra@xs4all.nl,
-	linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] crypto: amlogic: Fix IRQ handler return value and
- fallthrough logic
-Message-ID: <aqAyDJq37-mCJL-2@kernel>
-References: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
- <apox0f2D6bYOYOnj@kernel>
- <ap_T2wCesl3whdJV@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fy0ulFDO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9AAB1F00A3D;
+	Tue,  8 Sep 2026 16:06:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788883599;
+	bh=QGikPdbNuW+lu3OQqcky+s+Sp3Z6Y2ZZN3/Ms7OXIo4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Fy0ulFDOfaA+sT2QhJMhfa4hgmSGpvvi524lpicbXOjyqyxE7fodtAYW68yl2509c
+	 P8C/D+TXCu7TtkGymHB4D8mbg/qo3yPTGz40jc6hTsUWDnWeivCKqXgXEQuWBhhJXY
+	 x1sWos4+N9sYqb4PnA35Lb4KQxngnJEzDPBp0gGySvJkvHMloFnZLWHe15q1lLOmYw
+	 npYyBJTuqovso0CJ+U6+Y1f3hR6C/FA1wdmZPz3+nSoQwVplPeSzTgXMLpK8qgZFsS
+	 efY1xLIlE89BL2oWacahHcTLYjpkBLapA0wQxMtzHR+/8zI8uHFEsbYpigF2fch/0j
+	 dQkGeLONSstcw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Ye Bin <yebin10@huawei.com>,
+	Jan Kara <jack@suse.cz>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	Theodore Ts'o <tytso@mit.edu>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] jbd2: use shrink_type type instead of bool type for __jbd2_journal_clean_checkpoint_list()
+Date: Tue,  8 Sep 2026 12:06:35 -0400
+Message-ID: <20260908160637.2569758-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090337-absolve-bonnet-5b19@gregkh>
+References: <2026090337-absolve-bonnet-5b19@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap_T2wCesl3whdJV@gondor.apana.org.au>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 07:22:35PM +1000, Herbert Xu wrote:
-> On Fri, Sep 04, 2026 at 08:19:53AM +0530, Mohamad Raizudeen wrote:
-> >
-> > Just following up on this patch. Please let me know if you have any
-> > feedback or if further changes are needed.
-> 
-> Please repost this patch by itself since it's not really part of a
-> series.
-> 
-> Thanks,
-> -- 
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+From: Ye Bin <yebin10@huawei.com>
 
-Hi Herbert, 
-I have reposted this patch by itself. 
+[ Upstream commit 078760d950016f5982751f5512e69f26ad8feb31 ]
 
-Thanks,
-Mohamad Raizudeen
+"enum shrink_type" can clearly express the meaning of the parameter of
+__jbd2_journal_clean_checkpoint_list(), and there is no need to use the
+bool type.
+
+Signed-off-by: Ye Bin <yebin10@huawei.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
+Link: https://lore.kernel.org/r/20240407065355.1528580-2-yebin10@huawei.com
+Signed-off-by: Theodore Ts'o <tytso@mit.edu>
+Stable-dep-of: f213e12ff5c9 ("jbd2: check need_resched() when skipping busy checkpoint buffers")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/jbd2/checkpoint.c | 16 +++++++++-------
+ fs/jbd2/commit.c     |  2 +-
+ include/linux/jbd2.h |  4 +++-
+ 3 files changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/fs/jbd2/checkpoint.c b/fs/jbd2/checkpoint.c
+index 10ce0b6b4ffa2..9fcc68884e262 100644
+--- a/fs/jbd2/checkpoint.c
++++ b/fs/jbd2/checkpoint.c
+@@ -367,8 +367,6 @@ int jbd2_cleanup_journal_tail(journal_t *journal)
+ 
+ /* Checkpoint list management */
+ 
+-enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
+-
+ /*
+  * journal_shrink_one_cp_list
+  *
+@@ -505,21 +503,25 @@ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal,
+  * journal_clean_checkpoint_list
+  *
+  * Find all the written-back checkpoint buffers in the journal and release them.
+- * If 'destroy' is set, release all buffers unconditionally.
++ * If 'type' is SHRINK_DESTROY, release all buffers unconditionally. If 'type'
++ * is SHRINK_BUSY_STOP, will stop release buffers if encounters a busy buffer.
++ * To avoid wasting CPU cycles scanning the buffer list in some cases, don't
++ * pass SHRINK_BUSY_SKIP 'type' for this function.
+  *
+  * Called with j_list_lock held.
+  */
+-void __jbd2_journal_clean_checkpoint_list(journal_t *journal, bool destroy)
++void __jbd2_journal_clean_checkpoint_list(journal_t *journal,
++					  enum shrink_type type)
+ {
+ 	transaction_t *transaction, *last_transaction, *next_transaction;
+-	enum shrink_type type;
+ 	bool released;
+ 
++	WARN_ON_ONCE(type == SHRINK_BUSY_SKIP);
++
+ 	transaction = journal->j_checkpoint_transactions;
+ 	if (!transaction)
+ 		return;
+ 
+-	type = destroy ? SHRINK_DESTROY : SHRINK_BUSY_STOP;
+ 	last_transaction = transaction->t_cpprev;
+ 	next_transaction = transaction;
+ 	do {
+@@ -560,7 +562,7 @@ void jbd2_journal_destroy_checkpoint(journal_t *journal)
+ 			spin_unlock(&journal->j_list_lock);
+ 			break;
+ 		}
+-		__jbd2_journal_clean_checkpoint_list(journal, true);
++		__jbd2_journal_clean_checkpoint_list(journal, SHRINK_DESTROY);
+ 		spin_unlock(&journal->j_list_lock);
+ 		cond_resched();
+ 	}
+diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
+index 9b2225ab5fe5a..182d2c39ff0a4 100644
+--- a/fs/jbd2/commit.c
++++ b/fs/jbd2/commit.c
+@@ -536,7 +536,7 @@ void jbd2_journal_commit_transaction(journal_t *journal)
+ 	 * frees some memory
+ 	 */
+ 	spin_lock(&journal->j_list_lock);
+-	__jbd2_journal_clean_checkpoint_list(journal, false);
++	__jbd2_journal_clean_checkpoint_list(journal, SHRINK_BUSY_STOP);
+ 	spin_unlock(&journal->j_list_lock);
+ 
+ 	jbd2_debug(3, "JBD2: commit phase 1\n");
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index 5377df8c85453..5583d735d4bf3 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -1435,7 +1435,9 @@ void jbd2_update_log_tail(journal_t *journal, tid_t tid, unsigned long block);
+ extern void jbd2_journal_commit_transaction(journal_t *);
+ 
+ /* Checkpoint list management */
+-void __jbd2_journal_clean_checkpoint_list(journal_t *journal, bool destroy);
++enum shrink_type {SHRINK_DESTROY, SHRINK_BUSY_STOP, SHRINK_BUSY_SKIP};
++
++void __jbd2_journal_clean_checkpoint_list(journal_t *journal, enum shrink_type type);
+ unsigned long jbd2_journal_shrink_checkpoint_list(journal_t *journal, unsigned long *nr_to_scan);
+ int __jbd2_journal_remove_checkpoint(struct journal_head *);
+ int jbd2_journal_try_remove_checkpoint(struct journal_head *jh);
+-- 
+2.53.0
+
