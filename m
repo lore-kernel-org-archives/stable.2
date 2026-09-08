@@ -1,227 +1,177 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013028.outbound.protection.outlook.com [40.93.196.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4012475F7;
-	Tue,  8 Sep 2026 05:30:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845418; cv=none; b=HOoczxajDnPPTKzAPPu8RBfhI/rvOV2Hy8PS+x7ELrQwSdM/fDCc5/zwmsp4FwUEywlHq48PlBlm2aWO+Gjvkh0VWUNzNSdW2vOthLcCr7KD0qkD6a3rL3jktBaiTp0gOr++yBkXKTfkJfPNJAYvIa3QeVBnJV4gX+8lsU79fYk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845418; c=relaxed/simple;
-	bh=E6H2Y0ZwjLMFq5XqI2to9zCA8GhYxFW2g8SuFHNgAlM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XBWGQ9FxGdpbzTXBKPJSNVuClcz3MbG3Fv+8siQip9Yt5lUAznbq/Clyqlc8mEC5lXQTnGiXTLYdIq1+pz3PGv/sh88tK1o9h7h4Zr6PwQ9GCjdk/Z/K/KlWuo9zSLgrTvpP5iG8f6fNfxw2GL0Y+JHXGcHp8Mb2IloS6Qkw66Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PJGaDQ9c; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8EF374E74
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 05:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788846393; cv=fail; b=pyQgx32xq86pEhboZFVDOo1pYXC5QKv0+SmXL6k+mV00OJAv39XfNENDT3OdMUsWQfpNd7slpZq7kVXemGG00SOyBZBvoLXdNpGIbvFxb+HMYeXXh41RE/aANiWLuJkwOhS4OtyHZa1lSpoJ4LMPEs1vqsOnHr4Pe2eqmXGDde4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788846393; c=relaxed/simple;
+	bh=+os5wXCxE9KVv1Iifzo2g1/vGGTzjqKx0P7y4f7dfGs=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Wc+dPTy/SrjJeA0iiCJ7+37+mQgpV8p8NeodjCX9OXekvjKXVLkFXDzc3617rAQQNUzdupKXuinSVz5DzwOAXp1bV6ynfljEdjIrF8FAL/szNphpwNUsyFBsCjGIB7QKzygLlDgxzWiyQn7KeflIVjzjyYcAjqwHpV+A1+fZy8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=PxzFxEnD; arc=fail smtp.client-ip=40.93.196.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PJGaDQ9c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=CLHtLxmz/iAPi/ljlw5y0pPU0Y71gzdqBytuxZnbHFQ=;
-	b=PJGaDQ9c5DbKE0wEf9gxS8MFQbjKMP62y3NcKRy76meBWosXC85HamMDoQW142
-	sntu1I2ZtNfqiwb3Cf6G8b5HnrEpY+APgPYhvCmQ0pti8h2vhSTGHDgNiOgWThka
-	Xkx5+s8/v7H8DCqjbVUDK7zcQ66cb95ddXa8/O2MsSagw=
-Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wA3YgJAnZ9qTDFdBQ--.20293S2;
-	Tue, 08 Sep 2026 13:29:37 +0800 (CST)
-Message-ID: <9b5a4c9a-447c-4510-8d95-40c552dcbb73@163.com>
-Date: Tue, 8 Sep 2026 13:29:36 +0800
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="PxzFxEnD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=edKRvtLxsHOZp+lsPXwd49G33b+L95ohdJbcpjezOwgErv8rQU/0+MobMAhENrtyuA0NhzkrAXg640/fGJLi2hE0GWlUA0tFe5yv9JqLVxj/ZHTZPGVLSGpJ4V5MFUqrv/KaE3rCelyQ0jnwidS8KCjAbnM2RQHFHwbENtVKNTUZocCS1tXhv8y+RjgY6eOiVum9IjyriWCrbsD0AlZtXNrizZCQeIv1M2XuauZc3DYtEPJRX1P3RQfUPARqr+nwtz32rlYRXvV2gkd/B3eVMJ61RNYhkUQEzkR++GHdCZsheRHeoQPpB9JXkwxtL5ohjxsnXtYDlDvMK0rmuDIgzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mBW8WSpJZPSC6i7eTCMnNq7zi9G/0o1z3frv5ZjPRV4=;
+ b=wtT3G3Fd9uozV8focbk42w1I1yXMExEiK2KCD+gtGSNIF1r7M/JXeUuuqyf0XNYpMzRCqw8Yb4yK2rvLmmIwMVPrh87LuT1TrFIO7Hs5+5obtt5jZ4tNlCZ3AcL9OZYHHMKqXwgbpZJYuNuP2NH0xMd5MEEnsGp9IHta4QBdvaaNpqVbsuYaFloPk39tfoWTMz7x7hvgU6PvEZzVHd4VR6BSr3DtDBJDZZfXXQF2DjEFjgv/SgaNpX5J1e05Z7AvvoE9mXgneKLbTO1UXIlyCtviD4h3x+tHI/+i+BblJTQ5AA+3SsNGcAGk5DVgZF9rsrDdZReyn3AUPKc7rQOlPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mBW8WSpJZPSC6i7eTCMnNq7zi9G/0o1z3frv5ZjPRV4=;
+ b=PxzFxEnDLnnkbr8uMxXx2nIXxyZ8IU7wpq37lozVGd4gxcYnmEj5uJEKqr+Y1X02kn/8lgOK6v5JQap2kHFPQS1bWPn35pWb/H+Bwgy/MdrSpHgVVTlPNuMpwnGGDJwaTfJE6EcDUomso0Y5qzNuGPjx0xPNH9eD9jyY66j/KWIiELCIQsHcsa8gqkEY0DkjkDdH/Uq6O3rzTaxp82BCBvPWijLtzfZxcLv5/un/vxyv1ycHj6vapK2JlAj5I1OCw7jbMElV+ivfpvwx8ogoaHdPdS/4Mk34iDKDi+bQcb9cnHc+riN/LAsr89ahB8y+dM5WYoGR3HvoJOZdTgZdEA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com (2603:10b6:a03:2d3::20)
+ by SA3PR03MB7318.namprd03.prod.outlook.com (2603:10b6:806:395::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 05:46:29 +0000
+Received: from SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01]) by SJ0PR03MB5950.namprd03.prod.outlook.com
+ ([fe80::53a0:bf93:6b6b:de01%5]) with mapi id 15.21.0382.012; Tue, 8 Sep 2026
+ 05:46:29 +0000
+Message-ID: <34cef7ad-8730-4a49-b6f4-8307adc1e36f@altera.com>
+Date: Tue, 8 Sep 2026 13:46:23 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.15 364/456] firmware: stratix10-svc: fix memory leaks
+ and list corruption bugs
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ Vegard Nossum <vegard.nossum@oracle.com>
+Cc: patches@lists.linux.dev, Dinh Nguyen <dinguyen@kernel.org>,
+ Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+References: <f3b734d9-d286-42d6-b332-e4889e7bcde3@oracle.com>
+ <20260830195300.0009-1-sashal@kernel.org>
+Content-Language: en-US
+From: "NG, TZE YEE" <tze.yee.ng@altera.com>
+In-Reply-To: <20260830195300.0009-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI1PR02CA0043.apcprd02.prod.outlook.com
+ (2603:1096:4:1f6::19) To SJ0PR03MB5950.namprd03.prod.outlook.com
+ (2603:10b6:a03:2d3::20)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] ntfs: fix volume flag update races
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260907070852.291323-1-zenghongling@kylinos.cn>
- <20260907070852.291323-2-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260907070852.291323-2-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wA3YgJAnZ9qTDFdBQ--.20293S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF4UZrWrAr4fCw1DGr1rZwb_yoW3JFyxpr
-	sayF9rKa1qyrnrWws7tw4IgF4S9348Gr48Cry7Jw1av3sIyr1UXF18K3WrZFnYyr97Ar1x
-	XFWUtrW5W3WUZFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U-Z2fUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQH5xGqfnUFDTgAA3Z
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5950:EE_|SA3PR03MB7318:EE_
+X-MS-Office365-Filtering-Correlation-Id: f584945e-ae1e-449f-eaa3-08df0d6c8768
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|6133799003|18002099003|55112099003|22082099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	upubQczmQTi/1aDL6CEeOtftV3QIyzWOVpzFqbRlHDiWU/R1ItV2s2GItcQdZ5mzF1xKMbHiVToJMjTNyYCEBLDqjjlFZNc3iyDb30sXASlmaS+EV0kyAd4qtKBLHsOyP22/127tNsWwcEFqiLN1COJ+quK7Sp8XinpUPDvZu1WAS6I9EOI5tdDDvwJfwQ5rYXc4HMyxBfrOAWXG5TFz13vKKn5iCxUhm1K9T8NG90YSKgknEwBGelkBd/oAKMPmAZZC7GB/P9PnW1XwSNVmCk1WQESBtQu93lNKJvRPpCKNXg9OVVrRu5bldjodDfW+DIn03iDb20jHYxt4YP2MzWUzF7jkiCiFCZrbJyXclZtUz23hBS/hlhu4wnr1IZOZBbI2MPQ/okAcBSuMviLX1hIKYaUKbsvaye1g1YgaKMZC2rAU+1EfwVvWN7G5ShaDqsez6sUr6NP5lalgHRMyw6irexsJQCR04O6XqOl5k/qUl7erQvWC/soD5VZ8YLtd1P9CgHvsyIvHvRRdSxBoGoYkGfWnq/S1f3sfbdXySzuGSjPuQOl9PwFYUeruCr1VCF162yG/VBIE9lQ/oQKoEBSHkqgflZcERZ6QtP1c7EW3cDOCTJGtdK+GJqZSYHPEV+gPF/KPv+EJW0KM/rQI3ns+OMJgBoRZmOlalikrH0A=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5950.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(55112099003)(22082099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TWtuSlFyQUdBSGZTcm10WEhEN2lMVFhqbDNIODNNdC9yR1pNS0QxYjhvQzkv?=
+ =?utf-8?B?YzVLWXc3a2NTUzVMUUQ3cmxpZCtRWTlTeUdFUWd5a0JxbmJSUWJBeEw4OVJJ?=
+ =?utf-8?B?N3lWaG5TYkhJOXlGL3ozeWI2VlBwcldWVEgxcEkrNzA0UDV1aW9SVU9BcVdX?=
+ =?utf-8?B?b0krK0FIbUJ6NlRidUt6OEhiQkQvRGtET2hXMVFYeUtqaFc1NmErRzZMRG5K?=
+ =?utf-8?B?QmpLVzJKdWlCZEJxSmVtUGE1K0taYnZLTjQxZkJOak8yc1JNRHFnVHdnSCth?=
+ =?utf-8?B?L0I0UXJCK3pwUG9IdEU4cVZuOTBwaSs3SFdhQzR0ZzVoak41alA3MU9mOXhs?=
+ =?utf-8?B?cnJjcGFYU3M2NEw5bXB4czBzYkpWMWIrd25COCtsbUNkeUhQa2ZHVFIxNkwy?=
+ =?utf-8?B?WVRyUGJWUVBVenkvcnd5Si9YcitVaDFTTDFrdWMzbmwzZFAxMkFVanp5VFJu?=
+ =?utf-8?B?dER3VFNZbnFHZHA2VXNzMStuN3I4WVNOS0VteE5SOUtUbkRHK0pyOUlrTStm?=
+ =?utf-8?B?REFrSlZxTTFKZnVueVNPc1hvUUl5Nmkrbk5GSUpwQXZDWmkwQzNLQmRPMG5E?=
+ =?utf-8?B?NG5KaDlXbUtObzJGTUovSmEwUkd3WnJERmh3T2tvTGxLQysvSmtnQVQvL2pM?=
+ =?utf-8?B?cWFNd2QxSWhULzhDZS9CbGFqUG5yeVRxM1dpZTdZU01RWGh3L3RLOVZHQ0xM?=
+ =?utf-8?B?Y0YzRVp0a0NpTDBFc2phY3lrMzQ3S0QxZXBON0dLaUNqUFFmN1hEdU01a0Qr?=
+ =?utf-8?B?RzRhMXRFYmlHT0Q4U3BnR1UvZ01jUjdMRFl2NnhxVEJyZUFOQ2xIK0JyMkdv?=
+ =?utf-8?B?K2MwWkE3WmVDWVVzaHhHNmhHREdhdm5YZjZjZVBuY3djUDZoOFVaMUFDT05D?=
+ =?utf-8?B?K2Q3UWllTVlEMTVPQWc3REpVWXVBeGpRaE5hcHI5YWs0cUN5MGc2eHllTHo5?=
+ =?utf-8?B?WUVMUjVtZmdRYkl1MG5JaTFqSVh2Qlo0K0d6MlBzdEg5WEhBWDNmNlkvNE5a?=
+ =?utf-8?B?S2dZL3REakZ0TFlBRFhFQmcyUE4yOGYxT25BTWsrSkhRTHplK1VPcWx0RXJX?=
+ =?utf-8?B?bTlYNUc4VXM4VWtSMGtMdG8xM1NPRVlLVVZocEY3TGVuSmREOWMzSkdVN3RI?=
+ =?utf-8?B?VjU4bjFxc3czT2U5MFRMemtEQk1rbWN6d3lzMEs4QWorNGQ0U2RGTVF2RGc1?=
+ =?utf-8?B?blZ3VU1pUGVkNWdLWlQ4Si9YQXBwUVVmNjB6UE50N2Z5K1k2NVlsT1F4MFJC?=
+ =?utf-8?B?Z21nUjYwV2E0NVo2RlRnN2lVdTVIYkxBZThNbjlPSkNLaGo3dy96OFpkZk4y?=
+ =?utf-8?B?NUFYejBqL1E0YVE1enJQSlJITWJOaGtkbHROTmdydXduUXZwbzVjbkprZlMw?=
+ =?utf-8?B?ZUpaT1NCd2s0UGJMTWxQekt4MEs3Y016NlV2RWRGK1VOS0RVWjZQTHlBTWRa?=
+ =?utf-8?B?ck4xOFJkMWJoOTg4cnNUYmszeW1KdklTYWlWOHVlOEJBVU55VWtQNUJaMlky?=
+ =?utf-8?B?UEVSd2plamtWbHRUZW5tR3JOR256RTJBVEJQVWliTm1MRzdHdFZhRHBEOFhk?=
+ =?utf-8?B?WDBFSG1pcXNRV3Ewbm9jeHJlcEJCRFhhalpGeEo5d3czYWdrMFZST01MSGw1?=
+ =?utf-8?B?YkZtaytpTG5xaVM3U2p6OGNKMzBwYnFsbEZEd1Bzek5GbERxMzFEK2xkcWNs?=
+ =?utf-8?B?akcwQU5LdWZhUm1obUpXUVZRRFZHb1lHQ1o0alFFWndWODh3Szd5bVc0UzN6?=
+ =?utf-8?B?MW1xamJ6bGtIbWlXSTE1K1FQMWlraHYxT0RtYjNyb2tKQ1JUUHdaQzFoTUJ1?=
+ =?utf-8?B?OXU5d1ExMVNVY0t3ak8wKzdDRytDVWRjakJxcHRjQlJSSnR4ZHhiSG5vTUdR?=
+ =?utf-8?B?b3hhZkttSkY4d3dSN2htSzVGenNMdC9jbmJDQ2dnTkxPNHFPUEhzcFhjUjJ4?=
+ =?utf-8?B?QjhUbjE3TE5JcWF6YzBpSzVHYVJzQkMvWnoyN1gyY2Q0akhzZ0tpWGdiWllh?=
+ =?utf-8?B?YSszank5bDZZTjgxUS9CbGJJRGFpUkNHUGNYdCthYkJsSkxhYVFLdzVGY1NP?=
+ =?utf-8?B?T0pzRHEvRVgwN1pDZ0R6UHdHZXJhRzZINjZuc0FTb0VlQTRqenFTR0gxa3JD?=
+ =?utf-8?B?RFFhV1VyNnQxU01oc0o1TzBNSEVYeS9tTHE4SUo4VjNqbVRYT0EzMkxIRm05?=
+ =?utf-8?B?RlJydU42ZWtBdnFiREpGZW1LVzlTUkZqZkNBajNUdUtHQWtBQWZnTERpU29p?=
+ =?utf-8?B?ZCt2dGpqTFZMMVlHSU9pd003dXNtSi8rcDNnTWlvZVVObTRVRDJPR1FzVHJl?=
+ =?utf-8?B?dm04TjkrdVBXTVo0bEFoQmNzTlE5eFFtcWI4U2NYS1Rqa2hjaHJYdz09?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f584945e-ae1e-449f-eaa3-08df0d6c8768
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5950.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 05:46:29.2813
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yPgTl4P/G3eS+/sAQ0m2aKg0jWjMSr08QpfPh9hGMhOSLYcd493zAHqvx3d8lTmO3CLHjgwIi67095GAOEGa6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR03MB7318
 
 
 
-在 2026/9/7 15:08, Hongling Zeng 写道:
-> ntfs_set_volume_flags() and ntfs_clear_volume_flags() both read
-> vol->vol_flags outside any lock to compute the new value before handing
-> it to ntfs_write_volume_flags(), which only takes ni->mrec_lock around
-> the actual write. The read-modify-write is therefore not atomic, and two
-> concurrent callers can lose an update: ntfs_sync_fs() may derive a
-> "clean" value from vol->vol_flags while a writer concurrently records an
-> error and sets VOLUME_IS_DIRTY; the locked write then silently
-> overwrites the freshly-set dirty bit. The on-disk volume looks clean
-> despite the recorded errors, so chkdsk will not run on the next mount
-> and corrupted metadata can persist.
+On 31/8/2026 9:39 am, Sasha Levin wrote:
+>> Before upstream 9119ceb76e98, commit
+>> 85f96cbbbc67b59652b2c1ec394b8ddc0ddf1b0b ("firmware: stratix10-svc: Add
+>> mutex in stratix10 memory management") added a shared mutex around all
+>> four svc_data_mem access paths
 > 
-> Fix by moving the read-modify-write inside the mrec_lock: pass the bits
-> to set and to clear separately, and combine them with the current flag
-> state under the lock inside ntfs_write_volume_flags(). The set/clear
-> helpers pass only the bits to modify, not the complete flag state. The
-> bit manipulation is done on CPU-endian values, and the result is
-> converted back to little-endian before storing it. The wrappers keep
-> their signatures so callers are unchanged.
+> I agree. A tested backport is more than welcome :)
 > 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/super.c | 63 +++++++++++++++++++++++++++++++++++--------------
->   1 file changed, 45 insertions(+), 18 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 60d43339c590..ce159ae8169a 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -353,31 +353,45 @@ void ntfs_handle_error(struct super_block *sb)
->   }
->   
->   /*
-> - * ntfs_write_volume_flags - write new flags to the volume information flags
-> + * ntfs_write_volume_flags - apply flag changes to the volume information flags
->    * @vol:	ntfs volume on which to modify the flags
-> - * @flags:	new flags value for the volume information flags
-> + * @set_bits:	bits to set in the volume information flags
-> + * @clear_bits:	bits to clear in the volume information flags
->    *
->    * Internal function.  You probably want to use ntfs_{set,clear}_volume_flags()
->    * instead (see below).
->    *
-> - * Replace the volume information flags on the volume @vol with the value
-> - * supplied in @flags.  Note, this overwrites the volume information flags, so
-> - * make sure to combine the flags you want to modify with the old flags and use
-> - * the result when calling ntfs_write_volume_flags().
-> + * Combine @set_bits and @clear_bits with the current in-memory flag state and
-> + * write the result back.  The set/clear helpers pass only the bits to modify,
-> + * not the complete flag state.  The read-modify-write happens under
-> + * ni->mrec_lock so that concurrent set/clear operations cannot lose updates.
-> + * All bit manipulation is done on CPU-endian values, and the result is
-> + * converted back to little-endian before storing it.
->    *
->    * Return 0 on success and -errno on error.
->    */
-> -static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
-> +static int ntfs_write_volume_flags(struct ntfs_volume *vol,
-> +		const __le16 set_bits, const __le16 clear_bits,
-> +		const bool skip_if_errors)
->   {
->   	struct ntfs_inode *ni = NTFS_I(vol->vol_ino);
->   	struct volume_information *vi;
->   	struct ntfs_attr_search_ctx *ctx;
-> +	u16 flags;
->   	int err;
->   
-> -	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-> -			le16_to_cpu(vol->vol_flags), le16_to_cpu(flags));
->   	mutex_lock(&ni->mrec_lock);
-> -	if (vol->vol_flags == flags)
-> +
-> +	if (skip_if_errors && NVolErrors(vol))
-> +		goto done;
-> +
-> +	flags = le16_to_cpu(vol->vol_flags);
-> +	flags |= le16_to_cpu(set_bits) & le16_to_cpu(VOLUME_FLAGS_MASK);
-> +	flags &= ~(le16_to_cpu(clear_bits) & le16_to_cpu(VOLUME_FLAGS_MASK));
-> +	ntfs_debug("Entering, old flags = 0x%x, new flags = 0x%x.",
-> +			le16_to_cpu(vol->vol_flags), flags);
-> +
-> +	if (le16_to_cpu(vol->vol_flags) == flags)
->   		goto done;
->   
->   	ctx = ntfs_attr_get_search_ctx(ni, NULL);
-> @@ -393,7 +407,7 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
->   
->   	vi = (struct volume_information *)((u8 *)ctx->attr +
->   			le16_to_cpu(ctx->attr->data.resident.value_offset));
-> -	vol->vol_flags = vi->flags = flags;
-> +	vol->vol_flags = vi->flags = cpu_to_le16(flags);
->   	mark_mft_record_dirty(ctx->ntfs_ino);
->   	ntfs_attr_put_search_ctx(ctx);
->   done:
-> @@ -414,13 +428,14 @@ static int ntfs_write_volume_flags(struct ntfs_volume *vol, const __le16 flags)
->    * @flags:	flags to set on the volume
->    *
->    * Set the bits in @flags in the volume information flags on the volume @vol.
-> + * The bits are combined with the current flag state under the lock in
-> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
->    *
->    * Return 0 on success and -errno on error.
->    */
->   int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->   {
-> -	flags &= VOLUME_FLAGS_MASK;
-> -	return ntfs_write_volume_flags(vol, vol->vol_flags | flags);
-> +	return ntfs_write_volume_flags(vol, flags, 0, false);
->   }
-Hi Hongling,
-    Doesn't the caller-side check still leave a race here? Several paths 
-in file.c and namei.c do:
+Hi Sasha, Harshit,
 
-   	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-   		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
+Agreed to apply this to 5.1.5y:
 
-   If the check sees the dirty bit set and sync_fs clears it before the 
-metadata update, the caller skips setting it and the volume may be left 
-clean. Since ntfs_write_volume_flags() already checks for an unchanged 
-value under mrec_lock, should these callers invoke 
-ntfs_set_volume_flags() unconditionally?
+   firmware: stratix10-svc: Add mutex in stratix10 memory management
+   [ upstream commit 85f96cbbbc67b59652b2c1ec394b8ddc0ddf1b0b ]
+
+Tested on an Intel Stratix 10 SoC Dev Kit (arm64, 4x Cortex-A53),
+v5.15.220, with KASAN, DEBUG_LIST, DEBUG_MUTEXES and DEBUG_ATOMIC_SLEEP
+enabled.
+
+1) FPGA reconfiguration in a loop, concurrently with 4 RSU sysfs reader
+loops (concurrent list_add/list_del vs. list traversal on
+svc_data_mem). Ran clean. No KASAN reports, no DEBUG_LIST corruption, 
+no mutex/atomic-sleep warnings.
+
+2) A stress module with 8 kthreads concurrently calling 
+stratix10_svc_allocate_memory()/free_memory(), freeing buffers from a
+different thread than allocated them (the multi-client case this patch
+targets). Over ~1.6M alloc + ~1.6M free cycles, no KASAN / DEBUG_LIST 
+/mutex splats, balanced (leaked=0), pool never exhausted.
+
+No regressions or locking issues seen.
+
+I will send this as a backport to stable@vger.kernel.org as a separate
+patch with the Tested-by below; let me know if you prefer to take it
+directly.
+
+Tested-by: Tze Yee Ng <tze.yee.ng@altera.com>
 
 Thanks,
-Baolin.
-
->   
->   /*
-> @@ -429,14 +444,27 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
->    * @flags:	flags to clear on the volume
->    *
->    * Clear the bits in @flags in the volume information flags on the volume @vol.
-> + * The bits are combined with the current flag state under the lock in
-> + * ntfs_write_volume_flags(), so concurrent updates are not lost.
->    *
->    * Return 0 on success and -errno on error.
->    */
->   int ntfs_clear_volume_flags(struct ntfs_volume *vol, __le16 flags)
->   {
-> -	flags &= VOLUME_FLAGS_MASK;
-> -	flags = vol->vol_flags & cpu_to_le16(~le16_to_cpu(flags));
-> -	return ntfs_write_volume_flags(vol, flags);
-> +	return ntfs_write_volume_flags(vol, 0, flags, false);
-> +}
-> +
-> +/*
-> + * ntfs_clear_volume_dirty_if_no_errors - clear dirty bit if no errors exist
-> + * @vol:	ntfs volume whose dirty bit should be cleared
-> + *
-> + * Check NVolErrors() and clear VOLUME_IS_DIRTY under the same mrec_lock so
-> + * ntfs_sync_fs() cannot clear the dirty bit after a concurrent error has been
-> + * recorded.
-> + */
-> +static int ntfs_clear_volume_dirty_if_no_errors(struct ntfs_volume *vol)
-> +{
-> +	return ntfs_write_volume_flags(vol, 0, VOLUME_IS_DIRTY, true);
->   }
->   
->   int ntfs_write_volume_label(struct ntfs_volume *vol, char *label)
-> @@ -1862,8 +1890,7 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
->   		return 0;
->   
->   	/* If there are some dirty buffers in the bdev inode */
-> -	if (!NVolErrors(vol) &&
-> -	    ntfs_clear_volume_flags(vol, VOLUME_IS_DIRTY)) {
-> +	if (ntfs_clear_volume_dirty_if_no_errors(vol)) {
->   		ntfs_warning(sb, "Failed to clear dirty bit in volume information flags.  Run chkdsk.");
->   		err = -EIO;
->   	}
-
+Tze Yee
