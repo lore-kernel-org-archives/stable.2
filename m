@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7E195540AA
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCBA599A3F
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907039; cv=none; b=a6ESbfrhf/E9v/71VG3OApYvJxQb2TcUiYZSiZ5DPnlmlB0y8tODgJGK+QLUwF84/KxSNFQtm8tlrVf0zd7/mTms3EayxBjHJHcdvxd649ak299Q3x0DdUEQXPiGEZ7r1dn9LFuXQ5GeVvWzg6z1QTWNrejzMqqgVKby1oBz5JI=
+	t=1788907039; cv=none; b=JtjDrikT58+rQdkPqWv+I/H90gPozxGseHrGr0qUJ1ot6V8GVncEilpVpwY+WCx48gubzRqYI7ITDcsbZJk97LrGEjC6YqC4j6TfFKRFVOHA2MxvprhXcAwwmSLmrRaT6BcnohWltDN16PVC22po2NWFlnNXFMnu+SUGpeMpKxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788907039; c=relaxed/simple;
-	bh=X0Kbsx5lC0QnyfJgy8S9qiAaVBaA25rx7KdR9OQuL+w=;
+	bh=MXiAdolEoNBHC3m1AXg9RAwW+erHKPZI/4qZu7Zlids=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qS3eowwLYaFv2f7qsKFi7HlzwCX0qjvZY1USzJV+K0nmCv0H6CVHzMBxiZg9aIh79sopFn7a6fiKiTj1PYSYvg+WGwDDOwnnHsBth502tQ5DHuF/ZanoNo4CUBbVM9YNzwE0+lNyDFhL5K38ZXetfOsIKCW06Zy1mthgBSzqF3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZH5EOQs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QA1QP/vwX0uYM3k2V1xXVff+TObfP1y6dpmKYZQkTJh7X+ITe+aVYRzRoBucl156bGHCYAjvBvR6nsj83vEpFLjrcLqQXwysOIiq7crhdvuBV6O6heksCcbtF7Hi4Yt7N6H0QKZOi+o+f3zWwzkMRpGcWzLXZqNXfhdI9csxfJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xbvq8vxL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZH5EOQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F0C1F00A3F;
-	Tue,  8 Sep 2026 22:37:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xbvq8vxL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89A781F00A3A;
+	Tue,  8 Sep 2026 22:37:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907034;
-	bh=mo7qQEQSaq0y8mLdW9CpJeD2U0NR1JcQJX5kstZCtrQ=;
+	s=k20260515; t=1788907037;
+	bh=XuHWGfALNdYzZjEt44j+7jyX+nj3Qosxxa+S4yPZopA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TZH5EOQs2PNed99lPfm7Aidd7ldg7t1l83Cip3fD3Q2mnQ6brUoA5Df10Kn/8BOGu
-	 u57yong1Ey6BsGWcTsP95u/L3Qgc7OnXr8VUP5UuJaKj67MzrR5bepAVai2dJV8bRa
-	 00DPUUhoM0BJ820LllERVKBbnVk+C/ExfhGYrrX3QD9GYFAHxtzqcmnnmCNDmeSjWJ
-	 cQSX+f39US/zknMaBYNgx5/YXX+ZgDc4TAfDmy17dFG7ZO0awWWKxsZpYFPWPimCD+
-	 9kiqxQ3+TnEGmBPj31HWGoRbvVYXGszadIvMs69VoNdZIgut74cbSJUMmk88XtFaa8
-	 wuxPMnPS+d5xw==
+	b=Xbvq8vxLJoAIozXocJ9+GTNrY22oQF5sEg/28HqFA2fxlx+SEiGDx+ypbR03fGwG3
+	 eLIf0vVIl36Cw5HxH5bXavoor1bWo/AeUZzTZneRukVYjb39zFImMldWiSPubxyqO1
+	 zoPughp5pHXRP7TMTASmhvohQuik2mhOYosH2WfhpVp9CYyCMNgL/uUb2GzDD7X978
+	 i8ChJVC//GSCMg0L0V5VwLn2XhncNy0DvHSnOcENtx+5TzPFqnRUgalXh79Og7I5UA
+	 kUTuRB9PSLpRqXBTnBl2ztmtqBqPIeCnSt9aeToIxK/K0nRDq6u0MjST8sC3BJqBcM
+	 yZ5A3sBqHaUVQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] sunrpc: refactor pool_mode setting code
-Date: Tue,  8 Sep 2026 18:37:09 -0400
-Message-ID: <20260908223710.506600-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] rpc_populate(): lift cleanup into callers
+Date: Tue,  8 Sep 2026 18:37:12 -0400
+Message-ID: <20260908223715.507115-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908223710.506600-1-sashal@kernel.org>
-References: <2026090350-breeze-repugnant-70de@gregkh>
- <20260908223710.506600-1-sashal@kernel.org>
+In-Reply-To: <2026090317-curled-track-17d1@gregkh>
+References: <2026090317-curled-track-17d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,163 +45,192 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jeff Layton <jlayton@kernel.org>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit 5f71f3c325534da55dfda487a67208e2e0f0cd1b ]
+[ Upstream commit 8be22c49646e47452e74aa0b97ea50fb04c271ed ]
 
-Allow the pool_mode setting code to be called from internal callers
-so we can call it from a new netlink op. Add a new svc_pool_map_get
-function to return the current setting. Change the existing module
-parameter handling to use the new interfaces under the hood.
+rpc_populate() is called either from fill_super (where we don't
+need to remove any files on failure - rpc_kill_sb() will take
+them all out anyway) or from rpc_mkdir_populate(), where we need
+to remove the directory we'd been trying to populate along with
+whatever we'd put into it before we failed.  Simpler to combine
+that into simple_recursive_removal() there.
 
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
+Note that rpc_pipe is overlocking directories quite a bit -
+locked parent is no obstacle to finding a child in dcache, so
+keeping it locked won't prevent userland observing a partially
+built subtree.
+
+All we need is to follow minimal VFS requirements; it's not
+as if clients used directory locking for exclusion - tree
+changes are serialized, but that's done on ->pipefs_sb_lock.
+
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
+Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/svc.h |  2 +
- net/sunrpc/svc.c           | 85 ++++++++++++++++++++++++++++----------
- 2 files changed, 66 insertions(+), 21 deletions(-)
+ include/linux/sunrpc/rpc_pipe_fs.h |  2 +-
+ net/sunrpc/clnt.c                  | 36 ++++++++++++------------------
+ net/sunrpc/rpc_pipe.c              | 26 ++++++++++-----------
+ 3 files changed, 28 insertions(+), 36 deletions(-)
 
-diff --git a/include/linux/sunrpc/svc.h b/include/linux/sunrpc/svc.h
-index 3d8b215f32d5b..d4558fefd9b4e 100644
---- a/include/linux/sunrpc/svc.h
-+++ b/include/linux/sunrpc/svc.h
-@@ -395,6 +395,8 @@ struct svc_procedure {
- /*
-  * Function prototypes.
-  */
-+int sunrpc_set_pool_mode(const char *val);
-+int sunrpc_get_pool_mode(char *val, size_t size);
- int svc_rpcb_setup(struct svc_serv *serv, struct net *net);
- void svc_rpcb_cleanup(struct svc_serv *serv, struct net *net);
- int svc_bind(struct svc_serv *serv, struct net *net);
-diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
-index 4d8d460747164..bf88a955920f2 100644
---- a/net/sunrpc/svc.c
-+++ b/net/sunrpc/svc.c
-@@ -72,57 +72,100 @@ static struct svc_pool_map svc_pool_map = {
- static DEFINE_MUTEX(svc_pool_map_mutex);/* protects svc_pool_map.count only */
- 
- static int
--param_set_pool_mode(const char *val, const struct kernel_param *kp)
-+__param_set_pool_mode(const char *val, struct svc_pool_map *m)
- {
--	int *ip = (int *)kp->arg;
--	struct svc_pool_map *m = &svc_pool_map;
--	int err;
-+	int err, mode;
- 
- 	mutex_lock(&svc_pool_map_mutex);
- 
--	err = -EBUSY;
--	if (m->count)
--		goto out;
--
- 	err = 0;
- 	if (!strncmp(val, "auto", 4))
--		*ip = SVC_POOL_AUTO;
-+		mode = SVC_POOL_AUTO;
- 	else if (!strncmp(val, "global", 6))
--		*ip = SVC_POOL_GLOBAL;
-+		mode = SVC_POOL_GLOBAL;
- 	else if (!strncmp(val, "percpu", 6))
--		*ip = SVC_POOL_PERCPU;
-+		mode = SVC_POOL_PERCPU;
- 	else if (!strncmp(val, "pernode", 7))
--		*ip = SVC_POOL_PERNODE;
-+		mode = SVC_POOL_PERNODE;
- 	else
- 		err = -EINVAL;
- 
-+	if (err)
-+		goto out;
-+
-+	if (m->count == 0)
-+		m->mode = mode;
-+	else if (mode != m->mode)
-+		err = -EBUSY;
- out:
- 	mutex_unlock(&svc_pool_map_mutex);
- 	return err;
+diff --git a/include/linux/sunrpc/rpc_pipe_fs.h b/include/linux/sunrpc/rpc_pipe_fs.h
+index 3b35b6f6533aa..f4b9ea5c83ea1 100644
+--- a/include/linux/sunrpc/rpc_pipe_fs.h
++++ b/include/linux/sunrpc/rpc_pipe_fs.h
+@@ -98,7 +98,7 @@ static inline bool rpc_msg_is_inflight(const struct rpc_pipe_msg *msg) {
  }
  
- static int
--param_get_pool_mode(char *buf, const struct kernel_param *kp)
-+param_set_pool_mode(const char *val, const struct kernel_param *kp)
-+{
-+	struct svc_pool_map *m = kp->arg;
-+
-+	return __param_set_pool_mode(val, m);
-+}
-+
-+int sunrpc_set_pool_mode(const char *val)
-+{
-+	return __param_set_pool_mode(val, &svc_pool_map);
-+}
-+EXPORT_SYMBOL(sunrpc_set_pool_mode);
-+
-+/**
-+ * sunrpc_get_pool_mode - get the current pool_mode for the host
-+ * @buf: where to write the current pool_mode
-+ * @size: size of @buf
-+ *
-+ * Grab the current pool_mode from the svc_pool_map and write
-+ * the resulting string to @buf. Returns the number of characters
-+ * written to @buf (a'la snprintf()).
-+ */
-+int
-+sunrpc_get_pool_mode(char *buf, size_t size)
- {
--	int *ip = (int *)kp->arg;
-+	struct svc_pool_map *m = &svc_pool_map;
+ struct rpc_clnt;
+-extern struct dentry *rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
++extern int rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
+ extern int rpc_remove_client_dir(struct rpc_clnt *);
  
--	switch (*ip)
-+	switch (m->mode)
- 	{
- 	case SVC_POOL_AUTO:
--		return sysfs_emit(buf, "auto\n");
-+		return snprintf(buf, size, "auto");
- 	case SVC_POOL_GLOBAL:
--		return sysfs_emit(buf, "global\n");
-+		return snprintf(buf, size, "global");
- 	case SVC_POOL_PERCPU:
--		return sysfs_emit(buf, "percpu\n");
-+		return snprintf(buf, size, "percpu");
- 	case SVC_POOL_PERNODE:
--		return sysfs_emit(buf, "pernode\n");
-+		return snprintf(buf, size, "pernode");
- 	default:
--		return sysfs_emit(buf, "%d\n", *ip);
-+		return snprintf(buf, size, "%d", m->mode);
+ extern void rpc_init_pipe_dir_head(struct rpc_pipe_dir_head *pdh);
+diff --git a/net/sunrpc/clnt.c b/net/sunrpc/clnt.c
+index e88e21c2ab329..1eca77bd03930 100644
+--- a/net/sunrpc/clnt.c
++++ b/net/sunrpc/clnt.c
+@@ -112,47 +112,46 @@ static void rpc_clnt_remove_pipedir(struct rpc_clnt *clnt)
  	}
  }
-+EXPORT_SYMBOL(sunrpc_get_pool_mode);
-+
-+static int
-+param_get_pool_mode(char *buf, const struct kernel_param *kp)
-+{
-+	char str[16];
-+	int len;
-+
-+	len = sunrpc_get_pool_mode(str, ARRAY_SIZE(str));
-+
-+	/* Ensure we have room for newline and NUL */
-+	len = min_t(int, len, ARRAY_SIZE(str) - 2);
-+
-+	/* tack on the newline */
-+	str[len] = '\n';
-+	str[len + 1] = '\0';
-+
-+	return sysfs_emit(buf, str);
-+}
  
- module_param_call(pool_mode, param_set_pool_mode, param_get_pool_mode,
--		 &svc_pool_map.mode, 0644);
-+		  &svc_pool_map, 0644);
+-static struct dentry *rpc_setup_pipedir_sb(struct super_block *sb,
++static int rpc_setup_pipedir_sb(struct super_block *sb,
+ 				    struct rpc_clnt *clnt)
+ {
+ 	static uint32_t clntid;
+ 	const char *dir_name = clnt->cl_program->pipe_dir_name;
+ 	char name[15];
+-	struct dentry *dir, *dentry;
++	struct dentry *dir;
++	int err;
  
- /*
-  * Detect best pool mapping mode heuristically,
+ 	dir = rpc_d_lookup_sb(sb, dir_name);
+ 	if (dir == NULL) {
+ 		pr_info("RPC: pipefs directory doesn't exist: %s\n", dir_name);
+-		return dir;
++		return -ENOENT;
+ 	}
+ 	for (;;) {
+ 		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
+ 		name[sizeof(name) - 1] = '\0';
+-		dentry = rpc_create_client_dir(dir, name, clnt);
+-		if (!IS_ERR(dentry))
++		err = rpc_create_client_dir(dir, name, clnt);
++		if (!err)
+ 			break;
+-		if (dentry == ERR_PTR(-EEXIST))
++		if (err == -EEXIST)
+ 			continue;
+ 		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
+-				" %s/%s, error %ld\n",
+-				dir_name, name, PTR_ERR(dentry));
++				" %s/%s, error %d\n",
++				dir_name, name, err);
+ 		break;
+ 	}
+ 	dput(dir);
+-	return dentry;
++	return err;
+ }
+ 
+ static int
+ rpc_setup_pipedir(struct super_block *pipefs_sb, struct rpc_clnt *clnt)
+ {
+-	struct dentry *dentry;
+-
+ 	clnt->pipefs_sb = pipefs_sb;
+ 
+ 	if (clnt->cl_program->pipe_dir_name != NULL) {
+-		dentry = rpc_setup_pipedir_sb(pipefs_sb, clnt);
+-		if (IS_ERR(dentry))
+-			return PTR_ERR(dentry);
++		int err = rpc_setup_pipedir_sb(pipefs_sb, clnt);
++		if (err && err != -ENOENT)
++			return err;
+ 	}
+ 	return 0;
+ }
+@@ -180,16 +179,9 @@ static int rpc_clnt_skip_event(struct rpc_clnt *clnt, unsigned long event)
+ static int __rpc_clnt_handle_event(struct rpc_clnt *clnt, unsigned long event,
+ 				   struct super_block *sb)
+ {
+-	struct dentry *dentry;
+-
+ 	switch (event) {
+ 	case RPC_PIPEFS_MOUNT:
+-		dentry = rpc_setup_pipedir_sb(sb, clnt);
+-		if (!dentry)
+-			return -ENOENT;
+-		if (IS_ERR(dentry))
+-			return PTR_ERR(dentry);
+-		break;
++		return rpc_setup_pipedir_sb(sb, clnt);
+ 	case RPC_PIPEFS_UMOUNT:
+ 		__rpc_clnt_remove_pipedir(clnt);
+ 		break;
+diff --git a/net/sunrpc/rpc_pipe.c b/net/sunrpc/rpc_pipe.c
+index eadc00410ebc5..43119907010e3 100644
+--- a/net/sunrpc/rpc_pipe.c
++++ b/net/sunrpc/rpc_pipe.c
+@@ -725,7 +725,6 @@ static int rpc_populate(struct dentry *parent,
+ 	inode_unlock(dir);
+ 	return 0;
+ out_bad:
+-	__rpc_depopulate(parent, files, start, eof);
+ 	inode_unlock(dir);
+ 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
+ 			__FILE__, __func__, parent);
+@@ -749,14 +748,15 @@ static struct dentry *rpc_mkdir_populate(struct dentry *parent,
+ 		goto out_err;
+ 	if (populate != NULL) {
+ 		error = populate(dentry, args_populate);
+-		if (error)
+-			goto err_rmdir;
++		if (error) {
++			inode_unlock(dir);
++			simple_recursive_removal(dentry, NULL);
++			return ERR_PTR(error);
++		}
+ 	}
+ out:
+ 	inode_unlock(dir);
+ 	return dentry;
+-err_rmdir:
+-	__rpc_rmdir(dir, dentry);
+ out_err:
+ 	dentry = ERR_PTR(error);
+ 	goto out;
+@@ -1046,19 +1046,19 @@ static void rpc_clntdir_depopulate(struct dentry *dentry)
+  * information about the client, together with any "pipes" that may
+  * later be created using rpc_mkpipe().
+  */
+-struct dentry *rpc_create_client_dir(struct dentry *dentry,
+-				   const char *name,
+-				   struct rpc_clnt *rpc_client)
++int rpc_create_client_dir(struct dentry *dentry,
++			  const char *name,
++			  struct rpc_clnt *rpc_client)
+ {
+ 	struct dentry *ret;
+ 
+ 	ret = rpc_mkdir_populate(dentry, name, 0555, NULL,
+ 				 rpc_clntdir_populate, rpc_client);
+-	if (!IS_ERR(ret)) {
+-		rpc_client->cl_pipedir_objects.pdh_dentry = ret;
+-		rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
+-	}
+-	return ret;
++	if (IS_ERR(ret))
++		return PTR_ERR(ret);
++	rpc_client->cl_pipedir_objects.pdh_dentry = ret;
++	rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
++	return 0;
+ }
+ 
+ /**
 -- 
 2.53.0
 
