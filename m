@@ -1,56 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642E254CF74
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:43:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD62E5427FE
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:43:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875028; cv=none; b=O/vY9Ho3BWi7LD9y2AeJx+uaiQVC+oCss1uZKBMDdvQZ0rAPBVFzFgzlNLnyJlpg2kqs+HJ9Mr2vW9/y3wLmcrKqeoL4NGZbKEOTcPPTqhHwRSaODewXCrHplzWXcqGbROyjYFdGzhQJFR/NiNEIZbGQmvGmz9wBh25v1N7nTdk=
+	t=1788875034; cv=none; b=BNE5YWR9zl0mV7+ZQJQP5nC8QOYKwi/g7KCBOTEjsKVBS7zgfGba6EdRgn1UN8PYzIuBH89ArqhmQZ+0ebkdypEv8gaIBON8HkY9krThujH3OpjwpUNKM9PvgwjJNvlSzhVSKz1nYxQZriDA6MMAU6AR7C+pErNFuO+gF3E8Xbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875028; c=relaxed/simple;
-	bh=1k7ahrlLM68f5IDRj6NwNUtLtmQojvoo0M5llcCsh4w=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BrI/K5khs1xUYoC0HCvCbYP9yntu2mZhvvZOZ2Hr2Xk1dsGqT0zyD9qXVVpmSv7TqL3LcQbQ/zmk1gG9gcfT0K2Z77FEMZBSR9oHt5b6hdAg1dc/p1nCMlqGIpHL7i/Wr8pIRohg4HZalqGCGXNlIW3yjGXWKyKDaunizkHIJFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NnCjYiw8; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NnCjYiw8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28201F00A3A;
-	Tue,  8 Sep 2026 13:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788875023;
-	bh=EDbqIt0Rx9QxkBMT1oZT2rxmPFzT+zYq2F9dxGAl8Wk=;
-	h=Subject:To:Cc:From:Date;
-	b=NnCjYiw8tFEtCZHn6gG9ui74XMnqMAgnqinZawAsi4eikobMwog4uGvnZL5CzOvnx
-	 0DNyilnSKfNQC/AVFDXIbdUEFAUZXswjyLppUO0x5gE7X4Evx4Pm1/rn/A5kECqDxk
-	 qLZfeMWHM/Sfk9J9Q1sYc8syn3kIOS01ZrlZJoDc=
-Subject: FAILED: patch "[PATCH] block: flag zoned disks with GENHD_FL_NO_PART" failed to apply to 5.10-stable tree
-To: dlemoal@kernel.org,axboe@kernel.dk,bvanassche@acm.org,hare@kernel.org,hare@suse.de,hch@lst.de
+	s=arc-20240116; t=1788875034; c=relaxed/simple;
+	bh=r7rAG7mxLw2xViuN6lt9p4txB6EEtikJnaxtWlJGkus=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Rtm9Yb7ZKuLnBDUXcQKS1AubCpW2M57mh+ri+LtMfy/KoSDVcyWHgmWOuTgDHT/O0Ri0IdirhLUZxxzTFDAq8kS5Fw71cbHn9Gmp+fS601k4JZAzz/ZMzOrpvzpb0zqP74RL4NQKe4n8ChqMcOJBZG6/aE/8JsNH9D0Js0MBAVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3B41F00A3D;
+	Tue,  8 Sep 2026 13:43:39 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] misc: fastrpc: don't publish fd before copy_to_user()" failed to apply to 6.1-stable tree
+To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:38:35 +0200
-Message-ID: <2026090834-voyage-donut-60bd@gregkh>
+Date: Tue, 08 Sep 2026 15:37:21 +0200
+Message-ID: <2026090821-regroup-crunching-93c8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 3f9c7a108c0e8f14425384912017071b71341e3b
+git cherry-pick -x a4a1a2bfcb29785292d634d7787edc6fb550714d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090834-voyage-donut-60bd@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090821-regroup-crunching-93c8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,56 +53,72 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 3f9c7a108c0e8f14425384912017071b71341e3b Mon Sep 17 00:00:00 2001
-From: Damien Le Moal <dlemoal@kernel.org>
-Date: Mon, 31 Aug 2026 11:50:50 +0900
-Subject: [PATCH] block: flag zoned disks with GENHD_FL_NO_PART
+From a4a1a2bfcb29785292d634d7787edc6fb550714d Mon Sep 17 00:00:00 2001
+From: Baineng Shou <shoubaineng@gmail.com>
+Date: Mon, 17 Aug 2026 13:04:55 +0800
+Subject: [PATCH] misc: fastrpc: don't publish fd before copy_to_user()
+ succeeds
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Zoned block devices do not support partitions. However, the partition
-table is nevertheless still inspected, and any partition found ignored
-with a warning in add_partition(). While this is generally not a problem,
-and in fact beneficial to the user as it indicates an invalid use of a
-zoned block device, scanning for a partition table on the device may
-result in issuing read operations to offline zones (e.g. after a disk head
-is depopulated for disks that support head management operations).
+fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
+into the caller's fd table before copy_to_user() copies the fd number
+back to userspace.  If copy_to_user() fails, the fd is already visible
+to other threads in the same process but the ioctl returns -EFAULT.
+The existing comment in the code even acknowledges the problem:
 
-Since partitions are ignored anyway, completely disable partition scanning
-for zoned gendisks by setting the flag GENHD_FL_NO_PART in __add_disk().
-The existing check in add_partition() is left as-is to ensure that we
-still get a warning if for whatever reason, despite GENHD_FL_NO_PART, we
-still endup trying to add partitions.
+  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
+   already called fd_install()..."
 
-Flagging zoned disks with GENHD_FL_NO_PART also has the benefit to expose
-through sysfs the ext_range attribute with the value of 1 instead of the
-default DISK_MAX_PARTS, thus correctly advertizing the fact that zoned
-disks do not support partitions.
+Now that dma_buf_fd_install() is available (introduced to fix the same
+issue in dma-heap), apply the same pattern here: reserve the fd with
+get_unused_fd_flags(), attempt copy_to_user(), and only on success call
+dma_buf_fd_install() to publish it atomically with the tracepoint.  On
+copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
+unwind without any user-visible side effects.
 
-Fixes: 5eac3eb30c9a ("block: Remove partition support for zoned block devices")
+Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
 Cc: stable@vger.kernel.org
-Signed-off-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Link: https://patch.msgid.link/20260831025050.667758-1-dlemoal@kernel.org
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
 
-diff --git a/block/genhd.c b/block/genhd.c
-index f1990c7cdfb9..10ca8b4d6eea 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -447,6 +447,13 @@ static int __add_disk(struct device *parent, struct gendisk *disk,
- 		bdev_set_flag(disk->part0, BD_HAS_SUBMIT_BIO);
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index eb6c2a78d3c7..d7a9e12f5575 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1712,24 +1712,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
+ 		return err;
  	}
  
-+	/*
-+	 * We do not support partitions with zoned block devices, so do not try
-+	 * to scan the partitions table.
-+	 */
-+	if (blk_queue_is_zoned(disk->queue))
-+		disk->flags |= GENHD_FL_NO_PART;
+-	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
++	bp.fd = get_unused_fd_flags(O_ACCMODE);
+ 	if (bp.fd < 0) {
+ 		dma_buf_put(buf->dmabuf);
+-		return -EINVAL;
++		return bp.fd;
+ 	}
+ 
+ 	if (copy_to_user(argp, &bp, sizeof(bp))) {
+-		/*
+-		 * The usercopy failed, but we can't do much about it, as
+-		 * dma_buf_fd() already called fd_install() and made the
+-		 * file descriptor accessible for the current process. It
+-		 * might already be closed and dmabuf no longer valid when
+-		 * we reach this point. Therefore "leak" the fd and rely on
+-		 * the process exit path to do any required cleanup.
+-		 */
++		put_unused_fd(bp.fd);
++		dma_buf_put(buf->dmabuf);
+ 		return -EFAULT;
+ 	}
+ 
++	dma_buf_fd_install(buf->dmabuf, bp.fd);
 +
- 	/*
- 	 * If the driver provides an explicit major number it also must provide
- 	 * the number of minors numbers supported, and those will be used to
+ 	return 0;
+ }
+ 
 
