@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7129C54B1C4
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A794519908
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874260; cv=none; b=XD9XhkY+994tvgYcEQzqAn2GhNuUbwI2DapYcTARQn14xs7FP5dbW2E1HBYlcSMht53nBPMjk+1ABlYev7QbAdk+tO5rTUWUWKh+OPnPYo0l82XNWZ1hVz4kPqz38NRwKg9VJqKOba7+MKVJUesGfAHJQkRDwuh8nET6AMpJqQo=
+	t=1788874260; cv=none; b=UuHgsx9rFyDtsMurcLZXlHyO98mqxuA4xvoqRkSlQwIN6qXBAZvqoah9JZ5lDZxgMtwysHot+We600lKdbCyWbpFLVxqiYCs/Bdoz8UuN31HvZdEhP0a8R1X5UlrvEsD81QYG4EuOrUqzU5MJlzDfgKnhzTT+oP385h0sqWQlJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788874260; c=relaxed/simple;
-	bh=F33YqVwyF4Q2MMtKn7wjHkVne/T1F5lXBBPFWwo7cok=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZA/kOD4hkViZ0HvHVCjDiAT9x0YvdWsTVe/rct7dYDny3N2/N6tX7cYr4njwCWWsuPeeeEeC6xI2A3uhjJMh4+04ZRx/mQgm9oy3LUjsu+UdkOM3ZVsKP6cM8pSkxsugWnCvfsF64nRZQmx3Lqcdzgd+217NU/rWDBhbBu94Dwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mJADnAUO; arc=none smtp.client-ip=100.103.45.18
+	bh=I/RXeJinTXIJ6YeDZ5GDrUC6eg+e0YGRuueolKPtLT4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rqbr4Wlo6NcxT6dPaS6KkUeGla8X5q/SWxmRXHPF0rWdc/+D6OY7CqoOlVW8EhDeDGXMQ4yVh8zTAynIcNpl/XaGHYbwxQ4ENE1OT0kmwpKY1I/bVfRppwzEV4qgF+NZS0QNK+ZX5q7TX8ZNzZVshtFf0PR8thh4ix/J7nqVQg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cl2AOef2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mJADnAUO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3148D1F00ADB;
-	Tue,  8 Sep 2026 13:30:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cl2AOef2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E8051F00ACA;
+	Tue,  8 Sep 2026 13:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874256;
-	bh=Dq5KiZ0KZpXX0lL/Ol/R2TaY3MfQFNQLqZiJKbJ9cQc=;
+	s=korg; t=1788874240;
+	bh=MddUk7BGAc7OYDdNP+8Lws3Nu+IfTnfvUhZSEZ0nSrw=;
 	h=Subject:To:Cc:From:Date;
-	b=mJADnAUOOGh7dJvh4Rac39ByXBGfbfZESmWiIaoC2Whp85SFsyq9KYANgBmIS12Xy
-	 SKefOHEgG1U+HNKx7VA10vOC0Y1STfrFga5iNAxZ20GqGyTKGybf7S6p2Mx87DrqdW
-	 iLqEtbgrCiUrvk+0XGZI4aN7QQczco/pektpq8Pw=
-Subject: FAILED: patch "[PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()" failed to apply to 6.18-stable tree
+	b=Cl2AOef27EhAnC0mzUXPg49IuETAkaEkgyfW1iotAXIkrHF1n1oJf5RjQT4531Xy5
+	 BhyQw6NhrWpbyVuAVxeZRjGnHeogkFYOUdnmhlEu/H7WQT5wYpi21oDrmZpSaeer2I
+	 X5JjQ+d/cMPDAzMSFGXwKDdiS0IGbLnLxMSubnOA=
+Subject: FAILED: patch "[PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()" failed to apply to 5.15-stable tree
 To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org,tjmercier@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:24:14 +0200
-Message-ID: <2026090814-frequency-igloo-c376@gregkh>
+Date: Tue, 08 Sep 2026 15:21:01 +0200
+Message-ID: <2026090800-eradicate-despise-0d62@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090814-frequency-igloo-c376@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090800-eradicate-despise-0d62@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
