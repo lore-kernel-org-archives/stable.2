@@ -1,87 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5433976A0;
-	Tue,  8 Sep 2026 07:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851559; cv=none; b=j96jDICV+vk2M9vpwMSOfP3bl4mS0wacUh8BkvvVZiarp6loNO0CQI2fh9H9K9VtLPvjhGto/xXCgx0XUsBmQ2766x2LcQooYTyd83jQKHzQLLZU/cijY7ZhV45dItR6KgDe6L2XsdcMl3Jya4H2u7JGarFCWMKqr7XbMmCTJVA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851559; c=relaxed/simple;
-	bh=ojfz3BK3cNv9WyccRjmIJwIzaZLN1JEefzj2ybT4g2U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gReDQvXyo5o8YRx7kEl6pG2w8W2DQ865SLVmlyNRY6KaBCNmj7/udJ7sY85kQujJSAfzWdsg9Q/SiUFrMsfHriwHgYOpgjwmreoKI23vkms2vRUMNpF/YvpBwhS8wi9GFyOJYOiuLta7aoDSdXq1BBNCTRHRwbewDBXZa8ZGClc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NtAVcMiQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 260933A257C
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 07:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788851564; cv=pass; b=u7y2bBmEG2H+nblYT09XU2VsM3phJNSwVVKgfiNuixNc9i4iWJHXPaDtnjWH2MlGCIsS3VKv0z4DM83hCQEnp9MHpl1ebAR6disOGg0K+n6TBukdyZQOelctJIPyXtF0wqC4gFHk3HoNsvkMOnsQnCNbuPFmEMG5T2Lnc8b6ROU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788851564; c=relaxed/simple;
+	bh=kYtRBGff3Cf3tt3/PvyqbO1QmTw52cRguqV6Q0iAHR0=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mkPZ/HqkDvJKag+grpoG4tv8TfAdo7zfHrZDyG+WxCAgekQR9OYXCFTx1ohXxUh91Rmy2jzbbmiwC57AL4XIQ8sRs9QTOD+fjljEXSyu16yjYJHqofa7qN1dDIT/CuZJymVUpl3ouXSTELwS2mKHwl++U4l5PQgCD6Z95hqPlbY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dxcys2xJ; arc=pass smtp.client-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NtAVcMiQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 730BF1F00A3A;
-	Tue,  8 Sep 2026 07:12:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788851558;
-	bh=5p31lc4Tvv+4APqA53+22S0thee+C1JMA0AUVb8nGPE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NtAVcMiQH+lDPgQbi/TsBORUbxXF5mRQDKZAWt4VIuYo0eCni2nqpamj6OxYAJVUY
-	 N9ER8mVu1wRUkx8hI0+OeY4IAdVF2NaSFafwBRryiezJLM5BYrc5/Mx0uIWs2eoc3o
-	 D1oVcUo2tWTToFuiuC5/b47wLBC6WfA1XWbOYyDFaizdms1dOtd3T3A/RUQH+/FnI2
-	 xtt430Z72Q2Xu7m6U8TvEL1E01bqd8P8ylAnR6bBlAH4/AW/K/O1Fub1yDfrX6q4ho
-	 C57I69HCKiELXHtbo7TBGIPVcgLV1KbDceKvegKVWMZ+//pWGqxB3knLKc7VbBKMHe
-	 JgOlWIf/YMSCQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3q0R-00000000sZE-423a;
-	Tue, 08 Sep 2026 09:12:35 +0200
-Date: Tue, 8 Sep 2026 09:12:35 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-Message-ID: <ap-1YzIoyYsH_3V-@hovoldconsulting.com>
-References: <20260907065501.101013-1-johan@kernel.org>
- <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
- <ap56NTVMq8GlbjmR@hovoldconsulting.com>
- <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
- <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
- <bc055887-3029-4740-bec5-7e2fe4205992@suse.com>
- <ap6iJ6vkVIaxXFwn@hovoldconsulting.com>
- <f642f815-df4f-473b-aaa2-89153c08bc05@suse.com>
- <ap62IbbQti28M_SA@hovoldconsulting.com>
- <a9db0fce-2a2d-4896-a3c3-2afff4080168@suse.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dxcys2xJ"
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c5ac25089bso1980719e0c.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 00:12:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788851562; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h7uHDGzTlAUW0RCjIpQimpiewx/wD8DiHuT8uGn+6Lx68C/FlOEqFY9FKDd4x91boW
+         p7FweuS509jW8IMr/q7DDJMg9UBQKuuKaTM2IrRKD3J1X8ZwaIyhllVsYUxIqlFyqabX
+         ZMRLdb6QCfD79aSaMok1EFORtLEwJctEhe5Wu2aeC247rE3JJFR6O2Unsvr9T3peHsOG
+         9dv4DmNzaOf3kaGZIGN+OqUE4bjptGFjNr0wJbRidglqiBsKtWLXqYUGSb/2ZmC/+YNv
+         wRi2nlx4G7tE2nBXygMi7JHZxjj4ARNwf38LGHdiu9Vj+KBUfrXLYbKIr2p5JjpTXspu
+         W6Pw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=qsLaUxYbGMpI4z4uQbUiwjTKmX/vPTtkRhbslycMFDU=;
+        fh=rRaFIw+V4K8W/f5ofw8wVomHTArVS4NbKi+0fHUMkEs=;
+        b=G+TR3lP6Vx3j5PuGpHjMTUrWn9Mv6+1g2geUFRmRVHRf2urZSHyzWvmg7VXr5mPYbU
+         keZm2dyPwMs+JbK+8MS4YhLwR1L0eZg7KyN8RDvdeFtD1pqz0+InnPKpZZ+8EvUaCueL
+         Fnd3TlLk+xctPk/hJ/GsWI3gJJJWkxhD7y5fI0U+RrAu5sOuk39Wl0q06KIMpw4Weig9
+         FmU4vEGwAEwXZmt+Ay2OxjjOymY6I+YmmWhTwvvNOKK2B6a+6FQdYxfUWDPKXwBcAAHf
+         y8H0sT2gjjEJKHe3YibTJPi3kJN04MIt2tuz7UV1dtIMev7AVmzCjcL4DR9o/6s189EE
+         xiTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788851562; x=1789456362; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qsLaUxYbGMpI4z4uQbUiwjTKmX/vPTtkRhbslycMFDU=;
+        b=Dxcys2xJlv1bJU1/poc23s8dTEXI9jvI6QGpv3P84aiOaXWBx12Cu2conP0kYTdpH3
+         R3hMPT5HYO2nUS4bzoxzDYB9EXCPEG0doJA+fVusoE9Rz2I4yiGnjGhttu/cDOYFlRFH
+         zsA5Y9BN4ChZptL2cu4YMeepSoQ5zia3MS8hathZKO6OCbLg62YH37FiBUXf3P7N7tEW
+         I1RoGHXJAOnxafuMmMhW0bNeHSc0JjToOse9gusEq58HAmC7np12zcuoack5Ko9erQEz
+         nsokIkFXqPtHHSrJWLrcC5t5yq6ZAnp+WrpS4MkK4dxPM9K8uiciawUDREv9JHn3Zl9u
+         shqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788851562; x=1789456362;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qsLaUxYbGMpI4z4uQbUiwjTKmX/vPTtkRhbslycMFDU=;
+        b=mISLqOOU2oiKJiHim7hOmOlGS8w8Y+y02zefXaPtGrDo+RImsp4J7adkknCSaQrskY
+         QSj7GASGBZJcxLZJ9emmuwZsWCLYwsN7bA7BU7RTyYdCCw62XNe8mq2Q1ilFSL0iRlhl
+         kGxaPNIdd2qkBbvlSFg3DYPB59oH4wdUITgfFt/bfs/zUXBu7+8h5Qu95mcX5yOKM/cq
+         OvhzqXlkI7hcrQxKoOuCH5dQsKCq06uG9jtApD8e+rE5zoUNGV1msE5vHH9rxZ8Bn+0N
+         wAHwj/8S4Bw7RnYT7LDuwu06tlmO1n2eUsnQlK33XCtmiTJkf7fp08LXEYBzSL5an3rL
+         K3ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjWjaOPFolRuA1FH7wKVMVAMBkr+lSxjyNOKvqVXg3Fnd0X/qSzW+VzH98iP7TWlDgDZxqM2A=@vger.kernel.org
+X-Gm-Message-State: AFuF++lADxIqz4hNp1RRLy8IxjDyOe02c1zdZMwu70JwbwL+/jMEnbKR
+	uxBB50MQ1DK9jWwALMrCDDYOBV0aApA50zWiXjCYUdbtM0iHBf6gh7V07EwvltnkbA0LDIdrNBN
+	BZjQmivVz7Ph6juYPadyUwhJEeoAx7Ig=
+X-Gm-Gg: AYBFou3M2Bbw0kI1Fg4qom34SuPWLrQ3yLKozXOD80WPmj/rmag3qDu6ffhJYCw7OJN
+	kNG+XWWQuLWvgdXZWSvXEvHqJd02x7Hxupn3M+hWh4L/X42tVhYWE5I15w3yeMl6Gk8bIr0Lyvb
+	qpd5y95Ahx0/ML+ybgrkWFt3vVHlAdv59iv2dT5/xvnVv9A7w3JhMgZISWvRkMNLK5tpcCti3WU
+	24WiV8GJlpNm0eALlOtIj9Le1Ns1bjANd2w+GrNAhZJQAbxhfZgNatkOaspaGC5dGslzv/J8E+L
+	ffc/2O0PLJy9vUJkLuMYNcSgaXAWfTZ/cCZ4uK/Y/2M6mthvpDbeeQ==
+X-Received: by 2002:a05:6102:61db:20b0:78a:700c:ad84 with SMTP id
+ ada2fe7eead31-78a700cc36fmr3564272137.9.1788851561548; Tue, 08 Sep 2026
+ 00:12:41 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 8 Sep 2026 02:12:39 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 8 Sep 2026 07:12:14 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a9db0fce-2a2d-4896-a3c3-2afff4080168@suse.com>
+Received: from 77377267392	named unknown	by gmailapi.google.com	with HTTPREST;
+ Tue, 8 Sep 2026 08:49:32 +0200
+From: Zhao Li <enderaoelyther@gmail.com>
+In-Reply-To: <20260905193122.76f5d3245cd2e0603e7743b7@linux-foundation.org>
+References: <20260427145247.84157-2-enderaoelyther@gmail.com>
+ <20260428030712.66256-2-enderaoelyther@gmail.com> <20260428113037.88766-2-enderaoelyther@gmail.com>
+ <20260905193122.76f5d3245cd2e0603e7743b7@linux-foundation.org>
+Date: Tue, 8 Sep 2026 02:12:39 -0500
+X-Gm-Features: AcwNN1XwTG0-VWWtLuCWHyxR5vlmphPm1tauraRmPLL5-TyLDFGlaKBhLxDmXoU
+Message-ID: <CACHPgzxQ5ajoo3yrkXZgkmeDgOmOQTZxHpJcDc8P0GBRLvP8FQ@mail.gmail.com>
+Subject: Re: [PATCH v3] mm/hugetlb: fix max-only subpool accounting on
+ alloc_hugetlb_folio failure
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: mawupeng1@huawei.com, Muchun Song <muchun.song@linux.dev>, 
+	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 08, 2026 at 08:54:36AM +0200, Oliver Neukum wrote:
-> 
-> 
-> On 07.09.26 15:03, Johan Hovold wrote:
-> > On Mon, Sep 07, 2026 at 02:46:16PM +0200, Oliver Neukum wrote:
-> >>
-> 
-> >> We could do that and it would indeed be simpler.
-> >>
-> >> But it would change the semantics so that past status changes
-> >> no longer show up in TIOCMIWAIT. Is that really a good idea?
-> > 
-> > Yes, as the current behaviour is both non-standard and inconsistent.
-> > 
-> > If you have multiple tasks waiting waiting on status change, then only
-> > one of them will detect it, for example.
-> > 
-> > And if there are multiple changes (before or during TIOCMIWAIT) events
-> > may be lost too.
-> 
-> Very well. Ample reasons. Do you have a patch or do you want me to fix it?
+On Sat, 5 Sep 2026 19:31:22 -0700, Andrew Morton wrote:
+> I do like to see a clear statement of the user-visible effects of bugs
+> when we fix them.  "subpool quota leak" sounds bad, but how does this
+> visibly manifest?
 
-I sent a v2 yesterday that should take care of it all:
+Thanks for picking this up. The added description accurately captures
+the max-only case.
 
-	https://lore.kernel.org/all/20260907095130.130636-1-johan@kernel.org/
+The leftover used_hpages charge reduces the free space reported by
+statfs(), so the mount can appear full despite having fewer allocated
+huge pages than its configured size= limit. Later allocations can fail
+with ENOSPC, or page faults can result in SIGBUS, even when huge pages
+are available.
 
-Johan
+The patch leaves the min_size= reservation-accounting case unchanged.
+I'll make the user-visible impact clearer in future patch descriptions.
+
+Thanks,
+Zhao
