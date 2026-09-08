@@ -1,91 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EC9F492E32;
-	Tue,  8 Sep 2026 22:59:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1989C492E3F;
+	Tue,  8 Sep 2026 23:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908348; cv=none; b=ideUXHarnyUePEW3p2LXjDKWUPu4zbsn6l43kCY2BnoPeAqOL18fzKsuRTg5oSKRnNcg42zQvYkqvgVxmRfFND3j+yzLgHxmqtmaY/z2YD89pNhLvYaLhSFzXBdtCkBhr/H8qHYUQIv11V1qukCl7RrkMRE4/UttQRMhMAKgueE=
+	t=1788908407; cv=none; b=TJaCM6AUyyL3WPVSn3XMuEyMPihQu8ZgzjENre0yQ0koK8ouYhJI5Mct3RPfMUqBeNydm5p17TW5t/ILQ2KEXGWVxQGPICPmyLJSuCI+BQ2QTrM/bgGkU/mlKj3oOHiMGaSIMurciWDG4eCdoYDwJOV7dRW0Ir1parQ10a4QhJ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908348; c=relaxed/simple;
-	bh=oiaalghHzk0gPCzV5wPInH7C96mALp40vvhqB8cWUUE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=R8XjwuYp6iJQeP+WOeOIV75mYU4JY0EwcM5Kiu0kv6NtSjQVKxxVUTGQ8YEvtbi7h8B5S72h9jZ2nXgk5uDKJ9A2Y9L8iiLq4dSiElqB8EJAnWgJrA6rP/vsCOlkgC14pr/YvnrzIWhBMMWvL3NtlJm48jbN4hhx9rsWPMY1vvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lLTvT5DZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788908407; c=relaxed/simple;
+	bh=WykfuobmyroANxv66SmMUr8kbHPDqJcJUmas1hW0em8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JBIES7ZeeMiCCwD9+DLiEXnF3OtLRMQ5Pek/Z2+ZzuLUTGZSevu9o2xflEr3EGWmcoAHYhEz22laLRIgSQOFOxYsWkyy9uipVeEJmgLCuBlNaCc+vKtDjbLHjOS/dM/Bg1yITiNQGH6+5o2/uXf+U95mnRC6CTsRadKB98jfgDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dG6cElcA; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lLTvT5DZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0331F00ACF;
-	Tue,  8 Sep 2026 22:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788908347;
-	bh=Rp+KksRhoiT3t3BB+vdlld8gEHLeRWOqf9eUUW+XSyg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lLTvT5DZk/+hwuHY8qdD68+MLdvzrt/PUYpi55R7+TcrQ9qD8vqCQSvjFpu2kK9Ij
-	 biN6unSldgtxOyKWCJoJ2f6lqlHgFkC+g426vCnOpeRi1/A4Fk9kdntkJbCUtsglTG
-	 NJrRd9EofeJDeyvbv6H5zthj4h/mqglio5U/IZ95MaLfiMJ2ejxhbLRTG1iumSh9Cw
-	 i9YL1kbxLGik48+6lczReY6WQVhhourCfhughsrZaHLA0G9jpmiv0dtUVcufT2IGDX
-	 d2Qyms2VjVHE7U4OkdjiyPwaRNcDUa8IhoZENrQyWyOpDkzR4C/V2WnGyskpkmHalM
-	 BgPPX3z11V62Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Artem Shimko <a.shimko.dev@gmail.com>,
-	Stepan Ionichev <sozdayvek@gmail.com>,
-	Serge Semin <Sergey.Semin@baikalelectronics.ru>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Arefev <arefev@swemel.ru>
-Subject: Re: [PATCH 0/2 5.10] serial: 8250_dw: fix port leak on clock notifier failure
-Date: Tue,  8 Sep 2026 18:59:02 -0400
-Message-ID: <2026-09-08-daily-reply-0010-8250-dw-5-10-correction@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026-09-08-daily-reply-0007-8250-dw-port-leak-5-10@kernel.org>
-References: <20260908093626.15492-1-arefev@swemel.ru> <2026-09-08-daily-reply-0007-8250-dw-port-leak-5-10@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dG6cElcA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788908405; x=1820444405;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=WykfuobmyroANxv66SmMUr8kbHPDqJcJUmas1hW0em8=;
+  b=dG6cElcA4loIg/Fas/u3PE7GniM4duXCXxLlyfWFA1AWnNZnIhmH3rvG
+   IDDIQUu4iNRRflZMC8b4cwEAZnMyy87LXgLSeI0ZQ8LeCtnSDYZ+QNKAJ
+   Bb27Su7j+7d7MYrmq2Y1azjSVekmjaqeDjhCRmiRVsKZFVGcdID591DK7
+   Jj3MxQuz/qPbDYjwPO6XT+TxOFs1QtMDfajixDmJMc+PBuJHH4OtcCvof
+   dnbGqPT9GRJorpEum1oq0J+Rt4xsWqy03Q+RKQLiVPDgUISZYPFlI0KpR
+   s+29oSa5WD4Apa5aaswYdlRgNLgUOULcnZTKY6+oD5WiipttQEquPvNPz
+   Q==;
+X-CSE-ConnectionGUID: ID0E9RbySmW3xLb7aQvZQA==
+X-CSE-MsgGUID: i/HVIF2ZTmKy+OT5evmKkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99987370"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="99987370"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:00:04 -0700
+X-CSE-ConnectionGUID: Jsts6cKgQZyRFSi+eiWWqg==
+X-CSE-MsgGUID: EjuGTvPTQCGTx9ker93pgQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="269388295"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.130]) ([10.125.111.130])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:00:04 -0700
+Message-ID: <3d7152ba-5e41-4cff-9c96-08f77f60ede5@intel.com>
+Date: Tue, 8 Sep 2026 16:00:02 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Update on CPA fixes, x86/urgent and x86/mm
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
+ David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+ <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
+ <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
+ <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+ <ap_WIZwCPKB07nAf@kernel.org>
+ <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+ <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
+ <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <cd92444e-777f-470a-9bc9-f64e5edf10e3@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-> Queued for 5.10, thanks.
+OK, so Linus pulled the x86/urgent fixes I sent earlier today. I've
+staged everything else. Here's an explanation for where that leaves the
+other x86 fixes.
 
-I'm dropping these again...
+==== x86/urgent ====
 
-The bug being fixed isn't reachable on 5.10. dw8250_probe() there ends the
-clock notifier block with:
+x86/urgent has 5 urgent fixes in it. There are 4 that are CPA-related.
+These fix some use-after-free issues that have been blocking mm folks
+from making forward progress on some other features they're working on.
+So they're impacting real people. They're not new bugs, but they're
+annoying enough not to want to wait until the merge window:
 
-	if (data->clk) {
-		err = clk_notifier_register(data->clk, &data->clk_notifier);
-		if (err)
-			dev_warn(p->dev, "Failed to set the clock notifier\n");
-		else
-			queue_work(system_unbound_wq, &data->clk_work);
-	}
+      x86/mm/pat: Acquire init_mm write lock on collapse to avoid UAF
+      x86/mm/pat: Acquire init_mm read lock on attribute changes...
+      x86/mm/pat: Allocate split page tables as kernel page tables
+      x86/alternatives: Exclude text poking against change_page_attr()
 
-	platform_set_drvdata(pdev, data);
+The other one is old as well, but it's actually causing user data loss.
+It's a relatively obscure set of features and requires heavy reclaim to
+trigger, which explains why it wasn't found for so long. But the side
+effects are rather nasty, so it needs fixing upstream now.
 
-so a notifier registration failure warns and probe still returns 0. There is no
-error return anywhere after serial8250_register_8250_port(), which is the
-precondition 10fc708b4de7 ("serial: 8250_dw: unregister 8250 port if
-clk_notifier_register() fails") describes when it says probe "returns the error
-but leaves the 8250 port registered". No port is left behind on 5.10, so
-there's nothing to unregister and no use after free.
+      x86/mm: Fix user-space data loss with MADV_FREE and THP
 
-What creates that path is patch 1/2, 57f83e5dd6a3 ("serial: 8250_dw: Use
-dev_err_probe()"), which turns the warn into a return. That's a cleanup from
-May 2022 with no Fixes tag and no stable Cc. It's in the base of 6.1 and newer,
-which is why the fix is correct there, but 5.10 and 5.15 predate it and never
-had the failing path. Taking the pair here would import the bug and its fix
-together, and would also make a notifier registration failure fatal to probe on
-a tree where it currently isn't, for hardware that works today.
+====== x86/mm ======
 
-Same reasoning applies to 5.15, so please don't send it there either.
+x86/mm now has a single commit:
 
--- 
-Thanks,
-Sasha
+      x86/mm/pat: Fix effective RW computation in ...
+
+But, being a bug fix for a bug detector, folks have bisected a
+"regression" to it:
+
+	https://lore.kernel.org/all/20260905044253.GA3816371@ax162/
+
+It is a great and very welcome bug report, but appears to be a
+false-positive. Rather than deal with a pile of these in Linus's tree,
+keeping this in x86/mm and getting it linux-next exposure for the coming
+weeks seems prudent.
+
+I hope this makes sense to everyone.
