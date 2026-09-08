@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FF955C33E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F0F559313
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874651; cv=none; b=KJOmjlTYiAzEoB1IrKgIGTuYYWLQZAGqyRNNp0wa0gMIU1WYL2cMREyvxb3TtmWxcUXw/Amnb7lH+O27oQsepIDvBfzibYvgwm+jtw7oaIqFEAEe9IicxPkOFmTpb5bEIZwjFdcqIFlobNffG/lAHKjXSvr7jzAEkWr3qJ997QU=
+	t=1788874657; cv=none; b=mCSBp0y5qn48kBEJ/BvEj5mqmS8HgeLxL0x0LDBjUDwTriY3dGZup5VuOKqj0Wx0OuIxeqSfjbtkQ7RIr7ii3dD99qPS/xsy9bT+8G9TDpO3e2MGoJmoOyf0BLftn4a7ICxLGhVUxCQv7A2nhVz10Oj/Q0xZ3RxR/79issEqpSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874651; c=relaxed/simple;
-	bh=Uz48aSjYuL0qoRQNcVJXbDtoFGJ8aS6P/iFpIYsLoHI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bAEAjxdgsWVLK1KyL4GH2zwGo4JkmFNqrPvDkTLuSCNN1QrxiAvVuELgBtELlCUAwVCRsutcGWK4poeECg9QJ69ctxLEgydcrohrBCHuX/i0BSSvW5QTeGX024sIqvhvUvsjVgH3Kb1siwKQE+lqf7oTZ2TWA+UHWf0mpRestzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=euQuW4dr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874657; c=relaxed/simple;
+	bh=7KbFc+r8AzovL7ZFWbFzkGhT0JGwEotm86D1PKXH4H8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=A68cQSrKyi8J7cC02z618mTKuOlQ+nxk8hVolnJY8MWi7JLBY664n8+Ut8fNcB3tjvVOfcvFtt2ryFPUJb1XWe+SbkhrH84LS/DBX+R9HV0yBN2amNwx5Rumy5TMEbKk0qdZRrWKOeQq3hZmP2I1OvPM120eaU17014uDYEnmu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JQwDq964; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="euQuW4dr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7DE1F00A3E;
-	Tue,  8 Sep 2026 13:37:16 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JQwDq964"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 033821F00AC4;
+	Tue,  8 Sep 2026 13:37:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874637;
-	bh=TObTgOH3f/TRAc3thnDiiDD4vqKTjbPQL87bG+G1+iI=;
+	s=korg; t=1788874640;
+	bh=wRu8Hyk7C/fklHF0CHi1blFsKPkXS9KV7icC6nTQUXk=;
 	h=Subject:To:Cc:From:Date;
-	b=euQuW4drLgncWlcFGOHGh+Y9Sc6Y1g7og6b3n1XZNlt8J4MLpl6hjmsjs6vk+QSgo
-	 54PX+P2iukKy+PWnqNlHW52VsLf21mNYjBvZnj+IvNjdrUF7PFd7RF62z01m1AiNo7
-	 af2w9vCDBJN42Z9Pjf10kZvz3ZsNczTmr/ww4nH4=
-Subject: FAILED: patch "[PATCH] kprobes: Protect kprobe_blacklist with RCU" failed to apply to 5.15-stable tree
-To: mhiramat@kernel.org,sashiko-bot@kernel.org
+	b=JQwDq964f2hU3zlylg2yZxXFZqF0dZvEDCfW2s5qPi3wHLo9JuYwaniWOMh87AY8/
+	 mGWt/I6QNcXqSkZ9dpGVyUsZY0gePkQtsYQn7THq4y64y6Gg+NzBZ9odsmeMFn+XHf
+	 fdWvHvBmqBUYhLKLlvR+PuncMheOknR1KgD+6Q8k=
+Subject: FAILED: patch "[PATCH] ksmbd: fix use-after-free in oplock break notification" failed to apply to 7.2-stable tree
+To: suruurism@gmail.com,linkinjeon@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:32:33 +0200
-Message-ID: <2026090833-aptitude-antibody-c550@gregkh>
+Date: Tue, 08 Sep 2026 15:32:49 +0200
+Message-ID: <2026090849-remix-scoreless-1f4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 0c4256196b3a105307e2235fbfd85e768bbcdd0f
+git cherry-pick -x 0e753899627b5e28a9fea8bca98262a6f65a2452
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090833-aptitude-antibody-c550@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090849-remix-scoreless-1f4f@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,84 +62,211 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 0c4256196b3a105307e2235fbfd85e768bbcdd0f Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Sun, 30 Aug 2026 23:27:23 +0900
-Subject: [PATCH] kprobes: Protect kprobe_blacklist with RCU
+From 0e753899627b5e28a9fea8bca98262a6f65a2452 Mon Sep 17 00:00:00 2001
+From: Abdifatah Suruur <suruurism@gmail.com>
+Date: Sat, 29 Aug 2026 18:40:22 +0300
+Subject: [PATCH] ksmbd: fix use-after-free in oplock break notification
 
-__within_kprobe_blacklist() traverses kprobe_blacklist without holding
-kprobe_mutex. When a module is unloaded, kprobe_remove_area_blacklist()
-removes blacklist entries and immediately frees them with kfree().
-A concurrent call to within_kprobe_blacklist() can therefore dereference
-freed memory.
+smb2_oplock_break_noti() reads opinfo->conn without any lock and
+dereferences it after two allocations which may sleep.  When the
+durable handle owning the oplock is disconnected, session_fd_check()
+clears opinfo->conn and drops its conn reference under ci->m_lock, and
+the last ksmbd_conn_put() frees the connection.  A break triggered by
+another connection that races with the teardown can then resurrect the
+freed connection: ksmbd_conn_get() is a plain atomic_inc, and the
+queued break work later dereferences the stale conn via
+ksmbd_conn_write(), a use-after-free reachable by any authenticated
+client holding a durable batch oplock.
 
-Furthermore, within_kprobe_blacklist() can be called in atomic or
-non-preemptible contexts where the sleeping kprobe_mutex cannot be taken.
+Thread the caller's inode into the notification path instead of taking
+a new reference on it.  Every caller of oplock_break() already holds a
+live ksmbd_file (or an explicit ksmbd_inode_lookup_lock() reference,
+in the parent lease break paths) on the inode that owns the break
+target's oplock list, so ci cannot be freed during the call, and its
+lock can be taken without dereferencing opinfo->o_fp, which a
+concurrent close may free.  Select and pin the connection under
+ci->m_lock, the same lock session_fd_check() and
+ksmbd_reopen_durable_fd() use to update opinfo->conn, so a concurrent
+detach either loses the race to the clear or keeps the connection
+alive until the notification work releases it.  Transfer the reference
+to the work item and release it on allocation failures.
 
-Protect kprobe_blacklist with RCU. Use guard(rcu)() and
-list_for_each_entry_rcu() for traversal, list_add_tail_rcu() for
-insertions, list_del_rcu() for deletions, and kfree_rcu() to reclaim
-entries safely after a grace period.
-
-Link: https://lore.kernel.org/all/178810004323.64882.16493230858653316962.stgit@devnote2/
-
-Fixes: 376e242429bf ("kprobes: Introduce NOKPROBE_SYMBOL() macro to maintain kprobes blacklist")
+Fixes: b003086d7696 ("ksmbd: fix NULL-deref of opinfo->conn in oplock/lease break notifiers")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260807155802.F06041F000E9@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.7-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 
-diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
-index 8c4f3bb24429..e6de7ae55bda 100644
---- a/include/linux/kprobes.h
-+++ b/include/linux/kprobes.h
-@@ -181,6 +181,7 @@ struct kprobe_blacklist_entry {
- 	struct list_head list;
- 	unsigned long start_addr;
- 	unsigned long end_addr;
-+	struct rcu_head rcu;
- };
- 
- #ifdef CONFIG_KPROBES
-diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-index bfc89083daa9..6337da5cab9e 100644
---- a/kernel/kprobes.c
-+++ b/kernel/kprobes.c
-@@ -1447,8 +1447,14 @@ static bool __within_kprobe_blacklist(unsigned long addr)
- 	/*
- 	 * If 'kprobe_blacklist' is defined, check the address and
- 	 * reject any probe registration in the prohibited area.
-+	 * Note: this can return true during transition period where
-+	 * (start_addr, end_addr) in the black list is shrinking
-+	 * but old entry has not been removed yet. This is acceptable
-+	 * because the worst case is that we reject more probes than
-+	 * we should.
- 	 */
--	list_for_each_entry(ent, &kprobe_blacklist, list) {
-+	guard(rcu)();
-+	list_for_each_entry_rcu(ent, &kprobe_blacklist, list) {
- 		if (addr >= ent->start_addr && addr < ent->end_addr)
- 			return true;
- 	}
-@@ -2509,7 +2515,7 @@ int kprobe_add_ksym_blacklist(unsigned long entry)
- 	ent->start_addr = entry;
- 	ent->end_addr = entry + size;
- 	INIT_LIST_HEAD(&ent->list);
--	list_add_tail(&ent->list, &kprobe_blacklist);
-+	list_add_tail_rcu(&ent->list, &kprobe_blacklist);
- 
- 	return (int)size;
- }
-@@ -2603,8 +2609,8 @@ static void kprobe_remove_area_blacklist(unsigned long start, unsigned long end)
- 	list_for_each_entry_safe(ent, n, &kprobe_blacklist, list) {
- 		if (ent->start_addr < start || ent->start_addr >= end)
- 			continue;
--		list_del(&ent->list);
--		kfree(ent);
-+		list_del_rcu(&ent->list);
-+		kfree_rcu(ent, rcu);
- 	}
+diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
+index 58af0fddf39f..1b8c3482d1e4 100644
+--- a/fs/smb/server/oplock.c
++++ b/fs/smb/server/oplock.c
+@@ -924,31 +924,69 @@ static void __smb2_oplock_break_noti(struct work_struct *wk)
+ 	ksmbd_conn_put(conn);
  }
  
++/*
++ * Select and pin the connection used for an oplock break before doing any
++ * allocations which may sleep.  The caller of oplock_break() holds a live
++ * reference on ci (a file being opened, a file being operated on, or an
++ * explicit ksmbd_inode_lookup_lock() reference in the parent lease break
++ * paths), so the inode cannot be freed during the call and its lock is
++ * reachable without dereferencing opinfo->o_fp, which is not pinned by
++ * the oplock reference and may be freed by a concurrent close.
++ *
++ * opinfo->conn is cleared under ci->m_lock by session_fd_check() when the
++ * durable handle owning the oplock is disconnected, reassigned by
++ * ksmbd_reopen_durable_fd() under the same lock, and the last
++ * ksmbd_conn_put() of the old connection frees it.  Holding the read lock
++ * excludes both writers, so the connection cannot be freed while it is
++ * selected.
++ */
++static struct ksmbd_conn *smb2_oplock_break_conn_get(struct oplock_info *opinfo,
++						     struct ksmbd_inode *ci)
++{
++	struct ksmbd_conn *conn;
++
++	down_read(&ci->m_lock);
++	conn = READ_ONCE(opinfo->conn);
++	if (conn && !ksmbd_conn_releasing(conn))
++		conn = ksmbd_conn_get(conn);
++	else
++		conn = NULL;
++	up_read(&ci->m_lock);
++
++	return conn;
++}
++
+ /**
+  * smb2_oplock_break_noti() - send smb2 exclusive/batch to level2 oplock
+  *		break command from server to client
+  * @opinfo:		oplock info object
++ * @ci:		inode owning the break target's oplock list, pinned by
++ *		the caller
+  *
+  * Return:      0 on success, otherwise error
+  */
+-static int smb2_oplock_break_noti(struct oplock_info *opinfo)
++static int smb2_oplock_break_noti(struct oplock_info *opinfo,
++				  struct ksmbd_inode *ci)
+ {
+ 	struct ksmbd_conn *conn;
+ 	struct oplock_break_info *br_info;
+ 	int ret = 0;
+ 	struct ksmbd_work *work;
+ 
+-	conn = READ_ONCE(opinfo->conn);
++	conn = smb2_oplock_break_conn_get(opinfo, ci);
+ 	if (!conn)
+ 		return ksmbd_invalidate_durable_fd(opinfo->fid);
+ 
+ 	work = ksmbd_alloc_work_struct();
+-	if (!work)
++	if (!work) {
++		ksmbd_conn_put(conn);
+ 		return -ENOMEM;
++	}
+ 
+ 	br_info = kmalloc_obj(struct oplock_break_info, KSMBD_DEFAULT_GFP);
+ 	if (!br_info) {
+ 		ksmbd_free_work_struct(work);
++		ksmbd_conn_put(conn);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -957,7 +995,8 @@ static int smb2_oplock_break_noti(struct oplock_info *opinfo)
+ 	br_info->open_trunc = opinfo->open_trunc;
+ 
+ 	work->request_buf = (char *)br_info;
+-	work->conn = ksmbd_conn_get(conn);
++	/* Transfer the reference acquired by smb2_oplock_break_conn_get(). */
++	work->conn = conn;
+ 	work->sess = opinfo->sess;
+ 
+ 	ksmbd_conn_r_count_inc(conn);
+@@ -1154,9 +1193,9 @@ static void wait_lease_breaking(struct oplock_info *opinfo)
+ 	}
+ }
+ 
+-static int oplock_break(struct oplock_info *brk_opinfo, int req_op_level,
+-			struct ksmbd_work *in_work, bool share_break,
+-			bool sync_lease_break)
++static int oplock_break(struct oplock_info *brk_opinfo, struct ksmbd_inode *ci,
++			int req_op_level, struct ksmbd_work *in_work,
++			bool share_break, bool sync_lease_break)
+ {
+ 	int err = 0;
+ 	bool sent_interim = false;
+@@ -1298,7 +1337,7 @@ static int oplock_break(struct oplock_info *brk_opinfo, int req_op_level,
+ 		}
+ 	}
+ 
+-	err = smb2_oplock_break_noti(brk_opinfo);
++	err = smb2_oplock_break_noti(brk_opinfo, ci);
+ 
+ 	ksmbd_debug(OPLOCK, "oplock granted = %d\n", brk_opinfo->level);
+ 	if (brk_opinfo->op_state == OPLOCK_CLOSING)
+@@ -1326,13 +1365,14 @@ static int oplock_break_add(struct list_head *head, struct oplock_info *opinfo)
+ 	return 0;
+ }
+ 
+-static void oplock_break_drain_none(struct list_head *head)
++static void oplock_break_drain_none(struct list_head *head,
++				    struct ksmbd_inode *ci)
+ {
+ 	struct oplock_break_entry *ent, *tmp;
+ 
+ 	list_for_each_entry_safe(ent, tmp, head, list) {
+-		oplock_break(ent->opinfo, SMB2_OPLOCK_LEVEL_NONE, NULL, false,
+-			     false);
++		oplock_break(ent->opinfo, ci, SMB2_OPLOCK_LEVEL_NONE, NULL,
++			     false, false);
+ 		list_del(&ent->list);
+ 		opinfo_put(ent->opinfo);
+ 		kfree(ent);
+@@ -1481,7 +1521,7 @@ void smb_send_parent_lease_break_noti(struct ksmbd_file *fp,
+ 	}
+ 	up_read(&p_ci->m_lock);
+ 
+-	oplock_break_drain_none(&brk_list);
++	oplock_break_drain_none(&brk_list, p_ci);
+ 
+ 	ksmbd_inode_put(p_ci);
+ }
+@@ -1525,7 +1565,7 @@ void smb_lazy_parent_lease_break_close(struct ksmbd_file *fp)
+ 	}
+ 	up_read(&p_ci->m_lock);
+ 
+-	oplock_break_drain_none(&brk_list);
++	oplock_break_drain_none(&brk_list, p_ci);
+ 
+ 	ksmbd_inode_put(p_ci);
+ }
+@@ -1665,7 +1705,7 @@ int smb_grant_oplock(struct ksmbd_work *work, int req_op_level, u64 pid,
+ 	prev_durable_detached = prev_op_snapshot.durable_detached;
+ 	prev_fid = prev_op_snapshot.fid;
+ 
+-	err = oplock_break(prev_opinfo, break_level, work,
++	err = oplock_break(prev_opinfo, ci, break_level, work,
+ 			   share_ret < 0 && prev_opinfo->is_lease, false);
+ 	if (prev_durable_detached || (prev_durable_open && err == -ENOENT))
+ 		ksmbd_invalidate_durable_fd(prev_fid);
+@@ -1771,7 +1811,8 @@ static bool smb_break_all_write_oplock(struct ksmbd_work *work,
+ 	}
+ 
+ 	brk_opinfo->open_trunc = is_trunc;
+-	oplock_break(brk_opinfo, SMB2_OPLOCK_LEVEL_II, work, false, false);
++	oplock_break(brk_opinfo, fp->f_ci, SMB2_OPLOCK_LEVEL_II, work, false,
++		     false);
+ 	sent_break = true;
+ 	opinfo_put(brk_opinfo);
+ 
+@@ -1863,7 +1904,7 @@ static void __smb_break_all_levII_oplock(struct ksmbd_work *work,
+ 				brk_op->op_state = OPLOCK_STATE_NONE;
+ 			spin_unlock(&brk_op->state_lock);
+ 		} else {
+-			oplock_break(brk_op,
++			oplock_break(brk_op, ci,
+ 				     brk_op->is_lease && !is_trunc ?
+ 				     SMB2_OPLOCK_LEVEL_II : SMB2_OPLOCK_LEVEL_NONE,
+ 				     send_interim && !sent_interim ? work : NULL,
 
