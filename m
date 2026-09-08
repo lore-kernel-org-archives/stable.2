@@ -1,87 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8204322A;
-	Tue,  8 Sep 2026 00:15:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C425813C908
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 00:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788826554; cv=none; b=Yu6k9jPBRmcEeDytN9vURDgkdsWwiifrNT67CoYGpy4vzOMr1krDQJqyUU92xgzc0t/Kqh9HyH1JUr77ywbQj/q2jedHaYtEaKXxVyILvgw3z1hu7ajJB6v+4+69y0nOO9WDBP1vb8yXemMGmbbcTxo+BOZkrfOpEpDaroIXoNo=
+	t=1788826827; cv=none; b=gOHuB4jmCvHjcuaGrqtuXckBEcwVbxA11L2YH/sdEa3BUNVrsUUUvNGi+HXnast2hKGFqFS6C4mtP0hNq1j8I4X6gdT/iQxj8Ow9AGzCeJ+FT/yafkxczVRK+ZY/zxHud1wxjJrhhJevoGkVI45apqvqbl8JdcGDZ8VsZbjxwXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788826554; c=relaxed/simple;
-	bh=SXguv3amBMe23KPDxvQOFKFBQSy6nHDxgmAQrNGnphU=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=cGt1a6Mlcw/hgMcWuMlz2/2y2eBso4eK6WpMsEmAa6QRiNeMfL0OCsDbCGJ9b7M2TaQzqswdGEsDGbXjd6GzCV9QkTujeoJR9iDzwn3jWkGhxaYRLyrq8V3J7XcLn7nC0oygYWti2n/s2C42NpwdTIm0r4lYxJhr22iCsd5kI4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i1rXJ6Dk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788826827; c=relaxed/simple;
+	bh=VM78Hp6DUBwWcxdzDE8P1TsbE589lTCA+ZcXc8zRv04=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ei87N584lgs0rHa2wkcZIgtYkkm7L1L3d3TlOzGQ180nzHM1ZHgz3DhZrACyNWBRzfWTw5DATiJhrbHpbm1r5aiEPuuioQP5BbLVwtyCDJte/ZKZoibleowBAJBdGBfhCJ7qQCBN9bCpgIs/P2/KT31HyrHA5+2HpiaUHlKfjpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C0L2vMhO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i1rXJ6Dk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62DA21F00A3A;
-	Tue,  8 Sep 2026 00:15:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C0L2vMhO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215181F00A3D;
+	Tue,  8 Sep 2026 00:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788826553;
-	bh=u6vi8Rb6/gBzlGLkta4lZeRt2WHuRcBjCNqaFrwusn8=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=i1rXJ6DkJj2sMXRT3npeM6KrYNLTadUhqDz7uMKitdmKGXc4IY+0oKdBjPNXXJw1H
-	 BJVHQWtvsh6G0gdgf3hKefVzpaqe1QyHA/7z8JEQK8Ne95SdeleOzKKKUQJQbct+Na
-	 ELlLi6Y6av2MxaUTuWjbHFFkxMPs4eIwAp1M6/74VidlDoQHogNYiqfAXWoTjsDBq4
-	 zO+52jfZ66AxotnRLF7wKV5ZSWu2C5zWiRkf5Letyvpdhpbx9ui8nSEDuTpm0vZZSH
-	 4LonR/3pSyR16zE6JC3bwyDVTQTXEFfzpBb2BRFZGOtiMXLbGVv2OE3qb9nl46X4tv
-	 0UmPmRq+MrMxQ==
-Message-ID: <3c4629c6-536b-44de-add4-39df3381e7d1@kernel.org>
-Date: Tue, 8 Sep 2026 08:15:49 +0800
+	s=k20260515; t=1788826826;
+	bh=gnd+dgbfUPyuAfOUsMgrlhXhnFf3J+Uhdy11jKq9y2M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C0L2vMhO0C6/U0mx0hN1qo+HPBMbyrlCuCWgT9PW3lODlSYn6+xDEDwbEwO/oI7y9
+	 tOwIPAgBMdfAuyWbtUxmToGDFgVeINtZAi3ygfRBBr7l+hPBqRsirVgAD/HWsfCwf7
+	 x/MihtPcJ2CA+dmiSJ6O/4Sp5L3AhNAhQyzdpwB9BTygznc0msrXfReA74xzZ0VOL4
+	 xZ3cGxTikMCINYyjZp5kQFqb7ZArCyYoLKXM4paIukcUg7EBbRZeTJ6ZTBgahzYRnC
+	 DAFHPvyduKeTj5mo6CrD3f2sYw2ZeIJOwNwMzB1uqOgG0sMywf0pbGJOz6SPxahGYF
+	 S5HDelaaH+e8g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frank Sorenson <sorenson@redhat.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2
+Date: Mon,  7 Sep 2026 20:20:22 -0400
+Message-ID: <20260908002022.1543220-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908002022.1543220-1-sashal@kernel.org>
+References: <2026090304-muscular-diligent-73ea@gregkh>
+ <20260908002022.1543220-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- jianxin.pan@amlogic.com, tao.zeng@amlogic.com, tuan.zhang@amlogic.com
-Subject: Re: [PATCH] f2fs: force out-place update for all writes on compressed
- file
-To: jiucheng.xu@amlogic.com, Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260907-origin-dev-v1-1-85ae7ebc8c98@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 19:35, Jiucheng Xu via B4 Relay wrote:
-> From: Jiucheng Xu <jiucheng.xu@amlogic.com>
-> 
-> For compressed file, compressed write may fail and fall back to raw
-> write.
-> 
-> -Thread A                                         - Thread B
->    - f2fs_write_multi_pages                          - f2fs_down_write(&sbi->cp_rwsem);
->     - f2fs_write_compressed_pages                    - ...
->      - f2fs_trylock_op                               - ...
->       - f2fs_down_read_trylock(&sbi->cp_rwsem);      - ...
->     - f2fs_write_raw_pages                           - ...
-> 
-> Thread B acquires the lock first, which causes Thread A to fail lock
-> acquisition and fall back to raw-data write.
-> IPU_FORCE is enabled on small-capacity storage devices (< 16GB),
-> so f2fs_write_raw_pages() overwrites the original compressed data
-> in-place.
-> 
-> The in-memory node has been updated with raw-data addresses, while the
-> node metadata stored on eMMC still remains in compressed state.
-> If a power-cut occurs before the node is flushed to disk, on-disk
-> inconsistency arises: disk data is raw, yet metadata treats it as a
-> compressed cluster, leading to decompression failure.
-> 
-> To eliminate this risk completely, force out-place update for all
-> write operations on compressed file.
-> 
+From: Frank Sorenson <sorenson@redhat.com>
 
-Cc: stable@kernel.org
-Fixes: 4c8ff7095bef ("f2fs: support data compression")
+[ Upstream commit 730d0bb19507b9e19c2fe5343109ac618e2fbce5 ]
 
-> Signed-off-by: Jiucheng Xu <jiucheng.xu@amlogic.com>
+When a valid primary TRANSACT2 response has been received (mid->resp_buf
+set, mid->multiRsp true) and a subsequent secondary response causes
+cifs_check_trans2() to return false -- either because the SMB header is
+invalid (malformed != 0) or because check2ndT2() rejects the PDU --
+handle_mid() overwrites mid->resp_buf with the new buffer (leaking the
+primary buffer) and, because mid->multiRsp is set, skips the
+server->smallbuf/bigbuf NULL-out.  When the user thread frees
+mid->resp_buf, server->smallbuf or server->bigbuf is left dangling; the
+demux thread reuses it for the next packet, resulting in a use-after-free.
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+Combine both early-exit conditions and, when mid->multiRsp is already
+set, abort the pending transaction inline: set multiEnd, call
+dequeue_mid() with malformed=true, and return true so handle_mid() exits
+without touching mid->resp_buf or the server buffer pointers.
 
-Thanks,
+Fixes: 316cf94a910f ("CIFS: Move trans2 processing to ops struct")
+Cc: stable@vger.kernel.org # cifs_check_trans2() is in smb1ops.c on kernels < 7.0
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/smb1transport.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
+index 73edca2ac98b3..63270f3abe058 100644
+--- a/fs/smb/client/smb1transport.c
++++ b/fs/smb/client/smb1transport.c
+@@ -382,10 +382,18 @@ bool
+ cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
+ 		  char *buf, int malformed)
+ {
+-	if (malformed)
+-		return false;
+-	if (check2ndT2(buf) <= 0)
++	if (malformed || check2ndT2(buf) <= 0) {
++		/* mid->multiRsp blocks the server buf detach in handle_mid();
++		 * returning false here would leak resp_buf and leave a dangling
++		 * server->smallbuf/bigbuf after the user thread frees resp_buf.
++		 */
++		if (mid->multiRsp) {
++			mid->multiEnd = true;
++			dequeue_mid(server, mid, true);
++			return true;
++		}
+ 		return false;
++	}
+ 	mid->multiRsp = true;
+ 	if (mid->resp_buf) {
+ 		/* merge response - fix up 1st*/
+-- 
+2.53.0
+
