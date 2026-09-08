@@ -1,96 +1,97 @@
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284EE579806;
-	Tue,  8 Sep 2026 16:43:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.145.95.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8EC58596D;
+	Tue,  8 Sep 2026 16:43:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885828; cv=none; b=pLhJCZ2iKn80zeNu+2GDgwaG7bgv3sJHwhNCE9Or8SZWvo1KQ3r+4mBYELmHrsYDiAib5SPDB5Z8aCdzjZrxzWvoZN0vui4IDsstU46Zo3sM6MJzFGkUB2ngGcKcDJEHHFrfyWW865J6EtXfXcxT461ppb10CQAJUivFpFwRNyo=
+	t=1788885842; cv=none; b=WLz1qpf8Xk3fqN8Yqn2eMFeauvp8/DcsDecVe21zlGm6UVA/uuIMZ0R5dhutpJXckL2t3xpA9wnAd0OsS+9lbcl0hDcaLhCnsdZxk2+tAfQDbX3D8D/AVoGa6g+75xzl4mCLj7e0CoiHVp2Z5773Nyi3ni/Lyb+WswibqCEBaBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885828; c=relaxed/simple;
-	bh=BeVg/o6n5kVBf89V3PqRwqUEH/SxBe3/mZtoyE+Y2Bk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=peMqIrYPKlMbOUUg6GOO9z3CVR53i2WKE2v2asxnAKPf8K5ug9g+pAw4lFi/GlEmbwt8n46xEPwRAwdb6x7nvptS2egmh7Xn9qKY+yICmmoCW7fbeW+s8NmalzKYCP+ksEsiSIAOM7UUNvoaGc728bzIahMKhczlLROlbFPmcFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk; spf=pass smtp.mailfrom=toke.dk; arc=none smtp.client-ip=45.145.95.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
-From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Thomas Fourier
- <fourier.thomas@gmail.com>
-Cc: stable@vger.kernel.org, Tetsuo Handa
- <penguin-kernel@i-love.sakura.ne.jp>, "open list:QUALCOMM ATHEROS ATH9K
- WIRELESS DRIVER" <linux-wireless@vger.kernel.org>, open list
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] ath9k_htc: fix possibly missing barrier in
- ath9k_htc_rxep()
-In-Reply-To: <a5534789-351d-402c-b7a0-bdd98b68fcd3@oss.qualcomm.com>
-References: <20260803104424.25880-1-fourier.thomas@gmail.com>
- <a5534789-351d-402c-b7a0-bdd98b68fcd3@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 18:43:42 +0200
-X-Clacks-Overhead: GNU Terry Pratchett
-Message-ID: <87mrtrg0ch.fsf@toke.dk>
+	s=arc-20240116; t=1788885842; c=relaxed/simple;
+	bh=wZIS+3LnkdzIwR8qansRVIBIcP5UIkC5CC2tp1hF1W4=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Xc8eAjTUuvL9i+DQ1pCrsxSRvcwo52gqfYN301Fy3U+Eb7mMjHDXr8WhMqwZXaGBL1WNsNvFBJ15wKTghR4vB8PKMZUYQUPukQt8g68MCL8o4cl76YRWMzdzbY1gXa682wJ44QwSw/8HKySI8SffpVyO8wSDOkRvCxmSNALzrC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=MCvcy749; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MCvcy749"
+Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4d003ec4e;
+	Wed, 9 Sep 2026 00:43:46 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Ritesh Harjani <ritesh.list@gmail.com>
+Cc: Theodore Ts'o <tytso@mit.edu>,
+	Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: Re: [PATCH] ext4: shut down error report timer on failed mount
+Date: Wed,  9 Sep 2026 00:43:15 +0800
+Message-Id: <20260908164315.691073-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260904065648.4048108-1-runyu.xiao@seu.edu.cn>
+References: <20260904065648.4048108-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa081e77a3a03a1kunm4d950e5d126ace
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHUIeVk1DHx4fGktCQk9MH1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pOTE5VSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=MCvcy749D3RFejXCbALldDyQfnWE/T/sEWGxDqaMCnGF0LvjRWrfXc1QGUpe72Z+P9X3rLt5Bq4U63Y2PJP+kwlmWHe7i3uuR6MyrB09Dq1N/mwbvdG2wxa9Jtgjb5MFqDfBkTl2YayfHljV+7xhZw30C9AgEOistjLQ+R7Gqck=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=wZIS+3LnkdzIwR8qansRVIBIcP5UIkC5CC2tp1hF1W4=;
+	h=date:mime-version:subject:message-id:from;
 
-Jeff Johnson <jeff.johnson@oss.qualcomm.com> writes:
+Hi Ritesh,
 
-> On 8/3/2026 3:44 AM, Thomas Fourier wrote:
->> ath9k_rx_init() initialises the rx buffer and its lock then calls a
->> memory barrier and then sets the priv->rx.initialized flag. However,
->> ath9k_htc_rxep() reads that flag and imidiatly takes the lock. This may
+Thanks for reviewing this.
+
+On your review, you wrote:
+> Did you hit any issue here? Sure timer_shutdown_sync() is safer variant
+> against a mod_timer() call by someone later, but I don't see what is the
+> issue here (maybe I am missing something).
 >
-> s/imidiatly/immediately/
+> I don't see why timer_delete_sync() on a failed unmount is not safe?
+> ... Do you have any example call stack where we can hit this issue?
 >
->> cause the lock to be taken while not fully initialized.
->> 
->> Add a barrier to prevent speculative read of the lock before checking
->> the initized flag.
->
-> s/initized/initialized/ (or initialised)
->
->> 
->> Fixes: b0ec7e55fce6 ("ath9k_htc: fix NULL pointer dereference at ath9k_htc_rxep()")
->> Cc: <stable@vger.kernel.org>
->> Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
->> ---
->>  drivers/net/wireless/ath/ath9k/htc_drv_txrx.c | 6 ++++++
->>  1 file changed, 6 insertions(+)
->> 
->> diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
->> index bed7ea2425a0..97d61f3f0aad 100644
->> --- a/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
->> +++ b/drivers/net/wireless/ath/ath9k/htc_drv_txrx.c
->> @@ -1145,6 +1145,12 @@ void ath9k_htc_rxep(void *drv_priv, struct sk_buff *skb,
->>  	if (!data_race(priv->rx.initialized))
->>  		goto err;
->>  
->> +	/*
->> +	 * Make sure all the ath9k_rx_init() memory writes are visible before
->> +	 * proceeding.
->> +	 */
->> +	smp_rmb();
->> +
->>  	spin_lock_irqsave(&priv->rx.rxbuflock, flags);
->>  	list_for_each_entry(tmp_buf, &priv->rx.rxbuf, list) {
->>  		if (!tmp_buf->in_process) {
->
-> I decided to run this though my review agent, which has the following
-> analysis:
+> OTOH, I think we might have a problem in function err_report_sec_store()
+> though.
+> ...
+> I guess that problem could be due to commit d518215c2719 ...
+> Seems like multiple issues in there. Care to look at that path too?
 
-[...]
+I rechecked the failed-mount path and could not find an independent rearm
+path after timer_delete_sync() returns. The timer callback may rearm the
+timer while it is running, but timer_delete_sync() waits for the callback to
+finish and removes the timer rearmed by that callback before returning. The
+failed-mount path also flushes s_sb_upd_work before deleting the timer, and
+the ext4 sysfs attributes are registered only after the mount initialization
+has completed successfully.
 
-> So my question: Are there any flaws with that analysis?
+I did not hit a runtime failure here, and I cannot provide a reachable call
+stack demonstrating the proposed race. I agree that the original patch does
+not have sufficient evidence of a failed-mount timer race. Please consider
+the v1 patch withdrawn; I will not send a v2.
 
-Well, my conclusion was basically that adding the smp_rmb() is not
-actively wrong, even if it's not exactly idiomatic.
+I will investigate the err_report_sec_store() state update and the
+ext4_update_super() condition separately, using d518215c2719 as the Fixes
+commit if the history confirms that attribution.
 
-But sure, we can go with smp_store_release/load_acquire instead; might
-as well fix up that other tasklet issue while I'm at it...
+Thanks for pointing this out.
 
--Toke
+Regards,
+Runyu
