@@ -1,24 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C9E53A8A6
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9ED53ED15
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872259; cv=none; b=f1gQe1VRFcwkymSTkyhQ7bDXFUza+pkv2rZB5/EveXk/nIEDuiThGjbCk3RQPPlW9Q6BxqfSJMozxAaYPIqvuuQ1dW5VMsYkBrTRGfDIy+zLashIgYvARpFlgJ/m8gVUJFtVjx3ytkwW+ort07C7b34eYnxO4iT3r4VN1MfdQtI=
+	t=1788872261; cv=none; b=ICzQNrU0t8fDuFhmxD1HxuZuDOJfA/Mn+tcyAE6Iu9LtnBmpoZtIj1tidbpBePYlJO4uxdLmZBNqQU+YNfWLNN/qBIAncePsiIbzsfouOSA71D/v4KzcL8ZBn2E+ld160pxsqyOPneK1ZI6EzG74YG8HwuAHOPlhh1oo1/8e6Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872259; c=relaxed/simple;
-	bh=qx1R9i3VY7VbAiEOOfJJVPXGAAKcVJto5JtuvA67F8o=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rm4KADCtjNgU/JD0pqvGO2u1pbMIEDLYUjAuO/mr0TxbZs1sQUFtUu/004am/qROyvIZpVmm6UTj3hMsoGYmwQErmE2k889hVNxLKuG+Oza79JBkVC4bO948AwZYBbqM19oijKnaJ2b994gACoFRq1BfzYyyzga9QDj8sD44e5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6BE01F00A3A;
-	Tue,  8 Sep 2026 12:57:36 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 6.1-stable tree
+	s=arc-20240116; t=1788872261; c=relaxed/simple;
+	bh=IQYxxDuweGRbi66enptMnO+ApTUhZ5Gf3J8O28C/hdI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=T6rr1m3RMqq5qclTWyMC+RZ9uaIokFFc9BzWPPC2bpTMDy7smF9TXVpUl78lJfbnzqhrt5YKP5rO5/yZjr3cMqq09qB1wNtlxGsGlqN/t44MrEP68g0TusKZFIcA1TufnPfYir/2WShXl3VOP8ufUY/h+ANXksyvhefYrXmHcyM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jJTrQ4Ij; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jJTrQ4Ij"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AECB51F00A3A;
+	Tue,  8 Sep 2026 12:57:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788872260;
+	bh=aVB9Av80SeHpc5cEogbmsyBGM5KQIE1VH6l4hU75Y+c=;
+	h=Subject:To:Cc:From:Date;
+	b=jJTrQ4IjKx2+w+cpxmyaDX2KV07rSUxNI8Ktu7hyKNjfpl0Z6fL+B+Yze0eciNqVd
+	 jlsqAmqMORnWEc5BNUnzJBjzFFJEaNaQ0NQzD9OriJPcKL87cjEBOR339tSEIdsQy6
+	 c2KkWdx9N0MvwaKB3zzJAdExqlHGPMTM6tosWqLc=
+Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 6.6-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:52:41 +0200
-Message-ID: <2026090841-catfight-alkalize-108d@gregkh>
+Message-ID: <2026090841-dingo-oxygen-6b88@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0250dbe08c730d003ef9f484da56ae09a1ea0c4c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090841-catfight-alkalize-108d@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090841-dingo-oxygen-6b88@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
