@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD0A387599
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:22:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F1F3F107D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:22:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870164; cv=none; b=SJjFH31abD4xOQJpKjG5e9UIofJ49wsLkLvQbXxuNHYF03E4i/Ahg28bsKE+a6HNXUbknEPZAlExZ2Zldk94k+3YcJ75/SQJQm3TakWV4DeV9M1Uv7tsfr5JrSydhMVyI6KMHJwHoxTc2Fcrpo+TLwmOGTtuVw/67z+u7vYA6fk=
+	t=1788870168; cv=none; b=bJznZ8rrZW41q9XkOxkIFNue7OztWXCqHQtg6LGJgCavts13xNCYhEbLKthcpJcVZF7OPERl87Obsa2nBr/YvtSUQpQzthL977445kZ6pV+hbYif5wY8N8m+2ZmerDtvzs3D1wHHiiv4EnRrCjLdeAC90YoL+wohYnrKJVMZOaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870164; c=relaxed/simple;
-	bh=FDZIzAH8tY4BGlIHD4UQ+wSBEjsHsXRo2hyVpTyF4ko=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OKw03vQavPmADx64f835Y1iT4vfeHbUNem/PmHwzaEkjRCRIeo5c5ZiZhwaTl71jt9clPlfdxNWAqm3xYTyRIrSUXUDuhPr3Rz3kgIdYPzLGsGDFZ3ipquV66ae+b3Ulc74/YCzbH6xz5kA4cvTOymt8FsKcMwX4owtcr8kUETk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gIh0uzpz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gIh0uzpz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1F71F00A3D;
-	Tue,  8 Sep 2026 12:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788870163;
-	bh=hbOQJd112Deua7N8P67UQL1vIqQ4fkOQpZHdG4NrGQM=;
-	h=Subject:To:Cc:From:Date;
-	b=gIh0uzpz+vSUnumVqTX1QhnXPsL3DhSGSBNtOOjTSvREO2d/0hejlj2GJhf2i9zV8
-	 +1bTWbF7173z0rf0PPne4uxegg4CAH/yqQPmEU2CLyK3O0pptcjJP/K79zqdppjNP1
-	 MxKzaOfBHHyajFmBbwdAPAM33wEh7ijmE59roo5s=
-Subject: FAILED: patch "[PATCH] usb: storage: realtek_cr: fix use-after-free on disconnect" failed to apply to 6.12-stable tree
+	s=arc-20240116; t=1788870168; c=relaxed/simple;
+	bh=D7u6oGD27OkY41Ys+T2OmDhvx1JFJbAmxziNkHy/mFo=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=bqIvatAbueadTTZalcg+TCIqdeAcywD+Hdn2t13DooonVuFnCzsPt5WzbEHIyv8G7DxMe1rd0ikeQi7IAoryN01O8ovRutjDqiSC7iBLRO70nprwOMybLi+M6QB2qB+gprTRZSgXES1vdF/FogroFzcfYgvCEbg6NiuVCFycN9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4B61F00A3A;
+	Tue,  8 Sep 2026 12:22:46 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] usb: storage: realtek_cr: fix use-after-free on disconnect" failed to apply to 6.1-stable tree
 To: mhun512@gmail.com,ae878000@gmail.com,gregkh@linuxfoundation.org,stable@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:22:31 +0200
-Message-ID: <2026090831-splotchy-crystal-8959@gregkh>
+Date: Tue, 08 Sep 2026 14:22:32 +0200
+Message-ID: <2026090832-operating-rubbed-df03@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 4ffee1aebb0c0ffcda9faffd17834ea9b00d42cc
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090831-splotchy-crystal-8959@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090832-operating-rubbed-df03@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
