@@ -1,60 +1,60 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92CC4364926;
-	Tue,  8 Sep 2026 16:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0173560AB8;
+	Tue,  8 Sep 2026 16:32:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885152; cv=none; b=D7jUrj2QKNp8tYu5jVoLMvPWkrBgFCSxbqTp4VhQO8SXN1LNWDIwg3nCBRs1CzFUdF+uFB3DGjch1eWMHkhrZcH5IOljd9v+2e8FoLjgu4SKgLJik9eJbCFGYclM5PZJBdBuxADUyddC6KtngN2oT7BUaynLKBkQZHjzUPLHwwk=
+	t=1788885173; cv=none; b=HwCkdgSlmKl02YPjr4YCY3TvCSh38TaSsCGQdvX5le3ls33DezGitPIS+c623j9D1BtBiQmKXMIoBy9ikAGa5fxb0QDfLAE9YwtVR5eaoZvXXlJpFxZNn8z+Z6mnUlS9U/Ni+GsBjhxx2ZXy8SotOHmMExzgW0A4Jp84cbJyqFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885152; c=relaxed/simple;
-	bh=FFl9eATkHqSNwHZoWeKEotGyzj4jtC0RKiQqQk/N+7s=;
+	s=arc-20240116; t=1788885173; c=relaxed/simple;
+	bh=hxyK84WZMWTeJnIPqsaVrKcxdOmrbOjGwNHqq1oHNFA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mujVSV9HlUfV8WFCItKKKCh5ezsliS0CfvpYaNRI6w43v5+Q7yk4NgMBGC2B7tfx+Id9hLb9VXck4v/P+OpTHCsiZl7ixm2IKDcDMsALOutjOB4OSmc7P6ODffVYo43JTGmeFDXcRotNyyyIiBUXD7AkZSu4zREYjpoidSVUJD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=QUbCYEAe; arc=none smtp.client-ip=148.163.158.5
+	 In-Reply-To:Content-Type; b=aYyZMZfseN4y7CpeYg34Qb7NfPRV1nLhdPlcJAPfVdCLbZdnBTyqAyHVyfQlQRNSuFw9EKtpU+zssI4aQYhuRPDaBGUBCuvsptE/G1qe4QAIgir0saD4xr376o5RnprEdog3zVPWw4c82HMCzrp2V9irBG2f8rSy7xKode3G9d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HOY//au3; arc=none smtp.client-ip=148.163.156.1
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="QUbCYEAe"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1bHS080358;
-	Tue, 8 Sep 2026 16:32:09 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HOY//au3"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1nDa3545512;
+	Tue, 8 Sep 2026 16:32:32 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=GOFBSV
-	1D3+PAhDjQPuz5kpIvBTMpZZJ9JFg6WpGjYRo=; b=QUbCYEAewWRS9OsjMosOTD
-	bv9kswI+IKwdEhBW64IHzQ52nsy0v3r99eo/iAcoU+OBFBE7G7Tt9BPrx6OFLxtp
-	VFI248ZdCkZ7A0xG4HzI6bptvwl6Z4YpTs3hPOE4aMEWGw8NTUO96Odjjv+vmt5G
-	TAbdK5MKn2VBCnmLIKxHdiJeSalUb2eTrrWT4kte6DVT9spD/4qdd+hJZejKWtA6
-	CbF52LkzD1caDt0Wvbj1H5KfLgf6qO3yk6XZT8tIeFuq/PDgNW7EkDJKmElJbDE6
-	cA0DFQdgzglMDczi/pmBhC6uZxIrygRamh1tRAFRmSZVWuYW/595kESj5Uvd34DA
+	:message-id:mime-version:references:subject:to; s=pp1; bh=/Pr9rg
+	nWpZpQfukwiPLe0KDhy7H/TU+k1gEHwvB30Po=; b=HOY//au31cecP9lQ0JA/UF
+	K6d0QqeJSu35BrJ8AO++Eilu9Z/EmyQI0fhKym+DnfcmRX99BTVGkhy7zFiz3XBf
+	dDZTV37OGpkARLCf2d+sjPO89n7nj6FwZUwYDi7glKoKMctBAIXveEOakDBNxeVS
+	DjJuTi4jrVOuZBnOtkhKiLkIQ6nypFI6cKPMyHrqrwzCYNba8VTolu7CYzLfgKI7
+	2YpV4Rpg/ehn8y0pl8Y/A1UNXMiEwdCH5IS8NZ18eSqaAuv8ugoBCBYkTiMAM1u+
+	G3gLoY1wI+1IfbNseTVbZnTX70PREADXDRVKBv6K7xZ4O2rhS27HvJ4HIPS3D/lg
 	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbjrr52a-1
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqk0cgt-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:32:08 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GQEPp020670;
-	Tue, 8 Sep 2026 16:32:08 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdqd719-1
+	Tue, 08 Sep 2026 16:32:31 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GQH1x012039;
+	Tue, 8 Sep 2026 16:32:30 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymgcw18-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:32:08 +0000 (GMT)
+	Tue, 08 Sep 2026 16:32:30 +0000 (GMT)
 Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688GW4eG46268882
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688GWRkw43057564
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 16:32:04 GMT
+	Tue, 8 Sep 2026 16:32:27 GMT
 Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5C6DA2004D;
-	Tue,  8 Sep 2026 16:32:04 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 3C37120040;
+	Tue,  8 Sep 2026 16:32:27 +0000 (GMT)
 Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id E73122004B;
-	Tue,  8 Sep 2026 16:31:58 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id 9B45A2004E;
+	Tue,  8 Sep 2026 16:32:21 +0000 (GMT)
 Received: from [9.61.253.97] (unknown [9.61.253.97])
 	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  8 Sep 2026 16:31:58 +0000 (GMT)
-Message-ID: <cb258de3-de0f-42b9-9147-726b6c9f51ed@linux.ibm.com>
-Date: Tue, 8 Sep 2026 22:01:55 +0530
+	Tue,  8 Sep 2026 16:32:21 +0000 (GMT)
+Message-ID: <418fbfa0-9e0a-4bf9-927d-cfd5b08aa087@linux.ibm.com>
+Date: Tue, 8 Sep 2026 22:02:18 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,8 +62,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/8] powerpc/bpf: fix buffer overflow in JIT for large
- BPF programs
+Subject: Re: [PATCH v13 4/8] powerpc/bpf: fix alignment of long branch
+ trampoline address
 To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
         linuxppc-dev@lists.ozlabs.org
 Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
@@ -71,37 +71,37 @@ Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
         linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
         venkat88@linux.ibm.com, yeswanth@linux.ibm.com
 References: <cover.1788154635.git.skb99@linux.ibm.com>
- <e5fc39c4f3340791bec5e7a92e1d146d3ed6296e.1788154635.git.skb99@linux.ibm.com>
+ <0700c866205c8fa2f861e4b8d64fdf7469cba021.1788154635.git.skb99@linux.ibm.com>
 Content-Language: en-US
 From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <e5fc39c4f3340791bec5e7a92e1d146d3ed6296e.1788154635.git.skb99@linux.ibm.com>
+In-Reply-To: <0700c866205c8fa2f861e4b8d64fdf7469cba021.1788154635.git.skb99@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=E7T9Y6dl c=1 sm=1 tr=0 ts=6aa03889 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+X-Proofpoint-ORIG-GUID: ZhBeWIODrlAC0a4JgSzLiPqJoZlpMRKL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX+yci4Pm7iZZq
+ U9kSQLtaCAid0vwx+EK58V0F+FXUjK0vZImmcpVAMVZfcLnwKpJ3+FZ4ZiiGlEh4iRyKX9uUMBv
+ +99xgka/Lgi66SjSz2eeaxHtihB6LyE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX/AEe1LB2B3kW
+ NLxWRytYovdTTJmR7HFQn8r1pn7OPcpCFUAJne1GJpGGBBM1v/DxsiQazyQWNHP5u5QCQehW2EI
+ ZawU0+hH53C9YaOlfP7jr8oZFPblL5+LM0PJbgXa/PUijPZy/1MvfqlFIzZvmR/LjiqNZdAu9Vu
+ X0IzdPZV4gGtgB4+OY9DPhoV6cnWPvzfO0j3Zs4HqjSHGvJr6NsS825oJ5JHnFIzpVjEG+9eWoA
+ l9gSWAXY2Acq40Ls399zdeht7XWeIXOG+7X4vkTWmNCGrkHGiPbz+DMBH3SCV/ETtDz9BycqrTj
+ SAjhFPTljtqH0+PPPd/mz92LnOrMF9y55fITbYc3a4RNeOS/vEESCieEh6u6EJp0KL9dEoLExgA
+ +JsLs3CaZ5IksRLx8O82XWgMgWmJQs8J2yD3gdEAIq/jNJcvxlzprWma78Udy/s0hqwKtgFt/oy
+ caQ8yjPqf9HhDa+l6hw==
+X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa0389f cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=et7YBkXB-uCz4WkyIggA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX7Ly/U6JBeZXU
- WUEHe4iIHDHD9loHFM7PJL0gJyQXyCvj2k2+XTnApp4WcP29/c92AxI4CZPJ8+XaVKpUgk/Xklq
- hQhyQ5vvtgjNrh73zgpYjNezILRXyuY=
-X-Proofpoint-ORIG-GUID: e2FbJdGRAUh-E18LwWpjxrBLeYFXzRau
-X-Proofpoint-GUID: e2FbJdGRAUh-E18LwWpjxrBLeYFXzRau
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX+87jGyGPmgzL
- o/7/kFf+hN3NiQ+PsUrZr4CmIlJlAJJIZnUtyWTa5hB8T1+SvPeqnnmSrLR2pKrTeOdZk6v/xm7
- Z8+aVrifRwHEMx9XMu5dNOmULJP+UeFW3V9efZYZXsWqmckahVXomr1+GtUPD20N8Riz4J2VWg3
- sJj3BTQYYjgW4bKq7PTl067tl554yMH98k43cP5O3GR/7Hd3Kb2da+r/5al26S+VQaSEgQV+5R+
- paHB0dBWI2bMgL7tIH7qr68NYzyjemgkbQdwu8zX5TStSOEC04V7r+9KloS444YDkWif5wfQZuA
- S9tjPRybL45szcdgkSKesX0h4QHMPG9SLP8/OslyrIexp1088GlyY+9b2NpVAid4pky9ZiziTik
- 3GACwfRetBveQjm+3HnkHba24SThXgY0Q8O9q66Lr+zgrM4HRCROMPbGy5NkQ/8xAfQjGp/kRcA
- U8kMmF4I3XrtcWstK7Q==
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
+ a=VwQbUJbxAAAA:8 a=VNu502hshFYAAzP5LJgA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: ZhBeWIODrlAC0a4JgSzLiPqJoZlpMRKL
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1011
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080178
 
@@ -109,156 +109,204 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
 On 31.08.2026 12:46 PM, Saket Kumar Bhaskar wrote:
 > From: Abhishek Dubey <adubey@linux.ibm.com>
 >
-> During size calculation in pass-0, exit_addr is 0 since addrs[fp->len]
-> is not yet populated. bpf_jit_emit_exit_insn() treats a zero exit_addr
-> as in-range and skips bpf_jit_build_epilogue(), so the alternate inline
-> epilogue instructions are not counted in alloclen.
+> Ensure the dummy trampoline address field present between the OOL stub
+> and the long branch stub is 4/8-byte aligned, for memory compatibility
+> when content loaded to a register.
 >
-> In later passes, if the real exit_addr falls outside the 32MB branch
-> range, the full inline epilogue is emitted into the already-allocated
-> buffer, writing past its end and corrupting adjacent memory.
->
-> Fix by ensuring exit_addr is non-zero before treating it as in-range,
-> so pass-0 always falls through to bpf_jit_build_epilogue() and
-> conservatively accounts for all epilogue instructions in alloclen.
-> Also range check alt_exit_addr directly in the else-if condition.
->
-> Since exit_addr handling now falls through to the epilogue, two
-> related issues in bpf_int_jit_compile() must also be addressed:
->
-> 1. Reset cgctx.alt_exit_addr before the second size-calculation pass.
->     Without this, a stale alt_exit_addr from the first pass causes the
->     second pass to emit a single jump instead of the full epilogue,
->     undercounting alloclen and reintroducing the overflow.
->
-> 2. Recompute addrs[fp->len] at the end of each code-generation pass.
->     The larger pass-0 body can shrink in later passes as out-of-range
->     exits settle into in-range jumps; a stale addrs[fp->len] would
->     leave exit branches targeting past the real (shrunken) epilogue.
->
-> Because shrinkage in a later pass can move the epilogue offset, the
-> fixed two-pass loop is no longer sufficient: an exit that was out of
-> range in an earlier pass may fall in range once the epilogue offset
-> shrinks, shrinking the body further and overwriting the start of the
-> epilogue. Convert the code-generation loop to iterate until the
-> program size converges, bounded by CODEGEN_MAX_PASSES, and fail the
-> JIT if it does not converge.
->
-> Reported-by: sashiko-bot@kernel.org
-> Closes: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
+> Reported-by: Hari Bathini <hbathini@linux.ibm.com>
 > Fixes: d243b62b7bd3 ("powerpc64/bpf: Add support for bpf trampolines")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hari Bathini <hbathini@linux.ibm.com>
 > Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
 > Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-> Link: https://lore.kernel.org/bpf/20260529015855.364704-2-adubey@linux.ibm.com/T/#mfcb23909d977b949727cca4f59ee56a13fd69b92
 > Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
 Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
 System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
 > ---
->   arch/powerpc/net/bpf_jit.h      |  7 +++++++
->   arch/powerpc/net/bpf_jit_comp.c | 34 +++++++++++++++++++++++++--------
->   2 files changed, 33 insertions(+), 8 deletions(-)
+>   arch/powerpc/net/bpf_jit.h        |  7 +++---
+>   arch/powerpc/net/bpf_jit_comp.c   | 38 ++++++++++++++++++++++++++-----
+>   arch/powerpc/net/bpf_jit_comp32.c |  7 +++---
+>   arch/powerpc/net/bpf_jit_comp64.c |  7 +++---
+>   4 files changed, 44 insertions(+), 15 deletions(-)
 >
 > diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
-> index 35015d7ecb76..6d58df361648 100644
+> index 6d58df361648..4da8bde92e1e 100644
 > --- a/arch/powerpc/net/bpf_jit.h
 > +++ b/arch/powerpc/net/bpf_jit.h
-> @@ -14,6 +14,13 @@
->   #include <asm/ppc-opcode.h>
->   #include <linux/build_bug.h>
->   
-> +/*
-> + * We need at least 2 passes for proper code generation, and may need
-> + * additional passes if code size changes between passes.
-> + */
-> +#define CODEGEN_MIN_PASSES    2
-> +#define CODEGEN_MAX_PASSES    3
-> +
->   #ifdef CONFIG_PPC64_ELF_ABI_V1
->   #define FUNCTION_DESCR_SIZE	24
->   #else
+> @@ -227,10 +227,11 @@ int bpf_jit_emit_func_call_rel(u32 *image, u32 *fimage, struct codegen_context *
+>   int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct codegen_context *ctx,
+>   		       u32 *addrs, int pass, bool extra_pass);
+>   void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx);
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx);
+> -void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx);
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx);
+> +void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx);
+>   void bpf_jit_realloc_regs(struct codegen_context *ctx);
+> -int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr);
+> +int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx, int tmp_reg,
+> +										long exit_addr);
+>   void prepare_for_fsession_fentry(u32 *image, struct codegen_context *ctx, int cookie_cnt,
+>   								int cookie_off, int retval_off);
+>   void store_func_meta(u32 *image, struct codegen_context *ctx, u64 func_meta, int func_meta_off);
 > diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
-> index 8f7501954d9f..11981d2270a9 100644
+> index 11981d2270a9..8ca36a933c7a 100644
 > --- a/arch/powerpc/net/bpf_jit_comp.c
 > +++ b/arch/powerpc/net/bpf_jit_comp.c
-> @@ -99,11 +99,10 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+> @@ -49,11 +49,35 @@ asm (
+>   "	.popsection				;"
+>   );
 >   
->   int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+> -void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_fentry_stubs(u32 *image, u32 *fimage, struct codegen_context *ctx)
 >   {
-> -	if (!exit_addr || is_offset_in_branch_range(exit_addr - (ctx->idx * 4))) {
-> +	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
+>   	int ool_stub_idx, long_branch_stub_idx;
+> +	int ool_stub_sz;
+>   
+>   	/*
+> +	 * Align the mis-aligned dummy_tramp_addr field in the fimage.
+> +	 * The alignment NOP must appear before OOL stub, to make
+> +	 * ool_stub_idx & long_branch_stub_idx constant from end.
+> +	 *
+> +	 * The fimage can be non 8-byte aligned, so final alignment depends
+> +	 * on start of fimage and the stub's instruction count offset. The
+> +	 * OOL stub size is 4 instructions (with CONFIG_PPC_FTRACE_OUT_OF_LINE)
+> +	 * or 3 instructions (without) before dummy_tramp_addr.
+> +	 *
+> +	 * Emit a NOP here if address is not SZL aligned.
+> +	 *
+> +	 * In pass=0 when image==NULL, conservatively account for space
+> +	 * required to accommodate alignment NOP. In case final pass skips
+> +	 * emitting alignment NOP, the image buffer have 4 spare bytes and
+> +	 * jited_len signifies correct program size.
+> +	 */
+> +
+> +	ool_stub_sz = IS_ENABLED(CONFIG_PPC_FTRACE_OUT_OF_LINE) ? 16 : 12;
+> +	if (!image || !IS_ALIGNED((unsigned long)fimage + ctx->idx*4 + ool_stub_sz, SZL))
+> +		EMIT(PPC_RAW_NOP());
+> +
+> +	/*
+> +	 *	nop     // optional, for alignment of dummy_tramp_addr
+>   	 * Out-of-line stub:
+>   	 *	mflr	r0
+>   	 *	[b|bl]	tramp
+> @@ -70,7 +94,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>   
+>   	/*
+>   	 * Long branch stub:
+> -	 *	.long	<dummy_tramp_addr>
+> +	 *	.long	<dummy_tramp_addr>  // 8-byte aligned
+>   	 *	mflr	r11
+>   	 *	bcl	20,31,$+4
+>   	 *	mflr	r12
+> @@ -81,6 +105,7 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>   	 */
+>   	if (image)
+>   		*((unsigned long *)&image[ctx->idx]) = (unsigned long)dummy_tramp;
+> +
+>   	ctx->idx += SZL / 4;
+>   	long_branch_stub_idx = ctx->idx;
+>   	EMIT(PPC_RAW_MFLR(_R11));
+> @@ -97,7 +122,8 @@ void bpf_jit_build_fentry_stubs(u32 *image, struct codegen_context *ctx)
+>   	}
+>   }
+>   
+> -int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg, long exit_addr)
+> +int bpf_jit_emit_exit_insn(u32 *image, u32 *fimage, struct codegen_context *ctx,
+> +							int tmp_reg, long exit_addr)
+>   {
+>   	if (exit_addr && is_offset_in_branch_range(exit_addr - (long)(ctx->idx * 4))) {
 >   		PPC_JMP(exit_addr);
-> -	} else if (ctx->alt_exit_addr) {
-> -		if (WARN_ON(!is_offset_in_branch_range((long)ctx->alt_exit_addr - (ctx->idx * 4))))
-> -			return -1;
-> +	} else if (ctx->alt_exit_addr && is_offset_in_branch_range(
-> +			(long)(ctx->alt_exit_addr) - (long)(ctx->idx * 4))) {
+> @@ -106,7 +132,7 @@ int bpf_jit_emit_exit_insn(u32 *image, struct codegen_context *ctx, int tmp_reg,
 >   		PPC_JMP(ctx->alt_exit_addr);
 >   	} else {
 >   		ctx->alt_exit_addr = ctx->idx * 4;
-> @@ -274,6 +273,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   	 */
->   	if (cgctx.seen & SEEN_TAILCALL || !is_offset_in_branch_range((long)cgctx.idx * 4)) {
->   		cgctx.idx = 0;
-> +		cgctx.alt_exit_addr = 0;
->   		if (bpf_jit_build_body(fp, NULL, NULL, &cgctx, addrs, 0, false))
->   			goto out_err;
+> -		bpf_jit_build_epilogue(image, ctx);
+> +		bpf_jit_build_epilogue(image, fimage, ctx);
 >   	}
-> @@ -306,10 +306,13 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   	code_base = (u32 *)(image + FUNCTION_DESCR_SIZE);
->   	fcode_base = (u32 *)(fimage + FUNCTION_DESCR_SIZE);
 >   
-> -	/* Code generation passes 1-2 */
-> -	for (pass = 1; pass < 3; pass++) {
-> +	/* Code generation passes 1-2+, loop until program size converges. */
-> +	for (pass = 1; pass <= CODEGEN_MAX_PASSES; pass++) {
-> +		u32 prev_proglen = proglen;
-> +
->   		/* Now build the prologue, body code & epilogue for real. */
->   		cgctx.idx = 0;
-> +		cgctx.exentry_idx = 0;
->   		cgctx.alt_exit_addr = 0;
->   		bpf_jit_build_prologue(code_base, &cgctx);
->   		if (bpf_jit_build_body(fp, code_base, fcode_base, &cgctx, addrs, pass,
-> @@ -318,11 +321,26 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
->   			bpf_jit_binary_pack_free(fhdr, hdr);
+>   	return 0;
+> @@ -286,7 +312,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
+>   	 */
+>   	bpf_jit_build_prologue(NULL, &cgctx);
+>   	addrs[fp->len] = cgctx.idx * 4;
+> -	bpf_jit_build_epilogue(NULL, &cgctx);
+> +	bpf_jit_build_epilogue(NULL, NULL, &cgctx);
+>   
+>   	fixup_len = fp->aux->num_exentries * BPF_FIXUP_LEN * 4;
+>   	extable_len = fp->aux->num_exentries * sizeof(struct exception_table_entry);
+> @@ -322,7 +348,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_verifier_env *env, struct bpf_pr
 >   			goto out_err;
 >   		}
-> +		addrs[fp->len] = cgctx.idx * 4;
->   		bpf_jit_build_epilogue(code_base, &cgctx);
+>   		addrs[fp->len] = cgctx.idx * 4;
+> -		bpf_jit_build_epilogue(code_base, &cgctx);
+> +		bpf_jit_build_epilogue(code_base, fcode_base, &cgctx);
 >   
-> +		proglen = cgctx.idx * 4;
-> +
->   		if (bpf_jit_enable > 1)
->   			pr_info("Pass %d: shrink = %d, seen = 0x%x\n", pass,
-> -				proglen - (cgctx.idx * 4), cgctx.seen);
-> +				prev_proglen - proglen, cgctx.seen);
-> +
-> +		/* Check if program size has converged, but ensure minimum passes */
-> +		if (pass >= CODEGEN_MIN_PASSES && proglen == prev_proglen)
-> +			break;
-> +
-> +		if (pass == CODEGEN_MAX_PASSES && proglen != prev_proglen) {
-> +			pr_err("BPF JIT: Program did not converge after %d passes\n",
-> +								CODEGEN_MAX_PASSES);
-> +			bpf_arch_text_copy(&fhdr->size, &hdr->size, sizeof(hdr->size));
-> +			bpf_jit_binary_pack_free(fhdr, hdr);
-> +			goto out_err;
-> +		}
+>   		proglen = cgctx.idx * 4;
+>   
+> diff --git a/arch/powerpc/net/bpf_jit_comp32.c b/arch/powerpc/net/bpf_jit_comp32.c
+> index bfdc50740da8..f5b9441cf46a 100644
+> --- a/arch/powerpc/net/bpf_jit_comp32.c
+> +++ b/arch/powerpc/net/bpf_jit_comp32.c
+> @@ -229,7 +229,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
+>   
+>   }
+>   
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	EMIT(PPC_RAW_MR(_R3, bpf_to_ppc(BPF_REG_0)));
+>   
+> @@ -237,7 +237,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+>   
+>   	EMIT(PPC_RAW_BLR());
+>   
+> -	bpf_jit_build_fentry_stubs(image, ctx);
+> +	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+>   }
+>   
+>   /* Relative offset needs to be calculated based on final image location */
+> @@ -1149,7 +1149,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+>   			 * we'll just fall through to the epilogue.
+>   			 */
+>   			if (i != flen - 1) {
+> -				ret = bpf_jit_emit_exit_insn(image, ctx, _R0, exit_addr);
+> +				ret = bpf_jit_emit_exit_insn(image, fimage,
+> +								ctx, _R0, exit_addr);
+>   				if (ret)
+>   					return ret;
+>   			}
+> diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+> index 59302cabc466..e80312171aa7 100644
+> --- a/arch/powerpc/net/bpf_jit_comp64.c
+> +++ b/arch/powerpc/net/bpf_jit_comp64.c
+> @@ -398,7 +398,7 @@ static void bpf_jit_emit_common_epilogue(u32 *image, struct codegen_context *ctx
 >   	}
+>   }
 >   
->   	if (bpf_jit_enable > 1)
-> @@ -399,7 +417,7 @@ int bpf_add_extable_entry(struct bpf_prog *fp, u32 *image, u32 *fimage, int pass
->   	u32 *fixup;
+> -void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
+> +void bpf_jit_build_epilogue(u32 *image, u32 *fimage, struct codegen_context *ctx)
+>   {
+>   	bpf_jit_emit_common_epilogue(image, ctx);
 >   
->   	/* Populate extable entries only in the last pass */
-> -	if (pass != 2)
-> +	if (pass < CODEGEN_MIN_PASSES)
->   		return 0;
+> @@ -407,7 +407,7 @@ void bpf_jit_build_epilogue(u32 *image, struct codegen_context *ctx)
 >   
->   	if (!fp->aux->extable ||
+>   	EMIT(PPC_RAW_BLR());
+>   
+> -	bpf_jit_build_fentry_stubs(image, ctx);
+> +	bpf_jit_build_fentry_stubs(image, fimage, ctx);
+>   }
+>   
+>   /*
+> @@ -1737,7 +1737,8 @@ int bpf_jit_build_body(struct bpf_prog *fp, u32 *image, u32 *fimage, struct code
+>   			 * we'll just fall through to the epilogue.
+>   			 */
+>   			if (i != flen - 1) {
+> -				ret = bpf_jit_emit_exit_insn(image, ctx, tmp1_reg, exit_addr);
+> +				ret = bpf_jit_emit_exit_insn(image, fimage, ctx,
+> +								tmp1_reg, exit_addr);
+>   				if (ret)
+>   					return ret;
+>   			}
 
 -- 
 Thanks and Regards
