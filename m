@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3698C552920;
-	Tue,  8 Sep 2026 14:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635C513552;
+	Tue,  8 Sep 2026 14:14:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876897; cv=none; b=IeVRKYmab1us0tQD/b1i6cjSBQWgTUpjhAKF9GA161gUd2WMIg+BweS6WKJVFw3anfj2mYVa4ScqDgquJnoYTZgRI5SMELmfLxLmh2o1HucVd2ri0DQSEoBEzs+kAMbRVWjRkxP+IaM5hJDM0T1Vx5EqObpxAf9xBAZYmFwm8t8=
+	t=1788876899; cv=none; b=WWbMagBfSQSP6g/C2yRjxJQgL6bxoqj5J28AwkHiGMSVoX660T69MEcfUaDCr9tgfcHnD7F6CZr/wFo0RbA3iGmy2uIE+kOhsyf3c9Gl9xoJHLXYuk3oR5emh4F6qWTBRaLuU83paaI0LZ/U+ZyAmzyhcOPzR37in9qasY6Aw6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876897; c=relaxed/simple;
-	bh=CCaezY8L2QGxE1d8YVG+RIwjuxy2v9Yrtn18wTD4RmU=;
+	s=arc-20240116; t=1788876899; c=relaxed/simple;
+	bh=c5IXRGjuz0fSPa4V5Xz2gLhzLB899t5Sk/STYYx7jXw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qETOOV5akPjrL96Xp/L1zRVbgHNk3yjLfXjqhPpRuE96OZyXELHOTCZphLeA1lqftyRHrls94Rv3mRg6ebcw6S3KDs2yOYlbnWtuj3/GHX1qB5k1V779Ozmtcj1QpwyP1CN+dMKS2+UPzy/PDe3OMdv97gF/QlXSLiZoDfKFxHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Io/D9wmq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=NCwMmkQvUcqUt6+IJHpK2/781tKhYbIghMMUwkHKJhudQCTT84HdwG9oD4zXdP/NaWv4IAPmCYRNusc14FbJVObItfGpxs5qrk7LuEoqOZm/PrSgulqyjDHerYyn2r9+3g2NUA691V7K587N84QEIPVfsb0cQxGgfloE7qEX0yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zlb8d3lD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Io/D9wmq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E71441F00A3D;
-	Tue,  8 Sep 2026 14:14:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zlb8d3lD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454511F00AC4;
+	Tue,  8 Sep 2026 14:14:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788876885;
-	bh=nt14iCy2+3ATRgf1ASvH3cbgbaTCA1uqYuD/SL6AALg=;
+	s=k20260515; t=1788876882;
+	bh=oCwaDeVCnMEOM3Suj5i1JtmGB4sF4AjuaGS8MXJAUMg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Io/D9wmqvKDw1HZ1UlOpw5WRs7Sh6y9emFzUX4mzxqWAySra1rXI6rB1/4DC1rqAH
-	 6Znug0rgJRb1OPQEYwVey3PQOX2Y4ocrVd97Bkd/hjh67Jzprn49EIrZlTrOX2CRMZ
-	 SyhrM5sek0LbHmdLUNAwmcxpfkhBwQCmBkPUThQj/J+4e6sIwPP3p3/OfRvuLWZFIa
-	 0jXqRqD8LQbxBJYR1GWUAa6T+7Bq8dSf5qPiEgtPmRWuitqiSyW6yy8cfYIodpdk1X
-	 u6jpv9ft2MkM2s0bFomst1VwMxpA6mZdhNqpqTQf6BNGB0K5uckYGjKzRh40uvE8GU
-	 nqanft1mRZ4/g==
+	b=Zlb8d3lDTI3j816xJQJWU2xsXUNOVRup5KU1RLEIL58RlxNK+7SyN4rJznxthjVG/
+	 /hO69OTWrjMJz6H+GNRRhipxbdkuaV46BDgDAGvGrUV5xujkUn1mfX+ghYNZTN5SIr
+	 sqWDDpph/e3ajmp3/5Ab4yL321L97YWJ64fwDLYzYgwXNEHlE61RRNzSlVgFE+ug3G
+	 nRcabVn2QNEduwG/6dirafSmylmoXuyCRVljrPTnq/z+t9CDqsFULCbTzyV1k0x8LJ
+	 NJu0x8kxXjOFIFKkzD161xXQePYvtoxTTBpar9nXtVOtkmgoKmiRMfvOmxEYGlzHZ/
+	 4p8JhfP6j/PaA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 08 Sep 2026 16:07:17 +0200
-Subject: [PATCH net v2 12/15] selftests: mptcp: lib: get counters for the
+Date: Tue, 08 Sep 2026 16:07:16 +0200
+Subject: [PATCH net v2 11/15] selftests: mptcp: lib: dump nstat for the
  right test
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-12-df1de70348b6@kernel.org>
+Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-11-df1de70348b6@kernel.org>
 References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -50,31 +50,32 @@ Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev,
  stable@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
  linux-kselftest@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2506; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=CCaezY8L2QGxE1d8YVG+RIwjuxy2v9Yrtn18wTD4RmU=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSBiobq1dpMO9br3wvYJVXypndW95emFXX17n6Vkv7
- l56N2nnzY5SFgYxLgZZMUUW6bbI/JnPq3hLvPwsYOawMoEMYeDiFICJ6L5g+Kd8YBfTnLpnqw4I
- zbV2+1xjpnAnadKhoI4rU9yz5Pkffa9hZPgtnOV7NnSdhhR/b2bPK8PTMtFaiUVLpsjFG7l1XDg
- YxwAA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1903; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=c5IXRGjuz0fSPa4V5Xz2gLhzLB899t5Sk/STYYx7jXw=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSOgryodM9s04z7lPMDnAMvvlpKrsSPPjocFmi60MZ
+ Rjap6ztKGVhEONikBVTZJFui8yf+byKt8TLzwJmDisTyBAGLk4BmEhCIMN/Lxk1dYnHonoR/3hM
+ /t1ee96rfUHMBK9Dbn7b/PYwXjbaw/BX0qX4zP8GGUfN1RpFJrpcHK/1/61kOXRP4d67BxZcB9M
+ 4AQ==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-When the value for a MIB counter is required, mptcp_lib_get_counter is
-called. It tries to use the cache, if available. If not it falls back to
-calling 'nstat' directly by looking at the absolute counters.
+In case of errors, mptcp_lib_pr_nstat is called to dump the nstat
+counters, but for some tests, it was dumping the counters for all
+subtests, not just the current one.
 
 That's an issue for tests that don't recreate the netns for each
-subtest. In this case, 'nstat -a' will look at the counters for the
-netns.
+subtest, e.g. mptcp_connect.sh. In this case, 'nstat -a' will look at
+the absolute counters since the creation of the netns, making
+debugging harder.
 
-Instead, it should look at the increment for the current test, by using
-the history recorded in /tmp/<ns>.nstat, if available, and not using
-'-a' which was dumping the absolute values.
+Instead, it should dump the counters for the current test, by using the
+history recorded in /tmp/<ns>.nstat if available, and not using '-a'
+which was dumping the absolute values instead of calculating increments.
 
 While at it, rename the previous 'hist' variable to 'cache' as it was
 used to look at the cache, not the nstat history.
 
-Fixes: 71388a9f331d ("selftests: mptcp: lib: get counters from nstat history")
+Fixes: 658e53141780 ("selftests: mptcp: join: dump stats from history")
 Cc: stable@vger.kernel.org
 Reviewed-by: Geliang Tang <geliang@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
@@ -82,42 +83,32 @@ Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Cc: Shuah Khan <shuah@kernel.org>
 Cc: linux-kselftest@vger.kernel.org
 ---
- tools/testing/selftests/net/mptcp/mptcp_lib.sh | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ tools/testing/selftests/net/mptcp/mptcp_lib.sh | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/tools/testing/selftests/net/mptcp/mptcp_lib.sh b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-index da1da414c30f..b9d14647f401 100644
+index 5ef6033775c8..da1da414c30f 100644
 --- a/tools/testing/selftests/net/mptcp/mptcp_lib.sh
 +++ b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-@@ -416,19 +416,21 @@ mptcp_lib_nstat_get() {
- }
+@@ -108,12 +108,14 @@ mptcp_lib_pr_info() {
  
- # $1: ns, $2: MIB counter
--# Get the counter from the history (mptcp_lib_nstat_{init,get}()) if available.
--# If not, get the counter from nstat ignoring any history.
-+# Get the counter from the cache (mptcp_lib_nstat_{init,get}()) if available.
-+# If not, get the counter from nstat ignoring any cache, but using the history.
- mptcp_lib_get_counter() {
+ mptcp_lib_pr_nstat() {
  	local ns="${1}"
- 	local counter="${2}"
 -	local hist="/tmp/${ns}.out"
 +	local cache="/tmp/${ns}.out"
 +	local hist="/tmp/${ns}.nstat"
- 	local count
  
--	if [[ -s "${hist}" && "${counter}" == *"Tcp"* ]]; then
--		count=$(awk "/^${counter} / {print \$2; exit}" "${hist}")
-+	if [[ -s "${cache}" && "${counter}" == *"Tcp"* ]]; then
-+		count=$(awk "/^${counter} / {print \$2; exit}" "${cache}")
+-	if [ -f "${hist}" ]; then
+-		awk '$2 != 0 { print "  "$0 }' "${hist}"
++	if [ -f "${cache}" ]; then
++		awk '$2 != 0 { print "  "$0 }' "${cache}"
  	else
--		count=$(ip netns exec "${ns}" nstat -asz "${counter}" |
--			awk 'NR==1 {next} {print $2}')
-+		count=$(NSTAT_HISTORY="${hist}" ip netns exec "${ns}" \
-+			nstat -sz "${counter}" |
-+				awk 'NR==1 {next} {print $2}')
+-		ip netns exec "${ns}" nstat -as | grep Tcp
++		NSTAT_HISTORY="${hist}" ip netns exec "${ns}" nstat -s |
++			grep Tcp
  	fi
- 	if [ -z "${count}" ]; then
- 		mptcp_lib_fail_if_expected_feature "${counter} counter"
+ }
+ 
 
 -- 
 2.55.0
