@@ -1,50 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF32F52D2B3;
-	Tue,  8 Sep 2026 12:18:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE5C374A1B
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869885; cv=none; b=NnoEDlL7i2nmILgiXbmvU0XVe+MgtrWqzBcU+DhenQ5SR46B0zgW0w08sApc+X9rsuVHoNRMxP7OIEaNaXKiyaoCMe/MEQGMisEfJWskT2g7dXcNBLFMm9PX++NF3fF/TLUE5YA02N0qP1tE3ju2YnIt6L8g3KDYdWvob7G1aCk=
+	t=1788870003; cv=none; b=qmXAwoOdjw4SEwKW3KYMQ71BKYbt4YtLuudusC0R+OySMNgD025ijTVbBIh85NoZNVHsSub8LeD1yDTQpdsLBPLLOdNdyFieJcrTebl0Hr7+I+5Eb/lWfFLlkBJLj88k9qARJCYqtd0ZunMSI7wm2jGP6gUGqoYVBPcAh6yQ6Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869885; c=relaxed/simple;
-	bh=KzsdawDLxTRlnTCuQxp0McWfnQ4xiy/NYzw9ZRBEEoc=;
+	s=arc-20240116; t=1788870003; c=relaxed/simple;
+	bh=M54xYw2L+PEqgyJR3AOEBDEPOaqy/Qa58ykSKKa12c4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NphT6K2CABI4c37dOpkmWMEYu+mY6i1o4QgsqQlwRYQ+FLuCWOFRiy8H+w5M+KBzrtp3gMxWM8ClcYrLXiSrjKhQkqDn7xFBUrDA0tWvcrJmBqlhYyC5YS4raqChh3LAkNY90ip1b/jBFk7OhYB950QYIiZOSoAVGEOsPEfrDiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f296w9/q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=CE2ONnpXK7tZjTwgleTOG4XspeMP95kEACMwVyF7DkvQcUaSS7770srpvyfEjoK89tyjekYrGYLUbA4E19R5OrbbPXdfk7j9W70kKMP0auIgAZFuW/o5vgtluEmjLaOA+bo7lfT/w533e0tFR0CDI8oUJiW5CzWId5b7STtKALA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwSwCMPk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f296w9/q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF7E1F00A3A;
-	Tue,  8 Sep 2026 12:17:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwSwCMPk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB621F00A3A;
+	Tue,  8 Sep 2026 12:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869879;
-	bh=66ooEKVLbtl0ky7Wg+6hd1bobdHtjV4SER9G4/VGnLY=;
+	s=k20260515; t=1788869997;
+	bh=oSyqDiSHEe9VGwGGKDuQ78wFXkJWdTdWOWer6a+inGA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f296w9/qgQrLsZ2LDV5XUecyQD8yhrxnpQiC8SULUCZF54XsCwpH668rpA6xgX7zw
-	 PVal9tljne/UMSMDdeylNSDuNVpUJVFdLXDMo2mc3RVPB1uXrzAgTDlfDOFvroTWdR
-	 RYFLrVBMdGRmLbyCgzCsGaRj0eopCP2DWdU1rn9KaQF+tNHfaUPpjW4Fpyu4tJvnFD
-	 /1r2I2XeETIscEsU/xIm07gIM+nVZXXNyJ9e3kO8SAEsxVsrOEVWWxYM/cxCnGIDJn
-	 rwqR5TXeKiSQrXsDruRoBOp2XmSEZ0hZ7yNKiL3bbLXnKbfnHLPScfQZc826iL7RUP
-	 6UTHsolkGM7nA==
-From: Simon Horman <horms@kernel.org>
-To: zihanx@nebusec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	dhowells@redhat.com,
-	marc.dionne@auristor.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Date: Tue,  8 Sep 2026 13:17:40 +0100
-Message-ID: <20260908121740.432088-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai>
-References: <a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai>
+	b=bwSwCMPke5AIUvEQfvoTDh7t9a5wfKhxaPwi4nJxMI+wggoFn36eqWLgtrQsRIoEf
+	 9inpvbdjiYxa6vTd981mdyXR9ElXyU+amNWl5wd9GEV4kHdlHK7vNz5fn7oMzrPjSl
+	 9e+5q63el2RJeMgj7yRa0XN/J5i10MwSN7WA3CU1RdcHaJ75G2KIIoYjAJoxaEeNrG
+	 175ta9pGzh2SjV/bJ5QLEJ2X+l1C14eNW6T7xyrhraUCeDnS3OMmlozSUj9R/hybSV
+	 aURFlEXq3YxMhnp2NsVkvkJcZtFnJ3jN/kZzROCy8Jjnut76wbUbmlBk3FbtDFHlz1
+	 bzA1LLvKR5wAw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/6] iov_iter: extract a iov_iter_extract_bvecs helper from bio code
+Date: Tue,  8 Sep 2026 08:19:50 -0400
+Message-ID: <20260908121955.2049107-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090313-revolver-python-ce1a@gregkh>
+References: <2026090313-revolver-python-ce1a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,70 +46,313 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai?part=1
+From: Christoph Hellwig <hch@lst.de>
+
+[ Upstream commit 91b73c458182801a8c9cf6135335e064567d1013 ]
+
+Massage __bio_iov_iter_get_pages so that it doesn't need the bio, and
+move it to lib/iov_iter.c so that it can be used by block code for
+other things than filling a bio and by other subsystems like netfs.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-> diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-> --- a/net/rxrpc/io_thread.c
-> +++ b/net/rxrpc/io_thread.c
-> @@ -52,6 +50,19 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
->  	}
->  #endif
->  
-> +	if (atomic_read(&udp_sk->sk_rmem_alloc) >= READ_ONCE(udp_sk->sk_rcvbuf) ||
-> +	    !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
-> +		sk_drops_inc(udp_sk);
-> +		kfree_skb(skb);
-> +		return 0;
-> +	}
-> +
-> +	skb->dev = NULL;
-> +	skb_set_owner_r(skb, udp_sk);
-> +	skb_dst_force(skb);
-> +
-> +	skb->mark = RXRPC_SKB_MARK_PACKET;
-> +	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
->  	skb_queue_tail(rx_queue, skb);
->  	wake_up_process(io_thread);
->  	return 0;
+ block/bio.c         | 141 ++++++--------------------------------------
+ include/linux/uio.h |   3 +
+ lib/iov_iter.c      |  98 ++++++++++++++++++++++++++++++
+ 3 files changed, 120 insertions(+), 122 deletions(-)
 
-[Severity: High]
-This borrows UDP's rmem accounting without borrowing the lock that
-protects it.
+diff --git a/block/bio.c b/block/bio.c
+index b184f0a3fcb2b..63594139efe05 100644
+--- a/block/bio.c
++++ b/block/bio.c
+@@ -1166,122 +1166,6 @@ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
+ 	bio_set_flag(bio, BIO_CLONED);
+ }
+ 
+-static unsigned int get_contig_folio_len(unsigned int *num_pages,
+-					 struct page **pages, unsigned int i,
+-					 struct folio *folio, size_t left,
+-					 size_t offset)
+-{
+-	size_t bytes = left;
+-	size_t contig_sz = min_t(size_t, PAGE_SIZE - offset, bytes);
+-	unsigned int j;
+-
+-	/*
+-	 * We might COW a single page in the middle of
+-	 * a large folio, so we have to check that all
+-	 * pages belong to the same folio.
+-	 */
+-	bytes -= contig_sz;
+-	for (j = i + 1; j < i + *num_pages; j++) {
+-		size_t next = min_t(size_t, PAGE_SIZE, bytes);
+-
+-		if (page_folio(pages[j]) != folio ||
+-		    pages[j] != pages[j - 1] + 1) {
+-			break;
+-		}
+-		contig_sz += next;
+-		bytes -= next;
+-	}
+-	*num_pages = j - i;
+-
+-	return contig_sz;
+-}
+-
+-#define PAGE_PTRS_PER_BVEC     (sizeof(struct bio_vec) / sizeof(struct page *))
+-
+-/**
+- * __bio_iov_iter_get_pages - pin user or kernel pages and add them to a bio
+- * @bio: bio to add pages to
+- * @iter: iov iterator describing the region to be mapped
+- *
+- * Extracts pages from *iter and appends them to @bio's bvec array.  The pages
+- * will have to be cleaned up in the way indicated by the BIO_PAGE_PINNED flag.
+- * For a multi-segment *iter, this function only adds pages from the next
+- * non-empty segment of the iov iterator.
+- */
+-static int __bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter)
+-{
+-	iov_iter_extraction_t extraction_flags = 0;
+-	unsigned short nr_pages = bio->bi_max_vecs - bio->bi_vcnt;
+-	unsigned short entries_left = bio->bi_max_vecs - bio->bi_vcnt;
+-	struct bio_vec *bv = bio->bi_io_vec + bio->bi_vcnt;
+-	struct page **pages = (struct page **)bv;
+-	ssize_t size;
+-	unsigned int num_pages, i = 0;
+-	size_t offset, folio_offset, left, len;
+-	int ret = 0;
+-
+-	/*
+-	 * Move page array up in the allocated memory for the bio vecs as far as
+-	 * possible so that we can start filling biovecs from the beginning
+-	 * without overwriting the temporary page array.
+-	 */
+-	BUILD_BUG_ON(PAGE_PTRS_PER_BVEC < 2);
+-	pages += entries_left * (PAGE_PTRS_PER_BVEC - 1);
+-
+-	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
+-		extraction_flags |= ITER_ALLOW_P2PDMA;
+-
+-	size = iov_iter_extract_pages(iter, &pages,
+-				      UINT_MAX - bio->bi_iter.bi_size,
+-				      nr_pages, extraction_flags, &offset);
+-	if (unlikely(size <= 0))
+-		return size ? size : -EFAULT;
+-
+-	nr_pages = DIV_ROUND_UP(offset + size, PAGE_SIZE);
+-	for (left = size, i = 0; left > 0; left -= len, i += num_pages) {
+-		struct page *page = pages[i];
+-		struct folio *folio = page_folio(page);
+-		unsigned int old_vcnt = bio->bi_vcnt;
+-
+-		folio_offset = ((size_t)folio_page_idx(folio, page) <<
+-			       PAGE_SHIFT) + offset;
+-
+-		len = min(folio_size(folio) - folio_offset, left);
+-
+-		num_pages = DIV_ROUND_UP(offset + len, PAGE_SIZE);
+-
+-		if (num_pages > 1)
+-			len = get_contig_folio_len(&num_pages, pages, i,
+-						   folio, left, offset);
+-
+-		if (!bio_add_folio(bio, folio, len, folio_offset)) {
+-			WARN_ON_ONCE(1);
+-			ret = -EINVAL;
+-			goto out;
+-		}
+-
+-		if (bio_flagged(bio, BIO_PAGE_PINNED)) {
+-			/*
+-			 * We're adding another fragment of a page that already
+-			 * was part of the last segment.  Undo our pin as the
+-			 * page was pinned when an earlier fragment of it was
+-			 * added to the bio and __bio_release_pages expects a
+-			 * single pin per page.
+-			 */
+-			if (offset && bio->bi_vcnt == old_vcnt)
+-				unpin_user_folio(folio, 1);
+-		}
+-		offset = 0;
+-	}
+-
+-	iov_iter_revert(iter, left);
+-out:
+-	while (i < nr_pages)
+-		bio_release_page(bio, pages[i++]);
+-
+-	return ret;
+-}
+-
+ /*
+  * Aligns the bio size to the len_align_mask, releasing excessive bio vecs that
+  * __bio_iov_iter_get_pages may have inserted, and reverts the trimmed length
+@@ -1339,7 +1223,7 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
+ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 			   unsigned len_align_mask)
+ {
+-	int ret = 0;
++	iov_iter_extraction_t flags = 0;
+ 
+ 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+ 		return -EIO;
+@@ -1352,13 +1236,26 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 
+ 	if (iov_iter_extract_will_pin(iter))
+ 		bio_set_flag(bio, BIO_PAGE_PINNED);
++	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
++		flags |= ITER_ALLOW_P2PDMA;
++
+ 	do {
+-		ret = __bio_iov_iter_get_pages(bio, iter);
+-	} while (!ret && iov_iter_count(iter) && !bio_full(bio, 0));
++		ssize_t ret;
++
++		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
++				UINT_MAX - bio->bi_iter.bi_size,
++				&bio->bi_vcnt, bio->bi_max_vecs, flags);
++		if (ret <= 0) {
++			if (!bio->bi_vcnt)
++				return ret;
++			break;
++		}
++		bio->bi_iter.bi_size += ret;
++	} while (iov_iter_count(iter) && !bio_full(bio, 0));
+ 
+-	if (bio->bi_vcnt)
+-		return bio_iov_iter_align_down(bio, iter, len_align_mask);
+-	return ret;
++	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
++		bio->bi_opf |= REQ_NOMERGE;
++	return bio_iov_iter_align_down(bio, iter, len_align_mask);
+ }
+ 
+ static void submit_bio_wait_endio(struct bio *bio)
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index 5b127043a1519..a9bc5b3067e32 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -389,6 +389,9 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i, struct page ***pages,
+ 			       size_t maxsize, unsigned int maxpages,
+ 			       iov_iter_extraction_t extraction_flags,
+ 			       size_t *offset0);
++ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv,
++		size_t max_size, unsigned short *nr_vecs,
++		unsigned short max_vecs, iov_iter_extraction_t extraction_flags);
+ 
+ /**
+  * iov_iter_extract_will_pin - Indicate how pages from the iterator will be retained
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 4bc7c19337558..53dcd9649d59a 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -1833,3 +1833,101 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i,
+ 	return -EFAULT;
+ }
+ EXPORT_SYMBOL_GPL(iov_iter_extract_pages);
++
++static unsigned int get_contig_folio_len(struct page **pages,
++		unsigned int *num_pages, size_t left, size_t offset)
++{
++	struct folio *folio = page_folio(pages[0]);
++	size_t contig_sz = min_t(size_t, PAGE_SIZE - offset, left);
++	unsigned int max_pages, i;
++	size_t folio_offset, len;
++
++	folio_offset = PAGE_SIZE * folio_page_idx(folio, pages[0]) + offset;
++	len = min(folio_size(folio) - folio_offset, left);
++
++	/*
++	 * We might COW a single page in the middle of a large folio, so we have
++	 * to check that all pages belong to the same folio.
++	 */
++	left -= contig_sz;
++	max_pages = DIV_ROUND_UP(offset + len, PAGE_SIZE);
++	for (i = 1; i < max_pages; i++) {
++		size_t next = min_t(size_t, PAGE_SIZE, left);
++
++		if (page_folio(pages[i]) != folio ||
++		    pages[i] != pages[i - 1] + 1)
++			break;
++		contig_sz += next;
++		left -= next;
++	}
++
++	*num_pages = i;
++	return contig_sz;
++}
++
++#define PAGE_PTRS_PER_BVEC     (sizeof(struct bio_vec) / sizeof(struct page *))
++
++/**
++ * iov_iter_extract_bvecs - Extract bvecs from an iterator
++ * @iter:	the iterator to extract from
++ * @bv:		bvec return array
++ * @max_size:	maximum size to extract from @iter
++ * @nr_vecs:	number of vectors in @bv (on in and output)
++ * @max_vecs:	maximum vectors in @bv, including those filled before calling
++ * @extraction_flags: flags to qualify request
++ *
++ * Like iov_iter_extract_pages(), but returns physically contiguous ranges
++ * contained in a single folio as a single bvec instead of multiple entries.
++ *
++ * Returns the number of bytes extracted when successful, or a negative errno.
++ * If @nr_vecs was non-zero on entry, the number of successfully extracted bytes
++ * can be 0.
++ */
++ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv,
++		size_t max_size, unsigned short *nr_vecs,
++		unsigned short max_vecs, iov_iter_extraction_t extraction_flags)
++{
++	unsigned short entries_left = max_vecs - *nr_vecs;
++	unsigned short nr_pages, i = 0;
++	size_t left, offset, len;
++	struct page **pages;
++	ssize_t size;
++
++	/*
++	 * Move page array up in the allocated memory for the bio vecs as far as
++	 * possible so that we can start filling biovecs from the beginning
++	 * without overwriting the temporary page array.
++	 */
++	BUILD_BUG_ON(PAGE_PTRS_PER_BVEC < 2);
++	pages = (struct page **)(bv + *nr_vecs) +
++		entries_left * (PAGE_PTRS_PER_BVEC - 1);
++
++	size = iov_iter_extract_pages(iter, &pages, max_size, entries_left,
++			extraction_flags, &offset);
++	if (unlikely(size <= 0))
++		return size ? size : -EFAULT;
++
++	nr_pages = DIV_ROUND_UP(offset + size, PAGE_SIZE);
++	for (left = size; left > 0; left -= len) {
++		unsigned int nr_to_add;
++
++		if (*nr_vecs > 0 &&
++		    !zone_device_pages_have_same_pgmap(bv[*nr_vecs - 1].bv_page,
++				pages[i]))
++			break;
++
++		len = get_contig_folio_len(&pages[i], &nr_to_add, left, offset);
++		bvec_set_page(&bv[*nr_vecs], pages[i], len, offset);
++		i += nr_to_add;
++		(*nr_vecs)++;
++		offset = 0;
++	}
++
++	iov_iter_revert(iter, left);
++	if (iov_iter_extract_will_pin(iter)) {
++		while (i < nr_pages)
++			unpin_user_page(pages[i++]);
++	}
++	return size - left;
++}
++EXPORT_SYMBOL_GPL(iov_iter_extract_bvecs);
+-- 
+2.53.0
 
-rxrpc_encap_rcv() is called from the UDP receive path in softirq
-context with neither lock_sock(udp_sk) nor
-udp_sk->sk_receive_queue.lock held, and nothing serialises two CPUs
-delivering to the same local endpoint. Both new accounting calls in
-this hunk perform an unsynchronised read-modify-write on
-udp_sk->sk_forward_alloc: sk_rmem_schedule() reaches
-__sk_mem_schedule()/sk_forward_alloc_add(), and skb_set_owner_r()
-calls sk_mem_charge(), which is the same non-atomic
-WRITE_ONCE(sk->sk_forward_alloc, ...) update. The newly added
-skb_orphan() in rxrpc_io_thread() closes the loop from the kthread
-side: sock_rfree() -> sk_mem_uncharge() does the same non-atomic
-update concurrently with softirq enqueues on other CPUs. Note that
-only sk_rmem_alloc is atomic_t here; sk_forward_alloc is not, so the
-atomic_read() guard at the top of the hunk does not make any of this
-safe.
-
-The normal UDP path does not have this problem because
-__udp_enqueue_schedule_skb() performs the forward-alloc bookkeeping
-and the skb_set_owner_r() under sk->sk_receive_queue.lock, and
-udp_rmem_release() takes the same lock before reclaiming. The
-consequence of losing that serialisation is not confined to this
-socket: the drifted sk_forward_alloc is eventually handed to
-__sk_mem_reduce_allocated(), which subtracts it from the protocol-wide
-udp_prot memory_allocated counter, so a flood of RxRPC-shaped packets
-can skew global UDP memory accounting for every UDP socket on the
-machine. That is a worse failure mode than the unbounded rx_queue this
-patch is trying to fix.
-
-How do you want to serialise this? Options I can see are enqueueing
-via the existing UDP receive-queue locking rather than open-coding the
-charge, or holding local->rx_queue.lock across both the charge in
-rxrpc_encap_rcv() and the skb_orphan() in rxrpc_io_thread() so the
-charge and uncharge sides are mutually exclusive. Please say which you
-intend, and make sure the answer covers the I/O-thread uncharge path
-too, not just the two enqueue-side calls.
