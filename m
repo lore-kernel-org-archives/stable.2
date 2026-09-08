@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE9555295A
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:36:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB565559CB5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874621; cv=none; b=CnefEUg7eZBNR3UdwAOgpSj1FjyiMf9PxWW8UNCsP/zV0YwjNWcuGS6RMoN+OwQ/wE7JpaJrCYRsUrC4Nei3xS9jd+2FKWAW2aTl92eConKKWl4XXj8aBG0fe3MolWZn5GILHMxE+a0cI8PM2J2RT1cZgv6njLNKoq2SR2RFcz4=
+	t=1788874629; cv=none; b=dSXAA4dMDo1uvRKySfoJewU7iPU+daf0D3gt3uM3Dg/wbIirqbcOf+7v6J9Ofuf3xtK6KIXpoABCbhH2UNhYxMQcENdx1zEmivX0yJCXFL0HY+5T2iBurPm40oJerNBTWPwQh03LqQ55HvWHEHafOsYBH9JbSGZn7l+YdhXAPpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874621; c=relaxed/simple;
-	bh=XbC6Euk2Qr+JnfgijuFbut6UIIywhSK8/DDgwRdstLI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=C3Jnm4+hLlFYGtfST8WM7cWjgHFZjLXy28c6ECYsTFDiLUnEnuH9CRtzU3hDGddeyB1we7RHQ5BJJz95lLjXljw44gIpaOnhjDnVDA15sFBSDcUcRa8PRjIQLj7JkSUsDLJxgEek9crtuz+h0hbqYbcqEHkxr4r6WbXb+oevKww=
+	s=arc-20240116; t=1788874629; c=relaxed/simple;
+	bh=+ZP4Xk9m45f7o8oEyRqGg0CmVpNp8D8MeoJ4QsfzcwE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m0OYWOvtQjl4YDNqwCSgxLeWniz1dbRX7EeGbdunJI3c2ytz1SBdEzyDmJJSJp53P56tbZMq1tRh4jY+Y7ovYG9Pgw9vgt7Hx6BIz5kLLz1dM8PHJK9GDaz3w/2X25+r8mdl6koEwH4xaMRzQGc94Qe1LBDKzymREb7prAFrfII=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882371F00A3D;
-	Tue,  8 Sep 2026 13:36:52 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] btrfs: abort transaction before releasing tree_log_mutex on" failed to apply to 7.2-stable tree
-To: loemra.dev@gmail.com,boris@bur.io,dsterba@suse.com,fdmanana@suse.com,jlayton@meta.com
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E251F00A3F;
+	Tue,  8 Sep 2026 13:37:02 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout" failed to apply to 5.15-stable tree
+To: junan76@163.com,antonio.borneo@foss.st.com,radu@rendec.net,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:30:20 +0200
-Message-ID: <2026090820-emerald-festive-f68c@gregkh>
+Date: Tue, 08 Sep 2026 15:31:13 +0200
+Message-ID: <2026090813-gallery-jackpot-25e8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 529c01c3dc0d322c103611c35b01d71ea04562b2
+git cherry-pick -x d31fbbade43f880b7e59e2b3a72722fe2725d93f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090820-emerald-festive-f68c@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-gallery-jackpot-25e8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -53,73 +53,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 529c01c3dc0d322c103611c35b01d71ea04562b2 Mon Sep 17 00:00:00 2001
-From: Leo Martins <loemra.dev@gmail.com>
-Date: Tue, 18 Aug 2026 17:40:10 -0700
-Subject: [PATCH] btrfs: abort transaction before releasing tree_log_mutex on
- commit failure
+From d31fbbade43f880b7e59e2b3a72722fe2725d93f Mon Sep 17 00:00:00 2001
+From: Ju Nan <junan76@163.com>
+Date: Fri, 21 Aug 2026 10:47:57 +0800
+Subject: [PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout
 
-When transaction metadata writeout fails in btrfs_commit_transaction(),
-the current code only logs the error, drops tree_log_mutex and then goes
-through cleanup_transaction(), which aborts the transaction and records
-the fs error.
+HWSPNLCK_TIMEOUT is passed to hwspin_lock_timeout_in_atomic(), whose
+timeout argument is in milliseconds, not microseconds:
 
-That is too late for the tree log side. A log sync can already be
-waiting on tree_log_mutex, because the committing transaction is moved
-to TRANS_STATE_UNBLOCKED while that mutex is held, which lets fsyncs
-join the next transaction and queue up in btrfs_sync_log(). Once the
-failed commit drops tree_log_mutex, such a log sync acquires it, sees
-BTRFS_FS_ERROR() still clear, and writes super_for_commit. That
-superblock holds the roots prepared for the transaction that has just
-failed to write out its metadata, so it can point at tree blocks that
-never reached the disk, and the next mount fails with a parent transid
-mismatch.
+  atomic_delay += HWSPINLOCK_RETRY_DELAY_US;
+  if (atomic_delay > to * 1000)
+          return -ETIMEDOUT;
 
-Commit 165ea85f1483 ("btrfs: do not write supers if we have an fs
-error") fixed this class of problem by making btrfs_sync_log() check for
-an fs error right after taking tree_log_mutex. That check only works if
-the commit path publishes the fs error before it releases the same
-mutex, and commit 68d4ece9c30e ("btrfs: don't call
-btrfs_handle_fs_error() in btrfs_commit_transaction()") removed the only
-thing that did so.
+So stm32mp_exti_set_type() asks for a 1 second timeout where the comment
+next to the macro says it wants 1 millisecond. The semaphore is polled
+with udelay() from a section that holds chip_data->rlock, a
+raw_spinlock_t, so preemption stays disabled for the whole wait on every
+configuration, PREEMPT_RT included.
 
-Restore the ordering by aborting the transaction while tree_log_mutex is
-still held. We have a transaction handle here, so this does not need to
-bring back the btrfs_handle_fs_error() call: __btrfs_abort_transaction()
-records the fs error itself, which is all btrfs_sync_log() looks at, and
-the error message put in its place is kept.
+The hwspinlock core documents this explicitly:
 
-This is what commit 3810ab40afa5 ("btrfs: abort transaction on error in
-write_all_supers()") already does for the next call in this function.
+  If the mode is HWLOCK_IN_ATOMIC (called from an atomic context) the
+  timeout is handled with busy-waiting delays, hence shall not exceed
+  few msecs.
 
-This is reproducible on an unmodified kernel by failing the first
-couple of bios of a transaction commit with fail_make_request while a
-concurrent fsync workload keeps log syncs queued on tree_log_mutex.
+Fixes: 5257169ade8c ("irqchip/stm32-exti: Use the hwspin_lock_timeout_in_atomic() API")
+Signed-off-by: Ju Nan <junan76@163.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Radu Rendec <radu@rendec.net>
+Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260821024756.24927-2-junan76@163.com
 
-Fixes: 68d4ece9c30e ("btrfs: don't call btrfs_handle_fs_error() in btrfs_commit_transaction()")
-CC: stable@vger.kernel.org # 7.0+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Reviewed-by: jlayton@meta.com <jlayton@meta.com>
-Signed-off-by: Leo Martins <loemra.dev@gmail.com>
-Reviewed-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-diff --git a/fs/btrfs/transaction.c b/fs/btrfs/transaction.c
-index bafc62cf5ebc..39909d363591 100644
---- a/fs/btrfs/transaction.c
-+++ b/fs/btrfs/transaction.c
-@@ -2583,6 +2583,12 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans)
- 	ret = btrfs_write_and_wait_transaction(trans);
- 	if (unlikely(ret)) {
- 		btrfs_err(fs_info, "error while writing out transaction: %pe", ERR_PTR(ret));
-+		/*
-+		 * Abort before releasing tree_log_mutex, so a log sync waiting
-+		 * on it sees the fs error and skips writing super_for_commit
-+		 * for this failed transaction. See btrfs_sync_log().
-+		 */
-+		btrfs_abort_transaction(trans, ret);
- 		mutex_unlock(&fs_info->tree_log_mutex);
- 		goto scrub_continue;
- 	}
+diff --git a/drivers/irqchip/irq-stm32mp-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
+index bf3a2def69ca..a19e91fbd010 100644
+--- a/drivers/irqchip/irq-stm32mp-exti.c
++++ b/drivers/irqchip/irq-stm32mp-exti.c
+@@ -22,7 +22,7 @@
+ 
+ #define IRQS_PER_BANK			32
+ 
+-#define HWSPNLCK_TIMEOUT		1000 /* usec */
++#define HWSPNLCK_TIMEOUT_MS		1
+ 
+ #define EXTI_EnCIDCFGR(n)		(0x180 + (n) * 4)
+ #define EXTI_HWCFGR1			0x3f0
+@@ -376,7 +376,7 @@ static int stm32mp_exti_set_type(struct irq_data *d, unsigned int type)
+ 	raw_spin_lock(&chip_data->rlock);
+ 
+ 	if (hwlock) {
+-		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT);
++		err = hwspin_lock_timeout_in_atomic(hwlock, HWSPNLCK_TIMEOUT_MS);
+ 		if (err) {
+ 			pr_err("%s can't get hwspinlock (%d)\n", __func__, err);
+ 			goto unlock;
 
