@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232E653B601
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD3E5328B5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871399; cv=none; b=duKvtqHP11TAv+iNQOlRPy5Z9tyuvfDXmuPaKhKm8t/7VNtm7UNDG/1uqcL/ABzxoq6CVfW/s4O668T6oDkPwW83WVubftRKbyPJQB34XMZbGilMpsB/UvnXCCMqcz4a40e/ZX9SGgfRIbA4tk2UoX0t/GfL5MGeS4+2XLfDFa0=
+	t=1788871402; cv=none; b=AnV3H74rb4+67co3J9m1HhEHS8xOf8i68WAK56APsA4cUn9UMyPw+xZB9gIiegtD2LvRxyqgJvfUrWxFv/1Gc1sESEU6vGDFTE+6dkM9knlxpOscJX9VDxFIoqurml0bZOFSSjImwPPCD0nppKb50y/7C2bUq5vsQELCk2A4JWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871399; c=relaxed/simple;
-	bh=PZn6Kz70MwwndCuQr2wloU3KUPLWPKo6hc1Js/5pzUs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OSEiW16sQJX3ANu0VV3tBJhuFqiUFbMRTAbR6ELqQzGV5tWwl3er2F2E/Z3uduhDAL7m4hvRj3w/vpZPMqDQBK292ipgBepKdiQYY9yhBcq3+Z1oCUNr+yZJl3bgFUbdPdVWbtkxbwx75FzAtcfse5hMhVDHeAXwl2TJ0DwpxgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VMa5LaF3; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VMa5LaF3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C6701F00A3A;
-	Tue,  8 Sep 2026 12:43:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788871397;
-	bh=m2dG8OFN6lVgBuIT32Uj91waz2OfDeK/UqgN6ug96R4=;
-	h=Subject:To:Cc:From:Date;
-	b=VMa5LaF3NxleZZEtw9cG8VkAsGgTl2uLrOEE8Th4IDV5xDY0sPlhKDV+6SDoW9z2M
-	 nAUsqfZbER3MR/R6O4PFbCdRHh2busgrzemYx0uxR4vZ45tmqrDysrym2KvAf3BN/O
-	 EgJ6Qc6OENsHob2Kt6DFkfoRp4QHIPuW9sYm4eH4=
-Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 6.12-stable tree
+	s=arc-20240116; t=1788871402; c=relaxed/simple;
+	bh=rluPgWHeiJBf0t9nMvLcO7bOK8+eNbo4d5KaSkF20pY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r+mwwXUi9VqzecEEq3yH0zNOnf7uhvhdl0S86S0sH5JJgT5dhm5zP4Tz3dGsWaYFolUYmw91CDH26zCWajAEwHtO3SsvbE/1SmMHcUVN6Xk70wXpwLN2Ud/zyrQs9enf/fVcyKzC3T+oHoTe6A3irjF/V+U7Bzj2Jg5Ok6JyyZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801431F00A3D;
+	Tue,  8 Sep 2026 12:43:20 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 6.6-stable tree
 To: baloo@superbaloo.net,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,michal.pecio@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:43:10 +0200
-Message-ID: <2026090810-remold-gleaming-2a4e@gregkh>
+Date: Tue, 08 Sep 2026 14:43:11 +0200
+Message-ID: <2026090811-curler-hatchet-10b9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x ff44dfb03a293bf30e31f98772a1dd316a6071d1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090810-remold-gleaming-2a4e@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090811-curler-hatchet-10b9@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
