@@ -1,157 +1,267 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0F93A0E88;
-	Tue,  8 Sep 2026 08:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857526; cv=none; b=gXBiBfgQstVIMlSGQJ+wxa/DJztN3VLeWZh6NUHwJ1rrhhDv8iT+JG6bqbE3NO2KjDXcz4b7IJ2vvC/YUMl+A+DgMZK//UEtBpJ3UjOYSjzlc4scOedkwJP44j+RgEkMdTQWEZPAG26S52Ct7ZHtB3UwYtwjHpSEHGhkrYIUBPI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857526; c=relaxed/simple;
-	bh=FazzNElmKFJLJo9AS3ULdfrFqkYreq4rHAvXggc7hgM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fnpZnWtKhDVwhBdB+/pG17/xIcdycEHBPtclUq4gUvlKnGxKUCUCGjK/m9l0Ijn0ehCfrSoSSy1Bi/EMWqta0r+JtN8FOfCEiclk+m/yhHyOckCaSyFpkRbC5V0SCNLmnjqSRUJLg/Vh9JC+Yk4zK8FjaBzaHzq/u7YvZ/PHsOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G13qovW2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27B434B2CB9
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 08:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788857570; cv=pass; b=MiOQE+ck3L0yamFFWpcYpuH7Vno3VpQ8g5ipxK17JS+SwhcVWT4JAw2lcEGPWhxVzyyrW3eA15ApEXWWCnVPbgj6XWWOyWUT6flDWIe1Iz60StDoTc5HkNeuD/D3E+YtChd+fXQhmZXIFyq18KSGA9y6Bzmns+WQdEhG6O0oOR0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788857570; c=relaxed/simple;
+	bh=7+QAXGzBYBpJzxjDNrtSBQuyaTOBdqxbCzIS9nOmbTk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EAV2A9z2ajDvfI70HtGBy8KjFEpEbMdzwk7be8/qpMue0TdrOs5THTpthUmEBu/37zCEjbuLxwzr6vtqsIJLpMKxCZSnnLAoJgTd01AQdrJo0AUYQY+T1aSx4tiafd+NFihx8TuBrx/vfMsKw7yYH38VlIBxJNpoK9/F/9cRI/Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eWRjHdxy; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G13qovW2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98DC81F00A3A;
-	Tue,  8 Sep 2026 08:51:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788857512;
-	bh=p3/uSeVxqiNU4n6pXcRtL4khCqdhtpTAmxXfeDkLjAU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=G13qovW2Wfab5fm08euTsG4N5ouC4SzLiJ+LfI10d/BJ0WCPVp9WwxBJai8xzgpbU
-	 tjslxJWf0Wdminq2K7d7RKciu+2MTNZzD/CRkruJj5MTUiwlCMpUFl2D9BpbX+MO3P
-	 AM/RX/OXOstkvb5igHvLrG5V7HARBAHyZ+KIgLvAy0+xNF+vwBQZV9ZDOGIYAJ09IK
-	 I9WGsVF0Fbf5t/OllCcztkdjYQSH4X2hxITdRNSloZp9PfTPEkxIv2PlvnUNJbsmCa
-	 hqtbG9J2ARya3fq6MPogE41+QJKAraNbRVktRxmGTmnVnYIce65Zq8Wc5Hi59rifC3
-	 +l3IaMSIAockg==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Wentao Guan <guanwentao@uniontech.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Soheil Hassas Yeganeh <soheil@google.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Jaeyoung Chung <jjy600901@snu.ac.kr>
-Subject: [STABLE v5.15.y 8/8] eventpoll: fix ep_remove struct eventpoll / struct file UAF
-Date: Tue,  8 Sep 2026 09:51:04 +0100
-Message-ID: <20260908085113.3960814-8-lee@kernel.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260908085113.3960814-1-lee@kernel.org>
-References: <20260908085113.3960814-1-lee@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eWRjHdxy"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a30521edd8so2773841fa.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 01:52:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788857551; cv=none;
+        d=google.com; s=arc-20260327;
+        b=S09d7D+IAR5RwdwTW8+uw4xqrgYdFHRIQ8l2PDVsyWabKn00mjT2CyEtGjIj+G4V00
+         XJJmgZXmp1eH/0LRQ9KND/Qi/Wnx8dDf0MkCYBcOzqagFGFOUni8d4s7S9ox5w9swsGO
+         NzK6rvsziGYM6dAKzBDPuawxWbrtq65X0TiMgiwWLTrbeTYsLD2NfeKEN/gdCDipUE6w
+         NafxtG4QQUDF6HM4edapl7V1gotXncwi56B86rU3jLU2RGEgpwow75nq1hKiK+Hxr/vd
+         GzPCtho0h1YKOsP/dQtjP2kFFizXpJAu44CBclfLaRmoLRNfC4zXGc0yW12LzKPgQvSs
+         DPzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
+        fh=tf3s5kmEP2UMR7yogPZFMSLRynpi5Zh1IMWvr58iRDQ=;
+        b=mD/4/S/WtB9dxOKQQG1EFHZNR32xbgowP9WjVgv6sMI7AJtLOJXzAYZBT2KO7vbB4L
+         lqp7wVx9GvMIdZaBEiI1UMvtKZ47zbZTnICqFKWXI4meJj3HhQsqrVY4xHt1O8ZxqvTD
+         9pNG+fTcsyqUTeLd07X+ToLI+miG58bI+EDwyCi1VMLtSdEGJMXJR7RAl2MpE6rOZU7g
+         zY9GqBBqA+FPn+B1PgIk3QBb1okg1vOQZAVUzEOasEoryS3Vfr0BAw1BZWyA89RAS3/B
+         OcuVPigLhGk2VcBElyRSzjWZpHmCFlPGK8Gt5qId/tO22fXVnaVPKaTnbIh/1gfCDiXP
+         iMpg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788857551; x=1789462351; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
+        b=eWRjHdxy6nw+Fzs4rMRX/CzFap7Ok9eg6MphRqfMIvyTOZrZsklE3U223uaBuiWlFP
+         bpt9wGrbyReI3c1DAhpKyUC5mZR9m4iFsDjC4CtlbKn/+649coFKYJh9h2wSs1izb7EZ
+         GBdTc3mfScSDm4xudYSs3uRFPfj5MJVd4+hPKe8zTNVCns8hR3Xq+b0V4OruC4KFQp+O
+         U3jERx55qe64FmsTHYEQ04aMSZu6KdVpdpOQfaZH9CP5yVhR80I98tiM9YvtdRIem7TN
+         Ov+YvBD90qRLM3Nbi6FCxNW0+uyTTFIoWCmLpY/Me47nOQ9EVk6aEz/JSekcHA5nv1MI
+         DsBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788857551; x=1789462351;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bLC2NZjnn7tKn+yLWIbpSK/NQx1TlPN6P03Q7UFQsBA=;
+        b=kGZRCam+JhVLm7W/7/BW62dedlERE5081sOi4OuV3UZjZ2ul4rph+AbKGOBiTICZt+
+         PKVPRMM4qUdedWVW2LrGYmaTZ46m6KbL0qrroTYwCCBsZFMleru23Hkt4I1rHkNrufXb
+         5fNIDMn7b4l1mzG/FJ28lJoYgTgxxGN6GYXtoEBaXkSwlHUU4UdaP9NY/Yj3w6DPTlv3
+         N4V0QQUmzMnUu0AvHrLNv0HYKxNoMYI+BdjdGgh9dbClHi1uUyER7/WV6fJbKve7cG/3
+         vdxrlxPxe2a9PY3zdq9n5kq62yTsj6fRYEHDHPiJZ1i2kfZAP80ZXou0FI8L4iBc/Jle
+         z2ig==
+X-Forwarded-Encrypted: i=1; AKwUvByXHneOdt4IRAkxghTfVOD/gw222AUI6SyU/b601Xg/2lFML8ptUVZy0mwjPtPtNK4ILenUopg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+325yAKss4ZoxxkaD1gswkPLCZSKph31rSje8LmYSMt+KK4Qv
+	GP3MPJf0YhDGrjuOX21+Ds21JabelION0cyOAABfrU3gxNdJutgyfj/0ME1FR61aFaMdKYrqG+X
+	XaDvrZMI1U5MdENwgCjd7IaoT9IG12qo=
+X-Gm-Gg: AYBFou0g8alnYuUxi64YJOzjn4tPIkkpsKYE91YMWaytfqdBsiO5Hp9oLw6aoae8oQx
+	v7gZxHwoa8tcWCBBjdBYZirf2bSVMVhW4pSZowqLkFsUESI33bi02jIRLJ1ADuIv+A9dEttO48T
+	AY/EJ28HXV6e0741ZxLLnsoT6BS0mh3wAWQgSvNpsd2jrDm/AViHdpO11Nxas/1IXxvQdUo3Dw4
+	K1VHNKK/IZswpv9yAa/ylcpSYkzlos5MXmpvuhh4M42TnEJl42ZbFbYCjLCCzrwk7u1rddrolTF
+	ecdShAuqLumwBW8mrqo5ZH5MfPWjEcTjSgDpd1yRmei9BYYr6UyicAkkHjw+UGTg7T4Q17EN2wN
+	c
+X-Received: by 2002:a2e:8a96:0:b0:3a3:61ec:7db9 with SMTP id
+ 38308e7fff4ca-3a4882d39d4mr5921281fa.15.1788857551247; Tue, 08 Sep 2026
+ 01:52:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260625031932.9412-1-skyexpoc@gmail.com> <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
+ <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
+In-Reply-To: <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
+From: =?UTF-8?B?SEUgV0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
+Date: Tue, 8 Sep 2026 17:52:20 +0900
+X-Gm-Features: AcwNN1XHobYU14yAHDwLGyDtqdEDR7tiASY5WHgtvOcElymufa-qIxPZqIfvEDM
+Message-ID: <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
+Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in ni_create_attr_list()
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+	Christian Brauner <brauner@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Christian Brauner <brauner@kernel.org>
+Thanks for clarifying. Since the upstream commit did not carry the
+stable tag, could the stable team please consider backporting commit
+7c4841e2a627 to the applicable supported stable trees? This fixes an
+attacker-controlled on-disk slab-out-of-bounds write. My v2 carried
+Cc: stable@vger.kernel.org, but the functionally identical v1 was the
+version merged upstream.
 
-[ Upstream commit a6dc643c69311677c574a0f17a3f4d66a5f3744b ]
+Thanks,
+He Wei=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89
 
-ep_remove() (via ep_remove_file()) cleared file->f_ep under
-file->f_lock but then kept using @file inside the critical section
-(is_file_epoll(), hlist_del_rcu() through the head, spin_unlock).
-A concurrent __fput() taking the eventpoll_release() fastpath in
-that window observed the transient NULL, skipped
-eventpoll_release_file() and ran to f_op->release / file_free().
-
-For the epoll-watches-epoll case, f_op->release is
-ep_eventpoll_release() -> ep_clear_and_put() -> ep_free(), which
-kfree()s the watched struct eventpoll. Its embedded ->refs
-hlist_head is exactly where epi->fllink.pprev points, so the
-subsequent hlist_del_rcu()'s "*pprev = next" scribbles into freed
-kmalloc-192 memory.
-
-In addition, struct file is SLAB_TYPESAFE_BY_RCU, so the slot
-backing @file could be recycled by alloc_empty_file() --
-reinitializing f_lock and f_ep -- while ep_remove() is still
-nominally inside that lock. The upshot is an attacker-controllable
-kmem_cache_free() against the wrong slab cache.
-
-Pin @file via epi_fget() at the top of ep_remove() and gate the
-critical section on the pin succeeding. With the pin held @file
-cannot reach refcount zero, which holds __fput() off and
-transitively keeps the watched struct eventpoll alive across the
-hlist_del_rcu() and the f_lock use, closing both UAFs.
-
-If the pin fails @file has already reached refcount zero and its
-__fput() is in flight. Because we bailed before clearing f_ep,
-that path takes the eventpoll_release() slow path into
-eventpoll_release_file() and blocks on ep->mtx until the waiter
-side's ep_clear_and_put() drops it. The bailed epi's share of
-ep->refcount stays intact, so the trailing ep_refcount_dec_and_test()
-in ep_clear_and_put() cannot free the eventpoll out from under
-eventpoll_release_file(); the orphaned epi is then cleaned up
-there.
-
-A successful pin also proves we are not racing
-eventpoll_release_file() on this epi, so drop the now-redundant
-re-check of epi->dying under f_lock. The cheap lockless
-READ_ONCE(epi->dying) fast-path bailout stays.
-
-Fixes: 58c9b016e128 ("epoll: use refcount to reduce ep_mutex contention")
-Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-6-2470f9eec0f5@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-(cherry picked from commit a6dc643c69311677c574a0f17a3f4d66a5f3744b)
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 3e1144d2515d28e4312e663ea05eac203101491d)
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- fs/eventpoll.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 88a7a8ead9cd..864959c045d1 100644
---- a/fs/eventpoll.c
-+++ b/fs/eventpoll.c
-@@ -794,22 +794,26 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-  */
- static void ep_remove(struct eventpoll *ep, struct epitem *epi)
- {
--	struct file *file = epi->ffd.file;
-+	struct file *file __free(fput) = NULL;
- 
- 	lockdep_assert_irqs_enabled();
- 	lockdep_assert_held(&ep->mtx);
- 
- 	ep_unregister_pollwait(ep, epi);
- 
--	/* sync with eventpoll_release_file() */
-+	/* cheap sync with eventpoll_release_file() */
- 	if (unlikely(READ_ONCE(epi->dying)))
- 		return;
- 
--	spin_lock(&file->f_lock);
--	if (epi->dying) {
--		spin_unlock(&file->f_lock);
-+	/*
-+	 * If we manage to grab a reference it means we're not in
-+	 * eventpoll_release_file() and aren't going to be.
-+	 */
-+	file = epi_fget(epi);
-+	if (!file)
- 		return;
--	}
-+
-+	spin_lock(&file->f_lock);
- 	ep_remove_file(ep, epi, file);
- 
- 	if (ep_remove_epi(ep, epi))
--- 
-2.55.0.979.g7e5102b832-goog
-
+Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+=E4=BA=8E2026=E5=B9=B49=E6=9C=888=E6=97=A5=E5=91=A8=E4=BA=8C 17:41=E5=86=99=
+=E9=81=93=EF=BC=9A
+>
+> On 7/6/26 06:40, HE WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89 wrot=
+e:
+>
+> > Hi Konstantin,
+> >
+> > Gentle ping on this v2. It's an attacker-controlled on-disk image heap
+> > out-of-bounds write in ni_create_attr_list(),
+> > reachable via setxattr on a crafted, loop-mounted NTFS image (KASAN
+> > trace is in the commit message), which is why it's Cc'd to stable.
+> >
+> > For the record, the fix was first posted as v1 on 2026-06-10:
+> > https://lore.kernel.org/ntfs3/20260610002929.51765-1-skyexpoc@gmail.com=
+/
+> > This v2 (2026-06-25) only adds Cc: stable and widens review to
+> > linux-fsdevel; the fix itself is unchanged from v1.
+> >
+> > Could you let me know if you'd like any changes, or whether it can be
+> > queued for a future bugfix pull? I'm happy to rebase or adjust as
+> > needed.
+> >
+> > Thanks,
+> > HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF)
+> >
+> > hewei-gikaku <skyexpoc@gmail.com> =E4=BA=8E2026=E5=B9=B46=E6=9C=8825=E6=
+=97=A5=E5=91=A8=E5=9B=9B 12:19=E5=86=99=E9=81=93=EF=BC=9A
+> >> From: HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF) <skyexpoc@gmail.com>
+> >>
+> >> ni_create_attr_list() allocates a fixed buffer of al_aligned(record_si=
+ze)
+> >> (=3D=3D record_size) bytes and then walks every attribute of the prima=
+ry MFT
+> >> record, writing one ATTR_LIST_ENTRY per attribute and advancing the cu=
+rsor
+> >> by le_size(name_len), with no check against the end of the buffer; the
+> >> total size is only computed after the loop.
+> >>
+> >> A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 =3D 2=
+4)
+> >> bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 =
+=3D 32)
+> >> bytes in the list.  Because the number of attributes in a record is no=
+t
+> >> bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
+> >> minimum-size attributes), a crafted record packed with such attributes
+> >> produces a list larger than record_size and overflows the heap buffer.
+> >>
+> >> This is reachable from a crafted, loop-mounted NTFS image: opening the=
+ file
+> >> and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
+> >> ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
+> >> ni_create_attr_list().
+> >>
+> >>    BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
+> >>    Write of size 4 at addr ffff000008984c00 by task setfattr/345
+> >>     ni_create_attr_list+0xc48/0x1058
+> >>     ni_ins_attr_ext+0x510/0x7c0
+> >>     ni_insert_attr+0x3f8/0x70c
+> >>     ni_insert_resident+0xc8/0x3b0
+> >>     ntfs_set_ea+0x66c/0xd28
+> >>     ntfs_setxattr+0x4d8/0x5b0
+> >>     __arm64_sys_setxattr+0xa4/0x124
+> >>    Allocated by task 345:
+> >>     ni_create_attr_list+0x188/0x1058
+> >>    The buggy address belongs to the cache kmalloc-1k of size 1024
+> >>    (the write lands at object+1024).
+> >>
+> >> Size the buffer from the actual attributes instead of assuming a singl=
+e
+> >> record_size is always enough.
+> >>
+> >> Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation=
+")
+> >> Cc: stable@vger.kernel.org
+> >> Signed-off-by: HE WEI (=E3=82=AE=E3=82=AB=E3=82=AF) <skyexpoc@gmail.co=
+m>
+> >> ---
+> >> v2:
+> >>   - Add Cc: stable@vger.kernel.org: this is an attacker-controlled on-=
+disk
+> >>     image heap out-of-bounds write and should be backported.
+> >>   - No functional change from v1; widening Cc (linux-fsdevel, VFS) for
+> >>     review, as the v1 posting received no response.
+> >>   - Drop a redundant self Reported-by.
+> >>
+> >> v1: https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.=
+com/
+> >> ---
+> >>   fs/ntfs3/frecord.c | 20 ++++++++++++++++----
+> >>   1 file changed, 16 insertions(+), 4 deletions(-)
+> >>
+> >> diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+> >> index 2e901d073fe9..6488d7a415c0 100644
+> >> --- a/fs/ntfs3/frecord.c
+> >> +++ b/fs/ntfs3/frecord.c
+> >> @@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+> >>          rs =3D sbi->record_size;
+> >>
+> >>          /*
+> >> -        * Skip estimating exact memory requirement.
+> >> -        * Looks like one record_size is always enough.
+> >> +        * Compute the exact size of the attribute list.  Each attribu=
+te in the
+> >> +        * record yields one ATTR_LIST_ENTRY of le_size(name_len) byte=
+s.  The
+> >> +        * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, =
+but an
+> >> +        * unnamed one expands to le_size(0) (0x20) here, so a record =
+crafted
+> >> +        * with many such attributes needs more than a single record_s=
+ize; the
+> >> +        * previous fixed kzalloc(record_size) could therefore be over=
+flowed by
+> >> +        * an attacker-controlled record.
+> >>           */
+> >> -       le =3D kzalloc(al_aligned(rs), GFP_NOFS);
+> >> +       lsize =3D 0;
+> >> +       attr =3D NULL;
+> >> +       while ((attr =3D mi_enum_attr(ni, &ni->mi, attr)))
+> >> +               lsize +=3D le_size(attr->name_len);
+> >> +
+> >> +       if (!lsize)
+> >> +               return -EINVAL;
+> >> +
+> >> +       le =3D kzalloc(al_aligned(lsize), GFP_NOFS);
+> >>          if (!le)
+> >>                  return -ENOMEM;
+> >>
+> >> @@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+> >>          attr =3D NULL;
+> >>          nb =3D 0;
+> >>          free_b =3D 0;
+> >> -       attr =3D NULL;
+> >>
+> >>          for (; (attr =3D mi_enum_attr(ni, &ni->mi, attr)); le =3D Add=
+2Ptr(le, sz)) {
+> >>                  sz =3D le_size(attr->name_len);
+> >> --
+> >> 2.43.0
+>
+> Hello,
+>
+> Sorry for the confusion. The fix is already upstream: v1 was applied as
+> commit 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
+> ni_create_attr_list()"), in v7.3-rc1. v2 is functionally identical, so
+> there is nothing further for me to apply.
+>
+> The applied commit does not carry Cc: stable, though, so it has not
+> been backported.
+>
+> Thanks for the fix, and for following up on it.
+>
+> Regards,
+> Konstantin
+>
