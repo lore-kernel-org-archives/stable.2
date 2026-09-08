@@ -1,76 +1,43 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5CAE54CF6F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 14:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2A149EC69;
+	Tue,  8 Sep 2026 14:42:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878117; cv=none; b=AA+ii6b101LdgS9QYtmN9F+ZdRxRKlaoEANmzfnWDkVTBNGkoj8MumgovPLySo7dVR5bBiw7PCjPUMkesCiX/JrXHTjk266JE88iWdSdTtDYAI1e/la4pqNizSXPx3kBIuXPvRjhrtObo49294hjm5RbsuZuKvbARO9nnODng+k=
+	t=1788878584; cv=none; b=dXl/qPq+FV9/sHPoAxspCrpPiv6+2nKRvTlzmO5hTbywZg6m0TIxarcygfL+ITg1kMr69SoCy8wgxQGSxkwYk+JG/8vadI9sGq279wH0wrFaNYHQuBJj404Tip6ed3UtHj/WrkLBNNOS5PjAP9GR6lSJYWFb/hhQayXkQmA/sF8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878117; c=relaxed/simple;
-	bh=BfLF/Aj5a2l/eiHeKL8scRNQ5iV8q4zXfLB9x+4z/8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r9YBbrShgXtfn/nrxx9u81OJFXgAJcgSTF1O4McFxQ6oJOhUe8zPjhPdj89NRtsWv2TRfWBpwEIYooKptpXcCgFFthwOgRwePaRlqQTKhhoDDhp4vjwR7lUwb0MGB9vi8Czqw3HZKMxxiQRsQYlmyU6QuxmomtO4znq8T63l4ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tCYe4Bvp; arc=none smtp.client-ip=74.125.229.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788878584; c=relaxed/simple;
+	bh=8I4SJYLaWlCODfgGIIihvoylnRMJJuun9WzbuneMutE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Abjmmz5wV9Ytve3hq8wJ//TvbdCxjOB6MUCJhh3yiFfUENFL8GvOu7whAUqs9np56bcPdbFGeszilHbQwmjETY/lbPh5iuYYtk0U/Wyfoff+JJBm04UXW6qkRHPCmPkZV0SFTyv/mOQcobkn1lVS1uN10kb3P+JJLApIcJB1wrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lz51TJq/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tCYe4Bvp"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b1a4faso653181e87.0
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 07:35:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788878104; x=1789482904; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MW4LrkosLq6x3pWpb8ZQTriCBVYq7W5XekYvYQdHPT0=;
-        b=tCYe4BvpdSfzdybPtfB68UUi9LwOUXrcCYcyVxdcJuQYmt6d0Z5VW16P6jSPdNlOGw
-         uKLeMilJBhY4T2cnadX9RDtcCEYZZQ38q7/8N2NDVeqeyHa24dI+BmAVypnACc2TnwZK
-         WrCxNihbsHZmDYKPvZbmCfECod96Z8cXKgnYdDNi5mKTlgnhP8HHpXBY9Lq2ITIov0Zl
-         1CBfybWFAIHQeYBZHruZk5MUERhOoJ4J8IDvQ7oDAq/B/ajXVYJe0y/IvReV7qp1wSyi
-         eknEQHgLBGoXDXk4I8LIm3qfNBu/nWCjT1tuKCyWCLHniuH+5NCxEiEndTwWssRoDxjb
-         OvkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878104; x=1789482904;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MW4LrkosLq6x3pWpb8ZQTriCBVYq7W5XekYvYQdHPT0=;
-        b=cpizvoSQ1iMOM0rANy6p43LTFldesiVZ71rR46kJVPz3ODbp30Lz8+pjatoeFNHM5v
-         e8DRA3kCkMHxiNX+oLOGcdesYK+9kDLJCy4QC7rIxf3jACR7yu1GYdN8fhwa0vJP5BN+
-         Rxl4kyadiOK5L5EXQoyZX3jKRYpl51h87KzLVdjEz3NU+/E6ePMcuxxMPI3w3NUY8QXA
-         vBXIw4gAg7dutG/cdwi0U/PKb48ngFnGYLP+DkbdVlGFhcbcOZOuhpUaJldgFrxbyeqg
-         +zbJOBg1hQo4nNH6TR9hTR3C0fKWT8a1LGXEZ31/TQYuASh2v3kjAE5JhQNBlW33cs+A
-         E6VA==
-X-Gm-Message-State: AFuF++lsyPJiUJCl+PqoAuqXZVe2W8hLkXsMxu0zSD0OWNpnmY99DJta
-	J13ntQSJQPpWTpygcNh3XyOO3TMWQF2mviS2hZl0Ox062KFHWW5ChSV7e/MhuA==
-X-Gm-Gg: AYBFou2e7Mbef6GHDXRc9hPzj5G1UOxn3NwWtbPupnmNZoVsQ+IkxI9ikpPFGhcNKyP
-	VPYg9O8EILr+qlgQGIROklhJjYWvUVHNmqmWmdsTTOUyqU92VRpptRGP/oRJ3ycwQJQfTEom9nO
-	cVEyOk0rVmrTIVpG2EnfjoMAYRwTEa4LrlDHyDgbtk8JKcNTTHKuLXfmeYZkZVSsDpE3JyxEN4y
-	QJazWBIG0uYrX8azu81jRRs8Kt5PHeCdyFGKmbniIwJBkzMxLt5dAZnTt2xH+2TCpQmSGJvzDk1
-	8EZRFjthbZnvt0PTwsQdsVfqFWpQo9KD/HM52tr0PPFpQ5r3U/nQ5JmxZN/MhkmxeuUZLatHx5b
-	JKqz9IslaZcxfpO4j9OZV6BNGXbvWNbXyWSlCIVhDN9RGpKhzjO295PGyO8OMoQUFzJjfnx/oW5
-	t93gICwWwaYIwbhvH4l3B8cY9pACP5leN9ooZSuzlOdCiUwdCsR50Vi5HcaOb/kKJqfkuKMlWSj
-	jc=
-X-Received: by 2002:a05:6512:685:b0:5ae:b2df:c11a with SMTP id 2adb3069b0e04-5b74d4055d3mr4095036e87.0.1788878103832;
-        Tue, 08 Sep 2026 07:35:03 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b616709f95sm3092257e87.74.2026.09.08.07.35.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:35:02 -0700 (PDT)
-From: Dmitriy Okunev <dokunevdmitriy@gmail.com>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	lvc-project@linuxtesting.org,
-	Declan Murphy <declan.murphy@intel.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Mark Gross <mgross@linux.intel.com>,
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
-	linux-crypto@vger.kernel.org
-Subject: [PATCH] crypto: keembay-ocs: prevent underflow in sg_data_total - remainder
-Date: Tue,  8 Sep 2026 17:34:47 +0300
-Message-ID: <20260908143447.2155188-1-dokunevdmitriy@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lz51TJq/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A3A11F00A3A;
+	Tue,  8 Sep 2026 14:42:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788878574;
+	bh=jNxvFKt4UGJwKbXlYaf84gFPggvY9g3V38ihxwf2lM8=;
+	h=From:To:Cc:Subject:Date;
+	b=Lz51TJq/mLh0SOQWb50eZFJzbQhGHKJc5jizpRNUWLtlYghmUsHLlz7VUn2nmVaHn
+	 PPEhEdOtcobvJfaCFckPbFhXzZjyP5DsE6uAP6lbzYBrcrk9hzuF8n8TVxRHhFNl+R
+	 zZR7/V8OIrpLE9ji89C2nhPBMFrwBNYS/TVq+tMAr6MQdoyY5YE24JPjoww2ahRZPs
+	 NkTcKG8s4dfB0MCugKnrPX666QGVF6y5LCq9HDrcVghJ3Qj8GMLkcYqKWg4KRModJk
+	 UUr5mE/VAvZNUOGeNEDG5UCHf9M+ER9a03dJVu8+oVriCPIEYk6Mag+W8/c5o0IKDF
+	 Me4RIGqmuTfdQ==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Enze Li <lienze@kylinos.cn>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v2] mm/damon/core: reset invalid quota->charge_target_from
+Date: Tue,  8 Sep 2026 07:42:44 -0700
+Message-ID: <20260908144246.104162-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -79,42 +46,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the kmb_ocs_dma_prepare() function, the `remainder` is calculated
-as `total % blk_sz`, where `total = sg_data_total + buf_cnt`. In
-update requests, if `buf_cnt` is large and `total` is less than
-`rctx->blk_sz`, the `remainder` may exceed `sg_data_total`, which
-will lead to an overflow of `sg_data_total - remainder`. This results
-in an incorrect large value being passed to the `sg_nents_for_len()`
-function, which can lead to memory corruption.
+DAMOS can suddenly stop working if a target process that the quota is
+just fully charged on is terminated.  Fix by catching and processing the
+corner case.
 
-Add a check to return -EINVAL if `sg_data_total < remainder`,
-so that the subtraction is always safe.
+When DAMOS quota is fully charged, the target and the region to continue
+applying the action in the next round is saved in
+damos_quota->charge_{target,addr}_from.  In the next round, DAMOS
+iterates targets and regions from the beginning.  It skips applying the
+action to the regions until it visits and skips the saved target/region.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+Virtual address space targets become invalid if the process is
+terminated.  Trying to apply the scheme to invalid target is just a
+waste of time.  Hence commit 6e4930e33329 ("mm/damon/core: fix wasteful
+CPU calls by skipping non-existent targets") made the logic to skip
+invalid targets.  However, it does skip before the charged target/region
+skipping/updating.
 
-Fixes: 472b04444cd3 ("crypto: keembay - Add Keem Bay OCS HCU driver")
-Signed-off-by: Dmitriy Okunev <dokunevdmitriy@gmail.com>
+Let's suppose the user runs DAMOS for multiple virtual address spaces
+with a quota.  The quota exceeded in the middle of a virtual address
+space.  And the process of the address space is terminated.  Then the
+charge_target_from points to the invalid target.  The pointer update
+logic is skipped for the invalid target, so the charge_target_from is
+never updated.  DAMOS action to every target/region is skipped.  From
+the user's perspective, it would look like suddenly DAMOS has stopped
+working.
+
+No critical leak or crash can happen.  The user could reinstall the
+scheme.  But this makes use of DAMOS under certain setups quite
+unreliable.
+
+When the invalid target is found, further check the corner case and
+reset the pointer.
+
+This issue was discovered [1] by Sashiko.
+
+[1] https://lore.kernel.org/20260830064708.40CA61F000E9@smtp.kernel.org
+
+Fixes: 6e4930e33329 ("mm/damon/core: fix wasteful CPU calls by skipping non-existent targets")
+Cc: <stable@vger.kernel.org> # 7.0.x
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
- drivers/crypto/intel/keembay/keembay-ocs-hcu-core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+Changes from v1
+- v1: https://lore.kernel.org/20260907165529.98874-1-sj@kernel.org
+- Move the corner case check to invalid target found case, to handle
+  dynamic quota uninstall case.
+- Add RFC tag again.
+Changes from RFC v1
+- RFC v1: https://lore.kernel.org/20260906183654.95634-1-sj@kernel.org
+- Drop RFC tag.
 
-diff --git a/drivers/crypto/intel/keembay/keembay-ocs-hcu-core.c b/drivers/crypto/intel/keembay/keembay-ocs-hcu-core.c
-index 9a67bb4ecc82..92f2d9ff6f83 100644
---- a/drivers/crypto/intel/keembay/keembay-ocs-hcu-core.c
-+++ b/drivers/crypto/intel/keembay/keembay-ocs-hcu-core.c
-@@ -246,8 +246,11 @@ static int kmb_ocs_dma_prepare(struct ahash_request *req)
- 	 * HCU must be aligned to the block size; compute the remainder data to
- 	 * be processed in the next request.
- 	 */
--	if (!(rctx->flags & REQ_FINAL))
-+	if (!(rctx->flags & REQ_FINAL)) {
- 		remainder = total % rctx->blk_sz;
-+		if (rctx->sg_data_total < remainder)
-+			return -EINVAL;
-+	}
+ mm/damon/core.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index ce8c6f99106ed..a360c41cda89c 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3389,8 +3389,15 @@ static void kdamond_apply_schemes(struct damon_ctx *c)
+ 	max_region_sz = damon_region_sz_limit(c);
+ 	mutex_lock(&c->walk_control_lock);
+ 	damon_for_each_target(t, c) {
+-		if (c->ops.target_valid && c->ops.target_valid(t) == false)
++		if (c->ops.target_valid && c->ops.target_valid(t) == false) {
++			damon_for_each_scheme(s, c) {
++				if (s->quota.charge_target_from != t)
++					continue;
++				s->quota.charge_target_from = NULL;
++				s->quota.charge_addr_from = 0;
++			}
+ 			continue;
++		}
+ 		damos_apply_target(c, t, max_region_sz);
+ 	}
  
- 	/* Determine the number of scatter gather list entries to process. */
- 	nents = sg_nents_for_len(req->src, rctx->sg_data_total - remainder);
--- 
-2.53.0
 
+base-commit: 4c152875952628604696dbba38cd487fdfde28ea
+-- 
+2.47.3
