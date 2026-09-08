@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F27051A745
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:23:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14F7A311C2D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:23:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788881003; cv=none; b=O65AMgvGiMd1i0ZExvi9Y5B8BpoHt6G3/eZ4wGZXDSqpMSN9LNlwh5wdMfBDIRZw3MwS0UAYJPNN/wIbR43fYoLylqqWIlDSsE4Q6Ato2p2F2dhrX6AgJQwaU6i2IaUcz+O0C5tWlBNr44tlDEjPB+2ffoD1Ai7nVXTlq8J1uP0=
+	t=1788881044; cv=none; b=hBz9J63KGcGee1LwDeYJeQjIfw7XY3nXSzfXbeifIZXWjoLbAFmatp2bRmKduP8rWG/aNViZdET4OXtk/uhH9L3zBT/lofECmfU0+OELCSDVcP1friBAdg/L2I9zDPVRpqdhQxXy0yIhZ1UcvQYX2wXFTbrKiZce1KP0Q2cpE9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788881003; c=relaxed/simple;
-	bh=Vs9u8mzEXViD8Vv/CNdwO/SfW5bYcOi6Omyxf47fU7M=;
+	s=arc-20240116; t=1788881044; c=relaxed/simple;
+	bh=+3TbNq4I5WUDgsElPrSIlf88x+DrFoWeDhT4++DQ1Go=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=TNEVOVdoGTPntoV1Ak/j5Rnzre7CasDuPrGBmIqjS7EbIDMG/M6xCnDYwcl/2Gn0wGk/bQXx06gFeVlcu8akXQ0dfqIVsEeWh0cKH0WVhfseWh6OS8irMVWTHjBI++t9DXqhZ8RLz/xJfd/EjhtE7HKkybMwUKmfDirfKTW4wJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CFqzp/yY; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=Wh3Jniua8LPDKBn2PQT+ZFOuDZ4loRBskdwp7TOocZZQlrESIUHyVD7BleDJjP5TSlkoBV2gXRFnPNy1bvqlqTFYATqi08pnIGr9A2r/TG+8AHN5yOORHiMXzWS/7+bBv92MjWlU6demrJ4i2+RjW7sjoMZ6CPUdWH+oU054Ix8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=oWAT3/w2; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CFqzp/yY"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="oWAT3/w2"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD0701CC4;
-	Tue,  8 Sep 2026 08:23:09 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 15A531C2B;
+	Tue,  8 Sep 2026 08:23:50 -0700 (PDT)
 Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B992E3F7B4;
-	Tue,  8 Sep 2026 08:23:10 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 003ED3F7B4;
+	Tue,  8 Sep 2026 08:23:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788880993; bh=Vs9u8mzEXViD8Vv/CNdwO/SfW5bYcOi6Omyxf47fU7M=;
+	t=1788881033; bh=+3TbNq4I5WUDgsElPrSIlf88x+DrFoWeDhT4++DQ1Go=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CFqzp/yYDljxrShd5sx2/qimoAV5lly7MGeRwuSOpuY+uPB0lNstJ+PwCA+IyfkuC
-	 MAjabA1D4j4b3Q1EEsKp0zPgYFed5awBP7SmP6eZqTDD5IXTZFed9jdl6xz+RUIPTg
-	 t7RK+mfRsWfHp7xtV0uAu8dihwuLBDfToZVrn4JA=
+	b=oWAT3/w27laItZfMIUXEbjJWqji7hz6hClmellVkeRjvZyuvgPutvepeCJ+RyfSJe
+	 yX9st1C4powqEHNrFup9vXhjQNB1DDXzyWQGyVR4CdJ6jy6rwXmr9WDNMN4AAue8IN
+	 u+0asB0rMdCFFBBg/fUiCe6K0cTJGgpKRVWbyBHQ=
 From: Mark Rutland <mark.rutland@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: ada.coupriediaz@arm.com,
@@ -46,9 +46,9 @@ Cc: ada.coupriediaz@arm.com,
 	vladimir.murzin@arm.com,
 	will@kernel.org,
 	yang@os.amperecomputing.com
-Subject: [PATCH v4 15/21] arm64: percpu: Implement preemptible read/write ops
-Date: Tue,  8 Sep 2026 16:17:35 +0100
-Message-Id: <20260908151741.394589-16-mark.rutland@arm.com>
+Subject: [PATCH v4 16/21] arm64: percpu: Implement preemptible void RMW ops
+Date: Tue,  8 Sep 2026 16:17:36 +0100
+Message-Id: <20260908151741.394589-17-mark.rutland@arm.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20260908151741.394589-1-mark.rutland@arm.com>
 References: <20260908151741.394589-1-mark.rutland@arm.com>
@@ -60,26 +60,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the PCPU GPR infrastructure to implement preemptible this_cpu_read()
-and this_cpu_write().
-
-This change means that this_cpu_read() will always use a plain LDR, even
-in LTO configurations where READ_ONCE() will use LDA[P]R. Using plain
-LDR is preferable, given that the rationale for using LDA[P]R in
-READ_ONCE() was to retain address dependencies against values written by
-other CPUs, which isn't expected usage for this_cpu_read(). Using plain
-LDR will enforce fewer ordering constraints.
+Use the PCPU GPR infrastructure to implement all of the RMW ops which do
+not return a value.
 
 Test case:
 
-| void outline_this_cpu_write_u64(u64 __percpu *p, u64 v)
+| void outline_this_cpu_add_u64(u64 __percpu *p, u64 v)
 | {
-| 	this_cpu_write(*p, v);
+| 	this_cpu_add(*p, v);
 | }
 
 Generated code before this patch (v7.2-rc4):
 
-| <outline_this_cpu_write_u64>:
+| <outline_this_cpu_add_u64>:
 |        paciasp
 |        stp     x29, x30, [sp, #-16]!
 |        mrs     x2, sp_el0
@@ -88,26 +81,34 @@ Generated code before this patch (v7.2-rc4):
 |        add     w3, w3, #0x1
 |        str     w3, [x2, #8]
 |        mrs     x3, tpidr_el1
-|        str     x1, [x0, x3]
+|        add     x0, x0, x3
+| 1:     ldxr    x5, [x0]
+|        add     x5, x5, x1
+|        stxr    w4, x5, [x0]
+|        cbnz    w4, 1b
 |        ldr     x0, [x2, #8]
 |        sub     x0, x0, #0x1
 |        str     w0, [x2, #8]
-|        cbz     x0, 1f
+|        cbz     x0, 2f
 |        ldr     x0, [x2, #8]
-|        cbnz    x0, 2f
-| 1:     bl      preempt_schedule_notrace
-| 2:     ldp     x29, x30, [sp], #16
+|        cbnz    x0, 3f
+| 2:     bl      preempt_schedule_notrace
+| 3:     ldp     x29, x30, [sp], #16
 |        autiasp
 |        ret
 
 Generated code after this patch:
 
-| <outline_this_cpu_write_u64>:
+| <outline_this_cpu_add_u64>:
 |        mrs     x2, sp_el0
-|        mov     w3, #0x7c60
-|        strh    w3, [x2, #20]
-|        mrs     x3, tpidr_el1
-|        str     x1, [x0, x3]
+|        mov     w4, #0xc80
+|        strh    w4, [x2, #20]
+|        mrs     x4, tpidr_el1
+|        add     x3, x0, x4
+| 1:     ldxr    x6, [x3]
+|        add     x6, x6, x1
+|        stxr    w5, x6, [x3]
+|        cbnz    w5, 1b
 |        strh    wzr, [x2, #20]
 |        ret
 
@@ -124,122 +125,106 @@ Cc: Vladimir Murzin <vladimir.murzin@arm.com>
 Cc: Will Deacon <will@kernel.org>
 Cc: Yang Shi <yang@os.amperecomputing.com>
 ---
- arch/arm64/include/asm/percpu.h | 79 ++++++++++++++++++++++++---------
- 1 file changed, 58 insertions(+), 21 deletions(-)
+ arch/arm64/include/asm/percpu.h | 52 ++++++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 20 deletions(-)
 
 diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index 03fa916030fd1..984f69846cc09 100644
+index 984f69846cc09..504a7fefa2015 100644
 --- a/arch/arm64/include/asm/percpu.h
 +++ b/arch/arm64/include/asm/percpu.h
-@@ -128,15 +128,42 @@ static inline unsigned long __kern_my_cpu_offset(void)
- #define __my_cpu_offset __kern_my_cpu_offset()
- #endif
- 
--#define PERCPU_RW_OPS(sz)						\
--static inline unsigned long __percpu_read_##sz(void *ptr)		\
--{									\
--	return READ_ONCE(*(u##sz *)ptr);				\
--}									\
--									\
--static inline void __percpu_write_##sz(void *ptr, unsigned long val)	\
--{									\
--	WRITE_ONCE(*(u##sz *)ptr, (u##sz)val);				\
-+#define PERCPU_RW_OPS(w, sfx, sz)						\
-+static inline unsigned long __percpu_read_##sz(void __percpu *pcp)		\
-+{										\
-+	u16 *gprs = &current_thread_info()->pcpu_gprs;				\
-+	unsigned long off;							\
-+	unsigned long val;							\
-+										\
-+	asm volatile(								\
-+	__PCPU_GPRS_BEGIN_OFFSET("%[gprs]", "%[pcp]", "%[off]")			\
-+	"	ldr" #sfx "\t%" #w "[val], [%[pcp], %[off]]\n"			\
-+	__PCPU_GPRS_END("%[gprs]")						\
-+	: [gprs] "=Qo" (*gprs),							\
-+	  [off] "=&r" (off),							\
-+	  [val] "=&r" (val)							\
-+	: [pcp] "r" (pcp)							\
-+	: "memory"								\
-+	);									\
-+										\
-+	return val;								\
-+}										\
-+										\
-+static inline void __percpu_write_##sz(void __percpu *pcp, unsigned long val)	\
-+{										\
-+	u16 *gprs = &current_thread_info()->pcpu_gprs;				\
-+	unsigned long off;							\
-+										\
-+	asm volatile(								\
-+	__PCPU_GPRS_BEGIN_OFFSET("%[gprs]", "%[pcp]", "%[off]")			\
-+	"	str" #sfx "\t%" #w "[val], [%[pcp], %[off]]\n"			\
-+	__PCPU_GPRS_END("%[gprs]")						\
-+	: [gprs] "=Qo" (*gprs),							\
-+	  [off] "=&r" (off)							\
-+	: [pcp] "r" (pcp),							\
-+	  [val] "r" ((u##sz)val)						\
-+	: "memory"								\
-+	);									\
- }
+@@ -168,23 +168,35 @@ static inline void __percpu_write_##sz(void __percpu *pcp, unsigned long val)	\
  
  #define __PERCPU_OP_CASE(w, sfx, name, sz, op_llsc, op_lse)		\
-@@ -196,10 +223,10 @@ __percpu_##name##_return_case_##sz(void *ptr, unsigned long val)	\
- 	__PERCPU_RET_OP_CASE(w,  , name, 32, op_llsc, op_lse)		\
- 	__PERCPU_RET_OP_CASE( ,  , name, 64, op_llsc, op_lse)
+ static inline void							\
+-__percpu_##name##_case_##sz(void *ptr, unsigned long val)		\
++__percpu_##name##_case_##sz(void __percpu *pcp, unsigned long val)	\
+ {									\
++	u16 *gprs = &current_thread_info()->pcpu_gprs;			\
++	unsigned long addr;						\
++	unsigned long off;						\
+ 	unsigned int loop;						\
+ 	u##sz tmp;							\
+ 									\
+-	asm volatile (ARM64_LSE_ATOMIC_INSN(				\
++	asm volatile (							\
++	__PCPU_GPRS_BEGIN("%[gprs]", "%[pcp]", "%[off]", "%[addr]")	\
++	ARM64_LSE_ATOMIC_INSN(						\
+ 	/* LL/SC */							\
+-	"1:	ldxr" #sfx "\t%" #w "[tmp], %[ptr]\n"			\
++	"1:	ldxr" #sfx "\t%" #w "[tmp], [%[addr]]\n"		\
+ 		#op_llsc "\t%" #w "[tmp], %" #w "[tmp], %" #w "[val]\n"	\
+-	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], %[ptr]\n"		\
++	"	stxr" #sfx "\t%w[loop], %" #w "[tmp], [%[addr]]\n"	\
+ 	"	cbnz	%w[loop], 1b",					\
+ 	/* LSE atomics */						\
+-		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], %[ptr]\n"	\
++		#op_lse #sfx "\t%" #w "[val], %" #w "[tmp], [%[addr]]\n"\
+ 		__nops(3))						\
+-	: [loop] "=&r" (loop), [tmp] "=&r" (tmp),			\
+-	  [ptr] "+Q"(*(u##sz *)ptr)					\
+-	: [val] "r" ((u##sz)(val)));					\
++	__PCPU_GPRS_END("%[gprs]")					\
++	: [gprs] "=Qo" (*gprs),						\
++	  [addr] "=&r" (addr),						\
++	  [off] "=&r" (off),						\
++	  [loop] "=&r" (loop),						\
++	  [tmp] "=&r" (tmp)						\
++	: [pcp] "r" (pcp),						\
++	  [val] "r" ((u##sz)(val))					\
++	: "memory"							\
++	);								\
+ }
  
--PERCPU_RW_OPS(8)
--PERCPU_RW_OPS(16)
--PERCPU_RW_OPS(32)
--PERCPU_RW_OPS(64)
-+PERCPU_RW_OPS(w, b, 8)
-+PERCPU_RW_OPS(w, h, 16)
-+PERCPU_RW_OPS(w,  , 32)
-+PERCPU_RW_OPS( ,  , 64)
- 
- /*
-  * Use value-returning atomics for CPU-local ops as they are more likely
-@@ -245,23 +272,33 @@ PERCPU_RET_OP(add, add, ldadd)
- 	__retval;							\
- })
- 
-+#define _pcp_wrap(op, pcp, ...)						\
-+({									\
-+	op(&(pcp), __VA_ARGS__);					\
-+})
-+
-+#define _pcp_wrap_return(op, pcp, args...)				\
-+({									\
-+	(typeof(pcp))op(&(pcp), ##args);				\
-+})
-+
- #define this_cpu_read_1(pcp)		\
--	_pcp_protect_return(__percpu_read_8, pcp)
-+	_pcp_wrap_return(__percpu_read_8, pcp)
- #define this_cpu_read_2(pcp)		\
--	_pcp_protect_return(__percpu_read_16, pcp)
-+	_pcp_wrap_return(__percpu_read_16, pcp)
- #define this_cpu_read_4(pcp)		\
--	_pcp_protect_return(__percpu_read_32, pcp)
-+	_pcp_wrap_return(__percpu_read_32, pcp)
- #define this_cpu_read_8(pcp)		\
--	_pcp_protect_return(__percpu_read_64, pcp)
-+	_pcp_wrap_return(__percpu_read_64, pcp)
- 
- #define this_cpu_write_1(pcp, val)	\
--	_pcp_protect(__percpu_write_8, pcp, (unsigned long)(val))
-+	_pcp_wrap(__percpu_write_8, pcp, (unsigned long)(val))
- #define this_cpu_write_2(pcp, val)	\
--	_pcp_protect(__percpu_write_16, pcp, (unsigned long)(val))
-+	_pcp_wrap(__percpu_write_16, pcp, (unsigned long)(val))
- #define this_cpu_write_4(pcp, val)	\
--	_pcp_protect(__percpu_write_32, pcp, (unsigned long)(val))
-+	_pcp_wrap(__percpu_write_32, pcp, (unsigned long)(val))
- #define this_cpu_write_8(pcp, val)	\
--	_pcp_protect(__percpu_write_64, pcp, (unsigned long)(val))
-+	_pcp_wrap(__percpu_write_64, pcp, (unsigned long)(val))
+ #define __PERCPU_RET_OP_CASE(w, sfx, name, sz, op_llsc, op_lse)		\
+@@ -301,13 +313,13 @@ PERCPU_RET_OP(add, add, ldadd)
+ 	_pcp_wrap(__percpu_write_64, pcp, (unsigned long)(val))
  
  #define this_cpu_add_1(pcp, val)	\
- 	_pcp_protect(__percpu_add_case_8, pcp, val)
+-	_pcp_protect(__percpu_add_case_8, pcp, val)
++	_pcp_wrap(__percpu_add_case_8, pcp, val)
+ #define this_cpu_add_2(pcp, val)	\
+-	_pcp_protect(__percpu_add_case_16, pcp, val)
++	_pcp_wrap(__percpu_add_case_16, pcp, val)
+ #define this_cpu_add_4(pcp, val)	\
+-	_pcp_protect(__percpu_add_case_32, pcp, val)
++	_pcp_wrap(__percpu_add_case_32, pcp, val)
+ #define this_cpu_add_8(pcp, val)	\
+-	_pcp_protect(__percpu_add_case_64, pcp, val)
++	_pcp_wrap(__percpu_add_case_64, pcp, val)
+ 
+ #define this_cpu_add_return_1(pcp, val)	\
+ 	_pcp_protect_return(__percpu_add_return_case_8, pcp, val)
+@@ -319,22 +331,22 @@ PERCPU_RET_OP(add, add, ldadd)
+ 	_pcp_protect_return(__percpu_add_return_case_64, pcp, val)
+ 
+ #define this_cpu_and_1(pcp, val)	\
+-	_pcp_protect(__percpu_andnot_case_8, pcp, ~(u8)(val))
++	_pcp_wrap(__percpu_andnot_case_8, pcp, ~(u8)(val))
+ #define this_cpu_and_2(pcp, val)	\
+-	_pcp_protect(__percpu_andnot_case_16, pcp, ~(u16)(val))
++	_pcp_wrap(__percpu_andnot_case_16, pcp, ~(u16)(val))
+ #define this_cpu_and_4(pcp, val)	\
+-	_pcp_protect(__percpu_andnot_case_32, pcp, ~(u32)(val))
++	_pcp_wrap(__percpu_andnot_case_32, pcp, ~(u32)(val))
+ #define this_cpu_and_8(pcp, val)	\
+-	_pcp_protect(__percpu_andnot_case_64, pcp, ~(u64)(val))
++	_pcp_wrap(__percpu_andnot_case_64, pcp, ~(u64)(val))
+ 
+ #define this_cpu_or_1(pcp, val)		\
+-	_pcp_protect(__percpu_or_case_8, pcp, val)
++	_pcp_wrap(__percpu_or_case_8, pcp, val)
+ #define this_cpu_or_2(pcp, val)		\
+-	_pcp_protect(__percpu_or_case_16, pcp, val)
++	_pcp_wrap(__percpu_or_case_16, pcp, val)
+ #define this_cpu_or_4(pcp, val)		\
+-	_pcp_protect(__percpu_or_case_32, pcp, val)
++	_pcp_wrap(__percpu_or_case_32, pcp, val)
+ #define this_cpu_or_8(pcp, val)		\
+-	_pcp_protect(__percpu_or_case_64, pcp, val)
++	_pcp_wrap(__percpu_or_case_64, pcp, val)
+ 
+ #define this_cpu_xchg_1(pcp, val)	\
+ 	_pcp_protect_return(xchg_relaxed, pcp, val)
 -- 
 2.30.2
 
