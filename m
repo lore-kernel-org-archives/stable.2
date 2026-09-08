@@ -1,43 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CE5C374A1B
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:19:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC0924336D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870003; cv=none; b=qmXAwoOdjw4SEwKW3KYMQ71BKYbt4YtLuudusC0R+OySMNgD025ijTVbBIh85NoZNVHsSub8LeD1yDTQpdsLBPLLOdNdyFieJcrTebl0Hr7+I+5Eb/lWfFLlkBJLj88k9qARJCYqtd0ZunMSI7wm2jGP6gUGqoYVBPcAh6yQ6Bs=
+	t=1788870003; cv=none; b=mJ0LFOqPD6CSJEXNPIrd7CKKLKv6jHuFbXhMCGNb0mIPX5t/UhMcVKdHG9ryIpm1VM4fAU+HrnRbg4hpmuxUKO2PV9zg5l3Qxmw6zJ2eCzxy7zWk242qISAD7JuJLo7llAJexK40x3Y3O+OOzD5L/U3hnYIpiASxjLJiya5hXno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788870003; c=relaxed/simple;
-	bh=M54xYw2L+PEqgyJR3AOEBDEPOaqy/Qa58ykSKKa12c4=;
+	bh=lzrEdnGK872CHGw6fgUBMD5EgIw4oMHT0/fBys4E/iw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CE2ONnpXK7tZjTwgleTOG4XspeMP95kEACMwVyF7DkvQcUaSS7770srpvyfEjoK89tyjekYrGYLUbA4E19R5OrbbPXdfk7j9W70kKMP0auIgAZFuW/o5vgtluEmjLaOA+bo7lfT/w533e0tFR0CDI8oUJiW5CzWId5b7STtKALA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bwSwCMPk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MpRtgi8TTcsqcVrAQdDzmFX6hDptMTmSUmBpQXZdqGRWmAqAFYopyjrJpPm3OOupwNhZDjaOtW+HVFttcR8/IV8TvlR7LXCMGUoK9vM5zCtUPlA4vtRyojt8KVuxSZlxHJYK/Vkd9O3mj0T1r4rUlYQbwciaiQCaeqc5HViaUNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eg0KqBtD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bwSwCMPk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB621F00A3A;
-	Tue,  8 Sep 2026 12:19:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eg0KqBtD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244671F00A3E;
+	Tue,  8 Sep 2026 12:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869997;
-	bh=oSyqDiSHEe9VGwGGKDuQ78wFXkJWdTdWOWer6a+inGA=;
+	s=k20260515; t=1788869999;
+	bh=bMJUd4IYOhoLSvgvx1bfQ9JSs7m1DPGjZhnoXo2CfcU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bwSwCMPke5AIUvEQfvoTDh7t9a5wfKhxaPwi4nJxMI+wggoFn36eqWLgtrQsRIoEf
-	 9inpvbdjiYxa6vTd981mdyXR9ElXyU+amNWl5wd9GEV4kHdlHK7vNz5fn7oMzrPjSl
-	 9e+5q63el2RJeMgj7yRa0XN/J5i10MwSN7WA3CU1RdcHaJ75G2KIIoYjAJoxaEeNrG
-	 175ta9pGzh2SjV/bJ5QLEJ2X+l1C14eNW6T7xyrhraUCeDnS3OMmlozSUj9R/hybSV
-	 aURFlEXq3YxMhnp2NsVkvkJcZtFnJ3jN/kZzROCy8Jjnut76wbUbmlBk3FbtDFHlz1
-	 bzA1LLvKR5wAw==
+	b=Eg0KqBtDB6ewiski6tU6O9WZo8cEmuFIOxS/ZUBtpRD+T9ffsj5xxgyaJBF0qvEWj
+	 ruf6IQ+3WfFP9CvnVQg4ts6HFeYa/QmibY8MRGg+4HeDxGpNmF9ICjYpzUBK2p2d++
+	 uOmipXtKhgEsVI0s/CNUmkNm5toUmR39DxiaJNOOZFOzciMEclcVFiWMFqLKEGU0Yp
+	 bno8X7kOOoh2QJv+38KgC7wul2awWAT0ugF0anE2iBQsvHmTMctZn+KP8y8k0Gt1X3
+	 KaQlNVXB2mimoS4UeEirEagAZieccXp5the6x1YD/c1iq3U9srwSTYpxsWxZdVzHhz
+	 owArFaBexWneQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christoph Hellwig <hch@lst.de>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/6] iov_iter: extract a iov_iter_extract_bvecs helper from bio code
-Date: Tue,  8 Sep 2026 08:19:50 -0400
-Message-ID: <20260908121955.2049107-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/6] block: add helpers to bounce buffer an iov_iter into bios
+Date: Tue,  8 Sep 2026 08:19:51 -0400
+Message-ID: <20260908121955.2049107-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090313-revolver-python-ce1a@gregkh>
+In-Reply-To: <20260908121955.2049107-1-sashal@kernel.org>
 References: <2026090313-revolver-python-ce1a@gregkh>
+ <20260908121955.2049107-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,311 +53,270 @@ Content-Transfer-Encoding: 8bit
 
 From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 91b73c458182801a8c9cf6135335e064567d1013 ]
+[ Upstream commit 8dd5e7c75d7bb2635c7efd219ff20693fc24096a ]
 
-Massage __bio_iov_iter_get_pages so that it doesn't need the bio, and
-move it to lib/iov_iter.c so that it can be used by block code for
-other things than filling a bio and by other subsystems like netfs.
+Add helpers to implement bounce buffering of data into a bio to implement
+direct I/O for cases where direct user access is not possible because
+stable in-flight data is required.  These are intended to be used as
+easily as bio_iov_iter_get_pages for the zero-copy path.
+
+The write side is trivial and just copies data into the bounce buffer.
+The read side is a lot more complex because it needs to perform the copy
+from the completion context, and without preserving the iov_iter through
+the call chain.  It steals a trick from the integrity data user interface
+and uses the first vector in the bio for the bounce buffer data that is
+fed to the block I/O stack, and uses the others to record the user
+buffer fragments.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Tested-by: Anuj Gupta <anuj20.g@samsung.com>
 Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Stable-dep-of: 14b007e17881 ("block: validate user space vectors during extraction")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/bio.c         | 141 ++++++--------------------------------------
- include/linux/uio.h |   3 +
- lib/iov_iter.c      |  98 ++++++++++++++++++++++++++++++
- 3 files changed, 120 insertions(+), 122 deletions(-)
+ block/bio.c         | 179 ++++++++++++++++++++++++++++++++++++++++++++
+ include/linux/bio.h |  26 +++++++
+ 2 files changed, 205 insertions(+)
 
 diff --git a/block/bio.c b/block/bio.c
-index b184f0a3fcb2b..63594139efe05 100644
+index 63594139efe05..600f110e5c0dc 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -1166,122 +1166,6 @@ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
- 	bio_set_flag(bio, BIO_CLONED);
+@@ -1258,6 +1258,185 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 	return bio_iov_iter_align_down(bio, iter, len_align_mask);
  }
  
--static unsigned int get_contig_folio_len(unsigned int *num_pages,
--					 struct page **pages, unsigned int i,
--					 struct folio *folio, size_t left,
--					 size_t offset)
--{
--	size_t bytes = left;
--	size_t contig_sz = min_t(size_t, PAGE_SIZE - offset, bytes);
--	unsigned int j;
--
--	/*
--	 * We might COW a single page in the middle of
--	 * a large folio, so we have to check that all
--	 * pages belong to the same folio.
--	 */
--	bytes -= contig_sz;
--	for (j = i + 1; j < i + *num_pages; j++) {
--		size_t next = min_t(size_t, PAGE_SIZE, bytes);
--
--		if (page_folio(pages[j]) != folio ||
--		    pages[j] != pages[j - 1] + 1) {
--			break;
--		}
--		contig_sz += next;
--		bytes -= next;
--	}
--	*num_pages = j - i;
--
--	return contig_sz;
--}
--
--#define PAGE_PTRS_PER_BVEC     (sizeof(struct bio_vec) / sizeof(struct page *))
--
--/**
-- * __bio_iov_iter_get_pages - pin user or kernel pages and add them to a bio
-- * @bio: bio to add pages to
-- * @iter: iov iterator describing the region to be mapped
-- *
-- * Extracts pages from *iter and appends them to @bio's bvec array.  The pages
-- * will have to be cleaned up in the way indicated by the BIO_PAGE_PINNED flag.
-- * For a multi-segment *iter, this function only adds pages from the next
-- * non-empty segment of the iov iterator.
-- */
--static int __bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter)
--{
--	iov_iter_extraction_t extraction_flags = 0;
--	unsigned short nr_pages = bio->bi_max_vecs - bio->bi_vcnt;
--	unsigned short entries_left = bio->bi_max_vecs - bio->bi_vcnt;
--	struct bio_vec *bv = bio->bi_io_vec + bio->bi_vcnt;
--	struct page **pages = (struct page **)bv;
--	ssize_t size;
--	unsigned int num_pages, i = 0;
--	size_t offset, folio_offset, left, len;
--	int ret = 0;
--
--	/*
--	 * Move page array up in the allocated memory for the bio vecs as far as
--	 * possible so that we can start filling biovecs from the beginning
--	 * without overwriting the temporary page array.
--	 */
--	BUILD_BUG_ON(PAGE_PTRS_PER_BVEC < 2);
--	pages += entries_left * (PAGE_PTRS_PER_BVEC - 1);
--
--	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
--		extraction_flags |= ITER_ALLOW_P2PDMA;
--
--	size = iov_iter_extract_pages(iter, &pages,
--				      UINT_MAX - bio->bi_iter.bi_size,
--				      nr_pages, extraction_flags, &offset);
--	if (unlikely(size <= 0))
--		return size ? size : -EFAULT;
--
--	nr_pages = DIV_ROUND_UP(offset + size, PAGE_SIZE);
--	for (left = size, i = 0; left > 0; left -= len, i += num_pages) {
--		struct page *page = pages[i];
--		struct folio *folio = page_folio(page);
--		unsigned int old_vcnt = bio->bi_vcnt;
--
--		folio_offset = ((size_t)folio_page_idx(folio, page) <<
--			       PAGE_SHIFT) + offset;
--
--		len = min(folio_size(folio) - folio_offset, left);
--
--		num_pages = DIV_ROUND_UP(offset + len, PAGE_SIZE);
--
--		if (num_pages > 1)
--			len = get_contig_folio_len(&num_pages, pages, i,
--						   folio, left, offset);
--
--		if (!bio_add_folio(bio, folio, len, folio_offset)) {
--			WARN_ON_ONCE(1);
--			ret = -EINVAL;
--			goto out;
--		}
--
--		if (bio_flagged(bio, BIO_PAGE_PINNED)) {
--			/*
--			 * We're adding another fragment of a page that already
--			 * was part of the last segment.  Undo our pin as the
--			 * page was pinned when an earlier fragment of it was
--			 * added to the bio and __bio_release_pages expects a
--			 * single pin per page.
--			 */
--			if (offset && bio->bi_vcnt == old_vcnt)
--				unpin_user_folio(folio, 1);
--		}
--		offset = 0;
--	}
--
--	iov_iter_revert(iter, left);
--out:
--	while (i < nr_pages)
--		bio_release_page(bio, pages[i++]);
--
--	return ret;
--}
--
- /*
-  * Aligns the bio size to the len_align_mask, releasing excessive bio vecs that
-  * __bio_iov_iter_get_pages may have inserted, and reverts the trimmed length
-@@ -1339,7 +1223,7 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
- int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 			   unsigned len_align_mask)
- {
--	int ret = 0;
-+	iov_iter_extraction_t flags = 0;
- 
- 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
- 		return -EIO;
-@@ -1352,13 +1236,26 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 
- 	if (iov_iter_extract_will_pin(iter))
- 		bio_set_flag(bio, BIO_PAGE_PINNED);
-+	if (bio->bi_bdev && blk_queue_pci_p2pdma(bio->bi_bdev->bd_disk->queue))
-+		flags |= ITER_ALLOW_P2PDMA;
++static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size)
++{
++	struct folio *folio;
 +
- 	do {
--		ret = __bio_iov_iter_get_pages(bio, iter);
--	} while (!ret && iov_iter_count(iter) && !bio_full(bio, 0));
++	while (*size > PAGE_SIZE) {
++		folio = folio_alloc(gfp | __GFP_NORETRY, get_order(*size));
++		if (folio)
++			return folio;
++		*size = rounddown_pow_of_two(*size - 1);
++	}
++
++	return folio_alloc(gfp, get_order(*size));
++}
++
++static void bio_free_folios(struct bio *bio)
++{
++	struct bio_vec *bv;
++	int i;
++
++	bio_for_each_bvec_all(bv, bio, i) {
++		struct folio *folio = page_folio(bv->bv_page);
++
++		if (!is_zero_folio(folio))
++			folio_put(folio);
++	}
++}
++
++static int bio_iov_iter_bounce_write(struct bio *bio, struct iov_iter *iter)
++{
++	size_t total_len = iov_iter_count(iter);
++
++	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
++		return -EINVAL;
++	if (WARN_ON_ONCE(bio->bi_iter.bi_size))
++		return -EINVAL;
++	if (WARN_ON_ONCE(bio->bi_vcnt >= bio->bi_max_vecs))
++		return -EINVAL;
++
++	do {
++		size_t this_len = min(total_len, SZ_1M);
++		struct folio *folio;
++
++		if (this_len > PAGE_SIZE * 2)
++			this_len = rounddown_pow_of_two(this_len);
++
++		if (bio->bi_iter.bi_size > BIO_MAX_SIZE - this_len)
++			break;
++
++		folio = folio_alloc_greedy(GFP_KERNEL, &this_len);
++		if (!folio)
++			break;
++		bio_add_folio_nofail(bio, folio, this_len, 0);
++
++		if (copy_from_iter(folio_address(folio), this_len, iter) !=
++				this_len) {
++			bio_free_folios(bio);
++			return -EFAULT;
++		}
++
++		total_len -= this_len;
++	} while (total_len && bio->bi_vcnt < bio->bi_max_vecs);
++
++	if (!bio->bi_iter.bi_size)
++		return -ENOMEM;
++	return 0;
++}
++
++static int bio_iov_iter_bounce_read(struct bio *bio, struct iov_iter *iter)
++{
++	size_t len = min(iov_iter_count(iter), SZ_1M);
++	struct folio *folio;
++
++	folio = folio_alloc_greedy(GFP_KERNEL, &len);
++	if (!folio)
++		return -ENOMEM;
++
++	do {
 +		ssize_t ret;
 +
-+		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec,
-+				UINT_MAX - bio->bi_iter.bi_size,
-+				&bio->bi_vcnt, bio->bi_max_vecs, flags);
++		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec + 1, len,
++				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0);
 +		if (ret <= 0) {
 +			if (!bio->bi_vcnt)
 +				return ret;
 +			break;
 +		}
++		len -= ret;
 +		bio->bi_iter.bi_size += ret;
-+	} while (iov_iter_count(iter) && !bio_full(bio, 0));
- 
--	if (bio->bi_vcnt)
--		return bio_iov_iter_align_down(bio, iter, len_align_mask);
--	return ret;
-+	if (is_pci_p2pdma_page(bio->bi_io_vec->bv_page))
-+		bio->bi_opf |= REQ_NOMERGE;
-+	return bio_iov_iter_align_down(bio, iter, len_align_mask);
- }
- 
- static void submit_bio_wait_endio(struct bio *bio)
-diff --git a/include/linux/uio.h b/include/linux/uio.h
-index 5b127043a1519..a9bc5b3067e32 100644
---- a/include/linux/uio.h
-+++ b/include/linux/uio.h
-@@ -389,6 +389,9 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i, struct page ***pages,
- 			       size_t maxsize, unsigned int maxpages,
- 			       iov_iter_extraction_t extraction_flags,
- 			       size_t *offset0);
-+ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv,
-+		size_t max_size, unsigned short *nr_vecs,
-+		unsigned short max_vecs, iov_iter_extraction_t extraction_flags);
- 
- /**
-  * iov_iter_extract_will_pin - Indicate how pages from the iterator will be retained
-diff --git a/lib/iov_iter.c b/lib/iov_iter.c
-index 4bc7c19337558..53dcd9649d59a 100644
---- a/lib/iov_iter.c
-+++ b/lib/iov_iter.c
-@@ -1833,3 +1833,101 @@ ssize_t iov_iter_extract_pages(struct iov_iter *i,
- 	return -EFAULT;
- }
- EXPORT_SYMBOL_GPL(iov_iter_extract_pages);
-+
-+static unsigned int get_contig_folio_len(struct page **pages,
-+		unsigned int *num_pages, size_t left, size_t offset)
-+{
-+	struct folio *folio = page_folio(pages[0]);
-+	size_t contig_sz = min_t(size_t, PAGE_SIZE - offset, left);
-+	unsigned int max_pages, i;
-+	size_t folio_offset, len;
-+
-+	folio_offset = PAGE_SIZE * folio_page_idx(folio, pages[0]) + offset;
-+	len = min(folio_size(folio) - folio_offset, left);
++	} while (len && bio->bi_vcnt < bio->bi_max_vecs - 1);
 +
 +	/*
-+	 * We might COW a single page in the middle of a large folio, so we have
-+	 * to check that all pages belong to the same folio.
++	 * Set the folio directly here.  The above loop has already calculated
++	 * the correct bi_size, and we use bi_vcnt for the user buffers.  That
++	 * is safe as bi_vcnt is only used by the submitter and not the actual
++	 * I/O path.
 +	 */
-+	left -= contig_sz;
-+	max_pages = DIV_ROUND_UP(offset + len, PAGE_SIZE);
-+	for (i = 1; i < max_pages; i++) {
-+		size_t next = min_t(size_t, PAGE_SIZE, left);
-+
-+		if (page_folio(pages[i]) != folio ||
-+		    pages[i] != pages[i - 1] + 1)
-+			break;
-+		contig_sz += next;
-+		left -= next;
-+	}
-+
-+	*num_pages = i;
-+	return contig_sz;
++	bvec_set_folio(&bio->bi_io_vec[0], folio, bio->bi_iter.bi_size, 0);
++	if (iov_iter_extract_will_pin(iter))
++		bio_set_flag(bio, BIO_PAGE_PINNED);
++	return 0;
 +}
-+
-+#define PAGE_PTRS_PER_BVEC     (sizeof(struct bio_vec) / sizeof(struct page *))
 +
 +/**
-+ * iov_iter_extract_bvecs - Extract bvecs from an iterator
-+ * @iter:	the iterator to extract from
-+ * @bv:		bvec return array
-+ * @max_size:	maximum size to extract from @iter
-+ * @nr_vecs:	number of vectors in @bv (on in and output)
-+ * @max_vecs:	maximum vectors in @bv, including those filled before calling
-+ * @extraction_flags: flags to qualify request
++ * bio_iov_iter_bounce - bounce buffer data from an iter into a bio
++ * @bio:	bio to send
++ * @iter:	iter to read from / write into
 + *
-+ * Like iov_iter_extract_pages(), but returns physically contiguous ranges
-+ * contained in a single folio as a single bvec instead of multiple entries.
-+ *
-+ * Returns the number of bytes extracted when successful, or a negative errno.
-+ * If @nr_vecs was non-zero on entry, the number of successfully extracted bytes
-+ * can be 0.
++ * Helper for direct I/O implementations that need to bounce buffer because
++ * we need to checksum the data or perform other operations that require
++ * consistency.  Allocates folios to back the bounce buffer, and for writes
++ * copies the data into it.  Needs to be paired with bio_iov_iter_unbounce()
++ * called on completion.
 + */
-+ssize_t iov_iter_extract_bvecs(struct iov_iter *iter, struct bio_vec *bv,
-+		size_t max_size, unsigned short *nr_vecs,
-+		unsigned short max_vecs, iov_iter_extraction_t extraction_flags)
++int bio_iov_iter_bounce(struct bio *bio, struct iov_iter *iter)
 +{
-+	unsigned short entries_left = max_vecs - *nr_vecs;
-+	unsigned short nr_pages, i = 0;
-+	size_t left, offset, len;
-+	struct page **pages;
-+	ssize_t size;
-+
-+	/*
-+	 * Move page array up in the allocated memory for the bio vecs as far as
-+	 * possible so that we can start filling biovecs from the beginning
-+	 * without overwriting the temporary page array.
-+	 */
-+	BUILD_BUG_ON(PAGE_PTRS_PER_BVEC < 2);
-+	pages = (struct page **)(bv + *nr_vecs) +
-+		entries_left * (PAGE_PTRS_PER_BVEC - 1);
-+
-+	size = iov_iter_extract_pages(iter, &pages, max_size, entries_left,
-+			extraction_flags, &offset);
-+	if (unlikely(size <= 0))
-+		return size ? size : -EFAULT;
-+
-+	nr_pages = DIV_ROUND_UP(offset + size, PAGE_SIZE);
-+	for (left = size; left > 0; left -= len) {
-+		unsigned int nr_to_add;
-+
-+		if (*nr_vecs > 0 &&
-+		    !zone_device_pages_have_same_pgmap(bv[*nr_vecs - 1].bv_page,
-+				pages[i]))
-+			break;
-+
-+		len = get_contig_folio_len(&pages[i], &nr_to_add, left, offset);
-+		bvec_set_page(&bv[*nr_vecs], pages[i], len, offset);
-+		i += nr_to_add;
-+		(*nr_vecs)++;
-+		offset = 0;
-+	}
-+
-+	iov_iter_revert(iter, left);
-+	if (iov_iter_extract_will_pin(iter)) {
-+		while (i < nr_pages)
-+			unpin_user_page(pages[i++]);
-+	}
-+	return size - left;
++	if (op_is_write(bio_op(bio)))
++		return bio_iov_iter_bounce_write(bio, iter);
++	return bio_iov_iter_bounce_read(bio, iter);
 +}
-+EXPORT_SYMBOL_GPL(iov_iter_extract_bvecs);
++
++static void bvec_unpin(struct bio_vec *bv, bool mark_dirty)
++{
++	struct folio *folio = page_folio(bv->bv_page);
++	size_t nr_pages = (bv->bv_offset + bv->bv_len - 1) / PAGE_SIZE -
++			bv->bv_offset / PAGE_SIZE + 1;
++
++	if (mark_dirty)
++		folio_mark_dirty_lock(folio);
++	unpin_user_folio(folio, nr_pages);
++}
++
++static void bio_iov_iter_unbounce_read(struct bio *bio, bool is_error,
++		bool mark_dirty)
++{
++	unsigned int len = bio->bi_io_vec[0].bv_len;
++
++	if (likely(!is_error)) {
++		void *buf = bvec_virt(&bio->bi_io_vec[0]);
++		struct iov_iter to;
++
++		iov_iter_bvec(&to, ITER_DEST, bio->bi_io_vec + 1, bio->bi_vcnt,
++				len);
++		/* copying to pinned pages should always work */
++		WARN_ON_ONCE(copy_to_iter(buf, len, &to) != len);
++	} else {
++		/* No need to mark folios dirty if never copied to them */
++		mark_dirty = false;
++	}
++
++	if (bio_flagged(bio, BIO_PAGE_PINNED)) {
++		int i;
++
++		for (i = 0; i < bio->bi_vcnt; i++)
++			bvec_unpin(&bio->bi_io_vec[1 + i], mark_dirty);
++	}
++
++	folio_put(page_folio(bio->bi_io_vec[0].bv_page));
++}
++
++/**
++ * bio_iov_iter_unbounce - finish a bounce buffer operation
++ * @bio:	completed bio
++ * @is_error:	%true if an I/O error occurred and data should not be copied
++ * @mark_dirty:	If %true, folios will be marked dirty.
++ *
++ * Helper for direct I/O implementations that need to bounce buffer because
++ * we need to checksum the data or perform other operations that require
++ * consistency.  Called to complete a bio set up by bio_iov_iter_bounce().
++ * Copies data back for reads, and marks the original folios dirty if
++ * requested and then frees the bounce buffer.
++ */
++void bio_iov_iter_unbounce(struct bio *bio, bool is_error, bool mark_dirty)
++{
++	if (op_is_write(bio_op(bio)))
++		bio_free_folios(bio);
++	else
++		bio_iov_iter_unbounce_read(bio, is_error, mark_dirty);
++}
++
+ static void submit_bio_wait_endio(struct bio *bio)
+ {
+ 	complete(bio->bi_private);
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index 16c1c85613b76..627973d7ed3a7 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -401,6 +401,29 @@ static inline int bio_iov_vecs_to_alloc(struct iov_iter *iter, int max_segs)
+ 	return iov_iter_npages(iter, max_segs);
+ }
+ 
++/**
++ * bio_iov_bounce_nr_vecs - calculate number of bvecs for a bounce bio
++ * @iter:	iter to bounce from
++ * @op:		REQ_OP_* for the bio
++ *
++ * Calculates how many bvecs are needed for the next bio to bounce from/to
++ * @iter.
++ */
++static inline unsigned short
++bio_iov_bounce_nr_vecs(struct iov_iter *iter, blk_opf_t op)
++{
++	/*
++	 * We still need to bounce bvec iters, so don't special case them
++	 * here unlike in bio_iov_vecs_to_alloc.
++	 *
++	 * For reads we need to use a vector for the bounce buffer, account
++	 * for that here.
++	 */
++	if (op_is_write(op))
++		return iov_iter_npages(iter, BIO_MAX_VECS);
++	return iov_iter_npages(iter, BIO_MAX_VECS - 1) + 1;
++}
++
+ struct request_queue;
+ 
+ void bio_init(struct bio *bio, struct block_device *bdev, struct bio_vec *table,
+@@ -454,6 +477,9 @@ void __bio_release_pages(struct bio *bio, bool mark_dirty);
+ extern void bio_set_pages_dirty(struct bio *bio);
+ extern void bio_check_pages_dirty(struct bio *bio);
+ 
++int bio_iov_iter_bounce(struct bio *bio, struct iov_iter *iter);
++void bio_iov_iter_unbounce(struct bio *bio, bool is_error, bool mark_dirty);
++
+ extern void bio_copy_data_iter(struct bio *dst, struct bvec_iter *dst_iter,
+ 			       struct bio *src, struct bvec_iter *src_iter);
+ extern void bio_copy_data(struct bio *dst, struct bio *src);
 -- 
 2.53.0
 
