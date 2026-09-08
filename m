@@ -1,184 +1,103 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E865C584944;
-	Tue,  8 Sep 2026 16:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24159582BB5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885219; cv=none; b=SIRlE9THHIDIXAu6zf1qeKCKux3nx5+cAjiHRFPUTp7Z6Rzn9kJ6OIQkvp8fbI5HBruu0ofdSTMcvY2X0dQiGUWnOWBRrW5FGzSRi9sjXBa+dykc6amnKxU8yL/OOmUtmyqE3UerNIlum6OUtA+wi6kltOv2m6ijtsMq/8x6Yi8=
+	t=1788885238; cv=none; b=LMnqiU8bn4zn7E+Y0VZb6EZSPMdw5H0AjG8WwSUr49XUwJhRX++fpQpH0Gs50lDA8thfK3137EA1RB47PqmCSuOVvUlIwYqnWXDo/8SsSo076r/4OoLSY7L+lKbyF0P8ZlqTtyifzTrA+728NFg8hrd87QAeGOY96KQ9RouK3ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885219; c=relaxed/simple;
-	bh=eXZm9UMGLWjpU5UOxf0lRTOdluSEUuqO/VzrnFVWtI4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uvlS1e2QoM2I3MwdjNv2EdvfBtQtoIFA/KcJhGVjCR9PktmsUCNtjtpygtXs25YxlhK0qU/DTtm+3eU2ZSQQY8jCYuupoVLUQhGZHmtDtYqV3kyUAWfL2+FR9IW70saodjjn/zzE1VrwNRTXTCkbYh8UrFj8mraAPf/sKw5d/M0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=f02g5x/K; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788885238; c=relaxed/simple;
+	bh=4PWeVwZklsxBELa7PilCTz0ljdxc8I/fxpQlz8ppqaM=;
+	h=From:Date:Message-Id:To:Cc:Subject:Content-Type:Mime-Version; b=r+rYTgfd3Z/Qyr3kFghJFwvI0hE41XtyfLb6Uf4fvn4xPeMCd/BUXFKb1pG7Ck4ot87vCMJe8WVkdTUOK9k7fWQPataWdhj5GwhX4TlFQFLqmpX8nOAH6flOtqyoGfD3WncaV2CZ0bZs/MjZ/FeQRZTjlVJpMOuvOMaPHq9s1OI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Ga6vS0RM; arc=none smtp.client-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="f02g5x/K"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1ek1080692;
-	Tue, 8 Sep 2026 16:33:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=yC9WRO
-	c5hKeZDWBapMIIHj+0R4ybqRQjVgDPeWwSkqQ=; b=f02g5x/KEiVHJksP37Zlly
-	hAd9kb0pmyCe6/XMUbxRAlhBbkELzLYyPFtuDTMKypNTpKWTDrQ/Fqkw2/2PuWso
-	3DavRhIMHqoXB9CRsJ2Rfl/6etEKz9F+mzgYlKbPPAPL706tHdREpbHcs62nUf8B
-	5IJ8d5NbqR6GSoXr2zFxFxCN/nhOw0ex2fIuZxoCTJblN6oCjlVLrQHFvgJCRVnV
-	Iobq9GfRoBt1KhZbeVjdTe8wNpunUiCmGbu5vbHPuGQ6DFDB6fNfKaNSr64Qzktu
-	66bZ5o7DXJEVw2MgYVKktvfzkeGri9RC0ryQqaUmcuo+lPjfeebJe1SyFPUVzgBQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbjrr5e7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:33:18 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GQEQZ031291;
-	Tue, 8 Sep 2026 16:33:17 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw56g7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:33:17 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688GXDFg43909500
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 16:33:13 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7765820043;
-	Tue,  8 Sep 2026 16:33:13 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1ADFA2004B;
-	Tue,  8 Sep 2026 16:33:08 +0000 (GMT)
-Received: from [9.61.253.97] (unknown [9.61.253.97])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  8 Sep 2026 16:33:07 +0000 (GMT)
-Message-ID: <738ca597-abc4-4867-963f-ed1a55aa4a54@linux.ibm.com>
-Date: Tue, 8 Sep 2026 22:03:04 +0530
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Ga6vS0RM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788885230; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ATYwopDq3lOeKRynyx5bJtLt5Assf/MvZRtPVsMMab8=;
+ b=Ga6vS0RM1ljoSbbhFWuBmHpKE6GcrbuPCnX8hgY493uUmuo1Ra/zvXbsW7I/H4Xyy3A1zU
+ jyiQxykhRGj2t3q727J1v94Y92kvD3kNu3xzdYnS+YJiIGldRg2aHkRGQp9BznzzAZi6ct
+ s44PYkU9PfyJQk0LYzxJsL7Tng7sRq0D+4mJE7Qz8nJgEwIM/wjW5i+XsGJj/bpNjbpoGp
+ Eu+bPsjVGCq1NoCVr8lyC7WzHblegzAK+5WFFr/S7zsrOCfkCTqDJJ0UOTeTfTAZXeWSfj
+ 1n90ms4+lCWtdhTYJNEClyMirFIFD58NZLVBOWFPSm0h/L2vz6tCjuBU+XMa3A==
+X-B4-Tracking: v=1; b=H4sIAOc4oGoC/3WNQQ6CMBREr0K69pv+WkBceQ/jorS/UhfQtKXRE O4uoAs3LGcy897EIgVHkV2KiQXKLrqhX8LpUDDdqf5B4MySmeCi4g1HsKTBJw/eR6BMfYJRWTB a19iWhKblbPn6QNa9Nu6N9ZTY/VvGsX2STitxnXUupiG8N3vGbfwTyR1RRuDQKCtl1ZJUiFfdU QhHrTdFFv+Q8x5ELBCh0JQ1ClSG/iDzPH8AEycceBUBAAA=
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.75]) by smtp.feishu.cn with ESMTPS; Wed, 09 Sep 2026 00:33:47 +0800
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Wed, 09 Sep 2026 00:33:43 +0800
+Message-Id: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc>
+To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>
+Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
+	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH net v3 0/2] net: fec: fix PTP clock teardown races on device removal
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26aa038ec+27c1be+vger.kernel.org+me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 6/8] selftests/bpf: Fix powerpc JIT disassembly
- failure
-To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
-        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
-        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
-References: <cover.1788154635.git.skb99@linux.ibm.com>
- <6034e8b7dc0c6954be35b6735a9b04b35903ed5f.1788154635.git.skb99@linux.ibm.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <6034e8b7dc0c6954be35b6735a9b04b35903ed5f.1788154635.git.skb99@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=E7T9Y6dl c=1 sm=1 tr=0 ts=6aa038ce cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=EX4WfZDNQFKdhq70EaoA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX+azGlUoiqaGn
- BFB/WKFI+D1wYowYXu0RTl7uVA/nlcu/2/u93stWa6qaw0IYAQjTCQz0pVs2wEBtSU7Vaqmp2Ko
- nRCcgZ985TFs0fa1uBSb5uYn4rKFWe0=
-X-Proofpoint-ORIG-GUID: 2CliXsQskbKrP9XBtDnZ-c4NweA505uY
-X-Proofpoint-GUID: 2CliXsQskbKrP9XBtDnZ-c4NweA505uY
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfXy4j+QQXc8O22
- hIYT/yEvD/gY/igpIsfKRNI6k+AOlPVFpPsJd+VrHWy+d5gceeZsXVJnoxulfx6pvSS9LWYcUkq
- iHmIBkZeCas5Qzolhndv7euyFGQyqpw4oSKX0guYIV9vQIKtHbkjkMUrenRA5OJsDzF8gRHTwwr
- GjLBTi7A9Yoo+swvWfFe/OfScnmRZhexna86sOvS8ZWTpA0UgkQLoktZYcBhDbkBxBcVZXjU1n2
- PBc/zTYXYTahnXVOzwNVBrcOEgHKCsrn2je5SASjJ8sdneE6k1zfSvvGtkHa1W7bmojFt2JKayD
- mp4Z9VD/Cg6IoZwHHwGPYF1HIb+AR5xxji0wvLvZV2wlfE1RtOwIBmTG84Ec4gd42euwcJT2Y/m
- 8/e4JDim9dhe9+apu/VBL4lZmDYW09TFnX2oKVQYaRsHvff7CWlMKNuYtoYKKdIfMkiQvQaKHEQ
- FTDifjPBRDXL18ZilGw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080178
+X-Change-Id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
 
+This series fixes two FEC teardown races: ethtool can access a freed
+PTP clock, and the PPS interrupt can outlive the PHC and netdev.
 
-On 31.08.2026 12:46 PM, Saket Kumar Bhaskar wrote:
-> From: Abhishek Dubey <adubey@linux.ibm.com>
->
-> Ensure that the trampoline stubs JITed at the tail of the
-> epilogue do not expose the dummy trampoline address stored
-> in the last 8 bytes(64-bit) and last 4 bytes(32-bit)
-> to the disassembly flow. Prevent the disassembler from
-> ingesting this memory address, as it may occasionally decode
-> into a seemingly valid but incorrect instruction. Fix this
-> issue by truncating the last 8/4 bytes from JITed buffers
-> before supplying them for disassembly.
->
-> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-> Reviewed-by: Hari Bathini <hbathini@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
+I have kept the main Ethernet IRQ issue discussed with Phuc [1] out of
+this revision. His PTP initialization error-propagation changes are
+also separate; if they land first, the new probe failure path will
+need PPS IRQ cleanup too.
 
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
->   .../selftests/bpf/jit_disasm_helpers.c        | 25 ++++++++++++++++++-
->   1 file changed, 24 insertions(+), 1 deletion(-)
->
-> diff --git a/tools/testing/selftests/bpf/jit_disasm_helpers.c b/tools/testing/selftests/bpf/jit_disasm_helpers.c
-> index 3558fe10e28c..b291d934dd1a 100644
-> --- a/tools/testing/selftests/bpf/jit_disasm_helpers.c
-> +++ b/tools/testing/selftests/bpf/jit_disasm_helpers.c
-> @@ -179,9 +179,11 @@ int get_jited_program_text(int fd, char *text, size_t text_sz)
->   	struct bpf_prog_info info = {};
->   	__u32 info_len = sizeof(info);
->   	__u32 jited_funcs, len, pc;
-> +	__u32 trunc_len = 0, disasm_len;
->   	__u32 *func_lens = NULL;
->   	FILE *text_out = NULL;
->   	uint8_t *image = NULL;
-> +	char *triple = NULL;
->   	int i, err = 0;
->   
->   	if (!llvm_initialized) {
-> @@ -225,9 +227,30 @@ int get_jited_program_text(int fd, char *text, size_t text_sz)
->   	if (!ASSERT_OK(err, "bpf_prog_get_info_by_fd #2"))
->   		goto out;
->   
-> +	/*
-> +	 * last 8 bytes contains dummy_trampoline address in JIT
-> +	 * output on 64-bit and last 4 bytes on 32-bit powerpc,
-> +	 * which can't disassemble to a valid instruction.
-> +	 */
-> +	triple = LLVMGetDefaultTargetTriple();
-> +	if (triple) {
-> +		if (strstr(triple, "powerpc64") || strstr(triple, "ppc64"))
-> +			trunc_len = 8;
-> +		else if (strstr(triple, "powerpc") || strstr(triple, "ppc"))
-> +			trunc_len = 4;
-> +		LLVMDisposeMessage(triple);
-> +	}
-> +
->   	for (pc = 0, i = 0; i < jited_funcs; ++i) {
->   		fprintf(text_out, "func #%d:\n", i);
-> -		disasm_one_func(text_out, image + pc, func_lens[i]);
-> +
-> +		/*
-> +		 * Disabled JIT have zero func_lens, hence underflow
-> +		 */
-> +		disasm_len = func_lens[i] > trunc_len ?
-> +					func_lens[i] - trunc_len : 0;
-> +		disasm_one_func(text_out, image + pc, disasm_len);
-> +
->   		fprintf(text_out, "\n");
->   		pc += func_lens[i];
->   	}
+The bugs were found by code inspection; no hardware testing was done.
 
--- 
-Thanks and Regards
-R.Nageswara Sastry
+[1] https://lore.kernel.org/r/CAABR9nHLcR103aADF1WMSEkw-_BjWB9vyWXENJCYfjX5Wz1nkw@mail.gmail.com/
 
+---
+Changes in v3:
+- Use request_irq()/free_irq() for the PPS interrupt and drop
+  unnecessary braces in patch 2, as suggested by Wei Fang.
+- Patch 1 is unchanged.
+- Link to v2: https://lore.kernel.org/all/20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc/
+
+Changes in v2:
+- Drop the ptp_clock_index_by_dev() lookup and unregister the netdev
+  before fec_ptp_stop() instead, as suggested by Wei Fang, so the
+  netdev callbacks are drained before the PHC teardown.
+- Use -1 as the "no PPS interrupt" sentinel so a valid IRQ 0 is neither
+  skipped on release nor freed when the request never happened.
+- Link to v1: https://lore.kernel.org/netdev/20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc
+
+---
+Shengzhuo Wei (2):
+      net: fec: stop the PTP clock after the netdev is unregistered
+      net: fec: free the PPS interrupt before tearing down the PHC and netdev
+
+ drivers/net/ethernet/freescale/fec.h      |  1 +
+ drivers/net/ethernet/freescale/fec_main.c |  2 +-
+ drivers/net/ethernet/freescale/fec_ptp.c  | 12 ++++++++++--
+ 3 files changed, 12 insertions(+), 3 deletions(-)
+---
+base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
+change-id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
