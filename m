@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F67544883
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B9C544881
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872167; cv=none; b=WXURdLJIoFrrtnZvLqm7ecF/+vD3g0LGv3YphMk5cLZeDpo7WH4asyFrPAfM95/vPUFMln5Ns+anEcIWElYNguj0hiwU0cWyLJbjcR7vjNNCkf6VANmxdN4A97s1xwbH3aoA93q4sEGwwdd5Ziot3Dpe4WAgOkl7OSAYbPVGPwY=
+	t=1788872170; cv=none; b=u/ScLvK9svEOLOXMk4NquzWdceyhK/+u97Wfp1P7IPKUQ5/jqcNmDQbo4V2MrHiBIzfVyi7tesY1mEHdfxMdsc5l5CxGqlg59YlD8Qzlyt3KYysPP2siMmcCUvWJoORKvLe5No82C5nJTVN6i2ImNpmK2KGN0hMXvM+Wi+f8EqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872167; c=relaxed/simple;
-	bh=+mEN1ESh8LfiqXj5+fkfJuvnfRq8ISvv7b2p2+wF25Q=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=i5MzJZqikQLDyQrvhu7NjzkpOURPNT8xFyTFpoqP+abBhv67yHcWg3rA0WkrFE1lFdxMncR9CT7aD0/79GXwlFklVCBjcDeqB/iO9MMD+XE3dXJ+aZ6MFY/lcx7aix+ZKMfu0fHUHRb6eE/wmyYbSHxFlBXLpmzVETZQussWSRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=x+Q+ysFm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788872170; c=relaxed/simple;
+	bh=80xL16rLsdCpE3Nm19PnwLt6oGbL6TPtjUe9mgh1Hi0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XPjHMq0LXjspLFINRZG1r2qP9BLIVRbBkp95/4sgeXKgQDt/yeuMEiBBQpy76qaloHYHz1h7B3yMFWVkLqCjFT8BDtMY/B/1V34On843zYvkbYtn2QD0V+IND42Npa1bWwspdTu2XfFDpkMbtmSdoBJ5icZYCPbgp1EtOlRmIiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OMOSljRd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="x+Q+ysFm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65ACC1F00A3A;
-	Tue,  8 Sep 2026 12:56:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OMOSljRd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38A411F00A3A;
+	Tue,  8 Sep 2026 12:56:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872165;
-	bh=dkJ7HK7BTDaF2zXhh7CyUG4ZHf27PN0W4Ipcp+SFFWc=;
+	s=korg; t=1788872168;
+	bh=LxsV7nhp01DqeFp22msuJjy/LMAVhpupinduqJH49pk=;
 	h=Subject:To:Cc:From:Date;
-	b=x+Q+ysFmJfAgpv/Y1iW+M8bNYU3Is2rXJrRcTa1ziw7WBK7lXZcLTL94uTvOfvrwH
-	 QOha09lGd1jhyN5U5UacUqFdTXXgfrmCHVeZnd5hxgUkSWHK5/VAlwh6dYFkNk9s68
-	 rPp2p3RZpA97s7RKvrpBpjDSgmZmRLKN7f20Xl/0=
-Subject: FAILED: patch "[PATCH] mm/damon/sysfs: read ops_id only once in" failed to apply to 6.18-stable tree
+	b=OMOSljRd1K1a0IolO8BZnW1ZhYZCYsfKz9I0PPsnAn1amm5/jC6OW7iQH66McBtJ4
+	 +wK8yVdkvAkBt1duEOYa9GrulLB9pVjVUcdQZxncEj2WpbIerWpoL5F7SligDyj2V4
+	 gFRBaZ9lK9N04iH1uYdJ4rxaH++3ZKBJ7GBDwDK0=
+Subject: FAILED: patch "[PATCH] mm/damon/tests/core-kunit: catch test failure in" failed to apply to 6.12-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:48:58 +0200
-Message-ID: <2026090858-arousal-getting-ee35@gregkh>
+Date: Tue, 08 Sep 2026 14:49:08 +0200
+Message-ID: <2026090808-snowy-dynamic-3f12@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 5adaaa28be8a79ddd7e103b171f9d6e14e7fc26e
+git cherry-pick -x b640708929aa956235866bf7717d89018c661083
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090858-arousal-getting-ee35@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090808-snowy-dynamic-3f12@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,53 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 5adaaa28be8a79ddd7e103b171f9d6e14e7fc26e Mon Sep 17 00:00:00 2001
+From b640708929aa956235866bf7717d89018c661083 Mon Sep 17 00:00:00 2001
 From: SJ Park <sj@kernel.org>
-Date: Tue, 14 Jul 2026 20:10:01 -0700
-Subject: [PATCH] mm/damon/sysfs: read ops_id only once in
- damon_sysfs_apply_inputs()
+Date: Tue, 14 Jul 2026 20:09:57 -0700
+Subject: [PATCH] mm/damon/tests/core-kunit: catch test failure in
+ test_merge_regions_of()
 
-damon_sysfs_apply_inputs() reads ops_id twice.  It could race with
-ops_id_store().  As a result, the min_region_sz could wrongly be set up.
-Read it once.
+KUNIT_EXPECT_EQ() does not abort the execution of test code when the
+expectation is not met.  But damon_test_merge_regions_of() code after its
+initial KUNIT_EXPECT_EQ() call assumes the expectation is met.  It does a
+per-region test with a hard-coded number of regions that is correct only
+if the expectation was met.  As a result, __nth_region_of() could return
+NULL, and the test code can dereference NULL pointers.  Fix the issue by
+catching the expectation failure and skip the per-region tests.
 
-The user impact is trivial.  Sane users ain't update the parameter in
-parallel.  Even if it happens, the DAMON core layer handles the wrong
-min_region_sz (!is_power_of_2()).  Even if somehow the race ended up
-making a min_region_sz that is different from the user's intention but
-still valid, only monitoring itself runs differently than expected.  No
-critical consequences like kernel panic or memory corruption happen
+The user impact on realistic setups should be negligible, as it is a unit
+test.
 
 The issue was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260715031002.108504-7-sj@kernel.org
-Link: https://lore.kernel.org/20260703172417.95426-1-sj@kernel.org [1]
-Fixes: 8d009da32f13 ("mm/damon/sysfs: set damon_ctx->min_sz_region only for paddr use case")
+Link: https://lore.kernel.org/20260715031002.108504-3-sj@kernel.org
+Link: https://lore.kernel.org/20260710144937.26981-1-sj@kernel.org [1]
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 6.18.x
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/damon/sysfs.c b/mm/damon/sysfs.c
-index 3db4da88fc72..e3858ffab4b2 100644
---- a/mm/damon/sysfs.c
-+++ b/mm/damon/sysfs.c
-@@ -2094,14 +2094,16 @@ static inline bool damon_sysfs_kdamond_running(
- static int damon_sysfs_apply_inputs(struct damon_ctx *ctx,
- 		struct damon_sysfs_context *sys_ctx)
- {
-+	enum damon_ops_id ops_id;
- 	int err;
- 
--	err = damon_select_ops(ctx, sys_ctx->ops_id);
-+	ops_id = READ_ONCE(sys_ctx->ops_id);
-+	err = damon_select_ops(ctx, ops_id);
- 	if (err)
- 		return err;
- 	ctx->addr_unit = READ_ONCE(sys_ctx->addr_unit);
- 	/* addr_unit is respected by only DAMON_OPS_PADDR */
--	if (sys_ctx->ops_id == DAMON_OPS_PADDR)
-+	if (ops_id == DAMON_OPS_PADDR)
- 		ctx->min_region_sz = max(
- 				DAMON_MIN_REGION_SZ / ctx->addr_unit, 1);
- 	ctx->pause = sys_ctx->pause;
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index 485472ddebd1..eba643762132 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -260,11 +260,14 @@ static void damon_test_merge_regions_of(struct kunit *test)
+ 	damon_merge_regions_of(t, 9, 9999, ctx, true);
+ 	/* 0-112, 114-130, 130-156, 156-170, 170-230, 230-10170 */
+ 	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 6u);
++	if (damon_nr_regions(t) != 6)
++		goto out;
+ 	for (i = 0; i < 6; i++) {
+ 		r = __nth_region_of(t, i);
+ 		KUNIT_EXPECT_EQ(test, r->ar.start, saddrs[i]);
+ 		KUNIT_EXPECT_EQ(test, r->ar.end, eaddrs[i]);
+ 	}
++out:
+ 	damon_free_target(t);
+ 	damon_destroy_ctx(ctx);
+ }
 
