@@ -1,188 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94850552954
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:25:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 846DB580399;
+	Tue,  8 Sep 2026 16:31:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884716; cv=none; b=uia5Q0s46wtVHZPjdRQaCLcxJdUuUBuz9Qh7/Fy15yhJlLbCxZ6mZaWYvD4K7yXtYe5vCgAVv961VYF78eVMeNEcai80KPmKjj915oOaCHvGP36bQ5/faTCsgWG+9wGS9EaTr+Ev+su3QZ14djGnVRMZDYKUvaZjerTl10gnwRo=
+	t=1788885092; cv=none; b=pllYmvOoZiazibnJlx90LCD7iBGhUC81hxOkb1Q++iLRCpMf8SsmUZp9h/SDunkw78bOhe8R1hjfSH62qSBRhHorwwpc07ElRlWBTaa+ITN/J6dkA2v9CtFogVdIyRsbgBMfbX2QDK0SOhp4Dj+M336/YNWt+6YhyFuyDPbQPAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884716; c=relaxed/simple;
-	bh=JcwYpfOzspIoDsWVcchzU39xOYfuIYzF+/3S2F1DvPc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lfHdjq3Ieoo+sglTIpOVgfYoxnX9KTDvYfEV4pwFq9qZcu8Qd42JxcDBr5ygM9g5Rtep3C7+CnMtXs4gZ1i8cDQWe0htALBPNu78vPGEhksh4WzD3LQL30tZXlGykBdKnFZI5kRudpIi46KhNaOQrKxvQMftzK23FC2HdXmvxtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fuVcJ+Xi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788885092; c=relaxed/simple;
+	bh=8+wFgoFbhl9/+uf44Nqcf8SDWohXgUnCXu65Lfx4F1Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RWKLp3Wko45wPjJcAP8UFGBlwpmimM5bU5eF9QFiiqpzjK9xozPmHzzmngH7F0kqTcf2/fmedMSDhg7J56zbI736eoWWe+aOiXKLw0TZR8ZmEPKQBX9HVowzY+sPMc/PnPffDMLnsFC7BwGfgpv3RltExGb4RMB1kcBtHgjQ0L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=FT9xMuEJ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fuVcJ+Xi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD63C1F00A3A;
-	Tue,  8 Sep 2026 16:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884715;
-	bh=BnaxceyUfA0HzeYI94DXbGDvt18I/yv5WzsTO46CHyc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fuVcJ+XixXkGSm1hYkdY0PGMO8htUTUc+8Uy/puKMlktH19kcMKsS9evyKaPnHwZ/
-	 9ZyHGO8F6vKNvZh/gMWidKR0DZfMQv3pl0o2Pl8iTAxgJK5xInwiH5U5CnnWCq8XBI
-	 nvIk3W18TaFtII7ZAy8l9/l/0acKzghrGu+p4qLkkqbj+bOhXEH7JJq1YGaXjc8cZD
-	 THR25p0Zauh9S7TtuWgVZERaoLbSCVsnluDI9mFIRYuOEl4sxO5D7sCvt6PLW3OQTI
-	 9/UoWksnNQbyN+eyfUBE9o3HiXZmn5lijovVrixIqxhZTxzZg2kK+AQlLaxKU2GrEB
-	 9z8kE+VXkdrHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
-	Xiang Mei <xmei5@asu.edu>,
-	Simon Horman <horms@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
-Date: Tue,  8 Sep 2026 12:25:12 -0400
-Message-ID: <20260908162512.2643067-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908162512.2643067-1-sashal@kernel.org>
-References: <2026090350-vaseline-matchbook-9e16@gregkh>
- <20260908162512.2643067-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="FT9xMuEJ"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1fEM1228032;
+	Tue, 8 Sep 2026 16:31:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=HfZlRn
+	yze2Gd+l/Im88GZ93+4bkg8NTtDcScipwexiw=; b=FT9xMuEJ/t9PiztaacoIuP
+	d9YiNx+uT2Zz9IfVUdCsSAJ26256pd4NV21GOBvhsGgLnc44JDstEIv6afMVp450
+	Nr1EcIjrXCCxT5Z7O7LpyqZ48WgUFtsyFWaep/1Lx/Nzv74qGiUj7ipSQzPL0Tpe
+	VwXwFTpC0WbTlDY6NAP+J/LEthZ2jEMpm/tRPTFcAJFLC4IrlzwTOwYWz5HRz0nF
+	c8ZOG2M0lxcY1uFWkKKqQoHQakUhmY3x1k9Rf2InMYmkN+qgP1luPM0ZGVvxDLda
+	hfpUUz6dTU41vAydILS/gqw3P9Suj+UuoKQ+cf9BxtPJuAAqPJwNxsJ97WFCQfTA
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkreva-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 16:31:07 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GQEd1031283;
+	Tue, 8 Sep 2026 16:31:06 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw55w3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 16:31:06 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688GV2Vk45810036
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 8 Sep 2026 16:31:02 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 74F3F20040;
+	Tue,  8 Sep 2026 16:31:02 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E08F420043;
+	Tue,  8 Sep 2026 16:30:56 +0000 (GMT)
+Received: from [9.61.253.97] (unknown [9.61.253.97])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue,  8 Sep 2026 16:30:56 +0000 (GMT)
+Message-ID: <c630046e-f79a-49c7-ae5b-7bcc825d9e5f@linux.ibm.com>
+Date: Tue, 8 Sep 2026 22:00:53 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13 1/8] powerpc64/bpf: fix compare instruction emitted
+ for tailcall
+To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
+        linuxppc-dev@lists.ozlabs.org
+Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
+        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
+        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
+        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
+References: <cover.1788154635.git.skb99@linux.ibm.com>
+ <961601491716ef9e00f79e3aa9f7f4ef4440d4d3.1788154635.git.skb99@linux.ibm.com>
+Content-Language: en-US
+From: R Nageswara Sastry <rnsastry@linux.ibm.com>
+In-Reply-To: <961601491716ef9e00f79e3aa9f7f4ef4440d4d3.1788154635.git.skb99@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfXyMnXzDj4qXZa
+ gkA2BWYSHd0oWFW/zfftXe5F7/IULXObs3XtV0fjAjWZgCRThHwK9afNoW4/1XvehTfL9FMciXB
+ cJSCa0b4KYeBFi87U0DkOm38JoemJMM=
+X-Proofpoint-ORIG-GUID: jeT8GDlRC3BRQtOiazHGOYPVHTumcITw
+X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6aa0384b cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=jjcdjwgKS-9vtqCthAsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX8VgcQHpIcy17
+ P6cSNK6StpvVocHFqiTiAFkWtV4vJjtegg/7L5aOSutt6o9ighIwsHW236XNgWRvJ90MhV/OeAV
+ uRHl/BCyyvDDjXfi47MV4h7Qm9N67CURQ3lKw46xlH8wDLFFAy81CEelDIpmMwMFTrigmIewMbf
+ WiZCaFyRyVVoYbZtiOsoFZ+Kxo2hC8A+a6yiiA2lavab/QOLIu59WfijxApBVlZKjHNogKwtaR+
+ +OJZnU1PlfNtL/e+Qa1pxnST5vkUX0xrXhOSgWiINZHdA0J5jVHB0Npr+Iq39bdjPgwu2MC0npO
+ u/H0cf3TOXP2ugXUMhzKtsPVrSqujA/TpAYwnjae/yh3o2CMj0YabsW6tNlXyMvRlZhDSCJU/Nw
+ hI0dqldgUlHyVvRqrI4TaUE9Idij31r0BajX2SZoal8JQzxN32Lsl44RGdQ3C/0LbqlCEImRKwA
+ jAyJpYMU6RRWtDAzOMw==
+X-Proofpoint-GUID: jeT8GDlRC3BRQtOiazHGOYPVHTumcITw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
+ impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080178
 
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
 
-[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
+On 31.08.2026 12:45 PM, Saket Kumar Bhaskar wrote:
+> From: Abhishek Dubey <adubey@linux.ibm.com>
+>
+> The tail_call_info field can contain either a scalar counter
+> value or a 64-bit pointer to the counter, using a 32-bit
+> compare (cmplwi) only checks the lower 32 bits, which can lead
+> to incorrect comparisions when location of counter is near 4GB
+> boundary. Use instruction cmpldi/cmplwi for accurate comparision
+> in corresponding cases.
+>
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/bpf/20260517191450.85AE6C2BCB8@smtp.kernel.org/
+> Fixes: 2ed2d8f6fb38 ("powerpc64/bpf: Support tailcalls with subprogs")
+> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
+> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
+> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
+> Acked-by: Hari Bathini <hbathini@linux.ibm.com>
+Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
 
-ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
-check when reading idev->cnf.rpl_seg_enabled.
+System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
+> ---
+>   arch/powerpc/net/bpf_jit.h        | 6 ++++++
+>   arch/powerpc/net/bpf_jit_comp.c   | 2 +-
+>   arch/powerpc/net/bpf_jit_comp64.c | 8 ++++----
+>   3 files changed, 11 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/powerpc/net/bpf_jit.h b/arch/powerpc/net/bpf_jit.h
+> index f32de8704d4d..35015d7ecb76 100644
+> --- a/arch/powerpc/net/bpf_jit.h
+> +++ b/arch/powerpc/net/bpf_jit.h
+> @@ -188,6 +188,12 @@ struct codegen_context {
+>   
+>   #define bpf_to_ppc(r)	(ctx->b2p[r])
+>   
+> +#ifdef CONFIG_PPC64
+> +#define PPC_RAW_CMPLLI(a, i)    PPC_RAW_CMPLDI(a, i)
+> +#else
+> +#define PPC_RAW_CMPLLI(a, i)    PPC_RAW_CMPLWI(a, i)
+> +#endif
+> +
+>   #ifdef CONFIG_PPC32
+>   #define BPF_FIXUP_LEN	3 /* Three instructions => 12 bytes */
+>   #else
+> diff --git a/arch/powerpc/net/bpf_jit_comp.c b/arch/powerpc/net/bpf_jit_comp.c
+> index 7b07b43575f1..a875521ff904 100644
+> --- a/arch/powerpc/net/bpf_jit_comp.c
+> +++ b/arch/powerpc/net/bpf_jit_comp.c
+> @@ -739,7 +739,7 @@ static void bpf_trampoline_setup_tail_call_info(u32 *image, struct codegen_conte
+>   		 * Setting the tail_call_info in trampoline's frame
+>   		 * depending on if previous frame had value or reference.
+>   		 */
+> -		EMIT(PPC_RAW_CMPLWI(_R3, MAX_TAIL_CALL_CNT));
+> +		EMIT(PPC_RAW_CMPLLI(_R3, MAX_TAIL_CALL_CNT));
+>   		PPC_BCC_CONST_SHORT(COND_GT, 8);
+>   		EMIT(PPC_RAW_ADDI(_R3, _R4, -BPF_PPC_TAILCALL));
+>   
+> diff --git a/arch/powerpc/net/bpf_jit_comp64.c b/arch/powerpc/net/bpf_jit_comp64.c
+> index dab106cae22b..59302cabc466 100644
+> --- a/arch/powerpc/net/bpf_jit_comp64.c
+> +++ b/arch/powerpc/net/bpf_jit_comp64.c
+> @@ -276,7 +276,7 @@ void bpf_jit_build_prologue(u32 *image, struct codegen_context *ctx)
+>   		 */
+>   		EMIT(PPC_RAW_LD(bpf_to_ppc(TMP_REG_2), _R1, 0));
+>   		EMIT(PPC_RAW_LD(bpf_to_ppc(TMP_REG_1), bpf_to_ppc(TMP_REG_2), -(BPF_PPC_TAILCALL)));
+> -		EMIT(PPC_RAW_CMPLWI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+> +		EMIT(PPC_RAW_CMPLDI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+>   		PPC_BCC_CONST_SHORT(COND_GT, 8);
+>   		EMIT(PPC_RAW_ADDI(bpf_to_ppc(TMP_REG_1), bpf_to_ppc(TMP_REG_2),
+>   								-(BPF_PPC_TAILCALL)));
+> @@ -662,7 +662,7 @@ static int bpf_jit_emit_tail_call(u32 *image, struct codegen_context *ctx, u32 o
+>   	PPC_BCC_SHORT(COND_GE, out);
+>   
+>   	EMIT(PPC_RAW_LD(bpf_to_ppc(TMP_REG_1), _R1, bpf_jit_stack_tailcallinfo_offset(ctx)));
+> -	EMIT(PPC_RAW_CMPLWI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+> +	EMIT(PPC_RAW_CMPLDI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+>   	PPC_BCC_CONST_SHORT(COND_LE, 8);
+>   
+>   	/* dereference TMP_REG_1 */
+> @@ -672,7 +672,7 @@ static int bpf_jit_emit_tail_call(u32 *image, struct codegen_context *ctx, u32 o
+>   	 * if (tail_call_info == MAX_TAIL_CALL_CNT)
+>   	 *   goto out;
+>   	 */
+> -	EMIT(PPC_RAW_CMPLWI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+> +	EMIT(PPC_RAW_CMPLDI(bpf_to_ppc(TMP_REG_1), MAX_TAIL_CALL_CNT));
+>   	PPC_BCC_SHORT(COND_EQ, out);
+>   
+>   	/*
+> @@ -707,7 +707,7 @@ static int bpf_jit_emit_tail_call(u32 *image, struct codegen_context *ctx, u32 o
+>   	 * tail_call_info.
+>   	 */
+>   	EMIT(PPC_RAW_LD(bpf_to_ppc(TMP_REG_2), _R1, bpf_jit_stack_tailcallinfo_offset(ctx)));
+> -	EMIT(PPC_RAW_CMPLWI(bpf_to_ppc(TMP_REG_2), MAX_TAIL_CALL_CNT));
+> +	EMIT(PPC_RAW_CMPLDI(bpf_to_ppc(TMP_REG_2), MAX_TAIL_CALL_CNT));
+>   	PPC_BCC_CONST_SHORT(COND_GT, 8);
+>   
+>   	/* First get address of tail_call_info */
 
-When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
-dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
-check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
-dev->ip6_ptr already NULL.
-
-Reproduced by flooding the receiving interface with ping6 traffic while
-flapping its MTU between 1500 and 1200:
-
- BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
- Read of size 4 at addr 00000000000006b4 by task ping6/394
-
- CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
- Call Trace:
-  <IRQ>
-  kasan_report+0xc6/0x100
-  ipv6_rpl_srh_rcv+0xb3/0x1070
-  ip6_protocol_deliver_rcu+0x759/0x9a0
-  ip6_input_finish+0xa8/0x1b0
-  ip6_input+0xe1/0x490
-  ipv6_rcv+0x33d/0x460
-  __netif_receive_skb_one_core+0xd6/0x130
-  process_backlog+0x2cc/0xa00
-  __napi_poll.constprop.0+0x56/0x270
-  net_rx_action+0x327/0x730
-  handle_softirqs+0x11e/0x630
-  do_softirq+0xb3/0xf0
-  </IRQ>
-
-Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
-ipv6_rthdr_rcv(), which already has an idev lookup.
-
-Fix the NULL dereference on the RPL path by checking idev in
-ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
-an argument and no longer call __in6_dev_get(), so the packet is now
-dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
-
-Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-Tested-by: Xiang Mei <xmei5@asu.edu>
-Reviewed-by: Simon Horman <horms@kernel.org>
-Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ipv6/exthdrs.c | 26 ++++++++++++--------------
- 1 file changed, 12 insertions(+), 14 deletions(-)
-
-diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 7f2d7cf976a93..b15a0c2c8d54e 100644
---- a/net/ipv6/exthdrs.c
-+++ b/net/ipv6/exthdrs.c
-@@ -370,23 +370,16 @@ static void seg6_update_csum(struct sk_buff *skb)
- 			   (__be32 *)addr);
- }
- 
--static int ipv6_srh_rcv(struct sk_buff *skb)
-+static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
- 	struct ipv6_sr_hdr *hdr;
--	struct inet6_dev *idev;
- 	struct in6_addr *addr;
- 	int accept_seg6;
- 
- 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
- 
--	idev = __in6_dev_get(skb->dev);
--	if (!idev) {
--		kfree_skb(skb);
--		return -1;
--	}
--
- 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
- 			  READ_ONCE(idev->cnf.seg6_enabled));
- 
-@@ -487,12 +480,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
- 	return -1;
- }
- 
--static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
-+static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
- {
- 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
- 	struct inet6_skb_parm *opt = IP6CB(skb);
- 	struct net *net = dev_net(skb->dev);
--	struct inet6_dev *idev;
- 	struct ipv6hdr *oldhdr;
- 	unsigned int chdr_len;
- 	unsigned char *buf;
-@@ -501,8 +493,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
- 	u64 n = 0;
- 	u32 r;
- 
--	idev = __in6_dev_get(skb->dev);
--
- 	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
- 			     READ_ONCE(idev->cnf.rpl_seg_enabled));
- 	if (!accept_rpl_seg) {
-@@ -691,10 +681,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	switch (hdr->type) {
- 	case IPV6_SRCRT_TYPE_4:
- 		/* segment routing */
--		return ipv6_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_srh_rcv(skb, idev);
- 	case IPV6_SRCRT_TYPE_3:
- 		/* rpl segment routing */
--		return ipv6_rpl_srh_rcv(skb);
-+		if (!idev)
-+			goto disabled;
-+		return ipv6_rpl_srh_rcv(skb, idev);
- 	default:
- 		break;
- 	}
-@@ -839,6 +833,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
- 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
- 			  (&hdr->type) - skb_network_header(skb));
- 	return -1;
-+
-+disabled:
-+	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
-+	return -1;
- }
- 
- static const struct inet6_protocol rthdr_protocol = {
 -- 
-2.53.0
+Thanks and Regards
+R.Nageswara Sastry
 
