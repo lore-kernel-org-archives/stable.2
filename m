@@ -1,219 +1,132 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013017.outbound.protection.outlook.com [40.93.201.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BEEE599A26
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:14:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1024C59C987
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.49
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891290; cv=fail; b=B2O53Yz3knlP9atslhgMDaSQ+hig4rhRtU4o9gNwe0+oRU/8WgWK+yLOmJE5p7E/8JO4J8VF0VcR+D91Vw+Y58r104rUkhprHpKSIzbcug+HsQw6ifX2veXO5GtINRPV4qHfETXF7GdZvCDWtIL/TX8hCAJYTf2d8eZhnBCyCOY=
+	t=1788891318; cv=pass; b=ASfedMKQ/52gmurH+S66HJQJqEtHwUUnvgozp2r92CXJFURbCkMIuJdk+jQxk0R7HpdyaVnTeYCZ7Igp8/2RZZAPEQi+RWAwj1ifl3N9njErfoFKkDGzbvg2izNy0i9aX9TmnHl3NYNu4MRW9PD5jy20C689ZsgEolG7kBUvM7I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891290; c=relaxed/simple;
-	bh=Oi41WEf0xYc6RFfi8yqLRM3JMzkFUNPx6SDZUSkWWeY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=tYJHKS7x0Q9dnceb5spZTPbzEu2IBZwnGhtz5GJ+JVulvBp+F6u3lXNN5vPl47QGj3INhUyCHK14MS01/dK1Q2JH1uChuiwi9e9KOQFJAWanGw3bWzMDFvgdp0WR6cOvuzD+bvAF5hG53PZJrswfM0FuxHjbUEsSMxAHPuTCs/8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ssThGMr6; arc=fail smtp.client-ip=40.93.201.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788891318; c=relaxed/simple;
+	bh=I1JWkwexAdECXk7Ri9fH4s02sP9GMsE/7YOTlpBK2Zg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pb+n7jGTwYN4LN8/8vdYxDkZqa1p1dINbtds7h6+4NF3FloqU/SnDupqfIsmTRdBEZ73hlZlRcl5Ybxz0dBzlGpdSOxTYN1XeOiIrtQkgYClAUURjVANrrFa/MAJNCeWW6HBc3v7FSqMTIXxUAA/MSHzwAV/JWtlN1cPGLnrMrU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hPoO/5hK; arc=pass smtp.client-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ssThGMr6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VV3K4HpCaFxQ3qrsiekwkFj0+k+EkYvW0kbQAOvP+jGJ4l3U1ProS4+fF1CV6qYVqSGE2yTPxUEPX1hkzI8JQ5Y+Sm+SZLaMQcxhIcyrL0HtBtG4X2LeJKi8LvgcuFEqnMx5bgut5GYWQiOgeU1RbCZVODL6YnZR4yySIIHK8Z7W/vfwJonVy2nsLZaImOUNWa2GVeXcMoyExyiOpps5SnRbR+3svj5a3ghSzeTmFWmfPZAnJbYJghOcOD9kJYt9okQWrczMbGc9+C/TwcJKrnK/qIRpK1oew679p9RdPDLCJwTDTt0b9atbBW5K3fGrmmE9MVtTqe7St1atqocc+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NbKJtKBLG/IS1oeALfitw4YZeO5XN0sgqKtn67x9hPE=;
- b=gVqXlbWiNAFIIMW57RkaMf/NEHin9y5AqT5Lsb3f/dXnBduOoyU9LO5dmOXZm+UOZgWuRrlHSI+/SgWsexNfumkNuTTMIhk6haKXT0cGzDbc/1XgS86nkNAh7u7oRc4/pcd2Z9z5GjW9vEe2Grje7xfJlc2Ck3z889WsGRsbS/3CxUeIV4a4ZOysusUb0eri8E4fNmDxVjbkRzsmOOErQhpffW9wpAf+Q3h+PQ06TACHEtO2XfWSFUCoobLDej88SIhDsNo/XqsDIGwmeCbFo4VX27IJladBr8MgDN/1eaO8RdDRVWY/lvrYSsccpA7ls31VLlvKQnCBheUVxUJpAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NbKJtKBLG/IS1oeALfitw4YZeO5XN0sgqKtn67x9hPE=;
- b=ssThGMr6tFmYbO0dEcFqRUhnEEihzGJNXmH7Yz8s5wKgd/xInN7lRsLE0LDOgSTyCCn4okN5x1+Lb/WdfbCPlj7pas0Gp0Wrc5An3VdNiRwvXUhEQ9CJ5A3rtKcLNq50FQbjswukxNCwBf1CHbQ36Iz7YFbbkHp1OxbnAaYaYfE=
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- (2603:10b6:610:2fd::7) by IA0PR12MB9048.namprd12.prod.outlook.com
- (2603:10b6:208:408::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 18:14:41 +0000
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61]) by CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 18:14:41 +0000
-From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
-To: Mauricio Bellon <mauriciobellon@gmail.com>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Lin, Wayne" <Wayne.Lin@amd.com>, "Limonciello, Mario"
-	<Mario.Limonciello@amd.com>, Mauricio Bellon <mbellon@lenovo.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>, "Deucher, Alexander"
-	<Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
-Thread-Topic: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
-Thread-Index: AQHdNVjsBEnDHhjZq0+GmN1h0gU4krbFDgaA
-Date: Tue, 8 Sep 2026 18:14:41 +0000
-Message-ID:
- <CHXPR12MB99922037436C4ADE71BA82E152E5B12@CHXPR12MB999220.namprd12.prod.outlook.com>
-References: <20260825211819.100210-1-mauriciobellon@gmail.com>
- <20260825211819.100210-3-mauriciobellon@gmail.com>
-In-Reply-To: <20260825211819.100210-3-mauriciobellon@gmail.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-08T18:03:32.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHXPR12MB999220:EE_|IA0PR12MB9048:EE_
-x-ms-office365-filtering-correlation-id: b9636c74-d46c-4c35-e40a-08df0dd50da3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|3023799007|18002099003|22082099003|4143699003|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- 4/jxYJNfvJIQ9Etc+SGOoxR+g783i3h8Fbk1sFjbw7isMNdjds7gowcN86ZBWwiNFbagRf646rsmiVsXBstAEWFq71dJbPEnbQrSI8+h2j5OVeKCxvqO90k1t0gBJ5wcQctb0pNIz+dRQiaf8Mnaw2Ca+hKvU4sNqLsTSShfV3cInNTf7RD01W5ELWS5CT7bQ5nh678MZaCP6FohYeQuMjjdvfRWkR7V4hoqXfBbCPTB7Xuu1DghUebHLDsNwBFkMjpJhEjt3+y2jVywYyJkBAEgT6ioRdfxqwAMGnPW/YiN8GUdnUQxB4A1VYpaxIjPxyd1a4RDVGAO7pEvhzVZZWeHpAEV17m2QILvdi1d70Ua1aNMEm4XY9LUBhI3OQK18z22uWXRZ4K8TJYtaTbLcRO1nDVy5OGoDOEue6jzCkUZN7YL01mHtYZkCoQmkPz/9mMJNx+7jG6MqFfYs9upmQH4nPJX2yR+1TE8jlTFfs+f19q9HlZ+9oUVlYu5dUypgWc6an1HDiUfYi+ek5LxwQK/i1qSeBpa9PEo9EkxrIf0rFKlVBQBkd4mPr7xTqI+cDzgRs1y8RMa5cwEVjfeayLdSoAPRom008WcUNsRHufZMOQu5pmBcyUiZ6ZtEZdkmV1aMe2UjAv+/QkIyuMrhXwfahs2HfFs0hEXp47hFKpuvZZTLIuV9GAiSmil4Pz001nq7D+ZdPyEpr6hqPs7Iaty0leXTzf/ROoT9RNmcXo=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CHXPR12MB999220.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(3023799007)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?pkFS+L9KEK0RnXmZcJ02RbslrKln2VM59Zi1iPSFybgMTuBWEfjBGPTXuEwn?=
- =?us-ascii?Q?QK5da0/788R4BWzDazGo/ZdTG80LQXAXpWDSPB8ilhGYXnfeEjuCh3syZ/cY?=
- =?us-ascii?Q?2X6Qm0SxqE0ZdIXH+1SOO2zInqtZ9oAEYQcCqprcEU6V2fZuzU0Hc30CO6wY?=
- =?us-ascii?Q?Td7eF6k7k1IjEm54tXPYezVxCLx2SFIEPolKnv6EDeuRZcmENl8ev5NZD/7L?=
- =?us-ascii?Q?W+Z8QB2xe802Y+c5Be7PfHKYAwKYn7gcCSzJx7juF0EyeGh3F+qQbE6VHG5S?=
- =?us-ascii?Q?wxfl/Mw5Gst6nkPhErita8dBezwPNfiuCOhG7ORFZPR3+NETEAx6XP/NvQ82?=
- =?us-ascii?Q?aO7O6Snt7wmNZEgbLyodHyS1NZsFJDvtcCJDdg1S8gLMStk9HbcP9tSl1spL?=
- =?us-ascii?Q?0arlWC2gaTYnepvvDeabdnC/nyEXGMl1MU8tY53tZ3maOXAnTVu4R96dLlzk?=
- =?us-ascii?Q?4axjmxAr1RQ2qswnIM5pD4g4pk5PzY3USuFbcz3368uqSdB2iAV8AFM2Nh1T?=
- =?us-ascii?Q?quT/fB7yfwVO5mpEFblnL0hGEyxxoz/nwRUfYaJmW22nCdLdXYpIS/Mhi0QE?=
- =?us-ascii?Q?jE/YEAnkU5IVDZkGTgHV4Ap7Czb57q/O9KRK8Epv0aXMxG9yv1jhhM+oO3hG?=
- =?us-ascii?Q?VqHkTGSDPkhj5s9vFOg9s9HD5xR5HED86nCcUcJojUvhqf3rz2yTz2bGuoya?=
- =?us-ascii?Q?KLUwaJIyeslAxyvCebTgZU2qaBkZfaTExmtQ5Se2YkYcNy7o6s/HFNohmEdc?=
- =?us-ascii?Q?hlUXGbP/IFugyKR1V9beVNfSPZycmjkqlKtKUKENEmCLplQS0itNUnDBPHtr?=
- =?us-ascii?Q?LNaCY3StjYFH1cb7h62JP6m1wL9BNbYmGGxRallgBGrtF9lq19P+o7ifwEea?=
- =?us-ascii?Q?IPlfQvYLEvQNgPq3O6zRHrXFGXy9sVz/BAnyHYc1sHnsC1AUcicBHH4GEONB?=
- =?us-ascii?Q?Miq8iOPL9HIqXrWNjNSEaOwuY0FmuqLINerDTM0EL3n/3VVhi2AwRh6c/IJt?=
- =?us-ascii?Q?wjSrvd/WlJ94RxIHwCnHLSbzqe3Yj7quOx8PId8h8s4553oxFU8oToRGl3gF?=
- =?us-ascii?Q?6r8MbzSMeUTyuf0ZxwTi8VxcmN8tAWTXq2edZhfbNzSlfXAbfqRZZQQaHD/4?=
- =?us-ascii?Q?DGzEH+/3JqjHw7+h0ejHxWCjmIyM3+79r/B8pwvFJQOLb5hLJxLIciEinA6a?=
- =?us-ascii?Q?O8yrCfIYGV0cdSm/TROWCPsaaU7rgULe5DQVxKW/12rwNzevvvFQKNdW/IcF?=
- =?us-ascii?Q?i5FpXvjS6hEN2kKrzm/TISiXQH/jyJssucbnqpjJkPjeNk/ChNPdvKjtAyei?=
- =?us-ascii?Q?9UxMKIws9VcmGHWWw4tkkvWOVEvjeBIKpMquGV1PEpEKK/GI3M4yhA5WbfSZ?=
- =?us-ascii?Q?Yf63M+KvCrJKc+I7pZBrJeWBS6DQf9RPjA7icU7b5NHx3m9Qs2mbv1yuaoKP?=
- =?us-ascii?Q?AAE28nlXZvGCdq2kLIgJ/cb4iWAguPzbBcSLzzZBhlxUaj3y3jBFuWGXss+q?=
- =?us-ascii?Q?y7P0rG5dFvJnFU6ncWc4O7EAzCh8UODcrxrinnMAER2tFRdEbD+XGAztvP7K?=
- =?us-ascii?Q?nTzOUsgbvIqXa8Np1vdTGJu2H85hlmK2gCo/VbO+srkG8izrSsackdAt2rap?=
- =?us-ascii?Q?9vUZloO3seNfwgyEwvAwsw4QQO1jdZf88IwRbcE7wupRuaN5HjxuHVgzazV5?=
- =?us-ascii?Q?9vDKM2SiNB2UX3v6F9t243B7HWEPQck0UfcC8dhqtjwf4e5W?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hPoO/5hK"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90cc39e06bdso59216296d6.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 11:15:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788891316; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ThrecFSrjJVf06nQJ4itDrIL6JwS3kDeb9MSu7RZA8Z8H998xmhJWntTzIUMM1kZhs
+         /f3a4mcQt8kA+OwT+2phyr9t2M6f7YdC9J9i1DJSPg85nFZYzZjGYz2bb2jElWxjRvDQ
+         GBi54KJPE81+wtdtcSB5wSCggwPIJ13Vscol7ZRg/JBMgudCVjNUwvY18L2PHkL3+3V4
+         PCluvGk3emyUXuIgd5zsEcqVpHO/KeqsP3xUOxoWInUalG9rroJ6PW0mrWH8lC1BVygL
+         NVfwqHKcwDoP1PJ+7oUctlBJ9LITkSNWBNmaMxv3kERMnw9lLuUejIJEvhobMClnVVox
+         pacQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        fh=HEordA7qT5fwu0QlIQDcq/TQ1DamQ5GTzxGn7B9v+xg=;
+        b=Id3UU1Itu2yWgfhEr8MeQpTNuGZfiXZu6HMH89pfEG/IJG9m+Q9umEKf9SOY9RIu9A
+         96AWjd3QSYTSfQBpXF2lF07x1ASU/6bK8Y7X9AB34R38EwOH9zk/iO6ZQ5EfZivyBreK
+         tSCjdv43qAdPt/ILqs/ERsR5LKgq+WnrfN2iO7FslEVk/uypXXkvXUHlr9IPqbxmBGVh
+         Ioskkm7XuZZfU3BGmT5ssxvQSykBXungtCtk2wJmHJ7q10C7U/HQAoMVuoIY5ADMfHq2
+         9ORBq8GBZkvjR+FD9GQKmfypajU+pIq2HoocQia1tHE6LIemXVDC3qyes8RarESkjNYW
+         qMLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788891316; x=1789496116; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        b=hPoO/5hKS/oehig2qkq9G2M3k6jxjiGgP9b1RwRi8Ez+Qg4ps/gIf04NRZOHslBwqM
+         aBzNWzFqK5+pjMhqkhm3DznbFy1E3opRNoHw6W3S37s6E55pe8rUoOKwGLD9uazyPWhq
+         +81M11E3W8R3e1enOkwVDcHwbbpae7qyFULUMUVOvfp1Pe8br8SQUyAjjjvEHioB9enX
+         4JDZo4mDBNIz29rCFEY1T8+z6nbT6D53r+Tqq6O/lLnDEXHXFJpFwUynQmIk+2Df873Y
+         B6hKvY4fy2hn6HFMkplJQZbW2B/eTlIzVpUMhoMo2DOLbIEIjV+C2AvUBy2SfTsNryOa
+         HHBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788891316; x=1789496116;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        b=snrrt+T2Iu9+ou0D23XcuQ0mrs2jv/6nx4YZKSmgfwo6Ouu0Z3fB0V1u247UhyhlKr
+         wf6BxiUrY1mKhLc42UIP1Qp4MEGeSt+RrYB6DTZ07sdSDtvRvo/15ICNLzgyoI0VtyCe
+         HBr/AAT5zZKsqg+77wpLDSD8Xtg9eZRaNOvEradbiRSSNL/fxXaNaaGk3ynGFJ4KP3Mc
+         KPiehYGPDiAEZQ3bBG+buiiAEBh14Xf6wNFmXr2Iuk1+GKrFvysh9waxSfjHyUukf+Cm
+         nrSxWxYKdunF3nD1XN1weV+WORgYFc4CK5C005+8KO/zqRtUxJbyH8CaFVyLSyuLoUnp
+         A+iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZPeVMWWWcynTmJ3ECmHvEVUQ3iMUidq5aaFPGhzhIZxbXQDT6H5KHRA4OXt5qpIRvldhKQVk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lWqaPB9nHoydLHVOWlRKB9FIkmq/BqLZDSTHlSSwvh1VZtXSiY
+	Ybs1xkO1S25rgLxzdqymk28aVypY6+BrEvHoEO7fA6CKyrM8Kwn9gbOXtgRxv8gnJ6IaQPAyLtb
+	GEC6bmRZkpdCPRFLuf1lbwr+v2qaZgeM=
+X-Gm-Gg: AYBFou3jdgV+AbhBhJQkjcxyUvPBZqM1hXNjvT+4aR4HLRH25VddrBg3B2YQFKySeii
+	HEw8+Bp2CKwbF8nMaJZlthP0KvY9BMQooAhQnnrcRp6d2g+X43A4UZpBOyjuwLW9ThKBBEjwAH8
+	Ygmpab5V0aWANs6/vqaN4F4gIbZu2lYuozm7ZRYSmPjWgxVcddgP9h3VDsMriAtqovXITnH7zgp
+	bYtx2LZgPkws1HkRSfWD931FiZQBfH1K1GB5c4xKP0DADO65I7VTWdMNACPVfbCUttz+Jc9Uyyz
+	fOns6NeEDhf16jak9bJmPkS3IO4YXlpP0+1XGy8lBsJ7C1njopp0Ja8=
+X-Received: by 2002:a05:6214:6354:b0:90e:8a84:f5b8 with SMTP id
+ 6a1803df08f44-9103efac50fmr274978446d6.28.1788891311145; Tue, 08 Sep 2026
+ 11:15:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHXPR12MB999220.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9636c74-d46c-4c35-e40a-08df0dd50da3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 18:14:41.7354
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: b1AlD4pAgjaZhM9tivWutSJmXpJX6EcWvhKXO8hpgvN3Pmjb1HCDzUT/BfPjm+Pw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9048
+References: <CANRwn3RFVDy+y-fpLkb1mfjiKyQgp1Jg0tyBTO+G0xem2s1jkQ@mail.gmail.com>
+ <20260904020235.8227-1-98lawweijie@gmail.com>
+In-Reply-To: <20260904020235.8227-1-98lawweijie@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Tue, 8 Sep 2026 11:14:59 -0700
+X-Gm-Features: AcwNN1UywzU7cqy163imiuwCDI-OJo3UKdSrETVCLN-wYAoD9DpBSTsnKrDgB1Y
+Message-ID: <CANRwn3RqPvR7g3riuKSg11TCm+Yt9MTd6r0tF4tqSK3rcRp_gA@mail.gmail.com>
+Subject: Re: [PATCH v3] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
+To: Wei Jie LAW <98lawweijie@gmail.com>
+Cc: bentiss@kernel.org, jason.gerecke@wacom.com, jikos@kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ping.cheng@wacom.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-AMD General
+On Thu, Sep 3, 2026 at 7:02=E2=80=AFPM Wei Jie LAW <98lawweijie@gmail.com> =
+wrote:
+>
+>
+> On Thu, Sep 3, 2026 at 3:36 PM Jason Gerecke <killertofu@gmail.com> wrote=
+:
+> >
+> > I'm still finding the above paragraph kinda hard to understand. What
+> > do you think of something like the following instead?
+>
+> Your version is definitely easier to understand. I'm good with it!
+>
+> > Other than the above language issue:
+> > Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com
+>
+> Thanks. Should I submit a v4 patch with your "Reviewed-by" and the
+> updated language, or is leaving it as-is (here) just fine?
+>
+> Regards,
+> Wei Jie
 
-Hi Mauricio:
+I suspect Benjamin would prefer a v4 with my Reviewed-by attached so
+that he doesn't have to make the edits himself.
 
-     This change breaks dsc, causing black screen.
+Thanks for your work on this!
 
-     Sink RX dsc enable should land after link training. Writing dsc enable=
- to the RX on an untrained link is too early, that should be done after tra=
-ining. That is likely to be the main sequence regression.
-
-Regards,
-Jerry
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Mauricio Bellon
-> Sent: Tuesday, August 25, 2026 17:18
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Lin, Wayne <Wayne.Lin@amd.com>; Limonciello, Mario
-> <Mario.Limonciello@amd.com>; Mauricio Bellon <mbellon@lenovo.com>;
-> Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Deucher,
-> Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; stable@vger.kernel.org
-> Subject: [PATCH 2/2] drm/amd/display: enable sink DSC before source DSC
->
-> [Some people who received this message don't often get email from
-> mauriciobellon@gmail.com. Learn why this is important at
-> https://aka.ms/LearnAboutSenderIdentification ]
->
-> From: Mauricio Bellon <mbellon@lenovo.com>
->
-> Direct DisplayPort high-refresh modes using DSC and two-way ODM can
-> commit without visible output during a 4K120-to-4K144 transition. A worki=
-ng
-> 4K144 stream can also return black after long-pulse hotplug reconstructio=
-n.
->
-> The DPMS-on path currently enables source DSC before link enablement but
-> does not enable sink DSC until after the source stream is enabled. This l=
-eaves
-> the sink and source compression state ordered differently while the strea=
-m is
-> brought up.
->
-> Enable sink DSC immediately before source DSC in the pre-enable phase, an=
-d
-> remove the later redundant sink-enable operation near PPS packet
-> programming. This establishes the order as sink DSC, source DSC, stream
-> enablement, and PPS before the compressed stream becomes visible.
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mauricio Bellon <mbellon@lenovo.com>
-> ---
->  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> index 48b086d15..412ce52b3 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -2635,8 +2635,10 @@ static enum dc_status
-> link_set_dpms_on_pre_enable_link(
->          */
->         if (stream->timing.flags.DSC) {
->                 if (dc_is_dp_signal(stream->signal) ||
-> -                       dc_is_virtual_signal(stream->signal))
-> +                       dc_is_virtual_signal(stream->signal)) {
-> +                       dp_set_dsc_on_rx(pipe_ctx, true);
->                         link_set_dsc_enable(pipe_ctx, true);
-> +               }
->         }
->
->         if (link->replay_settings.config.replay_supported
-> && !dc_is_embedded_signal(link->connector_signal))
-> @@ -2729,7 +2731,6 @@ static enum dc_status
-> link_set_dpms_on_post_enable_link(
->         if (stream->timing.flags.DSC) {
->                 if (dc_is_dp_signal(stream->signal) ||
->                                 dc_is_virtual_signal(stream->signal)) {
-> -                       dp_set_dsc_on_rx(pipe_ctx, true);
->                         link_set_dsc_pps_packet(pipe_ctx, true, true);
->                 }
->         }
-> --
-> 2.53.0
-
+Jason (she/they)
+---
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
