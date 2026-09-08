@@ -1,384 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1A764A1DE9
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874007; cv=none; b=pwj1n5c9mhpP3JtjRxF6i5JTABxfO4STVnn+YDf0EEer7nnQjuG+DztQiRdLS1F8AgM6Be7nax5TWZFH5DJKjlg1SHe/qwSSWGyIUVBb5Mkb05ngtd2tpuCTG40auymaRr/brfPen9TKOS5oYEfUsWlL10rJfu2OHJmxCpGqRYo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874007; c=relaxed/simple;
-	bh=8ru3j7DaAHDKJYfQwhldnXrN8wA5Zcs34nIUs2+h8kw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cQyrrPD7hOfNQWFyP9U7jHJElUgFBwzh0G+IpP0DhhEEOt8KhnpbNNiZk9MVszSonkj1GHxlYD3VITnCaYO8S238Tedhj1rViKdQjQdugMizNO2fVdMbrB3QmGHwxifea+nP/IchYP/YWHf2vXrErk+9QQBQO3jInWUd7LMeMFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEkuyj8S; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4B755D898
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788874119; cv=pass; b=n6hUTm8H+nugbvnx029pdEtsXvRq7lpFzEXme5vgkL/sIJ1nxG12aNr/U99YA6V7D+/Ql9J8wRDGOuVHEtO2Mo/WbqGo1Uta6xJlNQnd07EqISCMW+mRdB4vS3UO+xUqgkfSXLvapIeHiEkoLHOIHFjtIYCBXeyJ8CXAM6/7458=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788874119; c=relaxed/simple;
+	bh=XrWPQdu6aVkIEftfYKLA9OZgTitSQ0N+EPeHqgtL9RA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qu6zH2UpogsZDPAPwmGGtYNU/n0vWEiLZfNT0HvWUSbloZasmYa5u1Y+sryYHWEJDdIq3f0IzhOfTU3l7r7d73OjaOK2A8/+kb3zgbvj6dIV0Ze7fJ3IwBFQNKKupJrZqQO6qjdYw/qjlA43EhtNYzsawbsPlkkfNg2pTit/mwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GDzKyIQe; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEkuyj8S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBC6E1F00A3F;
-	Tue,  8 Sep 2026 13:26:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788873993;
-	bh=Ydddoy3fDGhaX9mi9fGQ5TwHSb/bn5mqJ0KlzxdFmaU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mEkuyj8Sti0oZc4Q2TUIEOBxsy+cePIzafijHJgroExTEskPWSlTLGtfPEVpyThQw
-	 Lq2RwjqrCXuHqwJOcFYybU+zmz+/iVl6GRC2CuX+Gp5T3SeXmgg6T4Xb+1NexcnBmt
-	 W0IJ6YMgQI+LK+fnaaRz95R1NNkELfSsH3oZFbn7gZQ52wBsC1ekzfYHJbQDVk1biL
-	 q3oTbku5gvhEhS5no9WuK5sa1vt0Roxf6HZIObq9/54CI9VqIPSIDDZP8WEf8kYH+I
-	 2HI+r9FSRADbam6Ca5TyxWtAHBiW4KVjAMFMlKiFKMkOiAqcWbY0Zcp36VlwElVoh7
-	 XM6Z+30aZJ0xA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Terry Bowman <terry.bowman@amd.com>,
-	Jonathan Cameron <jonathan.cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] cxl/pci: Move CXL driver's RCH error handling into core/ras_rch.c
-Date: Tue,  8 Sep 2026 09:26:30 -0400
-Message-ID: <20260908132631.2302890-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090317-uncooked-enduring-e40a@gregkh>
-References: <2026090317-uncooked-enduring-e40a@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GDzKyIQe"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8623e5d435cso304477b3a.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:28:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788874098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cvUsL+PKIzi4P8nzdnkj0YE7uydJNXJoWAomBiEHoDoE3hi95o6zt47cQcP1m2ySxT
+         fv9cq2LUCrMFPHzcxbKHyyf/kC5yyJzUjvnNrXFsgJONRl+2W/th4YqXYNiogC81wlyw
+         SJxq8fnPC/Dsp5svhF9MuOZJcibndleK419HCr4ryitYCoSM3EoQlhZDMBKUetBB42fH
+         JgC7sUv9jcMPSUhMajZCpPN5GIkUPxSiOW75KU+F1AddhC72x+sxClLollVU1IN+kHzq
+         6GUMTlHPYE77c2j4sWNe6POfxaqyEUAk+Mtsx0hbvcrBac8q8+nRvUAlu4eAaxW31UmC
+         5+GA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        fh=gMaCYE7yR9JV7nOhkLvv4kT0wDXvp5DmrDqlCExLtlM=;
+        b=Jr3hsljAUmwVNREmtbAeOBEr+8BM1hcI6iJFK6Xkya8YUj0UETFq8YYk6pjNgts6wx
+         MQMhF6f7H1r8fIjcX7WF+kWXEvZY1kofgp5FBjS3hqbG0fpR59cwPdEOoUiHGW8ODF4f
+         joKqgZGigDUSZBZ6j+B+gKsJRC36SAR6P64dSqvLNqrjGiP8IfMELLKwRgm1Daq2Y8yV
+         HFWegIgcfUHAW56Dh41fokL0ic+g2REVXgFrSaxGL0YEyzLsFFoTGrGYU0JeBs5BJqcX
+         ybrhZO9sCbnIHG2SOmQnV2FW18AeoUriEN65rrj3MTSdkAHBJ8HYskLK7DmfMf9cywSp
+         Z1Ag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788874098; x=1789478898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        b=GDzKyIQe6gkTpY6dg7Tc7eMqvtKCONPfezqQzQ5kSDS69CAoCuxI+JOe9Ujb/wFLW4
+         NNv+wf/qu5jdSqGH7GT5mO72kF2aRTO2AuMqtrXHH7wlTZ4+aSuFaIJWNgQUXuAMYx7L
+         UOXdcc7cxtrl+qMW51cYjvQYfA/iqjn8lj81IVJQxRjJq1gfEBFvoqh+lJXly7YKFn31
+         tKPwVvmvAVxONDj/w2fFNezBOlbgpMWRrSC6k0kPaKxjvM9ePRZMOPaXiM8t3LZzy41R
+         //xbVtYL4P+kxfcx0gk3zPTtdLqVTnyxH1f72xn30RhM3jKP1qExiEcevXkcF6slhrMp
+         xLSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788874098; x=1789478898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        b=qgHyzwsSgk/1RQLTTovZTLM3k9PBJEZoB/1jGw2gQKdIDAEzljRl6ecepCrKQTcO7r
+         Oc3ssAA5qGkI26B64Ux8eQpKNP/RQ0oMYxPCN2uXCJT7n9UArYMQnIHLuwmi4XpAzuAG
+         5kaNq7doAjBrg/U5QIYitY/j/2TJu8Qy1EOWPSoYuFKbcjfpf7Wta95f2DMhZJL2rY4r
+         1LIVfhrqsDuACcsJ6FxA0Gm3mpiARzxGs3lVVJKXg8FvNwlmEyFN5gLxWloQTXm8El2u
+         CeinLin2q/H8+oQDrChJEMhkb4erHvR+wTdtegtrsOYibCqFI260GajeUaxpTyoIQKQy
+         HygQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypldPMdT6r6yvw3DldWEVx+kcUz97bmq/RddC1odzpBDuHuMB6fbFqLKG5Lwglxg/S5F9Ijrc=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku0L0qkfOqmIeV9KonxmeE57nrAY+p8fQ6q8eAzY7AkVN4dYVC
+	qxPwpyLdP4odHFUL9xbWyrxQMTyLG3kHxCXtowl6cl7yim+90KmsHJJ+RyGCGYoIYHJ70/ucYjC
+	S0pYBdwqmsf/1RI1DMxs7xu/lHTmTcrQ=
+X-Gm-Gg: AYBFou3Sr2nyA+ousjL1H7qCNA511GpenX2Wv3v6M4KxJz5Jr86UuF0+aPFJikk5Da0
+	q7lpWQnx6Af5P5jq8ASdV6deJQoHEHa1eGdUBm3eiZ+LxwU2hn3wg6Z7DkncEA0yqih4kdi7PKV
+	8j3enTmdXC38pGsMl/BaUJis0cJlAq7NY0EVebhxH72KhHgA4eiLWn6bnLL4IB0LABBGDqFhMod
+	TrXMpndLT+/tBLQcE3eE36o0UjbCNI4twmeClNzgXDegCJ84bY4zXd2/S6njzjnymcGOrZH5Hrm
+	vSGmauM2cqKq6A8Rssdo4bp7WSBqugk1lkGjObM8xXIuO19qLMYkt2Wv
+X-Received: by 2002:a05:6a00:1395:b0:84e:cd14:aeba with SMTP id
+ d2e1a72fcca58-86698fe1ea8mr6346255b3a.6.1788874097889; Tue, 08 Sep 2026
+ 06:28:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907151428.643841-1-adrianox@gmail.com> <ap-4khETBju3X8-T@hovoldconsulting.com>
+In-Reply-To: <ap-4khETBju3X8-T@hovoldconsulting.com>
+From: =?UTF-8?Q?Adriano_C=C3=B3rdova?= <adrianox@gmail.com>
+Date: Tue, 8 Sep 2026 10:28:06 -0300
+X-Gm-Features: AcwNN1UwNNi1uUL8ZrK4YlYg6vVWK6_rZXfk738aK_31iCexOOmSxAgWI8zqjXg
+Message-ID: <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
+Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
+To: Johan Hovold <johan@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Terry Bowman <terry.bowman@amd.com>
+El mar, 8 sept 2026 a las 4:26, Johan Hovold (<johan@kernel.org>) escribi=
+=C3=B3:
+>
+> On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
+> > Do not dereference mmc/vub300/udev after the final kref_put, because
+> > it can release them via mmc_free_host()/usb_put_dev().
+> >
+> > Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
+>
+> This commit reverted a buggy change so if anything is broken here, this
+> isn't the commit to blame.
+>
+> > Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
+> > Link: https://syzkaller.appspot.com/bug?extid=3Df312381a95cc080992fd
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+>
+> Are you missing an Assisted-by tag?
+>
+> > ---
+> >  drivers/mmc/host/vub300.c | 7 ++++---
+> >  1 file changed, 4 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+> > index 2dae474dcd06..a1a6aa1aafdb 100644
+> > --- a/drivers/mmc/host/vub300.c
+> > +++ b/drivers/mmc/host/vub300.c
+> > @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
+> >  {                            /* kref callback - softirq */
+> >       struct vub300_mmc_host *vub300 =3D kref_to_vub300_mmc_host(kref);
+> >       struct mmc_host *mmc =3D vub300->mmc;
+> > +     struct usb_device *udev =3D vub300->udev;
+> >
+> >       usb_free_urb(vub300->command_out_urb);
+> >       vub300->command_out_urb =3D NULL;
+> >       usb_free_urb(vub300->command_res_urb);
+> >       vub300->command_res_urb =3D NULL;
+> > -     usb_put_dev(vub300->udev);
+> >       mmc_free_host(mmc);
+> > +     usb_put_dev(udev);
+>
+> This makes no sense at all as the driver data is freed by
+> mmc_free_host().
 
-[ Upstream commit 0ff60f2ec3e4043a442e805f80f8a2445113ec8f ]
+mmc_free_host() only frees mmc (struct mmc_host) and vub300
+(struct vub300_mmc_host), but the udev (struct usb_device, linked
+as mmc->parent) is not freed by mmc_free_host() and has to be
+freed separately.
 
-Restricted CXL Host (RCH) protocol error handling uses a procedure distinct
-from the CXL Virtual Hierarchy (VH) handling. This is because of the
-differences in the RCH and VH topologies. Improve the maintainability and
-add ability to enable/disable RCH handling.
+But it cannot be freed before mmc_free_host(), because the kobject
+cleanup code of mmc_host accesses it in mmc_host_classdev_release()
+via host->parent->of_node.
 
-Move and combine the RCH handling code into a single block conditionally
-compiled with the CONFIG_CXL_RCH_RAS kernel config.
+>
+> >       /*
+> >        * and hence also frees vub300
+> >        * which is contained at the end of struct mmc
+> > @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_st=
+ruct *work)
+> >                       construct_request_response(vub300, cmd);
+> >                       vub300->resp_len =3D 0;
+> >                       mutex_unlock(&vub300->cmd_mutex);
+> > -                     kref_put(&vub300->kref, vub300_delete);
+> >                       mmc_request_done(vub300->mmc, req);
+> > +                     kref_put(&vub300->kref, vub300_delete);
+>
+> This order has been here since the driver was merged.
+>
+> >                       return;
+> >               }
+> >       }
+> > @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *m=
+mc, struct mmc_request *req)
+> >                   satisfy_request_from_offloaded_data(vub300, cmd)) {
+> >                       cmd->error =3D 0;
+> >                       mutex_unlock(&vub300->cmd_mutex);
+> > -                     kref_put(&vub300->kref, vub300_delete);
+> >                       mmc_request_done(mmc, req);
+> > +                     kref_put(&vub300->kref, vub300_delete);
+>
+> Same here.
+>
+> So if this is wrong (it does look suspicious, but this driver is just a
+> mess) then that's the commit to blame.
 
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://patch.msgid.link/20260114182055.46029-9-terry.bowman@amd.com
-Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-Stable-dep-of: 9d399526128b ("cxl/ras: Fix cxl_rch_get_aer_severity() wrong severity register")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/cxl/core/Makefile  |   1 +
- drivers/cxl/core/core.h    |  11 +---
- drivers/cxl/core/pci.c     | 115 -----------------------------------
- drivers/cxl/core/ras_rch.c | 121 +++++++++++++++++++++++++++++++++++++
- tools/testing/cxl/Kbuild   |   1 +
- 5 files changed, 126 insertions(+), 123 deletions(-)
- create mode 100644 drivers/cxl/core/ras_rch.c
+Hope is more clear now, it makes sense to me, and I think the Fixes:
+tag is right.
 
-diff --git a/drivers/cxl/core/Makefile b/drivers/cxl/core/Makefile
-index b2930cc54f8ba..b37f38d502d8c 100644
---- a/drivers/cxl/core/Makefile
-+++ b/drivers/cxl/core/Makefile
-@@ -20,3 +20,4 @@ cxl_core-$(CONFIG_CXL_MCE) += mce.o
- cxl_core-$(CONFIG_CXL_FEATURES) += features.o
- cxl_core-$(CONFIG_CXL_EDAC_MEM_FEATURES) += edac.o
- cxl_core-$(CONFIG_CXL_RAS) += ras.o
-+cxl_core-$(CONFIG_CXL_RAS) += ras_rch.o
-diff --git a/drivers/cxl/core/core.h b/drivers/cxl/core/core.h
-index bc818de87cccc..724361195057e 100644
---- a/drivers/cxl/core/core.h
-+++ b/drivers/cxl/core/core.h
-@@ -149,6 +149,9 @@ int cxl_ras_init(void);
- void cxl_ras_exit(void);
- bool cxl_handle_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base);
- void cxl_handle_cor_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base);
-+void cxl_dport_map_rch_aer(struct cxl_dport *dport);
-+void cxl_disable_rch_root_ints(struct cxl_dport *dport);
-+void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds);
- #else
- static inline int cxl_ras_init(void)
- {
-@@ -164,14 +167,6 @@ static inline bool cxl_handle_ras(struct cxl_dev_state *cxlds, void __iomem *ras
- 	return false;
- }
- static inline void cxl_handle_cor_ras(struct cxl_dev_state *cxlds, void __iomem *ras_base) { }
--#endif /* CONFIG_CXL_RAS */
--
--/* Restricted CXL Host specific RAS functions */
--#ifdef CONFIG_CXL_RAS
--void cxl_dport_map_rch_aer(struct cxl_dport *dport);
--void cxl_disable_rch_root_ints(struct cxl_dport *dport);
--void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds);
--#else
- static inline void cxl_dport_map_rch_aer(struct cxl_dport *dport) { }
- static inline void cxl_disable_rch_root_ints(struct cxl_dport *dport) { }
- static inline void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds) { }
-diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
-index bd7d7e382d041..68859eba30db3 100644
---- a/drivers/cxl/core/pci.c
-+++ b/drivers/cxl/core/pci.c
-@@ -711,121 +711,6 @@ void read_cdat_data(struct cxl_port *port)
- }
- EXPORT_SYMBOL_NS_GPL(read_cdat_data, "CXL");
- 
--#ifdef CONFIG_CXL_RAS
--void cxl_dport_map_rch_aer(struct cxl_dport *dport)
--{
--	resource_size_t aer_phys;
--	struct device *host;
--	u16 aer_cap;
--
--	aer_cap = cxl_rcrb_to_aer(dport->dport_dev, dport->rcrb.base);
--	if (aer_cap) {
--		host = dport->reg_map.host;
--		aer_phys = aer_cap + dport->rcrb.base;
--		dport->regs.dport_aer = devm_cxl_iomap_block(host, aer_phys,
--						sizeof(struct aer_capability_regs));
--	}
--}
--
--void cxl_disable_rch_root_ints(struct cxl_dport *dport)
--{
--	void __iomem *aer_base = dport->regs.dport_aer;
--	u32 aer_cmd_mask, aer_cmd;
--
--	if (!aer_base)
--		return;
--
--	/*
--	 * Disable RCH root port command interrupts.
--	 * CXL 3.0 12.2.1.1 - RCH Downstream Port-detected Errors
--	 *
--	 * This sequence may not be necessary. CXL spec states disabling
--	 * the root cmd register's interrupts is required. But, PCI spec
--	 * shows these are disabled by default on reset.
--	 */
--	aer_cmd_mask = (PCI_ERR_ROOT_CMD_COR_EN |
--			PCI_ERR_ROOT_CMD_NONFATAL_EN |
--			PCI_ERR_ROOT_CMD_FATAL_EN);
--	aer_cmd = readl(aer_base + PCI_ERR_ROOT_COMMAND);
--	aer_cmd &= ~aer_cmd_mask;
--	writel(aer_cmd, aer_base + PCI_ERR_ROOT_COMMAND);
--}
--
--/*
-- * Copy the AER capability registers using 32 bit read accesses.
-- * This is necessary because RCRB AER capability is MMIO mapped. Clear the
-- * status after copying.
-- *
-- * @aer_base: base address of AER capability block in RCRB
-- * @aer_regs: destination for copying AER capability
-- */
--static bool cxl_rch_get_aer_info(void __iomem *aer_base,
--				 struct aer_capability_regs *aer_regs)
--{
--	int read_cnt = sizeof(struct aer_capability_regs) / sizeof(u32);
--	u32 *aer_regs_buf = (u32 *)aer_regs;
--	int n;
--
--	if (!aer_base)
--		return false;
--
--	/* Use readl() to guarantee 32-bit accesses */
--	for (n = 0; n < read_cnt; n++)
--		aer_regs_buf[n] = readl(aer_base + n * sizeof(u32));
--
--	writel(aer_regs->uncor_status, aer_base + PCI_ERR_UNCOR_STATUS);
--	writel(aer_regs->cor_status, aer_base + PCI_ERR_COR_STATUS);
--
--	return true;
--}
--
--/* Get AER severity. Return false if there is no error. */
--static bool cxl_rch_get_aer_severity(struct aer_capability_regs *aer_regs,
--				     int *severity)
--{
--	if (aer_regs->uncor_status & ~aer_regs->uncor_mask) {
--		if (aer_regs->uncor_status & PCI_ERR_ROOT_FATAL_RCV)
--			*severity = AER_FATAL;
--		else
--			*severity = AER_NONFATAL;
--		return true;
--	}
--
--	if (aer_regs->cor_status & ~aer_regs->cor_mask) {
--		*severity = AER_CORRECTABLE;
--		return true;
--	}
--
--	return false;
--}
--
--void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
--{
--	struct pci_dev *pdev = to_pci_dev(cxlds->dev);
--	struct aer_capability_regs aer_regs;
--	struct cxl_dport *dport;
--	int severity;
--
--	struct cxl_port *port __free(put_cxl_port) =
--		cxl_pci_find_port(pdev, &dport);
--	if (!port)
--		return;
--
--	if (!cxl_rch_get_aer_info(dport->regs.dport_aer, &aer_regs))
--		return;
--
--	if (!cxl_rch_get_aer_severity(&aer_regs, &severity))
--		return;
--
--	pci_print_aer(pdev, severity, &aer_regs);
--
--	if (severity == AER_CORRECTABLE)
--		cxl_handle_cor_ras(cxlds, dport->regs.ras);
--	else
--		cxl_handle_ras(cxlds, dport->regs.ras);
--}
--#endif
--
- static int cxl_flit_size(struct pci_dev *pdev)
- {
- 	if (cxl_pci_flit_256(pdev))
-diff --git a/drivers/cxl/core/ras_rch.c b/drivers/cxl/core/ras_rch.c
-new file mode 100644
-index 0000000000000..ed58afd18ecc9
---- /dev/null
-+++ b/drivers/cxl/core/ras_rch.c
-@@ -0,0 +1,121 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Copyright(c) 2025 AMD Corporation. All rights reserved. */
-+
-+#include <linux/types.h>
-+#include <linux/aer.h>
-+#include "cxl.h"
-+#include "core.h"
-+#include "cxlmem.h"
-+
-+void cxl_dport_map_rch_aer(struct cxl_dport *dport)
-+{
-+	resource_size_t aer_phys;
-+	struct device *host;
-+	u16 aer_cap;
-+
-+	aer_cap = cxl_rcrb_to_aer(dport->dport_dev, dport->rcrb.base);
-+	if (aer_cap) {
-+		host = dport->reg_map.host;
-+		aer_phys = aer_cap + dport->rcrb.base;
-+		dport->regs.dport_aer =
-+			devm_cxl_iomap_block(host, aer_phys,
-+					     sizeof(struct aer_capability_regs));
-+	}
-+}
-+
-+void cxl_disable_rch_root_ints(struct cxl_dport *dport)
-+{
-+	void __iomem *aer_base = dport->regs.dport_aer;
-+	u32 aer_cmd_mask, aer_cmd;
-+
-+	if (!aer_base)
-+		return;
-+
-+	/*
-+	 * Disable RCH root port command interrupts.
-+	 * CXL 3.0 12.2.1.1 - RCH Downstream Port-detected Errors
-+	 *
-+	 * This sequence may not be necessary. CXL spec states disabling
-+	 * the root cmd register's interrupts is required. But, PCI spec
-+	 * shows these are disabled by default on reset.
-+	 */
-+	aer_cmd_mask = (PCI_ERR_ROOT_CMD_COR_EN |
-+			PCI_ERR_ROOT_CMD_NONFATAL_EN |
-+			PCI_ERR_ROOT_CMD_FATAL_EN);
-+	aer_cmd = readl(aer_base + PCI_ERR_ROOT_COMMAND);
-+	aer_cmd &= ~aer_cmd_mask;
-+	writel(aer_cmd, aer_base + PCI_ERR_ROOT_COMMAND);
-+}
-+
-+/*
-+ * Copy the AER capability registers using 32 bit read accesses.
-+ * This is necessary because RCRB AER capability is MMIO mapped. Clear the
-+ * status after copying.
-+ *
-+ * @aer_base: base address of AER capability block in RCRB
-+ * @aer_regs: destination for copying AER capability
-+ */
-+static bool cxl_rch_get_aer_info(void __iomem *aer_base,
-+				 struct aer_capability_regs *aer_regs)
-+{
-+	int read_cnt = sizeof(struct aer_capability_regs) / sizeof(u32);
-+	u32 *aer_regs_buf = (u32 *)aer_regs;
-+	int n;
-+
-+	if (!aer_base)
-+		return false;
-+
-+	/* Use readl() to guarantee 32-bit accesses */
-+	for (n = 0; n < read_cnt; n++)
-+		aer_regs_buf[n] = readl(aer_base + n * sizeof(u32));
-+
-+	writel(aer_regs->uncor_status, aer_base + PCI_ERR_UNCOR_STATUS);
-+	writel(aer_regs->cor_status, aer_base + PCI_ERR_COR_STATUS);
-+
-+	return true;
-+}
-+
-+/* Get AER severity. Return false if there is no error. */
-+static bool cxl_rch_get_aer_severity(struct aer_capability_regs *aer_regs,
-+				     int *severity)
-+{
-+	if (aer_regs->uncor_status & ~aer_regs->uncor_mask) {
-+		if (aer_regs->uncor_status & PCI_ERR_ROOT_FATAL_RCV)
-+			*severity = AER_FATAL;
-+		else
-+			*severity = AER_NONFATAL;
-+		return true;
-+	}
-+
-+	if (aer_regs->cor_status & ~aer_regs->cor_mask) {
-+		*severity = AER_CORRECTABLE;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+void cxl_handle_rdport_errors(struct cxl_dev_state *cxlds)
-+{
-+	struct pci_dev *pdev = to_pci_dev(cxlds->dev);
-+	struct aer_capability_regs aer_regs;
-+	struct cxl_dport *dport;
-+	int severity;
-+
-+	struct cxl_port *port __free(put_cxl_port) =
-+		cxl_pci_find_port(pdev, &dport);
-+	if (!port)
-+		return;
-+
-+	if (!cxl_rch_get_aer_info(dport->regs.dport_aer, &aer_regs))
-+		return;
-+
-+	if (!cxl_rch_get_aer_severity(&aer_regs, &severity))
-+		return;
-+
-+	pci_print_aer(pdev, severity, &aer_regs);
-+	if (severity == AER_CORRECTABLE)
-+		cxl_handle_cor_ras(cxlds, dport->regs.ras);
-+	else
-+		cxl_handle_ras(cxlds, dport->regs.ras);
-+}
-diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
-index 927fbb6c061f3..950335b3c128f 100644
---- a/tools/testing/cxl/Kbuild
-+++ b/tools/testing/cxl/Kbuild
-@@ -64,6 +64,7 @@ cxl_core-$(CONFIG_CXL_MCE) += $(CXL_CORE_SRC)/mce.o
- cxl_core-$(CONFIG_CXL_FEATURES) += $(CXL_CORE_SRC)/features.o
- cxl_core-$(CONFIG_CXL_EDAC_MEM_FEATURES) += $(CXL_CORE_SRC)/edac.o
- cxl_core-$(CONFIG_CXL_RAS) += $(CXL_CORE_SRC)/ras.o
-+cxl_core-$(CONFIG_CXL_RAS) += $(CXL_CORE_SRC)/ras_rch.o
- cxl_core-y += config_check.o
- cxl_core-y += cxl_core_test.o
- cxl_core-y += cxl_core_exports.o
--- 
-2.53.0
+>
+> >                       return;
+> >               } else {
+> >                       vub300->cmd =3D cmd;
+>
+> Johan
 
+Best,
+Adriano
