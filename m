@@ -1,171 +1,133 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazolkn19013077.outbound.protection.outlook.com [52.103.46.77])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9C7481DD;
-	Tue,  8 Sep 2026 03:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.46.77
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788837523; cv=fail; b=F0rfzrnxe0r2Ny/b1lgD4/CeHsnjwpj1VtOWyAjN9k4qURPZhYyohBdUW+m7XgSDg2Gcr+rG9KE6F/fJ3mHhALLgVOGZ+KDJSqrHzfnoPMUcGr6pMo0ryN8TcDjWYtvkaybksN9Rpus4vH2Drmhg6r2KwPGRwCMsDnZ2N1uJRX0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788837523; c=relaxed/simple;
-	bh=5JS1qiiPiZCPYs65oJ9pmFySKvyhpa3YOoE7RRTvi2A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z6vnMHmWyjMF05NQmJt0A7BoJ7KL+6JV1iyoqU6mEWwZNBeMGZusPsab7GO/OTuRWpQ0vj7bMepl3puPy7/W5uQr54BQM5efSnSGdNVRPBmDerUPqr8lw4yZ/2ZaTvZVgcAoUh1kQ5ephI9vLh77KRmoG3ItyRyP2Dr0n6b3SwA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=uDLkHn32; arc=fail smtp.client-ip=52.103.46.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="uDLkHn32"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zQu2mwgqiX34sAQEc+IDARWj57fp8Q4E/bm8d0FHOi7P98OQW/H7AEHA7fuKqlZw96J3qfWvK7mqwp32/EbzEaurvDxTxBfxQgeH77JAk+dngKql6Z5ZswfBBimVZ4ZW2js4KUxxA3/g7rIEr928khVBnf4FQGWpPv3OT+j5zDDKvYBzU9DxuSXxeZKblVhQ6xxflyJnhG/dq1sTegjo8i7G97CkvXL09wq8YdI23KCiXh9kS+O26VKSKlkP8+RjwEOOE463QIoKqWDVsDIB9c5HjGb5DjyRPZgA4TEvALtMSJw3Aek6d3AumHm+lzjQAF8vhCJUmXP43diSjswj7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zCHYZLa7wjgL66/xKcdbhNbpjaue4rPQeUVm6kvCC/o=;
- b=dXYph8oGqF1d7xx3g7oUL8brFzsCz+i6j20hXThaxnpx3wYpPgmsAAIKGDC077Sq7v6LZ72LvfY6sM9FrzRDlZvtrZH7oN9es4S1MuKUP1ZtCt8EoTc9D8yARrfXN8bFU8z4laG4rJIYBR81WkSDuy+MxNH6mLPFVImjc8imn2UF8dOjyUlKLDKhccLDzvDitXHGSeYRxJmXpCPDEHtBLefXe7Eh3rvgwCi2/6XzzkCqMQrN0LSTpXcFTvs+gT7J0wEbh5pvLyia9b1Pk13igACWAVS+C3+qe8cqJbsIewoFGmambwqkFxnzyO926dwPQTrd8j5VjmOkqQbv3AkzzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zCHYZLa7wjgL66/xKcdbhNbpjaue4rPQeUVm6kvCC/o=;
- b=uDLkHn32qit7n3/pFHWft8N+TTNub03xYon9swJqzm+6WL1p996OTWA/pNLLiGyRkW2qlEfdPx1QxBuIiQkdM66Uh9Ebo999ETmz2l0ioQPmjImStd8FFKnnXcbwlJBNFbN7Q/q9D0mtMVge7dkFq3LEfaHsuLcGI7gdq6rcuFjcOm0EJPtFfinSAKPvyv+SkDbRY0Ge3OmL8RfpTNdrl0hniiPY/X7eCHyi9T0zaQRw0ZeEVFjZdoL4T3il8xD9q40MTBhxGv3NK1/+4iuosH/VMNGAapyVQlLQoZp216L47Lr4KEReLjQRidFx4InueMAkOLBWidEFkJX8wy4l2g==
-Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:1d9::15)
- by DU0P251MB0851.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:3b9::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 03:18:39 +0000
-Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- ([fe80::fb91:30d8:e31d:1f35]) by PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- ([fe80::fb91:30d8:e31d:1f35%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 03:18:39 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Phil Sutter <phil@nwl.cc>,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B5F2620DE;
+	Tue,  8 Sep 2026 03:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788837554; cv=none; b=l6IWm9CTwoK1OLKuE52/Zv8ODIjkzK6v9XGitr7nIEmg+07Gr/V+0I3IglDXKEhrtnXFd+fiV2sy6Uew6SrvInDHNKeB0RBmd1cuGErSr1286KeQc8sEhh0XbO81IyrH7DfTd8V1psPxGjdDofL/NHTZIvYliG6e3aNHG03ovhQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788837554; c=relaxed/simple;
+	bh=RtekH477b8mBPWpnbdhhZdX+BmRPVLtD3qU/C0jKE2E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zc05bCurKrkZESNQC/2mvdxw7UEX2St3wQ2v6kf5lh0uTr/H5Ib7lAXkxKhX3PGyzJiy7+F4+XSj1tvrKK6AJIGrEJkjckpxo7B6cYYTBFCzqeWS68lAfrQ+nKW1LhANgiptaJAoYVcbEx2n93g76RTRrfJYJej4gZuiBC8nMKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 0a6d4372ab3411f19a56ed5b684f684d-20260908
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d39c352a-7351-4bb0-bbef-2477c686d2f5,IP:15,
+	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:35
+X-CID-INFO: VERSION:1.3.19,REQID:d39c352a-7351-4bb0-bbef-2477c686d2f5,IP:15,UR
+	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:35
+X-CID-META: VersionHash:7db8b62,CLOUDID:371fa273cac59cfe1c2f1bb01abbd526,BulkI
+	D:2609081119074HQKIZV1,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50|99,EDM:5,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil
+	,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 0a6d4372ab3411f19a56ed5b684f684d-20260908
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1043975165; Tue, 08 Sep 2026 11:19:02 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	slava@dubeyko.com
+Cc: mchangir@redhat.com,
+	lhenriques@suse.de,
+	jlayton@kernel.org,
+	xiubli@redhat.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] netfilter: nf_conntrack_h323: fix OOB read in decode_enum()
-Date: Tue,  8 Sep 2026 04:18:33 +0100
-Message-ID:
- <PAXP251MB0010F1E23D8D01B42D64A492C8B12@PAXP251MB0010.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <AS8P251MB00011EEAA381DC17852BA37CC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-References: <AS8P251MB00011EEAA381DC17852BA37CC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0616.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:314::16) To PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:1d9::15)
-X-Microsoft-Original-Message-ID:
- <20260908031834.123948-1-elb12345@hotmail.co.uk>
+Subject: [PATCH v2] ceph: fix longname buffer overflow in ceph_fname_to_usr()
+Date: Tue,  8 Sep 2026 11:18:23 +0800
+Message-Id: <20260908031823.204166-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXP251MB0010:EE_|DU0P251MB0851:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a151680-7b6b-4164-132e-08df0d57e0d9
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|23021999003|51005399006|25010399006|15080799012|19110799012|8060799015|2604032031799003|37011999003|25031999004|55001999006|6090799003|24021099003|5072599009|40105399003|2607281247196008|440099028|3412199025|26104999009|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?QVNhcFBtSDN5Y1ZTZ29VL29Zd3NVNGhmSFR4Z2ZlUUF4cmFBZVpVVUdRZS92?=
- =?utf-8?B?cG83QlFtNkovcHZTSyszUFdoVXE4MlVpckh4ZnhlNWtXSTBtSnZtbzhsd1hS?=
- =?utf-8?B?VUpnZjdFUXJjWmk1T2xZa0lXcWxvbEpqNWNiQ1hGbEJMVU5aMy9ZOTFLVUlq?=
- =?utf-8?B?MmU4SmphakQ1UkVod0dna2V4aUo3bC8xTXM4RDgyQ0E1d0ZvUEVoRGp2eW52?=
- =?utf-8?B?NDQ2ZFdWUVZUdUdhZXNncU9RMzNTRmQ3czJ0RDhOY2FVbm5XcEJaaDdHUlBH?=
- =?utf-8?B?eElxRjhhRzd3RG5GNS9SaFZDZmZabDJpQ09BTFE3Qm1aaUFlaFA4YlNVMStP?=
- =?utf-8?B?OWNMbDFwRUE1TmxoVkJOcFJiWUhCdlZma0Qyc2dMaE5sZFZLWm9uVzI0UTBq?=
- =?utf-8?B?Qzc3cXpzZTN0bzlUdzRVK1p0YXdTUjAwT0dBUWlOcnB0ZzZoT2lEdVJaTSs0?=
- =?utf-8?B?OHJjZDM3dFFSQ2M2bjh0SUlEMUhhV2RxT1pvSElIOCtnZkE1ejd0UTZ4dWdR?=
- =?utf-8?B?ZkJzZm9nU0pkWDQwTjE0MktETTBVUTNna0liV1NjMDFuUTdZOHFlSlc3ZVRi?=
- =?utf-8?B?K1I5ZnN1N08wdG5GczRwZERJRHF3bXoxSUFGcGdTMnFzWWpRODkzdHVHeFYz?=
- =?utf-8?B?bUtuQi92QWplZnFDZWpWU1E5WHNjTWJ2YUl1N0J1MHZKbEdmcFNZME9qVXhm?=
- =?utf-8?B?Vkw0Z2QwcnU3b3F5NmhGVGpVdkNnQk1pMFgwWVJvWXhTVlpnaWNWZGd2NzJK?=
- =?utf-8?B?WGRPTUV5aGMrcjRKN05XRjdHRGhpQWRKOG5WdTBISFpVZDArZnUzUjVkY3Z2?=
- =?utf-8?B?SERSSnpheis3dWVTL2hoUWZzSG9iYTZmYUxseXZlQ01ZZ3BkYTBUVytBTUJu?=
- =?utf-8?B?d3NvR3RBMXJHdzdXVHl1ViswYVpyYTYzbFV1dUZJc3MyL1Z2dEFVRFZkT3Q4?=
- =?utf-8?B?ODZVTytoR1dJUHZPbWtUL0RQTVY1aW9kTmNBTVYyQ2tOYjVZRm5td3I0RCty?=
- =?utf-8?B?VHVCckx2eHRnSWZld3VsSXF2RHhMZEVYWVU1eE1zNTlQZXhhd08zWEZiZEJT?=
- =?utf-8?B?b1VOSllHSmdBNm1OTlNyK3Q0bWl2V0xLNmc2K09qZjM3YkJJL2pJZ1VOSTBu?=
- =?utf-8?B?WGErRTNNazlzbDNTWUVvNW93NnM1ME5IbWVxeDBwcTZjalRJdXZJeFp2dVo3?=
- =?utf-8?B?V2NqYkpuNFVOam0waFlkRWFKcHNReCtJL2pkVmt1UFBITkV4MGZ6dzlIOVJk?=
- =?utf-8?B?ME85eXN3K3ljL3VLMXVoK0hRd2g1R0NKOFRGb1BMWWQyL0Q2c2hwc3NaWEJm?=
- =?utf-8?B?OE40M0ltZHlVKzNwaERiNDd4OElFaCs4dVArbE5mU2hqNmNLenZiM21GRE00?=
- =?utf-8?B?cGlBcVBPWGxKdFIzdnpnWFZvWmhJek5lNTdpMzk5RDUvTkswaVZHWnBZMWNh?=
- =?utf-8?B?VWh2OURpYXk1bnJvOWVCaXZLMVNLQ1QyaWtFdzB2RFBhNGY3TW81aitzUFUv?=
- =?utf-8?Q?3H4mS4/EVlrJwVPJUca1DWF+3QL?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z1JRckxkbUY4RWJyWGxrWUJ0NVFhUGF5eWVPTDQwLy9EQmIvRXNkNmNMY3d1?=
- =?utf-8?B?bTJIdml1bFBGekFOS1FlOXY5YlhzVnRuM3FuNXp2LzJ3NjJnYWtUTkJJS1FG?=
- =?utf-8?B?aHZmc0J4b2ZRR0N0N29PWXFxTWMwNkJNNTNqWHBXdFBSYkMrSzVQZTJQN014?=
- =?utf-8?B?a1JKdW5vOGNJenlldjUyeDh2eWJYSTlOTFRFYzVTcG5OK2hmRTJ3RHRtaVll?=
- =?utf-8?B?KzNZUjFKbU12MEtxNFEvU3VFMnVQL1hxcnBjK09JeFh5VGpxbEo2SUJ4SlJZ?=
- =?utf-8?B?T3FwV0d3R0hjcDF1R1doZ3FxdHNUeUI4UjRjQmpXZmIrT3gyNktxWSttcThQ?=
- =?utf-8?B?Uk1SQ1Yram5lbllwcE9uNEtxQW42Z0lJeSs3cEhNQ0NvT1NvWXBVZUtDNDE5?=
- =?utf-8?B?S1EzZHYyNXNhY3hkQ1BxbEZnQ2twdndsdnVSWEJuSmhxZ09qVDdqVkxwejlU?=
- =?utf-8?B?YzFsbEdMcUV2OFZsT2t2b3Rxdjk5ZWxRdXY4NnVUQnpMYTJiSUl2L2UxNFhR?=
- =?utf-8?B?TlZKZjN4eHVBWThLRmhOOVQwVHdWN0FZbjRHQm9STGxmY0JPNUl4QSs1cDVT?=
- =?utf-8?B?WksxSkMwbkdmeXQxQWxsSlRONFFyc2hJcmNYWGUrTVY2dTNGVTZxa00rZ2x1?=
- =?utf-8?B?RFlQeTdTL3JYKzhIY3UwaFVXbUMvSjB1WXNqVWtrL2F6ODNCNmRUcE5ESkov?=
- =?utf-8?B?NThTTjBIUWpUV1NsU3lac290VWowN0tCRnVxdUNiS0NnV2lBOG1tWlAxTUNt?=
- =?utf-8?B?aTFxU2dBVE5WUDZrRW1LZHFvL2tpbmY0b0NKc2ppSE9YS3I0M1Jwd3FkRHd0?=
- =?utf-8?B?L25taUR3R1Q5ZjVzNnIra3NkZThXbjF1NmFKNGFSWG9pVmhTSEcxL29EOGZU?=
- =?utf-8?B?ZzZnWVRhaXg3UVEvMHU0M1ptbFlDKzlmZU9ETFh4OWI4aFEweWw2WUozZDNy?=
- =?utf-8?B?VkxuaVpMRXViVTJsaS9ERmZqVE95VitJMDZXQWNWK1M2NHowR2pPQXdHcHpN?=
- =?utf-8?B?VW1oMTg5cFYzNXBkUWF1OUhUL0RKWGs2M3h5b2pjNEtnSVZBSU94SlJORmdz?=
- =?utf-8?B?SHQxL3JBOExNaVo2WHFQeXA2bFIrZG5RRlJEbndWSnRxb1o3NGlNUDByL3Nm?=
- =?utf-8?B?VHh2a1NhNm1FWXQ1ejhOS1dQVDlWV1R2d3ZDMytLSnBLUUUvNFFQK1BnRmtI?=
- =?utf-8?B?VU0rZDhiVHl4TFAxVVBNUFkxSXFkZWxQMGRSa1A2WVB6dFptYnZ6RytmakVE?=
- =?utf-8?B?YmJhSktsdXpJVmZ3bCtuaGVBakJ4RCt1ZVd2N2VuU2tQTUVyUU9XSS9vNWZD?=
- =?utf-8?B?UHNGRFNlZjdqZ1p2cUYrKzlzeVRnNW5kcFdlTjhXUThSUU5ZR1M0aDZ3N3VL?=
- =?utf-8?B?RTU3M1VSR1hDS2pERGVXc1hZRTNzOUdWZE5paGh0NG9ERXY1L09UaVhYLzM2?=
- =?utf-8?B?aHk2Z2RjN1JUYTB1RTBSTUxKYkRJczE0VS9mOWxKL0tTcEdGRVFMU3lzbFRB?=
- =?utf-8?B?WVFVbEowMnBUOUJLNFFCNTFtU3JMOTNNMmtOUUZCYzBPdkt0NEJHMENGSEs0?=
- =?utf-8?B?ZEtTUnA1V3psV0ZSKzQyZzJsK250My94N2N2Skh0dUJ5QjluNFRXYlZUTW9n?=
- =?utf-8?B?WE12SExnUWcrM0pFbUpsWUpMTWYwb3FrQUowY0pDenkxN2hpRzBxZ0xCMm1j?=
- =?utf-8?B?b05RbFlyK0RlNmpnQ1BPY0hrSlQ1enF2MXp2dm40SFk3Zm5UL2N3dS9JZ0pG?=
- =?utf-8?B?WDJ6UmZ4QWEvSTJHQnBHR1lPeHBHSDhGQ1I4dURlUEFLWXpjbzJ2NExsanV3?=
- =?utf-8?B?ZUcwcFVMRWhWVjlZZ1pFcTdlTkJVc2lFTG41bEtRUitjQjQyZ1p4US9uRzFK?=
- =?utf-8?B?RzBOZStHaG5pSlg0WTF3L0luYTgycDJXRmpZN0lnZVB1VFBzTm1oYjgvODZK?=
- =?utf-8?Q?uywqJjJida421lb7WGj74XEXcf6a5cCq?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a151680-7b6b-4164-132e-08df0d57e0d9
-X-MS-Exchange-CrossTenant-AuthSource: PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 03:18:39.8379
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P251MB0851
+Content-Transfer-Encoding: 8bit
 
-Please drop this patch - decode_enum() cannot be reached.
+Snapshot longname reconstruction formats "_<name>_<inode>" via snprintf()
+and memcpy()s the result into oname->name.  Checking the length against
+NAME_MAX only protects the LOOKUPNAME/export callers, whose buffer is
+allocated with fscrypt_fname_alloc_buffer(NAME_MAX).  The readdir path
+points oname->name straight at the altname in the MDS reply, whose
+capacity is altname_len; the reconstructed name can exceed that while
+still fitting under NAME_MAX, overflowing the in-place destination.
 
-The types table has four ENUM fields, all named screeningIndicator,
-and each one sits past its parent SEQ's root field count (Setup index
-28 vs lb 13, Connect 14 vs 4, Alerting 12 vs 3, ReleaseComplete 7 vs
-2). They are therefore only ever seen by the extension loop in
-decode_seq(), which skips any son without DECODE:
+Save the actual oname->len before the decryption overwrites it, and fail
+with -ENAMETOOLONG when the reconstructed name would not fit.
 
-	if (!base || !(son->attr & DECODE)) {
-		bs->cur += len;
-		continue;
-	}
+Fixes: dd66df0053ef ("ceph: add support for encrypted snapshot names")
+Cc: stable@vger.kernel.org
+Suggested-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+---
+Changes in v2:
+- Save the actual destination capacity (oname->len) before the
+  decryption overwrites it, instead of checking only against NAME_MAX.
+  The readdir path points oname->name at altname in the MDS reply,
+  whose capacity is altname_len; NAME_MAX alone still overflows it.
+  (Suggested by Alex Markuze)
 
-All four are SKIP, so the decoder is never dispatched. No SEQOF item
-or CHOICE alternative has type ENUM either, and Decoders[] is the only
-reference to it, so the unguarded get_bit() cannot run on any input.
+ fs/ceph/crypto.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-pw-bot: rejected
+diff --git a/fs/ceph/crypto.c b/fs/ceph/crypto.c
+index bc0a097a4cea..845b69ba890c 100644
+--- a/fs/ceph/crypto.c
++++ b/fs/ceph/crypto.c
+@@ -313,6 +313,7 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ 	struct fscrypt_str iname;
+ 	char *name = fname->name;
+ 	int name_len = fname->name_len;
++	int dst_len;
+ 	int ret;
+ 
+ 	if (WARN_ON_ONCE(tname && is_vmalloc_addr(tname)))
+@@ -387,6 +388,9 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ 		iname.len = fname->ctext_len;
+ 	}
+ 
++	/* oname->len is overwritten by the decryption below */
++	dst_len = oname->len;
++
+ 	_oname.name = unlikely(is_vmalloc_addr(oname->name)) ? tname : oname->name;
+ 	_oname.len = oname->len;
+ 
+@@ -403,6 +407,10 @@ int ceph_fname_to_usr(const struct ceph_fname *fname, unsigned char *tname,
+ 
+ 		name_len = snprintf(tmp_buf, sizeof(tmp_buf), "_%.*s_%llu",
+ 				    oname->len, oname->name, dir->i_ino);
++		if (name_len > dst_len) {
++			ret = -ENAMETOOLONG;
++			goto out;
++		}
+ 		memcpy(oname->name, tmp_buf, name_len);
+ 		oname->len = name_len;
+ 	}
+-- 
+2.25.1
 
-Regards,
-Aamir Ahmed
