@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28FF492E55
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:19:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423562E4257
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 23:19:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788909572; cv=none; b=ZOMLcMYJjKww+aWZTkJwl+om/4LrDTSsL0BRNKM4vhRU0+Q4bHd7C84LXiuSNyWjR1luMtmuafgV8eeGGbukEparINZkjk+nQzDlAuH2/q6GaqTjAUH/JNjmfwzHA3/7LBirFVKcVc619aAymrz1gyZpViw5/AFeywiuuowK7Dk=
+	t=1788909573; cv=none; b=f3t9eENs0MjiwiwoRVYUcXN9NXLUQh+IzSinkhHNYEql23krn2556CF5Hq1qa4CqBrHuCCazX2I//k+b/M5LB+IgyMz60ykkN0NkzBGN52pmfAEWN0kxiOdtXdT+vsElfBkvb2urL3hrxstXGoBsY+PS4JlY3dYI9AnqLzj+UfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788909572; c=relaxed/simple;
-	bh=2eAAjI7mPk6rSJSSl3l2KlCV50JAX0KLqQdfvHRGiwY=;
+	s=arc-20240116; t=1788909573; c=relaxed/simple;
+	bh=zyI5VgI3JwGYnIZmdR1wEw/eH8ZgtA1qMvSeGAZFazs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g+xnLSohOZWXyW6ZyMAUlKWiGvhubk9YqjybwVEr51qGJOy0I2whwpwTDlmWzGAjb2SMe5GN0I3HD/VYFGm2WLyd35yheHSPyjBeZiu62E+xx6ArnKYN36SSZJO8PKtqlfxseIrongFrj+BxcObn3cp8CmtYbSk838PaNoLpZDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNBOPmI+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Wmnbr9U6GJsV0d89bZ8bgpmVJhDNJsN+JoG8nGMsYnTqt9YFAz9Y1EciIufwX9v7qWD1sxdIbx2HYijiMfeEo9Aq350axmdI/Gd9HcOZZ94gJCCs0UNsGDzVo+xHMT5YwZ3/EAIjd0h5w/SuqmJmPO9s/xDZePCZrWJQjB+xNVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hh7cJnqr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNBOPmI+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1B171F00A3A;
-	Tue,  8 Sep 2026 23:19:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hh7cJnqr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 844BD1F00A3D;
+	Tue,  8 Sep 2026 23:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788909571;
-	bh=O/+ygq37FdzUFXAe5SPJ637Iwiu50zTzBBX7ge46kSQ=;
+	s=k20260515; t=1788909572;
+	bh=sWi/bTSVB84dIKF9OwaD/fNaqFIj93RspxPcgRRsL6k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cNBOPmI+V/UGeb8KnldXdZarHIIiaklM5+ugvpHP0qWmNxGrDfFPcdQO79KayfORp
-	 4A+R+DuZuI+oIXC6mEQp1XCO+LZUZ/32zTcMON+nNdFGMs0rcXoV/uL6FklWjRuvQ4
-	 UakCgEVumKNWB0la/zIH2JHSUBFheKKPZNCug9MdIlcoA+B2EFK316y1Bz3rulitcn
-	 Bj/lKFIL/t08/ETMvxCwBoLYxTROITYCQPVmz+vmdXeJzv5PM+AmjY7qV6XlISC/uY
-	 svysZsDpY/QLLvU3M+NPMAxAwNnHBOexlNJPuIJOqimuTsqX4HgtFm6ga205cogwX2
-	 xtDDT4rgsqBJQ==
+	b=Hh7cJnqrWLrHvGyfCAg9UgLuAPpQrDZ6dnGAUaKKtyrjiWpPexesrRhouytEh9yGu
+	 yTxI/FjcMskIe//oZeIhOWH5azZqtbvCNfkrAfqy2KNXVyDCJs2pk6vuJraNbzjRaw
+	 ByAv9u+EbBLfmDANdU0n8Dl54F+uwyzvXrEk3FGxDoVYO/L2Bqp3OdprIfKJYQw63u
+	 RPir4RBZ1+E2DW9uMSBGN/iO5fXGPKkZz1iDLwCFMcoT78Pkqmp1aIrSahqKR6jBs1
+	 EoWVbvQTksrF+iCXwPLE2efptdSee8jdF0AD8UZ6ZC3IldAZvRoYCoEwAgDZwQtWAa
+	 077OtFKgUBc9A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
-	Olga Kornievskaia <okorniev@redhat.com>,
-	NeilBrown <neil@brown.name>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/2] svcrdma: Release transport resources synchronously
-Date: Tue,  8 Sep 2026 19:19:27 -0400
-Message-ID: <20260908231929.624931-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id
+Date: Tue,  8 Sep 2026 19:19:28 -0400
+Message-ID: <20260908231929.624931-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090308-barstool-liftoff-6f6d@gregkh>
+In-Reply-To: <20260908231929.624931-1-sashal@kernel.org>
 References: <2026090308-barstool-liftoff-6f6d@gregkh>
+ <20260908231929.624931-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,89 +48,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit bf94dea7fd4e6708d1a784be23db65eff84d82f1 ]
+[ Upstream commit 4488e912973773d64368828acf3b8e39d93650ae ]
 
-NFSD has always supported added network listeners. The new netlink
-protocol now enables the removal of listeners.
+svc_rdma_free() caches rdma->sc_cm_id->device before teardown,
+then calls rdma_destroy_id(sc_cm_id) which frees the cm_id.
+rpcrdma_rn_unregister() follows, but between those two calls
+the transport's sc_rn entry is still installed in the device's
+rd_xa. A concurrent ib_unregister_device walk can dispatch
+svc_rdma_xprt_done() against the now-freed sc_cm_id.
 
-Olga noticed that if an RDMA listener is removed and immediately
-re-added, the deferred __svc_rdma_free() function might not have
-run yet, so some or all of the old listener's RDMA resources
-linger, which prevents a new listener on the same address from
-being created.
+Move rpcrdma_rn_unregister() before rdma_destroy_id() so the
+transport's notification entry is removed from the xarray before
+the cm_id it references is destroyed.
 
-Also, svc_xprt_free() does a module_put() just after calling
-->xpo_free(). That means if there is deferred work going on, the
-module could be unloaded before that work is even started,
-resulting in a UAF.
+Also guard the sc_cm_id dereference with a NULL check: the
+following patches introduce paths that reach svc_rdma_free()
+with sc_cm_id == NULL (listener create failure, ADDR_CHANGE
+replacement failure).
 
-Neil asks:
-> What particular part of __svc_rdma_free() needs to run in order for a
-> subsequent registration to succeed?
-> Can that bit be run directory from svc_rdma_free() rather than be
-> delayed?
-> (I know almost nothing about rdma so forgive me if the answers to these
-> questions seems obvious)
-
-The reasons I can recall are:
-
- - Some of the transport tear-down work can sleep
- - Releasing a cm_id is tricky and can deadlock
-
-We might be able to mitigate the second issue with judicious
-application of transport reference counting.
-
-Reported-by: Olga Kornievskaia <okorniev@redhat.com>
-Closes: https://lore.kernel.org/linux-nfs/20250821204328.89218-1-okorniev@redhat.com/
-Suggested-by: NeilBrown <neil@brown.name>
+Fixes: c4de97f7c454 ("svcrdma: Handle device removal outside of the CM event handler")
+Cc: stable@vger.kernel.org
+Acked-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-2-1b09bd87b6cd@oracle.com
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Stable-dep-of: 4488e9129737 ("svcrdma: Reorder rpcrdma_rn_unregister before rdma_destroy_id")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/xprtrdma/svc_rdma_transport.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ net/sunrpc/xprtrdma/svc_rdma_transport.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-index c8d994272f6f0..72b653d38bc78 100644
+index 72b653d38bc78..55f810a22c6aa 100644
 --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
 +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
-@@ -613,12 +613,18 @@ static void svc_rdma_detach(struct svc_xprt *xprt)
- 	rdma_disconnect(rdma->sc_cm_id);
- }
- 
--static void __svc_rdma_free(struct work_struct *work)
-+/**
-+ * svc_rdma_free - Release class-specific transport resources
-+ * @xprt: Generic svc transport object
-+ */
-+static void svc_rdma_free(struct svc_xprt *xprt)
+@@ -621,10 +621,15 @@ static void svc_rdma_free(struct svc_xprt *xprt)
  {
  	struct svcxprt_rdma *rdma =
--		container_of(work, struct svcxprt_rdma, sc_work);
-+		container_of(xprt, struct svcxprt_rdma, sc_xprt);
- 	struct ib_device *device = rdma->sc_cm_id->device;
+ 		container_of(xprt, struct svcxprt_rdma, sc_xprt);
+-	struct ib_device *device = rdma->sc_cm_id->device;
++	struct ib_device *device;
  
-+	might_sleep();
+ 	might_sleep();
+ 
++	if (!rdma->sc_cm_id)
++		goto out_free;
++
++	device = rdma->sc_cm_id->device;
 +
  	/* This blocks until the Completion Queues are empty */
  	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
  		ib_drain_qp(rdma->sc_qp);
-@@ -651,15 +657,6 @@ static void __svc_rdma_free(struct work_struct *work)
+@@ -649,11 +654,13 @@ static void svc_rdma_free(struct svc_xprt *xprt)
+ 	if (rdma->sc_pd && !IS_ERR(rdma->sc_pd))
+ 		ib_dealloc_pd(rdma->sc_pd);
+ 
++	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
++		rpcrdma_rn_unregister(device, &rdma->sc_rn);
++
+ 	/* Destroy the CM ID */
+ 	rdma_destroy_id(rdma->sc_cm_id);
+ 
+-	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
+-		rpcrdma_rn_unregister(device, &rdma->sc_rn);
++out_free:
  	kfree(rdma);
  }
  
--static void svc_rdma_free(struct svc_xprt *xprt)
--{
--	struct svcxprt_rdma *rdma =
--		container_of(xprt, struct svcxprt_rdma, sc_xprt);
--
--	INIT_WORK(&rdma->sc_work, __svc_rdma_free);
--	schedule_work(&rdma->sc_work);
--}
--
- static int svc_rdma_has_wspace(struct svc_xprt *xprt)
- {
- 	struct svcxprt_rdma *rdma =
 -- 
 2.53.0
 
