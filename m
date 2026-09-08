@@ -1,61 +1,60 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C839456E063;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E79577E28;
 	Tue,  8 Sep 2026 15:54:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882865; cv=none; b=Udq7kSOhls7Kg+RF1BrFY5t05DWo1OZIJ2qjgyuoMNyA5GpuSXVcbXpDEG7+IAfpBb77moI43/a5mP3SMdIkCQ1v2SotUAzPfThf5uUykUe3EjNEwnowXmGy9NgMVNSCz41/T9gti5hjwI496GfzraaAnnfmYLdeLe8RX4SVFeo=
+	t=1788882866; cv=none; b=odtJYoM761ibUVnDGRvvMl4+vvelqvSZBMILJsGCEcS8Ye/9OM14aDqYFNGoQpZCics/gmZXKvKCkBzAZNtNrctSJ3xE5EQ0txMkMClMs58m9om+9F4j9Wo0GTG788Mfhfv4tuS9G2WXyENsDakxv7h18zAC8M/JjGT6XEzg9zs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882865; c=relaxed/simple;
-	bh=fXsuQ8eCwLBhwDjoV/twcSPRAx1PwMYVvy0BOLAfoqM=;
+	s=arc-20240116; t=1788882866; c=relaxed/simple;
+	bh=cxPKCV//uGbcvndnKx8KC2CJa5aIAbyz+N0Tg1uQDDs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gh7O6ijh3Z3CCcaKPZ/Tl/jgmw0i1tFZOxltWC32SOihtguBCMJ9UIk3Uv73FxlRMpZmc6ITo3OWK81eEHG2SpB+GG7Y2SEI/33bXtaqwRSzNYizClKm4nKbIelq1rqwnzyFnr4hdHl3hGN7bs10LPeR2DBeLebczvNBC8YZBUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=MEVbQQAM; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=MEVbQQAM; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=iBmosYDNeg4kxMNGaD9ktqxxwz7EobSuqNRlarsi+bohliJxPIImNxc/5skUCUzpZknqCLEZOMqXDisE4J6vvUEr2joZg++cJIRlUvG4/BYstmrtr+FFVTsMIXWbZmRVMpXbB1WuPQmLEsTA6toFww8gEZUYm0QjZaaR2nDL6Fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=CxbfyXl0; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=cQWXl1Lg; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="MEVbQQAM";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="MEVbQQAM"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="CxbfyXl0";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="cQWXl1Lg"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882857; bh=fXsuQ8eCwLBhwDjoV/twcSPRAx1PwMYVvy0BOLAfoqM=;
+	t=1788882859; bh=cxPKCV//uGbcvndnKx8KC2CJa5aIAbyz+N0Tg1uQDDs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=MEVbQQAMiwtvuYXaPTtEjRQKrBzJ3DXlelPnsdt+B8/hSFHKKrKnvTc10+4TewFab
-	 1JzVO9ER+VmUL4eHi6TBZzx1ppCI3oTd42nAS7vFZqQ2bdOeYUHpj5oUjqZ8Q56KG7
-	 LZiswL1TQqP8cSMn+rnW1DftB0DW7HnUSdoRbXYsPFcu+ChaBmMyPF7/07t986ybQi
-	 CM9u5RcYpL3tEdaNrr5Z8gZYSowJoip0GNz1wTLzQ0LHSRC+4yP+yKMhducubNv9b7
-	 qeCNzy31rcfwW4pv0BoUiQ6xyC7YAIE6A2oeS4/dvZp7kz1D0fRbBdSpW42hYGjudr
-	 G8CleJUwuweEg==
+	b=CxbfyXl0635taGq7qgN5oQJ669TeooDjDexMllkQXRsPP6eDf/O8MjDxPxT3r5Q53
+	 21JLjHOrl60I1I9wONyDtTwEDy/crFG/4ZL8zcSLHl0Vg8uvDrO3BswpKXWrHMxlCm
+	 5IW5quwosiQY1PML65us+QUKKFQwGVAh8OCNUDMKk04wSetci4voySuJtqP0UHv0Jf
+	 fJ+vpe1KO36rc53BE26mUCMNZ1yk3zwBT1N9Agu5hSh3dlBMfFPsVYV0bzisb5HxEg
+	 MYoUfIuli+1zUuBpDo1b8ho7lOUPRoLTOalY6c0VKOuYiCB9cO26P9MJ1/c6sZll+5
+	 XCJlMbvUU0ubw==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id D4F0341474; Tue, 08 Sep 2026 16:54:17 +0100 (BST)
+	id 09B5D41464; Tue, 08 Sep 2026 16:54:19 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882857; bh=fXsuQ8eCwLBhwDjoV/twcSPRAx1PwMYVvy0BOLAfoqM=;
+	t=1788882858; bh=cxPKCV//uGbcvndnKx8KC2CJa5aIAbyz+N0Tg1uQDDs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=MEVbQQAMiwtvuYXaPTtEjRQKrBzJ3DXlelPnsdt+B8/hSFHKKrKnvTc10+4TewFab
-	 1JzVO9ER+VmUL4eHi6TBZzx1ppCI3oTd42nAS7vFZqQ2bdOeYUHpj5oUjqZ8Q56KG7
-	 LZiswL1TQqP8cSMn+rnW1DftB0DW7HnUSdoRbXYsPFcu+ChaBmMyPF7/07t986ybQi
-	 CM9u5RcYpL3tEdaNrr5Z8gZYSowJoip0GNz1wTLzQ0LHSRC+4yP+yKMhducubNv9b7
-	 qeCNzy31rcfwW4pv0BoUiQ6xyC7YAIE6A2oeS4/dvZp7kz1D0fRbBdSpW42hYGjudr
-	 G8CleJUwuweEg==
+	b=cQWXl1Lgx5WryT3s//N9oZXwuYKQBj7QyYUv3sssrerHNldEsJKf1InB32A3WVZzJ
+	 O2aoZJEHDKdVp2Er7m+Ogm1L74+fRPak2N+7ekm4YGETwoJ0yDu6fRpw/dj4JWnv4h
+	 JMlREf5e36ZLNpKtHDTKMqK9bMS9LVEsScsE8janPQxAoUmAopTEnZjSNx5cyhVdL1
+	 gfCWCYfTjEkBCaQF3eejqGD4XlrdtSJtz2OXr82G6nllgKZ6lgnUrSerkSYxVq7o8W
+	 isjhsNVQdG4vPPxdxXFUtHSjfYZeo1CHkvogwCnbPHf0Fbdx54yuasK5YgOGb3axyp
+	 s/jA8aBo0UUhg==
 Received: from maru.home (host86-150-50-53.range86-150.btcentralplus.com [86.150.50.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 1002B41446;
-	Tue, 08 Sep 2026 16:54:17 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 59D8141477;
+	Tue, 08 Sep 2026 16:54:18 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 16/19] media: rc: After rc_unregister_device() timers can be re-armed
-Date: Tue,  8 Sep 2026 16:52:04 +0100
-Message-ID: <26947cb1fc85361c748ffc6e8688f0ee6f48c472.1788882189.git.sean@mess.org>
+Subject: [PATCH v4 18/19] media: ir_toy: Validate the maximum tx carrier
+Date: Tue,  8 Sep 2026 16:52:06 +0100
+Message-ID: <b4fa892842f279847464e2d4548fe51ed2a0676e.1788882189.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788882189.git.sean@mess.org>
 References: <cover.1788882189.git.sean@mess.org>
@@ -67,31 +66,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If rc_keydown() is called after rc_register_device(), then the timers
-can be re-armed.
+Reject any carrier the hardware cannot generate. This also fixes
+a divide by zero if a carrier of U32_MAX/16 is set.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
+Fixes: 8bff1386d62d ("media: ir_toy: allow tx carrier to be set")
 Cc: stable@vger.kernel.org
+Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/rc-main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/rc/ir_toy.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 795ac0fe4858..088d935d8347 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -2065,8 +2065,8 @@ void rc_unregister_device(struct rc_dev *dev)
- 	if (dev->driver_type == RC_DRIVER_IR_RAW)
- 		ir_raw_event_unregister(dev);
+diff --git a/drivers/media/rc/ir_toy.c b/drivers/media/rc/ir_toy.c
+index 286c8543aa5a..58b23d08a897 100644
+--- a/drivers/media/rc/ir_toy.c
++++ b/drivers/media/rc/ir_toy.c
+@@ -372,7 +372,7 @@ static int irtoy_tx_carrier(struct rc_dev *rc, uint32_t carrier)
+ 	u8 buf[3];
+ 	int err;
  
--	timer_delete_sync(&dev->timer_keyup);
--	timer_delete_sync(&dev->timer_repeat);
-+	timer_shutdown_sync(&dev->timer_keyup);
-+	timer_shutdown_sync(&dev->timer_repeat);
+-	if (carrier < 11800)
++	if (carrier < 11800 || carrier > 3000000)
+ 		return -EINVAL;
  
- 	rc_free_rx_device(dev);
- 
+ 	buf[0] = 0x06;
 -- 
 2.55.0
 
