@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651355437DC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FAD52ED25
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872247; cv=none; b=CsxetZ2o48CjxQHTfeFTE9uIYnasvgzM8tfGumbn+DcEDi+AV48wl+oB4a1XepMVjH42jMkf4x1R2L/FsD3P90XkJr83geoNmx8t7sO5TrqUl69nxa1qBysgsHSZ8skw8QjHj4L7C4PReimWERbHOAsjAsi+UBjJQ3mX68mseW0=
+	t=1788872251; cv=none; b=C1I4jagT+m+3gfWQPPFNRL5BDDSDFsCExE+a/jrN8SPLoGaGrJLY8BU3tG5rzwE/b9zzUZovH72AnR8rD+CM/NtDbSCQ5nTr3pPHWzdzpxfa1nBTIaw1n01D2XRjc6uKQeuolILrJ9DXALL+C23fwv5+BVYJTEk8E0WADfz4nlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872247; c=relaxed/simple;
-	bh=brZrY0LOutNBJaXx6+T2m7ZF/PqDBt9434nBfN+9JOA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J2lfgtAOZxthd+QVBodeIIxvt0u+L+Qt7oVt3PvL2ERZtAD4PpQ7DN3Z6dmczc+t7RnT4geYCzC5z4mupCCe7oX/z2rURHS0D8xuBkDj/3VIVURou6G1y4YxxC17uIsjrtLTlBalU8UsXW9LFP6z2zger9uKMldkFb3Kt5u4QFw=
+	s=arc-20240116; t=1788872251; c=relaxed/simple;
+	bh=HdAN3PgFty/9fGjehygmJ28idflFMw3B3J+ln82JddE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=P2K/abLn8NPCrNqcLicZeVZYT/HSAtFCcbp3qbE72c94enwwTdHo5KtvXJUR1ME8QFvp1WW/QcyWNcSog0XWyVYfrSLTvvOKJn1ldcNfN1GvXE2cZUWJ/eoq7vHD0Wy23t02WHuKXmpt7K6mFiqSmNUVfFhDvnFzc6n+atIDMVs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F0C1F00A3D;
-	Tue,  8 Sep 2026 12:57:23 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 6.12-stable tree
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB9D21F00A3A;
+	Tue,  8 Sep 2026 12:57:29 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 6.18-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:52:40 +0200
-Message-ID: <2026090840-slapstick-viability-4dbd@gregkh>
+Message-ID: <2026090840-shifter-galvanize-450f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0250dbe08c730d003ef9f484da56ae09a1ea0c4c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090840-slapstick-viability-4dbd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090840-shifter-galvanize-450f@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
