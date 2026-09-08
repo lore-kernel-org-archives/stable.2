@@ -1,145 +1,214 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EDDE37EFFC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 06:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9DD430C152;
+	Tue,  8 Sep 2026 06:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848920; cv=none; b=AbfWWbcKPkRbrRuz7tJhCjbOc/aZHKnX07qtEzB6EMfdVPTnIwUC7lw51qw/V3KF0DJbpSMmTx8ba0Wwhut+33LwfDoIQ3E3n0Zmf2YO83E6PdPvuHuCA28/KKsCorungFDZGmIOvEzfcssX55PyOfi9LolrI0G+QY/E3Q3Szjs=
+	t=1788849184; cv=none; b=tBJYGsTq6F2YegTRBCwH1zQGHPNgrFIOojfb/fXHyvwV1R4JE6UBF+T8KRlVWB93wKhx9neLkoS84+uwTDIgRMPlKx1cm8SXUW57NajNRxleY8qRfahHg0Ufwac2mULrGNzRISVAMfJX8yQ11713TN/dR7xQRDIj/b/aqYO52Xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848920; c=relaxed/simple;
-	bh=xeL2XZisgo/FUrGnl5D33KAEDxNC1ErjkrARUG8bI+I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uvi/8NvCd+PPvSpSxuhCBe8SGk0fv/p3aTZ+gXcmNoSWblVXeAQB/mBC8zUjObD2ejUNXyioj8//eG3xKGg4Uo7JAc2boSS1dnqSlpIfHVlVivXJd+Pg5I+ny1fJR8nd8wPYIOd7HRxWcabG/sNQJjWJDqDGqKycwaeecrxrKvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=N8yV5RIQ; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	s=arc-20240116; t=1788849184; c=relaxed/simple;
+	bh=MsAUywdv6FKEUBihRxALEMcisW3BLUkPYlh8XXCvDck=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mag/E9oBR1D9UyGmA1oo11Xmc/qSgZa8n7W2UzlmjkjSbYRHQjSIpNtq6uYKw8ta0xmvdzxp/vxtvNIkM8CMIOa4xL+ktXE9REV7H3p1GtGJPHSyvEsvJVLD8Qcjcjh9T15qPOar3TeP6SxqGnhCpP6KM+n4+BKb4gqQs37rHpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FiQCn5VO; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=B6DSuA1j; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=JQJACMV0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=5H0FtDEQ; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="N8yV5RIQ"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso3126824b3a.0
-        for <stable@vger.kernel.org>; Mon, 07 Sep 2026 23:28:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788848918; x=1789453718; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UWrOKVPw0FussDK28wDfiGtsg6J7IXyelNHwkTWChaQ=;
-        b=N8yV5RIQtimPiD9HYrJi1GyiBsLsRbERpXWx6Q49fwh1UfCkHMxVqFk5Gv7+zXT3Ml
-         XhGujVBYdYnXt30mHZC8y6CTXCk48E3Kvv/Q2sKMb68Ya8dhPeQAyhJl83qIAEqsLYPT
-         6QuZT6tZO74riSKlz19LgRNv30u3oTcCvnWkRW1/f/sQR/qCzffNWMCtu862TIuH8P9r
-         tlft42KiA3apJEBV4AlcEFLzVExsB+uIAj7MMwfNfPIFL7yzBujAKdZpUFftqPGZ5plI
-         Yb+qQS97IGerAYwOShXr3TDolUoF3dK6GbdpGUUT6IZmKy2H9b23HIIOKvCO5yz7YHy3
-         dvJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788848918; x=1789453718;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UWrOKVPw0FussDK28wDfiGtsg6J7IXyelNHwkTWChaQ=;
-        b=CxwmxVUM2uUH7KWvS1ftEEU/tfkqI8V8J8cZDEJE4smUsk+9Sk1PGNvwMWj5Mj6xYZ
-         2hsk3LgxX6lQFMM5E5P6xoqcv4IAL5WzLMMDfgy4tHNpRdaxQEFpN8Ecpfkn8SOM+Bb4
-         6u4+uNxcydm24YGi9kVEaRf73sOw4l1WpFTAcVVhpuVTUfyTt01hTJ62DKiWK8G8Vj5W
-         PH4veJuNh+FmPMl1tKatOk9tdhRVoa0d8iI+69zOgGvBUmcE79dCAp+ildy4uHTzZ9ll
-         /Bs/LR+8lCRKv+KpvjuwjmfUL98R9sdAAdffSBUNwIIwnDhsoN2VDET4pd1OyRcItEcz
-         +rtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwTeSRXDfRuTcrC2Qu17RU3kaJBR/mEq1k6On1n4St4HRfK6egixdEJSNTJf2aWluTysCjVo/A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfO7oFRkb2MREAp6MOBDccDkx5EgqSECtIcYP9mm3HknkMe2QV
-	+KsRI+NB9OcI4EJHu4nkZ23+RaAMHJyWGXYy9nB8lEh5HsXKgDMn16rxmn/JrpMRMKt2
-X-Gm-Gg: AYBFou2cAOgsBZ9phNlxHUIj1xIBOW+lgeCr07Db60aJwUgMo+Jm4IJiYktYqBLUnJD
-	9XBEh4EuVBL4yQGcFLoaDkoNzC23GzoWDVsySvZMgkVaLuameTYqEwsOLF7d5ZohbAnggcfJWuB
-	jjeStFJV7LPpjb90VhRR0NvAyXMvkBPXa1m3D+eSgVg420Dj/0nnEYIzNI9Y6B8MJEACtLvCGvp
-	wbBDXGdN2g2yz0Ga67itNAT342Xqh/2YjpVovEYY6S5SFWylz3OxnpULrjK6LSQ9NVwX9JzdCrk
-	ZqMjN7TKXt/XX4XllMEi021Dgh7sCFfrEGwMcELqFJ6mKIBw6tJXTs7umq0VNmFzRfEPePFX/Pk
-	KAayMUg5/Avgr1aC+Nc96zTVx3ISoqA/yavtkASbhW0xpmAWC6RGQRsEQSgeiKxozmeYzUVFzeR
-	4AMPQqKh5aNWXRqt/mh+amEdMsD9rkBLPskM5DFblfIxa0zL2+j+hF67HQRVByMWnuNku93PnD3
-	iRtZfrSd/IFzfkczdDbvCtw1/Pb0g==
-X-Received: by 2002:a05:6a21:483:b0:3c4:3112:3b with SMTP id adf61e73a8af0-3da3a0a264fmr46279526637.18.1788848918208;
-        Mon, 07 Sep 2026 23:28:38 -0700 (PDT)
-Received: from b6ad5085b32f.. ([122.51.212.64])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554a312dsm5109502a12.29.2026.09.07.23.28.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 23:28:37 -0700 (PDT)
-From: Zihan Xi <zihanx@nebusec.ai>
-To: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Felix Fietkau <nbd@nbd.name>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: [PATCH wireless 1/1] wifi: mac80211: fix mesh fast xmit path deletion UAF
-Date: Tue,  8 Sep 2026 06:28:27 +0000
-Message-ID: <94174303640c5e1022b31836770bad75f741afbf.1788845030.git.zihanx@nebusec.ai>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1788845030.git.zihanx@nebusec.ai>
-References: <cover.1788845030.git.zihanx@nebusec.ai>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FiQCn5VO";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="B6DSuA1j";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JQJACMV0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="5H0FtDEQ"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E60FE1F796;
+	Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788849171; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+	b=FiQCn5VO93vIro4DbxQjaMTXfB3OwK+wye9IHY0fJyDejt9C3oq1Vghuo1c9kG2a+GEkMf
+	sc2+3EBqfD1iil1EpfU1UOw9RkCtJAynTckJWzhLiIDd48GH11NSP4hnVYEP6uMXPzGfWD
+	iqSNKcSRD+E3jvOlmZsjKvhoCtLVRhw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788849171;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+	b=B6DSuA1jF6uocTW0EBLNFiOwTMypvQOCQm/JLsQ65WD6jQzP39qVOq7KJp9pojpHPG51Bi
+	no3FC320ZfoTNjCg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JQJACMV0;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=5H0FtDEQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788849166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+	b=JQJACMV0xqgNsFSnyQ+NXxTolXIMTlPbTo7E2OQ8iyYbEXmhlSdlcvjPLVePOIUbJurWb+
+	BQsZMzmfMaud63pRVvVEl2ZypWVA0blE9FdTKPkKKNtP0lPeOCADZ62biZgiEv6xPOcQIY
+	3LQ/l87Lg1FJvYt1DIV0w2FWKGWaFmY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788849166;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=q5KZD/XW23R32T6r6MBWpZy3syCbREHJcxvpt9GzgO0=;
+	b=5H0FtDEQszLjrvW13ZnLjgfLMhQo140RQCwg7HpVdPHu91ywRCKwatJGI2norkIkY2ufSc
+	tyZHCOM8SxjpOEAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AA2DD1347F;
+	Tue,  8 Sep 2026 06:32:46 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id +CsDKA6sn2rWKgAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 08 Sep 2026 06:32:46 +0000
+Message-ID: <8c592732-6025-4073-b075-0e3e6911c935@suse.de>
+Date: Tue, 8 Sep 2026 08:32:46 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gud: Merge damage clips in full update mode
+To: Sophie D <patches@scd31.com>, rubenru09@aol.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260907230849.31032-1-patches@scd31.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260907230849.31032-1-patches@scd31.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: E60FE1F796
+X-Spamd-Result: default: False [-4.51 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FREEMAIL_ENVRCPT(0.00)[aol.com];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[scd31.com,aol.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,bootlin.com:url,scd31.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.51
 
-mesh_fast_tx_cache() stores raw mesh_path pointers in a persistent
-fast-xmit cache entry. Path deletion flushes currently visible cache
-entries and then schedules the path for RCU freeing, but a sender that
-already holds the path in an RCU read-side section can insert a new
-entry after that flush. Once the lookup RCU section ends, the path is
-freed while the new cache entry still points at it. A later
-mesh_fast_tx_get() then dereferences the freed flags, expiry, or
-next_hop fields.
+Hi
 
-Mark the path MESH_PATH_DELETED before flushing the cache, and reject
-cache insertion if the mesh path or optional MPP path was deleted while
-the entry was being built. The cache walk lock orders this check with
-deletion flush, so entries inserted before the flush are removed and
-later entries are not cached.
+Am 08.09.26 um 01:08 schrieb Sophie D:
+> When running in full update mode, previously small updates (such as
+> moving the mouse across the screen) would cause many full frames to be
+> generated. This would bog down the bus and lower the effective framerate
+> significantly - I was seeing a drop from 60 FPS to 2 FPS.
+>
+> This patch fixes the bug by merging damage clips together.
+>
+> Fixes: 73cfd166e045 ("drm/gud: Replace simple display pipe with DRM atomic helpers")
+> Cc: <stable@vger.kernel.org> # 6.18.x
+> Signed-off-by: Sophie D <patches@scd31.com>
+> ---
+>   drivers/gpu/drm/gud/gud_pipe.c | 11 ++++++++---
+>   1 file changed, 8 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/gud/gud_pipe.c b/drivers/gpu/drm/gud/gud_pipe.c
+> index 5ef887d84..20418bf81 100644
+> --- a/drivers/gpu/drm/gud/gud_pipe.c
+> +++ b/drivers/gpu/drm/gud/gud_pipe.c
+> @@ -647,9 +647,14 @@ void gud_plane_atomic_update(struct drm_plane *plane,
+>   	if (ret)
+>   		goto out;
+>   
+> -	drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
+> -	drm_atomic_for_each_plane_damage(&iter, &damage)
+> -		gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	if (gdrm->flags & GUD_DISPLAY_FLAG_FULL_UPDATE) {
+> +		if (drm_atomic_helper_damage_merged(old_state, new_state, &damage))
+> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	} else {
+> +		drm_atomic_helper_damage_iter_init(&iter, old_state, new_state);
+> +		drm_atomic_for_each_plane_damage(&iter, &damage)
+> +			gud_fb_handle_damage(gdrm, fb, &shadow_plane_state->data[0], &damage);
+> +	}
 
-The crash path is ieee80211_mesh_xmit_fast() -> mesh_fast_tx_get().
-The same cache is also consumed by ieee80211_rx_mesh_fast_forward(),
-so the deletion tombstone covers both consumers.
+Such state needs to be checked much earlier. Please set 
+plane_state->ignore_damage_clips [1] at the end of 
+gud_plane_atomic_check [2] if in full-update mode.  The damage iterator 
+will then do the right thing.
 
-Fixes: d5edb9ae8d56 ("wifi: mac80211: mesh fast xmit support")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Co-developed-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Luxing Yin <root@tr0jan.top>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
----
- net/mac80211/mesh_pathtbl.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+[1] 
+https://elixir.bootlin.com/linux/v7.2.2/source/include/drm/drm_plane.h#L207
+[2] 
+https://elixir.bootlin.com/linux/v7.2.2/source/drivers/gpu/drm/gud/gud_pipe.c#L569
 
-diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
-index 03171cf008557..dfcc4f3a7088e 100644
---- a/net/mac80211/mesh_pathtbl.c
-+++ b/net/mac80211/mesh_pathtbl.c
-@@ -577,6 +577,12 @@ void mesh_fast_tx_cache(struct ieee80211_sub_if_data *sdata,
- 		goto unlock_sta;
- 
- 	spin_lock(&cache->walk_lock);
-+	if ((READ_ONCE(mpath->flags) & MESH_PATH_DELETED) ||
-+	    (mppath && (READ_ONCE(mppath->flags) & MESH_PATH_DELETED))) {
-+		kfree(entry);
-+		goto unlock_cache;
-+	}
-+
- 	prev = rhashtable_lookup_get_insert_fast(&cache->rht,
- 						 &entry->rhash,
- 						 fast_tx_rht_params);
-@@ -812,6 +818,9 @@ static void __mesh_path_del(struct mesh_table *tbl, struct mesh_path *mpath)
- {
- 	hlist_del_rcu(&mpath->walk_list);
- 	rhashtable_remove_fast(&tbl->rhead, &mpath->rhash, mesh_rht_params);
-+	spin_lock_bh(&mpath->state_lock);
-+	mpath->flags |= MESH_PATH_DELETED;
-+	spin_unlock_bh(&mpath->state_lock);
- 	if (tbl == &mpath->sdata->u.mesh.mpp_paths)
- 		mesh_fast_tx_flush_addr(mpath->sdata, mpath->dst);
- 	else
+Best regards
+Thomas
+
+>   
+>   	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+>   
+
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
