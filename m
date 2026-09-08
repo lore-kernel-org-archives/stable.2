@@ -1,158 +1,123 @@
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B819D559CA0
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FD90559C85
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880170; cv=none; b=tPQskNKx7MyQ+ZVHZzLiADlKIA8l+W8XU4GDHGMs4d53aN7REFdvgk4yZW+CZZdSDpIrYFAbM5cFLeCbzkF6EJD4DvjKjsB/dhbC04fzJJUJ3yT6QvhpmRZIi8XERCzrEaWw77mquj/89g3K98KW85MuxRyLOwE6atKfTAT3NcE=
+	t=1788880374; cv=none; b=go7zIlDYlYbgz4Yr7o+A3uEz4s3fC6Ts+qZElZONFvEDGwnd8ZqnYm+TVybSREASCyjn5At6pL9cNtcX4HVXP6zRREKE2OuBo1nPxhrhtkyTRiDpNePDcRE7aF377J9QQpDJVGDL+SuAy0jiJhXqc50m45rBYMamxZoEKHslRew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880170; c=relaxed/simple;
-	bh=hc911xxuUmZN8P+jG4Et5ZWTWNyakO0Xa7s2ndw9gms=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rD16YJnUfbB5iIwaypzQ7NeZEvrnTrFo5MVwIrCscWuV/nBhI8aiO7pgFza21+5X44i3Iju6LJweqGHxQrT7nyTH084D4RmeWUyq14y/9V3SFQX60wswuHAgPDAR87hmhYZzUiTeRRCKsEFfo0N3pn8YkE51jDJEbG6zdD9HBvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GLKt9M/k; arc=none smtp.client-ip=209.85.221.169
+	s=arc-20240116; t=1788880374; c=relaxed/simple;
+	bh=Doj+ZCEyQBnoNJxOjsX1VqYVjYJ/WamXYne20s6EuPw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DniZH5XHWFr3ZuLT4i/qHJGQ/8zm1kOny1LBLG6x9VHg+4X1SwfZQE5wexLOK0+TJnXxV9+huJtsXyquP3u6ePDvNnTvpJC9GkBRkvfOXELURQNJ51+M7sQquk76LVmBowC9jqPahyr07nT7qiFG+1VcoMwHx3GWsOkB+Cz7spE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mbI2GhOV; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GLKt9M/k"
-Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5bfaa014978so2353101e0c.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 08:09:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mbI2GhOV"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b9320423cso53973635e9.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 08:12:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788880153; x=1789484953; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mGr9Cpmb+BSuPew2BBM6BAEAjAFzPbXBB7PZR5ZlT50=;
-        b=GLKt9M/kujvwk5Y8aQC7tsdl9sjTIQMlyGnSGcLvrJT/Oxo4I4CpCYwkxVlAld0s8u
-         sHZwtFzVGdEflwVPT6pzVbDWhgpvPgGgv8Rv/tUwGsoVWXt3X9hcXM5pQO4XAM4Y0vOA
-         ggHKm3e3zpa8GuamtyjJjYzkEOt2hfqWj4nudjNMwKW/qc4XA1qSOFLgos/9l8Ks4CCm
-         x86fnZZLWBv/ETujGhzwdEoBEHF+90ODZUvqikNXXhE82KYZRmmrePvQrN79/XP00OKr
-         VWPTn3D6aGuOECmqP/dpsrZvTJNPnQ+gHMHv93yFNlBPkkGCrgrgLHgX1JYOX12A87Jh
-         oXMg==
+        d=gmail.com; s=20251104; t=1788880366; x=1789485166; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XTgfNw2BEojIwEu1GKTPFuPQGMGtUKwmZuzA7RAeACQ=;
+        b=mbI2GhOVU5hVYrA6X7OisrHVk6+nFnwrTJ1tYU9BCoo9hbtVC8TiYKvCFhDfDzaHBb
+         HWbrCinpMmsyqOj1KCHqMrfGEi5L+0tDp61aoFPoacUTDoyqGyN/EQjHep2H2P5xVCPV
+         rCNqZKQoQpgbCFtPIdqrH2W/2MHOUQVX4/ktVv4JYZoT7l8azXpaFuKO5F0vublJr+Rz
+         YMl2/Us/mJuAk+Ojt7oWuIAWki0pAz8ua4FuKh9DTt27KiId8ewA8iYFBAmU6RDVYXZs
+         F4HfUk76HgQLbQ/NYTns8c32ujbtd1ZwDLJU+CiKqy2yJWHC3xmrXUSLSxjPNu1S2TZA
+         VeGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880153; x=1789484953;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mGr9Cpmb+BSuPew2BBM6BAEAjAFzPbXBB7PZR5ZlT50=;
-        b=qiw4JWaKA70aXhte31HhO3tJeZ8fZQHUEx/seQvba252VoN0+L5ginktgDLYrvDQnW
-         zmpf+MSNZLqJTNziPfFd2CX48SWeaHYq8bMSdz2dn2U7x3etTfAquxYmMD5ZK0vHlzAV
-         +MxwDk0O34rwyIGhblyt4UpwUTVUWaln4dxGTQv6VE9hwoTqLlFJ/vRSty1HqoVflB+f
-         3PcfBlnH+r328f+NhWJ/6126yqTGstZ09OmlTIsKLsS1puLRYKd+aPvtslxA2VbjLjvG
-         aPalmKdkQVpX3nZYkcURej+NGihEVEnuoL7krVhXwAVSkQfwbvIzdnUNjWwlz/pGjesU
-         2FkA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6+x5o0O99wA/SWuEFI+y6bb39LkHEUZrmgssGaE2UWH/eR8x9neMuymoP+OcTriRYDEpA/24=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWvP9A1ijp4ysB4YlyrXzBjltpGzPQ+AfJsFtjQFG49ax8QKfN
-	I3Wlw9WkADFhwKzgl6d7qvhij1/tOKS3jTeQ+HudccKej7a9IMJhj7qv
-X-Gm-Gg: AYBFou3o/zpTkrqvGbxcDRp7wIBRouzDA4POWL0NWL+u/J+GNgom2nbyQDn9XRAuDTO
-	5W7pkII7ZtA5luiNfy2y0Nwj6hn/0mi8RVtAhVPkBREUvLYi4fgzfTmIY7yz2jCRo/7SJTxsT4t
-	+iEojmt0qr8Gx+vMoEfwHm0VA3i1vF3CptLnh8WQW9jbpLB4lMTsLpuAV921Dut6nuCxowVdr0T
-	V3ouUHwP0fzATjPEBdRSQJRyNWA6YRnKOclYqUFpNLpEB11J5kq/qpYx+9hT4Gr/8jWPbtNd1b8
-	tIHcHEFtzEKSOWRCA3I3raMHQGcju4HlRwNY3KXKPSEuyb3fXiLSzuumhXoNN5TFpc4NK6js077
-	NFad1TqmyqYzenanDYX/rO3nbaSwiyrXbOMam3odjwGYjmisGLmJbx04NCID/BNgaYeJVdSH5u5
-	CSWX6GOs3fymqpMoNc8BgZOsJgDbxuJNHmt2cJkEbrBgjutVBcUEfYgcgrn7QLcO8=
-X-Received: by 2002:a05:6122:6092:b0:573:a779:62cf with SMTP id 71dfb90a1353d-5c7ed83b793mr12351254e0c.7.1788880153383;
-        Tue, 08 Sep 2026 08:09:13 -0700 (PDT)
-Received: from adriano ([179.57.108.248])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3b2cb1sm9940418e0c.16.2026.09.08.08.09.10
+        d=1e100.net; s=20251104; t=1788880366; x=1789485166;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XTgfNw2BEojIwEu1GKTPFuPQGMGtUKwmZuzA7RAeACQ=;
+        b=dR3+HXlUwj8dN76izkojtytblaN5g7eDzZz8zJ3joVh6JsoU/f2xCmOYfql0BK9UqC
+         Lbe5G6OfkyWluptItoB8S8tLgDqx/aNb02eyHQ7wSA3tBsKRnufKPvAUw8ejlcD9dXYz
+         ra9jWHtJc5D+JZ76wwXOzIsUSBGvmlgxulngcKDNQCheApsAXoJnaPk6ESzElhD/lh3T
+         Y1PWuVkdlrfSkM6GzgN+QpuWLAcktMYB3dD3pV7rnLtxdBAz1IHUio8onkScEDBs+Xhq
+         1usZU9IogBrasHVSk6+hL6NAm+56FK4tyIdw24irtHxUoCIeNsktgGr8n74DWgpC62OW
+         qJTg==
+X-Forwarded-Encrypted: i=1; AKwUvBx2TWFMzGEAePFwjf2u2zwSrq2Ds8LT7cLpccVnewvH3bnE3XYolfldMawWaT/A1zJbcSrt6j0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3FyJtUMG1+jW7oceqBizmGJlH768mS598p2SCD/jd5+dTJbZk
+	EXFVblZA9cvk0S241Cl58ufXFkJigVRQXRR5ke4sb6C7XnM50sXbyNv3
+X-Gm-Gg: AYBFou2WxNS2If5EM0PqrMRhs7GAdIRCpVp+xOzy8F/8LhxeWm4CTtf7rKydCBE1Pnj
+	x0rrO1eb/OUfa2CJIsFauofAXdYaVdjEVPTMxKIxxe8z+wUYfzBtQWn7mBPwOCq6q3/rhoYyLZG
+	Ag7aBFjKe7+wWCA/lD2YLF2XckHld+YXlMYzmud+CRmbwpkB1GnJdklU4CjrPGtlMoDKsQK7yVu
+	d153kMfMzoa9o6RzchifLNT270sAEZyheVbQ27y85Los3AcxMkDuE+2Mff+7DHZ74mfKutWvphl
+	0fL0G+RXzA+lB0Ko0bZlh1DuudIS9UPYlWbKif+aFDHGMxGx50NJUwg8FdWQ+DKFXszZ1rHNnBG
+	KLoYI3jLqhQK18KuDdvnOgiB2ONnykBWGfUTrgEGGKJwGHJKTco/+ayeOgejOf96e9xyoRLnfig
+	NtY0+u4WZFLbHzcQp9CQNNeNgI1IGDpXXBOkBEN3tZhRGXVxb3f8b2DbielLMVeKzfnKBty3doN
+	Mp+zme9uJHtsHEaMySCeOtyFCoZJ71IVatwvWT9r2wqL/R9bmg/vxVDe/bRJwiAxq9E5OqDfanD
+	GbzcHWis3Xmwdjn4srCxywvO2VXwB4ICLpZkw5D2haxXunO2guMxQgakDKqr1DWaQ78gZDa4vDL
+	hBwnsrc/ju55G0OZu/38lmlvlEp1mlcOoxmE2P7sf8KDGCbtPKbh6teuAinoHLpgtMbSkqFA=
+X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr508972015e9.6.1788880365425;
+        Tue, 08 Sep 2026 08:12:45 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm507187685e9.6.2026.09.08.08.12.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:09:13 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: Stephen Boyd <swboyd@chromium.org>,
-	Johan Hovold <johan@kernel.org>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mmc: vub300: fix use-after-free in vub300 teardown
-Date: Tue,  8 Sep 2026 12:09:00 -0300
-Message-ID: <20260908150901.58915-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+        Tue, 08 Sep 2026 08:12:45 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:12:42 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Andy Shevchenko <andy.shevchenko@gmail.com>, Kim Seer Paller
+ <kimseer.paller@analog.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
+ macro
+Message-ID: <20260908171242.00007f88@gmail.com>
+In-Reply-To: <aqAlAJEJPrglb2E_@ashevche-desk.local>
+References: <20260908114047.1360-1-joshua.crofts1@gmail.com>
+	<CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
+	<20260908150311.00000da6@gmail.com>
+	<aqAlAJEJPrglb2E_@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-mmc_host_classdev_release() reads host->parent->of_node, but the
-parent is not guaranteed to outlive the host. Instead, store
-host->index_is_alias to avoid reading the parent at release time.
+On Tue, 8 Sep 2026 18:08:48 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Also, call kref_put() after mmc_request_done(), as the latter
-dereferences the host pointer.
+> On Tue, Sep 08, 2026 at 03:03:11PM +0200, Joshua Crofts wrote:
+> > On Tue, 8 Sep 2026 15:41:23 +0300
+> > Andy Shevchenko <andy.shevchenko@gmail.com> wrote: =20
+> > > On Tue, Sep 8, 2026 at 2:41=E2=80=AFPM Joshua Crofts <joshua.crofts1@=
+gmail.com> wrote: =20
+> > > >
+> > > > The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TA=
+BLE()
+> > > > macro.   =20
+> > >=20
+> > > Is this a problem? =20
+> >=20
+> > For systems using devicetree, no. For legacy systems using spi_board_in=
+fo and
+> > this stuff, yes.
+> >=20
+> > If you're referring to the mark for stable then I'm fine with removing =
+it. =20
+>=20
+> No, I'm trying to (implicitly) tell you that the commit message misses
+> the answer to "why?".
+>=20
 
-Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
-Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
-Assisted-by: opencode: deepseek v4 flash
-Cc: stable@vger.kernel.org
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- drivers/mmc/core/host.c   | 3 ++-
- drivers/mmc/host/vub300.c | 4 ++--
- include/linux/mmc/host.h  | 1 +
- 3 files changed, 5 insertions(+), 3 deletions(-)
+Oh right... Will update in v2.
 
-diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index b7ce3137d452..542bb033c6da 100644
---- a/drivers/mmc/core/host.c
-+++ b/drivers/mmc/core/host.c
-@@ -67,7 +67,7 @@ static void mmc_host_classdev_release(struct device *dev)
- {
- 	struct mmc_host *host = cls_dev_to_mmc_host(dev);
- 	wakeup_source_unregister(host->ws);
--	if (of_alias_get_id(host->parent->of_node, "mmc") < 0)
-+	if (!host->index_is_alias)
- 		ida_free(&mmc_host_ida, host->index);
- 	kfree(host);
- }
-@@ -538,6 +538,7 @@ struct mmc_host *mmc_alloc_host(int extra, struct device *dev)
- 	}
- 
- 	host->index = index;
-+	host->index_is_alias = (alias_id >= 0);
- 
- 	dev_set_name(&host->class_dev, "mmc%d", host->index);
- 	host->ws = wakeup_source_register(NULL, dev_name(&host->class_dev));
-diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
-index 2dae474dcd06..c87c54aa0e99 100644
---- a/drivers/mmc/host/vub300.c
-+++ b/drivers/mmc/host/vub300.c
-@@ -1794,8 +1794,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
- 			construct_request_response(vub300, cmd);
- 			vub300->resp_len = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(vub300->mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		}
- 	}
-@@ -1946,8 +1946,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
- 		    satisfy_request_from_offloaded_data(vub300, cmd)) {
- 			cmd->error = 0;
- 			mutex_unlock(&vub300->cmd_mutex);
--			kref_put(&vub300->kref, vub300_delete);
- 			mmc_request_done(mmc, req);
-+			kref_put(&vub300->kref, vub300_delete);
- 			return;
- 		} else {
- 			vub300->cmd = cmd;
-diff --git a/include/linux/mmc/host.h b/include/linux/mmc/host.h
-index ba84f02c2a10..165d24104d3c 100644
---- a/include/linux/mmc/host.h
-+++ b/include/linux/mmc/host.h
-@@ -356,6 +356,7 @@ struct mmc_host {
- 	struct device		*parent;
- 	struct device		class_dev;
- 	int			index;
-+	bool			index_is_alias;
- 	const struct mmc_host_ops *ops;
- 	struct mmc_pwrseq	*pwrseq;
- 	unsigned int		f_min;
--- 
-2.51.0
-
+--=20
+Kind regards,
+Joshua Crofts
