@@ -1,119 +1,126 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A67A0558200
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 14:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28781258EF3
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 14:22:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877294; cv=none; b=EEUTj1I57Dm8k/AwXP1Nrkbaoc2D5KptmVJdACi1aHjzoKcgOxdOfHPeLExQyHrEikGwNTcRjPzmg3jxYit7ilsHOx253m+eIA1MYCjGfL23JgN1K+f+uOar+EoSnx3in3SJSCPf09wRv23zDbDyvJk0Am1rqhbZAX7btBBzJiE=
+	t=1788877332; cv=none; b=ClDp0h/IUMJrKnWSH688sJnfeKPolikxpm9KsJKdatj+5lghMQh/d4MUY898aqSaP2H2e9y+Q6RwtUjXmvOeUsKuOJflYPa/DMasry+yOF12tyXa7Icf1XJDUn8KzeqDd61aa99iAcXn7jJlDiN07gv1VB8fTMUJeVPb1oQtuAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877294; c=relaxed/simple;
-	bh=t9VEB+Wx7FTfVlIWnys+TVYHiif/HGxsyKc57vmrBlg=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AVw7/FiTIepuYkI3Dy3h8RhPho8og/Xq/0NyUGah/O6SJ5YxtontEJmK1UdtdAa0hF0FLck06fSfKL6pYteJ1R6KC+HV5jqY5ZDNyiym/MYjKI99eIk8RyfS9zjTI5FDlYb1jO61u6Npqtg0YV8+4FdeHDWzpGJBajExcb7hFnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSv2Dx+/; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788877332; c=relaxed/simple;
+	bh=Ibj5uMLqtAXhyWcvht5Nh0wJBbp7+x40ZtmQrmdjrEQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PWpXrHNlF4fJkvm/X+3gvJ48qnDBpT5+m8Xil4sZKksZKuseDi+CyR6Bm8NSVx+lsz1XMwawFud8f+X7roPRYYPkzXT30ySO6VY5l8o66oHPW56AboTPn1Qv/TD4u1NWyVSzHsv7nzp5l6op9sRHNY2Ezzx38AqCpZeiZsGVmMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=oEBE5NpX; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSv2Dx+/"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d91ded8174so36835535ad.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 07:21:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788877287; x=1789482087; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=elHR2dmgdiO2iJMqseykTVVlGqNYHDXkrEZm70hbhR4=;
-        b=MSv2Dx+/UvwTHGw1G0odP9lswe4ypJmsfz8xFoG88tzngkBhH7g+ch3R5cLOMPmMut
-         7oWZkXB6LIYNyHEb2zwqv8L5jwx3R9CBMSYKwq+k+UUi/6ytJVRAEB8w07WVjzKCn4dI
-         M7mQ7HnC6eo0CRtA7ADyjcqpEXncCwdEG5jOAZmSqlsMqDF3szr0Stl4gkUE1I7t02WJ
-         1mVewZr6a5QHg85jUZC28pFyk68shDryPL+ok70rxI4Hn0dqAPq/FSRONUDLpAJHSP4r
-         FL/exm2vrYonpJNlDPcFI/St3UIdnlZKsEQTYW3qgHmTtbF270NRjACgwfaBhpd1olKn
-         CJ9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788877287; x=1789482087;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=elHR2dmgdiO2iJMqseykTVVlGqNYHDXkrEZm70hbhR4=;
-        b=HqWaQ1dUvz3fVaiq6wQLBdKX95vEuze0HWpvn0+TixEzMZ6DHIxL+j/cm/tH3Vr1Sn
-         QIAmiY86PRsraIzayiD/wYbqP8O5ji3DtYg43H6i0HJ1/RPS0/7WMQ/pjUs8PbgSezyO
-         6CcLLlUUWmkRVLiuNRnDstNbTe2uyCAn8Eb1MyFSW9cYxx3PPlg8h1naxGJOWoIWhW7N
-         v/9z7Rx7KO8wn4UCBT/xH7UzmmTBcCchs+WkTZxz7Nm1jNkXTxp3RAh0x0PAUnVkMvR5
-         lFWCRQzetc6vwaRtBHf/xqu8boISN5z3pndIoPmoquMl/d8Mhzytshq7qVMg3p0TyIKO
-         CZUw==
-X-Forwarded-Encrypted: i=1; AKwUvByxMO/sFqB7xYO3U7gOykdi/s+1wuQIrhJSI1ELilG8Mojf+cpqcko6q8lLKpY8Nsx/3SClz9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlVUHoaCMPXv0lQXl62rGp106ishx5aoY36YeeDY0Ri6M9+E6K
-	nb1a0oCCCnb5ps705+8TzqyLW8a/wfbKsjtlSBxbh6YSK+qZSpodGMih
-X-Gm-Gg: AYBFou33r7HirYfJARqLENYO6hJ3AQ7s3tJqtIXRQtJWvDXC6mIEArXit9XX7ZQwA9q
-	Xffrl8itp9Xrd3qkZUlAXrwvXo3XW5zlOe6Y9Wz0h8aVLHPs5tGER4beyEaR56Ambsr4lgA+ExE
-	Avu/0JsW7NWqTWa9riZtM36nN/h3h3ZnujPtyl4q3HM5pHaDmbLR7Nik8Hek2iIW6Z4zG06QuTP
-	UREA3Kvh1BQSoohWrzNiSi2ffkf9yCgGYIa7/HB3wZ1gk8sgTKg+i4Hsltj0L+vBGoViDPTDG9y
-	g1UgwcXKa4dvwhZg6kPIsq5HrKAuibs57laMx3H1RctVXP+twGIQNnSLDV6gtkG7AvTLoHjt5vf
-	QI1PjExeBHcnoNHFsdqcZubtX55rwY/ABAY3x6WiS9LpYY37wHFQQ8j5RuMkXxQj9wTqyH8YVyM
-	HNg2Zrmlsim9JoVUm2cW+s9o8Y9kFneQ1v8arYoeDToA==
-X-Received: by 2002:a17:903:11c8:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2db1235721dmr410393595ad.4.1788877286477;
-        Tue, 08 Sep 2026 07:21:26 -0700 (PDT)
-Received: from pc636 ([125.29.25.186])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14841054sm61015055ad.3.2026.09.08.07.21.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:21:25 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
-Date: Tue, 8 Sep 2026 16:21:20 +0200
-To: Hillf Danton <hdanton@sina.com>
-Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>, linux-mm@kvack.org,
-	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
-	stable@vger.kernel.org, Dev Jain <dev.jain@arm.com>,
-	Ye Liu <ye.liu@linux.dev>, lirongqing <lirongqing@baidu.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
- vmap drain
-Message-ID: <aqAZ4H8mauWw4JVM@pc636>
-References: <20260905152717.11711-1-urezki@gmail.com>
- <20260906035027.2106-1-hdanton@sina.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="oEBE5NpX"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=S7s/9N9uO/V0zChLYaRJHk624dUiqvODSn1DeHB9W9g=;
+	b=oEBE5NpXzuCnGV9Xo8PURX5GM4IU8VTuu5okrSWyFFz2hNbqfGtJAhS8TNvHaU6PxQs0PnMat
+	VAk0AacYGxjqcMHC6FTsXn22oR8fyWuMx+yJu5nOy+tapOUqj8meccBzmmUqXEMC2XW2QmxlVjt
+	NlvXYLVA5S8I7Cdm4eK1gzc=
+Received: from mail.maildlp.com (unknown [172.19.163.127])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfQpK074vz1cyVb
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:11:05 +0800 (CST)
+Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
+	by mail.maildlp.com (Postfix) with ESMTPS id 34B5640572
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:21:58 +0800 (CST)
+Received: from dggphicprd10024.huawei.com (10.243.6.112) by
+ kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 22:21:57 +0800
+From: Abbott Liu <liuwenliang@huawei.com>
+To: <patchwork@huawei.com>, <liuwenliang@huawei.com>
+CC: <stable@vger.kernel.org>
+Subject: [PATCH v3 2/3] RAS: Fix out-of-bounds read when tracing arm_event
+Date: Tue, 8 Sep 2026 22:21:36 +0800
+Message-ID: <20260908142137.45919-3-liuwenliang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908142137.45919-1-liuwenliang@huawei.com>
+References: <20260908142137.45919-1-liuwenliang@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906035027.2106-1-hdanton@sina.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemf100015.china.huawei.com (7.202.181.14)
 
-On Sun, Sep 06, 2026 at 11:50:24AM +0800, Hillf Danton wrote:
-> On Sat, 5 Sep 2026 17:27:17 +0200 "Uladzislau Rezki (Sony)" wrote:
-> > drain_vmap_area_work() function can take >10ms to complete
-> > when there are many accumulated vmap areas in a system with
-> > high CPU count, causing workqueue watchdog warnings when run
-> > via schedule_work():
-> > 
-> >   workqueue: drain_vmap_area_work hogged CPU for >10000us
-> > 
-> > Move the top-level drain work to a dedicated WQ_UNBOUND
-> > workqueue so the scheduler can run this background work
-> > on any available CPU, improving responsiveness. Use the
-> > WQ_MEM_RECLAIM to ensure forward progress under memory
-> > pressure.
-> >
-> If the dedicated worker will run for 4ms on CPU2 before the tick irq kicks it
-> off cpu, the system event worker on CPU2 has to wait at least for 4ms to handle
-> 200 events for example in 1ms, the net effect is the same as the current scenario
-> where 200 events wait for the drain_vmap_area_work to complete on CPU1.
->
-It is scheduling decision. We do not want to tune any prio here.
+The vsei_len < 0 error path did not verify the pei_len and ctx_len.
+When vsei_len is negative, section_length is too small to hold the
+full record, yet pei_len and ctx_len were derived from
+err_info_num/context_info_num and may describe regions beyond the
+(long)err .. err + section_length buffer. To prevent trace_arm_event
+from reading past the allocated record, sanitize the parameters:
+recalculate ctx_len and pei_len based on section_length, limit them,
+and set the corresponding pointers to NULL and lengths to 0 when
+there is no remaining space.
 
-> 
-> Different workers does not help to dramatically decrement the micro seconds
-> the drain_vmap_area_work takes.
-The problem of current approach consists from at least two problems:
+pei_len and ctx_len become s32 so that the recalculated lengths can
+be checked for negative values.
 
-- doing progress under memory pressure;
-- do not schedule all workers on current CPU and let schedule to find
-  the most attractive CPU from its point of view. For example: less busy
-  RQ, less energy consuming CPU and so on
+Fixes: 05954511b73e ("RAS: Report all ARM processor CPER information to userspace")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abbott Liu <liuwenliang@huawei.com>
+---
+ drivers/ras/ras.c | 22 ++++++++++++++++++----
+ 1 file changed, 18 insertions(+), 4 deletions(-)
 
---
-Uladzislau Rezki
+diff --git a/drivers/ras/ras.c b/drivers/ras/ras.c
+index 2540538a16a8..085fe2d980e5 100644
+--- a/drivers/ras/ras.c
++++ b/drivers/ras/ras.c
+@@ -58,10 +58,10 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 	struct cper_arm_err_info *err_info;
+ 	struct cper_arm_ctx_info *ctx_info;
+ 	u8 *ven_err_data;
+-	u32 ctx_len = 0;
++	s32 ctx_len = 0;
+ 	int n, sz, cpu;
+ 	s32 vsei_len;
+-	u32 pei_len;
++	s32 pei_len;
+ 	u8 *pei_err, *ctx_err;
+ 
+ 	pei_len = sizeof(struct cper_arm_err_info) * err->err_info_num;
+@@ -87,14 +87,28 @@ void log_arm_hw_error(struct cper_sec_proc_arm *err, const u8 sev)
+ 		pr_warn(FW_BUG "section length is too small\n");
+ 		pr_warn(FW_BUG "firmware-generated error record is incorrect\n");
+ 		vsei_len = 0;
++		ven_err_data = NULL;
++
++		ctx_len = err->section_length - (sizeof(struct cper_sec_proc_arm) + pei_len);
++		if (ctx_len < 0) {
++			ctx_len = 0;
++			ctx_err = NULL;
++
++			pei_len = err->section_length - sizeof(struct cper_sec_proc_arm);
++			if (pei_len < 0) {
++				pei_len = 0;
++				pei_err = NULL;
++			}
++		}
++	} else {
++		ven_err_data = (u8 *)ctx_info;
+ 	}
+-	ven_err_data = (u8 *)ctx_info;
+ 
+ 	cpu = GET_LOGICAL_INDEX(err->mpidr);
+ 	if (cpu < 0)
+ 		cpu = -1;
+ 
+-	trace_arm_event(err, pei_err, pei_len, ctx_err, ctx_len,
++	trace_arm_event(err, pei_err, (u32)pei_len, ctx_err, (u32)ctx_len,
+ 			ven_err_data, (u32)vsei_len, sev, cpu);
+ }
+ 
+-- 
+2.43.0
+
