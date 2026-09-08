@@ -1,47 +1,34 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58DA33120E;
-	Tue,  8 Sep 2026 06:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 63CFE36C5AE;
+	Tue,  8 Sep 2026 06:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788847242; cv=none; b=bVwfoOapPDPHq7RuYRg4m3RYxrluWGJCe2Ryv9dKAju6x/r6Ybf2vUBxuaAfyRa1Z7PYinOXFYPtPXjeeR2g2Eh0lcGoHzMhc+9MBWc6zS/a4ssbn1lyXFMttv23ez+VP6eP344ugdvUXNgKieMlGToUi56woQ4FO34ByArIK+Y=
+	t=1788847416; cv=none; b=h1ebSuN2g2QFp/Y3fWFoJ5l5mBvk56wzCXGg2QBh4GXRlMp0QudukECcWuT3kpJnvCsX7T9Hh+1C/B/Y92RwWpGxN3ylEEk7ZhJEW+9OF0TpU63EFmsuDfsVJXDuw2W0PU2FpNQyZTlqTg11GbA8VuSxr40TtLJAgE2llrC7NW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788847242; c=relaxed/simple;
-	bh=ECMEijpuiP02MSLfInysi2EZix0M+5fozPoUASmaT+I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OdL2cUR2DheGSyck9Jr0JX5/eCyrLfVwCBttztoB2OsEgMLhCaFAbLGe4crhgSaxw5jZ4P+HYM1E+fkxdrZNTZn3oUFOYzvVNG+nAZO1j+2UMIl3kEhraLU9PHHOixV2mKlmRIYY9DCAJhhsmchxU0loL3SDO9zy9ggn0dYMTfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=mP+NOydg; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="mP+NOydg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1Y
-	Ohb3D73/8SdyecCiPhE4vQmQl1qBOdVYxBb3ICr88=; b=mP+NOydgwCA/j2md0M
-	pdnX7VH0oUSz5zrWzegbQgreh5L1x5Y5Ltgy6svop/x3GyDGtXOCy/vH1F6rRyzu
-	bd6rkkf8O57jsV8EbOUipz9uUSWdL5f5VnVQyOTuEOy5ebjeAgE4vAM3MIuFc/WO
-	Qgxxi/QVM8XeMpEpCMOzww0pc=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wBHOVhSpJ9qyCC7BQ--.30517S2;
-	Tue, 08 Sep 2026 13:59:47 +0800 (CST)
-From: oushixiong1025@163.com
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Philipp Stanner <phasta@kernel.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Shixiong Ou <oushixiong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v4] drm/sched: Create a fake device for KUnit tests
-Date: Tue,  8 Sep 2026 13:59:41 +0800
-Message-Id: <20260908055941.351486-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1788847416; c=relaxed/simple;
+	bh=FEGg/yge3/bv0kPODPSrijoXWKCkOyWT9bOflSG5Fd0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qjg0pJ6HxNkZXsMvIY9EZBfNo0VkumvWG5KGETiQh8d8S6Iz1EMd2w3v5cOZMq0lC7wCmGpQaWGtUXAUsrR/oSC/3VBUAv7V4qdxd3hwDXUw3DpiLiAs22mJtIk46o2cbNAW8DV3poJaycZDwb6MVmHYPVQI7nkeOYyvkx5GO94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3QTwtpZ9qaZr9AA--.23070S3;
+	Tue, 08 Sep 2026 14:03:26 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgDno5sqpZ9qYIhkBA--.47634S2;
+	Tue, 08 Sep 2026 14:03:22 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] usb: typec: ucsi: glink: fix use-after-free of ucsi on remove
+Date: Tue,  8 Sep 2026 06:02:15 +0000
+Message-Id: <20260908060216.616045-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,91 +36,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBHOVhSpJ9qyCC7BQ--.30517S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW5ur1fJrW5Cr17WFW3Wrg_yoW5Wr1rpF
-	WkXFWYgrWrtrZFg3y3ua95XFyfGwsrA3yxKr1kX34a9F1qgFyfJr17KrW3t347ArWDZFWS
-	q3Z0gw47Gr4jyw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnL05UUUUU=
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4RO-zmqfpFNyzwAA38
+X-CM-TRANSID:yy_KCgDno5sqpZ9qYIhkBA--.47634S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?TIc+6wXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBGF9bCWC1gB8KVe0tFmhEz5s5PPKZpIO5gV3ViKdGX0A5n8
+	UpFgvmLcPr4gVFZcYCXN5RPxYw6l01w8CbPzC/8w
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4UuFyfZFyrCr47AF4UKFX_yoW8Kw1rp3
+	sI93yrtrWjqw42gw4DWayaqFy8uFZ3J3yUA347W3yxKrs8Gr1q93yktFyagF15CrWkCF12
+	yr4Yq3y5Cr45AagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9Gb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8Tv3UUUUUU==
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+The pmic_glink client is released by the devres cleanup, which runs
+after pmic_glink_ucsi_remove() has returned, so its notification
+callbacks can queue work until then. Work that runs after
+ucsi_unregister() has been called touches freed state: it dereferences
+the connector array that ucsi_unregister() freed, or registers and
+unregisters the instance a second time.
 
-The DRM scheduler KUnit tests pass NULL for the dev field in
-drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
-trace event via dev_name() on sched->dev.
+Disable both work items with disable_work_sync() before unregistering,
+and unregister only if the instance is still registered.
 
-Give the mock scheduler a device with kunit_device_register(), which is
-also cleaned up at test exit. A per-function counter keeps the device
-names unique, since some tests create several mock schedulers.
+This issue was found by an in-house static analysis tool.
 
-Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructure and some basic tests")
+Fixes: 62b5412b1f4a ("usb: typec: ucsi: add PMIC Glink UCSI driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-Acked-by: Maxime Ripard <mripard@kernel.org>
-
+Assisted-by: Codex:gpt-5.6
+Link: https://lore.kernel.org/r/20260227190430.889-1-nathan.c.rebello@gmail.com
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-v3->v4:
-  - Initialize the instance counter explicitly
+ drivers/usb/typec/ucsi/ucsi_glink.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-v2->v3:
-  - Start the mock scheduler device numbering at 0, using
-    instance++ instead of ++instance
-
-v1->v2:
-  - Switch from faux_device_create() to kunit_device_register(), which also
-    cleans the device up automatically at test exit (Maxime Ripard)
-  - Build the device name on top of args.name (Philipp Stanner)
-  - Make the instance counter a static unsigned int local to
-    drm_mock_sched_new() (Philipp Stanner)
-  - Add a Fixes: tag and Cc: stable for the NULL dev dereference
-
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 11 ++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 8e9ae7d980eb..12dc61f56192 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- /* Copyright (c) 2025 Valve Corporation */
- 
-+#include <kunit/device.h>
-+
- #include "sched_tests.h"
- 
- /*
-@@ -288,6 +290,7 @@ static const struct drm_sched_backend_ops drm_mock_scheduler_ops = {
-  */
- struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
+diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
+index 12e07b9fe..1db0c88d8 100644
+--- a/drivers/usb/typec/ucsi/ucsi_glink.c
++++ b/drivers/usb/typec/ucsi/ucsi_glink.c
+@@ -362,6 +362,10 @@ static void pmic_glink_ucsi_destroy(void *data)
  {
-+	static unsigned int instance = 0;
- 	struct drm_sched_init_args args = {
- 		.ops		= &drm_mock_scheduler_ops,
- 		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
-@@ -297,11 +300,19 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- 		.name		= "drm-mock-scheduler",
- 	};
- 	struct drm_mock_scheduler *sched;
-+	struct device *dev;
-+	char name[64];
- 	int ret;
+ 	struct pmic_glink_ucsi *ucsi = data;
  
- 	sched = kunit_kzalloc(test, sizeof(*sched), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, sched);
- 
-+	snprintf(name, sizeof(name), "%s-%u", args.name, instance++);
-+	dev = kunit_device_register(test, name);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++	/* Drain the work items before ucsi_destroy() frees the ucsi instance */
++	cancel_work_sync(&ucsi->notify_work);
++	cancel_work_sync(&ucsi->register_work);
 +
-+	args.dev = dev;
-+
- 	ret = drm_sched_init(&sched->base, &args);
- 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 	/* Protect to make sure we're not in a middle of a transaction from a glink callback */
+ 	mutex_lock(&ucsi->lock);
+ 	ucsi_destroy(ucsi->ucsi);
+@@ -467,8 +471,15 @@ static void pmic_glink_ucsi_remove(struct auxiliary_device *adev)
+ {
+ 	struct pmic_glink_ucsi *ucsi = dev_get_drvdata(&adev->dev);
  
--- 
-2.43.0
-
-No virus found
-		Checked by Hillstone Network AntiVirus
+-	/* Unregister first to stop having read & writes */
+-	ucsi_unregister(ucsi->ucsi);
++	/* Callbacks can queue work until devres releases the client */
++	disable_work_sync(&ucsi->notify_work);
++	disable_work_sync(&ucsi->register_work);
++
++	/* register_work may have unregistered the instance already */
++	if (ucsi->ucsi_registered) {
++		ucsi->ucsi_registered = false;
++		ucsi_unregister(ucsi->ucsi);
++	}
+ }
+ 
+ static const struct auxiliary_device_id pmic_glink_ucsi_id_table[] = {
 
