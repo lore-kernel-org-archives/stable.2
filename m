@@ -1,30 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90070451996
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1585472762
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:21:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873713; cv=none; b=Td/ZaUDOzCxb9zE1lVH940gkqMEL3vGZtzS49OpcoPSq5pgmVepri7q3I58pJk/ceKkuuK2EutkGGxKeFax8gX5jZfXoCt7kY/NB+iJFOjvzldEbynxOzHmZz18udEUDs9GsDgs13ftQX7ve7QPcwjctVOdS1GGttkfOfZkSYIY=
+	t=1788873714; cv=none; b=pw7Q/micDnyWwiUpZpbn2rJxk98/7LBSmWyWCWsOQS2qbgqUvSm60dAXH8lxSy/nP8Wf2nHzFgAtNq9v7BNKC0Ub7+Wl/LamvZplRhM0BnCugql3mNzOpCormwD2gQBldW3WvNbjOKWHPC5buQlt3wPkvoxld9/ZOy3motUuZYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873713; c=relaxed/simple;
-	bh=ulwaNRv4/Hko/H3U/GmxKZ61yILS3vGhdivots9puso=;
+	s=arc-20240116; t=1788873714; c=relaxed/simple;
+	bh=6IGpnx2+NstMtHXB3GJEfT8X9NSBVP1DtB9ME9xMcwc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OuYhhAjUo3AfqiQGRHmKZUPpdjCdkJ/1+EiVRZD7bGtEUgBm8zena2xodhtG4yvnfSZi07QjLX3KtI1MuCZA/I5gkLPZ4eHnILablntBsABcpm7BnqmsGH/IqUsb9IG+9+tK1tX/iHE7ttEWGMhD3vc9E6HNOCIleOMxlokiSeo=
+	 MIME-Version; b=TeEEZgX2eELUr9SjQK38cFmQ/1AwxWknedcXfAP8Vp15YvsYBU1PMtP56a7EKuQxVGAmtIjjGF+WZjQ6mwlQtKmqHBuW0+0kd3NI61Qsf5AdC9BtrTWE9sdhOOwMpu+PkUxzu5sm6jEpEqhpzQiGGD0GjwlZ79C04nHdm3lklM0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0461F00A3D;
-	Tue,  8 Sep 2026 13:21:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06C341F00A3E;
+	Tue,  8 Sep 2026 13:21:51 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Jiri Olsa <jolsa@kernel.org>,
 	Andrii Nakryiko <andrii@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/5] bpf: Factor stackid_init function from __bpf_get_stackid
-Date: Tue,  8 Sep 2026 09:21:44 -0400
-Message-ID: <20260908132148.2288072-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/5] bpf: Factor stackid_new_bucket from __bpf_get_stackid
+Date: Tue,  8 Sep 2026 09:21:46 -0400
+Message-ID: <20260908132148.2288072-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090349-donor-crunching-700c@gregkh>
+In-Reply-To: <20260908132148.2288072-1-sashal@kernel.org>
 References: <2026090349-donor-crunching-700c@gregkh>
+ <20260908132148.2288072-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,198 +36,104 @@ Content-Transfer-Encoding: 8bit
 
 From: Jiri Olsa <jolsa@kernel.org>
 
-[ Upstream commit 15b837759a97237d647962f9943afe0d55af615a ]
+[ Upstream commit bb4e6f4e1b68fe60c04ca04c564c6624e837dbf4 ]
 
-The new stackid_init function stores all the necessary bits for stackid
-trace and it will be used by other functions in following changes.
+The new stackid_new_bucket allocates the new bucket and initializes it
+with the trace data.
 
 Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/bpf/20260803210149.296496-2-jolsa@kernel.org
+Link: https://lore.kernel.org/bpf/20260803210149.296496-4-jolsa@kernel.org
 Stable-dep-of: 15f1bd857466 ("bpf: Disable preemption in bpf_get_stackid")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/stackmap.c | 95 +++++++++++++++++++++++++++----------------
- 1 file changed, 59 insertions(+), 36 deletions(-)
+ kernel/bpf/stackmap.c | 48 +++++++++++++++++++++++++++----------------
+ 1 file changed, 30 insertions(+), 18 deletions(-)
 
 diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 1cbcaf0d1c5e1..0707bd2bd566c 100644
+index 605543688c81b..b9ed6256d6307 100644
 --- a/kernel/bpf/stackmap.c
 +++ b/kernel/bpf/stackmap.c
-@@ -246,33 +246,54 @@ get_callchain_entry_for_task(struct task_struct *task, u32 max_depth)
- #endif
+@@ -301,31 +301,52 @@ static int stackid_fastpath(struct stackid *stackid, struct bpf_map *map,
+ 	return -ENOENT;
  }
  
--static long __bpf_get_stackid(struct bpf_map *map,
--			      struct perf_callchain_entry *trace, u64 flags)
-+struct stackid {
-+	struct stack_map_bucket *bucket;
-+	u64 *ips;
-+	u32  nr;
-+	u32  len;
-+	u32  hash;
-+	u32  id;
-+};
-+
-+static int stackid_init(struct stackid *stackid, struct bpf_map *map,
-+			struct perf_callchain_entry *trace, u64 flags)
- {
- 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
--	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
--	u32 hash, id, trace_nr, trace_len, i, max_depth;
- 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
--	bool user = flags & BPF_F_USER_STACK;
--	u64 *ips;
--	bool hash_matches;
-+	u32 max_depth;
- 
- 	if (trace->nr <= skip)
- 		/* skipping more than usable stack trace */
- 		return -EFAULT;
- 
- 	max_depth = stack_map_calculate_max_depth(map->value_size, stack_map_data_size(map), flags);
--	trace_nr = min_t(u32, trace->nr - skip, max_depth - skip);
--	trace_len = trace_nr * sizeof(u64);
--	ips = trace->ip + skip;
--	hash = jhash2((u32 *)ips, trace_len / sizeof(u32), 0);
--	id = hash & (smap->n_buckets - 1);
--	bucket = READ_ONCE(smap->buckets[id]);
-+	stackid->nr = min_t(u32, trace->nr - skip, max_depth - skip);
-+	stackid->len = stackid->nr * sizeof(u64);
-+	stackid->ips = trace->ip + skip;
-+	stackid->hash = jhash2((u32 *)stackid->ips, stackid->len / sizeof(u32), 0);
-+	stackid->id = stackid->hash & (smap->n_buckets - 1);
-+	stackid->bucket = READ_ONCE(smap->buckets[stackid->id]);
-+	return 0;
-+}
- 
--	hash_matches = bucket && bucket->hash == hash;
-+static long __bpf_get_stackid(struct stackid *stackid, struct bpf_map *map,
-+			      struct perf_callchain_entry *trace, u64 flags)
++static struct stack_map_bucket *
++stackid_new_bucket(struct stackid *stackid, struct bpf_map *map)
 +{
 +	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
-+	struct stack_map_bucket *new_bucket, *old_bucket;
-+	bool user = flags & BPF_F_USER_STACK;
-+	bool hash_matches;
-+	u32 trace_len, i;
-+	int err;
++	struct bpf_stack_build_id *id_offs;
++	struct stack_map_bucket *bucket;
++	u32 i;
 +
-+	err = stackid_init(stackid, map, trace, flags);
-+	if (err)
-+		return err;
++	bucket = (struct stack_map_bucket *) pcpu_freelist_pop(&smap->freelist);
++	if (unlikely(!bucket))
++		return NULL;
 +
-+	hash_matches = stackid->bucket && stackid->bucket->hash == stackid->hash;
- 	/* fast cmp */
- 	if (hash_matches && flags & BPF_F_FAST_STACK_CMP)
--		return id;
-+		return stackid->id;
- 
- 	if (stack_map_use_build_id(map)) {
- 		struct bpf_stack_build_id *id_offs;
-@@ -282,42 +303,42 @@ static long __bpf_get_stackid(struct bpf_map *map,
- 			pcpu_freelist_pop(&smap->freelist);
- 		if (unlikely(!new_bucket))
- 			return -ENOMEM;
--		new_bucket->nr = trace_nr;
-+		new_bucket->nr = stackid->nr;
- 		id_offs = (struct bpf_stack_build_id *)new_bucket->data;
--		for (i = 0; i < trace_nr; i++)
--			id_offs[i].ip = ips[i];
--		stack_map_get_build_id_offset(id_offs, trace_nr, user, false /* !may_fault */);
--		trace_len = trace_nr * sizeof(struct bpf_stack_build_id);
--		if (hash_matches && bucket->nr == trace_nr &&
--		    memcmp(bucket->data, new_bucket->data, trace_len) == 0) {
++	if (stack_map_use_build_id(map)) {
++		id_offs = (struct bpf_stack_build_id *)bucket->data;
 +		for (i = 0; i < stackid->nr; i++)
 +			id_offs[i].ip = stackid->ips[i];
-+		stack_map_get_build_id_offset(id_offs, stackid->nr, user, false /* !may_fault */);
-+		trace_len = stackid->nr * sizeof(struct bpf_stack_build_id);
-+		if (hash_matches && stackid->bucket->nr == stackid->nr &&
-+		    memcmp(stackid->bucket->data, new_bucket->data, trace_len) == 0) {
- 			pcpu_freelist_push(&smap->freelist, &new_bucket->fnode);
--			return id;
-+			return stackid->id;
- 		}
--		if (bucket && !(flags & BPF_F_REUSE_STACKID)) {
-+		if (stackid->bucket && !(flags & BPF_F_REUSE_STACKID)) {
- 			pcpu_freelist_push(&smap->freelist, &new_bucket->fnode);
- 			return -EEXIST;
- 		}
- 	} else {
--		if (hash_matches && bucket->nr == trace_nr &&
--		    memcmp(bucket->data, ips, trace_len) == 0)
--			return id;
--		if (bucket && !(flags & BPF_F_REUSE_STACKID))
-+		if (hash_matches && stackid->bucket->nr == stackid->nr &&
-+		    memcmp(stackid->bucket->data, stackid->ips, stackid->len) == 0)
-+			return stackid->id;
-+		if (stackid->bucket && !(flags & BPF_F_REUSE_STACKID))
- 			return -EEXIST;
++	} else {
++		memcpy(bucket->data, stackid->ips, stackid->len);
++	}
++
++	bucket->hash = stackid->hash;
++	bucket->nr = stackid->nr;
++	return bucket;
++}
++
+ static long __bpf_get_stackid(struct stackid *stackid, struct bpf_map *map,
+ 			      struct perf_callchain_entry *trace, u64 flags)
+ {
+ 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
+ 	struct stack_map_bucket *new_bucket, *old_bucket;
+ 	bool user = flags & BPF_F_USER_STACK;
+-	u32 trace_len, i;
++	u32 trace_len;
+ 	int err;
  
- 		new_bucket = (struct stack_map_bucket *)
- 			pcpu_freelist_pop(&smap->freelist);
- 		if (unlikely(!new_bucket))
- 			return -ENOMEM;
--		memcpy(new_bucket->data, ips, trace_len);
-+		memcpy(new_bucket->data, stackid->ips, stackid->len);
+ 	err = stackid_fastpath(stackid, map, trace, flags);
+ 	if (err != -ENOENT)
+ 		return err;
+ 
++	new_bucket = stackid_new_bucket(stackid, map);
++	if (!new_bucket)
++		return -ENOMEM;
++
+ 	if (stack_map_use_build_id(map)) {
+ 		struct bpf_stack_build_id *id_offs;
+ 
+-		/* for build_id+offset, pop a bucket before slow cmp */
+-		new_bucket = (struct stack_map_bucket *)
+-			pcpu_freelist_pop(&smap->freelist);
+-		if (unlikely(!new_bucket))
+-			return -ENOMEM;
+-		new_bucket->nr = stackid->nr;
+ 		id_offs = (struct bpf_stack_build_id *)new_bucket->data;
+-		for (i = 0; i < stackid->nr; i++)
+-			id_offs[i].ip = stackid->ips[i];
+ 		stack_map_get_build_id_offset(id_offs, stackid->nr, user, false /* !may_fault */);
+ 		trace_len = stackid->nr * sizeof(struct bpf_stack_build_id);
+ 		if (stackid->hash_matches && stackid->bucket->nr == stackid->nr &&
+@@ -337,17 +358,8 @@ static long __bpf_get_stackid(struct stackid *stackid, struct bpf_map *map,
+ 			pcpu_freelist_push(&smap->freelist, &new_bucket->fnode);
+ 			return -EEXIST;
+ 		}
+-	} else {
+-		new_bucket = (struct stack_map_bucket *)
+-			pcpu_freelist_pop(&smap->freelist);
+-		if (unlikely(!new_bucket))
+-			return -ENOMEM;
+-		memcpy(new_bucket->data, stackid->ips, stackid->len);
  	}
  
--	new_bucket->hash = hash;
--	new_bucket->nr = trace_nr;
-+	new_bucket->hash = stackid->hash;
-+	new_bucket->nr = stackid->nr;
- 
--	old_bucket = xchg(&smap->buckets[id], new_bucket);
-+	old_bucket = xchg(&smap->buckets[stackid->id], new_bucket);
+-	new_bucket->hash = stackid->hash;
+-	new_bucket->nr = stackid->nr;
+-
+ 	old_bucket = xchg(&smap->buckets[stackid->id], new_bucket);
  	if (old_bucket)
  		pcpu_freelist_push(&smap->freelist, &old_bucket->fnode);
--	return id;
-+	return stackid->id;
- }
- 
- BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
-@@ -326,6 +347,7 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 	u32 elem_size = stack_map_data_size(map);
- 	bool user = flags & BPF_F_USER_STACK;
- 	struct perf_callchain_entry *trace;
-+	struct stackid stackid;
- 	bool kernel = !user;
- 	u32 max_depth;
- 
-@@ -341,7 +363,7 @@ BPF_CALL_3(bpf_get_stackid, struct pt_regs *, regs, struct bpf_map *, map,
- 		/* couldn't fetch the stack trace */
- 		return -EFAULT;
- 
--	return __bpf_get_stackid(map, trace, flags);
-+	return __bpf_get_stackid(&stackid, map, trace, flags);
- }
- 
- const struct bpf_func_proto bpf_get_stackid_proto = {
-@@ -370,6 +392,7 @@ BPF_CALL_3(bpf_get_stackid_pe, struct bpf_perf_event_data_kern *, ctx,
- {
- 	struct perf_event *event = ctx->event;
- 	struct perf_callchain_entry *trace;
-+	struct stackid stackid;
- 	bool kernel, user;
- 	__u64 nr_kernel;
- 	int ret;
-@@ -395,7 +418,7 @@ BPF_CALL_3(bpf_get_stackid_pe, struct bpf_perf_event_data_kern *, ctx,
- 
- 	if (kernel) {
- 		trace->nr = nr_kernel;
--		ret = __bpf_get_stackid(map, trace, flags);
-+		ret = __bpf_get_stackid(&stackid, map, trace, flags);
- 	} else { /* user */
- 		u64 skip = flags & BPF_F_SKIP_FIELD_MASK;
- 
-@@ -404,7 +427,7 @@ BPF_CALL_3(bpf_get_stackid_pe, struct bpf_perf_event_data_kern *, ctx,
- 			return -EFAULT;
- 
- 		flags = (flags & ~BPF_F_SKIP_FIELD_MASK) | skip;
--		ret = __bpf_get_stackid(map, trace, flags);
-+		ret = __bpf_get_stackid(&stackid, map, trace, flags);
- 	}
- 
- 	/* restore nr */
 -- 
 2.53.0
 
