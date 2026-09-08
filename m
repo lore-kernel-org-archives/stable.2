@@ -1,35 +1,41 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6ED33938F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 02:38:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4895A331EB3
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 02:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788835092; cv=none; b=dztGzlkTwHx0NbRbAkH89Z74E9BTYYMaK8Yb6xLP+TO3vPa4RQmghG8ANhVcblQx8CeNHC/v+5bhsrH5yUZM9osNkGz9U4n0lxnl0zpw/b6EMLzIYmhkkoXtVCUE10tXQJDHfMVQATf6UuwJP0Xl0pLVlBG7TrIjhtb4QjzstxU=
+	t=1788835104; cv=none; b=j2kqkMHDipnFiEDS6t/NLYXXvT0JSORw1HnY7x/eVb0uh7zTxYqYhB7JD5CdbPhd05TPzNLeIo4VxlcwmSE3z/D8vRECXj/281aLAKEpxjYV/COLJOghALx7EFgTV3qgnvAhwmgDpM3+f9Lq/1pg52iS6tI3QzSSpF48TWDNTps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788835092; c=relaxed/simple;
-	bh=rfJMxKZZRzj4HZMtbUgPCYMFf6bfVaKIMTAZk4aVrjA=;
-	h=Message-Id:To:Cc:Subject:Date:Content-Type:From:Mime-Version; b=lLpeY5SUgoFO5bqkdWVs82pc8RTor9pLVX5XkHN58BKTJ5a1n+btkZpWeOhs0CYgSiBjTVltB4VpJSuZI5b/4tI3WTrCdUyvgktmB+PML2vq81s6zdivKjVte/w/LPFccZ1T2Prbc3TiRZ1tGYmIQHGOBu2Af1tJx68HqOVF5uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=cOL+YMup; arc=none smtp.client-ip=71.18.227.1
+	s=arc-20240116; t=1788835104; c=relaxed/simple;
+	bh=YFk8ijcB8bITxXkCpEHcDU++XgwznV4djJXfOVSeN0M=;
+	h=Date:Mime-Version:To:From:In-Reply-To:Cc:Message-Id:Content-Type:
+	 References:Subject; b=Ee82HeYHk/hUO2OhvsZNpQM7NxPrD96g3P8q1aiJi5XtX8oyvB7dj9mlFsju8ZzeBzY3cThBCzbrEIPIE29MAlWey/xzF9JumRdb5AqmBOn7m+pPTyD5GJCn5hvfl5RW/JJsPIP8l3uxmt3bBoFNY+jZwrOdKptr6MTcR/qbzkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=1qrk53/C; arc=none smtp.client-ip=71.18.227.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="cOL+YMup"
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="1qrk53/C"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1788835083; h=from:subject:
+ s=feishu2604220257; d=cherr.cc; t=1788835098; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=kSI7yGDTAXS2LsAwqINs1fL1cOHm9czyVm2WQa6R7SU=;
- b=cOL+YMupfdxf8xPOZFa9bPKU87Lg3ltSnXVWV3Hh1kmomiwx5MtpV1/MahZm43Ncn9ft/z
- yXcqGNxntS8j1Es5e9OdJBNZ6uh8NF3C8Y/DR2Aukz2MkUUqb8/oQ9E6T4o0TuzmyTz9CZ
- 1ZtEc9BwpmSd+6NRP+xVSW0f0Mb0RVQ4KKLqAV1Arm1EjLXI2j5GMWxAzMLgyQyuxwJk1J
- TJ0CZdJjKz3PLUBeuIpavNls7y54oauG0RW258cC4S2CFIAetl2pXfdKPD416VKcIE57C2
- WKD2tsdpvLLXSP3HYuEe5i2IupqP+adtYUQvt6C90inWt10Cb6l/5D4gP080Ig==
-Message-Id: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
+ bh=JuHLfjAtbzVg6yDfxoJ2zvQ9bI5H2+ld+xQJ8ev3rsQ=;
+ b=1qrk53/CQWNZ5ImCp9nbQMc3IPrEfCF7hBKPEexPhyP4wy3wKB6oK7442ao+fF/+7Jm6J9
+ qN2+bdrArwxpFFDhUxl1W27JViYvkjroSwXdpxUYUy7GP3FQ0e+AA+D5htCZ1WYLvmsOH5
+ 4mlMq3qx+41acFvPGNaxlodrNYVS8m3HgUwTApaY/OO1kQjPDSiiLL4qMbArY6eZaOk0tW
+ LKdz0qI/XQvSI1yu/8rqsnNvZicTJeKHaPucesx0d7Ptppho/3WGrMf1wXq0BGF5KyE8Gd
+ gl+4zvoGpEd3ug0ZLUW/W50oeGmRhUxVJpjftehUt2+yMCHOh3XkEAQN8csRVw==
 Content-Transfer-Encoding: 7bit
-X-Change-Id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
-X-Lms-Return-Path: <lba+26a9f7509+c8d703+vger.kernel.org+me@cherr.cc>
+Date: Tue, 08 Sep 2026 10:37:57 +0800
+Precedence: bulk
+X-Mailing-List: stable@vger.kernel.org
+List-Id: <stable.vger.kernel.org>
+List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
+List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 10:38:03 +0800
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
 To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
 	"Shenwei Wang" <shenwei.wang@nxp.com>, 
 	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
@@ -40,61 +46,53 @@ To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>,
 	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
 	"Fugang Duan" <fugang.duan@nxp.com>, 
 	"Lucas Stach" <l.stach@pengutronix.de>
+From: "Shengzhuo Wei" <me@cherr.cc>
+X-Mailer: b4 0.16.0
+In-Reply-To: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
 Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
 	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
 	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
 	"Shengzhuo Wei" <me@cherr.cc>
-Subject: [PATCH net v2 0/2] net: fec: fix PTP clock teardown races on device removal
-Date: Tue, 08 Sep 2026 10:37:56 +0800
-X-B4-Tracking: v=1; b=H4sIAAR1n2oC/3WNwQ6CMBBEf4Xs2TUtqRg8+R+EQ7tspR5K05ZGQ /h3Ab16fJOZeQskjo4T3KoFIheX3OQ3qE8V0Kj9g9ENG0Mt6ka0QqJlwpADhpCQC/uMs7Y4EF2 lubAcjIBtGyJb9zp+O/Ccof+GaTZPprw/7rXRpTzF92Ev8ij/ROqPqEgU2GqrVGNYaSnvNHKMZ yLo13X9AKAq6HDQAAAA
+Message-Id: <20260908-fec-ptp-pps-event-uaf-v2-1-2a1d57121ade@cherr.cc>
 Content-Type: text/plain; charset=UTF-8
-X-Mailer: b4 0.16.0
-From: "Shengzhuo Wei" <me@cherr.cc>
-Precedence: bulk
-X-Mailing-List: stable@vger.kernel.org
-List-Id: <stable.vger.kernel.org>
-List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
-List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 10:38:00 +0800
+References: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
+Subject: [PATCH net v2 1/2] net: fec: stop the PTP clock after the netdev is unregistered
+X-Lms-Return-Path: <lba+26a9f750d+d9033c+vger.kernel.org+me@cherr.cc>
 
-This series fixes two FEC teardown races: ethtool can access a freed
-PTP clock, and the PPS interrupt can outlive the PHC and netdev.
+fec_drv_remove() unregisters the PTP clock before unregistering the
+netdev. A concurrent ethtool -T can therefore pass a freed PTP clock
+to ptp_clock_index() through fec_enet_get_ts_info().
 
-I have kept the main Ethernet IRQ issue discussed with Phuc [1] out of
-this revision. His PTP initialization error-propagation changes are
-also separate; if they land first, the new probe failure path will
-need PPS IRQ cleanup too.
+Move fec_ptp_stop() after unregister_netdev(), which drains the
+ethtool callbacks before the PTP clock is torn down.
 
-Full x86_64 kernel and module builds passed with W=1, FEC=m and PTP
-enabled and disabled. The bugs were found by code inspection; no
-hardware testing was done.
+Leave the probe error path unchanged, since the netdev has not been
+registered there.
 
-[1] https://lore.kernel.org/r/CAABR9nHLcR103aADF1WMSEkw-_BjWB9vyWXENJCYfjX5Wz1nkw@mail.gmail.com/
-
+Fixes: 32cba57ba74b ("net: fec: introduce fec_ptp_stop and use in probe fail path")
+Cc: stable@vger.kernel.org
+Suggested-by: Wei Fang <wei.fang@nxp.com>
+Assisted-by: GLM:5.3
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
 ---
-Link to v1: https://lore.kernel.org/netdev/20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc
+ drivers/net/ethernet/freescale/fec_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v2:
-- Drop the ptp_clock_index_by_dev() lookup and unregister the netdev
-  before fec_ptp_stop() instead, as suggested by Wei Fang, so the
-  netdev callbacks are drained before the PHC teardown.
-- Use -1 as the "no PPS interrupt" sentinel so a valid IRQ 0 is neither
-  skipped on release nor freed when the request never happened.
+diff --git a/drivers/net/ethernet/freescale/fec_main.c b/drivers/net/ethernet/freescale/fec_main.c
+index 794ec427b0ee..a29c8ddbbf34 100644
+--- a/drivers/net/ethernet/freescale/fec_main.c
++++ b/drivers/net/ethernet/freescale/fec_main.c
+@@ -5500,9 +5500,9 @@ fec_drv_remove(struct platform_device *pdev)
+ 			ERR_PTR(ret));
+ 
+ 	cancel_work_sync(&fep->tx_timeout_work);
++	unregister_netdev(ndev);
+ 	if (fep->bufdesc_ex)
+ 		fec_ptp_stop(pdev);
+-	unregister_netdev(ndev);
+ 	fec_enet_mii_remove(fep);
+ 	if (fep->reg_phy)
+ 		regulator_disable(fep->reg_phy);
 
----
-Shengzhuo Wei (2):
-      net: fec: stop the PTP clock after the netdev is unregistered
-      net: fec: free the PPS interrupt before tearing down the PHC and netdev
-
- drivers/net/ethernet/freescale/fec.h      |  1 +
- drivers/net/ethernet/freescale/fec_main.c |  2 +-
- drivers/net/ethernet/freescale/fec_ptp.c  | 12 +++++++++++-
- 3 files changed, 13 insertions(+), 2 deletions(-)
----
-base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
-change-id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
-
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-- 
+2.47.3
