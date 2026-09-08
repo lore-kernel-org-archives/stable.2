@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E653AAF40
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D18B54489F
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:55:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872155; cv=none; b=KO+TXtSdLgfdXq0yKpBxgIe/v/rOxRiSXyeYHipwrYXF84m95IOC0c+nOy+L+AKjN91ZUy5aNF7X6g1SbSH5jV8DHh3enZvXu80891Cw8wJQFLkmjTR9m8zIFX70zJOMlGrpA8ddpWwfU09oVuzlcJQpGYkPCwtUgYeTdRYojnI=
+	t=1788872158; cv=none; b=DsdwhiaQ4WGuJXBXco4s1jD2x1KzTeJhkEfl59tlSuwbhcdFTmdxttY+moU2GO8YbCiEe+7yPgQVZO4M42M+uqJ2+Hlc3IbpG3lbNGpih5MtapYxxV35Z1n2MaRHHh+59BxKqNavGS1FfrCi8Xq5YwRJxOO6bMiOAkhM5/uS9oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872155; c=relaxed/simple;
-	bh=lzDoKYBsKd2fn5cyWa2l45fofnD396wOzhNT/ms/4UA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DkaySekHCWpB3FKSyUMrKw8Jw/WxLNP8c1sBjk7/w2N6H0ua52R4xhM1pb61WqsgfJqr3rzO8e+utdt6Bn80m2IzUl/0B5AvpEfZNUpYYzKgWyqJFEy7E7pBd2ZKPuhGNyEELY2tf5g6ubV7Ee4v+9bLEM1D3ts0A8Bz8oOaoiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VXCqGyHB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VXCqGyHB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C25AB1F00A3A;
-	Tue,  8 Sep 2026 12:55:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872153;
-	bh=yw5jz+AMOoqaqhUvhWRH6w+G9oTpJTMqonkrBEZ91iw=;
-	h=Subject:To:Cc:From:Date;
-	b=VXCqGyHBZw+AcApP/5H52MYSQnoIDem4OzL/CrDK7yYzqzoa4NCM8jxts+b2/8Kfz
-	 ZvDc0C2YvHaYVewSnF9kUB/1FsprYZaDE3tCY8Vcq/QidrREQCg6bzqfddToqzHPxl
-	 e3N8AvQQItUboMNa3po7tyF9wHxao82+Gja5heCQ=
-Subject: FAILED: patch "[PATCH] scsi: sg: Report request-table problems when any status is" failed to apply to 5.10-stable tree
+	s=arc-20240116; t=1788872158; c=relaxed/simple;
+	bh=OO7TBoBlx1MdHpgHxf6JO0fQ5ETcjmlt9teKNPPaZl8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DcI2eHuisAGD8C6k127nMpxYibyOmpYSvCyoKqy00QpzjVEQoovjotIsLF5fiSglhpJy17Wz2hfLyEW3zHDx5mNVLfTxmtAD+V4rG1EXpNjkl8ueWSamalRT6NM1r5/d3blcUPfbyROnEUgLGf0qoriyEnaEmgUlhkiEGsqih80=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 658C91F00A3A;
+	Tue,  8 Sep 2026 12:55:56 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] scsi: sg: Report request-table problems when any status is" failed to apply to 5.15-stable tree
 To: raoxu@uniontech.com,bvanassche@acm.org,mkp@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:47:30 +0200
-Message-ID: <2026090830-wrongness-upstroke-5f0e@gregkh>
+Message-ID: <2026090830-overpay-twentieth-8772@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x 11300f8ddee301dca9914561f24bea4168de076d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090830-wrongness-upstroke-5f0e@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090830-overpay-twentieth-8772@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
