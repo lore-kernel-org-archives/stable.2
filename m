@@ -1,126 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE1A59D61E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:15:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C6059221D;
+	Tue,  8 Sep 2026 18:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891347; cv=none; b=QaD2agu2XrAFtx72U28au8kLBMiGUYjhGERDIWSUryw6s3EJMAnR1E/CC3bdRO1t6adPWUFx6zE0izchkSZv6c7929E03hPu7U1OGOpGat/Lh5gCu+I6qgLgBsKCMLLVWrFgHnoEzB9bMN93hxjtxqR45Wn5EXyXCa8XH6oDscI=
+	t=1788891634; cv=none; b=OrDtDyTgB3BbnShwtm3+GBBkCimEf+T02IZhFU0k2VxWkGInTI3w91wjQ+hwHhGsyfbbgLi2Xq6Pp6dlohCPN0NB+bmxk3CV28GuqQC6PwWWyz6PQ7atDhgVgyvJdVJt53bAr/It6I9a526KjgLlGyJ68u3UD2xyfLA10o+eIbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891347; c=relaxed/simple;
-	bh=BXhWhfR5sWAa9Zg7roFEOwIqTNeSQuDGv/0dY93IzTc=;
+	s=arc-20240116; t=1788891634; c=relaxed/simple;
+	bh=aEmeb3BPj4vgzXWCAg8YcKiAHPbXVWt2vQExapyRePY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iH9NglBdGlfrRMQmfF4aAQcXrmOodnYa6BWeiE8SEYXkvntvEcJP0scwGLBJGTdQpmSwnYQA0wn4jR1NJlTSRsjwVXEiLIIQzAjsastcvk01aidUG7ivqqKIWSl6a2S+T3lutkRCc6/+OXKJBc/x31/714bDTCzaoJQy4Z5zrsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5YxbTbf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=npv3NrrBp5N4A3TcT1gW8nKnjmBQnzzWamqtml36W6ZgtrnRlWlGW7xxaSKMlEyF/ZTQ7Vz7Lcjt6KES7xozNJ4TOqZ0yJggu/1t0ujT0D3PeMHC+70uGuu6KbFUMvSDUwItoKQIJWuaDPOC3M0ZDj6pwupIZgTJ3wQiZ/YL/3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TP3HBXBL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5YxbTbf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6AF21F00A3D;
-	Tue,  8 Sep 2026 18:15:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TP3HBXBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B35B1F00A3A;
+	Tue,  8 Sep 2026 18:20:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788891346;
-	bh=wPbIwdciPBTPWT8Ho+XwBatqmgi63Jf0K8uMzRc0sSY=;
+	s=k20260515; t=1788891632;
+	bh=mpzINRNRq1CBm2/HslyepZlk5MVgORYoamd+SFjS3ak=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R5YxbTbfjxA3uXwuA5CsExGfWP7AjrB0+bZWrf2/zaJ3F3/YzWleKyFdFNzU9Ga7R
-	 7KaF0LiyiidnjihM6c4lxDspXg9rxizDXRXDKADq3vxrQmHEVMVJLQZe2X9cCiNQvW
-	 ApzHiNTKjdmKFchOe3pPvn7FZCorYgeFaakWvCFVU0nNgA0medApDchNu1ErhfNpzK
-	 QE3PDAVcEllQ29j43anm/gS5qkvRDF/t3IIRuDO28CnOUcDwuQp2noSC01dQ0lDH2j
-	 waB5PpT02GpaWBbSShGEyiQrX0Zt4cG8dRhiVt/IDOB6jkQf7LfINWQe6BsbNQdXwU
-	 j3lHZjmEsjrsA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jiacheng Yu <yujiacheng3@huawei.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 6/6] params: fix charp corruption on allocation failure
-Date: Tue,  8 Sep 2026 14:15:39 -0400
-Message-ID: <20260908181539.191940-6-sashal@kernel.org>
+	b=TP3HBXBL+799ygFMkGXjA0a7gu7THkPZVcee7jnQRYuvBNYQgUSpJouE4ppvKRMbt
+	 Usv5TCWPajZa9XzDeGFluNmuRl7z2ikzJHyKxDauLaTD68V+OB3dqiQKod5E1QN8Di
+	 fC3S564bxug3dz7H5yR7DIRjohByzsUGOXki+03MIu2YP43ZHgshEr25tLUPjUpS4E
+	 eKFSTfdOBtY0yvq2zpfdLGy755+DPe2qINIlnZeO6yrARq0V2zSzdRqzDkK3/tHzcR
+	 PSOSVNQme3uS0AHtRPaGXw4tuDBOSgCeShGBDoPCn3xqiNcN1beg7WtAPk7JjIAJcu
+	 XAPFZ9erBBu2A==
+From: Conor Dooley <conor@kernel.org>
+To: linux-riscv@lists.infradead.org,
+	Conor Dooley <conor@kernel.org>
+Cc: Conor Dooley <conor.dooley@microchip.com>,
+	Daire McNamara <daire.mcnamara@microchip.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Valentina.FernandezAlanis@microchip.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: microchip: beaglev-fire: remove double definition of gpio interrupts
+Date: Tue,  8 Sep 2026 19:20:27 +0100
+Message-ID: <178889161920.3146991.520958835856287447.b4-ty@microchip.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908181539.191940-1-sashal@kernel.org>
-References: <2026090332-blazing-handcart-8248@gregkh>
- <20260908181539.191940-1-sashal@kernel.org>
+In-Reply-To: <20260904172253.2274751-3-conor@kernel.org>
+References: <20260904172253.2274751-3-conor@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=891; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=ZjFyHx8kfO+HZ4s57D5vDO7q0jUtFSGy5PPMUBeWPak=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFkLAl9XtWW/Trfe/PyqWVz/n8bJl+66FL1ly1+k1vtvp mPcGvGVHaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZiIAhsjw4P9eyRvLL5QX/bs r0MM/9Lze4wfzsrOdLMquFFmfTtmwn6Gfwp7+hLEPk35vn3iQ700rjdxUv4q07m+5JjbMO5IrFD sYQQA
+X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
 Content-Transfer-Encoding: 8bit
 
-From: Jiacheng Yu <yujiacheng3@huawei.com>
+From: Conor Dooley <conor.dooley@microchip.com>
 
-[ Upstream commit 3dfaae04243cde460d82dfc2a7dd0bb6664d20ae ]
+On Fri, 04 Sep 2026 18:22:55 +0100, Conor Dooley wrote:
+> When the irq-mux and its interrupt-map were added to the mpfs
+> devicetree, the gpio interrupts became fixed at the SoC level rather
+> than dependant on the design - the interrupt-map is now what varies.
+> The beaglev-fire should have had its dts copy of the interrupts removed
+> but did not. As a result, the mcp3564 driver does not probe, because
+> even though it doesn't use the interrupt at present, the SPI core still
+> looks it up. This lookup fails because the second copy of the interrupts
+> property doesn't resolve to something valid when passed via the
+> interrupt-map. Remove the second/incorrect set of interrupts properties.
+> 
+> [...]
 
-param_set_charp() stores charp parameters in allocated memory after slab is
-available, and releases the previous value when the parameter is updated.
+Applied to cache-for-next, thanks!
 
-The previous value is released before the replacement allocation succeeds.
-If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
-left as NULL.
+[1/1] riscv: dts: microchip: beaglev-fire: remove double definition of gpio interrupts
+      (no commit info)
 
-Failing zswap's compressor update before zswap is initialized can later
-trigger:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:strcmp+0x10/0x30
-  Call Trace:
-    zswap_setup+0x3b1/0x490
-    zswap_enabled_param_set+0x5b/0xa0
-    param_attr_store+0x93/0xe0
-    module_attr_store+0x1c/0x30
-    kernfs_fop_write_iter+0x116/0x1f0
-
-Allocate and copy the replacement first, then replace the parameter value
-only after allocation succeeds.
-
-Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/params.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/params.c b/kernel/params.c
-index 03443c99496c6..1b699c7632598 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -265,6 +265,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
- 
- int param_set_charp(const char *val, const struct kernel_param *kp)
- {
-+	char *tmp;
- 	size_t len, maxlen = 1024;
- 
- 	len = strnlen(val, maxlen + 1);
-@@ -273,19 +274,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
- 		return -ENOSPC;
- 	}
- 
--	maybe_kfree_parameter(*(char **)kp->arg);
--
- 	/*
- 	 * This is a hack. We can't kmalloc() in early boot, and we
- 	 * don't need to; this mangled commandline is preserved.
- 	 */
- 	if (slab_is_available()) {
--		*(char **)kp->arg = kmalloc_parameter(len + 1);
--		if (!*(char **)kp->arg)
-+		tmp = kmalloc_parameter(len + 1);
-+		if (!tmp)
- 			return -ENOMEM;
--		strcpy(*(char **)kp->arg, val);
-+		memcpy(tmp, val, len + 1);
- 	} else
--		*(const char **)kp->arg = val;
-+		tmp = (char *)val;
-+
-+	maybe_kfree_parameter(*(char **)kp->arg);
-+	*(char **)kp->arg = tmp;
- 
- 	return 0;
- }
--- 
-2.53.0
-
+Thanks,
+Conor.
