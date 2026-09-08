@@ -1,137 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAF5559CAA;
-	Tue,  8 Sep 2026 15:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2B1AF560AA5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880505; cv=none; b=PjK6+GM0xvZSmvXydAfrbzPrPXoTL1VJcbxf0fsU5pjldJ1PXpXcxqyTuJhbR8WyPTceLvon8bB/RHOnJO+a6t4pICCn9o44C5N4h0YsZl/lKPZrGMwOs8OF59pPtzbfaeAl2bpSSwoPZT52esGsnfJpd7z80Trd8b/QNh1VQxE=
+	t=1788880680; cv=none; b=OBkauOgCVml5kuEXIj8Rx1X3Vx9V4wnanqIrotm71hWTpIgaqQZvdF0YHqhjUR1DZtwNdjEqFImPtP14vvTPJ/D/UWH2CdWpreNIY8CM2QkeYb7N1mmUaPib3XW5o7gym6hFuy6KFoaWUB4PX4NYPhptTZAQO/hrZLieFwPVp74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880505; c=relaxed/simple;
-	bh=nXcBa8uBFITO3eLlmurzwFuso4EC/JEiDdu0hJwdm4k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uwu1pvgFbIz6s4FZ9M7RjfWmIM65pQrySgEN0N/Xs7hQOdrHI20Pi9xFzjdgtyCkEJ4eKKbN0qL5GJzPgz5iabmySM7the7UREHNhLNc4guyr0Ge/D6XDW9Otd5IwqYzedbaYsh5cYvklnNiCewwSqZAZGRAgIOpoA7+fqC7nEM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ixBzmblW; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788880680; c=relaxed/simple;
+	bh=XfPVvq8e9tGKo018JKnP1xN3ulUHGDRgrdtFYDoHbhQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PLOiPD8t17dN641uXIUtk6VyjSuk67+2V6NbiCARsAKus3ODZ/Zv+4FpL3GDxwMfOPYGuFPyF3C8kSF/QnbWR6hq2kEehG69+uAm+61ehh3Ju4w2zuwXo7k/H4eNYPXzJ/Ha9aYjxytE6b6CdTIhWwq/hOyLPEj4dJsV9qcwqUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=eC1JwmJX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ixBzmblW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788880501; x=1820416501;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=nXcBa8uBFITO3eLlmurzwFuso4EC/JEiDdu0hJwdm4k=;
-  b=ixBzmblW6sspGAE/f21H6A4z1xySzpHrohVily9LGtuNPs2jaeh9kTi9
-   yeP7D7vKS/XOSZeq98aaiLi5fekMf99+gIMT4Ipty9UXVX9Rc05ik9QC+
-   F/PR38Q9fmrQOUts8nDOE+c9ujz1mlOLVHhbF65tcQTlPvCwzxjDR3Lt9
-   dzexwpWDqaca4OV1OPpmuALu1XRuU7xvTsgpWqDNAh/q2A0pNTqNYXTlt
-   RtS9EFAZqtbMkC9ZruhrJfZOhr0JBMCbvQkTklnKcgpg56wgcPld0t57j
-   DexzNQT08+A1bugfLP5+3VbR39kY8GdsOtw3I3TsUqPgpcrT5PX6MxSEY
-   w==;
-X-CSE-ConnectionGUID: EZF25fkBT8qaxoVUfYNy7g==
-X-CSE-MsgGUID: VSqz7qIRT2WQMcsFag+i2Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89490710"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="89490710"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 08:14:55 -0700
-X-CSE-ConnectionGUID: Jp8iSiH7QOiMaJRBHJ5s4w==
-X-CSE-MsgGUID: yuNzs4KPQuqHPH+HZDWV4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="275160725"
-Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.111.91]) ([10.125.111.91])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 08:14:55 -0700
-Message-ID: <f7e2c511-d137-4a07-ab13-5e4c2f507d63@intel.com>
-Date: Tue, 8 Sep 2026 08:14:54 -0700
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="eC1JwmJX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3BE1C1476;
+	Tue,  8 Sep 2026 08:17:49 -0700 (PDT)
+Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 25AF93F7B4;
+	Tue,  8 Sep 2026 08:17:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788880672; bh=XfPVvq8e9tGKo018JKnP1xN3ulUHGDRgrdtFYDoHbhQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=eC1JwmJXjAGjIR8jtufTmIkRWC9+mz95Z+2YR5MTq9dTvmA3NECireUnkC1iacjsd
+	 FLVOJoxem4DY8FJshVvwvNaOM6Yjz4+Tr+4k/HLioTAHN1MC9dfj0yOIjtKcmpvPQI
+	 uyBIzAhSeZCKdYV2y4Ibzr5ehUtu5O0lwmD9vzh8=
+From: Mark Rutland <mark.rutland@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: ada.coupriediaz@arm.com,
+	ardb@kernel.org,
+	catalin.marinas@arm.com,
+	cl@gentwo.org,
+	david@kernel.org,
+	david.laight.linux@gmail.com,
+	james.morse@arm.com,
+	ljs@kernel.org,
+	mark.rutland@arm.com,
+	maz@kernel.org,
+	peterz@infradead.org,
+	ruanjinjie@huawei.com,
+	ryan.roberts@arm.com,
+	stable@vger.kernel.org,
+	usama.anjum@arm.com,
+	vladimir.murzin@arm.com,
+	will@kernel.org,
+	yang@os.amperecomputing.com
+Subject: [PATCH v4 00/21] Preemptible this_cpu_*() operations
+Date: Tue,  8 Sep 2026 16:17:20 +0100
+Message-Id: <20260908151741.394589-1-mark.rutland@arm.com>
+X-Mailer: git-send-email 2.30.2
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
- collapse to avoid UAF
-To: Mike Rapoport <rppt@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
- "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
- David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
- Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
- Ingo Molnar <mingo@kernel.org>
-References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
- <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
- <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
- <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
- <ap_WIZwCPKB07nAf@kernel.org>
- <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/8/26 06:58, Dave Hansen wrote:
-> On 9/8/26 02:32, Mike Rapoport wrote:
->> I have to say I'm confused with today's batch of tip-bot emails saying Ingo
->> applied these to x86/mm :/
-> Just a reminder that we have x86/urgent which will be going to Linus
-> like today. There's also x86/mm which goes up in the next merge window..
-> 
-> The "Fix effective RW computation" patch is getting broken out and is
-> going to wait for the next merge window. We don't want it sitting in
-> mainline generating warnings, especially false positives like the one
-> this weekend. That's not to disparage the patch; it's overall the right
-> thing to do.
-> 
-> Sound good?
+This series reworks arm64's this_cpu_*() operations such that they do
+not need to disable preemption. The scheme is described in detail in patch 13,
+and is similar to the approach Heiko Carstens applied to s390 [1], which
+inspired this series.
 
-... and no, that isn't the current state of x86/mm and x86/urgent. But
-that's where I _want_ to end up.
+This scheme should build and function in all kernel configurations (e.g.
+regardless of KPTI, SW PAN, CNP, VA BITS), and has no dependency on new
+architectural features. The fixup logic should "just work" with kprobes,
+etc, and I don't expect that this will need to become more complicated.
+
+The patches are organised as follows:
+
+* Patches 1 to 3 are preparatory fixes for latent issues which were
+  found by inspection. These will need to be backported to stable, and
+  have appropriate Fixes tags.
+
+* Patches 4 to 7 are preparatory improvements to code generation issues
+  found by inspection during development. These aren't strictly related
+  to the PCPU GPR scheme, and it would make sense to queue these even if
+  we don't go ahead with the rest of the series.
+
+* Patches 8 to 13 are preparatory work for the PCPU GPR scheme.
+
+* Patch 14 implements the core of the PCPU GPR scheme, with all the
+  necessary exception handling logic, and the addition of helpers to
+  begin/end a PCPU GPR critical section.
+
+* Patches 15 to 20 convert this_cpu_*() operations over to the PCPU GPR
+  scheme. These changes have been made over several patches to aid
+  review and bisection (if necessary).
+
+* Patch 21 removes code made redundant by earlier patches.
+
+I've given this build-testing (with GCC and clang) and some light boot
+testing.
+
+Since v1 [2]:
+* Implement necessary SDEI entry logic.
+* Drop RFC tag, as I believe this is now functionally complete.
+* Add patches to fix latent bugs and poor codegen (per David, and myself)
+* Make gpr-num handling consistent with asm-extable.h
+* Assert PCPU GPRs are distinct at compile time (per Vladimir)
+* Add comments to document PCPU GPR helpers.
+* Improve commit messages.
+* Add tags from v1.
+
+Since v2 [3]:
+* Rebase to v7.3-rc1.
+* Fix SDEI register restoration.
+* Avoid -Woverflow warnings.
+* Add preparatory fix for {8,16}-bit types.
+* Add tags from v2.
+
+Since v3 [4]:
+* (hopefully) correct CC list and send this out without issues.
+* Add Jinjie's Reviewed-by tag on patch 3.
+* No other changes.
+
+Thanks,
+Mark.
+
+[1] https://lore.kernel.org/linux-s390/20260526055702.1429061-1-hca@linux.ibm.com/
+[2] https://lore.kernel.org/linux-arm-kernel/20260728123859.2911495-1-mark.rutland@arm.com/
+[3] https://lore.kernel.org/linux-arm-kernel/20260804170503.3513916-1-mark.rutland@arm.com/
+[4] https://lore.kernel.org/linux-arm-kernel/20260904161758.376504-1-mark.rutland@arm.com/
+
+Mark Rutland (21):
+  arm64: percpu: Fix this_cpu_write() casting
+  arm64: percpu: Fix this_cpu_and() mask generation
+  arm64: percpu: Fix LSE operations on {8,16}-bit types
+  arm64: cmpxchg: LL/SC: Avoid redundant extension
+  arm64: cmpxchg128: LSE: Remove redundant operands
+  arm64: preempt: Simplify and optimize __preempt_count_dec_and_test()
+  arm64: preempt: Treat should_resched() as unlikely
+  arm64: ptrace: Always inline pt_regs_[read,write}_reg()
+  arm64: percpu: Factor out percpu offset asm
+  arm64: gpr-num: Add wxN aliases for wN registers
+  arm64: gpr-num: add __GPR_NUM() helper
+  arm64: entry: sdei: Restore all clobberable GPRs
+  arm64: entry: sdei: Make 'tsk' available
+  arm64: percpu: Add infrastructure for preemptible this_cpu_*() ops
+  arm64: percpu: Implement preemptible read/write ops
+  arm64: percpu: Implement preemptible void RMW ops
+  arm64: percpu: Implement preemptible return RMW ops
+  arm64: percpu: Implement preemptible XCHG ops
+  arm64: percpu: Implement preemptible CMPXCHG ops
+  arm64: percpu: Implement preemptible CMPXCHG128 ops
+  arm64: percpu: Remove _pcp_protect*() wrappers
+
+ arch/arm64/include/asm/atomic_ll_sc.h |  27 +-
+ arch/arm64/include/asm/atomic_lse.h   |   4 +-
+ arch/arm64/include/asm/gpr-num.h      |   9 +
+ arch/arm64/include/asm/percpu.h       | 462 ++++++++++++++++++++------
+ arch/arm64/include/asm/preempt.h      |  29 +-
+ arch/arm64/include/asm/ptrace.h       |  12 +-
+ arch/arm64/include/asm/thread_info.h  |   1 +
+ arch/arm64/include/asm/xwreg.h        |  16 +
+ arch/arm64/kernel/asm-offsets.c       |   2 +
+ arch/arm64/kernel/entry-common.c      |  38 +++
+ arch/arm64/kernel/entry.S             |  41 ++-
+ 11 files changed, 497 insertions(+), 144 deletions(-)
+ create mode 100644 arch/arm64/include/asm/xwreg.h
+
+-- 
+2.30.2
+
