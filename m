@@ -1,148 +1,141 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazolkn19010023.outbound.protection.outlook.com [52.103.66.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837AA52D2B3;
-	Tue,  8 Sep 2026 12:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869790; cv=none; b=S5JH2Gxq010X6VOgfOhUiAkBCOe5ehd+JIaqHnzwD+DguCoJbSq+6M0TWEu3lLWwRdoj2uTxRD/5mOlxKqKtoZ1kdQTj5O/Lz/uYhbY52DNQAqeaN27243Nvyw5Ldxj2wyOiChWpv/eEKaR6Wl2jE0XRwMYM8eezqaS+r1COX/A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869790; c=relaxed/simple;
-	bh=kE6e9md14D+FOdB2WmJgAW7jR/hNortrL82vwlwO6uY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=flCFCwiHtqdL/lmec+qFswFTEC/106SpN1xNvml0tpl4jkrp4iC8lK5+RExB4FiQv1zuhG3pbywI+YLbYgL41FdQRBYBEeaRJIjqpepz6Ie04itOu9uYXBuTM/deZh/dNr+NiDcZut+Pwp4qeQdik8ECZCGFLsSYkcn626fvd5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=AbMwDCKf; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF94D531AEB;
+	Tue,  8 Sep 2026 12:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.66.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788869858; cv=fail; b=YxZs4uXbJN8iOZyiabwQxuVHO+49vtU4vowlmMJMuEJNzJHeyTG0I1V4z6Bv71mtUlvzeH1LyWLXqMUwEAd1rFZQYrr4t98eynyhk+hEYtAmYq18F298xXJ2zx+LTvcGeNwd3Azt1LcPeaXpz9nohEYSWG0molQ+wZElSiTMbU4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788869858; c=relaxed/simple;
+	bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SgmxyK/f8yonTXoK8HBfHVg8rzwSHxu/vuZCNz6qNoNMTA/qbhyYB96BKOwtauYulHpKgvmOLhyBqhxeXdi8AB5YMpx31hmjVZZa2ZneMvE827pLg5zJKftQIS6P5DI7LN1Bs0LPXMNUtYcqDeQcRGGNX85h+BNWzvzdvwMekZw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.kr; spf=pass smtp.mailfrom=outlook.kr; dkim=pass (2048-bit key) header.d=OUTLOOK.KR header.i=@OUTLOOK.KR header.b=CLOFKWkA; arc=fail smtp.client-ip=52.103.66.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="AbMwDCKf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1788869637;
-	bh=OU42xnYgBuQIIGsbiQd3edAdK/2WUQRNb9zNrW3eZIk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=AbMwDCKfU7zk36Plc4V9yxvCA5fXKOr7w0hLfKKDF5+Y/PNPsRGRtuYlDhRLuTe+J
-	 Jpb/JGZbU3tvpUzaybyMuUjGfWfxrXDYdFLjeJIErSaEFojVkcwNpgVeKQyZasVvyP
-	 Q3OEmY1RWQHzH73bC5FpM/wekdeAL3JGzTSZm9aQ=
-X-QQ-mid: zesmtpgz8t1788869631t68f93279
-X-QQ-Originating-IP: NNglehT6aMwsIV0lPfkuSjfZJOylKUr5I3iD3JMVzh0=
-Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 20:13:27 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 13790185854937703597
-EX-QQ-RecipientCnt: 9
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: airlied@redhat.com,
-	kraxel@redhat.com,
-	dmitry.osipenko@collabora.com,
-	dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=OUTLOOK.KR header.i=@OUTLOOK.KR header.b="CLOFKWkA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ilDTZ9BDzYg5j81h6CGSc8uyjZxImuAEPaAoex0WtI9DiYNzO05Jg6qWah5iFfG42JeePzD8Zeki7mBgraXsGdSgznTKnPM9TuS2n99RkpBduIVxZDVnywfGTw8zuVPuP4ccTKDjzOxs/wi70nkmkcyv7G1wNSlN8q6oYKFGGECzp/RHxJTxkKnn5/rNLFfElIMJK0WODbFkA3dhJjqmkhJK/ifnyYcW7izP3W41UpoJ7ZNLClZnVyy2Tkst3RPrj3bBHXOrXoc3mhPlBA+uZT1ygcb96XwQXBP9u14vlRBS7Sy2923rn2quizMoGDI57ksp+E5JKQCCippxmHaOiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
+ b=hnxxfq6/sZ/mW0EmXJQ8/fAaKtE6h4eM0SliMXUJ4brmZIWgJzWm+41xWlJRyrfRMaEtqCc91WHn0dsrTOwsU0imOVYV4MTA92iexg8slCwqkguQiQNgfak8TyI1us/JL/qkBKTXyvBAy+c3b/2z9mPHGRA7ISsimOSNrwBsRmLnO19DRjtjRcGhnptVGyQYilWpLR1M+7sbuxBy60Eafdeqr1a+Cdsc2R1FW6r1j1CVaQHlHJM8S11JY/NKBTfWPzfLeZN81LPYxyM0JCPqT6e/kkwi8/WgiwEaeeb4QevBWME6JxEi4FGQhl8cWHoeJPZA7IVaQ50VLeCgtLNX7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.KR;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
+ b=CLOFKWkAvFPurT94jZkXSrRJkC/PR4Iubp8t6BQL3wJMzOX74C5tHCcHzXV72gt1n3gPEny63XLYcVE+ti2PrueqpObS+qgq96Prt75TLRfpuluCEjEKuDQLVo40Nh+nQi/RLO51R86P0nio8zJveQmvA+4ILf4bh3ghIA+1XyzjnzZjl80XU1tVT4nEwXUB2d2oLTAvHt1myGg5/AR49csPJCygCQRiUre5tHetFstxwWZErE1dvVUNTFvZ7xgZpQpu/o+hRNWIPuVLwic4cYPTbbJEwoZHDHOVY6smUvi6x11tglNbSAE054NgJ7d38iE2VJwU1vvd8YmXjfLFPQ==
+Received: from OS7PR01MB13914.jpnprd01.prod.outlook.com
+ (2603:1096:604:36b::13) by TYCPR01MB9749.jpnprd01.prod.outlook.com
+ (2603:1096:400:20b::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 12:17:27 +0000
+Received: from OS7PR01MB13914.jpnprd01.prod.outlook.com
+ ([fe80::641e:83cf:743b:85bc]) by OS7PR01MB13914.jpnprd01.prod.outlook.com
+ ([fe80::641e:83cf:743b:85bc%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 12:17:26 +0000
+From: Eric Kim <seohyun.kim@outlook.kr>
+To: seohyun.kim@outlook.kr
+Cc: juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	qlsdnjs236@chungbuk.ac.kr,
 	stable@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	gurchetansingh@chromium.org,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer failure
-Date: Tue,  8 Sep 2026 20:13:23 +0800
-Message-ID: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	vincent.guittot@linaro.org
+Subject: Re: [PATCH v3] sched/fair: Reset NUMA fault locality after scan period update
+Date: Tue,  8 Sep 2026 21:17:08 +0900
+Message-ID:
+ <OS7PR01MB13914D8D53A4FB3EDB973473796B12@OS7PR01MB13914.jpnprd01.prod.outlook.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <OS7PR01MB13914CB69D682A599970F258C96A62@OS7PR01MB13914.jpnprd01.prod.outlook.com>
+References: <OS7PR01MB13914CB69D682A599970F258C96A62@OS7PR01MB13914.jpnprd01.prod.outlook.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SE2P216CA0107.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c4::12) To OS7PR01MB13914.jpnprd01.prod.outlook.com
+ (2603:1096:604:36b::13)
+X-Microsoft-Original-Message-ID:
+ <20260908121708.6310-1-seohyun.kim@outlook.kr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: Nl7eTg5yGHnwHFfuMYie3uzOH+MV3o3VNn8RrdTFB4ddVof9TNOenLKy
-	5geAAIaZpZaD3SEX4AXEKg05EuqffXN5kgL34njDKfni45tyESJ6aoQC1tq1Fu54s+T1IH1
-	HBUAZ5TIkJyIis/G6wiVzjbc1/2WKDnJZtwRV3bM+vik95YFvQcw2sey+OccaFT0jZ2NVmv
-	C/XoMsche5idT4i0G+6lJ88RU1xJLuuc/YrutbUj/rwZaZy8OQaxc3CF3PusEWwZS3srwPK
-	FclHF/RMrdZaOxWXP6kwglkUg6myeIEjaztV1cvb8DVDqcL94Oyr+Jfeh7UQoBlxDidw8JF
-	ytd0yJ8lVGvT2Oin9qQ//u1Q6m74C1sbxkEa5SZMj0ozXNAvM+CcTsWNHO966spDN6ttGYB
-	KTdL6+djaQHvdhS8ASXXq6Cb5fKG+v4mQetenb6zZ7lFPNa/xNEVHvn5R0Q2kyprsOxZFu6
-	AcfDqMfWFmTF+AyUYAkB532MEXafLSkVU972qJF9IjJmv6FUdrmpSECgpXlNfDP003TxiJk
-	h28lIdaZhAELPUcpDf3T6102/eYKiKWgOPGBrGE1+a5Xk2ELPBDVyzwpzAuQDFWE8EEkGc9
-	Ud3a29fUI4YFBFeyEkl5ixQCa10iveeMDix9n2eFwp4lRPk+n/dNOwiUVqLkuLJPWTAkOuW
-	z8dsR1/JJSWrHijlIW98XXWwPcKrfQHFim+r/XNJnM+V1zOaCVQeFfBhCtqkJvQHvPthdhw
-	3/qzdQpcLShtcL2VS0W3MjUP7BKeteV9+/IIOMvzome4CPvYQ2Ljz1VicPgypbp/knyl5L2
-	tTsYejBehq3Jxk7RZJqJpY/nIaoSQcGcSRy15q1bVdydxSPN3Jfx74KxD/r16BrN6cU6V+g
-	NOOK2PYXk18vTP/nn6nV3aiyOENmTKt1T0WDeuke9TdH6So0p/xCGTSezMizjXHY7XEQe5P
-	PY+jPaeOKUhteVvEmNW9YBFYV1Xr7eEe34YkZiCOba0e90Cwln+QHppRfP4zdFa/svkd870
-	RarM7pukCiReRagDHEJsYf3eOb3E7UgRwTOiszFWmh0shZB/DNeS3GHERGX4I=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS7PR01MB13914:EE_|TYCPR01MB9749:EE_
+X-MS-Office365-Filtering-Correlation-Id: d26ad6e6-077a-4ab5-a622-08df0da32418
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|21061999006|15080799012|23021999003|5072599009|8022599003|25031999004|8060799015|19110799012|25010399006|2607281247196008|3071699003|3412199025|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?IdtxmeRyrni2djdYyy9t0KVXsDloGxmIw74SarpcmmH9zlh/2K3E9bMh3R+b?=
+ =?us-ascii?Q?8hDyjJWuRShFE303+eKkCN5QK6B68AI0krvlNoB4/sstGtIKdfDxaOwFQCbs?=
+ =?us-ascii?Q?4UYkdZGRnIEWZ0Ss4PsUrJieKvpvIsz803Ctzlr8j7Jnfmd7PoBFjkkFAoiM?=
+ =?us-ascii?Q?zlEYKKRmnRN22WQhqr1yDKz85YXcEIEhPjyR6xFn+lUfLh9ntJI+3uDjODws?=
+ =?us-ascii?Q?onOsLhVMHbl4zQHtzlodQi6G8bNjRk6AlspzPiGV8EU7x+RWh9GEzpviiBxc?=
+ =?us-ascii?Q?/Fsrq9ai/cGnOL+bGACUxy67QrHBnj3WEidMiJu7akWJVO2mtGZ3uwri1KkO?=
+ =?us-ascii?Q?nMsdrMQzJ+nr/SZg5/EaFI1HRjcvI+sZcoK+2wj2AYUfiCXuB5aYYpTCFHui?=
+ =?us-ascii?Q?7YWKyFtbq/o2cCnEMiPwEZckmMD9vD5zehh57l2qmMojsbjh98zatHbyfFu2?=
+ =?us-ascii?Q?/aHVdbvJv+vJ0HhN5ZRfsyF6BtKLrNvEu22jUCIOM50NTyvuxTaH3V2iCLen?=
+ =?us-ascii?Q?W5Dd4r1vktEht2eHszVWdw1TfS/CVGJLpdG5QzYK7A5ki28Fh03TR5t2TmSP?=
+ =?us-ascii?Q?Ci7FqbIsjNKkoE8/DYVz9UYFoV9cm/2u4ghbgPDaxNybaXFSQUCLCS3OrV8a?=
+ =?us-ascii?Q?cBBICYNcjkSc6ibqWOw7eJfQmgaHYzrnanayKba05TLlzOFDBTcqdv3lo6PE?=
+ =?us-ascii?Q?LWpeNeLbsCoEA4NYCuPDtcp4TDX1SOdJ50SbeUR+e7R2kFyZEWfBQVCsfyy/?=
+ =?us-ascii?Q?J148yZk7RAVlljDBOZMFldjwbIVUUaBbBk0nLHbZOI8vHpvsIvuvNuV2hkdi?=
+ =?us-ascii?Q?XlsfcOmdyRjFy/72bT5KHkQ2eTzVSgEIKJnNif+mbbQDHpxtUgxKI/GYWECX?=
+ =?us-ascii?Q?utYxyc6IV9AcMpZa1vE5+oFo+SlT1SmBbxCdGRgKWaOFnMoROO8uFDcjis+e?=
+ =?us-ascii?Q?MCVtfsKQPz1yHmfO4uErZQyO+swjGn2vkm4DY3my5orXZ5EeH+35nQhVpLLv?=
+ =?us-ascii?Q?dPBacU92ShIiDEFCmsviCgtVLA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?AWTlZQjfYUNLJZcAtEJc03mR8u3xmC5NWtIN4CgexMvhUaONPpy3hnUv2kfe?=
+ =?us-ascii?Q?3RmVv2UHEmOQFgjo03gfH8hItUZwqRvFkVp5v9EzLVXt9tLY+/fIh5uGMX+L?=
+ =?us-ascii?Q?Apt3yvHWpP6/CxWjQVELFgDsl7hSzKVy3R3pPU8pPs7c5Jo45dx63aaTHgzq?=
+ =?us-ascii?Q?VPC6kTF6/8LI2JsalD3MILapAOi5OGDsUASD0Qw3QcsqFzXks1I5rSfA6Y8B?=
+ =?us-ascii?Q?Juxp4f6Axm58MkvhcdDwN9b8r9ehxTlNUPd39k4vEV8XajFkqOze1AJP4iLc?=
+ =?us-ascii?Q?ne9dmDLYJaHoaVRuuVYHoYTplAMkMpgOPxr1LalhCfkiafG9YqMbWI901zt7?=
+ =?us-ascii?Q?3H4C1KZorZO4QPi14L40nhefNYLhwfipg3slPz7G49M4ZQlpzgQY/GayEJBn?=
+ =?us-ascii?Q?xGaVJAkVolde4uJDQLZxw5HvPGo41RAfga59SBkLFj6Gq+oiqF1+nXe5d7Cj?=
+ =?us-ascii?Q?8hjTNq30qk1zVQeZReXJDZQTylPb2nAma9T4ytzddPSt2maOmb90wldLeNgK?=
+ =?us-ascii?Q?eirFTKVJOLPiQcpX0DmKr9sZoBeQA6xCG0ezkzod6jST0WMvEaEKticjwF5N?=
+ =?us-ascii?Q?hcjapN3mhzeBQqSJjXwbeHNiAhR4ot0vc0D9mjmGqmGRkOOlqKY0KzvorjLd?=
+ =?us-ascii?Q?ZmASpjxsxqvlXz41w4HD7sOAjkxT3sSbW0Bz/qXvv4SrQWEDxpvW8TbxfeGg?=
+ =?us-ascii?Q?zfNfdud1cO66F0NuvyXHdTLiSdc33UPMzxFwHskvgJlHoawhdXMmI3SfVlrU?=
+ =?us-ascii?Q?Eba1Dr7marxyCcwiQG9jl+DmA4Sc0GNiJRcvTzBCcKGH/i/e7ifKThPwLkJE?=
+ =?us-ascii?Q?UzDuScmQlIown3b8eqAcEzo1XWJl8sDZS9RQhOlAXhOyKAGGqX5EEF9RccXK?=
+ =?us-ascii?Q?Hl1A2qiHbALmM7f6IOMdlcIZ7jgBXVQfUaNCo8ILNZhx8ZiOwlOlT+/3okiU?=
+ =?us-ascii?Q?OJdO2zaeZi7O/NCQtJ32rQMubW+2flSyH+r+kaWuVqmGieRBDcO5bGXIb+H3?=
+ =?us-ascii?Q?VgwcNVLFbUOVswasK8VO+pTKbnge7wwmec//jUhaZuqadwtW1Hb26jjCXcr+?=
+ =?us-ascii?Q?qe2PsjpKSXQPvfN5HL8zfqDj8F44hvMTcYdim4C92YB/k/FuEmmPo+e7wikR?=
+ =?us-ascii?Q?jGewrbmSABkOgKStni463PxzIG/w2pSXa+Y+8VY3DhJuJ8zlMjYd+++yb43f?=
+ =?us-ascii?Q?r4PNTgIsBK330CYl7cOzE8t3Zp5pFtszugs9c5ThBgsBBjY3FVh5RbyOfkK1?=
+ =?us-ascii?Q?YqWo8/wMkrse7OwQ9a+jkHnJJpuvLseQGvgflv6LaZgCvv9ymEB7Dv3pm9iS?=
+ =?us-ascii?Q?uzNBr+fPAM0RW3ugUSZVJr7TYcKtZFXGSORSR/ScKMfyIUrSfPEFONfLrvBA?=
+ =?us-ascii?Q?tz3urHZgjV/aD6JRzH7Y/l86TtmN?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-b83fc.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: d26ad6e6-077a-4ab5-a622-08df0da32418
+X-MS-Exchange-CrossTenant-AuthSource: OS7PR01MB13914.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 12:17:26.3435
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9749
 
-virtio_gpu_execbuffer_ioctl() reserves a DRM event with
-drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
-userspace has enabled polling for. virtio_gpu_init_submit() does this
-before the BO handles, the command buffer, the syncobj arrays and the
-in-fence are processed, so every later error path runs with the event
-already pending, including plain argument validation failures such as an
-invalid bo_handle or an in-syncobj that carries no fence.
+Hi Peter,
 
-On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
-cancelling the event. The fence is freed without ever having been emitted,
-taking the only driver-side pointer to the event with it. Closing the DRM
-file does not help. drm_events_release() unlinks pending events but
-deliberately leaves the freeing to the driver's later drm_send_event(),
-which never runs for an orphaned event, so the allocation is leaked
-permanently.
+gentle ping on v3 of this patch.
 
-Found when fuzzing the virtio driver with Syzkaller:
-
-	BUG: memory leak
-	unreferenced object 0xffff88802c176e80 (size 96):
-	comm "syz.1.367", pid 10561, jiffies 4294960122
-	hex dump (first 32 bytes):
-		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
-	backtrace (crc e1973c6b):
-		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-		slab_post_alloc_hook mm/slub.c:4597 [inline]
-		slab_alloc_node mm/slub.c:4917 [inline]
-		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
-		_kmalloc_noprof include/linux/slab.h:988 [inline]
-		_kzalloc_noprof include/linux/slab.h:1309 [inline]
-		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
-		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
-		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
-		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
-		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
-		vfs_ioctl fs/ioctl.c:51 [inline]
-		__do_sys_ioctl fs/ioctl.c:597 [inline]
-		__se_sys_ioctl fs/ioctl.c:583 [inline]
-		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
-		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
-		entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Fix by cancelling and freeing the DRM event on the execbuffer error path
-before dropping the fence. Clear the fence's event pointer after
-cancellation so it does not retain a dangling pointer.
-
-Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: Codex:gpt-5.6-luna
----
- drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
-index 32cb1e4aa425..734b1e976a75 100644
---- a/drivers/gpu/drm/virtio/virtgpu_submit.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
-@@ -538,6 +538,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
- 	virtio_gpu_process_post_deps(&submit);
- 	virtio_gpu_complete_submit(&submit);
- cleanup:
-+	if (ret && submit.out_fence && submit.out_fence->e) {
-+		drm_event_cancel_free(dev, &submit.out_fence->e->base);
-+		submit.out_fence->e = NULL;
-+	}
- 	virtio_gpu_cleanup_submit(&submit);
- 
- 	return ret;
--- 
-2.43.0
+--
+Kind regards,
+Eric
