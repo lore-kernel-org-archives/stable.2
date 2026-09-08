@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1111F56B87D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9182E59B69B
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907045; cv=none; b=TIuSeaBWKjpwB7mMzMgVYlbRhR6i6CXsGIyILf9t2SLsKcIKxw//ccE7Fks/8UDWv6h09yMzjkcrl86lcAHJ2qUUht06b9+wdTYhbpllDPWV5nSNhpEMh6vx7XzeNQ2vMcAOvm5QDPt33jA1V5c3H8svN5xkjYYdhQkQR5G3U2k=
+	t=1788907045; cv=none; b=oS4g/RpF1AGMBhv17jHrhVyXWD96Ckh5GGshj7wdipUGSr4wm2DY1F1bpD9ge0Bjcw80ETEcmsd5VhoZnUcwieGmb7MMoETqRUhagnXpZ1AJ2heqlk5YssBgN5yKCLbpjxxUGr056sHQoPEvTZviMvxXP90HjuAYG/kd1lIHhH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788907045; c=relaxed/simple;
-	bh=OdUb9HArOYeRa9J52eL+BVhdZ7t/UiPxrq4hT/N01TM=;
+	bh=oyxEgOoM7H3g1YNpNo9R7UXMQLRfpIMLshD9ljvfe+E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fmjAxBQ2AujXtrJFycDCpkMM4awlZ4lSqirNFqZxaZW0siDzWNJN3Rw2+k1pPItD8LcnENY8ldaiLUWFhxkiAlkZMKhkH49avopWTkIHcUPK5gDzee4NyWUQYP+WaxuF9T4nLCp/6r/B9hDsm/MsfbVWrEZpKAtWM+AmbxnGRTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=du69FkOV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=t8FtaoJ98QcUlpEPWZ9B2ibdj31YRa3sSDmCAQc7rKRtj3PbsZnDBc1B5eUI4pyOEYte/mL2RCo34/ziz2598xWODUTUTfypO+U6PWAF15VM4xQ4EPP7zVkUUqbiyxOHsVFRQyEZZGGLRzG3AN7nGU+umiRSnTv3svjmd7NGGqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cUe/W/GU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="du69FkOV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFBAB1F00A3F;
-	Tue,  8 Sep 2026 22:37:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cUe/W/GU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C451F00ACF;
+	Tue,  8 Sep 2026 22:37:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907041;
-	bh=yzhTZEl6fP//euCKjoEZEiflpwt/CqGYo4GNbHcnf6M=;
+	s=k20260515; t=1788907042;
+	bh=cPc/tPElK0qfDWQSHNEiiq9tg5wABAo7h2w+PbZkVGE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=du69FkOVlacXoodwpgluhgXk6AHJyqLM3B7JODnXW7yZLeCTimf8P/lfmu9RGAPSb
-	 TjcAVQ+47b1NoR2o78fcVlN53gwrwtF2nH5tYEJpg+QFRtJQvgdmq+oaM+6iSKEDe7
-	 P2A/cWtc9GhQI9/oIGqRe+2BWG66o0OEhlb9HwZW8qfaaI7GIj0n/jsrnfaUKxdvG7
-	 BnM2cqa7hFr13N9WtYHbmcsR1NKEsG0LBa6YNJEI9A6ClztQfi6GXl+z6q5GYygRmE
-	 Q8OS0Xghz9aDZ9yHSvSI6JPfmw/zGiJQfvKtXKexc2JoNqDTJW1GJ9GxiWu/BQWL/O
-	 HJ+pdQnofGwYg==
+	b=cUe/W/GUX96ZryCOuzf+hrPc8o6xfPehCgcludpbRirgICuPH7a/0XSC9sspFCULM
+	 NWXhibTCjUb75OKGRBxLjEN6DlxViYjDia3Oox6KV2wGd9scClcAJp1NKpGg5vN4KX
+	 l8dKyffEX1jNTZci/VwJ2z7ylKI1GzAdaZf8tMmMAnKwsZ2umzruU0EJnvJNfETf7i
+	 1TE58VLJoIrqFFtWhZH4ktBae1wjmgJdYRYs4eXCRVyKWG07TM0qB898G+T5JI6JwK
+	 Urmb9w6IpZRCB1h9DrFlhAK/1d5WVjGEVHlhqZiVrAGH/3oS5i2MhyStRPEDIuD1PU
+	 K9Vrtcqus8E6Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	David Ahern <dsahern@kernel.org>,
+Cc: Andrea Mayer <andrea.mayer@uniroma2.it>,
+	Xiang Mei <xmei5@asu.edu>,
+	Simon Horman <horms@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/3] ipv6: icmp6: add drop reason support to ndisc_rcv()
-Date: Tue,  8 Sep 2026 18:37:17 -0400
-Message-ID: <20260908223718.507924-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/3] ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()
+Date: Tue,  8 Sep 2026 18:37:18 -0400
+Message-ID: <20260908223718.507924-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908223718.507924-1-sashal@kernel.org>
 References: <2026090351-sagging-obliged-3e7b@gregkh>
@@ -47,60 +48,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
 
-[ Upstream commit 545dbcd124b02c9dc93c8a5894c71d682effc3e6 ]
+[ Upstream commit f826df95332c07380206dbd54178b6eefb311aba ]
 
-Creates three new drop reasons:
+ipv6_rpl_srh_rcv() dereferences idev from __in6_dev_get() without a NULL
+check when reading idev->cnf.rpl_seg_enabled.
 
-SKB_DROP_REASON_IPV6_NDISC_FRAG: invalid frag (suppress_frag_ndisc).
+When the device's MTU drops below IPV6_MIN_MTU, addrconf_ifdown() clears
+dev->ip6_ptr through RCU_INIT_POINTER(). A packet that passed the idev
+check in ip6_rcv_core() can then reach ipv6_rpl_srh_rcv() with
+dev->ip6_ptr already NULL.
 
-SKB_DROP_REASON_IPV6_NDISC_HOP_LIMIT: invalid hop limit.
+Reproduced by flooding the receiving interface with ping6 traffic while
+flapping its MTU between 1500 and 1200:
 
-SKB_DROP_REASON_IPV6_NDISC_BAD_CODE: invalid NDISC icmp6 code.
+ BUG: KASAN: null-ptr-deref in ipv6_rpl_srh_rcv+0xb3/0x1070
+ Read of size 4 at addr 00000000000006b4 by task ping6/394
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
+ CPU: 2 UID: 0 PID: 394 Comm: ping6 Not tainted 7.2.0-rc7-micro-vm-dev-00095-g24ef02f934ee #240 PREEMPT(full)
+ Call Trace:
+  <IRQ>
+  kasan_report+0xc6/0x100
+  ipv6_rpl_srh_rcv+0xb3/0x1070
+  ip6_protocol_deliver_rcu+0x759/0x9a0
+  ip6_input_finish+0xa8/0x1b0
+  ip6_input+0xe1/0x490
+  ipv6_rcv+0x33d/0x460
+  __netif_receive_skb_one_core+0xd6/0x130
+  process_backlog+0x2cc/0xa00
+  __napi_poll.constprop.0+0x56/0x270
+  net_rx_action+0x327/0x730
+  handle_softirqs+0x11e/0x630
+  do_softirq+0xb3/0xf0
+  </IRQ>
+
+Both ipv6_rpl_srh_rcv() and ipv6_srh_rcv() are called only from
+ipv6_rthdr_rcv(), which already has an idev lookup.
+
+Fix the NULL dereference on the RPL path by checking idev in
+ipv6_rthdr_rcv(), before it calls either function. The callees take idev as
+an argument and no longer call __in6_dev_get(), so the packet is now
+dropped in one place, with SKB_DROP_REASON_IPV6DISABLED on both paths.
+
+Fixes: 8610c7c6e3bd ("net: ipv6: add support for rpl sr exthdr")
+Cc: stable@vger.kernel.org
+Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Link: https://patch.msgid.link/20260817132644.2223-1-andrea.mayer@uniroma2.it
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-[ sashal: Reduced backport -- upstream 545dbcd124b02 touches 4 file(s), this
-  backport carries 1. Not backported here:
-  include/net/dropreason.h
-  include/net/ndisc.h
-  net/ipv6/icmp.c
-  net/ipv6/ndisc.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: f826df95332c ("ipv6: rpl: fix NULL dereference of idev in ipv6_rpl_srh_rcv()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/exthdrs.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ net/ipv6/exthdrs.c | 26 ++++++++++++--------------
+ 1 file changed, 12 insertions(+), 14 deletions(-)
 
 diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
-index 6111fe395ff09..1a9e2f989734c 100644
+index 1a9e2f989734c..8fb56237c771e 100644
 --- a/net/ipv6/exthdrs.c
 +++ b/net/ipv6/exthdrs.c
-@@ -495,9 +495,9 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+@@ -365,23 +365,16 @@ static void seg6_update_csum(struct sk_buff *skb)
+ 			   (__be32 *)addr);
+ }
+ 
+-static int ipv6_srh_rcv(struct sk_buff *skb)
++static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
  	struct net *net = dev_net(skb->dev);
- 	struct inet6_dev *idev;
+ 	struct ipv6_sr_hdr *hdr;
+-	struct inet6_dev *idev;
+ 	struct in6_addr *addr;
+ 	int accept_seg6;
+ 
+ 	hdr = (struct ipv6_sr_hdr *)skb_transport_header(skb);
+ 
+-	idev = __in6_dev_get(skb->dev);
+-	if (!idev) {
+-		kfree_skb(skb);
+-		return -1;
+-	}
+-
+ 	accept_seg6 = min(READ_ONCE(net->ipv6.devconf_all->seg6_enabled),
+ 			  READ_ONCE(idev->cnf.seg6_enabled));
+ 
+@@ -488,12 +481,11 @@ static int ipv6_srh_rcv(struct sk_buff *skb)
+ 	return -1;
+ }
+ 
+-static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
++static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ {
+ 	struct ipv6_rpl_sr_hdr *hdr, *ohdr, *chdr;
+ 	struct inet6_skb_parm *opt = IP6CB(skb);
+ 	struct net *net = dev_net(skb->dev);
+-	struct inet6_dev *idev;
  	struct ipv6hdr *oldhdr;
--	struct in6_addr addr;
  	unsigned int chdr_len;
  	unsigned char *buf;
-+	struct in6_addr addr;
- 	int accept_rpl_seg;
- 	int i, err;
+@@ -503,8 +495,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
  	u64 n = 0;
-@@ -507,7 +507,6 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb)
+ 	u32 r;
  
+-	idev = __in6_dev_get(skb->dev);
+-
  	accept_rpl_seg = min(READ_ONCE(net->ipv6.devconf_all->rpl_seg_enabled),
  			     READ_ONCE(idev->cnf.rpl_seg_enabled));
--
  	if (!accept_rpl_seg) {
- 		kfree_skb(skb);
- 		return -1;
+@@ -715,10 +705,14 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	switch (hdr->type) {
+ 	case IPV6_SRCRT_TYPE_4:
+ 		/* segment routing */
+-		return ipv6_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_srh_rcv(skb, idev);
+ 	case IPV6_SRCRT_TYPE_3:
+ 		/* rpl segment routing */
+-		return ipv6_rpl_srh_rcv(skb);
++		if (!idev)
++			goto disabled;
++		return ipv6_rpl_srh_rcv(skb, idev);
+ 	default:
+ 		break;
+ 	}
+@@ -866,6 +860,10 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 	icmpv6_param_prob(skb, ICMPV6_HDR_FIELD,
+ 			  (&hdr->type) - skb_network_header(skb));
+ 	return -1;
++
++disabled:
++	kfree_skb_reason(skb, SKB_DROP_REASON_IPV6DISABLED);
++	return -1;
+ }
+ 
+ static const struct inet6_protocol rthdr_protocol = {
 -- 
 2.53.0
 
