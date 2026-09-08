@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0393241CB7;
-	Tue,  8 Sep 2026 14:14:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABEBB2D2488;
+	Tue,  8 Sep 2026 14:14:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876876; cv=none; b=NdeQzzVcHh6MOwzW+INy1WOBvYSBb2vQQl4ZQklfUIzAhTG5YVcLgIV6K2v/IrxPJd+t9zSDEQKcVfP50HikwGhWfmemeLI0WiOy8mwqQdxhH0+ncvbqlncM1arCyHajL3Fnjcne2zcZwGJXqF0Mn68ZlhaswGLQ5w5SCHM0W7g=
+	t=1788876881; cv=none; b=CqQNzpfZrulEoDXemx8tS2VIgRLmr96He0X7iMr3YLKDUjiETVLzYMLp44jz89Q4x3HMlNdHSuLVnWmKXu9MsEb6p0U2baSZJ6feSQowJ/29a8jvWfNONr3S7b38VQafogp/ju/xP0sqnYdpvIvhI1GTZWJGmGmxmWXR/sf/bo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876876; c=relaxed/simple;
-	bh=xGnuahGwPP4f82k0zQU436ZpG60wJ/aEuwZt7vnyH40=;
+	s=arc-20240116; t=1788876881; c=relaxed/simple;
+	bh=eCDaC8JU1hiplahjCkqNi+vidf1Fmw1XOI7fKun8pfo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JZMowbOyvbaJMgyEcJdSY8yHyvDzvm1srTkVqdecBgBvmfbMGSF/C06yaS+fPvjyrF1TRhMBk8gNz3KzY4oFGTpE2bXqoLTfs4nrPbFrJ9akpQxhocmTXx4yyjXnsIsoLgbYIHCQvSDu2CZnK5uVk/8usQCkUolRcTMEFe5WTPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HLmpwWLm; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=Ef9kINlE9DR7v2KYy989VTj7F/by1A8ZoU/sILRe2jmRmna4sKSVPPIe5wBP25GxWQKgl8jkfnAbOzDqjR34p48lUrsqfAv2uc8Exn73aba2ALIr/2auN5kyPmQd/+1oXqPu7fTcPQJg2to03yN9Z1t2GNLkkYnc/SX4Z2R/nNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUmTumhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HLmpwWLm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C2B81F00AC4;
-	Tue,  8 Sep 2026 14:14:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUmTumhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E8381F00ACA;
+	Tue,  8 Sep 2026 14:14:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788876865;
-	bh=NqkLnNdB1iaPRZgzHgODWa8SlkXcWwYoiM8hBJRiEzc=;
+	s=k20260515; t=1788876867;
+	bh=sb+mmGXsUplGkfw4gNxTxpAxsM0oDflslbitEXnYeqw=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HLmpwWLmY3lKHL14XJaUCgEBnNq58yiKP83mpEFIqmWz6bCK4TKq2nH5sxqNhFb1Y
-	 RXF2lxMhMJZbEUGSzljRwYf6PZO9I17NCO+02uJyQuPszaZYUggDcldE1eUYrP5LEE
-	 cicSGXc7aKq/tiCZ3pY4KDt5Ub320fxgTxwfWYgcAS5aJynB7ws8a+W2nIfpCr/GSb
-	 e0CIObRQCMoT/HwyZ2XQz+ysKab2/w3h7Oz697/vfOZZUBlie1NqyH9GP4XPg3iile
-	 JcQqlibgQY2wMMoKKEEpkOCotM5vhFRaAZVRr93nvpDTHuripXqTM3EH3LRINpI3jE
-	 2T1qzMKkPaxWw==
+	b=ZUmTumhbZtrJ+FlmeTIjijLFj9LJF1V+LYL0MqTzmSfgOLoMrBjFDxOlppeHcC1U8
+	 HfXywVw/9d/RgoAct6yXlHa7rvN0iUFx3ceZ7Cd27GrXuowjOEmbNk8fvzPP2cT3Je
+	 IH/abw45B87JcAPgnwqp1uSRGvmz8X6c8pkH6r4bwBplz9yfGmOyNHru8p7b9ctEGB
+	 mIVvgJKdWO/nBz0zsJpfzz3FL1+1dP3E6gbZznIVoxn2g4vX8VIPRRMisAXbAP+j54
+	 2yjWkk4ukTq9rkecIxOagx6eqEGW7stmbht/JLuhKmZ+piqUsnhkiNIqNiQEIHjoBQ
+	 9XnVZr/1dsTQg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 08 Sep 2026 16:07:09 +0200
-Subject: [PATCH net v2 04/15] mptcp: pm: kernel: drop pending ADD_ADDR when
- removing ID0
+Date: Tue, 08 Sep 2026 16:07:10 +0200
+Subject: [PATCH net v2 05/15] mptcp: options: handle MPC data + csum reqd +
+ no csum
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-4-df1de70348b6@kernel.org>
+Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-5-df1de70348b6@kernel.org>
 References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,85 +47,75 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- Kalpan Jani <kalpan.jani@mpiricsoftware.com>, stable@vger.kernel.org, 
- syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com, 
- Tao Cui <cuitao@kylinos.cn>
+ stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2746; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=BiUuBgq0c7aOBr6JJpkC2oZ8vE+NuO1ltFCd3RnPXgo=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSGg+jpR9sNbqe1nXhsAXa379uDutLnXbovXn7/zav
- 0b1X/4OpY5SFgYxLgZZMUUW6bbI/JnPq3hLvPwsYOawMoEMYeDiFICJ/Ndn+Gd0e9v1v9Fh1xOO
- Vd13myd/YX9eZ2Xaaw/d9VUr1B41cisxMmzLNt0W/fz95528L7r9VhlP353YGSEjt/bf0ZqvZXr
- +/7gB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2883; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=eCDaC8JU1hiplahjCkqNi+vidf1Fmw1XOI7fKun8pfo=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSGjtPLW1RGdK/M3F0jduTDONZbxffvJo4IZ3O2dfv
+ nI8ZlVMa0cpC4MYF4OsmCKLdFtk/sznVbwlXn4WMHNYmUCGMHBxCsBEltgw/OF6Znq7ufZu5CqT
+ ZxMuFc3N8dNb/XfqAQ3Ns7XvZ88KWP2MkWHn9utH7h/6sXJBwp09Et+mLOzdL7H8x9r8+8Ga99x
+ z3TW4AQ==
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
+Before this modification, a remote peer could send an MP_CAPABLE with
+data, with the checksum flag set, but without adding the actual 2 bytes
+of checksum. As a result, uninitialised bytes could be used for the
+'csum' field.
 
-The in-kernel MPTCP path manager can leave a stale ADD_ADDR announcement
-entry alive when removing the id 0 endpoint. This happens because the id 0
-removal path does not tear down pending announcements, unlike the non-zero
-id path.
+That was not a critical issue, because this 'csum' field is only used to
+compare with the expected one, if previously negotiated in the 3WHS.
+Worst case, the checksum is likely wrong, a fallback is done without a
+reject if the negotiation was done earlier. That's OK.
 
-When the PM later reselects id 0 after adding another signal endpoint, it
-finds the stale anno_list entry and hits WARN_ON_ONCE(mptcp_pm_is_kernel())
-in mptcp_pm_announced_alloc().
+Yet, better to take the expected path with this case: only look at the
+checksum flag for MP_CAPABLEs not carrying a data-len.
 
-Root cause: asymmetry between removal paths.
-- Non-zero id path: mptcp_nl_remove_subflow_and_signal_addr() calls
-  mptcp_pm_remove_announced() to clean up.
-- Id 0 path: mptcp_nl_remove_id_zero_address() skips cleanup entirely.
+Such packet can be seen as a 3rd or 4th ACK. The RFC8684 mentions [1]
+that the 3rd packet should have the checksum flag set. When an MPC + ACK
+contains data, the checksum flag is redundant with the checksum field.
+It is not clear what should be done for the 4th ACK, nor if the flag has
+to be set if the checksum field is set.
 
-Fix by making the id 0 path symmetric: call mptcp_pm_announced_remove()
-and decrement add_addr_signaled before queuing the RM_ADDR.
+Therefore, it seems fine to only look at the presence of the checksum
+field, not to break the interaction with stacks that were not setting
+both.
 
-Subtle detail: signal endpoints are stored in anno_list with port 0, but
-msk_local carries the connection's local port. In other words, entries
-linked to ID0 paths should have port == 0. A follow-up patch will ensure
-that. mptcp_pm_announced_remove() uses use_port=true for comparison. So
-clear the port before the lookup.
+Note that linked to this checksum flag on the 3rd ACK, with the current
+implementation, we can have a situation where the SYN packets have no
+checksum flag, but the 3rd ACK has one, and this is the one that will be
+taken into account. First, that's clearly not directly linked to this
+patch, but Clashiko forced us to look at that. At the end, that seems
+fine to act like that: yes that's not how the negotiation should work,
+but being flexible without introducing side effects is also fine: fixing
+this would mean increasing the complexity, and that's not worth it.
 
-Fixes: 740d798e8767 ("mptcp: remove id 0 address")
+Fixes: 208e8f66926c ("mptcp: receive checksum for MP_CAPABLE with data")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/620
-Suggested-by: Tao Cui <cuitao@kylinos.cn>
-Signed-off-by: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://datatracker.ietf.org/doc/html/rfc8684#section-3.1-23 [1]
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260803-net-mptcp-misc-fixes-7-2-rc6-v2-0-b8f496d71664%40kernel.org?part=1
+Reviewed-by: Mat Martineau <martineau@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-v2: use new helpers name, note about "port = 0".
+Note about a non directly related case spotted by Clashiko.
 ---
- net/mptcp/pm_kernel.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ net/mptcp/options.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
-index 424f1a7f9248..1a7750813235 100644
---- a/net/mptcp/pm_kernel.c
-+++ b/net/mptcp/pm_kernel.c
-@@ -1137,6 +1137,8 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
- 	while ((msk = mptcp_token_iter_next(net, &s_slot, &s_num)) != NULL) {
- 		struct sock *sk = (struct sock *)msk;
- 		struct mptcp_addr_info msk_local;
-+		struct mptcp_addr_info anno_addr;
-+		bool announced;
+diff --git a/net/mptcp/options.c b/net/mptcp/options.c
+index b8318e030138..92f27b9e087a 100644
+--- a/net/mptcp/options.c
++++ b/net/mptcp/options.c
+@@ -93,7 +93,8 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 		 * In other words, the only way for checksums not to be used
+ 		 * is if both hosts in their SYNs set A=0."
+ 		 */
+-		if (flags & MPTCP_CAP_CHECKSUM_REQD)
++		if ((flags & MPTCP_CAP_CHECKSUM_REQD) &&
++		    opsize < TCPOLEN_MPTCP_MPC_ACK_DATA)
+ 			mp_opt->suboptions |= OPTION_MPTCP_CSUMREQD;
  
- 		if (list_empty(&msk->conn_list) || mptcp_pm_is_userspace(msk))
- 			goto next;
-@@ -1146,7 +1148,13 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
- 			goto next;
- 
- 		lock_sock(sk);
-+		/* Drop a possibly pending ADD_ADDR for this address. */
-+		anno_addr = msk_local;
-+		anno_addr.port = 0;
-+		announced = mptcp_pm_announced_remove(msk, &anno_addr);
- 		spin_lock_bh(&msk->pm.lock);
-+		if (announced)
-+			msk->pm.add_addr_signaled--;
- 		mptcp_pm_remove_addr(msk, &list);
- 		mptcp_pm_rm_subflow(msk, &list);
- 		__mark_subflow_endp_available(msk, 0);
+ 		mp_opt->deny_join_id0 = !!(flags & MPTCP_CAP_DENY_JOIN_ID0);
 
 -- 
 2.55.0
