@@ -1,43 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349A753CA95
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB6B52ED4A
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870978; cv=none; b=APLP9DJ0z3maUe4BNRObHfnwXyH7Zme7xo2OiyUVtVNR0v9JrnxV8la1HXQLTpHwr0gIMaI4+3uREgHZOAVDVmsjLUSFng0v46RUSTQLqhssfolcyn2HLwOjMgseCSpXRSq+dQj7gC3qQkfmKZ2aNaEM6dV0tNo9OT+Rlm1mZ5s=
+	t=1788871026; cv=none; b=KSd5j3maTw5MSr83hTJJ2PxXmpleu5TA32xdMOUUiFRf9EbsljCOix++lWMRD+eVmK3xaSEMhePu/M4Es2NauBeQ8fnmNTiW2Eay8pYZRWIoOeLp3l684mPIEmEQ8paaYzzi3DBzk2vbOdq844EVAidvWHiye0CbVaU2zhgaTNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870978; c=relaxed/simple;
-	bh=qCF0gk4fJMQ/gC3vusoKYlPpqlPDP7a7Dg5rLPYkjh4=;
+	s=arc-20240116; t=1788871026; c=relaxed/simple;
+	bh=rFgdO2dJ9qHWHCugdPsurRI0n1j/jdZfr1HAi1LVuiE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=murIzi+OhRubANY8h7e6wTKEWx0y9kXxWUnjwOxwEjSMzwdNF253Elm4Lv5ULmHospfbv4ZGU4dnLncT1wvV0LogGRwGrwrcHszfprTJ403gRVcMQ2FEuAXx7da9XofYAR1IX9KP/SHGdMKJTOGPrajCNw8seEjAWbTjzdhhG2M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OHQsaoOA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MAYGRZmGcCgpLQGoEufVea1XipYT4bXIz1jEYXwVEJ4tK3YDY2PVugyuFFgpOKMu87LZtzteT02Molvb8HM8eIR/GiFXDt0t4Iu5LPzKTDxJpXRQM88ef9cMCOt0DWOEY1m5n9O6kkuGNI7vWKGXn76QzFRN3g22pNKDZ8ywSco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLLyEI3S; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OHQsaoOA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74E2C1F00A3D;
-	Tue,  8 Sep 2026 12:36:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870975;
-	bh=aUhbjvQMGzcXZHu7Le8gtyX6ZyWm2EZxU0PPXjJOFPE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OHQsaoOAOgQggHjVOVupyp1ue5b+uijNDyFxP/hBJgFYXKbWDaYO6N9Tlss0R5/qD
-	 W6iQN+vmXKiOt4nVXz19vP0DsoYWr/rkVQO0u8vuzI8UYrYxyR/qXtIJTIpOb/4H5K
-	 ySmjMK+hUy5zmexFLAKhuhenu+v7B0XKTbBp6K6Gu/dBzay6GvMJY+x48SdqJkXW4d
-	 UVPIlFrzHqTswTmsp2SOcWnBSFR5l7nxp5sWEG7vHlhnr6AB1dUUJCBxT9eBs3jz9f
-	 PyE7xKpHO7MKsCyBUSxUFWaBtDPfJmxJqb8AsQfWQk5GdOYEageZE+5OLQa70XeVpi
-	 A4jxceeHDuwGQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kuan-Wei Chiu <visitorckw@gmail.com>,
-	James Clark <james.clark@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] coresight: etm3x: Fix cntr_val_show() to match cntr_val_store() behavior
-Date: Tue,  8 Sep 2026 08:36:12 -0400
-Message-ID: <20260908123612.2107089-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLLyEI3S"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so1509575e9.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 05:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788871021; x=1789475821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
+        b=rLLyEI3SMmxMOLKyiHNRr2PZaQulnFWIlx2NnPM+OfWM+ExYhYCjETiTGcWl020RC9
+         U2kFNCCRPe9pUympox+69Lzx1EmI7eIvrQhhEBUVnBFoo/b3XiX66l1e2KjKxoSRTVs8
+         RZQR5G15AZ5JwjiiMAEU7rFWOjt5D3TgBQL/7lVNE9lMGLuqYuCzM6KoLWM53BVcuyDp
+         tGsqAdYPnjyXxH8ZjCxQ8wmytz0p2vWrO37529tMhsfESUrEWBrjYocL5N1ir8lm4NBj
+         nTXO6mdXfUfMSIcFk40IuDj403NCLAGbRwqO+/pAYJBYb0/lir2WSjvcy/NgzMCOmJVO
+         +uuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788871021; x=1789475821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
+        b=dQhkwcikMU/CQ9fuG58DbNdzds7CcuD85yB+fJ7jBEjAKzSdUQEMmTf4Q/4izLAyVo
+         lQUh64/9qizVWhxWLKOU78sg5gE+yc79FxwBC9zdlFLN3ttSPxP52m+vsnznavY6WiF1
+         Nu2fyjCxSmQIrIBQHq0IQv6YDvpLtHe/UrxxmTJeD8MIGK/PEg6t5X+zDnMRz6BEgdqk
+         pa2yo/XH3jWm0WI1EgHg91CiTvvkOoJ1jglDxrLcEefyJwoyG14DD12mUSo/ptw++dlA
+         QaBUuQmZaeZh4Hosv2KElDymb6ec0D/Ud/iJwGpiviZeYcqONgk81PR549qfWDonC+i9
+         YNlA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCn88/rtfoMxyyJnCVvmKVdAA3wyXMTMsCdkesnQHFdfalJW6kDjlZ1DoduXbOpwr+OlayCBg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0qCsMAv6WilD8iHdqHfokDW888F5zbgUSd2oHH3aHB77hvf+D
+	23rRwakge6VA0cT0JIei7tJTPs7rL5dFhNlybq/HwPLwYdpWQ58P0btg
+X-Gm-Gg: AYBFou3ttVJX4JuV/37SHEqH/SiqbzjVarnq5sYmpt+mqWHbZ4/lEK+gKThrIxKd6uv
+	27jQ2yaQIxHlwRJODeRNjRvHsnbTvz5e59toPwcaIFWtwILhM2KhDWcp7/YERMdbCc6TyL7DBRu
+	VoqDUmlwN4skwrwgdw0rRFnOBrXAWY3E8PI2prKHAc3EQrJdcot/j4bjeTCix7QtUHhSWVsX9RA
+	XFZxj1VPg4SQpSbRcIHI2Ya5bD9IAbnv24XLxelEjaC0fMqxQAwn/n8B8msJX31Z53/vaXUNOSD
+	5BpOPFZOSH7E8MedtkR/74uMBFQkbLdVOVSNdEMF//skNQq3qeXyf2pQWcMFFqo2wxEcteam4Kr
+	6uMioRJMhTXW8NTiSAdFiMPp0gpnPCQaqyo/NbNC3FZ2fe9/AgTXgDR3gHHpk5ZfOot206hy/EB
+	WCltbFUr7z9/Ecggph92hlWbKY5PeQf7J1ture3qsWdJbWsQMigUz+68geh9M0xVGgjTuF1w03e
+	3NLmMYY7DmIBLJ5r88bS5Fg0BwfmO+WZQ5M02CYb11+q8WVKowxA9U/+UA7OkbgJg5oqA==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr183513645e9.1.1788871020732;
+        Tue, 08 Sep 2026 05:37:00 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D004857F441745A19CB.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:4857:f441:745a:19cb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm253454955e9.8.2026.09.08.05.36.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 05:36:59 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Frank Zhang <rmxpzlb@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Detlev Casanova <detlev.casanova@collabora.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	luca.ceresoli@bootlin.com,
+	daniels@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	heiko@sntech.de,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	macromorgan@hotmail.com,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
+Date: Tue,  8 Sep 2026 14:36:34 +0200
+Message-ID: <20260908123638.7282-1-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090327-scion-anaconda-5706@gregkh>
-References: <2026090327-scion-anaconda-5706@gregkh>
+In-Reply-To: <20260908070220.41574-1-rmxpzlb@gmail.com>
+References: <20260908070220.41574-1-rmxpzlb@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,70 +98,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
+Hi Frank,
 
-[ Upstream commit 41fb4e925528aefa4b7a5f76c7f81db99c0d0f38 ]
+Thank you for sending v5 so quickly.
 
-The cntr_val_show() function was intended to print the values of all
-counters using a loop. However, due to a buffer overwrite issue with
-sprintf(), it effectively only displayed the value of the last counter.
+I tested it on an Orange Pi 5 Plus (RK3588) against the exact case I
+reported in [1]. v5 applied cleanly to my 7.2.0-rc7 based tree with no
+context fixup, which v4 still needed here.
 
-The companion function, cntr_val_store(), allows users to modify a
-specific counter selected by 'cntr_idx'. To maintain consistency
-between read and write operations and to align with the ETM4x driver
-behavior, modify cntr_val_show() to report only the value of the
-currently selected counter.
+Reproducer, unchanged from [1]: the compositor turns the HDMI sink off
+(so tmds_char_rate is 0 and the PHY is down), then plughw:hdmi1,0 is
+opened and closed. Before, that took the machine down on close, in
+dw_hdmi_qp_bridge_clear_audio_infoframe() -> regmap_update_bits_base()
+-> _regmap_read() -> regmap_mmio_read32le(), either as a synchronous
+external abort in the closing task or as an asynchronous SError panic.
+The task died with interrupts disabled, so the codec lock stayed held
+and every later open of that PCM hung in D state until reboot.
 
-This change removes the loop and the "counter %d:" prefix, printing
-only the hexadecimal value. It also adopts sysfs_emit() for standard
-sysfs output formatting.
+With v5 applied, three consecutive open/close cycles in that state all
+behave identically: prepare fails with -ENODEV as before (3 x "ASoC
+error (-19) at snd_soc_dai_prepare()"), no external abort, no SError,
+the shutdown path completes, and the PCM can be opened again afterwards.
 
-Fixes: a939fc5a71ad ("coresight-etm: add CoreSight ETM/PTM driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-Link: https://lore.kernel.org/r/20251202082613.3265761-1-visitorckw@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- .../hwtracing/coresight/coresight-etm3x-sysfs.c   | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+I also confirmed with ftrace that the guard is what stops it, rather than
+the path simply not being reached. Tracing
+dw_hdmi_qp_bridge_clear_audio_infoframe with function_graph:
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-index 2f271b7fb048c..c88c64900698b 100644
---- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-@@ -717,26 +717,19 @@ static DEVICE_ATTR_RW(cntr_rld_event);
- static ssize_t cntr_val_show(struct device *dev,
- 			     struct device_attribute *attr, char *buf)
- {
--	int i, ret = 0;
- 	u32 val;
- 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
- 	struct etm_config *config = &drvdata->config;
- 
- 	if (!local_read(&drvdata->mode)) {
- 		spin_lock(&drvdata->spinlock);
--		for (i = 0; i < drvdata->nr_cntr; i++)
--			ret += sprintf(buf, "counter %d: %x\n",
--				       i, config->cntr_val[i]);
-+		val = config->cntr_val[config->cntr_idx];
- 		spin_unlock(&drvdata->spinlock);
--		return ret;
--	}
--
--	for (i = 0; i < drvdata->nr_cntr; i++) {
--		val = etm_readl(drvdata, ETMCNTVRn(i));
--		ret += sprintf(buf, "counter %d: %x\n", i, val);
-+	} else {
-+		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
- 	}
- 
--	return ret;
-+	return sysfs_emit(buf, "%#x\n", val);
- }
- 
- static ssize_t cntr_val_store(struct device *dev,
--- 
-2.53.0
+  - sink off (tmds_char_rate == 0): the function is entered and returns
+    as a leaf, 2.9 us, with no calls inside it at all.
 
+  - sink on, as a positive control: the same function shows
+    regmap_update_bits_base() -> _regmap_update_bits() -> _regmap_read()
+    / _regmap_write() nested inside - the same frames the crash walked
+    through - so the tracer does see the body, and "empty" in the first
+    case really is the tmds_char_rate check taking effect.
+
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
+
+Two notes, so this is not read as more than it is.
+
+First, what I exercised is the sequential case: the display is already
+off before the audio device is closed. I did not try to hit the narrow
+window the automated review raised in this thread, where the atomic
+disable lands between the tmds_char_rate check and the register access,
+so my test says nothing about that race either way.
+
+Second, for whoever picks this up: Detlev Casanova's patch [2] covers
+the other half of the same problem on this hardware - the enable/prepare
+side returning -EOPNOTSUPP when there is no link - and has three
+Tested-by tags. The two are complementary here. His cuts the case where
+the PCM is opened while the sink is already off; yours covers the case
+where the PCM is already open and the output goes away underneath it.
+Taking only one of them still leaves a way to reach the crash. With both
+applied together on this board the path is quiet and the -19 messages
+are gone as well.
+
+[1] https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail.com/
+[2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
+
+Igor
