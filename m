@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CA0560AC3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1313521222
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908051; cv=none; b=SQKWz1aqSvSjmQeUs/pnlcXiWq3xKznZwUlGc0r2V0ZwVmxXeexk9O6VxIp9sy02I80XeUaaX5yw6iBLyrHRrMtkt3MXeKh01dfODrt+s5QW1XQKEQY1OYMNLja7RRUYIVDfWpeFkZooyQrizl/UJGUe6hzEEVqD9FFESkIXcjg=
+	t=1788908052; cv=none; b=AU5hGdsskY2OaAX+kF4pHZwD7X0GEwNV9cRMi4UtdxJMVawmAMU5bnAXwlRhbviBFTocWdFpanTXLFJOxKZ4aXaEIXw9qZGk6uyGURoWJSGxWHsPSCAWmUHJSF6vN1umPOvGUrdjwfQPigzreo3hjM5p2dmyUVMKFIonJbz5xoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908051; c=relaxed/simple;
-	bh=sm6tEmq94JzedGtH8LB8n9Bn5hN6IgO6JCGaQE3J6aM=;
+	s=arc-20240116; t=1788908052; c=relaxed/simple;
+	bh=P4pzRqX9+JiI+AdjvA0X0fHe/uENMGgcd93q8wEoCpk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CIPL+w/74KMovCgyxLunD5EZcZLKvcRY2/jFPdX1zwsA5bbQ5CzrwuGljIaOQ1+TFVIEWaEatailqfEKxDUMaABamRyd9etOWFKaqJ2LC6s+jTxpi/AHXpx33Tux83Jiv2d+RnzYRbgNeL6ZI1OGf68Xk1zOZEf2/LO61eRX+s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8Q8bgfl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eK3lD16ne2trrDgAQAT8XGzaxAD9vON73wPsPVMBV/KMhHav4KE1cwt9iDBnWr2p+SevWL32AsX9SkTG8933ljUvFlz5jSZVPx20IVgNx1I287MSHW51TvoHosdqIClgUR9gtKDzJzboyg7kV2kd+f/jCIUoXyQYgiIqr+SPWzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKQfx1Im; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8Q8bgfl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C5811F00AC4;
-	Tue,  8 Sep 2026 22:54:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKQfx1Im"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4804F1F00A3F;
+	Tue,  8 Sep 2026 22:54:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788908050;
-	bh=flU3or7KN9ZAXt2N8RcmwMUxyDaOBXqGCmEG+3NowwA=;
+	bh=sfMJPRdH5JWN0GgCB8QRkD9u/i036gsKf9rk+j/rNXA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I8Q8bgflSWHkE53xiEvFvDGCFz4riZY2UOHBM43sb2XPlL4PAtNcWhUxWn5qD63Od
-	 OP/Aegj/P+HrieKdqWFx78xXJpJAlxH+j90OQcUDtBvWFIZGjv2E35pXxQYvCR+SKE
-	 gMPtDK16Z/c2sMDTMFu/GUmknkPjeuLRAr8mMtwoVUqbvuSiipXR7Bv7dJtoWumsYE
-	 Ol4aRFQsoCAowQfqarUDVUEO5H203ax6hpOqQ8CoXYFoN8J3kdUBK+0y3JRla0X6rn
-	 xlZucDA/hH3K5GMa0h0THx6E9uCa6Zv8oKh6nwvhBUHxYcX2vvJK7CFzxX9aq5c0In
-	 mj+bFmUS0MJrg==
+	b=gKQfx1Imn4IqrY7Q2KXFpyWROj41Z/+klxDb1aNdPwfiIT/6FYuhubhZMrlqxnXFA
+	 EVY1+ImaGyuPbIHduT3JDuc3n0xmCowd2MxPA6EOgYmR6lUELYW8ifqOpdvcU64RTM
+	 YXBlLqCiwrj2cESqo6Cf7MEri4n14oy2XC/VkZxNM16cvsTWZETRrbbSjLpyGSommm
+	 mKS7AVDioqe+kH9ZeZhJD3QgmPVEM2KiIrI768jpZyjVS2Zx6Y/0zOJDxdfWF+2rFV
+	 e+ygmp6Np1kcrddZ1pYq40BBlrcUtDuVbd06d4gHQNVH2XJXIKJJ2bUMXoH5YdmLri
+	 tk6cy2el53xkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/3] inet: frags: add inet_frag_putn() helper
-Date: Tue,  8 Sep 2026 18:54:06 -0400
-Message-ID: <20260908225408.538794-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/3] ipv4: frags: remove ipq_put()
+Date: Tue,  8 Sep 2026 18:54:07 -0400
+Message-ID: <20260908225408.538794-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090319-antiques-palm-c286@gregkh>
+In-Reply-To: <20260908225408.538794-1-sashal@kernel.org>
 References: <2026090319-antiques-palm-c286@gregkh>
+ <20260908225408.538794-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,174 +48,94 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit ae2d90355aa5592b0e99c8bbb4c3fa1d8e205f1b ]
+[ Upstream commit a2fb987c0ecf0498cc17056339cb11d128c46ab7 ]
 
-inet_frag_putn() can release multiple references
-in one step.
-
-Use it in inet_frags_free_cb().
-
-Replace inet_frag_put(X) with inet_frag_putn(X, 1)
+Replace ipq_put() with inet_frag_putn()
 
 Signed-off-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20250312082250.1803501-2-edumazet@google.com
+Link: https://patch.msgid.link/20250312082250.1803501-3-edumazet@google.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+
+For the stable backport, retain the existing ip_expire() error and skb
+freeing paths.  Also brace the multicast delivery conditional so that
+the dependent fix can add its non-local skb orphaning without conflict.
+
 Stable-dep-of: e36ce6e78fe3 ("ip: orphan prefetched skbs before multicast forwarding")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/inet_frag.h                 | 4 ++--
- include/net/ipv6_frag.h                 | 3 ++-
- net/ieee802154/6lowpan/reassembly.c     | 7 ++++---
- net/ipv4/inet_fragment.c                | 3 +--
- net/ipv4/ip_fragment.c                  | 2 +-
- net/ipv6/netfilter/nf_conntrack_reasm.c | 3 ++-
- net/ipv6/reassembly.c                   | 4 ++--
- 7 files changed, 14 insertions(+), 12 deletions(-)
+ net/ipv4/ip_fragment.c | 15 ++++-----------
+ net/ipv6/ip6_input.c   |  4 ++--
+ 2 files changed, 6 insertions(+), 13 deletions(-)
 
-diff --git a/include/net/inet_frag.h b/include/net/inet_frag.h
-index 63540be0fc34a..5c782c1feb5a1 100644
---- a/include/net/inet_frag.h
-+++ b/include/net/inet_frag.h
-@@ -136,9 +136,9 @@ struct inet_frag_queue *inet_frag_find(struct fqdir *fqdir, void *key);
- /* Free all skbs in the queue; return the sum of their truesizes. */
- unsigned int inet_frag_rbtree_purge(struct rb_root *root);
- 
--static inline void inet_frag_put(struct inet_frag_queue *q)
-+static inline void inet_frag_putn(struct inet_frag_queue *q, int refs)
- {
--	if (refcount_dec_and_test(&q->refcnt))
-+	if (refs && refcount_sub_and_test(refs, &q->refcnt))
- 		inet_frag_destroy(q);
+diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
+index 11dedc82b98da..34e85c552ac36 100644
+--- a/net/ipv4/ip_fragment.c
++++ b/net/ipv4/ip_fragment.c
+@@ -102,14 +102,6 @@ static void ip4_frag_free(struct inet_frag_queue *q)
+ 		inet_putpeer(qp->peer);
  }
  
-diff --git a/include/net/ipv6_frag.h b/include/net/ipv6_frag.h
-index 0a4779175a523..3443c7905b785 100644
---- a/include/net/ipv6_frag.h
-+++ b/include/net/ipv6_frag.h
-@@ -65,6 +65,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
- {
- 	struct net_device *dev = NULL;
- 	struct sk_buff *head;
+-
+-/* Destruction primitives. */
+-
+-static void ipq_put(struct ipq *ipq)
+-{
+-	inet_frag_putn(&ipq->q, 1);
+-}
+-
+ /* Kill ipq entry. It is not destroyed immediately,
+  * because caller (and someone more) holds reference count.
+  */
+@@ -138,6 +130,7 @@ static void ip_expire(struct timer_list *t)
+ 	struct net *net;
+ 	struct ipq *qp;
+ 	int err;
 +	int refs = 1;
  
- 	rcu_read_lock();
- 	/* Paired with the WRITE_ONCE() in fqdir_pre_exit(). */
-@@ -107,7 +108,7 @@ ip6frag_expire_frag_queue(struct net *net, struct frag_queue *fq)
- 	spin_unlock(&fq->q.lock);
+ 	qp = container_of(frag, struct ipq, q);
+ 	net = qp->q.fqdir->net;
+@@ -195,7 +188,7 @@ static void ip_expire(struct timer_list *t)
  out_rcu_unlock:
  	rcu_read_unlock();
--	inet_frag_put(&fq->q);
-+	inet_frag_putn(&fq->q, refs);
+ 	kfree_skb(head);
+-	ipq_put(qp);
++	inet_frag_putn(&qp->q, refs);
  }
  
- /* Check if the upper layer header is truncated in the first fragment. */
-diff --git a/net/ieee802154/6lowpan/reassembly.c b/net/ieee802154/6lowpan/reassembly.c
-index be6f06adefe0a..f5b554894d024 100644
---- a/net/ieee802154/6lowpan/reassembly.c
-+++ b/net/ieee802154/6lowpan/reassembly.c
-@@ -45,6 +45,7 @@ static void lowpan_frag_expire(struct timer_list *t)
- {
- 	struct inet_frag_queue *frag = from_timer(frag, t, timer);
- 	struct frag_queue *fq;
-+	int refs = 1;
- 
- 	fq = container_of(frag, struct frag_queue, q);
- 
-@@ -56,7 +57,7 @@ static void lowpan_frag_expire(struct timer_list *t)
- 	inet_frag_kill(&fq->q);
- out:
- 	spin_unlock(&fq->q.lock);
--	inet_frag_put(&fq->q);
-+	inet_frag_putn(&fq->q, refs);
- }
- 
- static inline struct lowpan_frag_queue *
-@@ -301,13 +302,13 @@ int lowpan_frag_rcv(struct sk_buff *skb, u8 frag_type)
- 
- 	fq = fq_find(net, cb, &hdr.source, &hdr.dest);
- 	if (fq != NULL) {
+ /* Find the correct entry in the "incomplete datagrams" queue for
+@@ -484,14 +477,14 @@ int ip_defrag(struct net *net, struct sk_buff *skb, u32 user)
+ 	/* Lookup (or create) queue header */
+ 	qp = ip_find(net, ip_hdr(skb), user, vif);
+ 	if (qp) {
 -		int ret;
 +		int ret, refs = 1;
  
- 		spin_lock(&fq->q.lock);
- 		ret = lowpan_frag_queue(fq, skb, frag_type);
- 		spin_unlock(&fq->q.lock);
+ 		spin_lock(&qp->q.lock);
  
--		inet_frag_put(&fq->q);
-+		inet_frag_putn(&fq->q, refs);
+ 		ret = ip_frag_queue(qp, skb);
+ 
+ 		spin_unlock(&qp->q.lock);
+-		ipq_put(qp);
++		inet_frag_putn(&qp->q, refs);
  		return ret;
  	}
  
-diff --git a/net/ipv4/inet_fragment.c b/net/ipv4/inet_fragment.c
-index 6e6b46ebfc407..4de79ee66a1cb 100644
---- a/net/ipv4/inet_fragment.c
-+++ b/net/ipv4/inet_fragment.c
-@@ -144,8 +144,7 @@ static void inet_frags_free_cb(void *ptr, void *arg)
- 	}
- 	spin_unlock_bh(&fq->lock);
+diff --git a/net/ipv6/ip6_input.c b/net/ipv6/ip6_input.c
+index cf577cc3b48cf..94d2ab8689d88 100644
+--- a/net/ipv6/ip6_input.c
++++ b/net/ipv6/ip6_input.c
+@@ -552,9 +552,9 @@ int ip6_mc_input(struct sk_buff *skb)
+ 			/* unknown RA - process it normally */
+ 		}
  
--	if (refcount_sub_and_test(count, &fq->refcnt))
--		inet_frag_destroy(fq);
-+	inet_frag_putn(fq, count);
- }
- 
- static LLIST_HEAD(fqdir_free_list);
-diff --git a/net/ipv4/ip_fragment.c b/net/ipv4/ip_fragment.c
-index 23312d028af28..11dedc82b98da 100644
---- a/net/ipv4/ip_fragment.c
-+++ b/net/ipv4/ip_fragment.c
-@@ -107,7 +107,7 @@ static void ip4_frag_free(struct inet_frag_queue *q)
- 
- static void ipq_put(struct ipq *ipq)
- {
--	inet_frag_put(&ipq->q);
-+	inet_frag_putn(&ipq->q, 1);
- }
- 
- /* Kill ipq entry. It is not destroyed immediately,
-diff --git a/net/ipv6/netfilter/nf_conntrack_reasm.c b/net/ipv6/netfilter/nf_conntrack_reasm.c
-index d3b728771737a..dea2ed5f9f5aa 100644
---- a/net/ipv6/netfilter/nf_conntrack_reasm.c
-+++ b/net/ipv6/netfilter/nf_conntrack_reasm.c
-@@ -448,6 +448,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
- 	struct frag_hdr *fhdr;
- 	struct frag_queue *fq;
- 	struct ipv6hdr *hdr;
-+	int refs = 1;
- 	u8 prevhdr;
- 
- 	/* Jumbo payload inhibits frag. header */
-@@ -490,7 +491,7 @@ int nf_ct_frag6_gather(struct net *net, struct sk_buff *skb, u32 user)
- 	}
- 
- 	spin_unlock_bh(&fq->q.lock);
--	inet_frag_put(&fq->q);
-+	inet_frag_putn(&fq->q, refs);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(nf_ct_frag6_gather);
-diff --git a/net/ipv6/reassembly.c b/net/ipv6/reassembly.c
-index 6993675171556..31bfc7932378a 100644
---- a/net/ipv6/reassembly.c
-+++ b/net/ipv6/reassembly.c
-@@ -374,7 +374,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
- 	fq = fq_find(net, fhdr->identification, hdr, iif);
- 	if (fq) {
- 		u32 prob_offset = 0;
--		int ret;
-+		int ret, refs = 1;
- 
- 		spin_lock(&fq->q.lock);
- 
-@@ -383,7 +383,7 @@ static int ipv6_frag_rcv(struct sk_buff *skb)
- 				     &prob_offset);
- 
- 		spin_unlock(&fq->q.lock);
--		inet_frag_put(&fq->q);
-+		inet_frag_putn(&fq->q, refs);
- 		if (prob_offset) {
- 			__IP6_INC_STATS(net, __in6_dev_get_safely(skb->dev),
- 					IPSTATS_MIB_INHDRERRORS);
+-		if (deliver)
++		if (deliver) {
+ 			skb2 = skb_clone(skb, GFP_ATOMIC);
+-		else {
++		} else {
+ 			skb2 = skb;
+ 			skb = NULL;
+ 		}
 -- 
 2.53.0
 
