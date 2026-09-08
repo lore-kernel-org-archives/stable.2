@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635C513552;
-	Tue,  8 Sep 2026 14:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C45560AD1;
+	Tue,  8 Sep 2026 14:14:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876899; cv=none; b=WWbMagBfSQSP6g/C2yRjxJQgL6bxoqj5J28AwkHiGMSVoX660T69MEcfUaDCr9tgfcHnD7F6CZr/wFo0RbA3iGmy2uIE+kOhsyf3c9Gl9xoJHLXYuk3oR5emh4F6qWTBRaLuU83paaI0LZ/U+ZyAmzyhcOPzR37in9qasY6Aw6Y=
+	t=1788876906; cv=none; b=YBKzveWTJzHFdIdV4bbBxJYNYcmpG9/k5PoT4OnDdd4WapDH+F+Hnnd9/LOPdZX6j+ZYhR8VqeSOhHIM5MDiVwfzVMgKHV5Qzlxd6oPiPQ/WeQfOfQ/XOE+7hwp+yqJz49f3bL33NoWQ89qnV7gQL7IZy8RI4HzDrhFkYa+4S/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876899; c=relaxed/simple;
-	bh=c5IXRGjuz0fSPa4V5Xz2gLhzLB899t5Sk/STYYx7jXw=;
+	s=arc-20240116; t=1788876906; c=relaxed/simple;
+	bh=0Rf2YJvFhUDulQQ7AgAE1+fJavvfDKv+b2h+us/wCR4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NCwMmkQvUcqUt6+IJHpK2/781tKhYbIghMMUwkHKJhudQCTT84HdwG9oD4zXdP/NaWv4IAPmCYRNusc14FbJVObItfGpxs5qrk7LuEoqOZm/PrSgulqyjDHerYyn2r9+3g2NUA691V7K587N84QEIPVfsb0cQxGgfloE7qEX0yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zlb8d3lD; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=g8Sebb1f6ybfWm6fVyJY98ql+65ltaRFnF48CHg4675Ah5UOlO8eAShtF53mkN5GtrnnfhhdY8TuvUoA885uP7xm7pV2Ns5lcnLKjJcdeamW/2YP+W3yHyrrgj/Yj/Bas4jNAc/UQJH0dwUED8aMuVGKmxup1zoxhsY6xkJyKnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDurLrOp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zlb8d3lD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454511F00AC4;
-	Tue,  8 Sep 2026 14:14:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDurLrOp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2CD1F00ACF;
+	Tue,  8 Sep 2026 14:14:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788876882;
-	bh=oCwaDeVCnMEOM3Suj5i1JtmGB4sF4AjuaGS8MXJAUMg=;
+	s=k20260515; t=1788876892;
+	bh=9bNTr4YfhaISPP5ozmhB/lHfD4lozn0E+c2Bf6a8CwY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Zlb8d3lDTI3j816xJQJWU2xsXUNOVRup5KU1RLEIL58RlxNK+7SyN4rJznxthjVG/
-	 /hO69OTWrjMJz6H+GNRRhipxbdkuaV46BDgDAGvGrUV5xujkUn1mfX+ghYNZTN5SIr
-	 sqWDDpph/e3ajmp3/5Ab4yL321L97YWJ64fwDLYzYgwXNEHlE61RRNzSlVgFE+ug3G
-	 nRcabVn2QNEduwG/6dirafSmylmoXuyCRVljrPTnq/z+t9CDqsFULCbTzyV1k0x8LJ
-	 NJu0x8kxXjOFIFKkzD161xXQePYvtoxTTBpar9nXtVOtkmgoKmiRMfvOmxEYGlzHZ/
-	 4p8JhfP6j/PaA==
+	b=SDurLrOpJyGC8/0PKcQ7GYENjdzagDAAxEURGEqCGIjYzo2dB1pTvoP3TXYewP3GN
+	 SKQP8P0JNyY6AtrbTYqaMnV5M4nF3FkZP1qwO3XI7ygTprSCvVHfEf2L39DZ/DP79T
+	 m/K8YCqNXJL1KqLhJcesNFauyhviEtJ4S8P72fOIf9boa3UvqEwgsAVsVlK5tstFLU
+	 a9ChIJ6X+PtHP/In7n884g5Bc659IsK0hLuGTP2m2PJfM3754rVP8Ih1FKBH3vv4qW
+	 HTR6hs9/tgFKfXo65faakowSOfRcCD0SH1TfKyGNGJkvTVoCL29w3PRYhVceTCuHma
+	 mCyhvrg095zEw==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 08 Sep 2026 16:07:16 +0200
-Subject: [PATCH net v2 11/15] selftests: mptcp: lib: dump nstat for the
- right test
+Date: Tue, 08 Sep 2026 16:07:20 +0200
+Subject: [PATCH net v2 15/15] mptcp: avoid pruning for OoW data
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-11-df1de70348b6@kernel.org>
+Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-15-df1de70348b6@kernel.org>
 References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -47,68 +46,61 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Simon Horman <horms@kernel.org>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- stable@vger.kernel.org, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org
+ stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1903; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=c5IXRGjuz0fSPa4V5Xz2gLhzLB899t5Sk/STYYx7jXw=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSOgryodM9s04z7lPMDnAMvvlpKrsSPPjocFmi60MZ
- Rjap6ztKGVhEONikBVTZJFui8yf+byKt8TLzwJmDisTyBAGLk4BmEhCIMN/Lxk1dYnHonoR/3hM
- /t1ee96rfUHMBK9Dbn7b/PYwXjbaw/BX0qX4zP8GGUfN1RpFJrpcHK/1/61kOXRP4d67BxZcB9M
- 4AQ==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1473; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=A8xR/5LxV2W9rnK/z18vuygkRh9g+bXMpiu5CeK5OhQ=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSBg5zmtmLOzW9U3+EMLjdDQ9jVulZWp2QvgNITfG+
+ kdBx9Z0lLIwiHExyIopski3RebPfF7FW+LlZwEzh5UJZAgDF6cATKRyCsM/ZXWWZ/XHXR9e33hf
+ p3S5N8+rqYlfnuk++8oq0Oqa2r7vFCPD8Yx7T1rqu5asWHx6a0/T7ygNsQXLlhZp3bZ6NbXacPU
+ qVgA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-In case of errors, mptcp_lib_pr_nstat is called to dump the nstat
-counters, but for some tests, it was dumping the counters for all
-subtests, not just the current one.
+From: Paolo Abeni <pabeni@redhat.com>
 
-That's an issue for tests that don't recreate the netns for each
-subtest, e.g. mptcp_connect.sh. In this case, 'nstat -a' will look at
-the absolute counters since the creation of the netns, making
-debugging harder.
+Pruning is expansive and destructive, do it only when we expect
+to accept the skb triggering the cleanup.
 
-Instead, it should dump the counters for the current test, by using the
-history recorded in /tmp/<ns>.nstat if available, and not using '-a'
-which was dumping the absolute values instead of calculating increments.
-
-While at it, rename the previous 'hist' variable to 'cache' as it was
-used to look at the cache, not the nstat history.
-
-Fixes: 658e53141780 ("selftests: mptcp: join: dump stats from history")
+Fixes: e468d371180d ("mptcp: implemented OoO queue pruning")
 Cc: stable@vger.kernel.org
-Reviewed-by: Geliang Tang <geliang@kernel.org>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
-Cc: Shuah Khan <shuah@kernel.org>
-Cc: linux-kselftest@vger.kernel.org
----
- tools/testing/selftests/net/mptcp/mptcp_lib.sh | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ net/mptcp/protocol.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/net/mptcp/mptcp_lib.sh b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-index 5ef6033775c8..da1da414c30f 100644
---- a/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-+++ b/tools/testing/selftests/net/mptcp/mptcp_lib.sh
-@@ -108,12 +108,14 @@ mptcp_lib_pr_info() {
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 4309fca6b119..0098e2830931 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -313,12 +313,6 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+ 	u64 seq, end_seq, max_seq;
+ 	struct sk_buff *skb1;
  
- mptcp_lib_pr_nstat() {
- 	local ns="${1}"
--	local hist="/tmp/${ns}.out"
-+	local cache="/tmp/${ns}.out"
-+	local hist="/tmp/${ns}.nstat"
+-	if (!mptcp_try_rmem_schedule(sk, skb)) {
+-		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
+-		mptcp_drop(sk, skb);
+-		return;
+-	}
+-
+ 	seq = MPTCP_SKB_CB(skb)->map_seq;
+ 	end_seq = MPTCP_SKB_CB(skb)->end_seq;
+ 	max_seq = atomic64_read(&msk->rcv_wnd_sent);
+@@ -335,6 +329,12 @@ static void mptcp_data_queue_ofo(struct mptcp_sock *msk, struct sk_buff *skb)
+ 		return;
+ 	}
  
--	if [ -f "${hist}" ]; then
--		awk '$2 != 0 { print "  "$0 }' "${hist}"
-+	if [ -f "${cache}" ]; then
-+		awk '$2 != 0 { print "  "$0 }' "${cache}"
- 	else
--		ip netns exec "${ns}" nstat -as | grep Tcp
-+		NSTAT_HISTORY="${hist}" ip netns exec "${ns}" nstat -s |
-+			grep Tcp
- 	fi
- }
- 
++	if (!mptcp_try_rmem_schedule(sk, skb)) {
++		MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_RCVPRUNED);
++		mptcp_drop(sk, skb);
++		return;
++	}
++
+ 	p = &msk->out_of_order_queue.rb_node;
+ 	MPTCP_INC_STATS(sock_net(sk), MPTCP_MIB_OFOQUEUE);
+ 	if (RB_EMPTY_ROOT(&msk->out_of_order_queue)) {
 
 -- 
 2.55.0
