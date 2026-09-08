@@ -1,225 +1,148 @@
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD9D53A8B0;
-	Tue,  8 Sep 2026 12:11:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869535; cv=pass; b=DCRU2QKXgCEhdDfZamLsHGTUp38WCVlHrVL8HjxAZBHBiUil47HjhcV0TS5xwiawUNVwqOsfdfmKofk/qHkgTfAJsuGzRXdExaqD1HefXbUESuscG6TIbc7nRcnMhhZXXitrf8EN4+RJXxVsSZWbi+DGEk115sv0j3Ht9RlpNWI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869535; c=relaxed/simple;
-	bh=7Zhelv02u8DrcNxipfgzntkLPRR1qmOFeIYww1sH7zk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lFEVrfycMFa8Okri2PAoyoU5YBfs3iTcONwQT0/fxL4WINfifwEL4ZwWN7i5WdyMuPwdcQ/Kbe6Bs8GbhBlvW+HFU36m/SzLv9WWKdR5LkUx6xbRuaSxDDfqZBg58pS4P03Hv3iVff3TLbwmTztYfSUavkQh4+cMbOplKBsid1Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=SY2Kz42e; arc=pass smtp.client-ip=165.173.180.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837AA52D2B3;
+	Tue,  8 Sep 2026 12:16:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788869790; cv=none; b=S5JH2Gxq010X6VOgfOhUiAkBCOe5ehd+JIaqHnzwD+DguCoJbSq+6M0TWEu3lLWwRdoj2uTxRD/5mOlxKqKtoZ1kdQTj5O/Lz/uYhbY52DNQAqeaN27243Nvyw5Ldxj2wyOiChWpv/eEKaR6Wl2jE0XRwMYM8eezqaS+r1COX/A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788869790; c=relaxed/simple;
+	bh=kE6e9md14D+FOdB2WmJgAW7jR/hNortrL82vwlwO6uY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=flCFCwiHtqdL/lmec+qFswFTEC/106SpN1xNvml0tpl4jkrp4iC8lK5+RExB4FiQv1zuhG3pbywI+YLbYgL41FdQRBYBEeaRJIjqpepz6Ie04itOu9uYXBuTM/deZh/dNr+NiDcZut+Pwp4qeQdik8ECZCGFLsSYkcn626fvd5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=AbMwDCKf; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="SY2Kz42e"
-ARC-Seal: i=1; a=rsa-sha256; t=1788869457; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=R7s7CzmByV4f5LAUfsx5shpRZGq7ImiAvgelgizCYuG/b+KTNxJzdrXt0W+9I8GXZlfG+TQBfK33iWAGL/ENgUDbO5CbGCnYF/INgHvYmxmL1MHnG0ICoXRi/FetYm/B4qeHAKJSCEWuFiYpLp0XMcw/50k2xpT5gMN4xETOn1g=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788869457; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=QE8iYKeyhHKWPclp9bwwo/eXuTJ/cN4Qh4dUp/kzulc=; 
-	b=ZHfUp7Bd9ghsmDXY2EQo9u61K+DYF2UR4nkDKAaAN6Te+8AWd1y/qEr9m54NQpQfOqKsxrjyXCEw83wuAh25JcTFvZI1R0ydJW2+ZDXHbHH+BsFkolD9ZI6PJjkOXDxqWvQ5XsiMSfE7K2aH5sgWcQU9JeiJuR0Dpwu6Xg+92c4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788869457;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=QE8iYKeyhHKWPclp9bwwo/eXuTJ/cN4Qh4dUp/kzulc=;
-	b=SY2Kz42ejFcRvEzChq+IP7JfLq249qjR8EPo6Pgd2oMC2gQNKz2XHJbYLIUt1VlJ
-	wH0JMfdLO597Iv+/mk1QoQGkCl2/Fj2pSz1nTQ1k+J0TqwoQ83h6glnjhvDJxMW2jDZ
-	b9IRFX/ay0rIDpVKI+9QosscIaMdD3swaJ5UxKWo=
-Received: by mx.zohomail.com with SMTPS id 1788869452136451.1040702524582;
-	Tue, 8 Sep 2026 05:10:52 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id B7E071816EF; Tue, 08 Sep 2026 14:10:44 +0200 (CEST)
-Date: Tue, 8 Sep 2026 14:10:44 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Frank Zhang <rmxpzlb@gmail.com>
-Cc: royalnet026@gmail.com, Laurent.pinchart@ideasonboard.com, 
-	airlied@gmail.com, andrzej.hajda@intel.com, luca.ceresoli@bootlin.com, 
-	cristian.ciocaltea@collabora.com, daniels@collabora.com, detlev.casanova@collabora.com, 
-	dmitry.baryshkov@oss.qualcomm.com, heiko@sntech.de, jernej.skrabec@gmail.com, jonas@kwiboo.se, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, neil.armstrong@linaro.org, rfoss@kernel.org, 
-	simona@ffwll.ch, tzimmermann@suse.de, macromorgan@hotmail.com, 
-	dri-devel@lists.freedesktop.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
- when PHY is down
-Message-ID: <ap_3zjRWm5-RXKKx@venus>
-References: <20260908070220.41574-1-rmxpzlb@gmail.com>
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="AbMwDCKf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1788869637;
+	bh=OU42xnYgBuQIIGsbiQd3edAdK/2WUQRNb9zNrW3eZIk=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=AbMwDCKfU7zk36Plc4V9yxvCA5fXKOr7w0hLfKKDF5+Y/PNPsRGRtuYlDhRLuTe+J
+	 Jpb/JGZbU3tvpUzaybyMuUjGfWfxrXDYdFLjeJIErSaEFojVkcwNpgVeKQyZasVvyP
+	 Q3OEmY1RWQHzH73bC5FpM/wekdeAL3JGzTSZm9aQ=
+X-QQ-mid: zesmtpgz8t1788869631t68f93279
+X-QQ-Originating-IP: NNglehT6aMwsIV0lPfkuSjfZJOylKUr5I3iD3JMVzh0=
+Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 20:13:27 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 13790185854937703597
+EX-QQ-RecipientCnt: 9
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: airlied@redhat.com,
+	kraxel@redhat.com,
+	dmitry.osipenko@collabora.com,
+	dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	gurchetansingh@chromium.org,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] drm/virtio: fix memory leak of fence event on execbuffer failure
+Date: Tue,  8 Sep 2026 20:13:23 +0800
+Message-ID: <D320EAB5680C1411+20260908121323.2405044-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jfsb2zfza5cooyow"
-Content-Disposition: inline
-In-Reply-To: <20260908070220.41574-1-rmxpzlb@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.865.29
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: Nl7eTg5yGHnwHFfuMYie3uzOH+MV3o3VNn8RrdTFB4ddVof9TNOenLKy
+	5geAAIaZpZaD3SEX4AXEKg05EuqffXN5kgL34njDKfni45tyESJ6aoQC1tq1Fu54s+T1IH1
+	HBUAZ5TIkJyIis/G6wiVzjbc1/2WKDnJZtwRV3bM+vik95YFvQcw2sey+OccaFT0jZ2NVmv
+	C/XoMsche5idT4i0G+6lJ88RU1xJLuuc/YrutbUj/rwZaZy8OQaxc3CF3PusEWwZS3srwPK
+	FclHF/RMrdZaOxWXP6kwglkUg6myeIEjaztV1cvb8DVDqcL94Oyr+Jfeh7UQoBlxDidw8JF
+	ytd0yJ8lVGvT2Oin9qQ//u1Q6m74C1sbxkEa5SZMj0ozXNAvM+CcTsWNHO966spDN6ttGYB
+	KTdL6+djaQHvdhS8ASXXq6Cb5fKG+v4mQetenb6zZ7lFPNa/xNEVHvn5R0Q2kyprsOxZFu6
+	AcfDqMfWFmTF+AyUYAkB532MEXafLSkVU972qJF9IjJmv6FUdrmpSECgpXlNfDP003TxiJk
+	h28lIdaZhAELPUcpDf3T6102/eYKiKWgOPGBrGE1+a5Xk2ELPBDVyzwpzAuQDFWE8EEkGc9
+	Ud3a29fUI4YFBFeyEkl5ixQCa10iveeMDix9n2eFwp4lRPk+n/dNOwiUVqLkuLJPWTAkOuW
+	z8dsR1/JJSWrHijlIW98XXWwPcKrfQHFim+r/XNJnM+V1zOaCVQeFfBhCtqkJvQHvPthdhw
+	3/qzdQpcLShtcL2VS0W3MjUP7BKeteV9+/IIOMvzome4CPvYQ2Ljz1VicPgypbp/knyl5L2
+	tTsYejBehq3Jxk7RZJqJpY/nIaoSQcGcSRy15q1bVdydxSPN3Jfx74KxD/r16BrN6cU6V+g
+	NOOK2PYXk18vTP/nn6nV3aiyOENmTKt1T0WDeuke9TdH6So0p/xCGTSezMizjXHY7XEQe5P
+	PY+jPaeOKUhteVvEmNW9YBFYV1Xr7eEe34YkZiCOba0e90Cwln+QHppRfP4zdFa/svkd870
+	RarM7pukCiReRagDHEJsYf3eOb3E7UgRwTOiszFWmh0shZB/DNeS3GHERGX4I=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
+virtio_gpu_execbuffer_ioctl() reserves a DRM event with
+drm_event_reserve_init() when VIRTGPU_EXECBUF_RING_IDX selects a ring that
+userspace has enabled polling for. virtio_gpu_init_submit() does this
+before the BO handles, the command buffer, the syncobj arrays and the
+in-fence are processed, so every later error path runs with the event
+already pending, including plain argument validation failures such as an
+invalid bo_handle or an in-syncobj that carries no fence.
 
---jfsb2zfza5cooyow
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe
- when PHY is down
-MIME-Version: 1.0
+On those paths, virtio_gpu_cleanup_submit() drops the out-fence without
+cancelling the event. The fence is freed without ever having been emitted,
+taking the only driver-side pointer to the event with it. Closing the DRM
+file does not help. drm_events_release() unlinks pending events but
+deliberately leaves the freeing to the driver's later drm_send_event(),
+which never runs for an orphaned event, so the allocation is leaked
+permanently.
 
-Hi,
+Found when fuzzing the virtio driver with Syzkaller:
 
-On Tue, Sep 08, 2026 at 03:02:20PM +0800, Frank Zhang wrote:
-> The following panic was observed during system reboot:
->=20
-> Kernel panic - not syncing: Asynchronous SError Interrupt
-> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-> Call trace:
->  ...
->  regmap_update_bits_base+0x70/0xa8
->  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
->  drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
->  ...
->  dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
->  drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
->  drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
->  hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
->  ...
->  snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
->  snd_pcm_release+0x4c/0xc0 [snd_pcm]
->  ...
->=20
-> The root cause is pipewire tries to close the HDMI audio device after
-> atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
->=20
-> In this case, dw_hdmi_qp_audio_disable() will call
-> dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
-> checking tmds_char_rate.
->=20
-> Guard the register access in drm_display_helper callback function with
-> tmds_char_rate check.
->=20
-> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi=
--qp")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
->=20
-> ---
-> Changes in v2:
-> - Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
->   the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-> - Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@=
-gmail.com/
->=20
-> Changes in v3:
-> - Add a tmds_char_rate guard in clear_audio_infoframe path.
-> - Decouple write_audio_infoframe from clear_audio_infoframe.
-> - Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-> - Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@g=
-mail.com/
->=20
-> Changes in v4:
-> - Update panic stack on 7.0.5
-> - Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@=
-gmail.com/
->=20
-> Changes in v5:
-> - Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
->   tmds_char_rate guard in new callback function.
-> - Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@g=
-mail.com/
-> ---
->  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 14 ++++++++++++--
->  1 file changed, 12 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
-rm/bridge/synopsys/dw-hdmi-qp.c
-> index 1c214a8e6dc2..8729783d4eb6 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-> @@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(stru=
-ct drm_bridge *bridge)
->  	return 0;
->  }
-> =20
-> -static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *br=
-idge)
-> +static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *=
-bridge)
->  {
->  	struct dw_hdmi_qp *hdmi =3D bridge->driver_private;
-> =20
-> @@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(s=
-truct drm_bridge *bridge)
->  	return 0;
->  }
-> =20
-> +static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *br=
-idge)
-> +{
-> +	struct dw_hdmi_qp *hdmi =3D bridge->driver_private;
-> +
-> +	if (hdmi->tmds_char_rate > 0)
-> +		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-> +
-> +	return 0;
-> +}
-> +
->  static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buff=
-er,
->  				 size_t start, size_t len, unsigned int reg)
->  {
-> @@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(st=
-ruct drm_bridge *bridge,
->  {
->  	struct dw_hdmi_qp *hdmi =3D bridge->driver_private;
-> =20
-> -	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-> +	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
+	BUG: memory leak
+	unreferenced object 0xffff88802c176e80 (size 96):
+	comm "syz.1.367", pid 10561, jiffies 4294960122
+	hex dump (first 32 bytes):
+		00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+		c8 6e 17 2c 80 88 ff ff 00 00 00 00 00 00 00 00  .n.,............
+	backtrace (crc e1973c6b):
+		kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+		slab_post_alloc_hook mm/slub.c:4597 [inline]
+		slab_alloc_node mm/slub.c:4917 [inline]
+		__kmalloc_cache_noprof+0x49d/0x6f0 mm/slub.c:5485
+		_kmalloc_noprof include/linux/slab.h:988 [inline]
+		_kzalloc_noprof include/linux/slab.h:1309 [inline]
+		virtio_gpu_fence_event_create drivers/gpu/drm/virtio/virtgpu_submit.c:282 [inline]
+		virtio_gpu_init_submit drivers/gpu/drm/virtio/virtgpu_submit.c:398 [inline]
+		virtio_gpu_execbuffer_ioctl+0xbbf/0x1aa0 drivers/gpu/drm/virtio/virtgpu_submit.c:505
+		drm_ioctl_kernel+0x1f4/0x3e0 drivers/gpu/drm/drm_ioctl.c:817
+		drm_ioctl+0x5f4/0xc70 drivers/gpu/drm/drm_ioctl.c:914
+		vfs_ioctl fs/ioctl.c:51 [inline]
+		__do_sys_ioctl fs/ioctl.c:597 [inline]
+		__se_sys_ioctl fs/ioctl.c:583 [inline]
+		__x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
+		do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+		do_syscall_64+0x116/0x800 arch/x86/entry/syscall_64.c:94
+		entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-Why? Having the extra tmds_char_rate check being done here is not a
-problem except for some extra instructions. Considering this is
-definetly not a hot path, introducing the extra function is not
-worth the trouble. Just patch the original function to add the check
-resulting in a nice and simple 2 lines fix and you are done.
+Fix by cancelling and freeing the DRM event on the execbuffer error path
+before dropping the fence. Clear the fence's event pointer after
+cancellation so it does not retain a dangling pointer.
 
-> =20
->  	/*
->  	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
-> --=20
-> 2.55.0
->=20
+Fixes: cd7f5ca33585 ("drm/virtio: implement context init: add virtio_gpu_fence_event")
+Cc: stable@vger.kernel.org
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: Codex:gpt-5.6-luna
+---
+ drivers/gpu/drm/virtio/virtgpu_submit.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Greetings,
-
--- Sebastian
-
---jfsb2zfza5cooyow
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqf+z4ACgkQ2O7X88g7
-+pqfHA/+LO8ZBS5C0Hgr5nNBFs6K+3WdcJaN80+8HNuvprORpzqVAbfrLBrKXo6r
-uF56TS9WhIdzO839bSUenU3UKXANzmak4gZIZM7GKDwsPWcdbuGfqxuGJc5JSUKT
-27qvvNCNxCjUZwGUduJQaxCqGVFXKxjjmSRzwJ5QVTe+VResfLQ09sWhHFczrhN8
-7cbb/B8Uae5/4re/PO6dWX6AMDeXGX4zfr4JY3SwKZOM+tm1p0326P1ons97LSbR
-cWLJ5n0T01XQGvcAtxnODBVUSKpCTxer0ne6ir8a8TEeNajBc8GRziwPNr6RrQ3L
-PR9KMvrPifVqVTNtIGtGmOz63kF+pRAqK/4ItxIwzdUMTkI8Eo+o7L3ZsHudSsiC
-Qw88bdJGkOzS4YE+y164kcajpD1cmBcKc7MOcVNHbhNMoYHeiMz3dQVKZwe2c2Fr
-ZxWZb/TuwwTOgamksuIahB6Ouk1luYhXSRNtydJ0Vw16ft/5wOu7xlTd+O+d+PhR
-E4CwK/VdBaY93e6C4AnqHGnKt0u6TZAY5WnNtnmB6aVn4G8lkVWiTA+ZYR8ghHRN
-oTJVXglBgP/lReZNf4PjMQ2MTP2EPi4np3jqKYif66Mn37UDwiIKGjG5k37zjav6
-4TEFns0fGBbb1OIAS+IQnqznfHVMSkj9b1E+edqcymkDxzINUr8=
-=Zx89
------END PGP SIGNATURE-----
-
---jfsb2zfza5cooyow--
+diff --git a/drivers/gpu/drm/virtio/virtgpu_submit.c b/drivers/gpu/drm/virtio/virtgpu_submit.c
+index 32cb1e4aa425..734b1e976a75 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_submit.c
++++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+@@ -538,6 +538,10 @@ int virtio_gpu_execbuffer_ioctl(struct drm_device *dev, void *data,
+ 	virtio_gpu_process_post_deps(&submit);
+ 	virtio_gpu_complete_submit(&submit);
+ cleanup:
++	if (ret && submit.out_fence && submit.out_fence->e) {
++		drm_event_cancel_free(dev, &submit.out_fence->e->base);
++		submit.out_fence->e = NULL;
++	}
+ 	virtio_gpu_cleanup_submit(&submit);
+ 
+ 	return ret;
+-- 
+2.43.0
