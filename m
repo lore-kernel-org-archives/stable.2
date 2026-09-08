@@ -1,65 +1,67 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 689D639E9CB;
-	Tue,  8 Sep 2026 07:21:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3D41399D0D;
+	Tue,  8 Sep 2026 07:21:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852103; cv=none; b=qgLhEDtn+1IQpN/0K3npr4W6tcdWYNgsrhEBM/fsd1WzHiFdwpXZR9w1bIbsKjg1yBbyiUM/dx6WajY8Qvn/9uDhbmKienAx6OIPCXM6N4kPlBj9tba+egRgFUwcj81xf2xWvCDpIYDC2JlA6rrf8YSxl3V1+DLbEiJF0SqAiaE=
+	t=1788852104; cv=none; b=tcjLnx8QHDeL69ogCfBAeyAd3ankrNKtCu/+buwwEnjolC/vMy16PfLuirDJihvu9ZwHfC/dXSHI2Uc/fBPW8LapehOwLIp4UARIlshi4dEM9rXnwqPjDnDnBFB62Pr8OElNSLi0UbiRNWYuj3NRMYnGu9GCEfAgSC3cMmHvqEQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852103; c=relaxed/simple;
-	bh=+y+Mvp9YDtLyMZyMqZnhvyOTfA/a6LoW0rL1dtwdgPg=;
+	s=arc-20240116; t=1788852104; c=relaxed/simple;
+	bh=XNpqscKm4aVAIr5oIWssDqDND6Kn1e3Mat8tZqIY5C0=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=FsurglZFKhSWMS6Yt7XBYaxaUbIeeARw5jaUgXllXnTYDsFRYTheXF0v13c5dUIV4IAdNPmtgV3EN1Y5qCM41iYHueoj6HfSTCrAmQSqajYX2Ap08NwdPKH9w5+O9qEBYkDhx5YW+Ay1pi+pEMpe+bWmfs87+U/U/B8kZjqw3mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BxH/NcI7; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l3Y4TsGZ; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=glaxOX+aP91DlLSp/Vx1rdnlACCnwofsCM6nbqcoz9yx3WT9b9lB77h2u6jdudFt/ifqR1MYar9ju0PeZomvsG7wR0CUtvTYCyARVqvQgHF/lNqqyBLw7rN7u7vsznD8TiX32qIVeAieS6L3hN2CesVK+2Q2Xy+NaLnzrkk/6FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=YB6XISvN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=58Ehw2/j; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BxH/NcI7";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l3Y4TsGZ"
-Date: Tue, 08 Sep 2026 07:21:37 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="YB6XISvN";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="58Ehw2/j"
+Date: Tue, 08 Sep 2026 07:21:39 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788852099;
+	s=2020; t=1788852100;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KP3m+nBUO4RrI4kn9l9CDUo1AcdXhxkdA6Z9wzHx74Q=;
-	b=BxH/NcI72uSvinl25hbsGIz3To/8u/KB68hixK8UgNuHrbEE9CwWiTBJWCSN7cokPG4pRw
-	OMT7iKwzHHcC8MlD/r+9Qf1zScLLi6hFYCfbmJRGRBTeOYpI+yilokSP/W4IWD7VV4Dvpf
-	GukAI3noYpIMrHqvXT9nA8W++V+Kl+MdhOHIdYnrBaIp+y4q8hfBmZSw9RrW0Z4pDHpH8A
-	A5RoMcDqLq4wOTPxRXmG79yQ3FxQAkC1jrMpSpXG9gUvtv+f9m0Su3ASAlSMnLGdMLwlgC
-	ageOcd5Dc0I6VbLJTcOvblK7tbtHsi0SzNayIg3mGITSMzqMfPVCMzIJnyOysA==
+	bh=nJCUvxg4QFGESMfYDFCHHEtoyd8ZJ2vJUNa8o3Zfr0U=;
+	b=YB6XISvN7NpbCB+otZH09W2X+LDcZqtW8S79AFVqTgWcx/VQR9hQlM3Wj3zKUoOAWYs7uY
+	vIecTwlSMr+2PMmbuVrEmCTYEwwZKNIgK4Yc2qDGuaWa8G3fHdIQfsVe0bqv2mNbjXaVyX
+	YH5PV+9SKPV9sEYO8CmlwCLy137OXwNkIWtJEfIpH+ID6tLPcfz1nj2NtHFsi86T7Y55pL
+	Z8EneVDE0sgrCujBOUL9ah+PcT1ayssT0/s0x0VxU74E1GsbZfRCRW+1W4MD0sdmhu0vGC
+	UOZLJsDVLO/swSJPLyhY8vTjK1x2XtHZKx9s/E0o12nOM89K57lJ4On8JERDMQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788852099;
+	s=2020e; t=1788852100;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=KP3m+nBUO4RrI4kn9l9CDUo1AcdXhxkdA6Z9wzHx74Q=;
-	b=l3Y4TsGZ/Xami72TSypoWWe8KHNKOLpYe/cCeLC1xvhr0x2p5NlXmoiLIAyAcBBSnUDV0B
-	2+zIdl9W3qTD3pAw==
-From: "tip-bot2 for Vernon Yang" <tip-bot2@linutronix.de>
+	bh=nJCUvxg4QFGESMfYDFCHHEtoyd8ZJ2vJUNa8o3Zfr0U=;
+	b=58Ehw2/jjXchtVG6a5G5fogez7pVSjFO6ebub65a5VmjA9dFcSYxKbe2YygqOigwxNH0e2
+	T4nCIqa1nFS7MNAA==
+From: "tip-bot2 for Lorenzo Stoakes (ARM)" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm: Fix user-space data loss with MADV_FREE and THP
-Cc: Orson Peters <orsonpeters@gmail.com>,
- Vernon Yang <yanglincheng@kylinos.cn>,
+Subject:
+ [tip: x86/mm] x86/mm/pat: Allocate split page tables as kernel page tables
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
  Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260903031608.1194238-1-vernon2gm@gmail.com>
-References: <20260903031608.1194238-1-vernon2gm@gmail.com>
+ Vishal Moola <vishal.moola@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org>
+References: <20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178885209782.623050.11961390492267984979.tip-bot2@tip-bot2>
+Message-ID: <178885209922.623050.14096720380707882252.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -69,82 +71,147 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/mm branch of tip:
 
-Commit-ID:     18d6b3df5aa910b8e3bad889f2658e6a4c8f6a0d
-Gitweb:        https://git.kernel.org/tip/18d6b3df5aa910b8e3bad889f2658e6a4c8=
-f6a0d
-Author:        Vernon Yang <yanglincheng@kylinos.cn>
-AuthorDate:    Thu, 03 Sep 2026 11:16:08 +08:00
+Commit-ID:     394562a5546aaaeabef6baef5715adf59b71a7c4
+Gitweb:        https://git.kernel.org/tip/394562a5546aaaeabef6baef5715adf59b7=
+1a7c4
+Author:        Lorenzo Stoakes (ARM) <ljs@kernel.org>
+AuthorDate:    Thu, 13 Aug 2026 12:01:27 +03:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Tue, 08 Sep 2026 09:15:12 +02:00
+CommitterDate: Tue, 08 Sep 2026 09:12:55 +02:00
 
-x86/mm: Fix user-space data loss with MADV_FREE and THP
+x86/mm/pat: Allocate split page tables as kernel page tables
 
-Some of users of Polars (a data analytics library) have lost production
-data from this bug. They seem to have just the right combination of
-huge pages, MADV_FREE and heavy reclaim pressure.
+A PTE is allocated directly without going through the standard page table
+allocation routines (such as pte_alloc_one_kernel()) when the CPA code
+splits a large page (__split_large_page()).
 
-pmd_modify() masks the old value with (_HPAGE_CHG_MASK & ~_PAGE_DIRTY),
-silently discarding the hardware dirty bit.  The subsequent
-pmd_mksaveddirty() call is supposed to transfer _PAGE_DIRTY into
-_PAGE_SAVED_DIRTY when write-protecting, but the dirty bit was already
-stripped from the value, so there is nothing left to transfer.
+This means the page table constructor is never called nor is the page table
+marked as a kernel page table.
 
-Contrast with pte_modify(), which keeps _PAGE_DIRTY_BITS in its mask,
-and pud_modify(), which keeps _HPAGE_CHG_MASK untouched: pmd_modify()
-is the odd one out.  Any pmd_modify() on a writable, dirty PMD loses
-the dirty state.
+The former results in the folio associated with the page table not being
+marked as a page table (__pagetable_ctor() is never called thus neither is
+__folio_set_pgtable()) nor are statistics updated to reflect
+it (lruvec_stat_add_folio() is never called).
 
-One visible consequence is data loss with MADV_FREE on PMD-mapped THP:
+The latter issue of failing to mark the page table as a kernel page
+table (ptdesc_set_kernel() is never called) is far more problematic.
 
-    memset(buf, 0x5A, size);          // PMD-mapped THP, PMD dirty
-    madvise(buf, size, MADV_FREE);    // PMD cleaned but left writable,
-                                      // folio marked lazyfree
-    memset(buf, 0x5A, size);          // hardware sets _PAGE_DIRTY again
-    mprotect(buf, size, PROT_READ);   // pmd_modify() drops the dirty bit
-    mprotect(buf, size, PROT_READ|PROT_WRITE);
-    // ... memory pressure ...
+Since commit:
 
-Reclaim (e.g. under memcg pressure) then finds the lazyfree folio with
-no dirty bit set anywhere and frees it in
-__discard_anon_folio_pmd_locked(), even though the data was rewritten
-after MADV_FREE; subsequent reads fault in fresh zero pages.  NUMA
-hinting alone can trigger the same loss, as do_huge_pmd_numa_page()
-restores the PMD through pmd_modify() as well.
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
 
-PMD-mapped file THPs are affected too: mprotect()/NUMA hinting dropping
-the dirty bit means rewritten data is never written back.
+kernel page table freeing has been batched and since the
+subsequent commit:
 
-Fix it by keeping _PAGE_DIRTY in the preserved mask, exactly like
-pte_modify() and pud_modify() do.  The existing
-pmd_mksaveddirty()/pmd_clear_saveddirty() pair then performs the
-hardware-dirty <-> saved-dirty transition based on the write bit,
-preserving the shadow-stack encoding rules.
+  e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries for kernel address=
+ space")
 
-Fixes: bb3aadf7d446 ("x86/mm: Start actually marking _PAGE_SAVED_DIRTY")
-Closes: https://lore.kernel.org/r/CAJxLxMUGu1-L+O_nAONOwOXnS=3DcNbNApCWqdthRj=
-d76LThtSPg@mail.gmail.com/
-Reported-by: Orson Peters <orsonpeters@gmail.com>
-Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
+IOTLB cache entries for kernel page tables have been invalidated upon
+being freed.
+
+Since split page tables are freed without this invalidation, the IOTLB
+can contain stale entries for them.
+
+Resolve the issue by using the ordinary PTE allocation API at split time.
+
+This results in these kernel page tables invoking a page table constructor,
+and thus requires a page table destructor.
+
+Destructors are not always present, like for early allocated direct map
+page tables). Conditionally call pagetable_dtor_free() if the PG_table
+folio flag for the ptdesc is set, otherwise we free the page table via
+pagetable_free().
+
+Regardless of which path is taken page tables marked as kernel page tables,
+which now includes split page tables, take the correct route through
+pagetable_free_kernel().
+
+There is a user-visible side effect in that split page tables will appear
+in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
+allocated after early boot), however this is a positive change.
+
+This issue started being markedly problematic after commit:
+
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+
+so choose this as the Fixes target.
+
+[ dhansen: rephrase in imperative mood ]
+
+Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Reviewed-by: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Acked-by: Vishal Moola <vishal.moola@gmail.com>
+Tested-by: Atish Patra <atishp@meta.com>
+Tested-by: Nikunj A Dadhania <nikunj@amd.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260903031608.1194238-1-vernon2gm@gmail.com
+Link: https://patch.msgid.link/20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org
 ---
- arch/x86/include/asm/pgtable.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/arch/x86/include/asm/pgtable.h b/arch/x86/include/asm/pgtable.h
-index d5f4917..d551120 100644
---- a/arch/x86/include/asm/pgtable.h
-+++ b/arch/x86/include/asm/pgtable.h
-@@ -806,7 +806,7 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newpro=
-t)
- 	pmdval_t val =3D pmd_val(pmd), oldval =3D val;
- 	pmd_t pmd_result;
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index cb5d6d6..4652487 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -441,7 +441,15 @@ static void __cpa_collapse_large_pages(struct cpa_data *=
+cpa)
 =20
--	val &=3D (_HPAGE_CHG_MASK & ~_PAGE_DIRTY);
-+	val &=3D _HPAGE_CHG_MASK;
- 	val |=3D check_pgprot(newprot) & ~_HPAGE_CHG_MASK;
- 	val =3D flip_protnone_guard(oldval, val, PHYSICAL_PMD_PAGE_MASK);
+ 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+ 		list_del(&ptdesc->pt_list);
+-		pagetable_free(ptdesc);
++		/*
++		 * Only early alloc'd direct map should not be flagged PG_table
++		 * here and those shouldn't be collapsed. However be abundantly
++		 * cautious and handle the !PG_table case too.
++		 */
++		if (PageTable((ptdesc_page(ptdesc))))
++			pagetable_dtor_free(ptdesc);
++		else
++			pagetable_free(ptdesc);
+ 	}
+ }
 =20
+@@ -1134,11 +1142,10 @@ set:
+=20
+ static int
+ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+-		   struct ptdesc *ptdesc)
++		   pte_t *pbase)
+ {
+ 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc =3D 1;
+-	struct page *base =3D ptdesc_page(ptdesc);
+-	pte_t *pbase =3D (pte_t *)page_address(base);
++	struct page *base =3D virt_to_page(pbase);
+ 	unsigned int i, level;
+ 	pgprot_t ref_prot;
+ 	bool nx, rw;
+@@ -1238,20 +1245,20 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte,=
+ unsigned long address,
+ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ 			    unsigned long address)
+ {
+-	struct ptdesc *ptdesc;
++	pte_t *pte;
+=20
+ 	spin_unlock(&cpa_lock);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_unlock(&init_mm);
+-	ptdesc =3D pagetable_alloc(GFP_KERNEL, 0);
++	pte =3D pte_alloc_one_kernel(&init_mm);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_lock(&init_mm);
+ 	spin_lock(&cpa_lock);
+-	if (!ptdesc)
++	if (!pte)
+ 		return -ENOMEM;
+=20
+-	if (__split_large_page(cpa, kpte, address, ptdesc))
+-		pagetable_free(ptdesc);
++	if (__split_large_page(cpa, kpte, address, pte))
++		pte_free_kernel(&init_mm, pte);
+=20
+ 	return 0;
+ }
