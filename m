@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB565559CB5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B51D54B1CF
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:37:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874629; cv=none; b=dSXAA4dMDo1uvRKySfoJewU7iPU+daf0D3gt3uM3Dg/wbIirqbcOf+7v6J9Ofuf3xtK6KIXpoABCbhH2UNhYxMQcENdx1zEmivX0yJCXFL0HY+5T2iBurPm40oJerNBTWPwQh03LqQ55HvWHEHafOsYBH9JbSGZn7l+YdhXAPpM=
+	t=1788874633; cv=none; b=u/SLUoG94XzhQzbwOTga8hWa4+Wrfvc+NltdaoCKZPdi4dQsYt8QB3E9Q92hBX0jD19rW82Psgn0dZnX36lu7vqEZ+AlateMrgLQaAXoLfyWwXwLQhV960U+oRr4UmUtTrzKpYPeiI8QV9JV++agH+apJH1tFlvEyaWMsht04xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874629; c=relaxed/simple;
-	bh=+ZP4Xk9m45f7o8oEyRqGg0CmVpNp8D8MeoJ4QsfzcwE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=m0OYWOvtQjl4YDNqwCSgxLeWniz1dbRX7EeGbdunJI3c2ytz1SBdEzyDmJJSJp53P56tbZMq1tRh4jY+Y7ovYG9Pgw9vgt7Hx6BIz5kLLz1dM8PHJK9GDaz3w/2X25+r8mdl6koEwH4xaMRzQGc94Qe1LBDKzymREb7prAFrfII=
+	s=arc-20240116; t=1788874633; c=relaxed/simple;
+	bh=4db6ExJ2IdpPfdxJIJWyTmkDfwZnE9nI4S3NZdEJADI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=c68qakajKcPYUTlZdn6GlDQvxwBE05TvRiPMq9+TDZ1eIphAIZQePKFDS+XalTy94EjzmzgVMsAKvkAjYZMA/TtFlZ05NVHrzirYzI/VIihgxnjzl1Ljz7UNaT1Ku65ozT3zslG6VUBe+pGMKNKqtiNwt5Z9Z3iebIPAGOXbIjs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E251F00A3F;
-	Tue,  8 Sep 2026 13:37:02 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout" failed to apply to 5.15-stable tree
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875741F00A3A;
+	Tue,  8 Sep 2026 13:36:59 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] irqchip/stm32mp-exti: Fix the unit of the hwspinlock timeout" failed to apply to 6.6-stable tree
 To: junan76@163.com,antonio.borneo@foss.st.com,radu@rendec.net,tglx@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:31:13 +0200
-Message-ID: <2026090813-gallery-jackpot-25e8@gregkh>
+Date: Tue, 08 Sep 2026 15:31:12 +0200
+Message-ID: <2026090812-banker-manhandle-d0d6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x d31fbbade43f880b7e59e2b3a72722fe2725d93f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-gallery-jackpot-25e8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090812-banker-manhandle-d0d6@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
