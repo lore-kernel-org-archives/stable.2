@@ -1,85 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A7F51FCB9;
-	Tue,  8 Sep 2026 09:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DE34F646E;
+	Tue,  8 Sep 2026 09:36:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859948; cv=none; b=XpkxtBEwxQLa7i1JVWvwm+0+dbbLaYjx3NGhG1PnDt3g7P/IXyf1mhxJo8Op6Qsv4+oPA2KHXO5DBUN1WUyUecqlnQVg+SjDWcE0rqWmfOhMjmdm2RdGNWV241LVCvwe2sXORbDnIHS+u5grEyzPnTHpHFT7nJPFABCU2umnghc=
+	t=1788860200; cv=none; b=PW23R51/sJnvElpIM/I7ylHAy8iBeCSeaoYZGNJh4ybKOjI6T2Ve6qeU0SjWDDdsuG6zF2jK1HrTGa9TmHpmlw4ofgSL5K136LwXkpLcG0wnORwDRdNgwXxRp2tQ6Yq3JoUtHD+Pb31K4jbh6If252xo+b6QfXML7FQ9c4IDWJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859948; c=relaxed/simple;
-	bh=aXZvy3t5uEmnoTvZI22dGtDuapgAEzI1/ZtKnYO7O2c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uw+SZJ3/jQXoiZ34n80MzIyq2i2pGeu4QEzS3GAeSct5oN3TmYiAH2VdJHWMR2iupqxB+1Zjkid69BmI1iKp2T3YCBUuhtMKT5qISe06+CA8tyIchwqN4/7sqd5UGxNFb9K7LohfRL8a5BWzWexYOiubPsSex468J4rraTlX3uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lSQPSuWY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788860200; c=relaxed/simple;
+	bh=hju+miMB0DwsEai/Rn4SfGeACJ9vRM7dxqY4Nmuz1HY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o9Yg42nyf0BleR8U37BxQ6Wl8DpfTQIaU1JC3SMGNkLcdTXWxXea7ydv+EavnvBWtu0wsOjp/pWQGJTqse+TccJynjaG73ToA4zRV57pRSH2kd6NsyXgZUY9rtStygzjL67KU6+sFJH9Tt/H2Ii/s8r/FF5VbH0jeFEX2OD6HC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=eNMBG6Jv; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lSQPSuWY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E16A01F00A3D;
-	Tue,  8 Sep 2026 09:32:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788859945;
-	bh=3rW2QrII8kDl2LLF5p7w/fphoAuD2u5vYHuEBkn+8Cw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lSQPSuWYgaWWTy6N7eYpTL48oaGXBzfFCXMy2PE4WLlCIlvHdPtoa+f7/KxiTQu3Q
-	 2xdlb2EKSzUWGZrFmbk7PYKpNPFkqgjOsflqikUNG2EmCraMZG3ZUG5M6i8BY/rSs8
-	 cVO6X8E+ym0Ey7f7vQdSTw6WjCm65Ubz+wMzisoFZiGcUEccwhDUHqKoL8eZ8AOw4T
-	 e9vrDSDzv/9WUGMYfyZrFZhzBC68JxpwKFwoCJQV1boRLMK+AWhN0Evt1OZGN3UxVD
-	 rP1dm1XpXnUfCIl1LaEyEZUCFqiCA2FoeysN1FbWLrWlYqd135hvf4of08sIZkfUf+
-	 BgH+L8WyjuzFw==
-Date: Tue, 8 Sep 2026 12:32:17 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="eNMBG6Jv"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1788860187;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ryfKdL4DfllftOGcpI0AMPFnyaoULNI7HFXLFjKK+wQ=;
+	b=eNMBG6Jvm44p5xnQvyl7oqfYvOVgpe569zC+pbT3kwla+IkMOl3F7d6WQzL7VUAVQHSyM8
+	eY+Vxdx9Nof/HPPRbFA+n58OJxLwgUufBVP7Qwz9t8qymF37HSJEzxWqk+2WnBw9h5iF1q
+	S8XmvY2E532kDgVorz81nkmqDtfL0Ks=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Jiri Slaby <jirislaby@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Will Deacon <will@kernel.org>, David Carlier <devnexen@gmail.com>,
-	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
-	stable@vger.kernel.org, x86@kernel.org,
-	Ingo Molnar <mingo@kernel.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
- collapse to avoid UAF
-Message-ID: <ap_WIZwCPKB07nAf@kernel.org>
-References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
- <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
- <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org>
- <apZ52DKlJIrpX6qq@gremlin>
- <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+	Sasha Levin <sashal@kernel.org>,
+	Artem Shimko <a.shimko.dev@gmail.com>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2 5.10] serial: 8250_dw: Use dev_err_probe()
+Date: Tue,  8 Sep 2026 12:36:21 +0300
+Message-ID: <20260908093626.15492-2-arefev@swemel.ru>
+In-Reply-To: <20260908093626.15492-1-arefev@swemel.ru>
+References: <20260908093626.15492-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 04:36:38PM -0700, Dave Hansen wrote:
-> On 9/1/26 00:10, Lorenzo Stoakes (ARM) wrote:
-> > Dave - you've somehow applied this patch completely incorrectly to x86/urgent,
-> > I'm not happy with this going to Linus in this form :/
-> 
-> Me neither, btw.
-> 
-> So, here it is applied:
-> 
-> > https://git.kernel.org/pub/scm/linux/kernel/git/daveh/devel.git/log/?h=cpa1
-> 
-> The diffstat exactly matches the mbox that I sucked in. I'm going to
-> launch some tests overnight.
-> 
-> The only things I really munged were a little merge issue with patch 1,
-> a SoB ordering issue in patch 3, and a few scattered rewordings in the
-> commit messages.
-> 
-> Not pushed to x86/urgent, yet.
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-I have to say I'm confused with today's batch of tip-bot emails saying Ingo
-applied these to x86/mm :/
+commit 57f83e5dd6a33c4696699954784f8fee789b1d0c upstream.
 
+Simplify the error path in ->probe() a bit by using dev_err_probe().
+
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://lore.kernel.org/r/20220509172129.37770-2-andriy.shevchenko@linux.intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+---
+ drivers/tty/serial/8250/8250_dw.c | 28 +++++++++++-----------------
+ 1 file changed, 11 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 211dc88ce4e2..629eb24166b5 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -451,18 +451,17 @@ static void dw8250_reset_control_assert(void *data)
+ static int dw8250_probe(struct platform_device *pdev)
+ {
+ 	struct uart_8250_port uart = {}, *up = &uart;
+-	struct resource *regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	struct uart_port *p = &up->port;
+ 	struct device *dev = &pdev->dev;
+ 	struct dw8250_data *data;
++	struct resource *regs;
+ 	int irq;
+ 	int err;
+ 	u32 val;
+ 
+-	if (!regs) {
+-		dev_err(dev, "no registers defined\n");
+-		return -EINVAL;
+-	}
++	regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!regs)
++		return dev_err_probe(dev, -EINVAL, "no registers defined\n");
+ 
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+@@ -547,7 +546,7 @@ static int dw8250_probe(struct platform_device *pdev)
+ 
+ 	err = clk_prepare_enable(data->clk);
+ 	if (err)
+-		dev_warn(dev, "could not enable optional baudclk: %d\n", err);
++		return dev_err_probe(dev, err, "could not enable optional baudclk\n");
+ 
+ 	err = devm_add_action_or_reset(dev, dw8250_clk_disable_unprepare, data->clk);
+ 	if (err)
+@@ -557,20 +556,16 @@ static int dw8250_probe(struct platform_device *pdev)
+ 		p->uartclk = clk_get_rate(data->clk);
+ 
+ 	/* If no clock rate is defined, fail. */
+-	if (!p->uartclk) {
+-		dev_err(dev, "clock rate not defined\n");
+-		return -EINVAL;
+-	}
++	if (!p->uartclk)
++		return dev_err_probe(dev, -EINVAL, "clock rate not defined\n");
+ 
+ 	data->pclk = devm_clk_get_optional(dev, "apb_pclk");
+ 	if (IS_ERR(data->pclk))
+ 		return PTR_ERR(data->pclk);
+ 
+ 	err = clk_prepare_enable(data->pclk);
+-	if (err) {
+-		dev_err(dev, "could not enable apb_pclk\n");
+-		return err;
+-	}
++	if (err)
++		return dev_err_probe(dev, err, "could not enable apb_pclk\n");
+ 
+ 	err = devm_add_action_or_reset(dev, dw8250_clk_disable_unprepare, data->pclk);
+ 	if (err)
+@@ -616,9 +611,8 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	if (data->clk) {
+ 		err = clk_notifier_register(data->clk, &data->clk_notifier);
+ 		if (err)
+-			dev_warn(p->dev, "Failed to set the clock notifier\n");
+-		else
+-			queue_work(system_unbound_wq, &data->clk_work);
++			return dev_err_probe(dev, err, "Failed to set the clock notifier\n");
++		queue_work(system_unbound_wq, &data->clk_work);
+ 	}
+ 
+ 	platform_set_drvdata(pdev, data);
 -- 
-Sincerely yours,
-Mike.
+2.43.0
+
