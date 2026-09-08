@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C36A9560AB8
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9F6554086
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874191; cv=none; b=T7fSNfqxyv6nKlFUpvSPl50p3WFu4h6YMXERGHRZvV/kipG3XX2nsAAryJOsLVEercS9PxPDQRXi9M2lauIk6NBFrVFOABJ1C69+Xbp9ec/MaH84rrkBcPqE4SOeJgXp4GR2c+zftMZfXE0Y25QWZyzQvfUGEa8WAe/zc7jogsQ=
+	t=1788874203; cv=none; b=U22EcMgYgc1QgNEWiD+oPQYOB9YLz9KMD9T/qo2yS/tqIr79sz9KIVVFAG6FWLY6PXmuvI/TzzIPnB93pgYalx55tgJlxCoJWlokzUm/tixcw4Hdqqh9shOjNJ1Sp6IiGpepRBHGVcVzGwZruWswF23WFc8weCDOrTvKML6rBVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874191; c=relaxed/simple;
-	bh=QuwGrxrZQjIxm0I+5r7AKR224LwMuq3ERtpeX88Di3A=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kuFsqtLHpkvSF8gjf2Z9t52ce+DggxWuKc6Nje7ql8kGT7x+etUSAIP87blYS1cf6alWZScaeHvgUbWL2G04R33jdQsEjvlM9gZztouna5QvwiwdzAiRmqxfLHDcdiIAxWlcSJ+gVA8iwaddFXROIqi/zBuCTHM+gJVN54w9XQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qUN1+SwT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874203; c=relaxed/simple;
+	bh=kvZEjyPPFBG8bzsqRdnYBwCjIMRC5qhLcRTaUcZ9X2M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qd2f4vHJCpsiK6j5HuhuihK9kv8WNjn7ogXOrjY0dql7nMeO8TOV7zDPOS508mHH2j/YojN1lUObLgQn4FLK5qrp3SNuU75tKOaBuAT+gvoad9OKzxbBdxMAkPgjzkWF6YWKylfxh2zq0i4yNLJm+iTrL58Nd5gY/ch5CeECngk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MHS4oJYz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qUN1+SwT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CBD1F00A3D;
-	Tue,  8 Sep 2026 13:29:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MHS4oJYz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDF81F00A3A;
+	Tue,  8 Sep 2026 13:29:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874178;
-	bh=7Dj6seXRE+dbAaUzgbcXb7kP3lVDdBsMtI9SotfSUI8=;
+	s=korg; t=1788874188;
+	bh=BTTeezP1bL0ax/k/W/OL/oCsyl50dZmhmh3Xhfqagiw=;
 	h=Subject:To:Cc:From:Date;
-	b=qUN1+SwTkKwwRR4O0dTJzMt5EaD3YbW/pE9RoVnaLNsA2X5pZYSbYXX3I5kS4PCNy
-	 5qWlq1qJmBnXNGMkWD1v1NNN4z/mDidhZ/Srg4pwPPNps41MFT3KEM7TBjP/KnBAHk
-	 ApBJWixQcN4VXDetEZuTym4xYZNX6Qe8kEXdEOas=
-Subject: FAILED: patch "[PATCH] futex: Prevent rcuwait use-after-free during requeue PI" failed to apply to 5.15-stable tree
-To: yaokai34@huawei.com,bigeasy@linutronix.de,tglx@kernel.org
+	b=MHS4oJYzl5ds6lpqwvzC1IlAwmFdB90fiGukLxwGIhkWGW6QZYJTHP3dDXkthmuVy
+	 0zBqccGFfVMAGvH8bPrrEL0Lvo/t0cm4bOH451hkx39Gd7jOXJZV5+ol3WSgnc02Yf
+	 MMK8wGIWz/c1Sm1u5g/l43V3nplIquxw3WrHa0NM=
+Subject: FAILED: patch "[PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex" failed to apply to 6.12-stable tree
+To: bigeasy@linutronix.de,tglx@kernel.org,yaokai34@huawei.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:18:26 +0200
-Message-ID: <2026090826-jeep-tassel-64cd@gregkh>
+Date: Tue, 08 Sep 2026 15:18:37 +0200
+Message-ID: <2026090837-colonist-magnify-011d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x a3b8d46fe401cba3a5c46dea610e6eb3dc15370e
+git cherry-pick -x 912edebe8501a36c6bedcef03bd238ab90a7e060
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090826-jeep-tassel-64cd@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090837-colonist-magnify-011d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,96 +62,160 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From a3b8d46fe401cba3a5c46dea610e6eb3dc15370e Mon Sep 17 00:00:00 2001
-From: Yao Kai <yaokai34@huawei.com>
-Date: Tue, 1 Sep 2026 15:54:52 +0200
-Subject: [PATCH] futex: Prevent rcuwait use-after-free during requeue PI
+From 912edebe8501a36c6bedcef03bd238ab90a7e060 Mon Sep 17 00:00:00 2001
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Tue, 1 Sep 2026 15:54:51 +0200
+Subject: [PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex
+ scheduling
 
-On PREEMPT_RT, FUTEX_CMP_REQUEUE_PI can trigger a KASAN report
-(slab-out-of-bounds) in futex_requeue_pi_complete() invocation of
-rcuwait_wake_up().
+There is rt_mutex_{pre|post}_schedule() around
+rt_mutex_wait_proxy_lock() to ensure that sched_submit_work()/
+sched_update_worker() is invoked before we schedule out and block on
+rt_mutex while waiting for it become available.
 
-The futex_q used by futex_wait_requeue_pi() is allocated on the waiter's
-stack. An early wakeup can race with a PI requeue as follows:
+The reason is that blocking on rt_mutex assigns a pi_waiter for the PI
+chain and sched_submit_work() will also assign a pi_waiter if it blocks
+on lock but a this point we already have a waiter assigned.
+We can't skip sched_submit_work() entirely because I/O relies on the
+fact that I/O queue is flushed while it blocks on a sleeping lock.
+Therefore sched_submit_work() is moved before we block on the lock.
 
-        waiter                          requeue task
-        ------                          ------------
-futex_wait_requeue_pi()
-  futex_do_wait()
-    schedule()
-                                       futex_requeue
-                                         futex_proxy_trylock_atomic()
-                                           futex_requeue_pi_prepare()
-                                            Q_REQUEUE_PI_NONE -> Q_REQUEUE_PI_IN_PROGRESS
-* timeout/ signal wakes waiter *
-  futex_requeue_pi_wakeup_sync()
-   Q_REQUEUE_PI_IN_PROGRESS -> Q_REQUEUE_PI_WAIT
-                                           requeue_pi_wake_futex
-                                             futex_requeue_pi_complete()
-                                               cmpxchg Q_REQUEUE_PI_WAIT -> Q_REQUEUE_PI_LOCKED
-    rcuwait_wait_event()
-      if (atomic_read(&q->requeue_state) != Q_REQUEUE_PI_WAIT)
-       break /* no schedule() */
+Sleeping lock in this context means mutex or rw_semaphore not spinlock_t
+on PREEMPT_RT. Because the mutex abstraction on PREEMPT_RT uses the same
+abstraction as the futex proxy lock, the futex code ended up using
+rt_mutex_{pre|post}_schedule(), too.
+Using it is/ was just to keep the task_struct::sched_rt_mutex assertion
+happy. Futex proxy lock is used only in the syscall context of a task.
+At this point it never got any I/O that needs to be flushed and it can't
+be a workqueue that needs to notify that it will be scheduled out.
+Therefore sched_submit_work() does nothing here.
 
- /* q.pi_state->owner == current */
- futex_private_hash_put()
- /* return from syscall */
-                                              rcuwait_wake_up(&q->requeue_wait)
-                                                /* q is gone */
+By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
+get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
+because in this callchain the lock is (usually) not contended and so
+rt_mutex_slowlock_block() does not schedule, triggering the assert.
 
-futex_requeue_pi_complete() publishes Q_REQUEUE_PI_LOCKED before
-calling rcuwait_wake_up(). The waiter observes this state in
-rcuwait_wait_event() before invoking schedule() in rcuwait_wait_event().
-Here, the waiter is free leave the syscall before requeue task can
-complete the wake.
+Adding rt_mutex_pre_schedule() here looks wrong (as noted by PeterZ)
+because at this point there is a pi_waiter recorded and invoking
+sched_submit_work() with a possible lock contention would be wrong.
 
-To address this race skip rcuwait_wake_up() in the Q_REQUEUE_PI_LOCKED
-case.
-This state is only published by requeue_pi_wake_futex(), which saves
-q->task before futex_requeue_pi_complete() and wakes the waiter via
-wake_up_state().
+Add rt_mutex_futex_{pre|post}_schedule() which toggles the
+sched_rt_mutex assert and does not involve sched_submit_work(). Add
+asserts here to ensure that sched_submit_work() would do nothing. Use it
+only in futex proxy lock case which is rt_mutex_wait_proxy_lock().
+Remove it from futex_lock_pi().
 
-This wake is intended to wake the waiter from its futex_do_wait() sleep.
-If the waiter is still sleeping there, it can not get into the
-Q_REQUEUE_PI_WAIT state (and require this removed wake).
-Should the waiter be woken up from futex_do_wait() by other means (as in
-this example) and sleep in futex_requeue_pi_wakeup_sync() then the
-wake_up_state() from requeue_pi_wake_futex() will wake it, too.
-Should the waiter task terminate before wake_up_state() had a chance to
-wake the task then the task pointer does not become invalid because the
-futex_hash_bucket::lock is held and the task pointer is RCU protected.
-
-[bigeasy: Updated comment and commit message]
-
-Fixes: 07d91ef510fb1 ("futex: Prevent requeue_pi() lock nesting issue on RT")
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Fixes: d14f9e930b90 ("locking/rtmutex: Use rt_mutex specific scheduler helpers")
+Reported-by: Yao Kai <yaokai34@huawei.com>
 Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901135453.3121948-3-bigeasy@linutronix.de
+Link: https://patch.msgid.link/20260901135453.3121948-2-bigeasy@linutronix.de
+Closes: https://lore.kernel.org/all/20260717084922.4153317-2-yaokai34@huawei.com
 
-diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
-index 79823ad13683..b3f4a4bccb12 100644
---- a/kernel/futex/requeue.c
-+++ b/kernel/futex/requeue.c
-@@ -154,8 +154,16 @@ static inline void futex_requeue_pi_complete(struct futex_q *q, int locked)
- 	} while (!atomic_try_cmpxchg(&q->requeue_state, &old, new));
+diff --git a/include/linux/sched/rt.h b/include/linux/sched/rt.h
+index 4e3338103654..922935cc3383 100644
+--- a/include/linux/sched/rt.h
++++ b/include/linux/sched/rt.h
+@@ -52,8 +52,10 @@ static inline bool rt_or_dl_task_policy(struct task_struct *tsk)
  
- #ifdef CONFIG_PREEMPT_RT
--	/* If the waiter interleaved with the requeue let it know */
--	if (unlikely(old == Q_REQUEUE_PI_WAIT))
-+	/*
-+	 * The waiter in futex_requeue_pi_wakeup_sync() can interleave with the
-+	 * wake below: It will assign Q_REQUEUE_PI_IN_PROGRESS and here it will
-+	 * be updated to Q_REQUEUE_PI_LOCKED (locked = 1). The rcuwait_wait_event()
-+	 * will already read Q_REQUEUE_PI_LOCKED and skip the schedule() invocation,
-+	 * leading to an access of futex_q::requeue_wait after the waiter returned.
-+	 * In this case only we skip the wake here and rely on following wake in
-+	 * requeue_pi_wake_futex() to perform the wake if needed.
-+	 */
-+	if (unlikely(old == Q_REQUEUE_PI_WAIT) && new != Q_REQUEUE_PI_LOCKED)
- 		rcuwait_wake_up(&q->requeue_wait);
- #endif
+ #ifdef CONFIG_RT_MUTEXES
+ extern void rt_mutex_pre_schedule(void);
++extern void rt_mutex_futex_pre_schedule(void);
+ extern void rt_mutex_schedule(void);
+ extern void rt_mutex_post_schedule(void);
++extern void rt_mutex_futex_post_schedule(void);
+ 
+ /*
+  * Must hold either p->pi_lock or task_rq(p)->lock.
+diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
+index 88788e584ec8..98f1b962e59a 100644
+--- a/kernel/futex/pi.c
++++ b/kernel/futex/pi.c
+@@ -1070,17 +1070,11 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
+ 		 * Caution; releasing @hb in-scope. The hb->lock is still locked
+ 		 * while the reference is dropped. The reference can not be dropped
+ 		 * after the unlock because if a user initiated resize is in progress
+-		 * then we might need to wake him. This can not be done after the
+-		 * rt_mutex_pre_schedule() invocation. The hb will remain valid because
+-		 * the thread, performing resize, will block on hb->lock during
+-		 * the requeue.
++		 * then we might need to wake him. The hb will remain valid
++		 * because the thread, performing resize, will block on
++		 * hb->lock during the requeue.
+ 		 */
+ 		futex_private_hash_put(no_free_ptr(hbr.fph));
+-		/*
+-		 * Must be done before we enqueue the waiter, here is unfortunately
+-		 * under the hb lock, but that *should* work because it does nothing.
+-		 */
+-		rt_mutex_pre_schedule();
+ 
+ 		rt_mutex_init_waiter(&rt_waiter);
+ 
+@@ -1146,10 +1140,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
+ 		 * the
+ 		 */
+ 		futex_q_lockptr_lock(&q);
+-		/*
+-		 * Waiter is unqueued.
+-		 */
+-		rt_mutex_post_schedule();
+ no_block:
+ 		/*
+ 		 * Fixup the pi_state owner and possibly acquire the lock if we
+diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
+index 5d48d64725b1..eb18b094473c 100644
+--- a/kernel/locking/rtmutex_api.c
++++ b/kernel/locking/rtmutex_api.c
+@@ -423,6 +423,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
+ {
+ 	int ret;
+ 
++	rt_mutex_futex_pre_schedule();
+ 	raw_spin_lock_irq(&lock->wait_lock);
+ 	/* sleep on the mutex */
+ 	set_current_state(TASK_INTERRUPTIBLE);
+@@ -433,6 +434,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
+ 	 */
+ 	fixup_rt_mutex_waiters(lock, true);
+ 	raw_spin_unlock_irq(&lock->wait_lock);
++	rt_mutex_futex_post_schedule();
+ 
+ 	return ret;
  }
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..449ccd871be8 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -7637,6 +7637,17 @@ void rt_mutex_pre_schedule(void)
+ 	sched_submit_work(current);
+ }
+ 
++/*
++ * Used within the futex syscall context, skips sched_submit_work() because none
++ * its work will be done. Asserts ensure that it is indeed the case.
++ */
++void rt_mutex_futex_pre_schedule(void)
++{
++	lockdep_assert(!(current->flags & (PF_WQ_WORKER | PF_IO_WORKER)));
++	lockdep_assert(!current->plug);
++	lockdep_assert(!fetch_and_set(current->sched_rt_mutex, 1));
++}
++
+ void rt_mutex_schedule(void)
+ {
+ 	lockdep_assert(current->sched_rt_mutex);
+@@ -7649,6 +7660,11 @@ void rt_mutex_post_schedule(void)
+ 	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
+ }
+ 
++void rt_mutex_futex_post_schedule(void)
++{
++	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
++}
++
+ /*
+  * rt_mutex_setprio - set the current priority of a task
+  * @p: task to boost
 
