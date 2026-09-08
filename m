@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 790CA5328B5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896175328B5
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871410; cv=none; b=FLslDw21bjP9LeqtjlfGzPlTNvuUMYdXU8fQKntz3uAcRMyxgcJN/VVU7QaxemBFGYRgTjADhmYLD/xACPlbLbULPMz7B7cC95UJiKJpy0VyUGAcAKHQDeEz6BFdcI3aupwU4W+RXd+W2ngWHwv/EXtZacA3rU7xZ7/LNkhqSC4=
+	t=1788871413; cv=none; b=jPRXBwo3Tx6nS0/L288Lle37Dz0ZwTzn4PMiPt/zD/IT0Leb4M2tPbIDFOvF7Lsora3gqLaqLv61RXabelz3JwnCQNpudtNR1KLCXcc8nAq7d1QssIWdWTA7If7l5MvR7MxZDIH5iiRVMXwsIeYozAZOWEf41ZYm4YFhd4DSG88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871410; c=relaxed/simple;
-	bh=DTKOGPPu65eRLecbefW3UBHRKu7F9zL3p2nn2hdRNzY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pGnfJYum6E+ccIYtaj++bS8McoAC6ylgeA6NQ2fq+oWLqsziMTSdzB/KozaT+T6W+vUBMT14mOO3awi5k3/8Yq7ZgjwngEXKOqAHMledcy4igjw1R0rP50qyFavhJ1fU4VNeKoI2VlGjvolIQzWEMI4NfxDrTt+6EQPF4ii7M2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jjC60yho; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871413; c=relaxed/simple;
+	bh=9qWN5mwMEJjhQsRGuktGt+9hwlvAgug8nYZ/NuCfK/M=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Li4Uw9D2qaCsHMJBgZNA2ScvgMDrIALu/CsoVdVD5Renazjt9ZsiuBLQlk8TiDjsV12LdwwUZdN0TCPASqwc3ihonnPFPTUZ4A8mUbIHJAFiUPn7oUe/XQQnEY5HXiULMTsforrYvsf54+NeWDWWgsI0BaR8Z0Uqm0JrgTY4Tho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=HqA9OaE2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jjC60yho"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA0B1F00A3A;
-	Tue,  8 Sep 2026 12:43:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="HqA9OaE2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45571F00A3A;
+	Tue,  8 Sep 2026 12:43:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788871409;
-	bh=lOobEbg2K+yicPl8R38VPAbDZ4I4HhLxVaVS2e4Zlig=;
+	s=korg; t=1788871412;
+	bh=gWPeNUbo8w/yheWu6UkcsP0ARfq/we4ddPjdKZk9Ea0=;
 	h=Subject:To:Cc:From:Date;
-	b=jjC60yhoI4OdOyps9szA/3J5MFx07DDbdjOaBE3g362j+I9Jv1s6yCxi63x/GylCF
-	 fNR3mMmuSjwmn0Ne5FoABqDcxbs40BF4aAnbrL6g5lEAd/hpuOJCGH23WQ2aieiWZK
-	 HN23aO0FDed8Agq2HI+5tdsTcddAkmpBG6iup8IA=
-Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 5.10-stable tree
+	b=HqA9OaE2416ZgbJmS7KTbkbrheUYo9SOGJb7XVVE1e6IeztQBfK1DccauXN0yldSO
+	 +6eW7IGQBSsQVSmVfrFji4qsi5d6QNmBWu6u81hxFxtgG3WwDsFtQWkF2LTZFENEr9
+	 dIFaSs0TPe+94b4qX7j6ovM9QchQjk2i7Vk0IpsU=
+Subject: FAILED: patch "[PATCH] xhci: fix lost bounce buffers on TDs spanning several ring" failed to apply to 5.15-stable tree
 To: baloo@superbaloo.net,gregkh@linuxfoundation.org,mathias.nyman@linux.intel.com,michal.pecio@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:43:13 +0200
-Message-ID: <2026090813-valuables-reuse-daab@gregkh>
+Message-ID: <2026090813-undocked-untwist-c0a8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x ff44dfb03a293bf30e31f98772a1dd316a6071d1
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-valuables-reuse-daab@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090813-undocked-untwist-c0a8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
