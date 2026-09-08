@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7B158F070
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0FA59651E
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890148; cv=none; b=FeR96Fn/E7WFGXhL1KX2y4F3VJPaCylsgiiwV59uskWJmCnD1KOIMrN/7e5U1n6j+SazEsU9Dbubx24HlbID87g/KAG6pumu7LsxFVlAwcxFu02cdptInq3U0o29djlwBUvi1MWqwvYEFEz06AZ6sfLwNT+SfFNXkiZ3K5FtQUc=
+	t=1788890149; cv=none; b=AUiPwXqU2MzYEnD2GcSRAJEY2XT3o4BHEyapCqYdgnschYUgvLD/ZmsrIRlpTIGDelMFPUwmr9dIhHZ7WJgFiO314N88ww0PC7be9r7IExtSu3BjqMaLZ1WcdvkaX84pBc8vxuGsOzro5P9K4jaGELs2kl76uOr4Amf353tlKyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890148; c=relaxed/simple;
-	bh=uOnpGB1EjY92DLzG5VdI0mv22ORBDIgXGtYLy/YtsR0=;
+	s=arc-20240116; t=1788890149; c=relaxed/simple;
+	bh=6keHv42tot1LKeJR1Pmr3gldQHcodZvfO7dwkGqh92o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iYMtDrfU8q79C0TfDctG5+XGmzAf161o0+Wv140cJQTmw4Y1NKRZRAp/0ZccVNsw9bwSc4CpIvToMfk7T63iNv9crmDs+lEo58oLujqLgxkJg2Mex+YHWkBnv46n4JqHSaqoousl1xo5KHCnB3vTdDZE+ZX3Tul10jbU79qwnzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bfXjvvWf; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WVJCG97V4M1YhiiWpnV52xwoG24rRglsiwzGSXzzWaxIWdCPL8YKH4xj0P8CVslzL8i7lqJ2FEndqy0TBzWOI4LKMzgBf1YRjJZnFQKF8BUG0QSRrSMg4lkU8ZfbhDfi6Wa1L6JtphMAoBzh09mGucFb6ikEiuvKWghPBkgMsY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XUWm1TS9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfXjvvWf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 826DA1F00A3D;
-	Tue,  8 Sep 2026 17:55:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XUWm1TS9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66C231F00A3E;
+	Tue,  8 Sep 2026 17:55:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788890147;
-	bh=B8R6HfQwTnr40kg9N6vTgVC1Kg+vdh7WO5m6+qxEDnc=;
+	bh=KFKkijQkmI4OJq9BM32Gm5n1W3J4ElPPUaPZG3znx3E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bfXjvvWfEkqKZL8CoRzw7YTKXdDL5FJG7xdDp26Jfk8fbiGtd3jUVwGDsmeU+LQAf
-	 H7lQtjJmyM4FGAYT6Wq1TY8SmN+mfuxXs2LKnYT8P8lCDxOkHgnqUIX8Ey3cfSqxhe
-	 RDvCM5F0GkbOK19IAb6uvuxccpMkS4ML+TVhl/rdfnhhsHiSdA++c+ztrUPfX14QYF
-	 jF3CMYqv3AOM143EDLouzkZ5QP3EG8hSWMlFbCtc7oaRzRttnpxANT4lwpV2NOIt6w
-	 XHuXdegZ41vOX5oGWMlocZuhd9luCqpfDP3HyUXEyeiQBWy1bSarMry4bFu5Ce7y/0
-	 8eZmxCraJwi5A==
+	b=XUWm1TS9biZIimYGcu5Rwh+WaFIcTfjcpqXdwpq8pMjaByGjks32R4YsHMxE3riIj
+	 xAlmkqqN8Bk4Dadtf2x1c6G5ZiDZQGXKZXgQX1m2aXruEcckXWL6rJ5Ud8NoxjQRQg
+	 v00EZYL0y+/Q+HO4zWg4TjreENxUiSFSusd6SFLVTk9E2BZQ/zSVTzhlR9Pe+xQ9Tt
+	 XG9r/X3hqY/RdA/xnpzWf3BQVTb1wV/wKWEm5W2hLi0bT1xf6GdQ779ErN8/eieQXq
+	 v07trNBa+e7QupiLfEdgSuBDetFSsWaIvrjCkFFq0rEyDmsCVnqtwNStTfWay4kzQb
+	 gUrx5RolbVsAw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jiacheng Yu <yujiacheng3@huawei.com>,
-	Petr Pavlu <petr.pavlu@suse.com>,
+Cc: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] params: fix charp corruption on allocation failure
-Date: Tue,  8 Sep 2026 13:55:41 -0400
-Message-ID: <20260908175541.151692-5-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/4] SUNRPC: Fix crasher in unwrap_integ_data()
+Date: Tue,  8 Sep 2026 13:55:42 -0400
+Message-ID: <20260908175545.152676-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908175541.151692-1-sashal@kernel.org>
-References: <2026090331-stays-casually-f049@gregkh>
- <20260908175541.151692-1-sashal@kernel.org>
+In-Reply-To: <2026090352-custard-sports-0e17@gregkh>
+References: <2026090352-custard-sports-0e17@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,81 +45,137 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiacheng Yu <yujiacheng3@huawei.com>
+From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit 3dfaae04243cde460d82dfc2a7dd0bb6664d20ae ]
+[ Upstream commit 4dd9daa9124aad3c3d4ceca4f1d417cc62d59156 ]
 
-param_set_charp() stores charp parameters in allocated memory after slab is
-available, and releases the previous value when the parameter is updated.
+If a zero length is passed to kmalloc() it returns 0x10, which is
+not a valid address. gss_verify_mic() subsequently crashes when it
+attempts to dereference that pointer.
 
-The previous value is released before the replacement allocation succeeds.
-If kmalloc_parameter() fails, the setter returns -ENOMEM with the parameter
-left as NULL.
+Instead of allocating this memory on every call based on an
+untrusted size value, use a piece of dynamically-allocated scratch
+memory that is always available.
 
-Failing zswap's compressor update before zswap is initialized can later
-trigger:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  RIP: 0010:strcmp+0x10/0x30
-  Call Trace:
-    zswap_setup+0x3b1/0x490
-    zswap_enabled_param_set+0x5b/0xa0
-    param_attr_store+0x93/0xe0
-    module_attr_store+0x1c/0x30
-    kernfs_fop_write_iter+0x116/0x1f0
-
-Allocate and copy the replacement first, then replace the parameter value
-only after allocation succeeds.
-
-Fixes: e180a6b7759a ("param: fix charp parameters set via sysfs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiacheng Yu <yujiacheng3@huawei.com>
-Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
-Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Stable-dep-of: a919c5c88769 ("SUNRPC: svcauth_gss: enforce krb5 token minimum length")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/params.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ net/sunrpc/auth_gss/svcauth_gss.c | 55 ++++++++++++++++++-------------
+ 1 file changed, 32 insertions(+), 23 deletions(-)
 
-diff --git a/kernel/params.c b/kernel/params.c
-index f6d11831749be..12fb187ebf63e 100644
---- a/kernel/params.c
-+++ b/kernel/params.c
-@@ -265,6 +265,7 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
+diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
+index df0b8b1cdfc45..75749125f2e3d 100644
+--- a/net/sunrpc/auth_gss/svcauth_gss.c
++++ b/net/sunrpc/auth_gss/svcauth_gss.c
+@@ -49,11 +49,36 @@
+ #include <linux/sunrpc/svcauth.h>
+ #include <linux/sunrpc/svcauth_gss.h>
+ #include <linux/sunrpc/cache.h>
++#include <linux/sunrpc/gss_krb5.h>
  
- int param_set_charp(const char *val, const struct kernel_param *kp)
- {
-+	char *tmp;
- 	size_t len, maxlen = 1024;
+ #include <trace/events/rpcgss.h>
  
- 	len = strnlen(val, maxlen + 1);
-@@ -273,19 +274,20 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
- 		return -ENOSPC;
- 	}
+ #include "gss_rpc_upcall.h"
  
--	maybe_kfree_parameter(*(char **)kp->arg);
--
- 	/*
- 	 * This is a hack. We can't kmalloc() in early boot, and we
- 	 * don't need to; this mangled commandline is preserved.
- 	 */
- 	if (slab_is_available()) {
--		*(char **)kp->arg = kmalloc_parameter(len + 1);
--		if (!*(char **)kp->arg)
-+		tmp = kmalloc_parameter(len + 1);
-+		if (!tmp)
- 			return -ENOMEM;
--		strcpy(*(char **)kp->arg, val);
-+		memcpy(tmp, val, len + 1);
- 	} else
--		*(const char **)kp->arg = val;
-+		tmp = (char *)val;
++/*
++ * Unfortunately there isn't a maximum checksum size exported via the
++ * GSS API. Manufacture one based on GSS mechanisms supported by this
++ * implementation.
++ */
++#define GSS_MAX_CKSUMSIZE (GSS_KRB5_TOK_HDR_LEN + GSS_KRB5_MAX_CKSUM_LEN)
 +
-+	maybe_kfree_parameter(*(char **)kp->arg);
-+	*(char **)kp->arg = tmp;
++/*
++ * This value may be increased in the future to accommodate other
++ * usage of the scratch buffer.
++ */
++#define GSS_SCRATCH_SIZE GSS_MAX_CKSUMSIZE
++
++struct gss_svc_data {
++	/* decoded gss client cred: */
++	struct rpc_gss_wire_cred	clcred;
++	/* save a pointer to the beginning of the encoded verifier,
++	 * for use in encryption/checksumming in svcauth_gss_release: */
++	__be32				*verf_start;
++	struct rsc			*rsci;
++
++	/* for temporary results */
++	u8				gsd_scratch[GSS_SCRATCH_SIZE];
++};
  
- 	return 0;
+ /* The rpcsec_init cache is used for mapping RPCSEC_GSS_{,CONT_}INIT requests
+  * into replies.
+@@ -887,13 +912,11 @@ read_u32_from_xdr_buf(struct xdr_buf *buf, int base, u32 *obj)
+ static int
+ unwrap_integ_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gss_ctx *ctx)
+ {
++	struct gss_svc_data *gsd = rqstp->rq_auth_data;
+ 	u32 integ_len, rseqno, maj_stat;
+-	int stat = -EINVAL;
+ 	struct xdr_netobj mic;
+ 	struct xdr_buf integ_buf;
+ 
+-	mic.data = NULL;
+-
+ 	/* NFS READ normally uses splice to send data in-place. However
+ 	 * the data in cache can change after the reply's MIC is computed
+ 	 * but before the RPC reply is sent. To prevent the client from
+@@ -917,11 +940,9 @@ unwrap_integ_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct g
+ 	/* copy out mic... */
+ 	if (read_u32_from_xdr_buf(buf, integ_len, &mic.len))
+ 		goto unwrap_failed;
+-	if (mic.len > RPC_MAX_AUTH_SIZE)
+-		goto unwrap_failed;
+-	mic.data = kmalloc(mic.len, GFP_KERNEL);
+-	if (!mic.data)
++	if (mic.len > sizeof(gsd->gsd_scratch))
+ 		goto unwrap_failed;
++	mic.data = gsd->gsd_scratch;
+ 	if (read_bytes_from_xdr_buf(buf, integ_len + 4, mic.data, mic.len))
+ 		goto unwrap_failed;
+ 	maj_stat = gss_verify_mic(ctx, &integ_buf, &mic);
+@@ -932,20 +953,17 @@ unwrap_integ_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct g
+ 		goto bad_seqno;
+ 	/* trim off the mic and padding at the end before returning */
+ 	xdr_buf_trim(buf, round_up_to_quad(mic.len) + 4);
+-	stat = 0;
+-out:
+-	kfree(mic.data);
+-	return stat;
++	return 0;
+ 
+ unwrap_failed:
+ 	trace_rpcgss_svc_unwrap_failed(rqstp);
+-	goto out;
++	return -EINVAL;
+ bad_seqno:
+ 	trace_rpcgss_svc_seqno_bad(rqstp, seq, rseqno);
+-	goto out;
++	return -EINVAL;
+ bad_mic:
+ 	trace_rpcgss_svc_mic(rqstp, maj_stat);
+-	goto out;
++	return -EINVAL;
  }
+ 
+ static inline int
+@@ -1023,15 +1041,6 @@ unwrap_priv_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gs
+ 	return -EINVAL;
+ }
+ 
+-struct gss_svc_data {
+-	/* decoded gss client cred: */
+-	struct rpc_gss_wire_cred	clcred;
+-	/* save a pointer to the beginning of the encoded verifier,
+-	 * for use in encryption/checksumming in svcauth_gss_release: */
+-	__be32				*verf_start;
+-	struct rsc			*rsci;
+-};
+-
+ static int
+ svcauth_gss_set_client(struct svc_rqst *rqstp)
+ {
 -- 
 2.53.0
 
