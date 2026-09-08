@@ -1,145 +1,116 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BBC51A72F
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 10:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863981; cv=pass; b=gb2ZHxLeJ4/FLGadiZc6r96zTcVpneX+x3hJsjauqMs/1ci8WrfAMOytJP9HYljf2WfjdTpf05G1UZp/KAFE5xMXwuNa2x9iKvGqkAsmaWAhs84B+a9IC3eD10+LcQW4xYpwxd1lfYbzuPqasCuBVNWdZGw9/1qdf71zTJN55ss=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863981; c=relaxed/simple;
-	bh=tt+pGvMYz1FVN4+bRmcox4/aVEQq4bCQPvkvBGNFnW8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GRmVYiCJe+Ghm/a/kOE0D/JOzi9jcL5oPQdMqBwRND+3IGNofOKoBvNNYGMq3P4MheVxZPEeqF4H53UJ79ZKfUc68nTHhyKtN06OVnmFjlgE5+h8y7RRuAio9Ed3Ze/flNzxLgyl+0MpMJKpo1SfZRc2bEB/pEZ6+KVgvrh+SqU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qaeuMiFe; arc=pass smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066E043D4FD
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 10:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788864564; cv=none; b=H2SrpRR+2i7iSI/W4zseICglaYctgrIFnUa/FN7/p3wh634LgriKHEOsNwCnZ2xYyyL+V8uLWPZFmwi8JfgnpDqgu3FZGMYOpsQ9G6zMaqpvPp5k0N1pOJmaIzED1MA854uSRSqJ97zotzzodBy8u77vsBabuu73S14tUcpi6n8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788864564; c=relaxed/simple;
+	bh=Ne1vkINJENsZAMIm7hAepT/1OfoBokZdtmvNYXcq5Zo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Tl3EO+HA7zb5tcKUof3MCeyL0qNPSCbvPxGQtmUIKbKjd1U9YCkQEVeLfFwjsjxFzmJ6DPsNj23VwH+KcokFQOr7VDzodn7HvWopTYJIu47JCKCADlYH5AyrUsRpNYea2gtYHb2n2/HszjzkFy0FVI5KV0dvT1YWFS+noKqUKrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IGodmZvA; arc=none smtp.client-ip=209.85.215.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qaeuMiFe"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84e27035206so4073836b3a.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 03:39:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788863979; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MzFeXLvD8bvQy988Zq9FdIC2Tq9ogzg4hE6wdZdvz8W+mf+kmXYjQDZ/aIB7TEPSd0
-         z6vWjd9KzQarLxLX7lf6NsCNuCJcD5L5prEiu1xmP6w5YyJA7YYPv9n466kTJrA0Op09
-         YTIJ5V68k4sWGTN/nH2vSCVT+TwDZUi94Ozc578lSn8BmKDQGVlIV25bCTRJOm2ajzf5
-         k/Jv1MqzeRxAi7iJE5YFI3JV3BPpRLxs01R3LeLUzJbv9ireIvYzt+NYBd51ZdnzzTcG
-         /bKXWOfEzHcEGfeET5ePtdz478S+Eg1hyxOosCIrpVLls1kVyvSTIarK/vdQt6WjRI0/
-         TV9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jl3T9yA5icn0kDud2YKhOUFI5zpsByTY26KMtyiXHpU=;
-        fh=+SU5J00lZQHhBwdgH5q2yzUqIKUg/w8wsB8vHah+Klw=;
-        b=nZnuuTr2XNGaL+XhOXzNOumJpjxrJZE9Feiq8qmlH9rtCMyrfWA5LK8qmFW36KhoPz
-         0t1GFQoS2PSij6+4RY6IlffZFqKvdr6ZV5SY2ei46cuD5vu2CGFCPqnX3W5tgXBgxPwO
-         WyYQvFYGbBneLneeAXR8LqWRXGc9Wbj1MdQIoA79SpkWRFlC0ofBAwXCiHUrmKuIBZJF
-         CGQVFFrgEqPdWocC74GJFSnJHqjiUtY4aSIL9Z5jNkyABUn/Qj0Q82rWWRHSeXwiVTRe
-         XdRb6suBbhl5Tm8B7p/7ZAhVwVMpAcJPwNCINGDkbVeua6oMVzNXWWG5sN6vIQRWV3zy
-         dpiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IGodmZvA"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4456986a12.2
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 03:49:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788863979; x=1789468779; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788864558; x=1789469358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jl3T9yA5icn0kDud2YKhOUFI5zpsByTY26KMtyiXHpU=;
-        b=qaeuMiFeZ6gorAS/l9kOotuRrGXyP1K30N0J9ziMvCVKvHiYBt5am2ORgPTzOFC7UD
-         nGXcdkQkfobSIhW0z9zy42lDFW240VrasF71CW+rkMKJ+bsQkkFOXF0SzwTwC3CAdov1
-         PAbh3QzvMQ/fdzoTVxLdSrSPU5EnYb58drW/eonBT/fS6ctvdG6qHho03fl1xRhQRwRf
-         Qji4NrdVhuJOpPA9L8gxxlsmfn5WksC5thP+3vdtPih9Xs8hMANlmDIdVCaqbKAM0iWW
-         2G0em4gDehh+wi6IgTsT55egea4iVrOXU+Stcs8WHz05vM5S160AadyW0bqAyMf3J1gl
-         /8/g==
+        bh=H7Reb5/FkRfbcDYcZ4Sxy1Xn1C7+jIuC2a5ZFlPXPUA=;
+        b=IGodmZvA8zHUdTKwjS1kH1/tdI+GBkIGUwbPGJ1iz1xKR30bpBK5+ZnPmU6RAf7KJC
+         UVaihVdGHVUevZ5d0v90pcJ43/C8+PwEta8aXtJqzmaGLoow5lfOVgln00UrHF7wSayj
+         t2YIqvk7kBas2d37cwU0Kl5XjjjxIeNG3UoWy9zBTh0hfYc5MdE3oktboM8/g4PTUVYg
+         YottqO3WA872WAAM0k6OpPGuE4Kz3POcJCBpRqZvOQqy4/jthgfs7MRHCjqLqJu6BYRc
+         wI8ibzH82a5aOrrafYZTVlYXvXSZn/Vi2MZwHtPk36HwEIcsuTYOugO8FKEJKGGLlwym
+         XksQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788863979; x=1789468779;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788864558; x=1789469358;
+        h=content-transfer-encoding:mime-version:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jl3T9yA5icn0kDud2YKhOUFI5zpsByTY26KMtyiXHpU=;
-        b=N92USp2QEs/bO4amYbbE3ZYYFAAvNPwxoGp6bCLISrQ7Ptq4kp6NjUd3bcNrJRyveo
-         X8E53t7+9KMXE2ktkUuOjex3J78bhIAkElE3njcNt2QuLMRCmjGFklqtpg2zLcxLBZgm
-         zxJKn45NZtkaVGePK0SwVgvsynG0itHSkOryPhnnEV3oPOjmdbN8BCnkBClWUiKa86te
-         jfNR16dqP9B1J6jVVb9cTG/9XgqbWeql0Vzqh1TKvGJ+erHVU/OXGqoHX0I9EEtdrBA1
-         LAtDbc+i3aovHr+1JGkusFja3pN9tf6fPmU+65wIxeMHb9rbZNtolSTicM+lNQ9XbMce
-         uG/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwLR3rtaC8cOWO0e/oclOkQbl5m7XERy4adViFY7zltOhBYZm/FUhpZ+S3n8Z8IUQBvUgtYjK4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l45k+61z9MGpraV/QJjLSJ5zIykAw7FplViHH5Gc/vPP2mLfTD
-	K6McqWMFP9BIirQA43Q//XKHLtUKAAciHj2sXLxIpWcEpOXOv8bv6pOJlqF4PmNQW95WzpgUvfG
-	MRQ42PKhVQtI5/cfDYuyfs9jIXI6xeoI=
-X-Gm-Gg: AYBFou1wvTQ/8TiEJ9ySldRIP12tGIMBJhRVIfMr5Z9xtsCcdmfhm5p9wPpG2NCyv5L
-	XK8CJOne5/SsQrsIcdJoBUBdAOTeeFIAKZI8nM2IiCj+rnZMjuW51DDiqI0AjP1nnDH8pEpvreC
-	d0uKBiyNHphVqYXpzpfK0l+b8E2ao7NMK+qiZcRltoUOdGH+kjVcuwWVwBEZaciYzslTh74PhdD
-	9Wdm2/5mQudRlQi9YcrApMrYIfaZATYuk1HJqYda94dn8pzY5Zqf6FKV57HuxmifE1xRfgrX3zo
-	5bInT+Nz/6/PlCkv03BuoLgDcbbTM1vUcsumN76lfEFmSPt91yo5J9REoM70CiYs0yl6R2bi0oJ
-	xCwpnKNsFkKUpop200kNDIl56v+gcoTurAp4EFlU8Dq09jFTolPuIV7N5
-X-Received: by 2002:a05:6a00:c1c6:10b0:847:8449:2ba6 with SMTP id
- d2e1a72fcca58-866b2eace9bmr6165210b3a.8.1788863978907; Tue, 08 Sep 2026
- 03:39:38 -0700 (PDT)
+        bh=H7Reb5/FkRfbcDYcZ4Sxy1Xn1C7+jIuC2a5ZFlPXPUA=;
+        b=RzE6O13NIQ3HitiLuR3kG9gV7y+VH3Kf59KRzpV/DtV8HmYGiP3p6AnlYbOot5LAM9
+         rnevoZu3xKMTUPBFWUPOittvKXbaP3lHtaYFV8TNRn+32u04Nte1Jzxl20s55gNAzIfd
+         4hgp/EOalErAUqzPsejh+GOmhxL52Fx9VnCnhtRIrQEkJtX7i765zMetynwnlU5HQz6Y
+         F8BbiLhTybONPxyUQFNuuEZ4RUy/2hTjTcIE1d/i3VeKN2DaE4+mbBNYqyDrsRa3DYJs
+         cBNeQdUJuEteaJ0Z46PSrbMkNMEmePr7FOdaTbJSFhv7dnDHR954lMyO8ZfstG06BTad
+         gUVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxySCtBKAxKw90RMw21nDWZEktX5JqJoleEmLKm+9Z/UblE2T4Db+nBwXhcWHclzRjMRm11sUE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqTktzf0sOO4KXiXEJRnYoOEDW8BfXK7YemQmoSiH6tfyIgT72
+	6Hyw/58Zn6HmjWbyhqI11YkBI5+A0Dbtm/aYWL9vyoDqi9Byxckml2w=
+X-Gm-Gg: AYBFou1NU6fAzJFOIibrHG8P6WXkqs/YVLXztYadpPsim7VbHWyex85445Gl0pWKhjh
+	XRbDMfGUR6nU3qLHAmKV9YbJH1yi9qXhGQvTrNDwap1Brjwh45TvMYCusYN1SqD1gMfnvVPqmF/
+	2NZ2kiHm9CJ1eBGF8oDu7YlLSUtyPeBo2mMJCrunO00e6nf14MdBn+dhe7DTUilujsz+7+gd79o
+	RaTu3cPFdi0bkTubC07bC1vghCgAio4lvMz6I/wKLCNRXCY1crx0ce1YUhsK3bMxQCDYUBIKtPM
+	ruNNI2pZozGp15NAR7rEE7+O+0i59mxbZNnepRUZlN6umL/vdSbWb+VNsDvyKjsRy4giojHCWi2
+	uK19Ffkwl7bR7p7e9mz//ByeJTOYiX2z5qacITEM/I4mtq/kmziJ/ugeQ8uqirJUlZVs+T0sAp0
+	MpAMfjQmYEp7nK5LPi/gFiYKmsVMGb1lB/xh7Rdw4oCBxzkuFRN4DyCwgj/VKByRNcFNHNVVm3T
+	U6dUmUbhl82wi1ILDf5w0Xqy0k=
+X-Received: by 2002:a17:90b:39ab:b0:398:9be8:ea68 with SMTP id 98e67ed59e1d1-39b261da75cmr43885301a91.21.1788864557719;
+        Tue, 08 Sep 2026 03:49:17 -0700 (PDT)
+Received: from MalHyuk.localdomain ([211.201.32.99])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260f64ecsm26116182a91.8.2026.09.08.03.49.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 03:49:17 -0700 (PDT)
+From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
+To: christian.koenig@amd.com,
+	phasta@kernel.org,
+	tursulin@ursulin.net,
+	matthew.brost@intel.com,
+	dakr@kernel.org
+Cc: Jonghyuk Kim <malhyuk97@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	mdaenzer@redhat.com,
+	alessio.belle@imgtec.com,
+	luigi.santivetti@imgtec.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a use-after-free
+Date: Tue,  8 Sep 2026 19:49:10 +0900
+Message-ID: <20260908104910.183638-1-malhyuk97@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com> <20260904080618.2098450-2-malhyuk97@gmail.com> <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com> <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org> <a41a35b8-c78b-4c18-af11-26374918f222@amd.com> <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org> <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net> <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org> <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net> <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org> <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net> <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org> <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com> <299ef4389875fe1333bb934edcece3bee5c5526b.camel@mailbox.org> <825c1f02-b9ad-4160-8e4b-53f2393a7bff@amd.com>
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
- <20260908-fec-ptp-pps-event-uaf-v2-2-2a1d57121ade@cherr.cc> <CAABR9nG49YgFejWRAkJrCcXF8p03A=HwWhbetmoHSjk_L3h9Gg@mail.gmail.com>
-In-Reply-To: <CAABR9nG49YgFejWRAkJrCcXF8p03A=HwWhbetmoHSjk_L3h9Gg@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 8 Sep 2026 17:39:27 +0700
-X-Gm-Features: AcwNN1UgTF6tGEUV4riCUxY5ZHDu-I4a8KfbZKcCu4UtgQm8VpsUF5cE-CTt_a8
-Message-ID: <CAABR9nFg-V9XoNTt=dKCeAmXLECrZT0hPdxwEB4ONKV3kB1BHA@mail.gmail.com>
-Subject: Re: [PATCH net v2 2/2] net: fec: free the PPS interrupt before
- tearing down the PHC and netdev
-To: Shengzhuo Wei <me@cherr.cc>
-Cc: Wei Fang <wei.fang@nxp.com>, Frank Li <frank.li@nxp.com>, 
-	Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Troy Kisky <troy.kisky@boundarydevices.com>, 
-	Fugang Duan <fugang.duan@nxp.com>, Lucas Stach <l.stach@pengutronix.de>, 
-	Simon Horman <horms@kernel.org>, imx@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Sorry, I got this wrong.
-Please disregard my previous comment.
+On 07/09/2026 17:21, Christian König wrote:
+>> Maybe Jonghyuk can give your patch a test run and then we could use
+>> it as a hot-fix to backport
+> 
+> Completely agree.
 
-On Tue, Sep 8, 2026 at 5:13=E2=80=AFPM Bui Duc Phuc <phucduc.bui@gmail.com>=
- wrote:
->
-> > @@ -861,6 +865,12 @@ void fec_ptp_stop(struct platform_device *pdev)
-> >
-> >         cancel_delayed_work_sync(&fep->time_keep);
-> >         hrtimer_cancel(&fep->perout_timer);
-> > +
-> > +       if (fep->pps_irq >=3D 0) {
-> > +               devm_free_irq(&pdev->dev, fep->pps_irq, ndev);
-> > +               fep->pps_irq =3D -1;
-> > +       }
-> > +
->
-> I noticed that fec_ptp_stop(pdev) is called only from the failed_init
-> error path in fec_probe():
->
-> failed_init:
-> fec_ptp_stop(pdev);
-> failed_reset:
-> ...
-> failed_ioremap:
-> free_netdev(ndev);
->
-> There are several other error paths below failed_init that eventually
-> reach free_netdev(ndev) without calling fec_ptp_stop().
->
-> Since fec_ptp_stop() is currently responsible for calling
-> devm_free_irq(&pdev->dev, fep->pps_irq, ndev),
-> could this result in a use-after-free if the PPS IRQ has already been
-> registered and one of these lower error paths is taken?
->
-> Would it make more sense to handle the PPS IRQ cleanup separately on
-> these error paths, or,
-> use a devm-based approach so that the IRQ lifetime is managed automatical=
-ly?
+Ran 0001 on v7.3-rc1-99-g89a312991dc6 with the KUnit regression test from my
+v4 3/3 (mock scheduler, KASAN, no hardware). Without it the test fails with
+
+  BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name+0x9c/0xb0
+
+and with it applied it passes. Reverted and re-applied twice, same both times.
+
+Tested-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
+
+Two things it doesn't cover: it's x86 only, so nothing about the load ordering
+you discussed; and only the signaled case - for a fence exported before it
+signals, get_timeline_name() is still reached and reads fence->sched->name.
+I haven't tried to build that case.
+
+Could you add a Reported-by for me when you post it? I'm happy to drop my
+v4 1/3 in favour of this, and can respin the KUnit test standalone so the
+fix lands with a regression test.
+
+Thanks,
+Jonghyuk
