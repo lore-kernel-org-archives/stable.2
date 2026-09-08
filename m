@@ -1,166 +1,159 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA80A46EF65;
-	Tue,  8 Sep 2026 22:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23684854F6
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 22:54:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907932; cv=none; b=qyuJt3x5epJtu09K6ki3p0j7c08zLjqe+d7Tttxw4il2AiI5/UyiAprTRzVBvvO+A9YSMc5ampPz1Co/1//JLLxt6vRnArKAmC/3rb03I8lJBSsdWZSNKVUy91TUzStJyVBkPCd6UowywwVjOPOOw9eBXEJDhSwDjhqi8XxVP20=
+	t=1788908047; cv=none; b=LqpvOWuezW7quLOUrSsozl1dJvRzfMTljQBLyurGBndlpQfTRRbT4XLK8EOtumMN3D/6gelSU21wEBWACEXKyIlDkuPH116jHysv+TOPxwFVOlQGkjepG0y44LOtZ8+Ujs+xXRcJ4GrzDbnnCfi7ZOIQvsI7X+7nRPSvP/DXKSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907932; c=relaxed/simple;
-	bh=tG4VSSvErh6tfAQR+To6UqCegD+Q2x4RJ4/NdEiufYs=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=hjH8l2dz2NcoBDbqK3CKuKHkRm4OlGcB7W/m28ZC+jDrI2bRNMfVhmbK727w19fCo2HZxc3DwNhwEpLhx+7/Nc9c2G7RSCks8X9HEHxt0KJ8ldQ3qEnYNpvm/Ltzr3pmGvAD91b0LHxQSsCIV7LNFC+OxHyME5SL4iAYxYL9eF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rxTisgea; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=GUW2YQ0W; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788908047; c=relaxed/simple;
+	bh=mQ/MoC96/gYtvtlsm26R4ObjM0FA7CPk/rr/6pUfyw8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E8/W2kIcBphVkaGm5Z80fEOS5yRPX9pm5bz///7ag/NmDsy3RoNODXAMhKHDJyz6HrcTPcRPgebWDTqM6BYl87DqppR/EXrMzbLJYhBKMdi6yUDimAcnvdJ6JcgtiyU0AO4n8k9Gr2v3+gwlSK32YAz7O4KvLL8mQ+k2jqomF2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLRAktZx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rxTisgea";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="GUW2YQ0W"
-Date: Tue, 08 Sep 2026 22:52:04 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788907925;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w1Dzqpva4AZ5rICn+MME7nr+BrlMjsYq6N2EZTgC93Y=;
-	b=rxTisgea4E7zW4J1lIDxMv3fXFiv1pqUKxz7yQzHzmdZ5VuM26m9qbezBe65mHCbmMxzsJ
-	h8xM/kYJbPCvNJ0a+Hp04OMQBk/3Gt1bOaaMMNODFdgliC/IBAiJsetOBxU8xYhWJGiTu2
-	I+Gh/GdoLfsLCAhkihUJCzt+A9oONCUnyfqweIrJhciFAe3ML+JDGBTD193PyuHH4+rfmJ
-	NMJOV7V0x6xTl3d+gv4DGzWcdfCsUWrfwXHDa/TMBJkFrn+toNX5C2D3LRLST6KF1N8Euu
-	/YvKyielLHl305n1bl2NOWFmil4TTUK0M5IzTllgutLxyiEBqC/teQWfmEMwNw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788907925;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=w1Dzqpva4AZ5rICn+MME7nr+BrlMjsYq6N2EZTgC93Y=;
-	b=GUW2YQ0WYfxDPK2NEWQ4IeKuZqyT3o3J+uUKvv5vuMkSPxCSsa/QCby9YpWykFNV9Eam83
-	ZQ7FkptVelO0SSBg==
-From: "tip-bot2 for Mike Rapoport (Microsoft)" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Juergen Gross <jgross@suse.com>,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, syzbot@syzkaller.appspotmail.com,
- Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLRAktZx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C49A91F00A3A;
+	Tue,  8 Sep 2026 22:54:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788908046;
+	bh=kjqr+DbiTfNtzU/eV+cPXkxxGRbKXya9ypK1pNLmU/Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kLRAktZxHfL8BSShkqaGmjortFYYJybRbpWiMYxIeQWbB9rokEq9OiJeG+Gsb14kC
+	 vDlz+ECxj8GRmgbci+y5M6Bmmv7zU3K5vi96vxKifYhbTx5xgUkNeCgh/sYWYvgyhC
+	 2l/EjwuM9pU+d+Jp4ictKKI8p6Sx1SbGVN3XJ+Ym8OSMPeCZiohE/xeV0EqFO+sy6M
+	 3S61ehRJY8Ndk15OfPWoM/zU7NOUgZ8wQP4sDmep99PzCopq1ecdx5LJFAbKgnBeQg
+	 zEufHJ0mmKqGs9V5bLwjqx/XiFAdvtM+TCy+oxLMKtt5RJpQ5W5LJpFb+zqCB9MdiH
+	 RFdFY2cTJPhpQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] SUNRPC: fix gssx_dec_option_array error path bugs
+Date: Tue,  8 Sep 2026 18:54:03 -0400
+Message-ID: <20260908225403.538655-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090303-aloe-vitamins-c1af@gregkh>
+References: <2026090303-aloe-vitamins-c1af@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178890792419.623050.17837096270552656021.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/mm branch of tip:
+From: Chris Mason <clm@meta.com>
 
-Commit-ID:     ebaf7c9bbb1e16523d7036e7e1225ad2dfcc6482
-Gitweb:        https://git.kernel.org/tip/ebaf7c9bbb1e16523d7036e7e1225ad2dfc=
-c6482
-Author:        Mike Rapoport (Microsoft) <rppt@kernel.org>
-AuthorDate:    Thu, 13 Aug 2026 12:01:28 +03:00
-Committer:     Dave Hansen <dave.hansen@linux.intel.com>
-CommitterDate: Tue, 08 Sep 2026 15:41:32 -07:00
+[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
 
-x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()
+Four coupled defects in the gssx XDR option-array decoder make the
+error paths unsafe: a NULL deref in the caller, a refcount leak on
+the decoded group_info, and a latent use-after-free that the leak
+fix would otherwise expose.
 
-lookup_address_in_pgd_attr() accumulates the effective NX and RW bits of
-the walked page table levels so that verify_rwx() can detect mappings that
-are both writable and executable.
+gssx_dec_option_array() sets oa->count = 1 before allocating
+oa->data.  If that allocation fails, -ENOMEM is returned with
+oa->count == 1 and oa->data == NULL.  All other error paths jump
+to free_oa: which frees oa->data and NULLs it but also leaves
+oa->count == 1.  The caller trusts the count:
 
-The RW bits are folded into a bool with
+    gssp_accept_sec_context_upcall()
+      gssx_dec_accept_sec_context()
+        gssx_dec_option_array()        /* fails, count=1 data=NULL */
+      data = res.options.data[0].value /* NULL deref */
 
-	rw &=3D pXd_flags(*pXd) & _PAGE_RW;
+Independently, free_creds: releases the partially decoded svc_cred
+with a bare kfree(creds).  gssx_dec_linux_creds() installs a
+groups_alloc() result into creds->cr_group_info; that object is
+kvmalloc-backed and refcounted, and only put_group_info() reaches
+kvfree().  A plain kfree(creds) drops the wrapper and leaks the
+group_info allocation.
 
-but _PAGE_RW is 0x2. So consider the accumulation line:
+The natural fix for the leak is to call free_svc_cred(creds) before
+kfree(creds), but free_svc_cred() invokes put_group_info() on
+creds->cr_group_info unconditionally when non-NULL.  The existing
+out_free_groups: path in gssx_dec_linux_creds() already called
+groups_free() on that pointer without clearing it, so once
+free_svc_cred() is wired in, the subsequent put_group_info() would
+touch freed memory.
 
-        rw &=3D pXd_flags(*pXd) & _PAGE_RW;
+Fix all four together:
 
-where rw=3D0x1 and the right side evaluates down to 0x2. It'll end up doing:
+  - Move the oa->count = 1 assignment below the oa->data allocation
+    so it is never set when oa->data is NULL.
+  - Reset oa->count to 0 at free_oa: so count and data stay
+    coherent and the caller sees an empty option array.
+  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
+    so the refcounted cr_group_info is released.  free_svc_cred()
+    either NULL-guards each field explicitly (cr_group_info has
+    an if() check) or delegates to a helper that is NULL-safe
+    itself (kfree for the string fields, gss_mech_put() which
+    guards with if(gm) at gss_mech_switch.c:342), so it is safe
+    to call on a partially decoded svc_cred where only
+    cr_uid/cr_gid/cr_group_info have been written and everything
+    else is zero from kzalloc.
+  - In gssx_dec_linux_creds()'s out_free_groups: path, release
+    cr_group_info with put_group_info() rather than groups_free()
+    so the teardown matches free_svc_cred()'s refcount-aware path,
+    and clear the pointer so a later free_svc_cred() on the same
+    creds does not release it a second time.
 
-        rw =3D 0x1 & 0x2
-
-and rw always ends up 0.
-
-This way rw becomes false at the first level walked, regardless of the
-actual permissions, and verify_rwx() treats every mapping as non-writable
-and never reports a W^X violation.
-
-Add double negation to the right side to normalize the _PAGE_RW flag to
-0 or 1.
-
-Assisted-by: Copilot:claude-opus-4.8
-Fixes: ceb647b4b529 ("x86/pat: Introduce lookup_address_in_pgd_attr()")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: syzbot@syzkaller.appspotmail.com
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Cc:stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org
+Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index c38faf3..b306000 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -732,7 +732,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_512G;
- 	*nx |=3D pgd_flags(*pgd) & _PAGE_NX;
--	*rw &=3D pgd_flags(*pgd) & _PAGE_RW;
-+	*rw &=3D !!(pgd_flags(*pgd) & _PAGE_RW);
-=20
- 	p4d =3D p4d_offset(pgd, address);
- 	if (p4d_none(*p4d))
-@@ -743,7 +743,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_1G;
- 	*nx |=3D p4d_flags(*p4d) & _PAGE_NX;
--	*rw &=3D p4d_flags(*p4d) & _PAGE_RW;
-+	*rw &=3D !!(p4d_flags(*p4d) & _PAGE_RW);
-=20
- 	pud =3D pud_offset(p4d, address);
- 	if (pud_none(*pud))
-@@ -754,7 +754,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_2M;
- 	*nx |=3D pud_flags(*pud) & _PAGE_NX;
--	*rw &=3D pud_flags(*pud) & _PAGE_RW;
-+	*rw &=3D !!(pud_flags(*pud) & _PAGE_RW);
-=20
- 	pmd =3D pmd_offset(pud, address);
- 	if (pmd_none(*pmd))
-@@ -765,7 +765,7 @@ pte_t *lookup_address_in_pgd_attr(pgd_t *pgd, unsigned lo=
-ng address,
-=20
- 	*level =3D PG_LEVEL_4K;
- 	*nx |=3D pmd_flags(*pmd) & _PAGE_NX;
--	*rw &=3D pmd_flags(*pmd) & _PAGE_RW;
-+	*rw &=3D !!(pmd_flags(*pmd) & _PAGE_RW);
-=20
- 	return pte_offset_kernel(pmd, address);
+diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+index ee91f4d641e6f..ac9ae42a69762 100644
+--- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
++++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+ 
+ 	return 0;
+ out_free_groups:
+-	groups_free(creds->cr_group_info);
++	put_group_info(creds->cr_group_info);
++	creds->cr_group_info = NULL;
+ 	return err;
  }
+ 
+@@ -242,12 +243,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 		return 0;
+ 
+ 	/* we recognize only 1 currently: CREDS_VALUE */
+-	oa->count = 1;
+-
+ 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
+ 	if (!oa->data)
+ 		return -ENOMEM;
+ 
++	oa->count = 1;
++
+ 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
+ 	if (!creds) {
+ 		err = -ENOMEM;
+@@ -294,8 +295,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 	return 0;
+ 
+ free_creds:
++	free_svc_cred(creds);
+ 	kfree(creds);
+ free_oa:
++	oa->count = 0;
+ 	kfree(oa->data);
+ 	oa->data = NULL;
+ 	return err;
+-- 
+2.53.0
+
