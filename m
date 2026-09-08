@@ -1,154 +1,63 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E9F4D2EFE
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 10:01:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5384734E741;
+	Tue,  8 Sep 2026 10:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861688; cv=none; b=X8G4TbkrOjzOKHx8A1eonH/hvfwb1HgJw5lOj8eLqxj+tAoav2+K/aNqLQJRt6m9xTx0VYfW23oqdQo/8w4fREwTdALD+y00l2gcI2NOpGZfuCZOT5vbfQhdJ7D8pvHsibDR7L52XvrurtmW1OWoOj9HuRmJIfLB+lJ7orfvD/U=
+	t=1788861691; cv=none; b=ApZtIr9a7/j3eCUA8AQwave8YN0DdF+dCTJ8GXO2G6D+3muCarJw3DvZAuJuo1+keA2OLCGL9Sy6nz1P0OO4iMBlRksZt36h8GE7lelXzSrgNxumZdpHLKuijdemnbA+OHsIz0KNQXt4FYtAi2yiW20TwUWNGmmL64nqG2JivNc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861688; c=relaxed/simple;
-	bh=r2OeZxnJqVIrJ+gaTPBQlX1PRRnMJf9yraFmCBhYU8k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=rTq7xpc0xj09tFUDDiUteM0THnqz6sTBsiWsBhqyfoMXVBAvEHz0d4OuxkZps0lRatITdZ1ESxrGNcKHtC9GQwZJEme6lPdA+9TNNJFblqvH1mwJ97NihOCFayvJwdM09OLOaB+QgRMcGjiRBDUC8OzvA6c2Qf4vouf1k7PdqIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NQ4e8btf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788861691; c=relaxed/simple;
+	bh=LXbSDYsjkNm8cedG4AwDLbzDsF4yDyqkcWvKzBxsQMo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FM3jEqzabtI44wTbKs8XuSyoQQuh7Qs3ySYgLB87oJKbVFYT1NrrETVZM5dCWi9w6Ei3Cyd4FIUgwwY7FKYVU4xSdPjthl6rL5ZiCi7qcfpisZPskNwhdoIzEtpI7FPOZzVz0K4z45biyKTLPWcKdpiICR4XDqHI5PTKPwu7ViM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fYs/vCiQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NQ4e8btf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D0EF1F00A3A;
-	Tue,  8 Sep 2026 10:01:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fYs/vCiQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6F71F00A3A;
+	Tue,  8 Sep 2026 10:01:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788861687;
-	bh=P9xTstF908DqMkHmESpD+QZLszWBSt6pLo7l29N7B7Y=;
-	h=Subject:To:Cc:From:Date;
-	b=NQ4e8btf9VNHcen/QPNuxOwDStN4izKxJHoNChZfRRPdi5T3rK1aVdHFK9/JkPDj3
-	 f9wBx9Bh6EmtQM2+fRqC6F0HayZWJCq52nVwrPnKKeVIb4JpccNCg1BsDplK0dg8wJ
-	 FWeMjjIKgMRSYeeREVmXiQRLW8Aq02ehOKEnaUOA=
-Subject: FAILED: patch "[PATCH] fs/ntfs3: fix slab-out-of-bounds write in" failed to apply to 6.1-stable tree
-To: skyexpoc@gmail.com,almaz.alexandrovich@paragon-software.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 12:01:04 +0200
-Message-ID: <2026090804-handiwork-afford-7887@gregkh>
+	s=korg; t=1788861690;
+	bh=LXbSDYsjkNm8cedG4AwDLbzDsF4yDyqkcWvKzBxsQMo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fYs/vCiQ6VztJSFWja4EifGNBXEgJcn6i9LeOxbNuZ7YPVs8bKCPOBWKznPtGHFeX
+	 ggQU/V2yLb9hct/R54BI6siGgFtrJhwg/bz6zR72hZ9RxuVpgsXHSv2AwFSXMWhoIF
+	 Uzs7OLyVUc3s9UJ5G65/ZWy7J3sSqDnSUBcjFvsU=
+Date: Tue, 8 Sep 2026 12:01:23 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: HE =?utf-8?B?V0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
+Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+	Christian Brauner <brauner@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in
+ ni_create_attr_list()
+Message-ID: <2026090804-parted-manly-afd0@gregkh>
+References: <20260625031932.9412-1-skyexpoc@gmail.com>
+ <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
+ <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
+ <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
 
+On Tue, Sep 08, 2026 at 05:52:20PM +0900, HE WEI（ギカク） wrote:
+> Thanks for clarifying. Since the upstream commit did not carry the
+> stable tag, could the stable team please consider backporting commit
+> 7c4841e2a627 to the applicable supported stable trees? This fixes an
+> attacker-controlled on-disk slab-out-of-bounds write. My v2 carried
+> Cc: stable@vger.kernel.org, but the functionally identical v1 was the
+> version merged upstream.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 7c4841e2a62794a3bab7c1ff0540580f387e377f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090804-handiwork-afford-7887@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
+Now queued up for only one tree, as there was conflicts with the others.
 
 thanks,
 
 greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 7c4841e2a62794a3bab7c1ff0540580f387e377f Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?HE=20WEI=EF=BC=88=E3=82=AE=E3=82=AB=E3=82=AF=EF=BC=89?=
- <skyexpoc@gmail.com>
-Date: Wed, 10 Jun 2026 09:29:29 +0900
-Subject: [PATCH] fs/ntfs3: fix slab-out-of-bounds write in
- ni_create_attr_list()
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
-(== record_size) bytes and then walks every attribute of the primary MFT
-record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
-by le_size(name_len), with no check against the end of the buffer; the
-total size is only computed after the loop.
-
-A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
-bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
-bytes in the list.  Because the number of attributes in a record is not
-bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
-minimum-size attributes), a crafted record packed with such attributes
-produces a list larger than record_size and overflows the heap buffer.
-
-This is reachable from a crafted, loop-mounted NTFS image: opening the file
-and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
-ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
-ni_create_attr_list().
-
-  BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
-  Write of size 4 at addr ffff000008984c00 by task setfattr/345
-   ni_create_attr_list+0xc48/0x1058
-   ni_ins_attr_ext+0x510/0x7c0
-   ni_insert_attr+0x3f8/0x70c
-   ni_insert_resident+0xc8/0x3b0
-   ntfs_set_ea+0x66c/0xd28
-   ntfs_setxattr+0x4d8/0x5b0
-   __arm64_sys_setxattr+0xa4/0x124
-  Allocated by task 345:
-   ni_create_attr_list+0x188/0x1058
-  The buggy address belongs to the cache kmalloc-1k of size 1024
-  (the write lands at object+1024).
-
-Size the buffer from the actual attributes instead of assuming a single
-record_size is always enough.
-
-Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
-Reported-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: HE WEI（ギカク） <skyexpoc@gmail.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 547c8ab1b6b8..3ad309d38fe8 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	rs = sbi->record_size;
- 
- 	/*
--	 * Skip estimating exact memory requirement.
--	 * Looks like one record_size is always enough.
-+	 * Compute the exact size of the attribute list.  Each attribute in the
-+	 * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
-+	 * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
-+	 * unnamed one expands to le_size(0) (0x20) here, so a record crafted
-+	 * with many such attributes needs more than a single record_size; the
-+	 * previous fixed kzalloc(record_size) could therefore be overflowed by
-+	 * an attacker-controlled record.
- 	 */
--	le = kzalloc(al_aligned(rs), GFP_NOFS);
-+	lsize = 0;
-+	attr = NULL;
-+	while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
-+		lsize += le_size(attr->name_len);
-+
-+	if (!lsize)
-+		return -EINVAL;
-+
-+	le = kzalloc(al_aligned(lsize), GFP_NOFS);
- 	if (!le)
- 		return -ENOMEM;
- 
-@@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
- 	attr = NULL;
- 	nb = 0;
- 	free_b = 0;
--	attr = NULL;
- 
- 	for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
- 		sz = le_size(attr->name_len);
-
