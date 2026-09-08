@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A4C355048
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:04:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AAEE59B67D
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 18:04:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890678; cv=none; b=Bzmr2+5qGpkLlLlJvlARutm0UySMtFNQXLSY34BNtsEZIsV15xet8NUQtJ1xbLxppyUSAyiADFaE3UxzQt6CBxT5HP97K9iyMgb6VXMmTUmoPayt2LIuPKDA6+Cq6FR7t/Wsujj1CoI4cnndD/eEUmKUrKUaQRauLy5Sxw2V7QU=
+	t=1788890679; cv=none; b=PZbx4h34y7CbnLnbXS/Yw/WTD0xOjw1TMygiGA02bf6ujUaE62Q8tuzsFsjSw3DwsO6VtFped71Ruh6sjjJMqotlGYaalNhO6GCanjiOg46QYRk7RJptVjDsxvmXJqw60tfPmT6o0AEzQ+s0Sd8LWAbAsOVZDhCpSs0jSn70Sh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890678; c=relaxed/simple;
-	bh=GvJtSfSzcdCJ3zZLSqv8k8gdCwbkMYtsyZCLblkNA9I=;
+	s=arc-20240116; t=1788890679; c=relaxed/simple;
+	bh=wVvs4E9HX98Sl5B09C25FbQXwpBG2tPk0mvAws1UweE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PgBDNx0Nhx0B/bYroL61XPj/B6AmVLWq990SzwSo+NIqwSWu3JTLhVnpaUA6c/e4HZM02LRdx/Lf2DQuzaC9vNSnHPn13sIHBfBQN94WfKt57GKswBQmqV/G4HUSEEv4DQKxL7PATQAkb30MMROfbDaFVbSa2z5u1DZb6y1tVcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WP3ijwVB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BHjwkh1d4bQEdk3QV3/sAoXyk1Qu7AAnIsVFMcv+hNZid+D4Msanbc+yRZ3bAgquA/VGt+XioD3GP8H8jAatnbPcJ4jnP89ENZoGzNWDktpcfdE10hPHpp9MY9Y0zpAH6CKRlcWVvr3h2Hd9Xn7PVmfg/AvErgDAQkdZM9AojG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCfDOW2n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WP3ijwVB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867CB1F00A3D;
-	Tue,  8 Sep 2026 18:04:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCfDOW2n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C1161F00AC4;
+	Tue,  8 Sep 2026 18:04:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1788890675;
-	bh=2ideacNayueWvMLEJf4mtoX+aksyVB84eHckY/MoFV8=;
+	bh=RSW1TCNNtNkOlVVvugdeXs71oOCX3tEK1vQZba8Qf48=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WP3ijwVB+3inbcm6tAFD4DQcs7EQOOMYDZA+fE2oZqKIoFUOijxQxWaVtF3w7HYgQ
-	 J2aTjeQ+j18JwQAZ0gsxgaTOSgqU0vr9ozepM4rKg7qeXzgNA/r9Gx49ii6imsj7GR
-	 PAJ5lWXfyVtoBN7LXFoIgQujz/wBrXhdaYz+sNGHGmSWJX7GYX1h4WMnaS/c8JNJ+k
-	 R5SipKm7CN6cgLj5A2gJG7nYcDJEiJDn6Ccj5zz68VGCihTS1yHcV+roVBm5GzkVoa
-	 EK2soUHF/TxhH7IVQZR8niJnH7BhIm77ZIeRFIoOLA2auPvkGMcpnGrTQBBDwtYz/t
-	 td0YVAHR/E/AQ==
+	b=jCfDOW2nveOjTRv7WH39vGbhgRceIxyy49OmEJr8qVQsyH3yUVtGZWr8LS14uevRw
+	 UqeHEewOQ/TpWLvlaFMOml3eAe8FwMCuBcxVMjLss3q/ezDTgKCWGhXwgnfy3di1ZS
+	 78+eqNPdaWIsP3ltnBwm/3tZmqO/9izP1yYjAPzWxjRs6Yrg03vSciSm55ClFjxXM1
+	 /4D2gKhlf6qQN08tPVTac6iqLjlejQHEMfpzj1l7/oVnfFesmVjDNq024gmcKTbpf2
+	 mjyCqusaa/FZmTGL57Ywveq+9/BpD4rj9NVS+eW9Q59swtjiQfW9DTDWoCbeQ2ImY2
+	 NgcWk2P2n9Bbg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chuck Lever <chuck.lever@oracle.com>,
 	Jeff Layton <jlayton@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/4] SUNRPC: Rename automatic variables in unwrap_priv_data()
-Date: Tue,  8 Sep 2026 14:04:30 -0400
-Message-ID: <20260908180432.174786-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 3/4] SUNRPC: Convert unwrap_priv_data() to use xdr_stream
+Date: Tue,  8 Sep 2026 14:04:31 -0400
+Message-ID: <20260908180432.174786-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908180432.174786-1-sashal@kernel.org>
 References: <2026090352-bamboo-relic-6231@gregkh>
@@ -48,106 +48,152 @@ Content-Transfer-Encoding: 8bit
 
 From: Chuck Lever <chuck.lever@oracle.com>
 
-[ Upstream commit f4a59e822f8116baf51a9fc86590e4391bd542d2 ]
+[ Upstream commit 42140718ea26c47fb06c679451a6aa6703545136 ]
 
-Clean up: To help orient readers, name the stack variables to match
-the XDR field names.
+Done as part of hardening the server-side RPC header decoding path.
 
 Reviewed-by: Jeff Layton <jlayton@kernel.org>
 Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
 Stable-dep-of: a919c5c88769 ("SUNRPC: svcauth_gss: enforce krb5 token minimum length")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sunrpc/auth_gss/svcauth_gss.c | 38 ++++++++++++++++++++-----------
- 1 file changed, 25 insertions(+), 13 deletions(-)
+ include/linux/sunrpc/xdr.h        |  1 -
+ net/sunrpc/auth_gss/svcauth_gss.c | 64 ++++++++++---------------------
+ net/sunrpc/xdr.c                  |  7 ----
+ 3 files changed, 21 insertions(+), 51 deletions(-)
 
+diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
+index 98e197376a0d9..add7174cb245a 100644
+--- a/include/linux/sunrpc/xdr.h
++++ b/include/linux/sunrpc/xdr.h
+@@ -188,7 +188,6 @@ xdr_adjust_iovec(struct kvec *iov, __be32 *p)
+ /*
+  * XDR buffer helper functions
+  */
+-extern void xdr_shift_buf(struct xdr_buf *, size_t);
+ extern void xdr_buf_from_iov(const struct kvec *, struct xdr_buf *);
+ extern int xdr_buf_subsegment(const struct xdr_buf *, struct xdr_buf *, unsigned int, unsigned int);
+ extern void xdr_buf_trim(struct xdr_buf *, unsigned int);
 diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index b91dd85470a89..7ba523335aefa 100644
+index 7ba523335aefa..afcfdb2f84b6c 100644
 --- a/net/sunrpc/auth_gss/svcauth_gss.c
 +++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -983,16 +983,28 @@ fix_priv_head(struct xdr_buf *buf, int pad)
- 	}
+@@ -972,17 +972,6 @@ total_buf_len(struct xdr_buf *buf)
+ 	return buf->head[0].iov_len + buf->page_len + buf->tail[0].iov_len;
  }
  
-+/*
-+ * RFC 2203, Section 5.3.2.3
-+ *
-+ *	struct rpc_gss_priv_data {
-+ *		opaque databody_priv<>
-+ *	};
-+ *
-+ *	struct rpc_gss_data_t {
-+ *		unsigned int seq_num;
-+ *		proc_req_arg_t arg;
-+ *	};
-+ */
- static int
--unwrap_priv_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gss_ctx *ctx)
-+svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq,
-+			struct gss_ctx *ctx)
+-static void
+-fix_priv_head(struct xdr_buf *buf, int pad)
+-{
+-	if (buf->page_len == 0) {
+-		/* We need to adjust head and buf->len in tandem in this
+-		 * case to make svc_defer() work--it finds the original
+-		 * buffer start using buf->len - buf->head[0].iov_len. */
+-		buf->head[0].iov_len -= pad;
+-	}
+-}
+-
+ /*
+  * RFC 2203, Section 5.3.2.3
+  *
+@@ -995,49 +984,37 @@ fix_priv_head(struct xdr_buf *buf, int pad)
+  *		proc_req_arg_t arg;
+  *	};
+  */
+-static int
+-svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq,
+-			struct gss_ctx *ctx)
++static noinline_for_stack int
++svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
  {
--	u32 priv_len, maj_stat;
-+	u32 len, seq_num, maj_stat;
- 	int pad, remaining_len, offset;
--	u32 rseqno;
+-	u32 len, seq_num, maj_stat;
+-	int pad, remaining_len, offset;
++	struct xdr_stream *xdr = &rqstp->rq_arg_stream;
++	u32 len, maj_stat, seq_num, offset;
++	struct xdr_buf *buf = xdr->buf;
++	unsigned int saved_len;
  
  	clear_bit(RQ_SPLICE_OK, &rqstp->rq_flags);
  
--	priv_len = svc_getnl(&buf->head[0]);
-+	len = svc_getnl(&buf->head[0]);
+-	len = svc_getnl(&buf->head[0]);
++	if (xdr_stream_decode_u32(xdr, &len) < 0)
++		goto unwrap_failed;
  	if (rqstp->rq_deferred) {
  		/* Already decrypted last time through! The sequence number
  		 * check at out_seq is unnecessary but harmless: */
-@@ -1002,14 +1014,14 @@ unwrap_priv_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gs
- 	 * request to the end, where head[0].iov_len is just the bytes
- 	 * not yet read from the head, so these two values are different: */
- 	remaining_len = total_buf_len(buf);
--	if (priv_len > remaining_len)
-+	if (len > remaining_len)
+ 		goto out_seq;
+ 	}
+-	/* buf->len is the number of bytes from the original start of the
+-	 * request to the end, where head[0].iov_len is just the bytes
+-	 * not yet read from the head, so these two values are different: */
+-	remaining_len = total_buf_len(buf);
+-	if (len > remaining_len)
++	if (len > xdr_stream_remaining(xdr))
  		goto unwrap_failed;
--	pad = remaining_len - priv_len;
-+	pad = remaining_len - len;
- 	buf->len -= pad;
- 	fix_priv_head(buf, pad);
- 
--	maj_stat = gss_unwrap(ctx, 0, priv_len, buf);
--	pad = priv_len - buf->len;
-+	maj_stat = gss_unwrap(ctx, 0, len, buf);
-+	pad = len - buf->len;
- 	/* The upper layers assume the buffer is aligned on 4-byte boundaries.
- 	 * In the krb5p case, at least, the data ends up offset, so we need to
- 	 * move it around. */
-@@ -1025,8 +1037,8 @@ unwrap_priv_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gs
+-	pad = remaining_len - len;
+-	buf->len -= pad;
+-	fix_priv_head(buf, pad);
+-
+-	maj_stat = gss_unwrap(ctx, 0, len, buf);
+-	pad = len - buf->len;
+-	/* The upper layers assume the buffer is aligned on 4-byte boundaries.
+-	 * In the krb5p case, at least, the data ends up offset, so we need to
+-	 * move it around. */
+-	/* XXX: This is very inefficient.  It would be better to either do
+-	 * this while we encrypt, or maybe in the receive code, if we can peak
+-	 * ahead and work out the service and mechanism there. */
+-	offset = xdr_pad_size(buf->head[0].iov_len);
+-	if (offset) {
+-		buf->buflen = RPCSVC_MAXPAYLOAD;
+-		xdr_shift_buf(buf, offset);
+-		fix_priv_head(buf, pad);
+-	}
++	offset = xdr_stream_pos(xdr);
++
++	saved_len = buf->len;
++	maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
  	if (maj_stat != GSS_S_COMPLETE)
  		goto bad_unwrap;
++	xdr->nwords -= XDR_QUADLEN(saved_len - buf->len);
++
  out_seq:
--	rseqno = svc_getnl(&buf->head[0]);
--	if (rseqno != seq)
-+	seq_num = svc_getnl(&buf->head[0]);
-+	if (seq_num != seq)
+-	seq_num = svc_getnl(&buf->head[0]);
++	/* gss_unwrap() decrypted the sequence number. */
++	if (xdr_stream_decode_u32(xdr, &seq_num) < 0)
++		goto unwrap_failed;
+ 	if (seq_num != seq)
  		goto bad_seqno;
  	return 0;
- 
-@@ -1034,7 +1046,7 @@ unwrap_priv_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct gs
- 	trace_rpcgss_svc_unwrap_failed(rqstp);
- 	return -EINVAL;
- bad_seqno:
--	trace_rpcgss_svc_seqno_bad(rqstp, seq, rseqno);
-+	trace_rpcgss_svc_seqno_bad(rqstp, seq, seq_num);
- 	return -EINVAL;
- bad_unwrap:
- 	trace_rpcgss_svc_unwrap(rqstp, maj_stat);
-@@ -1653,8 +1665,8 @@ svcauth_gss_accept(struct svc_rqst *rqstp)
+@@ -1665,8 +1642,9 @@ svcauth_gss_accept(struct svc_rqst *rqstp)
  			/* placeholders for length and seq. number: */
  			svc_putnl(resv, 0);
  			svc_putnl(resv, 0);
--			if (unwrap_priv_data(rqstp, &rqstp->rq_arg,
--					gc->gc_seq, rsci->mechctx))
-+			if (svcauth_gss_unwrap_priv(rqstp, &rqstp->rq_arg,
-+						    gc->gc_seq, rsci->mechctx))
+-			if (svcauth_gss_unwrap_priv(rqstp, &rqstp->rq_arg,
+-						    gc->gc_seq, rsci->mechctx))
++			svcxdr_init_decode(rqstp);
++			if (svcauth_gss_unwrap_priv(rqstp, gc->gc_seq,
++						    rsci->mechctx))
  				goto garbage_args;
  			rqstp->rq_auth_slack = RPC_MAX_AUTH_SIZE * 2;
  			break;
+diff --git a/net/sunrpc/xdr.c b/net/sunrpc/xdr.c
+index b227d0c8471ff..34cd38e757d6f 100644
+--- a/net/sunrpc/xdr.c
++++ b/net/sunrpc/xdr.c
+@@ -835,13 +835,6 @@ static unsigned int xdr_shrink_pagelen(struct xdr_buf *buf, unsigned int len)
+ 	return shift;
+ }
+ 
+-void
+-xdr_shift_buf(struct xdr_buf *buf, size_t len)
+-{
+-	xdr_shrink_bufhead(buf, buf->head->iov_len - len);
+-}
+-EXPORT_SYMBOL_GPL(xdr_shift_buf);
+-
+ /**
+  * xdr_stream_pos - Return the current offset from the start of the xdr_stream
+  * @xdr: pointer to struct xdr_stream
 -- 
 2.53.0
 
