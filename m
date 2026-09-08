@@ -1,82 +1,159 @@
-Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E0E491591
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:24:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BDF4349AD
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895460; cv=none; b=LAEE0rmVDqzNfNwEqQVgVGE5HqlZGi7gYCyU+BsXOgr5IwzMLpm/M1cVkjF6Xx1oaxzFAOjut27727526ZTkGvxkUjKFSHHCPI1jIfQNZnY/j/MKF9dc6SR0w3gr9dlR4zEDKLuv+TwP/XimrYBdEwbGNVc0lUMJTphC06yFRPk=
+	t=1788895711; cv=none; b=fUq+hs6F0d1FLamSyaoN8uVOXdAEzEke1fEFKPHXCfF57dgyqWUkX1+micx+QLq+tlHw2JRuncnambNHVSoI+5iRtYb+aX/r7PGNKfsj2NpvA78XcE33sID+wq7edumqZsvBrIf/43KKLoXloDGZEGI2LxD9v438bvgEfwpX5qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895460; c=relaxed/simple;
-	bh=C6vW7dRME1Gb/wGMSQ238TNMF+iIrlz8mbsHZrOwe0o=;
-	h=From:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
-	 To:Cc:Content-Type; b=I7SNRIrItH9tfwoWdrue5ak0qR/U9m3lm8T7G15hZhOIYUZrJp03ZeCjuxDyZUjRfwORBUKXGaB/Ypzan8vCjOkrB8ihi0g3y1OAJbXEsyAqYQteqAYWAndGignaxZPIkw0g5SIaVQhSOx9e7RahPSolQQOKr8udJ5SV7D25HKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=Cqox37/R; arc=none smtp.client-ip=149.72.141.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+	s=arc-20240116; t=1788895711; c=relaxed/simple;
+	bh=WXb5hbdJa+rGJCRWZMOK5xLtVncNolpFYnvOjDzzT6E=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ys1W9HdxLEsksz5ulRlFddvNapC4jruMx3sqd3Hi11/pTMjlvhU/aBm4sNoiHNOkcMy9uP2GlVgbvWtHLE8x9bndMH3kYWIKomRLpn8WErezVzYNsOmMU2fCk5FbsGj6f4dCK1dTufh80YnRKowBXqM0d/tU5Kg2cEEfefODtYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IznKF1IB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="Cqox37/R"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
-	h=from:subject:date:in-reply-to:references:mime-version:to:cc:
-	content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
-	s=s1; t=1788895457;
-	bh=deZpy86mdL+0FuQa302UpRu/UqHamHeqdhK2hRsukYY=;
-	b=Cqox37/RxfSoxCDREwmfIPUkJ0lcViR12E/3Dn2uFcp6tIy6IW8vUfelqSwsMqfWfdsY
-	NMiioaWE2yR+3kHDyYiX2rk2pJgiggmxGV7aYxKchRKu/OS4xnF78kqJUqm5lDQ9egtBnu
-	07+ZCJ7q0Nj7PN6ToCW52wkmeodeEvc8Zn0W3JH0MlnstODJTkLz10VFpqEfjH2G3oe0l9
-	c/pzaW0b0RgZ9QWX9Ii3AQLMwQiO+eEtvZgTEyD4aMdxDCve2Ej/nUqwjEZpF7HERhLizV
-	l1kOQTv++qtc2eu5QwAHMompuEkr1Yc9O2NN3HmlY0GAAd3fkHcml4zHwivx9P/A==
-Received: by recvd-b9cff7684-gvzpt with SMTP id recvd-b9cff7684-gvzpt-1-6AA060E1-35
-	2026-09-08 19:24:17.30759247 +0000 UTC m=+3630789.492945539
-Received: from daisy.dens.ffj.family (unknown)
-	by geopod-ismtpd-58 (SG)
-	with ESMTP
-	id gMk5nyFdTC6pjARQljyq8g
-	Tue, 08 Sep 2026 19:24:17.127 +0000 (UTC)
-From: Liz Fong-Jones <lizf@honeycomb.io>
-Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
-Date: Tue, 08 Sep 2026 19:24:17 +0000 (UTC)
-Message-ID: <20260908192415.48843-1-lizf@honeycomb.io>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IznKF1IB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086631F00A3A;
+	Tue,  8 Sep 2026 19:28:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788895707;
+	bh=Wy7RXa5piPykCI+pcyisaMu9NXhySEpcDldoPU6dRQs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IznKF1IBE81xyC859v62Vwb9ksr9ASkDMi4hJkN0q4j7gNHcgRTDhgY2xQdWm2UYs
+	 ZAuSLVpS06Au84OGoFQZRquF8WeZbliFbNX+cQ521QLgn5lqbprY4i33/Boq9MooTD
+	 rXE/lhkUBCUzPbklkYG6g5PDH54yEKrD9yrUZQiXB/eYLiA3PzQt0FIPebEv2fGBYp
+	 M37rpeh+iNOF0mH7lRHuzIWDd5VRLJFjRdNpaPY3Pr1vFQ0Ix5kSaX7RexeeOdOAIq
+	 FkMRMqStxFxPjsRcM4YuSzYChRv2G8toVHP6BX99/qvD+H+gBzLgou411NN9Tf0QYH
+	 ZC4BgIc0BwSCg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] SUNRPC: fix gssx_dec_option_array error path bugs
+Date: Tue,  8 Sep 2026 15:28:25 -0400
+Message-ID: <20260908192825.296449-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
-References: <4db878f3-1c55-4ecb-93d8-a97a5e0c7a29@leemhuis.info>
+In-Reply-To: <2026090359-sudoku-unpeeled-8447@gregkh>
+References: <2026090359-sudoku-unpeeled-8447@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SG-EID: 
- =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
- =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeYtV+MVTZw+O?=
- =?us-ascii?Q?DXUD7zff+Q6gIw0rZAuCnUYZjLK8jUMlsBaIOkJ?=
- =?us-ascii?Q?ufBXuikqhX6NmCt8X2+kvKWLI0W3sSe53yXXTvb?=
- =?us-ascii?Q?vkJ5R=2Foiyg12eRXknNOJzw6aZAwy8cAO1AHnbDh?=
- =?us-ascii?Q?TuZ3=2FmdWnGD7sfi7qEF0GDMT3RvhohJP3fCHSZO?= =?us-ascii?Q?NH8z?=
-To: regressions@leemhuis.info
-Cc: bhelgaas@google.com, bjorn.helgaas@gmail.com, helgaas@kernel.org,
-	ilpo.jarvinen@linux.intel.com, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, jon@solid-run.com,
-	jon.nettleton@gmail.com, jacob.martin@canonical.com, stable@vger.kernel.org,
-	kwilczynski@kernel.org, lizf@honeycomb.io, linux-pci@vger.kernel.org
-X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-On 9/3/26, Thorsten Leemhuis wrote:
-> Liz Fong-Jones: is this regression fix still needed with 7.3-rc1? I
-> assume so. But if it is, I guess it would be good to state that; maybe
-> reposting this might be even better, as I fear it might have fallen
-> through the cracks.
+From: Chris Mason <clm@meta.com>
 
-Confirmed still present, and thanks for the nudge -- checked today
-against both v7.3-rc2 (mainline) and v7.2.4 (stable):
-pci_do_resource_release_and_resize() in drivers/pci/setup-bus.c still
-has the original "if (!bus->self) goto out;" with no reassignment on
-that path in both.
+[ Upstream commit 5e9a94539b1ec17a89177d952badfd0d844d694a ]
 
-Reposted as v4, no functional changes from v3, just the resend plus
-a rebase onto current mainline:
+Four coupled defects in the gssx XDR option-array decoder make the
+error paths unsafe: a NULL deref in the caller, a refcount leak on
+the decoded group_info, and a latent use-after-free that the leak
+fix would otherwise expose.
 
-  https://patch.msgid.link/20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io
+gssx_dec_option_array() sets oa->count = 1 before allocating
+oa->data.  If that allocation fails, -ENOMEM is returned with
+oa->count == 1 and oa->data == NULL.  All other error paths jump
+to free_oa: which frees oa->data and NULLs it but also leaves
+oa->count == 1.  The caller trusts the count:
+
+    gssp_accept_sec_context_upcall()
+      gssx_dec_accept_sec_context()
+        gssx_dec_option_array()        /* fails, count=1 data=NULL */
+      data = res.options.data[0].value /* NULL deref */
+
+Independently, free_creds: releases the partially decoded svc_cred
+with a bare kfree(creds).  gssx_dec_linux_creds() installs a
+groups_alloc() result into creds->cr_group_info; that object is
+kvmalloc-backed and refcounted, and only put_group_info() reaches
+kvfree().  A plain kfree(creds) drops the wrapper and leaks the
+group_info allocation.
+
+The natural fix for the leak is to call free_svc_cred(creds) before
+kfree(creds), but free_svc_cred() invokes put_group_info() on
+creds->cr_group_info unconditionally when non-NULL.  The existing
+out_free_groups: path in gssx_dec_linux_creds() already called
+groups_free() on that pointer without clearing it, so once
+free_svc_cred() is wired in, the subsequent put_group_info() would
+touch freed memory.
+
+Fix all four together:
+
+  - Move the oa->count = 1 assignment below the oa->data allocation
+    so it is never set when oa->data is NULL.
+  - Reset oa->count to 0 at free_oa: so count and data stay
+    coherent and the caller sees an empty option array.
+  - Call free_svc_cred(creds) before kfree(creds) at free_creds:
+    so the refcounted cr_group_info is released.  free_svc_cred()
+    either NULL-guards each field explicitly (cr_group_info has
+    an if() check) or delegates to a helper that is NULL-safe
+    itself (kfree for the string fields, gss_mech_put() which
+    guards with if(gm) at gss_mech_switch.c:342), so it is safe
+    to call on a partially decoded svc_cred where only
+    cr_uid/cr_gid/cr_group_info have been written and everything
+    else is zero from kzalloc.
+  - In gssx_dec_linux_creds()'s out_free_groups: path, release
+    cr_group_info with put_group_info() rather than groups_free()
+    so the teardown matches free_svc_cred()'s refcount-aware path,
+    and clear the pointer so a later free_svc_cred() on the same
+    creds does not release it a second time.
+
+Fixes: 3cfcfc102a5e ("SUNRPC: fix some memleaks in gssx_dec_option_array")
+Cc: stable@vger.kernel.org
+Assisted-by: kres (claude-opus-4-7)
+Signed-off-by: Chris Mason <clm@meta.com>
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260528-tier2-v1-2-d026a1415e0b@oracle.com
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/sunrpc/auth_gss/gss_rpc_xdr.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+index 3837e0a33d496..752c4e8ebd44a 100644
+--- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
++++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
+@@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
+ 
+ 	return 0;
+ out_free_groups:
+-	groups_free(creds->cr_group_info);
++	put_group_info(creds->cr_group_info);
++	creds->cr_group_info = NULL;
+ 	return err;
+ }
+ 
+@@ -243,12 +244,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 		return 0;
+ 
+ 	/* we recognize only 1 currently: CREDS_VALUE */
+-	oa->count = 1;
+-
+ 	oa->data = kmalloc(sizeof(struct gssx_option), GFP_KERNEL);
+ 	if (!oa->data)
+ 		return -ENOMEM;
+ 
++	oa->count = 1;
++
+ 	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
+ 	if (!creds) {
+ 		err = -ENOMEM;
+@@ -300,8 +301,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+ 	return 0;
+ 
+ free_creds:
++	free_svc_cred(creds);
+ 	kfree(creds);
+ free_oa:
++	oa->count = 0;
+ 	kfree(oa->data);
+ 	oa->data = NULL;
+ 	return err;
+-- 
+2.53.0
 
