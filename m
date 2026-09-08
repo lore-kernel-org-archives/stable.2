@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D5C3FAE09
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D07F53A882
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870015; cv=none; b=C4FA1b1b4M8YZsrgNmE566Mqk+bp/gs8B1Iw84CErQnkNgIOwA5jDQgMBR9qjy57AE9ItTm7ZfY0iMgSU50dsOiOtoS4DZfF/Y7/F8WnJl9zWFKTAE8/t5LTbviZFSPqNsHm22kJ9pnRjtRfgB+6284uVCOSKhCVZU5S8/WaFu4=
+	t=1788870017; cv=none; b=jYcwHMaxRbyUof1xBOUnDSamcUm/NVYcwAx9iP2LiS6tFW24CGfzvbYPH1LWuRJvFlXDhFirnDi1RaMThJtQSrxqJQnDAikuPx3VLJbtkH+G1PSYmdcL0PtknLA4DlA3arWHtpsHflLgcZIF831eqHecad4Gi9CfWHkfnYUMOzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870015; c=relaxed/simple;
-	bh=+Rng1H8Ztej0vKL0j2+pO7dqlUhnPUMEq7DsZDgm8Mo=;
+	s=arc-20240116; t=1788870017; c=relaxed/simple;
+	bh=3xyJkBPqVxToXiej64L9cVGW+3IjUrgfT016bV/Ay9I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OOfezxzKyRJSkuoy5n7eF5dniKIbFjXPz/XUbX3N9aupStuAwtr3RqwdYF8mAR5dj1dAKXuRcM/r0ws79g7TN4K8gnfnhiTrrQiZgUU3GyVL3+CQGddre+dUooelYbcOeiGyAG5Ne4iOXu4w+ezvv+o0tkrAv9ypmdHecJZQRtw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6i5MjFE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tGHQeGTxE8yUCb6t5dEjmLHIUvnUIKmkeIocQUvb5/ekZc4uaQG5nIlnzJnBl0+DDjPyDbhbeAO6KP6sq1vqayFaWomRqBFNP3iq5PdBvxJuA3Fw39Aowy+ViIgTXrBr4wsDMRwN9k7fk+opm9zNORW7SyRRhis2VvjDCDSz6NU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iYweoMJP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6i5MjFE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0F4A1F00ACA;
-	Tue,  8 Sep 2026 12:20:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iYweoMJP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C5CE1F00A3E;
+	Tue,  8 Sep 2026 12:20:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870010;
-	bh=jEQk72Eqky2zFF3aogCq6CtMgzuBKVV5/ZK6ljcIe3w=;
+	s=k20260515; t=1788870013;
+	bh=vAqGmMzM2EIkZH4tLfE/ib3U+og72dTzQ0OvvP8GMvI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g6i5MjFEnFFD1HtkrRrHKKNpqN5HgfyV0qnDDjXgpjc7hb2BfKaCFZN5cFA/YQckt
-	 +JMys4fu3KOVAUFzhP7q5TTq6OfE2fgRl6T60MCwIiAdxkEKOPtMIZwPa/4B9zfH+Z
-	 g7s1IFOSQENSYAhva46Th1mU5TObRvEHr4fFoKXNMwJQROGRr3sFHbjoNBl8k8fOzP
-	 5Iy0bTndvVAhRb62xkR0vLgZz1EdIjQHTapgQraWVbBseu2utumttH4f4z7aAVmKku
-	 Zm0xUsaFi+I55qij+FJIeHWXAFeZz1n/xL6cRsnRRVDBwV6TCusR+qXpbZ4JvKDeKz
-	 Ky5yZFd6jHIhw==
+	b=iYweoMJPnF/010FudS6bgCpY0qcAW3I+0FswpI4Df2FZVPt7VT2EGb4LSikMF/vnD
+	 g4Z6qQnm2yJLYObrORGgwwdGYPtXvm6Gio1kJt25KSdHjFeHJXWQX1WyEhdjv+iCxz
+	 XhbMYnv3xkzSYilxe+E9vWs2en/0/n9mS7F7DseU0KIdz3k8FrOLOfEihkieMyepK9
+	 BxVvn4+GClunnwgwtwIyIJVNtX8eC/6Ll2OCk0KscLDlcQVWRv/cNsNB8czJnZGlbF
+	 gpqQBRk9UUy8CwRZcMFuG83O8TVaO1yGzRKKJ5RLjURZD84dDCO+7iwFKsik3mfO4E
+	 +AzLsSZHv5UmA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+Cc: Christian Loehle <christian.loehle@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] ACPI: TAD: Add locking around AML evaluations
-Date: Tue,  8 Sep 2026 08:20:04 -0400
-Message-ID: <20260908122004.2049483-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ACPI: CPPC: Reject desired_perf reads on _CPC revision 4+
+Date: Tue,  8 Sep 2026 08:20:09 -0400
+Message-ID: <20260908122009.2049812-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908122004.2049483-1-sashal@kernel.org>
-References: <2026090331-quartered-robe-d833@gregkh>
- <20260908122004.2049483-1-sashal@kernel.org>
+In-Reply-To: <2026090308-suffocate-napkin-a71b@gregkh>
+References: <2026090308-suffocate-napkin-a71b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,148 +46,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+From: Christian Loehle <christian.loehle@arm.com>
 
-[ Upstream commit a3df8bbe0a704fa5c1609b9666b594f350558fe0 ]
+[ Upstream commit df5a1d4a8cdfda20eb2581a85e81c7d436866534 ]
 
-In the ACPI TAD driver, there are hidden assumptions that the ACPI
-control methods used by it will not be evaluated concurrently due
-to ACPICA namespace and interpreter locking.
+When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
+calls cppc_get_desired_perf() because some platforms repurpose Desired
+Performance to report actual delivered performance.
 
-However, that may not be the case since ACPICA may drop and re-acquire
-the namespace and interpreter locks during the evaluation of a given
-object in a few cases, including the one in which the AML in question
-sleeps causing acpi_ex_system_do_sleep() to be called.  In that case,
-the evaluation of one control method may be started while the
-evaluation of another one is still in progress.
+ACPI 6.5 defines _CPC revision 3 and lists Read/Write as the Optional
+Attribute of Desired Performance. ACPI 6.6 advances _CPC to revision 4 and
+lists only Write, so invoking that workaround for revision 4 or later would
+require a register read that the interface no longer specifies.
 
-For this reason, add a global lock to the ACPI TAD driver and
-acquire it every time before evaluating an ACPI control method,
-except for the initial evaluation of _GCP in acpi_tad_probe().
+Make cppc_get_desired_perf() return -EOPNOTSUPP for _CPC revision 4 or
+later. Use the revision retained in the per-CPU CPC descriptor rather than
+the platform-wide FADT revision.
 
-Fixes: 95c513ec84f7 ("ACPI: Add Time and Alarm Device (TAD) driver")
-Cc: All applicable <stable@vger.kernel.org>
+The _CPC revision may still not accurately describe the implemented
+register semantics. If a nominally revision 3 platform implements a
+non-readable Desired Performance register, a read may return zero and make
+cppc_cpufreq_get_rate() report 0 kHz. Treat a zero read as unusable and
+fall back to the cached OSPM request, just as for a failed read.
+
+Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
+Cc: stable@vger.kernel.org
+Suggested-by: Sumit Gupta <sumitg@nvidia.com>
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Link: https://patch.msgid.link/20260803203531.1268651-2-christian.loehle@arm.com
 Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/12951141.O9o76ZdvQC@rafael.j.wysocki
+[ preserved the original CPPC revision while parsing only the supported v3 prefix and retaining cppc_get_perf() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/acpi/acpi_tad.c | 50 ++++++++++++++++++++++++-----------------
- 1 file changed, 30 insertions(+), 20 deletions(-)
+ drivers/acpi/cppc_acpi.c       | 13 +++++++++++--
+ drivers/cpufreq/cppc_cpufreq.c |  2 +-
+ 2 files changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/acpi/acpi_tad.c b/drivers/acpi/acpi_tad.c
-index 65f0a1c91d6f5..0d62a75a4b920 100644
---- a/drivers/acpi/acpi_tad.c
-+++ b/drivers/acpi/acpi_tad.c
-@@ -23,6 +23,7 @@
- #include <linux/acpi.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/suspend.h>
-@@ -80,6 +81,8 @@ static bool acpi_tad_rt_is_invalid(struct acpi_tad_rt *rt)
- 	    rt->daylight > 3;
- }
+diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
+index fd6a83e3d4301..2f504034f321a 100644
+--- a/drivers/acpi/cppc_acpi.c
++++ b/drivers/acpi/cppc_acpi.c
+@@ -764,7 +764,6 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
+ 	}
+ 	if (cpc_rev > CPPC_V3_REV) {
+ 		num_ent = CPPC_V3_NUM_ENT;
+-		cpc_rev = CPPC_V3_REV;
+ 	}
  
-+static DEFINE_MUTEX(acpi_tad_aml_lock);
-+
- static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
+ 	cpc_ptr->num_entries = num_ent;
+@@ -1220,10 +1219,20 @@ static int cppc_get_perf(int cpunum, enum cppc_regs reg_idx, u64 *perf)
+  * @cpunum: CPU from which to get desired performance.
+  * @desired_perf: Return address.
+  *
+- * Return: 0 for success, -EIO otherwise.
++ * Return: 0 for success, -EOPNOTSUPP for _CPC revision 4 or later, and a
++ * negative errno otherwise.
+  */
+ int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
  {
- 	acpi_handle handle = ACPI_HANDLE(dev);
-@@ -101,6 +104,8 @@ static int acpi_tad_set_real_time(struct device *dev, struct acpi_tad_rt *rt)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
++	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
 +
- 	status = acpi_evaluate_integer(handle, "_SRT", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
-@@ -115,30 +120,27 @@ static int acpi_tad_evaluate_grt(struct device *dev, struct acpi_tad_rt *rt)
- {
- 	acpi_handle handle = ACPI_HANDLE(dev);
- 	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER };
--	union acpi_object *out_obj;
--	struct acpi_tad_rt *data;
- 	acpi_status status;
- 	int ret = -EIO;
- 
--	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
--	if (ACPI_FAILURE(status))
--		goto out_free;
--
--	out_obj = output.pointer;
--	if (out_obj->type != ACPI_TYPE_BUFFER)
--		goto out_free;
-+	guard(mutex)(&acpi_tad_aml_lock);
- 
--	if (out_obj->buffer.length != sizeof(*rt))
--		goto out_free;
--
--	data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
--	if (!data->valid)
--		goto out_free;
--
--	memcpy(rt, data, sizeof(*rt));
--	ret = 0;
--
--out_free:
-+	status = acpi_evaluate_object(handle, "_GRT", NULL, &output);
-+	if (ACPI_SUCCESS(status)) {
-+		union acpi_object *out_obj;
++	if (!cpc_desc)
++		return -ENODEV;
 +
-+		out_obj = output.pointer;
-+		if (out_obj->type == ACPI_TYPE_BUFFER &&
-+		    out_obj->buffer.length == sizeof(*rt)) {
-+			struct acpi_tad_rt *data;
++	/* _CPC revision 4 no longer specifies Desired Performance as readable. */
++	if (cpc_desc->version > CPPC_V3_REV)
++		return -EOPNOTSUPP;
 +
-+			data = (struct acpi_tad_rt *)(out_obj->buffer.pointer);
-+			if (data->valid) {
-+				memcpy(rt, data, sizeof(*rt));
-+				ret = 0;
-+			}
-+		}
-+	}
- 	ACPI_FREE(output.pointer);
- 	return ret;
+ 	return cppc_get_perf(cpunum, DESIRED_PERF, desired_perf);
  }
-@@ -188,6 +190,8 @@ static int __acpi_tad_wake_set(struct device *dev, char *method, u32 timer_id,
- 	args[0].integer.value = timer_id;
- 	args[1].integer.value = value;
+ EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
+diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
+index 1abedcae50b26..d49753e88c79c 100644
+--- a/drivers/cpufreq/cppc_cpufreq.c
++++ b/drivers/cpufreq/cppc_cpufreq.c
+@@ -807,7 +807,7 @@ static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
+ 	 * value first as some platforms may update the actual delivered perf
+ 	 * there; if failed, resort to the cached desired perf.
+ 	 */
+-	if (cppc_get_desired_perf(cpu, &delivered_perf))
++	if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
+ 		delivered_perf = cpu_data->perf_ctrls.desired_perf;
  
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, method, &arg_list, &retval);
- 	if (ACPI_FAILURE(status) || retval)
- 		return -EIO;
-@@ -210,6 +214,8 @@ static int __acpi_tad_wake_read(struct device *dev, char *method, u32 timer_id,
- 
- 	args[0].integer.value = timer_id;
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, method, &arg_list, retval);
- 	if (ACPI_FAILURE(status))
- 		return -EIO;
-@@ -424,6 +430,8 @@ static int acpi_tad_clear_status(struct device *dev, u32 timer_id)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, "_CWS", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
-@@ -465,6 +473,8 @@ static ssize_t acpi_tad_status_read(struct device *dev, char *buf, u32 timer_id)
- 
- 	pm_runtime_get_sync(dev);
- 
-+	guard(mutex)(&acpi_tad_aml_lock);
-+
- 	status = acpi_evaluate_integer(handle, "_GWS", &arg_list, &retval);
- 
- 	pm_runtime_put_sync(dev);
+ 	return cppc_perf_to_khz(&cpu_data->perf_caps, delivered_perf);
 -- 
 2.53.0
 
