@@ -1,124 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD62E5427FE
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:43:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 833135328CA;
+	Tue,  8 Sep 2026 13:47:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875034; cv=none; b=BNE5YWR9zl0mV7+ZQJQP5nC8QOYKwi/g7KCBOTEjsKVBS7zgfGba6EdRgn1UN8PYzIuBH89ArqhmQZ+0ebkdypEv8gaIBON8HkY9krThujH3OpjwpUNKM9PvgwjJNvlSzhVSKz1nYxQZriDA6MMAU6AR7C+pErNFuO+gF3E8Xbc=
+	t=1788875279; cv=none; b=uy36lTl4/RnPB2AdREecwBYiO0QjhiSIS+5eOlaTLMKBT1UiUFIcBSSf6R6P1DG8N2NWNiCoHr3wDCbnKL+fWm8dGUYwkf+MzRcsqjOMc4oqwswYLKSk3T/1hC80MMe3v/CRtgARoFWR0lJHQX2FZ3D8zO0lCdrurUuL6DAJtkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875034; c=relaxed/simple;
-	bh=r7rAG7mxLw2xViuN6lt9p4txB6EEtikJnaxtWlJGkus=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Rtm9Yb7ZKuLnBDUXcQKS1AubCpW2M57mh+ri+LtMfy/KoSDVcyWHgmWOuTgDHT/O0Ri0IdirhLUZxxzTFDAq8kS5Fw71cbHn9Gmp+fS601k4JZAzz/ZMzOrpvzpb0zqP74RL4NQKe4n8ChqMcOJBZG6/aE/8JsNH9D0Js0MBAVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3B41F00A3D;
-	Tue,  8 Sep 2026 13:43:39 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] misc: fastrpc: don't publish fd before copy_to_user()" failed to apply to 6.1-stable tree
-To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:37:21 +0200
-Message-ID: <2026090821-regroup-crunching-93c8@gregkh>
+	s=arc-20240116; t=1788875279; c=relaxed/simple;
+	bh=zg+ku0v8xf8FI+6NLadCu8VySTs0P3c+ycaKmGYmKyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ahqifRxyea9v4i2HFNjhXjQiBmdE0AHBNOVTe/qjumRvT3Kht0zFXogZSjxL1/pROWuWK+lHiW+U7auHY8mejMmd2oMi8siBnAhE9LdJro2jlVaTK1KYcrC+PzkQXAcV2P7O3BfiHErYKDwdNDdNP39kA9vMJYV8FPCRuw4fTXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FEm1mdvU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FEm1mdvU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7C51F00A3A;
+	Tue,  8 Sep 2026 13:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788875268;
+	bh=A0+1vx5ssYACbosB5yRUtT7K9nBFjhQE+WMx9lniBm8=;
+	h=From:To:Cc:Subject:Date;
+	b=FEm1mdvUsgl8JbaTjjjXn4ngQWgIsDJ3WlnaMSAqxVKqgSnG7Zq2/bhxpaSfntSxh
+	 DXisyx9vnI26ygC2pzU0jYMrWh1Y5CAljaY7Fg7FWr7YUC56AmYoL7AqguQluP/0EH
+	 Tz6W2kk2AvP2uxMTz1dbgqsgK98Pvb71PEp3id/q/8ix53CNS+oz3BtzMTKVB3PiTv
+	 KXi/ecHyHZKN+aBMxAMTMiqqS6Lg2e0tBhY8Oglm9I10opPeGcQaTCxSe8CQhoCVIB
+	 XXu8TiHbpx/4rwgdyf2qhb9iLhYSBSUj5MzRXg28dMljsBkKHCY114h17Qx0YMuDfm
+	 ZgetKviUSsrtA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Liew Rui Yan <aethernet65535@gmail.com>,
+	stable@vger.kernel.org,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v3] mm/damon/core: fix unconditionally skip last region
+Date: Tue,  8 Sep 2026 06:47:38 -0700
+Message-ID: <20260908134739.96919-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+From: Liew Rui Yan <aethernet65535@gmail.com>
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Once quota set, the charge_{target,addr}_from unconditionally skips and
+resets at the last region of the tracked target, so the last region can
+be skipped even when it has not been processed.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Example:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x a4a1a2bfcb29785292d634d7787edc6fb550714d
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090821-regroup-crunching-93c8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+    1. Target has 2 regions: R1 (0-100 bytes) and R2 (100-200 bytes).
+    2. Quota is configured to process only 100 bytes per window.
+    3. Window 1: Processes R1 (0-100).  Quota is full.  charge_{target,
+       addr}_from is saved at (Target, 100).
+    4. Window 2: The loop reaches R2.  Because R2 is
+       damon_last_region(t), the old code unconditionally returns true,
+       skipping R2 entirely and resetting the charge_{target,addr}_from.
 
-Possible dependencies:
+    Result: R2 is permanently skipped even though it has never been
+    processed.
 
+However, it is important to note that this is a very minor issue.  This
+is because it is triggered only when the previous window saved/kept
+charge_{target,addr}_from, and in the next window, all regions except
+the last region were skipped by damos_skip_charged_region().
 
+Fix this by only resets the charge_{target,addr}_from when last region
+is reached, only skips when it applied or cannot split.
 
-thanks,
+Fixes: 50585192bc2e ("mm/damon/schemes: skip already charged targets and regions")
+Cc: <stable@vger.kernel.org> # v5.16.x
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from v2:
+- v2: https://lore.kernel.org/20260830063159.6347-1-aethernet65535@gmail.com
+- Collect R-b: from SJ.
 
-greg k-h
+Changes from v1:
+- Simplify example in commit message.
+- Add clarification regarding the severity of the bug to avoid causing
+  users unnecessary afraid.
+- Modify the patch code, each time the last region is reached, only
+  charge_{target,addr}_from is reset, but the return value depends on
+  the situation.
+- Modify patch's title from 'mm/damon' to 'mm/damon/core', since it only
+  changes core.c.
+- v1: https://lore.kernel.org/damon/20260828084737.290024-1-aethernet65535@gmail.com
 
------------------- original commit in Linus's tree ------------------
+Changes from RFC v1:
+- Minimal fix, only fixes the issue where the last-region is skipped.
+- Add an example to the commit message to demonstrate that this error
+  occurs very rarely.
+- RFC v1: https://lore.kernel.org/damon/20260825124616.5129-1-aethernet65535@gmail.com
 
-From a4a1a2bfcb29785292d634d7787edc6fb550714d Mon Sep 17 00:00:00 2001
-From: Baineng Shou <shoubaineng@gmail.com>
-Date: Mon, 17 Aug 2026 13:04:55 +0800
-Subject: [PATCH] misc: fastrpc: don't publish fd before copy_to_user()
- succeeds
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+ mm/damon/core.c | 25 ++++++++++++++-----------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
-
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
-
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
-
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
-Cc: stable@vger.kernel.org
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
-
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index eb6c2a78d3c7..d7a9e12f5575 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1712,24 +1712,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
- 	}
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index a360c41cda89c..7e6cd405161d4 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2452,36 +2452,39 @@ static bool damos_skip_charged_region(struct damon_target *t,
+ {
+ 	struct damos_quota *quota = &s->quota;
+ 	unsigned long sz_to_skip;
++	bool skip = false;
  
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
+ 	/* Skip previously charged regions */
+ 	if (quota->charge_target_from) {
+ 		if (t != quota->charge_target_from)
+ 			return true;
+-		if (r == damon_last_region(t)) {
+-			quota->charge_target_from = NULL;
+-			quota->charge_addr_from = 0;
+-			return true;
+-		}
+ 		if (quota->charge_addr_from &&
+-				r->ar.end <= quota->charge_addr_from)
+-			return true;
++				r->ar.end <= quota->charge_addr_from) {
++			skip = true;
++			goto out;
++		}
  
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
+ 		if (quota->charge_addr_from && r->ar.start <
+ 				quota->charge_addr_from) {
+ 			sz_to_skip = ALIGN_DOWN(quota->charge_addr_from -
+ 					r->ar.start, min_region_sz);
+ 			if (!sz_to_skip) {
+-				if (damon_sz_region(r) <= min_region_sz)
+-					return true;
++				if (damon_sz_region(r) <= min_region_sz) {
++					skip = true;
++					goto out;
++				}
+ 				sz_to_skip = min_region_sz;
+ 			}
+ 			damon_split_region_at(t, r, sz_to_skip);
+-			return true;
++			skip = true;
+ 		}
++	}
++out:
++	if (r == damon_last_region(t)) {
+ 		quota->charge_target_from = NULL;
+ 		quota->charge_addr_from = 0;
  	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
-+
- 	return 0;
+-	return false;
++	return skip;
  }
  
+ static void damos_update_stat(struct damos *s,
 
+base-commit: ab263dd200a7a9101ce3c1374fd23139f29cdac4
+-- 
+2.47.3
