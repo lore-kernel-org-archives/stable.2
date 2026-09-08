@@ -1,47 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84757563FD6
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51940560AD8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874258; cv=none; b=Zqq+Pcvpo1p711uUrdUUo0tNdq2uqCTNiyHivBaKFi5x7wVtoXHeuU/igYqkU7bxSD6nYLMAA0V0nUm9ZcKN4CNqAYTSGWM7h4KsOJlVCvrBHsEi8XNJzD6JerZOGtiZk0hcZJh65Ni+8wVCfr+o+ARvq+a+wC7M1urr5xw0SeE=
+	t=1788874260; cv=none; b=Z+ZMhFDtpI5Zvsj1vU0ssDbPYanR/GyfYGTKqhvmcT3HpGsC8cpEKdHFduXLQnP89WgqfW9vuuGdU2f2/N14Ab9CyTiVmulqzg9RPgzjxm0FuJL5Yw1HLMpE/6e7I4lAcYdijqUjDLqIu7bnr/oJ+PZYz0tRbpRL3KVe1vX3aLE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874258; c=relaxed/simple;
-	bh=VpTn0+w+4zj80QDe+tNVWs+fwlJHXC3PYd0j1fDjnk4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WIWh/ndyMPkRxzyME4JIkwXWUBzb+hYj97fipNf0IMJ+ZoOJGTwSRUEvOr4JaOLuYvkcGAAQIOyj5tkpdOxOelRCiJIJsjujuhBXB1ykMJooNzHOnicD+mlUsn5K3g1kpgmamMQzZFMUPOjZPDeUB3pd0MhDUF1i+ZCVZWguAbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E9A1F00AC4;
-	Tue,  8 Sep 2026 13:30:37 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()" failed to apply to 5.10-stable tree
-To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org,tjmercier@google.com
+	s=arc-20240116; t=1788874260; c=relaxed/simple;
+	bh=P2XuiRphR03ohi+8/vPfZezJyLT62hLUuqMYQMVFZMI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jXN7VcRAxaq7D0MYrAJIXQl1Ojz5Yc4NMNRRIMzlNtUTLC4mpcQeH6pCQeJI2SmcSZcFfx6iluMLj5KDxnVES03ranHNGauirEBmDg1OQnjLIL9IwQLVfnm2oc0Xil96F7LlLlKTOTOnC4VsbhmsBOOg6oXD9IC+SR16wtwTbZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oCE4wzeD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oCE4wzeD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D31211F00A3F;
+	Tue,  8 Sep 2026 13:30:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788874246;
+	bh=tsijzd4ghIncy05flyO9eTNrGUugGECQWscMpFru0dI=;
+	h=Subject:To:Cc:From:Date;
+	b=oCE4wzeDJhqNa2R96XYSqFgdNFi41GhmKNAk16cdcmD7plJsNrfKZsiMgDLj12XWb
+	 aNV5RpoNoHkRHmahj8+0PJy6Eu2C4ASFxfCrSgCbSLn0hRzjXOHHDlZMYC/mvtLSXO
+	 r+y4z4zNEdIMNq4Smwqdtc1OgNWcdSQQ+lU/h7ns=
+Subject: FAILED: patch "[PATCH] dma-direct: return struct page from" failed to apply to 6.1-stable tree
+To: aneesh.kumar@kernel.org,jgg@nvidia.com,m.szyprowski@samsung.com,mhklinux@outlook.com,smostafa@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:21:01 +0200
-Message-ID: <2026090801-smuggler-slurp-885a@gregkh>
+Date: Tue, 08 Sep 2026 15:21:11 +0200
+Message-ID: <2026090811-upwind-reseller-c91c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0
+git cherry-pick -x 94a04ad732c9f8b9554270fc4038a06737de5c22
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090801-smuggler-slurp-885a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090811-upwind-reseller-c91c@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -53,246 +62,83 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 30d0aff2c65a277135cfd8ea28fa1ee75e0ea4e0 Mon Sep 17 00:00:00 2001
-From: Baineng Shou <shoubaineng@gmail.com>
-Date: Mon, 17 Aug 2026 13:04:54 +0800
-Subject: [PATCH] dma-buf: dma-heap: don't publish fd before copy_to_user()
- succeeds
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 94a04ad732c9f8b9554270fc4038a06737de5c22 Mon Sep 17 00:00:00 2001
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+Date: Fri, 17 Jul 2026 23:34:19 +0530
+Subject: [PATCH] dma-direct: return struct page from
+ dma_direct_alloc_from_pool()
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+Commit 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool
+helper") changed dma_direct_alloc_from_pool() to return the CPU address
+from dma_alloc_from_pool(). That fits dma_direct_alloc(), but
+dma_direct_alloc_pages() also uses the helper and expects a struct page *.
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+Fix this by making dma_direct_alloc_from_pool() return the struct page *
+again, and pass the CPU address back through an out-parameter for the
+dma_direct_alloc() caller.
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
-
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Fixes: 5b138c534fda ("dma-direct: factor out a dma_direct_alloc_from_pool helper")
 Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
-Link: https://lore.kernel.org/r/20260817050457.1005285-2-shoubaineng@gmail.com
-Signed-off-by: Christian König <christian.koenig@amd.com>
+Tested-by: Michael Kelley <mhklinux@outlook.com>
+Tested-by: Mostafa Saleh <smostafa@google.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+Reviewed-by: Mostafa Saleh <smostafa@google.com>
+Link: https://lore.kernel.org/r/20260717180442.110954-2-aneesh.kumar@kernel.org
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..4c9add51f9ef 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -803,6 +803,26 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_fd, "DMA_BUF");
- 
-+/**
-+ * dma_buf_fd_install - install a reserved fd for a dma-buf
-+ * @dmabuf:	[in]	pointer to dma_buf
-+ * @fd:		[in]	fd reserved with get_unused_fd_flags()
-+ *
-+ * Publishes a previously reserved fd into the caller's fd table.
-+ * Must only be called after all fallible work (e.g. copy_to_user)
-+ * has succeeded, as it cannot be undone safely once called.
-+ *
-+ * The caller is responsible for having emitted the trace event
-+ * (via dma_buf_fd() or get_unused_fd_flags() + this function)
-+ * before calling this.
-+ */
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd)
-+{
-+	DMA_BUF_TRACE(trace_dma_buf_fd, dmabuf, fd);
-+	fd_install(fd, dmabuf->file);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_fd_install, "DMA_BUF");
-+
- /**
-  * dma_buf_get - returns the struct dma_buf related to an fd
-  * @fd:	[in]	fd associated with the struct dma_buf to be returned
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index a76bf3f8b071..43c32fb28313 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
- 		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
- EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
- 
--static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
--				 u32 fd_flags,
--				 u64 heap_flags)
--{
--	struct dma_buf *dmabuf;
--	int fd;
--
--	/*
--	 * Allocations from all heaps have to begin
--	 * and end on page boundaries.
--	 */
--	len = PAGE_ALIGN(len);
--	if (!len)
--		return -EINVAL;
--
--	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
--	fd = dma_buf_fd(dmabuf, fd_flags);
--	if (fd < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--	}
--	return fd;
--}
--
- static int dma_heap_open(struct inode *inode, struct file *file)
- {
- 	struct dma_heap *heap;
-@@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
- 	return 0;
+diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
+index 4391b797d4db..b4cb2c03e5d7 100644
+--- a/kernel/dma/direct.c
++++ b/kernel/dma/direct.c
+@@ -164,22 +164,21 @@ static bool dma_direct_use_pool(struct device *dev, gfp_t gfp)
+ 	return !gfpflags_allow_blocking(gfp) && !is_swiotlb_for_alloc(dev);
  }
  
--static long dma_heap_ioctl_allocate(struct file *file, void *data)
-+static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
+-static void *dma_direct_alloc_from_pool(struct device *dev, size_t size,
+-		dma_addr_t *dma_handle, gfp_t gfp)
++static struct page *dma_direct_alloc_from_pool(struct device *dev, size_t size,
++		dma_addr_t *dma_handle, void **cpu_addr, gfp_t gfp)
  {
- 	struct dma_heap_allocation_data *heap_allocation = data;
- 	struct dma_heap *heap = file->private_data;
-+	struct dma_buf *dmabuf;
- 	int fd;
-+	size_t len;
+ 	struct page *page;
+ 	u64 phys_limit;
+-	void *ret;
  
- 	if (heap_allocation->fd)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
+ 	if (WARN_ON_ONCE(!IS_ENABLED(CONFIG_DMA_COHERENT_POOL)))
+ 		return NULL;
  
- 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
+ 	gfp |= dma_direct_optimal_gfp_mask(dev, &phys_limit);
+-	page = dma_alloc_from_pool(dev, size, &ret, gfp, dma_coherent_ok);
++	page = dma_alloc_from_pool(dev, size, cpu_addr, gfp, dma_coherent_ok);
+ 	if (!page)
+ 		return NULL;
+ 	*dma_handle = phys_to_dma_direct(dev, page_to_phys(page));
+-	return ret;
++	return page;
+ }
  
- 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
--	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
--				   heap_allocation->fd_flags,
--				   heap_allocation->heap_flags);
--	if (fd < 0)
--		return fd;
-+	len = PAGE_ALIGN(heap_allocation->len);
-+	if (!len)
-+		return ERR_PTR(-EINVAL);
-+
-+	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-+				     heap_allocation->heap_flags);
-+
-+	if (IS_ERR(dmabuf))
-+		return dmabuf;
-+
-+	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		return ERR_PTR(fd);
+ static void *dma_direct_alloc_no_mapping(struct device *dev, size_t size,
+@@ -247,8 +246,11 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+ 	 * the atomic pools instead if we aren't allowed block.
+ 	 */
+ 	if ((remap || force_dma_unencrypted(dev)) &&
+-	    dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++	    dma_direct_use_pool(dev, gfp)) {
++		page = dma_direct_alloc_from_pool(dev, size, dma_handle,
++						  &ret, gfp);
++		return page ? ret : NULL;
 +	}
  
- 	heap_allocation->fd = fd;
+ 	/* we always manually zero the memory once we are done */
+ 	page = __dma_direct_alloc_pages(dev, size, gfp & ~__GFP_ZERO, true);
+@@ -357,7 +359,7 @@ struct page *dma_direct_alloc_pages(struct device *dev, size_t size,
+ 	void *ret;
  
--	return 0;
-+	return dmabuf;
- }
+ 	if (force_dma_unencrypted(dev) && dma_direct_use_pool(dev, gfp))
+-		return dma_direct_alloc_from_pool(dev, size, dma_handle, gfp);
++		return dma_direct_alloc_from_pool(dev, size, dma_handle, &ret, gfp);
  
- static unsigned int dma_heap_ioctl_cmds[] = {
-@@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 	unsigned int in_size, out_size, drv_size, ksize;
- 	int nr = _IOC_NR(ucmd);
- 	int ret = 0;
-+	int fd;
-+	struct dma_buf *dmabuf;
- 
- 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
- 		return -EINVAL;
-@@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 
- 	switch (kcmd) {
- 	case DMA_HEAP_IOCTL_ALLOC:
--		ret = dma_heap_ioctl_allocate(file, kdata);
-+		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-+
-+		if (IS_ERR(dmabuf)) {
-+			ret = PTR_ERR(dmabuf);
-+			break;
-+		}
-+
-+		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-+		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-+			put_unused_fd(fd);
-+			dma_buf_put(dmabuf);
-+			ret = -EFAULT;
-+		} else {
-+			dma_buf_fd_install(dmabuf, fd);
-+		}
-+
- 		break;
- 	default:
- 		ret = -ENOTTY;
- 		goto err;
- 	}
- 
--	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
--		ret = -EFAULT;
- err:
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..d15b2b31d3c9 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -567,6 +567,7 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
- 
- int dma_buf_fd(struct dma_buf *dmabuf, int flags);
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
- struct dma_buf *dma_buf_get(int fd);
- void dma_buf_put(struct dma_buf *dmabuf);
- 
+ 	page = __dma_direct_alloc_pages(dev, size, gfp, false);
+ 	if (!page)
 
