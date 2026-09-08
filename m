@@ -1,239 +1,128 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C54B55C330
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 15:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D5B54EEDA;
+	Tue,  8 Sep 2026 15:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880804; cv=none; b=LZkYH+5kLNcezXxNJmGzHsh6dJME75N3OiDn2B3XtyKNk+nCjcF4LQcwwVMaMtsh9yaq0gWwXlnKFNavhwAbaPD/NBZzKFQZcrmBC+LGFOJs6jocusaQVHVu4dx49v3GHkOqe/YU1SDWgItCIRgv9ZbsmQ1KKbayTji0cqo/Keg=
+	t=1788880809; cv=none; b=eJWDFfoCJEC4+FgfXPWN1Fy8TiZJSS28U/5hdEHyyaCxdh2jDtUMZdUHEvi3ALBe4MKfELjrrAcXd4bBQgGxDUeAhsPohKveV5/IB7YGN4IQ1Bmk1EIzJOmOqEZn2+c6+sUhQOZt6Q27fEUZUvPwgNaoC4drq3j7M3oAJcFhIqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880804; c=relaxed/simple;
-	bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=BsdMv1SihgG4WcwCIO5DYvOXsfz7sKMvc81wVD2q7KTXcsXJz0PZUQxuQXuaUJes5qaUtEj5qWjM8irA4HpY3IReiUVEVYLFNy02fUmZWyESb9yBXLiSmdaakx0KtRK23haQ7HIp8BXxkoFsyW6lt1hwe22XAjS6jOsHy0AldWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mhshElc8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788880809; c=relaxed/simple;
+	bh=Rq/mj3Dc9GL38rvpIngDgMLG0QO/a9np4yclZ7eq29Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=FIqCxrkSY6IRidCwxy0vBJFRANYrFIT1kwGQN+1MuedBrgRzm6GaD0hpRvnAiYVeawo/GYrBLDzF8IVavq5EQH5fF32ZMa9sffGEUHJL4/VUkmsE/ptWQHY6d8eaaCsSUu0T+vaLtxqg1DkQrKbramuuVuuIio+L7boPTGD6ZB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=LeU4FJ7d; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mhshElc8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97C2A1477;
-	Tue,  8 Sep 2026 08:19:53 -0700 (PDT)
-Received: from lakrids.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 856303F7B4;
-	Tue,  8 Sep 2026 08:19:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788880797; bh=mir7vooTSDYmWsVJZrTEgRVne7RAsc886omUddrknHc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mhshElc8E4Drhn48+nLSsA0U5x41tSXpUdjzQwIXLSARW+6SqDFw/0ThmWgjWJwuR
-	 v5zgyjKlSEjqakgq5WMtd+qC79+ZsfeqZYr5z/k2z062M+VeZKGWpl2MGf2iu1S3oI
-	 DaXcQTB5//pDvALi50A+gCsqVLN/dQ700o/OcNVE=
-From: Mark Rutland <mark.rutland@arm.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com,
-	ardb@kernel.org,
-	catalin.marinas@arm.com,
-	cl@gentwo.org,
-	david@kernel.org,
-	david.laight.linux@gmail.com,
-	james.morse@arm.com,
-	ljs@kernel.org,
-	mark.rutland@arm.com,
-	maz@kernel.org,
-	peterz@infradead.org,
-	ruanjinjie@huawei.com,
-	ryan.roberts@arm.com,
-	stable@vger.kernel.org,
-	usama.anjum@arm.com,
-	vladimir.murzin@arm.com,
-	will@kernel.org,
-	yang@os.amperecomputing.com
-Subject: [PATCH v4 06/21] arm64: preempt: Simplify and optimize __preempt_count_dec_and_test()
-Date: Tue,  8 Sep 2026 16:17:26 +0100
-Message-Id: <20260908151741.394589-7-mark.rutland@arm.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260908151741.394589-1-mark.rutland@arm.com>
-References: <20260908151741.394589-1-mark.rutland@arm.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="LeU4FJ7d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=Rq/mj3Dc9GL38rvpIngDgMLG0QO/a9np4yclZ7eq29Y=; b=L
+	eU4FJ7dfg5eO3OnFiSDQvb1nS2SeqEEOr0pfyRnfJT+AGXmhX9XhJteUB/JXqfbf
+	58TKKQAad+LELIJ0wB9r8B6qMndRxvCPqXxHu4sey7w/XVtexTWfxD9avtRY+ott
+	qIVa+VgT93Cy0gP/Rrf9jFc0E21JDSOOxsCH/BxU8Q=
+Date: Tue, 8 Sep 2026 23:19:24 +0800 (CST)
+From: huhai  <15815827059@163.com>
+To: "Namjae Jeon" <linkinjeon@kernel.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, linux-cifs@vger.kernel.org,
+	"Henry Hu" <huhai@kylinos.cn>, stable@vger.kernel.org,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>
+Subject: Re:Re: [PATCH] ksmbd: fix invalid pointer dereference when
+ get_inode_acl() fails
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAKYAXd8g5RbLf7d7uNvtLZmODR2w_xW900E8dcWD1QyF5_hRfw@mail.gmail.com>
+References: <20260908081631.9735-1-15815827059@163.com>
+ <CAKYAXd8g5RbLf7d7uNvtLZmODR2w_xW900E8dcWD1QyF5_hRfw@mail.gmail.com>
+X-NTES-SC: AL_Qu2TCvSTv08t4iScYOkdnk0Th+c8X8O3u/8m3YRSc/sElCXC8xoGd1toIl7k8tuQFgyKujqUVQRN8uBcWIpK2bS7SRnwSYsiDd0G6TRR1Q==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <170e71f3.a2f8.1a0819a3e24.Coremail.15815827059@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cSgvCgD3X1Z8J6Bq0NVBAA--.13522W
+X-CM-SenderInfo: rprvmiivyslimvzbiqqrwthudrp/xtbCzhyrMWqgJ3wGkgAA3N
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-In arm64's __preempt_count_dec_and_test(), the final conditional load of
-'ti->preempt_count' is always executed in the common case. The
-conditional load leads to unfortunate code generation for
-preempt_enable[_notrace](), and it would be better to unconditionally
-load 'ti->preempt_count', as described below.
-
-On arm64, struct thread_info contains the following union:
-
-| union {
-|         u64             preempt_count;
-|         struct {
-|                 u32     count;
-|                 u32     need_resched;
-|         } preempt;
-| };
-
-Note: 'need_resched' is encoded so that '0' means a reschedule is
-needed, and '1' means a reschedule is NOT needed.
-
-The core logic of __preempt_count_dec_and_test() is:
-
-| static inline bool __preempt_count_dec_and_test(void)
-| {
-|         struct thread_info *ti = current_thread_info();
-|         u64 pc = READ_ONCE(ti->preempt_count);
-|
-|         WRITE_ONCE(ti->preempt.count, --pc);
-|
-|         return !pc || !READ_ONCE(ti->preempt_count);
-| }
-
-The '!pc' condition can only be true when both:
-
-* The initial value of 'need_resched' was 0, meaning that a reschedule
-  is needed. This should be rare.
-
-* The initial value of 'count' was exactly 1. This cannot be true for a
-  nested preempt_disable() ... preempt_enable() sequence.
-
-Hence in common cases, '!pc' will be false, and it's necessary to
-execute the final READ_ONCE(ti->preempt_count).
-
-This results in a conditional branch in the common case, as can be seen
-when __preempt_count_dec_and_test() is outlined:
-
-| <outline___preempt_count_dec_and_test>:
-|        mrs     x2, sp_el0
-|        ldr     x1, [x2, #8]
-|        mov     w0, #0x1
-|        sub     x1, x1, #0x1
-|        str     w1, [x2, #8]
-|        cbz     x1, 1f
-|        ldr     x0, [x2, #8]
-|        cmp     x0, #0x0
-|        cset    w0, eq  // eq = none
-| 1:     ret
-
-It would be better to avoid the special case for 'pc == 0', and to
-always load 'ti->preempt_count' after decrementing 'ti->preempt.count'.
-For the common cases this will remove a conditional branch. For the rare
-cases where preemption is needed initially, this only adds a single
-load, whose cost should be dominated by other factors.
-
-Remove the special case for 'pc == 0', and always load the combined
-'ti->preempt_count' after decrementing 'ti->preempt.count'.
-
-The removal of the conditional branch helps with code generation, as the
-compiler can more easily move a dependent slow path out-of-line, as
-demonstrated with the following compiled with GCC 15.2.0:
-
-| void outline_preempt_enable_notrace(void)
-| {
-|        preempt_enable_notrace();
-| }
-
-Before this patch:
-
-| <outline_preempt_enable_notrace>:
-|        mrs     x1, sp_el0
-|        ldr     x0, [x1, #8]
-|        sub     x0, x0, #0x1
-|        str     w0, [x1, #8]
-|        cbz     x0, 1f
-|        ldr     x0, [x1, #8]
-|        cbnz    x0, 2f
-| 1:     paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mov     x29, sp
-|        bl      preempt_schedule_notrace
-|        ldp     x29, x30, [sp], #16
-|        autiasp
-|        ret
-| 2:     ret
-
-After this patch:
-
-| <outline_preempt_enable_notrace>:
-|        mrs     x0, sp_el0
-|        ldr     w1, [x0, #8]
-|        sub     w1, w1, #0x1
-|        str     w1, [x0, #8]
-|        ldr     x0, [x0, #8]
-|        cbz     x0, 1f
-|        ret
-| 1:     paciasp
-|        stp     x29, x30, [sp, #-16]!
-|        mov     x29, sp
-|        bl      preempt_schedule_notrace
-|        ldp     x29, x30, [sp], #16
-|        autiasp
-|        ret
-
-Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-Cc: Will Deacon <will@kernel.org>
-Cc: Yang Shi <yang@os.amperecomputing.com>
----
- arch/arm64/include/asm/preempt.h | 29 +++++++++++------------------
- 1 file changed, 11 insertions(+), 18 deletions(-)
-
-diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
-index 9ecc2766a9f21..92ae2eb95a738 100644
---- a/arch/arm64/include/asm/preempt.h
-+++ b/arch/arm64/include/asm/preempt.h
-@@ -75,30 +75,23 @@ static inline int __preempt_count_sub_return(int val)
- 	return pc;
- }
- 
--static inline bool __preempt_count_dec_and_test(void)
--{
--	struct thread_info *ti = current_thread_info();
--	u64 pc = READ_ONCE(ti->preempt_count);
--
--	/* Update only the count field, leaving need_resched unchanged */
--	WRITE_ONCE(ti->preempt.count, --pc);
--
--	/*
--	 * If we wrote back all zeroes, then we're preemptible and in
--	 * need of a reschedule. Otherwise, we need to reload the
--	 * preempt_count in case the need_resched flag was cleared by an
--	 * interrupt occurring between the non-atomic READ_ONCE/WRITE_ONCE
--	 * pair.
--	 */
--	return !pc || !READ_ONCE(ti->preempt_count);
--}
--
- static inline bool should_resched(int preempt_offset)
- {
- 	u64 pc = READ_ONCE(current_thread_info()->preempt_count);
- 	return pc == preempt_offset;
- }
- 
-+static inline bool __preempt_count_dec_and_test(void)
-+{
-+	/*
-+	 * We must load the combined 'prempt_count' after decrementing
-+	 * 'preempt.count' as an interrupt could modify 'need_resched' before
-+	 * __preempt_count_sub() writes back to 'preempt.count'.
-+	 */
-+	__preempt_count_sub(1);
-+	return should_resched(0);
-+}
-+
- #ifdef CONFIG_PREEMPTION
- 
- void preempt_schedule(void);
--- 
-2.30.2
-
+QXQgMjAyNi0wOS0wOCAyMTozNToxOCwgIk5hbWphZSBKZW9uIiA8bGlua2luamVvbkBrZXJuZWwu
+b3JnPiB3cm90ZToKPk9uIFR1ZSwgU2VwIDgsIDIwMjYgYXQgNToxNuKAr1BNIGh1aGFpIDwxNTgx
+NTgyNzA1OUAxNjMuY29tPiB3cm90ZToKPj4KPj4gRnJvbTogSGVucnkgSHUgPGh1aGFpQGt5bGlu
+b3MuY24+Cj4+Cj4+IFdoZW4gZ2V0X2lub2RlX2FjbCgpIGZhaWxzLCBpdCByZXR1cm5zIGFuIEVS
+Ul9QVFIoKSwgYnV0Cj4+IGtzbWJkX2FjbHNfZmF0dHIoKSBzdG9yZWQgdGhhdCBwb2ludGVyIGlu
+IHNtYl9mYXR0ciB3aXRob3V0Cj4+IGNoZWNraW5nIGZvciBlcnJvcnMuIExhdGVyIGNhbGxlcnMg
+dGhlbiBwYXNzZWQgdGhlIGVycm9yIHBvaW50ZXIKPj4gdG8gc2VjdXJpdHkgZGVzY3JpcHRvciBo
+ZWxwZXJzIG9yIHBvc2l4X2FjbF9yZWxlYXNlKCksIHJlc3VsdGluZwo+PiBpbiBhbiBpbnZhbGlk
+IHBvaW50ZXIgZGVyZWZlcmVuY2UuCj4+Cj4+IFRoaXMgd2FzIHJlcHJvZHVjZWQgb24gYW4gWEZT
+LWJhY2tlZCBzaGFyZSB3aGVuIHhmc19nZXRfYWNsKCkKPj4gcmV0dXJuZWQgRVJSX1BUUigtRU5P
+TUVNKS4gUXVlcnlpbmcgdGhlIFNNQiBBQ0wgZnJvbSBhIENJRlMgY2xpZW50Cj4+IHRyaWdnZXJl
+ZCB0aGUgY3Jhc2g6Cj4+Cj4+ICAgQlVHOiB1bmFibGUgdG8gaGFuZGxlIHBhZ2UgZmF1bHQgZm9y
+IGFkZHJlc3M6IGZmZmZmZmZmZmZmZmZmZjgKPj4gICBSSVA6IHNtYl9hY2xfc2VjX2Rlc2Nfc2Ny
+YXRjaF9sZW4rMHg1OC8weDkwIFtrc21iZF0KPj4gICBDYWxsIFRyYWNlOgo+PiAgICBzbWIyX3F1
+ZXJ5X2luZm8rMHg0MGQvMHgxN2MwIFtrc21iZF0KPj4gICAgaGFuZGxlX2tzbWJkX3dvcmsrMHgx
+Y2EvMHg3NzAgW2tzbWJkXQo+Pgo+PiBGaXggdGhpcyBieSBjaGVja2luZyB0aGUgcmV0dXJuIHZh
+bHVlcyBmcm9tIGdldF9pbm9kZV9hY2woKSBpbgo+PiBrc21iZF9hY2xzX2ZhdHRyKCkgYW5kIHBy
+b3BhZ2F0aW5nIGFueSBlcnJvcnMgdG8gaXRzIGNhbGxlcnMuCj4+IFVwZGF0ZSBzbWIyX29wZW4o
+KSBhbmQgc21iMl9nZXRfaW5mb19zZWMoKSB0byBoYW5kbGUgdGhlc2UgZXJyb3JzLgo+Pgo+PiBD
+Yzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBGaXhlczogZTJmMzQ0ODFiMjRkICgiY2lmc2Q6
+IGFkZCBzZXJ2ZXItc2lkZSBwcm9jZWR1cmVzIGZvciBTTUIzIikKPj4gQXNzaXN0ZWQtYnk6IENv
+ZGV4OmdwdC01LjYtc29sCj4+IFJldmlld2VkLWJ5OiBDaGVuWGlhb1NvbmcgPGNoZW54aWFvc29u
+Z0BreWxpbm9zLmNuPgo+PiBTaWduZWQtb2ZmLWJ5OiBIZW5yeSBIdSA8aHVoYWlAa3lsaW5vcy5j
+bj4KPj4gLS0tCj4+ICBmcy9zbWIvc2VydmVyL3NtYjJwZHUuYyB8IDI5ICsrKysrKysrKysrKysr
+KysrKysrKysrLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgNiBk
+ZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL2ZzL3NtYi9zZXJ2ZXIvc21iMnBkdS5jIGIv
+ZnMvc21iL3NlcnZlci9zbWIycGR1LmMKPj4gaW5kZXggYjdjZTY3MDk0NjI2Li5jNmRmOWE5Nzg5
+YmEgMTAwNjQ0Cj4+IC0tLSBhL2ZzL3NtYi9zZXJ2ZXIvc21iMnBkdS5jCj4+ICsrKyBiL2ZzL3Nt
+Yi9zZXJ2ZXIvc21iMnBkdS5jCj4+IEBAIC0zNjM0LDkgKzM2MzQsOSBAQCBzdGF0aWMgaW50IHNt
+YjJfY3JlYXRlX3NkX2J1ZmZlcihzdHJ1Y3Qga3NtYmRfd29yayAqd29yaywKPj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGxlMzJfdG9fY3B1KHNkX2J1Zi0+Y2NvbnRleHQuRGF0YUxlbmd0
+aCksIHRydWUsIGZhbHNlKTsKPj4gIH0KPj4KPj4gLXN0YXRpYyB2b2lkIGtzbWJkX2FjbHNfZmF0
+dHIoc3RydWN0IHNtYl9mYXR0ciAqZmF0dHIsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgc3RydWN0IG1udF9pZG1hcCAqaWRtYXAsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgc3RydWN0IGlub2RlICppbm9kZSkKPj4gK3N0YXRpYyBpbnQga3NtYmRfYWNsc19mYXR0cihz
+dHJ1Y3Qgc21iX2ZhdHRyICpmYXR0ciwKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0
+cnVjdCBtbnRfaWRtYXAgKmlkbWFwLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgc3Ry
+dWN0IGlub2RlICppbm9kZSkKPj4gIHsKPj4gICAgICAgICB2ZnN1aWRfdCB2ZnN1aWQgPSBpX3Vp
+ZF9pbnRvX3Zmc3VpZChpZG1hcCwgaW5vZGUpOwo+PiAgICAgICAgIHZmc2dpZF90IHZmc2dpZCA9
+IGlfZ2lkX2ludG9fdmZzZ2lkKGlkbWFwLCBpbm9kZSk7Cj4+IEBAIC0zNjQ5LDkgKzM2NDksMTkg
+QEAgc3RhdGljIHZvaWQga3NtYmRfYWNsc19mYXR0cihzdHJ1Y3Qgc21iX2ZhdHRyICpmYXR0ciwK
+Pj4KPj4gICAgICAgICBpZiAoSVNfRU5BQkxFRChDT05GSUdfRlNfUE9TSVhfQUNMKSkgewo+PiAg
+ICAgICAgICAgICAgICAgZmF0dHItPmNmX2FjbHMgPSBnZXRfaW5vZGVfYWNsKGlub2RlLCBBQ0xf
+VFlQRV9BQ0NFU1MpOwo+PiAtICAgICAgICAgICAgICAgaWYgKFNfSVNESVIoaW5vZGUtPmlfbW9k
+ZSkpCj4+ICsgICAgICAgICAgICAgICBpZiAoSVNfRVJSKGZhdHRyLT5jZl9hY2xzKSkKPj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIFBUUl9FUlIoZmF0dHItPmNmX2FjbHMpOwo+LUVP
+UE5PVFNVUFAgYW5kIC1FTk9EQVRBIGNhbiBpbmRpY2F0ZSB0aGF0IHRoZSBmaWxlc3lzdGVtIGRv
+ZXMgbm90Cj5zdXBwb3J0IG9yIGhhdmUgQUNMLCBzbyB0aG9zZSBlcnJvcnMgY2FuIGJlIG5vcm1h
+bGl6ZWQgdG8gTlVMTC4KPkhvd2V2ZXIsIG90aGVyIGVycm9ycyBzdWNoIGFzIC1FTk9NRU0sIC1F
+SU8sIGFuZCBBQ0wgY29ycnVwdGlvbiBlcnJvcnMKPnNob3VsZCBiZSBwcm9wYWdhdGVkIHRvIHRo
+ZSBjYWxsZXIgbGlrZSB0aGlzLgoKVGhhbmtzIGZvciB0aGUgcmV2aWV3ISBZb3UgYXJlIHJpZ2h0
+IHRoYXQgdW5zdXBwb3J0ZWQgb3IgbWlzc2luZyBBQ0xzIG5lZWQKdG8gYmUgZGlzdGluZ3Vpc2hl
+ZCBmcm9tIGFjdHVhbCBmYWlsdXJlcywgYW5kIEkgbm90aWNlZCB0aGF0IHRoZSBnZW5lcmljClZG
+UyBQT1NJWCBBQ0wgY2FsbGVycyBvbmx5IHRyZWF0IC1FT1BOT1RTVVBQIGFzIG1lYW5pbmcgIm5v
+IEFDTCI6CgpGb3IgZXhhbXBsZSwgcG9zaXhfYWNsX2NobW9kKCkgZG9lczoKICAgIGFjbCA9IGdl
+dF9pbm9kZV9hY2woaW5vZGUsIEFDTF9UWVBFX0FDQ0VTUyk7CiAgICBpZiAoSVNfRVJSX09SX05V
+TEwoYWNsKSkgewogICAgICAgIGlmIChhY2wgPT0gRVJSX1BUUigtRU9QTk9UU1VQUCkpCiAgICAg
+ICAgICAgIHJldHVybiAwOwogICAgICAgIHJldHVybiBQVFJfRVJSKGFjbCk7CiAgICB9Cgpwb3Np
+eF9hY2xfY3JlYXRlKCkgZG9lczoKCiAgICBwID0gZ2V0X2lub2RlX2FjbChkaXIsIEFDTF9UWVBF
+X0RFRkFVTFQpOwogICAgaWYgKCFwIHx8IHAgPT0gRVJSX1BUUigtRU9QTk9UU1VQUCkpIHsKICAg
+ICAgICAqbW9kZSAmPSB+Y3VycmVudF91bWFzaygpOwogICAgICAgIHJldHVybiAwOwogICAgfQog
+ICAgaWYgKElTX0VSUihwKSkKICAgICAgICByZXR1cm4gUFRSX0VSUihwKTsKCk1haW5zdHJlYW0g
+aW4tdHJlZSBmaWxlc3lzdGVtcywgc3VjaCBhcyBleHQ0LCBYRlMsIGFuZCBCdHJmcywgYWxyZWFk
+eQpjb252ZXJ0IC1FTk9EQVRBIChvciAtRU5PQVRUUiBpbiBYRlMsIHdoaWNoIGlzIGFuIGFsaWFz
+IGZvciAtRU5PREFUQSkKdG8gTlVMTCBpbnRlcm5hbGx5LiBUaGVyZWZvcmUsIEkgdGhpbmsgS1NN
+QkQgc2hvdWxkIG9ubHkgbm9ybWFsaXplCi1FT1BOT1RTVVBQIHRvIE5VTEwgYW5kIHByb3BhZ2F0
+ZSBhbGwgb3RoZXIgZXJyb3JzLgoKUGxlYXNlIGxldCBtZSBrbm93IHdoYXQgeW91IHRoaW5rLCBh
+bmQgSSB3aWxsIHNlbmQgYSB2MiBhY2NvcmRpbmdseS4KClRoYW5rcywKSGVucnkgSHUuCgo+Cj4+
+ICsKPj4gKyAgICAgICAgICAgICAgIGlmIChTX0lTRElSKGlub2RlLT5pX21vZGUpKSB7Cj4+ICAg
+ICAgICAgICAgICAgICAgICAgICAgIGZhdHRyLT5jZl9kYWNscyA9IGdldF9pbm9kZV9hY2woaW5v
+ZGUsIEFDTF9UWVBFX0RFRkFVTFQpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoSVNf
+RVJSKGZhdHRyLT5jZl9kYWNscykpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwb3NpeF9hY2xfcmVsZWFzZShmYXR0ci0+Y2ZfYWNscyk7Cj4+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcmV0dXJuIFBUUl9FUlIoZmF0dHItPmNmX2RhY2xzKTsKPkRpdHRvLgo+
+VGhhbmtzLgo=
