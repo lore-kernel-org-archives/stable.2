@@ -1,66 +1,69 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFC743A2543;
-	Tue,  8 Sep 2026 07:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493C839658D;
+	Tue,  8 Sep 2026 07:21:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852107; cv=none; b=pFKACvGFa9JUhbfYgSYv3N40APGwo8LE9V1cF+sDEhNxr4TUADtelpLZBh1Vxq4qsDdYMRBjtwNBEQy3WjMZHCI5EzGxSupGaOc3/9OcDphvOuwAhItclYb9UvgHST3fCs1zAd7Ym1v2OrpgDGySdeUk/6HLqad+iK/AkoLdWzU=
+	t=1788852109; cv=none; b=fL6F321igdQv+iCLJYv95RmYxIypeLwiWU7NbT0iOZ8oFU2obqYLHAdDmHpn6yVDGs6FZW5FCrVDYfTVQnHblTHfIadW9xjwNsn3YXm1pUiH+PV0i/knrnIv7po0K+d29k7v2Gus0NwyAn8ZgZb4Hxsiubxr8tF362fQllae66E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852107; c=relaxed/simple;
-	bh=MjqlND0irwfqbU3KUVS6GwvFRiowY3K4RHcJBwceWiw=;
+	s=arc-20240116; t=1788852109; c=relaxed/simple;
+	bh=45FoSh3S2WK0ZlmOr1hMBq6x1w9TKuP7jyNDaU/O9W4=;
 	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=pX4QJVY48X8Gcf0/tYlyUls+NqBrifs7pjmG56D7JK3J3x8co0M5TyTITpwZ4BWklGj0RjknqII+MBH6FJPQogr2e5OAYPur9vo/3z8ws/Am1xWVWVHhxKqrKY1uYtPcw4u/VKMveHF1lzsifcGOchaSurhb5y4vpyigrDUf8Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=psIuP8rU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=NYg/gugX; arc=none smtp.client-ip=193.142.43.55
+	 Message-ID:Content-Type; b=ghJ0r4DCwEcb2vgcf4JxpfITnezMWgrOmnQkJpPB7oEPAZZ23EJy6F21kofcOn4Cwhwrgl0MBdJNr+sjyDnqipLJOYw2+jUyu/Wo8yloCSHY1NwjQL72dXq0YqjxDRnMl3rLArqAaAn9e0ZSFx9i5DIj3s4KBA/7tSwWoQOeD0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wbmf3Ay9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=75RzlSCp; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="psIuP8rU";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="NYg/gugX"
-Date: Tue, 08 Sep 2026 07:21:42 -0000
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wbmf3Ay9";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="75RzlSCp"
+Date: Tue, 08 Sep 2026 07:21:43 -0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788852103;
+	s=2020; t=1788852105;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lDAhArXSJ9uJI/0Y7AvJ8m5kObeZUFBhKSceh4w3b8g=;
-	b=psIuP8rU1OxzXOYa7UUduFswiRe6DNCzxo7LzNcHuvh6A9L08Z+n6GgjLL2tToPinyZLOR
-	ANIrKCrn/oG7/Z4kPxeQvNZU9bbHKpe1Dly+7xldXwYpzMLut3Ar8kB/nquwMUPLWtEsOg
-	VzxK1WhdrxwZn1gGzO2h3jD7zeKOR1B9gWCLKlPBiY2LUXrJAMeTNbt0E1MBESZ3YuLvdk
-	FbNysvhav/HS4EwRghI6HO64G9bwq/n1olCkuTY5mfl3lNm9eaZJjMLT8VJJaYsyKHTFYw
-	Xq+YERlPQzGBPSat35J4Xj3tL+/oZWPqhpSSSMYnWXZdXeAs/wTVZAqpfSyC2g==
+	bh=SwD6JXS18yJAbG55ICsremqpnEVUmHu6Hx+u1iTmvxM=;
+	b=wbmf3Ay9DrV2RxAz4hdwZBevvOoWAeL4UE/N4+xgAeQHFBB4Fg4L5gzojd+mpR3tVM/zwq
+	Y08ExPnx+UnF/M6lTzaQ9Mko+nxB0/ZlUCglLX09NLRuhftVDKUZbjON0JnhVEDGE9G+2U
+	N/PXSqGwKVwkhh2o5jOZvqLHaigQBJke2Uwn55vfcJv8/YvDTAmq8axXyLK7GOy7EbG8Bo
+	dbIwDNXxyiZWsdvLUWwQ93OGHrxey1LeU1vApkDg4Fx1Ksavg2cKHSc8VLMRLjPJJ24Zhi
+	CdNWgu0YjS9sruKcBfmQdOLaT/T68PVKWuAX38MR1u4Oj6gpRyUtPFbp4tgUpQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788852103;
+	s=2020e; t=1788852105;
 	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lDAhArXSJ9uJI/0Y7AvJ8m5kObeZUFBhKSceh4w3b8g=;
-	b=NYg/gugXYASwpG49mkdg1NJQkyM8+HtAECeex/U1g3emlsy28gQ9H32wbkIG+AXsjZuUkH
-	SFbpxnznZKDPmtCw==
+	bh=SwD6JXS18yJAbG55ICsremqpnEVUmHu6Hx+u1iTmvxM=;
+	b=75RzlSCpmVI4CFfwiJRF3vxVFjW5bZmXXr/hV9qT+KQq4OcT/iNlK40l83zDHRPqDrGozf
+	VIeu69opvEgG9zCA==
 From: "tip-bot2 for Lorenzo Stoakes (ARM)" <tip-bot2@linutronix.de>
 Sender: tip-bot2@linutronix.de
 Reply-to: linux-kernel@vger.kernel.org
 To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/mm] x86/mm/pat: Acquire init_mm read lock on attribute
- changes to avoid UAF
+Subject:
+ [tip: x86/mm] x86/mm/pat: Acquire init_mm write lock on collapse to avoid UAF
 Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
  Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
- Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org>
-References: <20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org>
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
+ David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178885210210.623050.1160269330169837932.tip-bot2@tip-bot2>
+Message-ID: <178885210351.623050.3318217514028386653.tip-bot2@tip-bot2>
 Robot-ID: <tip-bot2@linutronix.de>
 Robot-Unsubscribe:
  Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
@@ -70,91 +73,58 @@ Content-Transfer-Encoding: quoted-printable
 
 The following commit has been merged into the x86/mm branch of tip:
 
-Commit-ID:     53d22a66b9c675b6dc974955edb9bd6642f3d610
-Gitweb:        https://git.kernel.org/tip/53d22a66b9c675b6dc974955edb9bd6642f=
-3d610
+Commit-ID:     47b439d627718162b04efe241418775153fc9193
+Gitweb:        https://git.kernel.org/tip/47b439d627718162b04efe241418775153f=
+c9193
 Author:        Lorenzo Stoakes (ARM) <ljs@kernel.org>
-AuthorDate:    Thu, 13 Aug 2026 12:01:25 +03:00
+AuthorDate:    Thu, 13 Aug 2026 12:01:24 +03:00
 Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Tue, 08 Sep 2026 09:07:11 +02:00
+CommitterDate: Tue, 08 Sep 2026 09:06:33 +02:00
 
-x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF
+x86/mm/pat: Acquire init_mm write lock on collapse to avoid UAF
 
-A previous commit protected against races between ptdump and CPA collapse,
-however one still exists between attribute changes and collapse as reported
-by Denis V. Lunev (linked).
+x86 implements page attribute modification using its Change Page
+Attributes (CPA) mechanism.
 
-When an attribute change arises, a lockless page table walker obtains a PTE
-entry, which is later written to via set_pte_atomic():
+This tracks properties of ranges such as cache mode through x86 page
+attributes, and as part of that logic manipulates kernel page tables.
 
-  ...
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-	-> _lookup_address_cpa()
-	-> lookup_address_in_pgd_attr()
-	-> [ lockless page table walker ]
-  -> set_pte_atomic()
+Since commit:
 
-There is nothing preventing a concurrent CPA collapse which can free the
-PTE that was retrieved here, resulting in a use-after-free.
+  41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
 
-With the mmap write lock taken on init_mm over CPA collapse, resolve this
-race by acquiring an mmap read lock on init_mm over
-__change_page_attr_set_clr().
+ranges of kernel page table entries can be collapsed into
+huge page table entries as part of this logic.
 
-This locks across the whole operation over which the walk and the PTE
-entry write occurs, solving the race.
+As part of this collapse, it frees the page tables which the collapsed
+entries previously pointed to, and it does so without any relevant locks
+being held to preclude concurrent kernel page table walkers.
 
-It is safe to do this here, as no spinlocks are held upon entry to
-__change_page_attr_set_clr().
+The only way this code can be reached is if CPA_COLLAPSE is specified, and
+this is only set in set_memory_rox() via:
 
-However, the lock must not be held over an allocation, as allocation can
-trigger reclaim and shrinkers may call into CPA recursively, making
-deadlocks possible (init_mm -> ... -> fs_reclaim -> init_mm).
+set_memory_rox()
+-> change_page_attr_set_clr()
+-> cpa_flush()
+-> cpa_collapse_large_pages()
 
-A page table is allocated when a huge page needs to be split:
+Notable users of this are execmem and BPF when manipulating executable
+mappings.
 
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-  -> split_large_page()
-  [ pagetable_alloc() ]
-  -> __split_large_page()
+However, this is problematic for ptdump as it walks ranges it does not own
+and thus runs the risk of a use-after-free on page tables freed underneath
+it.
 
-Avoid deadlocks by dropping the mmap lock across pagetable_alloc() in
-split_large_page() and track whether this is needed by adding a new
-'init_mm_read_locked' flag to struct cpa_data.
+In addition, concurrent CPA collapse operations are possible which can also
+cause races.
 
-This is safe as __split_large_page() (called with locks re-established)
-revalidates that the page table entry is the same as it was prior to the
-locks being dropped and __change_page_attr() repeats the entire page table
-walk whenever a split occurs, so concurrent split and collapse are
-accounted for.
+Resolve the issue by acquiring the mmap write lock on init_mm across the
+whole operation.
 
-Concurrent ptdump is also safe as the lock is only dropped over page table
-allocation during which time the page table has not yet been modified.
-
-The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-operates upon vmalloc ranges, and on x86 only within the module mapping
-space.
-
-This is important, because some callers directly invoke
-__change_page_attr_set_clr(), bypassing this lock. However, none of these
-operate within the module mapping space.
-
-  * cpa_process_alias() - a recursive helper called by
-    __change_page_attr_set_clr().
-  * __set_memory_enc_pgtable() - operates on the direct mapping and (via
-    __vmbus_establish_gpadl()) the vmalloc mapping space.
-  * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
-    valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-  * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
-
-This work is based upon Denis V. Lunev's excellent analysis of the bug
-with gratitude.
-
-[ dhansen: move to imperative voice in changelog ]
+It is safe to acquire a sleeping lock as all the callers invoke
+set_memory_rox() from process context and in any case,
+change_page_attr_set_clr() calls vm_unmap_alias() which ultimately takes a
+mutex, disallowing atomic context here.
 
 Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation=
 ")
@@ -162,53 +132,73 @@ Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Will Deacon <will@kernel.org>
+Reviewed-by: David Carlier <devnexen@gmail.com>
 Tested-by: Atish Patra <atishp@meta.com>
 Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
 Cc:stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org
+Link: https://patch.msgid.link/20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org
 ---
- arch/x86/mm/pat/set_memory.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 15 ++++++++++++++-
+ include/linux/mmap_lock.h    |  2 ++
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 4abddd7..cb5d6d6 100644
+index c38faf3..4abddd7 100644
 --- a/arch/x86/mm/pat/set_memory.c
 +++ b/arch/x86/mm/pat/set_memory.c
-@@ -50,7 +50,8 @@ struct cpa_data {
- 	unsigned int	flags;
- 	unsigned int	force_split		: 1,
- 			force_static_prot	: 1,
--			force_flush_all		: 1;
-+			force_flush_all		: 1,
-+			init_mm_read_locked	: 1;
- 	struct page	**pages;
- };
+@@ -22,6 +22,7 @@
+ #include <linux/cc_platform.h>
+ #include <linux/set_memory.h>
+ #include <linux/memregion.h>
++#include <linux/cleanup.h>
 =20
-@@ -1240,7 +1241,11 @@ static int split_large_page(struct cpa_data *cpa, pte_=
-t *kpte,
- 	struct ptdesc *ptdesc;
+ #include <asm/e820/api.h>
+ #include <asm/processor.h>
+@@ -409,7 +410,7 @@ static void __cpa_flush_tlb(void *data)
 =20
- 	spin_unlock(&cpa_lock);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_unlock(&init_mm);
- 	ptdesc =3D pagetable_alloc(GFP_KERNEL, 0);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_lock(&init_mm);
- 	spin_lock(&cpa_lock);
- 	if (!ptdesc)
- 		return -ENOMEM;
-@@ -2134,7 +2139,11 @@ static int change_page_attr_set_clr(unsigned long *add=
-r, int numpages,
- 	cpa.curpage =3D 0;
- 	cpa.force_split =3D force_split;
+ static int collapse_large_pages(unsigned long addr, struct list_head *pgtabl=
+es);
 =20
--	ret =3D __change_page_attr_set_clr(&cpa, 1);
-+	/* Avoid race with concurrent CPA collapse. */
-+	cpa.init_mm_read_locked =3D true;
-+	scoped_guard(mmap_read_lock, &init_mm)
-+		ret =3D __change_page_attr_set_clr(&cpa, 1);
-+	cpa.init_mm_read_locked =3D false;
+-static void cpa_collapse_large_pages(struct cpa_data *cpa)
++static void __cpa_collapse_large_pages(struct cpa_data *cpa)
+ {
+ 	unsigned long start, addr, end;
+ 	struct ptdesc *ptdesc, *tmp;
+@@ -443,6 +444,18 @@ static void cpa_collapse_large_pages(struct cpa_data *cp=
+a)
+ 	}
+ }
 =20
- 	/*
- 	 * Check whether we really changed something:
++static void cpa_collapse_large_pages(struct cpa_data *cpa)
++{
++	/*
++	 * Take the mmap write lock on init_mm to:
++	 * - Avoid a use-after-free if raced by ptdump (which takes its own
++	 *   write lock on init_mm).
++	 * - Serialise concurrent CPA walkers.
++	 */
++	scoped_guard(mmap_write_lock, &init_mm)
++		__cpa_collapse_large_pages(cpa);
++}
++
+ static void cpa_flush(struct cpa_data *cpa, int cache)
+ {
+ 	unsigned int i;
+diff --git a/include/linux/mmap_lock.h b/include/linux/mmap_lock.h
+index bec0eab..b8a13b8 100644
+--- a/include/linux/mmap_lock.h
++++ b/include/linux/mmap_lock.h
+@@ -630,6 +630,8 @@ static inline void mmap_read_unlock(struct mm_struct *mm)
+ DEFINE_GUARD(mmap_read_lock, struct mm_struct *,
+ 	     mmap_read_lock(_T), mmap_read_unlock(_T))
+ DEFINE_GUARD_COND(mmap_read_lock, _try, mmap_read_trylock(_T))
++DEFINE_GUARD(mmap_write_lock, struct mm_struct *,
++	     mmap_write_lock(_T), mmap_write_unlock(_T))
+=20
+ static inline void mmap_read_unlock_non_owner(struct mm_struct *mm)
+ {
