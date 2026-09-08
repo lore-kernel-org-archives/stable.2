@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597A753FD55
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 651355437DC
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:57:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872244; cv=none; b=WMJCR/dDhcjxVhoynHJVjCNddSKH8efGpgRG5EdVx70KYDIsqcasoYx5ZJc/vmniYPV9utdGwkwMRHZlgQ7QPgPKm619dzePrdJLp7gB2eE4H1NAjUpUCRTLWfThqRNeekNABC907ysVTcQqks3/uYaGCjCoSENos7lBQDU0qsM=
+	t=1788872247; cv=none; b=CsxetZ2o48CjxQHTfeFTE9uIYnasvgzM8tfGumbn+DcEDi+AV48wl+oB4a1XepMVjH42jMkf4x1R2L/FsD3P90XkJr83geoNmx8t7sO5TrqUl69nxa1qBysgsHSZ8skw8QjHj4L7C4PReimWERbHOAsjAsi+UBjJQ3mX68mseW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872244; c=relaxed/simple;
-	bh=HyZObEiMUOQgn01YDVdcBfYnfQqoBlI2bzoT4NyP5ag=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IwR/TbCRyydAmu5ZUlb7asol7D1eBNh+jdCAT1h0sz8fDN52yb7/NUeyB8xtixxiv/Np0TMACEgZ8/ayMnmX8Xk5YWifIcP08gmLHKg/123bV6fsEHv2yLVt4OBT5TZQV5MLOO9XW/YiYDlrsJ6H3IopLoLMfQil2Bj+t7CGxKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jJMvUm0H; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jJMvUm0H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F321F00A3A;
-	Tue,  8 Sep 2026 12:57:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872241;
-	bh=ncQ/Nswq54jqB2FpxjCKgsiGS3MoCS7KVETow5W9Cg8=;
-	h=Subject:To:Cc:From:Date;
-	b=jJMvUm0HGDqtjsXQw8XaQ+YYfQdre7RdOSi9a0nKYinRKlLc1sSL7b5ZkhKDWnSpW
-	 WDiHEm7wMxai3Z9XXa4aEzVn9KwMVdBLn+Z4tGky3XlxZbCSF+O4IXJ39rK4z1EpK4
-	 Ok820TTaz8cmyd+vPjFwElscGuT1pk19evg/Gwx8=
-Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 7.2-stable tree
+	s=arc-20240116; t=1788872247; c=relaxed/simple;
+	bh=brZrY0LOutNBJaXx6+T2m7ZF/PqDBt9434nBfN+9JOA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J2lfgtAOZxthd+QVBodeIIxvt0u+L+Qt7oVt3PvL2ERZtAD4PpQ7DN3Z6dmczc+t7RnT4geYCzC5z4mupCCe7oX/z2rURHS0D8xuBkDj/3VIVURou6G1y4YxxC17uIsjrtLTlBalU8UsXW9LFP6z2zger9uKMldkFb3Kt5u4QFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F0C1F00A3D;
+	Tue,  8 Sep 2026 12:57:23 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] mm/damon/core: skip aging from repeated aggressive merging" failed to apply to 6.12-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:52:39 +0200
-Message-ID: <2026090839-reoccupy-dizzy-a7bd@gregkh>
+Date: Tue, 08 Sep 2026 14:52:40 +0200
+Message-ID: <2026090840-slapstick-viability-4dbd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 0250dbe08c730d003ef9f484da56ae09a1ea0c4c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090839-reoccupy-dizzy-a7bd@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090840-slapstick-viability-4dbd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
