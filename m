@@ -1,115 +1,72 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A173935AC14;
-	Tue,  8 Sep 2026 04:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749AE33D6EA;
+	Tue,  8 Sep 2026 04:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788842327; cv=none; b=X0bfIjbvQQpUp2BdvpiaMN+q00qya7EF46Gps/Sp2P2RBHW4q3Y9aUsMGv1Hnjg4ZikNcNJKpcZBU9ZSmSryLf1+RuXUOz5MpzZs1XdfaNtLubSlSsEZEPqK062e58espqpgSqq3zodlkkM0J3cHg63aEui9dGXsuSnvfPR/Dwk=
+	t=1788842629; cv=none; b=O9MNOgLDMQemcuby/HWuHGw6Jcnhbx4Yinwa+UVGrjPHTQXlMWDe+oqYwaa3bkmzaxwbrT6XLGd5PdL03BMp2Pqm1zv5lND5YM36aIuwLA5sVpQHXbQd+AAhoITB3SvX10rzSCktAMPrYFpAUL5cbQBwCY7IIYmJDje+P3pB2VA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788842327; c=relaxed/simple;
-	bh=wLlhrdT0oDmwohDiFE29sGQwmDCJ5nOs7ldivlWwLRk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W4eriHggk5MZ4mXH5/RtCb15fR+h1nqeM+z7kFpKXZniQYNmsUxwfdVkWWzP/BvCfNULo145glPb2Q2IKODUDXzvla7+69DU8woTJioc666xFy6oiZjGgIj5ZzfpTV8kqqZH9yZLKBrIO5Q6gBxdQZCmKBMAx91izUYbGgn9bZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=a0zzPrYj; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788842629; c=relaxed/simple;
+	bh=N7Vnqi62aWNt6Obzjp60G6gjyJXkQ6RDN0NO7zILomw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=puiPy4PrXMUMoi4lmrX1nyQMb63ON+3UtK6bQFE2RSms6Jyl1M7e0gUTgT7SHB4SmDRpRVaq+wyzPGtHYslvt235mnrg6g3JNCwRkrkxjKD5UQZ3is2wfDipwPU39xefI1v5soVkJ7cQT1AvYgcfm1E6+lvekyOA9AyR/XlrL1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npiyDh2S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="a0zzPrYj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=Q9GM3GoVZAGmy0fKxgP5IztoBVi7MK2Pr1HkOGTNO8c=;
-	b=a0zzPrYj//5G6GSJbatNISSbkCuYEXSjdVc6cJG7liGZiV0AGuhzoUblyndbXI
-	4DswmUXrPxXSfclHcAErnnLVc5fevUcotQrxR3GDnft2Qx2VrvTR9ZpjAqaAg8q/
-	o0d4APQeJT6dr2BOeEhxE3rXUwVRqIvotYrl2g78kovtw=
-Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgDHdwcukZ9q9IGoPA--.7317S2;
-	Tue, 08 Sep 2026 12:38:07 +0800 (CST)
-Message-ID: <49ad7078-dbd9-44c4-b824-21fe0c0cede6@163.com>
-Date: Tue, 8 Sep 2026 12:38:06 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npiyDh2S"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id EC4221F00A3A;
+	Tue,  8 Sep 2026 04:43:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788842628;
+	bh=FVGDBpMvowJtXD8C/9G810/mhV84GZQJMTsshBIDqDE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=npiyDh2SQxKVvenlS4d0QckdEMYcxzzOKwzytMmC4X0VuGZuO3JXmkhr63ltnc/9Z
+	 DvXfHL07wnWYM0aE92AD4oyLCoOwm74DfNfZjis0fm0C495yJpTgkluvqT+TpDuO5v
+	 eGhOPkQcRzgU2j3/F3RFshNwKCHCGQxX7WfnA1ahfd07nwiNIjf/iO8tibu49I+xpy
+	 Q29+C/VUX4VajvZ9CZBOCxxxt2i1jHt6REr63fer994+EW2AKo3g6luTcV1LXh0fB1
+	 7cN0zmGnjvGS+CA+BWh2AlbqoeOCg6GQueu98eJGw9SF9L52FDLnaKWVJoy5PtmTel
+	 yIkNAeP19Ravw==
+Date: Mon, 7 Sep 2026 21:43:47 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 1/6] xfs: snapshot scrub stats when rendering them
+Message-ID: <20260908044347.GA2619314@frogsfrogsfrogs>
+References: <178850312462.1198660.3332635535003842521.stgit@frogsfrogsfrogs>
+ <178850312518.1198660.12930219318866018921.stgit@frogsfrogsfrogs>
+ <20260907055833.GA31753@lst.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] ntfs: NULL vol->vol_ino in the load_system_files()
- error teardown
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260907070852.291323-1-zenghongling@kylinos.cn>
- <20260907070852.291323-4-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260907070852.291323-4-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgDHdwcukZ9q9IGoPA--.7317S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw43uF4xCw4kuryUKrWkCrg_yoW8urWfpF
-	Zayr12g3yDJFyjk3sF9FWIvF15Zw1ku3yrCr93Z39Fqan3KF1q9w1Utry5WFy8Kr4kCw1j
-	qF4qkr18Wr4UWrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U-Z2fUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwhDyvWqfkTDjaAAA3C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907055833.GA31753@lst.de>
 
-
-
-在 2026/9/7 15:08, Hongling Zeng 写道:
-> The error unwind of load_system_files() drops vol->vol_ino on two
-> paths but leaves the stale pointer in place while it keeps iput()ing
-> the remaining system inodes ($Bitmap, $MFT bitmap, $MFTMirr; $MFT
-> itself is dropped by the caller, ntfs_fill_super()).  A third path
-> carried an iput() that can never execute: it sits inside the
-> IS_ERR(vol->vol_ino) branch guarded by !IS_ERR(vol->vol_ino), and is
-> removed along with the stale pointers.  Nothing in the teardown
-> dereferences vol_ino today, so this is pure hygiene, but a stale
-> pointer to a freed inode surviving the unwind is a trap for any
-> future code walking the volume during teardown.
+On Mon, Sep 07, 2026 at 07:58:33AM +0200, Christoph Hellwig wrote:
+> On Thu, Sep 03, 2026 at 11:26:02PM -0700, Darrick J. Wong wrote:
+> > From: Darrick J. Wong <djwong@kernel.org>
+> > 
+> > LOLLM complains about concurrency problems in the scrub stats code
+> > because xchk_stats_format doesn't synchronize in any way with updates.
+> > These stats are only reported through debugfs so I don't think it really
+> > matters, but I guess I exist to make bots happy now.
 > 
-> ntfs_put_super() and the ntfs_fill_super() error path already NULL it
-> after their iput(); do the same here.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/super.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 4b4af1ea8b09..2d4132aa39d3 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -1541,8 +1541,7 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	 */
->   	vol->vol_ino = ntfs_iget(sb, FILE_Volume);
->   	if (IS_ERR(vol->vol_ino)) {
-> -		if (!IS_ERR(vol->vol_ino))
-> -			iput(vol->vol_ino);
-> +		vol->vol_ino = NULL;
->   volume_failed:
->   		ntfs_error(sb, "Failed to load $Volume.");
->   		goto iput_lcnbmp_err_out;
-> @@ -1551,6 +1550,7 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	if (IS_ERR(m)) {
->   iput_volume_failed:
->   		iput(vol->vol_ino);
-> +		vol->vol_ino = NULL;
->   		goto volume_failed;
->   	}
->   
-> @@ -1716,6 +1716,8 @@ static bool load_system_files(struct ntfs_volume *vol)
->   	if (vol->logfile_ino)
->   		iput(vol->logfile_ino);
->   	iput(vol->vol_ino);
-> +	/* Do not leave a stale pointer behind for the rest of the teardown. */
-> +	vol->vol_ino = NULL;
->   iput_lcnbmp_err_out:
->   	iput(vol->lcnbmp_ino);
->   iput_attrdef_err_out:
+> What concurrency problem?  There should be no need to have an exact
+> snapshot of all counters, so it's really READ_ONCE/WRITE_ONCE that
+> are needed here I think?
 
-Looks good to me.
+Yeah, I suppose I could have gone with READ_ONCE instead of the
+spinlock, but I also don't think the stats file is a hot path. :)
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+> Either way maybe add a comment explaining the snapshotting if we want
+> to stick to it?
 
+"Snapshot the entire stats object with a spinlock because this isn't a
+hot path and we don't have to worry about users seeing slightly weird
+numbers (e.g. invocations has incremented but none of the outcomes have)
+if we race with xchk_stats_merge_one"?
+
+--D
