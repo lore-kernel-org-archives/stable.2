@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2A0F4A6CCB
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:30:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48F3583AD9
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888623; cv=none; b=e3ndc5juqGRFsjuVx7Y4nNrci4+n5qiFGowDAN9gfFT5NuC9CgNOgHhd+JJYq3dp97XHkrAKIite4J45EK/5rpf1L4VyCBXJrut8zUiZipYHMVGs6VSQlPpni+q8yz8AohBG/HHN9unWuH8amoXh38y8V9jC5lYIOh8aKfGLrU8=
+	t=1788888793; cv=none; b=gkB/K8IbCIzFrgPnYOu3FY163L6Z0US2Dj1TRm/RTRDeKD2XJrbXLwpfJn6foxFAgeh/vB9jfp6DHU2TV+SQN9JFLwf23uOWMb/uxbSJFffl2PgSIO+xmKbfvwcqKDge8ySug6p1as/kUWHrEalW6jI8dNx+04/2s/nFt1/x3So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888623; c=relaxed/simple;
-	bh=nzxHDAERnnQAqglfpVtc3ltlUJoQm6DOl1ktpz8E9kI=;
+	s=arc-20240116; t=1788888793; c=relaxed/simple;
+	bh=qFN/7ptYnQvMhQLwcNxpAb45nJF7Fo6fTL6IBuMppcY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=epplqdj2rtlfpRCB75b8HZEoXgj3akcLH75HlBvTHX8Kh7Hv/CKBEpR0pxpCBCkQJ6k05Eh0J7K0nN8/w4Ma/SJp5ZDpIkASTtIoZCPyJBIrGLENDQaqujD0XQXjspln65LsuZD52/eLSkQtO9dG3vZk3zqiLpqZlfFNcz8r2uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2FzHKHb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Os+nSnac1ebi7f/9mteubCJTZNOj1sLmxVzC62h9oTiX1KWXg+f0ZcKt16RDH4IXUUlHIuqJJo3IXEevYjDMaT3ZB5/cCmI2Kjib9PAGeAqiwd4NwvmRo6KOVQHF62Qgac8YYKohRZunSgg7cK6GvligKyNsopPnTq3+/h04QOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UpS8Ih8k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2FzHKHb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5B41F00A3D;
-	Tue,  8 Sep 2026 17:30:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UpS8Ih8k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2F691F00A3A;
+	Tue,  8 Sep 2026 17:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888622;
-	bh=KOmpY+lWyqFT2ZUpyqeQCVj9WkGfk0dy7vVrs1iURLw=;
+	s=k20260515; t=1788888791;
+	bh=KSgSnuTFaw+U5j+cIU7yLVo+YME5jflc5dP4beX11dA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T2FzHKHbugFuzZrNN4RqCmKjizo4r1/mcjjEuIyLzTMzphKSsyUuzoFSrSdXNCbg2
-	 PdcCpj+FM6eJjevgSs36JIqWjr0cmaqmkv4iJEruI1Sajw6P8PRFhKlbbrU33A4c+Y
-	 MhHmPyyF8NE00ENLRVL+F4ZwUSUP95S8ziXfYBzeY4l6suKvYbePY2fnETFOhyLz1n
-	 znCReqvPK+M9AqugjBzEQPi9//CfPqFoxpUDDwUKh4NLK48gu5NwvwxXoOFxmRuTnr
-	 3vy010dPUw5kIS0VJ0hXnwLLzReD9QV6N5KcJCZY/I/05JdAaQyVqrmmDVtSQvdJAw
-	 UrVgbLJfmBKpg==
+	b=UpS8Ih8kWl2Ci5wzbF3wWBibuMa5TJwZ02Y7vg79D7iSRMF7TYVOluoXBEiF/ZvL5
+	 BRZ8TVSIH38gsGwo4GWRA3j4A96+B/3cfq1rxTChSlsXCBuVIPoEroAu14w7cHc55b
+	 7YAyXYupfUKCypLov2VP37zANM4fdbyc+SMeQ9YMHhCoyZ7U26StMH0UDR8MfYj1uL
+	 XhpWqPJSqlTpC0cA9jWwfQPSvgz7Hs8qM1ZJt6/uKYvOLasM0PA4zldrqoWeZoeI31
+	 Gnr+SrkkkYez91k8LwgJ9Sqb3WZzUSCDwdADeBXu7xsvaC89iRcX5x0JxhsPLxKAq1
+	 IyvyCk7VhKZUQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
-	Jassi Brar <jassisinghbrar@gmail.com>,
+Cc: Paul Chaignon <paul@isovalent.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Martin KaFai Lau <kafai@fb.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] mailbox: qcom-ipcc: fix duplicate channel allocation across holes
-Date: Tue,  8 Sep 2026 13:30:19 -0400
-Message-ID: <20260908173019.95356-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/3] ip_tunnels: Add new flow flags field to ip_tunnel_key
+Date: Tue,  8 Sep 2026 13:33:07 -0400
+Message-ID: <20260908173309.106466-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908173019.95356-1-sashal@kernel.org>
-References: <2026090342-wildfire-scrambler-d994@gregkh>
- <20260908173019.95356-1-sashal@kernel.org>
+In-Reply-To: <2026090359-hurry-disagree-2db4@gregkh>
+References: <2026090359-hurry-disagree-2db4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,68 +47,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+From: Paul Chaignon <paul@isovalent.com>
 
-[ Upstream commit 66c7bcad72430a02c860521031350b84b31ad9a8 ]
+[ Upstream commit 451ef36bd229f8aa329cb2258a859b4c636d08ef ]
 
-The IPCC of_xlate() both scans for a free mailbox channel and checks
-for duplicate references to the same underlying IPCC channel. When a
-channel has been shutdown it might have left a hole in the channel
-list, which would terminate the search without considering duplicates
-later in the list.
+This commit extends the ip_tunnel_key struct with a new field for the
+flow flags, to pass them to the route lookups. This new field will be
+populated and used in subsequent commits.
 
-Continue the traversal of the channel list to detect and reject
-duplicates, while keeping track of the first free channel.
-
-Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
+Signed-off-by: Paul Chaignon <paul@isovalent.com>
+Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
+Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Acked-by: Martin KaFai Lau <kafai@fb.com>
+Link: https://lore.kernel.org/bpf/f8bfd4983bd06685a59b1e3ba76ca27496f51ef3.1658759380.git.paul@isovalent.com
+Stable-dep-of: 6776efe4a52f ("ipip: fix skb leak in collect_md mode when metadata_dst allocation fails")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/mailbox/qcom-ipcc.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ include/net/ip_tunnels.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
-index 1bc5382c8fc81..1ab8b25955a05 100644
---- a/drivers/mailbox/qcom-ipcc.c
-+++ b/drivers/mailbox/qcom-ipcc.c
-@@ -164,7 +164,7 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
- {
- 	struct qcom_ipcc *ipcc = to_qcom_ipcc(mbox);
- 	struct qcom_ipcc_chan_info *mchan;
--	struct mbox_chan *chan;
-+	struct mbox_chan *chan, *free_chan = NULL;
- 	struct device *dev;
- 	int chan_id;
+diff --git a/include/net/ip_tunnels.h b/include/net/ip_tunnels.h
+index 0d71e7c4c6916..f858df8325d15 100644
+--- a/include/net/ip_tunnels.h
++++ b/include/net/ip_tunnels.h
+@@ -54,6 +54,7 @@ struct ip_tunnel_key {
+ 	__be32			label;		/* Flow Label for IPv6 */
+ 	__be16			tp_src;
+ 	__be16			tp_dst;
++	__u8			flow_flags;
+ };
  
-@@ -177,16 +177,21 @@ static struct mbox_chan *qcom_ipcc_mbox_xlate(struct mbox_controller *mbox,
- 		chan = &ipcc->chans[chan_id];
- 		mchan = chan->con_priv;
- 
--		if (!mchan)
--			break;
--		else if (mchan->client_id == ph->args[0] &&
--				mchan->signal_id == ph->args[1])
-+		if (!mchan) {
-+			/* Keep scanning past holes to reject duplicate channel requests. */
-+			if (!free_chan)
-+				free_chan = chan;
-+		} else if (mchan->client_id == ph->args[0] &&
-+				mchan->signal_id == ph->args[1]) {
- 			return ERR_PTR(-EBUSY);
-+		}
- 	}
- 
--	if (chan_id >= mbox->num_chans)
-+	if (!free_chan)
- 		return ERR_PTR(-EBUSY);
- 
-+	chan = free_chan;
-+
- 	mchan = devm_kzalloc(dev, sizeof(*mchan), GFP_KERNEL);
- 	if (!mchan)
- 		return ERR_PTR(-ENOMEM);
+ /* Flags for ip_tunnel_info mode. */
 -- 
 2.53.0
 
