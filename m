@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12CD595726
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28C554B1C4
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890147; cv=none; b=Mzv81XkEQ6vvhz6zWXD6PTG8GfruiEO5mTu279VSORvi1H0Nsz9zbT/QVqrt8ZLoM2BplJaWexbKrEZP5P6IFZC7PnKDln5dnh+bflIeu3pltSUVSAEdgIB4dQjfANIXhJpX6vvcYqbkOuIOzmFILYHKf4bzIelzPLgFqo70x6g=
+	t=1788890147; cv=none; b=rWFOFTfXGX+xQ7k/CXrfw38FEWO0i4st3nsEBesUzaYMKa/5xfGICTuvV4csVPT0jujZ1SH8NLsOd08JQkqtdJFvX+a7dvfenJ16fdHpmw5mo1u81wINCNL4f60XYSLow0U8UvTsvh4uIhu+i0r6CBi/hA8g70Y0DBgpwmweBl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788890147; c=relaxed/simple;
-	bh=xKhl/7/P5H0Ze9mI0/xrydMyPII471kJ19WYqX0LNmQ=;
+	bh=rc0rBJzhtY4AO91GyjPWVnPfi23385KVYLyaJqyLwjo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BZMHL602v2hWkGOZyLigkiQQIcL94TuJMgJCPXxo9T/h+lqFCfsS1yfteuj1GB8vi9WzT1SfNt5Bequp6QtlpQXaY10PEnAqMP0V3AFUcWehWpxcIsjF+dnX7uvMxz8y/4YcxRFSVJP0NQuv/KXc6rMdEREL0FzzHaLa1BkmjwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=auYZsX73; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=sHDI2gc9wt9n7OrXUU6Bafabj2S0vBk0im7wFv8jCinL4f9goqzO1+WxAbbfPVCouJ7wnGxj245ZeXLxp6VGWn81GOC/nEii147eYhY5Yn8d/XAiVys056Z7bzrb9jo5HfFgG6b+o7yvVjbqquEpMXzKFRI+Ud/nHp70lffHW4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QM14HH/Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="auYZsX73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D46E21F00A3E;
-	Tue,  8 Sep 2026 17:55:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QM14HH/Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA6051F00A3A;
+	Tue,  8 Sep 2026 17:55:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890145;
-	bh=Ge/1yOd94Oto4KgemOkGEQGuuc9wRM6wigzvrr6eO9Y=;
+	s=k20260515; t=1788890146;
+	bh=zcZgGyP1Xly+oZ7Dg84PhlEwmY4p8y18sqvTUwfBMXA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=auYZsX731TqDTwbS6odtDRXiS2RyMSqaWrItcmL7DQqLVKWbdbLnWS5itibxJWa0+
-	 +Hiou9hPefqbyLqx0QWUcq8Fr7pQBJ4hACIbWQRuNLXqx3G5YSXPalwYEy3Wir9zeZ
-	 fSRWzCR1svzB6T5tignbaRdNykw5W1GjzLBgOIRU/2nIBcvbyRldeZ7hThuWUUVdml
-	 ALrAda+NnpIJMIjzeWZGR1z/dBrLduEqXzkUYmQiOjtAXCkyf0fNiHmddWMe8RpwL+
-	 nmBV5eFg75ojjUE+0cVz62wUmg9M93qfUryvj1lyYay3m3eGN/ExQjTJdlrndyZwuJ
-	 3WKHeF2um7jLQ==
+	b=QM14HH/Zs32OdbEtzjiYGpQ2ICGE4jNFh1GPSxOHTaxva8DMK3rvL7NuTbB+6Es0O
+	 LQl88XhFghF35WtNhAoYzzvhER+XParT+3815jevPTi4Y0K5wcyGMFZ2e0PbLasdX4
+	 n7JxI8Vx88Woq8+Aj8czJwA5Dkm6hUT+y1k+gWgHTkcs3Kbh4FJFpRx6fzOhZI5h1V
+	 cV1OtJc37TMh0hXbGlaXZMztXmyi5WzdYKbCXbw7gy+bBAjBy6rLAOCyV0E6zU+AS5
+	 yLyZLY4h6Jp7u8zWCm6dw+N+LXH4ZYSNMeLDgbRtdZktPAF+qo5ay8m3N0tvyVOARp
+	 Atst8BnTIdPgg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Luis Chamberlain <mcgrof@kernel.org>,
 	Kees Cook <keescook@chromium.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/5] params: Sort headers
-Date: Tue,  8 Sep 2026 13:55:39 -0400
-Message-ID: <20260908175541.151692-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/5] params: Fix multi-line comment style
+Date: Tue,  8 Sep 2026 13:55:40 -0400
+Message-ID: <20260908175541.151692-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908175541.151692-1-sashal@kernel.org>
 References: <2026090331-stays-casually-f049@gregkh>
@@ -49,51 +49,65 @@ Content-Transfer-Encoding: 8bit
 
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-[ Upstream commit a05f096c2c0ca52e8fd34740c7d4b53ab3e7123e ]
+[ Upstream commit b5e3f86a47d34f7b8af899f8cc70520f6daf8b53 ]
 
-Sort the headers in alphabetic order in order to ease
-the maintenance for this part.
+The multi-line comment style in the file is rather arbitrary.
+Make it follow the standard one.
 
 Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
 Reviewed-by: Kees Cook <keescook@chromium.org>
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Link: https://lore.kernel.org/r/20231120151419.1661807-5-andriy.shevchenko@linux.intel.com
+Link: https://lore.kernel.org/r/20231120151419.1661807-6-andriy.shevchenko@linux.intel.com
 Signed-off-by: Kees Cook <keescook@chromium.org>
 Stable-dep-of: 3dfaae04243c ("params: fix charp corruption on allocation failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/params.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ kernel/params.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/kernel/params.c b/kernel/params.c
-index 1efc083b651c9..8e085de8551c3 100644
+index 8e085de8551c3..f6d11831749be 100644
 --- a/kernel/params.c
 +++ b/kernel/params.c
-@@ -3,18 +3,18 @@
-    Copyright (C) 2001 Rusty Russell.
+@@ -1,8 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0-or-later
+-/* Helpers for initial module or kernel cmdline parsing
+-   Copyright (C) 2001 Rusty Russell.
+-
+-*/
++/*
++ * Helpers for initial module or kernel cmdline parsing
++ * Copyright (C) 2001 Rusty Russell.
++ */
+ #include <linux/ctype.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -275,8 +275,10 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
  
- */
-+#include <linux/ctype.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
- #include <linux/kernel.h>
- #include <linux/kstrtox.h>
--#include <linux/string.h>
--#include <linux/errno.h>
- #include <linux/module.h>
- #include <linux/moduleparam.h>
--#include <linux/device.h>
--#include <linux/err.h>
- #include <linux/overflow.h>
--#include <linux/slab.h>
--#include <linux/ctype.h>
- #include <linux/security.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
+ 	maybe_kfree_parameter(*(char **)kp->arg);
  
- #ifdef CONFIG_SYSFS
- /* Protects all built-in parameters, modules use their own param_lock */
+-	/* This is a hack.  We can't kmalloc in early boot, and we
+-	 * don't need to; this mangled commandline is preserved. */
++	/*
++	 * This is a hack. We can't kmalloc() in early boot, and we
++	 * don't need to; this mangled commandline is preserved.
++	 */
+ 	if (slab_is_available()) {
+ 		*(char **)kp->arg = kmalloc_parameter(len + 1);
+ 		if (!*(char **)kp->arg)
+@@ -741,8 +743,10 @@ void module_param_sysfs_remove(struct module *mod)
+ {
+ 	if (mod->mkobj.mp) {
+ 		sysfs_remove_group(&mod->mkobj.kobj, &mod->mkobj.mp->grp);
+-		/* We are positive that no one is using any param
+-		 * attrs at this point.  Deallocate immediately. */
++		/*
++		 * We are positive that no one is using any param
++		 * attrs at this point. Deallocate immediately.
++		 */
+ 		free_module_param_attrs(&mod->mkobj);
+ 	}
+ }
 -- 
 2.53.0
 
