@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCC0924336D
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DD7538D85
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870003; cv=none; b=mJ0LFOqPD6CSJEXNPIrd7CKKLKv6jHuFbXhMCGNb0mIPX5t/UhMcVKdHG9ryIpm1VM4fAU+HrnRbg4hpmuxUKO2PV9zg5l3Qxmw6zJ2eCzxy7zWk242qISAD7JuJLo7llAJexK40x3Y3O+OOzD5L/U3hnYIpiASxjLJiya5hXno=
+	t=1788870005; cv=none; b=M+zouoPOVyUH2GTGR9hL9ounQ7EHkgdDu9JHZTJpxefOfAWQSLGvbtqkMTQPETi2sWCGFIGT0KcdzuQF748p4ABK6OMZe7AGhhjG57oD9XzoTwWLHESqqfxkaV/zi2GLHmRr9ub/1pT5c/coc14lPuRVDjxnledLqLbvoTcgGlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870003; c=relaxed/simple;
-	bh=lzrEdnGK872CHGw6fgUBMD5EgIw4oMHT0/fBys4E/iw=;
+	s=arc-20240116; t=1788870005; c=relaxed/simple;
+	bh=sJSqHmkmNfDEcGPdPjYC5DW7599XwYafeOr+oeBIN5A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MpRtgi8TTcsqcVrAQdDzmFX6hDptMTmSUmBpQXZdqGRWmAqAFYopyjrJpPm3OOupwNhZDjaOtW+HVFttcR8/IV8TvlR7LXCMGUoK9vM5zCtUPlA4vtRyojt8KVuxSZlxHJYK/Vkd9O3mj0T1r4rUlYQbwciaiQCaeqc5HViaUNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eg0KqBtD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LkFHcbY/VJnazQ35D6yrj/3XKUVV4WkiBSb0P2N02uu+CI6hfegTTlzjr9m9OIjDNjyGn3A0R9b7WO6qBOgQ4Y+YPBDtr7XGpBKKf/XpilZPijxsEwjUAkHcdr22LW6E6ty4yhKqIAAHYGC20darSp3hfsQy7b3Y1OInTIFPuEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dU4ezUZ8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eg0KqBtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 244671F00A3E;
-	Tue,  8 Sep 2026 12:19:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dU4ezUZ8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F3EB1F00A3D;
+	Tue,  8 Sep 2026 12:19:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869999;
-	bh=bMJUd4IYOhoLSvgvx1bfQ9JSs7m1DPGjZhnoXo2CfcU=;
+	s=k20260515; t=1788870000;
+	bh=4xQicaI2DqrPU5sgo3uByXwnXhz7qVBaAoMXc9cpK0g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Eg0KqBtDB6ewiski6tU6O9WZo8cEmuFIOxS/ZUBtpRD+T9ffsj5xxgyaJBF0qvEWj
-	 ruf6IQ+3WfFP9CvnVQg4ts6HFeYa/QmibY8MRGg+4HeDxGpNmF9ICjYpzUBK2p2d++
-	 uOmipXtKhgEsVI0s/CNUmkNm5toUmR39DxiaJNOOZFOzciMEclcVFiWMFqLKEGU0Yp
-	 bno8X7kOOoh2QJv+38KgC7wul2awWAT0ugF0anE2iBQsvHmTMctZn+KP8y8k0Gt1X3
-	 KaQlNVXB2mimoS4UeEirEagAZieccXp5the6x1YD/c1iq3U9srwSTYpxsWxZdVzHhz
-	 owArFaBexWneQ==
+	b=dU4ezUZ8pcqSrUq2+tHAhfUSWrjfpO4Dr5mqABuhv+sdUZoD/b82gA00RIig5zTxx
+	 O8UeApNFem4Xfx4d1h2Tsv3RymHChklwBbeFuwIFHphEjUfwGFm883Y///rqCj6fLr
+	 4kZQycfLwp3b7ZTzfBsc4yjiaAPhf42dC942mzVZC/5vSM9YIrcCNjib3gmYR57eUp
+	 ji544SzGIatCmhdLCdD5rI9Kc4awLOJi0HEwiJt20oMUWDlZoWRGZBB+wqS6UogsJ8
+	 1KJE56sXM3fwkCDzU2RXQ12JUf4B9p8mfh5mPNadmMYc3/sGaV8/RL4KRnuXjtmtaW
+	 s9m1IrMYCJgVw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Christoph Hellwig <hch@lst.de>,
-	Anuj Gupta <anuj20.g@samsung.com>,
 	Damien Le Moal <dlemoal@kernel.org>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
 	"Darrick J. Wong" <djwong@kernel.org>,
+	Anuj Gupta <anuj20.g@samsung.com>,
 	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/6] block: add helpers to bounce buffer an iov_iter into bios
-Date: Tue,  8 Sep 2026 08:19:51 -0400
-Message-ID: <20260908121955.2049107-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/6] iomap: simplify iomap_dio_bio_iter
+Date: Tue,  8 Sep 2026 08:19:52 -0400
+Message-ID: <20260908121955.2049107-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908121955.2049107-1-sashal@kernel.org>
 References: <2026090313-revolver-python-ce1a@gregkh>
@@ -53,270 +51,74 @@ Content-Transfer-Encoding: 8bit
 
 From: Christoph Hellwig <hch@lst.de>
 
-[ Upstream commit 8dd5e7c75d7bb2635c7efd219ff20693fc24096a ]
+[ Upstream commit 6e7a6c80198ead08b11aa6cdc92e60a42fc5895f ]
 
-Add helpers to implement bounce buffering of data into a bio to implement
-direct I/O for cases where direct user access is not possible because
-stable in-flight data is required.  These are intended to be used as
-easily as bio_iov_iter_get_pages for the zero-copy path.
-
-The write side is trivial and just copies data into the bounce buffer.
-The read side is a lot more complex because it needs to perform the copy
-from the completion context, and without preserving the iov_iter through
-the call chain.  It steals a trick from the integrity data user interface
-and uses the first vector in the bio for the bounce buffer data that is
-fed to the block I/O stack, and uses the others to record the user
-buffer fragments.
+Use iov_iter_count to check if we need to continue as that just reads
+a field in the iov_iter, and only use bio_iov_vecs_to_alloc to calculate
+the actual number of vectors to allocate for the bio.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Anuj Gupta <anuj20.g@samsung.com>
 Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-Tested-by: Anuj Gupta <anuj20.g@samsung.com>
-Reviewed-by: Martin K. Petersen <martin.petersen@oracle.com>
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Tested-by: Anuj Gupta <anuj20.g@samsung.com>
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
 Stable-dep-of: 14b007e17881 ("block: validate user space vectors during extraction")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- block/bio.c         | 179 ++++++++++++++++++++++++++++++++++++++++++++
- include/linux/bio.h |  26 +++++++
- 2 files changed, 205 insertions(+)
+ fs/iomap/direct-io.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/block/bio.c b/block/bio.c
-index 63594139efe05..600f110e5c0dc 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -1258,6 +1258,185 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 	return bio_iov_iter_align_down(bio, iter, len_align_mask);
- }
+diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
+index e73c71f39bd45..6ea14d07dc618 100644
+--- a/fs/iomap/direct-io.c
++++ b/fs/iomap/direct-io.c
+@@ -344,7 +344,7 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 	blk_opf_t bio_opf = REQ_SYNC | REQ_IDLE;
+ 	struct bio *bio;
+ 	bool need_zeroout = false;
+-	int nr_pages, ret = 0;
++	int ret = 0;
+ 	u64 copied = 0;
+ 	size_t orig_count;
  
-+static struct folio *folio_alloc_greedy(gfp_t gfp, size_t *size)
-+{
-+	struct folio *folio;
-+
-+	while (*size > PAGE_SIZE) {
-+		folio = folio_alloc(gfp | __GFP_NORETRY, get_order(*size));
-+		if (folio)
-+			return folio;
-+		*size = rounddown_pow_of_two(*size - 1);
-+	}
-+
-+	return folio_alloc(gfp, get_order(*size));
-+}
-+
-+static void bio_free_folios(struct bio *bio)
-+{
-+	struct bio_vec *bv;
-+	int i;
-+
-+	bio_for_each_bvec_all(bv, bio, i) {
-+		struct folio *folio = page_folio(bv->bv_page);
-+
-+		if (!is_zero_folio(folio))
-+			folio_put(folio);
-+	}
-+}
-+
-+static int bio_iov_iter_bounce_write(struct bio *bio, struct iov_iter *iter)
-+{
-+	size_t total_len = iov_iter_count(iter);
-+
-+	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
-+		return -EINVAL;
-+	if (WARN_ON_ONCE(bio->bi_iter.bi_size))
-+		return -EINVAL;
-+	if (WARN_ON_ONCE(bio->bi_vcnt >= bio->bi_max_vecs))
-+		return -EINVAL;
-+
-+	do {
-+		size_t this_len = min(total_len, SZ_1M);
-+		struct folio *folio;
-+
-+		if (this_len > PAGE_SIZE * 2)
-+			this_len = rounddown_pow_of_two(this_len);
-+
-+		if (bio->bi_iter.bi_size > BIO_MAX_SIZE - this_len)
-+			break;
-+
-+		folio = folio_alloc_greedy(GFP_KERNEL, &this_len);
-+		if (!folio)
-+			break;
-+		bio_add_folio_nofail(bio, folio, this_len, 0);
-+
-+		if (copy_from_iter(folio_address(folio), this_len, iter) !=
-+				this_len) {
-+			bio_free_folios(bio);
-+			return -EFAULT;
-+		}
-+
-+		total_len -= this_len;
-+	} while (total_len && bio->bi_vcnt < bio->bi_max_vecs);
-+
-+	if (!bio->bi_iter.bi_size)
-+		return -ENOMEM;
-+	return 0;
-+}
-+
-+static int bio_iov_iter_bounce_read(struct bio *bio, struct iov_iter *iter)
-+{
-+	size_t len = min(iov_iter_count(iter), SZ_1M);
-+	struct folio *folio;
-+
-+	folio = folio_alloc_greedy(GFP_KERNEL, &len);
-+	if (!folio)
-+		return -ENOMEM;
-+
-+	do {
-+		ssize_t ret;
-+
-+		ret = iov_iter_extract_bvecs(iter, bio->bi_io_vec + 1, len,
-+				&bio->bi_vcnt, bio->bi_max_vecs - 1, 0);
-+		if (ret <= 0) {
-+			if (!bio->bi_vcnt)
-+				return ret;
-+			break;
-+		}
-+		len -= ret;
-+		bio->bi_iter.bi_size += ret;
-+	} while (len && bio->bi_vcnt < bio->bi_max_vecs - 1);
-+
-+	/*
-+	 * Set the folio directly here.  The above loop has already calculated
-+	 * the correct bi_size, and we use bi_vcnt for the user buffers.  That
-+	 * is safe as bi_vcnt is only used by the submitter and not the actual
-+	 * I/O path.
-+	 */
-+	bvec_set_folio(&bio->bi_io_vec[0], folio, bio->bi_iter.bi_size, 0);
-+	if (iov_iter_extract_will_pin(iter))
-+		bio_set_flag(bio, BIO_PAGE_PINNED);
-+	return 0;
-+}
-+
-+/**
-+ * bio_iov_iter_bounce - bounce buffer data from an iter into a bio
-+ * @bio:	bio to send
-+ * @iter:	iter to read from / write into
-+ *
-+ * Helper for direct I/O implementations that need to bounce buffer because
-+ * we need to checksum the data or perform other operations that require
-+ * consistency.  Allocates folios to back the bounce buffer, and for writes
-+ * copies the data into it.  Needs to be paired with bio_iov_iter_unbounce()
-+ * called on completion.
-+ */
-+int bio_iov_iter_bounce(struct bio *bio, struct iov_iter *iter)
-+{
-+	if (op_is_write(bio_op(bio)))
-+		return bio_iov_iter_bounce_write(bio, iter);
-+	return bio_iov_iter_bounce_read(bio, iter);
-+}
-+
-+static void bvec_unpin(struct bio_vec *bv, bool mark_dirty)
-+{
-+	struct folio *folio = page_folio(bv->bv_page);
-+	size_t nr_pages = (bv->bv_offset + bv->bv_len - 1) / PAGE_SIZE -
-+			bv->bv_offset / PAGE_SIZE + 1;
-+
-+	if (mark_dirty)
-+		folio_mark_dirty_lock(folio);
-+	unpin_user_folio(folio, nr_pages);
-+}
-+
-+static void bio_iov_iter_unbounce_read(struct bio *bio, bool is_error,
-+		bool mark_dirty)
-+{
-+	unsigned int len = bio->bi_io_vec[0].bv_len;
-+
-+	if (likely(!is_error)) {
-+		void *buf = bvec_virt(&bio->bi_io_vec[0]);
-+		struct iov_iter to;
-+
-+		iov_iter_bvec(&to, ITER_DEST, bio->bi_io_vec + 1, bio->bi_vcnt,
-+				len);
-+		/* copying to pinned pages should always work */
-+		WARN_ON_ONCE(copy_to_iter(buf, len, &to) != len);
-+	} else {
-+		/* No need to mark folios dirty if never copied to them */
-+		mark_dirty = false;
-+	}
-+
-+	if (bio_flagged(bio, BIO_PAGE_PINNED)) {
-+		int i;
-+
-+		for (i = 0; i < bio->bi_vcnt; i++)
-+			bvec_unpin(&bio->bi_io_vec[1 + i], mark_dirty);
-+	}
-+
-+	folio_put(page_folio(bio->bi_io_vec[0].bv_page));
-+}
-+
-+/**
-+ * bio_iov_iter_unbounce - finish a bounce buffer operation
-+ * @bio:	completed bio
-+ * @is_error:	%true if an I/O error occurred and data should not be copied
-+ * @mark_dirty:	If %true, folios will be marked dirty.
-+ *
-+ * Helper for direct I/O implementations that need to bounce buffer because
-+ * we need to checksum the data or perform other operations that require
-+ * consistency.  Called to complete a bio set up by bio_iov_iter_bounce().
-+ * Copies data back for reads, and marks the original folios dirty if
-+ * requested and then frees the bounce buffer.
-+ */
-+void bio_iov_iter_unbounce(struct bio *bio, bool is_error, bool mark_dirty)
-+{
-+	if (op_is_write(bio_op(bio)))
-+		bio_free_folios(bio);
-+	else
-+		bio_iov_iter_unbounce_read(bio, is_error, mark_dirty);
-+}
-+
- static void submit_bio_wait_endio(struct bio *bio)
- {
- 	complete(bio->bi_private);
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 16c1c85613b76..627973d7ed3a7 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -401,6 +401,29 @@ static inline int bio_iov_vecs_to_alloc(struct iov_iter *iter, int max_segs)
- 	return iov_iter_npages(iter, max_segs);
- }
+@@ -426,7 +426,6 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 			goto out;
+ 	}
  
-+/**
-+ * bio_iov_bounce_nr_vecs - calculate number of bvecs for a bounce bio
-+ * @iter:	iter to bounce from
-+ * @op:		REQ_OP_* for the bio
-+ *
-+ * Calculates how many bvecs are needed for the next bio to bounce from/to
-+ * @iter.
-+ */
-+static inline unsigned short
-+bio_iov_bounce_nr_vecs(struct iov_iter *iter, blk_opf_t op)
-+{
-+	/*
-+	 * We still need to bounce bvec iters, so don't special case them
-+	 * here unlike in bio_iov_vecs_to_alloc.
-+	 *
-+	 * For reads we need to use a vector for the bounce buffer, account
-+	 * for that here.
-+	 */
-+	if (op_is_write(op))
-+		return iov_iter_npages(iter, BIO_MAX_VECS);
-+	return iov_iter_npages(iter, BIO_MAX_VECS - 1) + 1;
-+}
-+
- struct request_queue;
+-	nr_pages = bio_iov_vecs_to_alloc(dio->submit.iter, BIO_MAX_VECS);
+ 	do {
+ 		size_t n;
  
- void bio_init(struct bio *bio, struct block_device *bdev, struct bio_vec *table,
-@@ -454,6 +477,9 @@ void __bio_release_pages(struct bio *bio, bool mark_dirty);
- extern void bio_set_pages_dirty(struct bio *bio);
- extern void bio_check_pages_dirty(struct bio *bio);
+@@ -439,7 +438,9 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 			goto out;
+ 		}
  
-+int bio_iov_iter_bounce(struct bio *bio, struct iov_iter *iter);
-+void bio_iov_iter_unbounce(struct bio *bio, bool is_error, bool mark_dirty);
-+
- extern void bio_copy_data_iter(struct bio *dst, struct bvec_iter *dst_iter,
- 			       struct bio *src, struct bvec_iter *src_iter);
- extern void bio_copy_data(struct bio *dst, struct bio *src);
+-		bio = iomap_dio_alloc_bio(iter, dio, nr_pages, bio_opf);
++		bio = iomap_dio_alloc_bio(iter, dio,
++				bio_iov_vecs_to_alloc(dio->submit.iter,
++						BIO_MAX_VECS), bio_opf);
+ 		fscrypt_set_bio_crypt_ctx(bio, inode, pos >> inode->i_blkbits,
+ 					  GFP_KERNEL);
+ 		bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
+@@ -481,16 +482,14 @@ static int iomap_dio_bio_iter(struct iomap_iter *iter, struct iomap_dio *dio)
+ 		dio->size += n;
+ 		copied += n;
+ 
+-		nr_pages = bio_iov_vecs_to_alloc(dio->submit.iter,
+-						 BIO_MAX_VECS);
+ 		/*
+ 		 * We can only poll for single bio I/Os.
+ 		 */
+-		if (nr_pages)
++		if (iov_iter_count(dio->submit.iter))
+ 			dio->iocb->ki_flags &= ~IOCB_HIPRI;
+ 		iomap_dio_submit_bio(iter, dio, bio, pos);
+ 		pos += n;
+-	} while (nr_pages);
++	} while (iov_iter_count(dio->submit.iter));
+ 
+ 	/*
+ 	 * We need to zeroout the tail of a sub-block write if the extent type
 -- 
 2.53.0
 
