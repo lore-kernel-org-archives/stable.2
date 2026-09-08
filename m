@@ -1,73 +1,243 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D53B483BDE;
-	Tue,  8 Sep 2026 21:27:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB4E470111;
+	Tue,  8 Sep 2026 21:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788902872; cv=none; b=tolatJP7YrYIvDtvxwvqlnfZ4EK27eVQ6f+J//LaPHO++xEpOUXxbMQKHTp1SxbH7emCMYlddafuInXaIidbPHO2kodmjyWUdztCwlUMKxfO07/H/h4nMEQeh7JfF2uO+FPxKFMrwDKNkKPnULskTxxYJqUhGRQnPX0uzw61I6M=
+	t=1788902899; cv=none; b=j8QgMxwN6RZ94Ykmam8PsTnknv2cI2EGbfKwMXsRxeVQYWncrQ1/6w0s9BqmUNxvuVrovjiaN27NtOT863A+aqScb9VJUkRQCrY1ujC7PLYJss8O6CU+5+yBeEXiPKdSdGxiIVZmd3L3AzuJTxydZy3o1gLXd4sLM60SuruQ2ZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788902872; c=relaxed/simple;
-	bh=nKfl4qroJvlsNG9b/JDeXtvQA6ocWF5QlvNPK3Zjg94=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AY/oq+2ijgPq7OwHZdVMHVgtnA6aCqFTNhXfoq7LnSl+YjvmSA1/8WHajzn7Ee0D4wUogg9+xQSOsZA4jUJn1eBveQwv7qs+9mV0uiRy9JmkGoEagkja9UMVDFL0Wf5yA1+BxrDFn1UYkHsLRUMfT6k8Ru1KLalRXXICStNovXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtiU6qAO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788902899; c=relaxed/simple;
+	bh=gXaFKAL2BqzM81QkgPWckZJu9NKfvuLpuUSz/ALBIq8=;
+	h=Date:To:From:Subject:Message-Id; b=AiWitPD3E0GsvDfx8bNNPxeeIznzqy7qO2ITwys9AThyiXOoAyubvBw9iJ3pbJSox+vS6hzkvl7ajs8TA4tqeh1ZosTbwWX/JeGEgE3Q1mb9b/SkeIRrrSAe0PydohDOSSRlvmapiOb3UOPvYcaV2txG7IFtcCssPTdSRjPY6Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=lJBpe6VB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtiU6qAO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B14D1F00A3A;
-	Tue,  8 Sep 2026 21:27:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788902870;
-	bh=857GXWh5Wp+T+/E/9iEX9gx5IzxzoNleNVwqN+hai+0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dtiU6qAOIMB++ZEgT7ArQ8A+1eY9m0aeMRbEECD3xRT2B/ws4In3noMgrNS5nR1KS
-	 m4VCI6nzngZOd1tbotVNI1/O/0eRPg1j2dE5zyiNCx+NwsK8xh+ezs9451E2l1tvu3
-	 6zdVf2sq/Rgwe6BoM7QyTvF5blVU7jnLDHxD3FW1NXB5FFot+lq5USwP0cYgV5TQx8
-	 WK8oCBGkvl3yYSPxysiq8ZRZNcqHyx6Ij7PG2u4vke5Yk1TGZX2dcIIanY+n43yhi+
-	 IGOTGtg+1m/6Z2O8tdDC1BD3LzlPWNWpW0fCHuToGYxUI2RTlbMu5JuwDebH6ZUE+E
-	 ysT9xDAklx7Og==
-From: Yixun Lan <dlan@kernel.org>
-To: linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Guo Ren <guoren@kernel.org>
-Cc: Yixun Lan <dlan@kernel.org>,
-	devicetree@vger.kernel.org,
-	spacemit@lists.linux.dev,
-	junhui.liu@pigmoral.tech,
-	stable@vger.kernel.org,
-	Guodong Xu <docular.xu@gmail.com>
-Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
-Date: Tue,  8 Sep 2026 21:27:45 +0000
-Message-ID: <178890281743.280809.6794567458346046104.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
-References: <20260817033038.2286436-1-guoren@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="lJBpe6VB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CAFA1F00A3A;
+	Tue,  8 Sep 2026 21:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788902897;
+	bh=2WRYnj99LmrIjpg5Ynx+j6s5GV6iKbnwhqAtAhl0Few=;
+	h=Date:To:From:Subject;
+	b=lJBpe6VBPaITYcBjsJNgF8pSSsgHio+3JIpTrCy1G/jquIbauij0gfgA7OqbR++/h
+	 7662loUO0aC/5vOIxQjQMnLXUcvFZ46vO3wYiylP+cdG40cD3nVo64uXhy03nIPY9O
+	 AnYMo5lqPbZr+R0DxJkaQwH+10lAtEfdDm9+ONqY=
+Date: Tue, 08 Sep 2026 14:28:16 -0700
+To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,vbabka@kernel.org,sunnanyong@huawei.com,stable@vger.kernel.org,riel@surriel.com,minchan@kernel.org,lwoodman@redhat.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kamezawa.hiroyu@jp.fujitsu.com,jannh@google.com,harry@kernel.org,david@kernel.org,tujinjiang@huawei.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch added to mm-hotfixes-unstable branch
+Message-Id: <20260908212817.1CAFA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
 
-On Mon, 17 Aug 2026 03:30:38 +0000, Guo Ren wrote:
-> The initial K3 device tree used generic/placeholder values for the
-> IMSIC guest configuration:
-> 
->   riscv,num-guest-ids    = <511>;
-> 
-> According to the SpacemiT K3 User Manual this values is incorrect
-> for the X100 cores:
-> 
-> [...]
+The patch titled
+     Subject: mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
+has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
+     mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch
 
-Applied, thanks!
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch
 
-[1/1] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=69f95409f0053f787ad60175944080621a8b7d95
+This patch will later appear in the mm-hotfixes-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Best regards,
--- 
-Yixun Lan <dlan@kernel.org>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Jinjiang Tu <tujinjiang@huawei.com>
+Subject: mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
+Date: Tue, 8 Sep 2026 20:29:24 +0800
+
+On arm64 server, we find that a task trying to grab the anon_vma lock
+triggers hungtask.
+
+INFO: task main:2354726 blocked for more than 120 seconds.
+      Tainted: G            E     5.10.0-0021.aarch64 #1
+"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+task:main            state:D stack:    0 pid:2354726 ppid:2350673 flags:0x00000a01
+Call trace:
+ __switch_to+0x7c/0xbc
+ __schedule+0x3b4/0x8a0
+ schedule+0x50/0xe0
+ rwsem_down_write_slowpath+0x3cc/0x6cc
+ down_write+0x60/0x260
+ __anon_vma_prepare+0x6c/0x210
+ do_anonymous_page+0x258/0x660
+ handle_pte_fault+0x188/0x214
+ __handle_mm_fault+0x1b0/0x380
+ handle_mm_fault+0xf4/0x284
+ do_page_fault+0x19c/0x494
+ do_translation_fault+0xcc/0xf8
+ do_mem_abort+0x48/0xac
+ el0_da+0x44/0x80
+ el0_sync_handler+0x88/0xb4
+ el0_sync+0x160/0x180
+
+After analyzing the vmcore, we found the anon_vma->root->rwsem.count is
+-1.  There is another anon_vma whose anon_vma->root->rwsem.count is 1, the
+anon_vma->root->rwsem.owner shows the lock is held, but the stack of the
+task shows the task doesn't hold the anon_vma lock.
+
+After adding more debugging info, we found __anon_vma_prepare() reuses
+anon_vma and triggers the UAF of anon_vma->root due to missing memory
+barrier, leading to locking and unlocking two different anon_vma->root,
+thus leading to an anon_vma will never be unlocked, and another anon_vma
+couldn't be locked anymore.
+
+This race requires two adjacent VMAs that are not merged but are
+anon_vma-compatible (e.g., they differ in VMA_ACCESS_FLAGS that can be
+changed by mprotect()).  Two threads fault on each VMA concurrently, both
+calling __anon_vma_prepare() with only mmap_lock held for reading.
+
+    THREAD A                             THREAD B
+__anon_vma_prepare                __anon_vma_prepare
+ find_mergeable_anon_vma() -> NULL
+ anon_vma = anon_vma_alloc();
+   anon_vma->root = anon_vma;
+ // the two stores may be reordered
+ vma->anon_vma = anon_vma;
+                                   // finds A's anon_vma
+                                   anon_vma = find_mergeable_anon_vma(vma);
+                                   anon_vma_lock_write(anon_vma);
+                                     // may still see the old root
+                                     down_write(&anon_vma->root->rwsem);
+                                   anon_vma_unlock_write(anon_vma);
+                                     // see the new root, never unlock old
+                                     up_write(&anon_vma->root->rwsem);
+
+thread A triggers page fault and calls __anon_vma_prepare() to prepare
+anon_vma for the faulting vma.  __anon_vma_prepare() allocates and
+initializes a new anon_vma, and then publishes it to the vma with a plain
+store.  anon_vma_prepare() only requires the mmap_lock to be held for
+reading, so two threads can fault on adjacent VMAs at the same time. 
+While thread A publishes a new anon_vma, thread B could find the anon_vma
+via find_mergeable_anon_vma() and then locks anon_vma->root->rwsem.
+
+The store to anon_vma->root in anon_vma_alloc() and the store to
+vma->anon_vma can be reordered.  The anon_vma_lock_write() and spin_lock()
+only provide acquire semantics, which do not prevent prior stores from
+being reordered after them.  The release semantics of the corresponding
+spin_unlock() and anon_vma_unlock_write() come too late, the store to
+vma->anon_vma is already published before they take effect.  As a result,
+thread B can observe the following order:
+
+    vma->anon_vma = anon_vma;
+    anon_vma->root = anon_vma;
+
+The anon_vma slab is SLAB_TYPESAFE_BY_RCU, so a newly allocated anon_vma
+may reuse memory from a previously freed one.  The constructor
+(anon_vma_ctor) does not reset anon_vma->root, and __put_anon_vma()
+doesn't clear it either, so the old root value persists until
+anon_vma_alloc() overwrites it.  If that store isn't visible, thread B
+reads a root that points to the old anon_vma and locks it.
+
+As a result, thread B can call anon_vma_lock_write() with the old root,
+and call anon_vma_unlock_write() with the new root, leading to an anon_vma
+will never be unlocked, and another anon_vma couldn't be locked anymore
+(its count is dropped from 0 to -1 due to wrong unlock).
+
+To fix it, change the plain store `vma->anon_vma = anon_vma` to store
+release, so that the fields of anon_vma are visible before anon_vma is
+published to vma->anon_vma.
+
+At read side, the load of anon_vma and anon_vma->root have address
+dependency.  According to Documentation/memory-barriers.txt and some
+investigations, only Alpha needs address-dependency barriers and it has
+been handled by READ_ONCE() in reusable_anon_vma().
+
+We reproduced this issue in v5.10 with KSM enabled.  The kernel doesn't
+merge commit cf7e7a3503df ("mm: prevent KSM from breaking VMA merging for
+new VMAs"), so there are many adjacent VMAs that aren't merged but are
+compatible for anon_vma.
+
+Without this fix, our production environment could reproduce this issue
+about 2-5 times each month.  After adding a smp_mb() before
+anon_vma_lock_write(anon_vma) in __anon_vma_prepare(), which is different
+to this patch, this issue hasn't been reproduced for one month.
+
+Link: https://lore.kernel.org/20260908122924.554373-1-tujinjiang@huawei.com
+Fixes: 5c341ee1dfc8 ("mm: track the root (oldest) anon_vma")
+Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Cc: Minchan Kim <minchan@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Harry Yoo <harry@kernel.org>
+Cc: Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>
+Cc: Jann Horn <jannh@google.com>
+Cc: Jinjiang Tu <tujinjiang@huawei.com>
+Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
+Cc: Larry Woodman <lwoodman@redhat.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Nanyong Sun <sunnanyong@huawei.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
+
+ mm/rmap.c |    6 +++++-
+ mm/vma.c  |    8 ++++++++
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+--- a/mm/rmap.c~mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish
++++ a/mm/rmap.c
+@@ -209,7 +209,11 @@ int __anon_vma_prepare(struct vm_area_st
+ 	/* page_table_lock to protect against threads */
+ 	spin_lock(&mm->page_table_lock);
+ 	if (likely(!vma->anon_vma)) {
+-		vma->anon_vma = anon_vma;
++		/*
++		 * Make anon_vma fields visible before anon_vma is published.
++		 * Paired with an address dependency in reusable_anon_vma().
++		 */
++		smp_store_release(&vma->anon_vma, anon_vma);
+ 		anon_vma_chain_assign(vma, avc, anon_vma);
+ 		anon_rmap_tree_insert(avc, anon_vma);
+ 		anon_vma->num_active_vmas++;
+--- a/mm/vma.c~mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish
++++ a/mm/vma.c
+@@ -2094,6 +2094,13 @@ static int anon_vma_compatible(struct vm
+  * acceptable for merging, so we can do all of this optimistically. But
+  * we do that READ_ONCE() to make sure that we never re-load the pointer.
+  *
++ * The READ_ONCE() establishes an address dependency between anon_vma and
++ * any access to its fields, which pairs with the assignment to
++ * vma->anon_vma performed with release semantics in __anon_vma_prepare().
++ *
++ * This is especially important as anon_vma's are SLAB_TYPESAFE_BY_RCU so
++ * accessing an uninitialised anon_vma's fields may result in a UAF.
++ *
+  * IOW: that the "list_is_singular()" test on the anon_vma_chain only
+  * matters for the 'stable anon_vma' case (ie the thing we want to avoid
+  * is to return an anon_vma that is "complex" due to having gone through
+@@ -2108,6 +2115,7 @@ static struct anon_vma *reusable_anon_vm
+ 					  struct vm_area_struct *b)
+ {
+ 	if (anon_vma_compatible(a, b)) {
++		/* Paired with a memory barrier in __anon_vma_prepare(). */
+ 		struct anon_vma *anon_vma = READ_ONCE(old->anon_vma);
+ 
+ 		if (anon_vma && list_is_singular(&old->anon_vma_chain))
+_
+
+Patches currently in -mm which might be from tujinjiang@huawei.com are
+
+mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch
+docs-ksm-fix-typos-in-sysfs-knob-names.patch
+mm-ksm-fix-advisor_min_pages_to_scan-description.patch
+
