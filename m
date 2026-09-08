@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A213491591
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:32:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A933815D0
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:41:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895937; cv=none; b=KQwwMY1OY2hqHDmzJ5xGJwojzdeQAYPdDGb0h7RbW8NVrsyrq7xE54q+iQzy3up3fcSuz/hSWSc+fmwoPBb9bYvdgWfey5VSJBtOnQtC4JV/q/9yPUS2riJ84Ykoo1t5VDwbSIWaABT5anRD8lkdrORyn/A2E+bUth8vKyubcDM=
+	t=1788896465; cv=none; b=Z3F9w9uJvZdpO17UsluVV60+B/XCrkdVUJ95tnh+S5friM7/V4YbyQUNdcYsOp7GGfcpivMX8W8HExS4jWbGU2q8jE9kDuClS7XBGAx2LtqQ1vf1PsGBKwSxMOwFFoYtnLyIPQUpR/Bx7MO3lxvoc4ZJTjk1y5vqQ6n757yTQSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895937; c=relaxed/simple;
-	bh=4q/aop8ZHnEf1Flqj4ZBWAo10IHwe/SR/HTvXB5JB3Y=;
+	s=arc-20240116; t=1788896465; c=relaxed/simple;
+	bh=mQ/MoC96/gYtvtlsm26R4ObjM0FA7CPk/rr/6pUfyw8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hUU47gZLlyYVdmwMfencRULLN8mOJLSEXpgp7QDTfVYcspRE4wtCCUvfcrd5LWIfd0uCpRHS72zWzb8X31YBTwQWDlIBKDiknLEQaNIq2dmU4cu7Sw0AMM9kNlY9l7O8R6qV4DEUfNz3Kw6zdLNzQmG1jooTEc5NSa6tVsYscbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q37Qhshx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FYrV45GmVyI1Ff45p5FUlGZUN7lWJVWDTjAlPimx9qQojyXFGm1eNKOis8Y8GVma3wPLsdqJnjIDyA10fVjPqWsya7k281ZAoy3OviueBJuYaNArHW5SKeUJbUWbyjTDqbglKOhkVlZRGvoSikq2uPLimbWIgOc3cUXm2n0CaDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXvqJF5e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q37Qhshx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7328E1F00A3A;
-	Tue,  8 Sep 2026 19:32:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXvqJF5e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CC01F00A3D;
+	Tue,  8 Sep 2026 19:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788895936;
-	bh=JTF3Q5lniNpzTjat/WenrDrAZJC06pssMIDP7aWrUy8=;
+	s=k20260515; t=1788896463;
+	bh=kjqr+DbiTfNtzU/eV+cPXkxxGRbKXya9ypK1pNLmU/Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Q37QhshxmgECIQsuRXIV72T7uUGNnGiavup2BSeyXWd02xkYVTAq2meqy6Bx6bU7t
-	 cVGtXPrEqa/Fby1O1lmsY1XXIaCcGBbpSGI6icJoSMWkym8sOnYrWZDIAdQA9mFlR3
-	 sSa0uxCxoqjLdZMtMyp6li1abziITBx/upbC/++6Uwvrw/nBetQoJwI4/038KicNbk
-	 8H4q2tZVZJYIduU55Q921D8xyuJ8JIggKowfh7EGSc2SIlnuHiIPXaI0YZaMa4bjbv
-	 WADaxvL2+mef2jTmDkT3HMZGa1fWQ5mqoPveTHV9L+H7ZaaGtFyQO4fiFOdh6h/CTW
-	 zP/Hh69tXGl+g==
+	b=YXvqJF5eMcLISGD35hfstrVP2Karc4+XO9HZlXiX1weHRmkcaGtMp/HDWXgZJbZy4
+	 LRkHdEHU5uVnCsCDJtfNQJn6KUgYtpaUD+3yUAY6vINqbztBDly5Z1pNVBxKrK5bzQ
+	 IVG7wAWc1KPWW2e1hILhRXojzExUmNhB6P4upYcfYdnoNyioXYY0qUR67HHcsoftRp
+	 xQjnU8YkXav7gzzceQ6dq7HSNSaZJG15dpKhLcgOqfq6D2a3UP42FYdNgQJ3SrP9+H
+	 FYKDovGrs9NHFAiSvKpIzQhdQb20M6FZcd0iU1hz7JF6VzGJOTYVR+VVBfLqs+izMT
+	 sUTFMa/34JMDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <clm@meta.com>,
 	Jeff Layton <jlayton@kernel.org>,
 	Chuck Lever <chuck.lever@oracle.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] SUNRPC: fix gssx_dec_option_array error path bugs
-Date: Tue,  8 Sep 2026 15:32:13 -0400
-Message-ID: <20260908193213.325621-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] SUNRPC: fix gssx_dec_option_array error path bugs
+Date: Tue,  8 Sep 2026 15:41:01 -0400
+Message-ID: <20260908194101.376578-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090300-canal-untrained-96f2@gregkh>
-References: <2026090300-canal-untrained-96f2@gregkh>
+In-Reply-To: <2026090301-irritant-cage-55aa@gregkh>
+References: <2026090301-irritant-cage-55aa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -115,7 +115,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 6 insertions(+), 3 deletions(-)
 
 diff --git a/net/sunrpc/auth_gss/gss_rpc_xdr.c b/net/sunrpc/auth_gss/gss_rpc_xdr.c
-index 30f19298c6911..967943ae61c62 100644
+index ee91f4d641e6f..ac9ae42a69762 100644
 --- a/net/sunrpc/auth_gss/gss_rpc_xdr.c
 +++ b/net/sunrpc/auth_gss/gss_rpc_xdr.c
 @@ -222,7 +222,8 @@ static int gssx_dec_linux_creds(struct xdr_stream *xdr,
@@ -128,7 +128,7 @@ index 30f19298c6911..967943ae61c62 100644
  	return err;
  }
  
-@@ -243,12 +244,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+@@ -242,12 +243,12 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
  		return 0;
  
  	/* we recognize only 1 currently: CREDS_VALUE */
@@ -143,7 +143,7 @@ index 30f19298c6911..967943ae61c62 100644
  	creds = kzalloc(sizeof(struct svc_cred), GFP_KERNEL);
  	if (!creds) {
  		err = -ENOMEM;
-@@ -300,8 +301,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
+@@ -294,8 +295,10 @@ static int gssx_dec_option_array(struct xdr_stream *xdr,
  	return 0;
  
  free_creds:
