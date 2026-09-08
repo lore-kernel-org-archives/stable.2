@@ -1,125 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09AE23D7DF;
-	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852443; cv=none; b=oAZkGWe2S1TPw+LEqZP+ucb2+TYfCCPYXw9ykSklZOvb1K4btVA4wB1aPhszBvD8aBjCBc2QUwE+jlNGK7UwcP4XupWiChasrCAsHtStmsdTj5eOJSnwR787kuvdRm0L14JaPVijM78Bc5Mfz+SLrD6W7qwKfawcOIDqPYk/Q6w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852443; c=relaxed/simple;
-	bh=Vt+6gXucuoioWVk58j7Utdta0numUj2daXjLDlo3WJY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UZpUOgTac/bcdQst8Oktst1kl4UbAgbsDR9nOvz/As5LQPqgQ4hY9DWT36dKfG9mL5gLVVNmncmnZ4oBzddxRDVxQgsHlDDdF7ybbuzXsv+YdPAG778wqU47mYHVv9n9Cjk87vTmVGWSq8z0GASP3P6bg4sItufuerDGgc/6gu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CNpnUXwD; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C893769E4
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 07:29:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788852594; cv=pass; b=R4gU6/D4HmLElBp49c6+crggHyJ2E0aKO5yxpoUswlPgt/1cyLHLFrbXZH9kdylZq0Ajaful3uVf0PTN7f5rsmrHM5zsmLF02D32wL3Y1sgGcexYlWSrNy12t1G292HWxtE6mT7yG97dauelu8UQt9gL74py5+oePRDUFzhzUog=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788852594; c=relaxed/simple;
+	bh=T08rrPud2VipHJSVCcS3NiZ+LpFrS/HS4Ee9JZRN76c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pYU58xe+9ABy6noNj95xGUPtSIKoVpuRbsQjUyke5iB1Nl4oIMPosJ5OYTFlPgFxHRmUV+7hGnrgfTJA9IibjILRSuOPfxhNqjBc1ciDqm7r5Fc90gTYTM/NGbaBrT0aEQQy5bp2Y3RBGMfaUFS+qSAzWF0UL+syJNPUFr0hQD8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FdLFx1on; arc=pass smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CNpnUXwD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56EB5C2BCB8;
-	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788852443;
-	bh=Vt+6gXucuoioWVk58j7Utdta0numUj2daXjLDlo3WJY=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=CNpnUXwDZhrcNfnmQn+pqsW47mOZBckKg6WDNS2WyVyUO4of+nDuf1aPGcy/8LGsB
-	 f4SBDNKdqU0aewI17flrrq+YMjvvj8OcL++QTqbIpqd/TwrKkPI8jXCD4Tlu+UZ/ru
-	 epaMJlUDfbvQYyeRQBf5Xbb2jz5ZEbOFrOQCXBTnxOctXozKgHugi82GcL7U+p4GiJ
-	 00jBUrEQNCAksQTzFMoSPUP3fT9DivkGBu0sNINofuF5C6+2X/qRwSkWTJD/d7dcL7
-	 ORRE0A4QFonsYH13OH0GZDe812Xal4heRTeSVYze5CUn/g0e+59DlJ2qKUU0mpXtdX
-	 IDZszU4CXOY0Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32547C79F82;
-	Tue,  8 Sep 2026 07:27:23 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Tue, 08 Sep 2026 15:27:21 +0800
-Subject: [PATCH v2] media: vicodec: zero-initialize stateful decoder heap
- buffers
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FdLFx1on"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c25420fe973so735155066b.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 00:29:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788852591; cv=none;
+        d=google.com; s=arc-20260327;
+        b=f0DEXDRW0VVqGiiWPuXJnNYtjn7hiQtdpfYse0GSPoDfpFCf7Qx2th3VfxqwrG8AIt
+         UN56lPWMcuoevNnNdd7QC2Tu95znf2yeuRuqcJ3noWWYftq4/u8i30/w9KyAyEapBFu+
+         o03dMGq3Wf3wQnxbITvxXRLCX9w0lDo8J1p/nORzMCTC8NqPp/+Wm2KVsZwo+ZT6g9JQ
+         3dKNjioxsOmMt7FXNthhjfeseiv6tri81QX5hVgt8D9+JpImQvQah55wVYVV9VDFZ7gE
+         t291BlDCuKOYyebOIYWO2lKwREO3iB68xaRgoRKN54pGAcJqAOjRXgR5B7kaH+vaufTt
+         beUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
+        fh=/UyCrsRoR3AoFchK1k1LcQcVHlVXOgUYRNj9DG165d4=;
+        b=D5Cg6nY/dax7mMBdJFHy1kuh4rArdClYKKEZ0AbCnOD0rPnhgn9wNW3dSD58fDCIqk
+         EIGajaqUFU+FkkM/a6IDarviH2aSc7QDOB19ufyZn+bojzK507MZl0s9B5k5BmnkR8J9
+         UR4JaOyRL8AuA0BKwmPPaqRxeQBGwJ6fFUOtGv9I9Tqj0bBgxuvsIuI95x7xHPgaFyD/
+         EU0cyJAFkdeCvCtoCBGLRcimP/1/uT5JGbs1B2h/xNSDyCgzErW9ZKyb23fk+DNO4iCp
+         Q/bUTXcSYQT5NM7uuyBa1ZacPkDhmfA8ZvPRi8borlU0VCr3FujKCb8iLH4HXwy1MPi6
+         dZ2g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788852591; x=1789457391; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
+        b=FdLFx1onVZurzB5wI31jRDhriIFyVON5GlJJCWl2ESSbdYUM8EO0xqPnjp9VQa17tk
+         p1oHoN6qKZmp9YEjkYj58Ivd4Hz/OxFPWh6/vLAZZhBlCzpIBOhycb1UFu+9ub1LGBAy
+         G+qJ8MOnDXEYlDPKyVUjkJJs/1kRfe0XZ02RUmmubxYY5Ue6FA/agVp5JrHQ0KwMLlJ7
+         1HzN4JGNmEN5bdh64pyeXpWLahBA7fR7uRKBSFxFC89v/A6pp6bEpW260rDKXlcOfmKK
+         nMwE5Zrxzm/HO3/4RzV7XzH020GzDd5oVLylDZCVxyYlh3riebaP81ZzURbtR2QCLj2b
+         Z8gQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788852591; x=1789457391;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TKfQxZ3gyiwirNDj+FitYX1gJJkSzXez9jKvYCt/Fto=;
+        b=GQhae7WhCFUVsRB3mO6StzLG7rU73XUP72ZicsDe/MWmjT5nHThTJB4m96HAR35ODJ
+         42TL0DyJWgS2DO1R25Yv3KONYszv2z6ihIGzmPqc/zqyaX7j7dnFE+mDBAToQPJfknuz
+         ZxKXLpXWvZdxG0LVNSRsGiKMMzQFIDt7Ur6o2PdTFiYxfv881+5pFFzDA19g7TeSVwwq
+         3UiE6ntjZ+bnMrUBFg2vpzq35R54dwXYmw69iN9l4GIeffMfCxgeeCDRcJcbK1/M3S5d
+         +ufrVn2jSZ1uYg8rvjTZOmhKTcIzIcFimLQlU4eEJrchtiSJHdDalAObCgxR0eD5W8bk
+         yh1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxmuDX0MPmuRtAOMJ8MhLnO5zuv+wNnGHc803chf+rsux8rTkXNOGmpT924bi+nKJRTgopP9tY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nhcQMBgblEDfobRuqENkAG6k78gNOAnDFZVROUoGNkd8LBd57a
+	2QuiPydFSTxTpVJDfqW9MhFweAjZzlR8uJF6aRLbCCY+o6teUEPVvjwLHGPjBOGERnjGOE+iueD
+	dv8rzLt3WZxajn9mjyyFfOd3TdG/PUhk=
+X-Gm-Gg: AYBFou0Hi90lW/j99NQagHEjARGAS7Zny4gUOUpHcAjkxvn2EjfSHSYc0uZkPzC236g
+	D+LkyvpDcr4crb7fPK7AwAzTn+P7qc2U4nn3QWZInIB8HXtL7WewriVOJURyJoMXalIaEKI8GLT
+	oJZ/7z0JKcy4whJBiWtgyonoe38Sq6EVTPUYz3UJM321LaW19eYWCSXntVMx4VtNFIF8Fju44Cq
+	ggYQdK4NqbyC2rURrNCGnjW0dTqS4sxcyTV0RT7ff+ggMxPK1B8hrT7UV5VUeak4ijtbR+LEMHI
+	9v+W4vl8E8B4zrzA0FSVWHfUEEcznudPhc06cY04PJYGUj7FQT/ADLaYuAKyeo4S1hO62XgJva7
+	rUxU=
+X-Received: by 2002:a17:907:3f15:b0:c1c:2007:298e with SMTP id
+ a640c23a62f3a-c260cb450c9mr1089341266b.24.1788852590630; Tue, 08 Sep 2026
+ 00:29:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-fixes-v2-1-4775af868cda@outlook.com>
-X-B4-Tracking: v=1; b=H4sIANi4n2oC/y2MwQ6CMBBEf4Xs2Zq2CKWe/A/DAcoiG5U1LTYa0
- n+3opnTm5m8FQJ6wgDHYgWPkQLxnEHvCnBTN19Q0JAZtNS1tLIRI70wiO5QldqaURqnIX8fHrc
- hX89t5onCwv69aaP6tj9Do0oRyfGA7m+KSuSU0pi+6mun7Ymfy435und8hzal9AHTugV7pAAAA
- A==
-X-Change-ID: 20260908-fixes-a453297f07c2
-To: Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Keiichi Watanabe <keiichiw@chromium.org>, 
- Nicolas Dufresne <nicolas@ndufresne.ca>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org, 
- Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2104;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=H8Q/kdKbBfEfe7vkpaLiMv4vI0tAEFtnxHDHcSar3uw=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrPk7bl6ZsZOtY/HZomVM2zZUxDuza7fpufFsKrHUF
- OOr2Gr98kpHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cATGRuBMNf8RvpN3fUaptp
- Prxf3VGisZDp97uQqxNYEsP906Iv7pNIZ/hfbnu1KPsHs7qvyKTT2ofP7mb7+8ncu1evzqrj4sw
- f7nO5AYPrS4g=
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
+References: <20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com>
+In-Reply-To: <20260905-memcg-swapcache-stats-fix-v4-1-d3626d305d4f@tencent.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Tue, 8 Sep 2026 15:29:14 +0800
+X-Gm-Features: AcwNN1WWN5Imx29M9KWwho3-Z5IQKifWJ1tJ__QZC48lfB_vyWmh-z7xUMM4azM
+Message-ID: <CAMgjq7B8ALDN1wUvFeJhPnkg8R7w6G=KzbGeO6BnCGMh_cVWJQ@mail.gmail.com>
+Subject: Re: [PATCH v4] mm/memcg: clear folio memcg after changing per memcg stats
+To: bingfangguo@tencent.com
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Junrui Luo <moonafterrain@outlook.com>
+On Sun, Sep 6, 2026 at 3:34=E2=80=AFAM Bingfang Guo via B4 Relay
+<devnull+bingfangguo.tencent.com@kernel.org> wrote:
+>
+> From: Bingfang Guo <bingfangguo@tencent.com>
+>
+> I notice extremely high swapcached count in the per memcg level
+> memory.stat when running tests with cgroupv1 setup by swapping pages in
+> and out.  It seems that the counter never gets decreased so the value is
+> rather useless and confusing to users reading it. So I think fixing it
+> so that the value can reflect the actual swapcache usage correctly could
+> be helpful.
+>
+> __memcg1_swapout() transfers the memsw charge of a folio to its swap
+> entry and clears folio->memcg_data as part of that.  In the vmscan
+> swapout path it runs before __swap_cache_del_folio(), which then
+> decrements the swapcache stats through lruvec_stat_mod_folio().  Since
+> folio->memcg_data has already been cleared, folio_memcg() returns NULL
+> and the NR_SWAPCACHE decrement only updates the node-level counter
+> instead of the memcg's lruvec, leaking the per-memcg swapcache count.
+>
+> Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
+> the NR_FILE_PAGES and NR_SWAPCACHE updates but before
+> __swap_cache_do_del_folio() removes the folio from the swap cache.  This
+> keeps the stats attributed to the folio's memcg while still recording
+> the swap cgroup with a valid folio->swap.  Add a swapout parameter so
+> the plain swap_cache_del_folio() path is left unchanged.
+>
+> Fixes: 2732acda82c9 ("mm, swap: use swap cache as the swap in synchronize=
+ layer")
+> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+> ---
 
-The stateful decoder leaks uninitialized kernel heap memory to userspace.
-A process that can open the decoder video node gets it back in the CAPTURE
-buffers it dequeues.
+...
 
-The reference frame and the compressed frame buffer are allocated with
-kvmalloc() in vicodec_start_streaming(), and the decoder can read them
-before they have been written. The first frame is allowed to be a P-frame,
-in which case it is decoded against a reference frame that was never
-produced, and the padding rows below the visible area are never written
-for any frame.
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index 305877e1f4d7..38916ea96ac5 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -306,21 +306,28 @@ static void __swap_cache_do_del_folio(struct swap_c=
+luster_info *ci,
+>   * @folio: The folio.
+>   * @entry: The first swap entry that the folio corresponds to.
+>   * @shadow: shadow value to be filled in the swap cache.
+> + * @swapout: whether this operation swaps out the folio.
 
-Use kvzalloc() for both allocations.
+This reads a bit strange, I think you mean "whether this folio is
+being reclaimed after swapout".
 
-Fixes: 256bf813ba39 ("media: vicodec: add the virtual codec driver")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
-Changes in v2:
-- Rewrite the commit message per Nicolas' review.
-- Link to v1: https://lore.kernel.org/r/20260813-vicodec-fixes-v1-1-13077b5b6c29@outlook.com
----
- drivers/media/test-drivers/vicodec/vicodec-core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+>   *
+>   * Removes a folio from the swap cache and fills a shadow in place.
+>   * This won't put the folio's refcount. The caller has to do that.
+>   *
+>   * Context: Caller must ensure the folio is locked and in the swap cache
+>   * using the index of @entry, and lock the cluster that holds the entrie=
+s.
+> + * If @swapout is set, the folio should be in reclaim path and IRQs
+> + * should be disabled.
+>   */
+>  void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *=
+folio,
+> -                           swp_entry_t entry, void *shadow)
+> +                           swp_entry_t entry, void *shadow, bool swapout=
+)
+>  {
+>         unsigned long nr_pages =3D folio_nr_pages(folio);
+>
+> -       __swap_cache_do_del_folio(ci, folio, entry, shadow);
+>         node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
+>         lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
+> +
+> +       if (swapout)
+> +               __memcg1_swapout(folio, ci);
+> +
+> +       __swap_cache_do_del_folio(ci, folio, entry, shadow);
+>  }
+>
+>  /**
+> @@ -339,7 +346,7 @@ void swap_cache_del_folio(struct folio *folio)
+>         swp_entry_t entry =3D folio->swap;
+>
+>         ci =3D swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(=
+entry));
+> -       __swap_cache_del_folio(ci, folio, entry, NULL);
+> +       __swap_cache_del_folio(ci, folio, entry, NULL, false);
+>         swap_cluster_unlock(ci);
+>
+>         folio_ref_sub(folio, folio_nr_pages(folio));
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 245f68c75b28..29bced43b0ce 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -755,8 +755,7 @@ static int __remove_mapping(struct address_space *map=
+ping, struct folio *folio,
+>
+>                 if (reclaimed && !mapping_exiting(mapping))
+>                         shadow =3D workingset_eviction(folio, target_memc=
+g);
+> -               __memcg1_swapout(folio, ci);
+> -               __swap_cache_del_folio(ci, folio, swap, shadow);
+> +               __swap_cache_del_folio(ci, folio, swap, shadow, true);
+>                 swap_cluster_unlock_irq(ci);
+>         } else {
+>                 void (*free_folio)(struct folio *);
+>
+> ---
+> base-commit: b5529903123d9535bcf74386c1f4e185e8632dd9
+> change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
+>
+> Best regards,
+> --
+> Bingfang Guo <bingfangguo@tencent.com>
+>
 
-diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
-index ff9d50fb05fd..0b898ed5801f 100644
---- a/drivers/media/test-drivers/vicodec/vicodec-core.c
-+++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
-@@ -1595,9 +1595,9 @@ static int vicodec_start_streaming(struct vb2_queue *q,
- 	}
- 	state->ref_stride = q_data->coded_width * info->luma_alpha_step;
- 
--	state->ref_frame.buf = kvmalloc(total_planes_size, GFP_KERNEL);
-+	state->ref_frame.buf = kvzalloc(total_planes_size, GFP_KERNEL);
- 	state->ref_frame.luma = state->ref_frame.buf;
--	new_comp_frame = kvmalloc(ctx->comp_max_size, GFP_KERNEL);
-+	new_comp_frame = kvzalloc(ctx->comp_max_size, GFP_KERNEL);
- 
- 	if (!state->ref_frame.luma || !new_comp_frame) {
- 		kvfree(state->ref_frame.luma);
+Other than that this looks good!
 
----
-base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
-change-id: 20260908-fixes-a453297f07c2
-
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
-
+Acked-by: Kairui Song <kasong@tencent.com>
