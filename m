@@ -1,44 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497524A0157
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 623985964F2
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890151; cv=none; b=brwqoDemNLyMoDqDQHVFn7bnhrVhX1pSYXl51mQ77WH33VCBQbXv4R9QaYL/zqnd065upZ0z5e0dAPIRbojFbl+roidY48vfTe1ZbXe9or0C/Vi9k6ivF7c7dfIHtUlvlGSFdDYFJY1HEhfvNlkdka8QNO/Sz0dcRsODuxcjFcE=
+	t=1788890290; cv=none; b=CEfQjhKDD/xhoTaMWkDzT0irf+cWyKCh1UBo/oxGswCBNjWZYAOEiJwEf2j/nlaYU/XtHZci7VkujpE6hBzk8FwtKOFgH/sJvgXjXXDWgSjrckUERa1RQxka8TngYksxG9tT4//oTaOxvYGU4nNPHMkYcSb8zMMpXm2j6XvkOyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890151; c=relaxed/simple;
-	bh=HGfwBkxP4n+2PLVf5k4QgXmPyCHAbXQX5AupK1DU0a4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xkc1YRz40N5QjXe6rQ4GCYKzy487D3KCQcOHozDuK0Z+WNfhN7/YhEM7xYVcTprKXg+aH/hoPr6b5tqze4wFL20J2ziisvZHXZFZvhOtUEsxno7RtT3aJ0CWswHn05GO7cQD+88/mp0cyp8vOFUfnfw7U4s6FhenK9Uqqqiq2zk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jo+ND/nm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890290; c=relaxed/simple;
+	bh=VPXs8lvIsA9bvQTJ/c/tqiLS8AygmJoObd8lEynnagU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YjoE/UsW6OLcft67JYR9riQDvxUV0ax56+HH8DjamuNBBX0CNisACZgC2WtFs03vuVzMWMBsOBSNvppLJrlP2HDd8ccDmh8/ZYwOjoU+HCA1JBBDqz62ybXM+xO6tosdlXLlMPl1XHS3VPmOOArEf1nwVlHvrNgoJAczM8NrgRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1tG/qzr; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jo+ND/nm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3EC1F00A3E;
-	Tue,  8 Sep 2026 17:55:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890150;
-	bh=hGcR4GswoFaVKnQRUoWVg3mtuMzrAi7O7z32u1gmVGA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jo+ND/nmIPR6msdAKn3f/oOEjQFWuKHrTFfI2ADgTexjBqiXxasNsMBxE0EgJDgVZ
-	 1qvTQ73KJTHLr9IoHX/Pj0m7tFQTipFrP8nJx2GbImoTEqViWzA1geIqvDASUAV7vM
-	 +ENzkXK6/LfC06mFhrGKUdNnhyolF3zd4rIIglnMf0GZ1hjK3gM+J1fFpcbUG+4CWG
-	 XJoe/QUALN6PqGG7Syl6x/B0sD0B1ZWaXSmsLhrGxk6LawAJxlzXybFoIIfAPDtBpR
-	 zbyWHGNwHkECYMiDtDZZYtCvV0ewfV3aE9L+moj8DUp5rnTpUVn00vOpGp1fc2P/e0
-	 4Ahrwsed2zNZw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <clm@meta.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	Chuck Lever <chuck.lever@oracle.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 4/4] SUNRPC: svcauth_gss: enforce krb5 token minimum length
-Date: Tue,  8 Sep 2026 13:55:45 -0400
-Message-ID: <20260908175545.152676-4-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1tG/qzr"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-482dbe4d247so2744830f8f.2
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 10:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788890286; x=1789495086; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UX8L/BtZO7H1FbvBOVuWTf8zSaxbJy2FpKxDe96gDGI=;
+        b=m1tG/qzr56Q03IrHTz5aKjZ6BMEtXRRwyEQ9gsWOLxNBjkAEW9MHw7t4H4YD5XabMH
+         PPOKS5uY7aC9HOBbD9iwJDyF8n/P96alx5pGPJC/TUSGyYyRHQjmtb5BR3xzM1gFDnPu
+         4tYoqxCCCbgmtCSE1OK7YnxlFwi9InbvT/qA7ZO65sjCym4QsCboCH7XMb/elkfQOUVd
+         QhDydQP35ar5zgxl3J3RbjsL6XaRF4dKWs25TaEigV4KqdpNJY9Ucaqx7ESZDb1Tk/a/
+         vN7Lu7SFrhIEhgEidVrxPF+AzYlE0hc3YRRjHfgy81o9/pzLWEXstYWk+vBiJIs9UtQD
+         FIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788890286; x=1789495086;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UX8L/BtZO7H1FbvBOVuWTf8zSaxbJy2FpKxDe96gDGI=;
+        b=KZS7CoVqpG2GoQPcwuZjwLT5cYz3VnDgr9DVQTaVriPNPZ/0QkYtIta9C9F9IlPhqA
+         EtCwhbDAVeoSi/2S36Yw6h5oPOOnLwttbgtRAqVobNKJu4mBojWJsDh1seqrJkL6e6xg
+         seEB/SOZjcpbSW5HYsaejdkcJaN+jO0odnFJjnGjKomcWPOwIc0TzJb8mLUegKR9Ct84
+         dVjN6NxX8a1knJPQnz7V9LwMg0ZKoUXQevswKiKHXpkpjK1RxBgJtoyiP4aIgZmcCXTO
+         tW5zIhfPifWLYo3U1GPItkNqyP8Ohp7vRPuvP8H9XkkZvQGqUqKNHs6nE1gp7DmVQFMJ
+         60Eg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfq3lXv1Toc/TbhoXgUX927a+oPCinkYyd0txV+mPc4/AzUW6w7dZEMtVsgcsN7A0N4OFwGas=@vger.kernel.org
+X-Gm-Message-State: AFuF++nf3PAH4jiMhV4Syu0GbOSlsHDBEHhtewu13MByiiMns4c+1KoH
+	UITccaFAaeIb+MUFeA2T4PhW8LbNP/QT/dTZzo+kXQVMVFnKgtzfO2jI
+X-Gm-Gg: AYBFou1VK2Qn49zuyids4w2kwGe5LwlhVrmmWJDBjtzM9IjOLCl5Wmz2122Si3kkTk6
+	q7f0b3gOG5QVc0zbbL2rWCuIE0rYwgINykZ+b8LWKkel/7GE8UySJx3OckpdPQmEmMAMO9zAHYx
+	g1IOgfy+GTe8YrgAirHG1gUAwp2EbNZPe5OxTS/ZrtajKEHVU2inoq08Y0/4iikwfLFaSMRH7jE
+	+sqh9B4oTWUmFrGMD8Rgm3WTtbvsyn3LS2UqzMMwpMqS18lBV3H0XAKNcyRKzSsRnjvbcLKYsTS
+	asBu4AgpK/t0qCflEPlpyvKUFmccDhQIy/h58AzcTzH/Xef3PAGogGDAsVowfiPEV+GnAPdUXYz
+	52bAido48D7ZnfB3J7aF1rqTMNDWW+bs+oOwkjeUNoDECMuUuttU85kG74Sz5qGPVo2ISP+oa5L
+	Xfx1L6qcocr25A49Dnk1+NVhkuGXKLAslHAPNaENFkNMn+xf7X6w1ZdgJ8zS43Ovq0UYvkscfut
+	kn6tprOuHB0t6VZv60sdI1MTB8yEWw=
+X-Received: by 2002:a05:6000:2c10:b0:485:4275:f207 with SMTP id ffacd0b85a97d-48587099a2dmr57344271f8f.24.1788890286214;
+        Tue, 08 Sep 2026 10:58:06 -0700 (PDT)
+Received: from dd-home.home ([2a01:cb1c:922:a700:4e5b:d129:8f46:873d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm42561836f8f.25.2026.09.08.10.58.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 10:58:05 -0700 (PDT)
+From: Maxime Douailin <maxime.douailin@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-kernel@vger.kernel.org,
+	Maxime Douailin <maxime.douailin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: wm8962: Do not clear SYSCLK_ENA owned by DAPM in configure_bclk()
+Date: Tue,  8 Sep 2026 19:58:02 +0200
+Message-ID: <20260908175802.604262-1-maxime.douailin@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908175545.152676-1-sashal@kernel.org>
-References: <2026090352-custard-sports-0e17@gregkh>
- <20260908175545.152676-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,68 +79,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <clm@meta.com>
+wm8962_configure_bclk() provisionally sets SYSCLK_ENA so that the
+read-only DSPCLK_DIV field becomes valid, then clears it again whenever
+the bias level is below SND_SOC_BIAS_ON. It never checks whether the bit
+was already set.
 
-[ Upstream commit a919c5c88769cf8fb3ec071e6078d830bf512489 ]
+It can be: the "SYSCLK" DAPM supply widget owns that bit, and
+wm8962_mic_detect() force-enables the pin. On boards that call it (the
+Tegra machine driver, i.e. Microsoft Surface RT and Surface 2) DAPM sets
+SYSCLK_ENA once at card init and, because the widget then never changes
+power state, never writes it again. The first stream's transition to
+SND_SOC_BIAS_PREPARE runs configure_bclk(), which clears the bit behind
+DAPM's back. From then on every stream plays with SYSCLK off: the DACs
+do not run, CP_ENA refuses to latch, hp_event() reports "DC servo timed
+out", and the codec is silent although every register DAPM believes in
+looks right.
 
-svcauth_gss_unwrap_priv() validates only an upper bound on the
-wire-supplied opaque length before handing the buffer to
-gss_unwrap():
+Remember whether SYSCLK_ENA was set on entry and only undo our own
+provisional enable.
 
-    if (len > xdr_stream_remaining(xdr))
-            goto unwrap_failed;
-    offset = xdr_stream_pos(xdr);
-    ...
-    maj_stat = gss_unwrap(ctx, offset, offset + len, buf);
+The bug was located with the help of an LLM coding assistant, by diffing
+the driver's regmap cache against raw I2C reads of the chip during
+playback; the assistant also drafted this patch and the changelog. The
+analysis was confirmed, and the fix written and tested, on real hardware.
 
-The wire value `len` flows unchanged as the upper bound into the
-krb5 unwrap path, so a len in [0, 16] passes this check and is
-handed to gss_unwrap(). For a krb5 v2 context that lands in
-gss_krb5_unwrap_v2(), which reads the 16-byte RFC 4121 token
-header fields at ptr+4 and ptr+6 and then calls rotate_left()
-before any integrity check. With a sub-header length the header
-reads run past the token, and _rotate_left()'s `shift %= buf->len`
-path can divide by zero when buf->len has been driven to zero by
-the truncated token. A header-only token (len == 16) is equally
-invalid: with a non-zero RRC field and the opaque blob ending at
-the XDR buffer boundary, rotate_left() builds a zero-length
-subbuffer, reaching the same division.
+Verified on a Microsoft Surface 2 (Tegra 4, WM8962 rev F): with the bit
+forced on over I2C during a stream the DC servo completes in ~56 ms and
+audio is heard; with this patch applied the DC servo completes on every
+stream and there is no more "DC servo timed out".
 
-Reject the token at the server entry point before it reaches the
-krb5 unwrap core. A valid sealed RFC 4121 token must contain
-the 16-byte header plus at least some encrypted payload.
-
-Fix by adding a minimum-length check immediately after the
-existing upper-bound check:
-
-    if (len <= GSS_KRB5_TOK_HDR_LEN)
-            goto unwrap_failed;
-
-Fixes: 7c9fdcfb1b64 ("[PATCH] knfsd: svcrpc: gss: server-side implementation of rpcsec_gss privacy")
+Fixes: 75704ecfbb41 ("ASoC: wm8962: Enable SYSCLK provisonally before fetching generated DSPCLK_DIV")
 Cc: stable@vger.kernel.org
-Assisted-by: kres (claude-opus-4-7)
-Signed-off-by: Chris Mason <clm@meta.com>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Link: https://patch.msgid.link/20260524010213.557424-2-cel@kernel.org
-Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Maxime Douailin <maxime.douailin@gmail.com>
 ---
- net/sunrpc/auth_gss/svcauth_gss.c | 2 ++
- 1 file changed, 2 insertions(+)
+Notes:
+ - Found and verified on a Microsoft Surface 2 (Tegra 4); the same silence
+   is reported on Microsoft Surface RT, whose machine driver is the same.
+   Background and the full register-level analysis (regmap cache vs. raw
+   I2C reads during playback):
+   https://github.com/grate-driver/linux/issues/141
+ - Boards that do not call wm8962_mic_detect() are unaffected: there
+   SYSCLK_ENA is never already set below SND_SOC_BIAS_ON, sysclk_was_ena
+   is false, and the sequence is bit-identical to the current one.
+ - The deeper question is whether tegra_wm8962 should be calling
+   wm8962_mic_detect() at all on these boards, but the codec should not be
+   clearing a bit DAPM owns regardless, so this fix stands on its own.
+ - Tooling, per Documentation/process/generated-content.rst: an LLM coding
+   assistant did the register-diff analysis that found the bug and drafted
+   this patch and changelog, over an interactive session on the affected
+   hardware rather than from a single prompt. Every register claim above
+   was checked against the chip over I2C, and the fix was built and
+   listened to on the machine before sending. I understand the change and
+   stand behind it.
 
-diff --git a/net/sunrpc/auth_gss/svcauth_gss.c b/net/sunrpc/auth_gss/svcauth_gss.c
-index 74c1c17c7984f..c8c33f02a7ede 100644
---- a/net/sunrpc/auth_gss/svcauth_gss.c
-+++ b/net/sunrpc/auth_gss/svcauth_gss.c
-@@ -1003,6 +1003,8 @@ svcauth_gss_unwrap_priv(struct svc_rqst *rqstp, u32 seq, struct gss_ctx *ctx)
- 	}
- 	if (len > xdr_stream_remaining(xdr))
- 		goto unwrap_failed;
-+	if (len <= GSS_KRB5_TOK_HDR_LEN)
-+		goto unwrap_failed;
- 	offset = xdr_stream_pos(xdr);
+ sound/soc/codecs/wm8962.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index af471605122..c314af2c860 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -2472,6 +2472,8 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	int clocking2 = 0;
+ 	int clocking4 = 0;
+ 	int aif2 = 0;
++	int sysclk;
++	bool sysclk_was_ena;
  
- 	saved_len = buf->len;
+ 	if (!wm8962->sysclk_rate) {
+ 		dev_dbg(component->dev, "No SYSCLK configured\n");
+@@ -2504,8 +2506,19 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	/* DSPCLK_DIV can be only generated correctly after enabling SYSCLK.
+ 	 * So we here provisionally enable it and then disable it afterward
+ 	 * if current bias_level hasn't reached SND_SOC_BIAS_ON.
++	 *
++	 * SYSCLK_ENA is owned by the "SYSCLK" DAPM supply widget, which may
++	 * already have it set even below SND_SOC_BIAS_ON: wm8962_mic_detect()
++	 * force-enables that pin, so on boards using it (the Tegra machine
++	 * driver) the bit is set once at card init and DAPM never writes it
++	 * again. If we unconditionally clear it here, SYSCLK stays off for
++	 * every stream, DAPM still believes it is on, and the codec is
++	 * silent with "DC servo timed out" errors. Only undo what we did.
+ 	 */
+-	if (snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
++	sysclk = snd_soc_component_read(component, WM8962_CLOCKING2);
++	sysclk_was_ena = sysclk >= 0 && (sysclk & WM8962_SYSCLK_ENA);
++	if (!sysclk_was_ena &&
++	    snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
+ 		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+ 				WM8962_SYSCLK_ENA_MASK, WM8962_SYSCLK_ENA);
+ 
+@@ -2519,7 +2532,8 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	usleep_range(500, 1000);
+ 	dspclk = snd_soc_component_read(component, WM8962_CLOCKING1);
+ 
+-	if (snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
++	if (!sysclk_was_ena &&
++	    snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
+ 		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+ 				WM8962_SYSCLK_ENA_MASK, 0);
+ 
+
+base-commit: 0e2bf66c2f6326c0626c9db22530954ef5c64b08
 -- 
 2.53.0
 
