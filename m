@@ -1,44 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C44351A72A
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05985534468
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870038; cv=none; b=m/OK9xppEyIdE5bqa2yXxLLdCTU1ANcFwd29DwcZV6+g98O2KnagR5ap3QWqlkfk83I2IQcl05QE8yuFtsDJUVQS8vmWhrJ4i1SjWXU5htdPn14m/AV6RHaU37UlLEr2w9vYHoMJ97s9+wvOYJHUYdcuGecHTuDqbzyqxC9ZqMs=
+	t=1788870041; cv=none; b=deVzmt3nIiSI4LmIapMjoucsHDa1d14euSoaSLOToHEriBG1B3obRoUgzJ1Ih7O0Xacb29DV6R/dxycIiXlpAcDPQEv2H5LZK9dMLYgm5meOoIC1/vfW8E2Kb82nxytaqfMtJgstEoGMme4pO8mDDY21Tu+KSSLk7PyzuDRLSkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870038; c=relaxed/simple;
-	bh=gky5ROF1o7DXMWfpvad20USDf0dz6taxlRp2MLyt2Ns=;
+	s=arc-20240116; t=1788870041; c=relaxed/simple;
+	bh=xy1c/KfIwQVbKY9gTmZbz/CtBR53yCxVkN4Z6OlIGnU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WhPEntEXTsd1h5Z5aINiR4wcYOyGM0AGzUev0j67iN9cBNly+D5f2m470r22zC5YWmX1BBqXT8NqkDFQDFv9MoBzc+7j+D0xoEMZPNRfTnuZlmb2Eos6cMJxA22sn23nQKUHbexiPCgvW0LBzwNFpoCfBvv1/zFLFH6CbFf7y4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8liyZVN; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8liyZVN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 813D31F00A3E;
-	Tue,  8 Sep 2026 12:20:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870034;
-	bh=ay2pY9wPer7Xo6SQWA1goh4elhzE4DaB8T0RSTZ+2G0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L8liyZVNxGDx10sb3YhYGoutf8F09XtxpGavMryl8uI9BVOqLt0KGDDs/JRkQvtKI
-	 7A7TpbN6HUYyku58Ik+2yWAjyAQwALvSL7nnAbWA8BwP1p7NSDR1G779Hb0owfRvIA
-	 vADiwhVjivfn4UmOQ6Sgh5ODA1MGbtb/rVvDTKoJOd7bytBOy2zI1oZiHl66Vx6dXv
-	 ccPHDFAwE+Ru8Jr9iinO/EMNADAv+iwtNGpTd3louk9VGGcxtSLy2/pkGV2lGnX8qM
-	 0IZ0Glz7VoJNTFKJIlLWPZ6NE7D42WHls5PfuEQXlbo2lkJ35EYB+ZyP0oM+UPzkl3
-	 QXhuR6bgLE8MQ==
+	 MIME-Version; b=n6kl3BzNQg4phPN8licl5HRUuTmiozsD+hwvu35juWWPH6JtEPRBO65l5acykFtcj14C9S2V1q4tUg5Jt4EXG1IxkpU2ffSPEex+VMq3Uwt09CnsGHuHa+7oypHTZEeIxfv4qOneuMI4wQjLMVU3XyM9MjR8HvocEUdThRro0p0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB9C81F00AC4;
+	Tue,  8 Sep 2026 12:20:36 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <rmk+kernel@armlinux.org.uk>,
+Cc: Hongyan Xu <getshell@seu.edu.cn>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] ARM: 9477/1: Disable broken eBPF JIT on the Risc PC
-Date: Tue,  8 Sep 2026 08:20:26 -0400
-Message-ID: <20260908122026.2052281-4-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/2] auxdisplay: charlcd: cancel backlight work on registration failure
+Date: Tue,  8 Sep 2026 08:20:34 -0400
+Message-ID: <20260908122034.2053198-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908122026.2052281-1-sashal@kernel.org>
-References: <2026090325-ardently-jaybird-f824@gregkh>
- <20260908122026.2052281-1-sashal@kernel.org>
+In-Reply-To: <20260908122034.2053198-1-sashal@kernel.org>
+References: <2026090350-stencil-mud-1d68@gregkh>
+ <20260908122034.2053198-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,45 +35,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+From: Hongyan Xu <getshell@seu.edu.cn>
 
-[ Upstream commit 7e8ee82e69fde9d589272ec5e6f702358903be1f ]
+[ Upstream commit e3e3bf40916c1e810df03958cfa7ba6883cdce79 ]
 
-The eBPF JIT unconditionally generates ldrh/strh instructions, which do
-not function correctly on the Risc PC because its bus is unable to
-signal half-word accesses. Work around this issue by disabling the eBPF
-JIT when building for ARMv3 (the Risc PC is the only currently
-supported machine whose kernel is built for ARMv3).
+With CONFIG_CHARLCD_BL_FLASH, charlcd_init() schedules bl_work before
+charlcd_register() calls misc_register(). If registration fails, the
+caller frees the charlcd object while delayed work still contains its
+address.
 
-Comments from Ethan Nelson-Moore:
+Add charlcd_deinit() to cancel the delayed work and turn the backlight
+off. Use it for both registration rollback and normal unregistration.
 
- From LKML: https://lore.kernel.org/all/CAD++jL=0qYGoygUwGEXQL7C_ROnC7kfpRv8RA+H5tNWwYu+pQA@mail.gmail.com/
-
- The commit message has been updated slightly relative to the version on LKML to clarify that the Risc PC is not actually ARMv3.
-
-Fixes: 39c13c204bb1 ("arm: eBPF JIT compiler")
+Fixes: 39f8ea46724e ("auxdisplay: charlcd: Extract character LCD core from misc/panel")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
+Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/auxdisplay/charlcd.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index a0d6aefa0fab0..d140322177189 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -80,7 +80,7 @@ config ARM
- 	select HAVE_ARCH_TRACEHOOK
- 	select HAVE_ARCH_TRANSPARENT_HUGEPAGE if ARM_LPAE
- 	select HAVE_ARM_SMCCC if CPU_V7
--	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32
-+	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32 && !CPU_32v3
- 	select HAVE_CONTEXT_TRACKING_USER
- 	select HAVE_C_RECORDMCOUNT
- 	select HAVE_DEBUG_KMEMLEAK if !XIP_KERNEL
+diff --git a/drivers/auxdisplay/charlcd.c b/drivers/auxdisplay/charlcd.c
+index e74e25ff030b2..b3ff514f91a78 100644
+--- a/drivers/auxdisplay/charlcd.c
++++ b/drivers/auxdisplay/charlcd.c
+@@ -779,6 +779,16 @@ static int charlcd_init(struct charlcd *lcd)
+ 	return 0;
+ }
+ 
++static void charlcd_deinit(struct charlcd *lcd)
++{
++	struct charlcd_priv *priv = charlcd_to_priv(lcd);
++
++	if (lcd->ops->backlight) {
++		cancel_delayed_work_sync(&priv->bl_work);
++		lcd->ops->backlight(lcd, CHARLCD_OFF);
++	}
++}
++
+ struct charlcd *charlcd_alloc(unsigned int drvdata_size)
+ {
+ 	struct charlcd_priv *priv;
+@@ -843,8 +853,10 @@ int charlcd_register(struct charlcd *lcd)
+ 		return ret;
+ 
+ 	ret = misc_register(&charlcd_dev);
+-	if (ret)
++	if (ret) {
++		charlcd_deinit(lcd);
+ 		return ret;
++	}
+ 
+ 	the_charlcd = lcd;
+ 	register_reboot_notifier(&panel_notifier);
+@@ -854,16 +866,11 @@ EXPORT_SYMBOL_GPL(charlcd_register);
+ 
+ int charlcd_unregister(struct charlcd *lcd)
+ {
+-	struct charlcd_priv *priv = charlcd_to_priv(lcd);
+-
+ 	unregister_reboot_notifier(&panel_notifier);
+ 	charlcd_puts(lcd, "\x0cLCD driver unloaded.\x1b[Lc\x1b[Lb\x1b[L-");
+ 	misc_deregister(&charlcd_dev);
+ 	the_charlcd = NULL;
+-	if (lcd->ops->backlight) {
+-		cancel_delayed_work_sync(&priv->bl_work);
+-		priv->lcd.ops->backlight(&priv->lcd, CHARLCD_OFF);
+-	}
++	charlcd_deinit(lcd);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
