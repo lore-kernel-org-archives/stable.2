@@ -1,61 +1,61 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABCA4EE878
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 09:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4876150EBE3
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 09:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858481; cv=none; b=chWIgYmOi9DrvcUNv9qrQo+mC477eSF9AE+eljnWpZKag9Ij9qQBTOPuCMUi+YQHUXHr1jv4dsZWbJGVpuVAz3xTRi321ad7KHLjBtKJ4ATO+pvxPW0CObLKx1HlHSxdUNnCg5q4apP40WzSffqbypPLxyf2UgIs6fTPLC7jhVQ=
+	t=1788858485; cv=none; b=ElIPK/QlQvjTA8kenBhXKGvprETQyIc6wH2O6JTmcZW2gl+t6t6f7ZgNJlTi8Jg0uJ6JFOWzadbU/13GV79C1VQRfJzO6Sw2aSFqovSgwpp4qEuuz8XLQS5FBXfJskJ6stXawSL6uuLYeWc7R6z9kudv70ZStzF870RfUgcCGkU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858481; c=relaxed/simple;
-	bh=h38nWmHGokmgNrF8M7H1ZEOsIaWfmOwXRv9fJbwDAq0=;
+	s=arc-20240116; t=1788858485; c=relaxed/simple;
+	bh=w0FP0wBCIa+/EHsZH1IzuHconhrkS9VP6UooovR5/Jo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f6vO1nC88tCy+EsoNbuEcSrgpL2alQOOS+yxVmY8nAjFFq+UzZnMMbJtwSlPRDMZmxMLsKs0pc5X7OBNu7IrH15ZaI9KWZjmkBHu2Lz84188sWGZPNCclEI+xxhVneBbT9qJ4pTuVKohdxOxhSPezL837nRDucrOleCZiZG3xpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=BQnjgMjb; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=u9eka15ixEFIFBN92mwHXkvhU8NoxGlqQ3z1my/NewkrPJMRzZ9sUiyS5eTXD6YWfPym70n5RMMz0paKjgFFUJLNWWYV97VffgBmhvubTMvYpMBxaBIELsjpsiqyKWUeJgKEmDgekDIfSKg4x07+fjSJDZ6Me5vUi8Fn+MJHgRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=fSTLCwo9; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="BQnjgMjb"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d9db539a54so34955995ad.0
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 02:07:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="fSTLCwo9"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea76so352399a91.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 02:08:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788858479; x=1789463279; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1788858483; x=1789463283; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=htcWMQzzIdN2OMq/lgGMWw6WmNo5HAqJQi0+KH0X9Sk=;
-        b=BQnjgMjbD86T/yCETa42VP+ODESR27OSsnSbZlAAMfxc/XlebaTeZKnPN0dvGrBuEj
-         tDX4AMbUJbJYWvcWFTw2mp9JAGrW8HtiGYIcpwX2Lr84Frt88TrZlmkYKe8m7Xc5hO6F
-         /pKWkIHRMQ0jcMt/vwx0fEyb9r1/q6JlbpYAs=
+        bh=2nbiAaHsEOkyMIOSUPLzzSXJU25j/HCglaTjq/uSdS0=;
+        b=fSTLCwo9UlzWgwAlMqzzgV5X0WBJS+cYSP1bhB0f4FASEQmrPBaNzjqhfnsjfCPhXs
+         Dq4QuTbyisJVdciUDAqPHAq+HA48WrgF3s99pQDcGzAgo+5cDwdEfwS3/izeG/I5zTx3
+         suMQ/jBrFH81/gHPGoiekUeYVFNZNtQB/kB14=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788858479; x=1789463279;
+        d=1e100.net; s=20251104; t=1788858483; x=1789463283;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=htcWMQzzIdN2OMq/lgGMWw6WmNo5HAqJQi0+KH0X9Sk=;
-        b=nDbslU6feuOBR0Op5YRjEEyVyF/QoI2bNiucHgmbOnFIPt1gVz9V7nHulxQ/wyYv3N
-         S0OMDSghjGmzOhBGjxHw3UOFith0sWoAWka6KP8G5xacFCiwjgtmDkg5Q1wnlp719jDG
-         A4/laDtX2zf0jkdsLBAiqaVd9oMkdIrcJ3GeqdIvKoohEnjlOrv2gFC0LeIl1zmS/ooe
-         gH7sRxW+BV52VpNEyV0av7dTrh12caCk1gvPxL9LsWszwBvqniK8CcoI2Z8iIwFSseks
-         R7SZmQz5+uICUtXXz6+gF7OqZaF47Z7XKXmHed2BzcaYGd5AlxGhbxNfkw3sVXLP9YKg
-         Ccbw==
-X-Forwarded-Encrypted: i=1; AKwUvByn06dyOxp2rozp0/Tv7O6OXnZlIyUpBrNIgl6n/8i7RBFZy62tMZEXaVHegtTvl6WOd7rPTHY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lONDGbgmXyZaXEmTL7lo02Vv3jtS0DkDLKDAwl6+lba7DKPn8P
-	BpajktOmPfI+bAVSJhgW9Rt1o7emrzPuQBtLRE6uTH4h+Yx1QIA3wT734C74qkheAQ==
-X-Gm-Gg: AYBFou3LHu9FruX1DzfQIQEYZzt3I7rscsxhG0oe0LhLVRBcGe6kZL+hPpEm4XZLilP
-	18fKwPX9k+apE6rcwO8fAgFy7Kz3FoD7M+zNxqMDmyZ50P55zs+ELoFhilCWwrzTgQabSqPL+Nq
-	w0zv60FRvMGjJadO62GaTUgvieKhorQEqABwo/CNKKMgSYoUEYqOTMaB/s8fKokVqFGVwtZPhQd
-	oFD1lHDYZjtbDpN1OXYQhYV/qR+Hrw9RCdrFt+iVy9SEdfioGgQtdsMjOkhHtdfpQgdxwBRMZ5U
-	GrIFamQe+WFb54d+G/EhWm8tRfm2GBUNLAaxO0IbDUMlP3tDg4LADp92hu+JeF13es+3T1FWs1S
-	XPACchVyViw4wk42l6+OPztBSRhZ5dz7afg4D8hpfixm6WCUiADQa847Ml2ZQ2x9uHnBSzbtKn4
-	9zC7M6rgR67/t35fMKLA448Cy8/WZ0t443wvT3HFzQzTeEwjZiUPf2NytL5JHVc4fXso10lRe1I
-	MjsKsT1QaKhdUJHQckfqsHrfRJNuAEpiInXxwMj90UIdC4=
-X-Received: by 2002:a17:90b:2784:b0:395:4de5:1054 with SMTP id 98e67ed59e1d1-39b26272bdcmr47233218a91.16.1788858479259;
-        Tue, 08 Sep 2026 02:07:59 -0700 (PDT)
+        bh=2nbiAaHsEOkyMIOSUPLzzSXJU25j/HCglaTjq/uSdS0=;
+        b=hwiOyv69hRKV8osAor6s2gd6izGmb5mNXsKygMUnvCl074JLpsIMRADQJZyh2mIrNz
+         h2RP5CI8niMyUT+5qAeSa9FFcLJ7+SxXr9UcXD9eiZZBuvO9gua+xIrn0PcXcq+xlBoN
+         g2w5S+0qSQ6JetmiAh2Oda2kim69pCNQmzm+ZgrjWJEA1IxIvaqkdtTl0icNfU7dO6dR
+         +1oaTsYRE/NaCABr+udnP6G1OA/4cmHrhKY5Pz3emirCkUssB5HjwrzP3O/rhj5T5yt6
+         3mkt6Q8cMnleRJNK8nr4bwGwx1ylO9rZFhMoq9xNotNUbJEMbTvj/2CQ22VWA108apL2
+         BZsw==
+X-Forwarded-Encrypted: i=1; AKwUvBw5aPXiJWyFnxdZ47IKQbdXZFBHKIMpxjVFSe6yCcZJOWvfTdJzQL+eg1CjdcUJd42fhSk1B/0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kHvWJTA0BpHTsA5Wrjk32ur7S6U83CvGSNinU7BoJscuulKyS0
+	pHZsN1OPdO548Gyg+F7r7lvBiZxMMn+mFyhxhf+gidKpiIKSkid2ZFCiD1mlySbALg==
+X-Gm-Gg: AYBFou3E3BkZoKgFfszy/hEfHzWmKw76SBYmpqNTaB3pFsIlJzClf6TvZIKi/f6Hl1n
+	QHU+sqWMrJ7LFyDDxwICm1y0iM6t9QuiTOcrk1E7v11XQtrOlIrPMGRHe0QY3TCMcPv/1zFnBxB
+	e7K59Ie9Tc8MWfTwNnue5XgydklaaE42iOPBsvjK5y7VRJjHs8N6UwyXTLX3RTriCm1w/0rIxA0
+	chhGrsxfLcqKz2E9604PEZq58u56Gc+Cyfyq/1T4C9T1tQl7ubgQCgC0TLHzIAT2fiX89aOVtXs
+	D0gB3dUh9ckyxPjWRrE7aL8h4VBSpWYqxXQR141xky533QDglkDQgBQqVfKFFAoItXjdlAaUNJX
+	L39jAeoy6LBzj3jDavAmpN7rZL2wwuawFHnX/0lEGLiDKDfMLpkc0f6eCgY8v15ym189iL9JiHO
+	4WSkitT2KLnOCdUK5FU7gqfQun3NQiAIA1rmRMTGBD0lspbPdf/UNr9YKmalRMFuQcIVU7DzFIw
+	Most6EiwzKV7G4Qok7iPd4nZ86CQ2RhBG5L0IeOLUt8zso=
+X-Received: by 2002:a17:90a:d010:b0:38f:de94:bf34 with SMTP id 98e67ed59e1d1-39b8be7a13dmr4691886a91.10.1788858483369;
+        Tue, 08 Sep 2026 02:08:03 -0700 (PDT)
 Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:e541:8c2f:4ce9:823a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm19718804a91.5.2026.09.08.02.07.54
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b4b72f62esm19718804a91.5.2026.09.08.02.07.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:07:58 -0700 (PDT)
+        Tue, 08 Sep 2026 02:08:02 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Liu Ying <victor.liu@nxp.com>,
 	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
@@ -75,9 +75,9 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/4] drm/fb-dma-helper: Add drm_fb_dma_get_gem_clipped_addr()
-Date: Tue,  8 Sep 2026 17:07:40 +0800
-Message-ID: <20260908090745.1089143-2-wenst@chromium.org>
+Subject: [PATCH 2/4] drm/sun4i: layers: Fix VI buffer address for clipped offsets
+Date: Tue,  8 Sep 2026 17:07:41 +0800
+Message-ID: <20260908090745.1089143-3-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260908090745.1089143-1-wenst@chromium.org>
 References: <20260908090745.1089143-1-wenst@chromium.org>
@@ -89,132 +89,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
-framebuffer. However some display drivers want the "clipped" framebuffer
-instead, as they are also using the clipped coordinates to program the
-hardware.
+Commit 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to
+get display memory") dropped the code to calculate the framebuffer's DMA
+address in favor of drm_fb_dma_get_gem_addr().
 
-Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
-the source coordinates replaced, while others have been incorrectly
-converted to using drm_fb_dma_get_gem_addr(), which would end up
-causing incorrect parts of the framebuffer to be displayed if it were
-somehow clipped.
+This turned out to be wrong in a couple ways. The hardware is programmed
+with clipped dimensions, so it needs the buffer address to start at the
+clipped boundary. Moving to the helper negated the clipping. Also, when
+clipping on the left, the buffer address needs to start at the first
+pixel in the sub-sampling group even for the luma plane. The hardware
+handles the interpolation internally.
 
-Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
-drm_fb_dma_get_gem_addr() for these drivers to use.
+Switch to the new drm_fb_dma_get_gem_clipped_addr(), which provides the
+buffer address starting at the clipped boundary. Calculate the intra-group
+offset and adjust the luma plane buffer address so that it points to the
+start of the sub-sampling group.
 
-Cc: <stable@vger.kernel.org> # dependency for next patch
+Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to get display memory")
+Cc: <stable@vger.kernel.org> # v7.1+, needs drm_fb_dma_get_gem_clipped_addr()
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- drivers/gpu/drm/drm_fb_dma_helper.c | 63 +++++++++++++++++++++--------
- include/drm/drm_fb_dma_helper.h     |  4 ++
- 2 files changed, 51 insertions(+), 16 deletions(-)
+This is an alternative to Jernej's original revert:
+https://lore.kernel.org/all/3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785772659.git.jernej.skrabec@gmail.com/
+---
+ drivers/gpu/drm/sun4i/sun8i_ui_layer.c |  2 +-
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 16 +++++++++++++++-
+ 2 files changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
-index fd71969d2fb1..a260e7cd5667 100644
---- a/drivers/gpu/drm/drm_fb_dma_helper.c
-+++ b/drivers/gpu/drm/drm_fb_dma_helper.c
-@@ -59,20 +59,10 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
- }
- EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
+diff --git a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+index bad102134726..530efae7e13c 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_ui_layer.c
+@@ -130,7 +130,7 @@ static void sun8i_ui_layer_update_buffer(struct sun8i_layer *layer,
+ 	ch_base = sun8i_channel_base(layer);
  
--/**
-- * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
-- * formats where values are grouped in blocks this will get you the beginning of
-- * the block
-- * @fb: The framebuffer
-- * @state: Which state of drm plane
-- * @plane: Which plane
-- * Return the DMA GEM address for given framebuffer.
-- *
-- * This function will usually be called from the PLANE callback functions.
-- */
--dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
--				   struct drm_plane_state *state,
--				   unsigned int plane)
-+static dma_addr_t _drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
-+					   unsigned int plane,
-+					   unsigned int x,
-+					   unsigned int y)
- {
- 	struct drm_gem_dma_object *obj;
- 	dma_addr_t dma_addr;
-@@ -96,8 +86,8 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
- 		v_div = fb->format->vsub;
- 	}
+ 	/* Get the start of the displayed memory */
+-	dma_addr = drm_fb_dma_get_gem_addr(fb, state, 0);
++	dma_addr = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
  
--	sample_x = (state->src_x >> 16) / h_div;
--	sample_y = (state->src_y >> 16) / v_div;
-+	sample_x = x / h_div;
-+	sample_y = y / v_div;
- 	block_start_y = (sample_y / block_h) * block_h;
- 	num_hblocks = sample_x / block_w;
+ 	/* Set the line width */
+ 	DRM_DEBUG_DRIVER("Layer line width: %d bytes\n", fb->pitches[0]);
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 2e9cda45c04e..7a1d5f1db037 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -205,7 +205,21 @@ static void sun8i_vi_layer_update_buffer(struct sun8i_layer *layer,
  
-@@ -106,8 +96,49 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
- 
- 	return dma_addr;
- }
+ 	for (i = 0; i < format->num_planes; i++) {
+ 		/* Get the start of the displayed memory */
+-		dma_addr = drm_fb_dma_get_gem_addr(fb, state, i);
++		dma_addr = drm_fb_dma_get_gem_clipped_addr(fb, state, i);
 +
-+/**
-+ * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
-+ * for pixel formats where values are grouped in blocks this will get you the
-+ * beginning of the block
-+ * @fb: The framebuffer
-+ * @state: Which state of drm plane
-+ * @plane: Which plane
-+ *
-+ * This function will usually be called from the PLANE callback functions.
-+ *
-+ * Return: GEM DMA address for given framebuffer, unclipped.
-+ */
-+dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
-+				   struct drm_plane_state *state,
-+				   unsigned int plane)
-+{
-+	return _drm_fb_dma_get_gem_addr(fb, plane, state->src_x >> 16,
-+					state->src_y >> 16);
-+}
- EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
- 
-+/**
-+ * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
-+ * framebuffer, for pixel formats where values are grouped in blocks this
-+ * will get you the beginning of the block
-+ * @fb: The framebuffer
-+ * @state: Which state of drm plane
-+ * @plane: Which plane
-+ *
-+ * This function will usually be called from the PLANE callback functions.
-+ *
-+ * Return: GEM DMA address for given framebuffer, clipped.
-+ */
-+dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
-+					   struct drm_plane_state *state,
-+					   unsigned int plane)
-+{
-+	return _drm_fb_dma_get_gem_addr(fb, plane, state->src.x1 >> 16,
-+					state->src.y1 >> 16);
-+}
-+EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_clipped_addr);
++		/*
++		 * The mixer can handle odd offsets into sub-sampled YUV
++		 * planes, but needs the address of the first pixel in each
++		 * sub-sampled block. Adjust the luma buffer address backwards.
++		 */
++		if (i == 0) {
++			u32 x_diff, y_diff;
 +
- /**
-  * drm_fb_dma_sync_non_coherent - Sync GEM object to non-coherent backing
-  *	memory
-diff --git a/include/drm/drm_fb_dma_helper.h b/include/drm/drm_fb_dma_helper.h
-index c950732c6d36..b2a0bd7ef9d0 100644
---- a/include/drm/drm_fb_dma_helper.h
-+++ b/include/drm/drm_fb_dma_helper.h
-@@ -17,6 +17,10 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
- 				   struct drm_plane_state *state,
- 				   unsigned int plane);
++			x_diff = (state->src.x1 >> 16) & (format->hsub - 1);
++			y_diff = (state->src.y1 >> 16) & (format->vsub - 1);
++			dma_addr -= y_diff * fb->pitches[i];
++			dma_addr -= x_diff * format->cpp[i];
++		}
  
-+dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
-+					   struct drm_plane_state *state,
-+					   unsigned int plane);
-+
- void drm_fb_dma_sync_non_coherent(struct drm_device *drm,
- 				  struct drm_plane_state *old_state,
- 				  struct drm_plane_state *state);
+ 		/* Set the line width */
+ 		DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
 -- 
 2.55.0.979.g7e5102b832-goog
 
