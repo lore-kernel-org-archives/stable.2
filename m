@@ -1,43 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC74544894
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:59:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397605476D9
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:03:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872351; cv=none; b=sMtu9qcwab/G2rX44thR7nUMIHX62yylzyOUJvPhwD5NiBti5aJj2PP9MO22u/oK4x2OHzHy60O9E952spcr10S4YGIvoZR5VkCsz/c5o94K/1OPyiQkwD8ISz2fNaWHnt/RWaG/+VWr5KBfcvx07J7f6BJ0aumwYbezPmdS4zo=
+	t=1788872603; cv=none; b=QLKyuUvMbcLnW/eVJug6tKHD6uZ3ieurVX/+J/sQbODquxrzaesWIvKVHcAIMbYucfyq76Xm/UbVmX30V8Mcfb6S3nSFqP3T6SABAwsFW5bgXXZ0MS2DIC1dqzzwkRL2TswMh0BlBe9VT3FykhF2yo0nKt0f72bf+ekB7kZwhOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872351; c=relaxed/simple;
-	bh=+IXRPg1w0sEum97fott1YcLJHZDABqPLNwNwetNu8HY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bzvrOv42NiKom/dxS8y/akcOIADOh+34HPKqfIiXK4Yx9rUwitJbBnKGz+k1uFAKk7T/2KD5eBgX39m+RwoMc5e2tv7KqLGQru90ZRqJC/AC34+nXW2rCUh2ZLPQZWrbJB8caZTpzaUVevvePY7G7haWYquRg9jHb+ICujSEZFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D519+CYX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788872603; c=relaxed/simple;
+	bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nXuOXlH5NRHTIQm1ndMiY+Jy2O8SWFcAZiHIogBdtBpVeoyD72BI4iB2FIYJEEgff4JBVHJTaYr48XittLqcfVdqMJytFLSeTtPPs/2YkMbRZ4NCXmagTzc/3JvlqVYemJ52BpCfYBWnqWMYgRVC6jvlwjSBTRzV17uLJsj9S18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqvrTgpA; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D519+CYX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62A011F00A3D;
-	Tue,  8 Sep 2026 12:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788872346;
-	bh=yBWxfQ4q1Vg16sSsyL5QbktmQE1dQlLR8d/7G6oUk/0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D519+CYX8Fop7acVBxB/MSb16wHl3XOw0RQdClMgon9dDu7An/Kgu/8vT9v71ZVRb
-	 UVrB33+jUaFPwKt3cs5P1YAqY3Q/n/niwcEMAgifqUza0twj2ISOKlu7HsSOJL5By7
-	 17GVBDG5CvMggvSZWi7QQRFxUe5Upnle61m8Wk1GuVG54wNsS/LcdmSGiE82KVkH91
-	 frpu11nvqLe317OV6zD2QuWw0H8d6JpLsRo+lY6veTQjb79MRyiQMcJVVZpOv8kQIN
-	 YXFddAn9R3S07i3YE2vIOCcmwsNnupIBHkxfVh3GPIKZntbt9717aieSz1JvKFaDlm
-	 EGN0kPnIn4l3Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bryam Vargas <hexlabsecurity@proton.me>,
-	Ming-Hung Tsai <mtsai@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] dm array: validate array block headers on read
-Date: Tue,  8 Sep 2026 08:59:03 -0400
-Message-ID: <20260908125903.2182068-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090303-flyover-viscous-2098@gregkh>
-References: <2026090303-flyover-viscous-2098@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqvrTgpA"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49557167508so55055675e9.1
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 06:03:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788872595; x=1789477395; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
+        b=aqvrTgpAcqZ0INMXVDRhgGYj+qryYPu19QHumQ7VoA/AnJJCIkux8bo5WzOgY9enYg
+         savjeiDfENMq9D3z903FnLln7adYaM04WUK3ecbYK7ewTpH9EKmgtSUW2MiHXRCtWUMN
+         MWfjqy7tp59ENjsGAWWuNAQDO6/E7IFCaK4WcQeXic9cGHLqMGUsfe2pIcEx7cY6Uq7N
+         /w8SiR9nDAR0cTDIiaY//+GHenOnT31lFwXunNoc1OstiqYgJGKJzf+Ku7pJrhkuTp/j
+         CzC2xobdBWOPpfiBQv+kyNnos53AtmO0Iex7NRFRm0tl0VLGdG4m0o2SGcjAMgMBv4ve
+         cihw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872595; x=1789477395;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
+        b=RAzUGt10C8W6mAuOcn/3ohKbI6AiBf//RcjDJf0mbzcWu720GHWgq+R+LJ6pEKuRXG
+         svpxIxQ+GUuivlQB2nV5eGsAQioVCk4PjhWU4nCRmqQccFJB8V54W4JPNwWmGbXQTIun
+         a3UUnk51fMm3C4Orj5Evp+Esloq6ZXHvmElsMUjyeqrq0GOUCJwZklKMupTRqVdaRSYF
+         zE+9av5oLrobOr1D1DoqFOH3woBRM37Ia2oEPOEcQO1dWA6GJLU7SgAk/0qhBM0xV3j9
+         irhsP4ucy1YYTd33V/nfojFsgQFDs5VDRyXim5qOKIm7A9DlLHgpV9hTi8331YSR9wsw
+         PUIg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKCKAiRrq8Agyvm3UJ8geVvg8E+1yEeRagqAANjRgFw9/YcKAmEt2ISi7WpQkyKRT+mgajqIw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kG2sK9gNjVzij/9/t00Ii4FGT4jMKtvMNJY/F9DLGJiqhNt5Lb
+	lMBJJ4tAmlAIRKgAcy75Fx2Paopu8qvdwDGaNyfFK7MVwCcMW89fvuqZ
+X-Gm-Gg: AYBFou2J3WBPZbKB8/QIyJdI1wSxq1kn/2MNTaydVon7rAeyNaau0de5CO7zn2xaPk3
+	MiUOx1nlw9UpXcJGyx8cYrp2uGEjkUDYtovESnYBWoO/uRAidjYBHVApp90gORtDGMmfwuN79nc
+	qy8zDPJajHo4sPF2wLbkRMk9m4KxjBAtacwYx9lTmrNosY55fd+HCdklZUvnOQZ/rjckK0F52Fx
+	O7EsR3Q8EZ5qACA3VvST7rOsR/hvetl7X85bqgPdhAO29vCX/5i34XEKG5AlvFu65xBegjkK7i5
+	XVrh2jfdy0ievShviOFmXWfBYE8iMXW0JNWpujN1gEKu3BekZ571tiWI3NLBIdDU+UG/W4w8Hv5
+	lwXyS4kd/cnD8sjIA1viBZ7tmWQ+66wyP4HKp9tcIll4erjbKHwj5dt1rsVLc7srLGoZo7nQ9kY
+	6aiESp/9AmQbMNFe6bQvChe88mN72Y4+vhc90Mo1g4C6preGswL3KvNyaoR/LjXorbnXJHdrj86
+	psXniD96sihBXQq9kvUKiHaC2pbVpf7U+voWsMoHpM0+Mp2lt1CNPJ+MeB8Urh8YS9tTSChvXCX
+	7RJfKuAmfoelAIet5rC+RNcf0L1Gj68gQ0hPbrX8gi6J20wgoLqZ/qhM+pfALKYu1FBCoe5bSZK
+	1UMMMe+RDWZMXzM+vYdiQlGwr0JpaeHEQvQF/V9S20adjZVMaUkAXKt0xgjkDPcx1WagtHw==
+X-Received: by 2002:a05:600c:6087:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49cf81e3454mr614754605e9.4.1788872594406;
+        Tue, 08 Sep 2026 06:03:14 -0700 (PDT)
+Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm255179095e9.8.2026.09.08.06.03.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:03:14 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:03:11 +0200
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>, Marilene Andrade Garcia
+ <marilene.agarcia@gmail.com>, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
+ macro
+Message-ID: <20260908150311.00000da6@gmail.com>
+In-Reply-To: <CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
+References: <20260908114047.1360-1-joshua.crofts1@gmail.com>
+	<CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,107 +85,26 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 
-From: Bryam Vargas <hexlabsecurity@proton.me>
+On Tue, 8 Sep 2026 15:41:23 +0300
+Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
 
-[ Upstream commit 2965787723084835b18dfe993cd450ebf5bd4540 ]
+> On Tue, Sep 8, 2026 at 2:41=E2=80=AFPM Joshua Crofts <joshua.crofts1@gmai=
+l.com> wrote:
+> >
+> > The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TABLE()
+> > macro. =20
+>=20
+> Is this a problem?
+>=20
 
-array_block_check() validates blocknr and csum and nothing else, while
-node_check(), next to it, has bounded the structural fields since both
-were written. dm_array_cursor_next() takes its loop bound from the
-on-disk nr_entries and element_at() is unguarded pointer arithmetic, so
-a count larger than the block holds keeps the cursor in one block while
-the index grows past it and the read walks off the dm-bufio buffer --
-dm_cache_load_mappings() drives it once per cache block at activation.
+For systems using devicetree, no. For legacy systems using spi_board_info a=
+nd
+this stuff, yes.
 
-Check the header against itself: reject a zero value_size, require
-max_entries to equal calc_max_entries() for that value_size and block
-size, and require nr_entries to fit. Equality rather than an upper bound,
-since a count below the real capacity trips BUG_ON() in fill_ablock() and
-trim_ablock(). Metadata dm-array writes satisfies all three.
+If you're referring to the mark for stable then I'm fine with removing it.
 
-Fixes: 6513c29f44f2 ("dm persistent data: add transactional array")
-Suggested-by: Ming-Hung Tsai <mtsai@redhat.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Bryam Vargas <hexlabsecurity@proton.me>
-Reviewed-by: Ming-Hung Tsai <mtsai@redhat.com>
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-[ retained Linux 6.6’s non-const validator callback signature due to the missing constification commit. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/md/persistent-data/dm-array.c | 37 +++++++++++++++++++++------
- 1 file changed, 29 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
-index b1fdfe53e9377..9663abdb91404 100644
---- a/drivers/md/persistent-data/dm-array.c
-+++ b/drivers/md/persistent-data/dm-array.c
-@@ -38,6 +38,14 @@ struct array_block {
-  */
- #define CSUM_XOR 595846735
- 
-+/*
-+ * Each array block can hold this many values.
-+ */
-+static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
-+{
-+	return (size_of_block - sizeof(struct array_block)) / value_size;
-+}
-+
- static void array_block_prepare_for_write(struct dm_block_validator *v,
- 					  struct dm_block *b,
- 					  size_t size_of_block)
-@@ -55,6 +63,7 @@ static int array_block_check(struct dm_block_validator *v,
- 			     size_t size_of_block)
- {
- 	struct array_block *bh_le = dm_block_data(b);
-+	uint32_t nr_entries, max_entries, value_size;
- 	__le32 csum_disk;
- 
- 	if (dm_block_location(b) != le64_to_cpu(bh_le->blocknr)) {
-@@ -74,6 +83,26 @@ static int array_block_check(struct dm_block_validator *v,
- 		return -EILSEQ;
- 	}
- 
-+	nr_entries = le32_to_cpu(bh_le->nr_entries);
-+	max_entries = le32_to_cpu(bh_le->max_entries);
-+	value_size = le32_to_cpu(bh_le->value_size);
-+
-+	if (!value_size) {
-+		DMERR_LIMIT("%s failed: value_size is zero", __func__);
-+		return -EILSEQ;
-+	}
-+
-+	if (max_entries != calc_max_entries(value_size, size_of_block)) {
-+		DMERR_LIMIT("%s failed: max_entries %u invalid for value_size %u",
-+			    __func__, max_entries, value_size);
-+		return -EILSEQ;
-+	}
-+
-+	if (nr_entries > max_entries) {
-+		DMERR_LIMIT("%s failed: too many entries", __func__);
-+		return -EILSEQ;
-+	}
-+
- 	return 0;
- }
- 
-@@ -138,14 +167,6 @@ static void dec_ablock_entries(struct dm_array_info *info, struct array_block *a
- 		on_entries(info, ab, vt->dec);
- }
- 
--/*
-- * Each array block can hold this many values.
-- */
--static uint32_t calc_max_entries(size_t value_size, size_t size_of_block)
--{
--	return (size_of_block - sizeof(struct array_block)) / value_size;
--}
--
- /*
-  * Allocate a new array block.  The caller will need to unlock block.
-  */
--- 
-2.53.0
-
+--=20
+Kind regards,
+Joshua Crofts
