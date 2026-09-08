@@ -1,40 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3325A33E360
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B5234EEEE
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:01:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883294; cv=none; b=b/dzi8wI1dy6qr4dVaDqWAwsP2Ww2wxSi+9sI/Td96DZkJMZVhwrCgv+hyYRwvGjrGYBi9UVhQ+DiSV/XVyT73Nc2MWl3FHEfVxlTdpO7MafIPP6jCCZFoYhjkKaXCRg7KWPLZbaXphdFSzUHkub18N2AfAXUWuBsxgvG/AGgnA=
+	t=1788883295; cv=none; b=piGzSykDwJihrCnnzoxBUEZfO3WxgJ6VmaxsFEKgorsGlTxDgFWvTQVlEt6TFVh2eqstO7ZlmD6HHb9Pzc7TFH1hcAGfwS3qKgvJOatiZ3g8t+nq+58p9viHw07dkCu1QBym4MsMe1+tPk479RdfqVXL9sh/SMOs8VuqiXXmZ3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883294; c=relaxed/simple;
-	bh=vnwYJWx6Dvr7CmvOzMC/s8MQXuZW7y0dFMRPgEV7pRo=;
+	s=arc-20240116; t=1788883295; c=relaxed/simple;
+	bh=8mHTaXq6JsaU0XsoVkKQV1Hi2LtnRbSM6E3zjyFTaMw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AHBFllgltD7TaeMx0nYJ7TE7DQp7KUFE6htLYxzVOp35C166WnE0+n2nqCOiIvL79fyTl4xlPGCRnxU2FmGWbrs+yT1BsixM4Os0aERRE69DSDrE5+baBzOFPR4BR2S02oDbV+AGUJBWZUouMBV/QLBLGhXTEk0ULSrsLReZeyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W7iKFQwz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HnBRyOne9IhU8ziwq1P4bOJkY+qgJqVWUTUYg/tfGnRjHm8lSGcACLn8/XD8L2liiTVfWiMpNldF4wx7vMUsRKpkq1cGiFnZStjTZOfxISHyL35IAgVCC9zH5uaE6LRsOaPe+nTOJzzJVz3TfzD5IuNR+4X4mljuvOF1GSNJly0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jxa1lrEb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W7iKFQwz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80CEB1F00A3D;
-	Tue,  8 Sep 2026 16:01:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jxa1lrEb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5676D1F00A3F;
+	Tue,  8 Sep 2026 16:01:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883293;
-	bh=i3Xm8fXZ710kUftTR6lKhqIVeOHiY0UByvii1ZpYgyw=;
+	s=k20260515; t=1788883294;
+	bh=40r55Mthjgn/VGQKIbTBdcfkhYuj8+TK0UHKmJrKs4c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W7iKFQwzPYtsZ96/qi5hRN2JpcT9F3kEIXjf0mZm/EdyVC3QnN3PgFVQ2eYcmw5jj
-	 aol3+vlJlvSKEaE17mY8vGJ1NKIbgfYP+buFhB2nFIDS1jCmFt4AnjM44SHbXYBB16
-	 0y/mbNCGGyLZMnlftz6syIjRj6njoa2z6oclWzAzUyjFHx7KwJ/GiILrX+jN4rZt9j
-	 ExB/OEo/o3yusfpraC/bMXOY6qyg/OU9sE2TrUaoOpl59kjEaui0O527N1ockSBlyK
-	 JSGnNVNasBgO+X4DGrz04notpiL8RvYWm0ACcHdG+o659YMUy0/eIBwjYQtyDPkbTl
-	 LvunZqTnFrH5Q==
+	b=Jxa1lrEbr/akmJg0gSu9Ml7ExJ92nDsXAcMaxiHSXRcGnpepsR2WeUetyAWcRwcpN
+	 1wEQEj7roOnJFm2yqzZDAr/akCDndAwGb04J9AXC74Si7Cv5Nby3TSysiUSAo3SNic
+	 COUJtag3CD/rFGdceptNLpPubQrNIRtjWvXjLPOB9mTCCE0oNd0PyIWMgjs5/zKyMw
+	 p+G38qScNsSAqUauVk8I8R7/LNeFC+zi0M2GrwkGkg0fsEOIr9RBjlNGFDTJOWFLgg
+	 XEtBkP35bRJbDUtvsoXDK+8gfbYDLE6Fw4420SsUFnUFdLEhaOp22W0/GrJWLyijMl
+	 qgOeNRf2pV3tg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+Cc: Daniel Borkmann <borkmann@iogearbox.net>,
+	Tao Chen <chen.dylane@linux.dev>,
+	STAR Labs SG <info@starlabs.sg>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/3] bpf: decouple stack_map_get_build_id_offset() from perf_callchain_entry
-Date: Tue,  8 Sep 2026 12:01:29 -0400
-Message-ID: <20260908160130.2548511-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] bpf: Disable preemption in __bpf_get_stack
+Date: Tue,  8 Sep 2026 12:01:30 -0400
+Message-ID: <20260908160130.2548511-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908160130.2548511-1-sashal@kernel.org>
 References: <2026090332-suffrage-hatchback-38cf@gregkh>
@@ -47,153 +49,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrii Nakryiko <andrii@kernel.org>
+From: Daniel Borkmann <borkmann@iogearbox.net>
 
-[ Upstream commit 4f4c4fc0153fb11ac40b16c24a24543dc9689d8c ]
+[ Upstream commit b1a47b2708d4e95dbd23aee2ec83752190897b3f ]
 
-Change stack_map_get_build_id_offset() which is used to convert stack
-trace IP addresses into build ID+offset pairs. Right now this function
-accepts an array of u64s as an input, and uses array of
-struct bpf_stack_build_id as an output.
+get_perf_callchain() returns a per-CPU perf_callchain_entry buffer and
+releases its recursion slot via put_callchain_entry() before returning,
+so nothing keeps the entry reserved while __bpf_get_stack() consumes
+it below.
 
-This is problematic because u64 array is coming from
-perf_callchain_entry, which is (non-sleepable) RCU protected, so once we
-allows sleepable build ID fetching, this all breaks down.
+A preemptible BPF program (e.g. a non-sleepable raw tracepoint program
+on a PREEMPT kernel, which runs under migrate_disable() but not
+preempt_disable()) can be scheduled out between obtaining the entry
+and the copy. Another task scheduled on the same CPU then reuses the
+same per-CPU buffer and overwrites trace->nr with a larger value.
+copy_len is then computed from the inflated trace->nr and can exceed
+the caller's buffer, causing an out-of-bounds write in the memcpy()
+and in the build_id path.
 
-But its actually pretty easy to make stack_map_get_build_id_offset()
-works with array of struct bpf_stack_build_id as both input and output.
-Which is what this patch is doing, eliminating the dependency on
-perf_callchain_entry. We require caller to fill out
-bpf_stack_build_id.ip fields (all other can be left uninitialized), and
-update in place as we do build ID resolution.
+The rcu_read_lock() taken here alone does not prevent this. It is
+only taken on the may_fault path, and under CONFIG_PREEMPT_RCU it does
+not disable preemption; it merely keeps perf's callchain buffer array
+alive (freed via call_rcu()) and does nothing to stop another task
+from reusing the entry.
 
-We make sure to READ_ONCE() and cache locally current IP value as we
-used it in a few places to find matching VMA and so on. Given this data
-is directly accessible and modifiable by user's BPF code, we should make
-sure to have a consistent view of it.
+Disable preemption around obtaining the callchain entry and copying
+it into the caller's buffer, so the entry cannot be reused underneath
+us and trace->nr stays bounded by max_depth. Build ID resolution may
+fault and is therefore deferred until after preemption is re-enabled;
+by then the instruction pointers have already been copied into buf,
+so it operates only on that private copy. Note, preempt_disable() also
+subsumes the buffer-lifetime guarantee the rcu_read_lock() provided,
+since a preempt-disabled section is an RCU read-side critical section
+for the callchain buffers' call_rcu() reclaim.
 
-Reviewed-by: Eduard Zingerman <eddyz87@gmail.com>
+Fixes: c195651e565a ("bpf: add bpf_get_stack helper")
+Reported-by: Tao Chen <chen.dylane@linux.dev>
+Reported-by: STAR Labs SG <info@starlabs.sg>
+Signed-off-by: Daniel Borkmann <borkmann@iogearbox.net>
+Signed-off-by: Jiri Olsa <jolsa@kernel.org>
 Signed-off-by: Andrii Nakryiko <andrii@kernel.org>
-Link: https://lore.kernel.org/r/20240829174232.3133883-9-andrii@kernel.org
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Stable-dep-of: b1a47b2708d4 ("bpf: Disable preemption in __bpf_get_stack")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/bpf/20260803210149.296496-11-jolsa@kernel.org
+
+Closes: https://lore.kernel.org/bpf/20260206090653.1336687-1-chen.dylane@linux.dev/
+[ changed Fixes: commit ]
+
+[ adapted helper-based callchain handling to the older inline implementation ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/stackmap.c | 49 +++++++++++++++++++++++++++++--------------
- 1 file changed, 33 insertions(+), 16 deletions(-)
+ kernel/bpf/stackmap.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/kernel/bpf/stackmap.c b/kernel/bpf/stackmap.c
-index 484c6581ddca1..3b446754de33b 100644
+index 3b446754de33b..2db23f782fb33 100644
 --- a/kernel/bpf/stackmap.c
 +++ b/kernel/bpf/stackmap.c
-@@ -127,8 +127,18 @@ static struct bpf_map *stack_map_alloc(union bpf_attr *attr)
- 	return ERR_PTR(err);
- }
+@@ -441,6 +441,7 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	if (sysctl_perf_event_max_stack < max_depth)
+ 		max_depth = sysctl_perf_event_max_stack;
  
-+/*
-+ * Expects all id_offs[i].ip values to be set to correct initial IPs.
-+ * They will be subsequently:
-+ *   - either adjusted in place to a file offset, if build ID fetching
-+ *     succeeds; in this case id_offs[i].build_id is set to correct build ID,
-+ *     and id_offs[i].status is set to BPF_STACK_BUILD_ID_VALID;
-+ *   - or IP will be kept intact, if build ID fetching failed; in this case
-+ *     id_offs[i].build_id is zeroed out and id_offs[i].status is set to
-+ *     BPF_STACK_BUILD_ID_IP.
-+ */
- static void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
--					  u64 *ips, u32 trace_nr, bool user)
-+					  u32 trace_nr, bool user)
- {
- 	int i;
- 	struct mmap_unlock_irq_work *work = NULL;
-@@ -145,30 +155,28 @@ static void stack_map_get_build_id_offset(struct bpf_stack_build_id *id_offs,
- 		/* cannot access current->mm, fall back to ips */
- 		for (i = 0; i < trace_nr; i++) {
- 			id_offs[i].status = BPF_STACK_BUILD_ID_IP;
--			id_offs[i].ip = ips[i];
- 			memset(id_offs[i].build_id, 0, BUILD_ID_SIZE_MAX);
- 		}
- 		return;
- 	}
- 
- 	for (i = 0; i < trace_nr; i++) {
--		if (range_in_vma(prev_vma, ips[i], ips[i])) {
-+		u64 ip = READ_ONCE(id_offs[i].ip);
-+
-+		if (range_in_vma(prev_vma, ip, ip)) {
- 			vma = prev_vma;
--			memcpy(id_offs[i].build_id, prev_build_id,
--			       BUILD_ID_SIZE_MAX);
-+			memcpy(id_offs[i].build_id, prev_build_id, BUILD_ID_SIZE_MAX);
- 			goto build_id_valid;
- 		}
--		vma = find_vma(current->mm, ips[i]);
-+		vma = find_vma(current->mm, ip);
- 		if (!vma || build_id_parse_nofault(vma, id_offs[i].build_id, NULL)) {
- 			/* per entry fall back to ips */
- 			id_offs[i].status = BPF_STACK_BUILD_ID_IP;
--			id_offs[i].ip = ips[i];
- 			memset(id_offs[i].build_id, 0, BUILD_ID_SIZE_MAX);
- 			continue;
- 		}
- build_id_valid:
--		id_offs[i].offset = (vma->vm_pgoff << PAGE_SHIFT) + ips[i]
--			- vma->vm_start;
-+		id_offs[i].offset = (vma->vm_pgoff << PAGE_SHIFT) + ip - vma->vm_start;
- 		id_offs[i].status = BPF_STACK_BUILD_ID_VALID;
- 		prev_vma = vma;
- 		prev_build_id = id_offs[i].build_id;
-@@ -219,7 +227,7 @@ static long __bpf_get_stackid(struct bpf_map *map,
- 	struct bpf_stack_map *smap = container_of(map, struct bpf_stack_map, map);
- 	struct stack_map_bucket *bucket, *new_bucket, *old_bucket;
- 	u32 skip = flags & BPF_F_SKIP_FIELD_MASK;
--	u32 hash, id, trace_nr, trace_len;
-+	u32 hash, id, trace_nr, trace_len, i;
- 	bool user = flags & BPF_F_USER_STACK;
- 	u64 *ips;
- 	bool hash_matches;
-@@ -241,15 +249,18 @@ static long __bpf_get_stackid(struct bpf_map *map,
- 		return id;
- 
- 	if (stack_map_use_build_id(map)) {
-+		struct bpf_stack_build_id *id_offs;
-+
- 		/* for build_id+offset, pop a bucket before slow cmp */
- 		new_bucket = (struct stack_map_bucket *)
- 			pcpu_freelist_pop(&smap->freelist);
- 		if (unlikely(!new_bucket))
- 			return -ENOMEM;
- 		new_bucket->nr = trace_nr;
--		stack_map_get_build_id_offset(
--			(struct bpf_stack_build_id *)new_bucket->data,
--			ips, trace_nr, user);
-+		id_offs = (struct bpf_stack_build_id *)new_bucket->data;
-+		for (i = 0; i < trace_nr; i++)
-+			id_offs[i].ip = ips[i];
-+		stack_map_get_build_id_offset(id_offs, trace_nr, user);
- 		trace_len = trace_nr * sizeof(struct bpf_stack_build_id);
- 		if (hash_matches && bucket->nr == trace_nr &&
- 		    memcmp(bucket->data, new_bucket->data, trace_len) == 0) {
-@@ -448,10 +459,16 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
- 	copy_len = trace_nr * elem_size;
- 
- 	ips = trace->ip + skip;
--	if (user && user_build_id)
--		stack_map_get_build_id_offset(buf, ips, trace_nr, user);
--	else
-+	if (user && user_build_id) {
-+		struct bpf_stack_build_id *id_offs = buf;
-+		u32 i;
-+
-+		for (i = 0; i < trace_nr; i++)
-+			id_offs[i].ip = ips[i];
-+		stack_map_get_build_id_offset(buf, trace_nr, user);
-+	} else {
- 		memcpy(buf, ips, copy_len);
++	preempt_disable();
+ 	if (trace_in)
+ 		trace = trace_in;
+ 	else if (kernel && task)
+@@ -448,11 +449,10 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 	else
+ 		trace = get_perf_callchain(regs, 0, kernel, user, max_depth,
+ 					   crosstask, false);
+-	if (unlikely(!trace))
+-		goto err_fault;
+-
+-	if (trace->nr < skip)
++	if (unlikely(!trace) || trace->nr < skip) {
++		preempt_enable();
+ 		goto err_fault;
 +	}
  
+ 	trace_nr = trace->nr - skip;
+ 	trace_nr = (trace_nr <= num_elem) ? trace_nr : num_elem;
+@@ -465,11 +465,15 @@ static long __bpf_get_stack(struct pt_regs *regs, struct task_struct *task,
+ 
+ 		for (i = 0; i < trace_nr; i++)
+ 			id_offs[i].ip = ips[i];
+-		stack_map_get_build_id_offset(buf, trace_nr, user);
+ 	} else {
+ 		memcpy(buf, ips, copy_len);
+ 	}
+ 
++	preempt_enable();
++
++	if (user && user_build_id)
++		stack_map_get_build_id_offset(buf, trace_nr, user);
++
  	if (size > copy_len)
  		memset(buf + copy_len, 0, size - copy_len);
+ 	return copy_len;
 -- 
 2.53.0
 
