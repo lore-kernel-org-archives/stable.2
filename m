@@ -1,213 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57F13A7F6E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 08:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB53E3CE099;
+	Tue,  8 Sep 2026 08:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855040; cv=none; b=DY11CLW/t5810n4Gc94Q+fZHER/dxMzFRVROt5kF9D8iXnN0oXnmLA29JAx/5cN4vrXOZ/WtfD9MQPf3/pD13Lty98HlDVQZcvoGtLRoWHbLhHtjOJDri7XqbYi+nsHN/8WwQ2nHqsdfR8kvUMSm05L4G/dlasIV0NtLwnlzCL0=
+	t=1788855428; cv=none; b=tfcJm4LQbjD3SUlf6PLxow+EJqIKFPhS9hak4nZbpjNX7ZRaZVA+fJh+aufH76Xo0RRPPabxcZ6t4ui0EgG342c7rjobwdz7JsDhkC89Fyt21fhLKie2kNuDy36CvAqiBZxkFTf3xZNEHwu9D+HVyngiIhRzuht+d0qbCmRNOQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855040; c=relaxed/simple;
-	bh=1Ud8/dZbVNomn7snUX6HWLPxtbMautulEZ8HW9eK7+I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hYPxsyPoGyKFzoz21lD9hM2q97LJA3wbn5/4DXgZhRvTR/2kcObkLETrIf2d4PTkrCsVGH6AJ8ZDtGDB4mcE3s3jXmNnthapUOwFNG5LP5emyAVw7FGtMJ5Lz4xEcnxoY8S05DfBcmaAluTBmEmKV6DIT3k97duF4Fl9MZrguCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VuvCCa9v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788855428; c=relaxed/simple;
+	bh=Sw65ndDTc8r9n81YHzvmjfvGSaHZtX4ahC8Fk6N37HA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nXsFK5+Escy5yauaGhgXGqctM8M/SbxiIdFnlmO/OpyOrLGUz+6EwEv1RK8eFNWe4QXQuPogaQ5EaFGnjwU4P7mHdN3aX6GbCOZKAOtIwCFs3kBf+SfI58tZc7N4nZ+BZ3oOvfD9d/IHsTbBwY/W9/m4xyzmNyjhKOnCBbThyxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=j/Z0kEYw; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VuvCCa9v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3331F00ACA
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 08:10:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788855038;
-	bh=/LQ40bG3b0qEiWUXfmVaeOdjqlO0VS+wXll0EN2GKX0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=VuvCCa9vusaCARP4kqjikR+bv6LqFhsoUvglKfI1pJ9AsquQHsudSXKaSRn8WciPB
-	 PU18JpWe+CCGQx6pgLnGpxBdjf9d+Mqnyw1E9xm4a2xJ9aDt7sm9IBOWx3+xaz5O9f
-	 2Ay4dvMkb9bSXsEADr3vdT7M8wxiU/jRORNkZoyRhXHNLqO1haqy9GfjsmUMdT66EI
-	 /nA3gQ0tWJ5CJnqoSdyAGbyi8ZDHkzxKrSvGBcabUcF1k0uQ+jmtd8hmMrk2ac067f
-	 Pv4LmFlyY+5QoFse7RhmSATPp2FEbb13AOVufv4NIVar572vARYJfyAfl/ECwAFfOy
-	 Xa1T0McJHfLpw==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c28fde3bbd2so211544366b.3
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 01:10:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwB+dHKRZVKDxV8xmG8EEeEBOCJecaVkryote0rzBP0jW7y6PHpIPqXmS463zqZjlCXI5EGFbI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kufvKNXE1UGaeeyDpy0gbG0Nb0l76ocDgTUxlG1ZnrCr1Qupia
-	SfNRwm4JdROdtk8g111WWSlmL8Snj3dIQvRFOrNpqH6VQKVVZ41aye0eOiIbt78TAeZPyJY/LCK
-	4l01mJ3bDFSEiqVljWI40g1LEThW+uIE=
-X-Received: by 2002:a17:907:940b:b0:c26:1691:b366 with SMTP id
- a640c23a62f3a-c261691b9d4mr944555766b.31.1788855036997; Tue, 08 Sep 2026
- 01:10:36 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="j/Z0kEYw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=4T
+	j/lYeU7aAN9IIwH45WiWFJtIZJ9W4kfuzcyjjsibU=; b=j/Z0kEYw3Y9uc4JFtr
+	pU2gvbRC9RJhk1qpWsQQrpl7DlpTJyR9v1U1YN9dq/e20VrzBOJdEDcYnqX8+JCz
+	xN06LOW+eVueEjxPunNMkN+V9L3RF3yD+Fv8Y/3v/9eIOvaDq0RlsxNK2R7iYcIU
+	ocp7MiXmBMWT6JdEtfyqzy43o=
+Received: from ubuntu.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wAXQgJhxJ9q1J15BQ--.22909S2;
+	Tue, 08 Sep 2026 16:16:34 +0800 (CST)
+From: huhai <15815827059@163.com>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	linux-cifs@vger.kernel.org,
+	Henry Hu <huhai@kylinos.cn>,
+	stable@vger.kernel.org,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>
+Subject: [PATCH] ksmbd: fix invalid pointer dereference when get_inode_acl() fails
+Date: Tue,  8 Sep 2026 16:16:31 +0800
+Message-Id: <20260908081631.9735-1-15815827059@163.com>
+X-Mailer: git-send-email 2.40.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907161938.1932355-1-usama.arif@linux.dev>
-In-Reply-To: <20260907161938.1932355-1-usama.arif@linux.dev>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Tue, 8 Sep 2026 01:10:25 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zNr7jMYkWjaRYpQYkR8yQT3R5guV=2EXTfWBipAZ5kEqw@mail.gmail.com>
-X-Gm-Features: AcwNN1WdBn7Fr6APF4VR9MOEKeL7VFm43JjsPuRw9XMXiiE2ug9S5SNh0owgQu4
-Message-ID: <CAO9r8zNr7jMYkWjaRYpQYkR8yQT3R5guV=2EXTfWBipAZ5kEqw@mail.gmail.com>
-Subject: Re: [PATCH] mm: zswap: don't fail a large-folio swapin whose range is
- not in zswap
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, chengming.zhou@linux.dev, hannes@cmpxchg.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, nphamcs@gmail.com, 
-	kernel-team@meta.com, stable@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>, 
-	Longlong Xia <xialonglong@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAXQgJhxJ9q1J15BQ--.22909S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWFyfJF17Kry7uw15Gw4UJwb_yoW5ZF4Upr
+	43Ga4vkrs8XFyxWr97JrWUZw1S9F18tw4fGrZ7K3yfA3Z3t34xtry0yryagFn8CrW8WFyI
+	vrs09r4S9r17JFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jrYFAUUUUU=
+X-CM-SenderInfo: rprvmiivyslimvzbiqqrwthudrp/xtbC8ALLUWqfxGKifwAA3m
 
-On Mon, Sep 7, 2026 at 9:20=E2=80=AFAM Usama Arif <usama.arif@linux.dev> wr=
-ote:
->
-> thp_swapin_suitable_orders() and shmem_swap_alloc_folio() sample
-> zswap_never_enabled() to decide whether a swapin may use a large folio.
-> zswap_load() samples the same one-way static key again once the read
-> reaches it.  Nothing serialises the two reads, and in between the task
-> allocates and pins a high-order folio, which can sleep.
->
-> If zswap is enabled for the first time in that window, a large folio that
-> was correctly permitted reaches zswap_load(), which rejects every large
-> folio with -EINVAL.  swap_read_folio() treats anything other than -ENOENT
-> as "zswap handled it" and skips the backing-device read, so the folio
-> comes back unlocked and not uptodate: SIGBUS for an anonymous fault, -EIO
-> for shmem.  The data is intact on the swap device - it was written there
-> before zswap was ever enabled - and the not-uptodate folio stays in the
-> swap cache, so every retry of the fault fails the same way.  With
-> panic_on_warn the WARN takes the machine down rather than the task.
->
-> Scan the range instead of rejecting the folio.  The caller has pinned
-> every slot before issuing the read, so zswap cannot start a store or a
-> writeback into the range and the scan is stable.  If nothing in the range
-> is in zswap it is all on the backing device: return -ENOENT and let
-> swap_read_folio() read it.
->
-> A range that does have a slot in zswap is still refused, because zswap
-> stores large folios as order-0 entries and cannot reconstruct one.  That
-> stays reachable - a slot shared with another task can be stored inside
-> the same window - and refusing is correct, since the alternative is
-> returning the stale device copy.  Report it as -EIO rather than -EINVAL:
-> the request is valid, zswap just cannot serve it.  The only caller
-> distinguishes -ENOENT from everything else, so that part is a
-> documentation fix.
->
-> Fixes: 242d12c98174 ("mm: support large folios swap-in for sync io device=
-s")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Alexandre Ghiti <alex@ghiti.fr>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+From: Henry Hu <huhai@kylinos.cn>
 
-Acked-by: Yosry Ahmed <yosry@kernel.org>
+When get_inode_acl() fails, it returns an ERR_PTR(), but
+ksmbd_acls_fattr() stored that pointer in smb_fattr without
+checking for errors. Later callers then passed the error pointer
+to security descriptor helpers or posix_acl_release(), resulting
+in an invalid pointer dereference.
 
+This was reproduced on an XFS-backed share when xfs_get_acl()
+returned ERR_PTR(-ENOMEM). Querying the SMB ACL from a CIFS client
+triggered the crash:
 
-> ---
->  mm/zswap.c | 58 ++++++++++++++++++++++++++++++++++++++++--------------
->  1 file changed, 43 insertions(+), 15 deletions(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 37f34e406c8e3..fd36ac38e9a1e 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1571,6 +1571,32 @@ bool zswap_store(struct folio *folio)
->         return ret;
->  }
->
-> +/**
-> + * zswap_is_present() - is any slot in [entry, entry + nr) in zswap?
-> + * @entry: base swap entry of the range
-> + * @nr: number of contiguous slots to check
-> + *
-> + * Context: The caller must keep the range pinned, otherwise the answer =
-can
-> + * change under it.
-> + * Return: true if at least one slot in the range is in zswap.
-> + */
-> +static bool zswap_is_present(swp_entry_t entry, unsigned int nr)
-> +{
-> +       pgoff_t offset =3D swp_offset(entry);
-> +       struct xarray *tree =3D swap_zswap_tree(entry);
-> +       unsigned long index =3D offset;
-> +
-> +       /*
-> +        * A pinned range is at most SWAPFILE_CLUSTER slots and is aligne=
-d to
-> +        * its own size, so one tree covers all of it and a single lookup=
- is
-> +        * enough. Scanning only part of the range would report a false
-> +        * "absent" and let the caller read a stale copy from the device.
-> +        */
-> +       BUILD_BUG_ON(SWAPFILE_CLUSTER > ZSWAP_ADDRESS_SPACE_PAGES);
-> +
-> +       return xa_find(tree, &index, offset + nr - 1, XA_PRESENT);
-> +}
-> +
->  /**
->   * zswap_load() - load a folio from zswap
->   * @folio: folio to load
-> @@ -1578,15 +1604,12 @@ bool zswap_store(struct folio *folio)
->   * Return: 0 on success, with the folio unlocked and marked up-to-date, =
-or one
->   * of the following error codes:
->   *
-> - *  -EIO: if the swapped out content was in zswap, but could not be load=
-ed
-> - *  into the page due to a decompression failure. The folio is unlocked,=
- but
-> - *  NOT marked up-to-date, so that an IO error is emitted (e.g. do_swap_=
-page()
-> - *  will SIGBUS).
-> - *
-> - *  -EINVAL: if the swapped out content was in zswap, but the page belon=
-gs
-> - *  to a large folio, which is not supported by zswap. The folio is unlo=
-cked,
-> - *  but NOT marked up-to-date, so that an IO error is emitted (e.g.
-> - *  do_swap_page() will SIGBUS).
-> + *  -EIO: if the swapped out content was in zswap but could not be hande=
-d
-> + *  back, either because decompression failed or because a slot in a
-> + *  large-folio range is still in zswap and zswap cannot reconstruct a l=
-arge
-> + *  folio from per-page entries. The folio is unlocked, but NOT marked
-> + *  up-to-date, so that an IO error is emitted (e.g. do_swap_page() will
-> + *  SIGBUS).
->   *
->   *  -ENOENT: if the swapped out content was not in zswap. The folio rema=
-ins
->   *  locked on return.
-> @@ -1605,13 +1628,18 @@ int zswap_load(struct folio *folio)
->                 return -ENOENT;
->
->         /*
-> -        * Large folios should not be swapped in while zswap is being use=
-d, as
-> -        * they are not properly handled. Zswap does not properly load la=
-rge
-> -        * folios, and a large folio may only be partially in zswap.
-> +        * A large folio can legitimately reach zswap_load() with its who=
-le
-> +        * range on the backing device, so scan the range rather than rej=
-ecting
-> +        * it outright. The caller has pinned every slot, so zswap cannot=
- start
-> +        * a store or a writeback into the range while we look.
->          */
-> -       if (WARN_ON_ONCE(folio_test_large(folio))) {
-> -               folio_unlock(folio);
-> -               return -EINVAL;
-> +       if (folio_test_large(folio)) {
-> +               if (WARN_ON_ONCE(zswap_is_present(swp,
-> +                                                 folio_nr_pages(folio)))=
-) {
-> +                       folio_unlock(folio);
-> +                       return -EIO;
-> +               }
-> +               return -ENOENT;
->         }
->
->         entry =3D xa_load(tree, offset);
-> --
-> 2.53.0-Meta
->
+  BUG: unable to handle page fault for address: fffffffffffffff8
+  RIP: smb_acl_sec_desc_scratch_len+0x58/0x90 [ksmbd]
+  Call Trace:
+   smb2_query_info+0x40d/0x17c0 [ksmbd]
+   handle_ksmbd_work+0x1ca/0x770 [ksmbd]
+
+Fix this by checking the return values from get_inode_acl() in
+ksmbd_acls_fattr() and propagating any errors to its callers.
+Update smb2_open() and smb2_get_info_sec() to handle these errors.
+
+Cc: stable@vger.kernel.org
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Assisted-by: Codex:gpt-5.6-sol
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Signed-off-by: Henry Hu <huhai@kylinos.cn>
+---
+ fs/smb/server/smb2pdu.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index b7ce67094626..c6df9a9789ba 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3634,9 +3634,9 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+ 			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false);
+ }
+ 
+-static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+-			     struct mnt_idmap *idmap,
+-			     struct inode *inode)
++static int ksmbd_acls_fattr(struct smb_fattr *fattr,
++			    struct mnt_idmap *idmap,
++			    struct inode *inode)
+ {
+ 	vfsuid_t vfsuid = i_uid_into_vfsuid(idmap, inode);
+ 	vfsgid_t vfsgid = i_gid_into_vfsgid(idmap, inode);
+@@ -3649,9 +3649,19 @@ static void ksmbd_acls_fattr(struct smb_fattr *fattr,
+ 
+ 	if (IS_ENABLED(CONFIG_FS_POSIX_ACL)) {
+ 		fattr->cf_acls = get_inode_acl(inode, ACL_TYPE_ACCESS);
+-		if (S_ISDIR(inode->i_mode))
++		if (IS_ERR(fattr->cf_acls))
++			return PTR_ERR(fattr->cf_acls);
++
++		if (S_ISDIR(inode->i_mode)) {
+ 			fattr->cf_dacls = get_inode_acl(inode, ACL_TYPE_DEFAULT);
++			if (IS_ERR(fattr->cf_dacls)) {
++				posix_acl_release(fattr->cf_acls);
++				return PTR_ERR(fattr->cf_dacls);
++			}
++		}
+ 	}
++
++	return 0;
+ }
+ 
+ enum {
+@@ -4778,7 +4788,10 @@ int smb2_open(struct ksmbd_work *work)
+ 					int pntsd_size;
+ 					size_t scratch_len;
+ 
+-					ksmbd_acls_fattr(&fattr, idmap, inode);
++					rc = ksmbd_acls_fattr(&fattr, idmap, inode);
++					if (rc)
++						goto err_out;
++
+ 					scratch_len = smb_acl_sec_desc_scratch_len(&fattr,
+ 							NULL, 0,
+ 							OWNER_SECINFO | GROUP_SECINFO |
+@@ -7643,7 +7656,11 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
+ 
+ 	idmap = file_mnt_idmap(fp->filp);
+ 	inode = file_inode(fp->filp);
+-	ksmbd_acls_fattr(&fattr, idmap, inode);
++	rc = ksmbd_acls_fattr(&fattr, idmap, inode);
++	if (rc) {
++		ksmbd_fd_put(work, fp);
++		return rc;
++	}
+ 
+ 	if (test_share_config_flag(work->tcon->share_conf,
+ 				   KSMBD_SHARE_FLAG_ACL_XATTR))
+-- 
+2.40.1
+
