@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F895437DC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2A15427F4
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:56:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872198; cv=none; b=gy4moc47Ks2fx6BGD76BqO4QHln4TDxFsrz5N4U+oHul24pscymFsc6t0gdQu5vdQUJKwh3PlTtsGiQsZE6nA5ZKVI5x5FR2OFHvO7ujJ8YyFFarNNe9IeuiZ2EtHKItNmHHsFtBeL6W8js55kS3QFvSqmGWZkvNX2B0J00eAFo=
+	t=1788872200; cv=none; b=VUpNur/pX+RDnNTvzeJQLzP+AsbLn7eu0Z6+yWu2U0xX0O8gskRpXjOBVb+uSugx//bW9uWFQyZU2AlAoqcQkaysclUgg87x/m6ujghgEKCCd62eKSD4/KdzCulonbesAFNAZqQiIEtPuOW3h2SolG4m+Z/Vlv8wG3ZSTkxg4oo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872198; c=relaxed/simple;
-	bh=gVw2pdTfV8bjWnm589VfwUD+il5INIE7vbAZh/epK4s=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jUNpDPyHO0miTvixM9i68bJe6kzvvU6Tsj4p1W/gsaqlNurTFO5dBaMbGFNl7YuKyDoskmjpgvEwcjCmFLbKSj5EkrJUM1ZmHMvLYlyiK51bkipPrkFDtDSpLZ/OHI/59KMiHtKROa7Y8EVfZEhE+aXbnkr3aA86yC0kvuvj3kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YGMUA8Ni; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788872200; c=relaxed/simple;
+	bh=XQdTVOkm7creUyh2f5HkwYXyYlCO4+JmujxSYpJHGiQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pf5S3aVN99eybGnUK4V3HLzTbtu3bTgz4ql2PXOki5WPIsItK+RjF9bD6U9arqARtr592CDFCi5dYSZMjk7jSSXCuhi9rFNCSOwBLcyNTbOlqX1szDLv9RYuBhA7sDUqh3PsOtY/osor42N3XN3qYKYYVZKuKVuub9vuoXz/XVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lSLNeJ0u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YGMUA8Ni"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EC11F00A3A;
-	Tue,  8 Sep 2026 12:56:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lSLNeJ0u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A141F00A3A;
+	Tue,  8 Sep 2026 12:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872196;
-	bh=R3x3B6xhXj0i17t92KbGcCLKU/Fun/NJfIp//5uIGCU=;
+	s=korg; t=1788872199;
+	bh=l4b3P7JvhTi8FEu6XupbbJDd/yVwCYAXssW06yzk8eI=;
 	h=Subject:To:Cc:From:Date;
-	b=YGMUA8NibcUjGV+160F6gyD0pfTzo6L2qw2jHEC1xhgIL+99Id7rg4GEM5O9l5rKw
-	 sxUYgZwSdsh/jhuXCdPS0MWLsVCUc91iJ7mbnvTh/KKyT7/28ihy4Y7zLD7vgw6nU5
-	 ZOuVx1rLuHACYkpUgHsxCzNf/tR+QeZ5FJ9Bqht4=
-Subject: FAILED: patch "[PATCH] mm/damon/sysfs-schemes: kobject_del() scheme dirs" failed to apply to 6.1-stable tree
-To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
+	b=lSLNeJ0u6KPCAu8b1npQwXaOZzGk2j6t4K8+zSQTJM1Myl+do+5iED9ImF2KSmGj4
+	 hz0ju4lODFPHJzqI3pfwikWCmA1JH6sZS5mmesq8EhsBbHPO1O/vb/PG5cw8eXKlRO
+	 ZXH6OesTpapVPPNHMd0rlEGHQRJbT/3DxJ3U2kbY=
+Subject: FAILED: patch "[PATCH] mm/damon/core-kunit: check region count before testing in" failed to apply to 6.1-stable tree
+To: sj@kernel.org,akpm@linux-foundation.org,brendan.higgins@linux.dev,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:50:17 +0200
-Message-ID: <2026090817-livable-sturdily-4c48@gregkh>
+Date: Tue, 08 Sep 2026 14:51:20 +0200
+Message-ID: <2026090820-envoy-endanger-c99b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 05fb6ac98c49be870c5f9ccdfdf95f0107e564ae
+git cherry-pick -x 9b18ef3c3aa1ce24176e340061caf15fa2742564
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090817-livable-sturdily-4c48@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090820-envoy-endanger-c99b@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,48 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 05fb6ac98c49be870c5f9ccdfdf95f0107e564ae Mon Sep 17 00:00:00 2001
+From 9b18ef3c3aa1ce24176e340061caf15fa2742564 Mon Sep 17 00:00:00 2001
 From: SJ Park <sj@kernel.org>
-Date: Sun, 28 Jun 2026 15:01:12 -0700
-Subject: [PATCH] mm/damon/sysfs-schemes: kobject_del() scheme dirs
+Date: Fri, 17 Jul 2026 17:14:36 -0700
+Subject: [PATCH] mm/damon/core-kunit: check region count before testing in
+ split_at()
 
-On CONFIG_DEBUG_KOBJECT_RELEASE enabled kernel, lack of kobject_del()
-could cause directories creation failures due to the name conflicts.  Fix
-those issues for scheme directories by adding kobject_del() calls.
+damon_test_split_at() test next region that is assumed to be created by
+damon_split_region_at() invocation.  But the split might fail.  In this
+case, the succeeding test may dereference invalid pointers returned by
+damon_next_region().
 
-Link: https://lore.kernel.org/20260628220121.97360-4-sj@kernel.org
-Fixes: 7e84b1f8212a ("mm/damon/sysfs: support DAMON-based Operation Schemes")
+The invalid pointer may not cause a really bad user impact, because of the
+implementation detail.  It would only read wrong contents in the belonging
+damon_target struct.  Depending on the future change of the offset from
+the link header to the accessing field, this could also be really
+dangerous, though.  Still, the realistic user impact would be limited.  It
+would affect only test run setups.
+
+Fix it by testing if the number of regions was also changed as expected
+and exit early for the failure.
+
+The issue was discovered [1] by Sashiko.
+
+Link: https://lore.kernel.org/20260718001442.87129-3-sj@kernel.org
+Link: https://lore.kernel.org/20260714142352.100478-1-sj@kernel.org [1]
+Fixes: 17ccae8bb5c9 ("mm/damon: add kunit tests")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.18.x
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
-index 3cbeccd436e4..db496d2e493a 100644
---- a/mm/damon/sysfs-schemes.c
-+++ b/mm/damon/sysfs-schemes.c
-@@ -2681,6 +2681,7 @@ void damon_sysfs_schemes_rm_dirs(struct damon_sysfs_schemes *schemes)
+diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
+index eba643762132..322a295ac2ce 100644
+--- a/mm/damon/tests/core-kunit.h
++++ b/mm/damon/tests/core-kunit.h
+@@ -155,6 +155,10 @@ static void damon_test_split_at(struct kunit *test)
+ 	r->age = 10;
+ 	damon_add_region(r, t);
+ 	damon_split_region_at(t, r, 25);
++	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
++	if (damon_nr_regions(t) != 2)
++		goto out;
++
+ 	KUNIT_EXPECT_EQ(test, r->ar.start, 0ul);
+ 	KUNIT_EXPECT_EQ(test, r->ar.end, 25ul);
  
- 	for (i = 0; i < schemes->nr; i++) {
- 		damon_sysfs_scheme_rm_dirs(schemes_arr[i]);
-+		kobject_del(&schemes_arr[i]->kobj);
- 		kobject_put(&schemes_arr[i]->kobj);
- 	}
- 	schemes->nr = 0;
-@@ -2722,13 +2723,15 @@ static int damon_sysfs_schemes_add_dirs(struct damon_sysfs_schemes *schemes,
- 			goto out;
- 		err = damon_sysfs_scheme_add_dirs(scheme);
- 		if (err)
--			goto out;
-+			goto del_out;
+@@ -166,6 +170,7 @@ static void damon_test_split_at(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, r->last_nr_accesses, r_new->last_nr_accesses);
+ 	KUNIT_EXPECT_EQ(test, r->age, r_new->age);
  
- 		schemes_arr[i] = scheme;
- 		schemes->nr++;
- 	}
- 	return 0;
++out:
+ 	damon_free_target(t);
+ }
  
-+del_out:
-+	kobject_del(&scheme->kobj);
- out:
- 	damon_sysfs_schemes_rm_dirs(schemes);
- 	kobject_put(&scheme->kobj);
 
