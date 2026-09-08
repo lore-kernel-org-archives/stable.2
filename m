@@ -1,41 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BF7258EF3
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 01:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC8525EF87
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 01:05:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788829550; cv=none; b=m85SlTzpcsVNjOnJ+rxEQmxlItUY51dmemnL4dUlplzlvpP3iGucSLcBGWUgUbJEuBZvhQOobp3Y/zNb13Honx2KhV1N1qtLntMACqLkkRdXt2lhupYHmB3SA2JQuO0veCNOVzmaUVgf7b5MbmBIwYTmTjrLCTtWsSOcF3Q3BmE=
+	t=1788829551; cv=none; b=KIEYcCwvMIgGd21TON1dPZhskcf1ZcB4qKKz7Nwuavkea0buAMEYGUCMSOyHkDT6O2T4rI1yQcilXGHuoHiTNkcx0Ne0kP9zUwFkH0Uuz0PrFIDAvD2CzHav7pV5xgPa34TXpmwlbrwVZ0ccsUkNNiHqaUNRCyZJXmPeX8Kedbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788829550; c=relaxed/simple;
-	bh=cWY+uaejsE+BB7W4oA1tJwWTeEO+kezkcjzAJS1vkwY=;
+	s=arc-20240116; t=1788829551; c=relaxed/simple;
+	bh=YCvuoGlszFS2zfFeqhgTccaLE6KXJM1Jpbp/Ohiqro4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TrX/DhoXMF2C2kaa54EuUioFzrdOBFo35fQrHOa/Q3yayh4fgiCxV+k6jhMDUkMXTfBNkhY+kumXEt1V4U+UnGqjVnCzo1x33gcsVyrxs7vy2mIGsKzMn4+uuJpu1xXcbkLsyd6VP7G0pYhCKL2Exkb1ciw90371hQOG6rWxs/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iax//Q2i; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GzRC09s4tnRUaLc6XJzfG6XcoYbNkDi+ynOY9c8QofC74ZduzwKZDEPC9RUHVEcFWfsjrIPyLjob/nNa9iQEMAd5WkSFHSGwbLlDndaZiBt7ojrReSh0bDyrccRDhSyyVL/j7lPtlph3BpROkeSt6cusfhRezA3tl779ScXLPys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gCrpqnZo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iax//Q2i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE9601F00A3E;
-	Tue,  8 Sep 2026 01:05:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gCrpqnZo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D94661F00A3D;
+	Tue,  8 Sep 2026 01:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788829548;
-	bh=vPBTkhUnnsvAUjIyKGJ5buJxqrmwqNVK8GFgx8LwgCU=;
+	s=k20260515; t=1788829549;
+	bh=0tHUKBVqe6QeyNRwqzKfNDUsks0pK+Oc8g+DPl1Xg6U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iax//Q2ijbfXU1c73NpTy6KMq/ItC5r26xKpGMBECjXvRi8MAUm4fupdX9SFQ+Kio
-	 uUo7KB7nYNWdYeNSlx0XqoNA0w2IiveTdhHVohQ3zfjezUdsx9oJKKd1tgoaNSIXVl
-	 sLvCarBON8aLO/41hij/2AmO0+zHBS7KJJKD9S2R1Iem6+Nb+v8Yd/XeuUMMQ4c0Ud
-	 ah3qyeXnl5g9os6HqNoIn7VrlKh6Ztm4Q5Gxa22KuMbVE+ymwJvqip2aqEImU5j1qV
-	 Vs63otuRsdhgq8zUBjZdoSrbkPwshmJEwkxdbXG3toBIqYfXbMg1BhDTLohD6kwSY4
-	 /1LJGYriEgw+g==
+	b=gCrpqnZogplQce2oIW8IYkivqGVBhsdXv4GIEim9cIUg90sUDwQ319BtJmT1yykHZ
+	 fhxc0UsDCTk1CpA3PzW9R2F9EYNPnOKrbiHrYj29Kc7HI/CmioubUZUbaPqV1nVH4P
+	 rGaFRS8sL37FNineoDmmA0UZAoF2o+X/baTbS/p9MO28s1zJaXJqB5SQHCB9s/83zS
+	 2hgG6YCBn7u0xs6R+TxCeW03OqbKZrt4BMTc2wxpznBfQthrZOy/RULpAo9yTDuLuH
+	 Bo2wv5tYAFpeNtCku4X8h4bvzJjj8uuq4U3yMVHJo5CYQSBMelY6tAE6KBAzcc2Cib
+	 ACi8phDVIQ97Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Thomas Zimmermann <tzimmermann@suse.de>,
-	Sui Jingfeng <suijingfeng@loongson.cn>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Helge Deller <deller@gmx.de>,
+	Sam Ravnborg <sam@ravnborg.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/5] fbdev: Validate info->screen_{base, buffer} in fb_ops implementations
-Date: Mon,  7 Sep 2026 21:05:42 -0400
-Message-ID: <20260908010545.1675830-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/5] fbdev: Add initializer macros for struct fb_ops
+Date: Mon,  7 Sep 2026 21:05:43 -0400
+Message-ID: <20260908010545.1675830-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260908010545.1675830-1-sashal@kernel.org>
 References: <2026090350-babble-bobbing-7765@gregkh>
@@ -50,253 +48,174 @@ Content-Transfer-Encoding: 8bit
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit 3f8974f68f408f4983443b745a3cf95b06112469 ]
+[ Upstream commit f1061fa641b8b15c7815d58c20a6c29f2f1f5337 ]
 
-Push the test for info->screen_base from fb_read() and fb_write() into
-the implementations of struct fb_ops.{fb_read,fb_write}. In cases where
-the driver operates on info->screen_buffer, test this field instead.
+For framebuffers in I/O and system memory, add macros that set
+struct fb_ops to the respective callback functions.
 
-While bothi fields, screen_base and screen_buffer, are stored in the
-same location, they refer to different address spaces. For correctness,
-we want to test each field in exactly the code that uses it.
+For deferred I/O, add macros that generate callback functions with
+damage handling. Add initializer macros that set struct fb_ops to
+the generated callbacks.
 
-v2:
-	* also test screen_base in pvr2fb (Geert)
-	* also test screen_buffer in ivtvfb, arcfb, broadsheetfb,
-	  hecubafb, metronomefb and ssd1307fb (Geert)
-	* give a rational for the change (Geert)
+These macros can remove a lot boilerplate code from fbdev drivers.
+The drivers are supposed to use the macro that is required for its
+framebuffer. Each macro is split into smaller helpers, so that
+drivers with non-standard callbacks can pick and customize callbacks
+as needed. There are individual helper macros for read/write, mmap
+and drawing.
+
+v5:
+	* fix whitespace errors (Jingfeng)
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Tested-by: Sui Jingfeng <suijingfeng@loongson.cn>
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Acked-by: Helge Deller <deller@gmx.de>
-Link: https://patchwork.freedesktop.org/patch/msgid/20230428122452.4856-18-tzimmermann@suse.de
+Reviewed-by: Sam Ravnborg <sam@ravnborg.org>
+Link: https://patchwork.freedesktop.org/patch/msgid/20230530151228.22979-3-tzimmermann@suse.de
 Stable-dep-of: 9ad709afdfa3 ("fbdev: ssd1307fb: defer I2C transfers from damage callbacks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/pci/ivtv/ivtvfb.c        |  3 +++
- drivers/video/fbdev/arcfb.c            |  3 +++
- drivers/video/fbdev/broadsheetfb.c     |  3 +++
- drivers/video/fbdev/cobalt_lcdfb.c     |  6 ++++++
- drivers/video/fbdev/core/fb_sys_fops.c |  6 ++++++
- drivers/video/fbdev/core/fbmem.c       | 10 ++++++++--
- drivers/video/fbdev/hecubafb.c         |  3 +++
- drivers/video/fbdev/metronomefb.c      |  3 +++
- drivers/video/fbdev/pvr2fb.c           |  3 +++
- drivers/video/fbdev/sm712fb.c          |  4 ++--
- drivers/video/fbdev/ssd1307fb.c        |  3 +++
- 11 files changed, 43 insertions(+), 4 deletions(-)
+ include/linux/fb.h | 112 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 112 insertions(+)
 
-diff --git a/drivers/media/pci/ivtv/ivtvfb.c b/drivers/media/pci/ivtv/ivtvfb.c
-index 23e6cc5172d7f..19f5abd06907e 100644
---- a/drivers/media/pci/ivtv/ivtvfb.c
-+++ b/drivers/media/pci/ivtv/ivtvfb.c
-@@ -378,6 +378,9 @@ static ssize_t ivtvfb_write(struct fb_info *info, const char __user *buf,
- 	unsigned long dma_size;
- 	u16 lead = 0, tail = 0;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
+diff --git a/include/linux/fb.h b/include/linux/fb.h
+index 5f94c58c4672e..599b3f5c83bbb 100644
+--- a/include/linux/fb.h
++++ b/include/linux/fb.h
+@@ -604,9 +604,31 @@ extern int fb_blank(struct fb_info *info, int blank);
+ extern void cfb_fillrect(struct fb_info *info, const struct fb_fillrect *rect);
+ extern void cfb_copyarea(struct fb_info *info, const struct fb_copyarea *area);
+ extern void cfb_imageblit(struct fb_info *info, const struct fb_image *image);
++/*
++ * Initializes struct fb_ops for framebuffers in I/O memory.
++ */
 +
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
-diff --git a/drivers/video/fbdev/arcfb.c b/drivers/video/fbdev/arcfb.c
-index 024d0ee4f04f9..69a6cda61cebe 100644
---- a/drivers/video/fbdev/arcfb.c
-+++ b/drivers/video/fbdev/arcfb.c
-@@ -451,6 +451,9 @@ static ssize_t arcfb_write(struct fb_info *info, const char __user *buf,
- 	struct arcfb_par *par;
- 	unsigned int xres;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++#define __FB_DEFAULT_IO_OPS_RDWR \
++	.fb_read	= fb_io_read, \
++	.fb_write	= fb_io_write
 +
- 	p = *ppos;
- 	par = info->par;
- 	xres = info->var.xres;
-diff --git a/drivers/video/fbdev/broadsheetfb.c b/drivers/video/fbdev/broadsheetfb.c
-index c694ab918978f..4c6c42e2d32f7 100644
---- a/drivers/video/fbdev/broadsheetfb.c
-+++ b/drivers/video/fbdev/broadsheetfb.c
-@@ -1013,6 +1013,9 @@ static ssize_t broadsheetfb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++#define __FB_DEFAULT_IO_OPS_DRAW \
++	.fb_fillrect	= cfb_fillrect, \
++	.fb_copyarea	= cfb_copyarea, \
++	.fb_imageblit	= cfb_imageblit
 +
- 	total_size = info->fix.smem_len;
- 
- 	if (p > total_size)
-diff --git a/drivers/video/fbdev/cobalt_lcdfb.c b/drivers/video/fbdev/cobalt_lcdfb.c
-index 5f8b6324d2e8c..26dbd1c78195c 100644
---- a/drivers/video/fbdev/cobalt_lcdfb.c
-+++ b/drivers/video/fbdev/cobalt_lcdfb.c
-@@ -129,6 +129,9 @@ static ssize_t cobalt_lcdfb_read(struct fb_info *info, char __user *buf,
- 	unsigned long pos;
- 	int len, retval = 0;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++#define __FB_DEFAULT_IO_OPS_MMAP \
++	.fb_mmap	= NULL // default implementation
 +
- 	pos = *ppos;
- 	if (pos >= LCD_CHARS_MAX || count == 0)
- 		return 0;
-@@ -175,6 +178,9 @@ static ssize_t cobalt_lcdfb_write(struct fb_info *info, const char __user *buf,
- 	unsigned long pos;
- 	int len, retval = 0;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++#define FB_DEFAULT_IO_OPS \
++	__FB_DEFAULT_IO_OPS_RDWR, \
++	__FB_DEFAULT_IO_OPS_DRAW, \
++	__FB_DEFAULT_IO_OPS_MMAP
 +
- 	pos = *ppos;
- 	if (pos >= LCD_CHARS_MAX || count == 0)
- 		return 0;
-diff --git a/drivers/video/fbdev/core/fb_sys_fops.c b/drivers/video/fbdev/core/fb_sys_fops.c
-index facf47a69483c..432fa3fa7fa13 100644
---- a/drivers/video/fbdev/core/fb_sys_fops.c
-+++ b/drivers/video/fbdev/core/fb_sys_fops.c
-@@ -21,6 +21,9 @@ ssize_t fb_sys_read(struct fb_info *info, char __user *buf, size_t count,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
+ /*
+  * Drawing operations where framebuffer is in system RAM
+  */
 +
- 	total_size = info->screen_size;
+ extern void sys_fillrect(struct fb_info *info, const struct fb_fillrect *rect);
+ extern void sys_copyarea(struct fb_info *info, const struct fb_copyarea *area);
+ extern void sys_imageblit(struct fb_info *info, const struct fb_image *image);
+@@ -615,6 +637,27 @@ extern ssize_t fb_sys_read(struct fb_info *info, char __user *buf,
+ extern ssize_t fb_sys_write(struct fb_info *info, const char __user *buf,
+ 			    size_t count, loff_t *ppos);
  
- 	if (total_size == 0)
-@@ -58,6 +61,9 @@ ssize_t fb_sys_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++/*
++ * Initializes struct fb_ops for framebuffers in system memory.
++ */
 +
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
-diff --git a/drivers/video/fbdev/core/fbmem.c b/drivers/video/fbdev/core/fbmem.c
-index bd0be854b1161..a43812a2dfec7 100644
---- a/drivers/video/fbdev/core/fbmem.c
-+++ b/drivers/video/fbdev/core/fbmem.c
-@@ -768,7 +768,7 @@ fb_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	int c, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || ! info->screen_base)
-+	if (!info)
- 		return -ENODEV;
- 
- 	if (info->state != FBINFO_STATE_RUNNING)
-@@ -777,6 +777,9 @@ fb_read(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 	if (info->fbops->fb_read)
- 		return info->fbops->fb_read(info, buf, count, ppos);
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++#define __FB_DEFAULT_SYS_OPS_RDWR \
++	.fb_read	= fb_sys_read, \
++	.fb_write	= fb_sys_write
 +
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
-@@ -833,7 +836,7 @@ fb_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
- 	int c, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info)
- 		return -ENODEV;
- 
- 	if (info->state != FBINFO_STATE_RUNNING)
-@@ -842,6 +845,9 @@ fb_write(struct file *file, const char __user *buf, size_t count, loff_t *ppos)
- 	if (info->fbops->fb_write)
- 		return info->fbops->fb_write(info, buf, count, ppos);
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++#define __FB_DEFAULT_SYS_OPS_DRAW \
++	.fb_fillrect	= sys_fillrect, \
++	.fb_copyarea	= sys_copyarea, \
++	.fb_imageblit	= sys_imageblit
 +
- 	total_size = info->screen_size;
- 
- 	if (total_size == 0)
-diff --git a/drivers/video/fbdev/hecubafb.c b/drivers/video/fbdev/hecubafb.c
-index f6be62ed42c5a..98e224a9641c7 100644
---- a/drivers/video/fbdev/hecubafb.c
-+++ b/drivers/video/fbdev/hecubafb.c
-@@ -163,6 +163,9 @@ static ssize_t hecubafb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++#define __FB_DEFAULT_SYS_OPS_MMAP \
++	.fb_mmap	= NULL // default implementation
 +
- 	total_size = info->fix.smem_len;
- 
- 	if (p > total_size)
-diff --git a/drivers/video/fbdev/metronomefb.c b/drivers/video/fbdev/metronomefb.c
-index 17307c00d46f0..eba185b58f0ce 100644
---- a/drivers/video/fbdev/metronomefb.c
-+++ b/drivers/video/fbdev/metronomefb.c
-@@ -523,6 +523,9 @@ static ssize_t metronomefb_write(struct fb_info *info, const char __user *buf,
- 	int err = 0;
- 	unsigned long total_size;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++#define FB_DEFAULT_SYS_OPS \
++	__FB_DEFAULT_SYS_OPS_RDWR, \
++	__FB_DEFAULT_SYS_OPS_DRAW, \
++	__FB_DEFAULT_SYS_OPS_MMAP
 +
- 	total_size = info->fix.smem_len;
+ /* drivers/video/fbmem.c */
+ extern int register_framebuffer(struct fb_info *fb_info);
+ extern void unregister_framebuffer(struct fb_info *fb_info);
+@@ -670,6 +713,75 @@ extern void fb_deferred_io_cleanup(struct fb_info *info);
+ extern int fb_deferred_io_fsync(struct file *file, loff_t start,
+ 				loff_t end, int datasync);
  
- 	if (p > total_size)
-diff --git a/drivers/video/fbdev/pvr2fb.c b/drivers/video/fbdev/pvr2fb.c
-index 0bb464310e640..955c35352c220 100644
---- a/drivers/video/fbdev/pvr2fb.c
-+++ b/drivers/video/fbdev/pvr2fb.c
-@@ -647,6 +647,9 @@ static ssize_t pvr2fb_write(struct fb_info *info, const char *buf,
- 	struct page **pages;
- 	int ret, i;
- 
-+	if (!info->screen_base)
-+		return -ENODEV;
++/*
++ * Generate callbacks for deferred I/O
++ */
 +
- 	nr_pages = (count + PAGE_SIZE - 1) >> PAGE_SHIFT;
- 
- 	pages = kmalloc_array(nr_pages, sizeof(struct page *), GFP_KERNEL);
-diff --git a/drivers/video/fbdev/sm712fb.c b/drivers/video/fbdev/sm712fb.c
-index b1bccb5f83e09..88f898580a68d 100644
---- a/drivers/video/fbdev/sm712fb.c
-+++ b/drivers/video/fbdev/sm712fb.c
-@@ -1028,7 +1028,7 @@ static ssize_t smtcfb_read(struct fb_info *info, char __user *buf,
- 	int c, i, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info->screen_base)
- 		return -ENODEV;
- 
- 	total_size = info->screen_size;
-@@ -1091,7 +1091,7 @@ static ssize_t smtcfb_write(struct fb_info *info, const char __user *buf,
- 	int c, i, cnt = 0, err = 0;
- 	unsigned long total_size;
- 
--	if (!info || !info->screen_base)
-+	if (!info->screen_base)
- 		return -ENODEV;
- 
- 	total_size = info->screen_size;
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index b9fefa844574e..7620c6913520a 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -301,6 +301,9 @@ static ssize_t ssd1307fb_write(struct fb_info *info, const char __user *buf,
- 	void *dst;
- 	int ret;
- 
-+	if (!info->screen_buffer)
-+		return -ENODEV;
++#define __FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, __mode) \
++	static ssize_t __prefix ## _defio_read(struct fb_info *info, char __user *buf, \
++					       size_t count, loff_t *ppos) \
++	{ \
++		return fb_ ## __mode ## _read(info, buf, count, ppos); \
++	} \
++	static ssize_t __prefix ## _defio_write(struct fb_info *info, const char __user *buf, \
++						size_t count, loff_t *ppos) \
++	{ \
++		unsigned long offset = *ppos; \
++		ssize_t ret = fb_ ## __mode ## _write(info, buf, count, ppos); \
++		if (ret > 0) \
++			__damage_range(info, offset, ret); \
++		return ret; \
++	}
 +
- 	total_size = info->fix.smem_len;
- 
- 	if (p > total_size)
++#define __FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, __mode) \
++	static void __prefix ## _defio_fillrect(struct fb_info *info, \
++						const struct fb_fillrect *rect) \
++	{ \
++		__mode ## _fillrect(info, rect); \
++		__damage_area(info, rect->dx, rect->dy, rect->width, rect->height); \
++	} \
++	static void __prefix ## _defio_copyarea(struct fb_info *info, \
++						const struct fb_copyarea *area) \
++	{ \
++		__mode ## _copyarea(info, area); \
++		__damage_area(info, area->dx, area->dy, area->width, area->height); \
++	} \
++	static void __prefix ## _defio_imageblit(struct fb_info *info, \
++						 const struct fb_image *image) \
++	{ \
++		__mode ## _imageblit(info, image); \
++		__damage_area(info, image->dx, image->dy, image->width, image->height); \
++	}
++
++#define FB_GEN_DEFAULT_DEFERRED_IO_OPS(__prefix, __damage_range, __damage_area) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, io) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, cfb)
++
++#define FB_GEN_DEFAULT_DEFERRED_SYS_OPS(__prefix, __damage_range, __damage_area) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_RDWR(__prefix, __damage_range, sys) \
++	__FB_GEN_DEFAULT_DEFERRED_OPS_DRAW(__prefix, __damage_area, sys)
++
++/*
++ * Initializes struct fb_ops for deferred I/O.
++ */
++
++#define __FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix) \
++	.fb_read	= __prefix ## _defio_read, \
++	.fb_write	= __prefix ## _defio_write
++
++#define __FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix) \
++	.fb_fillrect	= __prefix ## _defio_fillrect, \
++	.fb_copyarea	= __prefix ## _defio_copyarea, \
++	.fb_imageblit	= __prefix ## _defio_imageblit
++
++#define __FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix) \
++	.fb_mmap	= fb_deferred_io_mmap
++
++#define FB_DEFAULT_DEFERRED_OPS(__prefix) \
++	__FB_DEFAULT_DEFERRED_OPS_RDWR(__prefix), \
++	__FB_DEFAULT_DEFERRED_OPS_DRAW(__prefix), \
++	__FB_DEFAULT_DEFERRED_OPS_MMAP(__prefix)
++
+ static inline bool fb_be_math(struct fb_info *info)
+ {
+ #ifdef CONFIG_FB_FOREIGN_ENDIAN
 -- 
 2.53.0
 
