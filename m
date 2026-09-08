@@ -1,100 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70792372B3C;
-	Tue,  8 Sep 2026 07:41:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FA123EA83
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 07:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853270; cv=none; b=qyau6RAEYnCFS5O9vZK/ANR98NR5uMJ+WhCkXSr/lDBJ2UPqiN7abBJVNWstyWRHYwlizOvQZi1Zn+zk8VSCWyPjb//InlczFm20CbOsEX7hHERMmHtQz5LzGf/BKJf3YCBIWS9lQOWFB3q8n3C4GWqRsls2jR3tF04Z6Q2iIpg=
+	t=1788853392; cv=none; b=XoIR7NzZW2LZwF2CcM7tvi9dDvra0nblsRQvP65Z/qOXuNMvoN4TOb4s3xnD9U5OeMT5onnZuzK0y2JIZIIxkDXv7hRlqpb31xSgS20Zy+s6RLSSZYmJrfxP9PqWTBxlYArpZeHvsxTEef7GXKMM6S1eglFO8jjfW7OnjaV0xz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853270; c=relaxed/simple;
-	bh=iqajFf/WYI7jPAHYM3bkB/PBvREzAQGjJp8v2Li8o3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u9wqw+ZgNonmeAhL3Zltd0GYvlHGy5OBPmGFpX/8SZktEybYZTcTqfIgKkvBtJqekoffvRWCPrthbexJdFFglu0KqhNGNtcMOOEdKkC8SwJuBYnNsvv0SLyXWMkdpIVcF3ASLXTG7CgmmOPFE60uN5A4E+iS39GDWcVvJUrSH2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSHlpVkF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788853392; c=relaxed/simple;
+	bh=y+kZoY1MgDh7ZkVxBdhh/1ay6+k1Ll1rHWzk6k7pSuk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ICUVx/lQoRW6gtfDhr9Cn3LkmZAyz4lip5PnLkt7zSBls9W/8fCK0jeuBMnV16PRfEUi3zZpPl2tPfrPo6osBBx2cmCpg0Bd3VovPt4zv5qDyzL0sawqaUXYiOEYONAMRieVR6TgwloQCS5jnBh7bj9iISoN0D5yXKFGYjWvV7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=V8FdP2ad; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSHlpVkF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B4E61F00A3A;
-	Tue,  8 Sep 2026 07:41:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788853269;
-	bh=vmQrWS5hLAks8PCrVwczAHtggIpr+4bF8y0hX2HdQ3Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YSHlpVkF+p9pKv2cMlGGeLC99pScBBkeNIrRnMllT6ED+GMpjkHWxQjqmyohTIRBs
-	 oQ2ntC2zeHslmnV398yWF3ZsixXsIb49RjEb8LWptWBS87iQB+FMWE3Nvwe/hRRlv7
-	 SZR2BdKxaOReCfai9ROKVS4oN5nhIr/a/m3bF3ZweDM9mDFjh1NBdYeUQkrrhADbfj
-	 zRI1OKeNRY5CgddbFA3+OJ9mZpu0OKYAUZiq1i38UrCBwW9zl8JD4lkZADptHTHJYS
-	 qwonHce61aJ5D7sDRuCf7Ul6LxGDPup/xzRBa04sjfmDC4DcPKoZ6V+ffhbTSdogRa
-	 KVTOaLgTT1BMQ==
-Date: Tue, 8 Sep 2026 09:41:00 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: yoshihiro.shimoda.uh@renesas.com, vkoul@kernel.org, 
-	neil.armstrong@linaro.org, geert+renesas@glider.be, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, stable@vger.kernel.org, Pavel Machek <pavel@nabladev.com>, 
-	Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
- atomic context
-Message-ID: <hwv6geqxbph5xfcqeu3r6pz6dvb5cteuxg3bh3dzsosl2viuxj@rma3ox42igkv>
-References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="V8FdP2ad"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8525efa7274so2911341b3a.2
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 00:43:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788853389; x=1789458189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5gVOEWG5ALyzgg+hgM1J1OcPhbm1svDb4rhqpye/dcs=;
+        b=V8FdP2adaD9JX+z59B0asd4OLNYDWsNTl2u0at7c4hLR1JnFdHUqzAuuSl76JRWOhH
+         fn2UXH4JCDgUYdYSGF8bSEebWsfGCNtU9qTpnnuuDpKD4Ogwb49EcnkzryfndBXHIrq/
+         hrlSVLOG3GymT3a30lQZntGNxrnQGsJbwxERDEeX8QUE6RUwOyW6SUrRD/npSGmLExGc
+         JZvA8Z1Eg82LB2qP/YYV1TNuMRMGkzZutF1iBj377RvTLOIKaOLNAfRsGJwo8svGE4Ad
+         9GDIcC9A1pZJaSbGP98QB2S3ogHxAxwQjttRu5zII28M5w/UgKVpAXD3k3FxlndRZ1RN
+         K+KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788853389; x=1789458189;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5gVOEWG5ALyzgg+hgM1J1OcPhbm1svDb4rhqpye/dcs=;
+        b=sGSpNM2wef9Jq93eCWikWfRqcxzqw+DpdNq4rhMis0Wb+atPH7ANf5bAyGkBUdGQW7
+         LO8mHSNAmSUI34VDOt0aNtQ5kaN6VXzjauCmAcPIS4t0VALRQ0FnTsPZTnlq/gg1klW4
+         w5/PhVuwuGtCLWOQsWbemirYyNqgECpdr4CBLTVf6xBdRTtPgHStEf28LjCqn/o3BDKF
+         R+5G21M6p93jnuA+ihXOnVWbx7HaiZZjbyZS6fkJwsREIIgYlQ1hOfKPpkZ4KmTh0W7m
+         bI5pKjJyfFLKbqHOZ+KvPJT/NB3drwqVfK0miYZrh+KTzXxgXqW29BGqnRyi1558LzuC
+         AOXA==
+X-Forwarded-Encrypted: i=1; AKwUvBzON/DN9svccrEgGjhc4MtuY5ckuBUVLoFyfAtTyJXZeZni3D8bGlIrSv0sK835DAywu+3jtjY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lofwDuijWgh2Kg6F2nWZFIzONZzA+MhxdCmKjsLABt5M7k9iAV
+	sKZZjfwpgTaaE/gY9vtVrlvEXatjiOY3ce1sg6O7pw6TtjLOWXmP/p7MnyrAW8xEUurc
+X-Gm-Gg: AYBFou2JVGkg88NEB6y0KO5KRxVMGfeihaViDmpMK3doH3kYdavLw56Sf4J4YOmbHsY
+	ULbhtBX2uRy1hVVj6CdrpTyZGO2DDLIDL7xQbYd7Nm+XD3hsOS6LBEcSkOxo/LpvGsz5sqlfOwe
+	U+0VwIcWupRL79kSQOPw8DWZ+hMDVZFQke0SyTXMjMMBQSXYZ/iVsFVSEeq+os4gCg+m2uNXHL+
+	Lk7l9PheX2mYp00TgBiSutAK04m3ILsbKYX2ivm+RtZKoEhcDohW5b65jWRqEKGW1uj4TZpGSsQ
+	l09vfI8t4IxIoPeRj6IaivlqJ4MfjzXxhQRn4UJJl8vLMtHIWKdtGvphSWZtiQ98pplaDuPxFCl
+	xYX60vvSdsJyVEaEqvfnWACIxs0DL14eFxReat9jvygCIVzF0X2uU26swP2Y+dlVTliUqPS1k6v
+	ZExqNBh3GCmCcYM/GLftJ3vx/Nmjo91hw08ehk9IZL8Xv6lVnvJqn09H3x1PfOlmiHFDT6OvoPe
+	dlpHESYweY5vXSIBazxfVRIbNlkCA==
+X-Received: by 2002:a05:6a00:2c94:b0:857:727c:a1f2 with SMTP id d2e1a72fcca58-8616907f6e9mr40004970b3a.20.1788853389137;
+        Tue, 08 Sep 2026 00:43:09 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8633cc0f7e2sm3499943b3a.37.2026.09.08.00.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:43:08 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Simon Horman <horms@kernel.org>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH net 1/1] ipv6: fix fib6 walker UAF on seq stop
+Date: Tue,  8 Sep 2026 07:42:56 +0000
+Message-ID: <89699735763f6c297584d7c2ff106239cc1e8ce0.1788837093.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788837093.git.zihanx@nebusec.ai>
+References: <cover.1788837093.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
 
-On Thu, Jul 16, 2026 at 09:32:46PM +0300, Claudiu Beznea wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> 
-> The OTG PHY initialization sequence needs to wait for 20 ms at a specific
-> step, as described in commit 72c0339c115b ("phy: renesas:
-> rcar-gen3-usb2: follow the hardware manual procedure").
-> 
-> Commit 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware
-> registers and driver data") tried to address various problems in the
-> rcar-gen3-usb2 driver and converted the mutex protecting HW register
-> accesses to a spin lock, leaving, however, a long delay in the critical
-> section protected by the spin lock. This may become a problem,
-> especially on RT kernels.
-> 
-> To address this, release the spin lock before sleeping for 20 ms as
-> required by the HW manual and reacquire it afterwards. To avoid other
-> threads entering the critical section and configuring the HW while the
-> software is waiting for the OTG initialization to complete, introduce the
-> otg_initializing variable alongside the otg_init_done wait queue. Any
-> other thread trying to configure the HW while the OTG PHY initialization
-> is in progress waits for the wait queue instead of immediately returning
-> errors to PHY users. The IRQs were also disabled while waiting for the OTG
-> PHY initialization to complete, as the interrupt handler may also apply HW
-> settings.
-> 
-> The OTG can only be initialized once. It is initialized by the first PHY
-> that calls struct phy_ops::rcar_gen3_phy_usb2_init().
-> 
-> To avoid failures when multiple PHYs call struct
-> phy_ops::rcar_gen3_phy_usb2_init() simultaneously, and the PHY responsible
-> for initializing the OTG either fails or deinit quiqly and another PHY
-> takes over the PHY init role), the code waiting for the
-> channel->otg_init_done wait queue retries up to NUM_OF_PHYS times.
-> 
-> Fixes: 55a387ebb921 ("phy: renesas: rcar-gen3-usb2: Lock around hardware registers and driver data")
-> Cc: stable@vger.kernel.org
-> Reported-by: Pavel Machek <pavel@nabladev.com>
-> Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
-> Reported-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
-> Closes: https://lore.kernel.org/all/afhkX2Ys2BG1gnqy@duo.ucw.cz
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+ipv6_route_iter_active() treats a walker in FWS_U at the table root as
+already unlinked. fib6_del_route() can move a still-linked walker into
+that same state when the current leaf is the last route at the root,
+so ipv6_route_native_seq_stop() skips fib6_walker_unlink(). The seq
+private object can then be freed while it remains on
+net->ipv6.fib6_walkers. A later route deletion walks the dangling list
+and uses the freed walker.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Use the list head as membership state and reinitialize it when
+unlinking. Keep the existing w->node check so a never-started iterator
+with a zeroed private object is not treated as linked.
 
-- Mani
+The same stop helper is used by /proc/net/ipv6_route and by the BPF
+ipv6_route iterator. The BPF show path only widens the race.
 
+Fixes: 8d2ca1d7b5c3 ("ipv6: avoid high order memory allocations for /proc/net/ipv6_route")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+ net/ipv6/ip6_fib.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv6/ip6_fib.c b/net/ipv6/ip6_fib.c
+index 3e382ba1573e3..9ea75703b38d4 100644
+--- a/net/ipv6/ip6_fib.c
++++ b/net/ipv6/ip6_fib.c
+@@ -85,7 +85,7 @@ static void fib6_walker_link(struct net *net, struct fib6_walker *w)
+ static void fib6_walker_unlink(struct net *net, struct fib6_walker *w)
+ {
+ 	write_lock_bh(&net->ipv6.fib6_walker_lock);
+-	list_del(&w->lh);
++	list_del_init(&w->lh);
+ 	write_unlock_bh(&net->ipv6.fib6_walker_lock);
+ }
+ 
+@@ -2760,7 +2760,7 @@ static void *ipv6_route_seq_start(struct seq_file *seq, loff_t *pos)
+ static bool ipv6_route_iter_active(struct ipv6_route_iter *iter)
+ {
+ 	struct fib6_walker *w = &iter->w;
+-	return w->node && !(w->state == FWS_U && w->node == w->root);
++	return w->node && !list_empty(&w->lh);
+ }
+ 
+ static void ipv6_route_native_seq_stop(struct seq_file *seq, void *v)
 -- 
-மணிவண்ணன் சதாசிவம்
+2.43.0
+
