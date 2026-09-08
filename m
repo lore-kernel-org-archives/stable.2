@@ -1,802 +1,268 @@
-Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A3B48E0E8
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939984915AA
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:23:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895311; cv=none; b=DNxxnNmrfO6bNB+svplLuKi1ypD7TgaIbVSCewNz8QipUj7tzNHM9sUFMFNjIx1dVKm/li38RP2kqJd397420mELzu9u7s05cw3laZc2EFQwDxr/p1EobF2QlJ7IaUqS+xV8eHxTVC+wXERoUMmOBCA84R/A4RqGUCPpdnnNJ/U=
+	t=1788895422; cv=none; b=NDGLSgZY+fKqKG3I/FE13KiuwJfum7nOamqyr6NI2ji4SR9T9jmo4OOgZkUtL9+gwWVZkfv8p20T3QvWEXN4ubZ1dsYasnmffUfJNBFq8OJySgmZ5XU8S19rMLuPpW81N34kJ8my+7qpqd6uj6gc1ZVi2P/rmJoiWoX7nb8JY5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895311; c=relaxed/simple;
-	bh=GEboJKJOM9Y7t8qaMAGcopNSrbixDPtvset0gkvVpcI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FiTjsFRPHKyf9fWuh4yauwvzJ58/0/2yCShvl2aPwuiIVmamfJImDPHUAoSLKvF3m34usoYLlHOt77+JI9WLCZEHWAv8H4y1kUTNYcOdn2hxnOXYNm9AlsI1m63IpAGNN55I3Mv/RdIWsqe/v9bsg1l5jVtNXIdBlGs2f69k7Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iZGc2uSn; arc=none smtp.client-ip=74.125.227.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788895422; c=relaxed/simple;
+	bh=2YT3G/W3RYmHP8SAFjoVPUfGng9QTDp2Kvk+0FfEI0Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cXesy6VSx5IDhniEjNLIZp9o0/FWYyoFxHLJLEc8b2PBZmMzy59wtdeqv0t4HQRZYgp5DwqfzS6SLTJjNXcAc7OCl1u6qIsaUr8EodFAIaJWMWHI7HkaFKunwo7VLo9yvdD6xAsgg+ZCBvLmhsPYyhtkBHi1+Ho3aA+b+jHEF5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=Ml2AWGo1; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iZGc2uSn"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-399213ef56cso2377521a91.1
-        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 12:21:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788895290; x=1789500090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xUfPpatWbw8AVi9xjHjjKKnbnu1YkaxWspIWuX+XZtI=;
-        b=iZGc2uSntAZ69/lE3ypt1YkNfpJgwzUZ1Q6J1DA6qmCFi+2pPkG4+ZKLLuQ10eF9wO
-         Rw3utNB7R7viJvRMXDQIW3vXwY8+pbeflWNjQsDFft1e+KoXmkH9aKc95kEnioRDa7Df
-         R26oQcsEKpHYhUBfOdON2lQUxH2Lgp7WRJAhSBXVmqqorKqja4gmUDZ9vU4hewXrh6DF
-         oSpeAbJ0RRx8pVHYtRuaMFj6qKKLt1xKt4JBC3L38ztLQSdwxt4ARd/XvUUGeNiHQ4aV
-         nbLzXseQz0E3f6voa4SiZUdYvalytY694GbLMR4N/8r66cY4SwZaqV62snDgoqsHthVG
-         RURQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788895290; x=1789500090;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xUfPpatWbw8AVi9xjHjjKKnbnu1YkaxWspIWuX+XZtI=;
-        b=DDM7p3Zi049jibuOREo4N2weKEpnDAJklC5E8jaIccRmVzp1naT809FETEsmLyZEpV
-         yMzoCALpyDHQZPEJq6PTW4r8dAMRXkrchF4ijRPX5zGUzYmQklBK/eGq+EONAv4k+owS
-         j+7MZ4qCfuyLr6u207g9wnsSUSZxNhPZ3a4sIx7mj3K5A6s26zo+fCtuFDUwpX/hhaSB
-         iXxuR0ImfRpRBwQRBdo/k/TI1cXyRXnjffz4r2fgOkBOWwfXQZIG7n691VHdQLh10BJH
-         JG1356SgUXntXk5KDEBjeIwtfbdGo3ij3c5Q/StkMnjuM93eeMFpBtOrrxmYcUK/3c6P
-         2V7A==
-X-Gm-Message-State: AFuF++miMTj9BzGyZ15Dw4mY14CdC23xDQ8L5PlEk/jBxi+qDNOB5N+X
-	BqB4yfOnARSHb6qov+YWgQErZKyQMf8rXNW/3J7eCmXoXSePNDVMrPEyyzWY0Eso/Fs=
-X-Gm-Gg: AYBFou3P4/o/s2+h5DGv6jf4hWYz3JUy53eASxicEaW7S41B0l671dg8V8ALxLN9gW+
-	ayWa3WzxiiuaRsS2XzKzkCs08Q+kJ54IPkJe/NYHH5YLBnF/RPTqg906zSEIUmlS20X2rc3uq6n
-	X8n2HumQ6mPYK8DfNuYhADIM5u49UcoJFJBWqKWj0Wc+Rv7P03JXljvATKW92Vrkwqzn65kXswc
-	KA6B5YJjsAZloAeBqY3aKEhZ/qLCnPjUfsmz9k3SZYBm+J9TBUe4tuEZpGdnz4JLBMyGO4PmRP7
-	ZFtmprHYd7NEVmALgj8S3X7OUkHFCiNsprxCBSUQLJCKcCjcGINxZaS18fv35bbpPFZML6JmTIM
-	2zjB2RR9dFbSOCL7Mu6QmgetEhs0nTzcKoJuhWNFr+UKz4hWNeroCDU9H/1KMI24E/qJjaKwkxr
-	3Ahc8K69LNRMgP+Y5peRleROJEUYsaQ1rfYemL5vyuM0tfQD4BYmiibxU72fYQ2KE48WCRIYAtT
-	B6Yf2dOsX4vnRDAtqEvU8ffOoe2/hKlHWF8lpHA54GzyIzVFLUaaMKTwD4WDylzz1wuKnshIWjm
-	4HFs9Uc=
-X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3da3a16a579mr49478226637.26.1788895289556;
-        Tue, 08 Sep 2026 12:21:29 -0700 (PDT)
-Received: from samlap.tailb86931.ts.net (c-24-5-101-44.hsd1.ca.comcast.net. [24.5.101.44])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-334fbd5e6f6sm30908496eec.23.2026.09.08.12.21.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:21:28 -0700 (PDT)
-From: Sudheendra Sampath <giveback4fun@gmail.com>
-To: stable@vger.kernel.org
-Cc: almaz.alexandrovich@paragon-software.com,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	syzbot+7bdfe1182e4c50d2a21d@syzkaller.appspotmail.com,
-	Miguel Garcia Roman <miguelgarciaroman8@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sudheendra Sampath <giveback4fun@gmail.com>
-Subject: [PATCH 5.15.y v3 v3] fs/ntfs3: Change new sparse cluster processing
-Date: Tue,  8 Sep 2026 12:22:13 -0700
-Message-ID: <20260908192213.1169088-1-giveback4fun@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="Ml2AWGo1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:date:subject:mime-version:content-type:content-transfer-encoding:
+	to:cc:cc:content-type:date:from:subject:to;
+	s=s1; t=1788895418;
+	bh=XKSZye67d8JWpvqcZAS4vVfrMeJDR4xzGGcJsQcvPTA=;
+	b=Ml2AWGo1YQh8VWcnIh+RUDPtRM4MglnGEM4Rq8U31GM5fImmcvl/2LuF+CpZcVxC/WRt
+	ekKmCdbXE/ySi3T+4LtGW7pqU1IlwlMy6zc3ZeERGD0xluRn1g9SN4Tp8oil7mAbQDW2zw
+	P+t1hS6bKCtpToXdZ6yK+DHwBS0gcAGt2S1N27y+lwQtQU4Lvv9VEkV34J2fQbCshQ+sqY
+	hWfU3CvBrw3i2cYW7fN+YGe/czSKR5zlRahjpEFQggJKsKEvFP3mDEtCj5gYgMXOK4pZGH
+	i0PVvulpu6N9kWC/q7/fWvDtowlN1ZvmnchAcl+JTYi+sZlfiJ0Tl4FkVkCwh34A==
+Received: by recvd-79d65b999-bztzm with SMTP id recvd-79d65b999-bztzm-1-6AA060B9-A6
+	2026-09-08 19:23:37.791143227 +0000 UTC m=+3630567.265530310
+Received: from [127.0.1.1] (unknown)
+	by geopod-ismtpd-14 (SG) with ESMTP
+	id p46aKrcOTaWJTa7t3sRjLg
+	Tue, 08 Sep 2026 19:23:37.711 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Date: Tue, 08 Sep 2026 19:23:38 +0000 (UTC)
+Subject: [PATCH v4] PCI: Fix BAR resize for devices on a root bus
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260908-pci-rebar-root-bus-v4-1-2780e9c22e08@honeycomb.io>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23NQQrCMBCF4atI1kYyk9a0rryHuGiSiY1gU5Jal
+ NK7myqCSJcPZr5/Yomip8QOm4lFGn3yocuj2G6YaZvuQtzbvBkK3AslCt4bzyPpJvIYwsD1PXE
+ nAaUjEM4olh/7SM4/3ujp/Nnprq9khkVaLlqfhhCf7+oIy903UK4FRuDAy9I6JYy2tqqObejoa
+ cJN73xgS2PEHwVwVcGsNKBrEKqp0JoVRf4oElYVmZW9kkgopTN1/afM8/wC6ozoXVUBAAA=
+X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8370; i=lizf@honeycomb.io;
+ s=gpg; h=from:subject:message-id;
+ bh=2YT3G/W3RYmHP8SAFjoVPUfGng9QTDp2Kvk+0FfEI0Y=;
+ b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqoGC4VasNlY6NyxFzaSCRMjnV0gPbvSpeUNQhQ
+ K3n88XneZaJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCaqBguAAKCRClztTjl62v
+ woGGCACt+9ZAvpzd3kTrFZ0ncZy1ZllG/oGlBmdKWrmA1QNZr+FIw62XF7hWEFBwXtXhcBqeCD+
+ sQQ13urM0Lb1iOSeXhvDP2XkzjF0hxhv0fnBEUNr/AwofHY47Ush8r+vJV1xBQn8OFO4P78xJcu
+ x1kf+w/IG1wPGXyNKaktC+XssKjHU/as6kMjFHhNp4ogOozMQx7HmCq+2SU+I5Eq3mEI5oWqRsR
+ maWmAGR5pVQe1QPwm8DDIy5uqVvJdRhD12DzCoK+zLWOaoxNtPVcDisW/kA3BYcLwJoYa/wZRL/
+ We7cH+DHvypaUWyi/APfv6S+joZrPa7g8auWqTHmWep1HEpA
+X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
+ fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmecTnVcYYuGdz?=
+ =?us-ascii?Q?y6JdwkXztV5yobw=2FIKIy8r6+xEz8iHtMNZI2HuZ?=
+ =?us-ascii?Q?8x4kiMRWVljWXl0Akj5B8lI0rLIIWt7fr4tMcFt?=
+ =?us-ascii?Q?13ILdZcuaeYbVMOEnBexpqyI8Tiv0d3ivTqso7C?=
+ =?us-ascii?Q?LWvidplVlO4dWrrYg6rrFfOPfVcmgWMJOTdIGXk?= =?us-ascii?Q?JOlz?=
+To: Bjorn Helgaas <bhelgaas@google.com>, Ilpo =?iso-8859-1?q?J=E4rvinen?=
+	<ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org, Krzysztof =?iso-8859-2?q?Wilczy=F1ski?=
+	<kwilczynski@kernel.org>, Liz Fong-Jones <lizf@honeycomb.io>
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
 
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
-commit c380b52f6c5702cc4bdda5e6d456d6c19a201a0b upstream.
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-Remove ntfs_sparse_cluster.
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-Bug: https://syzkaller.appspot.com/bug?extid=f3e5d0948a1837ed1bb0
-Reported-by: syzbot+7bdfe1182e4c50d2a21d@syzkaller.appspotmail.com
-Tested-by: syzbot+7bdfe1182e4c50d2a21d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f3e5d0948a1837ed1bb0
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Signed-off-by: Miguel Garcia Roman <miguelgarciaroman8@gmail.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Sudheendra Sampath <giveback4fun@gmail.com>
-commit 406a037d93b769bca248476bd14bbe548dc1ec35 upstream.:
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
+
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+
+Assign the released BARs directly from the root bus windows when there
+is no upstream bridge. On failure, roll back through the existing
+restore path exactly as in the bridged case.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly to decide whether the device has an upstream bridge. The two
+are usually equivalent, but pci_is_root_bus() -- which
+pci_upstream_bridge() uses internally -- documents that "virtual"
+buses added for SR-IOV via virtfn_add_bus() also have bus->self ==
+NULL without being root buses. pci_do_resource_release_and_resize()
+is reachable for VF BAR resizes (see the pci_resource_is_iov() checks
+elsewhere in this file and in rebar.c), so testing bus->self directly
+could misroute a VF resize into the root-bus assignment path added
+above. Nothing about the bug being fixed here involves a VF; this is
+purely for correctness on that path.
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Reviewed-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 ---
- fs/ntfs3/attrib.c  | 176 +++++++++++++++++++++++++++++++--------------
- fs/ntfs3/file.c    | 156 +++++++++-------------------------------
- fs/ntfs3/frecord.c |   2 +-
- fs/ntfs3/index.c   |   4 +-
- fs/ntfs3/inode.c   |  12 ++--
- fs/ntfs3/ntfs_fs.h |   7 +-
- 6 files changed, 167 insertions(+), 190 deletions(-)
+#regzbot introduced: 337b1b566db0
 
-diff --git a/fs/ntfs3/attrib.c b/fs/ntfs3/attrib.c
-index 872586e9598a..fe2f4888f8f9 100644
---- a/fs/ntfs3/attrib.c
-+++ b/fs/ntfs3/attrib.c
-@@ -173,7 +173,7 @@ static int run_deallocate_ex(struct ntfs_sb_info *sbi, struct runs_tree *run,
- int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
- 			   CLST vcn, CLST lcn, CLST len, CLST *pre_alloc,
- 			   enum ALLOCATE_OPT opt, CLST *alen, const size_t fr,
--			   CLST *new_lcn)
-+			   CLST *new_lcn, CLST *new_len)
- {
- 	int err;
- 	CLST flen, vcn0 = vcn, pre = pre_alloc ? *pre_alloc : 0;
-@@ -194,11 +194,16 @@ int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
- 		if (err)
- 			goto out;
+Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+carries this code unmodified, and the affected function is identical
+to current mainline. By source inspection the regression window is
+v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+affected users: amdgpu.rebar=0.
+
+On the topology question raised in review: this is physical hardware,
+not a virtualized guest, running the UEFI/ACPI firmware variant of
+this board (SolidRun also ships a U-Boot/devicetree variant of the
+same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
+exact root complex wiring; see the hardware manual's block diagram:
+https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-manual#block-diagram
+---
+Changes in v4:
+- No functional changes. Resending per Thorsten Leemhuis (regressions
+  tracking) -- this looked to have fallen through the cracks after
+  v3. Confirmed still broken today on v7.3-rc2 (mainline) and v7.2.4
+  (stable): pci_do_resource_release_and_resize() still has the
+  original "if (!bus->self) goto out;" with no reassignment on that
+  path.
+- Rebase onto current mainline.
+- Link to v3: https://patch.msgid.link/20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io
+
+Changes in v3:
+- Add Reviewed-by from Krzysztof Wilczyński, received on v2.
+- Use pci_upstream_bridge() instead of testing pdev->bus->self
+  directly, per Bjorn Helgaas's review: bus->self == NULL doesn't
+  necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
+  same), and this function is reachable for VF BAR resizes elsewhere
+  in this file. Doesn't affect the bug being fixed here (not a VF)
+  but is more correct in general. Reviewed-by kept from v2 -- this is
+  a narrow, mechanical change to a path this device doesn't exercise,
+  not a substantive rework of what was reviewed.
+- Rebase onto current mainline.
+- Add Jacob Martin to Cc: he independently triaged and accepted the
+  corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
+  team, so he has direct interest in this landing.
+- Move Ilpo Järvinen to To: for final review, per Bjorn.
+- Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io
+
+Changes in v2:
+- Add Assisted-by tags (missing from v1; required per
+  Documentation/process/coding-assistants.rst)
+- Add Link: to the corresponding Ubuntu bug report
+- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+  given the Fixes: tag already lets the stable team derive applicable
+  versions (per stable-kernel-rules.rst)
+- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: regressions@lists.linux.dev
+Cc: amd-gfx@lists.freedesktop.org
+Cc: Jon Nettleton <jon@solid-run.com>
+Cc: Jon Nettleton <jon.nettleton@gmail.com>
+Cc: Jacob Martin <jacob.martin@canonical.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>
+---
+ drivers/pci/setup-bus.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index e8c94aa1d3c1..9907dc5521aa 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
  
--		if (new_lcn && vcn == vcn0)
--			*new_lcn = lcn;
-+		if (vcn == vcn0) {
-+			/* Return the first fragment. */
-+			if (new_lcn)
-+				*new_lcn = lcn;
-+			if (new_len)
-+				*new_len = flen;
-+		}
- 
- 		/* Add new fragment into run storage. */
--		if (!run_add_entry(run, vcn, lcn, flen, opt == ALLOCATE_MFT)) {
-+		if (!run_add_entry(run, vcn, lcn, flen, opt & ALLOCATE_MFT)) {
- 			/* Undo last 'ntfs_look_for_free_space' */
- 			down_write_nested(&wnd->rw_lock, BITMAP_MUTEX_CLUSTERS);
- 			wnd_set_free(wnd, lcn, flen);
-@@ -207,9 +212,20 @@ int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
- 			goto out;
- 		}
- 
-+		if (opt & ALLOCATE_ZERO) {
-+			u8 shift = sbi->cluster_bits - SECTOR_SHIFT;
++	down_read(&pci_bus_sem);
 +
-+			err = blkdev_issue_zeroout(sbi->sb->s_bdev,
-+						   (sector_t)lcn << shift,
-+						   (sector_t)flen << shift,
-+						   GFP_NOFS, 0);
-+			if (err)
-+				goto out;
-+		}
-+
- 		vcn += flen;
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
  
--		if (flen >= len || opt == ALLOCATE_MFT ||
-+		if (flen >= len || (opt & ALLOCATE_MFT) ||
- 		    (fr && run->count - cnt >= fr)) {
- 			*alen = vcn - vcn0;
- 			return 0;
-@@ -287,7 +303,8 @@ int attr_make_nonresident(struct ntfs_inode *ni, struct ATTRIB *attr,
- 		const char *data = resident_data(attr);
+ 	pci_resize_resource_set_size(pdev, resno, size);
  
- 		err = attr_allocate_clusters(sbi, run, 0, 0, len, NULL,
--					     ALLOCATE_DEF, &alen, 0, NULL);
-+					     ALLOCATE_DEF, &alen, 0, NULL,
-+					     NULL);
- 		if (err)
- 			goto out1;
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/*
++		 * A device on a root bus has no bridge windows to adjust.
++		 * Assign the BARs released above directly from the root bus
++		 * windows.
++		 */
++		list_for_each_entry(dev_res, &saved, list) {
++			i = pci_resource_num(pdev, dev_res->res);
  
-@@ -566,13 +583,13 @@ int attr_set_size(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 			/* ~3 bytes per fragment. */
- 			err = attr_allocate_clusters(
- 				sbi, run, vcn, lcn, to_allocate, &pre_alloc,
--				is_mft ? ALLOCATE_MFT : 0, &alen,
-+				is_mft ? ALLOCATE_MFT : ALLOCATE_DEF, &alen,
- 				is_mft ? 0
- 				       : (sbi->record_size -
- 					  le32_to_cpu(rec->used) + 8) /
- 							 3 +
- 						 1,
--				NULL);
-+				NULL, NULL);
- 			if (err)
- 				goto out;
- 		}
-@@ -810,8 +827,19 @@ int attr_set_size(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 	return err;
- }
- 
-+/*
-+ * attr_data_get_block - Returns 'lcn' and 'len' for given 'vcn'.
-+ *
-+ * @new == NULL means just to get current mapping for 'vcn'
-+ * @new != NULL means allocate real cluster if 'vcn' maps to hole
-+ * @zero - zeroout new allocated clusters
-+ *
-+ *  NOTE:
-+ *  - @new != NULL is called only for sparsed or compressed attributes.
-+ *  - new allocated clusters are zeroed via blkdev_issue_zeroout.
-+ */
- int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
--			CLST *len, bool *new)
-+			CLST *len, bool *new, bool zero)
- {
- 	int err = 0;
- 	struct runs_tree *run = &ni->file.run;
-@@ -820,29 +848,27 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 	struct ATTRIB *attr = NULL, *attr_b;
- 	struct ATTR_LIST_ENTRY *le, *le_b;
- 	struct mft_inode *mi, *mi_b;
--	CLST hint, svcn, to_alloc, evcn1, next_svcn, asize, end;
-+	CLST hint, svcn, to_alloc, evcn1, next_svcn, asize, end, vcn0, alen;
-+	unsigned int fr;
- 	u64 total_size;
--	u32 clst_per_frame;
--	bool ok;
- 
- 	if (new)
- 		*new = false;
- 
-+	/* Try to find in cache. */
- 	down_read(&ni->file.run_lock);
--	ok = run_lookup_entry(run, vcn, lcn, len, NULL);
-+	if (!run_lookup_entry(run, vcn, lcn, len, NULL))
-+		*len = 0;
- 	up_read(&ni->file.run_lock);
- 
--	if (ok && (*lcn != SPARSE_LCN || !new)) {
--		/* Normal way. */
--		return 0;
-+	if (*len) {
-+		if (*lcn != SPARSE_LCN || !new)
-+			return 0; /* Fast normal way without allocation. */
-+		else if (clen > *len)
-+			clen = *len;
- 	}
- 
--	if (!clen)
--		clen = 1;
--
--	if (ok && clen > *len)
--		clen = *len;
--
-+	/* No cluster in cache or we need to allocate cluster in hole. */
- 	sbi = ni->mi.sbi;
- 	cluster_bits = sbi->cluster_bits;
- 
-@@ -868,12 +894,6 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 		goto out;
- 	}
- 
--	clst_per_frame = 1u << attr_b->nres.c_unit;
--	to_alloc = (clen + clst_per_frame - 1) & ~(clst_per_frame - 1);
--
--	if (vcn + to_alloc > asize)
--		to_alloc = asize - vcn;
--
- 	svcn = le64_to_cpu(attr_b->nres.svcn);
- 	evcn1 = le64_to_cpu(attr_b->nres.evcn) + 1;
- 
-@@ -892,36 +912,68 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 		evcn1 = le64_to_cpu(attr->nres.evcn) + 1;
- 	}
- 
-+	/* Load in cache actual information. */
- 	err = attr_load_runs(attr, ni, run, NULL);
- 	if (err)
- 		goto out;
- 
--	if (!ok) {
--		ok = run_lookup_entry(run, vcn, lcn, len, NULL);
--		if (ok && (*lcn != SPARSE_LCN || !new)) {
--			/* Normal way. */
--			err = 0;
--			goto ok;
--		}
-+	if (!*len) {
-+		if (run_lookup_entry(run, vcn, lcn, len, NULL)) {
-+			if (*lcn != SPARSE_LCN || !new)
-+				goto ok; /* Slow normal way without allocation. */
- 
--		if (!ok && !new) {
--			*len = 0;
--			err = 0;
-+			if (clen > *len)
-+				clen = *len;
-+		} else if (!new) {
-+			/* Here we may return -ENOENT.
-+			 * In any case caller gets zero length. */
- 			goto ok;
- 		}
--
--		if (ok && clen > *len) {
--			clen = *len;
--			to_alloc = (clen + clst_per_frame - 1) &
--				   ~(clst_per_frame - 1);
--		}
- 	}
- 
- 	if (!is_attr_ext(attr_b)) {
-+		/* The code below only for sparsed or compressed attributes. */
- 		err = -EINVAL;
- 		goto out;
- 	}
- 
-+	vcn0 = vcn;
-+	to_alloc = clen;
-+	fr = (sbi->record_size - le32_to_cpu(mi->mrec->used) + 8) / 3 + 1;
-+	/* Allocate frame aligned clusters.
-+	 * ntfs.sys usually uses 16 clusters per frame for sparsed or compressed.
-+	 * ntfs3 uses 1 cluster per frame for new created sparsed files. */
-+	if (attr_b->nres.c_unit) {
-+		CLST clst_per_frame = 1u << attr_b->nres.c_unit;
-+		CLST cmask = ~(clst_per_frame - 1);
-+
-+		/* Get frame aligned vcn and to_alloc. */
-+		vcn = vcn0 & cmask;
-+		to_alloc = ((vcn0 + clen + clst_per_frame - 1) & cmask) - vcn;
-+		if (fr < clst_per_frame)
-+			fr = clst_per_frame;
-+		zero = true;
-+
-+		/* Check if 'vcn' and 'vcn0' in different attribute segments. */
-+		if (vcn < svcn || evcn1 <= vcn) {
-+			/* Load attribute for truncated vcn. */
-+			attr = ni_find_attr(ni, attr_b, &le, ATTR_DATA, NULL, 0,
-+					    &vcn, &mi);
-+			if (!attr) {
-+				err = -EINVAL;
-+				goto out;
-+			}
-+			svcn = le64_to_cpu(attr->nres.svcn);
-+			evcn1 = le64_to_cpu(attr->nres.evcn) + 1;
-+			err = attr_load_runs(attr, ni, run, NULL);
-+			if (err)
-+				goto out;
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++			ret = pci_assign_resource(pdev, i);
++			if (ret)
++				goto restore;
 +		}
 +	}
-+
-+	if (vcn + to_alloc > asize)
-+		to_alloc = asize - vcn;
-+
- 	/* Get the last LCN to allocate from. */
- 	hint = 0;
  
-@@ -935,18 +987,33 @@ int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
- 		hint = -1;
- 	}
- 
--	err = attr_allocate_clusters(
--		sbi, run, vcn, hint + 1, to_alloc, NULL, 0, len,
--		(sbi->record_size - le32_to_cpu(mi->mrec->used) + 8) / 3 + 1,
--		lcn);
-+	/* Allocate and zeroout new clusters. */
-+	err = attr_allocate_clusters(sbi, run, vcn, hint + 1, to_alloc, NULL,
-+				     zero ? ALLOCATE_ZERO : ALLOCATE_DEF, &alen,
-+				     fr, lcn, len);
- 	if (err)
- 		goto out;
- 	*new = true;
- 
--	end = vcn + *len;
--
-+	end = vcn + alen;
- 	total_size = le64_to_cpu(attr_b->nres.total_size) +
--		     ((u64)*len << cluster_bits);
-+		     ((u64)alen << cluster_bits);
-+
-+	if (vcn != vcn0) {
-+		if (!run_lookup_entry(run, vcn0, lcn, len, NULL)) {
-+			err = -EINVAL;
-+			goto out;
-+		}
-+		if (*lcn == SPARSE_LCN) {
-+			/* Internal error. Should not happened. */
-+			WARN_ON(1);
-+			err = -EINVAL;
-+			goto out;
-+		}
-+		/* Check case when vcn0 + len overlaps new allocated clusters. */
-+		if (vcn0 + *len > end)
-+			*len = end - vcn0;
-+	}
- 
- repack:
- 	err = mi_pack_runs(mi, attr, run, max(end, evcn1) - svcn);
-@@ -1480,7 +1547,7 @@ int attr_allocate_frame(struct ntfs_inode *ni, CLST frame, size_t compr_size,
- 	struct ATTRIB *attr = NULL, *attr_b;
- 	struct ATTR_LIST_ENTRY *le, *le_b;
- 	struct mft_inode *mi, *mi_b;
--	CLST svcn, evcn1, next_svcn, lcn, len;
-+	CLST svcn, evcn1, next_svcn, len;
- 	CLST vcn, end, clst_data;
- 	u64 total_size, valid_size, data_size;
- 
-@@ -1556,8 +1623,9 @@ int attr_allocate_frame(struct ntfs_inode *ni, CLST frame, size_t compr_size,
- 		}
- 
- 		err = attr_allocate_clusters(sbi, run, vcn + clst_data,
--					     hint + 1, len - clst_data, NULL, 0,
--					     &alen, 0, &lcn);
-+					     hint + 1, len - clst_data, NULL,
-+					     ALLOCATE_DEF, &alen, 0, NULL,
-+					     NULL);
- 		if (err)
- 			goto out;
- 
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index 25788df25dee..2cebdccc6192 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/backing-dev.h>
-+#include <linux/blkdev.h>
- #include <linux/buffer_head.h>
- #include <linux/compat.h>
- #include <linux/falloc.h>
-@@ -122,8 +123,8 @@ static int ntfs_extend_initialized_size(struct file *file,
- 			bits = sbi->cluster_bits;
- 			vcn = pos >> bits;
- 
--			err = attr_data_get_block(ni, vcn, 0, &lcn, &clen,
--						  NULL);
-+			err = attr_data_get_block(ni, vcn, 0, &lcn, &clen, NULL,
-+						  false);
- 			if (err)
- 				goto out;
- 
-@@ -198,18 +199,18 @@ static int ntfs_zero_range(struct inode *inode, u64 vbo, u64 vbo_to)
- 	struct address_space *mapping = inode->i_mapping;
- 	u32 blocksize = 1 << inode->i_blkbits;
- 	pgoff_t idx = vbo >> PAGE_SHIFT;
--	u32 z_start = vbo & (PAGE_SIZE - 1);
-+	u32 from = vbo & (PAGE_SIZE - 1);
- 	pgoff_t idx_end = (vbo_to + PAGE_SIZE - 1) >> PAGE_SHIFT;
- 	loff_t page_off;
- 	struct buffer_head *head, *bh;
--	u32 bh_next, bh_off, z_end;
-+	u32 bh_next, bh_off, to;
- 	sector_t iblock;
- 	struct page *page;
- 
--	for (; idx < idx_end; idx += 1, z_start = 0) {
-+	for (; idx < idx_end; idx += 1, from = 0) {
- 		page_off = (loff_t)idx << PAGE_SHIFT;
--		z_end = (page_off + PAGE_SIZE) > vbo_to ? (vbo_to - page_off)
--							: PAGE_SIZE;
-+		to = (page_off + PAGE_SIZE) > vbo_to ? (vbo_to - page_off)
-+						     : PAGE_SIZE;
- 		iblock = page_off >> inode->i_blkbits;
- 
- 		page = find_or_create_page(mapping, idx,
-@@ -226,7 +227,7 @@ static int ntfs_zero_range(struct inode *inode, u64 vbo, u64 vbo_to)
- 		do {
- 			bh_next = bh_off + blocksize;
- 
--			if (bh_next <= z_start || bh_off >= z_end)
-+			if (bh_next <= from || bh_off >= to)
- 				continue;
- 
- 			if (!buffer_mapped(bh)) {
-@@ -260,7 +261,7 @@ static int ntfs_zero_range(struct inode *inode, u64 vbo, u64 vbo_to)
- 		} while (bh_off = bh_next, iblock += 1,
- 			 head != (bh = bh->b_this_page));
- 
--		zero_user_segment(page, z_start, z_end);
-+		zero_user_segment(page, from, to);
- 
- 		unlock_page(page);
- 		put_page(page);
-@@ -271,81 +272,6 @@ static int ntfs_zero_range(struct inode *inode, u64 vbo, u64 vbo_to)
- 	return err;
- }
- 
--/*
-- * ntfs_sparse_cluster - Helper function to zero a new allocated clusters.
-- *
-- * NOTE: 512 <= cluster size <= 2M
-- */
--void ntfs_sparse_cluster(struct inode *inode, struct page *page0, CLST vcn,
--			 CLST len)
--{
--	struct address_space *mapping = inode->i_mapping;
--	struct ntfs_sb_info *sbi = inode->i_sb->s_fs_info;
--	u64 vbo = (u64)vcn << sbi->cluster_bits;
--	u64 bytes = (u64)len << sbi->cluster_bits;
--	u32 blocksize = 1 << inode->i_blkbits;
--	pgoff_t idx0 = page0 ? page0->index : -1;
--	loff_t vbo_clst = vbo & sbi->cluster_mask_inv;
--	loff_t end = ntfs_up_cluster(sbi, vbo + bytes);
--	pgoff_t idx = vbo_clst >> PAGE_SHIFT;
--	u32 from = vbo_clst & (PAGE_SIZE - 1);
--	pgoff_t idx_end = (end + PAGE_SIZE - 1) >> PAGE_SHIFT;
--	loff_t page_off;
--	u32 to;
--	bool partial;
--	struct page *page;
--
--	for (; idx < idx_end; idx += 1, from = 0) {
--		page = idx == idx0 ? page0 : grab_cache_page(mapping, idx);
--
--		if (!page)
--			continue;
--
--		page_off = (loff_t)idx << PAGE_SHIFT;
--		to = (page_off + PAGE_SIZE) > end ? (end - page_off)
--						  : PAGE_SIZE;
--		partial = false;
--
--		if ((from || PAGE_SIZE != to) &&
--		    likely(!page_has_buffers(page))) {
--			create_empty_buffers(page, blocksize, 0);
--		}
--
--		if (page_has_buffers(page)) {
--			struct buffer_head *head, *bh;
--			u32 bh_off = 0;
--
--			bh = head = page_buffers(page);
--			do {
--				u32 bh_next = bh_off + blocksize;
--
--				if (from <= bh_off && bh_next <= to) {
--					set_buffer_uptodate(bh);
--					mark_buffer_dirty(bh);
--				} else if (!buffer_uptodate(bh)) {
--					partial = true;
--				}
--				bh_off = bh_next;
--			} while (head != (bh = bh->b_this_page));
--		}
--
--		zero_user_segment(page, from, to);
--
--		if (!partial) {
--			if (!PageUptodate(page))
--				SetPageUptodate(page);
--			set_page_dirty(page);
--		}
--
--		if (idx != idx0) {
--			unlock_page(page);
--			put_page(page);
--		}
--		cond_resched();
--	}
--	mark_inode_dirty(inode);
--}
--
- /*
-  * ntfs_file_mmap - file_operations::mmap
-  */
-@@ -387,13 +313,9 @@ static int ntfs_file_mmap(struct file *file, struct vm_area_struct *vma)
- 
- 			for (; vcn < end; vcn += len) {
- 				err = attr_data_get_block(ni, vcn, 1, &lcn,
--							  &len, &new);
-+							  &len, &new, true);
- 				if (err)
- 					goto out;
--
--				if (!new)
--					continue;
--				ntfs_sparse_cluster(inode, NULL, vcn, 1);
- 			}
- 		}
- 
-@@ -522,7 +444,7 @@ static int ntfs_truncate(struct inode *inode, loff_t new_size)
- }
- 
- /*
-- * ntfs_fallocate
-+ * ntfs_fallocate - file_operations::ntfs_fallocate
-  *
-  * Preallocate space for a file. This implements ntfs's fallocate file
-  * operation, which gets called from sys_fallocate system call. User
-@@ -533,11 +455,13 @@ static int ntfs_truncate(struct inode *inode, loff_t new_size)
- static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- {
- 	struct inode *inode = file->f_mapping->host;
-+	struct address_space *mapping = inode->i_mapping;
- 	struct super_block *sb = inode->i_sb;
- 	struct ntfs_sb_info *sbi = sb->s_fs_info;
- 	struct ntfs_inode *ni = ntfs_i(inode);
- 	loff_t end = vbo + len;
--	loff_t vbo_down = round_down(vbo, PAGE_SIZE);
-+	loff_t vbo_down = round_down(vbo, max_t(unsigned long,
-+						sbi->cluster_size, PAGE_SIZE));
- 	loff_t i_size;
- 	int err;
- 
-@@ -568,17 +492,7 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 		u32 frame_size;
- 		loff_t mask, vbo_a, end_a, tmp;
- 
--		if (!(mode & FALLOC_FL_KEEP_SIZE)) {
--			err = -EINVAL;
--			goto out;
--		}
--
--		err = filemap_write_and_wait_range(inode->i_mapping, vbo,
--						   end - 1);
--		if (err)
--			goto out;
--
--		err = filemap_write_and_wait_range(inode->i_mapping, end,
-+		err = filemap_write_and_wait_range(mapping, vbo_down,
- 						   LLONG_MAX);
- 		if (err)
- 			goto out;
-@@ -636,8 +550,7 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 		 * Write tail of the last page before removed range since
- 		 * it will get removed from the page cache below.
- 		 */
--		err = filemap_write_and_wait_range(inode->i_mapping, vbo_down,
--						   vbo);
-+		err = filemap_write_and_wait_range(mapping, vbo_down, vbo);
- 		if (err)
- 			goto out;
- 
-@@ -645,8 +558,7 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 		 * Write data that will be shifted to preserve them
- 		 * when discarding page cache below.
- 		 */
--		err = filemap_write_and_wait_range(inode->i_mapping, end,
--						   LLONG_MAX);
-+		err = filemap_write_and_wait_range(mapping, end, LLONG_MAX);
- 		if (err)
- 			goto out;
- 
-@@ -676,9 +588,22 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 			CLST vcn_v = ni->i_valid >> sbi->cluster_bits;
- 			CLST vcn = vbo >> sbi->cluster_bits;
- 			CLST cend = bytes_to_cluster(sbi, end);
-+			CLST cend_v = bytes_to_cluster(sbi, ni->i_valid);
- 			CLST lcn, clen;
- 			bool new;
- 
-+			/*
-+			 * Allocate and zero new clusters.
-+			 * Zeroing these clusters may be too long.
-+			 */		
-+			for (; vcn < cend_v; vcn += clen) {
-+				err = attr_data_get_block(ni, vcn, cend_v - vcn,
-+							  &lcn, &clen, &new,
-+							  true);
-+				if (err)
-+					goto out;
-+			}
-+
- 			/*
- 			 * Allocate but do not zero new clusters. (see below comments)
- 			 * This breaks security: One can read unused on-disk areas.
-@@ -687,25 +612,12 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t vbo, loff_t len)
- 			 */
- 			for (; vcn < cend; vcn += clen) {
- 				err = attr_data_get_block(ni, vcn, cend - vcn,
--							  &lcn, &clen, &new);
-+							  &lcn, &clen, &new,
-+							  false);
- 				if (err)
- 					goto out;
- 				if (!new || vcn >= vcn_v)
- 					continue;
--
--				/*
--				 * Unwritten area.
--				 * NTFS is not able to store several unwritten areas.
--				 * Activate 'ntfs_sparse_cluster' to zero new allocated clusters.
--				 *
--				 * Dangerous in case:
--				 * 1G of sparsed clusters + 1 cluster of data =>
--				 * valid_size == 1G + 1 cluster
--				 * fallocate(1G) will zero 1G and this can be very long
--				 * xfstest 016/086 will fail without 'ntfs_sparse_cluster'.
--				 */
--				ntfs_sparse_cluster(inode, NULL, vcn,
--						    min(vcn_v - vcn, clen));
- 			}
- 		}
- 
-@@ -927,7 +839,7 @@ static ssize_t ntfs_compress_write(struct kiocb *iocb, struct iov_iter *from)
- 		off = valid & (frame_size - 1);
- 
- 		err = attr_data_get_block(ni, frame << NTFS_LZNT_CUNIT, 0, &lcn,
--					  &clen, NULL);
-+					  &clen, NULL, false);
- 		if (err)
- 			goto out;
- 
-diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
-index 62874e7f8d8f..1caf7c1bd96f 100644
---- a/fs/ntfs3/frecord.c
-+++ b/fs/ntfs3/frecord.c
-@@ -2207,7 +2207,7 @@ int ni_decompress_file(struct ntfs_inode *ni)
- 
- 		for (vcn = vbo >> sbi->cluster_bits; vcn < end; vcn += clen) {
- 			err = attr_data_get_block(ni, vcn, cend - vcn, &lcn,
--						  &clen, &new);
-+						  &clen, &new, false);
- 			if (err)
- 				goto out;
- 		}
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index b3f57535fe0b..e04f4c6d6390 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -1454,8 +1454,8 @@ static int indx_create_allocate(struct ntfs_index *indx, struct ntfs_inode *ni,
- 
- 	run_init(&run);
- 
--	err = attr_allocate_clusters(sbi, &run, 0, 0, len, NULL, 0, &alen, 0,
--				     NULL);
-+	err = attr_allocate_clusters(sbi, &run, 0, 0, len, NULL, ALLOCATE_DEF,
-+				     &alen, 0, NULL, NULL);
- 	if (err)
- 		goto out;
- 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index acd5be0d36c0..af55253a90b0 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -590,7 +590,8 @@ static noinline int ntfs_get_block_vbo(struct inode *inode, u64 vbo,
- 	off = vbo & sbi->cluster_mask;
- 	new = false;
- 
--	err = attr_data_get_block(ni, vcn, 1, &lcn, &len, create ? &new : NULL);
-+	err = attr_data_get_block(ni, vcn, 1, &lcn, &len, create ? &new : NULL,
-+				  create && sbi->cluster_size > PAGE_SIZE);
- 	if (err)
- 		goto out;
- 
-@@ -608,11 +609,8 @@ static noinline int ntfs_get_block_vbo(struct inode *inode, u64 vbo,
- 		WARN_ON(1);
- 	}
- 
--	if (new) {
-+	if (new)
- 		set_buffer_new(bh);
--		if ((len << cluster_bits) > block_size)
--			ntfs_sparse_cluster(inode, page, vcn, len);
--	}
- 
- 	lbo = ((u64)lcn << cluster_bits) + off;
- 
-@@ -1542,8 +1540,8 @@ struct inode *ntfs_create_inode(struct user_namespace *mnt_userns,
- 				cpu_to_le64(ntfs_up_cluster(sbi, nsize));
- 
- 			err = attr_allocate_clusters(sbi, &ni->file.run, 0, 0,
--						     clst, NULL, 0, &alen, 0,
--						     NULL);
-+						     clst, NULL, ALLOCATE_DEF,
-+						     &alen, 0, NULL, NULL);
- 			if (err)
- 				goto out5;
- 
-diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
-index a03dce278221..e485cb45c3d8 100644
---- a/fs/ntfs3/ntfs_fs.h
-+++ b/fs/ntfs3/ntfs_fs.h
-@@ -127,6 +127,7 @@ struct ntfs_buffers {
- enum ALLOCATE_OPT {
- 	ALLOCATE_DEF = 0, // Allocate all clusters.
- 	ALLOCATE_MFT = 1, // Allocate for MFT.
-+	ALLOCATE_ZERO = 2, // Zeroout new allocated clusters
- };
- 
- enum bitmap_mutex_classes {
-@@ -418,7 +419,7 @@ int attr_load_runs(struct ATTRIB *attr, struct ntfs_inode *ni,
- int attr_allocate_clusters(struct ntfs_sb_info *sbi, struct runs_tree *run,
- 			   CLST vcn, CLST lcn, CLST len, CLST *pre_alloc,
- 			   enum ALLOCATE_OPT opt, CLST *alen, const size_t fr,
--			   CLST *new_lcn);
-+			   CLST *new_lcn, CLST *new_len);
- int attr_make_nonresident(struct ntfs_inode *ni, struct ATTRIB *attr,
- 			  struct ATTR_LIST_ENTRY *le, struct mft_inode *mi,
- 			  u64 new_size, struct runs_tree *run,
-@@ -428,7 +429,7 @@ int attr_set_size(struct ntfs_inode *ni, enum ATTR_TYPE type,
- 		  u64 new_size, const u64 *new_valid, bool keep_prealloc,
- 		  struct ATTRIB **ret);
- int attr_data_get_block(struct ntfs_inode *ni, CLST vcn, CLST clen, CLST *lcn,
--			CLST *len, bool *new);
-+			CLST *len, bool *new, bool zero);
- int attr_data_read_resident(struct ntfs_inode *ni, struct page *page);
- int attr_data_write_resident(struct ntfs_inode *ni, struct page *page);
- int attr_load_runs_vcn(struct ntfs_inode *ni, enum ATTR_TYPE type,
-@@ -492,8 +493,6 @@ extern const struct file_operations ntfs_dir_operations;
- /* Globals from file.c */
- int ntfs_getattr(struct user_namespace *mnt_userns, const struct path *path,
- 		 struct kstat *stat, u32 request_mask, u32 flags);
--void ntfs_sparse_cluster(struct inode *inode, struct page *page0, CLST vcn,
--			 CLST len);
- int ntfs3_setattr(struct user_namespace *mnt_userns, struct dentry *dentry,
- 		  struct iattr *attr);
- int ntfs_file_open(struct inode *inode, struct file *file);
--- 
-2.47.3
+ out:
+ 	up_read(&pci_bus_sem);
+
+---
+base-commit: 5acbae5f7eb3d5275120abfe698c394b7325dcec
+change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+
+Best regards,
+--  
+Liz Fong-Jones <lizf@honeycomb.io>
 
