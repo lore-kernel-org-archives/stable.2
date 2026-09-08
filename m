@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8043B8BBF;
-	Tue,  8 Sep 2026 20:49:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6AA3B9D93;
+	Tue,  8 Sep 2026 20:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900589; cv=none; b=R+paE5Vzgq+42WViLdaTscBNlj1sepQf1BZMsT35Fe5VsL3xW6DMw6j6bqqHXuGo73DkAEyT4wGAXE0aGtEXcn/pnh4d0ypH/mNsly9Aw313jBYFY1oNPUPkln5VZ2XqvVAvcNqwVis8lQLHzpPxnb8HD9k/AD1SuAMD/KRoLjQ=
+	t=1788900590; cv=none; b=u8rRmJnTSASPEuKu4dIT0wFCcp8neOWz6Zz5jJcg1HyTtLk/sXSZRyGykV8gO//A0u635nsorn4sEwmF+RVke8vnHtKWRLCsB+mMqbhjlaF2pHZtXqJbasFqUwsq8gt4ZZW/Fo2hdsQt9oMoymPXnBsxKvRhyZVRITH0myoDVdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900589; c=relaxed/simple;
-	bh=u7mwmmsjUXcaMxYzYCre67B5bYQgeioNRtkc6sE4XnM=;
+	s=arc-20240116; t=1788900590; c=relaxed/simple;
+	bh=OvFr4E1Y9r7q5+KUEUgII1NFhkUWJP7l92/BoYkLsas=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Q7+qNifVOSy7Y42qyO4VchNEIrbR/qHjzo7LgLeq1CJo0m9FQwHnlXKKEWPjcBxGt0f5Pj7MEIc3Ghw7Bpdkh8c33EtXdmswjpd/LMKz1I9jSJId4mS8zCBDCDYOB6STc+wyr/c+Qbgfu9Cd9pTImizggBKyrWTJEamf4+4peso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4Dmt3VI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=CuNjPHybaLP8HhaeJrlAtNpSBjMsrwZvHUDPM3t8cgR+BH9dyplejlJAszAn8LCSeyzkaNV4ykd5CEe4o712d7vtDTY5Vl6DbTSICVX5UWBTMIlE9KtCCqXpVj8z3U8Gz1HAOOolLaAcSxPinc3HaM/31puhjN2tKp/P+QiBeS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHVzwr0O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4Dmt3VI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241EB1F00AC4;
-	Tue,  8 Sep 2026 20:49:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHVzwr0O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5356F1F00A3A;
+	Tue,  8 Sep 2026 20:49:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788900587;
-	bh=rJwHXgADXF6nyo4DuE1AEPXI3fC4zTIhMX6IA9GPpBg=;
+	s=k20260515; t=1788900589;
+	bh=6NMclM/shf5i5k4E0D1d9WEi12zMVmQmyHEmBEmdwDg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i4Dmt3VI93uYG6KbxnQgCc39CcpvHKsnt+pb3WsLF2Wc4BUheNtGENLsagQTcB3pY
-	 YjaUKIR8ICctoDVADnJDcM7NIpA820Fd9pL+q4j2GJN18tLYaWmN0Fk49I1BUuYSUj
-	 Mz1Fxo6dtB7sMqYpvgF3ViyKxQ3V7SlXF7fZvkp/GmhQe+zTDObtIW3X4N5QD3NoU0
-	 70vS0TkEpYDUdvZ9eUIKR+sDTK+M1WTHKiScde691OPKL1jVHiUhaD48/YmVsyUuyu
-	 yQOb9rRgRkItayzEphsIv1KC3QRxojqcFl8GBudpZTp+sAUJDhDavRCbII0Y3BZfDV
-	 qjRzUCcpgpniQ==
-Subject: Re: [PATCH net v9 10/14] rxrpc: Fix RxGK key parser to check enctype
- is supported
+	b=fHVzwr0Oej2P9VkRH8C6ztPNHK2+Aw0c5tYAl1x6ihdj6VgPGizukKai+/n0/FEsD
+	 OFKifqw6heUoS78Qlpxgle+tlNwWTWxkxvYZEf8FGb3M7mRCnta9zB2Qr7sml1201q
+	 TVy0dP/QFMCMM5qamiCnG1fD7TvR5yx3t1zQm8jVMKn/j2fTSxvuCWmtHmIuoJmuw1
+	 MPrV6wlNnG/+uoUHZ0PUboe24VHEdKP+RbJrpbxkCEel0Vevn+5xp6iMRPin1he++a
+	 8lxIp4N0h8tieHOpUURMCIquD/fY+sEZOSH5VRHFjswcEUiKojYPbPTr+D9NAfy+4M
+	 1kGW451mFpLpQ==
+Subject: Re: [PATCH net v9 11/14] afs: Fix creation of RxGK CM channel token
+ to have right size
 From: netdev-bot+sashiko@kernel.org
 To: dhowells@redhat.com
 Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
  davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
  linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
  nicoyip.dev@gmail.com, stable@vger.kernel.org
-Date: Tue, 08 Sep 2026 20:49:46 +0000
-Message-ID: <178890058672.219967.10512339930697519360@kernel.org>
-In-Reply-To: <20260907113743.1453210-11-dhowells@redhat.com>
-References: <20260907113743.1453210-11-dhowells@redhat.com>
-X-sashiko-severity: High
+Date: Tue, 08 Sep 2026 20:49:47 +0000
+Message-ID: <178890058789.219967.10564231796121366711@kernel.org>
+In-Reply-To: <20260907113743.1453210-12-dhowells@redhat.com>
+References: <20260907113743.1453210-12-dhowells@redhat.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -48,172 +48,125 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1 (1)
+Critical: 0 · High: 0 · Medium: 0 · Low: 1 (1)
 
-- [High] Link/modpost failure in valid configurations: the newly added
-  call to `crypto_krb5_find_enctype()` in…
-- [Low] Key quota over-charge newly reachable: in
-  `rxrpc_preparse_xdr_yfs_rxgk()` (net/rxrpc/key.c:206) the full token…
+- [Low] Changelog of the stable-tagged fix does not state the user-
+  visible symptom of the off-by-4 `toksize` in afs_create_yfs_cm_token()…
 
 Pre-existing issues:
-- [Low] `rxrpc_preparse_xdr_yfs_rxgk()` now resolves the krb5 enctype
-  handle but discards it, so the user-supplied session-key length…
+- [Low] afs_create_yfs_cm_token() keeps a hand-maintained field-by-field
+  size expression (`toksize`, fs/afs/cm_security.c:238) whose only guard…
 
 --
 
-rxrpc: Fix RxGK key parser to check enctype is supported
+afs: Fix creation of RxGK CM channel token to have right size
 
-The RxGK token parser in net/rxrpc/key.c now looks up the userspace-supplied
-encryption type and rejects the token with -ENOPKG when the enctype is not
-known.  The return value of rxrpc_preparse_xdr_yfs_rxgk() is changed from a
-hardcoded -EKEYREJECTED to a new local variable so the new error code can be
-propagated.
+This corrects the token size arithmetic in afs_create_yfs_cm_token() by
+adding the missing 4 bytes for the RXGK_Level field.  The size feeds the
+encrypted token container and the appdata buffer published as
+server->cm_rxgk_appdata.
 
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
 
-> diff --git a/net/rxrpc/key.c b/net/rxrpc/key.c
-> index a0aa78d892897..30d6db052c216 100644
-> --- a/net/rxrpc/key.c
-> +++ b/net/rxrpc/key.c
-> @@ -172,6 +172,7 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
->  	const __be32 *ticket, *key;
->  	s64 tmp;
->  	size_t raw_keylen, raw_tktlen, keylen, tktlen;
-> +	int ret = -EKEYREJECTED;
->  
->  	_enter(",{%x,%x,%x,%x},%x",
->  	       ntohl(xdr[0]), ntohl(xdr[1]), ntohl(xdr[2]), ntohl(xdr[3]),
-> @@ -229,6 +230,11 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
->  	token->rxgk->key.data	= token->rxgk->_key;
->  	token->rxgk->ticket.len = raw_tktlen;
->  
-> +	if (!crypto_krb5_find_enctype(token->rxgk->enctype)) {
-> +		ret = -ENOPKG;
-> +		goto reject_token;
-> +	}
-> +
-
-[Severity: High]
-Does this build with CONFIG_AF_RXRPC=y (or m) and CONFIG_RXGK=n?
-
-key.o is built unconditionally, while crypto_krb5_find_enctype() only exists
-when CRYPTO_KRB5 is built:
-
-net/rxrpc/Makefile:
-	rxrpc-y := \
-		...
-		key.o \
-		...
-	rxrpc-$(CONFIG_RXGK) += \
-		rxgk.o \
-		rxgk_app.o \
-		rxgk_kdf.o
-
-crypto/krb5/Makefile:
-	obj-$(CONFIG_CRYPTO_KRB5) += krb5.o
-
-net/rxrpc/Kconfig has AF_RXRPC selecting only CRYPTO, CRYPTO_LIB_DES if
-RXKAD, KEYS and NET_UDP_TUNNEL; the "select CRYPTO_KRB5" lives in the
-optional RXGK bool, which defaults to n.  So AF_RXRPC=y, RXGK=n,
-CRYPTO_KRB5=n looks like a legal configuration, and the declaration in
-include/crypto/krb5.h (reached via include/keys/rxrpc-type.h) has no
-!CONFIG_CRYPTO_KRB5 stub, so the failure would only show up at link or
-modpost time as an undefined crypto_krb5_find_enctype.  The same would apply
-to AF_RXRPC=y with CRYPTO_KRB5=m.
-
-The other rxrpc caller guards this exact call:
-
-net/rxrpc/rxperf.c:
-	#ifdef CONFIG_RXGK
-	/*
-	 * Add a yfs-rxgk key to the security keyring.
-	 */
-	static int rxperf_add_yfs_rxgk_key(struct key *keyring, u32 enctype)
-	{
-		const struct krb5_enctype *krb5 = crypto_krb5_find_enctype(enctype);
-
-Should the new call site be wrapped in #ifdef CONFIG_RXGK too, or should
-AF_RXRPC select CRYPTO_KRB5?  Neither net/rxrpc/Kconfig nor
-net/rxrpc/Makefile is touched anywhere later in the series, and the patch
-carries a cc: stable tag.
+> diff --git a/fs/afs/cm_security.c b/fs/afs/cm_security.c
+> index 103168c70dd4d..5eeeef761cf31 100644
+> --- a/fs/afs/cm_security.c
+> +++ b/fs/afs/cm_security.c
+> @@ -235,7 +235,7 @@ static int afs_create_yfs_cm_token(struct sk_buff *challenge,
+>  	 *	struct RXGK_AuthName	identities<>;
+>  	 * };
+>  	 */
+> -	toksize = keysize + 8 + 4 + 4 + 8 + xdr_len_object(authsize);
+> +	toksize = keysize + 4 + 8 + 4 + 4 + 8 + xdr_len_object(authsize);
 
 [Severity: Low]
-Can this over-charge the caller's key quota?
+Could the changelog say what the observable symptom of the old arithmetic
+was?  The field count matches what I see written after the K0 blob in
+afs_create_yfs_cm_token():
 
-Earlier in rxrpc_preparse_xdr_yfs_rxgk() the whole token cost is accounted
-before any validation:
+	level(4) + starttime(8) + lifetime(4) + bytelife(4) +
+	expirationtime(8) + identities.count(4) + kind(4) +
+	data.len(4) + uuid(16) + display.len(4) = 60
 
-	plen = sizeof(*token) + sizeof(*token->rxgk) + tktlen + keylen;
-	prep->quotalen += datalen + plen;
+and the pre-patch expression accounted for 56, so the arithmetic fix looks
+right.
 
-The new path frees the token and returns -ENOPKG without undoing that
-addition, and rxrpc_preparse_xdr() treats -ENOPKG as a per-token error that
-does not abort the key:
+What is not stated is where the missing 4 bytes went.  toksize is passed as
+data_len to crypto_krb5_encrypt(), and the rfc3961 encrypt profile places
+the checksum at conf_len + data_len:
 
-		case -ENOPKG:
-			if (ret != 0)
-				ret = -ENOPKG;
-			break;
+crypto/krb5/rfc3961_simplified.c:krb5_aead_encrypt() {
+	...
+	base_len	= krb5->conf_len + data_len;
+	...
+	cksum_offset	= secure_len;
+	if (WARN_ON(cksum_offset + krb5->cksum_len > sg_len))
+		return -EFAULT;
+	...
+}
 
-So a payload holding one parsable token (say rxkad) plus an RxGK token with
-an unsupported enctype gets instantiated while prep->quotalen still includes
-the discarded RxGK token.  Before this change every reject_token path
-returned -EKEYREJECTED, which hit the default: case and failed the whole
-instantiation, so the inflated value was never committed.  Would it be
-simpler to do the enctype lookup before the prep->quotalen update, or to
-subtract it again on this path?
+So with the short toksize, the trailing word written here:
+
+	*xdr++ = htonl(0);			/* token.identities[0].display.len */
+
+sat outside the encrypted region and was then overwritten by the first
+4 bytes of the HMAC, producing a truncated/malformed RXGK_Token in the
+callback-channel appdata.  Since the token key enctype is fixed to
+AES128-CTS-HMAC-SHA1-96 (cksum_len 12), the extra bytes stayed inside the
+kzalloc'd buffer, so there was no out-of-bounds access.
+
+Would it help stable backporters to state that this was a silent
+protocol-encoding defect with no memory-safety impact and no kernel log
+message?
 
 [Severity: Low]
-This is a pre-existing issue and not introduced by this patch, but now that
-the enctype descriptor is looked up here, should raw_keylen also be checked
-against krb5->key_len?  The returned pointer is discarded, so the
-user-supplied key length (bounded only by AFSTOKEN_GK_KEY_MAX, and allowed
-to be 0) is still unvalidated.
+This isn't a bug introduced by this patch, but while the toksize term is
+being corrected, is the existing size self-check in
+afs_create_yfs_cm_token() able to detect this class of error at all?
 
-The server-key parser pairs the two checks:
+Just before the check, the write cursor is thrown away and recomputed from
+encsize:
 
-net/rxrpc/rxgk.c:rxgk_preparse_server_key() {
-	krb5 = crypto_krb5_find_enctype(enctype);
-	if (!krb5)
-		return -ENOPKG;
+	xdr = encbase + xdr_round_up(encsize);
+
+	if ((unsigned long)xdr - (unsigned long)appdata != adatasize)
+		pr_err("Appdata size incorrect %lx != %zx\n",
+		       (unsigned long)xdr - (unsigned long)appdata, adatasize);
+
+encsize comes from crypto_krb5_how_much_buffer(..., toksize, &offset) and
+adatasize is derived from contsize, which is derived from encsize, so both
+operands move together with any error in toksize.  That is presumably why
+the check stayed balanced with the pre-patch 4-byte-short token and nothing
+was logged.
+
+The check is also non-fatal: execution falls through to
+
+	sg_init_one(&sg, encbase, encsize);
+	ret = crypto_krb5_encrypt(token_krb5, aead, &sg, 1, encsize, offset, toksize, false);
+
+and then to publication into server->cm_rxgk_appdata.
+
+Would comparing the post-write cursor against encbase + offset + toksize
+and failing be preferable, in the style of the decoder counterpart?
+
+net/rxrpc/rxgk_app.c:rxgk_yfs_decode_ticket() {
+	...
+	if (WARN_ON((unsigned long)q != (unsigned long)ticket)) {
+		ret = -EIO;
+		goto error;
+	}
 	...
 }
 
-At use time rxgk_derive_transport_key() passes &rxgk->key to
-crypto_krb5_calc_PRFplus(), and the rfc8009 profile just does:
-
-crypto/krb5/rfc8009_aes2.c:rfc8009_calc_KDF_HMAC_SHA2() {
-	ret = crypto_shash_setkey(shash, key->data, key->len);
-	...
-}
-
-HMAC accepts any length, so a transport key gets derived from a truncated or
-empty session key, while the rfc3961/rfc3962 profiles fail later:
-
-crypto/krb5/rfc3961_simplified.c:rfc3961_calc_DK() {
-	if (inkey->len != keylength || result->len != keylength)
-		return -EINVAL;
-	...
-}
-
-All consumers honour key.len, so there is no out-of-bounds access, just
-acceptance of malformed key material and inconsistent late failures.
-
->  	if (token->rxgk->endtime != 0) {
->  		expiry = rxrpc_s64_to_time64(token->rxgk->endtime);
->  		if (expiry < 0)
-> @@ -280,7 +286,7 @@ static int rxrpc_preparse_xdr_yfs_rxgk(struct key_preparsed_payload *prep,
->  	kfree(token->rxgk);
->  	kfree(token);
->  reject:
-> -	return -EKEYREJECTED;
-> +	return ret;
->  expired:
->  	kfree(token->rxgk);
->  	kfree(token);
+As it stands, a future field addition or reordering in the token can
+silently regenerate the same malformed-token result.  I could not find a
+way to overflow the buffer today: keysize (4 + xdr_len_object(key_len))
+exactly matches the three K0 writes, and every other emitted field is a
+compile-time constant, so this is a hardening observation rather than a
+live defect.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260907113743.1453210-1-dhowells%40redhat.com
