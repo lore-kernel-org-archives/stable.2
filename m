@@ -1,96 +1,166 @@
-Received: from sonic303-21.consmr.mail.ne1.yahoo.com (sonic303-21.consmr.mail.ne1.yahoo.com [66.163.188.147])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9515A51D526
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.188.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6913051E429
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 11:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866310; cv=none; b=ZDrrz/fWiH9568Shks0Rem+U35wW3VZtMT48BoDndz9lGTfRbim/ZDP0dE+xamm3MlryqAk6HzxXdrhZEPA9K3vQmTC78FX5gwajepySfc2Vho3iyZ8kf0fTkkVWGpVEndZ+SLDgj/yxOR+M3vAzMoaJIllXs5JzU9ryU59tXpQ=
+	t=1788866376; cv=none; b=gxb0PshnEUnMfhI6uR0EVYjmMCqk9cLpibDEHJhpP1/D5hbFbk9gU4tcNmb9DlAJ2riCkm1r57dMswIZXI+9XO8U3zu22ablSV3CoFdw4Jhno3R0umlfeni1ohAyHxMWkfgGRt9tKB3F+XPkdDLCehKkYcVSTcawyJoA0N9N/C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866310; c=relaxed/simple;
-	bh=LjH1faTnVVN5uMetA4uwbCmCsTumX7kxFH0HtObW7RY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MGE8VvE3f2karJynqxFKNUUzK7xnKpkUbI27VpzZr8WPiLWOUKSiY0T1f7pF9KmR0vKmxwolmIixLBcE/hAyhcPT/ZLhKW7c+9+rR2Ip7tKs/ASOLvb9WnEwbqg1Seb+qAr8EVFHxkHRD4V40rEB4stq4eDLYx7OAj7Pb3/fYpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=gf+WBWfd; arc=none smtp.client-ip=66.163.188.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1788866376; c=relaxed/simple;
+	bh=9O9kWGGQbODtRL5UAdOuaAinJL8bBPDsv7WUv1hTnnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=glDVf2oWXcWwV3Es3s4VBlTswaMMomPfLS2STOLS9MYME78oMZoLTSfzVdBgSJ4ofRGMRud+ekM1Fg7Mr+qgFZQfgk1m+WZuUW9SlyUIg7oas2pinP8gZ0fckzAnTv6n3Fr7Im846e+Z1wFd9UACisZARlz5vm2bD9hEoZOGxMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rxsm3lPX; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="gf+WBWfd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=YRUBlZ8dLqp9JSfEYU3LqyguQG5ZgeUgfnh64Fsjygs=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=gf+WBWfd9pS3ixIK0ZCNrZa4aua8tGhu3dvQJOIOs9yL+v58zctqp1x8ORMSjRbOjFmju3k5DWD8cpVkcjkjh0RCaKrN6h8KIo2fd/qRkKPKZPVlJ3vByrLVDHpxEynD2L+F5KRaLkckZ9e5hn9RruyqI7FmRs9hEf8SOhbSXM0Vv6oAfg0H4ERlHN0eMaAZaFtm15tDbeTMs+bTT9Ra6OGfAweTYY8hT/T7465cCGlpHe0zSHqgwmbsdtqjksWbaE3cBdwpd4L6aPj0Wx6dhaqdZtw29BT23NMFThM2Wl6mZVpZ3Cd0nUQGkwjVvi2xkacPy7rvq9/sKLp/VCq1QA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=YZIM2V0ViPD0Akp51tWmZgJZ1JgP//C+C1wbvJc6ihL=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=pK5oe0U0TiM8XW2H6FBcHsulz/PfHGyQOlCmOViTDVlilx+I6GVKgdPEpsmbAvzI1EVmckYv3uNvfPjE5H/sOSm5P3cUw+XYVvtHDvU2CLxKzBBGja55Zyn6nACzGaKhk/N4KxzuYlaUyIlE2jpdU5v8qVIQKVEuwLFJ0snylQgorkiGeaAI5fbMVc7F78YEcGKqDkTPCXeuEDke4Rya4+MYygJ1UeT/4fqvZZio6RWYskEIm7llVRX14V8uYW3B9Z4TIbu4MWuaspNAJsVAtdh4Z+TXrqdUC0jFJlG6KFnkDB9XE+I/gM7ElZVvxEXb6U4PtEl1Z0nMq6707DiQiw==
-X-YMail-OSG: gmPyFQoVM1kc06WG4qbxndFv7A0iv9Zvs3kCG56zD6fXv0_RPErM.KJ2_Y03wTK
- P2DhEW7IyNdWPB1oZZUSd30nh9bY18etlCM7_76lo4eQPD8pRW5GjFvkb43LVq5L9xej2o7xEFuW
- GEJfkZ9aSs8Ze_o3MZXQ3oiGd9K6q7WrFgqp8HdYS8ka2aPZhu9Zhu.l8SCSETpSuI_GwXLa4sel
- Hc932i4trMUWVfSNlsIjRqNgiJ6k71EiWKqRMh5jR.1lilDP4hK00_t_rgl7wHlY3r98SjxxpfwY
- Z_yTwWje_ia9mdz11bFrFPlDWVoomvIF0c80uMZTlytwRcgKQIX9u1H0k.bI3SLPL1Y1L6mvRM8y
- 7BT16SikZrVBBTOZSehD6E4AIRN6NfpSIhDHq24VgqJtEr7nhQxIqJjmDekQb0pbOHu8HquYI.8O
- eoAv3HW8HuHBSSlc7n2xrUbZY1d05D1lOmaJfTNzr3eqUHt00Fcuq47BsgwVZgn.riCUy4oHxvU9
- 6EKJAnfT0Jggz2tW7wSZb167xC9ENpm0xe72ti3bfMEqcj7rekZHcsHN3Jo9M15f5dyq5Fv3Lvx5
- fNbNLjN0OTAvmO2j3yx1lB1R7d.BrM3m7Jp4I42SFt.H_8JkCBGP7vk_MXPSma72HOWbMb2w8TAH
- Z0xKYGUK9iNFY6422ZnUCERqA8PpFjpgj53A1KZ5t_zBw_6yF3tTbMYP1GtX122zluBJBuRBiYxm
- kFzpCl5drZcwBBrHFb9nkOr20KJv105U2HKaGzGVVEjsF3Qp.l8VbHdxACFzNk4n7Ei0exRs97S7
- hKLUywdg__q0dy3xOF9geMZwOn.PdntHq2dRweZ_vA3XH1FhpXD_qnVXAy3imyiX4v8D_QhUa9Vs
- JmwhrOeCAzS5joDHI0ZbJOzaOQsz617LirTFoWCdJYZWMaCMCXAKXzRpqLHvYvBrxL04g0ib9NU8
- AVMbAkttrVustmuJjLpDX3b0627711vkp0s_KRb5Q3vJW1GMNPYl9ls8YilSTeAZVlB5i_sny3Uo
- RNNbzC_jfjwcPdhjMo.j7ffSnXG0rI1zqgNPZ1AJHyU6Tg16Hf9Z4IR0m6T1irvaUG..TlnOFvkZ
- XkVpajROJxhPGUPaEemA5paAzCfrPUPrzmmgo4zAn631YjykEMjibnOBFqfTQ9_xm5wnA2FbvKVn
- AtCmAGmyV0KExIcv28plPUwH6OkeJG.oxIK2S6n5pMHD5g6ZGWzdYkYt9TyhrnD1KCV0c0UOtiDR
- qFsjLTFDAfqZgzEzDOHh8Ev9L06Kd8XDanoUqHsT1WQuQfbMAo68yLRUrT_IHQTbrDMj8mUp.rBz
- oc4V8jP6AlsMWNmjBUu.wPgIWB.whZ0O0yJ_0rn2ALs_IICsK_twRzlZspNETtapVUhv13kZSiwO
- tuPptpvjkGSHKLGkrdHiFi_ftp3TH9NU0PKabUa8FsHj0u3amhnh2LFyw0BWz937Efd2xoRsm._t
- Xp71I.OaC2y_nGRNuRng0kUgU5a9kWZnXdOXj9klDGAf6mb81d1fnnq_kE6T24HTjyjukjDdhFHf
- 34ZzZb4ZPENmfrXtc6w9hVA4bL_WDWxDEynJFaQnJxsgCV0VVHGl4pCJb0JdGH79JH0XWoRN8q7.
- hY_8ClVK.xU1wbwdNEA3LiRlIXpTmM9PeaGScduhnqJSgaPU8XT0bNjQ7UhYQqCk39WDWwitK9bl
- l4QG1VCdv6G0BCk1v9JQdayL69rN02EX8DColnqBHh5xA_dLyqQEc3MkDMEjLLr7VmUAeMC8lb6V
- _euX37AQEbeLinN4OMz5v6SdK8p8lPQLgln12ezgahZQTVstRdtVwVQDCTF8rmxJMOrWwu_C8TId
- J1_Og3za0k4VKJaB2HGi0hdkifQ9.DiG3RtwFGYNfCpHX4aZ6tnXjOBX2.CVagHMW5pJ_HYMI_gX
- s.WSVbRBOOILhzoJM.bx0sdRJlchiadweeK2Rh7NR9HstKOlqc0gab4IuHa8Tgk62Nx7ULVrA2pj
- 0mf0Zohdr5O1ngPpkdhyAs1DOjschcAoJu69OdFeX2VXok.kQSICNl3yJxSS06mNcV9d0XRnn0PB
- vJi87.4yCkaqBkGqNAnl7xV60IXjwEpdq4qyNlmoQexBx28vlR90idZvj5QlaRR2ZsFdFh.Fz8Br
- GSuQTtxRTzFjrdPWQGubTiBKCVio0UQlsxCBN8NIhZkBC33EvWRqzhIi.ccyJYO_1gB64i7TPYHo
- 3_6rOZxWP0Nnj08CpC0uyxC.vLi5Av8mtXvDQ6SH.lgEqLDwumzsCWrV.uxkoBup8dr8zcgH8_7r
- 0WL4eaSR.
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: a489773e-6412-4553-977e-0a5fc5d1ab86
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic303.consmr.mail.ne1.yahoo.com with HTTP; Tue, 8 Sep 2026 11:18:18 +0000
-Received: by hermes--production-ir2-cddf86dcf-rk2hx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0f3422411e7bf53728402e6080428f01;
-          Tue, 08 Sep 2026 10:57:34 +0000 (UTC)
-Message-ID: <11b0c7d4-4e77-42a8-9528-6dacafd3e251@yahoo.com>
-Date: Tue, 8 Sep 2026 12:57:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rxsm3lPX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1a5b5eso1086205e9.2
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 04:19:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788866369; x=1789471169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=Rxsm3lPXjtOsq1hx/7RxBKcxjgKMvn30bD6YpJJ4fVzzU+dDl7uVNIMHh/T1gahU54
+         S6P9oHrfld1hU2yw9l1mtSedUlysUtSzXGUFgZvnmNdjMSsQHmdr0CMLeIqVAweH40kR
+         tj7LGOi2fhwAhR5baHueT7rHFTZ4S2fWtWtpD8R/4WpbGLQTAZtnXyc55l2cpgXLIG2B
+         rJWK3VES0Y37wMkFMH8sHJL41Dbm38gcROwCDPdfJW7Wb3b8D0toJ3ewEt5zORQMY/la
+         JghS6sv65UYICvQ5xmFVj8J5EBXt6CwUbnv0xncJbJsbVa+VwlOyB16DKAfs0V8tiaex
+         WXyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788866369; x=1789471169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=F9xm9ZyR+3fHdXYv293Qg1FiIzGeJPAmuYh4qKj3kpV6yTC5PC3SJeApRLWkrl8Vxr
+         Pkk4wkvTPtrY1wHMGXOzun0YP1oDVtH1J+dcu/eKOu1q2I8eAmVF5MAlrEdUOlG1kleU
+         Q+4L30O+hbKJj7Y2zbE5y0Xi7/ijk8xpiVemEFDCBk9UKgAqCW73dH84hczjr5ntIcXk
+         XynwtT/0wyblkyxygml6e9J/o4ACIGING1GIVF2z5qt3vNAH1H0ol6jTMYN/SXRR0YhV
+         i4SqGbtabDMOQbMlAgF2AUwDXcp8YOHGtCnXiEWWFOThuamyP4tIKHKdN7hprm7eATrY
+         Eicg==
+X-Forwarded-Encrypted: i=1; AKwUvBzRm1rFAMkQXZ2RXN9d3U+ETeZgG/40EhZi+WNLDeWubiZCWyyZtgr36nS5PfhhJy7rnGzjXDw=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndyBS/dA2hjvBjEPMak4ruFSXWdBtqBAuf65DCbX+kDItPz2t9
+	GtiYJA1iQvRJbllw1Xb2FJX9ASoFkvGb/JIFr0XxEbdFpsZNFB6ftG60
+X-Gm-Gg: AYBFou1TnNVjRisKK4fjBXLi6xMnNsrr7QX0GOgtFb0+M+9ES+kNfOVsbacHeuZpupa
+	RsxNihDjH0Ih3ISyPIhRz9Vx8JiKpaxiiSsPxlEfnBzGmOEw/rX5YqThntqTSLi4VWjnEyv37U0
+	Tl4TXaDVK3DWpYPo1tW0K7i4ocRNuFiva9yq9Veam/5ApwG1AWEHCYG1t31wTV+l6eP6+MUrAEk
+	zoPS1XfKyXLTlyiavluKG5qJZskYrUW/AkgKWBfbM+2yjQb9W5xDKWdWg6LU3xfkst6ISQXEaYF
+	l4MUdIkz8c0bXKKOxaeFnDZ5daK+pwUurrS85jG5s6zfwigsHXWQobcK/78bqifZ033qiAZKeoE
+	RXwXagQ6PBxK2QGObE8UeAd1Ri0hetZ3p2LWs9evrzFy0+RbK26PyKigvY14trVNUiFHTK8r5U+
+	1Y2SQsxOJtpSQdRuv9IyOgk08LxEKdqbvMb1G7VPe+d5rm+3eHTyKRGSq476s/tJvIReQd/cqqN
+	Al8uYHb5Pv4No4zQsLm3G4uYT3kS91DyDjfx/8FH7NPr5gQaCZIl8wol7QLJ4wMMj/G
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr173785985e9.2.1788866368697;
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D009E74109367A274C5.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:9e74:1093:67a2:74c5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm973747855e9.0.2026.09.08.04.19.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Tue,  8 Sep 2026 13:19:08 +0200
+Message-ID: <20260908111908.19371-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
- enabled
-To: Stanislaw Pal <kuncy7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>
-Cc: Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
- Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260805193638.15327-1-kuncy7@gmail.com>
- <20260813093351.178419-1-kuncy7@gmail.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <20260813093351.178419-1-kuncy7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26460 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Hi Stephen, Bjorn,
+The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
+pin; the mainline board file uses RK_PB0, which does not carry the RTC
+interrupt on this board.
 
-Just a quick ping regarding this series. The discussion between 
-Stanislaw and Qualcomm (Jie Luo) has been fully settled in late August. 
-It was proven that handling this on the UNIPHY side is not possible due 
-to the early stage of the watchdog reset.
+As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+cannot be used as a wakeup source on this board.
 
-Are there any remaining concerns, or can this v4 be picked up for the 
-next cycle?
+This was verified on the board by enabling the alarm interrupt (AIE with
+AF already set, so INT# is asserted) and sampling the EXT_PORT register
+of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
+(high with AIE=0, low with AIE=1, in two off/on cycles), while GPIO0_B0
+stays high and its interrupt counter stays at zero.
 
-Mieczyslaw Nalewaj<namiltd@yahoo.com>
+Switch the interrupt and its pinctrl entry to GPIO0_C6. The board has an
+external pull-up on this open-drain line, so no internal bias is needed.
 
+With this change the alarm interrupt is delivered while the system is
+running, and the RTC wakes the SoC out of s2idle.
+
+Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM checkpatch dtbs_check
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Ondrej Jirman <megi@xff.cz>
+---
+Changes in v2:
+- Drop the internal pull-up: the board schematic already has an external
+  pull-up on this line (Ondrej Jirman). Only the pin number changes now.
+- Reworded the effect paragraphs to state only what was measured; no
+  functional change.
+- Link to v1: https://lore.kernel.org/all/20260906181622.11991-1-royalnet026@gmail.com/
+
+Notes for reviewers (not part of the commit message):
+
+Measured on an Orange Pi 5 Plus. The input levels of all five GPIO banks were
+read from their EXT_PORT registers via /dev/mem while toggling the alarm
+interrupt enable through /sys/class/rtc/rtc0/wakealarm; GPIO0_C6 was the only
+pad that followed it.
+
+The s2idle wakeup was measured with the v1 form of this patch (same pin, but
+with the internal pull-up still set): 'PM: Triggering wakeup from IRQ 52'.
+With bias-disable, as posted here, I re-checked that the alarm interrupt still
+increments the hym8563 interrupt count at the programmed alarm time, with no
+spurious interrupts on the level-low line.
+
+Note that on this board the resume itself can still stall later in the USB 2.0
+host controllers (a separate issue reported in [1]); with those controllers
+unbound the full s2idle cycle completes. It does not affect this fix.
+
+[1] https://lore.kernel.org/all/20260907190000.s2idle-usb2-resume-royalnet026@gmail.com/
+
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 145986695720..3f2806284754 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -189,7 +189,7 @@ &hdptxphy1 {
+ 
+ &hym8563 {
+ 	interrupt-parent = <&gpio0>;
+-	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&hym8563_int>;
+ };
+@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
+ 
+ 	hym8563 {
+ 		hym8563_int: hym8563-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
+
+base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
+-- 
+2.43.0
 
