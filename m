@@ -1,78 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B6A554086
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF885678F7
 	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874239; cv=none; b=ibTl34vYuTogyzSBVjvOwV1Q+MNMRXMzb6yyyeYrt7p+c2EQh7inxRzNOzt1b4L76Fbj2uXhK93MXWtG82BN9j/qr3ARWIFEJ/XGrg/pbhYjKIfwd7X8yMl6OoTJomW7lVkXrR09jc3m+z4lI8bWXY3SQct1wzlkTs8XreEqV9Q=
+	t=1788874242; cv=none; b=LZAj4J4/GPqGEJAjILyciPBmXV96GOlexnwyiUPnA2yT54A5bjAy2TljGjIbauCYv+1CVEr2MzAL/2arVBRaeIw4U8ZCOSo0texd5Mu4RiI2LXN1xOYCLEgsB7utG/2xZ3i3mMo2aRw8KL6uBCkYTxHJXldTNu4s5zGV/o+SvDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874239; c=relaxed/simple;
-	bh=JbFOZL9IR7VGz0JU3Xq5ghVs/2f89WVPKAIqWzpJkZA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y3GCq7292Om0hIE29sLVIZef15Ba4b31uFzl6FtH8AeLRj3TnARVyTj1maBoKlAWqpPGBFCjjtkVsF+swNs9NTkY+2h8PhdnONe2hrBVrU7ssqniPfHStNrEU+UN2IOsZ2bF6IBYnwn3GpnyFEXeqhBxf+9H2Dl4Dd/LVI3RTzg=
+	s=arc-20240116; t=1788874242; c=relaxed/simple;
+	bh=4xCfv/6YvvOZWx0AWYhqF7tiVs/iiCdo3+5caeeKVi8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LsuNM6JyUFmlQe96XBETa7diPWymrrG1T6Z2eSl7k/ZjlhL9nPH7o1YA95yOnSGcIrcs6JHrqvP6uj9CppFVXPAhwQrbXcF/7hkjr2No/Qfhs62ETx/efCInpaHp5os2lzjE1m2GdGOS1nkeLGF0LGjAEjwRgsZ69ox+C3J4cX0=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46A2C1F00ACA;
-	Tue,  8 Sep 2026 13:30:24 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <rmk+kernel@armlinux.org.uk>
-Subject: [PATCH 5.10.y 5/5] ARM: 9477/1: Disable broken eBPF JIT on the Risc PC
-Date: Tue,  8 Sep 2026 09:29:56 -0400
-Message-ID: <20260908132958.2312212-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908132958.2312212-1-sashal@kernel.org>
-References: <2026090326-curtsy-rocket-6c6d@gregkh>
- <20260908132958.2312212-1-sashal@kernel.org>
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5061F00A3F;
+	Tue,  8 Sep 2026 13:30:22 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] ftrace: Synchronize the initialization of ftrace_ops" failed to apply to 6.6-stable tree
+To: rostedt@goodmis.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 15:19:29 +0200
+Message-ID: <2026090829-rundown-turbofan-bc25@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 
-[ Upstream commit 7e8ee82e69fde9d589272ec5e6f702358903be1f ]
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The eBPF JIT unconditionally generates ldrh/strh instructions, which do
-not function correctly on the Risc PC because its bus is unable to
-signal half-word accesses. Work around this issue by disabling the eBPF
-JIT when building for ARMv3 (the Risc PC is the only currently
-supported machine whose kernel is built for ARMv3).
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Comments from Ethan Nelson-Moore:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4617721c502b2ddaa4e324e86da4997edf738fa5
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090829-rundown-turbofan-bc25@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
- From LKML: https://lore.kernel.org/all/CAD++jL=0qYGoygUwGEXQL7C_ROnC7kfpRv8RA+H5tNWwYu+pQA@mail.gmail.com/
+Possible dependencies:
 
- The commit message has been updated slightly relative to the version on LKML to clarify that the Risc PC is not actually ARMv3.
 
-Fixes: 39c13c204bb1 ("arm: eBPF JIT compiler")
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4617721c502b2ddaa4e324e86da4997edf738fa5 Mon Sep 17 00:00:00 2001
+From: Steven Rostedt <rostedt@goodmis.org>
+Date: Wed, 2 Sep 2026 09:55:01 -0400
+Subject: [PATCH] ftrace: Synchronize the initialization of ftrace_ops
+
+There's some internal state that ftrace_ops needs to have set, but since
+it can be declared outside of the ftrace.c code, it calls
+ftrace_ops_init() on the ops in every global function. The issue is that
+if two tasks call it on the same ops at the same time it is possible to
+have the initialization of one corrupt the initialization of the other
+call.
+
+Create a ops_mutex to use to synchronize every initialization of the
+ftrace_ops. The mutex is taken within checking the ftrace_ops flag that
+states it was initializied but the flag is checked again after the mutex
+has been taken. Checking first outside the mutex allows it to shortcut
+having to take the mutex. But then the check needs to be done again after
+the mute is taken in case of races.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
-Signed-off-by: test <test@test>
----
- arch/arm/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Link: https://patch.msgid.link/20260902095501.6b59af20@gandalf.local.home
+Fixes: f04f24fb7e48d ("ftrace, kprobes: Fix a deadlock on ftrace_regex_lock")
+Reported-by: sashiko-bot@kernel.org
+Close: https://lore.kernel.org/all/20260829025528.49A831F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-index 5a37758349f0d..c5e4b3080a5cd 100644
---- a/arch/arm/Kconfig
-+++ b/arch/arm/Kconfig
-@@ -75,7 +75,7 @@ config ARM
- 	select HAVE_ARCH_THREAD_STRUCT_WHITELIST
- 	select HAVE_ARCH_TRACEHOOK
- 	select HAVE_ARM_SMCCC if CPU_V7
--	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32
-+	select HAVE_EBPF_JIT if !CPU_ENDIAN_BE32 && !CPU_32v3
- 	select HAVE_CONTEXT_TRACKING_USER
- 	select HAVE_C_RECORDMCOUNT
- 	select HAVE_DEBUG_KMEMLEAK if !XIP_KERNEL
--- 
-2.53.0
+diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
+index c7cf36f2dd7b..53d5db60bfa5 100644
+--- a/kernel/trace/ftrace.c
++++ b/kernel/trace/ftrace.c
+@@ -75,6 +75,8 @@
+ 	.func_hash		= &opsname.local_hash,			\
+ 	.local_hash.regex_lock	= __MUTEX_INITIALIZER(opsname.local_hash.regex_lock), \
+ 	.subop_list		= LIST_HEAD_INIT(opsname.subop_list),
++/* Used only to synchronize the initialization of ftrace_ops */
++static DEFINE_MUTEX(ops_mutex);
+ #else
+ #define INIT_OPS_HASH(opsname)
+ #endif
+@@ -159,11 +161,18 @@ const struct ftrace_ops ftrace_nop_ops = {
+ static inline void ftrace_ops_init(struct ftrace_ops *ops)
+ {
+ #ifdef CONFIG_DYNAMIC_FTRACE
+-	if (!(ops->flags & FTRACE_OPS_FL_INITIALIZED)) {
++	unsigned long flags = smp_load_acquire(&ops->flags);
++
++	if (!(flags & FTRACE_OPS_FL_INITIALIZED)) {
++		guard(mutex)(&ops_mutex);
++		/* Could have been initialized before lock taken */
++		if (unlikely(ops->flags & FTRACE_OPS_FL_INITIALIZED))
++			return;
+ 		mutex_init(&ops->local_hash.regex_lock);
+ 		INIT_LIST_HEAD(&ops->subop_list);
+ 		ops->func_hash = &ops->local_hash;
+-		ops->flags |= FTRACE_OPS_FL_INITIALIZED;
++		flags = ops->flags | FTRACE_OPS_FL_INITIALIZED;
++		smp_store_release(&ops->flags, flags);
+ 	}
+ #endif
+ }
 
