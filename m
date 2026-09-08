@@ -1,48 +1,30 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4254534460;
-	Tue,  8 Sep 2026 12:20:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4544F531AE7
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870026; cv=none; b=lix8ST3UhjtMne++mhRZ0OVqvePad4ytNcp4k66qCVX5vQmKwWbQZvkNJ6iLTYM/L9BpYWlaPDlTceDH/gZy0zdzRPILhwIz7FbPj32OuGVmdO2/yRgaJxA7quv+hTKYQY7DChMydyklg14Ve9TRafXXCQiUFvy+rvtDYacYuCo=
+	t=1788870027; cv=none; b=ZVHkgFIGzefq8gh8qrH9ITg4je0rqz12LV1uFZY/cTW7EEBKxfMC56HcHgBzuY7NgRAZ8qfByMC8QfV5x7h1SWRuzjEAZAgy40rK4Ovz8YbTr/mLwy9lvzfNNX1X3hj9GJg2wv3jxUdFbS3jtx+ksukrtqQGV57wfsRTqF8DhlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870026; c=relaxed/simple;
-	bh=byAJOdTpBF4CGlWDA5AzH0j6A2+DrEKRxxsIboe9xrw=;
+	s=arc-20240116; t=1788870027; c=relaxed/simple;
+	bh=PMUFCYE1anyGTMOj906yLMjRieJYS85l2jokeUJGJ5Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WLjiZBAJT0tnTb2k3kK6dcXN5mYx+jBZf551cmLw1qCLl8m2HTtPQa7QpuwcS3sZL/eDmk1ywCAi+UPTl7Kj1E7DvrvceYemWHvV4rYO1MiC88sPpXJDWAnMd49+Eyqufqlgfk38vQdk0eLXoKHqXeNfr6OyRVkaWK4D7ynRBVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkLMwUgT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkLMwUgT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EF21F00A3A;
-	Tue,  8 Sep 2026 12:20:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870018;
-	bh=RfmNEGjJsS/8c2GKuZ5ounjH9LtPffgjWi3vpyDzxbs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OkLMwUgTKFv4raOZUv4p+4J63le4/YXeU13EuJBy1LqxqbdNNHtlicHzn+Kplyz5L
-	 qUAK1hFZwfaRlbV135r2cvtZEYxww0H9xjjk4AJAzztAcJOspXAXm3wOMJ/5DT5cs0
-	 slbNhAQxRKrN5LTFC/H72y+/yROHVWxrMDCtf8gUNgK05WWcoi5dPopCXL5x9TnsGE
-	 uiP/7ink7TysEMkobIZA8Naq4SIbe38Ue0FlUYK8+mboRoX1S6cjPM7T9nMmisYLvn
-	 sFuBPM3L79pjse8K767ewj9vTC+93698Dd/CysrnKmdidUva4WoOn5y53rVauTALEX
-	 hVXbtTGMYL4lQ==
+	 MIME-Version; b=FQ9MXXsQc/QNet4y3DOePDqqthbI26loCXlm9I8EMKKMLrE90FQiLJaW2jVdk5nw1cvvxJABCMCjiBgVkPsrqZP69OYOU6skI5J07/pMY09B7YVsEkIqFGgRRsPo5dQw01UBVEca4cIbWFdUuw6cKQeh/uphj0T3r5glGN7nj4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEC1A1F00A3E;
+	Tue,  8 Sep 2026 12:20:21 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+Cc: Hui Su <sh_def@163.com>,
+	Helge Deller <deller@gmx.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] cifs: SMB1 split: connect.c
-Date: Tue,  8 Sep 2026 08:20:14 -0400
-Message-ID: <20260908122015.2050174-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] fbdev: ssd1307fb: defer I2C transfers from damage callbacks
+Date: Tue,  8 Sep 2026 08:20:20 -0400
+Message-ID: <20260908122020.2050714-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090337-crease-stuffing-cff2@gregkh>
-References: <2026090337-crease-stuffing-cff2@gregkh>
+In-Reply-To: <2026090352-freebie-sprain-0960@gregkh>
+References: <2026090352-freebie-sprain-0960@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,385 +33,168 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Howells <dhowells@redhat.com>
+From: Hui Su <sh_def@163.com>
 
-[ Upstream commit 88f7d7e32d9e086ba87c6b04a9ba57f3f41268bd ]
+[ Upstream commit 9ad709afdfa32509ed64938a6d9cd00db3cd54c2 ]
 
-Split SMB1-specific connection management stuff to smb1ops.c and move
-CIFSTCon() to cifssmb.c.
+The fbdev damage callbacks may run from fbcon while printk has disabled
+preemption.  They currently update the display synchronously, which enters
+the sleeping I2C transfer path from atomic context.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+A complete report from an RK3566 system follows:
 
-[ sashal: Reduced backport -- upstream 88f7d7e32d9e0 touches 5 file(s), this
-  backport carries 2. Not backported here:
-  fs/smb/client/cifsproto.h
-  fs/smb/client/cifssmb.c
-  fs/smb/client/connect.c
-  fs/smb/client/smb1ops.c
-  fs/smb/client/smb1proto.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+  [  258.129004] watchdog: watchdog0: watchdog did not stop!
+  [  258.129067] BUG: scheduling while atomic: systemd/1/0x00000003
+  [  258.129076] Modules linked in: algif_hash algif_skcipher af_alg bnep
+  binfmt_misc lz4hc lz4 zram snd_soc_hdmi_codec brcmfmac_wcc hci_uart
+  fb_ssd1306(C) fbtft(C) btqca btrtl btintel btsdio snd_soc_simple_card
+  motorcomm pwm_fan snd_soc_simple_card_utils ssd130x_spi nls_iso8859_1
+  ssd130x btbcm drm_shmem_helper display_connector brcmfmac ssd1307fb
+  brcmutil bluetooth cfg80211 rfkill snd_soc_rockchip_i2s_tdm
+  snd_soc_rk817 hantro_vpu snd_soc_core snd_compress snd_pcm_dmaengine
+  v4l2_vp9 snd_pcm v4l2_h264 rockchip_rga snd_timer rk_crypto2
+  spi_rockchip_sfc videobuf2_dma_contig snd sm3_generic v4l2_mem2mem
+  videobuf2_dma_sg dwmac_rk sm3 soundcore videobuf2_memops videobuf2_v4l2
+  stmmac_platform dw_hdmi_cec videodev videobuf2_common dw_hdmi_i2s_audio
+  stmmac rk817_charger pcs_xpcs mc cpufreq_dt sch_fq_codel ip_tables
+  x_tables autofs4
+  [  258.129215] Preemption disabled at:
+  [  258.129216] [<ffff80008012f96c>] vprintk_emit+0x11c/0x340
+  [  258.129234] CPU: 0 PID: 1 Comm: systemd Tainted: G         C
+  6.6.0-rc5-rockchip-rk356x #4
+  [  258.129239] Hardware name: Rockchip RK3566 OPi 3B (DT)
+  [  258.129243] Call trace:
+  [  258.129245]  dump_backtrace+0xa0/0x128
+  [  258.129252]  show_stack+0x20/0x38
+  [  258.129256]  dump_stack_lvl+0x60/0xb0
+  [  258.129265]  dump_stack+0x18/0x28
+  [  258.129269]  __schedule_bug+0xa0/0xc8
+  [  258.129274]  __schedule+0x9ac/0xd30
+  [  258.129279]  schedule+0x60/0x100
+  [  258.129282]  schedule_timeout+0x194/0x338
+  [  258.129289]  rk3x_i2c_xfer_common.isra.0+0x384/0x498
+  [  258.129296]  rk3x_i2c_xfer+0x20/0x60
+  [  258.129300]  __i2c_transfer+0x194/0x648
+  [  258.129308]  i2c_transfer+0x9c/0x130
+  [  258.129313]  i2c_transfer_buffer_flags+0x64/0x98
+  [  258.129318]  ssd1307fb_update_rect+0x42c/0x560 [ssd1307fb]
+  [  258.129334]  ssd1307fb_defio_imageblit+0x34/0x50 [ssd1307fb]
+  [  258.129343]  soft_cursor+0x13c/0x210
+  [  258.129350]  bit_cursor+0x2dc/0x550
+  [  258.129354]  fbcon_cursor+0xec/0x108
+  [  258.129359]  hide_cursor+0x44/0xc8
+  [  258.129365]  vt_console_print+0x398/0x3b0
+  [  258.129370]  console_flush_all.isra.0+0x17c/0x410
+  [  258.129377]  console_unlock+0x4c/0x100
+  [  258.129382]  vprintk_emit+0x1c8/0x340
+  [  258.129386]  vprintk_default+0x40/0x58
+  [  258.129389]  vprintk+0xb8/0xd0
+  [  258.129392]  _printk+0x68/0x98
+  [  258.129398]  watchdog_release+0x170/0x230
+  [  258.129404]  __fput+0xbc/0x288
+  [  258.129409]  __fput_sync+0x58/0x70
+  [  258.129413]  __arm64_sys_close+0x40/0x90
+  [  258.129419]  invoke_syscall+0x4c/0x118
+  [  258.129426]  el0_svc_common.constprop.0+0x48/0xf0
+  [  258.129432]  do_el0_svc+0x24/0x38
+  [  258.129437]  el0_svc+0x48/0x100
+  [  258.129443]  el0t_64_sync_handler+0xc0/0xc8
+  [  258.129448]  el0t_64_sync+0x190/0x198
+  [  258.573087] ------------[ cut here ]------------
+  [  258.573098] DEBUG_LOCKS_WARN_ON(val > preempt_count())
+  [  258.573111] WARNING: CPU: 0 PID: 1 at kernel/sched/core.c:5871
+  preempt_count_sub+0x9c/0x148
+  [  258.573130] Modules linked in: algif_hash algif_skcipher af_alg bnep
+  binfmt_misc lz4hc lz4 zram snd_soc_hdmi_codec brcmfmac_wcc hci_uart
+  fb_ssd1306(C) fbtft(C) btqca btrtl btintel btsdio snd_soc_simple_card
+  motorcomm pwm_fan snd_soc_simple_card_utils ssd130x_spi nls_iso8859_1
+  ssd130x btbcm drm_shmem_helper display_connector brcmfmac ssd1307fb
+  brcmutil bluetooth cfg80211 rfkill snd_soc_rockchip_i2s_tdm
+  snd_soc_rk817 hantro_vpu snd_soc_core snd_compress snd_pcm_dmaengine
+  v4l2_vp9 snd_pcm v4l2_h264 rockchip_rga snd_timer rk_crypto2
+  spi_rockchip_sfc videobuf2_dma_contig snd sm3_generic v4l2_mem2mem
+  videobuf2_dma_sg dwmac_rk sm3 soundcore videobuf2_memops videobuf2_v4l2
+  stmmac_platform dw_hdmi_cec videodev videobuf2_common dw_hdmi_i2s_audio
+  stmmac rk817_charger pcs_xpcs mc cpufreq_dt sch_fq_codel ip_tables
+  x_tables autofs4
+  [  258.573268] CPU: 0 PID: 1 Comm: systemd Tainted: G        WC
+  6.6.0-rc5-rockchip-rk356x #4
+  [  258.573274] Hardware name: Rockchip RK3566 OPi 3B (DT)
+  ** 37 printk messages dropped **
+  [  258.574064] Preemption disabled at:
+  ** 42 printk messages dropped **
+  [  259.190237] Preemption disabled at:
 
-Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
+Track damage in the driver's private data under a spinlock and merge
+multiple updates into a bounding rectangle.  Queue the existing
+deferred-I/O work immediately for damage reported by fbdev drawing and
+write helpers, so allocation and I2C transfers run from process context
+without adding the configured mmap refresh delay.  Keep full-screen
+updates for dirty mmap pages, for which no precise rectangle is available.
+
+Tested on an RK3566 board with a 128x64 OLED by running five rounds of 250
+KERN_EMERG messages in total while issuing framebuffer writes every 15 ms.
+No atomic-sleep, preemption, or lockdep warning occurred.  Kprobe tracing
+also confirmed that cursor-only damage remained an 8x16 partial update.
+
+Fixes: a2ed00da5047 ("drivers/video: add support for the Solomon SSD1307 OLED Controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hui Su <sh_def@163.com>
+Signed-off-by: Helge Deller <deller@gmx.de>
+[ adapted partial-rectangle deferred updates to the existing full-screen deferred-I/O worker. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifssmb.c | 161 +++++++++++++++++++++++++++++++++++++++++++++
- fs/cifs/connect.c | 162 ----------------------------------------------
- 2 files changed, 161 insertions(+), 162 deletions(-)
+ drivers/video/fbdev/ssd1307fb.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
-index 67ff1669cab2a..e69ab38a648d2 100644
---- a/fs/cifs/cifssmb.c
-+++ b/fs/cifs/cifssmb.c
-@@ -699,6 +699,167 @@ CIFSSMBNegotiate(const unsigned int xid, struct cifs_ses *ses)
- 	return rc;
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index fd26d368fdf5c..74a3a7c331435 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -218,7 +218,6 @@ static void ssd1307fb_update_display(struct ssd1307fb_par *par)
+ static ssize_t ssd1307fb_write(struct fb_info *info, const char __user *buf,
+ 		size_t count, loff_t *ppos)
+ {
+-	struct ssd1307fb_par *par = info->par;
+ 	unsigned long total_size;
+ 	unsigned long p = *ppos;
+ 	void *dst;
+@@ -239,7 +238,7 @@ static ssize_t ssd1307fb_write(struct fb_info *info, const char __user *buf,
+ 	if (copy_from_user(dst, buf, count))
+ 		return -EFAULT;
+ 
+-	ssd1307fb_update_display(par);
++	mod_delayed_work(system_wq, &info->deferred_work, 0);
+ 
+ 	*ppos += count;
+ 
+@@ -258,23 +257,20 @@ static int ssd1307fb_blank(int blank_mode, struct fb_info *info)
+ 
+ static void ssd1307fb_fillrect(struct fb_info *info, const struct fb_fillrect *rect)
+ {
+-	struct ssd1307fb_par *par = info->par;
+ 	sys_fillrect(info, rect);
+-	ssd1307fb_update_display(par);
++	mod_delayed_work(system_wq, &info->deferred_work, 0);
  }
  
-+/*
-+ * Issue a TREE_CONNECT request.
-+ */
-+int
-+CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
-+	 const char *tree, struct cifs_tcon *tcon,
-+	 const struct nls_table *nls_codepage)
-+{
-+	struct smb_hdr *smb_buffer;
-+	struct smb_hdr *smb_buffer_response;
-+	TCONX_REQ *pSMB;
-+	TCONX_RSP *pSMBr;
-+	unsigned char *bcc_ptr;
-+	int rc = 0;
-+	int length;
-+	__u16 bytes_left, count;
-+
-+	if (ses == NULL)
-+		return -EIO;
-+
-+	smb_buffer = cifs_buf_get();
-+	if (smb_buffer == NULL)
-+		return -ENOMEM;
-+
-+	smb_buffer_response = smb_buffer;
-+
-+	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
-+			NULL /*no tid */ , 4 /*wct */ );
-+
-+	smb_buffer->Mid = get_next_mid(ses->server);
-+	smb_buffer->Uid = ses->Suid;
-+	pSMB = (TCONX_REQ *) smb_buffer;
-+	pSMBr = (TCONX_RSP *) smb_buffer_response;
-+
-+	pSMB->AndXCommand = 0xFF;
-+	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
-+	bcc_ptr = &pSMB->Password[0];
-+	if (tcon->pipe || (ses->server->sec_mode & SECMODE_USER)) {
-+		pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
-+		*bcc_ptr = 0; /* password is null byte */
-+		bcc_ptr++;              /* skip password */
-+		/* already aligned so no need to do it below */
-+	} else {
-+		pSMB->PasswordLength = cpu_to_le16(CIFS_AUTH_RESP_SIZE);
-+		/* BB FIXME add code to fail this if NTLMv2 or Kerberos
-+		   specified as required (when that support is added to
-+		   the vfs in the future) as only NTLM or the much
-+		   weaker LANMAN (which we do not send by default) is accepted
-+		   by Samba (not sure whether other servers allow
-+		   NTLMv2 password here) */
-+#ifdef CONFIG_CIFS_WEAK_PW_HASH
-+		if ((global_secflags & CIFSSEC_MAY_LANMAN) &&
-+		    (ses->sectype == LANMAN))
-+			calc_lanman_hash(tcon->password, ses->server->cryptkey,
-+					 ses->server->sec_mode &
-+					    SECMODE_PW_ENCRYPT ? true : false,
-+					 bcc_ptr);
-+		else
-+#endif /* CIFS_WEAK_PW_HASH */
-+		rc = SMBNTencrypt(tcon->password, ses->server->cryptkey,
-+					bcc_ptr, nls_codepage);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s Can't generate NTLM rsp. Error: %d\n",
-+				 __func__, rc);
-+			goto out;
-+		}
-+
-+		bcc_ptr += CIFS_AUTH_RESP_SIZE;
-+		if (ses->capabilities & CAP_UNICODE) {
-+			/* must align unicode strings */
-+			*bcc_ptr = 0; /* null byte password */
-+			bcc_ptr++;
-+		}
-+	}
-+
-+	if (ses->server->sign)
-+		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
-+
-+	if (ses->capabilities & CAP_STATUS32) {
-+		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
-+	}
-+	if (ses->capabilities & CAP_DFS) {
-+		smb_buffer->Flags2 |= SMBFLG2_DFS;
-+	}
-+	if (ses->capabilities & CAP_UNICODE) {
-+		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
-+		length =
-+		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
-+			6 /* max utf8 char length in bytes */ *
-+			(/* server len*/ + 256 /* share len */), nls_codepage);
-+		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
-+		bcc_ptr += 2;	/* skip trailing null */
-+	} else {		/* ASCII */
-+		strcpy(bcc_ptr, tree);
-+		bcc_ptr += strlen(tree) + 1;
-+	}
-+	strcpy(bcc_ptr, "?????");
-+	bcc_ptr += strlen("?????");
-+	bcc_ptr += 1;
-+	count = bcc_ptr - &pSMB->Password[0];
-+	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
-+	pSMB->ByteCount = cpu_to_le16(count);
-+
-+	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
-+			 0);
-+
-+	/* above now done in SendReceive */
-+	if (rc == 0) {
-+		bool is_unicode;
-+
-+		tcon->tidStatus = CifsGood;
-+		tcon->need_reconnect = false;
-+		tcon->tid = smb_buffer_response->Tid;
-+		bcc_ptr = pByteArea(smb_buffer_response);
-+		bytes_left = get_bcc(smb_buffer_response);
-+		length = strnlen(bcc_ptr, bytes_left - 2);
-+		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
-+			is_unicode = true;
-+		else
-+			is_unicode = false;
-+
-+
-+		/* skip service field (NB: this field is always ASCII) */
-+		if (length == 3) {
-+			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
-+			    (bcc_ptr[2] == 'C')) {
-+				cifs_dbg(FYI, "IPC connection\n");
-+				tcon->ipc = true;
-+				tcon->pipe = true;
-+			}
-+		} else if (length == 2) {
-+			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
-+				/* the most common case */
-+				cifs_dbg(FYI, "disk share connection\n");
-+			}
-+		}
-+		bcc_ptr += length + 1;
-+		bytes_left -= (length + 1);
-+		strlcpy(tcon->treeName, tree, sizeof(tcon->treeName));
-+
-+		/* mostly informational -- no need to fail on error here */
-+		kfree(tcon->nativeFileSystem);
-+		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
-+						      bytes_left, is_unicode,
-+						      nls_codepage);
-+
-+		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
-+
-+		if ((smb_buffer_response->WordCount == 3) ||
-+				 (smb_buffer_response->WordCount == 7))
-+			/* field is in same location */
-+			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
-+		else
-+			tcon->Flags = 0;
-+		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
-+	}
-+out:
-+	cifs_buf_release(smb_buffer);
-+	return rc;
-+}
-+
- int
- CIFSSMBTDis(const unsigned int xid, struct cifs_tcon *tcon)
+ static void ssd1307fb_copyarea(struct fb_info *info, const struct fb_copyarea *area)
  {
-diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
-index a95b9d2318fa2..16bc181a25647 100644
---- a/fs/cifs/connect.c
-+++ b/fs/cifs/connect.c
-@@ -4838,168 +4838,6 @@ int cifs_mount(struct cifs_sb_info *cifs_sb, struct smb_vol *vol)
+-	struct ssd1307fb_par *par = info->par;
+ 	sys_copyarea(info, area);
+-	ssd1307fb_update_display(par);
++	mod_delayed_work(system_wq, &info->deferred_work, 0);
  }
- #endif
  
--/*
-- * Issue a TREE_CONNECT request.
-- */
--int
--CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
--	 const char *tree, struct cifs_tcon *tcon,
--	 const struct nls_table *nls_codepage)
--{
--	struct smb_hdr *smb_buffer;
--	struct smb_hdr *smb_buffer_response;
--	TCONX_REQ *pSMB;
--	TCONX_RSP *pSMBr;
--	unsigned char *bcc_ptr;
--	int rc = 0;
--	int length;
--	__u16 bytes_left, count;
--
--	if (ses == NULL)
--		return -EIO;
--
--	smb_buffer = cifs_buf_get();
--	if (smb_buffer == NULL)
--		return -ENOMEM;
--
--	smb_buffer_response = smb_buffer;
--
--	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
--			NULL /*no tid */ , 4 /*wct */ );
--
--	smb_buffer->Mid = get_next_mid(ses->server);
--	smb_buffer->Uid = ses->Suid;
--	pSMB = (TCONX_REQ *) smb_buffer;
--	pSMBr = (TCONX_RSP *) smb_buffer_response;
--
--	pSMB->AndXCommand = 0xFF;
--	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
--	bcc_ptr = &pSMB->Password[0];
--	if (tcon->pipe || (ses->server->sec_mode & SECMODE_USER)) {
--		pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
--		*bcc_ptr = 0; /* password is null byte */
--		bcc_ptr++;              /* skip password */
--		/* already aligned so no need to do it below */
--	} else {
--		pSMB->PasswordLength = cpu_to_le16(CIFS_AUTH_RESP_SIZE);
--		/* BB FIXME add code to fail this if NTLMv2 or Kerberos
--		   specified as required (when that support is added to
--		   the vfs in the future) as only NTLM or the much
--		   weaker LANMAN (which we do not send by default) is accepted
--		   by Samba (not sure whether other servers allow
--		   NTLMv2 password here) */
--#ifdef CONFIG_CIFS_WEAK_PW_HASH
--		if ((global_secflags & CIFSSEC_MAY_LANMAN) &&
--		    (ses->sectype == LANMAN))
--			calc_lanman_hash(tcon->password, ses->server->cryptkey,
--					 ses->server->sec_mode &
--					    SECMODE_PW_ENCRYPT ? true : false,
--					 bcc_ptr);
--		else
--#endif /* CIFS_WEAK_PW_HASH */
--		rc = SMBNTencrypt(tcon->password, ses->server->cryptkey,
--					bcc_ptr, nls_codepage);
--		if (rc) {
--			cifs_dbg(FYI, "%s Can't generate NTLM rsp. Error: %d\n",
--				 __func__, rc);
--			cifs_buf_release(smb_buffer);
--			return rc;
--		}
--
--		bcc_ptr += CIFS_AUTH_RESP_SIZE;
--		if (ses->capabilities & CAP_UNICODE) {
--			/* must align unicode strings */
--			*bcc_ptr = 0; /* null byte password */
--			bcc_ptr++;
--		}
--	}
--
--	if (ses->server->sign)
--		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
--
--	if (ses->capabilities & CAP_STATUS32) {
--		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
--	}
--	if (ses->capabilities & CAP_DFS) {
--		smb_buffer->Flags2 |= SMBFLG2_DFS;
--	}
--	if (ses->capabilities & CAP_UNICODE) {
--		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
--		length =
--		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
--			6 /* max utf8 char length in bytes */ *
--			(/* server len*/ + 256 /* share len */), nls_codepage);
--		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
--		bcc_ptr += 2;	/* skip trailing null */
--	} else {		/* ASCII */
--		strcpy(bcc_ptr, tree);
--		bcc_ptr += strlen(tree) + 1;
--	}
--	strcpy(bcc_ptr, "?????");
--	bcc_ptr += strlen("?????");
--	bcc_ptr += 1;
--	count = bcc_ptr - &pSMB->Password[0];
--	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
--	pSMB->ByteCount = cpu_to_le16(count);
--
--	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
--			 0);
--
--	/* above now done in SendReceive */
--	if (rc == 0) {
--		bool is_unicode;
--
--		tcon->tidStatus = CifsGood;
--		tcon->need_reconnect = false;
--		tcon->tid = smb_buffer_response->Tid;
--		bcc_ptr = pByteArea(smb_buffer_response);
--		bytes_left = get_bcc(smb_buffer_response);
--		length = strnlen(bcc_ptr, bytes_left - 2);
--		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
--			is_unicode = true;
--		else
--			is_unicode = false;
--
--
--		/* skip service field (NB: this field is always ASCII) */
--		if (length == 3) {
--			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
--			    (bcc_ptr[2] == 'C')) {
--				cifs_dbg(FYI, "IPC connection\n");
--				tcon->ipc = true;
--				tcon->pipe = true;
--			}
--		} else if (length == 2) {
--			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
--				/* the most common case */
--				cifs_dbg(FYI, "disk share connection\n");
--			}
--		}
--		bcc_ptr += length + 1;
--		bytes_left -= (length + 1);
--		strlcpy(tcon->treeName, tree, sizeof(tcon->treeName));
--
--		/* mostly informational -- no need to fail on error here */
--		kfree(tcon->nativeFileSystem);
--		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
--						      bytes_left, is_unicode,
--						      nls_codepage);
--
--		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
--
--		if ((smb_buffer_response->WordCount == 3) ||
--			 (smb_buffer_response->WordCount == 7))
--			/* field is in same location */
--			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
--		else
--			tcon->Flags = 0;
--		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
--	}
--
--	cifs_buf_release(smb_buffer);
--	return rc;
--}
--
- static void delayed_free(struct rcu_head *p)
+ static void ssd1307fb_imageblit(struct fb_info *info, const struct fb_image *image)
  {
- 	struct cifs_sb_info *sbi = container_of(p, struct cifs_sb_info, rcu);
+-	struct ssd1307fb_par *par = info->par;
+ 	sys_imageblit(info, image);
+-	ssd1307fb_update_display(par);
++	mod_delayed_work(system_wq, &info->deferred_work, 0);
+ }
+ 
+ static const struct fb_ops ssd1307fb_ops = {
 -- 
 2.53.0
 
