@@ -1,271 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020106.outbound.protection.outlook.com [52.101.195.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E757F381B05;
-	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900833; cv=none; b=oUKdsTqECECYHB7aQZc264n46r1Hjwfa3lRtGGUGIGlzFWcc7BcAihBMj+zLPsmsxgEvW6gmEWSAwz5/sbbAf3FRpdgFaMS4agt6pUuM4MlWFYDxCcnSym/NL+5tRy17XGUm51Nrh5MIs8NC1lLcH5NMFGv+Ec/sC+XxKb+Z1Pw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900833; c=relaxed/simple;
-	bh=9ydGklz8bZHOpqIknHpNgAna7Etxuu7JUtYpdMotKqE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rGlkFcgXNn5KzYcK5vmyWVr9pvug7OJ3n3hVS35UJEcKQ52v6vncojSCKKqkhem3yGC5LYAu0haWuII9UyVHWHK/zmIIZT34hUMJ1iNfqALHOA5RMWJ53inbt1/haGnSXlHabMNFabP5QjmVXdH6TS/CTe7RykXaDIRXmythiZE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MUBUX+Od; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F2263B6347;
+	Tue,  8 Sep 2026 20:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.106
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788900858; cv=fail; b=Sg7ZPkp7J6xs/rfRq9sAtRAxF1GKVv3hEFCQLTSd+RaEG46NoS78ZijVfxqDl0XqXjpRr+f9MK+PF36oRFD9P2IeczxpuhwDqtvmnz8rqtTt6JJtrJU2UkzmAyuVAMTTomnyNnhdWwD1kC0Wvdk/DaG04YtoAjHnsFY39e5MhYQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788900858; c=relaxed/simple;
+	bh=zeloaV7mDFuyS5xk6FEwQMBMaGxW7TsTvtjhDjNtCp0=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=WPwcBG0AiHB4fXHK8iBbiYq0unHW9gS2N3Kp9Alni0TQ4irrNDBaZKwe//b3pUoJonHyUGWy0beVwBFNr3vKQTCXU5vdjPecSgcU1aZGhoJyjPUMgSAJ1tyge/hf2LEaZuIwV8q8QB2JkylerL6DQsi6Z70Z3x1YulCHKeulDxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=CMh6rO1b; arc=fail smtp.client-ip=52.101.195.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MUBUX+Od"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 502E8C2BCB8;
-	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788900832;
-	bh=9ydGklz8bZHOpqIknHpNgAna7Etxuu7JUtYpdMotKqE=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MUBUX+OdC6MdOoyat4SfIhsk/mYkz4s59QX5MjXRe2hVpWVeJ381rg3owK6oNbOCo
-	 lUgR2Qs/oUYIm01oYYv3pUM+/u9SXoV8CMBvQrIr2qHTXie/VUP27aKbQv/wtCqHnf
-	 BRk5aqt8t2RJ2WWR3NVFtBx0lxDkTWQmHGmUAYdr50BtU5K4g3P92UIav2P6/Tu6iQ
-	 uvcezXgqwcb5r1UdX3UlPVUt++cyYYegCEZAYiRf2MPNfr2lsjrEMGv0CDMtTIpnkB
-	 iS137AuY68j1uaP/Ll00PU2sSut/z2yLy4jfQe0YF3NgB9qG5BgC1B4nO3DTtatBqh
-	 gUqU0HZytNieg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE48C79FAA;
-	Tue,  8 Sep 2026 20:53:52 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Tue, 08 Sep 2026 22:53:47 +0200
-Subject: [PATCH] backlight: qcom-wled: Fix unbalanced OVP IRQ enable at
- probe
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="CMh6rO1b"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YeF45zA3Bc3H2+7QYBCKk4yHo4/ZUTIWb0NvNbaXZVgj+6M5SLh3qDzZg8PmtjMxv0zpBvthJAPpE/pq96B1B/nYVReDTGLCrDXrAZZwSP72LMlyfak9gEj7iosoTc0X1nahU66aeWkAbFrYELQUWTudqwH8GNkC5n5vJGjZDicroWXGMZSpJmTqQtwmQXyjUlXEIAJ+ibNAt0/7GHV2SsxZD1kbOGN33io85g7vmDkT9gvVX2XkEpNlYYdANXXL0okvUDwfh3b3FRrY+Yq77KtVW+mwG0SkdI+b6O8gT/kLXKgYrw4wXP4hf5XfK0rAQbdar10L0RCJr7HSD0Hq5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GiQ0ANC3i1Hg61e5gSaFpFcV+U5SVXE7NPbosieutsg=;
+ b=ZwX+rL1axRmO0dv7Cjmh90oSgMcRUtxBnV0zwsFlXxhYf6MFYTlbfKlmj6YMWLOe/yPo15ovGXKLSCw/66oX+jQLpfPb9mjlfYzVmjMM3vBZGjMPlkChg+0v2NJjY9fnMrXpByMR1hJEx1PRAx//6jK4UZOF2Qd5u/eYUYc2gZMm6K5mLroNUFqgxs0fTmirXV/Qeh2lG8sQvgnr09irkxu9CwUp4hU0eo04RMN0JrQ4mm+Fgl0WBNMhhSuO3i1o3aB7khDdsEiSLB29QnsmgzA9Vkyx0mjkf8CMtoxewlMzec/IhJgUxyVQpCYL6rzORZHz+8cabMVdoRaAS7lk0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GiQ0ANC3i1Hg61e5gSaFpFcV+U5SVXE7NPbosieutsg=;
+ b=CMh6rO1b5DpGlFxnmkAr9GvwNcs2oJl3a/SfAuVZZUDJ3yT8szU1j4yg3zvHJXkZUGKjZn8WsnNutFBvsh0u5/iQB1ba5gbVIwaKM7uiKbO0aFsoRsgG/u/Og7tX5bJ4HGWRucP2ApqZ/baPsfIywfIqXO/c9FgZK8pw+umbJDc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CWLP265MB5185.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:15e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 20:54:12 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 20:54:12 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Sep 2026 21:54:11 +0100
+Message-Id: <DLA8FDX8R5V0.7L5PQVACRZ75@garyguo.net>
+Subject: Re: [PATCH] rust: allow `unknown_lints` in generated bindings for
+ Rust < 1.88
+From: "Gary Guo" <gary@garyguo.net>
+To: "Miguel Ojeda" <ojeda@kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
+ Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kbuild@vger.kernel.org>, <stable@vger.kernel.org>,
+ =?utf-8?q?Emilio_Cobos_=C3=81lvarez?= <emilio@crisal.io>
+X-Mailer: aerc 0.22.0
+References: <20260908170539.345207-1-ojeda@kernel.org>
+In-Reply-To: <20260908170539.345207-1-ojeda@kernel.org>
+X-ClientProxiedBy: PAYP264CA0033.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:102:11f::20) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSQ6DMAxA0asgr2spDVPpVRALSAyYUoaESULcn
- QDLt/h/B0uGycLX28HQwpb7zuH98kDVeVcRsnYGKWQkEvHBUfV/XFvSWOTq13JVT1jqJIwDIWM
- /9MGVg6GSt/uaZo/tXDSkpmsFx3ECFD8JCncAAAA=
-X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
- Kiran Gunda <quic_kgunda@quicinc.com>, 
- Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, stable@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6457; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=yBiYmO8d6SvubGxXelZ3t3PQpKGgRFigdJU1itdaGJI=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoHXe926RXgnO3S+glWPVaG88ro/W9WLSTAOOa
- RVPKlHctlSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqB13gAKCRBgAj/E00kg
- cpJiD/98Rs8zIQxocR0idSCh6Ogmgd/J9rMxS2zgWMK/zQLttQS/ry88pN69AVygf/93I4oNLXT
- HOB/m1kb0y4/vP04Ienuwm5+EbyozXYR6U1IKI475fEIlf+W/Jx3ajQN+wNw/h34kM6syjK0ceq
- ZWSxCkvl4y6seLqWv0lKPk/wJNudf0fbnUgXQ6wyooL9i7KE8SkFLKpcx/U7+VSmJbm5wAloaam
- cBR3qw/Eos3TXqHer9+V9BYwpRhnG/MKWFx3k5GpNAc3kYdZxEoSGVFH+CZAC1mT6+soAIZXRLd
- Kt1lAgvuVps7P8XY/dtqDFRAXe4HZb9OO/dElfUmuBbUDveVZpo5w3QiPMufOhCGgvXQZV5f4pN
- rKrQBqoriJrTSefr34riwr8EKBVmXUDIM2vCPJUGpkp6RJThGtK5+qyGSJ2HGg8Ol6kHdzi3M/N
- FJ8pCz6dV09pOGUASI5AmctCOb/wX17gf5rDiy6I2HYqe3j0NcxGYxl5NbNMwTT16KqzA6ZG6Ap
- NqzBPVcmY2zIJ5MbjnITAvToNfbkGQIL8jK0DpJw7ePlzdoBcrUHP9IZDXI80kpa0RV1VINV3M+
- IOiJmgxpKkR0z38200Q80msIDnmBFhfnd/6aP7d9a9HJG44syQg15ObqUKjU7aSFwWL3ZQkH/jT
- adohQTBb5LbvUuQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWLP265MB5185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49993475-b317-49c6-8ca6-08df0deb5639
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|10070799003|23010399003|376014|7416014|18002099003|22082099003|3023799007|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	T1SZURHtjRBZgT5yel6OXSrD1tQ5Eb4uJGkEmJ0Mwili76fYp4Q1OnXkzfIxtJbvgg5zoZgEAZWkDS+gwrdnyguwTh7aLDcKesESt/oF88LYjZYTrLZU5M1xAi78hPTeDdcehWTwY/kHfcbdcRonhlrl5+u9hiIRylYfyYahyDEEaTe73DwUIkcneka8YoCIvDi+o0MfE0vZpZrzLnylXQO322+OTtV6ISatJ2Lxd0lZmS9w/CiLocVucqBDwBlgONsRb34ENWXKl2+rEhmrVUEDPMZEyIqZa4IQgIrSs6U9qABHMoSIJ5vJtLqyQsgHtKqCKsV7/W2WEUqfdVoQHYCQ2d5K1cNetKaNS1tSalXjhLUzKKw/y9SuG09Es78G8AVU5WBzB98q+4Fmz+P3Opw6t7bLmTI51znTgWiJbpUi7iSvX9ACCyHzGhcy6wsQA9MBvKOQdWvbNlZ/IP2vuP/Vgpbd3oZFMwzEe3jtEPYnReX09pGF03EAFuOb8dF+ycP1LxDaf3qAzRcv2NzYZxK0jLQptdn6cJ5YluUMQVftLH8gsIFsNyk9QA2gxhG76UB/DD4E/Poktd4fLZRD/VJwvAgv33MUufIVqFyek9CQ4cV/m+ZHl/5kf6T4/Rt9y6BgYlbdNi7MSYgj4Nx44dPOPcvtMQKK00hE8HZcAA4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(23010399003)(376014)(7416014)(18002099003)(22082099003)(3023799007)(56012099006)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MzVpRDV5bTVwR3J6OUNhUngxenBESDJYTVNUQ1g0Vk4xL3BEWWlicGJZMHFG?=
+ =?utf-8?B?NUUzT0NZY3pOS29SV243T3FrbEZlcVZNd2o0Y3F5TExXeHlXT0JEL1dzWFAr?=
+ =?utf-8?B?ZXZsS090VEhUNW1vbUlzVFV5aWtSNUlOOWhhQUNsQ0htVUhZWlB1cEtMZXgr?=
+ =?utf-8?B?aXE4Y0ttazBCTzhtNytMTyszQXBjTmZlVXdKTUFiby9oWjBQS0hVZXB3dk56?=
+ =?utf-8?B?RjRRSVNOc010eXJxdXJsSTNnN0pkaUttSnhiNGRjcDR0ekRnMVFobUNIQXFa?=
+ =?utf-8?B?QmdhR2J4bmNTT3JrTWo5TWFRV1E1Z3l0MkkxWXJDd2ZHRG5JdmhkVUI0TFNS?=
+ =?utf-8?B?NW93VG90dHRlRE9DdUtxWGIwZ25sNGRScVFVcnIzMmZ0VUNCYkVla1JWL0x0?=
+ =?utf-8?B?K0N4RjhiVmZhYkFXKzRUeFphN2xBek43cVVwMGdTUkJkM2xrcDdUUytGZWc1?=
+ =?utf-8?B?ZGs1RDQzeVByM1VVc1BLb0dENkk3RmJOWWpTMEVra3dMYkRDRlI3dk92VHBs?=
+ =?utf-8?B?YXY3NFBjenJjbXVUTEdrVnVTTzZjNnNlZHNuYVVvSzJZMGlQMms0RWw3OUN4?=
+ =?utf-8?B?TmZhcEdBbUp1am5WM0FJSHh1QnRua1I0ZFRmcW4yVVRHZ2tNeENOS3E2ZmFW?=
+ =?utf-8?B?My9IcDd3TDU0amdZTTJBMjJIeHRscjBXWHphUWJJMi9EaFRhYnFlQThjOWFP?=
+ =?utf-8?B?YTZkUHdma2taV1M1RTVDN1JYUzlNNWRMQlFNeEdITVdvUnpRS3BaV05vNHBT?=
+ =?utf-8?B?SklackVVdi8vM2JHck1GYkNPYkRDRS96MHNsY3pQT2lUUGl6dTZ3SkU1TlAx?=
+ =?utf-8?B?dEk1enZRRkVGeWxaQVFSeEJmeEc5NGFkRXBQQ2pvMjYycHBEZWl1TXBZY0dM?=
+ =?utf-8?B?bWlzeXNqMG1YcFM1Y0R6V0d4dGtBZWpCclh4SVRSaS9xTlVZbmc1akhpZUx4?=
+ =?utf-8?B?OFNIbkxrb0hmamN1SkJSRkVINVVGaWUwMVowUnY4RDRjWkVLeE5NUGFud05D?=
+ =?utf-8?B?S1UxK3ZYbVI0V09aRFErSzF2T1V6R0hBT1NGZXNHM0sxM2dqTzZNQjdCN1Vr?=
+ =?utf-8?B?aUkvQW1WMzlYanc3QkYxdkFjZyt1LzY4QW5tek1hU3hRdldMWkk4QnNQQ2ha?=
+ =?utf-8?B?TW9rNHRmbUU5MWZkbGFJWVB0MTFjWHZkTUVXTnJMeFZxU0dYazdsazI5QjhU?=
+ =?utf-8?B?dmkzWDdwS3dubmMweXB6cUc5WkUveklHYnZxTDBraWpaK1pIa2VVUlpxNm1U?=
+ =?utf-8?B?TGlKQXRuSTlzOEM5d1RzU1hualoxZHZBNVpXZ3VvVWFjdjJkeWV2YmozcFBO?=
+ =?utf-8?B?YW05K3RSN0NhMXBuTDg0eldVUVRFSVJOZ3k5WGlMK2dmbGpJTkcxbHhuVGk0?=
+ =?utf-8?B?RFhJbWNkSklxRllwRTh0NDNKUjZjZFZmVEVwSzZsVGxVcjdmaTRicFU4QnBx?=
+ =?utf-8?B?ZlIvNDNGSWswaisyek5Mb1R3L3JsVHFiRTgyUVduQ1AybWE5V29vamVhZEZT?=
+ =?utf-8?B?UC9lbzVVVnZyUXN4Q2Raa0g3RXNEWFBHanJVZFZ3b3BWb25KR2xrSTNUeU1v?=
+ =?utf-8?B?SStPbXZIVjZHcGEzazVrVmNFUDMyNEc1RDEzeFFoR0MxbFJoU0hYbzBSTUpO?=
+ =?utf-8?B?dGh1YlBGL2EvL1kzbkY0cW9LVTdySnJZb1E1Z2o3bWo3dzBzcnMyZ2hRbmxh?=
+ =?utf-8?B?SjNDamwvUkRmM0RDT1B5dW5KTHhvYlloT04vQXFEcXd6cmNoc1JsZmUvQytG?=
+ =?utf-8?B?dEJ1YytEWGJqdzk1SjdOQyt2bkFFbE5ISHE3OHo1MXJvZ1VvalAzVE9PSjhq?=
+ =?utf-8?B?a3hBT3NHRldIbXlrNVFsTi83ZTNwcTVFandMNmN0RzA1akVLcEZVc3UySS93?=
+ =?utf-8?B?alRlbUQ0akF5UURKZDgzdkpoYjUxLzk1NXh1RWFXVkNTQ052Y1JTTmtabDVF?=
+ =?utf-8?B?RzdvOG00NDN1T1hkMTJnaHQxSmFHNEhxOTVmb3lQdTFtOFF4RDF4MEh0VGxx?=
+ =?utf-8?B?RjFKZktON1NZU3pBc0xDUktiSWhOanFPU2VrejJoOEdOUHdWSWRDTFMxNlFR?=
+ =?utf-8?B?M2JSQTVEV3dNdTRJTll2azM3enNCVXM0Y2N1Q3JSNkNGNUxlOFRvcUJlUVVB?=
+ =?utf-8?B?MVJZSWU1dWk0ZkY3MldiMTU0L2hUZEROdmhUK0F4YWdBVEs3VDd6NFBBT2V4?=
+ =?utf-8?B?NVR3dnplblhvdWNlZk1oZG84WHJ1WUw3VHE0bjlmeG1nZ01VMTJ3RDFEV0tC?=
+ =?utf-8?B?YXQxVm4wTmFYbU4yeE1lZXFSL2NkMUJOSkdGVHBLSGlkY2t6ZUVkbzFqZHQw?=
+ =?utf-8?B?d3IvZ1EwQTU3ellqMVZjQ1VmeVJzZ1JnRkE4M1BFVEdmZk5VN1hGQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49993475-b317-49c6-8ca6-08df0deb5639
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 20:54:12.5740
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8e+EvyBJlHabIyhfInFVlRPXio79LhY/LnjQ3nxTBxNoqivW0YvdbA4XuB3QGPfTXSB3VYCS/4bwZJ6FtYcYxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB5185
 
-From: David Heidelberg <david@ixit.cz>
+On Tue Sep 8, 2026 at 6:05 PM BST, Miguel Ojeda wrote:
+> Starting with bindgen 0.73.2 [1], `#[allow(unnecessary_transmutes)]`
+> are used, even when `--rust-target 1.85` is passed.
+>
+> However, the lint was introduced in Rust 1.88.0. Thus building with
+> older Rust versions warns like:
+>
+>     error: unknown lint: `unnecessary_transmutes`
+>          --> rust/uapi/uapi_generated.rs:26294:13
+>           |
+>     26294 |     #[allow(unnecessary_transmutes)]
+>           |             ^^^^^^^^^^^^^^^^^^^^^^
+>           |
+>           =3D note: `-D unknown-lints` implied by `-D warnings`
+>           =3D help: to override `-D warnings` add `#[allow(unknown_lints)=
+]`
+>
+> Thus allow `unknown_lints` in the generated bindings -- only when buildin=
+g
+> with older Rust versions.
+>
+> I have asked upstream if this is intentional [1], i.e. if we are supposed
+> to always allow unknown lints in case `bindgen` uses such attributes,
+> or whether it is an oversight.
+>
+> Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned i=
+n older LTSs).
+> Cc: Emilio Cobos =C3=81lvarez <emilio@crisal.io>
+> Link: https://github.com/rust-lang/rust-bindgen/pull/3455 [1]
+> Assisted-by: LLM
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+> ---
+>  rust/bindings/lib.rs | 1 +
+>  rust/uapi/lib.rs     | 1 +
+>  2 files changed, 2 insertions(+)
+>
+> diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
+> index ad24c920b919..9e2c9a8e7e6c 100644
+> --- a/rust/bindings/lib.rs
+> +++ b/rust/bindings/lib.rs
+> @@ -27,6 +27,7 @@
+>  #[allow(clippy::ptr_as_ptr)]
+>  #[allow(clippy::ref_as_ptr)]
+>  #[allow(clippy::undocumented_unsafe_blocks)]
+> +#[cfg_attr(not(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES), allow(unknown_l=
+ints))]
+>  #[cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_tr=
+ansmutes))]
 
-wled_configure_ovp_irq() derives the initial state of the OVP interrupt
-from the hardware:
+I think we can drop the cfg on the `allow(unnecessary_transmutes)`.
 
-        /* Keep OVP irq disabled until module is enabled */
-        if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-                disable_irq(wled->ovp_irq);
+Best,
+Gary
 
-but wled->brightness, which is what the rest of the driver uses to tell
-whether the module is on, is left at zero.
-
-On boards where the bootloader hands the kernel a lit backlight the two
-disagree. MOD_EN is already set, so the interrupt is left enabled, while
-wled_update_status() still believes the backlight is off and takes
-
-        if (!!brightness != !!wled->brightness)
-                rc = wled_module_enable(wled, !!brightness);
-
-on the first backlight update. wled_module_enable() then schedules
-wled_ovp_work(), which calls enable_irq() on the already enabled
-interrupt:
-
-  Unbalanced enable for IRQ 176
-  WARNING: CPU: 0 PID: 160 at kernel/irq/manage.c:774 __enable_irq+0x50/0x80
-  Hardware name: Xiaomi Pocophone F1 (DT)
-  Workqueue: events wled_ovp_work
-  Call trace:
-   __enable_irq+0x50/0x80
-   enable_irq+0x48/0xa0
-   wled_ovp_work+0x18/0x24
-   process_one_work+0x1d0/0x350
-   worker_thread+0x13c/0x460
-   kthread+0x110/0x114
-   ret_from_fork+0x10/0x20
-
-The bootloader is not the only way to get there. The readback runs after
-wledN_setup(), and wled4_setup() sets MOD_EN itself on the path where the
-sink configuration does not already match, as does the tail of
-wled_auto_string_detection(), which all three setup paths can reach
-through wled_auto_detection_at_init(). A cold-booted board with a dark
-panel can therefore reach the same disagreement.
-
-Move the MOD_EN readback into wled_probe() and use it to seed
-wled->brightness, so the driver starts out agreeing with the hardware,
-and key the OVP interrupt off wled->brightness instead. The first
-backlight update then only reprograms the brightness registers and
-leaves both the module and the interrupt alone. The OVP interrupt also
-stays armed from probe whenever the module is already enabled, rather
-than being disabled at probe and only enabled once something writes
-brightness.
-
-Note that a backlight update requesting brightness 0 before any non-zero
-one now really does turn the module off wherever MOD_EN was already set,
-where before it was silently ignored.
-
-wled->brightness is seeded with default-brightness rather than the level
-the bootloader actually programmed, so the first update can still step
-the brightness. Reading that level back needs a per-version accessor and
-is left for later.
-
-Assisted-by: LLM
-Fixes: 8663c188beea ("backlight: qcom-wled: Add auto string detection logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-this is slightly annoying bug sdm845-mainline had patched for a years,
-but not very well. This should be the proper patch, got ack from people
-with Xiaomi Poco F1 (ebbg variant) which does use this so it works.
-
-Adding MSM8953 folks into Cc too, which use the early fix.
----
- drivers/video/backlight/qcom-wled.c | 32 +++++++++++++++++++++-----------
- 1 file changed, 21 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/video/backlight/qcom-wled.c b/drivers/video/backlight/qcom-wled.c
-index 650dd95f06ef5..344b8cad90105 100644
---- a/drivers/video/backlight/qcom-wled.c
-+++ b/drivers/video/backlight/qcom-wled.c
-@@ -1622,54 +1622,49 @@ static int wled_configure_short_irq(struct wled *wled,
- 
- 	return rc;
- }
- 
- static int wled_configure_ovp_irq(struct wled *wled,
- 				  struct platform_device *pdev)
- {
- 	int rc;
--	u32 val;
- 
- 	wled->ovp_irq = platform_get_irq_byname(pdev, "ovp");
- 	if (wled->ovp_irq < 0) {
- 		dev_dbg(&pdev->dev, "OVP IRQ not found - disabling automatic string detection\n");
- 		return 0;
- 	}
- 
- 	rc = devm_request_threaded_irq(wled->dev, wled->ovp_irq, NULL,
- 				       wled_ovp_irq_handler, IRQF_ONESHOT,
- 				       "wled_ovp_irq", wled);
- 	if (rc < 0) {
- 		wled->ovp_irq = 0;
- 		return 0;
- 	}
- 
--	rc = regmap_read(wled->regmap, wled->ctrl_addr +
--			 WLED3_CTRL_REG_MOD_EN, &val);
--	if (rc < 0)
--		return rc;
--
--	/* Keep OVP irq disabled until module is enabled */
--	if (!(val & WLED3_CTRL_REG_MOD_EN_MASK))
-+	/* Keep the OVP irq disabled until the module is enabled */
-+	if (!wled->brightness)
- 		disable_irq(wled->ovp_irq);
- 
- 	return 0;
- }
- 
- static const struct backlight_ops wled_ops = {
- 	.update_status = wled_update_status,
- };
- 
- static int wled_probe(struct platform_device *pdev)
- {
- 	struct backlight_properties props;
- 	struct backlight_device *bl;
- 	struct wled *wled;
- 	struct regmap *regmap;
-+	u32 mod_en;
- 	u32 val;
- 	int rc;
- 
- 	regmap = dev_get_regmap(pdev->dev.parent, NULL);
- 	if (!regmap) {
- 		dev_err(&pdev->dev, "Unable to get regmap\n");
- 		return -EINVAL;
- 	}
-@@ -1729,27 +1724,42 @@ static int wled_probe(struct platform_device *pdev)
- 
- 	default:
- 		dev_err(wled->dev, "Invalid WLED version\n");
- 		break;
- 	}
- 
- 	INIT_DELAYED_WORK(&wled->ovp_work, wled_ovp_work);
- 
-+	val = WLED_DEFAULT_BRIGHTNESS;
-+	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
-+
-+	/*
-+	 * The module may already be enabled, either by a bootloader that left
-+	 * the backlight lit or by the setup above. Record that, so that the
-+	 * first brightness update does not enable an already enabled module,
-+	 * and so that the OVP irq is armed from probe rather than from that
-+	 * first update.
-+	 */
-+	rc = regmap_read(wled->regmap, wled->ctrl_addr + WLED3_CTRL_REG_MOD_EN,
-+			 &mod_en);
-+	if (rc < 0)
-+		return rc;
-+
-+	if (mod_en & WLED3_CTRL_REG_MOD_EN_MASK)
-+		wled->brightness = val;
-+
- 	rc = wled_configure_short_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
- 	rc = wled_configure_ovp_irq(wled, pdev);
- 	if (rc < 0)
- 		return rc;
- 
--	val = WLED_DEFAULT_BRIGHTNESS;
--	of_property_read_u32(pdev->dev.of_node, "default-brightness", &val);
--
- 	memset(&props, 0, sizeof(struct backlight_properties));
- 	props.type = BACKLIGHT_RAW;
- 	props.brightness = val;
- 	props.max_brightness = wled->max_brightness;
- 	bl = devm_backlight_device_register(&pdev->dev, wled->name,
- 					    &pdev->dev, wled,
- 					    &wled_ops, &props);
- 	return PTR_ERR_OR_ZERO(bl);
-
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260908-qcom-wled-backlight-fd9574027353
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+>  #[cfg_attr(
+>      CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+> diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
+> index 2df0340e63d1..c1e27192ecce 100644
+> --- a/rust/uapi/lib.rs
+> +++ b/rust/uapi/lib.rs
+> @@ -24,6 +24,7 @@
+>      unreachable_pub,
+>      unsafe_op_in_unsafe_fn
+>  )]
+> +#![cfg_attr(not(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES), allow(unknown_=
+lints))]
+>  #![cfg_attr(CONFIG_RUSTC_HAS_UNNECESSARY_TRANSMUTES, allow(unnecessary_t=
+ransmutes))]
+>  #![cfg_attr(
+>      CONFIG_RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS,
+>
+> base-commit: 2ac74c6db40adaa29c50cbb281ae9a6f63de18e1
 
 
