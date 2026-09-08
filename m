@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94AC53D0C5
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:41:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B1253D0A0
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871314; cv=none; b=JFvuQcoCH7+ByF8SjUporPSP5xK2Aq+3IKxgbnsTYSqqrBL3zJfwBV7Tukde81hE+C0KXB167hP5G8qAOojTrORQ5pfNHdvIpL5xjwBAo7PzgzuOw0z6Dj0Fjlegv82SmesiQ7TB7ifGiqBL131wJW9sFpigwopUwPbKVsjC0ws=
+	t=1788871321; cv=none; b=LLMLInNh53SPwXw0ucwHcCHCA3IKHvvsm1f/cjTV6WhTCsjvLjzZMhbfqrW7AWeq7GdYVPlqZtCfz7BLxZMH9WoL1KpvR5gRRzXlfJfLoCkgA3+EJXYM3JSiZc7mPebT4LWuiVP9yhbFLdyuvINlyaRN/1vx4ujS3mLlha8wF/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871314; c=relaxed/simple;
-	bh=KBVSUcO2K9sijXKq3sq9NuefF78h7Nw5djj5ZaDScaQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=R4fcJVhQ687zL/yLPBLBC98DjND/q9DqVlsdcaDlkBa8Y7p1Ae/XuF3QFnHgM1RsD9DTGuTsjVyauYqRcSKnuzqgXpD9xdgBa2fvTwqsd6MAot+3PHGUn0Uo+AYMVA7YfVdx+zIHZEx93jacSCGX5tf/KTwe1+iiclSw2Idv2cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z/ITzE4W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871321; c=relaxed/simple;
+	bh=dztQqmjyimkHchzzqcByDchkvj8O4qs7FFidBuQFDzE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ruEB3MhVgccS4H/TCmtuIadwYrYAFnFIpibMDb4ZA5q86S/QCE8W88k2qfDBzXU57Mf9aH4KNYVMaY3rlvmupKwXiVoS6MvnkiKu96HYRhLOATghYlLm49nDcRhTvTxSZShn2n7R/2mzlMRELQWi1JgT0Tp1qT8AO7UZol+F9K4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TGwXsNKC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z/ITzE4W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 441CF1F00A3A;
-	Tue,  8 Sep 2026 12:41:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TGwXsNKC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A053C1F00A3A;
+	Tue,  8 Sep 2026 12:41:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788871312;
-	bh=/zKNhPG9PkswIKmCJ4ZFbMjC3ZlAr+CTk+zbep6jf+w=;
+	s=korg; t=1788871320;
+	bh=hGim9nm76XSZG1VcKIs2LMCu6B6s/EOgIQ/Lwh9DIyA=;
 	h=Subject:To:Cc:From:Date;
-	b=Z/ITzE4WVWzeV1CqFIIBRewSNIfxPr9AWBxE0wly1Pl6ykmXRY77YNJTYBlM8kbuq
-	 RzI6EdwS74JkFTD3qr7EprWxeZg0cvgEdU4rN76AE35u+UvRUtDiTNGzGiJC6bXAIk
-	 NfLs7ZfRSY6X82pUm5OUGuy11n1nNgQInhvTX938=
-Subject: FAILED: patch "[PATCH] staging: sm750fb: fix mono image source stride mismatch in" failed to apply to 5.10-stable tree
-To: meatuni001@gmail.com,error27@gmail.com,gregkh@linuxfoundation.org
+	b=TGwXsNKCivExWN5Yfad2oetseoLIXm96MeB5obDhQNGUzVmpM8PWrHPuV/VH3cAS/
+	 xy3IatjTxbFVBg1CKC1M3wqT/q5LE6gpiqlKpeQ77wfOHYIDIMB0RbdLAQz4q3ft++
+	 EGY1sMY8HYUniMVaZuIDPpyFiRFaj+x1yJg8eqUI=
+Subject: FAILED: patch "[PATCH] staging: rtl8723bs: fix OOB read / stack overflow in" failed to apply to 5.10-stable tree
+To: meatuni001@gmail.com,gregkh@linuxfoundation.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:41:31 +0200
-Message-ID: <2026090831-improve-varied-70b4@gregkh>
+Date: Tue, 08 Sep 2026 14:41:53 +0200
+Message-ID: <2026090853-convent-spill-68e6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x cc7cd2a9228175c975f62ad56ed7c767701cb4fa
+git cherry-pick -x 99aa998dec83ba180822f70e6d48a514fc81c20d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090831-improve-varied-70b4@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090853-convent-spill-68e6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,133 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cc7cd2a9228175c975f62ad56ed7c767701cb4fa Mon Sep 17 00:00:00 2001
+From 99aa998dec83ba180822f70e6d48a514fc81c20d Mon Sep 17 00:00:00 2001
 From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 1 Sep 2026 16:30:31 +0500
-Subject: [PATCH] staging: sm750fb: fix mono image source stride mismatch in
- lynxfb_ops_imageblit()
+Date: Tue, 28 Jul 2026 17:54:54 +0500
+Subject: [PATCH] staging: rtl8723bs: fix OOB read / stack overflow in
+ rtw_get_wps_attr()
 
-sm750_hw_imageblit() advances its monochrome source pointer by
-src_delta per scanline, and computes the correct rounded-up stride
-internally as:
+rtw_get_wps_attr() walks WPS attributes inside a WPS IE taken from
+a wireless management frame. For each candidate attribute it only
+checks that the fixed 4-byte attribute header (2-byte ID + 2-byte
+length) fits inside the IE:
 
-        bytes_per_scan = (width + start_bit + 7) / 8;
+	if (attr_ptr + 4 > wps_ie + wps_ielen)
+		break;
+	u16 attr_id = get_unaligned_be16(attr_ptr);
+	u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
+	u16 attr_len = attr_data_len + 4;
 
-Its only caller, lynxfb_ops_imageblit(), instead passed src_delta as
-image->width >> 3. For widths not a multiple of 8 this under-counted
-the stride, so the source pointer fell further behind the real
-per-scanline layout on every line, corrupting the rendered image.
+attr_data_len (and therefore attr_len) is read directly from the
+wire and is never checked against the remaining bytes in the IE
+before being used as the size of:
 
-Rather than just fixing the caller's calculation, remove src_delta
-as a parameter entirely and have sm750_hw_imageblit() advance by the
-bytes_per_scan it already computes for itself. There has only ever
-been one caller, and that caller was passing an out-of-sync
-derivative of the same width/start_bit values sm750_hw_imageblit()
-already has, so keeping stride as a separate parameter served no
-purpose beyond letting the two calculations drift apart, which is
-exactly what happened here.
+	memcpy(buf_attr, attr_ptr, attr_len);
 
-Rounding up, rather than down, is the direction consistent with the
-rest of the fbdev core: struct fb_image mono bitmap data (the same
-image->data this driver receives) is walked elsewhere with byte
-strides derived from a ceiling division of width by 8. The generic
-mono bit iterator in drivers/video/fbdev/core/fb_imageblit.h advances
-scanlines with "iter->data += BITS_TO_BYTES(iter->width)", and
-BITS_TO_BYTES() (include/linux/bitops.h) is a ceiling division.
-sm750_hw_imageblit()'s own "(width + start_bit + 7) / 8" is that same
-ceiling division with an added start_bit offset, so the caller's
-">> 3" (floor) was the one calculation out of step with how this data
-layout is handled everywhere else.
+Since attr_len is fully attacker controlled (0 to 65535+4), this is
+both a heap OOB read of wps_ie, and, more seriously, a stack buffer
+overflow at several call sites where buf_attr is a single-byte
+stack variable, e.g. rtw_get_wps_attr_content()'s callers passing
+WPS_ATTR_SELECTED_REGISTRAR into a stack "u8 sr"/"u8
+selected_registrar" (drivers/staging/rtl8723bs/os_dep/ioctl_cfg80211.c,
+drivers/staging/rtl8723bs/core/rtw_mlme_ext.c). A crafted WPS IE in a
+beacon or probe response processed during scanning can therefore
+smash the stack of the parsing thread.
 
-Found by code review of sm750_hw_imageblit()'s internal stride
-calculation against what its only caller was passing in, and
-confirmed with a clean -Werror build. I do not have this hardware,
-so this has not been exercised at runtime on real sm750 silicon.
+rtw_get_wps_attr_content() itself has no independent length check
+and simply trusts the attr_len it gets back from rtw_get_wps_attr(),
+so fixing the bound here also fixes that caller.
 
-Fixes: 81dee67e215b2 ("staging: sm750fb: add sm750 to staging")
+The "attr_ptr + 4 > wps_ie + wps_ielen" header check above was added
+by commit 1463ca3ec6601 ("staging: rtl8723bs: fix OOB reads in
+rtw_get_sec_ie(), rtw_get_wapi_ie(), and rtw_get_wps_attr()"), which
+bounded the fixed header but never extended the check to cover the
+variable-length attribute data that follows it. Add that missing
+check before attr_len is used as a memcpy() length or accepted as a
+match.
+
+Fixes: 554c0a3abf216 ("staging: Add rtl8723bs sdio wifi driver")
 Cc: stable@vger.kernel.org
-Reviewed-by: Dan Carpenter <error27@gmail.com>
 Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-Link: https://patch.msgid.link/20260901113031.161610-1-meatuni001@gmail.com
+Link: https://patch.msgid.link/20260728125456.32359-2-meatuni001@gmail.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
-diff --git a/drivers/staging/sm750fb/sm750.c b/drivers/staging/sm750fb/sm750.c
-index 039e2033f84e..8b93bfeb217b 100644
---- a/drivers/staging/sm750fb/sm750.c
-+++ b/drivers/staging/sm750fb/sm750.c
-@@ -252,7 +252,7 @@ static void lynxfb_ops_imageblit(struct fb_info *info,
- 	spin_lock(&sm750_dev->slock);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+index 66f476a46aad..2a58a5cdd9f5 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
++++ b/drivers/staging/rtl8723bs/core/rtw_ieee80211.c
+@@ -741,6 +741,10 @@ u8 *rtw_get_wps_attr(u8 *wps_ie, uint wps_ielen, u16 target_attr_id, u8 *buf_att
+ 		u16 attr_data_len = get_unaligned_be16(attr_ptr + 2);
+ 		u16 attr_len = attr_data_len + 4;
  
- 	sm750_dev->accel.de_imageblit(&sm750_dev->accel,
--				      image->data, image->width >> 3, 0,
-+				      image->data, 0,
- 				      base, pitch, bpp,
- 				      image->dx, image->dy,
- 				      image->width, image->height,
-diff --git a/drivers/staging/sm750fb/sm750.h b/drivers/staging/sm750fb/sm750.h
-index 89a61bf80779..fd1cf9eb5797 100644
---- a/drivers/staging/sm750fb/sm750.h
-+++ b/drivers/staging/sm750fb/sm750.h
-@@ -64,7 +64,7 @@ struct lynx_accel {
- 			   u32 rop2);
- 
- 	int (*de_imageblit)(struct lynx_accel *accel, const char *p_srcbuf,
--			    u32 src_delta, u32 start_bit, u32 d_base, u32 d_pitch,
-+			    u32 start_bit, u32 d_base, u32 d_pitch,
- 			    u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 			    u32 height, u32 f_color, u32 b_color, u32 rop2);
- 
-diff --git a/drivers/staging/sm750fb/sm750_accel.c b/drivers/staging/sm750fb/sm750_accel.c
-index 0316ea69d009..bac9a209899c 100644
---- a/drivers/staging/sm750fb/sm750_accel.c
-+++ b/drivers/staging/sm750fb/sm750_accel.c
-@@ -288,8 +288,6 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
-  * sm750_hw_imageblit
-  * @accel: Acceleration device data
-  * @src_buf: pointer to start of source buffer in system memory
-- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *	      and -ive mean button up
-  * @start_bit: Mono data can start at any bit in a byte, this value should be
-  *	      0 to 7
-  * @dest_base: Address of destination: offset in frame buffer
-@@ -304,7 +302,7 @@ static unsigned int de_get_transparency(struct lynx_accel *accel)
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
--		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
-+		       u32 start_bit, u32 dest_base, u32 dest_pitch,
- 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2)
- {
-@@ -395,7 +393,7 @@ int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
- 			write_dp_port(accel, *(unsigned int *)remain);
- 		}
- 
--		src_buf += src_delta;
-+		src_buf += bytes_per_scan;
- 	}
- 
- 	return 0;
-diff --git a/drivers/staging/sm750fb/sm750_accel.h b/drivers/staging/sm750fb/sm750_accel.h
-index 617885431661..efceefaaafb0 100644
---- a/drivers/staging/sm750fb/sm750_accel.h
-+++ b/drivers/staging/sm750fb/sm750_accel.h
-@@ -220,8 +220,6 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
- /**
-  * sm750_hw_imageblit
-  * @src_buf: pointer to start of source buffer in system memory
-- * @src_delta: Pitch value (in bytes) of the source buffer, +ive means top down
-- *>-----      and -ive mean button up
-  * @start_bit: Mono data can start at any bit in a byte, this value should be
-  *>-----      0 to 7
-  * @dest_base: Address of destination: offset in frame buffer
-@@ -236,7 +234,7 @@ int sm750_hw_copyarea(struct lynx_accel *accel,
-  * @rop2: ROP value
-  */
- int sm750_hw_imageblit(struct lynx_accel *accel, const char *src_buf,
--		       u32 src_delta, u32 start_bit, u32 dest_base, u32 dest_pitch,
-+		       u32 start_bit, u32 dest_base, u32 dest_pitch,
- 		       u32 byte_per_pixel, u32 dx, u32 dy, u32 width,
- 		       u32 height, u32 fg_color, u32 bg_color, u32 rop2);
++		/* Reject attributes whose claimed length runs past the IE */
++		if (attr_ptr + attr_len > wps_ie + wps_ielen)
++			break;
++
+ 		if (attr_id == target_attr_id) {
+ 			target_attr_ptr = attr_ptr;
  
 
