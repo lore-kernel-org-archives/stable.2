@@ -1,178 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBDA4A2054;
-	Tue,  8 Sep 2026 09:44:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B796503BD2
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 09:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860675; cv=none; b=eJy9dmJDBsO7B5JUKmDakTSASR8vAp5DdpRpw8WHY3arK7jpcheLlg4pklc9sGTSrgrvhUa2Xs6vHBLoO9Xmn9ob3ifyUvPNUg0UxDszd/6k/Jhgex2B7Mh8AjS1qhQJlcYdkmH43SRYNgavbcMGzXLtFNDcgFI8xP3QALYdtbc=
+	t=1788860926; cv=none; b=Pp//CCNMv27YARxWw6bmf/nN5UYlI7wbKiCpK773zhalkuJ1Tdvw4k1ZOui8c3bKgaujnE8oSFsVW8W4rOZiocGbE8D55Ezz5VPQHx+VFo58IZkElI1WYmfg8Mv5DjL0Z0ULVpvWoDmJn2eICnpvbKA2xibrBGNt3jRcUQy0x3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860675; c=relaxed/simple;
-	bh=/fM/3DeNRM/hpy+XI/OaAcMkaAppLx+OR5ByAnXZ/Hw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cpWVKVhWVVQSOPb6hZshv1GVs+myYzcljN9vQ8NPgrkbs/54GWOupNVavlwgSpvL/FteKFl3WP+4ZTHBcqir8mUll7XbpTthCdZUTnlzttd1UwkUedS5A4NzXtZ9CClETPVhbGbVwuQfLdlZSG4ktI5/1jDLs2kHipQrEpQ10yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QwnSribJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788860926; c=relaxed/simple;
+	bh=Blvn0uWkNwe49PloPyDuYxxfjFByrGWCHWjXd2Ojztk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MFk70piGTDertMA87yZwgtiSC+djUo9wJzUaOBhXq7jCQ+ExqneBqcf3lzavwKjbj4VwhWlKVdsU73JedErXRr79UEQhGvIeiaFB30k2+B9GexFRYYjpSac6GF3lUu/dBlt4RVIr2U+XxguwKZ30c3yeZK4dYIr4uTqXWq746Cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GXheTZKx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QwnSribJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C2271F00A3D;
-	Tue,  8 Sep 2026 09:44:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GXheTZKx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 640941F00A3E
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 09:48:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788860674;
-	bh=31RESal0oxUQkNxnYSSfJTK23Ug+f0ib59X6XZEjteE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QwnSribJ4Uww4GNXtT/mUdueoV9cbeLQb4tmxlSPEALoVpAgfyN5+lB8oNL8kcXQi
-	 JY+Zwt/3FM3N8QVeHQQaPBM0+WXxGORZpMAoQtBRE7SRz+jaA3hhOtnV4S8jIt/FCA
-	 XxIanULE67SbhOMoRpRPBGv0XILWnWdVjHOE1CgVJ/6r74Dojc6lkcO3IzEo//JB+k
-	 IdkgNtLpRa/t6P1ZoqBKIoSVHn08sXnML7W+KejSwvwQCTcU3Cj6Q9Rz5bGH2dYszc
-	 TZquZWXDlJAJGPz0xMAnANB3vy4geiCkPCq981Lk671SG4sQn4wuRoMLPoqrn0sBOr
-	 8aPu/JzfjZLLA==
-From: Namjae Jeon <linkinjeon@kernel.org>
-To: hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ntfs: account for MFT records added during allocation
-Date: Tue,  8 Sep 2026 18:44:11 +0900
-Message-Id: <20260908094416.10534-3-linkinjeon@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260908094416.10534-1-linkinjeon@kernel.org>
-References: <20260908094416.10534-1-linkinjeon@kernel.org>
+	s=k20260515; t=1788860925;
+	bh=4Cf+UZQ9uYJ7kCGqPtyT8Ptnze6DfkvO3+nNpliRVl8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=GXheTZKx+hbpJIFdtsxpQeDWYa7m9Mad1LnG+bmqVtuZG8BGx+xoR2WmVvuIEvohO
+	 A+mw3BE6J0ZYlHhjKXBdOb0AC3jdUZaGmVohNSR8h8kXE3OhloEPlAXa21W+0bLj0z
+	 s4186j+IwzTgB5u/vMkHBFxwNa5Fuq06ZegeNOnuPVMBZmbAiLN4j3uSMC/Dp1SLBm
+	 xs6fyx2vEl+j3gzCX9QI9Qobi4j/w93C6XoV9H4D6gndlnOSE5MNdMvWi6GmIieM4k
+	 E+A/9DsTo0azxG9cs8HFXVEDfLP4ImulJ8s/DeLCA6ElEjrnzAIZG0bw1U8xqoBi3e
+	 p0z23czb/nq+w==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c252c7270faso642520966b.3
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 02:48:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzFqIeDfdYIJSh1hmIq7+QAHTq3dcUmy3ElLdbv6YaJGwa9jIcWWE7FT8yAx3Kdn4EutpmB+3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+ZvqWv1rVZUNeHH5QxxHOnPyx2eNbEFRnDbUzJ2VEOywSlhy3
+	ea+ivSvWCN1Ois7c8pEvqjAvTVRYi46yBTqbu/WplX3VQXzVHTDKdHfIv+l3MyNE6R6HYKXvj/w
+	ybSc6+zhKSQPN1bUViLPGLnNrzD2cap8=
+X-Received: by 2002:a17:906:ba8f:b0:c25:c14d:1c4d with SMTP id
+ a640c23a62f3a-c260c9ba8e8mr1898142866b.7.1788860924020; Tue, 08 Sep 2026
+ 02:48:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <AS8P251MB000178EC4EE49C074687E8CBC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+In-Reply-To: <AS8P251MB000178EC4EE49C074687E8CBC8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 8 Sep 2026 18:48:30 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-oexdTbBKid8tNEQiX=uShzssNQ=W6dQcsxzmSih2ccA@mail.gmail.com>
+X-Gm-Features: AcwNN1W8WDN5_FLtEzP2xFQ0HjghcEWtHxnJRMPjUKs3po7v79lggASIXD8-RDk
+Message-ID: <CAKYAXd-oexdTbBKid8tNEQiX=uShzssNQ=W6dQcsxzmSih2ccA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: initialise the reserved fields of six SMB2 responses
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: Steve French <sfrench@samba.org>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When no free MFT record is available in the initialized $MFT/$BITMAP,
-ntfs_mft_record_alloc() extends $MFT/$DATA and formats the requested record
-together with a dynamically sized tail reserve. Those records become
-visible through the $MFT file size before charging the requested record to
-the free-record counter.
-
-Account for all newly visible records before releasing the MFT allocation
-lock, then subtract the one record being allocated. Keep MFT counter
-updates independent of the asynchronous free-cluster scan and update the
-counter when a record is successfully cleared in the MFT bitmap.
-
-Store the clamped result of the MFT bitmap scan and keep statfs from
-exposing an invalid cached count if an accounting error occurs.
-
-Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
----
- fs/ntfs/mft.c    | 11 ++++++++---
- fs/ntfs/super.c  | 12 +++++++++---
- fs/ntfs/volume.h |  6 ------
- 3 files changed, 17 insertions(+), 12 deletions(-)
-
-diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-index 61d4ee3a57fd..f0656d0bbeeb 100644
---- a/fs/ntfs/mft.c
-+++ b/fs/ntfs/mft.c
-@@ -1539,7 +1539,6 @@ static int ntfs_mft_bitmap_extend_initialized_nolock(struct ntfs_volume *vol)
- 	ret = ntfs_attr_set(mftbmp_ni, old_initialized_size, 8, 0);
- 	if (likely(!ret)) {
- 		ntfs_debug("Done.  (Wrote eight initialized bytes to mft bitmap.");
--		ntfs_inc_free_mft_records(vol, 8 * 8);
- 		return 0;
- 	}
- 	ntfs_error(vol->sb, "Failed to write to mft bitmap.");
-@@ -2135,6 +2134,7 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 			  struct mft_record **ni_mrec, const s64 mft_data_vcn)
- {
- 	s64 ll, bit, old_data_initialized, old_data_size;
-+	s64 nr_new_mft_records = 0;
- 	s64 max_mft_no = -1, reserve_start = -1, reserve_end = -1;
- 	s64 candidate_reserve_end = -1;
- 	s64 *reserve_endp;
-@@ -2501,8 +2501,13 @@ int ntfs_mft_record_alloc(struct ntfs_volume *vol, const int mode,
- 			mft_ni->initialized_size);
- 	WARN_ON(i_size_read(vol->mft_ino) > mft_ni->allocated_size);
- 	WARN_ON(mft_ni->initialized_size > i_size_read(vol->mft_ino));
-+	nr_new_mft_records = (i_size_read(vol->mft_ino) - old_data_size) >>
-+			     vol->mft_record_size_bits;
- 	read_unlock_irqrestore(&mft_ni->size_lock, flags);
- mft_rec_already_initialized:
-+	/* Account for newly visible MFT records before dropping the lock. */
-+	if (nr_new_mft_records > 0)
-+		ntfs_inc_free_mft_records(vol, nr_new_mft_records);
- 	/*
- 	 * We can finally drop the mft bitmap lock as the mft data attribute
- 	 * has been fully updated.  The only disparity left is that the
-@@ -2813,6 +2818,8 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
- 	if (base_ni->mft_no != FILE_MFT)
- 		down_write(&vol->mftbmp_lock);
- 	err = ntfs_bitmap_clear_bit(vol->mftbmp_ino, mft_no);
-+	if (!err)
-+		ntfs_inc_free_mft_records(vol, 1);
- 	if (!err && base_ni->mft_no == FILE_MFT &&
- 	    mft_no + 1 == vol->mft_record_reserve_pos &&
- 	    mft_no < vol->mft_record_reserve_end)
-@@ -2822,9 +2829,7 @@ int ntfs_mft_record_free(struct ntfs_volume *vol, struct ntfs_inode *ni)
- 	memalloc_nofs_restore(memalloc_flags);
- 	if (err)
- 		goto bitmap_rollback;
--
- 	unmap_mft_record(ni);
--	ntfs_inc_free_mft_records(vol, 1);
- 	return 0;
- 
- 	/* Rollback what we did... */
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 60d43339c590..0867d6a82ebe 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -2064,8 +2064,7 @@ static unsigned long __get_nr_free_mft_records(struct ntfs_volume *vol,
- 	/* If errors occurred we may well have gone below zero, fix this. */
- 	if (nr_free < 0)
- 		nr_free = 0;
--	else
--		atomic64_set(&vol->free_mft_records, nr_free);
-+	atomic64_set(&vol->free_mft_records, nr_free);
- 
- 	ntfs_debug("Exiting.");
- 	return nr_free;
-@@ -2131,7 +2130,14 @@ static int ntfs_statfs(struct dentry *dentry, struct kstatfs *sfs)
- 	read_unlock_irqrestore(&mft_ni->size_lock, flags);
- 
- 	/* Free inodes in fs (based on current total count). */
--	sfs->f_ffree = atomic64_read(&vol->free_mft_records);
-+	size = atomic64_read(&vol->free_mft_records);
-+	if (unlikely(size < 0 || size > (s64)sfs->f_files))
-+		ntfs_warning(vol->sb, "Invalid free MFT record count %lld.", size);
-+	if (size < 0)
-+		size = 0;
-+	else if (size > (s64)sfs->f_files)
-+		size = sfs->f_files;
-+	sfs->f_ffree = size;
- 
- 	/*
- 	 * File system id. This is extremely *nix flavour dependent and even
-diff --git a/fs/ntfs/volume.h b/fs/ntfs/volume.h
-index 2b60d14fc7ef..bc85a9592245 100644
---- a/fs/ntfs/volume.h
-+++ b/fs/ntfs/volume.h
-@@ -258,17 +258,11 @@ static inline void ntfs_dec_free_clusters(struct ntfs_volume *vol, s64 nr)
- 
- static inline void ntfs_inc_free_mft_records(struct ntfs_volume *vol, s64 nr)
- {
--	if (!NVolFreeClusterKnown(vol))
--		return;
--
- 	atomic64_add(nr, &vol->free_mft_records);
- }
- 
- static inline void ntfs_dec_free_mft_records(struct ntfs_volume *vol, s64 nr)
- {
--	if (!NVolFreeClusterKnown(vol))
--		return;
--
- 	atomic64_sub(nr, &vol->free_mft_records);
- }
- 
--- 
-2.25.1
-
+On Mon, Sep 7, 2026 at 8:38=E2=80=AFAM Aamir Ahmed <elb12345@hotmail.co.uk>=
+ wrote:
+>
+> smb2_allocate_rsp_buf() zeroes the response buffer, so a standalone
+> request never leaks.  A compound request can: the offset of the next
+> response is advanced by the length pinned for the previous one, so a
+> reply that was written into the buffer and then dropped in favour of the
+> short error response of smb2_set_err_rsp() stays there, and the next
+> reply is laid over it clearing only
+>
+>         memset(rsp_hdr, 0, sizeof(struct smb2_hdr) + 2);
+>
+> which covers the header and StructureSize and stops before Reserved.
+>
+> Six responses declare their full size but leave a field unwritten, so
+> those bytes reach the client as they are found in the buffer:
+>
+>   - get_file_standard_info() and get_standard_info_pipe() never set
+>     smb2_file_standard_info.Reserved, 2 bytes at offset 22 of the 24
+>     they report.
+>   - find_file_posix_info() never sets smb311_posix_qinfo.Zero or
+>     .ReparseTag, 4 bytes each at offsets 64 and 72 of the 112 it
+>     reports.
+>   - smb2_session_logoff() and smb2_tree_disconnect() never set Reserved
+>     in their 4-byte bodies, which are pinned with a bare sizeof().
+>   - the FSCTL_GET_REPARSE_POINT case of smb2_ioctl() sets ReparseTag and
+>     ReparseDataLength but not reparse_data_buffer.Reserved, 2 bytes at
+>     offset 6 of the 8 it reports.
+>
+> The logoff and tree disconnect cases are oversights rather than
+> convention: five responses share the layout { hdr; __le16 StructureSize;
+> __le16 Reserved; }, and smb2_echo(), smb2_flush() and smb2_lock() all
+> zero Reserved explicitly while those two do not.
+>
+> This is the same class as the FS_OBJECT_ID_INFORMATION and
+> FS_CONTROL_INFORMATION leaks fixed in the series merged on 2026-08-31.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+Applied it to #ksmbd-for-next.
+Thanks!
