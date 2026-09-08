@@ -1,24 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DAB5452B2
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:54:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EEB5452AE
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:54:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872079; cv=none; b=uS7m4pM3dA1VagiHlgHWvZIPAHSl3knHqrg6YYLHqzIpR+0nxva/qZrHo4XPT6E3YK02nGY8xENip2r7uFNEUA2j4V0IUlwJ1f9ZrvlZpLVXbdLzh9wUihd85MqqOBp3bygZbYADFYqgdXVlmx/BFAt3YcXyAQdwkeq0jNY7snk=
+	t=1788872090; cv=none; b=AWucT7rZlkrqPekCe0PCiNl1nLSytkYl//aHhqCybjoWv9EsTwEmUIIx0+4wbceuNs3i5k7k3GEKKpfuD2/uXlZgNG+w53pvhhV8llf2T9EsrNobNcJfOaQA33/r1E4zjEaJnTgnF8RUACLWq7E208PNnT2y1VYmUCZtL0G+6Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872079; c=relaxed/simple;
-	bh=swwhrHWDOIh+4eKDE/odPZxi0gwN5H/vaCzG10Xci5w=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=g56kKEWzSCDyORnAHjVTXZumc5BZCsltmdYWP1RyOK13ZsGD0Fe4K7DFxN/Ws8273j13bmqHhrgk3M62+DXsk5o7BvU4odhSWezMNljQMP8f17Y9JGNk1FZv+5ZOtvtXTjXYA3nXmDY7x90E9GHKRS0uFItgY3vpOJ8R0xN/fQ4=
+	s=arc-20240116; t=1788872090; c=relaxed/simple;
+	bh=WKhAwVROo5rYeYdoPH9QTs17Gpm3C0j6DxhtThS8aYs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fyMzlXYnxptOF2tkx3/+pWCjgaxuDKiM3mVriq6IhMP2KBgxAiyVEn9Q4+xqdY1SnslNF2exoPeqKKyJwU3LL/COtiNlfDI7PzNgMC3m2XUYHsmz9yXxKWHeCkgQK04tiv7A9RHFtDvGoHICKu79kjjwxZfz3qJeJJkwseAqiQM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A99D71F00A3E;
-	Tue,  8 Sep 2026 12:54:36 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix BTF kflag check for anonymous struct" failed to apply to 6.18-stable tree
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE011F00A3A;
+	Tue,  8 Sep 2026 12:54:47 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] tracing/probes: Fix BTF kflag check for anonymous struct" failed to apply to 6.12-stable tree
 To: mhiramat@kernel.org,rostedt@goodmis.org,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 14:45:49 +0200
-Message-ID: <2026090849-jawed-juggling-59e4@gregkh>
+Message-ID: <2026090849-pronto-annuity-bccb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -29,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 47e93045a2db80d24f5fef65adecc6b2b32efa23
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090849-jawed-juggling-59e4@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090849-pronto-annuity-bccb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
