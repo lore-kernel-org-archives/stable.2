@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EEA2517BAB
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7825517BAB
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872338; cv=none; b=pgQEsKeExIvY6ohbVg6t6wgLIaIMRq7VIBFrF35zawVKAqfy6ThmLbVZuQG+ikE+z5yEBjvseMHlJaor06uaPZKA92ImQfV4OirQPidDomcFBJJJoYW3Y90TmAyRIjvOPxezybYBoyOZyaXe3KcLt1KkCy7a5fabQPrZa1yCEnI=
+	t=1788872346; cv=none; b=PJ9hgPcBv82fxxQBxLlhiWjfEmmzfb9lgaVV9odq8acg96ovHc3OQH31JqJRW1G92cWQYs0N1maZFAnWcXmMNm6YVKxnxLN8SlGh4OuPbDvjPPFhe8tDaSIvRM5kfkVbSKtHOceI6QOZ/tTOThhuCjVvQKb+8H0uYXa419BcCBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872338; c=relaxed/simple;
-	bh=4UQgB7+0+JEhVXz8ALEjW3N1sX2IARIbQKvTQaRirJA=;
+	s=arc-20240116; t=1788872346; c=relaxed/simple;
+	bh=2uSQCgQ1PuKuJL7FTs6OdlMKHoBBcqmLpHTKTqsvWK8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mx9Tpo3d7oLzcQviv8W+NWB+OpfQ0HdrRctjsu91QNb0SrcCHeEABFhbeVmJ5Cd/lJr98gD70wqsczEphcghTj5JXPNWNR3HAgelfbDCBmHHqp5OFUgVi2oxqnbLWXKElV4Gabq3ardnFcgytSyJAif4F+uOGsLnh2h3A3DMbfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RpLP5TaB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=l2Q09aMRNAkr2nxh1+RKJ57YsvDWAxjMbWC1TtNZ9mu9HkZb6MY+hIJI1YJefjEe4OuGYRMQ+armBLPaM9bQ+TSg+SKkzxVOQT64gX4ZTkM35mhfsgLkmRiJXUyaKy6GIHXAuh+zxYw6xUO/qyG2mtIGsyMLLF41ODeHmNob2rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Arn8Hnm8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RpLP5TaB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C227A1F00A3A;
-	Tue,  8 Sep 2026 12:58:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Arn8Hnm8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A063F1F00A3A;
+	Tue,  8 Sep 2026 12:58:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788872335;
-	bh=TnUzjB/BVUox34Inim8ZJg7LkRmxK7GnfALHInGkieg=;
+	s=k20260515; t=1788872339;
+	bh=yVZVG7tx3AG7syHzmw9Heyewd8+mzlLGBMMY0/NxMGI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RpLP5TaBRgzF3EJxA8+CtI6mxFs1u5wtAu8Ny0mhs8NFf76awTcT51Zxf0Khcn/zB
-	 xhzzHhLSsDyS8FKshTCDckxHWyA5aVmvua3VNBRd3U8dyMHqcIX4L64tqAzLVjo9Ap
-	 6wgRKbeKJ+eEjtSRn+gWKKi05Hdh33anL+mL5Le9gsPXB5+x/wFCe7vnzHqawcv2UO
-	 xRIq3fx9FFantSQF6Fda6QFV9dTEqn/tIWaUgY2Z3FXjQ9AB+SK6SD0/RXd9/C9QU8
-	 PdmE4Mu0c9T23gtxzOHcn0DMCoIFho/uAhNu+4kzo0PcCT666FepcqeGGoy8fZkPE9
-	 NVKaW+1RLmHhQ==
+	b=Arn8Hnm8yWiPHpkIuEwGTWVvygiIgPzlWQdvnyT57enjUFax/+SS4nnSb7RUx5iiB
+	 SS41qH8B053xSgmzaSXDd0ojI04bU0fVrgSdO/rShPtkOtuUk3+22mi0tBcHH4fmIX
+	 0meVzkmPumb+u6nJIuRPO19xgmXvTPDdD6CmxmEPsIadmJ5uFV6RtvIuE5LIXZ33MB
+	 z15jpAfXuIkjAiiWtRd3G0bq4wbqwG+CWYPZ98hgqNCAMZQDfdiJ+KUMaMRVLm+GIp
+	 1ZUAAGPLNF5X4MVmEIY/xLG55OA4ehrCVx8rPzgJjg/sThpHngz39OMo6J4nKdqvrk
+	 mtkq2B2oBhXOw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kuan-Wei Chiu <visitorckw@gmail.com>,
-	James Clark <james.clark@linaro.org>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
+Cc: Haoxiang Li <haoxiang_li2024@163.com>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] coresight: etm3x: Fix cntr_val_show() to match cntr_val_store() behavior
-Date: Tue,  8 Sep 2026 08:58:53 -0400
-Message-ID: <20260908125853.2181503-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] cpufreq: apple-soc: Fix OPP table cleanup
+Date: Tue,  8 Sep 2026 08:58:56 -0400
+Message-ID: <20260908125856.2181771-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090328-improve-creative-0e66@gregkh>
-References: <2026090328-improve-creative-0e66@gregkh>
+In-Reply-To: <2026090337-angles-glacial-e8d2@gregkh>
+References: <2026090337-angles-glacial-e8d2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,70 +45,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
+From: Haoxiang Li <haoxiang_li2024@163.com>
 
-[ Upstream commit 41fb4e925528aefa4b7a5f76c7f81db99c0d0f38 ]
+[ Upstream commit d87cb889dc7ab1f2deecadf2a5e9023184bd7900 ]
 
-The cntr_val_show() function was intended to print the values of all
-counters using a loop. However, due to a buffer overwrite issue with
-sprintf(), it effectively only displayed the value of the last counter.
+apple_soc_cpufreq_init() adds OPP tables from firmware, but
+some failure paths do not remove them. The driver also uses
+dev_pm_opp_remove_all_dynamic(), which is not the right cleanup
+helper for OPP tables loaded from firmware.
 
-The companion function, cntr_val_store(), allows users to modify a
-specific counter selected by 'cntr_idx'. To maintain consistency
-between read and write operations and to align with the ETM4x driver
-behavior, modify cntr_val_show() to report only the value of the
-currently selected counter.
+Use the cpumask OPP helper after the policy CPU mask has been
+populated. Pair it with the matching cpumask remove helper on
+failure paths and in apple_soc_cpufreq_exit(). This also removes
+the separate dev_pm_opp_set_sharing_cpus() call, as the cpumask
+helper loads the DT OPP tables for all CPUs in the policy.
 
-This change removes the loop and the "counter %d:" prefix, printing
-only the hexadecimal value. It also adopts sysfs_emit() for standard
-sysfs output formatting.
-
-Fixes: a939fc5a71ad ("coresight-etm: add CoreSight ETM/PTM driver")
+Fixes: 6286bbb40576 ("cpufreq: apple-soc: Add new driver to control Apple SoC CPU P-states")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
-Reviewed-by: James Clark <james.clark@linaro.org>
-Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-Link: https://lore.kernel.org/r/20251202082613.3265761-1-visitorckw@gmail.com
+Signed-off-by: Haoxiang Li <haoxiang_li2024@163.com>
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+[ retained kzalloc(sizeof(*priv), GFP_KERNEL) instead of upstream kzalloc_obj(*priv) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../hwtracing/coresight/coresight-etm3x-sysfs.c   | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ drivers/cpufreq/apple-soc-cpufreq.c | 36 +++++++++++------------------
+ 1 file changed, 14 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-index e8c7649f123e7..30fae661090fe 100644
---- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-+++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
-@@ -716,26 +716,19 @@ static DEVICE_ATTR_RW(cntr_rld_event);
- static ssize_t cntr_val_show(struct device *dev,
- 			     struct device_attribute *attr, char *buf)
- {
--	int i, ret = 0;
- 	u32 val;
- 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
- 	struct etm_config *config = &drvdata->config;
- 
- 	if (!local_read(&drvdata->mode)) {
- 		spin_lock(&drvdata->spinlock);
--		for (i = 0; i < drvdata->nr_cntr; i++)
--			ret += sprintf(buf, "counter %d: %x\n",
--				       i, config->cntr_val[i]);
-+		val = config->cntr_val[config->cntr_idx];
- 		spin_unlock(&drvdata->spinlock);
--		return ret;
--	}
--
--	for (i = 0; i < drvdata->nr_cntr; i++) {
--		val = etm_readl(drvdata, ETMCNTVRn(i));
--		ret += sprintf(buf, "counter %d: %x\n", i, val);
-+	} else {
-+		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
+diff --git a/drivers/cpufreq/apple-soc-cpufreq.c b/drivers/cpufreq/apple-soc-cpufreq.c
+index b1d29b7af2326..9474988a2a15f 100644
+--- a/drivers/cpufreq/apple-soc-cpufreq.c
++++ b/drivers/cpufreq/apple-soc-cpufreq.c
+@@ -251,21 +251,19 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 		return -ENODEV;
  	}
  
--	return ret;
-+	return sysfs_emit(buf, "%#x\n", val);
+-	ret = dev_pm_opp_of_add_table(cpu_dev);
+-	if (ret < 0) {
+-		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+-		return ret;
+-	}
++	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
+ 
+ 	ret = apple_soc_cpufreq_find_cluster(policy, &reg_base, &info);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "%s: failed to get cluster info: %d\n", __func__, ret);
+-		return ret;
++		goto out_free_priv;
+ 	}
+ 
+-	ret = dev_pm_opp_set_sharing_cpus(cpu_dev, policy->cpus);
+-	if (ret) {
+-		dev_err(cpu_dev, "%s: failed to mark OPPs as shared: %d\n", __func__, ret);
++	ret = dev_pm_opp_of_cpumask_add_table(policy->cpus);
++	if (ret < 0) {
++		dev_err(cpu_dev, "%s: failed to add OPP table: %d\n", __func__, ret);
+ 		goto out_iounmap;
+ 	}
+ 
+@@ -273,19 +271,13 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 	if (ret <= 0) {
+ 		dev_dbg(cpu_dev, "OPP table is not ready, deferring probe\n");
+ 		ret = -EPROBE_DEFER;
+-		goto out_free_opp;
+-	}
+-
+-	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
+-	if (!priv) {
+-		ret = -ENOMEM;
+-		goto out_free_opp;
++		goto out_free_table;
+ 	}
+ 
+ 	ret = dev_pm_opp_init_cpufreq_table(cpu_dev, &freq_table);
+ 	if (ret) {
+ 		dev_err(cpu_dev, "failed to init cpufreq table: %d\n", ret);
+-		goto out_free_priv;
++		goto out_free_table;
+ 	}
+ 
+ 	/* Get OPP levels (p-state indexes) and stash them in driver_data */
+@@ -320,12 +312,12 @@ static int apple_soc_cpufreq_init(struct cpufreq_policy *policy)
+ 
+ out_free_cpufreq_table:
+ 	dev_pm_opp_free_cpufreq_table(cpu_dev, &freq_table);
+-out_free_priv:
+-	kfree(priv);
+-out_free_opp:
+-	dev_pm_opp_remove_all_dynamic(cpu_dev);
++out_free_table:
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ out_iounmap:
+ 	iounmap(reg_base);
++out_free_priv:
++	kfree(priv);
+ 	return ret;
  }
  
- static ssize_t cntr_val_store(struct device *dev,
+@@ -334,7 +326,7 @@ static void apple_soc_cpufreq_exit(struct cpufreq_policy *policy)
+ 	struct apple_cpu_priv *priv = policy->driver_data;
+ 
+ 	dev_pm_opp_free_cpufreq_table(priv->cpu_dev, &policy->freq_table);
+-	dev_pm_opp_remove_all_dynamic(priv->cpu_dev);
++	dev_pm_opp_of_cpumask_remove_table(policy->cpus);
+ 	iounmap(priv->reg_base);
+ 	kfree(priv);
+ }
 -- 
 2.53.0
 
