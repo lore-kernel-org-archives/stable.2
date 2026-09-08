@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987B95437DD
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:58:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 480605437E1
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872292; cv=none; b=Xw5gfmjV4tU8iKSwz8BQJrePIZeabcZCESWZ8Ua5jSMQalprI+VUp3SC4Pje1zBfUn+ch4GcAxo1xXpdZXYNHzZki3uT4byUJDncNjstvs9HtbW2v+FxionRbogbVCLimkOOcyOhLorUGJorSgebula/M7SkPN+9WSQ6ZmEw6z4=
+	t=1788872294; cv=none; b=iANrAlcW96jTQTa9pB1M9qVzKw+aB02fwKq9HwYnxtAxIq9Btiu5CU8/IiBQ8RBhFFbngvw0hxSUh+bsw6Zrp5ml/plGRWnzG5i+OAfa4yzx1JRyZeNXgZdeR2VisnR0WcEKD11c5aP1goXzH2IUqujmiWa7+IMjn2cZwkC3DQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872292; c=relaxed/simple;
-	bh=oeiVrNvh6F+bVFSBl0laNV+j/l3K8pHIDSd8ch6qqpY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=aAdiwjtPV/BktzHFMdtvZxPpNs8XvarK0SYCf0W2lj1k+A/Jhw5ljKdws0oiLd3tzrAZP7ajiVkWfQ0z2TU+hqIwBMlq2s8DEVGre1NLXDX8pDgJqrpLxJefWENRnF84LutB+jne6L0Z7ONFZn2wJ8OQxnLerDsSanhNzwhImXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ByaJ5aLP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788872294; c=relaxed/simple;
+	bh=wejpS+GY9aN8fXW6kwR0uHuG4Dtf8C2Bf4nE3HshQFQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GiLZa38zYoXyuI5iwCZaS6JnCFu3B9RkwljAX+wEMW+6NIazGWBwzFwQmX6Z+oy4U+Xa6ae0i3t9Kli/VMCaHRFlyGAf4beO65S1YcdCs579HJNj9jhoqk0RLX/8MMoxHtBlDw1HZh2U+5RgdMkzOKdJ/9aLFuP9XfFiOEovgYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1mMuFOgN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ByaJ5aLP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A161F00A3A;
-	Tue,  8 Sep 2026 12:58:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1mMuFOgN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AABF1F00A3A;
+	Tue,  8 Sep 2026 12:58:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788872290;
-	bh=k3X6diW9iwUMCynwHkQVQvMnplOSoxMtrdz70NBVTWY=;
+	s=korg; t=1788872293;
+	bh=lweqJtLmE8L7/iRcKZrgINMxd0JZ9uPkMx22J72cmkk=;
 	h=Subject:To:Cc:From:Date;
-	b=ByaJ5aLPtXUclhqbQVH2McmjzVlEetywtSMxs9d9xuOLOxcsih2cPLKCFGk9GzmKC
-	 JoJC86BUsTPVy/wUXqz7lZXr7p8UBxvZTF5FosawjYcf9RhqrRvVQKy9WiT2r/8kio
-	 RnVLe4yQIDsdY604U29csZVp0CBYyebV0krzvVSs=
-Subject: FAILED: patch "[PATCH] mm/damon/paddr: drop last same folio access check reuse" failed to apply to 6.6-stable tree
+	b=1mMuFOgNtWP8C0welO79N4Qhy3XAWF52/EHpCmmUaOix2Y/JcNcOAdv/HfslMIvv8
+	 +08+c9gNRuzZmoGdopwmEYPMxbddR4QP5GgF+e/IucPXR60x2uO8trmXOUAwf0xCad
+	 VQo8CHCbeQthyrqD/VMoE2TyLm21pkO1ZpyZWRKw=
+Subject: FAILED: patch "[PATCH] mm/damon/vaddr: drop last same folio access check" failed to apply to 6.18-stable tree
 To: sj@kernel.org,akpm@linux-foundation.org,stable@vger.kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:52:53 +0200
-Message-ID: <2026090853-disparity-bazooka-4747@gregkh>
+Date: Tue, 08 Sep 2026 14:52:57 +0200
+Message-ID: <2026090857-overhear-pull-af4d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x f23f0aa62b2f32c2b12f95959fc4603ef81678b2
+git cherry-pick -x 831846078caa14b7d00b2ccca8b8fe522afe3204
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090853-disparity-bazooka-4747@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090857-overhear-pull-af4d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,77 +62,128 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From f23f0aa62b2f32c2b12f95959fc4603ef81678b2 Mon Sep 17 00:00:00 2001
+From 831846078caa14b7d00b2ccca8b8fe522afe3204 Mon Sep 17 00:00:00 2001
 From: SJ Park <sj@kernel.org>
-Date: Tue, 14 Jul 2026 20:09:59 -0700
-Subject: [PATCH] mm/damon/paddr: drop last same folio access check reuse
+Date: Tue, 14 Jul 2026 20:09:58 -0700
+Subject: [PATCH] mm/damon/vaddr: drop last same folio access check
  optimization
 
-It can race when multiple kdamonds are being used.  The problem from the
-race is doubtful, but the gain from the optimization is also doubtful.
-Simply drop the optimization in favor of code simplicity.
+The optimization can race when multiple kdamonds are running.  Meanwhile,
+the impact of the optimization is quite doubtful.  Just remove it.
 
-The user impact is doubtfully trivial.  After all, this kind of
-interference can happen only by intentional user setup.  Even if it
-happens, it will be rare, and the consequence is degradation of the
-best-effort monitoring results.  No critical consequences like kernel
-panic or memory corruption happen.
+The user impact of the issue should be quite trivial.  After all, the race
+can happen only when the user intentionally setup DAMON in the way.  Even
+if it happens, it would be rare and only degrade the best-effort
+monitoring results.  No critical consequences like kernel panic or memory
+corruption happen.
 
-The race was discovered [1] by Sashiko.
+The race possibility was discovered [1] by Sashiko.
 
-Link: https://lore.kernel.org/20260715031002.108504-5-sj@kernel.org
+Link: https://lore.kernel.org/20260715031002.108504-4-sj@kernel.org
 Link: https://lore.kernel.org/20260621204050.10993-1-sj@kernel.org [1]
-Fixes: a28397beb55b ("mm/damon: implement primitives for physical address space monitoring")
+Fixes: 3f49584b262c ("mm/damon: implement primitives for the virtual memory address spaces")
 Signed-off-by: SJ Park <sj@kernel.org>
-Cc: <stable@vger.kernel.org> # 5.16.x
+Cc: <stable@vger.kernel.org> # 5.15.x
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
-index b85f88a7a38f..e4f98d67461f 100644
---- a/mm/damon/paddr.c
-+++ b/mm/damon/paddr.c
-@@ -65,7 +65,7 @@ static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
- 	}
+diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+index d10b8042adb5..d487b7a4a104 100644
+--- a/mm/damon/vaddr.c
++++ b/mm/damon/vaddr.c
+@@ -383,8 +383,6 @@ static void damon_va_prepare_access_checks(struct damon_ctx *ctx)
  }
  
--static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
-+static bool damon_pa_young(phys_addr_t paddr)
- {
- 	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
- 	bool accessed;
-@@ -74,7 +74,6 @@ static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
- 		return false;
+ struct damon_young_walk_private {
+-	/* size of the folio for the access checked virtual memory address */
+-	unsigned long *folio_sz;
+ 	bool young;
+ };
  
- 	accessed = damon_folio_young(folio);
--	*folio_sz = folio_size(folio);
+@@ -411,7 +409,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 					mmu_notifier_test_young(walk->mm,
+ 						addr))
+ 			priv->young = true;
+-		*priv->folio_sz = HPAGE_PMD_SIZE;
+ huge_out:
+ 		spin_unlock(ptl);
+ 		return 0;
+@@ -430,7 +427,6 @@ static int damon_young_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 	if (pte_young(ptent) || !folio_test_idle(folio) ||
+ 			mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = folio_size(folio);
+ out:
+ 	pte_unmap_unlock(pte, ptl);
+ 	return 0;
+@@ -458,7 +454,6 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ 	if (pte_young(entry) || !folio_test_idle(folio) ||
+ 	    mmu_notifier_test_young(walk->mm, addr))
+ 		priv->young = true;
+-	*priv->folio_sz = huge_page_size(h);
+ 
  	folio_put(folio);
- 	return accessed;
- }
-@@ -82,23 +81,12 @@ static bool damon_pa_young(phys_addr_t paddr, unsigned long *folio_sz)
- static void __damon_pa_check_access(struct damon_region *r,
- 		unsigned long addr_unit)
+ 
+@@ -470,11 +465,9 @@ static int damon_young_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ #define damon_young_hugetlb_entry NULL
+ #endif /* CONFIG_HUGETLB_PAGE */
+ 
+-static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+-		unsigned long *folio_sz)
++static bool damon_va_young(struct mm_struct *mm, unsigned long addr)
  {
--	static phys_addr_t last_addr;
+ 	struct damon_young_walk_private arg = {
+-		.folio_sz = folio_sz,
+ 		.young = false,
+ 	};
+ 
+@@ -494,28 +487,17 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+  * r	the region to be checked
+  */
+ static void __damon_va_check_access(struct mm_struct *mm,
+-				struct damon_region *r, bool same_target)
++				struct damon_region *r)
+ {
+-	static unsigned long last_addr;
 -	static unsigned long last_folio_sz = PAGE_SIZE;
 -	static bool last_accessed;
 +	bool accessed;
- 	phys_addr_t sampling_addr = damon_pa_phys_addr(
- 			r->sampling_addr, addr_unit);
+ 
+ 	if (!mm) {
+ 		damon_update_region_access_rate(r, false);
+ 		return;
+ 	}
  
 -	/* If the region is in the last checked page, reuse the result */
--	if (ALIGN_DOWN(last_addr, last_folio_sz) ==
--				ALIGN_DOWN(sampling_addr, last_folio_sz)) {
+-	if (same_target && (ALIGN_DOWN(last_addr, last_folio_sz) ==
+-				ALIGN_DOWN(r->sampling_addr, last_folio_sz))) {
 -		damon_update_region_access_rate(r, last_accessed);
 -		return;
 -	}
 -
--	last_accessed = damon_pa_young(sampling_addr, &last_folio_sz);
+-	last_accessed = damon_va_young(mm, r->sampling_addr, &last_folio_sz);
 -	damon_update_region_access_rate(r, last_accessed);
 -
--	last_addr = sampling_addr;
-+	accessed = damon_pa_young(sampling_addr);
+-	last_addr = r->sampling_addr;
++	accessed = damon_va_young(mm, r->sampling_addr);
 +	damon_update_region_access_rate(r, accessed);
  }
  
- static unsigned int damon_pa_check_accesses(struct damon_ctx *ctx)
+ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+@@ -524,15 +506,12 @@ static unsigned int damon_va_check_accesses(struct damon_ctx *ctx)
+ 	struct mm_struct *mm;
+ 	struct damon_region *r;
+ 	unsigned int max_nr_accesses = 0;
+-	bool same_target;
+ 
+ 	damon_for_each_target(t, ctx) {
+ 		mm = damon_get_mm(t);
+-		same_target = false;
+ 		damon_for_each_region(r, t) {
+-			__damon_va_check_access(mm, r, same_target);
++			__damon_va_check_access(mm, r);
+ 			max_nr_accesses = max(r->nr_accesses, max_nr_accesses);
+-			same_target = true;
+ 		}
+ 		if (mm)
+ 			mmput(mm);
 
