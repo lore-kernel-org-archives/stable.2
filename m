@@ -1,119 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B755476E7
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B57753ED05
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:48:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871532; cv=none; b=EbwfzTbxRmejy/is1FK7aBEtEjttjBdp7tNXlEuTqwar6o+M09hNd7nP1nthL+kQcKRAg6IvgkrQvhhIqbwYkMAX1aDXoraw9HzP3AmOoqJLWP/Y7ZSB6IkkvPP05Q17R0kLHFxboptsmzVuAAI5ZsdV/03HL8IXgASq1vLg1qw=
+	t=1788871693; cv=none; b=J9CAzwyd57kp4XEbhcu/3Jyk8grhB7mDbvKYNK2ax130iNup+h4mN4fAoCHx7Xveo8WtZa5GhVt5Z+WI59+59x4OF3Lvq6sdyseoAS1TGFT0QXg716rgaM7cGLPjhJBJNmOXAWdtA3X81zDjHjkJj4h/sMaR5r1n0JEP70t5OFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871532; c=relaxed/simple;
-	bh=8pjaqYVyReGUZ2Qcw4EfFm92doFxpD/eA+RTjaX3tdQ=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=iGXkIOP+9Hf0LhJuHe6QWecjvTx+OoMJ6p3ct4vNjZa1rVtVxZv0CnT9DqM7P6NfgfJGQIcejJ2rnV7htEyWYrEITE52IBgOi3JhhPVYb1sN3x0Qlawc2C98WXlAkjHuuXE9rUyx36JOublVsuwZKdhZKvpFxhZviH+UGXyevfQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53D941F00A3E;
-	Tue,  8 Sep 2026 12:45:29 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] tracing/probes: Fix anon_stack check for unnamed bitfields in" failed to apply to 6.12-stable tree
-To: mhiramat@kernel.org,rostedt@goodmis.org,sashiko-bot@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 14:45:11 +0200
-Message-ID: <2026090811-undergo-kabob-4eb4@gregkh>
+	s=arc-20240116; t=1788871693; c=relaxed/simple;
+	bh=PpF+Baz4bJnDgaCtFu+j5jWmdooJWhMDFZ8Dsp9E7Jk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A8CGKAeJpwYpKy4vRQ31931Q4nKdRyB6pG9YQVB9SzaOvtETVV+aYrFiCpivrbSGGCLRShqkNHW/5CyeHb6PItbV+IfqTTiNKIhRieMCQFxXR0+YPyBAsAekuFtVUa0TUZY+fL2uR2cLgTNoizVzuu96/j3DglH49pvhb42ul18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkFrjURg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkFrjURg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99FCF1F00A3A;
+	Tue,  8 Sep 2026 12:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788871692;
+	bh=mbxSxkwFQBZaTcOH+iAATTGG1LFPK3ugqbS5CaN4jPw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PkFrjURgwgNc1CVOat8rqTC4CWffXjOQa1zcIvxdTfAk/rC+1vf770nNPQgG9yVoA
+	 7g2INxTXv+qq/wcBWIr1/TQBAMC3d1tL6O7IeOm8h4lOUM6UyRy0oHUWAyfcENMKj6
+	 G052Dyweyhs5HBpoSc7XgFgQ/kEajEYytQ6aZ0Fr0aFMHQ3WkdpFRVls9TBgHv9TCo
+	 vfsRvWmPjT0rnBDZqgLZXMkaEXaeHDR1Nbfr/teIKPWtyx9ai7Qr8zTsHXguK/6LgP
+	 UZ7pE4QmZE2wk2T3hSUI+NPTrIbEDy6llBLqWApNBg59IwlIOtKciBQQUFUHLf4k0V
+	 olw5a2CEBBmAw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Kuan-Wei Chiu <visitorckw@gmail.com>,
+	James Clark <james.clark@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] coresight: etm3x: Fix cntr_val_show() to match cntr_val_store() behavior
+Date: Tue,  8 Sep 2026 08:48:09 -0400
+Message-ID: <20260908124809.2160670-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090328-scrounger-immersion-966f@gregkh>
+References: <2026090328-scrounger-immersion-966f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 41fb4e925528aefa4b7a5f76c7f81db99c0d0f38 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The cntr_val_show() function was intended to print the values of all
+counters using a loop. However, due to a buffer overwrite issue with
+sprintf(), it effectively only displayed the value of the last counter.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x f36d94a20ca185bcadef3a10b980cd2cfd72d53a
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090811-undergo-kabob-4eb4@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+The companion function, cntr_val_store(), allows users to modify a
+specific counter selected by 'cntr_idx'. To maintain consistency
+between read and write operations and to align with the ETM4x driver
+behavior, modify cntr_val_show() to report only the value of the
+currently selected counter.
 
-Possible dependencies:
+This change removes the loop and the "counter %d:" prefix, printing
+only the hexadecimal value. It also adopts sysfs_emit() for standard
+sysfs output formatting.
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From f36d94a20ca185bcadef3a10b980cd2cfd72d53a Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Tue, 1 Sep 2026 23:21:37 +0900
-Subject: [PATCH] tracing/probes: Fix anon_stack check for unnamed bitfields in
- btf_find_struct_member
-
-btf_find_struct_member() traverses into nested anonymous structures
-and unions by pushing members with !member->name_off onto anon_stack.
-However, it does not consider the unnamed bitfields (e.g. `int : 5`
-or `unsigned int : 0`) which also have member->name_off == 0.
-
-If such an unnamed bitfield is pushed to anon_stack, the
-btf_find_struct_member() return an error even if there are other
-valid entries in anon_stack.
-
-To fix this, only push unnamed struct/union members to anon_stack.
-Also move the btf_type_is_struct() check to the entry of this function
-because now it is sure only struct/union are pushed to anon_stack.
-
-Link: https://lore.kernel.org/all/178827249775.123716.7813217688423513612.stgit@devnote2/
-
-Fixes: 302db0f5b3d8 ("tracing/probes: Add a function to search a member of a struct/union")
+Fixes: a939fc5a71ad ("coresight-etm: add CoreSight ETM/PTM driver")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
+Reviewed-by: James Clark <james.clark@linaro.org>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+Link: https://lore.kernel.org/r/20251202082613.3265761-1-visitorckw@gmail.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../hwtracing/coresight/coresight-etm3x-sysfs.c   | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/kernel/trace/trace_btf.c b/kernel/trace/trace_btf.c
-index 00172f301f25..d3ba356d5503 100644
---- a/kernel/trace/trace_btf.c
-+++ b/kernel/trace/trace_btf.c
-@@ -74,24 +74,24 @@ const struct btf_member *btf_find_struct_member(struct btf *btf,
+diff --git a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+index fd81eca3ec182..a49b3c237c079 100644
+--- a/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm3x-sysfs.c
+@@ -716,26 +716,19 @@ static DEVICE_ATTR_RW(cntr_rld_event);
+ static ssize_t cntr_val_show(struct device *dev,
+ 			     struct device_attribute *attr, char *buf)
  {
- 	struct btf_anon_stack *anon_stack;
- 	const struct btf_member *member;
-+	const struct btf_type *mtype;
- 	u32 tid, cur_offset = 0;
- 	const char *name;
- 	int i, top = 0;
+-	int i, ret = 0;
+ 	u32 val;
+ 	struct etm_drvdata *drvdata = dev_get_drvdata(dev->parent);
+ 	struct etm_config *config = &drvdata->config;
  
-+	if (!btf_type_is_struct(type))
-+		return ERR_PTR(-EINVAL);
-+
- 	anon_stack = kzalloc_objs(*anon_stack, BTF_ANON_STACK_MAX);
- 	if (!anon_stack)
- 		return ERR_PTR(-ENOMEM);
- 
- retry:
--	if (!btf_type_is_struct(type)) {
--		member = ERR_PTR(-EINVAL);
--		goto out;
+ 	if (!local_read(&drvdata->mode)) {
+ 		spin_lock(&drvdata->spinlock);
+-		for (i = 0; i < drvdata->nr_cntr; i++)
+-			ret += sprintf(buf, "counter %d: %x\n",
+-				       i, config->cntr_val[i]);
++		val = config->cntr_val[config->cntr_idx];
+ 		spin_unlock(&drvdata->spinlock);
+-		return ret;
 -	}
 -
- 	for_each_member(i, type, member) {
- 		if (!member->name_off) {
- 			/* Anonymous union/struct: push it for later use */
--			if (btf_type_skip_modifiers(btf, member->type, &tid) &&
-+			mtype = btf_type_skip_modifiers(btf, member->type, &tid);
-+			if (mtype && btf_type_is_struct(mtype) &&
- 			    top < BTF_ANON_STACK_MAX) {
- 				anon_stack[top].tid = tid;
- 				anon_stack[top++].offset =
+-	for (i = 0; i < drvdata->nr_cntr; i++) {
+-		val = etm_readl(drvdata, ETMCNTVRn(i));
+-		ret += sprintf(buf, "counter %d: %x\n", i, val);
++	} else {
++		val = etm_readl(drvdata, ETMCNTVRn(config->cntr_idx));
+ 	}
+ 
+-	return ret;
++	return sysfs_emit(buf, "%#x\n", val);
+ }
+ 
+ static ssize_t cntr_val_store(struct device *dev,
+-- 
+2.53.0
 
