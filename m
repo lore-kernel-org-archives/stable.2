@@ -1,212 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752935632AC
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C82A563298
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:30:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874205; cv=none; b=cyqdY6fIee/bUY7b+ved506bBEeFCNQBBDmQeNjm7vECok+v9nAe3wsSYg9BqEhUgcmpiWXSiS5s+hDLJoozsW1G1oDbZP3dk+Uz5HhgI73TgWuwuavyBEkbrBlzu/YYM2B7G1jDPbSHOXeE1euAfhK4RvN4PRUCjWgrLVYYX2E=
+	t=1788874213; cv=none; b=Ow8ZN0J1vfBFXO0ijd58n2PP8c1kH/cHDW3Mmj48VfDllbjbnS3QUrB6tyt+JXzy2r/GJzzYxmuaZiQk+SlyM86NJihO+PZpBdoLgd0AbTFflB9KTgvOr8ez6Y6VR7VK+cGSGcyVLmCMh82AQfBeF9bBNJVwzq7JGIlnRwfCMZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874205; c=relaxed/simple;
-	bh=sCPwnD4Hz7v2OPhjLjKRpEcDTD2ukyQW5qP7MzJ78Fs=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r0NpoAQI8c1cmORTmFcPf1sqLGjOmgKwHTq+fnKyK1faPkpdvu/Za/jvs7xEbcNvaxUquraK9IoBKYiznhu94nD5q1iQtXfEAYI0HrCoEnsOd9w5XughAB4XpVlrt8RJ/Uuu0pMWy+TjpCEFHGGMC0Yt41b29yHb9qNILpWsNr0=
+	s=arc-20240116; t=1788874213; c=relaxed/simple;
+	bh=C6bqZNyT4o8d35HJtUsvvTHx7ibxT1AKZ/PErfJGUzg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cCPw+4Cn/bilax40GYxnOkZG3QHV5XCC4mfyFKzjHHgEnV0EFHheow/c4M+ii9+9o/9WSSpl9+fZP6xEQ4OPcEcHkpDUCZ0iZwNJOkhybIGW39XcTrD0VTUS+OHWgnAHwLGs6JaLqpyVCpRq5woVIWHkltQoF0nb1uZCo4PJqDg=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36311F00A3D;
-	Tue,  8 Sep 2026 13:29:51 +0000 (UTC)
-Subject: FAILED: patch "[PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex" failed to apply to 6.18-stable tree
-To: bigeasy@linutronix.de,tglx@kernel.org,yaokai34@huawei.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:18:37 +0200
-Message-ID: <2026090836-asparagus-jujitsu-9a6e@gregkh>
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1851F00AC4;
+	Tue,  8 Sep 2026 13:30:01 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Frederic Weisbecker <frederic@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Neeraj Upadhyay <quic_neeraju@quicinc.com>,
+	Uladzislau Rezki <uladzislau.rezki@sony.com>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Boqun Feng <boqun.feng@gmail.com>,
+	Nicolas Saenz Julienne <nsaenz@kernel.org>,
+	Marcelo Tosatti <mtosatti@redhat.com>,
+	Xiongfeng Wang <wangxiongfeng2@huawei.com>,
+	Yu Liao <liaoyu15@huawei.com>,
+	Phil Auld <pauld@redhat.com>,
+	Paul Gortmaker <paul.gortmaker@windriver.com>,
+	Alex Belits <abelits@marvell.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Nicolas Saenz Julienne <nsaenzju@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] context_tracking: Add a note about noinstr VS unsafe context tracking functions
+Date: Tue,  8 Sep 2026 09:29:52 -0400
+Message-ID: <20260908132958.2312212-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090326-curtsy-rocket-6c6d@gregkh>
+References: <2026090326-curtsy-rocket-6c6d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Frederic Weisbecker <frederic@kernel.org>
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit f67671baadf6dbae8eca46cb95e85b762e462b2b ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Some context tracking functions enter or exit into/from RCU idle mode
+while using trace-able and lockdep-aware IRQs (un-)masking. As a result
+those functions can't get tagged as noinstr. This is unlikely to be
+fixed since these are obsolete APIs. Drop a note about this matter.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 912edebe8501a36c6bedcef03bd238ab90a7e060
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090836-asparagus-jujitsu-9a6e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+[ paulmck: Apply Peter Zijlstra feedback. ]
 
-Possible dependencies:
+Reported-by: Peter Zijlstra <peterz@infradead.org>
+Cc: Peter Zijlstra <peterz@infradead.org>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Neeraj Upadhyay <quic_neeraju@quicinc.com>
+Cc: Uladzislau Rezki <uladzislau.rezki@sony.com>
+Cc: Joel Fernandes <joel@joelfernandes.org>
+Cc: Boqun Feng <boqun.feng@gmail.com>
+Cc: Nicolas Saenz Julienne <nsaenz@kernel.org>
+Cc: Marcelo Tosatti <mtosatti@redhat.com>
+Cc: Xiongfeng Wang <wangxiongfeng2@huawei.com>
+Cc: Yu Liao <liaoyu15@huawei.com>
+Cc: Phil Auld <pauld@redhat.com>
+Cc: Paul Gortmaker<paul.gortmaker@windriver.com>
+Cc: Alex Belits <abelits@marvell.com>
+Signed-off-by: Frederic Weisbecker <frederic@kernel.org>
+Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: Nicolas Saenz Julienne <nsaenzju@redhat.com>
+Tested-by: Nicolas Saenz Julienne <nsaenzju@redhat.com>
+Stable-dep-of: 7e8ee82e69fd ("ARM: 9477/1: Disable broken eBPF JIT on the Risc PC")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/context_tracking.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 912edebe8501a36c6bedcef03bd238ab90a7e060 Mon Sep 17 00:00:00 2001
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Tue, 1 Sep 2026 15:54:51 +0200
-Subject: [PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex
- scheduling
-
-There is rt_mutex_{pre|post}_schedule() around
-rt_mutex_wait_proxy_lock() to ensure that sched_submit_work()/
-sched_update_worker() is invoked before we schedule out and block on
-rt_mutex while waiting for it become available.
-
-The reason is that blocking on rt_mutex assigns a pi_waiter for the PI
-chain and sched_submit_work() will also assign a pi_waiter if it blocks
-on lock but a this point we already have a waiter assigned.
-We can't skip sched_submit_work() entirely because I/O relies on the
-fact that I/O queue is flushed while it blocks on a sleeping lock.
-Therefore sched_submit_work() is moved before we block on the lock.
-
-Sleeping lock in this context means mutex or rw_semaphore not spinlock_t
-on PREEMPT_RT. Because the mutex abstraction on PREEMPT_RT uses the same
-abstraction as the futex proxy lock, the futex code ended up using
-rt_mutex_{pre|post}_schedule(), too.
-Using it is/ was just to keep the task_struct::sched_rt_mutex assertion
-happy. Futex proxy lock is used only in the syscall context of a task.
-At this point it never got any I/O that needs to be flushed and it can't
-be a workqueue that needs to notify that it will be scheduled out.
-Therefore sched_submit_work() does nothing here.
-
-By mistake futex_wait_requeue_pi() -> rt_mutex_wait_proxy_lock() did not
-get the rt_mutex_{pre|post}_schedule() annotation. This was not noticed
-because in this callchain the lock is (usually) not contended and so
-rt_mutex_slowlock_block() does not schedule, triggering the assert.
-
-Adding rt_mutex_pre_schedule() here looks wrong (as noted by PeterZ)
-because at this point there is a pi_waiter recorded and invoking
-sched_submit_work() with a possible lock contention would be wrong.
-
-Add rt_mutex_futex_{pre|post}_schedule() which toggles the
-sched_rt_mutex assert and does not involve sched_submit_work(). Add
-asserts here to ensure that sched_submit_work() would do nothing. Use it
-only in futex proxy lock case which is rt_mutex_wait_proxy_lock().
-Remove it from futex_lock_pi().
-
-Fixes: d14f9e930b90 ("locking/rtmutex: Use rt_mutex specific scheduler helpers")
-Reported-by: Yao Kai <yaokai34@huawei.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901135453.3121948-2-bigeasy@linutronix.de
-Closes: https://lore.kernel.org/all/20260717084922.4153317-2-yaokai34@huawei.com
-
-diff --git a/include/linux/sched/rt.h b/include/linux/sched/rt.h
-index 4e3338103654..922935cc3383 100644
---- a/include/linux/sched/rt.h
-+++ b/include/linux/sched/rt.h
-@@ -52,8 +52,10 @@ static inline bool rt_or_dl_task_policy(struct task_struct *tsk)
- 
- #ifdef CONFIG_RT_MUTEXES
- extern void rt_mutex_pre_schedule(void);
-+extern void rt_mutex_futex_pre_schedule(void);
- extern void rt_mutex_schedule(void);
- extern void rt_mutex_post_schedule(void);
-+extern void rt_mutex_futex_post_schedule(void);
- 
- /*
-  * Must hold either p->pi_lock or task_rq(p)->lock.
-diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
-index 88788e584ec8..98f1b962e59a 100644
---- a/kernel/futex/pi.c
-+++ b/kernel/futex/pi.c
-@@ -1070,17 +1070,11 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
- 		 * Caution; releasing @hb in-scope. The hb->lock is still locked
- 		 * while the reference is dropped. The reference can not be dropped
- 		 * after the unlock because if a user initiated resize is in progress
--		 * then we might need to wake him. This can not be done after the
--		 * rt_mutex_pre_schedule() invocation. The hb will remain valid because
--		 * the thread, performing resize, will block on hb->lock during
--		 * the requeue.
-+		 * then we might need to wake him. The hb will remain valid
-+		 * because the thread, performing resize, will block on
-+		 * hb->lock during the requeue.
- 		 */
- 		futex_private_hash_put(no_free_ptr(hbr.fph));
--		/*
--		 * Must be done before we enqueue the waiter, here is unfortunately
--		 * under the hb lock, but that *should* work because it does nothing.
--		 */
--		rt_mutex_pre_schedule();
- 
- 		rt_mutex_init_waiter(&rt_waiter);
- 
-@@ -1146,10 +1140,6 @@ int futex_lock_pi(u32 __user *uaddr, unsigned int flags, ktime_t *time, int tryl
- 		 * the
- 		 */
- 		futex_q_lockptr_lock(&q);
--		/*
--		 * Waiter is unqueued.
--		 */
--		rt_mutex_post_schedule();
- no_block:
- 		/*
- 		 * Fixup the pi_state owner and possibly acquire the lock if we
-diff --git a/kernel/locking/rtmutex_api.c b/kernel/locking/rtmutex_api.c
-index 5d48d64725b1..eb18b094473c 100644
---- a/kernel/locking/rtmutex_api.c
-+++ b/kernel/locking/rtmutex_api.c
-@@ -423,6 +423,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
- {
- 	int ret;
- 
-+	rt_mutex_futex_pre_schedule();
- 	raw_spin_lock_irq(&lock->wait_lock);
- 	/* sleep on the mutex */
- 	set_current_state(TASK_INTERRUPTIBLE);
-@@ -433,6 +434,7 @@ int __sched rt_mutex_wait_proxy_lock(struct rt_mutex_base *lock,
- 	 */
- 	fixup_rt_mutex_waiters(lock, true);
- 	raw_spin_unlock_irq(&lock->wait_lock);
-+	rt_mutex_futex_post_schedule();
- 
- 	return ret;
+diff --git a/kernel/context_tracking.c b/kernel/context_tracking.c
+index 36a98c48aedc7..3082332f64765 100644
+--- a/kernel/context_tracking.c
++++ b/kernel/context_tracking.c
+@@ -103,6 +103,15 @@ void noinstr __context_tracking_enter(enum ctx_state state)
  }
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index f78275192036..449ccd871be8 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -7637,6 +7637,17 @@ void rt_mutex_pre_schedule(void)
- 	sched_submit_work(current);
- }
+ EXPORT_SYMBOL_GPL(__context_tracking_enter);
  
 +/*
-+ * Used within the futex syscall context, skips sched_submit_work() because none
-+ * its work will be done. Asserts ensure that it is indeed the case.
++ * OBSOLETE:
++ * This function should be noinstr but the below local_irq_restore() is
++ * unsafe because it involves illegal RCU uses through tracing and lockdep.
++ * This is unlikely to be fixed as this function is obsolete. The preferred
++ * way is to call __context_tracking_enter() through user_enter_irqoff()
++ * or context_tracking_guest_enter(). It should be the arch entry code
++ * responsibility to call into context tracking with IRQs disabled.
 + */
-+void rt_mutex_futex_pre_schedule(void)
-+{
-+	lockdep_assert(!(current->flags & (PF_WQ_WORKER | PF_IO_WORKER)));
-+	lockdep_assert(!current->plug);
-+	lockdep_assert(!fetch_and_set(current->sched_rt_mutex, 1));
-+}
-+
- void rt_mutex_schedule(void)
+ void context_tracking_enter(enum ctx_state state)
  {
- 	lockdep_assert(current->sched_rt_mutex);
-@@ -7649,6 +7660,11 @@ void rt_mutex_post_schedule(void)
- 	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
- }
+ 	unsigned long flags;
+@@ -125,6 +134,14 @@ void context_tracking_enter(enum ctx_state state)
+ NOKPROBE_SYMBOL(context_tracking_enter);
+ EXPORT_SYMBOL_GPL(context_tracking_enter);
  
-+void rt_mutex_futex_post_schedule(void)
-+{
-+	lockdep_assert(fetch_and_set(current->sched_rt_mutex, 0));
-+}
-+
- /*
-  * rt_mutex_setprio - set the current priority of a task
-  * @p: task to boost
++/*
++ * OBSOLETE:
++ * This function should be noinstr but it unsafely calls local_irq_restore(),
++ * involving illegal RCU uses through tracing and lockdep.
++ * This is unlikely to be fixed as this function is obsolete. The preferred
++ * way is to call user_enter_irqoff(). It should be the arch entry code
++ * responsibility to call into context tracking with IRQs disabled.
++ */
+ void context_tracking_user_enter(void)
+ {
+ 	user_enter();
+@@ -168,6 +185,15 @@ void noinstr __context_tracking_exit(enum ctx_state state)
+ }
+ EXPORT_SYMBOL_GPL(__context_tracking_exit);
+ 
++/*
++ * OBSOLETE:
++ * This function should be noinstr but the below local_irq_save() is
++ * unsafe because it involves illegal RCU uses through tracing and lockdep.
++ * This is unlikely to be fixed as this function is obsolete. The preferred
++ * way is to call __context_tracking_exit() through user_exit_irqoff()
++ * or context_tracking_guest_exit(). It should be the arch entry code
++ * responsibility to call into context tracking with IRQs disabled.
++ */
+ void context_tracking_exit(enum ctx_state state)
+ {
+ 	unsigned long flags;
+@@ -182,6 +208,14 @@ void context_tracking_exit(enum ctx_state state)
+ NOKPROBE_SYMBOL(context_tracking_exit);
+ EXPORT_SYMBOL_GPL(context_tracking_exit);
+ 
++/*
++ * OBSOLETE:
++ * This function should be noinstr but it unsafely calls local_irq_save(),
++ * involving illegal RCU uses through tracing and lockdep. This is unlikely
++ * to be fixed as this function is obsolete. The preferred way is to call
++ * user_exit_irqoff(). It should be the arch entry code responsibility to
++ * call into context tracking with IRQs disabled.
++ */
+ void context_tracking_user_exit(void)
+ {
+ 	user_exit();
+-- 
+2.53.0
 
