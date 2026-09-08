@@ -1,54 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8E44A9D67;
-	Tue,  8 Sep 2026 08:51:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B23F44AC143;
+	Tue,  8 Sep 2026 08:51:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857507; cv=none; b=fmmIjr2nL8R3K8vu+W3ku4VkN7GXEqzhWtv4niylXSsUnJDbZvnYO0UBLySMhlbL/YJqO4QxPIQYlur2OoyDiOSU3g3l9edgCnIPaFgdm3XBt+FLg5ZsXEAwrPaJkuqev0K4fv9vDgMIYht8Lr9M37Z1FraoaVopQMdt3dK+q0Q=
+	t=1788857516; cv=none; b=IlQFjb58UZV4RZfrIftZkwbjUAbs1jTpuH3z/dbYSmjtUP5dXYU5J3+vmvWO15O/ik5B6GVuEOJS6fgtC2f++a6dC0siWYRxwALTmESebY9NsRATelpCjC1PvGVEL6xUwTKeBEJ+Zyc6cJtzCZiSX0Eg2KBNNXmXe80DrimFmwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857507; c=relaxed/simple;
-	bh=rdXzSh9t83Qe9DDq79xaCdCPN4KPAd67RFZHUjKBP1A=;
+	s=arc-20240116; t=1788857516; c=relaxed/simple;
+	bh=ZD7IcCJBs10eYQbTyHaHhiTBNML6END1vAJ2cSz1t9E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dUeuC8rl9RECHyluGkAKdkkyTj1U7h6B45OkXGYd5tFtxVESjmA2lfX79vyi5EQ0nHBPoIUjL6b4veJURsnK58NpGz07RfUtV7Wg67EntAxmWryVRJ3rzCRlOnFtlcsgkLR9MAKCZkfYAjhHSqn9NPgfAzOBIWJpZU6eBkG+spk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BpRhqCFk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dBPccAWDF7oKZXiYI5oYXxyqlX11c817+vtHQSbM3PQAznieOe7t/hVVDDFihDVZmWfCQUxyDd7ZRfY3SL0nrfmPZ6Fy6RUrPrF5quEn+ZI1SbegxoP3YkRqkWF95EGWptfJPRVx8CiIYEo4t+3PqPPo6eYpscimPiYfMTL8FaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nRn+Y1Rx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BpRhqCFk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 465BE1F00A3E;
-	Tue,  8 Sep 2026 08:51:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nRn+Y1Rx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEF741F00A3D;
+	Tue,  8 Sep 2026 08:51:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788857490;
-	bh=wmWITTLdAzpcAO5i3ct42eKphu6BG4utlnDawxp8sC4=;
+	s=k20260515; t=1788857504;
+	bh=FcdyV9kRp09A/hxWyXgKMi9GMn+VqAj0OfpSLnJaOHg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BpRhqCFkxSKaXskPzDUoO4n1x3j7yzNbWWWZt19VVr33Uv/EQudPIhaQ25gsmql2K
-	 LhHBXSTd84ges5UWCS//y6yZ25Ko1KQw/2c23u23NuDBeywJI8BxQH+0XAIDLsGa2l
-	 6O1T1uTyoFSz52r0QvcudKoTYGxst2U76BetCfA9OjwDKH1bkzPTtC8B7VXqYXqhCH
-	 Ckt6NulYN4gEpurBPTbiVNFpakD5hvYOmD3KsoJbBvY1S6E0mnviLMIpeYI1FqUhbk
-	 rSjMmeAiY06HYBb0SfNSTeo/8+B4AgWz04yLU8Vi/cBABhSMORx87elJsVAPVYBGVZ
-	 AfrYXita+nfIg==
+	b=nRn+Y1Rx2OONd/IdjHwety/EXh1y8KJoIG7ILExxza/DRufEwmeY7692YpuuXvUeX
+	 9zE2q6CMzCxdCHfFs5BtmloEfMyG/1jLJ3xYAvcYFVWYywD+vdF/261IYh23uAXacg
+	 87bg2sZCTeEra7hkWaBdm76KBV/Z26bOqqUDy1Dx6Thr+sSe5DHoxvfwr/zr9nx/O/
+	 4+bbcPl3Qkpl/1XyuuJZoPh8G7frWLAkObxzRwOc3mZNa4Ycvv80rbg/QlzDNvx/Sl
+	 NN9VqxNAq0jhY1/hL9ptS93NqKLIq1uWojzUoRvjN+ufp/IacEXCSsE+x0qxvBBH9l
+	 HbmCpUJiRpbXg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Alexander Viro <viro@zeniv.linux.org.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>,
-	Jeff Layton <jlayton@kernel.org>,
 	Christian Brauner <brauner@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>,
 	Peter Zijlstra <peterz@infradead.org>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Eric Dumazet <edumazet@google.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
 	Soheil Hassas Yeganeh <soheil@google.com>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
 	Quentin Schulz <quentin.schulz@cherry.de>,
 	Wentao Guan <guanwentao@uniontech.com>
-Subject: [STABLE v5.15.y 3/8] eventpoll: split __ep_remove()
-Date: Tue,  8 Sep 2026 09:50:59 +0100
-Message-ID: <20260908085113.3960814-3-lee@kernel.org>
+Subject: [STABLE v5.15.y 6/8] eventpoll: rename ep_remove_safe() back to ep_remove()
+Date: Tue,  8 Sep 2026 09:51:02 +0100
+Message-ID: <20260908085113.3960814-6-lee@kernel.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260908085113.3960814-1-lee@kernel.org>
 References: <20260908085113.3960814-1-lee@kernel.org>
@@ -62,82 +60,96 @@ Content-Transfer-Encoding: 8bit
 
 From: Christian Brauner <brauner@kernel.org>
 
-[ Upstream commit 0f7bdfd413000985de09fc39eb9efa1e091a3ce0 ]
+[ Upstream commit 0bade234723e40e4937be912e105785d6a51464e ]
 
-Split __ep_remove() to delineate file removal from epoll item removal.
+The current name is just confusing and doesn't clarify anything.
 
-Suggested-by: Linus Torvalds <torvalds@linux-foundation.org>
-Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-2-2470f9eec0f5@kernel.org
+Link: https://patch.msgid.link/20260423-work-epoll-uaf-v1-4-2470f9eec0f5@kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Stable-dep-of: a6dc643c6931 ("eventpoll: fix ep_remove struct eventpoll / struct file UAF")
 Signed-off-by: Quentin Schulz <quentin.schulz@cherry.de>
 Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-(cherry picked from commit 66bc7c8a33df3618e43ce0d0d4a985595ce57861)
+(cherry picked from commit 136e5900ea830dee549e3485c8931ec1c8f6c1b1)
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- fs/eventpoll.c | 27 +++++++++++++++++++++++----
- 1 file changed, 23 insertions(+), 4 deletions(-)
+ fs/eventpoll.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index 5945390e352c..693ad9826e32 100644
+index cf00714afb4a..f6db6621bbee 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
-@@ -708,6 +708,9 @@ static void ep_free(struct eventpoll *ep)
- 	kfree_rcu(ep, rcu);
- }
- 
-+static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file);
-+static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi);
-+
+@@ -764,7 +764,7 @@ static bool ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
  /*
-  * Removes a "struct epitem" from the eventpoll RB tree and deallocates
-  * all the associated resources. Must be called with "mtx" held.
-@@ -719,8 +722,6 @@ static void ep_free(struct eventpoll *ep)
- static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
+  * ep_remove variant for callers owing an additional reference to the ep
+  */
+-static void ep_remove_safe(struct eventpoll *ep, struct epitem *epi)
++static void ep_remove(struct eventpoll *ep, struct epitem *epi)
  {
  	struct file *file = epi->ffd.file;
--	struct epitems_head *to_free;
--	struct hlist_head *head;
  
- 	lockdep_assert_irqs_enabled();
+@@ -812,7 +812,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
  
-@@ -736,8 +737,21 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
- 		return false;
+ 	/*
+ 	 * Walks through the whole tree and try to free each "struct epitem".
+-	 * Note that ep_remove_safe() will not remove the epitem in case of a
++	 * Note that ep_remove() will not remove the epitem in case of a
+ 	 * racing eventpoll_release_file(); the latter will do the removal.
+ 	 * At this point we are sure no poll callbacks will be lingering around.
+ 	 * Since we still own a reference to the eventpoll struct, the loop can't
+@@ -821,7 +821,7 @@ static void ep_clear_and_put(struct eventpoll *ep)
+ 	for (rbp = rb_first_cached(&ep->rbr); rbp; rbp = next) {
+ 		next = rb_next(rbp);
+ 		epi = rb_entry(rbp, struct epitem, rbn);
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		cond_resched();
  	}
  
--	to_free = NULL;
--	head = file->f_ep;
-+	__ep_remove_file(ep, epi, file);
-+	return __ep_remove_epi(ep, epi);
-+}
-+
-+/*
-+ * Called with &file->f_lock held,
-+ * returns with it released
-+ */
-+static void __ep_remove_file(struct eventpoll *ep, struct epitem *epi, struct file *file)
-+{
-+	struct epitems_head *to_free = NULL;
-+	struct hlist_head *head = file->f_ep;
-+
-+	lockdep_assert_held(&ep->mtx);
-+
- 	if (hlist_is_singular_node(&epi->fllink, head)) {
- 		/* See eventpoll_release() for details. */
- 		WRITE_ONCE(file->f_ep, NULL);
-@@ -751,6 +765,11 @@ static bool __ep_remove(struct eventpoll *ep, struct epitem *epi, bool force)
- 	hlist_del_rcu(&epi->fllink);
- 	spin_unlock(&file->f_lock);
- 	free_ephead(to_free);
-+}
-+
-+static bool __ep_remove_epi(struct eventpoll *ep, struct epitem *epi)
-+{
-+	lockdep_assert_held(&ep->mtx);
+@@ -1588,21 +1588,21 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 		mutex_unlock(&tep->mtx);
  
- 	rb_erase_cached(&epi->rbn, &ep->rbr);
+ 	/*
+-	 * ep_remove_safe() calls in the later error paths can't lead to
++	 * ep_remove() calls in the later error paths can't lead to
+ 	 * ep_free() as the ep file itself still holds an ep reference.
+ 	 */
+ 	ep_get(ep);
  
+ 	/* now check if we've created too many backpaths */
+ 	if (unlikely(full_check && reverse_path_check())) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -EINVAL;
+ 	}
+ 
+ 	if (epi->event.events & EPOLLWAKEUP) {
+ 		error = ep_create_wakeup_source(epi);
+ 		if (error) {
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			return error;
+ 		}
+ 	}
+@@ -1626,7 +1626,7 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
+ 	 * high memory pressure.
+ 	 */
+ 	if (unlikely(!epq.epi)) {
+-		ep_remove_safe(ep, epi);
++		ep_remove(ep, epi);
+ 		return -ENOMEM;
+ 	}
+ 
+@@ -2305,7 +2305,7 @@ int do_epoll_ctl(int epfd, int op, int fd, struct epoll_event *epds,
+ 			 * The eventpoll itself is still alive: the refcount
+ 			 * can't go to zero here.
+ 			 */
+-			ep_remove_safe(ep, epi);
++			ep_remove(ep, epi);
+ 			error = 0;
+ 		} else {
+ 			error = -ENOENT;
 -- 
 2.55.0.979.g7e5102b832-goog
 
