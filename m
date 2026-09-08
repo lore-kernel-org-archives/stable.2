@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446EF552933
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3640552953
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:43:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874712; cv=none; b=Go5IfAboaxbimFvyVxNhAsg+l3pAHTUI5ioB1sfNqQ2QqETQyc7eXIyuK9+WleY7oNo9sS9UWP056nO36empuUBstvjjxPtHo8kjc9HmFHq1ptEvUBv5PRNMclBXinJ7cmUW3rAjo+2G4D6s/16/c0IMWqkDIeUNhSPzBV9Liy4=
+	t=1788875008; cv=none; b=IwcgvWrlGQs0gDFwXImvQ29AfKyfPwgLasX8wVCNIpHxibwdBu9el8RcS6BW3ZEfsYexwFLCgl8ySkS0kfvy1LlJxdFmy8vCKbmHizs4jG/weEO48o5xR+KMJcO8vMpnFPMiFhQ1FpuBBq9JiDQF+4su8YvmMJYmyBho8oUUCVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874712; c=relaxed/simple;
-	bh=twde+dNpMYRJVCOlcbj/t7GcfQnBjHryFzJPuqBdq80=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ONAD+HiYi4/o/cmirH0vmKB66tCYYai1hMV0gmazPrJvjn1kPn2DtcMlRnlZ8XKLS484HK86hQB/oYdm9bEVSW4+msv9871vBgTMa0X5j/HkkJJMjMRenATxxG4RwR4Gg0rX0w5M9CNukxrA17Wpiavsu9GMYsEbA1etf26p3iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mNRsmaQp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875008; c=relaxed/simple;
+	bh=uKOKll2NtB/4qrL0I5RwGrF2J69IATnQRgm+kxAFz/Y=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ONoSa0S0OaXAMO9Gd6/rkhL9Trtgejjp2NOEu2WLELshQm8tJTlWUD4N3NAPLSe/bAqsEOxHD4HnfcmrEJrIZ1ibyDEwwbE37UbyM6HxAtOeZI3/TIF+3cvEtAGTzxqQ+3HU5ndT2wo3YjgahVmqMNZ8yfnSStPDiVT8ec6zgjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Hc5ySg5x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mNRsmaQp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD5C1F00ACA;
-	Tue,  8 Sep 2026 13:38:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Hc5ySg5x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9171F00ACF;
+	Tue,  8 Sep 2026 13:43:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874682;
-	bh=BWpMgCo2TjyRGNFOSujNUreXn4E/NFMrGCSws5RW8nE=;
+	s=korg; t=1788874996;
+	bh=GyOv32fozLbyIs/cnXI1DqMS4dvOAVmezmLmO+3gBbg=;
 	h=Subject:To:Cc:From:Date;
-	b=mNRsmaQpJNFVhVYjQ04L3Mle8qbB2KFFMfMpdBm9A9Atb5djQsClUVGtMTA1xtk3Y
-	 5f1dq5ypYNTflM7ZW4BFQBVIIDoX9D1ML8qRVPcxEbu0FoZ12E/9e5zPRXL2wdVNz7
-	 +bkpGMOJGkYxpyV+bao2Lv6m+ZdqaeloEe5XCKjU=
-Subject: FAILED: patch "[PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on" failed to apply to 5.15-stable tree
-To: usama.arif@linux.dev,akpm@linux-foundation.org,baohua@kernel.org,baolin.wang@linux.alibaba.com,david@kernel.org,dev.jain@arm.com,hannes@cmpxchg.org,hughd@google.com,kas@kernel.org,lance.yang@linux.dev,liam@infradead.org,ljs@kernel.org,nphamcs@gmail.com,riel@surriel.com,ryan.roberts@arm.com,shakeel.butt@linux.dev,stable@vger.kernel.org,ziy@nvidia.com
+	b=Hc5ySg5xnbz2+mGVTH7vcEYAGtGBuvvyrq94ceSjPkdeeQPwodpnpoPBoxFLUhezW
+	 im3Zg6Qv+k0UuN2Z0qpx72iYpZsyEoxWuMWAg36A5Uyii7+WzeXEBMKrLLgCQjwsW+
+	 u1LjBh9IjQOkhyQpvW3oxDi/iybBKvZczzK5yt68=
+Subject: FAILED: patch "[PATCH] misc: fastrpc: don't publish fd before copy_to_user()" failed to apply to 5.10-stable tree
+To: shoubaineng@gmail.com,christian.koenig@amd.com,sumit.semwal@linaro.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Tue, 08 Sep 2026 15:33:49 +0200
-Message-ID: <2026090849-unrivaled-active-a82e@gregkh>
+Date: Tue, 08 Sep 2026 15:36:42 +0200
+Message-ID: <2026090842-deluge-gloss-a643@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x fe6cf984939d8e12cb33a99673c8d026c5135e68
+git cherry-pick -x a4a1a2bfcb29785292d634d7787edc6fb550714d
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090849-unrivaled-active-a82e@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090842-deluge-gloss-a643@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,90 +62,72 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From fe6cf984939d8e12cb33a99673c8d026c5135e68 Mon Sep 17 00:00:00 2001
-From: Usama Arif <usama.arif@linux.dev>
-Date: Wed, 19 Aug 2026 03:12:22 -0700
-Subject: [PATCH] mm/huge_memory: transfer the pmd dirty bit to the folio on
- zap
+From a4a1a2bfcb29785292d634d7787edc6fb550714d Mon Sep 17 00:00:00 2001
+From: Baineng Shou <shoubaineng@gmail.com>
+Date: Mon, 17 Aug 2026 13:04:55 +0800
+Subject: [PATCH] misc: fastrpc: don't publish fd before copy_to_user()
+ succeeds
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-zap_huge_pmd_folio() propagates the pmd young bit to the folio for the
-file case, but not the dirty bit.  The pte path does propagate it, in
-zap_present_folio_ptes() and so does the pmd split path, in
-__split_huge_pmd_locked().
+fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
+into the caller's fd table before copy_to_user() copies the fd number
+back to userspace.  If copy_to_user() fails, the fd is already visible
+to other threads in the same process but the ioctl returns -EFAULT.
+The existing comment in the code even acknowledges the problem:
 
-For most file mappings the omission is harmless, because writing to a
-shared file mapping goes through page_mkwrite(), which dirties the folio.
-tmpfs is different: it has no page_mkwrite(), and vma_wants_writenotify()
-is false for it, so a *read* fault on a MAP_SHARED tmpfs mapping installs
-a writable pmd via do_read_fault().  do_read_fault() does not call
-fault_dirty_shared_page(), so subsequent stores through that mapping set
-only the hardware dirty bit in the pmd and never call folio_mark_dirty().
-A shmem folio allocated by a fault is marked uptodate but not dirty (see
-the clear: block in shmem_get_folio_gfp()), so PG_dirty is never set at
-all.
+  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
+   already called fd_install()..."
 
-Unmapping such a folio - munmap(), or exit_mmap() when the process dies -
-then loses the only record that it was written, because zap_huge_pmd()
-drops the pmd without transferring the dirty bit.  Reclaim afterwards sees
-a clean shmem folio: the whole swap-out block in shrink_folio_list() is
-inside "if (folio_test_dirty(folio))", so pageout() is skipped and the
-folio falls into __remove_mapping().  There, folio_is_file_lru() is false
-for a swapbacked folio, so no shadow entry is created and
-__filemap_remove_folio(folio, NULL) simply empties the i_pages slot.  The
-data is freed without ever being written to swap, and the next fault on
-that index returns a freshly zeroed folio.
+Now that dma_buf_fd_install() is available (introduced to fix the same
+issue in dma-heap), apply the same pattern here: reserve the fd with
+get_unused_fd_flags(), attempt copy_to_user(), and only on success call
+dma_buf_fd_install() to publish it atomically with the tracepoint.  On
+copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
+unwind without any user-visible side effects.
 
-This is silent data loss for any process that keeps state in a MAP_SHARED
-tmpfs segment across an unmap - for example a cache handed from one
-process generation to the next through /dev/shm.  It requires the folio to
-be PMD-mapped, so it only shows up once shmem THP is enabled (which is
-what we did in Meta fleet and started noticing crashes); with THP off the
-pte path transfers the dirty bit correctly.  It also only becomes visible
-when swap is enabled, because with no swap device shmem folios (which are
-on the anon LRU) are not scanned by reclaim at all, so the clean folio is
-never dropped.
+Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
+Cc: stable@vger.kernel.org
+Acked-by: Christian König <christian.koenig@amd.com>
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Link: https://lore.kernel.org/r/20260817050457.1005285-3-shoubaineng@gmail.com
+Signed-off-by: Christian König <christian.koenig@amd.com>
 
-Reproduced on x86_64 with a tmpfs mounted huge=within_size: read-fault a
-2MB-backed region, write a known pattern through the resulting mapping,
-munmap, force reclaim of the cgroup, then re-map and read back.  Without
-this patch the region reads back as zeros and vmstat shows zswpout 0 - the
-data was discarded rather than swapped.  With this patch the region reads
-back correctly and the pages are swapped out as expected.  With
-huge=never, or when the first touch is a write, the test passes either
-way.
-
-Link: https://lore.kernel.org/20260819101222.3732660-1-usama.arif@linux.dev
-Fixes: b5072380eb61 ("thp: support file pages in zap_huge_pmd()")
-Signed-off-by: Usama Arif <usama.arif@linux.dev>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Kiryl Shutsemau <kas@kernel.org>
-Acked-by: Hugh Dickins <hughd@google.com>
-Tested-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>
-Cc: Dev Jain <dev.jain@arm.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nhat Pham <nphamcs@gmail.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ced400f72d43..afbb5974bd22 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -2449,6 +2449,8 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
- 		add_mm_counter(mm, mm_counter_file(folio),
- 			       -HPAGE_PMD_NR);
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index eb6c2a78d3c7..d7a9e12f5575 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1712,24 +1712,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
+ 		return err;
+ 	}
  
-+		if (is_present && pmd_dirty(pmdval))
-+			folio_mark_dirty(folio);
- 		if (is_present && pmd_young(pmdval) &&
- 		    likely(vma_has_recency(vma)))
- 			folio_mark_accessed(folio);
+-	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
++	bp.fd = get_unused_fd_flags(O_ACCMODE);
+ 	if (bp.fd < 0) {
+ 		dma_buf_put(buf->dmabuf);
+-		return -EINVAL;
++		return bp.fd;
+ 	}
+ 
+ 	if (copy_to_user(argp, &bp, sizeof(bp))) {
+-		/*
+-		 * The usercopy failed, but we can't do much about it, as
+-		 * dma_buf_fd() already called fd_install() and made the
+-		 * file descriptor accessible for the current process. It
+-		 * might already be closed and dmabuf no longer valid when
+-		 * we reach this point. Therefore "leak" the fd and rely on
+-		 * the process exit path to do any required cleanup.
+-		 */
++		put_unused_fd(bp.fd);
++		dma_buf_put(buf->dmabuf);
+ 		return -EFAULT;
+ 	}
+ 
++	dma_buf_fd_install(buf->dmabuf, bp.fd);
++
+ 	return 0;
+ }
+ 
 
