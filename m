@@ -1,231 +1,149 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE515293FC;
-	Tue,  8 Sep 2026 16:34:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885267; cv=none; b=muSiJhLqR1usOHpc4ZFRpRIOZv6XhIw21hwCd/pN9GxLIs6kOWALYX8D1ugRgciK6K5YW9fsD4NBnR3aP77dpwsxmBH+txbsw7t25ol7OvS1yWCUXYtvTM/c0i/nQ3HlYDkQZ+6VvzRSHgmyJPszkWEXM/lbPA8vpN1/ncNoaiw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885267; c=relaxed/simple;
-	bh=0A2DB+h2myMPbc1b7+haoWdeKNoxrVFL1lo8/WicaVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lh+9UgfXbng9SEnEtKF7Is2YXuSyKZxcWa+dWUv/opTx4XLd1GrkE3wtBiDVoqJyMN2tAutANpBhwgszlLF24G/TCXRkeXKY0BgGYFqvUE9MINtZQwEfYq3Kxq55KGG9CiO/dx8xj3Nbu18FnEoIWUTh2gC8i6pOhnnXJCytyCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=KbFf/uGQ; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3AA55C1DE
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 16:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788885480; cv=pass; b=SnbfEdyJi0wb11YGqOlyOrYuERPXKhNRxJSS79VASCPEuyE77XbfZtwVnW5oQtXdsHZA22Pg8BKX3oeic0BUrRyrKZqG0SePFchWdjUUGEh55TP3OXPy8lSr4bebG/ZSJx3OAPmGqsxOXjnRG38zdIQPeadnkoFi+hjUtmvLNpo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788885480; c=relaxed/simple;
+	bh=tqk8614BLoIOeOT9CI/IALiduSN9nR6x4DKz4FZIZZk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YvD5swB7V89LH8/5fW/9/EZx5tiR3Axq0f9kvO22/3j1wQVqH6FUW5mcINGIu4BsS/fhq3g+GizsdG2g/702cKhviCGu2mvAGQVBJNfvnzhHAo1oewpw9vDwDETxj/cD6fomwF6K9IvhKeL05DXW221PBkEDe1KQPRtgvpD3Cwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJqUuuhS; arc=pass smtp.client-ip=209.85.210.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="KbFf/uGQ"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688F1imV3545327;
-	Tue, 8 Sep 2026 16:34:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Dus/iw
-	UPbGNHX/3+OvuB+79Dq3Pt2DPRdDIagViEDD8=; b=KbFf/uGQ4p0YYY06y0soHW
-	KkMuFLGlPoa+qMn7oz+iXMSOonxycxTTtkgfevqepdiz6Lsm7UY5IZeQc74Edamt
-	+0RYHST+Rq4zDgAbDKha2Oc7a2kwOwpbQWd71epAM8BEG7Stpg6i3iessyF9CXq0
-	WP9xhsTjNXGJMnubVEB8U5ha/QffuYb7MlLIZmC0e927dTjSebgLN2MCaXAv2Hit
-	QTtcaqrEfXooy7FPi/QkT0IYBWF6oScJWRzAIbzRMCjotndlFffFYlm1YKCJoz65
-	FbLnIfDOznoRQrAQOGSZYzYz9c9ADbuvAI5DCWx1jb6iwXHI7+Zoe9hrKZI4bTUQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqk0cyn-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:34:06 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688GUn4q012876;
-	Tue, 8 Sep 2026 16:34:05 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxdjw38r-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 16:34:05 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688GY1X846858560
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 16:34:02 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D5FBC20043;
-	Tue,  8 Sep 2026 16:34:01 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A194D20040;
-	Tue,  8 Sep 2026 16:33:55 +0000 (GMT)
-Received: from [9.61.253.97] (unknown [9.61.253.97])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Tue,  8 Sep 2026 16:33:55 +0000 (GMT)
-Message-ID: <8a8fdd2d-b29b-4aa2-b9eb-66fd10bd476c@linux.ibm.com>
-Date: Tue, 8 Sep 2026 22:03:52 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJqUuuhS"
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-853c07a76adso4540377b3a.0
+        for <stable@vger.kernel.org>; Tue, 08 Sep 2026 09:37:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788885478; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gLbfEhsD0yLyFTnxFQv6LZR2OzHMqcUtWShfG4fFmVX3l/8v/BmCtjp/eek+wPaDBL
+         B1jd57E4368A3fZ0el8nlAHVKJXsWF777GaPJWFpptDusdQLfFXLK2pQmnLqyD6JkWdS
+         EetUTsterjr3n4fvTqvBynx3kQ0Rz1rKodrFvjrH4T5suVIbWsc/pKCLtWEqaeRwLwk2
+         XoEhF85JVVV7vCA+qZwH22tuU6KCJ668MWWcik5jR0pcOI3NsMDn5RqHVB/eHkjkZRN2
+         0949qSD7x0pUXfPxrHre+J9/a8gyPV4qcwMVGTcERIxhGCdJvrRJvAUjPdOJVFBn3qHM
+         pulQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tqk8614BLoIOeOT9CI/IALiduSN9nR6x4DKz4FZIZZk=;
+        fh=3+pLVEAzCbY0CbLW5TE1Kv8SpawBK7lNsDtnmtRcZP4=;
+        b=BaIKnkF5kZ4lpnHQX6qrYtjA8hOnXFsfeR9Tl7MCwo2+x+AEv/yCCsZLGp2E4m0i4L
+         cssvp4PTWyL+exuVbFXJnOYlD3jEOaGY590k/CT2s3BewtyCbboiPpI04gJMz6PX1MBu
+         dz8liyvTz+5jukio4qZhJccPvJtUoAH9TI4AvB3YbZwgY4WZt85FdP4nIS8WUCtw17d6
+         36+NJKtNGvutei9KMBzeJzd5UZ+PnfASBU67hakB/As/rKk52eQhuSC1mM5A66p9JSpN
+         kGVie1P6rDM8mvJCZ8/LrB0rArZhiQpss1L4W6/I4Uzu2wEWvHA+H9U6UrT3g49/80xm
+         R2eA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788885478; x=1789490278; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tqk8614BLoIOeOT9CI/IALiduSN9nR6x4DKz4FZIZZk=;
+        b=CJqUuuhSe76t68OtOXGv5goTikIfTNl1Mw48Ka8y9ie9nJJ2EK45rLEFq5/X4MvcHY
+         lKijqmDVUEFDyl6lsTkuXLlSQc/TZhsGN8i+kAwFcxHiFD1UD1ey95fqBzUsuPQjPqFO
+         euG9egNueEo99u9219IQFZg0HsbuE41NxGDaPxt98ApSO/q1F2yIWTlmwmsTIl6Gudl4
+         amoZAXeD8X2vBV3TM4QoIhHtUP8zQkqmDWsU5juy/xnNBOnMoRSEjDj5P8mcJR92PMN2
+         tCJF6RU8ZUB34UBeQkmsPYNb0w1xue+W5jrtHy/9CNmziSN5T+TNdNMTaBBSMUOMaU9n
+         fS5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788885478; x=1789490278;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tqk8614BLoIOeOT9CI/IALiduSN9nR6x4DKz4FZIZZk=;
+        b=C51bLbrMOsF4wVbClFrt7R/EtbJ6kHKsGav3WwN3JFTx7bpzH1cln3wuPPa1pqBGQe
+         crpwiqV7greuD83O6wLu1bffjWJnJWG9p1DgAQrNUY6/1eybx8tnSkZTXZDySpT2RbEe
+         3WSFRHGnthrtkMVIUfYGxXMnRqvt+Ny5gqryyHxZyaui4IDiGeVEPx415qqnoPawYm4q
+         LkNvDw1ILLiQbOrAnGFv1kFYiXrqd9Nd7LXl+x7OgjdkblSGvfqATBYkWkERFjPNQHLR
+         /NKEmFUTvfW4a2bytDxU+r+aXQ45B2E3hTd+DeoOqsVCOqg/QiqIe9iJZ9guuXGhZBTF
+         ugpw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8PMVPu5wqojkLXalXXkWoNhLih4Z8lPExo9GLT9el5Q4OpQ43GvCwgqzLCnOkcELu3CR6/1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lLpOYhqRKkWoihMKndMjZtTKMOVjXofx4PniWeP+l+C1LN4t8f
+	ALp/DjoRJwACriPbgC0ChO/uhMu5Mki+a3FUg+JiSsoU7r2I95jeMs+1ehyFn1GszNyvDYRary9
+	WKo/KMPlMm/aKNNwinJxy/BqfDVt8a8w=
+X-Gm-Gg: AYBFou2rk8ZvqoKr5oMasLjrVVqnhYfJlgvu33DgPA8E1Su224E3nOsvzq6KOkBavGn
+	JdgUhlVZORytET9a3Oi06mMslqjvNTibb7v8DAFpgtphP7SdYmAQB/TniGT2EdCrShf1ulEZ/n0
+	fhUkJF8cnCb6bGQseKX3JEp8CVCHVUhd9BZa4N1bwO1Yld9L5SKUF3dGT8DYabMpx/47bslWJVE
+	VbQK2lLZfyBPIj2s92oCU1H26Whc1BCLoB54kL7eU0ddGVXUgFVmpTQZVhULYV9c33FJQVb2QLF
+	Ie9GZx8G86Ioky1w1xWCouFmsmP3OKpt0TspcvPD8nQNthkYwq5ufSPfrT73sHu5SZPWOP/e3eb
+	jxsIdkNVyjBecZ3swJePqFV/H0Yt9
+X-Received: by 2002:a05:6a00:3007:b0:846:4d4c:23f8 with SMTP id
+ d2e1a72fcca58-861662d4c34mr43970654b3a.1.1788885477863; Tue, 08 Sep 2026
+ 09:37:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 8/8] selftests/bpf: Add tailcall verifier selftest for
- powerpc64
-To: Saket Kumar Bhaskar <skb99@linux.ibm.com>, bpf@vger.kernel.org,
-        linuxppc-dev@lists.ozlabs.org
-Cc: hbathini@linux.ibm.com, maddy@linux.ibm.com, ast@kernel.org,
-        andrii@kernel.org, daniel@iogearbox.net, shuah@kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org,
-        venkat88@linux.ibm.com, yeswanth@linux.ibm.com
-References: <cover.1788154635.git.skb99@linux.ibm.com>
- <b11a7ad9ecf1dd7f6524067f061b4f7dabeff1d9.1788154635.git.skb99@linux.ibm.com>
-Content-Language: en-US
-From: R Nageswara Sastry <rnsastry@linux.ibm.com>
-In-Reply-To: <b11a7ad9ecf1dd7f6524067f061b4f7dabeff1d9.1788154635.git.skb99@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Yf6a0WeLqNgGDzkSi7S5VPgr6VHdyJb_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX3A2BWzidwS+n
- fK0l6FWvzXAszdCA50cahnk7DLLe94Qq226UjaWoLPdyWvMNv3Trc6eSKBm9iX6fCqIHDVrFTF/
- UD4pzxHVMCE7dNYRyPIN6IRgVU3RBZo=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3OCBTYWx0ZWRfX5keBCtbAuH/e
- WMDnfAZ7Avd2I+TLZtNyfFvCsPNJ9KKdRKB2DLCY4TpQfL7pcCgnF/R1IoCeSwV2ZEjUAuLT2nk
- EuB4VLQgiV+Cvty94l9+65g5pZmw8kZ9CqD3rLhZ8UdWNaB+qb9QH5d+ffd5qDcM2IXi4fdL4NL
- jWgipiJorb4hBD49vx5g/C4S+C/f616G48uq3vjNnz34fKcHWuL0NRVn3wt/jecX69pggOSbVdm
- JlT4I7XubWNRqWTNg/ICaPWDQvOEH0fWQ7ftjnmXnFWFuvK9Gkhpwd3yHj2uuAgXIF2YfnQU7tB
- dBLT+yGNxEpnjW5K7qLvGJOgdlRViyeCWuDrf8nja8nfGd6VafHH5ckV/1lpNf+qvCHdbHKT7R2
- +Wr+Cg6REiqdkU1UCQPCa1IHBqu34iangft9DompMmhHv5QhnFlOfcHtAVNYGjFC9ddoWgrPVLj
- H8/0E/3FGiS3WVp4v3g==
-X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa038ff cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8
- a=fFdEStb9C0Pfc0vgUyYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: Yf6a0WeLqNgGDzkSi7S5VPgr6VHdyJb_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080178
+References: <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
+ <CADAM+B2jgDiyShSSXYoUG36C7yVpjx2NrhP6tOHeDjB0h+GvTA@mail.gmail.com>
+In-Reply-To: <CADAM+B2jgDiyShSSXYoUG36C7yVpjx2NrhP6tOHeDjB0h+GvTA@mail.gmail.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Tue, 8 Sep 2026 09:37:46 -0700
+X-Gm-Features: AcwNN1U713emDEBEY77DqpIK_oX7R7ikV6MmHQT0CKKTJmS_FXiyFemFfwHRuRQ
+Message-ID: <CAADnVQLu-XiLxz_k02YK9xCgM8guoszby3O_m00_vdq5X8-w5A@mail.gmail.com>
+Subject: Re: [PATCH] x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
+To: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, X86 ML <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, 
+	LKML <linux-kernel@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, stable <stable@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 8, 2026 at 6:22=E2=80=AFAM Soheil Hassas Yeganeh
+<soheil.kdev@gmail.com> wrote:
+>
+> On Mon, Aug 31, 2026 at 10:49=E2=80=AFAM Soheil Hassas Yeganeh
+> <soheil.kdev@gmail.com> wrote:
+> >
+> > The switch of the FineIBT preamble from "subl $hash, %r10d" to the
+> > shorter "subl $hash, %eax" moved the hash immediate from offset 7 to
+> > offset 5 of the preamble. fineibt_preamble_hash was updated to match,
+> > but the open-coded offset in cfi_get_func_hash() was missed and it
+> > still reads the hash at offset 7.
+> >
+> > cfi_get_func_hash() is used by the BPF JIT to give a struct_ops
+> > trampoline the CFI hash of the stub function it stands in for. With
+> > FineIBT the trampoline now gets the upper half of the real hash
+> > followed by the first two bytes of the next instruction, so the first
+> > indirect call from the kernel into a struct_ops program,
+> > tcp_init_congestion_control() calling ->init() of a BPF congestion
+> > control for example, fails the FineIBT check and the kernel dies with
+> > a CFI failure.
+> >
+> > Move the FineIBT preamble template and its offset defines above
+> > cfi_get_func_hash() and use fineibt_preamble_hash there, so every
+> > reader of the preamble shares one definition of its layout. The
+> > CFI_FINEIBT arm is only built with CONFIG_FINEIBT, the only
+> > configuration in which cfi_mode can take that value.
+> > cfi_get_func_arity() does not need the same treatment: the __bhi_args
+> > call whose displacement it reads still ends at the function address.
+> >
+> > Fixes: 85a2d4a890dc ("x86,ibt: Use UDB instead of 0xEA")
+>
+> Gentle ping on this one. To recap: since 85a2d4a890dc the FineIBT preambl=
+e
+> stores the hash at +5, but cfi_get_func_hash() still reads it at +7, so B=
+PF
+> struct_ops trampolines are emitted with a wrong hash and the first indire=
+ct call
+> through them (e.g. a bpf tcp_congestion_ops .cong_control) hits a FineIBT=
+ #CP.
+>
+> We have large scale panics when we use BPF congestion control.
+> Happy to respin if a different shape is preferred (e.g. moving the
+> offset next to
+> the preamble definition), but this seemed like the best way to fix the is=
+sue.
 
-On 31.08.2026 12:46 PM, Saket Kumar Bhaskar wrote:
-> From: Abhishek Dubey <adubey@linux.ibm.com>
->
-> Verifier testcase result for tailcalls:
->
-> # ./test_progs -t verifier_tailcall
->
-> #618/1   verifier_tailcall/invalid map type for tail call:OK
->
-> #618/2   verifier_tailcall/invalid map type for tail call @unpriv:OK
->
-> #618     verifier_tailcall:OK
->
-> #619/1   verifier_tailcall_jit/main:OK
->
-> #619     verifier_tailcall_jit:OK
->
-> Summary: 2/3 PASSED, 0 SKIPPED, 0 FAILED
->
-> Signed-off-by: Abhishek Dubey <adubey@linux.ibm.com>
-> Signed-off-by: Saket Kumar Bhaskar <skb99@linux.ibm.com>
-> Tested-by: Yeswanth Krishna Tellakula <yeswanth@linux.ibm.com>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-
-System: ppc64le LPAR (IBM POWER), Linux 7.3-rc2
-> ---
->   .../bpf/progs/verifier_tailcall_jit.c         | 78 +++++++++++++++++++
->   1 file changed, 78 insertions(+)
->
-> diff --git a/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c b/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-> index 48fa34d2959f..9880ce4f1931 100644
-> --- a/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-> +++ b/tools/testing/selftests/bpf/progs/verifier_tailcall_jit.c
-> @@ -91,6 +91,84 @@ __jited("	popq	%rax")
->   __jited("	jmp	{{.*}}")		/* jump to tail call tgt   */
->   __jited("L0:	leave")
->   __jited("	{{(retq|jmp	0x)}}")		/* return or jump to rethunk */
-> +__arch_powerpc64
-> +/* program entry for main(), regular function prologue */
-> +__jited("	nop")
-> +__jited("...")                          /* ld 2, 16(13) absent with CONFIG_PPC_KERNEL_PCREL */
-> +__jited("	li 9, 0")
-> +__jited("	std 9, -8(1)")
-> +__jited("	mflr 0")
-> +__jited("	std 0, 16(1)")
-> +__jited("	stdu 1, {{.*}}(1)")
-> +/*
-> + * load address and call sub() via count register
-> + *
-> + * Address materialization differs between PCREL and non-PCREL kernels.
-> + * Skip the address generation sequence and verify only that the call
-> + * target is loaded into CTR before branching.
-> + */
-> +__jited("...")
-> +__jited("...")
-> +__jited("...")
-> +__jited("...")
-> +__jited("...")
-> +__jited("...")
-> +__jited("	mtctr {{.*}}")
-> +__jited("...")
-> +__jited("	bctrl")
-> +__jited("	mr	8, 3")
-> +__jited("	li 8, 0")
-> +__jited("	addi 1, 1, {{.*}}")
-> +__jited("	ld 0, 16(1)")
-> +__jited("	mtlr 0")
-> +__jited("	mr	3, 8")
-> +__jited("	blr")
-> +__jited("...")
-> +__jited("func #1")
-> +/* subprogram entry for sub() */
-> +__jited("	nop")
-> +__jited("...")                          /* ld 2, 16(13) absent with CONFIG_PPC_KERNEL_PCREL */
-> +/* tail call prologue for subprogram */
-> +__jited("	ld 10, 0(1)")
-> +__jited("	ld 9, -8(10)")
-> +__jited("	cmpldi	9, 33")
-> +__jited("	bt	{{.*}}, {{.*}}")
-> +__jited("	addi 9, 10, -8")
-> +__jited("	std 9, -8(1)")
-> +__jited("	lis {{.*}}, {{.*}}")
-> +__jited("	sldi {{.*}}, {{.*}}, 32")
-> +__jited("	oris {{.*}}, {{.*}}, {{.*}}")
-> +__jited("	ori {{.*}}, {{.*}}, {{.*}}")
-> +__jited("	li {{.*}}, 0")
-> +__jited("	lwz 9, {{.*}}({{.*}})")
-> +__jited("	slwi {{.*}}, {{.*}}, 0")
-> +__jited("	cmplw	{{.*}}, 9")
-> +__jited("	bf	0, {{.*}}")
-> +/* bpf_tail_call implementation */
-> +__jited("	ld 9, -8(1)")
-> +__jited("	cmpldi	9, 33")
-> +__jited("	bf	{{.*}}, {{.*}}")
-> +__jited("	ld 9, 0(9)")
-> +__jited("	cmpldi	9, 33")
-> +__jited("	bt	{{.*}}, {{.*}}")
-> +__jited("	addi 9, 9, 1")
-> +__jited("	mulli 10, {{.*}}, 8")
-> +__jited("	add 10, 10, {{.*}}")
-> +__jited("	ld 10, {{.*}}(10)")
-> +__jited("	cmpldi	10, 0")
-> +__jited("	bt	{{.*}}, {{.*}}")
-> +__jited("	ld 10, {{.*}}(10)")
-> +__jited("	addi 10, 10, {{.*}}")    /* offset depends on CONFIG_PPC_KERNEL_PCREL */
-> +__jited("	mtctr 10")
-> +__jited("	ld 10, -8(1)")
-> +__jited("	cmpldi	10, 33")
-> +__jited("	bt	{{.*}}, {{.*}}")
-> +__jited("	addi 10, 1, -8")
-> +__jited("	std 9, 0(10)")
-> +__jited("	bctr")
-> +__jited("	mr	3, 8")
-> +__jited("	blr")
-> +
->   SEC("tc")
->   __naked int main(void)
->   {
-
--- 
-Thanks and Regards
-R.Nageswara Sastry
-
+Looks fine to me. I guess it will go via tip tree?
