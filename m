@@ -1,33 +1,24 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9F6554086
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752935632AC
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 13:29:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874203; cv=none; b=U22EcMgYgc1QgNEWiD+oPQYOB9YLz9KMD9T/qo2yS/tqIr79sz9KIVVFAG6FWLY6PXmuvI/TzzIPnB93pgYalx55tgJlxCoJWlokzUm/tixcw4Hdqqh9shOjNJ1Sp6IiGpepRBHGVcVzGwZruWswF23WFc8weCDOrTvKML6rBVk=
+	t=1788874205; cv=none; b=cyqdY6fIee/bUY7b+ved506bBEeFCNQBBDmQeNjm7vECok+v9nAe3wsSYg9BqEhUgcmpiWXSiS5s+hDLJoozsW1G1oDbZP3dk+Uz5HhgI73TgWuwuavyBEkbrBlzu/YYM2B7G1jDPbSHOXeE1euAfhK4RvN4PRUCjWgrLVYYX2E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874203; c=relaxed/simple;
-	bh=kvZEjyPPFBG8bzsqRdnYBwCjIMRC5qhLcRTaUcZ9X2M=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=qd2f4vHJCpsiK6j5HuhuihK9kv8WNjn7ogXOrjY0dql7nMeO8TOV7zDPOS508mHH2j/YojN1lUObLgQn4FLK5qrp3SNuU75tKOaBuAT+gvoad9OKzxbBdxMAkPgjzkWF6YWKylfxh2zq0i4yNLJm+iTrL58Nd5gY/ch5CeECngk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MHS4oJYz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MHS4oJYz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEDF81F00A3A;
-	Tue,  8 Sep 2026 13:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788874188;
-	bh=BTTeezP1bL0ax/k/W/OL/oCsyl50dZmhmh3Xhfqagiw=;
-	h=Subject:To:Cc:From:Date;
-	b=MHS4oJYzl5ds6lpqwvzC1IlAwmFdB90fiGukLxwGIhkWGW6QZYJTHP3dDXkthmuVy
-	 0zBqccGFfVMAGvH8bPrrEL0Lvo/t0cm4bOH451hkx39Gd7jOXJZV5+ol3WSgnc02Yf
-	 MMK8wGIWz/c1Sm1u5g/l43V3nplIquxw3WrHa0NM=
-Subject: FAILED: patch "[PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex" failed to apply to 6.12-stable tree
+	s=arc-20240116; t=1788874205; c=relaxed/simple;
+	bh=sCPwnD4Hz7v2OPhjLjKRpEcDTD2ukyQW5qP7MzJ78Fs=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=r0NpoAQI8c1cmORTmFcPf1sqLGjOmgKwHTq+fnKyK1faPkpdvu/Za/jvs7xEbcNvaxUquraK9IoBKYiznhu94nD5q1iQtXfEAYI0HrCoEnsOd9w5XughAB4XpVlrt8RJ/Uuu0pMWy+TjpCEFHGGMC0Yt41b29yHb9qNILpWsNr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36311F00A3D;
+	Tue,  8 Sep 2026 13:29:51 +0000 (UTC)
+Subject: FAILED: patch "[PATCH] futex: Provide rt_mutex_.*_schedule() equivalents for futex" failed to apply to 6.18-stable tree
 To: bigeasy@linutronix.de,tglx@kernel.org,yaokai34@huawei.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Tue, 08 Sep 2026 15:18:37 +0200
-Message-ID: <2026090837-colonist-magnify-011d@gregkh>
+Message-ID: <2026090836-asparagus-jujitsu-9a6e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +29,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 912edebe8501a36c6bedcef03bd238ab90a7e060
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090837-colonist-magnify-011d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090836-asparagus-jujitsu-9a6e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
