@@ -1,86 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3889243499D
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB6F4349B8
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 19:28:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895717; cv=none; b=nItnLagkMLVjJ1GHnRNLkakdaZBhOn0oh3L9a7orDNFK6ro/8GBZpdHovzkZMZ5ld5N1XYirefQGb44yXTlTIH43ZJKoSsZxn3gFgd33Ti4PIubHCdLfsqvEVAxNFeIRlL0Dn6KXKOHfFSvx8JPtrdOnOibZt+T10SpzxRdkFBM=
+	t=1788895718; cv=none; b=Cw4xS7vdQkorIrH0Q76gCK4SU3Ir2l++WvxdV8MSzcXv5JJ2/N6glNVAXKmQUVrww1m41YKvmJWoQpwnYTyAv2mzt+44s+5COMdmFccS4QDfOVHdhcWDxNH3fAin1JlYodQZd0ZFmJINTH2oEdOskyEaIMixK2XTVMPybyBFBhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895717; c=relaxed/simple;
-	bh=ymYfWlqCDRtoEhiQ5vWyphVkNZJUyXykgMvOyxtylgk=;
+	s=arc-20240116; t=1788895718; c=relaxed/simple;
+	bh=VNRBVYOnpx9cljK9DHxeVw8vzhHrrmL6xivkq1qmNE0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NuuykFkg9kfncrpW7SU0xm5tZcYX5V9s3siVn1nqHY3iJ+J6gK0IL4YoNVHpiRDndyiBErAOxGChuTcWY5GjKOFZu03l2fGom08IWQsc5Tjbp+PQudkraTDIzHNWUOvPf0kK2HD42XoJk36Idp6tmVv4srkHRNfdc4a43GXLYnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4umCWvt; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OyOCNoKyfhG53hhNG1wPI8QScaNo6AlqI5Db5EqEiBLH6i7A/FkxKaAQ/BPjDzqtz/1ZjVqfpCoKC5opcJYiakmrxWxOuIZ8q+N+YA/WvampbbToWgD/NfpgIFkUXl8ys4E8DD5lHKtjyx98zskl4UFA40KpE5DLODbqTNt5iaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHMg8cgf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4umCWvt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4041F00A3E;
-	Tue,  8 Sep 2026 19:28:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHMg8cgf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED5A1F00A3F;
+	Tue,  8 Sep 2026 19:28:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788895711;
-	bh=F4+p1HI/ojHzf1vKuomm/xjS7ysWoJtSBvxG2A1ZLE4=;
+	s=k20260515; t=1788895712;
+	bh=Ln1bAmIGEgnMBReLJra55xmRqu4DivHc2gLTDcDn4q4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g4umCWvtufiRlCsrwI4t6gzvZHrEvdE6/J5SZKDfk8sJdRNwNED+GIQQXPJMI5JQl
-	 vi/rspM4Ls4IC3WK984HyIRwb04iclwo2tFYUD8R7i7IKLnv2oou8IUGUQFjX6LD7P
-	 jaj3w8ZiHE4Ww5LMLM+kierp2cnu6j3gFFFjKKORAyCQw+RhfMnlH+cZ4lQ4rD/b78
-	 hmwX2JitxRgTuO7Qkrhqya4KCvaR2EROLZKv3CCB+CglYJCcYYVtg31Nznqp+SmaAF
-	 GlK+ywo4zsSNPcdJTj64/RR8Vw9MJrmLGMNcbCbP1TXSvc+H6HvvpQN73YljnrBALz
-	 WDGZgHKeeiJGg==
+	b=VHMg8cgfsdSPR6H0eAyRt5Bcibx9XR3o6RgwUDA0Do2INp6uQvQnjrC7tqAbAUr1W
+	 ZVq6MqS6D9X18tj8erPnloKlun5s0CgV2fg5MSOej6dhXRdIFfWHkwx9LeX0FB//Z5
+	 WXFCud/TgNBHNM7d6SlfEaAzSTN5decW+2FwniDMwXoYtdbwOrBUspTydZohchqKJ8
+	 2k1VC0639r9wv/HlfIF9i1MfXmHpEFo7l5by9BvnfSoesu0Ie4n7bNTWHr3Cqs4Bgx
+	 sM/FHa3yKa1ASuBQKdB1M0/tuJVwFmT2dWHaN55eLifIn4eAphI4hi3rK/zyFk04z7
+	 Q8M83XSV4nx5g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Anna Schumaker <anna.schumaker@oracle.com>,
+Cc: Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/3] SUNRPC: Introduce xdr_set_scratch_folio()
-Date: Tue,  8 Sep 2026 15:28:26 -0400
-Message-ID: <20260908192828.296500-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/3] sunrpc: defer rq_argp and rq_resp free until after RCU grace period
+Date: Tue,  8 Sep 2026 15:28:28 -0400
+Message-ID: <20260908192828.296500-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026090349-throwing-hardware-8a25@gregkh>
+In-Reply-To: <20260908192828.296500-1-sashal@kernel.org>
 References: <2026090349-throwing-hardware-8a25@gregkh>
+ <20260908192828.296500-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Anna Schumaker <anna.schumaker@oracle.com>
+From: Jeff Layton <jlayton@kernel.org>
 
-[ Upstream commit c8a127596edc026e5364a7a609986dcd3999914c ]
+[ Upstream commit c479bde671cbe2f9e152834a8b0eb7c3c295bbaf ]
 
-This will replace xdr_set_scratch_page() when we switch pages to folios.
+svc_rqst_free() frees rqstp->rq_argp and rqstp->rq_resp synchronously
+via kfree(), but defers the rqstp struct free via kfree_rcu().  After
+svc_exit_thread() calls list_del_rcu() and svc_rqst_free(), there is
+a window where RCU readers that started before list_del_rcu() can still
+traverse the thread list and find the rqstp.  These readers (e.g.
+nfsd_nl_rpc_status_get_dumpit()) dereference rqstp->rq_argp, which has
+already been freed — a use-after-free.
 
-Signed-off-by: Anna Schumaker <anna.schumaker@oracle.com>
-Stable-dep-of: c479bde671cb ("sunrpc: defer rq_argp and rq_resp free until after RCU grace period")
+Fix this by moving the kfree of rq_argp and rq_resp into an explicit
+call_rcu() callback alongside the struct free.  Resources not accessed
+by RCU readers (bvec, buffer pages, scratch folio, auth_data) remain
+synchronously freed.
+
+Fixes: 812443865c5f ("sunrpc: add a rcu_head to svc_rqst and use kfree_rcu to free it")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260611-nfsd-testing-v2-4-5b90e276f2d9@kernel.org
+Signed-off-by: Chuck Lever <cel@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/sunrpc/xdr.h | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ net/sunrpc/svc.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/include/linux/sunrpc/xdr.h b/include/linux/sunrpc/xdr.h
-index 0a3cbbe4a4cdf..5dfabde5f725a 100644
---- a/include/linux/sunrpc/xdr.h
-+++ b/include/linux/sunrpc/xdr.h
-@@ -317,6 +317,19 @@ xdr_set_scratch_page(struct xdr_stream *xdr, struct page *page)
- 	xdr_set_scratch_buffer(xdr, page_address(page), PAGE_SIZE);
+diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+index 553ec553d3baf..194e2bc9faa59 100644
+--- a/net/sunrpc/svc.c
++++ b/net/sunrpc/svc.c
+@@ -729,6 +729,15 @@ svc_release_buffer(struct svc_rqst *rqstp)
+ 			put_page(rqstp->rq_pages[i]);
  }
  
-+/**
-+ * xdr_set_scratch_folio - Attach a scratch buffer for decoding data
-+ * @xdr: pointer to xdr_stream struct
-+ * @page: an anonymous folio
-+ *
-+ * See xdr_set_scratch_buffer().
-+ */
-+static inline void
-+xdr_set_scratch_folio(struct xdr_stream *xdr, struct folio *folio)
++static void svc_rqst_free_rcu(struct rcu_head *head)
 +{
-+	xdr_set_scratch_buffer(xdr, folio_address(folio), folio_size(folio));
++	struct svc_rqst *rqstp = container_of(head, struct svc_rqst, rq_rcu_head);
++
++	kfree(rqstp->rq_resp);
++	kfree(rqstp->rq_argp);
++	kfree(rqstp);
 +}
 +
- /**
-  * xdr_reset_scratch_buffer - Clear scratch buffer information
-  * @xdr: pointer to xdr_stream struct
+ static void
+ svc_rqst_free(struct svc_rqst *rqstp)
+ {
+@@ -736,10 +745,8 @@ svc_rqst_free(struct svc_rqst *rqstp)
+ 	svc_release_buffer(rqstp);
+ 	if (rqstp->rq_scratch_folio)
+ 		folio_put(rqstp->rq_scratch_folio);
+-	kfree(rqstp->rq_resp);
+-	kfree(rqstp->rq_argp);
+ 	kfree(rqstp->rq_auth_data);
+-	kfree_rcu(rqstp, rq_rcu_head);
++	call_rcu(&rqstp->rq_rcu_head, svc_rqst_free_rcu);
+ }
+ 
+ static struct svc_rqst *
 -- 
 2.53.0
 
