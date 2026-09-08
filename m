@@ -1,62 +1,59 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39CC556E053;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393DB54CF6F;
 	Tue,  8 Sep 2026 15:54:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882860; cv=none; b=p9qjoyGTuWcXQw8xVs1XIhsIGKlvXvUzAEJ/wIvy5cHHGihYMPdS1qpeZRmTYqVkFj2lCy0m5iGWjEdCelCvDRHi3pb4WQK4yDZEZYbI+UWTbl6SPNhbi4kUs017Y131TAeP/3OM0N0lx1Zt6iZDsgXOj5GrGGgzSqQKmGMXWH4=
+	t=1788882861; cv=none; b=c0M6itWyfHyQ+8CcYwg4kn60rac2RX74YOwXNopbAbbGy5zHKyMwqNltbCisUvCDlKBt+7i/i48+7txY//BV3Kr0bcTFpRSxG01htjAf+IIO9bNSGRlO/TWYnnOTXqrTJmoL+GjwX3JS9Pfhi53+XnE7h9BWI6B2MirggoL9PIw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882860; c=relaxed/simple;
-	bh=knl9K8P7DwwSxVkOS5n9sh72AjW62Q/s0/VL+riJqKA=;
+	s=arc-20240116; t=1788882861; c=relaxed/simple;
+	bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kuQhkUHOOZypR3HS+ED9sgYAg5ZH+aTPFroWIBuBg+1Ke84tep2LZ2olvj8UW++NolEXAGcdu23lsNe/Y2TcNUK9Ti2fjVlN496lrDduz3ZS86Uj1WvcFYogUWDq7t6Xk9ZZETIhyyFU797mc+OZMq/25Poj7wNV6flF8EO9x58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=LjDt7h8O; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=PopA1IGE; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=l94iJCrNhc+5RWxkoFCvHHBN1fwj07Ds4FkAOpJ3BbBadaa6N09ubU1+Jj49xGmFkUE7mzcUFXy0j8jgYXo6FRxxlUNqm4ac4JVdHLjUMgHlGm9GKweyGSOAfZ6/gESez5Ql+Z4X2mb/o0Lx/oT6rEgVXAc97ET4ERooU+Fg36k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=dlzq+Hc1; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=CXnIK05f; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="LjDt7h8O";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="PopA1IGE"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="dlzq+Hc1";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="CXnIK05f"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882851; bh=knl9K8P7DwwSxVkOS5n9sh72AjW62Q/s0/VL+riJqKA=;
+	t=1788882851; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LjDt7h8OGyy19I+GC25H5T9cRNZOpUwDsYX4fhpHdmb8g6aMf8BpOnCNG8M+U5kN2
-	 /HiV134fka7pW+miZbEx8BMTiciZRm5WK+i6wWBs1LFQIU8y7rtrylTaweikX8OU8j
-	 0+CDTXFcn016QPoWyMYJ8H8HtAxVcnqm7pYsVGYYVpqvSJvWX6QxHqU4bMxWGXIFaB
-	 phDIMhJQkzY8q7w6/u1kwpq79ZXHQP3czFqO+ZDKSJqgUERL/KLiikV5gn+zkzxMO6
-	 blO+n0gKoB14nOX5bVPMfxOMTwAmh51Xai0v/aW+r8A2vl5BCd+gA4CGRFhzWWg23F
-	 R5LcXseHN84Gw==
+	b=dlzq+Hc13p51ZjGjRlBlOhtvN8/JrRHvmkfm95RmrI+bfkiQ8win/P5OzQDaqzHpX
+	 W1amkh/WKm10C05DEDHTAaoibUR4pU36aCH/ROgXWPVltnP/bGy9NGux7NProHEdJS
+	 6HPvh5Q+zYx5Ifnbvi/KUK48fL75VbnVe4dc/IwpN6hPeleA4Y8OTbGrOQAUYHQuIM
+	 TsAatozbTLvbMiidC6ixzRuEn8Egh0r2+Zd1cH+3DMijZkiPAFdP5o6bx+24KGnX25
+	 MgvoxHfUsZw0M9UUBwXOJqtpHbWlsU6cyqMwesgJWQL7xzx1jDFsPXHmh7zNkutLfW
+	 yyBoXZTS9/LFQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 4E58141455; Tue, 08 Sep 2026 16:54:11 +0100 (BST)
+	id B521D41450; Tue, 08 Sep 2026 16:54:11 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788882850; bh=knl9K8P7DwwSxVkOS5n9sh72AjW62Q/s0/VL+riJqKA=;
+	t=1788882850; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PopA1IGE7ZOyjL2einaM6GJcZUSUV//F+X8PSsJbeNMHx6HtIs2ZthfnNlSNCBSlW
-	 us+2f2Legs6GBtd6Co+cQR+HQ4aBGFbHDelhZlmwbb+9jhoS6aVnncOERKWsv8Xp1N
-	 nhmKBhfq++YNcDOfRG/iNEaQrKHTnzc+QprLYvFZivLh6O4LG+fO1y2kz48XrcyJ5H
-	 MOtQzQ3laOtMlvs/MtRSn24PmdcuvUEf68nKyt37YV0VGQn2MwCaq01hI3w+BrsPMf
-	 5zTddp+eAfMnoWsJaXzspbBuHTGTGY901X4fgoPynorDH+k8m2Hqlb+iYqLWS/8/kX
-	 B8+JobpAIf3WQ==
+	b=CXnIK05fGVkRaPwPSyRgAkkxv4SQNf3lqNGponzMK7rW1cwso4eI46m+ZJedtov4K
+	 x1gGHoygyYeZa2/EkEFGA7zmzOEoAfZmDhOBy8u+ENXVyP2+5rdq64vy3e1Wdtj1lW
+	 OiFnYnClaSu1xNEi1/qSpcf5CVQPmDGcaAztuwvhdp845mqT5eVFoDYRZItucksxhG
+	 ynL3Li+oT7pyQ7oL0OG6AqO5A04v8UFxr8R913RpL99izIIPyeUl89kfYk9VMqy6EG
+	 6SemVbrIYs4P/PEy5BMX/E/cNlkuPy0Fl43SZ8LD1xx3rYlmg2GTZgnNdAjqR7zt8K
+	 gi2NwB4Y5QkCQ==
 Received: from maru.home (host86-150-50-53.range86-150.btcentralplus.com [86.150.50.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id CA1E741450;
-	Tue, 08 Sep 2026 16:54:09 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 807DA4144E;
+	Tue, 08 Sep 2026 16:54:10 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org
-Subject: [PATCH v4 05/19] media: rc: Fix race between bpf(BPG_PROG_ATTACH) and device unregister
-Date: Tue,  8 Sep 2026 16:51:53 +0100
-Message-ID: <e3a4d95659d373050abe9da495f417e16d7def37.1788882189.git.sean@mess.org>
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 06/19] media: rc: mce_kbd: Fix inconsistent locking of keylock
+Date: Tue,  8 Sep 2026 16:51:54 +0100
+Message-ID: <459aa19b705e1928f8591998e3a5fffa5b7f82b1.1788882189.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788882189.git.sean@mess.org>
 References: <cover.1788882189.git.sean@mess.org>
@@ -68,47 +65,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Mark the device as unregistered before tearing down raw IR/bpf
-state, so that racing bpf(BPF_PROG_{ATTACH,DETACH,QUERY}) calls
-cannot slip in between ir_raw_event_unregister() completing and
-dev->registered being cleared.
+data->keylock is taken with spin_lock() in ir_mce_kbd_decode(), which
+runs in the raw IR decode kthread with local interrupts enabled, but
+with spin_lock_irqsave() in mce_kbd_rx_timeout(), the rx_timeout timer
+callback, which runs in softirq context.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+If the decode kthread is holding keylock via spin_lock() when a timer
+interrupt fires on the same CPU and the softirq runs
+mce_kbd_rx_timeout(), the softirq spins forever waiting for a lock
+that only the now-preempted kthread can release, while the kthread
+cannot run again until the softirq gives up the CPU. This deadlocks
+the CPU.
+
+Fixes: 53a62800efb2 ("media: rc: mce_kbd decoder: fix race condition")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/rc-main.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/media/rc/ir-mce_kbd-decoder.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 04204559959f..924b13fff753 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -2050,18 +2050,18 @@ void rc_unregister_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
+diff --git a/drivers/media/rc/ir-mce_kbd-decoder.c b/drivers/media/rc/ir-mce_kbd-decoder.c
+index bb2d7c37c263..d1c9263511b0 100644
+--- a/drivers/media/rc/ir-mce_kbd-decoder.c
++++ b/drivers/media/rc/ir-mce_kbd-decoder.c
+@@ -219,6 +219,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 	struct mce_kbd_dec *data = &dev->raw->mce_kbd;
+ 	u32 scancode;
+ 	unsigned long delay;
++	unsigned long flags;
+ 	struct lirc_scancode lsc = {};
  
-+	mutex_lock(&dev->lock);
-+	dev->registered = false;
-+	if (dev->users && dev->close)
-+		dev->close(dev);
-+	mutex_unlock(&dev->lock);
-+
- 	if (dev->driver_type == RC_DRIVER_IR_RAW)
- 		ir_raw_event_unregister(dev);
- 
- 	timer_delete_sync(&dev->timer_keyup);
- 	timer_delete_sync(&dev->timer_repeat);
- 
--	mutex_lock(&dev->lock);
--	if (dev->users && dev->close)
--		dev->close(dev);
--	dev->registered = false;
--	mutex_unlock(&dev->lock);
--
- 	rc_free_rx_device(dev);
- 
- 	/*
+ 	if (!is_timing_event(ev)) {
+@@ -319,7 +320,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 			scancode = data->body & 0xffffff;
+ 			dev_dbg(&dev->dev, "keyboard data 0x%08x\n",
+ 				data->body);
+-			spin_lock(&data->keylock);
++			spin_lock_irqsave(&data->keylock, flags);
+ 			if (scancode) {
+ 				delay = usecs_to_jiffies(dev->timeout) +
+ 					msecs_to_jiffies(100);
+@@ -329,7 +330,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 			}
+ 			/* Pass data to keyboard buffer parser */
+ 			ir_mce_kbd_process_keyboard_data(dev, scancode);
+-			spin_unlock(&data->keylock);
++			spin_unlock_irqrestore(&data->keylock, flags);
+ 			lsc.rc_proto = RC_PROTO_MCIR2_KBD;
+ 			break;
+ 		case MCIR2_MOUSE_NBITS:
 -- 
 2.55.0
 
