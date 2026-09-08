@@ -1,94 +1,179 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCA02538D7C;
-	Tue,  8 Sep 2026 12:29:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B686538D89
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 12:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870570; cv=none; b=E2eRZdB+Xhqfl5HHY8vjzfAAAm2+enUf60GRa/mqCXINR/h8RLd3h7/3Sokw4+PC0OBXKuzrIpuK0LTnMeimpDQMnj3RgZgA34hEQIRuZUgKi13qkWRCoOEKI9QD8JitiLzg7sz0yuj/Wo5ut+kqdCfbbd+HyZmkgg51RhGy9R4=
+	t=1788870594; cv=none; b=Q5Viw/0d6qGLVo4PhqbGhK1FteNgxHQqcsWCCAC2EK5aVI2S5GFa9zFMqaZR+jUtNuoudKLDkSr+QjIXNg87uiIyivYwElPczN2wf7JhKAUgige71LdPCiu2dX3p/3Nrz6Wbl/tiKFL9XIWiihOY9UGHrf7VdvogIL4mkKbNzaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870570; c=relaxed/simple;
-	bh=5cpwCirlfpQ7b0q0uxJLsDK1aH2U0BUVu/3a4N7TqfY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OzbUgeJrJUJ+80e1ay3PJTXFX2XZv9gEIufom1b6tHSWb0N04vyUMGT5IEprw3a5NRa1Y9yzCrAyKxV81wCvTd/gbBW0cVcBwPep6t0ewpqkKoJNarIiBdSv+xXvlAfa7sX/XVEMTXLPMK0l9vuyiLmoX+0jT29CSnM/cXQ11DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BUtw6t9N; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788870594; c=relaxed/simple;
+	bh=rvrpNpm9l5EfAUQmAneE0QhcuQcQ4DBTBsf8Tj6cNVU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UIE4PqIs1DQ8txx2jQXjW8gVdZx+BaVFUggwB7NBYEVSrtTrn6KDRL7QdtRnbFxZDCAcTfAaLxbhpOo5D0V+ri4P099WD+OcijIGNxAkBIiAJD4fA1xWZWpASfTRYSXUMYNB/R0Iy9w71/SG4apg2Z2nymkyhYuAkoX/7un3lIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2g0V2XaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BUtw6t9N"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hfNXz7518zKnSD;
-	Tue, 08 Sep 2026 14:29:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788870564; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5cpwCirlfpQ7b0q0uxJLsDK1aH2U0BUVu/3a4N7TqfY=;
-	b=BUtw6t9NoGUStX4XvZU6VN78mz8+oT46GcgQXDbmFT25x23El62/FA5yMigCdXG2rx4Xza
-	ugAb5mMZnT1wFfpfcWvcch5jCysnQb02MYTLf826w/eal3nVZRh89/pD/gdxRF+E70VBZz
-	SrsZI4tDkSW+AKAW+r2m5hQLi2U6YGjfAraFazUXXlakP1e3CQpCAKvs9BE0hfzCG9wodC
-	akilzea+5+jVKgepf+Zk+gAvle38YIxmyyKsxT1vdAJkuNwM7T+9XmiPp+hXHRHUQaqGNR
-	qB+cp8Zm1G+tBA5SBCm6hHtMkFo/9edDY+BtvSrjaHGks5NS6tSbQdmH+zDkXw==
-Message-ID: <bf1c4ad1df5bdc93159b65d2acfbeffc4ae5df7b.camel@mailbox.org>
-Subject: Re: [PATCH v4] drm/sched: Create a fake device for KUnit tests
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: oushixiong1025@163.com, Matthew Brost <matthew.brost@intel.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
-  Christian =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>,
- Maarten Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
- Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Shixiong Ou	
- <oushixiong@kylinos.cn>, stable@vger.kernel.org
-Date: Tue, 08 Sep 2026 14:29:15 +0200
-In-Reply-To: <20260908055941.351486-1-oushixiong1025@163.com>
-References: <20260908055941.351486-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2g0V2XaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6498F1F00A3D;
+	Tue,  8 Sep 2026 12:29:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788870592;
+	bh=FH+p8IJ0/5+EXorPdq1bIWIpQXwIiN/1C1/zdCssVG0=;
+	h=Subject:To:Cc:From:Date;
+	b=2g0V2XaPZMsJekMXaYJ8rnSkmjJymdcYbEFTDCEIHbQGF5J/Olh2w5aPpUWSuInqm
+	 OkCC1REiarZzdgPpql4GVeDTyZbzC8yHpk5P2i0zsSICEflDO2Uq6l8PsTfvwXEBO2
+	 s+16GT++MpWZlg3JnOxgF9wi6/qRxeSjQtMPp41A=
+Subject: FAILED: patch "[PATCH] usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling" failed to apply to 6.12-stable tree
+To: amitsd@google.com,badhri@google.com,gregkh@linuxfoundation.org,heikki.krogerus@linux.intel.com,stable@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Tue, 08 Sep 2026 14:29:01 +0200
+Message-ID: <2026090801-cure-lethargic-5a66@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MBO-RS-ID: 6fee3086efbb3b57d24
-X-MBO-RS-META: ory169k3wbdcseghx64t1jxx6bbme9ss
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-08 at 13:59 +0800, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->=20
-> The DRM scheduler KUnit tests pass NULL for the dev field in
-> drm_sched_init_args, which NULL-pointer dereferences in the drm_sched_job
-> trace event via dev_name() on sched->dev.
->=20
-> Give the mock scheduler a device with kunit_device_register(), which is
-> also cleaned up at test exit. A per-function counter keeps the device
-> names unique, since some tests create several mock schedulers.
->=20
-> Fixes: 5a99350794fe ("drm/sched: Add scheduler unit testing infrastructur=
-e and some basic tests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> Acked-by: Maxime Ripard <mripard@kernel.org>
->=20
-> ---
-> v3->v4:
-> =C2=A0 - Initialize the instance counter explicitly
 
-You learn something new every day =E2=80=93 apparently that must not be don=
-e,
-according to the DRM rules.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-My bad.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-I reverted it locally and pushed to drm-misc-fixes
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x cd3b9cea675bbfebc223f007dc2f4e79524fa54c
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026090801-cure-lethargic-5a66@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Thx Shixiong.
+Possible dependencies:
 
-P.
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From cd3b9cea675bbfebc223f007dc2f4e79524fa54c Mon Sep 17 00:00:00 2001
+From: Amit Sunil Dhamne <amitsd@google.com>
+Date: Thu, 27 Aug 2026 21:16:17 +0000
+Subject: [PATCH] usb: typec: tcpm: constrain TCPM_SOURCING_VBUS event handling
+
+When a sink detach occurs while waiting for TX send status, the old
+TCPM_SOURCING_VBUS event along with TCPM_VBUS_EVENT and TCPM_CC_EVENT
+can be queued in port->pd_events. Because TCPM_SOURCING_VBUS is
+evaluated after TCPM_VBUS_EVENT and TCPM_CC_EVENT in
+tcpm_pd_event_handler(), a stale TCPM_SOURCING_VBUS event can override
+the detach handling and incorrectly set port->vbus_source and
+port->vbus_present to true.
+
+Add a state guard to check that the port is either operating as a
+Source (tcpm_port_is_source(port)) or in a Fast Role Swap (FRS) state
+up to FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED before processing
+TCPM_SOURCING_VBUS. Otherwise, discard and log the event.
+
+Log snippet for error condition before fix:
+[72792.204955] state change SRC_ATTACHED -> SRC_STARTUP [rev3 NONE_AMS]
+[72792.204960] sourcing vbus
+[72792.204962] VBUS on
+[72792.204970] AMS POWER_NEGOTIATION start
+[72792.204974] cc:=4
+[72792.205319] state change SRC_STARTUP -> AMS_START [rev3 POWER_NEGOTIATION]
+[72792.205325] state change AMS_START -> SRC_SEND_CAPABILITIES [rev3 POWER_NEGOTIATION]
+[72792.205332] PD TX, header: 0x11a1
+[72792.216911] PD TX complete, status: 2
+[72792.216957] pending state change SRC_SEND_CAPABILITIES -> SRC_SEND_CAPABILITIES @ 150 ms [rev3 POWER_NEGOTIATION]
+[72792.218005] VBUS off
+[72792.218013] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
+[72792.218020] VBUS VSAFE0V
+[72792.218024] state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED [rev3 POWER_NEGOTIATION]
+[72792.218458] CC1: 2 -> 0, CC2: 0 -> 0 [state SNK_UNATTACHED, polarity 0, disconnected]
+[72792.218467] VBUS on --> VBUS left on
+[72792.218980] disable vbus discharge ret:0
+[72792.235193] Start toggling
+
+After fix:
+[ 1195.291691] state change SRC_ATTACHED -> SRC_STARTUP [rev3 NONE_AMS]
+[ 1195.291698] sourcing vbus
+[ 1195.291700] VBUS on
+[ 1195.291707] AMS POWER_NEGOTIATION start
+[ 1195.291710] cc:=4
+[ 1195.291758] state change SRC_STARTUP -> AMS_START [rev3 POWER_NEGOTIATION]
+[ 1195.291794] state change AMS_START -> SRC_SEND_CAPABILITIES [rev3 POWER_NEGOTIATION]
+[ 1195.291798] PD TX, header: 0x11a1
+[ 1195.297056] PD TX complete, status: 2
+[ 1195.297092] pending state change SRC_SEND_CAPABILITIES -> SRC_SEND_CAPABILITIES @ 150 ms [rev3 POWER_NEGOTIATION]
+[ 1195.297177] VBUS off
+[ 1195.297184] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
+[ 1195.297227] CC1: 2 -> 0, CC2: 0 -> 0 [state SRC_SEND_CAPABILITIES, polarity 0, disconnected]
+[ 1195.307469] cc:=2
+[ 1195.307544] pending state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED @ 650 ms [rev3 POWER_NEGOTIATION]
+[ 1195.307555] Discarding sourcing vbus! Invalid state SRC_SEND_CAPABILITIES
+[ 1195.957636] state change SRC_SEND_CAPABILITIES -> SNK_UNATTACHED [delayed 650 ms]
+[ 1195.957732] disable vbus discharge ret:0
+[ 1195.970196] Start toggling
+[ 1195.970468] VBUS off
+[ 1196.051637] VBUS off
+[ 1196.051642] VBUS VSAFE0V
+
+Fixes: 8dc4bd073663 ("usb: typec: tcpm: Add support for Sink Fast Role SWAP(FRS)")
+Cc: stable <stable@kernel.org>
+Assisted-by: Gemini:gemini-3.1-pro
+Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
+Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Link: https://patch.msgid.link/20260827-sourcing-vbus-v1-1-9be1aca991a0@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
+index a8cd1959c426..2d6b14aa2085 100644
+--- a/drivers/usb/typec/tcpm/tcpm.c
++++ b/drivers/usb/typec/tcpm/tcpm.c
+@@ -7119,16 +7119,32 @@ static void tcpm_pd_event_handler(struct kthread_work *work)
+ 			}
+ 		}
+ 		if (events & TCPM_SOURCING_VBUS) {
+-			tcpm_log(port, "sourcing vbus");
+ 			/*
+ 			 * In fast role swap case TCPC autonomously sources vbus. Set vbus_source
+-			 * true as TCPM wouldn't have called tcpm_set_vbus.
++			 * true conditionally as TCPM wouldn't have called tcpm_set_vbus.
++			 * If TCPM calls tcpm_set_vbus to source vbus, vbus_source would already
++			 * be true.
+ 			 *
+-			 * When vbus is sourced on the command on TCPM i.e. TCPM called
+-			 * tcpm_set_vbus to source vbus, vbus_source would already be true.
++			 * When TCPM_FRS_EVENT and TCPM_SOURCING_VBUS arrive simultaneously,
++			 * handling TCPM_FRS_EVENT above transitions the state to AMS_START
++			 * with upcoming_state FR_SWAP_SEND.
+ 			 */
+-			port->vbus_source = true;
+-			_tcpm_pd_vbus_on(port);
++
++			if (tcpm_port_is_source(port) ||
++			    tcpm_port_is_debug_source(port) ||
++			    (port->state == AMS_START && port->upcoming_state == FR_SWAP_SEND) ||
++			    port->state == FR_SWAP_SEND ||
++			    port->state == FR_SWAP_SEND_TIMEOUT ||
++			    port->state == FR_SWAP_SNK_SRC_TRANSITION_TO_OFF ||
++			    port->state == FR_SWAP_SNK_SRC_NEW_SINK_READY ||
++			    port->state == FR_SWAP_SNK_SRC_SOURCE_VBUS_APPLIED) {
++				tcpm_log(port, "sourcing vbus");
++				port->vbus_source = true;
++				_tcpm_pd_vbus_on(port);
++			} else {
++				tcpm_log(port, "Discarding sourcing vbus! Invalid state %s",
++					 tcpm_states[port->state]);
++			}
+ 		}
+ 		if (events & TCPM_PORT_CLEAN) {
+ 			tcpm_log(port, "port clean");
+
