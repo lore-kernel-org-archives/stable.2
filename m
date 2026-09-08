@@ -1,53 +1,43 @@
-Received: from mta0.migadu.com (out-215.mta0.migadu.com [91.218.175.215])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F89A598C0E
-	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.215
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA97C595726
+	for <stable@vger.kernel.org>; Tue,  8 Sep 2026 17:55:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889487; cv=none; b=sMgYoG29FgcFfQR0/HGGiAEEEmW27eiZhqyjbBTC0XqshXU0Cz6VmIgSEKBQnF5wOxaulC6m3zBX1+KcyeolLRDtUMqVBzD4RGuGahJWjn1TFpAQ4MI/LJFHqNZB/PRg1rVaKUaKc9jQOgUmDk5NATnj0s/Nr1esF4yWI+sFY+c=
+	t=1788890145; cv=none; b=acljqO1WAoYqwB4OFa0oB0SW6HcrKeKchYqZYYJPf7qJ5reMv+Xg2TBsARoQvGaw4VMvcjl60B01/VFPBTeoW9eHPblc9SIIg4fEWSxrYTKVOJ55hO97UR2fPOkdzqs89OdxBiQJTHnok229Ng2VPfO/b5U08lAMAQiVqqyDYCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889487; c=relaxed/simple;
-	bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
+	s=arc-20240116; t=1788890145; c=relaxed/simple;
+	bh=TX8r1tAhGswayWtDEItGnY4qR+NlAOiuzHOvXPD0Das=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AIa7QWkwLyRVIGPsPyi66mVJ79BW74Q40J0lMVulUfWZSeqbU7EMgpLjB9Ieg9URu2yit7PGAY9sEm35wFDXGM/4qjNJhWrcrL9Jo7zggiYFmxMIUp1dYzHyajfJDl2Cxs4+EFcuOJWVfSK688ZQgHz3F8D99BzBnEle/Y38OMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HqCs0Iez; arc=none smtp.client-ip=91.218.175.215
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 MIME-Version; b=Jcp1oo4lkcDPHjsDJi5/o1JEbMBBj0QXTQizXfAHGHgOUwohJJ2FNDVrhTDeqIS2Yf1ib6rf1ZEK5d+iWKcZEsAX6xaz1o5Ml4Ncc03iMpqvoIXOu10wW2RuU33uFtnIIKJPj4reYXrtkdUIM2p4quQciFoTM0l7DAwX3/NoBYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWR3xVwM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HqCs0Iez"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788889480; v=1; x=1789494280;
- b=HqCs0IezO0f3LQHksBjZd54u4bNx9c28PXVNZgolt1IRvCRjgnFghk7Q1Kmi0h7IdS6llbab
- Ipn0nxM0Ntc+S2Sex4ACu/XTMVB9InGn5fGm84WLlihXAGjqEVRhizbMzAByQ9N9p3ELhD1oe4+
- LUpm3IrZBtrK4TOHr7oCE6Cs=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5043b55b054dda9e;
-	Tue, 08 Sep 2026 17:44:40 +0000
-X-Mizu-Trace-ID: 5043b55b054dda9e
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: linux-input@vger.kernel.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Panz Dev <panz.development@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v6 01/13] HID: asus: do not send keyboard init reports to touchpads
-Date: Tue,  8 Sep 2026 17:44:21 +0000
-Message-ID: <20260908174433.74260-2-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908174433.74260-1-denis.benato@linux.dev>
-References: <20260908174433.74260-1-denis.benato@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWR3xVwM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34D291F00A3A;
+	Tue,  8 Sep 2026 17:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788890143;
+	bh=NJMpvAPB8nGdzAKYCLTzwm0XNo7f7ziTbgnmmuG+lME=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZWR3xVwMsrSkaTb1wcdaPpSnPqBKae7DtNKcpowrJBsEG377jMhP9p0w3G/z9coUv
+	 IxJaVLPH7dtHFa6JP+MWzX4VY95TV4nihU0mTvdoJ543SIsZFHQWhBIIpBYrNmryyx
+	 NEDeRtchzhfpTwRHkMYg5Q9NPtPKvCrI7X6s+fwZQ6aoynissR058CMJms3vZ7F9YR
+	 GbqzY9fR0STMljXw2UQQ7Hve19EbONkLFl57pam0ZYwsqXaHydGa5S61mg8WY3qq7x
+	 jD7Uo7IMI2ruplCqKZOIjwJqNXb9JfkUBzfdd66jK2fMdPvOqtVkFaYh3b/KhHEZVD
+	 ACrU/QwyBficg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Kees Cook <keescook@chromium.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] params: Do not go over the limit when getting the string length
+Date: Tue,  8 Sep 2026 13:55:37 -0400
+Message-ID: <20260908175541.151692-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090331-stays-casually-f049@gregkh>
+References: <2026090331-stays-casually-f049@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,55 +46,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Panz Dev <panz.development@gmail.com>
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Commit 0919db9f3583 ("HID: asus: always fully initialize devices") added a
-loop during asus_probe() to send keyboard feature report initializations
-(asus_kbd_init) to all ASUS HID devices.
+[ Upstream commit fd0cd057a1b7351604daa6ffc91dfe28adf7225d ]
 
-On ASUS laptops with I2C/HID touchpads (such as the ASUS E200HA), sending
-keyboard feature reports (FEATURE_KBD_REPORT_ID) to touchpad endpoints
-sends invalid feature requests to touchpad hardware, corrupting probe
-state and causing the touchpad to become unresponsive.
+We can use strnlen() even on early stages and it prevents from
+going over the string boundaries in case it's already too long.
 
-Wrap the asus_report_id_init loop in an `if (!drvdata->tp)` check so
-keyboard feature initialization only runs for actual keyboards.
-
-Tested on ASUS E200HA (where touchpad functionality is fully restored)
-and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
-
-Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Panz Dev <panz.development@gmail.com>
+Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
+Reviewed-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://lore.kernel.org/r/20231120151419.1661807-3-andriy.shevchenko@linux.intel.com
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Stable-dep-of: 3dfaae04243c ("params: fix charp corruption on allocation failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hid/hid-asus.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ kernel/params.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
-index ec966fc0a411..bd46aba6622a 100644
---- a/drivers/hid/hid-asus.c
-+++ b/drivers/hid/hid-asus.c
-@@ -1493,12 +1493,14 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 		return ret;
- 	}
+diff --git a/kernel/params.c b/kernel/params.c
+index 9d09ea99363fc..8992899996984 100644
+--- a/kernel/params.c
++++ b/kernel/params.c
+@@ -264,7 +264,10 @@ EXPORT_SYMBOL_GPL(param_set_uint_minmax);
  
--	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
--		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
--			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
--			if (ret < 0)
--				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
--					 asus_report_id_init[r], ret);
-+	if (!drvdata->tp) {
-+		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
-+			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
-+				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
-+				if (ret < 0)
-+					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
-+						 asus_report_id_init[r], ret);
-+			}
- 		}
+ int param_set_charp(const char *val, const struct kernel_param *kp)
+ {
+-	if (strlen(val) > 1024) {
++	size_t len, maxlen = 1024;
++
++	len = strnlen(val, maxlen + 1);
++	if (len == maxlen + 1) {
+ 		pr_err("%s: string parameter too long\n", kp->name);
+ 		return -ENOSPC;
  	}
+@@ -274,7 +277,7 @@ int param_set_charp(const char *val, const struct kernel_param *kp)
+ 	/* This is a hack.  We can't kmalloc in early boot, and we
+ 	 * don't need to; this mangled commandline is preserved. */
+ 	if (slab_is_available()) {
+-		*(char **)kp->arg = kmalloc_parameter(strlen(val)+1);
++		*(char **)kp->arg = kmalloc_parameter(len + 1);
+ 		if (!*(char **)kp->arg)
+ 			return -ENOMEM;
+ 		strcpy(*(char **)kp->arg, val);
+@@ -512,7 +515,7 @@ int param_set_copystring(const char *val, const struct kernel_param *kp)
+ {
+ 	const struct kparam_string *kps = kp->str;
  
+-	if (strlen(val)+1 > kps->maxlen) {
++	if (strnlen(val, kps->maxlen) == kps->maxlen) {
+ 		pr_err("%s: string doesn't fit in %u chars.\n",
+ 		       kp->name, kps->maxlen-1);
+ 		return -ENOSPC;
 -- 
-2.47.3
+2.53.0
 
